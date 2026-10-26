@@ -1,9 +1,9 @@
-# Ingest report — 2026-10-26T17:16:19Z
+# Ingest report — 2026-10-26T17:31:17Z
 
-- buyers with team findings: 439 (with at least one verified e-mail/portal: 353)
+- buyers with team findings: 490 (with at least one verified e-mail/portal: 400)
 - vendors with team findings: 0
 - QA rows: 200
-- counters: {'files': 6, 'buyer_findings_verified': 457, 'buyer_findings_unverified_page_unavailable': 12, 'buyer_findings_not_found_on_page_hidden': 6, 'buyer_findings_cross_verified': 2, 'verify_tasks_gemini': 7, 'verify_tasks_chatgpt': 5}
+- counters: {'files': 6, 'buyer_findings_verified': 523, 'buyer_findings_unverified_page_unavailable': 17, 'buyer_findings_not_found_on_page': 1, 'buyer_findings_not_found_on_page_hidden': 6, 'buyer_findings_cross_verified': 2, 'verify_tasks_gemini': 11, 'verify_tasks_chatgpt': 5}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -12,5 +12,5 @@ Every row's outcome is in `coord/results/verification_log.csv`. Look up your own
 | lane | verified | cross_verified | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|
 | chatgpt | 106 | 1 | 1 | 0 | 0 | 0 |
-| claude | 322 | 1 | 8 | 0 | 0 | 0 |
+| claude | 388 | 1 | 13 | 0 | 1 | 0 |
 | gemini | 29 | 0 | 1 | 6 | 0 | 0 |
