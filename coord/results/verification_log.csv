@@ -160,6 +160,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00598,b:2841abf63a4b3805,procur
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01724,b:2846119caa4e4cc1,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00531,b:284b69a0d39fc094,finance@smithsfalls.ca,https://www.smithsfalls.ca/council-administration/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00629,b:2850fe21b9836f49,comptespayables@csscharlevoix.gouv.qc.ca,https://www.csscharlevoix.gouv.qc.ca/ressources-financieres/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CO-AP-00186,b:2859443408a87204,accounts.payable@teagasc.ie,https://teagasc.ie/about/corporate-responsibility/information-for-suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00015,b:286dc6c193b75bd6,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01691,b:28d377e67bd5537c,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01689,b:28f58881dbd1c9e1,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
@@ -194,6 +195,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01078,b:2f836b69578b99e9,procur
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00490,b:2fb04d42c930795e,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01747,b:2fb297cd94a49026,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01703,b:3037e93634cd2884,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01331,b:305c35f9fe48553c,studentaccounts-ev@northwestern.edu,https://music.northwestern.edu/sites/default/files/Financial%20Aid%20Handbook%202026-2027.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00484,b:3064b26722a9d5fc,mhprocurement@gov.mb.ca,https://www.gov.mb.ca/housing/business/procurement.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01700,b:317c16d0f83c4b64,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01713,b:3185a3c58d733f66,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
@@ -728,6 +730,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00299,b:bd054cf3c662ae52,compte
 chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00233,b:bd22b662cb9ca6ef,accountspayable@londonhydro.com,https://www.londonhydro.com/projects-operations/contractor-information,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00233,b:bd22b662cb9ca6ef,billingsupport@londonhydro.com,https://www.londonhydro.com/accounts-services/billing-payment/about-my-bill,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01133,b:bdbd65e56c854642,peratonprocurement@peraton.com,https://www.peraton.com/wp-content/uploads/IvaluaQuarterlyStatusSupplier.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01365,b:bdc6591874093dbe,payables@fortstjohn.ca,https://www.fortstjohn.ca/form/contact-us?recipient_select=finance@fortstjohn.ca,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00359,b:bdf80ddc49d9d3b4,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00084,b:be38881b56f0eab1,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/wp-content/uploads/2026/08/2026-07-Supplier-Partner-Newsletter.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00084,b:be38881b56f0eab1,accounts.payable@easternhealth.ca,https://cwhp.easternhealth.ca/wp-content/uploads/sites/45/2022/07/Ch-1732-Electronic-Funds-Transfer-EFT-Authorization-fillable.pdf,verified
