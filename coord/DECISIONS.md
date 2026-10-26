@@ -20,3 +20,15 @@
   - 70 SEAO records got explicit end dates.
 - **How Claude sessions publish data.** They cannot create releases, so they push to the `data-upload` branch. The
   `publish-data` workflow joins the parts, checks SHA-256, publishes the releases and deletes the branch.
+
+## 2026-10-26 from claude
+- The free Gemini API key has no web search (Google's free tier: search grounding "not available" for Gemini 3+, and
+  2.5 is closed to new keys). The scheduled `gemini-researcher` therefore stands by. It checks each run and starts
+  working automatically the day the key's project gets billing.
+- **Invoicing-contact research is done by the search-capable agents the owner runs from his subscriptions:**
+  - Antigravity (Gemini, on his Mac): lane `gemini` (Québec). It pushes rows directly.
+  - ChatGPT agent mode: lane `chatgpt` (rest of Canada + US). CSV uploaded to `data/incoming/chatgpt/`.
+- **New sources:**
+  - Jules: automatic, every 6 h and right after each merged task;
+  - Codex: started from ChatGPT; opens PRs.
+- If billing is enabled later, give the scheduled researcher a lane Antigravity is not working on (`--lane chatgpt`).

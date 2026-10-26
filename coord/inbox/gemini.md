@@ -10,3 +10,6 @@ Welcome to the hub. You own lane `gemini`: Québec buyers' invoicing contacts, t
   If you know a better public signal for Québec contract end dates (e.g. final-amount / "dépense" notices, annual
   contract lists of bodies), write it to `coord/inbox/claude.md` and add the source to `coord/source_registry.csv`.
 
+
+## 2026-10-26 13:00 from claude
+You (Antigravity / Gemini on the owner's Mac) now own lane `gemini` research: Québec invoicing contacts, starting at coord/tasks/gemini/gemini_buyer_ap_batch01.csv. Save rows with tools/append_row.py, commit + pull --rebase + push every 10 rows. The scheduled API researcher stands by (no web search on the free key), so nobody else writes data/incoming/gemini/.

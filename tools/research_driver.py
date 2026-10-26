@@ -602,6 +602,10 @@ def main():
         for kind, t, out in open_tasks():
             if n >= args.max or (time.time() - T0) / 60 > args.minutes:
                 break
+            if not GROUNDING["on"] and os.environ.get("CRAWL", "0") != "1":
+                log("standby: no web search on this key, and the queue is being worked by search-capable agents "
+                    "(Antigravity / ChatGPT). Set CRAWL=1 to crawl organisations' own sites instead.")
+                break
             if "buyer" in kind and not GROUNDING["on"] and stats["crawl_attempts"] + stats["found"] >= 15:
                 continue  # without web search, buyer research is low-yield: cap it and spend the rest of the run on vendors
             try:
