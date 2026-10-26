@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-10-26 07:34 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-10-26 07:38 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-10-25)
 | metric | value |
@@ -20,10 +20,11 @@
 ## Team research progress (rows returned → verified)
 | lane | task | rows | found | not_published | blocked | other |
 |---|---|---|---|---|---|---|
+| gemini | gemini_vendor_contacts_results_batch01.csv | 6 | 0 | 6 | 0 | 0 |
 
 **team_buyers**: 0 entities researched, 0 with at least one verified contact.
 
-**team_vendors**: 0 entities researched, 0 with at least one verified contact.
+**team_vendors**: 6 entities researched, 0 with at least one verified contact.
 
 ## Source registry (`coord/source_registry.csv`)
 | lane | todo | in_progress | done | blocked |
@@ -33,9 +34,9 @@
 
 ## Last ingest
 - buyers with team findings: 0 (with at least one verified e-mail/portal: 0)
-- vendors with team findings: 0
+- vendors with team findings: 6
 - QA rows: 0
-- counters: {}
+- counters: {'files': 1}
 - QA tallies: {}
 
 ## Where to look
