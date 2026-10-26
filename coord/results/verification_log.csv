@@ -248,6 +248,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01152,b:43f47711a01e92a9,procur
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00079,b:449db4070f8ca175,procurement@cityofgp.com,https://cityofgp.com/business-development/business-services/procurement-and-surplus,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00170,b:44b66dcd935119ec,accounts.payable@tbdssab.ca,https://www.tbdssab.ca/about/contact-directory/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01726,b:454edc25c5e3d0ac,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00046,b:464fe38aa257e3e1,procurement@niagararegion.ca,https://www.niagararegion.ca/government-and-council/about-niagara-region/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00242,b:4691d490391e5603,purchasing.deptemail@ugdsb.on.ca,https://www.ugdsb.ca/page/questionsfeedbackconcerns,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00065,b:46e7443f5ae48405,ap.fsd@utoronto.ca,https://finance.utoronto.ca/knowledgecentre/outgoing-wire-transfers/,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00191,b:47d7a7f8593351c0,ap@innisfil.ca,https://www.innisfil.ca/media/file/doing-business-innisfil-supplier-guide,verified
@@ -494,6 +495,9 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00757,b:82216352308096d2,doa.do
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01046,b:822e63bed3f870e1,accounting@cityofmesquite.com,https://www.cityofmesquite.com/DocumentCenter/View/29149/Vendor-Guide,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01046,b:822e63bed3f870e1,purchasing@cityofmesquite.com,https://www.cityofmesquite.com/DocumentCenter/View/29149/Vendor-Guide,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00792,b:82384db837487797,billing@oxfordns.ca,https://oxfordns.ca/contact-us.html,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00099,b:83c846cb3303a69f,fournisseurslocaux@blainville.ca,https://blainville.ca/storage/app/media/Services/Services%20aux%20citoyens/Entreprises/regles_dachat_local_TQD_20151021.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00099,b:83c846cb3303a69f,procureurs@blainville.ca,https://blainville.ca/services/services-aux-citoyens/cour-municipale,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00099,b:83c846cb3303a69f,approvisionnements@blainville.ca,https://blainville.ca/ville/administration-municipale/nous-joindre,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01725,b:83f9ea2e753d4684,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01222,b:8429ddef1898cb60,tpcbill@uh.edu,https://www.uh.edu/one-stop/financial/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00937,b:84ab6924600c26e2,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
