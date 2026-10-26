@@ -450,6 +450,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00310,b:6e411fac637ebd9e,accoun
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00310,b:6e411fac637ebd9e,approvisionnement@edc.ca,https://www.edc.ca/content/dam/edc/fr/corporate/suppliers/agreements/consulting-services-agreement.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00427,b:6e72106a97507453,achats@ville.lavaltrie.qc.ca,https://www.ville.lavaltrie.qc.ca/ville/je-veux-vous-offrir-mes-services-comme-fournisseur,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01371,b:6e7c2858ce1102bd,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00429,b:6ef67c7466a4417e,apinvoice@centralelgin.org,https://www.centralelgin.org/contacts-directory/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00429,b:6ef67c7466a4417e,utilitybills@centralelgin.org,https://www.centralelgin.org/contacts-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00259,b:6f2919b760214da9,procurement@princegeorge.ca,https://www.princegeorge.ca/city-services/roads-transportation,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00038,b:6f87af6985701507,financeadmin@barrie.ca,https://www.barrie.ca/services-payments/water-wastewater-stormwater/waterwastewater-billing,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01273,b:6faa0c92c30f0973,accounts_payable@ci.richmond.ca.us,https://www.ci.richmond.ca.us/179/Accounts-Payable,verified
@@ -834,6 +836,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00166,b:df7897c8c5544179,ress-f
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00575,b:df7bec2acb66b733,isupplierpoc@supplier.com,https://www.gdls.com/wp-content/uploads/2026/01/GDLS-Global-Supplier-Performance-Scorecard-2025-12-external.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00575,b:df7bec2acb66b733,isupplier@gdls.com,https://www.gdls.com/wp-content/uploads/2025/12/Detailed-GDLS-iSupplier-Account-and-MS-Authenicator-Setup.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00030,b:e02b8c7d2ffa456a,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00437,b:e0f0c365187b98a8,procurement@midland.ca,https://www.midland.ca/tenders,verified
 chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00245,b:e17a98a0abbee478,finance@ptbocounty.ca,https://www.ptbocounty.ca/county-government/departments/finance/,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00199,b:e1c0197824563749,purchasing@granderie.ca,https://granderie.ca/board/departments/business-services/purchasing,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01751,b:e1c4b8b91d09c5de,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
