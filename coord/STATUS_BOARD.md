@@ -1,21 +1,21 @@
-# STATUS BOARD (auto-generated 2026-10-26 05:29 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-10-26 05:43 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-10-25)
 | metric | value |
 |---|---|
-| contracts, vendor verified in Canada | 513,143 |
+| contracts, vendor verified in Canada | 511,762 |
 | contracts, vendor country unverified | 51,346 |
 | sources with records / checked without | 82 / 119 |
-| status: ongoing (explicit end date) | 78,841 |
-| status: ongoing_inferred | 321,652 |
-| status: end_date_unknown | 112,650 |
-| buyer AP e-mail | 122681 (24%) |
+| status: ongoing (explicit end date) | 78,898 |
+| status: ongoing_inferred | 321,550 |
+| status: end_date_unknown | 111,314 |
+| buyer AP e-mail | 122644 (24%) |
 | buyer invoice portal | 6252 (1%) |
-| buyer website | 457407 (89%) |
-| vendor registry match | 380868 (74%) |
-| vendor Business Number (BN9) | 122635 (24%) |
-| vendor website | 116394 (23%) |
-| vendor any contact | 124846 (24%) |
+| buyer website | 456754 (89%) |
+| vendor registry match | 401879 (79%) |
+| vendor Business Number (BN9) | 122450 (24%) |
+| vendor website | 127981 (25%) |
+| vendor any contact | 127981 (25%) |
 
 ## Team research progress (rows returned → verified)
 | lane | task | rows | found | not_published | blocked | other |
