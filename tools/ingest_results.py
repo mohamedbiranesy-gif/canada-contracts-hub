@@ -6,6 +6,11 @@ Writes  coord/results/team_buyers.jsonl, coord/results/team_vendors.jsonl, coord
         coord/tasks/<other lane>/<other>_verify_buyer_ap_batch01.csv (pages we could not fetch), coord/source_registry.csv, coord/INGEST_REPORT.md
 Usage   python3 tools/ingest_results.py [--no-fetch]      (run from the repo root; idempotent)
 Verification: each cited page is fetched once (cached in work/evidence_cache/) and the e-mail/portal must appear in it.
+  verified        the value is literally on the fetched page.
+  cross_verified  this verifier cannot see the page's text (bot-protected page, or e-mails hidden from non-browser
+                  clients, e.g. Cloudflare e-mail protection), and two different agents independently quoted the same
+                  value from it in a browser. The verifier never decodes protected e-mails or gets around a block.
+  Anything else is routed to another lane as a verify task. coord/results/verification_log.csv lists every row's outcome.
 """
 import csv, glob, hashlib, html, json, os, re, subprocess, sys, time, urllib.request, collections, datetime
 
@@ -84,7 +89,14 @@ def verify(value, url):
         core = re.sub(r"^https?://(www\.)?", "", v).rstrip("/")
         if core and core in low:
             return "verified"
+    if HIDDEN.search(low):  # the page hides e-mails from non-browser clients; we do not decode them
+        return "not_found_on_page_hidden"
     return "not_found_on_page"
+
+
+HIDDEN = re.compile(r"/cdn-cgi/l/email-protection|__cf_email__|data-cfemail|email-protection#")
+UNSEEN = ("unverified_page_unavailable", "not_found_on_page_hidden")  # pages this verifier cannot read in full
+ACCEPTED = ("verified", "cross_verified")
 
 
 LANES = ("gemini", "chatgpt", "jules", "codex", "claude")
@@ -125,7 +137,7 @@ for path in sorted(glob.glob("data/incoming/**/*.csv", recursive=True)):
                                       "requirements": r.get("invoicing_requirements_summary") or None, "applies_to": r.get("applies_to") or None,
                                       "page_url": r.get("evidence_url"), "quote": (r.get("evidence_quote") or "")[:300],
                                       "retrieved_date": r.get("retrieved_date"), "found_by": who, "verification": v, "source_file": name,
-                                      "org": r.get("org_name_as_found") or ""})
+                                      "org": r.get("org_name_as_found") or "", "task_id": r.get("task_id") or ""})
     elif "vendor_contact" in name:
         for r in rows:
             k = (r.get("vendor_key") or "").strip()
@@ -155,11 +167,24 @@ for path in sorted(glob.glob("data/incoming/**/*.csv", recursive=True)):
             r["found_by"] = who
             scout_rows.append(r)
 
+# cross verification: a value this verifier cannot see, quoted from the same page by two different lanes
+for k, b in buyers.items():
+    lanes = collections.defaultdict(set)
+    for e in b["evidence"]:
+        val = (e["email"] or e["invoice_portal"] or "").lower()
+        if e["verification"] in UNSEEN and val and val in (e["quote"] or "").lower():
+            lanes[(val, (e["page_url"] or "").split("#")[0].rstrip("/"))].add(e["found_by"])
+    for e in b["evidence"]:
+        val = (e["email"] or e["invoice_portal"] or "").lower()
+        if e["verification"] in UNSEEN and len(lanes.get((val, (e["page_url"] or "").split("#")[0].rstrip("/")), ())) >= 2:
+            e["verification"] = "cross_verified"
+            report["buyer_findings_cross_verified"] += 1
+
 now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 with open("coord/results/team_buyers.jsonl", "w", encoding="utf-8") as f:
     for k, b in buyers.items():
-        ev = sorted(b["evidence"], key=lambda e: (e["verification"] != "verified", RANK.get(e["type"] or "", 9)))
-        good = [e for e in ev if e["verification"] == "verified"]
+        ev = sorted(b["evidence"], key=lambda e: (e["verification"] not in ACCEPTED, RANK.get(e["type"] or "", 9)))
+        good = [e for e in ev if e["verification"] in ACCEPTED]
         ap = {"emails": list(dict.fromkeys(e["email"] for e in good if e["email"])),
               "invoice_portal": next((e["invoice_portal"] for e in good if e["invoice_portal"]), None),
               "phone": next((e["phone"] for e in ev if e["phone"]), None),
@@ -191,12 +216,15 @@ if scout_rows:
     report["new_sources"] += len(new)
 verify = collections.defaultdict(list)
 for k, b in buyers.items():
-    if any(e["verification"] == "verified" for e in b["evidence"]):
+    if any(e["verification"] in ACCEPTED for e in b["evidence"]):
         continue
     for e in b["evidence"]:
-        if e["verification"] == "unverified_page_unavailable":
+        if e["verification"] in UNSEEN + ("not_found_on_page",):
             verify[OTHER.get(e["found_by"], "gemini")].append((k, e))
             break
+WHY = {"unverified_page_unavailable": "the verifier could not open the page (bot protection or error)",
+       "not_found_on_page_hidden": "the page hides its e-mails from non-browser clients, so only a browser shows them",
+       "not_found_on_page": "the verifier opened the page but the value is not on it"}
 hdr = ["task_id", "org_group", "buyer_key", "buyer_name", "other_spellings", "country", "known_website", "known_general_email", "known_procurement_email", "contracts_in_dataset"]
 for lane, items in verify.items():
     os.makedirs("coord/tasks/%s" % lane, exist_ok=True)
@@ -205,8 +233,17 @@ for lane, items in verify.items():
         w.writerow(hdr)
         for i, (k, e) in enumerate(items, 1):
             w.writerow(["%s-VF-%05d" % (lane[:2].upper(), i), "", k, e.get("org") or "", "", "", e.get("page_url") or "", e.get("email") or "", "",
-                        "verify: %s found %s on %s but the verifier could not open the page; confirm or correct it" % (e["found_by"], e.get("email") or e.get("invoice_portal"), e.get("page_url"))])
+                        "verify: %s found %s on %s but %s. Open it in your browser: if the value is there, save it with that page and a quote containing it; if not, find the right contact or record not_published" % (e["found_by"], e.get("email") or e.get("invoice_portal"), e.get("page_url"), WHY.get(e["verification"], e["verification"]))])
     report["verify_tasks_" + lane] += len(items)
+per_lane = collections.defaultdict(collections.Counter)
+with open("coord/results/verification_log.csv", "w", newline="", encoding="utf-8") as f:
+    w = csv.writer(f)
+    w.writerow(["found_by", "source_file", "task_id", "buyer_key", "value", "page_url", "outcome"])
+    for k, b in sorted(buyers.items()):
+        for e in b["evidence"]:
+            per_lane[e["found_by"]][e["verification"]] += 1
+            w.writerow([e["found_by"], e["source_file"], e.get("task_id") or "", k, e["email"] or e["invoice_portal"] or "",
+                        e["page_url"] or "", e["verification"]])
 qa = collections.Counter()
 for r in qa_rows:
     for c in ("buyer_match", "vendor_match", "title_match", "value_match", "dates_match", "status_supported"):
@@ -215,4 +252,10 @@ with open("coord/INGEST_REPORT.md", "w", encoding="utf-8") as f:
     f.write("# Ingest report — %s\n\n" % now)
     f.write("- buyers with team findings: %d (with at least one verified e-mail/portal: %d)\n" % (len(buyers), sum(1 for b in buyers.values() if any(e["verification"] == "verified" for e in b["evidence"]))))
     f.write("- vendors with team findings: %d\n- QA rows: %d\n- counters: %s\n- QA tallies: %s\n" % (len(vendors), len(qa_rows), dict(report), dict(qa)))
+    f.write("\n## Outcome of each lane's buyer findings\n")
+    f.write("Every row's outcome is in `coord/results/verification_log.csv`. Look up your own rows there.\n\n")
+    f.write("| lane | verified | cross_verified | page unavailable | e-mails hidden from verifier | not on page | rejected |\n|---|---|---|---|---|---|---|\n")
+    for lane, c in sorted(per_lane.items()):
+        f.write("| %s | %d | %d | %d | %d | %d | %d |\n" % (lane, c["verified"], c["cross_verified"], c["unverified_page_unavailable"],
+                c["not_found_on_page_hidden"], c["not_found_on_page"], c["rejected_personal_or_invalid"]))
 print(open("coord/INGEST_REPORT.md").read())

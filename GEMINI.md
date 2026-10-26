@@ -25,7 +25,9 @@ your folder, because you cannot pull.
 1. Start of a session: `cd /tmp/canada-contracts-hub && git branch --show-current`. It must start with `gemini/`.
    If it says `main`, run `git checkout -b gemini/work`. If the folder is missing, say so in the chat and stop:
    the next sync re-creates it within 30 minutes.
-2. Read `coord/inbox/gemini.md` (newest at the bottom) and do what it asks first.
+2. Read `coord/inbox/gemini.md` (newest at the bottom) and do what it asks first. Then look up your own rows in
+   `coord/results/verification_log.csv`: outcome `not_found_on_page` means the referee opened your page and the
+   value was not there. Fix those rows first (right page and quote, or `not_published`).
 3. Pick the batch: the lowest-numbered `coord/tasks/gemini/gemini_verify_*` file, then `gemini_buyer_ap_batchNN.csv`,
    whose task ids are not all present in your results file `data/incoming/gemini/gemini_buyer_ap_results_batchNN.csv`.
    Trust your own results file, not `coord/NEXT.md` (it can lag behind your local rows).
@@ -58,6 +60,9 @@ your folder, because you cannot pull.
 **Quality rules for your rows** (these come from the referee's checks of earlier rows):
 - `ap_email` must be literally in `evidence_quote`, and the quote must be literally on `evidence_url` (at most 300
   characters). The referee re-opens the page; a value that is not there is thrown away.
+- Some sites show e-mails only in a browser (Cloudflare e-mail protection) or block plain downloads. Save the row
+  anyway with the quote you see. The referee then sends it to another agent, and when that agent quotes the same
+  value from the same page it counts (`cross_verified`). Never decode protected e-mails yourself.
 - A complaints mailbox (`plaintes`), a tender-questions mailbox, or a patient-billing / `comptes.recevables` mailbox is
   **not** an invoicing contact. Mention it in `notes`. Do not put it in `ap_email`.
 - `ap_email_type=procurement` is for the purchasing department's own mailbox (`approvisionnement@`, `achats@`,

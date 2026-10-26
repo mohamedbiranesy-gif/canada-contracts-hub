@@ -24,7 +24,8 @@ import csv, hashlib, io, os, subprocess, sys, tarfile, time
 REPO = "mohamedbiranesy-gif/canada-contracts-hub"
 DEFAULT = ["/tmp/canada-contracts-hub:gemini"]
 REFRESH = ["AGENTS.md", "GEMINI.md", "CLAUDE.md", "README.md", "docs", "prompts", "tools", "coord/inbox",
-           "coord/NEXT.md", "coord/STATUS_BOARD.md", "coord/DECISIONS.md", "coord/config.json"]
+           "coord/NEXT.md", "coord/STATUS_BOARD.md", "coord/DECISIONS.md", "coord/config.json", "coord/INGEST_REPORT.md",
+           "coord/results/verification_log.csv"]
 MAIN = "refs/mac-sync/main"  # private ref, so the agent's own refs are left alone
 ENV = dict(os.environ, GIT_TERMINAL_PROMPT="0", GCM_INTERACTIVE="never")
 

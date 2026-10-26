@@ -68,7 +68,7 @@ def enrich(r):
         before = bool(ap.get("emails") or ap.get("invoice_portal"))
         ap["emails"] = list(dict.fromkeys((t.get("emails") or []) + (ap.get("emails") or [])))
         ap["invoice_portal"] = ap.get("invoice_portal") or t.get("invoice_portal")
-        ap["team_evidence"] = [e for e in t.get("evidence") or [] if e.get("verification") == "verified"][:5]
+        ap["team_evidence"] = [e for e in t.get("evidence") or [] if e.get("verification") in ("verified", "cross_verified")][:5]
         rep["records_ap_added" if not before else "records_ap_extended"] += 1
     vk = ve.get("vendor_key")
     w = web.get(vk)
@@ -90,7 +90,7 @@ def enrich(r):
     if v:
         have = {(e.get("email") if isinstance(e, dict) else e) for e in ve.get("contact_emails_published") or []}
         for e in v.get("evidence") or []:
-            if e.get("verification") == "verified" and e.get("email") and e["email"] not in have:
+            if e.get("verification") in ("verified", "cross_verified") and e.get("email") and e["email"] not in have:
                 ve.setdefault("contact_emails_published", []).append({"email": e["email"], "page_url": e.get("page_url"),
                                                                       "found_by": e.get("found_by"), "kind": e.get("kind")})
                 have.add(e["email"])
