@@ -1,0 +1,2 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-VF-00001,,b:59bab4fcf0a12f20,Ville de Laval,,,https://www.laval.ca/entreprises/appels-doffres-soumissions-publiques/indications-generales-comptes-payables/,comptespayables@laval.ca,,verify: gemini found comptespayables@laval.ca on https://www.laval.ca/entreprises/appels-doffres-soumissions-publiques/indications-generales-comptes-payables/ but the verifier could not open the page; confirm or correct it

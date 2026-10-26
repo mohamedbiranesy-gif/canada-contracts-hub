@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-10-26 14:58 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-10-26 15:23 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-10-26)
 | metric | value |
@@ -24,9 +24,9 @@
 | chatgpt | chatgpt_buyer_ap_results_batch02.csv | 80 | 30 | 14 | 12 | 24 |
 | chatgpt | chatgpt_qa_audit_results_batch01.csv | 100 | 0 | 0 | 0 | 100 |
 | chatgpt | chatgpt_qa_audit_results_batch02.csv | 100 | 0 | 0 | 0 | 100 |
-| gemini | gemini_buyer_ap_results_batch01.csv | 11 | 2 | 9 | 0 | 0 |
+| gemini | gemini_buyer_ap_results_batch01.csv | 61 | 36 | 25 | 0 | 0 |
 
-**team_buyers**: 157 entities researched, 63 with at least one verified contact.
+**team_buyers**: 203 entities researched, 88 with at least one verified contact.
 
 **team_vendors**: 0 entities researched, 0 with at least one verified contact.
 
@@ -37,10 +37,10 @@
 | jules | 9 | 0 | 2 | 0 |
 
 ## Last ingest
-- buyers with team findings: 157 (with at least one verified e-mail/portal: 63)
+- buyers with team findings: 203 (with at least one verified e-mail/portal: 88)
 - vendors with team findings: 0
 - QA rows: 200
-- counters: {'files': 5, 'buyer_findings_verified': 108, 'buyer_findings_unverified_page_unavailable': 2, 'verify_tasks_gemini': 2}
+- counters: {'files': 5, 'buyer_findings_verified': 135, 'buyer_findings_unverified_page_unavailable': 3, 'buyer_findings_not_found_on_page': 6, 'verify_tasks_gemini': 2, 'verify_tasks_chatgpt': 1}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Where to look
