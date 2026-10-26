@@ -1,0 +1,36 @@
+name: agent-branch
+# Agents that cannot pull (sandboxed shells) push a branch named <lane>/<anything> instead of pushing to main.
+# This folds each such branch into main (only the lane's allowed paths; CSV rows merged) and deletes it.
+# Runs on push (when the branch already contains this file), every 30 minutes, and on demand.
+on:
+  push:
+    branches: ["gemini/**", "chatgpt/**", "jules/**", "codex/**", "claude/**"]
+  schedule:
+    - cron: "13,43 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: main-writer
+  cancel-in-progress: false
+jobs:
+  fold:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Fold agent branches into main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "agent-branch-bot"; git config user.email "agent-branch-bot@users.noreply.github.com"
+          branches=$(git ls-remote --heads origin | awk '{print $2}' | sed 's#refs/heads/##' | grep -E '^(gemini|chatgpt|jules|codex|claude)/' || true)
+          [ -z "$branches" ] && { echo "no agent branches"; exit 0; }
+          for b in $branches; do
+            echo "== $b"
+            if python3 tools/merge_branch.py "$b"; then git push origin --delete "$b" || true; else echo "::warning::could not fold $b"; fi
+          done

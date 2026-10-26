@@ -21,3 +21,7 @@ check gemini-researcher.yml 3 -f lane="$lane"
 check jules-builder.yml 6
 check harvest.yml 24
 check rebuild.yml 24
+# agent branches waiting to be folded into main (sandboxed agents push <lane>/<name>)
+if git ls-remote --heads "https://github.com/${GITHUB_REPOSITORY}.git" 2>/dev/null | grep -qE 'refs/heads/(gemini|chatgpt|jules|codex|claude)/'; then
+  echo "dispatching agent-branch.yml (agent branches waiting)"; gh workflow run agent-branch.yml --ref main || true
+fi
