@@ -864,6 +864,7 @@ chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00208,b:e3b2fd4483e1fe57,ap@s
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00208,b:e3b2fd4483e1fe57,ap@sarnia.ca,https://www.sarnia.ca/a-z-city-services-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00208,b:e3b2fd4483e1fe57,purchasing@sarnia.ca,https://www.sarnia.ca/working-here/bids-and-tenders/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01086,b:e53ef85344c22d00,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01269,b:e59d39700f507b59,billing@ems.tamu.edu,https://uhs.tamu.edu/medical/index.html,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00088,b:e5a70c95e8545941,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/wp-content/uploads/2026/08/2026-07-Supplier-Partner-Newsletter.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01753,b:e5d18716f0af9c0f,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00276,b:e61ed01cd7961009,ap@comoxvalleyrd.ca,https://www.comoxvalleyrd.ca/bid,verified
