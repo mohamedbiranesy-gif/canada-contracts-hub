@@ -149,7 +149,7 @@
   "AZ": 1,
   "CF": 1
  },
- "sources_with_records": 82,
+ "sources_with_records": 73,
  "sources_checked_without_records": 119,
  "enrichment": {
   "reference_date": "2026-10-25",
@@ -163,7 +163,7 @@
    "ca_vendor_registry_match": 411223,
    "ca_vendor_bn9": 127118,
    "ca_buyer_invoice_portal": 6252,
-   "ca_buyer_ap_email": 140307,
+   "ca_buyer_ap_email": 150968,
    "unverified_records": 51346,
    "unverified_vendor_registry_match": 13573,
    "unverified_vendor_bn9": 7443,
@@ -191,19 +191,20 @@
    "not_enriched": 104
   }
  },
- "last_rebuild": "2026-10-26T07:46:21Z",
+ "last_rebuild": "2026-10-26T13:30:19Z",
  "last_rebuild_report": {
-  "team_buyers_verified": 0,
+  "team_buyers_verified": 10,
   "team_vendors": 0,
   "seao_api_end_dates": 20,
   "web_vendors_with_site": 15854,
   "orgbook_xp_matches": 2345,
+  "records_ap_added": 10661,
   "new_records_duplicate": 18574,
   "new_records_vendor_matched": 1,
   "new_records_buyer_matched": 1,
   "new_records_added": 1,
   "moved_to_ended": 1,
-  "built_at": "2026-10-26T07:46:21Z",
+  "built_at": "2026-10-26T13:30:19Z",
   "reference_date": "2026-10-26"
  }
 }
