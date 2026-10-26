@@ -79,7 +79,7 @@ That fetches the dataset, vendor and buyer tables, and harvester state. `data/RE
 | `gemini` | Gemini CLI (scheduled in GitHub Actions) and Gemini chat | Québec buyers' AP/invoicing contacts (`coord/tasks/gemini/gemini_buyer_ap_*`), then Québec vendor contacts, French-language sources |
 | `jules` | Jules (Gemini coding agent) | Building new source pipelines from `coord/source_registry.csv` (status `todo`), heavy harvest shards |
 | `chatgpt` | ChatGPT agent mode | Independent QA audit, English-Canada + US buyers' AP contacts (`coord/tasks/chatgpt/`), vendor contacts outside Québec |
-| `codex` | Codex (ChatGPT coding agent) | New source pipelines outside Canada (US states/cities, EU, UK, AU, IGOs, private-sector disclosures), vendor-identifier enrichment code, reviewing every PR |
+| `codex` | Codex (ChatGPT coding agent) | New source pipelines outside Canada (US states/cities, EU, UK, AU, IGOs, private-sector disclosures), invoicing contacts of buyers outside Canada/US (`coord/tasks/codex/`), vendor-identifier enrichment code, reviewing every PR |
 | `claude` | Claude (integrator, when available) | Merge/rebuild the dataset, registries, write new batches, fix tools, route hard cases |
 
 Rules:

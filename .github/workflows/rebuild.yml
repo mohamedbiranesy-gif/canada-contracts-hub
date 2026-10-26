@@ -19,7 +19,9 @@ jobs:
         run: |
           mkdir -p data/release
           gh release download dataset-latest -D data/release -p 'canadian_vendor_contracts.jsonl.gz'
-          gh release download harvest-state -D data/release -p 'seao_api_notices.jsonl.gz' || true
+          for a in seao_api_notices vendors_web_progress vendors_orgbook_xp_progress; do
+            gh release download harvest-state -D data/release -p "$a.jsonl.gz" || true
+          done
       - name: Patch
         run: python3 tools/patch_dataset.py data/release data/build && python3 tools/status_board.py > /dev/null
       - name: Publish

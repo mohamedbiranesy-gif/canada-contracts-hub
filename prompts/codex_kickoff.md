@@ -16,5 +16,8 @@ Read `AGENTS.md` first; it is binding.
 5. **Report.** Append what you did and learned to `coord/inbox/claude.md`. Add new candidate sources you discovered
    to `coord/source_registry.csv`.
 
+When no source is left (or a source is blocked), work `coord/tasks/codex/codex_buyer_ap_batchNN.csv`
+(international buyers' invoicing contacts) with the same evidence rules, saving rows with `tools/append_row.py`.
+
 If internet access is off in this environment, say so in your report and instead build the scraper with tests against
 saved sample responses. The scheduled workflow will run it.

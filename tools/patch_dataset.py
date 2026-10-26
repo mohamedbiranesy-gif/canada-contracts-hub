@@ -3,6 +3,8 @@
 Usage: python3 tools/patch_dataset.py <release_dir> <out_dir>
   <release_dir>/canadian_vendor_contracts.jsonl.gz   (required; from release dataset-latest)
   <release_dir>/seao_api_notices.jsonl.gz            (optional; from release harvest-state)
+  <release_dir>/vendors_web_progress.jsonl.gz        (optional; verified vendor websites, role e-mails, phones)
+  <release_dir>/vendors_orgbook_xp_progress.jsonl.gz (optional; BC OrgBook extraprovincial registrations)
 Writes <out_dir>/canadian_vendor_contracts.jsonl.gz, <out_dir>/ended_since_last_build.jsonl.gz,
        <out_dir>/patch_report.json and refreshes coord/dataset_summary.json. Streams; low memory."""
 import collections, datetime, glob, gzip, json, os, re, subprocess, sys
@@ -30,7 +32,14 @@ for r in jl(os.path.join(REL, "seao_api_notices.jsonl.gz")):
     ends = [d.get("datePrevueFinContratUtc", "")[:10] for d in r.get("dates") or [] if d.get("datePrevueFinContratUtc")]
     if ends:
         seao[r["uuid"]] = (max(ends), r.get("api_url"))
+web = {r["vendor_key"]: r for r in jl(os.path.join(REL, "vendors_web_progress.jsonl.gz")) if r.get("website")}
+obx = {}
+for r in jl(os.path.join(REL, "vendors_orgbook_xp_progress.jsonl.gz")):
+    m = next((m for m in r.get("matches") or [] if m.get("registration_number")), None)
+    if m:
+        obx[r["vendor_key"]] = m
 rep["team_buyers_verified"], rep["team_vendors"], rep["seao_api_end_dates"] = len(tb), len(tv), len(seao)
+rep["web_vendors_with_site"], rep["orgbook_xp_matches"] = len(web), len(obx)
 
 fill = collections.Counter()
 seen = set()
@@ -76,10 +85,30 @@ with gzip.open(os.path.join(REL, "canadian_vendor_contracts.jsonl.gz"), "rt", en
             ap["invoice_portal"] = ap.get("invoice_portal") or t.get("invoice_portal")
             ap["team_evidence"] = [e for e in t.get("evidence") or [] if e.get("verification") == "verified"][:5]
             rep["records_ap_added" if not before else "records_ap_extended"] += 1
-        v = tv.get(ve.get("vendor_key"))
+        vk = ve.get("vendor_key")
+        w = web.get(vk)
+        if w and not ve.get("website"):
+            ve["website"], ve["website_verification"], ve["website_lookup_status"] = w["website"], w.get("website_verification"), "found"
+            if not ve.get("contact_emails_published"):
+                ve["contact_emails_published"] = [e if isinstance(e, dict) else {"email": e} for e in w.get("emails") or []]
+                for e in ve["contact_emails_published"]:
+                    e.pop("snippet", None)
+            if not ve.get("phones_published"):
+                ve["phones_published"] = w.get("phones") or []
+            rep["records_web_added"] += 1
+        ob = obx.get(vk)
+        if ob and not ve.get("bc_registration_number"):
+            ve["bc_registration_number"] = ob["registration_number"]
+            ve["bc_registration_source"] = ob.get("source_url")
+            ve["bc_registration_detail"] = {k: ob.get(k) for k in ("legal_name", "entity_type", "status", "registration_date", "home_jurisdiction")}
+            rep["records_orgbook_added"] += 1
+        v = tv.get(vk)
         if v:
-            if v.get("verified_emails"):
-                ve["contact_emails_published"] = list(dict.fromkeys((ve.get("contact_emails_published") or []) + v["verified_emails"]))
+            have = {(e.get("email") if isinstance(e, dict) else e) for e in ve.get("contact_emails_published") or []}
+            for e in v.get("evidence") or []:
+                if e.get("verification") == "verified" and e.get("email") and e["email"] not in have:
+                    ve.setdefault("contact_emails_published", []).append({"email": e["email"], "page_url": e.get("page_url"), "found_by": e.get("found_by"), "kind": e.get("kind")})
+                    have.add(e["email"])
             if v.get("website") and not ve.get("website"):
                 ve["website"], ve["website_verification"] = v["website"], "team (%s): %s" % (v.get("found_by"), v.get("website_verification") or "")
             if v.get("main_phone") and not ve.get("phones_published"):

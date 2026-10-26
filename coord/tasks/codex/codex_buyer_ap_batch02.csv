@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CO-AP-00101,kyrgyz republic (borrower; implementing agency not published),b:118651cf7c86d130,Kyrgyz Republic (borrower; implementing agency not published),,KG,,,,3
+CO-AP-00102,"swissnoso, nationales zentrum für infektionsprävention",b:eae87686deb2521e,"Swissnoso, Nationales Zentrum für Infektionsprävention",,CH,https://www.swissnoso.ch,,contact@swissnoso.ch,3
+CO-AP-00103,direccion general de gendarmeria de chil | dirección nacional,b:858e8aa8e3adb09a,DIRECCION GENERAL DE GENDARMERIA DE CHIL | Dirección Nacional,,CL,,,,3
+CO-AP-00104,helmholtz-zentrum dresden-rossendorf e.v.,b:8b2b8083d17b02c6,Helmholtz-Zentrum Dresden-Rossendorf e.V.,,DE,http://www.hzdr.de,,,3
+CO-AP-00105,deutsches zentrum für luft- und raumfahrt e. v. (dlr),b:830e357e1357e9aa,Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR),,DE,http://www.dlr.de,,,3
+CO-AP-00106,hamburger hochbahn ag,b:69a15deae73b3f11,Hamburger Hochbahn AG,,DE,http://hochbahn.de,info@hochbahn.de,it.einkauf@hochbahn.de,3
+CO-AP-00107,"bundesrepublik deutschland, vertreten durch das bundesministerium des innern und für heimat, vertreten durch das beschaffungsamt des bmi",b:788007a700ca2fd0,"Bundesrepublik Deutschland, vertreten durch das Bundesministerium des Innern und für Heimat, vertreten durch das Beschaffungsamt des BMI",,DE,http://www.bescha.bund.de,,,3
+CO-AP-00108,berliner institut für gesundheitsforschung in der charité,b:d9da689e75c6ee1c,Berliner Institut für Gesundheitsforschung in der Charité,,DE,,,,3
+CO-AP-00109,hrvatski geološki institut,b:25b9391ecde8fdb5,Hrvatski geološki institut,,HR,http://www.hgi-cgs.hr,,,3
+CO-AP-00110,tennet tso,b:4401427e5f7230a4,TenneT TSO,,NL,https://www.tennet.eu/nl/home,,,3
+CO-AP-00111,brabant water nv,b:69d5716fc068d4dc,Brabant Water NV,,NL,https://www.brabantwater.nl,,,3
+CO-AP-00112,norsk polarinstitutt (norwegian polar institute),b:7cdc8bd5352e23d8,Norsk Polarinstitutt (Norwegian Polar Institute),,NO,https://www.npolar.no,,,3
+CO-AP-00113,universitetet i bergen,b:d31317b06e02e3bb,Universitetet i Bergen,,NO,http://www.uib.no/oka/77486/seksjons-innkj%C3%B8p,,,3
+CO-AP-00114,european maritime safety agency,b:1fc4cc371b27a2f8,European Maritime Safety Agency,,PT,http://www.emsa.europa.eu,"csn-info@emsa.europa.eu, information@emsa.europa.eu",,3
+CO-AP-00115,université de strasbourg,b:710b01d6fa2664b8,Université de Strasbourg,,FR,http://www.unistra.fr,,,3
+CO-AP-00116,societatea nationala nuclearelectrica sa,b:a5eb93b317e9703e,Societatea Nationala Nuclearelectrica SA,,RO,,,,3
+CO-AP-00117,institutul national de cercetare - dezvoltare turbomotoare comoti,b:57e4ed4c7c7972ff,Institutul National de Cercetare - Dezvoltare Turbomotoare Comoti,,RO,http://www.comoti.ro,,contact@comoti.ro,3
+CO-AP-00118,istituto nazionale di fisica nucleare,b:65da1e1fd377a1ac,Istituto nazionale di fisica nucleare,,IT,http://www.ac.infn.it,,,3
+CO-AP-00119,tisseo,b:06011c205112b41f,Tisseo,,FR,https://www.tisseo.fr,,,3
+CO-AP-00120,bw bekleidungsmanagement gmbh,b:8d5cf419444b3ec4,Bw Bekleidungsmanagement GmbH,,DE,http://www.bwbm.de,,,3
+CO-AP-00121,undp - undp/pso/gpu - libya,b:c472a3376e828f75,UNDP - UNDP/PSO/GPU - LIBYA,,,https://www.undp.org,,,3
+CO-AP-00122,undp - port-au-prince - haiti,b:810638e77c210e4a,UNDP - Port-au-Prince - HAITI,,,https://www.undp.org,,,3
+CO-AP-00123,office of the united nations high commissioner for refugees,b:c477c4f7e6ee6eb2,Office of the United Nations High Commissioner for Refugees,,,,,,3
+CO-AP-00124,mongolia (borrower; implementing agency not published),b:377fdfda1d953a72,Mongolia (borrower; implementing agency not published),,MN,,,,3
+CO-AP-00125,lao people's democratic republic (borrower; implementing agency not published),b:92bfec7f3b073711,Lao People's Democratic Republic (borrower; implementing agency not published),,LA,,,,3
+CO-AP-00126,maldives (borrower; implementing agency not published),b:dfa8e309268f36bc,Maldives (borrower; implementing agency not published),,MV,,,,3
+CO-AP-00127,cameroon (borrower; implementing agency not published),b:dfaf777fe540ce78,Cameroon (borrower; implementing agency not published),,CM,,,,3
+CO-AP-00128,togo (borrower; implementing agency not published),b:b8aede26a9e231c6,Togo (borrower; implementing agency not published),,TG,,,,3
+CO-AP-00129,western and central africa (borrower; implementing agency not published),b:5a825bd31f599444,Western and Central Africa (borrower; implementing agency not published),,,,,,3
+CO-AP-00130,pacific islands (borrower; implementing agency not published),b:5e1501d2d45d70ef,Pacific Islands (borrower; implementing agency not published),,,,,,3
+CO-AP-00131,australian centre for international agricultural research,b:6f6b0730ff6a9cd7,Australian Centre for International Agricultural Research,,AU,https://www.aciar.gov.au,,tenders@finance.gov.au,2
+CO-AP-00132,australian transaction reports and analysis centre,b:f652c632581315a8,Australian Transaction Reports and Analysis Centre,,AU,https://www.austrac.gov.au,,tenders@finance.gov.au,2
+CO-AP-00133,"department of infrastructure, transport, regional development, communications, sport and the arts",b:409a8679b37ed8bb,"Department of Infrastructure, Transport, Regional Development, Communications, Sport and the Arts",,AU,https://www.infrastructure.gov.au,,tenders@finance.gov.au,2
+CO-AP-00134,"department of health, disability and ageing",b:eaf9bb6d42db8920,"Department of Health, Disability and Ageing",,AU,https://www.health.gov.au,,tenders@finance.gov.au,2
+CO-AP-00135,fair - facility for antiproton and ion research in europe gmbh,b:aaebb3380e451a16,FAIR - Facility for Antiproton and Ion Research in Europe GmbH,,DE,http://www.fair-center.de,,,2
+CO-AP-00136,technische universität berlin,b:f94bb659d236219f,Technische Universität Berlin,,DE,https://www.tu.berlin.de,,,2
+CO-AP-00137,"technische universität dresden, dezernat finanzen und beschaffung, sachgebiet zentrale beschaffung und anlagenbuchhaltung",b:4ee509b4504b8dd7,"Technische Universität Dresden, Dezernat Finanzen und Beschaffung, Sachgebiet Zentrale Beschaffung und Anlagenbuchhaltung",,DE,,,,2
+CO-AP-00138,dirección general del servicio exterior,b:2cc42798b6c16257,Dirección General del Servicio Exterior,,ES,,,mesa.contratacion@maec.es,2
+CO-AP-00139,rijkswaterstaat centrale informatievoorziening,b:2fbca94920f46853,Rijkswaterstaat Centrale Informatievoorziening,,NL,http://www.rijkswaterstaat.nl,,,2
+CO-AP-00140,n.v. nederlandse gasunie,b:77d31ba24c8688b9,N.V. Nederlandse Gasunie,,NL,http://www.gasunie.nl,info@gasunie.nl,,2
+CO-AP-00141,republique d'haiti / fond d assistance economique et social,b:1eae45a3a9d31458,REPUBLIQUE D'HAITI / FOND D ASSISTANCE ECONOMIQUE ET SOCIAL,,HT,,,,2
+CO-AP-00142,republique d'haiti / ministere de l agriculture des resources naturelles et du developpement rural,b:0fd9b64b65e59dff,REPUBLIQUE D'HAITI / MINISTERE DE L AGRICULTURE DES RESOURCES NATURELLES ET DU DEVELOPPEMENT RURAL,,HT,,,,2
+CO-AP-00143,glencore ltd.,b:ea37ff89b40694a0,Glencore Ltd.,,CH,https://www.glencore.com,info@glencore.com,,2
+CO-AP-00144,european investment bank,b:eb2cd38f920730d6,European Investment Bank,,LU,https://www.eib.org/en,,"eib-cpcm-procurement@eib.org, procurementcomplaints@eib.org",2
+CO-AP-00145,meteo france,b:b77766d9e85098cb,meteo france,,FR,http://www.meteo-france.fr,,,2
+CO-AP-00146,knmi (represented by ministry of infrastructure and water management),b:901e2cbb79db2777,KNMI (Represented by Ministry of Infrastructure and Water Management),,NL,,,,2
+CO-AP-00147,staten og kommunernes indkøbsservice a/s,b:96ce3805140b76a8,Staten og Kommunernes Indkøbsservice A/S,,DK,https://www.ski.dk,,,2
+CO-AP-00148,nationale loterij n.v. van publiek recht,b:c1e563265a2877f6,Nationale Loterij N.V. van publiek recht,,BE,http://www.loterie-nationale.be,,,2
+CO-AP-00149,brgm explore,b:e5389101781012da,BRGM EXPLORE,,FR,https://www.brgm.fr/fr,dpo@brgm.fr,brgmachats@brgm.fr,2
+CO-AP-00150,norges geologiske undersøkelse,b:677d23de6133324e,Norges geologiske undersøkelse,,NO,,,,2
+CO-AP-00151,university of limerick_1124,b:94ddffa04695dd88,University of Limerick_1124,,IE,https://www.ul.ie,reception@ul.ie,,2
+CO-AP-00152,hadeland og ringerike avfallsselskap as,b:e4d5f32b7d3e851b,Hadeland og Ringerike Avfallsselskap AS,,NO,,,,2
+CO-AP-00153,supply chain coordination limited,b:72cbdea27f2d90b4,Supply Chain Coordination Limited,,GB,,,,2
+CO-AP-00154,the coal authority,b:53f92109dd1aa5d7,The Coal Authority,,GB,https://inbye.coal.gov.uk/s2c,,,2
+CO-AP-00155,"royal holloway and bedford new college, known as royal holloway, university of london",b:80d9534cb5ce407c,"Royal Holloway and Bedford New College, known as Royal Holloway, University of London",,GB,,,procurement@rhul.ac.uk,2
+CO-AP-00156,the acc liverpool group limited,b:78ae4ad75676bf07,The ACC Liverpool Group Limited,,GB,,,,2
+CO-AP-00157,university of the west of england,b:07febeb9450c00e1,UNIVERSITY OF THE WEST OF ENGLAND,,GB,,,purchasing@uwe.ac.uk,2
+CO-AP-00158,the british broadcasting corporation (bbc),b:9f6cb750a23753c7,The British Broadcasting Corporation (BBC),,GB,,,,2
+CO-AP-00159,apuc limited,b:087198fec5f0c2d6,APUC Limited,,GB,,,,2
+CO-AP-00160,glasgow caledonian university,b:9414ccaa3b808393,Glasgow Caledonian University,,GB,,,procurement@gcu.ac.uk,2
+CO-AP-00161,national oceanography centre,b:a2586f868cbe2599,National Oceanography Centre,,GB,,,noc_tenders@noc.ac.uk,2
+CO-AP-00162,niger basin authority (nba) / agency of the kandadji dam (abk),b:690f143f347045f4,Niger Basin Authority (NBA) / Agency of the Kandadji Dam (ABK),,,,,,2
+CO-AP-00163,republic of uzbekistan / ministry of economy and finance,b:0151f069d2e024d1,Republic of Uzbekistan / MInistry of Economy and Finance,,UZ,,,,2
+CO-AP-00164,"republic of kiribati / ministry of infrastructure and sustainable energy, ministry of finance and economic development, ministry of information, communications and transport",b:0b7435b1cb4df796,"Republic of Kiribati / Ministry of Infrastructure and Sustainable Energy, Ministry of Finance and Economic Development, Ministry of Information, Communications and Transport",,KI,,,,2
+CO-AP-00165,"the republic of cote d'ivoire / greater abidjan urban mobility authority (amuga), ministry of transport",b:e1a616452a756f58,"THE REPUBLIC OF COTE D'IVOIRE / Greater Abidjan Urban Mobility Authority (AMUGA), Ministry of Transport",,CI,,,,2
+CO-AP-00166,"ministry of finance / ministry of public works, transport and communications",b:fd78f073c0b25eb2,"Ministry of Finance / Ministry of Public Works, Transport and Communications",,HT,,,,2
+CO-AP-00167,"republic of cabo verde / unidade de gest�o de projectos especiais, ugpe",b:9f3e9a718c4bd77b,"Republic of Cabo Verde / Unidade de Gest�o de Projectos Especiais, UGPE",,CV,,,,2
+CO-AP-00168,"the republic of guinea-bissau / ministry of economy, planning and regional integration",b:00ce6dc4ae3b44c9,"The Republic of Guinea-Bissau / Ministry of Economy, Planning and Regional Integration",,GW,,,,2
+CO-AP-00169,republic of uganda / uganda national roads authority,b:8a393009b185ee90,Republic of Uganda / Uganda National Roads Authority,,UG,,,,2
+CO-AP-00170,"saint lucia, saint vincent and the grenadines, commonwealth of dominica, organisation of eastern caribbean states (oecs), grenada / ministry of infrastructure development, public utilities, energy, transport, and implementation grd, ministry of finance, economic planning, sustainable development and information technology of svg, department of public service, ministry of finance of saint lucia, ministry of public works and digital economy of commonwealth of dominica, oecs commission, ministry of economic development, planning, tourism, ict and creative economy",b:899a865b08b8b6f7,"Saint Lucia, Saint Vincent and the Grenadines, Commonwealth of Dominica, Organisation of Eastern Caribbean States (OECS), Grenada / Ministry of Infrastructure Development, Public Utilities, Energy, Transport, and Implementation GRD, Ministry of Finance, Economic Planning, Sustainable Development and Information Technology of SVG, Department of Public Service, Ministry of Finance of Saint Lucia, Ministry of Public Works and Digital Economy of Commonwealth of Dominica, OECS Commission, Ministry of Economic Development, Planning, Tourism, ICT and Creative Economy",,,,,,2
+CO-AP-00171,"solomon islands / ministry of mines, energy and rural electrification",b:1db09d96c16bc4a2,"Solomon Islands / Ministry of Mines, Energy and Rural Electrification",,SB,,,,2
+CO-AP-00172,"ministry of finance / l'agence de d�veloppement du burundi (adb), ministry of finance - ministere des finances, du budget et de la planification economique",b:bc747d8342b204cf,"Ministry of Finance / L'Agence de D�veloppement du Burundi (ADB), Ministry of Finance - Ministere des Finances, du Budget et de la Planification Economique",,BI,,,,2
+CO-AP-00173,federal government of nigeria / federal ministry of water resources,b:b7bb66ea0a02ba3d,FEDERAL GOVERNMENT OF NIGERIA / Federal Ministry of Water Resources,,NG,,,,2
+CO-AP-00174,"democratic republic of congo / ministry of primary, secondary and technical education",b:87a6fca2e05be78a,"Democratic Republic of Congo / Ministry of Primary, Secondary and Technical Education",,CD,,,,2
+CO-AP-00175,republic of burundi / ministry of national education and scientific research,b:2870f21a5ff27b0c,Republic of Burundi / Ministry of National Education and Scientific Research,,BI,,,,2
+CO-AP-00176,saint lucia / saint lucia air and sea ports authority,b:b8596369bda93d4f,Saint Lucia / Saint Lucia Air and Sea Ports Authority,,LC,,,,2
+CO-AP-00177,deutsches zentrum für luft- und raumfahrt e.v. (dlr) - oberpfaffenhofen,b:7d960c75eb91645b,Deutsches Zentrum für Luft- und Raumfahrt e.V. (DLR) - Oberpfaffenhofen,,DE,https://www.dlr.de,,,2
+CO-AP-00178,gerencia de la empresa malagueña de transportes s.a.m.,b:fc8674b66e08ab63,Gerencia de la Empresa Malagueña de Transportes S.A.M.,,ES,http://www.emtmalaga.es,,,2
+CO-AP-00179,alliander n.v.,b:0668b44e66eaf085,Alliander N.V.,,NL,https://www.alliander.com/nl,,,2
+CO-AP-00180,sveriges television aktiebolag,b:687c25e1c31e32a0,Sveriges Television Aktiebolag,,SE,http://svt.se,,,2
+CO-AP-00181,aston university,b:8eb3968847b08e30,Aston University,,GB,http://www.aston.ac.uk,"ogc@aston.ac.uk, info@conferenceaston.ac.uk",,2
+CO-AP-00182,new model in technology & engineering,b:b0ec6fa9529b6ae8,New Model in Technology & Engineering,,GB,http://nmite.org.uk,,,2
+CO-AP-00183,northern ireland electricity networks ltd,b:41cedc09c818f5a8,Northern Ireland Electricity Networks Ltd,,GB,http://www.nienetworks.co.uk,,,2
+CO-AP-00184,fáilte ireland-national tourism development authority,b:c61d8dce65a07018,Fáilte Ireland-National Tourism Development Authority,,IE,http://www.failteireland.ie,,procurement@failteireland.ie,2
+CO-AP-00185,luonnonvarakeskus,b:7a812d63cebe4bcc,Luonnonvarakeskus,,FI,https://www.luke.fi,,,2
+CO-AP-00186,teagasc - the agriculture and food development authority,b:2859443408a87204,Teagasc - the Agriculture and Food Development Authority,,IE,https://www.teagasc.ie,info@teagasc.ie,procurement@teagasc.ie,2
+CO-AP-00187,jisc,b:f45a2a0c8f14fbdc,Jisc,,GB,,,procurement@jisc.ac.uk,2
+CO-AP-00188,somerset nhs foundation trust,b:36bbc9634b584157,SOMERSET NHS FOUNDATION TRUST,,GB,,,servicesteam.procurement@somersetft.nhs.uk,2
+CO-AP-00189,"ministry of finance / electricity generation company (malawi) ltd., ministry of energy",b:63ce76e26d148f65,"Ministry of Finance / Electricity Generation Company (Malawi) Ltd., Ministry of Energy",,MW,,,,2
+CO-AP-00190,"ministry of finance and planning / tanroads, tarura",b:3f56ea0e8534e55b,"Ministry of Finance and Planning / TANROADS, TARURA",,TZ,,,,2
+CO-AP-00191,eidgenössisch technische hochschule zürich schweizerischer erdbebendienst,b:5a5eb80ac03042ff,Eidgenössisch Technische Hochschule Zürich Schweizerischer Erdbebendienst,,CH,https://ethz.ch,,,2
+CO-AP-00192,paul scherrer institut,b:84944759e81df042,Paul Scherrer Institut,,CH,,,,2
+CO-AP-00193,empa zentraler einkauf,b:aed44fa50ba7bbad,Empa zentraler Einkauf,,CH,,,,2
+CO-AP-00194,defensoria penal publica | defensoría nacional,b:ccd64f7a66618d2d,DEFENSORIA PENAL PUBLICA | Defensoría Nacional,,CL,,,,2
+CO-AP-00195,julius-maximilians-universität würzburg als staatliche einrichtung in vertretung des fs bayern,b:2491b93e4f8a640a,Julius-Maximilians-Universität Würzburg als staatliche Einrichtung in Vertretung des FS Bayern,,DE,http://www.uni-wuerzburg.de,,,2
+CO-AP-00196,"freie universität berlin abteilung ii: finanzen, einkauf und stellenwirtschaft referat ii c - zentraler einkauf",b:ba4bcfd663e6a62a,"Freie Universität Berlin Abteilung II: Finanzen, Einkauf und Stellenwirtschaft Referat II C - Zentraler Einkauf",,DE,https://www.fu-berlin.de,,,2
+CO-AP-00197,technische universität münchen,b:a9edfcd54cfa35c7,Technische Universität München,,DE,,,,2
+CO-AP-00198,fraunhofer-gesellschaft - einkauf b12,b:11cd34cd07b40dbb,Fraunhofer-Gesellschaft - Einkauf B12,,DE,https://vergabe.fraunhofer.de,,,2
+CO-AP-00199,verkehrsbetriebe hamburg-holstein gmbh,b:7af9ad86af947c5f,Verkehrsbetriebe Hamburg-Holstein GmbH,,DE,https://www.vhh-mobility.de,,,2
+CO-AP-00200,"universität zu köln, abteilung 64 - einkauf",b:19a87d966f3fdfb4,"Universität zu Köln, Abteilung 64 - Einkauf",,DE,https://uni-koeln.de,,,2

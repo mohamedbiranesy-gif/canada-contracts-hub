@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CO-AP-00201,max-planck-gesellschaft zur förderung der wissenschaften e.v. / max-planck-institut für verhaltensbiologie,b:db6296a8313b820a,Max-Planck-Gesellschaft zur Förderung der Wissenschaften e.V. / Max-Planck-Institut für Verhaltensbiologie,,DE,http://www.ab.mpg.de,"reception.bueckle@ab.mpg.de, reception@ab.mpg.de",,2
+CO-AP-00202,deutsche zentrale für tourismus e.v.,b:d9332f97063775bc,Deutsche Zentrale für Tourismus e.V.,,DE,,,,2
+CO-AP-00203,max-planck-gesellschaft zur förderung der wissenschaften e. v.; maxit,b:9063ec69c4ee9724,Max-Planck-Gesellschaft zur Förderung der Wissenschaften e. V.; MaxIT,,DE,https://www.mpdl.mpg.de,,,2
+CO-AP-00204,deutsche forschungsgemeinschaft e.v.,b:c8bd41e942835ae2,Deutsche Forschungsgemeinschaft e.V.,,DE,,,,2
+CO-AP-00205,danske spil a/s,b:12280cdccd9be6c5,Danske Spil A/S,,DK,https://danskespil.dk,,,2
+CO-AP-00206,"european commission, directorate-general for energy",b:cb17497e4b3e5ec9,"European Commission, Directorate-General for Energy",,,https://commission.europa.eu,,,2
+CO-AP-00207,rikiskaup (the state trading centre),b:c2169b69837aa3a6,Rikiskaup (The State Trading Centre),,IS,,,,2
+CO-AP-00208,commando materieel en it (commit),b:9c7fe5704d067378,Commando Materieel en iT (COMMIT),,NL,https://www.defensie.nl,,,2
+CO-AP-00209,forsvarets logistikkorganisasjon (flo)/forsyningsavdeling østlandet/innkjøpsseksjonen,b:2ddaec9ba64833c9,Forsvarets logistikkorganisasjon (FLO)/Forsyningsavdeling Østlandet/Innkjøpsseksjonen,,NO,,,,2
+CO-AP-00210,saab ab,b:61d8e29fdf739d2f,Saab AB,,SE,,,,2
+CO-AP-00211,rwanda development board (rdb),b:0291d660d34fac98,RWANDA DEVELOPMENT BOARD (RDB),,RW,,,,2
+CO-AP-00212,nuklearna elektrarna krško d.o.o.,b:fcac4e9725773f79,NUKLEARNA ELEKTRARNA KRŠKO d.o.o.,,SI,https://www.nek.si,,,2
+CO-AP-00213,health service executive (hse),b:361bf8db147f07ab,Health Service Executive (HSE),,IE,http://www.hse.ie,,procurement.info@hse.ie,2
+CO-AP-00214,forsvarsministeriets materiel- og indkøbsstyrelse (fmi),b:38389d92052a8a71,Forsvarsministeriets Materiel- og Indkøbsstyrelse (FMI),,DK,http://forsvaret.dk/fmi,,,2
+CO-AP-00215,fmv,b:d6a240a9ac82f351,FMV,,SE,,,,2
+CO-AP-00216,département de la somme,b:4e8d119d3ad62fbe,Département de la Somme,,FR,http://somme.fr,,,2
+CO-AP-00217,ministarstvo obrane republike hrvatske,b:3e8111626374cc05,Ministarstvo obrane Republike Hrvatske,,HR,,,,2
+CO-AP-00218,the secretary of state for health acting as part of the crown through the commercial medicines unit (part of the department of health),b:38153ff6e4f178f8,The Secretary of State for Health acting as part of the Crown through the Commercial Medicines Unit (part of the Department of Health),,GB,,,,2
+CO-AP-00219,institut de veille sanitaire,b:cb50b67ff06c5760,Institut de Veille Sanitaire,,FR,http://www.invs.sante.fr,,,2
+CO-AP-00220,"ústav výzkumu globální změny av čr, v.v.i.",b:2dbaf1144a7c69b3,"Ústav výzkumu globální změny AV ČR, v.v.i.",,CZ,http://www.czechglobe.cz,,,2
+CO-AP-00221,finnish transport agency,b:b422ff0778dc4bf6,Finnish Transport Agency,,FI,http://www.liikennevirasto.fi/en,,,2
+CO-AP-00222,northern gas networks,b:988351bff07a2e91,Northern Gas Networks,,GB,http://www.northerngas.co.uk,,,2
+CO-AP-00223,medizinische universität graz,b:2e000d77cf62fa78,Medizinische Universität Graz,,AT,http://www.schramm-oehler.at,,,2
+CO-AP-00224,université grenoble alpes,b:5954eba1544b8e07,Université Grenoble Alpes,,FR,http://www.univ-grenoble-alpes.fr,,service-commande-publique-fs@univ-grenoble-alpes.fr,2
+CO-AP-00225,"as ""latvijas valsts meži""",b:1b219e84a37c5049,"AS ""Latvijas valsts meži""",,LV,http://www.lvm.lv,,,2
+CO-AP-00226,inserm délégation régionale grand ouest,b:dd3d629abfb5ec33,Inserm Délégation régionale Grand Ouest,,FR,http://www.inserm.fr,,achats.nantes@inserm.fr,2
+CO-AP-00227,"mrmp-l/a — direction générale material resources — division marchés publics — section ""land systems"" — sous-section ""acquisition""",b:5e20aa8d261346e8,"MRMP-L/A — direction générale material resources — division marchés publics — Section ""Land Systems"" — Sous-section ""Acquisition""",,BE,http://www.mil.be/mr/subject/index.asp?LAN=fr&ID=1190,,,2
+CO-AP-00228,"bundesrepublik deutschland, vertreten durch das beschaffungsamt des bundesministeriums des innern",b:754a1d9ab9ef91bb,"Bundesrepublik Deutschland, vertreten durch das Beschaffungsamt des Bundesministeriums des Innern",,DE,http://www.bescha.bund.de,,,2
+CO-AP-00229,valsts aizsardzības loģistikas un iepirkumu centrs,b:930a0a227742d624,Valsts aizsardzības loģistikas un iepirkumu centrs,,LV,http://www.valic.gov.lv,,,2
+CO-AP-00230,civa,b:6e16896a69763a20,CIVA,,FR,http://www.vinsalsace.com,,,2
+CO-AP-00231,fraunhofer-gesellschaft - einkauf c2,b:d8b072159d99e467,Fraunhofer-Gesellschaft - Einkauf C2,,DE,https://vergabe.fraunhofer.de,,,2
+CO-AP-00232,université de lorraine,b:daae670af0f91944,université de Lorraine,,FR,https://www.univ-lorraine.fr,,,2
+CO-AP-00233,stichting nederlandse wetenschappelijk onderzoek instituten (nwo-i),b:1e07b278c445dfa2,Stichting Nederlandse Wetenschappelijk Onderzoek Instituten (NWO-I),,NL,http://www.nwo-i.nl,info@nwo-i.nl,,2
+CO-AP-00234,societatea nationala nuclearelectrica s.a.- cne cernavoda,b:778a131253483158,Societatea Nationala NUCLEARELECTRICA S.A.- CNE Cernavoda,,RO,http://www.nuclearelectrica.ro,office@nuclearelectrica.ro,,2
+CO-AP-00235,ferrocarrils de la generalitat de catalunya,b:a07fb0492872e702,Ferrocarrils de la Generalitat de Catalunya,,ES,https://www.fgc.cat,,contractacio@fgc.cat,2
+CO-AP-00236,chalmers tekniska högskola aktiebolag,b:19bbbc267faeded2,Chalmers Tekniska Högskola Aktiebolag,,SE,http://www.chalmers.se,,,2
+CO-AP-00237,rajavartiolaitos,b:e08bb1f49ca41a36,Rajavartiolaitos,,FI,https://www.raja.fi,,,2
+CO-AP-00238,sprind gmbh,b:1613276e62d8f0d8,SPRIND GmbH,,DE,https://www.sprind.org,info@sprind.org,info@sprind.org,2
+CO-AP-00239,malta air traffic services ltd,b:0e637be7f44b6ec1,Malta Air Traffic Services Ltd,,MT,http://www.maltats.com,,tenders@maltats.com,2
+CO-AP-00240,department of climate energy and the environment,b:31ceb68753bb874a,Department of Climate Energy and the Environment,,IE,http://www.decc.gov.ie,,,2
+CO-AP-00241,riigi kaitseinvesteeringute keskus,b:bfede9338682a319,Riigi Kaitseinvesteeringute Keskus,,EE,https://www.kaitseinvesteeringud.ee,,info@rkik.ee,2
+CO-AP-00242,veikkaus oy,b:794e055bb37c34e1,Veikkaus Oy,,FI,https://www.veikkaus.fi,,,2
+CO-AP-00243,university of strathclyde,b:d28b29eeac9aa6ff,University of Strathclyde,,GB,,,,2
+CO-AP-00244,undp - pso copenhagen on behalf of undp ivory coast,b:a69ca76adef8747b,UNDP - PSO Copenhagen on behalf of UNDP Ivory Coast,,,https://www.undp.org,,,2
+CO-AP-00245,undp - new york hq - united states of america,b:516e88dba2379e11,UNDP - NEW YORK HQ - UNITED STATES OF AMERICA,,,https://www.undp.org,,,2
+CO-AP-00246,undp - undp country office - mauritius,b:e5049c6f68bf7d29,UNDP - UNDP Country Office - MAURITIUS,,,https://www.undp.org,,,2
+CO-AP-00247,undp - undp co - ukraine,b:7fdb0dd8695fe557,UNDP - UNDP CO - UKRAINE,,,https://www.undp.org,,,2
+CO-AP-00248,world health organization,b:b4799923d25af8b9,World Health Organization,,,,,,2
+CO-AP-00249,united nations development programme,b:6904cd77a723203e,United Nations Development Programme,,,,,adquisiciones.pa@undp.org,2
+CO-AP-00250,international fund for agricultural development,b:74dd3840f29320e4,International Fund for Agricultural Development,,,,,procurementsection@ifad.org,2
+CO-AP-00251,united nations relief and works agency for palestine refugees in the near east,b:27f3f2bad7b55968,United Nations Relief and Works Agency for Palestine Refugees in the Near East,,,,,,2
+CO-AP-00252,unitaid (hosted by who),b:a4d0da298f20329d,Unitaid (hosted by WHO),,,https://www.who.int,,,2
+CO-AP-00253,papua new guinea (borrower; implementing agency not published),b:4f370a7702af5f8a,Papua New Guinea (borrower; implementing agency not published),,PG,,,,2
+CO-AP-00254,georgia (borrower; implementing agency not published),b:eebc23ad913582c9,Georgia (borrower; implementing agency not published),,GE,,,,2
+CO-AP-00255,cambodia (borrower; implementing agency not published),b:b1902ffcc923af8a,Cambodia (borrower; implementing agency not published),,KH,,,,2
+CO-AP-00256,western africa (borrower; implementing agency not published),b:8afa674445f52bae,Western Africa (borrower; implementing agency not published),,,,,,2
+CO-AP-00257,china (borrower; implementing agency not published),b:ef61db479460523c,China (borrower; implementing agency not published),,CN,,,,2
+CO-AP-00258,liberia (borrower; implementing agency not published),b:3a5e5735f4ce853d,Liberia (borrower; implementing agency not published),,LR,,,,2
+CO-AP-00259,moldova (borrower; implementing agency not published),b:3521ebfa556074b4,Moldova (borrower; implementing agency not published),,MD,,,,2
+CO-AP-00260,uganda (borrower; implementing agency not published),b:33fdff7bfd30e941,Uganda (borrower; implementing agency not published),,UG,,,,2
+CO-AP-00261,tajikistan (borrower; implementing agency not published),b:b328bc8c3ed2ffa3,Tajikistan (borrower; implementing agency not published),,TJ,,,,2
+CO-AP-00262,myanmar (borrower; implementing agency not published),b:7a0c1dd04b2af4c6,Myanmar (borrower; implementing agency not published),,MM,,,,2
+CO-AP-00263,mauritania (borrower; implementing agency not published),b:6d59c380da380c51,Mauritania (borrower; implementing agency not published),,MR,,,,2
+CO-AP-00264,"department of biodiversity, conservation and attractions",b:b4893cf520eb5677,"Department of Biodiversity, Conservation and Attractions",,AU,https://www.dbca.wa.gov.au,"privacy@dbca.wa.gov.au, media@dbca.wa.gov.au",,1
+CO-AP-00265,department of primary industries and regional development,b:91a41eb9bee2c629,Department of Primary Industries and Regional Development,,AU,https://www.dpird.wa.gov.au,enquiries@dpird.wa.gov.au,,1
+CO-AP-00266,forest products commission,b:366669cc51e94f5a,Forest Products Commission,,AU,http://www.fpc.wa.gov.au,"info@fpc.wa.gov.au, media@fpc.wa.gov.au",,1
+CO-AP-00267,legal aid commission of wa,b:ecec0d9bbdb0ce79,Legal Aid Commission of WA,,AU,,,,1
+CO-AP-00268,services australia,b:69488f2f6b33925e,Services Australia,,AU,https://www.servicesaustralia.gov.au,,tenders@finance.gov.au,1
+CO-AP-00269,department of health and aged care,b:4a60265db2cdc4cf,Department of Health and Aged Care,,AU,https://www.health.gov.au,,tenders@finance.gov.au,1
+CO-AP-00270,tourism australia,b:4fa17c4b47847146,Tourism Australia,,AU,https://www.tourism.australia.com,,tenders@finance.gov.au,1
+CO-AP-00271,attorney-general's department,b:69e5633ed0d95900,Attorney-General's Department,,AU,https://www.ag.gov.au,,tenders@finance.gov.au,1
+CO-AP-00272,australian criminal intelligence commission,b:b47b83708073c0ac,Australian Criminal Intelligence Commission,,AU,https://www.acic.gov.au,,tenders@finance.gov.au,1
+CO-AP-00273,department of finance,b:84ba20a6c4e9f6c3,Department of Finance,,AU,https://www.finance.gov.au,,tenders@finance.gov.au,1
+CO-AP-00274,australian bureau of statistics,b:7665325a7f48115b,Australian Bureau of Statistics,,AU,https://www.abs.gov.au,"client.services@abs.gov.au, complaints.review.officer@abs.gov.au",tenders@finance.gov.au,1
+CO-AP-00275,australian office of financial management,b:87e42ad5e36a51a7,Australian Office of Financial Management,,AU,https://www.aofm.gov.au,,tenders@finance.gov.au,1
+CO-AP-00276,department of home affairs,b:b781e3a7f94d80d4,Department of Home Affairs,,AU,https://www.homeaffairs.gov.au,,tenders@finance.gov.au,1
+CO-AP-00277,department of the treasury,b:3d199ab33120e943,Department of the Treasury,,AU,https://treasury.gov.au,media@treasury.gov.au,tenders@finance.gov.au,1
+CO-AP-00278,australian prudential regulation authority,b:cd0f636acc6cb4e1,Australian Prudential Regulation Authority,,AU,https://www.apra.gov.au,,tenders@finance.gov.au,1
+CO-AP-00279,federal court of australia,b:7c443e8aa1edf1b2,Federal Court of Australia,,AU,https://www.fedcourt.gov.au,,tenders@finance.gov.au,1
+CO-AP-00280,australian research council,b:1875693a2a6979ac,Australian Research Council,,AU,https://www.arc.gov.au,,tenders@finance.gov.au,1
+CO-AP-00281,royal australian mint,b:3f9d3d5129381a20,Royal Australian Mint,,AU,https://www.ramint.gov.au,"info@ramint.gov.au, media@ramint.gov.au",tenders@finance.gov.au,1
+CO-AP-00282,australian financial security authority,b:a9e76663aa3201ca,Australian Financial Security Authority,,AU,https://www.afsa.gov.au,,tenders@finance.gov.au,1
+CO-AP-00283,clean energy regulator,b:ba662a7326d8aa49,Clean Energy Regulator,,AU,https://cer.gov.au,"enquiries@cer.gov.au, media@cer.gov.au",tenders@finance.gov.au,1
+CO-AP-00284,australian centre for disease control,b:80030129727d4c77,Australian Centre for Disease Control,,AU,https://www.cdc.gov.au,,tenders@finance.gov.au,1
+CO-AP-00285,csiro,b:5f0dec5978c8e36d,CSIRO,,AU,https://www.csiro.au,,tenders@finance.gov.au,1
+CO-AP-00286,ndis quality and safeguards commission,b:8abbd002bccf8b76,NDIS Quality and Safeguards Commission,,AU,https://www.ndiscommission.gov.au,,tenders@finance.gov.au,1
+CO-AP-00287,office of the australian accounting standards board,b:2ff3a3396284124b,Office of the Australian Accounting Standards Board,,AU,https://aasb.gov.au,,tenders@finance.gov.au,1
+CO-AP-00288,"government of saint kitts and nevis – executing agency of cdb-financed project 'formulation of a medium-term development strategy and investment plan (mtdsip), 2027‑2031'",b:b5108426640afe2b,"Government of Saint Kitts and Nevis – executing agency of CDB-financed project 'FORMULATION OF A MEDIUM-TERM DEVELOPMENT STRATEGY AND INVESTMENT PLAN (MTDSIP), 2027‑2031'",,,,,,1
+CO-AP-00289,government of the bahamas – executing agency of cdb-financed project 'ga 18/bha disaster resilience improvement project',b:a03eeeac3ec753b6,Government of The Bahamas – executing agency of CDB-financed project 'GA 18/BHA Disaster Resilience Improvement Project',,,,,,1
+CO-AP-00290,instituto oceanográfico y antártico de la armada,b:70a4158a69916b30,INSTITUTO OCEANOGRÁFICO Y ANTÁRTICO DE LA ARMADA,,EC,,,,1
+CO-AP-00291,fundación del sector público estatal centro nacional de investigaciones oncológicas carlos iii,b:7f50d4e2c6d35120,Fundación del Sector Público Estatal Centro Nacional de Investigaciones Oncológicas Carlos III,,ES,,,,1
+CO-AP-00292,"madrid destino cultura turismo y negocio, s.a.",b:f73889c0a556853f,"Madrid Destino Cultura Turismo y Negocio, S.A.",,ES,,,contratacion@madrid-destino.com,1
+CO-AP-00293,dirección de barcelona supercomputing center - centro nacional de supercomputación (bsc-cns),b:48ee96b95a7768d5,Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS),,ES,,,tenders@bsc.es,1
+CO-AP-00294,aena. dirección de contratación,b:96dfbc3cbbca22ec,Aena. Dirección de Contratación,,ES,,,,1
+CO-AP-00295,subsecretaría del ministerio de trabajo y economía social,b:aec483af1e9584ca,Subsecretaría del Ministerio de Trabajo y Economía Social,,ES,,,,1
+CO-AP-00296,"dirección general de renfe viajeros sociedad mercantil estatal, s.a.",b:643291992700084a,"Dirección General de Renfe Viajeros Sociedad Mercantil Estatal, S.A.",,ES,,,,1
+CO-AP-00297,"ministerie van economische zaken, rijksdienst voor ondernemend nederland (rvo)",b:e299276082eb7cf0,"Ministerie van Economische Zaken, Rijksdienst voor Ondernemend Nederland (RVO)",,NL,http://www.rvo.nl,,,1
+CO-AP-00298,"belize / ministry of finance, investment and economic transformation,",b:e55013cc89b094dc,"BELIZE / MINISTRY OF FINANCE, INVESTMENT AND ECONOMIC TRANSFORMATION,",,BZ,,,,1
+CO-AP-00299,barbados / national petroleum corporation,b:773ce00d13dfb729,BARBADOS / NATIONAL PETROLEUM CORPORATION,,BB,,,,1
+CO-AP-00300,"belize / ministry of education, culture, science and technology",b:05891cc6235afd09,"BELIZE / MINISTRY OF EDUCATION, CULTURE, SCIENCE AND TECHNOLOGY",,BZ,,,,1

@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CO-AP-00001,world health organization - headquarters,b:fe3ea60bfc32d20c,World Health Organization - Headquarters,,,https://www.who.int,,,534
+CO-AP-00002,united nations office for project services,b:bbb35568c2531e3f,United Nations Office for Project Services,,,,,,126
+CO-AP-00003,world health organization - western pacific office,b:6ccf265e17bf9f1b,World Health Organization - Western Pacific Office,,,https://www.who.int,,,76
+CO-AP-00004,world health organization - eastern mediterranean office,b:c36cdd105812e651,World Health Organization - Eastern Mediterranean Office,,,https://www.who.int,,,71
+CO-AP-00005,world health organization - africa office,b:fa5be0bd156e3b91,World Health Organization - Africa Office,,,https://www.who.int,,,65
+CO-AP-00006,world health organization - europe office,b:65146fcf0b9a1365,World Health Organization - Europe Office,,,https://www.who.int,,,56
+CO-AP-00007,international civil aviation organization,b:04a4622307225378,International Civil Aviation Organization,,,,,e-tender@icao.int,54
+CO-AP-00008,foreign commonwealth and development office,b:526d98e342b2e336,Foreign Commonwealth and Development Office,,GB,,,"ddat.commercial@fcdo.gov.uk, commercialframeworksteam@fcdo.gov.uk",31
+CO-AP-00009,societatea nationala nuclearelectrica s.a.,b:82ed4558b15706d3,Societatea Nationala NUCLEARELECTRICA S.A.,,RO,http://www.nuclearelectrica.ro,office@nuclearelectrica.ro,,27
+CO-AP-00010,international atomic energy agency,b:a2355867a75cff08,International Atomic Energy Agency,,,,,,24
+CO-AP-00011,department of defence,b:7dd47d8428f320df,Department of Defence,,AU,https://www.defence.gov.au,,tenders@finance.gov.au,22
+CO-AP-00012,"united nations educational, scientific and cultural organization",b:07de001f2f4f19da,"United Nations Educational, Scientific and Cultural Organization",,,,,"adm@unesco.org, ci-procurement@unesco.org",17
+CO-AP-00013,technische universiteit delft,b:8755686230197095,Technische Universiteit Delft,,NL,http://www.tudelft.nl,info@tudelft.nl,procurement@tudelft.nl,13
+CO-AP-00014,nuclearelectrica,b:596fb15fd4f07d63,NUCLEARELECTRICA,,RO,https://www.nuclearelectrica.ro,office@nuclearelectrica.ro,,13
+CO-AP-00015,deutsche gesellschaft für internationale zusammenarbeit (giz) gmbh,b:484b5aaa57357b3e,Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ) GmbH,,DE,http://www.giz.de,,procurement@giz.de,12
+CO-AP-00016,fao,b:e6a8c2926d00636e,FAO,,,https://www.fao.org,,,12
+CO-AP-00017,forschungszentrum jülich gmbh,b:e9cb939b47466270,Forschungszentrum Jülich GmbH,,DE,http://www.fz-juelich.de,,,12
+CO-AP-00018,united nations population fund,b:356c005cf9a50d51,United Nations Population Fund,,,,,,12
+CO-AP-00019,world health organization - south east asia office,b:11d793e16fb33657,World Health Organization - South East Asia Office,,,https://www.who.int,,,12
+CO-AP-00020,"congo, democratic republic of (borrower; implementing agency not published)",b:3462b490bedc7b6e,"Congo, Democratic Republic of (borrower; implementing agency not published)",,CD,,,,11
+CO-AP-00021,united nations secretariat,b:d268b08f817f3fbd,United Nations Secretariat,,,,,"unon-procurement-rfx@un.org, unov-procurement@un.org",11
+CO-AP-00022,uk research & innovation,b:2a0209a7289ed535,UK Research & Innovation,,GB,http://www.uksbs.co.uk/Pages/default.aspx,,"research.tenders@uksbs.co.uk, basprocurement@ukri.org",10
+CO-AP-00023,department of foreign affairs and trade - australian aid program,b:daa0c2685419bd8c,Department of Foreign Affairs and Trade - Australian Aid Program,,AU,https://www.dfat.gov.au,,tenders@finance.gov.au,9
+CO-AP-00024,austrade,b:4b164629bd242f42,Austrade,,AU,https://www.austrade.gov.au,media@austrade.gov.au,tenders@finance.gov.au,9
+CO-AP-00025,direccion de abastecimiento de la armada | servicio hidrografico y oceanografico,b:6c562bddc209236c,DIRECCION DE ABASTECIMIENTO DE LA ARMADA | SERVICIO HIDROGRAFICO Y OCEANOGRAFICO,,CL,,,,9
+CO-AP-00026,atlantic technological university,b:89919a4d6b730fd1,Atlantic Technological University,,IE,https://www.atu.ie,"admissions@atu.ie, library@atu.ie",procurement@atu.ie,9
+CO-AP-00027,bundesamt für wirtschaft und ausfuhrkontrolle (bafa),b:4f7fb97484adcb22,Bundesamt für Wirtschaft und Ausfuhrkontrolle (BAFA),,DE,http://www.bafa.de,,,8
+CO-AP-00028,ministerie van defensie,b:47184de798aea71b,Ministerie van Defensie,,NL,https://www.mindef.nl,,,8
+CO-AP-00029,geoscience australia,b:a6c80fa07560d59a,Geoscience Australia,,AU,https://www.ga.gov.au,"clientservices@ga.gov.au, media@ga.gov.au",tenders@finance.gov.au,7
+CO-AP-00030,ministry of finance / ministry of energy and water,b:97f7c50eea95f1f9,Ministry of Finance / Ministry of Energy and Water,,AO,,,,7
+CO-AP-00031,bundesanstalt für geowissenschaften und rohstoffe,b:024d723567f501ae,Bundesanstalt für Geowissenschaften und Rohstoffe,,DE,http://www.bgr.bund.de,,,7
+CO-AP-00032,geological survey of norway (ngu),b:b65497a6f85a7d6e,Geological Survey of Norway (NGU),,NO,https://www.ngu.no,,,7
+CO-AP-00033,united nations children's fund,b:5b78542b632561ee,United Nations Children's Fund,,,,,lacro-ops@unicef.org,7
+CO-AP-00034,nepal (borrower; implementing agency not published),b:ede3ebaa60479d16,Nepal (borrower; implementing agency not published),,NP,,,,7
+CO-AP-00035,department of foreign affairs and trade,b:b1d44f34848fcfb5,Department of Foreign Affairs and Trade,,AU,https://www.dfat.gov.au,,tenders@finance.gov.au,6
+CO-AP-00036,danish ministry of defence acquisition and logistics organisation,b:eb578bd32631b9aa,Danish Ministry of Defence Acquisition and Logistics Organisation,,DK,http://www.fmi.dk,,,6
+CO-AP-00037,education procurement service (eps),b:19885755303d228b,Education Procurement Service (EPS),,IE,https://www.educationprocurementservice.ie,info@educationprocurementservice.ie,"info@educationprocurementservice.ie, procurement@etbi.ie",6
+CO-AP-00038,nhs blood and transplant,b:1c4e9efe6874a5f1,NHS Blood and Transplant,,GB,https://www.gov.uk/government/organisations/nhs-blood-and-transplant,,,6
+CO-AP-00039,forsvarsministeriets materiel- og indkøbsstyrelse,b:92893fa0942b311c,Forsvarsministeriets Materiel- og Indkøbsstyrelse,,DK,http://www.fmi.dk,,,6
+CO-AP-00040,interrhone,b:286e7622cc3154cb,INTERRHONE,,FR,,,,6
+CO-AP-00041,"bundesamt für ausrüstung, informationstechnik und nutzung der bundeswehr",b:40d35f5cf57c4438,"Bundesamt für Ausrüstung, Informationstechnik und Nutzung der Bundeswehr",,DE,http://www.evergabe-online.de,,,6
+CO-AP-00042,fraunhofer-gesellschaft zur förderung der angewandten forschung e. v.,b:05b8fbfe3827561d,Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e. V.,,DE,https://www.deutsche-evergabe.de,,,6
+CO-AP-00043,univerza v mariboru,b:200e511c888fb095,UNIVERZA V MARIBORU,,SI,,,,6
+CO-AP-00044,folke bernadotteakademin,b:f633c47d98b3a09a,Folke Bernadotteakademin,,SE,,,,6
+CO-AP-00045,international labour organization,b:d8af111417757757,International Labour Organization,,,,,,6
+CO-AP-00046,bureau of meteorology,b:83e7fa0f0353e588,Bureau of Meteorology,,AU,https://www.bom.gov.au,,tenders@finance.gov.au,5
+CO-AP-00047,british council,b:4ee8295211aa564a,British Council,,GB,https://www.gov.uk/government/organisations/british-council,,,5
+CO-AP-00048,ministry of economy and finance / pic national project secretariat,b:e02527d7be4bfb1e,Ministry of Economy and Finance / PIC National Project Secretariat,,MG,,,,5
+CO-AP-00049,comision de promocion del peru para la exportacion y el turismo - promperu,b:0b9463bf92f369a2,COMISION DE PROMOCION DEL PERU PARA LA EXPORTACION Y EL TURISMO - PROMPERU,,PE,https://www.promperu.gob.pe,,,5
+CO-AP-00050,burundi (borrower; implementing agency not published),b:3411a0b8fdb545f0,Burundi (borrower; implementing agency not published),,BI,,,,5
+CO-AP-00051,haiti (borrower; implementing agency not published),b:f53d2e0e93dd7692,Haiti (borrower; implementing agency not published),,HT,,,,5
+CO-AP-00052,norsk tipping as,b:87c922580b670d6e,Norsk Tipping AS,,NO,http://www.norsk-tipping.no,,,5
+CO-AP-00053,university of edinburgh,b:12a3ee326dfc7b8c,University Of Edinburgh,,GB,http://www.ed.ac.uk/schools-departments/procurement/supplying,,,5
+CO-AP-00054,aarhus universitet,b:854d7d1870790ae7,Aarhus Universitet,,DK,http://www.au.dk,,,5
+CO-AP-00055,tartu ülikool,b:2b229c53ea5563b7,Tartu Ülikool,,EE,https://www.ut.ee,,info@ut.ee,5
+CO-AP-00056,world meteorological organization,b:a475d86ad4645e6f,World Meteorological Organization,,,,,"procurement@wmo.int, tenders@wmo.int",5
+CO-AP-00057,united nations industrial development organization,b:da77e0e4e3d75223,United Nations Industrial Development Organization,,,,,,5
+CO-AP-00058,niger (borrower; implementing agency not published),b:3eb94a59ecd09ceb,Niger (borrower; implementing agency not published),,NE,,,,5
+CO-AP-00059,"somalia, federal republic of (borrower; implementing agency not published)",b:912528192d2d1ccb,"Somalia, Federal Republic of (borrower; implementing agency not published)",,SO,,,,5
+CO-AP-00060,vanuatu (borrower; implementing agency not published),b:941186df192af646,Vanuatu (borrower; implementing agency not published),,VU,,,,5
+CO-AP-00061,"department of industry, science and resources",b:a1f3f656f251a179,"Department of Industry, Science and Resources",,AU,https://www.industry.gov.au,,tenders@finance.gov.au,4
+CO-AP-00062,"department of climate change, energy, the environment and water",b:7680bbfe5d41cd76,"Department of Climate Change, Energy, the Environment and Water",,AU,https://www.dcceew.gov.au,,tenders@finance.gov.au,4
+CO-AP-00063,ministerie van infrastructuur en waterstaat,b:a254e7a6fb7a731e,Ministerie van Infrastructuur en Waterstaat,,NL,,,,4
+CO-AP-00064,université d'aix-marseille,b:d7822f11d8a8b984,Université d'Aix-Marseille,,FR,,,,4
+CO-AP-00065,sjöfartsverket,b:4525c1a8f558868d,Sjöfartsverket,,SE,http://www.sjofartsverket.se,,,4
+CO-AP-00066,aalborg universitet,b:29d78626345ea565,Aalborg Universitet,,DK,,,,4
+CO-AP-00067,universität stuttgart,b:43bab25c8c0ef663,Universität Stuttgart,,DE,https://www.uni-stuttgart.de,,,4
+CO-AP-00068,ministarstvo unutarnjih poslova,b:4622b8610a831d06,MINISTARSTVO UNUTARNJIH POSLOVA,,HR,,,,4
+CO-AP-00069,regia autonoma administratia patrimoniului protocolului de stat bucuresti,b:5228271eb1db1dfa,Regia Autonoma Administratia Patrimoniului Protocolului de Stat Bucuresti,,RO,https://www.apps.ro,,,4
+CO-AP-00070,jisc services ltd,b:59bf77d26c2ff666,Jisc Services Ltd,,GB,http://www.jisc.ac.uk,,procurement@jisc.ac.uk,4
+CO-AP-00071,le mans métropole,b:f5a80191b25475e7,Le Mans Métropole,,FR,http://www.lemans.fr,,,4
+CO-AP-00072,brabant water n.v.,b:e6d5c1de7f871e5d,Brabant Water N.V.,,NL,https://www.brabantwater.nl,,,4
+CO-AP-00073,hrt,b:e0f2158503e1a625,HRT,,HR,https://www.hrt.hr,,,4
+CO-AP-00074,"sveučilište u zagrebu, kineziološki fakultet",b:c208b9f81370e368,"SVEUČILIŠTE U ZAGREBU, KINEZIOLOŠKI FAKULTET",,HR,https://www.kif.unizg.hr,,,4
+CO-AP-00075,undp - undp/pso/gpu,b:876dd677ef06828e,UNDP - UNDP/PSO/GPU,,,https://www.undp.org,,,4
+CO-AP-00076,preparatory commission for the comprehensive nuclear-test-ban treaty organization,b:69a834e0a2054429,Preparatory Commission for the Comprehensive Nuclear-Test-Ban Treaty Organization,,,,,procurement@ctbto.org,4
+CO-AP-00077,nigeria (borrower; implementing agency not published),b:7b8f3eba4ebe0465,Nigeria (borrower; implementing agency not published),,NG,,,,4
+CO-AP-00078,cote d'ivoire (borrower; implementing agency not published),b:33776a898a537f27,Cote d'Ivoire (borrower; implementing agency not published),,CI,,,,4
+CO-AP-00079,"congo, republic of (borrower; implementing agency not published)",b:ca4943850b0c9537,"Congo, Republic of (borrower; implementing agency not published)",,CG,,,,4
+CO-AP-00080,oecs countries (borrower; implementing agency not published),b:f58b668c01807d52,OECS Countries (borrower; implementing agency not published),,,,,,4
+CO-AP-00081,australian signals directorate,b:831d00bddf5c4e52,Australian Signals Directorate,,AU,https://www.asd.gov.au,,tenders@finance.gov.au,3
+CO-AP-00082,technische universität bergakademie freiberg,b:ba10de65ce9b1cae,Technische Universität Bergakademie Freiberg,,DE,https://tu-freiberg.de,,,3
+CO-AP-00083,"national university of ireland, galway (nui galway)",b:bf61d5b8f123bee3,"National University of Ireland, Galway (NUI Galway)",,IE,http://www.nuigalway.ie,"admissions@nuigalway.ie, hr@nuigalway.ie",tenders@nuigalway.ie,3
+CO-AP-00084,gynybos resursų agentūra prie krašto apsaugos ministerijos,b:9326e34c28b1874b,Gynybos resursų agentūra prie Krašto apsaugos ministerijos,,LT,http://gra.lrv.lt,,,3
+CO-AP-00085,the pensions regulator,b:e37d85407011f070,The Pensions Regulator,,GB,https://www.gov.uk/government/organisations/the-pensions-regulator,,"aprocurement@tpr.gov.uk, acommercial@tpr.gov.uk",3
+CO-AP-00086,met office,b:1ef64b1cf2a9e663,Met Office,,GB,https://www.gov.uk/government/organisations/met-office,foi@businessandtrade.gov.uk,procurement.enquiries@metoffice.gov.uk,3
+CO-AP-00087,crown commercial service,b:70178e265d12a777,Crown Commercial Service,,GB,https://www.gov.uk/government/organisations/crown-commercial-service,,supplier@crowncommercial.gov.uk,3
+CO-AP-00088,"republic of cabo verde / special project management unit, ministry of finance",b:139331ba730f9132,"Republic of Cabo Verde / Special Project Management Unit, Ministry of Finance",,CV,,,,3
+CO-AP-00089,"ministry of economy and finance / ministry of agriculture, natural resources and rural development",b:0e2d1c383497c085,"Ministry of Economy and Finance / Ministry of Agriculture, Natural Resources and Rural Development",,HT,,,,3
+CO-AP-00090,"central african republic, republic of congo / ministry of the river economy and waterways (roc), ministry of digital economy, posts, and telecommunications (car), ministry of planning, statistics and regional integration (roc), ministry of transport and civil aviation (car), ministry of equipment and public works (car)",b:37fd70f9b921639e,"Central African Republic, Republic of Congo / Ministry of the River Economy and Waterways (ROC), Ministry of Digital Economy, Posts, and Telecommunications (CAR), Ministry of Planning, Statistics and Regional Integration (ROC), Ministry of Transport and Civil Aviation (CAR), Ministry of Equipment and Public Works (CAR)",,,,,,3
+CO-AP-00091,barbados (borrower; implementing agency not published),b:adf8ae4d22acdf94,Barbados (borrower; implementing agency not published),,BB,,,,3
+CO-AP-00092,dirección de adquisiciones del mando de apoyo logístico del ejército del aire y del espacio,b:040f0ad1d9206974,Dirección de Adquisiciones del Mando de Apoyo Logístico del Ejército del Aire y del Espacio,,ES,http://www.ejercitodelaire.mde.es,,,3
+CO-AP-00093,uk research & innovation (ukri),b:3bed0697a6daef06,UK Research & Innovation (UKRI),,GB,https://www.ukri.org,foi@ukri.org,"ddatprocurement@uksbs.co.uk, nercprocurement@ukri.org",3
+CO-AP-00094,tennet tso b.v.,b:c2b2302872d43d97,TenneT TSO B.V.,,NL,http://www.tennet.eu,,,3
+CO-AP-00095,uk hydrographic office,b:2c51da694c80c804,UK Hydrographic Office,,GB,https://www.gov.uk/government/organisations/uk-hydrographic-office,ukho-secretariat@ukho.gov.uk,procurement@ukho.gov.uk,3
+CO-AP-00096,akademska in raziskovalna mreža slovenije,b:75a58a9795f04146,Akademska in raziskovalna mreža Slovenije,,SI,http://www.arnes.si,"info@arnes.si, helpdesk@arnes.si",,3
+CO-AP-00097,cardiff university,b:886f3d94466f2038,Cardiff University,,GB,http://www.cardiff.ac.uk/purch,,,3
+CO-AP-00098,uk shared business services,b:6080693736d10adc,UK Shared Business Services,,GB,http://www.uksbs.co.uk,,ddatprocurement@uksbs.co.uk,3
+CO-AP-00099,danish defence acquisition and logistics organization (dalo),b:9b3402c3a93cccf4,Danish Defence Acquisition and Logistics Organization (DALO),,DK,http://forsvaret.dk/FMI/ENG/Pages/default.aspx,,,3
+CO-AP-00100,inter beaujolais,b:a554663284790cd3,Inter Beaujolais,,FR,http://www.beaujolais.com,,,3
