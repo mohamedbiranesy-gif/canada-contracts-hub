@@ -1,4 +1,4 @@
-# NEXT — open work per lane (auto-generated 2026-10-26 19:08 UTC; do not edit)
+# NEXT — open work per lane (auto-generated 2026-10-26 19:10 UTC; do not edit)
 
 ## lane `chatgpt`
 - **buyer_ap**: next batch `coord/tasks/chatgpt/chatgpt_buyer_ap_batch02.csv` — 21 open rows (first: CH-AP-00180, CH-AP-00181, CH-AP-00182, CH-AP-00183, CH-AP-00184). Write results to `data/incoming/chatgpt/chatgpt_buyer_ap_results_batch02.csv`. Lane total open: 1833 / 2012.
