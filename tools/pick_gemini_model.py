@@ -40,19 +40,19 @@ if pref:
     cands = [pref] + [c for c in cands if c != pref]
 print("candidates:", ", ".join(cands[:12]), file=sys.stderr)
 ok = []
-for n in cands[:10]:
+for n in cands[:12]:
     try:
-        call("/models/%s:generateContent" % n, {"contents": [{"parts": [{"text": "Reply with the word OK."}]}]}, timeout=40)
+        call("/models/%s:generateContent" % n, {"contents": [{"parts": [{"text": "Reply with the word OK."}]}]}, timeout=25)
         ok.append(n)
         print("answers:", n, file=sys.stderr)
     except urllib.error.HTTPError as e:
         print("skip %s: HTTP %s" % (n, e.code), file=sys.stderr)
     except Exception as e:
         print("skip %s: %s" % (n, e), file=sys.stderr)
-    if len(ok) == 2:
+    if len(ok) == 6:
         break
 m1, m2 = (ok + ["", ""])[:2]
-print("model1=%s model2=%s" % (m1, m2))
+print("model1=%s model2=%s models=%s" % (m1, m2, ",".join(ok)))
 if os.environ.get("GITHUB_OUTPUT"):
     with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-        f.write("model1=%s\nmodel2=%s\n" % (m1, m2))
+        f.write("model1=%s\nmodel2=%s\nmodels=%s\n" % (m1, m2, ",".join(ok)))

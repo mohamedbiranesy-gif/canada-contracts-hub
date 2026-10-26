@@ -10,7 +10,7 @@ Usage: GEMINI_API_KEY=... python3 tools/research_driver.py --lane gemini [--max 
 Exit code 0 always (the workflow decides from the counts it prints); quota exhaustion stops the run cleanly.
 """
 import argparse, csv, datetime, glob, hashlib, html, json, os, re, subprocess, sys, time, unicodedata
-import urllib.error, urllib.parse, urllib.request
+import urllib.error, urllib.parse, urllib.request, urllib.robotparser
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from validate_returns import FORMATS, PERSONAL, ROLE_HINT, EMAIL  # noqa: E402
@@ -35,7 +35,7 @@ AP_WORDS = re.compile(r"factur|invoice|payab|payable|comptes?[._-]?a?[._-]?payer
 TWO_LEVEL = {"qc.ca", "on.ca", "gc.ca", "bc.ca", "ab.ca", "mb.ca", "sk.ca", "ns.ca", "nb.ca", "nl.ca", "pe.ca", "nt.ca", "nu.ca", "yk.ca",
              "co.uk", "gov.uk", "ac.uk", "org.uk", "com.au", "gov.au", "org.au", "edu.au", "gouv.fr", "gob.mx", "gov.br"}
 stats = {"entities": 0, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0,
-         "website_only": 0, "not_found": 0, "gemini_calls": 0, "model_errors": 0}
+         "website_only": 0, "not_found": 0, "gemini_calls": 0, "model_errors": 0, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0}
 
 
 def log(*a):
@@ -51,8 +51,29 @@ def reg_domain(u):
     return ".".join(parts[-2:])
 
 
-# ---------- page fetching (cached, polite) ----------
-_last_host = {}
+# ---------- page fetching (cached, polite, robots.txt respected) ----------
+_last_host, _robots = {}, {}
+
+
+def allowed(url):
+    pr = urllib.parse.urlparse(url)
+    base = "%s://%s" % (pr.scheme, pr.netloc)
+    if base not in _robots:
+        rp = urllib.robotparser.RobotFileParser()
+        rp.parse([])
+        try:
+            with urllib.request.urlopen(urllib.request.Request(base + "/robots.txt", headers=UA), timeout=10) as r:
+                rp.parse(r.read(300000).decode("utf-8", "replace").splitlines())
+        except urllib.error.HTTPError as e:
+            if e.code in (401, 403):
+                rp.disallow_all = True
+        except Exception:
+            pass
+        _robots[base] = rp
+    try:
+        return _robots[base].can_fetch(UA["User-Agent"], url)
+    except Exception:
+        return True
 
 
 def fetch(url):
@@ -63,6 +84,8 @@ def fetch(url):
     if os.path.exists(p + ".json"):
         d = json.load(open(p + ".json"))
         return d["final"], d["text"]
+    if not allowed(url):
+        return None, None
     host = urllib.parse.urlparse(url).hostname or ""
     wait = _last_host.get(host, 0) + 0.6 - time.time()
     if wait > 0:
@@ -87,6 +110,7 @@ def fetch(url):
     if re.search(r"cf-chl|challenge-platform|captcha|<title>just a moment|access denied", text[:5000], re.I):
         text = ""  # blocked page: treat as unavailable, never work around it
     json.dump({"final": final, "text": text}, open(p + ".json", "w"))
+    stats["pages_fetched"] += 1
     return final, text
 
 
@@ -115,16 +139,28 @@ class QuotaExhausted(Exception):
     pass
 
 
-def gemini(prompt):
-    """Grounded generation. Returns (text, [source urls])."""
+class ModelUnavailable(Exception):
+    """No model answered: the task is skipped (left open), never recorded as not_published."""
+
+
+GROUNDING = {"on": os.environ.get("GROUNDING", "auto") != "off"}
+NO_GROUND = set()  # models whose key/tier does not include Google Search grounding
+
+
+def gemini(prompt, grounded=True):
+    """Generation, grounded with Google Search when available. Returns (text, [source urls]) or raises."""
+    grounded = grounded and GROUNDING["on"]
     for model in MODELS:
+        if grounded and model in NO_GROUND:
+            continue
         for attempt in range(3):
             wait = _last_call[0] + 60.0 / args.rpm - time.time()
             if wait > 0:
                 time.sleep(wait)
             _last_call[0] = time.time()
-            body = {"contents": [{"role": "user", "parts": [{"text": prompt}]}], "tools": [{"google_search": {}}],
-                    "generationConfig": {"temperature": 0.2}}
+            body = {"contents": [{"role": "user", "parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.2}}
+            if grounded:
+                body["tools"] = [{"google_search": {}}]
             req = urllib.request.Request("https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % model,
                                          data=json.dumps(body).encode(), headers={"x-goog-api-key": KEY, "Content-Type": "application/json"})
             stats["gemini_calls"] += 1
@@ -134,12 +170,17 @@ def gemini(prompt):
             except urllib.error.HTTPError as e:
                 msg = e.read().decode("utf-8", "replace")[:400]
                 stats["model_errors"] += 1
+                if grounded and e.code in (400, 403, 429) and re.search(r"billing|plan|search|ground|not supported|not available", msg, re.I) \
+                        and stats["grounded_ok"] == 0:
+                    NO_GROUND.add(model)
+                    log("model %s: no Google Search grounding on this key/tier (%s)" % (model, msg[:200].replace("\n", " ")))
+                    break
                 if e.code == 429 and re.search(r"PerDay|per ?day|daily", msg, re.I):
                     if model == MODELS[-1]:
                         raise QuotaExhausted(msg)
                     log("model %s daily quota reached; switching model" % model)
                     break
-                log("model %s HTTP %s (attempt %d): %s" % (model, e.code, attempt + 1, msg[:160].replace("\n", " ")))
+                log("model %s HTTP %s (attempt %d): %s" % (model, e.code, attempt + 1, msg[:300].replace("\n", " ")))
                 if e.code in (429, 500, 503, 504):
                     time.sleep(15 * (attempt + 1))
                     continue
@@ -152,8 +193,14 @@ def gemini(prompt):
             cand = (d.get("candidates") or [{}])[0]
             text = "".join(p.get("text", "") for p in (cand.get("content") or {}).get("parts") or [])
             urls = [c["web"].get("uri") for c in (cand.get("groundingMetadata") or {}).get("groundingChunks") or [] if c.get("web")]
+            if grounded:
+                stats["grounded_ok"] += 1
             return text, [u for u in urls if u]
-    return "", []
+    if grounded and all(m in NO_GROUND for m in MODELS):
+        log("Google Search grounding is unavailable on every model for this key; switching to site-crawl mode")
+        GROUNDING["on"] = False
+        return gemini(prompt, grounded=False)
+    raise ModelUnavailable("no Gemini model answered")
 
 
 def parse_json(text):
@@ -227,6 +274,92 @@ def ap_type(local):
 RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "procurement": 3, "general": 4}
 
 
+# ---------- site crawl (used when Google Search grounding is not available on the key) ----------
+KEYLINK = re.compile(r"fournisseur|factur|comptes?[-_ ]?(a|à)[-_ ]?payer|paiement|finances?|approvisionnement|achats?|appels?[-_ ]d|"
+                     r"supplier|vendor|invoic|payable|procurement|purchasing|doing[-_ ]business|faire[-_ ]affaire|bids?\b|tenders?", re.I)
+CONTACTLINK = re.compile(r"contact|nous[-_ ]joindre|joindre|coordonn|about|a[-_ ]propos|qui[-_ ]sommes", re.I)
+HREF = re.compile(r"<a\s[^>]*?href\s*=\s*[\"']([^\"'#]+)[\"'][^>]*>(.*?)</a>", re.I | re.S)
+GENERIC_WORDS = {"MINISTERE", "MINISTRY", "DEPARTMENT", "CENTRE", "CENTER", "CITY", "VILLE", "MUNICIPALITE", "SERVICE", "SERVICES",
+                 "DIRECTION", "SOCIETE", "CORPORATION", "GOUVERNEMENT", "GOVERNMENT", "QUEBEC", "CANADA", "ONTARIO", "NATIONAL"}
+SUGGEST_PROMPT = """Organisation: {name} (country {country}). Official website if known: {site}.
+From your knowledge, list up to 5 URLs - on that website, or on the website of the parent or central body that pays its suppliers -
+where suppliers find how to submit invoices or contact accounts payable (supplier guide, "Fournisseurs" page, finance page,
+purchase-order terms). Also give the organisation's official website, and the parent body's website if invoicing is centralised.
+Never invent e-mail addresses. Reply with ONLY this JSON: {{"urls": [], "official_website": "", "parent_body": "", "parent_website": ""}}"""
+
+
+def name_tokens(name):
+    return [w for w in re.split(r"[^A-Z0-9]+", fold(name)) if len(w) >= 4 and w not in GENERIC_WORDS and w not in LEGAL]
+
+
+def links(page_url, raw, pattern, limit):
+    out, dom = [], reg_domain(page_url)
+    for href, txt in HREF.findall(raw):
+        u = urllib.parse.urljoin(page_url, html.unescape(href.strip()))
+        if u.startswith("http") and reg_domain(u) == dom and pattern.search(visible(txt) + " " + urllib.parse.unquote(u)) and u not in out:
+            out.append(u)
+            if len(out) >= limit:
+                break
+    return out
+
+
+def sitemap_links(site, limit=6):
+    pr = urllib.parse.urlparse(site)
+    base, urls = "%s://%s" % (pr.scheme, pr.netloc), []
+    for sm in (base + "/sitemap.xml", base + "/sitemap_index.xml"):
+        _, raw = fetch(sm)
+        if not raw:
+            continue
+        locs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", raw)
+        for sub in [l for l in locs if l.endswith(".xml")][:4]:
+            _, r2 = fetch(sub)
+            if r2:
+                locs += re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", r2)
+        urls = [l for l in dict.fromkeys(locs) if not l.endswith(".xml") and KEYLINK.search(urllib.parse.unquote(l))]
+        if urls:
+            break
+    urls.sort(key=lambda u: (0 if re.search(r"factur|invoic|payable|payer|paiement", u, re.I) else 1, len(u)))
+    return urls[:limit]
+
+
+def crawl_buyer(name, country, site):
+    """Pages of the organisation's own site (and its parent's) likely to state the invoicing contact."""
+    hints = {}
+    try:
+        hints = parse_json(gemini(SUGGEST_PROMPT.format(name=name, country=country or "-", site=site or "-"), grounded=False)[0])
+    except ModelUnavailable:
+        pass
+    toks = name_tokens(name)
+    if not site and str(hints.get("official_website") or "").startswith("http"):
+        final, raw = fetch(hints["official_website"])
+        if raw and toks and any(re.search(r"\b%s\b" % re.escape(w), fold(visible(raw))) for w in toks):
+            site = final  # model-suggested website accepted only when the organisation's name is on it
+    queue = ([site] if site else []) + [u for u in hints.get("urls") or [] if isinstance(u, str) and u.startswith("http")][:5]
+    if str(hints.get("parent_website") or "").startswith("http"):
+        queue.append(hints["parent_website"])
+    pages, seen, expanded = [], set(), 0
+    while queue and len(seen) < 12:
+        u = queue.pop(0)
+        if u in seen:
+            continue
+        seen.add(u)
+        final, raw = fetch(u)
+        if not raw:
+            continue
+        pages.append((final, raw))
+        if expanded < 3:
+            queue += links(final, raw, KEYLINK, 8)
+            expanded += 1
+    if site:
+        for u in sitemap_links(site):
+            if u not in seen and len(seen) < 18:
+                seen.add(u)
+                final, raw = fetch(u)
+                if raw:
+                    pages.append((final, raw))
+    return pages, site
+
+
 # ---------- buyers: accounts-payable / invoicing contact ----------
 BUYER_PROMPT = """You are researching where suppliers must send invoices for this organisation.
 Organisation: {name}
@@ -256,14 +389,18 @@ def research_buyer(kind, t, out):
         hint = "Another researcher reported: %s. Confirm it from the organisation's own page, or correct it." % (t.get("contracts_in_dataset") or "")
     prompt = BUYER_PROMPT.format(name=name, other=t.get("other_spellings") or "-", country=t.get("country") or "-", site=site or "-",
                                  gen=t.get("known_general_email") or "-", hint=hint)
-    text, gurls = gemini(prompt)
-    j = parse_json(text)
-    org_dom = reg_domain(site) if site else ""
-    pages = []
-    for u in ([j.get("evidence_url")] if j.get("evidence_url") else []) + gurls[:6]:
+    pages, j, gurls = [], {}, []
+    if GROUNDING["on"]:
+        text, gurls = gemini(prompt)  # may switch GROUNDING off when the key has no search grounding
+        j = parse_json(text)
+    crawl = not GROUNDING["on"]
+    if crawl:
+        pages, site = crawl_buyer(name, t.get("country"), site)
+    for u in ([j.get("evidence_url")] if (j.get("evidence_url") and not crawl) else []) + gurls[:6]:
         final, raw = fetch(u)
         if raw:
             pages.append((final, raw))
+    org_dom = reg_domain(site) if site else ""
 
     def acceptable(page_url, em):
         pd, ed = reg_domain(page_url), reg_domain("http://" + em.split("@")[-1])
@@ -272,7 +409,8 @@ def research_buyer(kind, t, out):
     base = {"task_id": t["task_id"], "buyer_key": t.get("buyer_key"), "org_name_as_found": name, "retrieved_date": TODAY,
             "ap_phone": "", "applies_to": j.get("applies_to") if j.get("applies_to") in ("whole_organisation", "this_unit_only", "parent_central_ap") else "",
             "invoicing_requirements_summary": (j.get("invoicing_requirements_summary") or "")[:300],
-            "queries_tried": "Gemini grounded search (%s); %d source pages checked" % (MODELS[0], len(pages))}
+            "queries_tried": ("site crawl of %s (%d pages, robots.txt respected) + Gemini URL suggestions, no web search" % (org_dom or "-", len(pages))
+                              if crawl else "Gemini grounded search (%s); %d source pages checked" % (MODELS[0], len(pages)))}
     email = (j.get("ap_email") or "").strip().strip(".").lower()
     if email and role_ok(email):
         for final, raw in pages:
@@ -280,6 +418,8 @@ def research_buyer(kind, t, out):
                 q = quote_around(raw, email)
                 if q:
                     typ = j.get("ap_email_type") if j.get("ap_email_type") in RANK else ap_type(email.split("@")[0])
+                    if org_dom and reg_domain(final) != org_dom:
+                        base["applies_to"] = "parent_central_ap"
                     write_row(kind, out, dict(base, ap_email=email, ap_email_type=typ, evidence_url=final, evidence_quote=q, status="found",
                                               invoice_portal_url=j.get("invoice_portal_url") or "", notes="verified on cited page"))
                     return
@@ -294,6 +434,8 @@ def research_buyer(kind, t, out):
     if best:
         q = quote_around(best[3], best[1])
         if q:
+            if org_dom and reg_domain(best[2]) != org_dom:
+                base["applies_to"] = "parent_central_ap"
             write_row(kind, out, dict(base, ap_email=best[1], ap_email_type=ap_type(best[1].split("@")[0]), evidence_url=best[2],
                                       evidence_quote=q, status="found", notes="role mailbox found on the organisation's page"))
             return
@@ -305,11 +447,16 @@ def research_buyer(kind, t, out):
                 write_row(kind, out, dict(base, invoice_portal_url=portal, evidence_url=final, evidence_quote=q, status="portal_only",
                                           notes="portal link found on the organisation's page"))
                 return
+    if crawl:
+        if len(pages) < 3:  # too little evidence either way: leave the task open for a better method
+            stats["skipped_open"] += 1
+            return
+        write_row(kind, out, dict(base, status="not_published", notes="no invoicing mailbox or portal on %d pages of the organisation's site "
+                                  "(site crawl only, no web search: a search-enabled agent may still find it)" % len(pages)))
+        return
     claimed = email or portal
     if claimed:
         status, note = "unclear", "unverified claim: %s (cited %s); not found on any fetched page of the organisation" % (claimed, j.get("evidence_url") or "-")
-    elif j.get("status") == "not_published" or not pages:
-        status, note = "not_published", (j.get("notes") or "")[:250]
     else:
         status, note = "not_published", (j.get("notes") or "no invoicing contact on the pages found")[:250]
     write_row(kind, out, dict(base, status=status, notes=note))
@@ -352,12 +499,18 @@ def research_vendor(kind, t, out):
         return
     dom = reg_domain(site)
     pages = []
-    for u in [site, j.get("contact_page_url")] + [g for g in gurls[:6]]:
-        if not u:
+    queue = [site, j.get("contact_page_url")] + [g for g in gurls[:6]]
+    seen = set()
+    while queue and len(seen) < 8:
+        u = queue.pop(0)
+        if not u or u in seen:
             continue
+        seen.add(u)
         final, raw = fetch(u)
         if raw and reg_domain(final) == dom:
             pages.append((final, raw))
+            if len(pages) == 1:
+                queue += links(final, raw, CONTACTLINK, 3)
     tokens = [w for w in re.split(r"[^A-Z0-9]+", fold(name + " " + legal)) if len(w) >= 3 and w not in LEGAL]
     proof = None
     for final, raw in pages:
@@ -429,6 +582,9 @@ def main():
                 log("%s %s -> %s" % (kind, t.get("task_id"), stats["rows"]))
             except QuotaExhausted:
                 raise
+            except ModelUnavailable as e:
+                stats["skipped_open"] += 1
+                log("task %s left open: %s" % (t.get("task_id"), e))
             except Exception as e:
                 log("task %s failed: %r" % (t.get("task_id"), e))
     except QuotaExhausted as e:

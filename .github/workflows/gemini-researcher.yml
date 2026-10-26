@@ -52,7 +52,7 @@ jobs:
         timeout-minutes: 55
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          MODELS: ${{ steps.models.outputs.model1 }},${{ steps.models.outputs.model2 }}
+          MODELS: ${{ steps.models.outputs.models }}
           GEMINI_RPM: ${{ vars.GEMINI_RPM || '8' }}
         run: |
           sudo apt-get install -y -qq poppler-utils > /dev/null 2>&1 || true
