@@ -59,7 +59,8 @@ jobs:
           GEMINI_RPM: ${{ vars.GEMINI_RPM || '8' }}
           KINDS: ${{ inputs.kinds }}
         run: |
-          sudo apt-get install -y -qq poppler-utils > /dev/null 2>&1 || true
+          (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils) > /dev/null 2>&1 || true
+          pip install -q pypdf > /dev/null 2>&1 || true
           python3 tools/research_driver.py --lane "$LANE" --max "$MAX" --minutes 50 --kinds "${KINDS:-verify_buyer_ap,buyer_ap,vendor_contacts}" | tee research.log
       - name: Commit results (conflict-free, lane paths only) + health note
         if: always()

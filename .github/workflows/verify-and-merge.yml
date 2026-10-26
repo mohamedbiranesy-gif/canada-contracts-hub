@@ -75,7 +75,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          sudo apt-get install -y -qq poppler-utils > /dev/null 2>&1 || true
+          (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils) > /dev/null 2>&1 || true
+          pip install -q pypdf > /dev/null 2>&1 || true
+          which pdftotext || echo "pdftotext missing; pypdf fallback"
           git config user.name "verifier-bot"; git config user.email "verifier-bot@users.noreply.github.com"
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main

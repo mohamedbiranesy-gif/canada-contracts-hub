@@ -27,7 +27,10 @@ def page_text(url):
         return None
     p = os.path.join(CACHE, hashlib.sha1(url.encode()).hexdigest())
     if os.path.exists(p):
-        return open(p, encoding="utf-8", errors="replace").read()
+        cached = open(p, encoding="utf-8", errors="replace").read()
+        if not cached.lstrip().startswith("%PDF"):
+            return cached
+        os.remove(p)  # an unparsed PDF from an older run: fetch and extract again
     if NOFETCH:
         return None
     try:
@@ -39,10 +42,19 @@ def page_text(url):
     if "pdf" in ctype.lower() or url.lower().endswith(".pdf"):
         tmp = p + ".pdf"
         open(tmp, "wb").write(data)
+        txt = ""
         try:
             txt = subprocess.run(["pdftotext", "-layout", tmp, "-"], capture_output=True, timeout=60).stdout.decode("utf-8", "replace")
         except Exception:
-            txt = data.decode("latin-1", "replace")
+            pass
+        if not txt.strip():
+            try:
+                import pypdf
+                txt = "\n".join((pg.extract_text() or "") for pg in pypdf.PdfReader(tmp).pages)
+            except Exception:
+                txt = ""
+        if not txt.strip():
+            return None  # could not read the PDF: "page unavailable", never a false "not on page"
     else:
         txt = html.unescape(data.decode("utf-8", "replace"))
     txt = txt.replace("&#64;", "@").replace("[at]", "@").replace("(at)", "@")
