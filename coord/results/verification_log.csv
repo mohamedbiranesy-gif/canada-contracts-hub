@@ -36,6 +36,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00853,b:083cbacde11256e5,procur
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01759,b:086fc9bf6f722c18,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00176,b:0874d63013f95f75,copa.ap@citypa.com,https://www.citypa.ca/contacts-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00454,b:08843fe576377fa1,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00227,b:08a6a28ee642c492,procurement@countyofkings.ca,https://www.countyofkings.ca/business/procurement,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00227,b:08a6a28ee642c492,procurement@countyofkings.ca,https://www.countyofkings.ca/business/procurement,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00948,b:091ed15dbd7193d0,cssmi.approvisionnement@cssmi.qc.ca,https://www.cssmi.qc.ca/nous-joindre,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01684,b:094528d71888579e,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
@@ -380,6 +381,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00044,b:63d7eb63b35e4ab8,procur
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00898,b:63d87308f3774b1c,accounts.payable@coronaca.gov,https://www.coronaca.gov/about-us/services,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00898,b:63d87308f3774b1c,purchasing@coronaca.gov,https://www.coronaca.gov/departments/purchasing/bid-opportunities,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01697,b:64ac633b8ee352da,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00226,b:64dd7a712622a1ac,purchasing@dcdsb.ca,https://www.dcdsb.ca/our-board/finance-and-budget/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00226,b:64dd7a712622a1ac,purchasing@dcdsb.ca,https://www.dcdsb.ca/our-board/bid-opportunities/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CO-AP-00006,b:65146fcf0b9a1365,procurement@who.int,https://www.who.int/about/accountability/procurement,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00237,b:65d08752996fc2b5,comptesapayer@cegepjonquiere.ca,https://www.cegepjonquiere.ca/directions-et-services.html,verified
