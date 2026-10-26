@@ -1,0 +1,44 @@
+name: publish-data
+# Claude's session cannot create releases directly, so it pushes data (split into <100 MB parts) to the
+# `data-upload` branch. This workflow joins the parts, checks SHA-256, publishes the releases and deletes the branch.
+on:
+  push:
+    branches: [data-upload]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: publish-data
+  cancel-in-progress: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: data-upload
+          fetch-depth: 1
+      - name: Upload complete?
+        id: c
+        run: echo "go=$([ -f upload/UPLOAD_COMPLETE ] && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - name: Join parts, verify checksums, publish releases
+        if: steps.c.outputs.go == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for rel in dataset-latest harvest-state; do
+            d="upload/$rel"; [ -d "$d" ] || continue
+            mkdir -p "out/$rel"
+            for f in $(ls "$d" | grep -v '^SHA256SUMS' | sed -E 's/\.part[0-9]+$//' | sort -u); do
+              if ls "$d/$f".part* >/dev/null 2>&1; then cat $(ls "$d/$f".part* | sort) > "out/$rel/$f"; else cp "$d/$f" "out/$rel/$f"; fi
+            done
+            (cd "out/$rel" && sha256sum -c "../../$d/SHA256SUMS.expected")
+            cp "$d/SHA256SUMS.expected" "out/$rel/SHA256SUMS.txt"
+            gh release view "$rel" > /dev/null 2>&1 || gh release create "$rel" --title "$rel" --notes-file "upload/$rel.notes.md"
+            gh release upload "$rel" out/"$rel"/* --clobber
+          done
+      - name: Delete the upload branch
+        if: steps.c.outputs.go == 'yes'
+        run: git push origin --delete data-upload
