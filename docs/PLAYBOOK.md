@@ -106,6 +106,9 @@
 - HRCE RFP4276 (September2025 snow/ice maintenance) requires email-only invoices; older RFP4000 permits paper. Keep each contract's date/scope and avoid generalizing older postal routes over newer contract instructions.
 - Alberta1GX publicly confirms SAPBusinessNetwork handles orders/invoices/payments across departments, but its quick-start flow begins from the ProcessOrder link in the supplier's PO email. The public SupplierInformationPortal is documentation, not the transaction portal; record supplier-help phone separately and leave an unverified invoice URL blank.
 
+- BC program URL migrations: when an old Autism service-provider URL404s, follow actual links from the official parent landing page. The current provider page is under support-needs/pairs and publishes distinct Disability Benefit invoice, Autism Funding invoice, general-help and older portal-access roles. Preserve each section's purpose, prefix and program scope; MCF and CFD addresses on the same page are not automatically aliases.
+- City website migrations can leave indexed Treasury text unavailable on current Finance pages. Follow current navigation to purchasing and its linked by-law/construction documents; a general footer address or customer-service phone is not an AP destination.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
