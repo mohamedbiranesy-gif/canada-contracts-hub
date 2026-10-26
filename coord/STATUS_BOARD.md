@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-10-26 15:43 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-10-26 16:18 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-10-26)
 | metric | value |
@@ -24,9 +24,10 @@
 | chatgpt | chatgpt_buyer_ap_results_batch02.csv | 80 | 30 | 14 | 12 | 24 |
 | chatgpt | chatgpt_qa_audit_results_batch01.csv | 100 | 0 | 0 | 0 | 100 |
 | chatgpt | chatgpt_qa_audit_results_batch02.csv | 100 | 0 | 0 | 0 | 100 |
+| claude | claude_buyer_ap_results_crawl01.csv | 80 | 80 | 0 | 0 | 0 |
 | gemini | gemini_buyer_ap_results_batch01.csv | 61 | 36 | 25 | 0 | 0 |
 
-**team_buyers**: 203 entities researched, 88 with at least one verified contact.
+**team_buyers**: 236 entities researched, 140 with at least one verified contact.
 
 **team_vendors**: 0 entities researched, 0 with at least one verified contact.
 
@@ -37,10 +38,10 @@
 | jules | 9 | 0 | 2 | 0 |
 
 ## Last ingest
-- buyers with team findings: 203 (with at least one verified e-mail/portal: 88)
+- buyers with team findings: 236 (with at least one verified e-mail/portal: 139)
 - vendors with team findings: 0
 - QA rows: 200
-- counters: {'files': 5, 'buyer_findings_verified': 135, 'buyer_findings_unverified_page_unavailable': 3, 'buyer_findings_not_found_on_page_hidden': 6, 'verify_tasks_gemini': 2, 'verify_tasks_chatgpt': 5}
+- counters: {'files': 6, 'buyer_findings_verified': 201, 'buyer_findings_unverified_page_unavailable': 17, 'buyer_findings_not_found_on_page_hidden': 6, 'buyer_findings_cross_verified': 2, 'verify_tasks_gemini': 13, 'verify_tasks_chatgpt': 5}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -48,7 +49,8 @@ Every row's outcome is in `coord/results/verification_log.csv`. Look up your own
 
 | lane | verified | cross_verified | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|
-| chatgpt | 106 | 0 | 2 | 0 | 0 | 0 |
+| chatgpt | 106 | 1 | 1 | 0 | 0 | 0 |
+| claude | 66 | 1 | 13 | 0 | 0 | 0 |
 | gemini | 29 | 0 | 1 | 6 | 0 | 0 |
 
 ## Where to look
