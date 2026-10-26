@@ -35,7 +35,7 @@ AP_WORDS = re.compile(r"factur|invoice|payab|payable|comptes?[._-]?a?[._-]?payer
 TWO_LEVEL = {"qc.ca", "on.ca", "gc.ca", "bc.ca", "ab.ca", "mb.ca", "sk.ca", "ns.ca", "nb.ca", "nl.ca", "pe.ca", "nt.ca", "nu.ca", "yk.ca",
              "co.uk", "gov.uk", "ac.uk", "org.uk", "com.au", "gov.au", "org.au", "edu.au", "gouv.fr", "gob.mx", "gov.br"}
 stats = {"entities": 0, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0,
-         "website_only": 0, "not_found": 0, "gemini_calls": 0, "model_errors": 0, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0}
+         "website_only": 0, "not_found": 0, "gemini_calls": 0, "model_errors": 0, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0, "crawl_attempts": 0, "skipped_crawled": 0}
 
 
 def log(*a):
@@ -381,7 +381,21 @@ If nothing is published, say so. Reply with ONLY this JSON object:
 "evidence_url": "", "evidence_quote": "", "status": "found|portal_only|not_published|unclear", "notes": ""}}"""
 
 
+ATTEMPTS = "data/incoming/%s/attempts_crawl.jsonl" % args.lane
+CRAWLED = {}
+if os.path.exists(ATTEMPTS):
+    for _l in open(ATTEMPTS, encoding="utf-8"):
+        try:
+            _d = json.loads(_l)
+            CRAWLED[_d["task_id"]] = _d.get("date", "")
+        except Exception:
+            pass
+
+
 def research_buyer(kind, t, out):
+    if not GROUNDING["on"] and t["task_id"] in CRAWLED:
+        stats["skipped_crawled"] += 1
+        return False
     name = t.get("buyer_name") or t.get("org_group") or ""
     site = t.get("known_website") or ""
     hint = ""
@@ -447,12 +461,11 @@ def research_buyer(kind, t, out):
                 write_row(kind, out, dict(base, invoice_portal_url=portal, evidence_url=final, evidence_quote=q, status="portal_only",
                                           notes="portal link found on the organisation's page"))
                 return
-    if crawl:
-        if len(pages) < 3:  # too little evidence either way: leave the task open for a better method
-            stats["skipped_open"] += 1
-            return
-        write_row(kind, out, dict(base, status="not_published", notes="no invoicing mailbox or portal on %d pages of the organisation's site "
-                                  "(site crawl only, no web search: a search-enabled agent may still find it)" % len(pages)))
+    if crawl:  # crawl-only negatives are weak: record the attempt, keep the task open for a search-enabled pass
+        with open(ATTEMPTS, "a", encoding="utf-8") as f:
+            f.write(json.dumps({"task_id": t["task_id"], "date": TODAY, "pages": len(pages), "domain": org_dom}) + "\n")
+        CRAWLED[t["task_id"]] = TODAY
+        stats["crawl_attempts"] += 1
         return
     claimed = email or portal
     if claimed:
@@ -575,10 +588,14 @@ def main():
         for kind, t, out in open_tasks():
             if n >= args.max or (time.time() - T0) / 60 > args.minutes:
                 break
-            n += 1
-            stats["entities"] += 1
+            if "buyer" in kind and not GROUNDING["on"] and stats["crawl_attempts"] + stats["found"] >= 15:
+                continue  # without web search, buyer research is low-yield: cap it and spend the rest of the run on vendors
             try:
-                (research_vendor if "vendor" in kind else research_buyer)(kind, t, out)
+                did = (research_vendor if "vendor" in kind else research_buyer)(kind, t, out)
+                if did is False:
+                    continue
+                n += 1
+                stats["entities"] += 1
                 log("%s %s -> %s" % (kind, t.get("task_id"), stats["rows"]))
             except QuotaExhausted:
                 raise

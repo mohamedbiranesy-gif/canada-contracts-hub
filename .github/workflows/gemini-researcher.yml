@@ -15,6 +15,9 @@ on:
       max:
         description: "Maximum tasks this run"
         default: "40"
+      kinds:
+        description: "Task kinds in order (advanced)"
+        default: "verify_buyer_ap,buyer_ap,vendor_contacts"
 concurrency:
   group: gemini-researcher
   cancel-in-progress: false
@@ -54,9 +57,10 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           MODELS: ${{ steps.models.outputs.models }}
           GEMINI_RPM: ${{ vars.GEMINI_RPM || '8' }}
+          KINDS: ${{ inputs.kinds }}
         run: |
           sudo apt-get install -y -qq poppler-utils > /dev/null 2>&1 || true
-          python3 tools/research_driver.py --lane "$LANE" --max "$MAX" --minutes 50 | tee research.log
+          python3 tools/research_driver.py --lane "$LANE" --max "$MAX" --minutes 50 --kinds "${KINDS:-verify_buyer_ap,buyer_ap,vendor_contacts}" | tee research.log
       - name: Commit results (conflict-free, lane paths only) + health note
         if: always()
         env:
