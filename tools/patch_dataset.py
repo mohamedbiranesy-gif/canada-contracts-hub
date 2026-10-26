@@ -76,10 +76,13 @@ with gzip.open(os.path.join(REL, "canadian_vendor_contracts.jsonl.gz"), "rt", en
     for line in f:
         r = json.loads(line)
         seen.add(r.get("record_id"))
-        be, ve = r.setdefault("buyer_enrichment", {}), r.setdefault("vendor_enrichment", {})
+        be = r.get("buyer_enrichment") or {}
+        ve = r.get("vendor_enrichment") or {}
+        r["buyer_enrichment"], r["vendor_enrichment"] = be, ve
         t = tb.get(be.get("buyer_key"))
         if t:
-            ap = be.setdefault("ap_contact", {})
+            ap = be.get("ap_contact") or {}
+            be["ap_contact"] = ap
             before = bool(ap.get("emails") or ap.get("invoice_portal"))
             ap["emails"] = list(dict.fromkeys((t.get("emails") or []) + (ap.get("emails") or [])))
             ap["invoice_portal"] = ap.get("invoice_portal") or t.get("invoice_portal")
