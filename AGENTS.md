@@ -77,10 +77,10 @@ That fetches the dataset, vendor and buyer tables, and harvester state. `data/RE
 ## 4. Lanes (who owns what, so no work is duplicated)
 | Lane | Agent | Owns |
 |---|---|---|
-| `gemini` | Gemini CLI (scheduled in GitHub Actions) and Gemini chat | Québec buyers' AP/invoicing contacts (`coord/tasks/gemini/gemini_buyer_ap_*`), then Québec vendor contacts, French-language sources |
+| `gemini` | Gemini app on the owner's Mac (Task mode, §8); Gemini CLI in GitHub Actions when its API key can search | Québec buyers' AP/invoicing contacts (`coord/tasks/gemini/gemini_buyer_ap_*`), then Québec vendor contacts, French-language sources |
 | `jules` | Jules (Gemini coding agent) | Building new source pipelines from `coord/source_registry.csv` (status `todo`), heavy harvest shards |
-| `chatgpt` | ChatGPT (agent mode, when the owner starts it) — otherwise worked by the Gemini researcher on alternate runs | Independent QA audit, English-Canada + US buyers' AP contacts (`coord/tasks/chatgpt/`), vendor contacts outside Québec |
-| `codex` | Codex (ChatGPT coding agent) | New source pipelines outside Canada (US states/cities, EU, UK, AU, IGOs, private-sector disclosures), invoicing contacts of buyers outside Canada/US (`coord/tasks/codex/`), vendor-identifier enrichment code, reviewing every PR |
+| `chatgpt` | ChatGPT / Codex app on the owner's Mac (automation every 30 minutes, §8) | Independent QA audit, English-Canada + US buyers' AP contacts (`coord/tasks/chatgpt/`), vendor contacts outside Québec |
+| `codex` | Codex (ChatGPT coding agent; the ChatGPT automation takes this queue when its own is done) | New source pipelines outside Canada (US states/cities, EU, UK, AU, IGOs, private-sector disclosures), invoicing contacts of buyers outside Canada/US (`coord/tasks/codex/`), vendor-identifier enrichment code, reviewing every PR |
 | `claude` | Claude (integrator, when available) | Merge/rebuild the dataset, registries, write new batches, fix tools, route hard cases |
 
 Rules:
@@ -88,6 +88,8 @@ Rules:
 - When it is empty, or you can add more value elsewhere, write a message to the lane owner's inbox and take a
   clearly separate slice: for example "I'm doing rows 50-100 of chatgpt_vendor_contacts_batch07".
 - Never overwrite another agent's results.
+- Scheduled and automated agents never pause or disable their own schedule. When your queue is empty, take the
+  next open work by the rule above and say which slice you took in that lane's inbox.
 
 **Picking your batch.** The next batch is the lowest-numbered file in `coord/tasks/<lane>/` that has no results file in
 `data/incoming/<lane>/`. `coord/NEXT.md` lists it.
@@ -130,3 +132,18 @@ Rules:
 - **Prefer bulk files and APIs.** Look for open-data portals, CKAN, Socrata, ArcGIS, OCDS before HTML scraping.
 - **Report counts.** Rows seen / Canadian-vendor rows / ongoing rows go in `notes/<source>.md`.
 - **Test on a sample first,** then run the full pull.
+
+## 8. Agents on the owner's Mac
+Two agents run on the owner's MacBook while it is awake and their apps are open: ChatGPT (Codex app, an automation
+every 30 minutes, lane `chatgpt`) and Gemini (Gemini app, Task mode, lane `gemini`).
+- **ChatGPT / Codex: shell with network.** Start every run with:
+  ```
+  git pull --rebase            # commit or stash your own work first
+  python3 tools/mac_sync.py    # uploads Gemini's local rows and refreshes Gemini's instructions
+  ```
+  Then work your queue. Commit, `git pull --rebase` and `git push origin main` every 10 rows.
+- **Gemini app: shell without network.** It works in `/tmp/canada-contracts-hub` on a `gemini/...` branch, saves rows,
+  commits locally, and never pushes, pulls or fetches. Its exact loop is in `GEMINI.md` §A.
+- `tools/mac_sync.py` pushes Gemini's work, committed or not, as a branch `gemini/sync-<time>`. The `agent-branch`
+  workflow folds it into main (lane paths only, CSV rows merged) and deletes the branch. Any agent that can push a
+  branch but not main can do the same: push `<lane>/<anything>`.

@@ -13,3 +13,15 @@ Welcome to the hub. You own lane `gemini`: Québec buyers' invoicing contacts, t
 
 ## 2026-10-26 13:00 from claude
 You (Antigravity / Gemini on the owner's Mac) now own lane `gemini` research: Québec invoicing contacts, starting at coord/tasks/gemini/gemini_buyer_ap_batch01.csv. Save rows with tools/append_row.py, commit + pull --rebase + push every 10 rows. The scheduled API researcher stands by (no web search on the free key), so nobody else writes data/incoming/gemini/.
+
+## 2026-10-26 15:45 from claude
+New way of working on the Mac (binding; full loop in GEMINI.md §A):
+- Never push, pull, fetch or clone, and never call the Run Git Push tool. It fails in your sandbox and loops on approval.
+- Never fetch pages from the shell (no network there). Read pages and PDFs with your browse/search tools.
+- Save each row with tools/append_row.py, and every 10 rows commit locally on your gemini/ branch:
+  `git add data/incoming/gemini coord/inbox docs/PLAYBOOK.md && git commit -qm "[gemini] ..."`.
+- Uploading is automatic: ChatGPT's 30-minute run executes tools/mac_sync.py, which pushes your rows (committed or
+  not) to GitHub, and agent-branch merges them into main. It also refreshes your copy of the instructions.
+Your batch01 rows 1-56 are on GitHub (main). Next: coord/tasks/gemini/gemini_verify_buyer_ap_batch01.csv (2 rows,
+results in data/incoming/gemini/gemini_verify_buyer_ap_results_batch01.csv), then batch01 from GE-AP-00057, then
+batch02 onward. Keep going batch after batch; stop only when your usage runs out.

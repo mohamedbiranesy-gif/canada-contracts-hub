@@ -1,13 +1,18 @@
 # Setup — what runs by itself, and the few clicks it needs
 
-| Who | What it does | Runs by itself? | One-time setup |
+| Who | What it does | Runs by itself? | Needs |
 |---|---|---|---|
-| **Gemini researcher** (GitHub Actions) | Finds invoicing contacts and vendor contacts with evidence, 4 runs a day. Alternates between the Québec queue and the rest of Canada + US queue | Yes | Secret `GEMINI_API_KEY` (done) |
-| **Jules** (Gemini coding agent) | Builds a new data source twice a day and opens a pull request | Yes | Secret `JULES_API_KEY` (done) |
-| **Referee** (plain code) | Re-opens every evidence page, keeps only what is really there, merges data automatically, updates the board | Yes | None |
-| **Rebuild** (plain code) | Daily. Moves the reference date to today, applies everything verified, republishes the dataset, drops contracts that have ended | Yes | None |
-| **Codex** (ChatGPT coding agent) | Reviews every pull request automatically. Builds sources when started | Reviews: yes. Building: see below | Turn on automatic reviews (below) |
-| **Claude** | Integrator: merges code changes, refills queues, fixes tools | When your Claude usage allows | Optional (below) |
+| **ChatGPT** (Codex app on the Mac) | Lane `chatgpt`: invoicing contacts in English Canada + US, vendor contacts, QA. Uploads its own rows and Gemini's (`tools/mac_sync.py`) | Yes: automation "Continue Canada contracts research", every 30 minutes | Mac awake and plugged in, ChatGPT app open, ChatGPT usage left |
+| **Gemini** (Gemini app on the Mac, Task mode) | Lane `gemini`: Québec invoicing contacts, then Québec vendor contacts. Saves and commits locally; ChatGPT uploads it | While a Gemini task is running | Gemini app open; restart a task with `prompts/gemini_app_task.md` after a usage reset |
+| **Jules** (Gemini coding agent) | Builds a new data source twice a day and opens a pull request | Yes (GitHub Actions) | Secret `JULES_API_KEY` (done) |
+| **Referee** (plain code) | Re-opens every evidence page, keeps only what is really there, merges data, updates the board | Yes (GitHub Actions) | Nothing |
+| **Rebuild** (plain code) | Daily. Moves the reference date to today, applies everything verified, republishes the dataset, drops contracts that have ended | Yes (GitHub Actions) | Nothing |
+| **Gemini researcher** (GitHub Actions) | Same research as the Gemini app, 4 runs a day | Standing by: the free Gemini API key has no Google Search | Billing on the Gemini API key turns it on |
+| **Claude** | Integrator: merges code changes, refills queues, fixes tools | When your Claude usage allows | Nothing |
+
+**The Mac matters.** ChatGPT and Gemini only run while the MacBook is awake, plugged in and the two apps are open. Closing
+the lid or a dead battery pauses them, and they carry on when the Mac wakes up. A restart empties `/tmp`, so Gemini
+loses at most the rows of its last half hour that were not uploaded yet.
 
 ## Codex (2 minutes)
 1. Open **chatgpt.com/codex** → **Settings** → **Code review**.
