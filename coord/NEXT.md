@@ -1,7 +1,7 @@
-# NEXT — open work per lane (auto-generated 2026-10-26 18:24 UTC; do not edit)
+# NEXT — open work per lane (auto-generated 2026-10-26 18:26 UTC; do not edit)
 
 ## lane `chatgpt`
-- **buyer_ap**: next batch `coord/tasks/chatgpt/chatgpt_buyer_ap_batch02.csv` — 41 open rows (first: CH-AP-00160, CH-AP-00161, CH-AP-00162, CH-AP-00163, CH-AP-00164). Write results to `data/incoming/chatgpt/chatgpt_buyer_ap_results_batch02.csv`. Lane total open: 1853 / 2012.
+- **buyer_ap**: next batch `coord/tasks/chatgpt/chatgpt_buyer_ap_batch02.csv` — 40 open rows (first: CH-AP-00161, CH-AP-00162, CH-AP-00163, CH-AP-00164, CH-AP-00165). Write results to `data/incoming/chatgpt/chatgpt_buyer_ap_results_batch02.csv`. Lane total open: 1852 / 2012.
 - **qa_audit**: all 200 rows done.
 - **vendor_contacts**: next batch `coord/tasks/chatgpt/chatgpt_vendor_contacts_batch01.csv` — 100 open rows (first: CH-VC-00001, CH-VC-00002, CH-VC-00003, CH-VC-00004, CH-VC-00005). Write results to `data/incoming/chatgpt/chatgpt_vendor_contacts_results_batch01.csv`. Lane total open: 1500 / 1500.
 - **verify_buyer_ap**: next batch `coord/tasks/chatgpt/chatgpt_verify_buyer_ap_batch01.csv` — 5 open rows (first: CH-VF-00001, CH-VF-00002, CH-VF-00003, CH-VF-00004, CH-VF-00005). Write results to `data/incoming/chatgpt/chatgpt_verify_buyer_ap_results_batch01.csv`. Lane total open: 5 / 5.

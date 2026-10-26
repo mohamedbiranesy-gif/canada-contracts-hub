@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-10-26 18:24 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-10-26 18:26 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-10-26)
 | metric | value |
@@ -21,13 +21,13 @@
 | lane | task | rows | found | not_published | blocked | other |
 |---|---|---|---|---|---|---|
 | chatgpt | chatgpt_buyer_ap_results_batch01.csv | 190 | 32 | 56 | 9 | 93 |
-| chatgpt | chatgpt_buyer_ap_results_batch02.csv | 100 | 38 | 18 | 12 | 32 |
+| chatgpt | chatgpt_buyer_ap_results_batch02.csv | 101 | 38 | 18 | 13 | 32 |
 | chatgpt | chatgpt_qa_audit_results_batch01.csv | 100 | 0 | 0 | 0 | 100 |
 | chatgpt | chatgpt_qa_audit_results_batch02.csv | 100 | 0 | 0 | 0 | 100 |
 | claude | claude_buyer_ap_results_crawl01.csv | 554 | 554 | 0 | 0 | 0 |
 | gemini | gemini_buyer_ap_results_batch01.csv | 61 | 36 | 25 | 0 | 0 |
 
-**team_buyers**: 609 entities researched, 515 with at least one verified contact.
+**team_buyers**: 610 entities researched, 515 with at least one verified contact.
 
 **team_vendors**: 0 entities researched, 0 with at least one verified contact.
 
@@ -38,7 +38,7 @@
 | jules | 9 | 0 | 2 | 0 |
 
 ## Last ingest
-- buyers with team findings: 609 (with at least one verified e-mail/portal: 514)
+- buyers with team findings: 610 (with at least one verified e-mail/portal: 514)
 - vendors with team findings: 0
 - QA rows: 200
 - counters: {'files': 6, 'buyer_findings_verified': 681, 'buyer_findings_unverified_page_unavailable': 23, 'buyer_findings_not_found_on_page': 1, 'buyer_findings_not_found_on_page_hidden': 6, 'buyer_findings_cross_verified': 2, 'verify_tasks_gemini': 14, 'verify_tasks_chatgpt': 5}

@@ -1,6 +1,6 @@
-# Ingest report — 2026-10-26T18:24:55Z
+# Ingest report — 2026-10-26T18:26:41Z
 
-- buyers with team findings: 609 (with at least one verified e-mail/portal: 514)
+- buyers with team findings: 610 (with at least one verified e-mail/portal: 514)
 - vendors with team findings: 0
 - QA rows: 200
 - counters: {'files': 6, 'buyer_findings_verified': 681, 'buyer_findings_unverified_page_unavailable': 23, 'buyer_findings_not_found_on_page': 1, 'buyer_findings_not_found_on_page_hidden': 6, 'buyer_findings_cross_verified': 2, 'verify_tasks_gemini': 14, 'verify_tasks_chatgpt': 5}
