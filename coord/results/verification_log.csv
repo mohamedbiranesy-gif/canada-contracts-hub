@@ -6,6 +6,8 @@ chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00142,b:00accd9c22d0a9c9,VTBu
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00042,b:01fb6ae084787ac2,iucpq.drf.cap@ssss.gouv.qc.ca,https://www.iucpq.ca/annuaire/compte-a-payer-direction-des-ressources-financieres/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00482,b:020c6f22383c4b70,accountspayable@portcoquitlam.ca,https://www.portcoquitlam.ca/media/file/terms-and-conditions-purchasepdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00482,b:020c6f22383c4b70,purchasing@portcoquitlam.ca,https://www.portcoquitlam.ca/media/file/terms-and-conditions-purchasepdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00798,b:028119c54e5b4789,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00769,b:04c96d345ed89cf4,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00061,b:05a559521e307365,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,cross_verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00061,b:05a559521e307365,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,cross_verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00061,b:05a559521e307365,procurement@burlington.ca,https://www.burlington.ca/en/business-in-burlington/bid-opportunities.aspx,unverified_page_unavailable
@@ -24,6 +26,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00555,b:0cbeb13b9512ba43,procur
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00072,b:0d339258cd11ee9f,inquiries@nlhc.nl.ca,https://www.nlhc.nl.ca/contact/contact-nlhc/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00298,b:0d4de9030a77c3c2,purchasing@townofbwg.com,https://www.townofbwg.com/business-development/procurement/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00008,b:0dd89f45f4b9ae3e,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00681,b:0ed1fc2d00599070,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00260,b:0fe819b9deec5337,procurement@createto.ca,https://createto.ca/our-work/procurement,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00034,b:119dce289499bf32,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00153,b:11ce988093930a7f,cssmi.approvisionnement@cssmi.qc.ca,https://www.cssmi.qc.ca/nous-joindre,verified
@@ -38,13 +41,17 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00659,b:12cb27f9533dca10,financ
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00659,b:12cb27f9533dca10,studentfinance@nait.ca,https://www.nait.ca/nait/admissions/financial-planning/payment-plan,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00043,b:13c0d0cd3620a597,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00332,b:13fd4220e55a2dd2,purchasing@wcdsb.ca,https://www.wcdsb.ca/about-us/cs/purchasing-services/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00787,b:15b7a24c0d4afd84,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00370,b:16590018a3011695,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00131,b:16a96fd85f88fc6f,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/partners/suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00131,b:16a96fd85f88fc6f,vendor.relations@centralhealth.nl.ca,https://nlhealthservices.ca/partners/suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00131,b:16a96fd85f88fc6f,supplier.relations@centralhealth.nl.ca,https://nlhealthservices.ca/wp-content/uploads/2025/02/Performance-Management-Strategy.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00610,b:17a2311bc50aa100,tssa_initiatingaccount@odata.bind,https://clientportal.tssa.org/prePayment/,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01284,b:19a1f456936fcfb5,comptabilite@issoudun.qc.ca,https://www.issoudun.qc.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00258,b:1ab03389452d9774,ress-finances6@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/wp-content/uploads/2026/07/Formulaire_Correction-de-paiement-Internet.pdf,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00431,b:1b540f13d099f1da,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00786,b:1ba99cc11d95cb92,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00667,b:1dc3fe9e19c1c654,comptabilite@municipalite.ange-gardien.qc.ca,https://www.municipalite.ange-gardien.qc.ca/storage/app/media/services-aux-citoyens/services/aide-financiere-aux-citoyens/Formulaire%20de%20vente%20au%20camping.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00133,b:1f029af4fdc19e47,internationalaccounts@cbu.ca,https://www.cbu.ca/current-students/student-finance-hub/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00133,b:1f029af4fdc19e47,studentaccounts@cbu.ca,https://www.cbu.ca/current-students/student-finance-hub/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00469,b:1fd09aa18c90e839,procurement@aimco.ca,https://www.aimco.ca,verified
@@ -84,6 +91,8 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00092,b:32446bc5c3d3dbdf,approv
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00013,b:32c9ae6830c84ad3,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00507,b:32ef32ae0df15f6a,payments@keyanohousing.ca,https://www.keyano.ca/student-services/our-campus/housing/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00131,b:332a22487a24723a,approvisionnement@saint-georges.ca,https://www.saint-georges.ca/services/services-en-ligne/appels-doffres-soumissions,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00797,b:338d5ae6a5473ae6,finance@oro-medonte.ca,https://www.oro-medonte.ca/working-here/township-departments/finance/property-taxes/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00797,b:338d5ae6a5473ae6,procurement@oro-medonte.ca,https://www.oro-medonte.ca/our-government/procurement-services/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00441,b:3413984b519089ac,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00037,b:348bf6900993c281,comptesapayer@chudequebec.ca,https://www.chudequebec.ca/bottin.aspx?item=e4d75cdf-d4bd-4d05-9f9a-c64f5cdb8275&L=&page=,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00037,b:348bf6900993c281,galo@chudequebec.ca,https://www.chudequebec.ca/bottin.aspx?item=45bbb113-7935-4a2e-8cbe-9c1f972d48f8&L=&page=,not_found_on_page_hidden
@@ -94,6 +103,9 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00230,b:369f81bcbce7d745,purcha
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00383,b:36d0043a168f00ff,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00111,b:37c8d28e0df372d7,service.finances@ville.joliette.qc.ca,https://www.joliette.ca/la-ville/administration-et-finances/equipe,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00765,b:38e190104e12d308,finances@municipalite.duhamel.qc.ca,https://www.municipalite.duhamel.qc.ca/fr/municipalite/administration/commis-a-ladministration/comptabilite-finance-et-taxation,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00712,b:39511de38b64f6c0,phsa_invoices@pdf.basware.com,https://www.phsa.ca/our-services-site/Documents/AP%20Invoice%20and%20Statement%20Submissions_30JAN26.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00712,b:39511de38b64f6c0,fha_apinvoices@hssbc.ca,https://www.phsa.ca/our-services-site/Documents/AP%20Invoice%20and%20Statement%20Submissions_30JAN26.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00712,b:39511de38b64f6c0,ap_ven_invoices@interiorhealth.ca,https://www.phsa.ca/our-services-site/Documents/AP%20Invoice%20and%20Statement%20Submissions_30JAN26.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00536,b:399f4c5abefac1c1,procurement@cochrane.ca,https://www.cochrane.ca/business-innovation/bid-opportunities,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01017,b:39ad167661ecbbca,marie.paiement@cssa.gouv.qc.ca,https://cssa.gouv.qc.ca/fr/ecoles-et-centres/ecoles-primaires/ecole-saint-gabriel/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00580,b:39fe0c006866ce8a,marie.paiement@cssa.gouv.qc.ca,https://cssa.gouv.qc.ca/fr/ecoles-et-centres/ecoles-primaires/ecole-saint-gabriel/nous-joindre/,verified
@@ -107,6 +119,8 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00664,b:3fa8f53d32defbf9,approv
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00592,b:401784246f1b1c69,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/partners/suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00592,b:401784246f1b1c69,vendor.relations@centralhealth.nl.ca,https://nlhealthservices.ca/partners/suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00592,b:401784246f1b1c69,supplier.relations@centralhealth.nl.ca,https://nlhealthservices.ca/wp-content/uploads/2025/02/Performance-Management-Strategy.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00511,b:413ca05564dcad2e,purchasingadmin@mesaaz.gov,https://www.mesaaz.gov/Business-Development/Procurement-Services,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00511,b:413ca05564dcad2e,purchasingsupport@mesaaz.gov,https://www.mesaaz.gov/Business-Development/Procurement-Services,unverified_page_unavailable
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00134,b:4141564afe8fcffe,AOT.EMESInvoices@vermont.gov,https://vtrans.vermont.gov/sites/aot/files/contractadmin/documents/rfps/RFP_SEContSub%26AlcoUseTesting2025_FINAL.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00134,b:4141564afe8fcffe,aot.contractadministrators@vermont.gov,https://vtrans.vermont.gov/sites/aot/files/contractadmin/documents/rfps/RFP_Roadway%26TrafficEngineeringServices2025_FINAL.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00134,b:4141564afe8fcffe,TRE.ServicesAccounting@vermont.gov,https://app.vermonttreasurer.gov/PaymentInformationPortal/,verified
@@ -132,6 +146,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00280,b:4b36432d699f548f,approv
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00004,b:4bcf21f4bf481128,accountspayable@saskatoon.ca,https://www.saskatoon.ca/sites/default/files/documents/scm_new_payment_purchasing_guidelines_2020-11-26.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00111,b:4e1a496ac3009ded,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00601,b:4e5a5855ee57387a,finance@annapolisroyal.com,https://annapolisroyal.com/wp-content/uploads/2026/09/RFP-09-2026-02-Financial-Auditing-Services.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00671,b:4f505b1735f0c55e,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00029,b:50721844db878fa4,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00579,b:50e27360e7624f7c,procurement@cityofgp.com,https://cityofgp.com/business-development/business-services/procurement-and-surplus,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00528,b:5233e6b22f6a80a9,accountspayable@brockville.com,https://brockville.com/wp-content/uploads/2023/03/Terms-and-Conditions-Good-and-Services.pdf,verified
@@ -156,9 +171,11 @@ chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00099,b:5fb087717481f67b,supp
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00184,b:5fc11ae949830a84,journesfournisseurs@villechateauguay.onmicrosoft.com,https://ville.chateauguay.qc.ca/approvisionnements-et-contrats/journee-fournisseur/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00378,b:5fe41da483650689,purchasing@mpac.ca,https://www.mpac.ca/en/AboutUs/Policies/BecomeMPACsupplier,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00090,b:60219a77689f54d6,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/wp-content/uploads/2026/08/2026-07-Supplier-Partner-Newsletter.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00686,b:6052195251341880,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00013,b:60e83ccfcdf2accb,approv@cssdm.gouv.qc.ca,https://www.cssdm.gouv.qc.ca/wp-content/uploads/Fournisseurs_de_biens_et_services.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00193,b:613495f8a4100196,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00064,b:615801b9f548d4cb,ap.fsd@utoronto.ca,https://finance.utoronto.ca/knowledgecentre/outgoing-wire-transfers/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00709,b:6275c26e69b9e3ad,purchasingdept@publicboard.ca,https://www.publicboard.ca/en/about-gecdsb/purchasing-and-procurement.aspx,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00089,b:62ab9d060680a6c8,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/wp-content/uploads/2026/08/2026-07-Supplier-Partner-Newsletter.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00280,b:62c43330103f6a0b,purchasing@limestone.on.ca,https://www.limestone.on.ca/procurement__vendors,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00040,b:62e5a14763cbe8b5,accountspayable@oxfordcounty.ca,https://www.oxfordcounty.ca/news/posts/canada-post-service-disruption-september-2025/,verified
@@ -177,7 +194,10 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00237,b:65d08752996fc2b5,approv
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00641,b:661fa809336b001a,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00421,b:66dd178a38fa5a54,comptespayables@csscharlevoix.gouv.qc.ca,https://www.csscharlevoix.gouv.qc.ca/ressources-financieres/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00530,b:670c0a75dc758fc9,billing@strathroy-caradoc.ca,https://www.strathroy-caradoc.ca/city-hall/departments/financial-services/utility-billing/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00729,b:67add0f5f1bc83a2,acctspayable@radford.edu,https://www.radford.edu/accounts-payable/index.html,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00729,b:67add0f5f1bc83a2,purchase@radford.edu,https://www.radford.edu/procurement/index.html,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00050,b:67e3e9e530cdd3b9,accounting_dept@halifaxwater.ca,https://halifaxwater.ca/sites/default/files/2019-01/standardtermsconditions-procurement.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00810,b:67f85fd688830434,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00204,b:6852985c2eea2d44,procurement@cumberlandcounty.ns.ca,https://www.cumberlandcounty.ns.ca/documents/procurement/3432-rfp-mcc-2620-destination-direction-tourism-signage/file.html,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00094,b:68543c13197517e0,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/wp-content/uploads/2026/08/2026-07-Supplier-Partner-Newsletter.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00608,b:68d93aff477c48a2,finance@cssla.gouv.qc.ca,https://cssla.gouv.qc.ca/services-des-ressources-financieres/,verified
@@ -185,6 +205,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00524,b:6928ecd11fe7556c,micase
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00635,b:697213fefa078c0e,tresorerie@ascotcorner.ca,https://ascot-corner.com/services-citoyens/taxation-et-evaluation/,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00102,b:698c34745d0fd577,accounts.payable@easternhealth.ca,https://cwhp.easternhealth.ca/wp-content/uploads/sites/45/2022/07/Ch-1732-Electronic-Funds-Transfer-EFT-Authorization-fillable.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00200,b:699eee6db50358f6,comptabilite@ville.valleyfield.qc.ca,https://www.ville.valleyfield.qc.ca/organigramme-et-structure-municipale/service-des-finances,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00766,b:69db1cdd24457b86,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00145,b:6a1a473d9957228f,TRE.ServicesAccounting@vermont.gov,https://app.vermonttreasurer.gov/PaymentInformationPortal/,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00145,b:6a1a473d9957228f,VISION.SupplierRequests@vermont.gov,https://finance.vermont.gov/sites/finance/files/documents/Forms/VISION/FIN-VISION_Supplier_ACH_Authorization_Form.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00145,b:6a1a473d9957228f,VTBuysCustomerSupport@vermont.gov,https://vtbuysprocurement.vermont.gov/suppliers-bidders,verified
@@ -214,6 +235,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00036,b:7153b8cc802f9efb,micase
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00916,b:72456b69f7bbf86c,tresorier@villehuntingdon.com,https://villehuntingdon.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00165,b:752ee7411c1fb8ee,procurement@newmarket.ca,https://www.newmarket.ca/business-development/procurement,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00666,b:756b61fe7b10b441,comptabilite@municipalite.ange-gardien.qc.ca,https://www.municipalite.ange-gardien.qc.ca/storage/app/media/services-aux-citoyens/services/aide-financiere-aux-citoyens/Formulaire%20de%20vente%20au%20camping.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00683,b:7572ca40768ca955,procurementservices@cbe.ab.ca,https://www.cbe.ab.ca/vendors,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00683,b:7572ca40768ca955,cbevpmvendorappeals@cbe.ab.ca,https://www.cbe.ab.ca/documents/11769785-b98e-44c8-addd-2bfa908b62aa/Vendor-Performance-Evaluation-Appeal-Request.pdf?fingerprint=ppb20260709185427,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00085,b:75abd64372c94f77,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/wp-content/uploads/2026/08/2026-07-Supplier-Partner-Newsletter.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00312,b:764837d5abd4e611,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00138,b:7682b9a942225fba,TRE.ServicesAccounting@vermont.gov,https://app.vermonttreasurer.gov/PaymentInformationPortal/,verified
@@ -222,6 +245,8 @@ chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00138,b:7682b9a942225fba,VTBu
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00143,b:78762b641baf4716,TRE.ServicesAccounting@vermont.gov,https://app.vermonttreasurer.gov/PaymentInformationPortal/,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00143,b:78762b641baf4716,VISION.SupplierRequests@vermont.gov,https://finance.vermont.gov/sites/finance/files/documents/Forms/VISION/FIN-VISION_Supplier_ACH_Authorization_Form.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00143,b:78762b641baf4716,VTBuysCustomerSupport@vermont.gov,https://vtbuysprocurement.vermont.gov/suppliers-bidders,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01298,b:7ad77ed2502f4ba6,comptabilite@villevillemarie.org,https://www.villevillemarie.org/services-municipaux/,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01298,b:7ad77ed2502f4ba6,fournisseurs@villevillemarie.org,https://www.villevillemarie.org/wp-content/uploads/2021/03/Fournisseurs-Inscription-au-depot-direct.pdf,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00024,b:7c48e6630ce04ee3,comptesapayer@fin.umontreal.ca,https://finances.umontreal.ca/qui-sommes-nous/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00024,b:7c48e6630ce04ee3,achats@dagc.umontreal.ca,https://finances.umontreal.ca/qui-sommes-nous/nous-joindre/,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00039,b:7c6184faae853053,procurementinquiries@saskpower.com,https://saskpower.com/about-us/for-our-suppliers/supplier-resources,verified
@@ -234,6 +259,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00007,b:801e3bdf65dc747a,procur
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00541,b:8022e4d5e3f2b17e,finance@weyburn.ca,https://weyburn.ca/finance/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00257,b:80fb9c09fac61bfb,approvisionnements@ville.contrecoeur.qc.ca,https://www.ville.contrecoeur.qc.ca/ville/administration/approvisionnement,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00032,b:81b47f73d9c10c00,approvisionnement@v3r.net,https://www.v3r.net/nous-joindre,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00792,b:82384db837487797,billing@oxfordns.ca,https://oxfordns.ca/contact-us.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00655,b:85667695c9988936,utilitybilling@brighton.ca,https://www.brighton.ca/living-in-brighton/water-and-wastewater/water/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00655,b:85667695c9988936,utilitybill@brighton.ca,https://www.brighton.ca/living-in-brighton/water-and-wastewater/water/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00457,b:86738140d7ac4949,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
@@ -243,6 +269,8 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00156,b:8835d320fe5a70a3,approv
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00636,b:896abaa17872167e,utility.billing@arnprior.ca,https://www.arnprior.ca/contacts-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00636,b:896abaa17872167e,payables@arnprior.ca,https://www.arnprior.ca/contacts-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00290,b:896df7694f8cdb9e,comptepayable@ville.stfelicien.qc.ca,https://ville.stfelicien.qc.ca/departement/tresorerie/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00667,b:89df599121703fcd,payables@rockyview.ca,https://www.rockyview.ca/government/budget-finance-strategic-plan/procurement-and-supply-chain,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00667,b:89df599121703fcd,purchasing@rockyview.ca,https://www.rockyview.ca/government/budget-finance-strategic-plan/procurement-and-supply-chain,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00096,b:8c039cab7d66714c,711ressourcesfinancieres@cssrs.gouv.qc.ca,https://cssrs.gouv.qc.ca/le-cssrs/a-propos/services-centralises/service-des-ressources-financieres/equipe,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00315,b:8c1f9cc623e1a91f,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00808,b:8c57d2cbc6770852,comptabilite1@carletonsurmer.com,https://carletonsurmer.com/nous-joindre/,verified
@@ -254,6 +282,8 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00230,b:8fe2370e322fc3fd,approv
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00080,b:905809063570eeef,ap@tol.ca,https://www.tol.ca/en/services/resources/business/business-with-the-township/Purchase-Order-Terms-and-Conditions---Consulting.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00080,b:905809063570eeef,acctspay@tol.ca,https://www.tol.ca/en/services/resources/business/business-with-the-township/Hired-Equipment-Services.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00700,b:90f0e74f1a50de35,comptabilite@municipalite.ange-gardien.qc.ca,https://www.municipalite.ange-gardien.qc.ca/storage/app/media/services-aux-citoyens/services/aide-financiere-aux-citoyens/Formulaire%20de%20vente%20au%20camping.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00739,b:9102db79858dc8dd,studentaccounts@lakelandcollege.ca,https://www.lakelandcollege.ca/student-life-supports/other-services/online-technical-support/my-lakeland/fees-payments.html,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00739,b:9102db79858dc8dd,financialaid@lakelandcollege.ca,https://www.lakelandcollege.ca/student-life-supports/other-services/online-technical-support/my-lakeland/fees-payments.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00032,b:911e951c93efa008,procurement.info@tcdsb.org,https://www.tcdsb.org/o/corporateservices/page/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00152,b:9131530d19e466ac,indigenousprocurement@epcor.com,https://www.epcor.com/ca/en/business/contractor-supplier/indigenous-vendor-registration.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00152,b:9131530d19e466ac,scmprocurement@epcor.com,https://www.epcor.com/content/dam/epcor/documents/supporting-documents/supplier-code-of-conduct.pdf,verified
@@ -280,6 +310,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00021,b:99a5d74c1b2d84cd,pwadmi
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00021,b:99a5d74c1b2d84cd,citymanager.invoices@hamilton.ca,https://www.hamilton.ca/build-invest-grow/buying-selling-city/bids-and-tenders/vendor-information,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00021,b:99a5d74c1b2d84cd,water.invoices@hamilton.ca,https://www.hamilton.ca/build-invest-grow/buying-selling-city/bids-and-tenders/vendor-information,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00039,b:9a0edd048f672303,purchasing.cs@muhc.mcgill.ca,https://muhc.ca/internships/finance,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00711,b:9a66723a9096484c,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00504,b:9a7adcdff93594e5,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00037,b:9a980e6196bb69d4,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00067,b:9c482120cd823348,ctbpayables@thunderbay.ca,https://www.thunderbay.ca/news/posts/payment-and-invoice-processing-updates-during-canada-post-strike/,verified
@@ -299,6 +330,7 @@ chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00075,b:a57e2294decc8907,acco
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00014,b:a6f2488697e8be17,HydroAPInvoices@nlh.nl.ca,https://nlhydro.com/wp-content/uploads/2025/02/Supply-Chain-Supplier-Information-Manual.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00014,b:a6f2488697e8be17,HydroAPInquiries@nlh.nl.ca,https://nlhydro.com/wp-content/uploads/2025/02/Supply-Chain-Supplier-Information-Manual.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00461,b:a85e3a3a825ec3b3,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00799,b:a86226ec708c4ef5,accounting@wellington-north.com,https://www.wellington-north.com/government/budgets-finance,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00569,b:a9f1c7cf4425512d,payables@aer.ca,https://static.aer.ca/prd/documents/about-us/Procurement/AERServiceAgreementSample.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00569,b:a9f1c7cf4425512d,eftpayments@aer.ca,https://www.aer.ca/about-aer/work-with-us/procurement,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00569,b:a9f1c7cf4425512d,procurement@aer.ca,https://www.aer.ca/about-aer/work-with-us/procurement,verified
@@ -310,6 +342,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00585,b:ad061fd6c0955ef9,ebilli
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00595,b:ad2ad0256b889f01,procurement@lsrca.on.ca,https://lsrca.on.ca/index.php/about-us/procurement/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00005,b:ae2afcc7fcedb7e6,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00025,b:ae3e924fdf730e3f,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00692,b:ae9a6af6a4cc8bf9,accountspayable@newminas.com,https://newminas.com/staff-directory,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00045,b:af8852fe5dbe6284,approv@cssdm.gouv.qc.ca,https://www.cssdm.gouv.qc.ca/wp-content/uploads/Fournisseurs_de_biens_et_services.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00054,b:b0c09924713d5de3,accounting@norfolkcounty.ca,https://www.norfolkcounty.ca/news-and-notices/posts/canada-post-strike-impacts-norfolk-county-services/,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00082,b:b1bbfb852e78bace,finance-ap@wrdsb.ca,https://www.wrdsb.ca/wp-content/uploads/4720-Accounts-Payable-.pdf,verified
@@ -320,6 +353,7 @@ gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00044,b:b640758e67e74fc5,fourni
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00272,b:b83889d7115383d3,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00357,b:b9341b5768659cc3,711ressourcesfinancieres@cssrs.gouv.qc.ca,https://cssrs.gouv.qc.ca/le-cssrs/a-propos/services-centralises/service-des-ressources-financieres/equipe,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00313,b:b9b861c08a381ea6,purchasing@northumberlandcounty.ca,https://northumberland.ca/wp-content/uploads/2025/07/Vendor-Performance-Evaluation-accessible.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00680,b:bafdb21b50c63e6c,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00299,b:bd054cf3c662ae52,compte-client@urgences-sante.qc.ca,https://www.urgences-sante.qc.ca/public-information/pay-an-invoice/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00233,b:bd22b662cb9ca6ef,billingsupport@londonhydro.com,https://www.londonhydro.com/accounts-services/billing-payment/about-my-bill,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00359,b:bdf80ddc49d9d3b4,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
@@ -351,6 +385,7 @@ chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00048,b:c74ec72fb4ec1896,City
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00048,b:c74ec72fb4ec1896,CityWpgAp-Central@Winnipeg.ca,https://legacy.winnipeg.ca/finance/corporate-accounts-payable.stm,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00048,b:c74ec72fb4ec1896,CityWpgAP-Inquiries@Winnipeg.ca,https://legacy.winnipeg.ca/finance/corporate-accounts-payable.stm,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00058,b:c79b4a5c289c6fca,AP@medicinehat.ca,https://www.medicinehat.ca/government-city-hall/applications-licenses-permits/bidding-opportunities/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00687,b:c908f9ccaf83dc2a,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00354,b:c9cb2b15624c46b7,procurement@aglc.ca,https://aglc.ca/about/doing-business-aglc,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00473,b:cabd9938fc63d038,procurementinfo@catsa.gc.ca,https://www.catsa-acsta.gc.ca/en/publications/procurement-and-contracting,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00473,b:cabd9938fc63d038,procurementinfo@acsta.gc.ca,https://www.catsa-acsta.gc.ca/fr/publications/faire-affaire-avec-acsta,verified
@@ -367,6 +402,7 @@ chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00136,b:d05e1be01ef2352b,http
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00136,b:d05e1be01ef2352b,TRE.ServicesAccounting@vermont.gov,https://app.vermonttreasurer.gov/PaymentInformationPortal/,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00136,b:d05e1be01ef2352b,VISION.SupplierRequests@vermont.gov,https://finance.vermont.gov/sites/finance/files/documents/Forms/VISION/FIN-VISION_Supplier_ACH_Authorization_Form.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00136,b:d05e1be01ef2352b,VTBuysCustomerSupport@vermont.gov,https://vtbuysprocurement.vermont.gov/suppliers-bidders,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01068,b:d0863873c5cc1587,billius@live.ca,https://berthiersurmer.ca/citoyens/services-et-organismes/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00652,b:d195df1b60534be8,studentaccounts@oldscollege.ca,https://www.oldscollege.ca/admissions/office-of-the-registrar/tuition-and-fees-payments/financial-accounts.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00657,b:d4f4aff8726b4682,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00192,b:d6cac00157ffb7ef,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
@@ -403,6 +439,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00188,b:ebf4272c82dbb197,financ
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00058,b:ec8f414748979d94,comptes.etudiants@uqam.ca,https://comptesetudiants.uqam.ca/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00645,b:ecd13b2dfa28001c,finance@cscree.qc.ca,https://eeyoueducation.ca/docs/articles/finance-1/1609-depots-directs-formulaire-de-consentement-2020/file,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00198,b:ecedb3b20a718a77,purchasing@collingwood.ca,https://www.collingwood.ca/bids,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00710,b:ed99cb4b2d9e1625,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00364,b:ee61aacd3fc73a0a,ap@newtecumseth.ca,https://www.newtecumseth.ca/wp-content/uploads/2026/06/Purchase-Terms-and-Conditions.pdf,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00034,b:ef80d9b1a86f663d,approvisionnement@longueuil.quebec,https://www.longueuil.quebec/fr/services/approvisionnement,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00256,b:f01d7426b7fc7c59,procurement.utm@utoronto.ca,https://www.procurement.utoronto.ca/about-procurement/contact-us,verified
@@ -412,6 +449,7 @@ chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00097,b:f2079b315cfa8367,supp
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00097,b:f2079b315cfa8367,accounts.payable@easternhealth.ca,https://cwhp.easternhealth.ca/wp-content/uploads/sites/45/2022/07/Ch-1732-Electronic-Funds-Transfer-EFT-Authorization-fillable.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00071,b:f27050c80f012bd0,ap@ajax.ca,https://ajax.ca/wp-content/uploads/2026/05/Purchase-Order-General-Terms-and-Conditions.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00071,b:f27050c80f012bd0,procurement@ajax.ca,https://ajax.ca/build-invest/for-businesses-investors/bids-tenders-procurement/,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01033,b:f2941b95d0bc97ed,finances@adstock.ca,https://www.adstock.ca/services-aux-citoyens/mesures-daide-aux-citoyens/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00420,b:f2d1292de3d4050a,approvisionnement@cstj.qc.ca,https://www.cstj.qc.ca/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00307,b:f4299feb266909cc,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00836,b:f460f4241932fdb5,compteapayer@cssdufer.gouv.qc.ca,https://www.csdufer.qc.ca/centre-de-services-scolaire-du-fer/nos-services,verified
