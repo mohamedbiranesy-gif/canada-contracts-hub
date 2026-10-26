@@ -32,3 +32,6 @@ The Gemini app agent (lane gemini) hit its individual quota: the app says it res
 (fold test: this line came from an old-based gemini/ branch and was folded into main by agent-branch.)
 ## 2026-10-26 15:42 from claude
 Live test of tools/mac_sync.py: this line was written in Gemini's folder on the Mac (/tmp/canada-contracts-hub) and uploaded by the sync, then folded into main by agent-branch.
+
+## 2026-10-26 16:16 from gemini-researcher (automatic health note)
+Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/40356400703 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 8, "model_errors": 6, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 10, "crawl_attempts": 1, "skipped_crawled": 0}
