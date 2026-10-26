@@ -95,6 +95,11 @@
 - A supplier portal is not automatically an invoice portal: Saskatchewan GEM explicitly keeps invoices on the existing process; York provides the construction invoice-upload URL privately at contract start. Preserve those limitations.
 - Canada Post contingency notices can publish supplier invoice and EFT roles (Oxford County and Thunder Bay), but retain the notice date and event scope. NLHS Central Regional Office AP phone is unit-specific; do not generalize legacy Eastern EFT or provincial GNL AP to all NLHS zones.
 
+- Vermont: the Treasurer payment portal is for payment advices/inquiries, while current VTBuys supplier guidance covers registration and W9/ACH changes. Do not turn planned invoice-submission features in the prelaunch2023 FAQ into a confirmed current invoice portal. Contract-specific VTrans invoice mailboxes keep their program scope; the still-linked02/22 ACH form is flagged unclear alongside newer electronic guidance.
+- NL Hydro: the February2025 Supply Chain Supplier Information Manual specifies HydroAPInvoices@nlh.nl.ca (PDF invoices only) and HydroAPInquiries@nlh.nl.ca (inquiries/statements). Older2021 Nalcor addresses remain hosted but differ from current instructions; retain source age and possible supersession rather than treating them as interchangeable.
+- District of North Vancouver: the new site can return only a JavaScript shell to text fetches. Its rendered2025 Canada Post notice links a July30 2025 vendor/EFT form with ap@dnv.org and604-990-2305; this confirms supplier setup, not general invoice intake. Utility billing contacts on the same notice are receivables.
+- StCatharines: the current Vendor and purchasing opportunities page links July2024 PO terms on its Govstack CDN after the old indexed PDF404s. That document gives invoice mailbox/postal route and GC27 requirements; suppliers@stcatharines.ca instead handles supplier registration/EFT updates.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
