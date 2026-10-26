@@ -26,7 +26,11 @@ take = [p for p in changed if p.startswith(allowed)]
 print("branch %s: %d changed, %d in allowed paths" % (branch, len(changed), len(take)))
 git("checkout", "-q", main_ref)
 for p in take:
-    data = subprocess.run(["git", "show", "%s:%s" % (br_ref, p)], capture_output=True).stdout
+    got = subprocess.run(["git", "show", "%s:%s" % (br_ref, p)], capture_output=True)
+    if got.returncode:  # deleted on the branch: a fold only ever adds, it never deletes or empties a file
+        print("skip %s (not on the branch)" % p)
+        continue
+    data = got.stdout
     os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
     open(p, "wb").write(data)
 if take:

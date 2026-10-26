@@ -11,8 +11,10 @@ on:
 permissions:
   contents: write
   actions: write
+# Own group: sharing main-writer let a waiting fold cancel a waiting referee run (and the reverse).
+# Concurrent writers are safe: tools/commit_lane.py rebuilds on the latest main and retries the push.
 concurrency:
-  group: main-writer
+  group: agent-branch
   cancel-in-progress: false
 jobs:
   fold:
