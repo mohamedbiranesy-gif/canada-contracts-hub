@@ -67,18 +67,20 @@ jobs:
           path: work/evidence_cache
           key: evidence-${{ github.run_id }}
           restore-keys: evidence-
-      - name: Verify evidence, refresh queues and board
-        run: |
-          sudo apt-get install -y -qq poppler-utils >/dev/null 2>&1 || true
-          python3 tools/ingest_results.py
-          python3 tools/next_batch.py > /dev/null
-          python3 tools/status_board.py > /dev/null
-      - name: Commit
+      - name: Verify evidence, refresh queues and board, commit (regenerated on the latest main until the push wins)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          sudo apt-get install -y -qq poppler-utils > /dev/null 2>&1 || true
           git config user.name "verifier-bot"; git config user.email "verifier-bot@users.noreply.github.com"
-          git add coord/results coord/NEXT.md coord/STATUS_BOARD.md coord/INGEST_REPORT.md coord/tasks coord/source_registry.csv
-          git diff --cached --quiet && exit 0
-          git commit -q -m "verifier: evidence re-checked, board refreshed [skip ci]"
-          for i in 1 2 3 4 5; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep $((i*7)); done
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/ingest_results.py > /dev/null
+            python3 tools/next_batch.py > /dev/null
+            python3 tools/status_board.py > /dev/null
+            git add coord/results coord/NEXT.md coord/STATUS_BOARD.md coord/INGEST_REPORT.md coord/tasks coord/source_registry.csv
+            git diff --cached --quiet && break
+            git commit -q -m "verifier: evidence re-checked, board refreshed [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((i * 7))
+          done
