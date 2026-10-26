@@ -1,0 +1,84 @@
+name: verify-and-merge
+# The team's referee. On every PR: validate formats, auto-merge data-only PRs. On main: re-fetch every cited
+# evidence page, keep only verified values, refresh NEXT.md + STATUS_BOARD.md, create cross-verification tasks.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
+    paths: ["data/incoming/**", "coord/tasks/**", "coord/source_registry.csv"]
+  schedule:
+    - cron: "29 5 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write
+jobs:
+  pr-check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate and decide
+        id: v
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          gh pr diff "$PR" --name-only > changed.txt
+          decision=$(python3 tools/automerge_check.py < changed.txt)
+          ok=yes
+          { echo "### Automatic check"; echo; echo "Decision: \`$decision\`"; echo; echo '```'; } > report.md
+          for f in $(grep -E '^data/incoming/.*\.csv$' changed.txt); do [ -f "$f" ] && { python3 tools/validate_returns.py "$f" >> report.md 2>&1 || ok=no; }; done
+          for f in $(grep -E '^data/incoming/.*records_.*\.jsonl(\.gz)?$' changed.txt); do [ -f "$f" ] && { python3 tools/validate_records.py "$f" >> report.md 2>&1 || ok=no; }; done
+          echo '```' >> report.md
+          echo "Evidence pages are re-fetched after merge; only values found on the cited page enter the dataset." >> report.md
+          echo "decision=$decision" >> "$GITHUB_OUTPUT"; echo "ok=$ok" >> "$GITHUB_OUTPUT"
+          gh pr comment "$PR" --body-file report.md || true
+      - name: Auto-merge data-only PR (same-repo branches only; fork PRs always wait for review)
+        if: steps.v.outputs.decision == 'automerge' && steps.v.outputs.ok == 'yes' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          gh pr ready "$PR" || true
+          gh pr merge "$PR" --squash --delete-branch && gh workflow run verify-and-merge.yml --ref main
+      - name: Flag for review
+        if: steps.v.outputs.decision != 'automerge' || steps.v.outputs.ok != 'yes' || github.event.pull_request.head.repo.full_name != github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          gh label create needs-review --color FBCA04 2>/dev/null || true
+          gh pr edit "$PR" --add-label needs-review || true
+
+  verify-on-main:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency: { group: main-writer, cancel-in-progress: false }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: work/evidence_cache
+          key: evidence-${{ github.run_id }}
+          restore-keys: evidence-
+      - name: Verify evidence, refresh queues and board
+        run: |
+          sudo apt-get install -y -qq poppler-utils >/dev/null 2>&1 || true
+          python3 tools/ingest_results.py
+          python3 tools/next_batch.py > /dev/null
+          python3 tools/status_board.py > /dev/null
+      - name: Commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "verifier-bot"; git config user.email "verifier-bot@users.noreply.github.com"
+          git add coord/results coord/NEXT.md coord/STATUS_BOARD.md coord/INGEST_REPORT.md coord/tasks coord/source_registry.csv
+          git diff --cached --quiet && exit 0
+          git commit -q -m "verifier: evidence re-checked, board refreshed [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep $((i*7)); done

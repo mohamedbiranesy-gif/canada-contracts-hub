@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-00101,ville de saint eustache,b:8157c45fc71abedd,Ville de Saint-Eustache.,,CA,https://www.ville.saint-eustache.qc.ca,,,820
+GE-AP-00102,omh de montreal,b:369995634a3f0341,OMH de Montréal.,,CA,https://www.omhm.qc.ca,,,623
+GE-AP-00103,omh de montreal,b:dec1fb3eda6b19bb,OMH de Montréal (OMHM),,CA,https://www.omhm.qc.ca,,,194
+GE-AP-00104,ville de saint jerome,b:cdff388aafe14d8b,Ville de Saint-Jérôme.,,CA,https://www.vsj.ca,greffe@vsj.ca,,815
+GE-AP-00105,societe de transport de l outaouais,b:48625c15f2c33b26,Société de Transport de l'Outaouais.,,CA,https://www.sto.ca,,,806
+GE-AP-00106,ville de mascouche,b:5aa069f84bb89bbb,Ville de Mascouche.,,CA,https://www.mascouche.ca,"greffe@mascouche.ca, info@mascouche.ca",,805
+GE-AP-00107,commission scolaire marie victorin,b:5c68cfe5449dbd4c,Commission  scolaire Marie-Victorin,,CA,https://cssmv.gouv.qc.ca,medias@cssmv.gouv.qc.ca,,798
+GE-AP-00108,ministere de l education et de l enseignement superieur,b:b30a5cbf1fad793c,Ministère de l'Éducation et de l'Enseignement supérieur,,CA,https://www.quebec.ca/gouvernement/ministere/education,,,782
+GE-AP-00109,ministere de l education,b:06fa12ce373f9e31,Ministère de l'Éducation,,CA,https://www.quebec.ca/gouvernement/ministere/education,,,777
+GE-AP-00110,cger,b:cdb4737053c5335e,CGER (Ministère des transports),,CA,https://www.transports.gouv.qc.ca,,,760
+GE-AP-00111,ville de joliette,b:37c8d28e0df372d7,Ville de Joliette - Approvisionnement,,CA,https://joliette.ca,greffier@ville.joliette.qc.ca,soumission@ville.joliette.qc.ca,756
+GE-AP-00112,ville de westmount,b:7ca35bf4eb29a6f4,Ville de Westmount,,CA,https://www.westmount.org,"serviceshydro@westmount.org, dg@westmount.org",,753
+GE-AP-00113,assemblee nationale direction des ressources financieres de l approvisionnement et de la verification,b:7963fcde176c345a,"Assemblée nationale-Direction des ressources financières, de l'approvisionnement et de la vérification",,CA,https://www.assnat.qc.ca,"bibliotheque@assnat.qc.ca, secretariat.tribunedelapresse@assnat.qc.ca",,737
+GE-AP-00114,ville de sherbrooke,b:727fcc2bc87961be,Ville de Sherbrooke,,CA,https://www.sherbrooke.ca,direction.generale@sherbrooke.ca,,734
+GE-AP-00115,centre integre de sante et de services sociaux de l abitibi temiscamingue,b:42f912b97e7eca85,Centre intégré de santé et de services sociaux de l'Abitibi-Témiscamingue,,CA,https://www.cisss-at.gouv.qc.ca,"08_cisssat_communications@ssss.gouv.qc.ca, formulaire.plainte@amp.gouv.qc.ca",plaintecontratcisssat@ssss.gouv.qc.ca,721
+GE-AP-00116,institut de cardiologie de montreal,b:6867a54722364974,Institut de Cardiologie de Montréal.,,CA,https://icm-mhi.org,,,697
+GE-AP-00117,directeur general des elections du quebec,b:7f919a8875ca9065,Directeur Général des Élections du Québec,Directeur général des élections du Québec,CA,https://www.electionsquebec.qc.ca,,,695
+GE-AP-00118,centre de services scolaire de la pointe de l ile,b:1673b55329421ce9,Centre de services scolaire de la Pointe-de-l'Île,,CA,https://www.csspi.gouv.qc.ca,,,691
+GE-AP-00119,societe de telediffusion du quebec,b:77ff082aad4c26cc,Société de télédiffusion du Québec.,,CA,https://www.telequebec.tv,info@telequebec.tv,,688
+GE-AP-00120,commission de la sante et de la securite du travail du quebec,b:79b19afdacd42b28,Commission de la santé et de la sécurité du travail du Québec.,,CA,,,,679
+GE-AP-00121,institut national de sante publique du quebec,b:f45eadade0bee638,Institut national de santé publique du Québec.,,CA,https://www.inspq.qc.ca,,,669
+GE-AP-00122,institut universitaire de cardiologie et de pneumologie de quebec universite laval,b:8a62caa8e6eed66e,Institut universitaire de cardiologie et de pneumologie de Québec-Université Laval,,CA,https://www.iucpq.ca,,,665
+GE-AP-00123,ministere des transports,b:73878f180a3d3305,Ministère des Transports (Direction de l'administration des appels d'offres publics),,CA,https://www.transports.gouv.qc.ca,,,372
+GE-AP-00124,ministere des transports,b:d0be40b00ed4345d,Ministère des Transports (Direction des contrats de construction et de services),,CA,https://www.transports.gouv.qc.ca,,,292
+GE-AP-00125,sante quebec estrie,b:f26cba10090a3975,Santé Québec Estrie - Centre hospitalier universitaire de Sherbrooke,,CA,https://www.santeestrie.qc.ca/accueil,"plaintes.lamp.cisssgaspesie@ssss.gouv.qc.ca, logistique.cissslau@ssss.gouv.qc.ca","approvisionnement.chum@ssss.gouv.qc.ca, gestion.contractuelle.hsj@ssss.gouv.qc.ca",663
+GE-AP-00126,reseau de transport de longueuil,b:d27e7b8a2e1d2f54,Réseau de transport de Longueuil.,Réseau de transport de Longueuil,CA,https://www.rtl-longueuil.qc.ca,,,656
+GE-AP-00127,centre de services scolaire marguerite bourgeoys,b:ab65fd73bcd4dc04,Centre de services scolaire  Marguerite-Bourgeoys,Centre de services scolaire Marguerite-Bourgeoys,CA,https://www.cssmb.gouv.qc.ca,"plaintes-pne@pne.gouv.qc.ca, transport@cssmb.gouv.qc.ca",,652
+GE-AP-00128,commission scolaire des decouvreurs,b:f98df40185503dc0,Commission scolaire des Découvreurs.,,CA,https://www.cssdd.gouv.qc.ca,"info@cssdd.gouv.qc.ca, media@cssdd.gouv.qc.ca",,634
+GE-AP-00129,regie de l assurance maladie du quebec,b:c68565549f14db7c,Régie de l'assurance maladie du Québec,,CA,https://www.ramq.gouv.qc.ca,,,626
+GE-AP-00130,institut universitaire de cardiologie et de pneumologie de quebec,b:5279f65b41ec6902,Institut universitaire de cardiologie et de pneumologie de Québec,,CA,https://www.iucpq.ca,,,625
+GE-AP-00131,ville de saint georges,b:332a22487a24723a,Ville de Saint-Georges.,Ville de Saint-Georges,CA,https://www.saint-georges.ca,"greffe@saint-georges.ca, cour.municipale@saint-georges.ca",approvisionnement@saint-georges.ca,624
+GE-AP-00132,reseau de transport metropolitain,b:407d4bd0f8ad5322,Réseau de Transport Métropolitain (EXO),,CA,https://exo.quebec,,,615
+GE-AP-00133,sante quebec est de lile de montreal,b:231ac488661942cb,Santé Québec Est-de-l’Île-de-Montréal – Universitaire,,CA,https://ciusss-estmtl.gouv.qc.ca,"relations.medias.cemtl@ssss.gouv.qc.ca, communications.cemtl@ssss.gouv.qc.ca",,610
+GE-AP-00134,bibliotheque et archives nationales du quebec,b:217a96f2901d1709,Bibliothèque et Archives nationales du Québec,,CA,https://www.banq.qc.ca,info@banq.qc.ca,,602
+GE-AP-00135,universite du quebec a trois rivieres,b:4ddae5b5bbe3b5a9,Université du Québec à Trois-Rivières,,CA,https://www.uqtr.ca,service-clientele.caps@uqtr.ca,,599
+GE-AP-00136,ecole polytechnique,b:2aa9ba088f511d4c,École Polytechnique,,CA,https://www.polymtl.ca,,,587
+GE-AP-00137,cisss de chaudiere appalaches,b:1f22cefb43466a63,CISSS de Chaudière-Appalaches,,CA,https://www.cisssca.com/accueil,,,584
+GE-AP-00138,ville de bromont,b:73c89be0d0b9c5fb,Ville de Bromont,,CA,https://www.bromont.com,"ville@bromont.com, incendie@bromont.com",,574
+GE-AP-00139,ecole de technologie superieure,b:1efdeaffeffe8164,École de technologie supérieure,,CA,https://www.etsmtl.ca,demandes-medias@etsmtl.ca,,567
+GE-AP-00140,ville de sainte agathe des monts,b:44f541634b33417f,Ville de Sainte-Agathe-des-Monts.,,CA,https://www.vsadm.ca,direction.generale@vsadm.ca,,555
+GE-AP-00141,commission scolaire sir wilfrid laurier,b:5ddb116a3ea554f4,Commission Scolaire Sir-Wilfrid-Laurier,Commission scolaire Sir-Wilfrid-Laurier,CA,https://www.swlauriersb.qc.ca,,,550
+GE-AP-00142,sigmasante,b:b673ba812a1daf4c,SigmaSanté,,CA,,,,547
+GE-AP-00143,commission scolaire des premieres seigneuries,b:6d4ece32566b5772,Commission Scolaire des Premières Seigneuries,,CA,https://www.cssps.gouv.qc.ca,"dg@cssps.gouv.qc.ca, sic@cssps.gouv.qc.ca",,532
+GE-AP-00144,ville de saint raymond,b:0be966bb0cec8f08,Ville de Saint-Raymond.,Ville de Saint-Raymond,CA,https://www.villesaintraymond.com,"info@villesaintraymond.com, cour.municipale@villesaintraymond.com",,528
+GE-AP-00145,centre integre de sante et de services sociaux du bas saint laurent,b:13f1aa6a6d6921f0,Centre intégré de santé et de services sociaux du Bas-Saint-Laurent,CENTRE INTÉGRÉ DE SANTÉ ET DE SERVICES SOCIAUX DU BAS-SAINT-LAURENT | Centre intégré de santé et de services sociaux  du Bas-Saint-Laurent,CA,https://www.cisss-bsl.gouv.qc.ca,,,521
+GE-AP-00146,ministere de l agriculture des pecheries et de l alimentation,b:7fbcf1ad3f5be6f3,"Ministère de l'Agriculture, des Pêcheries et de l'Alimentation",,CA,https://www.mapaq.gouv.qc.ca,,,518
+GE-AP-00147,societe des etablissements de plein air du quebec,b:e1f949fa1016950c,Société des établissements de plein air du Québec (Sépaq).,,CA,https://www.sepaq.com,,,516
+GE-AP-00148,surete du quebec,b:7985c29623a6741f,Sûreté du Québec,,CA,https://www.sq.gouv.qc.ca,,,514
+GE-AP-00149,societe de transport de laval,b:c54cda6b541fea60,Société de transport de Laval,,CA,https://stlaval.ca,,,514
+GE-AP-00150,college dawson,b:c41b99588caa23b5,Collège Dawson.,,CA,https://www.dawsoncollege.qc.ca,"admissions@dawsoncollege.qc.ca, records@dawsoncollege.qc.ca",,514
+GE-AP-00151,commission scolaire de la capitale,b:28c673c1c08b4aae,Commission scolaire de la Capitale.,,CA,https://cssc.gouv.qc.ca,"sg@cssc.gouv.qc.ca, medias.sg@cssc.gouv.qc.ca",,514
+GE-AP-00152,hec montreal,b:5d4f96a657720544,HEC Montréal,,CA,https://www.hec.ca,"plainte.lcop@hec.ca, secretariat.general@hec.ca",,511
+GE-AP-00153,commission scolaire de la seigneurie des mille iles,b:11ce988093930a7f,Commission scolaire de la Seigneurie-des-Mille-Îles,,CA,https://www.cssmi.qc.ca,"info@cssmi.qc.ca, dsrh.accueil@cssmi.qc.ca","plainte.approvisionnement@cssmi.qc.ca, cssmi.approvisionnement@cssmi.qc.ca",507
+GE-AP-00154,ville de vaudreuil dorion,b:106f053cb863d8b6,Ville de Vaudreuil-Dorion.,,CA,https://www.ville.vaudreuil-dorion.qc.ca,"courriel@ville.vaudreuil-dorion.qc.ca, infourbanisme@ville.vaudreuil-dorion.qc.ca",,506
+GE-AP-00155,ville de mont tremblant,b:da8f68f1559d6243,Ville de Mont-Tremblant.,,CA,https://www.villedemont-tremblant.qc.ca,"info@villedemont-tremblant.qc.ca, cour@villedemont-tremblant.qc.ca",,501
+GE-AP-00156,ville de pointe claire,b:8835d320fe5a70a3,Ville de Pointe-Claire.,,CA,https://www.pointe-claire.ca,"communications@pointe-claire.ca, direction@pointe-claire.ca",,499
+GE-AP-00157,centre integre universitaire de sante et de services sociaux du saguenay,b:edc9d5181822cc53,Centre intégré universitaire de santé et de services sociaux du Saguenay - Lac-Saint-Jean (Hôpital de Chicoutimi),,CA,https://santesaglac.gouv.qc.ca,,,498
+GE-AP-00158,ville de saint bruno de montarville,b:88199167af0d9163,Ville de Saint-Bruno-de-Montarville,,CA,https://www.stbruno.ca,"info@stbruno.ca, information@stbruno.ca",approvisionnements@stbruno.ca,497
+GE-AP-00159,cegep de chicoutimi,b:c68fe0eeceb718a7,Cégep de Chicoutimi.,,CA,,,,497
+GE-AP-00160,ville de val d or,b:fb69c9119f6e9678,Ville de Val-d'Or.,,CA,https://www.ville.valdor.qc.ca,"info@ville.valdor.qc.ca, direction.generale@ville.valdor.qc.ca",,489
+GE-AP-00161,sante quebec mauricie et centre du quebec,b:a0094d066d2bd75d,Santé Québec Mauricie-et-Centre-du-Québec – Universitaire,,CA,https://ciusssmcq.ca,,,484
+GE-AP-00162,ville d amos,b:6ff002c230632db6,Ville d'Amos.,,CA,https://www.amos.quebec,"infos@amos.quebec, urbanisme@amos.quebec",,475
+GE-AP-00163,ville de l assomption,b:5f8d46ac210e3b2a,Ville de L'Assomption.,,CA,https://www.ville.lassomption.qc.ca,bureauducitoyen@ville.lassomption.qc.ca,,470
+GE-AP-00164,ville de victoriaville,b:d06e899627b934d0,Ville de Victoriaville.,,CA,https://www.victoriaville.ca,"info@victoriaville.ca, securitepublique@victoriaville.ca",,467
+GE-AP-00165,centre integre de sante et de services sociaux des laurentides,b:360a51bcfcb2fda7,Centre intégré de santé et de services sociaux des Laurentides,,CA,https://www.santelaurentides.gouv.qc.ca,perception.cissslau@ssss.gouv.qc.ca,,465
+GE-AP-00166,commission scolaire des rives du saguenay,b:df7897c8c5544179,Commission Scolaire des Rives-du-Saguenay.,,CA,https://www.csrsaguenay.qc.ca,,,460
+GE-AP-00167,cegep edouard montpetit,b:75a7f556bb54f421,Cégep Édouard-Montpetit,,CA,,,,455
+GE-AP-00168,csss de laval,b:ffec3ba2dc8c031b,CSSS  de Laval,,CA,,,,451
+GE-AP-00169,universite du quebec a chicoutimi,b:c40adf72b7590fdc,Université du Québec à Chicoutimi .,,CA,https://www.uqac.ca,"info_programmes@uqac.ca, info_international@uqac.ca",,445
+GE-AP-00170,societe d habitation et de developpement de montreal,b:71ded5754b4f47e4,Société d'habitation et de développement de Montréal,,CA,https://www.shdm.org,,,443
+GE-AP-00171,ville de rouyn noranda,b:7aef08e29d7d4daf,Ville de Rouyn-Noranda / Service des acquisitions,,CA,https://www.ville.rouyn-noranda.qc.ca,info@rouyn-noranda.ca,,441
+GE-AP-00172,centre de sante et de services sociaux du sud de lanaudiere,b:4ba2c73e07ce3095,Centre de santé et de services sociaux du Sud de Lanaudière.,,CA,,,,441
+GE-AP-00173,commission scolaire lester b pearson,b:866008e22572fc91,Commission Scolaire Lester B. Pearson,La Commission scolaire Lester-B.-Pearson,CA,http://www.lbpsb.qc.ca,,,431
+GE-AP-00174,centre integre universitaire de sante et de services sociaux de la capitale nationale,b:f7c949257efdf6e5,Centre intégré universitaire de santé et de services sociaux de la Capitale-Nationale -  Vieille-Capitale,,CA,https://www.ciusss-capitalenationale.gouv.qc.ca,"plaintes.dl.ciussscn@ssss.gouv.qc.ca, commissaire.plainte.ciussscn@ssss.gouv.qc.ca",03.ciussscn.requisition-appro@ssss.gouv.qc.ca,374
+GE-AP-00175,centre integre universitaire de sante et de services sociaux de la capitale nationale,b:b02102650d191443,Centre intégré universitaire de santé et de services sociaux de la Capitale-Nationale,,CA,https://www.ciusss-capitalenationale.gouv.qc.ca,"plaintes.dl.ciussscn@ssss.gouv.qc.ca, commissaire.plainte.ciussscn@ssss.gouv.qc.ca",03.ciussscn.requisition-appro@ssss.gouv.qc.ca,57
+GE-AP-00176,commission scolaire kativik,b:f1736b07d59b0709,Commission scolaire Kativik..,,CA,https://www.kativik.qc.ca,"student.services@kativik.qc.ca, hr_lr@kativik.qc.ca",,430
+GE-AP-00177,ministere des ressources naturelles et des forets,b:2bdf8dc558042c44,Ministère des Ressources naturelles et des Forêts,,CA,https://mrnf.gouv.qc.ca,,,427
+GE-AP-00178,college ahuntsic,b:3c5d241e387235cf,Collège Ahuntsic,,CA,https://www.collegeahuntsic.qc.ca,"comptes_a_payer@collegeahuntsic.qc.ca, securite.residence@collegeahuntsic.qc.ca",approvisionnement@collegeahuntsic.qc.ca,426
+GE-AP-00179,soutien aux operations de la dst,b:7f0d0fe8e2caf445,Soutien aux opérations de la DST,,CA,,,,425
+GE-AP-00180,commission scolaire new frontiers,b:09ce378a98ba0da5,Commission scolaire New Frontiers.,,CA,https://www.nfsb.qc.ca,info@nfsb.qc.ca,,423
+GE-AP-00181,centre de sante et de services sociaux de trois rivieres,b:708c6a06e95a8210,Centre de santé et de services sociaux de Trois-Rivières .,,CA,,,,419
+GE-AP-00182,commission scolaire des navigateurs,b:112685ca8e509afc,Commission scolaire des Navigateurs,,CA,https://cssdn.gouv.qc.ca,,,418
+GE-AP-00183,centre de services scolaire des patriotes,b:2c36268ba6fbcfe0,Centre de services scolaire des Patriotes,,CA,https://cssp.gouv.qc.ca,"ressources.materielles@cssp.gouv.qc.ca, info@cssp.gouv.qc.ca",,416
+GE-AP-00184,ville de chateauguay,b:5fc11ae949830a84,Ville de Châteauguay.,,CA,https://www.ville.chateauguay.qc.ca,"service@ville.chateauguay.qc.ca, info@ville.chateauguay.qc.ca",soumissions@ville.chateauguay.qc.ca,415
+GE-AP-00185,ministere de l environnement de la lutte contre les changements climatiques de la faune et des parcs,b:06c1f9e211e0455e,"Ministère de l'Environnement, de la Lutte contre les changements climatiques, de la Faune et des Parcs","Ministère de l'Environnement et de la Lutte contre les changements climatiques, de la Faune et des Parcs",CA,https://www.environnement.gouv.qc.ca,,,414
+GE-AP-00186,ville de la prairie,b:76fc9cf62cda7cb4,Ville de La Prairie .,Ville de La Prairie,CA,https://www.laprairie.ca,"info@laprairie.ca, dg@laprairie.ca",,408
+GE-AP-00187,commission scolaire des affluents,b:25752c7759c09ea0,Commission scolaire des Affluents,,CA,https://cssda.gouv.qc.ca,,,404
+GE-AP-00188,centre integre de sante et de services sociaux de la gaspesie,b:92ead0fd0ce7582e,Centre intégré de santé et de services sociaux de la Gaspésie.,Centre intégré de santé et de services sociaux de la Gaspésie,CA,https://cisss-gaspesie.gouv.qc.ca,,,403
+GE-AP-00189,ville de becancour,b:da5296e3a55ffcfd,Ville de Bécancour.,,CA,https://www.becancour.net,info@ville.becancour.qc.ca,,401
+GE-AP-00190,ministere de la cybersecurite et du numerique,b:428789b63702cb2e,Ministère de la Cybersécurité et du Numérique - Direction générale des services contractuels,,CA,https://www.quebec.ca/gouvernement/ministere/cybersecurite-numerique,bao@mcn.gouv.qc.ca,,397
+GE-AP-00191,centre de services scolaire de la vallee des tisserands,b:fdbc851da82e7308,Centre de services scolaire de la Vallée-des-Tisserands,Centre de services scolaire de la vallée des Tisserands,CA,https://cssvt.gouv.qc.ca,info@cssvt.gouv.qc.ca,,397
+GE-AP-00192,ciusss de la capitale nationale,b:32408d0e3acc88ab,CIUSSS de la Capitale-Nationale.,CIUSSS de la Capitale-Nationale,CA,https://www.ciusss-capitalenationale.gouv.qc.ca,"plaintes.dl.ciussscn@ssss.gouv.qc.ca, commissaire.plainte.ciussscn@ssss.gouv.qc.ca",03.ciussscn.requisition-appro@ssss.gouv.qc.ca,337
+GE-AP-00193,ciusss de la capitale nationale,b:6c6645dd50b27a95,CIUSSS de la Capitale-Nationale - Hôpital Jeffery Hale - Saint-Brigid's,,CA,https://www.ciusss-capitalenationale.gouv.qc.ca,"plaintes.dl.ciussscn@ssss.gouv.qc.ca, commissaire.plainte.ciussscn@ssss.gouv.qc.ca",03.ciussscn.requisition-appro@ssss.gouv.qc.ca,57
+GE-AP-00194,ville de dollard des ormeaux,b:32067f0f19b3ae6b,Ville de Dollard-des-Ormeaux,,CA,https://www.ville.ddo.qc.ca,ville@ddo.qc.ca,,393
+GE-AP-00195,sante quebec nord de l ile de montreal,b:b0322af397b64f73,Santé Québec Nord-de-l'Île-de-Montréal – Universitaire,Santé Québec Nord-de-l'Île-de-Montréal-Universitaire,CA,https://www.ciusssnordmtl.ca,,,389
+GE-AP-00196,regie des rentes du quebec,b:8559764b6d771bc8,Régie des rentes du Québec.,,CA,,,,385
+GE-AP-00197,ville de chambly,b:dd5d696bebac4b9a,Ville de Chambly,Ville de Chambly.,CA,https://www.ville.chambly.qc.ca,"information@ville.chambly.qc.ca, bibliotheque@ville.chambly.qc.ca",,384
+GE-AP-00198,ministere de la culture et des communications,b:96f46ddf9d21a0db,Ministère de la Culture et des Communications-,Ministère de la Culture et des Communications,CA,https://www.quebec.ca/gouvernement/ministere/culture-communications,,,376
+GE-AP-00199,college john abbott,b:2a15cf4a5ab8a29f,Collège John Abbott,,CA,,,,372
+GE-AP-00200,ville de salaberry de valleyfield,b:699eee6db50358f6,Ville de Salaberry-de-Valleyfield,,CA,https://www.ville.valleyfield.qc.ca,"direction.generale@ville.valleyfield.qc.ca, cour@ville.valleyfield.qc.ca",,371

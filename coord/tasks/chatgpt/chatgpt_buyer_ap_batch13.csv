@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-01201,municipal district of willow creek no 26,b:c4d45dbe90f003c6,Municipal District of Willow Creek No. 26,,CA,http://www.mdwillowcreek.com,,,3
+CH-AP-01202,town of fox creek,b:51870d89390bda8c,Town of Fox Creek,,CA,http://www.foxcreek.ca,,,3
+CH-AP-01203,vulcan county,b:e27489ff721ff599,Vulcan County,,CA,http://www.vulcancounty.ab.ca,,,3
+CH-AP-01204,municipality of crowsnest pass,b:c770e9ee800f2625,Municipality of Crowsnest Pass,,CA,https://www.crowsnestpass.com,reception@crowsnestpass.com,,3
+CH-AP-01205,aurora academic charter primary school,b:dc68114b91740a64,Aurora Academic Charter Primary School,,CA,,,,3
+CH-AP-01206,lapp corporation,b:f083f73996c0c6e8,LAPP Corporation,,CA,https://www.lapp.ca,,procurement@lapp.ca,3
+CH-AP-01207,wood buffalo housing,b:77002e7afbcc4d1a,Wood Buffalo Housing,,CA,https://www.wbhadc.ca,,,3
+CH-AP-01208,town of redcliff,b:fae2aed633be7407,Town of Redcliff,,CA,http://www.redcliff.ca,finance@redcliff.ca,,3
+CH-AP-01209,grande yellowhead public school division,b:14496db9f1315867,Grande Yellowhead Public School Division,,CA,https://www.gypsd.ca,,,3
+CH-AP-01210,surrey place centre,b:c646e286cf538104,Surrey Place Centre,,CA,http://www.surreyplace.on.ca,,procurement@surreyplace.ca,3
+CH-AP-01211,canada lands company,b:5d0981c7e766d49f,Canada Lands Company,,CA,https://www.clc-sic.ca,,,3
+CH-AP-01212,health authority oregon,b:75abd4bca492fcc2,"HEALTH AUTHORITY, OREGON",,US,https://www.oregon.gov/oha,"healthpolicyboard.info@odhsoha.oregon.gov, healthpolicyboard.info@oha.oregon.gov",,3
+CH-AP-01213,charles stark draper laboratory inc the,b:90fedcda710b5e44,"CHARLES STARK DRAPER LABORATORY, INC., THE",,US,https://www.draper.com,communications@draper.com,vendormanagement@draper.com,3
+CH-AP-01214,general dynamics ots inc,b:0f860561cac21eb7,"GENERAL DYNAMICS-OTS, INC.",,US,https://www.gd-ots.com,,,3
+CH-AP-01215,drs network imaging systems llc,b:455ca896f0be792e,"DRS NETWORK & IMAGING SYSTEMS, LLC",DRS NETWORK & IMAGING SYSTEMS LLC,US,https://www.leonardodrs.com,,,3
+CH-AP-01216,rolls royce corporation,b:dd29a379b87dffd6,ROLLS-ROYCE CORPORATION,,US,https://www.rolls-royce.com,,,3
+CH-AP-01217,smoky lake county,b:cd2807626be00d67,Smoky Lake County,,CA,http://www.smokylakecounty.ab.ca,finance@smokylakecounty.ab.ca,,3
+CH-AP-01218,summer villages on sylvan lake,b:3e6c13a984413865,Summer Villages on Sylvan Lake,,CA,,,,3
+CH-AP-01219,legislative assembly,b:cb6fd8936da38dcf,Legislative Assembly,,CA,,,,3
+CH-AP-01220,university of winnipeg,b:c42dc89329ca0ece,University of Winnipeg,,CA,https://www.uwinnipeg.ca,,,3
+CH-AP-01221,municipality of north grenville,b:c81cd4a4913c8418,Municipality of North Grenville,,CA,http://www.northgrenville.on.ca,finance@northgrenville.on.ca,,3
+CH-AP-01222,university of houston,b:8429ddef1898cb60,University of Houston,,US,https://www.uh.edu,,vendorid@uh.edu,3
+CH-AP-01223,lethbridge school division,b:8b2a60fda026319a,Lethbridge School Division,,CA,https://www.lethsd.ab.ca,,,3
+CH-AP-01224,bridges community living,b:618d7f0d3cc311c3,Bridges Community Living,,CA,,,,3
+CH-AP-01225,ministry of transportation,b:dce0ed37b1430b6b,Ministry of Transportation – Highway Maintenance,,CA,https://www2.gov.bc.ca,,,3
+CH-AP-01226,integrated transportation planning branch,b:558e96436bc8b815,Integrated Transportation Planning Branch,,CA,https://www2.gov.bc.ca,,,3
+CH-AP-01227,ocio enterprise services,b:3ab59720d3f73be4,OCIO Enterprise Services,,CA,https://www2.gov.bc.ca,,,3
+CH-AP-01228,coastal engineering group,b:db04b0901eeb9c1b,Coastal Engineering Group,,CA,https://www2.gov.bc.ca,,,3
+CH-AP-01229,construction maintenance branch,b:603dcb3b344f68b6,Construction & Maintenance Branch,,CA,https://www2.gov.bc.ca,,,3
+CH-AP-01230,marine branch,b:0ea6803bf658ad29,Marine Branch,,CA,https://www2.gov.bc.ca,,,3
+CH-AP-01231,destination bc corp,b:5bd063ea89f8fcf6,Destination BC Corp.,,CA,,,,3
+CH-AP-01232,bc emergency health services,b:9083bd3f9fd6d3eb,BC Emergency Health Services,,CA,,,,3
+CH-AP-01233,bc housing management commission,b:87522c1687d0d479,BC Housing Management Commission,,CA,https://www.bchousing.org,,,3
+CH-AP-01234,interior health authority,b:2fe93ba83aa13323,Interior Health Authority,,CA,,,,3
+CH-AP-01235,skilled trades ontario,b:1abd093e0d58eb15,Skilled Trades Ontario,,CA,,,,3
+CH-AP-01236,j l richards associates limited,b:486ab7accc2883de,J.L. Richards & Associates Limited,,CA,,,,3
+CH-AP-01237,town of st alban s,b:b55a5b9348eff8b1,Town of St. Alban's,,CA,http://www.stalbans.ca,,,3
+CH-AP-01238,oil co,b:9d74b0f2f03186e8,Oil Co.,,CA,,,,3
+CH-AP-01239,bull arm fabrication,b:f64db67fa44ac09c,Bull Arm Fabrication,Bull Arm Fabrication Inc | Bull Arm Fabrication Limited,CA,,,,3
+CH-AP-01240,city of corner brook,b:9977448fbb101784,City of Corner Brook,,CA,http://www.cornerbrook.com,accountsrec@cornerbrook.com,,3
+CH-AP-01241,nl heath services,b:cdace882116d13de,NL Heath Services,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,3
+CH-AP-01242,office of the chief electoral officer,b:df3c1f584d35e97c,Office of the Chief Electoral Officer,,CA,,,,3
+CH-AP-01243,rural municipality of canwood no 494,b:7737dc124da13300,Rural Municipality of Canwood No. 494,,CA,,,admin@rmofcanwood.ca,3
+CH-AP-01244,northern municipal trust account,b:d02128448d2c78a2,Northern Municipal Trust Account,,CA,,,,3
+CH-AP-01245,rural municipality of north qu appelle no 187,b:61a58c92874fcfb1,Rural Municipality of North Qu'Appelle No. 187,,CA,,,,3
+CH-AP-01246,north east school division no 200,b:a1d711bf6ca6e326,North East School Division No. 200,,CA,,,,3
+CH-AP-01247,information services corporation of saskatchewan,b:30d28c4aa33f2b41,Information Services Corporation of Saskatchewan,,CA,,,,3
+CH-AP-01248,first nations and metis relations,b:50d6b37e93a3f43e,First Nations and Metis Relations,,CA,https://www.saskatchewan.ca,,,3
+CH-AP-01249,rochester genesee regional transportation authority,b:d26c5f7ca705fb03,Rochester-Genesee Regional Transportation Authority,,US,,,,3
+CH-AP-01250,new york city economic development corporation,b:ca3fe1cadf5121ec,New York City Economic Development Corporation,,US,,,,3
+CH-AP-01251,library of virginia,b:3e7ecd7545fcdbda,Library of Virginia,,US,https://www.lva.virginia.gov,,,3
+CH-AP-01252,western state hospital,b:0656891e1d789ed7,Western State Hospital,,US,,,,3
+CH-AP-01253,grand erie public health,b:8e48bc701611708e,Grand Erie Public Health,,CA,,,,3
+CH-AP-01254,office of the speaker,b:7e38ac24728b4ac1,Office of the Speaker,,CA,,,,3
+CH-AP-01255,office of service nova scotia,b:ee220dd2db4d133b,Office of Service Nova Scotia,,CA,https://novascotia.ca,,,3
+CH-AP-01256,art gallery of nova scotia,b:838788e0ab48643f,Art Gallery of Nova Scotia,,CA,https://agns.ca,info@agns.ca,,3
+CH-AP-01257,landscape of grand pre society,b:aabef142803baa57,Landscape of Grand Pre Society,,CA,,,,3
+CH-AP-01258,the confederacy of mainland mi kmaq,b:4ba6b7afe0eddf95,The Confederacy of Mainland Mi'kmaq,,CA,,,,3
+CH-AP-01259,parliamentary protective service,b:78d175e04c878842,Parliamentary Protective Service,,CA,,,proposals-soumissions@pps-spp.parl.gc.ca,2
+CH-AP-01260,parliamentary protective service,b:37ea3ce5f9bbd8bb,Parliamentary Protective Service (PPS),,CA,,,,1
+CH-AP-01261,general atomics aeronautical systems inc,b:31b566f215535e2f,"GENERAL ATOMICS AERONAUTICAL SYSTEMS, INC.",,US,https://www.ga-asi.com,,"dl-as-supplier-changes@ga.com, sm-vendor-bulletin-submission@ga.com",2
+CH-AP-01262,general atomics aeronautical systems inc,b:7c6428715bb73307,"General Atomics Aeronautical Systems, Inc. (GA-ASI)",,US,https://www.ga-asi.com,,"dl-as-supplier-changes@ga.com, sm-vendor-bulletin-submission@ga.com",1
+CH-AP-01263,u s department of war,b:c34248eefbe51f9e,U.S. Department of War (Department of Defense),,US,,,,1
+CH-AP-01264,u s department of war,b:7037784497363af8,U.S. Department of War - Defense Logistics Agency Troop Support,,US,,,,1
+CH-AP-01265,u s department of war,b:d10a60f77a605714,U.S. Department of War - Naval Air Warfare Center (U.S. Navy and Marine Corps),,US,,,,1
+CH-AP-01266,montgomery county md,b:82a7dd8c8d617644,"Montgomery County, MD - Department of Recreation",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-01267,montgomery county md,b:4594c0e316126ef1,"Montgomery County, MD - Department of Transportation",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-01268,montgomery county md,b:487fec4bc86ac379,"Montgomery County, MD - Department of General Services",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-01269,texas a m university,b:e59d39700f507b59,Texas A&M University,,US,https://www.tamu.edu,"admissions@tamu.edu, uhsinfo@tamu.edu",,1
+CH-AP-01270,texas a m university,b:00d01d874956936e,Texas A&M University - Central Texas,,US,https://www.tamuct.edu,,,1
+CH-AP-01271,texas a m university,b:c29abbe65264f947,Texas A&M University – Victoria,,US,,,,1
+CH-AP-01272,city of richmond california,b:7a8d130f0e21d749,"City of Richmond, California — GF-POLICE ADMIN DIV",,US,https://www.ci.richmond.ca.us,,,1
+CH-AP-01273,city of richmond california,b:6faa0c92c30f0973,"City of Richmond, California — CITY CLERK ADMIN DIV",,US,https://www.ci.richmond.ca.us,,,1
+CH-AP-01274,city of richmond california,b:527e05e8783024ee,"City of Richmond, California — ECON DEV/PUBLIC ART 1.5%",,US,https://www.ci.richmond.ca.us,,,1
+CH-AP-01275,cm2 ventures,b:3441c0190defc18c,CM2 Ventures,,CA,,,,2
+CH-AP-01276,town of blind river,b:2aaefedf2879ea84,Town of Blind River,,CA,,,,2
+CH-AP-01277,institute for clinical evaluative sciences,b:c31e15a5ba56d0d0,Institute for Clinical Evaluative Sciences,,CA,,,,2
+CH-AP-01278,township of blandford blenheim,b:90536f3b6361dd73,Township of Blandford-Blenheim,,CA,,,,2
+CH-AP-01279,mpa engineering ltd,b:0707372067826562,MPA Engineering Ltd.,,CA,,,,2
+CH-AP-01280,thresholds homes and supports,b:f2664ea25b5f9867,Thresholds Homes and Supports,,CA,,,,2
+CH-AP-01281,town of hay river,b:ebfc43728aec4e4a,Town of Hay River,,CA,,,,2
+CH-AP-01282,associated engineering,b:3f22e34ed23d6952,Associated Engineering (Ont.) Ltd.,,CA,,,,2
+CH-AP-01283,town of winnipeg beach,b:7a18f7847339f357,Town of Winnipeg Beach,,CA,,,,2
+CH-AP-01284,ontario northland transportation commission,b:a4cc849d78982aeb,Ontario Northland Transportation Commission,,CA,,,,2
+CH-AP-01285,town of arnold s cove,b:d232af62d613a9b7,Town of Arnold's Cove,,CA,,,,2
+CH-AP-01286,construction association of rural manitoba,b:c44c1df98508e642,Construction Association of Rural Manitoba,,CA,,,,2
+CH-AP-01287,town of powerview pine falls,b:45ff2cb518d7b7ad,Town of Powerview-Pine Falls,,CA,,,,2
+CH-AP-01288,renison university college,b:7cf28f7ad05c0f47,Renison University College,,CA,,,,2
+CH-AP-01289,golden hills school division,b:88e74c41977250be,Golden Hills School Division,,CA,https://www.goldenhills.ca,,,2
+CH-AP-01290,county of st paul no 19,b:cac3c91ef4cc9042,County of St. Paul No. 19,,CA,http://www.county.stpaul.ab.ca,,,2
+CH-AP-01291,canadian centre of recovery excellence,b:9e01ca1c4c947dfd,Canadian Centre of Recovery Excellence,,CA,,,,2
+CH-AP-01292,wolf creek school division,b:92653f9f9267f3d6,Wolf Creek School Division,,CA,https://www.wolfcreek.ab.ca,,,2
+CH-AP-01293,drumheller and district solid waste management association,b:1a033be81f86c4dd,Drumheller and District Solid Waste Management Association,,CA,,,,2
+CH-AP-01294,municipal district of wainwright no 61,b:17b8118764e78895,Municipal District of Wainwright No. 61,,CA,http://www.mdwainwright.ca,"info@mdwainwright.ca, taxes@mdwainwright.ca",,2
+CH-AP-01295,town of barrhead,b:0fffbf7820fa1183,Town of Barrhead,,CA,http://www.barrhead.ca,,,2
+CH-AP-01296,grande prairie roman catholic separate school division,b:2d1e17b46ff258c0,Grande Prairie Roman Catholic Separate School Division,,CA,https://www.gpcsd.ca,,,2
+CH-AP-01297,town of coaldale,b:6dbec43ed40deae3,Town of Coaldale,,CA,http://www.coaldale.ca,"office@coaldale.ca, finance@coaldale.ca",,2
+CH-AP-01298,town of calmar,b:6a7c63276a719de8,Town of Calmar,,CA,https://www.calmar.ca,info@calmar.ca,,2
+CH-AP-01299,town of strathmore,b:597d00b80fb2b230,Town of Strathmore,,CA,http://www.strathmore.ca,,,2
+CH-AP-01300,municipal district of pincher creek no 9,b:93fb346adedc2edf,Municipal District of Pincher Creek No. 9,,CA,https://mdpinchercreek.ab.ca,info@mdpinchercreek.ab.ca,admininfra@mdpinchercreek.ab.ca,2

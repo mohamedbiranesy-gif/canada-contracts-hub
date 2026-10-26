@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00601,town of annapolis royal,b:4e5a5855ee57387a,Town of Annapolis Royal,,CA,https://annapolisroyal.com,"admin@annapolisroyal.com, finance@annapolisroyal.com",,37
+CH-AP-00602,pictou county shared services authority,b:e4563ce4bded774c,Pictou County Shared Services Authority,,CA,,,,37
+CH-AP-00603,town of port hawkesbury,b:09c423e8f2ef81ce,Town of Port Hawkesbury,,CA,http://www.townofporthawkesbury.ca,,,37
+CH-AP-00604,divert ns,b:56d81cf89ff8b307,Divert NS (Resource Recovery Fund Board),,CA,,,,19
+CH-AP-00605,divert ns,b:01311900d32dedaf,Divert NS,,CA,https://divertns.ca,"info@divertns.ca, communications@divertns.ca",,18
+CH-AP-00606,tagish engineering,b:7ec3bf49e0478993,Tagish Engineering,,CA,,,,36
+CH-AP-00607,macewan university,b:ccbe2dc3c564b304,MacEwan University,,CA,https://www.macewan.ca,"info@macewan.ca, privacy@macewan.ca",,36
+CH-AP-00608,canada water agency,b:6aa1a3b893642a86,Canada Water Agency,,CA,https://www.canada.ca/en/canada-water-agency.html,"water-eau@cwa-aec.gc.ca, media@cwa-aec.gc.ca",,36
+CH-AP-00609,department of commerce,b:44236e3135559039,Department of Commerce,,US,https://www.commerce.gov,,,36
+CH-AP-00610,technical standards and safety authority,b:17a2311bc50aa100,Technical Standards and Safety Authority,,CA,https://www.tssa.org,"media@tssa.org, ombudsoffice@tssa.org",,36
+CH-AP-00611,municipality of the district of st marys,b:d5a07c7ea4199bd0,Municipality of the District of St. Marys,,CA,,,,35
+CH-AP-00612,municipality of the district of digby,b:334842f736c937ae,Municipality of the District of Digby,,CA,http://www.digbydistrict.ca,,,35
+CH-AP-00613,impact assessment agency of canada,b:908d2ab1c47e04cd,Impact Assessment Agency of Canada,,CA,https://www.canada.ca/en/impact-assessment-agency.html,"information@iaac-aeic.gc.ca, proponentportal-portailpromoteur@iaac-aeic.gc.ca",,32
+CH-AP-00614,impact assessment agency of canada,b:7786315523debc00,Impact Assessment Agency of Canada (IAAC),,CA,https://www.canada.ca/en/impact-assessment-agency.html,"information@iaac-aeic.gc.ca, proponentportal-portailpromoteur@iaac-aeic.gc.ca",,3
+CH-AP-00615,efficiency manitoba,b:262f7b088c2517fc,Efficiency Manitoba,,CA,https://efficiencymb.ca,,suppliers@efficiencymb.ca,34
+CH-AP-00616,workers compensation board of alberta,b:8a39bba184eeb766,Workers' Compensation Board of Alberta,,CA,https://www.wcb.ab.ca,,,34
+CH-AP-00617,town of taber,b:c33dae8e5c24aafa,Town of Taber,,CA,http://www.taber.ca,,purchasing@taber.ca,34
+CH-AP-00618,town of penetanguishene,b:41e39f707df44d04,Town of Penetanguishene,,CA,https://www.penetanguishene.ca,"publiceducation@penetanguishene.ca, finance@penetanguishene.ca",,34
+CH-AP-00619,municipality of greenstone,b:9dd077fd46cb08fc,Municipality of Greenstone,,CA,http://www.greenstone.ca,,,34
+CH-AP-00620,township of tiny,b:eacd76e15beba927,Township of Tiny,,CA,http://www.tiny.ca,,,34
+CH-AP-00621,municipality of casselman,b:281b46db6303ae93,Municipality of Casselman,,CA,http://www.casselman.ca,"rh-hr@casselman.ca, clerk@casselman.ca",,34
+CH-AP-00622,interuniversity services incorporated,b:80eadf5fe0676355,Interuniversity Services Incorporated (ISI),,CA,,,,18
+CH-AP-00623,interuniversity services incorporated,b:d825d107eb9d1d08,Interuniversity Services Incorporated,,CA,,,,16
+CH-AP-00624,town of niagara on the lake,b:d883ea3defb97f08,Town of Niagara on the Lake,,CA,https://www.notl.com,info@notl.com,,33
+CH-AP-00625,municipality of pictou county,b:529d679ea4c6c63e,Municipality of Pictou County,,CA,http://www.county.pictou.ns.ca,,,33
+CH-AP-00626,executive council,b:11304dee464cbb05,Executive Council - Office of the Chief Information Officer,"Executive Council, Office of the Chief Information Officer",CA,,,,15
+CH-AP-00627,executive council,b:5161725ec1caed1f,Executive Council - Communication Services,,CA,,,commtenders@gov.sk.ca,15
+CH-AP-00628,executive council,b:009978e52f5065e5,Executive Council - OCIO,,CA,,,,1
+CH-AP-00629,executive council,b:125ae8834504d22e,Executive Council - Intergovernmental Affairs Secretariat,,CA,,,,1
+CH-AP-00630,executive council,b:36a30b438e52ea15,Executive Council - Intergovernmental Affairs,,CA,,,,1
+CH-AP-00631,parkland county,b:5ddea734c5d55d3e,Parkland County,,CA,http://parklandcounty.com,,procurementservices@parklandcounty.com,32
+CH-AP-00632,centennial college,b:29486c29ef79e120,Centennial College,,CA,https://www.centennialcollege.ca,"careerservices@centennialcollege.ca, media@centennialcollege.ca",purchasing@centennialcollege.ca,32
+CH-AP-00633,ministry of municipal affairs,b:a10d9d58b1745b36,Ministry of Municipal Affairs,,CA,https://www2.gov.bc.ca,,,32
+CH-AP-00634,township of north frontenac,b:713f093b7bfa4c6a,Township of North Frontenac,,CA,http://www.northfrontenac.com,,,32
+CH-AP-00635,municipality of west perth,b:93917cd13f79be46,Municipality of West Perth,,CA,https://www.westperth.com,clerk@westperth.com,,32
+CH-AP-00636,town of arnprior,b:896abaa17872167e,Town of Arnprior,,CA,http://www.arnprior.ca,,,32
+CH-AP-00637,saskatchewan urban municipalities association,b:2a0d7c2f15e69fd3,Saskatchewan Urban Municipalities Association,,CA,,,,32
+CH-AP-00638,saskbuilds,b:2a89d03d91f43787,SaskBuilds,,CA,,,itprocurement@gov.sk.ca,32
+CH-AP-00639,town of stony plain,b:8924a1ec92d6394c,Town of Stony Plain,,CA,https://www.stonyplain.com/en/index.aspx,info@stonyplain.com,procurement@stonyplain.com,31
+CH-AP-00640,municipality of chester,b:dca4abb1d6d33138,Municipality of Chester,,CA,http://www.chesterareans.ca,,,31
+CH-AP-00641,babine,b:661fa809336b001a,Babine,,CA,https://www2.gov.bc.ca,,,31
+CH-AP-00642,service n s and municipal relations,b:613ef852a77f6ae2,Service N.S. and Municipal Relations,,CA,https://novascotia.ca,,,31
+CH-AP-00643,town of parry sound,b:4ae3f73206162e40,Town of Parry Sound,,CA,http://www.townofparrysound.com,,,30
+CH-AP-00644,plannera pensions benefits,b:ed092d4521ccfc32,Plannera Pensions & Benefits,,CA,,,,30
+CH-AP-00645,ministry of jobs trade and technology,b:56c606f7f687bc27,"Ministry of Jobs, Trade and Technology",,CA,https://www2.gov.bc.ca,,,30
+CH-AP-00646,rural municipality of reciprocity no 32,b:fdbf8860300fc415,Rural Municipality of Reciprocity No. 32,,CA,https://www.rmofreciprocity.ca,,,30
+CH-AP-00647,special areas board,b:a03e4ce638dfe2f7,Special Areas Board,,CA,http://www.specialareas.ab.ca,,,29
+CH-AP-00648,red deer county,b:ff8c023134ca4761,Red Deer County,,CA,http://www.rdcounty.ca,info@rdcounty.ca,,29
+CH-AP-00649,house of assembly,b:9064f32a0473e29e,House of Assembly,,CA,,,,29
+CH-AP-00650,lunenburg community recycling centre,b:3755cd2a3b5b5da1,Lunenburg Community Recycling Centre,,CA,,,,29
+CH-AP-00651,town of windsor,b:004064af68fc9f73,Town of Windsor,,CA,http://www.town.windsor.ns.ca,,,29
+CH-AP-00652,olds college,b:d195df1b60534be8,Olds College,,CA,https://www.oldscollege.ca,"info@oldscollege.ca, privacy@oldscollege.ca",purchasing@oldscollege.ca,28
+CH-AP-00653,edmonton school division,b:e6e6f94d3fe5a127,Edmonton School Division,,CA,https://www.epsb.ca,pcs.general.information@epsb.ca,pcs.vendor.registration@epsb.ca,28
+CH-AP-00654,city of thorold,b:4fb795e1d89d9c56,City of Thorold,,CA,https://www.thorold.ca/en/index.aspx,contact@thorold.ca,,28
+CH-AP-00655,municipality of brighton,b:85667695c9988936,Municipality of Brighton,,CA,http://www.brighton.ca,clerks@brighton.ca,,28
+CH-AP-00656,town of stettler,b:dba433d964b05c87,Town of Stettler,,CA,https://www.stettler.net,,,28
+CH-AP-00657,ministry of social development and social innovation,b:d4f4aff8726b4682,Ministry of Social Development and Social Innovation,,CA,https://www2.gov.bc.ca,,,28
+CH-AP-00658,municipality of shelburne,b:1dbd5bf8a5c7eaff,Municipality of Shelburne,,CA,,,,28
+CH-AP-00659,northern alberta institute of technology,b:12cb27f9533dca10,Northern Alberta Institute of Technology (NAIT),,CA,https://www.nait.ca,media@nait.ca,,27
+CH-AP-00660,children s hospital of eastern ontario,b:8ff84945bc1efb04,Children's Hospital of Eastern Ontario (CHEO),,CA,,,,27
+CH-AP-00661,township of perth south,b:4e8dc7974639adbd,Township of Perth South,,CA,https://www.perthsouth.ca,,,27
+CH-AP-00662,grand valley construction association,b:44a082002058145f,Grand Valley Construction Association,,CA,,,,27
+CH-AP-00663,infrastructure and housing,b:ee6015f00878edf1,Infrastructure and Housing,,CA,,,,27
+CH-AP-00664,canadian human rights commission,b:f9b220bdbacb21ec,Canadian Human Rights Commission,,CA,https://www.chrc-ccdp.gc.ca,"info.com@chrc-ccdp.gc.ca, communications@chrc-ccdp.gc.ca",,24
+CH-AP-00665,canadian human rights commission,b:3ed4719f86dce9bc,Canadian Human Rights Commission (CHRC),,CA,https://www.chrc-ccdp.gc.ca,"info.com@chrc-ccdp.gc.ca, communications@chrc-ccdp.gc.ca",,3
+CH-AP-00666,calgary roman catholic separate school division,b:a716c5c51676d802,Calgary Roman Catholic Separate School Division,,CA,https://www.cssd.ab.ca,,,26
+CH-AP-00667,rocky view county,b:89df599121703fcd,Rocky View County,,CA,http://www.rockyview.ca,questions@rockyview.ca,publicbids@rockyview.ca,26
+CH-AP-00668,bell textron inc,b:2bac4fe4b570c93b,BELL TEXTRON INC.,BELL TEXTRON INC,US,https://www.bellflight.com,mediarelations@bellflight.com,,26
+CH-AP-00669,conseil des ecoles catholiques du centre est,b:99370fe243548a96,Conseil des Écoles Catholiques du Centre-Est,,CA,,,,26
+CH-AP-00670,atlantic first nations water authority,b:4861071089d5a244,Atlantic First Nations Water Authority,,CA,,,,26
+CH-AP-00671,ministry of international trade,b:4f505b1735f0c55e,Ministry of International Trade,,CA,https://www2.gov.bc.ca,,,26
+CH-AP-00672,municipality of thames centre,b:f9cd5e42a25124d6,Municipality of Thames Centre,,CA,https://www.thamescentre.on.ca,"inquiries@thamescentre.on.ca, clerk@thamescentre.on.ca",,26
+CH-AP-00673,sms engineering ltd,b:0686e2b5c52f50f8,SMS Engineering Ltd,,CA,,,,26
+CH-AP-00674,oilco,b:557f589ab8873e38,OilCo.,,CA,,,,26
+CH-AP-00675,atb financial,b:31f8edee1aee749e,ATB Financial,,CA,https://www.atb.com,,sourcing@atb.com,25
+CH-AP-00676,the good samaritan society,b:67568e6c25cc7a17,The Good Samaritan Society (A Lutheran Social Service Organization),,CA,https://www.good-sam.com,,,25
+CH-AP-00677,clearwater county,b:304424fcb9d5c860,Clearwater County,,CA,https://www.clearwatercounty.ca,"admin@clearwatercounty.ca, reception@clearwatercounty.ca",,25
+CH-AP-00678,invest in canada,b:aa860370a535565c,Invest in Canada,,CA,https://www.investcanada.ca,,,25
+CH-AP-00679,rm of de salaberry,b:1a557e655c29efd7,RM of De Salaberry,,CA,https://www.rmdesalaberry.mb.ca,info@rmdesalaberry.mb.ca,,25
+CH-AP-00680,bc wildfire service,b:bafdb21b50c63e6c,BC Wildfire Service,,CA,https://www2.gov.bc.ca,,,25
+CH-AP-00681,economy,b:0ed1fc2d00599070,Economy,,CA,https://www.saskatchewan.ca,,,25
+CH-AP-00682,municipality of the district of clare,b:da36a12047489044,Municipality of the District of Clare,,CA,http://www.clarenovascotia.com,,,25
+CH-AP-00683,calgary board of education,b:7572ca40768ca955,Calgary Board of Education,,CA,https://cbe.ab.ca,"webmaster@cbe.ab.ca, info@cbe.ab.ca",procurementservices@cbe.ab.ca,24
+CH-AP-00684,alberta social housing corporation,b:d053ae3785148b0d,Alberta Social Housing Corporation,,CA,,,"alss.procurement.contracts@gov.ab.ca, scss.procurement.contracts@gov.ab.ca",24
+CH-AP-00685,municipal affairs,b:88abe2c7d899ed20,Municipal Affairs,,CA,,,,24
+CH-AP-00686,skeena,b:6052195251341880,Skeena,,CA,https://www2.gov.bc.ca,,,24
+CH-AP-00687,resource operations,b:c908f9ccaf83dc2a,Resource Operations - Sea to Sky,,CA,https://www2.gov.bc.ca,,,13
+CH-AP-00688,resource operations,b:4b18b938257ad814,Resource Operations - Chilliwack,,CA,https://www2.gov.bc.ca,,,11
+CH-AP-00689,north dumfries,b:4643c0519bf15f4e,North Dumfries,,CA,,,,23
+CH-AP-00690,flagstaff county,b:7708e52ceab37348,Flagstaff County,,CA,http://www.flagstaff.ab.ca,,,23
+CH-AP-00691,civilian review and complaints commission for the rcmp,b:0c4a0df2007cd1a7,Civilian Review and Complaints Commission for the RCMP,,CA,https://www.crcc-ccetp.gc.ca/en,,,23
+CH-AP-00692,village of new minas,b:ae9a6af6a4cc8bf9,Village of New Minas,,CA,http://www.newminas.com,,,23
+CH-AP-00693,universite sainte anne,b:cfc1d8d091fae60f,Universite Sainte Anne,Université Sainte-Anne,CA,,,,23
+CH-AP-00694,guysborough antigonish strait health authority,b:20435f1128312939,Guysborough Antigonish Strait Health Authority,,CA,,,,23
+CH-AP-00695,saint mary s university,b:edc9aefe884651b5,Saint Mary's University,,CA,https://www.smu.ca,"info@smu.ca, service.centre@smu.ca",,23
+CH-AP-00696,town of cobourg,b:6078592b23d074c2,Town of Cobourg,,CA,http://www.cobourg.ca,"planninginfo@cobourg.ca, taxes@cobourg.ca",,22
+CH-AP-00697,london public library,b:39c60857d11d795b,London Public Library,,CA,https://www.londonpubliclibrary.ca,,,22
+CH-AP-00698,edmonton police service,b:71e6ed7065b736c5,Edmonton Police Service,,CA,https://www.edmontonpolice.ca,webmaster@edmontonpolice.ca,,21
+CH-AP-00699,black gold school division,b:4f8b3ffc817382ea,Black Gold School Division,,CA,https://www.blackgold.ca,transportation@blackgold.ca,,21
+CH-AP-00700,town of banff,b:fc0380718b5d25c6,Town of Banff,,CA,https://www.banff.ca,,,21

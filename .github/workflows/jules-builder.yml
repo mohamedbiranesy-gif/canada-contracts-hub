@@ -1,0 +1,31 @@
+name: jules-builder
+# Starts a Jules session (Gemini coding agent, runs in Google's cloud). Jules opens a PR; the referee checks it.
+on:
+  schedule:
+    - cron: "43 2 * * *"
+    - cron: "43 14 * * *"
+  workflow_dispatch:
+    inputs:
+      extra:
+        description: "Optional extra instruction for Jules"
+        default: ""
+permissions:
+  contents: read
+jobs:
+  invoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Key present?
+        id: key
+        env: { K: "${{ secrets.JULES_API_KEY }}" }
+        run: echo "ok=$([ -n "$K" ] && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - name: Invoke Jules
+        if: steps.key.outputs.ok == 'yes'
+        uses: google-labs-code/jules-action@v1.0.0
+        with:
+          jules_api_key: ${{ secrets.JULES_API_KEY }}
+          starting_branch: main
+          prompt: |
+            You are Jules, lane `jules` of a three-AI team. Read AGENTS.md (binding) and follow prompts/jules_builder.md.
+            Open one PR with your results. ${{ inputs.extra }}

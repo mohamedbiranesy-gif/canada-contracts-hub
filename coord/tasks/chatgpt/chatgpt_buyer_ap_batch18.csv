@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-01701,archaeology branch,b:ebe72e5ee65eb45a,Archaeology Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01702,interior region,b:5de5c4846dac68d7,Interior Region - Kootenay/Okanagan,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01703,mental health initiatives,b:3037e93634cd2884,Mental Health Initiatives,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01704,ministry of mental health and addictions,b:d913b7f56926064b,Ministry of Mental Health and Addictions,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01705,office of housing and construction standards,b:664c39846878a44a,Office of Housing and Construction Standards,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01706,vancouver island regional correctional centre,b:700b0df3dbe1a4aa,Vancouver Island Regional Correctional Centre,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01707,pavco,b:0727adf948d4d788,PavCo (BC Pavilion Corporation),,CA,,,,1
+CH-AP-01708,sda 22,b:8fdfb922051b2e31,SDA 22 - North Fraser,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01709,innovation and adaptation services branch,b:53d1c554eb05be55,Innovation and Adaptation Services Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01710,northern interior regional office,b:af692c0f3fe65b98,Northern/Interior Regional Office - Community Corrections,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01711,management services division,b:53426f7f331ec806,Management Services Division,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01712,ministry of jobs economic development and innovation,b:3d8292d7e86af6a6,"Ministry of Jobs, Economic Development and Innovation",,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01713,project delivery and planning services,b:3185a3c58d733f66,Project Delivery and Planning Services,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01714,environmental emergency program,b:633df8d3a54f87c0,Environmental Emergency Program,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01715,cariboo,b:68cfb2701a931720,Cariboo,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01716,mackenzie zone,b:a6bd17053f657b1c,Mackenzie Zone,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01717,engineering branch engineering southern engineering group,b:19726e3f21ec14b9,Engineering Branch ; Engineering ; Southern Engineering Group,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01718,engineering services southern engineering group,b:7d4dbbba486a11dd,Engineering Services ; Southern Engineering Group,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01719,southern engineering group engineering branch engineering integrated resource operations division,b:797affd5e8ade3bc,Southern Engineering Group ; Engineering Branch ; Engineering ; Integrated Resource Operations Division,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01720,bc games society,b:158ca391d9393418,BC Games Society,,CA,,,,1
+CH-AP-01721,ministry of forests bc wildfire service,b:b80ed3a3e74750bd,Ministry of Forests; BC Wildfire Service,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01722,network bc connected communities,b:5ba6d326d8c378b7,Network BC  ; Connected Communities,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01723,data systems services,b:079cf00deaeb1da5,Data Systems & Services,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01724,rural opportunities tenures and engineering division engineering branch southern engineering group,b:2846119caa4e4cc1,"Rural Opportunities, Tenures and Engineering Division ; Engineering Branch ; Southern Engineering Group",,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01725,bc wildfire service ministry of forests,b:83f9ea2e753d4684,BC Wildfire Service ; Ministry of Forests,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01726,bc transit,b:454edc25c5e3d0ac,BC Transit,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01727,worksafebc,b:ebb8415852a5f6dd,WorkSafeBC,,CA,https://www.worksafebc.com,,,1
+CH-AP-01728,royal roads university,b:14a18528259a81d7,Royal Roads University,,CA,https://www.royalroads.ca,,,1
+CH-AP-01729,fraser health authority,b:4d4d6e39bff4ac04,Fraser Health Authority,,CA,https://www.fraserhealth.ca,servicedesk@fraserhealth.ca,,1
+CH-AP-01730,queen s printer,b:558e29889b66712f,Queen's Printer,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01731,cariboo district office,b:c176b50330b4d2ac,Cariboo District Office ),,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01732,device services,b:270d67fc0a17800a,Device Services,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01733,family policy legislation and transformation division,b:930c7a7a15158686,"Family Policy, Legislation and Transformation Division",,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01734,transportation programs and corporate initiative branch,b:2e8ae6a7b7fa25b3,Transportation Programs and Corporate Initiative Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01735,finance administrative services,b:dc3b2609637d7cdf,Finance & Administrative Services,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01736,electrical and its engineering,b:1976879496962b16,Electrical and ITS Engineering,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01737,transportation policy programs department,b:04de6255259e6c71,Transportation Policy & Programs Department,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01738,ministry of tourism arts culture and sport,b:1259f05d4c80c4e9,"Ministry of Tourism, Arts, Culture and Sport",,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01739,geobc base mapping gsr database management,b:b68a966eebbc468c,GEOBC ; Base Mapping ; GSR Database Management,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01740,court services branch procurement services branch,b:ed2bb350d509a5c3,Court Services Branch ; Procurement Services Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01741,university endowment lands,b:772883728db840f4,University Endowment Lands - Administration ; Ministry of Housing and Municipal Affairs,,CA,,,,1
+CH-AP-01742,rural opportunities tenures and engineering division engineering branch southern engineering group engineering,b:187c1014daa54373,"Rural Opportunities, Tenures and Engineering Division ; Engineering Branch ; Southern Engineering Group ; Engineering",,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01743,integrated resource operations division southern engineering group engineering branch,b:13934ed15fe03e4d,Integrated Resource Operations Division ; Southern Engineering Group ; Engineering Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01744,ministry of social development and poverty reduction ministry of children and family development,b:5539bf7de92b3db7,Ministry of Social Development and Poverty Reduction; Ministry of Children and Family Development,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01745,economics and market development branch,b:f33a9be5188b6b81,Economics and Market Development Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01746,operations,b:76db805b4c531f7a,Operations - South Coast,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01747,southern engineering group engineering engineering branch,b:2fb297cd94a49026,Southern Engineering Group ; Engineering ; Engineering Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01748,engineering engineering branch southern engineering group integrated resource operations division,b:d529637cb39f6156,Engineering ; Engineering Branch ; Southern Engineering Group ; Integrated Resource Operations Division,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01749,corporate services for the natural resource sector,b:56f114187f81696b,Corporate Services for the Natural Resource Sector,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01750,information innovation technology,b:0fedd2807225164c,Information Innovation & Technology,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01751,information management strategic initiatives,b:e1c4b8b91d09c5de,Information Management & Strategic Initiatives,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01752,enforcement program,b:a33d0f5ebc13832e,Enforcement Program / Conservation Officer Service,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01753,williams lake,b:e5d18716f0af9c0f,Williams Lake,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01754,audit and investigations branch,b:254a7b31b4d309b9,Audit and Investigations Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01755,clean growth branch,b:8c801007a8416908,Clean Growth Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01756,land remediation section,b:2ab9357da489cc13,Land Remediation Section - Victoria,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01757,fish and aquatic habitat branch,b:d0dc102dbe92ede3,Fish and Aquatic Habitat Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01758,broader public sector,b:176c0e3429708c08,Broader Public Sector,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01759,ministry of education and child care,b:086fc9bf6f722c18,Ministry of Education and Child Care,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01760,northern region,b:bfe22b5b7ff63d91,Northern Region,,CA,,,,1
+CH-AP-01761,built environment,b:eb5a07f5b7cc7e43,Built Environment,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01762,bc mail plus,b:1cf1720fa5a565d0,BC Mail Plus,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01763,hosting administrators office,b:5785bdf5ad56dbb5,"Hosting, Administrators' Office",,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01764,bc parks and conservation officer service division capital investment program bc parks,b:753cce1e85c983ac,BC Parks and Conservation Officer Service Division ; Capital Investment Program ; BC Parks - Provincial Services Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01765,bc timber sales branch okanagan columbia,b:56bc6a6a3a62891d,BC Timber Sales Branch ; Okanagan-Columbia,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01766,okanagan columbia bc timber sales branch,b:971eefab10f5084e,Okanagan-Columbia ; BC Timber Sales Branch,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-01767,municipality of west grey,b:7826d18065718ab4,Municipality of West Grey,,CA,http://www.westgrey.com,"info@westgrey.com, finance@westgrey.com",,1
+CH-AP-01768,orillia soldiers memorial hospital,b:dec39021726ae7fb,Orillia Soldiers' Memorial Hospital,,CA,https://www.osmh.on.ca,info@osmh.on.ca,,1
+CH-AP-01769,central lake ontario conservation authority,b:0457cecdaa312070,Central Lake Ontario Conservation Authority,,CA,https://www.cloca.com,,,1
+CH-AP-01770,welland public library,b:45f483696cb4d406,Welland Public Library,,CA,http://www.wellandlibrary.ca,info@wellandlibrary.ca,,1
+CH-AP-01771,royal victoria regional health centre,b:f285bdc2e83706b2,Royal Victoria Regional Health Centre,,CA,http://www.rvh.on.ca,,purchasing@rvh.on.ca,1
+CH-AP-01772,mon sheong foundation,b:2781f4df8ffcf6cc,Mon Sheong Foundation,,CA,https://www.monsheong.org,,,1
+CH-AP-01773,catholic district school board of eastern ontario,b:b3349a6c979e4859,Catholic District School Board of Eastern Ontario,,CA,http://www.cdsbeo.on.ca,"accounting@cdsbeo.on.ca, ict_support@cdsbeo.on.ca",purchasing@cdsbeo.on.ca,1
+CH-AP-01774,middlesex london health unit,b:064cffef33ce0f3e,Middlesex London Health Unit,,CA,https://www.healthunit.com,,,1
+CH-AP-01775,municipality of arran elderslie,b:fa014aa2528e5849,Municipality of Arran-Elderslie,,CA,http://www.arran-elderslie.com,,,1
+CH-AP-01776,humber river health,b:706f750fa90927aa,Humber River Health,,CA,,,,1
+CH-AP-01777,township of south frontenac,b:071c6fa5d9926641,Township of South Frontenac,,CA,https://www.southfrontenac.net,"admin@southfrontenac.net, taxes@southfrontenac.net",,1
+CH-AP-01778,temiskaming hospital,b:bb0e7c6f5632e003,Temiskaming Hospital,,CA,,,,1
+CH-AP-01779,children s treatment centre of chatham kent,b:a45586f32aaa5245,Children's Treatment Centre of Chatham-Kent,,CA,,,,1
+CH-AP-01780,family and children s services of waterloo region,b:13586be2588236f0,Family and Children's Services of Waterloo Region,,CA,,,,1
+CH-AP-01781,whitchurch stouffville public library,b:3eeac75d1ae4631a,Whitchurch-Stouffville Public Library,,CA,,,,1
+CH-AP-01782,unity health toronto,b:6c7a8557e1f80d61,Unity Health Toronto,,CA,,,,1
+CH-AP-01783,township of ramara,b:7ab874513f18eb7b,​Township of Ramara,,CA,http://www.ramara.ca,,,1
+CH-AP-01784,thunder bay port authority,b:47280e94c7092f45,Thunder Bay Port Authority,,CA,,,,1
+CH-AP-01785,township of stirling rawdon,b:91d79d58774e792d,Township of Stirling-Rawdon,,CA,http://www.stirling-rawdon.com,"clerk@stirling-rawdon.com, deputy-treasurer@stirling-rawdon.com",,1
+CH-AP-01786,r j burnside associates ltd,b:1fe10a476ee4d711,R.J. Burnside & Associates Ltd.,,CA,,,,1
+CH-AP-01787,metis nation of ontario,b:a4afcec1659500d1,Métis Nation of Ontario,,CA,https://www.metisnation.org,"contactus@metisnation.org, media@metisnation.org",,1
+CH-AP-01788,life time fitness,b:f585b761cf260545,Life Time Fitness,,CA,,,,1
+CH-AP-01789,rcp consulting ltd,b:6aa5fe7cf50c2e50,RCP Consulting Ltd.,,CA,,,,1
+CH-AP-01790,municipality of mississippi mills,b:f9f20962771c642e,Municipality of Mississippi Mills,,CA,http://www.mississippimills.ca,,,1
+CH-AP-01791,metafor architecture inc,b:6701684e91be1296,METAFOR Architecture Inc.,,CA,,,,1
+CH-AP-01792,bigstone cree nation,b:15d1d3a923c8e21b,Bigstone Cree Nation,,CA,https://www.bigstone.ca,,,1
+CH-AP-01793,details home design,b:885d01c8cc419228,Details Home Design,,CA,,,,1
+CH-AP-01794,kcms,b:7b9eca6ba5aec410,KCMS,,CA,,,,1
+CH-AP-01795,council of ministers of education canada,b:fe537193c70ba49d,"Council of Ministers of Education, Canada",,CA,,,,1
+CH-AP-01796,professional organizers in canada,b:333ec90075cb4ee6,Professional Organizers in Canada,,CA,,,,1
+CH-AP-01797,mitacs inc,b:4e45159292acf091,Mitacs Inc.,,CA,,,,1
+CH-AP-01798,lm architectural group,b:cf91d1a8a9b5c2a2,LM Architectural Group,,CA,,,,1
+CH-AP-01799,innovation and new technology,b:783a9d6e09bcbbb3,Innovation and New Technology – Digital and Technology Solutions,,CA,,,,1
+CH-AP-01800,town of bay roberts,b:eab6ada7768ebb9f,Town of Bay Roberts,,CA,http://www.bayroberts.com,,,1

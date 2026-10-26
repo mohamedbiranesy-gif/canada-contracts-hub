@@ -1,0 +1,199 @@
+{
+ "pe_oece": {
+  "name": "Perú – Contrataciones Abiertas OECE/SEACE (OCDS bulk via OCP Data Registry)",
+  "publisher": "Organismo Especializado para las Contrataciones Públicas Eficientes (OECE, ex-OSCE), Peru; mirrored by Open Contracting Partnership Data Registry",
+  "dataset_url": "https://data.open-contracting.org/en/publication/135 (origin: https://contratacionesabiertas.oece.gob.pe/descargas)",
+  "buyer_country": "PE",
+  "buyer_type": "Peruvian public entity (SEACE)",
+  "ocds_record_url_template": "https://contratacionesabiertas.oece.gob.pe/api/v1/record/{ocid}",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T17:45:00Z",
+  "lookback_years": null
+ },
+ "ec_sercop": {
+  "name": "Ecuador – SERCOP Datos Abiertos OCDS (bulk via OCP Data Registry)",
+  "publisher": "Servicio Nacional de Contratación Pública (SERCOP), Ecuador",
+  "dataset_url": "https://data.open-contracting.org/en/publication/110 (origin: https://datosabiertos.compraspublicas.gob.ec/PLATAFORMA/datos-abiertos)",
+  "buyer_country": "EC",
+  "buyer_type": "Ecuadorian public entity",
+  "ocds_record_url_template": "https://datosabiertos.compraspublicas.gob.ec/PLATAFORMA/api/record?ocid={ocid}",
+  "record_url_template": "https://datosabiertos.compraspublicas.gob.ec/PLATAFORMA/api/record?ocid={ocid}",
+  "retrieved_at": "2026-10-25T17:45:00Z"
+ },
+ "de_bmi_oeffentlichevergabe": {
+  "name": "Germany – oeffentlichevergabe.de (Datenservice Öffentlicher Einkauf) eForms notices as OCDS (bulk via OCP Data Registry)",
+  "publisher": "Beschaffungsamt des Bundesministeriums des Innern (BMI), Germany",
+  "dataset_url": "https://data.open-contracting.org/en/publication/136 (origin: https://www.oeffentlichevergabe.de/documentation/swagger-ui/opendata/index.html)",
+  "buyer_country": "DE",
+  "buyer_type": "German contracting authority (eForms notice)",
+  "ocds_record_url_template": "",
+  "record_url_template": "https://www.oeffentlichevergabe.de/ui/de/search/details/{tender_id}",
+  "instrument_type": "contract (eForms contract award notice)",
+  "retrieved_at": "2026-10-25T17:45:00Z"
+ },
+ "nl_tenderned": {
+  "name": "Netherlands – TenderNed open data (OCDS, via OCP Data Registry)",
+  "publisher": "Ministry of Economic Affairs and Climate Policy / TenderNed (PIANOo), Netherlands",
+  "dataset_url": "https://data.open-contracting.org/en/publication/133 (origin: https://www.tenderned.nl/cms/nl/aanbesteden-in-cijfers/datasets-aanbestedingen)",
+  "buyer_country": "NL",
+  "buyer_type": "Dutch contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "instrument_type": "contract (TenderNed award notice)",
+  "retrieved_at": "2026-10-25T17:45:00Z",
+  "record_url_from_document": [
+   "tenderNotice"
+  ],
+  "record_url_doc_replace": [
+   "https://www.tenderned.nl/tenderned-tap/aankondigingen/",
+   "https://www.tenderned.nl/aankondigingen/overzicht/"
+  ]
+ },
+ "hr_eojn": {
+  "name": "Croatia – EOJN RH contract register (OCDS, via OCP Data Registry)",
+  "publisher": "Narodne novine d.d. (Elektronički oglasnik javne nabave RH)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/80 (origin: https://eojn.nn.hr/SPIN/application/ipn/Oglasnik/PreuzimanjeUgovoraOCD.aspx)",
+  "buyer_country": "HR",
+  "buyer_type": "Croatian contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T17:45:00Z"
+ },
+ "rw_umucyo": {
+  "name": "Rwanda – Umucyo e-procurement OCDS (bulk via OCP Data Registry)",
+  "publisher": "Rwanda Public Procurement Authority (RPPA)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/145 (origin: https://ocds.umucyo.gov.rw/OpenData)",
+  "buyer_country": "RW",
+  "buyer_type": "Rwandan procuring entity",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T17:45:00Z"
+ },
+ "zm_zppa": {
+  "name": "Zambia – ZPPA e-GP OCDS record packages (via OCP Data Registry)",
+  "publisher": "Zambia Public Procurement Authority (ZPPA)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/3 (origin: https://www.zppa.org.zm/record-packages)",
+  "buyer_country": "ZM",
+  "buyer_type": "Zambian procuring entity",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T17:45:00Z"
+ },
+ "cl_mercado_publico": {
+  "name": "Chile – Mercado Público OCDS API releases (bulk via OCP Data Registry)",
+  "publisher": "Dirección de Compras y Contratación Pública (ChileCompra)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/144 (origin: https://datos-abiertos.chilecompra.cl/descargas/procesos-ocds ; API https://api.mercadopublico.cl/APISOCDS/)",
+  "buyer_country": "CL",
+  "buyer_type": "Chilean public entity (Mercado Público)",
+  "ocds_record_url_template": "https://api.mercadopublico.cl/APISOCDS/OCDS/record/{ocid}",
+  "record_url_template": "https://www.mercadopublico.cl/PurchaseOrder/Modules/PO/DetailsPurchaseOrder.aspx?codigoOC={ocid_po}",
+  "retrieved_at": "2026-10-25T18:27:00Z"
+ },
+ "py_dncp": {
+  "name": "Paraguay – DNCP Contrataciones Abiertas (OCDS records via OCP Data Registry)",
+  "publisher": "Dirección Nacional de Contrataciones Públicas (DNCP), Paraguay",
+  "dataset_url": "https://data.open-contracting.org/en/publication/63 (origin: https://contrataciones.gov.py/datos/api/v3/doc/)",
+  "buyer_country": "PY",
+  "buyer_type": "Paraguayan public entity",
+  "ocds_record_url_template": "https://www.contrataciones.gov.py/datos/api/v3/doc/ocds/record/{ocid}",
+  "record_url_template": "https://www.contrataciones.gov.py/datos/api/v3/doc/ocds/record/{ocid}",
+  "retrieved_at": "2026-10-25T18:27:00Z"
+ },
+ "no_opentender": {
+  "name": "Norway – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry",
+  "publisher": "Government Transparency Institute / opentender.eu (sources: TED and Doffin)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/72 (origin: https://opentender.eu/no/)",
+  "buyer_country": "NO",
+  "buyer_type": "Norwegian contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T19:31:00Z",
+  "instrument_type": "contract (award notice)"
+ },
+ "ch_opentender": {
+  "name": "Switzerland – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry",
+  "publisher": "Government Transparency Institute / opentender.eu (sources: TED and SIMAP)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/91 (origin: https://opentender.eu/ch/)",
+  "buyer_country": "CH",
+  "buyer_type": "Swiss contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T19:31:00Z",
+  "instrument_type": "contract (award notice)"
+ },
+ "si_mju": {
+  "name": "Slovenia – Ministry of Public Administration e-JN / ENAROČANJE OCDS, via OCP Data Registry",
+  "publisher": "Ministrstvo za javno upravo (Ministry of Public Administration), Slovenia",
+  "dataset_url": "https://data.open-contracting.org/en/publication/82 (origin: https://www.enarocanje.si/)",
+  "buyer_country": "SI",
+  "buyer_type": "Slovenian contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T19:33:00Z"
+ },
+ "se_opentender": {
+  "name": "Sweden – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry",
+  "publisher": "Government Transparency Institute / opentender.eu (source mainly TED)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/90 (origin: https://opentender.eu/)",
+  "buyer_country": "SE",
+  "buyer_type": "Sweden contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T19:52:00Z",
+  "instrument_type": "contract (award notice)"
+ },
+ "fi_opentender": {
+  "name": "Finland – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry",
+  "publisher": "Government Transparency Institute / opentender.eu (source mainly TED)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/51 (origin: https://opentender.eu/)",
+  "buyer_country": "FI",
+  "buyer_type": "Finland contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T19:52:00Z",
+  "instrument_type": "contract (award notice)"
+ },
+ "dk_opentender": {
+  "name": "Denmark – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry",
+  "publisher": "Government Transparency Institute / opentender.eu (source mainly TED)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/49 (origin: https://opentender.eu/)",
+  "buyer_country": "DK",
+  "buyer_type": "Denmark contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T19:52:00Z",
+  "instrument_type": "contract (award notice)"
+ },
+ "is_opentender": {
+  "name": "Iceland – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry",
+  "publisher": "Government Transparency Institute / opentender.eu (source mainly TED)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/57 (origin: https://opentender.eu/)",
+  "buyer_country": "IS",
+  "buyer_type": "Iceland contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T19:52:00Z",
+  "instrument_type": "contract (award notice)"
+ },
+ "eu_institutions_opentender": {
+  "name": "EU institutions – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry",
+  "publisher": "Government Transparency Institute / opentender.eu (source mainly TED)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/94 (origin: https://opentender.eu/)",
+  "buyer_country": null,
+  "buyer_type": "EU institution / agency",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T19:52:00Z",
+  "instrument_type": "contract (award notice)"
+ },
+ "it_mit": {
+  "name": "Italy – Ministry of Infrastructure and Transport (MIT) procurement OCDS, via OCP Data Registry",
+  "publisher": "Ministero delle Infrastrutture e dei Trasporti, Italy",
+  "dataset_url": "https://data.open-contracting.org/en/publication/141",
+  "buyer_country": "IT",
+  "buyer_type": "Italian contracting authority",
+  "ocds_record_url_template": "",
+  "record_url_template": null,
+  "retrieved_at": "2026-10-25T20:01:00Z"
+ }
+}

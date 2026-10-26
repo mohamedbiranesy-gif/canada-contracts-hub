@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-01101,rural municipality of torch river no 488,b:519a6dcec9d85059,Rural Municipality of Torch River No. 488,,CA,,,,5
+CH-AP-01102,enterprise saskatchewan,b:ad22af375bc4b85d,Enterprise Saskatchewan,,CA,,,,5
+CH-AP-01103,city of providence,b:c1a7b64342b29cfc,City of Providence,,US,https://www.providenceri.gov,,,5
+CH-AP-01104,virginia museum of fine arts,b:96f65858365ea637,Virginia Museum of Fine Arts,,US,https://vmfa.museum,,,5
+CH-AP-01105,piedmont geriatric hospital,b:6433f127d0e88cb4,Piedmont Geriatric Hospital,,US,,,,5
+CH-AP-01106,science museum of virginia,b:2c3c81a844dc45fe,Science Museum of Virginia,,US,https://smv.org,,,5
+CH-AP-01107,village of baddeck,b:9f429490dcac45e5,Village of Baddeck,,CA,,,,5
+CH-AP-01108,elections nova scotia,b:5e37017c13e8bda9,Elections Nova Scotia,,CA,,,,5
+CH-AP-01109,town of bridgetown,b:88ee894f38b1975a,Town of Bridgetown,,CA,,,,5
+CH-AP-01110,sault area hospital,b:b316a05b8fef38ce,Sault Area Hospital,,CA,,,,4
+CH-AP-01111,township of southwold,b:ac0d4238c141cf20,Township of Southwold,,CA,,,,4
+CH-AP-01112,aptus treatment centre,b:25c3ab4628558c5f,Aptus Treatment Centre,,CA,,,,4
+CH-AP-01113,travel alberta,b:9e8554223ff75a95,Travel Alberta,,CA,https://www.travelalberta.com,mediarelations@travelalberta.com,procurement@travelalberta.com,4
+CH-AP-01114,greater north central francophone education region,b:735d500cc1eccd5f,Greater North Central Francophone Education Region,,CA,,,,4
+CH-AP-01115,alberta university of the arts,b:e58a3c39ea58491e,Alberta University of the Arts,,CA,https://www.auarts.ca,"infodesk@auarts.ca, registrar@auarts.ca",,4
+CH-AP-01116,edmonton public library,b:3c7811a7c36c1291,Edmonton Public Library,,CA,https://www.epl.ca,,purchasing@epl.ca,4
+CH-AP-01117,calgary economic development ltd,b:ecb6edd08f8be3dc,Calgary Economic Development Ltd.,,CA,https://calgaryeconomicdevelopment.com,,,4
+CH-AP-01118,alberta foundation for the arts,b:10f83c454bc04291,Alberta Foundation for the Arts,,CA,http://www.affta.ab.ca,,,4
+CH-AP-01119,town of peace river,b:fb73d7eddfadf7f4,Town of Peace River,,CA,http://peaceriver.ca,info@peaceriver.ca,,4
+CH-AP-01120,red deer catholic separate school division,b:d29167e4727d30a2,Red Deer Catholic Separate School Division,,CA,https://www.rdcrs.ca,,procurement@rdcrs.ca,4
+CH-AP-01121,cypress county,b:193670581525be36,Cypress County,,CA,https://www.cypress.ab.ca,,publicworks@cypress.ab.ca,4
+CH-AP-01122,town of edson,b:30fc9b0f09cbb9a0,Town of Edson,,CA,,,,4
+CH-AP-01123,town of picture butte,b:0acdcd00b75cd245,Town of Picture Butte,,CA,http://www.picturebutte.ca,,,4
+CH-AP-01124,alberta utilities commission,b:5bc5bcbbaf54cd13,Alberta Utilities Commission,,CA,https://www.auc.ab.ca,"info@auc.ab.ca, media.relations@auc.ab.ca",,4
+CH-AP-01125,town of fort macleod,b:5d6da85988c076fd,Town of Fort Macleod,,CA,https://www.fortmacleod.com,"admin@fortmacleod.com, finance@fortmacleod.com",finance@fortmacleod.com,4
+CH-AP-01126,city of lacombe,b:eb17b22fd71dde2b,City of Lacombe,,CA,http://www.lacombe.ca,"webmaster@lacombe.ca, privacy@lacombe.ca",,4
+CH-AP-01127,town of three hills,b:adebe4eac468a8aa,Town of Three Hills,,CA,http://www.threehills.ca,info@threehills.ca,,4
+CH-AP-01128,palliser school division,b:45e478fe59163afa,Palliser School Division,,CA,https://www.pallisersd.ab.ca,,,4
+CH-AP-01129,grande spirit foundation,b:7dd6609c1fed8dfc,Grande Spirit Foundation,,CA,,,,4
+CH-AP-01130,state of delaware,b:1bb46d0fe32982d8,State of Delaware - Government Support Services (Contracting),,US,https://delaware.gov,,,4
+CH-AP-01131,roswell park cancer institute corporation,b:272bde7d51e58f08,Roswell Park Cancer Institute Corporation,,US,https://www.roswellpark.org,,,4
+CH-AP-01132,general dynamics information technology inc,b:c500e21f63c7f8e8,"GENERAL DYNAMICS INFORMATION TECHNOLOGY, INC.",,US,https://www.gdit.com,,,4
+CH-AP-01133,peraton inc,b:bdbd65e56c854642,PERATON INC.,,US,https://www.peraton.com,,,4
+CH-AP-01134,leidos inc,b:5fc47cab8d9f9059,"LEIDOS, INC.",,US,https://www.leidos.com,,,4
+CH-AP-01135,rockwell collins inc,b:66908471209d64f9,"ROCKWELL COLLINS, INC.",,US,https://www.collinsaerospace.com,,,4
+CH-AP-01136,derco aerospace inc,b:dc029d9d9d7433c8,"DERCO AEROSPACE, INC.",,US,,,,4
+CH-AP-01137,defense systems and solutions,b:48c95a3d1c7634ac,DEFENSE SYSTEMS AND SOLUTIONS,,US,,,,4
+CH-AP-01138,alberta securities commission,b:af62ed6b94470c4c,Alberta Securities Commission,,CA,https://www.asc.ca,,,4
+CH-AP-01139,school district 72,b:9831a851844cec5d,School District 72 (Campbell River),,CA,https://www.sd72.bc.ca,info@sd72.bc.ca,,4
+CH-AP-01140,ottawa catholic school board,b:67ce21b3d4d1a438,Ottawa Catholic School Board,,CA,http://www.ocsb.ca,"info@ocsb.ca, supportoffice@ocsb.ca",,4
+CH-AP-01141,municipality of trent hills,b:d2488944daeccf68,Municipality of Trent Hills,,CA,http://www.trenthills.ca,info@trenthills.ca,,4
+CH-AP-01142,employees retirement system,b:baf82f1d3033d4cf,Employees Retirement System,,US,https://ers.texas.gov,,"purchasing-all@ers.texas.gov, contractoversightall@ers.texas.gov",4
+CH-AP-01143,london police service,b:08746a1eaa783711,London Police Service,,CA,https://www.londonpolice.ca,hr@londonpolice.ca,,4
+CH-AP-01144,ministry of post secondary education and future skills,b:514c04123f064096,Ministry of Post Secondary Education and Future Skills,,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01145,peace district office,b:16042893be5c9abb,Peace District Office ),,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01146,office of the chief forester,b:3fc00c7c79e6bb97,Office of the Chief Forester,,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01147,southern engineering group,b:9f77a2b186ff2556,Southern Engineering Group,,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01148,integrated resource operations division engineering branch southern engineering group,b:3d80b1f1814efa73,Integrated Resource Operations Division ; Engineering Branch ; Southern Engineering Group,,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01149,ministry of energy and climate solutions,b:f665b6483a13add4,Ministry of Energy and Climate Solutions,,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01150,ministry of jobs and economic growth,b:be5684fd56540387,Ministry of Jobs and Economic Growth,,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01151,low carbon fuels branch,b:057daf087fe618a0,Low Carbon Fuels Branch,,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01152,ministry of housing and municipal affairs,b:43f47711a01e92a9,Ministry of Housing and Municipal Affairs,,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01153,islands trust,b:781388b17f0e6b7a,Islands Trust,,CA,https://islandstrust.bc.ca,,,4
+CH-AP-01154,greater vancouver regional district,b:9a1a1c0c23ad955e,Greater Vancouver Regional District (Metro Vancouver),,CA,https://metrovancouver.org,,,4
+CH-AP-01155,city of kelowna,b:db3518eeb0064b0e,City of Kelowna,,CA,https://kelowna.ca,,,4
+CH-AP-01156,fort nelson resource operations,b:4aa48d9ffa5e6746,Fort Nelson Resource Operations,,CA,https://www2.gov.bc.ca,,,4
+CH-AP-01157,rainy river district school board,b:767af2421d7ed984,Rainy River District School Board,,CA,http://www.rrdsb.com,,,4
+CH-AP-01158,city of san jose,b:ebac9390d1ce332b,City of San José - Purchasing,,CA,https://www.sanjoseca.gov,,,4
+CH-AP-01159,carcross tagish first nation,b:528c64842afa4e7b,Carcross/ Tagish First Nation,,CA,,,,4
+CH-AP-01160,kansas state university,b:2b687093fe18da92,Kansas State University,,US,,,,4
+CH-AP-01161,kowalchuk consulting engineers ltd,b:89331e9af4f00cb2,Kowalchuk Consulting Engineers Ltd.,,CA,,,,4
+CH-AP-01162,conseil scolaire catholique du nouvel ontario,b:483995acac55c5f7,Conseil Scolaire catholique du Nouvel-Ontario,,CA,,,,4
+CH-AP-01163,rural municipality of wawken no 93,b:88a2e1eb3621666e,Rural Municipality of Wawken No. 93,,CA,,,,4
+CH-AP-01164,rural municipality of bengough no 40,b:dd0f7a780a953e6f,Rural Municipality of Bengough No. 40,,CA,,,,4
+CH-AP-01165,prairie south school division no 210,b:e9c0f86a7ab54692,Prairie South School Division No. 210,,CA,,,purchasing@prairiesouth.ca,4
+CH-AP-01166,rural municipality of snipe lake no 259,b:df72dc55d62f00ad,Rural Municipality of Snipe Lake No. 259,,CA,,,,4
+CH-AP-01167,rural municipality of connaught no 457,b:bab48b81609e6923,Rural Municipality of Connaught No. 457,,CA,,,,4
+CH-AP-01168,rural municipality of calder no 241,b:c8aca2652f82dbd1,Rural Municipality of Calder No. 241,,CA,,,,4
+CH-AP-01169,rural municipality of winslow no 319,b:75d3b75b8cbf0de8,Rural Municipality of Winslow No. 319,,CA,,,,4
+CH-AP-01170,rural municipality of fertile valley no 285,b:577088de216fc33e,Rural Municipality of Fertile Valley No. 285,,CA,,,,4
+CH-AP-01171,rural municipality of milton no 292,b:f9082fbd7e6d30d1,Rural Municipality of Milton No. 292,,CA,,,,4
+CH-AP-01172,five hills regional health authority,b:cfb20569ae879e03,Five Hills Regional Health Authority,,CA,,,,4
+CH-AP-01173,saskatchewan assessment management agency,b:99f84c5ca887af0d,Saskatchewan Assessment Management Agency,,CA,,,,4
+CH-AP-01174,saskatchewan indian gaming authority,b:2f6f38b7fe3f2179,Saskatchewan Indian Gaming Authority,,CA,,,,4
+CH-AP-01175,housing and community services department,b:666047a1a30e8dc4,HOUSING AND COMMUNITY SERVICES DEPARTMENT,,US,,,,4
+CH-AP-01176,virginia state university,b:b6d9e46bbcaee672,Virginia State University,,US,https://www.vsu.edu,admissions@vsu.edu,,4
+CH-AP-01177,virginia military institute,b:af7809e2b1fa7c81,Virginia Military Institute,,US,https://www.vmi.edu,admissions@vmi.edu,,4
+CH-AP-01178,university of virginia,b:124e9f6a6ce147d8,University of Virginia,,US,https://www.virginia.edu,,,4
+CH-AP-01179,christopher newport university,b:77423abb9642aa28,Christopher Newport University,,US,https://cnu.edu,,,4
+CH-AP-01180,tidewater community college,b:44cc31d067541922,Tidewater Community College,,US,,,,4
+CH-AP-01181,nova scotia gaming corporation,b:ea8f32a87119f4ac,Nova Scotia Gaming Corporation,,CA,,,,4
+CH-AP-01182,nova scotia school insurance exchange,b:98848026e5a74333,Nova Scotia School Insurance Exchange,,CA,,,,4
+CH-AP-01183,cumberland health authority,b:627ebeb9b5637974,Cumberland Health Authority,,CA,,,,4
+CH-AP-01184,emergency management office,b:672470f58a874549,Emergency Management Office,,CA,https://novascotia.ca,,,4
+CH-AP-01185,tourism and culture,b:5ee5635fc93047c3,Tourism and Culture,,CA,https://novascotia.ca,,,4
+CH-AP-01186,wekoqmaq first nation,b:037f631cec388f34,Wekoqmaq First Nation,,CA,,,,4
+CH-AP-01187,eastern district planning commission,b:9efccd7ec4bbcf13,Eastern District Planning Commission,,CA,,,,4
+CH-AP-01188,city of indio california,b:5147424dcf3ab8f2,"City of Indio, California — Information Technology",,US,https://www.indio.org,,,2
+CH-AP-01189,city of indio california,b:f04fca1e7c0c6382,"City of Indio, California — Public Art In- Lieu",,US,https://www.indio.org,,,1
+CH-AP-01190,city of indio california,b:be8990f2e931384e,"City of Indio, California — Police Field Services",,US,https://www.indio.org,,,1
+CH-AP-01191,nova scotia provincial library,b:b42bcb4299a421b0,Nova Scotia Provincial Library - Colchester-East Hants Public Library,,CA,https://library.novascotia.ca,,,2
+CH-AP-01192,nova scotia provincial library,b:5ed3f4c61822be03,Nova Scotia Provincial Library - Cumberland Public Libraries,,CA,https://library.novascotia.ca,,,1
+CH-AP-01193,nova scotia provincial library,b:ddbbffd2306a71cc,Nova Scotia Provincial Library - Cape Breton Regional Library,,CA,https://library.novascotia.ca,,,1
+CH-AP-01194,ontario health,b:744284bee0a0a747,Ontario Health,,CA,,,,3
+CH-AP-01195,royal ontario museum,b:be45e9acca33ff11,Royal Ontario Museum,,CA,,,,3
+CH-AP-01196,cima canada inc,b:c7b3d1e065bb197a,CIMA Canada Inc.,,CA,,,,3
+CH-AP-01197,mcmaster innovation park,b:d58b81d58e11d55e,McMaster Innovation Park,,CA,,,,3
+CH-AP-01198,sal engineering ltd,b:2de47d4086bee849,SAL Engineering Ltd.,,CA,,,,3
+CH-AP-01199,prairie rose school division,b:44ee89ab91f18a3c,Prairie Rose School Division,,CA,https://www.prrd.ab.ca,,,3
+CH-AP-01200,lethbridge county,b:29d640457ec66271,Lethbridge County,,CA,http://www.lethcounty.ca,"atippcoordinator@lethcounty.ca, communications@lethcounty.ca",,3

@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00001,halifax regional municipality,b:206a41a99b2ed2f1,Halifax Regional Municipality (HRM),,CA,https://www.halifax.ca,"contactus@311.halifax.ca, pplc-info@halifax.ca",procure@halifax.ca,3861
+CH-AP-00002,halifax regional municipality,b:f7ba361d764726d0,Halifax Regional Municipality,,CA,https://www.halifax.ca,"contactus@311.halifax.ca, pplc-info@halifax.ca",procure@halifax.ca,1914
+CH-AP-00003,transportation and infrastructure renewal,b:ea8c6160a56374ff,Transportation and Infrastructure Renewal,,CA,https://novascotia.ca,,,4595
+CH-AP-00004,city of saskatoon,b:4bcf21f4bf481128,City of Saskatoon,,CA,https://saskatoon.ca,,purchasingadmin@saskatoon.ca,2902
+CH-AP-00005,highways and infrastructure,b:ae2afcc7fcedb7e6,Highways and Infrastructure,,CA,https://www.saskatchewan.ca,,mhicontracts@gov.sk.ca,2755
+CH-AP-00006,highways and infrastructure,b:67e871e7188821a9,Highways and Infrastructure - Fleet Services,,CA,https://www.saskatchewan.ca,,,2
+CH-AP-00007,ministry of transportation and infrastructure,b:801e3bdf65dc747a,Ministry of Transportation and Infrastructure - Construction,,CA,https://www2.gov.bc.ca,,,1309
+CH-AP-00008,ministry of transportation and infrastructure,b:0dd89f45f4b9ae3e,Ministry of Transportation and Infrastructure,,CA,https://www2.gov.bc.ca,,,1256
+CH-AP-00009,ministry of transportation and infrastructure,b:ba90e18be0d52a21,Ministry of Transportation and Infrastructure - Electrical Mntce,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-00010,government of yukon,b:60ef5d5b36d1d258,Government of Yukon,,CA,https://yukon.ca,,,2288
+CH-AP-00011,toronto district school board,b:fda131e15c76fe84,Toronto District School Board,,CA,http://www.tdsb.on.ca,,,2005
+CH-AP-00012,province of nova scotia,b:8560dde9cd10f4ad,Province of Nova Scotia,,CA,https://novascotia.ca,,,1973
+CH-AP-00013,ministry of forests lands natural resource operations and r d,b:32c9ae6830c84ad3,"Ministry of Forests, Lands, Natural Resource Operations and R.D.",,CA,https://www2.gov.bc.ca,,,1903
+CH-AP-00014,newfoundland labrador hydro,b:a6f2488697e8be17,Newfoundland Labrador Hydro,Newfoundland & Labrador Hydro,CA,https://nlhydro.com,,,1902
+CH-AP-00015,highways,b:286dc6c193b75bd6,Highways,,CA,https://www.saskatchewan.ca,,,1702
+CH-AP-00016,york region,b:0c4429da009918d5,York Region,,CA,https://www.york.ca,,,1668
+CH-AP-00017,region of waterloo,b:1674fd2240b8fdeb,Region of Waterloo,,CA,https://www.regionofwaterloo.ca,media@regionofwaterloo.ca,,1572
+CH-AP-00018,toronto transit commission,b:c3ca7e13d18d30c5,Toronto Transit Commission - PCM Operating,,CA,https://www.ttc.ca,media@ttc.ca,,1206
+CH-AP-00019,toronto transit commission,b:ff3830decf019dbd,Toronto Transit Commission - PCM Capital,,CA,https://www.ttc.ca,media@ttc.ca,,257
+CH-AP-00020,toronto transit commission,b:63c5e9e859e65440,Toronto Transit Commission (TTC),,CA,,,,1
+CH-AP-00021,city of hamilton,b:99a5d74c1b2d84cd,City of Hamilton,,CA,https://www.hamilton.ca,,,1462
+CH-AP-00022,cape breton regional municipality,b:984e9cd8ca2343e6,Cape Breton Regional Municipality,,CA,http://www.cbrm.ns.ca,"bylawinfo@cbrm.ns.ca, clerksoffice@cbrm.ns.ca",,1450
+CH-AP-00023,city of burnaby,b:c6f52a31039caedb,City of Burnaby,,CA,https://www.burnaby.ca,,,1165
+CH-AP-00024,city of vaughan,b:acec1a3bf143faf9,City of Vaughan,,CA,https://www.vaughan.ca,,,1092
+CH-AP-00025,ministry of forests lands and natural resource operations,b:ae3e924fdf730e3f,"Ministry of Forests, Lands and Natural Resource Operations",,CA,https://www2.gov.bc.ca,,,1060
+CH-AP-00026,n s community colleges,b:c9824c2b697e262e,N.S. Community Colleges,,CA,https://www.nscc.ca,,,1015
+CH-AP-00027,city of cornwall,b:7ff6f97fb7683b87,City of Cornwall,,CA,https://cornwall.ca,,,1008
+CH-AP-00028,manitoba hydro,b:d9bf0d3b2e8b3b19,Manitoba Hydro,,CA,https://www.hydro.mb.ca,,purchasing@hydro.mb.ca,964
+CH-AP-00029,saskbuilds and procurement,b:50721844db878fa4,SaskBuilds and Procurement,,CA,https://www.saskatchewan.ca,,,701
+CH-AP-00030,saskbuilds and procurement,b:e02b8c7d2ffa456a,SaskBuilds and Procurement - Asset Management,,CA,https://www.saskatchewan.ca,,csconstructiontenders@gov.sk.ca,250
+CH-AP-00031,newfoundland labrador hydro,b:95554f5140997db9,Newfoundland Labrador Hydro,,US,,,,908
+CH-AP-00032,toronto catholic district school board,b:911e951c93efa008,Toronto Catholic District School Board,,CA,http://www.tcdsb.org,,,893
+CH-AP-00033,central services,b:5cce248a440c9eea,Central Services - Asset Management,,CA,https://www.saskatchewan.ca,,csconstructiontenders@gov.sk.ca,391
+CH-AP-00034,central services,b:119dce289499bf32,Central Services,,CA,https://www.saskatchewan.ca,,,292
+CH-AP-00035,central services,b:acdda921f8b11111,Central Services - IT Division,,CA,https://www.saskatchewan.ca,,"contracts@gov.sk.ca, itocontracts@gov.sk.ca",75
+CH-AP-00036,central services,b:7153b8cc802f9efb,Central Services - Procurement Services,,CA,https://www.saskatchewan.ca,,,74
+CH-AP-00037,central services,b:9a980e6196bb69d4,Central Services - Purchasing,,CA,https://www.saskatchewan.ca,,,40
+CH-AP-00038,city of barrie,b:6f87af6985701507,City of Barrie,,CA,http://www.barrie.ca,"servicebarrie@barrie.ca, financeadmin@barrie.ca",purchasing@barrie.ca,852
+CH-AP-00039,saskatchewan power corporation,b:7c6184faae853053,Saskatchewan Power Corporation (SaskPower),,CA,https://www.saskpower.com,,,833
+CH-AP-00040,oxford county,b:62e5a14763cbe8b5,Oxford County,,CA,https://www.oxfordcounty.ca,hr@oxfordcounty.ca,,829
+CH-AP-00041,region of durham,b:9fe3230cb707eb74,Region of Durham,,CA,https://www.durham.ca/en/index.aspx,works-realestate-services@durham.ca,,828
+CH-AP-00042,nova scotia provincial housing agency,b:8aeccfbef83d041f,Nova Scotia Provincial Housing Agency,,CA,,,,771
+CH-AP-00043,ministry of forests,b:13c0d0cd3620a597,Ministry of Forests,,CA,https://www2.gov.bc.ca,,,770
+CH-AP-00044,ministry of environment and climate change strategy,b:63d7eb63b35e4ab8,Ministry of Environment and Climate Change Strategy,,CA,https://www2.gov.bc.ca,,,769
+CH-AP-00045,city of guelph,b:47831e39fccf328f,City of Guelph,,CA,https://guelph.ca,,,765
+CH-AP-00046,niagara region,b:464fe38aa257e3e1,Niagara Region,,CA,http://www.niagararegion.ca,,,727
+CH-AP-00047,dufferin peel catholic district school board,b:d8d4ee9f30fa1066,Dufferin-Peel Catholic District School Board,,CA,http://www.dpcdsb.org,,,715
+CH-AP-00048,the city of winnipeg,b:c74ec72fb4ec1896,The City of Winnipeg,City of Winnipeg,CA,,,,704
+CH-AP-00049,conseil scolaire catholique monavenir,b:98aba40bca810ae3,Conseil scolaire catholique MonAvenir,,CA,http://www.cscmonavenir.ca,,,700
+CH-AP-00050,halifax water,b:67e3e9e530cdd3b9,Halifax Water,,CA,https://www.halifaxwater.ca,,,670
+CH-AP-00051,city of markham,b:9184401bf5bedb5d,City of Markham,,CA,https://www.markham.ca,media@markham.ca,,650
+CH-AP-00052,simcoe county district school board,b:db5826c4c4707c9b,Simcoe County District School Board,,CA,http://www.scdsb.on.ca,,,647
+CH-AP-00053,western regional housing authority,b:803af9a412e9fb9b,Western Regional Housing Authority,,CA,,,,630
+CH-AP-00054,norfolk county,b:b0c09924713d5de3,Norfolk County,,CA,http://www.norfolkcounty.ca,"foi@norfolkcounty.ca, clerks@norfolkcounty.ca",purchasing@norfolkcounty.ca,600
+CH-AP-00055,environment,b:34e94eefe9576d28,Environment,Environment Canada,CA,,,,597
+CH-AP-00056,city of timmins,b:3c1991407080ffa9,City of Timmins,,CA,http://www.timmins.ca,,,596
+CH-AP-00057,ministry of citizens services,b:4a32ad2f6105ecd7,Ministry of Citizens' Services,,CA,https://www2.gov.bc.ca,,,580
+CH-AP-00058,city of medicine hat,b:c79b4a5c289c6fca,City of Medicine Hat,,CA,http://www.medicinehat.ca,claims@medicinehat.ca,,572
+CH-AP-00059,city of calgary,b:c256c2eb519aa05d,City of Calgary,The City of Calgary,CA,,,,565
+CH-AP-00060,infrastructure,b:6903bcfedc6a3c13,Infrastructure,,CA,,,,564
+CH-AP-00061,city of burlington,b:05a559521e307365,City of Burlington,City of Burlington ,CA,https://www.burlington.ca,,,561
+CH-AP-00062,city of oshawa,b:cd95f91215e71ee6,City of Oshawa,,CA,http://www.oshawa.ca,service@oshawa.ca,purchasing@oshawa.ca,558
+CH-AP-00063,university of toronto,b:a5799aad7150bd8c,University of Toronto – St. George Campus – Procurement Services,,CA,https://www.utoronto.ca,,,280
+CH-AP-00064,university of toronto,b:615801b9f548d4cb,University of Toronto,,CA,https://www.utoronto.ca,,,243
+CH-AP-00065,university of toronto,b:46e7443f5ae48405,University of Toronto – OREP,,CA,https://www.utoronto.ca,,,31
+CH-AP-00066,town of milton,b:9c364d9558e38c1b,Town of Milton,,CA,http://www.milton.ca,,,534
+CH-AP-00067,city of thunder bay,b:9c482120cd823348,City of Thunder Bay,,CA,https://www.thunderbay.ca,,,534
+CH-AP-00068,city of lethbridge,b:8c2f6b1ddc1cc673,City of Lethbridge,,CA,https://www.lethbridge.ca,,tenders@lethbridge.ca,533
+CH-AP-00069,county of simcoe,b:1140654fde121848,County of Simcoe,,CA,http://www.simcoe.ca,"service@simcoe.ca, info@simcoe.ca",,532
+CH-AP-00070,durham district school board,b:b73873b192fb4e8e,Durham District School Board,,CA,www.ddsb.ca,,,514
+CH-AP-00071,town of ajax,b:f27050c80f012bd0,Town of Ajax,,CA,https://www.ajax.ca,"contactus@ajax.ca, privacy@ajax.ca",procurement@ajax.ca,513
+CH-AP-00072,newfoundland and labrador housing corporation,b:0d339258cd11ee9f,Newfoundland and Labrador Housing Corporation (NLHC),,CA,https://www.nlhc.nl.ca,"inquiries@nlhc.nl.ca, atipp@nlhc.nl.ca",,506
+CH-AP-00073,newfoundland and labrador housing corporation,b:9338343535848927,Newfoundland and Labrador Housing Corporation,,CA,https://www.nlhc.nl.ca,"inquiries@nlhc.nl.ca, atipp@nlhc.nl.ca",,2
+CH-AP-00074,hamilton wentworth district school board,b:ff53132a297e8ca6,Hamilton-Wentworth District School Board,,CA,http://www.hwdsb.on.ca,,,505
+CH-AP-00075,upper canada district school board,b:a57e2294decc8907,Upper Canada District School Board,,CA,http://www.ucdsb.on.ca,,,499
+CH-AP-00076,parks culture and sport,b:c301da72ad325a4a,"Parks, Culture and Sport",,CA,https://www.saskatchewan.ca,,,499
+CH-AP-00077,metropolitan regional housing authority,b:514b8cdca8bffd6c,Metropolitan Regional Housing Authority,,CA,,,,498
+CH-AP-00078,eastern mainland housing authority,b:81663bcadaadc41b,Eastern Mainland Housing Authority,,CA,,,,498
+CH-AP-00079,city of grande prairie,b:449db4070f8ca175,City of Grande Prairie,,CA,http://www.cityofgp.com,"inspections@cityofgp.com, info@cityofgp.com",procurement@cityofgp.com,492
+CH-AP-00080,township of langley,b:905809063570eeef,Township of Langley,,CA,https://www.tol.ca,"buildinginfo@tol.ca, cdinfo@tol.ca",,481
+CH-AP-00081,saskenergy incorporated,b:f4db63c63d7ddcb9,SaskEnergy Incorporated,,CA,https://www.saskenergy.com,,,480
+CH-AP-00082,waterloo region district school board,b:b1bbfb852e78bace,Waterloo Region District School Board,,CA,www.wrdsb.on.ca,,procurement@wrdsb.ca,474
+CH-AP-00083,nl health services,b:f8111c235fd52d15,NL Health Services,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,245
+CH-AP-00084,nl health services,b:be38881b56f0eab1,NL Health Services - Eastern,NL Health Services- Eastern | NL Health services - Eastern,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,124
+CH-AP-00085,nl health services,b:75abd64372c94f77,NL Health Services - Central,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,23
+CH-AP-00086,nl health services,b:e83f0199d5d374bd,NL Health Services - Western,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,19
+CH-AP-00087,nl health services,b:27c1cc0d2cdad2ca,NL Health Services - Labrador,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,13
+CH-AP-00088,nl health services,b:e5a70c95e8545941,NL Health Services - Provincial,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,8
+CH-AP-00089,nl health services,b:62ab9d060680a6c8,NL Health Services - Digital Health,NL Health Services (Digital Health),CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,8
+CH-AP-00090,nl health services,b:60219a77689f54d6,NL Health Services - Digital,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,5
+CH-AP-00091,nl health services,b:986e4545383ce9be,NL Health Services - Western Zone,NL Health Services- Western Zone,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,4
+CH-AP-00092,nl health services,b:c7427090266d07a4,NL Health Services (Eastern Urban Zone),,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,4
+CH-AP-00093,nl health services,b:128e7f548f5c9f8d,NL Health Services - Eastern Urban,NL Health Services- Eastern Urban | NL Health Services (Eastern Urban),CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,4
+CH-AP-00094,nl health services,b:68543c13197517e0,NL Health Services (Central Zone),,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,3
+CH-AP-00095,nl health services,b:d80116541168a4e9,NL Health Services - Eastern Zone,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,2
+CH-AP-00096,nl health services,b:b62b0eec72a41f29,NL Health Services - Labrador-Grenfell,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,2
+CH-AP-00097,nl health services,b:f2079b315cfa8367,NL Health Services - Eastern Urban/Rural and Labrador Grenfell,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,1
+CH-AP-00098,nl health services,b:a9f2e715db25006c,NL Health Services (Labrador Grenfell Zone),,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,1
+CH-AP-00099,nl health services,b:5fb087717481f67b,NL Health Services - Central Health Zone,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,1
+CH-AP-00100,nl health services,b:91bf81ed51426ad2,NL Health Services (Eastern Urban Zone and Western Zone),,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,1

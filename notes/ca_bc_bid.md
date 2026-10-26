@@ -1,0 +1,3 @@
+# ca_bc_bid — BC Bid portal (REJECTED: reCAPTCHA browser check) — see ca_bc_ministry_awards for the usable BC source
+
+Checked 2026-10-25 17:23 UTC. `https://bcbid.gov.bc.ca/page.aspx/en/ctr/contract_browse_public` (Ivalua "Contract Awards" public tab) redirects every non-logged-in request to `/page.aspx/en/bas/browser_check`, a page that runs Google reCAPTCHA (`ivCaptcha.init({action:'browser_check', publicKey:'6Lck…'})`) and only then submits to the browse page. Not bypassed. The underlying award summaries are, however, published by the Province as open data ("Ministry Contract Awards - Province of British Columbia"), which was used instead — see `notes/ca_bc_ministry_awards.md`.

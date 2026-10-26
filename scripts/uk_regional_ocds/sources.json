@@ -1,0 +1,24 @@
+{
+ "uk_scotland_pcs": {
+  "name": "Public Contracts Scotland (Scottish Procurement and Commercial Directorate) OCDS notices, via OCP Data Registry",
+  "publisher": "Scottish Government – Scottish Procurement and Commercial Directorate (Public Contracts Scotland)",
+  "dataset_url": "https://data.open-contracting.org/en/publication/39 (origin: https://api.publiccontractsscotland.gov.uk/)",
+  "retrieved_at": "2026-10-26T03:20:00Z",
+  "buyer_country": "GB",
+  "buyer_type": "Scottish public body",
+  "instrument_type": "contract (award notice)",
+  "record_url_from_document": ["awardNotice", "contractNotice", "notice"],
+  "ocds_record_url_template": "https://api.publiccontractsscotland.gov.uk/v1/Notice?id={ocid}"
+ },
+ "uk_wales_sell2wales": {
+  "name": "Sell2Wales (Welsh Government) OCDS notices, via OCP Data Registry",
+  "publisher": "Welsh Government – Sell2Wales",
+  "dataset_url": "https://data.open-contracting.org/en/publication/119 (origin: https://api.sell2wales.gov.wales/)",
+  "retrieved_at": "2026-10-26T03:22:00Z",
+  "buyer_country": "GB",
+  "buyer_type": "Welsh public body",
+  "instrument_type": "contract (award notice)",
+  "record_url_from_document": ["awardNotice", "contractNotice", "notice"],
+  "ocds_record_url_template": "https://api.sell2wales.gov.wales/v1/Notice?id={ocid}"
+ }
+}

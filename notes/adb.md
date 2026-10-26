@@ -1,0 +1,3 @@
+# adb — Asian Development Bank contract awards — BLOCKED / not reachable
+
+Checked 2026-10-25: ADB's contract-award data lives on the data portal https://data.adb.org/ (e.g. https://data.adb.org/dataset/operational-procurement-database , https://data.adb.org/search?q=contract+awards) → **HTTP 403 Cloudflare challenge**; not bypassed. www.adb.org pages tried: /projects/tenders (200, tenders only), /business/main (200), /what-we-do/procurement/contract-awards-search, /projects/contract-awards-search, /projects/contracts-awarded, /business/operational-procurement/contracts-awarded, /business/institutional-procurement/contracts-awarded, /business/operational-procurement/goods-contracts-awarded-archive, /projects/documents/doctype/Procurement%20Plans (all 404). No records.

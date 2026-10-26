@@ -1,0 +1,3 @@
+# au_act — ACT Government contracts register — REJECTED/BLOCKED
+
+Checked 2026-10-25: live register https://www.tenders.act.gov.au/contract/search → **HTTP 403 Cloudflare "Attention Required"** (not bypassed). Open-data copies on data.act.gov.au (Socrata): `pfs5-8d64` "Contracts Register" (last updated 2017-07-31), `8wge-3sy9` (2000–2016), `wp9g-3hg8` "Contracts ACT Report as at 31 December 2020" — columns include contractor_name, abn, amounts, execution_date, expiry_date, directorate, but **no contractor address or country** (a `$where` on contractor_address fails: no such column). `kzmf-7uhp` Notifiable Invoices Register: supplier name/ABN only. Rejected: no structured supplier location; current register blocked.

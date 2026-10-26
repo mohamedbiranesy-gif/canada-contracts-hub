@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-01401,v:72584260da7a1c4b,The Attain Group Inc.,THE ATTAIN GROUP INC.,4268261,Ottawa,ONTARIO,K1V 1C1,3,3,attaingroup.ca attaingroup.com attain-group.ca attain-group.com groupeatteindre.ca groupeatteindre.com
+CH-VC-01402,v:accf1e07b7fa6775,Chocolate Moose Media Inc,Chocolate Moose Media Inc.,3159116,Ottawa,ONTARIO,K2H 7G7,3,3,chocolatemoosemedia.ca chocolatemoosemedia.com chocolate-moose-media.ca chocolate-moose-media.com
+CH-VC-01403,v:b783e21d546bf108,DGBK Architects,,,Vancouver,BRITISH COLUMBIA,V6G 2Z6,3,3,dgbkarchitects.ca dgbkarchitects.com dgbk-architects.ca dgbk-architects.com
+CH-VC-01404,v:dde7d91b70e69bae,LNine Consulting Inc.,,,Ottawa,ONTARIO,K2P 1L4,3,3,lnineconsulting.ca lnineconsulting.com lnine-consulting.ca lnine-consulting.com
+CH-VC-01405,v:edbd8010ce090de6,Slate Construction Inc,,,Spruce Grove,ALBERTA,T7X 3A6,3,3,slateconstruction.ca slateconstruction.com slate-construction.ca slate-construction.com
+CH-VC-01406,v:a2755f22a35b7ad0,Mcgowan Digital Group Inc.,,,Kamloops,BRITISH COLUMBIA,V2C 1Y1,3,3,mcgowandigitalgroup.ca mcgowandigitalgroup.com mcgowan-digital-group.ca mcgowan-digital-group.com
+CH-VC-01407,v:8270c57a42f0e2a1,Zetron Inc,,,Victoria,BRITISH COLUMBIA,V8T 4M2,3,3,zetron.ca zetron.com
+CH-VC-01408,v:1b34a627fc6171b5,THE INGLETON GROUP INC,,,MILTON,ONTARIO,L9T 0G7,3,3,ingletongroup.ca ingletongroup.com ingleton-group.ca ingleton-group.com
+CH-VC-01409,v:1d0cf7deb3159302,qdrilling &remediation inc,,,fall river,NOVA SCOTIA,B2T 0B9,3,3,qdrillingremediation.ca qdrillingremediation.com qdrilling-remediation.ca qdrilling-remediation.com
+CH-VC-01410,v:abbd3ec06d3f1f1d,Nuclear Promise X Inc.,,,Kincardine,ONTARIO,N2Z 2A2,3,3,nuclearpromisex.ca nuclearpromisex.com nuclear-promise-x.ca nuclear-promise-x.com
+CH-VC-01411,v:10973ae18ab249f2,ENIBAS & ASSOCIATES INC.,,,Thornhill,ONTARIO,L4J 6M4,3,3,enibasassociates.ca enibasassociates.com enibas-associates.ca enibas-associates.com
+CH-VC-01412,v:06e6ce01f4673d95,AllSeeing Corp,AllSeeing Corp.,14379233,Edmonton,ALBERTA,T6E 3T7,3,3,allseeing.ca allseeing.com
+CH-VC-01413,v:a6034de05ecfef9a,Team Global Inc.,,,Toronto,ONTARIO,M3H 5T5,3,3,teamglobal.ca teamglobal.com team-global.ca team-global.com
+CH-VC-01414,v:c78bd0b67d9368e0,VTRAC Consulting Corporation,VTRAC Consulting Corporation,3581004,North York,ONTARIO,M2J 0H6,3,3,vtracconsulting.ca vtracconsulting.com vtrac-consulting.ca vtrac-consulting.com
+CH-VC-01415,v:f96ec17977b1f800,Technical Support Group Staffing Services Ltd.,,,Sherwood Park,ALBERTA,T8B 0A5,3,3,
+CH-VC-01416,v:3a26cb626bd18cd2,ADECCO SERVICES DE RESSOURCES HUMAINES LTEE/ADECCO EMPLOYMENT SERVICES LIMITED,,,Toronto,ONTARIO,M5J 2N8,3,3,
+CH-VC-01417,v:995a5e12595605e6,FRESH DIRECT PRODUCE LTD,,,Vancouver,BRITISH COLUMBIA,V6A 2K6,3,3,freshdirectproduce.ca freshdirectproduce.com fresh-direct-produce.ca fresh-direct-produce.com
+CH-VC-01418,v:a8c9973180f02902,Children's Hospital of Winnipeg - Infection Control,,,Winnipeg,MANITOBA,R3E 0J9,3,3,
+CH-VC-01419,v:fb6f0dfc9e5ca82f,Aceth Solutions Ltd.,Aceth Solutions Ltd.,10184349,Ottawa,ONTARIO,K4A 5B6,3,3,acethsolutions.ca acethsolutions.com aceth-solutions.ca aceth-solutions.com
+CH-VC-01420,v:5978ebb996b3b72e,META IT LTD.,,,Kitchener,ONTARIO,N2H 6P4,3,3,metait.ca metait.com meta-it.ca meta-it.com
+CH-VC-01421,v:2dda06eecdc1c111,Les Entreprises Samson Enterprises Ltee,,,Arichat,NOVA SCOTIA,B0E 1A0,3,3,entreprisessamsonenterprises.ca entreprisessamsonenterprises.com entreprises-samson-enterprises.ca entreprises-samson-enterprises.com
+CH-VC-01422,v:57d1e7b78583980c,Osiris Drones Inc.,Osiris Drones Inc.,13573877,Oakville,ONTARIO,L6L 2X8,3,3,osirisdrones.ca osirisdrones.com osiris-drones.ca osiris-drones.com dronesosiris.ca dronesosiris.com
+CH-VC-01423,v:ee1c1da79a48242c,18159866 CANADA CORP.,18159866 CANADA CORP.,18159866,Bolton,ONTARIO,L7E 5R5,3,3,
+CH-VC-01424,v:2d5d772e212651eb,POLARIS INDUSTRIES LTD. /LES INDUSTRIES POLARIS LTEE.,,,Winnipeg,MANITOBA,R2J 3J8,3,3,
+CH-VC-01425,v:d00e09e359350078,Mint Pharmaceuticals ,,,,ON,L5T2M3,3,3,mintpharmaceuticals.ca mintpharmaceuticals.com mint-pharmaceuticals.ca mint-pharmaceuticals.com
+CH-VC-01426,v:f396b136479c28e1,GREEN SHIELD HEALTH INC.,GREEN SHIELD SANTÉ INC.,1176860519,,ON,M2N6L7,3,3,greenshieldhealth.ca greenshieldhealth.com green-shield-health.ca green-shield-health.com greenshieldsante.ca greenshieldsante.com
+CH-VC-01427,v:2fc633a3e666c111,RadTag Technologies Inc.,,,,,,3,3,radtagtechnologies.ca radtagtechnologies.com radtag-technologies.ca radtag-technologies.com
+CH-VC-01428,v:17ad132ce971a95f,ASHE AIRCRAFT ENTERPRISES LTD.,,,CALGARY,AB,T3Z 3S4,3,3,asheaircraftenterprises.ca asheaircraftenterprises.com ashe-aircraft-enterprises.ca ashe-aircraft-enterprises.com
+CH-VC-01429,v:c4df881ac6c9534d,EMILY S DAMSTRA,,,GUELPH,ON,N1G 5C1,3,3,emilysdamstra.ca emilysdamstra.com emily-s-damstra.ca emily-s-damstra.com
+CH-VC-01430,v:992e312c659d0fb1,LABSTAT INTERNATIONAL INC,,,KITCHENER,ON,N2C 1L3,3,3,labstatinternational.ca labstatinternational.com labstat-international.ca labstat-international.com
+CH-VC-01431,v:7fe05c82339be442,MILITEX COATINGS INC.,,,LONDON,,N5V 3A5,3,3,militexcoatings.ca militexcoatings.com militex-coatings.ca militex-coatings.com
+CH-VC-01432,v:905510927ff6e93c,FS MANUFAB STEEL PRODUCTS INC,,,REGINA,SK,S4T2T9,3,3,fsmanufabsteelproducts.ca fsmanufabsteelproducts.com fs-manufab-steel-products.ca fs-manufab-steel-products.com
+CH-VC-01433,v:476d7d51e4ca1feb,"AVCORP INDUSTRIES, INC",AVCORP INDUSTRIES INC.,14145721,DELTA,,V4G 1M7,3,3,avcorpindustries.ca avcorpindustries.com avcorp-industries.ca avcorp-industries.com
+CH-VC-01434,v:ce65f66ced438c44,ENDURON INC,,,WINNIPEG,,R3J 3W1,3,3,enduron.ca enduron.com
+CH-VC-01435,v:efdda1a5eae37e1d,CANCHAM,,,,,,3,3,
+CH-VC-01436,v:b0d70d8dec277469,CIMA GLOBAL (CIMA INTERNATIONAL),,,,,,3,3,
+CH-VC-01437,v:4f1576f79839b3f1,Raise Limited (Formerly Ian Martin Limited),,,,,,3,3,
+CH-VC-01438,v:51e996fae03b7229,Gallagher Benefit Services (Canada) Group Inc (aka Gallagher McDowall Associates),,,,,,3,3,
+CH-VC-01439,v:aed8bebccf4adcd9,Mimeri Investments Ltd. (Hazell and Collins Associates - Radiant),,,,,,3,3,
+CH-VC-01440,v:cd3bd9a45c9a8ce4,Behavioural Insights (Canada) Ltd (DBA Behavioural Insights Team),,,,,,3,3,
+CH-VC-01441,v:bdda4dcf9e30f4f9,Niewe Consulting Ltd (DBA Baiame Consulting Ltd),,,,,,3,3,
+CH-VC-01442,v:a8802a60b2475b13,R.A. Malatest & Associates Ltd. (dba: Malatest),,,,,,3,3,
+CH-VC-01443,v:842f8f60b23add29,11558889 Canada Inc. oa SCL Group,,,,,,3,3,
+CH-VC-01444,v:7bdbecf779654cbb,Altis Recruitment & Technology Inc. (formerly Altis Human Resources Inc.),,,,,,3,3,
+CH-VC-01445,v:4c1aa46b598c035e,Bold Graphic Communication Ltd,,,,,,3,3,
+CH-VC-01446,v:31033f117e53e446,BT A Advertising Inc,,,,,,3,3,
+CH-VC-01447,v:00e069bf25a00053,Cleansheet Communications Inc,,,,,,3,3,
+CH-VC-01448,v:179a7847c5cae3b2,GREY Advertising ULC,,,,,,3,3,
+CH-VC-01449,v:0562006bccb9050c,Juniper Park TBWA Communications ULC,,,,,,3,3,
+CH-VC-01450,v:994801b272d77dab,Mainspring Media Ltd (oa Mainspring Agency),Mainspring Media Ltd.,12678870,,,,3,3,mainspringmedia.ca mainspringmedia.com mainspring-media.ca mainspring-media.com
+CH-VC-01451,v:27a925728cdc7af1,My Left Foot Inc,,,,,,3,3,
+CH-VC-01452,v:451ce1d87a919f34,Utours (oa Diamond Marketing),,,,,,3,3,
+CH-VC-01453,v:b20327a762c29404,Zulu Alpha Kilo Inc,,,,,,3,3,
+CH-VC-01454,v:870821d2aa746d36,Theodore William Inc oa TWG Communications,,,,,,3,3,
+CH-VC-01455,v:f820614c8a583d19,Cairns Oneil Strategic Media inc oa CairnsOneil,,,,,,3,3,
+CH-VC-01456,v:af300882d611eb11,DAC Group / Toronto Ltd. oa DAC,,,,,,3,3,
+CH-VC-01457,v:a9471adfa3577f34,DonerNorth LP operating as DonerNorth,,,,,,3,3,
+CH-VC-01458,v:c495f7ea884b7401,Empathy Inc. o/a Empathy,,,,,,3,3,
+CH-VC-01459,v:f23d4d4b2c673626,GroupM Canada Inc. dba EssenceMediacom oa EssenceMediacom,,,,,,3,3,
+CH-VC-01460,v:b84b274b5eed765c,Havas Canada Holdings Inc. (oa Havas Media Noise Digital a division of Havas Media),,,,,,3,3,
+CH-VC-01461,v:03acac562885e2b3,Hearts & Science Company (oa Hearts & Science),,,,,,3,3,
+CH-VC-01462,v:2d7c56934e3e4c05,Saatchi & Saatchi Advertising Inc.,,,,,,3,3,
+CH-VC-01463,v:2f540599298f0466,Society etc. Ltd. oa Society etc.,,,,,,3,3,
+CH-VC-01464,v:21c51aaea7779df3,webTactics Inc. o/a webTactics / Day Communications Group Inc.,,,,,,3,3,
+CH-VC-01465,v:1cfd79d585bc1785,Pound & Grain Digital Inc. oa Pound & Grain,,,,,,3,3,
+CH-VC-01466,v:2e70239becf1e94e,Edelman Public Relations Worldwide Canada Inc.,,,,,,3,3,
+CH-VC-01467,v:e71f62b3200600ef,Brilun Construction Ltd.,,,SYDNEY,NS,B1P 6H1,263,2,brilunconstruction.ca brilunconstruction.com brilun-construction.ca brilun-construction.com
+CH-VC-01468,v:241a3c271b3ffd58,JOHNSON & JOHNSON INC.,Johnson & Johnson (Canada) Inc.,13873749,Markham,ON,L3R 0T5,135,2,johnsonjohnson.ca johnsonjohnson.com johnson-johnson.ca johnson-johnson.com
+CH-VC-01469,v:ab0d45ea94d7c1a7,Northern Contracting Ltd.,,,Sydney Mines,NS,B1V 2B8,125,2,northerncontracting.ca northerncontracting.com northern-contracting.ca northern-contracting.com
+CH-VC-01470,v:49caa82156e22f25,NCL - NORTHERN CONTRACTING LIMITED,,,Sydney Mines,NOVA SCOTIA,B1V 2L9,121,2,nclnortherncontracting.ca nclnortherncontracting.com ncl-northern-contracting.ca ncl-northern-contracting.com
+CH-VC-01471,v:c728bc938eecc9a0,Illumina Inc,ILLUMINA INC.,2396084,Saint-John,NB,E2L 2A9,85,2,illumina.ca illumina.com illuminacanada.ca illuminacanada.com illumina-canada.ca illumina-canada.com
+CH-VC-01472,v:d92aa90baa1692de,SAS Institute [Canada] inc.,SAS Institute (Canada) Inc.,2342910,Toronto,ON,M5A1K7,74,2,institutecanada.ca institutecanada.com institute.ca institute.com institute-canada.ca institute-canada.com
+CH-VC-01473,v:4900c176f4f0c739,MÉDICALE ABBOTT CANADA CIE,"Abbott Medical Canada, Inc.",8025746,,ON,L5N8E9,73,2,medicaleabbottcanada.ca medicaleabbottcanada.com medicaleabbott.ca medicaleabbott.com medicale-abbott-canada.ca medicale-abbott-canada.com
+CH-VC-01474,v:609cde197ab10c17,Mid Valley Construction (1997) Limited,,,,,,70,2,
+CH-VC-01475,v:8cfbbda372f3eebb,Tribe Medical Group Inc,Tribe Medical Group Inc.,1168112275,London,ON,N5V4K7,66,2,tribemedicalgroup.ca tribemedicalgroup.com tribe-medical-group.ca tribe-medical-group.com groupetribemedicale.ca groupetribemedicale.com
+CH-VC-01476,v:b3c268a0b70ed74e,Hootsuite Media Inc,Hootsuite Media Inc.,4543017,Vancouver,BC,V5T 4L1,45,2,hootsuitemedia.ca hootsuitemedia.com hootsuite-media.ca hootsuite-media.com
+CH-VC-01477,v:8438f05f49027770,Kadex Aero Supply Ltd,,,Peterborough,ON,,43,2,kadexaerosupply.ca kadexaerosupply.com kadex-aero-supply.ca kadex-aero-supply.com
+CH-VC-01478,v:e8d1aa140c15c3ae,Centre Transmed Center Inc.,Centre Transmed Center Inc.,1168425313,Campbellton,NB,E3N 1B2,36,2,centretransmedcenter.ca centretransmedcenter.com centre-transmed-center.ca centre-transmed-center.com centretransmed.ca centretransmed.com
+CH-VC-01479,v:c8765e99e9a6c0d1,n/a,United Quardu Gboni Community of Canada,10995444,Various,VARIOUS,XXX XXX,33,2,unitedquardugbonicommunity.ca unitedquardugbonicommunity.com
+CH-VC-01480,v:56349425a86e322f,Rolls-Royce Canada Ltée,ROLLS-ROYCE CANADA LIMITED,7736690,Dartmouth,NS,B3B 1N4,33,2,rollsroycecanada.ca rollsroycecanada.com rollsroyce.ca rollsroyce.com rolls-royce-canada.ca rolls-royce-canada.com
+CH-VC-01481,v:99c9dff465b9ae57,Eddy Group Ltd,,,,,,32,2,
+CH-VC-01482,v:e77a90442054b5f5,Dominion Biologicals ltée.,,,Darmouth,NS,B3B 1M1,31,2,dominionbiologicals.ca dominionbiologicals.com dominion-biologicals.ca dominion-biologicals.com
+CH-VC-01483,v:79c3f2cc8a0ec048,Quorex Construction Services Ltd.,,,Saskatoon,SK,,28,2,quorexconstructionservices.ca quorexconstructionservices.com quorex-construction-services.ca quorex-construction-services.com
+CH-VC-01484,v:da6bc37c26c32e1e,Black & MacDonald,,,,,,27,2,blackmacdonald.ca blackmacdonald.com black-macdonald.ca black-macdonald.com
+CH-VC-01485,v:d7cd17a140fee092,Spectra Power Sports Ltd,,,Williams Lake,BC,,26,2,spectrapowersports.ca spectrapowersports.com spectra-power-sports.ca spectra-power-sports.com
+CH-VC-01486,v:eab743f60fc3eeba,Abbott Medical Canada Co.,"Abbott Medical Canada, Inc.",8025746,Mississauga,ON,L5B8E9,26,2,abbottmedicalcanada.ca abbottmedicalcanada.com abbottmedical.ca abbottmedical.com abbott-medical-canada.ca abbott-medical-canada.com
+CH-VC-01487,v:8072457e6c2db6e6,Bausch & Lomb Canada,BAUSCH & LOMB CANADA INC.,1146136453,Vaughan,ON,L4K 4B4,23,2,bauschlombcanada.ca bauschlombcanada.com bauschlomb.ca bauschlomb.com bausch-lomb-canada.ca bausch-lomb-canada.com
+CH-VC-01488,v:1c42c72cf95aa1b7,CA Canada Company,1603059 B.C. Unlimited Liability Company,1170958111,Thornhill,ON,,22,2,cacanada.ca cacanada.com ca-canada.ca ca-canada.com
+CH-VC-01489,v:3bcc06c11fde280d,Phoenix Airmid Biomedical Corp.,,,Oakville,ON,,22,2,phoenixairmidbiomedical.ca phoenixairmidbiomedical.com phoenix-airmid-biomedical.ca phoenix-airmid-biomedical.com
+CH-VC-01490,v:841d5786ae329546,AudienceView Ticketing Corporation,AUDIENCEVIEW TICKETING CORPORATION,1175102897,Toronto,ON,M5C 3C7,22,2,audienceviewticketing.ca audienceviewticketing.com audienceview-ticketing.ca audienceview-ticketing.com billetterieaudienceview.ca billetterieaudienceview.com
+CH-VC-01491,v:34e5bd8fa9e193d6,ABBOTT RAPID DIAGNOSTICS ULC,ABBOTT RAPID DIAGNOSTICS ULC,1171696819,Nepean,ON,N2B 8V4,22,2,abbottrapiddiagnostics.ca abbottrapiddiagnostics.com abbott-rapid-diagnostics.ca abbott-rapid-diagnostics.com abbottdiagnosticsrapides.ca abbottdiagnosticsrapides.com
+CH-VC-01492,v:f7442c67e1f7548d,Global Medical Products,,,Burlington ON,ON,L7L 5K2,20,2,globalmedicalproducts.ca globalmedicalproducts.com global-medical-products.ca global-medical-products.com globalmedicalproductsholdings.ca globalmedicalproductsholdings.com
+CH-VC-01493,v:46bed753a53e4a9b,LeMaitre Vascular ULC,LeMaitre Vascular ULC,1171883334,Vaughan,ON,L4K 0J4,20,2,lemaitrevascular.ca lemaitrevascular.com lemaitre-vascular.ca lemaitre-vascular.com lemaitrevasculaire.ca lemaitrevasculaire.com
+CH-VC-01494,v:3e82d6d61997a4be,CEPHEID CANADA ULC,CEPHEID CANADA ULC,1176379536,Markham,ON,L6G 1B3,18,2,cepheidcanada.ca cepheidcanada.com cepheid.ca cepheid.com cepheid-canada.ca cepheid-canada.com
+CH-VC-01495,v:332fb45c0ec70bd1,RADIOMETER CANADA LIMITED PARTNERSHIP,RADIOMETER CANADA LIMITED PARTNERSHIP,3374482068,,ON,N5V4T7,18,2,radiometercanadapartnership.ca radiometercanadapartnership.com radiometerpartnership.ca radiometerpartnership.com radiometer-canada-partnership.ca radiometer-canada-partnership.com
+CH-VC-01496,v:438270a7a3c4df80,IDEXX LABORATORIES CANADA CORPORATION,IDEXX LABORATORIES CANADA CORPORATION,3059979,Toronto,ON,,17,2,idexxlaboratoriescanada.ca idexxlaboratoriescanada.com idexxlaboratories.ca idexxlaboratories.com idexx-laboratories-canada.ca idexx-laboratories-canada.com
+CH-VC-01497,v:1e659859562e4e25,D-Mark Biosciences,,,Toronto,ON,M1B 5W9,16,2,markbiosciences.ca markbiosciences.com mark-biosciences.ca mark-biosciences.com
+CH-VC-01498,v:a13c361ad6b9b776,SNT Engineering Ltd.,,,Nelson,BC,,16,2,sntengineering.ca sntengineering.com snt-engineering.ca snt-engineering.com
+CH-VC-01499,v:fb7ca59fb8dfdcc7,Dynamo,,,Saskatoon,SK,S7M 5H5,16,2,dynamo.ca dynamo.com
+CH-VC-01500,v:903d00c5ba37a094,CONMED LINVATEC,LINVATEC CANADA ULC,1148267827,,ON,L5N1W2,16,2,conmedlinvatec.ca conmedlinvatec.com conmed-linvatec.ca conmed-linvatec.com conmedlinvateccanada.ca conmedlinvateccanada.com

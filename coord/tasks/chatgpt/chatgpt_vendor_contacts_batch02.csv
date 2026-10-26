@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-00101,v:6ec7e690b3802cc1,UNIVERSITY OF WATERLOO,,,,,,23,18,universitywaterloo.ca universitywaterloo.com university-waterloo.ca university-waterloo.com
+CH-VC-00102,v:53d9c840edaa29aa,UNIVERSITY OF ALBERTA,,,,,,21,18,universityalberta.ca universityalberta.com university-alberta.ca university-alberta.com
+CH-VC-00103,v:4c5899494e0706ce,GLOBAL MECHANICAL LTD.,,,,,,19,18,globalmechanical.ca globalmechanical.com global-mechanical.ca global-mechanical.com
+CH-VC-00104,v:f733bc1613c8422e,Leo-Pisces Services Group Inc.,Leo-Pisces Services Group Inc.,7086393,,,,19,18,leopiscesservicesgroup.ca leopiscesservicesgroup.com leo-pisces-services-group.ca leo-pisces-services-group.com
+CH-VC-00105,v:c17977ba22c28b9e,NUNAVUT ARCTIC SERVICES LTD,,,,,,19,18,nunavutarcticservices.ca nunavutarcticservices.com nunavut-arctic-services.ca nunavut-arctic-services.com
+CH-VC-00106,v:2dc02689aa0cacd4,The John Howard Society of Canada,THE JOHN HOWARD SOCIETY OF CANADA,299171,,,,18,18,johnhowardsocietycanada.ca johnhowardsocietycanada.com johnhowardsociety.ca johnhowardsociety.com john-howard-society-canada.ca john-howard-society-canada.com
+CH-VC-00107,v:8f810a58623fbfac,PALFINGER MARINE CANADA INC,"Palfinger Marine Canada, Inc.",1729501,,,,18,18,palfingermarinecanada.ca palfingermarinecanada.com palfingermarine.ca palfingermarine.com palfinger-marine-canada.ca palfinger-marine-canada.com
+CH-VC-00108,v:85657911c0658c09,KB HOMES LTD,,,,,,18,18,
+CH-VC-00109,v:887ebbd1cda25adf,WOLTERS KLUWER CANADA LIMITED,WOLTERS KLUWER CANADA LIMITED,16630405,,,,35,17,wolterskluwercanada.ca wolterskluwercanada.com wolterskluwer.ca wolterskluwer.com wolters-kluwer-canada.ca wolters-kluwer-canada.com
+CH-VC-00110,v:5aa219af465b7ae4,COWATER INTERNATIONAL INC,Cowater International Inc.,12890127,Outside Australia,OUTSIDE AUSTRALIA,,23,17,cowaterinternational.ca cowaterinternational.com cowater-international.ca cowater-international.com
+CH-VC-00111,v:28567e93eb249eb5,TPG TECHNOLOGY CONSULTING LTD.,,,,,,19,17,tpgtechnologyconsulting.ca tpgtechnologyconsulting.com tpg-technology-consulting.ca tpg-technology-consulting.com
+CH-VC-00112,v:9e7d44655edf6d79,IBM Canada Limited/IBM Canada Limitée,,,Ottawa,ONTARIO,K2G 6K3,17,17,ibmcanadaibmcanada.ca ibmcanadaibmcanada.com ibmibm.ca ibmibm.com ibm-canada-ibm-canada.ca ibm-canada-ibm-canada.com
+CH-VC-00113,v:dae7d6c272f9a60f,D DOYLE INSTALLATIONS LIMITED,,,,,,17,17,doyleinstallations.ca doyleinstallations.com doyle-installations.ca doyle-installations.com
+CH-VC-00114,v:678d26847e997380,TeraMara Technologies Inc.,,,,,,17,17,teramaratechnologies.ca teramaratechnologies.com teramara-technologies.ca teramara-technologies.com
+CH-VC-00115,v:9ed375cfb94f453a,4220820 CANADA INC.,4220820 Canada Inc.,4220820,,,,17,17,
+CH-VC-00116,v:b67700d6c624545e,QIAGEN,QIAGEN INC.,12551691,Toronto,ON,M5J 2t3,140,16,qiagen.ca qiagen.com qiagencanada.ca qiagencanada.com qiagen-canada.ca qiagen-canada.com
+CH-VC-00117,v:25bce42d04fc9cb9,CASEWARE INTERNATIONAL INC.,,,TORONTO,ON,M5A 2W4,25,16,casewareinternational.ca casewareinternational.com caseware-international.ca caseware-international.com
+CH-VC-00118,v:765867c1adb7f351,ERGOCENTRIC INC.,ergocentric inc.,1144888543,Mississauga,ONTARIO,L5T 2L6,20,16,ergocentric.ca ergocentric.com ergoindustrialseatingsystems.ca ergoindustrialseatingsystems.com ergocentricsystemesieges.ca ergocentricsystemesieges.com
+CH-VC-00119,v:77492140d2ee52b0,ATLANTIC GROCERY DISTRIBUTORS LTD,,,,,,19,16,atlanticgrocerydistributors.ca atlanticgrocerydistributors.com atlantic-grocery-distributors.ca atlantic-grocery-distributors.com
+CH-VC-00120,v:9042ce731c4d689c,MINOSE SOLUTIONS LTD.,Minose Solutions Ltd.,14743024,,,,19,16,minosesolutions.ca minosesolutions.com minose-solutions.ca minose-solutions.com
+CH-VC-00121,v:727360f8c875d777,JML Systems & Solutions Inc.,JML Systems & Solutions Inc.,11003518,,,,18,16,jmlsystemssolutions.ca jmlsystemssolutions.com jml-systems-solutions.ca jml-systems-solutions.com
+CH-VC-00122,v:389fd2b060ff1eaa,TALIGENT CONSULTING INC.,Taligent Consulting Inc.,17122110,,,,17,16,
+CH-VC-00123,v:eb46a0df5198cc19,UNIVERSITY OF GUELPH,,,,,,17,16,universityguelph.ca universityguelph.com university-guelph.ca university-guelph.com
+CH-VC-00124,v:9bfb74c369d1441b,6854265 CANADA INC.,6854265 CANADA INC.,6854265,,,,17,16,
+CH-VC-00125,v:a02763cf96b81d3d,CAPITAL OFFICE INTERIORS LIMITED,,,,,,16,16,capitalofficeinteriors.ca capitalofficeinteriors.com capital-office-interiors.ca capital-office-interiors.com
+CH-VC-00126,v:5b9e144cbdbe0be4,8251754 CANADA INC.,8251754 Canada Inc.,8251754,,,,16,16,
+CH-VC-00127,v:3bae88d09b371b58,Somagen Diagnostics Inc.,SOMAGEN DIAGNOSTICS INC.,1170987417,Edmonton,AB,T6N 1E1,301,15,somagendiagnostics.ca somagendiagnostics.com somagen-diagnostics.ca somagen-diagnostics.com diagnosticssomagen.ca diagnosticssomagen.com
+CH-VC-00128,v:363c2ccb95878242,GEMTEC CONSULTING ENGINEERS,,,,,,37,15,gemtecconsultingengineers.ca gemtecconsultingengineers.com gemtec-consulting-engineers.ca gemtec-consulting-engineers.com
+CH-VC-00129,v:a55f20c4f91a7309,MCMASTER UNIVERSITY,,,,,,27,15,mcmasteruniversity.ca mcmasteruniversity.com mcmaster-university.ca mcmaster-university.com
+CH-VC-00130,v:fea877d4f0f1699d,NAV Canada,NAV CANADA,3150640,,,,27,15,navcanada.ca navcanada.com nav-canada.ca nav-canada.com
+CH-VC-00131,v:977492e64efedbc5,CandorBuild Construction Corp.,,,,,,26,15,candorbuildconstruction.ca candorbuildconstruction.com candorbuild-construction.ca candorbuild-construction.com
+CH-VC-00132,v:f222e48271cff429,CMC ELECTRONICS INC,CMC ELECTRONICS INC.,7659903,,,,25,15,cmcelectronics.ca cmcelectronics.com cmc-electronics.ca cmc-electronics.com cmcelectronique.ca cmcelectronique.com
+CH-VC-00133,v:0175be54f3ef1f20,TRM TECHNOLOGIES INC.,TRM TECHNOLOGIES INC.,8128111,,,,19,15,trmtechnologies.ca trmtechnologies.com trm-technologies.ca trm-technologies.com
+CH-VC-00134,v:b4ad4ed6718693fb,6175015 CANADA INC.,6175015 CANADA INC.,6175015,,,,18,15,
+CH-VC-00135,v:7c7c8b724ffd04b3,ROY'S CHEVROLET BUICK GMC INC.,ROY'S CHEVROLET BUICK GMC INC.,2471558,Green Valley,ONTARIO,K0C 1L0,16,15,royschevroletbuickgmc.ca royschevroletbuickgmc.com roys-chevrolet-buick-gmc.ca roys-chevrolet-buick-gmc.com
+CH-VC-00136,v:06718ccddcc1142e,UNIVERSITE SAINTE-ANNE,,,,,,15,15,
+CH-VC-00137,v:4e7bbd2182b355ad,DONNA CONA INC. IBM CANADA LTD IN JV,,,,,,15,15,
+CH-VC-00138,v:0aebe87bab2fcd2e,EXPERIS CANADA INC (VERITAAQ TECHNOLOGY HOUSE),EXPERIS CANADA INC.,8972494,,,,15,15,experiscanada.ca experiscanada.com experis.ca experis.com experis-canada.ca experis-canada.com
+CH-VC-00139,v:d7ca5b6bb59599fe,General Dynamics,,,,,,15,15,generaldynamics.ca generaldynamics.com general-dynamics.ca general-dynamics.com
+CH-VC-00140,v:78e7c28a61ce8a47,COMMUNICATIONS & POWER INDUSTRIES CANADA INC.,,,GEORGETOWN,ON,L7G 2J4,15,15,communicationspowerindustries.ca communicationspowerindustries.com
+CH-VC-00141,v:5f6441eda25f7bd0,"MAGELLAN AEROSPACE, WINNIPEG",,,,,,25,14,magellanaerospacewinnipeg.ca magellanaerospacewinnipeg.com magellan-aerospace-winnipeg.ca magellan-aerospace-winnipeg.com
+CH-VC-00142,v:a567a35109a25bcb,THE GOVERNORS OF THE UNIVERSITY OF CALGARY,,,,,,15,14,governorsuniversitycalgary.ca governorsuniversitycalgary.com governors-university-calgary.ca governors-university-calgary.com
+CH-VC-00143,v:c895a35e45188efc,HALPENNY INSURANCE BROKERS LTD,,,,,,14,14,
+CH-VC-00144,v:ad33a8ca11df5aea,TATO RECRUITING INC S. I. SYSTEMS ULC IN JV,,,,,,14,14,tatorecruitingsisystemsinjv.ca tatorecruitingsisystemsinjv.com
+CH-VC-00145,v:9895d153c3bb88bc,megapower,,,,,,14,14,
+CH-VC-00146,v:6439653cd14d29cb,7130988 CANADA INC.,7130988 CANADA INC.,7130988,,,,14,14,
+CH-VC-00147,v:5efef5db8a5f8b50,CANADIAN LEASEBACK (GP) INC.,,,,,,14,14,
+CH-VC-00148,v:55b8d13fe9905452,BPONOVO INC.,,,MARKHAM,ON,L3R5E7,14,14,bponovo.ca bponovo.com
+CH-VC-00149,v:6b7da97dda5a1976,SOCIÉTÉ FISHER SCIENTIFIQUE,SOCIÉTÉ FISHER SCIENTIFIQUE,1147627393,Ottawa,ON,K2E 7L6,91,13,societefisherscientifique.ca societefisherscientifique.com societe-fisher-scientifique.ca societe-fisher-scientifique.com fisherscientific.ca fisherscientific.com
+CH-VC-00150,v:599fdb71042f33a3,Fresenius Kabi Canada Ltd.,Fresenius Kabi Canada Ltd.,9141731,Toronto,ON,M9W0C8,79,13,freseniuskabicanada.ca freseniuskabicanada.com freseniuskabi.ca freseniuskabi.com fresenius-kabi-canada.ca fresenius-kabi-canada.com
+CH-VC-00151,v:389a74272c270241,"B. Braun of Canada, Ltd.","B. BRAUN OF CANADA, LTD.",8621551,,ON,L5N2W3,46,13,bbrauncanada.ca bbrauncanada.com bbraun.ca bbraun.com b-braun-canada.ca b-braun-canada.com
+CH-VC-00152,v:34c21bccf782c0dd,FTS FOREST TECHNOLOGY SYSTEMS LTD.,,,VICTORIA,BC,V9B 6B2,21,13,ftsforesttechnologysystems.ca ftsforesttechnologysystems.com fts-forest-technology-systems.ca fts-forest-technology-systems.com
+CH-VC-00153,v:8041bb673db276c0,Veritaaq Technology House Inc.,VERITAAQ TECHNOLOGY HOUSE INC.,2817951,,,,19,13,veritaaqtechnologyhouse.ca veritaaqtechnologyhouse.com veritaaq-technology-house.ca veritaaq-technology-house.com
+CH-VC-00154,v:420f57022af573ed,Carepros Enterprise Inc.,,,Edmonton,AB,T6H 4A6,13,13,careprosenterprise.ca careprosenterprise.com carepros-enterprise.ca carepros-enterprise.com
+CH-VC-00155,v:a73a729185f1afe1,Mattawa IT Solutions Inc.,Mattawa IT Solutions Inc.,15266602,Ottawa,ONTARIO,K2P 1L4,13,13,mattawaitsolutions.ca mattawaitsolutions.com mattawa-it-solutions.ca mattawa-it-solutions.com
+CH-VC-00156,v:ce30dad5b3d2d3e8,SAMSON & ASSOCIÉS CPA/,,,,,,13,13,
+CH-VC-00157,v:13eab951516bb3a3,COFOMO OTTAWA,,,,,,13,13,cofomoottawa.ca cofomoottawa.com cofomo-ottawa.ca cofomo-ottawa.com
+CH-VC-00158,v:2283fa4a8097f132,IRON MOUNTAIN CANADA OPERATIONS ULC DBA IRON MOUNTAIN CANADA,,,,,,13,13,
+CH-VC-00159,v:48719a6fc0af9138,953731 NWT LTD,,,,,,13,13,
+CH-VC-00160,v:4057267f10591f15,Zodiac Hurricane Technologies Inc.,,,Delta,BRITISH COLUMBIA,V4G 1A7,13,13,zodiachurricanetechnologies.ca zodiachurricanetechnologies.com zodiac-hurricane-technologies.ca zodiac-hurricane-technologies.com
+CH-VC-00161,v:42eaba68c8fa9b44,Nunami Stantec Limited,,,,,,13,13,nunamistantec.ca nunamistantec.com nunami-stantec.ca nunami-stantec.com
+CH-VC-00162,v:428ba809541587d0,HONEYWELL LIMITED/HONEYWELL LIMITEE,,,,,,13,13,honeywellhoneywell.ca honeywellhoneywell.com honeywell-honeywell.ca honeywell-honeywell.com
+CH-VC-00163,v:94294824a7dc30be,SIEMENS CANADA LIMITED/SIEMENS CANADA LIMITÉE,,,Oakville,ONTARIO,L6H 0H6,13,13,siemenscanadasiemenscanada.ca siemenscanadasiemenscanada.com siemenssiemens.ca siemenssiemens.com siemens-canada-siemens-canada.ca siemens-canada-siemens-canada.com
+CH-VC-00164,v:fb188b02cf7ff2f9,WATERS LIMITED/WATERS LIMITEE,,,Mississauga,ONTARIO,L4V 1S6,13,13,waterswaters.ca waterswaters.com waters-waters.ca waters-waters.com
+CH-VC-00165,v:d27c1c16dcbd9c36,SIEMENS SANTÉ LIMITÉE,Siemens Healthcare Limited,16339077,,ON,L6H0H6,444,12,siemenssante.ca siemenssante.com siemens-sante.ca siemens-sante.com siemenshealthcare.ca siemenshealthcare.com
+CH-VC-00166,v:84c0f0fdcfee2e75,Sysmex Canada Inc.,"Sysmex Canada, Inc.",6850162,Mississauga,ON,L4W 4Y4,107,12,sysmexcanada.ca sysmexcanada.com sysmex.ca sysmex.com sysmex-canada.ca sysmex-canada.com
+CH-VC-00167,v:ab27c1cf90c37da4,LivaNova Canada Corp.,"LivaNova Canada, Inc.",1176360296,Markham,ON,L6C3A1,98,12,livanovacanada.ca livanovacanada.com livanova.ca livanova.com livanova-canada.ca livanova-canada.com
+CH-VC-00168,v:aea4975a94cf8cfb,Oxford Nanopore Technologies Canada Limited,,,,,,24,12,oxfordnanoporetechnologies.ca oxfordnanoporetechnologies.com oxford-nanopore-technologies.ca oxford-nanopore-technologies.com
+CH-VC-00169,v:a0ddffa6c7d32cc2,THERMOFISHER SCIENTIFIC INC,,,,,,22,12,thermofisherscientific.ca thermofisherscientific.com thermofisher-scientific.ca thermofisher-scientific.com
+CH-VC-00170,v:f380cbcd9a79a4ea,AND ARCHITECTURE INC.,,,,,,18,12,architecture.ca architecture.com
+CH-VC-00171,v:c4541a992d9ed642,Dalhousie University,,,,,,17,12,dalhousieuniversity.ca dalhousieuniversity.com dalhousie-university.ca dalhousie-university.com
+CH-VC-00172,v:5c765c7e62b23ddc,878146000 (CDW Canada Corp),CDW CANADA CORP.,1175178434,,ON,M9C5L5,16,12,cdwcanada.ca cdwcanada.com cdw-canada.ca cdw-canada.com entreprisescdwcanada.ca entreprisescdwcanada.com
+CH-VC-00173,v:bab1f885dca0a403,HAWBOLDT INDUSTRIES (1989) LIMITED,,,,,,15,12,hawboldtindustries.ca hawboldtindustries.com hawboldt-industries.ca hawboldt-industries.com
+CH-VC-00174,v:3895c9ea78bdcb26,Watson MacEwen Teramura Architects,,,,,,14,12,
+CH-VC-00175,v:dfdc92b108dfc716,The University of Western Ontario,,,,,,14,12,universitywesternontario.ca universitywesternontario.com university-western-ontario.ca university-western-ontario.com
+CH-VC-00176,v:a7beb89238066077,KWC Architects Inc.,KWC Architects Inc.,3016595,,,,14,12,kwcarchitects.ca kwcarchitects.com kwc-architects.ca kwc-architects.com
+CH-VC-00177,v:6aa79589f63a16dc,BANFIELD-SEGUIN LTD.,,,OTTAWA,ONTARIO,K1Y 2V4,13,12,banfieldseguin.ca banfieldseguin.com banfield-seguin.ca banfield-seguin.com
+CH-VC-00178,v:49f146cb221e09db,UNIVERSITY OF SASKATCHEWAN,,,,,,13,12,universitysaskatchewan.ca universitysaskatchewan.com university-saskatchewan.ca university-saskatchewan.com
+CH-VC-00179,v:c66873f9101f3655,CANADIAN CORPS COMMISSIONAIRES,,,,,,12,12,
+CH-VC-00180,v:dcd98f9f414c0a47,JASCO APPLIED SCIENCES (CANADA) LTD,,,,,,12,12,jascoappliedsciences.ca jascoappliedsciences.com jasco-applied-sciences.ca jasco-applied-sciences.com
+CH-VC-00181,v:393769f6752f07be,WILSON'S BUSINESS SOLUTIONS,,,,,,12,12,
+CH-VC-00182,v:f04e73b63ceacfea,WTB LANGUAGE GROUP INC.,WTB Language Group Inc.,3733882,,,,12,12,wtblanguagegroup.ca wtblanguagegroup.com wtb-language-group.ca wtb-language-group.com
+CH-VC-00183,v:e9f56354040bc788,H2 ANALYTICS INC.,H2 ANALYTICS INC.,12532778,Ottawa,ONTARIO,K1J 9B8,12,12,h2analytics.ca h2analytics.com h2-analytics.ca h2-analytics.com
+CH-VC-00184,v:4fb8258d541b508c,IRISH POND TRANSIT INC,,,,,,12,12,irishpondtransit.ca irishpondtransit.com irish-pond-transit.ca irish-pond-transit.com
+CH-VC-00185,v:be587dc2f32f61e7,AF LOGISTICS,,,,,,12,12,
+CH-VC-00186,v:0089bdcbfaf09edf,EQUINIX (OTTAWA) GOVERNMENT LTD,EQUINIX (OTTAWA) GOVERNMENT LTD.,12057751,,,,12,12,equinixgovernment.ca equinixgovernment.com equinix-government.ca equinix-government.com
+CH-VC-00187,v:f4724ec9886b685a,CALTRIO COMPANY LIMITED,,,,,,12,12,caltrio.ca caltrio.com
+CH-VC-00188,v:17a7f46203d2401f,Draeger Medical Canada Inc.,DRAEGER MEDICAL CANADA INC.,4241231,Mississauga,ON,L4W 4Y6,252,11,draegermedicalcanada.ca draegermedicalcanada.com draegermedical.ca draegermedical.com draeger-medical-canada.ca draeger-medical-canada.com
+CH-VC-00189,v:d326dfd38c86ab03,Kongsberg Maritime Canada Ltd,KONGSBERG MARITIME CANADA LTD.,14878281,,NS,B3B1Y2,42,11,kongsbergmaritimecanada.ca kongsbergmaritimecanada.com kongsbergmaritime.ca kongsbergmaritime.com kongsberg-maritime-canada.ca kongsberg-maritime-canada.com
+CH-VC-00190,v:d8e203a51b048bdc,CIRCLE CARDIOVASCULAR IMAGING INC.,CIRCLE CARDIOVASCULAR IMAGING INC.,1174728684,Calgary,AB,t2p3t6,31,11,circlecardiovascularimaging.ca circlecardiovascularimaging.com circle-cardiovascular-imaging.ca circle-cardiovascular-imaging.com circleimageriecardiovasculaire.ca circleimageriecardiovasculaire.com
+CH-VC-00191,v:048a1350783ea40e,1x1 architecture inc.,,,Winnipeg,MB,R3C 1C7,17,11,1x1architecture.ca 1x1architecture.com 1x1-architecture.ca 1x1-architecture.com
+CH-VC-00192,v:6b26f6d5ac9ec431,Michelin North America,MICHELIN NORTH AMERICA (CANADA) INC.,4274865,,,,17,11,michelinnorthamerica.ca michelinnorthamerica.com michelin-north-america.ca michelin-north-america.com michelinameriquenord.ca michelinameriquenord.com
+CH-VC-00193,v:5fef2080c81fc2b7,CANADIAN STANDARDS ASSOCIATION,CANADIAN STANDARDS ASSOCIATION,350893,,,,16,11,canadianstandardsassociation.ca canadianstandardsassociation.com standardsassociation.ca standardsassociation.com canadian-standards-association.ca canadian-standards-association.com
+CH-VC-00194,v:ccfdf48ed9e0c91c,Vaisala Canada Inc,,,,,,14,11,vaisalacanada.ca vaisalacanada.com vaisala.ca vaisala.com vaisala-canada.ca vaisala-canada.com
+CH-VC-00195,v:be5197ee6e3001dd,University of Calgary,,,,,,13,11,universitycalgary.ca universitycalgary.com university-calgary.ca university-calgary.com
+CH-VC-00196,v:4a4320400ea6f1d4,"STANDARDAERO ATLANTIC, INC.",,,SUMMERSIDE,,C1N 4P6,13,11,standardaeroatlantic.ca standardaeroatlantic.com standardaero-atlantic.ca standardaero-atlantic.com
+CH-VC-00197,v:241a3615f1f72b90,GLAMOX CANADA INC.,,,,,,13,11,glamoxcanada.ca glamoxcanada.com glamox.ca glamox.com glamox-canada.ca glamox-canada.com
+CH-VC-00198,v:ec8cab59cd658f67,EXP SERVICES INC./LES SERVICES EXP,,,,,,13,11,expservicesservicesexp.ca expservicesservicesexp.com exp-services-services-exp.ca exp-services-services-exp.com
+CH-VC-00199,v:737d5a38c9185c1a,TEKSYSTEMS CANADA CORP./SOCIÉTÉ TEKSYSTEMS CANADA,,,Ottawa,ONTARIO,K1A 0W8,13,11,teksystemssocieteteksystems.ca teksystemssocieteteksystems.com
+CH-VC-00200,v:0d55d7ccb3f60028,ALLSEATING CORPORATION,,,MISSISSAUGA,ON,L5R3M3,13,11,allseating.ca allseating.com

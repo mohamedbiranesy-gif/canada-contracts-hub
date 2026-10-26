@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-01201,v:eab0f0d675765e4f,CANADIAN FISHING COMPANY,,,,,,3,3,
+CH-VC-01202,v:6de47eec7203a7a7,CENTRE FOR AQUATIC HEALTH SCIENCES,,,,,,3,3,centreforaquatichealthsciences.ca centreforaquatichealthsciences.com
+CH-VC-01203,v:391a9d338f7d2f1e,CURRENT ENVIRONMENTAL,,,,,,3,3,
+CH-VC-01204,v:a924c57127eb2a2f,BRITISH COLUMBIA CONSERVATION FOUND,,,,,,3,3,
+CH-VC-01205,v:1075c0a9525d9653,EMERALD SEA SURVEYING LTD.,,,Vancouver,BC,V6J1M7,3,3,emeraldseasurveying.ca emeraldseasurveying.com emerald-sea-surveying.ca emerald-sea-surveying.com
+CH-VC-01206,v:d640e40c9803c245,BLEW SOLUTIONS INC,,,,,,3,3,
+CH-VC-01207,v:24822fbb189ddd4a,FAST TRACK STAFFING,,,,,,3,3,fasttrackstaffing.ca fasttrackstaffing.com fast-track-staffing.ca fast-track-staffing.com
+CH-VC-01208,v:b64444d4aedc5f70,OLOKHAKTOMIUT HUNTERS & TRAPPERS,,,,,,3,3,
+CH-VC-01209,v:a2cf3f54b3d99490,SAINT MARY'S UNIVERSITY,,,Halifax,NOVA-SCOTIA,B3H 3C3,3,3,saintmarysuniversity.ca saintmarysuniversity.com saint-marys-university.ca saint-marys-university.com
+CH-VC-01210,v:6cfd5804b6c8151c,PEARSALL ECOLOGICAL CONSULTING,,,,,,3,3,
+CH-VC-01211,v:77ddfb1abd533d91,"TELEDYNE GEOSPATIAL, A BUSINESS UNI",,,,,,3,3,
+CH-VC-01212,v:ee3b2399f9b8a207,STEVESTON HARBOUR AUTHORITY,STEVESTON HARBOUR AUTHORITY,2593629,,,,3,3,stevestonharbourauthority.ca stevestonharbourauthority.com steveston-harbour-authority.ca steveston-harbour-authority.com
+CH-VC-01213,v:a7b9c2d2675d74b0,IGLOOLIK H.T.A.,,,,,,3,3,
+CH-VC-01214,v:b4409f21ebeab72d,CROSSSAFETY CONSULTING LTD.,CrossSafety Consulting Ltd.,17121890,Toronto,ONTARIO,M3C 3S2,3,3,crosssafetyconsulting.ca crosssafetyconsulting.com crosssafety-consulting.ca crosssafety-consulting.com
+CH-VC-01215,v:7f646f21eb039a91,TAHLTAN CENTRAL GOVERNMENT,,,,,,3,3,tahltancentralgovernment.ca tahltancentralgovernment.com tahltan-central-government.ca tahltan-central-government.com
+CH-VC-01216,v:428310b3fa0ee52e,RASSEMBLEMENT DES PECHEURS ET PECHE,,,,,,3,3,
+CH-VC-01217,v:c4b6f3835ac39384,TANKATEK,,,,,,3,3,
+CH-VC-01218,v:860bb94b404ea25c,NORWOOD HILLS CONSTRUCTION LTD.,,,,,,3,3,
+CH-VC-01219,v:5c6c6defda50e95b,S.T.I. STEELTEC INDUSTRIES LTD,,,,,,3,3,stisteeltecindustries.ca stisteeltecindustries.com s-t-i-steeltec-industries.ca s-t-i-steeltec-industries.com
+CH-VC-01220,v:c08df24dd6b0aca9,DERK ENTERPRISES LTD,,,,,,3,3,
+CH-VC-01221,v:e34102b9f38346af,BOOMCHAIN MINING INC,,,,,,3,3,
+CH-VC-01222,v:008d8ec558b28b5d,NORTH ISLAND APPLIANCE & GAS INC,,,,,,3,3,
+CH-VC-01223,v:a652f0b07e1126e3,PANGNIRTUNG HUNTERS & TRAPPERS,,,,,,3,3,
+CH-VC-01224,v:70647b55b4d707b7,NUA,,,,,,3,3,
+CH-VC-01225,v:2e0ac96a7c929b6d,World University Service of Canada,WORLD UNIVERSITY SERVICE OF CANADA,645770,,,,3,3,worlduniversityservicecanada.ca worlduniversityservicecanada.com worlduniversityservice.ca worlduniversityservice.com lentraideuniversitairemondiale.ca lentraideuniversitairemondiale.com
+CH-VC-01226,v:f5cc5f5da82a7fca,Optiv Canada Federal Inc.Optiv Canada Inc.,,,,,,3,3,
+CH-VC-01227,v:215f73929b3ab78a,Data Centre Intelligence Inc.DCI,Data Centre Intelligence Inc.,8188360,,,,3,3,datacentreintelligencedci.ca datacentreintelligencedci.com data-centre-intelligence-dci.ca data-centre-intelligence-dci.com datacentreintelligence.ca datacentreintelligence.com
+CH-VC-01228,v:9a11c64f76edc5a4,"Factr LimitedAltis Recruitment Technology Inc., Factr Limited In Joint Venture.",,,,,,3,3,
+CH-VC-01229,v:6a9bc014c991365f,SHARP ELECTRONICS,,,,,,3,3,
+CH-VC-01230,v:524b66d1ff5d292c,QUADIENT LEASING CANADA LTD.,QUADIENT LEASING CANADA LTD.,4112938,,,,3,3,quadientleasingcanada.ca quadientleasingcanada.com quadientleasing.ca quadientleasing.com quadient-leasing-canada.ca quadient-leasing-canada.com
+CH-VC-01231,v:3bc7b430cbf99740,INTEGRAL TRADUCTION TECHNIQUE SENC,,,,,,3,3,
+CH-VC-01232,v:06b5bac0cc6dd757,MJ LEADERSHIP CONSULTING,,,,,,3,3,mjleadershipconsulting.ca mjleadershipconsulting.com mj-leadership-consulting.ca mj-leadership-consulting.com
+CH-VC-01233,v:17b8075f28558d8e,MAATRX INC.,,,,,,3,3,maatrx.ca maatrx.com
+CH-VC-01234,v:5e0361325ff3742e,CHILDREN'S HOSPITAL OF EASTERN ONTARIO,,,,,,3,3,
+CH-VC-01235,v:37bb073ba2a5b828,FONEBONE SERVICES INC.,,,,,,3,3,foneboneservices.ca foneboneservices.com fonebone-services.ca fonebone-services.com
+CH-VC-01236,v:45fba94a9d3bf0da,DURHAM INSTRUMENTS,,,,,,3,3,durhaminstruments.ca durhaminstruments.com durham-instruments.ca durham-instruments.com
+CH-VC-01237,v:e4a9541afb3dd6dd,RecordXpress a Division of Storagev,,,,,,3,3,
+CH-VC-01238,v:c1069980bdca105a,LAURIN D. & ASSOCIÉS INC,LAURIN D. ET ASSOCIÉS INC.,9117865,,,,3,3,laurinassocies.ca laurinassocies.com laurin-associes.ca laurin-associes.com
+CH-VC-01239,v:e8c139a99f781179,CANADIAN HEALTH CARE AGENCY LTD,,,,,,3,3,
+CH-VC-01240,v:0845c52d778c0e38,WINNIPEG REGIONAL HEALTH AUTHORITY-,,,,,,3,3,
+CH-VC-01241,v:a81258a82e6856a1,3ES INNOVATION INC.,3ES INNOVATION INC.,6410961,,,,3,3,3esinnovation.ca 3esinnovation.com 3es-innovation.ca 3es-innovation.com
+CH-VC-01242,v:217ffeb93ab40285,HENRI INVESTIGATION INC.,,,,,,3,3,
+CH-VC-01243,v:8cb0b4e255cce0b1,iPolitics,,,,,,3,3,ipolitics.ca ipolitics.com
+CH-VC-01244,v:fe3e1a71be533c30,1763512 ALBERTA LTD.,,,,,,3,3,
+CH-VC-01245,v:f9699a52fdc77fdf,CO ENTREPRISE CITE-CARON/OTTAWA,,,,,,3,3,
+CH-VC-01246,v:ea5c29201d643956,TRANSHUMANCES INC.,,,,,,3,3,
+CH-VC-01247,v:61daee9011cc2169,Ghost Solutions Inc.,Ghost Solutions Inc.,14283708,Ottawa,ONTARIO,K1Y 2H6,3,3,ghostsolutions.ca ghostsolutions.com ghost-solutions.ca ghost-solutions.com
+CH-VC-01248,v:1c6d4d6bd8610be5,GAP WIRELESS INC. (NWS CANADA),Gap Wireless Inc.,6727221,,,,3,3,gapwireless.ca gapwireless.com gap-wireless.ca gap-wireless.com
+CH-VC-01249,v:13974dad4fb88fd1,SPECTRONIX INC,SPECTRONIX INC.,10706183,GATINEAU,,J9A 1L8,3,3,spectronix.ca spectronix.com
+CH-VC-01250,v:1a5c3e7b226c0277,13700569 Canada Inc.,13700569 Canada Inc.,13700569,,,,3,3,
+CH-VC-01251,v:a2d8a6905dbfdd04,Victoria Shipyards Co Ltd,,,,,,3,3,victoriashipyards.ca victoriashipyards.com victoria-shipyards.ca victoria-shipyards.com
+CH-VC-01252,v:cf7d10fdbaf630de,GEA Mechanical Equipment Canada,,,Burlington,ONTARIO,L7L 5Y7,3,3,geamechanicalequipmentcanada.ca geamechanicalequipmentcanada.com geamechanicalequipment.ca geamechanicalequipment.com
+CH-VC-01253,v:f221177146576169,Nasittuq Corporation,NASITTUQ CORPORATION,3829987,,,,3,3,nasittuq.ca nasittuq.com
+CH-VC-01254,v:40d231af9e8f0f96,Konica Minolta Business Systems Canada,,,,,,3,3,
+CH-VC-01255,v:e9713633380fe3eb,United Van Lines (Canada) Ltd.,UNITED VAN LINES (CANADA) LTD.,1021281,Mississauga,ONTARIO,L5T 1S9,3,3,unitedvanlines.ca unitedvanlines.com united-van-lines.ca united-van-lines.com
+CH-VC-01256,v:834a1f6882328a6a,L3Harris Mapps Inc,L3Harris MAPPS Inc.,6317685,,,,3,3,l3harrismapps.ca l3harrismapps.com l3harris-mapps.ca l3harris-mapps.com
+CH-VC-01257,v:2d6291121137b2cf,PIVOTECH,,,,,,3,3,pivotech.ca pivotech.com
+CH-VC-01258,v:1c5610d9ccddb4ed,Shared Services Canada,,,,,,3,3,
+CH-VC-01259,v:5d7a0c657812e717,"CALIAN LTD., DWP SOLUTIONS INC., IN JOINT VENTURE",,,Ottawa,ONTARIO,K2V 1C8,3,3,
+CH-VC-01260,v:03af75ae5869a57a,Global Spatial Technology Solutions,,,,,,3,3,
+CH-VC-01261,v:f21318d255a8487b,Effective Acceleration Ventures Ltd,,,,,,3,3,effectiveaccelerationventures.ca effectiveaccelerationventures.com
+CH-VC-01262,v:20577a51e75fe6a9,CogSim Technologies Inc.,CogSim Technologies Inc.,9133631,Ottawa,ONTARIO,K1S 3B5,3,3,cogsimtechnologies.ca cogsimtechnologies.com cogsim-technologies.ca cogsim-technologies.com
+CH-VC-01263,v:dc825f7a363d0723,Cambridge University Press,,,,,,3,3,
+CH-VC-01264,v:de63e20c53ffe31f,JHT,,,,,,3,3,
+CH-VC-01265,v:955746a38d5f1af1,KD CONSTRUCTION,,,,,,3,3,
+CH-VC-01266,v:e57554286a56d997,Woodward Construction Ltd.,,,Stony Plain,ALBERTA,T7Z 1G3,3,3,woodwardconstruction.ca woodwardconstruction.com woodward-construction.ca woodward-construction.com
+CH-VC-01267,v:bc0016282e5c78e2,New Technologies Inc.,,,,,,3,3,
+CH-VC-01268,v:7c8c579f38694bec,Wyvern,WYVERN INCORPORATED,11381849,Edmonton,ALBERTA,T5K 0K6,3,3,wyvern.ca wyvern.com
+CH-VC-01269,v:eed2f8b9fb66bf70,QUINTE-KAWARTHA ALARM SYSTEMS LIMITED,,,,,,3,3,
+CH-VC-01270,v:48b8614f0b7fcbba,RENE BLAIS LTE,,,,,,3,3,
+CH-VC-01271,v:820760d2df12137f,Metro Tow Trucks Ltd,,,Ottawa,ON,K1B 4V8,3,3,metrotowtrucks.ca metrotowtrucks.com metro-tow-trucks.ca metro-tow-trucks.com
+CH-VC-01272,v:ad471435465dd263,ESI TECHNOLOGIES DE L'INFORMATION I,,,,,,3,3,
+CH-VC-01273,v:3a828f342c35673b,MFE Rentals - Canada,"MFE RENTALS-CANADA, INC.",8758085,Edmonton,ALBERTA,T6B 3R1,3,3,mferentalscanada.ca mferentalscanada.com mferentals.ca mferentals.com mfe-rentals-canada.ca mfe-rentals-canada.com
+CH-VC-01274,v:2d973618b935fdbb,MARINE SERVICES INTERNATIONAL LTD,,,,,,3,3,
+CH-VC-01275,v:8607300a506e9dd5,CANAL MARINE & INDUSTRIAL INC,Canal Marine & Industrial Inc.,3267091,St Catharines,ONTARIO,L2M 6T4,3,3,canalmarineindustrial.ca canalmarineindustrial.com canal-marine-industrial.ca canal-marine-industrial.com
+CH-VC-01276,v:c61ceaab86f23177,1091847 Ontario Ltd. Operating as Aurora Solutions,,,Nepean,ON,K2J 2Y4,3,3,aurorasolutions.ca aurorasolutions.com aurora-solutions.ca aurora-solutions.com
+CH-VC-01277,v:3e31d4913f5eb757,INNOVMETRIC LOGICIELS INC,InnovMetric Logiciels inc.,3024873,,,,3,3,innovmetriclogiciels.ca innovmetriclogiciels.com innovmetric-logiciels.ca innovmetric-logiciels.com innovmetricsoftware.ca innovmetricsoftware.com
+CH-VC-01278,v:671e475d8e1d326d,EARLS MARINE CLOSURES & SERVICES LT,,,,,,3,3,
+CH-VC-01279,v:4110a770ba1de346,MARITIME MARINE SUPPLY,,,,,,3,3,
+CH-VC-01280,v:c2e4d778f0a3abb3,NAV ARC MARINE LTD,,,,,,3,3,
+CH-VC-01281,v:6b69fd8984b3566a,CAMPBELL'S SHIP SUPPLIES,,,,,,3,3,
+CH-VC-01282,v:ddd564dce4897cdd,SPURRELL'S CABINETMAKING,,,,,,3,3,
+CH-VC-01283,v:84b396362f89c7c2,ELCOME INTERNATIONAL INC,,,,,,3,3,elcomeinternational.ca elcomeinternational.com elcome-international.ca elcome-international.com
+CH-VC-01284,v:4b226d04a899edc4,GFS QUEBEC,,,,,,3,3,
+CH-VC-01285,v:dc7d96d4125e819d,VIP,,,,,,3,3,
+CH-VC-01286,v:b78bc0953ed4af8b,Nick Mahoney Construction Ltd.,,,,,,3,3,nickmahoneyconstruction.ca nickmahoneyconstruction.com nick-mahoney-construction.ca nick-mahoney-construction.com
+CH-VC-01287,v:993382d514132ab2,DGA Clean Air Services Ltd,,,,,,3,3,dgacleanairservices.ca dgacleanairservices.com dga-clean-air-services.ca dga-clean-air-services.com
+CH-VC-01288,v:3d3c5efe3def890e,TRANE OTTAWA,,,,,,3,3,
+CH-VC-01289,v:ce97c4463c27b606,CHANNEL MANAGEMENT INTERNATIONAL,Channel Management International Incorporated,6065368,Ottawa,ONTARIO,K1N 5T4,3,3,channelmanagementinternational.ca channelmanagementinternational.com
+CH-VC-01290,v:92dba83906d2726f,DMC Capital Inc.,DMC Capital Inc.,13379329,Ottawa,ONTARIO,K4A 1B6,3,3,dmccapital.ca dmccapital.com dmc-capital.ca dmc-capital.com
+CH-VC-01291,v:35553246e69e07ba,"Marketbridge Technologies, Inc.",Marketbridge Technologies Inc.,3834832,OTTAWA,ONTARIO,K1B 4A6,3,3,marketbridgetechnologies.ca marketbridgetechnologies.com marketbridge-technologies.ca marketbridge-technologies.com
+CH-VC-01292,v:13a044a92b59890c,MODERN NIAGARA BUILDING,,,,,,3,3,
+CH-VC-01293,v:f40a26e91ba2a135,O/A PACIFICWIND POWERWASHING,,,,,,3,3,
+CH-VC-01294,v:a8d51992d3081b07,DAVID LITTLE O/A PACIFICWIND POWERWASHING,,,,,,3,3,
+CH-VC-01295,v:894d27594043989a,Skyline Tree Service,,,,,,3,3,
+CH-VC-01296,v:5f1b34d42715e5d8,Maxx Welds,,,,,,3,3,
+CH-VC-01297,v:9667ad7d937a305b,Smart Electrical Contractors(2007) Ltd,,,Cold Lake,ALBERTA,T9M 1E7,3,3,smartelectricalcontractors.ca smartelectricalcontractors.com smart-electrical-contractors.ca smart-electrical-contractors.com
+CH-VC-01298,v:7ba711cbbbb5677b,Valley Refrigeration & Air Conditioning Ltd,,,,,,3,3,
+CH-VC-01299,v:b7485212e70323de,AQS Air Quality Services,,,,,,3,3,aqsairqualityservices.ca aqsairqualityservices.com aqs-air-quality-services.ca aqs-air-quality-services.com
+CH-VC-01300,v:2a0fbabcd3a45413,The RPM Indigenous Group Inc,The RPM Indigenous Group Inc.,14525949,,,,3,3,rpmindigenousgroup.ca rpmindigenousgroup.com rpm-indigenous-group.ca rpm-indigenous-group.com

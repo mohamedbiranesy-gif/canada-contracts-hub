@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-01301,county of vermilion river,b:95e32ef5d2be57ee,County of Vermilion River,,CA,http://www.vermilion-river.com,,,2
+CH-AP-01302,town of morinville,b:73c165e6d6ed4a8b,Town of Morinville,,CA,https://morinville.ca,pw.admin@morinville.ca,,2
+CH-AP-01303,town of cardston,b:60e7a6e7e3a01b86,Town of Cardston,,CA,http://www.cardston.ca,,,2
+CH-AP-01304,pembina hills school division,b:d18f8c1889d9df71,Pembina Hills School Division,,CA,https://www.pembinahills.ca,,,2
+CH-AP-01305,town of diamond valley,b:caa5a4ef7fad5ba9,Town of Diamond Valley,,CA,http://www.diamondvalley.town,info@diamondvalley.town,,2
+CH-AP-01306,explore edmonton corporation,b:c29130e8d1bc5286,Explore Edmonton Corporation,,CA,https://exploreedmonton.com,,,2
+CH-AP-01307,town of drayton valley,b:da343f469f2ffb1d,Town of Drayton Valley,,CA,http://www.draytonvalley.ca,,,2
+CH-AP-01308,los angeles superior court,b:485bdadef69ffc71,Los Angeles Superior Court,,US,https://www.lacourt.org,,,2
+CH-AP-01309,town of lark harbour,b:947b6fbef67c8c16,Town of Lark Harbour,,CA,,,,2
+CH-AP-01310,marine atlantic inc,b:d74f8f280d2752c3,Marine Atlantic Inc. (MarineAtlantic),,CA,https://www.marineatlantic.ca,,,2
+CH-AP-01311,soo yeon cho,b:97027ac66b2626ea,Soo Yeon Cho,,CA,,,suppliers@oag-bvg.gc.ca,2
+CH-AP-01312,parc downsview park inc,b:85efbb310124dadf,Parc Downsview Park Inc,Parc Downsview Park Inc.,CA,https://www.clc-sic.ca,,,2
+CH-AP-01313,great lakes pilotage authority,b:3d11980f4b12735f,Great Lakes Pilotage Authority,,CA,,,,2
+CH-AP-01314,united states air force,b:b56c26d7ffc7f74e,United States Air Force,,US,,,,2
+CH-AP-01315,oc transpo,b:910a6453563c53ed,OC Transpo (City of Ottawa),,CA,,,,2
+CH-AP-01316,teck metals ltd,b:aa2277280675f543,Teck Metals Ltd.,,CA,https://www.teck.com,,,2
+CH-AP-01317,general motors holdings llc,b:3947a3bd84d5b6fa,General Motors Holdings LLC,,US,https://www.gm.com,,,2
+CH-AP-01318,state police department of,b:e165a0030f8aa1f5,"STATE POLICE, DEPARTMENT OF",,US,,,,2
+CH-AP-01319,teacher retirement system,b:31414f7f9217e08c,Teacher Retirement System,,US,https://www.trs.texas.gov,,,2
+CH-AP-01320,texas division of emergency management,b:5be96fd6e9058b31,Texas Division of Emergency Management,,US,https://tdem.texas.gov,media@tdem.texas.gov,,2
+CH-AP-01321,texas education agency,b:635ab64817450be8,Texas Education Agency,,US,https://tea.texas.gov,"generalinquiry@tea.texas.gov, mediarelations@tea.texas.gov",,2
+CH-AP-01322,the university of texas health science center at san antonio,b:3202beb3ec11d3a8,The University of Texas Health Science Center at San Antonio,,US,https://www.uthscsa.edu,,,2
+CH-AP-01323,securities and exchange commission,b:2b385698f6c69aba,Securities and Exchange Commission,,US,https://www.sec.gov,,,2
+CH-AP-01324,massachusetts institute of technology,b:8064b6a9c6150ddc,MASSACHUSETTS INSTITUTE OF TECHNOLOGY,,US,https://www.mit.edu,admissions@mit.edu,,2
+CH-AP-01325,deloitte consulting llp,b:f6fe48ced8214ce8,DELOITTE CONSULTING LLP,,US,https://www2.deloitte.com/us,financeservices@deloitte.com,,2
+CH-AP-01326,pae government services inc,b:19355e3e0e9cdaf3,"PAE GOVERNMENT SERVICES, INC.",,US,,,,2
+CH-AP-01327,deloitte touche llp,b:71093e7cb3f9e3e5,DELOITTE & TOUCHE LLP,,US,https://www2.deloitte.com/us,financeservices@deloitte.com,,2
+CH-AP-01328,govcio llc,b:406d6a1f9adf6665,"GOVCIO, LLC",,US,,,,2
+CH-AP-01329,booz allen hamilton inc,b:7e6d9c944a94f42d,BOOZ ALLEN HAMILTON INC.,,US,https://www.boozallen.com,,,2
+CH-AP-01330,aecom technical services inc,b:6316e4ed3d678380,"AECOM TECHNICAL SERVICES, INC.",,US,https://aecom.com,"hr.middleeast@aecom.com, media@aecom.com",,2
+CH-AP-01331,northwestern university,b:305c35f9fe48553c,NORTHWESTERN UNIVERSITY,,US,https://www.northwestern.edu,,,2
+CH-AP-01332,icf incorporated l l c,b:2ab15cf4e5af47f0,"ICF INCORPORATED, L.L.C.",,US,https://www.icf.com,,,2
+CH-AP-01333,caci inc,b:de16465d5a1e5931,"CACI, INC. - FEDERAL",,US,https://www.caci.com,,,2
+CH-AP-01334,parsons government services international inc,b:90a7b91feaf1b1c2,PARSONS GOVERNMENT SERVICES INTERNATIONAL INC.,,US,https://www.parsons.com,,,2
+CH-AP-01335,l 3 communications integrated systems l p,b:c894c1a30e7c6650,L-3 COMMUNICATIONS INTEGRATED SYSTEMS L.P.,,US,https://www.l3harris.com,,,2
+CH-AP-01336,l3 technologies inc,b:4a2cf495ed984466,"L3 TECHNOLOGIES, INC.",,US,https://www.l3harris.com,,,2
+CH-AP-01337,sparton deleon springs llc,b:8cd08e376a8cf7ca,"SPARTON DELEON SPRINGS, LLC",,US,,,,2
+CH-AP-01338,scientific research corporation,b:35c34b5fe1fb1a68,SCIENTIFIC RESEARCH CORPORATION,,US,,,,2
+CH-AP-01339,general dynamics ordnance and tactical systems inc,b:42c78b2c2799ee61,"GENERAL DYNAMICS ORDNANCE AND TACTICAL SYSTEMS, INC.",,US,https://www.gd-ots.com,,,2
+CH-AP-01340,general dynamics global force llc,b:0347f9dd856de917,"GENERAL DYNAMICS GLOBAL FORCE, LLC",,US,,,,2
+CH-AP-01341,millennium engineering and integration services llc,b:42b81d44da7e2f72,"MILLENNIUM ENGINEERING AND INTEGRATION SERVICES, LLC",,US,,,,2
+CH-AP-01342,united technologies corporation,b:279121163d5a6218,UNITED TECHNOLOGIES CORPORATION,,US,,,,2
+CH-AP-01343,county of forty mile no 8,b:d3a4658a5e2d461c,County of Forty Mile No. 8,,CA,http://www.fortymile.ab.ca,,,2
+CH-AP-01344,aspen view school division,b:509bc24c086e7cff,Aspen View School Division,,CA,https://www.aspenview.org,,purchasing@aspenview.org,2
+CH-AP-01345,group health centre,b:42352a19d39e90af,Group Health Centre,,CA,https://www.ghc.on.ca,,,2
+CH-AP-01346,municipality of westlake gladstone,b:d1653fec576888ca,Municipality of WestLake-Gladstone,,CA,,,,2
+CH-AP-01347,credit union deposit guarantee corp,b:077b9247a3c6dfa8,Credit Union Deposit Guarantee Corp.,Credit Union Deposit Guarantee Corporation,CA,,,,2
+CH-AP-01348,labrador grenfell health authority,b:54113c837f01ff3f,Labrador-Grenfell Health Authority,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,2
+CH-AP-01349,labrador grenfell regional health authority,b:c2274d2246fe7fd0,Labrador-Grenfell Regional Health Authority,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,2
+CH-AP-01350,new jersey transit corporation,b:504c76284540a5dd,New Jersey Transit Corporation (NJ TRANSIT),,US,,,,2
+CH-AP-01351,texas instruments incorporated,b:fd55e6ee4b39a171,Texas Instruments Incorporated,,US,https://www.ti.com,,,2
+CH-AP-01352,erie county medical center corporation,b:bd7e7eed9b4faf09,Erie County Medical Center Corporation,,US,,,,2
+CH-AP-01353,asset management branch,b:d6222682da43a4ab,Asset Management Branch,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01354,south coast region,b:c403b59280d46142,South Coast Region,,CA,,,,2
+CH-AP-01355,real property division,b:924dd2978427f9b4,Real Property Division,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01356,southern engineering group engineering branch integrated resource operations division,b:1be1603f29d58ede,Southern Engineering Group ; Engineering Branch ; Integrated Resource Operations Division,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01357,british columbia assessment authority,b:4e0a0ce9cec4d7cf,British Columbia Assessment Authority,,CA,https://info.bcassessment.ca,access.privacy@bcassessment.ca,,2
+CH-AP-01358,adult custody division,b:fc43938e82608b7b,Adult Custody Division,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01359,avalanche weather programs,b:ac663d3c05971601,Avalanche & Weather Programs,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01360,engineering branch,b:f3506df5db47c0a5,Engineering Branch,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01361,engineering,b:ab716b18f96e76ee,Engineering,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01362,king s printer,b:402d9bf450a17e19,King's Printer,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01363,engineering engineering branch southern engineering group,b:d1678166817cd045,Engineering ; Engineering Branch ; Southern Engineering Group,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01364,district of kitimat,b:d12c9a37b7b51445,District of Kitimat,,CA,https://www.kitimat.ca,,,2
+CH-AP-01365,city of fort st john,b:bdc6591874093dbe,City of Fort St John,City of Fort St. John,CA,https://fortstjohn.ca,,,2
+CH-AP-01366,base mapping,b:577f370d95f72279,Base Mapping,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01367,capital investment program,b:bc8ccb873be16eb3,Capital Investment Program,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01368,ministry of transportation and transit avalanche weather programs,b:051d43187376f886,Ministry of Transportation and Transit; Avalanche & Weather Programs,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01369,avalanche weather programs ministry of transportation and transit,b:bcdc471cf9e67822,Avalanche & Weather Programs ; Ministry of Transportation and Transit,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01370,traffic and highway safety,b:6db7d439d3effccc,Traffic and Highway Safety,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01371,adm csnr efo for flnr,b:6e7c2858ce1102bd,"ADM, CSNR & EFO for FLNR",,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01372,ministry of public safety and solicitor general and emergency management bc,b:8c3acae34db9b6ca,Ministry of Public Safety and Solicitor General and Emergency Management BC,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01373,information security,b:3d6c97be02f44241,Information Security,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01374,workplace development services real property division,b:da2ea693cd180222,Workplace Development Services ; Real Property Division,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01375,real property division workplace development services,b:4a6fcc61ca84fab4,Real Property Division ; Workplace Development Services,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-01376,canadian mental health association peel dufferin,b:e92b19b0bdc927b0,Canadian Mental Health Association Peel Dufferin,,CA,,,,2
+CH-AP-01377,town of kirkland lake,b:b8e875ebdf13a09d,Town of Kirkland Lake,,CA,https://www.kirklandlake.ca,,,2
+CH-AP-01378,the centre for addiction and mental health,b:3fddaa995bb8bcf8,The Centre for Addiction and Mental Health (CAMH),,CA,,,,2
+CH-AP-01379,tatham engineering limited,b:39e19299093b9665,Tatham Engineering Limited,,CA,,,,2
+CH-AP-01380,town of fort frances,b:507f45dc729f7be8,Town of Fort Frances,,CA,,,,2
+CH-AP-01381,township of georgian bluffs,b:01268d4d31478061,Township of Georgian Bluffs,,CA,,,,2
+CH-AP-01382,nature conservancy of canada,b:e68e9850ee540375,Nature Conservancy of Canada,,CA,https://www.natureconservancy.ca,,,2
+CH-AP-01383,town of st marys,b:17990787f815accd,Town of St. Marys,,CA,http://townofstmarys.com,,,2
+CH-AP-01384,town of aylmer,b:53a5848149169141,Town of Aylmer,,CA,https://www.aylmer.ca,,,2
+CH-AP-01385,veolia waste services alberta inc,b:c94718a70050b0f0,Veolia Waste Services Alberta Inc.,,CA,,,,2
+CH-AP-01386,association des colleges et universites de la francophonie canadienne,b:63975dc0625d6e46,Association des collèges et universités de la francophonie canadienne (ACUFC),,CA,,,,2
+CH-AP-01387,tourism hr canada,b:5a7ec76f8f300874,Tourism HR Canada,,CA,,,,2
+CH-AP-01388,avia ng inc,b:30e43346ba2f5bcb,Avia NG Inc.,,CA,,,,2
+CH-AP-01389,rural municipality of montcalm,b:64f1ca118207b1a6,Rural Municipality of Montcalm,,CA,,,,2
+CH-AP-01390,rural municipality of east st paul,b:aff10df726a92e14,Rural Municipality of East St. Paul,,CA,http://www.eaststpaul.com,"info@eaststpaul.com, administration@eaststpaul.com",,2
+CH-AP-01391,cecon ltd,b:734657ccdd6350ea,CECON LTD.,,CA,,,,2
+CH-AP-01392,kensington health,b:8fe64e61a6709a13,Kensington Health,,CA,,,,2
+CH-AP-01393,ottawa climate action fund,b:0b324cef9fe3594f,Ottawa Climate Action Fund,,CA,,,,2
+CH-AP-01394,elections ontario,b:e8147b20408c9bd0,Elections Ontario,,CA,http://www.elections.on.ca,,,2
+CH-AP-01395,assiniboine community college,b:1378d014bdb52709,Assiniboine Community College,,CA,http://public.assiniboine.net,,,2
+CH-AP-01396,manitoba institute of trades and technology,b:137973d892cbe413,Manitoba Institute of Trades and Technology,,CA,,,,2
+CH-AP-01397,ableliving services inc,b:f89b71f7d2136fd5,AbleLiving Services Inc.,,CA,,,,2
+CH-AP-01398,muskrat falls generation,b:5af3910633487cf2,Muskrat Falls Generation,,CA,,,,2
+CH-AP-01399,executive council office of the chief executive officer,b:a3d885554de78330,"Executive Council, Office of the Chief Executive Officer",,CA,,,,2
+CH-AP-01400,churchill falls corp ltd,b:5961271d5cb87a91,Churchill Falls Corp. Ltd.,,CA,,,,2

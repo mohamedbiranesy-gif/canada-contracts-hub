@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-01901,universite de moncton,b:20f5a3edc3e95dfa,Université de Moncton,,CA,,,,1
+CH-AP-01902,canadian space agency,b:a670a19274e32625,Canadian Space Agency (via Public Services and Procurement Canada),,CA,,,,1
+CH-AP-01903,hydro one networks inc,b:b95819f7a5b6612e,Hydro One Networks Inc.,,CA,,,,1
+CH-AP-01904,supply ontario,b:3a06bc28963a47d5,Supply Ontario (Government of Ontario),,CA,,,,1
+CH-AP-01905,fan expo hq,b:b877995851c39628,FAN EXPO HQ,,CA,,,,1
+CH-AP-01906,federal aviation administration,b:277d4aa8a88391a9,Federal Aviation Administration,,US,,,,1
+CH-AP-01907,canada nickel company inc,b:005a69f6f78dae73,Canada Nickel Company Inc.,,CA,,,,1
+CH-AP-01908,national bank of canada,b:afeb312a458c32e8,National Bank of Canada,,CA,,,,1
+CH-AP-01909,the toronto dominion bank,b:4b5fcc0e425e9d6a,The Toronto-Dominion Bank (TD Auto Finance (Canada) Inc.),,CA,,,,1
+CH-AP-01910,apex lubrication llc,b:251dee9b5cf07388,Apex Lubrication LLC (with Mighty Lube),,US,,,,1
+CH-AP-01911,regina public schools,b:0d10fe1957efbadd,Regina Public Schools,,CA,,,,1
+CH-AP-01912,curtiss wright corporation,b:cbf0e19df12e1a29,Curtiss-Wright Corporation (Sensors & Actuation),,US,,,,1
+CH-AP-01913,ontario power generation inc,b:88a23a87de08378a,Ontario Power Generation Inc.,,CA,,,,1
+CH-AP-01914,defence construction canada,b:74df725ecef64ca9,Defence Construction Canada (for Department of National Defence),,CA,,,,1
+CH-AP-01915,u s army corps of engineers charleston district,b:907f8d0e985b25d3,"U.S. Army Corps of Engineers, Charleston District",,US,,,,1
+CH-AP-01916,northwestel inc,b:1428369715160593,Northwestel Inc.,,CA,,,,1
+CH-AP-01917,new york city transit,b:0d22721f23ac4816,New York City Transit (MTA),,US,,,,1
+CH-AP-01918,central ohio transit authority,b:6f163bc6376462ec,Central Ohio Transit Authority (COTA),,US,,,,1
+CH-AP-01919,regional transportation commission of southern nevada,b:0d2303790c1510bc,Regional Transportation Commission of Southern Nevada (RTC),,US,,,,1
+CH-AP-01920,spec s wines spirits foods,b:2c94f0f9520450fc,"Spec's Wines, Spirits & Foods",,US,,,,1
+CH-AP-01921,49north,b:5eabf2519f73559d,49North (MDA Space Ltd. subsidiary),,CA,,,,1
+CH-AP-01922,loyola university chicago,b:605aea5f3ac80fc9,Loyola University Chicago,,US,,,,1
+CH-AP-01923,northfield park racino,b:9bd1227d15c71627,Northfield Park Racino (MGM Northfield Park),,US,,,,1
+CH-AP-01924,midwestern university,b:22bca76a0399b4cb,Midwestern University,,US,,,,1
+CH-AP-01925,terra nova medical clinics,b:9d3b28c12076ea89,Terra Nova Medical Clinics,,CA,,,,1
+CH-AP-01926,edf power solutions north america,b:376b4a391c43ec19,EDF power solutions North America (EDF solutions électriques),,US,,,,1
+CH-AP-01927,rasmussen university,b:9b3b9bc6fe7c529d,"Rasmussen University (American Public Education, Inc.)",,US,,,,1
+CH-AP-01928,crs inc,b:078cbf1d26152bfb,CRS Inc. (U.S. systems integrator) for an unnamed defense customer,,US,,,,1
+CH-AP-01929,new jersey department of transportation,b:e6d892e5a6daab87,New Jersey Department of Transportation (NJDOT),,US,,,,1
+CH-AP-01930,avison young,b:f8cfd8fcd96d8955,Avison Young,,CA,,,,1
+CH-AP-01931,pwl capital,b:94d8a35ae9422414,PWL Capital (a OneDigital company),,CA,,,,1
+CH-AP-01932,viva homes by atco,b:e1520c64a6fb6d60,Viva Homes by ATCO (ATCO Ltd.),,CA,,,,1
+CH-AP-01933,embecta corp,b:a2c5aed076a76bc1,embecta Corp.,,US,,,,1
+CH-AP-01934,coviello electric inc,b:6375352e4df244a8,"Coviello Electric, Inc. (prime) for Massachusetts Department of Transportation (MassDOT)",,US,,,,1
+CH-AP-01935,roelands plant farms,b:93701289383badb7,Roelands Plant Farms,,CA,,,,1
+CH-AP-01936,st joseph s at fleming,b:ccc527c24bfa534b,St. Joseph's at Fleming,,CA,,,,1
+CH-AP-01937,seko logistics,b:e5b3b85a3cbc0385,SEKO Logistics,,US,,,,1
+CH-AP-01938,st albert transit,b:61e1487f21a0f5e3,St. Albert Transit (City of St. Albert),,CA,,,,1
+CH-AP-01939,orange county transportation authority,b:89415be67a63765d,Orange County Transportation Authority (OCTA),,US,,,,1
+CH-AP-01940,dow,b:e9562de16f7ce363,"Dow (Path2Zero program, Fort Saskatchewan)",,US,,,,1
+CH-AP-01941,alberta infrastructure,b:f11bd3e203b1f748,Alberta Infrastructure (Government of Alberta),,CA,,,,1
+CH-AP-01942,new york state energy research and development authority,b:32072c0387f006e7,New York State Energy Research and Development Authority (NYSERDA),,US,,,,1
+CH-AP-01943,sunnybrook health sciences centre,b:5ea2497867b85359,Sunnybrook Health Sciences Centre,,CA,,,,1
+CH-AP-01944,niagara health,b:4f73c1686f479d23,Niagara Health,,CA,,,,1
+CH-AP-01945,wel companies,b:171a2dc83394f748,"WEL Companies (De Pere, Wisconsin)",,US,,,,1
+CH-AP-01946,seven west virginia county school districts,b:d9ebc732e5b72e54,"Seven West Virginia county school districts (Cabell, Calhoun, Clay, Grant, Kanawha, Lewis, Monongalia) via GreenPower's WV dealer",,US,,,,1
+CH-AP-01947,los banos unified school district,b:4ea065efd80ea2c0,"Los Banos Unified School District (CA), Casa Grande Elementary School District (AZ), Hood River County School District (OR) via dealers Model 1, RWC Group, Peterson Trucks",,US,,,,1
+CH-AP-01948,cdpq infra,b:d87ba94739135490,"CDPQ Infra (TramCité, Québec City)",,CA,,,,1
+CH-AP-01949,total safety,b:ecbd81a27c37a071,Total Safety (US industrial safety services company),,US,,,,1
+CH-AP-01950,virgin voyages,b:6cc36494a86a7e7c,Virgin Voyages,,US,,,,1
+CH-AP-01951,nautilus plus,b:ac4c04fbd4c3c308,Nautilus Plus,,CA,,,,1
+CH-AP-01952,government of canada,b:9305dfc0d53e601d,Government of Canada (Munitions Supply Program),,CA,,,,1
+CH-AP-01953,the boeing company,b:386359333e977b57,The Boeing Company (in support of US Navy F/A-18 E/F and EA-18G overhaul contract),,US,,,,1
+CH-AP-01954,new found gold corp,b:6bca7eada74b4726,New Found Gold Corp.,,CA,,,,1
+CH-AP-01955,nuclear waste management organization,b:b63281a0bfda90be,Nuclear Waste Management Organization (NWMO),,CA,,,,1
+CH-AP-01956,fleetway inc,b:fbe6172a31257774,Fleetway Inc. (Canada's Design Agent for major combatants; River-class destroyer training program),,CA,,,,1
+CH-AP-01957,psyence biomedical ltd and psyence australia pty ltd,b:45139c7d60f5a858,Psyence Biomedical Ltd. and Psyence Australia Pty Ltd,,CA,,,,1
+CH-AP-01958,providence public school department,b:ab34bdab84bdca9e,Providence Public School Department,,US,,,,1
+CH-AP-01959,greenway conservancy for the hudson river valley inc,b:18c3f482cc798701,"Greenway Conservancy for the Hudson River Valley, Inc.",,US,,,,1
+CH-AP-01960,new york convention center operating corporation,b:ea506cdbd46b5cfe,New York Convention Center Operating Corporation,,US,,,,1
+CH-AP-01961,new york state urban development corporation,b:d64c5fb6e4de2fec,New York State Urban Development Corporation,,US,,,,1
+CH-AP-01962,niagara frontier transportation authority,b:3bfbb9549d7fb727,Niagara Frontier Transportation Authority,,US,,,,1
+CH-AP-01963,rockland county solid waste management authority,b:d1677fdd66e6a26c,Rockland County Solid Waste Management Authority,,US,,,,1
+CH-AP-01964,wayne county water and sewer authority,b:c27c59101290cb3a,Wayne County Water and Sewer Authority,,US,,,,1
+CH-AP-01965,chemung county capital resource corporation,b:e8fd7d7b98968262,Chemung County Capital Resource Corporation,,US,,,,1
+CH-AP-01966,governors island corporation,b:85c86db9b5fac666,Governors Island Corporation,,US,,,,1
+CH-AP-01967,saratoga economic development corporation,b:7a2515b20f82918d,Saratoga Economic Development Corporation,,US,,,,1
+CH-AP-01968,oregon judicial department,b:d1cc23543c88683d,Oregon Judicial Department,,US,,,,1
+CH-AP-01969,texas a m agrilife research,b:fadd80082ecc1181,Texas A&M AgriLife Research,,US,,,,1
+CH-AP-01970,the university of texas permian basin,b:3b93736f0a500a16,The University of Texas Permian Basin,,US,https://www.utpb.edu,,,1
+CH-AP-01971,southside virginia community college,b:b252aa32d7508e13,Southside Virginia Community College,,US,,,,1
+CH-AP-01972,wilson workforce and rehabilitation center,b:72089ab93508154e,Wilson Workforce and Rehabilitation Center,,US,,,,1
+CH-AP-01973,germanna community college,b:3900407127c05002,Germanna Community College,,US,,,,1
+CH-AP-01974,wytheville community college,b:b99114709e3f691c,Wytheville Community College,,US,,,,1
+CH-AP-01975,department of behavioral health and developmental services,b:483a5f5c83fd86a9,Department of Behavioral Health and Developmental Services,,US,,,,1
+CH-AP-01976,department of taxation,b:b95f0da506eb9acf,Department of Taxation,,US,,,,1
+CH-AP-01977,laurel ridge community college,b:a2a6bcb6711c3f65,Laurel Ridge Community College,,US,,,,1
+CH-AP-01978,virginia school for the deaf and the blind,b:5bb71f0a88959c94,Virginia School for the Deaf and the Blind,,US,,,,1
+CH-AP-01979,norfolk state university,b:f27995b58f02ba33,Norfolk State University,,US,,,,1
+CH-AP-01980,longwood university,b:647c7554190968f8,Longwood University,,US,,,,1
+CH-AP-01981,department of human resource management,b:bff748562d456043,Department of Human Resource Management,,US,,,,1
+CH-AP-01982,southwestern va mental health institute,b:f25c6c56b34065aa,Southwestern VA Mental Health Institute,,US,,,,1
+CH-AP-01983,eastern shore community college,b:58eb72db53a5952d,Eastern Shore Community College,,US,,,,1
+CH-AP-01984,fort monroe authority,b:acef8470a2d8e85a,Fort Monroe Authority,,US,,,,1
+CH-AP-01985,eastern state hospital,b:a2bccb643ec8498a,Eastern State Hospital,,US,,,,1
+CH-AP-01986,department of health professions,b:319bc5409216fbf9,Department of Health Professions,,US,,,,1
+CH-AP-01987,department of labor and industry,b:a3590172bb117314,Department of Labor and Industry,,US,,,,1
+CH-AP-01988,central virginia community college,b:4295e987d7753f9c,Central Virginia Community College,,US,,,,1
+CH-AP-01989,technation canada,b:076782815f21c57b,TECHNATION Canada (formerly ITAC),,CA,,,,1
+CH-AP-01990,saskatchewan school boards association,b:bbbbbc9d380d9d4f,Saskatchewan School Boards Association,,CA,,,,1
+CH-AP-01991,shubenacadie canal commission,b:13bd716b92f78300,Shubenacadie Canal Commission,,CA,,,,1
+CH-AP-01992,atlantic provinces special education authority,b:4bca15370b32d796,Atlantic Provinces Special Education Authority,,CA,,,,1
+CH-AP-01993,municipal affairs and housing,b:584ac32a851f0894,Municipal Affairs and Housing,,CA,,,,1
+CH-AP-01994,communities culture tourism and heritage,b:3979830bf040f02c,"Communities, Culture, Tourism and Heritage",,CA,https://novascotia.ca,,,1
+CH-AP-01995,nova scotia e911 cost recovery fund,b:078ff6a73ab4c097,Nova Scotia E911 Cost Recovery Fund,,CA,,,,1
+CH-AP-01996,public trustee of nova scotia,b:67ebe752da3a4a96,Public Trustee of Nova Scotia,,CA,https://novascotia.ca,,,1
+CH-AP-01997,riverview home corporation,b:c50a11b0a5e92cb5,Riverview Home Corporation,,CA,,,,1
+CH-AP-01998,office of immigration,b:7e56925145c9d18f,Office of Immigration,,CA,https://novascotia.ca,,,1
+CH-AP-01999,energy and mines,b:e55ed5b8ead209b5,Energy and Mines,,CA,https://novascotia.ca,,,1
+CH-AP-02000,universities of nova scotia,b:2a6d5a78e45cb3c8,Universities of Nova Scotia,,CA,,,,1

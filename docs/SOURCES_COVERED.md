@@ -1,0 +1,218 @@
+# Sources already covered or checked (do NOT re-propose these as new)
+
+## Pulled (records in the dataset)
+
+- `seao_quebec` — 331,410 records — seao_quebec — coverage note
+- `ca_bidsandtenders` — 69,975 records — ca_bidsandtenders — bids&tenders (eSolutions Group) awarded bids, all client portals
+- `canada_federal` — 42,193 records — canada_federal — Government of Canada contracts with Canadian vendors, ongoing on 2026-10-25
+- `ca_nova_scotia_unverified_country` — 33,257 records — ca_nova_scotia — Nova Scotia (REJECTED: no supplier location in any accessible source)
+- `ca_saskatchewan` — 18,776 records — ca_saskatchewan — SaskTenders awarded competitions (Government of Saskatchewan + SK public sector), Canadian vendors
+- `ca_bc_ministry_awards` — 12,871 records — ca_bc_ministry_awards — "Ministry Contract Awards - Province of British Columbia" (BC Data Catalogue), Canadian vendors
+- `ca_merx` — 12,863 records — ca_merx — MERX public "Awarded Solicitations" (award notices)
+- `ca_city_toronto_unverified_country` — 10,728 records — ca_city_toronto — City of Toronto, Toronto Bids Awarded + Non-Competitive Contracts (open data)
+- `ca_alberta_apc` — 6,484 records — ca_alberta_apc — Alberta Purchasing Connection (APC), awarded opportunities
+- `ca_city_ottawa_unverified_country` — 5,220 records — ca_city_ottawa — City of Ottawa, contracts awarded under delegation of authority (open data)
+- `ca_biddingo` — 4,522 records — ca_biddingo — Biddingo awarded bids (public no-authorize API)
+- `ca_newfoundland` — 4,500 records — ca_newfoundland — NL Public Procurement Agency "Contract Awards Reports" (semi-monthly PDFs), Canadian vendors
+- `usaspending` — 2,715 records — usaspending — coverage note
+- `ca_ontario_vor_unverified_country` — 1,818 records — ca_ontario_vor — Ontario Enterprise Vendor of Record (VOR) arrangements
+- `ca_alberta_sole_source` — 949 records — ca_alberta_sole_source — Alberta "Sole-source service contracts" disclosure, Canadian vendors, ongoing
+- `who` — 816 records — who — WHO awarded contracts (annual goods & services lists), supplier country Canada
+- `ca_nwt` — 797 records — ca_nwt — Government of the Northwest Territories "Contract Report" (contracts over $5,000), Canadian vendors, ongoing
+- `us_state_virginia` — 709 records — us_state_virginia — eVA Procurement Data (Virginia Open Data Portal), vendor address in Canada
+- `ccc_canada` — 663 records — ccc_canada — Canadian Commercial Corporation (CCC) government-to-government transactions
+- `ted_eu` — 584 records — ted_eu — TED (Tenders Electronic Daily, EU/EEA) contract awards to Canadian suppliers
+- `us_state_vermont` — 355 records — us_state_vermont — State of Vermont "Purchase Orders with Vendor Information" (data.vermont.gov) + contract registers checked
+- `worldbank` — 310 records — worldbank — World Bank (IBRD/IDA) contract awards to Canadian suppliers
+- `ungm` — 287 records — ungm — United Nations Global Marketplace contract awards to suppliers in Canada
+- `ca_merx_unverified_country` — 260 records — ca_merx — MERX public "Awarded Solicitations" (award notices)
+- `private_press` — 216 records — private_press — publicly announced commercial contracts of Canada-based vendors (press releases)
+- `uk_find_a_tender` — 136 records — uk_find_a_tender — Find a Tender Service (UK), awards to suppliers located in Canada
+- `austender` — 97 records — austender — AusTender Contract Notices (Australian Government), supplier located in Canada
+- `us_state_ny_abo` — 74 records — us_state_ny_abo — New York State Authorities Budget Office (ABO) procurement reports, vendor in Canada
+- `us_state_oregon` — 74 records — us_state_oregon — Oregon (data.oregon.gov) contracts/purchase datasets with vendor state/country, vendor in Canada
+- `uk_contracts_finder` — 63 records — uk_contracts_finder — Contracts Finder (UK), awards to suppliers located in Canada
+- `us_state_texas_lbb` — 62 records — us_state_texas_lbb — Texas Legislative Budget Board Contracts Database (contracts.lbb.texas.gov) + CMS public detail pages
+- `us_city_la` — 58 records — us_city_la — Checkbook L.A. (Los Angeles City Controller), supplier_country = CA
+- `us_state_massachusetts` — 58 records — us_state_massachusetts — CTHRU Comptroller of the Commonwealth Spending, vendor state = Canadian province
+- `us_city_mesa_az` — 56 records — us_city_mesa_az — City of Mesa (Arizona) Business Services - Purchases, vendor_state = Canadian province
+- `us_ny_mta` — 52 records — us_ny_mta — MTA Procurements: Beginning 2018 (Open Data NY), vendor in Canada
+- `undp` — 51 records — undp — UNDP Procurement Notices: Contract Awards
+- `ca_biddingo_unverified_country` — 35 records — ca_biddingo — Biddingo awarded bids (public no-authorize API)
+- `de_bmi_oeffentlichevergabe` — 32 records — de_bmi_oeffentlichevergabe — Germany – oeffentlichevergabe.de (Datenservice Öffentlicher Einkauf) eForms notices as OCDS (bulk via OCP Data Registry)
+- `sec_edgar` — 28 records — sec_edgar — material contracts of Canada-located SEC filers (EDGAR full-text search)
+- `nl_tenderned` — 27 records — nl_tenderned — Netherlands – TenderNed open data (OCDS, via OCP Data Registry)
+- `no_opentender` — 22 records — no_opentender — Norway – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry
+- `cl_mercado_publico` — 17 records — cl_mercado_publico — Chile – Mercado Público OCDS API releases (bulk via OCP Data Registry)
+- `us_state_alaska` — 17 records — us_state_alaska — Alaska Checkbook Online "Expense Details" (stateofalaska.data.socrata.com)
+- `us_county_montgomery_md_spending` — 16 records — us_county_montgomery_md_spending — Montgomery County, Maryland "County Spending" (payments) with Canadian vendor postal codes
+- `ca_city_edmonton_unverified_country` — 16 records — ca_city_edmonton — City of Edmonton open data (SAP outline agreements / hired equipment / POs)
+- `fao` — 12 records — fao — FAO procurement statistics: vendors with POs over USD 100,000 (quarterly lists)
+- `ca_bidsandtenders_unverified_country` — 12 records — ca_bidsandtenders — bids&tenders (eSolutions Group) awarded bids, all client portals
+- `es_placsp` — 11 records — es_placsp — Spain, Plataforma de Contratación del Sector Público (PLACSP) syndication feeds
+- `other_igo` — 11 records — other_igo — other international organizations / development banks (IDB, EBRD; ADB, AfDB, NSPA, ESA attempted)
+- `pe_oece` — 11 records — pe_oece — Perú – Contrataciones Abiertas OECE/SEACE (OCDS bulk via OCP Data Registry)
+- `eu_institutions_opentender` — 10 records — eu_institutions_opentender — EU institutions – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry
+- `si_mju` — 10 records — si_mju — Slovenia – Ministry of Public Administration e-JN / ENAROČANJE OCDS, via OCP Data Registry
+- `us_city_baton_rouge` — 10 records — us_city_baton_rouge — City of Baton Rouge / East Baton Rouge Parish "Purchase Orders and Contracts" (data.brla.gov)
+- `us_city_corona_ca` — 10 records — us_city_corona_ca — City of Corona, California "CorStat - Corona Open Expenditures" (corstat.coronaca.gov)
+- `us_county_miami_dade` — 10 records — us_county_miami_dade — Miami-Dade County "Purchase Orders (INFORMS)" 2025 + 2026 (ArcGIS Open Data)
+- `dk_opentender` — 9 records — dk_opentender — Denmark – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry
+- `us_city_austin` — 9 records — us_city_austin — City of Austin (Texas) purchase-order detail, vendor country = CA
+- `ch_opentender` — 8 records — ch_opentender — Switzerland – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry
+- `se_opentender` — 8 records — se_opentender — Sweden – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry
+- `cdb` — 7 records — cdb — Caribbean Development Bank: Contract Awards
+- `us_county_fulton_ga` — 7 records — us_county_fulton_ga — Fulton County, Georgia "Vendor Payments" joined to "Fulton County Vendors" (data.fultoncountyga.gov)
+- `hr_eojn` — 6 records — hr_eojn — Croatia – EOJN RH contract register (OCDS, via OCP Data Registry)
+- `us_city_mesquite_tx` — 6 records — us_city_mesquite_tx — City of Mesquite, Texas "Check Register for Open Checkbook" + "Vendor" (opendata.cityofmesquite.com)
+- `us_city_providence` — 6 records — us_city_providence — Providence RI "City and School Department Purchase Orders" (data.providenceri.gov)
+- `tw_pcc` — 5 records — tw_pcc — Taiwan Government e-Procurement System (政府電子採購網), award notices with Canadian winning bidders
+- `au_wa` — 4 records — au_wa — Tenders WA Contract Award Details (Western Australia)
+- `fi_opentender` — 4 records — fi_opentender — Finland – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry
+- `nz_gets` — 4 records — nz_gets — New Zealand GETS (Government Electronic Tenders Service), awards to suppliers located in Canada
+- `us_city_indio_ca` — 4 records — us_city_indio_ca — City of Indio, California "Expenditures" + "Vendors" (indio.data.socrata.com)
+- `us_state_delaware` — 4 records — us_state_delaware — Delaware Awarded Vendor Contact Info (statewide central contracts), vendor in Canada
+- `rw_umucyo` — 3 records — rw_umucyo — Rwanda – Umucyo e-procurement OCDS (bulk via OCP Data Registry)
+- `us_city_richmond_ca` — 3 records — us_city_richmond_ca — City of Richmond, California "Expenditures" + "Vendors" (transparentrichmond.org)
+- `us_county_montgomery_md` — 3 records — us_county_montgomery_md — Montgomery County, Maryland active contracts, vendor state = Canadian province
+- `ch_simap` — 2 records — ch_simap — simap.ch (Switzerland) award publications, vendor address in Canada
+- `is_opentender` — 2 records — is_opentender — Iceland – OpenTender (DIGIWHIST/Government Transparency Institute) procurement data as OCDS, via OCP Data Registry
+- `us_city_nyc` — 2 records — us_city_nyc — NYC Recent Contract Awards (City Record), vendor address in Canada
+- `us_state_oklahoma` — 2 records — us_state_oklahoma — State of Oklahoma "Vendor Payments" monthly files (data.ok.gov, OMES)
+- `co_secop` — 1 records — co_secop — Colombia SECOP II (datos.gov.co)
+- `ec_sercop` — 1 records — ec_sercop — Ecuador – SERCOP Datos Abiertos OCDS (bulk via OCP Data Registry)
+- `py_dncp` — 1 records — py_dncp — Paraguay – DNCP Contrataciones Abiertas (OCDS records via OCP Data Registry)
+- `us_state_texas_dir` — 1 records — us_state_texas_dir — Texas DIR cooperative contracts (data.texas.gov), Canadian primary vendor
+- `zm_zppa` — 1 records — zm_zppa — Zambia – ZPPA e-GP OCDS record packages (via OCP Data Registry)
+
+## Checked and rejected / blocked / no records
+
+- `adb` — adb — Asian Development Bank contract awards — BLOCKED / not reachable
+- `afdb` — afdb — African Development Bank contract awards — BLOCKED
+- `al_ppc` — al_ppc — Albania – Public Procurement Commission (PPC) OCDS
+- `ar_caba` — ar_caba — Argentina – Ciudad de Buenos Aires (DGCyC) OCDS (2022)
+- `ar_mendoza` — ar_mendoza — Argentina – Mendoza province COMPR.AR OCDS
+- `au_act` — au_act — ACT Government contracts register — REJECTED/BLOCKED
+- `au_nsw` — au_nsw — Australia – New South Wales eTendering (NSW Treasury) OCDS
+- `au_nt` — au_nt — Northern Territory Quotations and Tenders Online — NOT CRAWLED (no bulk export)
+- `au_qld` — au_qld — Queensland Government contract disclosure reports (data.qld.gov.au) — BLOCKED
+- `au_sa` — au_sa — South Australia — REJECTED (no open contract-award dataset)
+- `au_vic` — au_vic — Victoria (Buying for Victoria / tenders.vic.gov.au) contracts — BLOCKED
+- `bo_agetic` — bo_agetic — Bolivia – AGETIC procurement OCDS (2019–2020)
+- `br_compras_gov` — br_compras_gov — Brazil – Compras.gov.br (federal) OCDS
+- `ca_bc_bid` — ca_bc_bid — BC Bid portal (REJECTED: reCAPTCHA browser check) — see ca_bc_ministry_awards for the usable BC source
+- `ca_bonfire` — ca_bonfire — Bonfire (GTY/Euna) public portals of Canadian public bodies (REJECTED: Cloudflare challenge on award pages)
+- `ca_city_brampton` — ca_city_brampton — City of Brampton open data (REJECTED: no contract-award dataset)
+- `ca_city_calgary` — ca_city_calgary — City of Calgary open data (REJECTED: no contract-award dataset)
+- `ca_city_halifax` — ca_city_halifax — Halifax Regional Municipality open data (REJECTED: no contract-award dataset)
+- `ca_city_hamilton` — ca_city_hamilton — City of Hamilton open data (REJECTED: no contract-award dataset)
+- `ca_city_london` — ca_city_london — City of London (ON) open data (REJECTED: no contract-award dataset)
+- `ca_city_mississauga` — ca_city_mississauga — City of Mississauga open data (REJECTED: no contract-award dataset)
+- `ca_city_vancouver` — ca_city_vancouver — City of Vancouver open data (NOT CHECKED: connection reset)
+- `ca_city_waterloo` — ca_city_waterloo — City/Region of Waterloo open data (REJECTED: no contract-award dataset)
+- `ca_city_winnipeg` — ca_city_winnipeg — City of Winnipeg open data (REJECTED: no awardee published)
+- `ca_crown_corps` — ca_crown_corps — Provincial Crown corporations checked for their own award disclosures (REJECTED / covered elsewhere)
+- `ca_manitoba` — ca_manitoba — Manitoba (data.gov.mb.ca blocked; MERX handled by another worker)
+- `ca_new_brunswick` — ca_new_brunswick — New Brunswick (BLOCKED: hosts not reachable through the session proxy)
+- `ca_nunavut` — ca_nunavut — Government of Nunavut (REJECTED: no supplier identity/address accessible)
+- `ca_ontario_otp` — ca_ontario_otp — Ontario Tenders Portal / Supply Ontario / data.ontario.ca (REJECTED)
+- `ca_pei` — ca_pei — Prince Edward Island (BLOCKED: 403)
+- `ca_yukon` — ca_yukon — Yukon Government Public Contract Registry (BLOCKED: Cloudflare JS challenge)
+- `co_cce` — co_cce — Colombia – Colombia Compra Eficiente (SECOP I/II) OCDS
+- `commonwealth` — commonwealth — Commonwealth Secretariat contracts awarded — REJECTED (no supplier country)
+- `cr_poder_judicial` — cr_poder_judicial — Costa Rica – Poder Judicial procurement OCDS
+- `do_dgcp` — do_dgcp — Dominican Republic – DGCP OCDS
+- `eib` — eib — European Investment Bank procurement awards — REJECTED (covered by TED)
+- `es_zaragoza` — es_zaragoza — Spain – Ayuntamiento de Zaragoza OCDS
+- `esa` — esa — European Space Agency contracts awarded — REJECTED (no reachable award data)
+- `fr_dinum` — fr_dinum — France – DECP données essentielles (DINUM) OCDS
+- `ge_spa` — ge_spa — Georgia – State Procurement Agency (SPA) OCDS (2010–2019)
+- `gh_ppa` — gh_ppa — Ghana – PPA OCDS
+- `gr_diavgis` — gr_diavgis — Greece – Diavgeia (Diavgis) OCDS
+- `gt_guatecompras` — gt_guatecompras — Guatemala – Guatecompras OCDS
+- `hn_oncae` — hn_oncae — Honduras – ONCAE HonduCompras OCDS
+- `hn_sefin` — hn_sefin — Honduras – SEFIN (SIAFI) OCDS
+- `icao` — icao — ICAO procurement / contracts awarded — BLOCKED
+- `igo_portals` — igo_portals — international organisations' own award portals: index of what was checked
+- `ireland_etenders` — ireland_etenders — Ireland eTenders / OGP open data (SKIPPED: no supplier-country field)
+- `it_anac` — it_anac — Italy – ANAC BDNCP OCDS
+- `it_mit` — it_mit — Italy – Ministry of Infrastructure and Transport OCDS (2022–2024)
+- `ke_makueni` — ke_makueni — Kenya – Makueni County OCDS (2021–2022)
+- `ke_ppip` — ke_ppip — Kenya – PPIP OCDS
+- `lr_ppcc` — lr_ppcc — Liberia – PPCC OCDS
+- `md_mtender` — md_mtender — Moldova – MTender (Ministry of Finance) OCDS
+- `mx_compranet` — mx_compranet — Mexico federal CompraNet / ComprasMX contracts — NOT REACHABLE
+- `mx_inai` — mx_inai — Mexico – INAI (federal transparency institute) contracting OCDS
+- `mx_nuevo_leon` — mx_nuevo_leon — Mexico – Nuevo León state OCDS
+- `nato_ncia` — nato_ncia — NATO Communications and Information Agency procurement — BLOCKED
+- `nato_nspa` — nato_nspa — NATO Support and Procurement Agency contract awards — BLOCKED
+- `ng_bpp` — ng_bpp — Nigeria – BPP NOCOPO OCDS
+- `no_doffin` — no_doffin — Norway Doffin — REJECTED (API key required); partial coverage via OpenTender
+- `ocp_registry` — ocp_registry — shared pipeline note (not a source)
+- `pa_dgcp` — pa_dgcp — Panama – DGCP PanamaCompra OCDS
+- `pe_perucompras` — pe_perucompras — Peru – Central de Compras Públicas Perú Compras OCDS (2021–2023)
+- `pt_base` — pt_base — Portugal BASE (Portal dos Contratos Públicos) — REJECTED
+- `sedar_plus` — sedar_plus — SEDAR+ (Canadian Securities Administrators filings portal) — REJECTED (bot check)
+- `sg_gebiz` — sg_gebiz — Singapore Government Procurement via GeBIZ (data.gov.sg) — REJECTED
+- `tz_nest` — tz_nest — Tanzania – NeST OCDS
+- `ua_prozorro` — ua_prozorro — Ukraine Prozorro — NOT FEASIBLE in time box
+- `ug_ppda` — ug_ppda — Uganda – PPDA GPP OCDS
+- `un_secretariat` — un_secretariat — UN Secretariat Procurement Division contract awards — BLOCKED
+- `unicef` — unicef — UNICEF Supply Division contract awards — REJECTED (no supplier country)
+- `unops` — unops — UNOPS own award data — covered via UNGM; own portal not usable
+- `us_city_baton_rouge_expenditures` — us_city_baton_rouge_expenditures — City of Baton Rouge / Parish of East Baton Rouge "City-Parish Expenditures" (data.brla.gov vwa8-ps2a), vendor address in Canada
+- `us_city_boston` — us_city_boston — City of Boston "Contract Award" open data (data.boston.gov): checked, rejected
+- `us_city_chicago` — us_city_chicago — City of Chicago Contracts (data.cityofchicago.org rsxa-ify5): checked, pulled in full, 0 ongoing Canadian-vendor contracts
+- `us_city_denver` — us_city_denver — City and County of Denver Checkbook (data.colorado.gov wnau-xrqi): checked, rejected
+- `us_city_detroit` — us_city_detroit — City of Detroit "OCP Procurement Agreements" (ArcGIS): checked, 0 Canadian-vendor records
+- `us_city_fort_collins_co` — us_city_fort_collins_co — City of Fort Collins (Colorado) OpenBook Detailed Expenses joined to Detailed Vendors (ArcGIS Online), vendor address in Canada
+- `us_city_houston` — us_city_houston — City of Houston (data.houstontx.gov CKAN): checked, rejected
+- `us_city_las_vegas` — us_city_las_vegas — City of Las Vegas checkbook with vendor addresses (ArcGIS): checked, 0 records
+- `us_city_philadelphia` — us_city_philadelphia — Philadelphia contracts (contracts.phila.gov, OpenDataPhilly): checked, rejected
+- `us_city_phoenix` — us_city_phoenix — City of Phoenix (phoenixopendata.com CKAN): checked, rejected
+- `us_city_sf` — us_city_sf — San Francisco "Supplier Contracts" (data.sf.gov cqi5-hm2d): checked, rejected
+- `us_city_urbana_il` — us_city_urbana_il — City of Urbana, IL "Open Expenditures - Payment Details" (illinois-edp.data.socrata.com p34w-i7rn): checked, 0 records
+- `us_county_cook_il` — us_county_cook_il — Cook County (IL) "Procurement - Awarded Contracts & Amendments" (datacatalog.cookcountyil.gov qh8j-6k63): checked, rejected
+- `us_county_king_wa` — us_county_king_wa — King County (WA) "Procurement Contracts" (data.kingcounty.gov dqit-zt74): checked, rejected
+- `us_county_sacramento_ca` — us_county_sacramento_ca — Sacramento County (California) "County Contracts" + "Purchase Orders" (ArcGIS Online, SAP extracts), vendor address in Canada
+- `us_dc` — us_dc — District of Columbia contracts: checked, 0 Canadian-vendor records
+- `us_misc_portals_checked` — us_misc_portals_checked — smaller US local portals checked on resume (2026-10-25, ≈19:28–19:55 UTC) and rejected
+- `us_ny_nyserda` — us_ny_nyserda — NYSERDA "Supported Clean Energy Research and Development Projects: Beginning 1991" (data.ny.gov 7xzk-zyk5): checked, 0 records
+- `us_state_arizona` — us_state_arizona — Arizona (APP/ProcureAZ app.az.gov, OpenBooks openbooks.az.gov): checked, blocked
+- `us_state_california` — us_state_california — California (data.ca.gov / Cal eProcure): checked, rejected
+- `us_state_colorado` — us_state_colorado — Colorado (data.colorado.gov / Transparency Online / COMPASS): checked, rejected
+- `us_state_connecticut` — us_state_connecticut — Connecticut (data.ct.gov Open Checkbook / Open Expenditures): checked, rejected
+- `us_state_florida` — us_state_florida — Florida FACTS (facts.fldfs.com) / MyFloridaMarketPlace: checked, rejected
+- `us_state_georgia` — us_state_georgia — Georgia Procurement Registry (ssl.doas.state.ga.us/gpr): checked, blocked
+- `us_state_hawaii` — us_state_hawaii — Hawaii HIePRO (hiepro.ehawaii.gov): checked, blocked
+- `us_state_illinois` — us_state_illinois — Illinois Comptroller contracts / data.illinois.gov: checked, rejected
+- `us_state_indiana` — us_state_indiana — Indiana IDOA Public Contract Search (secure.in.gov/apps/idoa/contractsearch): checked, rejected
+- `us_state_kentucky` — us_state_kentucky — Kentucky Transparency (transparency.ky.gov) contract search: checked, rejected
+- `us_state_maine` — us_state_maine — Maine Office of the State Controller "Vendor Data File" / Open Checkbook: blocked
+- `us_state_maryland` — us_state_maryland — Maryland eMMA / opendata.maryland.gov: checked, rejected (county-level source used instead)
+- `us_state_michigan` — us_state_michigan — Michigan SIGMA / Contract Connect / data.michigan.gov: checked, rejected
+- `us_state_minnesota` — us_state_minnesota — Minnesota contract search: checked, rejected
+- `us_state_missouri` — us_state_missouri — MissouriBUYS (missouribuys.mo.gov): checked, rejected
+- `us_state_nevada` — us_state_nevada — Nevada (nevadaepro.com / data.nevada.gov): checked, rejected
+- `us_state_new_jersey` — us_state_new_jersey — New Jersey (NJSTART / YourMoney NJ): checked, rejected
+- `us_state_north_carolina` — us_state_north_carolina — NC eProcurement / IPS (ips.state.nc.us): checked, blocked
+- `us_state_ny_osc_openbook` — us_state_ny_osc_openbook — NYS Office of the State Comptroller Open Book New York contract search (wwe2.osc.state.ny.us/transparency/contracts): checked, rejected
+- `us_state_ohio` — us_state_ohio — Ohio (OhioCheckbook checkbook.ohio.gov, OhioBuys): checked, blocked
+- `us_state_pennsylvania` — us_state_pennsylvania — Pennsylvania (data.pa.gov, PA Treasury e-Library, eMarketplace): checked, rejected
+- `us_state_tennessee` — us_state_tennessee — Tennessee CPO statewide contracts (tn.gov): checked, blocked
+- `us_state_utah` — us_state_utah — Utah Transparency (transparent.utah.gov): checked, rejected
+- `us_state_washington` — us_state_washington — Washington State (data.wa.gov Agency Contracts FY2014–FY2025; fiscal.wa.gov): checked, rejected
+- `us_state_washington_lni` — us_state_washington_lni — Washington State L&I prevailing-wage Intents + Affidavits (public works), contractor address in Canada
+- `us_state_wisconsin` — us_state_wisconsin — Wisconsin VendorNet/WisBuy (wwwcfprd.doa.state.wi.us): checked, blocked
+- `us_transit_agencies` — us_transit_agencies — CTA, WMATA, LA Metro, SEPTA procurement pages: checked, rejected
+- `us_universities` — us_universities — UC, CSU, SUNY, Texas A&M system procurement: checked, rejected
+- `uy_arce` — uy_arce — Uruguay – ARCE (Agencia Reguladora de Compras Estatales) OCDS API
+- `wfp` — wfp — World Food Programme contract awards — REJECTED (no public award list)
+- `xk_pprc` — xk_pprc — Kosovo – PPRC e-procurement OCDS
+- `za_etenders` — za_etenders — South Africa – eTenders OCDS
+
+## Hostname corrections found 2026-10-26
+
+- New Brunswick NBON: https://nbon-rpanb.gnb.ca/ (old nbon.gnb.ca dead) — being pulled by Claude
+- NB open data: https://open-data-gnb.hub.arcgis.com/
+- Manitoba open data: https://geoportal.gov.mb.ca/

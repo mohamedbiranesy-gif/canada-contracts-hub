@@ -1,0 +1,4 @@
+# us_city_phoenix — City of Phoenix (phoenixopendata.com CKAN): checked, rejected
+
+- "City Checkbook" FY2026 (city-checkbook26, resource a1fdbfa5-b811-432f-a9dd-81294e0a4550, 42,776 rows) inspected 2026-10-25 ≈19:28 UTC: columns Check/Payment Date, Dept. Description, **Vendor Name**, Commitment Item Name, Invoice Net Amt — **no vendor address**. No contract-award dataset with vendor address on the portal. Rejected.
+- Other CKAN portals swept at the same time (`scripts/us_discovery/ckan_sweep.py`): data.sanantonio.gov, data.sanjoseca.gov, data.milwaukee.gov (open checkbook, no vendor address), data.wprdc.org (Pittsburgh/Allegheny: no award dataset) — no usable source; data.buffalony.gov, data.cityofsacramento.org, opendata.minneapolismn.gov, data.virginiabeach.gov, data.kcmo.org are not CKAN (404); data.tucsonaz.gov did not connect.

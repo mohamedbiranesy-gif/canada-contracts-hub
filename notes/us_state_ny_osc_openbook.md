@@ -1,0 +1,3 @@
+# us_state_ny_osc_openbook — NYS Office of the State Comptroller Open Book New York contract search (wwe2.osc.state.ny.us/transparency/contracts): checked, rejected
+
+The ColdFusion search form (agency/authority, vendor, contract type, dates, amounts) returns "An unexpected error occurred" for scripted GET queries even with valid parameter combinations; results pages do not include vendor addresses in any case (vendor name + contract dates/amounts). Not pulled; NYS contracts with Canadian vendors are instead covered through the ABO public-authority reports (`us_state_ny_abo`) and MTA (`us_ny_mta`); NYS executive-agency contracts (OGS centralized contracts etc.) remain a gap.

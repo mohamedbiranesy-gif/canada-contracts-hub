@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-00001,v:b2870bc7e088539b,THE BELL TELEPHONE COMPANY OF,,,,,,421,420,belltelephone.ca belltelephone.com bell-telephone.ca bell-telephone.com belltelephonecanada.ca belltelephonecanada.com
+CH-VC-00002,v:c2f7a86379507f68,CANADIAN CORPS OF COMMISSIONAIRES,The Canadian Corps of Commissionaires,345521,,,,325,310,canadiancorpscommissionaires.ca canadiancorpscommissionaires.com corpscommissionaires.ca corpscommissionaires.com canadian-corps-commissionaires.ca canadian-corps-commissionaires.com
+CH-VC-00003,v:2a037073cd37f5a6,SAFRAN ELECTRICAL COMPONENTS CANADA INC,SAFRAN COMPOSANTS ELECTRIQUES CANADA INC.,1166711862,LONDON,ON,N5V 4N6,179,177,safranelectricalcomponents.ca safranelectricalcomponents.com safrancomposantselectriques.ca safrancomposantselectriques.com cantwellcullen.ca cantwellcullen.com
+CH-VC-00004,v:33101b6c0c84c862,Advanced Chippewa Technologies Incorporated,ADVANCED CHIPPEWA TECHNOLOGIES INCORPORATED,4142152,,,,151,147,advancedchippewatechnologies.ca advancedchippewatechnologies.com advanced-chippewa-technologies.ca advanced-chippewa-technologies.com
+CH-VC-00005,v:01a27bed31f8648a,DECISIVE GROUP INC.,Decisive Group Inc.,15572142,,,,147,128,decisivegroup.ca decisivegroup.com decisive-group.ca decisive-group.com
+CH-VC-00006,v:67057d961a002dbd,COMPUTACENTER CANADA INC. (445245),,,,,,134,122,computacentercanada.ca computacentercanada.com computacenter.ca computacenter.com computacenter-canada.ca computacenter-canada.com
+CH-VC-00007,v:8060427184a49d50,GENERAL DYNAMICS LAND SYSTEMS - CANADA CORPORATION,,,LONDON,ON,N5V 2Z7,139,91,generaldynamicslandsystems.ca generaldynamicslandsystems.com
+CH-VC-00008,v:02cf969850ac7622,Ford Motor Company of Canada Ltd,"FORD MOTOR COMPANY OF CANADA, LIMITED",114472,,,,104,88,fordmotorcanada.ca fordmotorcanada.com fordmotor.ca fordmotor.com ford-motor-canada.ca ford-motor-canada.com
+CH-VC-00009,v:58cec80063d3f871,HONEYWELL AEROSPACE INTERNATIONAL INC.,,,MISSISSAUGA,,L5L 3S6,83,83,
+CH-VC-00010,v:4a4a56c37408ee6e,OTTAWA DIVISION - CANADIAN CORPS,,,,,,77,77,
+CH-VC-00011,v:e85d81a5191e44a4,Orangutech Inc.,,,,,,76,70,orangutech.ca orangutech.com
+CH-VC-00012,v:db5abea3b1226f2a,RENO-MAT (9368-3530 QC INC),,,,,,67,67,
+CH-VC-00013,v:6bce16a6af4841ea,PIVOTAL POWER INC,,,BEDFORD,NS,B4B 1G9,66,66,pivotalpower.ca pivotalpower.com pivotal-power.ca pivotal-power.com
+CH-VC-00014,v:e6a025c40c3c3c9c,Konica Minolta Buisness Solutions,,,,,,65,65,
+CH-VC-00015,v:1624e09d2d735dbd,JHT Defense Inc.,JHT DEFENSE INC.,1038460,,,,78,63,jhtdefense.ca jhtdefense.com jht-defense.ca jht-defense.com
+CH-VC-00016,v:90dc62cc5f858ddb,CORPS CANADIEN DES COMMISSIONNAIRES,The Canadian Corps of Commissionaires,345521,,,,61,61,corpscanadiencommissionnaires.ca corpscanadiencommissionnaires.com canadiancorpscommissionaires.ca canadiancorpscommissionaires.com corpscommissionaires.ca corpscommissionaires.com
+CH-VC-00017,v:c3017bab208443c6,General Motors of Canada Company,GENERAL MOTORS OF CANADA LIMITED,7732902,,,,75,59,generalmotorscanada.ca generalmotorscanada.com generalmotors.ca generalmotors.com general-motors-canada.ca general-motors-canada.com
+CH-VC-00018,v:b6347bb877c223ee,Konica Minolta,,,,,,66,58,konicaminolta.ca konicaminolta.com konica-minolta.ca konica-minolta.com konicaminoltacanada.ca konicaminoltacanada.com
+CH-VC-00019,v:ac1568b0f31e7193,Data Centre Intelligence Inc.,Data Centre Intelligence Inc.,8188360,Ottawa,ONTARIO,K2E 0B8,61,57,datacentreintelligence.ca datacentreintelligence.com data-centre-intelligence.ca data-centre-intelligence.com
+CH-VC-00020,v:2cec50f7fef2930a,QMR STAFFING SOLUTIONS INC.,QMR Staffing Solutions Incorporated,6064451,,,,62,56,qmrstaffingsolutions.ca qmrstaffingsolutions.com qmr-staffing-solutions.ca qmr-staffing-solutions.com
+CH-VC-00021,v:7f56df2e83f4671b,MITSUBISHI MOTOR SALES OF CANADA INC,"MITSUBISHI MOTOR SALES OF CANADA, INC.",3325148,,,,72,54,mitsubishimotorsalescanada.ca mitsubishimotorsalescanada.com mitsubishimotorsales.ca mitsubishimotorsales.com mitsubishi-motor-sales-canada.ca mitsubishi-motor-sales-canada.com
+CH-VC-00022,v:bbd89227b4f433b0,COMMISSIONAIRES OTTAWA,,,,,,60,53,
+CH-VC-00023,v:93042522717e1cfb,FAST FORWARD FRENCH INC.,FAST FORWARD FRENCH INC.,7017928,,,,53,53,fastforwardfrench.ca fastforwardfrench.com fast-forward-french.ca fast-forward-french.com
+CH-VC-00024,v:7c2ac2d4238a942c,Promaxis Systems Inc.,,,,,,52,51,promaxissystems.ca promaxissystems.com promaxis-systems.ca promaxis-systems.com
+CH-VC-00025,v:81e4a5523e4e1843,Budget,,,,,,50,50,
+CH-VC-00026,v:3ff0f98cbc3e6a9d,Cache Computer Consulting Corp.,CACHE COMPUTER CONSULTING CORP.,10331937,,,,50,48,cachecomputerconsulting.ca cachecomputerconsulting.com cache-computer-consulting.ca cache-computer-consulting.com
+CH-VC-00027,v:4dd1c7c8d573c866,EBSCO CANADA LTÉE,EBSCO CANADA LTD.,3607216,,,,130,46,ebscocanada.ca ebscocanada.com ebsco.ca ebsco.com ebsco-canada.ca ebsco-canada.com
+CH-VC-00028,v:07c5275f4892bc41,NISHA TECHNOLOGIES INC,NISHA TECHNOLOGIES INC.,16777988,,,,51,46,nishatechnologies.ca nishatechnologies.com nisha-technologies.ca nisha-technologies.com
+CH-VC-00029,v:644a754dedb68c92,VERSATIL BPI INC.,VERSATIL BPI INC.,7320981,,,,49,45,versatilbpi.ca versatilbpi.com versatil-bpi.ca versatil-bpi.com
+CH-VC-00030,v:a24d5e7d3e670892,NETAGEN COMMUNICATION,,,,,,45,45,
+CH-VC-00031,v:bad7b3e3ac290240,GETINGE CANADA LIMITED,GETINGE CANADA LIMITED,10817821,Mississauga,ON,L5R 3R3,344,44,getingecanada.ca getingecanada.com getinge.ca getinge.com getinge-canada.ca getinge-canada.com
+CH-VC-00032,v:47130706cd998caa,COMMISSIONAIRES,,,,,,49,43,commissionaires.ca commissionaires.com commissionairescanada.ca commissionairescanada.com commissionaires-canada.ca commissionaires-canada.com
+CH-VC-00033,v:d71ba2aea675f2ea,Protak Consulting Group Inc,PROTAK CONSULTING GROUP INC.,4016629,,,,43,43,protakconsultinggroup.ca protakconsultinggroup.com protak-consulting-group.ca protak-consulting-group.com
+CH-VC-00034,v:3e785322e1131f74,SCHAEFFLER AEROSPACE CANADA INC,,,STRATFORD,ON,N4Z 1H3,56,42,schaeffleraerospacecanada.ca schaeffleraerospacecanada.com schaeffleraerospace.ca schaeffleraerospace.com schaeffler-aerospace-canada.ca schaeffler-aerospace-canada.com
+CH-VC-00035,v:383129b6734d77fc,MARATHON WATCH COMPANY LTD,,,VAUGHAN,ON,L4K 5Y3,46,42,marathonwatch.ca marathonwatch.com marathon-watch.ca marathon-watch.com
+CH-VC-00036,v:91753fea8badf411,KIA CANADA INC,KIA CANADA INC.,3463435,,,,43,40,kiacanada.ca kiacanada.com kia-canada.ca kia-canada.com
+CH-VC-00037,v:b3a0a47299358497,Valcom Consulting Group Inc.,Valcom Consulting Group Inc.,4111567,,,,45,39,valcomconsultinggroup.ca valcomconsultinggroup.com valcom-consulting-group.ca valcom-consulting-group.com
+CH-VC-00038,v:c32402054ea99902,S.i. Systems ULC,,,,,,48,37,sisystems.ca sisystems.com s-i-systems.ca s-i-systems.com
+CH-VC-00039,v:3cf30aec170eb3f3,SHAW TELECOM G.P.,,,,,,37,37,
+CH-VC-00040,v:578de1675b69df95,INDAL TECHNOLOGIES INC.,INDAL TECHNOLOGIES INC.,2542315,,,,58,36,indaltechnologies.ca indaltechnologies.com indal-technologies.ca indal-technologies.com
+CH-VC-00041,v:a2e9c552acc2d11e,BRAGG COMMUNICATIONS INCORPORATED,,,,,,41,36,
+CH-VC-00042,v:a1cea5608cafe192,MOBILE RESOURCE GROUP INC,,,,,,40,36,mobileresourcegroup.ca mobileresourcegroup.com mobile-resource-group.ca mobile-resource-group.com
+CH-VC-00043,v:8b64fac4825ee260,Nitam Solutions Inc,,,Ottawa,ONTARIO,K1B 4N4,38,34,nitamsolutions.ca nitamsolutions.com nitam-solutions.ca nitam-solutions.com
+CH-VC-00044,v:e2c158b8e6af91db,Beckman Coulter Canada LP,BECKMAN COULTER CANADA LP,3367734376,Mississauga,ON,L5N 6V8,565,33,beckmancoultercanada.ca beckmancoultercanada.com beckmancoulter.ca beckmancoulter.com beckman-coulter-canada.ca beckman-coulter-canada.com
+CH-VC-00045,v:f1b72eca0beefec9,9389-3188 QUEBEC INC,,,,,,33,33,
+CH-VC-00046,v:f42f474b65be43b6,NARL MARKETING LIMITED PARTNERSHIP,,,,,,33,33,
+CH-VC-00047,v:2f8022930f3d722c,Steris Canada Sales ULC,STERIS IMS CANADA INC.,1180024110,Mississauga,ON,L4Z 3E2,309,32,steriscanadasales.ca steriscanadasales.com sterissales.ca sterissales.com steris-canada-sales.ca steris-canada-sales.com
+CH-VC-00048,v:370a5864ea540d41,KONICA,,,,,,32,32,
+CH-VC-00049,v:1a9508cad4a305e5,AVIS,,,,,,32,32,
+CH-VC-00050,v:954e57fbb907d9ed,Olympus Canada Inc,OLYMPUS CANADA INC.,6468853,Richmond Hill,ON,L4B 4B3,1030,31,olympuscanada.ca olympuscanada.com olympus.ca olympus.com olympus-canada.ca olympus-canada.com
+CH-VC-00051,v:3b6af7221005ddca,McElhanney Consulting Services Ltd.,,,,,,42,31,mcelhanneyconsultingservices.ca mcelhanneyconsultingservices.com mcelhanney-consulting-services.ca mcelhanney-consulting-services.com
+CH-VC-00052,v:e7ac8bf29763bddb,KONICA MINOLTA BUSINESS EQUIPMENT,,,,,,31,31,
+CH-VC-00053,v:1c97fdfe3ad5b236,C3 Fuel Nunavik Inc,C3 Fuel Nunavik Inc.,13158993,,,,30,30,c3fuelnunavik.ca c3fuelnunavik.com c3-fuel-nunavik.ca c3-fuel-nunavik.com c3essencenunavik.ca c3essencenunavik.com
+CH-VC-00054,v:5b52509e3e494524,INDIVIDUAL CONSULTANT,,,,,,63,29,
+CH-VC-00055,v:2b6ca70ba610b07d,TALOS TECHNOLOGIES INC.,,,,,,33,29,talostechnologies.ca talostechnologies.com talos-technologies.ca talos-technologies.com
+CH-VC-00056,v:397721463a14edfc,WORKDYNAMICS TECHNOLOGIES INC.,,,,,,30,29,workdynamicstechnologies.ca workdynamicstechnologies.com workdynamics-technologies.ca workdynamics-technologies.com
+CH-VC-00057,v:3ad593115ddda7ba,MaxSys Staffing & Consulting Inc.,,,,,,30,29,maxsysstaffingconsulting.ca maxsysstaffingconsulting.com maxsys-staffing-consulting.ca maxsys-staffing-consulting.com
+CH-VC-00058,v:6ca5d12ea40cd3a9,IBISKA TELECOM INC,IBISKA TELECOM INC.,3172643,,,,35,28,ibiskatelecom.ca ibiskatelecom.com ibiska-telecom.ca ibiska-telecom.com
+CH-VC-00059,v:4863f832778fe1e6,G.T. MACHINING & FABRICATING LTD.,,,NAPANEE,ON,K7R 3Z8,28,27,gtmachiningfabricating.ca gtmachiningfabricating.com g-t-machining-fabricating.ca g-t-machining-fabricating.com
+CH-VC-00060,v:ae19447b7f872f02,Leica Microsystems Canada,LEICA MICROSYSTEMS CANADA,3366450883,Concord,ON,L4K 4V8,313,26,leicamicrosystemscanada.ca leicamicrosystemscanada.com leicamicrosystems.ca leicamicrosystems.com leica-microsystems-canada.ca leica-microsystems-canada.com
+CH-VC-00061,v:d84e7b1d988e03af,DELOITTE S.E.N.C.R.L./S.R.L.,DELOITTE S.E.N.C.R.L./S.R.L.,3345704335,,ON,M5H0A9,86,26,deloittesencrsr.ca deloittesencrsr.com deloitte-s-e-n-c-r-s-r.ca deloitte-s-e-n-c-r-s-r.com deloittetouchesr.ca deloittetouchesr.com
+CH-VC-00062,v:d3a30390bdca4632,ARMATEC SURVIVABILITY CORP,,,DORCHESTER,ON,N0L 1G4,27,25,armatecsurvivability.ca armatecsurvivability.com armatec-survivability.ca armatec-survivability.com
+CH-VC-00063,v:2faee4994f6486a3,ACOLAD CANADA INC.,Acolad Canada Inc.,15608520,,,,26,25,acoladcanada.ca acoladcanada.com acolad.ca acolad.com acolad-canada.ca acolad-canada.com
+CH-VC-00064,v:8fda41eb8e25d8d5,ANSYS CANADA LTD,ANSYS CANADA LTD.,1170672662,Waterloo,ONTARIO,N2J 4G8,26,25,ansyscanada.ca ansyscanada.com ansys.ca ansys.com ansys-canada.ca ansys-canada.com
+CH-VC-00065,v:631aeb4988fb562d,R&R INTERNATIONAL TRANSLATION,,,,,,25,25,rrinternationaltranslation.ca rrinternationaltranslation.com r-r-international-translation.ca r-r-international-translation.com
+CH-VC-00066,v:89e4c6dc37ea5440,GENERAL DYNAMICS ORDONANCE AND TACTICAL SYSTEMS - CANADA,,,,,,25,25,
+CH-VC-00067,v:5671ccbf19aa2e6a,PricewaterhouseCoopers LLP - MAIN PwC NATIONAL ACCT,,,Ottawa,ON,K1P 1E4,40,24,
+CH-VC-00068,v:ba78d0e4e665702a,NTT DATA CANADA INC,"NTT DATA Canada, Inc.",16620574,,,,28,24,nttdatacanada.ca nttdatacanada.com nttdata.ca nttdata.com ntt-data-canada.ca ntt-data-canada.com
+CH-VC-00069,v:90c61e3f9c31f74b,MDA SYSTEMS LTD.,,,,,,27,24,mdasystems.ca mdasystems.com mda-systems.ca mda-systems.com
+CH-VC-00070,v:e94f7d7aa8f5459b,The Northern Document Company Limited,,,Yellowknife,NT,,24,24,northerndocument.ca northerndocument.com northern-document.ca northern-document.com
+CH-VC-00071,v:8b48decdba20be25,BARDON SUPPLIES LIMITED,,,,,,24,24,bardonsupplies.ca bardonsupplies.com bardon-supplies.ca bardon-supplies.com
+CH-VC-00072,v:2d126474733982b3,GRAYBRIDGE INTERNATIONAL CONSULTING,GRAYBRIDGE INTERNATIONAL CONSULTING INC.,2658178,,,,24,24,
+CH-VC-00073,v:b3c5e51da66069d7,CANA G AND Z COMPANY INC,,,AURORA,ON,L4G 4B6,24,24,canagz.ca canagz.com cana-g-z.ca cana-g-z.com
+CH-VC-00074,v:e223315b2cb35636,CARLETON UNIVERSITY,,,,,,28,23,carletonuniversity.ca carletonuniversity.com carleton-university.ca carleton-university.com
+CH-VC-00075,v:f44c402d28e41ce3,UNIVERSITY OF OTTAWA,,,,,,27,23,universityottawa.ca universityottawa.com university-ottawa.ca university-ottawa.com
+CH-VC-00076,v:2ac236a41722e01c,ADRM TECHNOLOGY CONSULTING GROUP CO,ADRM TECHNOLOGY CONSULTING GROUP CORP.,3958027,,,,25,23,adrmtechnologyconsultinggroup.ca adrmtechnologyconsultinggroup.com adrmtechnologyconsulting.ca adrmtechnologyconsulting.com adrm-technology-consulting.ca adrm-technology-consulting.com
+CH-VC-00077,v:4b70a2bd6fd7c33d,MEDIA Q INC.,,,,,,23,23,mediaq.ca mediaq.com media-q.ca media-q.com
+CH-VC-00078,v:a5092481395fe1ee,Deloitte MAIN ACCOUNT,,,Ottawa,ON,K1P 5T8,41,22,deloittemainaccount.ca deloittemainaccount.com deloitte-main-account.ca deloitte-main-account.com
+CH-VC-00079,v:d2bc50dcc66cc084,W.R. DAVIS ENGINEERING LIMITED,,,,,,36,22,wrdavisengineering.ca wrdavisengineering.com w-r-davis-engineering.ca w-r-davis-engineering.com
+CH-VC-00080,v:28df9530473055bf,Samson & Associés CPA/Consultation Inc.,SAMSON & ASSOCIÉS CPA/CONSULTATION INC.,8426724,,,,34,22,samsonassociescpaconsultation.ca samsonassociescpaconsultation.com samsonassociatescpaconsulting.ca samsonassociatescpaconsulting.com
+CH-VC-00081,v:f0dae297643c7cc3,THE UNIVERSITY OF BRITISH COLUMBIA,,,,,,32,22,universitybritishcolumbia.ca universitybritishcolumbia.com university-british-columbia.ca university-british-columbia.com
+CH-VC-00082,v:ce80da1e42018338,OPTIV CANADA FEDERAL INC.,,,,,,25,22,optivcanadafederal.ca optivcanadafederal.com optivfederal.ca optivfederal.com optiv-canada-federal.ca optiv-canada-federal.com
+CH-VC-00083,v:bdf782246e99045d,GOODRICH AEROSPACE CANADA CORP,GOODRICH AEROSPACE CANADA LTD.,3214761,OAKVILLE,,L6L 5Y7,23,22,goodrichaerospacecanada.ca goodrichaerospacecanada.com goodrichaerospace.ca goodrichaerospace.com goodrich-aerospace-canada.ca goodrich-aerospace-canada.com
+CH-VC-00084,v:f0c822bbb2094180,NORTHWESTEL INC,NORTHWESTEL INC.,4504071,,,,22,22,northwestel.ca northwestel.com norouestel.ca norouestel.com
+CH-VC-00085,v:85c7110f8ee3baa2,DON SAYWELL DEVELOPMENTS LTD.,,,,,,22,22,donsaywelldevelopments.ca donsaywelldevelopments.com don-saywell-developments.ca don-saywell-developments.com
+CH-VC-00086,v:b1ce58fe073af699,Kings Ent. Ltd.,,,,,,22,22,
+CH-VC-00087,v:747f98ca9ed96ef1,G5 VENTURES,,,,,,22,22,
+CH-VC-00088,v:8594a1da02995716,COMPUTERSHARE INVESTOR,,,,,,22,22,
+CH-VC-00089,v:a518843bdddfb43e,BELL ALIANT REGIONAL,,,,,,22,22,
+CH-VC-00090,v:d7d3699b0e82e73d,Adirondack Information Management Inc.,,,,,,22,21,
+CH-VC-00091,v:f0cd90c91573e0a2,68028 NEWFOUNDLAND &,,,,,,21,21,
+CH-VC-00092,v:a1aa411d527fc02b,HPG LP,,,MILTON,,L9E 1M9,21,21,
+CH-VC-00093,v:3d647af46a5d2622,KNOWLEDGE CIRCLE LEARNING SERVICES,Knowledge Circle Learning Services Inc.,6153640,,,,20,20,
+CH-VC-00094,v:9ba2c0e511f45e29,Nightingale Corp,,,Mississauga,ON,L4Y 1Z9,48,19,nightingale.ca nightingale.com
+CH-VC-00095,v:d5216ef9cc4e6479,Patlon Aircraft and Industries Limited,,,,,,25,19,patlonaircraftindustries.ca patlonaircraftindustries.com patlon-aircraft-industries.ca patlon-aircraft-industries.com
+CH-VC-00096,v:a409f899063d2e11,"Tato Recruiting Inc., S.i. Systems ULC., in Joint Venture",,,Ottawa,ONTARIO,K2P 5P2,19,19,
+CH-VC-00097,v:40fbcdf73cdd6f39,BMP (1985) LIMITED,,,,,,19,19,
+CH-VC-00098,v:16c92eaa5f8b4cea,PAYZANT BUILDING PRODUCTS,,,,,,19,19,
+CH-VC-00099,v:5d247ba45ae1c236,PANORAMA AVIATION LTD,,,,,,19,19,
+CH-VC-00100,v:966c451e9ed59e1f,Undisclosed,,,,,,252,18,

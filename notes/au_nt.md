@@ -1,0 +1,3 @@
+# au_nt — Northern Territory Quotations and Tenders Online — NOT CRAWLED (no bulk export)
+
+Checked 2026-10-25: https://tendersonline.nt.gov.au/Tender/Search/Awarded (200) lists awarded RFQ/RFT; each detail page `https://tendersonline.nt.gov.au/Tender/Details/<id>?status=Awarded` shows "Awarded contractors" with ABN and **postal address** (e.g. id 26255: PASH Contracting Pty Ltd, PO Box 580, KATHERINE NT 0851; release/close/award dates, value). There is no bulk/CSV export and no contractor-location filter; ids run to ~26,500, i.e. ~26k page requests — not feasible at ≤3 req/s within the time box, and Canadian awardees are expected to be very rare (mostly NT-local works/services). No records.

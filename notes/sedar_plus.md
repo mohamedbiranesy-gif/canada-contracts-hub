@@ -1,0 +1,3 @@
+# sedar_plus — SEDAR+ (Canadian Securities Administrators filings portal) — REJECTED (bot check)
+
+- `https://www.sedarplus.ca/` answered the first request (2026-10-25 08:18 UTC, saved as `/home/claude/contracts/downloads/sedar_plus/landing.html`, 15.7 KB) with a Radware/ShieldSquare "Block Page" (JavaScript CAPTCHA challenge, `captcha.perfdrive.com`), so no filing search, material-contract document or press-release list could be retrieved; per the brief we did not retry or attempt to get around the challenge. 0 records; Canadian issuers' material contracts were instead covered through SEC EDGAR (`sec_edgar`, cross-listed filers) and newswire press releases (`private_press`).

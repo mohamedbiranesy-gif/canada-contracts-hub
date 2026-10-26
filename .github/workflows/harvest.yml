@@ -1,0 +1,50 @@
+name: harvest
+# Continue a long-running harvester from its saved state (release `harvest-state`), time-boxed.
+# Public repo = unlimited free minutes, so the SEAO end-date harvest runs daily until its todo list is empty.
+on:
+  schedule:
+    - cron: "3 8 * * *"
+  workflow_dispatch:
+    inputs:
+      harvester:
+        description: "vendor_web | seao_api"
+        default: vendor_web
+      minutes:
+        description: "time box in minutes (max 330)"
+        default: "300"
+permissions:
+  contents: write
+concurrency:
+  group: harvest-${{ inputs.harvester || 'seao_api' }}
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore state
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          mkdir -p st && gh release download harvest-state -D st
+          pip install -q requests
+      - name: vendor_web
+        if: (inputs.harvester || 'seao_api') == 'vendor_web'
+        run: |
+          gunzip -c st/vendor_web_vm.jsonl.gz > st/vm.jsonl
+          gunzip -c st/vendor_web_registry.jsonl.gz > st/reg.jsonl
+          gunzip -c st/vendors_web_progress.jsonl.gz > st/vw.jsonl.shard0
+          timeout "${{ inputs.minutes || '320' }}m" python3 -I scripts/enrichment_vendors/vendor_web.py st/vm.jsonl st/reg.jsonl st/vw.jsonl 1 2 12 || true
+          cat st/vw.jsonl.shard* | gzip > st/vendors_web_progress.jsonl.gz
+          echo "done=$(cat st/vw.jsonl.shard* | wc -l)" >> "$GITHUB_STEP_SUMMARY"
+      - name: seao_api
+        if: (inputs.harvester || 'seao_api') == 'seao_api'
+        run: |
+          gunzip -c st/seao_api_notices.jsonl.gz > st/notices.jsonl
+          timeout "${{ inputs.minutes || '320' }}m" python3 -I scripts/seao_quebec/api_status_harvest.py st/seao_api_todo.csv.gz st/notices.jsonl 6 2.0 || true
+          gzip -c st/notices.jsonl > st/seao_api_notices.jsonl.gz
+          echo "done=$(wc -l < st/notices.jsonl)" >> "$GITHUB_STEP_SUMMARY"
+      - name: Save state
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          gh release upload harvest-state st/vendors_web_progress.jsonl.gz st/seao_api_notices.jsonl.gz --clobber

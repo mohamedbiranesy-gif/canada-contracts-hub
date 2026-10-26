@@ -1,0 +1,5 @@
+# us_ny_nyserda — NYSERDA "Supported Clean Energy Research and Development Projects: Beginning 1991" (data.ny.gov 7xzk-zyk5): checked, 0 records
+
+- Columns: application_id, primary_contractor_name, contractor_type, project_type, technology_1..3, project_title, contractor_street/city/**state_province**/zip_postal_code, contractor_website, award_date, award_amount_us_dollars (no end date / term).
+- Canadian-address rows pulled 2026-10-25 ≈19:38 UTC (`contractor_state_province` in Canadian province codes/names, or "Canada" in street/city) → `downloads/us_ny_nyserda/rd_projects_ca_7xzk-zyk5.jsonl`: 11 awards (Intelligent Imaging Systems, Edmonton; Electrovaya, Mississauga; JL Wallach Geosciences, Russell ON; Synergetic Technologies, Oakville; Biofine, Vancouver), award dates 1997–2011 only.
+- No award within the last 3 years (the staleness cut used for award-date-only sources, cf. us_city_nyc) → 0 records, no output file. NYSERDA procurement contracts are also reported in the ABO State Authorities procurement report (covered by `us_state_ny_abo`).

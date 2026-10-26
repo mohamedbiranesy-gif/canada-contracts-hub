@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-01001,township of wellesley,b:e8ce69f65a0acf05,Township of Wellesley,,CA,https://www.wellesley.ca,ar@wellesley.ca,,7
+CH-AP-01002,city of thompson,b:75e7db6ebb63c49c,City of Thompson,,CA,https://www.thompson.ca,communications@thompson.ca,purchasingagent@thompson.ca,7
+CH-AP-01003,royal newfoundland constabulary,b:7374444eaf3d07a3,Royal Newfoundland Constabulary,,CA,,,,7
+CH-AP-01004,saskatchewan liquor and gaming authority,b:d1badc6bad797da6,Saskatchewan Liquor and Gaming Authority,,CA,,,procurement@slga.gov.sk.ca,7
+CH-AP-01005,industry canada,b:8dd73a3c7030c7b5,Industry Canada,,CA,,,,7
+CH-AP-01006,virginia department of transportation,b:b58d08442ea4b79c,Virginia Department of Transportation,,US,,,,7
+CH-AP-01007,virginia department of health,b:414f8a65c77523cb,Virginia Department of Health,,US,https://www.vdh.virginia.gov,"vitalrec.questions@vdh.virginia.gov, questions@vdh.virginia.gov",,7
+CH-AP-01008,mhi,b:00821ba928cb4825,MHI (Manitoba Hydro International Ltd.),,CA,,,,7
+CH-AP-01009,yarmouth county solid waste management authority,b:7e2200e0a180d85e,Yarmouth County Solid Waste Management Authority,,CA,,,,7
+CH-AP-01010,university of kings college,b:e278ffd2d1fe3b97,University of Kings College,,CA,,,,7
+CH-AP-01011,kings transit authority,b:10ba3dafb0ddf57a,Kings Transit Authority,,CA,,,,7
+CH-AP-01012,trade centre ltd,b:79597b0a6b5b348a,Trade Centre Ltd.,,CA,,,,7
+CH-AP-01013,core support services,b:5ec4884eaeabe472,Core Support Services,,CA,https://novascotia.ca,,,7
+CH-AP-01014,link nova scotia,b:b7388ad017309c25,Link Nova Scotia,,CA,,,,7
+CH-AP-01015,march of dimes canada,b:7afb0ffec975fab4,March of Dimes Canada,,CA,,,,6
+CH-AP-01016,red rock township,b:c812ee81c36850dd,Red Rock Township,,CA,,,,6
+CH-AP-01017,deer lake regional airport authority inc,b:93537d9b0362fca7,Deer Lake Regional Airport Authority Inc.,,CA,,,,6
+CH-AP-01018,manitoba agriculture,b:cd37cb16e1b395b1,Manitoba Agriculture,,CA,,,,6
+CH-AP-01019,county of northern lights,b:d4c3c3cb06b1646b,County of Northern Lights,,CA,http://www.countyofnorthernlights.com,,,6
+CH-AP-01020,northwestern polytechnic,b:5026752c6d6178d7,Northwestern Polytechnic,,CA,https://www.nwpolytech.ca,,,6
+CH-AP-01021,medicine hat college,b:9883c15341d6a5ab,Medicine Hat College,,CA,https://www.mhc.ab.ca,info@mhc.ab.ca,,6
+CH-AP-01022,camrose county,b:944ed9ab4669c2ad,Camrose County,,CA,http://www.county.camrose.ab.ca,,,6
+CH-AP-01023,law commission of canada,b:670708dd55a6b5bd,Law Commission of Canada,,CA,https://www.canada.ca/en/law-commission-canada.html,info@lcc-cdc.gc.ca,,6
+CH-AP-01024,aar government services inc,b:01053c7af93dd1c2,"AAR GOVERNMENT SERVICES, INC.",,US,https://www.aarcorp.com,,,6
+CH-AP-01025,textron aviation defense llc,b:26462af31e6d07b0,TEXTRON AVIATION DEFENSE LLC,,US,https://txtav.com,,,6
+CH-AP-01026,the university of texas at austin,b:b4035561637bdc87,The University of Texas at Austin,,US,https://www.utexas.edu,,,6
+CH-AP-01027,chinook s edge school division,b:2211377b097fd9a0,Chinook's Edge School Division,,CA,https://www.cesd73.ca,,,6
+CH-AP-01028,ministry of aboriginal relations and reconciliation,b:c01f5f06d4e5eb5d,Ministry of Aboriginal Relations and Reconciliation,,CA,https://www2.gov.bc.ca,,,6
+CH-AP-01029,rehabilitation and maintenance,b:7437c21d8541b14e,Rehabilitation and Maintenance,,CA,https://www2.gov.bc.ca,,,6
+CH-AP-01030,enova power corp,b:a61f5755f8e21dbd,Enova Power Corp.,,CA,,,,6
+CH-AP-01031,woodstock hospital,b:49e05906c0be0c1e,Woodstock Hospital,,CA,,,,6
+CH-AP-01032,cbre limited,b:4f10c18f73447b19,CBRE Limited | Project Management Canada,,CA,,,,6
+CH-AP-01033,carling township,b:28c20d1c087ca16c,Carling Township,,CA,https://carling.ca,,,6
+CH-AP-01034,central health,b:936e26f3caecf8a0,Central Health,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,6
+CH-AP-01035,saskatchewan housing corporation,b:420cb0d19bf64462,Saskatchewan Housing Corporation,,CA,,,,6
+CH-AP-01036,rural municipality of kelvington no 366,b:c01a757032e6b60d,Rural Municipality of Kelvington No. 366,,CA,,,,6
+CH-AP-01037,regina qu appelle regional health authority,b:aa9a4dce5324b3c4,Regina Qu'Appelle Regional Health Authority,,CA,,,,6
+CH-AP-01038,department of social services,b:3ba7c20857e6129f,Department of Social Services,,US,,,,6
+CH-AP-01039,virginia department of energy,b:3a236b011ab86698,Virginia Department of Energy,,US,,,,6
+CH-AP-01040,lunenburg country multi purpose centre corp,b:36030414e317816e,Lunenburg Country Multi-Purpose Centre Corp.,,CA,,,,6
+CH-AP-01041,south shore housing authority,b:d7d69349ab5c8491,South Shore Housing Authority,,CA,,,,6
+CH-AP-01042,city of san jose,b:1ef58b5ad8167a70,City of San José - Purchasing,,US,https://www.sanjoseca.gov,,,4
+CH-AP-01043,city of san jose,b:d880564c5b0a66d2,City of San José - Consulting,,US,https://www.sanjoseca.gov,,,2
+CH-AP-01044,city of mesquite texas,b:f134445cfdce0f99,"City of Mesquite, Texas — Library Administration",,US,https://www.cityofmesquite.com,communications@cityofmesquite.com,commercialsolidwaste@cityofmesquite.com,1
+CH-AP-01045,city of mesquite texas,b:498e44cebc67835c,"City of Mesquite, Texas — Finance Administration",,US,https://www.cityofmesquite.com,communications@cityofmesquite.com,commercialsolidwaste@cityofmesquite.com,1
+CH-AP-01046,city of mesquite texas,b:822e63bed3f870e1,"City of Mesquite, Texas — Traffic Engineering",,US,https://www.cityofmesquite.com,communications@cityofmesquite.com,commercialsolidwaste@cityofmesquite.com,1
+CH-AP-01047,city of mesquite texas,b:e7d8c24499363999,"City of Mesquite, Texas — GIS Operations",,US,https://www.cityofmesquite.com,communications@cityofmesquite.com,commercialsolidwaste@cityofmesquite.com,1
+CH-AP-01048,city of mesquite texas,b:0bb6d702e9094e1a,"City of Mesquite, Texas — 4B Capital PARD",,US,https://www.cityofmesquite.com,communications@cityofmesquite.com,commercialsolidwaste@cityofmesquite.com,1
+CH-AP-01049,city of mesquite texas,b:e93f58290d4afcb8,"City of Mesquite, Texas — Police Contributions/Donations",,US,https://www.cityofmesquite.com,communications@cityofmesquite.com,commercialsolidwaste@cityofmesquite.com,1
+CH-AP-01050,college boreal,b:4e4b83877fe00fce,College Boréal,,CA,,,,5
+CH-AP-01051,the municipality of wawa,b:6e116e3da64b51e0,The Municipality of Wawa,,CA,,,,5
+CH-AP-01052,municipality of brockton,b:e74863e9d54d8fb1,Municipality of Brockton,,CA,,,,5
+CH-AP-01053,westbank first nation,b:a36ad28e1095f26a,Westbank First Nation,,CA,,,,5
+CH-AP-01054,nt power,b:707b4770678d0aea,NT Power,,CA,,,,5
+CH-AP-01055,association of municipalities of ontario,b:acd6835101d5883e,Association of Municipalities of Ontario,,CA,,,,5
+CH-AP-01056,mount allison university,b:f1be22d6715452fb,Mount Allison University,,CA,,,,5
+CH-AP-01057,town of olds,b:2c4173e2e79353ed,Town of Olds,,CA,http://www.olds.ca,"admin@olds.ca, communications@olds.ca",,5
+CH-AP-01058,athabasca university,b:2d0d28ed5aa7227b,Athabasca University,,CA,https://www.athabascau.ca,web_services@athabascau.ca,procure@athabascau.ca,5
+CH-AP-01059,northern lakes college,b:828c0b061dca8c33,Northern Lakes College,,CA,http://www.northernlakescollege.ca,,,5
+CH-AP-01060,town of hinton,b:f4a869c50a188ff3,Town of Hinton,,CA,http://www.hinton.ca,"it@hinton.ca, finance@hinton.ca",,5
+CH-AP-01061,alberta shareit program,b:b462d2423469b2a7,Alberta ShareIT Program,,CA,,,,5
+CH-AP-01062,the university of texas m d anderson cancer center,b:8e7acc00c59fb245,The University of Texas M.D. Anderson Cancer Center,,US,https://www.mdanderson.org,publicrelations@mdanderson.org,procurementservices@mdanderson.org,5
+CH-AP-01063,dewberry engineers inc,b:86caa87f01756345,DEWBERRY ENGINEERS INC.,,US,https://www.dewberry.com,media@dewberry.com,supplierinfo@dewberry.com,5
+CH-AP-01064,m c dean inc,b:92a306d7ddc97c09,"M. C. DEAN, INC.",,US,https://www.mcdean.com,,,5
+CH-AP-01065,leidos innovations corporation,b:98fc151ce74836f8,LEIDOS INNOVATIONS CORPORATION,,US,https://www.leidos.com,,,5
+CH-AP-01066,general dynamics mission systems inc,b:ab304cf27342564c,"GENERAL DYNAMICS MISSION SYSTEMS, INC","GENERAL DYNAMICS MISSION SYSTEMS, INC.",US,https://gdmissionsystems.com,,,5
+CH-AP-01067,bae systems information and electronic systems integration i,b:e03bf856e2cca342,BAE SYSTEMS INFORMATION AND ELECTRONIC SYSTEMS INTEGRATION I,,US,https://www.baesystems.com/en-us,,,5
+CH-AP-01068,cdm federal programs corporation,b:7deed5c66a362a97,CDM FEDERAL PROGRAMS CORPORATION,,US,https://www.cdmsmith.com,,,5
+CH-AP-01069,town of nanton,b:1b1c188916aae8c9,Town of Nanton,,CA,http://www.nanton.ca,,,5
+CH-AP-01070,viasat inc,b:0bd395a97cc23d6e,VIASAT INC,Viasat Inc.,US,https://www.viasat.com,,,5
+CH-AP-01071,transportation department of,b:a4f00e376efdcbdd,"TRANSPORTATION, DEPARTMENT OF",,US,https://www.oregon.gov/odot,,,5
+CH-AP-01072,transalta tri leisure centre,b:df1c9fe0098905bf,TransAlta Tri Leisure Centre,,CA,https://www.trileisure.com,info@trileisure.com,,5
+CH-AP-01073,municipal district of bighorn no 8,b:ad1b0cb38eba60bc,Municipal District of Bighorn No. 8,,CA,http://www.mdbighorn.ca,,,5
+CH-AP-01074,assiniboine park conservancy,b:91360c1ddbaa1b52,Assiniboine Park Conservancy,,CA,,,,5
+CH-AP-01075,newfoundland and labrador centre for health information,b:2994da6cfade4a5f,Newfoundland and Labrador Centre for Health Information,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,5
+CH-AP-01076,ministry of energy and mines,b:ce93cd84d403efd4,Ministry of Energy and Mines,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01077,ministry of small business and red tape reduction,b:b3e8f5400f361b5f,Ministry of Small Business and Red Tape Reduction,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01078,ministry of labour,b:2f836b69578b99e9,Ministry of Labour,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01079,ministry of land water and resource stewardship,b:f043e78a46c7dcd7,"Ministry of Land, Water and Resource Stewardship",,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01080,provincial field services,b:88611cf4dbeb6c54,Provincial Field Services,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01081,highway design and survey,b:7cc9b1f63aad0f25,Highway Design and Survey,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01082,environmental emergency program environmental protection division ministry of environment and parks environmental emergencies and land remediation branch,b:dc26cc93df202b03,Environmental Emergency Program ; Environmental Protection Division ; Ministry of Environment and Parks; Environmental Emergencies and Land Remediation Branch,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01083,environmental emergencies and land remediation branch ministry of environment and parks environmental protection division environmental emergency program,b:a6052aa8d61901d6,Environmental Emergencies and Land Remediation Branch ; Ministry of Environment and Parks; Environmental Protection Division ; Environmental Emergency Program,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01084,recreation sites and trails bc,b:ba8a1850fc314902,Recreation Sites and Trails BC,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01085,regional operations north area,b:f57a956a203b978f,"Regional Operations, North Area",,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01086,indigenous relations and property services,b:e53ef85344c22d00,Indigenous Relations and Property Services,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01087,ministry of mining and critical minerals,b:4894a0190ba5dfad,Ministry of Mining and Critical Minerals,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-01088,san juan college,b:9b0424c541e44111,San Juan College,,CA,,,,5
+CH-AP-01089,black mcdonald,b:8777338c457ba4ad,Black & McDonald (Energy & Sustainability),,CA,,,,5
+CH-AP-01090,township of puslinch,b:60cb4d8c688a6d45,Township of Puslinch,,CA,http://www.puslinch.ca/en/index.asp,"taxes@puslinch.ca, finance@puslinch.ca",,5
+CH-AP-01091,nation municipality,b:d0b6cd41c10f06d2,Nation Municipality,,CA,,,,5
+CH-AP-01092,municipality of kincardine,b:ec9a8507e2d56816,Municipality of Kincardine,,CA,http://www.kincardine.net,,,5
+CH-AP-01093,township of norwich,b:6a14ac22ad348673,Township of Norwich,,CA,,,,5
+CH-AP-01094,nlc,b:1e5b58fc30bb15c4,NLC,,CA,https://www.nlliquor.com,,,5
+CH-AP-01095,health community services,b:34790360d888a1f0,Health & Community Services,,CA,,,,5
+CH-AP-01096,newfoundland liquor corporation,b:a313eb8d6dfafcc6,Newfoundland Liquor Corporation,,CA,https://www.nlliquor.com,,,5
+CH-AP-01097,office of the auditor general,b:5596e4683572c9ed,Office of the Auditor General,,CA,,,,5
+CH-AP-01098,trade and export development,b:049b04828477ef95,Trade and Export Development,,CA,https://www.saskatchewan.ca,,,5
+CH-AP-01099,prairie valley school division no 208,b:834b54b6b7533b89,Prairie Valley School Division No. 208,,CA,,,"reception@jphpm.ca, tender@aodbt.com",5
+CH-AP-01100,rural municipality of antelope park no 322,b:e7d5487b139b1e62,Rural Municipality of Antelope Park No. 322,,CA,,,,5

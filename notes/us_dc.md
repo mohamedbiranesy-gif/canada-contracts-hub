@@ -1,0 +1,6 @@
+# us_dc — District of Columbia contracts: checked, 0 Canadian-vendor records
+
+- contracts.ocp.dc.gov is an Angular SPA; `POST /api/contracts/search` answers `{"results":null,"errorMessage":"Failed to retrieve data"}` for every payload tried; not used.
+- On resume, DC GIS publishes the same PASS data as ArcGIS layers (found via ArcGIS Hub search): "Contracts from PASS" https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Government_Operations/MapServer/37 (51,429 contracts; fields incl. CONTRACTNUMBER, AWARDDATE, STARTDATE, ENDDATE, CONTRACTSTATUS, SUPPLIER, **VENDORADDRESS, VENDORCITY, VENDORSTATE, VENDORZIP**, CONTRACT_DETAILS_LINK, contracting officer contacts) and "Purchase Orders from PASS" (…/MapServer/16, 280,604 POs, supplier name only, no address).
+- VENDORSTATE is populated on only ≈800 of 51,429 contracts (DC 446, MD 99, VA 58, …; free-text variants). Query 2026-10-25T19:29:39Z for Canadian tokens (`UPPER(VENDORADDRESS) LIKE '%CANADA%'`, VENDORCITY/VENDORSTATE in Canadian province names/codes or major Canadian cities) → `downloads/us_dc/contracts_from_pass_canada_text.jsonl`: **0 rows**.
+- Result: 0 records (no output file). Vendor address coverage is too sparse to determine country for most DC contracts.

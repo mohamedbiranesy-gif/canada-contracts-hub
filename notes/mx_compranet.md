@@ -1,0 +1,3 @@
+# mx_compranet — Mexico federal CompraNet / ComprasMX contracts — NOT REACHABLE
+
+Checked 2026-10-25: CompraNet open-data downloads `https://compranetinfo.hacienda.gob.mx/dabiertos/contratos.html` → proxy CONNECT 502 (host unreachable); the replacement ComprasMX portal `https://upcp-compranet.buengobierno.gob.mx/` is a JavaScript SPA (7 KB shell, no documented open export); `datos.gob.mx` CKAN API path returns 404. (CompraNet contract files historically include a supplier-country code column — worth retrying.) Mexican state-level OCDS publishers in the OCP registry were checked instead: `mx_nuevo_leon` (pub 149) and `mx_inai` (pub 31, federal INAI's own contracting) — 0 Canadian suppliers.

@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-00501,v:cfabf00957ad6e6d,Nunavut Moving &Services,,,,,,6,6,nunavutmovingservices.ca nunavutmovingservices.com nunavut-moving-services.ca nunavut-moving-services.com
+CH-VC-00502,v:a0a5fb50843b4630,Tourangeau Mechanical Inc.,,,,,,6,6,
+CH-VC-00503,v:b0399de61711a736,Modern Niagara Building Services In,,,,,,6,6,
+CH-VC-00504,v:dec3ad1a72903958,ARCADIS PROFESSIONAL SERVICES (CANA,,,,,,6,6,
+CH-VC-00505,v:8437da6a9559b282,ROGERS COMMUNICATIONS PARTNERSHIP,,,,,,6,6,
+CH-VC-00506,v:1f2b12198226250f,BAYSHORE HEALTHCARE LTD./SOINS DE SANTE BAYSHORE LTEE,,,Mississauga,ONTARIO,L5K 2L3,6,6,
+CH-VC-00507,v:01e57b8aa76f0460,TOROMONT INDUSTRIES LTD./ INDUSTRIES TOROMONT LTEE,,,Concord,ONTARIO,L4K 5E1,6,6,
+CH-VC-00508,v:778eb5d1d628381a,WIZ MANAGEMENT INC,,,OTTAWA,ONTARIO,K2J 5Z5,6,6,wizmanagement.ca wizmanagement.com wiz-management.ca wiz-management.com
+CH-VC-00509,v:53716b7e4f000ca8,GENERIC PSPC-MANAGE SUPPLIER ACCOUNT,,,OTTAWA,ON,K1A 0R5,6,6,
+CH-VC-00510,v:a61ed4011158fa84,CLEARSTONE ENGINEERING LIMITED,,,CALGARY,AB,T2P 3K2,6,6,clearstoneengineering.ca clearstoneengineering.com clearstone-engineering.ca clearstone-engineering.com
+CH-VC-00511,v:775de66c5fb61f5b,AVIOR INTEGRATED PRODUCTS INC,AVIOR INTEGRATED PRODUCTS INC.,3831973,LAVAL,,H7L 3W3,6,6,aviorintegratedproducts.ca aviorintegratedproducts.com avior-integrated-products.ca avior-integrated-products.com produitsintegresavior.ca produitsintegresavior.com
+CH-VC-00512,v:78d7acbf3bb8eb51,FIRAN TECHNOLOGY GROUP CORPORATION,Firan Technology Group Corporation,17488980,TORONTO,ON,M1X 1A5,6,6,firantechnologygroup.ca firantechnologygroup.com firan-technology-group.ca firan-technology-group.com
+CH-VC-00513,v:68b90b80d7d23ccb,Able Industrial Trades Inc. oa Aliant Technologies,,,,,,6,6,
+CH-VC-00514,v:eb59eb29431b8150,Cundari Group Ltd. oa Cundari,,,,,,6,6,
+CH-VC-00515,v:f3ba4d993e2dbcd8,Cook (Canada) Inc.,COOK (CANADA) INC.,1147468814,Stouffville,ON,L4A 0Y2,155,5,cook.ca cook.com cookcanada.ca cookcanada.com cook-canada.ca cook-canada.com
+CH-VC-00516,v:60b61b4a00767504,GÉNÉRALE ÉLECTRIQUE DU CANADA,GENERAL ELECTRIC CANADA INTERNATIONAL INC.,405337,Mississauga,ON,L5N0C9,145,5,generaleelectriquecanada.ca generaleelectriquecanada.com generaleelectrique.ca generaleelectrique.com generale-electrique-canada.ca generale-electrique-canada.com
+CH-VC-00517,v:82d6d9d9b3798cf7,GOLDIE MOHR LTD,GOLDIE MOHR LTD,1147355227,Nepean,ON,K2J 5B1,75,5,goldiemohr.ca goldiemohr.com goldie-mohr.ca goldie-mohr.com
+CH-VC-00518,v:2e36301807bb848b,Canon Systèmes Médicaux Canada Limitée,Canon Medical Systems Canada Limited,9727124,Markham,ON,L3R 4M8,63,5,canonsystemesmedicauxcanada.ca canonsystemesmedicauxcanada.com canonsystemesmedicaux.ca canonsystemesmedicaux.com canon-systemes-medicaux-canada.ca canon-systemes-medicaux-canada.com
+CH-VC-00519,v:4aa1b2a60db0a497,WSP Canada Inc. - MAIN NATIONAL ACCOUNT,,,Thornhill,ON,L3T 7Z3,54,5,wspcanadamainnationalaccount.ca wspcanadamainnationalaccount.com wspmainnationalaccount.ca wspmainnationalaccount.com
+CH-VC-00520,v:aa4a5f8125f23418,The State Group Inc,THE STATE GROUP INC.,7737165,Mississauga,ON,L4V 1R5,47,5,groupestate.ca groupestate.com groupe-state.ca groupe-state.com stategroup.ca stategroup.com
+CH-VC-00521,v:bda83da1dd8c3854,SteriMax Inc.,SteriMax Inc.,16072721,Mississauga,ON,L4W 4M8,36,5,sterimax.ca sterimax.com
+CH-VC-00522,v:ccac6cafd0037460,Quest Software Canada Inc.,,,Kanata,ON,K2K 3G4,29,5,questsoftwarecanada.ca questsoftwarecanada.com questsoftware.ca questsoftware.com quest-software-canada.ca quest-software-canada.com
+CH-VC-00523,v:dabe22a40694ffc3,Micronostyx,,,Ottawa,ON,K2C 3P1,25,5,micronostyx.ca micronostyx.com
+CH-VC-00524,v:27032047504e2bf0,LWG ARCHITECTURAL INTERIORS INC,,,,,,21,5,lwgarchitecturalinteriors.ca lwgarchitecturalinteriors.com lwg-architectural-interiors.ca lwg-architectural-interiors.com
+CH-VC-00525,v:559bffa94efdf103,PRIMED MEDICAL PRODUCTS INC.,,,EDMONTON,AB,T6X 0W8,21,5,primedmedicalproducts.ca primedmedicalproducts.com primed-medical-products.ca primed-medical-products.com
+CH-VC-00526,v:e8fb5daf92a5307c,Ristech Company Inc.,,,Burlington,ON,L7L 0A3,20,5,ristech.ca ristech.com
+CH-VC-00527,v:3abb37febf963e53,Ernst & Young LLP (MAIN ACCOUNT),ERNST & YOUNG S.R.L. / S.E.N.C.R.L.,3342276048,Toronto,ON,M5H 0B3,17,5,ernstyoung.ca ernstyoung.com ernst-young.ca ernst-young.com ernstyoungsrsencr.ca ernstyoungsrsencr.com
+CH-VC-00528,v:dd3027b0b171b836,PANASONIC CANADA INC,PANASONIC CANADA INC.,3603032,,,,16,5,panasoniccanada.ca panasoniccanada.com panasonic.ca panasonic.com panasonic-canada.ca panasonic-canada.com
+CH-VC-00529,v:36bab2c732b5a3f9,PACWILL ENVIRONMENTAL,Pacwill Environmental,1171483382,Stoney Creek,ONTARIO,L8E 0H7,15,5,pacwillenvironmental.ca pacwillenvironmental.com pacwill-environmental.ca pacwill-environmental.com pacwillenvironnement.ca pacwillenvironnement.com
+CH-VC-00530,v:c23f244367fb7c0d,Dr. Reddy's Laboratories Canada Inc.,Dr. Reddy's Laboratories (Canada) Inc.,4413571,Mississauga,ON,L4W4Y1,15,5,drreddyslaboratoriescanada.ca drreddyslaboratoriescanada.com drreddyslaboratories.ca drreddyslaboratories.com dr-reddys-laboratories-canada.ca dr-reddys-laboratories-canada.com
+CH-VC-00531,v:48629cd7b4107c83,SI SYSTEMS PARTNERSHIP,,,,,,14,5,sisystemspartnership.ca sisystemspartnership.com si-systems-partnership.ca si-systems-partnership.com
+CH-VC-00532,v:b173d5e2ce18d98d,Gateway Buslines Ltd,,,Port aux Basques,NL,A0M 1C0,12,5,gatewaybuslines.ca gatewaybuslines.com gateway-buslines.ca gateway-buslines.com
+CH-VC-00533,v:c2443d2c54cf61ab,Attain Insight Solutions Inc,Attain Insight Solutions Inc.,13226468,Ottawa,ON,K2B 5B6,11,5,attaininsightsolutions.ca attaininsightsolutions.com attain-insight-solutions.ca attain-insight-solutions.com
+CH-VC-00534,v:28e263f12601d54e,New Brunswick Community College,,,Moncton,NB,,10,5,newbrunswickcommunitycollege.ca newbrunswickcommunitycollege.com
+CH-VC-00535,v:d868ffe9dfcbab29,MICROSOFT LICENSING GP,,,,,,10,5,microsoftlicensinggp.ca microsoftlicensinggp.com microsoft-licensing-gp.ca microsoft-licensing-gp.com
+CH-VC-00536,v:b16da803d8c7e14d,KONGSBERG MARITIME CM CANADA LTD,,,,,,10,5,kongsbergmaritimecmcanada.ca kongsbergmaritimecmcanada.com kongsbergmaritimecm.ca kongsbergmaritimecm.com kongsberg-maritime-cm-canada.ca kongsberg-maritime-cm-canada.com
+CH-VC-00537,v:ce5962daf6be9c7f,York University,,,,,,9,5,yorkuniversity.ca yorkuniversity.com york-university.ca york-university.com
+CH-VC-00538,v:1de39cfb08d7f536,"HITACHI HIGH-TECH CANADA, INC.","HITACHI HIGH-TECH CANADA, INC.",1175936377,Toronto,ON,M9W 6A4,9,5,hitachihightechcanada.ca hitachihightechcanada.com hitachihightech.ca hitachihightech.com hitachi-high-tech-canada.ca hitachi-high-tech-canada.com
+CH-VC-00539,v:42be0a5e4c397ec3,Necando Solutions Inc.,SOLUTIONS NECANDO INC.,7904177,,,,9,5,necandosolutions.ca necandosolutions.com necando-solutions.ca necando-solutions.com solutionsnecando.ca solutionsnecando.com
+CH-VC-00540,v:f012419001ab1747,CANADIAN RED CROSS SOCIETY,THE CANADIAN RED CROSS SOCIETY,349887,,,,9,5,canadianredcrosssociety.ca canadianredcrosssociety.com redcrosssociety.ca redcrosssociety.com canadian-red-cross-society.ca canadian-red-cross-society.com
+CH-VC-00541,v:2da5238b4ae3b95b,Fox Translations Ltd.,,,,,,8,5,foxtranslations.ca foxtranslations.com fox-translations.ca fox-translations.com
+CH-VC-00542,v:07ad28ed3c60a9f7,M & R ENGINEERING LIMITED,,,,,,8,5,mrengineering.ca mrengineering.com m-r-engineering.ca m-r-engineering.com
+CH-VC-00543,v:d7aea10ed8f11399,JHT Defence Inc,,,,,,8,5,jhtdefence.ca jhtdefence.com jht-defence.ca jht-defence.com
+CH-VC-00544,v:8c1c47b8aafe3281,PLANET LABS GEOMATICS CORP,,,,,,7,5,planetlabsgeomatics.ca planetlabsgeomatics.com planet-labs-geomatics.ca planet-labs-geomatics.com
+CH-VC-00545,v:6a270f21991a4602,CW PARSONS LIMITED,,,PARADISE,NL,A1L 3W2,7,5,cwparsons.ca cwparsons.com cw-parsons.ca cw-parsons.com
+CH-VC-00546,v:490e2a5a64943263,Canadian Babbitt Bearings Ltd.,,,Brantford,ON,N3P 1N6,7,5,canadianbabbittbearings.ca canadianbabbittbearings.com babbittbearings.ca babbittbearings.com canadian-babbitt-bearings.ca canadian-babbitt-bearings.com
+CH-VC-00547,v:00631b5eb3f1c735,Tulmar Safety Systems Inc.,TULMAR SAFETY SYSTEMS INC.,16418121,Hawkesbury,ONTARIO,K6A 2B8,7,5,tulmarsafetysystems.ca tulmarsafetysystems.com tulmar-safety-systems.ca tulmar-safety-systems.com
+CH-VC-00548,v:898884e17ca214f5,Notra Inc,,,,,,7,5,notra.ca notra.com
+CH-VC-00549,v:26aa024b8cd85511,Nuix Canada Inc.,,,,,,7,5,nuixcanada.ca nuixcanada.com nuix.ca nuix.com nuix-canada.ca nuix-canada.com
+CH-VC-00550,v:f903027cf672f375,SOCIAL NAVIGATOR INC,Social Navigator Inc.,8948208,HALIFAX,NS,B3J 3K8,7,5,socialnavigator.ca socialnavigator.com social-navigator.ca social-navigator.com
+CH-VC-00551,v:aefbc0b04a5416a3,UNITY HEALTH TORONTO,,,,,,7,5,unityhealthtoronto.ca unityhealthtoronto.com unity-health-toronto.ca unity-health-toronto.com
+CH-VC-00552,v:9133b8066fd7c427,Chubb,CHUBB FIRE & SECURITY CANADA CORPORATION,1166501933,Mississauga,ONTARIO,L5T 2N3,7,5,chubb.ca chubb.com chubbfiresecuritycanada.ca chubbfiresecuritycanada.com chubbfiresecurity.ca chubbfiresecurity.com
+CH-VC-00553,v:b38869b819e3727c,Senez Consulting Ltd.,,,,,,6,5,senezconsulting.ca senezconsulting.com senez-consulting.ca senez-consulting.com
+CH-VC-00554,v:8f9df6e63ffeef2a,Fable Tech Labs Inc.,FABLE TECH LABS INC.,10749494,,,,6,5,fabletechlabs.ca fabletechlabs.com fable-tech-labs.ca fable-tech-labs.com
+CH-VC-00555,v:e7108c7e0caa188a,ABC FIRE & SAFETY EQUIPMENT LTD.,ABC FIRE & SAFETY EQUIPMENT LTD.,4442601,WINNIPEG,MB,R2J 0K4,6,5,abcfiresafetyequipment.ca abcfiresafetyequipment.com abc-fire-safety-equipment.ca abc-fire-safety-equipment.com
+CH-VC-00556,v:07d24c84a15427a7,SPRING2 INNOVATION,Spring2 Innovation Inc.,10158321,,,,6,5,
+CH-VC-00557,v:ed1ce24cae61b9b7,The Lansdowne Consulting Group Inc.,THE LANSDOWNE CONSULTING GROUP INC.,172472,,,,6,5,lansdowneconsultinggroup.ca lansdowneconsultinggroup.com lansdowne-consulting-group.ca lansdowne-consulting-group.com
+CH-VC-00558,v:d3af333b4a873d60,DAY AND ROSS,,,,,,6,5,
+CH-VC-00559,v:2f400e0db8a7da43,KILDOON INTELLECTION INC,,,,,,6,5,kildoonintellection.ca kildoonintellection.com kildoon-intellection.ca kildoon-intellection.com
+CH-VC-00560,v:5f932b6ce188bfe4,AHS COMMUNITY INDUSTRIES INC,,,,,,6,5,ahscommunityindustries.ca ahscommunityindustries.com ahs-community-industries.ca ahs-community-industries.com
+CH-VC-00561,v:3da37a2d863958f1,Weatherhaven Global Resources Ltd.,,,,,,6,5,weatherhavenglobalresources.ca weatherhavenglobalresources.com weatherhaven-global-resources.ca weatherhaven-global-resources.com
+CH-VC-00562,v:40fcc9bcd4fe3c14,"Onaki Creation S.E.N.C., IBISKA TELECOM INC., in Joint Venture",,,Ottawa,ONTARIO,K1P 6B9,6,5,
+CH-VC-00563,v:c6f6b28a3509c587,ALLIED MARINE & INDUSTRIAL,,,,,,6,5,alliedmarineindustrial.ca alliedmarineindustrial.com allied-marine-industrial.ca allied-marine-industrial.com
+CH-VC-00564,v:5298c5b20c248010,Mi'kmaq Office Furniture & Interiors Inc.,,,,,,6,5,mikmaqofficefurnitureinteriors.ca mikmaqofficefurnitureinteriors.com
+CH-VC-00565,v:f875dd48ae0caa0f,LWTAB COMMUNICATIONS INC,LWTAB COMMUNICATIONS INC.,8220972,Markham,ONTARIO,L3R 0M3,6,5,lwtabcommunications.ca lwtabcommunications.com lwtab-communications.ca lwtab-communications.com
+CH-VC-00566,v:9d356df70b75f9b9,Mirion Technologies (Canberra CA) Ltd.,,,Concord,ONTARIO,L4K 4N8,6,5,miriontechnologies.ca miriontechnologies.com mirion-technologies.ca mirion-technologies.com
+CH-VC-00567,v:86afbc7a7263665f,STAPLES PROFESSIONAL INC./STAPLES PROFESSIONNEL INC.,,,Mississauga,ONTARIO,L5T 2W6,6,5,
+CH-VC-00568,v:e45e83a770e706b0,The Bell Telephone Company of Canada or Bell Canada / La Compagnie de Téléphone Bell du Canada ou Bell Canada,,,Ottawa,ONTARIO,K2P 2C4,6,5,
+CH-VC-00569,v:fc8d93a00fe7e90b,The Northern Alberta Institute of Technology,,,Edmonton,AB,T5G 2R1,5,5,
+CH-VC-00570,v:f8e83efcd46c0bff,Miskanawah Community Services Association,,,Calgary,AB,T1Y 0A5,5,5,
+CH-VC-00571,v:6e6716dd896c2d71,Unlimited Potential Community Services Society,,,Edmonton,AB,T5S 1K9,5,5,
+CH-VC-00572,v:9d2cfbf8d4553b9b,Goodfish Management Limited Partnership,,,Goodfish Lake,AB,T0A 1R0,5,5,goodfishmanagementpartnership.ca goodfishmanagementpartnership.com
+CH-VC-00573,v:d931f0bf78add8d5,1226480 Alberta Ltd o/a SL Smoke Eaters Limited Partnership,,,Saddle Lake,AB,T0A 3T0,5,5,slsmokeeaterspartnership.ca slsmokeeaterspartnership.com sl-smoke-eaters-partnership.ca sl-smoke-eaters-partnership.com
+CH-VC-00574,v:ca4c0834d55b2e45,GOVERNMENT OF ALBERTA,,,EDMONTON,AB,T5J 3E4,5,5,governmentalberta.ca governmentalberta.com government-alberta.ca government-alberta.com
+CH-VC-00575,v:a5b7198de2c403e5,JUNO RISK SOLUTIONS INC.,Juno Risk Solutions Inc.,7951515,,,,5,5,junorisksolutions.ca junorisksolutions.com juno-risk-solutions.ca juno-risk-solutions.com
+CH-VC-00576,v:5fc9e319d67058ee,Powerschool Canada ULC,,,Toronto,ON,,5,5,powerschoolcanada.ca powerschoolcanada.com powerschool.ca powerschool.com powerschool-canada.ca powerschool-canada.com
+CH-VC-00577,v:ceab3be21831b63b,LJ's Septic Services & Contracting Ltd.,,,Fort McPherson,NT,,5,5,ljssepticservicescontracting.ca ljssepticservicescontracting.com
+CH-VC-00578,v:28712738e51c1e4d,Fort Resolution Housing Authority,,,Fort Resolution,NT,,5,5,fortresolutionhousingauthority.ca fortresolutionhousingauthority.com
+CH-VC-00579,v:a8d1140b7176af68,MRH BIOTECHNICAL SERVICES LTD,,,,,,5,5,
+CH-VC-00580,v:1ac9fdfa53079585,AG-QUEST HOLDINGS,,,,,,5,5,questholdings.ca questholdings.com quest-holdings.ca quest-holdings.com
+CH-VC-00581,v:58832aedc8feb54b,ENTRUST SECURITY (CA) ULC,,,Kanata,ONTARIO,K2K 3G5,5,5,entrustsecurity.ca entrustsecurity.com entrust-security.ca entrust-security.com
+CH-VC-00582,v:092205be9fbd314d,TITANFILE INC,,,,,,5,5,
+CH-VC-00583,v:e9b4d93e2fe7a8a4,ARTEMP PERSONNEL SERVICES INC.,ARTEMP PERSONNEL SERVICES INC.,2263271,,,,5,5,artemppersonnelservices.ca artemppersonnelservices.com artemp-personnel-services.ca artemp-personnel-services.com
+CH-VC-00584,v:921ec92f0fa7b17b,GROUPM CANADA INC  D/B/A ESSENCEMEDIACOM CANADA,,,,,,5,5,
+CH-VC-00585,v:711776f14ff635e7,"V42 Management Consulting, Inc.",V42 MANAGEMENT CONSULTING INC.,9113614,Russell,ONTARIO,K4R 0A5,5,5,v42managementconsulting.ca v42managementconsulting.com v42-management-consulting.ca v42-management-consulting.com
+CH-VC-00586,v:961480ac6c0e6074,Konica Minolta Business,,,,,,5,5,
+CH-VC-00587,v:8125b76bcf3cd2c9,THE RETIREMENT PLANNING INSTITUTE,,,,,,5,5,
+CH-VC-00588,v:24793acae967eaba,PROCUREMENT ALLIANCE OF CANADA INC,Procurement Alliance of Canada Inc.,11308807,,,,5,5,procurementalliancecanada.ca procurementalliancecanada.com procurementalliance.ca procurementalliance.com procurement-alliance-canada.ca procurement-alliance-canada.com
+CH-VC-00589,v:9c54e3461ab41bec,ISLAND TEMPERATURE CONTROLS LTD.,,,,,,5,5,islandtemperaturecontrols.ca islandtemperaturecontrols.com island-temperature-controls.ca island-temperature-controls.com
+CH-VC-00590,v:ff6f908d6ce3fee6,RECORDXPRESS A DIV OF STORAGEVAULT CANADA INC,,,,,,5,5,
+CH-VC-00591,v:dd92274a064e5603,WOCASA SUPPLY INC,,,,,,5,5,
+CH-VC-00592,v:0c9bc042b5034b11,SISMO EXTRUSIONS INC,SISMO EXTRUSIONS INC.,4290259,,,,5,5,sismoextrusions.ca sismoextrusions.com sismo-extrusions.ca sismo-extrusions.com extrusionssismo.ca extrusionssismo.com
+CH-VC-00593,v:3e2b7595f7a4bc4a,GLJ LTD,,,,,,5,5,
+CH-VC-00594,v:666682143af9ca85,"Prologic Systems Limited, Maplesoft Consulting Inc. IN JOINT VENTURE",,,,,,5,5,
+CH-VC-00595,v:e5789168b27d3364,17847726 CANADA INC.,17847726 CANADA INC.,17847726,,,,5,5,
+CH-VC-00596,v:7d0fee3390a653c8,CANADIAN PRESS ENTERPRISES INC,CANADIAN PRESS ENTERPRISES INC.,7700911,,,,5,5,canadianpressenterprises.ca canadianpressenterprises.com pressenterprises.ca pressenterprises.com canadian-press-enterprises.ca canadian-press-enterprises.com
+CH-VC-00597,v:482b12e35274a8c4,COENTREPRISE CITE CARON,,,,,,5,5,
+CH-VC-00598,v:c71dcdd79d42c92f,J.O THOMAS & ASSOCIATES LTD,,,,,,5,5,jothomasassociates.ca jothomasassociates.com j-o-thomas-associates.ca j-o-thomas-associates.com
+CH-VC-00599,v:1da1a9e573e194b9,UNIVERSITY OF WINDSOR,,,,,,5,5,universitywindsor.ca universitywindsor.com university-windsor.ca university-windsor.com
+CH-VC-00600,v:1b3667761ce1d29e,5550 NUNAVUT LIMITED,,,,,,5,5,

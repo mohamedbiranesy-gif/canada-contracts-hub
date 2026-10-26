@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00301,social services,b:5e7c95f8d572029e,Social Services,,CA,https://www.saskatchewan.ca,,,130
+CH-AP-00302,farm credit canada,b:63c8e3b6c88248e8,Farm Credit Canada (FCC),,CA,https://www.fcc-fac.ca/en,,"procurement@fcc-fac.ca, procurement@fcc.ca",129
+CH-AP-00303,city of owen sound,b:abd0b7f1e210e8fa,City of Owen Sound,,CA,http://www.owensound.ca,"serviceowensound@owensound.ca, claims@owensound.ca",,129
+CH-AP-00304,trillium lakelands district school board,b:806c15f327458f6e,Trillium Lakelands District School Board,,CA,http://www.tldsb.ca,,,128
+CH-AP-00305,town of gander,b:cf9617930b4891ca,Town of Gander,The Town of Gander,CA,http://www.gandercanada.com,,,126
+CH-AP-00306,united counties of leeds and grenville,b:035c8a0f9a624e57,United Counties of Leeds and Grenville,,CA,http://www.leedsandgrenville.ca,,,125
+CH-AP-00307,ministry of attorney general,b:f4299feb266909cc,Ministry of Attorney General,,CA,https://www2.gov.bc.ca,,,124
+CH-AP-00308,canoe procurement group of canada,b:99f512011711dc44,Canoe Procurement Group of Canada,,CA,https://canoeprocurement.ca,,,123
+CH-AP-00309,3shealth,b:3b8a187f262f22f8,3sHealth,,CA,https://www.3shealth.ca,info@3shealth.ca,,123
+CH-AP-00310,export development canada,b:6e411fac637ebd9e,Export Development Canada - EDC,,CA,https://www.edc.ca,"comptescrediteurs@edc.ca, media@edc.ca","fournisseur@edc.ca, suppliers@edc.ca",122
+CH-AP-00311,export development canada,b:960fad463ba46814,Export Development Canada – EDC – Digital Office,,CA,,,,1
+CH-AP-00312,ministry of environment and parks,b:764837d5abd4e611,Ministry of Environment and Parks,,CA,https://www2.gov.bc.ca,,,122
+CH-AP-00313,northumberland county,b:b9b861c08a381ea6,Northumberland County,,CA,https://northumberland.ca,finance@northumberland.ca,purchasing@northumberlandcounty.ca,121
+CH-AP-00314,town of mahone bay,b:51974e3f5725bc7d,Town of Mahone Bay,,CA,http://www.townofmahonebay.ca,,,119
+CH-AP-00315,government relations,b:8c1f9cc623e1a91f,Government Relations,,CA,https://www.saskatchewan.ca,,,119
+CH-AP-00316,strait regional centre for education,b:dcc47c470f6c6473,Strait Regional Centre for Education,,CA,,,,119
+CH-AP-00317,township of king,b:06263a312b83820d,Township of King,,CA,https://www.king.ca,,,118
+CH-AP-00318,city of lloydminster,b:41a5ed5c412563a9,City of Lloydminster,,CA,https://www.lloydminster.ca,info@lloydminster.ca,procurement@lloydminster.ca,118
+CH-AP-00319,ottawa community housing,b:78de61ffbc3f24b4,Ottawa Community Housing,,CA,https://www.och.ca,"info@och.ca, media@och.ca",,118
+CH-AP-00320,municipality of the district of guysborough,b:a1e86f05bba9cc9b,Municipality of the District of Guysborough,,CA,http://www.municipality.guysborough.ns.ca,,,116
+CH-AP-00321,brant haldimand norfolk catholic district school board,b:33bf25856788a635,Brant Haldimand Norfolk Catholic District School Board,,CA,http://www.bhncdsb.ca,"supportoffice@bhncdsb.ca, info@bhncdsb.ca",,115
+CH-AP-00322,city of kingston,b:468c13e2d46af12e,City of Kingston,,CA,,,,114
+CH-AP-00323,conseil scolaire acadien provincial,b:814f51727d977570,Conseil Scolaire Acadien Provincial,,CA,,,,114
+CH-AP-00324,durham college,b:07e74dc49ac8d7f2,Durham College,,CA,http://www.durhamcollege.ca,admissions@durhamcollege.ca,,113
+CH-AP-00325,ministry of public safety solicitor general emergency b c,b:42d3e8f2286f735d,Ministry of Public Safety & Solicitor General & Emergency B.C.,,CA,https://www2.gov.bc.ca,,,112
+CH-AP-00326,cape breton victoria regional school board,b:5a8d4340171bbefe,Cape Breton-Victoria Regional School Board,,CA,,,,112
+CH-AP-00327,windsor essex community housing corporation,b:c6ee81e5edbdf58e,Windsor Essex Community Housing Corporation,,CA,,,,111
+CH-AP-00328,municipality of the district of east hants,b:abff2f881f35690d,Municipality of the District of East Hants,,CA,https://www.easthants.ca,,,111
+CH-AP-00329,city of port colborne,b:ab24d25c9fe3de72,City of Port Colborne,,CA,https://www.portcolborne.ca,,,110
+CH-AP-00330,interior purchasing office,b:2319b4c8e289cf73,Interior Purchasing Office,,CA,,,,107
+CH-AP-00331,st clair catholic district school board,b:342933ced52cf030,St Clair Catholic District School Board,,CA,http://www.st-clair.net,,,106
+CH-AP-00332,waterloo catholic district school board,b:13fd4220e55a2dd2,Waterloo Catholic District School Board,,CA,http://www.wcdsb.ca,"supportoffice@wcdsb.ca, info@wcdsb.ca",,104
+CH-AP-00333,county of essex,b:8ea400e9d4ca0e64,County of Essex,,CA,https://www.countyofessex.ca/en/index.aspx,"coeinfo@countyofessex.ca, clerks@countyofessex.ca",procurement@countyofessex.ca,103
+CH-AP-00334,town of pictou,b:a69cd4968ce6f6bf,Town of Pictou,,CA,https://www.townofpictou.ca,,,102
+CH-AP-00335,strait regional school board,b:deba6b26413eb8ec,Strait Regional School Board,,CA,,,,102
+CH-AP-00336,middlesex centre,b:71448ac80f8e73fc,Middlesex Centre,,CA,https://www.middlesexcentre.ca,,,101
+CH-AP-00337,cbc radio canada,b:763f05c670a795aa,CBC/Radio Canada,,CA,https://cbc.radio-canada.ca/en,,,100
+CH-AP-00338,city of camrose,b:c52d967aea8a81be,City of Camrose,,CA,https://www.camrose.ca,info@camrose.ca,,100
+CH-AP-00339,town of whitchurch stouffville,b:73ae3a0c937cc13e,Town of Whitchurch-Stouffville,,CA,http://www.Whitchurch-Stouffville.ca,,procurement@townofws.ca,100
+CH-AP-00340,county of lambton,b:e0a37d1081df52b7,County of Lambton,,CA,http://www.lambtononline.ca,,,100
+CH-AP-00341,saskatchewan rivers school division no 119,b:eef08f89f7a385b3,Saskatchewan Rivers School Division No. 119,,CA,,,,100
+CH-AP-00342,city of new westminster,b:014bc47d28086d9b,City of New Westminster,,CA,https://newwestcity.ca,,,99
+CH-AP-00343,saskatchewan association of rural municipalities,b:385fe3405bc21727,Saskatchewan Association of Rural Municipalities,,CA,,,tenders@rmatrade.com,99
+CH-AP-00344,correctional enterprises,b:6cf726e6c651ef4b,Correctional Enterprises,,US,,,,99
+CH-AP-00345,cape breton victoria regional centre for education,b:185d680d5aa0f779,Cape Breton-Victoria Regional Centre for Education,,CA,,,,99
+CH-AP-00346,manitoba transportation and infrastructure,b:e09a69646df44709,Manitoba Transportation and Infrastructure - Tendering and Contracts,,CA,https://www.gov.mb.ca,,,98
+CH-AP-00347,waterloo regional police service,b:16f3f0da4d9a214d,Waterloo Regional Police Service,,CA,https://www.wrps.on.ca,,,98
+CH-AP-00348,south coast regional office,b:5549c96058da2b8f,South Coast Regional Office,,CA,https://www2.gov.bc.ca,,,98
+CH-AP-00349,annapolis valley regional centre for education,b:1ae1049e6831d4df,Annapolis Valley Regional Centre for Education,,CA,,,,96
+CH-AP-00350,municipality of colchester,b:3256bda49f642c74,Municipality of Colchester,,CA,,,,96
+CH-AP-00351,toronto police service,b:404e1da067aef2af,Toronto Police Service,,CA,https://www.tps.ca,,,95
+CH-AP-00352,kinetic gpo,b:aed3ad6182856b8d,Kinetic GPO,,CA,,,,94
+CH-AP-00353,cape breton victoria centre for education,b:59575577420e31d3,Cape Breton-Victoria Centre for Education,,CA,,,,93
+CH-AP-00354,alberta gaming liquor and cannabis commission,b:c9cb2b15624c46b7,"Alberta Gaming, Liquor and Cannabis Commission",,CA,https://aglc.ca,inspections.mailbox@aglc.ca,procurement@aglc.ca,91
+CH-AP-00355,ministere de la securite publique,b:e81f5037dfe7b69a,Ministère de la Sécurité publique,,US,,,,91
+CH-AP-00356,national capital commission,b:09c0f20da211dc70,National Capital Commission,NATIONAL CAPITAL COMMISSION,CA,https://ncc-ccn.gc.ca,,,53
+CH-AP-00357,national capital commission,b:4b634d16788820e7,National Capital Commission (NCC),,CA,https://ncc-ccn.gc.ca,,"contracts@ncc-ccn.ca, bids-soumissions@ncc-ccn.ca",38
+CH-AP-00358,nova scotia business inc,b:47013724b7c2ca59,Nova Scotia Business Inc.,,CA,,,,90
+CH-AP-00359,attorney general,b:bdf80ddc49d9d3b4,Attorney General,,CA,https://www2.gov.bc.ca,,,89
+CH-AP-00360,saskatchewan telecommunications,b:63929af956beeab7,Saskatchewan Telecommunications,,CA,https://www.sasktel.com,,corporateserv.contracts@sasktel.com,89
+CH-AP-00361,virginia commonwealth university,b:6d57856d0e9ed73c,Virginia Commonwealth University,,US,,,,89
+CH-AP-00362,renfrew county district school board,b:390333a9c4376604,Renfrew County District School Board,,CA,http://www.renfrew.edu.on.ca,,,88
+CH-AP-00363,st clair college of applied arts and technology,b:70edd932be80daa2,St Clair College of Applied Arts and Technology,,CA,https://www.stclaircollege.ca,,,87
+CH-AP-00364,town of new tecumseth,b:ee61aacd3fc73a0a,Town of New Tecumseth,,CA,http://newtecumseth.ca,,,86
+CH-AP-00365,niagara peninsula conservation authority,b:48bd2b316f126b89,Niagara Peninsula Conservation Authority,,CA,https://npca.ca,"info@npca.ca, planninginfo@npca.ca",,85
+CH-AP-00366,town of tillsonburg,b:67cdc339a0d7814c,Town of Tillsonburg,,CA,https://www.tillsonburg.ca,,,85
+CH-AP-00367,south shore tri county school board,b:c798727e21f91b30,South Shore/Tri-County School Board,,CA,,,,85
+CH-AP-00368,brock university,b:884bf25641b0e05d,Brock University,,CA,https://brocku.ca,,,84
+CH-AP-00369,st joseph s healthcare hamilton,b:7a9eac77782dc15e,St. Joseph's Healthcare Hamilton,,CA,https://www.stjoes.ca,,,84
+CH-AP-00370,okanagan columbia,b:16590018a3011695,Okanagan-Columbia,,CA,https://www2.gov.bc.ca,,,84
+CH-AP-00371,sourcewell,b:0682979dfde5aac1,Sourcewell,,US,https://www.sourcewell-mn.gov,,,84
+CH-AP-00372,enmax,b:1224ce81fe51162b,ENMAX,,CA,https://www.enmax.com,privacy@enmax.com,,83
+CH-AP-00373,strathcona county,b:ad395ddb891a6cbc,Strathcona County,,CA,https://strathcona.ca,financialservices@strathcona.ca,,83
+CH-AP-00374,bluewater district school board bruce grey catholic district school board,b:c907b26642db0aa1,Bluewater District School Board & Bruce-Grey Catholic District School Board,,CA,http://www.bwdsb.on.ca,,,83
+CH-AP-00375,asset management division,b:43228de15a45b87a,Asset Management Division,,CA,,,,83
+CH-AP-00376,liquor distribution branch,b:44a3aa9c5b93232b,Liquor Distribution Branch,,CA,,,,83
+CH-AP-00377,municipal district of greenview no 16,b:0eb28c785321347d,Municipal District of Greenview No. 16,,CA,https://mdgreenview.ab.ca,"info@mdgreenview.ab.ca, accounts.receivable@mdgreenview.ab.ca",greenview.procurement@mdgreenview.ab.ca,81
+CH-AP-00378,municipal property assessment corporation,b:5fe41da483650689,Municipal Property Assessment Corporation,,CA,https://www.mpac.ca,,purchasing@mpac.ca,81
+CH-AP-00379,district school board ontario north east,b:f39de4a6edbf5de4,District School Board Ontario North East (DSB1),,CA,https://www.dsb1.ca,"info@dsb1.ca, accounting@dsb1.ca",,81
+CH-AP-00380,calgary housing company,b:20983f2bba0552be,Calgary Housing Company,,CA,https://www.calgaryhousingcompany.org,,supplier.ariba@calgary.ca,80
+CH-AP-00381,saskatchewan disease control laboratory,b:f3c6620cc9b3c7aa,Saskatchewan Disease Control Laboratory,,CA,http://www.health.gov.sk.ca/lab,,,80
+CH-AP-00382,west hants regional municipality,b:25c586c4aae5b61f,West Hants Regional Municipality,,CA,,,,80
+CH-AP-00383,justice and attorney general,b:36d0043a168f00ff,Justice and Attorney General,,CA,https://www.saskatchewan.ca,,btsprocurement@gov.sk.ca,79
+CH-AP-00384,town of middleton,b:4695fed0b4a70cc9,Town of Middleton,,CA,https://www.discovermiddleton.ca,,,79
+CH-AP-00385,world bank group,b:ebc6c5d9b6017601,"World Bank Group - IBRD - VP, SD Practice Group",,US,,,,7
+CH-AP-00386,world bank group,b:36e02f2fad5c63db,"World Bank Group - IBRD - GP- CCSA, Vice Presidency",,US,,,,5
+CH-AP-00387,world bank group,b:6fb3c959b1630254,World Bank Group - IBRD - Off. of Regional Vice President,,US,,,,5
+CH-AP-00388,world bank group,b:9eeeca88e1de5277,World Bank Group - IBRD - WBG Office of CIO,,US,,,,5
+CH-AP-00389,world bank group,b:a637da59918b7ed8,World Bank Group - IBRD - Office of Regional Vice President,,US,,,,4
+CH-AP-00390,world bank group,b:81f4beb40803c059,World Bank Group - IBRD - WBG Human Resources VP Office,,US,,,,3
+CH-AP-00391,world bank group,b:1770a3ef116bf2f4,World Bank Group - IBRD - Office of the Regional Vice Pres,,US,,,,3
+CH-AP-00392,world bank group,b:70ad27a808d4d13c,World Bank Group - IBRD - LCR Regional Vice President,,US,,,,3
+CH-AP-00393,world bank group,b:c8aded69852f718c,"World Bank Group - IBRD - Development Finance, VP",,US,,,,3
+CH-AP-00394,world bank group,b:39c2674d07e13884,World Bank Group - IBRD - Infrastructure Practice Group,,US,,,,3
+CH-AP-00395,world bank group,b:03bd5e3d19a878d2,World Bank Group - IFC - Middle East and Africa,,US,,,,2
+CH-AP-00396,world bank group,b:6c7c7a3194ebb01c,World Bank Group - IBRD - Adaptation Fund,,US,,,,2
+CH-AP-00397,world bank group,b:d0dc22878695e363,World Bank Group - IFC - Global Client Services,,US,,,,2
+CH-AP-00398,world bank group,b:d2e671fb2163e822,World Bank Group - IBRD - -,,US,,,,2
+CH-AP-00399,world bank group,b:a16e4b415e196178,World Bank Group - IBRD - Sustainable Development Network,,US,,,,1
+CH-AP-00400,world bank group,b:fefff301cb21a814,World Bank Group - IBRD - Africa Regional Office,,US,,,,1

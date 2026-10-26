@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-01501,municipalite saint moise,b:8b6ae5b659ccdd6b,Municipalité  Saint-Moïse,,CA,https://www.st-moise.com,stmoise@mrcmatapedia.qc.ca,,10
+GE-AP-01502,iricor,b:d788c7fb6d5d421e,IRICoR,,CA,,,,10
+GE-AP-01503,municipalite de saint athanase,b:3fb5d28c1a317e73,Municipalité de Saint-Athanase,,CA,https://www.saint-athanase.com,info@saint-athanase.com,,10
+GE-AP-01504,centre de communication sante des capitales,b:8022d9d55ab48ab7,Centre de Communication Santé des Capitales,,CA,,,,10
+GE-AP-01505,sofad,b:401dd8e8017abb1b,SOFAD.,,CA,,,,10
+GE-AP-01506,municipalite notre dame de montauban,b:f7bbe9a930bc957b,Municipalité Notre-Dame-de-Montauban,,CA,https://www.notredamedemontauban.com,info@mun-ndm.com,,10
+GE-AP-01507,regie intermunicipale de valorisation des matieres organiques de beauharnois salaberry et de roussillon,b:b94ff23cd524f5f0,Régie intermunicipale de valorisation des matières organiques de Beauharnois-Salaberry et de Roussillon.,,CA,,,,10
+GE-AP-01508,education internationale cooperative de services de developpement et d echanges en education,b:b2c1b74f58f1cc90,"Éducation Internationale, Coopérative de services de développement et d'échanges en éducation",,CA,,,,10
+GE-AP-01509,municipalite de la paroisse saint rosaire,b:c24a7a5d96fd805d,Municipalité de la Paroisse Saint-Rosaire,,CA,https://www.strosaire.ca,dg@strosaire.ca,,10
+GE-AP-01510,office des personnes handicapees du quebec,b:1b40c16c2a358c85,Office des personnes handicapées du Québec,,CA,,,,10
+GE-AP-01511,mobilite infra quebec,b:307f6fd3fd79128a,Mobilité infra Québec,,CA,,,,10
+GE-AP-01512,chsld juif de montreal,b:79928c43a5f7ad00,CHSLD Juif de Montréal,,CA,,,,10
+GE-AP-01513,centre de readaptation en deficience intellectuelle et en troubles envahissants du developpement de la mauricie et du centre du quebec,b:c1beceb084ef972f,Centre de réadaptation en déficience intellectuelle et en troubles envahissants du développement de la Mauricie et du Centre-du-Québec - Institut universitaire,,CA,,,,10
+GE-AP-01514,centre de readaptation en deficience physique le bouclier,b:72532ed46dd0e93e,Centre de réadaptation en déficience physique Le Bouclier.,,CA,,,,10
+GE-AP-01515,municipalite de saint valere,b:390bbdfe623a16c6,Municipalité de Saint-Valère.,,CA,"https://www.msvalere.qc,ca",stvalere@msvalere.qc.ca,,10
+GE-AP-01516,centre de sante et de services sociaux des sources,b:a2c271bc7a7a6e59,Centre de santé et de services sociaux des Sources,,CA,,,,10
+GE-AP-01517,municipalite de denholm,b:d3f91d0d3504df86,Municipalité de Denholm,,CA,https://www.denholm.ca,"info@denholm.ca, dg@denholm.ca",,10
+GE-AP-01518,developpement cote de beaupre,b:676a9f4817b27f09,Développement Côte-de-Beaupré (CLD),,CA,,,,6
+GE-AP-01519,developpement cote de beaupre,b:adf04dd9db917ba6,Développement Côte-de-Beaupré (DCDB),,CA,,,,4
+GE-AP-01520,ville de saint zotique,b:dd9bf2b62f0ef5b0,Ville de Saint-Zotique,,CA,https://www.st-zotique.com,"dg@st-zotique.com, dst@st-zotique.com",,9
+GE-AP-01521,municipalite de saint pierre de l ile d orleans,b:61428ba654b070ae,Municipalité de Saint-Pierre-de-l'Île d'Orléans,,CA,https://www.st-pierre.iledorleans.com,info@stpierreio.ca,,9
+GE-AP-01522,municipalite de la paroisse de sainte rose du nord,b:17d99adc290fde2a,Municipalité de la Paroisse de Sainte-Rose-du-Nord.,,CA,https://www.ste-rosedunord.qc.ca,"admin@ste-rosedunord.qc.ca, secretariat@ste-rosedunord.qc.ca",,9
+GE-AP-01523,municipalite de saint damase de matapedia,b:f2bfb63783a70573,Municipalité de Saint-Damase-de-Matapédia,,CA,,,,9
+GE-AP-01524,regie intermunicipale argenteuil deux montagnes,b:d8e02ca9f2edb791,Régie Intermunicipale Argenteuil Deux-Montagnes,,CA,,,,9
+GE-AP-01525,municipalite de piopolis,b:460d0b728f581700,Municipalité de Piopolis.,,CA,https://www.piopolis.quebec,dg@piopolis.quebec,,9
+GE-AP-01526,municipalite saint fortunat,b:564328fc431fb5b1,Municipalité Saint-Fortunat,,CA,https://www.munsaintfortunat.ca,administration@munsaintfortunat.ca,,9
+GE-AP-01527,municipalite de noyan,b:806969775ac58105,Municipalité de Noyan.,,CA,https://www.ville.noyan.qc.ca,,,9
+GE-AP-01528,municipalite de bowman,b:ea5263489643ee61,Municipalité de Bowman,Municipalité de Bowman.,CA,https://www.bowman.ca,dg@bowman.ca,,9
+GE-AP-01529,municipalite de namur,b:1547c7dcebb0b180,Municipalité de Namur,,CA,https://www.namur.ca,dir.general@namur.ca,,9
+GE-AP-01530,municipalte de lochaber partie ouest,b:bcd0f3835951ea6e,Municipalté de Lochaber Partie-Ouest,Municipalté de Lochaber-Partie-Ouest,CA,,,,9
+GE-AP-01531,municipalite du lac simon,b:cd1aba9111d1f77c,Municipalité Du Lac-Simon,Municipalité de Lac-Simon,CA,https://www.lac-simon.net,"mun@lac-simon.net, communication@lac-simon.net",,9
+GE-AP-01532,municipalite de chartierville,b:bc707cb62760d8e5,Municipalité de Chartierville.,,CA,https://www.chartierville.ca,dg@chartierville.ca,,9
+GE-AP-01533,municipalite de larouche,b:4e2babeeaf7aa9eb,Municipalité de Larouche.,,CA,https://www.larouche.ca,"dg@larouche.ca, info@larouche.ca",,9
+GE-AP-01534,municipalite d abercorn,b:d46a0f98287f752a,Municipalité d'Abercorn,,CA,https://www.abercorn.ca,"dg@abercorn.ca, info@abercorn.ca",,9
+GE-AP-01535,municipalite de sainte clotilde,b:68f088ead76e9378,Municipalité de Sainte-Clotilde,,CA,https://www.ste-clotilde.ca,"info@ste-clotilde.ca, biblio@ste-clotilde.ca",,9
+GE-AP-01536,municipalite de saint narcisse de beaurivage,b:32c3fa6c2d12df1c,Municipalité de Saint-Narcisse-De-Beaurivage.,,CA,https://www.saintnarcissedebeaurivage.ca,dg@saintnarcissedebeaurivage.ca,,9
+GE-AP-01537,municipalite d authier,b:3eeef365087ea410,Municipalité d'Authier,,CA,https://authier.ao.ca,authier@mrcao.qc.ca,,9
+GE-AP-01538,village de brome,b:2542e8b0d8e956ff,Village de Brome,,CA,https://www.bromevillage.ca,admin@bromevillage.ca,,9
+GE-AP-01539,mrc de beauce sartigan,b:051b0beaba838cbf,MRC de Beauce-Sartigan,,CA,https://www.mrcbeaucesartigan.com,direction.mrc@mrcbeaucesartigan.com,,9
+GE-AP-01540,ville de saint gabriel,b:9501b7b72e3dd438,Ville de Saint-Gabriel.,,CA,https://www.ville.stgabriel.qc.ca,mairie@ville.stgabriel.qc.ca,,9
+GE-AP-01541,municipalite du village de hemmingford,b:7ceea7a3bea14061,Municipalité du Village de Hemmingford,,CA,https://www.villagedehemmingford.ca,dg@villagedehemmingford.ca,,9
+GE-AP-01542,municipalite saint michel de bellechasse,b:306fd8809e09dd3d,Municipalité Saint-Michel-de-Bellechasse,,CA,https://www.stmicheldebellechasse.ca,info@stmicheldebellechasse.ca,,9
+GE-AP-01543,municipalite de saint odilon de cranbourne,b:e789deefa2c1e81c,Municipalité de Saint-Odilon-de-Cranbourne,,CA,https://www.saint-odilon.qc.ca,info@saint-odilon.qc.ca,,9
+GE-AP-01544,municipalite de saint ludger de milot,b:d826fef670308200,Municipalité de Saint-Ludger-de-Milot.,,CA,https://www.ville.st-ludger-de-milot.qc.ca,"administration@ville.st-ludger-de-milot.qc.ca, rita.ouellet.dg@ville.st-ludger-de-milot.qc.ca",,9
+GE-AP-01545,municipalite de saint narcisse de rimouski,b:8de9f2e2af6ad5fc,Municipalité de Saint-Narcisse-de-Rimouski..,,CA,https://www.saintnarcisse.net,administration@saintnarcisse.net,,9
+GE-AP-01546,regie incendie nord ouest laurentides,b:22cbfb3b8ad4c6d0,Régie incendie Nord Ouest Laurentides,,CA,,,,9
+GE-AP-01547,municipalite de saint noel,b:1883db142808372c,Municipalité de Saint-Noël,,CA,https://www.st-noel.com,stnoel@mrcmatapedia.quebec,,9
+GE-AP-01548,municipalite de saint damien,b:3aa32695fa03c575,Municipalité de Saint-Damien.,,CA,https://www.st-damien.com,infos@st-damien.com,,9
+GE-AP-01549,municipalite de saint hermenegilde,b:b726f1b7a888fa5a,Municipalité de Saint-Herménégilde.,Municipalité de saint-herménégilde.,CA,https://www.st-hermenegilde.qc.ca,"direction@st-hermenegilde.qc.ca, municipalite@st-hermenegilde.qc.ca",,9
+GE-AP-01550,ville de daveluyville,b:3bcbf55c792831d9,Ville de Daveluyville,,CA,https://www.ville.daveluyville.qc.ca,dg@ville.daveluyville.qc.ca,,9
+GE-AP-01551,municipalite de la paroisse saint roch de mekinac,b:2b103141c5c794f5,Municipalité de la paroisse Saint-Roch-de-Mékinac,,CA,https://www.strochdemekinac.com,"st-roch@regionmekinac.com, direction@strochdemekinac.com",,9
+GE-AP-01552,societe d exploitation de la centrale de traitement d eau c m r,b:a5716505325a5b63,Société d'exploitation de la centrale de traitement d'eau C.M.R.,,CA,,,,9
+GE-AP-01553,municipalite de saint ignace de loyola,b:178db2d7fcc8d309,Municipalité de Saint-Ignace-de-Loyola.,,CA,https://www.stignacedeloyola.qc.ca,dg@stignacedeloyola.qc.ca,,9
+GE-AP-01554,municipalite de sainte marthe,b:a29caa43bdcb00e6,Municipalité de Sainte-Marthe.,,CA,https://www.sainte-marthe.ca,info@sainte-marthe.ca,,9
+GE-AP-01555,municipalite de baie johan beetz,b:03ebfcce80501ad8,Municipalité de  Baie-Johan-Beetz,,CA,https://www.baiejohanbeetz.qc.ca,"directiongenerale@baiejohanbeetz.qc.ca, info@baiejohanbeetz.qc.ca",,9
+GE-AP-01556,municipalite de saint david,b:19dd1332b6bbf2fc,Municipalité de Saint-David.,,CA,https://www.stdavid.qc.ca,"dg@stdavid.qc.ca, info@stdavid.qc.ca",,9
+GE-AP-01557,municipalite de saint vianney,b:361f52cdd66a8a3f,Municipalité de Saint-Vianney­.,,CA,https://www.saint-vianney.net,stvianney@mrcmatapedia.qc.ca,,9
+GE-AP-01558,municipalite de milan,b:19686283cf48e701,Municipalité de Milan.,,CA,https://www.munmilan.qc.ca,reception@munmilan.qc.ca,,9
+GE-AP-01559,municipalite canton bedford,b:0ef50b7bb45ce419,Municipalité Canton Bedford,,CA,,,,9
+GE-AP-01560,municipalite saint elzear de bonaventure,b:3ea802cef781ec56,Municipalité Saint -Elzéar-de-Bonaventure,,CA,,,,9
+GE-AP-01561,municipalite de clarenceville,b:979aefbfe1271e8f,Municipalité de Clarenceville,,CA,https://www.clarenceville.qc.ca,"dg@clarenceville.qc.ca, info@clarenceville.qc.ca",,9
+GE-AP-01562,centre communautaire juridique de montreal,b:27a4c775d3c83a68,Centre communautaire juridique de Montréal,,CA,,,,9
+GE-AP-01563,municipalite de bethanie,b:0546430451b21303,Municipalité de Béthanie,,CA,https://www.municipalitedebethanie.ca,info@municipalitedebethanie.ca,,9
+GE-AP-01564,centre de readaptation de la gaspesie,b:07c7a0512ec570a3,Centre de réadaptation de la Gaspésie..,,CA,,,,9
+GE-AP-01565,centre de readaptation lisette dupras,b:c61e0e181a49658c,Centre de Réadaptation Lisette Dupras,,CA,,,,9
+GE-AP-01566,municipalite de stanbridge east,b:5ed2f8a244c4cec0,Municipalité de Stanbridge East,,CA,https://www.stanbridgeeast.ca,stanbridge@axion.ca,,9
+GE-AP-01567,conference regionale des elus gaspesie iles de la madeleine,b:3368b97ee1abe6c0,Conférence régionale des élus Gaspésie Iles-de-la-Madeleine,,CA,,,,9
+GE-AP-01568,mtmdet,b:031350c1192bf30a,"MTMDET - Direction du transport maritime, aérien et ferroviaire",,CA,https://www.transports.gouv.qc.ca,,,5
+GE-AP-01569,mtmdet,b:84a46666e85b9db4,MTMDET - Direction de l’approvisionnement et de la qualificaiton des produits,,CA,https://www.transports.gouv.qc.ca,,,4
+GE-AP-01570,municipalite de calixa lavallee,b:d2bad4142ef3fd35,Municipalité de Calixa-Lavallée,,CA,https://www.calixa-lavallee.ca,"dg@calixa-lavallee.ca, info@calixa-lavallee.ca",,8
+GE-AP-01571,mrc des basques,b:7bede6b89cc26faa,MRC des Basques.,,CA,https://www.mrcdesbasques.com,"sec@mrcdesbasques.com, comptabilite@mrcdesbasques.com",,8
+GE-AP-01572,municipalite de mulgrave et derry,b:c12e7164c0dc8ed4,Municipalité de Mulgrave-et-Derry (80085),,CA,https://www.mulgrave-derry.ca,dg@mulgrave-derry.ca,,8
+GE-AP-01573,municipalite du canton de clermont,b:e5cf1603c53eed2a,Municipalité du Canton de Clermont,,CA,https://clermont.ao.ca/fr,clermont@mrcao.qc.ca,,8
+GE-AP-01574,municipalite de saint norbert,b:85a61ea4267277aa,Municipalité de Saint-Norbert,,CA,https://www.saint-norbert.net,municipalite@saint-norbert.net,,8
+GE-AP-01575,municipalite de mont saint michel,b:ef71eb8a80217b81,Municipalité de Mont-Saint-Michel,,CA,https://www.montsaintmichel.ca,info@montsaintmichel.ca,,8
+GE-AP-01576,association du sport et du plein air de saint eustache,b:6cd0fef06fc5d0fb,Association du sport et du plein air de Saint-Eustache (ASPA),,CA,,,,8
+GE-AP-01577,municipalite de riviere bleue,b:f6bd15fed070dbcf,Municipalité de Rivière-Bleue,,CA,https://www.riviere-bleue.ca,"info@riviere-bleue.ca, urbanisme@riviere-bleue.ca",,8
+GE-AP-01578,regie intermunicipale de gestion des dechets solides de coaticook,b:0dfd1a1c230cc136,Régie intermunicipale de gestion des déchets solides de Coaticook,,CA,,,,8
+GE-AP-01579,municipalite de sainte emelie de l energie,b:d0d5e97743c11e74,Municipalité de Sainte-Émélie-de-l'Énergie.,,CA,https://www.steemelie.ca,info@steemelie.ca,,8
+GE-AP-01580,regie d assainissement des eaux usees de chatham lachute,b:72c37f8b4f4a09ca,Régie d'Assainissement des eaux usées de Chatham/Lachute,,CA,,,,8
+GE-AP-01581,municipalite de dixville,b:4668c7eb5e38c7a5,Municipalité de Dixville,,CA,https://www.dixville.ca,"secretariat@dixville.ca, bureaumunicipal@dixville.ca",,8
+GE-AP-01582,municipalite de lamarche,b:fa697e88f95a8ce2,Municipalité de Lamarche .,,CA,https://www.ville.lamarche.qc.ca,dg@ville.lamarche.qc.ca,,8
+GE-AP-01583,municipalite de saint severin,b:fc758f7cea53a879,Municipalité de Saint-Séverin.,,CA,,,,8
+GE-AP-01584,municipalite de saint simon de rimsouki,b:cbf5fa5ee521257d,Municipalité de Saint-Simon-de-Rimsouki,,CA,,,,8
+GE-AP-01585,municipalite de pointe a la croix,b:046f05966230a52c,Municipalité de Pointe-à-la-Croix.,,CA,https://www.pointe-a-la-croix.com,,,8
+GE-AP-01586,municipalite de la paroisse de saint gerard majella,b:3d79ca450d1996ec,Municipalité de la Paroisse de Saint-Gérard Majella,,CA,https://www.saintgerardmajella.ca,direction@saintgerardmajella.ca,,8
+GE-AP-01587,municipalite de martinville,b:38236bc95c6d487f,Municipalité de Martinville.,,CA,,martinville@axion.ca,,8
+GE-AP-01588,municipalite de honfleur,b:5626323b780628e2,Municipalité de Honfleur.,,CA,https://www.munhonfleur.net,info@munhonfleur.net,,8
+GE-AP-01589,municipalite kazabazua,b:2546e58ff3c2d7f2,Municipalité Kazabazua,,CA,https://www.kazabazua.ca,"direction@kazabazua.ca, infos@kazabazua.ca",,8
+GE-AP-01590,municipalite de saint joseph des erables,b:1c04cd6e7b0b6caa,Municipalité de Saint-Joseph-des-Érables,,CA,https://www.stjosephdeserables.com,municipalite@stjosephdeserables.com,,8
+GE-AP-01591,municipalite de longue rive,b:2da67f3c82ddaf32,Municipalité de Longue-Rive.,,CA,https://www.longuerive.ca,administration@longuerive.ca,,8
+GE-AP-01592,transition energetique quebec,b:df31027621d0c7a0,Transition énergétique Québec,,CA,,,,8
+GE-AP-01593,regie intermunicipale de l aeroport regional de mont joli,b:2f056424a9e4c186,Régie intermunicipale de l'aéroport régional de Mont-Joli.,,CA,,,,8
+GE-AP-01594,municipalite de sainte rita,b:d347e9c679e6cd19,Municipalité de Sainte-Rita.,,CA,https://www.ste-rita.ca,admin@ste-rita.ca,,8
+GE-AP-01595,municipalite de saint honore de chicoutimi,b:c42ff891bdbed199,Municipalité de Saint-Honoré-de-Chicoutimi,,CA,,,,8
+GE-AP-01596,municipalite de saint donat de rimouski,b:a26c978776d4e76f,Municipalité de Saint-Donat-de-Rimouski,,CA,,,,8
+GE-AP-01597,municipalite saint octave de metis,b:c9e2bedb9589cfef,Municipalité Saint-Octave de Métis,,CA,https://municipalites-du-quebec.ca/st-octave-de-metis,,,8
+GE-AP-01598,municipalite de saint malachie,b:ba074d3c1468dd0c,Municipalité de Saint-Malachie,,CA,https://www.st-malachie.qc.ca,contact@st-malachie.qc.ca,,8
+GE-AP-01599,municipalite de sainte helene de kamouraska,b:7ee44bd833bec340,Municipalité de Sainte-Hélène-de-Kamouraska,,CA,https://sainte-helene.net,dg@sainte-helene.net,,8
+GE-AP-01600,municipalite de blue sea,b:27106dc534a8cf91,Municipalité de Blue Sea.,,CA,https://www.bluesea.ca,"dg@bluesea.ca, info@bluesea.ca",,8

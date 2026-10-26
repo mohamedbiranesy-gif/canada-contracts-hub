@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-01201,municipalite de st felix de dalquier,b:1b12cc3cb7b5a92b,Municipalité de St-Félix-de-Dalquier,,CA,,,,19
+GE-AP-01202,municipalite de notre dame des pins,b:175f4d34bd3d661b,Municipalité de Notre-Dame-des-Pins .,,CA,https://www.notredamedespins.qc.ca,dg@notredamedespins.qc.ca,,19
+GE-AP-01203,municipalite de saint urbain,b:5fbb22c67abb71dc,Municipalité de Saint-Urbain.,,CA,https://www.sainturbain.qc.ca,munsturb@sainturbain.qc.ca,,19
+GE-AP-01204,municipalite de saint maxime du mont louis,b:5980fd38ba8d3875,Municipalité de Saint-Maxime-du-Mont-Louis,,CA,https://www.st-maxime.qc.ca,direction@st-maxime.qc.ca,,19
+GE-AP-01205,municipalite de sainte elisabeth,b:582b612d6cbe95d5,Municipalité de Sainte-Élisabeth,,CA,https://www.ste-elisabeth.qc.ca,"info@ste-elisabeth.qc.ca, reception@ste-elisabeth.qc.ca",,19
+GE-AP-01206,regie des alcools des courses et des jeux,b:4d9fcecb75220276,"Régie des alcools, des courses et des jeux",,CA,,,,19
+GE-AP-01207,municipalite de saint hilarion,b:e3169f2ce3cc10ae,Municipalité de Saint-Hilarion .,,CA,https://www.sainthilarion.ca,municipalite@sainthilarion.ca,,19
+GE-AP-01208,municipalite d east hereford,b:f626dbf448685de3,Municipalité d'East Hereford,,CA,https://www.easthereford.ca,direction@easthereford.ca,,19
+GE-AP-01209,municipalite de saint jean de dieu,b:38deede56186bfbc,Municipalité de Saint-Jean-de-Dieu,,CA,https://www.saintjeandedieu.ca,secretariat1@saintjeandedieu.ca,,19
+GE-AP-01210,municipalite d huberdeau,b:c96cfa7402ee5fb8,Municipalité d'Huberdeau.,,CA,https://www.huberdeau.ca,"info@huberdeau.ca, dg@huberdeau.ca",,19
+GE-AP-01211,ville de richmond,b:c69a956153cb811a,Ville de Richmond .,,CA,https://www.richmond.quebec,"admin@richmond.quebec, dga@richmond.quebec",,19
+GE-AP-01212,municipalite de saint bruno,b:1fb0105b9f061195,Municipalité  de Saint-Bruno,,CA,,,,19
+GE-AP-01213,centre de sante et de services sociaux champlain,b:d16c81bf18fc0ca2,Centre de Santé et de Services Sociaux Champlain,,CA,,,,19
+GE-AP-01214,municipalite de wentworth nord,b:0eb11121796ebb1b,Municipalité de Wentworth-Nord,,CA,https://www.wentworth-nord.ca,"info@wentworth-nord.ca, secretariat@wentworth-nord.ca",,19
+GE-AP-01215,centre de sante et de services sociaux de matane,b:e1b83354f11184cf,Centre de santé et de services sociaux de Matane,,CA,,,,19
+GE-AP-01216,ministere de l environnement et de la lutte contre les changements climatiques,b:6140af2d721ff23e,Ministère de l'Environnement et de la Lutte contre les changements climatiques,,CA,https://www.environnement.gouv.qc.ca,,,18
+GE-AP-01217,cegep de saint felicien,b:1f9c94be0d62abfb,Cégep de Saint-Félicien.,,CA,,,,18
+GE-AP-01218,municipalite de papineauville,b:28f6ff6c0ff7c33e,Municipalité de Papineauville..,,CA,https://www.papineauville.ca,papineauville@papineauville.ca,,18
+GE-AP-01219,municipalite de maria,b:beaa97fe69237a31,Municipalité de Maria,,CA,https://www.mariaquebec.com,info@mariaquebec.com,,18
+GE-AP-01220,municipalite paroisse de senneterre,b:cb64c3219b59a2e0,Municipalité Paroisse de Senneterre,,CA,,,,18
+GE-AP-01221,regie de police du lac des deux montagnes,b:c126f0bbc205fe08,Régie de Police du Lac Des Deux-Montagnes,,CA,,,,18
+GE-AP-01222,municipalite de saint antoine sur richelieu,b:9b62765977fa8dbb,Municipalité de Saint-Antoine-sur-Richelieu.,Municipalité de Saint-Antoine-sur-Richelieu,CA,https://www.saint-antoine-sur-richelieu.ca,direction.generale@sasr.ca,,18
+GE-AP-01223,municipalite du canton de hemmingford,b:c529e1e95a6187ac,Municipalité du Canton de Hemmingford,,CA,https://www.hemmingford.ca,,,18
+GE-AP-01224,municipalite de berry,b:7fa5a80289062537,Municipalité de  Berry,,CA,https://www.municipalite-berry.org,direction@municipaliteberry.com,,18
+GE-AP-01225,municipalite de saint edouard de lotbiniere,b:ab9517d645155e34,Municipalité de Saint-Édouard-de-Lotbinière,,CA,https://www.st-edouard.com,info@st-edouard.com,,18
+GE-AP-01226,municipalite d albertville,b:58b4e3381d95b697,Municipalité d'Albertville,,CA,https://www.municipalite-albertville.ca,albertville@mrcmatapedia.quebec,,18
+GE-AP-01227,municipalite de saint marc sur richelieu,b:184b2764ba4e6917,Municipalité de Saint-Marc-sur-Richelieu.,,CA,https://www.smsr.quebec,direction@smsr.quebec,,18
+GE-AP-01228,municipalite des eboulements,b:106be7de1d92823e,Municipalité des Éboulements,,CA,https://www.leseboulements.com,"direction@leseboulements.com, municipalite@leseboulements.com",,18
+GE-AP-01229,municipalite de boileau,b:eae3d1154a9a02fe,Municipalité de Boileau.,,CA,https://www.boileau.ca,dg@boileau.ca,,18
+GE-AP-01230,municipalite de saint philibert,b:9a05e6c38c2c9f35,Municipalité de Saint-Philibert,,CA,https://www.st-philibert.qc.ca,,,18
+GE-AP-01231,municipalite d ulverton,b:2cc7622ae55a9169,Municipalité d'Ulverton,,CA,https://www.municipaliteulverton.com,"direction@municipaliteulverton.com, admin@municipaliteulverton.com",,18
+GE-AP-01232,municipalite saint marcel,b:4e4fa5f33c8e27b8,Municipalité Saint-Marcel,,CA,https://www.saintmarcel.qc.ca,info@saintmarcel.qc.ca,,18
+GE-AP-01233,naskapi clsc,b:4eabbd1ec1f233c1,NASKAPI CLSC,,CA,,,,18
+GE-AP-01234,municipalite de la paroisse de parisville,b:6e0e35112bcfd939,Municipalité de la Paroisse de Parisville,,CA,https://www.municipalite.parisville.qc.ca,"dg@municipalite.parisville.qc.ca, info@municipalite.parisville.qc.ca",,18
+GE-AP-01235,municipalite saint stanislas de champlain,b:93c09c09f3141400,Municipalité Saint-Stanislas-de-Champlain,,CA,,,,18
+GE-AP-01236,regie de l aqueduc intermunicipale du bas richelieu,b:c36ecebafb5ef2d8,Régie de l'aqueduc intermunicipale du Bas-Richelieu.,,CA,,,,18
+GE-AP-01237,ministere de l economie et de l innovation,b:7b2ffa7c62e36c96,Ministère de l'Économie et de l'Innovation,,CA,,,,18
+GE-AP-01238,municipalite sainte marie salome,b:b09f1dc06551d5da,Municipalité Sainte-Marie-Salomé,,CA,https://www.sainte-marie-salome.ca,"dg@sainte-marie-salome.ca, info@sainte-marie-salome.ca",,18
+GE-AP-01239,reseau d informations scientifiques du quebec,b:54fc6a1eb880f427,Réseau d'informations scientifiques du Québec.,Réseau d'Informations Scientifiques du Québec inc.,CA,,,,18
+GE-AP-01240,federation des cegeps,b:907e50d9870bdf48,Fédération des CÉGEPS.,,CA,,,,18
+GE-AP-01241,hopital juif de readaptation,b:bb37171a47cd0b0d,Hôpital Juif de réadaptation,,CA,,,,18
+GE-AP-01242,mrc de rimouski neigette,b:17c333c07ac298c4,MRC de Rimouski-Neigette,,CA,https://mrc-rn.ca,"administration@mrc-rn.ca, communications@mrc-rn.ca",,17
+GE-AP-01243,mrc de la matanie,b:21b485b740fe50d3,MRC de La Matanie,,CA,https://www.lamatanie.ca,transports@lamatanie.ca,,17
+GE-AP-01244,municipalite de la paroisse de disraeli,b:183ca9bdb0373844,Municipalité de la Paroisse de Disraeli,,CA,https://www.paroissedisraeli.com,info@paroissedisraeli.com,,17
+GE-AP-01245,municipalite saint leonard d aston,b:6f4d40c0b16e6849,Municipalité Saint-Léonard d'Aston,,CA,https://www.saint-leonard-daston.net,"municipalite@saint-leonard-daston.net, reception@saint-leonard-daston.net",,17
+GE-AP-01246,municipalite de saint hubert de riviere du loup,b:f385e074d2c688c8,Municipalité de Saint-Hubert-de-Rivière-du-Loup.,,CA,https://www.municipalite.saint-hubert-de-riviere-du-loup.qc.ca,info@sthubertrdl.qc.ca,,17
+GE-AP-01247,municipalite saint stanislas de kostka,b:722730515677241f,Municipalité  Saint-Stanislas-de-Kostka,,CA,https://www.st-stanislas-de-kostka.ca,dg@st-stanislas-de-kostka.ca,,17
+GE-AP-01248,municipalite de sainte felicite,b:c18dfe0eab5a40eb,Municipalité de Sainte-Félicité.,Municipalité Sainte-Félicité,CA,,,,17
+GE-AP-01249,ville de causapscal,b:e51e5697ffa91163,Ville de Causapscal.,,CA,https://www.causapscal.net,"dg@causapscal.quebec, info@causapscal.quebec",,17
+GE-AP-01250,municipalite de saint pierre baptiste,b:5cfb309c9d751204,Municipalité de Saint-Pierre-Baptiste,,CA,https://www.saintpierrebaptiste.qc.ca,info@saintpierrebaptiste.qc.ca,,17
+GE-AP-01251,municipalite de palmarolle,b:763cb2aed25d3b8b,Municipalité de Palmarolle.,,CA,https://WWW.palmarolle.ao.ca,reception@palmarolle.ao.ca,,17
+GE-AP-01252,municipalite de sainte helene de chester,b:a0180da89a606470,Municipalité de Sainte-Hélène-de-Chester,,CA,https://www.sainte-helene-de-chester.ca,"municipalite@sainte-helene-de-chester.ca, permis@sainte-helene-de-chester.ca",,17
+GE-AP-01253,bureau d audiences publiques sur l environnement,b:0360f407abdc2bfd,Bureau d'audiences publiques sur l'environnement,,CA,,,,17
+GE-AP-01254,municipalite de saint michel du squatec,b:45fb0a4510d1330b,Municipalité de Saint-Michel-du-Squatec.,,CA,https://www.squatec.qc.ca,dg@squatec.qc.ca,,17
+GE-AP-01255,canton de saint camille,b:86bf18f0f67e0d75,Canton de Saint-Camille,,CA,https://www.saint-camille.ca,"dg@saint-camille.ca, info@saint-camille.ca",,17
+GE-AP-01256,municipalite de lorrainville,b:d6b4f666d443adfa,Municipalité  de Lorrainville,,CA,https://www.lorrainville.ca,direction@lorrainville.ca,,17
+GE-AP-01257,municipalite de saint adelphe,b:a2497c49a718cec7,Municipalité de Saint-Adelphe.,,CA,https://www.st-adelphe.qc.ca,st-adelphe@regionmekinac.com,,17
+GE-AP-01258,municipalite de saint simon de bagot,b:a3609a1de90d9e20,Municipalité de Saint-Simon-de-Bagot,,CA,,,,17
+GE-AP-01259,ministere des services gouvernementaux,b:7ca3c7ed688c3b40,Ministère des Services gouvernementaux -,,CA,,,,17
+GE-AP-01260,b t l construction inc gerant de construction pour l universite de montreal,b:e36cb3759b378266,B.T.L Construction Inc-Gérant de construction pour l'Université de Montréal,,CA,,,,17
+GE-AP-01261,centre de readaptation interval,b:b27e07e6ba0dc609,Centre de réadaptation InterVal.,,CA,,,,17
+GE-AP-01262,casiloc inc,b:2bc3d90d2b2ae948,Casiloc inc,,CA,,,,16
+GE-AP-01263,corporation de gestion des matieres residuelles de la haute yamaska,b:33100894a61f4524,Corporation de gestion des matières résiduelles de La Haute-Yamaska.,,CA,,,,16
+GE-AP-01264,regie intermunicipale de gestion des dechets des chutes de la chaudiere,b:ab5ffc57b924ae9c,Régie Intermunicipale de Gestion des Déchets des Chutes-de-la-Chaudière,,CA,,,,16
+GE-AP-01265,municipalite saint francois du lac,b:86a8884740cf66aa,Municipalité Saint-François du Lac,,CA,https://www.saint-francois-du-lac.ca,municipalite@saintfrancoisdulac.ca,,16
+GE-AP-01266,regie d assainissement des eaux de la vallee du richelieu,b:43d2a17580b9b491,Régie d'assainissement des Eaux de la Vallée du Richelieu,,CA,,,,16
+GE-AP-01267,regie intermunicipale de l eau de la vallee du richelieu,b:bd07ef40cb035cbf,Régie Intermunicipale de l'eau de la Vallée du Richelieu.,,CA,,,,16
+GE-AP-01268,mrc de la jacques cartier,b:de7a387a83bd0921,MRC de la Jacques-Cartier.,,CA,https://www.mrc.jacques-cartier.com,,,16
+GE-AP-01269,conseil des arts et des lettres du quebec,b:78f45100e80b9cb0,Conseil des arts et des lettres du Québec,,CA,,,,16
+GE-AP-01270,municipalite de saint roch des aulnaies,b:4940db10fefee48e,Municipalité de Saint-Roch-Des-Aulnaies.,,CA,https://www.saintrochdesaulnaies.ca,muniroch@saintrochdesaulnaies.ca,,16
+GE-AP-01271,municipalite de lac bouchette,b:de8d1eeeccc7a7c4,Municipalité de Lac-Bouchette,,CA,https://www.lac-bouchette.com,munilac@lac-bouchette.com,,16
+GE-AP-01272,municipalite de la visitation de yamaska,b:8766bff061e54b14,Municipalité de La Visitation de Yamaska,,CA,https://www.lavisitationdeyamaska.net,info@lavisitationdeyamaska.net,,16
+GE-AP-01273,regie incendie des monts,b:3a70ff0be1cf652d,Régie incendie des Monts,,CA,,,,16
+GE-AP-01274,municipalite sainte sophie d halifax,b:2c9357bf2a679a03,Municipalité Sainte-Sophie-d'Halifax,,CA,https://www.saintesophiedhalifax.com,"dg@saintesophiedhalifax.com, info@saintesophiedhalifax.com",,16
+GE-AP-01275,mrc du rocher perce,b:54d73abc4a9178ca,MRC du Rocher Percé,,CA,https://www.mrcrocherperce.qc.ca,,,16
+GE-AP-01276,municipalite de sainte edwidge de clifton,b:d2c763531933a9d9,Municipalité de Sainte-Edwidge-de-Clifton.,,CA,https://www.ste-edwidge.ca,info@ste-edwidge.ca,,16
+GE-AP-01277,municipalite de crabtree,b:c6f91bcd8374ad36,Municipalité de Crabtree.,,CA,https://www.crabtree.quebec,info@crabtree.quebec,,16
+GE-AP-01278,municipalite de saint charles de bourget,b:085084f07b70d927,Municipalité de Saint-Charles-de-Bourget,,CA,https://www.stcharlesdebourget.ca,info@stcharlesdebourget.ca,,16
+GE-AP-01279,municipalite de sainte anne de la perade,b:ba52f76b81ee3a7f,Municipalité de Sainte-Anne-de-la-Pérade.,,CA,https://sadlp.ca,municipalite@sadlp.ca,,16
+GE-AP-01280,municipalite de saint bonaventure,b:f225769a9a57b86e,Municipalité de Saint-Bonaventure.,,CA,https://www.saint-bonaventure.ca,info@saint-bonaventure.ca,,16
+GE-AP-01281,sherbrooke innopole,b:41e42e8c2e290266,Sherbrooke Innopole.,,CA,,,,16
+GE-AP-01282,municipalite de kamouraska,b:f934353f6c702fd7,Municipalité de Kamouraska,,CA,https://www.kamouraska.ca,"info@kamouraska.ca, administration@kamouraska.ca",,16
+GE-AP-01283,municipalite deschaillons sur saint laurent,b:25b55a2489373ec4,Municipalité Deschaillons-sur-Saint-Laurent,,CA,https://www.deschaillons.ca,administration@deschaillons.ca,,16
+GE-AP-01284,municipalite de notre dame du sacre coeur d issoudun,b:19a1f456936fcfb5,Municipalité de Notre-Dame-du-Sacré-Coeur-D'Issoudun.,,CA,https://www.issoudun.qc.ca,"dg@issoudun.qc.ca, directionurbanisme@issoudun.qc.ca",,16
+GE-AP-01285,municipalite de saint joachim,b:006b5405f5c88b84,Municipalité de Saint-Joachim,,CA,https://www.saintjoachim.qc.ca,"dg@saintjoachim.qc.ca, info@saintjoachim.qc.ca",,16
+GE-AP-01286,regie du logement,b:e88aff89b5f66fac,Régie du Logement,,CA,,,,16
+GE-AP-01287,corporation municipale de elgin,b:7669b35e11a58456,Corporation Municipale de Elgin,,CA,,,,16
+GE-AP-01288,municipalite egan sud,b:db56aef583b404e5,Municipalité Egan-Sud,,CA,https://www.egan-sud.ca,info@egan-sud.ca,,16
+GE-AP-01289,municipalite de saint edmond de grantham,b:66073df46c0407f2,Municipalité de Saint-Edmond-de-Grantham.,,CA,https://www.st-edmond-de-grantham.qc.ca,municipalite@st-edmond-de-grantham.qc.ca,,16
+GE-AP-01290,municipalite de notre dame du nord,b:25ae76c50af80c1b,Municipalité de Notre-Dame-du-Nord.,,CA,https://www.nddn.ca,"dg@nddn.ca, contact@nddn.ca",,16
+GE-AP-01291,municipalite saint louis de blandford,b:49a925a733db45de,Municipalité Saint-Louis-de-Blandford,,CA,https://www.saint-louis-de-blandford.ca,"dg@saint-louis-de-blandford.ca, info@saint-louis-de-blandford.ca",,16
+GE-AP-01292,ville de saint honore,b:47c993db19bf3147,Ville de Saint-Honoré (Chicoutimi),,CA,https://www.ville.sthonore.qc.ca,admin@ville.sthonore.qc.ca,,16
+GE-AP-01293,centre de sante et de services sociaux cleophas claveau,b:f76557c7c3bf9713,Centre de santé et de services sociaux CLéophas-Claveau,,CA,,,,16
+GE-AP-01294,ministere de l enseignement superieur de la recherche de la science et de la technologie,b:f1cbdd52235e19c8,"Ministère de l'enseignement supérieur, de la recherche, de la science et de la technologie.",,CA,,,,16
+GE-AP-01295,service de l urbanisme et de la mobilite,b:cd9511de028b8de5,Service de l'urbanisme et de la mobilité,,CA,,,,15
+GE-AP-01296,ville de val des sources,b:90e961da3b8cde38,Ville de Val-des-Sources,,CA,https://valdessources.ca,dir.adm@valdessources.ca,,15
+GE-AP-01297,sante quebec baie james,b:79a3b455ad6871c1,Santé Québec Baie-James,,CA,https://www.crsssbaiejames.gouv.qc.ca/1/accueil.html,info.crsssbj@ssss.gouv.qc.ca,,15
+GE-AP-01298,ville de ville marie,b:7ad77ed2502f4ba6,Ville de Ville-Marie .,Ville de Ville-Marie,CA,https://www.villevillemarie.org,info@villevillemarie.org,,15
+GE-AP-01299,municipalite d irlande,b:e516d74116d7c4df,Municipalité d'Irlande .,,CA,https://www.mundirlande.qc.ca,reception@mundirlande.qc.ca,,15
+GE-AP-01300,mrc beauce centre,b:f6f3722d9f678d8d,MRC Beauce-Centre,,CA,https://www.mrcbeaucecentre.ca,"info@mrcbeaucecentre.ca, finance@mrcbeaucecentre.ca",,15

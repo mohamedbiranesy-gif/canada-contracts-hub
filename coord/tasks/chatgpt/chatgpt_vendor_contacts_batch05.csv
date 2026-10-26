@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-00401,v:ffc88ca128823290,PCI Geomatics Enterprises Inc.,,,,,,7,7,pcigeomaticsenterprises.ca pcigeomaticsenterprises.com pci-geomatics-enterprises.ca pci-geomatics-enterprises.com
+CH-VC-00402,v:23a81ef97108285d,SOAR Professional Services,,,,,,7,7,
+CH-VC-00403,v:f888de34000afc61,TREVCO CONSTRUCTION,,,,,,7,7,
+CH-VC-00404,v:f5c130245be058ef,"SYMBIOTIC GROUP INC., Akkodis Canada Inc., IN JOINT VENTURE",,,Oakville,ONTARIO,L6L 4B1,7,7,
+CH-VC-00405,v:02f5c1487c0b796c,Sparko Supplies,,,Kanata,ONTARIO,K2T 1A9,7,7,sparkosupplies.ca sparkosupplies.com sparko-supplies.ca sparko-supplies.com
+CH-VC-00406,v:bc4ebc185b1f051d,704507 NB Ltd,,,,,,7,7,
+CH-VC-00407,v:d14a441cf0c155e6,LRDG Inc,,,,,,7,7,
+CH-VC-00408,v:ebf5b05e6d62cc3f,DOLOMITE NETWORKS CORPORATION,Dolomite Networks Corporation,6510469,,,,7,7,dolomitenetworks.ca dolomitenetworks.com dolomite-networks.ca dolomite-networks.com
+CH-VC-00409,v:76f3b5a7170a9221,ACT INC,,,,,,7,7,
+CH-VC-00410,v:5f2f720a6c8a0bb0,Big Eddy Fuel Services Ltd.,,,,,,7,7,bigeddyfuelservices.ca bigeddyfuelservices.com big-eddy-fuel-services.ca big-eddy-fuel-services.com
+CH-VC-00411,v:b4312da73b86f987,Samson Industrial Division Limited,,,Petit de Grat,NOVA SCOTIA,B0E 2L0,7,7,samsonindustrialdivision.ca samsonindustrialdivision.com samson-industrial-division.ca samson-industrial-division.com
+CH-VC-00412,v:73bd70eebd0d815b,Walker Technical INC,,,,,,7,7,
+CH-VC-00413,v:d7cf60e735fec4fb,MOREY CONSTRUCTION LTD.,,,,,,7,7,
+CH-VC-00414,v:3ccff2f92b531d46,BELL TEXTRON CANADA LIMITED/BELL TEXTRON CANADA LIMITEE,,,,,,7,7,
+CH-VC-00415,v:b1d26caa57613d34,ADIRONDACK INFORMATION,,,,,,7,7,adirondackinformation.ca adirondackinformation.com adirondack-information.ca adirondack-information.com
+CH-VC-00416,v:0f689bf753f28b66,CLERMARK INC.,,,,,,7,7,clermark.ca clermark.com
+CH-VC-00417,v:7fffc55e2261ec86,TEKSYSTEMS CANADA CORP./SOCIÉTÉ,,,,,,7,7,teksystemscanadasociete.ca teksystemscanadasociete.com teksystemssociete.ca teksystemssociete.com teksystems-canada-societe.ca teksystems-canada-societe.com
+CH-VC-00418,v:3ede06a0d8c3f38f,BROOKFIELD GLOBAL INTEGRATED,,,,,,7,7,
+CH-VC-00419,v:136f1f7fc8feeceb,CITY WEST CABLE & TELEPHONE CORP.,,,,,,7,7,
+CH-VC-00420,v:f428d28d317bcf34,"COLLIERS PROJECT LEADERS INC. COLLIERS MAÎTRES DE PROJETS INC., TIREE FACILITY SOLUTIONS INC., in Joint Venture",,,Ottawa,ONTARIO,K1R 7X7,7,7,
+CH-VC-00421,v:0c3721f1c8683b75,MTU MAINTENANCE CANADA LTD,,,DELTA,,V4K 3N3,7,7,mtumaintenancecanada.ca mtumaintenancecanada.com mtumaintenance.ca mtumaintenance.com mtu-maintenance-canada.ca mtu-maintenance-canada.com
+CH-VC-00422,v:a7b691ecc67da4e1,WOLF ADVANCED TECHNOLOGY CANADA INC.,WOLF Advanced Technology Canada Inc.,3598357,AURORA,,L4G 7A9,7,7,wolfadvancedtechnologycanada.ca wolfadvancedtechnologycanada.com wolfadvancedtechnology.ca wolfadvancedtechnology.com
+CH-VC-00423,v:0d48cd5d47f15d4e,Karl Storz Endoscopy Canada Ltd.,Karl Storz Endoscopy Canada Ltd.,1176520667,Mississauga,ON,L5N 3R3,353,6,karlstorzendoscopycanada.ca karlstorzendoscopycanada.com karlstorzendoscopy.ca karlstorzendoscopy.com karl-storz-endoscopy-canada.ca karl-storz-endoscopy-canada.com
+CH-VC-00424,v:8e336574ba274b4c,PHILIPS ÉLECTRONIQUE LTÉE,PHILIPS ELECTRONICS LTD,7733046,,ON,L6C2S3,248,6,philipselectronique.ca philipselectronique.com philips-electronique.ca philips-electronique.com philipselectronics.ca philipselectronics.com
+CH-VC-00425,v:a4f392a0fc3bf99c,Clarion Medical Technologies,,,Cambridge,ON,N1T 2B8,114,6,clarionmedicaltechnologies.ca clarionmedicaltechnologies.com clarion-medical-technologies.ca clarion-medical-technologies.com
+CH-VC-00426,v:74fb3d3db6f9bcd3,McArthur Medical Sales Inc.,MCARTHUR MEDICAL SALES INC.,1164280423,Rockton,ON,L0R 1X0,51,6,mcarthurmedicalsales.ca mcarthurmedicalsales.com mcarthur-medical-sales.ca mcarthur-medical-sales.com mcarthurmedicale.ca mcarthurmedicale.com
+CH-VC-00427,v:8c6c7b4dc4183542,TMN Busing Ltd.,,,Forteau,NL,A0K 2P0,17,6,tmnbusing.ca tmnbusing.com tmn-busing.ca tmn-busing.com
+CH-VC-00428,v:f7e51b5c09f4b20c,Toromont Material Handling,,,Concord,ON,L4K 3V8,15,6,toromontmaterialhandling.ca toromontmaterialhandling.com toromont-material-handling.ca toromont-material-handling.com
+CH-VC-00429,v:b34c7e9b98a36803,Air Products Canada Ltée.,AIR PRODUCTS CANADA LTD.,355186,Mississauga,ON,L5N2X7,15,6,airproductscanada.ca airproductscanada.com airproducts.ca airproducts.com air-products-canada.ca air-products-canada.com
+CH-VC-00430,v:6a22d8bb73fd6a1d,927882 Ontario Inc.,,,GLOUCESTER,ON,K1G 3N4,13,6,
+CH-VC-00431,v:ac1f14b522a53871,OpenText,,,Waterloo,ON,N2L 0A1,12,6,opentext.ca opentext.com
+CH-VC-00432,v:f616ffa5fe15919b,GILMORE GLOBAL LOGISTICS SERVICES INC,GILMORE GLOBAL LOGISTICS SERVICES INC.,3319202,KANATA,,K2K 3B7,12,6,gilmoregloballogisticsservices.ca gilmoregloballogisticsservices.com
+CH-VC-00433,v:12fdce199ce03c9e,PENNECON HYDRAULIC SYSTEMS,,,,,,12,6,penneconhydraulicsystems.ca penneconhydraulicsystems.com pennecon-hydraulic-systems.ca pennecon-hydraulic-systems.com
+CH-VC-00434,v:2ae68bfc9dc8473f,Deloitte Management Services LP,,,Winnipeg,MB,R3C 3Z3,11,6,deloittemanagementservices.ca deloittemanagementservices.com deloitte-management-services.ca deloitte-management-services.com
+CH-VC-00435,v:f2aca12cc0fb6f84,7143516 CANADA INC.,7143516 CANADA INC.,17365454,,,,10,6,
+CH-VC-00436,v:23caeefea52f281a,Niche Technology Inc,Niche Technology Inc.,1173955627,Winnipeg,MB,r3a 1p6,10,6,nichetechnology.ca nichetechnology.com niche-technology.ca niche-technology.com nichetechnologie.ca nichetechnologie.com
+CH-VC-00437,v:3bb4d2fa281af093,HATFIELD CONSULTANTS PARTNERSHIP,,,,,,9,6,hatfieldconsultantspartnership.ca hatfieldconsultantspartnership.com
+CH-VC-00438,v:6599b83a6486397a,UNIVERSITY OF VICTORIA,,,,,,9,6,universityvictoria.ca universityvictoria.com university-victoria.ca university-victoria.com
+CH-VC-00439,v:4eef60c63393453d,RISK SCIENCES INTERNATIONAL INC.,RISK SCIENCES INTERNATIONAL INC.,6537413,,,,9,6,risksciencesinternational.ca risksciencesinternational.com risk-sciences-international.ca risk-sciences-international.com
+CH-VC-00440,v:14affefbfaf2313e,SALASAN Consulting Inc.,,,,,,9,6,salasanconsulting.ca salasanconsulting.com salasan-consulting.ca salasan-consulting.com
+CH-VC-00441,v:45c00bc7feea827e,Ernst & Young - Ottawa,,,Ottawa,ON,K1P 6B9,8,6,ernstyoungottawa.ca ernstyoungottawa.com ernst-young-ottawa.ca ernst-young-ottawa.com
+CH-VC-00442,v:1f1ec41bbdb6dd7d,HITRAC (1974),,,Winnipeg,MB,R3X 1V4,8,6,hitrac1974.ca hitrac1974.com hitrac-1974.ca hitrac-1974.com hitrac.ca hitrac.com
+CH-VC-00443,v:d2bc127dcf8e8b5e,GILMORE REPRODUCTIONS,,,,,,8,6,
+CH-VC-00444,v:94dca92ba32c6496,CONVERSART CONSULTING LTD,CONVERSART CONSULTING LIMITED,2734796,,,,8,6,conversartconsulting.ca conversartconsulting.com conversart-consulting.ca conversart-consulting.com consultantsconversart.ca consultantsconversart.com
+CH-VC-00445,v:b82b83fa2aaf1e65,IMT Partnership,,,Ingersoll,ONTARIO,N5C3K6,8,6,imtpartnership.ca imtpartnership.com imt-partnership.ca imt-partnership.com
+CH-VC-00446,v:0a147f7cf51b7983,HERMONT MARINE INC,HERMONT MARINE INC.,2718103,,,,8,6,hermontmarine.ca hermontmarine.com hermont-marine.ca hermont-marine.com
+CH-VC-00447,v:42cba67cbb696a55,"HORSTMAN CANADA, INC.",Horstman Canada Inc.,14714903,BRAMPTON,,L6T 1C1,8,6,horstmancanada.ca horstmancanada.com horstman.ca horstman.com horstman-canada.ca horstman-canada.com
+CH-VC-00448,v:617a7e763f077bdf,FERENCE & COMPANY CONSULTING LTD.,,,,,,7,6,ferenceconsulting.ca ferenceconsulting.com ference-consulting.ca ference-consulting.com
+CH-VC-00449,v:13c88b186a309cb3,StaffMax staffing & Recruiting Corp.,STAFFMAX STAFFING & RECRUITING CORP.,16629245,Winnipeg,MANITOBA,R3J 3T7,7,6,staffmaxstaffingrecruiting.ca staffmaxstaffingrecruiting.com staffmax-staffing-recruiting.ca staffmax-staffing-recruiting.com
+CH-VC-00450,v:9becff721e717c79,DON WEHAGE TRUCKING LTD,,,,,,7,6,donwehagetrucking.ca donwehagetrucking.com don-wehage-trucking.ca don-wehage-trucking.com
+CH-VC-00451,v:e248281b0de579ca,BUDGET RENT-A-CAR,,,,,,7,6,budgetrentcar.ca budgetrentcar.com budget-rent-car.ca budget-rent-car.com
+CH-VC-00452,v:215700a18e93021b,ECOLE DE LANGUES ABCE INC.,,,,,,7,6,ecolelanguesabce.ca ecolelanguesabce.com ecole-langues-abce.ca ecole-langues-abce.com
+CH-VC-00453,v:a27e2a4deed97f6b,9672354 Canada Inc,9672354 CANADA INC.,9672354,,,,7,6,
+CH-VC-00454,v:b2a1e0301baba954,Hurricane Industrial,,,,,,7,6,
+CH-VC-00455,v:3d71b12a359e4a49,C3SA Cybernetic Security Audit Inc.,C3SA CYBERNETIC SECURITY AUDIT INC.,6361803,,,,7,6,c3sacyberneticsecurityaudit.ca c3sacyberneticsecurityaudit.com c3sa-cybernetic-security-audit.ca c3sa-cybernetic-security-audit.com
+CH-VC-00456,v:a0cbde7e428bfecc,Peerless Garments LP,,,Winnipeg,MANITOBA,R3B 1R9,6,6,peerlessgarments.ca peerlessgarments.com peerless-garments.ca peerless-garments.com
+CH-VC-00457,v:eeff2a33ef6e18f7,Commissionaires Manitoba,,,Winnipeg,MB,R3G 0P1,6,6,commissionairesmanitoba.ca commissionairesmanitoba.com commissionaires-manitoba.ca commissionaires-manitoba.com
+CH-VC-00458,v:4469560ab8356ee3,GLOBAL LIFE SCIENCES SOLUTIONS,,,,,,6,6,
+CH-VC-00459,v:8e8d9792ba3c6a13,Rowe's Construction,,,Hay River,NT,,6,6,rowesconstruction.ca rowesconstruction.com rowes-construction.ca rowes-construction.com
+CH-VC-00460,v:a8cfb62008522a76,Northern Auxiliary Services,,,Yellowknife,NT,,6,6,northernauxiliaryservices.ca northernauxiliaryservices.com northern-auxiliary-services.ca northern-auxiliary-services.com
+CH-VC-00461,v:f5f6f0335eb63e37,THE RIGHT DOOR CONSULTING & SOLUTIONS INC.,,,,,,6,6,rightdoorconsultingsolutions.ca rightdoorconsultingsolutions.com
+CH-VC-00462,v:a6cd54edb1dd50be,Langu-EDGE Solutions Inc,Langu-edge Solutions Inc.,6237894,,,,6,6,languedgesolutions.ca languedgesolutions.com langu-edge-solutions.ca langu-edge-solutions.com
+CH-VC-00463,v:6b0651c93d892ee7,COLUMBIA FUELS,,,,,,6,6,
+CH-VC-00464,v:984eb9ce776e0c07,Coentreprise Cité-Caron – Ottawa,,,,,,6,6,
+CH-VC-00465,v:4dbe85551951aa48,MEUNERIE SAWYERVILLE,,,,,,6,6,
+CH-VC-00466,v:32c9b5b01e472c86,HYGIENA CANADA LIMITED,,,,,,6,6,
+CH-VC-00467,v:11cae8a1aa18b8cd,AFL CANADA INC.,,,,,,6,6,
+CH-VC-00468,v:a28790cc7cf60595,UNILANGUES INC,,,,,,6,6,
+CH-VC-00469,v:28a999906a928d90,LE GROUPE CONSEIL BRONSON CONSULTIN,,,,,,6,6,groupeconseilbronsonconsultin.ca groupeconseilbronsonconsultin.com
+CH-VC-00470,v:6cfe7d9d732c75e8,DR YVES TURGEON CLINICAL PSYCHOLOGIST INC,,,,,,6,6,
+CH-VC-00471,v:d1f09eae48cb0069,KAMLOOPS HOME HARDWARE BUILDING CENTRE,,,,,,6,6,
+CH-VC-00472,v:f13545b757eba141,PUBLIC HISTORY INC.,,,,,,6,6,
+CH-VC-00473,v:42aaf34c1f836aca,OPROMA inc,OPROMA INC.,3749452,,,,6,6,oproma.ca oproma.com
+CH-VC-00474,v:605513f91b976b70,ECOLE DE LANGUES LA CITE INC,École de langues La Cité inc.,1082728,,,,6,6,ecolelanguescite.ca ecolelanguescite.com ecole-langues-cite.ca ecole-langues-cite.com
+CH-VC-00475,v:b686ebf8995fffaf,ONAKI CREATION S.E.N.C IBISKA TELECOM JOINT VENTURE,,,,,,6,6,
+CH-VC-00476,v:bea7e8b232c77d24,Moerae Solutions Inc.,SOLUTIONS MOERAE INC.,3543951,,,,6,6,moeraesolutions.ca moeraesolutions.com moerae-solutions.ca moerae-solutions.com solutionsmoerae.ca solutionsmoerae.com
+CH-VC-00477,v:af364a386a65d29f,ALTIS RECRUITMENT & TECHNOLOGY INC. (EXCELHR),,,,,,6,6,
+CH-VC-00478,v:181bf564b67b5c75,ADVANCED CHEMISTRY DEVELOPMENT,,,,,,6,6,advancedchemistrydevelopment.ca advancedchemistrydevelopment.com advanced-chemistry-development.ca advanced-chemistry-development.com
+CH-VC-00479,v:2cbf972d1cf117d1,TACTIQL Inc.,TACTIQL INC.,13986381,Ottawa,ONTARIO,K1X 0C5,6,6,tactiql.ca tactiql.com
+CH-VC-00480,v:a45411d700e92a75,"Mindwire Systems Ltd., Akkada Professional Services inc., HubSpoke Inc., in Joint Venture",,,Ottawa,ONTARIO,K1Z 8P9,6,6,
+CH-VC-00481,v:0f847f8ebabb74d8,GEC AVIATION INC,GEC Aviation Inc.,13948111,BROMONT,,J2L 1S6,6,6,gecaviation.ca gecaviation.com gec-aviation.ca gec-aviation.com aviationgec.ca aviationgec.com
+CH-VC-00482,v:bd9fefed78316336,Apex Steel And gas ltd,,,,,,6,6,apexsteelgas.ca apexsteelgas.com apex-steel-gas.ca apex-steel-gas.com
+CH-VC-00483,v:0a89bfd2c50bb6b2,Kings Enterprises Ltd,,,,,,6,6,kingsenterprises.ca kingsenterprises.com kings-enterprises.ca kings-enterprises.com
+CH-VC-00484,v:a6aa2c4fd6a08b40,Mustang Survival Corp.,MUSTANG SURVIVAL CORP.,3946291,Burnaby,BRITISH COLUMBIA,V5J 5L1,6,6,mustangsurvival.ca mustangsurvival.com mustang-survival.ca mustang-survival.com
+CH-VC-00485,v:00b2a9d422c9c661,RUGGED SHORE SUPPLY,,,,,,6,6,
+CH-VC-00486,v:80ed64f757d9ea2f,Island Tempature Controls LTD,,,,,,6,6,
+CH-VC-00487,v:38e2f44bb346d04a,Mega Power Installations,,,,,,6,6,megapowerinstallations.ca megapowerinstallations.com mega-power-installations.ca mega-power-installations.com
+CH-VC-00488,v:7c01d027f9fae4c1,UNIVERSAL PLUMBING & SEWER SERVICES INC.,,,,,,6,6,
+CH-VC-00489,v:f9f70f1896fe9f52,The Handy Man Dan,,,,,,6,6,
+CH-VC-00490,v:12cd31780bdd4285,BGIS INTEGRATED TECHNICAL SERVICES CANADA LTD.,,,Gloucester,ONTARIO,K1J 9J8,6,6,
+CH-VC-00491,v:6c8b1c39fbacc9e0,Black Diamond Lodging Inc.,,,,,,6,6,blackdiamondlodging.ca blackdiamondlodging.com black-diamond-lodging.ca black-diamond-lodging.com
+CH-VC-00492,v:72de92c9ed079dd8,Standish Towing & Recovery Ltd.,,,,,,6,6,
+CH-VC-00493,v:6e6cffeff73c9a53,Boost Human External Cargo,,,,,,6,6,
+CH-VC-00494,v:15b921b77cc315d0,SOLUTIONS MOERAE INC,SOLUTIONS MOERAE INC.,3543951,,,,6,6,solutionsmoerae.ca solutionsmoerae.com solutions-moerae.ca solutions-moerae.com moeraesolutions.ca moeraesolutions.com
+CH-VC-00495,v:ffee15be176bdad4,4C ARCHITECTURE INC.,,,,,,6,6,
+CH-VC-00496,v:40be23c389bb12e0,CONSULTANTS AECOM INC. AECOM,,,,,,6,6,consultantsaecomaecom.ca consultantsaecomaecom.com consultants-aecom-aecom.ca consultants-aecom-aecom.com
+CH-VC-00497,v:63f602c059ed4bf7,BISSON FORTIN ARCHITECTURE +,,,,,,6,6,
+CH-VC-00498,v:71c3c796b1cb0bb2,Robertson Martin Architects Incorpo,,,,,,6,6,
+CH-VC-00499,v:7b6939ea714a4075,EASTTECH ENGINEERING CONSULTANTS,,,,,,6,6,easttechengineeringconsultants.ca easttechengineeringconsultants.com
+CH-VC-00500,v:6fc3922f3b70ba8d,4141903 CANADA INC,4141903 CANADA INC.,4141903,,,,6,6,

@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-01601,centre dollard cormier,b:5b95c5de12be733d,Centre Dollard-Cormier,,CA,,,,8
+GE-AP-01602,agrandissement hdq,b:0f0d1c7ee5d6ee55,Agrandissement HDQ,,CA,,,,8
+GE-AP-01603,cisss de la cote nord point de service de port cartier,b:c523c44d8aaf026c,CISSS de la Côte-Nord point de service de Port-Cartier,,CA,https://www.cisss-cotenord.gouv.qc.ca,,09.gestion.contractuelle@ssss.gouv.qc.ca,8
+GE-AP-01604,municipalite mont saint pierre,b:297d58212465e1f3,Municipalité Mont-Saint-Pierre,,CA,https://www.mont-saint-pierre.ca,direction@mont-saint-pierre.com,,8
+GE-AP-01605,municipalite de remigny,b:57ed17884a3474f3,Municipalité de Rémigny,,CA,https://www.municipaliteremigny.qc.ca,dg@municipaliteremigny.qc.ca,,8
+GE-AP-01606,mrc de memphremagog,b:99878f8b2f809e4d,MRC de Memphrémagog,,CA,https://www.mrcmemphremagog.com,info@mrcmemphremagog.com,,7
+GE-AP-01607,regie intermunicipale d assainissement des eaux usees de st bruno de montarville et st basile le grand,b:6c13eff32ef4c0a4,Régie Intermunicipale d'assainissement des eaux usées de St-Bruno-de-Montarville et St-Basile-le-Grand,,CA,,,,7
+GE-AP-01608,municipalite sainte rose de watford,b:477d71288d80a8b4,Municipalité Sainte-Rose-de-Watford,,CA,https://www.sainterosedewatford.qc.ca,dg@munsterose.ca,,7
+GE-AP-01609,ville de saint pamphile,b:4a64c40aeeff14d5,Ville de Saint-Pamphile,Ville de Saint-Pamphile.,CA,https://www.saintpamphile.ca,direction@saintpamphile.ca,,7
+GE-AP-01610,municipalite de grosse ile,b:e5b35c079cda72f4,Municipalité  de Grosse Ile,,CA,https://www.mungi.ca,"info@mungi.ca, inspection@mungi.ca",,7
+GE-AP-01611,municipalite de aston jonction,b:1e659ec35f6d80c7,Municipalité de Aston-Jonction,,CA,https://www.aston-jonction.ca,dg@aston-jonction.ca,,7
+GE-AP-01612,municipalite de saint aubert,b:86869dfa22da22c9,Municipalité de Saint-Aubert,,CA,https://saint-aubert.net,administration@saint-aubert.net,,7
+GE-AP-01613,municipalite d auclair,b:4b448bff684c4142,Municipalité d'Auclair.,,CA,https://www.municipaliteauclair.ca,"dg@municipaliteauclair.ca, info@municipaliteauclair.ca",,7
+GE-AP-01614,municipalite de saint alban,b:7e76a0f3674d985c,Municipalité de Saint-Alban.,,CA,https://www.st-alban.qc.ca,dg@st-alban.qc.ca,,7
+GE-AP-01615,municipalite saint janvier de joly,b:2b536b8bf55ff1ed,Municipalité Saint-Janvier-De-Joly,,CA,https://www.municipalitedejoly.com,direction@municipalitedejoly.com,,7
+GE-AP-01616,municipalite de thorne,b:a08df7fdf89e4a46,Municipalité de Thorne,,CA,https://www.thornequebec.ca,dg@thorneque.ca,,7
+GE-AP-01617,ministere de la langue francaise,b:3aacd1cafe21f64d,Ministère de la langue Française,,CA,,,,7
+GE-AP-01618,municipalite de duhamel ouest,b:05fe6aad93a8ac7b,Municipalité de Duhamel-Ouest,,CA,,dg@duhamelouest.ca,,7
+GE-AP-01619,municipalite saint jean de brebeuf,b:b08b113045d45a7e,Municipalité Saint-Jean-de-Brébeuf,,CA,https://st-jean-de-brebeuf.ca,"dg@st-jean-de-brebeuf.ca, info@st-jean-de-brebeuf.ca",,7
+GE-AP-01620,centre de sante et de services sociaux de la minganie,b:fba3e06e496ad335,Centre de santé et de services sociaux de la Minganie,,CA,,,,7
+GE-AP-01621,municipalite de latulipe et gaboury,b:a72d409450325267,Municipalité de Latulipe-et-Gaboury,,CA,https://www.latulipeetgaboury.net,dg@latulipeetgaboury.ca,,7
+GE-AP-01622,municipalite saint michel des saints,b:c08b25ab2d405be6,Municipalité  Saint-Michel-des-Saints,,CA,https://www.smds.quebec,info@smds.quebec,,7
+GE-AP-01623,ville de murdochville,b:a5d39c6360f0399f,Ville de Murdochville.,,CA,https://www.murdochville.com,"direction.generale@murdochville.com, ville@murdochville.com",,7
+GE-AP-01624,municipalite de saint francois de l ile d orleans,b:bc68a291c7f3cd59,Municipalité de Saint-François-de- l'île-d'Orléans,,CA,https://www.msfio.ca,info@msfio.ca,,7
+GE-AP-01625,corporation des partenaires pour les communications sante des laurentides et lanaudiere,b:bd7e967f5cf4970b,Corporation des partenaires pour les communications santé des Laurentides et Lanaudière,,CA,,,,7
+GE-AP-01626,omh de victoriaville warwick,b:e4597c46bde90055,OMH de Victoriaville-Warwick,OMH de Victoriaville . Warwick,CA,,,,7
+GE-AP-01627,municipalite sainte monique,b:12b076e9e89bb5ec,Municipalité  Sainte-Monique,,CA,,,,7
+GE-AP-01628,municipalite de colombier,b:0df960265ab4295f,Municipalité de Colombier.,,CA,https://www.colombierhcn.com,"Info@colombierhcn.com, info@colombierhcn.com",,7
+GE-AP-01629,municipalite de st jacques le majeur,b:1d3ab8570005b0ad,Municipalité de St-Jacques-le-Majeur,,CA,,,,7
+GE-AP-01630,municipalite de new carlisle,b:32051422708879d2,Municipalité de New Carlisle,,CA,https://www.new-carlisle.ca,info@new-carlisle.ca,,7
+GE-AP-01631,municipalite de saint bruno de guigues,b:70eeb8fff317d8ce,Municipalité de Saint-Bruno-de-Guigues.,,CA,https://www.guigues.ca,"dg@guigues.ca, dga@guigues.ca",,7
+GE-AP-01632,centre de recherche industrielle du quebec,b:5f54bb33cd1c4ba2,Centre de recherche industrielle du Québec,,CA,,,,7
+GE-AP-01633,municipalite de champlain,b:1208682ea34a6829,Municipalité de Champlain.,,CA,https://www.municipalite.champlain.qc.ca,info@municipalite.champlain.qc.ca,,7
+GE-AP-01634,village de warden,b:ae584daeb83d65f3,Village de Warden.,,CA,,info@village.warden.qc.ca,,7
+GE-AP-01635,investissement et developpement gatineau,b:3a84a683b452c1a1,Investissement et Développement Gatineau,,CA,,,,7
+GE-AP-01636,municipalite de lemieux,b:05b36e50ccfc35de,Municipalité de Lemieux,,CA,https://www.municipalitelemieux.ca,info@municipalitelemieux.ca,,7
+GE-AP-01637,fondation pour la biodiversite et la faune du quebec,b:6955f526ea5654e0,Fondation pour la biodiversité et la faune du Québec ,,CA,,,,7
+GE-AP-01638,centre de sante et de services sociaux de l hematite,b:580a4f9629e03f50,Centre de santé et de services sociaux de l'Hématite,,CA,,,,7
+GE-AP-01639,municipalite de saint luc de bellechasse,b:9442c5befc6fcde1,Municipalité de Saint-Luc-de-Bellechasse.,,CA,https://www.st-luc-bellechasse.qc.ca,dg@st-luc-bellechasse.qc.ca,,7
+GE-AP-01640,cre de l agglomeration de longueuil,b:c3f299dbe2fa5296,CRÉ de l'agglomération de Longueuil,,CA,,,,7
+GE-AP-01641,centre geriatrique maimonides,b:bd1ad536810dac10,Centre gériatrique Maimonides,,CA,,,,7
+GE-AP-01642,mrc de l ile d orleans,b:fc871a31318e90a1,MRC de L'Île-d'Orléans,MRC de l'île-d'Orléans.,CA,https://www.iledorleans.com,info@mrcio.qc.ca,,6
+GE-AP-01643,w8banaki,b:d749ba85fa1c6e19,W8banaki,,CA,,,,6
+GE-AP-01644,municipalite de la cote nord du golfe du saint laurent,b:68e0eaa1a0917e84,Municipalité de la Côte-Nord-du-Golfe-du-Saint-Laurent,,CA,,,,6
+GE-AP-01645,mrc de becancour,b:e5ba1430116e0483,MRC DE BÉCANCOUR.,,CA,https://www.mrcbecancour.qc.ca,"info@mrcbecancour.qc.ca, incendie@mrcbecancour.qc.ca",,6
+GE-AP-01646,municipalite de notre dame de la paix,b:398f88826d7a63f4,Municipalité de Notre-Dame-de-la-Paix.,,CA,https://www.notredamedelapaix.qc.ca,dg@ndlapaix.ca,,6
+GE-AP-01647,mrc de la cote de beaupre,b:b474c76f9adaa433,MRC de La Côte de Beaupré.,,CA,https://www.mrccotedebeaupre.com,info@mrccotedebeaupre.qc.ca,,6
+GE-AP-01648,mrc de la cote de gaspe,b:d94d57112672ef02,MRC de La Côte-de-Gaspé.,MRC de la Côte-de-Gaspé.,CA,https://www.cotedegaspe.ca,,,6
+GE-AP-01649,municipalite de dupuy,b:53495a45890990c4,Municipalité de Dupuy,,CA,http://dupuy.ao.ca/fr,dg@dupuy-ao.ca,,6
+GE-AP-01650,administration regionale baie james,b:028384e39025eafb,Administration régionale Baie-James,,CA,,,,6
+GE-AP-01651,municipalite saint mathieu de rioux,b:5c8339ac30652fea,Municipalité Saint-Mathieu-de-Rioux.,,CA,https://www.st-mathieu-de-rioux.ca,dg@mstmr.ca,,6
+GE-AP-01652,municipalite de gallichan,b:bc379145f50ab312,Municipalité de Gallichan,,CA,https://gallichan.ao.ca,directiongenerale@municipalitegallichan.ca,,6
+GE-AP-01653,municipalite de val joli,b:984e550e8d351e70,Municipalité de Val-Joli .,,CA,https://www.val-joli.ca,"direction@val-joli.ca, secretariat@val-joli.ca",,6
+GE-AP-01654,municipalite de matapedia,b:e034741d225dc0f7,Municipalité de Matapedia,,CA,https://www.matapedialesplateaux.com,info@matapedia.ca,,6
+GE-AP-01655,regie intermunicipale des trois lacs,b:4bb9115f0f1f0c87,Régie Intermunicipale des Trois-Lacs,,CA,,,,6
+GE-AP-01656,municipalite village saint pierre,b:6a95ed18f5301620,Municipalité Village Saint-Pierre,,CA,,,,6
+GE-AP-01657,municipalite de la visitation de l ile dupas,b:49e51c6bafa516a7,Municipalité de la Visitation-de-l'île-dupas,,CA,https://www.ile-dupas.ca,admin@ile-dupas.ca,,6
+GE-AP-01658,municipalite de saint andre de restigouche,b:81f274bdf1904a9f,Municipalité de Saint-André-de-Restigouche,,CA,https://www.matapedialesplateaux.com,dg@saintandrederestigouche.com,,6
+GE-AP-01659,municipalite de saint pacome,b:a89a55c00f0853f1,Municipalité de Saint-Pacôme.,,CA,https://www.st-pacome.ca,"dg@st-pacome.ca, info@st-pacome.ca",,6
+GE-AP-01660,mrc de temiscouata,b:4f653b271d4369ef,MRC de Témiscouata.,,CA,https://www.mrctemiscouata.qc.ca,admin@mrctemis.ca,,6
+GE-AP-01661,centre de villegiature dam en terre,b:84629f9e46bb9038,Centre de Villégiature Dam-en-Terre.,,CA,,,,6
+GE-AP-01662,municipalite de saint laurent de l ile d orleans,b:d36cc735cf281e8c,Municipalité de Saint-Laurent-de-l'Ile-d'Orléans,,CA,https://www.saintlaurentio.com,"info@saintlaurentio.com, dg@saintlaurentio.com",,6
+GE-AP-01663,ville de saint pie,b:1e8ea3e142dec26e,Ville de Saint-Pie.,Ville de Saint-Pie,CA,https://www.villest-pie.ca,"st-pie@villest-pie.ca, dg@villest-pie.ca",,6
+GE-AP-01664,municipalite de roquemaure,b:3096019cd2600c66,Municipalité de Roquemaure.,,CA,https://roquemaure.ao.ca/fr,dg@munroquemaure.ca,,6
+GE-AP-01665,municipalite de sainte irene,b:7c543a256a6c72f5,Municipalité de Sainte-Irène,,CA,https://www.sainteirene.com,steirene@mrcmatapedia.quebec,,6
+GE-AP-01666,municipalite de sheenboro,b:3d2f1d14e986313d,Municipalité de Sheenboro,,CA,https://www.pontiacouest.ca,Dg.sheenboro@mrcpontiac.qc.ca,,6
+GE-AP-01667,municipalite de l ile d anticosti,b:1113078c321b48f0,Municipalité de L'Île-d'Anticosti,,CA,https://www.municipalite-anticosti.org,administration@ile-anticosti.org,,6
+GE-AP-01668,municipalite de deleage,b:2b651f457991d298,Municipalité de Déléage,,CA,https://www.deleage.ca,reception@deleage.ca,,6
+GE-AP-01669,municipalite d henryville,b:7a421ad07121d0d9,Municipalité d' Henryville,,CA,https://www.henryville.ca,"dg@henryville.ca, reception@henryville.ca",,6
+GE-AP-01670,mrc papineau,b:b7b23de2fda67fe3,MRC Papineau.,,CA,https://www.mrcpapineau.com,"info@mrc-papineau.com, urbanisme@stemiledesuffolk.quebec",,6
+GE-AP-01671,municipalite de bearn,b:9e8fe010d0535710,Municipalité  de Béarn,,CA,https://www.bearn.ca,"dg@bearn.ca, adm@bearn.ca",,6
+GE-AP-01672,municipalite de sacre coeur,b:5309103c3ab6dac8,Municipalité  de Sacré-Coeur,,CA,https://www.sacre-coeur.ca,info@sacre-coeur.ca,,6
+GE-AP-01673,mrc du granit,b:8f21875fe30902fd,MRC du Granit.,,CA,https://www.mrcgranit.qc.ca,"secretariat@mrcgranit.qc.ca, info@mrcgranit.qc.ca",,6
+GE-AP-01674,municipalite de l ascension de notre seigneur,b:b7e8a98608a82b46,Municipalité de L'Ascension de Notre-Seigneur.,,CA,https://www.ville.ascension.qc.ca,info@ville.ascension.qc.ca,,6
+GE-AP-01675,ville schefferville,b:c3009f34f7bb097f,Ville Schefferville,,CA,https://www.ville-schefferville.ca,comptabilite@schefferville.ca,,6
+GE-AP-01676,municipalite de saint francois de la riviere du sud,b:ea342f40fbe7a139,Municipalité de Saint-François-de-la-Rivière-du-Sud,,CA,https://www.stfrancois.ca,info@stfrancois.ca,,6
+GE-AP-01677,conseil de la nation atikamekw,b:efd4590f68a67eda,Conseil de La Nation Atikamekw.,,CA,,,,6
+GE-AP-01678,municipalite de mayo,b:5d1ddbae76622fbe,Municipalité de Mayo,,CA,https://www.mayo.ca,"dg@mayo.ca, mun@mayo.ca",,6
+GE-AP-01679,promotion saguenay inc,b:da929f59e3d1a0be,Promotion Saguenay inc.,,CA,,,,6
+GE-AP-01680,municipalite de baie des sables,b:366a76b740ec9535,Municipalité de Baie-des-Sables,,CA,https://www.municipalite.baiedessables.ca,,,6
+GE-AP-01681,complexes sportifs terrebonne inc,b:b9e0a0e5aed24b2f,Complexes Sportifs Terrebonne inc.,,CA,,,,6
+GE-AP-01682,municipalite de baie trinite,b:3f104239d596ea09,Municipalité de Baie-Trinité.,,CA,https://baie-trinite.quebec,directiongenerale@baie-trinite.quebec,,6
+GE-AP-01683,municipalite de sainte famille de l ile d orleans,b:389099cade7e2ba1,Municipalité  de Sainte-Famille de l'Ile D'orléans,,CA,https://www.ste-famille.iledorleans.com,info@munstefamille.org,,6
+GE-AP-01684,regie intermunicipale d assainissement des eaux usees de rougement st cesaire,b:dfed422186d9967c,Régie Intermunicipale d'assainissement des eaux usées de Rougement/St-Césaire,,CA,,,,6
+GE-AP-01685,municipalite de saint alexis de la matepedia,b:128b93b26e53d291,Municipalité de Saint-Alexis-de-la-Matépédia,,CA,,,,6
+GE-AP-01686,municipalite de herouxville,b:db60039cc1282c9b,Municipalité de Hérouxville,,CA,https://www.municipalite.herouxville.qc.ca,herouxville@regionmekinac.com,,6
+GE-AP-01687,municipalite de canton natashquan,b:1fd690075aaea353,Municipalité de Canton Natashquan,,CA,,,,6
+GE-AP-01688,commission de protection du territoire agricole du quebec,b:77a5245470375208,Commission de protection du territoire agricole du Québec,,CA,,,,6
+GE-AP-01689,table des responsables d etudes des adultes du quebec,b:1b387981b72647f0,Table des responsables d'études des adultes du Québec,,CA,,,,6
+GE-AP-01690,municipalite de saint julien,b:e3e8133a022435f6,Municipalité de Saint-Julien.,,CA,https://www.st-julien.ca,municipalite@st-julien.ca,,6
+GE-AP-01691,municipalite du village de sainte madeleine,b:37d43488d3a334e6,Municipalité du village de Sainte-Madeleine,,CA,https://www.stemadeleine.quebec,dg@stemadeleine.quebec,,6
+GE-AP-01692,commissaire a la lutte contre la corruption,b:097e4f73c3edf433,Commissaire à la lutte contre la corruption,,CA,,,,6
+GE-AP-01693,municipalite du canton de westbury,b:05b5b1ae30900860,Municipalité du Canton de Westbury,,CA,https://www.westbury.ca,direction@westbury.ca,,6
+GE-AP-01694,saint eugene de ladriere,b:aa81d1fe17ba5f23,Saint-Eugène-de-Ladrière,,CA,,,,6
+GE-AP-01695,commission quebecoise des liberations conditionnelles,b:ef5fbdfbc861a7c3,Commission Québécoise des Libérations Conditionnelles,,CA,,,,6
+GE-AP-01696,municipalite de hampden,b:6c2cf4de91e556ee,Municipalité de Hampden,,CA,https://www.cantonhampden.ca,"dg@cantonhampden.ca, dga@cantonhampden.ca",,6
+GE-AP-01697,conference regionale des elus de l estrie,b:6880e7d7b0f6c9f0,Conférence Régionale des Élus de l'Éstrie,,CA,,,,6
+GE-AP-01698,centre hospitalier mont sinai,b:a5a21031a1db020d,Centre Hospitalier Mont Sinaï,,CA,,,,6
+GE-AP-01699,institut canadien polonais du bien etre inc,b:13c419be2bef339a,Institut Canadien-Polonais du Bien-être inc.,,CA,,,,6
+GE-AP-01700,centre normand,b:2db414e2ec9a8695,Centre Normand,,CA,,,,6

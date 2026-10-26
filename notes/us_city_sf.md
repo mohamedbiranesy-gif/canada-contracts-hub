@@ -1,0 +1,5 @@
+# us_city_sf — San Francisco "Supplier Contracts" (data.sf.gov cqi5-hm2d): checked, rejected
+
+Downloaded 2026-10-25 17:36 UTC: `supplier_contracts_cqi5-hm2d.csv` (17.3 MB) → `downloads/us_city_sf/`. Columns: contract_no, contract_title, term_start_date, term_end_date, contract_type, purchasing_authority, sole_source_flg, department, prime_contractor, project_team_supplier, LBE status, non_profit, scope_of_work, agreed/consumed/pmt/remaining amounts — **no supplier address/country**, and the SF catalog has no supplier-address dataset. Rejected.
+
+Resume check 2026-10-25 ≈19:49 UTC: header of `downloads/us_city_sf/supplier_contracts_cqi5-hm2d.csv` re-verified (Contract Number, Title, Term Start/End Date, Contract Type, Purchasing Authority, Sole Source, Department, Supplier Name (Prime Contractor), Supplier Name, LBE status, Non-Profit, Supplier Type, Scope of Work, awarded/outstanding/paid/remaining amounts, data_as_of) — no supplier address/state/country. Rejection is final; no output file, 0 records.

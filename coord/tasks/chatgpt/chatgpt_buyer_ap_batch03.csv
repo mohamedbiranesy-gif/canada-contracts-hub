@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00201,toronto and region conservation authority,b:2412c515dc367642,Toronto and Region Conservation Authority,,CA,https://trca.ca,"info@trca.ca, receivables@trca.ca",procurement@trca.ca,221
+CH-AP-00202,toronto and region conservation authority,b:eee29ab6e096d29e,Toronto and Region Conservation Authority (TRCA),,CA,https://trca.ca,"info@trca.ca, receivables@trca.ca",procurement@trca.ca,5
+CH-AP-00203,ministry of children and family development,b:2e903ce96f917ee4,Ministry of Children and Family Development,,CA,https://www2.gov.bc.ca,,,225
+CH-AP-00204,municipality of the county of cumberland,b:6852985c2eea2d44,Municipality of the County of Cumberland,Municipality Of The County Of Cumberland,CA,https://www.cumberlandcounty.ns.ca,,,224
+CH-AP-00205,city of north bay,b:e3e8c139e605f828,City of North Bay,,CA,https://northbay.ca,,purchasing@northbay.ca,222
+CH-AP-00206,saskatchewan government insurance,b:eb7db7bf06497f48,Saskatchewan Government Insurance,,CA,https://www.sgi.sk.ca,,purchasing@sgi.sk.ca,221
+CH-AP-00207,city of st thomas,b:1db9d4f8bda4d103,City of St. Thomas,,CA,https://www.stthomas.ca,,,220
+CH-AP-00208,city of sarnia,b:e3b2fd4483e1fe57,City of Sarnia,,CA,https://www.sarnia.ca,communications@sarnia.ca,purchasing@sarnia.ca,216
+CH-AP-00209,county of brant,b:8786a988adde44b6,County of Brant,,CA,http://www.brant.ca,info@brant.ca,,214
+CH-AP-00210,municipality of east hants,b:3f801d25b207434a,Municipality of East Hants,,CA,https://www.easthants.ca,,,213
+CH-AP-00211,chignecto central reg school board,b:5bb7a7830796e220,Chignecto-Central Reg. School Board,,CA,https://www.ccrce.ca,,,213
+CH-AP-00212,centre wellington,b:fa935e362223789f,Centre Wellington,,CA,http://www.centrewellington.ca,,,210
+CH-AP-00213,town of orangeville,b:069c7e7d760e4322,Town of Orangeville,,CA,https://www.orangeville.ca,,,209
+CH-AP-00214,ehealth saskatchewan,b:9b3accedef6912c1,eHealth Saskatchewan,,CA,https://www.ehealthsask.ca,"privacyandaccess@ehealthsask.ca, ehs.communications@ehealthsask.ca",ehsprocurement@ehealthsask.ca,209
+CH-AP-00215,university of regina,b:c127a69d968d1bff,University of Regina,,CA,https://www.uregina.ca,"protective.services@uregina.ca, enrolment.services@uregina.ca",purchase@uregina.ca,209
+CH-AP-00216,municipality of north perth,b:9d38a0cd57b385e2,Municipality of North Perth,,CA,http://www.northperth.ca,info@northperth.ca,,204
+CH-AP-00217,county of middlesex,b:b6c4f5a5345292e5,County of Middlesex,,CA,,,,203
+CH-AP-00218,town of okotoks,b:69e9dd5a04b92ac1,Town of Okotoks,,CA,http://www.okotoks.ca,,,200
+CH-AP-00219,township of springwater,b:9471b40a874043d6,Township of Springwater,,CA,http://www.springwater.ca,,,200
+CH-AP-00220,ministry of health,b:f103eb68740ba389,Ministry of Health,,CA,https://www2.gov.bc.ca,,,200
+CH-AP-00221,city of pickering,b:068834c9973233b3,City of Pickering,,CA,http://www.pickering.ca,clerks@pickering.ca,,197
+CH-AP-00222,all government ministries and agencies,b:0763211dc583ceb1,All Government Ministries and Agencies,,CA,https://www.saskatchewan.ca,,,197
+CH-AP-00223,city of quinte west,b:57813809cea26488,City of Quinte West,,CA,https://quintewest.ca,,,196
+CH-AP-00224,ministry of justice,b:7dad342dec32f6de,Ministry of Justice,,CA,https://www2.gov.bc.ca,,,187
+CH-AP-00225,ministry of justice,b:69bd8968c682c9c2,Ministry of Justice (Attorney General),,CA,https://www2.gov.bc.ca,,,8
+CH-AP-00226,durham catholic district school board,b:64dd7a712622a1ac,Durham Catholic District School Board,,CA,http://www.dcdsb.ca,"supportoffice@dcdsb.ca, admissions@dcdsb.ca",,189
+CH-AP-00227,municipality of kings county,b:08a6a28ee642c492,Municipality of Kings County,,CA,https://www.countyofkings.ca,,procurement@countyofkings.ca,185
+CH-AP-00228,york regional police,b:1f8a78e0c47ed339,York Regional Police,,CA,https://www.yrp.ca,,,183
+CH-AP-00229,nova scotia community college,b:1cbf67aa00dd622f,Nova Scotia Community College (NSCC),,CA,https://www.nscc.ca,,,183
+CH-AP-00230,county of dufferin,b:369f81bcbce7d745,County of Dufferin,,CA,http://www.dufferincounty.ca,"treasury@dufferincounty.ca, info@dufferincounty.ca",purchasing@dufferincounty.ca,182
+CH-AP-00231,county of elgin,b:25dc54b3bbbb1dcb,County of Elgin,,CA,http://www.elgin-county.on.ca,,purchasing@elgin.ca,182
+CH-AP-00232,manitoba water services board,b:34d574ac09615e62,Manitoba Water Services Board,,CA,,,,181
+CH-AP-00233,london hydro,b:bd22b662cb9ca6ef,London Hydro,,CA,https://www.londonhydro.com,billingsupport@londonhydro.com,,179
+CH-AP-00234,manitoba public insurance,b:f42fd003b2c5a19b,Manitoba Public Insurance,,CA,https://www.mpi.mb.ca,,,179
+CH-AP-00235,lakehead district school board,b:702395beeb974caf,Lakehead District School Board,,CA,http://www.lakeheadschools.ca,"info@lakeheadschools.ca, supportoffice@lakeheadschools.ca",approgram@lakeheadschools.ca,178
+CH-AP-00236,town of wolfville,b:014b5aa5afdd4fce,Town of Wolfville,,CA,https://wolfville.ca,"media@wolfville.ca, planninginfo@wolfville.ca",,174
+CH-AP-00237,district of squamish,b:83cd9c6db32d9cfe,District of Squamish,,CA,https://squamish.ca,,,173
+CH-AP-00238,municipality of the county of inverness,b:9e8f230584138e75,Municipality of the County of Inverness,,CA,https://invernesscounty.ca,"info@invernesscounty.ca, taxes@invernesscounty.ca",,172
+CH-AP-00239,county of wellington,b:90bd64af14c7a516,County of Wellington,,CA,https://www.wellington.ca,landdivisioninfo@wellington.ca,,171
+CH-AP-00240,peterborough victoria northumberland and clarington catholic district school board,b:73282a19a3ad841f,Peterborough Victoria Northumberland and Clarington Catholic District School Board,,CA,http://www.pvnccdsb.on.ca,,,171
+CH-AP-00241,city of west kelowna,b:17f83d5438983f03,City of West Kelowna,,CA,https://westkelownacity.ca,"info@westkelownacity.ca, ub.finance@westkelownacity.ca",purchasing@westkelownacity.ca,170
+CH-AP-00242,upper grand district school board,b:4691d490391e5603,Upper Grand District School Board,,CA,https://www.ugdsb.ca,,,168
+CH-AP-00243,municipality of the county of colchester,b:62592993150f7d0f,Municipality of the County of Colchester,,CA,https://www.colchester.ca,,,168
+CH-AP-00244,rural municipalities of alberta,b:d825d9f9c93b7953,Rural Municipalities of Alberta (RMA),,CA,https://rmalberta.com,,,167
+CH-AP-00245,peterborough county,b:e17a98a0abbee478,Peterborough County,,CA,,,,167
+CH-AP-00246,town of antigonish,b:dbd17e66bc3902f3,Town of Antigonish,,CA,http://www.townofantigonish.ca,,,167
+CH-AP-00247,the corporation of town of fort erie,b:48c49878d26c1dc2,The Corporation of Town of Fort Erie,,CA,https://www.forterie.ca,,,166
+CH-AP-00248,city of abbotsford,b:219b87fbf1be37c0,City of Abbotsford,,CA,https://www.abbotsford.ca,"eng-info@abbotsford.ca, wateruse@abbotsford.ca",purchasing@abbotsford.ca,165
+CH-AP-00249,township of leeds and thousand islands,b:16087206cd3c3220,Township of Leeds and Thousand Islands,,CA,,,,165
+CH-AP-00250,vancouver island health authority,b:a0ddebdc6ff16eb7,Vancouver Island Health Authority,,CA,https://www.islandhealth.ca,info@islandhealth.ca,,164
+CH-AP-00251,edmonton catholic separate school division,b:15f899434ab27c3a,Edmonton Catholic Separate School Division,,CA,https://www.ecsd.net,info@ecsd.net,,162
+CH-AP-00252,regional district of central okanagan,b:2f107510d67ea00e,Regional District of Central Okanagan,,CA,https://www.rdco.com,"info@rdco.com, foi.privacy@rdco.com",purchasing@rdco.com,162
+CH-AP-00253,city of woodstock,b:d0d5822109f788e3,City of Woodstock,,CA,http://www.cityofwoodstock.ca,,,162
+CH-AP-00254,saskatchewan public safety agency,b:09f0602e8d0b472c,Saskatchewan Public Safety Agency,,CA,,,spsaprocurement@gov.sk.ca,161
+CH-AP-00255,town of lunenburg,b:c58a5cb0fdff8b86,Town of Lunenburg,,CA,https://townoflunenburg.ca,,,160
+CH-AP-00256,university of toronto mississauga,b:f01d7426b7fc7c59,University of Toronto Mississauga,,CA,https://www.utoronto.ca,,,158
+CH-AP-00257,workers compensation board of n s,b:f4bf781cb20c7551,Workers Compensation Board of N.S.,,CA,https://www.wcb.ns.ca,info@wcb.ns.ca,,158
+CH-AP-00258,city of sault ste marie,b:6c37377c523e4a35,City of Sault Ste. Marie,,CA,https://saultstemarie.ca,,,157
+CH-AP-00259,city of prince george,b:6f2919b760214da9,City of Prince George,,CA,https://princegeorge.ca,,,156
+CH-AP-00260,createto,b:0fe819b9deec5337,"CreateTO (Build Toronto, TPLC)",,CA,https://createto.ca,,procurement@createto.ca,156
+CH-AP-00261,town of new glasgow,b:ed61ef8f0d4b0665,Town of New Glasgow,,CA,http://newglasgow.ca,,,156
+CH-AP-00262,town of kentville,b:764ec1f810f3015c,Town of Kentville,,CA,http://www.town.kentville.ns.ca,,,155
+CH-AP-00263,town of pelham,b:f48cc11e8ac31a4a,Town of Pelham,,CA,http://www.pelham.ca,"water@pelham.ca, hr@pelham.ca",,154
+CH-AP-00264,city of moose jaw,b:3f4422845c7dafa2,City of Moose Jaw,,CA,https://moosejaw.ca,,procurement@moosejaw.ca,154
+CH-AP-00265,municipality of the county of richmond,b:02dcbf655095fd7a,Municipality of the County of Richmond,,CA,,,,152
+CH-AP-00266,ministry of agriculture,b:267119bb20d66748,Ministry of Agriculture,,CA,https://www2.gov.bc.ca,,,151
+CH-AP-00267,town of yarmouth,b:f8475b313b6cfe5d,Town of Yarmouth,,CA,https://www.townofyarmouth.ca,admin@townofyarmouth.ca,,151
+CH-AP-00268,niagara catholic district school board,b:11699c1522158020,Niagara Catholic District School Board,,CA,http://www.niagaracatholic.ca,,,150
+CH-AP-00269,finance,b:b1f56dc1c4b46ff3,Finance,,CA,,,btsprocurement@gov.sk.ca,148
+CH-AP-00270,town of east gwillimbury,b:e59ee871d8343aa9,Town of East Gwillimbury,,CA,http://www.eastgwillimbury.ca,,,148
+CH-AP-00271,george mason university,b:65fd7de3eda8df13,George Mason University,,US,https://www.gmu.edu,,,147
+CH-AP-00272,information technology office,b:b83889d7115383d3,Information Technology Office,,CA,https://www.saskatchewan.ca,,"itocontracts@gov.sk.ca, itprocurement@gov.sk.ca",146
+CH-AP-00273,saint marys university,b:b550404e02b509fa,Saint Marys University,,CA,https://www.smu.ca,"info@smu.ca, service.centre@smu.ca",,146
+CH-AP-00274,the corporation of the county of prince edward,b:2ba180c5fa643101,The Corporation of the County of Prince Edward,,CA,http://www.pecounty.on.ca,"info@pecounty.on.ca, waterbilling@pecounty.on.ca",purchasing@pecounty.on.ca,145
+CH-AP-00275,annapolis valley regional school board,b:9304eb85d34dbdbe,Annapolis Valley Regional School Board,,CA,,,,145
+CH-AP-00276,comox valley regional district,b:e61ed01cd7961009,Comox Valley Regional District,,CA,https://www.comoxvalleyrd.ca,administration@comoxvalleyrd.ca,,144
+CH-AP-00277,municipality of the district of chester,b:435e5b7aaa1f4ca5,Municipality of the District of Chester,,CA,http://www.chester.ca,"communications@chester.ca, finance@chester.ca",procurement@chester.ca,144
+CH-AP-00278,mohawk medbuy corporation,b:fb8e3b90beea9587,Mohawk Medbuy Corporation - CAPsource,,CA,,,,142
+CH-AP-00279,mohawk medbuy corporation,b:13ffe7e4ba118237,Mohawk Medbuy Corporation - MEALsource,,CA,,,,1
+CH-AP-00280,limestone district school board,b:62c43330103f6a0b,Limestone District School Board,,CA,http://www.limestone.on.ca,"communications@limestone.on.ca, supportoffice@limestone.on.ca",purchasing@limestone.on.ca,142
+CH-AP-00281,internal services department,b:b5e7bcde24683495,Internal Services Department,,CA,https://novascotia.ca,,,142
+CH-AP-00282,county of hastings,b:cbbd69948ace3efc,County of Hastings,,CA,http://www.hastingscounty.com,,,141
+CH-AP-00283,saskatchewan research council,b:0b9506b694da3908,Saskatchewan Research Council,,CA,,,,141
+CH-AP-00284,city of mount pearl,b:da64e9bbd5ccf16b,City of Mount Pearl,,CA,http://www.mountpearl.ca,info@mountpearl.ca,,140
+CH-AP-00285,i w k health centre,b:4b9bf7c9970cc9a6,I.W.K. Health Centre,,CA,,,,140
+CH-AP-00286,municipality of the county of annapolis,b:7357557d2dd32bd8,Municipality of The County of Annapolis,Municipality of the County of Annapolis,CA,,,,139
+CH-AP-00287,transportation and active transit,b:2f22ed696de61e2a,Transportation and Active Transit,,CA,,,,139
+CH-AP-00288,town of huntsville,b:0ce7797511fd4ea9,Town of Huntsville,,CA,https://www.huntsville.ca,"help@huntsville.ca, clerk@huntsville.ca",,138
+CH-AP-00289,public procurement agency,b:4f43f0064c2cf557,Public Procurement Agency,,CA,,,,137
+CH-AP-00290,southern interior regional office,b:5629b46e436f108c,Southern Interior Regional Office,,CA,https://www2.gov.bc.ca,,,133
+CH-AP-00291,st francis xavier university,b:d4ed7abf2f2a148c,St. Francis Xavier University,,CA,,,,133
+CH-AP-00292,canadian commercial corporation,b:e8d6070f4a92fd96,CANADIAN COMMERCIAL CORPORATION,CANADIAN COMMERCIAL CORP,CA,https://www.ccc.ca/en,,,132
+CH-AP-00293,canadian commercial corporation,b:b5620818fd6762c9,Canadian Commercial Corporation (CCC),,CA,https://www.ccc.ca/en,,,1
+CH-AP-00294,ministry of social development and poverty reduction,b:cb870ad8c9dd2dca,Ministry of Social Development and Poverty Reduction,,CA,https://www2.gov.bc.ca,,,131
+CH-AP-00295,town of bracebridge,b:6db917d61c9867b9,Town of Bracebridge,,CA,,,,131
+CH-AP-00296,colliers project leaders,b:5f5fc291ebb4ca83,Colliers Project Leaders,Colliers Project Leaders Inc.,CA,,,,131
+CH-AP-00297,tourism parks culture and sport,b:5cc661827b3f7c6c,"Tourism, Parks, Culture and Sport",,CA,https://www.saskatchewan.ca,,,131
+CH-AP-00298,town of bradford west gwillimbury,b:0d4de9030a77c3c2,Town of Bradford West Gwillimbury,,CA,http://www.townofbwg.com,info@townofbwg.com,purchasing@townofbwg.com,130
+CH-AP-00299,city of clarence rockland,b:926e1057fe1bd8f9,City of Clarence-Rockland,,CA,http://www.clarence-rockland.com,"info@clarence-rockland.com, administration@clarence-rockland.com",,130
+CH-AP-00300,municipality of the county of kings,b:f8c5b4ebc9a8a88b,Municipality of the County of Kings,,CA,https://www.countyofkings.ca,,procurement@countyofkings.ca,130

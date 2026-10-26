@@ -1,0 +1,197 @@
+CAE
+MDA Space
+Calian
+AtkinsRéalis
+Aecon
+Bombardier
+CGI
+Telesat
+Ballard
+Kinaxis
+Coveo
+Descartes
+OpenText
+Quarterhill
+Baylin
+D2L
+Mitel
+Celestica
+Magna
+Linamar
+Stantec
+WSP
+Hatch
+Thales Canada
+L3Harris
+General Dynamics Land Systems
+Lockheed Martin Canada
+Irving Shipbuilding
+Seaspan
+Davie
+Nova Bus
+New Flyer
+NFI Group
+Lion Electric
+Westport
+Xanadu
+Hydro One
+Enbridge
+TC Energy
+CPKC
+CN
+Air Canada
+WestJet
+Exchange Income
+Cargojet
+Andritz
+Siemens Canada
+BWXT
+Cameco
+Bruce Power
+Ontario Power Generation
+Candu Energy
+Kongsberg
+Rheinmetall Canada
+Babcock Canada
+KWESST
+Draganfly
+Volatus
+Drone Delivery Canada
+Kraken Robotics
+GreenPower
+Vicinity Motor
+Exro
+Electrovaya
+Li-Cycle
+Nano One
+Hut 8
+Bitfarms
+Converge
+Softchoice
+Sangoma
+Enghouse
+BlackBerry
+Magnet Forensics
+Docebo
+Lightspeed
+Nuvei
+Shopify
+Dye & Durham
+Tecsys
+Alithya
+Evertz
+Sierra Wireless
+Firan
+Hammond Power
+Velan
+Stella-Jones
+Canam
+TC Transcontinental
+Cogeco
+Rogers
+Bell Canada
+Telus
+Xplore
+C-COM
+NorthStar Earth
+GHGSat
+Galaxia
+Pratt & Whitney Canada
+Airbus Canada
+De Havilland
+KF Aerospace
+Cascade Aerospace
+IMP Group
+StandardAero
+Avcorp
+Magellan Aerospace
+Top Aces
+PAL Aerospace
+CarteNav
+OSI Maritime
+Raytheon Canada
+Collins Aerospace
+Saab Canada
+Hanwha
+Thales
+Rheinmetall
+Honeywell
+Boeing Canada
+Pinnacle
+Dexterra
+GDI
+Colliers
+FirstService
+Bird Construction
+PCL
+EllisDon
+Pomerleau
+Graham
+Ledcor
+Kiewit Canada
+Dragados Canada
+Chandos
+Maple Reinders
+North American Construction
+Mattr
+Shawcor
+Russel Metals
+Hammond
+ATS Corporation
+Tornado
+Burloak
+Hydrogenics
+Cummins
+Loop Energy
+dynaCERT
+Greenlane
+Anaergia
+Xebec
+Enerkem
+Tidewater
+AltaGas
+Capital Power
+TransAlta
+Northland Power
+Innergex
+Boralex
+Brookfield Renewable
+Algonquin
+Emera
+Fortis
+Hydro-Québec
+BC Hydro
+SaskPower
+Manitoba Hydro
+Nova Scotia Power
+NB Power
+Newfoundland and Labrador Hydro
+Metrolinx
+TTC
+TransLink
+STM
+Société de transport de Montréal
+VIA Rail
+GO Transit
+Infrastructure Ontario
+Canadian Commercial Corporation
+Export Development Canada
+Shared Services Canada
+Public Services and Procurement Canada
+Department of National Defence
+Canadian Coast Guard
+Canadian Space Agency
+Natural Resources Canada
+Transport Canada
+Correctional Service Canada
+Royal Canadian Mounted Police
+Canada Border Services Agency
+Canada Post
+NAV CANADA
+Canadian Nuclear Laboratories
+Atomic Energy of Canada
+Defence Construction Canada
+Canadian Red Cross
+Hospital
+Health
+University

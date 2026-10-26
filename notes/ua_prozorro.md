@@ -1,0 +1,3 @@
+# ua_prozorro — Ukraine Prozorro — NOT FEASIBLE in time box
+
+Checked 2026-10-25: OCP Data Registry publication 154 (Prozorro, Feb 2015–Sep 2025) lists **no downloadable files** (`downloads/ocp_registry/pub_154.html`). The official API `https://public.api.openprocurement.org/api/2.5/contracts` (HTTP 200) is a change feed that returns only `id`/`dateModified` (`opt_fields` limited to `status`); supplier address (`suppliers[].address.countryName`) is only in each contract/tender document, i.e. millions of per-object requests — impossible at ≤3 req/s in the time budget. prozorro.gov.ua search API offers no supplier-country filter. No records.

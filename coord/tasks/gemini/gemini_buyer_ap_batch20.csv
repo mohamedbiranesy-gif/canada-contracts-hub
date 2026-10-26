@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-01901,municipalite de saint louis,b:0c7ec7e9e55c4032,Municipalité de Saint-Louis.,,CA,https://www.saint-louis.ca,dg@saint-louis.ca,,2
+GE-AP-01902,cld beauharnois salaberry,b:5205aaccc72a1445,CLD Beauharnois-Salaberry,,CA,,,,2
+GE-AP-01903,maison de la culture de la vallee de la gatineau,b:b263ce46b00a36a1,Maison de la culture de la Vallée-de-la-Gatineau.,,CA,,,,2
+GE-AP-01904,naskapi nation of kawawachikamach,b:0f77a79bfcdb46c6,Naskapi Nation of Kawawachikamach,,CA,,,,2
+GE-AP-01905,municipalite de saint samuel,b:bd58c2d8aa93ab5d,Municipalité de Saint-Samuel.,,CA,https://www.saint-samuel.ca,"dg@saint-samuel.ca, permis@saint-samuel.ca",,2
+GE-AP-01906,municipalite de courcelles,b:a761fffb247c1385,Municipalité de Courcelles.,,CA,,,,2
+GE-AP-01907,municipalite de normetal,b:d48a8ced61c7753e,Municipalité de Normétal,,CA,https://normetal.ao.ca/fr,direction@municipalitenormetal.ca,,2
+GE-AP-01908,direction de lapprovisionnement et de la qualificaiton des produits,b:78c6f34b28b17d1c,Direction de l’approvisionnement et de la qualificaiton des produits,,CA,,,,2
+GE-AP-01909,municipalite saint evariste de forsyth,b:2e984d9b6752ddc8,Municipalité Saint-Evariste-de-Forsyth,,CA,,,,2
+GE-AP-01910,office municipal d habitation de sept iles,b:c9e6d7ed220cc799,Office municipal d'habitation de Sept-Îles.,,CA,,,,2
+GE-AP-01911,municipalite de portage du fort,b:ca1f7b8599a1c148,Municipalité de Portage-du-Fort,,CA,https://www.portage-du-fort.com,portage-du-fort@mrcpontiac.qc.ca,,2
+GE-AP-01912,municipalite ste gertrude manneville,b:b472da0198c1f992,Municipalité Ste-Gertrude-Manneville,,CA,https://municipalites-du-quebec.ca/ste-gertrude-manneville,direction@munstegertman.com,,2
+GE-AP-01913,office municipal d habitation des sources,b:9f5b8a880e32776f,Office municipal d'habitation Des Sources,,CA,,,,2
+GE-AP-01914,municipalite de saint faustin lac carre,b:4a1eae6f100a1f14,Municipalité de Saint-Faustin-Lac-Carré,,CA,,,,2
+GE-AP-01915,ville de barkmere,b:5ae2bdc7bbe34f08,Ville de Barkmere,,CA,https://www.barkmere.ca,"dg@barkmere.ca, inspecteur@barkmere.ca",,2
+GE-AP-01916,office municipal d habitation de la riviere etchemin,b:1ed58d5f978dbf70,Office municipal d'habitation de la rivière Etchemin,,CA,,,,2
+GE-AP-01917,transport collectif becancour nicolet yamaska,b:9f8b56d9b97b82b8,Transport collectif Bécancour Nicolet-Yamaska,Transport Collectif Bécancour Nicolet-Yamaska,CA,,,,2
+GE-AP-01918,regie intermunicipale d incendie de saint constant et sainte catherine,b:bc9e648382f44e14,Régie intermunicipale d'incendie de Saint-Constant et Sainte-Catherine,,CA,,,,2
+GE-AP-01919,synchronex,b:efa57ebbe5086581,Synchronex.,,CA,,,,2
+GE-AP-01920,office municipal d habitation,b:60f4009d53e901e5,Office municipal d'habitation (OMH) de Saint-Siméon.,,CA,,,,2
+GE-AP-01921,ville de lac saint joseph,b:ad9b4ed53f3a6f86,Ville de Lac Saint-Joseph,,CA,https://www.villelacstjoseph.com,"info@villelacstjoseph.com, reception@villelacstjoseph.com",,2
+GE-AP-01922,service de transport adapte et collectif regional de pierre de saurel,b:79092911c653a4c1,Service de transport adapté et collectif régional de Pierre-De-Saurel,,CA,,,,2
+GE-AP-01923,regie intermunicipale de prevention et de protection incendie memphremagog est,b:1899da11a2184ea9,Régie intermunicipale de prévention et de protection incendie Memphrémagog Est,,CA,,,,2
+GE-AP-01924,regie intermunicipale de protection contre l incendie de valcourt,b:c1804b2f5359fc72,Régie intermunicipale de protection contre l'incendie de Valcourt,,CA,,,,2
+GE-AP-01925,municipalite de sainte therese de gaspe,b:ae55b4ed9083f2b3,Municipalité de Sainte-Thérèse-de-Gaspé,,CA,https://www.saintetheresedegaspe.com,,,2
+GE-AP-01926,contact nature,b:bc901be89d112604,Contact Nature,,CA,,,,2
+GE-AP-01927,municipalite de rapides des joachims,b:46f7fc5dd0736153,Municipalité de Rapides-des-Joachims,,CA,https://www.rapides-des-joachims.org,rapides-des-joachims@mrcpontiac.qc.ca,,2
+GE-AP-01928,dadmim,b:82dabbc52fae5b16,DADMIM - Direction des acquisitions de dispositifs médicaux et imagerie médicale,,CA,,,,2
+GE-AP-01929,listuguj mi gmaq government,b:eb66ebbd4203274a,Listuguj Mi'gmaq Government,,CA,,,,2
+GE-AP-01930,municipalite de saint albert,b:cb37ea9b7e60a4f1,Municipalité de Saint-Albert,,CA,https://www.munstalbert.ca,"stalbert@munstalbert.ca, reception@munstalbert.ca",,2
+GE-AP-01931,municipalite de la redemption,b:7482ae9da1cf13a4,Municipalité de la Rédemption,,CA,https://www.municipalite.laredemption.qc.ca,redemption@mitis.qc.ca,,2
+GE-AP-01932,municipalite de notre dame de lorette,b:a6da3141af8ba32e,Municipalité de Notre-Dame de Lorette,,CA,,direction@notre-dame-de-lorette.com,,2
+GE-AP-01933,municipalite de fugereville,b:4287a7ebb888fc9b,Municipalité de Fugèreville,,CA,,dg@fugereville.org,,2
+GE-AP-01934,municipalite de ragueneau,b:1b8c1065f65e3ac6,Municipalité de Ragueneau.,,CA,https://www.municipalite.ragueneau.qc.ca,ragueneau@municipalite.ragueneau.qc.ca,,2
+GE-AP-01935,regie aeroportuaire regionale des cantons de l est,b:1fccb4212aee15c6,Régie aéroportuaire régionale des Cantons-de-l'Est,,CA,,,,2
+GE-AP-01936,regie intermunicipale de gestion des installations sportives et recreatives beauharnois chateauguay,b:cd19b05455f036b8,Régie intermunicipale de gestion des installations sportives et récréatives Beauharnois-Châteauguay - Sports et loisirs Beau-Château,,CA,,,,2
+GE-AP-01937,centre de communication sante de l outaouais,b:e737fc3e922c72c5,Centre de communication sante de L'Outaouais,,CA,,,,2
+GE-AP-01938,centre collegial de transfert de technologie centre d expertise en recherche appliquee en sciences pharmaceutiques,b:3587365ebab765a9,Centre collégial de transfert de technologie-Centre d'expertise en recherche appliquée en sciences pharmaceutiques,,CA,,,,2
+GE-AP-01939,services de readaptation l integrale,b:63cd6631b7bdd0b0,Services de réadaptation L'Intégrale,,CA,,,,2
+GE-AP-01940,municipalite de ristigouche partie sud est,b:dd8df8688c38107c,Municipalité de Ristigouche partie Sud-Est,,CA,,,,2
+GE-AP-01941,conference regionale des elus de l outaouais,b:494ba7c7d484ca81,Conférence Régionale des élus de l'Outaouais,,CA,,,,2
+GE-AP-01942,municipalite de maddington,b:9071967c8c02890c,Municipalité de Maddington,,CA,,,,2
+GE-AP-01943,centre local de developpement economique des moulins,b:b84d9fc2d3039611,Centre Local de développement économique des Moulins.,,CA,,,,2
+GE-AP-01944,municipalite de saint stanislas,b:16c9c8fa7102d442,Municipalité de Saint-Stanislas  (Saguenay Lac-St-Jean),,CA,,,,2
+GE-AP-01945,municipalite de l ile aux grues,b:a82a13b14f3d286c,Municipalité de l'ile-aux-Grues,,CA,,,,2
+GE-AP-01946,regie d aqueduc richelieu centre,b:afdcab1e9e7142ee,Régie d'aqueduc Richelieu-Centre,,CA,,,,2
+GE-AP-01947,regie intermunicipale d incendie de la vallee du saint maurice,b:4ba77ff4971e1517,Régie Intermunicipale d'incendie de la vallée du Saint-Maurice,,CA,,,,2
+GE-AP-01948,centre de readaptation en dependance le virage,b:676b0409874fd64c,Centre de Réadaptation en Dépendance Le Virage,,CA,,,,2
+GE-AP-01949,regie intermunicipal d assainissement des eaux usees de st bruno de montarville et st basile le grand,b:5abe1e9498bfbc2d,Régie Intermunicipal d'assainissement des eaux usées de St-Bruno-de-Montarville et St-Basile-le-Grand,,CA,,,,2
+GE-AP-01950,corporation de developpement economique communautaire de cote des neiges notre dame de grace,b:e58a9814d45165e4,Corporation de développement économique communautaire de Côte-des-Neiges/Notre-Dame-de-Grâce,,CA,,,,2
+GE-AP-01951,municipalite de champneuf,b:43cda9eb1228397c,Municipalité de Champneuf,,CA,https://www.champneuf.ca,info@champneuf.ca,,2
+GE-AP-01952,regie intermunicipale du transport adapte de la vallee du richelieu,b:5f8e416812b283a4,Régie Intermunicipale du Transport Adapté de la Vallée du Richelieu,,CA,,,,2
+GE-AP-01953,centre local de developpement de l erable,b:3fc16df45b4d0430,Centre Local de Développement de l'Érable,,CA,,,,2
+GE-AP-01954,municipalite de saint luc de vincennes,b:f79a6166c022c7c8,Municipalité de Saint-Luc-de-Vincennes,,CA,https://www.stlucdevincennes.com,municipalite@stlucdevincennes.com,,2
+GE-AP-01955,centre integre de sante et de services sociaux de la cote nord,b:8753be2e518c9b99,Centre intégré de santé et de services sociaux de la Côte-Nord,,CA,https://www.cisss-cotenord.gouv.qc.ca,,09.gestion.contractuelle@ssss.gouv.qc.ca,2
+GE-AP-01956,regie intermunicipale de securite incendie,b:4a2c7bce2ec6ca09,REGIE INTERMUNICIPALE DE SECURITÉ INCENDIE - SECTEUR SUD.,,CA,,,,2
+GE-AP-01957,municipalite de chichester,b:df5369d5b7a46003,Municipalité de Chichester.,,CA,https://www.chichestermunicipality.com,chichester@mrcpontiac.qc.ca,,2
+GE-AP-01958,agence de la sante et des services sociaux saguenay lac st jean,b:7f883cdd19194de7,Agence de la santé et des services sociaux Saguenay-Lac-St-Jean,,CA,,,,2
+GE-AP-01959,municipality of grosse ile,b:538be51d2c878c84,Municipality of Grosse Ile.,,CA,,,,2
+GE-AP-01960,regie de l aeroport dolbeau mistassini normandin st felicien,b:86758c05f99caf7a,Régie de l'aéroport Dolbeau-Mistassini-Normandin-St-Félicien,,CA,,,,2
+GE-AP-01961,centre de sante et de services sociaux des basques,b:bc08243ac3ade892,Centre de santé et de services sociaux des Basques,,CA,,,,2
+GE-AP-01962,ville de l ile cadieux,b:4ce983232a8366c2,Ville de l'Île-Cadieux,,CA,https://www.ilecadieux.ca,info.ilecadieux@videotron.ca,,2
+GE-AP-01963,conference regionale des elus du saguenay lac saint jean,b:d24d5fb04c575140,Conférence régionale des élus du Saguenay-Lac-Saint-Jean.,,CA,,,,2
+GE-AP-01964,regie intermunicipale de la region de thetford,b:4a462973a3be041b,Régie intermunicipale de la région de Thetford (RIRT),,CA,,,,2
+GE-AP-01965,municipalite de saint emile de suffolk,b:f953f32bf4bc406e,Municipalité de Saint-Émile-de-Suffolk,,CA,https://www.st-emile-de-suffolk.com,"dg@stemiledesuffolk.quebec, adm@stemiledesuffolk.quebec",,2
+GE-AP-01966,office municipal d habitation de mascouche,b:d63b911c668c62d9,Office Municipal d'habitation de Mascouche,,CA,,,,2
+GE-AP-01967,corelo,b:26809e2888edb84d,Corélo / CPRCN,,CA,,,,2
+GE-AP-01968,regie d incendie pierreville st francois du lac,b:636b26f7711f8658,Régie d'incendie Pierreville/ St-Francois du lac,,CA,,,,2
+GE-AP-01969,regie des marches agricoles et alimentaires du quebec,b:30f11487ac59bf8e,Régie des marchés agricoles et alimentaires du Québec (RMAAQ),,CA,,,,1
+GE-AP-01970,regie des marches agricoles et alimentaires du quebec,b:d0d38e030267a68c,Régie des marchés agricoles et alimentaires du Québec,,CA,,,,1
+GE-AP-01971,municipalite de ristigouche sud est,b:9c62f61f755c278a,Municipalité de Ristigouche-Sud-Est,,CA,https://www.ristigouche.ca,dg@ristigouche.ca,,1
+GE-AP-01972,municipalite les escoumins,b:6540a38fe753afcf,Municipalité Les Escoumins.,,CA,https://www.escoumins.ca,administration.muni@escoumins.ca,,1
+GE-AP-01973,municipalite de la martre,b:8c23d222347efcfd,Municipalité de la Martre,,CA,,dg@la-martre.ca,,1
+GE-AP-01974,regie intermunicipale de protection incendie de la region de coaticook,b:60cfc7e85d7cd488,Régie intermunicipale de protection incendie de la région de Coaticook,,CA,,,,1
+GE-AP-01975,municipalite de saint denis de la bouteillerie,b:b93fa6799e9c3b45,Municipalité de Saint-Denis-De La Bouteillerie,,CA,https://www.munstdenis.com,dg@munstdenis.com,,1
+GE-AP-01976,municipalite de saint omer,b:510cdc017f3a10b5,Municipalité de Saint-Omer,,CA,https://www.st-omer.qc.ca,direction@municipalitestomer.com,,1
+GE-AP-01977,municipalite du village de pointe lebel,b:0e0d8966e6004419,MUNICIPALITE DU VILLAGE DE POINTE-LEBEL,,CA,https://www.pointe-lebel.com,directeur.general@pointelebel.com,,1
+GE-AP-01978,corporation des evenements de trois rivieres,b:74f28a9ef42e8980,Corporation des Évènements de Trois-Rivières,,CA,,,,1
+GE-AP-01979,office regional dhabitation de marguerite dyouville,b:88b5dfb2d0f51d0a,Office régional d’habitation de Marguerite-D’Youville,,CA,,,,1
+GE-AP-01980,regie d assainissement des eaux richelieu saint laurent,b:3eaa2fd39efda765,Régie d'assainissement des eaux Richelieu-Saint-Laurent,,CA,,,,1
+GE-AP-01981,regie intermunicipale d incendie de la region de windsor,b:d4b49c38f8a652ba,Régie Intermunicipale d'Incendie de la région de Windsor,,CA,,,,1
+GE-AP-01982,regie intermunicipale d assainissement des eaux de rosemere et de loraine,b:57876323e707a94b,Régie intermunicipale d'assainissement des eaux de Rosemère et de Loraine,,CA,,,,1
+GE-AP-01983,municipalite du canton guerin,b:59a13c38a5a5acce,Municipalité du Canton Guérin.,,CA,https://municipalites-du-quebec.ca/guerin/conseil-municipal.php,dg@municipaliteguerin.ca,,1
+GE-AP-01984,office quebec monde pour la jeunesse,b:4ac778ec3291fb81,Office Québec-Monde pour la jeunesse,,CA,,,,1
+GE-AP-01985,ville de belleterre,b:de49edf7cd5c035d,Ville de Belleterre.,,CA,,dg@villedebelleterre.ca,,1
+GE-AP-01986,commissaire au lobbyisme,b:f4dd86dbc196cf42,Commissaire au lobbyisme,,CA,,,,1
+GE-AP-01987,regie de loisirs de roxton falls,b:69737db73125d81a,Régie de Loisirs de Roxton Falls,,CA,,,,1
+GE-AP-01988,municipalite de notre dame auxiliatrice de buckland,b:1cf693db51496191,Municipalité de Notre-Dame-Auxiliatrice-de-Buckland,,CA,https://www.buckland.qc.ca,info@buckland.qc.ca,,1
+GE-AP-01989,oh rocher perce,b:ba62d0d70161bc26,OH Rocher-Percé,,CA,,,,1
+GE-AP-01990,municipalite de saint godefroi,b:4cf9afb42a94e334,Municipalité de Saint-Godefroi,,CA,https://www.municipalitestgodefroi.com,dg@municipalitestgodefroi.com,,1
+GE-AP-01991,corporation municipale de godbout,b:ca8a14c463f8ae04,Corporation municipale de Godbout,,CA,,,,1
+GE-AP-01992,municipalite d esprit saint,b:4830bb4317a59bd6,Municipalité D'Esprit-Saint,,CA,https://www.municipalite.esprit-saint.qc.ca,muni.esprit@mrc-rn.ca,,1
+GE-AP-01993,regie intermunicpale sanitaires des hameaux,b:8d28b67fef549c4e,Régie intermunicpale Sanitaires des Hameaux,,CA,,,,1
+GE-AP-01994,societe de gestion du complexe sportif de repentigny inc,b:127e8f702067edaf,Société de gestion du complexe sportif de repentigny inc.,,CA,,,,1
+GE-AP-01995,regie intermunicipale d incendie de roussillon,b:83a0c6f50fd522c3,Régie intermunicipale d'incendie de Roussillon.,,CA,,,,1
+GE-AP-01996,conseil intermunicipal de transport laurentides,b:1dcceebbdb63d62a,Conseil intermunicipal de transport Laurentides.,,CA,,,,1
+GE-AP-01997,regie intermunicipale de l energie gaspesie iles de la madeleine,b:e3901d4159b104ab,Régie intermunicipale de l'énergie Gaspésie-îles-de-la-Madeleine,,CA,,,,1
+GE-AP-01998,transport adapte et collectif des laurentides,b:11251c8e68becfb8,Transport adapté et collectif des Laurentides.,,CA,,,,1
+GE-AP-01999,conseil de la nation anishnabe de lac simon,b:e2aacdcef5533aa6,Conseil de la Nation Anishnabe de Lac Simon,,CA,,,,1
+GE-AP-02000,commission d enquete sur les relations entre les autochtones et certains services publics ecoute reconciliation et progres,b:f6cde21c556eaf6b,"Commission d'enquête sur les relations entre les Autochtones et certains services publics : écoute, réconciliation et progrès",,CA,,,,1

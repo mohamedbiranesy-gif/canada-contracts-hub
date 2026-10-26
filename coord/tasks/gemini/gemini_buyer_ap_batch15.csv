@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-01401,municipalite du lac des seize iles,b:ec25af541c97c9da,Municipalité du Lac-des-Seize-îles,,CA,https://www.lac-des-seize-iles.com,,,12
+GE-AP-01402,municipalite de kinnear s mills,b:5f52393bff0e3c4d,Municipalité de Kinnear's Mills,,CA,https://www.kinnearsmills.com,"info@kinnearsmills.com, urbanisme@kinnearsmills.com",,12
+GE-AP-01403,mrc de mekinac,b:47c1a5a282e9eae9,MRC de Mékinac,,CA,https://www.mrcmekinac.com,,,12
+GE-AP-01404,municipalite saint eugene d argentenay,b:f981dad5cabd5c4c,Municipalité Saint-Eugène-d'Argentenay,,CA,https://www.municipalites-du-quebec.org/municipalites/st-eugene-argentenay,argentenay@derytele.com,,12
+GE-AP-01405,municipalite de saint gabriel de rimouski,b:66605a393c162689,Municipalité de Saint-Gabriel-de-Rimouski.,,CA,https://www.municipalite.saint-gabriel-de-rimouski.qc.ca,stgabriel@mitis.qc.ca,,12
+GE-AP-01406,municipalite de saint francois d assise,b:a45af26007f96c24,Municipalité de Saint-François D'Assise,,CA,https://www.matapedialesplateaux.com,info@st-francoisdassise.ca,,12
+GE-AP-01407,regie intermunicipale de transport gaspesie iles de la madeleine,b:70076986607557d7,Régie intermunicipale de transport Gaspésie-Îles-de-la-Madeleine,,CA,,,,12
+GE-AP-01408,municipalite de sainte anne du lac,b:35b56f751506f98a,Municipalité de Sainte-Anne-du-Lac,,CA,https://www.steannedulac.ca,"municipalite@steannedulac.ca, info@steannedulac.ca",,12
+GE-AP-01409,municipalite de saint elphege,b:445059d492538a64,Municipalité de Saint-Elphège,,CA,https://www.st-elphege.ca,mun.stelphege@sogetel.net,,12
+GE-AP-01410,municipalite de manseau,b:0925610f30fdf7f7,Municipalité de Manseau,,CA,https://manseau.ca,information@manseau.ca,,12
+GE-AP-01411,municipalite de bois franc,b:c349576fb0124827,Municipalité de Bois-Franc.,,CA,https://www.bois-franc.ca,info@bois-franc.ca,,12
+GE-AP-01412,municipalite de peribonka,b:ea2c005ea1581315,Municipalité de Péribonka,,CA,https://www.peribonka.ca,"dg@peribonka.ca, accueil@peribonka.ca",,12
+GE-AP-01413,municipalite de saint francois de sales,b:f34bc54cc1189789,Municipalité de Saint-François-de-Sales.,,CA,https://stfrancoisdesales.qc.ca,info@st-francois.ca,,12
+GE-AP-01414,mrc des chenaux,b:687f77c914cafc19,MRC des Chenaux,,CA,https://www.mrcdeschenaux.ca,info@mrcdeschenaux.ca,,12
+GE-AP-01415,municipalite de saint damien de buckland,b:0e1c70c821b0f4aa,Municipalité de Saint-Damien-de-Buckland.,,CA,https://www.saint-damien.com,info@saint-damien.com,,12
+GE-AP-01416,municipalite de packington,b:228feca7a1105f02,Municipalité de Packington.,,CA,https://www.packington.org,"finances@packington.org, info@packington.org",,12
+GE-AP-01417,municipalite de notre dame du laus,b:b74f912ecc55ebd8,Municipalité de Notre-Dame-Du-Laus,,CA,https://www.notre-dame-du-laus.ca,reception@mun-ndl.ca,,12
+GE-AP-01418,municipalite de saint telesphore,b:c1deb81f70d98ec4,Municipalité  de Saint-Télesphore,,CA,https://www.saint-telesphore.com,info@st-telesphore.ca,,12
+GE-AP-01419,municipalite de saint pierre de broughton,b:6a85ea31343ff4cc,Municipalité de Saint-Pierre-de-Broughton..,,CA,https://www.saintpierredebroughton.ca,info@saintpierredebroughton.ca,,12
+GE-AP-01420,ville de lac delage,b:b4010c559ac42b73,Ville de Lac-Delage,,CA,https://www.lacdelage.qc.ca,ville@lacdelage.qc.ca,,12
+GE-AP-01421,municipalite de biencourt,b:562a9557bec54d42,Municipalité de Biencourt,,CA,https://www.biencourt.ca,info@biencourt.ca,,12
+GE-AP-01422,municipalite de saint theophile,b:4be0a421e843fc67,Municipalité de Saint-Théophile.,,CA,https://www.sainttheophile.qc.ca,direction@sainttheophile.qc.ca,,12
+GE-AP-01423,village de pointe lebel,b:5d1f19c99b69dbbc,Village de Pointe-Lebel,,CA,https://www.pointe-lebel.com,directeur.general@pointelebel.com,,12
+GE-AP-01424,municipalite de charette,b:93a24f90f1a3ec6d,Municipalité de Charette,,CA,https://www.municipalite-charette.ca,dg@municipalite-charette.ca,,12
+GE-AP-01425,municipalite de saint irenee,b:bb95199d9afba8e2,Municipalité de Saint-Irénée,,CA,https://www.saintirenee.ca,dg@saintirenee.ca,,12
+GE-AP-01426,municipalite du village de roxton falls,b:cf143fb73a62ef6d,Municipalité du village de Roxton Falls,,CA,https://www.roxtonfalls.ca,"roxton@roxtonfalls.ca, greffe@roxtonfalls.ca",,12
+GE-AP-01427,municipalite de saint simon,b:c0fb39454b50d357,Municipalité de Saint-Simon,,CA,https://www.saint-simon.ca,"info@saint-simon.ca, admin@saint-simon.ca",,12
+GE-AP-01428,municipalite de waltham,b:ed423ceda0695b14,Municipalité de Waltham,,CA,,municipalite.waltham@mrcpontiac.qc.ca,,12
+GE-AP-01429,municipalite de riviere au tonnerre,b:c34af3641fbeb72e,Municipalité de Rivière-au-Tonnerre,,CA,https://www.riviere-au-tonnerre.ca,"dg@riviere-au-tonnerre.ca, info@riviere-au-tonnerre.ca",,12
+GE-AP-01430,municipalite saint nazaire de dorchester,b:ac62c8588416432e,Municipalité Saint-Nazaire-de-Dorchester,,CA,https://saint-nazaire-de-dorchester.com,municipalite@st-nazaire.ca,,12
+GE-AP-01431,municipalite de grand saint esprit,b:2ba0d6a58576e65d,Municipalité de-Grand-Saint-Esprit.,,CA,https://www.grandsaintesprit.qc.ca,municipalite@grandsaintesprit.qc.ca,,12
+GE-AP-01432,centre de sante et de services sociaux du pontiac,b:189469b447a039b6,Centre de santé et de services sociaux du Pontiac.,,CA,,,,12
+GE-AP-01433,institut nazareth et louis braille,b:1477b85f3d28901e,Institut Nazareth et Louis Braille,,CA,,,,12
+GE-AP-01434,municipalite de l anse saint jean,b:d5127941b35d9bb9,Municipalité de l'Anse-Saint-Jean,,CA,https://www.lanse-saint-jean.ca,info@lanse-saint-jean.ca,,11
+GE-AP-01435,municipalite de port daniel gascons,b:edfc044bae83b98a,Municipalité de Port-Daniel-Gascons,,CA,https://www.munpdg.ca,dg@munpdg.ca,,11
+GE-AP-01436,municipalite sainte jeanne d arc,b:4a3e44294551cb3e,Municipalité Sainte-Jeanne-D'arc ( lac saint-jean),,CA,https://www.stejeannedarc.qc.ca,"info@stejeannedarc.qc.ca, admin@stejeannedarc.qc.ca",,11
+GE-AP-01437,municipalite de lanoraie,b:263f8760378a4fce,Municipalité de Lanoraie .,,CA,https://www.lanoraie.ca,"direction@lanoraie.ca, ressourceshumaines@lanoraie.ca",,11
+GE-AP-01438,municipalite de brebeuf,b:11f8c50fe4dd2e45,Municipalité de Brébeuf.,,CA,https://www.brebeuf.ca,"secretariat@brebeuf.ca, urbanisme@brebeuf.ca",,11
+GE-AP-01439,municipalite de saint fabien,b:b6ed4629b621e1ee,Municipalité de Saint-Fabien,,CA,https://www.saint-fabien.ca,direction@saintfabien.net,,11
+GE-AP-01440,mrc d avignon,b:8590feaa8576d8ec,MRC d'Avignon,MRC Avignon,CA,https://www.mrcavignon.com,info@mrcavignon.com,,11
+GE-AP-01441,ville de paspebiac,b:1e4009839db84fb2,Ville de Paspébiac,,CA,https://www.villepaspebiac.ca,"dg@villepaspebiac.ca, servicesauxcitoyens@villepaspebiac.ca",,11
+GE-AP-01442,municipalite de saint jacques,b:206c0fefc5224365,Municipalité de Saint-Jacques.,,CA,https://www.st-jacques.org,"info@st-jacques.org, comptabilite@st-jacques.org",,11
+GE-AP-01443,regie de l energie,b:80ed841b8f94d038,Régie de l'énergie,Régie de l'énergie.,CA,,,,11
+GE-AP-01444,municipalite de tourville,b:8d42235f3bc166fc,Municipalité de Tourville.,,CA,https://www.muntourville.qc.ca,dg@muntourville.qc.ca,,11
+GE-AP-01445,ville de saint marc des carrieres,b:adbdfa4edd995b02,Ville de Saint-Marc-des-Carrières,,CA,https://www.villestmarc.com,info@villestmarc.com,,11
+GE-AP-01446,municipalite de saint patrice de sherrington,b:6230d05d8e37b102,Municipalité de Saint-Patrice-de-Sherrington.,,CA,https://www.st-patrice-sherrington.com,info@sherr.ca,,11
+GE-AP-01447,ville de grande riviere,b:45c5d0fa1eef8bdb,Ville de Grande-Rivière.,,CA,https://www.villegranderiviere.ca,greffe@granderiviere.ca,,11
+GE-AP-01448,municipalite de saint adrien d irlande,b:925ce96664c1b58a,Municipalité de Saint-Adrien-d'Irlande,,CA,https://stadriendirlande.ca,dg@stadriendirlande.ca,,11
+GE-AP-01449,municipalite de sainte clotilde de horton,b:ae87a6639443b31a,Municipalité de Sainte-Clotilde-de-Horton.,,CA,https://steclotildehorton.ca,"info@steclotildehorton.ca, reception@steclotildehorton.ca",,11
+GE-AP-01450,municipalite de lac sainte marie,b:a14af4468b41b82a,Municipalité de Lac-Sainte-Marie.,,CA,https://www.lac-sainte-marie.com,"municipalite@lac-sainte-marie.com, greffe@lac-sainte-marie.com",,11
+GE-AP-01451,municipalite de saint simon les mines,b:89bcd7e19654495e,Municipalité de Saint-Simon-les-Mines,,CA,https://www.sslm.ca,info@sslm.ca,,11
+GE-AP-01452,municipalite de bury,b:89bdb71f38028b1b,Municipalité de Bury,Municipalité  de Bury,CA,https://www.municipalitedebury.qc.ca,,,11
+GE-AP-01453,municipalite de saint magloire,b:1843fde829426cc3,Municipalité de Saint-Magloire,,CA,https://www.saint-magloire.com,"municipalite@saint-magloire.com, travauxpublics@saint-magloire.com",,11
+GE-AP-01454,municipalite de saint joseph de kamouraska,b:bd01ae0434ce6aa2,Municipalité de Saint-Joseph-de-Kamouraska,,CA,https://www.stjosephkam.ca,direction@stjosephkam.ca,,11
+GE-AP-01455,municipalite de notre dame des monts,b:07057046d4447ae1,Municipalité de Notre-Dame-des-Monts,,CA,https://www.notredamedesmonts.com,dg@notredamedesmonts.com,,11
+GE-AP-01456,municipalite de landrienne,b:664cee646e0c534f,Municipalité de Landrienne.,,CA,https://www.landrienne.com,info@landrienne.com,,11
+GE-AP-01457,municipalite saint aime du lac des iles,b:d84be09cdb6741b3,Municipalité Saint-Aimé-du-Lac-des-Iles,Municipalité Saint-Aimé-du-Lac-des-Îles,CA,https://www.saldi.ca,"dg@saldi.ca, info@saldi.ca",,11
+GE-AP-01458,mrc de therese de blainville,b:992868dabd15608d,MRC de Thérèse-De Blainville,,CA,https://www.mrc-tdb.org,reception@mrc-tdb.org,,11
+GE-AP-01459,municipalite de saint edouard,b:cf14a4ce86f92f89,Municipalité de Saint-Édouard,,CA,https://www.saintedouard.ca,"dg@saintedouard.ca, info@saintedouard.ca",,11
+GE-AP-01460,municipalite de grand metis,b:3c5cc6e95a4dcee4,Municipalité de Grand-Métis,,CA,https://www.grandmetis.ca,grandmetis@mitis.qc.ca,,11
+GE-AP-01461,municipalite de saint cyprien des etchemins,b:b21f031c3d173a9e,Municipalité de Saint-Cyprien-des-Etchemins,,CA,,,,11
+GE-AP-01462,commission des transports du quebec,b:0b25bd11afdf04b4,Commission des transports du Québec,,CA,,,,11
+GE-AP-01463,municipalite de saint jean de la lande,b:4a7178a969890619,Municipalité de Saint-Jean de la Lande,,CA,https://www.saintjeandelalande.ca,"dg@saintjeandelalande.ca, info@saintjeandelalande.ca",,11
+GE-AP-01464,municipalite de preissac,b:4839a3e17e109084,Municipalité de Preissac,,CA,https://www.preissac.com,direction@preissac.com,,11
+GE-AP-01465,centre jeunesse gaspesie,b:ef42d302664217fa,Centre Jeunesse Gaspésie / Les Îles,,CA,,,,11
+GE-AP-01466,municipalite de sainte cecile de whitton,b:2bd5bcd1259fd61a,Municipalité de Sainte-Cécile-de-Whitton,,CA,https://www.stececiledewhitton.qc.ca,info@stececiledewhitton.qc.ca,,11
+GE-AP-01467,csss de la mrc de coaticook,b:9625bc0a56517990,CSSS de la MRC de Coaticook,,CA,,,,11
+GE-AP-01468,centre de readaptation en deficiences intellectuelles et en troubles envahissants du developpement,b:7de23fae94b102e4,Centre de réadaptation en déficiences intellectuelles et en troubles envahissants du développement,,CA,,,,11
+GE-AP-01469,centre de readaptation en dependance de l estrie,b:2af229063ab8ef24,Centre de réadaptation en dépendance de l'Estrie,,CA,,,,11
+GE-AP-01470,mrc la haute cote nord,b:2748e20b4e8cae7e,MRC La Haute-Côte-Nord,,CA,https://www.mrchcn.qc.ca,"info@mrchcn.qc.ca, infogmr@mrchcn.qc.ca",,10
+GE-AP-01471,regie intermunicipale d acton et des maskoutains,b:5b906bb171e71a6f,Régie intermunicipale d'Acton et des Maskoutains,,CA,,,,10
+GE-AP-01472,ville de macamic,b:242494c124946071,Ville de Macamic.,,CA,https://www.villemacamic.qc.ca,"macamic@villemacamic.qc.ca, mairie@villemacamic.qc.ca",,10
+GE-AP-01473,regie de l eau de l ile perrot,b:1eac9f184696a8dc,Régie de l'eau de l'Île-Perrot.,,CA,,,,10
+GE-AP-01474,municipalite d entrelacs,b:b4a1ea5bb55840f7,Municipalité d'Entrelacs.,,CA,https://www.entrelacs.com,info@entrelacs.com,,10
+GE-AP-01475,municipalite de hope town,b:651d89eb48a1a66a,Municipalité de Hope Town,,CA,https://www.municipalitehopetown.com,dg@municipalitehopetown.ca,,10
+GE-AP-01476,societe de developpement economique de saint eustache,b:43dc5d77be13672e,Société de développement économique de Saint-Eustache,,CA,,,,10
+GE-AP-01477,municipalite de saint roch ouest,b:f2681d1fffee7bb4,Municipalité de Saint-Roch-Ouest,,CA,https://www.saint-roch-ouest.ca,"info@saint-roch-ouest.ca, inspecteur@saint-roch-ouest.ca",,10
+GE-AP-01478,municipalite sainte marie de blandford,b:8a61218add1e052f,Municipalité Sainte-Marie-de-Blandford,,CA,https://www.saintemariedeblandford.org,mun@saintemariedeblandford.qc.ca,,10
+GE-AP-01479,municipalite de la guadeloupe,b:2f3983b4b9953ce0,Municipalité de La Guadeloupe.,,CA,https://www.munlaguadeloupe.qc.ca,dg@munlaguadeloupe.qc.ca,,10
+GE-AP-01480,municipalite des bergeronnes,b:eb5491d016d72fba,Municipalité des Bergeronnes,,CA,https://www.bergeronnes.com,direction@bergeronnes.com,,10
+GE-AP-01481,municipalite de sainte lucie des laurentides,b:ba4cec6c6b0d7051,Municipalité de Sainte-Lucie-des-Laurentides.,,CA,https://www.msldl.ca,dg@msldl.ca,,10
+GE-AP-01482,municipalite d east farnham,b:77f67edd00fa3b5e,Municipalité d'East Farnham.,,CA,https://www.municipalite.eastfarnham.qc.ca,dg@eastfarnham.ca,,10
+GE-AP-01483,municipalite de lac du cerf,b:9631549d9de2d461,Municipalité de Lac-Du-Cerf .,,CA,https://www.lacducerf.ca,dg@lacducerf.ca,,10
+GE-AP-01484,municipalite notre dame des bois,b:14fa570fd918fc0f,Municipalité Notre-Dame-des-Bois,,CA,https://www.notredamedesbois.qc.ca,"administration@notredamedesbois.qc.ca, inspecteur.batiment@notredamedesbois.qc.ca",,10
+GE-AP-01485,municipalite de saint sebastien du haut richelieu,b:1b45fa2cf5f83d22,Municipalité de Saint-Sébastien-du-Haut-Richelieu,,CA,,,,10
+GE-AP-01486,municipalite saint just de bretenieres,b:685bf5d4d53fa8d0,Municipalité Saint-Just-de-Bretenières,,CA,https://www.saintjustdebretenieres.com,"dg@saintjustdebretenieres.com, info@saintjustdebretenieres.com",,10
+GE-AP-01487,municipalite de sainte victoire de sorel,b:24f4b296ed2573be,Municipalité de Sainte-Victoire-de-Sorel,,CA,https://www.saintevictoiredesorel.qc.ca,dg@saintevictoiredesorel.qc.ca,,10
+GE-AP-01488,municipalite de sainte hedwidge,b:1fe05a1fab43a0a8,Municipalité de Sainte-Hedwidge.,,CA,https://www.ste-hedwidge.qc.ca,dg@ste-hedwidge.qc.ca,,10
+GE-AP-01489,municipalite du canton de lingwick,b:3a5fdfcbea7d99af,Municipalité du Canton de Lingwick,,CA,https://www.lingwick.ca,"dg@lingwick.ca, info@lingwick.ca",,10
+GE-AP-01490,municipalite de sainte florence,b:8d07ccfb2406448d,Municipalité de Sainte-Florence,,CA,https://www.sainte-florence.org,"direction@sainte-florence.org, administration@sainte-florence.org",,10
+GE-AP-01491,municipalite de sainte ursule,b:5b11845523d46c64,Municipalité de Sainte-Ursule .,,CA,https://www.sainte-ursule.ca,"dg@sainte-ursule.ca, reception@sainte-ursule.ca",,10
+GE-AP-01492,municipalite de saint aime des lacs,b:616744017d981860,Municipalité de Saint-Aimé-des-Lacs.,,CA,https://www.saintaimedeslacs.ca,info@saintaimedeslacs.ca,,10
+GE-AP-01493,municipalite de val des bois,b:ac01d15c68518e3a,Municipalité de Val-des-Bois,,CA,https://www.val-des-bois.ca,"dg@val-des-bois.ca, mun@val-des-bois.ca",,10
+GE-AP-01494,municipalite de saint prosper de champlain,b:e2546691a6dbb368,Municipalité de Saint-Prosper-de-Champlain,,CA,https://www.st-prosper.ca,municipalite@st-prosper.ca,,10
+GE-AP-01495,municipalite de lac des aigles,b:c2ef46635bb69360,Municipalité de Lac-des-Aigles,,CA,https://www.lacdesaigles.ca,"info@lacdesaigles.ca, urbanisme@lacdesaigles.ca",,10
+GE-AP-01496,societe du port de valleyfield,b:0a7da5d53dfad263,Société du port de Valleyfield.,,CA,,,,10
+GE-AP-01497,municipalite sainte francoise,b:cce18c84a6b28be8,Municipalité Sainte-Françoise,,CA,https://www.ste-francoise.com,municipalite@ste-francoise.com,,10
+GE-AP-01498,municipalite de saint maurice,b:af0ff72984bbd8d0,Municipalité de Saint-Maurice.,,CA,https://www.st-maurice.ca,municipalite@st-maurice.ca,,10
+GE-AP-01499,municipalite lac frontiere,b:61f5fd27b98f32e9,Municipalité Lac-Frontière,,CA,https://www.lac-frontiere.ca,info@mairielacfrontiere.ca,,10
+GE-AP-01500,municipalite de saint cyrille de lessard,b:bf9f2b24a3e1e76b,Municipalité de Saint-Cyrille de Lessard,,CA,https://www.st-cyrille-de-lessard.ca,dg@st-cyrille-de-lessard.ca,,10

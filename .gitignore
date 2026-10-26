@@ -1,0 +1,14 @@
+# bulky data lives outside git (see coord/HANDOFF.md -> "Data bundles")
+normalized/
+enrichment/
+downloads/
+work/
+out_final/
+*.jsonl
+*.jsonl.gz
+*.tar
+*.zip
+__pycache__/
+.env
+PRIVATE/
+!coord/results/*.jsonl

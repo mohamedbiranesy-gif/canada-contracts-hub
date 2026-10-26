@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-01001,ville de kingsey falls,b:5786141a8c464c70,Ville de Kingsey Falls,,CA,https://www.kingseyfalls.ca,"reception@kingseyfalls.ca, tresorerie@kingseyfalls.ca",,28
+GE-AP-01002,village de stukely sud,b:273920032369fea9,Village de Stukely-Sud,,CA,https://www.stukely-sud.com,info@stukely-sud.com,,28
+GE-AP-01003,municipalite de la macaza,b:933d89f288b6d57f,Municipalité de la Macaza,,CA,https://www.munilamacaza.ca,info@munilamacaza.ca,,28
+GE-AP-01004,ville de disraeli,b:9575143ed1d991ec,Ville de Disraeli.,,CA,https://www.villededisraeli.ca,,,28
+GE-AP-01005,municipalite saint prime,b:9fd28cb5cc9c450b,Municipalité Saint-Prime,,CA,https://www.saint-prime.ca,"direction@saint-prime.ca, adjointe.direction@saint-prime.ca",,28
+GE-AP-01006,municipalite de low,b:58b144bd66ed5017,Municipalité de Low.,,CA,https://www.lowquebec.ca,"direction@lowquebec.ca, reception@lowquebec.ca",,28
+GE-AP-01007,municipalite du canton de roxton,b:6522ba7504a59476,Municipalité du Canton de Roxton,,CA,https://www.cantonderoxton.qc.ca,info@cantonderoxton.qc.ca,,28
+GE-AP-01008,ville de temiscaming,b:e8bb9c8f052bba7c,Ville de Témiscaming.,,CA,https://www.temiscaming.net,ville.temiscaming@temiscaming.net,,28
+GE-AP-01009,centre local de developpement,b:43cfad975e74000b,Centre local de développement (CLD) de Laval,,CA,,,,18
+GE-AP-01010,centre local de developpement,b:bbddd4c91b4eacd0,Centre Local de Développement (CLD) des Sources,,CA,,,,7
+GE-AP-01011,centre local de developpement,b:4f93aeaf1c8608de,Centre local de développement (CLD) de La Jacques-Cartier,,CA,,,,3
+GE-AP-01012,municipalite de saint henri,b:6768e1e7f345936a,Municipalité de Saint-Henri,,CA,https://www.saint-henri.ca,info@saint-henri.ca,,27
+GE-AP-01013,municipalite du canton de valcourt,b:bf67ff66aa2ee86f,Municipalité du Canton de Valcourt,,CA,https://www.cantonvalcourt.qc.ca,"info@cantonvalcourt.qc.ca, travauxpublics@cantonvalcourt.qc.ca",,27
+GE-AP-01014,municipalite de saint come,b:56dad3e0ae81262c,Municipalité de Saint-Côme.,,CA,https://www.stcomelanaudiere.ca,"info@stcomelanaudiere.ca, dg@stcomelanaudiere.ca",,27
+GE-AP-01015,municipalite de sainte christine d auvergne,b:aa1c9a56ab6ace49,Municipalité de Sainte-Christine-d'Auvergne,,CA,https://sca.quebec,"reception@sca.quebec, loisirs@sca.quebec",,27
+GE-AP-01016,municipalite du village d ayer s cliff,b:6db06c0aaada9aef,Municipalité du Village d'Ayer's Cliff,,CA,https://www.ayerscliff.ca,info@ayerscliff.ca,,27
+GE-AP-01017,centre de services scolaire des appalaches,b:39ad167661ecbbca,Centre de services scolaire des Appalaches,,CA,https://cssa.gouv.qc.ca,,,27
+GE-AP-01018,municipalite de saint ferdinand,b:e3f15d975f4cdcd6,Municipalité de Saint-Ferdinand,,CA,https://www.stferdinand.ca,info@stferdinand.ca,,27
+GE-AP-01019,municipalite paroisse notre dame du bon conseil,b:6f1f3e10358dee2d,Municipalité Paroisse Notre-Dame-du-Bon-Conseil,,CA,,,,27
+GE-AP-01020,municipalite sainte praxede,b:03a431b6bf34b87b,Municipalité  Sainte-Praxède,,CA,https://www.ste-praxede.ca,info@ste-praxede.ca,,27
+GE-AP-01021,municipalite de saint honore de temiscouata,b:a707ede0d87f1100,Municipalité de Saint-Honoré-de-Témiscouata.,,CA,https://www.sainthonoredetemiscouata.ca,admin@sainthonoredetemiscouata.ca,,27
+GE-AP-01022,municipalite de saint anaclet de lessard,b:7457bc391733a090,Municipalité de Saint-Anaclet-de-Lessard.,,CA,https://stanaclet.qc.ca,"municipalite@stanaclet.qc.ca, direction@stanaclet.qc.ca",,27
+GE-AP-01023,municipalite notre dame de pontmain,b:e5e971380de0677f,Municipalité Notre-Dame-de-Pontmain,,CA,https://www.munpontmain.qc.ca,info@munpontmain.qc.ca,,27
+GE-AP-01024,municipalite de saint paulin,b:04f180ecf8cdb55f,Municipalité de Saint-Paulin.,,CA,https://www.st-paulin.qc.ca,reception@saint-paulin.ca,,27
+GE-AP-01025,municipalite saint georges de windsor,b:9c4ac9139a6d5c05,Municipalité Saint-Georges-de-Windsor,,CA,https://www.st-georges-de-windsor.org,,,27
+GE-AP-01026,centre de sante de services sociaux du haut saint maurice,b:c5fac35e228bf778,Centre de santé de services sociaux du Haut-Saint-Maurice,,CA,,,,27
+GE-AP-01027,cisss de chaudiere appalaches secteur beauce,b:200474dfc1d5972d,"CISSS de Chaudière-Appalaches, secteur Beauce",,CA,https://www.cisssca.com/accueil,,,27
+GE-AP-01028,centre de services scolaire des hauts bois de l outaouais,b:55f7c2b1205db882,Centre de services scolaire des Hauts-Bois-de-l'Outaouais.,,CA,https://www.csshbo.gouv.qc.ca,communications@csshbo.gouv.qc.ca,,26
+GE-AP-01029,nunavik housing bureau,b:fb910b59f8bae648,Nunavik Housing Bureau | Office d'Habitation du Nunavik,,CA,,,,26
+GE-AP-01030,mrc de la vallee de l or,b:cee88d490a2df69d,MRC de La Vallée-de-l'Or.,,CA,https://www.mrcvo.qc.ca,"info@mrcvo.qc.ca, reception@mrcvo.qc.ca",,26
+GE-AP-01031,regie de gestion des matieres residuelles du bas saint francois,b:b8b260022ee271bd,Régie de Gestion des Matières Résiduelles du Bas-Saint-François,,CA,,,,26
+GE-AP-01032,regie intermunicipale de gestion des matieres residuelles de brome missisquoi,b:682b32eff3c41b83,Régie intermunicipale de gestion des matières résiduelles de Brome-Missisquoi,,CA,,,,26
+GE-AP-01033,municipalite d adstock,b:f2941b95d0bc97ed,Municipalité  d'Adstock,,CA,https://www.adstock.ca,"dg@adstock.ca, info@adstock.ca",,26
+GE-AP-01034,ministere du travail,b:0c01a3db0cc82ca7,Ministère du Travail,,CA,,,,26
+GE-AP-01035,municipalite de stanstead est,b:64a680dacd90269f,Municipalité  de Stanstead-Est,,CA,,direction@stansteadest.ca,,26
+GE-AP-01036,mrc d argenteuil,b:40356f51cd969753,MRC d'Argenteuil.,MRC d'Argenteuil,CA,https://www.argenteuil.qc.ca,info@argenteuil.qc.ca,,26
+GE-AP-01037,municipalite de bolton est,b:2ed10aaa47708cdc,Municipalité de Bolton-Est,,CA,https://www.boltonest.ca,"info@boltonest.ca, administration@boltonest.ca",,26
+GE-AP-01038,municipalite de mont carmel,b:3270e21298034677,Municipalité de Mont-Carmel.,,CA,https://www.mont-carmel.ca,"direction@mont-carmel.ca, info@mont-carmel.ca",,26
+GE-AP-01039,municipalite de chesterville,b:c862821cd8122740,Municipalité de Chesterville,,CA,https://www.chesterville.net,dg@chesterville.net,,26
+GE-AP-01040,municipalite de grosses roches,b:c9173fb0a76346bf,Municipalité de Grosses-Roches.,,CA,https://www.municipalite.grossesroches.ca,grossesroches2@lamatanie.ca,,26
+GE-AP-01041,municipalite de sainte elizabeth de warwick,b:78fde2feea2dd1a7,Municipalité de Sainte-Élizabeth-de-Warwick,,CA,https://www.sainte-elizabeth-de-warwick.ca,info@sainte-elizabeth-de-warwick.ca,,26
+GE-AP-01042,municipalite de la paroisse de notre dame de lourdes,b:2faa63d9cebacb47,Municipalité de la paroisse de Notre-Dame-de-Lourdes,,CA,https://www.municipalitelourdes.com,info@municipalitelourdes.com,,26
+GE-AP-01043,municipalite de sainte anne de la rochelle,b:e76b6281c78b6746,Municipalité de Sainte-Anne-de-la-Rochelle.,,CA,https://www.steannedelarochelle.ca,"mun@sadlr.quebec, info@sadlr.quebec",,26
+GE-AP-01044,paroisse saint sulpice,b:7d6e9a62493040ab,Paroisse Saint-Sulpice,,CA,https://www.municipalitesaintsulpice.com,,,26
+GE-AP-01045,municipalite de saint sebastien,b:6f53c9a35e32befc,Municipalité de Saint-Sébastien,,CA,,,,26
+GE-AP-01046,municipalite de l ascension,b:3947b6a5a0b743c6,Municipalité de L' Ascension,,CA,https://www.municipalite-lascension.qc.ca,info@munlascension.ca,,26
+GE-AP-01047,municipalite de sainte eulalie,b:1559347444d97bb2,Municipalité de Sainte-Eulalie,,CA,https://www.municipalite.sainte-eulalie.qc.ca,dg@sainte-eulalie.ca,,26
+GE-AP-01048,municipalite d aumond,b:588ef51db1eccbf7,Municipalité d'Aumond.,,CA,https://www.aumond.ca,dg@aumond.ca,,26
+GE-AP-01049,municipalite de saint flavien,b:a4299efe690a5ac0,Municipalité de Saint-Flavien.,,CA,https://www.st-flavien.com,municipalite@st-flavien.com,,26
+GE-AP-01050,municipalite de la paroisse de saint barnabe,b:73aa8ea1d4e01db7,Municipalité de la Paroisse de Saint-Barnabé,,CA,https://www.saint-barnabe.ca,municipalite@saint-barnabe.ca,,26
+GE-AP-01051,societe en commandite stationnement de montreal,b:b01e7bd1fed3fe9e,Société en Commandite Stationnement de Montréal .,,CA,,,,26
+GE-AP-01052,municipalite saint charles sur richelieu,b:a326469375dd4a6a,Municipalité  Saint-Charles-sur-Richelieu,,CA,https://www.saint-charles-sur-richelieu.ca,direction@saint-charles-sur-richelieu.ca,,26
+GE-AP-01053,municipalite de saint remi de tingwick,b:9b0220ec0986275f,Municipalité de Saint-Rémi-de-Tingwick,,CA,https://www.st-remi-de-tingwick.qc.ca,"info@st-remi-de-tingwick.qc.ca, dg@st-remi-de-tingwick.qc.ca",,26
+GE-AP-01054,regie intermunicipale d aqueduc et d egout de lotbiniere centre,b:6f55f090cad6ed56,Régie intermunicipale d'aqueduc et d'égout de Lotbinière-Centre.,,CA,,,,26
+GE-AP-01055,municipalite de notre dame de la salette,b:0fdd1c8badf3e488,Municipalité de Notre-Dame-de-la-Salette.,,CA,https://www.muni-ndsalette.qc.ca,dg@muni-ndsalette.qc.ca,,26
+GE-AP-01056,institut universitaire de geriatrie de montreal,b:cd5475358768b220,Institut Universitaire de Gériatrie de Montréal.,,CA,,,,26
+GE-AP-01057,garantie construction residentielle,b:d3de70eaedc13530,Garantie construction résidentielle (GCR),,CA,,,,25
+GE-AP-01058,cegep de shawinigan,b:0c7c58120073ae7f,Cégep de Shawinigan,,CA,,,,25
+GE-AP-01059,municipalite de saint antoine de tilly,b:4563bbd573573957,Municipalité de Saint-Antoine-de-Tilly,,CA,https://www.saintantoinedetilly.com,info@saintantoinedetilly.com,,25
+GE-AP-01060,municipalite de notre dame du bon conseil village,b:e6941c73815b2054,Municipalité de Notre-Dame-du-Bon-Conseil Village,,CA,,,,25
+GE-AP-01061,ville de normandin,b:d3c5ead89ad1e58c,Ville de Normandin.,,CA,https://www.ville.normandin.qc.ca,admin@ville.normandin.qc.ca,,25
+GE-AP-01062,municipalite de bolton ouest,b:dce7d3625f772143,Municipalité de Bolton-Ouest.,Municipalité de Bolton Ouest.,CA,https://www.bolton-ouest.ca,"dg@bolton-ouest.ca, reception@bolton-ouest.ca",,25
+GE-AP-01063,municipalite de saint jacques de leeds,b:df83afa02bedb1f6,Municipalité de Saint-Jacques-de-Leeds,,CA,https://www.saintjacquesdeleeds.ca,"dg@saintjacquesdeleeds.ca, serviceincendie@saintjacquesdeleeds.ca",,25
+GE-AP-01064,municipalite de saint mathieu du parc,b:a433adb971a3d9b5,Municipalité de Saint-Mathieu-du-Parc.,,CA,https://saint-mathieu-du-parc.ca,direction@saint-mathieu-du-parc.ca,,25
+GE-AP-01065,municipalite de notre dame de stanbridge,b:57dcf12ddc6cdec1,Municipalité de Notre-Dame-de-Stanbridge,,CA,https://www.notredamedestanbridge.qc.ca,dg@notredamedestanbridge.qc.ca,,25
+GE-AP-01066,municipalite saint thomas,b:9b39f1b61d1638e9,Municipalité  Saint-Thomas,,CA,https://www.saintthomas.qc.ca,dg@saintthomas.qc.ca,,25
+GE-AP-01067,municipalite girardville,b:011ad3a147e9f9ef,Municipalité Girardville,,CA,https://www.ville.girardville.qc.ca,admin@ville.girardville.qc.ca,,25
+GE-AP-01068,municipalite de berthier sur mer,b:d0863873c5cc1587,Municipalité de Berthier-sur-Mer.,,CA,https://berthiersurmer.ca,"info@berthiersurmer.ca, dg@berthiersurmer.ca",,25
+GE-AP-01069,municipalite saint patrice de beaurivage,b:5862d3b6ecf676b6,Municipalité  Saint-Patrice-de-Beaurivage,,CA,https://www.spdb.qc.ca,dg@spdb.ca,,25
+GE-AP-01070,centre de readaptation la myriade,b:9dc52163180e56f5,Centre de réadaptation La Myriade,,CA,,,,25
+GE-AP-01071,centre de sante et de services sociaux d argenteuil,b:3ad22f36833f637b,Centre de santé et de services sociaux d'Argenteuil,,CA,,,,25
+GE-AP-01072,investissement quebec,b:42505b43531f9f60,Investissement Québec.,,CA,https://www.investquebec.com,,,24
+GE-AP-01073,ville de chapais,b:0621f9d76c2e66c5,Ville de Chapais.,,CA,https://www.villedechapais.com,info@villedechapais.com,,24
+GE-AP-01074,municipalite de pointe des cascades,b:88ad0f04ec6aed27,Municipalité de Pointe-des-Cascades,,CA,https://www.pointe-des-cascades.com,"reception@pointe-des-cascades.com, info@pointe-des-cascades.com",,24
+GE-AP-01075,ville de saint antonin,b:d8e80336e8171940,Ville de Saint-Antonin,,CA,https://ville.saint-antonin.qc.ca,ville@st-antonin.ca,,24
+GE-AP-01076,municipalite du village de chute aux outardes,b:00903867f894df95,Municipalité du Village de Chute-aux-Outardes,,CA,https://www.municipalitecao.ca,administration@municipalitecao.ca,,24
+GE-AP-01077,municipalite de lacolle,b:26df76618796be0b,Municipalité de Lacolle.,,CA,https://www.lacolle.com,"dg@lacolle.com, info@lacolle.com",,24
+GE-AP-01078,municipalite de messines,b:ebf87ee494bb7872,Municipalité de Messines.,,CA,https://www.messines.ca,info@messines.ca,,24
+GE-AP-01079,mrc d arthabaska,b:b8f9b1caf6e4d52d,MRC D'Arthabaska,,CA,https://mrcarthabaska.ca,"info@mrcarthabaska.ca, greffe@mrcarthabaska.ca",,24
+GE-AP-01080,regie inter des dechets de temiscouata,b:c240273475a2f5cf,Régie inter. des déchets de Témiscouata,,CA,,,,24
+GE-AP-01081,municipalite de beaumont,b:c342d5ec9fce99b6,Municipalité de Beaumont.,,CA,https://www.beaumont-qc.com,info@beaumont-qc.com,,24
+GE-AP-01082,municipalite de sainte angele de monnoir,b:3a726379a2d291d9,Municipalité de Sainte-Angèle-de-Monnoir.,,CA,https://www.sainte-angele-de-monnoir.ca,"info@sainte-angele-de-monnoir.ca, urbanisme@sainte-angele-de-monnoir.ca",,24
+GE-AP-01083,municipalite de laverlochere angliers,b:bed1334cb7afc26d,Municipalité de Laverlochère-Angliers,,CA,https://www.laverlochere-angliers.org,dg@laverlochere-angliers.org,,24
+GE-AP-01084,municipalite plaisance,b:3c935fb3fd84e66d,Municipalité Plaisance,,CA,https://www.ville.plaisance.qc.ca,dg@villeplaisance.com,,24
+GE-AP-01085,municipalite sainte sabine,b:389fb52c019cd7c7,Municipalité  Sainte-Sabine.,Municipalité de Sainte-Sabine | Municipalité  Sainte-Sabine,CA,https://www.stesabine.ca,"administration@stesabine.ca, direction@stesabine.ca",,24
+GE-AP-01086,mrc nicolet yamaska,b:72458ddb50483fb3,MRC Nicolet-Yamaska,,CA,https://www.mrcnicolet-yamaska.qc.ca,,,24
+GE-AP-01087,municipalite de saint paul d abbotsford,b:1c90cb9cf4e22a2b,Municipalité de Saint-Paul-d'Abbotsford.,,CA,https://www.saintpauldabbotsford.qc.ca,info@saintpauldabbotsford.qc.ca,,24
+GE-AP-01088,municipalite de hatley,b:6ce395aa4291fc57,Municipalité de Hatley.,,CA,https://www.municipalitehatley.com,"adm@municipalitehatley.com, dg@municipalitehatley.com",,24
+GE-AP-01089,municipalite paroisse saint jules,b:9962599189bdabad,Municipalité Paroisse Saint-Jules,,CA,,,,24
+GE-AP-01090,municipalite de saint leon standon,b:4624cfe7e63a2407,Municipalité de Saint-Léon-Standon,,CA,,,,24
+GE-AP-01091,municipalite de newport,b:5a30ae75386cba7e,Municipalité de Newport.,,CA,https://www.municipalitenewport.ca,"direction@municipalitenewport.ca, administration@municipalitenewport.ca",,24
+GE-AP-01092,municipalite saint denis,b:2c740ab257e1b5e5,Municipalité Saint-Denis,,CA,,,,24
+GE-AP-01093,municipalite de la paroisse du sacre coeur de jesus,b:8665157a796f541a,Municipalité de la paroisse du Sacré-Coeur-de-Jésus,,CA,https://www.sacrecoeurdejesus.qc.ca,"dg@sacrecoeurdejesus.qc.ca, info@sacrecoeurdejesus.qc.ca",,24
+GE-AP-01094,mrc de montcalm,b:f603ce35ec5fa4ac,MRC de Montcalm,,CA,https://www.mrcmontcalm.com,"info@mrcmontcalm.com, courmunicipale@mrcmontcalm.com",,24
+GE-AP-01095,ville de portneuf,b:4d01f8c1f948c4c7,Ville de Portneuf.,,CA,https://www.villedeportneuf.com,info@villedeportneuf.com,,24
+GE-AP-01096,municipalite de saint edouard de maskinonge,b:26335da83ea6db05,Municipalité de Saint-Édouard de Maskinongé,,CA,https://www.st-edouard-de-maskinonge.ca,municipalitestedouard@sogetel.net,,24
+GE-AP-01097,municipalite saint pierre les becquets,b:446f1b67b44046ee,Municipalité Saint-Pierre-les-Becquets,,CA,https://www.st-pierre-les-becquets.qc.ca,municipalite@st-pierre-les-becquets.qc.ca,,24
+GE-AP-01098,municipalite de saint andre,b:358cb54985841597,Municipalité de Saint-André.,,CA,,,,24
+GE-AP-01099,municipalite de trois rives,b:07b417654b745adc,Municipalité de Trois-Rives,,CA,https://www.trois-rives.com,"administration@trois-rives.com, info@trois-rives.com",,24
+GE-AP-01100,reformar inc,b:e4745709b6ddaba3,REFORMAR INC.,,CA,,,,24

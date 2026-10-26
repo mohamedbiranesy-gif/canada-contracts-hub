@@ -1,0 +1,47 @@
+{
+ "stats": {
+  "tenders": 3657,
+  "award_rows": 8044,
+  "records_main": 7944,
+  "excluded_vendor_us_state": 55,
+  "vendor_region_excluded:CT": 1,
+  "vendor_region_excluded:PA": 1,
+  "vendor_region_excluded:WI": 6,
+  "records_unverified": 45,
+  "unverified_region:PORTO": 2,
+  "vendor_region_excluded:TN": 1,
+  "unverified_region:QUEENSLAND": 1,
+  "vendor_region_excluded:NC": 8,
+  "unverified_region:CA": 11,
+  "unverified_region:None": 28,
+  "vendor_region_excluded:MD": 2,
+  "vendor_region_excluded:OH": 3,
+  "vendor_region_excluded:MI": 3,
+  "vendor_region_excluded:IL": 3,
+  "vendor_region_excluded:UT": 2,
+  "vendor_region_excluded:FL": 3,
+  "vendor_region_excluded:MN": 3,
+  "vendor_region_excluded:GA": 3,
+  "unverified_region:VIENNA": 1,
+  "vendor_region_excluded:IN": 1,
+  "vendor_region_excluded:VA": 3,
+  "unverified_region:GELDERLAND": 1,
+  "vendor_region_excluded:NY": 1,
+  "vendor_region_excluded:NJ": 2,
+  "unverified_region:ENGLAND": 1,
+  "vendor_region_excluded:WA": 2,
+  "vendor_region_excluded:ID": 1,
+  "vendor_region_excluded:MA": 1,
+  "vendor_region_excluded:CO": 1,
+  "vendor_region_excluded:TX": 1,
+  "vendor_region_excluded:MO": 1,
+  "vendor_region_excluded:ME": 1,
+  "vendor_region_excluded:NV": 1
+ },
+ "by_status": {
+  "end_date_unknown": 7944
+ },
+ "by_status_unverified": {
+  "end_date_unknown": 45
+ }
+}

@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00901,nl health service,b:54369ec8427a6645,NL Health Service - Central,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,1
+CH-AP-00902,nl health service,b:16bf6991c2ea2735,NL Health Service - Western,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,1
+CH-AP-00903,nl health service,b:376f30fb6b89f68b,NL Health Service - Provincial,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,1
+CH-AP-00904,miami dade county,b:cfc9c416f4687b14,Miami-Dade County (business unit TPCP010000),,US,https://www.miamidade.gov,,,3
+CH-AP-00905,miami dade county,b:98bcbadd5ca04990,Miami-Dade County (business unit CU05010000),,US,https://www.miamidade.gov,,,1
+CH-AP-00906,miami dade county,b:83cbfaa4844ba067,Miami-Dade County (business unit FR03040100),,US,https://www.miamidade.gov,,,1
+CH-AP-00907,miami dade county,b:11c356c3bff06e17,Miami-Dade County (business unit FR03040200),,US,https://www.miamidade.gov,,,1
+CH-AP-00908,miami dade county,b:90df9ab0653459dd,Miami-Dade County (business unit IDCP010000),,US,https://www.miamidade.gov,,,1
+CH-AP-00909,miami dade county,b:6929b5428d892b88,Miami-Dade County (business unit SW12020200),,US,https://www.miamidade.gov,,,1
+CH-AP-00910,miami dade county,b:a39a1b9a6141b38f,Miami-Dade County (business unit TP20040200),,US,https://www.miamidade.gov,,,1
+CH-AP-00911,miami dade county,b:b857d0558f5623b6,Miami-Dade County (business unit TT01010000),,US,https://www.miamidade.gov,,,1
+CH-AP-00912,town of vegreville,b:5a52e7c3185e7b87,Town of Vegreville,,CA,https://www.vegreville.com,"privacyofficer@vegreville.com, finance@vegreville.com",,9
+CH-AP-00913,county of newell,b:43159e7ecbcaef00,County of Newell,,CA,http://www.countyofnewell.ab.ca,,,9
+CH-AP-00914,parkland school division,b:f2ce069f8f2b4a04,Parkland School Division,,CA,https://www.psd.ca,,,9
+CH-AP-00915,municipal district of provost no 52,b:69a7623b9f5e9559,Municipal District of Provost No. 52,,CA,http://www.mdprovost.ca,,,9
+CH-AP-00916,clear hills county,b:66390009ec2971ab,Clear Hills County,,CA,http://www.clearhillscounty.ab.ca,,,9
+CH-AP-00917,thunder bay regional health science centre,b:3fed7d791ca06b2a,Thunder Bay Regional Health Science Centre,,CA,https://tbrhsc.net,,,9
+CH-AP-00918,veterans review and appeal board,b:a0963595b49d106e,Veterans Review and Appeal Board,,CA,https://vrab-tacra.gc.ca/en,info@vrab-tacra.gc.ca,,9
+CH-AP-00919,entegrus,b:2fd8d980713a623e,Entegrus,,CA,,,,9
+CH-AP-00920,bc corrections,b:33606fc97d9d2d9a,BC Corrections,,CA,https://www2.gov.bc.ca,,,9
+CH-AP-00921,yee hong centre for geriatric care,b:9b5eca9701d1e75c,Yee Hong Centre for Geriatric Care,,CA,https://www.yeehong.com,,,9
+CH-AP-00922,niagara regional housing,b:7febd3b9fb1ce9ce,Niagara Regional Housing,,CA,,,,9
+CH-AP-00923,parsons creek,b:b64a734f8be10926,Parsons Creek,,CA,,,,9
+CH-AP-00924,municipality of neebing,b:6ea6cb035feac4d2,Municipality of Neebing,,CA,http://www.neebing.org,"clerk@neebing.org, admin@neebing.org",,9
+CH-AP-00925,labour relations and workplace safety,b:c4a7d402d256d919,Labour Relations and Workplace Safety,,CA,https://www.saskatchewan.ca,,btsprocurement@gov.sk.ca,9
+CH-AP-00926,rural municipality of clayton no 333,b:3cac1b02a185c4d1,Rural Municipality of Clayton No. 333,,CA,,,,9
+CH-AP-00927,saskatchewan water corporation,b:2f525a784fe91cd6,Saskatchewan Water Corporation,,CA,,,,9
+CH-AP-00928,city of austin texas,b:51a5a9c80e8d198f,"City of Austin, Texas",,US,https://www.austintexas.gov,,vendor@austintexas.gov,9
+CH-AP-00929,virginia state police,b:6c5ee37657f56ec0,Virginia State Police,,US,,,,9
+CH-AP-00930,appraisal institute of canada,b:eb35d8a494194cfe,Appraisal Institute of Canada,,CA,,,,9
+CH-AP-00931,legislative services,b:4d1ff15402d05e37,Legislative Services,,CA,,,,9
+CH-AP-00932,valley regional enterprise network,b:93270769a07565f6,Valley Regional Enterprise Network,,CA,,,,9
+CH-AP-00933,tourism nova scotia,b:f6f35de0478141dd,Tourism Nova Scotia,,CA,,,,9
+CH-AP-00934,pictou county health authority,b:aee745239f843efe,Pictou County Health Authority,,CA,,,,9
+CH-AP-00935,regional operations,b:8dd7a9f8785f2b9f,Regional Operations - Coast Mountains Natural Resource District,,CA,https://www2.gov.bc.ca,,,7
+CH-AP-00936,regional operations,b:42cf796398c026ad,Regional Operations - Stuart Nechako District,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-00937,regional operations,b:84ab6924600c26e2,Regional Operations - Thompson Okanagan,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-00938,township of adjala tosorontio,b:97ccd616749ff4f2,Township of Adjala Tosorontio,,CA,,,,8
+CH-AP-00939,rocky mountain school district 6,b:2567ecbb076299a3,Rocky Mountain School District #6,,CA,,,,8
+CH-AP-00940,victoria university,b:f50db69b37afc6d1,Victoria University,,CA,,,,8
+CH-AP-00941,woodlands county,b:62414c5d031c0981,Woodlands County,,CA,http://www.woodlands.ab.ca,admin@woodlands.ab.ca,,8
+CH-AP-00942,municipal district of taber,b:d790aa86352e5786,Municipal District of Taber,,CA,http://www.mdtaber.ab.ca,,publicworks@mdtaber.ab.ca,8
+CH-AP-00943,the correctional investigator canada,b:5964961a44b04740,The Correctional Investigator Canada,,CA,https://oci-bec.gc.ca/en,,,8
+CH-AP-00944,old port of montreal corporation inc,b:32fa540ef18572a8,Old Port of Montreal Corporation Inc.,Old Port of Montreal Corporation | OLD PORT OF MONTREAL CORPORATION INC.,CA,,,,8
+CH-AP-00945,smithsonian institution,b:c366a6d844c8f155,Smithsonian Institution,,US,https://www.si.edu,,,8
+CH-AP-00946,battelle memorial institute,b:d0dc7df63e95afb3,BATTELLE MEMORIAL INSTITUTE,,US,https://www.battelle.org,,,8
+CH-AP-00947,vertex aerospace llc,b:41201b3002114617,VERTEX AEROSPACE LLC,,US,https://www.vtxaero.com,,supplier_quality@gov2x.com,8
+CH-AP-00948,gef seniors housing,b:03fabc7ac145ae85,GEF Seniors Housing,,CA,,,,8
+CH-AP-00949,lethbridge polytechnic,b:0e45e20017635de6,Lethbridge Polytechnic,,CA,https://lethpolytech.ca,"registration@lethpolytech.ca, admissions@lethpolytech.ca",,8
+CH-AP-00950,queensway carleton hospital,b:bf7fcb617918858a,Queensway Carleton Hospital,,CA,,,,8
+CH-AP-00951,vista housing for seniors,b:ac228f97029fdd0f,Vista Housing for Seniors,,CA,,,,8
+CH-AP-00952,ministry of advanced education,b:5f73ecad44cf00ce,Ministry of Advanced Education,,CA,https://www2.gov.bc.ca,,,8
+CH-AP-00953,ministry of tourism arts and culture,b:78a93ad8a3e910a5,"Ministry of Tourism, Arts and Culture",,CA,https://www2.gov.bc.ca,,,8
+CH-AP-00954,ministry of advanced education skills and training,b:47df4e01e53d5b00,"Ministry of Advanced Education, Skills, and Training",Ministry of Advanced Education & Skills Training,CA,https://www2.gov.bc.ca,,,8
+CH-AP-00955,structural engineering,b:cb6870ee328952fd,Structural Engineering,,CA,https://www2.gov.bc.ca,,,8
+CH-AP-00956,ministry of emergency management and climate readiness,b:499881171bef7223,Ministry of Emergency Management and Climate Readiness,,CA,https://www2.gov.bc.ca,,,8
+CH-AP-00957,finance and citizens services,b:04df8dccf7635835,Finance and Citizens Services,,CA,https://www2.gov.bc.ca,,,8
+CH-AP-00958,bc liquor distribution branch,b:e647c07fb8b580b1,BC Liquor Distribution Branch,,CA,,,,8
+CH-AP-00959,ontario pension board,b:b1039b2deecc5566,ONTARIO PENSION BOARD,Ontario Pension Board,CA,,,,8
+CH-AP-00960,the corporation of the township of brock,b:d2bf4a8383503258,The Corporation of the Township of Brock,,CA,http://www.townshipofbrock.ca,,,8
+CH-AP-00961,nunatsiavut government,b:ab7cc88e28183d2d,Nunatsiavut Government,,CA,,,,8
+CH-AP-00962,saskatchewan workers compensation board,b:d71828b574e2d2f7,Saskatchewan Workers' Compensation Board,,CA,,,wcbprocurement@wcbsask.com,8
+CH-AP-00963,northern lights school division no 113,b:fb96c72333c789da,Northern Lights School Division No. 113,,CA,,,,8
+CH-AP-00964,regina catholic schools,b:a69afd64a1fc2796,Regina Catholic Schools,,CA,,,,8
+CH-AP-00965,department of conservation and recreation,b:13b056c721c76e88,Department of Conservation and Recreation,,US,,,,8
+CH-AP-00966,department of housing and community development,b:390becc9a33586b7,Department of Housing and Community Development,,US,,,,8
+CH-AP-00967,village of chester,b:59b1e3b28178f095,Village of Chester,,CA,http://www.chesterareans.ca,,,8
+CH-AP-00968,town of mulgrave,b:0203a29999982d87,Town of Mulgrave,,CA,https://www.townofmulgrave.ca,,,8
+CH-AP-00969,regional headquarters,b:b936ab1c3cae7ad1,Regional Headquarters - Atlantic,,CA,,,,7
+CH-AP-00970,regional headquarters,b:f01d12464e82e8ed,Regional Headquarters,,CA,,,501contracts@csc-scc.gc.ca,1
+CH-AP-00971,natural resource operations,b:e223a4888d2c4ea6,Natural Resource Operations - Okanagan Shuswap,,CA,https://www2.gov.bc.ca,,,5
+CH-AP-00972,natural resource operations,b:8884347446ad3088,Natural Resource Operations - Cranbrook,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-00973,natural resource operations,b:015f8499feff71c3,Natural Resource Operations - 100 Mile House,,CA,https://www2.gov.bc.ca,,,1
+CH-AP-00974,joseph brant hospital,b:a5c37b80d001705e,Joseph Brant Hospital,,CA,,,,7
+CH-AP-00975,pembroke regional hospital inc,b:47089c59026a7c48,Pembroke Regional Hospital Inc.,,CA,,,,7
+CH-AP-00976,first nations power authority,b:074f9fe5271fc3a6,First Nations Power Authority,,CA,,,,7
+CH-AP-00977,placer county,b:cb2d6cb89e4c0a1f,Placer County,,US,,,,7
+CH-AP-00978,thorhild county,b:fedcd8db63b57878,Thorhild County,,CA,https://www.thorhildcounty.com,,,7
+CH-AP-00979,town of crossfield,b:15a989e98c6f96f4,Town of Crossfield,,CA,https://www.crossfieldalberta.com,,,7
+CH-AP-00980,elk island public schools,b:0c58902d28e95fb4,Elk Island Public Schools,,CA,https://www.eips.ca,,purchasing@eips.ca,7
+CH-AP-00981,mountain view county,b:aa0b13eacd8ea45a,Mountain View County,,CA,http://www.mountainviewcounty.com,,,7
+CH-AP-00982,county of stettler no 6,b:1e9d7b406f8a93a3,County of Stettler No. 6,,CA,http://www.stettlercounty.ca,info@stettlercounty.ca,,7
+CH-AP-00983,green acres foundation,b:22860779abaa800d,Green Acres Foundation,,CA,,,,7
+CH-AP-00984,municipality of jasper,b:4ba850e3b818c61b,Municipality of Jasper,,CA,https://jasper-alberta.com,,,7
+CH-AP-00985,town of bonnyville,b:1eef5dfabb6bc01b,Town of Bonnyville,,CA,http://www.town.bonnyville.ab.ca,,,7
+CH-AP-00986,town of rocky mountain house,b:53ac269304417544,Town of Rocky Mountain House,,CA,https://www.rockymtnhouse.com,,,7
+CH-AP-00987,rural municipality of gimli,b:cf512bdcd0dbb358,Rural Municipality of Gimli,,CA,http://www.gimli.ca,,,7
+CH-AP-00988,federal economic development agency for northern ontario,b:91dd14a4c6c785fe,Federal Economic Development Agency for Northern Ontario,,CA,https://fednor.canada.ca/en,media@fednor.gc.ca,,7
+CH-AP-00989,department of public safety,b:a4f5efe1905f1f03,Department of Public Safety,,US,https://www.dps.texas.gov,"capitol.service@dps.texas.gov, media@dps.texas.gov",procurement@dps.texas.gov,7
+CH-AP-00990,oshkosh defense llc,b:484e322a7711ee41,"OSHKOSH DEFENSE, LLC",,US,https://oshkoshdefense.com,,subcontract@defense.oshkoshcorp.com,7
+CH-AP-00991,ontario securities commission,b:c786c20604470463,Ontario Securities Commission,,CA,https://www.osc.ca,,,7
+CH-AP-00992,western regional health authority,b:4bd6fb8d33767c44,Western Regional Health Authority,Western Regional health authority,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,7
+CH-AP-00993,town of grand valley,b:32a93a34d3f9e722,Town of Grand Valley,,CA,http://www.townofgrandvalley.ca,"accounting@townofgrandvalley.ca, taxes@townofgrandvalley.ca",,7
+CH-AP-00994,musee canadien de l histoire canadian museum of history,b:efc5ccdc820cf771,Musée canadien de l'histoire/Canadian Museum of History,,CA,,,,7
+CH-AP-00995,nalcor energy,b:7844bfac2b8c128c,Nalcor Energy,,CA,https://nlhydro.com,,,7
+CH-AP-00996,ministry of natural gas development,b:df2efa53f84d471b,Ministry of Natural Gas Development,,CA,https://www2.gov.bc.ca,,,7
+CH-AP-00997,engineering branch integrated resource operations division southern engineering group,b:f14e2e042a1f25f5,Engineering Branch ; Integrated Resource Operations Division ; Southern Engineering Group,,CA,https://www2.gov.bc.ca,,,7
+CH-AP-00998,planning partnerships,b:d5c026f8606a0af1,Planning & Partnerships,,CA,https://www2.gov.bc.ca,,,7
+CH-AP-00999,bc parks and conservation officer service division,b:fe6b9dc73d994410,BC Parks and Conservation Officer Service Division,,CA,https://www2.gov.bc.ca,,,7
+CH-AP-01000,township of central frontenac,b:5f462d2d45a9a546,Township of Central Frontenac,,CA,https://www.centralfrontenac.com,,,7

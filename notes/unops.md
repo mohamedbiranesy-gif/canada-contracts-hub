@@ -1,0 +1,4 @@
+# unops — UNOPS own award data — covered via UNGM; own portal not usable
+
+UNOPS publishes its contract awards on UNGM (https://www.ungm.org/Public/ContractAward); `normalized/ungm.jsonl` already holds **126 UNOPS awards** to Canadian-address suppliers (largest agency in that file). Checked 2026-10-25: https://www.unops.org/business-opportunities (200, opportunities only), https://www.unops.org/business-opportunities/contract-awards (404), https://data.unops.org/ (200, 2 KB JavaScript shell, no award listing reachable without the SPA API), https://open.unops.org/ (proxy 502), https://content.unops.org/ (403). No separate source produced; nothing to de-duplicate.
+Further check 19:5x UTC: the data portal's backend API (https://api.data.unops.org/api/v1/swagger.json) exposes only project datasets (project globe, score cards, project tables, per-country delivery) — no procurement/supplier-award endpoint.

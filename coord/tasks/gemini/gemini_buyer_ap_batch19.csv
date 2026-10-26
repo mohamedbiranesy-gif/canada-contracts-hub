@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-01801,municipalite de saint neree de bellechasse,b:e97d35e7d1d417ed,Municipalité de Saint-Nérée-de-Bellechasse,,CA,https://www.st-neree.qc.ca,muneree@stneree.ca,,4
+GE-AP-01802,municipalite de sainte louise,b:7394898d4d0b16cb,Municipalité de Sainte-Louise.,,CA,https://www.saintelouise.qc.ca,info@saintelouise.qc.ca,,4
+GE-AP-01803,hopital chinois de montreal,b:91f2404024d9b89f,Hôpital Chinois de Montréal,,CA,,,,4
+GE-AP-01804,regie intermunicipale de l arena regional de la riviere du nord,b:d2deac75f2f507ad,Régie intermunicipale de l'aréna régional de la Rivière-du-Nord,,CA,,,,4
+GE-AP-01805,municipalite de saint pierre de lamy,b:42bd1a87111889b2,Municipalité de Saint-Pierre-De-Lamy,,CA,https://www.municipalites-du-quebec.com/saint-pierre-de-lamy,admin@saintpierredelamy.ca,,4
+GE-AP-01806,municipalite du village angliers,b:dfb9a50ba6ba4640,Municipalité du Village Angliers,,CA,,,,4
+GE-AP-01807,municipalite de saint rene,b:a2d6b953239cec07,Municipalité de Saint-René,,CA,https://www.st-rene.ca,dg@st-rene.ca,,4
+GE-AP-01808,municipalite de saint dominique du rosaire,b:59670637a7853706,Municipalité de Saint-Dominique-du Rosaire,,CA,https://www.st-dominique-du-rosaire.org,direction@saintdominiquedurosaire.ca,,4
+GE-AP-01809,conference regionale des elus vallee du haut saint laurent,b:e2ef70b79487c513,Conférence régionale des élus Vallée-du-Haut-Saint-Laurent,,CA,,,,4
+GE-AP-01810,municipalite de notre dame des sept douleurs,b:aea2f20aaa61ae45,Municipalité de Notre-Dame-des-Sept-Douleurs,,CA,https://www.ileverte-municipalite.com,mun_ndsd-ileverte@ileverte.qc.ca,,4
+GE-AP-01811,municipalite de saint philippe de neri,b:7a9d4c29e178e8c6,Municipalité de Saint-Philippe-de-Néri.,,CA,https://www.stphilippedeneri.com,munic.s.phil.neri@qc.aira.com,,4
+GE-AP-01812,municipalite de baie sainte catherine,b:8a493a4f42f001a6,Municipalité de Baie-Sainte-Catherine.,,CA,https://www.baiestecatherine.com,"municipalite@baiestecatherine.com, info@baiestecatherine.com",,4
+GE-AP-01813,laval technopole,b:321b95c09f8fcd87,Laval Technopole,,CA,,,,4
+GE-AP-01814,regie d assainissement des eaux du bassin de laprairie,b:aba770842489c364,Régie d'assainissement des eaux du bassin de Laprairie,,CA,,,,3
+GE-AP-01815,regie intermunicipale de gestion des matieres residuelles du kamouraska,b:78fc649803a23ab4,Régie intermunicipale de gestion des matières résiduelles du Kamouraska,,CA,,,,3
+GE-AP-01816,regie intermunicipale du parc industriel de la mrc de maria chapdelaine,b:76103e350f7970b8,Régie intermunicipale du parc industriel de la MRC de Maria-Chapdelaine,,CA,,,,3
+GE-AP-01817,municipalite de tres saint sacrement,b:270e039ad3b5831f,Municipalité de Très-Saint-Sacrement,,CA,https://www.tres-st-sacrement.ca,mun-trst@videotron.ca,,3
+GE-AP-01818,regie intermunicipale de gestion des dechets de l islet sud,b:832c7c5735598334,Régie intermunicipale de gestion des déchets de L'Islet Sud,,CA,,,,3
+GE-AP-01819,regie intermunicipale aeroport de maniwaki vallee de la gatineau,b:2a228b61f742237f,Régie intermunicipale aéroport de Maniwaki Vallée de la Gatineau,Régie intermunicipale aéroport de Maniwaki vallée de la Gatineau,CA,,,,3
+GE-AP-01820,municipalite regionale de comte de pontiac,b:eae7822d87eebeca,Municipalité régionale de comté de Pontiac,,CA,https://www.mrcpontiac.qc.ca,,,3
+GE-AP-01821,municipalite riviere heva,b:30bd9b45f8e70e99,Municipalité Rivière-Héva,,CA,https://www.riviere-heva.com,dg@mun-r-h.com,,3
+GE-AP-01822,municipalite du village de grandes piles,b:bc53abdaabb2cae2,Municipalité du Village de Grandes-Piles,Municipalité Village de Grandes-Piles,CA,https://www.grandespiles.qc.ca,dg@grandespiles.qc.ca,,3
+GE-AP-01823,regie intermunicipale geant,b:0e61aae5829c09d7,Régie intermunicipale  Géant,,CA,,,,3
+GE-AP-01824,municipalite de saint mathieu d harricana,b:90e4c5a202054972,Municipalité de Saint-Mathieu-d'Harricana.,,CA,https://www.stmathieudharricana.com,municipalite@stmathieudharricana.com,,3
+GE-AP-01825,municipalite de saint eloi,b:cf82bec75442889c,Municipalité de Saint-Éloi,,CA,https://www.municipalite-st-eloi.com,st-eloi@st-eloi.qc.ca,,3
+GE-AP-01826,municipalite de poularies,b:3622312db2a9c8c6,Municipalité de Poularies,,CA,https://poularies.ao.ca,direction@poularies.com,,3
+GE-AP-01827,municipalite rapide danseur,b:6c86a66c64b84be8,Municipalité Rapide-Danseur,,CA,https://rapide-danseur.ao.ca/fr,dg@rapide-danseur.ao.ca,,3
+GE-AP-01828,municipalite de saint gilbert,b:439b3c787dc1c412,Municipalité de Saint-Gilbert,,CA,https://saint-gilbert.ca,info@saint-gilbert.ca,,3
+GE-AP-01829,municipalite saint hilaire de dorset,b:c2eea6dcef2e3e12,Municipalité Saint-Hilaire de Dorset,,CA,https://www.sthilairededorset.ca,info@sthilairededorset.ca,,3
+GE-AP-01830,regie intermunicipale de transport des collines,b:6dfc06b18eae3e56,Régie intermunicipale de transport des Collines,,CA,,,,3
+GE-AP-01831,regie intermunicipale des infrastructures portuaires de trois pistoles et les escoumins,b:e1f3c93c22664c4f,Régie intermunicipale des infrastructures portuaires de Trois-Pistoles et les Escoumins,,CA,,,,3
+GE-AP-01832,cienov,b:89d91c172e6b65ba,CIENOV.,,CA,,,,3
+GE-AP-01833,tourisme montreal,b:3c23338043391ffc,Tourisme Montréal,,CA,,,,3
+GE-AP-01834,conseil de la nation innu matimekush lac john,b:b22260b700126051,Conseil de la Nation Innu Matimekush-Lac John,,CA,,,,3
+GE-AP-01835,municipalite de saint joseph de lepage,b:30ad648ed786e848,Municipalité de Saint-Joseph-de-Lepage.,,CA,https://www.municipalite.saint-joseph-de-lepage.qc.ca,stjoseph@mitis.qc.ca,,3
+GE-AP-01836,corporation d amenagement recreotouristique de la haute yamaska,b:aa9ea0bf2173bede,Corporation d'aménagement récréotouristique de la Haute-Yamaska (C.A.R.T.H.Y.) inc.,,CA,,,,3
+GE-AP-01837,municipalite de sainte paule,b:120b3279da773aa8,Municipalité de Sainte-Paule.,,CA,https://www.municipalite.sainte-paule.qc.ca,ste-paule@lamatanie.ca,,3
+GE-AP-01838,centre local de developpement de la mrc d antoine labelle,b:6c4a4003e5303130,Centre local de développement de la MRC d'Antoine-Labelle,,CA,,,,3
+GE-AP-01839,office regional d habitation de l erable,b:2dc8f484b7a89ba0,Office régional d'habitation de l'Érable,,CA,,,,3
+GE-AP-01840,regie de collecte environnementale de la rouge,b:8279e73bd249db20,Régie de collecte environnementale de la Rouge,,CA,,,,3
+GE-AP-01841,municipalite de saint thuribe,b:3b10375afa99004d,Municipalité de Saint-Thuribe.,,CA,https://www.st-thuribe.net,"dg@st-thuribe.net, info@st-thuribe.net",,3
+GE-AP-01842,direction des projets de mobilite durable,b:9286808ddc4705c3,Direction des projets de mobilité durable,,CA,,,,3
+GE-AP-01843,regie intermunicipale de traitement des matieres residuelles des mrc de la matapedia et de la mitis,b:5128015a2d79ed45,Régie Intermunicipale de traitement des matières résiduelles des MRC de la Matapédia et de la Mitis.,,CA,,,,3
+GE-AP-01844,direction principale du service aerien gouvernemental,b:92a6e53fe1341c3d,Direction principale du service aérien gouvernemental,,CA,,,,3
+GE-AP-01845,municipalite de saint cleophas,b:10027760587f07c2,Municipalité de Saint-Cléophas,,CA,https://www.stcleophas.com,stcleophas.dg@mrcmatapedia.quebec,,3
+GE-AP-01846,municipalite de riviere a pierre,b:dc023e56c25da116,Municipalité de Rivière-à-Pierre,,CA,https://www.riviereapierre.com,"dg@riviereapierre.com, reception@riviereapierre.com",,3
+GE-AP-01847,municipalite de saint severe,b:dd899721b7880a15,Municipalité de Saint-Sévère,,CA,https://www.st-severe.ca,direction@saint-severe.ca,,3
+GE-AP-01848,les presses de l universite de montreal,b:dffce635ec301a11,Les Presses de l'Université de Montréal,,CA,,,,3
+GE-AP-01849,conseil de bande des montagnais de natashquan,b:d287af968f4b6880,Conseil de bande des Montagnais de Natashquan,,CA,,,,3
+GE-AP-01850,mrc de la mitis,b:26c367d111e42b61,MRC de la Mitis.,MRC de La Mitis,CA,https://www.mrcmitis.ca,,,3
+GE-AP-01851,parc eolien pierre de saurel,b:cf30e13c8f4b0c8a,Parc éolien Pierre-De Saurel,,CA,,,,3
+GE-AP-01852,municipalite de massueville,b:56d763ac8e9682c6,Municipalité de Massueville.,,CA,https://www.massueville.net,"direction@massueville.net, info@massueville.net",,3
+GE-AP-01853,municipalite de chazel,b:c219444b9a781f55,Municipalité de Chazel,,CA,https://chazel.ao.ca,chazel@mrcao.qc.ca,,3
+GE-AP-01854,municipalite saint venant de paquette,b:1784489fc05ada1d,Municipalité Saint-Venant de Paquette,Municipalité de Saint-Venant de Paquette,CA,https://www.saint-venant-de-paquette.ca,direction@saint-venant-de-paquette.ca,,3
+GE-AP-01855,municipalite d hebertville station,b:46ca1abd398defce,Municipalité d'Hébertville-Station.,,CA,,,,3
+GE-AP-01856,regie intermunicipale de deneigement joly st flavien,b:c94c0fd21e4caa14,Régie intermunicipale de déneigement Joly-St-Flavien,,CA,,,,3
+GE-AP-01857,savoir media,b:606f57bb2ea3e3e7,Savoir Média.,,CA,,,,3
+GE-AP-01858,corporation municipale du village de lac poulin,b:cb4e39a393aa013d,Corporation municipale du Village de Lac-Poulin,,CA,,,,3
+GE-AP-01859,municipalite de sainte angele de merici,b:e393134975a1e136,Municipalité de Sainte-Angèle-de-Mérici.,,CA,https://municipalitesam.ca,,,3
+GE-AP-01860,comite de deontologie policiere,b:660b108ab53d16e3,Comité de Déontologie Policière,,CA,,,,3
+GE-AP-01861,les logements etudiants de l uqar,b:3e667f2b925e85d8,Les Logements Étudiants de L'UQAR,,CA,https://www.uqar.ca,"medias@uqar.ca, communications@uqar.ca",,3
+GE-AP-01862,municipalite de saint francois xavier de viger,b:bc35b66e50a68670,Municipalité de Saint-Francois-Xavier de Viger,,CA,https://www.municipalite.saint-francois-xavier-de-viger.qc.ca,munstfrancois@munstfrancoisxv.qc.ca,,3
+GE-AP-01863,municipalite de saint edouard de fabre,b:aafc37795833d7f5,Municipalité de Saint-Édouard-de-Fabre,,CA,https://www.st-edouard-de-fabre.ca,dg@sedfabre.ca,,3
+GE-AP-01864,regroupement des cegeps de montreal,b:3a710d45a1ed7059,Regroupement des cégeps de Montréal.,,CA,,,,3
+GE-AP-01865,table regionale de l education centre du quebec,b:96493084f58981ad,Table régionale de l'éducation Centre-du-Québec,,CA,,,,3
+GE-AP-01866,bureau du verificateur general de la ville de terrebonne,b:5d4cdbc70d8a10eb,Bureau du vérificateur général de la ville de Terrebonne.,,CA,,,,3
+GE-AP-01867,centre communautaire juridique de l abitibi temiscamingue,b:4e48505bd398be16,Centre communautaire juridique de l'Abitibi-Témiscamingue,,CA,,,,3
+GE-AP-01868,le reseau de ressources pour l education anglophone,b:239680469e239ed3,Le Réseau de Ressources pour l'Éducation Anglophone,,CA,,,,3
+GE-AP-01869,domremy mauricie centre du quebec,b:09e1df3375312949,Domrémy Mauricie/Centre-du-Québec,,CA,,,,3
+GE-AP-01870,commission d enquete sur le processus de nomination des juges du quebec,b:7913263cd571a89e,Commission d'enquête sur le processus de nomination des juges du Québec,,CA,,,,3
+GE-AP-01871,municipalite de duparquet,b:4c373d05d5f01780,Municipalité de Duparquet,,CA,https://www.duparquet.ao.ca/fr,direction@villeduparquet.ca,,3
+GE-AP-01872,municipalite de kipawa,b:f591a025a9f12228,Municipalité de Kipawa,,CA,https://www.kipawa.ca,kipawa@kipawa.ca,,3
+GE-AP-01873,secretariat a la politique linguistique,b:178e31a9d2a44278,Secrétariat à la politique linguistique.,Secrétariat à la politique linguistique,CA,,,,3
+GE-AP-01874,regie intermunicipale de gestion des dechets solides de l anse a gilles,b:32e6164a83529933,Régie Intermunicipale de gestion des déchets solides de l'anse-à-Gilles,,CA,,,,3
+GE-AP-01875,municipalite de sainte anne du sault,b:1e268679c11f4017,Municipalité de Sainte-Anne-du-Sault,,CA,,,,3
+GE-AP-01876,municipalite saints martyrs canadiens,b:2d14c68d95cab657,Municipalité SAINTS-MARTYRS-CANADIENS,,CA,https://www.saints-martyrs-canadiens.ca,info@saints-martyrs-canadiens.ca,,3
+GE-AP-01877,municipalite montcerf lytton,b:f7cf9d4d53a635f1,Municipalité Montcerf-Lytton,,CA,https://www.montcerf-lytton.com,"dg@montcerf-lytton.com, infos@montcerf-lytton.com",,3
+GE-AP-01878,centre local de developpement d argenteuil,b:3c7cbbeab7fcdd6d,Centre Local de Développement d'Argenteuil,,CA,,,,3
+GE-AP-01879,centre de sante et de services sociaux du haut saint francois,b:dad5745bfd9ff563,Centre de santé et de services sociaux du Haut-Saint-François,,CA,,,,3
+GE-AP-01880,municipalite de riviere a claude,b:f3add2452c71c79d,Municipalité de Rivière-à-Claude.,,CA,,munirac@globetrotter.net,,3
+GE-AP-01881,agence de la sante et des services sociaux de laval,b:fefeb8bf52064f2a,Agence de la santé et des services sociaux de Laval.,,CA,,,,3
+GE-AP-01882,centre de sante et de services sociaux des pays d en haut,b:3413c4cb8f4c71e4,Centre de santé et de services sociaux des Pays-d'en-Haut.,,CA,,,,3
+GE-AP-01883,direction du soutien aux activites en espaces,b:69d4f2923265df12,Direction du soutien aux activités en espaces,,CA,,,,2
+GE-AP-01884,municipalite de saint roch de l achigan,b:51ed7995da341383,Municipalité de Saint-Roch-de-l'Achigan,,CA,https://www.sra.quebec,"dg@sra.quebec, communication@sra.quebec",,2
+GE-AP-01885,municipalite du village de north hatley,b:f6cea68c3d77a6a2,Municipalité  du Village de North Hatley,,CA,https://www.northhatley.org,info@northhatley.org,,2
+GE-AP-01886,bixi montreal,b:3e548490ef482a71,Bixi Montréal,,CA,,,,2
+GE-AP-01887,municipalite de sainte apolline de patton,b:78bfd8eb5c3fbb09,Municipalité de Sainte-Apolline-de-Patton,,CA,https://www.sainteapollinedepatton.ca,info@sainteapollinedepatton.ca,,2
+GE-AP-01888,m baie sainte catherine,b:bed2d5feb91a6341,M. Baie Sainte Catherine,,CA,,,,2
+GE-AP-01889,municipalite lefebvre,b:1b1099c7a0d5deab,Municipalité Lefebvre,,CA,https://www.municipalite-lefebvre.ca,info@municipalite-lefebvre.ca,,2
+GE-AP-01890,municipalite de saint philemon,b:debd78866445f74f,Municipalité de Saint-Philémon.,,CA,https://www.saintphilemon.com,info@saintphilemon.com,,2
+GE-AP-01891,cerfo,b:e084ffd420427f75,CERFO (Centre d'enseignement et de recherche en foresterie de Sainte-Foy inc.),,CA,,,,2
+GE-AP-01892,mrc du golfe du saint laurent,b:0b3520524018cbb4,MRC du Golfe-du-Saint-Laurent,,CA,https://www.mrcgsl.ca,info@mrcgsl.ca,,2
+GE-AP-01893,municipalite de saint jean de cherbourg,b:a46582dcbef9bde3,Municipalité de Saint-Jean-de-Cherbourg,,CA,https://www.st-jeandecherbourg.ca,st-jeandecherbourg@lamatanie.ca,,2
+GE-AP-01894,municipalite de saint augustin,b:cbf209326d2df240,Municipalité de Saint-Augustin.,,CA,https://www.saintaugustin.ca,,,2
+GE-AP-01895,municipalite de saint andre du lac saint jean,b:a8e1a249e7146e3d,Municipalité de Saint-André-du-Lac-Saint-Jean,,CA,https://www.standredulac.qc.ca,municipalite@standredulac.qc.ca,,2
+GE-AP-01896,municipalite de pike river,b:e8c5558cc55094c1,Municipalité de Pike River,,CA,https://www.pikeriver.com,info@pikeriver.com,,2
+GE-AP-01897,municipalite de la paroisse de l epiphanie,b:294648b3dc412aaf,Municipalité de la Paroisse de L'Épiphanie,,CA,https://www.lepiphanie.ca,"info@lepiphanie.ca, travauxpublics@lepiphanie.ca",,2
+GE-AP-01898,la fondation soleil du nord de matagami,b:44681d62ac4f8d20,La Fondation Soleil du Nord de Matagami - réf.  ACL717. GRTATU,,CA,,,,2
+GE-AP-01899,municipalite de lac tremblant nord,b:529881d88261e30f,Municipalité de Lac-Tremblant-Nord,,CA,https://www.lac-tremblant-nord.qc.ca,"info@lac-tremblant-nord.qc.ca, finances@lac-tremblant-nord.qc.ca",,2
+GE-AP-01900,ville de desbiens,b:9f1628babb21b268,Ville de Desbiens.,,CA,https://www.ville.desbiens.qc.ca,"administration@ville.desbiens.qc.ca, info@ville.desbiens.qc.ca",,2

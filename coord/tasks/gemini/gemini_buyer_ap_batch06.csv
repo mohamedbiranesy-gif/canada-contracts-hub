@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-00501,municipalite de saint cyrille de wendover,b:647aa888e95d66c1,Municipalité de Saint-Cyrille-de-Wendover.,,CA,https://www.stcyrille.qc.ca,municipalite@stcyrille.qc.ca,,120
+GE-AP-00502,commission scolaire des draveurs,b:9aac3004735a56c7,Commission scolaire des Draveurs.,,CA,https://www.cssd.gouv.qc.ca,"reception@cssd.gouv.qc.ca, taxescolaire@cssd.gouv.qc.ca",,120
+GE-AP-00503,corporation d habitation jeanne mance,b:a8825bf09fe96912,Corporation d Habitation Jeanne-Mance,,CA,,,,119
+GE-AP-00504,ville de beauharnois,b:d0325780ccd0b44f,Ville de Beauharnois,Ville de Beauharnois.,CA,https://www.ville.beauharnois.qc.ca,"info@ville.beauharnois.qc.ca, greffe@ville.beauharnois.qc.ca",,119
+GE-AP-00505,mrc de rouville,b:a1f9358503fea786,MRC de Rouville,,CA,https://www.mrcrouville.qc.ca,info@mrcrouville.qc.ca,,119
+GE-AP-00506,centre de services scolaire des bois francs,b:76f8d7e73db9bcf6,Centre de services scolaire des Bois-Francs,Centre de services scolaire des Bois-Francs .,CA,https://www.cssbf.gouv.qc.ca,"emploi@cssbf.gouv.qc.ca, transport@cssbf.gouv.qc.ca",,119
+GE-AP-00507,centre de services scolaire des chenes,b:3e3e99a19e6d9a2a,Centre de services scolaire des Chênes.,,CA,https://www.cssdeschenes.gouv.qc.ca,,,118
+GE-AP-00508,ville d hudson,b:546052157511cb06,Ville d'Hudson.,Ville d'Hudson,CA,https://www.hudson.quebec,info@ville.hudson.qc.ca,,118
+GE-AP-00509,cisss de la cote nord point de service de haute cote nord manicouagan,b:0189130f92ab89aa,CISSS de la Côte-Nord point de service de Haute-Côte-Nord-Manicouagan,,CA,https://www.cisss-cotenord.gouv.qc.ca,,09.gestion.contractuelle@ssss.gouv.qc.ca,118
+GE-AP-00510,centre de sante et de services sociaux de rouyn noranda,b:7671aed41c41bd0f,Centre de santé et de services sociaux de Rouyn Noranda,,CA,,,,118
+GE-AP-00511,ville de plessisville,b:806bbcbbc6f0fa9f,Ville de Plessisville.,,CA,https://plessisville.quebec,"info@plessisville.quebec, urbanisme@plessisville.quebec",,117
+GE-AP-00512,ville de mont laurier,b:6b853ebad69be1a2,Ville de Mont-Laurier.,,CA,https://www.villemontlaurier.qc.ca,"info@villemontlaurier.qc.ca, dg@villemontlaurier.qc.ca",,117
+GE-AP-00513,ville de east angus,b:c151a50d126fc549,Ville de East-Angus,ville de East-Angus,CA,https://www.eastangus.ca,"info@eastangus.ca, dg@eastangus.ca",,116
+GE-AP-00514,ville de sainte marthe sur le lac,b:e6184c7e1e46eb67,Ville de Sainte-Marthe-sur-le-Lac.,,CA,https://www.ville.sainte-marthe-sur-le-lac.qc.ca,info@ville.sainte-marthe-sur-le-lac.qc.ca,,115
+GE-AP-00515,municipalite de saint hippolyte,b:f49fe5ab2ffd306d,Municipalité de Saint-Hippolyte.,,CA,https://www.saint-hippolyte.ca,municipalite@saint-hippolyte.ca,,115
+GE-AP-00516,municipalite d oka,b:e60d5bde68e3c4fb,Municipalité d'Oka,,CA,https://www.municipalite.oka.qc.ca,info@municipalite.oka.qc.ca,,115
+GE-AP-00517,centre de sante et de services sociaux des sommets,b:224a154a67816bb3,Centre de santé et de services sociaux des Sommets (CISSS des Laurentides),,CA,,,,115
+GE-AP-00518,municipalite de val morin,b:ab380362e1d5065f,Municipalité de Val-Morin.,,CA,https://www.val-morin.ca,"municipalite@val-morin.ca, info@val-morin.ca",,114
+GE-AP-00519,mrc de pierre de saurel,b:0ef37f84b1d2c80d,MRC de Pierre-De Saurel,,CA,https://www.mrcpierredesaurel.com,info@mrcpierredesaurel.com,,114
+GE-AP-00520,saint alexis des monts,b:cbebd0693e43457b,Saint-Alexis-des-Monts,,CA,,,,114
+GE-AP-00521,agence de sante et des services sociaux de la monteregie,b:ecabd9c29fab4c8b,Agence de santé et des services sociaux de la Montérégie (CISSS de la Montérégie-Centre),,CA,,,,114
+GE-AP-00522,centre de services scolaire de kamouraska,b:5f0bf59d0dfdda84,Centre de services scolaire de Kamouraska - Rivière-du-Loup,,CA,,,,113
+GE-AP-00523,centre de services scolaire du lac saint jean,b:81037c2b410ac190,Centre de services scolaire du Lac-Saint-Jean,,CA,,,,113
+GE-AP-00524,centre de sante et de services sociaux de la cote de gaspe,b:ae62081a49184b0c,Centre de santé et de services sociaux de La Côte-de-Gaspé,,CA,,,,113
+GE-AP-00525,csss de la pointe de l ile,b:8f041da1a5794c56,CSSS de la Pointe-de-l'Île,,CA,,,,113
+GE-AP-00526,commission scolaire central quebec,b:0738579c7d4219de,Commission  scolaire Central Québec,,CA,https://www.cqsb.qc.ca,,,112
+GE-AP-00527,direction generale des barrages de l etat,b:8776949dfb741527,Direction générale des barrages de l'État,,CA,,,,112
+GE-AP-00528,societe des alcools du quebec,b:7850efc953a36d86,Société des alcools du Québec,,CA,https://www.saq.com,demandes@saq.com,,111
+GE-AP-00529,centre de services partages du quebec direction generale des services en gestion contractuelle,b:c6283d134cb8e7ae,Centre de services partagés du Québec- Direction générale des services en gestion contractuelle,,CA,,,,111
+GE-AP-00530,commission scolaire pierre neveu,b:252ba11daf8060f1,Commission Scolaire Pierre-Neveu.,,CA,,,,111
+GE-AP-00531,centre de services scolaire de rouyn noranda,b:8ecb2302b8c4e816,Centre de services scolaire de Rouyn-Noranda,,CA,https://cssrn.gouv.qc.ca,"communications@cssrn.gouv.qc.ca, villemurep@cssrn.gouv.qc.ca",,110
+GE-AP-00532,commission scolaire de portneuf,b:0930da2c8f36bced,Commission scolaire de Portneuf.,,CA,https://cssportneuf.gouv.qc.ca,,,110
+GE-AP-00533,ville de sainte catherine de la jacques cartier,b:6e37c14bbf1cc3fe,Ville de Sainte-Catherine-de-la-Jacques-Cartier,,CA,https://www.villescjc.com,info@villescjc.com,,110
+GE-AP-00534,sante quebec monteregie est,b:43054f560ef996de,Santé Québec Montérégie-Est,,CA,https://www.santemonteregie.qc.ca/est,,,109
+GE-AP-00535,municipalite de saint prosper,b:0bc1f4bb0407379c,Municipalité de Saint-Prosper (Chaudière Appalache),,CA,https://www.saint-prosper.com,info@saint-prosper.com,,109
+GE-AP-00536,institut de technologie agroalimentaire du quebec,b:c23001bab279c47e,Institut de technologie agroalimentaire du Québec,,CA,https://www.itaq.ca,information@itaq.ca,,108
+GE-AP-00537,la municipalite de la peche,b:82d4a854c2719d26,La Municipalité de La Pêche,,CA,,,,108
+GE-AP-00538,ville de windsor,b:32417de623cf2343,Ville de Windsor.,,CA,https://www.villedewindsor.qc.ca,"info@villedewindsor.qc.ca, loisirs@villedewindsor.qc.ca",,107
+GE-AP-00539,municipalite des iles de la madeleine,b:953178c0022380ba,Municipalité  des Iles-de-la-Madeleine,,CA,https://www.muniles.ca,"direction@muniles.ca, communications@muniles.ca",,106
+GE-AP-00540,comite de gestion de la taxe scolaire de l ile de montreal,b:a702f239787268f2,Comité de gestion de la taxe scolaire de l'île de Montréal,,CA,,,,106
+GE-AP-00541,municipalite de saint paul,b:21fbcaabaca98b7b,Municipalité de Saint-Paul .,Municipalité de Saint-Paul,CA,https://www.saintpaul.quebec,"mairie@saintpaul.quebec, reception@saintpaul.quebec",,106
+GE-AP-00542,ministere de l economie de l innovation et de l energie,b:f3c579fec614337b,"Ministère de l'Économie, de l'Innovation et de l'Énergie",,CA,https://www.economie.gouv.qc.ca,,,105
+GE-AP-00543,ville de montmagny,b:de21c5b825dbd26e,Ville de Montmagny,,CA,https://www.ville.montmagny.qc.ca,info@ville.montmagny.qc.ca,,105
+GE-AP-00544,cegep beauce appalaches,b:cac5c1594f91706c,Cégep Beauce-Appalaches.,,CA,,,,105
+GE-AP-00545,centre de services scolaire des hauts cantons,b:fb068d39e19091c8,Centre de services scolaire des Hauts-Cantons.,,CA,https://csshc.gouv.qc.ca,info@csshc.gouv.qc.ca,,104
+GE-AP-00546,ville de cookshire eaton,b:a7c95b422000ac69,Ville de Cookshire-Eaton,,CA,https://www.cookshire-eaton.qc.ca,greffe@cookshire-eaton.ca,,104
+GE-AP-00547,mrc de la matapedia,b:fb920370c4e07abc,MRC de la Matapédia,,CA,https://www.mrcmatapedia.qc.ca,"administration@mrcmatapedia.quebec, support@mrcmatapedia.quebec",,104
+GE-AP-00548,mrc les moulins,b:5c26c818e9455635,MRC Les Moulins,,CA,https://www.mrclesmoulins.ca,info@mrclesmoulins.ca,,104
+GE-AP-00549,ville de kirkland,b:45853495289a815f,Ville de Kirkland,Ville de Kirkland.,CA,https://www.ville.kirkland.qc.ca,kirkland@ville.kirkland.qc.ca,,103
+GE-AP-00550,ciusss de l estrie chus installation haute yamaska,b:e34b86db80d60df7,CIUSSS DE L'ESTRIE-CHUS INSTALLATION HAUTE-YAMASKA,,CA,,,,103
+GE-AP-00551,union des municipalites du quebec,b:f9bd3cda54a25c21,Union des municipalités du Québec.,,CA,https://umq.qc.ca,,,102
+GE-AP-00552,centre de services scolaire de la beauce etchemin,b:811f627d8ebdb806,Centre de services scolaire de la Beauce-Etchemin,,CA,https://cssbe.gouv.qc.ca,"secretariat.general@cssbe.gouv.qc.ca, communications@cssbe.gouv.qc.ca",,102
+GE-AP-00553,centre de services scolaire des phares,b:f512c68b820eaedb,Centre de services Scolaire des Phares.,,CA,https://www.cssphares.gouv.qc.ca,sec.ress.fin@cssphares.gouv.qc.ca,,101
+GE-AP-00554,ministere de la famille,b:2add6b28180a38d2,Ministère de la Famille,,CA,https://www.quebec.ca/gouvernement/ministere/famille,,,101
+GE-AP-00555,centre de sante et de services sociaux des aurores boreales,b:205724cbe4dc3ef8,Centre de santé et de services sociaux des Aurores-Boréales,,CA,,,,101
+GE-AP-00556,centre de services scolaire de la jonquiere,b:f07ed0fb1120268a,Centre de services scolaire De La Jonquière.,,CA,https://cssdlj.gouv.qc.ca,,,100
+GE-AP-00557,heritage college,b:297d34bc743067a8,Heritage College,,CA,,,,100
+GE-AP-00558,municipalite de saint modeste,b:7c030eb2de0a3314,Municipalité de Saint-Modeste .,,CA,https://www.municipalite.saint-modeste.qc.ca,municipalite@saint-modeste.ca,,100
+GE-AP-00559,commission de la construction du quebec ccq,b:a47c24a2b34f0423,Commission de la construction du Québec.- CCQ,,CA,https://www.ccq.org,,,99
+GE-AP-00560,tribunal administratif du travail,b:841008e972cab198,Tribunal administratif du travail,,CA,,,,99
+GE-AP-00561,cegep de baie comeau,b:5b12b5a69db6c8a8,Cégep de Baie-Comeau.,,CA,,,,99
+GE-AP-00562,commission scolaire de la riveraine,b:cf7ee6e95fd2c75f,Commission scolaire de la Riveraine,,CA,https://cssdlr.gouv.qc.ca,,,99
+GE-AP-00563,centre de sante et de services sociaux de la matapedia,b:78865a77019b67ee,Centre de santé et de services sociaux de la Matapédia,,CA,,,,99
+GE-AP-00564,office quebecois de la langue francaise,b:104014f5c8d204e8,Office québécois de la langue française,Office québécois de la langue française..,CA,,,,98
+GE-AP-00565,le protecteur du citoyen,b:272e2a1c914368d0,Le Protecteur du citoyen,,CA,,,,98
+GE-AP-00566,ville de princeville,b:2e91df6d7a3709fd,Ville de Princeville .,,CA,https://princeville.quebec,"info@princeville.quebec, urbanisme@princeville.quebec",,98
+GE-AP-00567,municipalite de la paroisse saint arsene,b:40d7631ba645d462,Municipalité de la Paroisse Saint-Arsène,,CA,https://www.municipalite.saint-arsene.qc.ca,directiongenerale@saint-arsene.ca,,98
+GE-AP-00568,ville de beauceville,b:39ec5b0f482b257d,Ville de Beauceville.,,CA,https://www.ville.beauceville.qc.ca,greffe@ville.beauceville.qc.ca,,97
+GE-AP-00569,municipalite de la conception,b:f1203e75ba7aec99,Municipalité de La Conception,,CA,https://www.municipalite.laconception.qc.ca,"info@municipalite.laconception.qc.ca, greffe@municipalite.laconception.qc.ca",,97
+GE-AP-00570,kativik municipal housing bureau,b:786c9461cad20903,Kativik Municipal Housing Bureau (OMH Kativik),,CA,,,,97
+GE-AP-00571,ville d amqui,b:ec23868cb295fdc7,Ville d'Amqui.,,CA,https://www.amqui.ca,administration@amqui.ca,,97
+GE-AP-00572,cisss de la cote nord point de service de sept iles,b:f6c94f2f571c61eb,CISSS de la Côte-Nord point de service de Sept-îles,,CA,https://www.cisss-cotenord.gouv.qc.ca,,09.gestion.contractuelle@ssss.gouv.qc.ca,97
+GE-AP-00573,mrc de roussillon,b:635a789b88626a7d,MRC de Roussillon.,,CA,https://www.roussillon.ca,admin@roussillon.ca,,96
+GE-AP-00574,le ministere du conseil executif,b:fdc3a9335d6f0b3b,Le Ministère du Conseil exécutif,,CA,,,,96
+GE-AP-00575,musee d art contemporain de montreal,b:2d5e8f6dbe82a985,Musée d'art contemporain de Montréal .,,CA,,,,96
+GE-AP-00576,ville de saint tite,b:4eb8a3c2443cee90,Ville de Saint-Tite.,,CA,https://www.villest-tite.com,"info@villest-tite.com, tresorier@villest-tite.com",,96
+GE-AP-00577,centres jeunesse de lanaudiere,b:362d63c6d0075f9a,Centres Jeunesse de Lanaudière.,,CA,,,,96
+GE-AP-00578,mrc des pays d en haut,b:3c028e7da80fa610,MRC des Pays-d'en-Haut,,CA,https://www.lespaysdenhaut.com,info@mrcpdh.org,,95
+GE-AP-00579,mrc des laurentides,b:e6019d3de2f4c1ac,MRC des Laurentides,,CA,https://www.mrclaurentides.qc.ca,adm@mrclaurentides.qc.ca,,95
+GE-AP-00580,commission scolaire des appalaches,b:39fe0c006866ce8a,Commission scolaire des Appalaches,,CA,https://cssa.gouv.qc.ca,,,94
+GE-AP-00581,ciusss saguenay lac st jean hopital de roberval,b:5e316d641689e124,"CIUSSS Saguenay-Lac-St-Jean, Hôpital de Roberval",,CA,https://santesaglac.gouv.qc.ca,,,94
+GE-AP-00582,cegep marie victorin,b:2995aa7f611952b4,Cégep Marie-Victorin,,CA,,,,93
+GE-AP-00583,ville de valcourt,b:b3c228509dab2884,Ville de Valcourt.,,CA,https://www.valcourt.ca,"ville.valcourt@valcourt.ca, greffe@valcourt.ca",,93
+GE-AP-00584,municipalite de mcmasterville,b:bc2130c2d88e6b40,Municipalité de McMasterville.,,CA,https://www.mcmasterville.ca,info@mcmasterville.ca,,93
+GE-AP-00585,municipalite de saint bernard,b:79402833bb7efd3d,Municipalité de Saint-Bernard..,,CA,https://saint-bernard.quebec,direction@saint-bernard.quebec,,92
+GE-AP-00586,centre de services scolaire du pays des bleuets,b:4a6550c20da47347,Centre de services scolaire du Pays-des-Bleuets,,CA,https://csspb.gouv.qc.ca,,,91
+GE-AP-00587,regie intermunicipale de dechets de la lievre,b:0f4ee7ac3943c087,Régie intermunicipale de déchets de la Lièvre,Régie intermunicipale des déchets de la Lièvre,CA,,,,91
+GE-AP-00588,sante quebec abitibi temiscamingue,b:954967f5ec28806b,Santé Québec Abitibi-Témiscamingue,,CA,https://www.cisss-at.gouv.qc.ca,"08_cisssat_communications@ssss.gouv.qc.ca, formulaire.plainte@amp.gouv.qc.ca",plaintecontratcisssat@ssss.gouv.qc.ca,90
+GE-AP-00589,cegep andre laurendeau,b:3955ce6becdc9c50,CÉGEP André Laurendeau,,CA,,,,90
+GE-AP-00590,societe parc auto du quebec,b:37c863fc3e970beb,Société parc-auto du Québec..,,CA,https://www.spaq.com,"hoteldeville@spaq.com, support@spaq.com",,89
+GE-AP-00591,sante quebec centre ouest de lile de montreal universitaire,b:2276769342ff3c93,Santé Québec Centre-Ouest-de-l’Île-de-Montréal Universitaire,,CA,https://www.ciussscentreouest.ca,,,89
+GE-AP-00592,ville de notre dame des prairies,b:8b182f22222359d1,Ville de Notre-Dame-des-Prairies.,,CA,https://www.notredamedesprairies.com,"info@notredamedesprairies.com, directioncl@notredamedesprairies.com",,89
+GE-AP-00593,ecole nationale d administration publique,b:54abfed673e2acbe,École nationale d'administration publique.,,CA,,,,89
+GE-AP-00594,municipalite deschambault grondines,b:e3d146a0f2a3e84b,Municipalité Deschambault-Grondines,,CA,https://www.deschambault-grondines.com,info@deschambault-grondines.com,,89
+GE-AP-00595,commission scolaire du lac temiscamingue,b:697ee0311baab8ae,Commission scolaire du Lac-Témiscamingue,,CA,https://csslt.gouv.qc.ca,courrier@csslt.gouv.qc.ca,,89
+GE-AP-00596,mtq,b:d638568d686091e0,"MTQ - Direction de la qualification des produits, de l'approvisionnement et des opérations contractuelles centralisées",,CA,https://www.transports.gouv.qc.ca,,,79
+GE-AP-00597,mtq,b:8c018e3a6fd926be,MTQ - Direction de l’approvisionnement et de la qualification des produits,,CA,https://www.transports.gouv.qc.ca,,,10
+GE-AP-00598,ville de bedford,b:db5a847a57f555e1,Ville de Bedford.,,CA,https://www.ville.bedford.qc.ca,"administration@ville.bedford.qc.ca, inspection@ville.bedford.qc.ca",,88
+GE-AP-00599,communaute metropolitaine de montreal,b:602c0b0d95c07d2f,Communauté métropolitaine de Montréal,,CA,,,,88
+GE-AP-00600,ecole nationale de police du quebec,b:ebda3045735cf7fb,École Nationale de Police du Québec,,CA,https://www.enpq.qc.ca,communications@enpq.qc.ca,,87

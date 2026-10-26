@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-00901,municipalite de saint charles de bellechasse,b:b6ed2b1df44c3e55,Municipalité de Saint-Charles-de-Bellechasse,,CA,https://www.saint-charles.ca,info@saint-charles.ca,,36
+GE-AP-00902,municipalite de lotbiniere,b:db3d13963d8b80a6,Municipalité de Lotbinière,,CA,https://www.municipalite-lotbiniere.com,dg@municipalite-lotbiniere.com,,36
+GE-AP-00903,municipalite de saint ephrem de beauce,b:eb18e67c5c6a404d,Municipalité de Saint-Ephrem-de-Beauce,,CA,https://www.saint-ephrem.com,dg@saint-ephrem.com,,36
+GE-AP-00904,saint placide,b:878d4a1c2be76b14,Saint-Placide,,CA,,,,36
+GE-AP-00905,municipalite de saint gabriel de brandon,b:9f651f6792f56f5a,Municipalité de Saint-Gabriel-de-Brandon,,CA,https://saintgabrieldebrandon.com,info@munstgab.com,,36
+GE-AP-00906,grand conseil de la nation waban aki,b:9408d49b5580ea7f,Grand Conseil de la Nation Waban-Aki.,,CA,,,,36
+GE-AP-00907,commission scolaire de saint hyacinthe,b:975cf59c8d9f3d26,Commission scolaire de Saint-Hyacinthe,,CA,https://www.csssh.gouv.qc.ca,directiongenerale@csssh.gouv.qc.ca,,36
+GE-AP-00908,centre intregre universitaire de sante et de services sociaux de l estrie centre hospitalier universitaire de sherbrooke centre de sante et de services sociaux du granit,b:6a3291962dcda7ee,Centre intrégré universitaire de santé et de services sociaux de l'Estrie-Centre hospitalier universitaire de Sherbrooke-Centre de santé et de services sociaux du Granit,,CA,,,,36
+GE-AP-00909,municipalite de austin,b:f7338bd803a8ca17,Municipalité de Austin,,CA,https://www.municipalite.austin.qc.ca,"info@municipalite.austin.qc.ca, direction@municipalite.austin.qc.ca",,35
+GE-AP-00910,ville de saint ours,b:7bad849098b1e6eb,Ville de Saint-Ours .,,CA,https://www.saintours.qc.ca,dg@saintours.qc.ca,,35
+GE-AP-00911,municipalite de sainte claire,b:58e68b1f51a641bc,Municipalité de Sainte-Claire.,,CA,https://www.ste-claire.ca,"administration@ste-claire.ca, direction@ste-claire.ca",,35
+GE-AP-00912,sante quebec cote nord,b:79c533c2e52dbda2,Santé Québec Côte-Nord,,CA,https://www.cisss-cotenord.gouv.qc.ca,,09.gestion.contractuelle@ssss.gouv.qc.ca,35
+GE-AP-00913,municipalite de frelighsburg,b:c6ee0817a016fa49,Municipalité de Frelighsburg,,CA,https://frelighsburg.ca,"direction@frelighsburg.ca, municipalite@frelighsburg.ca",,35
+GE-AP-00914,municipalite de leclercville,b:a44793556e802ef1,Municipalité de Leclercville.,,CA,https://www.munleclercville.qc.ca,dg@munleclercville.qc.ca,,35
+GE-AP-00915,municipalite de saint anicet,b:8300d205e1b9a7d7,Municipalité de Saint-Anicet .,,CA,https://www.stanicet.com,info@stanicet.com,,35
+GE-AP-00916,ville de huntingdon,b:72456b69f7bbf86c,Ville de Huntingdon.,,CA,https://www.villehuntingdon.com,"dg@villehuntingdon.com, tresorier@villehuntingdon.com",,35
+GE-AP-00917,societe du parc industriel et portuaire de becancour,b:bbe4cee8b624a7e9,Société du Parc Industriel et Portuaire de Bécancour.,,CA,https://www.spipb.com,"info@spipb.com, ca@spipb.com",,34
+GE-AP-00918,municipalite du canton de harrington,b:477179f3782ae0f2,Municipalité du Canton de Harrington.,,CA,https://www.harrington.ca,,,34
+GE-AP-00919,ville de berthierville,b:b49417dd30b94e15,Ville de Berthierville.,,CA,https://www.ville.berthierville.qc.ca,"info@ville.berthierville.qc.ca, dga@ville.berthierville.qc.ca",,34
+GE-AP-00920,municipalite de grande vallee,b:c16c7845a9c6f382,Municipalité de Grande-Vallée,,CA,https://www.grande-vallee.ca,"dg@grande-vallee.ca, municipalite@grande-vallee.ca",,34
+GE-AP-00921,municipalite de rougemont,b:4d6bef065ac5cd6c,Municipalité de Rougemont.,,CA,https://www.rougemont.ca,info@rougemont.ca,,34
+GE-AP-00922,municipalite de saint agapit,b:38983f2e32364874,Municipalité de Saint-Agapit.,,CA,https://www.st-agapit.qc.ca,"info@st-agapit.qc.ca, dg@st-agapit.qc.ca",,34
+GE-AP-00923,municipalite de saint etienne de bolton,b:d642e5b19dc8b5df,Municipalité de Saint-Étienne-de-Bolton,,CA,https://www.sedb.qc.ca,"info@sedb.qc.ca, dg@sedb.qc.ca",,34
+GE-AP-00924,municipalite de sainte thecle,b:fa6cda4ce42f47bd,Municipalité de Sainte-Thècle.,,CA,https://www.ste-thecle.qc.ca,ste-thecle@regionmekinac.com,,34
+GE-AP-00925,municipalite de saint wenceslas,b:23e21378d0ecb774,Municipalité de Saint-Wenceslas.,,CA,https://municipalitestwenceslas.com,dg@municipalitestwenceslas.com,,34
+GE-AP-00926,centre jeunesse du saguenay lac saint jean,b:bb28315f577dc461,Centre jeunesse du Saguenay-Lac-Saint-Jean,,CA,,,,34
+GE-AP-00927,centre de sante et de services sociaux de maskinonge,b:ab1383977b27f82a,Centre de Santé et de Services Sociaux de Maskinongé.,,CA,,,,34
+GE-AP-00928,centre de sante et de services sociaux de la mitis,b:a8a2bce909264025,Centre de Santé et de Services sociaux de La Mitis,,CA,,,,34
+GE-AP-00929,municipalite de chambord,b:e253cd97d95dd10b,Municipalité  de Chambord,,CA,https://www.chambord.ca,info@chambord.ca,,33
+GE-AP-00930,municipalite de saint ambroise,b:ffa37b64462bc8e2,Municipalité de Saint-Ambroise.,,CA,https://www.st-ambroise.qc.ca,info@st-ambroise.qc.ca,,33
+GE-AP-00931,mrc joliette,b:2f20254fbfb3c115,MRC Joliette,,CA,https://www.mrcjoliette.qc.ca,"direction@mrcjoliette.qc.ca, info.transport@mrcjoliette.qc.ca",,33
+GE-AP-00932,centre de services scolaire de la moyenne cote nord,b:2c9e3bbe9ec6f6ce,Centre de services scolaire de la Moyenne-Côte-Nord,,CA,,,,33
+GE-AP-00933,municipalite de saint fulgence,b:a10128b36aa970f1,Municipalité de Saint-Fulgence .,,CA,https://www.ville.st-fulgence.qc.ca,admin@ville.st-fulgence.qc.ca,,33
+GE-AP-00934,municipalite de saint mathieu de beloeil,b:6b14c9a714b7b4a8,Municipalité de Saint-Mathieu-de-Beloeil.,,CA,https://www.saint-mathieu-de-beloeil.com,direction@stmathieudebeloeil.ca,,33
+GE-AP-00935,municipalite de la paroisse tres saint sacrement,b:e7480db5658096c1,Municipalité de la Paroisse Très-Saint-Sacrement,,CA,https://www.tres-st-sacrement.ca,mun-trst@videotron.ca,,33
+GE-AP-00936,mrc de maria chapdelaine,b:66891ff2944cdace,MRC de Maria-Chapdelaine,,CA,https://www.mrcdemaria-chapdelaine.ca,portail@mrcmaria.qc.ca,,33
+GE-AP-00937,municipalite de saint chrysostome,b:a61630273f0ad614,Municipalité de Saint-Chrysostome.,,CA,https://www.mun-sc.ca,"dg@mun-sc.ca, greffe@mun-sc.ca",,33
+GE-AP-00938,municipalite saint jacques le mineur,b:39c83f39e1101978,Municipalité  Saint-Jacques-le-Mineur,,CA,https://www.sjlm.ca,info@sjlm.ca,,32
+GE-AP-00939,ville de gracefield,b:c103bd0e33e739d5,Ville de Gracefield,,CA,https://www.gracefield.ca,"dg@gracefield.ca, info@gracefield.ca",,32
+GE-AP-00940,municipalite de bristol,b:cec9a0dac435f010,Municipalité de Bristol,,CA,https://www.bristolmunicipality.qc.ca,info@bristolmunicipality.qc.ca,,32
+GE-AP-00941,municipalite saint victor,b:843e5559dea692ee,Municipalité Saint-Victor,,CA,https://www.st-victor.qc.ca,info@st-victor.qc.ca,,32
+GE-AP-00942,municipalite de saint jean port joli,b:7cd6a2b79d468ec4,Municipalité de Saint-Jean-Port-Joli,,CA,https://www.saintjeanportjoli.com,info@saintjeanportjoli.com,,32
+GE-AP-00943,municipalite de yamachiche,b:31514e4cc2e22d7e,Municipalité de Yamachiche,,CA,https://www.yamachiche.ca,hoteldeville@yamachiche.ca,,32
+GE-AP-00944,municipalite de sainte justine,b:c6421cdecdf9bdf8,Municipalité de Sainte-Justine.,,CA,https://www.stejustine.net,direction@stejustine.net,,32
+GE-AP-00945,municipalite durham sud,b:4fe149b0728570b1,Municipalité Durham-Sud,,CA,https://www.durham-sud.com,"dg@durham-sud.com, reception@durham-sud.com",,32
+GE-AP-00946,mrc des etchemins,b:c7b585f86e8b31de,MRC des Etchemins,MRC des Etchemins.,CA,https://www.mrcetchemins.qc.ca,administration@mrcetchemins.qc.ca,,32
+GE-AP-00947,municipalite de notre dame de bonsecours,b:3bc7c67ab58e2594,Municipalité de Notre Dame de Bonsecours,,CA,https://www.ndbonsecours.com,mun@ndbonsecours.com,,32
+GE-AP-00948,centre de services scolaire de la seigneurie des mille iles,b:091ed15dbd7193d0,Centre de services scolaire de la Seigneurie-des-Mille-Îles,,CA,https://www.cssmi.qc.ca,"info@cssmi.qc.ca, dsrh.accueil@cssmi.qc.ca","plainte.approvisionnement@cssmi.qc.ca, cssmi.approvisionnement@cssmi.qc.ca",32
+GE-AP-00949,centre de sante et de services sociaux du val saint francois,b:102d259bc4272b8f,Centre de santé et de services sociaux du Val-Saint-François,,CA,,,,32
+GE-AP-00950,regie d aqueduc de grand pre,b:48d575d56d973db0,Régie d'aqueduc de Grand Pré,,CA,,,,31
+GE-AP-00951,municipalite d ormstown,b:48aa8542537eba06,Municipalité d'Ormstown.,,CA,https://www.ormstown.ca,"ormstown@ormstown.ca, biblio@ormstown.ca",,31
+GE-AP-00952,municipalite de saint ubalde,b:ec53f1b34cd3624a,Municipalité de Saint-Ubalde.,,CA,https://www.stubalde.com,info@saintubalde.com,,31
+GE-AP-00953,municipalite de montcalm,b:5ff97f054b65f261,Municipalité de Montcalm,,CA,https://www.montcalm.ca,"info@montcalm.ca, direction@montcalm.ca",,31
+GE-AP-00954,municipalite d inverness,b:eee1eca30e370b04,MUNICIPALITÉ D'INVERNESS.,Municipalité d'Inverness.,CA,https://www.invernessquebec.ca,"dg@invernessquebec.ca, info@invernessquebec.ca",,31
+GE-AP-00955,municipalite de yamaska,b:e9ec83623ec979a1,Municipalité de Yamaska .,,CA,https://www.yamaska.ca,directiongenerale@yamaska.ca,,31
+GE-AP-00956,municipalite de st eugene,b:65ea0fb1656e82d6,Municipalité de St-Eugène,,CA,https://www.saint-eugene.ca,dg@saint-eugene.ca,,31
+GE-AP-00957,regie intermunicipale des dechets de la rouge,b:d7ab74b6fe2537be,Régie intermunicipale des déchets de la Rouge.,,CA,,,,31
+GE-AP-00958,municipalite de saint cuthbert,b:e7d1b7446810eea4,Municipalité de Saint-Cuthbert .,Municipalité de Saint-Cuthbert,CA,https://www.st-cuthbert.qc.ca,mairie@st-cuthbert.qc.ca,,31
+GE-AP-00959,municipalite de notre dame de la merci,b:8d8edcb49d12ece5,Municipalité de Notre-Dame-de-la-Merci,,CA,https://www.mun-ndm.ca,"info@mun-ndm.ca, dg@mun-ndm.ca",,31
+GE-AP-00960,municipalite saint zephirin de courval,b:e70aa34cddd7da4e,Municipalité  Saint-Zéphirin-de-Courval,,CA,https://www.saint-zephirin.ca,municipalite@saint-zephirin.ca,,31
+GE-AP-00961,municipalite saint alphonse,b:d45530eac2e21053,Municipalité Saint-Alphonse,,CA,https://www.st-alphonsegaspesie.com,"direction@st-alphonsegaspesie.com, municipalite@st-alphonsegaspesie.com",,31
+GE-AP-00962,ville de cap chat,b:585ed8ecdbbe2497,Ville de Cap-Chat.,,CA,https://www.cap-chat.ca,directiongenerale@ville.cap-chat.ca,,31
+GE-AP-00963,municipalite de stanbridge station,b:04bdbfbc9af9dba0,Municipalité de Stanbridge Station,,CA,https://www.stanbridge-station.ca,admin@stanbridge-station.ca,,31
+GE-AP-00964,les centres jeunesse de l outaouais,b:85bab3c7964c8935,Les Centres jeunesse de l'Outaouais,,CA,,,,31
+GE-AP-00965,conference regionale des elu,b:87bbfad505bb1c16,Conférence Régionale des élu(e)s de la Chaudière-Appalaches,,CA,,,,31
+GE-AP-00966,municipalite du canton de potton,b:9d7c00816795a651,Municipalité du Canton de Potton,,CA,https://www.potton.ca,dg@potton.ca,,30
+GE-AP-00967,societe portuaire du bas st laurent et de la gaspesie inc,b:9758a310d06210d2,Société portuaire du Bas-St-Laurent et de la Gaspésie inc.,,CA,,,,30
+GE-AP-00968,centre de services scolaire du lac temiscamingue,b:20534779a5d1bc92,Centre de services scolaire du Lac-Témiscamingue,,CA,https://csslt.gouv.qc.ca,courrier@csslt.gouv.qc.ca,,30
+GE-AP-00969,mrc de charlevoix,b:3412689f76894a63,MRC  de Charlevoix,MRC Charlevoix,CA,https://www.mrccharlevoix.ca,,,30
+GE-AP-00970,municipalite de saint elie de caxton,b:f666b97fdd14f900,Municipalité de Saint-Élie-de-Caxton,,CA,https://www.st-elie-de-caxton.ca,info@st-elie-de-caxton.ca,,30
+GE-AP-00971,regie intermunicipal de gestion integree des dechets becancour nicolet yamaskas,b:d9513802a1bdc6ad,Régie Intermunicipal de gestion intégrée des déchets Bécancour Nicolet Yamaskas,,CA,,,,30
+GE-AP-00972,ville de senneterre,b:f385c0c62ab0bd7f,Ville de Senneterre,Ville de Senneterre.,CA,https://www.ville.senneterre.qc.ca,info@ville.senneterre.qc.ca,,30
+GE-AP-00973,municipalite l isle aux allumettes,b:9c3b4630fa91ef32,Municipalité L'Isle-aux-Allumettes,,CA,https://www.isle-aux-allumettes.com,lisle-aux-allumettes@mrcpontiac.qc.ca,,30
+GE-AP-00974,municipalite de saint alexandre de kamouraska,b:2b81d774ad97bed0,Municipalité de Saint-Alexandre-de-Kamouraska,,CA,https://www.stalexkamouraska.com,dg@sadk.ca,,30
+GE-AP-00975,municipalite de labrecque,b:9a4b61f958c54669,Municipalité de Labrecque,,CA,https://www.ville.labrecque.qc.ca,municipalite@ville.labrecque.qc.ca,,30
+GE-AP-00976,municipalite de notre dame de lourdes,b:c2abb04b970b93a0,Municipalité de Notre-Dame-de-Lourdes,,CA,https://www.notredamedelourdes.ca,"direction@notredamedelourdes.ca, reception@notredamedelourdes.ca",,30
+GE-AP-00977,municipalite du village de price,b:dca7037255dfc066,Municipalité du Village de Price,,CA,https://www.municipaliteprice.ca,info@municipaliteprice.ca,,30
+GE-AP-00978,municipalite de saint amable,b:d34947f89f9fc329,Municipalité de Saint-Amable .,,CA,https://www.st-amable.qc.ca,ville@st-amable.qc.ca,,30
+GE-AP-00979,municipalite de saint dominique,b:c0da0dfd34552362,Municipalité de Saint-Dominique.,,CA,https://st-dominique.ca,,,30
+GE-AP-00980,energie hydroelectrique ouiatchouan,b:cd41281103e3caf9,Énergie Hydroélectrique Ouiatchouan,,CA,,,,30
+GE-AP-00981,centre monteregien de readaptation,b:c3d27d43d59fc4f0,Centre Montérégien de Réadaptation.,,CA,,,,30
+GE-AP-00982,agence de sante et services sociaux du bas saint laurent,b:ba8b3eff3f98e94d,Agence de santé et services sociaux du Bas-Saint-Laurent,,CA,,,,30
+GE-AP-00983,buanderie centrale de montreal,b:24a0e376090f8984,Buanderie centrale de Montréal,,CA,,,,29
+GE-AP-00984,mrc du val saint francois,b:837fbc59d9531f64,MRC du Val-Saint-François,,CA,https://val-saint-francois.qc.ca,info.mrc@mrcvsf.ca,,29
+GE-AP-00985,cegep de sorel tracy,b:ff674c80da8d32c3,Cégep de Sorel-Tracy.,Cégep de Sorel-Tracy,CA,,,,29
+GE-AP-00986,mrc de montmagny,b:846e720206a63414,MRC de Montmagny,,CA,https://www.montmagny.com,,,29
+GE-AP-00987,municipalite du village de grenville,b:c398f19a87958fcb,Municipalité du Village de Grenville .,,CA,https://www.grenville.ca,info@grenville.ca,,29
+GE-AP-00988,municipalite de melbourne,b:d30f491a5724f082,Municipalité de Melbourne (Canton).,,CA,https://www.melbournecanton.ca,"dg@melbournecanton.ca, admin@melbournecanton.ca",,29
+GE-AP-00989,municipalite de sainte marguerite,b:58f2dc251c8bbdba,Municipalité de Sainte-Marguerite,,CA,https://www.sainte-marguerite.ca,administration@sainte-marguerite.ca,,29
+GE-AP-00990,municipalite de baie du febvre,b:6024c341e13f8296,Municipalité de Baie-du-Febvre.,,CA,https://www.baie-du-febvre.net,municipalite@baie-du-febvre.net,,29
+GE-AP-00991,municipalite de natashquan,b:f973e60aa78ead9b,Municipalité de Natashquan,,CA,https://www.natashquan.org,,,29
+GE-AP-00992,municipalite de saint mathias sur richelieu,b:367167bc3af64e89,Municipalité de Saint-Mathias-sur-Richelieu,,CA,https://www.st-mathias.org,info@st-mathias.org,,29
+GE-AP-00993,municipalite de saint marcel de richelieu,b:99831128cf6f41ee,Municipalité de Saint-Marcel-de-Richelieu,,CA,https://www.saintmarcelderichelieu.ca,direction@saintmarcelderichelieu.ca,,29
+GE-AP-00994,municipalite de mandeville,b:419eaf8281a39678,Municipalité de Mandeville.,,CA,https://www.mandeville.ca,municipalite.dg@mandeville.ca,,29
+GE-AP-00995,municipalite de saint benoit labre,b:508560166676e61a,Municipalité de Saint-Benoît-Labre..,,CA,https://www.saintbenoitlabre.com,dg@saintbenoitlabre.com,,29
+GE-AP-00996,centre de sante et de services sociaux de la vallee de la batiscan,b:098d0a795797bb25,Centre de santé et de services sociaux de la Vallée de la Batiscan,,CA,,,,29
+GE-AP-00997,service aerien du gouvernement du quebec,b:d7f408ceafa18aeb,Service aérien du gouvernement du Québec.,,CA,,,,29
+GE-AP-00998,valoris,b:7be0c088e5334700,Valoris,,CA,,,,28
+GE-AP-00999,municipalite saint jean de matha,b:4b209e4fc6ffe87c,Municipalité Saint-Jean-de-Matha,,CA,https://www.municipalitestjeandematha.qc.ca,info@matha.ca,,28
+GE-AP-01000,municipalite de campbell s bay,b:527d63e6a8e0cb5a,Municipalité de Campbell's Bay,,CA,https://www.campbellsbay.ca,"dg@campbellsbay.ca, info@campbellsbay.ca",,28

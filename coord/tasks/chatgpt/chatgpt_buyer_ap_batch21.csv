@@ -1,0 +1,13 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-02001,town of springhill,b:49a2c1f3aa667f28,Town of Springhill,,CA,,,,1
+CH-AP-02002,nova scotia pension agency,b:b672fb93e12254c4,Nova Scotia Pension Agency,,CA,,,,1
+CH-AP-02003,ceed,b:198f881d70768140,CEED,,CA,,,,1
+CH-AP-02004,lunenburg queens rda,b:cf3ad824abcfb933,Lunenburg Queens RDA,,CA,,,,1
+CH-AP-02005,intergovernmental affairs,b:d8640075bc218f9f,Intergovernmental Affairs,,CA,https://novascotia.ca,,,1
+CH-AP-02006,procurement mash sector,b:fbc7b5544dc7209c,Procurement/MASH Sector,,CA,,,,1
+CH-AP-02007,conserve nova scotia,b:b22fae7ac6d7de69,Conserve Nova Scotia,,CA,,,,1
+CH-AP-02008,south shore waste solutions,b:1abe227870568832,South Shore Waste Solutions,,CA,,,,1
+CH-AP-02009,nova scotia farm loan board,b:c924054e26d769b2,Nova Scotia Farm Loan Board,,CA,,,,1
+CH-AP-02010,hearing and speech nova scotia,b:58bb0bd990f0d01f,Hearing and Speech Nova Scotia,,CA,,,,1
+CH-AP-02011,nova scotia education common services bureau,b:f9a9ff6a1310c63c,Nova Scotia Education Common Services Bureau,,CA,,,,1
+CH-AP-02012,village of greenwood,b:21c52cf15914ad90,Village of Greenwood,,CA,http://www.greenwoodnovascotia.com,,,1

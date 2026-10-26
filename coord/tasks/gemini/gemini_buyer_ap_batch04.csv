@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-00301,institut de tourisme et d hotellerie du quebec,b:6573ccb822cbd2da,Institut de tourisme et d'hôtellerie du Québec,,CA,https://www.ithq.qc.ca,,,237
+GE-AP-00302,municipalite des cedres,b:f7367cd057051505,Municipalité des Cèdres,,CA,https://www.ville.lescedres.qc.ca,info@ville.lescedres.qc.ca,,237
+GE-AP-00303,dgcger,b:2c76487277685bef,DGCGER (Ministère des transports),,CA,https://www.transports.gouv.qc.ca,,,235
+GE-AP-00304,ministere de l immigration de la diversite et de l inclusion,b:7dc75e905593db5e,"Ministère de l'Immigration, de la Diversité et de l'Inclusion",,CA,,,,235
+GE-AP-00305,fonds des ressources informationnelles du secteur de la sante et des services sociaux,b:1f1d73f59c337bd2,Fonds des ressources informationnelles du secteur de la santé et des services sociaux,,CA,,,,160
+GE-AP-00306,fonds des ressources informationnelles du secteur de la sante et des services sociaux,b:9b256c00c1a6ac6a,Fonds des ressources informationnelles du secteur de la Santé et des Services sociaux (FRISSSS),,CA,,,,75
+GE-AP-00307,autorite regionale de transport metropolitain,b:323ffbf10f57c1b2,Autorité régionale de transport métropolitain (ARTM),,CA,https://exo.quebec,,,233
+GE-AP-00308,college lionel groulx,b:38c5d3cccc550a28,Collège Lionel-Groulx,,CA,,,,233
+GE-AP-00309,ville de lorraine,b:6e8888ad5b64323f,Ville de Lorraine,Ville de Lorraine.,CA,https://www.ville.lorraine.qc.ca,"direction.generale@ville.lorraine.qc.ca, info@ville.lorraine.qc.ca",soumission@lorraine.ca,231
+GE-AP-00310,commission scolaire eastern townships,b:aa04f0430136be55,Commission Scolaire Eastern Townships,,CA,https://www.etsb.qc.ca,,,230
+GE-AP-00311,centre de services scolaire des trois lacs,b:7055da1f9397cac2,Centre de services scolaire des Trois-Lacs,,CA,https://csstl.gouv.qc.ca,,,229
+GE-AP-00312,ville de saint constant,b:992d3bfc36232f63,Ville de Saint-Constant.,,CA,https://www.saint-constant.ca,"mairie@saint-constant.ca, reception@saint-constant.ca",approvisionnements@saint-constant.ca,228
+GE-AP-00313,ville de louiseville,b:f34ee0e09409f6a3,Ville de Louiseville.,,CA,https://www.louiseville.ca,"communication@louiseville.ca, hoteldeville@louiseville.ca",,228
+GE-AP-00314,secretariat du conseil du tresor service des contrats,b:52b6b185ff8a97ef,Secrétariat du Conseil du trésor-Service des contrats,Secrétariat du Conseil du trésor - Service des contrats,CA,,,,228
+GE-AP-00315,commission scolaire des monts et marees,b:0c9f9539bfa60d64,Commission scolaire des Monts et Marées,,CA,https://www.cssmm.gouv.qc.ca,,,226
+GE-AP-00316,corporation d approvisionnement laurentides lanaudiere,b:27d75eaac12f1f25,Corporation d'Approvisionnement Laurentides-Lanaudière,,CA,,,,224
+GE-AP-00317,municipalite de saint casimir,b:7c8e3927d0a086ed,Municipalité de Saint-Casimir.,,CA,https://www.saint-casimir.com,info@saint-casimir.com,,221
+GE-AP-00318,cegep saint jean sur richelieu,b:13e86b1f29059ca4,CEGEP Saint-Jean-Sur-Richelieu,,CA,,,,219
+GE-AP-00319,centre de sante et de services sociaux la pommeraie,b:5a2e6d2f5c44e321,Centre de santé et de services sociaux La Pommeraie.,,CA,,,,218
+GE-AP-00320,centre de services scolaire du chemin du roy,b:62dccc6d8ba627a7,Centre de services scolaire du Chemin-du-Roy,,CA,https://csscdr.gouv.qc.ca,,,217
+GE-AP-00321,le cegep regional de lanaudiere,b:454c42053e5984b6,Le Cégep Régional de Lanaudière,Cégep régional de Lanaudière,CA,,,,217
+GE-AP-00322,societe d habitation du quebec,b:340d58f9cbe52fcd,Société d'Habitation du Québec,,CA,https://www.habitation.gouv.qc.ca,,,216
+GE-AP-00323,centre de services scolaire des monts et marees,b:03849d49c9e41c25,Centre de services scolaire des Monts et Marées,,CA,https://www.cssmm.gouv.qc.ca,,,215
+GE-AP-00324,institut national de psychiatrie legale philippe pinel,b:30e447a151689917,Institut national de psychiatrie légale Philippe-Pinel,,CA,https://pinel.qc.ca,,,215
+GE-AP-00325,ville de sainte brigitte de laval,b:188d103311a4c9f6,Ville de Sainte-Brigitte-de-Laval,,CA,https://www.sbdl.net,"mairie@sbdl.net, urbanisme@sbdl.net",,214
+GE-AP-00326,centre de services scolaire des navigateurs,b:23539f1e5912ba32,Centre de services scolaire des Navigateurs,,CA,https://cssdn.gouv.qc.ca,,,213
+GE-AP-00327,ville de chibougamau,b:a063525403d70688,Ville de Chibougamau.,,CA,https://www.ville.chibougamau.qc.ca,directiongenerale@ville.chibougamau.qc.ca,,213
+GE-AP-00328,commission scolaire du chemin du roy,b:f12c6dcfa650f3c6,Commission scolaire du Chemin-du-Roy,,CA,https://csscdr.gouv.qc.ca,,,213
+GE-AP-00329,retraite quebec,b:3d4108d87b549363,Retraite Québec,,CA,https://www.retraitequebec.gouv.qc.ca,,,212
+GE-AP-00330,sante quebec monteregie ouest,b:64da78f130050951,Santé Québec Montérégie-Ouest,,CA,https://www.santemonteregie.qc.ca/ouest,,,212
+GE-AP-00331,college de rosemont,b:0aac369f83141419,Collège de Rosemont.,,CA,,,,212
+GE-AP-00332,mrc haute yamaska,b:bffc5f51e2c11a6b,MRC Haute-Yamaska,MRC de La Haute-Yamaska,CA,https://www.haute-yamaska.ca,,,211
+GE-AP-00333,municipalite de chertsey,b:e4f6bfec79d4c770,Municipalité  de Chertsey,,CA,https://www.chertsey.ca,"general@chertsey.ca, direction.generale@chertsey.ca",,210
+GE-AP-00334,ville de rigaud,b:d4b094ee73a1921f,Ville de Rigaud,,CA,https://www.ville.rigaud.qc.ca,"rigaud@ville.rigaud.qc.ca, urbanisme@ville.rigaud.qc.ca",,209
+GE-AP-00335,centre de services partages du quebec,b:b8e5859cdd90aa0f,Centre de services partagés du Québec,,CA,,,,207
+GE-AP-00336,centre integre universitaire de sante et de services sociaux de la capitale nationale site charlevoix,b:c9cbcfb120a8c583,"Centre Intégré universitaire de santé et de services sociaux de La Capitale-Nationale, site Charlevoix",,CA,https://www.ciusss-capitalenationale.gouv.qc.ca,"plaintes.dl.ciussscn@ssss.gouv.qc.ca, commissaire.plainte.ciussscn@ssss.gouv.qc.ca",03.ciussscn.requisition-appro@ssss.gouv.qc.ca,205
+GE-AP-00337,ciusss mcq,b:b5ead8473ec5e11e,CIUSSS MCQ - HDA,,CA,,,,205
+GE-AP-00338,mrc d abitibi,b:6721db70cbfa00b7,MRC d'Abitibi,,CA,https://www.mrcabitibi.qc.ca,,,204
+GE-AP-00339,ville de nicolet,b:0efc06f0c72f1f62,Ville de Nicolet .,Ville de Nicolet,CA,https://www.nicolet.ca,communication@nicolet.ca,,203
+GE-AP-00340,hopital santa cabrini ospedale,b:2a577a439f6cd57a,Hôpital Santa-Cabrini Ospedale,,CA,,,,202
+GE-AP-00341,municipalite de cantley,b:f406ecce875b5a94,Municipalité de Cantley.,,CA,https://www.cantley.ca,municipalite@cantley.ca,,201
+GE-AP-00342,partenariat du quartier des spectacles,b:87003f70ba7fe217,Partenariat du Quartier des spectacles,,CA,,,,197
+GE-AP-00343,ville de new richmond,b:97182febf8d07944,Ville de New Richmond,,CA,https://www.villenewrichmond.com,,,197
+GE-AP-00344,la financiere agricole du quebec,b:32d4d1c8e08e7028,La Financière agricole du Québec,,CA,https://www.fadq.qc.ca,,,196
+GE-AP-00345,ville de maniwaki,b:cedcd6e2117e56d2,Ville de Maniwaki.,,CA,https://www.ville.maniwaki.qc.ca,"maniwaki@ville.maniwaki.qc.ca, finances@ville.maniwaki.qc.ca",,196
+GE-AP-00346,cegep de ste foy,b:d7135b782a7164b8,CEGEP de Ste-Foy,,CA,,,,195
+GE-AP-00347,ministere des relations internationales et de la francophonie,b:1d8fd51cf53f961f,Ministère des Relations internationales et de la Francophonie,,CA,,,,194
+GE-AP-00348,centre de sante et de services sociaux ahuntsic et montreal nord hopital fleury,b:d8c701691a2ea78f,"Centre de santé et de services sociaux Ahuntsic et Montréal Nord, Hôpital Fleury",,CA,,,,194
+GE-AP-00349,commission scolaire des hauts cantons,b:c4a73ec4a90047f7,Commission scolaire des Hauts-Cantons.,,CA,https://csshc.gouv.qc.ca,info@csshc.gouv.qc.ca,,193
+GE-AP-00350,commission de la capitale nationale du quebec,b:191763eb0930fba6,Commission de la capitale nationale du Québec .,,CA,https://www.capitale.gouv.qc.ca,,,192
+GE-AP-00351,cegep de l outaouais,b:24f64a1e47470765,Cégep de l'Outaouais...,,CA,,,,191
+GE-AP-00352,college de maisonneuve,b:2042e6951de9e47b,Collège de Maisonneuve,,CA,https://www.cmaisonneuve.qc.ca,,,190
+GE-AP-00353,centre integre de sante et de services sociaux des laurentides point de service d antoine labelle,b:218c663a68756eb4,Centre intégré de santé et de services sociaux des Laurentides point de service d'Antoine-Labelle,,CA,https://www.santelaurentides.gouv.qc.ca,perception.cissslau@ssss.gouv.qc.ca,,190
+GE-AP-00354,musee de la civilisation,b:c98387ae68471eba,Musée de la civilisation,,CA,,,,189
+GE-AP-00355,societe du grand theatre de quebec,b:fa30dd2b3a4edb05,Société du Grand Théâtre de Québec.,,CA,,,,189
+GE-AP-00356,ministere des forets de la faune et des parcs,b:fd49c3578cee91ed,"Ministère des Forêts, de la Faune et des Parcs",,CA,,,,189
+GE-AP-00357,centre de services scolaire de la region de sherbrooke,b:b9341b5768659cc3,Centre de services scolaire de la région de Sherbrooke.,,CA,https://cssrs.gouv.qc.ca,,,188
+GE-AP-00358,municipalite du canton d orford,b:117191c40b9a94aa,Municipalité du Canton d'Orford,,CA,https://www.canton.orford.qc.ca,info@canton.orford.qc.ca,,188
+GE-AP-00359,commission scolaire de la cote du sud,b:9e177794d3e096de,Commission scolaire de la Côte-du-Sud.,,CA,https://csscotesud.gouv.qc.ca,"secretariat.general@csscotesud.gouv.qc.ca, plaintesao@csscotesud.gouv.qc.ca",,188
+GE-AP-00360,centre de services scolaire de la cote du sud,b:9950578f4b730c5f,Centre de services scolaire de la Côte-du-Sud,,CA,https://csscotesud.gouv.qc.ca,"secretariat.general@csscotesud.gouv.qc.ca, plaintesao@csscotesud.gouv.qc.ca",,187
+GE-AP-00361,office municipal de l habitation de laval,b:61901bbe24c8dcb0,Office municipal de l'habitation de Laval,Office municipal d'habitation de Laval,CA,,,,185
+GE-AP-00362,ville de l ile perrot,b:78c532d5d466fcb4,Ville de L'Île-Perrot,,CA,https://www.ile-perrot.qc.ca,ville@ile-perrot.qc.ca,,185
+GE-AP-00363,centre de sante et de services sociaux de jonquiere,b:d7edd6df28f61853,Centre de santé et de services sociaux de Jonquière,,CA,,,,185
+GE-AP-00364,commission scolaire de l energie,b:c78c2c00a38088ee,Commission scolaire de l'Énergie.,,CA,https://cssenergie.gouv.qc.ca,"cse@cssenergie.gouv.qc.ca, communication@cssenergie.gouv.qc.ca",,184
+GE-AP-00365,agence de mobilite durable,b:f14cc981f5702bcf,Agence de mobilité durable,,CA,https://agencemobilitedurable.ca,,,183
+GE-AP-00366,ville de cowansville,b:8b0e28ff3616d66d,Ville de Cowansville,,CA,https://www.ville.cowansville.qc.ca,hoteldeville@ville.cowansville.qc.ca,,183
+GE-AP-00367,societe de transport du saguenay,b:0482864e18a471cc,Société de transport du Saguenay,,CA,,,,183
+GE-AP-00368,ville de sutton,b:7f4667540f66c5e0,Ville de Sutton .,,CA,https://www.sutton.ca,,,183
+GE-AP-00369,mrc des sources,b:6d2381d67a275253,MRC des Sources,,CA,https://www.mrcdessources.com,mrc.info@mrcdessources.com,,183
+GE-AP-00370,,b:da23fb287d9766d3,(inactive sub-organization),,CA,,,,182
+GE-AP-00371,conference regionale des elus de laval,b:4aac7add9684ba57,Conférence Régionale des Élus de Laval,,CA,,,,182
+GE-AP-00372,mrc du haut saint laurent,b:878295703ee16a63,MRC du Haut-Saint-Laurent,,CA,https://www.mrchsl.com,,,181
+GE-AP-00373,ville de la pocatiere,b:577fad9647d8aa8b,Ville de La Pocatière.,,CA,https://www.lapocatiere.ca,greffe@lapocatiere.ca,,180
+GE-AP-00374,ministere du developpement durable de l environnement et de la lutte contre les changements climatiques,b:2e89399b5d44ddd9,Ministère du Développement durable de l'Environnement et de la Lutte contre les changements climatiques,,CA,,,,180
+GE-AP-00375,commission scolaire du fleuve et des lacs,b:5f684ee226e98609,Commission scolaire du Fleuve-et-des-Lacs.,,CA,https://cssfl.gouv.qc.ca,info@cssfl.gouv.qc.ca,,179
+GE-AP-00376,commission administrative des regimes de retraite et d assurances,b:90b86a2f7b9ea31a,Commission Administrative des régimes de retraite et d'assurances (Carra),,CA,,,,179
+GE-AP-00377,centre hospitalier regional de trois rivieres,b:8926a108bac75bb1,CENTRE HOSPITALIER RÉGIONAL DE TROIS RIVIÈRES,,CA,,,,179
+GE-AP-00378,commission scolaire du pays des bleuets,b:c061ff639c48e8a6,Commission scolaire du Pays-des-Bleuets.,,CA,https://csspb.gouv.qc.ca,,,152
+GE-AP-00379,commission scolaire du pays des bleuets,b:e4fe87f773f9e06c,Commission scolaire du Pays des Bleuets - CFP Dolbeau-Mistassini,,CA,https://csspb.gouv.qc.ca,,,27
+GE-AP-00380,cegep limoilou,b:b3b0b2c726742420,Cégep Limoilou,,CA,https://www.cegeplimoilou.ca,,,177
+GE-AP-00381,ville otterburn park,b:f7795f2c19673ea7,Ville Otterburn Park.,,CA,https://www.opark.ca,info@opark.ca,,177
+GE-AP-00382,universite bishop s,b:0157d488dd73469b,Université Bishop's.,,CA,https://www.ubishops.ca,admissions@ubishops.ca,,177
+GE-AP-00383,commission scolaire des laurentides,b:bd04424a4d5cd213,Commission Scolaire des Laurentides.,,CA,https://csslaurentides.gouv.qc.ca,"info@csslaurentides.gouv.qc.ca, taxe@csslaurentides.gouv.qc.ca",,177
+GE-AP-00384,groupe d approvisionnement en commun du nord ouest du quebec secteur abitibi temiscamingue,b:692000a252e4f997,Groupe d'Approvisionnement en commun du Nord-Ouest du Québec secteur Abitibi-Témiscamingue,,CA,,,,177
+GE-AP-00385,municipalite regionale de comte de marguerite d youville,b:758fec00cd69f9f5,Municipalité régionale de comté de Marguerite-D'Youville,,CA,https://www.margueritedyouville.ca,"infomrc@margueritedyouville.ca, cour@margueritedyouville.ca",,176
+GE-AP-00386,centre de services scolaire de saint hyacinthe,b:d65cf2b597f77b5a,Centre de services scolaire de Saint-Hyacinthe,,CA,https://www.csssh.gouv.qc.ca,directiongenerale@csssh.gouv.qc.ca,,176
+GE-AP-00387,commission scolaire au coeur des vallees,b:263dba58b780bfaa,Commission Scolaire au Coeur-des-Vallées,,CA,,,,176
+GE-AP-00388,sante quebec bas saint laurent,b:bd1b30644cd4b2c6,Santé Québec Bas-Saint-Laurent,,CA,https://www.cisss-bsl.gouv.qc.ca,,,174
+GE-AP-00389,ville de bois des filion,b:ee790425ebd1dbfe,Ville de Bois-des-Filion.,,CA,https://villebdf.ca,ville@villebdf.ca,,174
+GE-AP-00390,college de bois de boulogne,b:c937aac85d59190e,Collège De-Bois-De-Boulogne,,CA,,,,174
+GE-AP-00391,champlain regional college,b:405f4b09863fb299,Champlain Regional College,,CA,,,,174
+GE-AP-00392,municipalite de saint joseph du lac,b:96194fa3862749c7,Municipalité de Saint-Joseph-du-Lac,Municipalité de Saint-Joseph-du-Lac.,CA,https://www.sjdl.qc.ca/fr,info@sjdl.qc.ca,,173
+GE-AP-00393,sante quebec gaspesie,b:eb1c190d5cf1d5f7,Santé Québec Gaspésie,,CA,https://cisss-gaspesie.gouv.qc.ca,,,172
+GE-AP-00394,commission scolaire du lac abitibi,b:2e637bd2ffc3b393,Commission Scolaire du Lac-Abitibi..,,CA,https://cssla.gouv.qc.ca,,,172
+GE-AP-00395,commission scolaire des samares,b:dd2bfc66e0e73bb4,Commission scolaire des Samares.,,CA,https://csssamares.gouv.qc.ca,"sg@csssamares.gouv.qc.ca, rf_tech-administration@csssamares.gouv.qc.ca",rm.gestion.contractuelle@csssamares.gouv.qc.ca,172
+GE-AP-00396,ville de saint lazare,b:6c2ba0e71d02aadc,Ville de Saint-Lazare.,,CA,https://www.ville.saint-lazare.qc.ca,info@ville.saint-lazare.qc.ca,,171
+GE-AP-00397,ville de thurso,b:57911ab6f4b1f3d1,Ville de Thurso,,CA,https://www.ville.thurso.qc.ca,dg@villethurso.ca,,171
+GE-AP-00398,municipalite de saint donat,b:5b90fc42edefd5b7,Municipalité de Saint-Donat,,CA,https://www.saint-donat.ca,"dg@saint-donat.ca, info@saint-donat.ca",,171
+GE-AP-00399,commission scolaire de la beauce etchemin,b:9d153b5726bb2e5b,Commission scolaire de la Beauce-Etchemin.,,CA,https://cssbe.gouv.qc.ca,"secretariat.general@cssbe.gouv.qc.ca, communications@cssbe.gouv.qc.ca",,171
+GE-AP-00400,ville de dolbeau mistassini,b:5d68dcf76d5836a7,Ville de Dolbeau-Mistassini.,,CA,https://www.ville.dolbeau-mistassini.qc.ca,"directiongenerale@ville.dolbeau-mistassini.qc.ca, rh@ville.dolbeau-mistassini.qc.ca",,170

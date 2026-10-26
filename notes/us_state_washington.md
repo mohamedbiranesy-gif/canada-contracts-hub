@@ -1,0 +1,5 @@
+# us_state_washington — Washington State (data.wa.gov Agency Contracts FY2014–FY2025; fiscal.wa.gov): checked, rejected
+
+- data.wa.gov "Agency Contracts Fiscal Year 20xx" (ids 6fx9-ncas for FY2025, s8d5-pj78 FY2024, …) have contractor name, statewide vendor number, purpose, effective/period-of-performance dates, amounts, procurement type — **no contractor address/country**. "Statewide Contract (Master Contract) Sales Data" (n8q6-4twj) has vendor name only. fiscal.wa.gov has no contracts module (404s). WEBS (Washington's Electronic Business Solution) requires login.
+- Rejected: vendor country not determinable.
+- Resume check 2026-10-25 ≈20:44 UTC: "WEBS Vendors by commodity code and MWBE/V/Small status" (data.wa.gov 3kwi-7zsj; company_name, dba, phone, email, city, **state**, web, commodity code, certifications) has no vendor number to link to the Agency Contracts datasets (which carry `statewide_vendor_number` and contract/performance dates but no address), and no rows with a Canadian province state. Rejection stands; 0 records.

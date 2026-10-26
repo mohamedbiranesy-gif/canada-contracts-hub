@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00401,world bank group,b:9528b068ad6c4f5f,World Bank Group - IBRD - HSDDR,,US,,,,1
+CH-AP-00402,world bank group,b:a6d6ea9e34a0c394,World Bank Group - IBRD - Infrastructure Vice President Unit,,US,,,,1
+CH-AP-00403,world bank group,b:ef312603a15fd4cd,"World Bank Group - IBRD - VP, EFI Practice Group",,US,,,,1
+CH-AP-00404,world bank group,b:12a39bb57c4c6755,"World Bank Group - IBRD - VP, Planet",,US,,,,1
+CH-AP-00405,world bank group,b:e83f4b80ba61ffe8,World Bank Group - IBRD - Infrastructure VPU,,US,,,,1
+CH-AP-00406,world bank group,b:85418b5be1cbaa82,World Bank Group - IFC - Corporate Support,,US,,,,1
+CH-AP-00407,world bank group,b:c505a0db65064178,World Bank Group - IBRD - GGHVP,,US,,,,1
+CH-AP-00408,world bank group,b:a2f3b0c95b90838d,World Bank Group - IFC - Risk and Finance,,US,,,,1
+CH-AP-00409,world bank group,b:afef760cf0f4c6b7,World Bank Group - IBRD - Off of Sr VP Dev Econ/Chief Econ,,US,,,,1
+CH-AP-00410,world bank group,b:00bdb30df87635dc,World Bank Group - IBRD - Office of Sr VP Dev Econ/Chief Econ,,US,,,,1
+CH-AP-00411,world bank group,b:5337b3a367b06f4c,World Bank Group - IFC - Global Industries & Other Depts,,US,,,,1
+CH-AP-00412,world bank group,b:ad54ecfce836c77a,World Bank Group - IFC - IFC VP Middle East & Africa,,US,,,,1
+CH-AP-00413,world bank group,b:2d51bf376c883a35,World Bank Group - IBRD - Africa,,US,,,,1
+CH-AP-00414,world bank group,b:ad8cdf6da4c2a839,World Bank Group - IBRD - Human Resources,,US,,,,1
+CH-AP-00415,world bank group,b:1b6cd21f74519170,"World Bank Group - IFC - VP,EFI Practice Group - IFC",,US,,,,1
+CH-AP-00416,world bank group,b:6360bf4aaa02cdb7,World Bank Group - IFC - IFC Global Industries,,US,,,,1
+CH-AP-00417,world bank group,b:8c3a8d2b9a5174ed,"World Bank Group - IFC - Global Client Services, Office of the Vice President",,US,,,,1
+CH-AP-00418,world bank group,b:0571f6abb30bc9cb,"World Bank Group - IBRD - VP, HD Practice Group",,US,,,,1
+CH-AP-00419,world bank group,b:669a5e329f260357,"World Bank Group - IBRD - VP,EFI Practice Group - IFC",,US,,,,1
+CH-AP-00420,world bank group,b:16d81856926f4c9f,World Bank Group - IFC - Infrastructure Practice Group,,US,,,,1
+CH-AP-00421,world bank group,b:dc6078c29f5a0548,"World Bank Group - IFC - Sub-Saharan Africa, Latin America & Caribbean, and W. Europe",,US,,,,1
+CH-AP-00422,world bank group,b:c5ee4cdcbfb98515,World Bank Group - IBRD - Information and Technology Solutions,,US,,,,1
+CH-AP-00423,world bank group,b:08ba0d23674a64ed,World Bank Group - IBRD - Office of the Vice President,,US,,,,1
+CH-AP-00424,world bank group,b:dcd8a543c2c622ee,World Bank Group - IBRD - Cross-Cutting Solutions,,US,,,,1
+CH-AP-00425,world bank group,b:6b5583fce72f2957,World Bank Group - IFC - New Business & Portfolio Mgt,,US,,,,1
+CH-AP-00426,world bank group,b:f584a58439a11606,World Bank Group - IBRD - SD Practice Group,,US,,,,1
+CH-AP-00427,world bank group,b:85bf200062ced1e3,"World Bank Group - IBRD - VP, People",,US,,,,1
+CH-AP-00428,world bank group,b:ffcd559dd2f77702,World Bank Group - IBRD - Infrastructure - Vice Presidency,,US,,,,1
+CH-AP-00429,municipality of central elgin,b:6ef67c7466a4417e,Municipality of Central Elgin,,CA,http://www.centralelgin.org,info@centralelgin.org,,78
+CH-AP-00430,kootenay,b:9773a9af88cff798,Kootenay,,CA,https://www2.gov.bc.ca,,,78
+CH-AP-00431,procurement services branch,b:1b540f13d099f1da,Procurement Services Branch,,CA,https://www2.gov.bc.ca,,,78
+CH-AP-00432,build nova scotia,b:10ed6d60b24579c9,Build Nova Scotia,,CA,,,,78
+CH-AP-00433,town of shelburne,b:bfdbf5f312dcc258,Town of Shelburne,,CA,https://www.shelburnens.ca,,,77
+CH-AP-00434,nova scotia lands,b:a9c045ce4304693c,Nova Scotia Lands,,CA,,,,77
+CH-AP-00435,municipality of the county of antigonish,b:79619458ba045055,Municipality of the County of Antigonish,,CA,,,,77
+CH-AP-00436,efficiencyone,b:148cfadc6cbbaf10,EfficiencyOne,,CA,,,,76
+CH-AP-00437,town of midland,b:e0f0c365187b98a8,Town of Midland,,CA,http://www.midland.ca,"service@midland.ca, clerks@midland.ca",,76
+CH-AP-00438,ministry of agriculture and food,b:919485cf5849c16b,Ministry of Agriculture and Food,,CA,https://www2.gov.bc.ca,,,76
+CH-AP-00439,perth county,b:527b5cd9c47c6829,Perth County,,CA,http://www.countyofperth.on.ca,,,76
+CH-AP-00440,university of alberta,b:a10ac9259f15fa19,University of Alberta,,CA,https://www.ualberta.ca,,,75
+CH-AP-00441,cariboo chilcotin,b:3413984b519089ac,Cariboo-Chilcotin,,CA,https://www2.gov.bc.ca,,,75
+CH-AP-00442,township of scugog,b:0e3d57122a22e125,Township of Scugog,,CA,,,,75
+CH-AP-00443,village of bible hill,b:8a9ac37c2a8a58e8,Village of Bible Hill,,CA,http://www.biblehill.ca,,,74
+CH-AP-00444,water security agency,b:155d460d7fd38a60,Water Security Agency,,CA,,,wsa.inquiries@kgsgroup.com,73
+CH-AP-00445,northern health,b:7874ff3111ee0302,Northern Health,,CA,,,,72
+CH-AP-00446,northern health,b:537c39bc7b44c2ac,Northern Health (British Columbia health authority),,CA,,,,1
+CH-AP-00447,town of saugeen shores,b:5e5a9e67c120845a,Town of Saugeen Shores,,CA,https://www.saugeenshores.ca,"waterbilling@saugeenshores.ca, clerk@saugeenshores.ca",,72
+CH-AP-00448,town of south bruce peninsula,b:2d368bbae031d818,Town of South Bruce Peninsula,,CA,http://www.southbrucepeninsula.com,,,71
+CH-AP-00449,justice corrections and policing,b:dd896de9c2a211ce,"Justice, Corrections and Policing",,CA,https://www.saskatchewan.ca,,"btsprocurement@gov.sk.ca, itprocurement@gov.sk.ca",71
+CH-AP-00450,region of queens municipality,b:4117d28e1a099604,Region of Queens Municipality,,CA,http://www.regionofqueens.com,info@regionofqueens.com,,71
+CH-AP-00451,town of sylvan lake,b:b85ec364bc873500,Town of Sylvan Lake,,CA,http://sylvanlake.ca,,,70
+CH-AP-00452,town of stellarton,b:0c4af868ff1582e2,Town of Stellarton,,CA,https://www.stellarton.ca,,,70
+CH-AP-00453,nova scotia federation of municipalities,b:e84f082fd7f46427,Nova Scotia Federation of Municipalities,,CA,,,,70
+CH-AP-00454,ministry of water land and resource stewardship,b:08843fe576377fa1,"Ministry of Water, Land and Resource Stewardship",,CA,https://www2.gov.bc.ca,,,69
+CH-AP-00455,alberta innovates,b:5e6a5044ddad3c4f,Alberta Innovates,,CA,https://albertainnovates.ca,media@albertainnovates.ca,,68
+CH-AP-00456,the corporation of the town of cochrane,b:4578b3ffd8c3a104,The Corporation of the Town of Cochrane - Ontario,,CA,,,,68
+CH-AP-00457,immigration and career training,b:86738140d7ac4949,Immigration and Career Training,,CA,https://www.saskatchewan.ca,,"ictcareerservicesprocurement@gov.sk.ca, btsprocurement@gov.sk.ca",68
+CH-AP-00458,utilities kingston,b:86c887aa136a294c,Utilities Kingston,,CA,https://utilitieskingston.com,,,67
+CH-AP-00459,toronto zoo,b:551781ed3bbab9dc,Toronto Zoo,,CA,https://www.torontozoo.com,,,67
+CH-AP-00460,community services,b:42cb75728b30314c,Community Services,,CA,https://novascotia.ca,,,67
+CH-AP-00461,bc timber sales branch,b:a85e3a3a825ec3b3,BC Timber Sales Branch,,CA,https://www2.gov.bc.ca,,,66
+CH-AP-00462,northern regional office,b:f0a0dae54a39581a,Northern Regional Office,,CA,https://www2.gov.bc.ca,,,66
+CH-AP-00463,urban systems,b:30bf2ab6221cb02d,Urban Systems,,CA,,,,66
+CH-AP-00464,municipality of clare,b:d80e4ebf67d01b51,Municipality of Clare,,CA,http://www.clarenovascotia.com,,,66
+CH-AP-00465,municipality of barrington,b:f6e668605dcb6b87,Municipality of Barrington,,CA,https://www.barringtonmunicipality.com,info@barringtonmunicipality.com,,66
+CH-AP-00466,town of paradise,b:c65a43b1869566c8,Town of Paradise,,CA,http://www.townofparadise.ca,recreception@townofparadise.ca,,65
+CH-AP-00467,kenora district services board,b:9dd64127935e2dba,Kenora District Services Board,,CA,,,,65
+CH-AP-00468,national gallery of canada,b:e1dfc7f8a9afbe69,National Gallery of Canada,,CA,https://www.gallery.ca,,,64
+CH-AP-00469,aimco alberta investment management corporation,b:1fd09aa18c90e839,AIMCo Alberta Investment Management Corporation,,CA,https://www.aimco.ca,"info@aimco.ca, mediarelations@aimco.ca",procurement@aimco.ca,64
+CH-AP-00470,department of general services,b:6b81597dc777bf27,Department of General Services,,US,,,,64
+CH-AP-00471,municipality of the district of west hants,b:5f994a33f212d19b,Municipality of the District of West Hants,,CA,,,,64
+CH-AP-00472,waterfront development corp ltd,b:24db21c683fdc1df,Waterfront Development Corp. Ltd.,,CA,,,,64
+CH-AP-00473,canadian air transport security authority,b:cabd9938fc63d038,Canadian Air Transport Security Authority,,CA,https://www.catsa-acsta.gc.ca/en,communications@catsa.gc.ca,procurementinfo@catsa.gc.ca,63
+CH-AP-00474,sudbury catholic district school board,b:95b5e0b33b230c7b,Sudbury Catholic District School Board,,CA,http://www.scdsb.edu.on.ca,,,63
+CH-AP-00475,resource recovery fund board inc,b:b3974de3c5a9d298,Resource Recovery Fund Board Inc.,,CA,,,,63
+CH-AP-00476,workers compensation board of ns,b:a10757f19bc8c336,Workers' Compensation Board of NS,,CA,,,,63
+CH-AP-00477,canada deposit insurance corporation,b:f9e4be1f773c866e,Canada Deposit Insurance Corporation,,CA,https://www.cdic.ca,media@cdic.ca,procurement@cdic.ca,41
+CH-AP-00478,canada deposit insurance corporation,b:2ae7be2a59d53121,Canada Deposit Insurance Corporation (CDIC),,CA,https://www.cdic.ca,media@cdic.ca,procurement@cdic.ca,22
+CH-AP-00479,university of ottawa,b:d96a77a426ea3126,University of Ottawa,,CA,,,,62
+CH-AP-00480,municipality of the district of yarmouth,b:515c72f69840f07c,Municipality of the District of Yarmouth,,CA,http://www.district.yarmouth.ns.ca,,,62
+CH-AP-00481,health and wellness,b:6c4501ab998dd8ed,Health and Wellness,,CA,,,,62
+CH-AP-00482,city of port coquitlam,b:020c6f22383c4b70,City of Port Coquitlam,,CA,https://www.portcoquitlam.ca,,,61
+CH-AP-00483,civida,b:488078dbb00270a8,Civida,,CA,https://civida.ca,,procurement@civida.ca,60
+CH-AP-00484,manitoba housing renewal corporation,b:3064b26722a9d5fc,Manitoba Housing Renewal Corporation,,CA,https://www.gov.mb.ca/housing,,,60
+CH-AP-00485,la cite collegiale,b:1e11c790d387e959,La Cité Collégiale,,CA,,,,60
+CH-AP-00486,south shore regional centre for education,b:c6c9159905fe531d,South Shore Regional Centre for Education,,CA,,,,60
+CH-AP-00487,village of kingston,b:66f98dcf97276962,Village of Kingston,,CA,https://www.kingstonnovascotia.ca,"info@kingstonnovascotia.ca, clerk@kingstonnovascotia.ca",,60
+CH-AP-00488,workplacenl,b:94108db353030cbc,WorkplaceNL,,CA,https://workplacenl.ca,,,59
+CH-AP-00489,loyalist township,b:e657d6c11f1fe9a3,Loyalist Township,,CA,https://www.loyalist.ca,"info@loyalist.ca, communications@loyalist.ca",,59
+CH-AP-00490,ministry of transportation and transit,b:2fb04d42c930795e,Ministry of Transportation and Transit,,CA,https://www2.gov.bc.ca,,,59
+CH-AP-00491,tri county regional centre for education,b:63706f7fd68fa86f,Tri-County Regional Centre for Education,,CA,,,,59
+CH-AP-00492,alstom renewable us llc,b:fbcacbd257c4ae2e,ALSTOM RENEWABLE US LLC,,US,https://www.alstom.com,,,58
+CH-AP-00493,city of los angeles,b:2d4f6a63773ba4c5,City of Los Angeles - PUBLIC WORKS - STREET LIGHTING,,US,https://lacity.gov,,,51
+CH-AP-00494,city of los angeles,b:ff19340375b6f673,City of Los Angeles - MAYOR,,US,https://lacity.gov,,,2
+CH-AP-00495,city of los angeles,b:1ed07ed5fa6db46c,City of Los Angeles - NON-DEPARTMENTAL - APPROPRIATIONS TO SPECIAL PURPOSE FUND,,US,https://lacity.gov,,,2
+CH-AP-00496,city of los angeles,b:5a43e443b265145e,City of Los Angeles - GENERAL SERVICES,,US,https://lacity.gov,,,1
+CH-AP-00497,city of los angeles,b:11a22be91b6b2ebe,City of Los Angeles - RECREATION AND PARKS,,US,https://lacity.gov,,,1
+CH-AP-00498,city of los angeles,b:aa36b7c8dda1b878,City of Los Angeles - ZOO,,US,https://lacity.gov,,,1
+CH-AP-00499,accessibility standards canada,b:3385f9ae7954dc73,Accessibility Standards Canada,,CA,https://accessible.canada.ca,"info.accessibility.standards-normes.accessibilite.info@canada.gc.ca, nac.communications-communications.asc@nac-asc.gc.ca",,57
+CH-AP-00500,marine atlantic,b:253977e0932a790a,Marine Atlantic,Marine Atlantic Inc.,CA,https://www.marineatlantic.ca,,,57

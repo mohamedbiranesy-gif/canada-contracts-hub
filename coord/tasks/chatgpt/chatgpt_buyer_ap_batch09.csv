@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00801,cumberland joint ser mgt authority,b:2f4c2f85e505f825,Cumberland Joint Ser. Mgt. Authority,,CA,,,,14
+CH-AP-00802,treasury board,b:60762409e98c3561,Treasury Board (TBS),,CA,https://www.canada.ca/en/treasury-board-secretariat.html,"questions@tbs-sct.gc.ca, media@tbs-sct.gc.ca",,12
+CH-AP-00803,treasury board,b:8a680deffa60bd3f,Treasury Board,,CA,,,,2
+CH-AP-00804,george brown college,b:c088e4423f80aeb4,George Brown College,,CA,,,,13
+CH-AP-00805,red deer school division,b:1555d87a3415f90b,Red Deer School Division,,CA,https://www.rdpsd.ab.ca,,,13
+CH-AP-00806,agriculture financial services corporation,b:c15cd12992cd6bd5,Agriculture Financial Services Corporation,,CA,https://afsc.ca,"info@afsc.ca, mediainquiry@afsc.ca",,13
+CH-AP-00807,381 constructors,b:a3a7913d8e996d60,381 CONSTRUCTORS,,US,,,,13
+CH-AP-00808,city of fort saskatchewan,b:dcbf263e98ecbd85,City of Fort Saskatchewan,,CA,http://fortsask.ca,info@fortsask.ca,,13
+CH-AP-00809,city of cold lake,b:7863a0bbfac373d6,City of Cold Lake,,CA,https://www.coldlake.com,,,13
+CH-AP-00810,royal british columbia museum,b:67f85fd688830434,Royal British Columbia Museum,,CA,https://www2.gov.bc.ca,,,13
+CH-AP-00811,wellington dufferin guelph public health,b:7982e4799570e19a,Wellington-Dufferin-Guelph Public Health,,CA,,,,13
+CH-AP-00812,town of kingsville,b:8e647f63446956ab,Town of Kingsville,,CA,http://www.kingsville.ca,,,13
+CH-AP-00813,the township of greater madawaska,b:c9b6754925e1970a,The Township of Greater Madawaska,,CA,https://www.greatermadawaska.com,"clerk@greatermadawaska.com, admin@greatermadawaska.com",,13
+CH-AP-00814,township of tyendinaga,b:6aa180249288c8ea,Township of Tyendinaga,,CA,http://www.tyendinagatownship.com,,,13
+CH-AP-00815,cornwall community hospital,b:a9fbd1d80d59d47e,Cornwall Community Hospital,,CA,,,,13
+CH-AP-00816,nl centre for health information,b:2136f10d3c1a56fd,NL Centre for Health Information,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,13
+CH-AP-00817,community safety,b:6bd241f741e6d128,Community Safety,,CA,https://www.saskatchewan.ca,,btsprocurement@gov.sk.ca,13
+CH-AP-00818,innovacorp,b:fbb4e2b2574d0381,Innovacorp,,CA,https://innovacorp.ca,,,13
+CH-AP-00819,colchester east hants health authority,b:d18ba95e4614c751,Colchester East Hants Health Authority,,CA,,,,13
+CH-AP-00820,peterborough utilities services,b:2bbd3f12812a9044,Peterborough Utilities Services,,CA,,,,12
+CH-AP-00821,township of east zorra tavistock,b:abc55b084f13dc17,Township of East Zorra-Tavistock,,CA,,,,12
+CH-AP-00822,the city of edmonton non profit housing corporation operating as homeed,b:ab4ccea5220bdd9e,"The City of Edmonton Non-Profit Housing Corporation, operating as HomeEd",,CA,https://www.homeed.ca,,,12
+CH-AP-00823,alberta investment management corporation,b:2e69c1b08aef84c1,Alberta Investment Management Corporation,,CA,https://www.aimco.ca,"info@aimco.ca, mediarelations@aimco.ca",procurement@aimco.ca,12
+CH-AP-00824,town of drumheller,b:0a5b46738a919708,Town of Drumheller,,CA,https://www.drumheller.ca,,,12
+CH-AP-00825,brazeau county,b:f73a2738bdd827eb,Brazeau County,,CA,http://www.brazeau.ab.ca,,,12
+CH-AP-00826,eastern health,b:66f41d7d2a8948a9,Eastern Health,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,12
+CH-AP-00827,grey bruce public health,b:9d3a7ad8426a41ca,Grey Bruce Public Health,,CA,,,,12
+CH-AP-00828,waypoint centre for mental health care,b:0a45056aa2c99c08,Waypoint Centre for Mental Health Care,,CA,http://www.waypointcentre.ca,"careers@waypointcentre.ca, hr@waypointcentre.ca",,12
+CH-AP-00829,workplace development services,b:a8558ee693c5826a,Workplace Development Services,,CA,https://www2.gov.bc.ca,,,12
+CH-AP-00830,shs inc,b:5318beab4e3c63b1,SHS Inc.,,CA,,,,12
+CH-AP-00831,kawartha conservation,b:658ffab44ab9fbf8,Kawartha Conservation,,CA,https://kawarthaconservation.com,geninfo@kawarthaconservation.com,,12
+CH-AP-00832,town of petrolia,b:d46f114dffe1412a,Town of Petrolia,,CA,http://town.petrolia.on.ca,,,12
+CH-AP-00833,lambton college,b:2755827fa86a4bd7,Lambton College,,CA,https://www.lambtoncollege.ca,info@lambtoncollege.ca,,12
+CH-AP-00834,hopital montfort,b:af0a32c9f42ec0cc,Hopital Montfort,,CA,http://www.hopitalmontfort.com,,,12
+CH-AP-00835,rural municipality of spy hill no 152,b:5ac93aed4340ff13,Rural Municipality of Spy Hill No. 152,,CA,,,admin@rmspyhill.ca,12
+CH-AP-00836,forestry oregon department of,b:ad37745d7aaee315,"FORESTRY, OREGON DEPARTMENT OF",,US,,,,12
+CH-AP-00837,university of mary washington,b:913d3580901a3a65,University of Mary Washington,,US,https://www.umw.edu,,,12
+CH-AP-00838,economic and rural development and tourism,b:4635090869b07a8d,Economic and Rural Development and Tourism,,CA,https://novascotia.ca,,,12
+CH-AP-00839,town of westville,b:6d5c292619c9e708,Town of Westville,,CA,https://westville.ca,,,12
+CH-AP-00840,winnipeg airports authority inc,b:a55088249c2181a5,Winnipeg Airports Authority Inc,,CA,,,,11
+CH-AP-00841,town of high river,b:08ba897f7686bebf,Town of High River,,CA,http://www.highriver.ca,,,11
+CH-AP-00842,aquatera utilities inc,b:eaf16832447fca28,Aquatera Utilities Inc.,,CA,https://www.aquatera.ca,,,11
+CH-AP-00843,rainbow district school board,b:aeb87d8eba4410d0,Rainbow District School Board,,CA,http://www.rainbowschools.ca,,,11
+CH-AP-00844,l3harris technologies inc,b:2dd5683a6e1c79ac,"L3HARRIS TECHNOLOGIES, INC.",,US,https://www.l3harris.com,,,11
+CH-AP-00845,lacombe county,b:a48491401fa0b2bc,Lacombe County,,CA,https://www.lacombecounty.com,info@lacombecounty.com,,11
+CH-AP-00846,isl engineering,b:8a206b176ccaad76,ISL Engineering,,CA,,,,11
+CH-AP-00847,advanced education,b:9db8af832660cd6f,Advanced Education,,CA,,,itprocurement@gov.sk.ca,11
+CH-AP-00848,town of slave lake,b:7825925c1c46cd83,Town of Slave Lake,,CA,http://www.slavelake.ca,,info@slavelakeairport.ca,11
+CH-AP-00849,ministry of indigenous relations and reconciliation,b:cbf30c2dd42d0cb5,Ministry of Indigenous Relations and Reconciliation,,CA,https://www2.gov.bc.ca,,,11
+CH-AP-00850,ministry of housing,b:55ef289c96d2c54b,Ministry of Housing,,CA,https://www2.gov.bc.ca,,,11
+CH-AP-00851,stuart nechako,b:3e5de517e3acd687,Stuart-Nechako,,CA,https://www2.gov.bc.ca,,,11
+CH-AP-00852,ministry of agriculture food and fisheries,b:61a498b0d195c41b,"Ministry of Agriculture, Food and Fisheries",,CA,https://www2.gov.bc.ca,,,11
+CH-AP-00853,canadian partnership against cancer,b:083cbacde11256e5,Canadian Partnership Against Cancer (CPAC),,CA,http://www.partnershipagainstcancer.ca,"info@partnershipagainstcancer.ca, media@partnershipagainstcancer.ca",procurement@partnershipagainstcancer.ca,11
+CH-AP-00854,to live,b:97e776737049408d,TO Live,,CA,https://www.tolive.com,,,11
+CH-AP-00855,conservation sudbury,b:428665afca81ab15,Conservation Sudbury,,CA,,,,11
+CH-AP-00856,saint john energy,b:1af674a8907961aa,Saint John Energy,,CA,,,,11
+CH-AP-00857,provincial capital commission,b:f9c90c5bcf72d91b,Provincial Capital Commission,,CA,,,,11
+CH-AP-00858,rural municipality of coalfields no 4,b:8143ebce23706ba4,Rural Municipality of Coalfields No. 4,,CA,https://rmofcoalfields.com,,,11
+CH-AP-00859,department of motor vehicles,b:95e45f8b8ff8ecb3,Department of Motor Vehicles,,US,,,,11
+CH-AP-00860,waterloo regional health network,b:0c397851b54ae249,Waterloo Regional Health Network,,CA,https://www.wrhn.ca,,,10
+CH-AP-00861,waterloo regional health network,b:4a07fe360203146a,Waterloo Regional Health Network (WRHN),,CA,,,,1
+CH-AP-00862,irving shipbuilding inc,b:83ff8c3ce46150d9,Irving Shipbuilding Inc. (Halifax Shipyard) - River-class destroyer program for the Royal Canadian Navy,,CA,,,,9
+CH-AP-00863,irving shipbuilding inc,b:f856b781da5db262,Irving Shipbuilding Inc. (Halifax Shipyard) - Canadian Surface Combatant / River-class destroyer program for the Royal Canadian Navy,,CA,,,,2
+CH-AP-00864,champlain health supply services,b:77a345eb10337898,Champlain Health Supply Services (CHSS),,CA,,,,10
+CH-AP-00865,brandon university,b:ecc1a292f5238abd,Brandon University,,CA,,,,10
+CH-AP-00866,beaver county,b:aaac181135b948f6,Beaver County,,CA,http://www.beaver.ab.ca,,pwtenders@beaver.ab.ca,10
+CH-AP-00867,sturgeon school division,b:5ee7b7a74cc4b93b,Sturgeon School Division,,CA,https://www.sturgeon.ab.ca,,,10
+CH-AP-00868,county of wetaskiwin no 10,b:7ece3bf15c0091ad,County of Wetaskiwin No. 10,,CA,https://www.county.wetaskiwin.ab.ca,,,10
+CH-AP-00869,northern lights school division,b:568ae07833e2da80,Northern Lights School Division,,CA,https://www.nlpsab.ca,,,10
+CH-AP-00870,auditor general,b:d7241e636202007d,Auditor General,,CA,,,,10
+CH-AP-00871,power authority of the state of new york,b:489bdf54bf8c0f8e,Power Authority of the State of New York,,US,https://www.nypa.gov,"info@nypa.gov, media.inquiries@nypa.gov",supplier.diversity@nypa.gov,10
+CH-AP-00872,bank of canada,b:9c38faadc9690495,Bank of Canada,,CA,https://www.bankofcanada.ca,,,10
+CH-AP-00873,yukon university,b:126f90b91589754d,Yukon University,,CA,https://www.yukonu.ca,"admissions@yukonu.ca, registrations@yukonu.ca",,10
+CH-AP-00874,township of mulmur,b:887683fef2f98e63,Township of Mulmur,,CA,https://mulmur.ca,info@mulmur.ca,,10
+CH-AP-00875,the board of trustees of st albert public schools,b:ae43a963b3e56478,The Board of Trustees of St. Albert Public Schools,,CA,https://www.spschools.org,,,10
+CH-AP-00876,ministry of jobs economic recovery and innovation,b:259fd7f480937566,"Ministry of Jobs, Economic Recovery and Innovation",,CA,https://www2.gov.bc.ca,,,10
+CH-AP-00877,court services branch,b:c337f29214d3260f,Court Services Branch,,CA,https://www2.gov.bc.ca,,,10
+CH-AP-00878,upper thames river conservation authority,b:c1920289e50de276,Upper Thames River Conservation Authority,,CA,,,,10
+CH-AP-00879,bethesda community services inc,b:e1895e9706d15e4d,Bethesda Community Services Inc.,,CA,,,,10
+CH-AP-00880,city of coquitlam,b:f8662c8e9045cd3e,City of Coquitlam,,CA,https://www.coquitlam.ca,,,10
+CH-AP-00881,township of east garafraxa,b:cbdf4790e1dff4b0,Township of East Garafraxa,,CA,http://www.eastgarafraxa.ca,"info@eastgarafraxa.ca, clerks@eastgarafraxa.ca",,10
+CH-AP-00882,town of marystown,b:2fd7f163e404cc59,Town of Marystown,The Town of Marystown,CA,http://www.townofmarystown.ca,info@townofmarystown.ca,,10
+CH-AP-00883,central regional health authority,b:5f223854cf5b8891,Central Regional Health Authority,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,10
+CH-AP-00884,new york city health and hospitals corporation,b:1b04bbfe37e9e970,New York City Health and Hospitals Corporation,,US,,,,10
+CH-AP-00885,village of port williams,b:ad35ca4156c61e3b,Village of Port Williams,,CA,,,,10
+CH-AP-00886,village of st peters,b:1f78ab7dfb1410ef,Village of St. Peters,Village of St Peters,CA,http://www.visitstpeters.com,info@visitstpeters.com,,10
+CH-AP-00887,communities culture and heritage,b:f8cbb4e3df3ac923,"Communities, Culture and Heritage",,CA,https://novascotia.ca,,,10
+CH-AP-00888,annapolis valley housing authority,b:4c8439eb27b6b5c2,Annapolis Valley Housing Authority,,CA,,,,10
+CH-AP-00889,canada lands company clc limited,b:11e607e93c6df0fa,Canada Lands Company CLC Limited,Canada Lands Company Limited (CLC),CA,https://www.clc-sic.ca,,procurement@clc.ca,7
+CH-AP-00890,canada lands company clc limited,b:082238294e111381,Canada Lands Company CLC Limited - (CN Tower),,CA,https://www.clc-sic.ca,,,3
+CH-AP-00891,city of baton rouge,b:4f5385b318e7f870,City of Baton Rouge / Parish of East Baton Rouge — ENV SERV,,US,https://www.brla.gov,,,7
+CH-AP-00892,city of baton rouge,b:131a70586e47de94,City of Baton Rouge / Parish of East Baton Rouge — H R,,US,https://www.brla.gov,,,1
+CH-AP-00893,city of baton rouge,b:014c30d1ea33c0fd,City of Baton Rouge / Parish of East Baton Rouge — LIBRARY,,US,https://www.brla.gov,,,1
+CH-AP-00894,city of baton rouge,b:a5d6f335eee974ff,City of Baton Rouge / Parish of East Baton Rouge — MOSQUITO & RODENT CONTROL,,US,https://www.brla.gov,,,1
+CH-AP-00895,city of corona california,b:929807802f7b8ef9,"City of Corona, California — INFORMATION TECHNOLOGY",,US,https://www.coronaca.gov,"police.admin@coronaca.gov, cannabisinfo@coronaca.gov",,7
+CH-AP-00896,city of corona california,b:c360c05bee1df646,"City of Corona, California — GENL RESP-NON-CITY DEBT SVC",,US,https://www.coronaca.gov,"police.admin@coronaca.gov, cannabisinfo@coronaca.gov",,1
+CH-AP-00897,city of corona california,b:5682a5070f3c1986,"City of Corona, California — FIRE",,US,https://www.coronaca.gov,"police.admin@coronaca.gov, cannabisinfo@coronaca.gov",,1
+CH-AP-00898,city of corona california,b:63d87308f3774b1c,"City of Corona, California — UTILITIES DEPARTMENT",,US,https://www.coronaca.gov,"police.admin@coronaca.gov, cannabisinfo@coronaca.gov",,1
+CH-AP-00899,nl health service,b:3466dd32cbaea60e,NL Health Service - Eastern,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,5
+CH-AP-00900,nl health service,b:22935a9ecd701bd9,NL Health Service - Digital,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,2

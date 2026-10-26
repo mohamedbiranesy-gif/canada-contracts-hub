@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-00901,v:7238ff8347710829,AGENCY59 LTD.,,,Toronto,ONTARIO,M6R 2B7,4,4,agency59.ca agency59.com
+CH-VC-00902,v:9966a84a4ea0b4c9,JA MEDIA SERVICES,,,Toronto,ONTARIO,M3B 3P6,4,4,jamediaservices.ca jamediaservices.com ja-media-services.ca ja-media-services.com
+CH-VC-00903,v:e7f9ea6fcab964f4,Kathy's |Catering,,,St Thomas,ONTARIO,N5P 3S9,4,4,kathyscatering.ca kathyscatering.com kathys-catering.ca kathys-catering.com
+CH-VC-00904,v:c57fda254e47b9df,ONETRIAM INC,,,Whitby,ONTARIO,L1P 0E1,4,4,onetriam.ca onetriam.com
+CH-VC-00905,v:76b454b409ac5bec,PARKLAND CORPORATION/CORPORATION PARKLAND,,,Calgary,ALBERTA,T2P 4H4,4,4,parklandparkland.ca parklandparkland.com parkland-parkland.ca parkland-parkland.com
+CH-VC-00906,v:de389f6b39a9dc0e,AECOM Canada Architects Ltd in Joint Venture with AECOM Canada ULC,,,Markham,ONTARIO,L3T 7W3,4,4,
+CH-VC-00907,v:549917a24f3cd401,"Biskane Inc,",Biskane Inc.,14089171,Oro-Medonte,ONTARIO,L0L 2L0,4,4,biskane.ca biskane.com
+CH-VC-00908,v:6ae6fff817525d9f,A.T. Consulting and Recruiting Inc.,,,Toronto,ONTARIO,M2R 2H4,4,4,tconsultingrecruiting.ca tconsultingrecruiting.com t-consulting-recruiting.ca t-consulting-recruiting.com
+CH-VC-00909,v:80fea06d46d7be21,ALCI AVIATION LTD.,ALCI AVIATION LTD.,6874215,OSHAWA,ON,L1J 0C7,4,4,alciaviation.ca alciaviation.com alci-aviation.ca alci-aviation.com
+CH-VC-00910,v:a0a8d761753a8631,WADE ANTENNA INC.,,,BRANTFORD,ON,N3T 5L8,4,4,wadeantenna.ca wadeantenna.com wade-antenna.ca wade-antenna.com
+CH-VC-00911,v:51637ce42dd3c273,CELESTICA INTERNATIONAL LP,,,NEWMARKET,ON,L3Y 8T3,4,4,celesticainternational.ca celesticainternational.com celestica-international.ca celestica-international.com
+CH-VC-00912,v:77f8f296c3063f7d,MITCHEL AEROSPCE INC,,,SAINT LAURENT,,H4L 3K5,4,4,mitchelaerospce.ca mitchelaerospce.com mitchel-aerospce.ca mitchel-aerospce.com
+CH-VC-00913,v:5a2475593c4940aa,PRODUITS ELECTROLATION INC.,,,LAVAL,,H7L 5A1,4,4,produitselectrolation.ca produitselectrolation.com produits-electrolation.ca produits-electrolation.com
+CH-VC-00914,v:3c04f14a99dc82e3,SRA Staffing Solutions Ltd. (DBA SRA Information Technology),,,,,,4,4,
+CH-VC-00915,v:df99aedbcc9ce06e,Samson & Associates CPA/Consultation Inc (formerly Samson & Associates Consulting Inc),,,,,,4,4,
+CH-VC-00916,v:b079a9b67ec1d8de,Challenge Factory Inc,,,,,,4,4,
+CH-VC-00917,v:8f6ed9e6c0825f4b,Barrett and Welsh Inc,,,,,,4,4,
+CH-VC-00918,v:fe4e54b5b530ba92,Mod Op Canada Inc oa Context Creative,,,,,,4,4,
+CH-VC-00919,v:7e34b23a656442c0,Proof Strategies Inc,,,,,,4,4,
+CH-VC-00920,v:e6134b136606cd8f,Believeco:Partners Ltd (oa ChangeMakers),,,,,,4,4,
+CH-VC-00921,v:eb832dace3068582,Philips Healthcare Canada,VITALITÉ PHILIPS (DIVISION),1166356130,Markham,ON,L6C 2S3,368,3,philipshealthcarecanada.ca philipshealthcarecanada.com philipshealthcare.ca philipshealthcare.com philips-healthcare-canada.ca philips-healthcare-canada.com
+CH-VC-00922,v:8b7567955d19521b,BOSTON SCIENTIFIQUE LTÉE,BOSTON SCIENTIFIQUE LTÉE,1166095613,Brampton,ON,L6T 5G3,122,3,bostonscientifique.ca bostonscientifique.com boston-scientifique.ca boston-scientifique.com
+CH-VC-00923,v:63803ee9992fb745,Smiths Medical Canada Ltd,SMITHS MÉDICAL CANADA LTÉE,1147177431,Markham,ON,L3R 4Y8,115,3,smithsmedicalcanada.ca smithsmedicalcanada.com smithsmedical.ca smithsmedical.com smiths-medical-canada.ca smiths-medical-canada.com
+CH-VC-00924,v:103780ceb14110e8,Fresenius Medical Care Canada,"FRESENIUS MEDICAL CARE CANADA, INC.",11798448,Richmond Hill,ON,L4B 4W6,108,3,freseniusmedicalcarecanada.ca freseniusmedicalcarecanada.com freseniusmedicalcare.ca freseniusmedicalcare.com fresenius-medical-care-canada.ca fresenius-medical-care-canada.com
+CH-VC-00925,v:b8db6219e04b4c34,Nikon Canada Inc.,NIKON CANADA INC.,2906821,Mississauga,ON,L4W 1C1,81,3,nikoncanada.ca nikoncanada.com nikon.ca nikon.com nikon-canada.ca nikon-canada.com
+CH-VC-00926,v:df9fe66aff00faf3,Joneljim Concrete Construction (1994) Ltd.,,,,,,75,3,
+CH-VC-00927,v:fa1bc5e5eac0ae21,Eppendorf Canada Ltd,EPPENDORF CANADA LTD.,1160455359,Mississauga,ON,L5N 8L2,50,3,eppendorfcanada.ca eppendorfcanada.com eppendorf.ca eppendorf.com eppendorf-canada.ca eppendorf-canada.com
+CH-VC-00928,v:bf1cf0f21fe4544e,Alliance Energy Ltd.,,,Regina,SK,,41,3,allianceenergy.ca allianceenergy.com alliance-energy.ca alliance-energy.com
+CH-VC-00929,v:ae917aa034404380,Avanti Office Products,,,Regina,SK,,38,3,avantiofficeproducts.ca avantiofficeproducts.com avanti-office-products.ca avanti-office-products.com
+CH-VC-00930,v:4585238ad8c6390d,A & B Mechanical Ltd.,,,Winnipeg,MB,R3E 2V7,36,3,bmechanical.ca bmechanical.com b-mechanical.ca b-mechanical.com
+CH-VC-00931,v:ed9894bc19c4eeaa,Sierra Systems Group Inc,,,Victoria,BC,,32,3,sierrasystemsgroup.ca sierrasystemsgroup.com sierra-systems-group.ca sierra-systems-group.com sierrasystems.ca sierrasystems.com
+CH-VC-00932,v:4fdb98ed67914383,Dennis Friesen,,,Arborg,MB,,31,3,dennisfriesen.ca dennisfriesen.com dennis-friesen.ca dennis-friesen.com
+CH-VC-00933,v:b8f976aacb20dd86,Aymes Medical,,,,ON,L3X1H1,30,3,aymesmedical.ca aymesmedical.com aymes-medical.ca aymes-medical.com
+CH-VC-00934,v:09c7cce028a49236,VANTIVE ULC,VANTIVE ULC,1179274882,,ON,L5N5M4,30,3,vantive.ca vantive.com servicesvantive.ca servicesvantive.com services-vantive.ca services-vantive.com
+CH-VC-00935,v:e2c1bb498d14097f,St. John's Dockyard,,,St. John's,NL,,28,3,stjohnsdockyard.ca stjohnsdockyard.com st-johns-dockyard.ca st-johns-dockyard.com
+CH-VC-00936,v:e2dca2a0d5cd2e16,Advanced Sterilization Products Canada ULC,ADVANCED STERILIZATION PRODUCTS CANADA ULC,1174076878,Markham,ON,L3R 9Z3,27,3,advancedsterilizationproducts.ca advancedsterilizationproducts.com
+CH-VC-00937,v:14eaee43257a82a0,ECO TECHNOLOGIES LTÉE,ECO-Technologies Ltd.,17527322,Caraquet,NB,E1W 0A2,27,3,ecotechnologies.ca ecotechnologies.com eco-technologies.ca eco-technologies.com
+CH-VC-00938,v:2893f5399a4e531e,Johnson & Johnson MedTech,Johnson & Johnson (Canada) Inc.,1177906618,,ON,L3R0T5,22,3,johnsonjohnsonmedtech.ca johnsonjohnsonmedtech.com johnson-johnson-medtech.ca johnson-johnson-medtech.com johnsonjohnson.ca johnsonjohnson.com
+CH-VC-00939,v:e829d4f5e72f1630,Dave Gulliver's Cabs Ltd,,,St. John's,NL,A1C 5R6,20,3,davegulliverscabs.ca davegulliverscabs.com dave-gullivers-cabs.ca dave-gullivers-cabs.com
+CH-VC-00940,v:9a4fd44e027d878a,BUROVISION OTTAWA INC,,,,,,17,3,burovisionottawa.ca burovisionottawa.com burovision-ottawa.ca burovision-ottawa.com
+CH-VC-00941,v:0d7a2a961de6a426,"Astellas Pharma Canada, Inc.","ASTELLAS PHARMA CANADA,INC.",1144256337,Markham,ON,L3R 0B8,17,3,astellaspharmacanada.ca astellaspharmacanada.com astellaspharma.ca astellaspharma.com astellas-pharma-canada.ca astellas-pharma-canada.com
+CH-VC-00942,v:e7dcb225a8f2f4d1,Abbott Laboratories Canada Ltd.,"ABBOTT  LABORATORIES, LIMITED",3977978,Mississauga,ON,,16,3,abbottlaboratoriescanada.ca abbottlaboratoriescanada.com abbottlaboratories.ca abbottlaboratories.com abbott-laboratories-canada.ca abbott-laboratories-canada.com
+CH-VC-00943,v:6b693dbcb9dd15c0,Brook Construction (2007) Inc.,,,CORNER BROOK,NL,A2H 6H6,16,3,brookconstruction.ca brookconstruction.com brook-construction.ca brook-construction.com
+CH-VC-00944,v:57b3a43aa191bc46,High Speed Imaging Inc.,HIGH SPEED IMAGING INC.,3781739,Uxbridge,ON,L9P 1R4,16,3,highspeedimaging.ca highspeedimaging.com high-speed-imaging.ca high-speed-imaging.com
+CH-VC-00945,v:ef1eed74aebd0dfb,ATLANTIC ALARM & SOUND,,,,,,16,3,atlanticalarmsound.ca atlanticalarmsound.com atlantic-alarm-sound.ca atlantic-alarm-sound.com
+CH-VC-00946,v:56acb300bd949ffc,Perrett Laver,PERRETT LAVER INC.,1172844442,Vancouver,BC,V6C 3E8,15,3,perrettlaver.ca perrettlaver.com perrett-laver.ca perrett-laver.com
+CH-VC-00947,v:ba6f41d052df7a0b,Receiver General for Canada,,,Ottawa,ON,,14,3,receivergeneralforcanada.ca receivergeneralforcanada.com receivergeneralfor.ca receivergeneralfor.com receiver-general-for-canada.ca receiver-general-for-canada.com
+CH-VC-00948,v:0b9c1c19dd2d3267,Pioneer Forest Consulting Ltd.,,,,BC,,13,3,pioneerforestconsulting.ca pioneerforestconsulting.com pioneer-forest-consulting.ca pioneer-forest-consulting.com
+CH-VC-00949,v:ba5bb3bf3308d51c,Herc Rentals,HERC™,1161014601,Etobicoke,ON,M9W 5Z7,13,3,hercrentals.ca hercrentals.com herc-rentals.ca herc-rentals.com herctm.ca herctm.com
+CH-VC-00950,v:4479a7d00168d75d,EPIC Information Solutions,,,Winnipeg,MB,R3P 0X7,13,3,epicinformationsolutions.ca epicinformationsolutions.com epic-information-solutions.ca epic-information-solutions.com
+CH-VC-00951,v:4d6e0de5331a09a1,D F Barnes Services Limited,D.F. Barnes Services Limited,8738793,St. John's,NL,,13,3,fbarnesservices.ca fbarnesservices.com f-barnes-services.ca f-barnes-services.com
+CH-VC-00952,v:dee6df767209214e,TES CONTRACT SERVICES,,,Toronto,ON,M4S 3C3,12,3,tescontractservices.ca tescontractservices.com tes-contract-services.ca tes-contract-services.com
+CH-VC-00953,v:bbc7b47094a1dba8,George W. Drummond Ltd.,GEORGE W. DRUMMOND LIMITEE,1148499107,Nepean,ON,K2E 7A6,11,3,georgewdrummond.ca georgewdrummond.com george-w-drummond.ca george-w-drummond.com
+CH-VC-00954,v:587cbce0c2c14b04,Le Groupe-conseil baastel Ltée,LE GROUPE CONSEIL BAASTEL LTEE,2667983,,,,11,3,groupeconseilbaastel.ca groupeconseilbaastel.com groupe-conseil-baastel.ca groupe-conseil-baastel.com groupconseilbaastel.ca groupconseilbaastel.com
+CH-VC-00955,v:e1918fd748fa4655,DiaSorin Inc,,,,,,11,3,diasorin.ca diasorin.com diasorincanada.ca diasorincanada.com diasorin-canada.ca diasorin-canada.com
+CH-VC-00956,v:fd8b8a1937edc261,Cliniques TELUS Santé inc.,TELUS Health Care Centres Inc.,10863114,,BC,V6B0M3,11,3,cliniquestelussante.ca cliniquestelussante.com cliniques-telus-sante.ca cliniques-telus-sante.com telushealthcarecentres.ca telushealthcarecentres.com
+CH-VC-00957,v:33be44c2a6805a37,Best Buy Canada Ltd.,BEST BUY CANADA LTD.,4351789,Burnaby,BC,,10,3,bestbuycanada.ca bestbuycanada.com bestbuy.ca bestbuy.com best-buy-canada.ca best-buy-canada.com
+CH-VC-00958,v:a856687ceeb2b357,Oxford University Press,,,Don Mills,ON,,10,3,oxforduniversitypress.ca oxforduniversitypress.com oxford-university-press.ca oxford-university-press.com oxforduniversitypresscanada.ca oxforduniversitypresscanada.com
+CH-VC-00959,v:4e538aacf61d663e,Global Knowledge Network (Canada) Inc.,Global Knowledge Network (Canada) Inc.,10340618,,,,10,3,globalknowledgenetwork.ca globalknowledgenetwork.com global-knowledge-network.ca global-knowledge-network.com globalknowledgenetworkcanada.ca globalknowledgenetworkcanada.com
+CH-VC-00960,v:8d0a067fe43a5543,NeuroSource Medical Inc.,,,,ON,L4W5G5,10,3,neurosourcemedical.ca neurosourcemedical.com neurosource-medical.ca neurosource-medical.com
+CH-VC-00961,v:603c85256d05e1fe,Air Borealis Limited Partnership,Air Borealis Limited Partnership,3372905086,St. John's,NL,,9,3,airborealispartnership.ca airborealispartnership.com air-borealis-partnership.ca air-borealis-partnership.com airborealis.ca airborealis.com
+CH-VC-00962,v:0703243fc42ac02b,comScore Canada Inc.,,,,,,9,3,comscorecanada.ca comscorecanada.com comscore.ca comscore.com comscore-canada.ca comscore-canada.com
+CH-VC-00963,v:e462ff16ece0909a,Emar Services inc.,Emar Services Inc.,2617820,Manotick,ON,K4M 1A3,9,3,emarservices.ca emarservices.com emar-services.ca emar-services.com
+CH-VC-00964,v:42cc25e79404a675,AirClean Systems Canada Corp,,,Oakville,ON,l6l 5t7,9,3,aircleansystemscanada.ca aircleansystemscanada.com aircleansystems.ca aircleansystems.com airclean-systems-canada.ca airclean-systems-canada.com
+CH-VC-00965,v:c8ed23d138f06194,Composite Power Group West,,,Onanole,MB,R0J 1N0,8,3,compositepowergroupwest.ca compositepowergroupwest.com composite-power-group-west.ca composite-power-group-west.com
+CH-VC-00966,v:0759d5963fbc9dc1,Griffith Group Executive Search,,,Toronto,ON,M4E 1G3,8,3,griffithgroupexecutivesearch.ca griffithgroupexecutivesearch.com
+CH-VC-00967,v:eecbab367428b04e,"Vantage Endoscopy, A Division of Acernis Medical Inc.",ACERNIS MEDICAL INC.,1167734194,Kitchener,ON,N2E2C3,8,3,acernismedical.ca acernismedical.com acernis-medical.ca acernis-medical.com amtchirurgical.ca amtchirurgical.com
+CH-VC-00968,v:96aa34f568ed3693,Trane Atlantic,,,Mount Pearl,NL,,8,3,traneatlantic.ca traneatlantic.com trane-atlantic.ca trane-atlantic.com
+CH-VC-00969,v:29da89a07513db0b,DRS Technologies Canada Ltd.,,,,,,8,3,drstechnologiescanada.ca drstechnologiescanada.com drstechnologies.ca drstechnologies.com drs-technologies-canada.ca drs-technologies-canada.com
+CH-VC-00970,v:54d94b3fb99ef30d,FinneyTaylor Consulting Group Ltd.,,,Calgary,AB,T2P 2V6,7,3,finneytaylorconsultinggroup.ca finneytaylorconsultinggroup.com finneytaylor-consulting-group.ca finneytaylor-consulting-group.com
+CH-VC-00971,v:fccc2f65b18f3cfb,North/South Consultants Inc.,,,Winnipeg,MB,R3Y 1G4,7,3,northsouthconsultants.ca northsouthconsultants.com north-south-consultants.ca north-south-consultants.com
+CH-VC-00972,v:8c5a638171e08b74,FroggaBio,,,Concord,ON,L4K 5W1,7,3,froggabio.ca froggabio.com
+CH-VC-00973,v:afc13bf597783292,KROON ELECTRIC CORP,Kroon Electric Corp.,1180082118,Ottawa,ON,K1C 7B3,7,3,kroonelectric.ca kroonelectric.com kroon-electric.ca kroon-electric.com controlesrw.ca controlesrw.com
+CH-VC-00974,v:b43afa65249be966,McKinsey & Company Canada,MCKINSEY & COMPAGNIE CANADA,1161938916,Toronto,ON,M5S 1K9,7,3,mckinseycanada.ca mckinseycanada.com mckinsey.ca mckinsey.com mckinsey-canada.ca mckinsey-canada.com
+CH-VC-00975,v:306365b52de0b00f,POSEIDON MARINE CONSULTANTS,,,St. John's,NL,,7,3,poseidonmarineconsultants.ca poseidonmarineconsultants.com poseidon-marine-consultants.ca poseidon-marine-consultants.com
+CH-VC-00976,v:3ef1f7ef60f35bfe,ESI Information Technologies inc.,,,,,,7,3,
+CH-VC-00977,v:f4ce9939f376c1b3,W&O supply Canada,,,,,,7,3,wosupplycanada.ca wosupplycanada.com wosupply.ca wosupply.com w-o-supply-canada.ca w-o-supply-canada.com
+CH-VC-00978,v:f056f54ebcdfe54d,Delta Scientific Laboratory Products Ltd.,DELTA SCIENTIFIC LABORATORY PRODUCTS LTD.,2014050,,ON,L4Z1X2,7,3,
+CH-VC-00979,v:a88bd261ff0b0db7,JOHN HOWARD SOCIETY OF VICTORIA,,,,BC,,6,3,johnhowardsocietyvictoria.ca johnhowardsocietyvictoria.com john-howard-society-victoria.ca john-howard-society-victoria.com
+CH-VC-00980,v:7b7fcc78d6cd1507,Button Inc.,Button Inc.,10983128,Victoria,BC,,6,3,button.ca button.com
+CH-VC-00981,v:713df16b4662af0c,American Bureau of Shipping,,,,,,6,3,americanbureaushipping.ca americanbureaushipping.com american-bureau-shipping.ca american-bureau-shipping.com
+CH-VC-00982,v:2280fa2d39cb883a,Buckle's Enterprise Ltd.,,,Springdale,NL,A0J 1T0,6,3,bucklesenterprise.ca bucklesenterprise.com buckles-enterprise.ca buckles-enterprise.com
+CH-VC-00983,v:8e6297d8567a1682,sun heating & air conditioning ltd,,,gander,NEWFOUNDLAND AND LABRADOR,a1v 1a1,6,3,sunheatingairconditioning.ca sunheatingairconditioning.com sun-heating-air-conditioning.ca sun-heating-air-conditioning.com
+CH-VC-00984,v:49671dad3cdad54b,St. Joseph Printing Limited,,,Concord,ON,L4K 4P3,6,3,stjosephprinting.ca stjosephprinting.com st-joseph-printing.ca st-joseph-printing.com
+CH-VC-00985,v:87d5bdbef0eee9fd,Camis Inc.,,,Guelph,ON,N1G 5G3,6,3,camis.ca camis.com
+CH-VC-00986,v:10e472e2eb2a9055,TAG HR – THE ASSOCIATES GROUP,,,,,,6,3,taghrassociatesgroup.ca taghrassociatesgroup.com tag-hr-associates-group.ca tag-hr-associates-group.com
+CH-VC-00987,v:ff33abe3f76fa1cd,T. J. Nolan Construction Limited,,,Bedford,NOVA SCOTIA,B4A 3Z8,6,3,tjnolanconstruction.ca tjnolanconstruction.com t-j-nolan-construction.ca t-j-nolan-construction.com
+CH-VC-00988,v:ce506c29515fd8a1,Intercontinental Truck Body (B.C.) Inc.,,,Surrey,BC,,5,3,intercontinentaltruckbody.ca intercontinentaltruckbody.com intercontinental-truck-body.ca intercontinental-truck-body.com
+CH-VC-00989,v:7f2928546e7173f8,Genumark Promotional Merchandise Inc.,GROUPE CRÉADIS INC.,1144680700,Toronto,ON,M2H 2S6,5,3,genumarkpromotionalmerchandise.ca genumarkpromotionalmerchandise.com groupecreadis.ca groupecreadis.com groupe-creadis.ca groupe-creadis.com
+CH-VC-00990,v:0269ffeb5462bc0f,COMPASS RESOURCE MANAGEMENT LTD,,,Vancouver,BC,,5,3,compassresourcemanagement.ca compassresourcemanagement.com compass-resource-management.ca compass-resource-management.com
+CH-VC-00991,v:71a379c5ab7132e9,LANDTEC GROUND EXPERTS LTD.,,,,,,5,3,landtecgroundexperts.ca landtecgroundexperts.com landtec-ground-experts.ca landtec-ground-experts.com
+CH-VC-00992,v:84f177aab536bb86,Lacoste Landscaping and Construction Ltd.,,,Winnipeg,MB,R2N4A6,5,3,lacostelandscapingconstruction.ca lacostelandscapingconstruction.com
+CH-VC-00993,v:5708a2250034ca1f,AZTEC BUILDERS LTD,,,OAKBANK,MB,R5N 0L1,5,3,aztecbuilders.ca aztecbuilders.com aztec-builders.ca aztec-builders.com
+CH-VC-00994,v:0678026eae4ce110,MIRION TECHNOLOGIES,,,,,,5,3,miriontechnologies.ca miriontechnologies.com mirion-technologies.ca mirion-technologies.com
+CH-VC-00995,v:2a816d1b9d8ce72a,International SOS,International SOS Canada Inc.,1780387,Toronto,ON,M6S 3G2,5,3,internationalsos.ca internationalsos.com international-sos.ca international-sos.com internationalsoscanada.ca internationalsoscanada.com
+CH-VC-00996,v:dc4c5197c4750255,National Car and Truck Rental,,,,,,5,3,nationalcartruckrental.ca nationalcartruckrental.com national-car-truck-rental.ca national-car-truck-rental.com
+CH-VC-00997,v:6ae63f693a3d6e36,Hydro Tech Inc,,,Sault Ste. Marie,ON,P6B 5Z8,5,3,hydrotech.ca hydrotech.com hydro-tech.ca hydro-tech.com
+CH-VC-00998,v:04dbf962874cf9c5,Coish's Trucking & Excavating Ltd.,,,Bay de Verde,NL,A0A 1E0,5,3,coishstruckingexcavating.ca coishstruckingexcavating.com coishs-trucking-excavating.ca coishs-trucking-excavating.com
+CH-VC-00999,v:daa24f3311dfe5d8,FUTURO,,,Springdale,NL,A0J 1T0,5,3,futuro.ca futuro.com
+CH-VC-01000,v:186b4386572632f9,Wescan Construction Services,,,Winnipeg,MB,R3E 1P6,5,3,wescanconstructionservices.ca wescanconstructionservices.com wescan-construction-services.ca wescan-construction-services.com

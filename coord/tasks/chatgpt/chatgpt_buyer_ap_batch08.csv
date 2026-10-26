@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00701,city of elliot lake,b:8480915b41c2af45,City of Elliot Lake,,CA,http://cityofelliotlake.com,,,21
+CH-AP-00702,city of north battleford,b:3d311fb0e376a200,City of North Battleford,,CA,http://www.cityofnb.ca,"reception@cityofnb.ca, financedirector@cityofnb.ca",tenders@cityofnb.ca,21
+CH-AP-00703,city of swift current,b:07e21922f0432b14,City of Swift Current,,CA,http://www.swiftcurrent.ca,,,21
+CH-AP-00704,labour and advanced education,b:22877ae63dec0b42,Labour and Advanced Education,,CA,https://novascotia.ca,,,21
+CH-AP-00705,leduc county,b:db9a56db9bb5b3b2,Leduc County,,CA,https://www.leduc-county.com/en/index.aspx,,procurement@leduc-county.com,20
+CH-AP-00706,athabasca county,b:9938b114cbca3cfe,Athabasca County,,CA,http://www.athabascacounty.com,info@athabascacounty.com,,20
+CH-AP-00707,bae systems land armaments l p,b:00150ba3beceb7bc,BAE SYSTEMS LAND & ARMAMENTS L.P.,,US,https://www.baesystems.com/en-us,,,20
+CH-AP-00708,university of manitoba,b:697d047e9f2d7d76,University of Manitoba,,CA,https://umanitoba.ca,,,20
+CH-AP-00709,greater essex county district school board,b:6275c26e69b9e3ad,Greater Essex County District School Board,,CA,http://www.publicboard.ca,,,20
+CH-AP-00710,ministry of energy mines and petroleum resources,b:ed99cb4b2d9e1625,"Ministry of Energy, Mines, and Petroleum Resources",,CA,https://www2.gov.bc.ca,,,20
+CH-AP-00711,recreation sites and trails branch,b:9a66723a9096484c,Recreation Sites and Trails Branch,,CA,https://www2.gov.bc.ca,,,20
+CH-AP-00712,provincial health services authority,b:39511de38b64f6c0,Provincial Health Services Authority (Incl. BCCSS),,CA,http://www.phsa.ca,careers@phsa.ca,"vendorliaison.supplychain@phsa.ca, commercialcontracts@phsa.ca",20
+CH-AP-00713,mohawk medbuy,b:29cb412144d4932d,Mohawk Medbuy,Mohawk Medbuy Corporation,CA,,,,20
+CH-AP-00714,metro richelieu,b:b7c1436e0853114d,Metro Richelieu,,CA,,,,20
+CH-AP-00715,rural municipality of enniskillen no 3,b:eb6bd04da28b6107,Rural Municipality of Enniskillen No. 3,,CA,,,"admin@rm03.ca, office@rm03.ca",20
+CH-AP-00716,old dominion university,b:38e60c5e144e100f,Old Dominion University,,US,https://www.odu.edu,,,20
+CH-AP-00717,fisheries and aquaculture,b:5247119a31dd7d17,Fisheries And Aquaculture,,CA,https://novascotia.ca,,,20
+CH-AP-00718,region of windsor and west hants municipality,b:d44ebe06cc263dfa,Region of Windsor and West Hants Municipality,,CA,,,,20
+CH-AP-00719,western regional enterprise network,b:939b36fe298e5be7,Western Regional Enterprise Network,,CA,,,,20
+CH-AP-00720,calgary public library,b:d22d6e57a0331c52,Calgary Public Library,,CA,https://calgarylibrary.ca,,,19
+CH-AP-00721,town of whitecourt,b:63941beaa372ea0a,Town of Whitecourt,,CA,https://www.whitecourt.ca,,,19
+CH-AP-00722,bow valley college,b:eeb06d068638417d,Bow Valley College,,CA,https://bowvalleycollege.ca,info@bowvalleycollege.ca,purchasing@bowvalleycollege.ca,19
+CH-AP-00723,cgi federal inc,b:645657f0625a26df,CGI FEDERAL INC.,,US,https://www.cgifederal.com,,,19
+CH-AP-00724,foothills county,b:2535585a622e0c54,Foothills County,,CA,https://www.foothillscountyab.ca,communications@foothillscountyab.ca,,19
+CH-AP-00725,township of douro dummer,b:3177ec3652523a1b,Township of Douro-Dummer,,CA,,,,19
+CH-AP-00726,town of erin,b:0c434d85c0e0cfbb,Town of Erin,,CA,http://www.erin.ca,,,19
+CH-AP-00727,halton regional police service,b:c9aeb1568c71a386,Halton Regional Police Service,,CA,,,,19
+CH-AP-00728,thunder bay public library,b:05f7e5f378ce1232,Thunder Bay Public Library,,CA,https://www.tbpl.ca,,,19
+CH-AP-00729,radford university,b:67add0f5f1bc83a2,Radford University,,US,https://www.radford.edu,,,19
+CH-AP-00730,nscad university,b:13284feb637e4a4b,NSCAD University,,CA,,,,19
+CH-AP-00731,cape breton health authority,b:00bc95e2441b9240,Cape Breton Health Authority,,CA,,,,19
+CH-AP-00732,swift network,b:78970a337eb7ded9,SWIFT Network,,CA,,,,18
+CH-AP-00733,greater st albert roman catholic separate school division,b:777a2032afd27a30,Greater St. Albert Roman Catholic Separate School Division,,CA,https://www.gsacrd.ab.ca,,,18
+CH-AP-00734,parliamentary protective services,b:0f14a20928048ff7,Parliamentary Protective Services,,CA,,,,18
+CH-AP-00735,northwest school division no 203,b:8448d9ebc5bbcc7d,Northwest School Division No. 203,,CA,,,,18
+CH-AP-00736,town of lockeport,b:c51f85593ec554fd,Town of Lockeport,,CA,https://www.lockeport.ns.ca,,,18
+CH-AP-00737,miscellaneous agencies,b:ed41df8dcdf60ca2,Miscellaneous agencies,,CA,,,,18
+CH-AP-00738,municipality of the district of barrington,b:780304083c72c061,Municipality of the District of Barrington,,CA,https://www.barringtonmunicipality.com,info@barringtonmunicipality.com,,18
+CH-AP-00739,lakeland college,b:9102db79858dc8dd,Lakeland College,,CA,https://www.lakelandcollege.ca,,,17
+CH-AP-00740,yellowhead county,b:3834f88043d3bcf6,Yellowhead County,,CA,https://yhcounty.ca,,rfpsandtenders@yhcounty.ca,17
+CH-AP-00741,norquest college,b:d71e5f948fefcdd9,NorQuest College,,CA,https://www.norquest.ca,"careercentre@norquest.ca, info@norquest.ca",procurementandcontracts@norquest.ca,17
+CH-AP-00742,christ the redeemer catholic separate school division,b:b746c5c4c09ea454,Christ the Redeemer Catholic Separate School Division,,CA,https://www.redeemer.ab.ca,,procurement@redeemer.ab.ca,17
+CH-AP-00743,nasittuq corporation,b:5611948550a5fcbd,Nasittuq Corporation,,CA,,,,17
+CH-AP-00744,township of mapleton,b:22c652cd4e9bbf78,Township of Mapleton,,CA,http://www.mapleton.ca,reception@mapleton.ca,,17
+CH-AP-00745,county of lennox addington,b:dd58efab5ca748fc,County of Lennox-Addington,,CA,,,,17
+CH-AP-00746,town of ingersoll,b:0178ade1a6630ca1,Town of Ingersoll,,CA,http://www.ingersoll.ca,,,17
+CH-AP-00747,rural municipality of mervin no 499,b:0e68fdd639afb445,Rural Municipality of Mervin No. 499,,CA,https://www.rmofmervin.ca,,,17
+CH-AP-00748,chinook school division no 211,b:ac5b567bf1744af8,Chinook School Division No. 211,,CA,,,,17
+CH-AP-00749,college of william mary,b:90b17672b1b5c48f,College of William & Mary,,US,https://www.wm.edu,,,17
+CH-AP-00750,district offices,b:959c541f2a8e40dc,District Offices - West Coast Region,,CA,,,,15
+CH-AP-00751,district offices,b:b6e6d5b9e31c0a17,District Offices - West Coast Region ; Coastal Engineering Group,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-00752,state of alaska,b:10c6254d64ff8956,State of Alaska — Department of Fish and Game (Wildlife Conservation Division),,US,https://alaska.gov,,,3
+CH-AP-00753,state of alaska,b:7e7655cbed6746e0,State of Alaska — Department of Natural Resources (Forestry),,US,https://alaska.gov,,,2
+CH-AP-00754,state of alaska,b:a93c5ff55358677b,State of Alaska — Department of Natural Resources (Parks),,US,https://alaska.gov,,,2
+CH-AP-00755,state of alaska,b:d8c2ceb401531f93,State of Alaska — Department of Fish and Game (Sport Fish Division),,US,https://alaska.gov,,,2
+CH-AP-00756,state of alaska,b:6df72e4a39a2c7f2,State of Alaska — Legislature (Legislative Affairs),,US,https://alaska.gov,,,1
+CH-AP-00757,state of alaska,b:82216352308096d2,State of Alaska — Department of Labor and Workforce Development (Alaska Vocational Technical Center),,US,https://alaska.gov,,,1
+CH-AP-00758,state of alaska,b:7828edddaa8b9060,State of Alaska — Department of Transportation and Public Facilities (Alaska International Airport System (AIAS)),,US,https://alaska.gov,,,1
+CH-AP-00759,state of alaska,b:b1d80a6333ff4508,State of Alaska — Department of Transportation and Public Facilities (Alaska Marine Highway System (AMHS)),,US,https://alaska.gov,,,1
+CH-AP-00760,state of alaska,b:e2bd379c2f95a708,State of Alaska — Department of Family and Community Services (Office of Children's Services),,US,https://alaska.gov,,,1
+CH-AP-00761,state of alaska,b:049ed08091c3d5ef,State of Alaska — Department of Health (Division of Public Health),,US,https://alaska.gov,,,1
+CH-AP-00762,state of alaska,b:9e3902828677b321,State of Alaska — Department of Law (Administrative Services),,US,https://alaska.gov,,,1
+CH-AP-00763,state of alaska,b:c2f5767501e1f1f4,State of Alaska — Department of Natural Resources (DGGS Operations),,US,https://alaska.gov,,,1
+CH-AP-00764,municipality of south dundas,b:520daaa89bafa126,Municipality of South Dundas,,CA,,,,16
+CH-AP-00765,department led capital projects office,b:9c13b577238388c6,Department Led Capital Projects Office,,CA,,,,16
+CH-AP-00766,ministry of community sport and cultural development,b:69db1cdd24457b86,"Ministry of Community, Sport and Cultural Development",,CA,https://www2.gov.bc.ca,,,16
+CH-AP-00767,kneehill county,b:3d21f06d14d5ae26,Kneehill County,,CA,http://www.kneehillcounty.com,office@kneehillcounty.com,,16
+CH-AP-00768,saskatchewan crop insurance corporation,b:589780b432017d8a,Saskatchewan Crop Insurance Corporation,,CA,,,"scicpurchasing@scic.ca, itprocurement@gov.sk.ca",16
+CH-AP-00769,advanced education employment and labour,b:04c96d345ed89cf4,"Advanced Education, Employment and Labour",,CA,https://www.saskatchewan.ca,,,16
+CH-AP-00770,virginia polytechnic institute and state university,b:c1b1be9cca4af439,Virginia Polytechnic Institute and State University,,US,https://www.vt.edu,"registrar@vt.edu, admissions@vt.edu",,16
+CH-AP-00771,energy,b:5ea54adacdf249ac,Energy,,CA,https://novascotia.ca,,,16
+CH-AP-00772,montgomery county maryland,b:71f0e7f7087cecb2,"Montgomery County, Maryland — Non-Departmental Accounts",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,6
+CH-AP-00773,montgomery county maryland,b:a10bb289ba93725a,"Montgomery County, Maryland — Police",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,3
+CH-AP-00774,montgomery county maryland,b:04cd0f770aa53cdd,"Montgomery County, Maryland — Department of Health & Human Svcs",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-00775,montgomery county maryland,b:255adde761be63c7,"Montgomery County, Maryland — Alcohol Beverage Services",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-00776,montgomery county maryland,b:fa25d168118fc63e,"Montgomery County, Maryland — Correction and Rehabilitation",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-00777,montgomery county maryland,b:985c29738d87d474,"Montgomery County, Maryland — Health and Human Services",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-00778,montgomery county maryland,b:94fda1f1bd6d3172,"Montgomery County, Maryland — Office of Animal Services",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-00779,montgomery county maryland,b:304d2f1dfd224521,"Montgomery County, Maryland — General Services",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-00780,montgomery county maryland,b:e49aa76a3e0ee4ac,"Montgomery County, Maryland — Public Libraries",,US,https://www.montgomerycountymd.gov,publicinformation@montgomerycountymd.gov,,1
+CH-AP-00781,infrastructure ontario edi,b:642fae63e047e30a,Infrastructure Ontario EDI,,CA,,,,15
+CH-AP-00782,st lawrence college,b:a6047b60738ba049,St. Lawrence College,,CA,,,,15
+CH-AP-00783,brandon school division,b:d4baabf4c4d1eacb,Brandon School Division,,CA,,,,15
+CH-AP-00784,city of spruce grove,b:70a92d852a679762,City of Spruce Grove,,CA,https://sprucegrove.org,"info@sprucegrove.org, engineering.inquiries@sprucegrove.org",,15
+CH-AP-00785,wheatland county,b:bfafb45a23fd6464,Wheatland County,,CA,,,,15
+CH-AP-00786,ministry of energy mines and low carbon innovation,b:1ba99cc11d95cb92,"Ministry of Energy, Mines, and Low Carbon Innovation","Ministry of Energy, Mines and Low Carbon Innovation",CA,https://www2.gov.bc.ca,,,15
+CH-AP-00787,seaward,b:15b7a24c0d4afd84,Seaward,,CA,https://www2.gov.bc.ca,,,15
+CH-AP-00788,virginia department of wildlife resources,b:142491f4f89f4e87,Virginia Department of Wildlife Resources,,US,,,,15
+CH-AP-00789,virginia department of agriculture and consumer services,b:694de2cbe44ebd6b,Virginia Department of Agriculture and Consumer Services,,US,,,,15
+CH-AP-00790,invest nova scotia,b:fa05db73bad8465e,Invest Nova Scotia,,CA,,,,15
+CH-AP-00791,natural resources and renewables,b:323672188ca42405,Natural Resources and Renewables,,CA,https://novascotia.ca,,,15
+CH-AP-00792,town of oxford,b:82384db837487797,Town of Oxford,,CA,https://oxfordns.ca,,,15
+CH-AP-00793,kings regional rehabilitation centre,b:cddbabf7436059ea,Kings Regional Rehabilitation Centre,,CA,,,,15
+CH-AP-00794,tri county housing authority,b:f89cc3d29cfd908b,Tri County Housing Authority,,CA,,,,15
+CH-AP-00795,county of renfrew,b:906c364db2a25d90,County of Renfrew,,CA,,,,14
+CH-AP-00796,department of transportation,b:e4d293e98d4ed2d2,Department of Transportation,,US,https://www.transportation.gov,,,14
+CH-AP-00797,township of oro medonte,b:338d5ae6a5473ae6,Township of Oro-Medonte,,CA,http://www.oro-medonte.ca,finance@oro-medonte.ca,procurement@oro-medonte.ca,14
+CH-AP-00798,ministry of jobs economic development and competitiveness,b:028119c54e5b4789,"Ministry of Jobs, Economic Development and Competitiveness",,CA,https://www2.gov.bc.ca,,,14
+CH-AP-00799,township of wellington north,b:a86226ec708c4ef5,Township of Wellington North,,CA,http://wellington-north.com,,,14
+CH-AP-00800,town of carbonear,b:5ef9a4d6f1ffd260,Town of Carbonear,,CA,https://carbonear.ca,,,14

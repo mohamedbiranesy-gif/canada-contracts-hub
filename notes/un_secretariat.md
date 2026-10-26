@@ -1,0 +1,4 @@
+# un_secretariat — UN Secretariat Procurement Division contract awards — BLOCKED
+
+Checked 2026-10-25 19:3x UTC: https://www.un.org/Depts/ptd/contract-awards redirects to https://www.un.org/procurement/awarded-tenders?type=contract_award, which answers **HTTP 202 with an AWS WAF JavaScript challenge** (`x-amzn-waf-action: challenge`, empty body). Not bypassed. https://www.un.org/Depts/ptd/ itself loads (200). UN Secretariat awards also published on UNGM: 11 Canadian-supplier awards already in `normalized/ungm.jsonl`.
+Re-checked 20:05 UTC: https://www.un.org/Depts/ptd/ now redirects to https://www.un.org/procurement/ (200); https://www.un.org/procurement/awarded-tenders → HTTP 202 `x-amzn-waf-action: challenge` again. The open statistics pages (/procurement/extended-statistics, /procurement/statistics-landing, 200) give only aggregate spend by vendor country, not individual awards.

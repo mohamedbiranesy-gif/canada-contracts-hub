@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-01701,municipalite de saint leandre,b:4f3822a9cb523bab,Municipalité de Saint-Léandre,,CA,https://www.st-leandre.ca,st-leandre@lamatanie.ca,,6
+GE-AP-01702,office dhabitation des laurentides,b:22a5a46811f9b2b2,Office d’habitation des Laurentides,,CA,,,,5
+GE-AP-01703,municipalite de maskinonge,b:e4675658278d4e9b,Municipalité de Maskinongé.,,CA,https://www.mun-maskinonge.ca,info@mun-maskinonge.ca,,5
+GE-AP-01704,municipalite de godmanchester,b:955bd79a2aa0b5fd,Municipalité de Godmanchester.,,CA,https://www.godmanchester.ca,"dg@godmanchester.ca, inspecteur@godmanchester.ca",,5
+GE-AP-01705,municipalite de lawrenceville,b:cccd939962688cc9,Municipalité de Lawrenceville,,CA,https://www.lawrenceville.ca,info@lawrenceville.ca,,5
+GE-AP-01706,regie d assainissement des coteaux,b:cda70da59e149fab,Régie d'assainissement des Coteaux,,CA,,,,5
+GE-AP-01707,municipalite de saint justin,b:af9846d65719cc9a,Municipalité de Saint-Justin.,,CA,https://www.saint-justin.ca,info@saint-justin.ca,,5
+GE-AP-01708,municipalite sainte seraphine,b:0d0d34b299fc2da9,Municipalité Sainte-Séraphine,,CA,https://www.munsainteseraphine.ca,dg@munsainteseraphine.ca,,5
+GE-AP-01709,municipalite d aguanish,b:e5b5ecf2fae74efd,Municipalité d'Aguanish,,CA,https://www.aguanish.org,direction@mun.aguanish.org,,5
+GE-AP-01710,municipalite de saint sylvere,b:79b56c58e35af97e,Municipalité de Saint-Sylvère.,,CA,https://www.saint-sylvere.ca,dg@saint-sylvere.ca,,5
+GE-AP-01711,municipalite de la bostonnais,b:63bc19fb93e6e549,Municipalité de La Bostonnais.,,CA,https://www.labostonnais.ca/accueil,dg@labostonnais.ca,,5
+GE-AP-01712,municipalite de portneuf sur mer,b:f0d9bc7f2f6df62c,Municipalité de Portneuf-sur-Mer,,CA,https://www.portneuf-sur-mer.ca,infos@portneuf-sur-mer.ca,,5
+GE-AP-01713,municipalite de la corne,b:88e1fccc4550af24,Municipalité de La Corne,,CA,https://www.lacorne.ca,"dg@lacorne.ca, inspecteur@lacorne.ca",,5
+GE-AP-01714,mrc bonaventure,b:896968037db7ce95,MRC Bonaventure,,CA,https://www.mrcbonaventure.com,info@mrcbonaventure.com,,5
+GE-AP-01715,municipalite de riviere st jean,b:6e33509dceec359f,Municipalité de Rivière St-Jean,,CA,https://www.rivieresaintjean-magpie.com,direction@rivieresaintjean.org,,5
+GE-AP-01716,municipalite de barraute,b:41147a40c8321cfa,Municipalité de Barraute.,,CA,https://www.municipalitedebarraute.com,dg@municipalitebarraute.com,,5
+GE-AP-01717,centre des technologies de l eau,b:f707ba066905a0e7,Centre des technologies de l'eau,,CA,,,,5
+GE-AP-01718,municipalite de saint epiphane,b:baa6e8294004298f,Municipalité de Saint-Épiphane,,CA,https://www.saint-epiphane.ca,"direction@saint-epiphane.ca, mairie@saint-epiphane.ca",,5
+GE-AP-01719,mrc de pontiac,b:2c997c536ee81908,MRC de Pontiac,,CA,https://www.mrcpontiac.qc.ca,,,5
+GE-AP-01720,municipalite de la paroisse de saint marcellin,b:f6fde5b6f0655082,Municipalité de la paroisse de Saint-Marcellin,,CA,https://www.st-marcellin.qc.ca,munstmar@mrc-rn.ca,,5
+GE-AP-01721,municipalite de saint germain,b:bc63a43f9603a5ca,Municipalité de Saint-Germain.,,CA,,,,5
+GE-AP-01722,regie d assainissement des eaux du grand joliette,b:6e11b2588c10da4c,Régie d'assainissement des eaux du Grand Joliette,,CA,,,,5
+GE-AP-01723,municipalite de saint leonard de portneuf,b:eccb8d2abd6903c7,Municipalité de Saint-Léonard-de-Portneuf,,CA,https://st-leonard.com,info@st-leonard.com,,5
+GE-AP-01724,gmr de la mrc de charlevoix,b:d90fe422dd82b794,GMR de la MRC de Charlevoix,,CA,,,,5
+GE-AP-01725,municipalite de saint eusebe,b:ca864cf47080e7b7,Municipalité de Saint-Eusèbe.,,CA,https://www.sainteusebe.ca,admin@sainteusebe.ca,,5
+GE-AP-01726,municipalite de marsoui,b:874a1c9e05876149,Municipalité de Marsoui,,CA,https://marsoui-village.ca,municipalite.marsoui@globetrotter.net,,5
+GE-AP-01727,municipalite de saint tite des caps,b:86ab4998fc90777c,Municipalité de Saint-Tite-des-Caps.,,CA,https://www.sainttitedescaps.com,info@sainttitedescaps.com,,5
+GE-AP-01728,municipalite les hauteurs,b:4f1a45c2070a9f6e,Municipalité Les Hauteurs,,CA,https://municipalites-du-quebec.com/les-hauteurs,leshauteurs@mitis.qc.ca,,5
+GE-AP-01729,municipalite de saint clet,b:04c13ee6f0fecf92,Municipalité de Saint-Clet.,,CA,https://www.st-clet.com,"st-clet@videotron.ca, info@st-clet.com",,5
+GE-AP-01730,municipalite de saint marc du lac long,b:05679538d9748fab,Municipalité  de Saint-Marc-du-Lac-Long,,CA,https://www.saintmarcdulaclong.ca,"admin@saintmarcdulaclong.ca, direction@saintmarcdulaclong.ca",,5
+GE-AP-01731,municipalite de l isle verte,b:0c6b2157ddbcb4ec,Municipalité de l'Isle-Verte.,,CA,https://www.municipalite.lisle-verte.qc.ca,reception@lisle-verte.ca,,5
+GE-AP-01732,corporation d innovation et developpement alma,b:7f1b0f5a5149432a,Corporation d'innovation et développement Alma - Lac-Saint-Jean-Est,,CA,,,,5
+GE-AP-01733,municipalite de saint denis sur richelieu,b:c5b7afaf48a05b6d,Municipalité de Saint-Denis-sur-Richelieu .,,CA,https://www.stdenissurrichelieu.com,info@msdsr.com,,5
+GE-AP-01734,municipalite de saint robert,b:b7ad0383c1a9eb3c,Municipalité de Saint-Robert.,,CA,https://www.saintrobert.qc.ca,"direction@saintrobert.qc.ca, info@saintrobert.qc.ca",,5
+GE-AP-01735,municipalite saint tharcisius,b:4657577a5d2a219d,Municipalité Saint-Tharcisius,,CA,https://saint-tharcisius.ca,,,5
+GE-AP-01736,municipalite du canton de dundee,b:10cb6a9e61ef9c5e,Municipalité du Canton de Dundee,,CA,http://www.cantondundee.ca,"dg@cantondundee.ca, inspecteur@cantondundee.ca",,5
+GE-AP-01737,municipalite de saint sixte,b:b000f7fd447cd419,Municipalité de Saint-Sixte.,,CA,https://www.saintsixte.ca,dg@saintsixte.ca,,5
+GE-AP-01738,societe de developpement et de mise en valeur du parc olympique,b:d5b66e5cd2485b9b,Société de développement et de mise en valeur du Parc olympique,,CA,,,,5
+GE-AP-01739,l ascension,b:865c01bae8af14ce,L'Ascension,,CA,,,,5
+GE-AP-01740,municipalite d authier nord,b:6d74280b2cf79974,Municipalité d'Authier-Nord,,CA,https://authier-nord.ao.ca,direction@authiernord.ca,,5
+GE-AP-01741,municipalite saint juste du lac,b:5ed526159885ef6a,Municipalité Saint-Juste-du-Lac,,CA,https://www.saintjustedulac.com,info@saintjustedulac.com,,5
+GE-AP-01742,bureau du verificateur general,b:e6484f7b47ba9ef7,Bureau du vérificateur général - Ville de Saint-Jean-sur-Richelieu,,CA,,,,5
+GE-AP-01743,municipalite de sainte therese de la gatineau,b:fb99415b231f3bae,Municipalité de Sainte-Thérèse-de-la-Gatineau,,CA,https://www.sainte-therese-de-la-gatineau.ca,"dg@sainte-therese-de-la-gatineau.ca, info@sainte-therese-de-la-gatineau.ca",,5
+GE-AP-01744,regie d exploitation du complexe sportif sainte catherine et delson,b:95371881ae750d8e,Régie d'exploitation du complexe sportif Sainte-Catherine et Delson,,CA,,,,5
+GE-AP-01745,commission d acces a l information du quebec,b:5810f0a07d757bb7,Commission d`accès à l`information du Quebec,,CA,,,,5
+GE-AP-01746,cisss ca,b:c0875aa808f8e1f0,CISSS-CA (Programme déficience physique),,CA,,,,5
+GE-AP-01747,institut raymond dewar,b:8913c967e8e38097,Institut Raymond-Dewar,,CA,,,,5
+GE-AP-01748,municipalite de sainte marcelline de kildare,b:b07d99c01a673257,Municipalité de Sainte-Marcelline-de-Kildare,,CA,https://www.ste-marcelline.com,"info@ste-marcelline.com, dg@ste-marcelline.com",,5
+GE-AP-01749,municipalite de sainte euphemie,b:c7cf669bc70265eb,Municipalité de Sainte-Euphémie (Rivière-du-Sud),,CA,,,,5
+GE-AP-01750,municipalite de hope,b:8b0b0579399bede3,Municipalité de Hope,,CA,https://www.municipalitedehope.ca,mun.hope@globetrotter.net,,5
+GE-AP-01751,municipalite de saint sylvestre,b:d4b75c8b2e5b8b6b,Municipalité de Saint-Sylvestre.,,CA,https://www.st-sylvestre.org,"info@st-sylvestre.org, dg@st-sylvestre.org",,5
+GE-AP-01752,conference regionale des elus de la mauricie,b:f57c38297620d3ef,Conférence régionale des élus de la Mauricie.,,CA,,,,5
+GE-AP-01753,centre local de developpement de la mrc du val saint francois,b:9459d5f84e358d4f,Centre local de développement de la MRC du Val-Saint-François,,CA,,,,5
+GE-AP-01754,municipalite de laurierville,b:0ac00339b1b0b2e1,Municipalité de Laurierville .,,CA,https://www.laurierville.net,info@laurierville.ca,,4
+GE-AP-01755,municipalite sainte germaine boule,b:21016207f00723eb,Municipalité Sainte-Germaine-Boulé,,CA,https://www.saintegermaineboule.com,direction@saintegermaineboule.com,,4
+GE-AP-01756,municipalite de saint augustin de dalmas,b:c539926f85b8a704,Municipalité de Saint-Augustin-de-Dalmas,,CA,,,,4
+GE-AP-01757,longue pointe de mingan,b:8a640eec8ae13ba4,Longue-Pointe-de-Mingan,,CA,,,,4
+GE-AP-01758,municipalite de lac saguay,b:90822ac59826a95f,Municipalité de Lac-Saguay,,CA,https://www.lacsaguay.qc.ca,info@lacsaguay.qc.ca,,4
+GE-AP-01759,municipalite de saint augustin de woburn,b:559cf91d29654e06,Municipalité de Saint-Augustin-de-Woburn.,,CA,https://www.saintaugustindewoburn.ca,dg@saintaugustindewoburn.ca,,4
+GE-AP-01760,municipalite de clerval,b:5e4e02e1ed8d5912,Municipalité de Clerval,,CA,https://clerval.ao.ca/fr,clerval@mrcao.qc.ca,,4
+GE-AP-01761,municipalite de cantons unis de latulipe et gaboury,b:f5110c1fbb0e6243,Municipalité de cantons unis de Latulipe-et-Gaboury,,CA,,,,4
+GE-AP-01762,municipalite de sainte anne de sabrevois,b:a6231d0d465d2c73,Municipalité de Sainte-Anne-de-Sabrevois.,,CA,https://sainte-anne-de-sabrevois.com,info@sabrevois.info,,4
+GE-AP-01763,municipalite de saint medard,b:bb432e6d78ef3e3d,Municipalité de Saint-Medard,,CA,https://municipalites-du-quebec.ca/st-medard,admin@st-medard.qc.ca,,4
+GE-AP-01764,municipalite d arundel,b:0506fe1293ceb202,Municipalité d'Arundel,,CA,https://www.arundel.ca,info@arundel.ca,,4
+GE-AP-01765,regie intermunicipale du parc regional de la riviere du nord,b:3e6f07ed7580e9ca,Régie Intermunicipale du Parc régional de la Rivière-du-Nord,,CA,,,,4
+GE-AP-01766,municipalite de l ascension de patapedia,b:5017dc970756b0db,Municipalité de l'Ascension-de-Patapédia,,CA,https://www.matapedialesplateaux.com,direction@municipaliteascension.com,,4
+GE-AP-01767,municipalite de clarendon,b:fe906208083854ba,Municipalité de Clarendon,,CA,https://www.clarendonqc.ca,"dg@clarendonqc.ca, info@clarendonqc.ca",,4
+GE-AP-01768,municipalite du canton de trecesson,b:573ca96b04442afb,Municipalité du Canton de Trécesson,,CA,https://www.municipalitedetrecesson.com,direction@trecesson.ca,,4
+GE-AP-01769,municipalite de laverlochere,b:5d8f74a0fd90e856,Municipalité de Laverlochère,,CA,,,,4
+GE-AP-01770,fabrique de la paroisse de sainte luce,b:88b42bbbbd660bbb,Fabrique de la Paroisse de Sainte-Luce,,CA,,,,4
+GE-AP-01771,municipalite des mechins,b:5fbeaff6e569ecb9,Municipalité des Méchins,,CA,https://www.lesmechins.com,lesmechins@lamatanie.ca,,4
+GE-AP-01772,regie intermunicipale de saint apollinaire et de saint agapit sur la cueillette des matieres residuelles,b:0a046d27b2b47831,Régie intermunicipale de Saint-Apollinaire et de Saint-Agapit sur la cueillette des matières résiduelles,,CA,,,,4
+GE-AP-01773,conseil superieur de la langue francaise,b:d8307d0e75a38c77,Conseil supérieur de la langue française.,Conseil Supérieur de la langue française,CA,,,,4
+GE-AP-01774,municipalite de sainte flavie,b:ae60d55466e408b1,Municipalité de Sainte-Flavie.,,CA,https://www.sainte-flavie.net,info@sainte-flavie.net,,4
+GE-AP-01775,municipalite du village de fort coulonge,b:312befdc1423d4ae,Municipalité du village de Fort-Coulonge,,CA,https://www.fortcoulonge.qc.ca,administration@fortcoulonge.qc.ca,,4
+GE-AP-01776,conseil de la justice administrative,b:7a44ee1e22fac2dc,Conseil de la justice administrative,,CA,,,,4
+GE-AP-01777,municipalite sainte marguerite marie,b:61713a01c187cd68,Municipalité Sainte-Marguerite-Marie,,CA,,stemarguerite@mrcmatapedia.qc.ca,,4
+GE-AP-01778,paroisse de la durantaye,b:a5a2be8fcf8e30a0,Paroisse de La Durantaye,,CA,https://www.munladurantaye.qc.ca,bureau@munladurantaye.qc.ca,,4
+GE-AP-01779,municipalite de blanc sablon,b:e4e15a5e204e17df,Municipalité de Blanc-Sablon,,CA,http://www.municipalitedeblancsablon.ca,information@mbsablon.com,,4
+GE-AP-01780,municipalite saint zenon lac humqui,b:45d93169bf3bf006,Municipalité Saint-Zénon-Lac-Humqui,,CA,,,,4
+GE-AP-01781,projet grandir en sante,b:d5fe21328f1f08ce,Projet grandir en santé (Gestionnaire Cima+),,CA,,,,4
+GE-AP-01782,corporation municipale canton launay,b:f2aec8c436a5c982,Corporation municipale Canton Launay,,CA,,,,4
+GE-AP-01783,municipalite de saint clement,b:9f1bcc803a05a850,Municipalité de Saint-Clément,,CA,https://www.st-clement.ca,admin@st-clement.ca,,4
+GE-AP-01784,municipalite de la paroisse de saint severin,b:781a800870b302ca,Municipalité  de la paroisse de Saint-Séverin,,CA,,,,4
+GE-AP-01785,centre local de developpement de brome missisquoi,b:ba14b007bc5fcf51,Centre local de développement de Brôme-Missisquoi,,CA,,,,4
+GE-AP-01786,mrc robert cliche,b:86d4d14cc0ecdcb3,MRC Robert Cliche,,CA,,,,4
+GE-AP-01787,mrc de caniapiscau,b:2eb59b91c87db5e8,MRC de Caniapiscau,,CA,https://www.caniapiscau.ca,,,4
+GE-AP-01788,municipalite notre dame du rosaire,b:ba67baa4c8c13e27,Municipalité Notre-Dame-du-Rosaire,,CA,https://www.notredamedurosaire.com,munndr@notredamedurosaire.com,,4
+GE-AP-01789,conseil superieur de l education,b:1d5c09df991dc19f,Conseil Supérieur de l'Éducation,,CA,,,,4
+GE-AP-01790,municipalite de sainte helene de mancebourg,b:5a4a4c19a9babb04,Municipalité de Sainte-Hélène-de-Mancebourg,,CA,https://www.ste-helene.ao.ca/fr,mancebourg@mrcao.qc.ca,,4
+GE-AP-01791,municipalite de riviere eternite,b:e2bda605dd059ddc,Municipalité de Rivière-Éternité,,CA,https://www.riviere-eternite.com,municipalite@riviere-eternite.com,,4
+GE-AP-01792,municipalite de taschereau,b:b4cf37f491796191,Municipalité de Taschereau .,,CA,https://WWW.taschereau.ao.ca,dg@munitaschereau.ca,,4
+GE-AP-01793,regie de police memphremagog,b:1bb5b4eda186aa4d,Régie de Police Memphrémagog,,CA,,,,4
+GE-AP-01794,municipalite de saint theodore d acton,b:c391093291186466,Municipalité de Saint-Théodore d'Acton,,CA,https://www.st-theodore.com,direction@st-theodore.com,,4
+GE-AP-01795,la centrale des appels d urgence chaudiere appalaches,b:1624f2c748e4e108,La Centrale des appels d'urgence Chaudière-Appalaches,,CA,,,,4
+GE-AP-01796,centre communautaire juridique bas saint laurent,b:fa8975104656bc64,Centre communautaire juridique Bas-Saint-Laurent - Gaspésie,,CA,,,,4
+GE-AP-01797,municipalite de saint robert bellarmin,b:c0fbf91e370f9ec8,Municipalité de Saint-Robert-Bellarmin,,CA,https://www.st-robertbellarmin.qc.ca,dg@st-robertbellarmin.qc.ca,,4
+GE-AP-01798,commission municipale du quebec,b:94915a42163ad93d,Commission municipale du Québec,,CA,,,,4
+GE-AP-01799,municipalite de saint nazaire d acton,b:d5b8b472c9db8a79,Municipalité de Saint-Nazaire-d'Acton.,,CA,https://stnazairedacton.ca,dg@mun-nazaire.qc.ca,,4
+GE-AP-01800,regie des services de securite incendie regroupes de la mrc de maskinonge,b:96ee11118881d71c,Régie des services de sécurité incendie regroupés de la MRC de Maskinongé,,CA,,,,4

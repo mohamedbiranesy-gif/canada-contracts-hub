@@ -1,0 +1,3 @@
+# pt_base — Portugal BASE (Portal dos Contratos Públicos) — REJECTED
+
+Checked 2026-10-25 ~18:42 UTC by the earlier worker (record in `downloads/pt_base/CHECKED.txt`): BASE open-data 2026 contracts file (dados.gov.pt / base.gov.pt), 199,701 contracts. Field `adjudicatarios` = "NIF - name" only; foreign suppliers appear as "- - name" with no NIF; `localExecucao` is the place of performance (sometimes "Canadá" for travel/hotel services bought by Portuguese bodies) — not the supplier's location. **No supplier address or country field → rejected** (vendor country cannot be established without using names). Downloaded file was not kept (disk constraints).

@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-00701,centre integre universitaire de sante et de services sociaux du saguenay lac saint jean,b:f97650e8c5922322,Centre intégré universitaire de santé et de services sociaux du Saguenay-Lac-Saint-Jean,,CA,https://santesaglac.gouv.qc.ca,,,62
+GE-AP-00702,regie d aqueduc intermunicipale des moulins,b:4b2ba77b57d383d0,Régie d'aqueduc intermunicipale des Moulins,,CA,,,,61
+GE-AP-00703,tribunal administratif du quebec,b:435624dc76435faf,Tribunal administratif du Québec,,CA,,,,61
+GE-AP-00704,municipalite de sainte barbe,b:894ecbf45a7d3199,Municipalité  de Sainte-Barbe,,CA,https://www.ste-barbe.com,info@ste-barbe.com,,61
+GE-AP-00705,ville de forestville,b:5405aac448cba955,Ville de Forestville.,,CA,https://www.forestville.ca,greffe@forestville.ca,,61
+GE-AP-00706,municipalite de l avenir,b:47159b1c67546382,Municipalité  de l'Avenir,,CA,https://www.municipalitelavenir.qc.ca,info@municipalitelavenir.qc.ca,,61
+GE-AP-00707,municipalite de wickham,b:e3f7f274146ee363,Municipalité de Wickham.,,CA,https://www.wickham.ca,greffe@wickham.ca,,61
+GE-AP-00708,csss de vaudreuil soulanges,b:2eb89b99063dee28,CSSS de Vaudreuil-Soulanges (CISSS de la Montérégie-Ouest),,CA,,,,61
+GE-AP-00709,mrc de d autray,b:fad56f21f8554854,MRC de D'Autray,,CA,https://www.mrcautray.qc.ca,"info@mrcautray.qc.ca, cour.municipale@mrcautray.qc.ca",,60
+GE-AP-00710,municipalite grenville sur la rouge,b:181e614c6e186d20,Municipalité  Grenville-sur-la-Rouge,,CA,https://www.gslr.ca,info@gslr.ca,,60
+GE-AP-00711,institut national d excellence en sante et en services sociaux,b:a9ad9f7e4067af9c,Institut national d'excellence en santé et en services sociaux,,CA,,,,60
+GE-AP-00712,mrc kamouraska,b:d4701f323a4c5c00,MRC Kamouraska,MRC de Kamouraska,CA,https://www.mrckamouraska.com,accueil@mrckamouraska.com,,60
+GE-AP-00713,centre integre de sante et de services sociaux secteur thetford,b:6a745f157ff30bbe,Centre intégré de santé et de services sociaux secteur Thetford,,CA,,,,60
+GE-AP-00714,municipalite de saint isidore,b:8af2a2df40ff5ac2,Municipalité  de Saint-Isidore.,Municipalité de Saint-Isidore.,CA,https://www.saint-isidore.net,info@saint-isidore.net,,59
+GE-AP-00715,ville de temiscouata sur le lac,b:9c7350df55695493,Ville de Témiscouata-sur-le-Lac,,CA,https://www.temiscouatasurlelac.ca,info@temiscouatasurlelac.ca,,59
+GE-AP-00716,municipalite de saint valerien de milton,b:fa939b610595e8b7,Municipalité de Saint-Valérien-de-Milton.,,CA,https://www.st-valerien-de-milton.qc.ca,"dg@svm.quebec, administration@svm.quebec",,59
+GE-AP-00717,municipalite de sainte cecile de levrard,b:bbe29c5d19a8999a,Municipalité de Sainte-Cécile-de-Lévrard,,CA,https://stececiledelevrard.com,info@stececiledelevrard.com,,59
+GE-AP-00718,municipalite de saint roch de richelieu,b:b9824cf8d222aa02,Municipalité de Saint Roch de Richelieu.,,CA,https://www.saintrochderichelieu.qc.ca,info@saintrochderichelieu.com,,59
+GE-AP-00719,commission scolaire des phares,b:1dd2ff9389d7dfcb,Commission Scolaire des Phares.,,CA,https://www.cssphares.gouv.qc.ca,sec.ress.fin@cssphares.gouv.qc.ca,,59
+GE-AP-00720,centre de services scolaire du fer,b:70131cc496745eef,Centre de services scolaire du Fer,,CA,https://www.csdufer.qc.ca,,,58
+GE-AP-00721,mrc de l assomption,b:a015e35c3ab722ca,MRC de L'Assomption,,CA,https://www.mrclassomption.qc.ca,mrcinfo@mrclassomption.qc.ca,,58
+GE-AP-00722,municipalite de napierville,b:7276472ac3dba86e,Municipalité de Napierville.,,CA,https://www.napierville.ca,"municipalite@napierville.ca, travauxpublics@napierville.ca",,58
+GE-AP-00723,mrc de minganie,b:ce6fb21fca88d39c,MRC de Minganie.,,CA,https://mrcminganie.com,"info@mrcminganie.com, infocam@mrcminganie.com",,58
+GE-AP-00724,municipalite de pontiac,b:f898767fe16cad01,Municipalité de Pontiac.,,CA,https://municipalitepontiac.com,info@municipalitepontiac.ca,,58
+GE-AP-00725,cegep de granby,b:b2607ba42ee09b88,Cégep de Granby,,CA,,,,58
+GE-AP-00726,mrc de la haute gaspesie,b:242d86f8555b0e83,MRC de la Haute-Gaspésie.,,CA,https://www.hautegaspesie.com,"info@hautegaspesie.com, direction@hautegaspesie.com",,58
+GE-AP-00727,commission scolaire de la moyenne cote nord,b:f8d20661dcdbf0c1,Commission  scolaire de la Moyenne-Côte-Nord,,CA,,,,58
+GE-AP-00728,groupe alerte sante inc,b:09ecaabd02aff2ed,GROUPE ALERTE SANTÉ INC..,,CA,,,,58
+GE-AP-00729,ville saint remi,b:498d895dbbaca226,Ville Saint-Rémi,,CA,https://www.ville.saint-remi.qc.ca,administration@ville.saint-remi.qc.ca,,57
+GE-AP-00730,municipalite de saint ferreol les neiges,b:e9dcab335c2aed54,Municipalité de Saint-Ferréol-les-Neiges.,,CA,https://www.saintferreollesneiges.qc.ca,info@sflneiges.com,,57
+GE-AP-00731,municipalite saint felix de kingsey,b:2054f1d31e174407,Municipalité Saint-Félix de Kingsey,,CA,https://www.saintfelixdekingsey.ca,direction.generale@saintfelixdekingsey.ca,,57
+GE-AP-00732,municipalite de vercheres,b:a0fe0beafc9eb7fd,Municipalité de Verchères,,CA,https://www.ville.vercheres.qc.ca,mairie@ville.vercheres.qc.ca,,57
+GE-AP-00733,cegep de matane,b:be514e1c1b0e577e,Cégep de Matane.,,CA,,,,57
+GE-AP-00734,municipalite de saint michel,b:e6d46a895635d408,Municipalité de Saint-Michel.,,CA,https://www.municipalite-saint-michel.ca,info@mst-michel.ca,,57
+GE-AP-00735,municipalite saint ignace de stanbridge,b:bab017772c73300e,Municipalité Saint-Ignace-de-Stanbridge,,CA,https://www.saint-ignace-de-stanbridge.com,"dg@saint-ignace-de-stanbridge.com, info@saint-ignace-de-stanbridge.com",,57
+GE-AP-00736,centre de sante et de services sociaux de becancour nicolet yamaska,b:4d79b3b181a4f7f5,Centre de santé et de services sociaux de Bécancour-Nicolet-Yamaska,,CA,,,,57
+GE-AP-00737,centre de services scolaire des hautes laurentides,b:cace8314a5298890,Centre de services scolaire des Hautes-Laurentides,,CA,https://csshl.gouv.qc.ca,"info@csshl.gouv.qc.ca, taxescolaire@csshl.gouv.qc.ca",,56
+GE-AP-00738,mrc de riviere du loup,b:a161d2a5d5087f75,MRC de Rivière-du-Loup,,CA,https://mrcriviereduloup.ca,administration@mrcrdl.quebec,,56
+GE-AP-00739,municipalite de venise en quebec,b:45613d64ffb5f7a2,Municipalité de Venise-en-Québec,,CA,https://www.veniseenquebec.ca,information@venise-en-quebec.ca,,56
+GE-AP-00740,municipalite val des lacs,b:e9bde89a4591a3b5,Municipalité Val-des-Lacs,,CA,https://www.val-des-lacs.ca,"dg@val-des-lacs.ca, urbanisme@val-des-lacs.ca",,56
+GE-AP-00741,municipalite de la paroisse de lac aux sables,b:b19e3a60f8b738f2,Municipalité de la Paroisse de Lac-aux-Sables,,CA,https://www.lac-aux-sables.qc.ca,"municipalite@lac-aux-sables.qc.ca, direction@lac-aux-sables.qc.ca",,56
+GE-AP-00742,municipalite de nantes,b:e3a684fe1e2257db,Municipalité de Nantes,,CA,https://www.munantes.qc.ca,"dg@munantes.qc.ca, info@munantes.qc.ca",,56
+GE-AP-00743,municipalite de racine,b:882ec9902935b0bf,Municipalité  de Racine,,CA,https://www.racine.ca,"dg@racine.ca, taxes@racine.ca",,56
+GE-AP-00744,ville d acton vale,b:897891fc1ee00657,Ville d'Acton Vale.,,CA,https://www.ville.actonvale.qc.ca,"actonvale@ville.actonvale.qc.ca, reception.perception@ville.actonvale.qc.ca",,55
+GE-AP-00745,municipalite de mont saint gregoire,b:14ec88cfc53844f6,Municipalité de Mont-Saint-Grégoire.,,CA,https://www.mmsg.ca,"info@mmsg.ca, taxes@mmsg.ca",,55
+GE-AP-00746,municipalite de saint anselme,b:9a9d34e85c4934f9,Municipalité de Saint-Anselme,,CA,https://www.st-anselme.ca,municipalite@st-anselme.ca,,55
+GE-AP-00747,municipalite de la paroisse saint louis de gonzague,b:b392cdcb59419e19,Municipalité  de la Paroisse Saint-Louis-de-Gonzague,,CA,https://www.sldg.ca,"info@sldg.ca, dg@sldg.ca",,55
+GE-AP-00748,ville de neuville,b:f9d76f88628139aa,Ville de Neuville,,CA,https://www.ville.neuville.qc.ca,"mun@ville.neuville.qc.ca, dg@ville.neuville.qc.ca",,55
+GE-AP-00749,municipalite de sainte melanie,b:98faf340c6123a28,Municipalité de Sainte-Mélanie,,CA,https://www.sainte-melanie.ca,"info@sainte-melanie.ca, dg@sainte-melanie.ca",,55
+GE-AP-00750,regie intermunicipale de police therese de blainville,b:f51bfe9630e571ee,Régie intermunicipale de police Thérèse-de-Blainville,,CA,,,,55
+GE-AP-00751,municipalite de sainte agathe de lotbiniere,b:a9f4e431f7fd5801,Municipalité de Sainte-Agathe-de-Lotbinière.,,CA,https://www.steagathedelotbiniere.com,info@steagathedelotbiniere.com,,55
+GE-AP-00752,centre de services des offices d habitation de lanaudiere,b:1b7d95958b56c77b,Centre de Services des Offices d'Habitation de Lanaudière,,CA,,,,54
+GE-AP-00753,centre de services scolaire au coeur des vallees,b:d269fc289abaada3,Centre de services scolaire au Coeur-des-Vallées,,CA,,,,54
+GE-AP-00754,ville de la sarre,b:486326a944a45bcf,Ville de La Sarre,,CA,https://www.ville.lasarre.qc.ca,"info@ville.lasarre.qc.ca, communications@ville.lasarre.qc.ca",,54
+GE-AP-00755,mrc de coaticook,b:2adb592ae1df7a41,MRC de Coaticook.,,CA,https://www.mrcdecoaticook.qc.ca,info@mrcdecoaticook.qc.ca,,54
+GE-AP-00756,municipalite de sayabec,b:584956e2c56dce8b,Municipalité de Sayabec.,,CA,https://www.municipalitesayabec.com,"sayabec.dg@mrcmatapedia.quebec, loisirssayabec@mrcmatapedia.quebec",,54
+GE-AP-00757,municipalite de sainte justine de newton,b:5841e21c0e266d4b,Municipalité de Sainte-Justine-de-Newton.,,CA,https://www.sainte-justine-de-newton.ca,administration@sainte-justine-de-newton.ca,,54
+GE-AP-00758,municipalite de saint claude,b:c55f04969411f5ca,Municipalité de Saint-Claude.,,CA,https://www.municipalite.st-claude.ca,"incendie@st-claude.ca, loisirs@st-claude.ca",,54
+GE-AP-00759,municipalite de pointe calumet,b:2016b77c1f60d1ff,Municipalité de Pointe-Calumet.,,CA,https://www.pointe-calumet.ca,"info@pointe-calumet.ca, directionloisirs@pointe-calumet.ca",,54
+GE-AP-00760,municipalite de saint cyprien de napierville,b:93e75d01b936f8e0,Municipalité de Saint-Cyprien-de-Napierville,,CA,https://www.st-cypriendenapierville.com,info@st-cypriendenapierville.com,,54
+GE-AP-00761,municipalite de saint liguori,b:cdae9fdbb4fff083,Municipalité de Saint-Liguori,,CA,https://www.saint-liguori.com,info@saint-liguori.com,,54
+GE-AP-00762,ville asbestos,b:c68253c204e7f6cf,Ville Asbestos,,CA,,,,54
+GE-AP-00763,centre jeunesse des laurentides,b:a150831022d7e8d3,Centre Jeunesse des Laurentides.,,CA,,,,54
+GE-AP-00764,mrc de bellechasse,b:5ef5c8465fbc4b34,MRC de Bellechasse,,CA,https://www.bellechasse.ca,formulaire.plainte@amp.gouv.qc.ca,,53
+GE-AP-00765,municipalite de duhamel,b:38e190104e12d308,Municipalité de Duhamel .,,CA,https://www.municipalite.duhamel.qc.ca,"dg@municipalite.duhamel.qc.ca, info@municipalite.duhamel.qc.ca",,53
+GE-AP-00766,municipalite de la presentation,b:0bd8ca784c6a31e3,Municipalité  de La Présentation,,CA,https://www.municipalitelapresentation.qc.ca,dg@municipalitelapresentation.qc.ca,,53
+GE-AP-00767,mrc des appalaches,b:afc134067060a5c0,MRC des Appalaches,,CA,https://www.mrcdesappalaches.ca,"finances@mrcdesappalaches.ca, info@mrcdesappalaches.ca",,53
+GE-AP-00768,gph inc gerance de la construction pour l universite de montreal,b:96217df64fc3f98e,GPH Inc-Gérance de la construction pour l'Université de Montréal,,CA,,,,53
+GE-AP-00769,municipalite de wotton,b:f75250192fb63c4b,Municipalité de Wotton,,CA,https://www.wotton.ca,direction@wotton.ca,,52
+GE-AP-00770,municipalite de sainte genevieve de berthier,b:758d533f0d08d5a1,MUNICIPALITÉ DE SAINTE-GENEVIÈVE-DE-BERTHIER,,CA,https://www.municipalites-du-quebec.ca/sainte-genevieve-de-berthier,dg@stegenevievedeberthier.ca,,52
+GE-AP-00771,municipalite de sainte brigide d iberville,b:b15c8a552f26d126,Municipalité de Sainte-Brigide-d'Iberville.,,CA,https://www.sainte-brigide.com,direction@sainte-brigide.qc.ca,,52
+GE-AP-00772,municipalite de saint ludger,b:fb40ae2c162b2793,Municipalité de Saint-Ludger.,,CA,https://www.st-ludger.qc.ca,"info@st-ludger.qc.ca, dg@st-ludger.qc.ca",,52
+GE-AP-00773,municipalite de ogden,b:513aa52e1ff632c3,Municipalité de Ogden.,,CA,https://www.munogden.ca,info@munogden.ca,,52
+GE-AP-00774,centre jeunesse de l estrie,b:8afc9eb11a9a9f59,Centre Jeunesse de L'Estrie,,CA,,,,52
+GE-AP-00775,office municipal d habitation de trois rivieres,b:e9b6e269ad9ff022,Office municipal d'habitation de Trois-Rivières,,CA,,,,51
+GE-AP-00776,ville de mcmasterville,b:b9ca747cf742855b,Ville de McMasterville.,,CA,https://www.mcmasterville.ca,info@mcmasterville.ca,,51
+GE-AP-00777,municipalite de compton,b:746baa991ae6e929,Municipalité de Compton,,CA,https://www.compton.ca,"info@compton.ca, directiongenerale@compton.ca",,51
+GE-AP-00778,municipalite de tring jonction,b:72eee59e893f8283,Municipalité de Tring-Jonction.,,CA,https://www.tringjonction.qc.ca,dg@tringjonction.qc.ca,,51
+GE-AP-00779,ville de riviere rouge,b:a1102946ef30b370,Ville de Rivière-Rouge.,,CA,https://www.riviere-rouge.ca,"greffe@riviere-rouge.ca, info@riviere-rouge.ca",,51
+GE-AP-00780,municipalite de scott,b:19900a17e3ac6ba6,Municipalité de Scott,,CA,https://www.municipalitescott.com,"info@municipalitescott.com, dg@municipalitescott.com",,51
+GE-AP-00781,municipalite de notre dame du portage,b:ae75d20736a3f2c0,Municipalité de Notre-Dame-du-Portage,,CA,https://www.municipalite.notre-dame-du-portage.qc.ca,reception@nddp.ca,,51
+GE-AP-00782,commission des normes du travail,b:b97998fa2f54e0f6,Commission des normes du travail,,CA,,,,51
+GE-AP-00783,groupe d approvisionnement en commun de l est du quebec section cote nord,b:85e30927231edce6,Groupe d'approvisionnement en commun de l'Est du Québec section Côte-Nord,,CA,,,,51
+GE-AP-00784,societe de gestion du reseau informatique des commissions scolaires,b:58a0cfab2f6ada4c,Société de gestion du réseau informatique des commissions scolaires (GRICS),,CA,,,,45
+GE-AP-00785,societe de gestion du reseau informatique des commissions scolaires,b:54339e13535bc80f,Société de gestion du réseau informatique des commissions scolaires,,CA,,,,6
+GE-AP-00786,societe quebecoise de recuperation et de recyclage,b:47126403544f5b15,Société québécoise de récupération et de recyclage - RECYC-QUÉBEC,,CA,,,,50
+GE-AP-00787,village de senneville,b:882c242d052ff217,Village de Senneville.,Village de Senneville,CA,https://www.senneville.ca,"greffe@senneville.ca, info@senneville.ca",,50
+GE-AP-00788,ville de trois pistoles,b:d9c67b03f70b6dfa,Ville de Trois Pistoles,,CA,https://www.ville-trois-pistoles.ca,administration@ville-trois-pistoles.ca,,50
+GE-AP-00789,la mutuelle des municipalites du quebec,b:eaa71302fa20be4d,La Mutuelle des municipalités du Québec,,CA,,,,50
+GE-AP-00790,municipalite de saint simeon,b:5ddd316c011f4fee,Municipalité de Saint-Siméon .,,CA,https://www.saintsimeon.ca,info@saintsimeon.ca,,38
+GE-AP-00791,municipalite de saint simeon,b:873055bbc57aa07f,Municipalité de Saint-Siméon (Bonaventure),,CA,https://www.saintsimeon.ca,info@saintsimeon.ca,,12
+GE-AP-00792,fonds de recherche du quebec,b:a21cb16dec78bbbf,Fonds de Recherche du Québec - Nature et technologies,,CA,,,,25
+GE-AP-00793,fonds de recherche du quebec,b:858be3d768e26c90,Fonds de recherche du Québec,,CA,,,,15
+GE-AP-00794,fonds de recherche du quebec,b:c22a3235bdcb33f3,Fonds de Recherche du Québec -  Société et culture,,CA,,,,10
+GE-AP-00795,ville de saint joseph de beauce,b:d11dcd5309156daf,Ville de Saint-Joseph-de-Beauce.,,CA,https://www.vsjb.ca,info@vsjb.ca,,49
+GE-AP-00796,municipalite du canton de stanstead,b:b0290ca8bfda0613,Municipalité du Canton de Stanstead,,CA,https://www.cantonstanstead.ca,info@cantonstanstead.ca,,49
+GE-AP-00797,municipalite de labelle,b:0fb5cb284fe12492,Municipalité de Labelle.,,CA,https://www.municipalite.labelle.qc.ca,"info@municipalite.labelle.qc.ca, biblio@municipalite.labelle.qc.ca",,49
+GE-AP-00798,centre de communication sante de la mauricie et du centre du quebec,b:7abd1c6204f9aaf9,Centre de communication santé de la Mauricie et du Centre-du-Québec,,CA,,,,49
+GE-AP-00799,municipalite du canton de cleveland,b:ee3b8dd7e2b091c0,Municipalité du Canton de Cleveland,Municipalité du canton de Cleveland,CA,https://www.cleveland.ca,"finance@cleveland.ca, info@cleveland.ca",,49
+GE-AP-00800,agence de la sante et des services sociaux des laurentides,b:ce3ed3014b1e1e71,Agence de la santé et des services sociaux des Laurentides,,CA,,,,49

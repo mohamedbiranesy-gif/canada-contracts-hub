@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-01001,v:3664249e24040f34,Emterra Environmental,,,Oakville,ON,L6L 0G4,5,3,emterraenvironmental.ca emterraenvironmental.com emterra-environmental.ca emterra-environmental.com
+CH-VC-01002,v:eff2e31c1f108482,Werfen,INSTRUMENTATION LABORATORY (CANADA) LTD.,1161917845,Toronto,ON,,5,3,werfen.ca werfen.com werfencanada.ca werfencanada.com werfen-canada.ca werfen-canada.com
+CH-VC-01003,v:c7512582ce8da0cc,Gap Wireless dba NWS Canada,Gap Wireless Inc.,6727221,Mississauga,ON,L5N 7X8,5,3,nwscanada.ca nwscanada.com nws-canada.ca nws-canada.com gapwireless.ca gapwireless.com
+CH-VC-01004,v:2a7551e7b2839497,EFCO ENTERPRISES LTD,,,,,,5,3,
+CH-VC-01005,v:007eb04af91c868c,Ace Locksmithing Ltd.,,,Mount Pearl,NL,,5,3,acelocksmithing.ca acelocksmithing.com ace-locksmithing.ca ace-locksmithing.com
+CH-VC-01006,v:662624355c549f05,BES Executive Search,BES Executive Search Inc.,12138883,Toronto,ON,M5K 1E7,5,3,besexecutivesearch.ca besexecutivesearch.com bes-executive-search.ca bes-executive-search.com
+CH-VC-01007,v:89adf9fa62ac24dd,BancTec Inc. Canada,"BANCTEC (CANADA), INC.",3570673,,,,5,3,bancteccanada.ca bancteccanada.com banctec.ca banctec.com banctec-canada.ca banctec-canada.com
+CH-VC-01008,v:5516f0d193334eb6,Conoscenti Technologies Inc.,,,Ottawa,ONTARIO,K4A 0A6,5,3,conoscentitechnologies.ca conoscentitechnologies.com conoscenti-technologies.ca conoscenti-technologies.com
+CH-VC-01009,v:d31ca364b10261ba,Magnet Forensics Inc.,,,,,,5,3,magnetforensics.ca magnetforensics.com magnet-forensics.ca magnet-forensics.com
+CH-VC-01010,v:2a017fe97080de4b,OTTAWA HOSPITAL RESEARCH INSTITUTE,,,,,,5,3,
+CH-VC-01011,v:58a73fddc840c12d,Thales Canada Inc,THALES CANADA INC.,8029024,,,,5,3,thalescanada.ca thalescanada.com thales.ca thales.com thales-canada.ca thales-canada.com
+CH-VC-01012,v:11bb68c9f6551c24,ADJELEIAN ALLEN RUBELI LIMITED,,,,,,5,3,
+CH-VC-01013,v:2c60b7a04f4fa178,Flint Learning Solutions Inc.,,,Toronto,ONTARIO,M6P 3T1,5,3,flintlearningsolutions.ca flintlearningsolutions.com flint-learning-solutions.ca flint-learning-solutions.com
+CH-VC-01014,v:948914ead2ccfd4e,"CHEM-AQUA, A DIV. OF NCH CANADA INC",NCH CANADA INC.,1143033703,BRAMPTON,ONTARIO,L6T 1E6,5,3,chemaquadivnchcanada.ca chemaquadivnchcanada.com chemaquadivnch.ca chemaquadivnch.com chem-aqua-div-nch-canada.ca chem-aqua-div-nch-canada.com
+CH-VC-01015,v:af580f7aa20f8bff,Encore Canada,Encore Global Events (Canada) ULC,1160459187,Mississauga,ONTARIO,L4W 5B3,5,3,encorecanada.ca encorecanada.com encore.ca encore.com encore-canada.ca encore-canada.com
+CH-VC-01016,v:d1ee47ed6bca8f9e,COWATERSOGEMA INTERNATIONAL,CowaterSogema International Inc.,10702692,Outside Australia,OUTSIDE AUSTRALIA,,4,3,cowatersogemainternational.ca cowatersogemainternational.com cowatersogema-international.ca cowatersogema-international.com
+CH-VC-01017,v:0e4b23ad6302bffd,The Social Research and Demonstration Corporation,THE SOCIAL RESEARCH AND DEMONSTRATION CORPORATION,2777151,Ottawa,ON,,4,3,socialresearchdemonstration.ca socialresearchdemonstration.com social-research-demonstration.ca social-research-demonstration.com
+CH-VC-01018,v:523b89b5a68de8a1,WILDLIFE GENETICS INTERNATIONAL INC,,,NELSON,BC,V1L 4H2,4,3,wildlifegeneticsinternational.ca wildlifegeneticsinternational.com
+CH-VC-01019,v:fa7164aaec4696c9,Canadian Development Consultants International,,,,,,4,3,canadiandevelopmentconsultants.ca canadiandevelopmentconsultants.com developmentconsultants.ca developmentconsultants.com
+CH-VC-01020,v:0e51b499f56660c2,Westland Construction Ltd.,,,Winnipeg,MB,R3Y 1G4,4,3,westlandconstruction.ca westlandconstruction.com westland-construction.ca westland-construction.com
+CH-VC-01021,v:927a3826440f39cc,Angus Consulting Management Limited (A wholly owned subsidiary of CBRE Limited),ANGUS CONSULTING MANAGEMENT LIMITED,1180737729,Toronto,ON,M3C 2J6,4,3,angusconsultingmanagement.ca angusconsultingmanagement.com angus-consulting-management.ca angus-consulting-management.com conseillerengestionangus.ca conseillerengestionangus.com
+CH-VC-01022,v:ab3efa27f497da16,Contract Promotions,,,,,,4,3,contractpromotions.ca contractpromotions.com contract-promotions.ca contract-promotions.com
+CH-VC-01023,v:109b0ae0d55a6dc1,CANETA RESEARCH INC.,CANETA RESEARCH INC.,2458063,Mississauga,ON,L5N 6J7,4,3,canetaresearch.ca canetaresearch.com caneta-research.ca caneta-research.com
+CH-VC-01024,v:4a02b9bff47f36e5,Aquaterra Corp,AQUATERRA CORPORATION,12602342,Mississauga,ON,L4W 1C7,4,3,aquaterra.ca aquaterra.com
+CH-VC-01025,v:51f5e2cd946af1b4,Workday Canada ULC,CANADA WORKDAY ULC,1168875681,Victoria,BC,V8W2G4,4,3,workdaycanada.ca workdaycanada.com workday.ca workday.com workday-canada.ca workday-canada.com
+CH-VC-01026,v:434a8c34ec9faf1e,Artha Learning Inc,Artha Learning Inc.,10216810,Kitchener,ON,N2R 0M9,4,3,arthalearning.ca arthalearning.com artha-learning.ca artha-learning.com
+CH-VC-01027,v:99afeaf117d8094b,KnowledgeNow Incorporated,KNOWLEDGENOW INCORPORATED,11987291,Petawawa,ON,K8H3E5,4,3,knowledgenow.ca knowledgenow.com
+CH-VC-01028,v:4e562140bd98c379,Wally Drake's Trucking Limited,,,Marystown,NL,A0E 2M0,4,3,wallydrakestrucking.ca wallydrakestrucking.com wally-drakes-trucking.ca wally-drakes-trucking.com
+CH-VC-01029,v:51803eebd9a10c8d,Les Entreprises Prebbel Enterprises Inc.,LES ENTREPRISES PREBBEL ENTERPRISES INC.,2570807,Ottawa,ON,K4C 1P2,4,3,entreprisesprebbelenterprises.ca entreprisesprebbelenterprises.com
+CH-VC-01030,v:394b38fd47fe9f51,Oomple Inc.,Oomple Inc.,8928312,Ottawa,ONTARIO,K1Y 0Y1,4,3,oomple.ca oomple.com
+CH-VC-01031,v:11660cc78f1e5955,EVERSA INC.,EVERSA INC.,11982095,Ottawa,ONTARIO,K1N 8S7,4,3,eversa.ca eversa.com
+CH-VC-01032,v:2ceee5baf4d0d481,Digital 55 Inc.,,,Toronto,ON,M6R 1B3,4,3,digital55.ca digital55.com digital-55.ca digital-55.com
+CH-VC-01033,v:0f7b074d28a82e18,NOVA Excavating and Equipment LTD,,,Bonnyville,ALBERTA,T9N 2G5,4,3,novaexcavatingequipment.ca novaexcavatingequipment.com nova-excavating-equipment.ca nova-excavating-equipment.com
+CH-VC-01034,v:ecd1d33181ec4adc,Target Marketing & Communications Inc,,,St. John's,NEWFOUNDLAND AND LABRADOR,A1M 2E5,4,3,targetmarketingcommunications.ca targetmarketingcommunications.com
+CH-VC-01035,v:a64178b92954e86e,St. John Ambulance,,,Winnipeg,MB,R3G 3H5,4,3,stjohnambulance.ca stjohnambulance.com st-john-ambulance.ca st-john-ambulance.com
+CH-VC-01036,v:13fd8800dc0a594c,Daemon Defense Systems Inc.,,,Winnipeg,MB,R3M 0W7,4,3,daemondefensesystems.ca daemondefensesystems.com daemon-defense-systems.ca daemon-defense-systems.com
+CH-VC-01037,v:a30f65b9f1cfdfc4,Artech Technology Canada Limited,Artech Technology Canada Limited,10103411,Mississauga,ONTARIO,L5N 6A4,4,3,artechtechnologycanada.ca artechtechnologycanada.com artechtechnology.ca artechtechnology.com artech-technology-canada.ca artech-technology-canada.com
+CH-VC-01038,v:2c94512148afd0cc,Groupe Intersol Group Ltd.,GROUPE INTERSOL LTEE,3655512,,,,4,3,intersolgroup.ca intersolgroup.com intersol-group.ca intersol-group.com groupeintersol.ca groupeintersol.com
+CH-VC-01039,v:b9f5ad72a661a4f5,VALLEY FIBER LTD.,,,,,,4,3,
+CH-VC-01040,v:0039a797439d3726,Global Knowledge,,,,,,4,3,
+CH-VC-01041,v:1ba504e4bb4e280d,Pylon Electronics Inc,PYLON ELECTRONICS INC.,1148757942,Mississauga,ON,L5T 2L4,4,3,pylonelectronics.ca pylonelectronics.com pylon-electronics.ca pylon-electronics.com
+CH-VC-01042,v:07d54e9cc6dfd6c9,Kai Analytics International Inc.,,,Vancouver,BC,V6B 3M1,4,3,kaianalyticsinternational.ca kaianalyticsinternational.com kai-analytics-international.ca kai-analytics-international.com
+CH-VC-01043,v:e38b2b8b2c3077ba,Macphie & Company Inc.,,,Toronto,ON,M8Z 4W8,4,3,
+CH-VC-01044,v:d14eeb3ed19cfd22,R J G CONSTRUCTION LTD.,,,St. John's,NEWFOUNDLAND AND LABRADOR,A1B 3N9,4,3,rjgconstruction.ca rjgconstruction.com r-j-g-construction.ca r-j-g-construction.com
+CH-VC-01045,v:9c5110dd9e81d607,Beaver Enterprises Limited Partnership,,,Fort Liard,NT,,4,3,beaverenterprisespartnership.ca beaverenterprisespartnership.com beaver-enterprises-partnership.ca beaver-enterprises-partnership.com
+CH-VC-01046,v:0393e84b49845f26,Executive Flight Centre Aviation Ltd.,,,Calgary,ALBERTA,T2E 7R3,4,3,executiveflightcentreaviation.ca executiveflightcentreaviation.com
+CH-VC-01047,v:13eec6599d18fdd2,Guthrie Woods Products Limited,GUTHRIE WOODS PRODUCTS LIMITED,3613135,,,,4,3,guthriewoodsproducts.ca guthriewoodsproducts.com guthrie-woods-products.ca guthrie-woods-products.com
+CH-VC-01048,v:0a4390aed6deedb6,Metrographics Ltd.,,,,,,4,3,metrographics.ca metrographics.com
+CH-VC-01049,v:a814e2c4abf53b66,MID WEST DESIGN AND CONSTRUCTION LTD,,,,,,4,3,midwestdesignconstruction.ca midwestdesignconstruction.com mid-west-design-construction.ca mid-west-design-construction.com
+CH-VC-01050,v:cd35c42fd85b8c5e,Vividata,Vividata,8971196,,,,4,3,vividata.ca vividata.com
+CH-VC-01051,v:aea998c97a33f332,VITRIUM SYSTEMS INC,,,VANCOUVER,BC,V6B 5A6,4,3,vitriumsystems.ca vitriumsystems.com vitrium-systems.ca vitrium-systems.com
+CH-VC-01052,v:301912f8d0729d03,NIEWE TECHNOLOGY AND CONSULTING LTD,Niewe Technology and Consulting Ltd.,18145016,,,,4,3,niewetechnologyconsulting.ca niewetechnologyconsulting.com niewe-technology-consulting.ca niewe-technology-consulting.com
+CH-VC-01053,v:ed2a4d36ca341a8f,CEGEP MARIE-VICTORIN,,,,,,4,3,cegepmarievictorin.ca cegepmarievictorin.com cegep-marie-victorin.ca cegep-marie-victorin.com
+CH-VC-01054,v:2acd5ab97d91b172,SMARTWAY TRAILER RENTALS,,,,,,4,3,
+CH-VC-01055,v:7dab9cdbdce4005d,PELAGIC TECHNOLOGIES INC.,,,Lantzville,BC,V0R2H0,4,3,pelagictechnologies.ca pelagictechnologies.com pelagic-technologies.ca pelagic-technologies.com
+CH-VC-01056,v:42d3fca8183b69cb,IQVIA SOLUTIONS CANADA INC.,IQVIA SOLUTIONS CANADA INC.,11166450,,,,4,3,iqviasolutionscanada.ca iqviasolutionscanada.com iqviasolutions.ca iqviasolutions.com iqvia-solutions-canada.ca iqvia-solutions-canada.com
+CH-VC-01057,v:fab26ce3fb5ae58c,KONICA MINOLTA (MONTREAL) INC,,,,,,4,3,konicaminolta.ca konicaminolta.com konica-minolta.ca konica-minolta.com
+CH-VC-01058,v:ea4bf157050d325e,PHASELOCK SYSTEMS INTL INC,PHASELOCK SYSTEMS INTERNATIONAL INC.,3765547,,,,4,3,phaselocksystemsintl.ca phaselocksystemsintl.com phaselock-systems-intl.ca phaselock-systems-intl.com phaselocksystemsinternational.ca phaselocksystemsinternational.com
+CH-VC-01059,v:e49b32d6883b16aa,Boston Consulting Group Canada ULC,,,Toronto,ONTARIO,M5J 0E7,4,3,bostonconsultinggroupcanada.ca bostonconsultinggroupcanada.com bostonconsultinggroup.ca bostonconsultinggroup.com boston-consulting-group-canada.ca boston-consulting-group-canada.com
+CH-VC-01060,v:4a5bbf479765953d,PRESSREADER INC,,,RICHMOND,BC,V6V 2J1,4,3,pressreader.ca pressreader.com
+CH-VC-01061,v:65ab7351d7e30a9c,MARINDUSTRIAL INC,,,,,,4,3,marindustrial.ca marindustrial.com
+CH-VC-01062,v:9d79b68b0f88c827,VIRTUAL MARINE TECHNOLOGY INC.,,,,,,4,3,virtualmarinetechnology.ca virtualmarinetechnology.com virtual-marine-technology.ca virtual-marine-technology.com
+CH-VC-01063,v:309a2bdfe46a65da,688262 NB Ltd,,,Beaver Dam,NEW BRUNSWICK,E3B 7W1,4,3,
+CH-VC-01064,v:93a5d10d5dcea934,"SGS Saint John Diving, ULC",,,Saint John,NEW BRUNSWICK,E2L 3X1,4,3,sgssaintjohndiving.ca sgssaintjohndiving.com sgs-saint-john-diving.ca sgs-saint-john-diving.com
+CH-VC-01065,v:21e2db9ae9206153,UNDERWRITERS LABORATORIES OF CANADA,UNDERWRITERS LABORATORIES OF CANADA,620459,,,,4,3,underwriterslaboratoriescanada.ca underwriterslaboratoriescanada.com underwriterslaboratories.ca underwriterslaboratories.com laboratoiresassureurscanada.ca laboratoiresassureurscanada.com
+CH-VC-01066,v:f354da85d05346cc,10402567 Canada Inc.,10402567 Canada Inc.,10402567,,,,4,3,
+CH-VC-01067,v:be5ce3a0b402b7d2,LAURENTIAN TECHNOLOGIES INC.,Laurentian Technologies Inc.,8081140,,,,4,3,laurentiantechnologies.ca laurentiantechnologies.com laurentian-technologies.ca laurentian-technologies.com
+CH-VC-01068,v:a828d627eb6d94c9,9326227 CANADA INC.,9326227 CANADA INC.,9326227,,,,4,3,
+CH-VC-01069,v:db7faee62cc1afec,GSM Studios Inc.,GSM Studios Inc.,13905608,,,,4,3,gsmstudios.ca gsmstudios.com gsm-studios.ca gsm-studios.com
+CH-VC-01070,v:14df978d8173df80,10947482 Canada Inc.,10947482 Canada Inc.,10947482,Ottawa,ONTARIO,K1P 5J2,4,3,
+CH-VC-01071,v:04a472cc389d7153,A.W.LEIL CRANES & EQUIPMENT (1986),A.W. Leil Cranes & Equipment (1986) Limited,1181070161,Dartmouth,NOVA SCOTIA,B3B 1W1,4,3,wleilcranesequipment.ca wleilcranesequipment.com w-leil-cranes-equipment.ca w-leil-cranes-equipment.com wleilgruesequipements.ca wleilgruesequipements.com
+CH-VC-01072,v:6d2599ccf8b80b6c,EVACUSLED INC.,,,TORONTO,ON,M8Z 5H8,4,3,evacusled.ca evacusled.com
+CH-VC-01073,v:2738dddae7cd280e,Strathcona County,,,Sherwood Park,AB,T8A 3W7,3,3,strathconacounty.ca strathconacounty.com strathcona-county.ca strathcona-county.com
+CH-VC-01074,v:0667ad595f0d6e40,The Board of Trustees of Edmonton School Division,,,Edmonton,AB,T5H 4G9,3,3,
+CH-VC-01075,v:791490f92b8ed422,Bent Arrow Traditional Healing Society,,,Edmonton,AB,T5B 3E5,3,3,
+CH-VC-01076,v:1ef80c65ec789518,Mikisew Cree First Nation,,,Fort McMurray,AB,T9H 0A2,3,3,mikisewcreefirstnation.ca mikisewcreefirstnation.com mikisew-cree-first-nation.ca mikisew-cree-first-nation.com
+CH-VC-01077,v:f3b2adc27a63d655,Cold Lake First Nations,,,Cold Lake,AB,T9M 1P1,3,3,coldlakefirstnations.ca coldlakefirstnations.com cold-lake-first-nations.ca cold-lake-first-nations.com
+CH-VC-01078,v:5b5cbc447a4ea697,Tallcree Wildland Limited Partnership,,,Fort Vermilion,AB,T0N 1N0,3,3,tallcreewildlandpartnership.ca tallcreewildlandpartnership.com tallcree-wildland-partnership.ca tallcree-wildland-partnership.com
+CH-VC-01079,v:789ce0e3727ee574,Little Red River Group of Companies LP,,,High Level,AB,T0H 1Z0,3,3,littleredrivergroupcompanies.ca littleredrivergroupcompanies.com
+CH-VC-01080,v:cd09e18a9bd74eda,The Canadian Press,THE CANADIAN PRESS,349640,,,,3,3,canadianpress.ca canadianpress.com press.ca press.com canadian-press.ca canadian-press.com
+CH-VC-01081,v:21432a831e1757d0,CALGARY SCOPE SOCIETY,,,CALGARY,AB,T2E 6J5,3,3,calgaryscopesociety.ca calgaryscopesociety.com calgary-scope-society.ca calgary-scope-society.com
+CH-VC-01082,v:e250fb3e2d0b76be,ENTRUST ADULT INC.,,,EDMONTON,AB,T5B 2C9,3,3,entrustadult.ca entrustadult.com entrust-adult.ca entrust-adult.com
+CH-VC-01083,v:b14aecdd9874ab95,EXCEL SOCIETY,,,EDMONTON,AB,T5K 2L9,3,3,excelsociety.ca excelsociety.com excel-society.ca excel-society.com
+CH-VC-01084,v:a29fbe68391892b1,LACOMBE ACTION GROUP FOR THE HANDICAPPED,,,LACOMBE,AB,T4L 2K6,3,3,
+CH-VC-01085,v:e7c9cbe16733448b,PARKLAND COMMUNITY LIVING AND SUPPORTS SOCIETY,,,RED DEER,AB,T4N 3M4,3,3,
+CH-VC-01086,v:c5fde8eb1129a14f,Venturers Society of Calgary,,,Calgary,AB,T2P 2M7,3,3,venturerssocietycalgary.ca venturerssocietycalgary.com venturers-society-calgary.ca venturers-society-calgary.com
+CH-VC-01087,v:96f96632a8a1982c,VECOVA CENTRE FOR DISABILITY SERVICES,,,CALGARY,AB,T2G 1A1,3,3,
+CH-VC-01088,v:b09bca75d03b1b26,Altacare Resources Inc.,,,Edmonton,AB,T6E 5A6,3,3,altacareresources.ca altacareresources.com altacare-resources.ca altacare-resources.com
+CH-VC-01089,v:cd27f0069de1ae51,The Family Centre of Northern Alberta (Association),,,Edmonton,AB,T5K 1C5,3,3,familycentrenorthernalberta.ca familycentrenorthernalberta.com family-centre-northern-alberta.ca family-centre-northern-alberta.com
+CH-VC-01090,v:332129f03865eb1c,Mariner Innovations - Mariner Partners Inc.,,,Saint John,NB,E2L 2A9,3,3,
+CH-VC-01091,v:4aee1df819fe3e64,Fenix Alma Solutions Inc.,,,Kingston,ON,K7M 3B2,3,3,fenixalmasolutions.ca fenixalmasolutions.com fenix-alma-solutions.ca fenix-alma-solutions.com
+CH-VC-01092,v:3b7d0673fd57ae95,Askiy Mat Service,,,Fort McMurray,AB,t9h 5h8,3,3,askiymatservice.ca askiymatservice.com askiy-mat-service.ca askiy-mat-service.com
+CH-VC-01093,v:26c70a5a8fdc8875,Odgers Berndtson RF Inc.,,,Ottawa,ON,K1P 6L1,3,3,odgersberndtsonrf.ca odgersberndtsonrf.com odgers-berndtson-rf.ca odgers-berndtson-rf.com
+CH-VC-01094,v:4382792dfb1bc2ec,GP Strategies Canada ULC,,,Toronto,ON,M5S 2B1,3,3,gpstrategiescanada.ca gpstrategiescanada.com gpstrategies.ca gpstrategies.com gp-strategies-canada.ca gp-strategies-canada.com
+CH-VC-01095,v:1b924b25d49019d6,IT/Net – Ottawa Inc.,,,Ottawa,ON,K2P 2P8,3,3,itnetottawa.ca itnetottawa.com it-net-ottawa.ca it-net-ottawa.com
+CH-VC-01096,v:3aca8bd4d757b540,Evolve Agency Group Inc,,,Burlington,ON,L7N 3G2,3,3,
+CH-VC-01097,v:3f0c76dc95de16ed,Premise Design Communications Inc,,,Waterloo,ON,N2L 6M1,3,3,
+CH-VC-01098,v:47930e629428db85,Megafone Media Corp,,,Toronto,ON,M5V 1V6,3,3,
+CH-VC-01099,v:524549b350ef3c8d,CANTALK CANADA INC.,,,,,,3,3,
+CH-VC-01100,v:2840bcab558e774e,Quorus Consulting Group Inc.,Quorus Consulting Group Inc.,7067895,Ottawa,ON,K4A 4W8,3,3,quorusconsultinggroup.ca quorusconsultinggroup.com quorus-consulting-group.ca quorus-consulting-group.com

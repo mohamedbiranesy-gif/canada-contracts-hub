@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-00001,ministere des transports de la mobilite durable et de l electrification des transports,b:0a2c59c3157b1790,"Ministère des Transports, de la Mobilité durable et de l'Électrification des transports (Direction des contrats de construction et de services)",,CA,https://www.transports.gouv.qc.ca,,,7220
+GE-AP-00002,ministere des transports de la mobilite durable et de l electrification des transports,b:c202cdf00eaec079,"Ministère des Transports, de la Mobilité durable et de l'Électrification des transports - Service des acquisitions",,CA,https://www.transports.gouv.qc.ca,,,745
+GE-AP-00003,ministere du travail de l emploi et de la solidarite sociale,b:4cd72d62d2202c1c,"Ministère du Travail, de l'Emploi et de la Solidarité sociale",,CA,https://www.quebec.ca/gouvernement/ministere/emploi-solidarite-sociale,,,5112
+GE-AP-00004,centre integre universitaire de sante et de services sociaux de lest de lile de montreal,b:3211fbcbe3afb788,Centre intégré universitaire de santé et de services sociaux de l’Est-de-l’Île-de-Montréal (CIUSSS),,CA,https://ciusss-estmtl.gouv.qc.ca,"relations.medias.cemtl@ssss.gouv.qc.ca, communications.cemtl@ssss.gouv.qc.ca",,4044
+GE-AP-00005,centre integre universitaire de sante et de services sociaux de lest de lile de montreal,b:df1fd38a3f093960,Centre intégré universitaire de santé et de services sociaux de l’Est-de-l’Île-de-Montréal (CIUSSS-EMTL),,CA,https://ciusss-estmtl.gouv.qc.ca,"relations.medias.cemtl@ssss.gouv.qc.ca, communications.cemtl@ssss.gouv.qc.ca",,694
+GE-AP-00006,centre hospitalier de l universite de montreal chum,b:fc50bbdcebcc99ec,Centre Hospitalier de l'Université de Montréal. CHUM,,CA,https://www.chumontreal.qc.ca,,,4201
+GE-AP-00007,ciusss du nord de l ile de montreal,b:4fbc95cc20da05c3,CIUSSS du Nord-de-l'Île-de-Montréal,,CA,https://www.ciusssnordmtl.ca,,,2790
+GE-AP-00008,ciusss du nord de l ile de montreal,b:c3b5fd2cd51c8c18,CIUSSS du Nord-de-l'Île-de-Montréal / Hôpital du Sacré-Coeur de Montréal..,,CA,https://www.ciusssnordmtl.ca,,,574
+GE-AP-00009,ciusss du nord de l ile de montreal,b:16b6e2e1270871c0,CIUSSS du Nord-de-l'Île-de-Montréal (CSSS du-Coeur-de-l'Île),,CA,https://www.ciusssnordmtl.ca,,,394
+GE-AP-00010,ciusss du nord de l ile de montreal,b:c9bee818372d1dc4,CIUSSS du Nord-de-l'Île-de-Montréal (Hôpital Rivière-des-Prairies),,CA,https://www.ciusssnordmtl.ca,,,106
+GE-AP-00011,chu de quebec universite laval,b:fd4c5fc56fc9b793,CHU de Québec-Université Laval,CHU de Québec - Université Laval,CA,https://www.chudequebec.ca/accueil.aspx,info@amp.quebec,,3671
+GE-AP-00012,commission scolaire de montreal,b:985222167e356c2c,Commission scolaire de Montréal / BDA,,CA,https://www.cssdm.gouv.qc.ca,"info@cssdm.gouv.qc.ca, accueil@cssdm.gouv.qc.ca","approv@cssdm.gouv.qc.ca, approv@csdm.qc.ca",2481
+GE-AP-00013,commission scolaire de montreal,b:60e83ccfcdf2accb,Commission scolaire de Montréal,,CA,https://www.cssdm.gouv.qc.ca,"info@cssdm.gouv.qc.ca, accueil@cssdm.gouv.qc.ca","approv@cssdm.gouv.qc.ca, approv@csdm.qc.ca",952
+GE-AP-00014,centre de services partages du quebec direction generale des acquisitions,b:ce0e46086b1a5782,Centre de services partagés du Québec- Direction générale des acquisitions (DGACQ),,CA,,,,3307
+GE-AP-00015,ville de saguenay,b:3724be863b6f0cce,Ville de Saguenay,,CA,https://ville.saguenay.ca,info@ville.saguenay.qc.ca,,3185
+GE-AP-00016,centre integre de sante et de services sociaux de la monteregie est,b:e123359d3ed4ecce,Centre intégré de santé et de services sociaux de la Montérégie-Est,,CA,https://www.santemonteregie.qc.ca/est,,,2298
+GE-AP-00017,centre integre de sante et de services sociaux de la monteregie est,b:6054149607094217,Centre intégré de santé et de services sociaux de la Montérégie-Est (Richelieu-Yamaska),,CA,https://www.santemonteregie.qc.ca/est,,,331
+GE-AP-00018,centre integre de sante et de services sociaux de la monteregie est,b:ea0ea47c8f3c65b3,Centre intégré de santé et de services sociaux de la Montérégie-Est (Pierre-Boucher),,CA,https://www.santemonteregie.qc.ca/est,,,275
+GE-AP-00019,centre integre de sante et de services sociaux de la monteregie est,b:f19a1591e3f9cf2e,Centre intégré de santé et de services sociaux de la Montérégie-Est (Pierre-de-Saurel),,CA,https://www.santemonteregie.qc.ca/est,,,157
+GE-AP-00020,societe des traversiers du quebec,b:223ac39221849f6a,Société des traversiers du Québec,,CA,https://www.traversiers.com,,,2683
+GE-AP-00021,chu ste justine,b:0bd9975d4a38d5bc,CHU Ste-Justine,,CA,https://www.chusj.org,,,2590
+GE-AP-00022,ministere des transports et de la mobilite durable,b:3a48a64cfcbd0b21,Ministère des Transports et de la Mobilité durable (Direction générale de la gestion contractuelle),,CA,https://www.transports.gouv.qc.ca,,,1759
+GE-AP-00023,ministere des transports et de la mobilite durable,b:6064a890fdbc4818,Ministère des Transports et de la mobilité durable (Direction de l'administration des appels d'offres publics),Ministère des Transports et de la Mobilité durable (Direction de l'administration des appels d'offres publics),CA,https://www.transports.gouv.qc.ca,,,809
+GE-AP-00024,universite de montreal,b:7c48e6630ce04ee3,Université de Montréal.,Université de Montréal,CA,https://www.umontreal.ca,,,1776
+GE-AP-00025,universite de montreal,b:49c119325d6b678f,Université de Montréal - Direction des immeubles,,CA,https://www.umontreal.ca,,,686
+GE-AP-00026,universite de montreal,b:a2b624de8ae92110,Université de Montréal - DPMI,,CA,https://www.umontreal.ca,,,22
+GE-AP-00027,centre universitaire de sante mcgill,b:8f2e6ae86008c728,Centre universitaire de santé McGill.,,CA,https://cusm.ca,,,2479
+GE-AP-00028,societe de transport de montreal,b:a8e54c2a44c63bfd,Société de transport de Montréal,,CA,https://www.stm.info,,,2448
+GE-AP-00029,societe de transport de montreal,b:20ce5c29bd01bb97,Société de transport de Montréal (STM) as agent for Association du transport urbain du Québec (ATUQ) - nine transit authorities and exo,,CA,https://www.stm.info,,,1
+GE-AP-00030,centre d acquisitions gouvernementales,b:9555b37482374bd6,Centre d'acquisitions gouvernementales,,CA,https://www.quebec.ca/gouvernement/ministeres-organismes/centre-acquisitions-gouvernementales,servicealaclientele@cag.gouv.qc.ca,,1890
+GE-AP-00031,centre d acquisitions gouvernementales,b:87c9dca2005190fd,Centre d'acquisitions gouvernementales - Direction du service à la clientèle et de l'exécution des contrats,,CA,https://www.quebec.ca/gouvernement/ministeres-organismes/centre-acquisitions-gouvernementales,servicealaclientele@cag.gouv.qc.ca,,503
+GE-AP-00032,ville de trois rivieres,b:81b47f73d9c10c00,Ville de Trois-Rivières,,CA,https://www.v3r.net,"directiongenerale@v3r.net, communications@v3r.net",approvisionnement@v3r.net,2224
+GE-AP-00033,centre integre universitaire de sante et de services sociaux de l ouest de l ile de montreal,b:5a8d2cb4a3330cda,Centre intégré universitaire de santé et de services sociaux de l'Ouest-de-l'Île-de-Montréal,,CA,https://www.ciusss-ouestmtl.gouv.qc.ca,"comptesrecevables_odi.comtl@ssss.gouv.qc.ca, comptesrecevables_dll.comtl@ssss.gouv.qc.ca",contrats.plaintes.comtl@ssss.gouv.qc.ca,2197
+GE-AP-00034,ville de longueuil,b:ef80d9b1a86f663d,Ville de Longueuil .,Ville de Longueuil,CA,https://www.longueuil.quebec,info.dclds@longueuil.quebec,rim.approvisionnement@longueuil.quebec,2107
+GE-AP-00035,sante quebec,b:a0fb32a0bd8f178c,Santé Québec,,CA,https://www.santequebec.ca,,,402
+GE-AP-00036,sante quebec,b:dae2fd58aea48222,Santé Québec - CHU Sainte-Justine,,CA,https://www.chusj.org,,,374
+GE-AP-00037,sante quebec,b:348bf6900993c281,Santé Québec - CHU de Québec - Université Laval ,,CA,https://www.chudequebec.ca/accueil.aspx,info@amp.quebec,,370
+GE-AP-00038,sante quebec,b:c3effdc6c1488ea2,Santé Québec – Centre hospitalier de l’Université de Montréal,,CA,https://www.chumontreal.qc.ca,,,265
+GE-AP-00039,sante quebec,b:9a0edd048f672303,Santé Québec - Centre universitaire de santé McGill,,CA,https://cusm.ca,,,206
+GE-AP-00040,sante quebec,b:604012f978d9588c,Santé Québec - Établissement CIUSSS de l’Est-de-l’Île-de-Montréal,,CA,,,,198
+GE-AP-00041,sante quebec,b:24c4106ea7b26061,SANTÉ QUÉBEC - Centre Hospitalier de l'Université de Montréal (CHUM),,CA,https://www.chumontreal.qc.ca,,,192
+GE-AP-00042,sante quebec,b:01fb6ae084787ac2,Santé Québec - Institut universitaire de cardiologie et de pneumologie de Québec-Université Laval,,CA,https://www.iucpq.ca,,,51
+GE-AP-00043,sante quebec,b:558fd848973412c7,Santé Québec - Institut national de psychiatrie légale Philippe-Pinel,,CA,https://pinel.qc.ca,,,32
+GE-AP-00044,ville de terrebonne,b:b640758e67e74fc5,Ville de Terrebonne,,CA,https://terrebonne.ca,information@ville.terrebonne.qc.ca,,1982
+GE-AP-00045,centre de services scolaire de montreal,b:af8852fe5dbe6284,Centre de services scolaire de Montréal / BDA,,CA,https://www.cssdm.gouv.qc.ca,"info@cssdm.gouv.qc.ca, accueil@cssdm.gouv.qc.ca","approv@cssdm.gouv.qc.ca, approv@csdm.qc.ca",1304
+GE-AP-00046,centre de services scolaire de montreal,b:a31de58cd77c8526,Centre de services scolaire de Montréal,,CA,https://www.cssdm.gouv.qc.ca,"info@cssdm.gouv.qc.ca, accueil@cssdm.gouv.qc.ca","approv@cssdm.gouv.qc.ca, approv@csdm.qc.ca",662
+GE-AP-00047,universite concordia,b:2f9a30b1097fae78,Université Concordia,,CA,https://www.concordia.ca,"office.of.research@concordia.ca, reception.alumni@concordia.ca",,1888
+GE-AP-00048,universite concordia,b:d035c6d8c0393ae1,Universite Concordia - Facilities management,,CA,https://www.concordia.ca,"office.of.research@concordia.ca, reception.alumni@concordia.ca",,6
+GE-AP-00049,ville de laval,b:59bab4fcf0a12f20,Ville de Laval,,CA,https://www.laval.ca,DG.direction@laval.ca,,1855
+GE-AP-00050,universite laval,b:ccc6e646fa55802a,Université Laval,,CA,https://www.ulaval.ca,,,1735
+GE-AP-00051,groupe d approvisionnement en commun de l est du quebec,b:2a0718279451c8cb,Groupe d'approvisionnement en commun de l'Est du Québec - Section Québec / Chaudière-Appalaches,,CA,,,,868
+GE-AP-00052,groupe d approvisionnement en commun de l est du quebec,b:2c13aa5c8ca3e126,Groupe d'approvisionnement en commun de l'Est du Québec - Section Estrie,,CA,,,,328
+GE-AP-00053,groupe d approvisionnement en commun de l est du quebec,b:3c2f0cba1d240736,Groupe d'approvisionnement en commun de l'Est du Québec - Section Mauricie - Centre-du-Québec,,CA,,,,259
+GE-AP-00054,groupe d approvisionnement en commun de l est du quebec,b:fb5884b7b90639a8,Groupe d'approvisionnement en commun de l'Est du Québec.,Groupe d'approvisionnement en commun de l'Est du Québec,CA,,,,190
+GE-AP-00055,groupe d approvisionnement en commun de l est du quebec,b:5ca8889498269dc8,Groupe d'approvisionnement en commun de l'Est du Québec (GACEQ),,CA,,,,46
+GE-AP-00056,groupe d approvisionnement en commun de l est du quebec,b:6e34b8ed539ff915,Groupe d'approvisionnement en commun de l'Est du Québec - Section Bas-St-Laurent Gaspésie/Îles-de-la-Madeleine,,CA,,,,44
+GE-AP-00057,centre integre universitaire de sante et de services sociaux de la capitale nationale 1,b:6e87b37a64722852,Centre intégré universitaire de santé et de services sociaux de la Capitale-Nationale 1,,CA,https://www.ciusss-capitalenationale.gouv.qc.ca,"plaintes.dl.ciussscn@ssss.gouv.qc.ca, commissaire.plainte.ciussscn@ssss.gouv.qc.ca",03.ciussscn.requisition-appro@ssss.gouv.qc.ca,1666
+GE-AP-00058,universite du quebec a montreal,b:ec8f414748979d94,Université du Québec à Montréal,,CA,https://uqam.ca,,,1563
+GE-AP-00059,universite du quebec a montreal,b:e9a93a4f51783862,Université du Québec à Montréal (SPI),,CA,https://uqam.ca,,,82
+GE-AP-00060,universite du quebec a montreal,b:6c313fe628d7c71a,Université du Québec à Montréal (SPPI),,CA,https://uqam.ca,,,9
+GE-AP-00061,cisss monteregie ouest,b:8dcceee7752c0da5,CISSS Montérégie-Ouest,,CA,https://www.santemonteregie.qc.ca/ouest,,,1649
+GE-AP-00062,societe de l assurance automobile du quebec,b:540e4b4e71b2e0a8,Société de l'assurance automobile du Québec .,,CA,https://saaq.gouv.qc.ca,,,1625
+GE-AP-00063,ministere de la securite publique,b:eb95beb9698091fd,Ministère de la Sécurité publique.,Ministère de la Sécurité publique,CA,https://www.quebec.ca/gouvernement/ministere/securite-publique,,,1500
+GE-AP-00064,ciusss du centre ouest de l ile de montreal,b:403a150a191e25ea,CIUSSS du Centre-ouest-de-l'Île-de-Montréal,CIUSSS DU CENTRE-OUEST-DE-L'ILE DE MONTRÉAL. | CIUSSS du Centre-Ouest de l'île de Montréal,CA,https://www.ciussscentreouest.ca,,,1449
+GE-AP-00065,centre integre de sante et de services sociaux de l outaouais,b:c830fb205bf3d71e,Centre Intégré de Santé et de Services Sociaux de l'Outaouais,,CA,https://cisss-outaouais.gouv.qc.ca,,,1370
+GE-AP-00066,centre integre de sante et de services sociaux de l outaouais,b:6222a658bbc5d6af,Centre intégré de santé et de services sociaux de l'Outaouais - Centre régional de réadaptation La Ressourse,,CA,https://cisss-outaouais.gouv.qc.ca,,,19
+GE-AP-00067,centre integre de sante et de services sociaux de l outaouais,b:9328b58d0eabb70b,Centre intégré de santé et de services sociaux de l'Outaouais - Installations Vallée-de-la-Gatineau,,CA,https://cisss-outaouais.gouv.qc.ca,,,14
+GE-AP-00068,commission scolaire marguerite bourgeoys,b:0e11f421fe219825,Commission scolaire  Marguerite-Bourgeoys,,CA,https://www.cssmb.gouv.qc.ca,"plaintes-pne@pne.gouv.qc.ca, transport@cssmb.gouv.qc.ca",,1400
+GE-AP-00069,revenu quebec,b:6fc7c2f42226e13d,Revenu Québec,Revenu Québec -,CA,https://www.revenuquebec.ca,,,1386
+GE-AP-00070,centre integre universitaire de sante et de services sociaux de l estrie,b:48eaa6af5704598f,Centre intégré universitaire de santé et de services sociaux de l'Estrie - Centre Hospitalier Universitaire de Sherbrooke - CHUS,,CA,https://www.santeestrie.qc.ca/accueil,"plaintes.lamp.cisssgaspesie@ssss.gouv.qc.ca, logistique.cissslau@ssss.gouv.qc.ca","approvisionnement.chum@ssss.gouv.qc.ca, gestion.contractuelle.hsj@ssss.gouv.qc.ca",1298
+GE-AP-00071,centre integre universitaire de sante et de services sociaux de la mauricie et du centre du quebec,b:80f27ef0d4817621,Centre intégré universitaire de santé et de services sociaux de la Mauricie-et-du-Centre-du-Québec (CIUSSS MCQ),,CA,https://ciusssmcq.ca,,,1200
+GE-AP-00072,centre integre universitaire de sante et de services sociaux de la mauricie et du centre du quebec,b:15860606017b3257,Centre intégré universitaire de santé et de services sociaux de la Mauricie-et-du-Centre-du-Québec | Centre administratif,,CA,https://ciusssmcq.ca,,,56
+GE-AP-00073,ville de saint hyacinthe,b:3d42e5bc3a45803f,Ville de Saint-Hyacinthe .,,CA,https://www.st-hyacinthe.ca,direction-generale@st-hyacinthe.ca,,1251
+GE-AP-00074,ville de drummondville,b:58db306f2a169cfb,Ville de Drummondville.,,CA,https://www.drummondville.ca,greffe@drummondville.ca,,1247
+GE-AP-00075,ministere de la justice,b:c16ae7a169e1e6a6,Ministère de la Justice,,CA,https://www.justice.gouv.qc.ca,,,1207
+GE-AP-00076,centre integre de sante et de services sociaux,b:2427ffe3dadbca32,Centre intégré de santé et de services sociaux (CISSS) des Laurentides,,CA,,,,1199
+GE-AP-00077,ville de brossard,b:4cb0eb0b21e274e7,Ville de Brossard,,CA,https://www.ville.brossard.qc.ca,Greffe@brossard.ca,,1186
+GE-AP-00078,centre integre de sante et de services sociaux de la monteregie centre,b:bba0dba7f9fc1fbd,Centre intégré de santé et de services sociaux de la Montérégie-Centre (CISSS de la Montérégie-Centre),,CA,https://www.santemonteregie.qc.ca/centre,,,1172
+GE-AP-00079,commission scolaire english montreal,b:d50dc2b7564797b5,Commission Scolaire English-Montreal,Commission Scolaire English-Montreal.,CA,https://www.emsb.qc.ca,,complaintpubliccontracts@emsb.qc.ca,660
+GE-AP-00080,commission scolaire english montreal,b:03715524c0652eaa,Commission scolaire English-Montreal (RM),,CA,https://www.emsb.qc.ca,,complaintpubliccontracts@emsb.qc.ca,467
+GE-AP-00081,commission scolaire de laval,b:89bf80dcff88d603,Commission scolaire de Laval.,,CA,https://csslaval.gouv.qc.ca,,,1070
+GE-AP-00082,ciusss de l ouest de l ile de montreal,b:a191255682d7e7cc,CIUSSS de l'Ouest-de-l'île-de-Montréal - Centre Hospitalier de St. Mary,,CA,https://www.ciusss-ouestmtl.gouv.qc.ca,"comptesrecevables_odi.comtl@ssss.gouv.qc.ca, comptesrecevables_dll.comtl@ssss.gouv.qc.ca",contrats.plaintes.comtl@ssss.gouv.qc.ca,442
+GE-AP-00083,ciusss de l ouest de l ile de montreal,b:d2b5e47402c96629,CIUSSS de l'Ouest-de-l'Île-de-Montréal,,CA,https://www.ciusss-ouestmtl.gouv.qc.ca,"comptesrecevables_odi.comtl@ssss.gouv.qc.ca, comptesrecevables_dll.comtl@ssss.gouv.qc.ca",contrats.plaintes.comtl@ssss.gouv.qc.ca,239
+GE-AP-00084,ciusss de l ouest de l ile de montreal,b:929e6911643d7d91,CIUSSS de l'Ouest-de-l'ile-de-Montréal - Institut universitaire en santé mentale Douglas,,CA,https://www.ciusss-ouestmtl.gouv.qc.ca,"comptesrecevables_odi.comtl@ssss.gouv.qc.ca, comptesrecevables_dll.comtl@ssss.gouv.qc.ca",contrats.plaintes.comtl@ssss.gouv.qc.ca,214
+GE-AP-00085,ciusss de l ouest de l ile de montreal,b:804e2aa093045273,CIUSSS-de-l'Ouest-de-l'ile-de-Montréal - Les Centres de la jeunesse et de la famille Batshaw,,CA,https://www.ciusss-ouestmtl.gouv.qc.ca,"comptesrecevables_odi.comtl@ssss.gouv.qc.ca, comptesrecevables_dll.comtl@ssss.gouv.qc.ca",contrats.plaintes.comtl@ssss.gouv.qc.ca,102
+GE-AP-00086,ciusss de l ouest de l ile de montreal,b:9200c34e2d770953,CIUSSS de l'Ouest-de-l'île-de-Montréal - Centre de réadaptation de l'Ouest de Montréal,,CA,https://www.ciusss-ouestmtl.gouv.qc.ca,"comptesrecevables_odi.comtl@ssss.gouv.qc.ca, comptesrecevables_dll.comtl@ssss.gouv.qc.ca",contrats.plaintes.comtl@ssss.gouv.qc.ca,45
+GE-AP-00087,ciusss de l ouest de l ile de montreal,b:188dbd79be008386,CIUSSS de l'Ouest-de-l'ile-de-Montréal - Centre de soins prolongés Grace Dart.,,CA,https://www.ciusss-ouestmtl.gouv.qc.ca,"comptesrecevables_odi.comtl@ssss.gouv.qc.ca, comptesrecevables_dll.comtl@ssss.gouv.qc.ca",contrats.plaintes.comtl@ssss.gouv.qc.ca,14
+GE-AP-00088,reseau de transport de la capitale,b:d43afa0dea58c450,Réseau de transport de la Capitale.,,CA,https://www.rtcquebec.ca,,,1017
+GE-AP-00089,ministere de l energie et des ressources naturelles,b:cd5cb5e431c083eb,Ministère de l'Énergie et des Ressources naturelles,,CA,,,,1012
+GE-AP-00090,commission scolaire de la pointe de l ile,b:586c5a9405ecf24f,Commission Scolaire de la Pointe de L'Île,,CA,https://www.csspi.gouv.qc.ca,,,1012
+GE-AP-00091,ville de levis,b:eda937981af3daf8,Ville de Lévis.,,CA,https://www.ville.levis.qc.ca,levis@ville.levis.qc.ca,,1007
+GE-AP-00092,ville de saint jean sur richelieu,b:32446bc5c3d3dbdf,Ville de Saint-Jean-sur-Richelieu.,,CA,https://www.sjsr.ca,"greffe@sjsr.ca, revenus@sjsr.ca",soumissions@sjsr.ca,992
+GE-AP-00093,ciusss du saguenay,b:bab0266e10f43b90,CIUSSS du Saguenay - Lac-Saint-Jean,CIUSSS du Saguenay-Lac-Saint-Jean,CA,https://santesaglac.gouv.qc.ca,,,978
+GE-AP-00094,ville de repentigny,b:80e08f7a7db76591,Ville de Repentigny.,,CA,https://repentigny.ca,"direction-generale@repentigny.ca, communication@repentigny.ca",,949
+GE-AP-00095,ville de granby,b:2dad2321bc7b9e19,Ville de Granby,,CA,https://www.granby.ca,direction.generale@granby.ca,,896
+GE-AP-00096,commission scolaire de la region de sherbrooke,b:8c039cab7d66714c,Commission scolaire de la région de Sherbrooke.,,CA,https://cssrs.gouv.qc.ca,,,869
+GE-AP-00097,cisss de la cote nord,b:2f62edd7b4ec33b7,CISSS de la Côte-Nord.,CISSS de la Côte-Nord,CA,https://www.cisss-cotenord.gouv.qc.ca,,09.gestion.contractuelle@ssss.gouv.qc.ca,844
+GE-AP-00098,cisss de la cote nord,b:61b4f0bb919671f2,CISSS de la Côte-Nord - Installation de la Basse-Côte-Nord,,CA,https://www.cisss-cotenord.gouv.qc.ca,,09.gestion.contractuelle@ssss.gouv.qc.ca,18
+GE-AP-00099,ville de blainville,b:83c846cb3303a69f,Ville de Blainville.,Ville de Blainville,CA,https://www.blainville.ca,"info@blainville.ca, acces.servicesjuridiques@blainville.ca","infoappro@blainville.ca, approvisionnements@blainville.ca",846
+GE-AP-00100,centre de services scolaire de laval,b:a340df993c6cf076,Centre de services scolaire de Laval.,,CA,https://csslaval.gouv.qc.ca,,,839

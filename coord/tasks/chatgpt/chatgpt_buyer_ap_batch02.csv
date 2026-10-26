@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00101,nl health services,b:5991279964e6b1ad,"NL Health Services (Digital Health, Eastern Zone)",,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,1
+CH-AP-00102,nl health services,b:698c34745d0fd577,NL Health Services (Eastern Urban and Rural),,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,1
+CH-AP-00103,nova scotia liquor corporation,b:f00ac53a89789b85,Nova Scotia Liquor Corporation,,CA,https://www.mynslc.com,,,467
+CH-AP-00104,city of richmond hill,b:e31f0bccc6b42093,City of Richmond Hill,,CA,http://www.richmondhill.ca,"zoninginfo@richmondhill.ca, developmentfinance@richmondhill.ca",,464
+CH-AP-00105,york region district school board,b:249ea1eddbbf215e,York Region District School Board,,CA,http://www.yrdsb.ca,"supportoffice@yrdsb.ca, trustee.services@yrdsb.ca",purchasing.services@yrdsb.ca,462
+CH-AP-00106,town of truro,b:ea7f414623932c4e,Town of Truro,,CA,https://www.truro.ca,,,461
+CH-AP-00107,kawartha pine ridge district school board,b:26c5e9691294c539,Kawartha Pine Ridge District School Board,,CA,http://www.kprschools.ca,,,447
+CH-AP-00108,university of saskatchewan,b:995396f49f72bdd7,University of Saskatchewan,,CA,https://www.usask.ca,eadm.inquiries@usask.ca,"fco.procurement@usask.ca, procurement@usask.ca",444
+CH-AP-00109,ottawa carleton district school board,b:6cc40f0a66858731,Ottawa Carleton District School Board,,CA,http://www.ocdsb.ca,,,431
+CH-AP-00110,public works,b:7d1829d918ae0750,Public Works,,CA,https://novascotia.ca,,,423
+CH-AP-00111,corrections policing and public safety,b:4e1a496ac3009ded,"Corrections, Policing and Public Safety",,CA,https://www.saskatchewan.ca,,,417
+CH-AP-00112,town of caledon,b:2aa168550c67798f,Town of Caledon,,CA,http://www.town.caledon.on.ca,,,406
+CH-AP-00113,city of peterborough,b:525f309a23f5b3df,City Of Peterborough,,CA,http://www.peterborough.ca,,procurement@peterborough.ca,404
+CH-AP-00114,simcoe muskoka catholic district school board,b:3d6e19c741702a4b,Simcoe Muskoka Catholic District School Board,,CA,http://www.smcdsb.on.ca,info@smcdsb.on.ca,,404
+CH-AP-00115,education,b:7c3156611ef6ba60,Education,,CA,,,btsprocurement@gov.sk.ca,404
+CH-AP-00116,cape breton housing authority,b:4a24d7eb5713de76,Cape Breton Housing Authority,,CA,,,,403
+CH-AP-00117,u s department of defense,b:ff074730a7c81bfa,"U.S. Department of Defense / U.S. federal agencies (via the Canada-U.S. Defence Production Sharing Agreement, DPSA) - buyer identity not disclosed in the report",,US,,,,388
+CH-AP-00118,u s department of defense,b:ec1e60c075d38824,U.S. Department of Defense (U.S. Navy),,US,,,,2
+CH-AP-00119,u s department of defense,b:793d7f8ff8a6667e,U.S. Department of Defense (U.S. Navy surface fleet),,US,,,,1
+CH-AP-00120,u s department of defense,b:07b719cf8326863a,U.S. Department of Defense - Naval Air Warfare Center,,US,,,,1
+CH-AP-00121,u s department of defense,b:52bc5f31ce4f254d,"U.S. Department of Defense / Department of the Army (U.S. Army Corps of Engineers) - Armed Forces Reserve Center Farmingdale, NY",,US,,,,1
+CH-AP-00122,u s department of defense,b:fd00c5ad7ed9de3c,U.S. Department of Defense - Defense Logistics Agency Troop Support,,US,,,,1
+CH-AP-00123,u s department of defense,b:506b76fcdd7e9095,U.S. Department of Defense - Naval Air Warfare Center Weapons Division,,US,,,,1
+CH-AP-00124,u s department of defense,b:5d0d93d6ba1dd62a,U.S. Department of Defense - Naval Undersea Warfare Center,,US,,,,1
+CH-AP-00125,u s department of defense,b:09ae7f889ecd25cf,U.S. Department of Defense - U.S. Army Corps of Engineers,,US,,,,1
+CH-AP-00126,u s department of defense,b:c9db470617fce7e1,U.S. Department of Defense - Naval Surface Warfare Center Crane Division,,US,,,,1
+CH-AP-00127,ministry of environment,b:27a7bd46b05138de,Ministry of Environment,,CA,https://www2.gov.bc.ca,,,393
+CH-AP-00128,town of bridgewater,b:4b50ba0bed721c48,Town of Bridgewater,,CA,https://www.bridgewater.ca,,,393
+CH-AP-00129,agriculture,b:8b1287dd6624624e,Agriculture,,CA,,,,388
+CH-AP-00130,atlantic lottery corporation,b:b83f5cd1ff7329d9,Atlantic Lottery Corporation,,CA,https://www.alc.ca,info@alc.ca,,380
+CH-AP-00131,nl provincial health shared services supply chain,b:16a96fd85f88fc6f,NL Provincial Health Shared Services Supply Chain,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,368
+CH-AP-00132,chignecto central regional centre for education,b:47d1478c89b13f22,Chignecto-Central Regional Centre for Education,,CA,https://www.ccrce.ca,,,364
+CH-AP-00133,cape breton university,b:1f029af4fdc19e47,Cape Breton University,,CA,https://www.cbu.ca,"financial.aid@cbu.ca, admissions@cbu.ca",,356
+CH-AP-00134,state of vermont,b:4141564afe8fcffe,State of Vermont — Transportation Agency,,US,https://vermont.gov,,,321
+CH-AP-00135,state of vermont,b:06e3ce147542a0e8,State of Vermont — Department of Liquor & Lottery,,US,https://vermont.gov,,,5
+CH-AP-00136,state of vermont,b:d05e1be01ef2352b,State of Vermont — Education Agency,,US,https://vermont.gov,,,5
+CH-AP-00137,state of vermont,b:635b5e8bf98a262f,State of Vermont — Fish & Wildlife,,US,https://vermont.gov,,,4
+CH-AP-00138,state of vermont,b:7682b9a942225fba,State of Vermont — Economic Development,,US,https://vermont.gov,,,4
+CH-AP-00139,state of vermont,b:11cfff3c4c4aa7e2,State of Vermont — Tourism & Marketing,,US,https://vermont.gov,,,3
+CH-AP-00140,state of vermont,b:c30362922242214d,State of Vermont — AOT Dept of Motor Vehicles,,US,https://vermont.gov,,,3
+CH-AP-00141,state of vermont,b:710b111eb2fe012c,State of Vermont — Vermont Department of Health,,US,https://vermont.gov,,,2
+CH-AP-00142,state of vermont,b:00accd9c22d0a9c9,State of Vermont — Public Safety,,US,https://vermont.gov,,,1
+CH-AP-00143,state of vermont,b:78762b641baf4716,State of Vermont — Criminal Justice Council,,US,https://vermont.gov,,,1
+CH-AP-00144,state of vermont,b:c091bf399497ec7d,State of Vermont — Crime Victims' Services Center,,US,https://vermont.gov,,,1
+CH-AP-00145,state of vermont,b:6a1a473d9957228f,State of Vermont — Auditor of Accounts' Office,,US,https://vermont.gov,,,1
+CH-AP-00146,state of vermont,b:9d2e0917aca46af9,State of Vermont — Joint Fiscal Office,,US,https://vermont.gov,,,1
+CH-AP-00147,state of vermont,b:125e396b3d8a087b,State of Vermont — Vt Housing & Conserv Board,,US,https://vermont.gov,,,1
+CH-AP-00148,state of vermont,b:6d397cd12f3e7ac1,State of Vermont — Judiciary,,US,https://vermont.gov,,,1
+CH-AP-00149,state of vermont,b:c1ca2f35462a569f,State of Vermont — Housing & Comm Development,,US,https://vermont.gov,,,1
+CH-AP-00150,nl hydro,b:62d84829c414c32d,NL Hydro,,CA,https://nlhydro.com,,,352
+CH-AP-00151,city of st catharines,b:dac4854d27a4cf0e,City of St. Catharines,,CA,http://www.stcatharines.ca,clerks@stcatharines.ca,"suppliers@stcatharines.ca, purchasing@stcatharines.ca",348
+CH-AP-00152,epcor canada,b:9131530d19e466ac,EPCOR Canada,Epcor,CA,https://www.epcor.com,,,340
+CH-AP-00153,district of north vancouver,b:d6fd15db174a0818,District of North Vancouver,,CA,https://www.dnv.org,,,340
+CH-AP-00154,college of the north atlantic,b:ff4699f23d0b8aac,College of the North Atlantic,,CA,https://www.cna.nl.ca,,,338
+CH-AP-00155,public service delivery,b:b8cc4bd246a23320,Public Service Delivery,,CA,https://www.gov.mb.ca,,,333
+CH-AP-00156,ministry of technology innovation and citizens services,b:f4cea0dd31d0a365,"Ministry of Technology, Innovation and Citizens' Services",,CA,https://www2.gov.bc.ca,,,333
+CH-AP-00157,london district catholic school board,b:6b609f575b856333,London District Catholic School Board,,CA,http://ldcsb.on.ca,,,326
+CH-AP-00158,city of kawartha lakes,b:fe3ae88095477bd3,City of Kawartha Lakes,,CA,https://www.kawarthalakes.ca,"inquiries@kawarthalakes.ca, communications@kawarthalakes.ca",vendors@kawarthalakes.ca,324
+CH-AP-00159,united counties of prescott and russell,b:bd8c11bb3957f8fd,United Counties of Prescott and Russell,,CA,https://www.prescott-russell.on.ca,,,318
+CH-AP-00160,aramark,b:9fd3402cd6b8b460,Aramark,,CA,http://www.aramark.com,,,316
+CH-AP-00161,mpe a division of englobe,b:1eb9ba0c241bd61f,MPE a division of Englobe,,CA,,,,314
+CH-AP-00162,town of whitby,b:ceea76d056687316,Town of Whitby,,CA,http://www.whitby.ca,service@whitby.ca,purchasing@whitby.ca,312
+CH-AP-00163,municipality of the district of lunenburg,b:57b2ad428379fd33,Municipality of the District of Lunenburg,,CA,https://www.modl.ca,,,308
+CH-AP-00164,cobequid housing authority,b:51048440154a910e,Cobequid Housing Authority,,CA,,,,308
+CH-AP-00165,town of newmarket,b:752ee7411c1fb8ee,Town of Newmarket,,CA,http://www.newmarket.ca,"info@newmarket.ca, water@newmarket.ca",procurement@newmarket.ca,306
+CH-AP-00166,ministry of jobs tourism and skills training,b:5295b60f391a1eae,"Ministry of Jobs, Tourism and Skills Training",,CA,https://www2.gov.bc.ca,,,303
+CH-AP-00167,hamilton wentworth catholic district school board,b:012110bf31236267,Hamilton-Wentworth Catholic District School Board,,CA,http://www.hwcdsb.ca,,,301
+CH-AP-00168,municipality of chatham kent,b:669eb30d53e242ee,Municipality of Chatham-Kent,,CA,https://www.chatham-kent.ca/Pages/default.aspx,,,300
+CH-AP-00169,regina school division no 4,b:b296a202e585580c,Regina School Division No. 4,,CA,https://www.reginapublicschools.ca,,,300
+CH-AP-00170,district of thunder bay social services administration board,b:44b66dcd935119ec,District of Thunder Bay Social Services Administration Board,,CA,,,,299
+CH-AP-00171,halifax regional school board,b:715cd8f8e5e37eb6,Halifax Regional School Board,,CA,https://www.hrce.ca,,,294
+CH-AP-00172,city of waterloo,b:359379eead9f876f,City of Waterloo,,CA,http://www.waterloo.ca,"communications@waterloo.ca, info@waterloo.ca","procurement@waterloo.ca, purchasing@waterloo.ca",292
+CH-AP-00173,city of stratford,b:e661bbd00dedf8c3,City of Stratford,,CA,http://www.city.stratford.on.ca,,,288
+CH-AP-00174,municipality of clarington,b:4d031d4c3b5426f0,Municipality of Clarington,,CA,http://www.clarington.net,,,277
+CH-AP-00175,halifax dartmouth bridge commission,b:b463b6adde8bb41c,Halifax-Dartmouth Bridge Commission,,CA,https://www.hdbc.ca,,,276
+CH-AP-00176,city of prince albert,b:0874d63013f95f75,City of Prince Albert,,CA,http://www.citypa.ca,,,274
+CH-AP-00177,city of yellowknife,b:78dc772cd7041803,City of Yellowknife,,CA,,,,271
+CH-AP-00178,york catholic district school board,b:2442e6414e6469d8,York Catholic District School Board,,CA,http://www.ycdsb.ca,supportoffice@ycdsb.ca,,270
+CH-AP-00179,city of welland,b:5eb0e2a3a840324d,City of Welland,,CA,https://www.welland.ca,"info@welland.ca, communications@welland.ca",,262
+CH-AP-00180,bc timber sales,b:cf018682d51a204b,BC Timber Sales - Contracts,,CA,https://www2.gov.bc.ca,,,262
+CH-AP-00181,healthpro procurement services inc,b:b1867712b4fc654e,HealthPro Procurement Services Inc.,HealthPRO Procurement Services,CA,https://www.healthprocanada.com,,,258
+CH-AP-00182,lambton kent district school board,b:318fb939be75a2bb,Lambton Kent District School Board,,CA,http://www.lkdsb.net,"info@lkdsb.net, supportoffice@lkdsb.net",purchasing@lkdsb.net,249
+CH-AP-00183,district school board of niagara,b:3f9917e0d5d50f8a,District School Board of Niagara,,CA,http://www.dsbn.org,,,248
+CH-AP-00184,city of belleville,b:75cefe8866f71514,City of Belleville,,CA,http://www.city.belleville.on.ca,,finpurchasing@belleville.ca,246
+CH-AP-00185,town of amherst,b:8d2f1257f244f08c,Town of Amherst,,CA,https://www.amherst.ca,,,245
+CH-AP-00186,manitoba liquor and lotteries corporation,b:88416c1518e6c797,Manitoba Liquor and Lotteries Corporation,,CA,https://www.mbll.ca,,,244
+CH-AP-00187,halifax regional centre for education,b:a96dfecff6f3d396,Halifax Regional Centre for Education,,CA,https://www.hrce.ca,,,242
+CH-AP-00188,city of orillia,b:ebf4272c82dbb197,City of Orillia,,CA,https://www.orillia.ca,service@orillia.ca,,241
+CH-AP-00189,infrastructure ontario,b:a4f720a99364699d,Infrastructure Ontario,,CA,https://www.infrastructureontario.ca,media@infrastructureontario.ca,,238
+CH-AP-00190,ministry of public safety and solicitor general,b:c6dcebe47df6e635,Ministry of Public Safety and Solicitor General,,CA,https://www2.gov.bc.ca,,,236
+CH-AP-00191,town of innisfil,b:47d7a7f8593351c0,Town of Innisfil,,CA,https://innisfil.ca,"inquiry@innisfil.ca, communications@innisfil.ca",,235
+CH-AP-00192,government services,b:d6cac00157ffb7ef,Government Services,,CA,https://www.saskatchewan.ca,,,152
+CH-AP-00193,government services,b:613495f8a4100196,Government Services - Purchasing,,CA,https://www.saskatchewan.ca,,,81
+CH-AP-00194,justice,b:0a7515cc82378a8b,Justice,,CA,,,just.procurement@gov.ab.ca,231
+CH-AP-00195,humber polytechnic,b:c3dbf5f79a13e8c7,Humber Polytechnic,,CA,https://humber.ca,,,231
+CH-AP-00196,town of halton hills,b:9f9b48c97b2dc3f5,Town of Halton Hills,,CA,http://www.haltonhills.ca,,,230
+CH-AP-00197,city of moncton,b:0c524c54eb329a87,City of Moncton / Ville de Moncton,,CA,https://www.moncton.ca,,,229
+CH-AP-00198,town of collingwood,b:ecedb3b20a718a77,Town of Collingwood,,CA,https://www.collingwood.ca,"service@collingwood.ca, taxes@collingwood.ca",purchasing@collingwood.ca,228
+CH-AP-00199,grand erie district school board,b:e1c0197824563749,Grand Erie District School Board,,CA,www.granderie.ca,,,228
+CH-AP-00200,city of yorkton,b:0a00a2c57a6a3690,City of Yorkton,,CA,http://www.yorkton.ca,,,228

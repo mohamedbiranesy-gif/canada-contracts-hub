@@ -1,0 +1,204 @@
+{
+ "stats": {
+  "details": 18408,
+  "excluded_vendor_country": 894,
+  "excluded_ended": 4544,
+  "excluded_not_started": 23,
+  "no_awardees": 1515,
+  "no_award_tab": 3022,
+  "excluded_quebec_buyer_location": 5,
+  "records": 13958
+ },
+ "by_status": {
+  "ongoing": 3057,
+  "end_date_unknown": 10901
+ },
+ "by_status_unverified": {
+  "end_date_unknown": 267,
+  "ongoing": 19
+ },
+ "n_buyers": 208,
+ "vendor_countries": [
+  [
+   "Canada",
+   18484
+  ],
+  [
+   "United States",
+   748
+  ],
+  [
+   "Undisclosed",
+   315
+  ],
+  [
+   "United Kingdom",
+   37
+  ],
+  [
+   "Germany",
+   22
+  ],
+  [
+   "France",
+   14
+  ],
+  [
+   "",
+   12
+  ],
+  [
+   "Switzerland",
+   11
+  ],
+  [
+   "Austria",
+   9
+  ],
+  [
+   "Australia",
+   6
+  ],
+  [
+   "Ireland",
+   5
+  ],
+  [
+   "China",
+   4
+  ],
+  [
+   "Norway",
+   4
+  ],
+  [
+   "Netherlands",
+   4
+  ],
+  [
+   "Finland",
+   4
+  ],
+  [
+   "Turkey",
+   3
+  ],
+  [
+   "Denmark",
+   3
+  ],
+  [
+   "Spain",
+   3
+  ],
+  [
+   "Hong Kong",
+   2
+  ],
+  [
+   "Israel",
+   2
+  ],
+  [
+   "Belgium",
+   2
+  ],
+  [
+   "Sweden",
+   2
+  ],
+  [
+   "Vanuatu",
+   1
+  ],
+  [
+   "Réunion",
+   1
+  ],
+  [
+   "Italy",
+   1
+  ],
+  [
+   "Iceland",
+   1
+  ],
+  [
+   "Kazakhstan",
+   1
+  ],
+  [
+   "India",
+   1
+  ],
+  [
+   "Hungary",
+   1
+  ],
+  [
+   "Afghanistan",
+   1
+  ],
+  [
+   "Poland",
+   1
+  ]
+ ],
+ "samples": [
+  {
+   "record_id": "ca_merx:3987670261:1",
+   "vendor": "Veolia Water Technologies & Solutions",
+   "city": "Winnipeg",
+   "buyer": "Public Service Delivery",
+   "title": "The Supply and Delivery of Water Treatment Chemicals",
+   "value": 2826.77,
+   "start": "2026-08-01",
+   "end": "2027-07-31",
+   "url": "https://www.merx.com/mbgov/manitobafinance/solicitations/The-Supply-and-Delivery-of-Water-Treatment-Chemicals/0000323935?origin=0"
+  },
+  {
+   "record_id": "ca_merx:4091403356:1",
+   "vendor": "INTERFAX SYSTEMS INC.",
+   "city": "Saint Laurent",
+   "buyer": "York University",
+   "title": "Supply and Delivery of Portable Whole Room Bio-decontamination System",
+   "value": 137131.0,
+   "start": "2026-10-23",
+   "end": "2026-11-30",
+   "url": "https://www.merx.com/oupma/yorku/solicitations/Supply-and-Delivery-of-Portable-Whole-Room-Bio-decontamination-System/0000331996?origin=0"
+  },
+  {
+   "record_id": "ca_merx:4058516407:1",
+   "vendor": "Selkirk Machine Works (1982) Ltd.",
+   "city": "Selkirk",
+   "buyer": "Manitoba Transportation and Infrastructure - Tendering and Contracts",
+   "title": "STRUCTURE REHABILITATION – MINOR - STEEL CAP REHABILITATION AT TWO BRIDGE SITES",
+   "value": 91496.0,
+   "start": "2026-09-23",
+   "end": "2027-03-20",
+   "url": "https://www.merx.com/mbgov/manitobainfrastructure/solicitations/STRUCTURE-REHABILITATION-MINOR-STEEL-CAP-REHABILITATION-AT-TWO-BRIDGE-SITES/0000329975?origin=0"
+  },
+  {
+   "record_id": "ca_merx:4058516406:1",
+   "vendor": "Selkirk Machine Works (1982) Ltd.",
+   "city": "Selkirk",
+   "buyer": "Manitoba Transportation and Infrastructure - Tendering and Contracts",
+   "title": "STRUCTURE REHABILITATION – MINOR – STEEL CAP REHABILITATION AT TWO BRIDGE SITES",
+   "value": 155873.0,
+   "start": "2026-09-23",
+   "end": "2027-03-20",
+   "url": "https://www.merx.com/mbgov/manitobainfrastructure/solicitations/STRUCTURE-REHABILITATION-MINOR-STEEL-CAP-REHABILITATION-AT-TWO-BRIDGE-SITES/0000329972?origin=0"
+  },
+  {
+   "record_id": "ca_merx:3660948766:1",
+   "vendor": "Neptune Technology Group Canada Co.",
+   "city": "Mississauga",
+   "buyer": "The City of Winnipeg",
+   "title": "Water Meter and AMI Radio Transmitter Installation Contractor",
+   "value": 23004210.41,
+   "start": "2026-09-24",
+   "end": "2030-06-30",
+   "url": "https://www.merx.com/mbgov/cityofwinnipeg/solicitations/Water-Meter-and-AMI-Radio-Transmitter-Installation-Contractor/0000306654?origin=0"
+  }
+ ]
+}

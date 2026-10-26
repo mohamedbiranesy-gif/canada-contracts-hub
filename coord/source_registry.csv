@@ -1,0 +1,27 @@
+source_key,name,url,lane,status,priority,coverage,why,notes
+ca_canadabuys_contract_history,CanadaBuys legacy contract history 2009-2023,https://open.canada.ca/data/en/dataset?q=canadabuys+contract+history,jules,todo,1,Canada federal,long-running contracts/standing offers absent from proactive disclosure,supplier address/country fields present; filter supplier country Canada
+ca_canadabuys_legacy_awards,CanadaBuys legacy award notices 2012-2022,https://open.canada.ca/data/en/dataset?q=canadabuys+award+notices,jules,todo,1,Canada federal,awards with contract periods,check overlap with canada_federal
+ca_pspc_standing_offers,PSPC standing offers and supply arrangements,https://open.canada.ca/data/en/dataset?q=standing+offers+supply+arrangements,jules,todo,1,Canada federal,active SOSA holders with periods,scripts/canada_sosa exists - extend to full history and end dates
+ca_montreal_contrats,Ville de Montréal contracts (open data: contrats octroyés),https://donnees.montreal.ca/search?q=contrats,jules,todo,1,Québec municipal,largest Canadian city-level contract lists with supplier,also check comité exécutif and conseil d'agglomération lists
+ca_quebec_city_laval_gatineau_longueuil,Other Québec cities' contract lists,https://www.donneesquebec.ca/recherche/?q=contrats,jules,todo,2,Québec municipal,cities publish lists of contracts > 25k$,Données Québec CKAN API
+ca_hydro_quebec_contrats,Hydro-Québec contracts awarded,https://www.hydroquebec.com/fournisseurs/,jules,todo,2,Québec crown,big buyer; check published contract lists,no CAPTCHA circumvention
+ca_bidsandtenders_backlog,bids&tenders 2015-2020 award backlog,https://www.bidsandtenders.ca,jules,todo,2,Canada municipal,continuation of scripts/ca_bidsandtenders,resumable crawler exists
+ca_merx_backlog,MERX award backlog,https://www.merx.com,jules,todo,3,Canada,continuation of scripts/ca_merx,respect robots/rate
+ca_vancouver_retry,City of Vancouver contract awards (retry),https://opendata.vancouver.ca,jules,todo,3,BC municipal,earlier attempt blocked from Claude's network,try from your environment
+ca_health_canada_licences,Health Canada MDEL/DEL establishment licences,https://open.canada.ca/data/en/dataset?q=establishment+licence,jules,todo,3,vendor enrichment,addresses/phones for medical vendors,join on legal name + postal
+ca_statcan_odbus,Statistics Canada Open Database of Businesses,https://www.statcan.gc.ca/en/lode/databases/odb,jules,todo,3,vendor enrichment,address and NAICS for vendors without registry match,join name+city+province
+us_usaspending_subawards,USAspending sub-awards to Canadian sub-recipients,https://api.usaspending.gov,codex,todo,1,US federal,FFATA subawards carry sub-awardee country,scripts/usaspending has prime awards only
+us_sam_awards,SAM.gov contract award notices (awardee address),https://open.gsa.gov/api/get-opportunities-public-api/,codex,todo,2,US federal,awardee address incl. country,needs a free SAM API key (do not share keys in git)
+us_socrata_sweep_continue,All US Socrata/CKAN/ArcGIS contract & PO datasets,https://api.us.socrata.com/api/catalog/v1?q=contracts,codex,todo,1,US state/local,systematic sweep: detect vendor country/state/postal columns,scripts/us_discovery_sweep has the method + notes
+us_state_portals,State procurement transparency portals with vendor address (CA eProcure; FL FACTS; TX; NY OpenBook...),https://www.google.com/search?q=state+contract+award+data+vendor+address,codex,todo,2,US states,many states publish awards with vendor address,check each for bulk export
+ua_prozorro,Prozorro (Ukraine) contracts with supplier country,https://public.api.openprocurement.org/api/2.5/contracts,codex,todo,2,Ukraine,OCDS with supplier address country,huge volume; filter countryName=Канада/Canada
+mx_compras,Mexico ComprasMX / CompraNet contracts,https://upcp-compranet.buengobierno.gob.mx/,codex,todo,3,Mexico,supplier country field,check open data downloads
+br_pncp,Brazil PNCP contracts,https://pncp.gov.br/api/consulta/swagger-ui/index.html,codex,todo,3,Brazil,foreign supplier flag/country,API open
+unicef_awards,UNICEF Supply Division contract awards,https://www.unicef.org/supply/contracts-awarded,codex,todo,1,IGO,supplier country published,check full history files
+unops_awards,UNOPS contract awards,https://www.unops.org/business-opportunities/contract-awards,codex,todo,1,IGO,supplier country published,
+undp_awards,UNDP procurement contract awards,https://procurement-notices.undp.org/,codex,todo,2,IGO,award notices with vendor country,
+idb_awards,Inter-American Development Bank procurement awards,https://www.iadb.org/en/how-we-can-work-together/procurement,codex,todo,2,IGO,awards with supplier country,
+eib_awards,European Investment Bank procurement awards,https://www.eib.org/en/about/procurement/index,codex,todo,3,IGO,,
+globalfund_pqr,Global Fund Price & Quality Reporting (supplier/manufacturer),https://data.theglobalfund.org/,codex,todo,3,IGO,supplier names + countries,
+sec_edgar_material_contracts,SEC EDGAR material contracts (Canadian counterparties),https://efts.sec.gov/LATEST/search-index?q=%22Canada%22,codex,todo,3,private,disclosed material contracts with named parties,scripts/sec_edgar has the start; 10 req/s max per SEC policy
+gleif_lei_canada,GLEIF LEI golden copy (Canadian entities),https://www.gleif.org/en/lei-data/gleif-golden-copy,codex,todo,2,vendor enrichment,LEI + legal/HQ address + registration authority IDs,join on legal name + postal

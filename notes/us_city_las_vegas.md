@@ -1,0 +1,4 @@
+# us_city_las_vegas — City of Las Vegas checkbook with vendor addresses (ArcGIS): checked, 0 records
+
+- Layer https://services1.arcgis.com/F1v0ufATbBQScMtY/arcgis/rest/services/Processed_Checkbook_Addresses/FeatureServer/0 (owner Opendata_lasvegas; 347,008 payment rows; fields VENDOR_NAM, ADDRESS_LI, ADDRESS__1, CITY_1, **STATE**, **COUNTRY_1**, DEPARTMENT, VENDOR, EXPENDITURE_ACTIVITY_TYPE, FUND_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT, FISCAL_YEAR…), found via ArcGIS Hub sweep (`scripts/us_discovery/arcgis_sweep2.py`, output `downloads/us_discovery/arcgis_sweep2.txt`).
+- Profiled 2026-10-25 ≈19:43 UTC: COUNTRY_1 = CAN on 128 rows (69 rows with a Canadian province STATE), but TRANSACTION_DATE spans 2014-07-01 … **2025-03-06** only — no payment within 12 months of the reference date. 0 records; not downloaded.

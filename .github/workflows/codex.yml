@@ -1,0 +1,39 @@
+name: codex-builder
+# Optional fully-autonomous Codex lane. Needs secret OPENAI_API_KEY (OpenAI API billing, separate from ChatGPT Plus).
+# Without it, use Codex from chatgpt.com/codex (prompts/codex_kickoff.md); Codex automatic PR reviews work either way.
+on:
+  schedule:
+    - cron: "5 4 * * *"
+  workflow_dispatch:
+    inputs:
+      extra: { description: "Optional extra instruction", default: "" }
+concurrency: { group: codex-builder, cancel-in-progress: false }
+permissions:
+  contents: write
+  actions: write
+jobs:
+  build:
+    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    timeout-minutes: 90
+    steps:
+      - name: Key present?
+        id: key
+        env: { K: "${{ secrets.OPENAI_API_KEY }}" }
+        run: echo "ok=$([ -n "$K" ] && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.key.outputs.ok == 'yes'
+        with: { persist-credentials: false }
+      - name: Codex
+        if: steps.key.outputs.ok == 'yes'
+        continue-on-error: true
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          prompt-file: prompts/codex_kickoff.md
+          sandbox: workspace-write
+          codex-args: "-c sandbox_workspace_write.network_access=true"
+      - name: Commit lane output
+        if: always() && steps.key.outputs.ok == 'yes'
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          bash tools/commit_lane.sh codex "codex build run ${{ github.run_id }}"

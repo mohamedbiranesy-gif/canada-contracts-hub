@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-00501,the ottawa hospital,b:1adba70973429e30,The Ottawa Hospital,,CA,,,,57
+CH-AP-00502,newfoundland labrador liquor corporation,b:d32479413a1e7200,Newfoundland Labrador Liquor Corporation,Newfoundland and Labrador Liquor Corporation | Newfoundland & Labrador Liquor Corporation,CA,https://www.nlliquor.com,,,57
+CH-AP-00503,prince george,b:db2357f801d45569,Prince George,,CA,https://www2.gov.bc.ca,,,57
+CH-AP-00504,strait of georgia,b:9a7adcdff93594e5,Strait of Georgia,,CA,https://www2.gov.bc.ca,,,57
+CH-AP-00505,west lincoln,b:2f20018e96f332ef,West Lincoln,,CA,http://www.westlincoln.ca,"clerk@westlincoln.ca, publicworks@westlincoln.ca",,57
+CH-AP-00506,lands and forestry,b:3827323e6ff9dbea,Lands and Forestry,,CA,https://novascotia.ca,,,57
+CH-AP-00507,keyano college,b:32ef32ae0df15f6a,Keyano College,,CA,https://www.keyano.ca,registrar@keyano.ca,"tendering@keyano.ca, purchasing@keyano.ca",56
+CH-AP-00508,red deer polytechnic,b:26def3c403d7b108,Red Deer Polytechnic,,CA,https://rdpolytech.ca,,purchasing@rdpolytech.ca,56
+CH-AP-00509,town of tecumseh,b:9f4a23346e99b287,Town of Tecumseh,,CA,http://www.tecumseh.ca,clerks@tecumseh.ca,,56
+CH-AP-00510,product distribution centre,b:2816a844129aa0ee,Product Distribution Centre,,CA,,,,56
+CH-AP-00511,city of mesa az,b:413ca05564dcad2e,"City of Mesa, AZ - Arts and Culture",,US,https://www.mesaaz.gov,"licensing.info@mesaaz.gov, contactcenter@mesaaz.gov",,20
+CH-AP-00512,city of mesa az,b:05e3ebd4c09bcb85,"City of Mesa, AZ - Innovation and Technology",,US,https://www.mesaaz.gov,"licensing.info@mesaaz.gov, contactcenter@mesaaz.gov",,12
+CH-AP-00513,city of mesa az,b:2c2e0d2ea95efa51,"City of Mesa, AZ - Water Resources",,US,https://www.mesaaz.gov,"licensing.info@mesaaz.gov, contactcenter@mesaaz.gov",,9
+CH-AP-00514,city of mesa az,b:689ec0d5022ace85,"City of Mesa, AZ - Economic Development",,US,https://www.mesaaz.gov,"licensing.info@mesaaz.gov, contactcenter@mesaaz.gov",,5
+CH-AP-00515,city of mesa az,b:9fd29e2dfbdf9c5c,"City of Mesa, AZ - Police",,US,https://www.mesaaz.gov,"licensing.info@mesaaz.gov, contactcenter@mesaaz.gov",,4
+CH-AP-00516,city of mesa az,b:c5cac8218acd51b5,"City of Mesa, AZ - Energy Resources",,US,https://www.mesaaz.gov,"licensing.info@mesaaz.gov, contactcenter@mesaaz.gov",,3
+CH-AP-00517,city of mesa az,b:3b1d439fafe65743,"City of Mesa, AZ - Transportation",,US,https://www.mesaaz.gov,"licensing.info@mesaaz.gov, contactcenter@mesaaz.gov",,3
+CH-AP-00518,municipality of port hope,b:9101ea715529c135,Municipality of Port Hope,,CA,https://www.porthope.ca,,,55
+CH-AP-00519,municipality of leamington,b:7282247eb180f685,Municipality of Leamington,,CA,http://www.leamington.ca,waterbill@leamington.ca,,55
+CH-AP-00520,township of clearview,b:39dd2656c354ad4f,Township of Clearview,,CA,https://www.clearview.ca,,,54
+CH-AP-00521,district municipality of muskoka,b:cdc568b481a62ef1,District Municipality of Muskoka,,CA,https://www.muskoka.on.ca,"clerk@muskoka.on.ca, info@muskoka.on.ca",,53
+CH-AP-00522,township of huron kinloss,b:4b2c7cb616e92ea1,Township of Huron-Kinloss,,CA,http://www.huronkinloss.com,info@huronkinloss.com,,53
+CH-AP-00523,northern rockies regional municipality,b:9972fe43215a9be6,Northern Rockies Regional Municipality,,CA,https://www.northernrockies.ca,,,53
+CH-AP-00524,energy and resources,b:6928ecd11fe7556c,Energy and Resources,,CA,https://www.saskatchewan.ca,,,53
+CH-AP-00525,municipality of the county of victoria,b:7d8cb4c63aec4db2,Municipality of the County of Victoria,,CA,,,,53
+CH-AP-00526,acadia university,b:d50f070d79e47781,Acadia University,,CA,,,,53
+CH-AP-00527,conservation halton,b:6fddb54f8d96be96,Conservation Halton,,CA,https://www.conservationhalton.ca,,,52
+CH-AP-00528,city of brockville,b:5233e6b22f6a80a9,City of Brockville,,CA,https://brockville.com,contact@brockville.com,,52
+CH-AP-00529,ministry of finance,b:25858bb734894e48,Ministry of Finance,,CA,https://www2.gov.bc.ca,,,52
+CH-AP-00530,strathroy caradoc,b:670c0a75dc758fc9,Strathroy-Caradoc,,CA,http://www.strathroy-caradoc.ca,billing@strathroy-caradoc.ca,,52
+CH-AP-00531,town of smiths falls,b:284b69a0d39fc094,Town of Smiths Falls,,CA,http://www.smithsfalls.ca,info@smithsfalls.ca,,52
+CH-AP-00532,south east cornerstone school division no 209,b:21095b0ee85ad8e4,South East Cornerstone School Division No. 209,,CA,,,,52
+CH-AP-00533,prairie spirit school division no 206,b:94a26671b09efbdc,Prairie Spirit School Division No. 206,,CA,,,,52
+CH-AP-00534,corrections and policing,b:de7d53cc81fad219,Corrections and Policing,,CA,https://www.saskatchewan.ca,,,52
+CH-AP-00535,james madison university,b:5fbbf00588420191,James Madison University,,US,https://www.jmu.edu,"webmaster@jmu.edu, helpdesk@jmu.edu",,52
+CH-AP-00536,town of cochrane,b:399f4c5abefac1c1,Town of Cochrane,,CA,https://www.cochrane.ca,customer.service@cochrane.ca,,51
+CH-AP-00537,canada post corporation,b:2aa5e3d1f7b796f4,Canada Post Corporation,,CA,https://www.canadapost-postescanada.ca/cpc/en/home.page,,"cpcaribasupport@canadapost.ca, tender.control@canadapost.ca",51
+CH-AP-00538,district of sechelt,b:da39806dbc20df56,District of Sechelt,,CA,https://www.sechelt.ca,info@sechelt.ca,,51
+CH-AP-00539,ministry of education,b:203d8b51080246bc,Ministry of Education,,CA,https://www2.gov.bc.ca,,,51
+CH-AP-00540,municipality of dysart et al,b:03c734588a299485,Municipality of Dysart et al,,CA,http://www.dysartetal.ca,,,51
+CH-AP-00541,city of weyburn,b:8022e4d5e3f2b17e,City of Weyburn,,CA,http://www.weyburn.ca,"questions@weyburn.ca, finance@weyburn.ca",,50
+CH-AP-00542,forest analysis and inventory branch,b:4a5958b82d80ebaf,Forest Analysis and Inventory Branch,,CA,https://www2.gov.bc.ca,,,49
+CH-AP-00543,credit valley conservation,b:5bd9511fbe6bce48,Credit Valley Conservation,,CA,,,,49
+CH-AP-00544,sask gaming,b:95e6f3b792840f96,Sask Gaming,,CA,,,,49
+CH-AP-00545,government of prince edward island,b:e882d8d827353d65,Government of Prince Edward Island,,CA,,,,48
+CH-AP-00546,hastings and prince edward district school board,b:d985372a85f335d0,Hastings and Prince Edward District School Board,,CA,http://www.hpedsb.on.ca,,purchasing.services@hpedsb.on.ca,48
+CH-AP-00547,zorra township,b:892a768ce0bbd1b4,Zorra Township,,CA,,,,48
+CH-AP-00548,municipality of the county of pictou,b:eb7d42a565da100c,Municipality of the County of Pictou,,CA,,,,48
+CH-AP-00549,municipality of argyle,b:666665b300e9874c,Municipality of Argyle,,CA,http://www.munargyle.com,,,48
+CH-AP-00550,school district no 43,b:696fa2acf444c7b5,School District No. 43 (Coquitlam),,CA,https://www.sd43.bc.ca,"information@sd43.bc.ca, media@sd43.bc.ca",purchasing@sd43.bc.ca,47
+CH-AP-00551,town of canmore,b:e222ddab75e8e067,Town of Canmore,,CA,https://www.canmore.ca,,,47
+CH-AP-00552,communications nova scotia,b:3fb4ef8746af5022,Communications Nova Scotia,,CA,https://novascotia.ca,,,47
+CH-AP-00553,saskatoon public schools,b:4047adb53c781f38,Saskatoon Public Schools,,CA,,,tenders@spsd.sk.ca,46
+CH-AP-00554,rocky view school division,b:2fb74fc749130eab,Rocky View School Division,,CA,https://www.rockyview.ab.ca,,,45
+CH-AP-00555,peace liard,b:0cbeb13b9512ba43,Peace-Liard,,CA,https://www2.gov.bc.ca,,,45
+CH-AP-00556,township of severn,b:d9677300a9eb5d7e,Township of Severn,,CA,https://www.severn.ca,,,45
+CH-AP-00557,chief information office,b:e5c81707943e7fd4,Chief Information Office,,CA,https://novascotia.ca,,,45
+CH-AP-00558,valley region solid waste resource management authority,b:d437d0847ced1437,Valley Region Solid Waste-Resource Management Authority,,CA,,,,45
+CH-AP-00559,alberta electric system operator,b:91d58376dbba041c,Alberta Electric System Operator,,CA,https://www.aeso.ca,"info@aeso.ca, contact.changes@aeso.ca","itvendors@aeso.ca, corporate.procurement@aeso.ca",44
+CH-AP-00560,innservices,b:4b3a966e52251840,InnServices - InnServices,,CA,https://innservices.ca,,,44
+CH-AP-00561,county of frontenac,b:bf0124165c79a0c0,County of Frontenac,,CA,http://www.frontenaccounty.ca,,,44
+CH-AP-00562,oregon state lottery,b:8218af8c33807695,Oregon State Lottery,,US,https://www.oregonlottery.org,,,44
+CH-AP-00563,ontario lottery and gaming corporation,b:de9a631d677341b0,Ontario Lottery and Gaming Corporation (OLG),,CA,,,,43
+CH-AP-00564,city of saint john,b:7b89069a6ef90683,City of Saint John,,CA,https://saintjohn.ca/fr,,,43
+CH-AP-00565,district of lake country,b:44c050690dce3bcf,District of Lake Country,,CA,https://www.lakecountry.bc.ca,,,43
+CH-AP-00566,kamloops,b:d0151b053d4d1d94,Kamloops,,CA,https://www2.gov.bc.ca,,,43
+CH-AP-00567,town of stewiacke,b:72f61bc51d932ef6,Town of Stewiacke,,CA,https://www.stewiacke.net,,,43
+CH-AP-00568,town of berwick,b:f2ff89d09cf734ff,Town of Berwick,,CA,https://www.berwick.ca,,,43
+CH-AP-00569,alberta energy regulator,b:a9f1c7cf4425512d,Alberta Energy Regulator,,CA,https://www.aer.ca,"inquiries@aer.ca, media@aer.ca",procurement@aer.ca,42
+CH-AP-00570,township of north dundas,b:a8c0d905d506fdae,Township of North Dundas,,CA,http://www.northdundas.com,info@northdundas.com,,42
+CH-AP-00571,develop nova scotia,b:e84b36962c4b2a43,Develop Nova Scotia,,CA,,,,42
+CH-AP-00572,town of trenton,b:3d6e4ef3015b2cc2,Town of Trenton,,CA,http://town.trenton.ns.ca,,,42
+CH-AP-00573,mount saint vincent university,b:df1537f72f1598f1,Mount Saint Vincent University,,CA,,,,42
+CH-AP-00574,capital district health authority,b:3b2e03f725a145a0,Capital District Health Authority,,CA,,,,42
+CH-AP-00575,general dynamics land systems inc,b:df7bec2acb66b733,GENERAL DYNAMICS LAND SYSTEMS INC.,,US,https://www.gdls.com,,,41
+CH-AP-00576,st clair township,b:30e994beb9bb0696,St. Clair Township,,CA,https://stclairtownship.ca,,,41
+CH-AP-00577,county of haliburton,b:15072e667887a7e2,County of Haliburton,,CA,http://www.haliburtoncounty.ca,,,41
+CH-AP-00578,town of la salle,b:9d7deed2fa8719ba,Town of La Salle,,CA,https://www.lasalle.ca,,,41
+CH-AP-00579,county of grande prairie,b:50e27360e7624f7c,County of Grande Prairie,,CA,http://www.cityofgp.com,"inspections@cityofgp.com, info@cityofgp.com",procurement@cityofgp.com,41
+CH-AP-00580,perennia food and agriculture inc,b:1b9a6f7b13d24101,Perennia Food and Agriculture Inc.,Perennia Food and Agriculture Corp. | Perennia Food & Agriculture Inc.,CA,,,,41
+CH-AP-00581,district health authorities western n s,b:b2d56e2cf671d2a0,"District Health Authorities, Western N.S.",,CA,,,,41
+CH-AP-00582,big lakes county,b:4637795044032491,Big Lakes County,,CA,https://www.biglakescounty.ca,,,40
+CH-AP-00583,town of gravenhurst,b:db3a0fcddf2011cd,Town of Gravenhurst,,CA,https://www.gravenhurst.ca/en/doing-business/doing-business2.aspx,info@gravenhurst.ca,,40
+CH-AP-00584,ministry of municipal affairs and housing,b:571c24f22f5efa00,Ministry of Municipal Affairs and Housing,,CA,https://www2.gov.bc.ca,,,40
+CH-AP-00585,town of wasaga beach,b:ad061fd6c0955ef9,Town of Wasaga Beach,,CA,https://www.wasagabeach.com,,,40
+CH-AP-00586,legislative assembly service of saskatchewan,b:47d43f76023b3e97,Legislative Assembly Service of Saskatchewan,,CA,,,,40
+CH-AP-00587,events east group,b:c776595b898790c9,Events East Group,,CA,,,,40
+CH-AP-00588,plexxus,b:db55ea5cfad7194f,Plexxus,,CA,,,,39
+CH-AP-00589,saskatchewan polytechnic,b:d7edb6788810fea7,Saskatchewan Polytechnic,,CA,http://www.saskpolytech.ca,,,39
+CH-AP-00590,public employees benefits agency,b:080496020eff2538,Public Employees Benefits Agency,,CA,,,itprocurement@gov.sk.ca,39
+CH-AP-00591,town of digby,b:5f8368838b786c48,Town of Digby,,CA,https://www.digby.ca,,,39
+CH-AP-00592,eastern regional health authority,b:401784246f1b1c69,Eastern Regional Health Authority,,CA,https://nlhealthservices.ca,accounts.receivable@nlhealthservices.ca,supplier.relations@nlhealthservices.ca,38
+CH-AP-00593,chinook,b:20fe66daa17adaae,Chinook,,CA,https://www2.gov.bc.ca,,,38
+CH-AP-00594,township of lake of bays,b:a71be1c357f41b4b,Township of Lake of Bays,,CA,https://www.lakeofbays.on.ca,contact@lakeofbays.on.ca,,38
+CH-AP-00595,lake simcoe region conservation authority,b:ad2ad0256b889f01,Lake Simcoe Region Conservation Authority,,CA,http://www.lsrca.on.ca,info@lsrca.on.ca,procurement@lsrca.on.ca,38
+CH-AP-00596,valley waste resource management,b:4da28248e3f0c1dc,Valley Waste-Resource Management,,CA,,,,38
+CH-AP-00597,bc parks,b:c3c4283d341c77b0,BC Parks - Provincial Services Branch,,CA,https://www2.gov.bc.ca,,,36
+CH-AP-00598,bc parks,b:2841abf63a4b3805,BC Parks - Provincial Services Branch ; BC Parks and Conservation Officer Service Division ; Capital Investment Program,,CA,https://www2.gov.bc.ca,,,2
+CH-AP-00599,hamilton oshawa port authority,b:f8ab804b6bb6148d,Hamilton-Oshawa Port Authority,,CA,,,,37
+CH-AP-00600,service nova scotia and internal services,b:81fd5c6a01ebe0ff,Service Nova Scotia and Internal Services,,CA,https://novascotia.ca,,,37

@@ -1,0 +1,27 @@
+done austender 97
+done canada_federal 42290
+done ccc_canada 42953
+done nz_gets 42957
+done other_igo 42968
+done private_press 43184
+done seao_quebec 374594
+done sec_edgar 374622
+done ted_eu 375206
+done uk_contracts_finder 375269
+done uk_find_a_tender 375405
+done ungm 375692
+done usaspending 378407
+done worldbank 378717
+{
+ "total_records": 378717,
+ "records_by_confidence": {
+  "high": 68092,
+  "high_flagged_date": 129,
+  "unknown": 4135,
+  "medium": 1212,
+  "very_low": 224726,
+  "low": 80423
+ },
+ "cross_source_match_pairs": 14,
+ "rejected_lines": {}
+}

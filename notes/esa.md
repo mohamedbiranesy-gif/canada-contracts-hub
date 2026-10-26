@@ -1,0 +1,3 @@
+# esa — European Space Agency contracts awarded — REJECTED (no reachable award data)
+
+Checked 2026-10-25: https://www.esa.int/About_Us/Business_with_ESA (200, general info), …/How_to_do/Contracts_awarded and …/Small_and_Medium_Sized_Enterprises/Contracts_awarded (404); esa-star publication portal https://esastar-publication-ext.sso.esa.int/ and its `/api/Tenders`, `/ESATenderActions/api/contracts`, `/ESATenderActions/api/tenderactions/list` all return the same 1.5 KB JavaScript shell (SSO-backed SPA, no open JSON); https://industry.esa.int/ connection failed. ESA's annual contract lists to Canadian firms (Canada is a cooperating state) are not published as open data. No records.
