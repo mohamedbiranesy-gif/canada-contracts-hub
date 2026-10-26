@@ -100,6 +100,12 @@
 - District of North Vancouver: the new site can return only a JavaScript shell to text fetches. Its rendered2025 Canada Post notice links a July30 2025 vendor/EFT form with ap@dnv.org and604-990-2305; this confirms supplier setup, not general invoice intake. Utility billing contacts on the same notice are receivables.
 - StCatharines: the current Vendor and purchasing opportunities page links July2024 PO terms on its Govstack CDN after the old indexed PDF404s. That document gives invoice mailbox/postal route and GC27 requirements; suppliers@stcatharines.ca instead handles supplier registration/EFT updates.
 
+- A public EFT/bank-authorization PDF can independently publish a role mailbox even when the page email is protected: HWCDSB prints eft@hwcdsb.ca in its linked bank-deposit form. Record supplier-payment setup purpose; never treat it as invoice intake or decode protected HTML.
+- HealthPRO's pharmacy standard terms explicitly send invoices to participating members, and its FAQ says members buy directly. Group-contracting identity does not make the intermediary the payer. Likewise, consultant/lab invoice contacts embedded in municipal reports (for example WSP in an Orillia report) do not belong to the municipality.
+- Inspect the response type and final page, not just HTTP200: former Halton Hills and Grand Erie PDF links now land on soft404 HTML. Do not adopt indexed emails or invoice rules from those dead documents.
+- HRCE RFP4276 (September2025 snow/ice maintenance) requires email-only invoices; older RFP4000 permits paper. Keep each contract's date/scope and avoid generalizing older postal routes over newer contract instructions.
+- Alberta1GX publicly confirms SAPBusinessNetwork handles orders/invoices/payments across departments, but its quick-start flow begins from the ProcessOrder link in the supplier's PO email. The public SupplierInformationPortal is documentation, not the transaction portal; record supplier-help phone separately and leave an unverified invoice URL blank.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
