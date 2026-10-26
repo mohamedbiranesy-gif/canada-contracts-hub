@@ -125,6 +125,7 @@ gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00020,b:223ac39221849f6a,stq@tr
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00900,b:22935a9ecd701bd9,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/partners/suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00900,b:22935a9ecd701bd9,vendor.relations@centralhealth.nl.ca,https://nlhealthservices.ca/partners/suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00900,b:22935a9ecd701bd9,supplier.relations@centralhealth.nl.ca,https://nlhealthservices.ca/wp-content/uploads/2025/02/Performance-Management-Strategy.pdf,verified
+chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00201,b:2412c515dc367642,procurement@trca.ca,https://trca.ca/about/procurement/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00201,b:2412c515dc367642,procurement@trca.ca,https://trca.ca/about/procurement/,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00105,b:249ea1eddbbf215e,finance.services@yrdsb.ca,https://www2.yrdsb.ca/about-us/departments/finance-services,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00041,b:24c4106ea7b26061,approvisionnement.chum@ssss.gouv.qc.ca,https://www.chumontreal.qc.ca/repertoire/direction-lapprovisionnement-logistique,verified
@@ -166,6 +167,10 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00394,b:2e637bd2ffc3b393,financ
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00823,b:2e69c1b08aef84c1,procurement@aimco.ca,https://www.aimco.ca,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00823,b:2e69c1b08aef84c1,u003eprocurement@aimco.ca,https://www.aimco.ca/vendor-information,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01734,b:2e8ae6a7b7fa25b3,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00203,b:2e903ce96f917ee4,cfd.disabilitybenefit@gov.bc.ca,https://www2.gov.bc.ca/gov/content/health/managing-your-health/child-behaviour-development/support-needs/pairs/autism-spectrum-disorder-service-providers,unverified_page_unavailable
+chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00203,b:2e903ce96f917ee4,MCF.AutismFundingUnit@gov.bc.ca,https://www2.gov.bc.ca/gov/content/health/managing-your-health/child-behaviour-development/support-needs/pairs/autism-spectrum-disorder-service-providers,unverified_page_unavailable
+chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00203,b:2e903ce96f917ee4,CFD.AutismFundingUnit@gov.bc.ca,https://www2.gov.bc.ca/gov/content/health/managing-your-health/child-behaviour-development/support-needs/pairs/autism-spectrum-disorder-service-providers,unverified_page_unavailable
+chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00203,b:2e903ce96f917ee4,MCF.ServiceProviderPortal@gov.bc.ca,https://www2.gov.bc.ca/assets/gov/health/managing-your-health/autism/service_provider_portal_info_sheet.pdf,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00203,b:2e903ce96f917ee4,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00252,b:2f107510d67ea00e,ap@rdco.com,https://www.rdco.com/your-government/bid-opportunities-and-purchasing/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00252,b:2f107510d67ea00e,purchasing@rdco.com,https://www.rdco.com/your-government/bid-opportunities-and-purchasing/,verified
@@ -813,6 +818,7 @@ chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00106,b:ea7f414623932c4e,acco
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00620,b:eacd76e15beba927,crobillard@tiny.ca,https://www.tiny.ca/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00842,b:eaf16832447fca28,utilitybills@hinton.ca,https://www.aquatera.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01761,b:eb5a07f5b7cc7e43,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
+chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00206,b:eb7db7bf06497f48,FinanceDisbursements@sgi.sk.ca,https://sgi.sk.ca/documents/37148/138391/vendor_registration.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01727,b:ebb8415852a5f6dd,procurement@worksafebc.com,https://www.worksafebc.com/en/contact-us/departments-and-services/procurement-services,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01701,b:ebe72e5ee65eb45a,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00188,b:ebf4272c82dbb197,finance@orillia.ca,https://www.orillia.ca/contacts-directory/,verified
@@ -824,6 +830,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00198,b:ecedb3b20a718a77,purcha
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01740,b:ed2bb350d509a5c3,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00710,b:ed99cb4b2d9e1625,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00364,b:ee61aacd3fc73a0a,ap@newtecumseth.ca,https://www.newtecumseth.ca/wp-content/uploads/2026/06/Purchase-Terms-and-Conditions.pdf,verified
+chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00202,b:eee29ab6e096d29e,procurement@trca.ca,https://trca.ca/about/procurement/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00202,b:eee29ab6e096d29e,procurement@trca.ca,https://trca.ca/about/procurement/,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00034,b:ef80d9b1a86f663d,approvisionnement@longueuil.quebec,https://www.longueuil.quebec/fr/services/approvisionnement,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01612,b:efbdea865f5002e2,financialaid@lamar.edu,https://www.lamar.edu/financial-aid/resources/faqs-finaid-scholarships.html,verified
