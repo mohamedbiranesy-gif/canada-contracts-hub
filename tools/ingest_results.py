@@ -103,7 +103,8 @@ for path in sorted(glob.glob("data/incoming/**/*.csv", recursive=True)):
                                       "phone": r.get("ap_phone") or None, "mailing_address": r.get("invoice_mailing_address") or None,
                                       "requirements": r.get("invoicing_requirements_summary") or None, "applies_to": r.get("applies_to") or None,
                                       "page_url": r.get("evidence_url"), "quote": (r.get("evidence_quote") or "")[:300],
-                                      "retrieved_date": r.get("retrieved_date"), "found_by": who, "verification": v, "source_file": name})
+                                      "retrieved_date": r.get("retrieved_date"), "found_by": who, "verification": v, "source_file": name,
+                                      "org": r.get("org_name_as_found") or ""})
     elif "vendor_contact" in name:
         for r in rows:
             k = (r.get("vendor_key") or "").strip()
@@ -182,7 +183,7 @@ for lane, items in verify.items():
         w = csv.writer(f)
         w.writerow(hdr)
         for i, (k, e) in enumerate(items, 1):
-            w.writerow(["%s-VF-%05d" % (lane[:2].upper(), i), "", k, "", "", "", e.get("page_url") or "", e.get("email") or "", "",
+            w.writerow(["%s-VF-%05d" % (lane[:2].upper(), i), "", k, e.get("org") or "", "", "", e.get("page_url") or "", e.get("email") or "", "",
                         "verify: %s found %s on %s but the verifier could not open the page; confirm or correct it" % (e["found_by"], e.get("email") or e.get("invoice_portal"), e.get("page_url"))])
     report["verify_tasks_" + lane] += len(items)
 qa = collections.Counter()
