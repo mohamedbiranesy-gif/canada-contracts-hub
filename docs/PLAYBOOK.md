@@ -114,6 +114,13 @@
 - Embedded laboratory chain-of-custody forms distinguish REPORT INFORMATION from INVOICE INFORMATION. A consultant may receive the report while the public buyer pays the invoice. Verify the invoice Company block visually when text extraction is empty, retain only organizational roles, and preserve the specific order/school scope instead of assuming whole-organization AP.
 - A shared bidsandtenders account or cooperative purchasing membership does not establish shared accounts payable. RDCO/WestKelowna bidding access, RMA member job postings and separate county/township finance contacts need entity-specific payment evidence.
 
+
+- Mohawk Medbuy currently publishes Basware invoice mailboxes and separate AP/onboarding inquiry mailboxes, alongside phased SAP Business Network invitations. Keep onboarding/confirmation conditions and historical/current route uncertainty; CAPsource/MEALsource are MMC services, while member hospital invoice destinations remain hospital-specific. The general vendor contract portal is not proven invoice upload.
+- Supplier EFT instructions can appear inside a page otherwise devoted to tax forms (Bracebridge). Read the section: the vendor AP form is separate from customer preauthorized tax payments. An EFT form return address still does not establish an invoice mailing address.
+- Sault Ste. Marie explicitly keeps Police Department supplier invoices separate from City invoice intake. Payroll service coverage is not evidence of supplier AP coverage.
+- AVRCE migrated old document-library/page links to current /download/ links. Follow the live Procurement page for its current General Terms; do not copy AP email/phone from stale indexed forms that now404. Historical school-board identity/payment continuity can remain unclear.
+- Scanned BC FOI contracts can publish real organizational billing contacts (STADD Alliance/Vendor Management Office), but retain the2018-2019 contract scope and status unclear. A PO InvoiceTo block and vendor order BillTo block can even give different floors; retain that distinction. Current PPMB health-professional invoice instructions are a separate program, not ministry-wide AP.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
