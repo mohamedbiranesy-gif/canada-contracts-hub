@@ -18,6 +18,6 @@ check() {  # <workflow file> <max hours since last run> [extra gh args]
 }
 lane=gemini; [ $(( 10#$(date -u +%H) % 2 )) -eq 1 ] && lane=chatgpt
 check gemini-researcher.yml 3 -f lane="$lane"
-check jules-builder.yml 12
+check jules-builder.yml 6
 check harvest.yml 24
 check rebuild.yml 24
