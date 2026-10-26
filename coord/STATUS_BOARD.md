@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-10-26 05:10 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-10-26 05:21 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-10-25)
 | metric | value |
@@ -21,11 +21,22 @@
 | lane | task | rows | found | not_published | blocked | other |
 |---|---|---|---|---|---|---|
 
+**team_buyers**: 0 entities researched, 0 with at least one verified contact.
+
+**team_vendors**: 0 entities researched, 0 with at least one verified contact.
+
 ## Source registry (`coord/source_registry.csv`)
 | lane | todo | in_progress | done | blocked |
 |---|---|---|---|---|
 | codex | 15 | 0 | 0 | 0 |
 | jules | 11 | 0 | 0 | 0 |
+
+## Last ingest
+- buyers with team findings: 0 (with at least one verified e-mail/portal: 0)
+- vendors with team findings: 0
+- QA rows: 0
+- counters: {}
+- QA tallies: {}
 
 ## Where to look
 - Next work per lane: `coord/NEXT.md`
