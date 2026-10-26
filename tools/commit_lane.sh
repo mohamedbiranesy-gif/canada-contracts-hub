@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Commit an unattended AI run's output to main, keeping only that lane's allowed paths.
-# Usage: bash tools/commit_lane.sh <lane> "<message>"      (needs GH_TOKEN; run from repo root)
+# Usage: bash tools/commit_lane.sh <lane> "<message>" [author]   (needs GH_TOKEN; run from repo root)
 set -uo pipefail
-LANE="$1"; MSG="$2"
+LANE="$1"; MSG="$2"; AUTHOR="${3:-${LANE}-bot}"
 ALLOWED="^(data/incoming/${LANE}/|contrib/${LANE}/|notes/|coord/inbox/|docs/PLAYBOOK\.md$)"
-git config user.name "${LANE}-bot"; git config user.email "${LANE}-bot@users.noreply.github.com"
+git config user.name "$AUTHOR"; git config user.email "${AUTHOR}@users.noreply.github.com"
 # drop everything outside the lane's allowed paths (protects workflows, tools, other lanes)
 git status --porcelain --untracked-files=all | sed 's/^...//' | while read -r f; do
   [[ "$f" =~ $ALLOWED ]] && continue

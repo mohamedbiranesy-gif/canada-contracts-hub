@@ -1,13 +1,16 @@
 name: rebuild-dataset
-# Patches the published dataset with verified team findings, SEAO end dates and validated new-source records,
-# then republishes release assets. Weekly, or on demand.
+# Daily: advance the reference date to today, then patch the published dataset with verified team findings,
+# harvester progress (websites, BC registrations, SEAO end dates) and validated new-source records
+# (matched to existing vendor/buyer enrichment), and republish it. Contracts whose end date has passed move out.
 on:
   schedule:
-    - cron: "37 6 * * 0"
+    - cron: "37 6 * * *"
   workflow_dispatch:
 permissions:
   contents: write
-concurrency: { group: main-writer, cancel-in-progress: false }
+concurrency:
+  group: main-writer
+  cancel-in-progress: false
 jobs:
   rebuild:
     runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
@@ -15,21 +18,38 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Download current release assets
-        env: { GH_TOKEN: "${{ github.token }}" }
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p data/release
-          gh release download dataset-latest -D data/release -p 'canadian_vendor_contracts.jsonl.gz'
+          for a in canadian_vendor_contracts vendors_enriched buyers_enriched; do
+            gh release download dataset-latest -D data/release -p "$a.jsonl.gz"
+          done
           for a in seao_api_notices vendors_web_progress vendors_orgbook_xp_progress; do
             gh release download harvest-state -D data/release -p "$a.jsonl.gz" || true
           done
+      - name: Advance reference date to today
+        run: |
+          python3 - <<'PY'
+          import datetime, json
+          c = json.load(open("coord/config.json"))
+          c["reference_date"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+          json.dump(c, open("coord/config.json", "w"), indent=2)
+          print("reference date", c["reference_date"])
+          PY
       - name: Patch
-        run: python3 tools/patch_dataset.py data/release data/build && python3 tools/status_board.py > /dev/null
+        run: |
+          python3 tools/patch_dataset.py data/release data/build
+          python3 tools/status_board.py > /dev/null
       - name: Publish
-        env: { GH_TOKEN: "${{ github.token }}" }
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           stamp=$(date -u +%Y%m%d)
-          gh release upload dataset-latest data/build/canadian_vendor_contracts.jsonl.gz data/build/patch_report.json --clobber
-          gh release upload dataset-latest "data/build/ended_since_last_build.jsonl.gz#ended_since_last_build_${stamp}.jsonl.gz" --clobber || true
+          cp data/build/ended_since_last_build.jsonl.gz "data/build/ended_${stamp}.jsonl.gz"
+          gh release upload dataset-latest data/build/canadian_vendor_contracts.jsonl.gz data/build/patch_report.json "data/build/ended_${stamp}.jsonl.gz" --clobber
           git config user.name "rebuild-bot"; git config user.email "rebuild-bot@users.noreply.github.com"
-          git add coord/dataset_summary.json coord/STATUS_BOARD.md
-          git diff --cached --quiet || { git commit -q -m "rebuild: dataset patched ${stamp} [skip ci]"; git pull -q --rebase origin main; git push -q origin HEAD:main; }
+          git add coord/config.json coord/dataset_summary.json coord/STATUS_BOARD.md
+          git diff --cached --quiet && exit 0
+          git commit -q -m "rebuild: dataset patched ${stamp} [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep $((i*7)); done

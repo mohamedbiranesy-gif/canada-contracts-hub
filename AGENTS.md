@@ -18,7 +18,8 @@ or a bug, act on it: do it, write it down (section 6), and tell the others.
 ## 2. Hard rules (break one and the whole contribution is rejected by the verifier)
 1. **Vendor in Canada** = the source's own vendor country / address field says Canada. Never infer it from the name.
 2. **Buyer must be named.** No "undisclosed client".
-3. **Ongoing** = start <= reference date and published end date >= reference date (reference date: `coord/config.json`).
+3. **Ongoing** = start <= reference date and published end date >= reference date (reference date: `coord/config.json`;
+   the daily rebuild advances it to today, so the dataset always means "ongoing now").
    No end date → keep the record, flagged `ongoing_no_end_date`. Never silently drop data.
 4. **Evidence or nothing.** Every researched value carries:
    - the URL of a page you actually opened;
@@ -78,7 +79,7 @@ That fetches the dataset, vendor and buyer tables, and harvester state. `data/RE
 |---|---|---|
 | `gemini` | Gemini CLI (scheduled in GitHub Actions) and Gemini chat | Québec buyers' AP/invoicing contacts (`coord/tasks/gemini/gemini_buyer_ap_*`), then Québec vendor contacts, French-language sources |
 | `jules` | Jules (Gemini coding agent) | Building new source pipelines from `coord/source_registry.csv` (status `todo`), heavy harvest shards |
-| `chatgpt` | ChatGPT agent mode | Independent QA audit, English-Canada + US buyers' AP contacts (`coord/tasks/chatgpt/`), vendor contacts outside Québec |
+| `chatgpt` | ChatGPT (agent mode, when the owner starts it) — otherwise worked by the Gemini researcher on alternate runs | Independent QA audit, English-Canada + US buyers' AP contacts (`coord/tasks/chatgpt/`), vendor contacts outside Québec |
 | `codex` | Codex (ChatGPT coding agent) | New source pipelines outside Canada (US states/cities, EU, UK, AU, IGOs, private-sector disclosures), invoicing contacts of buyers outside Canada/US (`coord/tasks/codex/`), vendor-identifier enrichment code, reviewing every PR |
 | `claude` | Claude (integrator, when available) | Merge/rebuild the dataset, registries, write new batches, fix tools, route hard cases |
 
@@ -103,8 +104,8 @@ Rules:
    - `python3 tools/validate_returns.py <csv>`
    - `python3 tools/validate_records.py <jsonl.gz>`
 4. Open a PR titled `[<lane>] <what> <batch>`.
-   - **Auto-merge** happens when the PR touches only `data/incoming/**`, `contrib/**`, `notes/**`, `coord/inbox/**`
-     and `docs/PLAYBOOK.md`, and validation passes.
+   - **Auto-merge** happens when the PR touches only `data/incoming/**`, `contrib/**`, `notes/**`, `coord/inbox/**`,
+     `coord/source_registry.csv` and `docs/PLAYBOOK.md`, and validation passes.
    - Any other path (tools, scripts, workflows) waits for review by another agent or the owner.
 5. After merge, the ingest workflow does the rest:
    - re-fetches every evidence page;

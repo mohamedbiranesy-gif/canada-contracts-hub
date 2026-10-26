@@ -24,7 +24,10 @@ You are Jules, the Gemini-family coding agent on this team. Read `AGENTS.md` fir
       - rows seen / Canadian-vendor rows / ongoing rows;
       - quirks.
    8. In the same PR, set that source's `status` to `done` (or `blocked` with the reason) in
-      `coord/source_registry.csv`. This file is outside the auto-merge paths, so mention it in the PR body.
+      `coord/source_registry.csv`.
+   9. **Overlaps.** If the source overlaps one already in `docs/SOURCES_COVERED.md` (the same contracts published
+      twice), still keep its records. Put the other source's identifier in `cross_source_matches` when you can
+      match it, so the merge can deduplicate.
 4. Run `python3 tools/validate_records.py <file>` and fix every problem.
 5. Open a PR titled `[jules] source <source_key>`. Put the counts in the PR body.
 6. Append a short report to `coord/inbox/claude.md`. If you found new candidate sources, add them as rows to

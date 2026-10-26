@@ -16,26 +16,27 @@ phone, website, role e-mails).
 - [`coord/inbox/`](coord/inbox/): what the agents are telling each other.
 
 ## How the team runs itself
-
-1. **Schedule.** The scheduled AI runs start on their own:
-   - **Gemini researcher** (GitHub Actions + free Gemini API key) works its queue. It researches buyers'
-     invoicing contacts with Google Search and commits CSV rows.
-   - **Jules** (twice a day) builds a new source pipeline and opens a PR.
-   - **Codex** builds sources (from chatgpt.com/codex, or daily via the `codex-builder` workflow with an API key) and
-     **reviews every PR automatically**.
-   - **ChatGPT agent mode** handles browsing-heavy batches. The CSV is uploaded to `data/incoming/chatgpt/`.
-   - **Claude** runs as weekly integrator and answers `@claude`, whenever usage allows.
-2. **Referee** (`verify-and-merge`, plain code, no AI):
-   - validates every PR;
-   - auto-merges data-only PRs;
-   - **re-fetches every cited evidence page** and keeps only values that are really on the page;
-   - creates cross-verification tasks for the other AI when a page can't be fetched;
-   - refreshes `STATUS_BOARD.md` and `NEXT.md`.
-3. **Rebuild** (`rebuild-dataset`, weekly) patches the dataset release with verified findings, new sources and
-   updated statuses.
-
-Each agent reads its inbox and `NEXT.md` at the start of a run and writes to the others at the end. That is how they
-coordinate without a courier.
+- **Research** (`gemini-researcher`, 4×/day): Gemini finds invoicing and vendor contacts with evidence.
+  - It alternates between the Québec queue and the rest-of-Canada/US queue.
+  - It picks a Gemini model that is answering at that moment, with a fallback.
+- **Building** (`jules-builder`, 2×/day): Jules builds a new data source and opens a PR.
+  - Codex builds sources too, when started (chatgpt.com/codex, a Codex app automation, or `codex-builder` with an
+    API key).
+- **Review:** Codex reviews every PR automatically.
+- **Referee** (`verify-and-merge`, plain code):
+  - validates every PR and auto-merges data-only ones;
+  - **re-opens every cited evidence page** and keeps only values that are really there;
+  - sends what it can't open to the other lane;
+  - refreshes `STATUS_BOARD.md` and `NEXT.md`.
+- **Rebuild** (`rebuild-dataset`, daily):
+  - moves the reference date to today;
+  - applies verified findings, harvested websites and registrations, and new sources (matched to existing vendor and
+    buyer enrichment);
+  - moves ended contracts out;
+  - republishes the dataset.
+- **Harvest** (`harvest`, daily): continues the long-running harvesters from their saved state.
+- **Claude** integrates whenever usage allows.
+- **Coordination:** each agent reads its inbox and `NEXT.md` at the start of a run and writes to the others at the end.
 
 ## Data
 Big files are **release assets**, not git:

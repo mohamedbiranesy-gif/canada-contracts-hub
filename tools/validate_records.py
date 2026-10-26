@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Validate contributed contract records (JSONL or JSONL.gz) against docs/SCHEMA.md and the hard rules.
-Usage: python3 tools/validate_records.py <file> [more files]   Exit 0 when every record passes."""
+Usage: python3 tools/validate_records.py [--allow-ended] <file> [more files]   Exit 0 when every record passes.
+--allow-ended: records whose end date fell before the reference date are accepted (the rebuild moves them to "ended")."""
 import gzip, json, re, sys, collections
 
 REF = json.load(open("coord/config.json"))["reference_date"]
 STATUSES = {"ongoing", "ongoing_inferred", "end_date_unknown"}
 PLACEHOLDER = re.compile(r"^(n/?a|none|null|unknown|undisclosed|confidential|withheld|redacted|various|multiple|tbd|-+|\.+)$|undisclosed|confidential client|nom retenu", re.I)
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+ALLOW_ENDED = "--allow-ended" in sys.argv
 bad_total = 0
-for path in sys.argv[1:]:
+for path in [a for a in sys.argv[1:] if not a.startswith("--")]:
     op = gzip.open if path.endswith(".gz") else open
     probs, n, ids = collections.Counter(), 0, set()
     examples = {}
@@ -46,7 +48,7 @@ for path in sys.argv[1:]:
             end = d.get("end")
             if st == "ongoing":
                 if not end: bad("ongoing_without_end_date (use ongoing_inferred or end_date_unknown)")
-                elif end < REF: bad("ended_before_reference_date")
+                elif end < REF and not ALLOW_ENDED: bad("ended_before_reference_date")
                 if start and start > REF: bad("starts_after_reference_date")
             if c.get("value") is not None and not isinstance(c.get("value"), (int, float)): bad("contract.value_not_number")
             if not r.get("link"): bad("link_missing")

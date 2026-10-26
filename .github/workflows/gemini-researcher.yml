@@ -1,14 +1,23 @@
 name: gemini-researcher
-# Gemini works its lane unattended (free Gemini API key). Results are committed, then re-verified by the referee.
+# Gemini researches invoicing / vendor contacts unattended with the free Gemini API key.
+# Runs alternate between the `gemini` queue (Québec) and the `chatgpt` queue (rest of Canada + US, QA audit),
+# so no queue waits for a human. It picks a Gemini model that is answering right now and falls back to a second
+# one. Results are committed, then re-verified page by page by the referee (verify-and-merge).
 on:
   schedule:
-    - cron: "17 1,7,13,19 * * *"
+    - cron: "17 1,13 * * *"
+    - cron: "17 7,19 * * *"
   workflow_dispatch:
     inputs:
+      lane:
+        description: "gemini (Québec) or chatgpt (rest of Canada + US)"
+        default: gemini
       extra:
         description: "Optional extra instruction for this run"
         default: ""
-concurrency: { group: gemini-researcher, cancel-in-progress: false }
+concurrency:
+  group: gemini-researcher
+  cancel-in-progress: false
 permissions:
   contents: write
   actions: write
@@ -16,34 +25,81 @@ jobs:
   research:
     if: vars.GEMINI_ENABLED != 'false'
     runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
-    timeout-minutes: 40
+    timeout-minutes: 80
+    env:
+      LANE: ${{ inputs.lane || (github.event.schedule == '17 7,19 * * *' && 'chatgpt' || 'gemini') }}
+      ROWS: ${{ vars.GEMINI_ROWS_PER_RUN || '15' }}
     steps:
       - uses: actions/checkout@v4
-        with: { persist-credentials: false }
+        with:
+          persist-credentials: false
       - name: Key present?
         id: key
-        env: { K: "${{ secrets.GEMINI_API_KEY }}" }
+        env:
+          K: ${{ secrets.GEMINI_API_KEY }}
         run: echo "ok=$([ -n "$K" ] && echo yes || echo no)" >> "$GITHUB_OUTPUT"
-      - name: Refresh queue view
-        run: python3 tools/next_batch.py > /dev/null
-      - name: Gemini researcher
+      - name: Refresh queue view, count saved rows
+        id: before
+        run: |
+          python3 tools/next_batch.py > /dev/null
+          echo "rows=$(cat data/incoming/"$LANE"/*.csv 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
+      - name: Pick Gemini models that are answering now
+        id: models
+        if: steps.key.outputs.ok == 'yes'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PREFERRED: ${{ vars.GEMINI_MODEL }}
+        run: python3 tools/pick_gemini_model.py
+      - name: Gemini researcher (first model)
+        id: g1
         if: steps.key.outputs.ok == 'yes'
         continue-on-error: true
-        timeout-minutes: 34
+        timeout-minutes: 35
         uses: google-github-actions/run-gemini-cli@v0
         env:
           GEMINI_CLI_TRUST_WORKSPACE: "true"
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          gemini_model: ${{ vars.GEMINI_MODEL }}
+          gemini_model: ${{ steps.models.outputs.model1 }}
           settings: |-
-            { "model": { "maxSessionTurns": 250 }, "context": { "fileName": ["GEMINI.md", "AGENTS.md"] } }
+            { "model": { "maxSessionTurns": 300 }, "context": { "fileName": ["GEMINI.md", "AGENTS.md"] } }
           prompt: |-
-            You are running unattended in GitHub Actions (run ${{ github.run_id }}). Follow your standing orders in
-            prompts/gemini_researcher.md exactly. Get today's date with `date -u +%F`. Max buyers this run: ${{ vars.GEMINI_ROWS_PER_RUN || '15' }}.
-            ${{ inputs.extra }}
-      - name: Commit lane output (validated; only allowed paths)
+            You are running unattended in GitHub Actions (run ${{ github.run_id }}). Your lane this run is `${{ env.LANE }}`.
+            Follow your standing orders in prompts/gemini_researcher.md exactly. Get today's date with `date -u +%F`.
+            Maximum entities this run: ${{ env.ROWS }}. ${{ inputs.extra }}
+      - name: Count rows after first model
+        id: mid
         if: always()
-        env: { GH_TOKEN: "${{ github.token }}" }
+        run: echo "rows=$(cat data/incoming/"$LANE"/*.csv 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
+      - name: Gemini researcher (fallback model; only if the first saved nothing)
+        if: steps.key.outputs.ok == 'yes' && steps.models.outputs.model2 != '' && steps.mid.outputs.rows == steps.before.outputs.rows
+        continue-on-error: true
+        timeout-minutes: 35
+        uses: google-github-actions/run-gemini-cli@v0
+        env:
+          GEMINI_CLI_TRUST_WORKSPACE: "true"
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_model: ${{ steps.models.outputs.model2 }}
+          settings: |-
+            { "model": { "maxSessionTurns": 300 }, "context": { "fileName": ["GEMINI.md", "AGENTS.md"] } }
+          prompt: |-
+            You are running unattended in GitHub Actions (run ${{ github.run_id }}). Your lane this run is `${{ env.LANE }}`.
+            Follow your standing orders in prompts/gemini_researcher.md exactly. Get today's date with `date -u +%F`.
+            Maximum entities this run: ${{ env.ROWS }}. ${{ inputs.extra }}
+      - name: Commit lane output (validated; only allowed paths) + health note
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BEFORE: ${{ steps.before.outputs.rows }}
+          M1: ${{ steps.models.outputs.model1 }}
+          M2: ${{ steps.models.outputs.model2 }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          bash tools/commit_lane.sh gemini "gemini research run ${{ github.run_id }}"
+          after=$(cat data/incoming/"$LANE"/*.csv 2>/dev/null | wc -l)
+          echo "rows saved this run: $((after - BEFORE))" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$after" -le "$BEFORE" ]; then
+            printf '\n## %s from gemini-researcher (automatic health note)\nRun %s (lane %s) saved 0 rows. Models: "%s", "%s". See the run log.\n' \
+              "$(date -u '+%F %H:%M')" "$RUN_URL" "$LANE" "$M1" "$M2" >> coord/inbox/claude.md
+          fi
+          bash tools/commit_lane.sh "$LANE" "gemini-researcher: run ${{ github.run_id }} lane $LANE" gemini-researcher

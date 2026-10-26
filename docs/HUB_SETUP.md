@@ -1,68 +1,49 @@
-# One-time setup (about 15 minutes, then the team runs by itself)
+# Setup — what runs by itself, and the few clicks it needs
 
-You only do this once. After it, Gemini, Jules, Codex and Claude pick up work on their own schedules, check each
-other's work, and keep the dataset growing, whether or not you or Claude are around.
+| Who | What it does | Runs by itself? | One-time setup |
+|---|---|---|---|
+| **Gemini researcher** (GitHub Actions) | Finds invoicing contacts and vendor contacts with evidence, 4 runs a day. Alternates between the Québec queue and the rest of Canada + US queue | Yes | Secret `GEMINI_API_KEY` (done) |
+| **Jules** (Gemini coding agent) | Builds a new data source twice a day and opens a pull request | Yes | Secret `JULES_API_KEY` (done) |
+| **Referee** (plain code) | Re-opens every evidence page, keeps only what is really there, merges data automatically, updates the board | Yes | None |
+| **Rebuild** (plain code) | Daily. Moves the reference date to today, applies everything verified, republishes the dataset, drops contracts that have ended | Yes | None |
+| **Codex** (ChatGPT coding agent) | Reviews every pull request automatically. Builds sources when started | Reviews: yes. Building: see below | Turn on automatic reviews (below) |
+| **Claude** | Integrator: merges code changes, refills queues, fixes tools | When your Claude usage allows | Optional (below) |
 
-## 1. Gemini — fully autonomous and free (most important)
-1. Open **https://aistudio.google.com/apikey** and sign in with your Google account.
-2. Click **Create API key** and copy it.
-3. Add it to the repo as a secret:
-   1. On GitHub, open this repo → **Settings** → **Secrets and variables** → **Actions**.
-   2. Click **New repository secret**.
-   3. Name: `GEMINI_API_KEY`. Paste the key. Click **Add secret**.
-4. Start the first run: **Actions** tab → **gemini-researcher** → **Run workflow**.
+## Codex (2 minutes)
+1. Open **chatgpt.com/codex** → **Settings** → **Code review**.
+2. Turn on **Automatic reviews** for `canada-contracts-hub`.
 
-From then on it runs every day by itself.
+From then on, every pull request from Jules, Gemini or Claude gets an independent review from ChatGPT.
 
-## 2. Jules — Gemini's coding agent (builds new sources)
-1. Open **https://jules.google.com** and sign in.
-2. Click **Connect to GitHub** and allow access to `canada-contracts-hub`.
-3. In Jules **Settings**, open **API keys**, create a key and copy it.
-4. On GitHub, add it as the repository secret `JULES_API_KEY` (same steps as above).
-5. **Actions** → **jules-builder** → **Run workflow**.
+To make Codex *build* sources by itself too, pick one:
+- **Codex app on your Mac:** create an automation, for example "every day, do the task in prompts/codex_kickoff.md on
+  canada-contracts-hub and open a PR". It runs while your Mac is awake and the Codex app is open. It uses your ChatGPT
+  plan.
+- **OpenAI API key:** add the secret `OPENAI_API_KEY`. The `codex-builder` workflow then runs daily in the cloud. API
+  usage is billed separately from ChatGPT Plus.
+- **Or nothing.** Start a Codex task by hand whenever you like, with the text of `prompts/codex_kickoff.md`.
 
-From then on it starts twice a day and opens a pull request each time.
+You do **not** need ChatGPT agent mode. The Gemini researcher already works the ChatGPT queue on alternate runs. If you
+ever run agent mode anyway (`prompts/chatgpt_agent.md`), upload its CSV to `data/incoming/chatgpt/`.
 
-## 3. Codex — ChatGPT's coding agent (builds sources, reviews everyone's work)
-1. Open **https://chatgpt.com/codex**.
-2. Connect GitHub and choose `canada-contracts-hub`.
-3. Create an environment. In its settings, turn **Internet access** on and allow all domains.
-4. Turn on automatic reviews: Codex **Settings** → **Code review** → **Automatic reviews** for this repo.
-   Codex then reviews every PR that Gemini, Jules or Claude opens.
-5. Start a task. Paste the text of `prompts/codex_kickoff.md`.
-6. When the task finishes, click **Create PR**. The referee merges it automatically if it only adds data.
+## Claude (optional)
+Either option works when your Claude usage allows:
+- Ask Claude in the app to create the weekly integrator scheduled task.
+- Or add the secret `CLAUDE_CODE_OAUTH_TOKEN`, made with `claude setup-token` on a computer with Claude Code. Then
+  `@claude` works in issues and PRs.
 
-Optional, fully hands-off: if you have an OpenAI **API** key with credit, add it as the secret `OPENAI_API_KEY`. The
-`codex-builder` workflow then runs Codex every day without you.
+## More capacity
+- **Extra free Gemini keys from the same Google account do not add capacity.** Free-tier limits are per project, and
+  creating extra projects or accounts to get around limits breaks Google's terms.
+- **For more Gemini throughput:** enable billing on the same Google AI Studio project, then raise the repository variable
+  `GEMINI_ROWS_PER_RUN` (default 15).
+- **Keys from other providers add whole extra workers:** `OPENAI_API_KEY` for Codex, `CLAUDE_CODE_OAUTH_TOKEN` for
+  Claude.
 
-## 4. ChatGPT agent mode (browsing-heavy research)
-1. In ChatGPT, turn on **Agent mode**.
-2. Paste `prompts/chatgpt_agent.md`, with the batch number from `coord/NEXT.md` (lane chatgpt).
-3. Upload the CSV it returns to the folder `data/incoming/chatgpt/`: **Add file** → **Upload files** → **Commit**.
-
-The referee verifies every row automatically.
-
-## 5. Claude (optional; when your Claude usage allows)
-If you have Claude Code on a computer:
-1. Run `claude setup-token` and copy the token.
-2. Add it as the repository secret `CLAUDE_CODE_OAUTH_TOKEN`.
-
-Then `@claude` works in any issue or PR, and a weekly integrator run happens automatically.
-
-## Compute budget
-The repo is **public**, so GitHub Actions minutes are unlimited and free:
-- Gemini researches every 6 hours;
-- the SEAO end-date harvester runs daily;
-- the referee runs on every change.
-
-The real limits are each AI's own quota (free Gemini API tier, Jules daily tasks, your ChatGPT/Claude plans). When a
-quota runs out, a run stops early but saves what it did, and the next run continues.
-
-Secrets (API keys) stay private even in a public repo. Never paste a key into a file, issue or comment; only into
-**Settings → Secrets**.
-
-## Where to watch
+## Watch
 - `coord/STATUS_BOARD.md` shows progress.
-- `coord/inbox/` shows the agents talking to each other.
+- `coord/inbox/claude.md` gets automatic health notes when a run saves nothing.
 - **Actions** shows every run.
 - **Pull requests** shows contributions and reviews.
+
+Keys only ever go in **Settings → Secrets**, never in a file, issue or comment. The repo is public.
