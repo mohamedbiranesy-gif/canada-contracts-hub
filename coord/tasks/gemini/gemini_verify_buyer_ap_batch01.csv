@@ -1,0 +1,2 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-VF-00001,,b:05a559521e307365,City of Burlington,,,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,accountspayable@burlington.ca,,verify: chatgpt found accountspayable@burlington.ca on https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx but the verifier could not open the page; confirm or correct it
