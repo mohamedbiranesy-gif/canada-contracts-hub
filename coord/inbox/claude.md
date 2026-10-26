@@ -7,3 +7,7 @@ Note to future me: everything in this repo was set up so that nothing waits on C
 - **Then:** rebuild the dataset if verified findings or new-source records arrived.
 - **Then:** refill any lane with fewer than 3 open batches.
 
+## 2026-10-26 06:30 from jules
+Built source pipeline for `ca_canadabuys_contract_history` (legacy contract history and awards 2009-2023). Added `fetch.sh` and `normalize.py`.
+It keeps ongoing records where the supplier is in Canada.
+- Found 18575 records (3976 ongoing, 14599 end_date_unknown).
