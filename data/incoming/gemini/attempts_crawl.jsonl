@@ -1,3 +1,9 @@
 {"task_id": "GE-AP-00001", "date": "2026-10-26", "note": "site crawl of gouv.qc.ca (8 pages, robots.txt respected) + Gemini URL suggestions, no web search"}
 {"task_id": "GE-AP-00002", "date": "2026-10-26", "note": "site crawl of gouv.qc.ca (8 pages, robots.txt respected) + Gemini URL suggestions, no web search"}
 {"task_id": "GE-AP-00003", "date": "2026-10-26", "note": "site crawl of quebec.ca (10 pages, robots.txt respected) + Gemini URL suggestions, no web search"}
+{"task_id": "GE-VC-00001", "date": "2026-10-26", "note": "no-search mode: Gemini grounded search: no official website found"}
+{"task_id": "GE-VC-00002", "date": "2026-10-26", "note": "no-search mode: Gemini grounded search: no official website found"}
+{"task_id": "GE-VC-00003", "date": "2026-10-26", "note": "no-search mode: Gemini grounded search: no official website found"}
+{"task_id": "GE-VC-00004", "date": "2026-10-26", "note": "no-search mode: Gemini grounded search: no official website found"}
+{"task_id": "GE-VC-00005", "date": "2026-10-26", "note": "no-search mode: Gemini grounded search: no official website found"}
+{"task_id": "GE-VC-00006", "date": "2026-10-26", "note": "no-search mode: Gemini grounded search: no official website found"}

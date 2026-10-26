@@ -1,7 +1,0 @@
-task_id,vendor_key,official_website,website_verification,general_email,billing_or_ar_email,main_phone,address_on_site,business_number_if_published,other_identifiers,evidence_url,evidence_quote,retrieved_date,status,notes
-GE-VC-00001,v:325b0b977c13de7f,,,,,,,,,,,2026-10-26,not_found,Gemini grounded search: no official website found
-GE-VC-00002,v:5966c48081c95525,,,,,,,,,,,2026-10-26,not_found,Gemini grounded search: no official website found
-GE-VC-00003,v:bf56d931f653c3f6,,,,,,,,,,,2026-10-26,not_found,Gemini grounded search: no official website found
-GE-VC-00004,v:8a6b6ed6332bf7d2,,,,,,,,,,,2026-10-26,not_found,Gemini grounded search: no official website found
-GE-VC-00005,v:5871d38cd404b7e9,,,,,,,,,,,2026-10-26,not_found,Gemini grounded search: no official website found
-GE-VC-00006,v:d9ccdaa49f15da26,,,,,,,,,,,2026-10-26,not_found,Gemini grounded search: no official website found

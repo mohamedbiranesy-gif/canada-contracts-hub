@@ -462,10 +462,7 @@ def research_buyer(kind, t, out):
                                           notes="portal link found on the organisation's page"))
                 return
     if crawl:  # crawl-only negatives are weak: record the attempt, keep the task open for a search-enabled pass
-        with open(ATTEMPTS, "a", encoding="utf-8") as f:
-            f.write(json.dumps({"task_id": t["task_id"], "date": TODAY, "pages": len(pages), "domain": org_dom}) + "\n")
-        CRAWLED[t["task_id"]] = TODAY
-        stats["crawl_attempts"] += 1
+        no_search_attempt(t, "site crawl of %s: %d pages, no invoicing contact" % (org_dom or "-", len(pages)))
         return
     claimed = email or portal
     if claimed:
@@ -497,7 +494,18 @@ def fold(s):
     return unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().upper()
 
 
+def no_search_attempt(t, note):
+    """Without web search a negative is not evidence: record the attempt and keep the task open."""
+    with open(ATTEMPTS, "a", encoding="utf-8") as f:
+        f.write(json.dumps({"task_id": t["task_id"], "date": TODAY, "note": note[:200]}) + "\n")
+    CRAWLED[t["task_id"]] = TODAY
+    stats["crawl_attempts"] += 1
+
+
 def research_vendor(kind, t, out):
+    if not GROUNDING["on"] and t["task_id"] in CRAWLED:
+        stats["skipped_crawled"] += 1
+        return False
     name, legal = t.get("vendor_name") or "", t.get("legal_name_in_registry") or ""
     city, prov, postal = t.get("city") or "", t.get("province") or "", (t.get("postal_code") or "").replace(" ", "").upper()
     prompt = VENDOR_PROMPT.format(name=name, legal=legal or "-", city=city, prov=prov, postal=postal, regid=t.get("registry_id") or "-",
@@ -506,6 +514,9 @@ def research_vendor(kind, t, out):
     j = parse_json(text)
     site = (j.get("official_website") or "").strip()
     base = {"task_id": t["task_id"], "vendor_key": t.get("vendor_key"), "retrieved_date": TODAY}
+    if not site.startswith("http") and not GROUNDING["on"]:
+        no_search_attempt(t, "no website suggested (no web search)")
+        return
     if not site.startswith("http"):
         st = "ambiguous" if j.get("status") == "ambiguous" else "not_found"
         write_row(kind, out, dict(base, status=st, notes=("Gemini grounded search: " + (j.get("notes") or "no official website found"))[:250]))
@@ -537,6 +548,9 @@ def research_vendor(kind, t, out):
         if tok and loc:
             proof = "name '%s' + %s on %s" % (tok, loc, final)
             break
+    if not proof and not GROUNDING["on"]:
+        no_search_attempt(t, "suggested %s not confirmed (no web search)" % site)
+        return
     if not proof:
         write_row(kind, out, dict(base, status="ambiguous" if pages else "not_found", official_website="",
                                   notes=("candidate %s not confirmed (company name + location not both on its pages)" % site)[:250]))

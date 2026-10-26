@@ -70,8 +70,11 @@ jobs:
         run: |
           summary=$(grep -h "SUMMARY" research.log 2>/dev/null | tail -1 | sed 's/.*SUMMARY //')
           rows=$(python3 -c "import json,sys; print(json.loads(sys.argv[1] or '{}').get('rows', 0))" "$summary" 2>/dev/null || echo 0)
-          if [ "${rows:-0}" = "0" ]; then
-            printf '\n## %s from gemini-researcher (automatic health note)\nRun %s (lane %s, model "%s") saved 0 rows. %s\n' \
-              "$(date -u '+%F %H:%M')" "$RUN_URL" "$LANE" "$M1" "${summary:-no summary (driver did not run)}" >> coord/inbox/claude.md
+          today=$(date -u +%F)
+          if [ "${rows:-0}" = "0" ] && ! grep -q "$today.*from gemini-researcher (automatic health note)" coord/inbox/claude.md; then
+            hint=""
+            case "$summary" in *'"grounded_ok": 0'*) hint="Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites.";; esac
+            printf '\n## %s from gemini-researcher (automatic health note)\nRun %s (lane %s, model "%s") saved 0 rows. %s %s\n' \
+              "$(date -u '+%F %H:%M')" "$RUN_URL" "$LANE" "$M1" "$hint" "${summary:-no summary (driver did not run)}" >> coord/inbox/claude.md
           fi
           python3 tools/commit_lane.py "$LANE" "gemini-researcher: run ${{ github.run_id }} lane $LANE ($rows rows)" gemini-researcher
