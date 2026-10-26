@@ -109,6 +109,11 @@
 - BC program URL migrations: when an old Autism service-provider URL404s, follow actual links from the official parent landing page. The current provider page is under support-needs/pairs and publishes distinct Disability Benefit invoice, Autism Funding invoice, general-help and older portal-access roles. Preserve each section's purpose, prefix and program scope; MCF and CFD addresses on the same page are not automatically aliases.
 - City website migrations can leave indexed Treasury text unavailable on current Finance pages. Follow current navigation to purchasing and its linked by-law/construction documents; a general footer address or customer-service phone is not an AP destination.
 
+- Current WCB Nova Scotia pages supersede legacy billing search results: 2026 Work-Connected Recovery network invoices go to Lifemark via ACMS, while non-network invoices use fax; direct physician non-MSI invoices use Dartmouth200-137VentureRun. Current physician contacts expressly reject emailed invoices; their role mailboxes are support, not submission. Keep the service/date scope.
+- Follow the actual current PO-term link after a Govstack migration. RDCO now links August2026 v5f terms while its indexed2022 document404s. DCDSB currently links a30-day document but another accessible official PDF says45; retain the conflict and actual applicability rather than choosing by search rank.
+- Embedded laboratory chain-of-custody forms distinguish REPORT INFORMATION from INVOICE INFORMATION. A consultant may receive the report while the public buyer pays the invoice. Verify the invoice Company block visually when text extraction is empty, retain only organizational roles, and preserve the specific order/school scope instead of assuming whole-organization AP.
+- A shared bidsandtenders account or cooperative purchasing membership does not establish shared accounts payable. RDCO/WestKelowna bidding access, RMA member job postings and separate county/township finance contacts need entity-specific payment evidence.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
