@@ -250,6 +250,7 @@ chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00170,b:44b66dcd935119ec,acco
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01726,b:454edc25c5e3d0ac,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00242,b:4691d490391e5603,purchasing.deptemail@ugdsb.on.ca,https://www.ugdsb.ca/page/questionsfeedbackconcerns,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00065,b:46e7443f5ae48405,ap.fsd@utoronto.ca,https://finance.utoronto.ca/knowledgecentre/outgoing-wire-transfers/,verified
+chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00191,b:47d7a7f8593351c0,ap@innisfil.ca,https://www.innisfil.ca/media/file/doing-business-innisfil-supplier-guide,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00191,b:47d7a7f8593351c0,ap@innisfil.ca,https://www.innisfil.ca/media/file/doing-business-innisfil-supplier-guide,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00191,b:47d7a7f8593351c0,purchasing@innisfil.ca,https://www.innisfil.ca/government-administration/bid-opportunities,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00954,b:47df4e01e53d5b00,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
@@ -781,6 +782,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00166,b:df7897c8c5544179,ress-f
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00575,b:df7bec2acb66b733,isupplierpoc@supplier.com,https://www.gdls.com/wp-content/uploads/2026/01/GDLS-Global-Supplier-Performance-Scorecard-2025-12-external.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00575,b:df7bec2acb66b733,isupplier@gdls.com,https://www.gdls.com/wp-content/uploads/2025/12/Detailed-GDLS-iSupplier-Account-and-MS-Authenicator-Setup.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00030,b:e02b8c7d2ffa456a,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
+chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00199,b:e1c0197824563749,purchasing@granderie.ca,https://granderie.ca/board/departments/business-services/purchasing,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01751,b:e1c4b8b91d09c5de,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00971,b:e223a4888d2c4ea6,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00760,b:e2bd379c2f95a708,doa.dof.vendor.helpdesk@alaska.gov,https://dot.alaska.gov/aashtoware/docs/AWP-Vendor-Guidance-Procurement.pdf,verified
@@ -813,6 +815,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00188,b:ebf4272c82dbb197,financ
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01401,b:ec25af541c97c9da,comptabilite@lac-des-seize-iles.com,https://www.lac-des-seize-iles.com/fichiersUpload/fichiers/20261014104115-paiement-par-virement-interac.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00058,b:ec8f414748979d94,comptes.etudiants@uqam.ca,https://comptesetudiants.uqam.ca/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00645,b:ecd13b2dfa28001c,finance@cscree.qc.ca,https://eeyoueducation.ca/docs/articles/finance-1/1609-depots-directs-formulaire-de-consentement-2020/file,unverified_page_unavailable
+chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00198,b:ecedb3b20a718a77,purchasing@collingwood.ca,https://www.collingwood.ca/bids,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00198,b:ecedb3b20a718a77,purchasing@collingwood.ca,https://www.collingwood.ca/bids,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01740,b:ed2bb350d509a5c3,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00710,b:ed99cb4b2d9e1625,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
