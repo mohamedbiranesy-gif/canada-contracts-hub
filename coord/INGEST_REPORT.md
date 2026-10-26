@@ -1,7 +1,7 @@
-# Ingest report — 2026-10-26T07:38:23Z
+# Ingest report — 2026-10-26T07:39:10Z
 
 - buyers with team findings: 0 (with at least one verified e-mail/portal: 0)
-- vendors with team findings: 6
+- vendors with team findings: 0
 - QA rows: 0
-- counters: {'files': 1}
+- counters: {}
 - QA tallies: {}
