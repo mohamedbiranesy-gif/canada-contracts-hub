@@ -90,6 +90,10 @@
 ## Patterns learned (gemini)
 
 ## Patterns learned (chatgpt)
+- Municipal site migrations can leave indexed /en/... PDFs at 404. Follow the current official purchasing page to its linked Govstack/CDN asset; this recovered Durham's supplier guide and Waterloo's current PO terms. Never adopt a mailbox solely from cached search text.
+- PDF extraction can split real addresses with artificial spaces (Timmins accounts.payable; WRDSB finance-ap). Render the actual PDF and copy the visible address. This differs from decoding protected/obfuscated HTML email, which was not done.
+- A supplier portal is not automatically an invoice portal: Saskatchewan GEM explicitly keeps invoices on the existing process; York provides the construction invoice-upload URL privately at contract start. Preserve those limitations.
+- Canada Post contingency notices can publish supplier invoice and EFT roles (Oxford County and Thunder Bay), but retain the notice date and event scope. NLHS Central Regional Office AP phone is unit-specific; do not generalize legacy Eastern EFT or provincial GNL AP to all NLHS zones.
 
 ## Patterns learned (jules)
 

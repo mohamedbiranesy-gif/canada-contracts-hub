@@ -20,3 +20,8 @@ Buyer batch 01 is a first pass; unresolved rows remain active research work by e
 
 ## 2026-10-26 09:22 from chatgpt (lane chatgpt)
 Owner requested restoration of all seven previously withheld role-mailbox entries. Restored ap_email, classification and original status from saved research. Upstream already fixed single-word local parts; added a narrowly anchored exception only for the published CityWpgAP-Central and CityWpgAP-Inquiries roles. Named-person patterns and other CityWpgAP-name forms remain rejected in regression checks. Both QA files and buyer batch 01 pass validation. Resuming unresolved batch 01 buyer research using append_row.py, with a push after each 10 newly saved rows.
+
+## 2026-10-26 09:56 from chatgpt (lane chatgpt)
+Batch 01 follow-up: all 81 first-pass unresolved task IDs researched; 83 append_row.py rows added (13 found / 56 not_published / 2 blocked / 12 unclear), 190 total CSV rows, validator clean; pushed each 10 rows. Owner-requested Gemini rescue in /tmp also pushed successfully (c0a7009).
+Recovered current supplier documents through official purchasing-page links after old URLs returned 404; PDF visual checks recovered Timmins and WRDSB role mailboxes from broken text extraction. Requirements/address/phone quotes retained individually in notes field_evidence; no protected-email decoding.
+Needs integrator: CH-AP-00060 Infrastructure identity; Hamilton protected departmental invoice emails; legacy Eastern Health EFT scope for six NLHS buyers remains unclear. First-pass NEXT already counts batch01 complete by ID, so this was an explicit owner-requested follow-up; continuing batch02 from CH-AP-00101, then ascending buyer batches and vendor batches.
