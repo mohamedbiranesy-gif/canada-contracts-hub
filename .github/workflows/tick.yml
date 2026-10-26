@@ -1,0 +1,22 @@
+name: tick
+# GitHub's timer is best-effort (scheduled runs can be delayed for hours or skipped). Every half hour this tick starts
+# whatever is overdue (tools/dispatch_overdue.sh). The referee runs the same check after every verification, so any
+# activity in the repo also keeps the team moving.
+on:
+  schedule:
+    - cron: "23 * * * *"
+    - cron: "53 * * * *"
+  workflow_dispatch:
+permissions:
+  actions: write
+  contents: read
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start overdue workflows
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash tools/dispatch_overdue.sh

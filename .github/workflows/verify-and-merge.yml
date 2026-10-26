@@ -43,9 +43,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ github.event.pull_request.number }}
+          TITLE: ${{ github.event.pull_request.title }}
         run: |
           gh pr ready "$PR" || true
           gh pr merge "$PR" --squash --delete-branch && gh workflow run verify-and-merge.yml --ref main
+          # new source records -> rebuild now; a finished Jules task -> start the next Jules task right away
+          if grep -qE '^data/incoming/.*records_.*\.jsonl(\.gz)?$' changed.txt; then gh workflow run rebuild.yml --ref main || true; fi
+          case "$TITLE" in "[jules]"*) gh workflow run jules-builder.yml --ref main || true;; esac
       - name: Flag for review
         if: steps.v.outputs.decision != 'automerge' || steps.v.outputs.ok != 'yes' || github.event.pull_request.head.repo.full_name != github.repository
         env:
@@ -84,3 +88,8 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((i * 7))
           done
+      - name: Start overdue workflows (GitHub's timer is best-effort)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash tools/dispatch_overdue.sh
