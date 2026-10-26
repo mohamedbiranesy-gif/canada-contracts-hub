@@ -63,7 +63,16 @@ def verify(value, url):
     t = page_text(url)
     if t is None:
         return "unverified_page_unavailable"
-    return "verified" if value.lower() in t.lower() else "not_found_on_page"
+    low, v = t.lower(), value.lower().strip()
+    if v in low:
+        return "verified"
+    if re.sub(r"\s+", "", v) in re.sub(r"\s+", "", low):  # e-mail split across lines in PDFs / markup
+        return "verified"
+    if v.startswith("http"):  # portal links: tolerate scheme, www and trailing-slash differences
+        core = re.sub(r"^https?://(www\.)?", "", v).rstrip("/")
+        if core and core in low:
+            return "verified"
+    return "not_found_on_page"
 
 
 LANES = ("gemini", "chatgpt", "jules", "codex", "claude")
