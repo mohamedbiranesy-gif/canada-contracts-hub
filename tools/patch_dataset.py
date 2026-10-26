@@ -24,6 +24,7 @@ os.makedirs(OUT, exist_ok=True)
 REF = json.load(open("coord/config.json"))["reference_date"]
 now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 rep, fill = collections.Counter(), collections.Counter()
+sources = set()
 
 
 def jl(p):
@@ -113,6 +114,7 @@ def count(r):
     be, ve = r.get("buyer_enrichment") or {}, r.get("vendor_enrichment") or {}
     ap = be.get("ap_contact") or {}
     fill["records"] += 1
+    sources.add((r.get("source") or {}).get("key"))
     fill["status_" + (r.get("status") or "")] += 1
     fill["ca_buyer_ap_email"] += bool(ap.get("emails"))
     fill["ca_buyer_invoice_portal"] += bool(ap.get("invoice_portal"))
@@ -203,6 +205,7 @@ json.dump({"report": report, "fill": fill}, open(os.path.join(OUT, "patch_report
 s = json.load(open("coord/dataset_summary.json")) if os.path.exists("coord/dataset_summary.json") else {}
 s["reference_date"] = REF
 s["verified_ca_records"] = fill["records"]
+s["sources_with_records"] = len(sources - {None})
 s["status_verified_ca"] = {k[7:]: v for k, v in fill.items() if k.startswith("status_")}
 s.setdefault("enrichment", {}).setdefault("record_enrichment_coverage", {}).update({k: v for k, v in fill.items() if k.startswith("ca_")})
 s["last_rebuild"] = now
