@@ -14,7 +14,8 @@ FORMATS = {
 STATUS = {"buyer_ap": {"found", "portal_only", "not_published", "blocked", "unclear"},
           "vendor_contact": {"found", "website_only", "not_found", "blocked", "ambiguous"}}
 EMAIL = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
-PERSONAL = re.compile(r"^[a-z]+[._-][a-z]+$|^[a-z]\.?[a-z]{4,}$", re.I)
+# firstname.lastname style only; single-word locals (e.g. "dgfi", "approvisionnement") are often role mailboxes
+PERSONAL = re.compile(r"^[a-z]{2,}[._-][a-z]{2,}$", re.I)
 ROLE_HINT = re.compile(r"factur|invoice|payab|paiement|payment|compt|account|ap$|^ap[._-]|finance|achat|procure|purchas|approvision|supplier|fournisseur|vendor|info|contact|admin|billing|ar$|^ar[._-]|recevable|receivable|sales|ventes|service|support|bureau|office|reception|accueil|general|courrier|mail|treso|tresor|budget|contrat", re.I)
 
 
