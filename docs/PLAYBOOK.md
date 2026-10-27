@@ -132,6 +132,9 @@
 - Supplier terms can differ between goods and services: East Hants shares an invoice mailbox but service terms add monthly billing and a WCB clearance letter. Preserve those conditions and do not turn a Payables Administrator addressee into an unverified fixed invoice postal address.
 - Quote the literal source when a public AP button contains a plain unprotected mailbox: Camrose publishes a data-emailAddress attribute. HTML parsers may reorder attributes when serializing; retain the actual source substring, and never decode protected addresses.
 
+- New Westminster currently links standalone v4 Standard Terms of Purchase; those independently confirm the invoice postal destination seen in old RFPs. Pair current terms with the alphabetical city-contact PDF for the supplier invoice/payment inquiry phone, and exclude MyCity/customer e-billing.
+- SARM Member Purchasing advertises net30 and batched invoices with one payment source, but program pages distinguish SARM-billed purchases from suppliers that invoice members directly. Neither tender-intermediary identity nor an outgoing member invoice proves the intake route for every municipal contract.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
