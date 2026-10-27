@@ -135,6 +135,12 @@
 - New Westminster currently links standalone v4 Standard Terms of Purchase; those independently confirm the invoice postal destination seen in old RFPs. Pair current terms with the alphabetical city-contact PDF for the supplier invoice/payment inquiry phone, and exclude MyCity/customer e-billing.
 - SARM Member Purchasing advertises net30 and batched invoices with one payment source, but program pages distinguish SARM-billed purchases from suppliers that invoice members directly. Neither tender-intermediary identity nor an outgoing member invoice proves the intake route for every municipal contract.
 
+- Public provider-specific supplier pages can authorize outsourced processor/payment-enrollment mailboxes (VCU TrustFlow/Paymode/BankOfAmerica). Retain the official authorizing URL and each mailbox purpose; enrollment and portal help are separate from invoice intake. Conditional postal instructions still follow the PO/department.
+- Re-open the current linked hospital invoice guide before using an old indexed PDF. SJHH currently links a March2024 SmartPDF guide with a new Basware mailbox and no-registration workflow, superseding its2017 registered-portal address; MMC inquiry and patient-information postal routes remain separate.
+- Protected HTML need not be decoded when a separate public PDF plainly publishes the role: BCLDB linked invoice sample/definitions and supplier direct-deposit form expose distinct invoice and AP roles. Dummy vendor contacts in a sample are not buyer contacts. Keep the currentFAQ versus olderPDF bill-to conflict.
+- Shared purchasing can retain separate AP: GreyBruce joint tender documents explicitly name each boards invoice mailbox/postal route. SouthShore/TriCounty sharedfinance alone does not resolve a historical combinedbuyer label or prove one centres EFT role covers both.
+- Current WBG corporate invoice guidance covers member purchases, including IBRD/IFC defined in its terms, not borrower procurement. AskAccounting handles VendorKiosk access; actual invoice destinations come from the PO/contract. VendorManagementPortal onboarding and old WBGeProcure/VKP banking paths coexist; two public pages differ by one day on the April2026 cutoff, so retain the conflict and do not invent a uniform cutover.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
