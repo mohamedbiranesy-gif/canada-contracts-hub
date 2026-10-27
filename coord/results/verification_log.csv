@@ -413,7 +413,7 @@ gemini,gemini_buyer_ap_results_batch05.csv,GE-AP-00451,b:25215411213cee5d,commun
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00530,b:252ba11daf8060f1,taxescolaire@csshl.gouv.qc.ca,https://csshl.gouv.qc.ca/communaute/citoyens/taxe-scolaire/,verified
 chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00500,b:253977e0932a790a,contracts@marine-atlantic.ca,https://www.marineatlantic.ca/sites/default/files/2019-03/Supply-of-Goods.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00500,b:253977e0932a790a,contrats@ma.ca,https://www.marineatlantique.ca/sites/default/files/2026-10/Modalites-et-conditions-achat-de-biens.pdf,verified
-gemini,gemini_buyer_ap_results_batch16.csv,GE-AP-01538,b:2542e8b0d8e956ff,admin@bromevillage.ca,https://bromevillage.ca/nous-joindre/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch16.csv,GE-AP-01538,b:2542e8b0d8e956ff,admin@bromevillage.ca,https://bromevillage.ca/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch16.csv,GE-AP-01589,b:2546e58ff3c2d7f2,reception@kazabazua.ca,https://www.kazabazua.ca/index.php/fr/pournousjoindre,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01754,b:254a7b31b4d309b9,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00431,b:257e82e26acf42e5,achats@beloeil.ca,https://beloeil.ca/wp-content/uploads/2023/01/proc_fourn_20221207.pdf,verified
@@ -469,7 +469,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01075,b:2994da6cfade4a5f,suppli
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01075,b:2994da6cfade4a5f,vendor.relations@centralhealth.nl.ca,https://nlhealthservices.ca/partners/suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01075,b:2994da6cfade4a5f,supplier.relations@centralhealth.nl.ca,https://nlhealthservices.ca/wp-content/uploads/2025/02/Performance-Management-Strategy.pdf,verified
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00582,b:2995aa7f611952b4,communication@cegepmv.ca,https://cegepmv.ca/a-propos/contacter-cmv/nous-joindre,verified
-gemini,gemini_buyer_ap_results_batch12.csv,GE-AP-01152,b:29b6d21fa71b5d30,info@munsar.ca,https://www.municipalite.saintalphonserodriguez.qc.ca/nous-joindre,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch12.csv,GE-AP-01152,b:29b6d21fa71b5d30,info@munsar.ca,https://www.municipalite.saintalphonserodriguez.qc.ca/nous-joindre,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00051,b:2a0718279451c8cb,servicealaclientele@cag.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/centre-acquisitions-gouvernementales/coordonnees-structure/generales,verified
 chatgpt,chatgpt_buyer_ap_results_batch07.csv,CH-AP-00637,b:2a0d7c2f15e69fd3,suma@suma.org,https://suma.org/contact,verified
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00199,b:2a15cf4a5ab8a29f,communications@johnabbott.qc.ca,https://johnabbott.qc.ca/contact-us/,verified
