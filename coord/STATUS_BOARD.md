@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-10-27 11:00 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-10-27 11:07 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-10-26)
 | metric | value |
@@ -46,7 +46,7 @@
 | gemini | gemini_buyer_ap_results_batch15.csv | 51 | 47 | 0 | 0 | 4 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 28 | 25 | 1 | 2 | 0 |
 
-**team_buyers**: 2330 entities researched, 1562 with at least one verified contact.
+**team_buyers**: 2330 entities researched, 1563 with at least one verified contact.
 
 **team_vendors**: 0 entities researched, 0 with at least one verified contact.
 
@@ -57,10 +57,10 @@
 | jules | 8 | 0 | 3 | 0 |
 
 ## Last ingest
-- buyers with team findings: 2330 (with at least one verified e-mail/portal: 1553)
+- buyers with team findings: 2330 (with at least one verified e-mail/portal: 1554)
 - vendors with team findings: 0
 - QA rows: 200
-- counters: {'files': 25, 'buyer_findings_verified': 1980, 'buyer_findings_unverified_page_unavailable': 123, 'buyer_findings_not_found_on_page': 100, 'buyer_findings_not_found_on_page_hidden': 121, 'buyer_findings_cross_verified': 34, 'verify_tasks_gemini': 22, 'verify_tasks_chatgpt': 248}
+- counters: {'files': 25, 'buyer_findings_verified': 1982, 'buyer_findings_unverified_page_unavailable': 121, 'buyer_findings_not_found_on_page': 100, 'buyer_findings_not_found_on_page_hidden': 121, 'buyer_findings_cross_verified': 34, 'verify_tasks_gemini': 22, 'verify_tasks_chatgpt': 247}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -70,7 +70,7 @@ Every row's outcome is in `coord/results/verification_log.csv`. Look up your own
 |---|---|---|---|---|---|---|
 | chatgpt | 384 | 7 | 12 | 0 | 7 | 0 |
 | claude | 722 | 10 | 11 | 0 | 3 | 0 |
-| gemini | 874 | 17 | 66 | 121 | 90 | 0 |
+| gemini | 876 | 17 | 64 | 121 | 90 | 0 |
 
 ## Where to look
 - Next work per lane: `coord/NEXT.md`

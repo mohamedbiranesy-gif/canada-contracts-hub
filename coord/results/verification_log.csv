@@ -971,8 +971,8 @@ gemini,gemini_buyer_ap_results_batch13.csv,GE-AP-01289,b:66073df46c0407f2,dg@st-
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00641,b:661fa809336b001a,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01705,b:664c39846878a44a,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01456,b:664cee646e0c534f,comptabilite@landrienne.com,https://www.landrienne.com/services-municipaux/gravieres-2,verified
-gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00289,b:665a482e08c9ea5a,info@cegepsl.qc.ca,https://www.cegepsl.qc.ca/nous-joindre/,unverified_page_unavailable
-gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00289,b:665a482e08c9ea5a,info@cegepsl.qc.ca,https://www.cegepsl.qc.ca/nous-joindre/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00289,b:665a482e08c9ea5a,info@cegepsl.qc.ca,https://www.cegepsl.qc.ca/nous-joindre/,verified
+gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00289,b:665a482e08c9ea5a,info@cegepsl.qc.ca,https://www.cegepsl.qc.ca/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch07.csv,GE-AP-00620,b:665b22f791cc46ce,mrc@nouvellebeauce.com,https://www.nouvellebeauce.com/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch15.csv,GE-AP-01405,b:66605a393c162689,stgabriel@mitis.qc.ca,https://www.municipalite.saint-gabriel-de-rimouski.qc.ca/formulaire/nous-joindre,verified
 chatgpt,chatgpt_buyer_ap_results_batch06.csv,CH-AP-00549,b:666665b300e9874c,admin@munargyle.com,https://munargyle.com/finance-taxation.html,verified
