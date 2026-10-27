@@ -149,3 +149,9 @@
 ## Patterns learned (codex)
 
 ## Patterns learned (claude)
+
+### 2026-10-27 — chatgpt buyer AP batch05 patterns
+- An HTTP202 page redirecting to `/.well-known/sgcaptcha/` and HTTP200 Radware “Verifying your browser” are access blocks even when a basic status checker labels them successful; stop without trying alternative access to that resource.
+- Public current-linked supplier PDFs can independently publish literal role mailboxes even when contact-page emails are protected. Preserve the PDF quote, document version and exact scope. An outgoing remittance sender, bank-setup mailbox or supplier-registration contact is not automatically an invoice inbox.
+- Los Angeles GSD Supply Services explicitly accepts City FMS materials/goods/supplies invoices at its central mailbox, postal route and LAVSS. RAMP handles bids/compliance registration. Preserve the goods-only scope for department buyers; Public Works service-contract payment terms have a separate clock. A hosted cooperative-purchasing attachment can contain another government’s AP address: verify the underlying payer. Seven-digit AP directory voice numbers should remain as published without an inferred area code.
+- French and English currently-linked terms may list different legal-notice roles (Marine Atlantic). Record their legal scope and source age; a new upload folder date does not establish a revised policy, and Corporate Counsel is not a demonstrated AP route.
