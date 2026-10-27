@@ -126,6 +126,12 @@
 - EDC English/French ForSuppliers pages publish distinct AccountsPayable and Comptescrediteurs invoice roles with the same AP postal/fax route. Keep both actual mailboxes; a supplier-registration form is not invoice upload, and the pages historical2010 provincial tax-rate paragraph is not current tax guidance.
 - BCs public staff directory now says employee and organizational information require government credentials. Treat that as an access restriction even with HTTP200; do not copy stale indexed staff details or open the internal login route.
 
+- French navigation may expose supplier pages that English link filters miss: CSAP’s Fournisseurs page publishes its payables role and a finance-office emergency AP phone. Read actual supplier links before concluding a French body has no published AP route.
+- CBC/Radio-Canada’s browser-rendered Already a Supplier / Déjà fournisseur payment accordions publish distinct English and French invoice mailboxes and a separate EFT onboarding role. Read both languages, keep roles separate, and distinguish the public InvoiceInfo upload form from tender registration. A blank JavaScript shell is not proof that the organization publishes no contacts.
+- Windsor Essex CHC distinguishes vendors without VendorCafé registration (email invoices) from invited/registered vendors (portal submission). The public page sends registration invitations by email and does not expose a transaction URL; do not substitute the bids&tenders URL or guess a generic portal address.
+- Supplier terms can differ between goods and services: East Hants shares an invoice mailbox but service terms add monthly billing and a WCB clearance letter. Preserve those conditions and do not turn a Payables Administrator addressee into an unverified fixed invoice postal address.
+- Quote the literal source when a public AP button contains a plain unprotected mailbox: Camrose publishes a data-emailAddress attribute. HTML parsers may reorder attributes when serializing; retain the actual source substring, and never decode protected addresses.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
