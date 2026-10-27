@@ -1,9 +1,9 @@
 {
- "reference_date": "2026-10-26",
- "verified_ca_records": 770613,
+ "reference_date": "2026-10-27",
+ "verified_ca_records": 770539,
  "unverified_records": 51346,
  "status_verified_ca": {
-  "ongoing": 82862,
+  "ongoing": 82788,
   "end_date_unknown": 366235,
   "ongoing_inferred": 321516
  },
@@ -157,13 +157,13 @@
   "record_enrichment_coverage": {
    "ca_records": 513143,
    "ca_buyer_enriched": 511684,
-   "ca_buyer_website": 714979,
-   "ca_vendor_website": 132141,
-   "ca_vendor_contact_any": 132141,
-   "ca_vendor_registry_match": 411573,
-   "ca_vendor_bn9": 127190,
-   "ca_buyer_invoice_portal": 6482,
-   "ca_buyer_ap_email": 500470,
+   "ca_buyer_website": 714908,
+   "ca_vendor_website": 132125,
+   "ca_vendor_contact_any": 132125,
+   "ca_vendor_registry_match": 411523,
+   "ca_vendor_bn9": 127166,
+   "ca_buyer_invoice_portal": 16715,
+   "ca_buyer_ap_email": 580548,
    "unverified_records": 51346,
    "unverified_vendor_registry_match": 13573,
    "unverified_vendor_bn9": 7443,
@@ -191,23 +191,21 @@
    "not_enriched": 104
   }
  },
- "last_rebuild": "2026-10-26T21:35:11Z",
+ "last_rebuild": "2026-10-27T12:38:18Z",
  "last_rebuild_report": {
-  "team_buyers_verified": 677,
+  "team_buyers_verified": 1563,
   "team_vendors": 0,
   "seao_api_end_dates": 40,
   "web_vendors_with_site": 17345,
   "orgbook_xp_matches": 2345,
-  "records_ap_added": 109181,
-  "records_ap_extended": 10661,
-  "records_web_added": 1491,
-  "seao_status_upgraded": 34,
-  "moved_to_ended": 3,
-  "new_records_duplicate": 18574,
-  "new_records_vendor_matched": 436,
-  "new_records_buyer_matched": 240323,
-  "new_records_added": 240323,
-  "built_at": "2026-10-26T21:35:11Z",
-  "reference_date": "2026-10-26"
+  "records_ap_extended": 119842,
+  "records_ap_added": 87117,
+  "moved_to_ended": 75,
+  "new_records_duplicate": 258896,
+  "new_records_vendor_matched": 1,
+  "new_records_buyer_matched": 1,
+  "new_records_added": 1,
+  "built_at": "2026-10-27T12:38:18Z",
+  "reference_date": "2026-10-27"
  }
 }
