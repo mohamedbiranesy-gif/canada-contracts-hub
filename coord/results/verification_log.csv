@@ -330,6 +330,8 @@ gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00076,b:2427ffe3dadbca32,appro.
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00726,b:242d86f8555b0e83,info@hautegaspesie.com,https://www.hautegaspesie.com/nous-joindre,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00105,b:249ea1eddbbf215e,finance.services@yrdsb.ca,https://www2.yrdsb.ca/about-us/departments/finance-services,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00041,b:24c4106ea7b26061,approvisionnement.chum@ssss.gouv.qc.ca,https://www.chumontreal.qc.ca/repertoire/direction-lapprovisionnement-logistique,verified
+chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00472,b:24db21c683fdc1df,BuildNS.Procurement@novascotia.ca,https://buildns.ca/partner-with-us/procurement/,verified
+chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00472,b:24db21c683fdc1df,procurement@buildns.ca,https://buildns.ca/contact/,verified
 gemini,gemini_buyer_ap_results_batch05.csv,GE-AP-00451,b:25215411213cee5d,communications@csshbo.gouv.qc.ca,https://www.csshbo.gouv.qc.ca/fr/centre-services-scolaire/services-centralises/service-des-ressources-financieres-et-du-transport-scolaire,verified
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00530,b:252ba11daf8060f1,taxescolaire@csshl.gouv.qc.ca,https://csshl.gouv.qc.ca/communaute/citoyens/taxe-scolaire/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01754,b:254a7b31b4d309b9,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
@@ -1389,6 +1391,7 @@ chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00031,b:95554f5140997db9,Hydr
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00031,b:95554f5140997db9,HydroAPInquiries@nlh.nl.ca,https://nlhydro.com/wp-content/uploads/2025/02/Supply-Chain-Supplier-Information-Manual.pdf,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00030,b:9555b37482374bd6,servicealaclientele@cag.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/centre-acquisitions-gouvernementales/coordonnees-structure/generales,verified
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01004,b:9575143ed1d991ec,tech.comptabilite@villededisraeli.com,https://www.villededisraeli.ca/fr/nous-joindre/,verified
+chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00474,b:95b5e0b33b230c7b,finance@sudburycatholicschools.ca,https://www.sudburycatholicschools.ca/wp-content/uploads/2019/02/Purchase-Order-General-Terms-and-Conditions.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00491,b:95bd2d2c52e811fb,comptespayables@lachute.ca,https://lachute.ca/bottin-des-employes/,verified
 gemini,gemini_buyer_ap_results_batch05.csv,GE-AP-00491,b:95bd2d2c52e811fb,lachute@lachute.ca,https://lachute.ca/services-municipaux/,not_found_on_page
 chatgpt,chatgpt_buyer_ap_results_batch04.csv,CH-AP-00311,b:960fad463ba46814,AccountsPayable@edc.ca,https://www.edc.ca/en/about-us/corporate/procurement.html,verified
@@ -1473,6 +1476,7 @@ chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00250,b:a0ddebdc6ff16eb7,APSe
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00250,b:a0ddebdc6ff16eb7,revenueltcbilling@islandhealth.ca,https://www.islandhealth.ca/patients-and-visitors/fees-and-payments/how-pay-hospital-bill,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00250,b:a0ddebdc6ff16eb7,revenuediagnosticbilling@islandhealth.ca,https://www.islandhealth.ca/patients-and-visitors/fees-and-payments/payments-work-related-injuries,verified
 gemini,gemini_buyer_ap_results_batch10.csv,GE-AP-00933,b:a10128b36aa970f1,admin@ville.st-fulgence.qc.ca,https://www.stfulgence.ca/municipal/employes-municipaux/,verified
+chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00476,b:a10757f19bc8c336,physicians@wcb.ns.ca,https://www.wcb.ns.ca/service-providers/physicians/billing,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00633,b:a10d9d58b1745b36,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00779,b:a1102946ef30b370,info@riviere-rouge.ca,https://www.riviere-rouge.ca/nous-joindre,verified
 gemini,gemini_buyer_ap_results_batch14.csv,GE-AP-01346,b:a161c27270d88cb1,admin@mun-havelock.ca,https://mun-havelock.ca/nous-joindre/,verified
@@ -1607,6 +1611,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01403,b:b277952339db402e,suppli
 gemini,gemini_buyer_ap_results_batch05.csv,GE-AP-00454,b:b3288afbbd395926,com@collegealma.ca,https://www.collegealma.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01773,b:b3349a6c979e4859,purchasing@cdsbeo.on.ca,https://www.cdsbeo.on.ca/our-board/departments/business/,verified
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00747,b:b392cdcb59419e19,info@sldg.ca,https://sldg.ca/services-aux-citoyens/greffe-et-administration/evaluation-et-taxation/,verified
+chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00475,b:b3974de3c5a9d298,info@divertns.ca,https://divertns.ca/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00476,b:b39e9c2fc1702c1b,comptes.payables@cssob.gouv.qc.ca,https://www.cssob.gouv.qc.ca/cssob/services,verified
 gemini,gemini_buyer_ap_results_batch05.csv,GE-AP-00476,b:b39e9c2fc1702c1b,info@cssob.gouv.qc.ca,https://www.cssob.gouv.qc.ca/nous-joindre,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01695,b:b3a63e5c88878567,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
@@ -1813,6 +1818,8 @@ chatgpt,chatgpt_buyer_ap_results_batch04.csv,CH-AP-00354,b:c9cb2b15624c46b7,vend
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00354,b:c9cb2b15624c46b7,procurement@aglc.ca,https://aglc.ca/about/doing-business-aglc,verified
 gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00336,b:c9cbcfb120a8c583,fraisaccessoirescliniques.dl.ciussscn@ssss.gouv.qc.ca,https://www.quebec.ca/sante/systeme-et-services-de-sante/regimes-dassurance/frais-accessoires/liste-repondants-gestion-approvisionnement-fournitures-medicaments-cliniques,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01305,b:caa5a4ef7fad5ba9,accounting@diamondvalley.town,https://www.diamondvalley.town/176/Finance,verified
+chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00473,b:cabd9938fc63d038,ProcurementInfo@catsa.gc.ca,https://www.catsa-acsta.gc.ca/en/publications/procurement-and-contracting,verified
+chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00473,b:cabd9938fc63d038,ProcurementInfo@acsta.gc.ca,https://www.catsa-acsta.gc.ca/fr/publications/acquisitions-et-contrats,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00473,b:cabd9938fc63d038,procurementinfo@catsa.gc.ca,https://www.catsa-acsta.gc.ca/en/publications/procurement-and-contracting,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00473,b:cabd9938fc63d038,procurementinfo@acsta.gc.ca,https://www.catsa-acsta.gc.ca/fr/publications/faire-affaire-avec-acsta,verified
 gemini,gemini_buyer_ap_results_batch12.csv,GE-AP-01195,b:cac15a62d2e32f4d,adm@saintbarnabesud.ca,https://saintbarnabesud.ca/contact-us/,verified
