@@ -141,6 +141,9 @@
 - Shared purchasing can retain separate AP: GreyBruce joint tender documents explicitly name each boards invoice mailbox/postal route. SouthShore/TriCounty sharedfinance alone does not resolve a historical combinedbuyer label or prove one centres EFT role covers both.
 - Current WBG corporate invoice guidance covers member purchases, including IBRD/IFC defined in its terms, not borrower procurement. AskAccounting handles VendorKiosk access; actual invoice destinations come from the PO/contract. VendorManagementPortal onboarding and old WBGeProcure/VKP banking paths coexist; two public pages differ by one day on the April2026 cutoff, so retain the conflict and do not invent a uniform cutover.
 
+- A current successor financial statement can resolve legacy payer identity: BuildNS2026 notes expressly transfer formerNSLands/DevelopNS liabilities. That supports successor scope, but a procurement mailbox still does not prove the invoice intake route, and current templates do not automatically override legacy contracts.
+- A current municipal host may retain PDFs for another entity: ShelburneNS search results include DistrictShelburne MDS tenders while the current task is TownShelburne. Verify the actual purchaser inside each document; do not assign the district’s named contact or postal destination to the town. Follow current2026 town tenders for contract-specific invoicing conditions.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
