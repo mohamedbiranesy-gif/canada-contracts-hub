@@ -121,6 +121,11 @@
 - AVRCE migrated old document-library/page links to current /download/ links. Follow the live Procurement page for its current General Terms; do not copy AP email/phone from stale indexed forms that now404. Historical school-board identity/payment continuity can remain unclear.
 - Scanned BC FOI contracts can publish real organizational billing contacts (STADD Alliance/Vendor Management Office), but retain the2018-2019 contract scope and status unclear. A PO InvoiceTo block and vendor order BillTo block can even give different floors; retain that distinction. Current PPMB health-professional invoice instructions are a separate program, not ministry-wide AP.
 
+
+- Saskatchewan Social Services voucher invoices go to the address stamped on the requisition; the December2025 public Vendor Direct Deposit PDF independently publishes an IncomeAssistance EFT role even though the HTML email is protected. Keep voucher/IncomeAssistance scope and first-enrollment invoice condition; no protected-email decoding needed.
+- EDC English/French ForSuppliers pages publish distinct AccountsPayable and Comptescrediteurs invoice roles with the same AP postal/fax route. Keep both actual mailboxes; a supplier-registration form is not invoice upload, and the pages historical2010 provincial tax-rate paragraph is not current tax guidance.
+- BCs public staff directory now says employee and organizational information require government credentials. Treat that as an access restriction even with HTTP200; do not copy stale indexed staff details or open the internal login route.
+
 ## Patterns learned (jules)
 
 ## Patterns learned (codex)
