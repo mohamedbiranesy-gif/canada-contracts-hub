@@ -214,3 +214,35 @@ No authentication refusal or owner action; final partial validated and committed
 Buyer batch07 checkpoint:63 rows/60 task IDs CH-AP-00601–00660 (11 found/26 unclear/15 not_published/11 blocked),0 task-file validation problems; all185 primary/field quotes literal in cached opened sources and <=300 characters. This run added42 rows/41 buyers620–660 via append_row.py, with ten-row pushes bca466f,2c8678e,1c266d2,3aba677 and final partial658–660 included here. Next open CH-AP-00661 Township of Perth South; batch07 remains in progress.
 Verified Arnprior and ParrySound AP roles/phones, Chester vendor-EFT role/phone and PO conditions, DistrictShelburne vendor-EFT role plus scoped2024 contract invoice postal route, and CHEO new current-linked POterms/payables mailbox after indexed PDF404. OldsCollege current-linked2015 payment rules extracted with PyMuPDF after pypdf collapsed word spaces; original bytes/extraction retained. Chester public Laserfiche PO PDF opened in browser and its displayed electronic-file URL cached; EFT form requirements read without inputs/uploads/signature/submission, with supplemental visible-browser text cached. NL central invoice roles remain candidates only for generic ExecutiveCouncil buyers lacking province/contract context; SaskBuilds ministry versus Corporation unresolved. Protected/named mailboxes excluded, actual Tiny/ISI/NOTL/SUMA/Stettler CAPTCHA stopped, no bypass. All newly saved quoted emails are organizational roles.
 mac_sync15:28 succeeded: uploaded gemini/sync-20261027-152818 with4 new-row/line files and refreshed87 instructions; no manual Gemini checkout changes, authentication refusal or owner action. Existing rescue/batch01 work preserved. Reusable patterns added to PLAYBOOK; generated NEXT/STATUS untouched. Continuation remains active for ascending buyer/vendor/international research; no source-building.
+## [2026-10-27] gemini -> claude — Completed gemini_vendor_contacts_batch04 (100/100, 0 problems)
+- **Counts**: `found`: 31, `website_only`: 24, `not_found`: 43, `blocked`: 2 (`GE-VC-00301`..`GE-VC-00400`).
+- **Patterns**: Construction directories (TrouverUnEntrepreneur/APCHQ, Constructo BâtiGuide, Construction411) and regional economic directories (Choisir La Tuque, Agriconseils, Aliments du Québec) consistently yield verified exact addresses, phones, and role emails when primary domains are inactive or parked; several sites use DOM text reversal (`toiture.com`) or bracket obfuscation (`cfroy.com`, `mrcdesappalaches.ca`) recorded as `website_only`.
+- **Needs**: None — proceeding immediately to `gemini_vendor_contacts_batch05.csv`.
+## [2026-10-27] gemini -> claude — Completed gemini_vendor_contacts_batch05 (100/100, 0 problems)
+- **Counts**: `found`: 26, `website_only`: 41, `not_found`: 32, `blocked`: 1 (`GE-VC-00401`..`GE-VC-00500`).
+- **Patterns**: Pharmaceutical manufacturers and specialized suppliers publish official product monographs or FDA/Health Canada contact disclosures (`medinfo@sandoz.com`, `sales@medicom.com`); large contractors (TBC, LFG, Constructions Binet, Excavation Bolduc, GMI, Lou-Vil) publish dedicated public general role mailboxes (`admin@tbc.qc.ca`, `info@constructionlfg.com`, `infos@lesconstructionsbinet.com`, `info@excavationbolduc.com`, `construction@gillesmaloinc.ca`); heavy industrial equipment and translation vendors use `info@r2i.ca`, `info@versacom.ca`.
+- **Needs**: None — moving immediately to `gemini_vendor_contacts_batch06.csv`.
+## [2026-10-27] gemini -> claude — Completed gemini_vendor_contacts_batch06 (100/100, 0 problems)
+- **Counts**: `found`: 34, `website_only`: 21, `not_found`: 44, `blocked`: 1 (`GE-VC-00501`..`GE-VC-00600`).
+- **Patterns**: Engineering firms, electrical/excavation contractors, defense manufacturers, and technical service providers frequently host active official portals with verified role mailboxes (`info@`, `contact@`, `bonjour@`, `estimation@`, `translation@`, `service@`, `direction@`, `facturation@`); anti-spam obfuscation and form-only setups properly recorded as `website_only`; corporate entities (GD-OTS, Surgmed, Forchemex, YRH, Labrie, Synergie) maintain verified multi-facility contacts.
+- **Needs**: None — moving immediately to `gemini_vendor_contacts_batch07.csv`.
+## [2026-10-27] gemini -> claude — Completed gemini_vendor_contacts_batch07 (100/100, 0 problems)
+- **Counts**: `found`: 33, `website_only`: 16, `not_found`: 51, `blocked`: 0 (`GE-VC-00601`..`GE-VC-00700`).
+- **Patterns**: Specialized equipment vendors, municipal/transport contractors, medical device distributors, and architectural firms maintain active verified portals with verified role mailboxes (`info@`, `admin@`, `service@`, `payables@`, `centrale@`); retail branches and uniform portals without public emails recorded as `website_only`.
+- **Needs**: None — moving immediately to `gemini_vendor_contacts_batch08.csv`.
+## [2026-10-27] gemini -> claude — Completed gemini_vendor_contacts_batch08 (100/100, 0 problems)
+- **Counts**: `found`: 31, `website_only`: 29, `not_found`: 40, `blocked`: 0 (`GE-VC-00701`..`GE-VC-00800`).
+- **Patterns**: Geotechnical laboratories (LEQ), civil/paving contractors (ACI, Pierre Blouin, Sixnar, St-Denis Thompson, Pavage Lafleur, Constructions de l'Amiante), elevator firms (Adams, Innovatec), and architectural practices (DBA, DMA) publish direct role mailboxes (`info@`, `reception@`, `sales@`, `recevables@`, `accounting@`); national distributors and corporate portals without public general emails recorded as `website_only`.
+- **Needs**: None — moving immediately to `gemini_vendor_contacts_batch09.csv`.
+- [2026-04-20] Completed `gemini_vendor_contacts_batch09.csv` -> `data/incoming/gemini/gemini_vendor_contacts_results_batch09.csv` (100/100 rows, 0 validation problems).
+  Status breakdown: `found`: 42, `website_only`: 15, `not_found`: 42, `blocked`: 1.
+  Proceeding immediately to `gemini_vendor_contacts_batch10.csv`.
+### 2026-04-01 — gemini — gemini_vendor_contacts_batch10.csv completed
+- Completed all 100/100 rows (`GE-VC-00901`..`GE-VC-01000`) in `data/incoming/gemini/gemini_vendor_contacts_results_batch10.csv` (`0 problems` on `validate_returns.py`).
+- Status breakdown: `found`: 25, `website_only`: 17, `not_found`: 55, `blocked`: 3. Proceeding to `gemini_vendor_contacts_batch11.csv`.
+### 2026-04-01 — gemini — gemini_vendor_contacts_batch11.csv completed
+- Completed all 100/100 rows (`GE-VC-01001`..`GE-VC-01100`) in `data/incoming/gemini/gemini_vendor_contacts_results_batch11.csv` (`0 problems` on `validate_returns.py`).
+- Status breakdown: `found`: 28, `website_only`: 13, `not_found`: 58, `blocked`: 1. Proceeding to `gemini_vendor_contacts_batch12.csv`.
+- [2026-04-20] Completed `gemini_vendor_contacts_batch12.csv` (100/100 rows, 0 validation problems).
+  - Breakdown: found=52, website_only=21, not_found=23, blocked=4.
+  - Proceeding immediately to `gemini_vendor_contacts_batch13.csv`.
