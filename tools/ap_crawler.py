@@ -216,11 +216,18 @@ def crawl(task, max_pages):
 
 
 def load_tasks():
-    tasks = {}
+    tasks, sites = {}, {}
+    p = os.path.join(STATE, "websites.tsv")  # written by tools/site_finder.py for buyers without a known website
+    if os.path.exists(p):
+        for line in open(p, encoding="utf-8"):
+            k, _, url = line.rstrip("\n").partition("\t")
+            sites[k] = url.split("\t")[0]
     for f in sorted(glob.glob("coord/tasks/*/*_buyer_ap_batch*.csv")):
         if "_verify_" in f:
             continue
         for r in csv.DictReader(open(f, encoding="utf-8-sig")):
+            if not (r.get("known_website") or "").strip() and sites.get(r.get("buyer_key")):
+                r["known_website"] = sites[r["buyer_key"]]
             if (r.get("known_website") or "").strip() and r.get("buyer_key") and r["buyer_key"] not in tasks:
                 tasks[r["buyer_key"]] = r
     verified = set()
@@ -272,9 +279,9 @@ def git(*a):
 def sync(final=False):
     """Commit new rows and push to main (rebased on the latest main); retried on the next cycle when it fails."""
     with out_lock:
-        if not os.path.exists(OUT) or not git("status", "--porcelain", OUT).stdout.strip():
+        if not git("status", "--porcelain", "data/incoming/claude").stdout.strip():
             return
-        git("add", OUT)
+        git("add", "data/incoming/claude")
         git("commit", "-q", "-m", "[claude] ap_crawler: buyer invoicing contacts (%d sites read, %d rows so far)"
             % (stats["sites"], stats["rows"]))
     for attempt in range(3):
@@ -329,8 +336,8 @@ def main():
             sync()
         if a.limit or a.max_seconds:
             break
-        log("queue done; checking for new batches in 6 hours", stats)
-        stop.wait(min(6 * 3600, max(0, deadline - time.time())))
+        log("queue done; checking for new buyers in 1 hour", stats)
+        stop.wait(min(3600, max(0, deadline - time.time())))
     stop.set()
     sync(final=True)
     log("finished", stats)
