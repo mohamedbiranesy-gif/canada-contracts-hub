@@ -1,11 +1,11 @@
 {
- "reference_date": "2026-10-27",
- "verified_ca_records": 770539,
+ "reference_date": "2026-10-28",
+ "verified_ca_records": 770451,
  "unverified_records": 51346,
  "status_verified_ca": {
-  "ongoing": 82788,
+  "ongoing": 82721,
   "end_date_unknown": 366235,
-  "ongoing_inferred": 321516
+  "ongoing_inferred": 321495
  },
  "confidence_verified_ca": {
   "high": 78712,
@@ -157,13 +157,13 @@
   "record_enrichment_coverage": {
    "ca_records": 513143,
    "ca_buyer_enriched": 511684,
-   "ca_buyer_website": 714908,
-   "ca_vendor_website": 132125,
-   "ca_vendor_contact_any": 132125,
-   "ca_vendor_registry_match": 411523,
-   "ca_vendor_bn9": 127166,
-   "ca_buyer_invoice_portal": 16715,
-   "ca_buyer_ap_email": 580548,
+   "ca_buyer_website": 714823,
+   "ca_vendor_website": 173398,
+   "ca_vendor_contact_any": 175642,
+   "ca_vendor_registry_match": 411456,
+   "ca_vendor_bn9": 127149,
+   "ca_buyer_invoice_portal": 18979,
+   "ca_buyer_ap_email": 714234,
    "unverified_records": 51346,
    "unverified_vendor_registry_match": 13573,
    "unverified_vendor_bn9": 7443,
@@ -191,21 +191,24 @@
    "not_enriched": 104
   }
  },
- "last_rebuild": "2026-10-27T12:38:18Z",
+ "last_rebuild": "2026-10-28T13:08:49Z",
  "last_rebuild_report": {
-  "team_buyers_verified": 1563,
-  "team_vendors": 0,
-  "seao_api_end_dates": 40,
+  "team_buyers_verified": 2850,
+  "team_vendors": 1523,
+  "seao_api_end_dates": 50,
   "web_vendors_with_site": 17345,
   "orgbook_xp_matches": 2345,
-  "records_ap_extended": 119842,
-  "records_ap_added": 87117,
-  "moved_to_ended": 75,
-  "new_records_duplicate": 258896,
-  "new_records_vendor_matched": 1,
-  "new_records_buyer_matched": 1,
-  "new_records_added": 1,
-  "built_at": "2026-10-27T12:38:18Z",
-  "reference_date": "2026-10-27"
+  "records_ap_extended": 206950,
+  "records_ap_added": 128199,
+  "moved_to_ended": 90,
+  "records_vendor_patched": 54625,
+  "seao_status_upgraded": 21,
+  "new_records_duplicate": 258895,
+  "new_records_vendor_matched": 2,
+  "new_records_buyer_matched": 2,
+  "new_records_added": 2,
+  "records_orgbook_added": 1,
+  "built_at": "2026-10-28T13:08:49Z",
+  "reference_date": "2026-10-28"
  }
 }
