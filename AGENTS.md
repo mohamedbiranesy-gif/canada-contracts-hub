@@ -20,6 +20,11 @@ school districts/transit agencies, prime contractors in subaward data, other cou
 those first. Keep each buyer's website when the source has it: the no-AI crawler (tools/ap_crawler.py) finds the
 invoicing e-mail from the website.
 
+**Owner rule (2026-10-28): when a buyer publishes no invoicing/AP mailbox, save its purchasing/procurement role mailbox
+  (`ap_email_type=procurement`) or, failing that, its general role mailbox such as info@ / reception@ / greffe@
+  (`ap_email_type=general`), with status `found` and a note saying no invoicing mailbox is published.** Still never
+  a named person. `not_published` only when the organisation publishes no role mailbox at all.
+
 You are a **lead**, not a worker. Your queue tells you where to start. If you see a better method, a missing source
 or a bug, act on it: do it, write it down (section 6), and tell the others.
 

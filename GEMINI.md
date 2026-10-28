@@ -69,6 +69,10 @@ your folder, because you cannot pull.
   `purchasing@`). Use it only when no invoicing / AP mailbox is published.
 - `applies_to=parent_central_ap` only when the buyer is part of that parent (for example an installation of a CIUSSS)
   and the parent's page is the one you quote. Say which parent in `notes`.
+- **Owner rule (2026-10-28): when a buyer publishes no invoicing/AP mailbox, save its purchasing/procurement role mailbox
+  (`ap_email_type=procurement`) or, failing that, its general role mailbox such as info@ / reception@ / greffe@
+  (`ap_email_type=general`), with status `found` and a note saying no invoicing mailbox is published.** Still never
+  a named person. `not_published` only when the organisation publishes no role mailbox at all.
 - One row per mailbox. Do not save the same mailbox twice for the same task id.
 - `not_published` only after you have looked at: the "Fournisseurs" / "Faire affaire avec nous" section, the
   invoicing requirements or purchase-order terms PDF ("exigences de facturation", "conditions générales d'achat"), and

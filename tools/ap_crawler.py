@@ -40,7 +40,8 @@ NOT_AP = re.compile(r"plainte|complaint|recevable|receivable|patient|usager|empl
                     r"benevol|volunteer|fondation|foundation|donat|webmaster|privacy|confidential|rh[._-]|^rh$|hr[._-]|^hr$", re.I)
 CONTEXT_AP = re.compile(r"factur|invoice|payable|comptes? (à|a) payer|paiement|payment|fournisseur|supplier|vendor", re.I)
 BLOCK_RX = re.compile(r"captcha|cf-challenge|challenge-platform|attention required|access denied|are you a robot", re.I)
-RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "procurement": 3}
+RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "procurement": 3, "general": 4}
+GENERAL = re.compile(r"^(info|contact|contactus|reception|admin|administration|general|greffe|mairie|municipalite|townhall|cityhall|clerk|office|bureau|secretariat|accueil|hello|inquiries|enquiries|renseignements)([._-]|$)", re.I)
 TODAY = datetime.date.today().isoformat()
 
 host_lock, host_next, robots = threading.Lock(), {}, {}
@@ -128,10 +129,12 @@ def quote_for(email, text, raw):
     return ""
 
 
-def classify(email, context):
+def classify(email, context, general=False):
     local = email.split("@")[0]
-    if NOT_AP.search(local) or not AP_LOCAL.search(local):
+    if NOT_AP.search(local):
         return None
+    if not AP_LOCAL.search(local):  # owner rule (2026-10-28): a general role mailbox only when no AP/procurement one
+        return "general" if general and GENERAL.search(local) and EMAIL.match(email) else None
     if not EMAIL.match(email) or (PERSONAL.match(local) and not ROLE_HINT.search(local)):
         return None
     if re.search(r"factur|invoice|bill", local, re.I):
@@ -155,7 +158,7 @@ def links(raw, base):
         yield urllib.parse.urljoin(base, href), label
 
 
-def crawl(task, max_pages):
+def crawl(task, max_pages, general=False):
     start = task["known_website"].strip()
     if not start.startswith("http"):
         start = "https://" + start
@@ -191,7 +194,7 @@ def crawl(task, max_pages):
                 continue
             q = quote_for(e, text, raw)
             i = text.lower().find(e)
-            kind = classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q)
+            kind = classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q, general)
             if kind and q:
                 found[e] = (RANK[kind] * 100 + neg, kind, final, q)
         if is_pdf or depth >= 3:
@@ -211,7 +214,7 @@ def crawl(task, max_pages):
              "invoicing_requirements_summary": "", "applies_to": "whole_organisation", "evidence_url": url,
              "evidence_quote": q, "retrieved_date": TODAY, "status": "found",
              "queries_tried": "site crawl of %s (%d pages, robots.txt respected), no AI, no search engine" % (host0, pages),
-             "notes": "found on the buyer's own site by tools/ap_crawler.py"} for e, (_, kind, url, q) in best]
+             "notes": "found on the buyer's own site by tools/ap_crawler.py" + ("; general role mailbox: no invoicing, AP or purchasing mailbox found on the site" if kind == "general" else "")} for e, (_, kind, url, q) in best]
     return ("found" if rows else "nothing_found"), pages, rows
 
 
@@ -315,16 +318,16 @@ def main():
         tasks, done = load_tasks(), load_done()
         if a.limit:
             tasks = tasks[:a.limit]
-        for pass_no, max_pages in ((1, 25), (2, 60)):
+        for pass_no, max_pages in ((1, 25), (2, 60), (3, 40)):
             todo = [t for t in tasks if (pass_no == 1 and t["buyer_key"] not in done) or
-                    (pass_no == 2 and done.get(t["buyer_key"], (0, ""))[0] < 2 and done.get(t["buyer_key"], (0, ""))[1] == "nothing_found")]
+                    (pass_no > 1 and done.get(t["buyer_key"], (0, ""))[0] < pass_no and done.get(t["buyer_key"], (0, ""))[1] == "nothing_found")]
             log("pass %d: %d sites" % (pass_no, len(todo)))
 
             def one(t, pass_no=pass_no, max_pages=max_pages):
                 if time.time() >= deadline:
                     return
                 try:
-                    result, pages, rows = crawl(t, max_pages)
+                    result, pages, rows = crawl(t, max_pages, general=(pass_no == 3))
                 except Exception as e:
                     result, pages, rows = "error:%s" % type(e).__name__, 0, []
                 save(t, pass_no, result, pages, rows)
