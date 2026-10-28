@@ -1,3 +1,8 @@
+> **Priority (owner, 2026-10-28):** pick the `todo` source in `coord/source_registry.csv` that brings the most NEW distinct
+> buyers (not the most contracts). If none fits, scout one (US city/county/state open checkbooks or contract registers with a
+> vendor country/address field, Canadian municipal/school/hospital disclosure lists) and build it. Record each buyer's
+> website when the source has it.
+
 # Standing orders — Jules (lane `jules`)
 
 You are Jules, the Gemini-family coding agent on this team. Read `AGENTS.md` first; it is binding.

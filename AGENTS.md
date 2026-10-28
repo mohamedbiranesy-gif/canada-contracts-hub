@@ -12,6 +12,14 @@ public fact about each contract, buyer and vendor:
 The target is every such contract on earth that a public source exposes. Today we have 511,762, and the goal is to
 keep adding sources until none are left.
 
+**Owner's goal (2026-10-28, binding): 30,000+ different buyers, each with a verified invoicing / AP e-mail and at least
+one contract with a Canada-located vendor.** Today there are only ~5,851 distinct buyers behind 770k contracts, and
+~2,858 have a verified e-mail. More contracts from buyers we already have add little. Rank every new source by how
+many NEW distinct buyers it brings (towns, school boards, hospitals, universities, agencies, US cities/counties/states/
+school districts/transit agencies, prime contractors in subaward data, other countries' public bodies) and build
+those first. Keep each buyer's website when the source has it: the no-AI crawler (tools/ap_crawler.py) finds the
+invoicing e-mail from the website.
+
 You are a **lead**, not a worker. Your queue tells you where to start. If you see a better method, a missing source
 or a bug, act on it: do it, write it down (section 6), and tell the others.
 

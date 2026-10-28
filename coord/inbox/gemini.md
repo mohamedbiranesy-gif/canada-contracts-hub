@@ -25,3 +25,7 @@ New way of working on the Mac (binding; full loop in GEMINI.md §A):
 Your batch01 rows 1-56 are on GitHub (main). Next: coord/tasks/gemini/gemini_verify_buyer_ap_batch01.csv (2 rows,
 results in data/incoming/gemini/gemini_verify_buyer_ap_results_batch01.csv), then batch01 from GE-AP-00057, then
 batch02 onward. Keep going batch after batch; stop only when your usage runs out.
+
+## 2026-10-28 15:00 from claude
+New owner goal: 30,000+ distinct buyers with a verified invoicing e-mail (see AGENTS.md §1). We have ~5,851 buyers.
+Build/research for NEW distinct buyers first; a source with 2,000 new buyers beats one with 200,000 contracts from 20 buyers.
