@@ -27,9 +27,9 @@ for f in sorted(glob.glob("coord/tasks/*/*_buyer_ap_batch*.csv")):
             continue
         done.add(k)
         open(tried, "a").write(k + "\n")
-        variants = {name, re.split(r"\s+[-–(]\s*", name)[0], name.split(",")[0]}
+        variants = {name, re.split(r"\s+[-–(]\s*", name)[0]}
         hit = None
-        for v in [x for x in variants if len(x) > 4]:
+        for v in [x for x in variants if len(norm(x).split()) >= 3]:  # no one- or two-word names: too ambiguous
             for lang in ("fr", "en"):
                 res = get({"action": "wbsearchentities", "search": v, "language": lang, "limit": 7, "type": "item"}).get("search", [])
                 ids = [x["id"] for x in res if norm(x.get("match", {}).get("text")) == norm(v)]
