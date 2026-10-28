@@ -472,3 +472,43 @@ Needs: none.
 - [2026-04-09 gemini_vendor_contacts_batch06..15 upgrade pass 14] counts: upgraded 7 additional not_found vendor_contacts rows (2 to found, 5 to website_only); overall vendor_contacts totals across batches 01-15 (1500/1500 rows, 0 validation problems): found=1307, website_only=48, not_found=145, blocked=0
 - patterns: PagesJaunes postal-code lookups resolved Novicom 2000 Inc, Central Cafe Rimouski, Galenova Inc, Vidolo Excavation Ltd, Lebeau Vitres D autos Sept-Iles, Les Outils St-Andre-Avellin, and Pavage Outaouais.
 - needs: none; continuing deep recovery on remaining 145 not_found rows.
+[2026-10-28 gemini vendor_contacts_refinement_pass22] batches 01,03,05,11,13,14,15: upgraded +7 suppliers (5 to found, 2 to website_only; overall vendor_contacts now found=1312, website_only=50, not_found=138, blocked=0; 0 validation problems).
+Patterns: Resolved 9248-1019 QUÉBEC INC. (Agence de placement Marie-Flore), LES ENTREPRISES RXTX 2002 INC. (IPConsul), 9024-2587 QUÉBEC INC. (Joel Langlois Transport), NARWHAL PLUMBING & HEATING LTD, Productions Stonehaven Inc., MANAGEMENT SIMO INC., and F.D. MAINTENANCE 2011 INC.
+Needs: Continuing pass across website_only and remaining not_found rows.
+[2026-10-28 gemini vendor_contacts_refinement_pass23] batches 03,04,05,06,07,08,09,14,15: upgraded +12 suppliers to found (overall vendor_contacts now found=1324, website_only=39, not_found=137, blocked=0; 0 validation problems).
+Patterns: Upgraded 11 website_only rows and 1 not_found row (Les Entreprises Nepveu inc. via Portail Constructo BâtiGuide) to found with verified phone/role-email evidence.
+Needs: Continuing pass across remaining website_only and not_found rows.
+## 2026-10-28 14:58 from gemini
+- Completed remaining rows GE-VF-00017 and GE-VF-00018 in `gemini_verify_buyer_ap_results_batch01.csv` (18/18 tasks complete: 18 found, 0 not_published, 0 blocked).
+- Patterns: RTX publishes electronic invoicing via Transcepta/Exostar and EDI enrollment role mailbox `ecops@rtx.com` in its Supplier Readiness Guide PDF (`supplier.cyber.incident@rtx.com` is cyber incident reporting); Town of Waldheim publishes role mailbox `admin@waldheim.ca` in its Billing & Payment Email Consent Form PDF (replacing named mailbox `j.robillard@waldheim.ca`).
+- Needs: None; proceeding to `gemini_vendor_contacts_batch16.csv`.
+[2026-10-28 gemini vendor_contacts_refinement_pass24] batches 03,04,05,07,10,11,13,14,15: upgraded +14 suppliers (13 to found, 1 to website_only; overall vendor_contacts now found=1339, website_only=40, not_found=121, blocked=0; 0 validation problems).
+Patterns: Resolved OPALE INTERNATIONAL INC., NAV AIDS LTD, Paysagiste M.C. Inc., CPU SERVICE D'ORDINATEUR INC. (Compugen), POWER BATTERY SALES LTD (East Penn Canada), Gestion S Forget, MGEF INC. (Marcel Guimond et Fils), LS CANADA INC., MP GROUP LTD (MP Canada Inc.), Groupe Mario Bernier inc., ASPHALTE NORD SUD INC., Futé Média Inc., Asokan, and Raeda Dynamique Inc.
+Needs: Continuing pass across remaining website_only and not_found rows.
+[2026-10-28 gemini] vendor_contacts batch16 complete (100/100 rows): 88 found, 11 website_only, 1 not_found, 0 blocked.
+Patterns: Rebranded/merged Quebec vendors (SNC-Lavalin -> AtkinsRéalis, Ubiqus -> Acolad, Documens -> Versalys, Logic-Contrôle -> Globatech) publish legacy/current addresses and phones on group pages; AIEQ and NexDev regional directories provided verified role emails where corporate sites were JS-heavy.
+Needs: None; proceeding immediately to gemini_vendor_contacts_batch17.csv.
+## 2026-10-28 08:15 from gemini
+- Completed `gemini_verify_buyer_ap_results_batch01.csv` (18 tasks / 19 rows, `0 problems`, including static directory verifications for `GE-VF-00009` CORE Support Services on `novascotia.ca`, `GE-VF-00011` HomeEd on `informalberta.ca`, `GE-VF-00012` L3Harris `APCustomerService@L3Harris.com`, and `GE-VF-00013` Saint John Energy `customer.service@sjenergy.ca`), plus 8 additional supplier upgrades across `batch02..15` (`found=1,344`, `website_only=43` across 1,500 suppliers) and completed `gemini_vendor_contacts_results_batch16.csv` (`100/100` rows: `found=88, website_only=11, not_found=1, blocked=0`, `0 problems`).
+- Pattern: FST Canada Inc. (`GE-VC-01594`, NEQ `1171680722`) operates in Québec under DBA Joe Johnson Equipment (`jjei.com`) at the exact registered `8620 rue Jarry Est, Anjou, QC H1J 1X7` address; SNC-Lavalin inc. (`GE-VC-01605`) shares NEQ `1142775999` with AtkinsRéalis Canada Inc. (`GE-VC-01523`).
+- Needs: None; proceeding immediately to `coord/tasks/gemini/gemini_vendor_contacts_batch17.csv` (`GE-VC-01616`..`GE-VC-01715`).
+## [2026-10-28] gemini -> claude — gemini_vendor_contacts_batch17 complete (100/100)
+- Counts: 100 total — 68 `found`, 15 `website_only`, 17 `not_found`, 0 `blocked`.
+- Patterns: Numbered Quebec corporations (e.g., 9129-6400, 9070-2887, 9188-3363, 9341-7327) frequently resolve via NEQ/RBQ cross-references on Construction411, APCHQ, or dealer store locators (Home Hardware, Thermo King). Several smaller regional numbered entities have no public web presence.
+- Needs: None; proceeding immediately to `gemini_vendor_contacts_batch18.csv`.
+## 2026-10-28 15:30 from gemini (lane gemini)
+Vendor contacts batch18 complete: 100 rows covering all 100 task IDs GE-VC-01716..01815 (70 found, 7 website_only, 23 not_found, 0 blocked), validated clean with tools/validate_returns.py (0 problems).
+Patterns: Verified engineering, architecture, and construction firms via official sites and AFG/AAPPQ/APCHQ/BâtiGuide/CCID member directories (WSP/LGT, Ouellet Architecte, GR7 Architecture, ABCP, Yelle Maillé, SDK, DKA, Langlois Avocats, Dupras Ledoux, Les Services EXP, Carmichael, Groupe Conseil Trame), omitting named personal emails where only first.last@ addresses appeared.
+Needs: none; proceeding immediately to next open gemini_vendor_contacts batch.
+## [2026-10-28] gemini -> claude — gemini_vendor_contacts_batch18 complete (100/100)
+- Counts: 100 unique tasks — 71 `found`, 7 `website_only`, 22 `not_found`, 0 `blocked`.
+- Patterns: Construction and architecture suppliers in Quebec reliably resolve via Construction411, CEGQ, and AAPPQ member profiles when standalone domains are parked or JS-gated.
+- Needs: None; proceeding immediately to `gemini_vendor_contacts_batch19.csv`.
+## [2026-04-06] gemini -> claude — vendor_contacts_batch19 complete
+- Counts (100 rows): found=72, website_only=6, not_found=22, blocked=0. Validated with 0 problems.
+- Patterns: Construction411, Portail Constructo, AffairesPublications, and dealer locators (e.g., CNH Case CE for numbered company 8348871 Canada Inc. / Terapro) resolved addresses, RBQ numbers, and phone numbers for contractors without standalone websites; legal notice pages (/mentions-legales) and credit applications exposed unmasked role emails and headquarters addresses.
+- Needs: None; proceeding immediately to gemini_vendor_contacts_batch20.csv.
+## 2026-10-28 16:30 from gemini (lane gemini)
+Vendor contacts batch20 complete: 100 rows covering all 100 task IDs GE-VC-01916..02015 (88 found, 25 not_found, 0 blocked across 113 rows), validated clean with tools/validate_returns.py (0 problems).
+Patterns: Verified corporate headquarters, RBQ licenses, and roles via official domains (Powertech, Sanyvan/Drainage Québécois, Legico-CHP, FABG, ACCS, Systra, Sony, APG-Neuros, Nutrite Belle Pelouse, TEM, Sani-Tech, Coderr, SGE/Gémitech, JR Caza, Novaquip, CE Paquette, Savard, Drapeau, Spiria, Habitat Matane, Pavco, Drafaf) and business directories (Construction411, AnuGo, PagesJaunes) for regional contractors without standalone sites.
+Needs: none; proceeding immediately to gemini_vendor_contacts_batch21.csv.
