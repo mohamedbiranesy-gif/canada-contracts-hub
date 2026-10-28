@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-11316,v:274a1689f2d22853,Thompson Conn Limited,,,Halifax,NS,B3S1A7,1,1,thompsonconn.ca thompsonconn.com thompson-conn.ca thompson-conn.com
+CH-VC-11317,v:ba25a26b42268427,"Well Engineered, Inc.",,,Dartmouth,NS,B3B 1S4,1,1,wellengineered.ca wellengineered.com well-engineered.ca well-engineered.com
+CH-VC-11318,v:97a7c33633c52af1,BMR Structural Engneering,,,Halifax,NS,B3J 1G2,1,1,bmrstructuralengneering.ca bmrstructuralengneering.com bmr-structural-engneering.ca bmr-structural-engneering.com
+CH-VC-11319,v:a3de238f74f69d3f,Hydrodig 700184 AB LTD,,,Medicine Hat,AB,T1A 8E8,1,1,hydrodig700184ab.ca hydrodig700184ab.com hydrodig-700184-ab.ca hydrodig-700184-ab.com
+CH-VC-11320,v:b5f18718bf85904d,Castello Landscape Construction Limited,,,Brampton,ON,L6T 5G6,1,1,castellolandscapeconstruction.ca castellolandscapeconstruction.com
+CH-VC-11321,v:d26142c1c96b3df0,770940 Ontario Ltd o/a Henry's Lawn & Garden,,,Milton,ON,L9E 0K1,1,1,henryslawngarden.ca henryslawngarden.com henrys-lawn-garden.ca henrys-lawn-garden.com
+CH-VC-11322,v:e76f20efceb3f357,1532704 Ontario Inc.,,,Brampton,ON,L6T 4H8,1,1,
+CH-VC-11323,v:bd8b123acaf5a4f7,1846116 Ontario LTD,,,Mississauga,ON,L5T2C1,1,1,
+CH-VC-11324,v:b17e8df5590ba75c,GoJava Inc. (O/A Pantree),,,North York,ON,M3J 2C6,1,1,gojava.ca gojava.com
+CH-VC-11325,v:dba38ee592ffdb51,Tern Systems,TERN SYSTEMS,FM0512911,North Saanich,BC,V8L5K6,1,1,ternsystems.ca ternsystems.com tern-systems.ca tern-systems.com
+CH-VC-11326,v:6e0dc9f507aaa41e,"ProTech, Professional Technical Services Canada Inc.",,,Barrie,ON,L4N 0V5,1,1,
+CH-VC-11327,v:da318ec0e0d2f63e,Multi-Line Fastener Supply Co. Ltd.,,,Mississauga,ON,L5M 2R7,1,1,multilinefastenersupply.ca multilinefastenersupply.com multi-line-fastener-supply.ca multi-line-fastener-supply.com
+CH-VC-11328,v:8db82de8a44cd09c,A.B.A. Machine & Welding (Barrie) Inc.,,,Barrie,ON,L4N 9A1,1,1,bmachinewelding.ca bmachinewelding.com b-machine-welding.ca b-machine-welding.com
+CH-VC-11329,v:e865bc6d4e3b9900,968502 Ontario Inc.,,,Fenwick,ON,L0S 1C0,1,1,
+CH-VC-11330,v:52d51d47c91e306d,J.C. Bakker & Sons Ltd,,,St. Catharines,ON,L2R 6P9,1,1,jcbakkersons.ca jcbakkersons.com j-c-bakker-sons.ca j-c-bakker-sons.com
+CH-VC-11331,v:e2eb40f4f36256e1,Ball Superior,,,Kleinburg ,ON,L0J 1C0,1,1,ballsuperior.ca ballsuperior.com ball-superior.ca ball-superior.com
+CH-VC-11332,v:0caa8dc19581e3f8,M. Van Noort & Sons Bulb Company,,,St. Catharines,ON,L2R 6P9,1,1,mvannoortsonsbulb.ca mvannoortsonsbulb.com m-van-noort-sons-bulb.ca m-van-noort-sons-bulb.com
+CH-VC-11333,v:56e6d91a1a92c000,Devroomen Bulb Canada INc,,,Niagara Falls,ON,L2H0Y5,1,1,devroomenbulbcanada.ca devroomenbulbcanada.com devroomenbulb.ca devroomenbulb.com devroomen-bulb-canada.ca devroomen-bulb-canada.com
+CH-VC-11334,v:747e13fbe51ea4e7,Vanco Flowers Ltd.,,,Mount Albion,PE,C1B 3S5,1,1,vancoflowers.ca vancoflowers.com vanco-flowers.ca vanco-flowers.com
+CH-VC-11335,v:9585667de09036c5,John Slaman Greenhouses Ltd.,,,Burford,ON,N0E 1A0,1,1,johnslamangreenhouses.ca johnslamangreenhouses.com john-slaman-greenhouses.ca john-slaman-greenhouses.com
+CH-VC-11336,v:4fdeedaed2eef3a9,Shoppers Drug Mart 298,,,Whitehorse,YT,Y1A2S3,1,1,shoppersdrugmart298.ca shoppersdrugmart298.com shoppers-drug-mart-298.ca shoppers-drug-mart-298.com
+CH-VC-11337,v:bb3ac45bc30fe606,Rigstar Communications Inc,,,Calgary,AB,T2E 6J8,1,1,rigstarcommunications.ca rigstarcommunications.com rigstar-communications.ca rigstar-communications.com
+CH-VC-11338,v:851b305890f9b635,KHALSA TRANSPORT,,,Brampton,ON,L6P 0P3,1,1,khalsatransport.ca khalsatransport.com khalsa-transport.ca khalsa-transport.com
+CH-VC-11339,v:90d72068a4a25c68,Harmeek Transport Inc,,,Brampton,ON,L6X 0W1,1,1,harmeektransport.ca harmeektransport.com harmeek-transport.ca harmeek-transport.com
+CH-VC-11340,v:bc169a0d9fc45a31,HK United Trucks Limited,,,Mississauga,ON,L5T1N7,1,1,hkunitedtrucks.ca hkunitedtrucks.com hk-united-trucks.ca hk-united-trucks.com
+CH-VC-11341,v:46c6c0649851efb9,Jap Gobind Transport Ltd,,,BOLTON,ON,L7E1G9,1,1,japgobindtransport.ca japgobindtransport.com jap-gobind-transport.ca jap-gobind-transport.com
+CH-VC-11342,v:ee20815598e6590d,Dashino Excavating Inc.,,,Brampton ,ON,L6Y3K3,1,1,dashinoexcavating.ca dashinoexcavating.com dashino-excavating.ca dashino-excavating.com
+CH-VC-11343,v:ee418cf06f72b2a4,Pattison ID,,,Pickering  ,ON,L1W 3R7,1,1,pattisonid.ca pattisonid.com pattison-id.ca pattison-id.com
+CH-VC-11344,v:2e48950075e52b8e,MOST EXCELLENT PRODUCTIONS INC.,,,STOUFFVILLE,ON,L4A 2Y3,1,1,mostexcellentproductions.ca mostexcellentproductions.com most-excellent-productions.ca most-excellent-productions.com
+CH-VC-11345,v:bc40a4739d01af12,Technical Design & Systems Inc.,,,Thornhill,ON,L4J 8M8,1,1,technicaldesignsystems.ca technicaldesignsystems.com technical-design-systems.ca technical-design-systems.com
+CH-VC-11346,v:920671b4e8a8262a,Public Disposal and Recycling Inc.,,,Vaughan,ON,L0J 1C0,1,1,publicdisposalrecycling.ca publicdisposalrecycling.com public-disposal-recycling.ca public-disposal-recycling.com
+CH-VC-11347,v:4cf5f6fe4c282ddb,Fastwel Contractors Inc.,,,Oshawa,ON,L1H 7K4,1,1,fastwelcontractors.ca fastwelcontractors.com fastwel-contractors.ca fastwel-contractors.com
+CH-VC-11348,v:fab5ed8c9fa766d3,Envirem Organics Inc.,,,Fredericton,NB,E3A 5J8,1,1,enviremorganics.ca enviremorganics.com envirem-organics.ca envirem-organics.com
+CH-VC-11349,v:4cab1c960a6b6ac7,M.T. Johnstone Construction Ltd.,,,London,ON,N6J 1G6,1,1,mtjohnstoneconstruction.ca mtjohnstoneconstruction.com m-t-johnstone-construction.ca m-t-johnstone-construction.com
+CH-VC-11350,v:f5f24856ce019f1d,London Cares Homeless Response Services,,,London,ON,N6B 1Y8,1,1,
+CH-VC-11351,v:c8307c711b14a080,Perpetually Innovative Homes Inc,,,London,ON,N5W 2Z1,1,1,perpetuallyinnovativehomes.ca perpetuallyinnovativehomes.com perpetually-innovative-homes.ca perpetually-innovative-homes.com
+CH-VC-11352,v:549093cbea05d5b3,Sanctuary Ministries of London,,,London,ON,N6A 2S5,1,1,sanctuaryministrieslondon.ca sanctuaryministrieslondon.com sanctuary-ministries-london.ca sanctuary-ministries-london.com
+CH-VC-11353,v:1e1cf5c4c1d732ad,Homes for Heroes Fooundation,,,Calgary,AB,T2S 2T4,1,1,homesforheroesfooundation.ca homesforheroesfooundation.com homes-for-heroes-fooundation.ca homes-for-heroes-fooundation.com
+CH-VC-11354,v:2dfda6295c97394a,Provincial Ready Mix,,,Placentia,NL,A0B 2Y0,1,1,provincialreadymix.ca provincialreadymix.com provincial-ready-mix.ca provincial-ready-mix.com
+CH-VC-11355,v:1a10b4c64bdc3f89,Ardent Equipment Ltd.,ARDENT EQUIPMENT LTD.,BC1407142,Courtenay,BC,V9N 3A1,1,1,ardentequipment.ca ardentequipment.com ardent-equipment.ca ardent-equipment.com
+CH-VC-11356,v:3868e8f73b003a50,JTE Claims Consultants Ltd.,,,Oakville,ON,L6J 1G7,1,1,jteclaimsconsultants.ca jteclaimsconsultants.com jte-claims-consultants.ca jte-claims-consultants.com
+CH-VC-11357,v:c7ce81001ac5decd,J.C.H. Pearson Consulting Inc.,,,Bolton,ON,L7E4G9,1,1,jchpearsonconsulting.ca jchpearsonconsulting.com j-c-h-pearson-consulting.ca j-c-h-pearson-consulting.com
+CH-VC-11358,v:27099e33272ae011,s.t.o.p Restaurant Supply,,,Kitchener,ON,N2B 3X2,1,1,stoprestaurantsupply.ca stoprestaurantsupply.com s-t-o-p-restaurant-supply.ca s-t-o-p-restaurant-supply.com
+CH-VC-11359,v:2cc73780827fff19,Ayrshire Housing Impact Fund II Limited Partnership,,,Calgary,AB,T2S2T8,1,1,
+CH-VC-11360,v:f74ac780182b6ae9,Timeline Solutions,,,Oshawa,ON,L1H 8B1,1,1,timelinesolutions.ca timelinesolutions.com timeline-solutions.ca timeline-solutions.com
+CH-VC-11361,v:1c65d70d28a38b8a,Barton Air Compressor Sales & Service Inc,,,Hamilton,ON,L8L 7A5,1,1,
+CH-VC-11362,v:96679c68edc30782,Joseph Rosselli Professional Corporation,,,Edmonton,AB,T5J 0H8,1,1,josephrosselliprofessional.ca josephrosselliprofessional.com joseph-rosselli-professional.ca joseph-rosselli-professional.com
+CH-VC-11363,v:9dc2b1cf1c26a6fe,1000510445 ONTARIO INC.,,,Town of Mono ,ON,L9V 1C3,1,1,
+CH-VC-11364,v:81cdeb5ed9327112,2297742 Ontario Inc. o/a Culp's Lawn Care,,,Drayton,ON,N0G 1P0,1,1,culpslawncare.ca culpslawncare.com culps-lawn-care.ca culps-lawn-care.com
+CH-VC-11365,v:0b110f811517c1c4,Ajac's Equipment,,,Nanaimo,BC,V9R5E7,1,1,ajacsequipment.ca ajacsequipment.com ajacs-equipment.ca ajacs-equipment.com
+CH-VC-11366,v:61d7d4cf25f95573,3316657 Nova Scotia Limited,,,Dartmouth,NS,B3B1L2,1,1,
+CH-VC-11367,v:5fd899ef20ddc240,Larcom Concrete Lifting LTD,,,Red deer,AB,T4P 0S1,1,1,larcomconcretelifting.ca larcomconcretelifting.com larcom-concrete-lifting.ca larcom-concrete-lifting.com
+CH-VC-11368,v:07b32764542142d3,Frontier Project Solutuions Ltd.,,,Calgary,AB,T2P 3E7,1,1,frontierprojectsolutuions.ca frontierprojectsolutuions.com frontier-project-solutuions.ca frontier-project-solutuions.com
+CH-VC-11369,v:0a04b20c93b222c8,M&E Business Systems Ltd.,,,Red Deer,AB,T4P1M5,1,1,mebusinesssystems.ca mebusinesssystems.com m-e-business-systems.ca m-e-business-systems.com
+CH-VC-11370,v:a259bf5dbc441f11,Hudco Electric Supply,,,Pickering,ON,L1W 4B5,1,1,hudcoelectricsupply.ca hudcoelectricsupply.com hudco-electric-supply.ca hudco-electric-supply.com
+CH-VC-11371,v:abb5a3819f9ba7d1,Lawrcon Electric and Machining Corp,,,Pickering,ON,L1W3T9,1,1,lawrconelectricmachining.ca lawrconelectricmachining.com lawrcon-electric-machining.ca lawrcon-electric-machining.com
+CH-VC-11372,v:80d99c1f7f361d68,Ernie Latif Consulting Inc.,,,Komoka,ON,N0L 1R0,1,1,ernielatifconsulting.ca ernielatifconsulting.com ernie-latif-consulting.ca ernie-latif-consulting.com
+CH-VC-11373,v:e4938e7328dedb8f,Suppa Roberts Consulting Inc,,,Bolton,ON,L7E 1V5,1,1,supparobertsconsulting.ca supparobertsconsulting.com suppa-roberts-consulting.ca suppa-roberts-consulting.com
+CH-VC-11374,v:b3a8a2c286659325,"Event Approvals, Inc (Eproval)",,,Vancouver,BC,V6Z 1S4,1,1,eventapprovals.ca eventapprovals.com event-approvals.ca event-approvals.com
+CH-VC-11375,v:8f80ae397c422bdf,R.W. Matthews Agencies Inc.,R.W. MATTHEWS AGENCIES INC.,BC0374293,Victoria,BC,V8X 2V1,1,1,rwmatthewsagencies.ca rwmatthewsagencies.com r-w-matthews-agencies.ca r-w-matthews-agencies.com
+CH-VC-11376,v:2f24fb18e9ad7deb,Twilight,,,Bolton,ON,L7E 2V6,1,1,twilight.ca twilight.com
+CH-VC-11377,v:d158a99ed0ece746,1189815 BC Ltd.,,,Delta,BC,V4K 4H2,1,1,
+CH-VC-11378,v:783660daa6f94b3f,Saugeen Agri Service Ltd.,,,Kenilworth,ON,NOG 2EO,1,1,saugeenagriservice.ca saugeenagriservice.com saugeen-agri-service.ca saugeen-agri-service.com
+CH-VC-11379,v:8eec6a432d4f8448,Brewmaster Coffee Enterprises (M.H.) Inc,,,MEDICINE HAT,AB,T1A 1K6,1,1,brewmastercoffeeenterprises.ca brewmastercoffeeenterprises.com brewmaster-coffee-enterprises.ca brewmaster-coffee-enterprises.com
+CH-VC-11380,v:df1e104c98683701,Mr.Squeegee Window Cleaning Inc,,,Vaughan,ON,L6A 2K2,1,1,mrsqueegeewindowcleaning.ca mrsqueegeewindowcleaning.com mr-squeegee-window-cleaning.ca mr-squeegee-window-cleaning.com
+CH-VC-11381,v:4e2ae19877f62494,2050666 AB LTD,,,Grande Prairie,AB,T8V 2X3,1,1,
+CH-VC-11382,v:04ca15ae5eb4ad7f,Municipal Insurance Association of British Columbia,,,Vancouver ,BC,V5Y 1E3,1,1,
+CH-VC-11383,v:0c007432051fefe4,8557276 Canada Inc.,8557276 Canada Inc.,8557276,Fort McMurray,AB,T9H 4G1,1,1,
+CH-VC-11384,v:9e3e8417292031a0,Geer Construction Ltd,,,sunderland,ON,L0C 1H0,1,1,geerconstruction.ca geerconstruction.com geer-construction.ca geer-construction.com
+CH-VC-11385,v:1ba1a16ad883c713,Yantha Backhoe & Trucking Ltd.,YANTHA BACKHOE & TRUCKING LTD,1165763245,Combermere,ON,K0J 1L0,1,1,yanthabackhoetrucking.ca yanthabackhoetrucking.com yantha-backhoe-trucking.ca yantha-backhoe-trucking.com transportyantha.ca transportyantha.com
+CH-VC-11386,v:6479963d0629240b,TMC Fencing Ltd,,,Kitchener,ON,N2K 2Y8,1,1,tmcfencing.ca tmcfencing.com tmc-fencing.ca tmc-fencing.com
+CH-VC-11387,v:a3b5e30761411c83,ADDISON CHEVROLET BUICK GMC CORVETTE LTD,,,MISSISSAUGA,ON,L4W2M7,1,1,
+CH-VC-11388,v:e948b3f23e23c90d,the carpet factory superstore,,,st. johns,NL,A1A1J1,1,1,carpetfactorysuperstore.ca carpetfactorysuperstore.com carpet-factory-superstore.ca carpet-factory-superstore.com
+CH-VC-11389,v:cb783248baf5235f,1126857 ONTARIO LTD  O/A D&R Mechanical,,,Newmarket,ON,L3Y 8C6,1,1,rmechanical.ca rmechanical.com r-mechanical.ca r-mechanical.com
+CH-VC-11390,v:5aad5bb4d7484b4c,Localintel,,,Vancouver,BC,V6C 0B2,1,1,localintel.ca localintel.com
+CH-VC-11391,v:0f6ab5e25f9becc8,Wesco DBA Hazmasters,,,Dartmouth,NS,B3B 0N8,1,1,hazmasters.ca hazmasters.com
+CH-VC-11392,v:8f55ff7cc382761f,Prince George Humane Society,PRINCE GEORGE HUMANE SOCIETY,S0064033,Prince George,BC,V2L 2Y8,1,1,princegeorgehumanesociety.ca princegeorgehumanesociety.com prince-george-humane-society.ca prince-george-humane-society.com
+CH-VC-11393,v:89df71c3b2c040eb,Bryan's Auction Service,,,Puslinch,ON,N0B2J0,1,1,bryansauctionservice.ca bryansauctionservice.com bryans-auction-service.ca bryans-auction-service.com
+CH-VC-11394,v:485485fdc788cf9b,S&B KESWICK MOTORS,,,Keswick,ON,L4P2E2,1,1,sbkeswickmotors.ca sbkeswickmotors.com s-b-keswick-motors.ca s-b-keswick-motors.com
+CH-VC-11395,v:b860e0e82194b331,Arlyn Enterprises,,,Calgary,AB,TC 1R4,1,1,arlynenterprises.ca arlynenterprises.com arlyn-enterprises.ca arlyn-enterprises.com
+CH-VC-11396,v:1fd67577e6696cf5,Coverall Uniform Linen & Mats LTD.,,,Fort McMurray ,AB,T9K 0T4,1,1,coveralluniformlinenmats.ca coveralluniformlinenmats.com coverall-uniform-linen-mats.ca coverall-uniform-linen-mats.com
+CH-VC-11397,v:0c34319f598a5e33,Under One Shed Ltd.,UNDER ONE SHED LTD.,BC1454344,Whistler,BC,V8E0C5,1,1,underoneshed.ca underoneshed.com under-one-shed.ca under-one-shed.com
+CH-VC-11398,v:bf7d599b506e5e1d,Tristar Hydrovacs Ltd.,,,Fort McMurray,AB,T9H 0H1 ,1,1,tristarhydrovacs.ca tristarhydrovacs.com tristar-hydrovacs.ca tristar-hydrovacs.com
+CH-VC-11399,v:7fc7b563d2d3c252,O'Driscoll Investment Ltd.,,,Brampton,ON,L6T 4L1,1,1,odriscollinvestment.ca odriscollinvestment.com odriscoll-investment.ca odriscoll-investment.com
+CH-VC-11400,v:0ba55a2be9a68990,FRANCONIA ENTERPRISES LIMITED O\A CITY CLEAN,,,Mississauga,ON,L5T 1E6,1,1,franconiaenterprisesocityclean.ca franconiaenterprisesocityclean.com
+CH-VC-11401,v:a6bafb6372faf72a,Human Synergistics Canada,,,St. Marys,ON,N4X 1A2,1,1,humansynergisticscanada.ca humansynergisticscanada.com humansynergistics.ca humansynergistics.com human-synergistics-canada.ca human-synergistics-canada.com
+CH-VC-11402,v:4ac73d72d274915d,Main and Fifth Investments Inc.,,,Whitehorse,YT,Y1A 5W4,1,1,mainfifthinvestments.ca mainfifthinvestments.com main-fifth-investments.ca main-fifth-investments.com
+CH-VC-11403,v:a8bda35d0ab4207a,2576237 Ontario Inc,,,bailieboro,ON,K0L1B0,1,1,
+CH-VC-11404,v:fce28685fee3afec,Total Care Transport Services Inc.,,,Milton,ON,L9T2H6,1,1,totalcaretransportservices.ca totalcaretransportservices.com total-care-transport-services.ca total-care-transport-services.com
+CH-VC-11405,v:375806461070593c,Arbeiter Electric,,,Limehouse,ON,L0P-1H0,1,1,arbeiterelectric.ca arbeiterelectric.com arbeiter-electric.ca arbeiter-electric.com
+CH-VC-11406,v:3d770068cbc9dc6c,Brian Cronk,,,Kirkfield,ON,K0M2B0,1,1,briancronk.ca briancronk.com brian-cronk.ca brian-cronk.com
+CH-VC-11407,v:fc3185d15dd057ad,minden hills property maintenance,,,minden,ON,K0M 2L1,1,1,mindenhillspropertymaintenance.ca mindenhillspropertymaintenance.com
+CH-VC-11408,v:3e17905d3533cf5b,Zarek Taylor Grossman Hanrahan LLP,,,Toronto,ON,M5G 1V2,1,1,zarektaylorgrossmanhanrahan.ca zarektaylorgrossmanhanrahan.com zarek-taylor-grossman-hanrahan.ca zarek-taylor-grossman-hanrahan.com
+CH-VC-11409,v:9bff28eff17c031b,Forbes Chochla LLP,,,Toronto,ON,M5G 1Y8,1,1,forbeschochla.ca forbeschochla.com forbes-chochla.ca forbes-chochla.com
+CH-VC-11410,v:81cddbb4b0b01bb0,Grafton Property Maintenance Inc.,,,Markham,ON,L3R 0H7,1,1,graftonpropertymaintenance.ca graftonpropertymaintenance.com grafton-property-maintenance.ca grafton-property-maintenance.com
+CH-VC-11411,v:d02bd065cd1c6afe,K4B ENGINEERING INC.,K4B ENGINEERING INC.,BC1299925,North Vancouver,BC,V7L0C1,1,1,k4bengineering.ca k4bengineering.com k4b-engineering.ca k4b-engineering.com
+CH-VC-11412,v:cf3dac17a41f3d3a,Ambassador Building Maintenance Limited,,,Windsor,ON,N8Y 3L1,1,1,ambassadorbuildingmaintenance.ca ambassadorbuildingmaintenance.com
+CH-VC-11413,v:6c26e628a1444409,Jane Montgomery OA Montgomery Excavating,,,Old Crow,YT,Y0B 1N0,1,1,
+CH-VC-11414,v:64a0e36cef8e379e,Elvaan Equipment Solutions Inc,,,Oro-Medonte,ON,L3V 0R4,1,1,elvaanequipmentsolutions.ca elvaanequipmentsolutions.com elvaan-equipment-solutions.ca elvaan-equipment-solutions.com
+CH-VC-11415,v:2942330dd17490a4,Lead with Intention Inc,,,Surrey ,BC,V3Z0J6,1,1,leadwithintention.ca leadwithintention.com lead-with-intention.ca lead-with-intention.com

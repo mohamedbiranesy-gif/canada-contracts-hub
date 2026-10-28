@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-05116,v:e5a91d9495d18e5b,385267 ALBERTA LTD,,,LETHBRIDGE,AB,T1H 5H3,2,2,
+CH-VC-05117,v:9c322887376cd9ac,RTS Companies Inc,,,St.Clements,ON,N0B2M0,2,2,rtscompanies.ca rtscompanies.com rts-companies.ca rts-companies.com
+CH-VC-05118,v:27b5f1b815f8611a,airforced daylighting ltd.,,,alix,AB,T0C 0B0,2,2,
+CH-VC-05119,v:ad64521d5cef25ca,621089 Ontario Ltd.,,,Barrie,ON,L4N 9W8,2,2,
+CH-VC-05120,v:177daae237f48b97,Ontario General and Marine Construction Inc.,,,Niagara-on-the-Lake,ON,L0S 1J0,2,2,
+CH-VC-05121,v:5c995bbb81b028b8,Maverick Ag Ltd.,,,Saskatoon,SK,S7K 2C7,2,2,maverick.ca maverick.com
+CH-VC-05122,v:b16ed5a32b0df9ff,Glacial Aggregates Inc.,,,Winnipeg,MB,R3P 0X8,2,2,glacialaggregates.ca glacialaggregates.com glacial-aggregates.ca glacial-aggregates.com
+CH-VC-05123,v:0af32a66ab7833e9,FONEMED North America Inc,,,St. John's,NL,A1B 3Y8,2,2,fonemednorthamerica.ca fonemednorthamerica.com fonemed-north-america.ca fonemed-north-america.com
+CH-VC-05124,v:89c8cf53fa09db42,CAMPBELL BROS. MOVERS LTD o/a Canada Moving/TransferEASE Relocation Inc.,LES DÉMÉNAGEMENT CAMPBELL BROS,1144264687,London,ON,N6N 1A9,2,2,movingtransfereaserelocation.ca movingtransfereaserelocation.com demenagementcampbellbros.ca demenagementcampbellbros.com demenagement-campbell-bros.ca demenagement-campbell-bros.com
+CH-VC-05125,v:13f000fb57cac8d9,Traductions Freynet-Gagné Translations,,,Winnipeg,MB,R2M 2P2,2,2,
+CH-VC-05126,v:13c22030e488674f,Mercer MGMT Inc. O/A DCM Electric,,,St. John's,NL,A1B 0N3,2,2,dcmelectric.ca dcmelectric.com dcm-electric.ca dcm-electric.com
+CH-VC-05127,v:06f227fa03e1ca9e,10255613 MANITOBA,,,Hanover,MB,R0A 0V1,2,2,
+CH-VC-05128,v:b532dce3bedcb6b0,Boldly Creative Agency INc,BOLDLY CREATIVE AGENCY INC.,BC0979724,Vancouver,BC,V5Y 1E6,2,2,boldlycreativeagency.ca boldlycreativeagency.com boldly-creative-agency.ca boldly-creative-agency.com
+CH-VC-05129,v:2bd791dd4a38dd2e,Sticks & Stones,,,Edmonton,AB,T5K 1N1,2,2,sticksstones.ca sticksstones.com sticks-stones.ca sticks-stones.com
+CH-VC-05130,v:19510b706e5ce9da,Canyon Contracting,,,Brandon,MB,R7A 5Y5,2,2,canyoncontracting.ca canyoncontracting.com canyon-contracting.ca canyon-contracting.com
+CH-VC-05131,v:9393ab37c1bde75c,Curio Research,CURIO RESEARCH LTD.,BC1090552,Vancouver,BC,v5y 1w6,2,2,curioresearch.ca curioresearch.com curio-research.ca curio-research.com
+CH-VC-05132,v:26eb91cd943ff2f4,Eagle Lake Turf & Landscape Supply,,,Calgary,AB,T1X0N2,2,2,eaglelaketurflandscapesupply.ca eaglelaketurflandscapesupply.com
+CH-VC-05133,v:4c12887f7d5b0217,Veritas Solutions,,,Edmonton,AB,T6C 0Z6,2,2,veritassolutions.ca veritassolutions.com veritas-solutions.ca veritas-solutions.com
+CH-VC-05134,v:129d37d3b930a5f6,Re:word Content Co.,,,Toronto,ON,M6K 3G3,2,2,rewordcontent.ca rewordcontent.com re-word-content.ca re-word-content.com
+CH-VC-05135,v:c24aabfed7191acf,"Acura Maintenance Services, Ltd.",,,Mississauga,ON,L5V 1K3,2,2,acuramaintenanceservices.ca acuramaintenanceservices.com acura-maintenance-services.ca acura-maintenance-services.com
+CH-VC-05136,v:eb3c83e7edb95331,Country Hills Ford,,,CALGARY,AB,T2A 4W3,2,2,countryhillsford.ca countryhillsford.com country-hills-ford.ca country-hills-ford.com
+CH-VC-05137,v:a70cfb321d47ebdc,WorkBooth,,,Toronto,ON,M4M 3G3,2,2,workbooth.ca workbooth.com
+CH-VC-05138,v:963328e9ceaa4b18,The Coverall Shop,,,Red Deer,AB,T4P 3R2,2,2,coverallshop.ca coverallshop.com coverall-shop.ca coverall-shop.com
+CH-VC-05139,v:bd051206e211db3a,csr eco solutions,,,Toronto,ON,M5V 1E3,2,2,csrecosolutions.ca csrecosolutions.com csr-eco-solutions.ca csr-eco-solutions.com
+CH-VC-05140,v:e665804a72867e16,Prosperity Workforce Solutions Inc.,,,Calgary,AB,t2c2h1,2,2,prosperityworkforcesolutions.ca prosperityworkforcesolutions.com prosperity-workforce-solutions.ca prosperity-workforce-solutions.com
+CH-VC-05141,v:9d2efc5eeeb0b2d7,FRG,,,Toronto,ON,M5C2B5,2,2,
+CH-VC-05142,v:7fa7429e6991ca20,Mokwateh LP,,,Sand Point First Nation,ON,S0K 2L0,2,2,mokwateh.ca mokwateh.com
+CH-VC-05143,v:d04e503899171508,The Sales Factory Inc.,The Sales Factory Inc.,11004727,Toronto,ON,M5V 1V1,2,2,salesfactory.ca salesfactory.com sales-factory.ca sales-factory.com
+CH-VC-05144,v:ecad2dee0afd5e62,Davis Chevrolet,,,Airdrie,AB,T4A 2H7,2,2,davischevrolet.ca davischevrolet.com davis-chevrolet.ca davis-chevrolet.com
+CH-VC-05145,v:0f4a31bc9dfaa7a6,Social Pinpoint / The HiVE,,,Vancouver,BC,V6C 3N2,2,2,socialpinpointhive.ca socialpinpointhive.com social-pinpoint-hive.ca social-pinpoint-hive.com
+CH-VC-05146,v:1fcd1397af08dfd2,OpenPlus.ca,,,Ottawa,ON,K4A 3M3,2,2,openplusca.ca openplusca.com openplus-ca.ca openplus-ca.com
+CH-VC-05147,v:bfcbfd9833959d84,ankservices.ca,,,Milton,ON,L9T 1X9,2,2,ankservicesca.ca ankservicesca.com ankservices-ca.ca ankservices-ca.com
+CH-VC-05148,v:fb29fdd6adc935f1,Winnipeg Building & Decorating Ltd,,,Winnipeg,MB,R3E 2S4,2,2,winnipegbuildingdecorating.ca winnipegbuildingdecorating.com winnipeg-building-decorating.ca winnipeg-building-decorating.com
+CH-VC-05149,v:7c798e6808788cc0,Manitoba Métis Federation,Manitoba Métis Federation Inc.,15484090,Winnipeg,MB,R3B 0J7,2,2,manitobametisfederation.ca manitobametisfederation.com manitoba-metis-federation.ca manitoba-metis-federation.com federationmetissemanitoba.ca federationmetissemanitoba.com
+CH-VC-05150,v:dc8371a75c3e2b30,Forged Drilling,,,Pilot Butte,SK,S0G3Z0,2,2,forgeddrilling.ca forgeddrilling.com forged-drilling.ca forged-drilling.com
+CH-VC-05151,v:5d071bd422f77339,Hearing Innovators,,,Winnipeg,MB,R3J 0L4,2,2,hearinginnovators.ca hearinginnovators.com hearing-innovators.ca hearing-innovators.com
+CH-VC-05152,v:6aa68c5ebb67fca6,Armstrong Construction Ltd.,,,Fraserwood,MB,R0C 1A0,2,2,armstrongconstruction.ca armstrongconstruction.com armstrong-construction.ca armstrong-construction.com
+CH-VC-05153,v:a10183916a54122f,Pik-Fast Express Inc.,,,Mount Pearl,NL,A1N 4S8,2,2,pikfastexpress.ca pikfastexpress.com pik-fast-express.ca pik-fast-express.com
+CH-VC-05154,v:cb459e9ff4bf00ee,Dunphy’s Transport Inc,,,St brides,NL,A0B 2Z0,2,2,dunphystransport.ca dunphystransport.com dunphys-transport.ca dunphys-transport.com
+CH-VC-05155,v:a2d111a655c9a23e,Care Accessible/Scarborough City Cab,,,Toronto,ON,M1H 2V7,2,2,
+CH-VC-05156,v:a689fe01fc740f59,Global Electric Ltd,,,Winnipeg,MB,R2J 0H3,2,2,globalelectric.ca globalelectric.com global-electric.ca global-electric.com
+CH-VC-05157,v:d64a7e398313912b,Dwayne Major Transport Inc,TRANSPORT DWAYNE MAJOR INC.,1162014279,Morden,MB,R6M 2E4,2,2,dwaynemajortransport.ca dwaynemajortransport.com dwayne-major-transport.ca dwayne-major-transport.com transportdwaynemajor.ca transportdwaynemajor.com
+CH-VC-05158,v:e6c8c7431204f24e,BOLD LIP Creative Studio,,,Ottawa,ON,K2K 1P4,2,2,boldlipcreativestudio.ca boldlipcreativestudio.com bold-lip-creative-studio.ca bold-lip-creative-studio.com
+CH-VC-05159,v:425d033c875e2504,ImageX,,,Vancouver,BC,V6B 1H5,2,2,imagex.ca imagex.com
+CH-VC-05160,v:7816524960cc2c99,Trinity Facility Group Inc,,,Woodbridge,ON,L4L 9S3,2,2,trinityfacilitygroup.ca trinityfacilitygroup.com trinity-facility-group.ca trinity-facility-group.com
+CH-VC-05161,v:2565c605251b18a8,Fortune Brookside Contracting,,,Grand Bank,NL,A0E 1W0,2,2,fortunebrooksidecontracting.ca fortunebrooksidecontracting.com fortune-brookside-contracting.ca fortune-brookside-contracting.com
+CH-VC-05162,v:d5fb4563be5fa10e,ANW Construction Limited,,,Gander,NL,A1V 1W6,2,2,anwconstruction.ca anwconstruction.com anw-construction.ca anw-construction.com
+CH-VC-05163,v:fdad36478441c493,Zurich Insurance,,,Toronto,ON,M6K 1J7,2,2,zurichinsurance.ca zurichinsurance.com zurich-insurance.ca zurich-insurance.com
+CH-VC-05164,v:0c444766661ca73c,"GeneBio Systems, Inc.","GeneBio Systems, Inc.",8135304,Oakville,ON,L6L 6V7,2,2,genebiosystems.ca genebiosystems.com genebio-systems.ca genebio-systems.com
+CH-VC-05165,v:6806dd0a86ce49ec,G & R Garbage Disposal Ltd,,,StMalo,MB,R0A 1T0,2,2,
+CH-VC-05166,v:ddf09cf4adbd69bc,SFI Medical Equipment Solutions Inc,,,Ancaster,ON,L9G 4V5,2,2,
+CH-VC-05167,v:ec5e8aaa8f4d81dd,E.D.A. Mechanical Services Ltd.,,,Winnipeg,MB,R2R 0J2,2,2,
+CH-VC-05168,v:e344a4af4d049ab5,P3 Advisors Inc.,P3 EXPERTS-CONSEILS INC.,1161782074,Ottawa,ON,K2J 7A8,2,2,
+CH-VC-05169,v:8b3a8c67f661f31a,Solutia SDO Ltd.,,,Toronto,ON,M5H 3G8,2,2,
+CH-VC-05170,v:ce75335e20d7992a,S M Software Solutions Inc.,,,Toronto,ON,M1X 1K4,2,2,
+CH-VC-05171,v:170516f7970bb1dd,Spicy Monkey Media Inc DBA Kanopi Studios,,,Victoria,BC,V8Z 2H8,2,2,
+CH-VC-05172,v:55622a8b06e6f3ee,Sweet Pete's Bicycle Shop,,,Toronto,ON,M6H 1N2,2,2,
+CH-VC-05173,v:ecf5b02caf4b72f5,Standard Machine Works,,,Winnipeg,MB,R3G 0G8,2,2,
+CH-VC-05174,v:29b6b78fe6f6a669,Eclipse Technology Solutions Inc.,,,Mississauga,ON,L5L 5M8,2,2,
+CH-VC-05175,v:d3f72212bf6e3a71,AGT Absolute Gauge Technologies Ltd.,AGT ABSOLUTE GAUGE TECHNOLOGIES LTD.,3474054,SCARBOROUGH,ON,M1V 5J2,2,2,agtabsolutegaugetechnologies.ca agtabsolutegaugetechnologies.com
+CH-VC-05176,v:d569bf90d0781cc3,Optime International,,,Toronto,ON,M5N 2X7,2,2,optimeinternational.ca optimeinternational.com optime-international.ca optime-international.com
+CH-VC-05177,v:15b31a86c908ef37,Restoration Manitoba,,,Brandon,MB,R7A 7A8,2,2,restorationmanitoba.ca restorationmanitoba.com restoration-manitoba.ca restoration-manitoba.com
+CH-VC-05178,v:1a4a3403fe2d64d9,Allen Maintenance Ltd.,ALLEN MAINTENANCE LTÉE,1166156324,Ottawa,ON,K1B 3S6,2,2,
+CH-VC-05179,v:ff2cb2130be80409,"Pellera, Newcomp Analytics Inc",,,Toronto,ON,,2,2,pelleranewcompanalytics.ca pelleranewcompanalytics.com pellera-newcomp-analytics.ca pellera-newcomp-analytics.com
+CH-VC-05180,v:0637e9ba301ab1ad,Mobia Health Innovations Inc.,,,Dartmouth,NS,,2,2,mobiahealthinnovations.ca mobiahealthinnovations.com mobia-health-innovations.ca mobia-health-innovations.com
+CH-VC-05181,v:5248c35cfd239846,Abbott Rapid Diagnostics,,,Ottawa,ON,,2,2,abbottrapiddiagnostics.ca abbottrapiddiagnostics.com abbott-rapid-diagnostics.ca abbott-rapid-diagnostics.com
+CH-VC-05182,v:c1d710d07f1effba,CIL,,,St. John's,NL,,2,2,
+CH-VC-05183,v:8b0a10c06f6131e9,Centinel Services,,,St. John's,NL,,2,2,centinelservices.ca centinelservices.com centinel-services.ca centinel-services.com
+CH-VC-05184,v:369cce7f6b4d7b18,C&J Excavation Ltd,,,Lark Harbour,NL,,2,2,cjexcavation.ca cjexcavation.com c-j-excavation.ca c-j-excavation.com
+CH-VC-05185,v:207755442f9c2ea1,Oozoa BioMedical Inc.,OOZOA BIOMEDICAL INC.,BC0604028,Vancouver,BC,,2,2,oozoabiomedical.ca oozoabiomedical.com oozoa-biomedical.ca oozoa-biomedical.com
+CH-VC-05186,v:12c541aedae3a0d7,Canadian Pharmacists Association,,,Ottawa,ON,,2,2,canadianpharmacistsassociation.ca canadianpharmacistsassociation.com pharmacistsassociation.ca pharmacistsassociation.com
+CH-VC-05187,v:6c9e2c4fadc799b4,RS Cleaning & Janitorial Services Ltd.,,,Yellowknife,NT,,2,2,rscleaningjanitorialservices.ca rscleaningjanitorialservices.com
+CH-VC-05188,v:75964b0eeb9ee14b,Adam Dental Clinic Ltd.,,,Yellowknife,NT,,2,2,adamdentalclinic.ca adamdentalclinic.com adam-dental-clinic.ca adam-dental-clinic.com
+CH-VC-05189,v:a0beac04bb89b0b7,The Canadian Centre Consultancy Inc.,THE CANADIAN CENTRE CONSULTANCY INC.,BC1545035,Surrey,BC,,2,2,canadiancentreconsultancy.ca canadiancentreconsultancy.com centreconsultancy.ca centreconsultancy.com canadian-centre-consultancy.ca canadian-centre-consultancy.com
+CH-VC-05190,v:a10b4863434c50af,Roxane Poulin Consulting,,,Yellowknife,NT,,2,2,roxanepoulinconsulting.ca roxanepoulinconsulting.com roxane-poulin-consulting.ca roxane-poulin-consulting.com
+CH-VC-05191,v:6a3ab61f7e08cdad,Fort Smith Construction NT Ltd.,,,Fort Smith,NT,,2,2,fortsmithconstructionnt.ca fortsmithconstructionnt.com fort-smith-construction-nt.ca fort-smith-construction-nt.com
+CH-VC-05192,v:a3bb351542a79954,LC Bros. Cleaning Services Ltd.,,,Inuvik,NT,,2,2,lcbroscleaningservices.ca lcbroscleaningservices.com lc-bros-cleaning-services.ca lc-bros-cleaning-services.com
+CH-VC-05193,v:dd749f8a4f484bbc,Keith's Water Service Ltd.,,,Hay River,NT,,2,2,keithswaterservice.ca keithswaterservice.com keiths-water-service.ca keiths-water-service.com
+CH-VC-05194,v:b0203a028c08d26e,P. R. Contracting Ltd.,,,Fort Simpson,NT,,2,2,prcontracting.ca prcontracting.com p-r-contracting.ca p-r-contracting.com
+CH-VC-05195,v:8a291466225fe295,S.R.P. North Ventures Ltd.,,,Norman Wells,NT,,2,2,srpnorthventures.ca srpnorthventures.com s-r-p-north-ventures.ca s-r-p-north-ventures.com
+CH-VC-05196,v:b6ec9cd0fbfb6164,Ricoh Northern Ltd.,,,Yellowknife,NT,,2,2,ricohnorthern.ca ricohnorthern.com ricoh-northern.ca ricoh-northern.com
+CH-VC-05197,v:74ff284be16c3fe3,Endeavoursome 2000,,,Yellowknife,NT,,2,2,endeavoursome2000.ca endeavoursome2000.com endeavoursome-2000.ca endeavoursome-2000.com
+CH-VC-05198,v:4a2bbc39d50a02e8,Corporate Kleen Inc,Corporate Kleen Inc.,13204341,Oakville,ON,,2,2,corporatekleen.ca corporatekleen.com corporate-kleen.ca corporate-kleen.com
+CH-VC-05199,v:65a108adf863fae2,Yellow Environmental Inc.,,,St. John's,NL,,2,2,yellowenvironmental.ca yellowenvironmental.com yellow-environmental.ca yellow-environmental.com
+CH-VC-05200,v:b8d73147bb7e8b4e,Volairus Management Systems Inc.,,,Carlsbad Springs,ON,,2,2,volairusmanagementsystems.ca volairusmanagementsystems.com volairus-management-systems.ca volairus-management-systems.com
+CH-VC-05201,v:61743ddd5a7f65e1,Tlicho-Kiewit General Partnership,,,Yellowknife,NT,,2,2,tlichokiewitgeneralpartnership.ca tlichokiewitgeneralpartnership.com
+CH-VC-05202,v:1099fced307d4f55,Black Spruce Builders Ltd.,,,Yellowknife,NT,,2,2,blacksprucebuilders.ca blacksprucebuilders.com black-spruce-builders.ca black-spruce-builders.com
+CH-VC-05203,v:24a02cb3df189bae,Rizvisons Consultants & Designers Corp.,,,Yellowknife,NT,,2,2,rizvisonsconsultantsdesigners.ca rizvisonsconsultantsdesigners.com
+CH-VC-05204,v:4063c43fb6fc17e3,ATCO Fire Prevention Services Ltd.,ATCO FIRE PREVENTION SERVICES LTD.,A0137745,Yellowknife,NT,,2,2,atcofirepreventionservices.ca atcofirepreventionservices.com atco-fire-prevention-services.ca atco-fire-prevention-services.com
+CH-VC-05205,v:877be07650d7e7ba,Arctic Circle Enterprises Ltd.,,,Fort Good Hope,NT,,2,2,arcticcircleenterprises.ca arcticcircleenterprises.com arctic-circle-enterprises.ca arctic-circle-enterprises.com
+CH-VC-05206,v:5ff48fbd5ba06898,NPR GP INC - Northview Fund,,,Yellowknife,NT,,2,2,nprgpnorthviewfund.ca nprgpnorthviewfund.com npr-gp-northview-fund.ca npr-gp-northview-fund.com
+CH-VC-05207,v:49320b40f6b2eb28,Ranch Ehrlo Society,,,Regina,SK,,2,2,ranchehrlosociety.ca ranchehrlosociety.com ranch-ehrlo-society.ca ranch-ehrlo-society.com
+CH-VC-05208,v:a0a7f009a492fa72,Northwind Industries Ltd.,NORTHWIND INDUSTRIES LTD.,A0122995,Inuvik,NT,,2,2,northwindindustries.ca northwindindustries.com northwind-industries.ca northwind-industries.com
+CH-VC-05209,v:f19fa3127cf791ae,507983 NWT Limited,,,Inuvik,NT,,2,2,
+CH-VC-05210,v:6a40683815e77308,Bob's Welding & Heavy Equipment Repairs,,,Inuvik,NT,,2,2,
+CH-VC-05211,v:c6fd418a842e50fd,Inclusion Northwest Territories,,,Yellowknife,NT,,2,2,inclusionnorthwestterritories.ca inclusionnorthwestterritories.com
+CH-VC-05212,v:c214b21ae3c6211f,MSS (Medical Surgical Supply) Ltd.,,,Hay River,NT,,2,2,
+CH-VC-05213,v:f50c0d52dbab0da8,Gray Matters Design and Marketing,,,Yellowknife,NT,,2,2,graymattersdesignmarketing.ca graymattersdesignmarketing.com gray-matters-design-marketing.ca gray-matters-design-marketing.com
+CH-VC-05214,v:e59eb3305443290b,Horizon Maritime Services Ltd.,Horizon Maritime Services Ltd.,13915999,St. John's,NL,,2,2,horizonmaritimeservices.ca horizonmaritimeservices.com horizon-maritime-services.ca horizon-maritime-services.com
+CH-VC-05215,v:4158a71d4d7ea2ae,Brodie Consulting Ltd.,BRODIE CONSULTING LTD.,BC0531016,West Vancouver,BC,,2,2,brodieconsulting.ca brodieconsulting.com brodie-consulting.ca brodie-consulting.com

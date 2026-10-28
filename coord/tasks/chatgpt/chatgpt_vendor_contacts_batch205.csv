@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-20416,v:0b6ac77c8cdbd141,"Infor (Canada), ULC","Infor (Canada), ULC",1168764612,,ON,M3C3G8,15,0,infor.ca infor.com inforcanada.ca inforcanada.com infor-canada.ca infor-canada.com
+CH-VC-20417,v:904ba0f7649cab4d,ELECTORAL SERVICES INTERNATIONAL INC.,Electoral Services International Inc.,8118442,,MB,,15,0,electoralservicesinternational.ca electoralservicesinternational.com
+CH-VC-20418,v:c6afa940b29159d1,Wilson Equipment,,,,,,15,0,
+CH-VC-20419,v:5b7c89730fb80c7e,Ridgemark Construction,,,,,,15,0,
+CH-VC-20420,v:3ffcaec29af78f26,Caper Auto Sales,,,,,,15,0,
+CH-VC-20421,v:d6ced0a12e14c5eb,Amherst Towing & Salvage Ltd,,,,,,15,0,
+CH-VC-20422,v:807a504a9bbffb6b,Norwood Gardens,,,,,,15,0,
+CH-VC-20423,v:b8efbf5a58db51fc,Nova Communications,,,,,,15,0,
+CH-VC-20424,v:1a207e164fd1eb57,IR Contracting,,,,,,15,0,
+CH-VC-20425,v:aec4eb3f8a390117,Leahey's Landscaping,,,,,,15,0,
+CH-VC-20426,v:c70369a23067fc00,Galeb Construction 1998 Ltd.,,,,,,15,0,
+CH-VC-20427,v:46fea55b08c2a557,MBA Landscaping,,,,,,15,0,
+CH-VC-20428,v:c74f8004f343ba59,PAUL MCDONALD TRUCKING LTD,,,,,,15,0,
+CH-VC-20429,v:1a48f4dc886f19da,Floors Plus,,,,,,15,0,
+CH-VC-20430,v:6019c41990136420,Eco Medical Equipment Trade Name of Eco Environment Products (1989) Ltd.,,,Edmonton,Alberta,T5S 1K4,14,0,
+CH-VC-20431,v:ef8c5ce493e60257,Correct Solutions Inc,CORRECT SOLUTIONS INC.,BC0532455,Surrey,BC,,14,0,correctsolutions.ca correctsolutions.com correct-solutions.ca correct-solutions.com
+CH-VC-20432,v:29749881fdfa812c,Interoute Construction Ltd,,,Crescent Valley,BC,,14,0,interouteconstruction.ca interouteconstruction.com interoute-construction.ca interoute-construction.com
+CH-VC-20433,v:f9c9517163a4f881,Mountain Rock Stabilization Services Inc.,MOUNTAIN ROCK STABILIZATION SERVICES INC.,BC0716944,Kamloops,BC,,14,0,
+CH-VC-20434,v:b38684bfe49c1eb9,BOB MARQUIS CONTRACTING LTD,BOB MARQUIS CONTRACTING LTD.,BC0818218,Powell River,BC,,14,0,bobmarquiscontracting.ca bobmarquiscontracting.com bob-marquis-contracting.ca bob-marquis-contracting.com
+CH-VC-20435,v:0f8cf29614d63ca6,Quartech Systems Ltd.,QUARTECH SYSTEMS LIMITED,BC0276176,Victoria,BC,,14,0,quartechsystems.ca quartechsystems.com quartech-systems.ca quartech-systems.com
+CH-VC-20436,v:d9e94c5d1d68b522,C.HI.L. Logging Ltd.,C.HI.L. LOGGING LTD.,BC0393794,Cranbrook,BC,,14,0,chilogging.ca chilogging.com c-hi-logging.ca c-hi-logging.com
+CH-VC-20437,v:90ef2eb9e5b8f5cd,"Pioneer Precast Products, a  Division of IOTA Construction Ltd",,,,BC,,14,0,
+CH-VC-20438,v:94ad4aed05ac4c9b,Bowers Medical Supply,BOWERS MEDICAL SUPPLY,FM0019159,,BC,,14,0,bowersmedicalsupply.ca bowersmedicalsupply.com bowers-medical-supply.ca bowers-medical-supply.com
+CH-VC-20439,v:71a7acb1473dd2da,Lewis Motor Sales Inc.,,,Barrie,ON,L4N 9H6,14,0,lewismotorsales.ca lewismotorsales.com lewis-motor-sales.ca lewis-motor-sales.com
+CH-VC-20440,v:952519c678a9babc,STRATHMAR TRENCHING LTD,Strathmar Trenching LTD,1179390563,Ashton,ON,,14,0,strathmartrenching.ca strathmartrenching.com strathmar-trenching.ca strathmar-trenching.com strathmarpaysagistes.ca strathmarpaysagistes.com
+CH-VC-20441,v:5a007d08d4e63e75,Millenium Printing Inc.,,,Mississauga,ON,L4W 1C1,14,0,milleniumprinting.ca milleniumprinting.com millenium-printing.ca millenium-printing.com
+CH-VC-20442,v:61b865ea3c56ad25,Fundy Textile & Design,,,Truro,NS,,14,0,fundytextiledesign.ca fundytextiledesign.com fundy-textile-design.ca fundy-textile-design.com
+CH-VC-20443,v:3453f92affbdef6c,Western Medical Canada Inc.,WESTERN MEDICAL CANADA INC.,A0107427,Mill Bay,BC,V8H1G3,14,0,westernmedicalcanada.ca westernmedicalcanada.com westernmedical.ca westernmedical.com western-medical-canada.ca western-medical-canada.com
+CH-VC-20444,v:84213c8c14d6b577,Upland Planning and Design,,,Halifax,NS,B3J3M5,14,0,uplandplanningdesign.ca uplandplanningdesign.com upland-planning-design.ca upland-planning-design.com
+CH-VC-20445,v:bb4736b4d8224082,STAR ELECTRICAL SERVICES INC,,,Brampton,ON,L7A 1E6,14,0,starelectricalservices.ca starelectricalservices.com star-electrical-services.ca star-electrical-services.com
+CH-VC-20446,v:cdecae55f0d2398e,Colbourne Industrial Services,,,St.John's,NL,A1B 2S3,14,0,colbourneindustrialservices.ca colbourneindustrialservices.com colbourne-industrial-services.ca colbourne-industrial-services.com
+CH-VC-20447,v:55af76155ffaa346,Spartan Athletic Products,SPARTAN ATHLETIC PRODUCTS LIMITED,4382790,St.Johns,NL,A1B 2C7,14,0,spartanathleticproducts.ca spartanathleticproducts.com spartan-athletic-products.ca spartan-athletic-products.com
+CH-VC-20448,v:3dcb1a2324874bdd,JML Engineering,,,Thunder Bay,ON,P7A 7W5,14,0,jmlengineering.ca jmlengineering.com jml-engineering.ca jml-engineering.com
+CH-VC-20449,v:d0ac609b3140f67a,Quinlan Inc,,,Maidstone,ON,N0R 1K0,14,0,quinlan.ca quinlan.com
+CH-VC-20450,v:9c1b3c08dd9a12c2,Pancon Engineering Ltd.,,,North York,ON,M2N 4Z6,14,0,
+CH-VC-20451,v:58c1cbe82a121273,Pentor Electric Ltd.,,,Penetanguishene,ON,L9M 1P5,14,0,pentorelectric.ca pentorelectric.com pentor-electric.ca pentor-electric.com
+CH-VC-20452,v:38304a555e1e558e,Wajax Industrial Components,"KINECOR, SOCIÉTÉ EN COMMANDITE",3363000954,Mount Pearl,NL,A1N 5E8,14,0,wajaxindustrialcomponents.ca wajaxindustrialcomponents.com wajax-industrial-components.ca wajax-industrial-components.com kinecorsocieteencommandite.ca kinecorsocieteencommandite.com
+CH-VC-20453,v:251ba0f853213401,WSN Construction Inc,,,Cambridge,ON,N1R 7N3,14,0,
+CH-VC-20454,v:b3ff8bff694f6e8f,SAFETY FIRST - SFC LTD.,,,Mount Pearl,NL,A1N 3K1,14,0,
+CH-VC-20455,v:80799b895c973a08,Armour Valve Ltd.,ARMOUR VALVE LTD.,1143624907,Toronto,ON,,14,0,armourvalve.ca armourvalve.com armour-valve.ca armour-valve.com vannesarmour.ca vannesarmour.com
+CH-VC-20456,v:bd1b82a2bc231b35,Boehringer-ingelheim,BOEHRINGER INGELHEIM (CANADA) LTD.,1146600359,Burlington,ON,L7L 5H4,14,0,boehringeringelheim.ca boehringeringelheim.com boehringer-ingelheim.ca boehringer-ingelheim.com boehringeringelheimcanada.ca boehringeringelheimcanada.com
+CH-VC-20457,v:c35bc47826891336,Otto Bock Healthcare Canada,OTTO BOCK HEALTHCARE CANADA LTD.,1160553096,Burlington,ON,L7L 5N5,14,0,ottobockhealthcarecanada.ca ottobockhealthcarecanada.com ottobockhealthcare.ca ottobockhealthcare.com otto-bock-healthcare-canada.ca otto-bock-healthcare-canada.com
+CH-VC-20458,v:d855e4a29e36de0c,I&S Mobility Way Inc,Infrastructures & Systèmes Mobility Way inc.,1172021942,Calgary,AB,,14,0,ismobilityway.ca ismobilityway.com i-s-mobility-way.ca i-s-mobility-way.com mobilityway.ca mobilityway.com
+CH-VC-20459,v:e96be0d18e00aa50,Ruszkowski Enterprises Ltd.,,,Prince Albert,SK,,14,0,ruszkowskienterprises.ca ruszkowskienterprises.com ruszkowski-enterprises.ca ruszkowski-enterprises.com
+CH-VC-20460,v:b28a79bbda6af63e,Harbuilt Construction Management Ltd.,,,Moosomin,SK,,14,0,harbuiltconstructionmanagement.ca harbuiltconstructionmanagement.com
+CH-VC-20461,v:6add329fb9947d9f,WBM Office Systems,,,Regina,SK,,14,0,wbmofficesystems.ca wbmofficesystems.com wbm-office-systems.ca wbm-office-systems.com
+CH-VC-20462,v:3654a3206c197729,Hornoi Leasing Ltd,,,Regina,SK,,14,0,hornoileasing.ca hornoileasing.com hornoi-leasing.ca hornoi-leasing.com
+CH-VC-20463,v:1c11c45d930f79cf,Cervus Equipment,CERVUS EQUIPMENT CORPORATION,13451488,Regina,SK,,14,0,cervusequipment.ca cervusequipment.com cervus-equipment.ca cervus-equipment.com
+CH-VC-20464,v:249d93a16f100f14,New Flyer industrie Canada ilc.,,,winnipeg,MB,R2C5G1,14,0,newflyerindustriecanadailc.ca newflyerindustriecanadailc.com newflyerindustrieilc.ca newflyerindustrieilc.com new-flyer-industrie-canada-ilc.ca new-flyer-industrie-canada-ilc.com
+CH-VC-20465,v:c73fea09603462a0,Chubb Edwards Ottawa,EDWARDS CANADA,3362778196,Ottawa,ON,K2L2P4,14,0,chubbedwardsottawa.ca chubbedwardsottawa.com chubb-edwards-ottawa.ca chubb-edwards-ottawa.com edwardscanada.ca edwardscanada.com
+CH-VC-20466,v:6c69525c6e08ccf3,CALLON DIETZ INCORPORATED ONTARIO,,,,,,14,0,
+CH-VC-20467,v:bef5a5a22a18dda4,Metro Freightliner,,,,,,14,0,
+CH-VC-20468,v:671a6285987aff17,Westbury National Show Systems Ltd.,,,,,,14,0,
+CH-VC-20469,v:d1226f665fdaa38f,Active Mechanical,,,,,,14,0,
+CH-VC-20470,v:be04e3b2f2324f03,Brezac Property Services,,,,,,14,0,
+CH-VC-20471,v:54a43c082835f3c3,Linair Electric Limited,,,,,,14,0,
+CH-VC-20472,v:0ddd2113a0759ced,K&L Trucking Ltd,,,,,,14,0,
+CH-VC-20473,v:ca87ede164aa33ea,Martin Brothers Contracting Ltd.,,,,,,14,0,
+CH-VC-20474,v:1ee65e2814398356,CKG Elevator,,,,,,14,0,
+CH-VC-20475,v:51eb99c08e549702,James Leggate Forestry,,,,,,14,0,
+CH-VC-20476,v:95be3c3a9f8b96f5,Sla-Mac Construction Ltd,,,,,,14,0,
+CH-VC-20477,v:ee5700851e8fecbd,LaHave Paving Ltd,,,,,,14,0,
+CH-VC-20478,v:940c56d40659efe5,Iron Maple Constructors Inc.,,,,,,14,0,
+CH-VC-20479,v:8349e99b7e593726,I.T.S Construction Inc.,,,,,,14,0,
+CH-VC-20480,v:a5c7c0085cfd6854,COMPLETE CONCRETE SOLUTIONS LTD.,,,,,,14,0,
+CH-VC-20481,v:9ce47720d65f9f47,Humphreys Landscape,,,,,,14,0,
+CH-VC-20482,v:6a055d14dcf7823f,Global Construction,,,,,,14,0,
+CH-VC-20483,v:e24f028c42d1ba28,Kisserup International Trade Roots Inc.,,,,,,14,0,
+CH-VC-20484,v:ee2e1a7ee3b68593,Twin Mountain Construction Ltd.,,,,,,14,0,
+CH-VC-20485,v:f6c8a87691d1c57d,Five Star Roofing & Masonry,,,,,,14,0,
+CH-VC-20486,v:1a0399de0662a42f,Redden Petroleum Enterprises Ltd.,,,,,,14,0,
+CH-VC-20487,v:d7e99ef082d2432e,Spanish Harbour Construction & Maintenance Ltd,,,,,,14,0,
+CH-VC-20488,v:4f1a40083b9cfc12,Coastal Restoration,,,,,,14,0,
+CH-VC-20489,v:2cd3f1c0f5e1d49a,Turf Masters,,,,,,14,0,
+CH-VC-20490,v:ad6a30c0a4b27667,J.W. Lindsay Enterprises Limited,,,,,,14,0,
+CH-VC-20491,v:5a1de449365bc25d,Vector Demolition,,,,,,14,0,
+CH-VC-20492,v:f2b0f1cc5575940a,Atlantic CAT,,,,,,14,0,
+CH-VC-20493,v:bc4fa43627d5db8e,TRITON SILVICULTURE SERVICES,,,,,,14,0,
+CH-VC-20494,v:58c2eb2bdedfa0e6,Wallace Equipment Ltd.,,,,,,14,0,
+CH-VC-20495,v:83be7e7f617bf5e4,NOT A TENDER,,,,,,14,0,
+CH-VC-20496,v:eb3379e0691a5fe9,Winner Garment Industries Ltd.,,,Edmonton,Alberta,T5G 0X8,13,0,winnergarmentindustries.ca winnergarmentindustries.com winner-garment-industries.ca winner-garment-industries.com
+CH-VC-20497,v:75f5c8b5b68742f4,Cantex-Okanagan Construction Ltd.,CANTEX-OKANAGAN CONSTRUCTION LTD.,BC1065824,Penticton,BC,,13,0,cantexokanaganconstruction.ca cantexokanaganconstruction.com cantex-okanagan-construction.ca cantex-okanagan-construction.com
+CH-VC-20498,v:80af5ae89676dfff,Ken MacKay & Son Concrete Forming Ltd,KEN MACKAY & SON CONCRETE FORMING LTD.,BC0186302,Nanaimo,BC,,13,0,kenmackaysonconcreteforming.ca kenmackaysonconcreteforming.com
+CH-VC-20499,v:b7953a1e9ed2f21a,Welco Lumber Corp,WELCO LUMBER CORP.,BC0265958,Vancouver,BC,,13,0,welcolumber.ca welcolumber.com welco-lumber.ca welco-lumber.com
+CH-VC-20500,v:61d95c240d7ddbef,Marcon Metalfab Inc,MARCON METALFAB INC.,BC1424735,Delta,BC,,13,0,marconmetalfab.ca marconmetalfab.com marcon-metalfab.ca marcon-metalfab.com
+CH-VC-20501,v:519bf8cb895a2498,Flaghouse,,,North York,ON,m2j 4y8,13,0,flaghouse.ca flaghouse.com
+CH-VC-20502,v:894257c12d047070,SENSUS COMMUNICATION SOLUTIONS INC,JEAN-FRANÇOIS LANDRIAULT,1162477724,Burnaby,BC,,13,0,sensuscommunicationsolutions.ca sensuscommunicationsolutions.com sensus-communication-solutions.ca sensus-communication-solutions.com jeanfrancoislandriault.ca jeanfrancoislandriault.com
+CH-VC-20503,v:24ff7fe865676d25,Jones Packaging Inc.,JONES PACKAGING INC.,1149273618,London,ON,N5V 5H3,13,0,jonespackaging.ca jonespackaging.com jones-packaging.ca jones-packaging.com emballagesjones.ca emballagesjones.com
+CH-VC-20504,v:0aeac41fb6cae53a,Momentum Mountain Solutions Ltd,MOMENTUM MOUNTAIN SOLUTIONS LTD.,BC1201548,Kimberley,BC,,13,0,momentummountainsolutions.ca momentummountainsolutions.com momentum-mountain-solutions.ca momentum-mountain-solutions.com
+CH-VC-20505,v:810b02220f901706,Roubos Farm Service Ltd.,,,Moorefield,ON,N0G 2K0,13,0,roubosfarmservice.ca roubosfarmservice.com roubos-farm-service.ca roubos-farm-service.com
+CH-VC-20506,v:6171acafe6c26c9b,Canada Clean Fuels Inc.,Canada Clean Fuels Inc.,1178086758,Toronto,ON,M3J2C2,13,0,canadacleanfuels.ca canadacleanfuels.com cleanfuels.ca cleanfuels.com canada-clean-fuels.ca canada-clean-fuels.com
+CH-VC-20507,v:2e5f5d1a6f79a793,Graphic Dimensions Inc.,,,Mississauga,ON,,13,0,graphicdimensions.ca graphicdimensions.com graphic-dimensions.ca graphic-dimensions.com
+CH-VC-20508,v:d20b6fb9f2bb39aa,John Delost Construction Limited,,,Schumacher,ON,P0N1G0,13,0,johndelostconstruction.ca johndelostconstruction.com john-delost-construction.ca john-delost-construction.com
+CH-VC-20509,v:9dbb8487f138d167,chad hartman construction,,,St. Pauls,ON,N0K 1V0,13,0,chadhartmanconstruction.ca chadhartmanconstruction.com chad-hartman-construction.ca chad-hartman-construction.com
+CH-VC-20510,v:c69b6930b05c1fb6,On-Site Drapery Cleaners Ltd.,,,Burlington,ON,L7L 6X6,13,0,onsitedraperycleaners.ca onsitedraperycleaners.com on-site-drapery-cleaners.ca on-site-drapery-cleaners.com
+CH-VC-20511,v:a51994174afe0d3b,KZ Painting & Decorating,,,Oshawa,ON,L1L 1C1,13,0,
+CH-VC-20512,v:4a63a0f164d8b108,Rusco Manufacturing Inc.,,,Cobourg,ON,K9A 4J9,13,0,ruscomanufacturing.ca ruscomanufacturing.com rusco-manufacturing.ca rusco-manufacturing.com
+CH-VC-20513,v:51e0f215b65c3f43,City Asphalt Paving Ltd.,,,Saskatoon,SK,,13,0,cityasphaltpaving.ca cityasphaltpaving.com city-asphalt-paving.ca city-asphalt-paving.com
+CH-VC-20514,v:4ecd6efdf89e1216,Modern Construction (1983) Limited,,,Moncton,NB,E1C 8R2,13,0,modernconstruction.ca modernconstruction.com modern-construction.ca modern-construction.com
+CH-VC-20515,v:da58576cb077093d,JASS Construction,,,Mississauga,ON,L4N 4N5,13,0,

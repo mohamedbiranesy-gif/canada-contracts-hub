@@ -1,0 +1,100 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CO-AP-00704,havforskningsinstituttet,b:d94e727f215d742f,Havforskningsinstituttet,,NO,http://www.hi.no,,,1
+CO-AP-00705,consiglio nazionale delle ricerche,b:03dce3e8424d6771,Consiglio Nazionale delle Ricerche,,IT,http://www.imaa.cnr.it,,,1
+CO-AP-00706,consiglio nazionale delle ricerche - istituto di metodologie di analisi ambientale,b:e597c4a1c26320e5,Consiglio Nazionale delle Ricerche - Istituto di Metodologie di Analisi Ambientale,,IT,,,,1
+CO-AP-00707,inl - international iberian nanotechnology laboratory,b:eabd701ac6460578,INL - INTERNATIONAL IBERIAN NANOTECHNOLOGY LABORATORY,,PT,http://www.inl.int,"office@inl.int, finance.support@inl.int",procurement@inl.int,1
+CO-AP-00708,uit norges arktiske universitet,b:eb9d00fadbf09826,UiT Norges arktiske universitet,,NO,http://uit.no,,,1
+CO-AP-00709,educational research centre_1014,b:dd3e74f0581fb8e9,Educational Research Centre_1014,,IE,https://www.erc.ie,info@erc.ie,,1
+CO-AP-00710,furthr (dublin business innovation centre)_205010,b:129c5ea6a8823bb6,Furthr (Dublin Business Innovation Centre)_205010,,IE,,,,1
+CO-AP-00711,the health research board,b:ef0e8196823a602f,The Health Research Board,,IE,https://www.hrb.ie,,,1
+CO-AP-00712,comite interprofessionnel vin d'alsace,b:e64f5ce3c3296ad9,Comite Interprofessionnel Vin d'Alsace,,FR,,,,1
+CO-AP-00713,fundació institut d'investigació en ciències de la salut germans trias i pujol,b:93a29d6da13bbfbe,Fundació Institut d'Investigació en Ciències de la Salut Germans Trias i Pujol,,ES,,,,1
+CO-AP-00714,försvarsmakten,b:7742dd8fb7f455cf,Försvarsmakten,,SE,,,,1
+CO-AP-00715,"extenda - empresa pública andaluza de promoción exterior, s.a.",b:07b1028c9dd61a9a,"EXTENDA - EMPRESA PÚBLICA ANDALUZA DE PROMOCIÓN EXTERIOR, S.A.",,ES,http://www.extenda.es,,contratacion@extenda.es,1
+CO-AP-00716,katholieke universiteit te leuven,b:b1a919a8ec9b11ec,Katholieke Universiteit te Leuven,,BE,,,,1
+CO-AP-00717,enea,b:39960028994f0c5b,ENEA,,IT,,,,1
+CO-AP-00718,österreichische akademie der wissenschaften,b:e3e2ef75387ddb3c,Österreichische Akademie der Wissenschaften,,AT,https://oeaw.vemap.com,,,1
+CO-AP-00719,skellefteå kommun,b:780318f14983073c,Skellefteå kommun,,SE,,,,1
+CO-AP-00720,region hovedstaden,b:62ef5826a881ca11,Region Hovedstaden,,DK,https://www.regionh.dk,,,1
+CO-AP-00721,dirección de la fundación para la internacionalización de las administraciones públicas,b:81e73a06d8146c85,Dirección de la Fundación para la Internacionalización de las Administraciones Públicas,,ES,http://www.fiap.gob.es,info@fiap.gob.es,,1
+CO-AP-00722,karlstads universitet,b:b4ef11c837ca042e,Karlstads universitet,,SE,,,,1
+CO-AP-00723,trafikselskabet movia,b:f79a1955502af4fc,Trafikselskabet Movia,,DK,http://www.moviatrafik.dk/omos/Pages/Omos.aspx,,,1
+CO-AP-00724,republika hrvatska ministarstvo obrane,b:499457e5cc5eabba,REPUBLIKA HRVATSKA MINISTARSTVO OBRANE,,HR,https://www.morh.hr,,,1
+CO-AP-00725,bernmobil städt. verkehrsbetriebe bern (svb),b:68e09f49bfc8b1a4,BERNMOBIL Städt. Verkehrsbetriebe Bern (SVB),,CH,https://bernmobil.ch,,,1
+CO-AP-00726,päästeamet,b:5b26a0f3be6afe37,Päästeamet,,EE,http://www.rescue.ee,,,1
+CO-AP-00727,stockholms universitet,b:54a6c941a8a49e60,Stockholms universitet,,SE,https://www.su.se,,,1
+CO-AP-00728,"instituto nacional de investigação agrária e veterinária, ip",b:13f29a414394dd3a,"Instituto Nacional de Investigação Agrária e Veterinária, IP",,PT,,,,1
+CO-AP-00729,natural resources institute finland,b:ded5467c5b44dc08,Natural Resources Institute Finland,,FI,https://www.luke.fi,,,1
+CO-AP-00730,medizinische universität innsbruck,b:f54d79893220e3cc,Medizinische Universität Innsbruck,,AT,https://i-med.vemap.com,,,1
+CO-AP-00731,leibniz-institut für analytische wissenschaften - isas - e.v.,b:ba68147dd27bf938,Leibniz-Institut für Analytische Wissenschaften - ISAS - e.V.,,DE,https://www.isas.de,info@isas.de,,1
+CO-AP-00732,the minister for the cabinet office acting through crown commercial service (ccs),b:abfa37a1b381973d,The Minister for the Cabinet Office acting through Crown Commercial Service (CCS),,GB,,,supplier@crowncommercial.gov.uk,1
+CO-AP-00733,leicestershire police,b:517a3c10906ba493,Leicestershire Police,,GB,,,,1
+CO-AP-00734,university of glasgow,b:c810f65f7504f4c3,University of Glasgow,,GB,,,,1
+CO-AP-00735,babcock land defence limited,b:6a9ab8b4ab99f0f8,Babcock Land Defence Limited,,GB,,,,1
+CO-AP-00736,united kingdom atomic energy authority,b:8a87b45df63cf804,United Kingdom Atomic Energy Authority,,GB,,,,1
+CO-AP-00737,scotrail trains limited (utilities),b:735760cf9fecedee,ScotRail Trains Limited (Utilities),,GB,,,,1
+CO-AP-00738,lisburn and castlereagh city council,b:af1cf5badb3382d3,Lisburn and Castlereagh City Council,,GB,,,,1
+CO-AP-00739,somerset nhs foundation trust yeovil,b:efd70083722bac8e,Somerset NHS Foundation Trust  Yeovil,,GB,https://discovery.ariba.com/rfx/19710254,,,1
+CO-AP-00740,desnz & dsit group commercial,b:465c0b76666cf3bf,DESNZ & DSIT Group Commercial,,GB,,,,1
+CO-AP-00741,nhs wales shared services partnership (nwssp) - procurement services,b:24624f3b37f4f221,NHS Wales Shared Services Partnership (NWSSP) - Procurement Services,,GB,,,,1
+CO-AP-00742,durham university,b:a7deb9fb94d9e2ee,Durham University,,GB,,,,1
+CO-AP-00743,public health scotland,b:b04fd1462b39b016,Public Health Scotland,,GB,,,nss.procurementteam@nhs.scot,1
+CO-AP-00744,sse plc,b:1ba0bfb70d7133d7,SSE plc,,GB,,,,1
+CO-AP-00745,bernicia group,b:4942262fca261b4b,Bernicia Group,,GB,,,,1
+CO-AP-00746,"undp - bureau of managment, headquarters, new york",b:5efb8d77dcfc93e4,"UNDP - Bureau of Managment, Headquarters, New York",,,https://www.undp.org,,,1
+CO-AP-00747,undp - undp/elect in afghanistan,b:8d07fb6f1af087f7,UNDP - UNDP/ELECT in Afghanistan,,,https://www.undp.org,,,1
+CO-AP-00748,undp - sierra leone,b:8efaa46697e4ea42,UNDP - Sierra Leone,,,https://www.undp.org,,,1
+CO-AP-00749,undp - undp bangladesh,b:c5a52a93d5cb0bb4,UNDP - UNDP Bangladesh,,,https://www.undp.org,,,1
+CO-AP-00750,undp - undp,b:7427031dd084450b,UNDP - UNDP,,,https://www.undp.org,,,1
+CO-AP-00751,undp - unv,b:92552f842da7fa11,UNDP - UNV,,,https://www.undp.org,,,1
+CO-AP-00752,undp - niger,b:ec2b3188d8618095,UNDP - Niger,,,https://www.undp.org,,,1
+CO-AP-00753,undp - togo,b:4039661686bf35fe,UNDP - TOGO,,,https://www.undp.org,,,1
+CO-AP-00754,undp - undp/pso/gpu - egypt,b:cfc4c2bda437b256,UNDP - UNDP/PSO/GPU - EGYPT,,,https://www.undp.org,,,1
+CO-AP-00755,undp - undp/pso/gpu - pakistan,b:83dc7329bec36d9b,UNDP - UNDP/PSO/GPU - PAKISTAN,,,https://www.undp.org,,,1
+CO-AP-00756,undp - yemen - yemen,b:19285355a6a8e3de,UNDP - YEMEN - YEMEN,,,https://www.undp.org,,,1
+CO-AP-00757,undp - undp country office - lebanon,b:a6b7c38679174525,UNDP - UNDP Country Office - LEBANON,,,https://www.undp.org,,,1
+CO-AP-00758,undp - bera - united states of america,b:9cafe29e70698aaa,UNDP - BERA - UNITED STATES OF AMERICA,,,https://www.undp.org,,,1
+CO-AP-00759,undp - paup - haiti,b:28ff31bcf51ff54d,UNDP - PauP - HAITI,,,https://www.undp.org,,,1
+CO-AP-00760,undp - undp country office - turkey,b:6419955ff88d38cd,UNDP - UNDP Country Office - TURKEY,,,https://www.undp.org,,,1
+CO-AP-00761,undp - copenhagen - denmark,b:631b60b65ec93755,UNDP - Copenhagen - DENMARK,,,https://www.undp.org,,,1
+CO-AP-00762,undp - undp/hq/hdro - united states of america,b:53ce94856b82cd38,UNDP - UNDP/HQ/HDRO - UNITED STATES OF AMERICA,,,https://www.undp.org,,,1
+CO-AP-00763,undp - undp country office - denmark,b:a9065a0d12ecafe4,UNDP - UNDP Country Office - DENMARK,,,https://www.undp.org,,,1
+CO-AP-00764,undp - unv - germany,b:bba6cec1f41c97db,UNDP - UNV - GERMANY,,,https://www.undp.org,,,1
+CO-AP-00765,undp - undp country office - armenia,b:f48327d53d91f52f,UNDP - UNDP Country Office - ARMENIA,,,https://www.undp.org,,,1
+CO-AP-00766,undp - co - ukraine,b:3f7d418bda8e526a,UNDP - CO - UKRAINE,,,https://www.undp.org,,,1
+CO-AP-00767,undp - pnud guatemala - guatemala,b:f05dc4823102d9d4,UNDP - PNUD GUATEMALA - GUATEMALA,,,https://www.undp.org,,,1
+CO-AP-00768,undp - undp myanmar - myanmar,b:bc9933e130579502,UNDP - UNDP Myanmar - MYANMAR,,,https://www.undp.org,,,1
+CO-AP-00769,undp - undp country office - samoa,b:f4f418a1743e205d,UNDP - UNDP Country Office - SAMOA,,,https://www.undp.org,,,1
+CO-AP-00770,undp - ny - united states of america,b:8e05697923463618,UNDP - NY - UNITED STATES OF AMERICA,,,https://www.undp.org,,,1
+CO-AP-00771,undp - ny hqs - united states of america,b:31e4c04c177a5c76,UNDP - NY HQs - UNITED STATES OF AMERICA,,,https://www.undp.org,,,1
+CO-AP-00772,undp - undp country office - iran,b:0c9cc69fec110a20,UNDP - UNDP Country Office - IRAN,,,https://www.undp.org,,,1
+CO-AP-00773,undp - bangladesh - bangladesh,b:e4295ab39a4ab8e3,UNDP - Bangladesh - BANGLADESH,,,https://www.undp.org,,,1
+CO-AP-00774,undp - ptib project - undp - bangladesh,b:eb9e6fde102a12c1,UNDP - PTIB Project - UNDP - BANGLADESH,,,https://www.undp.org,,,1
+CO-AP-00775,undp - undp hq - united states of america,b:010aad73d384e28b,UNDP - UNDP HQ - UNITED STATES OF AMERICA,,,https://www.undp.org,,,1
+CO-AP-00776,undp - undp office - niger,b:be4b706f4d54bd5f,UNDP - UNDP OFFICE - NIGER,,,https://www.undp.org,,,1
+CO-AP-00777,"undp - undp hq new york, - united states of america",b:1104bcf4831bce6f,"UNDP - UNDP HQ New York, - UNITED STATES OF AMERICA",,,https://www.undp.org,,,1
+CO-AP-00778,undp - multi-country office - trinidad and tobago,b:fffba916dc627e39,UNDP - Multi-Country Office - TRINIDAD AND TOBAGO,,,https://www.undp.org,,,1
+CO-AP-00779,world trade organization,b:31a2681b59f70d78,World Trade Organization,,,,,,1
+CO-AP-00780,united nations office at nairobi,b:355714e4d7140553,United Nations Office at Nairobi,,,,,unon-procurement-rfx@un.org,1
+CO-AP-00781,world intellectual property organization,b:ef4043a06b5b0324,World Intellectual Property Organization,,,,,,1
+CO-AP-00782,united nations entity for gender equality and the empowerment of women,b:d11778a0d1946a48,United Nations Entity for Gender Equality and the Empowerment of Women,,,,,procurement@unwomen.org,1
+CO-AP-00783,international telecommunication union,b:04412270bea6eb14,International Telecommunication Union,,,,,,1
+CO-AP-00784,latin america (borrower; implementing agency not published),b:b990c97f13a2db2a,Latin America (borrower; implementing agency not published),,,,,,1
+CO-AP-00785,mali (borrower; implementing agency not published),b:e6b520e8379ca1ad,Mali (borrower; implementing agency not published),,ML,,,,1
+CO-AP-00786,ethiopia (borrower; implementing agency not published),b:c11037ccd33486b7,Ethiopia (borrower; implementing agency not published),,ET,,,,1
+CO-AP-00787,vietnam (borrower; implementing agency not published),b:9f8fd2c6aca03d97,Vietnam (borrower; implementing agency not published),,VN,,,,1
+CO-AP-00788,africa (borrower; implementing agency not published),b:da075d9b98acdec3,Africa (borrower; implementing agency not published),,,,,,1
+CO-AP-00789,serbia (borrower; implementing agency not published),b:9641052daee07882,Serbia (borrower; implementing agency not published),,RS,,,,1
+CO-AP-00790,zambia (borrower; implementing agency not published),b:25f830d60eca2509,Zambia (borrower; implementing agency not published),,ZM,,,,1
+CO-AP-00791,malawi (borrower; implementing agency not published),b:338320c920550241,Malawi (borrower; implementing agency not published),,MW,,,,1
+CO-AP-00792,gabon (borrower; implementing agency not published),b:5856814f60d92555,Gabon (borrower; implementing agency not published),,GA,,,,1
+CO-AP-00793,mozambique (borrower; implementing agency not published),b:07f5e3b14e847cf1,Mozambique (borrower; implementing agency not published),,MZ,,,,1
+CO-AP-00794,sri lanka (borrower; implementing agency not published),b:e0f8040d867bf5dc,Sri Lanka (borrower; implementing agency not published),,LK,,,,1
+CO-AP-00795,tunisia (borrower; implementing agency not published),b:9e9d7ace005a3aa3,Tunisia (borrower; implementing agency not published),,TN,,,,1
+CO-AP-00796,guinea (borrower; implementing agency not published),b:d2a154a66b194594,Guinea (borrower; implementing agency not published),,GN,,,,1
+CO-AP-00797,solomon islands (borrower; implementing agency not published),b:56eb6e75f39209c6,Solomon Islands (borrower; implementing agency not published),,SB,,,,1
+CO-AP-00798,"gambia, the (borrower; implementing agency not published)",b:28a95d5b728b75f0,"Gambia, The (borrower; implementing agency not published)",,GM,,,,1
+CO-AP-00799,morocco (borrower; implementing agency not published),b:bfc157f6d9de22a3,Morocco (borrower; implementing agency not published),,MA,,,,1
+CO-AP-00800,tuvalu (borrower; implementing agency not published),b:5da16ad3d5adf657,Tuvalu (borrower; implementing agency not published),,TV,,,,1
+CO-AP-00801,bhutan (borrower; implementing agency not published),b:3d8f538600100c46,Bhutan (borrower; implementing agency not published),,BT,,,,1
+CO-AP-00802,zambia medicines and medical supplies agency,b:573301f0ddc9aae1,Zambia Medicines and Medical Supplies Agency,,ZM,https://www.medstore.co.zm,,,1

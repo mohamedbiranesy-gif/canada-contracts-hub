@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-22216,v:91fbb4b22ea2a773,M.M.MacDonald Contracting Ltd.,,,,,,6,0,
+CH-VC-22217,v:beb39b5c83c884cc,Galeb Construction,,,,,,6,0,
+CH-VC-22218,v:7e2ee47dcd3aa7ac,Changing Seasons Landscaping,,,,,,6,0,
+CH-VC-22219,v:7a1ff3525fcbecfa,Mike Mills Roofing,,,,,,6,0,
+CH-VC-22220,v:aea480284973a611,Hewitt Rentals,,,,,,6,0,
+CH-VC-22221,v:c7312ddb1b8dc51f,J & T Van Zutphen Construction Inc.,,,,,,6,0,
+CH-VC-22222,v:104c44a67f7e163d,Eastern Restoration Services,,,,,,6,0,
+CH-VC-22223,v:265791b58a08e155,Advantage Hardware Consultants Inc.,,,,,,6,0,
+CH-VC-22224,v:834a8e4d265229ec,Yard Pro,,,,,,6,0,
+CH-VC-22225,v:254dcca449a06cfa,Blackstone Construction,,,,,,6,0,
+CH-VC-22226,v:7de230cb7fdc7df0,TOROMONT CAT (MARITIMES),,,,,,6,0,
+CH-VC-22227,v:ba59d83166bf99b3,3041518 Nova Scotia Ltd (Steele Ford Lincoln),,,,,,6,0,
+CH-VC-22228,v:fcb147e02e6b0993,ATTA Elevators Halifax Inc.,ATTA Elevators Halifax Inc.,14693353,,ON,,6,0,attaelevatorshalifax.ca attaelevatorshalifax.com atta-elevators-halifax.ca atta-elevators-halifax.com
+CH-VC-22229,v:b81e450bbd758609,Rick Balsor Welding,,,,,,6,0,
+CH-VC-22230,v:e773a91eafd2ec59,DT Lund Enterprises,,,,,,6,0,
+CH-VC-22231,v:cd05a538344eb1ec,APM MacLean Construction Ltd.,,,,,,6,0,
+CH-VC-22232,v:987290ca8d138785,TI Terra,,,,,,6,0,
+CH-VC-22233,v:f306ef6c37f35096,Lock Tite Construction,,,,,,6,0,
+CH-VC-22234,v:c1a6b28c9c7361fd,McBride Career Group Inc. (McBride Career Group),,,Edmonton,Alberta,T5J 3L5,5,0,mcbridecareergroup.ca mcbridecareergroup.com mcbride-career-group.ca mcbride-career-group.com
+CH-VC-22235,v:200468f4e482f993,ICL Performance Products Canada Ltd.,,,Kamloops,BC,,5,0,iclperformanceproductscanada.ca iclperformanceproductscanada.com iclperformanceproducts.ca iclperformanceproducts.com
+CH-VC-22236,v:b50c7df3e50ac498,RGO OFFICE FURNISHINGS TRADE NAME OF RGO OFFICE PRODUCTS EDMONTON LTD.,,,Edmonton,Alberta,T5G 2Y2,5,0,
+CH-VC-22237,v:7a3246ea89b4fa67,Polymershapes Distribution Canada Inc.,,,Edmonton,Alberta,T5S 2V3,5,0,polymershapesdistribution.ca polymershapesdistribution.com
+CH-VC-22238,v:8ee500a3d8ef31de,Aspen Home Healthcare Products Ltd.,,,Edmonton,AB,T5G 0X3,5,0,aspenhomehealthcareproducts.ca aspenhomehealthcareproducts.com aspen-home-healthcare-products.ca aspen-home-healthcare-products.com
+CH-VC-22239,v:a6842b12c0251511,Congdon’s Aids to Daily Living Ltd.,,,Edmonton,Alberta,T5T 4X4,5,0,congdonsaidstodailyliving.ca congdonsaidstodailyliving.com congdons-aids-to-daily-living.ca congdons-aids-to-daily-living.com
+CH-VC-22240,v:c7cdd5595a6b74ab,Fisher's Home Health Care Trade Name of Fisher’s Healthcare Inc.,,,Red Deer,Alberta,T4P 1M5,5,0,
+CH-VC-22241,v:8e8e78ff827a02a2,MindBeacon Health,Santé MindBeacon,1174005620,Toronto,Ontario,M4W3R8,5,0,mindbeaconhealth.ca mindbeaconhealth.com mindbeacon-health.ca mindbeacon-health.com santemindbeacon.ca santemindbeacon.com
+CH-VC-22242,v:b251b339da496736,AMSOIL INC.,,,Calgary,Alberta,T2P 2G9,5,0,amsoil.ca amsoil.com
+CH-VC-22243,v:be208a8a39b808ef,Software House International Inc,,,North Vancouver,BC,,5,0,softwarehouseinternational.ca softwarehouseinternational.com software-house-international.ca software-house-international.com
+CH-VC-22244,v:5c8e58b016bf26aa,Gunnar Pacific Agencies Inc,GUNNAR PACIFIC AGENCIES INC.,BC1093557,Vancouver,BC,,5,0,gunnarpacificagencies.ca gunnarpacificagencies.com gunnar-pacific-agencies.ca gunnar-pacific-agencies.com
+CH-VC-22245,v:88d4d2fd77aa92b3,Fraser Valley Equipment Ltd,FRASER VALLEY EQUIPMENT LTD.,BC0303210,Surrey,BC,,5,0,fraservalleyequipment.ca fraservalleyequipment.com fraser-valley-equipment.ca fraser-valley-equipment.com
+CH-VC-22246,v:775376a1889fea9c,Brady's Iron Works Inc,BRADY'S IRON WORKS INC.,BC0765098,Ladysmith,BC,,5,0,bradysironworks.ca bradysironworks.com bradys-iron-works.ca bradys-iron-works.com
+CH-VC-22247,v:6378ca49613fbbff,C&V Sales Ltd.,C & V SALES LTD.,BC1545952,Charlie Lake,BC,,5,0,cvsales.ca cvsales.com c-v-sales.ca c-v-sales.com
+CH-VC-22248,v:0c5365448f569ca5,LAFARGE CANADA INC. C.O.B. AS COLUMBIA BITULITHIC,,,Coquitlam,BC,,5,0,lafargecobascolumbiabitulithic.ca lafargecobascolumbiabitulithic.com
+CH-VC-22249,v:e4ca58960bdbcf5c,Martens Asphalt Ltd,,,Chilliwack,BC,,5,0,martensasphalt.ca martensasphalt.com martens-asphalt.ca martens-asphalt.com
+CH-VC-22250,v:5f61c3f2d1b485a6,Trailblaz'n Power Ltd,TRAILBLAZ'N POWER LTD.,BC0944358,Fort St John,BC,,5,0,trailblaznpower.ca trailblaznpower.com trailblazn-power.ca trailblazn-power.com
+CH-VC-22251,v:9f26afc874b5c94b,Copcan Contracting Ltd,,,Nanaimo,BC,,5,0,copcancontracting.ca copcancontracting.com copcan-contracting.ca copcan-contracting.com
+CH-VC-22252,v:477524af59b45dae,RTR Performance,,,Kamloops,BC,,5,0,rtrperformance.ca rtrperformance.com rtr-performance.ca rtr-performance.com
+CH-VC-22253,v:557681a0a92cc141,BD Hall Constructors Corp,BD HALL CONSTRUCTORS CORP.,BC0879701,Surrey,BC,,5,0,bdhallconstructors.ca bdhallconstructors.com bd-hall-constructors.ca bd-hall-constructors.com
+CH-VC-22254,v:ed957e50d1a614e0,Techport Services Canada,,,Maple Ridge,BC,,5,0,techportservicescanada.ca techportservicescanada.com techportservices.ca techportservices.com techport-services-canada.ca techport-services-canada.com
+CH-VC-22255,v:1c03d5f361b90f4b,Burnaby Bag & Burlap Ltd.,BURNABY BAG & BURLAP LTD.,BC1546444,Burnaby,BC,,5,0,burnabybagburlap.ca burnabybagburlap.com burnaby-bag-burlap.ca burnaby-bag-burlap.com
+CH-VC-22256,v:c6e4fa5c44674aa7,Kan-Arm Contracting Ltd.,KAN-ARM CONTRACTING LTD.,BC0902462,Chilliwack,BC,,5,0,kanarmcontracting.ca kanarmcontracting.com kan-arm-contracting.ca kan-arm-contracting.com
+CH-VC-22257,v:7e16a0e7abcb1e21,Soucie Construction Ltd.,SOUCIE CONSTRUCTION LTD.,BC0135075,Stewart,BC,,5,0,soucieconstruction.ca soucieconstruction.com soucie-construction.ca soucie-construction.com
+CH-VC-22258,v:fdd39170aafa211a,Mass Construction Ltd.,,,Quesnel,BC,,5,0,massconstruction.ca massconstruction.com mass-construction.ca mass-construction.com
+CH-VC-22259,v:a5b1ae5e9fc9f3d0,College of the Rockies,,,Cranbrook,BC,,5,0,collegerockies.ca collegerockies.com college-rockies.ca college-rockies.com
+CH-VC-22260,v:de5c50ca25fab0c7,Thompson Rivers University,,,Kamloops,BC,,5,0,thompsonriversuniversity.ca thompsonriversuniversity.com thompson-rivers-university.ca thompson-rivers-university.com
+CH-VC-22261,v:81d4a1e70ea6a92a,Sprott Shaw Degree College Corp,,,Burnaby,BC,,5,0,sprottshawdegreecollege.ca sprottshawdegreecollege.com sprott-shaw-degree-college.ca sprott-shaw-degree-college.com
+CH-VC-22262,v:13734429c7b4670f,Swens Contracting,,,Sechelt,BC,,5,0,swenscontracting.ca swenscontracting.com swens-contracting.ca swens-contracting.com
+CH-VC-22263,v:2fdd2162760ef8cd,BA BLACKWELL & ASSOCIATES,,,Vancouver,BC,,5,0,bablackwellassociates.ca bablackwellassociates.com ba-blackwell-associates.ca ba-blackwell-associates.com
+CH-VC-22264,v:268b7eb7bbd38064,Montane Resource Management Inc.,MONTANE RESOURCE MANAGEMENT INC.,BC0427364,Kelowna,BC,,5,0,montaneresourcemanagement.ca montaneresourcemanagement.com montane-resource-management.ca montane-resource-management.com
+CH-VC-22265,v:e61d8446b62d8975,Pacific Rim Safety Training,PACIFIC RIM SAFETY TRAINING,FM0285171,Kelowna,BC,,5,0,pacificrimsafetytraining.ca pacificrimsafetytraining.com pacific-rim-safety-training.ca pacific-rim-safety-training.com
+CH-VC-22266,v:05f966ee7989020d,Limno Lab Ltd,LIMNO LAB LTD.,BC0647959,Vancouver,BC,,5,0,limnolab.ca limnolab.com limno-lab.ca limno-lab.com
+CH-VC-22267,v:90000398ffcae16a,Blaeden Contracting Ltd.,BLAEDEN CONTRACTING LTD.,BC0137563,Golden,BC,,5,0,blaedencontracting.ca blaedencontracting.com blaeden-contracting.ca blaeden-contracting.com
+CH-VC-22268,v:1308d70a51e0f298,Bushtech BC Ltd.,,,Hope,BC,,5,0,bushtechbc.ca bushtechbc.com bushtech-bc.ca bushtech-bc.com
+CH-VC-22269,v:551deea0fc3d65b9,Ecofor Consulting BC Ltd.,,,Prince George,BC,,5,0,ecoforconsultingbc.ca ecoforconsultingbc.com ecofor-consulting-bc.ca ecofor-consulting-bc.com
+CH-VC-22270,v:9759ae48e052cc59,Tanglefoot Forestry Consultants Ltd.,TANGLEFOOT FORESTRY CONSULTANTS LTD.,BC0754528,Cranbrook,BC,,5,0,tanglefootforestryconsultants.ca tanglefootforestryconsultants.com
+CH-VC-22271,v:2b45489bfa33c898,Lafarge Canada Inc. dba Hub City Paving,,,Nanaimo,BC,,5,0,hubcitypaving.ca hubcitypaving.com hub-city-paving.ca hub-city-paving.com
+CH-VC-22272,v:e66518645980ad3c,Diversecity Community Resources Society,DIVERSECITY COMMUNITY RESOURCES SOCIETY,S0014222,Surrey,BC,,5,0,
+CH-VC-22273,v:17e8c771495f024c,Polar North Forestry Ltd.,POLAR NORTH FORESTRY LTD.,BC0673380,Prince George,BC,,5,0,polarnorthforestry.ca polarnorthforestry.com polar-north-forestry.ca polar-north-forestry.com
+CH-VC-22274,v:228d6c0c05150251,Domcor Traffic Control International Inc.,DOMCOR TRAFFIC CONTROL INTERNATIONAL INC.,BC1036002,Campbell River,BC,,5,0,
+CH-VC-22275,v:4ff2c190d3855691,NxStar Systems Inc.,NXSTAR SYSTEMS INC.,BC0708418,Kamloops,BC,,5,0,nxstarsystems.ca nxstarsystems.com nxstar-systems.ca nxstar-systems.com
+CH-VC-22276,v:8b37bccbf47db69d,Princeton Wood Preservers Ltd.,PRINCETON WOOD PRESERVERS LTD.,BC0121267,Princeton,BC,,5,0,princetonwoodpreservers.ca princetonwoodpreservers.com princeton-wood-preservers.ca princeton-wood-preservers.com
+CH-VC-22277,v:ca9aabdc0ec27f43,Orlando Phillips,,,Prince George,BC,,5,0,orlandophillips.ca orlandophillips.com orlando-phillips.ca orlando-phillips.com
+CH-VC-22278,v:099c10c1c3a0d241,Bolster Enterprises Ltd,BOLSTER ENTERPRISES LTD.,BC0162621,Clinton,BC,,5,0,bolsterenterprises.ca bolsterenterprises.com bolster-enterprises.ca bolster-enterprises.com
+CH-VC-22279,v:e68912306c6f2333,Bear Creek Contracting Ltd.,BEAR CREEK CONTRACTING LTD.,BC0064751,Terrace,BC,,5,0,bearcreekcontracting.ca bearcreekcontracting.com bear-creek-contracting.ca bear-creek-contracting.com
+CH-VC-22280,v:50200d1fc1541844,Superior City Contracting Services Ltd.,SUPERIOR CITY CONTRACTING SERVICES LTD.,BC0651022,Surrey,BC,,5,0,
+CH-VC-22281,v:0493c35fb2b69ac1,Secure-Rite Mobile Storage Inc.,SECURE-RITE MOBILE STORAGE INC.,BC0742202,Kelowna,BC,,5,0,secureritemobilestorage.ca secureritemobilestorage.com secure-rite-mobile-storage.ca secure-rite-mobile-storage.com
+CH-VC-22282,v:7b0c4754de897391,Dr. Sheryl Bourque,,,Surrey,BC,,5,0,drsherylbourque.ca drsherylbourque.com dr-sheryl-bourque.ca dr-sheryl-bourque.com
+CH-VC-22283,v:00af5dade0ec0694,S.U.C.C.E.S.S.,,,Vancouver,BC,,5,0,success.ca success.com s-u-c-c-e-s-s.ca s-u-c-c-e-s-s.com
+CH-VC-22284,v:2bdbfb9bfb22edcf,ATS Traffic - British Columbia Ltd,,,Langley,BC,,5,0,atstrafficbritishcolumbia.ca atstrafficbritishcolumbia.com ats-traffic-british-columbia.ca ats-traffic-british-columbia.com
+CH-VC-22285,v:8a92c2a90a549301,CP Packaging Corp,CP PACKAGING CORP.,A0081477,Delta,BC,,5,0,cppackaging.ca cppackaging.com cp-packaging.ca cp-packaging.com
+CH-VC-22286,v:c3ea2b86913a4ad8,H.K.S. Management Inc.,H.K.S. MANAGEMENT INC.,BC1413456,Langley,BC,,5,0,hksmanagement.ca hksmanagement.com h-k-s-management.ca h-k-s-management.com
+CH-VC-22287,v:07c8731a26f0b24f,I.T. Falling LTD,I.T. FALLING LTD.,BC0886610,Kamloops,BC,,5,0,itfalling.ca itfalling.com i-t-falling.ca i-t-falling.com
+CH-VC-22288,v:54238e5bec7d0dba,FDS Inventory Group Inc.,FDS INVENTORY GROUP INC.,BC0846736,Maple Ridge,BC,,5,0,fdsinventorygroup.ca fdsinventorygroup.com fds-inventory-group.ca fds-inventory-group.com
+CH-VC-22289,v:35e9aba4eeda5acc,Jemma Scoble and Associates Consulting Inc.,JEMMA SCOBLE AND ASSOCIATES CONSULTING INC.,BC0994084,Burnaby,BC,,5,0,
+CH-VC-22290,v:b62fa4bf0d385733,Kharma Safety Ltd.,KHARMA SAFETY LTD.,BC0988422,Fort St John,BC,,5,0,kharmasafety.ca kharmasafety.com kharma-safety.ca kharma-safety.com
+CH-VC-22291,v:7c99880342bafc92,Ironwood Resource Professionals,IRONWOOD RESOURCE PROFESSIONALS,FM0747250,Prince George,BC,,5,0,ironwoodresourceprofessionals.ca ironwoodresourceprofessionals.com
+CH-VC-22292,v:bd819352a598fcb6,Doug Kirkby dba Nehalliston Landscaping,,,Bridge Lake,BC,,5,0,nehallistonlandscaping.ca nehallistonlandscaping.com nehalliston-landscaping.ca nehalliston-landscaping.com
+CH-VC-22293,v:3ef1c58036fc99ee,Silvatech Consulting Ltd.,SILVATECH CONSULTING LTD.,BC0254447,Salmon Arm,BC,,5,0,silvatechconsulting.ca silvatechconsulting.com silvatech-consulting.ca silvatech-consulting.com
+CH-VC-22294,v:6b387b1d8de8e0ef,Certes Applied and Natural Sciences Ltd,CERTES APPLIED AND NATURAL SCIENCES LTD.,BC1012435,Kamloops,BC,,5,0,certesappliednaturalsciences.ca certesappliednaturalsciences.com
+CH-VC-22295,v:b317c022b7fd20d9,DCL Construction Services Ltd.,,,Calgary,AB,,5,0,dclconstructionservices.ca dclconstructionservices.com dcl-construction-services.ca dcl-construction-services.com
+CH-VC-22296,v:5105bcbb255fa02a,Dowling C. Monette Logging Ltd.,DOWLING C. MONETTE LOGGING LTD.,BC0998074,100 Mile House,BC,,5,0,dowlingcmonettelogging.ca dowlingcmonettelogging.com dowling-c-monette-logging.ca dowling-c-monette-logging.com
+CH-VC-22297,v:5ea9e231678dd698,RST Instruments Ltd.,,,Coquitlam,BC,,5,0,rstinstruments.ca rstinstruments.com rst-instruments.ca rst-instruments.com
+CH-VC-22298,v:609f066984f433b9,"Optimal Computing International, Inc.",Optimal Computing International Inc.,7529040,Vancouver,BC,V6H 3X8,5,0,optimalcomputinginternational.ca optimalcomputinginternational.com
+CH-VC-22299,v:2f347d4910cc8901,Specialized Forest Management Inc.,,,Dunster,BC,,5,0,specializedforestmanagement.ca specializedforestmanagement.com specialized-forest-management.ca specialized-forest-management.com
+CH-VC-22300,v:2ac98f5c80151a3a,SKY Helicopters Inc.,SKY HELICOPTERS INC.,BC0829356,Pitt Meadows,BC,,5,0,skyhelicopters.ca skyhelicopters.com sky-helicopters.ca sky-helicopters.com
+CH-VC-22301,v:ed861db106c32811,1197157 B.C. Ltd,1197157 B.C. LTD.,BC1197157,,BC,,5,0,
+CH-VC-22302,v:dc33b8ae843cc70d,Focal Engineering Inc.,FOCAL ENGINEERING INCORPORATED,BC1151503,Victoria,BC,,5,0,focalengineering.ca focalengineering.com focal-engineering.ca focal-engineering.com
+CH-VC-22303,v:6f0d53f10c50bde6,Robert Lewis,,,,BC,,5,0,robertlewis.ca robertlewis.com robert-lewis.ca robert-lewis.com
+CH-VC-22304,v:eeb6fb71e485608b,O.K. Forestry road maintenance,O.K. FORESTRY ROAD MAINTENANCE,FM0468753,,BC,,5,0,okforestryroadmaintenance.ca okforestryroadmaintenance.com o-k-forestry-road-maintenance.ca o-k-forestry-road-maintenance.com
+CH-VC-22305,v:4d37ada185372fb2,COPPER CANYON CONSULTING LTD.,COPPER CANYON CONSULTING LTD.,BC0976811,Crofton,BC,,5,0,coppercanyonconsulting.ca coppercanyonconsulting.com copper-canyon-consulting.ca copper-canyon-consulting.com
+CH-VC-22306,v:128a913140f769a7,Ridgeview Excavating Ltd.,RIDGEVIEW EXCAVATING LTD.,BC0149509,Vernon,BC,,5,0,ridgeviewexcavating.ca ridgeviewexcavating.com ridgeview-excavating.ca ridgeview-excavating.com
+CH-VC-22307,v:0afde56699db99c4,FAST Limited,,,,BC,,5,0,fast.ca fast.com
+CH-VC-22308,v:d0f6f5bc45419937,Arda Creek Contracting Ltd,ARDA CREEK CONTRACTING LTD.,BC1438028,,BC,,5,0,ardacreekcontracting.ca ardacreekcontracting.com arda-creek-contracting.ca arda-creek-contracting.com
+CH-VC-22309,v:e8270f0278351832,FYPM Holdings Inc,,,Maple Ridge,BC,,5,0,fypmholdings.ca fypmholdings.com fypm-holdings.ca fypm-holdings.com
+CH-VC-22310,v:1fb8226f0d6ada18,C. Chandler Contracting Celtic Construction,C. CHANDLER CONTRACTING CELTIC CONSTRUCTION LTD.,BC1066273,Grande Prairie,AB,T8W 0M3,5,0,
+CH-VC-22311,v:f5933008bd65f25f,Signia Construction Ltd,SIGNIA CONSTRUCTION LTD.,BC0492457,Vancouver,BC,V6P 6G5,5,0,
+CH-VC-22312,v:1adb64f9f8cc7705,O4A,,,,BC,,5,0,
+CH-VC-22313,v:0d74d1679ad86e82,CSPN,,,,ON,M5J 2N8,5,0,cspn.ca cspn.com
+CH-VC-22314,v:307cf0e8b0225ba1,Hi-Lite Truck Accessories Ltd.,HI-LITE TRUCK ACCESSORIES LTD.,BC0357009,Surrey,BC,,5,0,hilitetruckaccessories.ca hilitetruckaccessories.com hi-lite-truck-accessories.ca hi-lite-truck-accessories.com
+CH-VC-22315,v:cd2654544b40e0a5,First Resource Management Group,,,North Bay,ON,,5,0,firstresourcemanagementgroup.ca firstresourcemanagementgroup.com

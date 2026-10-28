@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-21616,v:a37f14692fd67139,Marantz & Sons Ltd,,,Winnipeg,MB,,7,0,marantzsons.ca marantzsons.com marantz-sons.ca marantz-sons.com
+CH-VC-21617,v:c73c843d65415008,Cumings' Fire & Safety Equipment Limited,CUMINGS' FIRE AND SAFETY EQUIPMENT LIMITED,870927,Hebbville,NS,,7,0,cumingsfiresafetyequipment.ca cumingsfiresafetyequipment.com cumings-fire-safety-equipment.ca cumings-fire-safety-equipment.com
+CH-VC-21618,v:7b9838a9a49fa6af,Audio Systems Limited,,,St. John's,NL,,7,0,audiosystems.ca audiosystems.com audio-systems.ca audio-systems.com
+CH-VC-21619,v:6b3080eaaa6db63d,East Coast Laundry,,,Halifax,NS,,7,0,eastcoastlaundry.ca eastcoastlaundry.com east-coast-laundry.ca east-coast-laundry.com
+CH-VC-21620,v:ea07b04e0e0d6b74,Hydrogarden Supply Services Inc,,,Ancaster,ON,,7,0,hydrogardensupplyservices.ca hydrogardensupplyservices.com hydrogarden-supply-services.ca hydrogarden-supply-services.com
+CH-VC-21621,v:9804bbdc43d70735,Clyde Industries Canada Inc.,,,Waterloo,ON,,7,0,clydeindustriescanada.ca clydeindustriescanada.com clydeindustries.ca clydeindustries.com clyde-industries-canada.ca clyde-industries-canada.com
+CH-VC-21622,v:a83ab7542432753d,Stat Medical,,,Cambridge,ON,N1T1T2,7,0,statmedical.ca statmedical.com stat-medical.ca stat-medical.com
+CH-VC-21623,v:51d17da1b99d7ca6,Boehringer Ingelheim Animal Health Canada Inc,Boehringer Ingelheim Animal Health Canada Inc.,1143841840,Burlington,ON,,7,0,
+CH-VC-21624,v:89b2399bf2fa13b7,Nimbus Publishing,,,Halifax,NS,,7,0,nimbuspublishing.ca nimbuspublishing.com nimbus-publishing.ca nimbus-publishing.com
+CH-VC-21625,v:0a69cf1ff519100f,Millipore Sigma (Canada) Ltd.,MILLIPORE (CANADA) LTÉE,1149249352,,ON,L5G4T6,7,0,milliporesigma.ca milliporesigma.com millipore-sigma.ca millipore-sigma.com milliporesigmacanada.ca milliporesigmacanada.com
+CH-VC-21626,v:fbdac71e9b1755a5,Christie Mechanical Ltd.,,,Regina,SK,,7,0,christiemechanical.ca christiemechanical.com christie-mechanical.ca christie-mechanical.com
+CH-VC-21627,v:31b7b35cba281281,Jaycor Enterprises,,,Regina,SK,,7,0,jaycorenterprises.ca jaycorenterprises.com jaycor-enterprises.ca jaycor-enterprises.com
+CH-VC-21628,v:19854a16b724c5b4,Walter's Industrial Mechanical Ltd.,,,Regina,SK,,7,0,waltersindustrialmechanical.ca waltersindustrialmechanical.com walters-industrial-mechanical.ca walters-industrial-mechanical.com
+CH-VC-21629,v:f6c161ad565c09fc,River North Construction '86 Ltd.,,,Prince Albert,SK,,7,0,rivernorthconstruction86.ca rivernorthconstruction86.com river-north-construction-86.ca river-north-construction-86.com
+CH-VC-21630,v:2dff2fa30b84434d,Marathon Mechanical,,,Regina,SK,,7,0,marathonmechanical.ca marathonmechanical.com marathon-mechanical.ca marathon-mechanical.com
+CH-VC-21631,v:39df4b2f8d55b7ee,Treven Leason,,,Preeceville,SK,,7,0,trevenleason.ca trevenleason.com treven-leason.ca treven-leason.com
+CH-VC-21632,v:0b083e56adf9e44a,Oxford Inc.,,,Okotoks,AB,,7,0,oxford.ca oxford.com
+CH-VC-21633,v:9c06b6f14a44312c,RMIS Engineering,,,Regina,SK,,7,0,rmisengineering.ca rmisengineering.com rmis-engineering.ca rmis-engineering.com
+CH-VC-21634,v:3fca381330b33a94,WBM,,,Regina,SK,,7,0,
+CH-VC-21635,v:e47b8ce4c670c2d4,Regina Fasteners & Tools Ltd,,,Regina,SK,,7,0,reginafastenerstools.ca reginafastenerstools.com regina-fasteners-tools.ca regina-fasteners-tools.com
+CH-VC-21636,v:ee65e7c162c89890,DATA COMMUNICATIONS,,,Regina,SK,,7,0,datacommunications.ca datacommunications.com data-communications.ca data-communications.com
+CH-VC-21637,v:0c631952557d2cf3,L & G Crushing Corp.,,,Raymore,SK,,7,0,gcrushing.ca gcrushing.com g-crushing.ca g-crushing.com
+CH-VC-21638,v:aaa3566f3e06b0e9,McDougall Auctioneers Ltd,McDougall Auctioneers Ltd.,1179695763,Emerald Park,SK,,7,0,mcdougallauctioneers.ca mcdougallauctioneers.com mcdougall-auctioneers.ca mcdougall-auctioneers.com encansmcdougall.ca encansmcdougall.com
+CH-VC-21639,v:f3e66db8d647f0c1,Kreate Architecture and Design Ltd,,,Regina,SK,,7,0,kreatearchitecturedesign.ca kreatearchitecturedesign.com kreate-architecture-design.ca kreate-architecture-design.com
+CH-VC-21640,v:6700fe6c381ab8ca,Oxford Libero Consulting LP,,,Regina,SK,,7,0,oxfordliberoconsulting.ca oxfordliberoconsulting.com oxford-libero-consulting.ca oxford-libero-consulting.com
+CH-VC-21641,v:32cbf7ed5b20649d,Goodwen Management Inc.,,,Saskatoon,SK,,7,0,goodwenmanagement.ca goodwenmanagement.com goodwen-management.ca goodwen-management.com
+CH-VC-21642,v:40f3287202c8c45b,Nemco Resources Ltd.,,,Regina,SK,,7,0,nemcoresources.ca nemcoresources.com nemco-resources.ca nemco-resources.com
+CH-VC-21643,v:f8fcdc799a32a042,Maxie's Excavating Ltd.,,,Saskatoon,SK,,7,0,maxiesexcavating.ca maxiesexcavating.com maxies-excavating.ca maxies-excavating.com
+CH-VC-21644,v:43e295a760507af6,Advanced Waste Solutions,,,Regina,SK,,7,0,advancedwastesolutions.ca advancedwastesolutions.com advanced-waste-solutions.ca advanced-waste-solutions.com
+CH-VC-21645,v:654b18c4ec08fb44,Trade West Equipment Ltd,,,Regina,SK,,7,0,tradewestequipment.ca tradewestequipment.com trade-west-equipment.ca trade-west-equipment.com
+CH-VC-21646,v:1fed56eabf192eb5,Omar's Welding,,,Springside,SK,,7,0,omarswelding.ca omarswelding.com omars-welding.ca omars-welding.com
+CH-VC-21647,v:33bba419a96f53ba,Maxim Transportation Services Inc.,MAXIM TRANSPORTATION SERVICES INC.,1145392552,Prince Albert,SK,,7,0,maximtransportationservices.ca maximtransportationservices.com maxim-transportation-services.ca maxim-transportation-services.com camionsbronco.ca camionsbronco.com
+CH-VC-21648,v:2174eaa7b9e606d5,Fries Tallman Lumber 1976 Ltd.,,,Regina,SK,,7,0,friestallmanlumber1976.ca friestallmanlumber1976.com fries-tallman-lumber-1976.ca fries-tallman-lumber-1976.com
+CH-VC-21649,v:f6945aaa2ccba223,McMunn & Yates Building Supplies Ltd.,,,Dauphin,MB,,7,0,mcmunnyatesbuildingsupplies.ca mcmunnyatesbuildingsupplies.com mcmunn-yates-building-supplies.ca mcmunn-yates-building-supplies.com
+CH-VC-21650,v:833fcdc9c8cdc046,United Chemical Services,,,Saskatoon,SK,,7,0,unitedchemicalservices.ca unitedchemicalservices.com united-chemical-services.ca united-chemical-services.com
+CH-VC-21651,v:f5e4dffa929cef30,Wood Environment and Infrastructure,,,Saskatoon,SK,,7,0,woodenvironmentinfrastructure.ca woodenvironmentinfrastructure.com
+CH-VC-21652,v:910411be8ffe08e3,Boyd Excavating Ltd.,,,Pilot Butte,SK,,7,0,boydexcavating.ca boydexcavating.com boyd-excavating.ca boyd-excavating.com
+CH-VC-21653,v:9fc8929f9c301144,Nickel Plumbing & Heating Ltd.,,,Saskatoon,SK,,7,0,nickelplumbingheating.ca nickelplumbingheating.com nickel-plumbing-heating.ca nickel-plumbing-heating.com
+CH-VC-21654,v:af26f99f09b2f40b,United Paving 1983 Ltd.,,,Swift Current,SK,,7,0,unitedpaving1983.ca unitedpaving1983.com united-paving-1983.ca united-paving-1983.com
+CH-VC-21655,v:582598e068701e74,Don Wehage & Sons Trucking & Excavating Ltd,,,Saskatoon,SK,,7,0,
+CH-VC-21656,v:600e8a7b0bdf342c,Nichols Interiors Ltd.,,,Saskatoon,SK,,7,0,nicholsinteriors.ca nicholsinteriors.com nichols-interiors.ca nichols-interiors.com
+CH-VC-21657,v:0ad239d296c7bd9b,Nordic Industries,,,Saskatoon,SK,,7,0,nordicindustries.ca nordicindustries.com nordic-industries.ca nordic-industries.com
+CH-VC-21658,v:7b25453181841b5f,RNC Concrete,,,Saskatoon,SK,,7,0,rncconcrete.ca rncconcrete.com rnc-concrete.ca rnc-concrete.com
+CH-VC-21659,v:49b531059877eb81,Ornacraft Iron Works,,,Meath Park,SK,,7,0,ornacraftironworks.ca ornacraftironworks.com ornacraft-iron-works.ca ornacraft-iron-works.com
+CH-VC-21660,v:9a6c1e32d58ca7d7,Pavement Scientific International Inc.,PAVAGE SCIENTIFIQUE INTERNATIONALE INC.,1162644851,Saskatoon,SK,,7,0,
+CH-VC-21661,v:935ccd8f55d6367d,Tennant Company,Tennant Sales and Service Company,1160119674,Winnipeg,MB,,7,0,tennant.ca tennant.com tennantsalesservice.ca tennantsalesservice.com tennant-sales-service.ca tennant-sales-service.com
+CH-VC-21662,v:e8b84fd92f64f09b,RPM Machining Ltd.,,,Yorkton,SK,,7,0,rpmmachining.ca rpmmachining.com rpm-machining.ca rpm-machining.com
+CH-VC-21663,v:65c178e0d896d2f3,Flaman Stores P.A. Inc.,,,Prince Albert,SK,,7,0,flamanstoresp.ca flamanstoresp.com flaman-stores-p.ca flaman-stores-p.com
+CH-VC-21664,v:e20f5aa20246c433,ADB Airfield Solutions Ltd.,"ADB AIRFIELD SOLUTIONS, LTD.",7133871,Burlington,ON,,7,0,adbairfieldsolutions.ca adbairfieldsolutions.com adb-airfield-solutions.ca adb-airfield-solutions.com adbsolutionsaeroportuaires.ca adbsolutionsaeroportuaires.com
+CH-VC-21665,v:148c05ace6c5c6f6,Valley West Irrigation Inc.,,,Outlook,SK,,7,0,valleywestirrigation.ca valleywestirrigation.com valley-west-irrigation.ca valley-west-irrigation.com
+CH-VC-21666,v:f7d2885f9d5db839,Carlton Honda,,,Prince Albert,SK,,7,0,carltonhonda.ca carltonhonda.com carlton-honda.ca carlton-honda.com
+CH-VC-21667,v:f54f05b98a5bcca2,Jaydee Agtech,,,Swift Current,SK,,7,0,jaydeeagtech.ca jaydeeagtech.com jaydee-agtech.ca jaydee-agtech.com
+CH-VC-21668,v:fcdbb2c73c2c6569,Wilf Elaschuk,,,Springside,SK,,7,0,wilfelaschuk.ca wilfelaschuk.com wilf-elaschuk.ca wilf-elaschuk.com
+CH-VC-21669,v:b4bbdbcd406d8e3e,Sinclair Technologies Inc,Norsat International Inc.,1142864199,Aurora,ON,,7,0,sinclairtechnologies.ca sinclairtechnologies.com sinclair-technologies.ca sinclair-technologies.com norsatinternational.ca norsatinternational.com
+CH-VC-21670,v:8f32bbf74906d831,FLEET-CHRYSLER CANADA INC.,,,,,,7,0,
+CH-VC-21671,v:1cdeb4020f434581,Terrapure Environmental,,,,,,7,0,
+CH-VC-21672,v:306b603ff23ce9e3,Cerner Canada,Société Cerner Canada,1172201643,Markham,ON,L3R 0B8,7,0,cernercanada.ca cernercanada.com cerner.ca cerner.com cerner-canada.ca cerner-canada.com
+CH-VC-21673,v:968aa50505a5be4b,Advanced Cyclotron Systems Inc.,ADVANCED CYCLOTRON SYSTEMS INC.,BC0673956,Richmond,BC,V6X1X5,7,0,advancedcyclotronsystems.ca advancedcyclotronsystems.com advanced-cyclotron-systems.ca advanced-cyclotron-systems.com
+CH-VC-21674,v:43dfc6af464c2584,Thermo Fisher Scientific (Diagnostix),THERMO FISHER SCIENTIFIC (MISSISSAUGA) INC.,1167006205,Mississauga,ON,L5N 8G6,7,0,thermofisherscientific.ca thermofisherscientific.com thermo-fisher-scientific.ca thermo-fisher-scientific.com thermofisherscientifique.ca thermofisherscientifique.com
+CH-VC-21675,v:fe8c9cdd378136e6,Leica Biosystems,LEICA MICROSYSTEMS CANADA,3366450883,Concord,ON,L4K 4X1,7,0,leicabiosystems.ca leicabiosystems.com leica-biosystems.ca leica-biosystems.com leicamicrosystemscanada.ca leicamicrosystemscanada.com
+CH-VC-21676,v:c534ad6f80329b4b,Avmax Aviation Services inc.,Services d'aviation Avmax,1167223289,,AB,T2E8C3,7,0,avmaxaviationservices.ca avmaxaviationservices.com avmax-aviation-services.ca avmax-aviation-services.com servicesdaviationavmax.ca servicesdaviationavmax.com
+CH-VC-21677,v:fba9b894f8c455ac,Provincial Medical Supplies Ltée.,,,St-John's,NF,A1B 4B7,7,0,provincialmedicalsupplies.ca provincialmedicalsupplies.com provincial-medical-supplies.ca provincial-medical-supplies.com
+CH-VC-21678,v:8e43e3cf0f580c6a,Institute for quality management in Healthcare,,,Toronto,ON,M4W 1E6,7,0,
+CH-VC-21679,v:9df24c24d367d667,SolidCAD une compagnie Symetri,SYMETRI CANADA INC.,1181390601,,ON,M5J2T3,7,0,solidcadunesymetri.ca solidcadunesymetri.com solidcad-une-symetri.ca solidcad-une-symetri.com symetricanada.ca symetricanada.com
+CH-VC-21680,v:e3bde3c536177bc4,LABORATOIRE ABBOTT LIMITÉE,,,Mississauga,ON,L5N 3R3,7,0,laboratoireabbott.ca laboratoireabbott.com laboratoire-abbott.ca laboratoire-abbott.com
+CH-VC-21681,v:bc65e319ab49e9ff,A.V. Tchouvelev & Associates Inc.,A. V. TCHOUVELEV & ASSOCIATES INC.,6368468,Mississauga,ON,L5W 1R2,7,0,vtchouvelevassociates.ca vtchouvelevassociates.com v-tchouvelev-associates.ca v-tchouvelev-associates.com
+CH-VC-21682,v:1975005f398da3b4,Mentor Medical Systems (Canada) Inc.,Mentor Medical Systems (Canada) Inc.,3245195,Oshwaa,ON,L1B 8P7,7,0,mentormedicalsystems.ca mentormedicalsystems.com mentor-medical-systems.ca mentor-medical-systems.com
+CH-VC-21683,v:a2573de13d3e5d73,Reuters Canada Limited,REUTERS CANADA LIMITED,1143570555,Toronto,ON,M5W 3N9,7,0,reuterscanada.ca reuterscanada.com reuters.ca reuters.com reuters-canada.ca reuters-canada.com
+CH-VC-21684,v:b87ab8131807d16e,XYCORP MEDICAL INC.,,,MISSISSAUGA,ON,L5L1A3,7,0,xycorpmedical.ca xycorpmedical.com xycorp-medical.ca xycorp-medical.com
+CH-VC-21685,v:298aac3b19dfe4f5,Molnlycke Produits Médicaux,,,Oakville,ON,L6H 5R7,7,0,molnlyckeproduitsmedicaux.ca molnlyckeproduitsmedicaux.com molnlycke-produits-medicaux.ca molnlycke-produits-medicaux.com
+CH-VC-21686,v:9ee67eca57864615,MEG International Services Ltd,,,Coquitlam,BC,V3K 7A1,7,0,meginternationalservices.ca meginternationalservices.com meg-international-services.ca meg-international-services.com
+CH-VC-21687,v:d099b977f22dd095,Canada Endoscope Corp.,CANADA ENDOSCOPE CORPORATION,3548759,Markham,ON,L3R 9T9,7,0,canadaendoscope.ca canadaendoscope.com endoscope.ca endoscope.com canada-endoscope.ca canada-endoscope.com
+CH-VC-21688,v:b8cdd91ab0d70ed7,Bombardier aéronautique,BOMBARDIER INC.,1143920115,Mississauga,ON,L5S 1Y6,7,0,bombardieraeronautique.ca bombardieraeronautique.com bombardier-aeronautique.ca bombardier-aeronautique.com bombardier.ca bombardier.com
+CH-VC-21689,v:f3b556a7ee7e638f,ACTI-SERV INC.,,,,,,7,0,
+CH-VC-21690,v:504239c893974677,"Med-Eng, LLC",,,,,,7,0,
+CH-VC-21691,v:4ab3857f6e1b22eb,ABBA PUMP PARTS & SERVICE,,,BURLINGTON,ON,L7L 5N8,7,0,abbapumppartsservice.ca abbapumppartsservice.com abba-pump-parts-service.ca abba-pump-parts-service.com
+CH-VC-21692,v:4b97f57ac5164186,A & B PAVING CORP,,,,,,7,0,
+CH-VC-21693,v:09e5e353ba697137,TRAPEZE SOFTWARE ULC,,,,,,7,0,
+CH-VC-21694,v:d4e7430f1534a12d,RICARDO CANADA INC.,"Ricardo Canada, Inc.",13087395,,ON,,7,0,ricardocanada.ca ricardocanada.com ricardo.ca ricardo.com ricardo-canada.ca ricardo-canada.com
+CH-VC-21695,v:6e9d7bb76a3fb201,HERITAGE GRADE,,,,,,7,0,
+CH-VC-21696,v:35aa73dab67e663d,NOVABUS ST EUSTACHE,,,,,,7,0,
+CH-VC-21697,v:bf66c4845d0becda,RUHLAND AND ASSOCIATES LTD,,,,,,7,0,
+CH-VC-21698,v:dfe7c81c1bd03fb4,A.W. HOOKER ASSOCIATES LTD.,,,,,,7,0,
+CH-VC-21699,v:9e8d1019a188913a,PRESTIGE DESIGN AND,,,,,,7,0,
+CH-VC-21700,v:52edc254bb853c12,1146592 S AND L WASTETECH,,,,,,7,0,
+CH-VC-21701,v:a8e2cd6cf3d6d380,TULLOCH GEOMATICS INC,,,,,,7,0,
+CH-VC-21702,v:f6acadd3c584a26e,ROYAL CROWN CONSTRUCTION (2339366 ONTARIO INC.),,,,,,7,0,
+CH-VC-21703,v:809e6103d54c45a9,VITALITY LANDSCAPING INC,,,,,,7,0,
+CH-VC-21704,v:33d6ac04f8984273,CAMPANA SYSTEMS INC,,,,,,7,0,
+CH-VC-21705,v:137520ece3a775a9,INNOVATIVE BUSINESS SOFTWARE INC,,,,,,7,0,
+CH-VC-21706,v:80643f900d3b009d,Anscon Contracting Inc.,,,,,,7,0,
+CH-VC-21707,v:6dc238ab8637b1e2,Wamco Supply Inc.,,,,,,7,0,
+CH-VC-21708,v:11b24748d68e1fd3,Organization Consulting Ltd,ORGANIZATION CONSULTING LIMITED,3790410,,ON,,7,0,organizationconsulting.ca organizationconsulting.com organization-consulting.ca organization-consulting.com
+CH-VC-21709,v:49659b094379d55b,Mississauga Steel Mart,,,,,,7,0,
+CH-VC-21710,v:831ec5c40eb11a28,GC Duke Equipment Ltd,,,,,,7,0,
+CH-VC-21711,v:c85a99d16722eed7,Roy Foss Chevrolet Buick GMC,,,,,,7,0,
+CH-VC-21712,v:9c036e68640d0b33,Roy Foss Chevrolet Buick GMC Woodbridge,,,,,,7,0,
+CH-VC-21713,v:72c4c42b246f6562,Somerville Construction,,,,,,7,0,
+CH-VC-21714,v:dc6698bd81a5c7dc,Total Suspensions,,,,,,7,0,
+CH-VC-21715,v:d0aca56f1fd4b95b,Strongco Limited Partnership,,,,,,7,0,

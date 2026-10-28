@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-23216,v:5c7332d6363ec0dc,Terrascapes,,,LaSalle,ON,N9J 3L3,4,0,
+CH-VC-23217,v:32437918e86e8906,Desjardins Insurance,,,Toronto,ON,M5J 2V5,4,0,
+CH-VC-23218,v:f670d25cd95cbbdc,Landmark Engineers Inc.,,,Windsor,ON,N9C 4E4,4,0,
+CH-VC-23219,v:ca564fc60e40ba43,Dominion Caulking Limited,,,Richmond Hill,ON,L4C 1A7,4,0,
+CH-VC-23220,v:c9f434c023d73eba,Haddad Morgan and Associates Ltd.,,,Windsor,ON,N8X1J8,4,0,haddadmorganassociates.ca haddadmorganassociates.com haddad-morgan-associates.ca haddad-morgan-associates.com
+CH-VC-23221,v:8443becb63ba7af3,Tri-Tech Pinnacle Group,,,Aurora,ON,L4G 4C4,4,0,tritechpinnaclegroup.ca tritechpinnaclegroup.com tri-tech-pinnacle-group.ca tri-tech-pinnacle-group.com
+CH-VC-23222,v:712d6833b758d4eb,J.P. Samuel & Associates,,,Ancaster,ON,L9G 0J2,4,0,
+CH-VC-23223,v:e6c649e296c41439,Rouse Surveyors Inc,,,Toronto,ON,M5X 1C7,4,0,
+CH-VC-23224,v:a8e40a8f18f26ee4,Artas Engineering & Design,,,Stratford,ON,N5A 5W2,4,0,
+CH-VC-23225,v:f8db054275716311,Maple Environmental Inc.,,,Oakville,ON,L6J 2X6,4,0,
+CH-VC-23226,v:b119d8435ae2bb7a,NGS Contracting Ltd,NGS CONTRACTING LTD.,BC0589968,North Vancouver ,BC,V7L 2P5,4,0,
+CH-VC-23227,v:65e09879088ec79e,DC Tree Services,,,North Vancouver,BC,V7H 1V6,4,0,
+CH-VC-23228,v:3ad566a6ce0641a7,Apex Tree Services ltd,,,West Vancouver,BC,V7V 1K8,4,0,
+CH-VC-23229,v:b8a327769897e479,T Sekhon Trucking Ltd,T SEKHON TRUCKING LTD.,BC0823976,Surrey,BC,V3S 0N4,4,0,
+CH-VC-23230,v:04ed7300569a5539,Sheehans Truck Centre Inc,,,Burlington,ON,L7L 5S4,4,0,
+CH-VC-23231,v:2a93c4926fd0801c,1690082Alberta Ltd,,,Kelowna,BC,V1P 1C7,4,0,1690082alberta.ca 1690082alberta.com
+CH-VC-23232,v:fcb24d9c23ffee17,Robinson Forest Products Ltd.,,,Stirling,ON,K0K3E0,4,0,
+CH-VC-23233,v:95d138230a25855d,Curney Mechanical Ltd.,,,London,ON,N6M1A1,4,0,
+CH-VC-23234,v:7a28eb3dce7e1212,Dielco Industrial Contractors Ltd.,,,London,ON,N6N 1C2,4,0,
+CH-VC-23235,v:143cf5d057272e8a,Wilson and Associates Contracting Ltd.,,,London ,ON,N6H1H3,4,0,
+CH-VC-23236,v:ff6a526ca8587acb,Planet Engineering Inc.,,,Mississauga,ON,L5L 1X2,4,0,
+CH-VC-23237,v:f6c77eca6ce68b03,Spark Power Corp.,,,Burlington,ON,L7L 6A7,4,0,
+CH-VC-23238,v:f787418264335ef5,TOP UNIFORMS,,,TORONTO,ON,M4M3L1,4,0,
+CH-VC-23239,v:9c311ec2af4d8386,Accu-Traffic Inc.,ACCU-TRAFFIC INC.,7150547,Richmond Hill,ON,L4B 1K7,4,0,
+CH-VC-23240,v:dc1f4ade39c7626c,Steve Ward Contracting Ltd.,,,Thunder Bay,ON,P7C5H8,4,0,
+CH-VC-23241,v:c2dae497b45de7af,Heritage Reforestation In,,,Renfrew,ON,K7V 4A2,4,0,heritagereforestationin.ca heritagereforestationin.com heritage-reforestation-in.ca heritage-reforestation-in.com
+CH-VC-23242,v:b57dd5ecb00b0b8f,CDM Mechanical Ltd,,,High River,AB,T1V 2A6,4,0,
+CH-VC-23243,v:0069df9c907b6304,The Equipment Specialist Inc.,,,Hamilton,ON,L8H 5Y2,4,0,equipmentspecialist.ca equipmentspecialist.com equipment-specialist.ca equipment-specialist.com
+CH-VC-23244,v:548f3b250282f364,Landrock Excavation Inc,,,Rockland,ON,K4K 1L5,4,0,
+CH-VC-23245,v:1c7c168215902178,Centennial Construction Rockland Ltd.,CENTENNIAL CONSTRUCTION (ROCKLAND) LTEE/LTD.,1148691885,Rockland,ON,K4K1K5,4,0,
+CH-VC-23246,v:92d1d45fe379da75,Stephane Poupart Development Ltd.,,,Rockland,ON,K4K 1K9,4,0,
+CH-VC-23247,v:e5059eedd2c43e33,Thierry Blum,,,Plantagenet,ON,K0B 1L0,4,0,
+CH-VC-23248,v:ab43de7c5794f38a,Option Excavating Inc.,,,Spruce Grove,AB,T7X 3A3,4,0,
+CH-VC-23249,v:072b3bdc46ab3af5,IBW Surveyors,,,Bowmanville,ON,L1C 4N4,4,0,
+CH-VC-23250,v:20f0b09bf7cb327f,By Seasons Landscape and Maintenance Inc.,,,Cambridge,ON,N1R 7S3,4,0,
+CH-VC-23251,v:500da7c11fc55b10,Giaimo.,,,Toronto,ON,M6R2B2,4,0,
+CH-VC-23252,v:3f9d745e35ad7dfd,Joseph Lukjaniec Architect,,,Toronto,ON,M5A 1V5,4,0,
+CH-VC-23253,v:49ef239543cd4743,Northern Alarm Protection,,,Richmond Hill,ON,L4C 9Y5,4,0,
+CH-VC-23254,v:7f4ec284cea985c4,B & D Construction Inc o/a WINMAR Thunder Bay,,,Thunder Bay,ON,P7E 3V9,4,0,
+CH-VC-23255,v:262f03e6191038ba,Dreamworks Groundskeeping Inc.,,,Uxbridge ,ON,L9P 1R1,4,0,
+CH-VC-23256,v:90e69e99dc793df1,McGowan Insulations Ltd,,,Stoney Creek,ON,L8E 2L2,4,0,
+CH-VC-23257,v:6ceb3dc4bb818554,SK Sheet Metal Ltd.,,,Ottawa,ON,K4A 3M3,4,0,
+CH-VC-23258,v:2d67f82762527b99,Vision Air Conditioning And Heating Corporation,,,North Gower,ON,K0A 2T0,4,0,
+CH-VC-23259,v:96401cf8f10174f9,Lar-Mex Inc.,LAR-MEX INC.,1164778087,Gloucester,ON,K1J 9J8,4,0,
+CH-VC-23260,v:7b4e3378d1653d11,10003567 Ontario Inc,,,Thunder Bay ,ON,P7E 3N1,4,0,
+CH-VC-23261,v:cd62fa8339b9a4fa,1288808 ONTARIO LTD. O/A B&J CONTRACTING,,,Stayner,ON,L0M1S0,4,0,
+CH-VC-23262,v:3e954941c79d27f3,RavCon,RAVCON INC.,10672173,L'Orignal,ON,K0B1K0,4,0,
+CH-VC-23263,v:3cc5a7600bbb1dcc,Talis Group Inc,,,Tecumseh,ON,N9K 0C2,4,0,
+CH-VC-23264,v:452249a85feac314,Eastern Turf Equipment Inc,,,Dartmouth,NS,B3B0H8,4,0,easternturfequipment.ca easternturfequipment.com eastern-turf-equipment.ca eastern-turf-equipment.com
+CH-VC-23265,v:89fdb66f4046ed90,Twin-City Interloc Inc.,,,Kitchener,ON,N2B 3X6,4,0,
+CH-VC-23266,v:7b97d089c28a41df,Barry Cullen Chevrolet Cadillac Ltd.,Barry Cullen Chevrolet Cadillac Ltd.,366765,Guelph,ON,N1K 1B7,4,0,
+CH-VC-23267,v:b04a3091142e6479,HMI Wearing and Bearing Products,,,Brighton,ON,K0K 1H0,4,0,
+CH-VC-23268,v:ceb44dd41127d452,Corrcoat Services Inc,,,Sarnia - Lambton - Sarnia,ON,N7T 7H3,4,0,corrcoatservices.ca corrcoatservices.com corrcoat-services.ca corrcoat-services.com
+CH-VC-23269,v:bbb7d294c26e3fff,OSTIM LTD,,,Toronto,ON,M9L 1N2,4,0,
+CH-VC-23270,v:5159e040702fc63f,Lavern Heideman & Sons Limited,,,Eganville,ON,K0J 1T0,4,0,
+CH-VC-23271,v:8dbd1473fe150a7d,Kamarah Tree Farms,,,Lakeside,ON,N0M 2G0,4,0,
+CH-VC-23272,v:b786fcfcaa3930eb,Niagara North Inc.,NIAGARA NORTH INC.,10563722,Timmins,ON,P4R 1A5,4,0,
+CH-VC-23273,v:1781b700c976a816,D&S Downham Equipment Ltd,,,Stratford,ON,N5A6S3,4,0,
+CH-VC-23274,v:8d2b11d568ba0808,Anet Fiber Tech Inc.,,,Edmonton,AB,T6E 5E8,4,0,anetfibertech.ca anetfibertech.com anet-fiber-tech.ca anet-fiber-tech.com
+CH-VC-23275,v:5dc64ad5bcb1728b,T&T Parish Contracting,,,Bowmanville,ON,L1C 1N7,4,0,
+CH-VC-23276,v:dda26d72a852e221,Class Glass Man,,,Uxbridge,ON,L9P 1R2,4,0,
+CH-VC-23277,v:17c5f027b0864562,Ed Learn Ford Lincoln (2017) Ltd.,,,St. Catharines,ON,L2R5L3,4,0,edlearnfordlincoln.ca edlearnfordlincoln.com ed-learn-ford-lincoln.ca ed-learn-ford-lincoln.com
+CH-VC-23278,v:858610fe5d1b83b8,Wegner Enterprises,,,Thunder Bay,ON,P7C 3K3,4,0,
+CH-VC-23279,v:ffc568088d225c99,Biomed Recovery & Disposal Ltd.,,,Aberdeen,SK,S0K0A0,4,0,biomedrecoverydisposal.ca biomedrecoverydisposal.com biomed-recovery-disposal.ca biomed-recovery-disposal.com
+CH-VC-23280,v:bf04db55a10be735,Superior Construction and Pools,,,Timmins,ON,P4N4L8,4,0,superiorconstructionpools.ca superiorconstructionpools.com superior-construction-pools.ca superior-construction-pools.com
+CH-VC-23281,v:1ab85b5d8a20b2e1,Conpute Corporation,,,Whitby,ON,L1N2C3,4,0,
+CH-VC-23282,v:ba4320407595e4de,3043176 Nova Scotia Limited,,,Dartmouth,NS,B3B 0K4,4,0,
+CH-VC-23283,v:f58bc73c4a5cd1ed,Oak Springs Consruction,,,Pontypool ,ON,L0A1K0,4,0,
+CH-VC-23284,v:1a0b88fd766aaf88,E.A. Shipman Electric Ltd.,,,Seguin,ON,P2A 0B2,4,0,
+CH-VC-23285,v:b731136be086d4e2,Haller Mechanical Contractors Inc.,,,Windsor,ON,N8X 3M9,4,0,hallermechanicalcontractors.ca hallermechanicalcontractors.com haller-mechanical-contractors.ca haller-mechanical-contractors.com
+CH-VC-23286,v:1ad45d8fae25e0f6,Protech Anchors,,,Elmsdale,NS,B2S 2L3,4,0,protechanchors.ca protechanchors.com protech-anchors.ca protech-anchors.com
+CH-VC-23287,v:6fa44d4f44e000aa,Pelzer & Picano Roofing Ltd,,,Dartmouth,NS,B2V 1E8,4,0,pelzerpicanoroofing.ca pelzerpicanoroofing.com pelzer-picano-roofing.ca pelzer-picano-roofing.com
+CH-VC-23288,v:94caa9b6ccde2693,ARC Plumbing & Heating Inc.,,,Toronto,ON,M8Z2G6,4,0,
+CH-VC-23289,v:0a84d945c2590957,M Builds (NWO) Limited Partnership by its general partner 540422 Manitoba Ltd.,,,Thunder Bay,ON,P7B 5Z4,4,0,
+CH-VC-23290,v:7f0808d829df907a,Core Geomatics Group Inc,,,Regina,SK,,4,0,coregeomaticsgroup.ca coregeomaticsgroup.com core-geomatics-group.ca core-geomatics-group.com
+CH-VC-23291,v:56be23eab85a442e,Brick & Co. Restorations Ltd.,,,Kitchener,ON,N2C 2E2,4,0,
+CH-VC-23292,v:3bdf2d01e907489c,Schooltee Inc.,,,Ayr,ON,N0B 1E0,4,0,
+CH-VC-23293,v:083c4e7958b7b74a,Talbot Marketing (Harp Promotional Inc.),,,MISSISSAUGA,ON,L5V 2J9,4,0,
+CH-VC-23294,v:cfd52c77d64c78c4,Urban Flooring,,,Mount Pearl,NL,A1N 5K2,4,0,
+CH-VC-23295,v:019f0d160a90c8b4,Santamaria Industries Inc,SANTAMARIA INDUSTRIES INC.,BC1156000,Coquitlam,BC,V3K6X7,4,0,
+CH-VC-23296,v:eb69053e50952d4f,Huron Tractor Ltd,HURON TRACTOR LTD.,1148535082,Exeter,ON,N0M1S3,4,0,
+CH-VC-23297,v:66fc25893e5fa292,LTL Contracting Ltd.,,,Shuniah,ON,P7A 0N4,4,0,
+CH-VC-23298,v:aa5ac54917a8c175,Bennett GM,,,Cambridge,ON,N1R6J2,4,0,bennettgm.ca bennettgm.com bennett-gm.ca bennett-gm.com
+CH-VC-23299,v:4995e1d63df0afab,West-Can Seal Coating  O/ A Western Asphalt Products,,,Bruderhiem ,AB,T0B 0S0 ,4,0,
+CH-VC-23300,v:cb0e1e6c3a766e74,J-pine Custom carpentry INC.,,,Keewatin,ON,P0X1C0,4,0,jpinecustomcarpentry.ca jpinecustomcarpentry.com j-pine-custom-carpentry.ca j-pine-custom-carpentry.com
+CH-VC-23301,v:236fc0824a9ad862,Thunder Bay Community Auditorium Inc.,,,Thunder Bay,ON,P7B 6C7,4,0,
+CH-VC-23302,v:38b0051261bce610,UPLAND Urban Planning and Design Inc.,Upland Urban Planning + Design Inc.,9024425,Dartmouth,NS,B2Y 2R7,4,0,uplandurbanplanningdesign.ca uplandurbanplanningdesign.com upland-urban-planning-design.ca upland-urban-planning-design.com
+CH-VC-23303,v:5e4d6c67c4827b25,Aldershot Landscape Contractors LP,,,Burlington,ON,L7P 0T3,4,0,
+CH-VC-23304,v:4d6e850f46da1f34,Wiltse's - Brockville Glass,,,Brockville,ON,K5V 5T4,4,0,wiltsesbrockvilleglass.ca wiltsesbrockvilleglass.com wiltses-brockville-glass.ca wiltses-brockville-glass.com
+CH-VC-23305,v:d9570d3926f24157,Apex Sound & Light Corporation,,,Pickering,ON,L1W 3R8,4,0,
+CH-VC-23306,v:50cacd1b48f8c784,Lekter Industrial Services Inc.,,,Belle River,ON,N0R 1A0,4,0,
+CH-VC-23307,v:2ea58c38a30fa89f,Unistar General Inc.,,,Uxbridge,ON,L0G 1M0,4,0,
+CH-VC-23308,v:9f5c9abf9a1683de,Ginkgo Sustainability Inc.,,,Etobicoke,ON,M8Z 2R4,4,0,
+CH-VC-23309,v:2af874a52bebcaf9,LEARNstyle Ltd,,,Toronto,ON,M2M 3S4,4,0,
+CH-VC-23310,v:35efdc0338fcf0ce,Hamilton-Wentworth Green Venture,,,Hamilton,ON,L8K5P5,4,0,
+CH-VC-23311,v:b0866ed42fa3ba06,TMHC Inc.,,,London,ON,N5W 3A7,4,0,
+CH-VC-23312,v:8d3d6b36ddbc7c46,The Golden Car Corporation,,,MANOTICK,ON,K4M 1M1,4,0,
+CH-VC-23313,v:0286e35a70b8e62b,MBM Installations Inc.,,,Holland Landing,ON,L9N1P2,4,0,
+CH-VC-23314,v:81bfcdf2d74914a2,Doug Welsh Construction Ltd,,,Southampton,ON,N0H 2L0,4,0,
+CH-VC-23315,v:fba905e10454338c,Accurate Industrial Waste Limited,,,Vaughan,ON,L4K 5X1,4,0,

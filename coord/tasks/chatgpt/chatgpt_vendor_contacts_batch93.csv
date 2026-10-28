@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-09216,v:3f0d290be5f649e2,Asset Rise Management,,,Summerside,Prince Edward Island,C1N 1K7,2,1,assetrisemanagement.ca assetrisemanagement.com asset-rise-management.ca asset-rise-management.com
+CH-VC-09217,v:31a354ab100a812d,VYE Construction and Paving Ltd,,,Oak Point,NB,E1V 7H9,2,1,vyeconstructionpaving.ca vyeconstructionpaving.com vye-construction-paving.ca vye-construction-paving.com
+CH-VC-09218,v:16e5ce6a2e60f008,Own Innovation Inc,OWN INNOVATION INC.,11313134,Kitchener,Ontario,N2G 4X8,2,1,owninnovation.ca owninnovation.com own-innovation.ca own-innovation.com
+CH-VC-09219,v:14a9f7ab60bce461,SHI CONSULTING INC.,SHI CONSULTING INC.,3781798,Toronto,Ontario,M5R 3N5,2,1,shiconsulting.ca shiconsulting.com shi-consulting.ca shi-consulting.com
+CH-VC-09220,v:1710d4d978789d1c,Goldgrab Leadership Coaching Inc.,,,Toronto,Ontario,M4J1X2,2,1,goldgrableadershipcoaching.ca goldgrableadershipcoaching.com goldgrab-leadership-coaching.ca goldgrab-leadership-coaching.com
+CH-VC-09221,v:ec5a4479a7ebed8e,Aaron Aubin Consulting Inc.,AARON AUBIN CONSULTING INC.,11709933,Calgary,Alberta,T2H 2L9,2,1,aaronaubinconsulting.ca aaronaubinconsulting.com aaron-aubin-consulting.ca aaron-aubin-consulting.com
+CH-VC-09222,v:f2b138a36b3118c5,Crystalus Strategic Documents Inc.,CRYSTALUS STRATEGIC DOCUMENTS INC.,4009835,Ottawa,Ontario,K2J 4P4,2,1,crystalusstrategicdocuments.ca crystalusstrategicdocuments.com crystalus-strategic-documents.ca crystalus-strategic-documents.com
+CH-VC-09223,v:1f732d319f4881af,Digital Cube Consulting Inc.,Digital Cube Consulting Inc.,11438913,Ottawa,Ontario,K1R5R2,2,1,digitalcubeconsulting.ca digitalcubeconsulting.com digital-cube-consulting.ca digital-cube-consulting.com
+CH-VC-09224,v:78dd0c75e31428ab,Lynda Naveda Consulting Ltd,,,Manoick,Ontario,K4M1K3,2,1,lyndanavedaconsulting.ca lyndanavedaconsulting.com lynda-naveda-consulting.ca lynda-naveda-consulting.com
+CH-VC-09225,v:276d82edfce1f4a1,The Halifax Computer Consulting Group inc.,,,Ottawa,Ontario,K2P 2R3,2,1,halifaxcomputerconsultinggroup.ca halifaxcomputerconsultinggroup.com
+CH-VC-09226,v:ff0ab5e5b7a8047d,CLOUDHAWK SOLUTIONS Inc.,CLOUDHAWK SOLUTIONS Inc.,11755579,Ottawa,Ontario,K4A3W3,2,1,cloudhawksolutions.ca cloudhawksolutions.com cloudhawk-solutions.ca cloudhawk-solutions.com
+CH-VC-09227,v:e9f3b89b23290a5c,Heiltsuk Horizon Maritime Services Ltd.,HEILTSUK HORIZON MARITIME SERVICES LTD.,BC1159950,Bella Bella,British Columbia,V0T 1Z0,2,1,
+CH-VC-09228,v:db3cdddd23ae524c,Equinix Canada Ltd.,Equinix Canada Ltd.,1175760231,Toronto,Ontario,M5J 2N1,2,1,equinixcanada.ca equinixcanada.com equinix.ca equinix.com equinix-canada.ca equinix-canada.com
+CH-VC-09229,v:cfb828b3114bd22e,DYNATRACE CORPORATION OF CANADA LTD,DYNATRACE CANADA ULC,1170759022,Halifax,Nova Scotia,B3J 0J2,2,1,dynatracecanada.ca dynatracecanada.com dynatrace.ca dynatrace.com dynatrace-canada.ca dynatrace-canada.com
+CH-VC-09230,v:f8930a3e6b4adaff,Messa Computing Inc.,MESSA COMPUTING INC.,3638901,Ottawa,Ontario,K1Y 3V8,2,1,messacomputing.ca messacomputing.com messa-computing.ca messa-computing.com
+CH-VC-09231,v:ee9ede31badfb7e1,PORTS 79 INC.,PORTS 79 INC.,1177092849,WHITBY,Ontario,L1R0P8,2,1,ports79.ca ports79.com ports-79.ca ports-79.com
+CH-VC-09232,v:c66623f984dca36d,Tronosjet Maintenance Inc,TRONOSJET MAINTENANCE INC.,7728999,Slemon Park,Prince Edward Island,C0B 2A0,2,1,tronosjetmaintenance.ca tronosjetmaintenance.com tronosjet-maintenance.ca tronosjet-maintenance.com
+CH-VC-09233,v:6dd414864b8e3721,WellNet Solutions,WELLNET SOLUTIONS INC.,3954129,Ancaster,Ontario,L9K 0E4,2,1,wellnetsolutions.ca wellnetsolutions.com wellnet-solutions.ca wellnet-solutions.com
+CH-VC-09234,v:1c5fc908a6cbc458,Cotton Candy Inc.,,,Mississauga,Ontario,L5M 2R7,2,1,cottoncandy.ca cottoncandy.com cotton-candy.ca cotton-candy.com
+CH-VC-09235,v:48f34b8a2501101e,Nichols Group,,,Lower Sackville,Nova Scotia,B4C 1A1,2,1,nicholsgroup.ca nicholsgroup.com nichols-group.ca nichols-group.com nichols.ca nichols.com
+CH-VC-09236,v:0b7b2cd2ae7cf400,Purifics Water Inc.,,,LONDON,ON,N6M 1A8,2,1,purificswater.ca purificswater.com purifics-water.ca purifics-water.com
+CH-VC-09237,v:933e9fd8fa2687a9,Technologies Sensopia Inc.,Technologies magicplan Inc.,1166651084,Montréal,,H2Y 1V8,2,1,technologiessensopia.ca technologiessensopia.com technologies-sensopia.ca technologies-sensopia.com technologiesmagicplan.ca technologiesmagicplan.com
+CH-VC-09238,v:c6cbd2cf7248195f,FEVER PITCH MARKETING COMMUNICATIONS INC.,,,,,,2,1,
+CH-VC-09239,v:fc999cc8391a1830,A2Z Cust2Mate Solutions Corp.,,,Toronto,ON,,2,1,a2zcust2matesolutions.ca a2zcust2matesolutions.com a2z-cust2mate-solutions.ca a2z-cust2mate-solutions.com
+CH-VC-09240,v:f32813307f101718,PDG Product Design Group,PDG PRODUCT DESIGN GROUP INC.,1162920723,Vancouver,BC,V5X 4N6,2,1,pdgproductdesigngroup.ca pdgproductdesigngroup.com pdg-product-design-group.ca pdg-product-design-group.com pdgproduitdesigngroupe.ca pdgproduitdesigngroupe.com
+CH-VC-09241,v:a2b56b9b6ea609eb,KTW Group Inc.,,,Toronto,ON,M5A0C1,2,1,ktwgroup.ca ktwgroup.com ktw-group.ca ktw-group.com
+CH-VC-09242,v:c849d9dc7d866bd5,"THE CLOROX COMPANY OF CANADA, LTD. LA COMPAGNIE CLOROX DU CANADA LTÉE","THE CLOROX COMPANY OF CANADA, LTD. LA COMPAGNIE CLOROX DU CANADA LTÉE",1167443333,,ON,L6W4V3,2,1,cloroxcanadacloroxcanada.ca cloroxcanadacloroxcanada.com cloroxclorox.ca cloroxclorox.com clorox-canada-clorox-canada.ca clorox-canada-clorox-canada.com
+CH-VC-09243,v:6314ab6b87918545,Altus Assessments Inc.,Altus Assessments Inc.,9025014,Toronto,ON,M5V 2Y1,2,1,altusassessments.ca altusassessments.com altus-assessments.ca altus-assessments.com
+CH-VC-09244,v:7152225b7e7705dc,Diagnostix Ltd. (part of ThermoFisher Scientific),,,Mississauga,ON,L5N8G6,2,1,diagnostix.ca diagnostix.com
+CH-VC-09245,v:1d7f0f1b9409a7b5,TRANSLOGIC LIMITED,TRANSLOGIC LIMITED,1175597542,Mississauga,ON,L5N 8G6,2,1,translogic.ca translogic.com
+CH-VC-09246,v:88276c65483bfe5f,BUDGETAUTO INC.,BUDGETAUTO INC.,1145580685,Etobicoke,ON,M9W6Z9,2,1,budgetauto.ca budgetauto.com budgetcar.ca budgetcar.com
+CH-VC-09247,v:f1b21d43b1ece3a8,Mullin Merchant Corp.,Mullin Merchant Corp.,9749527,Ottawa,ON,K4A3W3,2,1,mullinmerchant.ca mullinmerchant.com mullin-merchant.ca mullin-merchant.com
+CH-VC-09248,v:c19ddfe6d6611341,SenSen Networks (Canada) Limited,,,,ON,L7A0G2,2,1,sensennetworks.ca sensennetworks.com sensen-networks.ca sensen-networks.com
+CH-VC-09249,v:67421493bfde11f8,GoAutomate Inc.,GoAutomate Inc.,1180059934,,ON,M8Z4X5,2,1,goautomate.ca goautomate.com allerautomatiser.ca allerautomatiser.com
+CH-VC-09250,v:87cdc994d9d658b1,SurveyMonkey Inc. ,,,,ON,K1P6M7,2,1,surveymonkey.ca surveymonkey.com
+CH-VC-09251,v:d6b87be4f8184d96,ROY'S TRUCKING & LANDSCAPING LTD,ROY'S TRUCKING & LANDSCAPING LTD,1149825573,,NB,E8K3S9,2,1,roystruckinglandscaping.ca roystruckinglandscaping.com roys-trucking-landscaping.ca roys-trucking-landscaping.com camionnageentretienpelouseroy.ca camionnageentretienpelouseroy.com
+CH-VC-09252,v:f4389cefe848e8ee,ENTREPRISES CDW CANADA,CDW CANADA CORP.,1175178434,,ON,M9C5L5,2,1,entreprisescdwcanada.ca entreprisescdwcanada.com entreprisescdw.ca entreprisescdw.com entreprises-cdw-canada.ca entreprises-cdw-canada.com
+CH-VC-09253,v:706b0f6f051c4166,Sectra Canada,Sectra Canada Inc.,1180332687,,ON,L5N1W1,2,1,sectracanada.ca sectracanada.com sectra.ca sectra.com sectra-canada.ca sectra-canada.com
+CH-VC-09254,v:1fe984d59806e005,Streetwise Consulting inc.,,,,ON,M5H2R2,2,1,streetwiseconsulting.ca streetwiseconsulting.com streetwise-consulting.ca streetwise-consulting.com
+CH-VC-09255,v:88bc30196a1defea,Alexandra Scott,,,,ON,M4V2T3,2,1,alexandrascott.ca alexandrascott.com alexandra-scott.ca alexandra-scott.com
+CH-VC-09256,v:da319b5d421e56dc,Anthratech Western Inc.,AWI Filtre,1175595843,,AB,T2B3N7,2,1,anthratechwestern.ca anthratechwestern.com anthratech-western.ca anthratech-western.com awifiltre.ca awifiltre.com
+CH-VC-09257,v:bcdb7ab3da20e7e5,C-Therm Technologies Ltd.,,,,NB,E3C0J1,2,1,cthermtechnologies.ca cthermtechnologies.com c-therm-technologies.ca c-therm-technologies.com
+CH-VC-09258,v:86afe9d42484037a,VML,,,BURLINGTON,ON,L7M 1A9,2,1,vmlcanada.ca vmlcanada.com vml-canada.ca vml-canada.com
+CH-VC-09259,v:a8f6ef5802336efa,O'Hara Technologies Inc.,,,Richmond Hill,ON,L4B 1K8,2,1,oharatechnologies.ca oharatechnologies.com ohara-technologies.ca ohara-technologies.com
+CH-VC-09260,v:06fc313e955566d7,LoginRadius,LoginRadius Inc.,8256241,Vancouver,BC,V6E 3J7,2,1,loginradius.ca loginradius.com
+CH-VC-09261,v:0cad17b7ed3ca749,Searidge Technologies Inc.,Searidge Technologies Inc.,10213420,Nepean,ON,K1G 5X8,2,1,searidgetechnologies.ca searidgetechnologies.com searidge-technologies.ca searidge-technologies.com
+CH-VC-09262,v:d5b239dc7ab91a23,Canada Tourism Planning,,,"BC, Canada ",,V1Y2E9,2,1,canadatourismplanning.ca canadatourismplanning.com tourismplanning.ca tourismplanning.com canada-tourism-planning.ca canada-tourism-planning.com
+CH-VC-09263,v:b5f45cb7cccc7196,Donnelly Ford Lincoln,,,,,,2,1,
+CH-VC-09264,v:d1ae6fa592eb3a10,"Rocscience, Inc.",,,TORONTO,ON,M5T 1V1,2,1,rocscience.ca rocscience.com
+CH-VC-09265,v:3763965b384b4337,THE HANEN CENTRE,,,Toronto,MD,M4PY1,2,1,hanencentre.ca hanencentre.com hanen-centre.ca hanen-centre.com
+CH-VC-09266,v:4ea54396b81607f7,TDG TRANSIT DESIGN GROUP INC,TDG TRANSIT DESIGN GROUP INC.,2528541,MISSISSAUGA,ON,L5L 0A7,2,1,tdgtransitdesigngroup.ca tdgtransitdesigngroup.com tdg-transit-design-group.ca tdg-transit-design-group.com groupedessintransittdg.ca groupedessintransittdg.com
+CH-VC-09267,v:ec8eecfaed05b50a,Griffin Chapman Environmental Inc,,,,ON,,2,1,griffinchapmanenvironmental.ca griffinchapmanenvironmental.com griffin-chapman-environmental.ca griffin-chapman-environmental.com
+CH-VC-09268,v:8b2656e5fd2ba8c8,PROFIT SYSTEMS INC,,,SASKATOON,SK,S7N 2X8,2,1,profitsystems.ca profitsystems.com profit-systems.ca profit-systems.com
+CH-VC-09269,v:cac5e879cf06725d,Voltera Inc,,,Kitchener,ON,N2H 5G9,2,1,voltera.ca voltera.com
+CH-VC-09270,v:2c3700525b3d9cef,SOCIÉTÉ DE COOPÉRATION POUR LE DÉVELOPPEMENT INTERNATIONAL (SOCODEVI),,,,,,2,1,
+CH-VC-09271,v:1c162c131695ddc8,UPA DÉVELOPPEMENT INTERNATIONAL (UPA DI),,,,,,2,1,
+CH-VC-09272,v:3d6d8b1641fc949c,M/S LEA CONSULTING LTD,,,,,,2,1,
+CH-VC-09273,v:ff3d27ec4fc6b092,DOMINION VOTING SYSTEM CORP,,,,,,2,1,
+CH-VC-09274,v:5981dce52f9cd849,MSA SAFETY SALES LLC,,,,,,2,1,
+CH-VC-09275,v:34536a3b6a95076f,COMMUNITY NAVIGATION OF EASTERN ONT,,,,,,2,1,
+CH-VC-09276,v:5d1b8ca21fec48cb,MASTER REFRIGERATION,,,,,,2,1,
+CH-VC-09277,v:d3ac11d2eb53610b,LIFESAVING SOCIETY ONTARIO BRANCH,,,,,,2,1,
+CH-VC-09278,v:57cb50a38e822488,PREDICTIVE SUCCESS CORPORATION,,,,,,2,1,
+CH-VC-09279,v:707da24f9c701064,REGO CONSULTING CORPORATION,,,,,,2,1,
+CH-VC-09280,v:403b78d34b7e329b,CINTAS CANADA LTD #G77,,,,,,2,1,
+CH-VC-09281,v:d666e4c287635f7f,Aralia Interior Plantscaping Inc.,,,,,,2,1,
+CH-VC-09282,v:19faccede0236c1f,Studio 10 Graphic Design Inc.,,,,,,2,1,
+CH-VC-09283,v:f11e830647134e04,Ontario Tourism Education Corporation,,,,,,2,1,
+CH-VC-09284,v:d4a611d3a7c9d71c,COMFY COTTON DIAPER SERVICE INC,,,,,,2,1,
+CH-VC-09285,v:4760f3f1552169e1,SAFETY FIRST SECURITY SERVICES INC,,,,,,2,1,
+CH-VC-09286,v:28f0898066ea13a2,Darta Enterprises,,,,,,2,1,
+CH-VC-09287,v:f0d368daad310a0a,Jackson Productions Inc.,,,,,,2,1,
+CH-VC-09288,v:68f94e4925dc09a5,Rentrax Software,,,Vancouver,,V6B 3K6,1,1,rentraxsoftware.ca rentraxsoftware.com rentrax-software.ca rentrax-software.com
+CH-VC-09289,v:9a2ac0c7d4704f32,International Civil Aviation Org. ICAO,,,MONTREAL,Outside Australia,H3C 5H7,1,1,
+CH-VC-09290,v:514bef3a2496ab6d,[OVS] SkyWatch Space Applications Inc.,,,Kitchener,Outside Australia,N2H 2G8,1,1,ovsskywatchspaceapplications.ca ovsskywatchspaceapplications.com
+CH-VC-09291,v:271801ec06a85898,TELEDYNE GEOSPATIAL OF TELEDYNE DIGITAL IMAGING INC,,,FREDERICTON,Outside Australia,E3B 2L4,1,1,
+CH-VC-09292,v:9a529c68dedb53d1,The Egmont Group Secretariat,,,Toronto,Outside Australia,M4W 3R8,1,1,egmontgroupsecretariat.ca egmontgroupsecretariat.com egmont-group-secretariat.ca egmont-group-secretariat.com
+CH-VC-09293,v:9d211b256804bd31,HYAS INFOSEC INC,HYAS Infosec Inc.,9562265,VANCOUVER,Outside Australia,V6B 1A1,1,1,hyasinfosec.ca hyasinfosec.com hyas-infosec.ca hyas-infosec.com
+CH-VC-09294,v:7de94df0aeb362d1,ULTRANET TELECOM INC,,,TORONTO,Outside Australia,M6K 3C5,1,1,ultranettelecom.ca ultranettelecom.com ultranet-telecom.ca ultranet-telecom.com
+CH-VC-09295,v:a1511578827275a1,WINSIDER SEMINARS & SOLUTIONS INC,Séminaires et solutions Winsider Inc.,1176772490,MONTREAL,Outside Australia,H2Z 0B8,1,1,winsiderseminarssolutions.ca winsiderseminarssolutions.com winsider-seminars-solutions.ca winsider-seminars-solutions.com seminairessolutionswinsider.ca seminairessolutionswinsider.com
+CH-VC-09296,v:6aabdd1c2c33c814,Eric Grundy Sales,,,Toronto,Outside Australia,M5R1G5,1,1,ericgrundysales.ca ericgrundysales.com eric-grundy-sales.ca eric-grundy-sales.com
+CH-VC-09297,v:8012dc7f00344128,[AUD] POISSON CONSULTING LTD,,,NELSON,Outside Australia,V1L 6X1,1,1,audpoissonconsulting.ca audpoissonconsulting.com aud-poisson-consulting.ca aud-poisson-consulting.com
+CH-VC-09298,v:9918287aee6b3451,FISERV,,,Mississauga,Outside Australia,L4W5A4,1,1,fiserv.ca fiserv.com
+CH-VC-09299,v:398c911c005ff48c,1866688 Ontario Ltd OA Ottawa Honda,,,Ottawa,Outside Australia,K2B 6R1,1,1,
+CH-VC-09300,v:a9b4df241516e72b,"ABOLMAESUMI, PURANG",,,VANCOUVER,Outside Australia,NA,1,1,abolmaesumipurang.ca abolmaesumipurang.com abolmaesumi-purang.ca abolmaesumi-purang.com
+CH-VC-09301,v:6af7f0e15af91907,"DAVIS, W.R. ENGINEERING LIMITED",,,OTTAWA,Outside Australia,K1B 3V3,1,1,daviswrengineering.ca daviswrengineering.com davis-w-r-engineering.ca davis-w-r-engineering.com
+CH-VC-09302,v:be85a6c195ea2221,McDonell-Nadeau Consultants Inc.,McDonell-Nadeau Consultants inc.,1172768294,Luskville QC,Outside Australia,J0X 2G0,1,1,mcdonellnadeauconsultants.ca mcdonellnadeauconsultants.com mcdonell-nadeau-consultants.ca mcdonell-nadeau-consultants.com
+CH-VC-09303,v:27e7b9ddeee1f3b7,GeoScienceWorld,,,Alexandria  22302-1502,Outside Australia,9999,1,1,geoscienceworld.ca geoscienceworld.com
+CH-VC-09304,v:fa0a9c4fc25d1a34,IDON Technologies Inc,,,"Ottawa, Ontario  K2C 3Y7",Outside Australia,9999,1,1,idontechnologies.ca idontechnologies.com idon-technologies.ca idon-technologies.com
+CH-VC-09305,v:d2834b0bcc6f94bd,"Figma, Inc",,,San Francisco,Outside Australia,94102,1,1,figma.ca figma.com
+CH-VC-09306,v:121536965dce8c4b,Smartsaas LLC,,,TORONTO,Outside Australia,M6P 1Z2,1,1,smartsaas.ca smartsaas.com
+CH-VC-09307,v:437efbf50ab3d104,International Air Transport Association (IATA),INTERNATIONAL AIR TRANSPORT ASSOCIATION,1144178051,"Montreal, QC",Outside Australia,H4Z 1M1,1,1,
+CH-VC-09308,v:77d39ffc2281c367,RECEIVER GENERAL FOR CANADA CENTRAL DEPARTMENT ACCOUNTING OFFICE REVENUE,,,Gafineau QC,Outside Australia,K1A 0S5,1,1,
+CH-VC-09309,v:3cbbded9bae98a07,WORLD ANTI DOPING AGENCY,,,NA,Outside Australia,NA,1,1,
+CH-VC-09310,v:27cdef3ef9d9e517,Carriere Ranch Inc.,,,Wheatland County,Alberta,T1P 0N2,1,1,carriereranch.ca carriereranch.com carriere-ranch.ca carriere-ranch.com
+CH-VC-09311,v:4a495251c67158a4,1215404 BC LTD,,,Vancouver,BC,V6A 1W7,1,1,
+CH-VC-09312,v:49784d37e8b87014,"Connect Logistics Services, Inc.",,,St.Albert,Alberta,T5T6A5,1,1,connectlogisticsservices.ca connectlogisticsservices.com connect-logistics-services.ca connect-logistics-services.com
+CH-VC-09313,v:b25afb06a8540e3d,St. Albert Landscape and Tree Farm,,,St. Albert,Alberta,T8T0T8,1,1,stalbertlandscapetreefarm.ca stalbertlandscapetreefarm.com st-albert-landscape-tree-farm.ca st-albert-landscape-tree-farm.com
+CH-VC-09314,v:1a0ca58c3a424d88,One Wealth Technologies Inc.,,,Calgary,AB,T2P 2K9,1,1,onewealthtechnologies.ca onewealthtechnologies.com one-wealth-technologies.ca one-wealth-technologies.com
+CH-VC-09315,v:ad8d8f88aae934d7,Suncor Energy Products Partnership dba Petro-Canada,Petro-Canada,3366735622,Calgary,AB,T2P 3E3,1,1,petrocanada.ca petrocanada.com petro.ca petro.com petro-canada.ca petro-canada.com

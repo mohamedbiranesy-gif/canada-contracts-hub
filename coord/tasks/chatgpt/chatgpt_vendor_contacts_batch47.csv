@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-04616,v:661b09e3b08e7927,Cellula Robotics Ltd.,CELLULA ROBOTICS LTD.,BC0620929,Burnaby,British Columbia,V5J 5J3,3,2,cellularobotics.ca cellularobotics.com cellula-robotics.ca cellula-robotics.com
+CH-VC-04617,v:e7ff6af556a4bb81,Birchwood Healthcare Consulting Ltd.,Birchwood Healthcare Consulting Ltd.,9981934,Ariss,Ontario,N0B 1B0,3,2,birchwoodhealthcareconsulting.ca birchwoodhealthcareconsulting.com
+CH-VC-04618,v:d3b0453acea50418,Ag Business & Crop Inc,,,Palmerston,Ontario,N0G 2P0,3,2,businesscrop.ca businesscrop.com business-crop.ca business-crop.com
+CH-VC-04619,v:33d48a077ba82c29,Evertz Microsystems Limited,,,Burlington,Ontario,L7L 5Z9,3,2,evertzmicrosystems.ca evertzmicrosystems.com evertz-microsystems.ca evertz-microsystems.com
+CH-VC-04620,v:2c77a10d9946117d,Lengkeek Vessel Engineering Incorporated,,,Dartmouth,Nova Scotia,B2Y1H1,3,2,lengkeekvesselengineering.ca lengkeekvesselengineering.com lengkeek-vessel-engineering.ca lengkeek-vessel-engineering.com
+CH-VC-04621,v:aef55d1b15b623cd,MIL-AERO ELECTRONICS ATLANTIC INC,,,DARTMOUTH,Nova Scotia,B2Y4V9,3,2,milaeroelectronicsatlantic.ca milaeroelectronicsatlantic.com mil-aero-electronics-atlantic.ca mil-aero-electronics-atlantic.com
+CH-VC-04622,v:a42a2fa5d9159f08,National Research Council Canada,CONSEIL NATIONAL DE RECHERCHES DU CANADA,8814588875,Ottawa,ON,K1A 0R6,3,2,nationalresearchcouncilcanada.ca nationalresearchcouncilcanada.com nationalresearchcouncil.ca nationalresearchcouncil.com national-research-council.ca national-research-council.com
+CH-VC-04623,v:ff62360f591c4ab3,Beauroux Consultant Inc.,BEAUROUX CONSULTANT INC.,1162254131,Long Sault,ON,K0C 1P0,3,2,beaurouxconsultant.ca beaurouxconsultant.com beauroux-consultant.ca beauroux-consultant.com
+CH-VC-04624,v:494a88a3af0fe207,"EMS TECHNOLOGIES CANADA, LTD",,,KANATA,ON,K2V 1B8,3,2,emstechnologiescanada.ca emstechnologiescanada.com emstechnologies.ca emstechnologies.com ems-technologies-canada.ca ems-technologies-canada.com
+CH-VC-04625,v:c57f14d8f694d4b6,RESONANCE ALLIANCE INC.,Resonance Alliance Inc.,17060262,TORONTO,ON,M6C1S2,3,2,resonancealliance.ca resonancealliance.com resonance-alliance.ca resonance-alliance.com resonanceallianceholding.ca resonanceallianceholding.com
+CH-VC-04626,v:740c4df0f24ce1ee,Workforce Edge Consulting Inc.,WORKFORCE EDGE CONSULTING INC.,1179204020,Vancouver,BC,V6H 1A6,3,2,workforceedgeconsulting.ca workforceedgeconsulting.com workforce-edge-consulting.ca workforce-edge-consulting.com consultationworkforceedge.ca consultationworkforceedge.com
+CH-VC-04627,v:7e99506b87367d27,Sol-M,,,Bradford,ON,L3Z0H2,3,2,solm.ca solm.com sol-m.ca sol-m.com
+CH-VC-04628,v:034a31cafa23701d,NCH CANADA INC. (division Chem-Aqua),NCH CANADA INC.,1143033703,,ON,L6T1E6,3,2,nchcanada.ca nchcanada.com nch-canada.ca nch-canada.com
+CH-VC-04629,v:3da6c7816ee56984,Sun Pharma Canada,Sun Pharma Canada Inc.,1175565994,,ON,L6T1C1,3,2,sunpharmacanada.ca sunpharmacanada.com sunpharma.ca sunpharma.com sun-pharma-canada.ca sun-pharma-canada.com
+CH-VC-04630,v:3764dcbec7205dea,SimFront Simulation Systems Corporation,Simfront Simulation Systems Corporation,6545360,Ontario,ON,K2K 2E1,3,2,simfrontsimulationsystems.ca simfrontsimulationsystems.com simfront-simulation-systems.ca simfront-simulation-systems.com
+CH-VC-04631,v:51c3c9d2f6c6ff10,Vanderbeken Enterprises Ltd.,,,sudbury,,P3c 1s8,3,2,vanderbekenenterprises.ca vanderbekenenterprises.com vanderbeken-enterprises.ca vanderbeken-enterprises.com
+CH-VC-04632,v:4bc68a16649e1aea,INTERNATIONAL AIR TRANSPORT ASSOCIA,,,MONTREAL,Outside Australia,,2,2,
+CH-VC-04633,v:cb4aa617bc722eb5,Capital Dodge Chrysler Jeep,,,Kanata,Outside Australia,K2V 1E2,2,2,capitaldodgechryslerjeep.ca capitaldodgechryslerjeep.com capital-dodge-chrysler-jeep.ca capital-dodge-chrysler-jeep.com
+CH-VC-04634,v:97d525a68813e9ff,INTERNATIONAL CIVIL AVIATION ORGANIZATION (ICAO),ORGANISATION DE L'AVIATION CIVILE INTERNATIONALE,8811187572,MONTREAL,Outside Australia,H3C 5H7,2,2,icotravelservices.ca icotravelservices.com i-c-o-travel-services.ca i-c-o-travel-services.com oacibulletin.ca oacibulletin.com
+CH-VC-04635,v:aeacf67387293d48,[OVS] Aerotech Herman Nelson International Inc.,,,WINNIPEG,Outside Australia,F2R 1V5,2,2,
+CH-VC-04636,v:c0c7b6aa661946ec,Planview Technologies Inc,PLANVIEW TECHNOLOGIES INC.,BC1457859,CANADA,Outside Australia,V6B 4N6,2,2,planviewtechnologies.ca planviewtechnologies.com planview-technologies.ca planview-technologies.com
+CH-VC-04637,v:fe1fa83a7f232719,MDA SPACE 49NORTH LTD.,MDA Space 49North Ltd.,1181780199,BRAMPTON,Outside Australia,L6Y 6K7,2,2,mdaspace49north.ca mdaspace49north.com mda-space-49north.ca mda-space-49north.com
+CH-VC-04638,v:3845581b3bb215c2,"Rally, A Division of Box Clever Incorporated",,,Sherwood Park,Alberta,T8H 0T1,2,2,rallydivisionboxclever.ca rallydivisionboxclever.com rally-division-box-clever.ca rally-division-box-clever.com
+CH-VC-04639,v:875f53cf7ae7cd04,CB Max Excavating Ltd.,,,Stony Plain,Alberta,T7Z 1V6,2,2,cbmaxexcavating.ca cbmaxexcavating.com cb-max-excavating.ca cb-max-excavating.com
+CH-VC-04640,v:9875e18574171c6c,ABC Benefits Corporation,,,Edmonton,AB,T5J 3C5,2,2,abcbenefits.ca abcbenefits.com abc-benefits.ca abc-benefits.com
+CH-VC-04641,v:8fc7506414881d78,Edon Management,,,Calgary,AB,T2G 4C8,2,2,edonmanagement.ca edonmanagement.com edon-management.ca edon-management.com
+CH-VC-04642,v:cd9e385758364506,Veseris Trade Name of Es Opco Canada II Ltd.,,,Calgary,AB,T2C 5T9,2,2,veseristradenameesopcocanadaii.ca veseristradenameesopcocanadaii.com veseristradenameesopcoii.ca veseristradenameesopcoii.com
+CH-VC-04643,v:39cc4b1c64c81c16,Alberta West Transport Ltd.,,,Grande Prairie,Alberta,T8X 1L7,2,2,albertawesttransport.ca albertawesttransport.com alberta-west-transport.ca alberta-west-transport.com
+CH-VC-04644,v:83f13fa9f5f6c1ae,Big Tree Firewood Inc.,,,Grande Prairie,Alberta,T8V 6J6,2,2,bigtreefirewood.ca bigtreefirewood.com big-tree-firewood.ca big-tree-firewood.com
+CH-VC-04645,v:78ec406250313182,Smart Firewood Products Ltd.,,,Leduc,Alberta,T4X 2K6,2,2,smartfirewoodproducts.ca smartfirewoodproducts.com smart-firewood-products.ca smart-firewood-products.com
+CH-VC-04646,v:705ac94f5463328c,Infinite Forestry Consulting Ltd.,,,Grande Prairie,Alberta,T8V 3Y1,2,2,infiniteforestryconsulting.ca infiniteforestryconsulting.com infinite-forestry-consulting.ca infinite-forestry-consulting.com
+CH-VC-04647,v:cb1e343f2946a87b,Dam Good Firewood Trade Name of 2598885 Alberta Ltd.,,,Wetaskiwin,Alberta,T9A 1X1,2,2,
+CH-VC-04648,v:b03969ca54d9f0db,4J Firewood Services Ltd.,,,Rocky Mountain House,Alberta,T4T 1H8,2,2,4jfirewoodservices.ca 4jfirewoodservices.com 4j-firewood-services.ca 4j-firewood-services.com
+CH-VC-04649,v:65d165c117469620,J. Moody Grader Service Ltd.,,,DeBolt,AB,T0H 1B0,2,2,jmoodygraderservice.ca jmoodygraderservice.com j-moody-grader-service.ca j-moody-grader-service.com
+CH-VC-04650,v:577582e256c7f3a6,SweetTech Engineering Consultants,,,Calgary,AB,T2H 2G4,2,2,
+CH-VC-04651,v:3b60cb941cbc78c0,Eastside Dodge Chrysler Ltd,EASTSIDE DODGE CHRYSLER LTD.,924997,Calgary,AB,T2A 4W3,2,2,eastsidedodgechrysler.ca eastsidedodgechrysler.com eastside-dodge-chrysler.ca eastside-dodge-chrysler.com
+CH-VC-04652,v:722615d9e337d959,"Solomons International, Limited",Solomons International Limited,9160086,Mississauga,Ontario,L4W 5K4,2,2,solomonsinternational.ca solomonsinternational.com solomons-international.ca solomons-international.com
+CH-VC-04653,v:675f99b66aee04f3,"Brogan Fire & Safety, a division of Guillevin International",,,Calgary,AB,T2C 4X7,2,2,
+CH-VC-04654,v:a61e8accf5e1ce73,JMAA architecture ltd.,JMAA ARCHITECTURE LTD.,A0091752,Red Deer,Alberta,T4N 4H5,2,2,jmaaarchitecture.ca jmaaarchitecture.com jmaa-architecture.ca jmaa-architecture.com
+CH-VC-04655,v:43aaa41c7a8146e6,Alberta Blue Cross,,,Edmonton,AB,T5J 3C5,2,2,albertabluecross.ca albertabluecross.com alberta-blue-cross.ca alberta-blue-cross.com
+CH-VC-04656,v:be5b69076a486c30,WJS Canada,,,Edmonton,AB,T5J 1H5,2,2,wjscanada.ca wjscanada.com wjs-canada.ca wjs-canada.com
+CH-VC-04657,v:49aacf71f59bf95b,Town of Raymond,,,Raymond,AB,T0K 2S0,2,2,townraymond.ca townraymond.com town-raymond.ca town-raymond.com
+CH-VC-04658,v:1a4b39ed8f42b586,Eagle Fencing Ltd.,,,Sturgeon County,AB,T8T 0B6,2,2,eaglefencing.ca eaglefencing.com eagle-fencing.ca eagle-fencing.com
+CH-VC-04659,v:b2b9dedfc1bb0c0f,Seven M Construction Ltd.,,,Edmonton,AB,T5S 2T8,2,2,sevenmconstruction.ca sevenmconstruction.com seven-m-construction.ca seven-m-construction.com
+CH-VC-04660,v:22ec1c03d9a806ff,TK Events Inc,,,Oakville,ON,L6L 4B1,2,2,tkevents.ca tkevents.com tk-events.ca tk-events.com
+CH-VC-04661,v:2264043b82501bcc,Vital Property Services Inc.,,,Edmonton,AB,T5G 1W5,2,2,vitalpropertyservices.ca vitalpropertyservices.com vital-property-services.ca vital-property-services.com
+CH-VC-04662,v:70abbee66655400f,Alberta Counsel,,,Edmonton,AB,T5K 2L9,2,2,albertacounsel.ca albertacounsel.com alberta-counsel.ca alberta-counsel.com
+CH-VC-04663,v:5a653dd1be1936ff,SDK Tek Services Ltd.,SDK TEK SERVICES LTD.,1173584872,Calgary,AB,T2N 1Z6,2,2,sdktekservices.ca sdktekservices.com sdk-tek-services.ca sdk-tek-services.com atekotm.ca atekotm.com
+CH-VC-04664,v:18c3e6743577bea0,BCL Consulting Group Inc.,,,Calgary,AB,T2H 2L2,2,2,bclconsultinggroup.ca bclconsultinggroup.com bcl-consulting-group.ca bcl-consulting-group.com
+CH-VC-04665,v:1d35ef12ecf51227,"Charles and Partner Construction Inc.,",,,Airdrie,AB,T4B 3J4,2,2,charlespartnerconstruction.ca charlespartnerconstruction.com charles-partner-construction.ca charles-partner-construction.com
+CH-VC-04666,v:ebd4698573edaa49,Christensen & McLean Roofing Co. Ltd.,,,Edmonton,AB,T5V 1H8,2,2,christensenmcleanroofing.ca christensenmcleanroofing.com christensen-mclean-roofing.ca christensen-mclean-roofing.com
+CH-VC-04667,v:dc05e55ef9404f8d,Lynks-Harvest Sky Services and Supports Society,,,Hanna,AB,T0J 1P0,2,2,
+CH-VC-04668,v:62a93896cf19c160,City Wide Towing & Recovery Service Ltd.,,,Calgary,AB,T2C 5A6,2,2,citywidetowingrecoveryservice.ca citywidetowingrecoveryservice.com
+CH-VC-04669,v:b3e1c17c5ca102ea,TNT Towing / OOP Holdings LTD,,,Lethbridge,AB,T1H 3Z7,2,2,tnttowingoopholdings.ca tnttowingoopholdings.com tnt-towing-oop-holdings.ca tnt-towing-oop-holdings.com
+CH-VC-04670,v:616a4ed127a2587d,Ben Calf Robe Society,,,Edmonton,AB,T5B 2G7,2,2,bencalfrobesociety.ca bencalfrobesociety.com ben-calf-robe-society.ca ben-calf-robe-society.com
+CH-VC-04671,v:3f530d4b94d77ef8,Unlimited Potential Community Services,,,Edmonton,AB,T5S 1K9,2,2,
+CH-VC-04672,v:3aefee7bd864386e,River City Electric Ltd.,,,Edmonton,AB,T5S 0B7,2,2,rivercityelectric.ca rivercityelectric.com river-city-electric.ca river-city-electric.com
+CH-VC-04673,v:21a199916b781a51,Quantum Lifecycle Partners L.P.,,,Edmonton,AB,T6S 1G9,2,2,quantumlifecyclepartnersp.ca quantumlifecyclepartnersp.com quantum-lifecycle-partners-p.ca quantum-lifecycle-partners-p.com
+CH-VC-04674,v:166950c323ab0619,Brisco Wood Preservers Ltd.,BRISCO WOOD PRESERVERS LTD.,BC0272505,Brisco,BC,V0A 1B0,2,2,briscowoodpreservers.ca briscowoodpreservers.com brisco-wood-preservers.ca brisco-wood-preservers.com
+CH-VC-04675,v:7b23b1f8bf44ab7c,1280228 AB Ltd.,,,Calgary,AB,T2C 5V2,2,2,
+CH-VC-04676,v:72681979821a3759,Riverside Kennels (1988) LTD.,,,Red Deer,AB,T4N 2R2,2,2,riversidekennels.ca riversidekennels.com riverside-kennels.ca riverside-kennels.com
+CH-VC-04677,v:3f2acd5d6c82de16,Summit Property Group Edmonton West,,,Edmonton,AB,T5T 7G1,2,2,
+CH-VC-04678,v:6bbe4ebbab728f18,RSR Commissioning Services Inc,,,Calgary,AB,T2H 0C1,2,2,rsrcommissioningservices.ca rsrcommissioningservices.com rsr-commissioning-services.ca rsr-commissioning-services.com
+CH-VC-04679,v:4a30b05526c66bfd,Skelton Canada Inc.,TRANSPORT SKELTON LTÉE,1143546019,Sharon,ON,L0G 1V0,2,2,skeltoncanada.ca skeltoncanada.com skelton.ca skelton.com skelton-canada.ca skelton-canada.com
+CH-VC-04680,v:ba2ea36dbee9de5a,Emcee Construction & Management Ltd.,,,Edmonton,AB,T5S 2T4,2,2,emceeconstructionmanagement.ca emceeconstructionmanagement.com emcee-construction-management.ca emcee-construction-management.com
+CH-VC-04681,v:709ea10cf09b1d88,Environmental 360 Solutions (Alberta) Ltd.,,,Red Deer,AB,T4P 1H2,2,2,environmental360solutions.ca environmental360solutions.com environmental-360-solutions.ca environmental-360-solutions.com
+CH-VC-04682,v:b230ec2f9271de5a,All Star Landscaping Service Ltd,,,Niscu,AB,T9E 0A9,2,2,allstarlandscapingservice.ca allstarlandscapingservice.com all-star-landscaping-service.ca all-star-landscaping-service.com
+CH-VC-04683,v:4fa6f9b72e3b4f7a,Red-L Distributors Ltd.,RED-L DISTRIBUTORS LTD.,A0137223,Grande Prairie,AB,T8W 0J7,2,2,reddistributors.ca reddistributors.com red-distributors.ca red-distributors.com
+CH-VC-04684,v:797ab53420f9f4d3,Zero Gravity Marketing Inc.,ZERO GRAVITY MARKETING INC.,A0122006,Calgary,AB,T2T 5S8,2,2,zerogravitymarketing.ca zerogravitymarketing.com zero-gravity-marketing.ca zero-gravity-marketing.com
+CH-VC-04685,v:55b4a369e45291b6,Cine Audio Visual Sales & Service Ltd.,,,Calgary,AB,T2E 8W7,2,2,cineaudiovisualsalesservice.ca cineaudiovisualsalesservice.com
+CH-VC-04686,v:45e5108e5a588f71,Polyphase Engineered Controls,,,Edmonton,AB,T6E 6N6,2,2,polyphaseengineeredcontrols.ca polyphaseengineeredcontrols.com polyphase-engineered-controls.ca polyphase-engineered-controls.com
+CH-VC-04687,v:baf881e220c664d0,Arc Studio Architecture Ltd.,ARC STUDIO ARCHITECTURE LTD.,A0119256,Edmonton,AB,T5N 3N7,2,2,arcstudioarchitecture.ca arcstudioarchitecture.com arc-studio-architecture.ca arc-studio-architecture.com
+CH-VC-04688,v:267f2046675c912a,GovernmentFrameworks.com inc.,,,Edmonton,AB,T6G 1J4,2,2,governmentframeworkscom.ca governmentframeworkscom.com governmentframeworks-com.ca governmentframeworks-com.com
+CH-VC-04689,v:98be866277ed7ab4,Driving Force Trade Name of The Driving Force Inc.,,,Edmonton,AB,T5S 0A6,2,2,
+CH-VC-04690,v:21c94cd786e244bb,5 Star Services,,,Sherwood Park,AB,T8A 3X9,2,2,5starservices.ca 5starservices.com 5-star-services.ca 5-star-services.com
+CH-VC-04691,v:ff74fda3215e4b8b,SKY+TABLE EVENT GROUP INC.,,,Lethbridge,AB,T1J 3M2,2,2,skytableeventgroup.ca skytableeventgroup.com sky-table-event-group.ca sky-table-event-group.com
+CH-VC-04692,v:7ecf75aa092bbfa2,Bow Valley Bridge Services Ltd,,,Cochrane,AB,T4C 1K2,2,2,bowvalleybridgeservices.ca bowvalleybridgeservices.com bow-valley-bridge-services.ca bow-valley-bridge-services.com
+CH-VC-04693,v:bc04a41f60b8a4fd,Riverside Honda & Skidoo Sales Trade Name of 293564 Alberta Ltd.,,,St.Albert,AB,T8N 5E2,2,2,
+CH-VC-04694,v:135eba764e4196fb,Davis Inspection Services Ltd,,,Calgary,AB,T1Y 6Z1,2,2,davisinspectionservices.ca davisinspectionservices.com davis-inspection-services.ca davis-inspection-services.com
+CH-VC-04695,v:2a6f294d2e02b94d,Rooster Building Group Ltd,,,Calgary,AB,T2G 1X4,2,2,roosterbuildinggroup.ca roosterbuildinggroup.com rooster-building-group.ca rooster-building-group.com
+CH-VC-04696,v:58e3f80901678402,DynaWest Engineering Ltd.,,,Edmonton,AB,T6E 5R7,2,2,dynawestengineering.ca dynawestengineering.com dynawest-engineering.ca dynawest-engineering.com
+CH-VC-04697,v:039738043b6e07e0,Ice on Whyte Festival Society,,,Edmonton,AB,T6E 2M4,2,2,iceonwhytefestivalsociety.ca iceonwhytefestivalsociety.com ice-on-whyte-festival-society.ca ice-on-whyte-festival-society.com
+CH-VC-04698,v:54039c5eb3ec59e5,Frontier Project Solutions Ltd,,,Calgary,AB,T2P 2V6,2,2,frontierprojectsolutions.ca frontierprojectsolutions.com frontier-project-solutions.ca frontier-project-solutions.com
+CH-VC-04699,v:e109818d98ee6c2f,M&E Business Systems Ltd o/a Looker Office Furniture,,,Red Deer,AB,T4P 1M5,2,2,lookerofficefurniture.ca lookerofficefurniture.com looker-office-furniture.ca looker-office-furniture.com
+CH-VC-04700,v:c085e1f66e2c3dc6,Hurst Construction Management Inc.,,,Calgary,AB,T2H 2G8,2,2,hurstconstructionmanagement.ca hurstconstructionmanagement.com hurst-construction-management.ca hurst-construction-management.com
+CH-VC-04701,v:fd9c5a6c41016a66,Bel-Con Design-Builders Ltd.,,,Belleville,ON,K8N 5T8,2,2,belcondesignbuilders.ca belcondesignbuilders.com bel-con-design-builders.ca bel-con-design-builders.com
+CH-VC-04702,v:bdb688b46e0ab9c1,DeAngelis Development Corporation,,,Acheson,AB,T7X 6B4,2,2,deangelisdevelopment.ca deangelisdevelopment.com deangelis-development.ca deangelis-development.com
+CH-VC-04703,v:a8f6ee0d205d788e,Diamond Truck Centres,,,Edmonton,AB,T5S 1S4,2,2,diamondtruckcentres.ca diamondtruckcentres.com diamond-truck-centres.ca diamond-truck-centres.com
+CH-VC-04704,v:951da0b2bc8c3b7c,Priority Healthcare,,,Mississauga,ON,L4W 5A6,2,2,priorityhealthcare.ca priorityhealthcare.com priority-healthcare.ca priority-healthcare.com
+CH-VC-04705,v:47bd33e47d5b369a,Bouka Performance and Wellness,,,Calgary,AB,T3B 6L4,2,2,boukaperformancewellness.ca boukaperformancewellness.com bouka-performance-wellness.ca bouka-performance-wellness.com
+CH-VC-04706,v:fded042872ba368f,1989360 Alberta Ltd o/a Catapult Organics,,,Calgary,AB,T2P 3V4,2,2,catapultorganics.ca catapultorganics.com catapult-organics.ca catapult-organics.com
+CH-VC-04707,v:efd096ff3bebb925,Lethbridge Door Systems,,,Lethbridge,AB,T1H 5T2,2,2,lethbridgedoorsystems.ca lethbridgedoorsystems.com lethbridge-door-systems.ca lethbridge-door-systems.com
+CH-VC-04708,v:ad752147ccd8bba9,ALVAREZ & MARSAL CANADA ULC,ALVAREZ & MARSAL CANADA INC.,1164195274,Toronto,ON,M5J 2J1,2,2,alvarezmarsalcanada.ca alvarezmarsalcanada.com alvarezmarsal.ca alvarezmarsal.com alvarez-marsal-canada.ca alvarez-marsal-canada.com
+CH-VC-04709,v:0f19dfad514e28d5,A K Brown,,,"Calgary, Alberta",AB,T2C 3E5,2,2,kbrown.ca kbrown.com k-brown.ca k-brown.com
+CH-VC-04710,v:497ae903dd7cbdaf,Exigent Inc,,,Edmonton,AB,T6V 0K4,2,2,exigent.ca exigent.com
+CH-VC-04711,v:a98089e5c64f23c0,Mi-Ka Building Management,,,Calgary,AB,T3A 5Z2,2,2,mikabuildingmanagement.ca mikabuildingmanagement.com mi-ka-building-management.ca mi-ka-building-management.com
+CH-VC-04712,v:cc93c25c1a2e38df,YNJ Construction,,,Calgary,AB,T2K 5X2,2,2,ynjconstruction.ca ynjconstruction.com ynj-construction.ca ynj-construction.com
+CH-VC-04713,v:9311cafeca6ad753,2268140 Alberta ltd,,,Hillcrest,AB,T0K 1C0,2,2,
+CH-VC-04714,v:7151e835fe3abc0a,Trinus Technologies Inc.,TRINUS TECHNOLOGIES INC.,A0111912,Stony Plain,AB,T7Z 2J7,2,2,trinustechnologies.ca trinustechnologies.com trinus-technologies.ca trinus-technologies.com
+CH-VC-04715,v:205dd457e6693dbe,Maritime Trave;,,,Calgary,AB,T2E 8W1,2,2,maritimetrave.ca maritimetrave.com maritime-trave.ca maritime-trave.com

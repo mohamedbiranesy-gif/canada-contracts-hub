@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-20316,v:7adc45a919991c10,John Ross & Sons Ltd.,,,,,,17,0,
+CH-VC-20317,v:c0e917301475b94d,Highland Ford,,,,,,17,0,
+CH-VC-20318,v:8b287cd55297a6ef,Pothier Motors,,,,,,17,0,
+CH-VC-20319,v:7ffb3c9bc0518e08,Graves Electrical Ltd.,,,,,,17,0,
+CH-VC-20320,v:d9eca33cd67f0c75,Delmar Construction Ltd.,,,,,,17,0,
+CH-VC-20321,v:4abe732efde63447,Gutters 4 U,,,,,,17,0,
+CH-VC-20322,v:3c443b95a8decc0c,See below,,,,,,17,0,
+CH-VC-20323,v:c0d7ead0651fa5df,SW Weeks,,,,,,17,0,
+CH-VC-20324,v:d34d97ffa9964623,Big Eric's,,,,,,17,0,
+CH-VC-20325,v:5557a883e5242619,D. J. Lowe (1980) Ltd.,,,,,,17,0,
+CH-VC-20326,v:12d3ab1f52fd67d4,Joneljim Construction Ltd.,,,,,,17,0,
+CH-VC-20327,v:cc391e778446a457,Double J Stables,,,,,,17,0,
+CH-VC-20328,v:5439cd3f62d265ed,Basin Stationery & Office Supplies Ltd.,,,,,,17,0,
+CH-VC-20329,v:5a3ce31aaab9ed6e,Brock White Canada Company,BROCK WHITE CANADA,FM0870843,Saskatoon,SK,,16,0,brockwhitecanada.ca brockwhitecanada.com brockwhite.ca brockwhite.com brock-white-canada.ca brock-white-canada.com
+CH-VC-20330,v:2b95d64242c868ee,McColl Forestry Ltd.,MCCOLL FORESTRY LTD.,BC0113063,Clinton,BC,,16,0,mccollforestry.ca mccollforestry.com mccoll-forestry.ca mccoll-forestry.com
+CH-VC-20331,v:77709fa2fabbe024,Mihis Silviculture Contracting,MIHIS SILVICULTURE CONTRACTING,FM0454216,Prince George,BC,,16,0,mihissilviculturecontracting.ca mihissilviculturecontracting.com mihis-silviculture-contracting.ca mihis-silviculture-contracting.com
+CH-VC-20332,v:2148e9ac6540b953,Arnica Contracting Inc.,ARNICA CONTRACTING INC.,BC0945332,Merritt,BC,,16,0,arnicacontracting.ca arnicacontracting.com arnica-contracting.ca arnica-contracting.com
+CH-VC-20333,v:65674f07531cbf54,Civil North Consulting Ltd.,CIVIL NORTH CONSULTING LTD.,BC1242641,Prince George,BC,,16,0,civilnorthconsulting.ca civilnorthconsulting.com civil-north-consulting.ca civil-north-consulting.com
+CH-VC-20334,v:daf22eff532c1537,Managing Information Systems 3 Inc.,,,Toronto,ON,L4H4P6,16,0,managinginformationsystems3.ca managinginformationsystems3.com managing-information-systems-3.ca managing-information-systems-3.com
+CH-VC-20335,v:537707250f200746,STRADA CONSTRUCTION GROUP INC.,,,Gloucester,ON,K1V 1E9,16,0,stradaconstructiongroup.ca stradaconstructiongroup.com strada-construction-group.ca strada-construction-group.com
+CH-VC-20336,v:2a812401b74686bd,G. Ungar Construction Co. Ltd.,,,Theodore,SK,,16,0,gungarconstruction.ca gungarconstruction.com g-ungar-construction.ca g-ungar-construction.com
+CH-VC-20337,v:c597be182962481b,Frontline Truck & Trailer,,,Saskatoon,SK,,16,0,frontlinetrucktrailer.ca frontlinetrucktrailer.com frontline-truck-trailer.ca frontline-truck-trailer.com
+CH-VC-20338,v:21c3ef3b6ec1c05e,Dafoe Roofing Ltd.,,,Belleville,ON,K8N 4Z5,16,0,
+CH-VC-20339,v:98391a136df2711b,BMA Management Consulting Inc,,,HAMILTON,ON,L8P 2K3,16,0,bmamanagementconsulting.ca bmamanagementconsulting.com bma-management-consulting.ca bma-management-consulting.com
+CH-VC-20340,v:d5397c7f3777e636,Prodigy Property Maintenance Inc.,Prodigy Property Maintenance Inc.,1179598074,Almonte,ON,K0A 1A0,16,0,prodigypropertymaintenance.ca prodigypropertymaintenance.com prodigy-property-maintenance.ca prodigy-property-maintenance.com
+CH-VC-20341,v:7b1be888612de4a1,M&E GENERAL CONTRACTING INC.,,,Loretto,ON,L0G1L0,16,0,megeneralcontracting.ca megeneralcontracting.com m-e-general-contracting.ca m-e-general-contracting.com
+CH-VC-20342,v:f3dfa98a89c8f078,Hanna & Hamilton Const.,,,Listowel,ON,N4W 2M8,16,0,hannahamiltonconst.ca hannahamiltonconst.com hanna-hamilton-const.ca hanna-hamilton-const.com
+CH-VC-20343,v:45b896efafc6c756,A.L. Blair Construction Ltd,A. L. BLAIR CONSTRUCTION LIMITED,1177968758,Moose Creek,ON,K0C1W0,16,0,blairconstruction.ca blairconstruction.com blair-construction.ca blair-construction.com constructionblair.ca constructionblair.com
+CH-VC-20344,v:bc0a50952ce1ffab,Kingsland + Architects Inc.,,,Toronto,ON,M5R 3V5,16,0,kingslandarchitects.ca kingslandarchitects.com kingsland-architects.ca kingsland-architects.com
+CH-VC-20345,v:1f356bcc125c54bc,Georgian Paving a division of Miller Paving Ltd.,,,Midhurst ,ON,L9X0L9,16,0,
+CH-VC-20346,v:2c39e790b9106812,Charlton & Connolly Manufacturers Agents Inc,,,Deer Lake,NL,A8A 1P4,16,0,
+CH-VC-20347,v:70650e27db8e0343,Sasktel Business Solutions,,,Regina,SK,,16,0,sasktelbusinesssolutions.ca sasktelbusinesssolutions.com sasktel-business-solutions.ca sasktel-business-solutions.com
+CH-VC-20348,v:3f050574b3a223b8,CLC Building Solutions Inc.,,,White City,SK,,16,0,clcbuildingsolutions.ca clcbuildingsolutions.com clc-building-solutions.ca clc-building-solutions.com
+CH-VC-20349,v:d9a5baf1aa4f1967,Pacific Fresh Fish Ltd.,Pacific Fresh Fish Ltd.,4326962,Regina,SK,,16,0,pacificfreshfish.ca pacificfreshfish.com pacific-fresh-fish.ca pacific-fresh-fish.com
+CH-VC-20350,v:83746f7b54dd42fb,H.J.R. Asphalt Partnership,,,Saskatoon,SK,,16,0,hjrasphaltpartnership.ca hjrasphaltpartnership.com h-j-r-asphalt-partnership.ca h-j-r-asphalt-partnership.com
+CH-VC-20351,v:9518b194566e8cf7,Cantel Medical (Canada),BIOLAB EQUIPMENT LTD,1162922257,Markham,ON,L3R 5V5,16,0,cantelmedical.ca cantelmedical.com cantel-medical.ca cantel-medical.com biolabequipment.ca biolabequipment.com
+CH-VC-20352,v:2a14d7ad0b0d4426,CELGENE CANADA,CELGENE ®,1166842535,OAKVILLE,ON,L6H7S8,16,0,celgenecanada.ca celgenecanada.com celgene.ca celgene.com celgene-canada.ca celgene-canada.com
+CH-VC-20353,v:3b37925a47757f9a,SEEGENE CANADA,SEEGENE CANADA INC.,1175899658,TORONTO,ON,M5V1V6,16,0,seegenecanada.ca seegenecanada.com seegene.ca seegene.com seegene-canada.ca seegene-canada.com
+CH-VC-20354,v:df751a1c65b75995,TÉLÉ-RECHARGE,PITNEY BOWES DU CANADA LTÉE,1144292266,TORONTO,ON,M5W 3C8,16,0,telerecharge.ca telerecharge.com tele-recharge.ca tele-recharge.com pitneybowescanada.ca pitneybowescanada.com
+CH-VC-20355,v:42662e5783242630,"Bell Aliant communication régionales, Société en Commandite",,,Mississauga,ON,L4W 5R1,16,0,
+CH-VC-20356,v:358abacd997a1261,AJ Stone Company Ltd.,,,,,,16,0,
+CH-VC-20357,v:13223c84e16995d4,Metro Asphalt Sealer & Repairs Ltd.,,,,,,16,0,
+CH-VC-20358,v:b9fb7a8086924bea,B. Curry & Sons Construction Limited,,,,,,16,0,
+CH-VC-20359,v:4a2c3a8aa7feac77,Able Electric,,,,,,16,0,
+CH-VC-20360,v:59d97cb9530a1232,Alvin Company Limited,,,,,,16,0,
+CH-VC-20361,v:66aa512d58bf9154,Ian J Tate Plumbing & Heating Limited,,,,,,16,0,
+CH-VC-20362,v:b05b27dbdc72e20f,O'Regan Chevrolet Buick GMC Cadillac Limited,,,,,,16,0,
+CH-VC-20363,v:489f3874afe74956,United Farmers Co-op,,,,,,16,0,
+CH-VC-20364,v:458a091c0eeb3f85,PlayPower Canada,,,,,,16,0,
+CH-VC-20365,v:9a6f0f0cc897e555,Centaur Products (Atlantic) Inc.,,,,,,16,0,
+CH-VC-20366,v:a92f52dc207fda53,Fine Shine Cleaning,,,,,,16,0,
+CH-VC-20367,v:c8a502c9c7918b80,MacIntyre Chevrolet,,,,,,16,0,
+CH-VC-20368,v:e382532a89aeebce,Shep-Com Construction Ltd,,,,,,16,0,
+CH-VC-20369,v:1ea7790c5a1fe3d8,HIGH WINDS LTD.,,,,,,16,0,
+CH-VC-20370,v:334c8f075aedba85,J.R. Eisener Contracting Limited,,,,,,16,0,
+CH-VC-20371,v:45b17e35235627cb,ITS CONSTRUCTION INC,,,,,,16,0,
+CH-VC-20372,v:57a0df98ca474af9,Western Plumbing & Heating Limited,,,,,,16,0,
+CH-VC-20373,v:af3fc4aeeee7bb96,Acadia Roofing,,,,,,16,0,
+CH-VC-20374,v:fadb67ce8fbf1622,CONRAD BROTHERS LTD,,,,,,16,0,
+CH-VC-20375,v:22c0fae80f541b5f,First Class Grass,,,,,,16,0,
+CH-VC-20376,v:d00705029152a332,"Domcor Health, Safety & Security Inc.","DOMCOR SANTÉ, SÛRETÉ & SÉCURITÉ INCORPORÉE",1165617813,Campbell River,BC,,15,0,domcorhealthsafetysecurity.ca domcorhealthsafetysecurity.com domcor-health-safety-security.ca domcor-health-safety-security.com domcorsantesuretesecurite.ca domcorsantesuretesecurite.com
+CH-VC-20377,v:c3e6edfd6c57ab2c,RU-Link Computer Corporation,,,Mississauga,ON,,15,0,rulinkcomputer.ca rulinkcomputer.com ru-link-computer.ca ru-link-computer.com
+CH-VC-20378,v:638fb6d25d6144a4,J. C. Andelle Inc.,J.C. ANDELLE INC.,BC0431364,Richmond,BC,,15,0,jcandelle.ca jcandelle.com j-c-andelle.ca j-c-andelle.com
+CH-VC-20379,v:a5f3e93ddd5e36d1,Nazca Consulting Ltd,NAZCA CONSULTING LTD.,BC0995177,Nelson,BC,,15,0,nazcaconsulting.ca nazcaconsulting.com nazca-consulting.ca nazca-consulting.com
+CH-VC-20380,v:0e2e7905e07d415b,Leko Pre-cast Ltd,LEKO PRE-CAST LTD.,BC0153277,Vernon,BC,,15,0,lekoprecast.ca lekoprecast.com leko-pre-cast.ca leko-pre-cast.com
+CH-VC-20381,v:772d7ce883d02066,Van Dolah Enterprises Inc.,,,Vanderhoof,BC,,15,0,vandolahenterprises.ca vandolahenterprises.com van-dolah-enterprises.ca van-dolah-enterprises.com
+CH-VC-20382,v:1c0a52ee27d298c2,Valley Traffic Systems Inc,VALLEY TRAFFIC SYSTEMS,FM1034309,Langley,BC,,15,0,valleytrafficsystems.ca valleytrafficsystems.com valley-traffic-systems.ca valley-traffic-systems.com
+CH-VC-20383,v:0ee637cd8222b843,Sutton Road Marking Ltd.,SUTTON ROAD MARKING LTD.,BC0418732,Surrey,BC,,15,0,suttonroadmarking.ca suttonroadmarking.com sutton-road-marking.ca sutton-road-marking.com
+CH-VC-20384,v:1b9b984d2211c893,Acrow Limited,,,Richmond,BC,,15,0,acrow.ca acrow.com
+CH-VC-20385,v:8934fe9fdc032ff6,West Arm Silviculture Inc,WEST ARM SILVICULTURE INC.,BC0931643,Nelson,BC,,15,0,westarmsilviculture.ca westarmsilviculture.com west-arm-silviculture.ca west-arm-silviculture.com
+CH-VC-20386,v:59d42bd32ece4efb,Medical Mart Supplies Ltd.,,,Mississauga,ON,,15,0,medicalmartsupplies.ca medicalmartsupplies.com medical-mart-supplies.ca medical-mart-supplies.com
+CH-VC-20387,v:5d57b69850717953,No Bids,,,Vernon,BC,,15,0,nobids.ca nobids.com no-bids.ca no-bids.com
+CH-VC-20388,v:cdec57e313874348,PCA,,,Toronto,ON,,15,0,
+CH-VC-20389,v:af5133a6cd2cd739,Vista Contracting Ltd,,,Cambridge,ON,N1R 5S3,15,0,vistacontracting.ca vistacontracting.com vista-contracting.ca vista-contracting.com
+CH-VC-20390,v:ae4ed01416378778,A&O Contracting Inc.,,,Mississauga,ON,L5J 4S8,15,0,
+CH-VC-20391,v:3be803bb11c8eecd,A.G. HAYTER CONTRACTING LTD.,,,Parkhill,ON,N0M2K0,15,0,ghaytercontracting.ca ghaytercontracting.com g-hayter-contracting.ca g-hayter-contracting.com
+CH-VC-20392,v:7e447749243bcec8,Strum Consulting,,,Halifax,NS,B3S0B9,15,0,strumconsulting.ca strumconsulting.com strum-consulting.ca strum-consulting.com
+CH-VC-20393,v:77455bb7cbda3e56,Porter Tanner Associates Inc,,,Barnwell,AB,T0K0B0,15,0,portertannerassociates.ca portertannerassociates.com porter-tanner-associates.ca porter-tanner-associates.com
+CH-VC-20394,v:57e44c2e326018a2,Lisgar Construction Company a Divison of United Shelters Limited,,,Bolton,ON,L7E 5T4,15,0,
+CH-VC-20395,v:5373429ff36f57b1,Permanent Paving Ltd,,,Woodstock,ON,N4S 0B1,15,0,permanentpaving.ca permanentpaving.com permanent-paving.ca permanent-paving.com
+CH-VC-20396,v:4307f7370ab3c1a7,Moffet & Duncan Architects Inc.,,,Toronto,ON,M9A 1B9,15,0,moffetduncanarchitects.ca moffetduncanarchitects.com moffet-duncan-architects.ca moffet-duncan-architects.com
+CH-VC-20397,v:148f80b50f390fd0,1876118 Ontario Limited o/a Makkinga Contractors,,,Thunder Bay,ON,P7B 6M2,15,0,makkingacontractors.ca makkingacontractors.com makkinga-contractors.ca makkinga-contractors.com
+CH-VC-20398,v:5b31f3a1b68b18b6,Marnoch Electrical Services Inc.,,,Barrie ,ON,L4N 8Y8,15,0,marnochelectricalservices.ca marnochelectricalservices.com marnoch-electrical-services.ca marnoch-electrical-services.com
+CH-VC-20399,v:597b8a496345bb45,ROOF TOPS ROOFING LTD,,,North Gower,ON,K0A 2T0,15,0,rooftopsroofing.ca rooftopsroofing.com roof-tops-roofing.ca roof-tops-roofing.com
+CH-VC-20400,v:50b1db8da55757ca,SEM Ltd.,,,St. John's,NL,A1B 4N2,15,0,
+CH-VC-20401,v:807786b33a0fa17f,CAN-med healthcare,I.M.P. GROUP LIMITED,1147585971,Mississauga,ON,L4Z 1Y6,15,0,canmedhealthcare.ca canmedhealthcare.com can-med-healthcare.ca can-med-healthcare.com impgroup.ca impgroup.com
+CH-VC-20402,v:332d2f265383f252,PDR Contracting Thunder Bay Ltd,,,Thunder Bay,ON,P7C2S7,15,0,
+CH-VC-20403,v:663a8a7cbf0b32c9,Atlas Constructors Inc.,,,Concord,ON,L4K 3M3,15,0,atlasconstructors.ca atlasconstructors.com atlas-constructors.ca atlas-constructors.com
+CH-VC-20404,v:9c490b36d02877ad,S & C Electric Canada Ltd.,S & C ELECTRIC CANADA LTD.,1171047625,Toronto,ON,,15,0,scelectriccanada.ca scelectriccanada.com scelectric.ca scelectric.com s-c-electric-canada.ca s-c-electric-canada.com
+CH-VC-20405,v:3f28a92170a71dc0,Sigma-Aldrich Canada,SIGMA-ALDRICH CANADA LTD.,3102521,Oakville,ON,L6H 6J8,15,0,sigmaaldrichcanada.ca sigmaaldrichcanada.com sigmaaldrich.ca sigmaaldrich.com sigma-aldrich-canada.ca sigma-aldrich-canada.com
+CH-VC-20406,v:8169d13d3c133f42,voestalpine Railway Systems Nortrak,voestalpine Railway Systems Nortrak Ltd.,1176980036,Richmond,BC,V6V 2M4,15,0,
+CH-VC-20407,v:51362affd065fd92,Labrador Marine Inc.,LABRADOR MARINE INC.,11871595,Happy Valley-Goose Bay,NL,,15,0,labradormarine.ca labradormarine.com labrador-marine.ca labrador-marine.com
+CH-VC-20408,v:a7fd1d01d80f861f,Bosch Rexroth Canada Corp,CORPORATION BOSCH REXROTH CANADA,1143618388,Welland,ON,,15,0,boschrexrothcanada.ca boschrexrothcanada.com boschrexroth.ca boschrexroth.com bosch-rexroth-canada.ca bosch-rexroth-canada.com
+CH-VC-20409,v:2d88ceac6965ded8,WF Botkin Construction Ltd,,,Regina,SK,,15,0,wfbotkinconstruction.ca wfbotkinconstruction.com wf-botkin-construction.ca wf-botkin-construction.com
+CH-VC-20410,v:bd1c04f87e47dcb9,PCL Construction,,,Regina,SK,,15,0,pclconstruction.ca pclconstruction.com pcl-construction.ca pcl-construction.com
+CH-VC-20411,v:bd27de85ccbd9441,Adam Brad Welding Ltd,,,Shellbrook,SK,,15,0,adambradwelding.ca adambradwelding.com adam-brad-welding.ca adam-brad-welding.com
+CH-VC-20412,v:4487dc7503fdeb14,Pasqua Paving,,,Regina,SK,,15,0,pasquapaving.ca pasquapaving.com pasqua-paving.ca pasqua-paving.com
+CH-VC-20413,v:d742b9af6fe373e0,Guardian Traffic Services Ltd,,,Regina,SK,,15,0,guardiantrafficservices.ca guardiantrafficservices.com guardian-traffic-services.ca guardian-traffic-services.com
+CH-VC-20414,v:93a44aeeaf56e403,Pneus Toya Canada inc.,PNEUS TOYO CANADA INC.,1142371773,Vancouver,BC,V6C2Z7,15,0,pneustoyacanada.ca pneustoyacanada.com pneustoya.ca pneustoya.com pneus-toya-canada.ca pneus-toya-canada.com
+CH-VC-20415,v:7728240c80b6bfd4,LINKEDIN CORPORATION,,,Toronto,ON,M5J2Z2,15,0,linkedin.ca linkedin.com

@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+GE-VC-14016,v:8a80c512569747fc,Construction Axika,CONSTRUCTION AXIKA INC.,1168219419,Mascouche,QC,J7K 3C1,4,0,constructionaxika.ca constructionaxika.com construction-axika.ca construction-axika.com groupebenco.ca groupebenco.com
+GE-VC-14017,v:c7e83235a42564f1,Entreprise Georges Lepage 9124-7718 Québec inc,9124-7718 QUÉBEC INC.,1161240073,Chute-aux-Outardes,QC,g0h 1c0,4,0,entreprisegeorgeslepage.ca entreprisegeorgeslepage.com entreprise-georges-lepage.ca entreprise-georges-lepage.com
+GE-VC-14018,v:f709645e0b7a16c0,Les architectes Massicotte et Dignard,LES ARCHITECTES MASSICOTTE ET DIGNARD,3342139311,Salaberry-de-Valleyfield,QC,J6T 1Z8,4,0,architectesmassicottedignard.ca architectesmassicottedignard.com architectes-massicotte-dignard.ca architectes-massicotte-dignard.com
+GE-VC-14019,v:553f04e6685e8cd9,Fugère Électrique inc.,FUGÈRE ÉLECTRIQUE INC.,1163613194,Maria,QC,G0C 1Y0,4,0,fugereelectrique.ca fugereelectrique.com fugere-electrique.ca fugere-electrique.com
+GE-VC-14020,v:f8d61331043fedb1,Groupe DRM Inc.,9043-2089 QUÉBEC INC.,1163040190,Montréal,QC,H1E 3B3,4,0,groupedrm.ca groupedrm.com groupe-drm.ca groupe-drm.com
+GE-VC-14021,v:260da99e0910ab4a,EF Tours,,,Montréal,QC,h2y 2g3,4,0,eftours.ca eftours.com ef-tours.ca ef-tours.com
+GE-VC-14022,v:ff01b0528ba04b58,Les Portes Industrielles Indotech Inc.,3227316 Canada Inc.,1145763026,Boucherville,QC,J4B 0G9,4,0,portesindustriellesindotech.ca portesindustriellesindotech.com portes-industrielles-indotech.ca portes-industrielles-indotech.com
+GE-VC-14023,v:4bdf4737e18ef66b,H.DAGENAIS & FILS INC. (RONA),H. DAGENAIS & FILS INC.,1140177420,Saint-Sauveur,QC,J0R1R0,4,0,hdagenaisfils.ca hdagenaisfils.com h-dagenais-fils.ca h-dagenais-fils.com hdagenaisfilsrona.ca hdagenaisfilsrona.com
+GE-VC-14024,v:02d32e3a2b83c87d,Fournisseurs multiples,,,Montréal,QC,H2W 1T8,4,0,fournisseursmultiples.ca fournisseursmultiples.com fournisseurs-multiples.ca fournisseurs-multiples.com
+GE-VC-14025,v:54cca7a0137409a7,JM Léonard Électricien inc,9440-1429 Québec inc.,1141900994,Mont-Tremblant,QC,J9E2V1,4,0,jmleonardelectricien.ca jmleonardelectricien.com jm-leonard-electricien.ca jm-leonard-electricien.com j-m-leonard-electricien.ca j-m-leonard-electricien.com
+GE-VC-14026,v:b371fffa3aa98a42,CONSTRUCTION STEPHANE COTÉ,9153-9098 QUÉBEC INC.,1162883640,Grand-Métis,QC,g0j1z0,4,0,constructionstephanecote.ca constructionstephanecote.com construction-stephane-cote.ca construction-stephane-cote.com
+GE-VC-14027,v:a98fbce16c680b92,T.O.R.A. Transport ordurier de la Région de l'Amiance,,,Saint-Joseph-de-Coleraine,QC,G0N 1B0,4,0,
+GE-VC-14028,v:4613a436b2869d49,Fraisière Gravel,,,Blainville,QC,J7E4H5,4,0,fraisieregravel.ca fraisieregravel.com fraisiere-gravel.ca fraisiere-gravel.com
+GE-VC-14029,v:8321433443c2f725,Les systèmes intérieurs verts inc,Les Systèmes Intérieurs Verts,1169233880,Montréal,QC,H3K1C6,4,0,systemesinterieursverts.ca systemesinterieursverts.com systemes-interieurs-verts.ca systemes-interieurs-verts.com systemeinterieurgb.ca systemeinterieurgb.com
+GE-VC-14030,v:2c4645b7fdf4cc2b,BPR - Bâtiments Jonquière,,,Jonquière,QC,G7T 1A1,4,0,bprbatimentsjonquiere.ca bprbatimentsjonquiere.com bpr-batiments-jonquiere.ca bpr-batiments-jonquiere.com
+GE-VC-14031,v:d4379f84dc581829,GENIVAR inc. (Est-du-Québec et Centre-du-Québec),WSP CANADA INC.,1148357057,Québec,QC,G2J 1C8,4,0,genivar.ca genivar.com wspcanada.ca wspcanada.com wsp-canada.ca wsp-canada.com
+GE-VC-14032,v:4ffc8972761552c8,Laboratoires Charles River,,,Saint-Constant,QC,J5A 2E7,4,0,laboratoirescharlesriver.ca laboratoirescharlesriver.com laboratoires-charles-river.ca laboratoires-charles-river.com
+GE-VC-14033,v:11e8a8feedf619bd,L'Orienthèque centre d'orientation et d'intégration de la main-d'oeuvre,,,Sorel-Tracy,QC,J3P 1B9,4,0,
+GE-VC-14034,v:4745ebc724ce4141,Christie Stat-Dev inc.,CHRISTIE TECHNOLOGIES INC.,1165715336,Saint-Eustache,QC,J7R0C3,4,0,christiestatdev.ca christiestatdev.com christie-stat-dev.ca christie-stat-dev.com christietechnologies.ca christietechnologies.com
+GE-VC-14035,v:5d05022b1741d9fb,Sharp's Audiovisuel,AUDIOVISUEL SHARP'S,1166600073,Laval,QC,H7L 5W5,4,0,sharpsaudiovisuel.ca sharpsaudiovisuel.com sharps-audiovisuel.ca sharps-audiovisuel.com audiovisuelsharps.ca audiovisuelsharps.com
+GE-VC-14036,v:82a4c623a1c29776,Hébergement Rive-Sud inc.,HÉBERGEMENT RIVE-SUD INC.,1144487536,Longueuil,QC,J4K4S2,4,0,hebergementrivesud.ca hebergementrivesud.com hebergement-rive-sud.ca hebergement-rive-sud.com
+GE-VC-14037,v:024ef240afb55c0d,Peintech 9000-2486 Québec Inc.,,,Trois-Rivières,QC,G9A5X1,4,0,peintech90002486quebec.ca peintech90002486quebec.com peintech-9000-2486-quebec.ca peintech-9000-2486-quebec.com
+GE-VC-14038,v:12159e7ba74d5ad9,Construction Val D'or Ltée.,CONSTRUCTION VAL D'OR LTÉE,1142988790,Val-d'Or,QC,J9P 4P3,4,0,constructionvaldor.ca constructionvaldor.com construction-val-dor.ca construction-val-dor.com
+GE-VC-14039,v:82dc23c251080984,Anilox SN Inc.,,,Saint-Jean-sur-Richelieu,QC,J2W 1A5,4,0,aniloxsn.ca aniloxsn.com anilox-sn.ca anilox-sn.com
+GE-VC-14040,v:39115ce493fef806,9169-3598 quebec inc,,,Saint-Fabien-de-Panet,QC,g0r2j0,4,0,
+GE-VC-14041,v:76789522e9f7f864,Maxima Construction TM Inc.,MAXIMA CONSTRUCTION TM INC.,1146318432,Thetford Mines,QC,G6G8A1,4,0,maximaconstructiontm.ca maximaconstructiontm.com maxima-construction-tm.ca maxima-construction-tm.com fideliteconstruction.ca fideliteconstruction.com
+GE-VC-14042,v:40abf365205c1e21,Specialistes en Combustion S.D. (1976) Ltee,,,St. Leonard,QC,H1P 2B3,4,0,specialistesencombustions.ca specialistesencombustions.com specialistes-en-combustion-s.ca specialistes-en-combustion-s.com
+GE-VC-14043,v:dc2a6b9f24b7d848,Simard-Beaudry Construction inc.,SIMARD-BEAUDRY CONSTRUCTION INC.,1164951791,,QC,,4,0,simardbeaudryconstruction.ca simardbeaudryconstruction.com simard-beaudry-construction.ca simard-beaudry-construction.com banisterpipelineconstruction.ca banisterpipelineconstruction.com
+GE-VC-14044,v:d55a591054249b76,SABEM SEC,,,Repentigny,QC,J5Y4E3,4,0,sabem.ca sabem.com
+GE-VC-14045,v:497739a42640f7b8,Trikon Technologies Inc,9422-2361 Québec inc.,1167360255,Vaudreuil-Dorion,QC,J7V 5V5,4,0,trikontechnologies.ca trikontechnologies.com trikon-technologies.ca trikon-technologies.com nexusmetrologie.ca nexusmetrologie.com
+GE-VC-14046,v:2af22816a3f89f8e,KPMG-SECOR,,,Montréal,QC,H3A 0A3,4,0,kpmgsecor.ca kpmgsecor.com kpmg-secor.ca kpmg-secor.com
+GE-VC-14047,v:17410fd11df5eb55,Toshiba OPG,,,Sainte-Anne-de-Bellevue,QC,H9X 4C7,4,0,toshibaopg.ca toshibaopg.com toshiba-opg.ca toshiba-opg.com
+GE-VC-14048,v:ee9e72a47e1243af,Construction Mario Gélinas Ltée/Toitures MG,CONSTRUCTIONS MARIO GÉLINAS LTÉE,1145804754,Saint-Boniface-de-Shawinigan,QC,G0X 2L0,4,0,constructionsmariogelinas.ca constructionsmariogelinas.com constructions-mario-gelinas.ca constructions-mario-gelinas.com maconnerie.ca maconnerie.com
+GE-VC-14049,v:68a1edd4f898392c,Ferblanterie EXP-AIR 2013 inc.,9277-3530 Québec inc.,1168905462,Chicoutimi,QC,G7K 1G7,4,0,ferblanterieexpair2013.ca ferblanterieexpair2013.com ferblanterie-exp-air-2013.ca ferblanterie-exp-air-2013.com
+GE-VC-14050,v:bfdd837d9213ab9e,Agence régionale de mise en valeur des forêts privées de la Chaudière,AGENCE RÉGIONALE DE MISE EN VALEUR DES FORÊTS PRIVÉES DE LA CHAUDIÈRE,1161876116,Thetford Mines,QC,G6G6K2,4,0,agenceforetspriveeschaudiere.ca agenceforetspriveeschaudiere.com
+GE-VC-14051,v:b1db304abe29666c,Asphalte Vermer Inc.,2619-5958 QUÉBEC INC.,1142347716,Saint-Stanislas-de-Kostka,QC,J0S1W0,4,0,asphaltevermer.ca asphaltevermer.com asphalte-vermer.ca asphalte-vermer.com asphalteverner.ca asphalteverner.com
+GE-VC-14052,v:78385fe1aec107d1,Les Enchères d'Automobiles St-Pierre Ltée.,LES ENCHÈRES D'AUTOMOBILES ST-PIERRE LTÉE,1142897801,,QC,,4,0,encheresdautomobilesstpierre.ca encheresdautomobilesstpierre.com encansstpierre2007.ca encansstpierre2007.com encans-st-pierre-2007.ca encans-st-pierre-2007.com
+GE-VC-14053,v:0316db49a7a9c536,"COBA, logiciel de gestion inc.",,,Laval,QC,H7L 5X9,4,0,cobalogicielgestion.ca cobalogicielgestion.com coba-logiciel-gestion.ca coba-logiciel-gestion.com
+GE-VC-14054,v:b3e82855514e3db4,Entretien Clé en main,9047-0410 QUÉBEC INC.,1146556551,,QC,,4,0,entretiencleenmain.ca entretiencleenmain.com entretien-cle-en-main.ca entretien-cle-en-main.com fromagekingsey.ca fromagekingsey.com
+GE-VC-14055,v:8b4069e880b02e1d,Imprimerie Lemire inc.,IMPRIMERIE LEMIRE INC.,1144397149,Drummondville,QC,J2C 7E9,4,0,imprimerielemire.ca imprimerielemire.com imprimerie-lemire.ca imprimerie-lemire.com
+GE-VC-14056,v:b639cd3e3f06ec46,CRE Côte-Nord,,,,QC,,4,0,crecotenord.ca crecotenord.com cre-cote-nord.ca cre-cote-nord.com
+GE-VC-14057,v:44e4c55fba02357e,Service Vacuum D.L.,9009-8328 QUÉBEC INC.,1141147034,Drummondville,QC,J2C8A7,4,0,servicevacuum.ca servicevacuum.com service-vacuum.ca service-vacuum.com
+GE-VC-14058,v:5a02911adb7fc99d,Bentech Construction Inc,9075-3856 QUÉBEC INC.,1148420509,Laval,QC,H7E 4P2,4,0,bentechconstruction.ca bentechconstruction.com bentech-construction.ca bentech-construction.com
+GE-VC-14059,v:1bb2fc50a6c2bae2,Excavation Choinière Inc.,,,,QC,,4,0,excavationchoiniere.ca excavationchoiniere.com excavation-choiniere.ca excavation-choiniere.com
+GE-VC-14060,v:f10bb8d77470532f,"TRAME-VERTE | Tremblay et Tremblay, SENC",TRAME-VERTE,3368157718,Boucherville,QC,J4B 2T1,4,0,tramevertetremblaytremblay.ca tramevertetremblaytremblay.com trame-verte-tremblay-tremblay.ca trame-verte-tremblay-tremblay.com trameverte.ca trameverte.com
+GE-VC-14061,v:254a311e61ae4624,Chambre de commerce tourisme Granby et région,,,,QC,,4,0,
+GE-VC-14062,v:1232a9b66d25a375,CLD Haute-Yamaska,,,,QC,,4,0,cldhauteyamaska.ca cldhauteyamaska.com cld-haute-yamaska.ca cld-haute-yamaska.com
+GE-VC-14063,v:18be4af219755e2c,Saladexpress,SALADEXPRESS INC.,1166514340,Québec,QC,G1M 3B1,4,0,saladexpress.ca saladexpress.com nutriplus.ca nutriplus.com saladeexpress.ca saladeexpress.com
+GE-VC-14064,v:e63e3ce65d8635ea,Ecogespro,COOPÉRATIVE DE SOLIDARITÉ ÉCOGESPRO,1161940128,Saint-Jacques,QC,J0K 2R0,4,0,ecogespro.ca ecogespro.com cooperativesolidariteecogespro.ca cooperativesolidariteecogespro.com
+GE-VC-14065,v:f6eb6f9ba0581eb8,eclipsO Design-Construction inc.,EclipsO Design-Construction inc.,1169974319,Laval,QC,H7T 0J7,4,0,eclipsodesignconstruction.ca eclipsodesignconstruction.com eclipso-design-construction.ca eclipso-design-construction.com
+GE-VC-14066,v:b8e7806115cb8ef4,Corporation de l'amphithéâtre de Trois-Rivières inc.,Corporation des Événements de Trois-Rivières inc.,1166000902,,QC,,4,0,lamphitheatretroisrivieres.ca lamphitheatretroisrivieres.com lamphitheatre-trois-rivieres.ca lamphitheatre-trois-rivieres.com evenementstroisrivieres.ca evenementstroisrivieres.com
+GE-VC-14067,v:d5cafb324044ac36,"CHISHOLM, DONALD J.",,,Howick,QC,J0S1G0,4,0,chisholmdonaldj.ca chisholmdonaldj.com chisholm-donald-j.ca chisholm-donald-j.com
+GE-VC-14068,v:894c61de33548785,CIDEP,,,Montreal,QC,,4,0,cidep.ca cidep.com
+GE-VC-14069,v:e598fb4941eebc0e,Rendan Fabricators Limited,RENDAN FABRICATORS LIMITED,15898579,,QC,,4,0,rendanfabricators.ca rendanfabricators.com rendan-fabricators.ca rendan-fabricators.com
+GE-VC-14070,v:956fabb75d50da19,XEOS IMAGING INC.,XEOS IMAGING INC.,6254217,,QC,,4,0,xeosimaging.ca xeosimaging.com xeos-imaging.ca xeos-imaging.com xeosimagerie.ca xeosimagerie.com
+GE-VC-14071,v:34e4cf2c436448e6,Rideau Recognition Solutions Inc. Solutions de Reconnaissance Rideau Inc.,,,Saint Laurent,Quebec,H4N 1W2,3,0,
+GE-VC-14072,v:6cbf7f61752c1fa1,VG Gourmet Vegetarian Foods Inc.,VG Gourmet Vegetarian Foods Inc.,1170893425,Montréal,QC,,3,0,vggourmetvegetarianfoods.ca vggourmetvegetarianfoods.com vg-gourmet-vegetarian-foods.ca vg-gourmet-vegetarian-foods.com
+GE-VC-14073,v:2e4879f9066e9ae4,Batteries de la Capitale,BATTERIES DE LA CAPITALE INC.,1143018597,Quebec,QC,,3,0,batteriescapitale.ca batteriescapitale.com batteries-capitale.ca batteries-capitale.com bdlcpowersystems.ca bdlcpowersystems.com
+GE-VC-14074,v:a3373d69eaced561,Compagnie Canadienne de Tableaux Noirs Ltée - CCTN,,,Saint-Constant ,QC,J5A 1B6,3,0,canadiennetableauxnoirscctn.ca canadiennetableauxnoirscctn.com canadienne-tableaux-noirs-cctn.ca canadienne-tableaux-noirs-cctn.com
+GE-VC-14075,v:0a1caa1ea0384f33,Mountainview Turfgrass Specialists,,,Quyon,QC,J0X 2V0,3,0,
+GE-VC-14076,v:a74dbc5f08fcb7e4,Hydra-Fab Industrial Inc.,HYDRA-FAB INDUSTRIEL INC.,98345,Boisbriand,QC,J7H 1N1,3,0,
+GE-VC-14077,v:80437158d34ee18c,Construction SRB scc,,,st-jean-sur-richelieu,QC,J3B 8J1,3,0,
+GE-VC-14078,v:3eca10f30041813f,"Compagnie Henry Canada, inc.","HENRY COMPANY CANADA, INC.",1143951409,Lachine-Montreal,QC,H8R 1N7,3,0,
+GE-VC-14079,v:a6ac878e67cf06d2,Fuze HR Solutions Inc,FUZE HR SOLUTIONS INC.,1164299597,Mont-Royal,QC,H4P 2N2,3,0,
+GE-VC-14080,v:7b14662d3c9a5cd8,Cam-concept inc.,CAM-CONCEPT INC.,1164705825,St-Raymond,QC,G3L 4Y4,3,0,
+GE-VC-14081,v:abeeeab1656294cd,Bloom Search Marketing Inc,BLOOM SEARCH MARKETING INC.,1165059057,Montreal,QC,H4C 2C7,3,0,
+GE-VC-14082,v:8df77644f92ba6ac,1order Inc.,1order Inc.,1170472329,Montreal,QC,H4K1K5,3,0,
+GE-VC-14083,v:e7ce5bab611c81f5,Cicame Energie,Sicame Énergie Inc.,1149166457,St-Hubert,QC,J3Z 1G8,3,0,
+GE-VC-14084,v:fb85364143c04aef,"SSQ, Life Insurance Company Inc.",Beneva inc.,1144532687,Longueuil,QC,J4K 0B9,3,0,
+GE-VC-14085,v:6889e1e7f19bbd0a,Aquam Inc.,,,Montreal ,QC,H2G 2H3,3,0,
+GE-VC-14086,v:73e75e9659c5fbb1,Groupe Ménard,MENARD Canada Inc.,1140280844,Noyan,QC,J0J 1B0,3,0,
+GE-VC-14087,v:56a5022ae617b7b6,Knorr Brake Company,,,La Pocatiere,QC,G0R 1Z0,3,0,
+GE-VC-14088,v:d35e98ba1d697843,Boorask Innovation,Boorask Innovation,2276196997,Longueuil,QC,J4L 4T7,3,0,booraskinnovation.ca booraskinnovation.com boorask-innovation.ca boorask-innovation.com
+GE-VC-14089,v:68db7e61ed8e6db9,Dynamat,DYNAMAT INC.,1172357494,Laval,QC,H7M 3H7,3,0,
+GE-VC-14090,v:384628863508a104,MARCHAND ELECTRICAL COMPANY LIMITED,MARCHAND ELECTRICAL COMPANY LIMITED,1163652143,Gatineau,QC,J8T6H5,3,0,
+GE-VC-14091,v:1ea750338090fa92,AskingCanadians Inc.,Schlesinger Group Ltd.,1172885577,Brossard,QC,J4Y 0E3,3,0,
+GE-VC-14092,v:adf87a0c75863eff,SOLUTIONS SMARTUSE INC.,SOLUTIONS SMARTUSE INC.,1173076960,Longueuil,QC,J4K 5G5,3,0,
+GE-VC-14093,v:72ced02dd5a41a54,LuAnn LaSalle,,,Montreal,QC,H4A 3N1,3,0,
+GE-VC-14094,v:1c195864fa02dc8e,Enerserv,,,Granby,QC,J2J 2B8,3,0,
+GE-VC-14095,v:0610d920e28c7c75,Groupe conseils FXinnovation,,,Québec,QC,G1S 1E7,3,0,
+GE-VC-14096,v:000df979d9b31b7a,TXS Industrial Parts Inc.,TXS INDUSTRIAL PARTS INC.,1171315279,Montreal,QC,,3,0,txsindustrialparts.ca txsindustrialparts.com txs-industrial-parts.ca txs-industrial-parts.com piecesindustriellestxs.ca piecesindustriellestxs.com
+GE-VC-14097,v:05e4b282fa5290d2,DUBOIS AGRINOVATION INC.,Dubois Agrinovation inc.,1144813129,Saint-Remi,QC,,3,0,duboisagrinovation.ca duboisagrinovation.com dubois-agrinovation.ca dubois-agrinovation.com agrinovationdubois.ca agrinovationdubois.com
+GE-VC-14098,v:522c575ac6ed68c8,Traffic Technology 2000,,,Montreal,QC,,3,0,traffictechnology2000.ca traffictechnology2000.com traffic-technology-2000.ca traffic-technology-2000.com
+GE-VC-14099,v:ed56579f983fb044,"Voith Hydro Inc., a Canadian Corporation",,,Brossard,QC,,3,0,voithhydrocanadian.ca voithhydrocanadian.com voithhydro.ca voithhydro.com voith-hydro-canadian.ca voith-hydro-canadian.com
+GE-VC-14100,v:8c06df1ffe8b7aeb,G C STAGE EQUIPMENT LTD,,,LaSalle,QC,,3,0,gcstageequipment.ca gcstageequipment.com g-c-stage-equipment.ca g-c-stage-equipment.com
+GE-VC-14101,v:41a70f38de96c5eb,Biomedshield Inc-SDI Canada,BIOMEDSHIELD INC.,1162124078,7497 TransCanada Highway West,QC,H4T 1T3,3,0,
+GE-VC-14102,v:7dce6166905f63b3,LCL Bridge Products Technology Inc,PRODUITS TECHNOLOGIQUES LCL-PONTS INC.,3758524,Lachine,QC,,3,0,lclbridgeproductstechnology.ca lclbridgeproductstechnology.com lcl-bridge-products-technology.ca lcl-bridge-products-technology.com produitstechnologiqueslclponts.ca produitstechnologiqueslclponts.com
+GE-VC-14103,v:503c4af7903cabeb,Le Groupe Momentum,DISTRIBUTION MOMENTUM 2000 INC.,1144814044,Montréal,QC,H8T 1B3,3,0,
+GE-VC-14104,v:d387e239d3db7a8a,"Technologies Ecofixe, Inc",TECHNOLOGIES ECOFIXE INC.,1170608708,Blainville,QC,,3,0,technologiesecofixe.ca technologiesecofixe.com technologies-ecofixe.ca technologies-ecofixe.com
+GE-VC-14105,v:e6fe8c2477900b75,CSF Inc,COMPOSITION STE-FOY INC.,1144164184,Quebec City,QC,,3,0,
+GE-VC-14106,v:626e06c3960d780c,Graphics eMotion,GeM Expériences Immersives Inc.,1160622180,Montreal,QC,,3,0,
+GE-VC-14107,v:a2b6ccb97e3e9e09,National Food Distribution Centre,,,Montreal,QC,,3,0,
+GE-VC-14108,v:f7449221ca6ed00d,VALMET LTÉE,VALMET LTÉE,1175117424,Montréal,QC,H4R2B2,3,0,valmet.ca valmet.com
+GE-VC-14109,v:6739c3d501704a86,Cyclone Lighting,CYCLONE LIGHTING,1166434226,Terrebonne,QC,J6Y 1W9,3,0,
+GE-VC-14110,v:90f8f1e264680d23,Tyco Healthcare Group Canada Inc.,,,Pointe Claire,QC,,3,0,tycohealthcaregroupcanada.ca tycohealthcaregroupcanada.com tycohealthcaregroup.ca tycohealthcaregroup.com tyco-healthcare-group-canada.ca tyco-healthcare-group-canada.com
+GE-VC-14111,v:d76090af7fbea766,JURISMÉDIA INC.,JURISMÉDIA INC.,1146497699,Lorraine - Montreal - Quebec,QC,,3,0,
+GE-VC-14112,v:e469eff066dd67ca,QUALTECH SOLUTIONS INC.,QUALTECH SOLUTIONS INC.,1171289680,Québec,QC,G1N 4K3,3,0,
+GE-VC-14113,v:ae998801c25e8ba1,Hotellus Canada Holdings Inc.,,,Montréal,QC,H2Y 3X4,3,0,
+GE-VC-14114,v:ec0f6e159ca3c2a4,LEADON (MONTREAL) OPERATIONS LP,LEADON (MONTREAL) OPERATIONS LP,3372338650,Montréal,QC,H3A 1J7,3,0,leadonoperations.ca leadonoperations.com leadon-operations.ca leadon-operations.com hoteldeltamontreal.ca hoteldeltamontreal.com
+GE-VC-14115,v:70b673d7e38c44da,André Vaillancourt,,,Delson,Quebec,J5B1A9,3,0,

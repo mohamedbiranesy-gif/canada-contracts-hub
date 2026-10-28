@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+GE-VC-05616,v:ab92ae02b09cb1f9,Guy Laurin,,,Mirabel,QC,J7n0r6,1,1,guylaurin.ca guylaurin.com guy-laurin.ca guy-laurin.com
+GE-VC-05617,v:d505ae375d56f1af,RÉSIDENCE BIEN-AIMÉ INC.,RÉSIDENCE BIEN-AIMÉ INC.,1178147378,La Prairie,QC,J5R6C6,1,1,residencebienaime.ca residencebienaime.com residence-bien-aime.ca residence-bien-aime.com
+GE-VC-05618,v:7d37db922beb8941,9478-6662 Québec inc.,CDFÉ Santé inc.,1178160629,Terrebonne,QC,J6W6B3,1,1,cdfesante.ca cdfesante.com cdfe-sante.ca cdfe-sante.com
+GE-VC-05619,v:1d7f1654aa99be6f,Consortium EXP / Stantec / CIMA+ (2602-23-LM05),Consortium EXP/STANTEC/CIMA+(2602-23-LM05),3378974565,Montréal,QC,,1,1,consortiumexpstanteccima.ca consortiumexpstanteccima.com consortium-exp-stantec-cima.ca consortium-exp-stantec-cima.com
+GE-VC-05620,v:2ad3eb5a01790c1e,Groupe Rondeau,9022-8123 QUÉBEC INC.,1144839306,Saint-Félix-de-Valois,QC,J0K 2M0,1,1,grouperondeau.ca grouperondeau.com groupe-rondeau.ca groupe-rondeau.com transportmartinrondeau.ca transportmartinrondeau.com
+GE-VC-05621,v:865ca8492dc21570,SANTÉ CLEARPOINT QUÉBEC INC.,SANTÉ CLEARPOINT QUÉBEC INC.,1176324169,Laval,QC,H7S2N5,1,1,santeclearpointquebec.ca santeclearpointquebec.com sante-clearpoint-quebec.ca sante-clearpoint-quebec.com groupeopmedic.ca groupeopmedic.com
+GE-VC-05622,v:f1cad9c983a72c19,Brisson déménagement et entreposage,SERVICES ART SOLUTION INC.,1163434823,Laval,QC,H7L3S3,1,1,brissondemenagemententreposage.ca brissondemenagemententreposage.com servicesartsolution.ca servicesartsolution.com services-art-solution.ca services-art-solution.com
+GE-VC-05623,v:6a39f919a6abbf67,"LABONTÉ, DAVE",DÉNEIGEMENT ET EXCAVATION DAVE LABONTÉ,2261906186,Saint-Isidore (Chaudière-Appalaches),QC,G0S2S0,1,1,labontedave.ca labontedave.com labonte-dave.ca labonte-dave.com
+GE-VC-05624,v:74d3c3d42819a5fd,Ressource RicaClinic Inc.,Ressource RicaClinic Inc.,1178407038,Terrebonne,QC,J6W0C1,1,1,ressourcericaclinic.ca ressourcericaclinic.com ressource-ricaclinic.ca ressource-ricaclinic.com
+GE-VC-05625,v:4dda7d82661217ac,Consortium CIMA+/WSP (3603-23-FE01 / FE02),Consortium CIMA+/WSP,3376446590,Québec,QC,G2K 2K8,1,1,consortiumcimawsp.ca consortiumcimawsp.com consortium-cima-wsp.ca consortium-cima-wsp.com
+GE-VC-05626,v:0dca4d08bb0aabcb,Groupement de l'Entrée de la Capitale-Nationale,,,Québec,QC,G1P 4G4,1,1,
+GE-VC-05627,v:32aff9b6736e6eba,Consortium CIMA+/WSP (3603-23-FA01/FA02/FA03),Consortium CIMA+/WSP,3376446590,Québec,QC,G2K 2K8,1,1,consortiumcimawsp.ca consortiumcimawsp.com consortium-cima-wsp.ca consortium-cima-wsp.com
+GE-VC-05628,v:aab0ab998397c865,Les Manoirs DVO Inc.,Les Manoirs DVO Inc.,1177695757,Saint-Amable,QC,J0L1N0,1,1,manoirsdvo.ca manoirsdvo.com manoirs-dvo.ca manoirs-dvo.com
+GE-VC-05629,v:cb6f7d821b04fcd0,9426-6483 Québec inc.,9426-6483 Québec inc.,1175851618,Kuujjuaq,QC,J0M1C0,1,1,
+GE-VC-05630,v:7d22248075eff021,10290360 CANADA INC.,10290360 CANADA INC.,1172891369,Sainte-Hélène-de-Mancebourg,QC,J0Z2T0,1,1,
+GE-VC-05631,v:4592b2ef54b46615,Consortium CIMA+/Stantec (3113-23-HA01),Consortium CIMA+/Stantec (3113-23-HA01),3379025177,Montréal,QC,H3C3X6,1,1,consortiumcimastantec.ca consortiumcimastantec.com consortium-cima-stantec.ca consortium-cima-stantec.com
+GE-VC-05632,v:09373b5419b6fa72,INVESTISSEMENTS MASSON INC.,INVESTISSEMENTS MASSON INC.,1173979999,Repentigny,QC,J6A4X6,1,1,investissementsmasson.ca investissementsmasson.com investissements-masson.ca investissements-masson.com
+GE-VC-05633,v:9512fdfda68adf1e,Studio Trébuchet inc.,Studio Trébuchet inc.,1172878358,Montréal,QC,H2V4S6,1,1,studiotrebuchet.ca studiotrebuchet.com studio-trebuchet.ca studio-trebuchet.com trebuchet.ca trebuchet.com
+GE-VC-05634,v:c6650c42b86e58ee,Investissements Caracal Inc.,Investissements Caracal Inc.,1178182771,Montréal,QC,H3A 1P2,1,1,investissementscaracal.ca investissementscaracal.com investissements-caracal.ca investissements-caracal.com
+GE-VC-05635,v:5e11f255058a6df1,DIAGNOSTIC IRM INC.,DIAGNOSTIC IRM INC.,1160206372,Montréal,QC,H3M3A9,1,1,diagnosticirm.ca diagnosticirm.com diagnostic-irm.ca diagnostic-irm.com
+GE-VC-05636,v:412900f62c838205,Stantec / SNC-Lavalin / EXP,,,,QC,,1,1,stantecsnclavalinexp.ca stantecsnclavalinexp.com stantec-snc-lavalin-exp.ca stantec-snc-lavalin-exp.com
+GE-VC-05637,v:433d773c0e93cf01,MLS - Jodoin Lamarre Pratte architectes en consortium,,,Val-d'Or,QC,J9P3N7,1,1,
+GE-VC-05638,v:3402fced7507baeb,SOCIÉTÉ DE GESTION COGIR S.E.N.C.,SOCIÉTÉ DE GESTION COGIR S.E.N.C.,3361030243,Brossard,QC,J4W 1M9,1,1,societegestioncogirsenc.ca societegestioncogirsenc.com societe-gestion-cogir-s-e-n-c.ca societe-gestion-cogir-s-e-n-c.com azurretirementhomes.ca azurretirementhomes.com
+GE-VC-05639,v:34d0a74a25333841,DRE DANIELLE BRUNEAU INC.,DRE DANIELLE BRUNEAU INC.,1169134013,Montréal,QC,H3H1B9,1,1,dredaniellebruneau.ca dredaniellebruneau.com dre-danielle-bruneau.ca dre-danielle-bruneau.com
+GE-VC-05640,v:996963987666c1e4,9197-4048 QUÉBEC INC.,9197-4048 QUÉBEC INC.,1165189821,Saint-Prosper,QC,G0M1Y0,1,1,forestech.ca forestech.com
+GE-VC-05641,v:fa0887cdce830b98,Onico Inc. / CCM2 architectes Inc.,,,Québec,QC,G2E 5B7,1,1,onicoccm2architectes.ca onicoccm2architectes.com onico-ccm2-architectes.ca onico-ccm2-architectes.com
+GE-VC-05642,v:12335a8417c2b61e,Consortium CIMA+/ Norda Stelo/Tetra Tech (3404-20-HA01),Consortium CIMA+ / NORDA STELO / TETRA TECH (3404-20-HA01),3379216925,Québec,QC,G2K 2K8,1,1,
+GE-VC-05643,v:7d4ccc1a019e7178,Coentreprise SNC-Lavalin/Englobe Route 389,,,Québec,QC,G2J 1P7,1,1,
+GE-VC-05644,v:4291a4b80da64538,GROUPE-CONSEIL ENTRACO INC.,GROUPE-CONSEIL ENTRACO INC.,1143120773,Longueuil,QC,J4H1E5,1,1,groupeconseilentraco.ca groupeconseilentraco.com groupe-conseil-entraco.ca groupe-conseil-entraco.com
+GE-VC-05645,v:0150f0e856b26bc5,LE GROUPE DESFOR S.E.N.C.,LE GROUPE DESFOR-CONSULTANTS FORESTIERS S.E.N.C.,3341900366,Québec,QC,G1M0A2,1,1,groupedesforsenc.ca groupedesforsenc.com groupe-desfor-s-e-n-c.ca groupe-desfor-s-e-n-c.com consortiumdesforamtech.ca consortiumdesforamtech.com
+GE-VC-05646,v:61318b1949a5dd54,Services Securtrak Inc.,Services Securtrak Inc.,1172539109,Laval,QC,H7W4R7,1,1,servicessecurtrak.ca servicessecurtrak.com services-securtrak.ca services-securtrak.com
+GE-VC-05647,v:4bb6e300da1ba3d0,ORDI-CAM 2000 INC.,ORDI-CAM 2000 INC.,1149801145,Longueuil,QC,J4J3L6,1,1,ordicam2000.ca ordicam2000.com ordi-cam-2000.ca ordi-cam-2000.com
+GE-VC-05648,v:99e7fd9f73b5e636,GYROTEC (1999) INC.,GYROTEC (1999) INC.,1148330914,Blainville,QC,J7C0B4,1,1,gyrotec.ca gyrotec.com
+GE-VC-05649,v:403762d6fdf7e060,LA SOCIÉTÉ D'EXPERTS-CONSEILS SOLIBEC INC.,LA SOCIÉTÉ D'EXPERTS-CONSEILS SOLIBEC INC.,1140876542,Carignan,QC,J3L7A1,1,1,societedexpertsconseilssolibec.ca societedexpertsconseilssolibec.com solibec.ca solibec.com
+GE-VC-05650,v:96ac4b67afe38896,LE GROUPE PLANOCAD INC.,LE GROUPE PLANOCAD INC.,1145858123,Lévis,QC,G6C1A3,1,1,groupeplanocad.ca groupeplanocad.com groupe-planocad.ca groupe-planocad.com lagenda365jours.ca lagenda365jours.com
+GE-VC-05651,v:9af72a441ff9ac40,DESSIN MTECH SL INC.,DESSIN MTECH SL INC.,1171242861,Lévis,QC,G6Z8L1,1,1,dessinmtechsl.ca dessinmtechsl.com dessin-mtech-sl.ca dessin-mtech-sl.com
+GE-VC-05652,v:1ccc57c663900b9f,Stantec / WSP (7007-22-FE04),Stantec / WSP (7007-22-FE04),3379189171,Québec,QC,G2K2G2,1,1,stantecwsp.ca stantecwsp.com stantec-wsp.ca stantec-wsp.com
+GE-VC-05653,v:c86fbd9fabf5421a,Progima Conseil inc.,Progima Conseil inc.,1170144217,Montréal,QC,H3M3E2,1,1,progimaconseil.ca progimaconseil.com progima-conseil.ca progima-conseil.com
+GE-VC-05654,v:589f6007f5f43e03,Consortium WSP / BGLA 2023,Consortium WSP / BGLA 2023,3380398738,Québec,QC,G2K0M5,1,1,consortiumwspbgla2023.ca consortiumwspbgla2023.com consortium-wsp-bgla-2023.ca consortium-wsp-bgla-2023.com
+GE-VC-05655,v:cc5efe258dd34833,Consortium EXP / WSP (6003-23-GZ06),,,Sherbrooke,QC,J1H5C7,1,1,consortiumexpwsp.ca consortiumexpwsp.com consortium-exp-wsp.ca consortium-exp-wsp.com
+GE-VC-05656,v:e6e9c6d73ca00619,JRB CONCEPT,JRB CONCEPT,2277120970,Les Iles-de-la-Madeleine,QC,G4T9B5,1,1,jrbconcept.ca jrbconcept.com jrb-concept.ca jrb-concept.com
+GE-VC-05657,v:551c4140c2ae93ea,Consortium CIMA+/SNC-Lavalin (2512-23-FE07),Consortium CIMA+/SNC-Lavalin (2512-23-FE07),3379180451,Montréal,QC,H3C3X6,1,1,consortiumcimasnclavalin.ca consortiumcimasnclavalin.com consortium-cima-snc-lavalin.ca consortium-cima-snc-lavalin.com
+GE-VC-05658,v:2e12ab6da78d2bba,W. BROWN ET FILS INC.,W. BROWN ET FILS INC.,1170824453,Saint-Jean-sur-Richelieu,QC,J2X 1H1,1,1,wbrownfils.ca wbrownfils.com w-brown-fils.ca w-brown-fils.com entreprisesbrown.ca entreprisesbrown.com
+GE-VC-05659,v:f26ac6313fc794f1,9371-5415 Québec inc.,9371-5415 Québec inc.,1173328478,Sainte-Catherine,QC,J5C 1N1,1,1,
+GE-VC-05660,v:af9b115fd0c5aa36,A.G.A Carrosserie inc.,A.G.A Carrosserie inc.,1176656925,Rimouski,QC,G5N5N5,1,1,gcarrosserie.ca gcarrosserie.com g-carrosserie.ca g-carrosserie.com
+GE-VC-05661,v:cb130611de79a26b,9482-7300 Québec inc.,9482-7300 Québec inc.,1178336930,Terrebonne,QC,J6V0C3,1,1,ressourceintermediairebelynda.ca ressourceintermediairebelynda.com
+GE-VC-05662,v:7795f3484653dc8d,RIOPEL | OUELLET architectes,,,Montréal,QC,H3V1G6,1,1,riopelouelletarchitectes.ca riopelouelletarchitectes.com riopel-ouellet-architectes.ca riopel-ouellet-architectes.com
+GE-VC-05663,v:9e8a69bc4cdd449a,J. Dagenais architecte + Espace Vital architectes en consortium,,,Châteauguay,QC,J6K 1B7,1,1,
+GE-VC-05664,v:949835aca66f33ae,"Collin, Sophie",Le fond et la forme,2270979794,Laval,QC,H7M1Z9,1,1,collinsophie.ca collinsophie.com collin-sophie.ca collin-sophie.com fondforme.ca fondforme.com
+GE-VC-05665,v:404bd2f79cfeda24,9360-1516 Québec inc.,9360-1516 Québec inc.,1172782444,Montréal,QC,H4S 1W6,1,1,alarmebanyan.ca alarmebanyan.com alarme-banyan.ca alarme-banyan.com onyxprotectionincendie.ca onyxprotectionincendie.com
+GE-VC-05666,v:6dddff46c7dc2bdc,CENTRE DU CAMION C.M.G. INC.,CENTRE DU CAMION C.M.G. INC.,1163575047,L'Épiphanie,QC,J5X4A7,1,1,centrecamioncmg.ca centrecamioncmg.com centre-camion-c-m-g.ca centre-camion-c-m-g.com deneigementbella.ca deneigementbella.com
+GE-VC-05667,v:51d0bbcf835f870f,Gaétan Roy,FRAISES GAÉTAN ROY,2260173325,Lanoraie,QC,J0K1E0,1,1,gaetanroy.ca gaetanroy.com gaetan-roy.ca gaetan-roy.com fraisesgaetanroy.ca fraisesgaetanroy.com
+GE-VC-05668,v:914188b318ec2ad6,GESTION DOMINIC JUTRAS INC.,GESTION DOMINIC JUTRAS INC.,1175652875,Lorraine,QC,J6Z4P2,1,1,gestiondominicjutras.ca gestiondominicjutras.com gestion-dominic-jutras.ca gestion-dominic-jutras.com
+GE-VC-05669,v:97b9ee2d42b08e1d,AVENTURES ARCHIPEL INC.,AVENTURES ARCHIPEL INC.,1162614136,Rimouski,QC,G5L 4L1,1,1,aventuresarchipel.ca aventuresarchipel.com aventures-archipel.ca aventures-archipel.com kayakzodiacarchipelbic.ca kayakzodiacarchipelbic.com
+GE-VC-05670,v:72c106f45f34cfe6,ÉLECTROPRO SERVICE PSJB INC.,ÉLECTROPRO SERVICE PSJB INC.,1175046516,Blainville,QC,J7C0A9,1,1,electroproservicepsjb.ca electroproservicepsjb.com electropro-service-psjb.ca electropro-service-psjb.com
+GE-VC-05671,v:bb41e55817a90d53,SERVICE DE PNEUS K & S KELLY INC.,K & S Kelly Tire Service Inc.,1161569745,Gatineau,QC,J9J3K4,1,1,servicepneuskskelly.ca servicepneuskskelly.com service-pneus-k-s-kelly.ca service-pneus-k-s-kelly.com kskellytireservice.ca kskellytireservice.com
+GE-VC-05672,v:6d2d69d60844dd01,Ferme Martin Leduc inc.,,,,QC,,1,1,fermemartinleduc.ca fermemartinleduc.com ferme-martin-leduc.ca ferme-martin-leduc.com
+GE-VC-05673,v:f1d70e75ab0d87e9,AVISCAR INC.,AVISCAR INC.,1143428655,Dorval,QC,H9P 0A7,1,1,aviscar.ca aviscar.com avis.ca avis.com avisaubergewendlyn.ca avisaubergewendlyn.com
+GE-VC-05674,v:6b6491d80e8b0b03,CENTRE DE FORMATION PROFESSIONNELLE IPIQ,Centre de services scolaire de Laval,8831849938,Laval,QC,H7E4P2,1,1,centreservicesscolairelaval.ca centreservicesscolairelaval.com centre-services-scolaire-laval.ca centre-services-scolaire-laval.com ceacompetences2000.ca ceacompetences2000.com
+GE-VC-05675,v:c164f4b11fd3796b,"TURCOTTE, JIMMY",PAYSAGES BORÉALS,2265108680,Sainte-Monique (Saguenay-Lac-Saint-Jean),QC,G0w2t0,1,1,turcottejimmy.ca turcottejimmy.com turcotte-jimmy.ca turcotte-jimmy.com paysagesboreals.ca paysagesboreals.com
+GE-VC-05676,v:217a46e6eafd0671,CAPITAL PROPERTY GUARDIANS INC.,CAPITAL PROPERTY GUARDIANS INC.,1163943666,Gatineau,QC,J8T 2W3,1,1,capitalpropertyguardians.ca capitalpropertyguardians.com capital-property-guardians.ca capital-property-guardians.com entreprisecpg.ca entreprisecpg.com
+GE-VC-05677,v:76c629a6dc1991ce,YELLE MAILLÉ ET YVES WOODROUGH architectes en consortium,,,Saint-Eustache,QC,J7P4W4,1,1,
+GE-VC-05678,v:9d683b661691e281,10693103 CANADA INC.,10693103 Canada Inc.,1173551319,Bowman,QC,j0x3c0,1,1,
+GE-VC-05679,v:4b9e9da9cbfd7c17,AZURA ÉVÉNEMENTS INC.,AZURA ÉVÉNEMENTS INC.,1166574716,Saint-Basile-le-Grand,QC,J3N0A9,1,1,azuraevenements.ca azuraevenements.com azura-evenements.ca azura-evenements.com productionswall.ca productionswall.com
+GE-VC-05680,v:31fe37534c464e21,Maison CAJO inc.,Maison CAJO inc.,1177881894,Terrebonne,QC,J6W3S2,1,1,maisoncajo.ca maisoncajo.com maison-cajo.ca maison-cajo.com
+GE-VC-05681,v:37d339428d24a0d6,IAxions Inc.,IAxions Inc.,1177055069,Québec,QC,G1V1A6,1,1,iaxions.ca iaxions.com axioni.ca axioni.com coiainnovations.ca coiainnovations.com
+GE-VC-05682,v:535ed43c7549d5d6,DESHAIES CYCLES & SPORTS INC.,DESHAIES CYCLES & SPORTS INC.,1142292433,Trécesson,QC,J0Y2S0,1,1,deshaiescyclessports.ca deshaiescyclessports.com deshaies-cycles-sports.ca deshaies-cycles-sports.com
+GE-VC-05683,v:5c82f4471506d86f,"VAL D'OR PROPERTIES, INCORPORATED","VAL D'OR PROPERTIES, INCORPORATED",1142820936,Montréal,QC,H3Z1R2,1,1,valdorproperties.ca valdorproperties.com val-dor-properties.ca val-dor-properties.com centresdachatsvaldor.ca centresdachatsvaldor.com
+GE-VC-05684,v:a3d482b523ac7e04,"Gaudreault, Suzan",,2272890650,Montréal,QC,h2h 2h6,1,1,gaudreaultsuzan.ca gaudreaultsuzan.com gaudreault-suzan.ca gaudreault-suzan.com
+GE-VC-05685,v:eb73987b7933e36e,ARDOISES et Lemay,,,Québec,QC,G1K3C3,1,1,ardoiseslemay.ca ardoiseslemay.com ardoises-lemay.ca ardoises-lemay.com
+GE-VC-05686,v:a4bc1d9637b90156,"ADAMS, DAVID",9105-2803 QUÉBEC INC.,1160164761,Saint-Georges-de-Clarenceville,QC,J0J 1B0,1,1,adamsdavid.ca adamsdavid.com adams-david.ca adams-david.com adamsexcavation.ca adamsexcavation.com
+GE-VC-05687,v:302a2859a9245ca3,"LEFEBVRE, DANIEL",Buffet Daniel Lefebvre,2247615463,,QC,,1,1,lefebvredaniel.ca lefebvredaniel.com lefebvre-daniel.ca lefebvre-daniel.com buffetdaniellefebvre.ca buffetdaniellefebvre.com
+GE-VC-05688,v:b4fa4b7714356632,"COURNOYER, STÉPHANE",ENTREPRISES STÉPHANE COURNOYER,2266169707,Saint-Robert,QC,J0G1s0,1,1,cournoyerstephane.ca cournoyerstephane.com cournoyer-stephane.ca cournoyer-stephane.com entreprisesstephanecournoyer.ca entreprisesstephanecournoyer.com
+GE-VC-05689,v:3e76b5f049059c03,blanchette archi.design,Patrick Blanchette s.a.,1173980252,Montréal,QC,H1W3B9,1,1,blanchettearchidesign.ca blanchettearchidesign.com blanchette-archi-design.ca blanchette-archi-design.com patrickblanchettes.ca patrickblanchettes.com
+GE-VC-05690,v:f0f47c2f8f27c4cf,IMMEUBLE MARIO GRENIER,IMMEUBLE MARIO GRENIER,3363910921,La Sarre,QC,J9Z1M2,1,1,immeublemariogrenier.ca immeublemariogrenier.com immeuble-mario-grenier.ca immeuble-mario-grenier.com
+GE-VC-05691,v:9e156742e30a7fe7,9152-6046 QUÉBEC INC.,9152-6046 QUÉBEC INC.,1162808910,Amos,QC,J9T2S1,1,1,polycliniquesources.ca polycliniquesources.com polyclinique-sources.ca polyclinique-sources.com
+GE-VC-05692,v:ae781c16fb20ad56,13969479 Canada Inc.,13969479 Canada Inc.,1177609253,Montréal,QC,H3G 2S1,1,1,
+GE-VC-05693,v:b9996d3b5ba505c7,BM Services Inc.,BM Services Inc.,1177848919,Québec,QC,G1L3Z6,1,1,bmservices.ca bmservices.com bm-services.ca bm-services.com
+GE-VC-05694,v:72129f5fccfce2be,Consortium WSP / EXP (6003-23-GZ10),Consortium WSP / EXP (6003-23-GZ10),3379508776,Lévis,QC,G6W0R9,1,1,consortiumwspexp.ca consortiumwspexp.com consortium-wsp-exp.ca consortium-wsp-exp.com
+GE-VC-05695,v:046d48e403c6fc90,Consortium AtkinsRéalis│WSP,,,Québec,QC,G2K2E2,1,1,consortiumatkinsrealiswsp.ca consortiumatkinsrealiswsp.com consortium-atkinsrealis-wsp.ca consortium-atkinsrealis-wsp.com
+GE-VC-05696,v:9fa0b02933bd87df,9454-1208 Québec inc.,9454-1208 Québec inc.,1177093300,Coaticook,QC,J1A 3C7,1,1,entretienvyr.ca entretienvyr.com entretien-vyr.ca entretien-vyr.com jeantretien.ca jeantretien.com
+GE-VC-05697,v:08692f6a52eef066,9474-6104 Québec inc.,9474-6104 Québec inc.,1177980985,Québec,QC,G1V2C9,1,1,chaimaemouttalie.ca chaimaemouttalie.com chaimae-mouttalie.ca chaimae-mouttalie.com
+GE-VC-05698,v:da6a091dd4fa8f5c,9355-1398 Québec inc.,9355-1398 Québec inc.,1172528565,Blainville,QC,j7c 3w7,1,1,cote.ca cote.com coteexpertenmecaniquebatiment.ca coteexpertenmecaniquebatiment.com
+GE-VC-05699,v:ec0bd577dba14761,SYSTÈME GEDOC INC.,SYSTÈME GEDOC INC.,1143810977,,QC,,1,1,systemegedoc.ca systemegedoc.com systeme-gedoc.ca systeme-gedoc.com
+GE-VC-05700,v:3e8a730f2c13f8d1,MFB ENTRETIEN MÉNAGER INC.,MFB ENTRETIEN MÉNAGER INC.,1179249793,East Angus,QC,J0B1R0,1,1,mfbentretienmenager.ca mfbentretienmenager.com mfb-entretien-menager.ca mfb-entretien-menager.com
+GE-VC-05701,v:f24afd9eb0ba338d,14006143 CANADA INC.,14006143 CANADA INC.,1177693646,Montréal,QC,H3T1E5,1,1,
+GE-VC-05702,v:8c4c591e7b7c5977,LECLERC | MASSICOTTE MALONEY ARCHITECTES,,,Saint-Charles-Borromée,QC,J6E 4N6,1,1,
+GE-VC-05703,v:f90661843ada1877,TRANSPORT TFI 4 INC.,TRANSPORT TFI 4 INC.,1163893291,Saint-Augustin-de-Desmaures,QC,G3A2P9,1,1,transporttfi4.ca transporttfi4.com transport-tfi-4.ca transport-tfi-4.com beaumonttransport.ca beaumonttransport.com
+GE-VC-05704,v:b56307ec2e2e58cf,sud ouest déneigement s.e.n.c.,sud ouest déneigement s.e.n.c.,3373274276,Châteauguay,QC,J6J2T8,1,1,sudouestdeneigementsenc.ca sudouestdeneigementsenc.com sud-ouest-deneigement-s-e-n-c.ca sud-ouest-deneigement-s-e-n-c.com
+GE-VC-05705,v:fe7a911f2ace445a,CONSCIENTISACTION,CONSCIENTISACTION,2273561888,Candiac,QC,J5R2C3,1,1,conscientisaction.ca conscientisaction.com
+GE-VC-05706,v:b3cc8759e520d6e8,GROUPE CONSEIL PERRIER INC.,GROUPE CONSEIL PERRIER INC.,1160544186,Chicoutimi,QC,G7H4J4,1,1,groupeconseilperrier.ca groupeconseilperrier.com groupe-conseil-perrier.ca groupe-conseil-perrier.com groupeconseilperrierconsulting.ca groupeconseilperrierconsulting.com
+GE-VC-05707,v:85cd6a6640cf7db5,Soin.CDB inc.,Soin.CDB inc.,1178566155,Repentigny,QC,J6A7V5,1,1,soincdb.ca soincdb.com soin-cdb.ca soin-cdb.com
+GE-VC-05708,v:a64fe443fcf523fe,RÉSIDENCE BEAU SOURIRE INC.,RÉSIDENCE BEAU SOURIRE INC.,1177532513,Repentigny,QC,J5Y3Y1,1,1,residencebeausourire.ca residencebeausourire.com residence-beau-sourire.ca residence-beau-sourire.com hebergementduverger.ca hebergementduverger.com
+GE-VC-05709,v:d019bdaa0122aa50,9183-9993 QUÉBEC INC.,9183-9993 QUÉBEC INC.,1164517899,Rouyn-Noranda,QC,J9X5K7,1,1,
+GE-VC-05710,v:decc067abac9dd60,"letourneau, guy",Projet NX,2271973077,Trois-Rivières,QC,G8T6K9,1,1,letourneauguy.ca letourneauguy.com letourneau-guy.ca letourneau-guy.com projetnx.ca projetnx.com
+GE-VC-05711,v:92e3a2756297cfa8,"Caron, Simon",Rénovation Simon Caron,2269509446,Notre-Dame-du-Mont-Carmel,QC,G0X3J0,1,1,caronsimon.ca caronsimon.com caron-simon.ca caron-simon.com renovationsimoncaron.ca renovationsimoncaron.com
+GE-VC-05712,v:d88a2d5f1042d0f6,BFR ÉLECTRIQUE INC.,BFR ÉLECTRIQUE INC.,1171350995,Louiseville,QC,J5V1Z1,1,1,bfrelectrique.ca bfrelectrique.com bfr-electrique.ca bfr-electrique.com
+GE-VC-05713,v:a470747841775c3f,9336-6979 Québec inc.,9336-6979 Québec inc.,1171597140,Shawinigan,QC,G9R1H1,1,1,celectricien.ca celectricien.com c-electricien.ca c-electricien.com laurentcossetteelectricien.ca laurentcossetteelectricien.com
+GE-VC-05714,v:d609c52504c7fc8e,RÉFRIGÉRATION GARAND INC.,RÉFRIGÉRATION GARAND INC.,1161945408,Victoriaville,QC,G6T1N3,1,1,refrigerationgarand.ca refrigerationgarand.com refrigeration-garand.ca refrigeration-garand.com
+GE-VC-05715,v:bbe63c621a91ba04,RÉFRIGÉRATION CENTRE DU QUÉBEC INC.,RÉFRIGÉRATION CENTRE DU QUÉBEC INC.,1144421188,Drummondville,QC,J2C6T4,1,1,refrigerationcentrequebec.ca refrigerationcentrequebec.com refrigeration-centre-quebec.ca refrigeration-centre-quebec.com

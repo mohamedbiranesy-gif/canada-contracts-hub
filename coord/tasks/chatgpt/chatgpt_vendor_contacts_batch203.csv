@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-20216,v:0a3193af038b2e55,Neds Creek Blasting Ltd.,NEDS CREEK BLASTING LTD.,BC0938210,Kamloops,BC,,19,0,nedscreekblasting.ca nedscreekblasting.com neds-creek-blasting.ca neds-creek-blasting.com
+CH-VC-20217,v:de761068956c6db7,Armour Security & Protection Services Corp.,ARMOUR SECURITY AND PROTECTION SERVICES CORP.,BC0991398,Burnaby,BC,,19,0,
+CH-VC-20218,v:857879fada6244ff,Hemmera Envirochem Inc.,Ausenco Sustainability ULC,1174290321,Burnaby,BC,V5H0C6,19,0,hemmeraenvirochem.ca hemmeraenvirochem.com hemmera-envirochem.ca hemmera-envirochem.com ausencosustainability.ca ausencosustainability.com
+CH-VC-20219,v:4286aad480c61874,IBI Group Professional Services (Canada) Inc.,Arcadis Canada Inc.,1170436951,Vancouver,BC,,19,0,ibigroupprofessionalservices.ca ibigroupprofessionalservices.com arcadiscanada.ca arcadiscanada.com arcadis.ca arcadis.com
+CH-VC-20220,v:0e5891ea25c3b66e,Hardscape Concrete & Interlock,,,Cambridge,ON,N1R 7L5,19,0,hardscapeconcreteinterlock.ca hardscapeconcreteinterlock.com hardscape-concrete-interlock.ca hardscape-concrete-interlock.com
+CH-VC-20221,v:aeabce9b192a165b,Global Unified Solution Services Inc.,,,Mississauga,ON,L5N2M2,19,0,globalunifiedsolutionservices.ca globalunifiedsolutionservices.com
+CH-VC-20222,v:690214ee96f82c55,Work Equipment Ltd.,,,Courtland,ON,N0J 1E0,19,0,workequipment.ca workequipment.com work-equipment.ca work-equipment.com
+CH-VC-20223,v:46eb140b0ab7ca84,McSweeney & Associates,,,Ottawa,ON,K2J 4P6,19,0,mcsweeneyassociates.ca mcsweeneyassociates.com mcsweeney-associates.ca mcsweeney-associates.com
+CH-VC-20224,v:045f3773f5304b89,Nadin Contracting ltd.,,,Thunder Bay,ON,P7B 6R8,19,0,nadincontracting.ca nadincontracting.com nadin-contracting.ca nadin-contracting.com
+CH-VC-20225,v:fa5bd1cfb43d7010,TERRAPEX ENVIRONMENTAL LTD,,,Toronto,ON,M3B 2R7,19,0,terrapexenvironmental.ca terrapexenvironmental.com terrapex-environmental.ca terrapex-environmental.com
+CH-VC-20226,v:2684dfc816f284b9,1001118420 Ontario Inc,,,Stratford,ON,N5A 8C1,19,0,
+CH-VC-20227,v:9e59b8771af598d8,Green Acres Snow Removal,,,Cornwall,ON,K6H2Z3,19,0,
+CH-VC-20228,v:c5c09211517c4b4e,Scytl Canada,"SCYTL Canada, Inc.",7976747,London,ON,N6A 5B5,19,0,
+CH-VC-20229,v:76ded5464c9c713c,JPH Consulting Ltd.,,,Regina,SK,,19,0,jphconsulting.ca jphconsulting.com jph-consulting.ca jph-consulting.com
+CH-VC-20230,v:8cfdb92c974151ed,Cengage Learning Canada,CENGAGE LEARNING CANADA INC.,1175694083,Toronto,ON,,19,0,cengagelearningcanada.ca cengagelearningcanada.com cengagelearning.ca cengagelearning.com cengage-learning-canada.ca cengage-learning-canada.com
+CH-VC-20231,v:c3df1ba5c9ec405d,HB Construction Inc.,HB Construction,2263450654,Hudson Bay,SK,,19,0,hbconstruction.ca hbconstruction.com hb-construction.ca hb-construction.com constructionhb.ca constructionhb.com
+CH-VC-20232,v:1bf8742c8b6f754e,"Standard Aero Limited, Winnipeg",,,,,,19,0,
+CH-VC-20233,v:9ba00aeaebd39f54,Siemens Canada Limited - Oakville Head Office,SIEMENS CANADA LIMITÉE,1161355988,Oakville,ON,L6H 0H6,19,0,siemensoakvilleheadoffice.ca siemensoakvilleheadoffice.com siemenscanada.ca siemenscanada.com siemens.ca siemens.com
+CH-VC-20234,v:53ec57a7bdf66bc3,MEDELA CANADA INC.,MEDELA CANADA INC.,1149179559,Mississauga,ON,L5L 0A1,19,0,medelacanada.ca medelacanada.com medela.ca medela.com medela-canada.ca medela-canada.com
+CH-VC-20235,v:230212cee0f8c16c,Derma Sciences Inc.,DERMA SCIENCES CANADA INC.,4087755,Toronto,ON,M1S 3S4,19,0,dermasciences.ca dermasciences.com derma-sciences.ca derma-sciences.com dermasciencescanada.ca dermasciencescanada.com
+CH-VC-20236,v:6bb75a599ad41309,REFINITIV CANADA HOLDINGS LIMITED,REFINITIV CANADA HOLDINGS LIMITED,1173586109,,ON,M5H2R2,19,0,refinitivcanadaholdings.ca refinitivcanadaholdings.com refinitivholdings.ca refinitivholdings.com refinitiv-canada-holdings.ca refinitiv-canada-holdings.com
+CH-VC-20237,v:7f87a73d3fedc665,TJ CLARKE UTILITIES,,,,,,19,0,
+CH-VC-20238,v:b9547b0415e4b62e,Paveseal Ltd.,,,,,,19,0,
+CH-VC-20239,v:5a99a77d09a460fc,Canso Ford Sales Ltd.,,,,,,19,0,
+CH-VC-20240,v:646a126f97c10ac1,Seacrest Electric,,,,,,19,0,
+CH-VC-20241,v:5ff45e77808d64b1,East Coast International,,,,,,19,0,
+CH-VC-20242,v:f7a1a9378d16c95e,ALLSTEEL COATINGS LTD.,,,,,,19,0,
+CH-VC-20243,v:f4831bf73cbfeddf,Shane Mahar,,,,,,19,0,
+CH-VC-20244,v:2d3878cef2f1b780,C.F. Construction Limited,,,,,,19,0,
+CH-VC-20245,v:64da6ab86c1d2327,Maritech Construction Inc.,,,,,,19,0,
+CH-VC-20246,v:69f880812c90ab1a,George R. Saunders Construction Company Limited,,,,,,19,0,
+CH-VC-20247,v:d7118ad1f2f91e12,Cascade Supply & Marine Ltd,CASCADE SUPPLY & MARINE LTD.,BC0461105,Chilliwack,BC,,18,0,cascadesupplymarine.ca cascadesupplymarine.com cascade-supply-marine.ca cascade-supply-marine.com
+CH-VC-20248,v:7cb1389cbbbf4414,Cortez Construction Ltd.,,,Kamloops,BC,,18,0,cortezconstruction.ca cortezconstruction.com cortez-construction.ca cortez-construction.com
+CH-VC-20249,v:7b4524399f356d1c,Celtic Reforestation Services Ltd.,CELTIC REFORESTATION SERVICES LTD.,BC0665007,Prince George,BC,,18,0,celticreforestationservices.ca celticreforestationservices.com celtic-reforestation-services.ca celtic-reforestation-services.com
+CH-VC-20250,v:1abcafa17094b5ef,Roc-Star Enterprises Ltd.,ROC-STAR ENTERPRISES LTD.,BC0849474,Port Alberni,BC,,18,0,rocstarenterprises.ca rocstarenterprises.com roc-star-enterprises.ca roc-star-enterprises.com
+CH-VC-20251,v:ec92b64925295d59,Marantz & Son Ltd.,,,Winnipeg,MB,,18,0,marantzson.ca marantzson.com marantz-son.ca marantz-son.com
+CH-VC-20252,v:9a2222eb9d431b82,HANNA MOTOR SALES CO. LIMITED,,,COLLINGWOOD,ON,L9Y1W5,18,0,hannamotorsales.ca hannamotorsales.com hanna-motor-sales.ca hanna-motor-sales.com
+CH-VC-20253,v:1f36bb25cea2b28b,Harrison Bros. Contracting Inc.,,,Cayuga,ON,,18,0,harrisonbroscontracting.ca harrisonbroscontracting.com harrison-bros-contracting.ca harrison-bros-contracting.com
+CH-VC-20254,v:bb7f23b44ecdb236,Tradeworks Interiors Canada Corp,TRADEWORKS INTERIORS CANADA CORP.,3606716,Toronto,ON,M1R 3E4,18,0,tradeworksinteriorscanada.ca tradeworksinteriorscanada.com tradeworksinteriors.ca tradeworksinteriors.com tradeworks-interiors-canada.ca tradeworks-interiors-canada.com
+CH-VC-20255,v:5d92dd9c4c056de5,Sunrise Roofing Contractors Inc,,,Etobicoke ,ON,M8Z 5H2,18,0,
+CH-VC-20256,v:f139d9d3719499e5,ALLIANCE ENVIRONMENTAL & ABATEMENT CONTRACTORS INC.,,,SCARBOROUGH,ON,M1V 4Y6,18,0,
+CH-VC-20257,v:0b9363f6ce955bfe,Les Bertram & Sons (1985) Limited,,,Midhurst,ON,L9X 0L9,18,0,bertramsons.ca bertramsons.com bertram-sons.ca bertram-sons.com
+CH-VC-20258,v:e25d34c9a216547e,Shoreline Supply Ltd.,,,Witless Bay,NL,A0A4K0,18,0,shorelinesupply.ca shorelinesupply.com shoreline-supply.ca shoreline-supply.com
+CH-VC-20259,v:893d5c757ca07a4f,Baldwin Sound Systems,,,Toronto,ON,M6B 4J3,18,0,
+CH-VC-20260,v:fed772bfab0ed922,Brown Derby Wholesale,,,Grand Falls-Windsor,NL,,18,0,brownderbywholesale.ca brownderbywholesale.com brown-derby-wholesale.ca brown-derby-wholesale.com
+CH-VC-20261,v:43d4e370f2473a2e,Miconi Construction Ltd.,,,Woodbridge,ON,L4L 1W1,18,0,
+CH-VC-20262,v:20684ff6ab300fed,CANADIAN UTILITY SERVICES LTD.,,,Grande Prairie,AB,T8V 3A5,18,0,canadianutilityservices.ca canadianutilityservices.com utilityservices.ca utilityservices.com canadian-utility-services.ca canadian-utility-services.com
+CH-VC-20263,v:e38a403543ac4371,Soli Solutions Inc.,,,Regina,SK,,18,0,solisolutions.ca solisolutions.com soli-solutions.ca soli-solutions.com
+CH-VC-20264,v:cee1b53c8d80c0f3,Acadia Paving Ltd.,,,Saskatoon,SK,,18,0,acadiapaving.ca acadiapaving.com acadia-paving.ca acadia-paving.com
+CH-VC-20265,v:ae56a4e38a2a105e,Chef-Redi Meats Inc.,,,Saskatoon,SK,,18,0,chefredimeats.ca chefredimeats.com chef-redi-meats.ca chef-redi-meats.com
+CH-VC-20266,v:ec1f0de643667a9c,Superior Safety Inc.,,,Saskatoon,SK,,18,0,superiorsafety.ca superiorsafety.com superior-safety.ca superior-safety.com
+CH-VC-20267,v:6081e49b8b5940e5,Pentax Medical - Canada Inc.,PENTAX CANADA INC.,1148131635,Missississauga,ON,L5N 5V2,18,0,pentaxmedicalcanada.ca pentaxmedicalcanada.com pentaxmedical.ca pentaxmedical.com pentax-medical-canada.ca pentax-medical-canada.com
+CH-VC-20268,v:02ffb5ce843ad94f,Dako Canada,DAKO CANADA INC.,1148717821,Burlington,ON,L7L 6B2,18,0,dakocanada.ca dakocanada.com dako.ca dako.com dako-canada.ca dako-canada.com
+CH-VC-20269,v:af790c9bc484376b,LINKEDIN TECHNOLOGY CANADA INC.,LINKEDIN TECHNOLOGY CANADA INC.,1173924466,,ON,M5J0E6,18,0,linkedintechnologycanada.ca linkedintechnologycanada.com linkedintechnology.ca linkedintechnology.com linkedin-technology-canada.ca linkedin-technology-canada.com
+CH-VC-20270,v:3606f32b8a2fd003,DOULOS CONSTRUCTION LTD,,,,,,18,0,
+CH-VC-20271,v:7dfdece5b4883d81,WM Weller Tree Service Ltd.,,,,,,18,0,
+CH-VC-20272,v:418ba3eda9b7656d,NOVA HYDROSEEDING & EROSION CONTROL INC.,,,,,,18,0,
+CH-VC-20273,v:383e733a4482f214,Vanslyke Group Inc.,,,,,,18,0,
+CH-VC-20274,v:cda3e2f07264931e,Gerald Walsh Associates Inc.,,,,,,18,0,
+CH-VC-20275,v:acaefc64c089f2bb,Ryson Interior Construction,,,,,,18,0,
+CH-VC-20276,v:02fd72ba7293bb4d,Dalton Jodrey Plumbing & Heating,,,,,,18,0,
+CH-VC-20277,v:d8844d7d5417df8e,Buff Zone Cleaning Services,,,,,,18,0,
+CH-VC-20278,v:efefb2ed0db0dbe5,Royale Floors and Surfaces Inc.,,,,,,18,0,
+CH-VC-20279,v:796ba74380d1e4e5,Hussmann Canada Inc.,,,,,,18,0,
+CH-VC-20280,v:432b7ed896c8b37a,Ian Sinclair Contracting,,,,,,18,0,
+CH-VC-20281,v:05aa46bccfea6f0b,Dartmouth Dodge,,,,,,18,0,
+CH-VC-20282,v:928687a75609a178,Butler Eco Projects,,,,,,18,0,
+CH-VC-20283,v:aa7bccf333d47a3f,Atlantic Industrial Services,,,,,,18,0,
+CH-VC-20284,v:17f7db47ad1679c3,Alliance Traffic Group Inc.,ALLIANCE TRAFFIC GROUP,FM1064159,Burnaby,BC,,17,0,alliancetrafficgroup.ca alliancetrafficgroup.com alliance-traffic-group.ca alliance-traffic-group.com
+CH-VC-20285,v:84d4c701e0f02f6d,Paramount Forestry Ltd.,PARAMOUNT FORESTRY LTD.,BC0818301,Smithers,BC,,17,0,paramountforestry.ca paramountforestry.com paramount-forestry.ca paramount-forestry.com
+CH-VC-20286,v:bd0c8830117b9113,D&M Trucking Inc,,,Yorkton,SK,,17,0,mtrucking.ca mtrucking.com m-trucking.ca m-trucking.com
+CH-VC-20287,v:04f8b5bcf8ee8b52,"Loring Consulting Engineers, Inc.",,,Toronto,ON,,17,0,loringconsultingengineers.ca loringconsultingengineers.com loring-consulting-engineers.ca loring-consulting-engineers.com
+CH-VC-20288,v:a3e675151e8724c9,EC Works,,,Long Sault,ON,K0C 1P0,17,0,ecworks.ca ecworks.com ec-works.ca ec-works.com
+CH-VC-20289,v:391a4ac2f5c2f4c6,Kleinschmidt Associates Canada Inc.,,,Dartmouth,NS,B3A 4S5,17,0,kleinschmidtassociatescanada.ca kleinschmidtassociatescanada.com kleinschmidtassociates.ca kleinschmidtassociates.com kleinschmidt-associates-canada.ca kleinschmidt-associates-canada.com
+CH-VC-20290,v:9aed7db2bcb357b9,Lavis Contracting Co. Limited,,,Clinton,ON,N0M 1L0,17,0,laviscontracting.ca laviscontracting.com lavis-contracting.ca lavis-contracting.com
+CH-VC-20291,v:84eb41dd2ba3868a,Arnill Construction Limited o/a Seeley and Arnill Construction,,,Durham,ON,N0G 1R0,17,0,seeleyarnillconstruction.ca seeleyarnillconstruction.com seeley-arnill-construction.ca seeley-arnill-construction.com
+CH-VC-20292,v:3cab4594d107f952,MapleTherm Engineering Inc.,MapleTherm Engineering Inc.,6973485,Richmond Hill,ON,L4C 9Y6,17,0,
+CH-VC-20293,v:eddd0c75a805bb34,ABLE Energy Management & Design Corporation,,,Thunder Bay,ON,P7C 4B9,17,0,ableenergymanagementdesign.ca ableenergymanagementdesign.com able-energy-management-design.ca able-energy-management-design.com
+CH-VC-20294,v:8bcaf2e47ba31eb7,1001129990 Ontario Ltd.,,,Thunder Bay,ON,P7B4A3,17,0,
+CH-VC-20295,v:8730da31bdf5410a,NL Kubota Limited,,,St. John's,NL,,17,0,nlkubota.ca nlkubota.com nl-kubota.ca nl-kubota.com
+CH-VC-20296,v:c883f99c09ca91f0,G. Bruce Stratton Architects,,,Toronto,ON,M5V 1W2,17,0,
+CH-VC-20297,v:27d066b496bc0e7e,Sojourn Enterprises,,,Dartmouth,NS,B3B 1Z2,17,0,sojournenterprises.ca sojournenterprises.com sojourn-enterprises.ca sojourn-enterprises.com
+CH-VC-20298,v:674410c9d1728ff7,Met-Scan Canada Ltd.,MET-SCAN CANADA LTD.,2916436,Toronto,ON,M3B 1T1,17,0,metscancanada.ca metscancanada.com metscan.ca metscan.com met-scan-canada.ca met-scan-canada.com
+CH-VC-20299,v:c7b25ab79a9c94fb,Johnson Controls Canada L.P.,SOCIÉTÉ DE CONTRÔLE JOHNSON CANADA S.E.C.,3367672865,Kanata,ON,K2L1V8,17,0,johnsoncontrolscanadap.ca johnsoncontrolscanadap.com johnsoncontrolsp.ca johnsoncontrolsp.com johnson-controls-canada-p.ca johnson-controls-canada-p.com
+CH-VC-20300,v:4f7632e659820075,Frontier Construction Products Ltd,,,Thorsby,AB,,17,0,frontierconstructionproducts.ca frontierconstructionproducts.com frontier-construction-products.ca frontier-construction-products.com
+CH-VC-20301,v:20dba79e746ef8a7,G S Hunt Enterprises,,,Bell Island,NL,A0A 4H0,17,0,gshuntenterprises.ca gshuntenterprises.com g-s-hunt-enterprises.ca g-s-hunt-enterprises.com
+CH-VC-20302,v:26c1da26ec361b30,Shoreline Lube Distribution Inc.,,,Grand Barachois,NB,,17,0,shorelinelubedistribution.ca shorelinelubedistribution.com shoreline-lube-distribution.ca shoreline-lube-distribution.com
+CH-VC-20303,v:25847583a159167c,Bruce Sutherland Associates Limited,,,Dartmouth,NS,,17,0,brucesutherlandassociates.ca brucesutherlandassociates.com bruce-sutherland-associates.ca bruce-sutherland-associates.com
+CH-VC-20304,v:a45ba8056e8f0042,McGraw Hill,,,Whitby,ON,,17,0,mcgrawhill.ca mcgrawhill.com mcgraw-hill.ca mcgraw-hill.com
+CH-VC-20305,v:21eb9fd912239d0e,Hipperson Construction,,,Regina,SK,,17,0,hippersonconstruction.ca hippersonconstruction.com hipperson-construction.ca hipperson-construction.com
+CH-VC-20306,v:ef7f953ef41d5148,Harbuilt Construction Ltd,,,Moosomin,SK,,17,0,harbuiltconstruction.ca harbuiltconstruction.com harbuilt-construction.ca harbuilt-construction.com
+CH-VC-20307,v:4d33cbd9e1549052,Nova Paving Sask Ltd.,,,Regina,SK,,17,0,novapavingsask.ca novapavingsask.com nova-paving-sask.ca nova-paving-sask.com
+CH-VC-20308,v:3c3cc1c5f80cb34b,Lehner Wood Preservers Ltd,,,Prince Albert,SK,,17,0,lehnerwoodpreservers.ca lehnerwoodpreservers.com lehner-wood-preservers.ca lehner-wood-preservers.com
+CH-VC-20309,v:8e44959eef3d34de,Graymont Western Canada Inc.,GRAYMONT WESTERN CANADA INC.,BC0368680,Calgary,AB,,17,0,graymontwesterncanada.ca graymontwesterncanada.com graymontwestern.ca graymontwestern.com graymont-western-canada.ca graymont-western-canada.com
+CH-VC-20310,v:2ca99939ed68b95c,Bridgestone Firestone Canada Inc.,BRIDGESTONE CANADA INC.,1144659241,Mississauga,ON,L5R 3G5,17,0,bridgestonefirestonecanada.ca bridgestonefirestonecanada.com bridgestonefirestone.ca bridgestonefirestone.com bridgestone-firestone-canada.ca bridgestone-firestone-canada.com
+CH-VC-20311,v:c00c8ffc4e4ddcec,Bell Aliant Communication Régionale,,,Missisauga,ON,L4W 5R1,17,0,
+CH-VC-20312,v:e6fb06210fafc02f,Code Incorporated,,,,,,17,0,
+CH-VC-20313,v:8cd0615986db939e,Keltic Kubota,,,,,,17,0,
+CH-VC-20314,v:7fa86322095b451c,Phil Larochelle Equipment Inc,,,,,,17,0,
+CH-VC-20315,v:667ab2019c9641dc,Various Vendors,,,,,,17,0,

@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-02216,v:994324ee3c6ab465,BBA Engineering Ltd.,BBA ENGINEERING LTD.,BC0940053,Vancouver,BC,V6E 3S7,11,6,bbaengineering.ca bbaengineering.com bba-engineering.ca bba-engineering.com
+CH-VC-02217,v:713d82780f6ad268,Royal Bank of Canada,,,Calgary,AB,T2P 1C9,11,6,royalbankcanada.ca royalbankcanada.com royalbank.ca royalbank.com royal-bank-canada.ca royal-bank-canada.com
+CH-VC-02218,v:20c3f3fae02a3b7c,Schlumberger Canada Limited,SCHLUMBERGER CANADA LIMITED,1140638835,Calgary,AB,,11,6,schlumbergercanada.ca schlumbergercanada.com schlumberger.ca schlumberger.com schlumberger-canada.ca schlumberger-canada.com
+CH-VC-02219,v:b9a6a3b5a70fe985,Voyageur Transportation Services,,,London,ON,N5V 4L3,11,6,voyageurtransportationservices.ca voyageurtransportationservices.com
+CH-VC-02220,v:9a2e83c6bc8e057c,KMS Industries Inc.,,,Dartmouth,NS,B2Y 4R4,11,6,kmsindustries.ca kmsindustries.com kms-industries.ca kms-industries.com
+CH-VC-02221,v:49311d2c286c9fea,PK Welding & Fabricators Inc,,,Oshawa,ON,L1J 5Y6,11,6,pkweldingfabricators.ca pkweldingfabricators.com pk-welding-fabricators.ca pk-welding-fabricators.com
+CH-VC-02222,v:5e4bc740bc6aa7a1,Power Station Ltd.,,,Mississauga,ON,L4W 2V5,11,6,
+CH-VC-02223,v:f7e57ae19c9e817a,ELECTRICAL SAFETY AUTHORITY,,,Mississauga,ON,L5R 3L5,11,6,
+CH-VC-02224,v:74f55636889c7216,Diligent Canada Inc.,DILIGENT CANADA INC.,1178318896,Vancouver,BC,V6Z 2A8,10,6,diligentcanada.ca diligentcanada.com diligent.ca diligent.com diligent-canada.ca diligent-canada.com
+CH-VC-02225,v:7cbd471ba2ac8724,St. Joseph Print Group Inc.,St. Joseph Print Group Inc.,1164274723,Concord,ON,L4K4P3,10,6,stjosephprintgroup.ca stjosephprintgroup.com st-joseph-print-group.ca st-joseph-print-group.com stjosephprint.ca stjosephprint.com
+CH-VC-02226,v:cca143ccafc5c56c,Vitae Environmental Construction Ltd.,VITAE ENVIRONMENTAL CONSTRUCTION LTD.,A0128677,Pincher Creek,AB,,10,6,vitaeenvironmentalconstruction.ca vitaeenvironmentalconstruction.com
+CH-VC-02227,v:0e38a326f1f88476,POWER HR INC,,,Halifax,NS,B3M 4R2,10,6,powerhr.ca powerhr.com power-hr.ca power-hr.com
+CH-VC-02228,v:e283e1df945bccf5,CM Inc.,,,Markham,ON,,10,6,
+CH-VC-02229,v:53de9ee161a848b6,Wamco Municipal Products (Div. of Emco Corporation),,,BARRIE,ON,L4N 9W6,10,6,wamcomunicipalproducts.ca wamcomunicipalproducts.com wamco-municipal-products.ca wamco-municipal-products.com
+CH-VC-02230,v:16d0a63ae9755f7d,KBM Forestry Consultants Inc.,,,Thunder Bay,ON,P7B5L5,10,6,kbmforestryconsultants.ca kbmforestryconsultants.com kbm-forestry-consultants.ca kbm-forestry-consultants.com
+CH-VC-02231,v:02a432da828d3f53,LUCIDEA TECHNOLOGIES CORP,LUCIDEA TECHNOLOGIES CORP. ,A0111267,Richmond,BC,V6V 2W9,10,6,lucideatechnologies.ca lucideatechnologies.com lucidea-technologies.ca lucidea-technologies.com
+CH-VC-02232,v:9490a9d7dad69085,ITPS (Canada) Ltd.,,,LONDON,Outside Australia,N5V 3Z9,9,6,itps.ca itps.com
+CH-VC-02233,v:657db1e0dffa000c,Raise,,,Toronto,ON,M5H 2M5,9,6,raise.ca raise.com
+CH-VC-02234,v:9df3082b6d350fae,GGA-Architecture,,,Calgary,AB,T2G 0R1,9,6,ggaarchitecture.ca ggaarchitecture.com gga-architecture.ca gga-architecture.com
+CH-VC-02235,v:20ba3870561c3d40,Ambipar Response Canada Inc.,AMBIPAR RESPONSE CANADA INC.,A0113388,Calgary,AB,T2E 6Y9,9,6,ambiparresponsecanada.ca ambiparresponsecanada.com ambiparresponse.ca ambiparresponse.com ambipar-response-canada.ca ambipar-response-canada.com
+CH-VC-02236,v:fbb1374f8e0142bb,Nutrien Ag Solutions,Nutrien Ag Solutions (Canada) Inc.,1170793187,Calgary,AB,T2C 4N8,9,6,nutriensolutions.ca nutriensolutions.com nutrien-solutions.ca nutrien-solutions.com nutriensolutionscanada.ca nutriensolutionscanada.com
+CH-VC-02237,v:06caddb757e29972,Open Door Social Services Society,OPEN DOOR SOCIAL SERVICES SOCIETY,S0071034,Vancouver,BC,V6Z 2C7,9,6,opendoorsocialservicessociety.ca opendoorsocialservicessociety.com
+CH-VC-02238,v:02211851dce4ddf6,Speridian Technologies LLC,SPERIDIAN TECHNOLOGIES CANADA INCORPORATED,9275312,Toronto ,ON,M5G 1Z3,9,6,speridiantechnologies.ca speridiantechnologies.com speridian-technologies.ca speridian-technologies.com speridiantechnologiescanada.ca speridiantechnologiescanada.com
+CH-VC-02239,v:b12b026515390f08,Pacific Geomatics Limited,PACIFIC GEOMATICS LIMITED,BC0269890,,BC,V9B0J8,9,6,pacificgeomatics.ca pacificgeomatics.com pacific-geomatics.ca pacific-geomatics.com
+CH-VC-02240,v:54b44a5fe3870087,Adero Architecture,,,Saskatoon,SK,,9,6,aderoarchitecture.ca aderoarchitecture.com adero-architecture.ca adero-architecture.com
+CH-VC-02241,v:33d537d1fcc49d21,GRIFFIN Engineered Systems Inc.,,,Halifax,Nova Scotia,B3J 2L4,9,6,griffinengineeredsystems.ca griffinengineeredsystems.com griffin-engineered-systems.ca griffin-engineered-systems.com
+CH-VC-02242,v:8dd988d41f9f6d12,Kraken Robotic Systems Inc.,Kraken Robotic Systems Inc.,8916039,Mount Pearl,Newfoundland and Labrador,A1N 4P6,8,6,krakenroboticsystems.ca krakenroboticsystems.com kraken-robotic-systems.ca kraken-robotic-systems.com
+CH-VC-02243,v:793d6d7c60bd6329,PC Corp Inc.,,,Edmonton,AB,T5K 1H6,8,6,
+CH-VC-02244,v:27f188a48cfcbb84,RSM Canada Consulting LP,RSM Canada Consulting LP,3374771973,Edmonton,AB,T5J 0H8,8,6,rsmcanadaconsulting.ca rsmcanadaconsulting.com rsmconsulting.ca rsmconsulting.com rsm-canada-consulting.ca rsm-canada-consulting.com
+CH-VC-02245,v:7d4e726f34f4e312,David R. Coleman General Contractor,,,Monkland,ON,K0C1V0,8,6,davidrcolemangeneralcontractor.ca davidrcolemangeneralcontractor.com
+CH-VC-02246,v:f019c6b8c6f25d41,ACCREDITATION CANADA,Accreditation Canada,1172897192,"1150 Cyrville Road, Ottawa,Ontario, K1J7S9, Canada",ON,,8,6,accreditationcanada.ca accreditationcanada.com accreditation.ca accreditation.com accreditation-canada.ca accreditation-canada.com
+CH-VC-02247,v:d7a50f95988e86e8,Bredin Centre for Career Advancement,,,Edmonton,AB,T5J 0K1,7,6,
+CH-VC-02248,v:afd015073465dab2,Wapiti Gravel Suppliers,,,Grande Prairie,AB,T8V 6T4,7,6,wapitigravelsuppliers.ca wapitigravelsuppliers.com wapiti-gravel-suppliers.ca wapiti-gravel-suppliers.com
+CH-VC-02249,v:fadf63ff6f377b23,EmployAbilities Society of Alberta,,,Edmonton,AB,T5J 3L9,7,6,employabilitiessocietyalberta.ca employabilitiessocietyalberta.com
+CH-VC-02250,v:1f56a1fb0726047d,Nordic Mechanical Services Ltd,,,Edmonton,AB,T6B 2N3,7,6,nordicmechanicalservices.ca nordicmechanicalservices.com nordic-mechanical-services.ca nordic-mechanical-services.com
+CH-VC-02251,v:c2237ea032dcabe0,Aeolus Staffing Solutions Inc.,AEOLUS STAFFING SOLUTIONS INC.,1179761227,Mississauga,ON,L4W 4Z3,7,6,aeolusstaffingsolutions.ca aeolusstaffingsolutions.com aeolus-staffing-solutions.ca aeolus-staffing-solutions.com
+CH-VC-02252,v:dd32c4f1ca246ad0,Olds Concrete Services (2014) Ltd.,,,Olds,AB,T4H 1V1,7,6,oldsconcreteservices.ca oldsconcreteservices.com olds-concrete-services.ca olds-concrete-services.com
+CH-VC-02253,v:23789d89bf4f3ccd,Summit Motors LTD,,,Taber,AB,T1G 2A4,7,6,summitmotors.ca summitmotors.com summit-motors.ca summit-motors.com
+CH-VC-02254,v:c95eafd42e408dbb,Country Pump Out Ltd,,,Sexsmith ,AB,T0H 3C0,7,6,countrypumpout.ca countrypumpout.com country-pump-out.ca country-pump-out.com
+CH-VC-02255,v:8f6be1ab72b2cecd,PricewaterhouseCoopers LLP MAIN NATIONAL ACCOUNT,,,Ottawa,ON,K1P 1E4,7,6,
+CH-VC-02256,v:2809a0fd27066314,BGREEN YOUR LANDSCAPE SPECIALISTS INC.,,,Grande Prairie,AB,T8V5S1,7,6,bgreenyourlandscapespecialists.ca bgreenyourlandscapespecialists.com
+CH-VC-02257,v:32ef339d9f32254f,INTELEX TECHNOLOGIES ULC,,,TORONTO,ON,M5J 2M4,7,6,intelextechnologies.ca intelextechnologies.com intelex-technologies.ca intelex-technologies.com
+CH-VC-02258,v:90f06c91807aba6a,KROLL CANADA LIMITED,KROLL CANADA LIMITED,1172524192,Toronto ,ON,ON M5H 2R2,7,6,krollcanada.ca krollcanada.com kroll.ca kroll.com kroll-canada.ca kroll-canada.com
+CH-VC-02259,v:86716ab19a74ab5d,SmartSimple Software Inc.,SmartSimple Software Inc.,16329616,Toronto,ON,M2N 6N4,7,6,smartsimplesoftware.ca smartsimplesoftware.com smartsimple-software.ca smartsimple-software.com
+CH-VC-02260,v:8a6da74f67834259,A Action Towing and Recovery Inc.,,,Burlington,ON,L7L5L5,7,6,actiontowingrecovery.ca actiontowingrecovery.com action-towing-recovery.ca action-towing-recovery.com
+CH-VC-02261,v:df88d8f48439855d,BGIS Global Integrated Solutions Canada LP,BGIS SOLUTIONS GLOBALES INTÉGRÉES CANADA S.E.C.,3347769088,Markham,ON,L3R 0J2,7,6,bgisglobalintegratedsolutions.ca bgisglobalintegratedsolutions.com bgissolutionsglobalesintegrees.ca bgissolutionsglobalesintegrees.com brookfieldcontrolesjohnson.ca brookfieldcontrolesjohnson.com
+CH-VC-02262,v:c23cee0d445889f5,1101417 ONTARIO INC.,,,Ottawa,ON,K2S 1E5,7,6,
+CH-VC-02263,v:49ae9271c4f17b65,Run Straight Consulting Ltd.,,,Mississauga,ON,L5G 4S1,7,6,runstraightconsulting.ca runstraightconsulting.com run-straight-consulting.ca run-straight-consulting.com
+CH-VC-02264,v:19b008b3c406ad86,DWS DATA WIRING SOLUTIONS INC,Solutions de câblage des données SCD,1170194543,Halifax,NS,B3S 1B3,7,6,dwsdatawiringsolutions.ca dwsdatawiringsolutions.com dws-data-wiring-solutions.ca dws-data-wiring-solutions.com solutionscablagedonneesscd.ca solutionscablagedonneesscd.com
+CH-VC-02265,v:10361bd52fbc9fd1,BROOKS CORNING COMPANY LTD,BROOKS-CORNING COMPANY LTD.,BC0457429,Vancouver,BC,V5Y 1C8,7,6,brookscorning.ca brookscorning.com brooks-corning.ca brooks-corning.com
+CH-VC-02266,v:ba16147f80fd0e81,Transatlantic Business Consulting,TRANSATLANTIC BUSINESS CONSULTING INC.,10163155,Toronto,ON,M3J 2T2,7,6,
+CH-VC-02267,v:5520115dda4f96f2,G A L POWER SYSTEMS OTTAWA LTD,Les systèmes énergétiques G.A.L. Ottawa,1179174975,Carp,ON,K0A 1L0,7,6,gpowersystemsottawa.ca gpowersystemsottawa.com g-power-systems-ottawa.ca g-power-systems-ottawa.com systemesenergetiquesgottawa.ca systemesenergetiquesgottawa.com
+CH-VC-02268,v:0bce76f2a2df250b,APPLANIX CORP,,,RICHMOND HILL,ON,L4B 3B3,7,6,applanix.ca applanix.com
+CH-VC-02269,v:012e8eda9e6f24eb,APS AEROSPACE CORP,,,OTTAWA,ON,K2P 1C3,6,6,apsaerospace.ca apsaerospace.com aps-aerospace.ca aps-aerospace.com
+CH-VC-02270,v:265511acbf0e5675,SLS Chemical Inc.,,,Edmonton,AB,T6X 1X6,6,6,slschemical.ca slschemical.com sls-chemical.ca sls-chemical.com
+CH-VC-02271,v:c5c43738fea9f855,Buttcon West Limited,BUTTCON WEST LIMITED,A0125466,Calgary,AB,T2N 3P9,6,6,buttconwest.ca buttconwest.com buttcon-west.ca buttcon-west.com
+CH-VC-02272,v:e57d82cf991e6784,Municipal Assessment Services Group Inc.,,,Morinville,AB,T8R 1S2,6,6,
+CH-VC-02273,v:c6f0eb5666c16668,Land Tec Landscape Contractors Ltd.,,,Edmonton,AB,T6V 1H7,6,6,landteclandscapecontractors.ca landteclandscapecontractors.com land-tec-landscape-contractors.ca land-tec-landscape-contractors.com
+CH-VC-02274,v:4ef5b22354edacb0,Seasonal Impact Contracting Ltd.,,,Edmonton,AB,T6P 1J6,6,6,seasonalimpactcontracting.ca seasonalimpactcontracting.com seasonal-impact-contracting.ca seasonal-impact-contracting.com
+CH-VC-02275,v:00527aa6d808473b,TBD Architecture + Urban Planning,,,Edmonton AB,AB,T6E 1W6,6,6,tbdarchitectureurbanplanning.ca tbdarchitectureurbanplanning.com
+CH-VC-02276,v:91bd3609d46e4bc0,Al-Terra Engineering Ltd.,AL-TERRA ENGINEERING LTD.,A0121303,Edmonton,AB,T6B 3T4,6,6,alterraengineering.ca alterraengineering.com al-terra-engineering.ca al-terra-engineering.com
+CH-VC-02277,v:1e1326bda45bad64,Sureway Construction Management Ltd,SUREWAY CONSTRUCTION MANAGEMENT LTD.,A0101863,Edmonton,AB,T5Z 3K9,6,6,surewayconstructionmanagement.ca surewayconstructionmanagement.com
+CH-VC-02278,v:99b1ec5e405ce8c7,COLLIERS PROJECT LEADERS INC. COLLIERS MAÎTRES DE PROJETS INC.,,,Ottawa,Ontario,K2C 1E6,6,6,
+CH-VC-02279,v:ccf71810373ffb6d,ACI Architects Inc.,,,Edmonton,AB,T5S 1J8,6,6,aciarchitects.ca aciarchitects.com aci-architects.ca aci-architects.com
+CH-VC-02280,v:f671d70f0700cc5f,101077696 SASKATCHEWAN LTD.,,,Saskatoon,Saskatchewan,S7R 0H4,6,6,
+CH-VC-02281,v:f2780cd11355ec06,CONNECTIVE SUPPORT SOCIETY,CONNECTIVE SUPPORT SOCIETY,S0025060,VANCOUVER,BC,V5V 4C1,6,6,connectivesupportsociety.ca connectivesupportsociety.com connective-support-society.ca connective-support-society.com
+CH-VC-02282,v:9b8c5b5137d43591,GM BluePlan Engineering Limited,,,Guelph,ON,N1K 1B8,157,5,gmblueplanengineering.ca gmblueplanengineering.com gm-blueplan-engineering.ca gm-blueplan-engineering.com
+CH-VC-02283,v:ea588f9183bb9b17,Anacond Contracting Inc.,,,Vaughan,ON,L4H 3H9,78,5,anacondcontracting.ca anacondcontracting.com anacond-contracting.ca anacond-contracting.com
+CH-VC-02284,v:fd80d8aec7eabe64,Pine Valley Corporation,,,Concord,ON,L4K 3S6,70,5,pinevalley.ca pinevalley.com pine-valley.ca pine-valley.com
+CH-VC-02285,v:b51264c9503d3e06,Goodyear Canada Inc,GOODYEAR CANADA INC.,1144772598,Toronto,ON,M8Z5E1,62,5,goodyearcanada.ca goodyearcanada.com goodyear.ca goodyear.com goodyear-canada.ca goodyear-canada.com
+CH-VC-02286,v:5beda243a1c11e06,GEN-PRO/1320376 Ontario Ltd.,,,Burlington,ON,L7R 3R3,60,5,genpro1320376ontario.ca genpro1320376ontario.com gen-pro-1320376-ontario.ca gen-pro-1320376-ontario.com
+CH-VC-02287,v:c0b603752dd007ff,Total One Contracting,,,Lucasville,NS,B4B 0N3,57,5,totalonecontracting.ca totalonecontracting.com total-one-contracting.ca total-one-contracting.com
+CH-VC-02288,v:b75c444aa360dbab,Verly Construction Group Inc,,,Mississauga,ON,L4W 1R4,55,5,verlyconstructiongroup.ca verlyconstructiongroup.com verly-construction-group.ca verly-construction-group.com
+CH-VC-02289,v:d34c14cf453e024f,Hemson Consulting Ltd.,HEMSON CONSULTING LTD.,A0095388,Toronto,ON,M5T 3A3,55,5,hemsonconsulting.ca hemsonconsulting.com hemson-consulting.ca hemson-consulting.com
+CH-VC-02290,v:0ffdb631c2b7ea02,BRIDGESTONE CANADA INC.,BRIDGESTONE CANADA INC.,1144659241,Mississauga,ON,L5R3G5,54,5,bridgestonecanada.ca bridgestonecanada.com bridgestone.ca bridgestone.com bridgestone-canada.ca bridgestone-canada.com
+CH-VC-02291,v:9832b17debb6cd97,DesignPoint Engineering & Surveying Ltd.,,,Bedford,NS,B4B 2J3,47,5,
+CH-VC-02292,v:8096695f255b6f60,Provincial Industrial Roofing & Sheet Metal Company Limited,,,Concord,ON,L4K 1J6,44,5,
+CH-VC-02293,v:d61e5f320487c0e0,Henderson Recreation Equipment Limited,POLYJEUX DIVISION,1144619401,Simcoe,ON,N3Y 4K8,43,5,hendersonrecreationequipment.ca hendersonrecreationequipment.com henderson-recreation-equipment.ca henderson-recreation-equipment.com polyjeuxdivision.ca polyjeuxdivision.com
+CH-VC-02294,v:ba9135aad75b3ebb,L.J. Barton Mechanical Inc.,,,Ancaster,ON,L9G 4V5,42,5,jbartonmechanical.ca jbartonmechanical.com j-barton-mechanical.ca j-barton-mechanical.com
+CH-VC-02295,v:20c5567b075b02cd,K&D Pratt,,,Mount Pearl,NL,A1N 4S9,42,5,kpratt.ca kpratt.com k-pratt.ca k-pratt.com kprattgroup.ca kprattgroup.com
+CH-VC-02296,v:ffd5fd45942d41c6,Jacob Bros. Construction Inc.,JACOB BROS. CONSTRUCTION INC.,BC1495058,Surrey,BC,V3Z 1A7,40,5,jacobbrosconstruction.ca jacobbrosconstruction.com jacob-bros-construction.ca jacob-bros-construction.com
+CH-VC-02297,v:355a7c0d953108de,Salter Pilon Architecture Inc.,SALTER PILON ARCHITECTURE INC.,A0129710,Barrie,ON,L4M 6C1,40,5,salterpilonarchitecture.ca salterpilonarchitecture.com salter-pilon-architecture.ca salter-pilon-architecture.com
+CH-VC-02298,v:fd80e10205e24bd6,Limen Group Const. Ltd,,,Markham,ON,L3T 7T4,39,5,limengroupconst.ca limengroupconst.com limen-group-const.ca limen-group-const.com
+CH-VC-02299,v:9451ad38e2d3a258,G.C. Duke Equipment Ltd,,,Burlington,ON,L7S 1W6,38,5,gcdukeequipment.ca gcdukeequipment.com g-c-duke-equipment.ca g-c-duke-equipment.com
+CH-VC-02300,v:25fb23562ae88921,SAB ENGINEERING INC.,,,Richmond Hill,ON,L4C 9Y6,37,5,sabengineering.ca sabengineering.com sab-engineering.ca sab-engineering.com
+CH-VC-02301,v:00699ee7a3c6d8bb,The MBTW Group,,,Toronto,ON,M4H 1G8,32,5,mbtwgroup.ca mbtwgroup.com mbtw-group.ca mbtw-group.com
+CH-VC-02302,v:43589a7cb2acc9a6,Peninsula Construction Inc,LES ENTREPRISES LACMAT,1165871279,Fonthill,ON,L0S 1E6,32,5,peninsulaconstruction.ca peninsulaconstruction.com peninsula-construction.ca peninsula-construction.com entrepriseslacmat.ca entrepriseslacmat.com
+CH-VC-02303,v:8318f9f79e66a57e,Battleshield Industries Limited,BATTLESHIELD INDUSTRIES LIMITED,1173411324,Vars,ON,K0A3H0,31,5,battleshieldindustries.ca battleshieldindustries.com battleshield-industries.ca battleshield-industries.com
+CH-VC-02304,v:8a2366d32df89128,Avion Construction Group Inc.,,,Milton,ON,L9T 1B8,31,5,avionconstructiongroup.ca avionconstructiongroup.com avion-construction-group.ca avion-construction-group.com
+CH-VC-02305,v:57703057ea5110f3,Higher Ground Contracting,,,Upper Burlington,NS,B0N 2A0,31,5,highergroundcontracting.ca highergroundcontracting.com higher-ground-contracting.ca higher-ground-contracting.com
+CH-VC-02306,v:162194866c4397a8,BTY Consultancy Group Inc.,BTY CONSULTANCY GROUP INC.,1167784926,Toronto,ON,M5V 2E2,30,5,btyconsultancygroup.ca btyconsultancygroup.com bty-consultancy-group.ca bty-consultancy-group.com btygroupeconseil.ca btygroupeconseil.com
+CH-VC-02307,v:95fd89387708f58e,JR Certus Construction Co. Ltd.,,,Vaughan,ON,L4H 0S5,30,5,jrcertusconstruction.ca jrcertusconstruction.com jr-certus-construction.ca jr-certus-construction.com
+CH-VC-02308,v:b4a7451b5f67ca5c,LIVun Ltd.,LIVun Ltd.,1180960263,Mississauga,ON,L5S 1P3,29,5,livun.ca livun.com groupelivun.ca groupelivun.com groupe-livun.ca groupe-livun.com
+CH-VC-02309,v:21cabcd921151138,Hastings Utilities Contracting Ltd.,,,Pickering,ON,L1W 1Z9,29,5,hastingsutilitiescontracting.ca hastingsutilitiescontracting.com hastings-utilities-contracting.ca hastings-utilities-contracting.com
+CH-VC-02310,v:b7636042af5daf82,CRL Campbell Construction & Drainage LTD,,,Wainfleet,ON,L0S 1V0,29,5,
+CH-VC-02311,v:b93c9fb7b4fd12fd,SLBC INC.,,,Brampton,ON,L6R 3H6,29,5,slbc.ca slbc.com
+CH-VC-02312,v:d472f00a58457b93,341234 BC Ltd,,,Burnaby,BC,,28,5,
+CH-VC-02313,v:4fb9242881688c02,Applewood Roofing and Sheet Metal Ltd.,,,Toronto,ON,M9L1P9,28,5,applewoodroofingsheetmetal.ca applewoodroofingsheetmetal.com applewood-roofing-sheet-metal.ca applewood-roofing-sheet-metal.com
+CH-VC-02314,v:34600c140485f734,Bond Paving & Construction Inc,,,Toronto,ON,M3K 2C1,28,5,bondpavingconstruction.ca bondpavingconstruction.com bond-paving-construction.ca bond-paving-construction.com
+CH-VC-02315,v:25917d0a851f3f75,ONIT Construction Inc.,,,Burlington,ON,L7N 3J6,27,5,onitconstruction.ca onitconstruction.com onit-construction.ca onit-construction.com

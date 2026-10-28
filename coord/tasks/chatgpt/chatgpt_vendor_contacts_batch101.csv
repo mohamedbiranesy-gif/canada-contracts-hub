@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-10016,v:c64e7546a4083f6d,Honeybadger Tech Inc,,,Edmonton,AB,T5S 0K9,1,1,honeybadgertech.ca honeybadgertech.com honeybadger-tech.ca honeybadger-tech.com
+CH-VC-10017,v:5a235174ab295829,Kel-Krete Concrete,,,High River,AB,T1V 1W6,1,1,kelkreteconcrete.ca kelkreteconcrete.com kel-krete-concrete.ca kel-krete-concrete.com
+CH-VC-10018,v:93f08eb0492be80f,Total Plumbing and Heating Ltd,,,Edmonton,AB,T5M 3T9,1,1,totalplumbingheating.ca totalplumbingheating.com total-plumbing-heating.ca total-plumbing-heating.com
+CH-VC-10019,v:55d82ccc7800153f,MULVEY & BANANI INTERNATIONAL (ALBERTA) INC.,,,Edmonton,AB,T5J 2Y2,1,1,mulveybananiinternational.ca mulveybananiinternational.com mulvey-banani-international.ca mulvey-banani-international.com
+CH-VC-10020,v:af8656f6e4408716,Commercial Truck Equipment Corp - Delta,,,Delta,BC,V3M 6G7,1,1,commercialtruckequipmentdelta.ca commercialtruckequipmentdelta.com
+CH-VC-10021,v:247231b96b1bfb84,Unstoppable Partnerships Inc.,,,Smoky Lake,AB,T0A 3C0,1,1,unstoppablepartnerships.ca unstoppablepartnerships.com unstoppable-partnerships.ca unstoppable-partnerships.com
+CH-VC-10022,v:f4490db93e52de58,TRIPPLE R GENERAL CONSTRUCTION  Inc.,,,Edmonton,AB,T5P 2Y5,1,1,tripplergeneralconstruction.ca tripplergeneralconstruction.com tripple-r-general-construction.ca tripple-r-general-construction.com
+CH-VC-10023,v:71bb6774a1ecea94,Leslie Allan Rae o/a Heavy Metal Co.,,,Central Kootenay,BC,V0B 1E0,1,1,heavymetal.ca heavymetal.com heavy-metal.ca heavy-metal.com
+CH-VC-10024,v:3804310f5ee266da,RTU Power & Controls Ltd,,,Airdrie,AB,T4A 2J2,1,1,rtupowercontrols.ca rtupowercontrols.com rtu-power-controls.ca rtu-power-controls.com
+CH-VC-10025,v:8bcd454500b45568,Poirier Equipment Service Ltd.,,,Calgary,AB,T2C 2J4,1,1,poirierequipmentservice.ca poirierequipmentservice.com poirier-equipment-service.ca poirier-equipment-service.com
+CH-VC-10026,v:d94365b2c3e005ae,Mackenzie Custom Builders  Ltd,,,Mackenzie County ,AB,T0H 2H0,1,1,mackenziecustombuilders.ca mackenziecustombuilders.com mackenzie-custom-builders.ca mackenzie-custom-builders.com
+CH-VC-10027,v:9b29a15b129e9999,Titan GPS,,,Edmonton,AB,T6X 1Z9,1,1,titangps.ca titangps.com titan-gps.ca titan-gps.com
+CH-VC-10028,v:5e321d67155e84b4,1961883 Alberta Ltd,,,Rocky View County,AB,T4C 2Y8,1,1,
+CH-VC-10029,v:759fb3b8639b5a4c,Kyle Anthony Rodgers Thornley,,,Revelstoke,BC,V0E 2S0,1,1,kyleanthonyrodgersthornley.ca kyleanthonyrodgersthornley.com kyle-anthony-rodgers-thornley.ca kyle-anthony-rodgers-thornley.com
+CH-VC-10030,v:e2e65a06e4e90f43,Horizon North Camps and Catering,,,Calgary,AB,T2P 4H4,1,1,horizonnorthcampscatering.ca horizonnorthcampscatering.com horizon-north-camps-catering.ca horizon-north-camps-catering.com
+CH-VC-10031,v:3bba7a59acb96a42,Finishing Touch Builders Ltd.,,,Red Deer,AB,T4N 6Y5,1,1,finishingtouchbuilders.ca finishingtouchbuilders.com finishing-touch-builders.ca finishing-touch-builders.com
+CH-VC-10032,v:31fa53e2b2f3b6ec,Bedrock Energy Services Ltd.,,,Caroline,AB,T0M 0M0,1,1,bedrockenergyservices.ca bedrockenergyservices.com bedrock-energy-services.ca bedrock-energy-services.com
+CH-VC-10033,v:03f6eff522b2ce37,2794138 ALBERTA INC/PrecisonFive,,,Sturgeon County,AB,T8T 0A8,1,1,
+CH-VC-10034,v:e440708cd95338f3,CHORA,,,Thornhill,ON,L4J 7L2,1,1,chora.ca chora.com
+CH-VC-10035,v:c2b73ad4eca02286,IJD Inspections Ltd.,,,Red Deer,AB,T4N 1L1,1,1,ijdinspections.ca ijdinspections.com ijd-inspections.ca ijd-inspections.com
+CH-VC-10036,v:d57955994b908027,Tribuild Contracting Ltd.,,,Calgary,AB,T2K 5X2,1,1,tribuildcontracting.ca tribuildcontracting.com tribuild-contracting.ca tribuild-contracting.com
+CH-VC-10037,v:ee19f1478417d442,Silver Ridge Construction,,,Lethbridge,AB,T1J 1Y6,1,1,silverridgeconstruction.ca silverridgeconstruction.com silver-ridge-construction.ca silver-ridge-construction.com
+CH-VC-10038,v:60f0db48875bf10d,Top Corner Concession,,,Duchess,AB,T0J 0Z0,1,1,topcornerconcession.ca topcornerconcession.com top-corner-concession.ca top-corner-concession.com
+CH-VC-10039,v:af236550a0985ea0,Rocky Cross Construction (North) Ltd.,,,Calgary,AB,T3J 0T5,1,1,rockycrossconstruction.ca rockycrossconstruction.com rocky-cross-construction.ca rocky-cross-construction.com
+CH-VC-10040,v:72e9cf349737ab6f,Medicine Hat Public School Division,,,Medicine Hat,AB,T1A 4Y7,1,1,
+CH-VC-10041,v:0f4f62765fd85444,Pokey Trucking Ltd,,,Falher ,AB,T0H 1M0,1,1,pokeytrucking.ca pokeytrucking.com pokey-trucking.ca pokey-trucking.com
+CH-VC-10042,v:d5f45ba8b9f2c480,Harold Peterson,,,Enilda,AB,T0G 0W0,1,1,haroldpeterson.ca haroldpeterson.com harold-peterson.ca harold-peterson.com
+CH-VC-10043,v:b9f19fb7a2198032,X-Cel Energy Services Ltd,,,High Prairie,AB,T0G 1E0,1,1,xcelenergyservices.ca xcelenergyservices.com x-cel-energy-services.ca x-cel-energy-services.com
+CH-VC-10044,v:d38d0fe437964886,Harold G. Peterson,,,Enilda ,AB,T0G 0W0,1,1,haroldgpeterson.ca haroldgpeterson.com harold-g-peterson.ca harold-g-peterson.com
+CH-VC-10045,v:c8706ed169ca0805,Westlund- A Division of EMCO Corporation,,,London,ON,N5V 0B7,1,1,westlunddivisionemco.ca westlunddivisionemco.com westlund-division-emco.ca westlund-division-emco.com
+CH-VC-10046,v:5f5ea1bad772640d,Western Drug Distribution Centre Limited,,,Edmonton,AB,T5S 2W4,1,1,westerndrugdistributioncentre.ca westerndrugdistributioncentre.com
+CH-VC-10047,v:71a723e712d77725,Applications Management Consulting Ltd. (AMC,,,Edmonton,AB,T5J 3H1,1,1,
+CH-VC-10048,v:872cb25da9ec48a6,Campbell McLennan Chrysler,,,Killam,AB,T0B 2L0,1,1,campbellmclennanchrysler.ca campbellmclennanchrysler.com campbell-mclennan-chrysler.ca campbell-mclennan-chrysler.com
+CH-VC-10049,v:3be2225d703ed09f,Meteoric Leadership Consulting Ltd.,,,Grande Prairie,AB,T8W 0B8,1,1,meteoricleadershipconsulting.ca meteoricleadershipconsulting.com meteoric-leadership-consulting.ca meteoric-leadership-consulting.com
+CH-VC-10050,v:30ac4be6f49a4606,DGH Engineering Ltd. o/a Parsus Engineering,,,Lethbridge,AB,T1J 0P7,1,1,parsusengineering.ca parsusengineering.com parsus-engineering.ca parsus-engineering.com
+CH-VC-10051,v:c7ad6479887f8853,Capstone Oilfied Services Ltd.,,,Calgary,AB,T2P 2Y3,1,1,capstoneoilfiedservices.ca capstoneoilfiedservices.com capstone-oilfied-services.ca capstone-oilfied-services.com
+CH-VC-10052,v:ee022b2126b70650,Lil Foot Grading,,,Caroline,AB,T0M 0M0,1,1,lilfootgrading.ca lilfootgrading.com lil-foot-grading.ca lil-foot-grading.com
+CH-VC-10053,v:b7f7b453f3b5da26,1757785 Alberta Ltd.,,,Red Deer County,AB,T4E 1B4,1,1,
+CH-VC-10054,v:c49b25ffc1f577ab,Chomistek Consulting Inc.,,,Rainier,AB,T0J 2M0,1,1,chomistekconsulting.ca chomistekconsulting.com chomistek-consulting.ca chomistek-consulting.com
+CH-VC-10055,v:f2af62c3234f4d31,EG Building Maintenance Inc,,,Edmonton,AB,T5Y 3C7,1,1,egbuildingmaintenance.ca egbuildingmaintenance.com eg-building-maintenance.ca eg-building-maintenance.com
+CH-VC-10056,v:9f1f81f23e122123,DMC Corporation,,,St. Albert,AB,T8N 7N9,1,1,
+CH-VC-10057,v:56225522cdadec68,J.L.R. Cleaning,,,St. Albert,AB,T8N 1M3,1,1,jrcleaning.ca jrcleaning.com j-r-cleaning.ca j-r-cleaning.com
+CH-VC-10058,v:390d8eab2a6793e7,1830122 Alberta Ltd,,,Edmonton,AB,T5Z 0A9,1,1,
+CH-VC-10059,v:2ff7999ae26b9b73,1900317 Alberta Ltd. o/a Soner Yasa,,,Beaumont,AB,T4X 1G5,1,1,soneryasa.ca soneryasa.com soner-yasa.ca soner-yasa.com
+CH-VC-10060,v:53adbf7fa40fae0a,Mamma Tran Corp.,,,Edmonton,AB,T5G 0T3,1,1,mammatran.ca mammatran.com mamma-tran.ca mamma-tran.com
+CH-VC-10061,v:5b3a34728d222a1a,D'Amores Deli Inc.,,,Edmonton,AB,T5L 1B1,1,1,damoresdeli.ca damoresdeli.com damores-deli.ca damores-deli.com
+CH-VC-10062,v:9a5a055fbefc2173,Marta's Cafe o/a Marta Luczkiewicz,,,Edmonton,AB,T5T 6W6,1,1,martaluczkiewicz.ca martaluczkiewicz.com marta-luczkiewicz.ca marta-luczkiewicz.com
+CH-VC-10063,v:e64d49c80b493189,Gianni DeLuca o/a Romero Cafeteria,,,Edmonton ,AB,T5R 4B2,1,1,romerocafeteria.ca romerocafeteria.com romero-cafeteria.ca romero-cafeteria.com
+CH-VC-10064,v:6fbafdcffa223ae2,Standard General Edmonton - A Division of Colas Western Canada Inc.,,,St. Albert,AB,T8N 6W2,1,1,
+CH-VC-10065,v:67238cf314d65078,Rip n Shred Inc.,,,Edmonton,AB,T6B 2T6,1,1,ripnshred.ca ripnshred.com rip-n-shred.ca rip-n-shred.com
+CH-VC-10066,v:ce992aa8e45afcca,Town of High River,,,High River,AB,T1V 1Z5,1,1,townhighriver.ca townhighriver.com town-high-river.ca town-high-river.com
+CH-VC-10067,v:72614ce42b4b5c87,McLeod Earthworks Ltd.,,,Rocky View County,AB,T4C 2X8,1,1,mcleodearthworks.ca mcleodearthworks.com mcleod-earthworks.ca mcleod-earthworks.com
+CH-VC-10068,v:68460addebcd395c,Lynn Streeter Photography,,,EDMONTON,AB,T6W 0Z2,1,1,lynnstreeterphotography.ca lynnstreeterphotography.com lynn-streeter-photography.ca lynn-streeter-photography.com
+CH-VC-10069,v:dd9274070276e3e5,2268140 Alberta Limited o/a Lost Creek Services,,,Hillcrest,AB,T0K 1C0,1,1,lostcreekservices.ca lostcreekservices.com lost-creek-services.ca lost-creek-services.com
+CH-VC-10070,v:4497209ae6bea6ab,Bow Valley Climate Management Ltd,,,Redwood meadows,AB,T3Z 1A1,1,1,bowvalleyclimatemanagement.ca bowvalleyclimatemanagement.com bow-valley-climate-management.ca bow-valley-climate-management.com
+CH-VC-10071,v:b11a70cf03e9fe69,Ram Projects + Renovations Inc.,,,Banff,AB,T1L 1C7,1,1,ramprojectsrenovations.ca ramprojectsrenovations.com ram-projects-renovations.ca ram-projects-renovations.com
+CH-VC-10072,v:0e6e9d01c250dba0,ResourceChain Inc.,,,Calgary,AB,T3E 1L5,1,1,resourcechain.ca resourcechain.com
+CH-VC-10073,v:51319f394230ac40,SK Trucking Ltd,,,Slave Lake,AB,T0G 2A0,1,1,sktrucking.ca sktrucking.com sk-trucking.ca sk-trucking.com
+CH-VC-10074,v:603f455456b6ec34,1287104 Alberta Ltd,,,Stettler,AB,T0C 2L0,1,1,
+CH-VC-10075,v:dd7383e95b159267,Arns Equipment Ltd,,,Calgary,AB,T2G 2A5,1,1,arnsequipment.ca arnsequipment.com arns-equipment.ca arns-equipment.com
+CH-VC-10076,v:92e0b5e029f36678,1459428 Ontario Inc.,,,Calgary,AB,T2Z 4M8,1,1,
+CH-VC-10077,v:5c7e24c44dd1d111,Olga Michailides,,,Edmonton,AB,T5M 1E9,1,1,olgamichailides.ca olgamichailides.com olga-michailides.ca olga-michailides.com
+CH-VC-10078,v:5acc01dc79b73940,9819363 CANADA INC,9819363 Canada Inc.,9819363,Rockland,ON,K4K 1K7,1,1,
+CH-VC-10079,v:54915e33d30b34f1,Kozik Construction Services Ltd.,,,Calgary,AB,T2X 1L1,1,1,kozikconstructionservices.ca kozikconstructionservices.com kozik-construction-services.ca kozik-construction-services.com
+CH-VC-10080,v:038ea913fa7c5715,Col-Ern Holdings,,,Edson,AB,T7E 1T3,1,1,colernholdings.ca colernholdings.com col-ern-holdings.ca col-ern-holdings.com
+CH-VC-10081,v:3f455fef732fad16,Mountain View Transit,,,Grande Cache,AB,T0E 0Y0,1,1,mountainviewtransit.ca mountainviewtransit.com mountain-view-transit.ca mountain-view-transit.com
+CH-VC-10082,v:2dbe03a730a54a0c,Jachelle Holdings Ltd.,,,Yellowhead County,AB,T7E 5G1,1,1,jachelleholdings.ca jachelleholdings.com jachelle-holdings.ca jachelle-holdings.com
+CH-VC-10083,v:665d25dd76d9418b,Remax At Home,,,Vermilion,AB,T9X 1X9,1,1,remaxathome.ca remaxathome.com remax-at-home.ca remax-at-home.com
+CH-VC-10084,v:ef04798c2a5acae4,Chevallier Geo-Con Ltd.,,,Rocky Mountain House,AB,T4T 1B5,1,1,chevalliergeocon.ca chevalliergeocon.com chevallier-geo-con.ca chevallier-geo-con.com
+CH-VC-10085,v:47afc69a23ce41c2,Desco Coatings of Alberta Ltd.,,,EDMONTON,AB,T6E 4N7,1,1,descocoatingsalberta.ca descocoatingsalberta.com desco-coatings-alberta.ca desco-coatings-alberta.com
+CH-VC-10086,v:46e0b2c88dfd53b1,Hydrogeological Consultants Ltd.,,,Edmonton,AB,T5S 2W3,1,1,hydrogeologicalconsultants.ca hydrogeologicalconsultants.com hydrogeological-consultants.ca hydrogeological-consultants.com
+CH-VC-10087,v:2776a3b963c7de72,Spark Clean Services,,,Medicine Hat,AB,T1A 0M5,1,1,sparkcleanservices.ca sparkcleanservices.com spark-clean-services.ca spark-clean-services.com
+CH-VC-10088,v:0c8bcbcda77b61c4,Two River Management Corp.,,,Calgary,AB,T2K 3M6,1,1,tworivermanagement.ca tworivermanagement.com two-river-management.ca two-river-management.com
+CH-VC-10089,v:ab7e006553e5582b,1181512 Alberta Ltd. (Proud Canadian Energy),,,Kinuso,AB,T0G 1K0,1,1,
+CH-VC-10090,v:f18020d6b293b459,2808483 ALBERTA LTD,,,Rocky Mountain House,AB,T4T 2A1,1,1,
+CH-VC-10091,v:a03973f44ba83a26,Onsite Group Inc,,,Nordegg,AB,T0M 2H0,1,1,onsitegroup.ca onsitegroup.com onsite-group.ca onsite-group.com
+CH-VC-10092,v:7fefa99870452389,Memory Lane Computer Electronics Limited,,,Medicine Hat,AB,T1A 2Y2,1,1,memorylanecomputerelectronics.ca memorylanecomputerelectronics.com
+CH-VC-10093,v:9437d3afabcc6579,Whitecap Chevrolet Buick GMC,,,Slave Lake,AB,T0G 2A0,1,1,whitecapchevroletbuickgmc.ca whitecapchevroletbuickgmc.com whitecap-chevrolet-buick-gmc.ca whitecap-chevrolet-buick-gmc.com
+CH-VC-10094,v:063ecb66304b2963,Patry Contracting Inc.,,,Athabasca,AB,T9S 1R9,1,1,patrycontracting.ca patrycontracting.com patry-contracting.ca patry-contracting.com
+CH-VC-10095,v:db1edd06deeb54ae,WATERS PLUMBING & HEATING LTD.,,,Oyen,AB,T0J 2J0,1,1,watersplumbingheating.ca watersplumbingheating.com waters-plumbing-heating.ca waters-plumbing-heating.com
+CH-VC-10096,v:e76651e055660c10,MWPA Consulting Ltd,,,Canmore,AB,T1W 1A1,1,1,mwpaconsulting.ca mwpaconsulting.com mwpa-consulting.ca mwpa-consulting.com
+CH-VC-10097,v:73d022b2550c7538,1655089 Alberta Ltd.,,,Edmonton,AB,T5S 2M2,1,1,
+CH-VC-10098,v:73ec8b7fa165886d,JABS AUTO LTD.,,,Morinville,AB,T8R 1S1,1,1,jabsauto.ca jabsauto.com jabs-auto.ca jabs-auto.com
+CH-VC-10099,v:3cda4586d253d95b,1306845 Alberta Ltd.,,,Spruce Grove,AB,T7Y 1C7,1,1,
+CH-VC-10100,v:879b6571e858dad6,RGO Flooring Ltd.,,,Calgary,AB,T2A 4Y6,1,1,rgoflooring.ca rgoflooring.com rgo-flooring.ca rgo-flooring.com
+CH-VC-10101,v:e34dc2ce740c24da,Richard Friedl,,,Red Deer,AB,T4R 3S3,1,1,richardfriedl.ca richardfriedl.com richard-friedl.ca richard-friedl.com
+CH-VC-10102,v:becaecc96be2b62c,WOW! International Women in Business & Leadership Inc.,,,Caroline,AB,T0M 0M0,1,1,
+CH-VC-10103,v:61cfde4b760c6971,Mitratech Holdings (Canada) Inc.,,,THORNHILL,ON,L3T 5H3,1,1,mitratechholdings.ca mitratechholdings.com mitratech-holdings.ca mitratech-holdings.com
+CH-VC-10104,v:91ca54695ba919e0,Progressive Engineering and Consulting Ltd. (dba CAP Engineering),,,Edmonton,AB,T5H 3J6,1,1,
+CH-VC-10105,v:c9652ee0efcea4ca,Unstoppable Mother Inc,,,Sylvan Lake,AB,T4S 1S6,1,1,unstoppablemother.ca unstoppablemother.com unstoppable-mother.ca unstoppable-mother.com
+CH-VC-10106,v:54c04b3a1ba32a9e,OPTIMUS SBR INC. doing business under the partnership name OPTIMUS SBR LIMITED PARTNERSHIP,,,Toronto,ON,M5E 1G4,1,1,
+CH-VC-10107,v:3f6c73a222e9e5b1,One Environmental Inc.,,,Rocky View County,AB,T4A 0E2,1,1,oneenvironmental.ca oneenvironmental.com one-environmental.ca one-environmental.com
+CH-VC-10108,v:84aef2602624faeb,MOST Engineering (2001) Ltd.,,,Sherwood Park,AB,T8B 0C5,1,1,mostengineering.ca mostengineering.com most-engineering.ca most-engineering.com
+CH-VC-10109,v:5c381907a9faff07,Krawford Construction Company Inc.,,,Edmonton,AB,T6C 4A9,1,1,krawfordconstruction.ca krawfordconstruction.com krawford-construction.ca krawford-construction.com
+CH-VC-10110,v:9b8f9c6e76560ed7,Lambert Group Ltd.,,,Calgary,AB,T2C 2H6,1,1,lambertgroup.ca lambertgroup.com lambert-group.ca lambert-group.com
+CH-VC-10111,v:2fac73722f5ca0cd,Anderson Ergonomics Consulting Inc.,,,Calgary,AB,T2W 4V8,1,1,andersonergonomicsconsulting.ca andersonergonomicsconsulting.com anderson-ergonomics-consulting.ca anderson-ergonomics-consulting.com
+CH-VC-10112,v:0c2d92e0f0b56775,Cass and Nat event Planning ltd.,,,Fort McMurray,AB,T9K 2W9,1,1,cassnateventplanning.ca cassnateventplanning.com cass-nat-event-planning.ca cass-nat-event-planning.com
+CH-VC-10113,v:56fcb1f20144e255,Avara Landscaping & Property Care,,,Medicine Hat,AB,T1A 7T9,1,1,avaralandscapingpropertycare.ca avaralandscapingpropertycare.com
+CH-VC-10114,v:9cdcce24e0d18d89,1690082 Alberta Ltd.,,,Kelowna,BC,V1P 1C7,1,1,
+CH-VC-10115,v:87e160424f1ca2fe,ibis communications inc.,,,Edmonton,AB,T6J 0S4,1,1,ibiscommunications.ca ibiscommunications.com ibis-communications.ca ibis-communications.com

@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+GE-VC-04416,v:323bfd6ee63a9b81,Nakisa Inc.,Nakisa Inc.,1161058202,Montreal,QC,H3B 1M6,2,1,
+GE-VC-04417,v:def015494da943dd,Sonotechnique PJL Inc.,,,Montreal,QC,H2p 1G5,2,1,sonotechniquepjl.ca sonotechniquepjl.com sonotechnique-pjl.ca sonotechnique-pjl.com
+GE-VC-04418,v:6fff5d9e71ba9ac3,Grass Valley Canada,Grass Valley Canada,3368559681,Montreal,QC,H4S 2C6,2,1,grassvalleycanada.ca grassvalleycanada.com grassvalley.ca grassvalley.com grass-valley-canada.ca grass-valley-canada.com
+GE-VC-04419,v:314b5d183035728b,Fonex Data Systems Inc.,Les Systèmes FONEX DATA Inc.,1143641679,Saint-Laurent,QC,H4S 1P6,2,1,fonexdatasystems.ca fonexdatasystems.com fonex-data-systems.ca fonex-data-systems.com systemesfonexdata.ca systemesfonexdata.com
+GE-VC-04420,v:a402524073c9e434,Cloudli Communications,Communications Cloudli Corp.,1175862193,Montreal,QC,H3G 1T7,2,1,
+GE-VC-04421,v:43ad396efddd326f,Entreprises Nolet,8116679 CANADA INC.,1168046184,Gatineau,QC,J8P 8A5,2,1,
+GE-VC-04422,v:03deba096c4d2aeb,SEBIA,,,Montreal,QC,H3N 1V1,2,1,
+GE-VC-04423,v:7d3b0d016da59a09,Mirades Security Inc.,Mirades Sécurité Inc.,1171745285,Saint-Eustache,QC,J7P 5T6,2,1,miradessecurity.ca miradessecurity.com mirades-security.ca mirades-security.com miradessecurite.ca miradessecurite.com
+GE-VC-04424,v:b8ca713249db260d,BMO Financial Group,,,Montreal,QC,H2Y 1L6,2,1,
+GE-VC-04425,v:93d6c713e39619bd,LCO CONSTRUCTION AND MANAGEMENT CONSULTANTS INC,LCO-CONSULTANTS EN CONSTRUCTION ET GESTION INC.,1167320531,Westmount,QC,H3Z 3C1,2,1,
+GE-VC-04426,v:4d68da81ad144b11,Hoffmann-La Roche Ltd. (Roche Diagnostics),HOFFMANN-LA ROCHE LIMITÉE,1148069512,Laval,QC,,2,1,hoffmannroche.ca hoffmannroche.com hoffmann-roche.ca hoffmann-roche.com hoffmannrocherochediagnostics.ca hoffmannrocherochediagnostics.com
+GE-VC-04427,v:5375c6f63d14b627,O. HAINAULT INC.,O. Hainault inc.,1167134882,Sherbrooke,QC,J1C0J6,2,1,ohainault.ca ohainault.com o-hainault.ca o-hainault.com o-n-o.ca o-n-o.com
+GE-VC-04428,v:bf5e26a8d1c37638,9024-8121 QUEBEC INC,9024-8121 QUÉBEC INC.,1145000759,Granby,QC,J2H0Z2,2,1,culliganrivesud.ca culliganrivesud.com culligan-rive-sud.ca culligan-rive-sud.com traitementdeaustpaul.ca traitementdeaustpaul.com
+GE-VC-04429,v:f822051471957b7b,EF CO LTD,EF INSTITUTE FOR CULTURAL EXCHANGE LTD.,1164269681,Montréal,QC,H2y2G3,2,1,efinstituteforculturalexchange.ca efinstituteforculturalexchange.com efeducationaltours.ca efeducationaltours.com ef-educational-tours.ca ef-educational-tours.com
+GE-VC-04430,v:8cbd32a568cca3ff,DANIEL BRETON,,2262821137,Rosemère,QC,J7A 2K6,2,1,danielbreton.ca danielbreton.com daniel-breton.ca daniel-breton.com
+GE-VC-04431,v:0d86439c6582a1ab,CLUB AGROENVIRONNEMENTAL DE L'ESTRIE,CLUB AGROENVIRONNEMENTAL DE L'ESTRIE,1147970751,Sherbrooke,QC,J1K0A8,2,1,clubagroenvironnementallestrie.ca clubagroenvironnementallestrie.com clubagroestrie.ca clubagroestrie.com club-agro-estrie.ca club-agro-estrie.com
+GE-VC-04432,v:d8c60e80353e356b,MINGUS SOFTWARE INC.,MINGUS SOFTWARE INC.,1149814155,Montreal,Québec,H4C 2E1,2,1,mingussoftware.ca mingussoftware.com mingus-software.ca mingus-software.com
+GE-VC-04433,v:17f0e88e2d182cd0,Christopher Corriveau,,,Saint-Just-de-Bretenières,QC,G0R3H0,2,1,christophercorriveau.ca christophercorriveau.com christopher-corriveau.ca christopher-corriveau.com
+GE-VC-04434,v:20e4364ac147bc7b,CoachingOurselves International Inc,COACHINGOURSELVES INTERNATIONAL INC.,1164228018,Montreal,QC,H4A2Y8,2,1,coachingourselvesinternational.ca coachingourselvesinternational.com
+GE-VC-04435,v:2f905dcfd8242543,CIVISION Inc.,CIVISION INC.,1177253391,Montréal,QC,H3S1X5,2,1,civision.ca civision.com
+GE-VC-04436,v:bfa45b9ddf4f6a26,CMsd Inc.,CMSD inc.,1175786061,Québec,QC,G1K3J1,2,1,cmsd.ca cmsd.com cotemercierservicedonnees.ca cotemercierservicedonnees.com cote-mercier-service-donnees.ca cote-mercier-service-donnees.com
+GE-VC-04437,v:0aa0eb61b53d3e70,STAGEVISION QUEBEC INC.,Stagevision Quebec Inc.,1179860623,Montréal,QC,H4S1S1,2,1,stagevisionquebec.ca stagevisionquebec.com stagevision-quebec.ca stagevision-quebec.com
+GE-VC-04438,v:367a8768ebcb3e73,LA SOCIÉTÉ DES DEMAINS INC.,LA SOCIÉTÉ DES DEMAINS INC.,1177860591,Longueuil,QC,J4H3G4,2,1,societedemains.ca societedemains.com societe-demains.ca societe-demains.com
+GE-VC-04439,v:41e4833f609b6482,Universite TELUQ,Télé-université,8868067537,Québec,QC,G1K 9H6,2,1,universiteteluq.ca universiteteluq.com universite-teluq.ca universite-teluq.com teleuniversite.ca teleuniversite.com
+GE-VC-04440,v:f4a13cdd35a00aed,CAFEINE PUSHERS,Caféine Pushers inc.,1175524686,,QC,,2,1,cafeinepushers.ca cafeinepushers.com cafeine-pushers.ca cafeine-pushers.com
+GE-VC-04441,v:0e09b475bee7c757,OVA GESTION CONSEIL INC.,OVA INC.,1165394082,Québec,Québec,G1V 1V7,2,1,ovagestionconseil.ca ovagestionconseil.com ova-gestion-conseil.ca ova-gestion-conseil.com philipidesconseil.ca philipidesconseil.com
+GE-VC-04442,v:d46edae8245c2437,CARRE TECHNOLOGIES INC.,CARRÉ TECHNOLOGIES INC.,1163572820,Montréal,Québec,H2S 3L5,2,1,carretechnologies.ca carretechnologies.com carre-technologies.ca carre-technologies.com carreindustries.ca carreindustries.com
+GE-VC-04443,v:ffb726f0b3250c1f,ORKESTRA MARKETING INC.,ORKESTRA MARKETING INC.,1165354995,Gatineau,QC,J8Y3V8,2,1,orkestramarketing.ca orkestramarketing.com orkestra-marketing.ca orkestra-marketing.com
+GE-VC-04444,v:4ea451598d70c017,MULTI OPTION NURSING INC,MULTI OPTIONS NURSING INC.,1167519157,Québec,QC,G1V1S5,2,1,multioptionnursing.ca multioptionnursing.com multi-option-nursing.ca multi-option-nursing.com multioptionsnursing.ca multioptionsnursing.com
+GE-VC-04445,v:535da1515685de79,SERVICES MEDICAUX PROFESSIONNELS MATHIEU DUFOUR INC.,SERVICES MÉDICAUX PROFESSIONNELS MATHIEU DUFOUR INC.,1176117191,Québec,QC,J0K1Z0,2,1,
+GE-VC-04446,v:66ad0bf77e1cf5cd,DEMIX AGREGATS,GROUPE CRH CANADA INC.,1171462923,Longueuil,QC,J4G 2P9,2,1,demixagregats.ca demixagregats.com demix-agregats.ca demix-agregats.com groupecrhcanada.ca groupecrhcanada.com
+GE-VC-04447,v:01821a41b1d52c9a,WEINIG HOLZ-HER CANADA INC,WEINIG Canada Inc.,1143370428,Laval,QC,H7L 5W5,2,1,weinigholzhercanada.ca weinigholzhercanada.com weinigholzher.ca weinigholzher.com weinig-holz-her-canada.ca weinig-holz-her-canada.com
+GE-VC-04448,v:5e7891d7f5decc40,TEKNION FURNITURE SYSTEMS,,,Montréal,QC,H3B 1E7,2,1,teknionfurnituresystems.ca teknionfurnituresystems.com teknion-furniture-systems.ca teknion-furniture-systems.com
+GE-VC-04449,v:c9af65e213f10eda,CONSEILLERS D'AFFAIRES EMBRASE INC,CONSEILLERS D'AFFAIRES EMBRASE INC.,1164921646,Westmount,QC,H3Z2A5,2,1,conseillersdaffairesembrase.ca conseillersdaffairesembrase.com conseillers-daffaires-embrase.ca conseillers-daffaires-embrase.com embrasebusinessconsulting.ca embrasebusinessconsulting.com
+GE-VC-04450,v:1bf4a9548239b654,CONSORTECH SOLUTIONS INC.,SOLUTIONS CONSORTECH INC.,1180080286,BROSSARD,QC,J4Y 0B6,2,1,consortechsolutions.ca consortechsolutions.com consortech-solutions.ca consortech-solutions.com solutionsconsortech.ca solutionsconsortech.com
+GE-VC-04451,v:ac934e24895d0953,ANDRE LECLERC,,,Cap-Santé,QC,G0A1L0,2,1,andreleclerc.ca andreleclerc.com andre-leclerc.ca andre-leclerc.com
+GE-VC-04452,v:3ca450f7967f6ff5,La Societe Duvetnor Ltee,SOCIÉTÉ DUVETNOR LTÉE,1143460013,Rivière-du-Loup,QC,G5R3Y9,2,1,societeduvetnor.ca societeduvetnor.com societe-duvetnor.ca societe-duvetnor.com duvetnoriles.ca duvetnoriles.com
+GE-VC-04453,v:0cd0e4cdfcdb857c,SIMETEK CLIMATISATION INC.,SIMETEK CLIMATISATION INC.,1165386203,Québec,QC,G1V1T3,2,1,simetekclimatisation.ca simetekclimatisation.com simetek-climatisation.ca simetek-climatisation.com
+GE-VC-04454,v:83052c626b54936d,COMITE ZIP GASPESIE,Comité ZIP Gaspésie,1144562338,Bonaventure,QC,G0C1E0,2,1,comitezipgaspesie.ca comitezipgaspesie.com comite-zip-gaspesie.ca comite-zip-gaspesie.com comiteprotectionbaiechaleurs.ca comiteprotectionbaiechaleurs.com
+GE-VC-04455,v:56dbedf3bd15f4ac,SYNERSOLUTIONS,SynerSolutions Technologies Inc.,1169776888,Gatineau,QC,J9Y 1V4,2,1,synersolutions.ca synersolutions.com gestionepic44.ca gestionepic44.com gestion-epic-44.ca gestion-epic-44.com
+GE-VC-04456,v:84d0691e9d5ad52d,"JASMIN, Sarah",,,Laval,QC,H7V2X9,2,1,jasminsarah.ca jasminsarah.com jasmin-sarah.ca jasmin-sarah.com
+GE-VC-04457,v:b41275e8616ac543,"ST-GEORGE, FRANCIS",,,Montréal,QC,H3L2P8,2,1,stgeorgefrancis.ca stgeorgefrancis.com st-george-francis.ca st-george-francis.com
+GE-VC-04458,v:b46cf47f97777dc3,"RANA, EJAZ",,,Montréal,QC,H4B 2W7,2,1,ranaejaz.ca ranaejaz.com rana-ejaz.ca rana-ejaz.com
+GE-VC-04459,v:39eeeaa3d0ad9ae9,"ISAKHANYAN, Levon",,,Montréal,QC,H2V0C9,2,1,isakhanyanlevon.ca isakhanyanlevon.com isakhanyan-levon.ca isakhanyan-levon.com
+GE-VC-04460,v:befbd15ff3360e31,"SOUMA, NADINE",,,Montréal,QC,H3S1P1,2,1,soumanadine.ca soumanadine.com souma-nadine.ca souma-nadine.com
+GE-VC-04461,v:57021cefaca5fdfb,"GUERRA, BRUNO NICOLAS",,,Montréal,QC,H4P0A7,2,1,guerrabrunonicolas.ca guerrabrunonicolas.com guerra-bruno-nicolas.ca guerra-bruno-nicolas.com
+GE-VC-04462,v:acd2308d05e86829,"BAHEMUKA, TIBASIMA",,,Montréal,QC,H9B1L5,2,1,bahemukatibasima.ca bahemukatibasima.com bahemuka-tibasima.ca bahemuka-tibasima.com
+GE-VC-04463,v:bc26204a0a926be2,"ZIA, Diwan Babar",,,Montréal,QC,H1Z3H6,2,1,ziadiwanbabar.ca ziadiwanbabar.com zia-diwan-babar.ca zia-diwan-babar.com
+GE-VC-04464,v:dfa159de44a56dd6,"CESTARO, Andrea",,,Montréal,QC,H3G1B8,2,1,cestaroandrea.ca cestaroandrea.com cestaro-andrea.ca cestaro-andrea.com
+GE-VC-04465,v:678d348bd65a2865,"KADIRI, HASNAA",,,Montréal,QC,H3W1V6,2,1,kadirihasnaa.ca kadirihasnaa.com kadiri-hasnaa.ca kadiri-hasnaa.com
+GE-VC-04466,v:c250d3ceb9774ad0,"MATUS LOPEZ, Julia Esther",,,Montréal,QC,H2J4E4,2,1,matuslopezjuliaesther.ca matuslopezjuliaesther.com matus-lopez-julia-esther.ca matus-lopez-julia-esther.com
+GE-VC-04467,v:d10078b9b6a6564e,"OCANDO MORENO, Maria Isabel",,,Sainte-Catherine,QC,J5C1H6,2,1,ocandomorenomariaisabel.ca ocandomorenomariaisabel.com ocando-moreno-maria-isabel.ca ocando-moreno-maria-isabel.com
+GE-VC-04468,v:5dd8850b2a6fc3b9,"ACOSTA PADILLA, Malka Irina",,,Montréal,QC,H1L2H8,2,1,acostapadillamalkairina.ca acostapadillamalkairina.com acosta-padilla-malka-irina.ca acosta-padilla-malka-irina.com
+GE-VC-04469,v:6364690d6ec84178,"ROSS, ALAIN",,,Montréal,QC,H3X2P4,2,1,rossalain.ca rossalain.com ross-alain.ca ross-alain.com
+GE-VC-04470,v:f2a3b95f1ac1e3f2,"RAHMAN, Nafija",,,Montréal,QC,H3X1W1,2,1,rahmannafija.ca rahmannafija.com rahman-nafija.ca rahman-nafija.com
+GE-VC-04471,v:9b214a0fbc91794f,AES INC.,GROUPE A. INC.,1141359894,Québec,QC,G1V 3B5,2,1,groupeaes.ca groupeaes.com groupe-aes.ca groupe-aes.com groupearchitecture.ca groupearchitecture.com
+GE-VC-04472,v:c8e640a3256e181c,NOVAPEX TECHNOLOGIES INC.,Novapex Technologies Inc.,1163462220,Saint-Jean-sur-Richelieu,QC,J2Y1A5,2,1,novapextechnologies.ca novapextechnologies.com novapex-technologies.ca novapex-technologies.com
+GE-VC-04473,v:2306738d05920f7c,Johnson Control,,,Québec,QC,G1N 2E7,2,1,johnsoncontrol.ca johnsoncontrol.com johnson-control.ca johnson-control.com
+GE-VC-04474,v:8b12c4524005d7e6,L'institution royale pour l'avancement des Sciences,L'INSTITUTION ROYALE POUR L'AVANCEMENT DES SCIENCES,1160534831,,QC,,2,1,
+GE-VC-04475,v:1d241ce43ba395ac,TELUS Solution en Santé,,,Montréal,Quebec,H3B 1S6,2,1,telussolutionensante.ca telussolutionensante.com telus-solution-en-sante.ca telus-solution-en-sante.com
+GE-VC-04476,v:0a37d688e1e1d5fa,Kaycom Incorporated,KAYCOM INC.,3329194,Pointe-Claire,Quebec,H9R5N2,2,1,kaycom.ca kaycom.com
+GE-VC-04477,v:a4f8c7301d5ef8c3,Mine/Eodclr,MINE/EODCLR INC.,1161623880,Québec,QC,G2B1G8,2,1,mineeodclr.ca mineeodclr.com mine-eodclr.ca mine-eodclr.com
+GE-VC-04478,v:861a1b94745b780e,Clôture laplume inc.,9302-9338 Québec inc.,1170081583,Waterloo,QC,J0E2N0,2,1,cloturelaplume.ca cloturelaplume.com cloture-laplume.ca cloture-laplume.com cloturesentourage.ca cloturesentourage.com
+GE-VC-04479,v:e3db70aa6947b2b6,EXPLORA TECHNOLOGIES INC,EXPLORA TECHNOLOGIES INC.,1160963741,Québec,QC,H3C 1J2,2,1,exploratechnologies.ca exploratechnologies.com explora-technologies.ca explora-technologies.com
+GE-VC-04480,v:7d85ca80be509c73,Solutions Ambra Inc.,SOLUTIONS AMBRA INC.,1164869944,Trois-Rivières,Quebec,G9B 0G2,2,1,solutionsambra.ca solutionsambra.com solutions-ambra.ca solutions-ambra.com cortexinnovations.ca cortexinnovations.com
+GE-VC-04481,v:2819053e472e6203,BNH Expert Software Inc.,BNH Expert Software Inc.,2259923,Montreal,QC,H4R 2G7,2,1,bnhexpertsoftware.ca bnhexpertsoftware.com bnh-expert-software.ca bnh-expert-software.com experteninformatiquebnh.ca experteninformatiquebnh.com
+GE-VC-04482,v:cdb6bd8b699888cd,DÉVELOPPEMENT SB2 INC.,SB2 DEVELOPMENT INC.,1175275990,Coteau-du-Lac,QC,J0P1B0,2,1,developpementsb2.ca developpementsb2.com developpement-sb2.ca developpement-sb2.com sb2development.ca sb2development.com
+GE-VC-04483,v:62dcd5150db3b941,SKYDIVE ADDICTION,9369-9437 Québec inc.,1173261711,Laval,Quebec,H7X 2C7,2,1,skydiveaddiction.ca skydiveaddiction.com skydive-addiction.ca skydive-addiction.com consultation.ca consultation.com
+GE-VC-04484,v:e0cd7c1d50cd786a,NADA CONSEILS INC,NaDa Conseils Inc.,1178263332,Laval,QC,H7L3E6,2,1,nadaconseils.ca nadaconseils.com nada-conseils.ca nada-conseils.com
+GE-VC-04485,v:85caad77c9785613,FRANGIN INC,Frangin inc.,1173384653,Québec,QC,G1L 2W1,2,1,frangin.ca frangin.com frangincreationvideo.ca frangincreationvideo.com frangin-creation-video.ca frangin-creation-video.com
+GE-VC-04486,v:21d529b141e6cd9e,ZAP-TELECOMMUNICATIONS ET RESEAUX,"ZAP, télécommunications et réseaux",1173542169,Montréal,QC,H2L2Y7,2,1,zaptelecommunicationsreseaux.ca zaptelecommunicationsreseaux.com zap-telecommunications-reseaux.ca zap-telecommunications-reseaux.com
+GE-VC-04487,v:110f34259cf23b00,CN2i,"COOPÉRATIVE NATIONALE DE L'INFORMATION INDÉPENDANTE, COOP DE SOLIDARITÉ",1175097410,Québec,QC,G1K8M4,2,1,cn2i.ca cn2i.com aslinfo.ca aslinfo.com as-linfo.ca as-linfo.com
+GE-VC-04488,v:4c00664e5275df13,SIEMENS CANADA- TECHNOLOGIES,,,Montréal,QC,H1Z 4J2,2,1,siemenscanadatechnologies.ca siemenscanadatechnologies.com siemenstechnologies.ca siemenstechnologies.com siemens-canada-technologies.ca siemens-canada-technologies.com
+GE-VC-04489,v:ab3255905b3e6a02,TECHNOLOGIES KURIOS-IT INC.,TECHNOLOGIES KURIOS-IT INC.,1168183672,Sherbrooke,Quebec,J1J 2G1,2,1,technologieskuriosit.ca technologieskuriosit.com technologies-kurios-it.ca technologies-kurios-it.com regis.ca regis.com
+GE-VC-04490,v:1b869baf8ebd4406,BIOINTELLIGENCE TECHNOLOGIES INC.,BioIntelligence Technologies inc.,1170317045,Sherbrooke,QC,j1n 4g6,2,1,biointelligencetechnologies.ca biointelligencetechnologies.com biointelligence-technologies.ca biointelligence-technologies.com
+GE-VC-04491,v:a2d1c3d14fc6ca96,RD2 INC.,RD2 INC.,1165328304,Québec,QC,G1S 2T5q,2,1,
+GE-VC-04492,v:4f4058b7cfbed6a2,"OVERDRIVE, INC.",,,,QC,,2,1,overdrive.ca overdrive.com
+GE-VC-04493,v:c687fab2522ddaac,Les Entreprises André Baker,9283-5750 Québec inc.,1169218675,Shawinigan,QC,G9P 1R3,2,1,entreprisesandrebaker.ca entreprisesandrebaker.com entreprises-andre-baker.ca entreprises-andre-baker.com
+GE-VC-04494,v:495ebd5a8a86d16b,AMERICAN IRON & METAL COMPANY INC.,LA COMPAGNIE AMÉRICAINE DE FER & MÉTAUX INC.,1165652430,Montréal,QC,H1E 2S4,2,1,americanironmetal.ca americanironmetal.com american-iron-metal.ca american-iron-metal.com americainefermetaux.ca americainefermetaux.com
+GE-VC-04495,v:5529a1101d16410c,Les Laboratoires Akron Canada Ltée,LES LABORATOIRES AKRON CANADA LTÉE,1163672042,Longueuil,QC,J4J2L3,2,1,laboratoiresakroncanada.ca laboratoiresakroncanada.com laboratoiresakron.ca laboratoiresakron.com laboratoires-akron-canada.ca laboratoires-akron-canada.com
+GE-VC-04496,v:e95bc29ee259f0f9,SOCIÉTÉ DE LA RIVIÈRE ST-CHARLES,Société de la Rivière Saint-Charles,1149714298,Québec,QC,G1L5B1,2,1,societerivierestcharles.ca societerivierestcharles.com societe-riviere-st-charles.ca societe-riviere-st-charles.com societerivieresaintcharles.ca societerivieresaintcharles.com
+GE-VC-04497,v:e3d75a9aa9481d4f,Gravure Choquet Inc.,GRAVURE CHOQUET INC.,1141874801,Montréal,QC,H1P 3A6,2,1,gravurechoquet.ca gravurechoquet.com gravure-choquet.ca gravure-choquet.com maisongutenberg.ca maisongutenberg.com
+GE-VC-04498,v:f86c74c4d2968186,AEROPORTS DE  MONTREAL,AÉROPORTS DE MONTRÉAL,1142978254,Mirabel,QC,J7N 1E8,2,1,aeroportsmontreal.ca aeroportsmontreal.com aeroports-montreal.ca aeroports-montreal.com
+GE-VC-04499,v:c97679e398900873,SOVO TECHNOLOGIES INC.,SOVO TECHNOLOGIES INC.,1166281825,Montréal,QC,H3N1M3,2,1,sovotechnologies.ca sovotechnologies.com sovo-technologies.ca sovo-technologies.com
+GE-VC-04500,v:6bede3ac45e39f90,6329276 CANADA INC.,6329276 CANADA INC.,1162769864,Gatineau,QC,J8P8A5,2,1,
+GE-VC-04501,v:da439bc3be9e32a0,9411-6118 QUÉBEC INC.,9411-6118 Québec inc.,1175144576,Terrebonne,QC,J6X4J5,2,1,constructionnovalta.ca constructionnovalta.com construction-novalta.ca construction-novalta.com
+GE-VC-04502,v:aca208060792a90a,8607524 CANADA INC.,8607524 Canada Inc.,1169714574,Gatineau,QC,J8T4H5,2,1,
+GE-VC-04503,v:496cb83df3ddd456,144581 CANADA LTÉE,144581 CANADA LTÉE,1143639236,Gatineau,QC,J8P 1H3,2,1,
+GE-VC-04504,v:6904bb1a274c7473,G.D.G. CANADA INC.,D.G.G.D. Services de Chaîne d'approvisionnement,2275403824,Repentigny,QC,J5Y3W1,2,1,ggcanada.ca ggcanada.com g-g-canada.ca g-g-canada.com
+GE-VC-04505,v:f4c0a5b012823456,ENTREPRISE YVES M CARON INC.,ENTREPRISE YVES M. CARON INC.,1140137002,Baie-Comeau,QC,G5C 1C7,2,1,entrepriseyvesmcaron.ca entrepriseyvesmcaron.com entreprise-yves-m-caron.ca entreprise-yves-m-caron.com centreportesfenetresbaiecomeau.ca centreportesfenetresbaiecomeau.com
+GE-VC-04506,v:872d483e9fef6a04,GASCON A.-G. INC.,Gascon a.-g. inc.,1164952872,Montréal,QC,H4J 1H3,2,1,gascong.ca gascong.com gascon-g.ca gascon-g.com
+GE-VC-04507,v:094d140537f20e34,2963-9556 QUÉBEC INC.,2963-9556 QUÉBEC INC.,1143152255,St-Hubert,Quebec,J3Y 8Y7,2,1,dristex.ca dristex.com edlsport.ca edlsport.com tricotsdrisdelle.ca tricotsdrisdelle.com
+GE-VC-04508,v:35d8a622df0c0922,QUALNET WIRELESS SERVICES INC.,"Qualnet Wireless Services, Inc.",1164483944,Gatineau,QC,J8P8A7,2,1,qualnetwirelessservices.ca qualnetwirelessservices.com qualnet-wireless-services.ca qualnet-wireless-services.com
+GE-VC-04509,v:4da80cdf864299d5,PENLINK CANADA INC.,,,,QC,,2,1,penlinkcanada.ca penlinkcanada.com penlink.ca penlink.com penlink-canada.ca penlink-canada.com
+GE-VC-04510,v:b2be3bb0e2338c38,KATIVIK REGIONAL GOVERNMENT,ADMINISTRATION RÉGIONALE KATIVIK,8817058918,Kuujjuaq,QC,j0m1c0,2,1,kativikregionalgovernment.ca kativikregionalgovernment.com kativik-regional-government.ca kativik-regional-government.com administrationregionalekativik.ca administrationregionalekativik.com
+GE-VC-04511,v:79533a08dd09f293,RESEAU D'INFORMATIONS SCIENTIFIQUES,,,Montréal,QC,H3B 1R2,2,1,
+GE-VC-04512,v:b4f1b639f10f0b98,GROUPE FVP INC.,GROUPE F.V.P. INC.,1164274368,Québec,QC,G1N4E5,2,1,groupefvp.ca groupefvp.com groupe-fvp.ca groupe-fvp.com groupe-f-v-p.ca groupe-f-v-p.com
+GE-VC-04513,v:8f5cb427808458a6,COGNIVA INFORMATION SOLUTIONS INC.,COGNIVA INFORMATION SOLUTIONS,1163067508,Gatineau,Québec,J9J 4J6,2,1,cognivainformationsolutions.ca cognivainformationsolutions.com cogniva-information-solutions.ca cogniva-information-solutions.com
+GE-VC-04514,v:2b03e7d5f10260e0,Nature 3M inc,NATURE 3M INC.,1174823808,Normandin,Québec,G8M 4H9,2,1,nature3m.ca nature3m.com nature-3m.ca nature-3m.com
+GE-VC-04515,v:9b9df772e3d46069,ANTIFLAMME PURAFILTRE,LE-BICH INVESTISSEMENTS INC.,1143805589,MONTREAL,Quebec,H1E 6J8,2,1,antiflammepurafiltre.ca antiflammepurafiltre.com antiflamme-purafiltre.ca antiflamme-purafiltre.com bichinvestissements.ca bichinvestissements.com

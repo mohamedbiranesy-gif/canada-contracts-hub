@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-03216,v:8ef4c7ac9b2c5ade,CHARBERN Ltd.,,,Cold Lake,AB,T9M 1J9,5,3,charbern.ca charbern.com
+CH-VC-03217,v:6cac0aa4eb8093c4,CVL Engineers Inc.,,,Edmonton,AB,T5S 2J1,5,3,cvlengineers.ca cvlengineers.com cvl-engineers.ca cvl-engineers.com
+CH-VC-03218,v:e5bef59087778015,Hansler Industries,,,Edmonton,AB,T6P 1S9,5,3,hanslerindustries.ca hanslerindustries.com hansler-industries.ca hansler-industries.com
+CH-VC-03219,v:1f2f75785c719c99,Any Tree Ranch Ltd.,,,Medicine Hat,AB,T1A 7G7,5,3,anytreeranch.ca anytreeranch.com any-tree-ranch.ca any-tree-ranch.com
+CH-VC-03220,v:4d2425a346fa79b6,COUNTING OPINIONS SQUIRE LTD,COUNTING OPINIONS (SQUIRE) LTD.,6246109,North York,ON,M2J 3Z8,5,3,countingopinionssquire.ca countingopinionssquire.com counting-opinions-squire.ca counting-opinions-squire.com countingopinions.ca countingopinions.com
+CH-VC-03221,v:eedc627fc7170e41,HeadHunting Inc,,,Mississauga,ON,L5N 2X7,5,3,headhunting.ca headhunting.com
+CH-VC-03222,v:7f02dd329e62d037,Simon Bos Nurseries Ltd.,,,COALDALE,AB,T1M 1M9,5,3,simonbosnurseries.ca simonbosnurseries.com simon-bos-nurseries.ca simon-bos-nurseries.com
+CH-VC-03223,v:c251639c83b9c676,Fenco Contracting Ltd.,,,Lethbrdige,AB,T1K 7B5,5,3,fencocontracting.ca fencocontracting.com fenco-contracting.ca fenco-contracting.com
+CH-VC-03224,v:d14839dd656d5732,Southwestern Flowtech & Environmental (1999) Ltd.,,,Aldergrove,AB,AB T5S 1N3,5,3,
+CH-VC-03225,v:3ff446eb4a68e5e4,Fraser Burrard Diving Ltd,FRASER BURRARD DIVING LIMITED,BC0915328,Delta,BC,,5,3,fraserburrarddiving.ca fraserburrarddiving.com fraser-burrard-diving.ca fraser-burrard-diving.com
+CH-VC-03226,v:dc6863217e0006bc,Manitoulin Transport,MANITOULIN TRANSPORT INC.,1178548898,Whitehorse,YT,Y1A 5B7,5,3,manitoulintransport.ca manitoulintransport.com manitoulin-transport.ca manitoulin-transport.com transportmanitoulin.ca transportmanitoulin.com
+CH-VC-03227,v:77809d58440df744,QUALTRICS LLC,,,TORONTO,ON,,5,3,qualtrics.ca qualtrics.com qualtricscanada.ca qualtricscanada.com qualtrics-canada.ca qualtrics-canada.com
+CH-VC-03228,v:ed4ea1e36e7ac715,JP Commercial Contractors,,,Shallow Lake,ON,N0H 2K0,5,3,jpcommercialcontractors.ca jpcommercialcontractors.com jp-commercial-contractors.ca jp-commercial-contractors.com
+CH-VC-03229,v:a28c07a4748d08f4,Asset Strategy Inc.,,,REGINA,SK,S4N 6C6,5,3,assetstrategy.ca assetstrategy.com asset-strategy.ca asset-strategy.com
+CH-VC-03230,v:a89db3522000e14b,CS LANDSCAPING CORP,,,brantford,ON,N3S4C1,5,3,cslandscaping.ca cslandscaping.com cs-landscaping.ca cs-landscaping.com
+CH-VC-03231,v:da9331e43d2ce899,CUSTOM HELICOPTERS LTD.,CUSTOM HELICOPTERS LTD.,1181844284,Winnipeg,MB,R1A 3P8,5,3,customhelicopters.ca customhelicopters.com custom-helicopters.ca custom-helicopters.com
+CH-VC-03232,v:6b0ec1cafa2ae867,1000098384 Ontario Inc.,,,Sarnia,ON,N7S 4Y4,5,3,
+CH-VC-03233,v:dbdfcf3e98684dfd,Quadra Utility Locating Ltd.,QUADRA UTILITY LOCATING LIMITED,BC0932608,Port Coquitlam,BC,V3B 0R9,5,3,quadrautilitylocating.ca quadrautilitylocating.com quadra-utility-locating.ca quadra-utility-locating.com
+CH-VC-03234,v:ff389a27e85720b2,Cloud Managed Networks,,,Richmond Hill,ON,L4S 0B8,5,3,cloudmanagednetworks.ca cloudmanagednetworks.com cloud-managed-networks.ca cloud-managed-networks.com
+CH-VC-03235,v:5de145ea9f393865,Alliance General Contracting of Windsor Inc.,,,Windsor,ON,N8T 1J9,5,3,
+CH-VC-03236,v:e00f8a59fb1cb11f,Atlantic Electronics Limited,ÉLECTRONIQUE ATLANTIQUE,1160965324,Dartmouth,NS,B3B 1N4,5,3,atlanticelectronics.ca atlanticelectronics.com atlantic-electronics.ca atlantic-electronics.com electroniqueatlantique.ca electroniqueatlantique.com
+CH-VC-03237,v:17d97b45bd977fca,Mack Kirk Roofing and Sheet Metal Ltd.,MACK KIRK ROOFING & SHEET METAL LTD.,BC1574237,Langley,BC,V1M 3C8,5,3,mackkirkroofingsheetmetal.ca mackkirkroofingsheetmetal.com mack-kirk-roofing-sheet-metal.ca mack-kirk-roofing-sheet-metal.com
+CH-VC-03238,v:a79946800f42fedf,Mcnolty Mechanical Inc.,McNolty Mechanical Inc.,7099061,Ottawa,ON,K1G 3N4,5,3,mcnoltymechanical.ca mcnoltymechanical.com mcnolty-mechanical.ca mcnolty-mechanical.com
+CH-VC-03239,v:223eff7f243c3c8f,RTJ Property Services Inc.,,,Oshawa,ON,L1J 5Y6,5,3,rtjpropertyservices.ca rtjpropertyservices.com rtj-property-services.ca rtj-property-services.com
+CH-VC-03240,v:0b411fa24a1d4267,BFL CANADA Risk and Insurance Services Inc.,BFL CANADA RISK AND INSURANCE SERVICES INC.,1166292616,Toronto,ON,M5H 3M7,5,3,bflcanadariskinsuranceservices.ca bflcanadariskinsuranceservices.com bflriskinsuranceservices.ca bflriskinsuranceservices.com bflservicesrisquesassurances.ca bflservicesrisquesassurances.com
+CH-VC-03241,v:378de65b0589febd,Ivey Business School Foundation,IVEY BUSINESS SCHOOL FOUNDATION,3287513,London,ON,N6G 0N1,5,3,iveybusinessschoolfoundation.ca iveybusinessschoolfoundation.com
+CH-VC-03242,v:46296ede458064cd,WATERDON CONSTRUCTION LIMITED,LES CONSTRUCTIONS WATERDON LIMITÉE,1147724604,Ottawa,ON,K2G0B6,5,3,waterdonconstruction.ca waterdonconstruction.com waterdon-construction.ca waterdon-construction.com constructionswaterdon.ca constructionswaterdon.com
+CH-VC-03243,v:cf2097357afc9556,B Mac Underground Services Ltd,,,Fort McMurray,AB,T9K 0P1,5,3,
+CH-VC-03244,v:df99f12da70c91d7,AGM Engineering Limited,,,London,ON,N6E2Z9,5,3,
+CH-VC-03245,v:317ff407c54ba42d,Spectrum Security-Sound Ltd.,,,Whitehorse,YT,Y1A2V2,5,3,
+CH-VC-03246,v:c85925877a808358,Bursey Cleaners(2010) Limited,,,St John's,NL,A1B 4J9,5,3,
+CH-VC-03247,v:2dde5d35dc5d4c81,Bubble Technology Industries Inc,BUBBLE TECHNOLOGY INDUSTRIES INC.,2294770,Chalk River,Ontario,K0J 1J0,5,3,bubbletechnologyindustries.ca bubbletechnologyindustries.com bubble-technology-industries.ca bubble-technology-industries.com
+CH-VC-03248,v:f31282e7623dda2c,Glacier Rock Resources Inc.,,,Crooked Creek,AB,T0H 0Y0,4,3,glacierrockresources.ca glacierrockresources.com glacier-rock-resources.ca glacier-rock-resources.com
+CH-VC-03249,v:07e08cc5bc8853e4,Collicutt Energy Services,,,Red Deer,AB,T4P 3R4,4,3,collicuttenergyservices.ca collicuttenergyservices.com collicutt-energy-services.ca collicutt-energy-services.com
+CH-VC-03250,v:a1696ea21ca84a09,Valuemed Professional Products Ltd,VALUEMED PROFESSIONAL PRODUCTS LTD.,A0080631,Edmonton,AB,T5M 3W2,4,3,valuemedprofessionalproducts.ca valuemedprofessionalproducts.com valuemed-professional-products.ca valuemed-professional-products.com
+CH-VC-03251,v:7c616f45fd4950d0,Lorac Construction Ltd.,,,Edmonton,AB,T6B 0B5,4,3,loracconstruction.ca loracconstruction.com lorac-construction.ca lorac-construction.com
+CH-VC-03252,v:b1e9e0f896766118,AltaPro Electric Ltd.,,,Edmonton,AB,T5L 2T3,4,3,altaproelectric.ca altaproelectric.com altapro-electric.ca altapro-electric.com
+CH-VC-03253,v:240b53469f58566b,Accurate Assessment Group,,,Sherwood Park,AB,T8H 2W8,4,3,accurateassessmentgroup.ca accurateassessmentgroup.com accurate-assessment-group.ca accurate-assessment-group.com
+CH-VC-03254,v:4a0fc329f1927958,Bi-Air Application Services Ltd.,,,Blackfoot,AB,T0B 0L0,4,3,biairapplicationservices.ca biairapplicationservices.com bi-air-application-services.ca bi-air-application-services.com
+CH-VC-03255,v:bd640e1f32bbae0e,Bremner Engineering and Construction Ltd.,,,Canmore,AB,T1W 2V1,4,3,bremnerengineeringconstruction.ca bremnerengineeringconstruction.com
+CH-VC-03256,v:5fdaea798258abbd,Lonsbury Applications Ltd.,LONSBURY APPLICATIONS LTD.,A0114101,BLAIRMORE,AB,T0K 0E0,4,3,lonsburyapplications.ca lonsburyapplications.com lonsbury-applications.ca lonsbury-applications.com
+CH-VC-03257,v:b744a2313d6c47e5,Calgary Tractorland,,,Rocky View,AB,T4A 0E2,4,3,calgarytractorland.ca calgarytractorland.com calgary-tractorland.ca calgary-tractorland.com
+CH-VC-03258,v:0b414fb47f3a09ff,Western Pacific Enterprises Ltd.,WESTERN PACIFIC ENTERPRISES LTD.,BC1092172,Nisku,AB,T9E 7M3,4,3,westernpacificenterprises.ca westernpacificenterprises.com western-pacific-enterprises.ca western-pacific-enterprises.com
+CH-VC-03259,v:aab124a279b163bf,Alberta Safety & Environmental Services Ltd.,,,Calgary,AB,T2E 7A7,4,3,
+CH-VC-03260,v:48ea68e52392e1af,Baumann's Ventilation & Plumbing Ltd,,,Medicine Hat,AB,T1A 8E8,4,3,baumannsventilationplumbing.ca baumannsventilationplumbing.com baumanns-ventilation-plumbing.ca baumanns-ventilation-plumbing.com
+CH-VC-03261,v:2e042d25f724e84b,Green Shield Canada Insurance,Assurance Green Shield Canada,1180078363,Windsor,ON,,4,3,greenshieldcanadainsurance.ca greenshieldcanadainsurance.com greenshieldinsurance.ca greenshieldinsurance.com green-shield-canada-insurance.ca green-shield-canada-insurance.com
+CH-VC-03262,v:019b603aaba25a64,Finning (Canada) a Division of Finning International Inc.,,,Edmonton,AB,T5P 4P6,4,3,
+CH-VC-03263,v:15dd85ff9053bb7e,Aecon Infrastructure Management Inc.,AECON INFRASTRUCTURE MANAGEMENT INC.,17583885,Vancouver,BC,V7X 1G4,4,3,aeconinfrastructuremanagement.ca aeconinfrastructuremanagement.com
+CH-VC-03264,v:0715838380cf7b68,Rencon Industries Inc.,,,Leduc County,AB,T4X 0L7,4,3,renconindustries.ca renconindustries.com rencon-industries.ca rencon-industries.com
+CH-VC-03265,v:fef2be6c06d46afc,General Starlight Co. Inc.,,,Woodbridge,ON,L4L 6A5,4,3,generalstarlight.ca generalstarlight.com general-starlight.ca general-starlight.com
+CH-VC-03266,v:b048f92986feac95,Affordable Paving (2012) Ltd,,,Redcliff,AB,T0J 2P0,4,3,affordablepaving.ca affordablepaving.com affordable-paving.ca affordable-paving.com
+CH-VC-03267,v:2b363a1bed2bdbe4,Hines Health Services Inc.,HINES HEALTH SERVICES INC.,A0136333,Fort McMurray,AB,T9H 4Z4,4,3,hineshealthservices.ca hineshealthservices.com hines-health-services.ca hines-health-services.com
+CH-VC-03268,v:265d56f889aa0f37,MEDAVIE HEALTH SERVICES INC.,,,Moncton,NB,E1C 8E3,4,3,medaviehealthservices.ca medaviehealthservices.com medavie-health-services.ca medavie-health-services.com
+CH-VC-03269,v:180b9f7fee1a85c5,Rapiscan Systems Inc,RAPISCAN SYSTEMS CANADA INC.,1181030926,Toronto,ON,M5X 1B8,4,3,rapiscansystems.ca rapiscansystems.com rapiscan-systems.ca rapiscan-systems.com rapiscansystemscanada.ca rapiscansystemscanada.com
+CH-VC-03270,v:9ed037b84943c4ca,Sandbox Inc.,,,,ON,,4,3,sandbox.ca sandbox.com
+CH-VC-03271,v:0ab9c4a2b784b595,Redwood Performance Group Inc.,,,TORONTO,Ontario,M5V 2A1,4,3,redwoodperformancegroup.ca redwoodperformancegroup.com redwood-performance-group.ca redwood-performance-group.com
+CH-VC-03272,v:aeee0957831b9145,THE TORONTO-DOMINION BANK,LA BANQUE TORONTO-DOMINION,1147803689,Regina,SK,,4,3,torontodominionbank.ca torontodominionbank.com toronto-dominion-bank.ca toronto-dominion-bank.com banquetorontodominion.ca banquetorontodominion.com
+CH-VC-03273,v:7f911ccc3124f47c,Credence & Co.,,,Kitchener,ON,N2G 3S7,4,3,credence.ca credence.com
+CH-VC-03274,v:5cd783c4993a13f8,York 1 Hydrovac,,,concord,ON,L4K 1J5,4,3,york1hydrovac.ca york1hydrovac.com york-1-hydrovac.ca york-1-hydrovac.com
+CH-VC-03275,v:d38ffe0ac3ed4d2f,Momentum Construction & Restoration,Momentum Construction & Restoration Inc.,11422758,Burlington ,ON,L7L6A3,4,3,
+CH-VC-03276,v:8c57c4566a585b33,FDS Construction Inc.,,,Etobicoke,ON,M9W 4L8,4,3,fdsconstruction.ca fdsconstruction.com fds-construction.ca fds-construction.com
+CH-VC-03277,v:dda9b60c0048f710,More Than Shipping Inc.,,,Whitehorse,YT,Y1A 0V3,4,3,morethanshipping.ca morethanshipping.com more-than-shipping.ca more-than-shipping.com
+CH-VC-03278,v:4245e06969c1f7b8,Advanced Pump Repair Service Inc,,,CAMBRIDGE,ON,N1T 2K8,4,3,advancedpumprepairservice.ca advancedpumprepairservice.com advanced-pump-repair-service.ca advanced-pump-repair-service.com
+CH-VC-03279,v:21fccd1797ac5fb4,Yake Electric Limited,,,Mount Forest,ON,N0G 2L2,4,3,yakeelectric.ca yakeelectric.com yake-electric.ca yake-electric.com
+CH-VC-03280,v:c3c76f5ae7f1378a,Innovative Construction Services Inc.,,,Corunna,ON,N0N1G0,4,3,innovativeconstructionservices.ca innovativeconstructionservices.com
+CH-VC-03281,v:34f6e28d209f6940,Synergy Protection Group Inc.,Synergy Protection Group Inc.,1181277923,Toronto,ON,M2J 4R3,4,3,synergyprotectiongroup.ca synergyprotectiongroup.com synergy-protection-group.ca synergy-protection-group.com
+CH-VC-03282,v:4375aa4ad284e77c,United Traffic Control LTD.,UNITED TRAFFIC CONTROL LTD.,BC1222256,Langley,BC,V2Y 0E2,4,3,unitedtrafficcontrol.ca unitedtrafficcontrol.com united-traffic-control.ca united-traffic-control.com
+CH-VC-03283,v:4dea7c2ad22a2fff,DNS Woodbuilders (newfence.ca),,,Bolton,ON,L7E1A3,4,3,dnswoodbuilders.ca dnswoodbuilders.com dns-woodbuilders.ca dns-woodbuilders.com
+CH-VC-03284,v:84200de569127aa6,Hamilton Community Enterprises,,,Hamilton,ON,L8P4W7,4,3,hamiltoncommunityenterprises.ca hamiltoncommunityenterprises.com hamilton-community-enterprises.ca hamilton-community-enterprises.com
+CH-VC-03285,v:e2baaecdb7536281,R. Leuschner Spraying Ltd.,,,Gormley,ON,L0H 1G0,4,3,rleuschnerspraying.ca rleuschnerspraying.com r-leuschner-spraying.ca r-leuschner-spraying.com
+CH-VC-03286,v:fbec46ccf58ad1ba,"Ontario Seed Co., Limited",ONTARIO SEED CO. LIMITED,A0072613,Kitchener,ON,N2G 2E6,4,3,ontarioseed.ca ontarioseed.com ontario-seed.ca ontario-seed.com
+CH-VC-03287,v:52bf50417182cedb,Gregory Kerr Limited,,,Dartmouth,NS,B3A2R1,4,3,gregorykerr.ca gregorykerr.com gregory-kerr.ca gregory-kerr.com
+CH-VC-03288,v:5802cffe449eb65a,Yukon First Nations Wildfire LP,,,Whitehorse,YT,Y1A 6A9,4,3,yukonfirstnationswildfire.ca yukonfirstnationswildfire.com yukon-first-nations-wildfire.ca yukon-first-nations-wildfire.com
+CH-VC-03289,v:c6f2208ce6dd4479,MASIH CONTRACTING,,,WHITEHORSE,YT,Y1A3W1,4,3,masihcontracting.ca masihcontracting.com masih-contracting.ca masih-contracting.com
+CH-VC-03290,v:928b8ca422a93bcd,14144970 CANADA INC.,14144970 CANADA INC.,14144970,Cambridge ,ON,N3C 4E8,4,3,
+CH-VC-03291,v:3c9c5f1a0246cf4a,Mersey Consulting Ltd.,,,Halifax,Nova Scotia,B3T 2B5,4,3,merseyconsulting.ca merseyconsulting.com mersey-consulting.ca mersey-consulting.com
+CH-VC-03292,v:8fcac90447be3d47,Tornado cleaning,,,Whitehorse ,YT,Y1A3K9,4,3,tornadocleaning.ca tornadocleaning.com tornado-cleaning.ca tornado-cleaning.com
+CH-VC-03293,v:383dcaae5e741720,Drysdale Tree Farms Limited,,,Egbert,ON,L0L 1N0,4,3,drysdaletreefarms.ca drysdaletreefarms.com drysdale-tree-farms.ca drysdale-tree-farms.com
+CH-VC-03294,v:fdedc38b60154bce,Northern Industrial Construction,,,Yellowknife,NT,X1A 0E7,4,3,northernindustrialconstruction.ca northernindustrialconstruction.com
+CH-VC-03295,v:d043002c91ad36c0,Galer Farm Equipment Ltd.,,,dundas,ON,L9H 5E2,4,3,galerfarmequipment.ca galerfarmequipment.com galer-farm-equipment.ca galer-farm-equipment.com
+CH-VC-03296,v:2461aa3025a21c9a,MyCan Ventures ltd,MYCAN VENTURES LTD.,A0129626,whitehorse,YT,Y1A5W5,4,3,mycanventures.ca mycanventures.com mycan-ventures.ca mycan-ventures.com
+CH-VC-03297,v:f5e3e4b5f14b62b8,Absolute Traffic & Sign Solutions Ltd.,,,Middle Sackville,NS,B4E 3B3,4,3,absolutetrafficsignsolutions.ca absolutetrafficsignsolutions.com
+CH-VC-03298,v:a862b67460a3ab2f,12256894 Canada Inc.,12256894 Canada Inc.,12256894,Ajax,ON,L1S 6W1,4,3,
+CH-VC-03299,v:c3d51b9853f4a0f8,J A Electric inc,J A ELECTRIC INC.,BC0774157,Surrey,BC,V3S 2B9,4,3,jelectric.ca jelectric.com j-electric.ca j-electric.com
+CH-VC-03300,v:ba93993935730570,J.A. Towing,,,Brampton ,ON,L6W1X9,4,3,jtowing.ca jtowing.com j-towing.ca j-towing.com
+CH-VC-03301,v:0cd4089a7f5e6034,Counsel Public Affairs Inc.,,,Toronto,ON,M4V 1N6,4,3,counselpublicaffairs.ca counselpublicaffairs.com counsel-public-affairs.ca counsel-public-affairs.com
+CH-VC-03302,v:10362357c2e5aefc,Delve Underground Consulting Canada ULC,DELVE UNDERGROUND CONSULTING CANADA ULC,C1251000,Vancouver,BC,V6E 4A2,4,3,delveundergroundconsulting.ca delveundergroundconsulting.com
+CH-VC-03303,v:fbac824323e6e924,2200850 ONTARIO INC,,,north bay,ON,P1B 8B3,4,3,
+CH-VC-03304,v:34d560fec22412ea,SkyFly Solutions Inc.,Skyfly Solutions Inc.,1181623043,Ottawa,Ontario,K2P 1Z3,4,3,skyflysolutions.ca skyflysolutions.com skyfly-solutions.ca skyfly-solutions.com
+CH-VC-03305,v:be01f4ba0d1a7dcb,Veenstra Contracting,,,Belleville,ON,K8N 4Z6,4,3,veenstracontracting.ca veenstracontracting.com veenstra-contracting.ca veenstra-contracting.com
+CH-VC-03306,v:4e4c2ab616d7311c,PMC Energy Ltd.,,,Moncton,NB,E1E0G7,4,3,pmcenergy.ca pmcenergy.com pmc-energy.ca pmc-energy.com
+CH-VC-03307,v:bfc1ad8e6d34e6e8,Social Pinpoint Inc.,,,Vancouver ,BC,V6C3N2,4,3,
+CH-VC-03308,v:2f050066ecb7310a,Guidehouse Canada Ltd,GUIDEHOUSE CANADA LTD.,A0091793,TORONTO,ON,M5X 1B1,4,3,guidehousecanada.ca guidehousecanada.com guidehouse.ca guidehouse.com guidehouse-canada.ca guidehouse-canada.com
+CH-VC-03309,v:c4560ff03f86a158,AIMS,,,mount pearl,NL,A1N 4R4,4,3,
+CH-VC-03310,v:b4212dc097d1006f,Wired Synergy Inc.,Wired Synergy Inc.,6542565,Ottawa,Ontario,K4A 5B6,4,3,wiredsynergy.ca wiredsynergy.com wired-synergy.ca wired-synergy.com
+CH-VC-03311,v:b842d5967032eb8d,The Talent Company Ltd.,,,Markham,Ontario,L3R 0E1,4,3,talent.ca talent.com
+CH-VC-03312,v:b02709181a1ae11e,Leadership Intelligence Incorporated,,,Huntsville,ON,P1H1N3,4,3,
+CH-VC-03313,v:afd55bdfdee3e19e,Ontario Clean Water Agency,,,St.Thomas,ON,N5R 5V1,4,3,ontariocleanwateragency.ca ontariocleanwateragency.com ontario-clean-water-agency.ca ontario-clean-water-agency.com
+CH-VC-03314,v:73170ddccbce0425,General Dynamics Land Systems - Canada Corporation doing business as General Dynamics Mission Systems - Canada,,,Ottawa,Ontario,K2H 5B7,4,3,
+CH-VC-03315,v:a6f9db655d846cab,Deutsch-Kanadische Industrie- und Handelskammer (AHK Kanada),,,Ottawa,,ON K1A 0H5,4,3,

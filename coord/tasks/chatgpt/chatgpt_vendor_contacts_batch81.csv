@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-08016,v:68f8c60bfe780ff1,A.Bursey & Son,,,Middle Arm,NL,A0K 3R0,3,1,
+CH-VC-08017,v:ab8f95f6b64c236a,Parsons @ Sons Limited,,,CBS,NL,A1X 5C7,3,1,
+CH-VC-08018,v:4edd74c7115b8271,WESTERN INDUSTRIAL SERVICES LIMITED,WESTERN INDUSTRIAL SERVICES LTD.,3622002,Winnipeg,MB,R2J 0S7,3,1,westernindustrialservices.ca westernindustrialservices.com western-industrial-services.ca western-industrial-services.com
+CH-VC-08019,v:42c7f345fd650430,Jim Keay Ford Lincoln Sales Ltd.,JIM KEAY FORD LINCOLN SALES LTD.,3992420,Orleans,ON,K1C 2X8,3,1,jimkeayfordlincolnsales.ca jimkeayfordlincolnsales.com jim-keay-ford-lincoln-sales.ca jim-keay-ford-lincoln-sales.com
+CH-VC-08020,v:6ed90b4c4561162b,Southbank Dodge,,,Ottawa,ON,K1V 8Z1,3,1,
+CH-VC-08021,v:6c67ac3b71308d62,Crown Pipeline Ltd.,,,Winnipeg,MB,R2C 2Z2,3,1,
+CH-VC-08022,v:2cda564263be4bcd,Capstone Ridge Group,,,Winnipeg,MB,R3L 2R1,3,1,
+CH-VC-08023,v:e2059225006c6fde,Online Business Systems,,,Winnipeg,MB,R3B 0R3,3,1,
+CH-VC-08024,v:0fb07d71b768250c,Regent Construction Inc.,,,Winnipeg,MB,R2J 0G7,3,1,regentconstruction.ca regentconstruction.com regent-construction.ca regent-construction.com
+CH-VC-08025,v:3865eb70bbf56de9,Chantel law's cleaning services,,,Lac du bonnet,MB,R0E 1A0,3,1,
+CH-VC-08026,v:dd192ebf60244e46,RJG Construction,,,St. John's,NL,A1B 3N9,3,1,rjgconstruction.ca rjgconstruction.com rjg-construction.ca rjg-construction.com
+CH-VC-08027,v:b91f7b61a5f3aaf2,"Schulich Executive Education, York University",,,Toronto,ON,M5K 1K2,3,1,
+CH-VC-08028,v:733425f52ff214ad,Turnbull Excavating Ltd.,,,Estevan,SK,S4A 2A6,3,1,
+CH-VC-08029,v:d999891984b18846,In-Line Pigging Solutions Ltd.,IN-LINE PIGGING SOLUTIONS LTD.,1169338416,CALGARY,AB,T2E 2M7,3,1,
+CH-VC-08030,v:24966503873542fa,Capital Truck Bodies,,,Ottawa,ON,K1B 3W5,3,1,
+CH-VC-08031,v:fc89e3061f2af193,Trademark Safety & Rescue Ltd,Trademark Safety & Rescue Ltd.,7983158,Stouffville,ON,L4A 2G5,3,1,trademarksafetyrescue.ca trademarksafetyrescue.com trademark-safety-rescue.ca trademark-safety-rescue.com
+CH-VC-08032,v:96b02dbdf0e89918,McDermott + Bull,,,Vancouver,BC,V6E 2M6,3,1,
+CH-VC-08033,v:78a471c831eeb533,GDG CANADA INC,,,Ottawa,ON,K1B 3L7,3,1,
+CH-VC-08034,v:004f6b746e4a127f,Kifinti Solutions Inc.,,,Etobicoke,ON,M9C 1Y7,3,1,kifintisolutions.ca kifintisolutions.com kifinti-solutions.ca kifinti-solutions.com
+CH-VC-08035,v:bf4385f5ecaa0aaf,VitalHub Corp.,,,Toronto,ON,M5G 1V2,3,1,vitalhub.ca vitalhub.com
+CH-VC-08036,v:37684a00999e3a02,UKG,,,Bowmanville,ON,L1C 0C2,3,1,
+CH-VC-08037,v:ca160e3be9e14e2b,Wipro Technologies,WIPRO LIMITED,1167346270,Toronto,ON,M5X 1C7,3,1,
+CH-VC-08038,v:f63deffcc44eb016,Titan Electrical Group Inc.,,,Saskatoon,SK,S7P 0C6,3,1,
+CH-VC-08039,v:241ade34f4d03278,Prism Economics and Analysis,,,Toronto,ON,M6H 1V5,3,1,
+CH-VC-08040,v:5f4aa5f724396e12,F & M Installations Ltd.,,,Nanaimo,BC,V9X 1T4,3,1,
+CH-VC-08041,v:a021af1f3e50ada7,Trang Pham o/a Trang Garments,,,St. John's,NL,,3,1,tranggarments.ca tranggarments.com trang-garments.ca trang-garments.com
+CH-VC-08042,v:08fd6732bb8a1755,Harris Govern,,,Ottawa,ON,,3,1,harrisgovern.ca harrisgovern.com harris-govern.ca harris-govern.com
+CH-VC-08043,v:39085d901ccb3081,Armour Lock and Security Systems ltd,,,Torbay,NL,,3,1,armourlocksecuritysystems.ca armourlocksecuritysystems.com armour-lock-security-systems.ca armour-lock-security-systems.com
+CH-VC-08044,v:8890f66de7048c5d,vFairs Events,,,Oakville,ON,,3,1,vfairsevents.ca vfairsevents.com vfairs-events.ca vfairs-events.com
+CH-VC-08045,v:e109a36ff65cf110,Flextrack Inc.,,,Toronto,ON,,3,1,flextrack.ca flextrack.com
+CH-VC-08046,v:2a14b79e5461d5a9,ARGUS CONTROL SYSTEMS LTD,ARGUS CONTROL SYSTEMS LTD.,BC0276448,Surrey,BC,,3,1,arguscontrolsystems.ca arguscontrolsystems.com argus-control-systems.ca argus-control-systems.com
+CH-VC-08047,v:3d82a7d8551f4422,Trench Limited,,,Scarborough,ON,,3,1,trench.ca trench.com
+CH-VC-08048,v:d70a9b54a43839d3,MITEL NETWORKS CORPORATION,Corporation Mitel Networks,1174473851,Kanata,ON,,3,1,mitelnetworks.ca mitelnetworks.com mitel-networks.ca mitel-networks.com
+CH-VC-08049,v:c6fc4adb0004cb4a,CCI Inc.,CCI INC.,1168362540,Cochrane,AB,,3,1,completecrossings.ca completecrossings.com complete-crossings.ca complete-crossings.com societecci.ca societecci.com
+CH-VC-08050,v:c6f9214f1fe7b6f6,Fugro Canada Corp.,,,Mississauga,ON,,3,1,fugrocanada.ca fugrocanada.com fugro.ca fugro.com fugro-canada.ca fugro-canada.com
+CH-VC-08051,v:374baf4bf4eafdcd,Verve Medical Products Inc.,,,12-4055 Sladeview Crescent Mississauga,ON,L5L 5Y1,3,1,vervemedicalproducts.ca vervemedicalproducts.com verve-medical-products.ca verve-medical-products.com
+CH-VC-08052,v:7f0796138e41e2c5,Big Guns Energy Services Inc,,,Calgary,AB,,3,1,biggunsenergyservices.ca biggunsenergyservices.com big-guns-energy-services.ca big-guns-energy-services.com
+CH-VC-08053,v:cf22cc728ba9840a,Frontier Supply Chain Solutions Inc.,Frontier Supply Chain Solutions Inc.,1165437485,Regina,SK,,3,1,frontiersupplychainsolutions.ca frontiersupplychainsolutions.com
+CH-VC-08054,v:d46d3f237b1d23e8,Environmental Analytical Systems,,,286 Mask Island Drive,ON,,3,1,environmentalanalyticalsystems.ca environmentalanalyticalsystems.com
+CH-VC-08055,v:1b4d09d0568b6713,Greenland Waste Disposal Ltd,,,Prince Albert,SK,,3,1,greenlandwastedisposal.ca greenlandwastedisposal.com greenland-waste-disposal.ca greenland-waste-disposal.com
+CH-VC-08056,v:e7302b3ad11c5389,Vermette Wood Preservers,,,Spruce Home,SK,,3,1,vermettewoodpreservers.ca vermettewoodpreservers.com vermette-wood-preservers.ca vermette-wood-preservers.com
+CH-VC-08057,v:ddfaebb4bbc20526,ADVA Marketing & Consulting,,,Melfort,SK,,3,1,advamarketingconsulting.ca advamarketingconsulting.com adva-marketing-consulting.ca adva-marketing-consulting.com
+CH-VC-08058,v:08f830e08e2592ab,Zep Sales & Service of Canada,,,Moose Jaw,SK,,3,1,zepsalesservicecanada.ca zepsalesservicecanada.com zepsalesservice.ca zepsalesservice.com zep-sales-service-canada.ca zep-sales-service-canada.com
+CH-VC-08059,v:0eeaa3dc585fef00,Sandra Haydon & Associates Incorporated,Sandra Haydon & Associates Inc.,8808996,Ottawa,ON,,3,1,sandrahaydonassociates.ca sandrahaydonassociates.com sandra-haydon-associates.ca sandra-haydon-associates.com
+CH-VC-08060,v:d82c2811a235f4e9,Surgo Surgical Supply,,,Keswick,ON,,3,1,surgosurgicalsupply.ca surgosurgicalsupply.com surgo-surgical-supply.ca surgo-surgical-supply.com
+CH-VC-08061,v:504a943cb86e3ba9,McCann Equipment,McCANN EQUIPMENT LTD.,1144646305,Winnipeg,MB,,3,1,mccannequipment.ca mccannequipment.com mccann-equipment.ca mccann-equipment.com
+CH-VC-08062,v:b4e9eb5dc1968c01,MRSB CONSULTING SERVICES INC,,,Charlottetown,Prince Edward Island,C1A 8C3,3,1,mrsbconsultingservices.ca mrsbconsultingservices.com mrsb-consulting-services.ca mrsb-consulting-services.com
+CH-VC-08063,v:f6e8eca25c6297c3,Paragon Micro IT Solutions,,,MISSISSAUGA,Ontario,L4W 5K4,3,1,paragonmicroitsolutions.ca paragonmicroitsolutions.com paragon-micro-it-solutions.ca paragon-micro-it-solutions.com paragonmicroitsolutionsgroup.ca paragonmicroitsolutionsgroup.com
+CH-VC-08064,v:726f28a848a28e6d,ATKINSON SCHROETER DESIGN GROUP INC,,,,,,3,1,
+CH-VC-08065,v:71b89eee008e3119,JONES LANG LASALLE REAL ESTATE,,,,,,3,1,
+CH-VC-08066,v:c621592aac90dd27,LUMIBIRD LIMITED,,,Ottawa,ON,K2B8J9,3,1,lumibird.ca lumibird.com
+CH-VC-08067,v:514234c0a62dbb2d,HMC Communications Inc,,,,,,3,1,
+CH-VC-08068,v:0de9f5db3e4e226c,D.R. Clough Consulting,D.R. CLOUGH CONSULTING,FM0060715,Lantzville C.C.,BC,V0R 2H0,3,1,rcloughconsulting.ca rcloughconsulting.com r-clough-consulting.ca r-clough-consulting.com
+CH-VC-08069,v:6d027d5345adbf35,IMPERIAL PARKING CANADA CORPORATION,,,,,,3,1,
+CH-VC-08070,v:00adb98ea1b2eed8,Cassen Testing Laboratories,,,,ON,M9W6H3,3,1,cassentestinglaboratories.ca cassentestinglaboratories.com cassen-testing-laboratories.ca cassen-testing-laboratories.com
+CH-VC-08071,v:5f4604fb7a659e95,ADAPTAVIST CANADA LIMITED,,,,ON,M5C1C4,3,1,adaptavistcanada.ca adaptavistcanada.com adaptavist.ca adaptavist.com adaptavist-canada.ca adaptavist-canada.com
+CH-VC-08072,v:422aadc4ad822511,Allied Wings,,,Kelowna,BC,V1V 1S1,3,1,alliedwings.ca alliedwings.com allied-wings.ca allied-wings.com
+CH-VC-08073,v:71fa16f495c3c58c,Blue Water Sourcing Inc,BLUE WATER SOURCING INC.,6121462,,ON,,3,1,bluewatersourcing.ca bluewatersourcing.com blue-water-sourcing.ca blue-water-sourcing.com
+CH-VC-08074,v:4597a45c3342a064,dewolfe and morse surveying,,,,,,3,1,
+CH-VC-08075,v:b534292486ddd886,Teak Tree,,,,,,3,1,
+CH-VC-08076,v:bfd6fd33bebf09ba,Seimens Canada Ltd,,,Oakville,Ontario,L6H 0H6,3,1,seimenscanada.ca seimenscanada.com seimens.ca seimens.com seimens-canada.ca seimens-canada.com
+CH-VC-08077,v:7dbe219114795488,AF Theriault & Son,,,,,,3,1,
+CH-VC-08078,v:380a53cb37a6c3ac,Provan Control Associates Inc.,,,,,,3,1,
+CH-VC-08079,v:429a9271125fa498,Carverys Construction Limited,,,,,,3,1,
+CH-VC-08080,v:8d2754d7dba0c8fc,CANADIAN LOCK & SUPPLY LTD,,,Ottawa,Ontario,K4A 0Z9,3,1,canadianlocksupply.ca canadianlocksupply.com locksupply.ca locksupply.com canadian-lock-supply.ca canadian-lock-supply.com
+CH-VC-08081,v:dbe6507f486cb95a,LIN-PRO PETROLEUM SERVICES LTD.,,,,,,3,1,
+CH-VC-08082,v:916e1cd3f891f3db,Mitsubishi,MITSUBISHI CANADA LIMITÉE,1145359700,Mistissini,ON,L4W5P8,3,1,mitsubishi.ca mitsubishi.com mitsubishicanada.ca mitsubishicanada.com mitsubishi-canada.ca mitsubishi-canada.com
+CH-VC-08083,v:69026cd5399cde82,AUTODESK INC.,AUTODESK CANADA CO.,1179451951,Nouvelle,NS,B3J0J2,3,1,autodesk.ca autodesk.com autodeskcanada.ca autodeskcanada.com autodesk-canada.ca autodesk-canada.com
+CH-VC-08084,v:96c751c6e8df63f0,ASSOCIATE AIR MECHANICAL SYSTEMS,,,,,,3,1,
+CH-VC-08085,v:6b49ec0e87afb2bd,7041829 Canada Ltd.,7041829 CANADA LTD.,1175587782,Dartmouth,Nova Scotia,B2X2C3,3,1,
+CH-VC-08086,v:f2b4ed1175c6881d,HUB INTERNATIONAL ATLANTIC LIMITED,,,,,,3,1,
+CH-VC-08087,v:2ab3fbe9774cc100,MRS CONSTRUCTION LIMITED,,,,,,3,1,
+CH-VC-08088,v:d986814b770a72f0,VOLKSWAGEN GROUP CANADA INC,Volkswagen Group Canada Inc.,1143179670,Ajax,Ontario,L1S7G7,3,1,volkswagengroupcanada.ca volkswagengroupcanada.com volkswagengroup.ca volkswagengroup.com volkswagen-group-canada.ca volkswagen-group-canada.com
+CH-VC-08089,v:bbc939b7d67d3355,IntegratingSolutions Inc.,IntegratingSolutions Inc.,3778053,Ottawa,ON,K2B 8K2,3,1,integratingsolutions.ca integratingsolutions.com
+CH-VC-08090,v:07db55ed85fa513f,SpaceX Canada Corp.,,,Halifax,Nova Scotia,B3J 0J2,3,1,spacexcanada.ca spacexcanada.com spacex.ca spacex.com spacex-canada.ca spacex-canada.com
+CH-VC-08091,v:aa7d6418b8515dc4,Supplyline Inc.,Supplyline Inc.,14373138,North York,Ontario,M2M 3L1,3,1,supplyline.ca supplyline.com
+CH-VC-08092,v:1fd39463cfb5bc9e,YATES TRUCKING AND EXCAVATION LIMITED,,,ALBERT BRIDGE,Nova Scotia,B1K 2N5,3,1,yatestruckingexcavation.ca yatestruckingexcavation.com yates-trucking-excavation.ca yates-trucking-excavation.com
+CH-VC-08093,v:2a6134fa3f7f174c,Pelham Electric & Refrigeration Ltd,,,Halifax,Nova Scotia,B3P 2G8,3,1,pelhamelectricrefrigeration.ca pelhamelectricrefrigeration.com pelham-electric-refrigeration.ca pelham-electric-refrigeration.com
+CH-VC-08094,v:1df861933600a78f,"ALS, Environmental Laboratory",,,Mississauga,Ontario,L4Z 2E9,3,1,alsenvironmentallaboratory.ca alsenvironmentallaboratory.com als-environmental-laboratory.ca als-environmental-laboratory.com
+CH-VC-08095,v:17e1fe2796f9b52f,Goodspeeds Manufacturing Limited,,,Lakeside,Nova Scotia,B3T 1M2,3,1,goodspeedsmanufacturing.ca goodspeedsmanufacturing.com goodspeeds-manufacturing.ca goodspeeds-manufacturing.com
+CH-VC-08096,v:8a9cbf77695e83af,SUNNYBROOK RESEARCH INSTITUTE,,,Toronto,Ontario,M4N 3M5,3,1,sunnybrookresearchinstitute.ca sunnybrookresearchinstitute.com sunnybrook-research-institute.ca sunnybrook-research-institute.com
+CH-VC-08097,v:30920b53589b029d,Beyond 2020 Inc,,,Ottawa,ON,K2A0G6,3,1,beyond2020.ca beyond2020.com beyond-2020.ca beyond-2020.com
+CH-VC-08098,v:9cc16f5a6691c5b6,Edmonds Landscape Services,,,Halifax,Nova Scotia,B3K 4V4,3,1,edmondslandscapeservices.ca edmondslandscapeservices.com edmonds-landscape-services.ca edmonds-landscape-services.com
+CH-VC-08099,v:8858d2bc128e966c,Mercury Marine Limited,MERCURY MARINE ULC,1149749542,Milton,Ontario,L9T0M1,3,1,mercurymarine.ca mercurymarine.com mercury-marine.ca mercury-marine.com mercurymarinecanada.ca mercurymarinecanada.com
+CH-VC-08100,v:d480b2d96cdc9c07,NATIONS TRANSLATION GROUP INC. / GROUPE DE TRADUCTION DES NATIONS INC.,,,Ottawa,Ontario,K2G4V3,3,1,
+CH-VC-08101,v:5c0127e1444cbbe7,Trident Marine Services Inc,,,Little Tancook Island,Nova Scotia,B0J2B0,3,1,tridentmarineservices.ca tridentmarineservices.com trident-marine-services.ca trident-marine-services.com
+CH-VC-08102,v:9a1bad1dcd12abb6,"PACIFIC INDUSTRIAL & MARINE LTD., KHOWUTZUN DEVELOPMENT CORP., in Joint Venture",,,Duncan,British Columbia,V9L6Y1,3,1,
+CH-VC-08103,v:56329ffa01fcea7e,Pepsico Canada ULC,PEPSICO CANADA ULC,1149270598,Bedford,Nova Scotia,B4B1G9,3,1,pepsicocanada.ca pepsicocanada.com pepsico.ca pepsico.com pepsico-canada.ca pepsico-canada.com
+CH-VC-08104,v:84b1706fbc1c5f72,DiPaolo Machine Tools Ltd.,,,Mississauga,Ontario,L5S 1K6,3,1,dipaolomachinetools.ca dipaolomachinetools.com dipaolo-machine-tools.ca dipaolo-machine-tools.com
+CH-VC-08105,v:6f291632e3d55930,Advanced Research and Development (Canada Ltd),,,Hillsborough,New Brunswick,E4H 2C1,3,1,advancedresearchdevelopment.ca advancedresearchdevelopment.com advanced-research-development.ca advanced-research-development.com
+CH-VC-08106,v:5f0d305a9fd9c31a,"Malarsoft Technology Corporation,  Cistel Technology Inc.  In Joint Venture",,,Ottawa,Ontario,K2E7K3,3,1,
+CH-VC-08107,v:fa159d38ef2e35d7,Aboriginal Employment Services Inc.,,,St. John's,Newfoundland and Labrador,A1E1W6,3,1,aboriginalemploymentservices.ca aboriginalemploymentservices.com aboriginal-employment-services.ca aboriginal-employment-services.com
+CH-VC-08108,v:83682ad320df756e,Pisces Research Project Management Inc.,,,Milford,Nova Scotia,B0N 1Y0,3,1,
+CH-VC-08109,v:30f791af50482ad1,"Tripp Marine Construction, Corp",,,Corner Brook,Newfoundland and Labrador,A2H4A1,3,1,trippmarineconstruction.ca trippmarineconstruction.com tripp-marine-construction.ca tripp-marine-construction.com
+CH-VC-08110,v:decaaad6aef49fd4,Haa Cháli Limited Partnership,,,whitehorse,Yukon,Y1A5X9,3,1,haachalipartnership.ca haachalipartnership.com haa-chali-partnership.ca haa-chali-partnership.com
+CH-VC-08111,v:84d645b9f76ffd13,Everllence Canada Ltd.,Everllence Canada Ltd.,3701115,Richmond,BC,V6V2J1,3,1,everllencecanada.ca everllencecanada.com everllence.ca everllence.com everllence-canada.ca everllence-canada.com
+CH-VC-08112,v:a239fafe71a8a749,East Coast Laundry Systems,,,Halifax,Nova Scotia,B3R 1X3,3,1,eastcoastlaundrysystems.ca eastcoastlaundrysystems.com east-coast-laundry-systems.ca east-coast-laundry-systems.com
+CH-VC-08113,v:0a68132dd78861ed,TSL Aerospace Technologies Ltd,TSL AEROSPACE TECHNOLOGIES LTD.,2033798,Stoney Creek,Ontario,L8E 5P2,3,1,tslaerospacetechnologies.ca tslaerospacetechnologies.com tsl-aerospace-technologies.ca tsl-aerospace-technologies.com technologieaerospatialetsl.ca technologieaerospatialetsl.com
+CH-VC-08114,v:1f29432f34f68906,Fifalde Consulting Inc.,Fifalde Consulting Inc.,6308589,Navan,Ontario,K1J 1J3,3,1,fifaldeconsulting.ca fifaldeconsulting.com fifalde-consulting.ca fifalde-consulting.com
+CH-VC-08115,v:908ec0ba7a6c537b,Xiphos Systems Corporation,Systèmes Xiphos Inc.,1178053907,"Montreal, QC",,H2W 1Y5,3,1,xiphossystems.ca xiphossystems.com xiphos-systems.ca xiphos-systems.com systemesxiphos.ca systemesxiphos.com

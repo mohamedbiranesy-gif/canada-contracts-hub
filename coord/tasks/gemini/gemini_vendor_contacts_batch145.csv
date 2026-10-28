@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+GE-VC-14416,v:81af5802051b5cfb,Eastman Systems Inc.,LES SYSTEMES H.D. EASTMAN INC.,1143441534,Montréal,QC,H3C 1R5,3,0,eastmansystems.ca eastmansystems.com eastman-systems.ca eastman-systems.com systemesheastman.ca systemesheastman.com
+GE-VC-14417,v:070679dfbaaed1b5,Mont-Roy l'imprimeur,MONT-ROY L'IMPRIMEUR INC.,1175803361,Montréal,QC,H4T 1K6,3,0,
+GE-VC-14418,v:e9044178940caf05,Les Architectes Associés,LEBLOND TREMBLAY BOULAY FRADETTE BARRETTE,3342193458,Chicoutimi,QC,G7H1T2,3,0,
+GE-VC-14419,v:3c4ddde0f7446b0f,FSIG inc.,FSIG INC.,1165702169,Québec,QC,G1C6R2,3,0,fsig.ca fsig.com
+GE-VC-14420,v:1c432bd347f2d44d,ARGOS INTERPRETES & TRADUCTEURS INC.,ARGOS INTERPRETES & TRADUCTEURS INC.,1143833342,Montréal,QC,H3A 2L1,3,0,
+GE-VC-14421,v:0952e51ae05a46a2,Services D'Arbres Nord Ouest,LE BRICLEUR,1166000183,Saint-Côme,QC,J0K2B0,3,0,servicesdarbresnordouest.ca servicesdarbresnordouest.com services-darbres-nord-ouest.ca services-darbres-nord-ouest.com bricleur.ca bricleur.com
+GE-VC-14422,v:7032ef57d1173aae,Construction Majestyc Inc.,CONSTRUCTION MAJESTYC INC.,1167613919,Granby,QC,J2J 9T9,3,0,
+GE-VC-14423,v:136f4f5169a68a8a,"Ginette Leduc, consultante en gestion",,,Montréal,QC,H3E1P5,3,0,
+GE-VC-14424,v:c6061e1936ff4053,Hébergement Fleur de Macadam,Hébergement Fleur de Macadam,1169655843,Saint-Jérôme,QC,J7Y2X7,3,0,
+GE-VC-14425,v:c2404cdf33c06e0b,Neksys Inc.,EXCELPRO AUTOMATION INC.,1143251768,Trois-Rivières,QC,G9B0T8,3,0,neksys.ca neksys.com excelproautomation.ca excelproautomation.com excelpro-automation.ca excelpro-automation.com
+GE-VC-14426,v:9326ac23ac57ef2a,precicom technologie inc.,PRÉCICOM TECHNOLOGIES INC.,1169472645,Thetford Mines,QC,G6G6K2,3,0,
+GE-VC-14427,v:46e4682d2ee12e84,Rouyn Asphalte inc.,ROUYN ASPHALTE INC.,1142550053,Rouyn-Noranda,QC,J9X7C5,3,0,rouynasphalte.ca rouynasphalte.com rouyn-asphalte.ca rouyn-asphalte.com
+GE-VC-14428,v:81e3ae88e1eaf761,Brossard Chevrolet Buick GMC inc.,9538-0374 Québec inc.,1167739821,,QC,,3,0,
+GE-VC-14429,v:fe386a0fbb2c12f1,9255-3627 Québec inc. (Les pétroles Delaney),Les Pétroles Delaney,1167856856,Cap-Chat,QC,G4T1C4,3,0,petrolesdelaney.ca petrolesdelaney.com petroles-delaney.ca petroles-delaney.com
+GE-VC-14430,v:1da694bdfee27811,SDC Hochelaga-maisonneuve,SOCIÉTÉ DE DÉVELOPPEMENT COMMERCIAL HOCHELAGA-MAISONNEUVE,1168815851,,QC,,3,0,
+GE-VC-14431,v:61270a4b09d9772d,Entreprise Courtval inc.,ENTREPRISE COURTVAL INC.,1161975272,Valcourt,QC,J0E 2L0,3,0,
+GE-VC-14432,v:a9de5d43b4442c99,Archi Data Inc,ARCHIDATA INC.,1144043388,Montréal,QC,H2Y 3Z2,3,0,archidata.ca archidata.com archi-data.ca archi-data.com
+GE-VC-14433,v:f658ccc828b6373e,Entreprises D.F. enr.,9033-5985 QUÉBEC INC.,1145683380,Alma,QC,G8B 5V3,3,0,
+GE-VC-14434,v:8260a91bbd3605ea,Table jamésienne de concertation minière,TABLE JAMÉSIENNE DE CONCERTATION MINIÈRE,1160360526,Chibougamau,QC,G8P1R6,3,0,accomine.ca accomine.com
+GE-VC-14435,v:62cca8874de1ed65,R. S. D'AMOUR & FILS INC.,R. S. D'AMOUR & FILS INC.,1142558684,Ormstown,QC,J0S1K0,3,0,
+GE-VC-14436,v:b3e17422979626a4,Déneigement Lefebvre Inc.,9425-3002 Québec inc.,1167641308,Saint-Cyrille-de-Wendover,QC,J1z0e3,3,0,deneigementlefebvre.ca deneigementlefebvre.com deneigement-lefebvre.ca deneigement-lefebvre.com
+GE-VC-14437,v:a3e4d0bfaa00c075,AquaWaterEau Corporation,AquaWaterEau Corporation,1143352731,Saint-Michel,QC,J0L 2J0,3,0,
+GE-VC-14438,v:03a9d65ca6d0dc1b,Consultants L Montreuil inc,CONSULTANTS LAURENT MONTREUIL INC.,1160925898,Saint-Eustache,QC,j7p3y2,3,0,consultantsmontreuil.ca consultantsmontreuil.com consultants-montreuil.ca consultants-montreuil.com consultantslaurentmontreuil.ca consultantslaurentmontreuil.com
+GE-VC-14439,v:8d3700656bc01650,Transport Sanitaire Fortin,2953-7628 QUEBEC INC.,1169997310,,QC,,3,0,
+GE-VC-14440,v:25e88b82dfff7906,First student canada,AUTOBUS TRANSCO (1988) INC.,1142138875,Montréal,QC,H8N 2W6,3,0,firststudentcanada.ca firststudentcanada.com firststudent.ca firststudent.com first-student-canada.ca first-student-canada.com
+GE-VC-14441,v:71dea0c3fef58267,SURBOIS,ÉCOLE ENTREPRISE SURBOIS,1141004961,Salaberry-de-Valleyfield,QC,J6T 4E1,3,0,
+GE-VC-14442,v:fe49d638df4937b6,DISTRIBUTIONS MICHEL FILLION,9100-3210 QUÉBEC INC.,1149827355,Lac-Mégantic,QC,G6B1A9,3,0,distributionsmichelfillion.ca distributionsmichelfillion.com distributions-michel-fillion.ca distributions-michel-fillion.com
+GE-VC-14443,v:c5465f5151821918,Excavatech 9047-7480 Qc Inc,,,Lac-Drolet,QC,G0Y 1C0,3,0,
+GE-VC-14444,v:801e2b8ac377af29,CommerX Computer Systems Inc,,,Laval,QC,h7l5a7,3,0,commerxcomputersystems.ca commerxcomputersystems.com commerx-computer-systems.ca commerx-computer-systems.com
+GE-VC-14445,v:a75fd89e9eb8d93b,Les maisons Angélique,Maisons de répit Angélique inc.,1171463046,Saint-Constant,QC,j5a0e8,3,0,
+GE-VC-14446,v:1f43aed7da4b78e4,Terre des Jeunes,TERRE DES JEUNES,1162564182,Sainte-Julienne,QC,j0k2t0,3,0,
+GE-VC-14447,v:8151bcc95a89ba8f,Sintra inc. (région Lanaudière - Laurentides),GROUPE COLAS QUÉBEC INC.,1145755295,Saint-Paul,QC,J0K3E0,3,0,sintra.ca sintra.com groupecolasquebec.ca groupecolasquebec.com groupe-colas-quebec.ca groupe-colas-quebec.com
+GE-VC-14448,v:eb84f8b90d40472f,Transport G. Hamelin inc.,TRANSPORT GILBERT HAMELIN INC.,1144358356,Saint-Michel,QC,J0L 2J0,3,0,
+GE-VC-14449,v:836f5bc9f75895e1,Nobesco (8412359 Canada inc),8412359 CANADA INC.,1168847433,Trois-Rivières,QC,G9B7H1,3,0,nobesco.ca nobesco.com
+GE-VC-14450,v:b410b20045d8f4f5,Cadence Automatisation Inc..,AUTOMATISATION CADENCE INC.,1148763056,Sainte-Thérèse,QC,J7E 5R1,3,0,
+GE-VC-14451,v:eda9767878d90836,Plomberie Lomer Richard,9072-1143 QUÉBEC INC.,1148229223,Les Iles-de-la-Madeleine,QC,G4T5A1,3,0,plomberielomerrichard.ca plomberielomerrichard.com plomberie-lomer-richard.ca plomberie-lomer-richard.com entrepriseslomerrichard.ca entrepriseslomerrichard.com
+GE-VC-14452,v:5a53ed750015c73c,Solutions Hospitalis S.E.C.,"SOLUTIONS HOSPITALIS, SOCIÉTÉ EN COMMANDITE",3365224230,Montréal,QC,H1V3R9,3,0,
+GE-VC-14453,v:ec6691aa8593b1a9,MÉCANIQUE DU PALAIS INC.,MÉCANIQUE DU PALAIS INC.,1160208550,Saint-Joseph-de-Beauce,QC,G0S2V0,3,0,mecaniquepalais.ca mecaniquepalais.com mecanique-palais.ca mecanique-palais.com garagejpbolduc.ca garagejpbolduc.com
+GE-VC-14454,v:c4ac955abbebed0d,8196204174,EXCAVATION ALEX GAGNÉ INC.,1171842876,Maricourt,QC,J0E2L2,3,0,
+GE-VC-14455,v:6ca13439835e98f7,SPELTECH QUEBEC INC.,SPELTECH QUEBEC INC.,1144569960,Shefford,QC,J2M1P4,3,0,speltechquebec.ca speltechquebec.com speltech-quebec.ca speltech-quebec.com
+GE-VC-14456,v:34ae747c26d5a2f9,Excavation Benoit Bergeron,LES EXCAVATIONS BENOIT BERGERON INC.,1143323088,Victoriaville,QC,G6P 6S9,3,0,
+GE-VC-14457,v:25fc656546e87f82,Excavation Alex Gagné Inc.,EXCAVATION ALEX GAGNÉ INC.,1171842876,Maricourt,QC,J0E2L2,3,0,
+GE-VC-14458,v:ef7275b4a2239554,Christopher  Hatch,,2264006208,Ogden,QC,J0B 3E3,3,0,christopherhatch.ca christopherhatch.com christopher-hatch.ca christopher-hatch.com
+GE-VC-14459,v:7a6616b2ec623d1d,Services Hygia Inc.,Services Hygia inc.,1170123062,Longueuil,QC,J3Y4S5,3,0,
+GE-VC-14460,v:d582fe769afdddb0,Les Technologies Astera Inc.,LES TECHNOLOGIES ASTERA INC.,1161169827,Laval,QC,H7W4R8,3,0,technologiesastera.ca technologiesastera.com technologies-astera.ca technologies-astera.com
+GE-VC-14461,v:cae0afd5c70c9a2d,Groupe XYZ Civitas inc.,Jacques Noury a.-g.,1141961590,Québec,QC,G1K8M4,3,0,
+GE-VC-14462,v:7ad9c9ee7b037d19,"Desilets-Leroux, architectes","ATELIER IDEA, ARCHITECTURE + DESIGN",3365785313,Sainte-Adèle,QC,J8B 2N1,3,0,desiletslerouxarchitectes.ca desiletslerouxarchitectes.com desilets-leroux-architectes.ca desilets-leroux-architectes.com atelierideaarchitecturedesign.ca atelierideaarchitecturedesign.com
+GE-VC-14463,v:8799378947fe17a1,Parking Pro enrg.,8678537 Canada Inc.,1169596153,Laval,QC,H7L 4E4,3,0,
+GE-VC-14464,v:b8733faf7f42e83d,Mini Excavation François J. Bertrand Inc.,MINI-EXCAVATION FRANÇOIS J. BERTRAND INC.,1166631805,Sainte-Adèle,QC,J8B2V8,3,0,
+GE-VC-14465,v:93b7588532cc653d,Alain Chabot,,2271966246,Thetford Mines,QC,G6G 3H4,3,0,
+GE-VC-14466,v:6d4cd407fccfc18a,Michel T. Giroux,INSTITUT DE CONSULTATION ET DE RECHERCHE EN ÉTHIQUE ET EN DROIT,2240292815,,QC,,3,0,micheltgiroux.ca micheltgiroux.com michel-t-giroux.ca michel-t-giroux.com
+GE-VC-14467,v:5722da8fde5a534b,Toast Studio Inc,TOAST STUDIO INC.,1149896608,Montréal,QC,H3B 1A7,3,0,
+GE-VC-14468,v:327c7abf4c0a668d,BIESSE CANADA INC.,BIESSE CANADA INC.,1144388403,Mirabel,QC,J7J 0G2,3,0,biessecanada.ca biessecanada.com biesse.ca biesse.com biesse-canada.ca biesse-canada.com
+GE-VC-14469,v:cd52609f747c76f4,Martel express,MARTEL EXPRESS (MONTRÉAL) INC.,1147902531,Montréal,QC,H4S1A1,3,0,
+GE-VC-14470,v:f0312697ced9f31c,EXCAVATION RAYMOND LEMAY & FILS INC.,EXCAVATION RAYMOND LEMAY & FILS INC.,1143698117,Saint-Édouard-de-Lotbinière,QC,G0S 1Y0,3,0,excavationraymondlemayfils.ca excavationraymondlemayfils.com excavation-raymond-lemay-fils.ca excavation-raymond-lemay-fils.com
+GE-VC-14471,v:bf47aad1da102cb1,Ventilation RGP,RGP TOITURE ET FERBLANTERIE,1161962858,Gaspé,QC,G4X 2B3,3,0,
+GE-VC-14472,v:91e391a5c1743673,Michelle Décary architecte,,,Sainte-Julie,QC,j3E1W8,3,0,michelledecaryarchitecte.ca michelledecaryarchitecte.com michelle-decary-architecte.ca michelle-decary-architecte.com
+GE-VC-14473,v:0601a00fa0aeab3b,Grondin Transport inc.,GRONDIN TRANSPORT INC.,1175731992,Saint-Frédéric,QC,G0N1P0,3,0,
+GE-VC-14474,v:37f05468e8308834,IMPÉRIAL TRAITEMENT INDUSTRIEL INC.,IMPÉRIAL TRAITEMENT INDUSTRIEL INC.,1172491418,Chambly,QC,J3L4V2,3,0,
+GE-VC-14475,v:69e0bcdb7fea3b1f,LES MACHINES ICETECH INC,Technologies Surfaces Icetech,1169887149,Terrebonne,QC,J6Y0J9,3,0,
+GE-VC-14476,v:9bceca7e4c7dedb6,DP Consultante,DP Consultante,2271847123,Lac-Brome,QC,J0E1V0,3,0,
+GE-VC-14477,v:8bab24f22035102f,Déneigement Patrick Pesant,DÉNEIGEMENT PATRICK PESANT,2265322331,Chertsey,QC,J0K 3K0,3,0,deneigementpatrickpesant.ca deneigementpatrickpesant.com deneigement-patrick-pesant.ca deneigement-patrick-pesant.com
+GE-VC-14478,v:8ad8ce517c9fbaba,Location Excavation Lordbec inc.,LOCATION LORDBEC INC.,1143050665,,QC,,3,0,
+GE-VC-14479,v:791447f8d8068314,Dr Charles Bellavance,,,Sainte-Thérèse,QC,J7E 4Z1,3,0,drcharlesbellavance.ca drcharlesbellavance.com dr-charles-bellavance.ca dr-charles-bellavance.com
+GE-VC-14480,v:8a7a2bb6f22749d7,Construction JPL,8633509 CANADA INC.,1169461614,Gatineau,QC,J8Y 3R7,3,0,
+GE-VC-14481,v:459092c2616ea514,H&B Sports Entreprises Inc.,LES ENTREPRISES DE SPORT H & B INC.,1143599695,,QC,,3,0,hbsportsentreprises.ca hbsportsentreprises.com h-b-sports-entreprises.ca h-b-sports-entreprises.com entreprisessporthb.ca entreprisessporthb.com
+GE-VC-14482,v:1180af9fbb1720cd,Centre de recherche de l'hôpital Douglas,,,,QC,,3,0,centrerecherchelhopitaldouglas.ca centrerecherchelhopitaldouglas.com
+GE-VC-14483,v:225a9ea838727e23,Action-Réinsertion (Sac à dos),ACTION-RÉINSERTION,1161481560,,QC,,3,0,
+GE-VC-14484,v:43e2ac12b3ac7f9a,Construction L. Archambault et fils inc.,Construction L. Archambault et fils inc.,1175069765,Granby,QC,J2J 1L8,3,0,constructionarchambaultfils.ca constructionarchambaultfils.com construction-archambault-fils.ca construction-archambault-fils.com
+GE-VC-14485,v:f27a17676dac7da3,Accès Industriel,PAYSAGISTE BOTANIC INC.,1147795521,Rouyn-Noranda,QC,J9X7A5,3,0,
+GE-VC-14486,v:4d3df71353bd1cfa,IMAGERIE MÉDICALE MCKESSON,Change Healthcare Canada Company,1165941940,Montréal,QC,H4R2P7,3,0,imageriemedicalemckesson.ca imageriemedicalemckesson.com imagerie-medicale-mckesson.ca imagerie-medicale-mckesson.com changehealthcarecanada.ca changehealthcarecanada.com
+GE-VC-14487,v:78dffb472f2b3fa1,Cent. Entraide & Traitement Agres. Sex. [Parent-Unis Laurentides],CENTRE D'ÉVALUATION ET DE TRAITEMENT DES AGRESSIONS SEXUELLES (PARENTS-UNIS LAURENTIDES),1143443605,Saint-Jérôme,QC,J7Y 5C8,3,0,
+GE-VC-14488,v:bb971692f1767318,9166-2452 qc inc,9205-8999 QUÉBEC INC.,1165650764,Stanbridge Station,QC,j0j2j0,3,0,nopacenvironnement.ca nopacenvironnement.com nopac-environnement.ca nopac-environnement.com
+GE-VC-14489,v:7c2f7812f3deecc7,Mito Sushi,NAOKI Sushi (marque de commerce),1161992574,Montréal,QC,H1Y 0A3,3,0,
+GE-VC-14490,v:7276a5dc03f16010,VRAC-SUD,VRAC-SUD,1149106404,,QC,,3,0,vracsud.ca vracsud.com vrac-sud.ca vrac-sud.com
+GE-VC-14491,v:346b28c7bd45d672,Plomberie Mario Thivierge Inc,Plomberie Mario Thivierge Inc.,1168527522,Bois-des-Filion,QC,J6Z 4T2,3,0,
+GE-VC-14492,v:a7aba14574172de6,MARIE-JOSEE BERNARDI AVOCATE INC,MARIE-JOSÉE BERNARDI AVOCATE INC.,1166030693,Montréal,QC,H3L 1G4,3,0,mariejoseebernardiavocate.ca mariejoseebernardiavocate.com marie-josee-bernardi-avocate.ca marie-josee-bernardi-avocate.com
+GE-VC-14493,v:ca21aa2a2fc28a1d,Nedco div Rexel Canada electrique,REXEL CANADA ÉLECTRIQUE INC.,1162848429,Val-d'Or,QC,j9p 0a6,3,0,
+GE-VC-14494,v:ab1e4dd48f4f0268,"Service sanitaire R. Lanthier, 2963-2072 Québec Inc.",2963-2072 QUÉBEC INC.,1141830506,Saint-André-Avellin,QC,J0V 1W0,3,0,automobilesrichardlanthier.ca automobilesrichardlanthier.com automobiles-richard-lanthier.ca automobiles-richard-lanthier.com servicesanitairerlanthier.ca servicesanitairerlanthier.com
+GE-VC-14495,v:84637d4869233a33,smr,SMR,1160400264,Terrebonne,QC,j7m2e9,3,0,
+GE-VC-14496,v:d2538a8ef2de86fe,Lapp Consultants Inc.,Lapp Consultants Inc.,1168633098,Hinchinbrooke,QC,J0S1H0,3,0,lappconsultants.ca lappconsultants.com lapp-consultants.ca lapp-consultants.com
+GE-VC-14497,v:9a484c7c5dfe5143,RMT Équipement Inc.,RMT ÉQUIPEMENT INC.,1147659396,Blainville,QC,J7C0B5,3,0,
+GE-VC-14498,v:db65f7b372e920a2,Les Services G&K Québec Inc.,LES SERVICES G&K (QUÉBEC) INC.,1164535933,Granby,QC,J2G5M7,3,0,
+GE-VC-14499,v:a6a745f745a79a23,Stephen Timmins,MONTREAL-AMERICA TRANSLATION,2247551403,Mont-Saint-Hilaire,QC,J3G4S6,3,0,stephentimmins.ca stephentimmins.com stephen-timmins.ca stephen-timmins.com montrealamericatranslation.ca montrealamericatranslation.com
+GE-VC-14500,v:29aa92628e9f7423,Les entreprises Revalex inc.,LES ENTREPRISES REVALEX INC.,1143444967,Repentigny,QC,J5Y3C9,3,0,
+GE-VC-14501,v:3b4b1ac855469bac,COMPLEXE LE PARTAGE,COMPLEXE LE PARTAGE,1147170543,La Prairie,QC,j5r2s9,3,0,complexepartage.ca complexepartage.com complexe-partage.ca complexe-partage.com guignoleedelson.ca guignoleedelson.com
+GE-VC-14502,v:f7642a8a9e069748,Lafleur La Capitale (Québec) Inc.,CASINO DE HULL,1147235205,Gatineau,QC,J8Y3S2,3,0,
+GE-VC-14503,v:397ecd72ebfa335d,NINA BENISTY,,,Montréal,QC,H8S 3R2,3,0,ninabenisty.ca ninabenisty.com nina-benisty.ca nina-benisty.com
+GE-VC-14504,v:cda4d7138d4ff12f,Les Fibres JC,LES FIBRES J.C. INC.,1140289142,Chambly,QC,J3L 4A7,3,0,fibresjc.ca fibresjc.com fibres-jc.ca fibres-jc.com fibres-j-c.ca fibres-j-c.com
+GE-VC-14505,v:656ae532cd2aa457,Entraide pour les monoparentales et familles recomposées du Suroît,ENTRAIDE POUR MONOPARENTALES ET FAMILLES RECOMPOSÉES DU SUROÎT,1143690015,Salaberry-de-Valleyfield,QC,j6t4c8,3,0,
+GE-VC-14506,v:2148cc4585c789cf,"BGLA ET ABCP, architectes en consortium",,,Québec,QC,G1K 8N6,3,0,
+GE-VC-14507,v:9826bd36f1b9fe83,TOXPERT - 9052-1949 Québec inc,9052-1949 QUÉBEC INC.,1146936019,Saint-Eustache,QC,J7R 0c8,3,0,toxpert90521949quebec.ca toxpert90521949quebec.com toxpert-9052-1949-quebec.ca toxpert-9052-1949-quebec.com groupetoxpert.ca groupetoxpert.com
+GE-VC-14508,v:2d1c6cd3164ce0a2,TRIO ORANGE inc.,TRIO ORANGE INC.,1177876993,Montréal,QC,H1W 1P4,3,0,
+GE-VC-14509,v:7b86d2547d8078b4,Le groupe PSY-COM,GESTION PSY-COM INC.,1142778712,Longueuil,QC,j4h3l3,3,0,groupepsycom.ca groupepsycom.com groupe-psy-com.ca groupe-psy-com.com gestionpsycom.ca gestionpsycom.com
+GE-VC-14510,v:8f6102bcb5ad2930,ENTREPRISES URBEN BLU INC.,ENTREPRISES URBEN BLU INC.,1170206123,Mirabel,QC,J7J1V7,3,0,
+GE-VC-14511,v:0b0678b771e96d3e,Béton Mobile du Québec inc.,BÉTON MOBILE DU QUÉBEC INC.,1145212719,Laval,QC,H7M2N7,3,0,betonmobilequebec.ca betonmobilequebec.com beton-mobile-quebec.ca beton-mobile-quebec.com quebecmobileconcrete.ca quebecmobileconcrete.com
+GE-VC-14512,v:0370f615ac639a10,Kesi Construction,9210-5170 QUÉBEC INC.,1165918898,Québec,QC,G2B 2B5,3,0,
+GE-VC-14513,v:94c8b34bdc5647aa,Profil PME,PROFIL PME INC.,1146312542,Québec,QC,G1J 1Y3,3,0,profilpme.ca profilpme.com profil-pme.ca profil-pme.com securiteproaction.ca securiteproaction.com
+GE-VC-14514,v:19ee1fbcff449880,Fabrique de la Paroisse de Sainte-Marie-Madeleine,LA FABRIQUE DE LA PAROISSE DE SAINTE-MARIE-MADELEINE,1164051402,Mirabel,QC,J7J 1L4,3,0,
+GE-VC-14515,v:b5d08db9ef3fbeee,LE COMITÉ RÉGIONAL POUR LA VALORISATION DE L'ÉDUCATION (CREVALE),COMITÉ RÉGIONAL POUR LA VALORISATION DE L'ÉDUCATION (CREVALE),1161340485,Joliette,QC,J6E 2H9,3,0,

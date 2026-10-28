@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-20516,v:0bcd37ee065cd973,Pennecon Energy Technical Services,,,St. John's,NL,A1E 1B9,13,0,
+CH-VC-20517,v:f8f2f268d5927407,ENVARI ENERGY SOLUTIONS,ENVARI ENERGY SOLUTIONS INC.,1174572769,Ottawa,ON,K1G 3S4,13,0,envarienergysolutions.ca envarienergysolutions.com envari-energy-solutions.ca envari-energy-solutions.com envarienergiesolutions.ca envarienergiesolutions.com
+CH-VC-20518,v:b9fc5eb52aca75b0,Adesso Project Management,,,Halifax,NS,B3J2A4,13,0,
+CH-VC-20519,v:7fb9eb6bd4da6891,J. Mason Contracting Limited,,,Halifax,NS,B2T 1E6,13,0,
+CH-VC-20520,v:8b3a42159a053c27,New-Alliance Ltd,,,Burlington,ON,L7R 4J1,13,0,
+CH-VC-20521,v:871284d9f61e71b7,Ian Tate Plumbing/Heating,,,Antigonish,NS,B0H1H0,13,0,
+CH-VC-20522,v:be9e680101b57492,Steelcore Construction Ltd.,,,SCARBOROUGH,ON,M1B 4Z4,13,0,
+CH-VC-20523,v:e7d28a2eb22469c8,Gio-Crete Construction Ltd.,,,North York,ON,M9L 1N5,13,0,
+CH-VC-20524,v:de9bd1f1c5f404e1,Corix Water Products,CORIX WATER PRODUCTS,FM0775805,Saskatoon,SK,,13,0,corixwaterproducts.ca corixwaterproducts.com corix-water-products.ca corix-water-products.com
+CH-VC-20525,v:21c79d2f98a98181,CMK Contracting Ltd,,,Robert's Arm,NL,A0J1R0,13,0,cmkcontracting.ca cmkcontracting.com cmk-contracting.ca cmk-contracting.com
+CH-VC-20526,v:60ad571d56d7e62a,Gerry Crepin Cartage Limited,GERRY CREPIN CARTAGE LIMITED,1161373858,Gloucester,ON,K1G 3N4,13,0,gerrycrepincartage.ca gerrycrepincartage.com gerry-crepin-cartage.ca gerry-crepin-cartage.com camionnagegerrycrepin.ca camionnagegerrycrepin.com
+CH-VC-20527,v:b6c477b902e8f3c8,Kurtis ArmstrongContracting Inc.,,,Carp,ON,K0A 1L0,13,0,kurtisarmstrongcontracting.ca kurtisarmstrongcontracting.com kurtis-armstrongcontracting.ca kurtis-armstrongcontracting.com
+CH-VC-20528,v:74e7a82e7320d18e,FCI Accelerated Solutions,,,Regina,SK,,13,0,fciacceleratedsolutions.ca fciacceleratedsolutions.com fci-accelerated-solutions.ca fci-accelerated-solutions.com
+CH-VC-20529,v:4b9a6571825587e8,Yocan Medical Systems Inc.,,,Toronto,ON,M4G 2Y5,13,0,yocanmedicalsystems.ca yocanmedicalsystems.com yocan-medical-systems.ca yocan-medical-systems.com
+CH-VC-20530,v:5565c7353f351a19,Tidal Tractor,,,Central Onslow,NS,,13,0,tidaltractor.ca tidaltractor.com tidal-tractor.ca tidal-tractor.com
+CH-VC-20531,v:916a8aec161f1fd9,Integrated Engineering Inc.,,,Corman Park,SK,,13,0,integratedengineering.ca integratedengineering.com integrated-engineering.ca integrated-engineering.com
+CH-VC-20532,v:32e81538d9db7dfb,B & B Construction Group Inc,,,Prince Albert,SK,,13,0,bbconstructiongroup.ca bbconstructiongroup.com b-b-construction-group.ca b-b-construction-group.com
+CH-VC-20533,v:f0ab7131bbd2b790,"1080 Architecture, Planning  Interiors",,,Regina,SK,,13,0,
+CH-VC-20534,v:59b93bb474cf0a4f,Shaw Earth Moving Inc.,,,Gainsborough,SK,,13,0,shawearthmoving.ca shawearthmoving.com shaw-earth-moving.ca shaw-earth-moving.com
+CH-VC-20535,v:164beb45d9f4d5ee,GL Mobile Communications,,,Prince Albert,SK,,13,0,glmobilecommunications.ca glmobilecommunications.com gl-mobile-communications.ca gl-mobile-communications.com
+CH-VC-20536,v:e858897e991b2dc1,Regal Flooring Ltd.,,,Regina,SK,,13,0,regalflooring.ca regalflooring.com regal-flooring.ca regal-flooring.com
+CH-VC-20537,v:2dcd447c1baaccd1,Husky Energy,,,Saskatoon,SK,,13,0,huskyenergy.ca huskyenergy.com husky-energy.ca husky-energy.com
+CH-VC-20538,v:93e115b97e7b63e3,Carmont Construction Ltd.,,,Saskatoon,SK,,13,0,carmontconstruction.ca carmontconstruction.com carmont-construction.ca carmont-construction.com
+CH-VC-20539,v:60bda861f24624e3,Souris Valley Industries Ltd.,,,Weyburn,SK,,13,0,sourisvalleyindustries.ca sourisvalleyindustries.com souris-valley-industries.ca souris-valley-industries.com
+CH-VC-20540,v:21ff6d145fc635d3,Brett Young Seeds Ltd.,,,Calmar,AB,,13,0,brettyoungseeds.ca brettyoungseeds.com brett-young-seeds.ca brett-young-seeds.com
+CH-VC-20541,v:d7bdd5c04fd93f87,ThyssenKrupp,,,Saskatoon,SK,,13,0,thyssenkrupp.ca thyssenkrupp.com
+CH-VC-20542,v:ba91f464f0af4196,All Sask Coffee Services Inc,,,Regina,SK,,13,0,allsaskcoffeeservices.ca allsaskcoffeeservices.com all-sask-coffee-services.ca all-sask-coffee-services.com
+CH-VC-20543,v:be41a0478db6f9c0,Pratts Food Service,,,Regina,SK,,13,0,prattsfoodservice.ca prattsfoodservice.com pratts-food-service.ca pratts-food-service.com
+CH-VC-20544,v:12cff706e1a8b6f5,Dominion Pipe & Piling Edmonton,,,Edmonton,AB,,13,0,dominionpipepilingedmonton.ca dominionpipepilingedmonton.com dominion-pipe-piling-edmonton.ca dominion-pipe-piling-edmonton.com
+CH-VC-20545,v:5c81f1225a9e9158,J & H Builders Warehouse,,,Saskatoon,SK,,13,0,jhbuilderswarehouse.ca jhbuilderswarehouse.com j-h-builders-warehouse.ca j-h-builders-warehouse.com
+CH-VC-20546,v:02365aae557c539b,bioLytical Laboratories Inc,BIOLYTICAL LABORATORIES INC.,3960773,Richmond,BC,V6V 2X7,13,0,biolyticallaboratories.ca biolyticallaboratories.com biolytical-laboratories.ca biolytical-laboratories.com
+CH-VC-20547,v:4212e78254dd45b7,Denson Commercial Food Equipment,,,Yorkton,SK,,13,0,densoncommercialfoodequipment.ca densoncommercialfoodequipment.com
+CH-VC-20548,v:2e548fb434ac4686,IPSOS-Reid LP,,,Calgary,AB,,13,0,ipsosreid.ca ipsosreid.com ipsos-reid.ca ipsos-reid.com
+CH-VC-20549,v:0194fa0ce3102dae,Dionex Canada,DIONEX CANADA LTD./LTÉE,1160057684,Ottawa,ON,K1B 5L4,13,0,dionexcanada.ca dionexcanada.com dionex.ca dionex.com dionex-canada.ca dionex-canada.com
+CH-VC-20550,v:3a642d3fb64bc41e,GE Systèmes Médicaux,GE SANTÉ TECHNOLOGIES CANADA,3362005533,MISSISSAUGA,ON,L5N 5P9,13,0,gesystemesmedicaux.ca gesystemesmedicaux.com ge-systemes-medicaux.ca ge-systemes-medicaux.com gesystemesmedicauxcanada.ca gesystemesmedicauxcanada.com
+CH-VC-20551,v:42aaac77ba1b8e96,THE SHAW GROUP LTD,THE SHAW GROUP LIMITED,1144881043,Lants,NS,,13,0,shawgroup.ca shawgroup.com shaw-group.ca shaw-group.com groupeshaw.ca groupeshaw.com
+CH-VC-20552,v:c536b6354eb27ee7,Ultramed Inc,,,Milton,ON,L9T 4W9,13,0,ultramed.ca ultramed.com
+CH-VC-20553,v:eaeae3d729e94d1a,Anexxa Médical Technologie Inc.,,,Burlington,ON,L7L 0a3,13,0,anexxamedicaltechnologie.ca anexxamedicaltechnologie.com anexxa-medical-technologie.ca anexxa-medical-technologie.com
+CH-VC-20554,v:f4a9ed99433fab76,Astrazeneca Canada Inc.,ASTRAZENECA CANADA INC.,1149934839,Mississauga,ON,L4Y 1M4,13,0,astrazenecacanada.ca astrazenecacanada.com astrazeneca.ca astrazeneca.com astrazeneca-canada.ca astrazeneca-canada.com
+CH-VC-20555,v:fed4545e18f2c2a8,ConMed Linvatec Canada ULC,LINVATEC CANADA ULC,1148267827,Mississauga,ON,L5N 1W2,13,0,conmedlinvateccanada.ca conmedlinvateccanada.com conmedlinvatec.ca conmedlinvatec.com conmed-linvatec-canada.ca conmed-linvatec-canada.com
+CH-VC-20556,v:83680cb6cc6fa409,Nouvelles Meltwater Canada Inc.,Nouvelles Meltwater Canada Inc.,1166004367,Toronto,ON,M5H 1J9,13,0,nouvellesmeltwatercanada.ca nouvellesmeltwatercanada.com nouvellesmeltwater.ca nouvellesmeltwater.com nouvelles-meltwater-canada.ca nouvelles-meltwater-canada.com
+CH-VC-20557,v:c602be3627e6c2b3,Varian Canada Inc.,VARIAN CANADA INC.,1144650083,missisauga,ON,L5N 5M4,13,0,variancanada.ca variancanada.com varian.ca varian.com varian-canada.ca varian-canada.com
+CH-VC-20558,v:7c9bcad4f37a5119,Applied Biosystèmes [Canada] limitée,"ANALYTICAL INSTRUMENTS ""DIVISION""",1145021458,Streetsville,ON,L5M 2B7,13,0,appliedbiosystemescanada.ca appliedbiosystemescanada.com appliedbiosystemes.ca appliedbiosystemes.com applied-biosystemes-canada.ca applied-biosystemes-canada.com
+CH-VC-20559,v:044a2f5446224495,AMS Canada inc.,,,Guelph,ON,N1K 1H3,13,0,amscanada.ca amscanada.com ams-canada.ca ams-canada.com
+CH-VC-20560,v:6e30af05af8876ff,Destiny Solutions Inc,,,Toronto,ON,M4S3C3,13,0,destinysolutions.ca destinysolutions.com destiny-solutions.ca destiny-solutions.com
+CH-VC-20561,v:5943bab148fafb30,MULTI-HEALTH SYSTEM INC,,,TORONTO,ON,M2H3M,13,0,multihealthsystem.ca multihealthsystem.com multi-health-system.ca multi-health-system.com
+CH-VC-20562,v:e0f3a47b5db33058,KCE CONSTRUCTION LTD,,,,,,13,0,
+CH-VC-20563,v:770ae347397f428c,ENVIROCENTRE,,,,,,13,0,
+CH-VC-20564,v:e5b4568cd7175d94,Donway Ford Sales Ltd,,,,,,13,0,
+CH-VC-20565,v:aa825e42043762df,Cole Engineering Group Ltd.,,,,,,13,0,
+CH-VC-20566,v:1346379f511d644d,Bond and Coolen Contracting,,,,,,13,0,
+CH-VC-20567,v:75901750e377f7b2,Starfish Demolition & Services Ltd.,,,,,,13,0,
+CH-VC-20568,v:d20178d6725153dc,William A. Gerhardt Property Improvement,,,,,,13,0,
+CH-VC-20569,v:b2523ef5e6662996,CF Construction Ltd.,,,,,,13,0,
+CH-VC-20570,v:55228989d1ce6ca3,Seaboard Industrial Supply,,,,,,13,0,
+CH-VC-20571,v:d33fc01bb7d2411e,Nature's Reflections Landscaping Ltd.,,,,,,13,0,
+CH-VC-20572,v:20eea2165c9130f3,Will-Kare Paving,,,,,,13,0,
+CH-VC-20573,v:32372d25dc96b632,J & K Yardmasters,,,,,,13,0,
+CH-VC-20574,v:2f339d541427d6a9,All Hours Plumbing/Heating,,,,,,13,0,
+CH-VC-20575,v:e9179473b6ee2403,NCL,,,,,,13,0,
+CH-VC-20576,v:971b763ebc74b721,A&A Roofing (2016) Ltd.,,,,,,13,0,
+CH-VC-20577,v:22c5568af3505b61,Floors Plus Commercial,,,,,,13,0,
+CH-VC-20578,v:adbe35870cfa48cc,Matthew Amero,,,,,,13,0,
+CH-VC-20579,v:969978035ec25011,D.W. MATHESON & SONS CONTRACTING LTD.,,,,,,13,0,
+CH-VC-20580,v:d321925b44adbd52,D.A. MacGregor Electric,,,,,,13,0,
+CH-VC-20581,v:da42260ea4c13b89,Michael Gillespie Horticulture,,,,,,13,0,
+CH-VC-20582,v:eb35994cc948d51c,ALM Energy Services Inc.,,,,,,13,0,
+CH-VC-20583,v:a0e5c048e753b169,TI Terra Industrial Construction,,,,,,13,0,
+CH-VC-20584,v:6fb83ff77c6c20ad,Standing Offer,,,,,,13,0,
+CH-VC-20585,v:c8ba0ad4e6cd5abc,Harlow Construction Ltd.,,,,,,13,0,
+CH-VC-20586,v:13bc8b4c83672e9c,KVS Electrical,,,,,,13,0,
+CH-VC-20587,v:de684b36a8324b0f,Atlantic Tractors & Equipment Ltd.,,,,,,13,0,
+CH-VC-20588,v:b7fd9144fe969b7b,Bradshaw Roofing Contractors Inc.,,,,,,13,0,
+CH-VC-20589,v:2d14f0c55fe9c29b,Don Fisher Construction Ltd.,,,,,,13,0,
+CH-VC-20590,v:c6958cab95ea9397,CONNORS OFFICE PRODUCTS LTD,,,,,,13,0,
+CH-VC-20591,v:51f950f7efff73f3,Mobility Equipment Services Inc.,,,Leduc,Alberta,T0E 7A4,12,0,mobilityequipmentservices.ca mobilityequipmentservices.com mobility-equipment-services.ca mobility-equipment-services.com
+CH-VC-20592,v:12b03f965fac36b8,Pioneer Precast Products A Div of IOTA Construction Ltd,,,Chilliwack,BC,,12,0,
+CH-VC-20593,v:601b406519bae4ee,Integrity-Paahi Solutions Inc.,,,Vancouver,BC,,12,0,integritypaahisolutions.ca integritypaahisolutions.com integrity-paahi-solutions.ca integrity-paahi-solutions.com
+CH-VC-20594,v:8c4b02cc2d5702a7,Kon Kast Products (2005) Ltd,,,Kelowna,BC,,12,0,konkastproducts.ca konkastproducts.com kon-kast-products.ca kon-kast-products.com
+CH-VC-20595,v:b1e5f0e96b676f19,Borrow Enterprises Ltd.,BORROW ENTERPRISES LTD.,BC0376591,Clearwater,BC,,12,0,borrowenterprises.ca borrowenterprises.com borrow-enterprises.ca borrow-enterprises.com
+CH-VC-20596,v:835068c0cc015acd,Evergreen Forest Services Ltd.,EVERGREEN FOREST SERVICES LTD.,BC0533770,Campbell River,BC,,12,0,evergreenforestservices.ca evergreenforestservices.com evergreen-forest-services.ca evergreen-forest-services.com
+CH-VC-20597,v:df49f4b2dd5c8223,PROFOR MANAGEMENT INC.,PROFOR MANAGEMENT INC.,BC0627093,McBride,BC,,12,0,proformanagement.ca proformanagement.com profor-management.ca profor-management.com
+CH-VC-20598,v:81f935c1f5223b5e,D&R Traffic Control Ltd,,,Telkwa,BC,,12,0,rtrafficcontrol.ca rtrafficcontrol.com r-traffic-control.ca r-traffic-control.com
+CH-VC-20599,v:0e19b2eafd0b1e34,DWB Consulting Services Ltd.,DWB CONSULTING SERVICES LTD.,BC1468648,Prince George,BC,,12,0,dwbconsultingservices.ca dwbconsultingservices.com dwb-consulting-services.ca dwb-consulting-services.com
+CH-VC-20600,v:861cf3ef6387ae2e,"GEVITY CONSULTING, INC",GEVITY CONSEIL INC.,1170536008,Victoria,BC,,12,0,gevityconsulting.ca gevityconsulting.com gevity-consulting.ca gevity-consulting.com gevityconseil.ca gevityconseil.com
+CH-VC-20601,v:36d530b1605ee19f,Denis Francoeur Backhoeing Ltd.,DENIS FRANCOEUR BACKHOEING LTD.,BC0368755,Port Alberni,BC,,12,0,denisfrancoeurbackhoeing.ca denisfrancoeurbackhoeing.com denis-francoeur-backhoeing.ca denis-francoeur-backhoeing.com
+CH-VC-20602,v:a9d25d2f690f2607,Lura Consulting,,,Toronto,ON,,12,0,luraconsulting.ca luraconsulting.com lura-consulting.ca lura-consulting.com
+CH-VC-20603,v:a44dec28e0e1d827,Rapid-Span Structures Limited Partnership,RAPID-SPAN STRUCTURES LIMITED PARTNERSHIP,LP0858694,,BC,,12,0,rapidspanstructurespartnership.ca rapidspanstructurespartnership.com
+CH-VC-20604,v:6c6871002ee61481,IPaC,,,,BC,,12,0,ipac.ca ipac.com
+CH-VC-20605,v:24d7d9e6b9dd65d7,Professionalized Quality Construction,Professionalized Quality Construction inc.,15291437,Welland,ON,,12,0,
+CH-VC-20606,v:76e487caa0946b72,Business Furniture Solutions (Canada) Inc. dba The Collective,,,Mississauga,ON,,12,0,collective.ca collective.com
+CH-VC-20607,v:0e471f30a8e73a29,Little Liebreich Farms Ltd,,,Yorkton ,SK,,12,0,littleliebreichfarms.ca littleliebreichfarms.com little-liebreich-farms.ca little-liebreich-farms.com
+CH-VC-20608,v:d9777abf7e9fb516,ABM Integrated Solutions,,,Dartmouth,NS,,12,0,abmintegratedsolutions.ca abmintegratedsolutions.com abm-integrated-solutions.ca abm-integrated-solutions.com
+CH-VC-20609,v:23a0b1e0d7fa283e,VanDriel Excavating Inc.,,,Clinton,ON,N0M 1L0,12,0,vandrielexcavating.ca vandrielexcavating.com vandriel-excavating.ca vandriel-excavating.com
+CH-VC-20610,v:8a5455f750091260,NEIL BROS. EQUIPMENT RENTALS LTD.,,,Almonte,ON,K0A 1A0,12,0,neilbrosequipmentrentals.ca neilbrosequipmentrentals.com neil-bros-equipment-rentals.ca neil-bros-equipment-rentals.com
+CH-VC-20611,v:c02d88e41f84bef1,Dominion Voting Systems Corp.,SOCIÉTÉ SYSTÈMES ÉLECTIFS DOMINION,1164197353,Toronto,ON,M8X 2X3,12,0,dominionvotingsystems.ca dominionvotingsystems.com dominion-voting-systems.ca dominion-voting-systems.com
+CH-VC-20612,v:5dd30f2fdc33e8c7,"M&L SUPPLY, FIRE & SAFETY",,,INGLESIDE,ON,K0C 1M0,12,0,msupplyfiresafety.ca msupplyfiresafety.com m-supply-fire-safety.ca m-supply-fire-safety.com
+CH-VC-20613,v:ff223df01a41a5c8,Vasto Builders Inc.,VASTO BUILDERS INC.,BC1137084,Burnaby,BC,V5A 4N4,12,0,
+CH-VC-20614,v:0da4936abcfce893,Kinetic Solutions,,,Oakville,ON,L6L 5N2,12,0,kineticsolutions.ca kineticsolutions.com kinetic-solutions.ca kinetic-solutions.com
+CH-VC-20615,v:0a775721b7c062e0,Roadmaster Road Construction & Sealing Ltd.,,,Concord,ON,L4K 4N7,12,0,

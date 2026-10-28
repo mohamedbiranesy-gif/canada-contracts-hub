@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+GE-VC-13816,v:bbc42b9ebb744b46,DarTech Inc.,DARTECH CONSULTANTS INC.,1161340717,Montréal,QC,H3B 2S2,4,0,dartech.ca dartech.com dartechconsultants.ca dartechconsultants.com dartech-consultants.ca dartech-consultants.com
+GE-VC-13817,v:53f57d674b790c2d,Gestion de projets Denis Rocheleau inc,GESTION DE PROJETS DENIS ROCHELEAU (C.D.R.) INC.,1161182101,Saint-Jérôme,QC,J7Z 2K5,4,0,gestionprojetsdenisrocheleau.ca gestionprojetsdenisrocheleau.com
+GE-VC-13818,v:1979732f8e8b667e,TECHNI-MÉCANIQUE INC,TECHNI-MÉCANIQUE INC.,1166359837,Mont-Joli,QC,G5H 1G6,4,0,technimecanique.ca technimecanique.com techni-mecanique.ca techni-mecanique.com
+GE-VC-13819,v:1a54eb19c92d8971,Centre Complet de Commodités Informatiques Inc.,CENTRE COMPLET DE COMMODITÉS INFORMATIQUES (C3I) INC.,1145887684,Montréal,QC,H8Y 0A1,4,0,fourniturespourordinateurslbm.ca fourniturespourordinateurslbm.com lbmcomputersupplies.ca lbmcomputersupplies.com lbm-computer-supplies.ca lbm-computer-supplies.com
+GE-VC-13820,v:f3d385ecdc3a627f,Les Entreprises Gaspard Inc.,LES ENTREPRISES PAYSAGISTES GASPARD INC.,1144603876,Laval,QC,H7X 2Y9,4,0,entreprisesgaspard.ca entreprisesgaspard.com entreprises-gaspard.ca entreprises-gaspard.com entreprisespaysagistesgaspard.ca entreprisespaysagistesgaspard.com
+GE-VC-13821,v:b84d63e180a2b63e,Egzakt,EGZAKT INC.,1141297839,Trois-Rivières,QC,G9A 1J4,4,0,egzakt.ca egzakt.com
+GE-VC-13822,v:ca98572dcc56caa1,Boucherie Huot enr.,RESTAURANT HUOT ENR.,1144556751,Lévis,QC,g7a 4g1,4,0,boucheriehuot.ca boucheriehuot.com boucherie-huot.ca boucherie-huot.com restauranthuot.ca restauranthuot.com
+GE-VC-13823,v:f55e1ecfabaf5245,Récupération Maillé inc.,RECUPERATION MAILLE INC.,1143450584,Sherbrooke,QC,J1R 0A2,4,0,recuperationmaille.ca recuperationmaille.com recuperation-maille.ca recuperation-maille.com
+GE-VC-13824,v:87da5bb38095f286,Au Point Reprotech,,,Montréal,QC,H1J 1T4,4,0,aupointreprotech.ca aupointreprotech.com au-point-reprotech.ca au-point-reprotech.com
+GE-VC-13825,v:b1de22077695e178,Maxi-Toit construction inc,MAXI-TOIT CONSTRUCTION INC.,1164439755,Québec,QC,G2N 2E1,4,0,maxitoitconstruction.ca maxitoitconstruction.com maxi-toit-construction.ca maxi-toit-construction.com
+GE-VC-13826,v:53a69f6c0c859910,Bouchard et Laflamme Architectes,,,Québec,QC,g0a 3c0,4,0,bouchardlaflammearchitectes.ca bouchardlaflammearchitectes.com bouchard-laflamme-architectes.ca bouchard-laflamme-architectes.com
+GE-VC-13827,v:8b035b2b03b0f512,DIOBRI,,,Montréal,QC,H2C 1S7,4,0,diobri.ca diobri.com
+GE-VC-13828,v:7cf5d68c62b863b4,RMS GESTION DES RISQUES,,,Montréal,QC,H2M 1M2,4,0,rmsgestionrisques.ca rmsgestionrisques.com rms-gestion-risques.ca rms-gestion-risques.com
+GE-VC-13829,v:03659311296ad17c,Le Mercenaire de la santé,,,Montréal,QC,H2G 3A8,4,0,mercenairesante.ca mercenairesante.com mercenaire-sante.ca mercenaire-sante.com
+GE-VC-13830,v:c1220f75efc17050,Duschenes & Fish Architectes  /  D.F.S. Inc.,,,Montréal,QC,H3A 1L4,4,0,duschenesfisharchitectesfs.ca duschenesfisharchitectesfs.com duschenes-fish-architectes-f-s.ca duschenes-fish-architectes-f-s.com
+GE-VC-13831,v:9e8799f48efdd614,Produits Choisy,,,CHICOUTIMI,QC,g7j 3y2,4,0,produitschoisy.ca produitschoisy.com produits-choisy.ca produits-choisy.com
+GE-VC-13832,v:dc54790170001a18,Chartrand Fortin Labelle Solutions inc.,,,Laval,QC,H7P 4W6,4,0,
+GE-VC-13833,v:86e5acff466611fd,CENTRE DE SERVICES POUR L'ÉCONOMIE ET L'EMPLOI DES COLLINES-DE-L'OUTAOUAIS,Carrefour Emploi des Collines,1160291994,Cantley,QC,J8V 3H6,4,0,carrefouremploicollines.ca carrefouremploicollines.com carrefour-emploi-collines.ca carrefour-emploi-collines.com cjecarrefouremploicollines.ca cjecarrefouremploicollines.com
+GE-VC-13834,v:4b64f1d98b0d65dd,CARREFOUR JEUNESSE-EMPLOI DU HAUT-SAINT-FRANÇOIS,CARREFOUR JEUNESSE-EMPLOI DU HAUT-SAINT-FRANÇOIS,1148111223,East Angus,QC,J0B 1R0,4,0,
+GE-VC-13835,v:9877ef647507cabf,ascenseur Regional,4192338 CANADA INC.,1162332051,Gatineau,QC,J8Y 4B1,4,0,ascenseurregional.ca ascenseurregional.com ascenseur-regional.ca ascenseur-regional.com servicesdascenseurregional.ca servicesdascenseurregional.com
+GE-VC-13836,v:3aba169e5d0ffb1e,"Les Pavages Laurentiens, Division de Sintra inc.",,,Rivière-du-Loup,QC,G5R 4C3,4,0,
+GE-VC-13837,v:476bcc85d0ae922d,Construction LM Lapointe,CONSTRUCTION LM LAPOINTE,1149174667,Saint-Jérôme,QC,J7Z 5L9,4,0,constructionlmlapointe.ca constructionlmlapointe.com construction-lm-lapointe.ca construction-lm-lapointe.com
+GE-VC-13838,v:71a04873587f35e1,Colleen Bilodeau,,,Québec,QC,G1W 1S1,4,0,colleenbilodeau.ca colleenbilodeau.com colleen-bilodeau.ca colleen-bilodeau.com
+GE-VC-13839,v:bd6ca103dab831b0,Convercité,,,Montreal,QC,H2T 1X9,4,0,convercite.ca convercite.com
+GE-VC-13840,v:bde5280274fbdba7,MECANIQUE 47 INC,MECANIQUE 47 INC.,1143305796,Montréal,QC,H2R 1P5,4,0,mecanique47.ca mecanique47.com mecanique-47.ca mecanique-47.com
+GE-VC-13841,v:bbcd5dfa85375f97,Les entreprises de réfrigération et climatisation C. Bédard 1995 inc.,ENTREPRISE DE RÉFRIGÉRATION & CLIMATISATION CLAUDE BÉDARD (1995) INC.,1140683708,Notre-Dame-des-Prairies,QC,J6E 0L9,4,0,fabro.ca fabro.com servicechauffageharnois.ca servicechauffageharnois.com service-chauffage-harnois.ca service-chauffage-harnois.com
+GE-VC-13842,v:836aa48e8be9d399,Les Entreprises BDM Inc.,LES ENTREPRISES BDM INC.,1162623962,Bécancour,QC,G9H 1X6,4,0,entreprisesbdm.ca entreprisesbdm.com entreprises-bdm.ca entreprises-bdm.com
+GE-VC-13843,v:8d1d355e1dcf7c47,Edwards Communications,,,Montréal,QC,H1J 3A9,4,0,edwardscommunications.ca edwardscommunications.com edwards-communications.ca edwards-communications.com
+GE-VC-13844,v:a4e2ce7219d3d5c9,Cogex  Inc. Entrepreneur Général,,,Montréal,QC,H1S 1M5,4,0,cogexentrepreneurgeneral.ca cogexentrepreneurgeneral.com cogex-entrepreneur-general.ca cogex-entrepreneur-general.com
+GE-VC-13845,v:9a24de3056d894b2,Vitro-Spec inc.,VITRO-SPEC INC.,1145073210,St-Pierre (Ile d'Orléans),QC,G0A 4E0,4,0,vitrospec.ca vitrospec.com vitro-spec.ca vitro-spec.com
+GE-VC-13846,v:ab06a82dc9a0b7fe,Société de Criminologie du Québec (SCQ),SOCIÉTÉ DE CRIMINOLOGIE DU QUÉBEC,1144480937,Montréal,QC,H2H 1E4,4,0,societecriminologiequebec.ca societecriminologiequebec.com societe-criminologie-quebec.ca societe-criminologie-quebec.com
+GE-VC-13847,v:12e8482c6eb70d2a,Service d'entretien Jomphe enr.,,,Sept-Îles,QC,G4S 1E3,4,0,servicedentretienjomphe.ca servicedentretienjomphe.com service-dentretien-jomphe.ca service-dentretien-jomphe.com
+GE-VC-13848,v:6ba0b0d85e3b3741,Les Constructions Auvent,LES CONSTRUCTIONS AUVENT INC.,1144602332,Saint-Léonard-d'Aston,QC,j0c 1m0,4,0,constructionsauvent.ca constructionsauvent.com constructions-auvent.ca constructions-auvent.com
+GE-VC-13849,v:fbcbe650da7f7429,Quadcom inc.,,,Montréal,QC,H1J 1N5,4,0,quadcom.ca quadcom.com
+GE-VC-13850,v:94a8922a2fcfe06e,Arsène Charlebois Construction Limitée.,ARSENE CHARLEBOIS CONSTRUCTION LIMITEE,1143608280,Gatineau,QC,J8T 2R9,4,0,arsenecharleboisconstruction.ca arsenecharleboisconstruction.com arsene-charlebois-construction.ca arsene-charlebois-construction.com
+GE-VC-13851,v:1cafaa83e2766e10,AB Aménagement inc.,AB AMÉNAGEMENTS INC.,1165791519,Québec,QC,G1N 4S9,4,0,abamenagement.ca abamenagement.com ab-amenagement.ca ab-amenagement.com abamenagements.ca abamenagements.com
+GE-VC-13852,v:3f175f45b3023e40,Pharmalogic PET Services of Montreal,SOCIÉTÉ PHARMALOGIC P.E.T. DE MONTRÉAL,1161748729,Montréal,QC,H8T 3J1,4,0,pharmalogicpetservicesmontreal.ca pharmalogicpetservicesmontreal.com societepharmalogicpetmontreal.ca societepharmalogicpetmontreal.com
+GE-VC-13853,v:9f7cc8006f44dc70,Intercel,Intercel Radio Mobile,1143107929,Terrebonne,QC,J6W 4L2,4,0,intercel.ca intercel.com intercelradiomobile.ca intercelradiomobile.com intercel-radio-mobile.ca intercel-radio-mobile.com
+GE-VC-13854,v:3349a351c07c7a7e,Le Regroupement des Jeunes Chambres de Commerce du Québec (RJCCQ),Regroupement des jeunes chambres de commerce du Québec,1142811430,Montréal,QC,H2Z 1B1,4,0,administrateursreleve.ca administrateursreleve.com administrateurs-releve.ca administrateurs-releve.com concoursmashupentrepreneurial.ca concoursmashupentrepreneurial.com
+GE-VC-13855,v:d4bb4c5226712378,Demro Électronique inc,DEMRO ELECTRONIQUE INC.,1314271,Montréal,QC,H4R 2J5,4,0,demroelectronique.ca demroelectronique.com demro-electronique.ca demro-electronique.com
+GE-VC-13856,v:b0bf8f2d4ec250c7,Marie-Jeanne Gagné,,,Saint-Lambert-de-Lauzon,QC,G0S 2W0,4,0,mariejeannegagne.ca mariejeannegagne.com marie-jeanne-gagne.ca marie-jeanne-gagne.com
+GE-VC-13857,v:325b659a9973a5cd,Les Entreprises V.G. Inc.,,,Laval,QC,H7L 5B9,4,0,entreprisesvg.ca entreprisesvg.com entreprises-v-g.ca entreprises-v-g.com
+GE-VC-13858,v:ae1e010d5592f32e,Entreprises Normand Juneau inc.,ENTREPRISES NORMAND JUNEAU INC.,1142875716,LÉVIS,QC,G7A 1A6,4,0,entreprisesnormandjuneau.ca entreprisesnormandjuneau.com entreprises-normand-juneau.ca entreprises-normand-juneau.com
+GE-VC-13859,v:7ac1b4e7df3e4cb0,Saint-Denis Thompson Inc..,,,Montréal,QC,H4G 2L6,4,0,saintdenisthompson.ca saintdenisthompson.com saint-denis-thompson.ca saint-denis-thompson.com
+GE-VC-13860,v:3dc6fbaa54c07be3,9007-4402 Québec inc. - Le Groupe Exclusif,LE GROUPE EXCLUSIF,1140806994,Montréal,QC,H1P 1A1,4,0,groupeexclusif.ca groupeexclusif.com groupe-exclusif.ca groupe-exclusif.com paysagisteexclusif.ca paysagisteexclusif.com
+GE-VC-13861,v:added5c25f181189,les entreprises BGT inc,,,Saint-Eustache,QC,j7r 4k3,4,0,entreprisesbgt.ca entreprisesbgt.com entreprises-bgt.ca entreprises-bgt.com
+GE-VC-13862,v:f25da911e9d05861,Richard Lebrasseur,,,Ancienne-Lorette,QC,G2E 6A5,4,0,richardlebrasseur.ca richardlebrasseur.com richard-lebrasseur.ca richard-lebrasseur.com
+GE-VC-13863,v:ffa4e4207d7ba211,Henri Dagenais et Fils inc.,HENRI DAGENAIS ET FILS INC.,1165471625,Beauharnois,QC,J6N 2K5,4,0,henridagenaisfils.ca henridagenaisfils.com henri-dagenais-fils.ca henri-dagenais-fils.com
+GE-VC-13864,v:876aed429dd0d1f2,Sp sécurité,9073-8469 QUÉBEC INC.,1148332035,Alma,QC,G8B 1K9,4,0,spsecurite.ca spsecurite.com sp-securite.ca sp-securite.com s-p-securite.ca s-p-securite.com
+GE-VC-13865,v:3a8745a1cfd4c42f,Novo Technologies INC.,NOVO TECHNOLOGIE INC.,1142180836,Lévis,QC,G6V 6K9,4,0,novotechnologies.ca novotechnologies.com novo-technologies.ca novo-technologies.com courtweb.ca courtweb.com
+GE-VC-13866,v:30b6d7da87302a98,Robert Gauvreau et fils Construction Ltée.,ROBERT GAUVREAU & FILS CONSTRUCTION LTD,1143099902,Cantley,QC,j8v 2t8,4,0,robertgauvreaufilsconstruction.ca robertgauvreaufilsconstruction.com
+GE-VC-13867,v:47774564942ad30d,MANIOLI INVESTMENTS INC.,MANIOLI INVESTMENTS INC.,1143279868,Montréal,QC,H3C 3R7,4,0,manioliinvestments.ca manioliinvestments.com manioli-investments.ca manioli-investments.com
+GE-VC-13868,v:440aa62ba2fde48e,PPQ INC.   (PIVOT POINT),,,MONTRÉAL,QC,H2H 2S6,4,0,ppqpivotpoint.ca ppqpivotpoint.com ppq-pivot-point.ca ppq-pivot-point.com
+GE-VC-13869,v:2604e0c8b6c06d11,Les Excavations N. Laurin Inc.,LES EXCAVATIONS N. LAURIN INC.,1142469023,Vaudreuil-Dorion,QC,J7V 8P2,4,0,excavationsnlaurin.ca excavationsnlaurin.com excavations-n-laurin.ca excavations-n-laurin.com excavationnlaurin.ca excavationnlaurin.com
+GE-VC-13870,v:e3ae0d029b47ef77,"Groupe Qualitas inc., division Montéregie",,,Montréal,QC,H4R 2E9,4,0,
+GE-VC-13871,v:4b18d5d1e96b954d,Centre résidentiel comm. Abitibi-Témisc. Nord Québec [CRC d'ATNQ],,,Amos,QC,J9T 3A5,4,0,
+GE-VC-13872,v:483df3adae79825c,Cathedia inc.,CATHEDIA INC.,1163778328,Laval,QC,H7L 5J1,4,0,cathedia.ca cathedia.com
+GE-VC-13873,v:9da69e7526a37cb9,Experts Industriels,,,Terrebonne,QC,J6X 4A3,4,0,expertsindustriels.ca expertsindustriels.com experts-industriels.ca experts-industriels.com
+GE-VC-13874,v:d1e9500fa0bb472a,Gerard Maheu Inc.,GÉRARD MAHEU INC.,1145647955,St-Louis-de-Gonzague,QC,J0S 1T0,4,0,gerardmaheu.ca gerardmaheu.com gerard-maheu.ca gerard-maheu.com dundeefeed.ca dundeefeed.com
+GE-VC-13875,v:607668ef85d69437,ASSOCIATION QUEBECOISE D'ÉTABLISSEMENT DE SANTÉ ET DE SERVICE SOCIAUX,,,MONTRÉAL,QC,H3A 3C2,4,0,
+GE-VC-13876,v:49355a8f94caeab6,Plomberie Mecanitech Ltée,PLOMBERIE MÉCANITECH LTÉE,1142393314,Laval,QC,H7S 2E8,4,0,plomberiemecanitech.ca plomberiemecanitech.com plomberie-mecanitech.ca plomberie-mecanitech.com
+GE-VC-13877,v:ebd9cdd95199d236,Fixair Inc.,FIXAIR INC.,1167571760,Laval,QC,H7L 5A4,4,0,fixair.ca fixair.com
+GE-VC-13878,v:923bbfe0907d9d82,McQuay Service,Daikin Applied Canada Inc,1141243247,Longueuil,QC,J4G 2M1,4,0,mcquayservice.ca mcquayservice.com mcquay-service.ca mcquay-service.com daikinappliedcanada.ca daikinappliedcanada.com
+GE-VC-13879,v:6f858c5b8e31da06,"D'Argy, Colette",,,Laval,QC,H7N 1A9,4,0,dargycolette.ca dargycolette.com dargy-colette.ca dargy-colette.com
+GE-VC-13880,v:60b4cd61e8b5927b,Accs Control-Tech Inc..,ACCS,1142383943,Terrebonne,QC,J6X 4J8,4,0,accscontroltech.ca accscontroltech.com accs-control-tech.ca accs-control-tech.com accs.ca accs.com
+GE-VC-13881,v:d8c9ed4dd3442958,"Lewis, Diane",,,Granby,QC,J2J 2K9,4,0,lewisdiane.ca lewisdiane.com lewis-diane.ca lewis-diane.com
+GE-VC-13882,v:f2a0d8a1a25b4624,GAO FANG LAO,,,Brossard,QC,J4X 2M2,4,0,gaofanglao.ca gaofanglao.com gao-fang-lao.ca gao-fang-lao.com
+GE-VC-13883,v:83eda4967bce404c,"Sicotte, Louise",,,Sainte-Adèle,QC,J8B 3L3,4,0,sicottelouise.ca sicottelouise.com sicotte-louise.ca sicotte-louise.com
+GE-VC-13884,v:a532fc60fcefc15d,Edologic,EDOLOGIQUE INC.,1166292764,Boisbriand,QC,J7H1N8,4,0,edologic.ca edologic.com edologique.ca edologique.com
+GE-VC-13885,v:113129ceaac3c7c1,Hôtel Gouverneur Place Dupuis,HOTEL PLACE DUPUIS CORP.,1174588963,Montréal,QC,H2L 3Y9,4,0,hotelgouverneurplacedupuis.ca hotelgouverneurplacedupuis.com hotel-gouverneur-place-dupuis.ca hotel-gouverneur-place-dupuis.com hotelplacedupuis.ca hotelplacedupuis.com
+GE-VC-13886,v:e66546c7fb61d09b,SERVICE D'ÉVALUATION DIAGNOSTIQUE LANAUDIÈRE,SERVICE D'ÉVALUATION DIAGNOSTIQUE LANAUDIÈRE,1166264573,Le Gardeur,QC,J5Z 1S6,4,0,
+GE-VC-13887,v:381b66bbac803946,Felisol,"Després, Laporte",1166350455,Brossard,QC,J4Y 3K4,4,0,felisol.ca felisol.com despreslaporte.ca despreslaporte.com despres-laporte.ca despres-laporte.com
+GE-VC-13888,v:e7774a01d0b5f63e,Marché St-Hippolyte Inc.,MARCHE ST-HIPPOLYTE INC.,1142619882,Saint-Hippolyte,QC,J8A 3B9,4,0,marchesthippolyte.ca marchesthippolyte.com marche-st-hippolyte.ca marche-st-hippolyte.com
+GE-VC-13889,v:cf33ddee7ec19136,"Pavages Beau Bassin, dividion de Construction DJL inc.",,,New Richmond (Québec),QC,G0C 2B0,4,0,
+GE-VC-13890,v:f0baf8e3a9f53d6a,Conseil en gestion financière et actuarielle inc.,,,Saint-Augustin-de-Desmaures,QC,G3A 1G3,4,0,
+GE-VC-13891,v:f4f4080418042ba8,Save Systeme inc,SAVE SYSTÈME INC.,1147123468,Laval,QC,h7y 1c4,4,0,savesysteme.ca savesysteme.com save-systeme.ca save-systeme.com
+GE-VC-13892,v:e70357c455332988,Constructions Valdi-Tech Inc.,LES CONSTRUCTIONS VALDI-TECH INC.,1168934819,Montréal,QC,H1P 2A4,4,0,constructionsvalditech.ca constructionsvalditech.com constructions-valdi-tech.ca constructions-valdi-tech.com
+GE-VC-13893,v:2b74074f8f1b7331,Un Architecture / Les consultants Léger inc.,,,Montréal,QC,H2T 1X3,4,0,unarchitectureconsultantsleger.ca unarchitectureconsultantsleger.com
+GE-VC-13894,v:66c4ec6343be1e3f,OMEGA MEDICAL,,,Saint-Jérôme,QC,J5L 0A1,4,0,omegamedical.ca omegamedical.com omega-medical.ca omega-medical.com
+GE-VC-13895,v:555a30a5210720d3,Plomberie Eric Levesque inc.,,,Joliette,QC,J6E 3Z1,4,0,plomberieericlevesque.ca plomberieericlevesque.com plomberie-eric-levesque.ca plomberie-eric-levesque.com
+GE-VC-13896,v:61b171b56a3f3f5c,Simplex Grinnel,,,Québec,QC,G1M 2W8,4,0,simplexgrinnel.ca simplexgrinnel.com simplex-grinnel.ca simplex-grinnel.com
+GE-VC-13897,v:1d33f02f90844df7,École de musique Arquemuse,ECOLE DE MUSIQUE ARQUEMUSE,1143220417,Québec,QC,G1R 2T9,4,0,ecolemusiquearquemuse.ca ecolemusiquearquemuse.com ecole-musique-arquemuse.ca ecole-musique-arquemuse.com chambremusiquequebec.ca chambremusiquequebec.com
+GE-VC-13898,v:2051aaef27ea8345,Siemens protection incendie,,,Montréal,QC,H1Z 4G2,4,0,siemensprotectionincendie.ca siemensprotectionincendie.com siemens-protection-incendie.ca siemens-protection-incendie.com
+GE-VC-13899,v:4b11cf07c94e9acf,RJL Construction Inc.,Hogue Développements Inc.,1165764953,Blainville,QC,J7C 3V3,4,0,rjlconstruction.ca rjlconstruction.com rjl-construction.ca rjl-construction.com hoguedeveloppements.ca hoguedeveloppements.com
+GE-VC-13900,v:dda378e6e47a19d3,GENIVAR Société en commandite (Québec).,,,Québec,QC,G2J 1C8,4,0,genivarsocieteencommandite.ca genivarsocieteencommandite.com genivar-societe-en-commandite.ca genivar-societe-en-commandite.com
+GE-VC-13901,v:225c4463e62090b8,Roy et Tremblay Inc.,ROY ET TREMBLAY INC.,1162707591,Longueuil,QC,J4J 1X9,4,0,roytremblay.ca roytremblay.com roy-tremblay.ca roy-tremblay.com
+GE-VC-13902,v:7ffa7004e0176808,Genivar Société en commandite (Montréal),CONTRÔLE DES EAUX GESTEAU,3363649859,Montréal,QC,H3H 1P9,4,0,genivarsocieteencommandite.ca genivarsocieteencommandite.com genivar-societe-en-commandite.ca genivar-societe-en-commandite.com controleeauxgesteau.ca controleeauxgesteau.com
+GE-VC-13903,v:70fd2408c515996c,Spécialités J.P. Arpin Ltée.,LES SPECIALITES J.P. ARPIN LTEE,1144727196,Montréal,QC,H1A 3V2,4,0,specialitesjparpin.ca specialitesjparpin.com specialites-j-p-arpin.ca specialites-j-p-arpin.com
+GE-VC-13904,v:5172e152391d5fa4,R. M. Solutions | 9155-8973 Québec Inc.,9155-8973 QUÉBEC INC.,1162985155,Mascouche,QC,J7K3N6,4,0,rmsolutions91558973quebec.ca rmsolutions91558973quebec.com r-m-solutions-9155-8973-quebec.ca r-m-solutions-9155-8973-quebec.com rmsolutions.ca rmsolutions.com
+GE-VC-13905,v:4499db0e062f7d47,Perjal Construction,Entreprises Projal inc.,1164173834,Berthierville,QC,J0K 1A0,4,0,perjalconstruction.ca perjalconstruction.com perjal-construction.ca perjal-construction.com entreprisesprojal.ca entreprisesprojal.com
+GE-VC-13906,v:55c8c3f41b53ff4c,Couvre-Planchers Bédard,LES COUVRE-PLANCHERS BÉDARD,1143702422,Saint-Jérôme,QC,j7y 4a5,4,0,couvreplanchersbedard.ca couvreplanchersbedard.com couvre-planchers-bedard.ca couvre-planchers-bedard.com centreliquidationrenebedard.ca centreliquidationrenebedard.com
+GE-VC-13907,v:1dd424c9f005ee32,CONTRUCTION EXEL,,,GASPÉ,QC,G4X 1J7,4,0,contructionexel.ca contructionexel.com contruction-exel.ca contruction-exel.com
+GE-VC-13908,v:5bea058528f978c6,SNC-Lavalin Construction inc.,SNC-LAVALIN CONSTRUCTION INC.,1141094483,Montréal,QC,,4,0,snclavalinconstruction.ca snclavalinconstruction.com snc-lavalin-construction.ca snc-lavalin-construction.com
+GE-VC-13909,v:6df748fbaa6ea763,Anritsu Electronics Lte,ANRITSU ELECTRONICS LTD.,1162338157,Pointe-Claire,QC,H9R 4S2,4,0,anritsuelectronicslte.ca anritsuelectronicslte.com anritsu-electronics-lte.ca anritsu-electronics-lte.com anritsuelectronics.ca anritsuelectronics.com
+GE-VC-13910,v:8fe743bd715d1ca4,"Montpetit, Ann",,,Piedmont,QC,J0R 1K0,4,0,montpetitann.ca montpetitann.com montpetit-ann.ca montpetit-ann.com
+GE-VC-13911,v:573e3e3c6181a206,Les Ateliers Styltec,LES ATELIERS STYLTEC INC.,1148681142,Québec,QC,G1C 5T4,4,0,ateliersstyltec.ca ateliersstyltec.com ateliers-styltec.ca ateliers-styltec.com
+GE-VC-13912,v:ed2dd8553de29474,Group Elite Communications,Group Elite Audio Visual Inc.,1167529107,Québec,QC,G1S 2P9,4,0,groupelitecommunications.ca groupelitecommunications.com group-elite-communications.ca group-elite-communications.com groupeliteaudiovisual.ca groupeliteaudiovisual.com
+GE-VC-13913,v:3c845a18b4222324,Rodrigue metal ltee,RODRIGUE MÉTAL LTÉE,1142300129,Lévis,QC,G6W 5M6,4,0,rodriguemetal.ca rodriguemetal.com rodrigue-metal.ca rodrigue-metal.com rodairdivrodriguemetal.ca rodairdivrodriguemetal.com
+GE-VC-13914,v:7d56720bb829829e,PAUSE CAFÉ JADE INC.,PAUSE CAFÉ JADE INC.,1142253583,Montréal,QC,H1B 2W1,4,0,pausecafejade.ca pausecafejade.com pause-cafe-jade.ca pause-cafe-jade.com
+GE-VC-13915,v:df26b8008fe1206b,"Guibault, Michèle",,,Longueuil,QC,J4G 1Z6,4,0,guibaultmichele.ca guibaultmichele.com guibault-michele.ca guibault-michele.com

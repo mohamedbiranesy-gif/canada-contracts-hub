@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-12416,v:74d365c8bc8ee77e,Carecan Health Services Inc.,,,Kitchener,ON,,1,1,carecanhealthservices.ca carecanhealthservices.com carecan-health-services.ca carecan-health-services.com
+CH-VC-12417,v:f920940b1914bb7b,Hourglass HR Inc.,Hourglass HR Inc.,10193178,Ottawa,ON,,1,1,hourglasshr.ca hourglasshr.com hourglass-hr.ca hourglass-hr.com
+CH-VC-12418,v:20382525f2548b30,Simcare HealthServices Inc.,,,Milton,ON,,1,1,simcarehealthservices.ca simcarehealthservices.com simcare-healthservices.ca simcare-healthservices.com
+CH-VC-12419,v:e9c1eff8c20b68e1,KRonHR (2631066 Ontario Inc.),,,Ottawa,ON,,1,1,kronhr.ca kronhr.com
+CH-VC-12420,v:8852c1476d41e488,North Coast Ventures Ltd.,,,Tuktoyaktuk,NT,,1,1,northcoastventures.ca northcoastventures.com north-coast-ventures.ca north-coast-ventures.com
+CH-VC-12421,v:835aa9d96cde64b5,Territorial Investments Ltd.,,,Ulukhaktuk,NT,,1,1,territorialinvestments.ca territorialinvestments.com territorial-investments.ca territorial-investments.com
+CH-VC-12422,v:7a54533a36c90516,Blueridge Enterprise,,,Tulita,NT,,1,1,blueridgeenterprise.ca blueridgeenterprise.com blueridge-enterprise.ca blueridge-enterprise.com
+CH-VC-12423,v:5ec7bc46ac5274af,Red River Development Corporation,,,Tsiigehtchic,NT,,1,1,redriverdevelopment.ca redriverdevelopment.com red-river-development.ca red-river-development.com
+CH-VC-12424,v:ba84541cb51d25b0,Prompt Courier Services,,,Yellowknife,NT,,1,1,promptcourierservices.ca promptcourierservices.com prompt-courier-services.ca prompt-courier-services.com
+CH-VC-12425,v:c58c82709eab9449,506822 N.W.T. Ltd.,,,Yellowknife,NT,,1,1,
+CH-VC-12426,v:dda04275161ba211,Canol Cleaning Services,,,Norman Wells,NT,,1,1,canolcleaningservices.ca canolcleaningservices.com canol-cleaning-services.ca canol-cleaning-services.com
+CH-VC-12427,v:5d74ae093a16a00e,Taylor & Company,,,Hay River,NT,,1,1,taylor.ca taylor.com
+CH-VC-12428,v:85f6dc9fdc7b1763,"TRANE CANADA- DoNotUse, see 0002011975",,,Edmonton,AB,,1,1,tranedonotusesee0002011975.ca tranedonotusesee0002011975.com
+CH-VC-12429,v:55f673bc290dc57a,Diamonds International Canada Ltd.,,,Yellowknife,NT,,1,1,diamondsinternationalcanada.ca diamondsinternationalcanada.com diamondsinternational.ca diamondsinternational.com diamonds-international-canada.ca diamonds-international-canada.com
+CH-VC-12430,v:b0b07ccb39e6912e,Relentless Indigenous Woman Consulting,,,Calgary,AB,,1,1,
+CH-VC-12431,v:9bb8a88594e4ea79,DRW & Associates Ltd.,,,Yellowknife,NT,,1,1,drwassociates.ca drwassociates.com drw-associates.ca drw-associates.com
+CH-VC-12432,v:e3a34877ac5c522c,North Cair Medical Supplies Inc.,,,Yellowknife,NT,,1,1,northcairmedicalsupplies.ca northcairmedicalsupplies.com north-cair-medical-supplies.ca north-cair-medical-supplies.com
+CH-VC-12433,v:ff2ef47af4b0a08f,Green Tree Recycling & Holdings,,,Fort Providence,NT,,1,1,greentreerecyclingholdings.ca greentreerecyclingholdings.com green-tree-recycling-holdings.ca green-tree-recycling-holdings.com
+CH-VC-12434,v:a8fe4d5f2c2c961b,N.E. Thing Trading Company Inc.,,,Yellowknife,NT,,1,1,nethingtrading.ca nethingtrading.com n-e-thing-trading.ca n-e-thing-trading.com
+CH-VC-12435,v:ae2e0d7a2f61c53a,Northern Archives & Shredding,,,Yellowknife,NT,,1,1,northernarchivesshredding.ca northernarchivesshredding.com northern-archives-shredding.ca northern-archives-shredding.com
+CH-VC-12436,v:52f962bd1ace438e,Rocky's Plumbing & Heating Ltd.,,,Inuvik,NT,,1,1,rockysplumbingheating.ca rockysplumbingheating.com rockys-plumbing-heating.ca rockys-plumbing-heating.com
+CH-VC-12437,v:72940a0c61dd2bc2,Metway Joint Venture,,,Hay River,NT,,1,1,metwayjointventure.ca metwayjointventure.com metway-joint-venture.ca metway-joint-venture.com
+CH-VC-12438,v:93de5c462edb483d,Tarna Technologies,,,Calgary,AB,,1,1,tarnatechnologies.ca tarnatechnologies.com tarna-technologies.ca tarna-technologies.com
+CH-VC-12439,v:05700529e66d6623,Green Clean Team,,,Inuvik,NT,,1,1,greencleanteam.ca greencleanteam.com green-clean-team.ca green-clean-team.com
+CH-VC-12440,v:2d7983ed327d430c,Buffalo Parcel Courier Services Ltd.,,,Edmonton,AB,,1,1,buffaloparcelcourierservices.ca buffaloparcelcourierservices.com
+CH-VC-12441,v:7fc27f6f36393711,Fort Simpson Beverages Ltd.,,,Fort Simpson,NT,,1,1,fortsimpsonbeverages.ca fortsimpsonbeverages.com fort-simpson-beverages.ca fort-simpson-beverages.com
+CH-VC-12442,v:7e2544f3f8ff9196,MR Ndu Rentals & Services,,,Fort Simpson,NT,,1,1,mrndurentalsservices.ca mrndurentalsservices.com mr-ndu-rentals-services.ca mr-ndu-rentals-services.com
+CH-VC-12443,v:0f883028ef853625,Bassett Petroleum Distributors Ltd.,,,Hay River,NT,,1,1,bassettpetroleumdistributors.ca bassettpetroleumdistributors.com bassett-petroleum-distributors.ca bassett-petroleum-distributors.com
+CH-VC-12444,v:7bd0b70df7cb8f27,SKOG Forest Health,,,Fort Saskatchewan,AB,,1,1,skogforesthealth.ca skogforesthealth.com skog-forest-health.ca skog-forest-health.com
+CH-VC-12445,v:cf062d2ee1d826b6,Ken's Construction,,,Fort Smith,NT,,1,1,kensconstruction.ca kensconstruction.com kens-construction.ca kens-construction.com
+CH-VC-12446,v:541cf2ee2bc2c184,Horizon Maritime Northern Services Ltd.,Horizon Maritime Northern Services Ltd.,16552901,St. John's,NL,,1,1,
+CH-VC-12447,v:8c98f9a9e4963b71,KS Northwest Tower Inc.,,,Yellowknife,NT,,1,1,ksnorthwesttower.ca ksnorthwesttower.com ks-northwest-tower.ca ks-northwest-tower.com
+CH-VC-12448,v:beec654288d8cc17,Det'on Cho We Le Dai LP,,,Yellowknife,NT,,1,1,detonchowedai.ca detonchowedai.com deton-cho-we-dai.ca deton-cho-we-dai.com
+CH-VC-12449,v:5e5a9262e812c88b,Conseil de developpement,,,Yellowknife,NT,,1,1,conseildeveloppement.ca conseildeveloppement.com conseil-developpement.ca conseil-developpement.com
+CH-VC-12450,v:a96adfe35a0c6d07,Uniques Software Corp.,UNIQUES SOFTWARE CORP.,BC1518087,North Vancouver,BC,,1,1,uniquessoftware.ca uniquessoftware.com uniques-software.ca uniques-software.com
+CH-VC-12451,v:2540beca0d2c0960,Blackbird Aviation Consulting Inc.,,,Winnipeg,MB,,1,1,blackbirdaviationconsulting.ca blackbirdaviationconsulting.com blackbird-aviation-consulting.ca blackbird-aviation-consulting.com
+CH-VC-12452,v:89acebb447d718b5,Lou's Small Engines,,,Fort Smith,NT,,1,1,loussmallengines.ca loussmallengines.com lous-small-engines.ca lous-small-engines.com
+CH-VC-12453,v:d0d0189f2e12272f,Inuvialuit Development Corporation,Inuvialuit Development Corporation,3850650,Inuvik,NT,,1,1,inuvialuitdevelopment.ca inuvialuitdevelopment.com inuvialuit-development.ca inuvialuit-development.com
+CH-VC-12454,v:0cad89aea9e08c17,15452635 Canada Inc.,15452635 Canada Inc.,15452635,Grande Prairie,AB,,1,1,
+CH-VC-12455,v:1620b96b3995a752,Sundog North Inc.,,,Fort Smith,NT,,1,1,sundognorth.ca sundognorth.com sundog-north.ca sundog-north.com
+CH-VC-12456,v:c87241ab18e8cc5f,TOPdesk Canada Inc.,TOPDESK CANADA INC.,9450122,North York,ON,,1,1,topdeskcanada.ca topdeskcanada.com topdesk.ca topdesk.com topdesk-canada.ca topdesk-canada.com
+CH-VC-12457,v:99755cef86b9cdfd,WebSolo Inc.,,,Manotick,ON,,1,1,websolo.ca websolo.com
+CH-VC-12458,v:aeb4faaa9df9b68d,Leadership Lab Consulting Inc.,,,Yellowknife,NT,,1,1,leadershiplabconsulting.ca leadershiplabconsulting.com leadership-lab-consulting.ca leadership-lab-consulting.com
+CH-VC-12459,v:cbe24a973361ccde,Action Collections and Receivables Management,852515 ONTARIO LIMITED,1165504268,Toronto,ON,,1,1,agencerecouvrementaction.ca agencerecouvrementaction.com agence-recouvrement-action.ca agence-recouvrement-action.com
+CH-VC-12460,v:c2c987674d5b52e2,Foster Family Coalition of the NWT,,,Yellowknife,NT,,1,1,fosterfamilycoalitionnwt.ca fosterfamilycoalitionnwt.com foster-family-coalition-nwt.ca foster-family-coalition-nwt.com
+CH-VC-12461,v:e2785b92875fb1b8,Abraham Snowshoe's Contracting,,,Fort McPherson,NT,,1,1,abrahamsnowshoescontracting.ca abrahamsnowshoescontracting.com abraham-snowshoes-contracting.ca abraham-snowshoes-contracting.com
+CH-VC-12462,v:56c89abf0d8f76f9,Heron Contracting,,,Fort Simpson,NT,,1,1,heroncontracting.ca heroncontracting.com heron-contracting.ca heron-contracting.com
+CH-VC-12463,v:0c0193094a3bb7dc,"Behrens, Fred",,,Wekweeti,NT,,1,1,behrensfred.ca behrensfred.com behrens-fred.ca behrens-fred.com
+CH-VC-12464,v:78d1e646cf7a9c2a,Naha Dehe Development Corporation,,,Nahanni Butte,NT,,1,1,nahadehedevelopment.ca nahadehedevelopment.com naha-dehe-development.ca naha-dehe-development.com
+CH-VC-12465,v:21b497520068bfc3,JB General Contracting Ltd.,,,Aklavik,NT,,1,1,jbgeneralcontracting.ca jbgeneralcontracting.com jb-general-contracting.ca jb-general-contracting.com
+CH-VC-12466,v:3e63d3513043b0b3,S & S Services,,,Tsiigehtchic,NT,,1,1,ssservices.ca ssservices.com s-s-services.ca s-s-services.com
+CH-VC-12467,v:6f2dedbe648ae768,Sky Enterprises,,,Aklavik,NT,,1,1,skyenterprises.ca skyenterprises.com sky-enterprises.ca sky-enterprises.com
+CH-VC-12468,v:41337b6ca1d9745a,Outlaw Contracting Ltd.,,,Inuvik,NT,,1,1,outlawcontracting.ca outlawcontracting.com outlaw-contracting.ca outlaw-contracting.com
+CH-VC-12469,v:da0450c34e415a98,Arctic Storage & Rentals Ltd.,,,Inuvik,NT,,1,1,arcticstoragerentals.ca arcticstoragerentals.com arctic-storage-rentals.ca arctic-storage-rentals.com
+CH-VC-12470,v:421f6869eefad513,Dempster Mechanical and Towing,,,Sturgeon County,AB,,1,1,dempstermechanicaltowing.ca dempstermechanicaltowing.com dempster-mechanical-towing.ca dempster-mechanical-towing.com
+CH-VC-12471,v:d8851678e22021f3,Ikahuk Co-operative Association Ltd.,,,Sachs Harbour,NT,,1,1,ikahukoperativeassociation.ca ikahukoperativeassociation.com ikahuk-operative-association.ca ikahuk-operative-association.com
+CH-VC-12472,v:c52b1646b4dce3f3,Arctic Co-operatives Ltd.,,,Winnipeg,MB,,1,1,arcticoperatives.ca arcticoperatives.com arctic-operatives.ca arctic-operatives.com
+CH-VC-12473,v:1750f472657d8007,Ulukhaktok Inuit Co-operative Limited,,,Ulukhaktok,NT,,1,1,ulukhaktokinuitoperative.ca ulukhaktokinuitoperative.com ulukhaktok-inuit-operative.ca ulukhaktok-inuit-operative.com
+CH-VC-12474,v:e87db6b78163b61c,Paul Parker Law Professional Corporation,,,Yellowknife,NT,,1,1,paulparkerlawprofessional.ca paulparkerlawprofessional.com paul-parker-law-professional.ca paul-parker-law-professional.com
+CH-VC-12475,v:eefd28cb8983ac29,Cassels Murray Family & Estates Law,,,Victoria,BC,,1,1,casselsmurrayfamilyestateslaw.ca casselsmurrayfamilyestateslaw.com
+CH-VC-12476,v:bfbc749443a07a75,Ambrose Mediation,,,Victoria,BC,,1,1,ambrosemediation.ca ambrosemediation.com ambrose-mediation.ca ambrose-mediation.com
+CH-VC-12477,v:8a64c7f9f6bb856e,"Shadbolt, Katherine L.",,,Ottawa,ON,,1,1,shadboltkatherine.ca shadboltkatherine.com shadbolt-katherine.ca shadbolt-katherine.com
+CH-VC-12478,v:8636458b5389d52f,CCASK - Construction Code Authority,,,Saskatoon,SK,,1,1,ccaskconstructioncodeauthority.ca ccaskconstructioncodeauthority.com
+CH-VC-12479,v:0c4c6b12888e68a0,Infinity Group Ltd.,,,Fort Smith,NT,,1,1,infinitygroup.ca infinitygroup.com infinity-group.ca infinity-group.com
+CH-VC-12480,v:62ac481d0ec0e6ea,Birchwood Dental Ltd.,,,Yellowknife,NT,,1,1,birchwooddental.ca birchwooddental.com birchwood-dental.ca birchwood-dental.com
+CH-VC-12481,v:01ca79de6efc7d68,Switch Health Innovations Inc.,,,Mississauga,ON,,1,1,switchhealthinnovations.ca switchhealthinnovations.com switch-health-innovations.ca switch-health-innovations.com
+CH-VC-12482,v:483dd9fdce6bc1ec,Mark E. Seamone Professional Corporation,,,Edmonton,AB,,1,1,markeseamoneprofessional.ca markeseamoneprofessional.com mark-e-seamone-professional.ca mark-e-seamone-professional.com
+CH-VC-12483,v:c37b585cf4e0533a,Magnus Healthcare Recruitment Solutions,,,Etobicoke,ON,,1,1,
+CH-VC-12484,v:ce98398400793671,Mantech Inc.,,,Guelph,ON,,1,1,mantech.ca mantech.com
+CH-VC-12485,v:777c8ba9deec7201,507734 N.W.T. Ltd.,,,Yellowknife,NT,,1,1,
+CH-VC-12486,v:7b99570cc0ba4efd,Top of the World (2000) Ltd.,TOP OF THE WORLD (2000) LTD.,3486397,Yellowknife,NT,,1,1,topworld.ca topworld.com top-world.ca top-world.com
+CH-VC-12487,v:e7a126ee47427a05,Neil A. Hagen Professional Corporation,,,Calgary,AB,,1,1,neilhagenprofessional.ca neilhagenprofessional.com neil-hagen-professional.ca neil-hagen-professional.com
+CH-VC-12488,v:8f8cfc3199869c68,"Wong, Dr. David K.W.",,,Yellowknife,NT,,1,1,wongdrdavidkw.ca wongdrdavidkw.com wong-dr-david-k-w.ca wong-dr-david-k-w.com
+CH-VC-12489,v:1a12b743459a54fa,ARINC International of Canada ULC,ARINC INTERNATIONAL OF CANADA ULC,1161409975,Halifax,NS,,1,1,arincinternationalcanada.ca arincinternationalcanada.com arincinternational.ca arincinternational.com arinc-international-canada.ca arinc-international-canada.com
+CH-VC-12490,v:7fe89053960fa5c7,Sitar & White Architecture and Engineering,,,Winnipeg,MB,,1,1,
+CH-VC-12491,v:23108755fd3ddd81,Ian Murray & Company Ltd.,,,Edmonton,AB,,1,1,ianmurray.ca ianmurray.com ian-murray.ca ian-murray.com
+CH-VC-12492,v:22a10e62844273e6,"Thompson, Trevor",,,Denman Island,BC,,1,1,thompsontrevor.ca thompsontrevor.com thompson-trevor.ca thompson-trevor.com
+CH-VC-12493,v:8492b3050fdfcabd,Power Surge Technologies Ltd.,,,Hay River,NT,,1,1,powersurgetechnologies.ca powersurgetechnologies.com power-surge-technologies.ca power-surge-technologies.com
+CH-VC-12494,v:76b71132279fe21d,Symes Psychological Services Inc.,,,Edmonton,AB,,1,1,symespsychologicalservices.ca symespsychologicalservices.com symes-psychological-services.ca symes-psychological-services.com
+CH-VC-12495,v:063f00a2413a6bc4,Arcan Construction Ltd.,,,Yellowknife,NT,,1,1,arcanconstruction.ca arcanconstruction.com arcan-construction.ca arcan-construction.com
+CH-VC-12496,v:5df34d550762b8f1,AJB Consulting Inc.,,,Yellowknife,NT,,1,1,ajbconsulting.ca ajbconsulting.com ajb-consulting.ca ajb-consulting.com
+CH-VC-12497,v:8b05dea7966a6838,deVillars Jones Barristers & Solicitors,,,Edmonton,AB,,1,1,
+CH-VC-12498,v:5629fbfe225ff5b9,Wind River Solutions Inc.,,,Edmonton,AB,,1,1,windriversolutions.ca windriversolutions.com wind-river-solutions.ca wind-river-solutions.com
+CH-VC-12499,v:a50c2a349218b6af,Triple S Mechanical Ltd.,,,Fort Simpson,NT,,1,1,triplesmechanical.ca triplesmechanical.com triple-s-mechanical.ca triple-s-mechanical.com
+CH-VC-12500,v:03a6307f74cc673d,Hamlet of Paulatuk,,,Paulatuk,NT,,1,1,hamletpaulatuk.ca hamletpaulatuk.com hamlet-paulatuk.ca hamlet-paulatuk.com
+CH-VC-12501,v:4bbec6712840aa90,Berah Gutone Tue Enterprises Ltd.,,,Colville Lake,NT,,1,1,berahgutonetueenterprises.ca berahgutonetueenterprises.com berah-gutone-tue-enterprises.ca berah-gutone-tue-enterprises.com
+CH-VC-12502,v:7ba6f23efc0539ce,Sambaa K'e Development Corporation Ltd.,,,Sambaa K'e,NT,,1,1,sambaakedevelopment.ca sambaakedevelopment.com sambaa-ke-development.ca sambaa-ke-development.com
+CH-VC-12503,v:138cd5ad4050028a,Tlicho Engineering & Environmental,,,Yellowknife,NT,,1,1,tlichoengineeringenvironmental.ca tlichoengineeringenvironmental.com
+CH-VC-12504,v:ba8b7f5d3ddc8547,HRN Contracting Ltd.,,,Norman Wells,NT,,1,1,hrncontracting.ca hrncontracting.com hrn-contracting.ca hrn-contracting.com
+CH-VC-12505,v:2ee7257356648185,Deline Contracting Ltd.,,,Deline,NT,,1,1,delinecontracting.ca delinecontracting.com deline-contracting.ca deline-contracting.com
+CH-VC-12506,v:271ab02f66c975fc,Maskwa Engineering Ltd.,,,Hay River,NT,,1,1,maskwaengineering.ca maskwaengineering.com maskwa-engineering.ca maskwa-engineering.com
+CH-VC-12507,v:a2d040cfd3197e86,Community Government of Behchoko,,,Behchoko,NT,,1,1,communitygovernmentbehchoko.ca communitygovernmentbehchoko.com community-government-behchoko.ca community-government-behchoko.com
+CH-VC-12508,v:b8639f788356b77f,HCI Leasing Inc.,,,Norman Wells,NT,,1,1,hcileasing.ca hcileasing.com hci-leasing.ca hci-leasing.com
+CH-VC-12509,v:d1ff0b9f5c2a0c14,DSS Sustainable Solutions Canada Inc.,,,Mississauga,ON,,1,1,dsssustainablesolutionscanada.ca dsssustainablesolutionscanada.com dsssustainablesolutions.ca dsssustainablesolutions.com
+CH-VC-12510,v:bf3d6f64ddeeeebf,NWT Literacy Council,,,Yellowknife,NT,,1,1,nwtliteracycouncil.ca nwtliteracycouncil.com nwt-literacy-council.ca nwt-literacy-council.com
+CH-VC-12511,v:885067e68c3c01a3,Dean Educational & Psychological Consulting,,,Yellowknife,NT,,1,1,
+CH-VC-12512,v:e85fa56c4001a267,STI Technologies Limited,STI TECHNOLOGIES LIMITED,1174181652,Halifax,NS,,1,1,stitechnologies.ca stitechnologies.com sti-technologies.ca sti-technologies.com technologiessti.ca technologiessti.com
+CH-VC-12513,v:4b97e17af302c40a,Javaroma Gourmet Coffee & Tea,,,Yellowknife,NT,,1,1,javaromagourmetcoffeetea.ca javaromagourmetcoffeetea.com javaroma-gourmet-coffee-tea.ca javaroma-gourmet-coffee-tea.com
+CH-VC-12514,v:285384975aeacc77,Avens Associates Ltd.,,,Yellowknife,NT,,1,1,avensassociates.ca avensassociates.com avens-associates.ca avens-associates.com
+CH-VC-12515,v:3a5c40fc5675f796,Tangle Ridge Custom Crushing Ltd.,TANGLE RIDGE CUSTOM CRUSHING LTD.,BC0882315,Fort Nelson,BC,,1,1,tangleridgecustomcrushing.ca tangleridgecustomcrushing.com tangle-ridge-custom-crushing.ca tangle-ridge-custom-crushing.com

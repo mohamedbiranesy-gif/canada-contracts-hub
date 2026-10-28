@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+GE-VC-10416,v:e7a601470dcb20b3,René Gaudet et fils inc.,RENÉ GAUDET & FILS INC.,1142965673,Saint-Jacques,QC,j0k 2r0,7,0,renegaudetfils.ca renegaudetfils.com rene-gaudet-fils.ca rene-gaudet-fils.com
+GE-VC-10417,v:9d445692d37d160b,Dorais Construction Inc.,DORAIS CONSTRUCTION INC.,1143465764,Saint-Rémi,QC,J0L 2L0,7,0,doraisconstruction.ca doraisconstruction.com dorais-construction.ca dorais-construction.com
+GE-VC-10418,v:38d3d1c406723c2d,Mécanique POG Inc,MÉCANIQUE P-O-G INC.,1142348698,Chicoutimi,QC,G7J 5A9,7,0,mecaniquepog.ca mecaniquepog.com mecanique-pog.ca mecanique-pog.com mecanique-p-o-g.ca mecanique-p-o-g.com
+GE-VC-10419,v:13f3de4acdd5841c,Kerr Norton,KERR NORTON,1143504695,Vaudreuil-Dorion,QC,J7V 5V5,7,0,kerrnorton.ca kerrnorton.com kerr-norton.ca kerr-norton.com
+GE-VC-10420,v:36546bf06c92b8bd,Symetrix,,,Brossard,QC,j4Y 2R3,7,0,symetrix.ca symetrix.com
+GE-VC-10421,v:1a77008023eef8fb,Denis Rousseau,,,Saint-Laurent,QC,H4L 4N7,7,0,denisrousseau.ca denisrousseau.com denis-rousseau.ca denis-rousseau.com
+GE-VC-10422,v:59919a0a1c64a4fe,Patenaude-Trempe,PTVD,1143292754,Varennes,QC,J3X 1P7,7,0,patenaudetrempe.ca patenaudetrempe.com patenaude-trempe.ca patenaude-trempe.com ptvd.ca ptvd.com
+GE-VC-10423,v:b44802788dba0aba,Les Excavations H. St-Pierre inc.,Groupe Gagné Construction inc.,1161483517,,QC,,7,0,excavationshstpierre.ca excavationshstpierre.com excavations-h-st-pierre.ca excavations-h-st-pierre.com groupegagneconstruction.ca groupegagneconstruction.com
+GE-VC-10424,v:0ffd29f0e74afd88,Électricité B.L.T. inc.,B.L.T. Construction,1141811100,Jonquière,QC,G7X 9H2,7,0,electricitebt.ca electricitebt.com electricite-b-t.ca electricite-b-t.com btconstruction.ca btconstruction.com
+GE-VC-10425,v:8ab1f491cc2acb52,Les Installations GMR Inc.,LES INSTALLATIONS GMR INC.,1140872202,Lévis,QC,G6W 5M6,7,0,installationsgmr.ca installationsgmr.com installations-gmr.ca installations-gmr.com
+GE-VC-10426,v:e980ea7cb15763fe,Omnitech,,,Saint-Jean-sur-Richelieu,QC,J3B 8W1,7,0,omnitech.ca omnitech.com
+GE-VC-10427,v:262c82a0cf3729fa,Construction N.G. Roy inc.,,,Lorrainville,QC,J0Z 2R0,7,0,constructionngroy.ca constructionngroy.com construction-n-g-roy.ca construction-n-g-roy.com
+GE-VC-10428,v:20f6bd60b0ae19ee,Clinique de médecine industrielle Robert & Lizotte inc.,CLINIQUE DE MÉDECINE INDUSTRIELLE ROBERT & LIZOTTE INC.,1142000067,Québec,QC,G1H 7A6,7,0,
+GE-VC-10429,v:6f040b0c5700dc5a,Groupe Secor inc.,9266-5843 Québec inc.,1140166142,Montréal,QC,H2Z 1B1,7,0,groupesecor.ca groupesecor.com groupe-secor.ca groupe-secor.com secor.ca secor.com
+GE-VC-10430,v:d6011d98adaba3f0,Signalisation Sag-Lac inc.,SIGNALISATION SAG-LAC INC.,1162157672,Alma,QC,G8C 1C5,7,0,signalisationsaglac.ca signalisationsaglac.com signalisation-sag-lac.ca signalisation-sag-lac.com
+GE-VC-10431,v:6f772680ffc853f7,Les  Entreprises D'imperméabilisation Rae Inc.,LES ENTREPRISES D'IMPERMEABILISATION RAE INC.,1142518969,Québec,QC,G1G 5W5,7,0,
+GE-VC-10432,v:bf31c462ac2c7213,Groupe Paquette - Mécanique du batiment Inc,GROUPE PAQUETTE MÉCANIQUE DU BÂTIMENT INC.,1144131498,Laval,QC,H7L 2A2,7,0,
+GE-VC-10433,v:fc8c45384120bf90,A. Brousseau & Fils Ltée,ARISTIDE BROUSSEAU & FILS LTÉE,1142156752,Chandler,QC,G0C 1K0,7,0,brousseaufils.ca brousseaufils.com brousseau-fils.ca brousseau-fils.com aristidebrousseaufils.ca aristidebrousseaufils.com
+GE-VC-10434,v:b867a5fdc3c3f629,Toitures Qualitoit Inc,TOITURES QUALITOIT INC.,1140055519,Québec,QC,G2E 5X6,7,0,toituresqualitoit.ca toituresqualitoit.com toitures-qualitoit.ca toitures-qualitoit.com
+GE-VC-10435,v:8a6e1a50d9322d57,Idealtech,IDÉALTECH,2263487292,Baie-d'Urfé,QC,H9X 3R8,7,0,idealtech.ca idealtech.com idealinstrumentmontreal.ca idealinstrumentmontreal.com ideal-instrument-montreal.ca ideal-instrument-montreal.com
+GE-VC-10436,v:ed4ff98b1597b2de,M.V.C. Construction Inc.,,,Lachenaie,QC,J6V 1N4,7,0,mvcconstruction.ca mvcconstruction.com m-v-c-construction.ca m-v-c-construction.com
+GE-VC-10437,v:c70c0278ba736ab7,Chergo,CHERGO INC.,1146420634,Montréal,QC,H2Y 1T9,7,0,chergo.ca chergo.com
+GE-VC-10438,v:fd7657b7758a5c8d,Groupe LGS/Québec,,,Québec,QC,G1V 4K5,7,0,groupelgsquebec.ca groupelgsquebec.com groupe-lgs-quebec.ca groupe-lgs-quebec.com
+GE-VC-10439,v:b97c26890f9d8cd2,Ellicom inc.,LCI LX Studio inc.,1161004123,Charlesbourg,QC,G1H 6Z5,7,0,ellicom.ca ellicom.com lcilxstudio.ca lcilxstudio.com lci-lx-studio.ca lci-lx-studio.com
+GE-VC-10440,v:a49a2db45fb352b6,Les Constructions Victoriaville Inc.,LES CONSTRUCTIONS VICTORIAVILLE INC.,1141992488,Victoriaville,QC,G6T 0G3,7,0,constructionsvictoriaville.ca constructionsvictoriaville.com constructions-victoriaville.ca constructions-victoriaville.com
+GE-VC-10441,v:3a5e2f520b038d30,CIM,CENTRE ISLAMIQUE DE MONTRÉAL,1170371885,MONTREAL,QC,H2Z1V7,7,0,centreislamiquemontreal.ca centreislamiquemontreal.com centre-islamique-montreal.ca centre-islamique-montreal.com cimcentreislamiquemontreal.ca cimcentreislamiquemontreal.com
+GE-VC-10442,v:b341bc9e9973fde8,Dansard Inc.,DANSARD INC.,1142913939,Saint-Pie,QC,J0H 1W0,7,0,dansard.ca dansard.com entretienterrassementdansard.ca entretienterrassementdansard.com entretien-terrassement-dansard.ca entretien-terrassement-dansard.com
+GE-VC-10443,v:4e557fa8ff1b8a1f,Absolunet Inc.,Valtech Absolunet,1148712822,Boisbriand,QC,J7W 1N8,7,0,absolunet.ca absolunet.com valtechabsolunet.ca valtechabsolunet.com valtech-absolunet.ca valtech-absolunet.com
+GE-VC-10444,v:521232f0bdaed09d,FPInnovations  Feric Division,,,Pointe-Claire,QC,H9R 3J9,7,0,fpinnovationsfericdivision.ca fpinnovationsfericdivision.com fpinnovations-feric-division.ca fpinnovations-feric-division.com
+GE-VC-10445,v:2d696948896a9d32,STR Construction inc.,,,Rawdon,QC,J0K 1S0,7,0,strconstruction.ca strconstruction.com str-construction.ca str-construction.com
+GE-VC-10446,v:ee5125c5d4a80837,Pellemon inc,PELLEMON INC.,1143538875,Montréal,QC,H4P 2S4,7,0,pellemon.ca pellemon.com
+GE-VC-10447,v:e016aba669f9dc8d,Équipe 4 Saisons,,,Saint-Jérôme,QC,J7Y 4N7,7,0,equipe4saisons.ca equipe4saisons.com equipe-4-saisons.ca equipe-4-saisons.com
+GE-VC-10448,v:8ae034ecd8bd65e0,Bureau Spec,,,Anjou,QC,H1K 4E4,7,0,bureauspec.ca bureauspec.com bureau-spec.ca bureau-spec.com
+GE-VC-10449,v:a894e95c6eec9d73,Signalisation Expert inc.,9179-0311 QUÉBEC INC.,1164245236,Sherbrooke,QC,J1C 0J5,7,0,signalisationexpert.ca signalisationexpert.com signalisation-expert.ca signalisation-expert.com
+GE-VC-10450,v:a51c8daeb36017ba,Fairmont Le Château Frontenac,8058784 Canada Inc.,1168144609,Québec,QC,G1R 4P5,7,0,fairmontchateaufrontenac.ca fairmontchateaufrontenac.com fairmont-chateau-frontenac.ca fairmont-chateau-frontenac.com barstlaurent.ca barstlaurent.com
+GE-VC-10451,v:60f433820f19e19c,EF Voyages Culturels,EF INSTITUTE FOR CULTURAL EXCHANGE LTD.,1164269681,Montréal,QC,H2Y 2G3,7,0,efvoyagesculturels.ca efvoyagesculturels.com ef-voyages-culturels.ca ef-voyages-culturels.com efinstituteforculturalexchange.ca efinstituteforculturalexchange.com
+GE-VC-10452,v:fafeba101a48ef14,Les Engrais Neault,LES ENGRAIS NEAULT INC.,1161671152,Trois-Rivières,QC,G8V 1W4,7,0,engraisneault.ca engraisneault.com engrais-neault.ca engrais-neault.com deneigementneault.ca deneigementneault.com
+GE-VC-10453,v:78fb578197626f61,SIE-Solutions inc.,,,Québec,QC,G1P 2Y3,7,0,siesolutions.ca siesolutions.com sie-solutions.ca sie-solutions.com
+GE-VC-10454,v:c50ace213a6d71c2,Services Environnementaux Delsan AIM Inc.,,,Montréal,QC,H1C 1S9,7,0,
+GE-VC-10455,v:7428c352b98dd597,Technologies Masstor inc.,TECHNOLOGIES MASSTOR INC.,1165318370,Montréal,QC,H4T 1V3,7,0,technologiesmasstor.ca technologiesmasstor.com technologies-masstor.ca technologies-masstor.com masstortechnologies.ca masstortechnologies.com
+GE-VC-10456,v:8470320781d89bbd,PRO-EMPLOI LONGUEUIL,,,LONGUEUIL,QC,J4J 1W9,7,0,proemploilongueuil.ca proemploilongueuil.com pro-emploi-longueuil.ca pro-emploi-longueuil.com
+GE-VC-10457,v:b1ae41c44255d84e,CPSP-CENTRE DE PLACEMENT SPECIALISE DU PORTAGE,CPSP-CENTRE DE PLACEMENT SPÉCIALISÉ DU PORTAGE,1142455642,Gatineau,QC,J8T 3T7,7,0,
+GE-VC-10458,v:0b74efedd69a55c0,LE CENTRE D'APPRENTISSAGE PARALLÈLE DE MONTRÉAL C.A.P.,LE CENTRE D'APPRENTISSAGE PARALLÈLE DE MONTRÉAL C.A.P.,1144100436,Montréal,QC,H2T 1R6,7,0,
+GE-VC-10459,v:cac0c746c765cd04,LE CAMPUS EMPLOI INC.,LE CAMPUS EMPLOI INC.,1164369770,Joliette,QC,J6E 5E5,7,0,campusemploi.ca campusemploi.com campus-emploi.ca campus-emploi.com
+GE-VC-10460,v:51a0d3f14d2dd0c8,JCB entrepreneurs généraux,142258 CANADA INC.,1142946855,Brossard,QC,J4Y 2R2,7,0,jcbentrepreneursgeneraux.ca jcbentrepreneursgeneraux.com jcb-entrepreneurs-generaux.ca jcb-entrepreneurs-generaux.com jcbconstructioncanada.ca jcbconstructioncanada.com
+GE-VC-10461,v:eca441d59bc1cf74,PRIORITE 2003,9122-2737 QUÉBEC INC.,1161108403,VERDUN,QC,H4G1B4,7,0,priorite2003.ca priorite2003.com priorite-2003.ca priorite-2003.com constructionpriorite.ca constructionpriorite.com
+GE-VC-10462,v:7d48a4af14bb0721,R.A. Rénov-Action inc.,R.A. RENOV-ACTION INC.,1145138799,Montréal,QC,H4T 1X8,7,0,rrenovaction.ca rrenovaction.com r-renov-action.ca r-renov-action.com
+GE-VC-10463,v:e8de0b3bfac66f96,GROUPE INHOVA INC.,GROUPE INHOVA INC.,1164265820,Montréal,QC,H3X2T8,7,0,groupeinhova.ca groupeinhova.com groupe-inhova.ca groupe-inhova.com gestionsinhova.ca gestionsinhova.com
+GE-VC-10464,v:9e73282cee30c3d0,Acrobat Construction,CONSTRUCTION PLANIT INC.,1161768842,SAINT-LAURENT,QC,H4S1E1,7,0,acrobatconstruction.ca acrobatconstruction.com acrobat-construction.ca acrobat-construction.com constructionplanit.ca constructionplanit.com
+GE-VC-10465,v:b375685f709c6feb,Les Constructions Scirenape LCS Inc.,LES CONSTRUCTIONS SCIRENAPE (L.C.S.) INC.,1142085258,Lévis,QC,G7A 2J9,7,0,constructionsscirenapelcs.ca constructionsscirenapelcs.com constructions-scirenape-lcs.ca constructions-scirenape-lcs.com constructionsscirenape.ca constructionsscirenape.com
+GE-VC-10466,v:af2d0102ae01d4d3,PASSAGE VERS L'EMPLOI,PASSAGE VERS L'EMPLOI,1142389270,Granby,QC,J2G 8V9,7,0,passageverslemploi.ca passageverslemploi.com passage-vers-lemploi.ca passage-vers-lemploi.com avenueprofessionelle.ca avenueprofessionelle.com
+GE-VC-10467,v:a25174d1d079a1cd,"LIBRE EMPLOI, CENTRE LIBRE-SERVICE D'AIDE À LA RECHERCHE D'EMPLOI","LIBRE EMPLOI, CENTRE LIBRE-SERVICE D'AIDE À LA RECHERCHE D'EMPLOI",1146960902,Québec,QC,G1L 2W1,7,0,
+GE-VC-10468,v:629cf3273f950f69,CARREFOUR RELANCE,PACTE - CARREFOUR RELANCE,1142428896,Montréal,QC,H1W 1P9,7,0,carrefourrelance.ca carrefourrelance.com carrefour-relance.ca carrefour-relance.com pactecarrefourrelance.ca pactecarrefourrelance.com
+GE-VC-10469,v:e7251bab07614240,CARREFOUR JEUNESSE-EMPLOI DE MONTCALM,CARREFOUR JEUNESSE-EMPLOI DE MONTCALM,1145336567,Ste-Julienne,QC,J0K 2T0,7,0,
+GE-VC-10470,v:a15b62790dadde14,CENTRE D'ENTRAIDE SOCIALE DU BAS DE LA FALAISE,CENTRE D'ENTRAIDE SOCIALE DU BAS DE LA FALAISE,1142083287,Québec,QC,G1K 6E1,7,0,jonction.ca jonction.com
+GE-VC-10471,v:9174c12b734330a3,PORTES OUVERTES SUR LE LAC,PORTES OUVERTES SUR LE LAC,1161937603,Saint-Félicien,QC,G8K 2R5,7,0,portesouvertessurlac.ca portesouvertessurlac.com portes-ouvertes-sur-lac.ca portes-ouvertes-sur-lac.com comiteportesouverteslacstjean.ca comiteportesouverteslacstjean.com
+GE-VC-10472,v:5f168c93452db3cc,OBJECTIF EMPLOI 40 ANS PLUS DE MONTREAL,OBJECTIF EMPLOI 40 ANS PLUS DE MONTREAL,1142093302,Montréal,QC,H2B 3A8,7,0,
+GE-VC-10473,v:997d4ba22d02db68,CLUB DE RECHERCHE D'EMPLOI BEAUCE-ETCHEMIN INC.,CENTRE DE RECHERCHE D'EMPLOI BEAUCE-ETCHEMINS INC.,1142347591,Saint-GEORGES,QC,G5Y 5S4,7,0,
+GE-VC-10474,v:e0eccb717ce6c92c,CENTRE D'AIDE AUX ENTREPRISES DE LA RIVE-SUD INC.,CENTRE D'AIDE AUX ENTREPRISES DE LA RIVE-SUD INC.,1144076891,BELOEIL,QC,J3G 5P3,7,0,caecapital.ca caecapital.com cae-capital.ca cae-capital.com caerivesud.ca caerivesud.com
+GE-VC-10475,v:c02db621922ce251,CENTRE DE LA FEMME - ROND POINT DE LA MAURICIE,Centre Le PONT,1142107193,Trois-Rivières,QC,G9A 1V9,7,0,centrefemmerondpointmauricie.ca centrefemmerondpointmauricie.com centrepont.ca centrepont.com centre-pont.ca centre-pont.com
+GE-VC-10476,v:20c5724588268503,CARREFOUR JEUNESSE-EMPLOI L'ASSOMPTION,CARREFOUR JEUNESSE-EMPLOI L'ASSOMPTION,1145763448,Repentigny,QC,J6A 2N9,7,0,
+GE-VC-10477,v:ac3d68c671bb9e48,ICI INTÉGRATION COMMUNAUTAIRE DES IMMIGRANTS,ICI INTÉGRATION COMMUNAUTAIRE DES IMMIGRANTS,1161584595,Thetford Mines,QC,G6G 5S5,7,0,
+GE-VC-10478,v:77c24d9928d879dd,RELANCE GASPÉSIE SUD INC.,RELANCE GASPÉSIE SUD INC.,1149483696,CHANDLER,QC,G0C 1K0,7,0,relancegaspesiesud.ca relancegaspesiesud.com relance-gaspesie-sud.ca relance-gaspesie-sud.com optionemploi.ca optionemploi.com
+GE-VC-10479,v:91d83f03901b5672,IDÉAUX TRAVAIL,IDÉAUX TRAVAIL,1143074137,Saint-Félicien,QC,G8K 1R3,7,0,ideauxtravail.ca ideauxtravail.com ideaux-travail.ca ideaux-travail.com
+GE-VC-10480,v:4ad5050fcf39ed04,SERVICE EXTERNE DE MAIN-D'OEUVRE DU SAGUENAY,,,Jonquière,QC,G7S 4S9,7,0,
+GE-VC-10481,v:618def3c8fb6357e,Improplus,9004-9073 QUÉBEC INC.,1140414393,Montreal,QC,H4C 2C7,7,0,improplus.ca improplus.com
+GE-VC-10482,v:b2418324dede83e5,Les système ACCI,,,Sainte-Foy,QC,G1N 4H9,7,0,systemeacci.ca systemeacci.com systeme-acci.ca systeme-acci.com
+GE-VC-10483,v:cd0689a0be86bbfa,Construction Cyvex Inc,CONSTRUCTION CYVEX INC.,1163026942,Saint-Jérôme,QC,J7Y 3B9,7,0,constructioncyvex.ca constructioncyvex.com construction-cyvex.ca construction-cyvex.com
+GE-VC-10484,v:b73629dc0b522bab,9081-4385 Québec Inc. - Construction B.L.G.,,,Anjou,QC,H1K 1N5,7,0,
+GE-VC-10485,v:184d8237ed467eb0,GENIVAR inc. (Québec),WSP CANADA INC.,1148357057,Québec,QC,G2J 1C8,7,0,genivar.ca genivar.com genivarquebec.ca genivarquebec.com genivar-quebec.ca genivar-quebec.com
+GE-VC-10486,v:a3078a3106904dd3,Les Gicleurs Éclair inc.,GROUPE GICLEURS ÉCLAIR INC.,1165562290,Québec,QC,G2A 2E5,7,0,gicleurseclair.ca gicleurseclair.com gicleurs-eclair.ca gicleurs-eclair.com groupegicleurseclair.ca groupegicleurseclair.com
+GE-VC-10487,v:9fb84d30b7259f05,SIA-Solutions,SIA-SOLUTIONS INC.,1165412850,Québec,QC,G1X 3E5,7,0,siasolutions.ca siasolutions.com sia-solutions.ca sia-solutions.com siasolutionsca.ca siasolutionsca.com
+GE-VC-10488,v:0edd8032d0d1454c,Société du réseau informatique des collèges,,,Longueuil,QC,J4J 1W7,7,0,
+GE-VC-10489,v:8d483ad54f90f359,Gaudet & Laurin (Division entrepreneur général),GAUDET ET LAURIN INC.,1140561748,Saint-Eustache,QC,J7P 0A6,7,0,gaudetlaurin.ca gaudetlaurin.com gaudet-laurin.ca gaudet-laurin.com
+GE-VC-10490,v:3ad4ed8e0c715348,BPR - Triax Inc,BPR-TRIAX INC.,1146650677,Laval,QC,H7K 2J4,7,0,bprtriax.ca bprtriax.com bpr-triax.ca bpr-triax.com triax.ca triax.com
+GE-VC-10491,v:4539ff4d6af2c095,Corporation Brisk,BRISK CORPORATION,1142839142,Montréal,QC,H4R 1R7,7,0,brisk.ca brisk.com
+GE-VC-10492,v:969de3a89bce9fe3,Les Constructions Morneau inc.,LES CONSTRUCTIONS MORNEAU INC.,1167009241,Amqui,QC,G5J 2M8,7,0,constructionsmorneau.ca constructionsmorneau.com constructions-morneau.ca constructions-morneau.com
+GE-VC-10493,v:ed6c6339036a4643,Service scolaire,SERVICE SCOLAIRE DE ROUYN INC.,1143873488,Rouyn-Noranda,QC,J9X 3C4,7,0,servicescolaire.ca servicescolaire.com service-scolaire.ca service-scolaire.com servicescolairerouyn.ca servicescolairerouyn.com
+GE-VC-10494,v:0bf067560561969c,J.F. Nettoyeur Expert,,,Rouyn-Noranda,QC,J9X 3Z7,7,0,jfnettoyeurexpert.ca jfnettoyeurexpert.com j-f-nettoyeur-expert.ca j-f-nettoyeur-expert.com
+GE-VC-10495,v:299dc37536b43d6a,Nettoyeur Rouanda inc,NETTOYEUR ROUANDA INC.,1146901096,Rouyn-Noranda,QC,J9X 5B7,7,0,nettoyeurrouanda.ca nettoyeurrouanda.com nettoyeur-rouanda.ca nettoyeur-rouanda.com
+GE-VC-10496,v:ca49ca4bb6732ef6,CPU,9219-7649 QUÉBEC INC.,1166425851,Trois-Rivières,QC,G9B 1L7,7,0,
+GE-VC-10497,v:1db7786353f555fd,9179-1442 Québec inc. Plomberie Ghislain Villeneuve,,,Chicoutimi,QC,G7J 4N4,7,0,
+GE-VC-10498,v:aae3ba27e3e63284,Prisma-Scène Inc.,PRISMA - SCENE INC.,1142150854,St-Hubert,QC,J3Y 8K5,7,0,prismascene.ca prismascene.com prisma-scene.ca prisma-scene.com
+GE-VC-10499,v:c5658263276a8e8b,9048-6473 inc. - Construction Bruno Blanchette inc.,,,St-Laurent-de-l'Ìle-d'Orléans,QC,G0A 3Z0,7,0,
+GE-VC-10500,v:ff1b4033f4d3fd1e,Pavages Lavallée & Leblanc Inc. (P.L.L. Inc.),LES PAVAGES LAVALLÉE & LEBLANC,1167673558,Sherbrooke,QC,J1G 2P2,7,0,pavageslavalleeleblanc.ca pavageslavalleeleblanc.com pavages-lavallee-leblanc.ca pavages-lavallee-leblanc.com
+GE-VC-10501,v:c352589e7930a6ec,Construction Antonin Cotton Inc.,CONSTRUCTION ANTONIN COTTON INC.,1141818089,Gaspé,QC,G4X 5B3,7,0,constructionantonincotton.ca constructionantonincotton.com construction-antonin-cotton.ca construction-antonin-cotton.com
+GE-VC-10502,v:dca746e8538995fa,Const. JGM,CONSTRUCTION J G M INC.,1147504972,Sept-Iles,QC,G4R 1K5,7,0,constjgm.ca constjgm.com const-jgm.ca const-jgm.com constructionjgm.ca constructionjgm.com
+GE-VC-10503,v:11a155483cff128d,GOODWINS G.O.F. LTD.,,,POINTE CLAIRE,QC,H9R1H2,7,0,goodwinsgof.ca goodwinsgof.com goodwins-g-o-f.ca goodwins-g-o-f.com
+GE-VC-10504,v:e6440e859887cfaa,Suzanne Roy Ford inc.,SUZANNE ROY FORD LINCOLN INC.,1140959389,Lévis,QC,g6v6c7,7,0,suzanneroyford.ca suzanneroyford.com suzanne-roy-ford.ca suzanne-roy-ford.com suzanneroyfordlincoln.ca suzanneroyfordlincoln.com
+GE-VC-10505,v:2082201a7c519fb9,Artefact Informatique - Division Santé - Société Conseil Groupe LGS,,,Québec,QC,G1K 8G3,7,0,
+GE-VC-10506,v:31deea7b07188e38,Aon Conseil,AON SOLUTIONS CANADA INC.,1143100387,Montréal,QC,H3B 0A7,7,0,aonconseil.ca aonconseil.com aon-conseil.ca aon-conseil.com aonsolutionscanada.ca aonsolutionscanada.com
+GE-VC-10507,v:8b07d5faef7a7adb,PANalytical,SPECTRIS CANADA INC.,1169728640,Montréal,QC,H4R 2N9,7,0,panalytical.ca panalytical.com spectriscanada.ca spectriscanada.com spectris.ca spectris.com
+GE-VC-10508,v:f199a13e954dc245,8830088 CANADA INC,Entretien Ménager Lyna,1169932390,Sainte-Julie,QC,J3E 1Z7,7,0,
+GE-VC-10509,v:c885afdc4716242e,Fafard et Frères,SCOTTS CANADA LTÉE,1148306492,Saint-Bonaventure,QC,J0C 1C0,7,0,fafardfreres.ca fafardfreres.com fafard-freres.ca fafard-freres.com scottscanada.ca scottscanada.com
+GE-VC-10510,v:b16b4741fa898230,Paré Centre du camion,PARÉ CENTRE DU CAMION WHITEGMC INC.,1168221266,Lévis,QC,G6V 9J6,7,0,parecentrecamion.ca parecentrecamion.com pare-centre-camion.ca pare-centre-camion.com parecentrecamionwhitegmc.ca parecentrecamionwhitegmc.com
+GE-VC-10511,v:b1d1080529ce4ec9,Vincent Leclerc + Associés Architectes,LECLERC + ASSOCIÉS ARCHITECTES (BROSSARD) S.E.N.C.,3361525549,Saint-Hubert,QC,J3Y 1B3,7,0,leclercassociesarchitectessenc.ca leclercassociesarchitectessenc.com leclercassociesarchitectes.ca leclercassociesarchitectes.com leclerc-associes-architectes.ca leclerc-associes-architectes.com
+GE-VC-10512,v:2a8ef62f96c58026,Gestion Michel Couture Inc.,GESTION COUTURE & FILLES INC.,1142720409,Sherbrooke,QC,J1N2Y4,7,0,gestionmichelcouture.ca gestionmichelcouture.com gestion-michel-couture.ca gestion-michel-couture.com gestioncouturefilles.ca gestioncouturefilles.com
+GE-VC-10513,v:e218abda4f8f2463,Sophie Rousseau,WSP CANADA INC.,1148357057,Gatineau,QC,J8T 7W3,7,0,sophierousseau.ca sophierousseau.com sophie-rousseau.ca sophie-rousseau.com wspcanada.ca wspcanada.com
+GE-VC-10514,v:36d81708511cf8a9,Couvertures Lachenaie inc,TOITURE LACHENAIE,1144773901,Mascouche,QC,J7K 3G6,7,0,couvertureslachenaie.ca couvertureslachenaie.com couvertures-lachenaie.ca couvertures-lachenaie.com toiturelachenaie.ca toiturelachenaie.com
+GE-VC-10515,v:fe871fe8e9f90e4e,LES SERVICES D'ENTRETIEN FANY inc,LES SERVICES D'ENTRETIEN FANY INC.,1143306703,Montréal,QC,H4T 1V3,7,0,servicesdentretienfany.ca servicesdentretienfany.com services-dentretien-fany.ca services-dentretien-fany.com fanyresidentiel.ca fanyresidentiel.com

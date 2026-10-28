@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CO-AP-00504,htm personenvervoer n.v.,b:1dca264b3779ff9b,HTM Personenvervoer N.V.,,NL,,,,1
+CO-AP-00505,enexis netbeheer bv/enexis personeel bv,b:063282c4c3c2d619,Enexis Netbeheer BV/Enexis Personeel BV,,NL,,,,1
+CO-AP-00506,"ministerie van defensie, commando materieel en it, afdeling inkoop it",b:d71aa7b828968a7d,"Ministerie van Defensie, Commando Materieel en IT, Afdeling Inkoop IT",,NL,https://www.defensie.nl,,,1
+CO-AP-00507,"ministerie van defensie, commando landstrijdkrachten (matlogco)",b:68a30a2a10778a5c,"Ministerie van Defensie, Commando Landstrijdkrachten (MatlogCo)",,NL,https://www.defensie.nl,,,1
+CO-AP-00508,"ministerie van defensie, koninklijke marine",b:a564bb69f761e6b1,"Ministerie van Defensie, Koninklijke Marine",,NL,https://www.defensie.nl,,,1
+CO-AP-00509,forsvarets forskningsinstitutt,b:0ec5eba68a0d1962,Forsvarets forskningsinstitutt,,NO,http://www.ffi.no,,,1
+CO-AP-00510,norges bank – nbim,b:d54af68174589853,Norges Bank – NBIM,,NO,,,,1
+CO-AP-00511,jernbaneverket,b:576f568cc132f124,Jernbaneverket,,NO,http://www.jernbaneverket.no,,,1
+CO-AP-00512,avinor as,b:20c3a286684ebf66,Avinor AS,,NO,https://avinor.no,,,1
+CO-AP-00513,"norges teknisk naturvitenskapelige universitet (ntnu), innkjøp",b:d0224cd570a20f47,"Norges Teknisk Naturvitenskapelige universitet (NTNU), Innkjøp",,NO,http://www.ntnu.no,,,1
+CO-AP-00514,universitetet i oslo,b:d7bedc19ce0a218b,Universitetet i Oslo,,NO,https://www.uio.no,,,1
+CO-AP-00515,norwegian space centre,b:c7f62c6b3eb72068,Norwegian Space Centre,,NO,https://www.romsenter.no/en,,,1
+CO-AP-00516,the geological survey of norway,b:2dcc0a814c4b63dd,The Geological Survey of Norway,,NO,https://www.ngu.no,,,1
+CO-AP-00517,new zealand institute for advanced technology limited,b:1d0f34322f734843,New Zealand Institute for Advanced Technology Limited,,NZ,,,,1
+CO-AP-00518,maori television,b:c1842ef94376e057,Maori Television,,NZ,,,,1
+CO-AP-00519,land information new zealand,b:1f9c401a6986c382,Land Information New Zealand,,NZ,,,commercial@linz.govt.nz,1
+CO-AP-00520,ministry for primary industries,b:83f810b586307893,Ministry for Primary Industries,,NZ,,,,1
+CO-AP-00521,tajik air navigation sue,b:918025949acacefb,TAJIK AIR NAVIGATION SUE,,,,,,1
+CO-AP-00522,perupetro s.a.,b:a9bffbf21896a4de,PERUPETRO S.A.,,PE,,,,1
+CO-AP-00523,ministerio de comercio exterior y turismo,b:127a16d097a244ad,MINISTERIO DE COMERCIO EXTERIOR Y TURISMO,,PE,,,,1
+CO-AP-00524,agencia de promocion de la inversion privada - proinversion,b:04b6b4d8daa0a66d,AGENCIA DE PROMOCION DE LA INVERSION PRIVADA - PROINVERSION,,PE,,,,1
+CO-AP-00525,agencia de compras de las fuerzas armadas,b:7ec4b1918d8b5c62,AGENCIA DE COMPRAS DE LAS FUERZAS ARMADAS,,PE,,,,1
+CO-AP-00526,coles group limited,b:2db6de10abe83f30,Coles Group Limited,,AU,,,,1
+CO-AP-00527,mitsubishi electric corporation,b:96d7912d7073ba6c,Mitsubishi Electric Corporation,,JP,,,,1
+CO-AP-00528,airbus (airbus defence and space),b:706475ad232c04f1,Airbus (Airbus Defence and Space),,FR,,,,1
+CO-AP-00529,milestone systems a/s,b:f31338702ce8fdbb,Milestone Systems A/S,,DK,,,,1
+CO-AP-00530,chestertons global,b:60e38e24bc45b3f5,Chestertons Global,,GB,,,,1
+CO-AP-00531,"polish armed forces (ministry of national defence of poland), with integrator enamor international",b:5f1860be425a20b4,"Polish Armed Forces (Ministry of National Defence of Poland), with integrator Enamor International",,PL,,,,1
+CO-AP-00532,cenomi centers (arabian centres company),b:21ae69a199d53cd9,Cenomi Centers (Arabian Centres Company),,SA,,,,1
+CO-AP-00533,federal ministry of defence of germany (represented by university of the federal armed forces munich),b:9c12c44deb650a81,Federal Ministry of Defence of Germany (represented by University of the Federal Armed Forces Munich),,DE,,,,1
+CO-AP-00534,korean air (for republic of korea electronic warfare / stand-off jammer program),b:49a5c81574a42d4f,Korean Air (for Republic of Korea Electronic Warfare / Stand-Off Jammer program),,KR,,,,1
+CO-AP-00535,australian border force (aircraft operated by metrea),b:4b474b4b9b454a0c,Australian Border Force (aircraft operated by Metrea),,AU,,,,1
+CO-AP-00536,bond (business aviation operator),b:e1ed0b183f41fb6e,BOND (business aviation operator),,,,,,1
+CO-AP-00537,adn telecom limited,b:74c783165bff33f5,ADN Telecom Limited,,BD,,,,1
+CO-AP-00538,orange (orange wholesale international),b:a465c79bd81c3bc4,Orange (Orange Wholesale International),,FR,,,,1
+CO-AP-00539,"france - ministry of agriculture, agri-food and food sovereignty",b:5cb9101ab1296c9d,"France - Ministry of Agriculture, Agri-Food and Food Sovereignty",,FR,,,,1
+CO-AP-00540,sapir group,b:e27fa3d004b456d2,Sapir Group,,IL,,,,1
+CO-AP-00541,lufthansa group,b:0f0690397338d281,Lufthansa Group,,DE,,,,1
+CO-AP-00542,tesa se,b:61a4248394a49f09,tesa SE,,DE,,,,1
+CO-AP-00543,shimadzu corporation,b:17f4e6354ae0cb8f,Shimadzu Corporation,,JP,,,,1
+CO-AP-00544,"polish navy (via thesta, kraken's polish reseller)",b:f9e6302b7cc87d99,"Polish Navy (via Thesta, Kraken's Polish reseller)",,PL,,,,1
+CO-AP-00545,portuguese air force (ministry of national defence of portugal),b:579a45753e8aded6,Portuguese Air Force (Ministry of National Defence of Portugal),,PT,,,,1
+CO-AP-00546,bangladesh agricultural development corporation (badc),b:6277a1c35ce71734,Bangladesh Agricultural Development Corporation (BADC),,BD,,,,1
+CO-AP-00547,"german federal office of bundeswehr equipment, information technology and in-service support (baainbw), for the german navy",b:07bcbd477eced1b5,"German Federal Office of Bundeswehr Equipment, Information Technology and In-Service Support (BAAINBw), for the German Navy",,DE,,,,1
+CO-AP-00548,ministry of defense of montenegro,b:862a2e6b8b66e2a7,Ministry of Defense of Montenegro,,ME,,,,1
+CO-AP-00549,bhp (jansen potash project),b:c8221e297fa9ca89,BHP (Jansen potash project),,AU,,,,1
+CO-AP-00550,south west provider collaborative (nhs; lead provider devon partnership nhs trust),b:936bdcaf849f0a74,South West Provider Collaborative (NHS; lead provider Devon Partnership NHS Trust),,GB,,,,1
+CO-AP-00551,"cerrejón (glencore company, colombia)",b:16e7348aafcd509e,"Cerrejón (Glencore company, Colombia)",,CO,,,,1
+CO-AP-00552,air greenland a/s,b:428b247092960ff5,Air Greenland A/S,,GL,,,,1
+CO-AP-00553,mediamarktsaturn retail group,b:64a1f5398bc1ab33,MediaMarktSaturn Retail Group,,DE,,,,1
+CO-AP-00554,vivaticket s.p.a.,b:1864bb7015f7495b,Vivaticket S.p.A.,,IT,,,,1
+CO-AP-00555,banco central del paraguay (bcp),b:4c5dbdcf88482c18,Banco Central del Paraguay (BCP),,PY,,,,1
+CO-AP-00556,spiu minecofin,b:2a187a6165b923c5,SPIU MINECOFIN,,RW,,,spiu.procurement@minecofin.gov.rw,1
+CO-AP-00557,ab storstockholms lokaltrafik,b:65689db84ffa7128,AB Storstockholms Lokaltrafik,,SE,,,,1
+CO-AP-00558,ab svenska spel,b:6a6fd0717cba70bb,AB Svenska Spel,,SE,,,,1
+CO-AP-00559,uppsala universitet,b:4f5c85bb5daaf4c6,Uppsala universitet,,SE,https://www.uu.se,,info@uu.se,1
+CO-AP-00560,umeå universitet,b:86f3d1679a2187ec,Umeå universitet,,SE,https://www.umu.se,,,1
+CO-AP-00561,"swedish road adm., ferry operations",b:fc5bdf7943fec125,"Swedish Road Adm., Ferry Operations",,SE,,,,1
+CO-AP-00562,högskolan väst,b:95a407fd97eff338,Högskolan Väst,,SE,http://www.hv.se,,,1
+CO-AP-00563,luleå tekniska universitet,b:29f6fe63cfb7b45b,Luleå tekniska universitet,,SE,http://www.ltu.se,,,1
+CO-AP-00564,kimia solutions ltda,b:92705c8008597b7b,Kimia Solutions Ltda,,BR,,,,1
+CO-AP-00565,keytrade fertilizantes brasil ltda,b:01cc764924226413,Keytrade Fertilizantes Brasil Ltda,,BR,,,,1
+CO-AP-00566,getz healthcare (australia and new zealand),b:82181c550a6e5c0b,Getz Healthcare (Australia and New Zealand),,AU,,,,1
+CO-AP-00567,al faisaliah medical systems co. (al faisaliah group),b:c097b33bf62b6d76,Al Faisaliah Medical Systems Co. (Al Faisaliah Group),,SA,,,,1
+CO-AP-00568,"univerza v ljubljani, fakulteta za strojništvo",b:a3a2540fb67fe57e,"UNIVERZA V LJUBLJANI, FAKULTETA ZA STROJNIŠTVO",,SI,,,,1
+CO-AP-00569,bundesanstalt für landwirtschaft und ernährung,b:3b32138823a1dd93,Bundesanstalt für Landwirtschaft und Ernährung,,DE,http://www.ble.de,,,1
+CO-AP-00570,institut de physique du globe de paris,b:65619798f2654f56,Institut de physique du globe de Paris,,FR,http://www.ipgp.fr,,,1
+CO-AP-00571,"parc d'atraccions del tibidabo, s.a.",b:f2f7c558feca1c5f,"Parc d'Atraccions del Tibidabo, S.A.",,ES,http://www.bsmsa.cat,,,1
+CO-AP-00572,eni spa,b:7eb7362ec238e3ff,Eni SpA,,IT,,,,1
+CO-AP-00573,wojskowa akademia techniczna im. jarosława dąbrowskiego,b:f29dd2dd00105383,Wojskowa Akademia Techniczna im. Jarosława Dąbrowskiego,,PL,http://www.wat.edu.pl,,,1
+CO-AP-00574,statens kartverk,b:88c0cc26ff04c674,Statens kartverk,,NO,,,,1
+CO-AP-00575,fco services,b:820e8c44f004b0e0,FCO Services,,GB,https://www.gov.uk/government/organisations/fco-services,,,1
+CO-AP-00576,karlsruher institut für technologie,b:9650e96d950b8279,Karlsruher Institut für Technologie,,DE,http://www.kit.edu,,,1
+CO-AP-00577,agriculture and horticulture development board,b:b0584443e8600530,Agriculture and Horticulture Development Board,,GB,https://www.gov.uk/government/organisations/agriculture-and-horticulture-development-board,,procurement@ahdb.org.uk,1
+CO-AP-00578,viniportugal associação interprofissional para a promoção dos vinhos,b:d2e39ff89c413a7a,ViniPortugal Associação Interprofissional para a Promoção dos Vinhos,,PT,,,,1
+CO-AP-00579,university of sheffield,b:580bc70b8409b7c2,University of Sheffield,,GB,,,,1
+CO-AP-00580,rennes métropole,b:c7d168c7309dab18,Rennes Métropole,,FR,http://metropole.rennes.fr,,,1
+CO-AP-00581,lietuvos mokslinių bibliotekų asociacija,b:26992a517fb3aa47,Lietuvos mokslinių bibliotekų asociacija,,LT,http://www.lmba.lt,,,1
+CO-AP-00582,nek d.o.o.,b:c7d892883ac232f1,NEK d.o.o.,,SI,,,,1
+CO-AP-00583,invest northern ireland,b:531862f1e1d6c56e,Invest Northern Ireland,,GB,https://www.gov.uk/government/organisations/invest-northern-ireland,,,1
+CO-AP-00584,european aviation safety agency,b:efd3e53ce029db36,European Aviation Safety Agency,,DE,http://www.easa.europa.eu,,tenders@easa.europa.eu,1
+CO-AP-00585,ukho,b:9e08d9f1e26dcacb,UKHO,,GB,http://www.ukho.gov.uk,,,1
+CO-AP-00586,semcoda,b:a8830f778d2e0c06,Semcoda,,FR,http://semcoda.com,,,1
+CO-AP-00587,forsvarsministeriets materiel- og indkøbsstyrelse (danish acquisition and logistics organization),b:7bcd8163ad6034ad,Forsvarsministeriets Materiel- og Indkøbsstyrelse (Danish Acquisition and Logistics Organization),,DK,http://www.forsvaret.dk,,,1
+CO-AP-00588,danish defence acquisition and logistic organization,b:a469cc7eccfe6625,Danish Defence Acquisition and Logistic Organization,,DK,http://www.forsvaret.dk/fmi,,,1
+CO-AP-00589,forsvarsministeriets materiel- og indkøbsstyrelse (danish defence acquisition and logistics organization),b:77b17d2c2af02ade,Forsvarsministeriets Materiel- Og Indkøbsstyrelse (Danish Defence Acquisition and Logistics Organization),,DK,http://www.forsvaret.dk/fmi,,,1
+CO-AP-00590,marketing birmingham,b:985be9457677bc21,Marketing Birmingham,,GB,http://www.marketingbirmingham.com/tenders,,,1
+CO-AP-00591,"vergabestelle der zentralen beschaffung, universitätsklinikum köln aör",b:87c707a730d0396a,"Vergabestelle der Zentralen Beschaffung, Universitätsklinikum Köln AöR",,DE,,,,1
+CO-AP-00592,technische universität clausthal; institut für chemische und elektrochemische verfahrenstechnik,b:b438656e02c26e49,Technische Universität Clausthal; Institut für Chemische und Elektrochemische Verfahrenstechnik,,DE,http://www.tu-clausthal.de,,,1
+CO-AP-00593,max-delbrück-centrum für molekulare medizin,b:34eba74a7144c066,Max-Delbrück-Centrum für Molekulare Medizin,,DE,http://www.mdc-berlin.de,"accounting@mdc-berlin.de, office.freundeskreis@mdc-berlin.de",,1
+CO-AP-00594,luleå kommun,b:340ffdc98425930e,Luleå kommun,,SE,,,,1
+CO-AP-00595,"european commission, directorate-general for energy, directorate e — euratom safeguards",b:c18d5ea74ed6726d,"European Commission, Directorate-General for Energy, Directorate E — Euratom Safeguards",,LU,https://ec.europa.eu/energy/en,,,1
+CO-AP-00596,santé publique france,b:af5fce0b3118dbee,Santé publique France,,FR,https://www.santepubliquefrance.fr,,,1
+CO-AP-00597,boom tisk s.r.o.,b:92107490ccd3da9d,Boom Tisk s.r.o.,,CZ,http://www.boomtisk.cz,,,1
+CO-AP-00598,cente for process innnovation limited,b:908e5fd30337a70c,Cente for Process Innnovation Limited,,GB,http://www.uk-cpi.com,,e-tendering@uk-cpi.com,1
+CO-AP-00599,terna rete italia spa,b:d0d2058e0ecabccf,Terna Rete Italia SpA,,IT,,,,1
+CO-AP-00600,liverpool vision limited,b:3b25e6af772010f3,Liverpool Vision Limited,,GB,http://www.liverpoolvision.co.uk,,,1
+CO-AP-00601,direzione degli armamenti navali,b:72419bfc032142e2,Direzione degli Armamenti Navali,,IT,,,,1
+CO-AP-00602,nhs supply chain acting as agent for nhs business services authority,b:301f57151b0b2c77,NHS Supply Chain acting as agent for NHS Business Services Authority,,GB,http://www.supplychain.nhs.uk,,"procurementhelpdesk@supplychain.nhs.uk, suppliers@supplychain.nhs.uk",1
+CO-AP-00603,northumbrian water limited,b:0620a5bf4e842aee,Northumbrian Water Limited,,GB,,,,1

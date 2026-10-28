@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-18316,v:3b64cf64bacc2f5a,Northern Workwear Ltd,,,Bedford,Nova Scotia,B4B 1J6,1,1,northernworkwear.ca northernworkwear.com northern-workwear.ca northern-workwear.com
+CH-VC-18317,v:f2545202c791338d,16094066 Canada Inc,16094066 Canada Inc.,16094066,Strathroy,Ontario,N7G 3Y8,1,1,
+CH-VC-18318,v:d46359a9c6f74078,CYNET SYSTEMS CANADA INC.,CYNET SYSTEMS CANADA INC.,10903108,Mississauga,Ontario,L5N 2X7,1,1,cynetsystemscanada.ca cynetsystemscanada.com cynetsystems.ca cynetsystems.com cynet-systems-canada.ca cynet-systems-canada.com
+CH-VC-18319,v:c9d9ddc57e78f591,3097448 Manitoba Ltd.,,,Lac du Bonnet RM,Manitoba,R0E 1A0,1,1,
+CH-VC-18320,v:74577a6592c2c2ef,Palmer Johnson Power Systems,,,Burnaby,British Columbia,V3N 4A3,1,1,palmerjohnsonpowersystems.ca palmerjohnsonpowersystems.com palmer-johnson-power-systems.ca palmer-johnson-power-systems.com
+CH-VC-18321,v:d6918e1bbf737855,WALLY WOOD FIREWOOD LTD.,,,parlee brook,New Brunswick,E4E 4Z1,1,1,wallywoodfirewood.ca wallywoodfirewood.com wally-wood-firewood.ca wally-wood-firewood.com
+CH-VC-18322,v:2ab8ad490095bf27,NDG Systems,NDG SYSTEMS,FM1115998,New Westminster,British Columbia,v3l 1b3,1,1,ndgsystems.ca ndgsystems.com ndg-systems.ca ndg-systems.com
+CH-VC-18323,v:4f1977fc47f293f6,Ribbit,,,Toronto,Ontario,M5X 1B8,1,1,ribbit.ca ribbit.com
+CH-VC-18324,v:4f26a17a03699511,2371436 Ontario Inc.,,,OTTAWA,Ontario,K0A 1L0,1,1,
+CH-VC-18325,v:c6d6650a108d6e6a,Engineering Design Lab,,,Toronto,Ontario,M6N 3C2,1,1,engineeringdesignlab.ca engineeringdesignlab.com engineering-design-lab.ca engineering-design-lab.com
+CH-VC-18326,v:79ed64660ee19cd7,0939292 B.C. LTD.,0939292 B.C. LTD.,BC0939292,Surrey,British Columbia,V3Z 0S4,1,1,
+CH-VC-18327,v:5749d83627db388a,A Berger Precision,,,Brampton,Ontario,L7A 1A7,1,1,bergerprecision.ca bergerprecision.com berger-precision.ca berger-precision.com
+CH-VC-18328,v:dc5d9d081f63fe03,A&S Composites Engineering Inc.,,,Winnipeg,Manitoba,R2J 4G7,1,1,scompositesengineering.ca scompositesengineering.com s-composites-engineering.ca s-composites-engineering.com
+CH-VC-18329,v:04c2656047ab0668,Eagle Eyes Search Inc,Eagle Eyes Search Inc.,14544862,Vancouver,British Columbia,V6E 4N7,1,1,eagleeyessearch.ca eagleeyessearch.com eagle-eyes-search.ca eagle-eyes-search.com
+CH-VC-18330,v:127100018e545834,Fering Defence Canada,Fering Defence Canada Inc.,17629796,Victoria,British Columbia,V8V 3K5,1,1,feringdefencecanada.ca feringdefencecanada.com feringdefence.ca feringdefence.com fering-defence-canada.ca fering-defence-canada.com
+CH-VC-18331,v:932c17f921ca842f,FireSwarm Solutions Inc.,FIRESWARM SOLUTIONS INC.,BC1441259,Garibaldi Highlands,British Columbia,V0N 1T0,1,1,fireswarmsolutions.ca fireswarmsolutions.com fireswarm-solutions.ca fireswarm-solutions.com
+CH-VC-18332,v:bcd1ccad46f7654d,FLIR Unmanned Aerial Systems,,,Ancaster,Ontario,L9G 4V5,1,1,flirunmannedaerialsystems.ca flirunmannedaerialsystems.com flir-unmanned-aerial-systems.ca flir-unmanned-aerial-systems.com
+CH-VC-18333,v:b9e89034598d2063,GBATTERIES ENERGY CANADA INC. - GYRONAUTIC TECHNOLOGIES INC. JOINT VENTURE,,,Ottawa,Ontario,K1T 3N4,1,1,
+CH-VC-18334,v:7bffd3b14e5083c2,Helsing SE,,,Ottawa,Ontario,K1P 5E4,1,1,helsingse.ca helsingse.com helsing-se.ca helsing-se.com
+CH-VC-18335,v:bd62800a3eef7e38,IDES Canada Inc / Scentroid,,,WHITCHURCH-STOUFFVILLE,Ontario,L4A 0Y2,1,1,idescanadascentroid.ca idescanadascentroid.com idesscentroid.ca idesscentroid.com ides-canada-scentroid.ca ides-canada-scentroid.com
+CH-VC-18336,v:b107cb4f8713d845,Invest Ottawa/ Area X.O,,,Ottawa,Ontario,K1Y 2C5,1,1,investottawaareaxo.ca investottawaareaxo.com invest-ottawa-area-x-o.ca invest-ottawa-area-x-o.com
+CH-VC-18337,v:c84323c33180d50b,KELLUU CANADA LTD.,,,Toronto,Ontario,M5H 3S1,1,1,kelluucanada.ca kelluucanada.com kelluu.ca kelluu.com kelluu-canada.ca kelluu-canada.com
+CH-VC-18338,v:202fa40481116176,MMSENSE Technologies Inc.,,,Waterloo,Ontario,N2L 6R5,1,1,mmsensetechnologies.ca mmsensetechnologies.com mmsense-technologies.ca mmsense-technologies.com
+CH-VC-18339,v:bd40b06b8eab6830,Pacific Marine Construction Ltd.,PACIFIC MARINE CONSTRUCTION LTD.,BC0937213,Black Creek,British Columbia,V9J 1R8,1,1,pacificmarineconstruction.ca pacificmarineconstruction.com pacific-marine-construction.ca pacific-marine-construction.com
+CH-VC-18340,v:a389aa470b459988,Nusakan Engineering Ltd.,,,Port Moody,British Columbia,V3H 0E3,1,1,nusakanengineering.ca nusakanengineering.com nusakan-engineering.ca nusakan-engineering.com
+CH-VC-18341,v:c3001cb50004df3d,Percept Systems Inc.,PERCEPT SYSTEMS INC.,BC1193011,Kelowna,British Columbia,V1Y 9T1,1,1,perceptsystems.ca perceptsystems.com percept-systems.ca percept-systems.com
+CH-VC-18342,v:9d389280295581f0,Prandtl Dynamics Inc.,Prandtl Dynamics Inc.,15614554,RICHMOND HILL,Ontario,L4C 9Y7,1,1,prandtldynamics.ca prandtldynamics.com prandtl-dynamics.ca prandtl-dynamics.com dynamiqueprandtl.ca dynamiqueprandtl.com
+CH-VC-18343,v:74ddfdd81239ba38,Quaterna Autonomous Inc.,Quaterna Autonomous Inc.,18000140,Toronto,Ontario,M5R 1C1,1,1,quaternaautonomous.ca quaternaautonomous.com quaterna-autonomous.ca quaterna-autonomous.com
+CH-VC-18344,v:be525eb5055343ac,Lastwall Networks Inc.,Lastwall Networks Inc.,8533113,Vancouver,British Columbia,V6J 4M6,1,1,lastwallnetworks.ca lastwallnetworks.com lastwall-networks.ca lastwall-networks.com
+CH-VC-18345,v:c2a1c831d401f744,REMOTE ROBOTIC SYSTEMS INC.,,,MISSISSAUGA,Ontario,L5H 2T7,1,1,remoteroboticsystems.ca remoteroboticsystems.com remote-robotic-systems.ca remote-robotic-systems.com
+CH-VC-18346,v:fd4648f112fec7cd,Romaeris Corporation,ROMAERIS CORPORATION,7593775,Ottawa,Ontario,K1B 3V1,1,1,romaeris.ca romaeris.com
+CH-VC-18347,v:e972b4724895712b,Seahawk Robotics,SEAHAWK ROBOTICS,FM0801251,Vancouver,British Columbia,V6Z 2X9,1,1,seahawkrobotics.ca seahawkrobotics.com seahawk-robotics.ca seahawk-robotics.com
+CH-VC-18348,v:dae1499e601ebc1d,M2M TECH INC,M2M TECH INC.,BC1219088,Surrey,British Columbia,V4N 0X9,1,1,m2mtech.ca m2mtech.com m2m-tech.ca m2m-tech.com
+CH-VC-18349,v:366199b88e0fe810,Mani Mehramooz - (operating as AIME Intelligence),,,Markham,Ontario,L3T 0A6,1,1,manimehramooz.ca manimehramooz.com mani-mehramooz.ca mani-mehramooz.com
+CH-VC-18350,v:7f2376989e631a99,Spatial Alchemists Inc.,,,Toronto,Ontario,M2N 2Z5,1,1,spatialalchemists.ca spatialalchemists.com spatial-alchemists.ca spatial-alchemists.com
+CH-VC-18351,v:c903ba60ac88da5e,Tech And Bots Inc.,TECH AND BOTS Inc.,11758098,Airdrie,Alberta,T4B 5C7,1,1,techbots.ca techbots.com tech-bots.ca tech-bots.com
+CH-VC-18352,v:4538868488aa81c4,University of Ontario Institute of Technology (UOIT),,,Oshawa,Ontario,L1H 7K4,1,1,
+CH-VC-18353,v:9daea7b0dc0d6d47,Terra Sense Analytics Ltd.,TERRA SENSE ANALYTICS LTD.,BC1040525,Kelowna,British Columbia,V1Y 9S4,1,1,terrasenseanalytics.ca terrasenseanalytics.com terra-sense-analytics.ca terra-sense-analytics.com
+CH-VC-18354,v:9c5e9cb06f233362,Uncharted Research and Development Incorporated,Uncharted Research and Development Incorporated,9650164,Parksville,British Columbia,V9P 2E5,1,1,unchartedresearchdevelopment.ca unchartedresearchdevelopment.com uncharted-research-development.ca uncharted-research-development.com
+CH-VC-18355,v:27ce2dc20682bf8f,University of Victoria Centre for Aerospce Research,,,Sidney,British Columbia,V8L 5W5,1,1,
+CH-VC-18356,v:7bfc6fb884cfc837,Xubin Aerospace,Xubin Aerospace Inc.,15434726,Oakville,Ontario,L6M 5E5,1,1,xubinaerospace.ca xubinaerospace.com xubin-aerospace.ca xubin-aerospace.com
+CH-VC-18357,v:76d61a0921921851,Canadian Space Mining Corporation,Canadian Space Mining Corporation,1177186674,Toronto,Ontario,M5K 1E6,1,1,canadianspacemining.ca canadianspacemining.com spacemining.ca spacemining.com canadian-space-mining.ca canadian-space-mining.com
+CH-VC-18358,v:254257392658c66f,IDC,,,Kanata,Ontario,K2K 2B5,1,1,
+CH-VC-18359,v:5e8a37405c074265,Anarampower Ltd,,,Port Coquitlam,British Columbia,V3C 4K8,1,1,anarampower.ca anarampower.com
+CH-VC-18360,v:d628ff7b7e9aa966,AirShare Inc.,AIRSHARE INC.,6006388,Ottawa,Ontario,K1V 1S8,1,1,airshare.ca airshare.com
+CH-VC-18361,v:004ed9b7fe14b106,Altivion Technologies Inc.,,,Calgary,Alberta,T3H 5Z8,1,1,altiviontechnologies.ca altiviontechnologies.com altivion-technologies.ca altivion-technologies.com
+CH-VC-18362,v:c821ebb77388a69d,Arcanus Aerial Systems Inc.,ARCANUS AERIAL SYSTEMS INC.,17819382,Toronto,Ontario,M5H 0B4,1,1,arcanusaerialsystems.ca arcanusaerialsystems.com arcanus-aerial-systems.ca arcanus-aerial-systems.com
+CH-VC-18363,v:493fe8d1cbae2e68,11371568 Canada Inc.,11371568 CANADA INC.,11371568,North York,Ontario,M3J 2C7,1,1,
+CH-VC-18364,v:9e6b47cb9e0ea0d3,Callandor Perception Inc.,CALLANDOR PERCEPTION INC.,BC1580118,Kelowna,British Columbia,V1Y 0C2,1,1,callandorperception.ca callandorperception.com callandor-perception.ca callandor-perception.com
+CH-VC-18365,v:0e9641d32ee5de01,Caseway,,,Vancouver,British Columbia,V6C 1C6,1,1,caseway.ca caseway.com
+CH-VC-18366,v:f238a9b7d1b394d8,DAYTA SYSTEMS INC.,,,Edmonton,Alberta,T6M 2V2,1,1,daytasystems.ca daytasystems.com dayta-systems.ca dayta-systems.com
+CH-VC-18367,v:bc4debcd63fdc067,Dots & Hawks Inc.,Dots & Hawks Inc.,15252091,Ottawa,Ontario,K1S 5E5,1,1,dotshawks.ca dotshawks.com dots-hawks.ca dots-hawks.com
+CH-VC-18368,v:8314db429e92d199,Doveka Group Ltd.,,,Oakville,Ontario,L6H 6X7,1,1,dovekagroup.ca dovekagroup.com doveka-group.ca doveka-group.com
+CH-VC-18369,v:e09a8dbe26cb9a2f,Escarpment Aeronautics,Escarpment Aeronautics Inc.,16559107,Acton,Ontario,L7J 2M1,1,1,escarpmentaeronautics.ca escarpmentaeronautics.com escarpment-aeronautics.ca escarpment-aeronautics.com
+CH-VC-18370,v:cc6db93947daad86,Datifex Inc.,,,Toronto,Ontario,M4G 3K7,1,1,datifex.ca datifex.com
+CH-VC-18371,v:da428d7a8ab3eac7,Formula Composites Consulting Inc.,,,Burlington,Ontario,L7R 3B5,1,1,formulacompositesconsulting.ca formulacompositesconsulting.com formula-composites-consulting.ca formula-composites-consulting.com
+CH-VC-18372,v:c929e2028b4be5c6,Frontier Labs,,,Dartmouth,Nova Scotia,B2Y 4T5,1,1,frontierlabs.ca frontierlabs.com frontier-labs.ca frontier-labs.com
+CH-VC-18373,v:176bce91bf7a0af5,Gull Systems Corporation,Gull Systems Corporation,14591836,Toronto,Ontario,M4G 0C7,1,1,gullsystems.ca gullsystems.com gull-systems.ca gull-systems.com
+CH-VC-18374,v:1e154819056ec671,International Submarine Engineering,,,Port Coquitlam,British Columbia,V3C 2M8,1,1,
+CH-VC-18375,v:d6313a5dbeedde45,Invicton Laboratories Corp.,Invicton Laboratories Corp.,11118595,Ottawa,Ontario,K1Y 4H4,1,1,invictonlaboratories.ca invictonlaboratories.com invicton-laboratories.ca invicton-laboratories.com
+CH-VC-18376,v:1906b78857277d8e,Kinetics Drive Solutions Inc,KINETICS DRIVE SOLUTIONS INC.,BC0720902,Langley,British Columbia,V4W 3X1,1,1,kineticsdrivesolutions.ca kineticsdrivesolutions.com kinetics-drive-solutions.ca kinetics-drive-solutions.com
+CH-VC-18377,v:2856a642561391bc,Mechatronic Design Solutions Inc.,Mechatronic Design Solutions Inc.,10451746,Ottawa,Ontario,K1R 6R8,1,1,mechatronicdesignsolutions.ca mechatronicdesignsolutions.com mechatronic-design-solutions.ca mechatronic-design-solutions.com
+CH-VC-18378,v:2fbe7c6ca86b86fd,L3Harris - Wescam,,,Waterdown,Ontario,L9H 0C5,1,1,l3harriswescam.ca l3harriswescam.com l3harris-wescam.ca l3harris-wescam.com
+CH-VC-18379,v:8b4c22c8a3b103cc,Lodge Systems Inc,,,Vancouver,British Columbia,V7X 1K8,1,1,lodgesystems.ca lodgesystems.com lodge-systems.ca lodge-systems.com
+CH-VC-18380,v:2fe23278db495314,"Magellan Aerospace Winnipeg, a division of Magellan Aerospace Limited",,,Winnipeg,Manitoba,R3H 0S5,1,1,
+CH-VC-18381,v:25a5b9712492bb0d,MarineLabs Data Systems Inc.,MARINELABS DATA SYSTEMS INC.,BC1107738,Victoria,British Columbia,V8T 4L3,1,1,marinelabsdatasystems.ca marinelabsdatasystems.com marinelabs-data-systems.ca marinelabs-data-systems.com
+CH-VC-18382,v:92bd1b83bda035d8,Micro Engineering tech Inc,,,Calgary,Alberta,T2M 0L7,1,1,microengineeringtech.ca microengineeringtech.com micro-engineering-tech.ca micro-engineering-tech.com
+CH-VC-18383,v:8c194462d4fa3f8c,METAL HUB,,,Mississippi Mills,Ontario,K0A 1A0,1,1,metalhub.ca metalhub.com metal-hub.ca metal-hub.com
+CH-VC-18384,v:b589abbbd67ba45c,Orex Systems,OREX SYSTEMS INC.,18120200,Coquitlam,British Columbia,V3C 6A3,1,1,orexsystems.ca orexsystems.com orex-systems.ca orex-systems.com
+CH-VC-18385,v:dc2ab72060deed11,Quaternion Engineering Inc.,,,Victoria,British Columbia,V8N 1S6,1,1,quaternionengineering.ca quaternionengineering.com quaternion-engineering.ca quaternion-engineering.com
+CH-VC-18386,v:796de94b2f08aa36,Range and Bearing Corporation,,,Victoria,British Columbia,V8S 2C6,1,1,rangebearing.ca rangebearing.com range-bearing.ca range-bearing.com
+CH-VC-18387,v:2e3b31aed4250d84,Sea Centric Inc,,,Holyrood,Newfoundland and Labrador,A0A 2R0,1,1,seacentric.ca seacentric.com sea-centric.ca sea-centric.com
+CH-VC-18388,v:587af491a97066be,Sensofusion Canada Inc.,,,Cambridge,Ontario,N3H 3P5,1,1,sensofusioncanada.ca sensofusioncanada.com sensofusion.ca sensofusion.com sensofusion-canada.ca sensofusion-canada.com
+CH-VC-18389,v:6f21874902f59d01,Sensor Technology Ltd,,,Collingwood,Ontario,L9Y 4K1,1,1,sensortechnology.ca sensortechnology.com sensor-technology.ca sensor-technology.com
+CH-VC-18390,v:6a2901d72044a761,SkyCan Systems Inc,,,Toronto,Ontario,M4V 1T2,1,1,skycansystems.ca skycansystems.com skycan-systems.ca skycan-systems.com
+CH-VC-18391,v:6397ac43c4342750,Skycope Technologies Inc.,,,Vancouver,British Columbia,V6Z 2K8,1,1,skycopetechnologies.ca skycopetechnologies.com skycope-technologies.ca skycope-technologies.com
+CH-VC-18392,v:8562dde4b015b56d,TDA Connect Incorporated,TDA Connect Incorporated,14110447,Duncan,British Columbia,V9L 0H1,1,1,tdaconnect.ca tdaconnect.com tda-connect.ca tda-connect.com
+CH-VC-18393,v:e8cc11620ab46b42,TEAM GTI,,,Dartmouth,Nova Scotia,B3B 1J4,1,1,teamgti.ca teamgti.com team-gti.ca team-gti.com
+CH-VC-18394,v:c396886b09613ef6,Teleidoscope Canada,TELEIDOSCOPE CANADA INC.,1182453531,Barrie,Ontario,L4M 3G2,1,1,teleidoscopecanada.ca teleidoscopecanada.com teleidoscope.ca teleidoscope.com teleidoscope-canada.ca teleidoscope-canada.com
+CH-VC-18395,v:4b2cd5c57199fb9f,Terrain Systems Inc.,Terrain Systems Inc.,16589154,Victoria,British Columbia,V8W 0E9,1,1,terrainsystems.ca terrainsystems.com terrain-systems.ca terrain-systems.com
+CH-VC-18396,v:b70ad9fbded6f9f2,Valor BPS,Valor BPS Limited,15070830,Halifax,Nova Scotia,B3J 2A8,1,1,valorbps.ca valorbps.com valor-bps.ca valor-bps.com
+CH-VC-18397,v:80123d5ccab0f0de,Artificial Intelligence Mastermind Robotics Inc.,,,Waterloo,Ontario,N2L 6R5,1,1,
+CH-VC-18398,v:bf69c54180b6ec2b,Complex System Inc,,,Calgary,Alberta,T2E 1W9,1,1,complexsystem.ca complexsystem.com complex-system.ca complex-system.com
+CH-VC-18399,v:c7edaa8926df058a,Eigenarmour Defence Systems Inc,EIGENARMOUR DEFENCE SYSTEMS INC.,BC1522689,Victoria,British Columbia,V8P 3H3,1,1,eigenarmourdefencesystems.ca eigenarmourdefencesystems.com eigenarmour-defence-systems.ca eigenarmour-defence-systems.com
+CH-VC-18400,v:e6e290430cd09c58,Last Systems Inc.,,,Dartmouth,Nova Scotia,B3B 0A4,1,1,lastsystems.ca lastsystems.com last-systems.ca last-systems.com
+CH-VC-18401,v:722a70ca5cacb18f,Proterra Equipment Rentals Inc,,,Pikwakanagan,Ontario,K0J 1X0,1,1,proterraequipmentrentals.ca proterraequipmentrentals.com proterra-equipment-rentals.ca proterra-equipment-rentals.com
+CH-VC-18402,v:923661d17072d55a,Nänkäk - Pelly Construction Joint Venture,,,Whitehorse,Yukon,Y1A 5S8,1,1,
+CH-VC-18403,v:808dfd4b2ea8e188,SPIRI HOLDINGS INC.,,,Dartmouth,Nova Scotia,B2Y 4T5,1,1,spiriholdings.ca spiriholdings.com spiri-holdings.ca spiri-holdings.com
+CH-VC-18404,v:bb743d7fcd6ae792,C. A. Pothier & Ass,,,Hanwell,New Brunswick,E3C 1M5,1,1,cpothierass.ca cpothierass.com c-pothier-ass.ca c-pothier-ass.com
+CH-VC-18405,v:087093069e797dbf,Quantum Valley Ideas Laboratories,Quantum Valley Ideas Laboratories,9685995,Waterloo,Ontario,N2L 0A7,1,1,quantumvalleyideaslaboratories.ca quantumvalleyideaslaboratories.com
+CH-VC-18406,v:db0800a98fe23b1e,Elektroland Defence,,,Oakville,Ontario,L6L 2J4,1,1,elektrolanddefence.ca elektrolanddefence.com elektroland-defence.ca elektroland-defence.com
+CH-VC-18407,v:33e6dcd349f723cb,Marble Aerospace Ltd,,,Dartmouth,Nova Scotia,B2W 2K6,1,1,marbleaerospace.ca marbleaerospace.com marble-aerospace.ca marble-aerospace.com
+CH-VC-18408,v:671f027effcc306f,Tamgha trade office,,,Concord,Ontario,L4K 4P1,1,1,tamghatradeoffice.ca tamghatradeoffice.com tamgha-trade-office.ca tamgha-trade-office.com
+CH-VC-18409,v:25723cfb274ae12a,V.I Metchosin Contracting & Tractor service LTD,,,Victoria,British Columbia,V9C 3Y8,1,1,
+CH-VC-18410,v:2cc37dc4670fd490,ABDULRAHMAN ABDULHAK,,,Cambridge,Ontario,N1T 1X8,1,1,abdulrahmanabdulhak.ca abdulrahmanabdulhak.com abdulrahman-abdulhak.ca abdulrahman-abdulhak.com
+CH-VC-18411,v:838c5fe74c00c7a3,1QB Information Technologies Inc.,1QB Information Technologies Inc.,8448680,Vancouver,British Columbia,V6E 4B1,1,1,1qbinformationtechnologies.ca 1qbinformationtechnologies.com 1qb-information-technologies.ca 1qb-information-technologies.com
+CH-VC-18412,v:7a6eb8d8999be01e,CCX Technologies,CCX Technologies Inc.,10328146,Ottawa,Ontario,K1Z 8R1,1,1,ccxtechnologies.ca ccxtechnologies.com ccx-technologies.ca ccx-technologies.com
+CH-VC-18413,v:69ea15b12bf20931,Dominion Dynamics,,,Ottawa,Ontario,K2A 3H9,1,1,dominiondynamics.ca dominiondynamics.com dominion-dynamics.ca dominion-dynamics.com
+CH-VC-18414,v:0b8994b83488921d,UAVita Systems Inc.,,,Saskatoon,Saskatchewan,S7K 1N7,1,1,uavitasystems.ca uavitasystems.com uavita-systems.ca uavita-systems.com
+CH-VC-18415,v:b6392290a7290805,17073798 CANADA INC.,17073798 CANADA INC.,17073798,Kitchener,Ontario,N2R 1N8,1,1,

@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-08216,v:b039549224e16931,Hinton Plumbing & Heating Ltd,,,Hinton,AB,T7V 1X3,2,1,hintonplumbingheating.ca hintonplumbingheating.com hinton-plumbing-heating.ca hinton-plumbing-heating.com
+CH-VC-08217,v:880a5d090c1f490e,Wonderwrench Solutions Ltd,,,Spruce Grove,AB,T7X 3T8,2,1,wonderwrenchsolutions.ca wonderwrenchsolutions.com wonderwrench-solutions.ca wonderwrench-solutions.com
+CH-VC-08218,v:0c393f881dbe2dbf,Chainalysis Canada Inc,Chainalysis Canada Inc.,1177776276,Toronto ,ON,M5X 1B8,2,1,chainalysiscanada.ca chainalysiscanada.com chainalysis.ca chainalysis.com chainalysis-canada.ca chainalysis-canada.com
+CH-VC-08219,v:203ddc4e0b41e38f,Marmon Industrial Water Limited,Marmon Industrial Water Limited,2019761,Edmonton,AB,T6P 1J5,2,1,marmonindustrialwater.ca marmonindustrialwater.com marmon-industrial-water.ca marmon-industrial-water.com eauindustriellemarmon.ca eauindustriellemarmon.com
+CH-VC-08220,v:f74cb0f4f09cd5a5,The John Howard Society of Grande Prairie,,,Grande Prairie,AB,T8V 1A1,2,1,johnhowardsocietygrandeprairie.ca johnhowardsocietygrandeprairie.com
+CH-VC-08221,v:9b4430982f549047,TerraPro Inc.,,, Sherwood Park,AB,T8A 4V2,2,1,terrapro.ca terrapro.com
+CH-VC-08222,v:f9d91bed53243cd2,795060 Alberta LTD,,,Grande Cache,AB,T0E 0Y0,2,1,
+CH-VC-08223,v:3bea330507d41e37,Lakeland Petroleum Services Coop,,,Bonnyville,AB,T9N 2M8,2,1,lakelandpetroleumservicescoop.ca lakelandpetroleumservicescoop.com
+CH-VC-08224,v:5798c4102d631423,Cougar Technical Services Ltd.,,,Calgary,AB,T2G 2A5,2,1,cougartechnicalservices.ca cougartechnicalservices.com cougar-technical-services.ca cougar-technical-services.com
+CH-VC-08225,v:894e9509991fae19,Univerus Software Canada,UNIVERUS SOFTWARE CANADA INC.,BC1504184,Burnaby,BC,V5A 4R4,2,1,univerussoftwarecanada.ca univerussoftwarecanada.com univerussoftware.ca univerussoftware.com univerus-software-canada.ca univerus-software-canada.com
+CH-VC-08226,v:c71e6598e2b7cf97,Professional Excavators & Construction Inc.,,,Calgary,AB,T2C 5A6,2,1,
+CH-VC-08227,v:d4f536c589a4bf6c,375144 alberta ltd.,,,banff,AB,T1L 1B6,2,1,
+CH-VC-08228,v:478be466b3f07592,Harold's Towing & Recovery Ltd.,,,Grande Prairie,AB,T8V 2N8,2,1,haroldstowingrecovery.ca haroldstowingrecovery.com harolds-towing-recovery.ca harolds-towing-recovery.com
+CH-VC-08229,v:7a13f5cc91f5b9e3,Maple Reinders Construction Ltd,,,Elk Point,AB,T0A 1A0,2,1,maplereindersconstruction.ca maplereindersconstruction.com maple-reinders-construction.ca maple-reinders-construction.com
+CH-VC-08230,v:cc4edb8424717fc4,Amron Construction,,,Redcliff,AB,T0J 2P0,2,1,amronconstruction.ca amronconstruction.com amron-construction.ca amron-construction.com
+CH-VC-08231,v:ae0b450e210c43cd,Prairie Erectors International Inc.,,,Nisku,AB,T9E 7R2,2,1,prairieerectorsinternational.ca prairieerectorsinternational.com prairie-erectors-international.ca prairie-erectors-international.com
+CH-VC-08232,v:33f6ca4e791770ef,Nicholson Chevrolet (1977) Ltd,,,SHERWOOD PARK,AB,T8H 0R5,2,1,nicholsonchevrolet.ca nicholsonchevrolet.com nicholson-chevrolet.ca nicholson-chevrolet.com
+CH-VC-08233,v:ba1afc826043018d,Engage Delaney Inc,Engage Delaney Inc.,3272532,Lake Country,BC,V4V 2N1,2,1,engagedelaney.ca engagedelaney.com engage-delaney.ca engage-delaney.com
+CH-VC-08234,v:eab257c887b38b43,Elecon Systems Ltd.,,,Edmonton,AB,T6B 3J9,2,1,eleconsystems.ca eleconsystems.com elecon-systems.ca elecon-systems.com
+CH-VC-08235,v:37a7895c305b8d17,Kichton Contracting Ltd.,,,Acheson,AB,T7X 6C2,2,1,kichtoncontracting.ca kichtoncontracting.com kichton-contracting.ca kichton-contracting.com
+CH-VC-08236,v:541ee2e98e23780b,SUBLATUS Environmental Inc.,,,Calgary,AB,T2H 2M4,2,1,sublatusenvironmental.ca sublatusenvironmental.com sublatus-environmental.ca sublatus-environmental.com
+CH-VC-08237,v:df7bad2cbb09d462,HOK Architects Corporation,HOK ARCHITECTS CORPORATION,1147274840,Calgary,AB,T2G 5C3,2,1,hokarchitects.ca hokarchitects.com hok-architects.ca hok-architects.com
+CH-VC-08238,v:fce9b3a9eb38a457,Paradox Access Solutions,,,Acheson,AB,T7X 6B2,2,1,paradoxaccesssolutions.ca paradoxaccesssolutions.com paradox-access-solutions.ca paradox-access-solutions.com
+CH-VC-08239,v:42d5d52de0b90ff8,Integral Air Furnace and Ventilation Ltd.,,,Edmonton,AB,T6R 3V3,2,1,integralairfurnaceventilation.ca integralairfurnaceventilation.com
+CH-VC-08240,v:4738027c1fa3dad6,London Economics International LLC,,,Toronto,ON,M5H 2Y2,2,1,londoneconomicsinternational.ca londoneconomicsinternational.com london-economics-international.ca london-economics-international.com
+CH-VC-08241,v:0c3a20ea40d3933f,EAST BUTTE CONTRACTING LTD.,,,Picture Butte,AB,T0K 1V0,2,1,eastbuttecontracting.ca eastbuttecontracting.com east-butte-contracting.ca east-butte-contracting.com
+CH-VC-08242,v:fad2e1ff111448ba,LAPRAIRIE WORKS INC.,LAPRAIRIE WORKS INC.,A0042724,Calgary,AB,T2P 1N8,2,1,laprairieworks.ca laprairieworks.com laprairie-works.ca laprairie-works.com
+CH-VC-08243,v:4b79578faf4201c2,REDCAP VENTURES INC,,,Coaldale,AB,T1M 1M4,2,1,redcapventures.ca redcapventures.com redcap-ventures.ca redcap-ventures.com
+CH-VC-08244,v:7070d4525a2a9832,G&M Plumbing and Heating LTD,,,GRANDE PRAIRIE,AB,T8V 8K1,2,1,gmplumbingheating.ca gmplumbingheating.com g-m-plumbing-heating.ca g-m-plumbing-heating.com
+CH-VC-08245,v:d4b2a85fc503b35f,Wholesale Trailers of Alberta ltd,,,Nisku,AB,T9E 8A7,2,1,wholesaletrailersalberta.ca wholesaletrailersalberta.com wholesale-trailers-alberta.ca wholesale-trailers-alberta.com
+CH-VC-08246,v:dadc85dda3e148e6,ITI Solutions Canada Inc.,,,Medicine Hat,AB,T1A 7G7,2,1,itisolutionscanada.ca itisolutionscanada.com itisolutions.ca itisolutions.com iti-solutions-canada.ca iti-solutions-canada.com
+CH-VC-08247,v:bf5cfe6cb6751271,City of Calgary,,,Calgary,AB,T2G 4H3,2,1,citycalgary.ca citycalgary.com city-calgary.ca city-calgary.com
+CH-VC-08248,v:dd996c4dd0544ac6,CANADIAN CAREER DEVELOPMENT FOUNDATION,CANADIAN CAREER DEVELOPMENT FOUNDATION,693049,OTTAWA,ON,K1Y 0N6,2,1,careerdevelopmentfoundation.ca careerdevelopmentfoundation.com
+CH-VC-08249,v:9aac6549b8e07872,INSTITUTE OF HEALTH ECONOMICS,,,EDMONTON,AB,T5J 3N4,2,1,institutehealtheconomics.ca institutehealtheconomics.com institute-health-economics.ca institute-health-economics.com
+CH-VC-08250,v:6693fac8ac5afdfe,Don Mann Excavating Ltd.,DON MANN EXCAVATING LTD.,BC1102292,Victoria,BC,,2,1,donmannexcavating.ca donmannexcavating.com don-mann-excavating.ca don-mann-excavating.com
+CH-VC-08251,v:57ae890ccde15c87,Holmes & Brakel Business Interiors,,,Vancouver,BC,,2,1,holmesbrakelbusinessinteriors.ca holmesbrakelbusinessinteriors.com
+CH-VC-08252,v:c809e4dacba24e4b,Fred Surridge Ltd,FRED SURRIDGE LTD.,BC0055637,Richmond,BC,,2,1,
+CH-VC-08253,v:7de250342b494840,Computer Media Products Ltd,Computer Media Products Ltd,1170919311,Ottawa,ON,,2,1,computermediaproducts.ca computermediaproducts.com computer-media-products.ca computer-media-products.com groupemediasinformatiques.ca groupemediasinformatiques.com
+CH-VC-08254,v:191d71f143862300,David Nairne & Associates Ltd,DAVID NAIRNE & ASSOCIATES LTD.,BC0233844,North Vancouver,BC,,2,1,davidnairneassociates.ca davidnairneassociates.com david-nairne-associates.ca david-nairne-associates.com
+CH-VC-08255,v:77b2676e8f48880b,Nuu-Chah-Nulth Tribal Council,NUU-CHAH-NULTH TRIBAL COUNCIL,S0010405,Port Alberni,BC,,2,1,nuuchahnulthtribalcouncil.ca nuuchahnulthtribalcouncil.com nuu-chah-nulth-tribal-council.ca nuu-chah-nulth-tribal-council.com
+CH-VC-08256,v:bc72724f81bf1574,EnviroEconomics Inc.,,,Ottawa,ON,,2,1,enviroeconomics.ca enviroeconomics.com
+CH-VC-08257,v:16bba400f6024850,Alpine Aviation (Yukon) Ltd,ALPINE AVIATION (YUKON) LTD.,3362043,Whitehorse,YT,,2,1,alpineaviation.ca alpineaviation.com alpine-aviation.ca alpine-aviation.com
+CH-VC-08258,v:941474f6e1eb6e79,RTI Research Ltd,,,Langley,BC,,2,1,rtiresearch.ca rtiresearch.com rti-research.ca rti-research.com
+CH-VC-08259,v:6d169e2cb6cc3ad3,Plea Community Services Society of BC,,,Vancouver,BC,,2,1,pleacommunityservicessocietybc.ca pleacommunityservicessocietybc.com
+CH-VC-08260,v:4d6d1641a6fc6ebb,ICE Development Ltd.,ICE DEVELOPMENT LTD.,BC1294925,Aldergrove,BC,,2,1,icedevelopment.ca icedevelopment.com ice-development.ca ice-development.com
+CH-VC-08261,v:8ad49a6646991555,Veer Holdings Ltd.,VEER HOLDINGS LTD.,BC0673644,Victoria,BC,,2,1,veerholdings.ca veerholdings.com veer-holdings.ca veer-holdings.com
+CH-VC-08262,v:3d54e43ecea427a4,Out of the Blue Designs,,,Victoria,BC,,2,1,outbluedesigns.ca outbluedesigns.com out-blue-designs.ca out-blue-designs.com
+CH-VC-08263,v:d15b0e8bbec9e413,Hupacasath First Nation,,,Port Alberni,BC,,2,1,hupacasathfirstnation.ca hupacasathfirstnation.com hupacasath-first-nation.ca hupacasath-first-nation.com
+CH-VC-08264,v:bf33ed4d73762e65,Avatek Mountain Systems Inc,AVATEK MOUNTAIN SYSTEMS INC.,BC0848226,Golden,BC,,2,1,avatekmountainsystems.ca avatekmountainsystems.com avatek-mountain-systems.ca avatek-mountain-systems.com
+CH-VC-08265,v:9fa199d1b0e9ec59,Pyxis Consulting Group Inc.,PYXIS CONSULTING GROUP INC.,BC0657117,Vancouver,BC,,2,1,
+CH-VC-08266,v:5725365b30d1a0ab,4Forward Inc.,4Forward Inc.,6892922,Ottawa,ON,,2,1,4forward.ca 4forward.com
+CH-VC-08267,v:4bdb8751d3ee616b,OH&S Safety Consulting and Training Solutions Ltd,OH&S SAFETY CONSULTING & TRAINING SOLUTIONS LTD.,BC1018528,Kamloops,BC,,2,1,
+CH-VC-08268,v:9ba3d6c9176bc3a8,Setetkwe Contracting Ltd,SETETKWE CONTRACTING LTD.,BC1097693,Barriere,BC,,2,1,setetkwecontracting.ca setetkwecontracting.com setetkwe-contracting.ca setetkwe-contracting.com
+CH-VC-08269,v:4c512cc2afb1e4d5,Bynder,,,,BC,,2,1,
+CH-VC-08270,v:460e894d5d9c9438,McKenzie LK Projects Ltd.,MCKENZIE LK PROJECTS LTD.,BC1391677,,BC,,2,1,mckenzielkprojects.ca mckenzielkprojects.com mckenzie-lk-projects.ca mckenzie-lk-projects.com
+CH-VC-08271,v:6ee24a1c8341492c,Morrow BioScience Ltd,MORROW BIOSCIENCE LTD.,BC0646139,,BC,,2,1,
+CH-VC-08272,v:9dada71af9a940d1,Shinepro janitorial services,,,,BC,,2,1,shineprojanitorialservices.ca shineprojanitorialservices.com shinepro-janitorial-services.ca shinepro-janitorial-services.com
+CH-VC-08273,v:88ffaaa57891d20e,John Howard Society,,,Victoria,BC,,2,1,johnhowardsociety.ca johnhowardsociety.com john-howard-society.ca john-howard-society.com
+CH-VC-08274,v:7a6b101e02a274a1,CITIZENCENTRIC CONSULTING INC.,CITIZENCENTRIC CONSULTING INC.,13041719,Victoria,BC,,2,1,citizencentricconsulting.ca citizencentricconsulting.com citizencentric-consulting.ca citizencentric-consulting.com
+CH-VC-08275,v:70e4b7abac815994,Industrio AI,INDUSTRIO AI INC.,BC1403085,,BC,,2,1,industrioai.ca industrioai.com industrio-ai.ca industrio-ai.com
+CH-VC-08276,v:0f789ca7bd6091ba,Coursera Canada,,,,,,2,1,
+CH-VC-08277,v:7335c5ff043df850,Measurement Sciences Inc.,MEASUREMENT SCIENCES INC.,1180040447,Calgary,AB,,2,1,measurementsciences.ca measurementsciences.com measurement-sciences.ca measurement-sciences.com sciencesmesures.ca sciencesmesures.com
+CH-VC-08278,v:c42b4868620a23ab,Reftek Systems Inc.,,,Dartmouth,NS,,2,1,refteksystems.ca refteksystems.com reftek-systems.ca reftek-systems.com
+CH-VC-08279,v:8f9131d4bf7c6328,Crane Management Consultants,CRANE MANAGEMENT CONSULTANTS LTD.,BC0350249,Vancouver,BC,,2,1,cranemanagementconsultants.ca cranemanagementconsultants.com crane-management-consultants.ca crane-management-consultants.com
+CH-VC-08280,v:e96129e18b9f96ae,Sherwood Marine Centre,SHERWOOD MARINE CENTRE LTD.,BC0252951,,BC,,2,1,sherwoodmarinecentre.ca sherwoodmarinecentre.com sherwood-marine-centre.ca sherwood-marine-centre.com
+CH-VC-08281,v:6f8517badda2a70f,Justason Market Intelligence Inc,JUSTASON MARKET INTELLIGENCE INC.,BC0667384,Vancouver,BC,,2,1,justasonmarketintelligence.ca justasonmarketintelligence.com justason-market-intelligence.ca justason-market-intelligence.com
+CH-VC-08282,v:526a4f5ee32bbf32,Kisik Aerial Survey Inc.,Kisik Aerial Survey Inc.,7507445,,BC,,2,1,kisikaerialsurvey.ca kisikaerialsurvey.com kisik-aerial-survey.ca kisik-aerial-survey.com
+CH-VC-08283,v:7665adc04a9e817e,Inventa,,,,BC,,2,1,inventa.ca inventa.com
+CH-VC-08284,v:2ff840fee5a6c937,ACCURATE LOCK & SAFE CO LIMITED,ACCURATE LOCK & SAFE CO. LTD.,BC0886525,New Westminster,BC,,2,1,accuratelocksafe.ca accuratelocksafe.com accurate-lock-safe.ca accurate-lock-safe.com
+CH-VC-08285,v:99f780716d204d49,Fast Air Ltd,,,,BC,,2,1,fastair.ca fastair.com fast-air.ca fast-air.com
+CH-VC-08286,v:440c5d412b688733,Coast Ropes and Rescue,"COAST ROPES AND RESCUE, INC.",BC1236766,,BC,V5J 3L5,2,1,coastropesrescue.ca coastropesrescue.com coast-ropes-rescue.ca coast-ropes-rescue.com
+CH-VC-08287,v:6c0f821c2bfea819,ARK / Petroff,,,Toronto,ON,,2,1,arkpetroff.ca arkpetroff.com ark-petroff.ca ark-petroff.com
+CH-VC-08288,v:d1477792b926092e,12363623 Canada Inc.,12363623 Canada Inc.,12363623,Brandon  ,MB,,2,1,
+CH-VC-08289,v:e41b1dea491c15d1,"Charlene Rooke, Sole Proprietorship",,,Vancouver,BC,,2,1,
+CH-VC-08290,v:57b6dfc380607d0a,Chemtrade Chemicals US LLC,,,Toronto,ON,,2,1,chemtradechemicalsus.ca chemtradechemicalsus.com chemtrade-chemicals-us.ca chemtrade-chemicals-us.com
+CH-VC-08291,v:6bf63856be1d7ebf,VAMCO Inc.,,,waterloo,ON,,2,1,
+CH-VC-08292,v:da6aba82489f9d04,NEXGEN ELECTRICAL CONTRACTING INC.,,,HAMILTON,ON,,2,1,nexgenelectricalcontracting.ca nexgenelectricalcontracting.com nexgen-electrical-contracting.ca nexgen-electrical-contracting.com
+CH-VC-08293,v:1704b95b426723d8,Corporate Mirror INC/Cleaning Masters Canada,,,Gouthamraj Maran,ON,,2,1,corporatemirrorcleaningmasters.ca corporatemirrorcleaningmasters.com
+CH-VC-08294,v:a49b18e4ba8ff9ce,Quest Audio Visual Inc,Quest Audio Visual Inc.,6133975,Scarborough,ON,,2,1,questaudiovisual.ca questaudiovisual.com quest-audio-visual.ca quest-audio-visual.com
+CH-VC-08295,v:2091717cfa106977,Syntax Strategic,,,Carp,ON,,2,1,syntaxstrategic.ca syntaxstrategic.com syntax-strategic.ca syntax-strategic.com
+CH-VC-08296,v:20759e9a92b624de,Elemental Concepts Limited,,,Stillwater Lake,NS,,2,1,elementalconcepts.ca elementalconcepts.com elemental-concepts.ca elemental-concepts.com
+CH-VC-08297,v:93ef14873328ccd8,Priority Learning and Development Incorporated,,,Bedford,NS,,2,1,prioritylearningdevelopment.ca prioritylearningdevelopment.com priority-learning-development.ca priority-learning-development.com
+CH-VC-08298,v:518fa2a4902142f0,Elvaan Equipment Solution,,,Mississagua,ON,,2,1,elvaanequipmentsolution.ca elvaanequipmentsolution.com elvaan-equipment-solution.ca elvaan-equipment-solution.com
+CH-VC-08299,v:f20220bb31564a1f,Central Technology Services Corp.,,,Oakville,ON,,2,1,centraltechnologyservices.ca centraltechnologyservices.com central-technology-services.ca central-technology-services.com
+CH-VC-08300,v:3d0d5c1645eb0992,Megawire Inc.,,,Waterloo,ON,,2,1,megawire.ca megawire.com
+CH-VC-08301,v:3c1d5d64e0d2c720,Somerville Merchandising,SOMERVILLE MERCHANDISING INC.,3340422,Toronto ,ON,,2,1,
+CH-VC-08302,v:7096bb9b156ee000,MCIS Language Services,,,Toronto,ON,,2,1,mcislanguageservices.ca mcislanguageservices.com mcis-language-services.ca mcis-language-services.com
+CH-VC-08303,v:5fd42fd801be9d7a,Stacey Brandford Photography,,,Toronto,ON,,2,1,staceybrandfordphotography.ca staceybrandfordphotography.com stacey-brandford-photography.ca stacey-brandford-photography.com
+CH-VC-08304,v:3a1399e54c49d97b,The Growcer Inc.,The Growcer Inc.,9775994,Ottawa,ON,,2,1,growcer.ca growcer.com
+CH-VC-08305,v:ec921c3296b2f0e1,G.S. Wark Limited,,,Hamilton,ON,,2,1,
+CH-VC-08306,v:5d2dd97a1572a698,Taillieu Construction Ltd,,,Headingley ,MB,R4H 1A5,2,1,taillieuconstruction.ca taillieuconstruction.com taillieu-construction.ca taillieu-construction.com
+CH-VC-08307,v:772548522e499690,Breadman property care,,,Napanee,ON,K7R3K8,2,1,breadmanpropertycare.ca breadmanpropertycare.com breadman-property-care.ca breadman-property-care.com
+CH-VC-08308,v:9e766b38e77c8059,Trailerworld Industries Inc,,,Brantford,ON,N3T5M1,2,1,trailerworldindustries.ca trailerworldindustries.com trailerworld-industries.ca trailerworld-industries.com
+CH-VC-08309,v:4f7d3c988f82f76e,Glendenning Property Maintenance LTD.,,,Thornton,ON,L0L 2N0,2,1,glendenningpropertymaintenance.ca glendenningpropertymaintenance.com
+CH-VC-08310,v:2185d1a84cacd321,Sommers Generator Systems Ltd,,,Moncton,NB,E1E 0J2,2,1,sommersgeneratorsystems.ca sommersgeneratorsystems.com sommers-generator-systems.ca sommers-generator-systems.com
+CH-VC-08311,v:bf8bd85ec1314ced,Ontario Pool Coatings Incorporated,,,London,ON,N6L 1A4,2,1,ontariopoolcoatings.ca ontariopoolcoatings.com ontario-pool-coatings.ca ontario-pool-coatings.com
+CH-VC-08312,v:9042ebf37ec315b5,Hav-All Concrete & Construction,,,London,ON,N6P1P9,2,1,havallconcreteconstruction.ca havallconcreteconstruction.com hav-all-concrete-construction.ca hav-all-concrete-construction.com
+CH-VC-08313,v:811bff80e0d90ff6,Summit Tree Service Inc.,,,Melbourne,ON,N0L 1T0,2,1,summittreeservice.ca summittreeservice.com summit-tree-service.ca summit-tree-service.com
+CH-VC-08314,v:e2f4f02ed41fb03f,Prentice Towing Inc.,,,Grafton,ON,K0K2G0,2,1,prenticetowing.ca prenticetowing.com prentice-towing.ca prentice-towing.com
+CH-VC-08315,v:1762b3e25c3a65e5,Peters Brothers Construction LTD,,,Penticton ,BC,V2A 3K6,2,1,petersbrothersconstruction.ca petersbrothersconstruction.com peters-brothers-construction.ca peters-brothers-construction.com

@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-08516,v:19e704f714dbf5b5,Blue Sky Property Services,,,hamilton,ON,L0R 1V0,2,1,blueskypropertyservices.ca blueskypropertyservices.com blue-sky-property-services.ca blue-sky-property-services.com
+CH-VC-08517,v:b8fe55b8bbf4318a,Cintas Newmarket,,,Newmarket,ON,L3Y8Z5,2,1,cintasnewmarket.ca cintasnewmarket.com cintas-newmarket.ca cintas-newmarket.com
+CH-VC-08518,v:7eabd3ff377d04f7,RFPSolutions Inc.,,,Ottawa,ON,K2H 7T9,2,1,rfpsolutions.ca rfpsolutions.com
+CH-VC-08519,v:daec961fe8543153,Reddog Enterprises Ltd.,REDDOG ENTERPRISES LTD.,BC1035266,Surrey,BC,V4N 5L8,2,1,reddogenterprises.ca reddogenterprises.com reddog-enterprises.ca reddog-enterprises.com
+CH-VC-08520,v:8d2d6e65d09c75e5,Beyond Support Services and Associates Inc,,,Newmarket ,ON,L3X0K3,2,1,
+CH-VC-08521,v:318ecbff58155477,crystal windows and doors,,,Thornhill,ON,L4J8L3,2,1,crystalwindowsdoors.ca crystalwindowsdoors.com crystal-windows-doors.ca crystal-windows-doors.com
+CH-VC-08522,v:708c979c3734c7f9,ATTA Elevator Corp,,,Concord,ON,L4K 2H3,2,1,attaelevator.ca attaelevator.com atta-elevator.ca atta-elevator.com
+CH-VC-08523,v:b0e897fa28e7886d,Perry Matthews Towing Inc.,,,Conception Bay South,NL,A1X6N2,2,1,perrymatthewstowing.ca perrymatthewstowing.com perry-matthews-towing.ca perry-matthews-towing.com
+CH-VC-08524,v:30e2048d314f048d,GetSet Solutions Ltd,GETSET SOLUTIONS LTD.,BC1139624,North Vancouver,BC,V7P 1R5,2,1,getsetsolutions.ca getsetsolutions.com getset-solutions.ca getset-solutions.com
+CH-VC-08525,v:c20fbce9f9107ae4,Sixense Solutions Canada Ltd,,,Toronto,ON,M6K 1Y2,2,1,sixensesolutionscanada.ca sixensesolutionscanada.com sixensesolutions.ca sixensesolutions.com sixense-solutions-canada.ca sixense-solutions-canada.com
+CH-VC-08526,v:2a9049e16e99a174,Marsh Lake Tents & Events Ltd,,,Whitehorse,YT,Y1A 7A1,2,1,marshlaketentsevents.ca marshlaketentsevents.com marsh-lake-tents-events.ca marsh-lake-tents-events.com
+CH-VC-08527,v:d1f7907a4ccdf3ab,Ontario Parking Systems,,,London,ON,N6M 1H6,2,1,ontarioparkingsystems.ca ontarioparkingsystems.com ontario-parking-systems.ca ontario-parking-systems.com
+CH-VC-08528,v:e326105d8543b0e1,Torcan Lift Equipment,,,Toronto,ON,M9M 2M6,2,1,torcanliftequipment.ca torcanliftequipment.com torcan-lift-equipment.ca torcan-lift-equipment.com
+CH-VC-08529,v:67014848bd009db7,Mulholland Parker Land Economists,,,Richmond,BC,V7A 5E9,2,1,mulhollandparkerlandeconomists.ca mulhollandparkerlandeconomists.com
+CH-VC-08530,v:0f04e043c7c74cc0,InSynch Engineering,,,Vancouver,BC,V6Z 1N9,2,1,
+CH-VC-08531,v:91a9622076648373,852515 Ontario Limited o/a Action Collections and Receivables Management,852515 ONTARIO LIMITED,1165504268,Toronto,ON,M2H 3B4,2,1,agencerecouvrementaction.ca agencerecouvrementaction.com agence-recouvrement-action.ca agence-recouvrement-action.com
+CH-VC-08532,v:bf17da773f2f4262,Indwell Community Homes,,,Hamilton,ON,L8K 1C3,2,1,indwellcommunityhomes.ca indwellcommunityhomes.com indwell-community-homes.ca indwell-community-homes.com
+CH-VC-08533,v:97d5f849b17cfc43,Mivian Consulting Inc.,Mivian Consulting Inc.,10452033,Mississauga,ON,L5L 4E5,2,1,mivianconsulting.ca mivianconsulting.com mivian-consulting.ca mivian-consulting.com
+CH-VC-08534,v:7736c0fa9e1093d4,Avlawn Property Maintenance Inc,,,Vaughan,ON,L4K 3W3,2,1,avlawnpropertymaintenance.ca avlawnpropertymaintenance.com avlawn-property-maintenance.ca avlawn-property-maintenance.com
+CH-VC-08535,v:134661bc411f83ea,Trinity Energy Innovations Inc.,,,Newmarket,ON,L3Y8Z7,2,1,trinityenergyinnovations.ca trinityenergyinnovations.com trinity-energy-innovations.ca trinity-energy-innovations.com
+CH-VC-08536,v:8759affa4e474503,Urban Arts Architecture Inc.,Urban Arts Architecture Inc.,11775243,Vancouver,BC,V6B1R8,2,1,urbanartsarchitecture.ca urbanartsarchitecture.com urban-arts-architecture.ca urban-arts-architecture.com
+CH-VC-08537,v:8ef27235ae7ea8d7,Murray Latta Progressive Machine,MURRAY LATTA PROGRESSIVE MACHINE INC.,BC0842512,Surrey,BC,V3W 4P1,2,1,murraylattaprogressivemachine.ca murraylattaprogressivemachine.com
+CH-VC-08538,v:8d75ca6dce6050f8,1938409 ONTARIO LTD,,,NORTH BAY,ON,P1B 5N9,2,1,
+CH-VC-08539,v:a23df9c5e9f91aa4,1686250 Ontario Inc.,,,North Bay ,ON,P1B2M3 ,2,1,
+CH-VC-08540,v:287ddc35de7504ba,Marigolds and Onions Ltd,,,Toronto,ON,M6B4J3,2,1,marigoldsonions.ca marigoldsonions.com marigolds-onions.ca marigolds-onions.com
+CH-VC-08541,v:41016ade26318e73,Lanarc 2015 Consultants Ltd.,LANARC 2015 CONSULTANTS LTD.,BC1054128,Nanaimo,BC,V9R 5B3,2,1,lanarc2015consultants.ca lanarc2015consultants.com lanarc-2015-consultants.ca lanarc-2015-consultants.com
+CH-VC-08542,v:61a49af146ea706d,Advanced Construction Ind,,,Pickering,ON,L1W3E6,2,1,advancedconstructionind.ca advancedconstructionind.com advanced-construction-ind.ca advanced-construction-ind.com
+CH-VC-08543,v:b46b2cfae0abb48b,Head to Head Irrigation Ltd,HEAD TO HEAD IRRIGATION LTD.,BC0904504,Kelowna,BC,V1P1L4,2,1,headtoheadirrigation.ca headtoheadirrigation.com head-to-head-irrigation.ca head-to-head-irrigation.com
+CH-VC-08544,v:2c21ed5ba24982ef,Jeffs Outdoor Inc,,,Caledonia,ON,N3W 1R2,2,1,jeffsoutdoor.ca jeffsoutdoor.com jeffs-outdoor.ca jeffs-outdoor.com
+CH-VC-08545,v:44e6384d7a6d21ec,M & R Security Inc.,M & R Security Inc.,9038434,Brampton ,ON,L7A 1C2,2,1,mrsecurity.ca mrsecurity.com m-r-security.ca m-r-security.com
+CH-VC-08546,v:16f7f7121482a56b,St. Clair Mechanical Inc.,,,Brigden,ON,N0N 1B0,2,1,
+CH-VC-08547,v:9a088c66fdc285f8,Avolution Multimedia,,,Sarnia,ON,N7T 2E5,2,1,
+CH-VC-08548,v:07e2d9f2ff6a6273,Microhard Systems Inc.,,,Calgary,AB,T3K5P3,2,1,microhardsystems.ca microhardsystems.com microhard-systems.ca microhard-systems.com
+CH-VC-08549,v:81b863205ba5995c,Sou'wester Exploration and Technology Inc,,,Windsor NS,NS,B0N 2T0,2,1,souwesterexplorationtechnology.ca souwesterexplorationtechnology.com
+CH-VC-08550,v:91da9373495ec63b,Sun Kissed Energy Inc.,Sun Kissed Energy Incorporated,12388952,Truro,NS,B2N 1L1,2,1,sunkissedenergy.ca sunkissedenergy.com sun-kissed-energy.ca sun-kissed-energy.com
+CH-VC-08551,v:9bcb1e364bf945df,Premier Fire and Flood Restoration Inc.,,,Edmonton,AB,T5L 4X4,2,1,premierfirefloodrestoration.ca premierfirefloodrestoration.com premier-fire-flood-restoration.ca premier-fire-flood-restoration.com
+CH-VC-08552,v:4d9a2d50589a0254,ALTECH Environmental & Response Ltd.,,,Cambridge,ON,N3H 2K9,2,1,altechenvironmentalresponse.ca altechenvironmentalresponse.com altech-environmental-response.ca altech-environmental-response.com
+CH-VC-08553,v:66a49c2c551a624f,Wade General Contracting Ltd,,,Petawawa,ON,K8H 2W8,2,1,wadegeneralcontracting.ca wadegeneralcontracting.com wade-general-contracting.ca wade-general-contracting.com
+CH-VC-08554,v:a23218c45f1e58b3,INTERNATIONAL DATA SYSTEMS,,,MISSISSAUGA,ON,L5T 2G1,2,1,internationaldatasystems.ca internationaldatasystems.com international-data-systems.ca international-data-systems.com
+CH-VC-08555,v:1dba10f8540bd4ea,Windfall Ecology Centre,,,Aurora,ON,L4G3V5,2,1,windfallecologycentre.ca windfallecologycentre.com windfall-ecology-centre.ca windfall-ecology-centre.com
+CH-VC-08556,v:e5a4468c98c993bb,WhiteStar,,,Langley,BC,V1M 3G4,2,1,whitestar.ca whitestar.com
+CH-VC-08557,v:29152d2f2caabb85,Scotian Welding Ltd,,,Fort McMurray,AB,T9H 5S1,2,1,scotianwelding.ca scotianwelding.com scotian-welding.ca scotian-welding.com
+CH-VC-08558,v:1b41be71f9f416f7,S.L. Marcella Carpets,,,Waterloo,ON,N2V2G7,2,1,smarcellacarpets.ca smarcellacarpets.com s-marcella-carpets.ca s-marcella-carpets.com
+CH-VC-08559,v:ca0b79501eb8aba7,J. Jenkins and Son Landscape Contractors Ltd.,,,Gormley,ON,L0H 1G0,2,1,
+CH-VC-08560,v:49677508a7a99e64,S. Wilson & Co. Bailiffs Limited,,,Toronto,ON,M3J1Z5,2,1,swilsonbailiffs.ca swilsonbailiffs.com s-wilson-bailiffs.ca s-wilson-bailiffs.com
+CH-VC-08561,v:8cf0791b5cb40091,"Andrew, Thompson and Associates Ltd.",,,Barrie,ON,L4N 1B4,2,1,andrewthompsonassociates.ca andrewthompsonassociates.com andrew-thompson-associates.ca andrew-thompson-associates.com
+CH-VC-08562,v:318bbf32ee50e0ab,Janet Rosenberg & Studio Inc.,,,Toronto ,ON,M6C 2S3,2,1,janetrosenbergstudio.ca janetrosenbergstudio.com janet-rosenberg-studio.ca janet-rosenberg-studio.com
+CH-VC-08563,v:21afd232dc9d4dcf,Tr'ondek Hwech'in Community Development Corporation,Tr’ondëk Hwëch’in Community Development Corporation,12397404,Dawson City,YT,Y0B 1G0,2,1,
+CH-VC-08564,v:a6c8d4ae417e5dad,SMRT Solution Consulting Inc.,,,Ottawa,ON,K1N8S7,2,1,smrtsolutionconsulting.ca smrtsolutionconsulting.com smrt-solution-consulting.ca smrt-solution-consulting.com
+CH-VC-08565,v:9b4be0328f0c887c,True North Archaeological Services Inc.,True North Archaeological Services Inc.,14942957,Kanata,ON,K2M0E2,2,1,
+CH-VC-08566,v:336d0fd69cc7d2d4,Generation Solar Renewable Energy Systems Inc.,,,Peterborough,ON,K9H 4N9,2,1,
+CH-VC-08567,v:830f4aea238109c8,A Place for Mediation Inc.,,,"TORONTO, Ontario",ON,M5R2A7,2,1,placeformediation.ca placeformediation.com place-for-mediation.ca place-for-mediation.com
+CH-VC-08568,v:2161e7e535a18a21,Xtreme Security,XTREME SECURITY INC.,BC1170062,Mississauga,BC,L5B 4A2,2,1,xtremesecurity.ca xtremesecurity.com xtreme-security.ca xtreme-security.com
+CH-VC-08569,v:e125becb98d990ec,gh3,,,Toronto,ON,M6J2Y9,2,1,
+CH-VC-08570,v:cc3307e29a2c3ccf,J.R.S Painting & General Maint,,,Kitchener,ON,N2M 2H9,2,1,jrspaintinggeneralmaint.ca jrspaintinggeneralmaint.com j-r-s-painting-general-maint.ca j-r-s-painting-general-maint.com
+CH-VC-08571,v:67ebad94ff73cced,Paul Didur Architect,,,Toronto,ON,M8V 3W7,2,1,pauldidurarchitect.ca pauldidurarchitect.com paul-didur-architect.ca paul-didur-architect.com
+CH-VC-08572,v:b7d08ba7c78d32cc,Sun Mech Inc,,,Burlington,ON,L7T2X5,2,1,sunmech.ca sunmech.com sun-mech.ca sun-mech.com
+CH-VC-08573,v:c1732c92d962b6f2,QPS Heating and Cooling,,,Chatham,ON,N7M5J7,2,1,
+CH-VC-08574,v:9370036e71d7ad84,HONEY ELECTRIC LIMITED,,,CHATHAM,ON,N7M1W9,2,1,
+CH-VC-08575,v:8d198b5c8c880a57,John Harris Concrete Ltd.,,,Chatham,ON,N7M 5J8,2,1,johnharrisconcrete.ca johnharrisconcrete.com john-harris-concrete.ca john-harris-concrete.com
+CH-VC-08576,v:8c4845939dfe8dee,Green Admiral Nature restoration Ltd,GREEN ADMIRAL NATURE RESTORATION LTD.,BC1093419,Squamish BC,BC,V8B 0A7,2,1,greenadmiralnaturerestoration.ca greenadmiralnaturerestoration.com
+CH-VC-08577,v:46c5c23479c56a5a,Advanced Hepa Technologies Inc.,,,Mississauga,ON,L4W5A8,2,1,advancedhepatechnologies.ca advancedhepatechnologies.com advanced-hepa-technologies.ca advanced-hepa-technologies.com
+CH-VC-08578,v:177cce5b13637f75,T2SR Consulting Inc.,T2SR Consulting Inc.,11849042,Calgary,AB,T2M2Y8,2,1,t2srconsulting.ca t2srconsulting.com t2sr-consulting.ca t2sr-consulting.com
+CH-VC-08579,v:f84f60acb94a6963,Barker Hutchinson & Associates Ltd,,,Toronto,ON,M5C1S2,2,1,
+CH-VC-08580,v:7a2bd2a387871841,961945 Alberta Ltd.,,,Edmonton,AB,T5L 2P2,2,1,
+CH-VC-08581,v:9393495128f3c297,Jack's Expert Flush & Toilet Rentals Inc,,,Middle Sackville,NS,B4E 3B1,2,1,jacksexpertflushtoiletrentals.ca jacksexpertflushtoiletrentals.com
+CH-VC-08582,v:70ef5cbe0c279c97,BC GENERAL CONTRACTING INC,BC GENERAL CONTRACTING INC.,BC0620150,Westbank,BC,V4T 2H3,2,1,bcgeneralcontracting.ca bcgeneralcontracting.com bc-general-contracting.ca bc-general-contracting.com
+CH-VC-08583,v:51c371090bd645d0,SRK CONSULTING (CANADA) INC.,SRK Consulting (Canada) Inc.,1173327199,Vancouver,BC,V6C 1S9,2,1,srkconsulting.ca srkconsulting.com srk-consulting.ca srk-consulting.com srkconsultants.ca srkconsultants.com
+CH-VC-08584,v:627a2becd1b080b9,west coast import vehicles ltd,WEST COAST IMPORT VEHICLES LTD.,BC0275437,pitt meadows,BC,V3Y2S9,2,1,westcoastimportvehicles.ca westcoastimportvehicles.com west-coast-import-vehicles.ca west-coast-import-vehicles.com
+CH-VC-08585,v:fa7ed8d802dc9f12,Aqua Fast Flush Ltd,,,Dunnville,ON,N1A 2W1,2,1,
+CH-VC-08586,v:6a8437dd0009e4aa,Plus Company,Plus Company Canada Inc.,1166725516,Toronto,ON,M6K 1Y3,2,1,plus.ca plus.com pluscanada.ca pluscanada.com plus-canada.ca plus-canada.com
+CH-VC-08587,v:70b88f3d4dfacb6a,Technet Electronics Inc,,,Ottawa,ON,K2E 7J4,2,1,technetelectronics.ca technetelectronics.com technet-electronics.ca technet-electronics.com
+CH-VC-08588,v:c4d26473886ab709,Outside! Planning & Design Studio,,,Seabright,NS,B3Z2Z8,2,1,outsideplanningdesignstudio.ca outsideplanningdesignstudio.com outside-planning-design-studio.ca outside-planning-design-studio.com
+CH-VC-08589,v:45e06d763f236967,Gordon Ratcliffe Landscape Architects,,,hubbards,NS,B0J1T0,2,1,
+CH-VC-08590,v:625eb1c5b2230c20,Desjardins Financial Security Life Assurance Company,,,Vancouver,BC,V6B 5A1,2,1,
+CH-VC-08591,v:0c45df6e331ccba3,AIG Insurance Company of Canada,COMPAGNIE D'ASSURANCE AIG DU CANADA,1142875781,Vancouver,BC,V6C 2X8,2,1,aiginsurancecanada.ca aiginsurancecanada.com aiginsurance.ca aiginsurance.com aig-insurance-canada.ca aig-insurance-canada.com
+CH-VC-08592,v:2f19502dd34a67f8,J.M.R.J. Services,,,Azilda,ON,P0M 1B0,2,1,jmrjservices.ca jmrjservices.com j-m-r-j-services.ca j-m-r-j-services.com
+CH-VC-08593,v:4921eb91135cef4a,Ethier Sand and Gravel Limited,,,Sudbury,ON,P3E 4W9,2,1,ethiersandgravel.ca ethiersandgravel.com ethier-sand-gravel.ca ethier-sand-gravel.com
+CH-VC-08594,v:f0b5d6b0941e0c8d,"Ted Handy and Associates Inc., Architect",,,Barrie,ON,L4N 1T1,2,1,tedhandyassociatesarchitect.ca tedhandyassociatesarchitect.com ted-handy-associates-architect.ca ted-handy-associates-architect.com
+CH-VC-08595,v:99e5bc2e80ce8f69,Montgomery Excavating,,,Old Crow,YT,Y0B1NO,2,1,montgomeryexcavating.ca montgomeryexcavating.com montgomery-excavating.ca montgomery-excavating.com
+CH-VC-08596,v:f6d4c5c729af5c24,ProjectEx Management Services Ltd,PROJECTEX MANAGEMENT SERVICES LTD.,BC1219873,Victoria,BC,V9B 6K8,2,1,projectexmanagementservices.ca projectexmanagementservices.com projectex-management-services.ca projectex-management-services.com
+CH-VC-08597,v:ef283a7217685e83,Callaghan Farm Supply,,,Lindsay,ON,K9V4R4,2,1,
+CH-VC-08598,v:3ce6e39121a50c77,Pat Lalonde Fencing,,,Elmvale,ON,L0L1P0,2,1,patlalondefencing.ca patlalondefencing.com pat-lalonde-fencing.ca pat-lalonde-fencing.com
+CH-VC-08599,v:7da13316d23b0f40,Field Service .CA Inc,,,Kanata,ON,K2M2G8,2,1,fieldserviceca.ca fieldserviceca.com field-service-ca.ca field-service-ca.com
+CH-VC-08600,v:749b22bae2556a8d,Lanix Property Management Ltd.,,,Whitehorse,YT,Y1A5P7,2,1,lanixpropertymanagement.ca lanixpropertymanagement.com lanix-property-management.ca lanix-property-management.com
+CH-VC-08601,v:815276d889ecf9de,True North Power Tech,,,Roseneath,ON,K0K2X0,2,1,truenorthpowertech.ca truenorthpowertech.com true-north-power-tech.ca true-north-power-tech.com
+CH-VC-08602,v:31cc0cbf2a284c9e,Elias+ Inc.,,,Toronto,ON,M5R1N4,2,1,elias.ca elias.com
+CH-VC-08603,v:72366ffe0e192408,Erin Mills Gardening & Landscaping,,,Mississauga,ON,L5M 4Z9,2,1,erinmillsgardeninglandscaping.ca erinmillsgardeninglandscaping.com
+CH-VC-08604,v:ee64c603396e43a4,"Willowtree Consulting, Inc.","WILLOWTREE CONSULTING, INC.",BC0910792,Victoria,BC,V8Y1V7,2,1,willowtreeconsulting.ca willowtreeconsulting.com willowtree-consulting.ca willowtree-consulting.com
+CH-VC-08605,v:490e945b73ce81ef,On Target Telecommunications Inc,,,Milton,ON,L9T 3L5,2,1,ontargettelecommunications.ca ontargettelecommunications.com on-target-telecommunications.ca on-target-telecommunications.com
+CH-VC-08606,v:e4362129e2921820,Alicia Hibbert,,,Port Coquitlam,BC,V3B 0L5,2,1,aliciahibbert.ca aliciahibbert.com alicia-hibbert.ca alicia-hibbert.com
+CH-VC-08607,v:41f1b54457253c7e,Duquette électrique ltee,,,Clarence-Rockland,ON,K4K 1M7,2,1,
+CH-VC-08608,v:a04db1f1e7d60e05,SPK Home construction LTD.,,,Whitehorse,YT,Y1A0S8,2,1,spkhomeconstruction.ca spkhomeconstruction.com spk-home-construction.ca spk-home-construction.com
+CH-VC-08609,v:8d0bfae1a6f5998c,Reefer repair service ltd,,,St John's,NL,A!N 4P7,2,1,
+CH-VC-08610,v:0b401b55a19e0a68,63907 Newfoundland and Labrador Inc.,,,St. John's,NL,A1B 4S6,2,1,
+CH-VC-08611,v:43b33f7165963d65,Herbert Williams Fire Equipment Limited,,,Markham,ON,M1X 0B5,2,1,herbertwilliamsfireequipment.ca herbertwilliamsfireequipment.com
+CH-VC-08612,v:c905a9d9e6207b28,Ridall Pest Control,RIDALL PEST CONTROL,FM0883722,Burnaby,BC,V5A 0C7,2,1,
+CH-VC-08613,v:08312f7e606b12ab,Accu-Flo Meter Services,,,Calgary,AB,T2G2Y8,2,1,accuflometerservices.ca accuflometerservices.com accu-flo-meter-services.ca accu-flo-meter-services.com
+CH-VC-08614,v:678714a79d97cfd8,ABA Architects Inc,,,Waterloo,ON,N2V1C5,2,1,abaarchitects.ca abaarchitects.com aba-architects.ca aba-architects.com
+CH-VC-08615,v:248117da4c44139a,TR Overseas Moving 1927 Inc.,,,Burlington ,ON,L7L 5Y2,2,1,troverseasmoving1927.ca troverseasmoving1927.com tr-overseas-moving-1927.ca tr-overseas-moving-1927.com

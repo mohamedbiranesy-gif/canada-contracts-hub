@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-03016,v:a83e55b787a07a1e,John Bear Buick GMC Limited,,,Hamilton,ON,L9C 3B1,11,3,johnbearbuickgmc.ca johnbearbuickgmc.com john-bear-buick-gmc.ca john-bear-buick-gmc.com
+CH-VC-03017,v:d474fff4a0f345fe,McRae Integration Ltd.,MCRAE INTEGRATION LTD.,1180704661,Mississauga,ON,L4W 5P1,11,3,mcraeintegration.ca mcraeintegration.com mcrae-integration.ca mcrae-integration.com actemiumcanada.ca actemiumcanada.com
+CH-VC-03018,v:a3fbe14d30b4cd93,Dinka Enterprises,,,Dartmouth,NS,B2W 6E2,11,3,dinkaenterprises.ca dinkaenterprises.com dinka-enterprises.ca dinka-enterprises.com
+CH-VC-03019,v:915efded2b4e9aa3,Humberview Maintenance Group Ltd.,,,TORONTO,ON,M9W 5Y8,11,3,humberviewmaintenancegroup.ca humberviewmaintenancegroup.com humberview-maintenance-group.ca humberview-maintenance-group.com
+CH-VC-03020,v:e9d5574ff7c75d55,Hamisco Industrial Sales Inc.,,,London,ON,N6L 1A8,11,3,hamiscoindustrialsales.ca hamiscoindustrialsales.com hamisco-industrial-sales.ca hamisco-industrial-sales.com
+CH-VC-03021,v:cdfc4f2804feca03,Jenso Consulting & Design Ltd,,,St. John's,NL,,11,3,jensoconsultingdesign.ca jensoconsultingdesign.com jenso-consulting-design.ca jenso-consulting-design.com
+CH-VC-03022,v:970efba67543e577,Magnari Inc,Magnari Inc.,8673071,Ottawa,ON,K1V 8K3,10,3,magnari.ca magnari.com
+CH-VC-03023,v:a35674b5b331563b,ERP-One Consulting Inc.,ERP-ONE CONSULTING INC.,A0135225,Calgary,ON,T2R0A8,10,3,erponeconsulting.ca erponeconsulting.com erp-one-consulting.ca erp-one-consulting.com
+CH-VC-03024,v:5526b93e0c6728fa,Camp Connect Services Ltd,CAMP CONNECT SERVICES LTD.,A0123604,Sherwood Park,AB,,10,3,campconnectservices.ca campconnectservices.com camp-connect-services.ca camp-connect-services.com
+CH-VC-03025,v:9b4f4cc146caa841,HelpSeeker,,,Calgary,AB,T2X 2P5,10,3,helpseeker.ca helpseeker.com
+CH-VC-03026,v:d6177e3ec4beeb8f,647354 BC Ltd,,,Kelowna,BC,,10,3,
+CH-VC-03027,v:a3d9f8d8cb2c591d,Firetech Manufacturing Ltd.,FIRETECH MANUFACTURING LTD.,BC0263643,Surrey,BC,V3Z 0P6,10,3,firetechmanufacturing.ca firetechmanufacturing.com firetech-manufacturing.ca firetech-manufacturing.com
+CH-VC-03028,v:c4595a1830bd9c70,Tetra Tech EBA Inc,Tetra Tech EBA Inc.,10023477,Saskatoon,SK,,10,3,tetratecheba.ca tetratecheba.com tetra-tech-eba.ca tetra-tech-eba.com
+CH-VC-03029,v:3ddf57db3342f2c8,RDH Building Science Inc.,RDH BUILDING SCIENCE INC.,BC0549924,Burnaby,BC,V5C 6S6,10,3,rdhbuildingscience.ca rdhbuildingscience.com rdh-building-science.ca rdh-building-science.com
+CH-VC-03030,v:2b012c00625a59d5,sure general contractors inc,,,Toronto,ON,M1P-3A6,10,3,suregeneralcontractors.ca suregeneralcontractors.com sure-general-contractors.ca sure-general-contractors.com
+CH-VC-03031,v:c501ca3c49c677e0,GDI Integrated Facility Services,,,Dartmouth,NS,B3B 0B2,10,3,gdiintegratedfacilityservices.ca gdiintegratedfacilityservices.com
+CH-VC-03032,v:09e0c930c962194a,Manulife,LA COMPAGNIE D'ASSURANCE-VIE MANUFACTURERS,1162776646,Waterloo,ON,N2J 2Z5,10,3,manulife.ca manulife.com dassuranceviemanufacturers.ca dassuranceviemanufacturers.com dassurance-vie-manufacturers.ca dassurance-vie-manufacturers.com
+CH-VC-03033,v:be810134a319c5b7,A. F. Theriault & Son Ltd.,,,Meteghan River,Nova Scotia,B0W 2L0,10,3,ftheriaultson.ca ftheriaultson.com f-theriault-son.ca f-theriault-son.com
+CH-VC-03034,v:587262674db2bbee,Graf Enviro Services Inc.,,,Dawson City,YT,Y0B1G0,10,3,grafenviroservices.ca grafenviroservices.com graf-enviro-services.ca graf-enviro-services.com
+CH-VC-03035,v:352eb1810ea6b68f,Onyx-Fire Protection Services Inc.,ONYX-FIRE PROTECTION SERVICES INC.,1166778150,Mississauga,ON,L5R0H1,10,3,onyxfireprotectionservices.ca onyxfireprotectionservices.com onyx-fire-protection-services.ca onyx-fire-protection-services.com systemesprotectiononyxfire.ca systemesprotectiononyxfire.com
+CH-VC-03036,v:77ec0cfb0dc6f351,Thomas Brown Architects Inc.,,,Toronto,ON,M5T 2C8,10,3,thomasbrownarchitects.ca thomasbrownarchitects.com thomas-brown-architects.ca thomas-brown-architects.com
+CH-VC-03037,v:d13d6d36666a5738,Mastercrete Construction Inc,,,Burlington,ON,L7L 6A5,10,3,mastercreteconstruction.ca mastercreteconstruction.com mastercrete-construction.ca mastercrete-construction.com
+CH-VC-03038,v:e06e65ef839a743a,E Construction a Division of Colas Western Canada Inc.,,,Fort McMurray,AB,T9K 0K4,10,3,
+CH-VC-03039,v:6f3ea065b359a3cf,Bam Bam Construction INC,,,Keswick,ON,L4P3E9,10,3,bambamconstruction.ca bambamconstruction.com bam-bam-construction.ca bam-bam-construction.com
+CH-VC-03040,v:3def072b614ed603,ComPsych,,,Toronto,ON,M5G 1T6,10,3,compsych.ca compsych.com
+CH-VC-03041,v:2d148f4d7e92f6de,City Buick Chevrolet Cadillac GMC Limited,CITY BUICK CHEVROLET CADILLAC GMC LTD.,1162220454,Toronto,ON,M1R 1T6,10,3,citybuickchevroletcadillacgmc.ca citybuickchevroletcadillacgmc.com citybuickpontiaccadillac.ca citybuickpontiaccadillac.com city-buick-pontiac-cadillac.ca city-buick-pontiac-cadillac.com
+CH-VC-03042,v:28ccbf300b393dcd,BLDG Sci Advisory Inc.,,,Burlington,ON,L7L 5H6,10,3,bldgsciadvisory.ca bldgsciadvisory.com bldg-sci-advisory.ca bldg-sci-advisory.com
+CH-VC-03043,v:bc71a485c8972ad2,Natural Resource Solutions Inc.,,,WATERLOO,ON,N2L 3X2,10,3,naturalresourcesolutions.ca naturalresourcesolutions.com natural-resource-solutions.ca natural-resource-solutions.com
+CH-VC-03044,v:48d50e03048f8020,Athletica Sport Systems Inc.,,,Waterloo,ON,N2L 5Z4,10,3,athleticasportsystems.ca athleticasportsystems.com athletica-sport-systems.ca athletica-sport-systems.com
+CH-VC-03045,v:53993e60a54ca2d6,AGO Industries Inc,,,London,ON,N5Y 4J9,10,3,agoindustries.ca agoindustries.com ago-industries.ca ago-industries.com
+CH-VC-03046,v:d271f7f1e68a80b4,Holley Electric Ltd,,,Brampton,ON,L6X1Y3,10,3,holleyelectric.ca holleyelectric.com holley-electric.ca holley-electric.com
+CH-VC-03047,v:5029799a79ffb46f,Griffin Landscape Management Solutions Inc.,,,Dunnville,ON,N1A 2W7,10,3,
+CH-VC-03048,v:531a6f980ae7b8ad,QM LP,,,Mississauga,ON,L4W5A1,10,3,
+CH-VC-03049,v:52d6dc38aff3ee41,Inland Liferafts and Marine,,,Ajax,ON,L1S 1P5,10,3,inlandliferaftsmarine.ca inlandliferaftsmarine.com inland-liferafts-marine.ca inland-liferafts-marine.com
+CH-VC-03050,v:43f553d47390d9c9,CANADIAN LINEN & UNIFORM SERVICES,,,Red Deer,AB,T4P 1M4,9,3,canadianlinenuniformservices.ca canadianlinenuniformservices.com linenuniformservices.ca linenuniformservices.com
+CH-VC-03051,v:bdb4ae3f53383748,Pace Solutions Corp,Pace Solutions Corp.,1180316664,Regina,SK,,9,3,pacesolutions.ca pacesolutions.com pace-solutions.ca pace-solutions.com solutionspace.ca solutionspace.com
+CH-VC-03052,v:b02f86ddaa79186d,SVEMY Construction Ltd.,SVEMY CONSTRUCTION LTD.,A0128438,Calgary,AB,T2H 0T2,9,3,svemyconstruction.ca svemyconstruction.com svemy-construction.ca svemy-construction.com
+CH-VC-03053,v:a0f693cd188594fa,Caslys Consulting Ltd.,CASLYS CONSULTING LTD.,BC0741718,Saanichton,Not available,V8M2C2,9,3,caslysconsulting.ca caslysconsulting.com caslys-consulting.ca caslys-consulting.com
+CH-VC-03054,v:9e31136fe4ad932e,CommuniTeK Inc,,,Richmond Hill ,ON,L4B2P3 ,9,3,communitek.ca communitek.com
+CH-VC-03055,v:e32e8248313415d8,Sedgwick Canada Inc.,SEDGWICK CANADA INC.,1164862006,Mississauga,ON,L4V1T1,9,3,sedgwickcanada.ca sedgwickcanada.com sedgwick.ca sedgwick.com sedgwick-canada.ca sedgwick-canada.com
+CH-VC-03056,v:8872367bc975e621,Trico Packaging & Print Solutions Inc.,Trico Packaging & Print Solutions Inc.,11914499,Ottawa,ON,,9,3,tricopackagingprintsolutions.ca tricopackagingprintsolutions.com
+CH-VC-03057,v:123d3da0cf8cf997,GreenEarth Canada Contracting Ltd.,GreenEarth Canada Contracting Ltd.,9656995,Beeton,ON,L0G 1A0,9,3,greenearthcanadacontracting.ca greenearthcanadacontracting.com greenearthcontracting.ca greenearthcontracting.com greenearth-canada-contracting.ca greenearth-canada-contracting.com
+CH-VC-03058,v:1f7c4b2db9678d01,Total North Communications,Total North Communications Ltd.,2414651,Whitehorse,YT,Y1A 2Z7,9,3,totalnorthcommunications.ca totalnorthcommunications.com total-north-communications.ca total-north-communications.com
+CH-VC-03059,v:3f1f57764dffe906,Denis Gratton Construction Ltd.,,,Chelmsford,ON,P0M 1L0,9,3,denisgrattonconstruction.ca denisgrattonconstruction.com denis-gratton-construction.ca denis-gratton-construction.com
+CH-VC-03060,v:64926ae76791bf1d,ISN Canada Group Inc. Trading Name  Canadian Automotive Service Equipment,,,Mississauga,ON,L5T 2X5,9,3,
+CH-VC-03061,v:a1530292d9f56e52,Baker Tilly KDN LLP,,,Peterborough,ON,K9J 2V4,9,3,bakertillykdn.ca bakertillykdn.com baker-tilly-kdn.ca baker-tilly-kdn.com
+CH-VC-03062,v:5315c8724dac7369,SeNa Constructors Inc.,,,Fort McMurray,AB,T9H 5B4,9,3,senaconstructors.ca senaconstructors.com sena-constructors.ca sena-constructors.com
+CH-VC-03063,v:3112cb3ec79c6161,Earth Max Construction Inc.,,,Stony Mountain,MB,R0C 3A0,9,3,earthmaxconstruction.ca earthmaxconstruction.com earth-max-construction.ca earth-max-construction.com
+CH-VC-03064,v:be8395d115708acd,Robert E Young Construction Ltd.,,,Selwyn,ON,K9J 6X2,9,3,roberteyoungconstruction.ca roberteyoungconstruction.com robert-e-young-construction.ca robert-e-young-construction.com
+CH-VC-03065,v:6b06385c260efe2a,Capital Plumbing & Heating,,,Toronto,ON,M1L 4J9,9,3,capitalplumbingheating.ca capitalplumbingheating.com capital-plumbing-heating.ca capital-plumbing-heating.com
+CH-VC-03066,v:fa197c988631268a,Abrams Towing,,,Nepean,ON,K2G0B6,9,3,abramstowing.ca abramstowing.com abrams-towing.ca abrams-towing.com
+CH-VC-03067,v:933de6e67b130c95,ANK Maintenance Services,,,Milton,ON,L9T1X9,9,3,ankmaintenanceservices.ca ankmaintenanceservices.com ank-maintenance-services.ca ank-maintenance-services.com
+CH-VC-03068,v:d9e1ea80e8bd58f7,Metropolitan Consulting Inc.,,,Hamilton,ON,L8H7T4,9,3,metropolitanconsulting.ca metropolitanconsulting.com metropolitan-consulting.ca metropolitan-consulting.com
+CH-VC-03069,v:756a6d9fd9a4f813,Devron Sales Limited,,,Welland,ON,L3B 6H8,9,3,devronsales.ca devronsales.com devron-sales.ca devron-sales.com
+CH-VC-03070,v:c3d288ec0b885ef6,GeoAdvice Engineering Inc.,GEOADVICE ENGINEERING INC.,BC0768984,Port Moody,BC,V3H2B4,9,3,geoadviceengineering.ca geoadviceengineering.com geoadvice-engineering.ca geoadvice-engineering.com
+CH-VC-03071,v:6a046b7e0c363f14,Guillevin International (Safety and Industrial),,,Kamloops,BC,V2C 5S4,9,3,guillevininternational.ca guillevininternational.com guillevin-international.ca guillevin-international.com
+CH-VC-03072,v:aaa3515fb0c41fff,Invizij Architects Inc.,,,Hamilton,ON,L8N 1V9,9,3,invizijarchitects.ca invizijarchitects.com invizij-architects.ca invizij-architects.com
+CH-VC-03073,v:9ce46d0c2ace205b,Biochem Environmental Solutions Inc.,,,Toronto,ON,M9L 1Z7,9,3,biochemenvironmentalsolutions.ca biochemenvironmentalsolutions.com
+CH-VC-03074,v:b8498539495c7a51,Northland Chemical Inc.,Northland Chemical Inc.,1176093111,Mississauga,ON,L4T 1L2,9,3,northlandchemical.ca northlandchemical.com northland-chemical.ca northland-chemical.com produitschimiquesnorthland.ca produitschimiquesnorthland.com
+CH-VC-03075,v:a4eb315351acbfcb,Baker Hughes Energy Services Canada,Baker Hughes Energy Services Canada Inc.,1169794592,Leduc,AB,,9,3,bakerhughesenergyservices.ca bakerhughesenergyservices.com baker-hughes-energy-services.ca baker-hughes-energy-services.com bentlynevada.ca bentlynevada.com
+CH-VC-03076,v:11c534e3892f1872,HotSpot Parking Inc.,Hotspot Parking Inc.,1176499110,Fredericton,NB,E3B 1X6,9,3,hotspotparking.ca hotspotparking.com hotspot-parking.ca hotspot-parking.com
+CH-VC-03077,v:b778e28e07e4357c,Con-Test,Technologie de confinement de contamination,1162750963,Ajax,ON,,9,3,contest.ca contest.com con-test.ca con-test.com
+CH-VC-03078,v:4eb5ecc6b5d8273e,Fellmore Electrical Contractors Ltd,,,Concord,ON,L4K 1K8,9,3,fellmoreelectricalcontractors.ca fellmoreelectricalcontractors.com
+CH-VC-03079,v:ba1882319e3f053f,872472 Ontario Ltd.,,,Stayner ,ON,L0M 1S0,9,3,
+CH-VC-03080,v:1f844797ccc4b981,Rentokil Pest Control Canada Limited,,,Concord,ON,L4K0J2,9,3,
+CH-VC-03081,v:6cf145d558e74608,Rose Security Services,ROSE SECURITY SERVICES INC.,BC0674351,Port Coquitlam,BC,V3B 0N9,8,3,rosesecurityservices.ca rosesecurityservices.com rose-security-services.ca rose-security-services.com
+CH-VC-03082,v:3982505798b1aa13,Shell Canada Products,SHELL CANADA PRODUCTS,3349764152,Calgary,AB,,8,3,shellcanadaproducts.ca shellcanadaproducts.com shellproducts.ca shellproducts.com shell-canada-products.ca shell-canada-products.com
+CH-VC-03083,v:097df9458336cb76,Nikiforuk Construction Ltd.,,,EDMONTON,AB,T5Y 6B5,8,3,nikiforukconstruction.ca nikiforukconstruction.com nikiforuk-construction.ca nikiforuk-construction.com
+CH-VC-03084,v:e96e63251a4f6960,Ram Mechanical Ltd.,RAM MECHANICAL LTD.,BC0506418,Burnaby,BC,V5A 0C6,8,3,rammechanical.ca rammechanical.com ram-mechanical.ca ram-mechanical.com
+CH-VC-03085,v:520e781c3ee0b8d3,RWDI Air Inc.,,,Calgary,AB,T2P 3C4,8,3,rwdiair.ca rwdiair.com rwdi-air.ca rwdi-air.com
+CH-VC-03086,v:e0bffd7bec521e1b,IMC Construction Ltd,,,Red Deer,AB,T4P 0V2,8,3,imcconstruction.ca imcconstruction.com imc-construction.ca imc-construction.com
+CH-VC-03087,v:6ef73d490aed5f26,Gen-eer Construction Ltd,GEN-EER CONSTRUCTION LIMITED,A0074031,Barrie,ON,,8,3,geneerconstruction.ca geneerconstruction.com gen-eer-construction.ca gen-eer-construction.com
+CH-VC-03088,v:03060689c964531b,Sparkle Solutions Corp,SPARKLE SOLUTIONS CORP.,1163841324,concord,ON,L4K3T6,8,3,sparklesolutions.ca sparklesolutions.com sparkle-solutions.ca sparkle-solutions.com
+CH-VC-03089,v:78afda4329cb78a2,Stevans Sales and Marketing Inc.,,,Brantford,ON,N3P 1M1,8,3,stevanssalesmarketing.ca stevanssalesmarketing.com stevans-sales-marketing.ca stevans-sales-marketing.com
+CH-VC-03090,v:9fd840a520c5e022,Tuygun Painting Contracting LTD,,,Milton,ON,L9T 4W9,8,3,tuygunpaintingcontracting.ca tuygunpaintingcontracting.com tuygun-painting-contracting.ca tuygun-painting-contracting.com
+CH-VC-03091,v:094bc96837fcce36,"Colbourne & Kembel, Architects Inc.",,,KINGSTON,ON,K7M 8M8,8,3,colbournekembelarchitects.ca colbournekembelarchitects.com colbourne-kembel-architects.ca colbourne-kembel-architects.com
+CH-VC-03092,v:6e9ba21d4e43c252,Advance Excavating & General Contracting Ltd.,Advance Excavating & General Contracting Ltd.,13663990,Brampton,ON,L6Z2V7,8,3,
+CH-VC-03093,v:9b7c2ecf022c114d,Center-Line Paving & Construction Ltd,,,Ballinafad,ON,N0B1H0,8,3,centerlinepavingconstruction.ca centerlinepavingconstruction.com
+CH-VC-03094,v:032fd312e334e7f0,OREGAN CHEVROLET BUICK GMC CADILLAC,O'REGAN CHEVROLET BUICK GMC CADILLAC LIMITED,A0073229,HALIFAX,NS,B3K 4N2,8,3,
+CH-VC-03095,v:504f8122bdf36034,BGIS Energy & Facility Solutions,BGIS ENERGY & FACILITY SOLUTIONS INC.,1173348542,Dundas,ON,L9H 2L3,8,3,bgisenergyfacilitysolutions.ca bgisenergyfacilitysolutions.com bgis-energy-facility-solutions.ca bgis-energy-facility-solutions.com
+CH-VC-03096,v:fd1fc6128e274361,Nsafe Engineering Inc,,,Concord,ON,L4K 3L5,8,3,nsafeengineering.ca nsafeengineering.com nsafe-engineering.ca nsafe-engineering.com
+CH-VC-03097,v:38026b5357a03283,Trinity Roofing Ltd.,,,Toronto,ON,M9L 2S1,8,3,trinityroofing.ca trinityroofing.com trinity-roofing.ca trinity-roofing.com
+CH-VC-03098,v:0d61317cf06da6cb,ThinkDox Inc.,,,London,ON,N6L 1G7,8,3,thinkdox.ca thinkdox.com
+CH-VC-03099,v:67e8d4a55de21304,Vickery Electric Contracting Limited,,,Whitby,ON,L1N 5S4,8,3,vickeryelectriccontracting.ca vickeryelectriccontracting.com vickery-electric-contracting.ca vickery-electric-contracting.com
+CH-VC-03100,v:9dfe27b76b548625,Neil Vanderurk Holdings Inc. (NVK),,,Waterdown,ON,L0R 2H0,8,3,neilvanderurkholdings.ca neilvanderurkholdings.com neil-vanderurk-holdings.ca neil-vanderurk-holdings.com
+CH-VC-03101,v:9620b4b31be01e5e,P & G Landscaping & Snow Removal Inc.,,,Cheltenham,ON,L7C 3G3,8,3,pglandscapingsnowremoval.ca pglandscapingsnowremoval.com p-g-landscaping-snow-removal.ca p-g-landscaping-snow-removal.com
+CH-VC-03102,v:5c3d5a85a292a412,Canadian Tree Salvation INC.,,,keswick,ON,L4P3E9,8,3,canadiantreesalvation.ca canadiantreesalvation.com treesalvation.ca treesalvation.com canadian-tree-salvation.ca canadian-tree-salvation.com
+CH-VC-03103,v:08eaab51e52c53da,Carraway Inc,,,Mississauga,ON,L4V 1E8,8,3,carraway.ca carraway.com
+CH-VC-03104,v:d2efb71d22ec3f5e,Gerd Hermanns Landscape Contractor Inc.,,,Schomberg,ON,L0G 1T0,8,3,
+CH-VC-03105,v:223fd7a358d9ef66,Masen Mechanical Inc.,,,Woodbridge,ON,L4L 8L9,8,3,masenmechanical.ca masenmechanical.com masen-mechanical.ca masen-mechanical.com
+CH-VC-03106,v:2f0ba463889f2877,Region of Huronia Environmental Services (2013) Ltd.,,,New Lowell,ON,L0M 1N0,8,3,
+CH-VC-03107,v:4052abb5fe564ce1,McRae's Environmental Services Ltd,McRae's Environmental Services Ltd.,8679983,Richmond,BC,V6V 1E3,8,3,mcraesenvironmentalservices.ca mcraesenvironmentalservices.com mcraes-environmental-services.ca mcraes-environmental-services.com
+CH-VC-03108,v:b01135b4ca1896e6,Abco Supply & Service Ltd.,,,Winnipeg,MB,R3E 2V7,8,3,abcosupplyservice.ca abcosupplyservice.com abco-supply-service.ca abco-supply-service.com
+CH-VC-03109,v:ed923b25d57cb4a7,Lobo Consulting Services Inc.,LOBO CONSULTING SERVICES INC.,A0127176,Mississauga,ON,L4W 5A1,8,3,loboconsultingservices.ca loboconsultingservices.com lobo-consulting-services.ca lobo-consulting-services.com
+CH-VC-03110,v:7481867c76df3d64,Shertine Construction Limited,,,Collingwood,ON,L9Y5A6,8,3,shertineconstruction.ca shertineconstruction.com shertine-construction.ca shertine-construction.com
+CH-VC-03111,v:72be88bef60c8a28,Silver Birch Construction - A Division of Ontario Property Development Corporation,,,Kitchener,ON,N2E 1Y6,8,3,
+CH-VC-03112,v:1438354b5e6c6c49,Waste Connections Canada Inc.,,,Woodbridge,ON,L4H4G3,8,3,wasteconnectionscanada.ca wasteconnectionscanada.com wasteconnections.ca wasteconnections.com waste-connections-canada.ca waste-connections-canada.com
+CH-VC-03113,v:dff3f4309d211543,ASL Environmental Sciences Inc.,ASL ENVIRONMENTAL SCIENCES INC.,BC0159550,Saanichton,BC,V8M 1Z5,8,3,aslenvironmentalsciences.ca aslenvironmentalsciences.com asl-environmental-sciences.ca asl-environmental-sciences.com
+CH-VC-03114,v:7183444bac316134,Teeple Architects Inc.,,,Toronto,ON,M5V 1V2,8,3,teeplearchitects.ca teeplearchitects.com teeple-architects.ca teeple-architects.com
+CH-VC-03115,v:c9d346609bf1d17d,Photech Environmental Solutions Inc.,PHOTECH ENVIRONMENTAL SOLUTIONS INC.,1160229747,NIAGARA FALLS,ON,L2E 6S5,8,3,

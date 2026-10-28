@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-23716,v:680fd52e1d7ddefb,"Teledyne Caris, a business unit of Teledyne Digita | Teledyne Geospatial",,,,Extranjero,,4,0,
+CH-VC-23717,v:5a0ad084f29cbe02,WESTINCOR LIMITED,,,,,,4,0,
+CH-VC-23718,v:2e04437203880b73,KenWave,,,Mississauga,,,4,0,kenwave.ca kenwave.com
+CH-VC-23719,v:0b19291cbb2384e3,Instrumentation Laboreatory Canada,,,Richmond Hill,ON,L4B 2N1,4,0,instrumentationlaboreatory.ca instrumentationlaboreatory.com
+CH-VC-23720,v:a564f0af452cb49f,Lifetronics Medical,LIFETRONICS MEDICAL INC.,3032981,North York,ON,m3j 3h9,4,0,lifetronicsmedical.ca lifetronicsmedical.com lifetronics-medical.ca lifetronics-medical.com
+CH-VC-23721,v:e21e4ec57c690763,"Siemens Canada Ltée, Division technologies du bâtiment",SIEMENS CANADA LIMITÉE,1161355988,Brampton,ON,L6T 5E4,4,0,siemenscanada.ca siemenscanada.com siemens.ca siemens.com siemens-canada.ca siemens-canada.com
+CH-VC-23722,v:bc216f262f8ec37b,SUNOVION PHARMACEUTICALS CANADA INC.,,,Mississauga,ON,L5N 2V8,4,0,sunovionpharmaceuticalscanada.ca sunovionpharmaceuticalscanada.com sunovionpharmaceuticals.ca sunovionpharmaceuticals.com
+CH-VC-23723,v:21d2b4433ec3a25f,Mabe Canada Inc.,MC COMMERCIAL INC.,1167592972,Burilngton,ON,L7R 5B6,4,0,mabecanada.ca mabecanada.com mabe.ca mabe.com mabe-canada.ca mabe-canada.com
+CH-VC-23724,v:796f4791cfd5aa0c,KILDAIR SERVICE LTEE,LE GROUPE DELANGIS,1142893123,Vancouvert,BC,,4,0,kildairservice.ca kildairservice.com kildair-service.ca kildair-service.com
+CH-VC-23725,v:be58b66c2b90aea8,BlueWave Innovations Inc,,,Cambridge,ON,N1R8A6,4,0,bluewaveinnovations.ca bluewaveinnovations.com bluewave-innovations.ca bluewave-innovations.com
+CH-VC-23726,v:695c4f9dd8bdb07a,TRAVEL HEALTHCARE INSURANCE SOLUTIONS INC.,TRAVEL HEALTHCARE INSURANCE SOLUTIONS INC.,1162161286,Thornhill,ON,L3T5W4,4,0,assurancesantestudentguard.ca assurancesantestudentguard.com assurance-sante-studentguard.ca assurance-sante-studentguard.com studentguardhealthinsurance.ca studentguardhealthinsurance.com
+CH-VC-23727,v:4b89ed6e5f8fff9d,KNS Canada Solution Inc.,,,Toronto,ON,m1V 5J9,4,0,knscanadasolution.ca knscanadasolution.com knssolution.ca knssolution.com kns-canada-solution.ca kns-canada-solution.com
+CH-VC-23728,v:ccd579266a0957fa,Gateway Ticketing Systems,,,Calgary,AB,T2E 6P7,4,0,gatewayticketingsystems.ca gatewayticketingsystems.com gateway-ticketing-systems.ca gateway-ticketing-systems.com
+CH-VC-23729,v:071e229059be1b7c,Kodak Canada ULC,KODAK CANADA ULC,1171030506,Burnaby,BC,V5G4P5,4,0,kodakcanada.ca kodakcanada.com kodak.ca kodak.com kodak-canada.ca kodak-canada.com
+CH-VC-23730,v:a4b270ae432d2d0b,Synergy Sales,,,Toronto,ON,M4N 1A4,4,0,synergysales.ca synergysales.com synergy-sales.ca synergy-sales.com
+CH-VC-23731,v:6427ad9a4283b399,"EDF Trading North America, LLC",,,Calgary,AB,T2P 2Y3,4,0,edftradingnorthamerica.ca edftradingnorthamerica.com edf-trading-north-america.ca edf-trading-north-america.com
+CH-VC-23732,v:5a08032680413bcb,Solutions TI BDM Inc.,Solutions TI BDM Inc.,1168968031,Saskatoon,SK,S7K2H5,4,0,solutionstibdm.ca solutionstibdm.com solutions-ti-bdm.ca solutions-ti-bdm.com
+CH-VC-23733,v:29915df40fa86db2,Amico Patient Care,,,Richmond Hill,ON,L4B 1G6,4,0,amicopatientcare.ca amicopatientcare.com amico-patient-care.ca amico-patient-care.com
+CH-VC-23734,v:bd10651092219c33,Oracle Cnd,ORACLE CANADA ULC,1166275785,Mississauga,ON,L5R 4H1,4,0,oraclecnd.ca oraclecnd.com oracle-cnd.ca oracle-cnd.com oraclecanada.ca oraclecanada.com
+CH-VC-23735,v:8302aaea58c576c3,W.L. Gore,,,Etobicoke,ON,M9C 5K6,4,0,wgore.ca wgore.com w-gore.ca w-gore.com
+CH-VC-23736,v:6baa13580570fb35,Association des Facultés de Médecine du,,,Ottawa,ON,K1B0A9,4,0,associationfacultesmedecine.ca associationfacultesmedecine.com association-facultes-medecine.ca association-facultes-medecine.com
+CH-VC-23737,v:c77a5a4b3e860fa2,JOINT SOLUTIONS,,,BURLINGTON,ON,L7L4X8,4,0,jointsolutions.ca jointsolutions.com joint-solutions.ca joint-solutions.com
+CH-VC-23738,v:316c4504e1dacc35,"Chem-Aqua, div. de NCH Canada Inc.",NCH CANADA INC.,1143033703,Brampton,ON,L6T1E6,4,0,chemaquadivnchcanada.ca chemaquadivnchcanada.com chemaquadivnch.ca chemaquadivnch.com chem-aqua-div-nch-canada.ca chem-aqua-div-nch-canada.com
+CH-VC-23739,v:4471f19b6851f730,MDR ASSOCIATES,,,TORONTO,ON,M8Y 1J7,4,0,mdrassociates.ca mdrassociates.com mdr-associates.ca mdr-associates.com
+CH-VC-23740,v:3fa7370983468140,MOODY'S INVESTORS SERVICE,,,TORONTO,ON,M5J1S9,4,0,moodysinvestorsservice.ca moodysinvestorsservice.com moodys-investors-service.ca moodys-investors-service.com
+CH-VC-23741,v:b21c8c79ac04e55c,Laboratories Abbott Cie,LABORATOIRES ABBOTT CIE,1144179075,Mississauga,ON,L5N 3R3,4,0,laboratoriesabbott.ca laboratoriesabbott.com laboratories-abbott.ca laboratories-abbott.com laboratoiresabbott.ca laboratoiresabbott.com
+CH-VC-23742,v:cb1852b92dbcbdc1,Bruker Ltd. (Bruker Scientific Instruments),,,Milton,ON,L9T6P4,4,0,bruker.ca bruker.com
+CH-VC-23743,v:4f17e5dfbca00bc0,Greenlane Biogas North America Limited,,,Burnaby,BC,,4,0,greenlanebiogasnorthamerica.ca greenlanebiogasnorthamerica.com greenlane-biogas-north-america.ca greenlane-biogas-north-america.com
+CH-VC-23744,v:7b9daa8f45d6d4ff,SIEMENS ENERGIE CANADA LIMITEE,SIEMENS ENERGIE CANADA LIMITEE,1174899758,Oakville,ON,L6H0H6,4,0,siemensenergiecanada.ca siemensenergiecanada.com siemensenergie.ca siemensenergie.com siemens-energie-canada.ca siemens-energie-canada.com
+CH-VC-23745,v:877d731f30f2dfb2,RESPIRONICS INC,,,MARKHAM,ON,L6C 2S3,4,0,respironics.ca respironics.com
+CH-VC-23746,v:cb938179041371a7,ADLIB SOFTWARE,,,BURLINGTON,ON,,4,0,adlibsoftware.ca adlibsoftware.com adlib-software.ca adlib-software.com
+CH-VC-23747,v:c3e9701587a875cb,Jacklyn Industries,Jacklyn Industries,1169434165,BRAMPTON,ON,L6T 4X1,4,0,jacklynindustries.ca jacklynindustries.com jacklyn-industries.ca jacklyn-industries.com
+CH-VC-23748,v:96fd9826fb4d91e0,FUJIFILM CANADA INC.,FUJIFILM CANADA INC.,1143416056,Mississauga,ON,L5R 4G4,4,0,fujifilmcanada.ca fujifilmcanada.com fujifilm.ca fujifilm.com fujifilm-canada.ca fujifilm-canada.com
+CH-VC-23749,v:013c5e80670abd75,Société Xylem Canada,ITT TECHNOLOGIES DES FLUIDES,1140373151,Toronto,ON,M5W 2K3,4,0,societexylemcanada.ca societexylemcanada.com societexylem.ca societexylem.com societe-xylem-canada.ca societe-xylem-canada.com
+CH-VC-23750,v:71fc309a97fa3dfd,DELL QUÉBEC INC.,DELL,1146552576,North York,ON,M5H1T1,4,0,dellquebec.ca dellquebec.com dell-quebec.ca dell-quebec.com dell.ca dell.com
+CH-VC-23751,v:cbe648909034c062,FACEBOOK CANADA LTD.,FACEBOOK  CANADA  LTD.,1169720647,,ON,M4P1E4,4,0,facebookcanada.ca facebookcanada.com facebook.ca facebook.com facebook-canada.ca facebook-canada.com
+CH-VC-23752,v:3b9428d9a96b7f63,SYNERON CANADA CORPORATION,SYNERON CANADA CORPORATION,1167482661,Mississauga,ON,L5T2L1,4,0,syneroncanada.ca syneroncanada.com syneron.ca syneron.com syneron-canada.ca syneron-canada.com
+CH-VC-23753,v:7411490e0aa5e53f,Isograde Canada Inc.,Isograde Canada Inc.,1173799736,Toronto,ON,H2R 2Y8,4,0,isogradecanada.ca isogradecanada.com isograde.ca isograde.com isograde-canada.ca isograde-canada.com
+CH-VC-23754,v:3f9675a64ba8e8cc,ERMS,ERMS INC.,1145999521,oakville,ON,l6j 7j8,4,0,erms.ca erms.com
+CH-VC-23755,v:2dc7a30bd0b1c4bb,"GILEAD SCIENCES CANADA, INC.","GILEAD SCIENCES CANADA, INC.",1162213426,Mississauga,ON,L5N 2W3,4,0,gileadsciencescanada.ca gileadsciencescanada.com gileadsciences.ca gileadsciences.com gilead-sciences-canada.ca gilead-sciences-canada.com
+CH-VC-23756,v:076b9df96ca6202a,7322046 CANADA INCORPORATED,7322046 CANADA INCORPORATED,1176418417,Ottawa,ON,K1V0G2,4,0,
+CH-VC-23757,v:75fa85e1bc009295,Réseau canadien de documentation pour la recherche (RCDR),CANADIAN RESEARCH KNOWLEDGE NETWORK,4231112,,ON,K1Z1A2,4,0,researchknowledgenetwork.ca researchknowledgenetwork.com
+CH-VC-23758,v:da503da5023720a8,DOCU-LINK INTERNATIONAL INC.,DOCU-LINK INTERNATIONAL INC.,1163074934,,ON,K2K3B7,4,0,doculinkinternational.ca doculinkinternational.com docu-link-international.ca docu-link-international.com
+CH-VC-23759,v:72d41481d3e353b9,Prospectors and Developers Association,,,,ON,M5H3B3,4,0,
+CH-VC-23760,v:f309a8ce8b5faceb,COMM100 NETWORK CORPORATION,Comm100 Network Corporation,7200544,,BC,V6G1C9,4,0,comm100network.ca comm100network.com comm100-network.ca comm100-network.com
+CH-VC-23761,v:7133eea33e1ab729,Affinity Diagnostics Corp.,,,,ON,M3J2N5,4,0,affinitydiagnostics.ca affinitydiagnostics.com affinity-diagnostics.ca affinity-diagnostics.com
+CH-VC-23762,v:ba4e85b935ebf796,BRACCO DIAGNOSTICS CANADA INC.,Bracco Diagnostics Canada Inc.,1143118090,Vaughan,ON,L4L 8K8,4,0,braccodiagnosticscanada.ca braccodiagnosticscanada.com braccodiagnostics.ca braccodiagnostics.com bracco-diagnostics-canada.ca bracco-diagnostics-canada.com
+CH-VC-23763,v:0daf0de6a5ebee3a,U Sports,U SPORTS,1172223423,,ON,L4B1J8,4,0,usports.ca usports.com u-sports.ca u-sports.com
+CH-VC-23764,v:b64948f2cab70774,"Amersham Health Inc, GE Healthcare",,,Mississauga,ON,L5N 5P9,4,0,amershamhealthgehealthcare.ca amershamhealthgehealthcare.com amersham-health-ge-healthcare.ca amersham-health-ge-healthcare.com
+CH-VC-23765,v:4b7f0a8ddb13ea02,TA Instruments Inc,,,Grimsby,ON,L3M 4E7,4,0,tainstruments.ca tainstruments.com ta-instruments.ca ta-instruments.com
+CH-VC-23766,v:ca5bc1e43d008047,Can-Vac Technologies,,,Woodlawn,ON,K0A 3M0,4,0,canvactechnologies.ca canvactechnologies.com can-vac-technologies.ca can-vac-technologies.com
+CH-VC-23767,v:51f388899292b521,Modus Medical Devices Inc.,,,London,ON,N6A 3H4,4,0,modusmedicaldevices.ca modusmedicaldevices.com modus-medical-devices.ca modus-medical-devices.com
+CH-VC-23768,v:74ba916242df6a7f,Kodak Canada inc.,KODAK CANADA INC.,484571,Toronto,ON,M6M 1V3,4,0,kodakcanada.ca kodakcanada.com kodak.ca kodak.com kodak-canada.ca kodak-canada.com
+CH-VC-23769,v:a48af170b26ee558,Mui Scientific,,,Mississauga,ON,L4Z 3L3,4,0,muiscientific.ca muiscientific.com mui-scientific.ca mui-scientific.com
+CH-VC-23770,v:1b5c1127c377c5fb,Sybase Canada Limited,SYBASE CANADA LIMITED,1144058865,Toronto,ON,M4Y 3A5,4,0,sybasecanada.ca sybasecanada.com sybase.ca sybase.com sybase-canada.ca sybase-canada.com
+CH-VC-23771,v:6eb1d14f4463b05e,GE HEALTHCARE CLINICAL SYSTEMS,,,MISSISSAUGA,ON,L5N5P9,4,0,gehealthcareclinicalsystems.ca gehealthcareclinicalsystems.com ge-healthcare-clinical-systems.ca ge-healthcare-clinical-systems.com
+CH-VC-23772,v:2c7c7f0421da02b6,LOGIN BROTHERS CANADA,,,WINNIPEG,MB,R3J3T2,4,0,loginbrotherscanada.ca loginbrotherscanada.com loginbrothers.ca loginbrothers.com login-brothers-canada.ca login-brothers-canada.com
+CH-VC-23773,v:20a715bd0ab16359,St-Joseph Communications,GROUPE D'IMPRIMERIE ST-JOSEPH INC.,1164274723,Concord,ON,L4K 4P3,4,0,stjosephcommunications.ca stjosephcommunications.com st-joseph-communications.ca st-joseph-communications.com groupedimprimeriestjoseph.ca groupedimprimeriestjoseph.com
+CH-VC-23774,v:d0be77b4ebc893cc,Arjo Huntleigh,,,Mississauga,ON,L4W 5J1,4,0,arjohuntleigh.ca arjohuntleigh.com arjo-huntleigh.ca arjo-huntleigh.com arjohuntleighcanada.ca arjohuntleighcanada.com
+CH-VC-23775,v:ce4e91a86af472f2,I2 inc.,,,Ottawa,ON,K2K 2X3,4,0,
+CH-VC-23776,v:8d6e520d2b43a83d,Cumberland Mechanical Services Ltd.,cumberland mechanical services ltd.,1164566342,Cumberland,ON,K4B 1P5,4,0,cumberlandmechanicalservices.ca cumberlandmechanicalservices.com cumberland-mechanical-services.ca cumberland-mechanical-services.com
+CH-VC-23777,v:035478bc1711fb91,"MEDRAD, INC.",,,TORONTO,ON,M5C 2H8,4,0,medrad.ca medrad.com
+CH-VC-23778,v:b39df411462e8956,Fairmont Chateau Laurier,,,Ottawa,ON,K1N 8S7,4,0,fairmontchateaulaurier.ca fairmontchateaulaurier.com fairmont-chateau-laurier.ca fairmont-chateau-laurier.com
+CH-VC-23779,v:7bb11826a9b19cba,TRA Acoustics Ltd.,TRA ACOUSTICS LIMITED,7532172,Cornwall,ON,K6H 5J8,4,0,traacoustics.ca traacoustics.com tra-acoustics.ca tra-acoustics.com
+CH-VC-23780,v:341eca80de21ca82,Coloplast Canada Corp. - Jess Thornburg,,,Mississauga,ON,L5L 5Z9,4,0,coloplastcanadajessthornburg.ca coloplastcanadajessthornburg.com coloplastjessthornburg.ca coloplastjessthornburg.com
+CH-VC-23781,v:7f23ddd2c66687bd,SURGENOR TRUCK CENTRE,1561660 Ontario Ltd.,1167787036,Ottawa,ON,K1B 4L1,4,0,surgenortruckcentre.ca surgenortruckcentre.com surgenor-truck-centre.ca surgenor-truck-centre.com centrecamionsurgenor.ca centrecamionsurgenor.com
+CH-VC-23782,v:0cfd54b15f0e8c8c,POSTAGE ON CALL (DPOC),,,MARKHAM,ON,L3R 3J9,4,0,postageoncall.ca postageoncall.com postage-on-call.ca postage-on-call.com
+CH-VC-23783,v:1135b03849693468,Services Financiers Dell Canada,DELL FINANCIAL SERVICES CANADA ULC,1147036900,Toronto,ON,M2H3N5,4,0,servicesfinanciersdellcanada.ca servicesfinanciersdellcanada.com servicesfinanciersdell.ca servicesfinanciersdell.com dellfinancialservicescanada.ca dellfinancialservicescanada.com
+CH-VC-23784,v:7cbef67088f16930,A.H.B. 2000 Inc.,A.H.B. 2000 INC.,1143212240,Vancouver,BC,V6G3H3,4,0,hb2000.ca hb2000.com h-b-2000.ca h-b-2000.com
+CH-VC-23785,v:6570f198c4798ce9,Sopexa Canada LTEE,Agence Hopscotch Canada Ltée,1143589217,Montréal,,,4,0,sopexacanada.ca sopexacanada.com sopexa.ca sopexa.com sopexa-canada.ca sopexa-canada.com
+CH-VC-23786,v:36b4099013b35dee,Deighton Associates LTD,Deighton Associates Ltd.,2041588,Whitby,ON,,4,0,deightonassociates.ca deightonassociates.com deighton-associates.ca deighton-associates.com
+CH-VC-23787,v:5b99e6fceffaebe5,XSENSOR Technology Corporation,,,Calgary,,T2G0Z9,4,0,xsensortechnology.ca xsensortechnology.com xsensor-technology.ca xsensor-technology.com
+CH-VC-23788,v:80a32ef9a817624b,Steenken Enterprises / Consultants,,,Annapolis Royal,,B0S 1A0,4,0,steenkenenterprisesconsultants.ca steenkenenterprisesconsultants.com
+CH-VC-23789,v:b0d9da9201841211,Canamidex International,,,,,,4,0,
+CH-VC-23790,v:972a8b18d7c0aee5,MTZ Equipment Ltd,,,,,,4,0,
+CH-VC-23791,v:b1c6c00210c28b68,SHIOTA HEALTH COMMUNICATIONS INC,,,,,,4,0,
+CH-VC-23792,v:afe158cd7693acc0,Qc Bdd Technologies Group sarl,,,,,,4,0,
+CH-VC-23793,v:baf693e1ae188748,GARY JONAS COMPUTING LTD.,,,MARKHAM,ON,L6G 1B3,4,0,garyjonascomputing.ca garyjonascomputing.com gary-jonas-computing.ca gary-jonas-computing.com
+CH-VC-23794,v:6d4619535366b550,NORTHERN COMMUNICATIONS SERVICES INC,,,,,,4,0,northerncommunicationsservices.ca northerncommunicationsservices.com
+CH-VC-23795,v:f0dffe996e1c6acb,GLOBAL ALPHA CAPITAL MANAGEMENT LTD.,GLOBAL ALPHA CAPITAL MANAGEMENT LTD.,4204158,VANCOUVER,--,000000000,4,0,globalalphacapitalmanagement.ca globalalphacapitalmanagement.com gestiondactifsglobalalpha.ca gestiondactifsglobalalpha.com gestion-dactifs-global-alpha.ca gestion-dactifs-global-alpha.com
+CH-VC-23796,v:0a6eb6833ded66f8,Kapsch TrafficCom USA Inc,,,Mississauga,ON,L4W 2P1,4,0,kapschtrafficcomusa.ca kapschtrafficcomusa.com kapsch-trafficcom-usa.ca kapsch-trafficcom-usa.com
+CH-VC-23797,v:4cd95ab36c702f0a,XLTEK a division of Natus,,,Oakville,ON,L6H5S1,4,0,xltekdivisionnatus.ca xltekdivisionnatus.com xltek-division-natus.ca xltek-division-natus.com
+CH-VC-23798,v:21681ff0b2cf7f02,SKILLIANCE CONSULTING INC.,,,,,,4,0,
+CH-VC-23799,v:55e9fe648a0c5546,ULTRAMAR / PARKLAND CORPORATION,,,,,,4,0,
+CH-VC-23800,v:f6c42c6ff918ab76,M DAVIS LANDSCAPE AND DESIGN INC,,,,,,4,0,
+CH-VC-23801,v:a8c5c6310b1119c7,CATHCART MECHANICAL PERFORMANCE INC,,,,,,4,0,
+CH-VC-23802,v:2ef5dcd766b61212,DISTRESS CENTRE OF OTTAWA,,,,,,4,0,
+CH-VC-23803,v:2e643bbe440a45f3,BRITT CONSTRUCTION (1649330 ONTARIO INC),,,,,,4,0,
+CH-VC-23804,v:ec79cfca54894848,PARA LOGISTICS LTD,,,,,,4,0,
+CH-VC-23805,v:b72b6d468e3a8af6,SIEMENS MOBILITY LIMITED,,,,,,4,0,
+CH-VC-23806,v:e706692b9a065221,SNETSINGER CONSULTANTS LTD,,,,,,4,0,
+CH-VC-23807,v:dd21c69b6f6d0888,MYTICAS CONSULTING LTD,,,,,,4,0,
+CH-VC-23808,v:2530ab53fce1b246,HYDRO OTTAWA,,,,,,4,0,
+CH-VC-23809,v:50d7f34a2bde8c88,BUILDING AND MAINTENANCE INC,,,,,,4,0,
+CH-VC-23810,v:e3649be9c85119b4,FEDERAL ENGINEERING INC,,,,,,4,0,
+CH-VC-23811,v:f8e2c3b1d3ea946a,AMOR CONSTRUCTION,,,,,,4,0,
+CH-VC-23812,v:419a0ce8ae321e3f,DENNERY RESOURES INC (3492125 CANADA INC),,,,,,4,0,
+CH-VC-23813,v:956059e6a46438f3,JANET LEBLANC + ASSOCIATES,,,,,,4,0,
+CH-VC-23814,v:749bb16496917823,Mission Works Ltd.,,,,,,4,0,
+CH-VC-23815,v:399fd01ab7a3444b,Groupe Fiatlux-Ampleman,,,,,,4,0,

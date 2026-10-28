@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-22516,v:17fbfd6d1a73839c,JOMO Construction Services,,,BEDFORD,NS,B4A 0C1,5,0,
+CH-VC-22517,v:a5b45b976e3c0e17,United Fitness Ventures o/a The Treadmill Factory,,,Markham,ON,L3R8E3,5,0,
+CH-VC-22518,v:c712263f22089e41,Zero Defects,,,Toronto,ON,M3J 3J1,5,0,
+CH-VC-22519,v:2ed4dc0401ebfed2,AstroTurf West Distributors Ltd.,,,Vancouver,BC,V5Z 2G7,5,0,
+CH-VC-22520,v:1686cf32f82d311e,MacKay's Truck & Trailer,,,Truro,NS,B2N1B1,5,0,
+CH-VC-22521,v:fa37e19a91398d29,Tractor Trailer Service,,,Thunder Bay,ON,P7B6T3,5,0,
+CH-VC-22522,v:13a1ff2d7b00199c,Taylor Smyth Architects,,,Toronto,ON,M5R 1K1,5,0,
+CH-VC-22523,v:b7d8ab3ebfd333ed,smith stockley ltd,,,St.john's,NL,A1C5N5,5,0,
+CH-VC-22524,v:1a50e19aabcfda2c,Tract Consulting,,,St. John's,NL,A1C 2H2,5,0,
+CH-VC-22525,v:245c3dbda24c46cf,Anderson Equipment Sales,,,Belleville,ON,K8N 4Z5,5,0,
+CH-VC-22526,v:68b2a563e21b531b,Conestoga Contracting Group Inc.,,,Elmira,ON,N3B 2Z2,5,0,
+CH-VC-22527,v:64531b26b58ccd94,D.J. Peat Roofing & Sheet Metal Ltd.,,,Annan,ON,N0H 1B0,5,0,
+CH-VC-22528,v:ff21e4143f56b7b8,Arcwood Industries Inc. 746486505RT0001,,,Timmins,ON,P4N7V1,5,0,
+CH-VC-22529,v:71d7eab04a0f79df,DDC Contracting,,,Prince Rupert,BC,V8J 2A9,5,0,
+CH-VC-22530,v:19bfb908695a9bd5,2452705 Ontario Inc O/A Core Business Solutions,,,Timmins,ON,P4N1E3,5,0,
+CH-VC-22531,v:aa155d4835d6679b,Calian Cyber Solutions Ltd.,,,North York,ON,M2H 0A1,5,0,
+CH-VC-22532,v:60a28db5430dc78f,M Pigott Contracting Inc,,,Ancaster,ON,L9G 2B1,5,0,
+CH-VC-22533,v:598018c32d2e69ea,Mapleton Exteriors Ltd.,,,Drayton,ON,N0G1P0,5,0,
+CH-VC-22534,v:eb910d751c30a26e,ProTemp Refrigeration Inc,,,Gadshill,ON,N0K1J0,5,0,
+CH-VC-22535,v:eb54952f056daa50,H et H Construction,H+H CONSTRUCTION INC.,1148757496,,ON,K8H 2W8,5,0,hhconstruction.ca hhconstruction.com h-h-construction.ca h-h-construction.com
+CH-VC-22536,v:1ab53acf9a75a459,Cooney Excavating Ltd,,,Trenton,ON,K8V 4G4,5,0,
+CH-VC-22537,v:cf6ae4ccdc79e2af,2632431 Ontario Inc,,,Martintown,ON,K0C 1S0,5,0,
+CH-VC-22538,v:8706d2c3717a8bef,Entec Waste Management Inc.,,,Courtland,ON,N0J 1E0,5,0,
+CH-VC-22539,v:df352ac23cf998ba,Se7en Hills Inc.,,,Toronto,ON,M2M3W2,5,0,
+CH-VC-22540,v:2af21c50d192fe99,Conroy Refrigeration Ltd,,,Truro,NS,B2N 7J8,5,0,
+CH-VC-22541,v:7308554a57ba82e2,MacKenzie Electrical Services,,,Sydney,NS,B1P 5T3,5,0,
+CH-VC-22542,v:17123bf399bad939,Micro Assistive Tech Inc.,Micro Assistive Tech Inc.,1173931990,Mississauga,ON,L4W 4T7,5,0,
+CH-VC-22543,v:faf3a0f965444a8a,PVS Contractors Inc.,,,St-Catharines,ON,L2M 6S9,5,0,
+CH-VC-22544,v:90c7d1bc15255c2f,Rody Contracting Ltd.,,,Edmonton,AB,T5S1X7,5,0,
+CH-VC-22545,v:d9c971e42d9b60d3,Hi-Point Industries,,,Bishop's Falls,NL,A0H 1C0,5,0,
+CH-VC-22546,v:c08778e1c159573a,Cy Rheault Construction LTd,,,Timmins,ON,P4N 1E2,5,0,
+CH-VC-22547,v:49ff7e1e876ffdd2,MAAD Excavation Inc.,,,Toronto,ON,M3K 1K4,5,0,
+CH-VC-22548,v:f86f8bea8152ff83,EnergyCAP Canada Inc,,,Toronto,ON,M4L 3P1,5,0,
+CH-VC-22549,v:e08f2f33163b5a50,16142 Yukon Inc,,,Watson Lake,YT,Y0A1C0,5,0,
+CH-VC-22550,v:e001bfa7142a4667,Searchfast Systems Limited,,,Mississauga,ON,L5L5Z9,5,0,
+CH-VC-22551,v:c282d7652c763123,2642449 Ontario Inc.,,,Dunnville,ON,N1A 2W7,5,0,
+CH-VC-22552,v:f9e28a57bb52be56,Can-Sky Roofing & Sheet Metal Inc.,,,Etobicoke,ON,M9W3A5,5,0,
+CH-VC-22553,v:f9f6cde154b8dfe3,BaleForce Recycling Equipment,,,Milton,ON,L9T 5C4,5,0,
+CH-VC-22554,v:72c2aa2009b62f4b,Nuway Crushing Ltd.,,,Whitehorse,YT,Y1A0A8,5,0,
+CH-VC-22555,v:dee4b8412175e8d9,Connect Equipment,,,Rockwood,ON,N0B2K0,5,0,
+CH-VC-22556,v:28682b936e352c88,AQUATECH PUMP AND POWER INC.,,,MAPLE ,ON,L6A 4P5,5,0,
+CH-VC-22557,v:79f6d46462f7671f,The Murray Group Limited,,,Moorefield,ON,N0G 2K0,5,0,
+CH-VC-22558,v:72e3258a387ca8d3,Drive Line Machine Shop Lee & Sons Ltd,,,Goulds,NL,,5,0,drivelinemachineshopleesons.ca drivelinemachineshopleesons.com
+CH-VC-22559,v:8926509d959fcf8b,EAMA INC,,,Etobicoke,ON,M9W 6Y7,5,0,
+CH-VC-22560,v:4e6a403ebcb7ba64,C.L. Benninger Equipment (1995) Ltd.,,,Essex,ON,N8M 3G6,5,0,
+CH-VC-22561,v:eaa303a2d95cf84a,Connect Atlantic Utility Services,,,Bedford,NS,B4B 1H1,5,0,
+CH-VC-22562,v:1016f1d858a57ccc,OEM FLEETS LIMITED,OEM FLEETS Limited,8890897,MISSISSAUGA,ON,L4W 1X5,5,0,
+CH-VC-22563,v:6649fe2a2754b3fe,Headway Electric Ltd.,Headway Electric Ltd.,12203324,West Porters Lake,NS,B3E1M8,5,0,headwayelectric.ca headwayelectric.com headway-electric.ca headway-electric.com
+CH-VC-22564,v:6df61ad188e7a743,MacFarlands Industrial,,,Dartmouth,NS,B3B 0J6,5,0,
+CH-VC-22565,v:aa35393ab05cee45,French Brothers Roofing (Belleville) Inc.,,,Belleville,ON,K8N 4Z5,5,0,
+CH-VC-22566,v:21f83b78611b2e24,AMJ Campbell,9205-6126 QUÉBEC INC.,1165635161,Calgary,AB,T3K 0R1,5,0,amjcampbell.ca amjcampbell.com amj-campbell.ca amj-campbell.com amjcampbellinternationalcanada.ca amjcampbellinternationalcanada.com
+CH-VC-22567,v:ae9cdc11ec248fae,SEGA ELECTRIC INC,SEGA ELECTRIC INC.,1166511197,Navan,ON,K4B 0J3,5,0,
+CH-VC-22568,v:ab57eb4ee97e022f,Cion Corp.,,,Mississauga,ON,L4W 5K9,5,0,
+CH-VC-22569,v:159f4314f3b9bc91,M Con Products Inc.,PRODUITS M-CON INC.,1148767925,Ottawa,ON,K0A 1L0,5,0,
+CH-VC-22570,v:2225636d7dad2839,DUBOIS CHEMICALS CANADA INC.,DUBOIS CHEMICALS CANADA INC.,1177362168,Mississauga,ON,L4Z 3K2,5,0,duboischemicalscanada.ca duboischemicalscanada.com duboischemicals.ca duboischemicals.com dubois-chemicals-canada.ca dubois-chemicals-canada.com
+CH-VC-22571,v:9b8dc5fd6c4df3bd,RA Crete-Scape Ltd.,,,Woodbridge,ON,L4L 8A8,5,0,
+CH-VC-22572,v:810e4bd2fa2c5d24,NOVOTECH TECHNOLOGIES CORP,NOVOTECH TECHNOLOGIES CORPORATION,1160557154,Ottawa,ON,K2S 1E7,5,0,
+CH-VC-22573,v:1323a110337c8c7a,Jacques Daoust Coatings Management Inc.,,,Cambridge,ON,N1R 4E1,5,0,
+CH-VC-22574,v:f2871cf77c89dcd3,McLaren Press Graphics Ltd,,,Gravenhurst,ON,P1P 1R1,5,0,
+CH-VC-22575,v:5537ed634266b5ed,1401279 Ontario Limited o/a Bay Lock & Security,,,Thunder Bay,ON,P7E 6W1,5,0,
+CH-VC-22576,v:976a203608a30927,CREATIVE PROCESS INC,,,Toronto,ON,M5T 3B3,5,0,
+CH-VC-22577,v:004e9cd12fca0be2,ARMSTRONG MONITORING CORP,The Armstrong Monitoring Corporation,1174862491,Ottawa,ON,K2E 7K3,5,0,
+CH-VC-22578,v:8e325d850bd99aeb,SI Systems,,,Edmonton,AB,,5,0,sisystems.ca sisystems.com si-systems.ca si-systems.com
+CH-VC-22579,v:63ebf271401507af,E F Moon Construction Ltd.,,,Portage la Prairie,MB,R1N 4A2,5,0,
+CH-VC-22580,v:96ce3a51eaa8a86f,Ryerson University,,,Toronto,ON,M5B 2K3,5,0,
+CH-VC-22581,v:dbdc9d560df00536,Nu-Life Medical & Surgical Supplies Inc.,,,Toronto,ON,M9M 2G5,5,0,
+CH-VC-22582,v:f5480215d7fa6d8a,FRASER DURHAM CHRYSLER DODGE JEEP RAM INC,,,OSHAWA,ON,L1J5Y6,5,0,
+CH-VC-22583,v:ca1c0ac2cacb8a80,Dynamic Construction Ltd.,,,Harbour Breton,NL,A0H 1P0,5,0,dynamicconstruction.ca dynamicconstruction.com dynamic-construction.ca dynamic-construction.com
+CH-VC-22584,v:733ef90595f8c144,K.C.E. Construction Ltd.,,,Nepean,,K2G 0B3,5,0,
+CH-VC-22585,v:acc5d328ded16856,Gengroup Crane Corp.,,,Scarborough,ON,M1V 4S6,5,0,gengroupcrane.ca gengroupcrane.com gengroup-crane.ca gengroup-crane.com
+CH-VC-22586,v:6683db962b1c18e7,First Call Electrical & Contracting Ltd,,,Grand Le Pierre,NL,A0E 1Y0,5,0,firstcallelectricalcontracting.ca firstcallelectricalcontracting.com
+CH-VC-22587,v:ba39711d6717962f,Neetah Construction,,,RM of Sherwood,SK,S4K 0A4,5,0,neetahconstruction.ca neetahconstruction.com neetah-construction.ca neetah-construction.com
+CH-VC-22588,v:bef558a63cb41e1d,FRACFLOW CONSULTANTS,,,ST. JOHN'S,NL,A1A 5A1,5,0,fracflowconsultants.ca fracflowconsultants.com fracflow-consultants.ca fracflow-consultants.com
+CH-VC-22589,v:c73c95e498bc0583,Bennett's Construction and Supplies (2011) Ltd.,,,Grand Bank,NL,A0E 1W0,5,0,
+CH-VC-22590,v:d69d9553a6284d10,Serel Services CO LTD,,,Mitchell,MB,R5G 2M6,5,0,
+CH-VC-22591,v:39a531d92bbe1cfd,Arrow,,,North Gower,ON,K0A 2T0,5,0,
+CH-VC-22592,v:369d138c21c3bdf6,Gallivan Group of Companies,,,Nepean,ON,K2E 8B7,5,0,gallivangroupcompanies.ca gallivangroupcompanies.com gallivan-group-companies.ca gallivan-group-companies.com
+CH-VC-22593,v:c1142ae139a83ec7,CTM SWEEPING CO.,3408671 CANADA INC.,1160824554,OTTAWA,ON,K1G 3N4,5,0,ctmsweeping.ca ctmsweeping.com ctm-sweeping.ca ctm-sweeping.com balayagectm.ca balayagectm.com
+CH-VC-22594,v:fc2bf1bada99d03e,Hundseth Line Construction Corp.,,,Saskatoon,SK,S7L 7M1,5,0,
+CH-VC-22595,v:054c16fdec1f674c,Mazergroup,,,Winnipeg,MB,R2J 4E6,5,0,mazergroup.ca mazergroup.com
+CH-VC-22596,v:547e006128c84e18,Focus Design Ltd,,,Winnipeg,MB,R5T 0H5,5,0,
+CH-VC-22597,v:5e4d261c17120d5c,Fort Richmond Construction Inc,,,Saskatoon,SK,,5,0,fortrichmondconstruction.ca fortrichmondconstruction.com fort-richmond-construction.ca fort-richmond-construction.com
+CH-VC-22598,v:5262e3f5a10125d2,Maxim Energy Corporation,,,Saskatoon,SK,S7P 0C5,5,0,
+CH-VC-22599,v:5ee53549c5793704,PSL Mechanical Heating and Air Conditioning Inc.,PSL Mechanical Heating and Air Conditioning INC.,1181159816,Ottawa,ON,K2E 7X7,5,0,
+CH-VC-22600,v:fbc2a0814b539c5f,Elite Information Systems and Consulting,,,Moose Jaw,SK,,5,0,
+CH-VC-22601,v:96f1718a47ad1878,Jones Lang LaSalle,,,Toronto,ON,M5H 4E3,5,0,
+CH-VC-22602,v:82e2ddab84fe6e49,Norris Construction Management,,,Carp,ON,K0A 1L0,5,0,
+CH-VC-22603,v:c09a689ace9e7e67,Academica Group Inc.,,,London,ON,N6K 2K4,5,0,
+CH-VC-22604,v:7eb9ddb04385974b,AVRON FOODS LTD,,,Concord,ON,L4K 4W8,5,0,
+CH-VC-22605,v:209b48a8ae7090b8,DAVE WRIGHT EXCAVATING LTD,DAVE WRIGHT EXCAVATING LIMITED,1171897607,Manotick,ON,K4M 1A7,5,0,
+CH-VC-22606,v:cba0d6ba22a62963,Hudsons Bus Service Limited,,,Victoria,NL,A0A 4G0,5,0,
+CH-VC-22607,v:93cd7b32dd344ca1,Evans Consoles Corporation,EVANS CONSOLES CORPORATION,4519604,Calgary,AB,,5,0,evansconsoles.ca evansconsoles.com evans-consoles.ca evans-consoles.com
+CH-VC-22608,v:029056d461cb644f,JNE Welding Limited Partnership,,,Saskatoon,SK,,5,0,jneweldingpartnership.ca jneweldingpartnership.com jne-welding-partnership.ca jne-welding-partnership.com
+CH-VC-22609,v:557fdaeb70ba6ab4,Pickseed,DLF CANADA INC.,1144634558,Nipawin,SK,,5,0,pickseedcanada.ca pickseedcanada.com pickseed.ca pickseed.com pickseed-canada.ca pickseed-canada.com
+CH-VC-22610,v:f44983f48a51a7f9,Trillium Flow Technologies Canada,,,Mississauga,ON,,5,0,trilliumflowtechnologiescanada.ca trilliumflowtechnologiescanada.com trilliumflowtechnologies.ca trilliumflowtechnologies.com
+CH-VC-22611,v:ac682b95a9199245,Lee & Sons Ltd o/a Drive Line Machine Shop,,,Goulds,NL,,5,0,drivelinemachineshop.ca drivelinemachineshop.com drive-line-machine-shop.ca drive-line-machine-shop.com leesons.ca leesons.com
+CH-VC-22612,v:1c8406f49d31e82e,Domtar Inc o/a Ariva,,,Mount Pearl,NL,,5,0,ariva.ca ariva.com
+CH-VC-22613,v:9d07911a0acb3808,Council of Atlantic Premiers,,,Halifax,NS,,5,0,councilatlanticpremiers.ca councilatlanticpremiers.com council-atlantic-premiers.ca council-atlantic-premiers.com
+CH-VC-22614,v:e5c8e52324c61734,David D Williams Enterprises Ltd,,,New Harbour,NL,,5,0,davidwilliamsenterprises.ca davidwilliamsenterprises.com david-williams-enterprises.ca david-williams-enterprises.com
+CH-VC-22615,v:1ee9196f33bf9ad1,Genics Inc.,,,Acheson,AB,,5,0,genics.ca genics.com

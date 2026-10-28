@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-12016,v:02109db50cbe369a,Pine Martin Adventures Inc,,,hampden,NL,A0K 2Y0,1,1,pinemartinadventures.ca pinemartinadventures.com pine-martin-adventures.ca pine-martin-adventures.com
+CH-VC-12017,v:1301fcc340fcb835,"Skillnet Solutions, Inc.",,,Toronto,ON,M9W 0A2,1,1,skillnetsolutions.ca skillnetsolutions.com skillnet-solutions.ca skillnet-solutions.com
+CH-VC-12018,v:5d60ef7bb563858e,44980 NFLD INC,,,GOOSE BAY,NL,A0P 1C0,1,1,
+CH-VC-12019,v:ff24c023d7efeafe,Cabot Industries Limited,,,Clarenville,NL,A5A 1V8,1,1,cabotindustries.ca cabotindustries.com cabot-industries.ca cabot-industries.com
+CH-VC-12020,v:e0be7c8bdd978d57,Canuck Civil Construction Services Inc.,,,Pasadena,NL,A0L1K0,1,1,
+CH-VC-12021,v:6604e1026d1ab04e,David D Williams Ent,,,New Harbour,NL,A0B 2P0,1,1,davidwilliamsent.ca davidwilliamsent.com david-williams-ent.ca david-williams-ent.com
+CH-VC-12022,v:9369e72e072ddf8c,Davis Sand and Gravel LTD,,,hare bay,NL,A0G 2P0,1,1,davissandgravel.ca davissandgravel.com davis-sand-gravel.ca davis-sand-gravel.com
+CH-VC-12023,v:a451386df1ec21b3,"Hillier,s Services LTD",,,ST Lunaire-Griquet,NL,A0K 2X0,1,1,hilliersservices.ca hilliersservices.com hillier-s-services.ca hillier-s-services.com
+CH-VC-12024,v:a12865cecc45c1ef,Jeremy’s Construction LTD,,,Doyles,NL,A0N 1J0,1,1,jeremysconstruction.ca jeremysconstruction.com jeremys-construction.ca jeremys-construction.com
+CH-VC-12025,v:b1375293cd1b8ccc,Johnson's Aggregates Inc,,,Glenwood,NL,A0G2K0,1,1,johnsonsaggregates.ca johnsonsaggregates.com johnsons-aggregates.ca johnsons-aggregates.com
+CH-VC-12026,v:ca2f627c322690d2,K&C Construction,,,flowers cove,NL,A0K 2N0,1,1,kcconstruction.ca kcconstruction.com k-c-construction.ca k-c-construction.com
+CH-VC-12027,v:265f3fb32efd18ea,Northern Peninsula Ent,,,Port au choix,NL,A0K 4C0,1,1,northernpeninsulaent.ca northernpeninsulaent.com northern-peninsula-ent.ca northern-peninsula-ent.com
+CH-VC-12028,v:335f550c4f396449,Ryan's Contracting Ltd,,,Trepassey,NL,A0A 4B0,1,1,ryanscontracting.ca ryanscontracting.com ryans-contracting.ca ryans-contracting.com
+CH-VC-12029,v:a7107373c6ce5132,Shawn saunders,,,cooks harbour,NL,A0K 1Z0,1,1,shawnsaunders.ca shawnsaunders.com shawn-saunders.ca shawn-saunders.com
+CH-VC-12030,v:ce978d4133e33e65,Southern Construction (1981) Ltd.,,,Trepassey,NL,A0A 4B0,1,1,southernconstruction.ca southernconstruction.com southern-construction.ca southern-construction.com
+CH-VC-12031,v:66f30bab14cd17d8,William Perry Trucking,,,Deer Lake,NL,A8A3M2,1,1,williamperrytrucking.ca williamperrytrucking.com william-perry-trucking.ca william-perry-trucking.com
+CH-VC-12032,v:aa7c34b04ff53030,Placentia Mall Inc,,,PLACENTIA,NL,A0B2Y0,1,1,placentiamall.ca placentiamall.com placentia-mall.ca placentia-mall.com
+CH-VC-12033,v:3af7a0021bf5702d,Valley Business Equipment Inc,,,Happy Valley-Goose Bay,NL,A0P 1E0,1,1,valleybusinessequipment.ca valleybusinessequipment.com valley-business-equipment.ca valley-business-equipment.com
+CH-VC-12034,v:f56ef375634f2a90,R. A. Templeton LTD,,,St. John’s,NL,A1C 5N8,1,1,rtempleton.ca rtempleton.com r-templeton.ca r-templeton.com
+CH-VC-12035,v:2a992ea274879007,Dooley's Trucking,,,Gander,NL,A1V 1W6,1,1,dooleystrucking.ca dooleystrucking.com dooleys-trucking.ca dooleys-trucking.com
+CH-VC-12036,v:1112bd33a449c800,J & K Logistics LTD,,,Mount Pearl,NL,A1N 4Z5,1,1,jklogistics.ca jklogistics.com j-k-logistics.ca j-k-logistics.com
+CH-VC-12037,v:ad1b7e69b5c6b7e4,VistaGo Logistics Inc,,,ST JOHNS,NL,A1B0L7,1,1,vistagologistics.ca vistagologistics.com vistago-logistics.ca vistago-logistics.com
+CH-VC-12038,v:43f8d59decc16824,Aware Home Health Care/City Pharmacy,,,Corner Brook,NL,A2H 2Z1,1,1,
+CH-VC-12039,v:1017814ae284af46,Ben's Pharmacy Ltd,,,Stephenville,NL,A2N 1H9,1,1,benspharmacy.ca benspharmacy.com bens-pharmacy.ca bens-pharmacy.com
+CH-VC-12040,v:4ad3cdc617b1c7c6,Quality Pharmachoice,,,Lourdes,NL,A0N 1R0,1,1,qualitypharmachoice.ca qualitypharmachoice.com quality-pharmachoice.ca quality-pharmachoice.com
+CH-VC-12041,v:3b2465f539ac5d6f,Skinner's Pharmacy,,,Stephenville Crossing,NL,A0N 2C0,1,1,skinnerspharmacy.ca skinnerspharmacy.com skinners-pharmacy.ca skinners-pharmacy.com
+CH-VC-12042,v:15bf74bcde4df1fb,The Medicine Cabinet,,,Port aux basques,NL,A0M1C0,1,1,medicinecabinet.ca medicinecabinet.com medicine-cabinet.ca medicine-cabinet.com
+CH-VC-12043,v:21fdc8fcc8b37c2b,Simple Logic Integration Inc,,,St. John's,NL,A1A 0B9,1,1,simplelogicintegration.ca simplelogicintegration.com simple-logic-integration.ca simple-logic-integration.com
+CH-VC-12044,v:5207239a3d9fab07,Adrian Keeping,,,Burnt Islands,NL,A0M 1B0,1,1,adriankeeping.ca adriankeeping.com adrian-keeping.ca adrian-keeping.com
+CH-VC-12045,v:32c184c103c1f54b,C.B Bus Lines Ltd.,,,Tilton,NL,A0A3X1,1,1,cbbuslines.ca cbbuslines.com c-b-bus-lines.ca c-b-bus-lines.com
+CH-VC-12046,v:58ab8c3d35c78bea,87650 NL Corp O/a PuroClean Avalon,,,St Johns,NL,A1M 0J1,1,1,purocleanavalon.ca purocleanavalon.com puroclean-avalon.ca puroclean-avalon.com
+CH-VC-12047,v:6ac573349ccbe172,Agile.Net Inc.,,,Toronto,ON,M5A 1J2,1,1,agilenet.ca agilenet.com agile-net.ca agile-net.com
+CH-VC-12048,v:a79d003fda6694c5,Solar Winds Energy Inc,,,Clarenville,NL,A5A 1T5,1,1,solarwindsenergy.ca solarwindsenergy.com solar-winds-energy.ca solar-winds-energy.com
+CH-VC-12049,v:e6ce09c103e951b3,N.S.M excavating & construction Ltd,,,Terrenceville,NL,A0E 2X0,1,1,nsmexcavatingconstruction.ca nsmexcavatingconstruction.com n-s-m-excavating-construction.ca n-s-m-excavating-construction.com
+CH-VC-12050,v:4a33ea8be1c632d9,Rico Construction Ltd,,,Pasadena,NL,A0L1K0,1,1,ricoconstruction.ca ricoconstruction.com rico-construction.ca rico-construction.com
+CH-VC-12051,v:4a9db3bfe2694165,S&H CONSTRUCTION LTD,,,CLARENVILLE,NL,A5A 2C2,1,1,shconstruction.ca shconstruction.com s-h-construction.ca s-h-construction.com
+CH-VC-12052,v:6bf366d9b07a40df,C&T Rentals & Sales Ltd.,,,Centreport,MB,R4B 0A3,1,1,ctrentalssales.ca ctrentalssales.com c-t-rentals-sales.ca c-t-rentals-sales.com
+CH-VC-12053,v:7324b879007fc2b9,LEO'S SALES & SERVICES LTD,,,Rosser,MB,R4B 0B2,1,1,leossalesservices.ca leossalesservices.com leos-sales-services.ca leos-sales-services.com
+CH-VC-12054,v:0f5a71a2d78c5a0d,Wolseley Waterworks - Winnipeg,,,Winnipeg,MB,R3G 3K4,1,1,wolseleywaterworkswinnipeg.ca wolseleywaterworkswinnipeg.com wolseley-waterworks-winnipeg.ca wolseley-waterworks-winnipeg.com
+CH-VC-12055,v:0aa9d880dcb60bc9,AOK Furnace and Duct Cleaning,,,Dauphin,MB,R7n2t7,1,1,aokfurnaceductcleaning.ca aokfurnaceductcleaning.com aok-furnace-duct-cleaning.ca aok-furnace-duct-cleaning.com
+CH-VC-12056,v:9af2a04f5c1465dd,Super Plumbing & Heating,,,Brandon,MB,R7A 7A7,1,1,superplumbingheating.ca superplumbingheating.com super-plumbing-heating.ca super-plumbing-heating.com
+CH-VC-12057,v:d510968e96e3880e,Charles R Bell Ltd,,,Mount Pearl,NL,A1N 4S9,1,1,charlesrbell.ca charlesrbell.com charles-r-bell.ca charles-r-bell.com
+CH-VC-12058,v:3a7aa751bee0f8cb,Gullwing care services,,,winnipeg,MB,R3E 2W9,1,1,gullwingcareservices.ca gullwingcareservices.com gullwing-care-services.ca gullwing-care-services.com
+CH-VC-12059,v:c7a04858cc0370e8,Diamond Wax & Sanitary Supplies Ltd.,,,Winnipeg,MB,R3A 0J2,1,1,diamondwaxsanitarysupplies.ca diamondwaxsanitarysupplies.com diamond-wax-sanitary-supplies.ca diamond-wax-sanitary-supplies.com
+CH-VC-12060,v:dbf958c21109c993,Dynarep Sales Group Inc.,THE DYNAREP SALES GROUP INC.,BC1402891,North Saanich,BC,V8L 4L5,1,1,dynarepsalesgroup.ca dynarepsalesgroup.com dynarep-sales-group.ca dynarep-sales-group.com
+CH-VC-12061,v:1371dc2c9ccc7c0e,Alpine Electric,,,West St Paul,MB,R1A 2A8,1,1,alpineelectric.ca alpineelectric.com alpine-electric.ca alpine-electric.com
+CH-VC-12062,v:8a3f18095425acd1,Canadian Tiny Homes,CANADIAN TINY HOMES,FM0719818,Nelson,BC,V1L 7A9,1,1,canadiantinyhomes.ca canadiantinyhomes.com tinyhomes.ca tinyhomes.com canadian-tiny-homes.ca canadian-tiny-homes.com
+CH-VC-12063,v:937c5f79cd853ed2,Pratus Group,,,Toronto,ON,M6R 2B9,1,1,pratusgroup.ca pratusgroup.com pratus-group.ca pratus-group.com
+CH-VC-12064,v:8b4456de4d0443cd,Ainley Graham & Associates Limited (Consulting Engineers & Planners),,,Belleville,ON,K8N 2Y6,1,1,ainleygrahamassociates.ca ainleygrahamassociates.com ainley-graham-associates.ca ainley-graham-associates.com
+CH-VC-12065,v:66b3a3b9452fa092,OttawaScene Canada Group,,,Ottawa,ON,K2G 1E8,1,1,ottawascenecanadagroup.ca ottawascenecanadagroup.com ottawascenegroup.ca ottawascenegroup.com ottawascene-canada-group.ca ottawascene-canada-group.com
+CH-VC-12066,v:6b337fb2020df09c,Jafcon Construction Ltd.,,,Toronto,ON,M6G 2T6,1,1,jafconconstruction.ca jafconconstruction.com jafcon-construction.ca jafcon-construction.com
+CH-VC-12067,v:879e4ba3d72a2428,Composites One,,,Penticton,BC,V2A 7G3,1,1,compositesone.ca compositesone.com composites-one.ca composites-one.com
+CH-VC-12068,v:172e0b694f5e54e7,Rain43,,,Toronto,ON,M5A 1M5,1,1,rain43.ca rain43.com
+CH-VC-12069,v:c56c0129f6ebd58d,Bortolotto Design,,,Toronto,ON,M5T 2C2,1,1,bortolottodesign.ca bortolottodesign.com bortolotto-design.ca bortolotto-design.com
+CH-VC-12070,v:f0eb30affdeaec20,Design Partners in Architecture and Interiors (DPAI ),,,Hamilton,ON,L8P 1H1,1,1,
+CH-VC-12071,v:40ace9a76e6cec34,17561636 Canada Inc,17561636 Canada Inc.,17561636,Chalk River,ON,K0J 1J0,1,1,
+CH-VC-12072,v:93e51fc5552fda59,Hallmark Housekeeping Services Inc.,,,Toronto,ON,M9P 3V4,1,1,hallmarkhousekeepingservices.ca hallmarkhousekeepingservices.com hallmark-housekeeping-services.ca hallmark-housekeeping-services.com
+CH-VC-12073,v:3842b5f583d7950b,National Industrial Communications Inc.,,,Winnipeg,MB,R2J 0K4,1,1,
+CH-VC-12074,v:9defedab80fe106b,D&A Group Services,,,Mississauga`,ON,L4Z 3E5,1,1,
+CH-VC-12075,v:214fae2457510f71,studiosigns,,,ottawa,ON,K1B 5P2,1,1,studiosigns.ca studiosigns.com
+CH-VC-12076,v:c5368cff9fabd464,EventMAP Solutions Canada Limited,,,Toronto,ON,M5J 2T9,1,1,eventmapsolutionscanada.ca eventmapsolutionscanada.com eventmapsolutions.ca eventmapsolutions.com eventmap-solutions-canada.ca eventmap-solutions-canada.com
+CH-VC-12077,v:24710231e325575b,B & H Solutions Ltd.,,,Markham,ON,L3P 1M3,1,1,bhsolutions.ca bhsolutions.com b-h-solutions.ca b-h-solutions.com
+CH-VC-12078,v:e54e1bb54512922a,Kibo Franchising LTD.,,,Toronto,ON,M5G0C6,1,1,kibofranchising.ca kibofranchising.com kibo-franchising.ca kibo-franchising.com
+CH-VC-12079,v:f59b2ce31ef33976,Sixpenny Joinery Ltd.,,,Toronto,ON,M6N 3C9,1,1,sixpennyjoinery.ca sixpennyjoinery.com sixpenny-joinery.ca sixpenny-joinery.com
+CH-VC-12080,v:dccc93e172566531,NTS-Note Taking Services,,,Scarborough,ON,M1P 5A9,1,1,ntsnotetakingservices.ca ntsnotetakingservices.com nts-note-taking-services.ca nts-note-taking-services.com
+CH-VC-12081,v:cdc5035254533f31,Harrison-Huan Hoa-Nguyen,,,Mississauga,ON,L5R2N6,1,1,harrisonhuanhoanguyen.ca harrisonhuanhoanguyen.com harrison-huan-hoa-nguyen.ca harrison-huan-hoa-nguyen.com
+CH-VC-12082,v:3844a8b66cf14e99,DPFITNESS@SHAW.CA,,,Winnipeg,MB,R3T0E2,1,1,dpfitnessshawca.ca dpfitnessshawca.com dpfitness-shaw-ca.ca dpfitness-shaw-ca.com
+CH-VC-12083,v:1cf95a0d029621ae,Compounding Wellness Sterile Lab Facility,,,Mount Pearl,NL,A1N 5B6,1,1,
+CH-VC-12084,v:8a20a4b7f1035753,Bagry Bros Orchards,,,Vernon,BC,V1T 5J4,1,1,bagrybrosorchards.ca bagrybrosorchards.com bagry-bros-orchards.ca bagry-bros-orchards.com
+CH-VC-12085,v:28debf1be4edaea7,Norquay Nurseries Ltd.,,,Portage La Prairie,MB,R1N 3B2,1,1,norquaynurseries.ca norquaynurseries.com norquay-nurseries.ca norquay-nurseries.com
+CH-VC-12086,v:1f45c8fd03b0d752,Woodward Aviation,,,Goose bay,NL,A0P 1C0,1,1,woodwardaviation.ca woodwardaviation.com woodward-aviation.ca woodward-aviation.com
+CH-VC-12087,v:940de783b5220f9f,Inrush Electrical Technologies Ltd,,,Edmonton,AB,T5V 1K7,1,1,inrushelectricaltechnologies.ca inrushelectricaltechnologies.com inrush-electrical-technologies.ca inrush-electrical-technologies.com
+CH-VC-12088,v:b7c218ed0524fffb,"Bullwhip Logistics Consulting, Ltd.",,,Winnipeg,MB,R2X 3C7,1,1,bullwhiplogisticsconsulting.ca bullwhiplogisticsconsulting.com bullwhip-logistics-consulting.ca bullwhip-logistics-consulting.com
+CH-VC-12089,v:a5662efd6e8e2b82,Frontier Dental Supply Inc,,,Markham,ON,L6G 1B3,1,1,frontierdentalsupply.ca frontierdentalsupply.com frontier-dental-supply.ca frontier-dental-supply.com
+CH-VC-12090,v:c941ee099e657dab,Penguin Health Inc,Penguin Health Incorporated,12066793,Mississauga,ON,L5S1W4,1,1,penguinhealth.ca penguinhealth.com penguin-health.ca penguin-health.com
+CH-VC-12091,v:878775afaefec98f,Big Interlake Mechanical,,,St. Laurent,MB,r0c2s0,1,1,biginterlakemechanical.ca biginterlakemechanical.com big-interlake-mechanical.ca big-interlake-mechanical.com
+CH-VC-12092,v:bab4ff297d67802e,Boss Auto,,,Thompson,MB,R8N 1N7,1,1,bossauto.ca bossauto.com boss-auto.ca boss-auto.com
+CH-VC-12093,v:701581f4bc61b0a9,Darse Developments Ltd.,,,Stony Mountain,MB,R0C 3A0,1,1,darsedevelopments.ca darsedevelopments.com darse-developments.ca darse-developments.com
+CH-VC-12094,v:977ad54e77902d44,Elevate Equipment Services Ltd.,,,Narol,MB,R1C 0C6,1,1,elevateequipmentservices.ca elevateequipmentservices.com elevate-equipment-services.ca elevate-equipment-services.com
+CH-VC-12095,v:b0c34a0e235a6fe1,Genuine Truck Service,,,Winnipeg,MB,R2R 1T9,1,1,genuinetruckservice.ca genuinetruckservice.com genuine-truck-service.ca genuine-truck-service.com
+CH-VC-12096,v:c70709c7db843cdf,MAJOR REPAIRS LTD,,,WINNIPEG,MB,R2R2T8,1,1,majorrepairs.ca majorrepairs.com major-repairs.ca major-repairs.com
+CH-VC-12097,v:dc989b95c2fc0cbd,Onsite fleet solutions inc,,,Winnipeg,MB,R3C 2E6,1,1,onsitefleetsolutions.ca onsitefleetsolutions.com onsite-fleet-solutions.ca onsite-fleet-solutions.com
+CH-VC-12098,v:66cf0b32bc8900eb,Revolution Service & Repair Ltd,,,Stony Mountain,MB,R0C 3A0,1,1,revolutionservicerepair.ca revolutionservicerepair.com revolution-service-repair.ca revolution-service-repair.com
+CH-VC-12099,v:fb6be09fbee5a4ce,Stars Truck and Auto Repair Service Ltd,,,WINKER,MB,R6W4A6,1,1,starstruckautorepairservice.ca starstruckautorepairservice.com
+CH-VC-12100,v:619f453f801fb48d,Warks Heavy Duty Service LTD,,,Beausejour,MB,R0E0C0,1,1,warksheavydutyservice.ca warksheavydutyservice.com warks-heavy-duty-service.ca warks-heavy-duty-service.com
+CH-VC-12101,v:8fb14fe1500c30c4,Bay By Bay Ltd,,,Chance Cove,NL,A0B 1K0,1,1,baybybay.ca baybybay.com bay-by-bay.ca bay-by-bay.com
+CH-VC-12102,v:30c21f3bb055155a,SGL Construction Ltd,,,Heart's Delight-Islington,NL,A0B 2A0,1,1,sglconstruction.ca sglconstruction.com sgl-construction.ca sgl-construction.com
+CH-VC-12103,v:8c7103e32d07c9a0,J & G Collier Limited,,,St Alban's,NL,A0H 2E0,1,1,jgcollier.ca jgcollier.com j-g-collier.ca j-g-collier.com
+CH-VC-12104,v:5853b4d7bd429b03,Terra Forest Strategies Inc.,,,Cottlesville,NL,A0G 1S0,1,1,terraforeststrategies.ca terraforeststrategies.com terra-forest-strategies.ca terra-forest-strategies.com
+CH-VC-12105,v:be0f72e6ff8894be,J&B Outfitters Limited,,,Main Brook,NL,A0K 3N0,1,1,jboutfitters.ca jboutfitters.com j-b-outfitters.ca j-b-outfitters.com
+CH-VC-12106,v:fd5fc54279c1fad7,Akindi,,,Toronto,ON,M5V 1T2,1,1,akindi.ca akindi.com
+CH-VC-12107,v:37a1407986cf66f4,Mid-Town Ford Sales,,,Winnipeg,BC,R3T 6A9,1,1,midtownfordsales.ca midtownfordsales.com mid-town-ford-sales.ca mid-town-ford-sales.com
+CH-VC-12108,v:1e2e2fa0213fe7af,Audmet Canada Ltd. o/a Oticon Medical Canada,Audmet Canada Ltd.,1165255895,Toronto,ON,M2N6K1,1,1,oticonmedicalcanada.ca oticonmedicalcanada.com oticonmedical.ca oticonmedical.com oticon-medical-canada.ca oticon-medical-canada.com
+CH-VC-12109,v:4a47339a2e70a1a3,Chance Strategic Consulting,,,Toronto,ON,M6S4C1,1,1,chancestrategicconsulting.ca chancestrategicconsulting.com chance-strategic-consulting.ca chance-strategic-consulting.com
+CH-VC-12110,v:b195e876e8a31922,Buckles contracting ltd,,,Holyrood,NL,A0A 2R0,1,1,bucklescontracting.ca bucklescontracting.com buckles-contracting.ca buckles-contracting.com
+CH-VC-12111,v:3e4064a9a2d86426,WESTERN HYDRAULIC 2000 LTD - MOUNT PEARL,,,MOUNT PEARL,NL,A1N 4R1,1,1,westernhydraulic2000mountpearl.ca westernhydraulic2000mountpearl.com
+CH-VC-12112,v:9e86f0ed9f6f42a6,Titan Building Maintenence Ltd.,,,Winnipeg,MB,R2W 3V2,1,1,titanbuildingmaintenence.ca titanbuildingmaintenence.com titan-building-maintenence.ca titan-building-maintenence.com
+CH-VC-12113,v:ef6dfee0bfb9ec7d,Wilkins enterprises ltd,,,Gambo,NL,A0G 1T0,1,1,wilkinsenterprises.ca wilkinsenterprises.com wilkins-enterprises.ca wilkins-enterprises.com
+CH-VC-12114,v:6ee3cdfed35e6e47,NL Association of The Deaf,,,St. John's,NL,A1B 3X2,1,1,nlassociationdeaf.ca nlassociationdeaf.com nl-association-deaf.ca nl-association-deaf.com
+CH-VC-12115,v:05f7200923058a62,Triangular Communications Inc.,,,Paradise,NL,A1L4A7,1,1,triangularcommunications.ca triangularcommunications.com triangular-communications.ca triangular-communications.com

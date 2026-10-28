@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+GE-VC-05016,v:b17116fc626bd702,COOP FORESTIÈRE DE LA MATAPÉDIA,COOP FORESTIÈRE DE LA MATAPÉDIA,1140177248,Sainte-Florence,QC,G0J2M0,2,1,coopforestierematapedia.ca coopforestierematapedia.com coop-forestiere-matapedia.ca coop-forestiere-matapedia.com
+GE-VC-05017,v:c104cad1e6c86556,9150-8234 QUÉBEC INC.,9150-8234 QUÉBEC INC.,1162705264,Chambord,QC,G0W1G0,2,1,entreprisesbb.ca entreprisesbb.com entreprises-b-b.ca entreprises-b-b.com
+GE-VC-05018,v:c27cbef5ac2dfa16,Hankook Tire Canada,,,Saint-Hippolyte,QC,J8A1N4,2,1,hankooktirecanada.ca hankooktirecanada.com hankooktire.ca hankooktire.com hankook-tire-canada.ca hankook-tire-canada.com
+GE-VC-05019,v:f210e823fedaae24,Electro Performance,ELECTRO PERFORMANCE G.L. INC.,1143096635,Chambly,QC,J3L4W3,2,1,electroperformance.ca electroperformance.com electro-performance.ca electro-performance.com electroperformanceg.ca electroperformanceg.com
+GE-VC-05020,v:25f45bcc992d82b2,BÉLANGER EBA INC.,BÉLANGER EBA INC.,1178438207,Sherbrooke,QC,J1L0G1,2,1,belangereba.ca belangereba.com belanger-eba.ca belanger-eba.com
+GE-VC-05021,v:979e5d3d03326398,GASTON GOUGEON EXCAVATION INC.,GASTON GOUGEON EXCAVATION INC.,1164230220,Mont-Laurier,QC,J9L3C6,2,1,gastongougeonexcavation.ca gastongougeonexcavation.com gaston-gougeon-excavation.ca gaston-gougeon-excavation.com gestionjoelgougeon.ca gestionjoelgougeon.com
+GE-VC-05022,v:66625ba03169c108,COTTON MILLER EXCAVATION INC.,Cotton Miller Excavation inc.,1179563334,Mont-Tremblant,QC,J8E1A1,2,1,cottonmillerexcavation.ca cottonmillerexcavation.com cotton-miller-excavation.ca cotton-miller-excavation.com xmsfab.ca xmsfab.com
+GE-VC-05023,v:66497bc06415c2f0,9464-2287 Québec inc.,9464-2287 Québec inc.,1177526846,Gaspé,QC,G4X6S2,2,1,entreprisesgdube.ca entreprisesgdube.com entreprises-g-dube.ca entreprises-g-dube.com
+GE-VC-05024,v:85d2b8255402b64d,2525-2347 QUÉBEC INC.,2525-2347 QUÉBEC INC.,1143162510,Percé,QC,G0C2X0,2,1,
+GE-VC-05025,v:6bfc7ebdb9cfb5ee,9135-5610 QUÉBEC INC.,9135-5610 QUÉBEC INC.,1161858700,Sainte-Anne-des-Monts,QC,G4V2S1,2,1,entreprisestmj.ca entreprisestmj.com entreprises-t-m-j.ca entreprises-t-m-j.com
+GE-VC-05026,v:5713668081b556fe,COMMUNICATIONS MÉTRO MONTRÉAL INC.,COMMUNICATIONS MÉTRO MONTRÉAL INC.,1143075100,Montréal,QC,H3R2G4,2,1,communicationsmetromontreal.ca communicationsmetromontreal.com communications-metro-montreal.ca communications-metro-montreal.com metromontrealcommunications.ca metromontrealcommunications.com
+GE-VC-05027,v:917966dc9fa5e78e,Service de santé Alpha et Oméga INC.,Service de santé Alpha et Oméga INC.,1176558923,Chambly,QC,J3L8H4,2,1,servicesantealphaomega.ca servicesantealphaomega.com service-sante-alpha-omega.ca service-sante-alpha-omega.com alphaservicessante.ca alphaservicessante.com
+GE-VC-05028,v:286c4338cec9b095,Transport H.M.B INC,Transport H.M.B. inc.,1180050586,Sainte-Geneviève-de-Batiscan,QC,G0X2R0,2,1,transporthmb.ca transporthmb.com transport-h-m-b.ca transport-h-m-b.com
+GE-VC-05029,v:7776885b0389fbae,GROUPE SECURPLUS,2964-3137 QUÉBEC INC.,1141903006,Montréal,QC,H1E1N9,2,1,groupesecurplus.ca groupesecurplus.com groupe-securplus.ca groupe-securplus.com alarmesase.ca alarmesase.com
+GE-VC-05030,v:dbefb24db4fcdac7,MT Services Terrains Inc.,MT Services Terrains Inc.,1182049750,Thetford Mines,QC,G6G2Y4,2,1,mtservicesterrains.ca mtservicesterrains.com mt-services-terrains.ca mt-services-terrains.com
+GE-VC-05031,v:e6b24c0a092cb251,3104-0355 QUÉBEC INC.,3104-0355 QUÉBEC INC.,1141872896,La Sarre,QC,J9Z1N1,2,1,constructionsimonvallieres.ca constructionsimonvallieres.com construction-simon-vallieres.ca construction-simon-vallieres.com constructionssylvainrouleau.ca constructionssylvainrouleau.com
+GE-VC-05032,v:6339c694312c5cee,2984792 CANADA INC.,2984792 CANADA INC.,1144023208,Val-des-Monts,QC,J8N4H8,2,1,
+GE-VC-05033,v:f7102dbf125c0499,TRANSPORT RP MAILHOT INC.,TRANSPORT RP MAILHOT INC.,1164368541,Bécancour,QC,G9H3M8,2,1,transportrpmailhot.ca transportrpmailhot.com transport-rp-mailhot.ca transport-rp-mailhot.com
+GE-VC-05034,v:1bcf7bfcea7fecd7,Geofix Stabilisation Géologique Inc,GEOFIX STABILISATION GÉOLOGIQUE INC.,1174520792,Delson,QC,J5B1W9,2,1,geofixstabilisationgeologique.ca geofixstabilisationgeologique.com geofixredressementbeton.ca geofixredressementbeton.com geofix-redressement-beton.ca geofix-redressement-beton.com
+GE-VC-05035,v:9f387a8cee852279,Les Constructions Novalar inc.,Les Constructions Novalar inc.,1176290956,Laval,QC,H7P0K8,2,1,constructionsnovalar.ca constructionsnovalar.com constructions-novalar.ca constructions-novalar.com
+GE-VC-05036,v:d6681f8ad92169e9,ALEX CLOUTIER SOUDURE INC.,ALEX CLOUTIER SOUDURE INC.,1164682537,Québec,QC,G2G0C2,2,1,alexcloutiersoudure.ca alexcloutiersoudure.com alex-cloutier-soudure.ca alex-cloutier-soudure.com
+GE-VC-05037,v:6676bb2a4def4adc,Consultation Tekmo Inc.,Consultation Tekmo Inc.,1170800479,Verdun,QC,H4H1S7,2,1,consultationtekmo.ca consultationtekmo.com consultation-tekmo.ca consultation-tekmo.com tekmoconsultants.ca tekmoconsultants.com
+GE-VC-05038,v:e5336b0b696c490b,9299-6941 Québec inc.,9299-6941 Québec inc.,1180183841,Grande-Rivière,QC,G0C1V0,2,1,
+GE-VC-05039,v:bb0dbf41445a7e0a,TOITURE ALPHA,9411-7801 Québec inc.,1175151811,Laval,QC,H7L5A8,2,1,toiturealpha.ca toiturealpha.com toiture-alpha.ca toiture-alpha.com constructionalpha.ca constructionalpha.com
+GE-VC-05040,v:e07601c23ed24db6,SERVICE D'AFFRÈTEMENT AÉRIEN ACS QUÉBEC INC.,ACS AIR CHARTER SERVICE QUÉBEC INC.,1179741252,Montréal,QC,H3B2E3,2,1,acsaircharterservicequebec.ca acsaircharterservicequebec.com acs-air-charter-service-quebec.ca acs-air-charter-service-quebec.com
+GE-VC-05041,v:e51f23a2d68ea7a8,LES ENTREPRISES YVON D'ASTOUS & FILS INC.,LES ENTREPRISES YVON D'ASTOUS & FILS INC.,1142032607,Saint-Damase (Bas Saint-Laurent),QC,G0J2J0,2,1,entreprisesyvondastousfils.ca entreprisesyvondastousfils.com entreprises-yvon-dastous-fils.ca entreprises-yvon-dastous-fils.com
+GE-VC-05042,v:5590a10ba7844a00,STEMSOFT SOFTWARE INC,,,VANCOUVER,QC,V5Z1B3,2,1,stemsoftsoftware.ca stemsoftsoftware.com stemsoft-software.ca stemsoft-software.com
+GE-VC-05043,v:6acf980a71972101,Acier Profilé SBB Inc,ACIER PROFILE S.B.B. INC.,1141182478,Terrebonne,QC,J6Y 0A2,2,1,acierprofilesbb.ca acierprofilesbb.com acier-profile-sbb.ca acier-profile-sbb.com acier-profile-s-b-b.ca acier-profile-s-b-b.com
+GE-VC-05044,v:21e3deb46ef7e219,LeddarTech Holdings Inc.,,,Quebec City,QC,,2,1,leddartechholdings.ca leddartechholdings.com leddartech-holdings.ca leddartech-holdings.com
+GE-VC-05045,v:eeed7f73ae1a03f6,SC COFFEE CANADA INC.,SC COFFEE CANADA INC.,1175956862,Saint-Laurent,QC,H4S 1K5,1,1,sccoffeecanada.ca sccoffeecanada.com sccoffee.ca sccoffee.com sc-coffee-canada.ca sc-coffee-canada.com
+GE-VC-05046,v:a6a9761df010cb52,First Aid Central Acme United Limited,,,Laval,QC,H7L 5W9,1,1,firstaidcentralacmeunited.ca firstaidcentralacmeunited.com first-aid-central-acme-united.ca first-aid-central-acme-united.com
+GE-VC-05047,v:562d232365a0eac6,G.D.G. Environment Ltd o/a G.D.G. Canada inc.,,,Trois-Rivières,QC,G9A 0A9,1,1,ggcanada.ca ggcanada.com g-g-canada.ca g-g-canada.com
+GE-VC-05048,v:666f93bda17d0ce1,C.E.T. Fire Pumps Mfg. Ltd dba LEADER S.A.S.,C.E.T. FIRE PUMPS MFG LTD,1144836716,Pierreville ,QC,J0G 1J0,1,1,leaderss.ca leaderss.com leader-s-s.ca leader-s-s.com cetfirepumpsmfg.ca cetfirepumpsmfg.com
+GE-VC-05049,v:06421646b759295d,GTRTurf / Team Rochon Inc.,,,Saint-Colomban,QC,J5K 1M2,1,1,gtrturfteamrochon.ca gtrturfteamrochon.com gtrturf-team-rochon.ca gtrturf-team-rochon.com
+GE-VC-05050,v:ce265222e166f00f,Systèmes Cale Inc./Cale Systems Inc.,,,Varennes,QC,J3X 1P7,1,1,systemescalecalesystems.ca systemescalecalesystems.com systemes-cale-cale-systems.ca systemes-cale-cale-systems.com
+GE-VC-05051,v:9c6f19d01249344c,Van Houtte Coffee Services ULC,VAN HOUTTE COFFEE SERVICES ULC,1171288385,Montréal,QC,H1Z 4J9,1,1,vanhouttecoffeeservices.ca vanhouttecoffeeservices.com van-houtte-coffee-services.ca van-houtte-coffee-services.com bruleriecafetocra.ca bruleriecafetocra.com
+GE-VC-05052,v:f31f908960e76119,MCKESSON CANADA CORPORATION LA CORPORATION MCKESSON CANADA,,,Saint-Laurent,QC,H4R 2P7,1,1,mckessoncanadamckessoncanada.ca mckessoncanadamckessoncanada.com mckessonmckesson.ca mckessonmckesson.com
+GE-VC-05053,v:d3d5f6b350f3a8a3,Univar Solutions Eastern Canada,,,Dorval,QC,,1,1,univarsolutionseasterncanada.ca univarsolutionseasterncanada.com univarsolutionseastern.ca univarsolutionseastern.com
+GE-VC-05054,v:e6913eda433204de,Dalimar Instruments ULS,,,"Vaudreuil-Dorion ,QC",QC,J7V 4J1,1,1,dalimarinstrumentsuls.ca dalimarinstrumentsuls.com dalimar-instruments-uls.ca dalimar-instruments-uls.com
+GE-VC-05055,v:d033c318f1e9808f,Canadian Traffic Supply Inc,PRODUITS DE CIRCULATION ROUTIÈRE CANADA INC.,1160713641,St-Mathieu de La Prairie,QC,J0L 2H0,1,1,canadiantrafficsupply.ca canadiantrafficsupply.com trafficsupply.ca trafficsupply.com canadian-traffic-supply.ca canadian-traffic-supply.com
+GE-VC-05056,v:31d353e617e6a12b,Industrial Alliances Insurance & Financial Services Inc.,,,Quebec City ,QC,G1K 7M3,1,1,
+GE-VC-05057,v:f2596ed32beb8467,Stymiest & Associates Inc,STYMIEST & ASSOCIÉS INC.,1165295222,Pointe-Claire,QC,H9R 5M9,1,1,stymiestassociates.ca stymiestassociates.com stymiest-associates.ca stymiest-associates.com stymiestassocies.ca stymiestassocies.com
+GE-VC-05058,v:76cc8508cb057fff,Novotic,,,Val-d'or,QC,J9P 5E6,1,1,novotic.ca novotic.com
+GE-VC-05059,v:331b64c658ebc87d,Traduction Serge Bélair Inc. (TRSB Inc.),,,Montreal,QC,H2Y 1N3,1,1,traductionsergebelair.ca traductionsergebelair.com traduction-serge-belair.ca traduction-serge-belair.com
+GE-VC-05060,v:648db01102cbf0e8,Jelar communications,,,Québec,QC,G1J 0J1,1,1,jelarcommunications.ca jelarcommunications.com jelar-communications.ca jelar-communications.com
+GE-VC-05061,v:d5c73fc8a78d11ea,Keitaro  DOOEL,,,Montréal ,QC,H2Y 1V3,1,1,keitarodooel.ca keitarodooel.com keitaro-dooel.ca keitaro-dooel.com
+GE-VC-05062,v:2fe2c4caaeafadfd,Major Industrial E-Risk Services Inc.,Services É-risque industriel majeur inc.,1173517393,Chambly,QC,J3L0P3,1,1,
+GE-VC-05063,v:b8c5797743920350,ENVINT Consulting,Pâtisserie Tampier,3370610225,Terrebonne,QC,J6Y0N2,1,1,
+GE-VC-05064,v:cf6c905b723f4098,"Rideau Recognition Solutions Inc. including its subsidiaries, d/b/a/ Engage2Excel",,,Montreal,QC,H4N 1W2,1,1,
+GE-VC-05065,v:dbe430a13866b3f6,Traction,"MOTION INDUSTRIES (CANADA), INC.",1175265736,Montreal,QC,H1N,1,1,
+GE-VC-05066,v:e5b204326318cade,Pioneer Electrogroup Canada ULC,Pioneer Electrogroup Canada ULC,1174801994,Granby,QC,J2G 8E5,1,1,
+GE-VC-05067,v:fa33a10dcdb16706,WalkMe Canada Ltd.,WalkMe Canada Ltd.,1177023505,Saint-Léonard,QC,H1S 3E8,1,1,
+GE-VC-05068,v:108e178c1872d319,Dredging Ocean DM inc,,,Québec,QC,G1K 8N1,1,1,
+GE-VC-05069,v:9bd4e2008499b1c8,"Osmose Utilities Service Canada, Inc.",,,Montreal,QC,H1V 2W6,1,1,
+GE-VC-05070,v:26b116a6f97683ac,STAY CONNECTED TECHNOLOGIES INC.,TECHNOLOGIES STAY CONNECTED INC.,1166275884,Candiac,QC,J5R6T5,1,1,
+GE-VC-05071,v:55e00ac8a9191438,Matrox,SPHERENET,1143821586,Dorval,QC,H9P 2T4,1,1,matrox.ca matrox.com spherenet.ca spherenet.com digisuite.ca digisuite.com
+GE-VC-05072,v:f4a83a845873eeae,O-m6 Tecnologies inc,,,Mirabel,QC,J7J 1M3,1,1,om6tecnologies.ca om6tecnologies.com o-m6-tecnologies.ca o-m6-tecnologies.com
+GE-VC-05073,v:1c7e648b7e42fc68,Sennheiser Canada Inc.,SENNHEISER (CANADA) INC.,1142066456,Dorval,QC,H9P 2N4,1,1,sennheisercanada.ca sennheisercanada.com sennheiser.ca sennheiser.com sennheiser-canada.ca sennheiser-canada.com
+GE-VC-05074,v:f2222c5f66c54827,SF Marketing Inc.,,,Dorval,QC,H9S 1A9,1,1,sfmarketing.ca sfmarketing.com sf-marketing.ca sf-marketing.com
+GE-VC-05075,v:f8b64ef3dba6eb43,True North A.V.,3156109 CANADA INC.,1145397833,Lachine,QC,H8T3M8,1,1,truenorthv.ca truenorthv.com true-north-v.ca true-north-v.com vvrainord.ca vvrainord.com
+GE-VC-05076,v:7fc090717255e432,Moov AI,,,Montréal,QC,H2V 4H8,1,1,moovai.ca moovai.com moov-ai.ca moov-ai.com
+GE-VC-05077,v:de04eaca32e6fed8,La tête chercheuse,3540138 CANADA INC.,1148314504,Montreal,QC,H3B 1K9,1,1,tetechercheuse.ca tetechercheuse.com tete-chercheuse.ca tete-chercheuse.com
+GE-VC-05078,v:9ac81f5307a51b44,Atlantica Canada Development Company Inc.,,,Montreal,QC,H3A 1K2,1,1,atlanticacanadadevelopment.ca atlanticacanadadevelopment.com atlanticadevelopment.ca atlanticadevelopment.com atlantica-canada-development.ca atlantica-canada-development.com
+GE-VC-05079,v:aef9568d3b73881e,CallTower Services Canada Inc.,Services CallTower Canada Inc.,1179892576,Montreal,QC,H3B 3G1,1,1,
+GE-VC-05080,v:5812e2b7356193b6,Bloom,Mobilier urbain Bloom Inc.,1174622440,Montreal,QC,H3K 1G6,1,1,
+GE-VC-05081,v:6afe6b38aa60d502,Solution Dair,7143516 CANADA INC.,1181393555,Gatineau,QC,J8T 4J1,1,1,
+GE-VC-05082,v:a9dab48506781cbc,Services de cafe Van Houtte ULC,,,Montreal,QC,H1Z 4J9,1,1,
+GE-VC-05083,v:782f1cddd8e771bf,9434-5543 QUEBEC INC,9434-5543 Québec inc.,1176220292,BLAINVILLE,QC,J7C 5R4,1,1,
+GE-VC-05084,v:2a961e697028b0dc,3056058 Canada Inc. (O/A C.L.A. Personnel),3056058 CANADA INC.,1143993401,Gatineau,QC,J8T 5R6,1,1,
+GE-VC-05085,v:c611cc6cb6b89bc1,Thermofin,3075109 CANADA INC.,1144184471,Candiac,QC,J5R 1B6,1,1,
+GE-VC-05086,v:5eaa1e7eb64ec458,LCI Business Solutions,LCI LX Studio inc.,1161004123,Montreal,QC,H3H 2T3,1,1,
+GE-VC-05087,v:d12a3816ceeffc46,ABB E-Mobility Inc,ABB E-MOBILITY INC.,13143538,St-Laurent,QC,,1,1,abbemobility.ca abbemobility.com abb-e-mobility.ca abb-e-mobility.com abbemobilite.ca abbemobilite.com
+GE-VC-05088,v:17036b3557a0e9e6,Phonton Etc. Inc.,,,Montreal,QC,,1,1,phontonetc.ca phontonetc.com phonton-etc.ca phonton-etc.com
+GE-VC-05089,v:36c28bbd8ac9b0cc,Fortra's Terranova Security,,,Montreal,QC,,1,1,fortrasterranovasecurity.ca fortrasterranovasecurity.com fortras-terranova-security.ca fortras-terranova-security.com
+GE-VC-05090,v:243933f2447978f4,CGI Information Systems and Management Consultants Private Limited,CGI INFORMATION SYSTEMS AND MANAGEMENT CONSULTANTS PRIVATE LIMITED,1161666855,Montreal,QC,,1,1,
+GE-VC-05091,v:2af403f0a0d1be51,Catalyste+,Catalyste+,1163386395,Montreal,QC,,1,1,catalyste.ca catalyste.com
+GE-VC-05092,v:58d1bbce297de3c3,ADD Canada Company,,,Pointe-Claire,QC,,1,1,addcanada.ca addcanada.com add-canada.ca add-canada.com
+GE-VC-05093,v:7b2110d87f2b0c70,LES PRODUCTIONS CLAUDE NAUBERT,Les Productions Claude Naubert S.E.N.C.,3360549722,GATINEAU,Quebec,J9H 4W5,1,1,productionsclaudenaubert.ca productionsclaudenaubert.com productions-claude-naubert.ca productions-claude-naubert.com productionsclaudenaubertsenc.ca productionsclaudenaubertsenc.com
+GE-VC-05094,v:98595d0fa94ee7f5,NEW MARC RESEARCH INC,NEW-MARC RESEARCH INC.,1147766274,St-Marc-sur-Richelieu,Quebec,J0L 2E0,1,1,newmarcresearch.ca newmarcresearch.com new-marc-research.ca new-marc-research.com recherchenewmarc.ca recherchenewmarc.com
+GE-VC-05095,v:746a6aaeab35bcb5,ASSOCIATION DES PRODUCTEURS DE CANNEBERGES DU QUEBEC (APCQ),ASSOCIATION DES PRODUCTEURS DE CANNEBERGES DU QUÉBEC (A.P.C.Q.),1141279571,Notre-Dame-de-Lourdes,Québec,G0S 1T0,1,1,
+GE-VC-05096,v:f4213232b1769a12,Club de tir les castors de,,,Québec,Québec,G1N 3E5,1,1,clubtircastors.ca clubtircastors.com club-tir-castors.ca club-tir-castors.com
+GE-VC-05097,v:f187670259df78f8,9521-6677 Québec Inc,9521-6677 Québec inc.,1180041668,Vaudreuil-Dorion,Quebec,J7V 9H3,1,1,
+GE-VC-05098,v:0e2684aaf2259d60,Dassault Systems Canada Inc,DASSAULT SYSTÈMES CANADA INC.-,3711200,,QC,,1,1,dassaultsystemscanada.ca dassaultsystemscanada.com dassaultsystems.ca dassaultsystems.com dassault-systems-canada.ca dassault-systems-canada.com
+GE-VC-05099,v:2b49cf3ddde01d6e,9268146 CANADA INC.,9268146 CANADA INC.,9268146,,QC,,1,1,
+GE-VC-05100,v:35ae61f9d387b01b,TRADUCTIONS HOULE INC.,TRADUCTIONS HOULE INC.,1147936307,Gatineau,Québec,J8T 6Z6,1,1,traductionshoule.ca traductionshoule.com traductions-houle.ca traductions-houle.com
+GE-VC-05101,v:7f953c0c42f56b7d,DPL SCIENCE INC.,DPL SCIENCE INC.,1160834561,Saint Lazare,Quebec,J7T 2B1,1,1,dplscience.ca dplscience.com dpl-science.ca dpl-science.com
+GE-VC-05102,v:3595b3511d25fa85,PELLETIER RENE PHD DO,,,St-Jean-sur-Richelieu,Quebec,J2W 2V7,1,1,pelletierrenephddo.ca pelletierrenephddo.com pelletier-rene-phd-do.ca pelletier-rene-phd-do.com
+GE-VC-05103,v:2aa36e0f5e393423,VOLTA SPACE TECHNOLOGIES INC.,Volta Space Technologies Inc.,12519194,Montreal,QC,H2T 2S5,1,1,voltaspacetechnologies.ca voltaspacetechnologies.com volta-space-technologies.ca volta-space-technologies.com
+GE-VC-05104,v:45f740c04b327e6f,BOULET DANIEL,,,Gatineau,Quebec,J8C 1E2,1,1,bouletdaniel.ca bouletdaniel.com boulet-daniel.ca boulet-daniel.com
+GE-VC-05105,v:9ac543cf7e36249a,CENTRE WENDAT ARENATSI,CENTRE WENDAT ARENATSI,2263152888,Wendake,Quebec,G0A 4V0,1,1,centrewendatarenatsi.ca centrewendatarenatsi.com centre-wendat-arenatsi.ca centre-wendat-arenatsi.com
+GE-VC-05106,v:b132b990520937fc,ROCKS AND SPIRITS,,,Kiamika,Québec,J0W 1G0,1,1,rocksspirits.ca rocksspirits.com rocks-spirits.ca rocks-spirits.com
+GE-VC-05107,v:bbd49cbba25ac577,BUCKELL JEAN CLAUDE,,,Uashat (Sept-Îles),Quebec,G4R 2W1,1,1,buckelljeanclaude.ca buckelljeanclaude.com buckell-jean-claude.ca buckell-jean-claude.com
+GE-VC-05108,v:410acc061730e05c,MCFARLAND GARY,,,Mani-utenam,Quebec,G4R 4K2,1,1,mcfarlandgary.ca mcfarlandgary.com mcfarland-gary.ca mcfarland-gary.com
+GE-VC-05109,v:8a524caeaca3d13b,CULTURE KNOWLEDGE AND TRADITIONS,,,Akwasasne,Quebec,H0M 1A0,1,1,cultureknowledgetraditions.ca cultureknowledgetraditions.com culture-knowledge-traditions.ca culture-knowledge-traditions.com
+GE-VC-05110,v:b8c50278b6c420d6,LAPALME MARIE-PIER,,,L'Assomption,Quebec,J5W 1T3,1,1,lapalmemariepier.ca lapalmemariepier.com lapalme-marie-pier.ca lapalme-marie-pier.com
+GE-VC-05111,v:dabe23fd0631b6ed,9168516 CANADA INC LESAGE ET TURGEON,,,Gatineau,Québec,J8Y 3R7,1,1,
+GE-VC-05112,v:b6755304edc30907,SEGALOWITZ NINA,,,Châteauguay,Quebec,J6J1T5,1,1,segalowitznina.ca segalowitznina.com segalowitz-nina.ca segalowitz-nina.com
+GE-VC-05113,v:66dafb2487503f4c,GOLDER CORY,,,Verdun,Quebec,H4G 2Y5,1,1,goldercory.ca goldercory.com golder-cory.ca golder-cory.com
+GE-VC-05114,v:4d1a8eb8089946bb,LES PLASTIQUES DURA 1977 LTEE,DURA PLASTICS (1977) LIMITED,224197,,QC,,1,1,plastiquesdura1977.ca plastiquesdura1977.com plastiques-dura-1977.ca plastiques-dura-1977.com duraplastics.ca duraplastics.com
+GE-VC-05115,v:7a9ab916de95aa7e,BOURDON ROBERT,,,Mont-Laurier,Québec,J9L 3G3,1,1,bourdonrobert.ca bourdonrobert.com bourdon-robert.ca bourdon-robert.com

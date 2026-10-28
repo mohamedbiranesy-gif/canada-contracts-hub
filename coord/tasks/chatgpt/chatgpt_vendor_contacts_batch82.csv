@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-08116,v:6cff7e4a8081dabe,RESAAS Services Inc.,RESAAS SERVICES INC.,BC0853596,Vancouver,BC,,3,1,resaasservices.ca resaasservices.com resaas-services.ca resaas-services.com
+CH-VC-08117,v:0865fc3e6784f3c1,Delfi Medical Innovations Inc.,DELFI MEDICAL INNOVATIONS INC.,BC0411264,,BC,V6H1C3,3,1,delfimedicalinnovations.ca delfimedicalinnovations.com delfi-medical-innovations.ca delfi-medical-innovations.com
+CH-VC-08118,v:f8774974e9d663fa,SIEMENS MOBILITE LIMITEE,SIEMENS MOBILITE LIMITEE,1177018885,Oakville,ON,L6H0H6,3,1,siemensmobilite.ca siemensmobilite.com siemens-mobilite.ca siemens-mobilite.com siemensmobility.ca siemensmobility.com
+CH-VC-08119,v:e18acd77fa303332,Koppert Canada Limited,Koppert Canada Limited,1171796544,Scarborough,ON,M1X1G4,3,1,koppertcanada.ca koppertcanada.com koppert.ca koppert.com koppert-canada.ca koppert-canada.com
+CH-VC-08120,v:ee6ffd29f79fd1ae,Purolator Courier Ltd,PUROLATOR COURIER LTD.,615552,Toronto,ON,M5C3E2,3,1,purolatorcourier.ca purolatorcourier.com purolator-courier.ca purolator-courier.com courrierpurolator.ca courrierpurolator.com
+CH-VC-08121,v:ad17ce52778e208c,MERATIVE CANADA,,,Mississagua,ON,L4V1R8,3,1,merativecanada.ca merativecanada.com merative.ca merative.com merative-canada.ca merative-canada.com
+CH-VC-08122,v:a2243c0be21277a3,Applied Medical Canada Corporation,Applied Medical Canada Corporation,1178044179,,ON,L5L6A1,3,1,appliedmedicalcanada.ca appliedmedicalcanada.com appliedmedical.ca appliedmedical.com applied-medical-canada.ca applied-medical-canada.com
+CH-VC-08123,v:b95203e2d71fe59e,Kroll Consulting Canada Co.,,,,ON,M5H2R2,3,1,krollconsultingcanada.ca krollconsultingcanada.com krollconsulting.ca krollconsulting.com kroll-consulting-canada.ca kroll-consulting-canada.com
+CH-VC-08124,v:faacd3fbdabd510b,De Havilland Aviation Training Ltd,,,,AB,T2E7G6,3,1,havillandaviationtraining.ca havillandaviationtraining.com havilland-aviation-training.ca havilland-aviation-training.com
+CH-VC-08125,v:e1e8218470a6f4b2,Potássio do Brasil Ltda. (subsidiary of Brazil Potash Corp.),,,Toronto,ON,,3,1,potassiodobrasilltda.ca potassiodobrasilltda.com potassio-do-brasil-ltda.ca potassio-do-brasil-ltda.com
+CH-VC-08126,v:e652e5cc201ae15a,DEMANDRE COMMUNICATIONS,Demandre Communications Inc.,1172062292,MONTREAL,,H2S2H1,3,1,demandrecommunications.ca demandrecommunications.com demandre-communications.ca demandre-communications.com demandre.ca demandre.com
+CH-VC-08127,v:12db263c16a938a5,"Teledyne Geospatial, a business unit of Teledyne Digital Imaging, Inc.",,,New Brunswick,,E3B 2L4 Fredericton,3,1,
+CH-VC-08128,v:c6004177d383c445,Tour-Mate Systems Canada Ltd,,,Toronto,ON,M3J 1Y6,3,1,tourmatesystemscanada.ca tourmatesystemscanada.com tourmatesystems.ca tourmatesystems.com tour-mate-systems-canada.ca tour-mate-systems-canada.com
+CH-VC-08129,v:84f28937c6fb4094,MISSION SYSTEMS,,,,,,3,1,
+CH-VC-08130,v:7b978f81bead7e02,MERCER HUMAN RESOURCE CONSULTING,,,,,,3,1,
+CH-VC-08131,v:82fdd855513f8027,MUNICIPAL EQUIPMENT (2430174 ONTARIO INC.),,,,,,3,1,
+CH-VC-08132,v:09bd3c26f6cd9fe0,TRANE CANADA ULC T42324C,,,,,,3,1,
+CH-VC-08133,v:d2e90d4ac9b58fce,"Riva International, Inc.",,,Edmonton,,T5J 1N4,2,1,rivainternational.ca rivainternational.com riva-international.ca riva-international.com
+CH-VC-08134,v:43d2604e7051115a,Gsoft Technologies Inc.,Plateforme Workleap inc.,1168363837,"Montreal, Quebec",Outside Australia,H3K 1G6,2,1,gsofttechnologies.ca gsofttechnologies.com gsoft-technologies.ca gsoft-technologies.com plateformeworkleap.ca plateformeworkleap.com
+CH-VC-08135,v:16f5b55e3502811f,SPATIAL DNA INFORMATICS INC.,SPATIAL DNA INFORMATICS INC.,7948638,TORONTA,Outside Australia,M5H 2S8,2,1,spatialdnainformatics.ca spatialdnainformatics.com spatial-dna-informatics.ca spatial-dna-informatics.com
+CH-VC-08136,v:25dc1790c4ba27d3,KYOCERA DOCUMENT SOLUTIONS CANADA L,"KYOCERA Solutions de Documents Canada, Ltée",1160607181,MISSISSAUGA,Outside Australia,L5T1S8,2,1,kyoceradocumentsolutionscanada.ca kyoceradocumentsolutionscanada.com kyoceradocumentsolutions.ca kyoceradocumentsolutions.com kyocerasolutionsdocuments.ca kyocerasolutionsdocuments.com
+CH-VC-08137,v:139f72a32e861dc7,TradeLawGuide Ltd,TRADELAWGUIDE LIMITED,7345747,"Ottawa, Canada",Outside Australia,K1P 1B1,2,1,tradelawguide.ca tradelawguide.com
+CH-VC-08138,v:00e908a51dc966aa,BlueDot Inc.,BlueDot ®,1176289131,"Toronto, Ontario",Outside Australia,M6P 1Z2,2,1,bluedot.ca bluedot.com
+CH-VC-08139,v:47a4b2298bbac8e6,Calgary Immigrant Women's Association,,,Calgary,Alberta,T2G 4Z6,2,1,
+CH-VC-08140,v:13fe48e7defd9602,PARKLAND FUEL CORPORATION,CORPORATION PARKLAND,1172371388,CALGARY,Alberta,T3K 0S3,2,1,parklandfuel.ca parklandfuel.com parkland-fuel.ca parkland-fuel.com parkland.ca parkland.com
+CH-VC-08141,v:b8290af7531b66e7,Goodwin Roof Inspections & Consulting (1999) Ltd.,,,Edmonton,Alberta,T6N 1C9,2,1,
+CH-VC-08142,v:cfc7ced3cfde46e5,C & S Disposal Inc.,,,Alix,Alberta,T0C0B0,2,1,csdisposal.ca csdisposal.com c-s-disposal.ca c-s-disposal.com
+CH-VC-08143,v:cf22e39524b86363,Solutions Business Interiors,,,Edmonton,Alberta,T5G 2X3,2,1,solutionsbusinessinteriors.ca solutionsbusinessinteriors.com solutions-business-interiors.ca solutions-business-interiors.com
+CH-VC-08144,v:ba2d8acc11022f38,emenem design studio,,,Vancouver,British Columbia,V6H1K4,2,1,emenemdesignstudio.ca emenemdesignstudio.com emenem-design-studio.ca emenem-design-studio.com
+CH-VC-08145,v:94b10dae1e79b30d,1104175 Alberta Limited,,,Edmonton,Alberta,T5J1Z4,2,1,
+CH-VC-08146,v:221dc03aa3fb586e,Goldbar Contractors Inc,,,Edmonton,Alberta,T6P 0C8,2,1,goldbarcontractors.ca goldbarcontractors.com goldbar-contractors.ca goldbar-contractors.com
+CH-VC-08147,v:8076c9916fd01a76,Hi Signs - The Fath Group,,,EDMONTON,Alberta,T6W 0W6T6E,2,1,hisignsfathgroup.ca hisignsfathgroup.com hi-signs-fath-group.ca hi-signs-fath-group.com
+CH-VC-08148,v:08dc6e5facea86f9,Yokohama Tire (Canada) Inc,PNEUS YOKOHAMA (CANADA) INC.,1142575811,Edmonton,Alberta,T6E0B8,2,1,yokohamatire.ca yokohamatire.com yokohama-tire.ca yokohama-tire.com pneusyokohama.ca pneusyokohama.com
+CH-VC-08149,v:3e10a4572d9c75c0,Golden Arrow,,,Edmonton,Alberta,T5S 2G8,2,1,goldenarrow.ca goldenarrow.com golden-arrow.ca golden-arrow.com
+CH-VC-08150,v:b72301cab01b25a5,RUSSPET CONSTRUCTION,,,CALGARY,Alberta,T2E6L7,2,1,russpetconstruction.ca russpetconstruction.com russpet-construction.ca russpet-construction.com
+CH-VC-08151,v:0c6f0625737025f8,LJ SYSTEMS,,,Edmonton,Alberta,T6B3E6,2,1,ljsystems.ca ljsystems.com lj-systems.ca lj-systems.com
+CH-VC-08152,v:565147693d12cdb1,ENMAX ENERGY CORPORATION,,,CALGARY,Alberta,T2G4S7,2,1,enmaxenergy.ca enmaxenergy.com enmax-energy.ca enmax-energy.com
+CH-VC-08153,v:f3956a510f7492a7,Airport Technologies Inc./Boshung/ATI,,,Southport,Manitoba,R0H 1N1,2,1,airporttechnologiesboshungati.ca airporttechnologiesboshungati.com
+CH-VC-08154,v:1a8626c8a6885234,XCMG/Xuzhou Construction Machinery Group XCMG CANADA LTD,,,Stony Plain,Alberta,T7Z 1V7,2,1,
+CH-VC-08155,v:3f9d261dce57a686,"Hunter Communications Canada, Inc.",,,Sturgeon County,AB,T8R 2J3,2,1,huntercommunicationscanada.ca huntercommunicationscanada.com huntercommunications.ca huntercommunications.com hunter-communications-canada.ca hunter-communications-canada.com
+CH-VC-08156,v:1f00568de95e32e2,The Call Centre Inc.,,,St. John's,Newfoundland,A1B3X2,2,1,callcentre.ca callcentre.com call-centre.ca call-centre.com
+CH-VC-08157,v:96686fef2f3d7f23,Draeger Safey Canada Ltd.,,,Mississauga,ON,L4W 4Y6,2,1,draegersafeycanada.ca draegersafeycanada.com draegersafey.ca draegersafey.com draeger-safey-canada.ca draeger-safey-canada.com
+CH-VC-08158,v:d23b5ce2729608dc,Westcan Advanced Communications Solutions,,,Edmonton,Alberta,T5L 4R4,2,1,
+CH-VC-08159,v:6476c80e57b611bf,Pro-West Refrigeration Ltd.,,,Calgary,AB,T2C 2P1,2,1,prowestrefrigeration.ca prowestrefrigeration.com pro-west-refrigeration.ca pro-west-refrigeration.com
+CH-VC-08160,v:da7ccf76a108077c,Compunnel Software Group,COMPUNNEL SOFTWARE GROUP INC.,1179044087,Richmond Hill,Ontario,L4B3B2,2,1,compunnelsoftwaregroup.ca compunnelsoftwaregroup.com compunnel-software-group.ca compunnel-software-group.com
+CH-VC-08161,v:7a59e6813f3c1d3c,Abacus Service Corporation,,,Mississauga,Ontario,L4Z 1S1,2,1,abacusservice.ca abacusservice.com abacus-service.ca abacus-service.com
+CH-VC-08162,v:186cf85b15021426,Novanet Communication Ltd.,,,Ajax,ON,L1S 7H4,2,1,novanetcommunication.ca novanetcommunication.com novanet-communication.ca novanet-communication.com
+CH-VC-08163,v:ab5f39dc7e98b8cd,Waskasoo Environmental Education Society,,,Red Deer,AB,T4N 3M4,2,1,
+CH-VC-08164,v:5a6e52f4ce87dfd6,Paper Leaf Design Ltd.,,,Edmonton,AB,T6E 3R7,2,1,paperleafdesign.ca paperleafdesign.com paper-leaf-design.ca paper-leaf-design.com
+CH-VC-08165,v:ec9f502058840331,Fishtank Consulting,,,Calgary,AB,T3A 2H9,2,1,fishtankconsulting.ca fishtankconsulting.com fishtank-consulting.ca fishtank-consulting.com
+CH-VC-08166,v:858ff2cd2ab5257d,Lethbridge Lodging Association,,,Lethbridge,AB,T1J 4Y2,2,1,lethbridgelodgingassociation.ca lethbridgelodgingassociation.com lethbridge-lodging-association.ca lethbridge-lodging-association.com
+CH-VC-08167,v:1321e64efa50081a,Instream Water Control Projects Ltd.,,,Lethbridge,AB,T1H 7A1,2,1,instreamwatercontrolprojects.ca instreamwatercontrolprojects.com
+CH-VC-08168,v:36c781f6631512a0,Genumark Inc.,,,Edmonton,AB,T6E 5M7,2,1,genumark.ca genumark.com
+CH-VC-08169,v:ac0dc717adcf2e13,Bastion Safety Solutions,,,Beaumont,AB,T4X 1V4,2,1,bastionsafetysolutions.ca bastionsafetysolutions.com bastion-safety-solutions.ca bastion-safety-solutions.com
+CH-VC-08170,v:a0a4852fe9dade7f,The Family Centre of Northern Alberta,,,Edmonton,AB,T5K 1C5,2,1,familycentrenorthernalberta.ca familycentrenorthernalberta.com family-centre-northern-alberta.ca family-centre-northern-alberta.com
+CH-VC-08171,v:b89f968d3ccbc3ab,ENDIX INDUSTRIAL TRUCKING SERVICES INC.,,,Fort McMurray,AB,T9H 2V7,2,1,
+CH-VC-08172,v:19652932a06eb461,Eaton Power Quality Company,,,Etobicoke,ON,M9W 5X9,2,1,eatonpowerquality.ca eatonpowerquality.com eaton-power-quality.ca eaton-power-quality.com
+CH-VC-08173,v:46435e7f05726d43,Sourcewell by DAD,,,Didsbury,AB,T0M 0W0,2,1,sourcewellbydad.ca sourcewellbydad.com sourcewell-by-dad.ca sourcewell-by-dad.com
+CH-VC-08174,v:ed72ba4b72025d3d,Fourteen 14 Food Co,,,Grande Prairie,AB,T8V 0V5,2,1,fourteen14food.ca fourteen14food.com fourteen-14-food.ca fourteen-14-food.com
+CH-VC-08175,v:fa7bb63cb218d8aa,"McMan Youth, Family and Community Services Association - Central Region",,,Innisfail,AB,T4G 1C2,2,1,
+CH-VC-08176,v:e60ff379018af9c7,Sharek & Co LLP,,,Edmonton,AB,T5J 3R8,2,1,sharek.ca sharek.com
+CH-VC-08177,v:94aca89405173044,Whitelaw Twining LLP,,,Calgary,AB,T2P 3H9,2,1,whitelawtwining.ca whitelawtwining.com whitelaw-twining.ca whitelaw-twining.com
+CH-VC-08178,v:f1d259794171d845,Dolden Wallace Folick LLP,DOLDEN WALLACE FOLICK LLP,LL0000100,Kelowna,BC,V1Y 7S2,2,1,doldenwallacefolick.ca doldenwallacefolick.com dolden-wallace-folick.ca dolden-wallace-folick.com
+CH-VC-08179,v:9930aa61e703b8c5,Upanup Studios Inc,Upanup Studios Inc.,8029822,Victoria,BC,V8W 1C4,2,1,upanupstudios.ca upanupstudios.com upanup-studios.ca upanup-studios.com
+CH-VC-08180,v:8aa31b50bc0b0892,Park-Aid Asphalt and Maintenance Ltd.,,,Nisku,AB,T9E 8G6,2,1,parkaidasphaltmaintenance.ca parkaidasphaltmaintenance.com park-aid-asphalt-maintenance.ca park-aid-asphalt-maintenance.com
+CH-VC-08181,v:ae984f23f918b6e9,Sobeys Capital Inc,,,Rocky View County,AB,T4A 0P9,2,1,sobeyscapital.ca sobeyscapital.com sobeys-capital.ca sobeys-capital.com
+CH-VC-08182,v:ae113f75f1b95d97,Biomaxx Wastewater Solutions Inc.,BIOMAXX WASTEWATER SOLUTIONS INC.,BC1284100,Delta,BC,V4G 1N1,2,1,biomaxxwastewatersolutions.ca biomaxxwastewatersolutions.com biomaxx-wastewater-solutions.ca biomaxx-wastewater-solutions.com
+CH-VC-08183,v:8c1d523fca71746d,Wetaskiwin Aerial Applicators Ltd.,,,Wetaskiwin,AB,T9A 2E8,2,1,wetaskiwinaerialapplicators.ca wetaskiwinaerialapplicators.com wetaskiwin-aerial-applicators.ca wetaskiwin-aerial-applicators.com
+CH-VC-08184,v:4c3ea81887bb3380,Brandish Marketing,,,Edmonton,AB,T5N 3B5,2,1,brandishmarketing.ca brandishmarketing.com brandish-marketing.ca brandish-marketing.com
+CH-VC-08185,v:7cdf0c5c0eac0cb6,West Canadian Digital Imaging Inc.,,,Edmonton,AB,T5H 1B8,2,1,westcanadiandigitalimaging.ca westcanadiandigitalimaging.com westdigitalimaging.ca westdigitalimaging.com west-canadian-digital-imaging.ca west-canadian-digital-imaging.com
+CH-VC-08186,v:434c947f995e422a,Signature Backyard & BBQ Inc.,,,Grande Priarie,AB,T8V 3A6,2,1,signaturebackyardbbq.ca signaturebackyardbbq.com signature-backyard-bbq.ca signature-backyard-bbq.com
+CH-VC-08187,v:f3938b377104be32,Tam & Jay's Contracting & Mechanical Services,,,Lloydminster,AB,T9V 2W8,2,1,
+CH-VC-08188,v:9ce34bd1ad3f9cc9,The Action Security Group Ltd.,,,Edmonton,AB,T5M 1T9,2,1,actionsecuritygroup.ca actionsecuritygroup.com action-security-group.ca action-security-group.com
+CH-VC-08189,v:2b66a2007452b5e6,Online Enterprises Inc.,,,Winnipeg,MB,R3B 0R3,2,1,onlineenterprises.ca onlineenterprises.com online-enterprises.ca online-enterprises.com
+CH-VC-08190,v:bac413ae6bafc313,Calmont Equipment,CALMONT EQUIPMENT LTD.,10519138,Calgary,AB,T2C 5C5,2,1,calmontequipment.ca calmontequipment.com calmont-equipment.ca calmont-equipment.com
+CH-VC-08191,v:1db0926650229838,Accurate Scale Industries Ltd.,,,Edmonton,AB,T5V 1L2,2,1,accuratescaleindustries.ca accuratescaleindustries.com accurate-scale-industries.ca accurate-scale-industries.com
+CH-VC-08192,v:85f50ee34c4fdab6,Jen-Col Construction Ltd.,,,Acheson,AB,T7X 6H6,2,1,jencolconstruction.ca jencolconstruction.com jen-col-construction.ca jen-col-construction.com
+CH-VC-08193,v:a0f0c1c6cb6e0629,1186254 Alberta Ltd.,,,Edmonton,AB,T5P 4T1,2,1,
+CH-VC-08194,v:353a2ac477770399,L&G Manufacturing,,,Moose Jaw,SK,S6H 5V2,2,1,gmanufacturing.ca gmanufacturing.com g-manufacturing.ca g-manufacturing.com
+CH-VC-08195,v:f02a2827d7b53afa,Canadian Municipal Network on Crime Prevention,Canadian Municipal Network on Crime Prevention,12084538,Kitchener,ON,N2H 5P1,2,1,
+CH-VC-08196,v:22637083c4a0a66f,Timber Pro Logging Ltd.,,,Clairmont,AB,T8X 0T8,2,1,timberprologging.ca timberprologging.com timber-pro-logging.ca timber-pro-logging.com
+CH-VC-08197,v:7cdc80a0d1918d0b,Groundworks Canada Corp Inc,,,Edmonton,AB,T6P 1K1,2,1,groundworkscanada.ca groundworkscanada.com groundworks.ca groundworks.com groundworks-canada.ca groundworks-canada.com
+CH-VC-08198,v:13db261702679b2a,Sidewinder Bobcat Service,,,Lloydminster,SK,S9V 0X9,2,1,sidewinderbobcatservice.ca sidewinderbobcatservice.com sidewinder-bobcat-service.ca sidewinder-bobcat-service.com
+CH-VC-08199,v:8906b2938cb2f27c,EagleView,,,London Ontario,ON,K1E 3T9,2,1,eagleview.ca eagleview.com
+CH-VC-08200,v:4bfc3dc54cc63bb8,Ovivo Canada Inc.,Ovivo Canada Inc.,1173941940,Spruce Grove,AB,T7X 3B5,2,1,ovivocanada.ca ovivocanada.com ovivo.ca ovivo.com ovivo-canada.ca ovivo-canada.com
+CH-VC-08201,v:4087702cbc6f127c,Ideasource Recognition & Rewards Inc.,,,Airdrie,AB,T4A 0E1,2,1,ideasourcerecognitionrewards.ca ideasourcerecognitionrewards.com ideasource-recognition-rewards.ca ideasource-recognition-rewards.com
+CH-VC-08202,v:30eb1fc61d6c6a37,U TEAM INTERNATIONAL LTD,,,Edmonton,AB,T5T 0X2,2,1,uteaminternational.ca uteaminternational.com u-team-international.ca u-team-international.com
+CH-VC-08203,v:db1cc26806320ad9,Barco Products LLC,,,Oakville,ON,L6L 5T7,2,1,barcoproducts.ca barcoproducts.com barco-products.ca barco-products.com barcoproductscanada.ca barcoproductscanada.com
+CH-VC-08204,v:f67c915c80dcb337,Waterplay Solutions Corp.,WATERPLAY SOLUTIONS CORP.,BC0845980,Kelowna,BC,V1Y 7G6,2,1,waterplaysolutions.ca waterplaysolutions.com waterplay-solutions.ca waterplay-solutions.com
+CH-VC-08205,v:1350a2f240eb2b23,BMO,,,Calgary,AB,T2P 1G1,2,1,
+CH-VC-08206,v:43e13f82a924ae83,Aurora Flags and Banners,,,Edmonton,AB,T6E 5E9,2,1,auroraflagsbanners.ca auroraflagsbanners.com aurora-flags-banners.ca aurora-flags-banners.com
+CH-VC-08207,v:19eef04022765a68,Barr Engineering and Environmental Science Canada Ltd.,Service-Conseil Barr,1175130807,Calgary,AB,T2P 5L5,2,1,serviceconseilbarr.ca serviceconseilbarr.com service-conseil-barr.ca service-conseil-barr.com
+CH-VC-08208,v:2ce71454a9f12ec9,Onlea,,,Edmonton,AB,T5J 1Y8,2,1,onlea.ca onlea.com
+CH-VC-08209,v:da80ee4cf69d7967,Cubex Equipment,,,Calgary,AB,T2V 2X4,2,1,cubexequipment.ca cubexequipment.com cubex-equipment.ca cubex-equipment.com
+CH-VC-08210,v:b9f9fec0e72e0e02,J. Food and Beverage LTD,,,Grande Prairie,AB,T8W 2V9,2,1,jfoodbeverage.ca jfoodbeverage.com j-food-beverage.ca j-food-beverage.com
+CH-VC-08211,v:1253ad35a175dcfa,Dale Croswell Construction Co. Ltd.,,,Thorhild,AB,T0A 3J0,2,1,dalecroswellconstruction.ca dalecroswellconstruction.com dale-croswell-construction.ca dale-croswell-construction.com
+CH-VC-08212,v:6753e88ea96960c1,Stewart Brothers Nurseries Ltd,STEWART BROTHERS NURSERIES LTD.,BC1416824,Kelowna,BC,V1W 4G5,2,1,stewartbrothersnurseries.ca stewartbrothersnurseries.com stewart-brothers-nurseries.ca stewart-brothers-nurseries.com
+CH-VC-08213,v:a7f21d527823eb90,Ference & Company,,,Vancouver,BC,V6B 4M9,2,1,ference.ca ference.com
+CH-VC-08214,v:7dbcdf1ffaa94775,Bow Ridge Steel Fabrication Ltd.,,,Calgary,AB,T3A 1X9,2,1,bowridgesteelfabrication.ca bowridgesteelfabrication.com bow-ridge-steel-fabrication.ca bow-ridge-steel-fabrication.com
+CH-VC-08215,v:ac0c83ceba97df1f,Bluebits Technologies Inc.,BLUEBITS TECHNOLOGIES INC.,BC1382640,Burnaby,BC,V5H 4M2,2,1,bluebitstechnologies.ca bluebitstechnologies.com bluebits-technologies.ca bluebits-technologies.com

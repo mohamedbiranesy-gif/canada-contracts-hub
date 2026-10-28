@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-09916,v:359833a3ebba8a50,SP Aviation Services Inc.,,,Spruce Grove,AB,T7Y 1E9,1,1,spaviationservices.ca spaviationservices.com sp-aviation-services.ca sp-aviation-services.com
+CH-VC-09917,v:6216479038503eee,SPECIALIZED REFRIGERATION & HVAC LTD.,,,Fort McMurray,AB,T9H 2X9,1,1,specializedrefrigerationhvac.ca specializedrefrigerationhvac.com specialized-refrigeration-hvac.ca specialized-refrigeration-hvac.com
+CH-VC-09918,v:8bf96423ae94b457,Sure Shot Hotshot & Pilot Services Inc.,,,Edmonton,AB,T6E 0E7,1,1,sureshothotshotpilotservices.ca sureshothotshotpilotservices.com
+CH-VC-09919,v:b93d3cde2a106144,T. Andre Construction Co.,,,Lac La Biche,AB,T0A 2C2,1,1,tandreconstruction.ca tandreconstruction.com t-andre-construction.ca t-andre-construction.com
+CH-VC-09920,v:c9554c2fe566dec4,TDN Jenkins Incorporated,,,Grande Cache,AB,T0E 0Y0,1,1,tdnjenkins.ca tdnjenkins.com tdn-jenkins.ca tdn-jenkins.com
+CH-VC-09921,v:a5cb0fc90744a01e,The Firehalt Company Ltd.,,,Hinton,AB,T7V 1M8,1,1,firehalt.ca firehalt.com
+CH-VC-09922,v:1937a213b00f5904,Timber Fallen Inc,,,Fort Smith,NT,X0E 0P0,1,1,timberfallen.ca timberfallen.com timber-fallen.ca timber-fallen.com
+CH-VC-09923,v:eef2d2d4004baeb9,Triton Kitchen Exhaust Specialists inc,,,ATHABASCA COUNTY #12,AB,T0G 1Z0,1,1,
+CH-VC-09924,v:51a4af30d448ae59,1973185 Alberta Corp,,,Fort McMurray,AB,T9H 5B7,1,1,
+CH-VC-09925,v:c5e8a518c2b9a756,United Calgary Landscape & Maintenance Inc.,,,Calgary,AB,T2E 4B1,1,1,
+CH-VC-09926,v:1011c31f4355cbd9,Virgin Technologies Inc,,,Edmonton,AB,T6E 5N4,1,1,virgintechnologies.ca virgintechnologies.com virgin-technologies.ca virgin-technologies.com
+CH-VC-09927,v:54dab9a63b70f263,Boreal Land Services Ltd.,,,Sherwood park,AB,T8E 1H4,1,1,boreallandservices.ca boreallandservices.com boreal-land-services.ca boreal-land-services.com
+CH-VC-09928,v:1c9742f270664aff,Brignall Equipment Solutions Ltd,,,Fort McMurray,AB,T9H 4B7,1,1,brignallequipmentsolutions.ca brignallequipmentsolutions.com brignall-equipment-solutions.ca brignall-equipment-solutions.com
+CH-VC-09929,v:dd0ded661c6c5e6e,Fosol Software Solutions Inc.,Fosol Software Solutions Incorporated,9713590,Victoria,BC,V9C 0E4,1,1,fosolsoftwaresolutions.ca fosolsoftwaresolutions.com fosol-software-solutions.ca fosol-software-solutions.com
+CH-VC-09930,v:cd4454f623027631,IOSecure Internet Operations Inc.,Iosecure Internet Operations Inc.,3889041,Coquitlam,BC,V3E 3K8,1,1,iosecureinternetoperations.ca iosecureinternetoperations.com iosecure-internet-operations.ca iosecure-internet-operations.com
+CH-VC-09931,v:6417650f1a818a24,LUMITIV,,,Calgary,AB,T2Z 4W1,1,1,lumitiv.ca lumitiv.com
+CH-VC-09932,v:4defd3559430b545,MANSOUR ENGINEERING LTD.,,,EDMONTON,AB,T6V 0M7,1,1,mansourengineering.ca mansourengineering.com mansour-engineering.ca mansour-engineering.com
+CH-VC-09933,v:bd2aad29ec8811fa,MNA Quality Consulting Ltd,,,Calgary,AB,T2P 2V6,1,1,mnaqualityconsulting.ca mnaqualityconsulting.com mna-quality-consulting.ca mna-quality-consulting.com
+CH-VC-09934,v:f985bb53c9444ee0,SD Tower Consulting Ltd.,,,Edmonton,AB,T5K 2K7,1,1,sdtowerconsulting.ca sdtowerconsulting.com sd-tower-consulting.ca sd-tower-consulting.com
+CH-VC-09935,v:82feb367a418ac73,SQRD Enterprises Inc,,,Sturgeon County,AB,T8T 0C6,1,1,sqrdenterprises.ca sqrdenterprises.com sqrd-enterprises.ca sqrd-enterprises.com
+CH-VC-09936,v:c77d6d09d208e191,Tarin Resource Services (1994) Ltd.,,,Airdrie,AB,T4B 1R4,1,1,tarinresourceservices.ca tarinresourceservices.com tarin-resource-services.ca tarin-resource-services.com
+CH-VC-09937,v:b1c8e91d1f1f5472,Cooper Trench Safety,,,Airdrie,AB,T4A 2G2,1,1,coopertrenchsafety.ca coopertrenchsafety.com cooper-trench-safety.ca cooper-trench-safety.com
+CH-VC-09938,v:65c8dd30b41bd8c5,SE Design and Consulting Inc.,,,Cold Lake,AB,T9M 0C4,1,1,sedesignconsulting.ca sedesignconsulting.com se-design-consulting.ca se-design-consulting.com
+CH-VC-09939,v:4706bc96f164a7f0,Bsc Enterprises Inc,,,BURLINGTON,ON,L7R 2E3,1,1,bscenterprises.ca bscenterprises.com bsc-enterprises.ca bsc-enterprises.com
+CH-VC-09940,v:6563f8ca41b636d0,Greenthumb Supply Co. Ltd.,,,Leduc,AB,T9E 6M3,1,1,greenthumbsupply.ca greenthumbsupply.com greenthumb-supply.ca greenthumb-supply.com
+CH-VC-09941,v:150321e7c3e220b2,Exhibit Installation Service,,,Ardrossan,AB,T8E 2M1,1,1,exhibitinstallationservice.ca exhibitinstallationservice.com exhibit-installation-service.ca exhibit-installation-service.com
+CH-VC-09942,v:e7b9a91800f5c903,InTime Fence Solutions Inc.,,,Airdrie,AB,T4B 3P8,1,1,intimefencesolutions.ca intimefencesolutions.com intime-fence-solutions.ca intime-fence-solutions.com
+CH-VC-09943,v:eb339d70ee05e4b7,Lakeland Vegetation Management Ltd.,,,Lamont,AB,T0B 4J0,1,1,lakelandvegetationmanagement.ca lakelandvegetationmanagement.com lakeland-vegetation-management.ca lakeland-vegetation-management.com
+CH-VC-09944,v:030ccb187f3a6ec8,Supreme Steel LP,,,Acheson,AB,T7X 6J7,1,1,supremesteel.ca supremesteel.com supreme-steel.ca supreme-steel.com
+CH-VC-09945,v:0feb8092be8a2885,Thomas Kanata Inc.,,,Redwood Meadows,AB,T3Z 1A3,1,1,thomaskanata.ca thomaskanata.com thomas-kanata.ca thomas-kanata.com
+CH-VC-09946,v:557e373ff24d1109,Armour Equipment,,,Calgary,AB,T2H 1K5,1,1,armourequipment.ca armourequipment.com armour-equipment.ca armour-equipment.com
+CH-VC-09947,v:ee30bcf458cf260e,Solstice Environmental Management,,,Edmonton,AB,T5S 1G7,1,1,
+CH-VC-09948,v:2cb18e3bc2c2f23a,STICKLAND COMPOSTING FACILITY,,,PENHOLD,AB,T0M 1R0,1,1,sticklandcompostingfacility.ca sticklandcompostingfacility.com stickland-composting-facility.ca stickland-composting-facility.com
+CH-VC-09949,v:822c3150e3d47b09,Rectify Enterprizes Ltd. O/A Do Little Cleaning,,,Rochester,AB,T0G 1Z0,1,1,dolittlecleaning.ca dolittlecleaning.com do-little-cleaning.ca do-little-cleaning.com
+CH-VC-09950,v:370c9db9138266fa,Fire Up Firewood,,,Sturgeon County,AB,T8T 0C3,1,1,fireupfirewood.ca fireupfirewood.com fire-up-firewood.ca fire-up-firewood.com
+CH-VC-09951,v:caf24405c6c29aa2,Skyline Exhibits Alberta,,,Calgary,AB,T2B 3M1,1,1,skylineexhibitsalberta.ca skylineexhibitsalberta.com skyline-exhibits-alberta.ca skyline-exhibits-alberta.com
+CH-VC-09952,v:46471dedae8752cc,AppSpec Computer Technologies Corp.,,,Calgary,AB,T2S 1X9,1,1,appspeccomputertechnologies.ca appspeccomputertechnologies.com appspec-computer-technologies.ca appspec-computer-technologies.com
+CH-VC-09953,v:2ddf5f3ab8bb8dda,Amrize Canada Inc - Aggregates,,,Edmtonton,AB,T5H 3X1,1,1,amrizecanadaaggregates.ca amrizecanadaaggregates.com amrizeaggregates.ca amrizeaggregates.com amrize-canada-aggregates.ca amrize-canada-aggregates.com
+CH-VC-09954,v:e40a33d55dbe2e39,Future Operations Consulting,,,Calgary,AB,T3H 5S6,1,1,futureoperationsconsulting.ca futureoperationsconsulting.com future-operations-consulting.ca future-operations-consulting.com
+CH-VC-09955,v:3a0f4f29f7b4d066,Calgary Lock & Safe,,,Calgary,AB,T2E 7Z5,1,1,calgarylocksafe.ca calgarylocksafe.com calgary-lock-safe.ca calgary-lock-safe.com
+CH-VC-09956,v:edc3665b22a2e305,CIC Inspection & Consulting Ltd,,,Edmonton,AB,T6B 2N2,1,1,cicinspectionconsulting.ca cicinspectionconsulting.com cic-inspection-consulting.ca cic-inspection-consulting.com
+CH-VC-09957,v:34c7df714e745f53,School District System (SDS),,,Burnaby,BC,V5A 4W2,1,1,schooldistrictsystem.ca schooldistrictsystem.com school-district-system.ca school-district-system.com
+CH-VC-09958,v:9a8f6f6d7eef990d,Tannas Conservation Services,,,Cremona,AB,T0M 0R0,1,1,tannasconservationservices.ca tannasconservationservices.com tannas-conservation-services.ca tannas-conservation-services.com
+CH-VC-09959,v:24081dc54328b512,The Farley Group - Farley Manufacturing Inc.,,,Puslinch,ON,N0B 2J0,1,1,farleygroupfarleymanufacturing.ca farleygroupfarleymanufacturing.com
+CH-VC-09960,v:3fe717b1f7b138ab,iNSTUDIO Licensed Interior Design,,,Toronto,ON,M5V 2J6,1,1,instudiolicensedinteriordesign.ca instudiolicensedinteriordesign.com
+CH-VC-09961,v:b0e73c80f7f577e8,Crouse Developments Inc.,,,St. Alebrta,AB,T8N 4Z4,1,1,crousedevelopments.ca crousedevelopments.com crouse-developments.ca crouse-developments.com
+CH-VC-09962,v:b828000fe98e8987,Big Hearts First Aid,,,Edmonton,AB,T6J 5M5,1,1,bigheartsfirstaid.ca bigheartsfirstaid.com big-hearts-first-aid.ca big-hearts-first-aid.com
+CH-VC-09963,v:349bacaa5a062be4,Partner Vantage Point Inc,,,Toronto,ON,M4N 3N1,1,1,partnervantagepoint.ca partnervantagepoint.com partner-vantage-point.ca partner-vantage-point.com
+CH-VC-09964,v:aca8e8b05ba4710a,United Roofing Edmonton Inc.,,,Edmonton,AB,T5S 1X2,1,1,unitedroofingedmonton.ca unitedroofingedmonton.com united-roofing-edmonton.ca united-roofing-edmonton.com
+CH-VC-09965,v:1ea24e914fa840c0,Katerra Engineering Ltd.,,,West Vancouver,BC,V7W 1K9,1,1,katerraengineering.ca katerraengineering.com katerra-engineering.ca katerra-engineering.com
+CH-VC-09966,v:3d7fe442f0fce9ae,Swerdena Services Ltd.,,,Edmonton,AB,T6E 5R2,1,1,swerdenaservices.ca swerdenaservices.com swerdena-services.ca swerdena-services.com
+CH-VC-09967,v:b4d0cd86f62926e7,Stormtec AB Water Management Inc.,,,Delta,BC,V3M 5R1,1,1,stormtecabwatermanagement.ca stormtecabwatermanagement.com stormtec-ab-water-management.ca stormtec-ab-water-management.com
+CH-VC-09968,v:8ae44d9b618d7426,Summit Trailer Sales,,,Acheson,AB,T7X 6C2,1,1,summittrailersales.ca summittrailersales.com summit-trailer-sales.ca summit-trailer-sales.com
+CH-VC-09969,v:898fea11f96b418a,Prepare First Emergency Management Inc,,,Olds,AB,T4H 0B7,1,1,
+CH-VC-09970,v:6d54c3623266647f,Bettenson's Sand & Gravel Co. Ltd.,,,Red Deer,AB,T4P 2J9,1,1,bettensonssandgravel.ca bettensonssandgravel.com bettensons-sand-gravel.ca bettensons-sand-gravel.com
+CH-VC-09971,v:6adaa97be6d9aaaa,DEE-JAY PLUMBING & HEATING LTD,,,Camrose,AB,T4V 4E5,1,1,deejayplumbingheating.ca deejayplumbingheating.com dee-jay-plumbing-heating.ca dee-jay-plumbing-heating.com
+CH-VC-09972,v:3921d27e7c3844a6,982804 AB LTD.,,,Medicine Hat,AB,T1A 7X1,1,1,
+CH-VC-09973,v:6ea291cb0d8fc883,Alberta Business Solutions Inc.,,,Calgary,AB,T2E 6P7,1,1,albertabusinesssolutions.ca albertabusinesssolutions.com alberta-business-solutions.ca alberta-business-solutions.com
+CH-VC-09974,v:9569ad47fbde632a,Process Combustion Solutions,,,Calgary,AB,T3S 0C3,1,1,processcombustionsolutions.ca processcombustionsolutions.com process-combustion-solutions.ca process-combustion-solutions.com
+CH-VC-09975,v:57e2a58271f7ba03,Equity Security,,,Calgary,AB,T1Y 2B6,1,1,equitysecurity.ca equitysecurity.com equity-security.ca equity-security.com
+CH-VC-09976,v:c74d6ad5be95ff51,ALTHEIM BUSSING,,,PARKLAND  COUNTY,AB,T7Y 3M1,1,1,altheimbussing.ca altheimbussing.com altheim-bussing.ca altheim-bussing.com
+CH-VC-09977,v:8f6e57b4f60430fd,Jeannette Hall,,,Winfield,AB,T0C 2X0,1,1,jeannettehall.ca jeannettehall.com jeannette-hall.ca jeannette-hall.com
+CH-VC-09978,v:5cd64ecf9b26544c,First General Edmonton,,,Edmonton,AB,T5P 4Y8,1,1,firstgeneraledmonton.ca firstgeneraledmonton.com first-general-edmonton.ca first-general-edmonton.com
+CH-VC-09979,v:9c1a8d39e5ab4e53,Danuk Construction Ltd,,,Edmonton,AB,T6E 1N5,1,1,danukconstruction.ca danukconstruction.com danuk-construction.ca danuk-construction.com
+CH-VC-09980,v:27678e4cc6e4a9e0,2030530 Alberta Ltd. O/A Caliber Construction,,,Consort ,AB,T0C 1B0,1,1,caliberconstruction.ca caliberconstruction.com caliber-construction.ca caliber-construction.com
+CH-VC-09981,v:b0e7bf4dff917394,Little Leaders Inc.,,,Chestermere,AB,T1X 1C8,1,1,littleleaders.ca littleleaders.com little-leaders.ca little-leaders.com
+CH-VC-09982,v:9c0d07387c7f34d3,S.F. Scott Manufacturing Co. Ltd.,,,Medicine Hat ,AB,T1A 4V7,1,1,sfscottmanufacturing.ca sfscottmanufacturing.com s-f-scott-manufacturing.ca s-f-scott-manufacturing.com
+CH-VC-09983,v:59ba837e7675b1fb,Norwest Construction and Management Ltd.,,,County of Grande Prairie No 1,AB,T8W 5A8,1,1,norwestconstructionmanagement.ca norwestconstructionmanagement.com
+CH-VC-09984,v:82f58ef4be6d48ba,"Certified Tracking Solutions, A GPS Insight Company",,,Edmonton,AB,T6X 1Z9,1,1,
+CH-VC-09985,v:a6f83a20d9229b4b,Brian Russell,,,Dixonville,AB,T0H 1E0,1,1,brianrussell.ca brianrussell.com brian-russell.ca brian-russell.com
+CH-VC-09986,v:d05a092c17c3b4cc,Universal Rail Solutions Inc,Universal Rail Solutions Inc.,1181709990,Edmonton,AB,T6B 3B8,1,1,universalrailsolutions.ca universalrailsolutions.com universal-rail-solutions.ca universal-rail-solutions.com solutionsferroviairesuniversal.ca solutionsferroviairesuniversal.com
+CH-VC-09987,v:516dfb4154419db0,1562721 Alberta Ltd,,,Red Deer County,AB,T4S 2E3,1,1,
+CH-VC-09988,v:2783fc71f0bbe236,Westvalley Carpet & Flooring Ltd,,,Calgary,AB,T2G 4A7,1,1,westvalleycarpetflooring.ca westvalleycarpetflooring.com westvalley-carpet-flooring.ca westvalley-carpet-flooring.com
+CH-VC-09989,v:2662e2fec131704e,Deerfoot Carpet and Flooring Inc.,,,Calgary,AB,T2H 2X2,1,1,deerfootcarpetflooring.ca deerfootcarpetflooring.com deerfoot-carpet-flooring.ca deerfoot-carpet-flooring.com
+CH-VC-09990,v:ec87663597342b8b,1326092 Alberta Ltd,,,Hinton,AB,T7V 2B4,1,1,
+CH-VC-09991,v:04d22f33b8e97887,Spark Testing North America Inc.,,,Edmonton,AB,T6E 6G8,1,1,sparktestingnorthamerica.ca sparktestingnorthamerica.com spark-testing-north-america.ca spark-testing-north-america.com
+CH-VC-09992,v:1abad6e46cfaa46e,SERDACHNY HOCKEY DEVELOPMENT,,,Edmonton,AB,T6R 2K5,1,1,serdachnyhockeydevelopment.ca serdachnyhockeydevelopment.com serdachny-hockey-development.ca serdachny-hockey-development.com
+CH-VC-09993,v:92145c1745a3e7b4,Rocky Mountain Dodge,,,Rocky Mountain House,AB,T4T 1B6,1,1,rockymountaindodge.ca rockymountaindodge.com rocky-mountain-dodge.ca rocky-mountain-dodge.com
+CH-VC-09994,v:1737b1456b50d4ac,Specon Construction Inc,,,Rocky View County,AB,T1X 0K1,1,1,speconconstruction.ca speconconstruction.com specon-construction.ca specon-construction.com
+CH-VC-09995,v:c1087918df3419bc,Rainbow Ford Sales Inc.,,,rocky mountain house,AB,T4T 1A9,1,1,rainbowfordsales.ca rainbowfordsales.com rainbow-ford-sales.ca rainbow-ford-sales.com
+CH-VC-09996,v:222ce462e4f979fc,MacDonald Training and Consulting Limited,,,Edmonton,AB,T5C 1R9,1,1,macdonaldtrainingconsulting.ca macdonaldtrainingconsulting.com macdonald-training-consulting.ca macdonald-training-consulting.com
+CH-VC-09997,v:2c9d7a4e2774cdf8,Jones Trucking & Backhoe Service Ltd,,,Winfield,AB,T0C 2X0,1,1,jonestruckingbackhoeservice.ca jonestruckingbackhoeservice.com jones-trucking-backhoe-service.ca jones-trucking-backhoe-service.com
+CH-VC-09998,v:a255d8f8bccfbdd8,TRI-WEST Security,,,Red Deer,AB,T4P 1M8,1,1,triwestsecurity.ca triwestsecurity.com tri-west-security.ca tri-west-security.com
+CH-VC-09999,v:cea03671418d1673,Pastew Place Detox Centre,,,Fort McMurray,AB,T9H 4P3,1,1,pastewplacedetoxcentre.ca pastewplacedetoxcentre.com pastew-place-detox-centre.ca pastew-place-detox-centre.com
+CH-VC-10000,v:eecc68353fe52183,The John Howard Society of Alberta,,,Edmonton,AB,T5H 2N2,1,1,johnhowardsocietyalberta.ca johnhowardsocietyalberta.com john-howard-society-alberta.ca john-howard-society-alberta.com
+CH-VC-10001,v:e56093b9d666a9a0,Calgary Drug Treatment Court Society,,,Calgary,AB,T2P 0Y8,1,1,
+CH-VC-10002,v:40c8add4faa745a3,Dionco Sales and Service,,,Yorkton,SK,S3N 3L8,1,1,dioncosalesservice.ca dioncosalesservice.com dionco-sales-service.ca dionco-sales-service.com
+CH-VC-10003,v:193ac41c054324b7,Range Road Contracting & Consulting inc,,,Calgary,AB,T2Z 0G4,1,1,rangeroadcontractingconsulting.ca rangeroadcontractingconsulting.com
+CH-VC-10004,v:32c964ae33c6cc4e,2293367 Alberta Ltd.,,,Camrose,AB,T4V 1X7,1,1,
+CH-VC-10005,v:179d78ecbd97bf91,1760388 ALBERTA LTD.,,,HIGH PRAIRIE,AB,T0G 1E0,1,1,
+CH-VC-10006,v:e8daa03ac857be9f,1815128 ALBERTA LTD,,,Edmonton,AB,T6T 1P1,1,1,
+CH-VC-10007,v:a6b0133cbdcddd8c,N-Force Crane & Equipment LTD,,,Calgary,AB,T2C 2P2,1,1,nforcecraneequipment.ca nforcecraneequipment.com n-force-crane-equipment.ca n-force-crane-equipment.com
+CH-VC-10008,v:80ba302c789fd9c5,Ant Construction LTD,,,Red Deer,AB,T4N 5E8,1,1,antconstruction.ca antconstruction.com ant-construction.ca ant-construction.com
+CH-VC-10009,v:2d512a1547477b39,"ACP Applied Products, A Division of Canadian Road Builders Inc.",,,Acheson,AB,T7X 6B3,1,1,
+CH-VC-10010,v:e59fb4599706e5ab,Southern Roofing & Waterproofing Inc.,Southern Roofing & Waterproofing Inc.,9393021,Calgary,AB,T1Y 5W4,1,1,southernroofingwaterproofing.ca southernroofingwaterproofing.com southern-roofing-waterproofing.ca southern-roofing-waterproofing.com
+CH-VC-10011,v:241e2f756d3fac06,The Avara Group Inc.,,,Medicine Hat,AB,T1A 7T9,1,1,avaragroup.ca avaragroup.com avara-group.ca avara-group.com
+CH-VC-10012,v:58bfdd8a5df996e1,Blue wing fence,,,Rochester,AB,T0G 1Z0,1,1,bluewingfence.ca bluewingfence.com blue-wing-fence.ca blue-wing-fence.com
+CH-VC-10013,v:e89ff2dbe67ed064,Earth & Iron Inc.,,,Drayton Valley,AB,T7A 1R5,1,1,earthiron.ca earthiron.com earth-iron.ca earth-iron.com
+CH-VC-10014,v:53ee5736836bf5e3,Trusty Tree Services Ltd,,,Edmonton,AB,T6P 1W3,1,1,trustytreeservices.ca trustytreeservices.com trusty-tree-services.ca trusty-tree-services.com
+CH-VC-10015,v:171947c1c802a7c8,Yundt Solutions Inc,,,Rocky View County,AB,T4C 2Y4,1,1,yundtsolutions.ca yundtsolutions.com yundt-solutions.ca yundt-solutions.com

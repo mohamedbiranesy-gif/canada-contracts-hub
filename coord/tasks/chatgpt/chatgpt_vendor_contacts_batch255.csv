@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-25416,v:83bae2a1448c5845,Dynamex Canada Ltd,,,Saskatoon,SK,,3,0,dynamexcanada.ca dynamexcanada.com dynamex.ca dynamex.com dynamex-canada.ca dynamex-canada.com
+CH-VC-25417,v:0700b4680a3ea75d,Traditional Contracting Inc.,,,Saskatoon,SK,,3,0,
+CH-VC-25418,v:922f8a16a58c30b1,101186505 Sask. Ltd. o.a Schmidt Trucking,,,Kelvington,SK,,3,0,
+CH-VC-25419,v:4d940bb2a6fb058b,IMI Manufacturing Inc.,,,Hawkesbury,ON,,3,0,
+CH-VC-25420,v:5e5eb8cbcebc74c7,Institutional Food Supply Ltd.,,,Calgary,AB,,3,0,
+CH-VC-25421,v:f8c0df3d58a6680c,SKy AG Services LTD.,,,Lafleche,SK,,3,0,skyservices.ca skyservices.com sky-services.ca sky-services.com
+CH-VC-25422,v:6272ce7ca9e63d96,Logan Stevens Equipment Rentals,,,Yorkton,SK,,3,0,loganstevensequipmentrentals.ca loganstevensequipmentrentals.com
+CH-VC-25423,v:30c1a60fad6aae05,Clearwater Steel Sales & Marketing,,,Winnipeg,MB,,3,0,
+CH-VC-25424,v:0e9d1507380f4005,Wolftek Industries Inc.,WOLFTEK INDUSTRIES INC.,BC1017433,Prince George,BC,,3,0,
+CH-VC-25425,v:4aa8118c7bec884a,Moose Jaw Toyota,,,Moose Jaw,SK,,3,0,moosejawtoyota.ca moosejawtoyota.com moose-jaw-toyota.ca moose-jaw-toyota.com
+CH-VC-25426,v:bba44d4c0608946e,A.S.L. Paving Ltd.,,,Saskatoon,SK,,3,0,
+CH-VC-25427,v:e13dcb115bcc3a90,R.J. Tulik Excavating Inc,,,Fort Qu'Appelle,SK,,3,0,rjtulikexcavating.ca rjtulikexcavating.com r-j-tulik-excavating.ca r-j-tulik-excavating.com
+CH-VC-25428,v:e26b5df3eb577882,Systems Plus,,,Baden,ON,,3,0,
+CH-VC-25429,v:7d73dbe5df1fc27f,G4S Cash Solutions,,,SASKATOON,SK,,3,0,
+CH-VC-25430,v:8d4b1e0a3cb1fd4e,R & D Drywall Inc.,,,Saskatoon,SK,,3,0,rdrywall.ca rdrywall.com r-drywall.ca r-drywall.com
+CH-VC-25431,v:cd9fb97ae2d7b180,Akzo Nobel Chemical Ltd.,,,Toronto,ON,,3,0,
+CH-VC-25432,v:1f8349c171045db7,Clayton Tank,,,Melville,SK,,3,0,claytontank.ca claytontank.com clayton-tank.ca clayton-tank.com
+CH-VC-25433,v:74efb7fb5a5e763b,Brad Hiebert,,,Melfort,SK,,3,0,
+CH-VC-25434,v:5ec9a0d5bd1cb91d,Supreme Trailer Sales,,,Kincaid,SK,,3,0,supremetrailersales.ca supremetrailersales.com supreme-trailer-sales.ca supreme-trailer-sales.com
+CH-VC-25435,v:6cbdbe92b6528582,Omni Provincial Electronics ALTA Inc.,,,Calgary,AB,,3,0,
+CH-VC-25436,v:25fa98c1ba901aa8,Modern Janitorial Service 1978 Ltd.,,,North Battleford,SK,,3,0,modernjanitorialservice1978.ca modernjanitorialservice1978.com modern-janitorial-service-1978.ca modern-janitorial-service-1978.com
+CH-VC-25437,v:bb450491b1c00706,Bond Industrial Direct Incorporated,,,Saskatoon,SK,,3,0,
+CH-VC-25438,v:d641130fc49376b7,Prestige Telecom,,,Saskatoon,SK,,3,0,prestigetelecom.ca prestigetelecom.com prestige-telecom.ca prestige-telecom.com
+CH-VC-25439,v:94b9c68fbe0174c0,Alco Inc.,FERME PORCINE ALCO INC.,1167682237,Edmonton,AB,,3,0,alco.ca alco.com groupealco.ca groupealco.com groupe-alco.ca groupe-alco.com
+CH-VC-25440,v:41a59c3cf589b9b8,Centuryvallen,,,Saskatoon,SK,,3,0,
+CH-VC-25441,v:d793d662ab93b322,Syntegrity Group,,,Toronto,ON,,3,0,syntegritygroup.ca syntegritygroup.com syntegrity-group.ca syntegrity-group.com
+CH-VC-25442,v:57619de54f90dfe7,London Scientific Ltd,LONDON SCIENTIFIC LIMITED,3174441,London,ON,N6E 2S8,3,0,
+CH-VC-25443,v:ce02f1bc78efd627,Bouchard Projects Ltd,,,Penticton,BC,,3,0,bouchardprojects.ca bouchardprojects.com bouchard-projects.ca bouchard-projects.com
+CH-VC-25444,v:155f378214b143e3,Independent Choice Distributors,,,Regina,SK,,3,0,
+CH-VC-25445,v:2af805a44f31029d,KMC Mechanical Ltd.,,,Regina,SK,,3,0,kmcmechanical.ca kmcmechanical.com kmc-mechanical.ca kmc-mechanical.com
+CH-VC-25446,v:8d074982dbede94a,AKZO Nobel Chemicals Ltd.,,,Saskatoon,SK,,3,0,
+CH-VC-25447,v:70ddfa99a8dbcd50,Ajilon Consulting,,,Regina,SK,,3,0,
+CH-VC-25448,v:eebb6ae3071cdb27,Sapphire Technologies Canada,,,Winnipeg,MB,,3,0,sapphiretechnologiescanada.ca sapphiretechnologiescanada.com sapphiretechnologies.ca sapphiretechnologies.com sapphire-technologies-canada.ca sapphire-technologies-canada.com
+CH-VC-25449,v:8363c9fe30c4ef58,Excel Human Resources Inc.,,,Ottawa,ON,K1P 5N4,3,0,
+CH-VC-25450,v:1b9d2244207bf6c8,PATTISON SIGNS,,,,,,3,0,
+CH-VC-25451,v:72120d2bee60d5dc,ACME FUTURE SECURITY CONTROLS INC.,,,,,,3,0,
+CH-VC-25452,v:7e55e4d38e0e843e,BRUKER BIOSPIN LIMITED,,,Milton,ON,L9T 1Y6,3,0,brukerbiospin.ca brukerbiospin.com bruker-biospin.ca bruker-biospin.com
+CH-VC-25453,v:1c33b934b50abe81,CASEWARE IDEA INC.,,,Toronto,ON,M5V1K4,3,0,casewareidea.ca casewareidea.com caseware-idea.ca caseware-idea.com
+CH-VC-25454,v:3500ca279417f636,Pratts Limited,,,Winnipeg,Manitoba,R2X2V4,3,0,pratts.ca pratts.com
+CH-VC-25455,v:ecc7ea53c0266536,Fundy Contractors Limited,,,St. George,NB,E5C 3S9,3,0,
+CH-VC-25456,v:9dd4322487855cae,Acadian Marine and Diving Ltd,Acadian Marine & Diving Ltd,1167308163,Caraquet,NB,E1W 0A2,3,0,acadianmarinediving.ca acadianmarinediving.com acadian-marine-diving.ca acadian-marine-diving.com plongeeamd.ca plongeeamd.com
+CH-VC-25457,v:57042d86a7d1433c,ROCKWOOD TRANSPORTATION CO. LTD.,TRANSPORT ROCKWOOD,1149553266,Rexton,NB,E4W 5N6,3,0,
+CH-VC-25458,v:bc5f752742939651,056729 N B LTD,,,Hanwell,New Brunswick,E3C0L2,3,0,
+CH-VC-25459,v:bfc8ac61ee0cb197,SUDLIQ DEVELOPMENTS LTD,,,Coral Harbour,Nunavut,X0C0C0,3,0,
+CH-VC-25460,v:c74282a9254a7a8d,R. J. MacIsaac Construction Limited,,,Antigonish,Nova Scotia,B2G2X7,3,0,rjmacisaacconstruction.ca rjmacisaacconstruction.com r-j-macisaac-construction.ca r-j-macisaac-construction.com
+CH-VC-25461,v:892dba6af2486183,Teksystems Canada Inc./Society Teksystems Canada Inc.,,,Ottawa,Ontario,K1P 5H2,3,0,
+CH-VC-25462,v:8cac34d2b9e75608,Alpine Aerotech Ltd.,,,Kelowna,British Columbia,V1Z1G5,3,0,
+CH-VC-25463,v:bb6c3f7d7840fa04,"sysco serca food services - west, inc",,,Winnipeg,Manitoba,R3T1T6,3,0,
+CH-VC-25464,v:6d3168bfa0424dd1,ST MICHAEL'S HOSPITAL,,,Toronto,Ontario,M5B1W8,3,0,stmichaelshospital.ca stmichaelshospital.com st-michaels-hospital.ca st-michaels-hospital.com
+CH-VC-25465,v:66c6897cfcaa4694,Zepoli International,ZEPOLI INTERNATIONAL INC.,1149097041,Dorval,Qc.,H9S 2W9,3,0,
+CH-VC-25466,v:70798b937b6418c5,Can-Bramar Ltd.,,,,,,3,0,
+CH-VC-25467,v:dffdb9fd078a2f56,Ronald A. Chisholm Limited,,,,,,3,0,
+CH-VC-25468,v:12ad35f9b1a1536b,Techniques Canadien d´Export Inc.,,,,,,3,0,
+CH-VC-25469,v:fdb64b5a193ca927,Ontario Power Generation Inc.,,,"Pickering, Ontario",,L1W 3J2,3,0,ontariopowergeneration.ca ontariopowergeneration.com ontario-power-generation.ca ontario-power-generation.com
+CH-VC-25470,v:0978ea5bc463e9fe,Fluidigm Canada INC,,,Markham,ON,L3R 4G5,3,0,
+CH-VC-25471,v:e1a47edb1c6bc507,MULTI-HEALTH SYSTEMS INC. | MULTI-HEALTH SYSTEMS INC.,,,,Extranjero,,3,0,
+CH-VC-25472,v:b5aff15bdb8625ee,McDonald Dettwiller Associates Geospatial Services Inc. (MDA GSI Inc.),,,"Richmond, BC",,V6V 2J3,3,0,
+CH-VC-25473,v:9b5c04ee5e3db65f,FOKABS INC,,,,,,3,0,
+CH-VC-25474,v:7d5528587a2baa16,Satlantic Inc,,,Halifax,NS,B3K 5X8,3,0,
+CH-VC-25475,v:78a22c9a93b16657,Kinaxis Inc.,KINAXIS INC.,8826595,Ottawa,ON,,3,0,
+CH-VC-25476,v:d24f94c8c6f74643,S&P Robotics Inc.,,,North York,ON,M3J2V8,3,0,sprobotics.ca sprobotics.com s-p-robotics.ca s-p-robotics.com
+CH-VC-25477,v:1c797cbfaa35b5fe,Microsoft Store,MICROSOFT CANADA INC.,1168494905,Mississauga,ON,L5N 8L9,3,0,microsoftstore.ca microsoftstore.com microsoft-store.ca microsoft-store.com microsoftcanada.ca microsoftcanada.com
+CH-VC-25478,v:6037b3cbeb39dc35,Association des pharmaciens du Canada,,,Ottawa,ON,K1G3Y6,3,0,
+CH-VC-25479,v:b20fa78084e6d73e,One 45 Software Inc,,,Vancouver,BC,V6B2Z6,3,0,
+CH-VC-25480,v:b8bfc26502b5b9b9,"CHUBB EDWARDS, UTC FIRE & SECURITY",CHUBB FIRE & SECURITY CANADA CORPORATION,1166501933,HALIFAX,NS,B3J3R7,3,0,chubbedwardsutcfiresecurity.ca chubbedwardsutcfiresecurity.com chubbfiresecuritycanada.ca chubbfiresecuritycanada.com chubbfiresecurity.ca chubbfiresecurity.com
+CH-VC-25481,v:f3a586590897752a,Novadaq Technologies,NOVADAQ TECHNOLOGIES INC.,3748774,Mississauga,ON,L4W4T9,3,0,
+CH-VC-25482,v:de803964440f9070,SDM SPECIALTY HEALTH NETWORK INC.,,,MISSISSAUGA,ON,L4W 0A7,3,0,
+CH-VC-25483,v:a7524eefd54ad92c,Mallinckrodt Pharmaceuticals,MALLINCKRODT CANADA ULC,1168496116,Mississauga,ON,L5T 2E6,3,0,mallinckrodtpharmaceuticals.ca mallinckrodtpharmaceuticals.com mallinckrodt-pharmaceuticals.ca mallinckrodt-pharmaceuticals.com mallinckrodtcanada.ca mallinckrodtcanada.com
+CH-VC-25484,v:9cc41e3229a3e479,Gestion des communications Data Corp.,DATA COMMUNICATIONS MANAGEMENT CORP.,1169788040,Brampton,ON,L6S 6H2,3,0,
+CH-VC-25485,v:bb2b964e85cac750,Ge Health Care Canada Inc.,,,Mississauga,ON,L5N5P9,3,0,gehealthcarecanada.ca gehealthcarecanada.com gehealthcare.ca gehealthcare.com ge-health-care-canada.ca ge-health-care-canada.com
+CH-VC-25486,v:a285b356489e629e,OZMOSIS RESEARCH INC,,,Toronto,ON,m5h 2m5,3,0,
+CH-VC-25487,v:b83e5f542dcf8908,FEMCARE CANADA,,,MISSISSAUGA,ON,L5T2L5,3,0,
+CH-VC-25488,v:20e3671b36ca5db9,Red Hat Canada Ltd.,,,Toronto,ON,M4P2Y3,3,0,
+CH-VC-25489,v:3e9d9a638c4ad953,Lashley + Associates,LASHLEY + Associates Corporation,1172206642,Ottawa,ON,K1Y3E6,3,0,
+CH-VC-25490,v:6e898ba2218e6b56,CBSC CAPITAL INC.,CBSC CAPITAL INC.,1162187331,OAKVILLE,ON,L6L 0C4,3,0,
+CH-VC-25491,v:0cb12466812a904a,Gradient Wind Engineering Inc,GRADIENT WIND ENGINEERING INC.,4356632,Ottawa,ON,K0A1L0,3,0,
+CH-VC-25492,v:8a79f6cfe459fd51,Association canadienne d'éducation,CANADIAN EDUCATION ASSOCIATION,1085611,Toronto,ON,M4T 1N5,3,0,
+CH-VC-25493,v:0c8797cb66052e3b,Ca Technologies,1603059 B.C. Unlimited Liability Company,1170958111,Mississauga,ON,L4W 4V9,3,0,
+CH-VC-25494,v:4b7b401fc534cf31,Instron an ITW Company,,,Caledonia,ON,N3W 1E4,3,0,
+CH-VC-25495,v:d12eb697b718156b,Marcan,,,,ON,K2P1A9,3,0,
+CH-VC-25496,v:877fea53b05aefd0,MDA Pharmaceuticals,,,Mississauga,ON,L5N 7X9,3,0,
+CH-VC-25497,v:6b409c332aec254d,Prolucid Technologies Inc.,,,Mississauga,ON,L4Z3K3,3,0,
+CH-VC-25498,v:042897f38dfdd814,Shell Energy North America,,,Toronto,ON,M2N6Y2,3,0,
+CH-VC-25499,v:cd469ad2019c1041,PKS Equipment & Engineering Inc,,,Ancaster,ON,L9G 4V5,3,0,
+CH-VC-25500,v:c864c9f3981f59f0,Solutions Logiciels Micro Focus Canada Cie,LOGICIELS ENTCO CANADA CIE,1172274384,Ottawa,ON,K2K3C9,3,0,
+CH-VC-25501,v:8478f83f482f4043,CAROL AUTOMOBILE LTD,,,Labrador City,NF,A2V2K6,3,0,
+CH-VC-25502,v:a2532abbddd9d7d6,THERMOPATCH CANADA INC,THERMOPATCH (CANADA) INC.,835226,Kitchener,ON,N2E2L6,3,0,
+CH-VC-25503,v:8ed3cc10c48c54ad,Technologies Pure Canada,TECHNOLOGIES PURE CANADA,1171529515,Mississauga,ON,l4w5k7,3,0,
+CH-VC-25504,v:a841d33592eeb658,Groupe Énergie Navicomm inc.,NAVICOMM ENERGY GROUP INC.,1166377698,Oakville,ON,L6M3E3,3,0,
+CH-VC-25505,v:9783658c4c41e9b5,AFRIQUE AU FÉMININ,AFRIQUE AU FÉMININ,1146555850,MONTREAL,AB,h3n1x1,3,0,
+CH-VC-25506,v:eec2d4aafbefd966,idemia,"IDEMIA Identity & Security Canada, Inc.",1170632245,Montréal,ON,L6H 6G4,3,0,
+CH-VC-25507,v:1eacc307540507bd,Renishaw Canada Limited,RENISHAW (CANADA) LIMITED,4156439,Mississauga,ON,L5L1C7,3,0,
+CH-VC-25508,v:5fd2afcd52efca7c,Secours santé s.e.n.c,SECOURS SANTE S.E.N.C.,3374507880,Montréal,ON,H2E2Y6,3,0,
+CH-VC-25509,v:b61b7d351c17009f,TSG MEDICAL,,,St Catharines,ON,L2R2N6,3,0,
+CH-VC-25510,v:a68f7f4435a5a985,West Care Medical Ltd,WEST CARE MEDICAL LTD.,BC0517332,Coquitlan,BC,V3K6V2,3,0,
+CH-VC-25511,v:3597c0bb71b96403,Luminex Molecular Diagnostics,"LUMINEX MOLECULAR DIAGNOSTICS, INC.",1174168949,Toronto,ON,M5G 1Y8,3,0,
+CH-VC-25512,v:61731db8a49c3b01,Precision ADM,Precision ADM Inc.,1175049940,Winnipeg,MB,R3T1L9,3,0,
+CH-VC-25513,v:d78ec646245b4682,Lucinda technology solutions,,,Ottawa,ON,k1k4r4,3,0,
+CH-VC-25514,v:45d370cec134979c,THERMO FISHER SCIENTIFIC BIOSCIENCES CORP.,THERMO FISHER SCIENTIFIC (MISSISSAUGA) INC.,1167006205,BURLINGTON,ON,L7L5Z1,3,0,
+CH-VC-25515,v:d668f2ec12456b78,Roy Murcklen Industries - Romco,,,Ottawa,ON,K1B 3W4,3,0,

@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-20116,v:5add901a61833043,Slamac Construction,,,,,,25,0,
+CH-VC-20117,v:be6dbbe8c7210830,Built Tough Construction,,,,,,25,0,
+CH-VC-20118,v:c0f7fe31cad3e036,Tracey's Landscaping,,,,,,25,0,
+CH-VC-20119,v:8317094dd3020973,Asbestos Abatement Ltd.,,,,,,25,0,
+CH-VC-20120,v:db232bdff3590c20,Josh Bauer,,,,,,25,0,
+CH-VC-20121,v:1c2d8e9540baf6b8,Avalanche Metal Industries Ltd.,,,Kelowna,BC,,24,0,avalanchemetalindustries.ca avalanchemetalindustries.com avalanche-metal-industries.ca avalanche-metal-industries.com
+CH-VC-20122,v:c53b548ee026a645,Silvicon Services Inc.,SILVICON SERVICES INC.,BC1393181,Smithers,BC,,24,0,silviconservices.ca silviconservices.com silvicon-services.ca silvicon-services.com
+CH-VC-20123,v:d8ac3eed6b842d26,OTTAWA D SQUARED CONSTRUCTION LTD,OTTAWA D-SQUARED CONSTRUCTION LTD.,1170518691,Ottawa,ON,,24,0,ottawasquaredconstruction.ca ottawasquaredconstruction.com ottawa-squared-construction.ca ottawa-squared-construction.com constructionottawasquared.ca constructionottawasquared.com
+CH-VC-20124,v:8fe7688e26c55788,Wood Environment & Infrastructure Solutions,WSP E & I CANADA LIMITEE,1177597623,Saskatoon,SK,,24,0,wspeicanada.ca wspeicanada.com wspei.ca wspei.com wsp-e-i-canada.ca wsp-e-i-canada.com
+CH-VC-20125,v:0e209aa6e4c06186,Hermanns Contracting Limited,,,Schomberg,ON,L0G 1T0,24,0,hermannscontracting.ca hermannscontracting.com hermanns-contracting.ca hermanns-contracting.com
+CH-VC-20126,v:9e57b2c266d332f0,SRC Coating Systems Ltd.,,,Thunder Bay,ON,P7A4V9,24,0,srccoatingsystems.ca srccoatingsystems.com src-coating-systems.ca src-coating-systems.com
+CH-VC-20127,v:7536d0f794678f5d,Central Asphalt & Paving,,,Saskatoon,SK,,24,0,centralasphaltpaving.ca centralasphaltpaving.com central-asphalt-paving.ca central-asphalt-paving.com
+CH-VC-20128,v:948fdd2729357eed,Pneu Continental du Canada inc.,Powertrain Canada ULC,1144710606,Mississauga,ON,L5R3W5,24,0,pneucontinentalcanada.ca pneucontinentalcanada.com pneucontinental.ca pneucontinental.com pneu-continental-canada.ca pneu-continental-canada.com
+CH-VC-20129,v:e9c3d2ded3e6dacb,Johnson & Johnson Medical Products,Johnson & Johnson (Canada) Inc.,1177906618,Markham,ON,L3R 0T5,24,0,johnsonjohnsonmedicalproducts.ca johnsonjohnsonmedicalproducts.com johnsonjohnson.ca johnsonjohnson.com johnson-johnson.ca johnson-johnson.com
+CH-VC-20130,v:3a825d93a1250bed,"Siemens Medical Solutions Diagnostics, Inc.","SIEMENS MEDICAL SOLUTIONS DIAGNOSTICS, INC.",6646671,Mississauga,ON,L5T 1P2,24,0,
+CH-VC-20131,v:c6270bb46a1e4157,PMC Roofing Limited,,,,,,24,0,
+CH-VC-20132,v:5e5e6f2d42f2d8ad,J.A.Borden Enterprises Ltd.,,,,,,24,0,
+CH-VC-20133,v:33017f9e1ac2f1d3,Timbertec Inc.,,,,,,24,0,
+CH-VC-20134,v:18a8eb230e702f45,Shaw Resources,,,,,,24,0,
+CH-VC-20135,v:983af6f03201e5e7,Connors Basic Office Products,,,,,,24,0,
+CH-VC-20136,v:5611390989834d00,Basekamp Construction Corp.,,,Markham,ON,L3R 5M1,23,0,basekampconstruction.ca basekampconstruction.com basekamp-construction.ca basekamp-construction.com
+CH-VC-20137,v:4e0ecd633e72bf2d,Adias Impex Ltd.,,,Concord,ON,L4K 4B6,23,0,adiasimpex.ca adiasimpex.com adias-impex.ca adias-impex.com
+CH-VC-20138,v:36089c84b48f9716,Mapleridge Mechanical Contracting Inc,,,Pickering,ON,L1W1Z7,23,0,
+CH-VC-20139,v:66ee909a7ef8bc7f,Robert M Simon Construction Ltd,,,Waterford,ON,N0E 1Y0,23,0,robertmsimonconstruction.ca robertmsimonconstruction.com robert-m-simon-construction.ca robert-m-simon-construction.com
+CH-VC-20140,v:419630bcef594c28,SEE SUPPLIER NOTES,,,Brampton,ON,L6T4B9,23,0,
+CH-VC-20141,v:e84b570c1ef6aedb,MacFarlands,,,Dartmouth,NS,B3B 1L3,23,0,
+CH-VC-20142,v:ac01a78db40e95ba,WABTEC,WABTEC CANADA INC.,1144905842,STONEY CREEK,ON,L8E 2R2,23,0,wabtec.ca wabtec.com wabteccanada.ca wabteccanada.com wabtec-canada.ca wabtec-canada.com
+CH-VC-20143,v:c5cfc9beedff0efa,Eecol Electric Sask Inc,,,Saskatoon,SK,,23,0,eecolelectricsask.ca eecolelectricsask.com eecol-electric-sask.ca eecol-electric-sask.com
+CH-VC-20144,v:9260d94dd0c75d4a,Coloplast Canada Corp.,COLOPLAST CANADA CORPORATI0N,1161590550,Mississauga,ON,L5L 5Z9,23,0,coloplastcanada.ca coloplastcanada.com coloplast.ca coloplast.com coloplast-canada.ca coloplast-canada.com
+CH-VC-20145,v:8712386a7cbe2e38,Clean Water Works Inc. (CWW Réhabilitation),CLEAN WATER WORKS INC.,1164980162,Ottawa,ON,K1B5L6,23,0,cleanwaterworks.ca cleanwaterworks.com clean-water-works.ca clean-water-works.com
+CH-VC-20146,v:22cac0205c65062f,Sunrise Contracting Inc.,,,,,,23,0,
+CH-VC-20147,v:0ec2d5a8989353bf,A&F DiCarlo Construction Inc.,,,,,,23,0,
+CH-VC-20148,v:2e632af9bc580643,APM Construction Services,,,,,,23,0,
+CH-VC-20149,v:fa98ec332c6712a4,N.R. KENNEY LOGGING LTD.,,,,,,23,0,
+CH-VC-20150,v:4db9b2e45659bb43,Ryan Flooring Ltd.,,,,,,23,0,
+CH-VC-20151,v:ee1d773ecbbd3248,A & A Roofing Ltd,,,,,,23,0,
+CH-VC-20152,v:37713927715845ae,Interior Offroad Equipment Ltd,INTERIOR OFFROAD EQUIPMENT LTD.,BC0784236,Prince George,BC,,22,0,interioroffroadequipment.ca interioroffroadequipment.com interior-offroad-equipment.ca interior-offroad-equipment.com
+CH-VC-20153,v:da253d7a95ba4899,Sexton's Mechanical Limited,,,Barrie,ON,L4N 8Z7,22,0,sextonsmechanical.ca sextonsmechanical.com sextons-mechanical.ca sextons-mechanical.com
+CH-VC-20154,v:1c1aa9de8128709f,Dart Container Corporation,,,Toronto,ON,,22,0,dartcontainer.ca dartcontainer.com dart-container.ca dart-container.com
+CH-VC-20155,v:820344ce72deae06,Carl Bulloch Construction,,,LONG SAULT,ON,,22,0,carlbullochconstruction.ca carlbullochconstruction.com carl-bulloch-construction.ca carl-bulloch-construction.com
+CH-VC-20156,v:fd8524c08768c434,G&S Enterprises Ltd,,,Timmins,ON,P4N2H9,22,0,gsenterprises.ca gsenterprises.com g-s-enterprises.ca g-s-enterprises.com
+CH-VC-20157,v:7a235d4e090c342b,Torrent Energy Services Inc.,,,Weyburn,SK,,22,0,torrentenergyservices.ca torrentenergyservices.com torrent-energy-services.ca torrent-energy-services.com
+CH-VC-20158,v:4829725da9e73628,R & L Cleaners LTD,,,Gander,NL,A1V 2P6,22,0,rcleaners.ca rcleaners.com r-cleaners.ca r-cleaners.com
+CH-VC-20159,v:dcfd1274740cc3f5,Gabriel Construction Ltd.,,,Regina,SK,,22,0,gabrielconstruction.ca gabrielconstruction.com gabriel-construction.ca gabriel-construction.com
+CH-VC-20160,v:5d3d5070bead1097,Hope Aero Propeller & Components Inc.,,,Mississauga,ON,,22,0,hopeaeropropellercomponents.ca hopeaeropropellercomponents.com hope-aero-propeller-components.ca hope-aero-propeller-components.com
+CH-VC-20161,v:be179a06292bb580,Kongsberg,,,Mount Pearl,NL,,22,0,kongsberg.ca kongsberg.com
+CH-VC-20162,v:67cfdc363b879cbb,KMC Plumbing Ltd.,,,Regina,SK,,22,0,kmcplumbing.ca kmcplumbing.com kmc-plumbing.ca kmc-plumbing.com
+CH-VC-20163,v:341a96369e4ed6e4,Philips Medical Systems Canada,VITALITÉ PHILIPS (DIVISION),1166356130,Markham,ON,L6C 2S3,22,0,philipsmedicalsystemscanada.ca philipsmedicalsystemscanada.com philipsmedicalsystems.ca philipsmedicalsystems.com philips-medical-systems-canada.ca philips-medical-systems-canada.com
+CH-VC-20164,v:806e7d12b66606df,Eli Lilly Canada Inc.,ELI LILLY CANADA INC.,1143783000,Toronto,ON,M1N 2E8,22,0,elilillycanada.ca elilillycanada.com elililly.ca elililly.com eli-lilly-canada.ca eli-lilly-canada.com
+CH-VC-20165,v:d03c6d4e0bef3b31,"BIOTRONIK Canada, Inc.",SOCIÉTÉ BIOTRONIK CANADA,1165942286,Toronto,ON,M9C 5L5,22,0,biotronikcanada.ca biotronikcanada.com biotronik.ca biotronik.com biotronik-canada.ca biotronik-canada.com
+CH-VC-20166,v:048c529a6ced335b,Siemens Canada - Siemens PTI,SIEMENS CANADA LIMITÉE,1161355988,Oakville,ON,L6H 0H6,22,0,siemenscanadasiemenspti.ca siemenscanadasiemenspti.com siemenssiemenspti.ca siemenssiemenspti.com siemens-canada-siemens-pti.ca siemens-canada-siemens-pti.com
+CH-VC-20167,v:d23d3c80a766cbae,Trinity Maintenance Solutions Limited,,,,,,22,0,
+CH-VC-20168,v:d82586fa13fdb91b,Ridgemark Construction & Design Limited,,,,,,22,0,
+CH-VC-20169,v:51f507ebc3a05c27,Advocate Printing,,,,,,22,0,
+CH-VC-20170,v:fd715d4757236c50,IOTA Construction Ltd.,IOTA CONSTRUCTION LTD.,BC0302426,Chilliwack,BC,,21,0,iotaconstruction.ca iotaconstruction.com iota-construction.ca iota-construction.com
+CH-VC-20171,v:cfbd39dad3b5ef74,C.D. Nova Ltd,C.D. NOVA LTD.,BC0155413,Burnaby,BC,,21,0,cnova.ca cnova.com c-nova.ca c-nova.com
+CH-VC-20172,v:b7f76d6dcb616fa8,The Elizabeth Fry Society of Greater Vancouver,THE ELIZABETH FRY SOCIETY OF GREATER VANCOUVER,S0003705,New Westminster,BC,,21,0,
+CH-VC-20173,v:24fbdca3d9b9a1e8,Ecora Engineering & Resource Group Ltd.,,,Kelowna,BC,,21,0,ecoraengineeringresourcegroup.ca ecoraengineeringresourcegroup.com
+CH-VC-20174,v:b7742a6bf5dceb7b,MDC LAW ENFORCEMENT & MILITARY EQUIPMENT DISTRIBUTORS,MDC LAW ENFORCEMENT & MILITARY EQUIPMENT DISTRIBUTORS,FM0760967,,BC,,21,0,
+CH-VC-20175,v:310bd37b1ab23d4c,KEL Holdings Inc,,,YORKTON,SK,,21,0,kelholdings.ca kelholdings.com kel-holdings.ca kel-holdings.com
+CH-VC-20176,v:776fba0ec6301976,Coco Paving Inc.,GIP PAVING INC.,1165861502,Petersburg,ON,,21,0,cocopaving.ca cocopaving.com coco-paving.ca coco-paving.com gippaving.ca gippaving.com
+CH-VC-20177,v:2f5dd0d60f6013c8,E. & E. Seegmiller Limited,,,Kitchener,ON,N2H 6G1,21,0,
+CH-VC-20178,v:b44e9c6859c1e4cc,Etude Architects Inc.,,,Toronto,ON,M3B 1T1,21,0,etudearchitects.ca etudearchitects.com etude-architects.ca etude-architects.com
+CH-VC-20179,v:fd9a0ba42f744d80,Dulux Paints,,,Regina,SK,,21,0,duluxpaints.ca duluxpaints.com dulux-paints.ca dulux-paints.com
+CH-VC-20180,v:912bd83057293ab2,Bowman Electric Incorporated,,,Kenora,ON,P9N 3X8,21,0,
+CH-VC-20181,v:5f601ee8de160811,Site Management Services Regina Inc.,,,Regina,SK,,21,0,sitemanagementservicesregina.ca sitemanagementservicesregina.com
+CH-VC-20182,v:eb780bf3d658efbd,Cantel (Canada) Inc.,Cantel Médical (Canada),1174271495,Richmond Hill,ON,L4B 4W2,21,0,cantel.ca cantel.com
+CH-VC-20183,v:d24a9ec0f2246d4c,WS Nicholls Construction Inc.,,,,,,21,0,
+CH-VC-20184,v:a4982b5d5ac7b1eb,RKO Steel Limited,,,,,,21,0,
+CH-VC-20185,v:3ad0eecdedd845aa,Webster Bros Paving & Concrete Ltd,,,,,,21,0,
+CH-VC-20186,v:360d68e99b6052ea,Martin Developments,,,,,,21,0,
+CH-VC-20187,v:383d6372fc9a7d70,Liteco,,,,,,21,0,
+CH-VC-20188,v:af760f44be84a82a,Arrowsmith Road Maintenance Ltd.,ARROWSMITH ROAD MAINTENANCE LTD.,BC0567129,Victoria,BC,,20,0,arrowsmithroadmaintenance.ca arrowsmithroadmaintenance.com arrowsmith-road-maintenance.ca arrowsmith-road-maintenance.com
+CH-VC-20189,v:6f4fb854a4293ee5,Sorenson Excavating Ltd.,SORENSON EXCAVATING LTD.,BC0429236,Castlegar,BC,,20,0,sorensonexcavating.ca sorensonexcavating.com sorenson-excavating.ca sorenson-excavating.com
+CH-VC-20190,v:38b2b4d725dff3d1,Seal Tec Industries Ltd.,SEAL TEC INDUSTRIES LTD.,BC0440752,Langley,BC,,20,0,sealtecindustries.ca sealtecindustries.com seal-tec-industries.ca seal-tec-industries.com
+CH-VC-20191,v:d44c990c03ccd7bd,Scalar Decisions Inc.,SCALAR DECISIONS INC.,1170849807,Vancouver,BC,,20,0,scalardecisions.ca scalardecisions.com scalar-decisions.ca scalar-decisions.com
+CH-VC-20192,v:c75de460de55a0ae,Stevensville Lawn Service Inc.,,,Stevensville,ON,L0S 1S0,20,0,stevensvillelawnservice.ca stevensvillelawnservice.com stevensville-lawn-service.ca stevensville-lawn-service.com
+CH-VC-20193,v:0e2f1115c82e1d3f,P3Architecture Partnership,,,Regina,SK,,20,0,p3architecturepartnership.ca p3architecturepartnership.com p3architecture-partnership.ca p3architecture-partnership.com
+CH-VC-20194,v:9f0d208cf30f99c2,JL International,3755151 Canada Ltd.,1175081752,Richmond Hill ,ON,,20,0,jlinternational.ca jlinternational.com jl-international.ca jl-international.com groupeaffinitycanada.ca groupeaffinitycanada.com
+CH-VC-20195,v:608f33072d44b0e3,Stinson Equipment Ltd.,STINSON EQUIPMENT LIMITED,602281,Woodbridge ON ,ON,,20,0,stinsonequipment.ca stinsonequipment.com stinson-equipment.ca stinson-equipment.com
+CH-VC-20196,v:da39b54e9b68aebc,Jack Cewe Construction Ltd.,JACK CEWE CONSTRUCTION LTD.,BC1191187,Coquitlam,BC,V3K1K5,20,0,jackceweconstruction.ca jackceweconstruction.com jack-cewe-construction.ca jack-cewe-construction.com
+CH-VC-20197,v:1dc9e1afaadedc98,B. M. Ross and Associates Limited,,,Goderich,ON,N7A 2T4,20,0,bmrossassociates.ca bmrossassociates.com b-m-ross-associates.ca b-m-ross-associates.com
+CH-VC-20198,v:0215da6d229eed0d,G Tackaberry & Sons Construction Company Limited,CONSTRUCTION G. TACKABERRY ET FILS LTÉE,1148411292,Athens,ON,K0E1B0,20,0,gtackaberrysonsconstruction.ca gtackaberrysonsconstruction.com g-tackaberry-sons-construction.ca g-tackaberry-sons-construction.com constructiongtackaberryfils.ca constructiongtackaberryfils.com
+CH-VC-20199,v:4d905f89cad4d87d,Pete's Backhoe Service Ltd.,,,Rosslyn,ON,P7K0C8,20,0,petesbackhoeservice.ca petesbackhoeservice.com petes-backhoe-service.ca petes-backhoe-service.com
+CH-VC-20200,v:365a17ae878da793,Rockingham Electric,,,Dartmouth,NS,B3B1X4,20,0,
+CH-VC-20201,v:2f51d09c02383671,G J CAHILL,,,St. John's ,NL,E2J 4W2,20,0,gjcahill.ca gjcahill.com g-j-cahill.ca g-j-cahill.com
+CH-VC-20202,v:41baafe96c5d33f5,Black Rock Construction Group,,,St. Johns,NL,A1K 3G3,20,0,blackrockconstructiongroup.ca blackrockconstructiongroup.com black-rock-construction-group.ca black-rock-construction-group.com
+CH-VC-20203,v:2df5af2bd9be6575,A ROHLING CONSTRUCTION SERVICES INC,,,Cumberland,ON,K4C 1N8,20,0,
+CH-VC-20204,v:fbb111caa4a0bf23,UAP Inc o/a Traction,,,St. John's,NL,,20,0,traction.ca traction.com
+CH-VC-20205,v:ce3f261ea0e5a024,Pre-Con Ltd.,,,Saskatoon,SK,,20,0,precon.ca precon.com pre-con.ca pre-con.com
+CH-VC-20206,v:0c511e6b842c4380,Independent Choice Distribution,,,Regina,SK,,20,0,independentchoicedistribution.ca independentchoicedistribution.com
+CH-VC-20207,v:d6edd79fd69252cd,FORD DU CANADA LIMITÉE,"FORD MOTOR COMPANY OF CANADA, LIMITED",1146438586,,ON,L6J5E4,20,0,fordcanada.ca fordcanada.com ford.ca ford.com ford-canada.ca ford-canada.com
+CH-VC-20208,v:1bcb78798140b97b,LYNDEN INTERNATIONAL LOGISTICS,,,BURLINGTON,ON,L7R 4X3,20,0,lyndeninternationallogistics.ca lyndeninternationallogistics.com lynden-international-logistics.ca lynden-international-logistics.com
+CH-VC-20209,v:e4fa35cee60ce4aa,Man B&W Diesel Canada Ltd.,,,Oakville,ON,L6K 3V7,20,0,manbwdieselcanada.ca manbwdieselcanada.com manbwdiesel.ca manbwdiesel.com man-b-w-diesel-canada.ca man-b-w-diesel-canada.com
+CH-VC-20210,v:225459e830c5d592,Fire Stop Enterprises,,,,,,20,0,
+CH-VC-20211,v:6db261c730d6b92e,Scotia Emergency Vehicle Systems Incorporated,,,,,,20,0,
+CH-VC-20212,v:adfeaea797c1bb7a,Bremner's Plumbing and Heating,,,,,,20,0,
+CH-VC-20213,v:6d46ee6278dbbf20,FINLEY BROPHY TRUCKING LTD,,,,,,20,0,
+CH-VC-20214,v:28f694b03ffe4dc6,Multiple bidders,,,,,,20,0,
+CH-VC-20215,v:6311c4918e9cca2b,Wishbone Industries Ltd,WISHBONE INDUSTRIES LTD.,BC1587878,Langley,BC,,19,0,wishboneindustries.ca wishboneindustries.com wishbone-industries.ca wishbone-industries.com

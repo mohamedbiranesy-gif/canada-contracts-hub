@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-12316,v:abaa811d7b63082b,Slalom Consulting,,,Toronto,ON,M5H 2C9,1,1,
+CH-VC-12317,v:9d7ce43d9213fb2b,TEKsystems Global Services Corp,,,Ottawa,ON,K1P 5H2,1,1,
+CH-VC-12318,v:e38d8d3f5b40cc19,Security Management Services,,,TORONTO,ON,M4L 1G1,1,1,
+CH-VC-12319,v:bd17d2a055168ce2,Prolite Glass and Mirrors.Inc,,,Ottawa,ON,K1B 4X3,1,1,
+CH-VC-12320,v:13b0413be49114ef,Amphibious Construction Ltd.,Amphibious Construction Ltd.,10985392,Anola,MB,R5L 0B2,1,1,
+CH-VC-12321,v:64f3a5a0c6209970,7Eleven Canada,,,Surrey,BC,V3T 0C3,1,1,
+CH-VC-12322,v:dc07cdab8f9b588f,SCT Welding,,,Winnipeg,MB,R3H 0P4,1,1,
+CH-VC-12323,v:a099702dbc0f6f63,Andgo Systems,,,Saskatoon,SK,S7M 1M4,1,1,
+CH-VC-12324,v:f820d59202b0ad0c,Ultimate Software,,,Toronto,ON,M5S 1M4,1,1,
+CH-VC-12325,v:71fec954af578ed8,Cityscape Displays,,,Toronto,ON,L5L 5Y1,1,1,
+CH-VC-12326,v:a6168d76a65ca9f6,TxtSquad,,,St. John's,NL,,1,1,txtsquad.ca txtsquad.com
+CH-VC-12327,v:b26801d2b650c4d3,Government Frameworks,,,Edmonton,AB,,1,1,governmentframeworks.ca governmentframeworks.com government-frameworks.ca government-frameworks.com
+CH-VC-12328,v:af860cce6b846fc1,Isologic,,,Toronto,ON,,1,1,isologic.ca isologic.com
+CH-VC-12329,v:bd8f5395316b53bb,Maekit Canada UlC,,,Calgary,AB,,1,1,maekitcanada.ca maekitcanada.com maekit.ca maekit.com maekit-canada.ca maekit-canada.com
+CH-VC-12330,v:29512c26c740615a,Watertrax Inc.,Watertrax Inc.,3752267,Vancouver,BC,,1,1,watertrax.ca watertrax.com
+CH-VC-12331,v:d12fd577803403d6,Air Liquide ULC,,,Mount Pearl,NL,,1,1,airliquide.ca airliquide.com air-liquide.ca air-liquide.com
+CH-VC-12332,v:891238e85337b028,66857 Newfoundland and Labrador Inc.,,,St. John's,NL,,1,1,
+CH-VC-12333,v:d2bedef4d3fdfc63,JT Martin,,,St. John's,NL,,1,1,jtmartin.ca jtmartin.com jt-martin.ca jt-martin.com
+CH-VC-12334,v:1cccb6f2dd668b72,Village Shopping Centre (2006) INC.,,,Bedford,NS,,1,1,villageshoppingcentre.ca villageshoppingcentre.com village-shopping-centre.ca village-shopping-centre.com
+CH-VC-12335,v:e309eead4e954fa5,Security Solutions NL Inc.,,,St. John's,NL,,1,1,securitysolutionsnl.ca securitysolutionsnl.com security-solutions-nl.ca security-solutions-nl.com
+CH-VC-12336,v:c444a18d2153b453,Dockridge Digital Inc.,,,St. John's,NL,,1,1,dockridgedigital.ca dockridgedigital.com dockridge-digital.ca dockridge-digital.com
+CH-VC-12337,v:73a3853e2b670f66,92487 Newfoundland & Labrador Limited,,,Torbay,NL,,1,1,
+CH-VC-12338,v:6dc83b3830c2a2cd,Newcomp Analytics/Pellera,,,Toronto,ON,,1,1,newcompanalyticspellera.ca newcompanalyticspellera.com newcomp-analytics-pellera.ca newcomp-analytics-pellera.com
+CH-VC-12339,v:a28973c9446e0eb7,New Wave Ventures Inc.,,,St. John's,NL,,1,1,newwaveventures.ca newwaveventures.com new-wave-ventures.ca new-wave-ventures.com
+CH-VC-12340,v:cadae67a7a8eb292,Carolyn E. Burry,,,St. John's,NL,,1,1,carolyneburry.ca carolyneburry.com carolyn-e-burry.ca carolyn-e-burry.com
+CH-VC-12341,v:a3e5d1acc09e8bc4,Mobia Technologies Innovations,,,Dartmouth,NS,,1,1,mobiatechnologiesinnovations.ca mobiatechnologiesinnovations.com mobia-technologies-innovations.ca mobia-technologies-innovations.com
+CH-VC-12342,v:adcfecedde062083,WC Janitorial Services Ltd,,,L'anse Aux Loup,NL,,1,1,wcjanitorialservices.ca wcjanitorialservices.com wc-janitorial-services.ca wc-janitorial-services.com
+CH-VC-12343,v:b667f2dda957019b,Powell's Electrical Ltd.,,,Gander,NL,,1,1,powellselectrical.ca powellselectrical.com powells-electrical.ca powells-electrical.com
+CH-VC-12344,v:837631c17ee79fed,SST Canada Inc.,,,Toronto,ON,,1,1,sstcanada.ca sstcanada.com sst-canada.ca sst-canada.com
+CH-VC-12345,v:ec877f6210f566c6,Space Saver Solutions,,,Aurora,ON,,1,1,spacesaversolutions.ca spacesaversolutions.com space-saver-solutions.ca space-saver-solutions.com
+CH-VC-12346,v:7650a5fb1bfd9b68,Fitzpatrick's Auctioning,,,St. John's,NL,,1,1,fitzpatricksauctioning.ca fitzpatricksauctioning.com fitzpatricks-auctioning.ca fitzpatricks-auctioning.com
+CH-VC-12347,v:8f0432c43fff851a,University Health Network (UHN),,,Toronto,ON,,1,1,universityhealthnetwork.ca universityhealthnetwork.com university-health-network.ca university-health-network.com
+CH-VC-12348,v:12cabe1e8716f48d,PBO Industrial GFW,,,Grand Falls,NL,,1,1,pboindustrialgfw.ca pboindustrialgfw.com pbo-industrial-gfw.ca pbo-industrial-gfw.com
+CH-VC-12349,v:1480692a92d95f19,Alyssa's Property Services Pro. Inc.,,,St. John's,NL,,1,1,alyssaspropertyservicespro.ca alyssaspropertyservicespro.com alyssas-property-services-pro.ca alyssas-property-services-pro.com
+CH-VC-12350,v:8f89eec6dac98e0f,Modern Business Equipment Ltd. c/o De Lage Landen,,,St. John's,NL,,1,1,
+CH-VC-12351,v:15e089deb3fee8fb,Merative Canada Holdco,,,Mississauga,ON,,1,1,merativecanadaholdco.ca merativecanadaholdco.com merativeholdco.ca merativeholdco.com merative-canada-holdco.ca merative-canada-holdco.com
+CH-VC-12352,v:edf040d9920f5f94,Cordage and Development and Leasing Inc,,,St. John's,NL,,1,1,cordagedevelopmentleasing.ca cordagedevelopmentleasing.com cordage-development-leasing.ca cordage-development-leasing.com
+CH-VC-12353,v:8e1a2db62c25b516,Emerald Atlantic Group Inc,,,St. John's,NL,,1,1,emeraldatlanticgroup.ca emeraldatlanticgroup.com emerald-atlantic-group.ca emerald-atlantic-group.com
+CH-VC-12354,v:5a4dafee81f96d4f,ActivePure Medical,,,Bedford,NS,,1,1,activepuremedical.ca activepuremedical.com activepure-medical.ca activepure-medical.com
+CH-VC-12355,v:8d4b0a5aa8bfc1e4,Siemens Healthcare Limited (VARIAN),,,Winnipeg,MB,,1,1,siemenshealthcare.ca siemenshealthcare.com siemens-healthcare.ca siemens-healthcare.com
+CH-VC-12356,v:20f2cf8e6c74d44a,Varian (Siemens Healthcare Ltd),,,Winnipeg,MB,,1,1,varian.ca varian.com
+CH-VC-12357,v:1c61f136c9859faf,Northview (NPR GP Ltd.),,,Labrador City,NL,,1,1,northview.ca northview.com
+CH-VC-12358,v:a7b3b12b9323649c,Town of Humber Arm South-Benoit's Cove,,,Humber Arm South- Benoit's Cove,NL,,1,1,townhumberarmsouthbenoitscove.ca townhumberarmsouthbenoitscove.com
+CH-VC-12359,v:cce631a2bcdd7ae5,Hamlet of Fort Liard,,,Fort Liard,NT,,1,1,hamletfortliard.ca hamletfortliard.com hamlet-fort-liard.ca hamlet-fort-liard.com
+CH-VC-12360,v:47c84746d9702ce7,Energy Management & Regulatory Frameworks,,,Calgary,AB,,1,1,
+CH-VC-12361,v:97ee007907349ea5,Tulita Development Ltd.,,,Tulita,NT,,1,1,tulitadevelopment.ca tulitadevelopment.com tulita-development.ca tulita-development.com
+CH-VC-12362,v:ec530af841c6360e,Salt River First Nation Development,,,Fort Smith,NT,,1,1,
+CH-VC-12363,v:17a41a01c0504919,4947 NWT Ltd.,,,Fort Smith,NT,,1,1,
+CH-VC-12364,v:2dbbf0a0b7f915c0,Strongest Families Institute,Strongest Families Institute,7901178,Bedford,NS,,1,1,strongestfamiliesinstitute.ca strongestfamiliesinstitute.com strongest-families-institute.ca strongest-families-institute.com linstitutfamillessolides.ca linstitutfamillessolides.com
+CH-VC-12365,v:cc0d877b35c8f195,Fort Good Hope Renewable Resources,,,Fort Good Hope,NT,,1,1,fortgoodhoperenewableresources.ca fortgoodhoperenewableresources.com
+CH-VC-12366,v:9bfc2be76cf895c7,Evergreen Forestry Limited Partnership,,,Hay River,NT,,1,1,evergreenforestrypartnership.ca evergreenforestrypartnership.com evergreen-forestry-partnership.ca evergreen-forestry-partnership.com
+CH-VC-12367,v:230546a4b0933696,Deton'Cho Construction Services Ltd.,,,Yellowknife,NT,,1,1,detonchoconstructionservices.ca detonchoconstructionservices.com detoncho-construction-services.ca detoncho-construction-services.com
+CH-VC-12368,v:8cd875ae72990b4b,Canadian Helicopters Limited/Helicoptere,,,Yellowknife,NT,,1,1,canadianhelicoptershelicoptere.ca canadianhelicoptershelicoptere.com helicoptershelicoptere.ca helicoptershelicoptere.com
+CH-VC-12369,v:f043ac923f67e62d,IDC Construction,,,Inuvik,NT,,1,1,idcconstruction.ca idcconstruction.com idc-construction.ca idc-construction.com
+CH-VC-12370,v:51e6ab78300bf5be,LikeMinds Consulting Inc,,,Cheticamp,NS,,1,1,likemindsconsulting.ca likemindsconsulting.com likeminds-consulting.ca likeminds-consulting.com
+CH-VC-12371,v:fad4f0d9c44131be,S. James Maclure Prof Corporation,,,Edmonton,AB,,1,1,sjamesmaclureprof.ca sjamesmaclureprof.com s-james-maclure-prof.ca s-james-maclure-prof.com
+CH-VC-12372,v:a47a76a4575f9d87,Computer Environment Solutions,,,Calgary,AB,,1,1,computerenvironmentsolutions.ca computerenvironmentsolutions.com computer-environment-solutions.ca computer-environment-solutions.com
+CH-VC-12373,v:96708498841e1f5f,Behdzi Ahda First Nation,,,Colville Lake,NT,,1,1,behdziahdafirstnation.ca behdziahdafirstnation.com behdzi-ahda-first-nation.ca behdzi-ahda-first-nation.com
+CH-VC-12374,v:8a00ce6142016e9c,Renascent Foundation Inc.,,,Toronto,ON,,1,1,renascentfoundation.ca renascentfoundation.com renascent-foundation.ca renascent-foundation.com
+CH-VC-12375,v:cd0e99230bb27264,Aventa Centre of Excellence,,,Calgary,AB,,1,1,aventacentreexcellence.ca aventacentreexcellence.com aventa-centre-excellence.ca aventa-centre-excellence.com
+CH-VC-12376,v:0279f3e8acd1a467,Kistawaw Family Treatment/ Reunification,,,Lethbridge,AB,,1,1,
+CH-VC-12377,v:ed789067ccf49385,Wellspring Quality Care Inc.,,,Edmonton,AB,,1,1,wellspringqualitycare.ca wellspringqualitycare.com wellspring-quality-care.ca wellspring-quality-care.com
+CH-VC-12378,v:a93376ddaf50b258,Hope Inclusion and Disabilities Services,,,Calgary,AB,,1,1,
+CH-VC-12379,v:a92fcaa663bf1081,Advanced DataSystems Ltd.,,,Saskatoon,SK,,1,1,advanceddatasystems.ca advanceddatasystems.com advanced-datasystems.ca advanced-datasystems.com
+CH-VC-12380,v:973ca1612de428c2,Amirco Enterprises Ltd.,,,Inuvik,NT,,1,1,amircoenterprises.ca amircoenterprises.com amirco-enterprises.ca amirco-enterprises.com
+CH-VC-12381,v:e12a59b43e977184,PLEA Community Services Society of,,,Vancouver,BC,,1,1,pleacommunityservicessociety.ca pleacommunityservicessociety.com
+CH-VC-12382,v:988cc79dba09d3f7,Ever Bright Complex Needs Support,,,Airdrie,AB,,1,1,everbrightcomplexneedssupport.ca everbrightcomplexneedssupport.com
+CH-VC-12383,v:559568ccceba8ff6,Parkland Community Living &,,,Red Deer,AB,,1,1,parklandcommunityliving.ca parklandcommunityliving.com parkland-community-living.ca parkland-community-living.com
+CH-VC-12384,v:363289c354269c03,Excel Resources Society,,,Edmonton,AB,,1,1,excelresourcessociety.ca excelresourcessociety.com excel-resources-society.ca excel-resources-society.com
+CH-VC-12385,v:2108630fd644d26e,I Have A Chance Support Services Ltd,,,Stony Plain,AB,,1,1,ihavechancesupportservices.ca ihavechancesupportservices.com i-have-chance-support-services.ca i-have-chance-support-services.com
+CH-VC-12386,v:ada8307844cc57d0,Tlicho Services & Convenience,,,Behchoko,NT,,1,1,tlichoservicesconvenience.ca tlichoservicesconvenience.com tlicho-services-convenience.ca tlicho-services-convenience.com
+CH-VC-12387,v:a9752a677c93e939,North of 60 Commercial Excellence,,,Yellowknife,NT,,1,1,north60commercialexcellence.ca north60commercialexcellence.com north-60-commercial-excellence.ca north-60-commercial-excellence.com
+CH-VC-12388,v:b5b23e1a82d6b6a9,Northern Mosaic Network,,,Yellowknife,NT,,1,1,northernmosaicnetwork.ca northernmosaicnetwork.com northern-mosaic-network.ca northern-mosaic-network.com
+CH-VC-12389,v:03a08fe3e4fcf887,Sepulveda Consulting Inc.,SEPULVEDA CONSULTING INC.,6514413,Toronto,ON,,1,1,sepulvedaconsulting.ca sepulvedaconsulting.com sepulveda-consulting.ca sepulveda-consulting.com
+CH-VC-12390,v:0b34c3eacee229be,Freshwater Fish Marketing Corporation,OFFICE DE COMMERCIALISATION DU POISSON D'EAU DOUCE,8814188106,Winnipeg,MB,,1,1,freshwaterfishmarketing.ca freshwaterfishmarketing.com freshwater-fish-marketing.ca freshwater-fish-marketing.com
+CH-VC-12391,v:6d5edfa7b2a1e912,Nanzu Demolition & Environmental Ltd.,,,Inuvik,NT,,1,1,nanzudemolitionenvironmental.ca nanzudemolitionenvironmental.com nanzu-demolition-environmental.ca nanzu-demolition-environmental.com
+CH-VC-12392,v:adce90c30b9ef9dd,Denesoline Corporation Ltd.,,,Lutselk'e,NT,,1,1,denesoline.ca denesoline.com
+CH-VC-12393,v:836b212b400ac4d5,Integrated Complex Care Homes Inc.,,,Airdrie,AB,,1,1,integratedcomplexcarehomes.ca integratedcomplexcarehomes.com integrated-complex-care-homes.ca integrated-complex-care-homes.com
+CH-VC-12394,v:519efa3deb105159,ATBA Van Can Ltd,,,Paulatuk,NT,,1,1,atbavancan.ca atbavancan.com atba-van-can.ca atba-van-can.com
+CH-VC-12395,v:1a3eb9adadd45f57,Fort Smith Metis Council,,,Fort Smith,NT,,1,1,fortsmithmetiscouncil.ca fortsmithmetiscouncil.com fort-smith-metis-council.ca fort-smith-metis-council.com
+CH-VC-12396,v:2391ce12514aab1d,McKenna Funeral Services Ltd.,,,Yellowknife,NT,,1,1,mckennafuneralservices.ca mckennafuneralservices.com mckenna-funeral-services.ca mckenna-funeral-services.com
+CH-VC-12397,v:865db4dbb3c09c40,Matonabee Petroleum Ltd.,MATONABEE PETROLEUM LTD.,3099423,Yellowknife,NT,,1,1,matonabeepetroleum.ca matonabeepetroleum.com matonabee-petroleum.ca matonabee-petroleum.com
+CH-VC-12398,v:b54c217199c60926,Forcorp Solutions Inc.,,,Edmonton,AB,,1,1,forcorpsolutions.ca forcorpsolutions.com forcorp-solutions.ca forcorp-solutions.com
+CH-VC-12399,v:843d7365e6cf768a,Aurora College,,,Yellowknife,NT,,1,1,auroracollege.ca auroracollege.com aurora-college.ca aurora-college.com
+CH-VC-12400,v:d3786344db46727d,Pelican Rapids Developments Ltd.,,,Fort Smith,NT,,1,1,pelicanrapidsdevelopments.ca pelicanrapidsdevelopments.com pelican-rapids-developments.ca pelican-rapids-developments.com
+CH-VC-12401,v:74f119993e9ab7a4,Office Compliments Ltd.,,,Yellowknife,NT,,1,1,officecompliments.ca officecompliments.com office-compliments.ca office-compliments.com
+CH-VC-12402,v:308b8c62e098834b,Ottawa Heart Institute Research Corporation,OTTAWA HEART INSTITUTE RESEARCH CORPORATION -,2728982,Ottawa,ON,,1,1,ottawaheartinstituteresearch.ca ottawaheartinstituteresearch.com
+CH-VC-12403,v:0a32b44e084a33e0,Carino Processing Ltd.,,,Dildo,NL,,1,1,carinoprocessing.ca carinoprocessing.com carino-processing.ca carino-processing.com
+CH-VC-12404,v:7852208e20c8c62b,Detan' Cho Tourist Camp,,,Fort Resolution,NT,,1,1,detanchotouristcamp.ca detanchotouristcamp.com detan-cho-tourist-camp.ca detan-cho-tourist-camp.com
+CH-VC-12405,v:a684d020f5d1b1ee,International Fur Dressers & Dyers,,,Winnipeg,MB,,1,1,internationalfurdressersdyers.ca internationalfurdressersdyers.com
+CH-VC-12406,v:c5d002fa0e4d66a4,Tlicho Adventures Ltd.,,,Yellowknife,NT,,1,1,tlichoadventures.ca tlichoadventures.com tlicho-adventures.ca tlicho-adventures.com
+CH-VC-12407,v:4c8b7019b33e29f1,Hamlet of Aklavik,,,Aklavik,NT,,1,1,hamletaklavik.ca hamletaklavik.com hamlet-aklavik.ca hamlet-aklavik.com
+CH-VC-12408,v:1c35cd2c5b58db18,Hamlet of Fort McPherson,,,Fort McPherson,NT,,1,1,hamletfortmcpherson.ca hamletfortmcpherson.com hamlet-fort-mcpherson.ca hamlet-fort-mcpherson.com
+CH-VC-12409,v:ad5a7c8eb5db9359,Lucy's B & B,,,Jean Marie River,NT,,1,1,lucysbb.ca lucysbb.com lucys-b-b.ca lucys-b-b.com
+CH-VC-12410,v:fd01135dea05a7c3,Lutsel K'e Co-op,,,Lutsel K'e,NT,,1,1,lutselkeop.ca lutselkeop.com lutsel-ke-op.ca lutsel-ke-op.com
+CH-VC-12411,v:882b874b6cce6868,Mike's Tourism and Expediting Services,,,Wrigley,NT,,1,1,mikestourismexpeditingservices.ca mikestourismexpeditingservices.com
+CH-VC-12412,v:11f1c6bfbfc3a58b,Nogha - Rowe's Limited Partnership,,,Fort Simpson,NT,,1,1,nogharowespartnership.ca nogharowespartnership.com nogha-rowes-partnership.ca nogha-rowes-partnership.com
+CH-VC-12413,v:18b7b849f152c33e,Tetlit Zheh Development Corporation,,,Fort McPherson,NT,,1,1,tetlitzhehdevelopment.ca tetlitzhehdevelopment.com tetlit-zheh-development.ca tetlit-zheh-development.com
+CH-VC-12414,v:f0f93ce0738b1c34,"Laycock, Janice",,,Yellowknife,NT,,1,1,laycockjanice.ca laycockjanice.com laycock-janice.ca laycock-janice.com
+CH-VC-12415,v:8307e53bd8fe08dd,"Vanhantsaeme, Jerry",,,Yellowknife,NT,,1,1,vanhantsaemejerry.ca vanhantsaemejerry.com vanhantsaeme-jerry.ca vanhantsaeme-jerry.com

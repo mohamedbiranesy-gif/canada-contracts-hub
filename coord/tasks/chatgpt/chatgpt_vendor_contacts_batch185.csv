@@ -1,0 +1,101 @@
+task_id,vendor_key,vendor_name,legal_name_in_registry,registry_id,city,province,postal_code,contracts_in_dataset,contracts_high_or_medium_confidence,domains_already_tried
+CH-VC-18416,v:cb7e0c305e4e27d5,12372266 Canada Inc.,12372266 Canada Inc.,12372266,Hamilton,Ontario,L8P 1B2,1,1,
+CH-VC-18417,v:418da0bebd311c50,13940080 Canada Inc.,13940080 Canada Inc.,13940080,Kanata,Ontario,K2T 1C1,1,1,
+CH-VC-18418,v:d9c73aec84b7bec4,1601827 B.C. LTD.,1601827 B.C. LTD.,BC1601827,Vancouver,British Columbia,V6C 2W2,1,1,
+CH-VC-18419,v:f9a2311ea052c607,2681295 Ontario Inc.,,,Toronto,Ontario,M1R 3C3,1,1,
+CH-VC-18420,v:e3f9f30f357feab0,3 Points in Space Media Ltd,,,Ear Falls,Ontario,P0V 1T0,1,1,3pointsinspacemedia.ca 3pointsinspacemedia.com 3-points-in-space-media.ca 3-points-in-space-media.com
+CH-VC-18421,v:d5b9e4e311f13b83,AA Aero,,,Vaughan,Ontario,L6A 0V2,1,1,aaaero.ca aaaero.com aa-aero.ca aa-aero.com
+CH-VC-18422,v:a226410f3373e4e6,ABRO Manufacturing Inc,,,Kitchener,Ontario,N2B 3E6,1,1,abromanufacturing.ca abromanufacturing.com abro-manufacturing.ca abro-manufacturing.com
+CH-VC-18423,v:2a68f54e53704266,ACME Testing and Consulting (2023) Inc.,,,Grimsby,Ontario,L3M 0K2,1,1,acmetestingconsulting.ca acmetestingconsulting.com acme-testing-consulting.ca acme-testing-consulting.com
+CH-VC-18424,v:d5b96bee205185d6,AIRBOTS Defense Systems Inc.,,,Toronto,Ontario,M5A 0Z5,1,1,airbotsdefensesystems.ca airbotsdefensesystems.com airbots-defense-systems.ca airbots-defense-systems.com
+CH-VC-18425,v:5d2a74d292f45859,AIRMARKET INC.,,,Edmonton,Alberta,t5h 2t6,1,1,airmarket.ca airmarket.com
+CH-VC-18426,v:7ff520939924939f,"Armo-Tool Limited, Abuma Manufacturing (2017) Limited, IN JOINT VENTURE",,,London,Ontario,N6P 1P2,1,1,
+CH-VC-18427,v:a9326c9da5ebcc7b,Automation Toronto,,,BRAMPTON,Ontario,L6P 1S2,1,1,automationtoronto.ca automationtoronto.com automation-toronto.ca automation-toronto.com
+CH-VC-18428,v:0c2ba43a41a4150c,Avok Systems Inc.,Avok Systems Inc.,18073520,North York,Ontario,M2M 3W2,1,1,avoksystems.ca avoksystems.com avok-systems.ca avok-systems.com
+CH-VC-18429,v:469e84d799c56273,Awtij Energy Inc.,,,Dartmouth,Nova Scotia,b2w 4x6,1,1,awtijenergy.ca awtijenergy.com awtij-energy.ca awtij-energy.com
+CH-VC-18430,v:0c881967830e8a7e,Axon Dynamics,Axon Dynamics Inc.,17974850,Etobicoke,Ontario,M8V 0E5,1,1,axondynamics.ca axondynamics.com axon-dynamics.ca axon-dynamics.com
+CH-VC-18431,v:e73046b7e6d50f67,Ali Ayoub,,,mississauga,Ontario,L4Z 4C1,1,1,aliayoub.ca aliayoub.com ali-ayoub.ca ali-ayoub.com
+CH-VC-18432,v:aa25bd3a346babff,ALISON RYDER,,,Kingston,Ontario,K7K 1Y6,1,1,alisonryder.ca alisonryder.com alison-ryder.ca alison-ryder.com
+CH-VC-18433,v:db599934039c7e6f,AnalyzePro Consulting Inc,AnalyzePro Consulting Inc.,9174290,Mississauga,Ontario,L5N 7W2,1,1,analyzeproconsulting.ca analyzeproconsulting.com analyzepro-consulting.ca analyzepro-consulting.com
+CH-VC-18434,v:5bd286ce6f51e100,CENGN-Centre of Excellence in Next Generation Networks,CENGN - Centre of Excellence in Next Generation Networks,9013385,Ottawa,Ontario,K1R 0A5,1,1,
+CH-VC-18435,v:963df1c947db1433,Centennial College of Applied Arts and Technology,,,Toronto,Ontario,M1G 3T8,1,1,
+CH-VC-18436,v:b3dc77a5af7004aa,CryptoMill Cybersecurity Solutions,,,Toronto,Ontario,M5A 4J5,1,1,
+CH-VC-18437,v:ac84e2146993b5c5,CybernetIQ,"CYBERNETIQ, INC.",7109806,Burlington,Ontario,L7L 4P1,1,1,cybernetiq.ca cybernetiq.com
+CH-VC-18438,v:d2bc7be8329f66ee,Davout Analytics Inc.,,,Kitchener,Ontario,N2P 2N3,1,1,davoutanalytics.ca davoutanalytics.com davout-analytics.ca davout-analytics.com
+CH-VC-18439,v:4b3b5554c696efdd,BRIDGE BUILDING GROUP INC,Bridge Building Group Inc.,12817951,Ottawa,Ontario,K1P 5H2,1,1,bridgebuildinggroup.ca bridgebuildinggroup.com bridge-building-group.ca bridge-building-group.com
+CH-VC-18440,v:e268cb970fe0c6c9,Gray Matters Connections Inc,,,Bedford,Nova Scotia,B4A 4M5,1,1,graymattersconnections.ca graymattersconnections.com gray-matters-connections.ca gray-matters-connections.com
+CH-VC-18441,v:c297ecb86a9e78f2,HarjTech Solution Inc.,,,WINNIPEG,Manitoba,R3W 0H8,1,1,harjtechsolution.ca harjtechsolution.com harjtech-solution.ca harjtech-solution.com
+CH-VC-18442,v:29e1893b2e43dbea,J Scott Broughton Consulting Inc.,J Scott Broughton Consulting Inc.,7064471,Ottawa,Ontario,K2G 0J3,1,1,jscottbroughtonconsulting.ca jscottbroughtonconsulting.com j-scott-broughton-consulting.ca j-scott-broughton-consulting.com
+CH-VC-18443,v:43a369e9b891dba4,KJN INFO DESIGN LTD,,,Ottawa,Ontario,K2H 5T3,1,1,kjninfodesign.ca kjninfodesign.com kjn-info-design.ca kjn-info-design.com
+CH-VC-18444,v:e8203f43907add94,"KPMG LLP, KPMG ADVISORY LP / KPMG SERVICES-CONSEILS SOCIÉTÉ EN COMMAN DITÉ, IN JOINT VENTURE",,,Ottawa,Ontario,K2P 2P8,1,1,
+CH-VC-18445,v:4238b93e394022e7,Mace Consultancy (Canada) Limited,Mace Consultancy (Canada) Limited,1175622951,Toronto,Ontario,M2H 1W8,1,1,maceconsultancy.ca maceconsultancy.com mace-consultancy.ca mace-consultancy.com
+CH-VC-18446,v:2eda39aca14566e6,maven executive coaching Inc.,maven executive coaching Inc.,12342162,Stittsville,Ontario,K2S 3G3,1,1,mavenexecutivecoaching.ca mavenexecutivecoaching.com maven-executive-coaching.ca maven-executive-coaching.com
+CH-VC-18447,v:5adceafa0adef7d3,One Stop Stack Inc.,One Stop Stack Inc.,14960173,Etobicoke,Ontario,M9B 6K5,1,1,onestopstack.ca onestopstack.com one-stop-stack.ca one-stop-stack.com
+CH-VC-18448,v:4c417ca125635bad,Duxion Motors Inc.,,,St. John's,Newfoundland and Labrador,A1B 2C7,1,1,duxionmotors.ca duxionmotors.com duxion-motors.ca duxion-motors.com
+CH-VC-18449,v:608918753c39b1cc,EarthEx Geophysical Solutions,,,Selkirk,Manitoba,R1A 0C3,1,1,earthexgeophysicalsolutions.ca earthexgeophysicalsolutions.com earthex-geophysical-solutions.ca earthex-geophysical-solutions.com
+CH-VC-18450,v:bcc9c234336cd0ef,Elevated Posture Incorporated,ELEVATED POSTURE INCORPORATED,11118633,Kanata,Ontario,K2L 2G6,1,1,elevatedposture.ca elevatedposture.com elevated-posture.ca elevated-posture.com
+CH-VC-18451,v:469709ffc1a80536,EOS Aero Inc.,EOS Aero Inc.,1181519175,Ottawa,Ontario,K1P 6L5,1,1,eosaero.ca eosaero.com eos-aero.ca eos-aero.com
+CH-VC-18452,v:5e008a290fa3d2e9,FireSafe AI Inc,FIRESAFE AI INC.,16692753,Edmonton,Alberta,T5J 3G1,1,1,firesafeai.ca firesafeai.com firesafe-ai.ca firesafe-ai.com
+CH-VC-18453,v:0bb870b7ab0be73b,Flibe Global Consulting Corp,,,Mississauga,Ontario,L5B 1N1,1,1,flibeglobalconsulting.ca flibeglobalconsulting.com flibe-global-consulting.ca flibe-global-consulting.com
+CH-VC-18454,v:fc93243a57fbdb22,Fruitbloom Canadian Resources / Ressources Canadiennes Fruitbloom Inc.,,,Barrie,Ontario,L4N 0E2,1,1,
+CH-VC-18455,v:ba8ab65a99ea6ffd,Galadriel Tech Solutions Inc.,,,Conception Bay South,Newfoundland and Labrador,A1X 7P4,1,1,galadrieltechsolutions.ca galadrieltechsolutions.com galadriel-tech-solutions.ca galadriel-tech-solutions.com
+CH-VC-18456,v:18090cd1ba03b1cf,GBATTERIES ENERGY CANADA INC,GBATTERIES ENERGY CANADA INC.,8992819,Ottawa,Ontario,K2E 0B9,1,1,gbatteriesenergycanada.ca gbatteriesenergycanada.com gbatteriesenergy.ca gbatteriesenergy.com gbatteries-energy-canada.ca gbatteries-energy-canada.com
+CH-VC-18457,v:14f72f5afc7a05fe,HSB SOLUTIONS LTD.,,,Regina,Saskatchewan,S4P 3N6,1,1,hsbsolutions.ca hsbsolutions.com hsb-solutions.ca hsb-solutions.com
+CH-VC-18458,v:2d0f4edb528f5c40,Innovation Centre of the North Inc.,Innovation Centre of the North Inc.,17803087,Winnipeg,Manitoba,R3C 3Z3,1,1,innovationcentrenorth.ca innovationcentrenorth.com innovation-centre-north.ca innovation-centre-north.com
+CH-VC-18459,v:77a524716c03bff8,Juno Industries Inc.,,,Vancouver,British Columbia,V6E 4G2,1,1,junoindustries.ca junoindustries.com juno-industries.ca juno-industries.com
+CH-VC-18460,v:9f0effd1b6dffdac,Hypersonica Inc,Hypersonica Inc.,18137722,Toronto,Ontario,M5K 0A1,1,1,hypersonica.ca hypersonica.com
+CH-VC-18461,v:40fc6a8a3f968929,Inertion Dynamics Systems Inc.,INERTION DYNAMICS SYSTEMS INC.,BC1547388,Vancouver,British Columbia,V6G 3B7,1,1,inertiondynamicssystems.ca inertiondynamicssystems.com inertion-dynamics-systems.ca inertion-dynamics-systems.com
+CH-VC-18462,v:6e72edd7a9eeae39,Keytechs Software Innovation & Solutions Limited,KEYTECHS SOFTWARE INNOVATION & SOLUTIONS LIMITED,BC1142421,LADYSMITH,British Columbia,V9G 1Z6,1,1,
+CH-VC-18463,v:4b243137a324ba3a,Aeroview Technologies Inc.,,,Oakville,Ontario,L6M 1H4,1,1,aeroviewtechnologies.ca aeroviewtechnologies.com aeroview-technologies.ca aeroview-technologies.com
+CH-VC-18464,v:20121fc9b7a1a371,Ripple Research & Strategy Inc.,Ripple Research & Strategy Inc.,16324134,Halifax,Nova Scotia,B3L 1Z2,1,1,rippleresearchstrategy.ca rippleresearchstrategy.com ripple-research-strategy.ca ripple-research-strategy.com
+CH-VC-18465,v:c4623d84b424a9ce,Spark Trust Inc.,Spark Trust Inc.,16398731,Gloucester,Ontario,K1T 1H8,1,1,sparktrust.ca sparktrust.com spark-trust.ca spark-trust.com
+CH-VC-18466,v:1d1d879cd55167ec,Susan Fletcher,,,Nepean,Ontario,K2E 6E8,1,1,susanfletcher.ca susanfletcher.com susan-fletcher.ca susan-fletcher.com
+CH-VC-18467,v:9987990a1cc6025d,TLD SERVICES INC.,,,Edmonton,Alberta,T6E 3S3,1,1,tldservices.ca tldservices.com tld-services.ca tld-services.com
+CH-VC-18468,v:55ec791fdb377697,Wild Matriarch Inc.,Wild Matriarch Inc.,11709313,Tiverton,Ontario,N0G 2T0,1,1,wildmatriarch.ca wildmatriarch.com wild-matriarch.ca wild-matriarch.com
+CH-VC-18469,v:59b402b57fbc7c1b,Noctilucent Corporation,Noctilucent Corporation,16080189,Vancouver,British Columbia,V6H 1E1,1,1,noctilucent.ca noctilucent.com
+CH-VC-18470,v:97c5538ac45f19e2,Northfield Systems INC,NORTHFIELD SYSTEMS INC.,BC1583706,Vancouver,British Columbia,V6C 1E5,1,1,northfieldsystems.ca northfieldsystems.com northfield-systems.ca northfield-systems.com
+CH-VC-18471,v:09d48800266621e0,Northwatch Technologies Inc,Northwatch Technologies Inc.,18082642,Nanaimo,British Columbia,V9X 1C2,1,1,northwatchtechnologies.ca northwatchtechnologies.com northwatch-technologies.ca northwatch-technologies.com
+CH-VC-18472,v:fe38fd7392d62b89,"Novo Cognition, Inc","Novo Cognition, Inc.",17286180,Oxford Mills,Ontario,K0G 1S0,1,1,novocognition.ca novocognition.com novo-cognition.ca novo-cognition.com
+CH-VC-18473,v:56bfecee6a674487,Parnus Global Trading Corporation,PARNUS GLOBAL TRADING CORPORATION,BC0668154,Richmond,British Columbia,V6V 3C9,1,1,parnusglobaltrading.ca parnusglobaltrading.com parnus-global-trading.ca parnus-global-trading.com
+CH-VC-18474,v:866463f1d26b55dd,Polaryn Solutions Inc.,Polaryn Solutions Inc.,7838913,Halifax,Nova Scotia,B2Y 4T5,1,1,polarynsolutions.ca polarynsolutions.com polaryn-solutions.ca polaryn-solutions.com
+CH-VC-18475,v:bf5ffc7dedf40850,Prairie Agricultural Machinery Institute (PAMI),,,Humboldt,Saskatchewan,S0K 2A0,1,1,
+CH-VC-18476,v:00fe710000b66b68,Ravencore Corporation,Ravencore Corp.,17803737,Ottawa,Ontario,K2K 3P3,1,1,ravencore.ca ravencore.com
+CH-VC-18477,v:97b06311f9c89c29,SectorNorth Battlefield Solutions Inc.,SectorNorth Battlefield Solutions Inc.,18035083,Calgary,Alberta,T2G 0Z5,1,1,
+CH-VC-18478,v:a1152dc9bc3b12fd,SHI Infrastructure Inc.,,,Toronto,Ontario,M5R 3N5,1,1,shiinfrastructure.ca shiinfrastructure.com shi-infrastructure.ca shi-infrastructure.com
+CH-VC-18479,v:44e85dea70a2b4a1,Silver Armour Canada Inc,,,Mississauga,Ontario,L4Z 3P5,1,1,silverarmourcanada.ca silverarmourcanada.com silverarmour.ca silverarmour.com silver-armour-canada.ca silver-armour-canada.com
+CH-VC-18480,v:8885f5427e3f8984,Solar Electric Systems Ltd,,,North York,Ontario,M6A 1J8,1,1,solarelectricsystems.ca solarelectricsystems.com solar-electric-systems.ca solar-electric-systems.com
+CH-VC-18481,v:54deddab56bfd33c,Sound Inference,,,Peterborough,Ontario,K9H 4N4,1,1,soundinference.ca soundinference.com sound-inference.ca sound-inference.com
+CH-VC-18482,v:157cd4ebff620086,"Gyronautic Technologies Inc,",,,Ottawa,Ontario,K1T 3N4,1,1,gyronautictechnologies.ca gyronautictechnologies.com gyronautic-technologies.ca gyronautic-technologies.com
+CH-VC-18483,v:193e86aebdf61710,Space Engine Systems,,,Edmonton,Alberta,T6R 3L6,1,1,spaceenginesystems.ca spaceenginesystems.com space-engine-systems.ca space-engine-systems.com
+CH-VC-18484,v:8332ab1e074fdcfd,SpatialOne Research Inc.,,,Fredericton,New Brunswick,E3B 6Z3,1,1,spatialoneresearch.ca spatialoneresearch.com spatialone-research.ca spatialone-research.com
+CH-VC-18485,v:c974bd7576fad1c7,SPEAK & ACT INC.,SPEAK & ACT INC.,A0138825,VANCOUVER,British Columbia,V6P 0H7,1,1,speakact.ca speakact.com speak-act.ca speak-act.com
+CH-VC-18486,v:095d52f7bc44b065,Sustainable Infrastructure Group Ltd.,,,Spruce Grove,Alberta,T7X 3B2,1,1,sustainableinfrastructuregroup.ca sustainableinfrastructuregroup.com
+CH-VC-18487,v:0dd24ae5f5eee6e5,TAIL RISK SYSTEMS SOLUTIONS LTD,,,Calgary,Alberta,T2P 0R3,1,1,tailrisksystemssolutions.ca tailrisksystemssolutions.com tail-risk-systems-solutions.ca tail-risk-systems-solutions.com
+CH-VC-18488,v:d04b88c95f525e52,Talos Robotics Inc,Talos Robotics Inc.,18095990,Vancouver,British Columbia,V5K 1T3,1,1,talosrobotics.ca talosrobotics.com talos-robotics.ca talos-robotics.com
+CH-VC-18489,v:c7f8227e2e16c035,Tarkka Manufacturing Solutions Inc.,Tarkka Manufacturing Solutions Inc.,14543572,Calgary,Alberta,T2P 1N2,1,1,tarkkamanufacturingsolutions.ca tarkkamanufacturingsolutions.com tarkka-manufacturing-solutions.ca tarkka-manufacturing-solutions.com
+CH-VC-18490,v:d0bbb3095598dea8,Volt Carbon Technologies Inc.,VOLT CARBON TECHNOLOGIES INC.,1169384816,Calgary,Alberta,T3K 2L2,1,1,voltcarbontechnologies.ca voltcarbontechnologies.com volt-carbon-technologies.ca volt-carbon-technologies.com carbonesaintjean.ca carbonesaintjean.com
+CH-VC-18491,v:c6be717264a8cee7,Voxelis Canada Corporation,VOXELIS CANADA CORPORATION,BC1408175,Richmond,British Columbia,V7B 1K3,1,1,voxeliscanada.ca voxeliscanada.com voxelis.ca voxelis.com voxelis-canada.ca voxelis-canada.com
+CH-VC-18492,v:27da9db6d4caa868,Xio Ai,XIO AI Inc.,17543816,Vaughan,Ontario,L6A 0B3,1,1,xioai.ca xioai.com xio-ai.ca xio-ai.com
+CH-VC-18493,v:7b054c57b3e71d8b,"ZenaTech, Inc.",,,Vancouver,British Columbia,V6Z 1S4,1,1,zenatech.ca zenatech.com
+CH-VC-18494,v:5a545c12132508b8,TELESAT LEO ULC,TELESAT LEO ULC,1179094470,Ottawa,Ontario,K2P 2P7,1,1,telesatleo.ca telesatleo.com telesat-leo.ca telesat-leo.com
+CH-VC-18495,v:f672bbd726e01d6a,Convergence X Inc.,Convergence X Corporation,11624717,Arnprior,Ontario,K7S 1K5,1,1,convergencex.ca convergencex.com convergence-x.ca convergence-x.com
+CH-VC-18496,v:a0b5282aa94d6f64,Des Nedhe Management Inc.,,,Saskatoon,Saskatchewan,S7T 0K1,1,1,nedhemanagement.ca nedhemanagement.com nedhe-management.ca nedhe-management.com
+CH-VC-18497,v:9130f9fb6443bb2c,FALKON AVIATION AND DEFENCE TECHNOLOGIES,,,GRIMSBY,Ontario,L3M 4X5,1,1,
+CH-VC-18498,v:a92e594f88f5cef2,Green Edge Computing Corp.,GREEN EDGE COMPUTING CORP.,BC1295476,Vancouver,British Columbia,V6B 4P7,1,1,greenedgecomputing.ca greenedgecomputing.com green-edge-computing.ca green-edge-computing.com
+CH-VC-18499,v:ab48cdf18d939788,Industrial SkyWorks Inc.,INDUSTRIAL SKYWORKS INC.,8681384,Toronto,Ontario,M4M 1S2,1,1,industrialskyworks.ca industrialskyworks.com industrial-skyworks.ca industrial-skyworks.com
+CH-VC-18500,v:84558254e0975097,NexusFauna Inc.,NexusFauna Inc.,17863055,Arnprior,Ontario,k7s 1g3,1,1,nexusfauna.ca nexusfauna.com
+CH-VC-18501,v:0e60314a56914b96,Shaper Automation Inc,Shaper Automation Inc.,7823355,Port Moody,British Columbia,V3H 5H1,1,1,shaperautomation.ca shaperautomation.com shaper-automation.ca shaper-automation.com
+CH-VC-18502,v:a12542ac1fa31448,Solversa Inc.,,,Toronto,Ontario,M6S 3H1,1,1,solversa.ca solversa.com
+CH-VC-18503,v:6673965fa5ed1991,"SVALTAR Aerospace, Defence, and IT Services Inc.","SVALTAR Aerospace, Defence, and IT Services Inc.",18135061,Ottawa,Ontario,K2T 1B2,1,1,
+CH-VC-18504,v:5fa5394639100747,Valence Industries Inc.,Valence Industries Inc.,17214723,Pemberton,British Columbia,V0N 2L1,1,1,valenceindustries.ca valenceindustries.com valence-industries.ca valence-industries.com
+CH-VC-18505,v:46edf4c1e8a7b3bb,OnDeck Fisheries AI,,,Vancouver,British Columbia,V6T 1Z4,1,1,ondeckfisheriesai.ca ondeckfisheriesai.com ondeck-fisheries-ai.ca ondeck-fisheries-ai.com
+CH-VC-18506,v:9253038ca6e88156,A-1 CARPET AND UPHOLSTERY CLEANING LTD.,,,DIEPPE,New Brunswick,E1A 7J6,1,1,1carpetupholsterycleaning.ca 1carpetupholsterycleaning.com 1-carpet-upholstery-cleaning.ca 1-carpet-upholstery-cleaning.com
+CH-VC-18507,v:b611ed3b925a858a,Shift Coastal Technologies Ltd.,Shift Coastal Technologies Ltd.,15466083,Nanaimo,British Columbia,V9X 1L7,1,1,shiftcoastaltechnologies.ca shiftcoastaltechnologies.com shift-coastal-technologies.ca shift-coastal-technologies.com
+CH-VC-18508,v:60194c5420a2084d,Englobe-Herold,,,Toronto,Ontario,M9W 6A2,1,1,englobeherold.ca englobeherold.com englobe-herold.ca englobe-herold.com
+CH-VC-18509,v:53b0b8ea05ab76a1,Tarkine North Inc,,,Calgary,Alberta,T2E 1H7,1,1,tarkinenorth.ca tarkinenorth.com tarkine-north.ca tarkine-north.com
+CH-VC-18510,v:f75e5c8f31bd2e9e,Sign Language Interpreting Associates Ottawa Inc.,,,Ottawa,Ontario,K2E 7J5,1,1,
+CH-VC-18511,v:77d47832baf29064,Sean Macalister,,,Burnaby,British Columbia,V5H 2N5,1,1,seanmacalister.ca seanmacalister.com sean-macalister.ca sean-macalister.com
+CH-VC-18512,v:4615a8b609d9897d,Linda Pogor,,,Fonthill,Ontario,L3E 0P2,1,1,lindapogor.ca lindapogor.com linda-pogor.ca linda-pogor.com
+CH-VC-18513,v:96c116ff487d7e98,Delsys Research Group Inc.,DELSYS RESEARCH GROUP INC.,1467301,Ottawa,Ontario,K2A1T9,1,1,delsysresearchgroup.ca delsysresearchgroup.com delsys-research-group.ca delsys-research-group.com
+CH-VC-18514,v:e887b6cc1ccdb2f9,"QMR STAFFING SOLUTIONS INCORPORATED, 3D GLOBAL ENTERPRISES INC. IN JOINT VENTURE",,,Ottawa,Ontario,K2P0R5,1,1,
+CH-VC-18515,v:8ef6ff8af0be5107,M. Latouche Enterprises Inc (MLE Inc),,,Winnipeg,Manitoba,R2V 4G8,1,1,mlatoucheenterprises.ca mlatoucheenterprises.com m-latouche-enterprises.ca m-latouche-enterprises.com
