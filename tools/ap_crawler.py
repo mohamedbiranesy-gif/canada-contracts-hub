@@ -320,14 +320,14 @@ def main():
             tasks = tasks[:a.limit]
         for pass_no, max_pages in ((1, 25), (2, 60), (3, 40)):
             todo = [t for t in tasks if (pass_no == 1 and t["buyer_key"] not in done) or
-                    (pass_no > 1 and done.get(t["buyer_key"], (0, ""))[0] < pass_no and done.get(t["buyer_key"], (0, ""))[1] == "nothing_found")]
+                    (pass_no > 1 and not t["buyer_key"].startswith(("wd:", "v:")) and done.get(t["buyer_key"], (0, ""))[0] < pass_no and done.get(t["buyer_key"], (0, ""))[1] == "nothing_found")]
             log("pass %d: %d sites" % (pass_no, len(todo)))
 
             def one(t, pass_no=pass_no, max_pages=max_pages):
                 if time.time() >= deadline:
                     return
                 try:
-                    result, pages, rows = crawl(t, max_pages, general=(pass_no == 3))
+                    result, pages, rows = crawl(t, max_pages, general=(pass_no == 3 or t["buyer_key"].startswith(("wd:", "v:"))))
                 except Exception as e:
                     result, pages, rows = "error:%s" % type(e).__name__, 0, []
                 save(t, pass_no, result, pages, rows)
