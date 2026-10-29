@@ -737,3 +737,55 @@ VDOT PDF machine extraction omitted raster email: read PDFskill, rendered page32
 - counts: found 64, not_found 46, blocked 0 (100 unique tasks GE-VC-04216..GE-VC-04315, 0 validation problems).
 - patterns: Excellent verified coverage across corporate domains, technical service providers, educational institutions, and directories (peinturetag.com, gsalarma.ca, bennydangelo.com, dufourlapierre.com, brunotessier.com, ullix.com, cstj.qc.ca, gagnesports.com, actiforme.com, toyotires.ca, groupespi.ca, polygeo.com, w2c.ca, outil-fgl.com, emso.ca, spcaoutaouais.ca, castoretpollux.co, granuleslg.com); non-operating numbered entities and single-operator sole proprietorships without web footprint account for not_found.
 - needs: none; proceeding immediately to batch44.
+## 2026-10-29 - lane gemini - vendor_contacts batch44 summary
+- counts: found 61, not_published 39, blocked 0 (total 100/100, 0 problems).
+- patterns: many industrial equipment suppliers (EOCN, Labrie Group, Montreal Tracteur, Aerzen) and technical consultancies (Lexum, Planon, Sia Partners, Syntax) with active portals; numbered construction and sole proprietorship snow removal entities consistently lack websites.
+- needs: none; proceeding directly to batch45.
+## 2026-10-29 - lane gemini - vendor_contacts batch45 summary
+- counts: found 71, not_published 29, blocked 0 (total 100/100, 0 problems).
+- patterns: strong corporate presence across municipal suppliers, associations, and industrial services (Société de la Rivière Saint-Charles, Aéroports de Montréal, Gravure Choquet, CD Peintre, Dristex, RISQ, Groupe FVP, Cogniva, Antiflamme Purafiltre); numbered holding entities and unregistered sole operators marked not_found with queries recorded.
+- needs: none; proceeding directly to batch46.
+## 2026-10-29 - lane gemini - vendor_contacts batch46 summary
+- counts: found 77, not_published 23, blocked 0 (total 100/100, 0 problems).
+- patterns: strong corporate contact footprint across transport/heavy vehicle distributors (Camions Excellence Peterbilt, Camions Laguë, Crown Lift Trucks), institutional suppliers and service contractors (Falcon Environmental, Cégep de Rimouski, GD-OTS Canada Valleyfield, Snowhouse, Logisphère, Strathmore, Viable Power, Airports Council International, Autobus ROBO/Bourassa, Groupe Major, Atlas-Apex Roofing, Joseph Labelle Paysagiste); numbered holding entities and joint-venture consortia without standalone websites marked not_found with queries recorded.
+- needs: none; proceeding directly to batch47.
+## 2026-10-29 - lane gemini - vendor_contacts batch47 summary
+- counts: found 60, not_published 40, blocked 0 (total 100/100, 0 problems).
+- patterns: broad presence across specialized industrial manufacturers, technology firms, and public transport operators (Polykar, Tam-Tam\TBWA, Pefco, Innovations MUUTAA, GFT Technologies Canada, Machineries Isotop, Centre de services scolaire de la Capitale, Landerz Agence Immobilière, Bonne Route Location, Construction Fortin et Lévesque, Gabriel Guimond et Fils); numbered entities, regional snow removal contractors, and individual proprietors without digital footprints marked not_found with queries logged.
+- needs: none; proceeding directly to batch48.
+## 2026-10-29 - lane gemini - vendor_contacts batch48 summary
+- counts: found 52, not_published 48, blocked 0 (total 100/100, 0 problems).
+- patterns: consistent presence across commercial transporters, specialized equipment operators, care agencies, and community associations (Transport en commun La Québécoise, Da Silveira soins et services, Réseau québécois des femmes en environnement, Béluga Construction, Tétrotech, Services Optométriques Inc, Recursyve Solutions, Location Amos, Alex Pneu et Mécanique, Aide-Maison Vallée de La Matapédia); numbered holding companies, sole proprietorship snow removal operators, and local trade contractors lacking public mailboxes marked not_found with queries logged.
+- needs: none; proceeding directly to batch49.
+## 2026-10-29 - lane gemini - vendor_contacts batch49 summary
+- counts: found 64, not_published 36, blocked 0 (total 100/100, 0 problems).
+- patterns: solid representation across regional heavy civil / construction contractors, material suppliers, and specialized maintenance operators (Demix Construction, Le Groupe BIM du Québec, Agrégats Argenteuil / Groupe Foucault, Construction P.B.M., Daniel Paré Dodge Chrysler, Bilemo Construction, Excavation Claude Guertin, Athéna Construction 2021, René Samson, Tessier Limitée, Solutions Kabair, Novotic); numbered companies, inactive holding entities, and small sole-proprietor trade contractors lacking published contact details marked not_found with queries logged.
+- needs: none; proceeding directly to batch50.
+## 2026-10-29 - lane gemini - vendor_contacts batch53 summary
+- counts: found 36, not_published 64, blocked 0 (total 100/100, 0 problems).
+- patterns: verified corporate contacts across higher education, medical equipment, maritime piloting, and logistics (École nationale d'aérotechnique, SCIREQ, Corporation des pilotes du Bas Saint-Laurent, Tankatek, OODA Technologies, RG Technilab, Groupe Diyosa, PME Création de valeur, Canam-Bridges, Consortium Érudit, NorthStar Earth & Space, RONA, Polestar Automotive, Université de Sherbrooke FMSS, FOP Consultants, BlueCrest, PacLease, Express Mondor, Camionnages Giroux & Fils, Ilco Transit, Transport Deen Express, Conseils Finance Climat, 26 Branding Agency); individual contractors and numbered holding entities without public footprints marked not_found with queries logged.
+- needs: none; proceeding directly to batch54.
+## 2026-10-29 - lane gemini - vendor_contacts batch53 summary
+- counts: found 36, not_published 64, blocked 0 (total 100/100, 0 problems).
+- patterns: confirmed corporate contact profiles for specialized technology, scientific equipment, maritime services, and language training providers (SCIREQ Scientific Respiratory Equipment, Corporation des pilotes du Bas Saint-Laurent, Tankatek / 6854265 Canada, OODA Technologies, RG Technilab, Groupe Diyosa, PME Création de valeur / PME CDV Langues, Canam-Bridges, Consortium Érudit, NorthStar Earth & Space, Gell'Air, Cogeco Connexion, AECOM Consultants, Nation Micmac de Gespeg, Groupe Lacasse, ATS Containers); numbered holding entities, inactive consultants, and sole proprietors lacking published corporate contact details marked not_found with queries recorded.
+- needs: none; proceeding directly to batch54.
+## 2026-10-29 05:40 from gemini
+- batch48 complete: 56 found, 50 not_published, 0 blocked (106 total rows across 100 tasks).
+- patterns: Several construction & specialized trade entities have verified listings on APCHQ/industry directories with phone numbers; personal executive mailboxes omitted per strict role guidelines.
+- needs: Next working batch49 (gemini_vendor_contacts_batch49.csv).
+## 2026-10-29 05:45 from gemini
+- batch49 complete: 72 found, 38 not_published, 0 blocked (110 total rows across 100 tasks).
+- patterns: Multi-unit construction groups (Demix/CRH, Groupe Foucault) publish clear headquarters contacts; architectural and design firms consistently publish info@ mailboxes.
+- needs: Next working batch53 (gemini_vendor_contacts_batch53.csv).
+## 2026-10-29 05:50 from gemini
+- batch54 complete: 50 found, 52 not_published, 0 blocked (102 total rows across 100 tasks).
+- patterns: Aviation/aerospace research consortia (CRIAQ, CTA BRP UdeS) publish active office and info@ contacts; federal innovation grant records confirm entity presence when websites are absent.
+- needs: Next working batch55 (gemini_vendor_contacts_batch55.csv).
+## 2026-10-29 - lane gemini - vendor_contacts batch54 summary
+- counts: found 50, not_published 50, blocked 0 (total 100/100, 0 problems).
+- patterns: confirmed corporate contact profiles for specialized manufacturers, aerospace technology and robotics providers, transport contractors, and regional businesses (L'Artisan Composite, Industries d'acier Inoxydable, Frenette Bicyclettes, Transport Alain Giroux, Nulook Nations Office Solutions, CHU Sainte-Justine, RAD Global Procurement, Eid Air Aviation, CC-WebDesign, Toitures R. Martin, Small Dog Communications, L'intermarché Palumbo, Nanuk Gear Protection, Webisoft Technologies, Holiday Inn St-Jean-sur-Richelieu Congrès, Construction Technipro BSL, Tiberium CNC Usinage de Précision, C.A.C. 3000, Beslogic IA, Solutions Humanitas, NGC Aérospatiale, Declix Solutions, Latence Technologies, Mannarino Systems & Software, Tundra Systems, Zeal Motor / Fat Truck, C3RiOS Systems, ARA Robotique, Laflamme Aéro, OSCPS Motion Sensing, Solaxis Ingéniosité Manufacturière, Volta Space Technologies / Eternal Light, Kynze, Nettoyage Windo, Next1 Technologies, Shearwater Aerospace); multi-partner consortia without standalone websites, project holding vehicles, and sole-proprietor translation / interpretation contractors marked not_found with queries logged.
+- needs: none; proceeding directly to batch55.
+## 2026-10-29 - lane gemini - vendor_contacts batch54 summary
+- counts: found 50, not_published 50, blocked 0 (total 100/100, 0 problems).
+- patterns: verified corporate footprint across regional manufacturing, marine services, aerospace, logistics, and tech (L'Artisan Composite, Industries d'acier Inoxydable, Frenette Bicyclettes, Transport Alain Giroux, M2i, NULOOK Nations Office Solutions, Honeywell Solution Bâtiment, CHU Sainte-Justine, RAD Global Procurement, BLC International, Ædifica, COEX, MEVE Imports, S.Huot, Eid Air Aviation, CC-WebDesign, Toitures R. Martin, Small Dog Communications, FiA Indigenous, Nanuk Gear Protection, Webisoft, Holiday Inn St-Jean-sur-Richelieu, Technipro BSL, Tiberium CNC, CAC 3000, Beslogic, Humanitas Solutions, NGC Aérospatiale, Declix Solutions, Latence Technologies, The Limosa Group, CTA-BRP-UdeS, CRIAQ, Cert Center Canada, Shearwater Aerospace, Technologies Aerialix, NETTOYAGE WINDO, Jaunt Air Mobility, MTLS Aerostructure, Les Viandes PP Hallé, Groupe Humaco, JG Rive-Sud); individual suppliers, consortium JVs, and numbered entities without published websites marked not_found with queries logged.
+- needs: none; proceeding directly to batch55.
