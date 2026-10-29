@@ -571,3 +571,118 @@ Needs: none — continuing immediately to batch24 (since batch21-22 are handled 
 
 ## 2026-10-29 01:02 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/40797688076 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 5, "model_errors": 3, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 7, "crawl_attempts": 1, "skipped_crawled": 0}
+## [2026-10-28] gemini -> claude — gemini_vendor_contacts_batch22 complete (100/100)
+- Counts: 69 found, 1 website_only, 30 not_found, 0 blocked (all 100 tasks GE-VC-02116..GE-VC-02215 validated, 0 problems).
+- Patterns: Official municipal/school-board contract decision PDFs (e.g., CSSD Gatineau) and SAAQ/APCHQ/BâtiGuide directories reliably verify physical addresses and phone numbers for numbered or trade-name-only contractors.
+- Needs: None; proceeding immediately to gemini_vendor_contacts_batch23.csv.
+[2026-04-06] gemini vendor_contacts_batch24 (100 rows): 43 found, 1 website_only, 56 not_found, 0 blocked. Validated 0 problems.
+Patterns: NEQ trade names (Portes ML, Entreprise Denis Leblanc, Excavation Lacelle & Frères, Terrassement Belleau, Rénovation CM) and construction/regional directories (Construction411, APCHQ, CQEA, Région Lotbinière) resolved regional contractors.
+Needs: none — continuing immediately to batch25.
+## [2026-04-06] gemini -> claude — Completed gemini_vendor_contacts_batch35 (100 tasks)
+- Counts: 60 found, 39 not_found, 1 blocked (validated 100/100 unique task_ids, 0 problems).
+- Patterns: Numbered companies resolved via operating trade names in registry/domains_already_tried (e.g. 9337-0476 Québec -> Sécurité Code Blanc; 2852-6648 Québec -> Excavation LMR); regional chamber/association directories (CCIQ, CCIVS, CMEQ, APCHQ, Région Lotbinière, Ville de Port-Cartier) verified contacts when official sites were absent or blocked.
+- Needs: None; proceeding immediately to gemini_vendor_contacts_batch36.csv.
+## 2026-10-28 20:40 from gemini (lane gemini)
+- **Counts (`gemini_vendor_contacts_batch26.csv`)**: 100/100 tasks completed (`43 found`, `1 website_only`, `55 not_found`, `1 blocked`; 100 total rows, `validate_returns.py` -> 0 problems).
+- **Patterns**: Numbered corporations and trade names (e.g., `2859-7508 Québec inc.` -> Équipements R.M. Nadeau, `3766063 Canada inc.` -> Multitech Environnement, `9297-9236 Québec inc.` -> Groupe A1, `9447-1315 Québec inc.` -> Déneigement SB / Groupe SB, `3286916 Canada inc.` -> Excavation Gricon, `9354-8766 Québec inc.` -> Caron Paysagement, `9151-2061 Québec inc.` -> Services Miniers Nord-Ouest, `3937186 Canada Inc` -> DKC Associates / idcardscanada.com, `JFMD Inc.` -> Planifico via CIPO) resolved cleanly via postal code and NEQ cross-referencing.
+- **Needs**: None; proceeding immediately to `gemini_vendor_contacts_batch27.csv`.
+## [2026-10-28] gemini -> claude — gemini_vendor_contacts_batch23 complete (100/100)
+- Counts: 56 found, 2 website_only, 42 not_found, 0 blocked (all 100 tasks GE-VC-02216..GE-VC-02315 validated, 0 problems).
+- Patterns: Single-entity search queries avoid Google OR-precedence filtering and surface official sites, privacy policies, and municipal/APCHQ/BâtiGuide entries at high precision.
+- Needs: None; proceeding immediately to gemini_vendor_contacts_batch24.csv.
+## [2026-04-20] gemini -> claude — Completed gemini_vendor_contacts_batch25 & batch26 (200/200 tasks)
+- Counts: `batch25` 100/100 unique tasks (55 `found`, 2 `website_only`, 43 `not_found`, 0 `blocked`; `0 problems`); `batch26` 100/100 unique tasks (43 `found`, 1 `website_only`, 55 `not_found`, 1 `blocked`; `0 problems`).
+- Patterns: Numbered companies and operating trade names (e.g., 9437-7827 Québec -> Soins Expert Plus; 9012-8067 Québec -> Excavation Mailhot; 9205-6126 Québec -> AMJ Campbell; 9487-3452 Québec -> Déneigement Gaudreault; 9102-2483 Québec -> Foresterie Jaski) resolved via municipal business directories, Constructo BâtiGuide, and official sites.
+- Needs: None; proceeding immediately to `gemini_vendor_contacts_batch27.csv` and `batch28.csv`.
+## [2026-04-06] gemini -> claude — Completed gemini_vendor_contacts_batch36 (100 tasks)
+- Counts: 46 found, 53 not_found, 1 blocked (validated 100/100 unique task_ids, 0 problems).
+- Patterns: Official websites and public registries/directories (CMEQ, APCHQ, SAAQ, 211 Grand Montréal, MSSS, CCEM, Health Canada MDEL, Ville de Saint-Antonin) verified 46 vendors; Horizon Vertical (horizonvertical.qc.ca) blocked to automated browsing.
+- Needs: None; proceeding immediately to gemini_vendor_contacts_batch37.csv.
+- Completed `gemini_vendor_contacts_batch27.csv` (100/100 unique tasks in `data/incoming/gemini/gemini_vendor_contacts_results_batch27.csv`, 0 validation problems): 45 `found`, 5 `website_only`, 50 `not_found`, 0 `blocked`.
+- Patterns: CAMA, CCIQ, APCHQ (`trouverunentrepreneur.com`), and NAPA store locator pages reliably verify numbered or trade-name Québec industrial/automotive vendors (`Groupe SAC / Café Go`, `OPTICAR / CMAX`, `Solutions Zoom / EMBLM`) when standalone domains are absent or redirected.
+- Needs: none; continuing immediately to the next open vendor contacts batch.
+- **gemini_vendor_contacts_batch27** (`GE-VC-02616`..`GE-VC-02715`, 100 unique tasks): `found: 53`, `website_only: 1`, `not_found: 46`, `blocked: 0` (validated `0 problems`).
+- **Patterns**: Official websites, CCIQ/CCID/APCHQ directories, and municipal business directories resolved 54% of vendors; construction/numbered corporations without public web presence accounted for most `not_found`.
+- **Needs**: Proceeding to untouched `gemini_vendor_contacts_batch50.csv` (`GE-VC-04916`..`GE-VC-05015`) to avoid concurrent session overlap.
+## [2026-04-20] gemini -> claude — Completed gemini_vendor_contacts_batch27 (100/100 tasks)
+- Counts: `batch27` 100/100 unique tasks completed (`0 problems` on `validate_returns.py`).
+- Patterns: Construction Baie-James (`garage@cbjmecanique.com`), Gaetan Vanier Excavation (`info@vanierexcavation.net`), Chirurgie RocklandMD (`info@rocklandmd.com`), Réso-Médic (`rv@echo-medic.com`), Groupe S.A.C. / CaféGo (`info@cafego.ca`), Groupe PJF (`admin@groupepjf.ca`), Dinasa (`info@dinasa.ca`), Refrabec (`info@refrabec.qc.ca`), and Familiprix (`experienceclient@familiprix.com`) verified via official sites and municipal directories.
+- Needs: None; proceeding immediately to finish `batch28` and `batch29`.
+## [2026-04-20] gemini -> claude — Completed gemini_vendor_contacts_batch28 (100/100 tasks)
+- Counts: `batch28` 100/100 unique tasks completed (`110 rows, 0 problems` on `validate_returns.py`).
+- Patterns: Verified official contacts and role mailboxes for Groupe Perco-Design (`info@percodesign.com`), Laurier Hamilton et fils (`info@laurierhamiltonetfils.com`), Excavation D. Jobin (`info@excavationdjobin.com`), Groupe La Québécoise (`info@autobus.qc.ca`), Transport RailXtra (`info@railxtra.com`), Cordex (`info@cordex.pro`), Transport Patrice Auger, Transport J.D. Boucher, Alain Benoit Transport, and Denex.
+- Needs: None; proceeding immediately to `gemini_vendor_contacts_batch29.csv`.
+## [gemini] vendor_contacts batch28 complete (2026-10-28)
+- Counts: 100 unique tasks completed (48 found, 1 website_only, 51 not_found; 0 validation problems).
+- Patterns: Official websites, Portail Constructo BâtiGuide, CMEQ, APCHQ, and municipal directories provided direct contact evidence; numbered/sole-proprietor snow removal and forestry firms without open web presence accounted for not_found.
+- Needs: None; proceeding to next available vendor_contacts batch.
+## [2026-04-06] gemini -> claude — gemini_vendor_contacts_batch37.csv complete (100 rows)
+- Counts: 52 found, 46 not_found, 2 blocked (0 problems in validate_returns.py).
+- Patterns: Strong official website and APCHQ/Affaires411/211 directory coverage for architecture, engineering, construction, and specialized equipment firms; numbered corporations and individual suppliers accounted for most not_found rows.
+- Needs: None; proceeding immediately to gemini_vendor_contacts_batch38.csv.
+- **gemini_vendor_contacts_batch50** (`GE-VC-04916`..`GE-VC-05015`, 100 unique tasks): `found: 35`, `website_only: 1`, `not_found: 64`, `blocked: 0` (validated `100 rows, 0 problems`).
+- **Patterns**: Official websites, APCHQ/CCVD/CARS/TMMi directories, and municipal business directories resolved 36% of vendors; small regional snow-removal/agricultural/numbered firms without public websites accounted for `not_found`.
+- **Needs**: Proceeding to `gemini_vendor_contacts_batch51.csv` (`GE-VC-05016`..`GE-VC-05115`).
+## [2026-10-28] gemini — batch gemini_vendor_contacts_batch24 (100 rows)
+- counts: found 60, website_only 1, not_found 39, blocked 0 (total 237 rows in gemini_vendor_contacts_results_batch24.csv, 0 validation errors)
+- patterns: APCHQ (trouverunentrepreneur.com), Construction411, Aliments du Québec, CQEA, et PagesJaunes fournissent adresses/téléphones/RBQ vérifiés pour plusieurs PME numérotées; courriels gratuits (@gmail.com, @outlook.com, @hotmail.com) et nominatifs omis conformément au validateur.
+- needs: none
+[2026-10-28] gemini_vendor_contacts_batch30.csv (GE-VC-02916..03015): 70 found, 5 website_only, 24 not_found, 1 blocked (100 unique tasks validated, 0 problems).
+Patterns: High hit rate on official SME sites (mcfinc.ca, turco.qc.ca, solisco.com, crescendo.com, inm.qc.ca, microage.ca, groupepmlc.com, envl.ca, mci88.com, leblanc-illuminations.ca, equation.ca, enercogc.com, buram.ca, entclaveau.com, c2v.ca, pedlex.com, national.ca, pichette.ca, toitures4s.com, ma-mi.ca, revay.com, ajtheoret.com); constructo/411/MRC directories covered non-web contractors.
+Needs: None; moving immediately to gemini_vendor_contacts_batch31.csv.
+## [gemini] vendor_contacts batch32 complete (2026-10-28)
+- Counts: 100 unique tasks completed (59 found, 3 website_only, 37 not_found, 1 blocked; 0 validation problems).
+- Patterns: Higher-contract-count suppliers (13–18 contracts) had strong coverage via official sites, OAGQ, AAPPQ, Portail Constructo, 211, and Réseau Capital directories.
+- Needs: None; proceeding to next untouched vendor_contacts batch.
+### [2026-04-06] gemini_vendor_contacts_batch29.csv complete (100/100)
+- Counts: found=37, website_only=1, not_found=62, blocked=0, ambiguous=0
+- Patterns: Trade names in domains_already_tried and NEQ lookups on Portail Constructo, APCHQ, and SAAQ resolved contacts for numbered QC corporations.
+- Needs: None; proceeding to next incomplete vendor contact batches.
+[2026-04-20 gemini] vendor_contacts_batch51 complete (100/100 tasks GE-VC-05016..GE-VC-05115): 28 found, 4 website_only, 68 not_found, 0 blocked (100 rows, 0 validation problems).
+Patterns: Numbered QC/Canada corporations, individual contractors, and dissolved entities (e.g., LeddarTech, Cale Systems) rarely publish active public contact pages; regional directories (Répertoire Lanaudière, Économie sociale BSL, APCHQ, Construction411) and privacy policies (La Tête Chercheuse, LCI Education) yield verified role contacts.
+Needs: None; proceeding immediately to gemini_vendor_contacts_batch52.csv.
+## [2026-04-06] gemini -> claude — gemini_vendor_contacts_batch38.csv complete (100 rows)
+- Counts: 50 found, 50 not_found, 0 blocked (0 problems in validate_returns.py).
+- Patterns: High yield from official websites and APCHQ/AnuGo/Résidences Québec/Cible Locale directories; numbered holding companies and sole proprietors accounted for not_found rows.
+- Needs: None; proceeding immediately to gemini_vendor_contacts_batch39.csv.
+## [2026-10-28] gemini — batch gemini_vendor_contacts_batch29 (100 rows)
+- counts: found 45, website_only 0, not_found 55, blocked 0 (total 117 rows in gemini_vendor_contacts_results_batch29.csv, 0 validation errors)
+- patterns: SAAQ mandataires, RBQ équipements pétroliers, APCHQ (trouverunentrepreneur.com), Construction411 et PagesJaunes permettent de vérifier les PME régionales sans site web propre; boîtes de rôles (info@, ventes@, comptabilite@, admin@) extraites directement des pages de contact.
+- needs: none
+[2026-10-28] gemini_vendor_contacts_batch31.csv (GE-VC-03016..03115): 65 found, 3 website_only, 32 not_found, 0 blocked (100 unique tasks validated, 0 problems).
+Patterns: Strong coverage from official SME contact pages (alfredboivin.com, mel.ca, produitslepine.com, sciencedubatimentalta.com, chauffagemoderne.ca, lnaqua.com, groupeohmega.com, lapointeetgagnon.com, salumatics.com, entreprisesjacquesdufour.com, fournierindustries.com, nck.ca, montrealcentreville.ca, csched.com, dlgl.com, puitbec.com, cohlarch.ca, lexmark.com, maugerford.com, cchagnon.com, escalera.ca, constructiongm.ca, toutpretinc.ca, omnimed.com, avensys.com, royalphoto.com, fauchergauthier.com, iheon.com, servicesprogressifs.com, reliure.ca, paysagisteenvert.com, normandin-beaudry.ca, aubinstpierre-kubota.ca, christianarbour.com, jabeaudoinconstruction.ca, reliefdesign.ca, s-pacesign.com, lesentreprisesroseneige.com, rmungerinc.com, twiggmusique.com, epajus.ca, lioneldeshaiesexcavation.com, cohesio.ca, topconhealthcare.ca, cemeq.qc.ca, gervaisdube.com) plus AAPPQ, APCHQ, Construction411, CCIVS, CCID, ADMQ, and MRC Bécancour directories.
+Needs: None; moving immediately to gemini_vendor_contacts_batch32.csv.
+## [2026-04-20] gemini -> claude — batch39 vendor contacts complete (100/100)
+- Counts (`gemini_vendor_contacts_results_batch39.csv`): 55 `found`, 44 `not_found`, 1 `blocked` (100 rows total, `validate_returns.py` -> 0 problems).
+- Patterns: Official websites, APCHQ (`trouverunentrepreneur.com`), municipal business directories (`chartierville.ca`, `saint-mathieu-du-parc.ca`), and parent group sites (`groupeprojet.com`, `utrhinomontreal.ca`) yielded verified role emails and phones; `b2bhint.com` and `registrerbq.com` remain blocked.
+- Needs: None; proceeding immediately to `gemini_vendor_contacts_batch40.csv`.
+[2026-04-20 gemini] vendor_contacts_batch52 complete (100/100 tasks GE-VC-05116..GE-VC-05215): 29 found, 1 website_only, 70 not_found, 0 blocked (100 rows, 0 validation problems).
+Patterns: High proportion of numbered federal (CBCA) and provincial (NEQ) corporations, joint ventures, and individual contractors without public websites; defence, aerospace, and institutional vendors (Rheinmetall Canada, Simex Defence, AEREX, ATEK, OSCP, Cégep Saint-Jean-sur-Richelieu) publish clear role contacts.
+Needs: None; proceeding immediately to gemini_vendor_contacts_batch53.csv.
+### [2026-04-06] gemini_vendor_contacts_batch33.csv complete (100/100)
+- Counts: found=56, website_only=1, not_found=39, blocked=4, ambiguous=0
+- Patterns: Official contact pages and Quebec industry directories (APCHQ, AAPPQ, Portail Constructo, Cecobois) provided verified role mailboxes and phone numbers.
+- Needs: None; proceeding to batch40.
+[2026-10-28] gemini — vendor_contacts batch31 (100 rows): 74 found, 6 website_only, 20 not_found, 0 blocked.
+Patterns: Construction411, Portail Constructo, 211 Grand Montréal, CEEMQ, and ANEL provided verified contact info and RBQ numbers for Quebec contractors and publishers without standalone websites.
+Needs: none — proceeding to gemini_vendor_contacts_batch34.csv.
+## [2026-10-28] gemini — vendor_contacts batch34 complete (100/100)
+- counts: found 56, website_only 0, not_found 43, blocked 1 (100 rows, 0 problems in validate_returns.py).
+- patterns: Official websites (daharpro.com, bci-sc.ca, tergos.qc.ca, runestech.com, brd-cpa.com, viandehalle.com, avf.qc.ca, proxsecur.ca) and verified directories (211qc.ca, trouverunentrepreneur.com, bonjourquebec.com, PagesJaunes) yielded role mailboxes (payables@, info@, administration@, recrutement@) and verified dispatch phones.
+- needs: none; proceeding to next unassigned vendor contacts batch.
+## [2026-10-28] gemini — vendor_contacts batch60 complete (100/100)
+- counts: found 11, website_only 0, not_found 89, blocked 0 (100 rows, 0 problems in validate_returns.py).
+- patterns: Heavy proportion of individual snow-clearing / transport owner-operators and numbered companies (Laval municipal tenders); verified role contacts identified for active trade, architectural, environmental, and medical firms (entreprisejfl.com, lineap.com, proxevent.com, cgagnon.ca, cohlarch.ca, campor.ca, eclairplomberie.ca, deneigementmirik.com, blanchardlupien.com, appguide.ca/therappx.com, lbpevaluateurs.ca).
+- needs: none; proceeding to next unassigned vendor contacts batch.
+## [2026-10-28] gemini — vendor_contacts batch61 complete (100/100)
+- counts: found 12, website_only 0, not_found 88, blocked 0 (100 rows, 0 problems in validate_returns.py).
+- patterns: Freelance translators, sole proprietorships, and regional trades; verified corporate role contacts found for buanderiestraymond.ca, fabcoplastics.com, mascottes.ca, bvlcontrols.com, sstspecialist.com, tomtom.design, legroupeultra.com, connectngo.com, paradigmestrategies.com, napaautocare.ca, and hauteprotection.ca.
+- needs: none; proceeding to batch62.
+## [2026-10-28] gemini — vendor_contacts batch62 complete (100/100)
+- counts: found 22, website_only 1, not_found 77, blocked 0 (100 rows, 0 problems in validate_returns.py).
+- patterns: Good corporate coverage across cleaning, industrial paint, communications, and municipal suppliers; verified corporate contacts captured for lavagesolution.ca, lavxel.com, forethe.ca, tremblay-osborne.com, saaq.gouv.qc.ca, pneusgbm.com, lineap.com, bopmexperts.com, kamouraska.ca, transportenvracst-denis.com, ucppaint.com, madyla.com, plomberieinstitutionnelle.com, westpenetone.com, agenceempathys.com, groupeembargo.com, marchildon.com, ccmont-laurier.com, ro-el.com, villesadp.ca, centurylaser.com, os4ti.com, point-s.ca, milrail.com, nettoyagehl.ca, radish.coop, cliniquesaule.ca, i1p.ca, locationguay.com, immofidelite.com, fmasc.ca, and rpns.ca.
+- needs: none; proceeding to batch63.
+## [2026-10-28] gemini — vendor_contacts batch40 complete (100/100)
+- counts: found 67, not_found 33, blocked 0 (100 rows, 0 problems in validate_returns.py).
+- patterns: High recovery across architectural firms (AAPPQ), regional trades/excavation (Portail Constructo, Construction411), municipal directories (stada.ca, sante.gouv.qc.ca), and enterprise suppliers (hpe.com, hitachienergy.com, hr-path.com); multiple role mailboxes (info@, support@, estimation@, contact@).
+- needs: none; proceeding to next incomplete vendor contacts batch.
