@@ -817,3 +817,33 @@ VMFA homepage robot-verification challenge stopped; public text retained as web-
 - batch56 complete: 31 found, 74 not_published, 0 blocked (105 total rows across 100 tasks).
 - patterns: Major engineering/defense contractors (AtkinsRéalis, Chantier Davie, CGI, Pratt & Whitney Canada) and established businesses (Fix Auto Châteauguay, Café Go, Spécialités Paramed, Monit, Tov Group) maintain published headquarters info and role mailboxes; numerous multi-partner infrastructure consortia, provincial numbered holding companies, and sole-proprietor trade contractors lack web footprints.
 - needs: Next working batch57 (gemini_vendor_contacts_batch57.csv).
+## 2026-10-29 09:05 from gemini
+- patterns: Major defence and aerospace primes (AtkinsRéalis, Chantier Davie, CGI, Pratt & Whitney Canada) maintain comprehensive corporate directories; smaller regional consortiums/subcontractors publish no independent web presence.
+## 2026-10-29 09:35 from gemini
+- batch57 complete: 23 found, 1 website_only, 76 not_published, 0 blocked (100 total rows across 100 tasks).
+- patterns: Established HVAC/refrigeration, architectural, engineering, and environmental firms maintain clear public websites and role contact mailboxes; small transport/snow removal sole proprietorships and temporary engineering consortiums publish no independent online presence.
+- needs: Next working batch58 (gemini_vendor_contacts_batch58.csv).
+## 2026-10-29 09:20 from gemini
+- batch57 complete: 23 found, 77 not_published, 1 website_only, 0 blocked (101 total rows across 100 tasks).
+- patterns: Commercial property managers (Cogir) and specialized automotive/industrial providers (Ordi-Cam 2000, W. Brown, Spartan Protection) publish verified direct contact details; joint ventures and local small farms lack standalone portals.
+- needs: Next working batch58 (gemini_vendor_contacts_batch58.csv).
+## 2026-10-29 09:39 from gemini
+- batch58 complete: 31 found, 1 website_only, 68 not_published, 0 blocked (100 total rows across 100 tasks).
+- patterns: School service centres, commercial distributors, and professional driving schools maintain published role mailboxes and physical addresses; holding companies and sole proprietorships have no published contact channels.
+- needs: Next working batch59 (gemini_vendor_contacts_batch59.csv).
+## 2026-10-29 10:15 from gemini
+- batch59 complete: 30 found, 70 not_published, 0 blocked (100 total rows across 100 tasks).
+- patterns: Major telecom providers, manufacturing/packaging entities, and established consulting/moving firms publish direct role mailboxes and physical facilities; local snow removal trucking contractors and holding corporations maintain no independent web presence.
+- needs: Next working incomplete batch63 (gemini_vendor_contacts_batch63.csv).
+## 2026-10-29 10:35 from gemini
+- batch63 complete: 23 found, 77 not_published, 0 blocked (100 total rows across 100 tasks).
+- patterns: Industrial machining shops, sand/gravel quarries, architectural box designers, and environmental rehabilitation contractors publish direct role emails and physical premises; specialized agricultural partnerships and local municipal snow/hauling subcontractors operate without standalone portals.
+- needs: Next working batch64 (gemini_vendor_contacts_batch64.csv).
+## 2026-10-29 10:37 from gemini
+- batch64 complete: 40 found, 60 not_published, 0 blocked (100 total rows across 100 tasks).
+- patterns: Regional specialty contractors (fire protection, railway maintenance, screw pile installers, commercial towing, industrial supplies) publish direct role contacts; numbered corporations, sole proprietorships, and temporary bidding consortiums publish no standalone presence.
+- needs: Next working batch65 (gemini_vendor_contacts_batch65.csv).
+## 2026-10-29 11:35 from gemini
+- batch65 complete: 42 found, 58 not_found, 0 blocked (100 total rows across 100 tasks).
+- patterns: Construction subsidiaries, specialized industrial equipment (HVAC, water treatment), and healthcare supplies frequently show centralized corporate portals or official head office channels; numbered enterprises remain predominantly holding structures or single-vehicle transport operators without web footprint.
+- needs: Next working batch66 (gemini_vendor_contacts_batch66.csv).
