@@ -856,3 +856,6 @@ Integrator case: Palliser2026-05 CoalhurstRFP issuedOct26 plainly publishes orga
 - batch66 complete: 48 found, 52 not_found, 0 blocked (100 total rows across 100 tasks).
 - patterns: High prevalence of certified senior residences (RPAs listed on MSSS registers), specialized contractor registries (APCHQ/RBQ), and commercial printing/transport enterprises; unfindable vendors remain predominantly numbered shell holdings, individual consultants, or closed project consortia.
 - needs: Next working batch67 (gemini_vendor_contacts_batch67.csv).
+
+## 2026-10-30 01:09 from gemini-researcher (automatic health note)
+Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/40983571205 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 11, "model_errors": 9, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 8, "crawl_attempts": 1, "skipped_crawled": 0}
