@@ -26,14 +26,17 @@ OUT = "data/incoming/claude/claude_buyer_ap_results_deep01.csv"
 DONE = os.path.join(C.STATE, "deep_done.tsv")
 CDX = "https://web.archive.org/cdx/search/cdx"
 WORDS = (r"factur|invoic|payable|comptes|fournisseur|supplier|vendor|achat|approvisionnement|purchas|procure|"
-         r"financ|comptab|accounting|paiement|payment|tresor|treasur|faire-affaire|doing-business|depot|deposit")
+         r"financ|comptab|accounting|paiement-fournisseur|paiement-des-fournisseurs|supplier-payment|vendor-payment|"
+         r"tresor|treasur|faire-affaire|doing-business|depot-direct|direct-deposit")
 KEEP = {"invoice_submission", "accounts_payable", "supplier_payment", "finance", "procurement"}
 SCORE = [(re.compile(r"(?<!manu)factur|invoic|payable|comptes?[-_ ]?(a|à)?[-_ ]?payer|accounts?[-_ ]?pay", re.I), 10),
-         (re.compile(r"fournisseur|supplier|vendor|depot|deposit|paiement|payment", re.I), 6),
+         (re.compile(r"fournisseur|supplier|vendor|depot-direct|direct-deposit|paiement-(des-)?fournisseur|supplier-payment", re.I), 6),
          (re.compile(r"financ|comptab|accounting|tresor|treasur", re.I), 5),
          (re.compile(r"achat|approvisionnement|purchas|procure|faire-affaire|doing-business|conditions|terms", re.I), 5),
          (re.compile(r"tuition|student|etudiant|étudiant|osap|admission|program|course|cours/|career|carriere|emploi|job|"
-                     r"news|nouvelle|media|event|evenement|événement|blog|calendar|calendrier|/api/|feed|search|recherche", re.I), -8)]
+                     r"news|nouvelle|media|event|evenement|événement|blog|calendar|calendrier|/api/|feed|search|recherche|wp-json|oembed|"
+                     r"liste|contrats?[-_]|contracts?[-_]|octroy|rapport|report|depot-du|proces|minutes|avis[-_]public|reglement|"
+                     r"role[-_]|acces[-_]a[-_]l|access-to-information|entente-paiement|taxe|tax-", re.I), -8)]
 lock = threading.Lock()
 
 
