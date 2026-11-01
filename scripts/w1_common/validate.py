@@ -3,11 +3,18 @@
 Usage: python3 -I validate.py <file.jsonl> [more files...]
 Prints counts by status, vendor country, problems (ongoing with end < ref, missing buyer, duplicate record_id ...)."""
 import sys, json, collections
+import gzip
 REF = "2026-10-25"
 for p in sys.argv[1:]:
     c = collections.Counter(); st = collections.Counter(); vc = collections.Counter(); ids = set(); buyers = collections.Counter()
     probs = collections.Counter(); ex = {}
-    for i, line in enumerate(open(p, encoding="utf-8")):
+
+    if p.endswith('.gz'):
+        f = gzip.open(p, "rt", encoding="utf-8")
+    else:
+        f = open(p, encoding="utf-8")
+
+    for i, line in enumerate(f):
         try:
             r = json.loads(line)
         except Exception:

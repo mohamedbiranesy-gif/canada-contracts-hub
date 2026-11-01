@@ -2,14 +2,21 @@
 """Print compact sample records (normalized layer; raw summarized) for notes.
 Usage: python3 -I samples.py <file.jsonl> <n> [record_id ...]   (picks spread-out records when no ids given)"""
 import sys, json
+import gzip
+
 p, n = sys.argv[1], int(sys.argv[2]); want = set(sys.argv[3:])
-lines = open(p, encoding="utf-8").read().splitlines()
+if p.endswith('.gz'):
+    with gzip.open(p, "rt", encoding="utf-8") as f:
+        lines = f.read().splitlines()
+else:
+    with open(p, encoding="utf-8") as f:
+        lines = f.read().splitlines()
+
 if want:
     picks = [json.loads(l) for l in lines if json.loads(l)["record_id"] in want]
 else:
     step = max(1, len(lines) // n)
     picks = [json.loads(lines[i]) for i in range(0, len(lines), step)][:n]
-
 
 def trim(o, depth=0):
     if isinstance(o, str):
@@ -19,7 +26,6 @@ def trim(o, depth=0):
     if isinstance(o, dict):
         return {k: trim(v, depth + 1) for k, v in o.items()}
     return o
-
 
 for r in picks:
     raw = r.get("raw") or {}

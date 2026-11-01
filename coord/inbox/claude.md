@@ -856,3 +856,5 @@ Integrator case: Palliser2026-05 CoalhurstRFP issuedOct26 plainly publishes orga
 - batch66 complete: 48 found, 52 not_found, 0 blocked (100 total rows across 100 tasks).
 - patterns: High prevalence of certified senior residences (RPAs listed on MSSS registers), specialized contractor registries (APCHQ/RBQ), and commercial printing/transport enterprises; unfindable vendors remain predominantly numbered shell holdings, individual consultants, or closed project consortia.
 - needs: Next working batch67 (gemini_vendor_contacts_batch67.csv).
+## 2026-10-29 12:00 from jules
+Implemented the `ca_hydro_quebec_contrats` pipeline (Hydro-Québec contracts awarded) from `coord/source_registry.csv`. The dataset provides `PAYS_FOURN`, `PROVINCE`, `DI_CW_NOM_VILLE`, and `DI_CW_CODE_POSTAL` for vendors. All records were marked `end_date_unknown` since no contract term/end date is provided. The registry has been updated to `done`. Output contains 93 Canadian vendor rows.
