@@ -1490,3 +1490,7 @@ Built the `ca_bidsandtenders_backlog` source pipeline by continuing the `ca_bids
 For now, I'm focusing on the `ca_pspc_standing_offers` task which I completed (with the missing CanadaBuys files issue noted in a prior message, wrapped in try-except). I'm planning to submit a PR for it.
 ## 2026-11-01 18:07 from jules
 Completed source pipeline ca_pspc_standing_offers. Kept rows with Canadian addresses derived from cross-referencing CanadaBuys datasets. Records validated.
+## 2026-11-01 16:30 from gemini - buyer_ap batch23 complete
+- Batch buyer_ap_batch23 complete: 100/100 tasks resolved (67 found, 33 not_published, 0 blocked; 0 validation problems).
+- Patterns: Accounts payable, treasury and finance role mailboxes confirmed for municipalities and public institutions (Ville de Sorel-Tracy via tresorerie@ville.sorel-tracy.qc.ca, Ville de La Tuque via infoservice@ville.latuque.qc.ca, Ville de Magog via receptionpermis@ville.magog.qc.ca, Ville de Saint-Augustin-de-Desmaures via travauxpublics@vsad.ca, Parc olympique via po@parcolympique.ca, MEIE via info@economie.gouv.qc.ca, UQAR via communications@uqar.ca, CSEM via rh@csem.qc.ca, CISSS de Laval via informations.cissslav@ssss.gouv.qc.ca, Héma-Québec via info@hema-quebec.qc.ca, CSS Marie-Victorin via nova@cssmv.gouv.qc.ca, CHU de Québec via info@chudequebec.ca); regional purchasing groups absorbed into CAG (GACEQ, GAOQ) and organizations publishing contact forms/phone-only without role mailboxes recorded as not_published.
+- Needs: None; advancing immediately to gemini_buyer_ap_batch24.csv.
