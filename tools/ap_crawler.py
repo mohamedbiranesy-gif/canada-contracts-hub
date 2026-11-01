@@ -352,7 +352,7 @@ def general_only():
     """Contract buyers (b:) and relationship buyers (lead:) for which every row found so far is a general mailbox."""
     best = {}
     if os.path.exists(OUT):
-        for r in csv.DictReader(open(OUT, encoding="utf-8", errors="replace")):
+        for r in csv.DictReader(io.StringIO(open(OUT, encoding="utf-8", errors="replace").read().replace("\0", ""))):
             k = r.get("buyer_key") or ""
             if k.startswith(("b:", "lead:")) and r.get("ap_email"):
                 g = r.get("ap_email_type") == "general" and "finance / accounting" not in (r.get("notes") or "")

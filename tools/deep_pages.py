@@ -155,7 +155,8 @@ def main():
             task, urls = item
             try:
                 rows = read(task, urls)
-            except Exception:
+            except Exception as e:
+                C.log("deep_pages: error on %s: %s %s" % (task["buyer_key"], type(e).__name__, e))
                 rows = []
             save(task, len(urls), rows)
             with lock:
