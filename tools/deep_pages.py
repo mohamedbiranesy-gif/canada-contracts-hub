@@ -35,25 +35,30 @@ SCORE = [(re.compile(r"factur|invoic|payable|comptes?[-_ ]?(a|à)?[-_ ]?payer|ac
 lock = threading.Lock()
 
 
-def index_urls(host, tries=4):
-    """Archived URLs of the site whose address mentions invoicing / suppliers / finance, best first."""
-    q = urllib.parse.urlencode([("url", host), ("matchType", "domain"), ("output", "json"), ("from", "2020"),
+def index_urls(host, tries=3):
+    """Archived URLs of the site whose address mentions invoicing / suppliers / finance, best first.
+    [] when the site has none or the index cannot answer for it (very large sites time out); None to retry later."""
+    q = urllib.parse.urlencode([("url", host + "/*"), ("output", "json"), ("from", "2020"),
                                 ("fl", "original,timestamp"), ("filter", "statuscode:200"),
                                 ("filter", "original:(?i).*(%s).*" % WORDS), ("collapse", "urlkey"), ("limit", "3000")])
+    timeouts = 0
     for i in range(tries):
         time.sleep(3)
         try:
             req = urllib.request.Request(CDX + "?" + q, headers={"User-Agent": C.UA})
-            with urllib.request.urlopen(req, timeout=90) as r:
+            with urllib.request.urlopen(req, timeout=75) as r:
                 data = json.loads(r.read(20_000_000).decode("utf-8", "replace") or "[]")
             break
         except urllib.error.HTTPError as e:
-            if e.code in (429, 503, 504):
-                time.sleep(60 * (i + 1))
+            if e.code in (429, 503):  # asked to slow down
+                time.sleep(90 * (i + 1))
                 continue
             return []
         except Exception:
-            time.sleep(10 * (i + 1))
+            timeouts += 1
+            if timeouts >= 2:
+                return []  # too large for the index to answer in time: skip this site
+            time.sleep(20)
     else:
         return None  # index unavailable: try this buyer again on the next run
     best = {}
