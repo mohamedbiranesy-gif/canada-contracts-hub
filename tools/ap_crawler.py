@@ -311,6 +311,18 @@ def load_tasks():
     return sorted((t for k, t in tasks.items() if k not in verified), key=size)
 
 
+def general_only():
+    """Contract buyers (b:) and relationship buyers (lead:) for which every row found so far is a general mailbox."""
+    best = {}
+    if os.path.exists(OUT):
+        for r in csv.DictReader(open(OUT, encoding="utf-8", errors="replace")):
+            k = r.get("buyer_key") or ""
+            if k.startswith(("b:", "lead:")) and r.get("ap_email"):
+                g = r.get("ap_email_type") == "general" and "finance / accounting" not in (r.get("notes") or "")
+                best[k] = best.get(k, True) and g
+    return {k for k, g in best.items() if g}
+
+
 def load_done():
     done = {}
     p = os.path.join(STATE, "done.tsv")
@@ -382,16 +394,20 @@ def main():
         tasks, done = load_tasks(), load_done()
         if a.limit:
             tasks = tasks[:a.limit]
-        for pass_no, max_pages in ((1, 25), (2, 60), (3, 40)):
-            todo = [t for t in tasks if (pass_no == 1 and t["buyer_key"] not in done) or
-                    (pass_no > 1 and not t["buyer_key"].startswith(("wd:", "v:", "osm:", "lead:")) and done.get(t["buyer_key"], (0, ""))[0] < pass_no and done.get(t["buyer_key"], (0, ""))[1] == "nothing_found")]
+        upgrade = general_only()
+        for pass_no, max_pages in ((1, 25), (2, 60), (3, 40), (4, 60)):
+            if pass_no == 4:  # buyers we only have a general mailbox for: read deeper for an invoicing / finance / purchasing one
+                todo = [t for t in tasks if t["buyer_key"] in upgrade and done.get(t["buyer_key"], (0, ""))[0] < 4]
+            else:
+                todo = [t for t in tasks if (pass_no == 1 and t["buyer_key"] not in done) or
+                        (pass_no > 1 and not t["buyer_key"].startswith(("wd:", "v:", "osm:", "lead:")) and done.get(t["buyer_key"], (0, ""))[0] < pass_no and done.get(t["buyer_key"], (0, ""))[1] == "nothing_found")]
             log("pass %d: %d sites" % (pass_no, len(todo)))
 
             def one(t, pass_no=pass_no, max_pages=max_pages):
                 if time.time() >= deadline:
                     return
                 try:
-                    result, pages, rows = crawl(t, max_pages, general=(pass_no == 3 or t["buyer_key"].startswith(("wd:", "v:", "osm:", "lead:"))))
+                    result, pages, rows = crawl(t, max_pages, general=(pass_no == 3 or (pass_no != 4 and t["buyer_key"].startswith(("wd:", "v:", "osm:", "lead:")))))
                 except Exception as e:
                     result, pages, rows = "error:%s" % type(e).__name__, 0, []
                 save(t, pass_no, result, pages, rows)
