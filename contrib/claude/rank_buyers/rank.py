@@ -12,7 +12,7 @@ norm = lambda s: re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", s or "
 parent = lambda n: norm(re.split(r"\s+[-–(/|]\s*", n or "")[0])
 GRADE = {"invoice_submission": 4, "accounts_payable": 4, "supplier_payment": 4, "procurement": 2, "general": 1}
 FIN = re.compile(r"compt|financ|tresor|treasur|account|fiscal", re.I)  # finance / accounting department mailbox
-STRONG = re.compile(r"^cap$|[._-]cap$|factur|invoic|invsub|inv[._-]sub|payable|payables|compt\w*pay|comptesapayer|^ap$|^ap[._-]|[._-]ap$|[._-]ap[._-]|accounts?[._-]?pay|fournisseur|supplier|vendor|paiement|payment|paymt|apinvoice|(^|[._-])bill", re.I)
+STRONG = re.compile(r"^cap$|[._-]cap$|factur|invoic|invsub|inv[._-]sub|payable|payables|compt\w*pay|comptesapayer|^ap$|^ap[._-]|[._-]ap$|[._-]ap[._-]|accounts?[._-]?pay|fournisseur|supplier|vendor|paiement|payment|paymt|apinvoice", re.I)
 QUOTE_AP = re.compile(r"factur|invoice|payable|comptes? (à|a) payer|accounts payable|paiement des fournisseurs|supplier payment", re.I)
 ROLEISH = re.compile(r"factur|invoic|bill|payable|compt|account|financ|tresor|treasur|fourniss|supplier|vendor|approv|achat|purchas|procure|"
                      r"paiement|payment|acquisition|^ap$|^ap[._-]|[._-]ap$|info|contact|reception|admin|general|greffe|mairie|municipal|"
@@ -100,7 +100,7 @@ PLACE = re.compile(r"canada|quebec|alberta|ontario|saskatchewan|manitoba|scotia|
                    r"british columbia|prince edward|county|city|ville|town|municipal|college|cegep|universit|hydro|\b(bc|nl|ns|nb|pei)\b")
 BAD_LOCAL = re.compile(r"recrut|recruit|emploi|career|carriere|job|plainte|complaint|frais|accessoire|patient|usager|media|presse|press|"
                        r"privacy|confidential|aiprp|atip|benevol|volunteer|fondation|foundation|donat|webmaster|^rh$|^hr$|recevable|receivable|revenue|revenu|"
-                       r"ltcbilling|patientbilling|billing\.inquir|customerbilling|taxation|^taxe", re.I)
+                       r"billing|taxation|^taxe", re.I)
 def jur_of_record(r):
     s = (r.get("source") or {}).get("name", "")
     return next((j for rx, j in JUR_SRC if re.search(rx, s)), "")
