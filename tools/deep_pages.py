@@ -89,8 +89,19 @@ def archived(url):
     """(bytes, content type, snapshot URL) of the Internet Archive's copy of a page, when captured in the last year.
     Used when the live site refuses automated readers or the page has moved; the snapshot URL is the evidence, which
     anyone (and the referee) can open."""
+    since = time.strftime("%Y%m%d", time.localtime(time.time() - ARCHIVE_DAYS * 86400))
     ts = CAPTURE.get(url, "")
-    if not ts or time.time() - time.mktime(time.strptime(ts[:8], "%Y%m%d")) > ARCHIVE_DAYS * 86400:
+    if ts[:8] < since:  # the URL index gives the first capture; ask for one made in the last year
+        bare = re.sub(r"^https?://", "", url)
+        q = CDX + "?" + urllib.parse.urlencode({"url": bare, "output": "json", "from": since, "limit": "1", "fl": "timestamp",
+                                                 "filter": "statuscode:200"})
+        status, _, data, _ = C.fetch(q)
+        try:
+            rows = json.loads(data.decode("utf-8", "replace") or "[]") if status == 200 else []
+        except ValueError:
+            rows = []
+        ts = rows[1][0] if len(rows) > 1 else ""
+    if not ts or ts[:8] < since:
         return None
     orig = re.sub(r"^https://", "http://", url) if url.startswith("https://") else url
     snap = "https://web.archive.org/web/%s/%s" % (ts, orig)
