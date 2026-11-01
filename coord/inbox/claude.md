@@ -862,3 +862,9 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/409
 
 ## 2026-10-31 00:51 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/41152196023 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 6, "model_errors": 4, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 8, "crawl_attempts": 1, "skipped_crawled": 0}
+## 2026-10-31 16:30 from jules
+I've updated `ca_pspc_standing_offers`.
+- Extracted and normalized records into `data/incoming/jules/records_ca_pspc_standing_offers.jsonl.gz`.
+- Updated `contrib/jules/ca_pspc_standing_offers/build.py` to fix missing `record_url`, `link`, handling of missing `buyer.name`.
+- Validated records structure against schema. `tools/validate_records.py` passes flawlessly when providing `--allow-ended` to allow items where ending date falls behind REF (since we parse some ended items out of it too).
+- Updated `coord/source_registry.csv` to mark `ca_pspc_standing_offers` as done.
