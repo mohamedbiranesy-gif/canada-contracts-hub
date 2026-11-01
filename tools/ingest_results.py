@@ -261,8 +261,10 @@ if scout_rows:
             w.writerows(new)
     report["new_sources"] += len(new)
 verify = collections.defaultdict(list)
-for k, b in buyers.items():
+for k, b in sorted(buyers.items(), key=lambda kv: {"b": 0, "lead": 1}.get(kv[0].split(":")[0], 2)):
     if any(e["verification"] in ACCEPTED for e in b["evidence"]):
+        continue
+    if k.split(":")[0] not in ("b", "lead"):  # only buyers with a contract or relationship record count toward the goal
         continue
     for e in b["evidence"]:
         if e["verification"] in UNSEEN + ("not_found_on_page",):
