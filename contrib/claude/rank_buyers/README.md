@@ -5,7 +5,7 @@ and how complete its invoicing contact is. `batches.py` splits it into quality b
 
 | batch | meaning |
 |---|---|
-| 1_GOLD | active contract (published end date today or later, or awarded in the last 12 months / Québec with no closing notice) + confirmed invoicing / AP mailbox of the buyer itself |
+| 1_GOLD | active contract (published end date today or later; or awarded in the last 12 months; or Québec, awarded in the last 3 years with no closing notice; or a payment / subcontract dated in the last 12 months) + confirmed invoicing / AP mailbox of the buyer itself |
 | 1b | same, but the mailbox is the finance / accounting department's (no invoicing mailbox published) |
 | 2 | same, purchasing mailbox |
 | 3 | same, general mailbox (info@, reception@ ...) |

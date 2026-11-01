@@ -66,8 +66,11 @@ CUTOFF = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
 def award_date(r):
     d = r["contract"].get("dates") or {}
     return max((str(d.get(k) or "")[:10] for k in ("awarded", "award", "signed", "start")), default="") or str(d.get("published") or "")[:10]
+CUTOFF3 = (datetime.date.today() - datetime.timedelta(days=3 * 365)).isoformat()
 def tier_of(r):
     t = TIER.get(r["status"], "C")
+    if t == "B" and award_date(r) < CUTOFF3:  # "no closing notice" says little about a contract awarded over 3 years ago
+        t = "C"
     if t == "C" and CUTOFF <= award_date(r) <= today:
         return "B"
     return t
@@ -160,7 +163,7 @@ for p, o in orgs.items():
     rows.append({"jurisdiction": gj, "rank_group": ("GOLD" if tier in "AB" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": score,
         "buyer": o["name"], "buyer_website": be.get("official_website") or "", "buyer_address": json.dumps(be.get("address") or {}, ensure_ascii=False)[:200],
         "email": em, "email_type": et, "email_check": es, "email_evidence_url": eu, "email_evidence_quote": eq,
-        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + ("no closing notice, Québec" if r["status"] == "ongoing_inferred" else "awarded in the last 12 months, no end date published") + ")", "C": "end date unknown, awarded over a year ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200],
+        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + ("Québec, awarded in the last 3 years, no closing notice" if r["status"] == "ongoing_inferred" and award_date(r) >= CUTOFF3 else "awarded in the last 12 months, no end date published") + ")", "C": "end date unknown, awarded over a year ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200],
         "contract_value": c.get("value") or "", "currency": c.get("currency") or "", "award_date": award_date(r), "start_date": d.get("start") or "", "end_date": d.get("end") or "",
         "contract_link": r.get("link") or "", "source": (r.get("source") or {}).get("name", ""), "vendor": v.get("name") or "", "vendor_legal_name": ve.get("legal_name") or "",
         "vendor_address": ", ".join(x for x in (a.get("line1"), a.get("city"), a.get("region"), a.get("postal_code")) if x), "vendor_country_basis": v.get("country_basis") or "",
