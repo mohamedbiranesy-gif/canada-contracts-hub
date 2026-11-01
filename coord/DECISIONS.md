@@ -32,3 +32,18 @@
   - Jules: automatic, every 6 h and right after each merged task;
   - Codex: started from ChatGPT; opens PRs.
 - If billing is enabled later, give the scheduled researcher a lane Antigravity is not working on (`--lane chatgpt`).
+
+## 2026-11-01 — Owner's target is organisations with a mailbox; referee unblocked (Claude)
+- Target (owner, 2026-10-28): 30,000+ organisations doing business in Canada, each with a published mailbox:
+  invoicing/AP first, then purchasing, then general role mailbox. A contract/payment record with a Canada-located
+  supplier is kept as proof where we have one (`b:` buyers, `lead:` buyers), but is no longer required.
+- Organisation pools for the no-AI crawler (all on the owner's Mac): research queues, payment/subaward leads,
+  Wikidata items located in Canada with a website (batch902), our verified vendor sites (903), OpenStreetMap
+  offices/industry (904), institutions/hotels (905), shops (906).
+- The referee had not finished a run since Oct 29 (60-min timeout re-fetching ~16k pages serially; cache only saved
+  on success). Now: parallel polite prefetch, 60-min fetch budget with `pending_verification` for the rest, cache
+  saved always. It also writes the owner deliverable `coord/results/org_mailboxes.csv` + `ORG_MAILBOXES.md`.
+- Gemini's clone had lost its `origin` remote and ChatGPT (which ran the uploader) hit its weekly limit on Oct 30, so
+  Gemini's rows stopped reaching GitHub. Now a no-AI loop on the Mac runs tools/mac_sync.py every 30 minutes and
+  re-adds a missing remote. Jules sessions were all stuck "awaiting user feedback"; the builder now answers them
+  ("decide yourself, open the PR") and reports session states.
