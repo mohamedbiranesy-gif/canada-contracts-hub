@@ -215,6 +215,23 @@ for k, L in leads.items():
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = list(rows[0].keys())
 rows.sort(key=lambda x: (x["rank_group"] != "GOLD", -x["completeness_score"]))
+# one row per body: two spellings of one name ("MRC Charlevoix" / "MRC  de Charlevoix") that share a buyer key within the
+# same government are one buyer; the best-ranked row stands for it and carries all its keys
+seen, merged = {}, []
+for x in rows:
+    ks = [k for k in (x.get("keys") or "").split("|") if k]
+    j = x.get("jurisdiction") or ""
+    hit = next((seen.get((k, j)) or seen.get((k, "")) for k in ks if (k, j) in seen or (k, "") in seen), None)
+    if hit is None and not x.get("jurisdiction"):
+        hit = next((v for k in ks for (k2, j), v in seen.items() if k2 == k), None)
+    if hit is not None:
+        allk = sorted(set((hit.get("keys") or "").split("|")) | set(ks) - {""})
+        hit["keys"], hit["buyer_keys"] = "|".join(allk), len(allk)
+        continue
+    for k in ks:
+        seen[(k, x.get("jurisdiction") or "")] = x
+    merged.append(x)
+rows = merged
 with open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
 cnt = collections.Counter(x["rank_group"] for x in rows)
