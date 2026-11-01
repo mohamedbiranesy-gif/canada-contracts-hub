@@ -13,7 +13,11 @@ sys.path.insert(0, "scripts/_muni")
 import terms
 from datetime import date
 
-REF = date(2026, 10, 25)
+import json
+with open("coord/config.json") as f:
+    config = json.load(f)
+    ref_date_str = config["reference_date"]
+    REF = date.fromisoformat(ref_date_str)
 dl, outdir = sys.argv[1], sys.argv[2]
 details_path = os.path.join(dl, "details.jsonl")
 out_main = os.path.join(outdir, "ca_bidsandtenders.jsonl")
@@ -180,6 +184,7 @@ with open(out_main, "w") as fo, open(out_unv, "w") as fu, open(details_path) as 
                     "record_url": lst.get("detail_url") or d.get("detail_url"),
                     "retrieved_at": d.get("retrieved_at"),
                 },
+                "link": lst.get("detail_url") or d.get("detail_url"),
                 "status": status,
                 "status_basis": basis,
                 "contract": {

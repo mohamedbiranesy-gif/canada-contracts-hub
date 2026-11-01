@@ -1414,3 +1414,5 @@ Generated 28899 records.
 
 ## 2026-11-01 09:40 from jules
 Built the `ca_pspc_standing_offers` source pipeline. Extracted 3981 agreements, matching addresses against CanadaBuys legacy award notices and contract history resulting in 178 confirmed Canadian ongoing records. Status set to `done` in `coord/source_registry.csv`.
+## 2026-11-01 10:30 from jules
+Built the `ca_bidsandtenders_backlog` source pipeline by continuing the `ca_bidsandtenders` scraper. Extracted 294 verified Canadian records from 250 detail pages (the scraper is resumable and should be left to run in the background if there are 102k+ records). The reference date issue in `scripts/ca_bidsandtenders/normalize.py` was fixed to dynamically read from `coord/config.json`, and the missing `link` field was corrected. Status remains `todo` in `coord/source_registry.csv` as this is just the first slice.
