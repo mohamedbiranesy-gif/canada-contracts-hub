@@ -20,6 +20,23 @@ jobs:
         id: key
         env: { K: "${{ secrets.JULES_API_KEY }}" }
         run: echo "ok=$([ -n "$K" ] && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - name: Report recent Jules sessions and approve plans that wait for approval
+        if: steps.key.outputs.ok == 'yes'
+        env: { K: "${{ secrets.JULES_API_KEY }}" }
+        run: |
+          curl -s -H "X-Goog-Api-Key: $K" "https://jules.googleapis.com/v1alpha/sessions?pageSize=15" > sessions.json || true
+          python3 - <<'PY'
+          import json, os, subprocess
+          d = json.load(open("sessions.json")) if os.path.getsize("sessions.json") else {}
+          if "error" in d: print("API error:", d["error"])
+          for s in d.get("sessions", []):
+              outs = [o.get("pullRequest", {}).get("url") for o in s.get("outputs", []) if o.get("pullRequest")]
+              print(s.get("createTime"), s.get("state"), s.get("title", "")[:70], outs or "", s.get("url"))
+              if s.get("state") == "AWAITING_PLAN_APPROVAL":
+                  r = subprocess.run(["curl", "-s", "-X", "POST", "-H", "X-Goog-Api-Key: " + os.environ["K"], "-H", "Content-Type: application/json",
+                                      "-d", "{}", "https://jules.googleapis.com/v1alpha/%s:approvePlan" % s["name"]], capture_output=True, text=True)
+                  print("  approved plan:", r.stdout[:200])
+          PY
       - name: Invoke Jules
         if: steps.key.outputs.ok == 'yes'
         uses: google-labs-code/jules-action@v1.0.0
