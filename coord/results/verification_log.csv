@@ -3942,6 +3942,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00091,b:986e4545383ce9be,suppli
 chatgpt,chatgpt_buyer_ap_results_batch11.csv,CH-AP-01021,b:9883c15341d6a5ab,info@mhc.ab.ca,https://www.mhc.ab.ca/about-mhc/directory,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01021,b:9883c15341d6a5ab,info@mhc.ab.ca,https://www.mhc.ab.ca,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01021,b:9883c15341d6a5ab,studentfinancialaidawards@mhc.ab.ca,https://www.mhc.ab.ca/student-life/financial-aid,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DP-00778,b:9883c15341d6a5ab,studentfinancialaidawards@mhc.ab.ca,https://www.mhc.ab.ca/student-life/financial-aid,verified
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00129,b:98850450db2d74d0,star@pch.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch12.csv,GE-AP-01187,b:98a3b7bfee7b033b,appro.assistance.cissslau@ssss.gouv.qc.ca,https://www.quebec.ca/sante/systeme-et-services-de-sante/regimes-dassurance/frais-accessoires/liste-repondants-gestion-approvisionnement-fournitures-medicaments-cliniques,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00049,b:98aba40bca810ae3,sapp@cscmonavenir.ca,https://cscmonavenir.ca/publications/politiques/ADM.21.1.pdf,verified
