@@ -16,7 +16,7 @@ most valuable first). Output: data/incoming/claude/claude_buyer_ap_results_deep0
 rows. Progress: ~/cch-crawler-state/deep_done.tsv (safe to stop and restart).
   python3 tools/deep_pages.py [--workers 16] [--limit N]
 """
-import argparse, csv, json, os, queue, re, sys, threading, time, urllib.error, urllib.parse, urllib.request
+import argparse, csv, gzip, json, os, queue, re, sys, threading, time, urllib.error, urllib.parse, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ap_crawler as C
@@ -108,6 +108,11 @@ def archived(url):
     for u in ("https://web.archive.org/web/%sid_/%s" % (ts, orig), snap):  # raw copy first, the archive's normal view if it errors
         status, ctype, data, final = C.fetch(u)
         if status == 200 and data:
+            if data[:2] == b"\x1f\x8b":  # raw copies keep the site's own gzip encoding
+                try:
+                    data = gzip.decompress(data)
+                except Exception:
+                    continue
             return data, ctype, snap
     return None
 
