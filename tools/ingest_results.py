@@ -108,8 +108,12 @@ def archive_text(url, fetch=True):
             return None
         snap = {"url": "https://web.archive.org/web/%s/%s" % (ts, url)}
         raw_url = "https://web.archive.org/web/%sid_/%s" % (ts, url)  # the page as archived, without the archive's toolbar
-        with urllib.request.urlopen(urllib.request.Request(raw_url, headers=UA), timeout=60) as r:
-            data = r.read(5_000_000)
+        try:
+            with urllib.request.urlopen(urllib.request.Request(raw_url, headers=UA), timeout=60) as r:
+                data = r.read(5_000_000)
+        except Exception:  # the archive sometimes fails on the raw form: its normal view holds the same page
+            with urllib.request.urlopen(urllib.request.Request(snap["url"], headers=UA), timeout=60) as r:
+                data = r.read(5_000_000)
         txt = html.unescape(data.decode("utf-8", "replace")).replace("&#64;", "@")
         open(p, "w", encoding="utf-8").write(snap["url"] + "\n" + txt)
         return snap["url"], txt
