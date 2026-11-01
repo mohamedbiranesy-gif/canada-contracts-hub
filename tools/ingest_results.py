@@ -42,6 +42,9 @@ def page_text(url):
         os.remove(p)  # an unparsed PDF from an older run: fetch and extract again
     if NOFETCH:
         return None
+    fail = p + ".fail"  # a page that failed recently is not fetched again for 3 days (keeps the time budget for new rows)
+    if os.path.exists(fail) and time.time() - os.path.getmtime(fail) < 3 * 86400:
+        return None
     if DEADLINE and time.time() > DEADLINE:
         return PENDING
     try:
@@ -49,6 +52,7 @@ def page_text(url):
             data = r.read(5_000_000)
             ctype = r.headers.get("content-type", "")
     except Exception:
+        open(fail, "w").write(time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
         return None
     if "pdf" in ctype.lower() or url.lower().endswith(".pdf"):
         tmp = p + ".pdf"
@@ -131,9 +135,11 @@ def prefetch():
         for r in csv.DictReader(open(path, encoding="utf-8-sig", newline="")):
             u = (r.get("evidence_url") or "").strip()
             if u.startswith("http") and ((r.get("ap_email") or r.get("invoice_portal_url") or r.get("general_email") or r.get("billing_or_ar_email") or "").strip()):
-                if not os.path.exists(os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest())):
-                    urls.append(u)
-    urls = list(dict.fromkeys(urls))
+                h = os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest())
+                if not os.path.exists(h) and not (os.path.exists(h + ".fail") and time.time() - os.path.getmtime(h + ".fail") < 3 * 86400):
+                    k = (r.get("buyer_key") or r.get("vendor_key") or "").split(":")[0]
+                    urls.append(({"b": 0, "lead": 1}.get(k, 2), u))  # contract buyers first, then relationship leads, then the rest
+    urls = list(dict.fromkeys(u for _, u in sorted(urls, key=lambda x: x[0])))
     lock, nxt = threading.Lock(), {}
     def one(u):
         if DEADLINE and time.time() > DEADLINE:
