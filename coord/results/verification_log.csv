@@ -147,6 +147,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00371,b:0682979dfde5aac1,procur
 chatgpt,chatgpt_buyer_ap_results_batch07.csv,CH-AP-00673,b:0686e2b5c52f50f8,sms@smseng.com,https://www.smseng.com/contact,verified
 chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00221,b:068834c9973233b3,supply@pickering.ca,https://pickering.bidsandtenders.ca/en,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00221,b:068834c9973233b3,info@watsonecon.ca,https://corporate.pickering.ca/WebLink/DocView.aspx?id=264015&dbid=6&repo=PICKERING&cr=1,not_found_on_page
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00221,b:068834c9973233b3,finance@pickering.ca,https://corporate.pickering.ca/WebLink/DocView.aspx?id=264015&dbid=6&repo=PICKERING&cr=1,not_found_on_page
 chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00213,b:069c7e7d760e4322,info@orangeville.ca,https://www.orangeville.ca/en/doing-business/resources/Documents/Community-Profile-2019.pdf,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00185,b:06c1f9e211e0455e,https://www.environnement.gouv.qc.ca/servicesenligne/factures/index.htm,https://www.environnement.gouv.qc.ca/servicesenligne/factures/index.htm,not_found_on_page
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00185,b:06c1f9e211e0455e,https://www.environnement.gouv.qc.ca/servicesenligne/factures/index.htm,https://www.environnement.gouv.qc.ca/servicesenligne/index.htm,not_found_on_page
@@ -422,6 +423,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CO-AP-00019,b:11d793e16fb33657,procur
 claude,claude_buyer_ap_results_crawl01.csv,CO-AP-00019,b:11d793e16fb33657,procurement@who.int,https://www.who.int/about/accountability/procurement,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-P0175,b:11de2a86fa2da3e1,info_clauseajustement@sqi.gouv.qc.ca,https://www.sqi.gouv.qc.ca/faire-affaire-avec-la-sqi/outils-pour-les-partenaires,verified
 gemini,gemini_buyer_ap_results_batch23.csv,GE-AP-P0175,b:11de2a86fa2da3e1,servicecontrats@sqi.gouv.qc.ca,https://www.sqi.gouv.qc.ca/a-propos/nous-joindre,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00054,b:11eb6974b46f79f9,invoices@sussex.ac.uk,https://www.sussex.ac.uk/webteam/gateway/file.php?name=terms-and-conditions-of-purchase.pdf&site=271,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00054,b:11eb6974b46f79f9,suppliers@sussex.ac.uk,https://www.sussex.ac.uk/about/procurement,verified
 gemini,gemini_buyer_ap_results_batch15.csv,GE-AP-01438,b:11f8c50fe4dd2e45,secretariat@brebeuf.ca,https://brebeuf.ca/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch17.csv,GE-AP-01633,b:1208682ea34a6829,info@municipalite.champlain.qc.ca,https://www.municipalite.champlain.qc.ca/fr/nous-joindre,verified
 gemini,gemini_buyer_ap_results_batch19.csv,GE-AP-01837,b:120b3279da773aa8,mrcdelamatanie@lamatanie.ca,https://lamatanie.ca/nous-joindre,verified
@@ -924,6 +927,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-P0208,b:256368c8553d334d,info@m
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00187,b:25752c7759c09ea0,info@cssda.gouv.qc.ca,https://cssda.gouv.qc.ca/budgets-et-etats-financiers/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00187,b:25752c7759c09ea0,info.sre@cssda.gouv.qc.ca,https://cssda.gouv.qc.ca/centre-de-services-scolaire/services-administratifs/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00187,b:25752c7759c09ea0,info-os@cssda.gouv.qc.ca,https://cssda.gouv.qc.ca/centre-de-services-scolaire/services-administratifs/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00187,b:25752c7759c09ea0,comptabilite@cssda.gouv.qc.ca,https://cssda.gouv.qc.ca/centre-de-services-scolaire/services-administratifs/,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00187,b:25752c7759c09ea0,sae@cssda.gouv.qc.ca,https://www.inforoutefpt.org/organismes-niveau-secondaire/centres-services-scolaire/841000,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00187,b:25752c7759c09ea0,rh@cssda.gouv.qc.ca,https://papp.csaffluents.qc.ca/SRH/Dotation/Emplois/Offerts,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00187,b:25752c7759c09ea0,https://cssda.gouv.qc.ca,https://www.quebec.ca/famille-et-soutien-aux-personnes/services-educatifs/coordonnees-des-commissions-scolaires,verified
@@ -1329,6 +1333,7 @@ chatgpt,chatgpt_buyer_ap_results_batch10.csv,CH-AP-00920,b:33606fc97d9d2d9a,proc
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00920,b:33606fc97d9d2d9a,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 gemini,gemini_buyer_ap_results_batch16.csv,GE-AP-01567,b:3368b97ee1abe6c0,recrutement@mamh.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/affaires-municipales/emplois-stages,verified
 chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00499,b:3385f9ae7954dc73,info.accessibility.standards-normes.accessibilite.info@canada.gc.ca,https://accessible.canada.ca/contact,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00049,b:33898ebd78efc9db,f.billings@uea.ac.uk,https://assets.uea.ac.uk/f/185167/x/077c354bce/finance-planning-governance-mass-email-policy.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch08.csv,CH-AP-00797,b:338d5ae6a5473ae6,AccountsPayable@oro-medonte.ca,https://www.oro-medonte.ca/media/upkgvrrq/direct-deposit-form-vendor.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch08.csv,CH-AP-00797,b:338d5ae6a5473ae6,procurement@oro-medonte.ca,https://www.oro-medonte.ca/our-government/procurement-services/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00797,b:338d5ae6a5473ae6,finance@oro-medonte.ca,https://www.oro-medonte.ca/working-here/township-departments/finance/property-taxes/,verified
@@ -1358,7 +1363,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-P0071,b:34cc7c9ebb26a5bf,info.c
 gemini,gemini_buyer_ap_results_batch22.csv,GE-AP-P0071,b:34cc7c9ebb26a5bf,cp1.ccsmtl@ssss.gouv.qc.ca,https://ciusss-centresudmtl.gouv.qc.ca/sites/ciussscsmtl/files/media/document/Contrat_ExigencesFacturation.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch03.csv,CH-AP-00232,b:34d574ac09615e62,mwsb@gov.mb.ca,https://www.gov.mb.ca/mr/mwsb/,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00055,b:34e94eefe9576d28,renseignement-paiements-payments-inquiry@ec.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,unverified_page_unavailable
-gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00001,b:34e94eefe9576d28,enviroinfo@ec.gc.ca,https://www.canada.ca/en/environment-climate-change/corporate/contact.html,verified
+gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00001,b:34e94eefe9576d28,enviroinfo@ec.gc.ca,https://www.canada.ca/en/environment-climate-change/corporate/contact.html,unverified_page_unavailable
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00001,b:34e94eefe9576d28,enviroinfo@ec.gc.ca,https://www.canada.ca/en/environment-climate-change/corporate/contact/find-office.html,unverified_page_unavailable
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00001,b:34e94eefe9576d28,enviroinfo@ec.gc.ca,https://www.canada.ca/en/environment-climate-change/corporate/contact/find-office.html,unverified_page_unavailable
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00001,b:34e94eefe9576d28,enviroinfo@ec.gc.ca,https://pe.211.ca/government-of-canada-environment-and-climate-change,verified
@@ -1394,6 +1399,7 @@ gemini,gemini_buyer_ap_results_batch19.csv,GE-AP-01826,b:3622312db2a9c8c6,poular
 gemini,gemini_buyer_ap_results_batch19.csv,GE-AP-01826,b:3622312db2a9c8c6,poularies@mrcao.qc.ca,https://www.mrcao.qc.ca/documents/pages/liste-municipalites-et-coordonnees.pdf,verified
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00577,b:362d63c6d0075f9a,approvisionnement.cissslan@ssss.gouv.qc.ca,https://www.quebec.ca/sante/systeme-et-services-de-sante/regimes-dassurance/frais-accessoires/liste-repondants-gestion-approvisionnement-fournitures-medicaments-cliniques,verified
 gemini,gemini_buyer_ap_results_batch12.csv,GE-AP-01186,b:362f7b5468ab7e1a,08.cisssat.spu@ssss.gouv.qc.ca,https://www.quebec.ca/sante/systeme-et-services-de-sante/services-prehospitaliers-urgence/informations-etudiants-intervenants-parties-prenantes-services-prehospitaliers-urgence/joindre-services-prehospitaliers-urgence,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00041,b:365c02471dd7500b,office@nuclearelectrica.ro,https://nuclearelectrica.ro/snn/despre-noi/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CO-AP-00266,b:366669cc51e94f5a,info@fpc.wa.gov.au,https://www.wa.gov.au/organisation/forest-products-commission,verified
 gemini,gemini_buyer_ap_results_batch17.csv,GE-AP-01680,b:366a76b740ec9535,mrcdelamatanie@lamatanie.ca,https://lamatanie.ca/nous-joindre,verified
 gemini,gemini_buyer_ap_results_batch10.csv,GE-AP-00992,b:367167bc3af64e89,info@st-mathias.org,https://www.saint-mathias-sur-richelieu.org/nous-joindre,verified
@@ -1572,7 +1578,7 @@ gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00329,b:3d4108d87b549363,https:
 gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00329,b:3d4108d87b549363,relationsmedias@retraitequebec.gouv.qc.ca,https://www.quebec.ca/nouvelles/responsables-medias,not_found_on_page
 gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00329,b:3d4108d87b549363,RQAP-BGAP@retraitequebec.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/conseil-gestion-assurance-parentale/coordonnees-structure/generales,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00073,b:3d42e5bc3a45803f,greffe@st-hyacinthe.ca,https://www.st-hyacinthe.ca/ville/finances/appel-doffres-et-octrois-de-contrats,unverified_page_unavailable
-gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00073,b:3d42e5bc3a45803f,Biomethanisation@st-hyacinthe.ca,https://www.st-hyacinthe.ca/ville/ville-administration/bottin-des-services,verified
+gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00073,b:3d42e5bc3a45803f,Biomethanisation@st-hyacinthe.ca,https://www.st-hyacinthe.ca/ville/ville-administration/bottin-des-services,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00073,b:3d42e5bc3a45803f,https://www.st-hyacinthe.ca,https://fr.wikipedia.org/wiki/Gr%C3%A9goire_Girard_(arpenteur-g%C3%A9om%C3%A8tre),verified
 claude,claude_buyer_ap_results_manual01.csv,CL-MAN-00030,b:3d6268107b103d06,facture@montreal.ca,https://ville.montreal.qc.ca/pls/portal/docs/page/prt_vdm_fr/media/documents/tableau_exigences_de_facturation_vdm.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01373,b:3d6c97be02f44241,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
@@ -1824,7 +1830,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00191,b:47d7a7f8593351c0,purcha
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00954,b:47df4e01e53d5b00,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00220,b:47ec19dc016458d3,info@ville.rosemere.qc.ca,https://www.ville.rosemere.qc.ca/2e-versement---facturation-de-la-consommation-excedentaire-d-eau/,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00220,b:47ec19dc016458d3,info@ville.rosemere.qc.ca,https://mrc-tdb.org/ville-rosemere/,verified
-gemini,gemini_buyer_ap_results_batch23.csv,GE-AP-P0172,b:47ec19dc016458d3,info@ville.rosemere.qc.ca,https://www.ville.rosemere.qc.ca/subscribe-automated-calling-system/,verified
+gemini,gemini_buyer_ap_results_batch23.csv,GE-AP-P0172,b:47ec19dc016458d3,info@ville.rosemere.qc.ca,https://www.ville.rosemere.qc.ca/subscribe-automated-calling-system/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01648,b:47fe641b62ab113a,eb.supplier.security@gdeb.com,https://www.gdeb.com/suppliers/11_supplier_security/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01648,b:47fe641b62ab113a,ebsupplierweldingsupport@gdeb.com,https://www.gdeb.com/suppliers/12_weld_ndt/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01648,b:47fe641b62ab113a,ebsupplierndtsupport@gdeb.com,https://www.gdeb.com/suppliers/12_weld_ndt/,unverified_page_unavailable
@@ -1877,6 +1883,7 @@ gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00070,b:48eaa6af5704598f,spu.ci
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00125,b:48f4de3fce8d81ec,nrcan.direct_deposit_inquiries-renseignements_sur_le_depot_direct.rncan@canada.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch13.csv,GE-AP-01270,b:4940db10fefee48e,muniroch@saintrochdesaulnaies.ca,https://www.saintrochdesaulnaies.ca/pages/nous-joindre,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch13.csv,GE-AP-01270,b:4940db10fefee48e,muniroch@saintrochdesaulnaies.ca,https://mrclislet.com/la-region/les-14-municipalites/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00062,b:4942262fca261b4b,procurement@bernicia.com,https://www.bernicia.com/corporate/transparency-reports/procurement/,verified
 gemini,gemini_buyer_ap_results_batch20.csv,GE-AP-01941,b:494ba7c7d484ca81,recrutement@mamh.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/affaires-municipales/emplois-stages,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0222,b:496391f4ef815376,info@unifor5555.ca,https://directories.mcmaster.ca/faculty-staff/,verified
 gemini,gemini_buyer_ap_results_batch12.csv,GE-AP-01165,b:4967cc5760fffaef,info@mrcbhs.ca,https://www.ville.valleyfield.qc.ca/conseils-outils-industriel/mrc-de-beauharnois-salaberry,verified
@@ -2221,6 +2228,9 @@ gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01759,b:559cf91d29654e06,info@s
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01759,b:559cf91d29654e06,https://www.saintaugustindewoburn.ca/pages/formulaire-de-plainte,https://www.saintaugustindewoburn.ca/pages/formulaire-de-plainte,verified
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01759,b:559cf91d29654e06,info@saintaugustindewoburn.ca,https://www.saintaugustindewoburn.ca/pages/formulaire-de-plainte,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01759,b:559cf91d29654e06,https://www.saintaugustindewoburn.ca/pages/formulaire-de-plainte,https://www.saintaugustindewoburn.ca/pages/formulaire-de-plainte,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00058,b:55d531613d361991,gen.ap@sse.com,https://www.sse.com/potential-suppliers/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00058,b:55d531613d361991,accounts.payable.dublin@sse.com,https://www.sse.com/potential-suppliers/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00058,b:55d531613d361991,sse.ap@sse.com,https://www.sse.com/potential-suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00850,b:55ef289c96d2c54b,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01028,b:55f7c2b1205db882,communications@csshbo.gouv.qc.ca,https://www.csshbo.gouv.qc.ca/fr/centre-services-scolaire/services-centralises/service-des-ressources-financieres-et-du-transport-scolaire,verified
 claude,claude_buyer_ap_results_manual01.csv,CL-MAN-00059,b:560be1d9b705b1b5,facture@montreal.ca,https://ville.montreal.qc.ca/pls/portal/docs/page/prt_vdm_fr/media/documents/tableau_exigences_de_facturation_vdm.pdf,verified
@@ -2637,6 +2647,7 @@ gemini,gemini_buyer_ap_results_batch19.csv,GE-AP-01860,b:660b108ab53d16e3,minist
 chatgpt,chatgpt_buyer_ap_results_batch07.csv,CH-AP-00641,b:661fa809336b001a,Forests.BabineTimberSalesOffice@gov.bc.ca,https://www2.gov.bc.ca/gov/content/industry/forestry/bc-timber-sales/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00641,b:661fa809336b001a,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0079,b:662a66151baabd2e,info@gov.nl.ca,https://www.gov.nl.ca,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0079,b:662a66151baabd2e,finance@gov.nl.ca,https://www.gov.nl.ca/fin/department/contact/,verified
 chatgpt,chatgpt_buyer_ap_results_batch10.csv,CH-AP-00916,b:66390009ec2971ab,accountspayable@clearhillscounty.ab.ca,https://www.clearhillscounty.ab.ca/government/administration-contact-us,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00286,b:663cdf88bca54384,soutienprofesionnelsante@cnesst.gouv.qc.ca,https://www.cnesst.gouv.qc.ca/fr/demarches-formulaires/professionnels-intervenants-sante/medecins/transmission-documents-rapports-medicaux,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00286,b:663cdf88bca54384,https://www.cnesst.gouv.qc.ca,https://www.211qc.ca/organisme/commission-des-normes-de-lequite-de-la-sante-et-de-la-securite-du-travail-siege-social-33594157,verified
@@ -2992,6 +3003,7 @@ chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00036,b:7153b8cc802f9efb,purc
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00036,b:7153b8cc802f9efb,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00171,b:715cd8f8e5e37eb6,accountspayable@hrce.ca,https://www.hrce.ca/sites/default/files/documents/tenders/4276%20.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0111,b:717ea0f381499de5,info@gov.nl.ca,https://www.gov.nl.ca,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0111,b:717ea0f381499de5,finance@gov.nl.ca,https://www.gov.nl.ca/fin/department/contact/,verified
 claude,claude_buyer_ap_results_manual01.csv,CL-MAN-00067,b:71d306b8d09063bd,facture@montreal.ca,https://ville.montreal.qc.ca/pls/portal/docs/page/prt_vdm_fr/media/documents/tableau_exigences_de_facturation_vdm.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00170,b:71ded5754b4f47e4,facturation@shdm.org,https://www.shdm.org/fr/actualites/messages-aux-fournisseurs-covid-19,verified
 claude,claude_buyer_ap_results_deep01.csv,CL-DP-00170,b:71ded5754b4f47e4,facturation@shdm.org,https://www.shdm.org/fr/actualites/messages-aux-fournisseurs-covid-19,verified
@@ -3040,7 +3052,7 @@ gemini,gemini_buyer_ap_results_batch05.csv,GE-AP-00480,b:73969ad453380eca,commun
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01050,b:73aa8ea1d4e01db7,info@ozdesign.ca,https://saint-barnabe.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01050,b:73aa8ea1d4e01db7,municipalite@saint-barnabe.ca,https://saint-barnabe.ca/la-municipalite/administration-et-finances/offres-demploi/,verified
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01050,b:73aa8ea1d4e01db7,reception@saint-barnabe.ca,https://saint-barnabe.ca/nous-joindre/,not_found_on_page
-gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01050,b:73aa8ea1d4e01db7,municipalite@saint-barnabe.ca,https://mrcmaskinonge.ca/municipalites/saint-barnabe/,verified
+gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01050,b:73aa8ea1d4e01db7,municipalite@saint-barnabe.ca,https://mrcmaskinonge.ca/municipalites/saint-barnabe/,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01050,b:73aa8ea1d4e01db7,http://www.saint-barnabe.ca,https://fr.wikivoyage.org/wiki/w:Saint-Barnab%C3%A9_(Qu%C3%A9bec),verified
 chatgpt,chatgpt_buyer_ap_results_batch04.csv,CH-AP-00339,b:73ae3a0c937cc13e,accountspayable@townofws.ca,https://www.townofws.ca/media/dllbvevl/eft-application-form.pdf,verified
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00138,b:73c89be0d0b9c5fb,ville@bromont.com,https://www.mrcbm.qc.ca/en/municipalities/bromont,verified
@@ -3514,7 +3526,7 @@ chatgpt,chatgpt_buyer_ap_results_batch11.csv,CH-AP-01063,b:86caa87f01756345,supp
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01063,b:86caa87f01756345,supplierinfo@dewberry.com,https://www.dewberry.com/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01063,b:86caa87f01756345,supplierinfo@dewberry.com,https://www.dewberry.com/contact,verified
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01786,b:86d4d14cc0ecdcb3,info@mrcbeaucecentre.ca,https://ville.beauceville.qc.ca/repertoire-professionnel/mrc-beauce-centre/,verified
-gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00342,b:87003f70ba7fe217,info@quartierdesspectacles.com,https://www.quartierdesspectacles.com/en/contact,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00342,b:87003f70ba7fe217,info@quartierdesspectacles.com,https://www.quartierdesspectacles.com/en/contact,verified
 gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00342,b:87003f70ba7fe217,info@quartierdesspectacles.com,https://www.mtl.org/fr/quoi-faire/culture-arts-patrimoine/quartier-des-spectacles,verified
 claude,claude_buyer_ap_results_manual01.csv,CL-MAN-00088,b:87078cd715d47ac8,facture@montreal.ca,https://ville.montreal.qc.ca/pls/portal/docs/page/prt_vdm_fr/media/documents/tableau_exigences_de_facturation_vdm.pdf,verified
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00791,b:873055bbc57aa07f,administration@stsimeon.ca,https://www.stsimeon.ca/nous-joindre,not_found_on_page_hidden
@@ -4542,6 +4554,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01971,b:b252aa32d7508e13,paymen
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00297,b:b25d753024db63f7,info@cssda.gouv.qc.ca,https://cssda.gouv.qc.ca/budgets-et-etats-financiers/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00297,b:b25d753024db63f7,info.sre@cssda.gouv.qc.ca,https://cssda.gouv.qc.ca/centre-de-services-scolaire/services-administratifs/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00297,b:b25d753024db63f7,info-os@cssda.gouv.qc.ca,https://cssda.gouv.qc.ca/centre-de-services-scolaire/services-administratifs/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00297,b:b25d753024db63f7,comptabilite@cssda.gouv.qc.ca,https://cssda.gouv.qc.ca/centre-de-services-scolaire/services-administratifs/,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00297,b:b25d753024db63f7,sae@cssda.gouv.qc.ca,https://www.inforoutefpt.org/organismes-niveau-secondaire/centres-services-scolaire/841000,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00297,b:b25d753024db63f7,rh@cssda.gouv.qc.ca,https://papp.csaffluents.qc.ca/SRH/Dotation/Emplois/Offerts,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00297,b:b25d753024db63f7,https://cssda.gouv.qc.ca,https://www.quebec.ca/famille-et-soutien-aux-personnes/services-educatifs/coordonnees-des-commissions-scolaires,verified
@@ -4824,6 +4837,7 @@ gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00848,b:bec1e7cd21bd5b99,frais.
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01083,b:bed1334cb7afc26d,dg@laverlochere-angliers.org,https://www.mrctemiscamingue.org/municipalites/laverlochere-angliers/,verified
 gemini,gemini_buyer_ap_results_batch19.csv,GE-AP-01888,b:bed2d5feb91a6341,info@baiestecatherine.com,https://www.baiestecatherine.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0107,b:bf30ac56915ffb5c,info@gov.nl.ca,https://www.gov.nl.ca,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0107,b:bf30ac56915ffb5c,finance@gov.nl.ca,https://www.gov.nl.ca/fin/department/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00626,b:bf4a961bd766b734,finances@vivrescb.com,https://www.vivrescb.com/nous-joindre,verified
 gemini,gemini_buyer_ap_results_batch07.csv,GE-AP-00626,b:bf4a961bd766b734,finances@vivrescb.com,https://www.vivrescb.com/nous-joindre,verified
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01013,b:bf67ff66aa2ee86f,info@cantonvalcourt.qc.ca,https://cantonvalcourt.qc.ca/administration/,verified
@@ -5719,6 +5733,7 @@ gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01023,b:e5e971380de0677f,info@m
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01023,b:e5e971380de0677f,info@munpontmain.qc.ca,https://vplus-documents.s3.ca-central-1.amazonaws.com/notre-dame-de-pontmain/_publication/fichiers/Villageois-fevrier-2023-1.pdf,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01023,b:e5e971380de0677f,https://munpontmain.qc.ca,https://fr.wikivoyage.org/wiki/w:Notre-Dame-de-Pontmain,verified
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00579,b:e6019d3de2f4c1ac,adm@mrclaurentides.qc.ca,https://mrclaurentides.qc.ca/nous-joindre/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00020,b:e6044d7c09af3147,admin@warnercounty.ca,https://warnercounty.ca,verified
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00194,b:e60a22564e00ccef,suppliers-fournisseurs.gen-nat@csc-scc.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00516,b:e60d5bde68e3c4fb,info@oka.ca,https://municipalite.oka.qc.ca/mairie/finances-et-tresorerie/,verified
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00514,b:e6184c7e1e46eb67,finances@vsmsll.ca,https://vsmsll.ca/nous-joindre,verified
@@ -5876,7 +5891,7 @@ gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00058,b:ec8f414748979d94,compte
 chatgpt,chatgpt_buyer_ap_results_batch11.csv,CH-AP-01092,b:ec9a8507e2d56816,AccountsPayable@kincardine.ca,https://www.kincardine.ca/media/iwxnlonm/po-terms-and-conditions.pdf,verified
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00521,b:ecabd9c29fab4c8b,spu.agence16@ssss.gouv.qc.ca,https://www.quebec.ca/sante/systeme-et-services-de-sante/services-prehospitaliers-urgence/informations-etudiants-intervenants-parties-prenantes-services-prehospitaliers-urgence/joindre-services-prehospitaliers-urgence,verified
 chatgpt,chatgpt_buyer_ap_results_batch09.csv,CH-AP-00865,b:ecc1a292f5238abd,Payables@brandonu.ca,https://www.brandonu.ca/finance/faculty-staff-resources/accounts-payable/,verified
-gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01723,b:eccb8d2abd6903c7,info@st-leonard.com,https://st-leonard.com/,verified
+gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01723,b:eccb8d2abd6903c7,info@st-leonard.com,https://st-leonard.com/,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01723,b:eccb8d2abd6903c7,saintleonard@derytele.com,https://services.qgdeportneuf.com/organismes/municipalite-de-saint-leonard-de-portneuf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00645,b:ecd13b2dfa28001c,finance@cscree.qc.ca,https://eeyoueducation.ca/docs/articles/finance-1/1609-depots-directs-formulaire-de-consentement-2020/file,cross_verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00645,b:ecd13b2dfa28001c,finance@cscree.qc.ca,https://eeyoueducation.ca/docs/articles/finance-1/1609-depots-directs-formulaire-de-consentement-2020/file,cross_verified
@@ -6282,6 +6297,7 @@ gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00191,b:fdbc851da82e7308,info@c
 gemini,gemini_buyer_ap_results_batch23.csv,GE-AP-P0146,b:fdbc851da82e7308,info@cssvt.gouv.qc.ca,https://cssvt.gouv.qc.ca/joindre/,verified
 chatgpt,chatgpt_buyer_ap_results_batch07.csv,CH-AP-00646,b:fdbf8860300fc415,office@rm32.ca,https://www.rmofreciprocity.ca/contact,verified
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00574,b:fdc3a9335d6f0b3b,communic@mce.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/conseil-executif/coordonnees-structure/generales,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-00052,b:fdd2e241e30b1ce0,finance.procurement@solent.ac.uk,https://www.solent.ac.uk/about/our-policies-and-legal-information/finance-information/procurement-and-suppliers,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00656,b:fde708bf25a2d953,222comptabilite@sadl.qc.ca,https://www.sadl.qc.ca/fr/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch07.csv,GE-AP-00656,b:fde708bf25a2d953,https://www.sadl.qc.ca/fr/nous-joindre/,https://www.sadl.qc.ca/fr/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch07.csv,GE-AP-00656,b:fde708bf25a2d953,info@sadl.qc.ca,https://lespaysdenhaut.com/municipalite/sainte-anne-des-lacs/,verified
@@ -6374,6 +6390,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02086,lead:03ea0a65a3c84686,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06501,lead:040621f95e43dbbf,info@ffdnorth.com,https://www.ffdnorth.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08035,lead:0416075b65309e6f,municipalite@stjosephdeserables.com,https://stjosephdeserables.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00644,lead:0475706f683a9bfe,info@foxgradschool.psu.edu,https://gradschool.psu.edu/about/directory,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01792,lead:0475706f683a9bfe,financialaid@worldcampus.psu.edu,https://www.psu.edu/costs-aid/contact,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01792,lead:0475706f683a9bfe,finance@foxgradschool.psu.edu,https://gradschool.psu.edu/about/directory,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01329,lead:047d4dce86e5246c,info@longevitygraphics.com,https://www.longevitygraphics.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03107,lead:0492dd27499afe71,info@leadboxhq.com,https://leadboxhq.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05283,lead:04ae8c4a18562bac,info@exeterbia.com,https://www.exeterontario.com/,verified
@@ -6452,6 +6470,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05067,lead:0b0497e22da1ced0,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05067,lead:0b0497e22da1ced0,info@ticketleader.ca,https://pne.ca/contact/department-contacts/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05024,lead:0b054e079e51b3db,info@altinformatique.ca,https://altinformatique.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00806,lead:0b0fe2e3fc98cd2f,info@energir.com,https://energir.com/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00806,lead:0b0fe2e3fc98cd2f,commisachat@energir.com,https://energir.com/files/energir_common/import/Fichiers/Corporatifs/Politiques%20et%20directives/Guide-pour-de%CC%81poser-une-demande-de-fournisseur_FR.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01998,lead:0b7ad96fd40a174f,billetterie@pauline-julien.com,https://pauline-julien.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01998,lead:0b7ad96fd40a174f,info@pauline-julien.com,https://pauline-julien.com/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00992,lead:0b8823436c8168b4,info@udayton.edu,https://udayton.edu/,verified
@@ -6597,6 +6616,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06435,lead:19bffead763ea801,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08284,lead:19c2b86ab24ed4d2,info@bcchicken.ca,https://bcchicken.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03830,lead:19e0b6e15cba871b,purchasing@london.ca,https://london.bidsandtenders.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01579,lead:19f111beffb9f44d,secretariat@ant.ulaval.ca,https://www.fss.ulaval.ca/nous-joindre,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01579,lead:19f111beffb9f44d,soutienfinancier@fss.ulaval.ca,https://www.fss.ulaval.ca/etudes/bourses-et-aide-financiere,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07504,lead:19f1dccb9ab5fe0c,info@avantpremiere.ca,https://avantpremiere.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05462,lead:19f388afbdc61d80,info@kitco.com,http://www.kitco.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05462,lead:19f388afbdc61d80,hello@francoiswrites.com,https://www.kitco.com/opinion/2024-09-16/golds-role-microprocessor-manufacturing-challenges-and-innovations,verified
@@ -7043,6 +7063,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00735,lead:3fb826ba11a6bcec,acc
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00735,lead:3fb826ba11a6bcec,accountpayable.help@denvergov.org,https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Department-of-Finance/Our-Divisions/Treasury,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00735,lead:3fb826ba11a6bcec,central.purchasing@denvergov.org,https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Department-of-Finance/Fiscal-Accountability,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00126,lead:3fc93f2affee6aed,info.northamerica@cdp.net,https://www.cdp.net/en/contact-us,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00126,lead:3fc93f2affee6aed,sustainablefinancebanks@cdp.net,https://www.cdp.net/en/contact-us,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00126,lead:3fc93f2affee6aed,accounts.japan@cdp.net,https://www.cdp.net/ja/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07115,lead:3fda84fdc4d403b3,treasury@disciples.org,https://disciplesmissionfund.org/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08533,lead:4007fd7e83c1bc9c,finance@collingwood.ca,https://www.collingwood.ca/governance-engagement/budgeting-taxation/financial-reports,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08533,lead:4007fd7e83c1bc9c,accountability@collingwood.ca,https://www.collingwood.ca/governance-engagement/governance-support-services/accountability-transparency,verified
@@ -7175,6 +7197,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07222,lead:489ffac8d15ee26f,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06772,lead:49072f8030fbf3dc,info@qualityhomes.ca,https://qualityhomes.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02128,lead:492bd472c9787848,info@alliancepetitenation.org,https://alliancepetitenation.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00843,lead:496468a6f1a2c713,info@bdc.ca,https://www.bdc.ca/en,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00843,lead:496468a6f1a2c713,approvisionnement.procurement@bdc.ca,https://www.bdc.ca/globalassets/digizuite/57718-supplier-code-of-conduct.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01680,lead:499515cde2226ab9,hello@eclipse3sixty.com,https://eclipse3sixty.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02430,lead:499e48bcdd14589e,info@kwdmarketing.ca,https://kwdmarketing.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00847,lead:49aed84657b2f831,financeapgroup@squamish.net,https://www.squamish.net/divisions/corporate-services/finance/payments/,verified
@@ -7353,6 +7376,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01073,lead:5874db0124b1b361,app
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01073,lead:5874db0124b1b361,approvisionnement.cissslan@ssss.gouv.qc.ca,https://www.santeestrie.qc.ca/clients/SanteEstrie/A_propos/Fournisseurs/sante_quebec-fournisseurs-procedure_examen_plainte-2024.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01073,lead:5874db0124b1b361,07_cissso_approvisionnement@ssss.gouv.qc.ca,https://www.santeestrie.qc.ca/clients/SanteEstrie/A_propos/Fournisseurs/sante_quebec-fournisseurs-procedure_examen_plainte-2024.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00813,lead:58a043600fd1531d,info@lepointdevente.com,https://aide.lepointdevente.com/fr/articles/1715483-q-comment-faire-pour-que-l-adresse-de-livraison-soit-differente-de-l-adresse-de-facturation,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00813,lead:58a043600fd1531d,comptabilite@lepointdevente.com,https://lepointdevente.com/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05602,lead:58affe715906c00b,info@regence.ca,https://gonats.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04966,lead:5946f4c6825be37d,info@capdauphincoop.ca,https://www.capdauphincoop.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07054,lead:59cbd9bd21b41da3,info@echodenhaut.org,https://echodenhaut.org/,verified
@@ -7412,6 +7436,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05433,lead:5e0353d174399fcc,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03317,lead:5e37e99b17e3f558,info@unfussybrands.com,https://www.unfussybrands.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03095,lead:5e41d32953d89b3e,info@aaapnb.ca,https://aaapnb.ca/fr,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01150,lead:5e5d8dea7a327a67,info@elcic.ca,https://elcic.ca/treasurers-resources/pre-authorized-remittance-par/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01150,lead:5e5d8dea7a327a67,finance@elcic.ca,https://elcic.ca/wp-content/uploads/2021/12/TreasurersInfoBooklet_UPDATED-MAY25-2021.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04989,lead:5e6ae6bc565143cb,info@environnementfaucon.com,https://www.falconenvironmental.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04989,lead:5e6ae6bc565143cb,info@falconenvironmental.com,https://www.falconenvironmental.com/en/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00422,lead:5eb5dabf246756fe,info@centrex-apchq.com,https://www.apchq.com/nos-services/cautionnements-assurances-et-garanties/assurances/assurance-des-acomptes/,verified
@@ -7529,6 +7554,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01580,lead:6969016c0cac8f7b,hsp
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01580,lead:6969016c0cac8f7b,arpayment@fraserhealth.ca,https://www.fraserhealth.ca/patients-and-visitors/billing-and-fees/pay-your-bill,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01580,lead:6969016c0cac8f7b,llpayments@fraserhealth.ca,https://www.fraserhealth.ca/patients-and-visitors/billing-and-fees/pay-your-bill,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00412,lead:699b0f5d5928abdc,info@projexmedia.com,https://projexmedia.com/web/contactez-nous-pour-la-conception-de-sites-web/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00412,lead:699b0f5d5928abdc,comptabilite@projexmedia.com,https://projexmedia.com/web/contactez-nous-pour-la-conception-de-sites-web/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02330,lead:699d812033bf0046,hello@sidleesport.com,https://www.sidleesport.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03510,lead:699e21ef91d82477,info@energir.com,https://gnl.gazmetro.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06730,lead:6a175306bf94fa04,hello@strattonhomes.ca,https://strattonhomes.ca/,verified
@@ -7773,6 +7799,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01397,lead:7e8c9d293e2f61fa,pro
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01397,lead:7e8c9d293e2f61fa,procurement@partenariatcontrelecancer.ca,https://www.partnershipagainstcancer.ca/fr/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01397,lead:7e8c9d293e2f61fa,info@partnershipagainstcancer.ca,https://www.partnershipagainstcancer.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01931,lead:7e95c603eb88262f,info@barriepolice.ca,https://www.barrie.ca/services-payments/emergency-services/calling-9-1-1,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01931,lead:7e95c603eb88262f,financeadmin@barrie.ca,https://www.barrie.ca/services-payments/property-taxes,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05794,lead:7ec28c82cbb8b143,info@smcdsb.on.ca,https://smcdsb.ss9.sharpschool.com/cms/One.aspx?portalId=30054&pageId=165080,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07630,lead:7f02af2a64244c32,info@stayupright.com.au,https://www.stayupright.com.au/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05374,lead:7f1eb59463389c5f,info@josam.se,https://josam.se/,verified
@@ -7860,6 +7887,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02262,lead:87a61f1519f62b99,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00841,lead:87d538c769e54b61,info_programmes@uqac.ca,https://www.uqac.ca/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00841,lead:87d538c769e54b61,bureau_registraire@uqac.ca,https://www.uqac.ca/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00841,lead:87d538c769e54b61,info_international@uqac.ca,https://www.uqac.ca/nous-joindre/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00841,lead:87d538c769e54b61,pm_sc-comptables@uqac.ca,https://programmes.uqac.ca/personnel_module.html?codeModule=2.2&menu=sciences-comptable,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02019,lead:87f77c9fa7029221,info@wisdom2action.org,https://queerjoyphotovoice.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02302,lead:8810de80ed3a0f15,info@bowkercreekinitiative.ca,https://www.crd.ca/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06761,lead:8818678d57bf9a63,finance@northumberland.ca,https://northumberland.ca/county-government/budgets-and-finance-2/,verified
@@ -7975,6 +8003,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00810,lead:91f860ccee309747,fin
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01446,lead:91fd1eb100b0ef53,info@smu.ca,https://www.smu.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01446,lead:91fd1eb100b0ef53,reception@ambassatours.com,https://www.smu.ca/conferenceservices/facultyandstaffbookings.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00823,lead:92356f3ff60f04ed,info@gov.nl.ca,https://www.gov.nl.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00823,lead:92356f3ff60f04ed,finance@gov.nl.ca,https://www.gov.nl.ca/fin/department/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08604,lead:9235f617af684dcc,purchasing@meaford.ca,https://meaford.bidsandtenders.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01103,lead:92543c10a2956c4a,apinvoice@mtu.edu,https://www.mtu.edu/fso/financial/accounts-payable/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01103,lead:92543c10a2956c4a,purchasing@mtu.edu,https://www.mtu.edu/procurement/,verified
@@ -8402,6 +8431,8 @@ gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00656,lead:b524bbe885907
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06245,lead:b53d6cf8ac5a742a,info@rouyn-noranda.ca,https://doucerebelle.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03211,lead:b54a01dcc6b22e07,hello@lumecreative.co,https://www.lumecreative.co/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01631,lead:b54b843a6148ccc9,info@bcforestsafe.org,https://www.bcforestsafe.org/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01631,lead:b54b843a6148ccc9,finance@bcforestsafe.org,https://www.bcforestsafe.org/contact-us/program-area-directory/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01631,lead:b54b843a6148ccc9,accounting@bcforestsafe.org,https://www.bcforestsafe.org/contact-us/program-area-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01662,lead:b553e19616618072,supplier.diversity@oakviewgroup.com,https://www.orlandocitysc.com/stadium/supplier-diversity-program,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03375,lead:b5546c9bc8fa6f37,info@editions-rm.ca,https://www.editions-rm.ca/,not_found_on_page
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00661,lead:b5546c9bc8fa6f37,info@editions-rm.ca,https://www.editions-rm.ca/,not_found_on_page
@@ -8484,6 +8515,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05069,lead:bd1f5cf03639ee7e,adm
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05069,lead:bd1f5cf03639ee7e,info@bflp.org,https://www.bflp.org/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03229,lead:bd8c846e76f0a354,info@mrc.septrivieres.qc.ca,https://septrivieres.qc.ca/gestion-contractuelle/appel-doffres,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01575,lead:bda1fc82710b1555,reception@irsss.ca,https://www.irsss.ca/contact,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01575,lead:bda1fc82710b1555,finance@irsss.ca,https://www.irsss.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07008,lead:bdc5013ba8fc3805,ndpwl.facturacionvacios@dpworld.com,https://www.dpworld.com/es-pe/about-us/our-locations/peru/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07008,lead:bdc5013ba8fc3805,ndpwl.paitafacturacionvacios@dpworld.com,https://www.dpworld.com/es-pe/about-us/our-locations/peru/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07008,lead:bdc5013ba8fc3805,dpwl.facturacion@dpworld.com,https://www.dpworld.com/es-pe/about-us/our-locations/peru/contact-us,verified
@@ -8553,12 +8585,14 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07917,lead:c4c873e8903208c6,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07299,lead:c4d0bbd468be1074,info@mysite.com,https://www.nosmusc.com/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03942,lead:c4eba039b5ef1e75,info@sadccoaticook.ca,https://sadccoaticook.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01056,lead:c510b7ce3df587cc,info@bda.ulaval.ca,https://www.bibl.ulaval.ca/nous-joindre,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01056,lead:c510b7ce3df587cc,comptoirs.services@bibl.ulaval.ca,https://www.bibl.ulaval.ca/nous-joindre,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08013,lead:c53cad5d30da6df6,info@municipalitescott.com,https://www.municipalitescott.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03143,lead:c54cca569c116a7f,contact@mathieulajeunesse.com,https://mathieulajeunesse.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04218,lead:c577aa2329ab57a0,info@metcalffoundation.com,https://metcalffoundation.com/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07164,lead:c57b7b09318fac31,billetterie@fonds-enki-bilal.com,https://fonds-enki-bilal.com/contacts/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07164,lead:c57b7b09318fac31,info@fonds-enki-bilal.com,https://fonds-enki-bilal.com/contacts/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01351,lead:c57e43786a8950e1,info@craftontario.com,https://craftontario.com/pages/people-and-partners,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01351,lead:c57e43786a8950e1,accounting@craftontario.com,https://craftontario.com/pages/people-and-partners,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07583,lead:c5999c76181b80fb,info@prowebservices.ca,https://prowebservices.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03210,lead:c5ba2c1e76fe4646,info@fatfish.ca,https://fatfish.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05390,lead:c5bd43a41e29f188,info@instantgoldrefining.com,https://instantgoldrefining.com/contact/,cross_verified
@@ -8681,6 +8715,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02986,lead:d0eaf434d3c3dc8b,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02204,lead:d0fd1fc65c95c4da,info@healthresearchbc.ca,https://www.healthresearchbc.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02204,lead:d0fd1fc65c95c4da,info@website.com,https://www.healthresearchbc.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02204,lead:d0fd1fc65c95c4da,info@clinicaltrialsbc.ca,https://www.healthresearchbc.ca/contact/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02204,lead:d0fd1fc65c95c4da,accounting@healthresearchbc.ca,https://www.healthresearchbc.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02167,lead:d10d35119b0c3277,contactus@vwcredit.com,https://www.vw.com/en/owners-and-services/my-financial-account/faq.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05934,lead:d1208c5d7c2fdb77,info@bonjourquebec.com,https://www.bonjourquebec.com/fr-ca,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03382,lead:d12b7b1b01707490,info@setecproxima.com,https://proxima.setec.fr/,verified
@@ -8952,6 +8987,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04187,lead:e9b6209742723799,con
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06199,lead:e9cd0393fe428cb2,info@fundata.com,https://www.fundgradeawards.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07110,lead:ea6b59a0d8333bd9,info@gcnwa.com,https://gcnwa.com/en/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00863,lead:ea70705e907840aa,info@reactif.ca,https://reactif.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00863,lead:ea70705e907840aa,comptabilite@reactif.ca,https://reactif.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02389,lead:ea7424beba87649e,info@gmail.com,https://industrie.rstheme.com/manufacturing/,not_found_on_page
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01156,lead:eaa810944af5dfba,purchasingadmin@saskatoon.ca,https://www.saskatoon.ca/business-development/doing-business-city/new-payment-and-purchasing-guidelines,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02694,lead:eae0208a1ce5fb60,info@backbone.digital,https://backbone.digital/contact/,verified
@@ -9001,7 +9037,7 @@ gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00681,lead:ee7a537066087
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00681,lead:ee7a537066087317,info@umbraeng.com,https://umbraeng.com/contact-us/,cross_verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04090,lead:eebe52ef188f03ff,hello@palettecafe.ca,https://www.palettecafe.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03379,lead:eedfc9a2040e6666,contact-investors@colas.fr,https://www.colas.com/sites/g/files/tkmtob366/files/2025-08/CP%20Colas%20-%20Programme%20de%20rachat%20d%27actions%20-%20R%C3%A9duction%20de%20moyens%20au%20contrat%20de%20liquidit%C3%A9%20avec%20Kepler%20Cheuvreux.pdf,unverified_page_unavailable
-gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00665,lead:eedfc9a2040e6666,communication@colas.fr,https://www.colas.com/en/legal-information,verified
+gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00665,lead:eedfc9a2040e6666,communication@colas.fr,https://www.colas.com/en/legal-information,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03634,lead:eef4f1ac4a90c07a,contact@generationrobots.com,https://www.generationrobots.com/fr/content/5-modes-de-paiement-acceptes,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03299,lead:ef1ee4e4bd55dfd3,finance@bubbleup.ca,https://bubbleup.ca/support/submit-a-payment/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03299,lead:ef1ee4e4bd55dfd3,info@bubbleup.ca,https://bubbleup.ca/,verified
@@ -9061,6 +9097,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08343,lead:f3f5c52614cfe3b2,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08058,lead:f3fccccd64b1c1bc,info@lepec.ca,https://www.entreprisespec.com/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02824,lead:f40155b2a5f3241a,info@tntatelier.com,https://tntatelier.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00648,lead:f41926df0e8165af,info@agencesecrete.com,https://agencesecrete.com/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00648,lead:f41926df0e8165af,comptabilite@agencesecrete.com,https://agencesecrete.com/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05115,lead:f457ffedd24252fa,info@easyflowbookkeeping.ca,https://www.easyflowbookkeeping.ca/,not_found_on_page
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00688,lead:f457ffedd24252fa,info@easyflowbookkeeping.ca,https://www.easyflowbookkeeping.ca/,not_found_on_page
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00688,lead:f457ffedd24252fa,info@easyflowbookkeeping.ca,https://www.easyflowbookkeeping.ca/,not_found_on_page
