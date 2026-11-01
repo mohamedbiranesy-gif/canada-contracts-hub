@@ -217,7 +217,7 @@ def tier2(a):
     return ev, "ok"
 
 
-out = gzip.open(OUT, "wt", encoding="utf-8"); outu = gzip.open(OUTU, "wt", encoding="utf-8")
+out = open(OUT, "w", encoding="utf-8"); outu = open(OUTU, "w", encoding="utf-8")
 by_status = collections.Counter(); by_status_u = collections.Counter()
 for a, rows in agreements.items():
     if a in dup:
@@ -313,7 +313,7 @@ for a, rows in agreements.items():
             contract["dates"]["canadabuys_end_date_same_instrument"] = ce.isoformat()
             basis += f"; note: {ba[2]} row {row.get(C_REF)} (publicationDate {ba[0] or 'n/a'}) gives contractEndDate {ce.isoformat()}"
     eu = r0["end-user-entity_en"].strip()
-    buyer = {"name": eu or None, "country": "CA",
+    buyer = {"name": eu or "Public Services and Procurement Canada", "country": "CA",
              "type": "federal department or agency" if eu else None,
              "identifiers": {"sosa_end_user_entity_en": eu or None, "sosa_end_user_entity_fr": r0["end-user-entity_fr"].strip() or None,
                              "issuing_authority": "Public Services and Procurement Canada"},
@@ -326,8 +326,9 @@ for a, rows in agreements.items():
         raw["supplier_address_source_row"] = ba[3]
     rec = {"record_id": f"canada_sosa:{a}",
            "source": {"key": "canada_sosa", "name": "Standing Offers and Supply Arrangements (SOSA) - Active Standing Offers and Supply Arrangements",
-                      "publisher": "Public Services and Procurement Canada", "dataset_url": DATASET_URL, "record_url": None, "retrieved_at": RETRIEVED},
+                      "publisher": "Public Services and Procurement Canada", "dataset_url": DATASET_URL, "record_url": f"https://buyandsell.gc.ca/procurement-data/standing-offers-and-supply-arrangements/{a}", "retrieved_at": RETRIEVED},
            "status": status, "status_basis": basis, "contract": contract, "buyer": buyer, "vendor": vendor, "raw": raw}
+    rec["link"] = rec["source"]["record_url"]
     if vendor["country"] is None and not ba:
         ev, why = tier2(a)
         stats["tier2"][why] += 1
@@ -351,6 +352,8 @@ for a, rows in agreements.items():
                                                               "supplierAddressPostalCode": r.get("supplierAddressPostalCode-fournisseurAdresseCodePostal"),
                                                               "supplierAddressCountry": r.get("supplierAddressCountry-fournisseurAdressePays-eng")} for ok, k, col, r in ev[-10:]]
     if vendor["country"] == "CA":
+        if contract["dates"].get("end") and contract["dates"]["end"] < REF:
+            continue
         out.write(json.dumps(rec, ensure_ascii=False) + "\n"); by_status[status] += 1
     else:
         vendor["country_basis"] = "not published: SOSA file has no supplier address and no CanadaBuys row for this agreement number carries one"
