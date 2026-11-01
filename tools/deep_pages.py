@@ -28,10 +28,12 @@ CDX = "https://web.archive.org/cdx/search/cdx"
 WORDS = (r"factur|invoic|payable|comptes|fournisseur|supplier|vendor|achat|approvisionnement|purchas|procure|"
          r"financ|comptab|accounting|paiement|payment|tresor|treasur|faire-affaire|doing-business|depot|deposit")
 KEEP = {"invoice_submission", "accounts_payable", "supplier_payment", "finance", "procurement"}
-SCORE = [(re.compile(r"factur|invoic|payable|comptes?[-_ ]?(a|à)?[-_ ]?payer|accounts?[-_ ]?pay", re.I), 10),
+SCORE = [(re.compile(r"(?<!manu)factur|invoic|payable|comptes?[-_ ]?(a|à)?[-_ ]?payer|accounts?[-_ ]?pay", re.I), 10),
          (re.compile(r"fournisseur|supplier|vendor|depot|deposit|paiement|payment", re.I), 6),
          (re.compile(r"financ|comptab|accounting|tresor|treasur", re.I), 5),
-         (re.compile(r"achat|approvisionnement|purchas|procure|faire-affaire|doing-business", re.I), 3)]
+         (re.compile(r"achat|approvisionnement|purchas|procure|faire-affaire|doing-business", re.I), 3),
+         (re.compile(r"tuition|student|etudiant|étudiant|osap|admission|program|course|cours/|career|carriere|emploi|job|"
+                     r"news|nouvelle|media|event|evenement|événement|blog|calendar|calendrier|/api/|feed|search|recherche", re.I), -8)]
 lock = threading.Lock()
 
 
@@ -69,17 +71,23 @@ def index_urls(host, tries=3):
             continue
         path = (p.hostname or "").lower().removeprefix("www.") + p.path.rstrip("/").lower()
         s = sum(w for rx, w in SCORE if rx.search(urllib.parse.unquote(p.path + " " + p.query)))
-        if s and (path not in best or ts > best[path][1]):
+        if s >= 5 and (path not in best or ts > best[path][1]):
             best[path] = (s, ts, url.replace("http://", "https://", 1) if url.startswith("http://") else url)
     return [u for s, ts, u in sorted(best.values(), key=lambda x: (-x[0], x[1] < "2023", -int(x[1][:8] or 0)))]
 
 
 def read(task, urls, max_pages=15):
-    found = {}
+    found, refused, ok = {}, 0, 0
     for url in urls[:max_pages]:
         if not C.allowed(url):
             continue
         status, ctype, data, final = C.fetch(url)
+        if status in (401, 403, 429):  # the site refuses us: respect it and move on
+            refused += 1
+            if refused >= 2 and not ok:
+                break
+            continue
+        ok += status == 200
         if status != 200 or not data or C.BLOCK_RX.search(data[:20000].decode("utf-8", "replace")) and len(data) < 30000:
             continue
         is_pdf = "pdf" in ctype.lower() or data[:5] == b"%PDF-"
