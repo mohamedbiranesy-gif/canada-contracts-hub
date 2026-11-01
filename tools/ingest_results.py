@@ -7,6 +7,8 @@ Writes  coord/results/team_buyers.jsonl, coord/results/team_vendors.jsonl, coord
 Usage   python3 tools/ingest_results.py [--no-fetch]      (run from the repo root; idempotent)
 Verification: each cited page is fetched once (cached in work/evidence_cache/) and the e-mail/portal must appear in it.
   verified        the value is literally on the fetched page.
+  verified        also when the page refuses this verifier but the Internet Archive's copy (at most 180 days old) shows the
+                  value; the snapshot is kept in the evidence as verified_via
   cross_verified  this verifier cannot see the page's text (bot-protected page, or e-mails hidden from non-browser
                   clients, e.g. Cloudflare e-mail protection), and two different agents independently quoted the same
                   value from it in a browser. The verifier never decodes protected e-mails or gets around a block.
@@ -77,6 +79,45 @@ def page_text(url):
     return txt
 
 
+VIA = {}  # (value, url) -> archive snapshot used to verify it
+
+
+def archive_text(url, fetch=True):
+    """Text of the Internet Archive's latest copy of a page this verifier cannot open itself (bot protection that refuses
+    data-centre addresses, e.g. canada.ca). Used only when the copy is at most 180 days old. None otherwise."""
+    p = os.path.join(CACHE, "wb-" + hashlib.sha1(url.encode()).hexdigest())
+    if os.path.exists(p):
+        txt = open(p, encoding="utf-8", errors="replace").read()
+        snap, _, body = txt.partition("\n")
+        if snap.startswith("http"):
+            return snap, body
+        if time.time() - os.path.getmtime(p) < 3 * 86400:  # no recent copy / archive did not answer: ask again in 3 days
+            return None
+    if not fetch or NOFETCH or (DEADLINE and time.time() > DEADLINE):
+        return None
+    try:
+        import json as _json, urllib.parse as _up
+        since = time.strftime("%Y%m%d", time.gmtime(time.time() - 180 * 86400))
+        q = "https://web.archive.org/cdx/search/cdx?" + _up.urlencode({"url": url, "output": "json", "from": since, "limit": "1",
+                                                                         "fl": "timestamp", "filter": "statuscode:200"})
+        with urllib.request.urlopen(urllib.request.Request(q, headers=UA), timeout=45) as r:
+            rows = _json.loads(r.read(200_000) or b"[]")
+        ts = rows[1][0] if len(rows) > 1 else ""  # a capture of exactly this page from the last 180 days
+        if not ts:
+            open(p, "w").write("none\n")
+            return None
+        snap = {"url": "https://web.archive.org/web/%s/%s" % (ts, url)}
+        raw_url = "https://web.archive.org/web/%sid_/%s" % (ts, url)  # the page as archived, without the archive's toolbar
+        with urllib.request.urlopen(urllib.request.Request(raw_url, headers=UA), timeout=60) as r:
+            data = r.read(5_000_000)
+        txt = html.unescape(data.decode("utf-8", "replace")).replace("&#64;", "@")
+        open(p, "w", encoding="utf-8").write(snap["url"] + "\n" + txt)
+        return snap["url"], txt
+    except Exception:
+        open(p, "w").write("none\n")
+        return None
+
+
 def bad_email(e):
     return bool(e) and ("@" in e) and (not EMAIL.match(e) or (PERSONAL.match(e.split("@")[0]) and not ROLE_HINT.search(e.split("@")[0])))
 
@@ -90,6 +131,10 @@ def verify(value, url):
     if t is PENDING:
         return "pending_verification"
     if t is None:
+        a = archive_text(url, fetch=False) if not value.startswith("http") else None  # looked up during prefetch
+        if a and value.lower().strip() in a[1].lower():
+            VIA[(value, url)] = a[0]
+            return "verified"  # on the Internet Archive's recent copy of the same page (see VIA / verified_via)
         return "unverified_page_unavailable"
     low, v = t.lower(), value.lower().strip()
     if v in low:
@@ -130,16 +175,19 @@ def prefetch():
     """Fetch every cited page not cached yet, many hosts in parallel, at most 2 requests per second per host."""
     import threading, urllib.parse
     from concurrent.futures import ThreadPoolExecutor
-    urls = []
+    urls, cited_all = [], []
     for path in sorted(glob.glob("data/incoming/**/*.csv", recursive=True)):
         for r in csv.DictReader(open(path, encoding="utf-8-sig", newline="")):
             u = (r.get("evidence_url") or "").strip()
+            if u.startswith("http") and (r.get("ap_email") or "").strip() and (r.get("buyer_key") or "").split(":")[0] in ("b", "lead"):
+                cited_all.append(u)  # contract / relationship buyers' pages: archive copies are looked up for these only
             if u.startswith("http") and ((r.get("ap_email") or r.get("invoice_portal_url") or r.get("general_email") or r.get("billing_or_ar_email") or "").strip()):
                 h = os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest())
                 if not os.path.exists(h) and not (os.path.exists(h + ".fail") and time.time() - os.path.getmtime(h + ".fail") < 3 * 86400):
                     k = (r.get("buyer_key") or r.get("vendor_key") or "").split(":")[0]
                     urls.append(({"b": 0, "lead": 1}.get(k, 2), u))  # contract buyers first, then relationship leads, then the rest
     urls = list(dict.fromkeys(u for _, u in sorted(urls, key=lambda x: x[0])))
+    cited = list(cited_all)
     lock, nxt = threading.Lock(), {}
     def one(u):
         if DEADLINE and time.time() > DEADLINE:
@@ -156,6 +204,10 @@ def prefetch():
     with ThreadPoolExecutor(32) as ex:
         list(ex.map(one, urls))
     print("prefetched %d new pages" % len(urls), file=sys.stderr)
+    failed = [u for u in dict.fromkeys(cited) if os.path.exists(os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest()) + ".fail")]
+    with ThreadPoolExecutor(4) as ex:  # pages that refuse this verifier: the Internet Archive's recent copy, 4 at a time
+        list(ex.map(archive_text, failed))
+    print("archive copies looked up for %d refused pages" % len(failed), file=sys.stderr)
 
 
 if not NOFETCH:
@@ -183,7 +235,10 @@ for path in sorted(glob.glob("data/incoming/**/*.csv", recursive=True)):
                                       "requirements": r.get("invoicing_requirements_summary") or None, "applies_to": r.get("applies_to") or None,
                                       "page_url": r.get("evidence_url"), "quote": (r.get("evidence_quote") or "")[:300],
                                       "retrieved_date": r.get("retrieved_date"), "found_by": who, "verification": v, "source_file": name,
-                                      "org": r.get("org_name_as_found") or "", "task_id": r.get("task_id") or ""})
+                                      "org": r.get("org_name_as_found") or "", "task_id": r.get("task_id") or "",
+                                      **({"verified_via": VIA[(email or portal, r.get("evidence_url"))]} if (email or portal, r.get("evidence_url")) in VIA else {})})
+                if (email or portal, r.get("evidence_url")) in VIA:
+                    report["buyer_findings_verified_on_archive_copy"] += 1
     elif "vendor_contact" in name:
         for r in rows:
             k = (r.get("vendor_key") or "").strip()

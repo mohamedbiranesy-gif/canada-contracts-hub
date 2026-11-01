@@ -60,3 +60,11 @@
   jurisdiction to bkey for names of three words or fewer without a place word, and re-key their team findings.
 - Contract dates live in `contract.dates.awarded` (not `award`); "awarded in the last 12 months" uses awarded / signed /
   start, else published.
+
+## 2026-11-01 — claude: referee verifies refused pages on the Internet Archive's recent copy
+Some public sites (canada.ca above all) refuse requests from GitHub's servers, so the referee could never check their
+values; they waited for a second agent forever. Now, for contract and relationship buyers only, when a cited page
+refuses the referee, it looks up a capture of exactly that page made in the last 180 days (Wayback CDX index, 4 lookups
+at a time) and accepts the value if it is on that copy. The evidence keeps the snapshot as `verified_via`. Failed pages
+are remembered for 3 days so they no longer consume every run's time budget; second-read tasks go to the other lane
+only for contract buyers (first) and relationship buyers.
