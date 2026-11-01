@@ -85,7 +85,7 @@ VIA = {}  # (value, url) -> archive snapshot used to verify it
 def archive_text(url, fetch=True):
     """Text of the Internet Archive's latest copy of a page this verifier cannot open itself (bot protection that refuses
     data-centre addresses, e.g. canada.ca). Used only when the copy is at most 180 days old. None otherwise."""
-    p = os.path.join(CACHE, "wb4-" + hashlib.sha1(url.encode()).hexdigest())  # wb4: earlier copies were left gzip-encoded
+    p = os.path.join(CACHE, "wb5-" + hashlib.sha1(url.encode()).hexdigest())
     if os.path.exists(p):
         txt = open(p, encoding="utf-8", errors="replace").read()
         snap, _, body = txt.partition("\n")
@@ -102,7 +102,10 @@ def archive_text(url, fetch=True):
         q = "https://web.archive.org/cdx/search/cdx?" + _up.urlencode({"url": bare, "output": "json", "from": since, "limit": "1",
                                                                          "fl": "timestamp", "filter": "statuscode:200"})
         with urllib.request.urlopen(urllib.request.Request(q, headers=UA), timeout=90) as r:
-            rows = _json.loads(r.read(200_000) or b"[]")
+            body = r.read(200_000)
+        rows = _json.loads(body or b"[]")
+        if len(ARCHIVE_SAMPLES) < 3:
+            ARCHIVE_SAMPLES.append((bare[:80], body[:120]))
         ts = rows[1][0] if len(rows) > 1 else ""  # a capture of exactly this page from the last 180 days
         if not ts:
             open(p, "w").write("none\n")
@@ -128,6 +131,7 @@ def archive_text(url, fetch=True):
 
 
 ARCHIVE_ERRORS = collections.Counter()
+ARCHIVE_SAMPLES = []
 
 
 def bad_email(e):
@@ -220,7 +224,7 @@ def prefetch():
     with ThreadPoolExecutor(4) as ex:  # pages that refuse this verifier: the Internet Archive's recent copy, 4 at a time
         list(ex.map(archive_text, failed))
     hits = sum(1 for u in failed if (archive_text(u, fetch=False) or (None,))[0])
-    print("archive copies looked up for %d refused pages: %d copies held; errors %s" % (len(failed), hits, ARCHIVE_ERRORS.most_common(3)), file=sys.stderr)
+    print("archive copies looked up for %d refused pages: %d copies held; errors %s" % (len(failed), hits, ARCHIVE_ERRORS.most_common(3)), "samples", ARCHIVE_SAMPLES, file=sys.stderr)
 
 
 if not NOFETCH:
