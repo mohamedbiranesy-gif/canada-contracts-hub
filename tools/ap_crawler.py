@@ -222,9 +222,17 @@ def same_org(email, site, org_name):
         return True
     words = [w for w in re.split(r"[^a-z0-9]+", ascii_low(org_name)) if w]
     small = {"de", "du", "des", "la", "le", "les", "of", "the", "and", "et", "d", "l"}
-    acr = {"".join(w[0] for w in words), "".join(w[0] for w in words if w not in small), "".join(w[0] for w in words if w not in GENERIC_WORDS)}
+    acr = set()
+    for ws in (words, [w for w in re.split(r"[^a-z0-9]+", ascii_low(re.split(r"\s[-–—(,]|\(", org_name)[0])) if w]):  # whole name, and its first part
+        acr |= {"".join(w[0] for w in ws), "".join(w[0] for w in ws if w not in small), "".join(w[0] for w in ws if w not in GENERIC_WORDS)}
+    acr.discard("")
+    if any(len(w) >= 3 and core == w for w in words):  # the domain is one of the name's words, e.g. @olg.ca for "... (OLG)"
+        return True
     for x in acr:
-        if (len(x) >= 3 and (core == x or core.startswith(x) or (len(x) >= 4 and x in core))) or (len(x) >= 2 and core2 != core and core2 == x):
+        if (len(x) >= 3 and (core == x or core.startswith(x) or (len(x) >= 4 and x in core))) or (len(x) >= 2 and core2 != core and core2 == x) \
+                or (len(core) >= 4 and x.startswith(core)):
+            return True
+        if len(x) >= 3 and re.fullmatch(r"(qc|on|ab|bc|mb|sk|ns|nb|nl|pe|nt|nu|yk)" + re.escape(x), core):  # @bcldb.com
             return True
     orgwords = {w for w in words if len(w) >= 3}
 
@@ -237,7 +245,7 @@ def same_org(email, site, org_name):
                     rem = rem[len(w):]
                     break
             else:
-                return any(len(rem) >= 4 and w.startswith(rem) for w in orgwords) or any(len(rem) >= 2 and a.startswith(rem) for a in acr)
+                return any(len(rem) >= 4 and w.startswith(rem) for w in orgwords) or any(len(rem) >= 1 and a.startswith(rem) for a in acr if a)
         return not rem
     loc = flat(local)
     distinct = {t for t in tokens(org_name) if len(t) >= 5}
