@@ -188,7 +188,8 @@ for p, o in orgs.items():
 leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8", errors="replace"))}
 seen = {norm(x["buyer"]) for x in rows}
 import urllib.parse
-REL_PATH = re.compile(r"client|customer|case-stud|casestud|case_stud|temoignage|t%C3%A9moignage|testimonial|success-stor")
+REL_PATH = re.compile(r"client|customer|case-stud|casestud|case_stud|temoignage|t%C3%A9moignage|testimonial|success-stor|"
+                      r"portfolio|our-work|realisations?\b|r%C3%A9alisations?|nos-realisations|clientele")
 NOT_REL_PATH = re.compile(r"terms|reference|support|service|product|letter|lettre|news|nouvelle|blog|article|press|media|document|conditions|bill|/loi|career|emploi|job|event|evenement|contact|about|a-propos|partner|partenaire")
 for k, L in leads.items():
     if k not in mail or norm(L["buyer_name"]) in seen: continue
