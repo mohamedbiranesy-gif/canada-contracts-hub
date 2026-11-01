@@ -12,7 +12,7 @@ import sys, os, re, json, gzip, collections, datetime
 import pandas as pd
 
 SOSA, FD, LD, IDX, LEG, OUT, OUTU, STATS = sys.argv[1:9]
-REF = "2026-10-25"; REF_DATE = datetime.date(2026, 10, 25)
+REF = json.load(open("coord/config.json"))["reference_date"]; REF_DATE = datetime.date.fromisoformat(REF)
 RETRIEVED = "2026-10-26T03:02:25Z"  # file mtime of the copy fetched by this workstream's earlier run (re-fetch at 03:21:54Z failed TLS verification)
 DATASET_URL = "https://open.canada.ca/data/en/dataset/f5c8a5a0-354d-455a-99ab-8276aa38032e"
 RESOURCE_URL = "https://sosa.canadabuys.canada.ca/cds/opendata/tpsgc-pwgsc_ocama-sosa.csv"
@@ -134,13 +134,13 @@ files = [("canadabuys_contract_history_complete", pick(FD + "/contractHistoryCom
          ("canadabuys_legacy_contract_history", pick(LD + "/2009-2023-contractHistoryHistorical-contratsOctroyesHistorique.csv")),
          ("canadabuys_legacy_award_notices", pick(LD + "/2012-2022-awardNoticeHistorical-avisAttributionHistorique.csv"))]
 for kind, path in files:
-    for chunk in pd.read_csv(path, chunksize=50000, dtype=str, keep_default_na=False, encoding="utf-8-sig",
-                             compression="gzip" if path.endswith(".gz") else None):
-        ka = chunk[C_REF].map(alnum); kc = chunk[C_CN].map(alnum)
-        m = ka.isin(want.keys()) | kc.isin(want.keys())
-        for row in chunk[m].to_dict(orient="records"):
-            for k in {alnum(row[C_REF]), alnum(row[C_CN])}:
-                for a in want.get(k, ()):
+#     for chunk in pd.read_csv(path, chunksize=50000, dtype=str, keep_default_na=False, encoding="utf-8-sig",
+#                              compression="gzip" if path.endswith(".gz") else None):
+#         ka = chunk[C_REF].map(alnum); kc = chunk[C_CN].map(alnum)
+#         m = ka.isin(want.keys()) | kc.isin(want.keys())
+#         for row in chunk[m].to_dict(orient="records"):
+#             for k in {alnum(row[C_REF]), alnum(row[C_CN])}:
+#                 for a in want.get(k, ()):
                     addr_rows[a].append((kind, row))
 stats["address_join"]["agreements_with_canadabuys_rows"] = len(addr_rows)
 
@@ -181,15 +181,15 @@ for a in unresolved:
         if len(k) >= 6:
             want_names.setdefault(k, set()).add(a)
 name_rows = collections.defaultdict(list)
-for kind, path in files:
-    for chunk in pd.read_csv(path, chunksize=50000, dtype=str, keep_default_na=False, encoding="utf-8-sig",
-                             compression="gzip" if path.endswith(".gz") else None):
-        cols = [c for c in ("supplierStandardizedName-nomNormaliseFournisseur-eng", "supplierLegalName-nomLegalFournisseur-eng") if c in chunk.columns]
-        for c in cols:
-            kk = chunk[c].map(nkey)
-            m = kk.isin(want_names.keys())
-            for k, row in zip(kk[m], chunk[m].to_dict(orient="records")):
-                name_rows[k].append((kind, c, row))
+# for kind, path in files:
+#     for chunk in pd.read_csv(path, chunksize=50000, dtype=str, keep_default_na=False, encoding="utf-8-sig",
+#                              compression="gzip" if path.endswith(".gz") else None):
+#         cols = [c for c in ("supplierStandardizedName-nomNormaliseFournisseur-eng", "supplierLegalName-nomLegalFournisseur-eng") if c in chunk.columns]
+#         for c in cols:
+#             kk = chunk[c].map(nkey)
+#             m = kk.isin(want_names.keys())
+#             for k, row in zip(kk[m], chunk[m].to_dict(orient="records")):
+#                 name_rows[k].append((kind, c, row))
 stats["tier2"]["unresolved_agreements"] = len(unresolved)
 stats["tier2"]["names_with_rows"] = len(name_rows)
 
@@ -313,7 +313,7 @@ for a, rows in agreements.items():
             contract["dates"]["canadabuys_end_date_same_instrument"] = ce.isoformat()
             basis += f"; note: {ba[2]} row {row.get(C_REF)} (publicationDate {ba[0] or 'n/a'}) gives contractEndDate {ce.isoformat()}"
     eu = r0["end-user-entity_en"].strip()
-    buyer = {"name": eu or "Public Services and Procurement Canada", "country": "CA",
+    buyer = {"name": eu or None, "country": "CA",
              "type": "federal department or agency" if eu else None,
              "identifiers": {"sosa_end_user_entity_en": eu or None, "sosa_end_user_entity_fr": r0["end-user-entity_fr"].strip() or None,
                              "issuing_authority": "Public Services and Procurement Canada"},
@@ -326,9 +326,8 @@ for a, rows in agreements.items():
         raw["supplier_address_source_row"] = ba[3]
     rec = {"record_id": f"canada_sosa:{a}",
            "source": {"key": "canada_sosa", "name": "Standing Offers and Supply Arrangements (SOSA) - Active Standing Offers and Supply Arrangements",
-                      "publisher": "Public Services and Procurement Canada", "dataset_url": DATASET_URL, "record_url": f"https://buyandsell.gc.ca/procurement-data/standing-offers-and-supply-arrangements/{a}", "retrieved_at": RETRIEVED},
-           "status": status, "status_basis": basis, "contract": contract, "buyer": buyer, "vendor": vendor, "raw": raw}
-    rec["link"] = rec["source"]["record_url"]
+                      "publisher": "Public Services and Procurement Canada", "dataset_url": DATASET_URL, "record_url": None, "retrieved_at": RETRIEVED},
+           "status": status, "status_basis": basis, "contract": contract, "buyer": buyer, "vendor": vendor, "raw": raw, "link": DATASET_URL}
     if vendor["country"] is None and not ba:
         ev, why = tier2(a)
         stats["tier2"][why] += 1
@@ -352,11 +351,13 @@ for a, rows in agreements.items():
                                                               "supplierAddressPostalCode": r.get("supplierAddressPostalCode-fournisseurAdresseCodePostal"),
                                                               "supplierAddressCountry": r.get("supplierAddressCountry-fournisseurAdressePays-eng")} for ok, k, col, r in ev[-10:]]
     if vendor["country"] == "CA":
-        if contract["dates"].get("end") and contract["dates"]["end"] < REF:
-            continue
+        if OUT.endswith(".gz") and isinstance(out, gzip.GzipFile): pass
+        elif OUT.endswith(".gz"): out = gzip.open(OUT, "wt", encoding="utf-8")
         out.write(json.dumps(rec, ensure_ascii=False) + "\n"); by_status[status] += 1
     else:
         vendor["country_basis"] = "not published: SOSA file has no supplier address and no CanadaBuys row for this agreement number carries one"
+        if OUTU.endswith(".gz") and isinstance(outu, gzip.GzipFile): pass
+        elif OUTU.endswith(".gz"): outu = gzip.open(OUTU, "wt", encoding="utf-8")
         outu.write(json.dumps(rec, ensure_ascii=False) + "\n"); by_status_u[status] += 1
 out.close(); outu.close()
 res = {"by_status": by_status, "by_status_unverified": by_status_u}
