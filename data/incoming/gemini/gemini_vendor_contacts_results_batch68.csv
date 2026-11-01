@@ -1,0 +1,243 @@
+task_id,vendor_key,official_website,website_verification,general_email,billing_or_ar_email,main_phone,address_on_site,business_number_if_published,other_identifiers,evidence_url,evidence_quote,retrieved_date,status,notes
+GE-VC-06716,v:9d031f16c9b6dd8c,,,,,,,,,,,2026-10-29,not_found,"not_published: Queries tried: 'SPMS Inc' Laval, '1172916851', spms.ca; no commercial website or published role email found."
+GE-VC-06717,v:db810e821d27fa99,,,,,,,,,,,2026-10-29,not_found,"not_published: Queries tried: '9477-4205 Québec', '1178107729', desormeauxagregat.ca; numbered entity without active website or published role email."
+GE-VC-06718,v:f20d2609b1978b70,,,,,,,,,,,2026-10-29,not_found,"not_published: Queries tried: 'Orion groupe sécurité', '1181110157', oriongroupesecurite.ca; security agency listing without operational website or published role email."
+GE-VC-06719,v:938e84c1d84b52d1,https://xn--makay-dta.com/,Official website of RH Maïkay,rhmaikay@gmail.com,,438 860-1643,"Varennes, Québec, Canada",,,https://xn--makay-dta.com/soins-de-sante/,"Parlons de votre besoin 438 860-1643 rhmaikay@gmail.com Varennes, Québec, Canada",2026-10-29,found,
+GE-VC-06720,v:506b598a8e8ddf08,https://servicesnett.com/,Official website of ServiceNETT Les entreprises PRIMSX INC.,assistance@servicesnett.com,,,,,,https://servicesnett.com/a-propos-de-nous/,"ServiceNETT Les entreprises PRIMSX INC. assistance@servicesnett.com. OUVERT 24H/24, 7j/7.",2026-10-29,found,
+GE-VC-06721,v:e847dec7413ec8b1,,,,,,,,,,,2026-10-29,not_found,"not_published: Queries tried: 'Amp Excavation Inc', '1174316464', ampexcavation.ca; YellowPages listing only, no official corporate website or published role email."
+GE-VC-06722,v:e3c397fd21846619,https://transportmultivrac.ca/,Official website of Transport Multivrac operating Transport d'agrégats du Québec (TAQ) at same address in Lévis,reception@transportmultivrac.ca,,(418) 741-1000,"640, Route du Président-Kennedy Lévis (Qc), G6C 1K1",,,https://transportmultivrac.ca/contact/,"Nous contacter Téléphone (418) 741-1000 Adresse 640, Route du Président-Kennedy Lévis (Qc), G6C 1K1 Courriel reception@transportmultivrac.ca",2026-10-29,found,
+GE-VC-06723,v:470bc63378c89a39,,,,,,,,,,,2026-10-29,not_found,"not_published: Queries tried: 'ENTREPRISE H1G', '1176922053', entrepriseh1g.ca; registry records only, no corporate website or published role email."
+GE-VC-06724,v:db551a44e9460b07,,,,,,,,,,,2026-10-29,not_found,"not_published: Queries tried: '9309-6113 Québec', '1170360367'; numbered corporation with no web presence or published role email."
+GE-VC-06725,v:3322e69ad20a3da0,https://equityexploration.com/,Official website of Equity Exploration Consultants Ltd.,Equity@EquityExploration.com,,+1 604 688 9806,"1238-200 Granville Street Vancouver, BC, Canada, V6C 1S4",,,https://equityexploration.com/contact/,"Equity@EquityExploration.com. Phone: +1 604 688 9806. Head Office: Equity Exploration Consultants Ltd. 1238-200 Granville Street Vancouver, BC, Canada, V6C 1S4.",2026-10-29,found,
+GE-VC-06726,v:3670794d168611e4,,not_found,,,,,,,,,2026-10-29,not_found,Tried 'Pierre Goulet' L'Ancienne-Lorette OR G2G1G8; individual vendor without commercial website or published role mailbox.
+GE-VC-06727,v:10982cb9d26e2c14,,not_found,,,,,,NEQ: 1175311142,,,2026-10-29,not_found,Tried 'Lavage à pression 3R inc.' Trois-Rivières OR 1175311142; pressure washing business without active corporate portal or published role mailbox.
+GE-VC-06728,v:86ba51b4e726fe01,https://www.akka.ca/,found,info@akka.ca,,418.852.2098,21 Parc-Industriel Saint-Pacôme (Québec) G0L 3X0,,NEQ: 1180983109,https://www.akka.ca/,Ganterie BCL Ltée 21 Parc-Industriel Saint-Pacôme (Québec) G0L 3X0 info@akka.ca 418.852.2098,2026-10-29,found,"LA GANTERIE B. C. L. LTÉE (AKKA) glove manufacturer in Saint-Pacôme; verified official website, role email, phone, and industrial park address."
+GE-VC-06729,v:b7578aee52082bbc,,found,,,418-248-1517,"30, avenue de la Fabrique Montmagny (Québec) G5V 4L9",,NEQ: 1175078048,http://k10.pub.msss.rtss.qc.ca/public/K10ConsFormAbg.asp?Registre=1617,"12 - Santé Québec Chaudière-Appalaches. 30, avenue de la Fabrique. Montmagny (Québec). G5V 4L9. 418-248-1517. Nom de la compagnie : - Gesdix Inc.",2026-10-29,found,GESDIX INC. (Habitation Mgr Deschênes RPA) in Montmagny; verified phone and address on official MSSS register.
+GE-VC-06730,v:436a1656ad8eb0b0,,not_found,,,,,,NEQ: 1178178811,,,2026-10-29,not_found,Tried '9479-0433 Québec inc.' OR 'Nettoie Ngadjeu' Montréal OR 1178178811; numbered company without operational website or published mailbox.
+GE-VC-06731,v:971ee6b6a191cb67,,not_found,,,,,,NEQ: 2280513666,,,2026-10-29,not_found,"Tried 'FOURNIER, DANY' / 'ENTREPRISE D.F.' Saint-Basile OR 2280513666; sole proprietorship without active commercial website or published mailbox."
+GE-VC-06732,v:9501e57ff18134fe,,found,,,(418) 561-5363,"1170, du Père-Bouvart L'Ancienne-Lorette, G2E6C8",,"RBQ: 5712-7961-01, NEQ: 1170049226",https://www.construction411.com/equipements-sportifs/quebec/zportiv/,"ZPORTIV 9302-1814 QUÉBEC INC ... Coordonnées François Bourget 1170, du Père-Bouvart L'Ancienne-Lorette, G2E6C8 (418) 561-5363 Contacter cet entrepreneur LICENCES RBQ : 5712-7961-01",2026-10-29,found,"9302-1814 Québec inc. (ZPORTIV) sports equipment in L'Ancienne-Lorette; verified phone, address, and RBQ licence on Construction411."
+GE-VC-06733,v:96def96c257d6a7b,,not_found,,,,,,NEQ: 1176242577,,,2026-10-29,not_found,Tried 'GESTION VINEMA INC.' Québec OR 1176242577; holding/management entity without operational website or published role mailbox.
+GE-VC-06734,v:017083490d34cc66,,found,,,(438) 820-4068,Rawdon et les environs,,NEQ: 2248256606,https://www.411habitation.com/renovations/lanaudiere/rawdon-9/innovation-confort-entrepreneur-general-rawdon.htm,"Appelez-nous (438) 820-4068 Visitez innovationconfort.com/ ... Innovation Confort - Construction Garage, Agrandissement Maison Rawdon ... Nous desservons Rawdon et les environs",2026-10-29,found,Innovation Confort (GUI-MON CLIMATISATION) general contractor in Rawdon; verified phone and business listing on 411Habitation.
+GE-VC-06735,v:ce56afa9d3af9a4c,,found,,,450-759-9430,Saint-Charles-Borromée,,"RBQ: 2642-6031-98, NEQ: 1141909086",https://veriflicence.ca/entreprise/1141909086/excavation-jacques-destrempes-inc,Excavation Jacques Destrempes inc. figure dans les listes officielles avec : licence d'entrepreneur de la RBQ. Établie à Saint-Charles-Borromée. ... 450-759-9430.,2026-10-29,found,"EXCAVATION JACQUES DESTREMPES INC. in Saint-Charles-Borromée; verified phone, location, and RBQ licence on VerifLicence."
+GE-VC-06736,v:deb3ee8c1f860ea6,,not_found,,,,,,NEQ: 2279164067,,,2026-10-29,not_found,Tried 'Sylvain Gautreau Consultant' Sherbrooke OR 2279164067; individual consulting enterprise without corporate website or published role mailbox.
+GE-VC-06737,v:b9db50e1f4be5446,https://www.portailconstructo.com/batiguide/entreprises_pera_9016_6919_quebec_inc,found,,,+14506618313,"1390, rue Montée Masson Laval QC, H7E 4P2 Canada",,NEQ: 1143030097,https://www.portailconstructo.com/batiguide/entreprises_pera_9016_6919_quebec_inc,"LES ENTREPRISES PERA 9016-6919 QUÉBEC INC. ... 1390, rue Montée Masson Laval QC, H7E 4P2 Canada Téléphone: 450 661-8313",2026-10-29,found,9016-6919 QUÉBEC INC. / Les Entreprises Pera general construction contractor in Laval; verified phone and address on Portail Constructo.
+GE-VC-06738,v:22db01eb18b63c43,https://www.construction411.com/residential-contractor/st-jerome/9373-3541-quebec/,found,,,+15147022100,"900 rue Souvenance Prévost, J0R1T0",5750-7840-01,NEQ: 1173427197,https://www.construction411.com/residential-contractor/st-jerome/9373-3541-quebec/,"9373-3541 QUÉBEC INC P4 CONSTRUCTION ... Coordonnées 900 rue Souvenance Prévost, J0R1T0 (514) 702-2100 LICENCES RBQ : 5750-7840-01",2026-10-29,found,"P4 Construction (9373-3541 Québec inc.) residential contractor in Prévost; verified phone, address, and RBQ licence."
+GE-VC-06739,v:105851aba2069701,https://bnq.qc.ca/fiche-entreprise-certifiee.html?no_certificat=59801-1-04&lang=en&ml=1,found,,,,"2315, chemin des 10e-et-1er-Rangs, Eeyou Istchee Baie-James (Québec) J0Z 3S0 , Canada",,NEQ: 1176169150,https://bnq.qc.ca/fiche-entreprise-certifiee.html?no_certificat=59801-1-04&lang=en&ml=1,"Company: 9433-5775 QUÉBEC INC. ... Site(s) : Head office: 2315, chemin des 10e-et-1er-Rangs, Eeyou Istchee Baie-James (Québec) J0Z 3S0 , Canada",2026-10-29,found,9433-5775 Québec inc. (La Tournebuche) in Eeyou Istchee Baie-James; verified certified head office address on Bureau de normalisation du Québec register.
+GE-VC-06740,v:75a41313590e1eeb,,not_found,,,,,,NEQ: 3375386813,,,2026-10-29,not_found,Tried 'LIGNE DE STATIONNEMENT OV S.E.N.C.' Québec OR 3375386813; parking line painting partnership without active commercial website or role mailbox.
+GE-VC-06741,v:c98f6c054840e91c,https://www.eqinc.ca/,found,,,+14186142505,"Québec, QC",,NEQ: 1177437846,https://www.eqinc.ca/,Étançonnement Québec | Location et vente ... Contact et infos techniques +1 (418) 614-2505 ... Nous sommes heureux d'annoncer qu'Étançonnement Québec se joint à LOU-TEC,2026-10-29,found,Étançonnement Québec inc. shoring equipment rental in Québec; verified website and phone.
+GE-VC-06742,v:00acd7c54f7145b0,https://entreprisesmst.com/,found,info@mst-clim.com,,1 514 250-1678,"260, boul. St-Jean-Baptiste Châteauguay (Québec) J6K 3C2",,NEQ: 1164104052,https://entreprisesmst.com/contact/,"Visitez-nous 260, boul. St-Jean-Baptiste Châteauguay (Québec) J6K 3C2 Contactez-nous Téléphone 1 514 250-1678 Courriel info@mst-clim.com",2026-10-29,found,"LES ENTREPRISES M.S.T. (9176-4829 QUÉBEC INC.) HVAC contractor in Châteauguay; verified official website, role email, phone, and address."
+GE-VC-06743,v:d361fca963815dc1,https://glrinc.ca/contact/,found,glr@glrinc.ca,payables@glrinc.ca,+14188727420,"1150, rue Valets, L'Ancienne-Lorette (Québec) Canada G2E 5Y9",,NEQ: 1143021146,https://glrinc.ca/contact/,"payables@glrinc.ca
+
+ Courriel
+
+ glr@glrinc.ca
+
+ Téléphone
+
+ (418) 872-7420",2026-10-29,found,"G.L.R. INC. electrical power and substation engineering in L'Ancienne-Lorette; verified website, general email, billing payables email, phone, and address."
+GE-VC-06744,v:2e0c9f4b78d08d11,https://groupesrv.com/services/,found,admin@groupesrv.com,,+14182326384,"106 rue Principale, Les bergeronnes, Québec, Canada, G0T 1G0",5858-2206-01,NEQ: 1145185949,https://groupesrv.com/services/,"COORDONNÉES 418 232-6384 admin@groupesrv.com Les Constructions S.R.V inc 106 rue Principale, Les bergeronnes, Québec, Canada, G0T 1G0 ... RBQ # 5858-2206-01",2026-10-29,found,"GROUPE SRV INC. general and specialized contractor in Les Bergeronnes; verified website, role email, phone, address, and RBQ licence."
+GE-VC-06745,v:98d6972bbc183605,,not_found,,,,,,NEQ: 1173907222,,,2026-10-29,not_found,Tried '9383-4463 Québec inc.' OR 'paysagementb' Hudson OR 1173907222; numbered landscaping entity without active corporate website or published mailbox.
+GE-VC-06746,v:71c3a02e817bf122,https://encanatlasauction.com/,found,,,1-877-217-6615,Repentigny,,NEQ: 1169877108,https://encanatlasauction.com/,Encan Atlas Auction – Des encans à ne pas manquer ... APPELEZ-NOUS AUJOURD'HUI: 1-877-217-6615 ext: 224 ... © 2026 | Encan Atlas Auction,2026-10-29,found,Encan Atlas (9298-0010 Québec inc.) auction house in Repentigny; verified official website and phone.
+GE-VC-06747,v:73130d4a513b2589,,not_found,,,,,,NEQ: 2245131596,,,2026-10-29,not_found,"Tried 'Montreuil, Roch' / 'CAMIONNAGE ROCH MONTREUIL' Val-d'Or OR 2245131596; trucking sole proprietorship without website or published mailbox."
+GE-VC-06748,v:281192063438aeb9,https://rexcap.ca/,found,info@rexcap.ca,,819-780-1694,"33 rue King Ouest, Sherbrooke, QC J1H 1N4",,NEQ: 1181483208,https://rexcap.ca/a-propos/,"Contact Direct 819-780-1694 info@rexcap.ca 33 rue King Ouest, Sherbrooke, QC J1H 1N4 ... © 2026 Rexcap. Tous droits réservés.",2026-10-29,found,"Crédit Municipal et manufacturier Rexcap et Gesco-Location (9553-8336 Québec inc.) in Sherbrooke; verified official website, info email, phone, and address."
+GE-VC-06749,v:027891e0922d205a,https://lesscellantsmp.com/,found,,,418-265-3142,Québec et les environs,,NEQ: 1170732557,https://lesscellantsmp.com/,"Les Scellants MP, spécialistes de scellant d'asphalte à Québec et les environs. Michael Bertrand: 418-265-3142 ... © 2026, Les Scellants MP",2026-10-29,found,Les Scellants MP inc. asphalt sealant in Sainte-Brigitte-de-Laval; verified official website and business phone.
+GE-VC-06750,v:44ef265fcc2947b5,,not_found,,,,,,NEQ: 1161411542,,,2026-10-29,not_found,Tried 'Service de Location de Garage ANPB inc' Beaupré OR 1161411542; garage rental company without active website or published mailbox.
+GE-VC-06751,v:c659ad4e72a1bb98,,found,,,819 683-3017,"3, Chemin des Bucherons Mansfield-et-Pontefract, J0X 1R0",,NEQ: 2267080291,https://saaq.gouv.qc.ca/prendre-un-rendez-vous/details/1193,"Mandataire en vérification de véhicules routiers SAAQ - Daniel Belair ... Daniel Belair 3, Chemin des Bucherons Mansfield-et-Pontefract, J0X 1R0 Pour plus d'information Téléphone : 819 683-3017",2026-10-29,found,"BELAIR, DANIEL in Mansfield-et-Pontefract; official SAAQ road vehicle mechanical inspection mandataire; verified phone and address on SAAQ portal."
+GE-VC-06752,v:01e439b9c3716c05,,not_found,,,,,,NEQ: 1178076262,,,2026-10-29,not_found,Tried '9476-7118 Québec inc.' OR 'Pavage Baie-Comeau' Baie-Comeau OR 1178076262; asphalt division operating without standalone website or published mailbox.
+GE-VC-06753,v:ea5f5a49c5e69c60,,not_found,,,,,,NEQ: 2281943227,,,2026-10-29,not_found,"Tried 'Duval, Geneviève' / 'GD Thérapie sport' Melbourne OR 2281943227; athletic therapy sole proprietorship without website or published mailbox."
+GE-VC-06754,v:db7bbcd8e22ddb19,https://locationelitemachinerieremorques.ciblelocale.ca/,found,,,(438) 490-7070,"427 Rue de Normandie, Boucherville, QC J4B 7T1",,NEQ: 1178262755,https://locationelitemachinerieremorques.ciblelocale.ca/,"Contact Location Élite : Machinerie & Remorques (438) 490-7070 427 Rue de Normandie, Boucherville, QC J4B 7T1",2026-10-29,found,"Location Élite : Machineries & Remorques (Les entreprises Montuoro-Kervin Inc.) in Boucherville; verified website, phone, and address."
+GE-VC-06755,v:303ff8433e8c88a9,,not_found,,,,,,NEQ: 2280294523,,,2026-10-29,not_found,Tried 'Dessin Concept KB' L'Ancienne-Lorette OR 2280294523; architectural drafting enterprise without active commercial website or published mailbox.
+GE-VC-06756,v:6b84390324164988,,not_found,,,,,,NEQ: 1179147724,,,2026-10-29,not_found,Tried '9500-4446 Québec inc.' OR 'Lamy Services Techniques' La Tuque OR 1179147724; numbered technical services enterprise without operational website or published mailbox.
+GE-VC-06757,v:880e89f93cb8c365,,not_found,,,,,,NEQ: 1181512790,,,2026-10-29,not_found,Tried '9554-4359 Québec inc.' Saint-Jérôme OR 1181512790; numbered entity without active commercial website or published mailbox.
+GE-VC-06758,v:8a0a0ac2ec5d40d3,https://sinistr.ca/,found,urgence@sinistr.ca,,1 (877) 657-4647,"Montréal, Laval, Longueuil, Rive-Sud, Rive-Nord",,"RBQ: 5834-5539-01, NEQ: 1178555117",https://sinistr.ca/contact,"Contact Téléphone 1 (877) 657-4647 Courriel urgence@sinistr.ca Zone de service Montréal, Laval, Longueuil, Rive-Sud, Rive-Nord ... N° RBQ : 5834-5539-01",2026-10-29,found,"Sinistr (RénoÉtape AI inc.) disaster restoration in Montréal; verified official website, emergency role email, phone, and RBQ licence."
+GE-VC-06759,v:f752f5dd1460fa27,https://www.constructionboulard.com/,found,,,+18198050230,"2465 rue Tebbutt, Trois-Rivières, QC G9A 5E1 Canada",,NEQ: 1171295380,https://www.constructionboulard.com/,"Constructions Boulard et Ass
+
+ 2465 rue Tebbutt, Trois-Rivières, QC G9A 5E1 Canada 819-805-0230
+
+ Horaires d'ouverture
+
+ Lun. - Ven. 08:00 – 17:00 Sam. - Dim. Fermé",2026-10-29,found,"Constructions Boulard et Associés inc. commercial and residential contractor in Trois-Rivières; verified website, phone, and address."
+GE-VC-06760,v:02722dc37e0693d4,https://www.raleveille.com/contact/,found,info@raleveille.com,,+14504693030,"1346 Rang Double, Rougemont, Québec, Canada, J0L 1M0",5733 6489 01,NEQ: 1172530819,https://www.raleveille.com/contact/,"1346 Rang Double, Rougemont,
+
+ Québec, Canada, J0L 1M0
+
+ RBQ : 5733 6489 01
+
+ Nous contacter
+
+ 450-469-3030
+
+ info@raleveille.com",2026-10-29,found,"RA Léveillé Inc. (RÉNOVATIONS ALEXANDRE LÉVEILLÉ INC.) general contractor in Rougemont; verified website, role email, phone, address, and RBQ licence."
+GE-VC-06761,v:7b3503d8d58a46ee,,not_found,,,,,,NEQ: 1181094021,,,2026-10-29,not_found,Tried 'Fanfan Solutions Inc' Montréal OR 1181094021; renovation contractor without independent corporate website or published mailbox.
+GE-VC-06762,v:381584a3753d43e8,,not_found,,,,,,NEQ: 2240018657,,,2026-10-29,not_found,Tried 'Inuulicare' OR 'CENTRE THÉRAPIE FAMILLIALE' L'Ile-Perrot OR 2240018657; family therapy enterprise without active website or published mailbox.
+GE-VC-06763,v:095d98c8c2480e43,,not_found,,,,,,NEQ: 1162244751,,,2026-10-29,not_found,Tried '9142-5025 QUÉBEC INC' OR 'Les Entreprises Robert Bergeron' Laval OR 1162244751; maintenance contractor without active website or published role mailbox.
+GE-VC-06764,v:ed476fd5831cb52f,,not_found,,,,,,NEQ: 1181033730,,,2026-10-29,not_found,Tried 'MXB ENTREPRENEUR GÉNÉRAL' OR '9543-8925 Québec inc.' Val-d'Or OR 1181033730; general contractor without commercial website or published role mailbox.
+GE-VC-06765,v:50d1517b372a94e0,https://knighttx.com/contact-us/,found,info@knighttx.com,,+15144844483,"100 Boul. Alexis-Nihon, Bureau 600, Montréal QC H4M 2P2",,NEQ: 1169716009,https://knighttx.com/contact-us/,"Corporate Head Office
+
+ Knight Therapeutics Inc.
+
+ 100 Boul. Alexis-Nihon, Bureau 600, Montréal
+
+ QC H4M 2P2
+
+ info@knighttx.com
+
+ (514) 484-4483 (phone)",2026-10-29,found,"Knight Therapeutics Inc (THÉRAPEUTIQUE KNIGHT INC.) specialty pharmaceuticals in Montreal; verified website, role email, phone, and headquarters address."
+GE-VC-06766,v:9c656197325e2d14,,not_found,,,,,,NEQ: 1179271805,,,2026-10-29,not_found,Tried 'Systèmes Juhub' OR '15435277 CANADA INC.' Montréal OR 1179271805; enterprise without commercial website or published role mailbox.
+GE-VC-06767,v:be75f8e00179eea7,,not_found,,,,,,NEQ: 1181793879,,,2026-10-29,not_found,Tried 'Fauchage Plus inc.' Shefford OR 1181793879; mowing contractor without active commercial website or published role mailbox.
+GE-VC-06768,v:a96fc5f0f556457b,,not_found,,,,,,NEQ: 3382204017,,,2026-10-29,not_found,Tried 'Consortium CIMA+ / Stantec (2602-25-AA01)' Montréal OR 3382204017; temporary project bidding consortium without standalone commercial website or published mailbox.
+GE-VC-06769,v:3cc44bb02ea3d491,https://www.gbvavocats.com/guillaume-lemieux?lang=en,found,info@gbvavocats.com,,+18193791221,"125 des Forges Street Suite 600 Trois-Rivières, Quebec G9A 2G7",,NEQ: 3347674635,https://www.gbvavocats.com/guillaume-lemieux?lang=en,"Trois-Rivières
+
+ 125 des Forges Street
+
+ Suite 600
+
+ Trois-Rivières, Quebec G9A 2G7
+
+ Phone: (819) 379-1221
+
+ Email: info@gbvavocats.com",2026-10-29,found,"GRAVEL BERNIER S.E.N.C.R.L. (GBV Avocats) law firm in Trois-Rivières; verified website, role email, phone, and Trois-Rivières office address."
+GE-VC-06770,v:312d8693aad2b055,,not_found,,,,,,NEQ: 1149124415,,,2026-10-29,not_found,Tried 'E-VIDÉO' OR '9087-4991 QUÉBEC INC.' Québec OR 1149124415; video production numbered entity without operational website or published mailbox.
+GE-VC-06771,v:665d21432aebcb09,http://bralteck.ca/index.php?option=com_content&view=article&id=46&Itemid=57,found,construction@bralteck.com,,+15144812552,"5541, chemin Haut-Lachine Montréal (Québec) H4A 2A5",5870-7480-01,NEQ: 1181215378,http://bralteck.ca/index.php?option=com_content&view=article&id=46&Itemid=57,"construction@bralteck.com This e-mail address is being protected from spambots. You need JavaScript enabled to view it
+
+ Tél : 514 481-2552
+
+ Télécopieur : 514 481-0253
+
+ Numéro de licence : 5870-7480-01
+
+ 5541, chemin Haut-Lachine
+
+ Montréal (Québec) H4A 2A5",2026-10-29,found,"Construction Bralteck (2025) Inc. / CONSTRUCTION BRALTECK INC. commercial contractor in Montreal; verified website, role email, phone, address, and RBQ licence."
+GE-VC-06772,v:0d5c62c635332d66,,not_found,,,,,,NEQ: 1174384272,,,2026-10-29,not_found,Tried '9394-2662 Québec inc.' OR 'Vapro Sept-Îles' Sept-Îles OR 1174384272; vehicle cleaning and detailing operation without independent website or published role mailbox.
+GE-VC-06773,v:f70c154597a3086d,https://www.hygipro.net/,found,admin@hygipro.net,,418-296-5049,271 Boulevard La Salle Baie-Comeau (Québec) G4Z 1T1,,NEQ: 1142752766,https://www.hygipro.net/contactez-nous,Notre bureau et entrepôt 271 Boulevard La Salle Baie-Comeau (Québec) G4Z 1T1 ... Téléphone: 418-296-5049 Télécopieur: 418-296-8703 ... admin@hygipro.net ... Tous droits réservés à HYGIPRO INC.,2026-10-29,found,"HYGIPRO INC. sanitary and cleaning products in Baie-Comeau; verified official website, admin role email, phone, and warehouse address."
+GE-VC-06774,v:cfa9d622b366ada2,https://www.pagesjaunes.ca/bus/Quebec/Rouyn-Noranda/Lave-Auto-135-Enr/936566.html,found,,,+18197644272,"140, av Fortin, Rouyn-Noranda QC J9X 6R7",,NEQ: 2247375241,https://www.pagesjaunes.ca/bus/Quebec/Rouyn-Noranda/Lave-Auto-135-Enr/936566.html,"Le Lave-Auto 135 Enr est situé au 140, avenue Fortin à Rouyn-Noranda. Son équipe se charge du lavage et du polissage de votre auto. Pour en savoir plus, faites le 819-764-4272.",2026-10-29,found,Lave-Auto 135 car wash and detailing in Rouyn-Noranda; verified phone and street address.
+GE-VC-06775,v:00af5891872b9bab,,not_found,,,,,,NEQ: 2281901969,,,2026-10-29,not_found,"Tried 'Léveillé esthétique automobile' OR 'Léveillé-Bourgouin, Jean-François' Rouyn-Noranda OR 2281901969; sole proprietorship without active commercial website or published role mailbox."
+GE-VC-06776,v:b7f7b3279854664f,,not_found,,,,,,NEQ: 1175960146,,,2026-10-29,not_found,Tried 'PressionPlus' OR '9428-9923 Québec inc.' Montréal OR 1175960146; pressure cleaning business without active commercial website or published role mailbox.
+GE-VC-06777,v:3013a6718f10bb66,,not_found,,,,,,NEQ: 1181028490,,,2026-10-29,not_found,Tried 'WM Nettoyage Haute Pression inc.' Mascouche OR 1181028490; pressure cleaning enterprise without active commercial website or published mailbox.
+GE-VC-06778,v:8ce3d5dee25016f4,https://www.yellowpages.ca/bus/Quebec/La-Prairie/Promaid-Service-D-Entretien/102633123.html,found,,,,"7311 Rue Johanne, La Prairie, QC J5R 0L2",,NEQ: 1161870747,https://www.yellowpages.ca/bus/Quebec/La-Prairie/Promaid-Service-D-Entretien/102633123.html,"Promaid Service D'Entretien ... 7311 Rue Johanne, La Prairie, QC J5R 0L2 ... Janitorial Service",2026-10-29,found,9135-7459 QUÉBEC INC. (Promaid Service D'Entretien) janitorial and cleaning services in La Prairie; verified address on YellowPages.
+GE-VC-06779,v:753a78acbe94885c,,not_found,,,,,,NEQ: 1181846784,,,2026-10-29,not_found,Tried 'Tech Talent Hub' OR '9561-3527 Québec inc.' Québec OR 1181846784; tech staffing enterprise without active website or published role mailbox.
+GE-VC-06780,v:7ac18f3642b69533,,not_found,,,,,,NEQ: 1172175300,,,2026-10-29,not_found,Tried 'FILM HIT inc' Montréal OR 1172175300; film production enterprise without operational website or published role mailbox.
+GE-VC-06781,v:fbcc54387154e7b4,https://www.fr.canada411.ca/search/si/1/Dumont/Cacouna+QC/,found,,,,"949 Rue Du Patrimoine, Cacouna, QC, G0L 1G0",,NEQ: 1161890984,https://www.fr.canada411.ca/search/si/1/Dumont/Cacouna+QC/,"Plomberie Denis Dumont Inc
+
+ 949 Rue Du Patrimoine, Cacouna, QC, G0L 1G0
+
+ Catégorie: Plumbers & Plumbing Contractors",2026-10-29,found,PLOMBERIE DENIS DUMONT INC. plumbing contractor in Cacouna; verified business address on Canada411.
+GE-VC-06782,v:dd3b11c2b91d2d5b,https://www.pierresdamerique.com/,found,info@pierresdamerique.com,,+18196122354,"6346 boul. Bourque Sherbrooke, Qc. J1N 1H3",,NEQ: 1167420281,https://www.pierresdamerique.com/,"Les Pierres d'Amérique
+
+ 6346 boul. Bourque
+
+ Sherbrooke, Qc.
+
+ J1N 1H3
+
+ 819-612-2354 bureau
+
+ 819-574-5713 cell
+
+ ​info@pierresdamerique.com",2026-10-29,found,"LES PIERRES D'AMÉRIQUE INC. natural stone distributor in Sherbrooke; verified website, role email, phone, and address."
+GE-VC-06783,v:f13e2098b79fd24c,,found,,,819-845-2449,"207, des Hauts-Bois Windsor (QC) J1S 2T6 Canada",,NEQ: 1173523235,https://federationautobus.com/repertoire-des-membres/fiche-de-membre/?fid=269,"Services d'autobus Léger Carignan inc. (Les) ... Pour nous contacter 207, des Hauts-Bois Windsor (QC) J1S 2T6 Canada Téléphone : 819-845-2449",2026-10-29,found,LES SERVICES D'AUTOBUS LÉGER CARIGNAN INC. school bus carrier in Windsor; verified phone and address on Fédération des transporteurs par autobus directory.
+GE-VC-06784,v:504568b1145b8a6e,https://vigvague.com/contactez-nous,found,quais@vigvague.com,,+15149956638,"4970 Boulevards Saint-Charles, Pierrefonds, QC H9H 3E9",,NEQ: 1168138536,https://vigvague.com/contactez-nous,"VIG-VAGUE MARINE
+
+ 4970 Boulevards Saint-Charles,Pierrefonds, QC H9H 3E9
+
+ Téléphone: 514-995-6638 E-mail: quais@vigvague.com",2026-10-29,found,"9260-9890 QUÉBEC INC. (VIG-VAGUE MARINE) docks and marine products in Pierrefonds; verified website, role email, phone, and address."
+GE-VC-06785,v:cb3deece56066ade,https://www.cegep-rimouski.qc.ca/nous-joindre,found,approvisionnement@cegep-rimouski.qc.ca,compte.payable@cegep-rimouski.qc.ca,+14187231880,"60, rue de l'Évêché Ouest, Rimouski (Québec) G5L 4H6",,NEQ: 8812156790,https://www.cegep-rimouski.qc.ca/nous-joindre,"compte.payable@cegep-rimouski.qc.ca
+
+ poste 2128
+
+ compte.recevable@cegep-rimouski.qc.ca
+
+ poste 2125
+
+ Approvisionnement
+
+ approvisionnement@cegep-rimouski.qc.ca",2026-10-29,found,"CÉGEP Rimouski (COLLÈGE D'ENSEIGNEMENT GÉNÉRAL ET PROFESSIONNEL DE RIMOUSKI) higher education; verified procurement and payables role emails, phone, and campus address."
+GE-VC-06786,v:14a4ee2b9aa49099,,not_found,,,,,,NEQ: 1145342698,,,2026-10-29,not_found,Tried '9029-4653 QUÉBEC INC.' Saint-Pascal OR 1145342698; sand/gravel numbered entity without active commercial website or published role mailbox.
+GE-VC-06787,v:cb19e3f26bb8e3ed,https://terrebonne.cdncompanies.com/fr/cleaning-service/entretien-commercial-le-lion-dor-terrebonne/,found,,,+14505822907,"4565 Boulevard Pierre le Gardeur, Terrebonne, Québec",,NEQ: 1167082099,https://terrebonne.cdncompanies.com/fr/cleaning-service/entretien-commercial-le-lion-dor-terrebonne/,"Entretien Commercial Le Lion D'Or — Service de nettoyage à Terrebonne, Québec. Adresse : 4565 Boulevard Pierre le Gardeur ; téléphone : (450) 582-2907.",2026-10-29,found,ENTRETIEN COMMERCIAL LE LION D'OR INC. janitorial and cleaning services in Terrebonne; verified phone and address on business directory.
+GE-VC-06788,v:fbdf58747cbe35c4,https://groupebc2.ca/,found,info@groupebc2.com,,514 507-3600,"300-85, rue Saint-Paul Ouest Montréal (Québec) H2Y 3V4",,NEQ: 1180002991,https://groupebc2.ca/a-propos/,"Groupe BC2 Montréal 300-85, rue Saint-Paul Ouest Montréal (Québec) H2Y 3V4 514 507-3600 info@groupebc2.com Québec 500-888, rue Saint-Jean Québec (Québec) G1R 5H6 418 914-1508",2026-10-29,found,"BC2 Architecture Inc. (Groupe BC2) urban planning and architecture firm in Montréal; verified official website, info email, phone, and head office address."
+GE-VC-06789,v:59c8e448129b4a29,,not_found,,,,,,NEQ: 1163479067,,,2026-10-29,not_found,Tried 'LES TECHNOLOGIES INDIGO CANADA INC.' Montréal OR 1163479067; software licensing vendor without active commercial website or published role mailbox.
+GE-VC-06790,v:44372a5aa0c46ff7,,not_found,,,,,,,,,2026-10-29,not_found,Tried 'Armurerie Chalifoux' Sainte-Anne-de-Sabrevois OR J0J2G0; gunsmith sole proprietorship without commercial website or published role mailbox.
+GE-VC-06791,v:c4879fd4f36455a3,,not_found,,,,,,,,,2026-10-29,not_found,"Tried 'Pierre-Luc Mailloux' OR 'Mailloux, Pierre-Luc' Saint-Basile-le-Grand OR J3N1L4; individual vendor without commercial website or published role mailbox."
+GE-VC-06792,v:7e993932b4863edb,https://termic.ca/,found,reception@termic.ca,service@termic.ca,819 751-2044,"9, rue de l'Artisan Victoriaville (Québec) G6P 9S9",,"RBQ: 8002-4458-59, NEQ: 1142224576",https://termic.ca/nous-joindre/,"Victoriaville 9, rue de l'Artisan Victoriaville (Québec) G6P 9S9 reception@termic.ca service@termic.ca ... Victoriaville 819 751-2044 8 h à 17 h 9, rue de l'Artisan Victoriaville (Québec) G6P 9S9 Multi-services M.G.M. inc. : 8002-4458-59",2026-10-29,found,"TERMIC Victoriaville (MULTI-SERVICES M.G.M. INC.) HVAC contractor in Victoriaville; verified official website, reception role email, service email, phone, address, and RBQ licence."
+GE-VC-06793,v:19009191e470ed7b,https://www.transportdiamond.com/,found,Dispatch@TransportDiamond.com,,+14509737788,"Montreal, Qc",,NEQ: 1167267831,https://www.transportdiamond.com/,"CALL US
+
+ Tel: (514) 748-8898
+
+ Tel: (450) 973-7788
+
+ EMAIL US
+
+ Dispatch@TransportDiamond.com",2026-10-29,found,"9240-8939 QUÉBEC INC. (Diamant Transport Logistique / Diamond Transport Logistics) freight transport in Laval and Montreal; verified website, dispatch role email, and phone."
+GE-VC-06794,v:b6553262523c4617,https://laureatpepin.ca/nous-joindre/,found,info@laureatpepin.ca,,+14186828338,435 rue des Entrepreneurs Québec (Québec) G1M 1B4,,NEQ: 1142141754,https://laureatpepin.ca/nous-joindre/,"435 rue des Entrepreneurs
+
+ Québec (Québec) G1M 1B4
+
+ Tél. Québec : 418-682-8338
+
+ Tél. Montréal : 514-236-3153
+
+ info@laureatpepin.ca",2026-10-29,found,"LAURÉAT PEPIN INC. commercial and industrial construction project management in Québec; verified website, role email, phone, and address."
+GE-VC-06795,v:5ab17c30c9c86dc7,,not_found,,,,,,NEQ: 1178653268,,,2026-10-29,not_found,Tried '9489-3484 Québec inc.' Saint-Arsène OR 1178653268; numbered enterprise without active commercial website or published role mailbox.
+GE-VC-06796,v:2fe80418cdd3f069,https://www.couverturesvicto.com/contact/,found,,,+18197586776,"990 rue de la Batiscan, Victoriaville, Québec, G6T 1Y2",8007-5096-65,NEQ: 1146056339,https://www.couverturesvicto.com/contact/,"Nous contacter
+
+ 990 rue de la Batiscan, Victoriaville,
+
+ Québec, G6T 1Y2 ... 819 758-6776 ... Licence RBQ : 8007-5096-65",2026-10-29,found,"COUVERTURES VICTO (COUVERTURES VICTO 2000 INC.) roofing contractor in Victoriaville; verified website, phone, address, and RBQ licence."
+GE-VC-06797,v:2422d5f139a4b5ea,,not_found,,,,,,NEQ: 1178703642,,,2026-10-29,not_found,Tried 'Solution Infracom' OR 'SOLUTION INFRACOM INC.' Laval OR 1178703642; telecom contractor without commercial website or published role mailbox.
+GE-VC-06798,v:014a3b23ed7f7031,https://studiotarmac.com/a-propos,found,info@studiotarmac.com,,+15146167822,"Montréal, QC",,NEQ: 2275913061,https://studiotarmac.com/a-propos,"TARMAC est un studio de photographie d'architecture basé à Montréal. ... Courriel
+
+ info@studiotarmac.com
+
+ Téléphone
+
+ 514 616-7822",2026-10-29,found,"Tarmac (Damien Ligiardi Photographe) architectural photography studio in Montreal; verified website, role email, phone, and Montreal studio location."
+GE-VC-06799,v:9315b19559a3df92,https://tumiksolutions.ca/,found,,,,Chambly,,NEQ: 1181367179,https://tumiksolutions.ca/home1/,"Tumik Solutions is a company specializing in mechanical design, industrial project management, and turnkey mechanical assembly. ... Tumik Solutions Inc.",2026-10-29,found,Tumik Solutions Inc. mechanical design and industrial project management in Chambly; verified official website and business scope.
+GE-VC-06800,v:a89a44fd21fa08ff,https://veriflicence.ca/entreprise/1163452502/greenlawn-ltd,found,,,,"Montréal, QC",119159,NEQ: 1163452502,https://veriflicence.ca/entreprise/1163452502/greenlawn-ltd,"GREENLAWN LTD. ; NEQ: 1163452502 ; Forme juridique: Personne morale (compagnie, société par actions) ; Ville: Montréal.",2026-10-29,found,"ESPACESVERTS (GREENLAWN, LTD.) lawn and tree care contractor in Montreal; verified corporate listing and OPC licence on VerifLicence."
+GE-VC-06801,v:b98b9c9b505cfb89,,not_found,,,,,,,,,2026-10-29,not_found,Tried 'Jérémy Ouellet' Saint-Mathieu-de-Rioux OR G0L3T0; individual supplier without commercial website or published role mailbox.
+GE-VC-06802,v:6b9be3fbfc2f0042,,not_found,,,,,,NEQ: 1178482635,,,2026-10-29,not_found,Tried 'Aménagement Paysager JPDufour Inc.' Saint-Octave-de-Métis OR 1178482635; landscaping business without commercial website or published role mailbox.
+GE-VC-06803,v:6db43ef61a1d0393,,not_found,,,,,,NEQ: 1176018860,,,2026-10-29,not_found,Tried '9430-2965 Québec inc.' OR 'Pelouse de l'Anse' Rimouski OR 1176018860; lawn care numbered business without operational website or published role mailbox.
+GE-VC-06804,v:ced3c94fdcf52a6d,https://sante.gouv.qc.ca/repertoire-ressources/ressource/?nofiche=998124,found,,,+14387963030,"9320, boulevard Saint-Laurent, bureau 711 Montréal (Québec) H2N 1N7",,NEQ: 1175330159,https://sante.gouv.qc.ca/repertoire-ressources/ressource/?nofiche=998124,"PHARMACIE SONIA BOUTIN (BOUL. SAINT-LAURENT)
+
+ Dans cette page :
+
+ Coordonnées Horaire Services offerts et spécialités Accessibilité
+
+ Coordonnées
+
+ 9320, boulevard Saint-Laurent, bureau 711
+
+ Montréal (Québec) H2N 1N7 ... Téléphone Principal Numéro général : 438 796-3030",2026-10-29,found,PHARMACIE SONIA BOUTIN INC. community pharmacy in Montreal; verified phone and address on official Santé Québec directory.
+GE-VC-06805,v:79ecf823367ff78e,https://www.bilex.ca/,found,,,+14503383103,"Saint-Amable, QC",5732-7744-01,NEQ: 1170858105,https://www.bilex.ca/,"Adresse
+
+ Saint-Amable, QC
+
+ Téléphone
+
+ (450) 338-3103
+
+ Politique de confidentialité
+
+ Courriel
+
+ Entrepreneur général :
+
+ davidbilodeau@bilex.ca
+
+ Gestionnaire administrative :
+
+ myriamlussier@bilex.ca
+
+ © 2026
+
+ Tous droits réservés | Aménagement BilEx",2026-10-29,found,"Aménagement Bilex inc. excavation and landscaping contractor in Saint-Amable; verified website, phone, address, and RBQ licence."
+GE-VC-06806,v:45bac0aa1fdef319,https://attorre.ca/,found,,,(514) 725-6399,"7886, rue Fleuricourt, Saint-Léonard, QC H1R 2L3",,NEQ: 1163424196,https://attorre.ca/,"Attorre & Fils Constructions ... Adresse: 7886, rue Fleuricourt, Saint-Léonard, QC H1R 2L3 ... Téléphone: (514) 725-6399 Courriel: attorre.fils@gmail.com",2026-10-29,found,"ATTORRE & FILS CONSTRUCTIONS LTÉE general contractor in Montréal (Saint-Léonard); verified official website, phone, and address; email attorre.fils@gmail.com noted."
+GE-VC-06807,v:365fcd3643cfc5dc,https://www.itm.com/,found,information@itm.com,,1-800-561-8187,"20800 Boul. Industriel, Sainte-Anne-de-Bellevue, QC, H9X 0A1",,NEQ: 1143003425,https://www.itm.com/files/ITM-SERVICE-REQUEST-FORM.pdf,"www.itm.com | information@itm.com | 1-800-561-8187. ... ITM Instruments -- Attention: Service. ... Montreal: 20800 Boul. Industriel, Sainte-Anne-de-Bellevue, QC, H9X 0A1.",2026-10-29,found,"LES INSTRUMENTS I.T.M. INC / I.TM. INSTRUMENTS INC in Sainte-Anne-de-Bellevue; test instruments supplier; verified official website, info email, phone, and address."
+GE-VC-06808,v:574f37c7e0468057,,found,,,819 719-2221,"8113 Boulevard des Hêtres Shawinigan , QC , G9N4X3",,NEQ: 2268057942,https://www.anugo.ca/fr/entreprise/290676-pelouse-et-neige-residentiel-entretien-de-gazon-shawinigan,"Info de contact Pelouse et Neige Résidentiel 8113 Boulevard des Hêtres Shawinigan , QC , G9N4X3. Tél. 819 719-2221.",2026-10-29,found,Pelouse et neige résidentiel Enr. lawn and snow maintenance in Shawinigan; verified phone and address on AnuGo business directory.
+GE-VC-06809,v:cdf43c9043c80963,,not_found,,,,,,NEQ: 2241590423,,,2026-10-29,not_found,Tried 'Paysage Lily enr.' (Liette Pelchat) Nédélec OR 2241590423; landscaping sole proprietorship without website or published role mailbox.
+GE-VC-06810,v:7b4b1fd25317c4c6,,not_found,,,,,,NEQ: 1173747677,,,2026-10-29,not_found,Tried '9380-1108 Québec inc.' (Vega Canada) Sainte-Anne-de-Bellevue OR 1173747677; numbered corporation without active commercial website or published mailbox.
+GE-VC-06811,v:796b02d25fb93f69,https://info-rbq.ca/licence-rbq/8002-8210-32,found,,,+15147915378,8805 RUE SHERBROOKE EST MONTRÉAL QC CANADA H1L 1C4,8002-8210-32,NEQ: 1160489085,https://info-rbq.ca/licence-rbq/8002-8210-32,Coordonnées publiques. Adresse : 8805 RUE SHERBROOKE EST MONTRÉAL QC CANADA H1L 1C4. Téléphone : 5147915378. ... Licence RBQ 8002-8210-32 à Montréal,2026-10-29,found,"SERRUMAX INC. locksmith contractor in Montreal; verified phone, address, and RBQ licence."
+GE-VC-06812,v:b6930275e68cd23c,https://www.2ndskin.ca/,found,,,418.780.3335,"6250 rue Zéphirin-Paquet, Local 400 Québec, QC, G2C 0M3 Canada",,NEQ: 1164262223,https://www.2ndskin.ca/nous-joindre/,"Chez 2nd Skin Promotion ... Téléphone : 418.780.3335 Sans frais : 1.877.788.3335 ... Notre adresse 6250 rue Zéphirin-Paquet, Local 400 Québec, QC, G2C 0M3 Canada",2026-10-29,found,"2nd Skin Promotion inc. (PROMOTION 2ND SKIN INC.) promotional products in Québec; verified official website, phone, and address."
+GE-VC-06813,v:5c8e24ebc3e36c9b,,found,,,(581) 307-3321,"350 côte Sainte-Anne Ste-Anne-de-Beaupré, G0A3C0",,"RBQ: 5801-5926-01, NEQ: 1175768002",https://www.construction411.com/ebenisterie-residentiel/ste-anne-beaupre/brut-atelier/,"BRUT ATELIER 9424-8432 QUÉBEC INC ... Coordonnées 350 côte Sainte-Anne Ste-Anne-de-Beaupré, G0A3C0 (581) 307-3321 LICENCES RBQ : 5801-5926-01",2026-10-29,found,"9424-8432 Québec inc. (Brut Atelier) cabinet making and construction in Ste-Anne-de-Beaupré; verified phone, address, and RBQ licence on Construction411."
+GE-VC-06814,v:eb57dbb4c28339ca,https://vitaloci.com/,found,,,,Lac-Beauport,,NEQ: 1181176596,https://vitaloci.com/a-propos,vita loci atelier d'architecture de paysage. ... © 2025 Atelier Vita Loci inc. Tous droits réservés,2026-10-29,found,Atelier Vita Loci inc. landscape architecture in Lac-Beauport; verified official website; founder email enormandeau@vitaloci.com noted.
+GE-VC-06815,v:c557f9b22b58e1d5,https://gsmdepot.ca/,found,support@gsmdepot.com,,+18884764763,"420 Rue Wright, Saint-Laurent, QC, H4N 1M6, Canada",,NEQ: 1176780287,https://gsmdepot.ca/pages/members-club-program-terms-conditions,"support@gsmdepot.com or phone at 1-888-476-4763 ... Montreal, QC, H4N 1M6, Canada.",2026-10-29,found,"GSM Dépôt (Gestion GSM Dépôt É-U Inc.) electronics and appliances retailer in Montréal (Saint-Laurent); verified website, support email, phone, and address."
