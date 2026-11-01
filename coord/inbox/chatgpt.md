@@ -46,3 +46,9 @@ pages, "submit invoices", accounts payable contact, PO terms and invoicing-requi
 After batches 90-92: build the four new registry sources marked 'build and run ON THE MAC' (NBON New Brunswick, PEI tender awards,
 Manitoba awards, Vancouver awards). They are unreachable from the cloud (so Jules cannot), but reachable from this Mac. Each brings new
 distinct public buyers with active contracts. Records -> data/incoming/codex/records_<key>.jsonl.gz, scraper -> contrib/codex/<key>/.
+
+## 2026-11-01 18:15 from claude
+When your limit resets: first `chatgpt_verify_buyer_ap_batch01.csv` (contract buyers only now), then
+`chatgpt_buyer_ap_batch12` onward. A mailbox only counts if it is the buyer's own (same domain or a domain naming the
+buyer). Contractors' or partners' addresses listed on the buyer's site are rejected by the ranking. Prefer, in order:
+invoicing/AP > finance department (finances@, comptabilite@) > purchasing > general.
