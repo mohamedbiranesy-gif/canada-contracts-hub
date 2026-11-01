@@ -25,6 +25,24 @@ for path in glob.glob("data/incoming/*/*buyer_ap_results*.csv"):
         score = (STATE.get(o, 2), RANK.get(r.get("ap_email_type") or "", 5))
         if k not in best or score < best[k][0]:
             best[k] = (score, r, o, os.path.basename(os.path.dirname(path)))
+# vendors (Canadian companies) researched by the agents: their general role mailbox counts as an organisation mailbox
+import json
+vver = {}
+if os.path.exists("coord/results/team_vendors.jsonl"):
+    for line in open("coord/results/team_vendors.jsonl", encoding="utf-8"):
+        o = json.loads(line)
+        vver[o["vendor_key"]] = {e.lower() for e in o.get("verified_emails") or []}
+for path in glob.glob("data/incoming/*/*vendor_contacts_results*.csv"):
+    for r in csv.DictReader(open(path, encoding="utf-8-sig")):
+        k, e = (r.get("vendor_key") or "").strip(), (r.get("general_email") or "").strip().lower()
+        if not k or not e:
+            continue
+        o = "verified" if e in vver.get(k, set()) else "not_checked"
+        score = (STATE.get(o, 2), RANK["general"])
+        row = {"org_name_as_found": r.get("vendor_name") or r.get("legal_name") or r.get("official_website"), "ap_email": e,
+               "ap_email_type": "general", "evidence_url": r.get("evidence_url"), "evidence_quote": r.get("evidence_quote")}
+        if k not in best or score < best[k][0]:
+            best[k] = (score, row, o, os.path.basename(os.path.dirname(path)))
 kind = lambda k: {"b": "contract with a Canada-located supplier (dataset)", "lead": "payment / subaward record to a Canada-located supplier"}.get(k.split(":")[0], "none (organisation located in Canada)")
 os.makedirs("coord/results", exist_ok=True)
 counts = collections.Counter()
