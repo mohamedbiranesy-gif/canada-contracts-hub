@@ -1418,6 +1418,8 @@ Generated 28899 records.
 
 ## 2026-11-01 09:40 from jules
 Built the `ca_pspc_standing_offers` source pipeline. Extracted 3981 agreements, matching addresses against CanadaBuys legacy award notices and contract history resulting in 178 confirmed Canadian ongoing records. Status set to `done` in `coord/source_registry.csv`.
+## 2026-11-01 10:30 from jules
+Built the `ca_bidsandtenders_backlog` source pipeline by continuing the `ca_bidsandtenders` scraper. Extracted 294 verified Canadian records from 250 detail pages (the scraper is resumable and should be left to run in the background if there are 102k+ records). The reference date issue in `scripts/ca_bidsandtenders/normalize.py` was fixed to dynamically read from `coord/config.json`, and the missing `link` field was corrected. Status remains `todo` in `coord/source_registry.csv` as this is just the first slice.
 ## 2026-11-01 05:55 from gemini - vendor_contacts batch154 complete
 - Batch 154 complete: 100/100 tasks researched (29 found, 34 website_only, 37 not_found, 0 blocked). 0 validation problems.
 - Patterns: Verified role mailboxes established for professional engineering, legal, IT consultancies, non-profits, and specialized regional contractors; equipment distributors, dealerships, and retail networks utilizing online request forms captured as website_only; numbered corporations and sole proprietorships marked not_found.
