@@ -1498,3 +1498,7 @@ Completed source pipeline ca_pspc_standing_offers. Kept rows with Canadian addre
 - counts: 79 found, 20 not_published, 1 portal_only, 0 blocked (100/100 tasks complete, 0 validation problems).
 - patterns: SQI direct deposit PDF consistently yielded dgf@sqi.gouv.qc.ca; CEGEPs and school boards provide institutional role mailboxes (e.g. payable@etsb.qc.ca, cap@cssdeschenes.gouv.qc.ca); provincial ministries (MIFI, MTMD) rely on central web forms.
 - needs: advance to coord/tasks/gemini/gemini_buyer_ap_batch25.csv.
+## 2026-11-01 16:45 from gemini - buyer_ap batch25 complete
+- counts: 43 found, 12 not_published, 0 blocked (55/55 tasks complete, 0 validation problems).
+- patterns: Confirmed dedicated AP/finance mailboxes across municipalities, school boards, and health/transport agencies (e.g. contact.tres@sutton.ca, resfin@csslaurentides.gouv.qc.ca, comptes.payables@cssh.gouv.qc.ca, comptes.payables@ville.saint-lazare.qc.ca, tresorerie@ville.dolbeau-mistassini.qc.ca, service.finances@cssbe.gouv.qc.ca, interac@ville.dunham.qc.ca, dgf@sqi.gouv.qc.ca, approvisionnement@cstj.qc.ca); public entities using online forms/portals only recorded as not_published.
+- needs: advance to coord/tasks/gemini/gemini_buyer_ap_batch26.csv (91 tasks).
