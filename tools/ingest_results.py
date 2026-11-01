@@ -121,9 +121,13 @@ def archive_text(url, fetch=True):
         txt = html.unescape(data.decode("utf-8", "replace")).replace("&#64;", "@")
         open(p, "w", encoding="utf-8").write(snap["url"] + "\n" + txt)
         return snap["url"], txt
-    except Exception:
+    except Exception as e:
+        ARCHIVE_ERRORS[type(e).__name__ + ": " + str(e)[:120]] += 1
         open(p, "w").write("none\n")
         return None
+
+
+ARCHIVE_ERRORS = collections.Counter()
 
 
 def bad_email(e):
@@ -215,7 +219,8 @@ def prefetch():
     failed = [u for u in dict.fromkeys(cited) if os.path.exists(os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest()) + ".fail")]
     with ThreadPoolExecutor(4) as ex:  # pages that refuse this verifier: the Internet Archive's recent copy, 4 at a time
         list(ex.map(archive_text, failed))
-    print("archive copies looked up for %d refused pages" % len(failed), file=sys.stderr)
+    hits = sum(1 for u in failed if (archive_text(u, fetch=False) or (None,))[0])
+    print("archive copies looked up for %d refused pages: %d copies held; errors %s" % (len(failed), hits, ARCHIVE_ERRORS.most_common(3)), file=sys.stderr)
 
 
 if not NOFETCH:
