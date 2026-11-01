@@ -116,10 +116,10 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00418,b:0571f6abb30bc9cb,corpor
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01151,b:057daf087fe618a0,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00052,b:05812405f13fc511,financial_systems.systemes_financiers@ps-sp.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch12.csv,GE-AP-01130,b:0599a3a5c0bbd5af,directiongenerale@st-martin.qc.ca,https://www.cebeauce.com/membre/338-municipalite-de-saint-martin,verified
-chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00061,b:05a559521e307365,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,cross_verified
-claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00061,b:05a559521e307365,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,cross_verified
+chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00061,b:05a559521e307365,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00061,b:05a559521e307365,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00061,b:05a559521e307365,procurement@burlington.ca,https://www.burlington.ca/en/business-in-burlington/bid-opportunities.aspx,unverified_page_unavailable
-claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00061,b:05a559521e307365,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,cross_verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00061,b:05a559521e307365,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00061,b:05a559521e307365,procurement@burlington.ca,https://www.burlington.ca/en/business-in-burlington/bid-opportunities.aspx,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch21.csv,GE-AP-02066,b:05a926947aebc2a1,mrcmekinac@mrcmekinac.com,https://mrcmekinac.com/contact/,verified
 gemini,gemini_buyer_ap_results_batch17.csv,GE-AP-01636,b:05b36e50ccfc35de,info@municipalitelemieux.ca,https://www.municipalitelemieux.ca/?page=nous-joindre,verified
@@ -683,8 +683,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00501,b:1adba70973429e30,%20com
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00501,b:1adba70973429e30,tohaccountspayable@toh.ca,https://www.ottawahospital.on.ca/sites/default/files/2026-07/PO-Terms-and-Conditions-En.pdf,cross_verified
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00014,b:1adba70973429e30,tohaccountspayable@toh.ca,https://www.ottawahospital.on.ca/sites/default/files/2026-07/PO-Terms-and-Conditions-En.pdf,cross_verified
 chatgpt,chatgpt_buyer_ap_results_batch04.csv,CH-AP-00349,b:1ae1049e6831d4df,tenders@avrce.ca,https://www.avrce.ca/download/568268,verified
-chatgpt,chatgpt_buyer_ap_results_batch09.csv,CH-AP-00856,b:1af674a8907961aa,customer.service@sjenergy.ca,https://sjenergy.ca/contact-us,verified
-gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00013,b:1af674a8907961aa,customer.service@sjenergy.ca,https://sjenergy.ca/contact-us,verified
+chatgpt,chatgpt_buyer_ap_results_batch09.csv,CH-AP-00856,b:1af674a8907961aa,customer.service@sjenergy.ca,https://sjenergy.ca/contact-us,cross_verified
+gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00013,b:1af674a8907961aa,customer.service@sjenergy.ca,https://sjenergy.ca/contact-us,cross_verified
 gemini,gemini_buyer_ap_results_batch19.csv,GE-AP-01889,b:1b1099c7a0d5deab,info@municipalite-lefebvre.ca,https://municipalites-du-quebec.ca/lefebvre/carte.php,verified
 gemini,gemini_buyer_ap_results_batch13.csv,GE-AP-01201,b:1b12cc3cb7b5a92b,municipalite@stfelixdedalquier.ca,https://stfelixdedalquier.ca/wp-content/uploads/2022/01/AP-Regl.-taxes-2022.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch11.csv,CH-AP-01069,b:1b1c188916aae8c9,payables@nanton.ca,https://www.nanton.ca/sites/19/files/2025-01/13%2032%20230206%20Purchasing%20Policy%20and%20Surplus%20Equipment.pdf,unverified_page_unavailable
@@ -24387,7 +24387,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-WD-000556,wd:Q341968,clerk@acme.ca
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-005018,wd:Q3420451,payables@rawdon.ca,https://rawdon.ca/fr/municipalite/administration/gestion-contractuelle,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-005018,wd:Q3420451,info@rawdon.ca,https://rawdon.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-005018,wd:Q3420451,greffe@rawdon.ca,https://rawdon.ca/fr/municipalite/administration/gestion-contractuelle,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-WD-000036,wd:Q34218,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-000036,wd:Q34218,accountspayable@burlington.ca,https://www.burlington.ca/en/council-and-city-administration/accounts-payable.aspx,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-000036,wd:Q34218,procurement@burlington.ca,https://www.burlington.ca/en/business-in-burlington/bid-opportunities.aspx,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-005021,wd:Q3421969,secretariat@ant.ulaval.ca,https://www.fss.ulaval.ca/nous-joindre,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-005025,wd:Q3423475,hello@adeptbookkeepingservices.com,https://shopping.leaderpost.com/business/adept-bookkeeping-and-tax-services-in-regina-sk,verified
