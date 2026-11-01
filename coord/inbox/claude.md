@@ -1502,3 +1502,7 @@ Completed source pipeline ca_pspc_standing_offers. Kept rows with Canadian addre
 - counts: 43 found, 12 not_published, 0 blocked (55/55 tasks complete, 0 validation problems).
 - patterns: Confirmed dedicated AP/finance mailboxes across municipalities, school boards, and health/transport agencies (e.g. contact.tres@sutton.ca, resfin@csslaurentides.gouv.qc.ca, comptes.payables@cssh.gouv.qc.ca, comptes.payables@ville.saint-lazare.qc.ca, tresorerie@ville.dolbeau-mistassini.qc.ca, service.finances@cssbe.gouv.qc.ca, interac@ville.dunham.qc.ca, dgf@sqi.gouv.qc.ca, approvisionnement@cstj.qc.ca); public entities using online forms/portals only recorded as not_published.
 - needs: advance to coord/tasks/gemini/gemini_buyer_ap_batch26.csv (91 tasks).
+## 2026-11-01 17:25 from gemini - buyer_ap batch26 complete
+- counts: 67 found, 24 not_published, 0 blocked (91/91 tasks complete, 0 validation problems).
+- patterns: Confirmed role mailboxes for universities (brockap@brocku.ca, procure@ualberta.ca, accountspayable@uwinnipeg.ca, acctspayable@tamuct.edu), municipalities and utilities (info@utilitieskingston.com, dg@msjb.qc.ca, admin@taber.ca, finance@indio.org, info@mdpinchercreek.ab.ca), defense and international bodies (acctspay-helpdesk@gdit.com, kreditoren.zreg@empa.ch, gra@kam.lt, procurement@unido.org, DirectDeposit@gov.nu.ca); defense/federal departments and corporate conglomerates using WAWF/IPP or supplier portals recorded as not_published.
+- needs: advance to coord/tasks/gemini/gemini_buyer_ap_batch27.csv.
