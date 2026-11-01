@@ -18,7 +18,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from validate_returns import EMAIL, PERSONAL, ROLE_HINT
 
 NOFETCH = "--no-fetch" in sys.argv
-DEADLINE = time.time() + float(os.environ.get("VERIFY_BUDGET_SECONDS", "0") or 0) if os.environ.get("VERIFY_BUDGET_SECONDS") else None
+# VERIFY_DEADLINE (epoch seconds) is shared by every retry of the workflow loop; VERIFY_BUDGET_SECONDS is per run
+DEADLINE = (float(os.environ["VERIFY_DEADLINE"]) if os.environ.get("VERIFY_DEADLINE") else
+            time.time() + float(os.environ["VERIFY_BUDGET_SECONDS"]) if os.environ.get("VERIFY_BUDGET_SECONDS") else None)
 PENDING = object()  # page not fetched yet in this run (time budget used up); checked on a later run
 CACHE = "work/evidence_cache"
 os.makedirs(CACHE, exist_ok=True)

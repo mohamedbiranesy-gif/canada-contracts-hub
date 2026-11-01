@@ -82,6 +82,7 @@ jobs:
           (pip install -q --break-system-packages pypdf || pip install -q pypdf) > /dev/null 2>&1 || true
           which pdftotext || echo "pdftotext missing; pypdf fallback"
           git config user.name "verifier-bot"; git config user.email "verifier-bot@users.noreply.github.com"
+          export VERIFY_DEADLINE=$(( $(date +%s) + VERIFY_BUDGET_SECONDS ))  # one budget for all retries below
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/ingest_results.py > /dev/null
