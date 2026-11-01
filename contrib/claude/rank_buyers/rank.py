@@ -151,18 +151,21 @@ def emailcols(keys, be, gj="", name="", site=""):
                 return same_org(e, "https://" + h, name)
         return same_org(e, site or "https://unknown.invalid", name)
     fits = lambda e, page="": (not gj or jur_of_mail(e) in ("", gj)) and not BAD_LOCAL.search((e or "").split("@")[0]) and own(e, page)
-    cand = [mail[k] for k in keys if k in mail and fits(mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or "")]
-    if cand:
-        (acc, g), m = max(cand, key=lambda x: x[0])
-        return m["mailbox"], {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}[g], ("confirmed" if acc else m["check_status"]), m["evidence_url"], m["evidence_quote"], g, acc
-    for kind, g in (("ap_contact", 4), ("procurement_contact", 2), ("general_contact", 1)):  # earlier enrichment, evidence kept
+    LABEL = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}
+    opts = []  # (accepted, grade, row) from the referee's mailboxes and from earlier enrichment; the best accepted one wins
+    for k in keys:
+        if k in mail and fits(mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or ""):
+            (acc, g), m = mail[k]
+            opts.append(((acc, g), (m["mailbox"], LABEL[g], "confirmed" if acc else m["check_status"], m["evidence_url"], m["evidence_quote"], g, acc)))
+    for kind in ("ap_contact", "procurement_contact", "general_contact"):  # earlier enrichment, evidence kept
         c = be.get(kind) or {}
         if c.get("emails") and fits(c["emails"][0]) and roleish(c["emails"][0].split("@")[0], name):
             ev = (c.get("evidence") or [{}])[0] if isinstance(c.get("evidence"), list) else {}
             g = real_grade(c["emails"][0], {"ap_contact": "accounts_payable", "procurement_contact": "procurement", "general_contact": "general"}[kind], (ev.get("quote") or ""), name)
-            if g < 0:
-                continue
-            return c["emails"][0], {4: "invoicing/AP", 3: "finance/accounting dept", 2: "purchasing", 1: "general"}[g], "from dataset enrichment", ev.get("page_url", ""), (ev.get("quote") or "")[:300], g, True
+            if g >= 1:
+                opts.append(((True, g), (c["emails"][0], LABEL[g], "from dataset enrichment", ev.get("page_url", ""), (ev.get("quote") or "")[:300], g, True)))
+    if opts:
+        return max(opts, key=lambda x: x[0])[1]
     return "", "", "", "", "", 0, False
 for p, o in orgs.items():
     r, be = o["best"], o["be"]
