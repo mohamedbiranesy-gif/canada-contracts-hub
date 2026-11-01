@@ -10,7 +10,11 @@ from ap_crawler import same_org, registrable  # the buyer's own mailbox, not a c
 today = datetime.date.today().isoformat()
 norm = lambda s: re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()).strip()
 LEGAL_END = re.compile(r"\s+(corporation|corp|incorporated|inc|limited|ltd|llc|co|company|ltee|ltée)$")
+SQ_STOP = {"sante", "quebec", "universitaire", "etablissement", "ciusss", "cisss", "de", "du", "des", "d", "l", "la", "le", "les", "et"}
 def parent(n):
+    if norm(n).startswith("sante quebec"):  # Santé Québec's regional establishments (former CISSS / CIUSSS / CHU) stay distinct
+        words = [w for w in norm(re.sub(r"\(.*?\)|[’']", " ", n)).split() if w not in SQ_STOP]
+        return "sante quebec " + " ".join(words) if words else "sante quebec"
     p = norm(re.split(r"\s+[-–—(/|]\s*", n or "")[0])
     p = re.sub(r"^the\s+", "", p)
     for _ in range(2):
