@@ -119,6 +119,7 @@ def main():
     a = argparse.ArgumentParser()
     a.add_argument("--workers", type=int, default=16)
     a.add_argument("--limit", type=int, default=0)
+    a.add_argument("--index", type=int, default=2, help="URL-index lookups at a time")
     a = a.parse_args()
     os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     os.makedirs(C.STATE, exist_ok=True)
@@ -148,19 +149,35 @@ def main():
     threads = [threading.Thread(target=reader, daemon=True) for _ in range(a.workers)]
     for t in threads:
         t.start()
-    for task in tasks:  # the index is asked one buyer at a time (polite); the live sites are read in parallel
-        host = (urllib.parse.urlparse(task["website"]).hostname or "").lower().removeprefix("www.")
-        urls = index_urls(host) if host else []
-        if urls is None:
-            continue
-        stats["buyers"] += 1
-        stats["with_urls"] += bool(urls)
-        if urls:
-            work.put((task, urls))
-        else:
-            save(task, 0, [])
-        if stats["buyers"] % 25 == 0:
-            C.log("deep_pages", stats)
+    todo = queue.Queue()
+    for task in tasks:
+        todo.put(task)
+
+    def indexer():  # at most --index lookups at a time (polite); the live sites are read in parallel
+        while True:
+            try:
+                task = todo.get_nowait()
+            except queue.Empty:
+                return
+            host = (urllib.parse.urlparse(task["website"]).hostname or "").lower().removeprefix("www.")
+            urls = index_urls(host) if host else []
+            if urls is None:
+                continue
+            with lock:
+                stats["buyers"] += 1
+                stats["with_urls"] += bool(urls)
+                n = stats["buyers"]
+            if urls:
+                work.put((task, urls))
+            else:
+                save(task, 0, [])
+            if n % 25 == 0:
+                C.log("deep_pages", stats)
+    idx = [threading.Thread(target=indexer, daemon=True) for _ in range(a.index)]
+    for t in idx:
+        t.start()
+    for t in idx:
+        t.join()
     for _ in threads:
         work.put(None)
     for t in threads:
