@@ -41,7 +41,7 @@ NOT_AP = re.compile(r"plainte|complaint|recevable|receivable|patient|usager|empl
                     r"benevol|volunteer|fondation|foundation|donat|webmaster|privacy|confidential|rh[._-]|^rh$|hr[._-]|^hr$", re.I)
 CONTEXT_AP = re.compile(r"factur|invoice|payable|comptes? (à|a) payer|paiement|payment|fournisseur|supplier|vendor", re.I)
 BLOCK_RX = re.compile(r"captcha|cf-challenge|challenge-platform|attention required|access denied|are you a robot", re.I)
-RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "procurement": 3, "general": 4}
+RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "finance": 3, "procurement": 4, "general": 5}
 GENERAL = re.compile(r"^(info|contact|contactus|reception|admin|administration|general|greffe|mairie|municipalite|townhall|cityhall|clerk|office|bureau|secretariat|accueil|hello|inquiries|enquiries|renseignements)([._-]|$)", re.I)
 TODAY = datetime.date.today().isoformat()
 
@@ -160,7 +160,7 @@ def classify(email, context, general=False):
     if CONTEXT_AP.search(context):  # finance@, comptabilite@, tresorerie@ ... when the page talks about invoicing
         return "accounts_payable"
     if re.search(r"compt|financ|tresor|tr[ée]sor|treasur|account", local, re.I):
-        return "general"  # finance / accounting department mailbox: kept; ranked above other general mailboxes
+        return "finance"  # finance / accounting department mailbox: written as general, ranked above other general mailboxes
     return None
 
 
@@ -273,11 +273,12 @@ def crawl(task, max_pages, general=False):
                 heapq.heappush(heap, (-score * 10 + depth, depth + 1, link))
     best = sorted(found.items(), key=lambda kv: kv[1][0])[:3]
     rows = [{"task_id": task["task_id"], "buyer_key": task["buyer_key"], "org_name_as_found": task["buyer_name"],
-             "ap_email": e, "ap_email_type": kind, "invoice_portal_url": "", "ap_phone": "", "invoice_mailing_address": "",
+             "ap_email": e, "ap_email_type": "general" if kind == "finance" else kind, "invoice_portal_url": "", "ap_phone": "", "invoice_mailing_address": "",
              "invoicing_requirements_summary": "", "applies_to": "whole_organisation", "evidence_url": url,
              "evidence_quote": q, "retrieved_date": TODAY, "status": "found",
              "queries_tried": "site crawl of %s (%d pages, robots.txt respected), no AI, no search engine" % (host0, pages),
-             "notes": "found on the buyer's own site by tools/ap_crawler.py" + ("; general role mailbox: no invoicing, AP or purchasing mailbox found on the site" if kind == "general" else "")} for e, (_, kind, url, q) in best]
+             "notes": "found on the buyer's own site by tools/ap_crawler.py" + ("; general role mailbox: no invoicing, AP or purchasing mailbox found on the site" if kind == "general" else
+                                                                                "; finance / accounting department mailbox: no invoicing or AP mailbox published on the site" if kind == "finance" else "")} for e, (_, kind, url, q) in best]
     return ("found" if rows else "nothing_found"), pages, rows
 
 
