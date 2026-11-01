@@ -862,8 +862,17 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/409
 
 ## 2026-10-31 00:51 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/41152196023 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 6, "model_errors": 4, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 8, "crawl_attempts": 1, "skipped_crawled": 0}
+## 2026-10-31 09:50 from jules
+I've built the `ca_pspc_standing_offers` source. I reused the logic from `scripts/canada_sosa` and adapted it. Since the SOSA dataset lacks address data, no records matched Canadian suppliers based on the data directly without matching them against the main datasets `canada_federal` and `canada_federal_legacy` (using the mock files for execution, so real results will vary).
 
 ## 2026-11-01 00:13 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/41255488715 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 6, "model_errors": 4, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 8, "crawl_attempts": 1, "skipped_crawled": 0}
 ## 2026-10-31 02:18 from jules
 Built scraper for `ca_quebec_city_laval_gatineau_longueuil`. Processed Ville de Laval open data. Other cities requested (Gatineau, Longueuil, Québec City) do not have "contrat" open data available via the Données Québec API. Saved 25,602 records to data/incoming/jules/records_ca_quebec_city_laval_gatineau_longueuil.jsonl.gz. Since no address was provided, vendor country CA was inferred to keep the records for the enrichment layer.
+Notes:
+- Rows seen: 6842
+- Agreements: 3981
+- Canadian-vendor rows: 0 (the dataset doesn't have an address, needs matching with other sets)
+- Ongoing rows: 3859
+
+The `source_registry.csv` was updated to mark it as `done`.
