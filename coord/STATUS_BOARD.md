@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-01 11:42 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-01 12:45 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-10-31)
 | metric | value |
@@ -34,7 +34,7 @@
 | chatgpt | chatgpt_buyer_ap_results_batch12.csv | 50 | 34 | 0 | 1 | 15 |
 | chatgpt | chatgpt_qa_audit_results_batch01.csv | 100 | 0 | 0 | 0 | 100 |
 | chatgpt | chatgpt_qa_audit_results_batch02.csv | 100 | 0 | 0 | 0 | 100 |
-| claude | claude_buyer_ap_results_crawl01.csv | 16257 | 16257 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_crawl01.csv | 19781 | 19781 | 0 | 0 | 0 |
 | claude | claude_buyer_leads.csv | 1414 | 0 | 0 | 0 | 1414 |
 | gemini | gemini_buyer_ap_results_batch01.csv | 178 | 141 | 35 | 0 | 2 |
 | gemini | gemini_buyer_ap_results_batch02.csv | 188 | 145 | 37 | 0 | 6 |
@@ -128,7 +128,10 @@
 | gemini | gemini_vendor_contacts_results_batch153.csv | 102 | 55 | 47 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch154.csv | 100 | 63 | 37 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch155.csv | 110 | 66 | 43 | 1 | 0 |
-| gemini | gemini_vendor_contacts_results_batch156.csv | 40 | 26 | 14 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch156.csv | 100 | 66 | 34 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch157.csv | 100 | 73 | 27 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch158.csv | 100 | 57 | 43 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch159.csv | 10 | 8 | 2 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch16.csv | 100 | 100 | 0 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch17.csv | 100 | 83 | 17 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch18.csv | 120 | 97 | 23 | 0 | 0 |
@@ -213,11 +216,11 @@
 | gemini | gemini_vendor_contacts_results_batch97.csv | 100 | 64 | 36 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch98.csv | 100 | 77 | 23 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
-| gemini | gemini_verify_buyer_ap_results_batch01.csv | 382 | 345 | 21 | 16 | 0 |
+| gemini | gemini_verify_buyer_ap_results_batch01.csv | 596 | 540 | 40 | 16 | 0 |
 
-**team_buyers**: 15617 entities researched, 14858 with at least one verified contact.
+**team_buyers**: 18736 entities researched, 17789 with at least one verified contact.
 
-**team_vendors**: 15017 entities researched, 3864 with at least one verified contact.
+**team_vendors**: 15287 entities researched, 3942 with at least one verified contact.
 
 ## Source registry (`coord/source_registry.csv`)
 | lane | todo | in_progress | done | blocked |
@@ -226,10 +229,10 @@
 | jules | 8 | 0 | 3 | 0 |
 
 ## Last ingest
-- buyers with team findings: 15617 (with at least one verified e-mail/portal: 14858)
-- vendors with team findings: 15017
+- buyers with team findings: 18736 (with at least one verified e-mail/portal: 17789)
+- vendors with team findings: 15287
 - QA rows: 200
-- counters: {'files': 194, 'buyer_findings_verified': 18880, 'buyer_findings_pending_verification': 468, 'buyer_findings_not_found_on_page': 821, 'buyer_findings_not_found_on_page_hidden': 309, 'buyer_findings_rejected_personal_or_invalid': 24, 'vendor_emails_not_found_on_page': 390, 'vendor_emails_not_found_on_page_hidden': 410, 'vendor_emails_verified': 4197, 'vendor_emails_pending_verification': 353, 'verify_tasks_chatgpt': 15, 'verify_tasks_gemini': 343}
+- counters: {'files': 197, 'buyer_findings_verified': 22196, 'buyer_findings_pending_verification': 415, 'buyer_findings_not_found_on_page': 1261, 'buyer_findings_not_found_on_page_hidden': 323, 'buyer_findings_rejected_personal_or_invalid': 26, 'vendor_emails_not_found_on_page': 395, 'vendor_emails_not_found_on_page_hidden': 417, 'vendor_emails_verified': 4277, 'vendor_emails_pending_verification': 351, 'verify_tasks_chatgpt': 16, 'verify_tasks_gemini': 513}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -238,8 +241,8 @@ Every row's outcome is in `coord/results/verification_log.csv`. Look up your own
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 966 | 0 | 36 | 0 | 1 | 22 | 0 |
-| claude | 15632 | 0 | 162 | 0 | 5 | 434 | 24 |
-| gemini | 2282 | 0 | 270 | 0 | 303 | 365 | 0 |
+| claude | 18923 | 0 | 185 | 0 | 5 | 642 | 26 |
+| gemini | 2307 | 0 | 194 | 0 | 317 | 597 | 0 |
 
 ## Where to look
 - Next work per lane: `coord/NEXT.md`
