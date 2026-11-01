@@ -104,6 +104,8 @@ def sync(clone, lane):
         git(clone, "checkout", "-q", "-b", "%s/work" % lane)
         notes.append("re-created the clone on branch %s/work" % lane)
     gitdir = git(clone, "rev-parse", "--absolute-git-dir").strip()
+    if "origin" not in git(clone, "remote").split():  # an agent once removed it; put it back
+        git(clone, "remote", "add", "origin", "https://github.com/%s.git" % REPO)
     git(clone, "fetch", "-q", "origin", "+refs/heads/main:%s" % MAIN)
     # a branch uploaded earlier that is still waiting means its fold did not run (GitHub's timer is unreliable): ask again
     waiting = git(clone, "ls-remote", "--heads", "origin", "refs/heads/%s/*" % lane).split()

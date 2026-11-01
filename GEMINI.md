@@ -52,6 +52,7 @@ your folder, because you cannot pull.
 
 **Never:**
 - `git push`, `git pull`, `git fetch`, `git clone`, the Run Git Push tool.
+- `git remote remove` or changing the remote: the uploader needs `origin` as it is.
 - `git reset`, `git stash`, `git checkout -- <file>` or `git restore`. Files outside `data/incoming/gemini/` change under
   you on purpose: they are refreshed from GitHub. Leave them alone.
 - Network calls from the shell (`curl`, `wget`, `python … urllib/requests`).
