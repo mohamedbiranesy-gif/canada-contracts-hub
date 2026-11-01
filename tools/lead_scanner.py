@@ -14,7 +14,7 @@ e-mail on each buyer's own website): coord/tasks/claude/claude_buyer_ap_batch901
 data/incoming/claude/claude_buyer_leads.csv (pushed with the crawler's results).
 Polite: one request per second per host; the shared catalog is fetched once (by whichever shard gets the lock).
 """
-import argparse, csv, glob, hashlib, json, os, re, sys, time, urllib.parse, urllib.request
+import argparse, collections, csv, glob, hashlib, json, os, re, sys, time, urllib.parse, urllib.request
 
 LEADS = os.path.expanduser("~/cch-leads")
 CRAWLER = os.path.expanduser("~/cch-crawler")
@@ -124,14 +124,34 @@ def scan(shard, of):
     print("shard %d finished" % shard, flush=True)
 
 
+GENERIC_LABEL = re.compile(r"^(read more|learn more|more|visit|website|site web|click here|here|cliquez ici|en savoir plus|voir|view|link|lien|home|accueil|\W*)$", re.I)
+PLATFORMS = re.compile(r"genially|geneanet|issuu|canva|calameo|prezi|eventbrite|surveymonkey|typeform|jotform|wufoo|dropbox|box\.com|"
+                       r"sharepoint|onedrive|wetransfer|spotify|soundcloud|apple|android|play\.google|itunes|maps\.|waze|uber|doordash|"
+                       r"skipthedishes|opentable|booking\.com|expedia|airbnb|indeed|glassdoor|workopolis|jobboom|imdb|archive\.org", re.I)
+
+
+def vendor_site_ok(r, freq):
+    label = ((r.get("row") or {}).get("client_label") or "").strip()
+    return bool(label) and not GENERIC_LABEL.match(label) and not PLATFORMS.search(r["domain"]) and freq[r["domain"]] <= 15
+
+
 def bridge():
     while True:
-        buyers = {}
+        buyers, freq = {}, collections.Counter()
+        for f in glob.glob(os.path.join(LEADS, "socrata_rel_*.jsonl")):  # how many different vendors link each domain
+            for line in open(f, encoding="utf-8"):
+                try:
+                    r = json.loads(line)
+                    freq[r["domain"]] += 1
+                except (ValueError, KeyError):
+                    continue
         for f in glob.glob(os.path.join(LEADS, "socrata_*.jsonl")):
             for line in open(f, encoding="utf-8"):
                 try:
                     r = json.loads(line)
                 except ValueError:
+                    continue
+                if r.get("platform") == "vendor_site" and not vendor_site_ok(r, freq):
                     continue
                 name = (r["publisher"] if not r["buyer_unit"] else "%s - %s" % (r["publisher"], r["buyer_unit"])).strip()
                 key = "lead:" + hashlib.sha1(("%s|%s" % (r["domain"], name.lower())).encode()).hexdigest()[:16]
