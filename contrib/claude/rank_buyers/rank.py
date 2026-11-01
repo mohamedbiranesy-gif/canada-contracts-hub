@@ -56,6 +56,8 @@ for r in csv.DictReader(io.StringIO(raw)):
     g = real_grade(r["mailbox"], r["mailbox_type"], r["evidence_quote"], r.get("org_name") or "")
     if g < 0:
         continue
+    if re.search(r"direct-deposit|depot-direct", r.get("evidence_url") or "") and g < 3:
+        g = 3  # PSPC's table of each federal institution's supplier-payment office: finance tier, not invoicing
     s = (acc, g)
     if r["org_key"] not in mail or s > mail[r["org_key"]][0]:
         mail[r["org_key"]] = (s, r)
@@ -142,7 +144,7 @@ def emailcols(keys, be, gj="", name="", site=""):
     cand = [mail[k] for k in keys if k in mail and fits(mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or "")]
     if cand:
         (acc, g), m = max(cand, key=lambda x: x[0])
-        return m["mailbox"], {4: "invoicing/AP", 3: "finance/accounting dept", 2: "purchasing", 1: "general"}[g], ("confirmed" if acc else m["check_status"]), m["evidence_url"], m["evidence_quote"], g, acc
+        return m["mailbox"], {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}[g], ("confirmed" if acc else m["check_status"]), m["evidence_url"], m["evidence_quote"], g, acc
     for kind, g in (("ap_contact", 4), ("procurement_contact", 2), ("general_contact", 1)):  # earlier enrichment, evidence kept
         c = be.get(kind) or {}
         if c.get("emails") and fits(c["emails"][0]) and roleish(c["emails"][0].split("@")[0], name):
