@@ -495,7 +495,7 @@ def main():
         if a.limit:
             tasks = tasks[:a.limit]
         upgrade = general_only()
-        for pass_no, max_pages in ((1, 25), (2, 60), (3, 40), (4, 60)):
+        for pass_no, max_pages in ((4, 60), (1, 25), (2, 60), (3, 40)):  # pass 4 first: few sites, all contract / relationship buyers
             if pass_no == 4:  # buyers we only have a general mailbox for: read deeper for an invoicing / finance / purchasing one
                 todo = [t for t in tasks if t["buyer_key"] in upgrade and done.get(t["buyer_key"], (0, ""))[0] < 4]
             else:
