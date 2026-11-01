@@ -32,6 +32,18 @@ jobs:
           for s in d.get("sessions", []):
               outs = [o.get("pullRequest", {}).get("url") for o in s.get("outputs", []) if o.get("pullRequest")]
               print(s.get("createTime"), s.get("state"), s.get("title", "")[:70], outs or "", s.get("url"))
+              if s.get("state") == "AWAITING_USER_FEEDBACK":
+                  a = subprocess.run(["curl", "-s", "-H", "X-Goog-Api-Key: " + os.environ["K"],
+                                      "https://jules.googleapis.com/v1alpha/%s/activities?pageSize=30" % s["name"]], capture_output=True, text=True).stdout
+                  try:
+                      msgs = [x["agentMessaged"].get("agentMessage", "") for x in json.loads(a).get("activities", []) if "agentMessaged" in x]
+                      print("  Jules asked:", (msgs[-1] if msgs else "?")[:400].replace("\n", " "))
+                  except Exception:
+                      pass
+                  r = subprocess.run(["curl", "-s", "-X", "POST", "-H", "X-Goog-Api-Key: " + os.environ["K"], "-H", "Content-Type: application/json",
+                                      "-d", json.dumps({"prompt": "Nobody is available to answer questions; this is an unattended run. Use your best judgment under AGENTS.md (prefer the option that adds the most NEW distinct buyers with a Canada-located vendor, keep every source field, respect robots/rate limits), finish the work, and open the pull request now. Do not ask again."}),
+                                      "https://jules.googleapis.com/v1alpha/%s:sendMessage" % s["name"]], capture_output=True, text=True)
+                  print("  told it to proceed:", r.stdout[:120] or "ok")
               if s.get("state") == "AWAITING_PLAN_APPROVAL":
                   r = subprocess.run(["curl", "-s", "-X", "POST", "-H", "X-Goog-Api-Key: " + os.environ["K"], "-H", "Content-Type: application/json",
                                       "-d", "{}", "https://jules.googleapis.com/v1alpha/%s:approvePlan" % s["name"]], capture_output=True, text=True)
@@ -45,4 +57,5 @@ jobs:
           starting_branch: main
           prompt: |
             You are Jules, lane `jules` of a three-AI team. Read AGENTS.md (binding) and follow prompts/jules_builder.md.
-            Open one PR with your results. ${{ inputs.extra }}
+            Open one PR with your results. Nobody answers questions during this run: never ask, decide yourself under AGENTS.md
+            and open the PR. If the source is too big for one run, open a PR with a working first slice. ${{ inputs.extra }}
