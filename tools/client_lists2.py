@@ -116,7 +116,9 @@ def main():
             except ValueError:
                 pass
     vendors = []
-    for f in sorted(glob.glob(os.path.expanduser("~/cch-crawler/coord/tasks/claude/claude_buyer_ap_batch90[2-4].csv"))):
+    for f in [os.path.expanduser("~/cch-crawler/coord/tasks/claude/claude_buyer_ap_batch90%d.csv" % n) for n in (3, 4, 2)]:  # verified vendors first
+        if not os.path.exists(f):
+            continue
         for r in csv.DictReader(open(f, encoding="utf-8-sig")):
             h = CL.base(urllib.parse.urlparse(r.get("known_website") or "").hostname)
             if h and int(hashlib.sha1(h.encode()).hexdigest(), 16) % a.of == a.shard:
