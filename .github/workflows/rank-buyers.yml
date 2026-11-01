@@ -1,0 +1,37 @@
+name: rank-buyers
+# The deliverable: one row per distinct buyer, ranked by proof of an active relationship with a Canada-located supplier
+# and by the quality of its invoicing contact, split into quality batches (contrib/claude/rank_buyers/README.md).
+# Rebuilt from the latest dataset release and the referee's confirmed mailboxes, so the batches stay current without
+# anyone running them by hand. Output: coord/results/ranked/ (batches/*.csv + ranked_buyers.csv + SUMMARY.md).
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rank:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency: { group: main-writer, cancel-in-progress: false }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rank, split into batches, commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p data/release
+          gh release download dataset-latest -p canadian_vendor_contracts.jsonl.gz -D data/release --clobber
+          git config user.name "ranker-bot"; git config user.email "ranker-bot@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 contrib/claude/rank_buyers/rank.py > rank.log
+            rm -rf out/ranked/batches && python3 contrib/claude/rank_buyers/batches.py > batches.log
+            rm -rf coord/results/ranked && mkdir -p coord/results/ranked && cp -r out/ranked/* coord/results/ranked/
+            { echo "# Ranked buyers — $(date -u +%Y-%m-%dT%H:%MZ)"; echo; echo '```'; cat rank.log batches.log; echo '```'; } > coord/results/ranked/SUMMARY.md
+            git add coord/results/ranked
+            git diff --cached --quiet && break
+            git commit -q -m "ranker: buyers re-ranked into quality batches [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((i * 7))
+          done
