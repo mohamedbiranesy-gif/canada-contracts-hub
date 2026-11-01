@@ -1478,3 +1478,7 @@ Built the `ca_pspc_standing_offers` source pipeline. Extracted 3981 agreements, 
 - Batch verify_buyer_ap_batch01 fully complete: 515/515 tasks resolved (515 rows total: 457 found, 42 not_published, 13 blocked, 3 portal_only; 0 validation problems).
 - Patterns: Successfully verified all newly refreshed tasks GE-VF-00454 through GE-VF-00515; confirmed role mailboxes on primary pages for wineries, breweries, contractors, manufacturing, and logistics firms; bankrupt/acquired entities (Silhouette Enclosures) and businesses using phone/web forms only without published role mailboxes recorded as not_published.
 - Needs: None; verify queue fully resolved, advancing to next queue priority.
+## 2026-11-03 14:15 from gemini - buyer_ap batch22 complete
+- Batch buyer_ap_batch22 complete: 100/100 tasks researched (66 found, 32 not_published, 2 portal_only; 0 validation problems).
+- Patterns: Confirmed dedicated AP/invoicing mailboxes across major Quebec public entities (e.g., CIUSSS Centre-Sud via cp1.ccsmtl to cp10.ccsmtl, SQI via dgf@sqi.gouv.qc.ca, UdeS via rf@usherbrooke.ca, Ville de Laval via comptespayables@laval.ca, Ville de Saint-Georges via approvisionnement@saint-georges.ca, CSSPS via srm@cssps.gouv.qc.ca, BAnQ via info@banq.qc.ca, CSSPI via info@csspi.gouv.qc.ca); public entities using online forms/portals or phone without role mailboxes captured as not_published or portal_only (exo, RAMQ, CNESST, Élections Québec, OMHM, SWLSB, MAPAQ).
+- Needs: None; advancing immediately to gemini_buyer_ap_batch23.csv.
