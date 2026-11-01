@@ -97,6 +97,8 @@ def read(task, urls, max_pages=15):
         for e in set(x.lower().rstrip(".") for x in C.EMAIL_RX.findall(raw)):
             if e in found or e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp"):
                 continue
+            if not C.same_org(e, task["website"], task.get("buyer_name", "")):
+                continue
             q = C.quote_for(e, text, raw)
             i = text.lower().find(e)
             kind = C.classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q)

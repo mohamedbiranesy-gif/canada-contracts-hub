@@ -14,7 +14,7 @@ State and log: ~/cch-crawler-state/.  Output: data/incoming/claude/claude_buyer_
 Pass 1 reads up to 25 pages per site; pass 2 re-reads sites with nothing found, up to 60 pages. Then it checks for new
 queue batches every 6 hours until --days is over.
 """
-import argparse, csv, datetime, glob, heapq, html, io, json, os, re, shutil, subprocess, sys, threading, time
+import argparse, csv, datetime, glob, heapq, html, io, json, os, re, shutil, subprocess, sys, threading, time, unicodedata
 import urllib.error, urllib.parse, urllib.request, urllib.robotparser
 from concurrent.futures import ThreadPoolExecutor
 
@@ -164,6 +164,38 @@ def classify(email, context, general=False):
     return None
 
 
+AFF_STOP = {"www", "info", "ville", "city", "town", "county", "comte", "municipalite", "municipality", "canton", "paroisse", "village",
+            "gouv", "gov", "quebec", "canada", "ontario", "alberta", "org", "com", "net", "mail", "email", "courriel", "the", "and",
+            "des", "les", "del", "saint", "sainte", "regional", "district", "school", "board", "college", "university"}
+
+
+def tokens(s):
+    return {t for t in re.split(r"[^a-z0-9]+", (s or "").lower()) if len(t) >= 4 and t not in AFF_STOP}
+
+
+def same_org(email, site, org_name):
+    """A mailbox of the buyer itself, not of a contractor, partner or another body named on its pages: same domain as
+    the site, or a domain sharing a distinctive word with the site or the organisation's name (e.g. @saint-x.ca for
+    the site saint-x.qc.ca), or the Québec health network's shared mail domain."""
+    d = email.split("@")[-1].lower()
+    host = (urllib.parse.urlparse(site if "//" in site else "https://" + site).hostname or "").lower()
+    base = host[4:] if host.startswith("www.") else host
+    if not d or not base:
+        return True
+    if d == base or d.endswith("." + base) or base.endswith("." + d) or d.endswith("ssss.gouv.qc.ca"):
+        return True
+    strip = lambda x: re.sub(r"\.(qc|on|ab|bc|mb|sk|ns|nb|nl|pe|nt|nu|yk)\.ca$|\.(gouv|gov)\.[a-z.]+$|\.[a-z]+$", "", x)
+    core, bcore = strip(d), strip(base)
+    flat = lambda x: re.sub(r"[^a-z0-9]", "", x)
+    words = [w for w in re.split(r"[^a-z0-9]+", unicodedata.normalize("NFKD", org_name.lower()).encode("ascii", "ignore").decode())
+             if w and w not in ("de", "du", "des", "la", "le", "les", "of", "the", "and", "et", "d", "l")]
+    acronym = "".join(w[0] for w in words)
+    if flat(core) and (flat(core) == flat(bcore) or flat(core) in flat(org_name.lower()) or (len(acronym) >= 3 and flat(core) == acronym)):
+        return True
+    t = tokens(core)  # every distinctive word of the mail domain must belong to the site or the organisation's name
+    return bool(t) and t <= (tokens(bcore) | tokens(org_name) | {flat(bcore)})
+
+
 def links(raw, base):
     for m in re.finditer(r"(?is)<a\s[^>]*?href\s*=\s*[\"']([^\"'#>]+)[\"'][^>]*>(.*?)</a>", raw[:2_000_000]):
         href, label = m.group(1).strip(), visible(m.group(2))[:120]
@@ -255,6 +287,8 @@ def crawl(task, max_pages, general=False):
         for e in set(x.lower().rstrip(".") for x in EMAIL_RX.findall(raw)):
             if e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp") or e in found:
                 continue
+            if not same_org(e, task["known_website"], task.get("buyer_name", "")):
+                continue
             q = quote_for(e, text, raw)
             i = text.lower().find(e)
             kind = classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q, general)
@@ -297,12 +331,15 @@ def load_tasks():
                 r["known_website"] = sites[r["buyer_key"]]
             if (r.get("known_website") or "").strip() and r.get("buyer_key") and r["buyer_key"] not in tasks:
                 tasks[r["buyer_key"]] = r
-    verified = set()
+    verified = set()  # buyers that already have a verified invoicing / AP mailbox (a general or purchasing one is not enough)
     if os.path.exists("coord/results/team_buyers.jsonl"):
         for line in open("coord/results/team_buyers.jsonl", encoding="utf-8"):
             o = json.loads(line)
-            if (o.get("ap_contact_team") or {}).get("emails"):
-                verified.add(o["buyer_key"])
+            for e in (o.get("ap_contact_team") or {}).get("evidence") or []:
+                if (e.get("verification") in ("verified", "cross_verified") and e.get("type") in ("invoice_submission", "accounts_payable", "supplier_payment")
+                        and re.search(r"factur|invoic|payable|compt\w*pay|^ap$|^ap[._-]|[._-]ap$|paiement|payment", (e.get("email") or "").split("@")[0], re.I)):
+                    verified.add(o["buyer_key"])
+                    break
     def size(r):
         try:
             return -int(float(r.get("contracts_in_dataset") or 0))
