@@ -62,11 +62,13 @@ jobs:
   verify-on-main:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     concurrency: { group: main-writer, cancel-in-progress: false }
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/cache@v4
+      # restore + save as separate steps: the cache of fetched pages is kept even when a run is cut short,
+      # so every run makes progress (one cache entry per run; GitHub evicts the oldest).
+      - uses: actions/cache/restore@v4
         with:
           path: work/evidence_cache
           key: evidence-${{ github.run_id }}
@@ -74,6 +76,7 @@ jobs:
       - name: Verify evidence, refresh queues and board, commit (regenerated on the latest main until the push wins)
         env:
           GH_TOKEN: ${{ github.token }}
+          VERIFY_BUDGET_SECONDS: "3600"
         run: |
           (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils) > /dev/null 2>&1 || true
           (pip install -q --break-system-packages pypdf || pip install -q pypdf) > /dev/null 2>&1 || true
@@ -90,6 +93,11 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((i * 7))
           done
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: work/evidence_cache
+          key: evidence-${{ github.run_id }}
       - name: Start overdue workflows (GitHub's timer is best-effort)
         if: always()
         env:

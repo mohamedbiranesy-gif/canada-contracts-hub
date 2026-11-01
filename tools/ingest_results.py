@@ -18,6 +18,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from validate_returns import EMAIL, PERSONAL, ROLE_HINT
 
 NOFETCH = "--no-fetch" in sys.argv
+DEADLINE = time.time() + float(os.environ.get("VERIFY_BUDGET_SECONDS", "0") or 0) if os.environ.get("VERIFY_BUDGET_SECONDS") else None
+PENDING = object()  # page not fetched yet in this run (time budget used up); checked on a later run
 CACHE = "work/evidence_cache"
 os.makedirs(CACHE, exist_ok=True)
 os.makedirs("coord/results", exist_ok=True)
@@ -38,6 +40,8 @@ def page_text(url):
         os.remove(p)  # an unparsed PDF from an older run: fetch and extract again
     if NOFETCH:
         return None
+    if DEADLINE and time.time() > DEADLINE:
+        return PENDING
     try:
         with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
             data = r.read(5_000_000)
@@ -64,7 +68,6 @@ def page_text(url):
         txt = html.unescape(data.decode("utf-8", "replace"))
     txt = txt.replace("&#64;", "@").replace("[at]", "@").replace("(at)", "@")
     open(p, "w", encoding="utf-8").write(txt)
-    time.sleep(0.5)
     return txt
 
 
@@ -78,6 +81,8 @@ def verify(value, url):
     if bad_email(value):
         return "rejected_personal_or_invalid"
     t = page_text(url)
+    if t is PENDING:
+        return "pending_verification"
     if t is None:
         return "unverified_page_unavailable"
     low, v = t.lower(), value.lower().strip()
@@ -114,6 +119,39 @@ def author(path):
 buyers = collections.defaultdict(lambda: {"evidence": [], "statuses": collections.Counter(), "queries": []})
 vendors = collections.defaultdict(lambda: {"evidence": [], "statuses": collections.Counter()})
 qa_rows, scout_rows, report = [], [], collections.Counter()
+
+def prefetch():
+    """Fetch every cited page not cached yet, many hosts in parallel, at most 2 requests per second per host."""
+    import threading, urllib.parse
+    from concurrent.futures import ThreadPoolExecutor
+    urls = []
+    for path in sorted(glob.glob("data/incoming/**/*.csv", recursive=True)):
+        for r in csv.DictReader(open(path, encoding="utf-8-sig", newline="")):
+            u = (r.get("evidence_url") or "").strip()
+            if u.startswith("http") and ((r.get("ap_email") or r.get("invoice_portal_url") or r.get("general_email") or r.get("billing_or_ar_email") or "").strip()):
+                if not os.path.exists(os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest())):
+                    urls.append(u)
+    urls = list(dict.fromkeys(urls))
+    lock, nxt = threading.Lock(), {}
+    def one(u):
+        if DEADLINE and time.time() > DEADLINE:
+            return
+        h = urllib.parse.urlparse(u).hostname or ""
+        while True:
+            with lock:
+                w = nxt.get(h, 0) - time.time()
+                if w <= 0:
+                    nxt[h] = time.time() + 0.5
+                    break
+            time.sleep(min(w, 0.5))
+        page_text(u)
+    with ThreadPoolExecutor(32) as ex:
+        list(ex.map(one, urls))
+    print("prefetched %d new pages" % len(urls), file=sys.stderr)
+
+
+if not NOFETCH:
+    prefetch()
 
 for path in sorted(glob.glob("data/incoming/**/*.csv", recursive=True)):
     name, who = os.path.basename(path).lower(), author(path)
@@ -254,8 +292,8 @@ with open("coord/INGEST_REPORT.md", "w", encoding="utf-8") as f:
     f.write("- vendors with team findings: %d\n- QA rows: %d\n- counters: %s\n- QA tallies: %s\n" % (len(vendors), len(qa_rows), dict(report), dict(qa)))
     f.write("\n## Outcome of each lane's buyer findings\n")
     f.write("Every row's outcome is in `coord/results/verification_log.csv`. Look up your own rows there.\n\n")
-    f.write("| lane | verified | cross_verified | page unavailable | e-mails hidden from verifier | not on page | rejected |\n|---|---|---|---|---|---|---|\n")
+    f.write("| lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |\n|---|---|---|---|---|---|---|---|\n")
     for lane, c in sorted(per_lane.items()):
-        f.write("| %s | %d | %d | %d | %d | %d | %d |\n" % (lane, c["verified"], c["cross_verified"], c["unverified_page_unavailable"],
+        f.write("| %s | %d | %d | %d | %d | %d | %d | %d |\n" % (lane, c["verified"], c["cross_verified"], c["pending_verification"], c["unverified_page_unavailable"],
                 c["not_found_on_page_hidden"], c["not_found_on_page"], c["rejected_personal_or_invalid"]))
 print(open("coord/INGEST_REPORT.md").read())
