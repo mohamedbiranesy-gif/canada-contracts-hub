@@ -35,7 +35,7 @@ LINK_KW = [(re.compile(r"factur|invoice|payable|comptes?[-_ ]?(a|à)[-_ ]?payer|
 SKIP_EXT = re.compile(r"\.(jpe?g|png|gif|svg|webp|ico|mp4|mov|mp3|zip|doc|xls|pptx?|ics|css|js|xml|rss)(\?|$)", re.I)
 OFFICE = re.compile(r"\.(docx|xlsx)(\?|$)", re.I)
 EMAIL_RX = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")
-AP_LOCAL = re.compile(r"factur|invoice|bill|payable|compt|account|^ap$|^ap[._-]|[._-]ap$|[._-]cap$|financ|fourniss|"
+AP_LOCAL = re.compile(r"factur|invoice|(^|[._-])bill(ing|s)?([._-]|$)|payable|compt|account|^ap$|^ap[._-]|[._-]ap$|[._-]cap$|financ|fourniss|"
                       r"supplier|vendor|approv|achat|purchas|procure|paiement|payment|tresor|treasur|acquisition", re.I)
 NOT_AP = re.compile(r"plainte|complaint|recevable|receivable|patient|usager|emploi|career|job|media|presse|press|"
                     r"benevol|volunteer|fondation|foundation|donat|webmaster|privacy|confidential|rh[._-]|^rh$|hr[._-]|^hr$", re.I)
@@ -151,7 +151,7 @@ def classify(email, context, general=False):
         return "general" if general and GENERAL.search(local) and EMAIL.match(email) else None
     if not EMAIL.match(email) or (PERSONAL.match(local) and not ROLE_HINT.search(local)):
         return None
-    if re.search(r"factur|invoice|bill", local, re.I):
+    if re.search(r"factur|invoice|(^|[._-])bill(ing|s)?([._-]|$)", local, re.I):
         return "invoice_submission"
     if re.search(r"payable|compt.*pay|^ap$|^ap[._-]|[._-]ap$|[._-]cap$", local, re.I):
         return "accounts_payable"
