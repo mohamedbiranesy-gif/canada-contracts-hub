@@ -1,79 +1,221 @@
-# STATUS BOARD (auto-generated 2026-10-28 14:29 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-01 09:38 UTC — do not edit by hand)
 
-## Dataset (release `dataset-latest`, reference date 2026-10-28)
+## Dataset (release `dataset-latest`, reference date 2026-10-31)
 | metric | value |
 |---|---|
-| contracts, vendor verified in Canada | 770,451 |
+| contracts, vendor verified in Canada | 769,913 |
 | contracts, vendor country unverified | 51,346 |
 | sources with records / checked without | 74 / 119 |
-| status: ongoing (explicit end date) | 82,721 |
-| status: ongoing_inferred | 321,495 |
+| status: ongoing (explicit end date) | 82,201 |
+| status: ongoing_inferred | 321,477 |
 | status: end_date_unknown | 366,235 |
-| buyer AP e-mail | 714234 (93%) |
-| buyer invoice portal | 18979 (2%) |
-| buyer website | 714823 (93%) |
-| vendor registry match | 411456 (53%) |
-| vendor Business Number (BN9) | 127149 (17%) |
-| vendor website | 173398 (23%) |
-| vendor any contact | 175642 (23%) |
+| buyer AP e-mail | 714942 (93%) |
+| buyer invoice portal | 18923 (2%) |
+| buyer website | 714310 (93%) |
+| vendor registry match | 411098 (53%) |
+| vendor Business Number (BN9) | 126990 (16%) |
+| vendor website | 174020 (23%) |
+| vendor any contact | 176262 (23%) |
 
 ## Team research progress (rows returned → verified)
 | lane | task | rows | found | not_published | blocked | other |
 |---|---|---|---|---|---|---|
-| chatgpt | chatgpt_buyer_ap_results_batch01.csv | 190 | 32 | 56 | 9 | 93 |
-| chatgpt | chatgpt_buyer_ap_results_batch02.csv | 142 | 48 | 29 | 16 | 49 |
-| chatgpt | chatgpt_buyer_ap_results_batch03.csv | 111 | 36 | 37 | 6 | 32 |
-| chatgpt | chatgpt_buyer_ap_results_batch04.csv | 124 | 58 | 20 | 6 | 40 |
-| chatgpt | chatgpt_buyer_ap_results_batch05.csv | 114 | 50 | 15 | 3 | 46 |
-| chatgpt | chatgpt_buyer_ap_results_batch06.csv | 110 | 38 | 25 | 11 | 36 |
-| chatgpt | chatgpt_buyer_ap_results_batch07.csv | 112 | 18 | 21 | 16 | 57 |
-| chatgpt | chatgpt_buyer_ap_results_batch08.csv | 123 | 32 | 20 | 24 | 47 |
-| chatgpt | chatgpt_buyer_ap_results_batch09.csv | 111 | 21 | 19 | 14 | 57 |
-| chatgpt | chatgpt_buyer_ap_results_batch10.csv | 3 | 0 | 0 | 0 | 3 |
+| chatgpt | chatgpt_buyer_ap_results_batch01.csv | 246 | 83 | 56 | 9 | 98 |
+| chatgpt | chatgpt_buyer_ap_results_batch02.csv | 172 | 70 | 29 | 16 | 57 |
+| chatgpt | chatgpt_buyer_ap_results_batch03.csv | 148 | 63 | 37 | 8 | 40 |
+| chatgpt | chatgpt_buyer_ap_results_batch04.csv | 143 | 68 | 20 | 6 | 49 |
+| chatgpt | chatgpt_buyer_ap_results_batch05.csv | 129 | 56 | 15 | 3 | 55 |
+| chatgpt | chatgpt_buyer_ap_results_batch06.csv | 135 | 51 | 25 | 11 | 48 |
+| chatgpt | chatgpt_buyer_ap_results_batch07.csv | 133 | 28 | 21 | 16 | 68 |
+| chatgpt | chatgpt_buyer_ap_results_batch08.csv | 143 | 37 | 20 | 24 | 62 |
+| chatgpt | chatgpt_buyer_ap_results_batch09.csv | 130 | 27 | 19 | 14 | 70 |
+| chatgpt | chatgpt_buyer_ap_results_batch10.csv | 171 | 40 | 19 | 10 | 102 |
+| chatgpt | chatgpt_buyer_ap_results_batch11.csv | 138 | 83 | 4 | 8 | 43 |
+| chatgpt | chatgpt_buyer_ap_results_batch12.csv | 50 | 34 | 0 | 1 | 15 |
 | chatgpt | chatgpt_qa_audit_results_batch01.csv | 100 | 0 | 0 | 0 | 100 |
 | chatgpt | chatgpt_qa_audit_results_batch02.csv | 100 | 0 | 0 | 0 | 100 |
-| claude | claude_buyer_ap_results_crawl01.csv | 746 | 746 | 0 | 0 | 0 |
-| gemini | gemini_buyer_ap_results_batch01.csv | 173 | 136 | 35 | 0 | 2 |
-| gemini | gemini_buyer_ap_results_batch02.csv | 179 | 136 | 37 | 0 | 6 |
-| gemini | gemini_buyer_ap_results_batch03.csv | 190 | 152 | 34 | 0 | 4 |
-| gemini | gemini_buyer_ap_results_batch04.csv | 177 | 136 | 40 | 0 | 1 |
-| gemini | gemini_buyer_ap_results_batch05.csv | 141 | 119 | 21 | 0 | 1 |
-| gemini | gemini_buyer_ap_results_batch06.csv | 144 | 120 | 23 | 0 | 1 |
-| gemini | gemini_buyer_ap_results_batch07.csv | 144 | 122 | 22 | 0 | 0 |
-| gemini | gemini_buyer_ap_results_batch08.csv | 153 | 126 | 25 | 1 | 1 |
-| gemini | gemini_buyer_ap_results_batch09.csv | 153 | 134 | 15 | 1 | 3 |
-| gemini | gemini_buyer_ap_results_batch10.csv | 137 | 123 | 9 | 2 | 3 |
-| gemini | gemini_buyer_ap_results_batch11.csv | 145 | 125 | 19 | 0 | 1 |
-| gemini | gemini_buyer_ap_results_batch12.csv | 163 | 131 | 29 | 0 | 3 |
-| gemini | gemini_buyer_ap_results_batch13.csv | 154 | 127 | 22 | 0 | 5 |
-| gemini | gemini_buyer_ap_results_batch14.csv | 183 | 153 | 28 | 0 | 2 |
-| gemini | gemini_buyer_ap_results_batch15.csv | 132 | 122 | 5 | 0 | 5 |
-| gemini | gemini_buyer_ap_results_batch16.csv | 143 | 118 | 19 | 0 | 6 |
-| gemini | gemini_buyer_ap_results_batch17.csv | 136 | 123 | 10 | 0 | 3 |
-| gemini | gemini_buyer_ap_results_batch18.csv | 149 | 133 | 10 | 0 | 6 |
-| gemini | gemini_buyer_ap_results_batch19.csv | 159 | 126 | 25 | 0 | 8 |
-| gemini | gemini_buyer_ap_results_batch20.csv | 181 | 137 | 41 | 0 | 3 |
-| gemini | gemini_buyer_ap_results_batch21.csv | 167 | 124 | 39 | 0 | 4 |
-| gemini | gemini_vendor_contacts_results_batch01.csv | 123 | 100 | 23 | 0 | 0 |
-| gemini | gemini_vendor_contacts_results_batch02.csv | 100 | 81 | 19 | 0 | 0 |
-| gemini | gemini_vendor_contacts_results_batch03.csv | 100 | 73 | 25 | 2 | 0 |
-| gemini | gemini_vendor_contacts_results_batch04.csv | 100 | 55 | 43 | 2 | 0 |
-| gemini | gemini_vendor_contacts_results_batch05.csv | 100 | 67 | 32 | 1 | 0 |
-| gemini | gemini_vendor_contacts_results_batch06.csv | 100 | 55 | 44 | 1 | 0 |
-| gemini | gemini_vendor_contacts_results_batch07.csv | 100 | 49 | 51 | 0 | 0 |
-| gemini | gemini_vendor_contacts_results_batch08.csv | 100 | 60 | 40 | 0 | 0 |
-| gemini | gemini_vendor_contacts_results_batch09.csv | 100 | 57 | 42 | 1 | 0 |
-| gemini | gemini_vendor_contacts_results_batch10.csv | 100 | 42 | 55 | 3 | 0 |
-| gemini | gemini_vendor_contacts_results_batch11.csv | 100 | 41 | 58 | 1 | 0 |
-| gemini | gemini_vendor_contacts_results_batch12.csv | 100 | 73 | 23 | 4 | 0 |
-| gemini | gemini_vendor_contacts_results_batch13.csv | 100 | 62 | 36 | 2 | 0 |
-| gemini | gemini_vendor_contacts_results_batch14.csv | 100 | 40 | 59 | 1 | 0 |
-| gemini | gemini_vendor_contacts_results_batch15.csv | 100 | 40 | 58 | 2 | 0 |
-| gemini | gemini_verify_buyer_ap_results_batch01.csv | 86 | 83 | 1 | 2 | 0 |
+| claude | claude_buyer_ap_results_crawl01.csv | 16254 | 16254 | 0 | 0 | 0 |
+| claude | claude_buyer_leads.csv | 1414 | 0 | 0 | 0 | 1414 |
+| gemini | gemini_buyer_ap_results_batch01.csv | 178 | 141 | 35 | 0 | 2 |
+| gemini | gemini_buyer_ap_results_batch02.csv | 188 | 145 | 37 | 0 | 6 |
+| gemini | gemini_buyer_ap_results_batch03.csv | 195 | 157 | 34 | 0 | 4 |
+| gemini | gemini_buyer_ap_results_batch04.csv | 186 | 145 | 40 | 0 | 1 |
+| gemini | gemini_buyer_ap_results_batch05.csv | 147 | 125 | 21 | 0 | 1 |
+| gemini | gemini_buyer_ap_results_batch06.csv | 151 | 127 | 23 | 0 | 1 |
+| gemini | gemini_buyer_ap_results_batch07.csv | 148 | 126 | 22 | 0 | 0 |
+| gemini | gemini_buyer_ap_results_batch08.csv | 158 | 131 | 25 | 1 | 1 |
+| gemini | gemini_buyer_ap_results_batch09.csv | 156 | 137 | 15 | 1 | 3 |
+| gemini | gemini_buyer_ap_results_batch10.csv | 143 | 129 | 9 | 2 | 3 |
+| gemini | gemini_buyer_ap_results_batch11.csv | 153 | 133 | 19 | 0 | 1 |
+| gemini | gemini_buyer_ap_results_batch12.csv | 169 | 137 | 29 | 0 | 3 |
+| gemini | gemini_buyer_ap_results_batch13.csv | 159 | 132 | 22 | 0 | 5 |
+| gemini | gemini_buyer_ap_results_batch14.csv | 187 | 157 | 28 | 0 | 2 |
+| gemini | gemini_buyer_ap_results_batch15.csv | 136 | 126 | 5 | 0 | 5 |
+| gemini | gemini_buyer_ap_results_batch16.csv | 149 | 124 | 19 | 0 | 6 |
+| gemini | gemini_buyer_ap_results_batch17.csv | 139 | 126 | 10 | 0 | 3 |
+| gemini | gemini_buyer_ap_results_batch18.csv | 156 | 140 | 10 | 0 | 6 |
+| gemini | gemini_buyer_ap_results_batch19.csv | 161 | 128 | 25 | 0 | 8 |
+| gemini | gemini_buyer_ap_results_batch20.csv | 183 | 139 | 41 | 0 | 3 |
+| gemini | gemini_buyer_ap_results_batch21.csv | 171 | 128 | 39 | 0 | 4 |
+| gemini | gemini_vendor_contacts_results_batch01.csv | 186 | 163 | 23 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch02.csv | 148 | 129 | 19 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch03.csv | 143 | 116 | 25 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch04.csv | 165 | 120 | 43 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch05.csv | 167 | 134 | 32 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch06.csv | 162 | 117 | 44 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch07.csv | 162 | 111 | 51 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch08.csv | 154 | 114 | 40 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch09.csv | 158 | 115 | 42 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch10.csv | 166 | 108 | 55 | 3 | 0 |
+| gemini | gemini_vendor_contacts_results_batch100.csv | 100 | 57 | 43 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch101.csv | 100 | 46 | 53 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch102.csv | 100 | 51 | 49 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch103.csv | 100 | 67 | 30 | 3 | 0 |
+| gemini | gemini_vendor_contacts_results_batch104.csv | 100 | 60 | 38 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch105.csv | 100 | 45 | 55 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch106.csv | 104 | 44 | 60 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch107.csv | 100 | 51 | 49 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch108.csv | 100 | 62 | 37 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch109.csv | 100 | 76 | 24 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch11.csv | 148 | 89 | 58 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch110.csv | 100 | 64 | 35 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch111.csv | 100 | 79 | 20 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch112.csv | 100 | 47 | 53 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch113.csv | 100 | 34 | 62 | 4 | 0 |
+| gemini | gemini_vendor_contacts_results_batch114.csv | 100 | 58 | 42 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch115.csv | 100 | 48 | 52 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch116.csv | 100 | 59 | 41 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch117.csv | 100 | 66 | 34 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch118.csv | 100 | 58 | 42 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch119.csv | 100 | 57 | 40 | 3 | 0 |
+| gemini | gemini_vendor_contacts_results_batch12.csv | 148 | 121 | 23 | 4 | 0 |
+| gemini | gemini_vendor_contacts_results_batch120.csv | 100 | 71 | 29 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch121.csv | 100 | 46 | 52 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch122.csv | 100 | 45 | 55 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch123.csv | 100 | 32 | 68 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch124.csv | 100 | 51 | 48 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch125.csv | 100 | 65 | 35 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch126.csv | 100 | 60 | 40 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch127.csv | 100 | 44 | 55 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch128.csv | 100 | 39 | 60 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch129.csv | 100 | 42 | 58 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch13.csv | 151 | 113 | 36 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch130.csv | 100 | 51 | 45 | 4 | 0 |
+| gemini | gemini_vendor_contacts_results_batch131.csv | 100 | 46 | 53 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch132.csv | 100 | 53 | 47 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch133.csv | 100 | 60 | 38 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch134.csv | 100 | 67 | 32 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch135.csv | 100 | 70 | 30 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch136.csv | 100 | 24 | 73 | 3 | 0 |
+| gemini | gemini_vendor_contacts_results_batch137.csv | 100 | 33 | 64 | 3 | 0 |
+| gemini | gemini_vendor_contacts_results_batch138.csv | 100 | 40 | 58 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch139.csv | 100 | 25 | 74 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch14.csv | 166 | 106 | 59 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch140.csv | 100 | 47 | 52 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch141.csv | 110 | 74 | 33 | 3 | 0 |
+| gemini | gemini_vendor_contacts_results_batch142.csv | 100 | 57 | 41 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch143.csv | 100 | 58 | 41 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch144.csv | 100 | 42 | 57 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch145.csv | 100 | 36 | 63 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch146.csv | 100 | 49 | 50 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch147.csv | 100 | 55 | 43 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch148.csv | 100 | 42 | 58 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch149.csv | 100 | 57 | 42 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch15.csv | 158 | 98 | 58 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch150.csv | 100 | 60 | 39 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch151.csv | 107 | 57 | 49 | 0 | 1 |
+| gemini | gemini_vendor_contacts_results_batch152.csv | 100 | 63 | 37 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch153.csv | 100 | 53 | 47 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch154.csv | 70 | 39 | 31 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch16.csv | 100 | 100 | 0 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch17.csv | 100 | 83 | 17 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch18.csv | 120 | 97 | 23 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch19.csv | 100 | 78 | 22 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch20.csv | 127 | 99 | 28 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch21.csv | 160 | 130 | 29 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch22.csv | 343 | 231 | 109 | 3 | 0 |
+| gemini | gemini_vendor_contacts_results_batch23.csv | 200 | 116 | 84 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch24.csv | 237 | 120 | 117 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch25.csv | 111 | 68 | 43 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch26.csv | 100 | 44 | 55 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch27.csv | 173 | 94 | 79 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch28.csv | 100 | 35 | 65 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch29.csv | 132 | 50 | 82 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch30.csv | 140 | 95 | 43 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch31.csv | 100 | 80 | 20 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch32.csv | 149 | 96 | 51 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch33.csv | 100 | 57 | 39 | 4 | 0 |
+| gemini | gemini_vendor_contacts_results_batch34.csv | 135 | 90 | 42 | 3 | 0 |
+| gemini | gemini_vendor_contacts_results_batch35.csv | 100 | 60 | 39 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch36.csv | 100 | 46 | 53 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch37.csv | 100 | 52 | 46 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch38.csv | 100 | 49 | 51 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch39.csv | 100 | 55 | 44 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch40.csv | 100 | 67 | 33 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch41.csv | 104 | 83 | 21 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch42.csv | 111 | 88 | 23 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch43.csv | 100 | 62 | 38 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch44.csv | 110 | 69 | 41 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch45.csv | 100 | 70 | 30 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch46.csv | 100 | 74 | 26 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch47.csv | 100 | 60 | 40 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch48.csv | 106 | 56 | 50 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch49.csv | 110 | 72 | 38 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch50.csv | 100 | 36 | 64 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch51.csv | 100 | 33 | 67 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch52.csv | 100 | 30 | 70 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch53.csv | 133 | 60 | 73 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch54.csv | 100 | 50 | 50 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch55.csv | 107 | 40 | 67 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch56.csv | 105 | 31 | 74 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch57.csv | 101 | 24 | 77 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch58.csv | 100 | 32 | 68 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch59.csv | 100 | 30 | 70 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch60.csv | 100 | 12 | 88 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch61.csv | 100 | 12 | 88 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch62.csv | 100 | 32 | 68 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch63.csv | 100 | 23 | 77 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch64.csv | 100 | 40 | 60 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch65.csv | 100 | 42 | 58 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch66.csv | 100 | 51 | 49 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch67.csv | 111 | 56 | 55 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch68.csv | 100 | 54 | 46 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch69.csv | 100 | 35 | 64 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch70.csv | 100 | 31 | 65 | 4 | 0 |
+| gemini | gemini_vendor_contacts_results_batch71.csv | 100 | 31 | 65 | 4 | 0 |
+| gemini | gemini_vendor_contacts_results_batch72.csv | 100 | 40 | 57 | 3 | 0 |
+| gemini | gemini_vendor_contacts_results_batch73.csv | 100 | 76 | 21 | 2 | 1 |
+| gemini | gemini_vendor_contacts_results_batch74.csv | 100 | 48 | 52 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch75.csv | 100 | 50 | 49 | 1 | 0 |
+| gemini | gemini_vendor_contacts_results_batch76.csv | 100 | 62 | 38 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch77.csv | 100 | 91 | 9 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch78.csv | 100 | 87 | 13 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch79.csv | 100 | 78 | 22 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch80.csv | 100 | 50 | 50 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch81.csv | 100 | 36 | 64 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch82.csv | 100 | 34 | 66 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch83.csv | 100 | 72 | 28 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch84.csv | 100 | 81 | 19 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch85.csv | 100 | 87 | 13 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch86.csv | 100 | 80 | 20 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch87.csv | 100 | 88 | 12 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch88.csv | 100 | 79 | 21 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch89.csv | 100 | 86 | 14 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch90.csv | 100 | 51 | 49 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch91.csv | 100 | 84 | 16 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch92.csv | 100 | 76 | 24 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch93.csv | 100 | 55 | 45 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch94.csv | 100 | 70 | 30 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch95.csv | 100 | 40 | 60 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch96.csv | 100 | 52 | 48 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch97.csv | 100 | 64 | 36 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch98.csv | 100 | 77 | 23 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
+| gemini | gemini_verify_buyer_ap_results_batch01.csv | 112 | 109 | 1 | 2 | 0 |
 
-**team_buyers**: 3301 entities researched, 2872 with at least one verified contact.
+**team_buyers**: 15612 entities researched, 14836 with at least one verified contact.
 
-**team_vendors**: 1523 entities researched, 416 with at least one verified contact.
+**team_vendors**: 14847 entities researched, 3827 with at least one verified contact.
 
 ## Source registry (`coord/source_registry.csv`)
 | lane | todo | in_progress | done | blocked |
@@ -82,20 +224,20 @@
 | jules | 8 | 0 | 3 | 0 |
 
 ## Last ingest
-- buyers with team findings: 3301 (with at least one verified e-mail/portal: 2858)
-- vendors with team findings: 1523
+- buyers with team findings: 15612 (with at least one verified e-mail/portal: 14836)
+- vendors with team findings: 14847
 - QA rows: 200
-- counters: {'files': 50, 'buyer_findings_verified': 3487, 'buyer_findings_unverified_page_unavailable': 234, 'buyer_findings_not_found_on_page': 214, 'buyer_findings_not_found_on_page_hidden': 301, 'vendor_emails_not_found_on_page': 47, 'vendor_emails_not_found_on_page_hidden': 49, 'vendor_emails_verified': 442, 'vendor_emails_unverified_page_unavailable': 34, 'buyer_findings_cross_verified': 46, 'verify_tasks_gemini': 18, 'verify_tasks_chatgpt': 104}
+- counters: {'files': 192, 'buyer_findings_verified': 18851, 'buyer_findings_pending_verification': 419, 'buyer_findings_not_found_on_page': 660, 'buyer_findings_not_found_on_page_hidden': 309, 'buyer_findings_rejected_personal_or_invalid': 24, 'vendor_emails_not_found_on_page': 387, 'vendor_emails_not_found_on_page_hidden': 407, 'vendor_emails_verified': 4159, 'vendor_emails_pending_verification': 324, 'verify_tasks_chatgpt': 11, 'verify_tasks_gemini': 346}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
 Every row's outcome is in `coord/results/verification_log.csv`. Look up your own rows there.
 
-| lane | verified | cross_verified | page unavailable | e-mails hidden from verifier | not on page | rejected |
-|---|---|---|---|---|---|---|
-| chatgpt | 605 | 13 | 12 | 0 | 12 | 0 |
-| claude | 722 | 10 | 11 | 0 | 3 | 0 |
-| gemini | 2160 | 23 | 165 | 301 | 199 | 0 |
+| lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
+|---|---|---|---|---|---|---|---|
+| chatgpt | 966 | 0 | 36 | 0 | 1 | 22 | 0 |
+| claude | 15607 | 0 | 184 | 0 | 5 | 434 | 24 |
+| gemini | 2278 | 0 | 199 | 0 | 303 | 204 | 0 |
 
 ## Where to look
 - Next work per lane: `coord/NEXT.md`
