@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-29001,active contract with a Canadian supplier; current best: general only,b:b182b2d6b7c8d3f5,Village de Val-David,,QC,https://www.valdavid.com,dg@valdavid.com,,131
+GE-AP-29002,active contract with a Canadian supplier; current best: general only,b:fad3752a3be7e917,Canada Energy Regulator,,FED,https://www.cer-rec.gc.ca/index-eng.html,info@cer-rec.gc.ca,,78
+GE-AP-29003,active contract with a Canadian supplier; current best: general only,b:6b0a936de51fc30a,University of Toronto Scarborough,,,https://www.utoronto.ca,fsd.utsc@utoronto.ca,,64
+GE-AP-29004,active contract with a Canadian supplier; current best: general only,b:9a0a42ca1ca04a44,Office of the Secretary to the Governor General,,FED,https://www.gg.ca/en,directdeposit.depotdirect@gg.ca,,31
+GE-AP-29005,active contract with a Canadian supplier; current best: general only,b:4b6dc54602bb74b7,Russell Township,,,http://www.russell.ca,recreation.loisirs@russell.ca,,30
+GE-AP-29006,active contract with a Canadian supplier; current best: general only,b:365c02471dd7500b,Societatea Nationala Nuclearelectrica S.A. (SNN),,EU,https://nuclearelectrica.ro,office@nuclearelectrica.ro,,28
+GE-AP-29007,active contract with a Canadian supplier; current best: general only,b:596fb15fd4f07d63,NUCLEARELECTRICA,,EU,https://www.nuclearelectrica.ro,office@nuclearelectrica.ro,,13
+GE-AP-29008,active contract with a Canadian supplier; current best: general only,b:8755686230197095,Technische Universiteit Delft,,EU,http://www.tudelft.nl,info@tudelft.nl,,13
+GE-AP-29009,active contract with a Canadian supplier; current best: general only,b:99125792bfad17b0,Federal Economic Development Agency for Southern Ontario,,FED,https://feddev-ontario.canada.ca/en,info@feddevontario.gc.ca,,10
+GE-AP-29010,active contract with a Canadian supplier; current best: general only,b:9048334707dad26e,GENERAL ELECTRIC COMPANY,,US,https://www.geaerospace.com,helpcenter@geaerospace.com,,9
+GE-AP-29011,active contract with a Canadian supplier; current best: general only,b:a6c80fa07560d59a,Geoscience Australia,,AU,https://www.ga.gov.au,clientservices@ga.gov.au,,7
+GE-AP-29012,active contract with a Canadian supplier; current best: general only,b:84dd7ff75593d2fc,University of Southampton,,UK,http://www.southampton.ac.uk,enquiries@southampton.ac.uk,,4
+GE-AP-29013,active contract with a Canadian supplier; current best: general only,b:75a58a9795f04146,Akademska in raziskovalna mreža Slovenije,,,http://www.arnes.si,info@arnes.si,,3
+GE-AP-29014,active contract with a Canadian supplier; current best: general only,b:ea37ff89b40694a0,Glencore Ltd.,,,https://www.glencore.com,info@glencore.com,,2
+GE-AP-29015,active contract with a Canadian supplier; current best: general only,b:db6296a8313b820a,Max-Planck-Gesellschaft zur Förderung der Wissenschaften e.V. / Max-Planck-Institut für Verhaltensbiologie,,,http://www.ab.mpg.de,reception.bueckle@ab.mpg.de,,2
+GE-AP-29016,active contract with a Canadian supplier; current best: general only,b:5f20a0d658865852,GE AVIATION SYSTEMS LLC,,US,https://www.geaerospace.com,helpcenter@geaerospace.com,,2
+GE-AP-29017,active contract with a Canadian supplier; current best: general only,b:94e501dfe24f7926,Ministry of Justice,,UK,https://www.gov.uk/government/organisations/ministry-of-justice,sme-enquiries@justice.gov.uk,,1
+GE-AP-29018,active contract with a Canadian supplier; current best: general only,b:366669cc51e94f5a,Forest Products Commission,,,http://www.fpc.wa.gov.au,info@fpc.wa.gov.au,,1
+GE-AP-29019,active contract with a Canadian supplier; current best: general only,b:0668b44e66eaf085,Alliander N.V.,,EU,https://www.alliander.com/nl,info@alliander.com,,1
+GE-AP-29020,active contract with a Canadian supplier; current best: general only,b:debfee2842e2c3cb,Cabinet Office,,UK,https://www.gov.uk/government/organisations/cabinet-office,enquiries@digitalmarketplace.service.gov.uk,,1
+GE-AP-29021,active contract with a Canadian supplier; current best: general only,b:7d0d7acedceb0c99,National Archives and Records Administration,,US,https://www.archives.gov,inquire@nara.gov,,1
+GE-AP-29022,active contract with a Canadian supplier; current best: general only,b:ba662a7326d8aa49,Clean Energy Regulator,,AU,https://cer.gov.au,enquiries@cer.gov.au,,1
+GE-AP-29023,active contract with a Canadian supplier; current best: general only,b:91a41eb9bee2c629,Department of Primary Industries and Regional Development,,,https://www.dpird.wa.gov.au,enquiries@dpird.wa.gov.au,,1
+GE-AP-29024,active contract with a Canadian supplier; current best: general only,b:b4893cf520eb5677,"Department of Biodiversity, Conservation and Attractions",,,https://www.dbca.wa.gov.au,enquiries@dbca.wa.gov.au,,1
+GE-AP-29025,active contract with a Canadian supplier; current best: general only,b:ba68147dd27bf938,Leibniz-Institut für Analytische Wissenschaften - ISAS - e.V.,,EU,https://www.isas.de,info@isas.de,,1
+GE-AP-29026,active contract with a Canadian supplier; current best: purchasing only,b:78eeed2559ca38a6,Agriculture and Irrigation,,AB,https://www.alberta.ca,,agi.contracts@gov.ab.ca,87
+GE-AP-29027,active contract with a Canadian supplier; current best: purchasing only,b:15bb49b2aefcbae7,Public Safety and Emergency Services,,AB,https://www.alberta.ca,,pses.procurement@gov.ab.ca,52
+GE-AP-29028,active contract with a Canadian supplier; current best: purchasing only,b:8ef79f5f5ec09145,AMENTUM SERVICES INC,,US,https://www.amentum.com,,suppliermanagement@amentum.com,19
+GE-AP-29029,active contract with a Canadian supplier; current best: purchasing only,b:484b5aaa57357b3e,Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ) GmbH,,EU,http://www.giz.de,,procurement@giz.de,10
+GE-AP-29030,active contract with a Canadian supplier; current best: purchasing only,b:4b164629bd242f42,Austrade,,AU,https://www.austrade.gov.au,,procurement@austrade.gov.au,9
+GE-AP-29031,active contract with a Canadian supplier; current best: purchasing only,b:2a0209a7289ed535,UK Research & Innovation,,UK,http://www.uksbs.co.uk/Pages/default.aspx,,research.tenders@uksbs.co.uk,9
+GE-AP-29032,active contract with a Canadian supplier; current best: purchasing only,b:4c4593354a687dfe,"TRIAD NATIONAL SECURITY, LLC",,US,https://www.lanl.gov,,procurement@lanl.gov,7
+GE-AP-29033,active contract with a Canadian supplier; current best: purchasing only,b:19885755303d228b,Education Procurement Service (EPS),,EU,https://www.educationprocurementservice.ie,,procurement@etbi.ie,6
+GE-AP-29034,active contract with a Canadian supplier; current best: purchasing only,b:85e7a47b856633e9,Defence Equipment and Support,,UK,https://www.gov.uk/government/organisations/defence-equipment-and-support,,descommercial-salmo@mod.gov.uk,5
+GE-AP-29035,active contract with a Canadian supplier; current best: purchasing only,b:2b229c53ea5563b7,Tartu Ülikool,,EU,https://www.ut.ee,,info@ut.ee,5
+GE-AP-29036,active contract with a Canadian supplier; current best: purchasing only,b:2a0209a7289ed535,UK Research and Innovation,,EU,http://www.uksbs.co.uk/Pages/default.aspx,,research.tenders@uksbs.co.uk,4
+GE-AP-29037,active contract with a Canadian supplier; current best: purchasing only,b:e37d85407011f070,The Pensions Regulator,,UK,https://www.gov.uk/government/organisations/the-pensions-regulator,,aprocurement@tpr.gov.uk,3
+GE-AP-29038,active contract with a Canadian supplier; current best: purchasing only,b:1ef64b1cf2a9e663,Met Office,,UK,https://www.gov.uk/government/organisations/met-office,,procurement.enquiries@metoffice.gov.uk,3
+GE-AP-29039,active contract with a Canadian supplier; current best: purchasing only,b:70178e265d12a777,Crown Commercial Service,,UK,https://www.gov.uk/government/organisations/crown-commercial-service,,markets-sourcing-suppliers@gca.gov.uk,3
+GE-AP-29040,active contract with a Canadian supplier; current best: purchasing only,b:2c51da694c80c804,UK Hydrographic Office,,UK,https://www.gov.uk/government/organisations/uk-hydrographic-office,,procurement@ukho.gov.uk,3
+GE-AP-29041,active contract with a Canadian supplier; current best: purchasing only,b:eae87686deb2521e,"Swissnoso, Nationales Zentrum für Infektionsprävention",,EU,https://www.swissnoso.ch,,contact@swissnoso.ch,3
+GE-AP-29042,active contract with a Canadian supplier; current best: purchasing only,b:fa1e3bd770deea7f,"AMENTUM TECHNOLOGY, INC.",,US,https://www.amentum.com,,suppliermanagement@amentum.com,3
+GE-AP-29043,active contract with a Canadian supplier; current best: purchasing only,b:97d7d5e61492ac18,Great Lakes Pilotage Authority Canada,,FED,https://www.glpa-apgl.com,,procurement-achats@glpa-apgl.com,2
+GE-AP-29044,active contract with a Canadian supplier; current best: purchasing only,b:5e44af05a6102b9a,West Midlands Combined Authority,,EU,http://www.wmca.org.uk,,procurement.team@wmca.org.uk,2
+GE-AP-29045,active contract with a Canadian supplier; current best: purchasing only,b:e5389101781012da,BRGM EXPLORE,,EU,https://www.brgm.fr/fr,,brgmachats@brgm.fr,2
+GE-AP-29046,active contract with a Canadian supplier; current best: purchasing only,b:a4516ec23319b8a1,TEXTRON SYSTEMS CORP,,US,https://www.textronsystems.com,,supplierquality@textronsystems.com,2
+GE-AP-29047,active contract with a Canadian supplier; current best: purchasing only,b:3f9d3d5129381a20,Royal Australian Mint,,AU,https://www.ramint.gov.au,,procurement@ramint.gov.au,1
+GE-AP-29048,active contract with a Canadian supplier; current best: purchasing only,b:754c75046d3dbe9a,GIP RESAH,,EU,https://www.resah.fr,,fournisseurs@resah.fr,1
+GE-AP-29049,active contract with a Canadian supplier; current best: purchasing only,b:118ee76b7e511a72,OFCOM,,UK,https://www.gov.uk/government/organisations/ofcom,,procurementnotice@ofcom.org.uk,1
+GE-AP-29050,active contract with a Canadian supplier; current best: purchasing only,b:7322c46958a2c767,Department for Business and Trade,,UK,https://www.gov.uk/government/organisations/department-for-business-and-trade,,publicprocurementreview@cabinetoffice.gov.uk,1
+GE-AP-29051,active contract with a Canadian supplier; current best: purchasing only,b:3ed23336807b8b05,Government Commercial Agency,,UK,https://www.gov.uk/government/organisations/government-commercial-agency,,supplier@gca.gov.uk,1
+GE-AP-29052,active contract with a Canadian supplier; current best: purchasing only,b:b781e3a7f94d80d4,Department of Home Affairs,,AU,https://www.homeaffairs.gov.au,,procurement@homeaffairs.gov.au,1
+GE-AP-29053,active contract with a Canadian supplier; current best: purchasing only,b:c1f64345b89776ac,Maritime and Coastguard Agency,,UK,https://www.gov.uk/government/organisations/maritime-and-coastguard-agency,,procurement.reform@cabinetoffice.gov.uk,1
+GE-AP-29054,active contract with a Canadian supplier; current best: purchasing only,b:bf8818924072ee42,Ministry of Mental Health and Addiction,,AB,https://www.alberta.ca,,mha.procurement@gov.ab.ca,1
+GE-AP-29055,active contract with a Canadian supplier; current best: purchasing only,b:dac6dcd3c14e2d02,BANK OF ENGLAND,,UK,https://www.gov.uk/government/organisations/bank-of-england,,technology.contracts@bankofengland.co.uk,1
+GE-AP-29056,active contract with a Canadian supplier; current best: purchasing only,b:fdd2e241e30b1ce0,Southampton Solent University,,UK,https://solent.ac.uk,,finance.procurement@solent.ac.uk,1
+GE-AP-29057,active contract with a Canadian supplier; current best: purchasing only,b:5b5157d69f43f00c,Raytheon UK (Omnia Training consortium lead) for the British Army,,,https://www.rtx.com,,supplier.cyber.incident@rtx.com,1
+GE-AP-29058,active contract with a Canadian supplier; current best: purchasing only,b:4942262fca261b4b,Bernicia Group,,UK,https://bernicia.com,,procurement@bernicia.com,1
+GE-AP-29059,active contract with a Canadian supplier; current best: purchasing only,b:846ac22c25e1dc53,INSTITUT NATIONAL DE RECHERCHE ET SECURITE (INRS),,EU,https://www.inrs.fr,,achats.lorraine@inrs.fr,1
+GE-AP-29060,active contract with a Canadian supplier; current best: purchasing only,b:143c53524b279b57,European Central Bank,,EU,http://www.ecb.europa.eu,,procurement@ecb.europa.eu,1
+GE-AP-29061,active contract with a Canadian supplier; current best: finance dept only,b:57ce76c62a23e481,International Joint Commission,,FED,,,,10
+GE-AP-29062,active contract with a Canadian supplier; current best: no mailbox yet,b:bbb35568c2531e3f,United Nations Office for Project Services,,,,,,126
+GE-AP-29063,active contract with a Canadian supplier; current best: no mailbox yet,b:324170cd02d91542,Ministry of Finance / Ministry of Energy and Water,,,,,,12
+GE-AP-29064,active contract with a Canadian supplier; current best: no mailbox yet,b:d268b08f817f3fbd,United Nations Secretariat,,,,,,11
+GE-AP-29065,active contract with a Canadian supplier; current best: no mailbox yet,b:3462b490bedc7b6e,"Congo, Democratic Republic of (borrower; implementing agency not published)",,,,,,10
+GE-AP-29066,active contract with a Canadian supplier; current best: no mailbox yet,b:5b78542b632561ee,United Nations Children's Fund,,,,,,7
+GE-AP-29067,active contract with a Canadian supplier; current best: no mailbox yet,b:139331ba730f9132,"Republic of Cabo Verde / Unidade de Gest�o de Projectos Especiais, UGPE",,,,,,6
+GE-AP-29068,active contract with a Canadian supplier; current best: no mailbox yet,b:0e2d1c383497c085,"Ministry of Economy and Finance / Ministry of Agriculture, Natural Resources and Rural Development",,,,,,6
+GE-AP-29069,active contract with a Canadian supplier; current best: no mailbox yet,b:f633c47d98b3a09a,Folke Bernadotteakademin,,EU,,,,6
+GE-AP-29070,active contract with a Canadian supplier; current best: no mailbox yet,b:f53d2e0e93dd7692,Haiti (borrower; implementing agency not published),,,,,,5
+GE-AP-29071,active contract with a Canadian supplier; current best: no mailbox yet,b:0fd9b64b65e59dff,REPUBLIQUE D'HAITI / FOND D ASSISTANCE ECONOMIQUE ET SOCIAL,,,,,,4
+GE-AP-29072,active contract with a Canadian supplier; current best: no mailbox yet,b:d7822f11d8a8b984,Université d'Aix-Marseille,,EU,,,,4
+GE-AP-29073,active contract with a Canadian supplier; current best: no mailbox yet,b:3411a0b8fdb545f0,Burundi (borrower; implementing agency not published),,,,,,4
+GE-AP-29074,active contract with a Canadian supplier; current best: no mailbox yet,b:773ce00d13dfb729,BARBADOS / NATIONAL PETROLEUM CORPORATION,,,,,,4
+GE-AP-29075,active contract with a Canadian supplier; current best: no mailbox yet,b:29d78626345ea565,Aalborg Universitet,,EU,,,,4
+GE-AP-29076,active contract with a Canadian supplier; current best: no mailbox yet,b:3b955b93bb442e92,"Ministry of Defence, Land Equipment, Training and Simulation Systems Programme (TSSP)",,UK,,,,3
+GE-AP-29077,active contract with a Canadian supplier; current best: no mailbox yet,b:118651cf7c86d130,Kyrgyz Republic (borrower; implementing agency not published),,,,,,3
+GE-AP-29078,active contract with a Canadian supplier; current best: no mailbox yet,b:ca4943850b0c9537,"Congo, Republic of (borrower; implementing agency not published)",,,,,,3
+GE-AP-29079,active contract with a Canadian supplier; current best: no mailbox yet,b:87a6fca2e05be78a,Democratic Republic of Congo / Ministry of Finance,,,,,,3
+GE-AP-29080,active contract with a Canadian supplier; current best: no mailbox yet,b:b58b885366b64dca,REPUBLIC OF MADAGASCAR / Road Agency,,,,,,3
+GE-AP-29081,active contract with a Canadian supplier; current best: no mailbox yet,b:37fd70f9b921639e,"Central African Republic, Republic of Congo / Ministry of the River Economy and Waterways (ROC), Ministry of Digital Economy, Posts, and Telecommunications (CAR), Ministry of Planning, Statistics and Regional Integration (ROC), Ministry of Transport and Civil Aviation (CAR), Ministry of Equipment and Public Works (CAR)",,,,,,3
+GE-AP-29082,active contract with a Canadian supplier; current best: no mailbox yet,b:80d9534cb5ce407c,"Royal Holloway and Bedford New College, known as Royal Holloway, University of London",,UK,,,,2
+GE-AP-29083,active contract with a Canadian supplier; current best: no mailbox yet,b:36bbc9634b584157,SOMERSET NHS FOUNDATION TRUST,,UK,,,,2
+GE-AP-29084,active contract with a Canadian supplier; current best: no mailbox yet,b:2cc42798b6c16257,Dirección General del Servicio Exterior,,,,,,2
+GE-AP-29085,active contract with a Canadian supplier; current best: no mailbox yet,b:05891cc6235afd09,"BELIZE / MINISTRY OF EDUCATION, CULTURE, SCIENCE AND TECHNOLOGY",,,,,,2
+GE-AP-29086,active contract with a Canadian supplier; current best: no mailbox yet,b:e4d5f32b7d3e851b,Hadeland og Ringerike Avfallsselskap AS,,EU,,,,2
+GE-AP-29087,active contract with a Canadian supplier; current best: no mailbox yet,b:72cbdea27f2d90b4,Supply Chain Coordination Limited,,UK,,,,2
+GE-AP-29088,active contract with a Canadian supplier; current best: no mailbox yet,b:b8596369bda93d4f,Saint Lucia / Saint Lucia Air and Sea Ports Authority,,,,,,2
+GE-AP-29089,active contract with a Canadian supplier; current best: no mailbox yet,b:00ce6dc4ae3b44c9,"The Republic of Guinea-Bissau / Ministry of Economy, Planning and Regional Integration",,,,,,2
+GE-AP-29090,active contract with a Canadian supplier; current best: no mailbox yet,b:c8bd41e942835ae2,Deutsche Forschungsgemeinschaft e.V.,,,,,,2
+GE-AP-29091,active contract with a Canadian supplier; current best: no mailbox yet,b:899a865b08b8b6f7,"Saint Lucia, Saint Vincent and the Grenadines, Commonwealth of Dominica, Organisation of Eastern Caribbean States (OECS), Grenada / Ministry of Infrastructure Development, Public Utilities, Energy, Transport, and Implementation GRD, Ministry of Finance, Economic Planning, Sustainable Development and Information Technology of SVG, Department of Public Service, Ministry of Finance of Saint Lucia, Ministry of Public Works and Digital Economy of Commonwealth of Dominica, OECS Commission, Ministry of Economic Development, Planning, Tourism, ICT and Creative Economy",,,,,,2
+GE-AP-29092,active contract with a Canadian supplier; current best: no mailbox yet,b:d9332f97063775bc,Deutsche Zentrale für Tourismus e.V.,,,,,,2
+GE-AP-29093,active contract with a Canadian supplier; current best: no mailbox yet,b:61d8e29fdf739d2f,Saab AB,,,,,,2
+GE-AP-29094,active contract with a Canadian supplier; current best: no mailbox yet,b:8a393009b185ee90,Republic of Uganda / Uganda National Roads Authority,,,,,,2
+GE-AP-29095,active contract with a Canadian supplier; current best: no mailbox yet,b:3f56ea0e8534e55b,"Ministry of Finance and Planning / TANROADS, TARURA",,,,,,2
+GE-AP-29096,active contract with a Canadian supplier; current best: no mailbox yet,b:2870f21a5ff27b0c,Republic of Burundi / Ministry of National Education and Scientific Research,,,,,,2
+GE-AP-29097,active contract with a Canadian supplier; current best: no mailbox yet,b:431691231fd66abe,BRISTOL & WESTON NHS PURCHASING CONSORTIUM,,UK,,,,1
+GE-AP-29098,active contract with a Canadian supplier; current best: no mailbox yet,b:85f7ebe092d91dc8,Norsk Polarinstitutt,,EU,,,,1
+GE-AP-29099,active contract with a Canadian supplier; current best: no mailbox yet,b:145197f261583830,The Education Training Collective,,UK,,,,1
+GE-AP-29100,active contract with a Canadian supplier; current best: no mailbox yet,b:4cd0b441fc664626,Secretary of State for Health and Social Care acting as part of the Crown through UK Health Security Agency,,UK,,,,1

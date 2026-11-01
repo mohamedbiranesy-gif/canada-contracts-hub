@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-27001,active contract with a Canadian supplier; current best: finance dept only,b:2abdeb9f6d0da92c,Northwest Territories Health and Social Services Authority,,NT,https://www.nthssa.ca,,,152
+GE-AP-27002,active contract with a Canadian supplier; current best: finance dept only,b:06496d3e62d77f77,Office of the Superintendent of Financial Institutions Canada,,FED,https://www.osfi-bsif.gc.ca/en,,,126
+GE-AP-27003,active contract with a Canadian supplier; current best: finance dept only,b:2c4b4c8e7dd2c51b,Township of Woolwich,,,http://www.woolwich.ca,,,94
+GE-AP-27004,active contract with a Canadian supplier; current best: finance dept only,b:6133f31101103340,Financial Consumer Agency of Canada,,FED,https://www.canada.ca/en/financial-consumer-agency.html,,,50
+GE-AP-27005,active contract with a Canadian supplier; current best: finance dept only,b:3ad72b0bdaf11f84,Health and Social Services,,NT,https://www.gov.nt.ca,,,44
+GE-AP-27006,active contract with a Canadian supplier; current best: finance dept only,b:d195a338040b3d97,"Industry, Tourism and Investment",,NT,https://www.gov.nt.ca,,,42
+GE-AP-27007,active contract with a Canadian supplier; current best: finance dept only,b:035695e0d8d642dd,Office of the Commissioner for Federal Judicial Affairs Canada,,FED,https://www.fja-cmf.gc.ca/home-accueil/index-eng.html,,,39
+GE-AP-27008,active contract with a Canadian supplier; current best: finance dept only,b:05e0cc2753e74f19,"Education, Culture and Employment",,NT,https://www.gov.nt.ca,,,30
+GE-AP-27009,active contract with a Canadian supplier; current best: finance dept only,b:50408cb19802c95d,Housing NWT,,NT,https://www.gov.nt.ca,,,28
+GE-AP-27010,active contract with a Canadian supplier; current best: finance dept only,b:846a61373b5a2fde,Office of the Privacy Commissioner of Canada,,FED,https://www.priv.gc.ca/en,,,23
+GE-AP-27011,active contract with a Canadian supplier; current best: finance dept only,b:f8557ff273120e56,Military Police Complaints Commission of Canada,,FED,https://www.canada.ca/en/military-police-complaints.html,,,18
+GE-AP-27012,active contract with a Canadian supplier; current best: finance dept only,b:88899d9b49de2ece,Office of the Information Commissioner of Canada,,FED,https://www.oic-ci.gc.ca/en,,,13
+GE-AP-27013,active contract with a Canadian supplier; current best: finance dept only,b:6146795c734f83d1,Environment and Natural Resources,,NT,https://www.gov.nt.ca,,,11
+GE-AP-27014,active contract with a Canadian supplier; current best: finance dept only,b:0c6fd8511c1ff699,Office of the Public Sector Integrity Commissioner of Canada,,FED,https://psic-ispc.gc.ca/en,,,11
+GE-AP-27015,active contract with a Canadian supplier; current best: finance dept only,b:f3900f4119f3b667,Office of the Commissioner of Lobbying of Canada,,FED,https://lobbycanada.gc.ca/en,,,10
+GE-AP-27016,active contract with a Canadian supplier; current best: finance dept only,b:cf138bbc844c3441,Executive and Indigenous Affairs,,NT,https://www.gov.nt.ca,,,9
+GE-AP-27017,active contract with a Canadian supplier; current best: finance dept only,b:e8ec68d90f199d99,Municipal and Community Affairs,,NT,https://www.gov.nt.ca,,,8
+GE-AP-27018,active contract with a Canadian supplier; current best: finance dept only,b:1f1e409a2ba4630f,Military Grievances External Review Committee,,FED,https://www.canada.ca/en/military-grievances-external-review.html,,,6
+GE-AP-27019,active contract with a Canadian supplier; current best: finance dept only,b:a460a5ca344cc71e,Canadian Intergovernmental Conference Secretariat,,FED,https://scics.ca/en,,,3
+GE-AP-27020,active contract with a Canadian supplier; current best: finance dept only,b:85ba47901dd41720,Town of Vermilion,,AB,http://www.vermilion.ca,,,2
+GE-AP-27021,active contract with a Canadian supplier; current best: finance dept only,b:a27a38879074b679,NWT Housing Corporation,,NT,https://www.gov.nt.ca,,,2
+GE-AP-27022,active contract with a Canadian supplier; current best: finance dept only,b:7665325a7f48115b,Australian Bureau of Statistics,,AU,https://www.abs.gov.au,,,1
+GE-AP-27023,active contract with a Canadian supplier; current best: no mailbox yet,b:29427dc8fca2265d,Canadian Coast Guard (CCG),,FED,https://www.ccg-gcc.gc.ca/index-eng.html,,,210
+GE-AP-27024,active contract with a Canadian supplier; current best: no mailbox yet,b:70d794b9bce4eaf3,Public Prosecution Service of Canada,,FED,https://www.ppsc-sppc.gc.ca/eng/index.html,,,153
+GE-AP-27025,active contract with a Canadian supplier; current best: no mailbox yet,b:22229035ff39b715,Workplace Safety and Insurance Board (WSIB),,,https://www.wsib.ca,,,142
+GE-AP-27026,active contract with a Canadian supplier; current best: no mailbox yet,b:e48a3289180b47d7,Environment and Protected Areas,,AB,https://www.alberta.ca,,,117
+GE-AP-27027,active contract with a Canadian supplier; current best: no mailbox yet,b:3cc48390c044c32f,"Department of Housing, Infrastructure and Communities",,FED,https://housing-infrastructure.canada.ca/index-eng.html,,,114
+GE-AP-27028,active contract with a Canadian supplier; current best: no mailbox yet,b:8e7fa3b3f2d85d39,Department of the Interior,,US,https://www.doi.gov,,,100
+GE-AP-27029,active contract with a Canadian supplier; current best: no mailbox yet,b:2be3c7af9e437dc3,Technology and Innovation,,AB,https://www.alberta.ca,,,96
+GE-AP-27030,active contract with a Canadian supplier; current best: no mailbox yet,b:c33c8f9325f76ae0,General Services Administration,,US,https://www.gsa.gov,,,90
+GE-AP-27031,active contract with a Canadian supplier; current best: no mailbox yet,b:aed45f2ac9a06536,Municipalité régionale de comté Les Jardins-de-Napierville,,QC,https://www.mrcjardinsdenapierville.ca,,,81
+GE-AP-27032,active contract with a Canadian supplier; current best: no mailbox yet,b:f0b523b2f0ca3e5c,Ontario Tech University,,,https://ontariotechu.ca,,,78
+GE-AP-27033,active contract with a Canadian supplier; current best: no mailbox yet,b:043f944f8954cf87,Defence Research and Development Canada,,FED,https://www.canada.ca/en/defence-research-development.html,,,77
+GE-AP-27034,active contract with a Canadian supplier; current best: no mailbox yet,b:8f75725cf6c9c185,Public Service Commission of Canada,,FED,https://www.canada.ca/en/public-service-commission.html,,,75
+GE-AP-27035,active contract with a Canadian supplier; current best: no mailbox yet,b:ff35126c97cde687,"BOEING COMPANY, THE",,US,https://www.boeing.com,,,59
+GE-AP-27036,active contract with a Canadian supplier; current best: no mailbox yet,b:116ca7920d2d547f,Commonwealth of Massachusetts - PAROLE BOARD (PAR),,,https://www.mass.gov,,,58
+GE-AP-27037,active contract with a Canadian supplier; current best: no mailbox yet,b:a732a58cc5ba77fe,Department of Health and Human Services,,US,https://www.hhs.gov,,,48
+GE-AP-27038,active contract with a Canadian supplier; current best: no mailbox yet,b:ffea28ab52525576,Public Service Commission,,SK,https://www.alberta.ca,,,42
+GE-AP-27039,active contract with a Canadian supplier; current best: no mailbox yet,b:a80685ac92e33e59,Interior Health Authority,,,https://www.interiorhealth.ca,,,38
+GE-AP-27040,active contract with a Canadian supplier; current best: no mailbox yet,b:298623d4cc5b857e,NORTHROP GRUMMAN SYSTEMS CORPORATION,,US,https://www.northropgrumman.com,,,38
+GE-AP-27041,active contract with a Canadian supplier; current best: no mailbox yet,b:197e29409d3cc355,Department of State,,US,https://www.state.gov,,,37
+GE-AP-27042,active contract with a Canadian supplier; current best: no mailbox yet,b:ff35126c97cde687,THE BOEING COMPANY,,US,https://www.boeing.com,,,33
+GE-AP-27043,active contract with a Canadian supplier; current best: no mailbox yet,b:526d98e342b2e336,Foreign Commonwealth and Development Office,,UK,https://fcdo.gov.uk,,,31
+GE-AP-27044,active contract with a Canadian supplier; current best: no mailbox yet,b:2abbc8bea5382b9f,HONEYWELL INTERNATIONAL INC.,,US,https://www.honeywell.com,,,31
+GE-AP-27045,active contract with a Canadian supplier; current best: no mailbox yet,b:3ce6e0591c0db46b,Department of Agriculture,,US,https://www.usda.gov,,,30
+GE-AP-27046,active contract with a Canadian supplier; current best: no mailbox yet,b:d1ee16c6847994b6,National Aeronautics and Space Administration,,US,https://www.nasa.gov,,,29
+GE-AP-27047,active contract with a Canadian supplier; current best: no mailbox yet,b:db35e87e1949011c,Ministry of Defence,,UK,https://www.gov.uk/government/organisations/ministry-of-defence,,,27
+GE-AP-27048,active contract with a Canadian supplier; current best: no mailbox yet,b:966eeaa0909c6024,Department of Homeland Security,,US,https://www.dhs.gov,,,27
+GE-AP-27049,active contract with a Canadian supplier; current best: no mailbox yet,b:3d199ab33120e943,Department of the Treasury,,US,https://treasury.gov.au,,,26
+GE-AP-27050,active contract with a Canadian supplier; current best: no mailbox yet,b:28038a9805a5e41a,University of Guelph,,,https://www.uoguelph.ca,,,26
+GE-AP-27051,active contract with a Canadian supplier; current best: no mailbox yet,b:365a4fc1ac302c46,Office of the Commissioner of Official Languages,,FED,https://www.clo-ocol.gc.ca/en,,,25
+GE-AP-27052,active contract with a Canadian supplier; current best: no mailbox yet,b:7dd47d8428f320df,Department of Defence,,AU,https://www.defence.gov.au,,,22
+GE-AP-27053,active contract with a Canadian supplier; current best: no mailbox yet,b:74bbae97b0ac56d8,GE RENEWABLES US LLC,,US,https://www.gevernova.com,,,22
+GE-AP-27054,active contract with a Canadian supplier; current best: no mailbox yet,b:22c5bcfa78a68d5a,Affordability and Utilities,,AB,https://www.alberta.ca,,,21
+GE-AP-27055,active contract with a Canadian supplier; current best: no mailbox yet,b:458a8c8934c26865,RAYTHEON COMPANY,,US,https://www.rtx.com,,,19
+GE-AP-27056,active contract with a Canadian supplier; current best: no mailbox yet,b:d2ef66d06acf6c1f,Treasury Board and Finance,,AB,https://www.alberta.ca,,,18
+GE-AP-27057,active contract with a Canadian supplier; current best: no mailbox yet,b:0d088f9661d79ae2,BELL BOEING JOINT PROJECT OFFICE,,US,https://www.boeing.com,,,17
+GE-AP-27058,active contract with a Canadian supplier; current best: no mailbox yet,b:4c818ae87ea871ad,Communications and Public Engagement,,AB,https://www.alberta.ca,,,16
+GE-AP-27059,active contract with a Canadian supplier; current best: no mailbox yet,b:b1d44f34848fcfb5,Department of Foreign Affairs and Trade,,AU,https://www.dfat.gov.au,,,15
+GE-AP-27060,active contract with a Canadian supplier; current best: no mailbox yet,b:0502689f7696a9bf,Tourism and Sport,,AB,https://www.alberta.ca,,,13
+GE-AP-27061,active contract with a Canadian supplier; current best: no mailbox yet,b:ffea28ab52525576,Public Service Commission,,NL,https://www.alberta.ca,,,13
+GE-AP-27062,active contract with a Canadian supplier; current best: no mailbox yet,b:e6a8c2926d00636e,FAO,,,https://www.fao.org,,,12
+GE-AP-27063,active contract with a Canadian supplier; current best: no mailbox yet,b:19f2d1e42e4519d0,Environment and Parks,,AB,https://www.alberta.ca,,,11
+GE-AP-27064,active contract with a Canadian supplier; current best: no mailbox yet,b:38389d92052a8a71,Forsvarsministeriets Materiel- og Indkøbsstyrelse,,EU,http://www.fmi.dk,,,10
+GE-AP-27065,active contract with a Canadian supplier; current best: no mailbox yet,b:528cfec8ca0861d1,Executive Council,,AB,https://www.alberta.ca,,,8
+GE-AP-27066,active contract with a Canadian supplier; current best: no mailbox yet,b:8336291e48e1fbca,Patented Medicine Prices Review Board Canada,,FED,https://www.canada.ca/en/patented-medicine-prices-review.html,,,8
+GE-AP-27067,active contract with a Canadian supplier; current best: no mailbox yet,b:4f7fb97484adcb22,Bundesamt für Wirtschaft und Ausfuhrkontrolle (BAFA),,,http://www.bafa.de,,,8
+GE-AP-27068,active contract with a Canadian supplier; current best: no mailbox yet,b:47184de798aea71b,Ministerie van Defensie,,EU,https://www.mindef.nl,,,8
+GE-AP-27069,active contract with a Canadian supplier; current best: no mailbox yet,b:e7c0fe121dd716dd,"Arts, Culture and Status of Women",,AB,https://www.alberta.ca,,,7
+GE-AP-27070,active contract with a Canadian supplier; current best: no mailbox yet,b:b712a7a676db191a,Environmental Protection Agency,,US,https://www.epa.gov,,,6
+GE-AP-27071,active contract with a Canadian supplier; current best: no mailbox yet,b:ffea28ab52525576,Public Service Commission,,AB,https://www.alberta.ca,,,6
+GE-AP-27072,active contract with a Canadian supplier; current best: no mailbox yet,b:eb578bd32631b9aa,Danish Ministry of Defence Acquisition and Logistics Organisation,,EU,http://www.fmi.dk,,,6
+GE-AP-27073,active contract with a Canadian supplier; current best: no mailbox yet,b:6e7609891b5b6d59,Justice and Solicitor General,,AB,https://www.alberta.ca,,,6
+GE-AP-27074,active contract with a Canadian supplier; current best: no mailbox yet,b:e75e61ef6199a78c,Millennium Challenge Corporation,,US,https://www.mcc.gov,,,6
+GE-AP-27075,active contract with a Canadian supplier; current best: no mailbox yet,b:286e7622cc3154cb,INTERRHONE,,EU,https://inter-rhone.com,,,6
+GE-AP-27076,active contract with a Canadian supplier; current best: no mailbox yet,b:6dbf26e8d5063dcc,SIKORSKY AIRCRAFT CORPORATION,,US,https://www.lockheedmartin.com,,,6
+GE-AP-27077,active contract with a Canadian supplier; current best: no mailbox yet,b:d8af111417757757,International Labour Organization,,,https://ilo.org,,,6
+GE-AP-27078,active contract with a Canadian supplier; current best: no mailbox yet,b:7d960c75eb91645b,Deutsches Zentrum für Luft- und Raumfahrt e.V. (DLR),,EU,http://www.dlr.de,,,5
+GE-AP-27079,active contract with a Canadian supplier; current best: no mailbox yet,b:0b9463bf92f369a2,COMISION DE PROMOCION DEL PERU PARA LA EXPORTACION Y EL TURISMO - PROMPERU,,,https://www.promperu.gob.pe,,,5
+GE-AP-27080,active contract with a Canadian supplier; current best: no mailbox yet,b:1c4e9efe6874a5f1,NHS Blood and Transplant,,UK,https://www.gov.uk/government/organisations/nhs-blood-and-transplant,,,5
+GE-AP-27081,active contract with a Canadian supplier; current best: no mailbox yet,b:a1f3f656f251a179,"Department of Industry, Science and Resources",,AU,https://www.industry.gov.au,,,4
+GE-AP-27082,active contract with a Canadian supplier; current best: no mailbox yet,b:ab3410266929be18,Public Service Commission (PSC),,FED,https://www.canada.ca/en/public-service-commission.html,,,4
+GE-AP-27083,active contract with a Canadian supplier; current best: no mailbox yet,b:23932f239d2d2bb6,Department of Energy,,US,https://www.energy.gov,,,4
+GE-AP-27084,active contract with a Canadian supplier; current best: no mailbox yet,b:ffe819901959f940,Energy and Minerals,,AB,https://www.alberta.ca,,,4
+GE-AP-27085,active contract with a Canadian supplier; current best: no mailbox yet,b:39fa1467d6301ca5,Federal Trade Commission,,US,https://www.ftc.gov,,,4
+GE-AP-27086,active contract with a Canadian supplier; current best: no mailbox yet,b:7680bbfe5d41cd76,"Department of Climate Change, Energy, the Environment and Water",,AU,https://www.dcceew.gov.au,,,4
+GE-AP-27087,active contract with a Canadian supplier; current best: no mailbox yet,b:4525c1a8f558868d,Sjöfartsverket,,EU,http://www.sjofartsverket.se,,,4
+GE-AP-27088,active contract with a Canadian supplier; current best: no mailbox yet,b:43bab25c8c0ef663,Universität Stuttgart,,EU,https://www.uni-stuttgart.de,,,4
+GE-AP-27089,active contract with a Canadian supplier; current best: no mailbox yet,b:e0f2158503e1a625,HRT,,EU,https://www.hrt.hr,,,4
+GE-AP-27090,active contract with a Canadian supplier; current best: no mailbox yet,b:c208b9f81370e368,"SVEUČILIŠTE U ZAGREBU, KINEZIOLOŠKI FAKULTET",,EU,https://www.kif.unizg.hr,,,4
+GE-AP-27091,active contract with a Canadian supplier; current best: no mailbox yet,b:831d00bddf5c4e52,Australian Signals Directorate,,AU,https://www.asd.gov.au,,,3
+GE-AP-27092,active contract with a Canadian supplier; current best: no mailbox yet,b:1d0b0fd4ec3db2d2,Mental Health and Addiction,,AB,https://www.alberta.ca,,,3
+GE-AP-27093,active contract with a Canadian supplier; current best: no mailbox yet,b:4e48b16f3d6ae10c,RCMP External Review Committee,,FED,https://rcmp.ca/en,,,3
+GE-AP-27094,active contract with a Canadian supplier; current best: no mailbox yet,b:6080693736d10adc,UK Shared Business Services,,EU,http://www.uksbs.co.uk,,,3
+GE-AP-27095,active contract with a Canadian supplier; current best: no mailbox yet,b:040f0ad1d9206974,Dirección de Adquisiciones del Mando de Apoyo Logístico del Ejército del Aire y del Espacio,,,http://www.ejercitodelaire.mde.es,,,3
+GE-AP-27096,active contract with a Canadian supplier; current best: no mailbox yet,b:4ee8295211aa564a,British Council,,UK,https://www.gov.uk/government/organisations/british-council,,,3
+GE-AP-27097,active contract with a Canadian supplier; current best: no mailbox yet,b:ba10de65ce9b1cae,Technische Universität Bergakademie Freiberg,,EU,https://tu-freiberg.de,,,3
+GE-AP-27098,active contract with a Canadian supplier; current best: no mailbox yet,b:a554663284790cd3,Inter Beaujolais,,EU,http://www.beaujolais.com,,,3
+GE-AP-27099,active contract with a Canadian supplier; current best: no mailbox yet,b:5d40a54b4d2245a3,RAYTHEON TECHNOLOGIES CORPORATION,,US,https://www.rtx.com,,,3
+GE-AP-27100,active contract with a Canadian supplier; current best: no mailbox yet,b:eaf9bb6d42db8920,"Department of Health, Disability and Ageing",,AU,https://www.health.gov.au,,,2

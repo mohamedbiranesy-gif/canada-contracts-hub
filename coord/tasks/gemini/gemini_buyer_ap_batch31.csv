@@ -1,0 +1,7 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-31001,active contract with a Canadian supplier; current best: purchasing only,b:7bba61e8fafd6db2,Energinet Eltransmission A/S,,EU,,,procurement@energinet.dk,1
+GE-AP-31002,active contract with a Canadian supplier; current best: purchasing only,b:db011c64d17e2d81,Nottingham Trent University,,UK,,,ntuprocurement@ntu.ac.uk,1
+GE-AP-31003,active contract with a Canadian supplier; current best: purchasing only,b:e501cf0d394a4227,Coventry University,,UK,,,procurement@coventry.ac.uk,1
+GE-AP-31004,active contract with a Canadian supplier; current best: purchasing only,b:48ee96b95a7768d5,Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS),,,,,tenders@bsc.es,1
+GE-AP-31005,active contract with a Canadian supplier; current best: purchasing only,b:ffe353fd4f59ac87,Caledonian Sleeper Limited,,UK,,,procurement@caledoniansleeper.scot,1
+GE-AP-31006,active contract with a Canadian supplier; current best: purchasing only,b:86061f6e46ff00f7,Centrale municipale d'achat et d'impression de la Ville de Genève,,EU,,,achats.cmai@geneve.ch,1
