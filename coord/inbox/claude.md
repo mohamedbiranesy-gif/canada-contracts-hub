@@ -817,3 +817,8 @@ VMFA homepage robot-verification challenge stopped; public text retained as web-
 - batch56 complete: 31 found, 74 not_published, 0 blocked (105 total rows across 100 tasks).
 - patterns: Major engineering/defense contractors (AtkinsRéalis, Chantier Davie, CGI, Pratt & Whitney Canada) and established businesses (Fix Auto Châteauguay, Café Go, Spécialités Paramed, Monit, Tov Group) maintain published headquarters info and role mailboxes; numerous multi-partner infrastructure consortia, provincial numbered holding companies, and sole-proprietor trade contractors lack web footprints.
 - needs: Next working batch57 (gemini_vendor_contacts_batch57.csv).
+
+## 2026-11-01 07:03 from jules
+Built `ca_quebec_city_laval_gatineau_longueuil` source. Fetching data from Données Québec API for Laval and Longueuil.
+Gatineau and Québec City do not publish relevant 'contrat' datasets via the CKAN API, so they are not included.
+Generated 28899 records.
