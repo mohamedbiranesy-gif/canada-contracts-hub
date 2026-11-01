@@ -185,10 +185,14 @@ for k, L in leads.items():
         bh = (urllib.parse.urlparse(L.get("website") or "").hostname or L.get("buyer_name") or "").lower().removeprefix("www.")
         if vh and bh and registrable(vh) == registrable(bh):  # the same organisation linking to itself (sister schools, own departments)
             continue
-    tier = "D" if client else "C"
-    rows.append({"rank_group": "%s%d" % (tier, g), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0), "buyer": L["buyer_name"], "buyer_website": L["website"],
+    recent = (L.get("latest_record_date") or "") >= CUTOFF and not client  # paid / subcontracted in the last 12 months
+    tier = "D" if client else "B" if recent else "C"
+    rows.append({"rank_group": ("GOLD" if tier == "B" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0),
+        "buyer": L["buyer_name"], "buyer_website": L["website"], "award_date": L.get("latest_record_date") or "",
         "email": m["mailbox"], "email_type": m["mailbox_type"], "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
-        "contract_status": "client listing on the vendor's own site (undated)" if client else "payment / subaward record", "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"], "vendor_country_basis": L["canada_field_value"],
+        "contract_status": "client listing on the vendor's own site (undated)" if client else
+                           "likely active (payment / subcontract record dated in the last 12 months)" if recent else "payment / subaward record",
+        "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"], "vendor_country_basis": L["canada_field_value"],
         "contracts_with_canadian_suppliers": L["canadian_vendor_rows"]})
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = list(rows[0].keys())
