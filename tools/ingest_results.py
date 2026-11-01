@@ -85,7 +85,7 @@ VIA = {}  # (value, url) -> archive snapshot used to verify it
 def archive_text(url, fetch=True):
     """Text of the Internet Archive's latest copy of a page this verifier cannot open itself (bot protection that refuses
     data-centre addresses, e.g. canada.ca). Used only when the copy is at most 180 days old. None otherwise."""
-    p = os.path.join(CACHE, "wb5-" + hashlib.sha1(url.encode()).hexdigest())
+    p = os.path.join(CACHE, "wb6-" + hashlib.sha1(url.encode()).hexdigest())
     if os.path.exists(p):
         txt = open(p, encoding="utf-8", errors="replace").read()
         snap, _, body = txt.partition("\n")
@@ -124,9 +124,8 @@ def archive_text(url, fetch=True):
         txt = html.unescape(data.decode("utf-8", "replace")).replace("&#64;", "@")
         open(p, "w", encoding="utf-8").write(snap["url"] + "\n" + txt)
         return snap["url"], txt
-    except Exception as e:
+    except Exception as e:  # refused / timed out: asked again next run (nothing cached)
         ARCHIVE_ERRORS[type(e).__name__ + ": " + str(e)[:120]] += 1
-        open(p, "w").write("none\n")
         return None
 
 
@@ -220,9 +219,17 @@ def prefetch():
     with ThreadPoolExecutor(32) as ex:
         list(ex.map(one, urls))
     print("prefetched %d new pages" % len(urls), file=sys.stderr)
-    failed = [u for u in dict.fromkeys(cited) if os.path.exists(os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest()) + ".fail")]
-    with ThreadPoolExecutor(4) as ex:  # pages that refuse this verifier: the Internet Archive's recent copy, 4 at a time
-        list(ex.map(archive_text, failed))
+    uses = collections.Counter(cited)  # pages cited by the most rows first (one federal table backs 200+ rows)
+    failed = [u for u, _ in uses.most_common() if os.path.exists(os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest()) + ".fail")]
+    asked = 0
+    for u in failed:  # the archive refuses bursts: one lookup at a time, spaced, at most 80 a run
+        if asked >= 80 or len(ARCHIVE_ERRORS) and sum(ARCHIVE_ERRORS.values()) >= 5:
+            break
+        had = os.path.exists(os.path.join(CACHE, "wb6-" + hashlib.sha1(u.encode()).hexdigest()))
+        archive_text(u)
+        if not had:
+            asked += 1
+            time.sleep(2)
     hits = sum(1 for u in failed if (archive_text(u, fetch=False) or (None,))[0])
     print("archive copies looked up for %d refused pages: %d copies held; errors %s" % (len(failed), hits, ARCHIVE_ERRORS.most_common(3)), "samples", ARCHIVE_SAMPLES, file=sys.stderr)
 
