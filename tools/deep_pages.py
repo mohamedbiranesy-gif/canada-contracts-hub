@@ -87,7 +87,8 @@ def index_urls(host, tries=3):
 
 def archived(url):
     """(bytes, content type, snapshot URL) of the Internet Archive's copy of a page, when captured in the last year.
-    Used when the live site refuses automated readers or the page has moved; the snapshot URL is the evidence, which
+    Used only when the page has moved or is gone (never when the site refuses automated readers: that is a block, rule 6);
+    the snapshot URL is the evidence, which
     anyone (and the referee) can open."""
     since = time.strftime("%Y%m%d", time.localtime(time.time() - ARCHIVE_DAYS * 86400))
     ts = CAPTURE.get(url, "")
@@ -146,7 +147,9 @@ def read(task, urls, max_pages=15, keep=KEEP):
         if status in (401, 403, 429):
             refused += 1
         blocked = status == 200 and data and C.BLOCK_RX.search(data[:20000].decode("utf-8", "replace")) and len(data) < 30000
-        if status != 200 or not data or blocked:  # refused, moved or gone: the archive's recent copy of the same page
+        if status in (401, 403, 429, 503) or blocked or not live:
+            continue  # the site refuses automated readers: blocked (rule 6), never read around it, not even from the archive
+        if status != 200 or not data:  # moved or gone: the archive's recent copy of the same page
             a = archived(url)
             if not a:
                 continue
@@ -178,8 +181,8 @@ def read(task, urls, max_pages=15, keep=KEEP):
              "evidence_url": url, "evidence_quote": q, "retrieved_date": C.TODAY, "status": "found",
              "queries_tried": "Wayback Machine URL index of %s (addresses about invoices / suppliers / finance), then %d live pages read "
                               "(robots.txt respected), no AI, no search engine" % (host, min(len(urls), max_pages)),
-             "notes": ("found on the Internet Archive's copy (captured %s) of the buyer's own page %s; the live site refuses "
-                       "automated readers or the page moved" % (re.search(r"/web/(\d{8})", url).group(1), url.split("/web/", 1)[1].split("/", 1)[1])
+             "notes": ("found on the Internet Archive's copy (captured %s) of the buyer's own page %s; the page has moved "
+                       "or is gone from the live site" % (re.search(r"/web/(\d{8})", url).group(1), url.split("/web/", 1)[1].split("/", 1)[1])
                        if "web.archive.org/web/" in url else "found on the buyer's own site by tools/deep_pages.py") + (
                  "; finance / accounting department mailbox: no invoicing or AP mailbox found" if kind == "finance" else
                  "; purchasing mailbox: no invoicing or AP mailbox found" if kind == "procurement" else
