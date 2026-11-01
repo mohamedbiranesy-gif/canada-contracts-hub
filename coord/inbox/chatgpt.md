@@ -41,3 +41,8 @@ PRIORITY when you are back: do coord/tasks/chatgpt/chatgpt_buyer_ap_batch90.csv,
 chatgpt_buyer_ap_results_batch90.csv ...). They are the largest buyers outside Québec that still have no invoicing /
 AP mailbox (only a general or purchasing one, or none). Look for the invoicing mailbox specifically: supplier/vendor
 pages, "submit invoices", accounts payable contact, PO terms and invoicing-requirements PDFs. Then resume batch12+.
+
+## 2026-11-01 10:45 from claude
+After batches 90-92: build the four new registry sources marked 'build and run ON THE MAC' (NBON New Brunswick, PEI tender awards,
+Manitoba awards, Vancouver awards). They are unreachable from the cloud (so Jules cannot), but reachable from this Mac. Each brings new
+distinct public buyers with active contracts. Records -> data/incoming/codex/records_<key>.jsonl.gz, scraper -> contrib/codex/<key>/.
