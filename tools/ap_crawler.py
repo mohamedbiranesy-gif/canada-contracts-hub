@@ -166,34 +166,89 @@ def classify(email, context, general=False):
 
 AFF_STOP = {"www", "info", "ville", "city", "town", "county", "comte", "municipalite", "municipality", "canton", "paroisse", "village",
             "gouv", "gov", "quebec", "canada", "ontario", "alberta", "org", "com", "net", "mail", "email", "courriel", "the", "and",
-            "des", "les", "del", "saint", "sainte", "regional", "district", "school", "board", "college", "university"}
+            "des", "les", "del", "saint", "sainte", "regional", "district", "school", "board", "college", "university", "centre",
+            "center", "service", "services", "public", "region", "nord", "sud", "est", "ouest", "north", "south", "east", "west"}
+GENERIC_WORDS = {"municipalite", "municipality", "ville", "city", "town", "township", "county", "canton", "paroisse", "village",
+                 "mrc", "regie", "de", "du", "des", "la", "le", "les", "of", "the", "and", "et", "d", "l"}
+ABBR = {"st", "ste", "mun", "muni", "my", "ville", "city", "town", "villede", "cityof", "townof", "info", "mail",
+        "qc", "on", "ab", "bc", "mb", "sk", "ns", "nb", "nl", "pe", "nt", "nu", "yk"}
+GENERIC_MAIL = re.compile(r"(^|\.)(videotron|axion|bellnet|sympatico|globetrotter|cgocable|cooptel|xplornet|gmail|hotmail|outlook|live|"
+                          r"yahoo|telus|shaw|eastlink|tellambton|derytele|b2b2c|icloud|bell|rogers|cogeco|xittel|sogetel|ccapcable|"
+                          r"telupton|maskatel|tlb|tbaytel|execulink|wightman|persona|netcom)\.", re.I)
+SAAS_AP = re.compile(r"(^|\.)(concursolutions|coupahost|basware|tungsten-network|esker|ariba|kofax|readsoft|invoicecapture)\.", re.I)
+SHARED_SUFFIX = re.compile(r"\.(gouv\.qc|gov\.(ab|bc|mb|sk|nl|nt|nu|pe|yk|on)|gc|qc|on|ab|bc|mb|sk|ns|nb|nl|pe|nt|nu|yk)\.ca$|"
+                           r"\.(ac|gov|co|org|nhs|police|ltd|plc|sch)\.uk$|\.(gov|edu|com|org|net)\.au$|\.gouv\.fr$|\.(k12|state)\.[a-z]{2}\.us$")
+
+
+def ascii_low(x):
+    return unicodedata.normalize("NFKD", x or "").encode("ascii", "ignore").decode().lower()
 
 
 def tokens(s):
-    return {t for t in re.split(r"[^a-z0-9]+", (s or "").lower()) if len(t) >= 4 and t not in AFF_STOP}
+    return {t for t in re.split(r"[^a-z0-9]+", ascii_low(s)) if len(t) >= 4 and t not in AFF_STOP}
+
+
+def registrable(host):
+    m = SHARED_SUFFIX.search(host)
+    if m:  # one label above a shared suffix: x.gouv.qc.ca, x.ac.uk, x.qc.ca
+        head = host[:m.start()].rsplit(".", 1)[-1]
+        return head + m.group(0)
+    return ".".join(host.split(".")[-2:])
 
 
 def same_org(email, site, org_name):
-    """A mailbox of the buyer itself, not of a contractor, partner or another body named on its pages: same domain as
-    the site, or a domain sharing a distinctive word with the site or the organisation's name (e.g. @saint-x.ca for
-    the site saint-x.qc.ca), or the Québec health network's shared mail domain."""
-    d = email.split("@")[-1].lower()
-    host = (urllib.parse.urlparse(site if "//" in site else "https://" + site).hostname or "").lower()
-    base = host[4:] if host.startswith("www.") else host
-    if not d or not base:
+    """A mailbox of the buyer itself, not of a contractor, partner or another body named on its pages: same registrable
+    domain as the site; a domain or mailbox name that spells the buyer's name, a distinctive word of it or its acronym
+    (@saint-x.ca for saint-x.qc.ca, villagestpierre@videotron.ca, @mgerc-ceegm.gc.ca); or the Québec health network's
+    shared mail domain."""
+    local, _, d = ascii_low(email).partition("@")
+    host = ascii_low(urllib.parse.urlparse(site if "//" in site else "https://" + site).hostname or "")
+    host = host[4:] if host.startswith("www.") else host
+    if not d or not host:
         return True
-    if d == base or d.endswith("." + base) or base.endswith("." + d) or d.endswith("ssss.gouv.qc.ca"):
+    if d == host or d.endswith("." + host) or host.endswith("." + d) or d.endswith("ssss.gouv.qc.ca"):
         return True
-    strip = lambda x: re.sub(r"\.(qc|on|ab|bc|mb|sk|ns|nb|nl|pe|nt|nu|yk)\.ca$|\.(gouv|gov)\.[a-z.]+$|\.[a-z]+$", "", x)
-    core, bcore = strip(d), strip(base)
-    flat = lambda x: re.sub(r"[^a-z0-9]", "", x)
-    words = [w for w in re.split(r"[^a-z0-9]+", unicodedata.normalize("NFKD", org_name.lower()).encode("ascii", "ignore").decode())
-             if w and w not in ("de", "du", "des", "la", "le", "les", "of", "the", "and", "et", "d", "l")]
-    acronym = "".join(w[0] for w in words)
-    if flat(core) and (flat(core) == flat(bcore) or flat(core) in flat(org_name.lower()) or (len(acronym) >= 3 and flat(core) == acronym)):
+    if registrable(d) == registrable(host) and not SHARED_SUFFIX.fullmatch("." + registrable(d)):
         return True
-    t = tokens(core)  # every distinctive word of the mail domain must belong to the site or the organisation's name
-    return bool(t) and t <= (tokens(bcore) | tokens(org_name) | {flat(bcore)})
+    flat = lambda x: re.sub(r"[^a-z0-9]", "", ascii_low(x))
+    strip = lambda x: re.sub(r"\.(gouv\.qc|gov\.[a-z]{2}|[a-z]{2})\.ca$|\.(ac|edu|gov|co|org|net|com)\.[a-z]{2}$|\.[a-z]+$", "", x)
+    core, bcore, org = flat(strip(d)), flat(strip(host)), flat(org_name)
+    pre = re.compile(r"^(townof|cityof|countyof|villede|municipalitede|municipalite|ville|city|town|county|mun|cegep|college|universite|regie|mrcde|mrc|css|cs)")
+    core2 = pre.sub("", core)
+    affix = {"", "ville", "villede", "cityof", "townof", "city", "town", "mun", "municipalite", "mrc", "cs", "css", "cegep", "college", "info"}
+    if len(core2) >= 4 and (core2 in org or core2 in bcore or (len(bcore) >= 4 and bcore in core and core.replace(bcore, "", 1) in affix)):
+        return True
+    if len(core2) >= 3 and bcore.startswith(core2):
+        return True
+    words = [w for w in re.split(r"[^a-z0-9]+", ascii_low(org_name)) if w]
+    small = {"de", "du", "des", "la", "le", "les", "of", "the", "and", "et", "d", "l"}
+    acr = {"".join(w[0] for w in words), "".join(w[0] for w in words if w not in small), "".join(w[0] for w in words if w not in GENERIC_WORDS)}
+    for x in acr:
+        if (len(x) >= 3 and (core == x or core.startswith(x) or (len(x) >= 4 and x in core))) or (len(x) >= 2 and core2 != core and core2 == x):
+            return True
+    orgwords = {w for w in words if len(w) >= 3}
+
+    def explained(rem):  # what is left of a name once a distinctive word is removed must also come from the name
+        for _ in range(12):
+            if not rem:
+                return True
+            for w in sorted(orgwords | ABBR | small, key=len, reverse=True):
+                if (len(w) >= 2 or w in ("d", "l")) and rem.startswith(w):
+                    rem = rem[len(w):]
+                    break
+            else:
+                return any(len(rem) >= 4 and w.startswith(rem) for w in orgwords) or any(len(rem) >= 2 and a.startswith(rem) for a in acr)
+        return not rem
+    loc = flat(local)
+    distinct = {t for t in tokens(org_name) if len(t) >= 5}
+    if re.search(r"invoic|factur|payable|^ap[._-]|[._-]ap([._-]|$)", local) and (any(len(x) >= 3 and x in loc for x in acr) or any(t in loc for t in distinct)):
+        return True  # e.g. cityofx_invoicecapture@<invoice service>.com named on the buyer's own page
+    for t in distinct:
+        if t in core and explained(core.replace(t, "", 1)):
+            return True
+        if t in loc and (GENERIC_MAIL.search(d) or SAAS_AP.search(d) or explained(loc.replace(t, "", 1))):
+            return True
+    return False
 
 
 def links(raw, base):
