@@ -80,8 +80,10 @@ def main():
                 stats["entries"] += 1
                 for ct in ent.get("contacts") or []:
                     e = (ct.get("email") or "").strip().lower()
-                    if not e or TECH.search(e) or "technical" in (ct.get("type") or "").lower() or not C.EMAIL.match(e):
-                        continue
+                    loc = e.split("@")[0]
+                    if not e or TECH.search(e) or "technical" in (ct.get("type") or "").lower() or not C.EMAIL.match(e) \
+                            or (C.PERSONAL.match(loc) and not C.ROLE_HINT.search(loc)) or (not INVOICE.search(loc) and not C.GENERAL.search(loc)):
+                        continue  # never a person's mailbox; only invoicing or general role mailboxes
                     if not C.same_org(e, t.get("website") or "https://unknown.invalid", t["buyer_name"]) and not C.same_org(e, "https://unknown.invalid", ename):
                         continue
                     page = API + urllib.parse.urlencode({"participant": "%s::%s" % (pid.get("scheme"), pid.get("value"))})
