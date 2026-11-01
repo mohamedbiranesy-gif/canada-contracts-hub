@@ -38,6 +38,8 @@ SCORE = [(re.compile(r"(?<!manu)factur|invoic|payable|comptes?[-_ ]?(a|à)?[-_ ]
                      r"liste|contrats?[-_]|contracts?[-_]|octroy|rapport|report|depot-du|proces|minutes|avis[-_]public|reglement|"
                      r"role[-_]|acces[-_]a[-_]l|access-to-information|entente-paiement|taxe|tax-", re.I), -8)]
 lock = threading.Lock()
+PORTALS = {"quebec.ca", "canada.ca", "gov.bc.ca", "www2.gov.bc.ca", "alberta.ca", "ontario.ca", "gov.mb.ca", "saskatchewan.ca",
+           "novascotia.ca", "gnb.ca", "gov.nl.ca", "princeedwardisland.ca", "gov.nt.ca", "yukon.ca", "gov.nu.ca", "gov.uk"}
 
 
 def index_urls(host, tries=3):
@@ -178,7 +180,11 @@ def main():
                 task = todo.get_nowait()
             except queue.Empty:
                 return
-            host = (urllib.parse.urlparse(task["website"]).hostname or "").lower().removeprefix("www.")
+            pu = urllib.parse.urlparse(task["website"])
+            host = (pu.hostname or "").lower().removeprefix("www.")
+            if host in PORTALS:  # a government-wide portal: only this body's own section of it
+                path = re.sub(r"/[^/]*\.(html?|aspx?|php)$", "", pu.path).rstrip("/")
+                host = host + path if path.count("/") >= 2 else ""
             urls = index_urls(host) if host else []
             if urls is None:
                 continue
