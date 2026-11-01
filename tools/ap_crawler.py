@@ -158,6 +158,45 @@ def links(raw, base):
         yield urllib.parse.urljoin(base, href), label
 
 
+
+SITEMAP_AP = re.compile(r"factur|invoic|payable|comptes|fournisseur|supplier|vendor|purchas|procure|approvisionnement|achats|"
+                        r"faire-affaire|doing-business|finance|accounting|comptab|paiement|payment|contact|nous-joindre", re.I)
+
+
+def sitemap_urls(root, limit=15):
+    """Pages about invoicing / suppliers / contact listed in the site's own sitemap (deep pages a home page never links)."""
+    import gzip as _gz
+    host = urllib.parse.urlparse(root).netloc
+    rp = robots.get("%s://%s" % (urllib.parse.urlparse(root).scheme, host))
+    maps = list((rp.site_maps() if rp and hasattr(rp, "site_maps") else None) or []) or [root.rstrip("/") + "/sitemap.xml", root.rstrip("/") + "/sitemap_index.xml"]
+    seen_maps, found = set(), []
+    while maps and len(seen_maps) < 6 and len(found) < limit:
+        m = maps.pop(0)
+        if m in seen_maps or not allowed(m):
+            continue
+        seen_maps.add(m)
+        status, _, data, _ = fetch(m, 8_000_000)
+        if status != 200 or not data:
+            continue
+        if data[:2] == b"\x1f\x8b":
+            try:
+                data = _gz.decompress(data)
+            except Exception:
+                continue
+        for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", data.decode("utf-8", "replace"))[:50000]:
+            loc = html.unescape(loc)
+            if loc.lower().split("?")[0].endswith((".xml", ".xml.gz")):
+                if SITEMAP_AP.search(loc) or "page" in loc.lower() or len(maps) < 3:
+                    maps.append(loc)
+            elif SITEMAP_AP.search(urllib.parse.urlparse(loc).path):
+                found.append(loc)
+                if len(found) >= limit:
+                    break
+    # invoicing pages first, then supplier pages, then contact pages
+    order = lambda u: (0 if re.search(r"factur|invoic|payable|comptes", u, re.I) else 1 if re.search(r"fournisseur|supplier|vendor|purchas|procure|approvisionnement|achats", u, re.I) else 2)
+    return sorted(dict.fromkeys(found), key=order)
+
+
 def crawl(task, max_pages, general=False):
     start = task["known_website"].strip()
     if not start.startswith("http"):
@@ -170,6 +209,11 @@ def crawl(task, max_pages, general=False):
     heap, seen, pages, found = [(-100, 0, start), (-90, 0, "https://%s/" % host0)], set(), 0, {}
     for i, path in enumerate(("contact", "contact-us", "nous-joindre", "suppliers", "fournisseurs")):  # common pages, often unlinked from home
         heap.append((-60 + i, 1, "https://%s/%s" % (host0, path)))
+    root = "%s://%s/" % (urllib.parse.urlparse(start).scheme, urllib.parse.urlparse(start).netloc)
+    if allowed(root):  # the sitemap reveals deep invoicing / supplier pages
+        for i, u in enumerate(sitemap_urls(root)):
+            if (urllib.parse.urlparse(u).hostname or "").lower().endswith(base):
+                heap.append((-98 + i, 1, u))
     heapq.heapify(heap)
     while heap and pages < max_pages:
         neg, depth, url = heapq.heappop(heap)
@@ -323,14 +367,14 @@ def main():
             tasks = tasks[:a.limit]
         for pass_no, max_pages in ((1, 25), (2, 60), (3, 40)):
             todo = [t for t in tasks if (pass_no == 1 and t["buyer_key"] not in done) or
-                    (pass_no > 1 and not t["buyer_key"].startswith(("wd:", "v:", "osm:")) and done.get(t["buyer_key"], (0, ""))[0] < pass_no and done.get(t["buyer_key"], (0, ""))[1] == "nothing_found")]
+                    (pass_no > 1 and not t["buyer_key"].startswith(("wd:", "v:", "osm:", "lead:")) and done.get(t["buyer_key"], (0, ""))[0] < pass_no and done.get(t["buyer_key"], (0, ""))[1] == "nothing_found")]
             log("pass %d: %d sites" % (pass_no, len(todo)))
 
             def one(t, pass_no=pass_no, max_pages=max_pages):
                 if time.time() >= deadline:
                     return
                 try:
-                    result, pages, rows = crawl(t, max_pages, general=(pass_no == 3 or t["buyer_key"].startswith(("wd:", "v:", "osm:"))))
+                    result, pages, rows = crawl(t, max_pages, general=(pass_no == 3 or t["buyer_key"].startswith(("wd:", "v:", "osm:", "lead:"))))
                 except Exception as e:
                     result, pages, rows = "error:%s" % type(e).__name__, 0, []
                 save(t, pass_no, result, pages, rows)

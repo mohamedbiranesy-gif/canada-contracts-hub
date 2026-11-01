@@ -47,7 +47,7 @@ for path in glob.glob("data/incoming/*/*vendor_contacts_results*.csv"):
                "ap_email_type": "general", "evidence_url": r.get("evidence_url"), "evidence_quote": r.get("evidence_quote")}
         if k not in best or score < best[k][0]:
             best[k] = (score, row, o, os.path.basename(os.path.dirname(path)))
-kind = lambda k: {"b": "contract with a Canada-located supplier (dataset)", "lead": "payment / subaward record to a Canada-located supplier"}.get(k.split(":")[0], "none (organisation located in Canada)")
+kind = lambda k: {"b": "contract with a Canada-located supplier (dataset)", "lead": "relationship record with a Canada-located supplier (payment, subaward, or client listing on the supplier's own site)"}.get(k.split(":")[0], "none (organisation located in Canada)")
 os.makedirs("coord/results", exist_ok=True)
 counts = collections.Counter()
 with open("coord/results/org_mailboxes.csv", "w", newline="", encoding="utf-8") as f:
