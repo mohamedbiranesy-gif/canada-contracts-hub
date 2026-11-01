@@ -55,6 +55,10 @@ jobs:
         with:
           jules_api_key: ${{ secrets.JULES_API_KEY }}
           starting_branch: main
+          # empty strings on purpose: the action tests these inputs as strings, so "false" still includes the 20-commit
+          # log, which grew past the shell's argument limit ("jq: Argument list too long") and broke every run
+          include_commit_log: ''
+          include_last_commit: ''
           prompt: |
             You are Jules, lane `jules` of a three-AI team. Read AGENTS.md (binding) and follow prompts/jules_builder.md.
             Open one PR with your results. Nobody answers questions during this run: never ask, decide yourself under AGENTS.md
