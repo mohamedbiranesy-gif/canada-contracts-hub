@@ -117,7 +117,18 @@ def archived(url):
     return None
 
 
-def read(task, urls, max_pages=15):
+STOP = {"de", "du", "des", "la", "le", "les", "et", "of", "the", "and", "for", "city", "ville", "town", "county", "municipalite",
+        "municipality", "department", "ministere", "government", "gouvernement", "inc", "ltd", "limited", "corporation", "board"}
+
+
+def name_on_page(name, text):
+    """The buyer's distinctive name words appear on the page (used when its website came from a web search)."""
+    words = [w for w in re.findall(r"[a-z0-9]{4,}", C.ascii_low(name)) if w not in STOP]
+    low = C.ascii_low(text)
+    return not words or sum(w in low for w in words) >= max(1, round(0.6 * len(words)))
+
+
+def read(task, urls, max_pages=15, keep=KEEP):
     found, refused, ok, via_archive = {}, 0, 0, 0
     for url in urls[:max_pages]:
         live = C.allowed(url) and refused < 2  # after two refusals the live site is left alone for this buyer
@@ -137,6 +148,8 @@ def read(task, urls, max_pages=15):
         is_office = data[:2] == b"PK" and (C.OFFICE.search(url) or "officedocument" in ctype.lower())
         raw = C.pdf_text(data) if is_pdf else C.office_text(data) if is_office else C.html.unescape(data.decode("utf-8", "replace"))
         text = re.sub(r"\s+", " ", raw) if (is_pdf or is_office) else C.visible(raw)
+        if task.get("site_from_search") and not name_on_page(task.get("buyer_name", ""), text):
+            continue  # website suggested by a search engine: the page must name the buyer
         for e in set(x.lower().rstrip(".") for x in C.EMAIL_RX.findall(raw)):
             if e in found or e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp"):
                 continue
@@ -144,8 +157,8 @@ def read(task, urls, max_pages=15):
                 continue
             q = C.quote_for(e, text, raw)
             i = text.lower().find(e)
-            kind = C.classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q)
-            if kind in KEEP and q:
+            kind = C.classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q, general="general" in keep)
+            if kind in keep and q:
                 found[e] = (C.RANK[kind] + (0.5 if "web.archive.org" in final else 0), kind, final, q)  # live pages first
     best = sorted(found.items(), key=lambda kv: kv[1][0])[:3]
     host = urllib.parse.urlparse(task["website"]).hostname or ""
@@ -159,7 +172,8 @@ def read(task, urls, max_pages=15):
                        "automated readers or the page moved" % (re.search(r"/web/(\d{8})", url).group(1), url.split("/web/", 1)[1].split("/", 1)[1])
                        if "web.archive.org/web/" in url else "found on the buyer's own site by tools/deep_pages.py") + (
                  "; finance / accounting department mailbox: no invoicing or AP mailbox found" if kind == "finance" else
-                 "; purchasing mailbox: no invoicing or AP mailbox found" if kind == "procurement" else "")}
+                 "; purchasing mailbox: no invoicing or AP mailbox found" if kind == "procurement" else
+                 "; general role mailbox: no invoicing, AP, finance or purchasing mailbox found" if kind == "general" else "")}
             for e, (_, kind, url, q) in best]
 
 
@@ -181,10 +195,14 @@ def main():
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--index", type=int, default=2, help="URL-index lookups at a time")
     a.add_argument("--targets", default=TARGETS)
+    a.add_argument("--urls", help="CSV buyer_key,buyer_name,website,official_site,url: read these pages (found with a web search) "
+                                  "instead of asking the archive's URL index")
     a = a.parse_args()
     os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     os.makedirs(C.STATE, exist_ok=True)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    if a.urls:
+        return from_search(a)
     done = set(l.split("\t")[0] for l in open(DONE, encoding="utf-8")) if os.path.exists(DONE) else set()
     prefix = "CL-DP-" if a.targets == TARGETS else "CL-DA-"
     tasks = [dict(r, task_id="%s%05d" % (prefix, i)) for i, r in enumerate(csv.DictReader(open(a.targets, encoding="utf-8-sig")), 1)
@@ -250,6 +268,66 @@ def main():
     for t in threads:
         t.join()
     C.log("deep_pages finished", stats)
+
+
+SEARCH_OUT = "data/incoming/claude/claude_buyer_ap_results_search01.csv"
+SEARCH_DONE = os.path.join(C.STATE, "search_done.tsv")
+
+
+def from_search(a):
+    """Pages a web search pointed to (the search only finds addresses; every mailbox is read from the page itself with
+    the crawler's rules, no AI). A general role mailbox counts here: these buyers have no mailbox at all yet."""
+    done = set(l.rstrip("\n") for l in open(SEARCH_DONE, encoding="utf-8")) if os.path.exists(SEARCH_DONE) else set()
+    groups = {}
+    for r in csv.DictReader(open(a.urls, encoding="utf-8-sig")):
+        url = (r.get("url") or "").strip()
+        if not url.startswith("http") or "%s|%s" % (r["buyer_key"], url) in done:
+            continue
+        site, from_search = (r.get("website") or "").strip(), False
+        if not site.startswith("http"):
+            site = (r.get("official_site") or "").strip()
+            site = site if site.startswith("http") else ("https://" + site if site else "https://unknown.invalid")
+            from_search = True
+        g = groups.setdefault(r["buyer_key"], {"task_id": "CL-WS-%05d" % (len(groups) + 1), "buyer_key": r["buyer_key"],
+                                               "buyer_name": r["buyer_name"], "website": site, "site_from_search": from_search, "urls": []})
+        if url not in g["urls"]:
+            g["urls"].append(url)
+    tasks = list(groups.values())
+    C.log("deep_pages --urls: %d buyers, %d pages" % (len(tasks), sum(len(t["urls"]) for t in tasks)))
+    stats = {"buyers": 0, "found": 0, "rows": 0}
+    keep = KEEP | {"general"}
+
+    def one(t):
+        try:
+            rows = read(t, t["urls"], max_pages=8, keep=keep)
+        except Exception as e:
+            C.log("deep_pages --urls: error on %s: %s %s" % (t["buyer_key"], type(e).__name__, e))
+            rows = []
+        for r in rows:
+            r["queries_tried"] = ("web search for the buyer's invoicing / accounts payable page (the search only gave the address); "
+                                  "the page then read by tools/deep_pages.py with the crawler's rules, no AI")
+            if "found by tools/deep_pages.py" in r["notes"] or r["notes"].startswith(";"):
+                r["notes"] = r["notes"].replace("found on the buyer's own site by tools/deep_pages.py",
+                                                "found on the buyer's own page (located with a web search, read without AI)")
+        with lock:
+            if rows:
+                new = not os.path.exists(SEARCH_OUT)
+                with open(SEARCH_OUT, "a", newline="", encoding="utf-8") as f:
+                    w = csv.DictWriter(f, fieldnames=C.COLS)
+                    if new:
+                        w.writeheader()
+                    w.writerows(rows)
+            with open(SEARCH_DONE, "a", encoding="utf-8") as f:
+                f.writelines("%s|%s\n" % (t["buyer_key"], u) for u in t["urls"])
+            stats["buyers"] += 1
+            stats["found"] += bool(rows)
+            stats["rows"] += len(rows)
+            if stats["buyers"] % 25 == 0:
+                C.log("deep_pages --urls", stats)
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(a.workers) as ex:
+        list(ex.map(one, tasks))
+    C.log("deep_pages --urls finished", stats)
 
 
 if __name__ == "__main__":
