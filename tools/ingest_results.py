@@ -85,7 +85,7 @@ VIA = {}  # (value, url) -> archive snapshot used to verify it
 def archive_text(url, fetch=True):
     """Text of the Internet Archive's latest copy of a page this verifier cannot open itself (bot protection that refuses
     data-centre addresses, e.g. canada.ca). Used only when the copy is at most 180 days old. None otherwise."""
-    p = os.path.join(CACHE, "wb2-" + hashlib.sha1(url.encode()).hexdigest())  # wb2: earlier lookups failed on raw copies
+    p = os.path.join(CACHE, "wb3-" + hashlib.sha1(url.encode()).hexdigest())  # wb3: earlier lookups sent the scheme (no answers)
     if os.path.exists(p):
         txt = open(p, encoding="utf-8", errors="replace").read()
         snap, _, body = txt.partition("\n")
@@ -98,9 +98,10 @@ def archive_text(url, fetch=True):
     try:
         import json as _json, urllib.parse as _up
         since = time.strftime("%Y%m%d", time.gmtime(time.time() - 180 * 86400))
-        q = "https://web.archive.org/cdx/search/cdx?" + _up.urlencode({"url": url, "output": "json", "from": since, "limit": "1",
+        bare = re.sub(r"^https?://", "", url)  # with the scheme the index answers slowly and finds nothing
+        q = "https://web.archive.org/cdx/search/cdx?" + _up.urlencode({"url": bare, "output": "json", "from": since, "limit": "1",
                                                                          "fl": "timestamp", "filter": "statuscode:200"})
-        with urllib.request.urlopen(urllib.request.Request(q, headers=UA), timeout=45) as r:
+        with urllib.request.urlopen(urllib.request.Request(q, headers=UA), timeout=90) as r:
             rows = _json.loads(r.read(200_000) or b"[]")
         ts = rows[1][0] if len(rows) > 1 else ""  # a capture of exactly this page from the last 180 days
         if not ts:
