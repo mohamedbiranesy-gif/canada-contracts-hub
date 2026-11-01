@@ -4,7 +4,7 @@ Offices and companies, industry and trades first, then institutions (hospitals, 
 halls, libraries...) and hotels, then shops. One organisation per website host; hosts already queued are skipped.
 Writes coord/tasks/claude/claude_buyer_ap_batch904.csv / 905 / 906 (local work lists for tools/ap_crawler.py).
 Usage (from ~/cch-crawler): python3 tools/osm_orgs.py      Polite: one query at a time, pauses between queries."""
-import csv, glob, json, time, urllib.parse, urllib.request
+import csv, glob, json, subprocess, time, urllib.parse, urllib.request
 UA = "canada-contracts-hub-osm/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)"
 ENDPOINTS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter"]
 HDR = ["task_id", "org_group", "buyer_key", "buyer_name", "other_spellings", "country", "known_website",
@@ -20,9 +20,12 @@ GROUPS = [("904", ['["office"]', '["craft"]', '["industrial"]', '["man_made"="wo
 def overpass(q):
     for attempt in range(6):
         url = ENDPOINTS[attempt % 2]
-        try:
-            req = urllib.request.Request(url, data=urllib.parse.urlencode({"data": q}).encode(), headers={"User-Agent": UA})
-            return json.load(urllib.request.urlopen(req, timeout=1000)).get("elements", [])
+        try:  # system curl: the Mac's Python 3.9 (LibreSSL) cannot complete TLS with overpass-api.de
+            r = subprocess.run(["curl", "-s", "-f", "-m", "1000", "-A", UA, "--data-urlencode", "data=" + q, url],
+                               capture_output=True, timeout=1100)
+            if r.returncode:
+                raise RuntimeError("curl exit %d" % r.returncode)
+            return json.loads(r.stdout).get("elements", [])
         except Exception as e:
             print("overpass retry", attempt, repr(e)[:150], flush=True)
             time.sleep(60 * (attempt + 1))
