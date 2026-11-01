@@ -14,3 +14,4 @@ PRIVATE/
 !coord/results/*.jsonl
 !data/incoming/**/*.jsonl
 !data/incoming/**/*.jsonl.gz
+out/

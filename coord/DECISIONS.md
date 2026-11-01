@@ -47,3 +47,16 @@
   Gemini's rows stopped reaching GitHub. Now a no-AI loop on the Mac runs tools/mac_sync.py every 30 minutes and
   re-adds a missing remote. Jules sessions were all stuck "awaiting user feedback"; the builder now answers them
   ("decide yourself, open the PR") and reports session states.
+
+## 2026-11-01 — claude: what counts in the ranked deliverable (contrib/claude/rank_buyers)
+- A mailbox counts for a buyer only if it is the buyer's own (tools/ap_crawler.py `same_org`). Reason: the crawler and
+  earlier enrichment attached contractors' and partners' mailboxes found on buyers' pages (a landfill operator's billing
+  box on halifax.ca, a roofing contractor's AP box on a town's page, ministries' info boxes on agencies).
+- "Invoicing / AP" needs an invoicing word in the mailbox name, or the words just before the address sending invoices
+  there. Finance / accounting department mailboxes are a separate batch (1b). Person-looking mailboxes are never used.
+- Known upstream defect: `scripts/merge/finalize.py` builds buyer keys from name + country, so provincial ministries with
+  the same short name (Justice, Health, Education, Finance, Executive Council ...) in AB / SK / NL / NWT and some federal
+  departments share one key. The ranking splits them by the source's government. Fix to do in the merge: add the source
+  jurisdiction to bkey for names of three words or fewer without a place word, and re-key their team findings.
+- Contract dates live in `contract.dates.awarded` (not `award`); "awarded in the last 12 months" uses awarded / signed /
+  start, else published.
