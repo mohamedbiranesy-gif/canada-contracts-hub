@@ -182,6 +182,13 @@ SHARED_SUFFIX = re.compile(r"\.(gouv\.qc|gov\.(ab|bc|mb|sk|nl|nt|nu|pe|yk|on)|gc
                            r"\.(ac|gov|co|org|nhs|police|ltd|plc|sch)\.uk$|\.(gov|edu|com|org|net)\.au$|\.gouv\.fr$|\.(k12|state)\.[a-z]{2}\.us$")
 
 
+PORTAL_MAIL = {"canada.ca", "gc.ca", "gov.bc.ca", "alberta.ca", "gov.ab.ca", "quebec.ca", "gouv.qc.ca", "ontario.ca", "gov.on.ca",
+               "gov.sk.ca", "saskatchewan.ca", "gov.mb.ca", "gov.nt.ca", "gov.nl.ca", "novascotia.ca", "gnb.ca", "gov.yk.ca", "yukon.ca",
+               "gov.nu.ca", "gov.pe.ca", "gov.uk", "usa.gov"}
+PORTAL_WORDS = {"canada", "canadian", "government", "gouvernement", "ministry", "ministere", "department", "affairs", "office",
+                "services", "service", "agency", "agence", "national", "federal"}
+
+
 def ascii_low(x):
     return unicodedata.normalize("NFKD", x or "").encode("ascii", "ignore").decode().lower()
 
@@ -208,6 +215,11 @@ def same_org(email, site, org_name):
     host = host[4:] if host.startswith("www.") else host
     if not d or not host:
         return True
+    if d in PORTAL_MAIL:  # one mail domain for a whole government: only a mailbox named after this body counts
+        loc, words = re.sub(r"[^a-z0-9]", "", local), [w for w in re.split(r"[^a-z0-9]+", ascii_low(org_name)) if w]
+        acr = {"".join(w[0] for w in words if w not in GENERIC_WORDS),
+               "".join(w[0] for w in words if w not in GENERIC_WORDS and w not in ("canada", "government", "gouvernement", "ministry", "ministere"))}
+        return any(len(x) >= 3 and x in loc for x in acr) or any(t in loc for t in tokens(org_name) if len(t) >= 5 and t not in PORTAL_WORDS)
     if d == host or d.endswith("." + host) or host.endswith("." + d) or d.endswith("ssss.gouv.qc.ca"):
         return True
     if registrable(d) == registrable(host) and not SHARED_SUFFIX.fullmatch("." + registrable(d)):

@@ -128,8 +128,18 @@ def name_on_page(name, text):
     return not words or sum(w in low for w in words) >= max(1, round(0.6 * len(words)))
 
 
+def clean_email(x):
+    """An address as written on the page: JSON escapes (\\u003e) dropped; None when the page glued a word to its end
+    (\"x@y.gc.catelephone\")."""
+    e = re.sub(r"^(u00[0-9a-f]{2}|x40|%3e|%20)+", "", x.lower().rstrip("."))
+    return e if re.search(r"@[a-z0-9.-]+\.[a-z]{2,6}$", e) else None
+
+
 def read(task, urls, max_pages=15, keep=KEEP):
     found, refused, ok, via_archive = {}, 0, 0, 0
+    site = task["website"]
+    if (urllib.parse.urlparse(site).hostname or "").lower().removeprefix("www.") in PORTALS:
+        site = "https://unknown.invalid"  # a government-wide portal: its domain is shared by many bodies, so the name decides
     for url in urls[:max_pages]:
         live = C.allowed(url) and refused < 2  # after two refusals the live site is left alone for this buyer
         status, ctype, data, final = C.fetch(url) if live else (0, "", b"", url)
@@ -150,10 +160,10 @@ def read(task, urls, max_pages=15, keep=KEEP):
         text = re.sub(r"\s+", " ", raw) if (is_pdf or is_office) else C.visible(raw)
         if task.get("site_from_search") and not name_on_page(task.get("buyer_name", ""), text):
             continue  # website suggested by a search engine: the page must name the buyer
-        for e in set(x.lower().rstrip(".") for x in C.EMAIL_RX.findall(raw)):
+        for e in set(filter(None, (clean_email(x) for x in C.EMAIL_RX.findall(raw)))):
             if e in found or e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp"):
                 continue
-            if not C.same_org(e, task["website"], task.get("buyer_name", "")):
+            if not C.same_org(e, site, task.get("buyer_name", "")):
                 continue
             q = C.quote_for(e, text, raw)
             i = text.lower().find(e)
