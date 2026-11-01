@@ -45,7 +45,7 @@ def real_grade(email, etype, quote, org=""):
         return -1  # looks like a person's mailbox: never used
     if g == 4 and not (STRONG.search(local) or invoice_near(email, quote)):
         g = 2 if re.search(r"procure|purchas|achat|approv", email, re.I) else 1   # labelled AP but nothing says invoicing
-    if g < 3 and FIN.search(local) and not re.search(r"procure|purchas|achat|approv", local, re.I):
+    if g < 3 and FIN.search(local) and not re.search(r"procure|purchas|achat|approv|aid|bourse|scholar|tuition|student|etudiant|soutien|financement|funding|grant|subvention|invest|sustainab|bank|loan|pret|credit|client", local, re.I):
         g = 3
     return g
 # 1. best mailbox per buyer key (referee export)

@@ -41,6 +41,8 @@ NOT_AP = re.compile(r"plainte|complaint|recevable|receivable|patient|usager|empl
                     r"benevol|volunteer|fondation|foundation|donat|webmaster|privacy|confidential|rh[._-]|^rh$|hr[._-]|^hr$", re.I)
 CONTEXT_AP = re.compile(r"factur|invoice|payable|comptes? (à|a) payer|paiement|payment|fournisseur|supplier|vendor", re.I)
 BLOCK_RX = re.compile(r"captcha|cf-challenge|challenge-platform|attention required|access denied|are you a robot", re.I)
+FIN_NOT = re.compile(r"aid|bourse|scholar|tuition|student|etudiant|soutien|financement|funding|grant|subvention|invest|sustainab|"
+                     r"bank|loan|pret|credit|donat|fondation|foundation|japan|china|europe|client", re.I)  # not the buyer's payables
 RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "finance": 3, "procurement": 4, "general": 5}
 GENERAL = re.compile(r"^(info|contact|contactus|reception|admin|administration|general|greffe|mairie|municipalite|townhall|cityhall|clerk|office|bureau|secretariat|accueil|hello|inquiries|enquiries|renseignements)([._-]|$)", re.I)
 TODAY = datetime.date.today().isoformat()
@@ -159,7 +161,7 @@ def classify(email, context, general=False):
         return "procurement"
     if CONTEXT_AP.search(context):  # finance@, comptabilite@, tresorerie@ ... when the page talks about invoicing
         return "accounts_payable"
-    if re.search(r"compt|financ|tresor|tr[ée]sor|treasur|account", local, re.I):
+    if re.search(r"compt|financ|tresor|tr[ée]sor|treasur|account", local, re.I) and not FIN_NOT.search(local):
         return "finance"  # finance / accounting department mailbox: written as general, ranked above other general mailboxes
     return None
 
