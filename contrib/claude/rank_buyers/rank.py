@@ -9,7 +9,13 @@ import urllib.parse
 from ap_crawler import same_org, registrable  # the buyer's own mailbox, not a contractor's or partner's named on its pages
 today = datetime.date.today().isoformat()
 norm = lambda s: re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()).strip()
-parent = lambda n: norm(re.split(r"\s+[-–(/|]\s*", n or "")[0])
+LEGAL_END = re.compile(r"\s+(corporation|corp|incorporated|inc|limited|ltd|llc|co|company|ltee|ltée)$")
+def parent(n):
+    p = norm(re.split(r"\s+[-–—(/|]\s*", n or "")[0])
+    p = re.sub(r"^the\s+", "", p)
+    for _ in range(2):
+        p = LEGAL_END.sub("", p)
+    return p.strip()
 GRADE = {"invoice_submission": 4, "accounts_payable": 4, "supplier_payment": 4, "procurement": 2, "general": 1}
 FIN = re.compile(r"compt|financ|tresor|treasur|account|fiscal", re.I)  # finance / accounting department mailbox
 STRONG = re.compile(r"^cap$|[._-]cap$|factur|invoic|invsub|inv[._-]sub|payable|payables|compt\w*pay|comptesapayer|^ap$|^ap[._-]|[._-]ap$|[._-]ap[._-]|accounts?[._-]?pay|fournisseur|supplier|vendor|paiement|payment|paymt|apinvoice", re.I)
