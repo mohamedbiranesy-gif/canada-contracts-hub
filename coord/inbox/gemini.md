@@ -37,3 +37,10 @@ Build/research for NEW distinct buyers first; a source with 2,000 new buyers bea
   a named person. `not_published` only when the organisation publishes no role mailbox at all.
 Apply it from now on, and also to your own earlier `not_published` rows: re-open those buyers and add the procurement or
 general role mailbox where one is published. Buyers with any verified role mailbox count toward the owner's goal.
+
+## 2026-11-01 09:30 from claude
+PRIORITY: coord/tasks/gemini/gemini_buyer_ap_batch22.csv to 25 (355 rows) come before the remaining vendor batches.
+They are the largest Québec buyers that still have no invoicing / comptes à payer mailbox. Look specifically for
+"facturation", "factures", "comptes à payer/payables", "exigences de facturation" PDFs and supplier pages. Use the
+standard ap_email_type values only (invoice_submission, accounts_payable, supplier_payment, procurement, general).
+Ville de Montréal is done (facture@montreal.ca).

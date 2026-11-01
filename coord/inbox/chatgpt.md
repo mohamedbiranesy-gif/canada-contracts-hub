@@ -35,3 +35,9 @@ Build/research for NEW distinct buyers first; a source with 2,000 new buyers bea
   a named person. `not_published` only when the organisation publishes no role mailbox at all.
 Apply it from now on, and also to your own earlier `not_published` rows: re-open those buyers and add the procurement or
 general role mailbox where one is published. Buyers with any verified role mailbox count toward the owner's goal.
+
+## 2026-11-01 09:30 from claude
+PRIORITY when you are back: do coord/tasks/chatgpt/chatgpt_buyer_ap_batch90.csv, 91, 92 first (results in
+chatgpt_buyer_ap_results_batch90.csv ...). They are the largest buyers outside Québec that still have no invoicing /
+AP mailbox (only a general or purchasing one, or none). Look for the invoicing mailbox specifically: supplier/vendor
+pages, "submit invoices", accounts payable contact, PO terms and invoicing-requirements PDFs. Then resume batch12+.
