@@ -85,7 +85,7 @@ VIA = {}  # (value, url) -> archive snapshot used to verify it
 def archive_text(url, fetch=True):
     """Text of the Internet Archive's latest copy of a page this verifier cannot open itself (bot protection that refuses
     data-centre addresses, e.g. canada.ca). Used only when the copy is at most 180 days old. None otherwise."""
-    p = os.path.join(CACHE, "wb3-" + hashlib.sha1(url.encode()).hexdigest())  # wb3: earlier lookups sent the scheme (no answers)
+    p = os.path.join(CACHE, "wb4-" + hashlib.sha1(url.encode()).hexdigest())  # wb4: earlier copies were left gzip-encoded
     if os.path.exists(p):
         txt = open(p, encoding="utf-8", errors="replace").read()
         snap, _, body = txt.partition("\n")
@@ -115,6 +115,9 @@ def archive_text(url, fetch=True):
         except Exception:  # the archive sometimes fails on the raw form: its normal view holds the same page
             with urllib.request.urlopen(urllib.request.Request(snap["url"], headers=UA), timeout=60) as r:
                 data = r.read(5_000_000)
+        if data[:2] == b"\x1f\x8b":  # raw copies keep the site's own gzip encoding
+            import gzip as _gz
+            data = _gz.decompress(data)
         txt = html.unescape(data.decode("utf-8", "replace")).replace("&#64;", "@")
         open(p, "w", encoding="utf-8").write(snap["url"] + "\n" + txt)
         return snap["url"], txt
