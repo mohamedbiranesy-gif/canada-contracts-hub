@@ -38,6 +38,8 @@ SCORE = [(re.compile(r"(?<!manu)factur|invoic|payable|comptes?[-_ ]?(a|à)?[-_ ]
                      r"liste|contrats?[-_]|contracts?[-_]|octroy|rapport|report|depot-du|proces|minutes|avis[-_]public|reglement|"
                      r"role[-_]|acces[-_]a[-_]l|access-to-information|entente-paiement|taxe|tax-", re.I), -8)]
 lock = threading.Lock()
+CAPTURE = {}  # url -> latest capture timestamp in the archive (YYYYMMDDhhmmss)
+ARCHIVE_DAYS = 365  # an archive copy counts only when captured in the last year
 PORTALS = {"quebec.ca", "canada.ca", "gov.bc.ca", "www2.gov.bc.ca", "alberta.ca", "ontario.ca", "gov.mb.ca", "saskatchewan.ca",
            "novascotia.ca", "gnb.ca", "gov.nl.ca", "princeedwardisland.ca", "gov.nt.ca", "yukon.ca", "gov.nu.ca", "gov.uk"}
 
@@ -78,23 +80,43 @@ def index_urls(host, tries=3):
         s = sum(w for rx, w in SCORE if rx.search(urllib.parse.unquote(p.path + " " + p.query)))
         if s >= 5 and (path not in best or ts > best[path][1]):
             best[path] = (s, ts, url.replace("http://", "https://", 1) if url.startswith("http://") else url)
+    for s, ts, u in best.values():
+        CAPTURE[u] = ts
     return [u for s, ts, u in sorted(best.values(), key=lambda x: (-x[0], x[1] < "2023", -int(x[1][:8] or 0)))]
 
 
+def archived(url):
+    """(bytes, content type, snapshot URL) of the Internet Archive's copy of a page, when captured in the last year.
+    Used when the live site refuses automated readers or the page has moved; the snapshot URL is the evidence, which
+    anyone (and the referee) can open."""
+    ts = CAPTURE.get(url, "")
+    if not ts or time.time() - time.mktime(time.strptime(ts[:8], "%Y%m%d")) > ARCHIVE_DAYS * 86400:
+        return None
+    orig = re.sub(r"^https://", "http://", url) if url.startswith("https://") else url
+    snap = "https://web.archive.org/web/%s/%s" % (ts, orig)
+    for u in ("https://web.archive.org/web/%sid_/%s" % (ts, orig), snap):  # raw copy first, the archive's normal view if it errors
+        status, ctype, data, final = C.fetch(u)
+        if status == 200 and data:
+            return data, ctype, snap
+    return None
+
+
 def read(task, urls, max_pages=15):
-    found, refused, ok = {}, 0, 0
+    found, refused, ok, via_archive = {}, 0, 0, 0
     for url in urls[:max_pages]:
-        if not C.allowed(url):
-            continue
-        status, ctype, data, final = C.fetch(url)
-        if status in (401, 403, 429):  # the site refuses us: respect it and move on
+        live = C.allowed(url) and refused < 2  # after two refusals the live site is left alone for this buyer
+        status, ctype, data, final = C.fetch(url) if live else (0, "", b"", url)
+        if status in (401, 403, 429):
             refused += 1
-            if refused >= 2 and not ok:
-                break
-            continue
-        ok += status == 200
-        if status != 200 or not data or C.BLOCK_RX.search(data[:20000].decode("utf-8", "replace")) and len(data) < 30000:
-            continue
+        blocked = status == 200 and data and C.BLOCK_RX.search(data[:20000].decode("utf-8", "replace")) and len(data) < 30000
+        if status != 200 or not data or blocked:  # refused, moved or gone: the archive's recent copy of the same page
+            a = archived(url)
+            if not a:
+                continue
+            data, ctype, final = a
+            via_archive += 1
+        else:
+            ok += 1
         is_pdf = "pdf" in ctype.lower() or data[:5] == b"%PDF-"
         is_office = data[:2] == b"PK" and (C.OFFICE.search(url) or "officedocument" in ctype.lower())
         raw = C.pdf_text(data) if is_pdf else C.office_text(data) if is_office else C.html.unescape(data.decode("utf-8", "replace"))
@@ -108,7 +130,7 @@ def read(task, urls, max_pages=15):
             i = text.lower().find(e)
             kind = C.classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q)
             if kind in KEEP and q:
-                found[e] = (C.RANK[kind], kind, final, q)
+                found[e] = (C.RANK[kind] + (0.5 if "web.archive.org" in final else 0), kind, final, q)  # live pages first
     best = sorted(found.items(), key=lambda kv: kv[1][0])[:3]
     host = urllib.parse.urlparse(task["website"]).hostname or ""
     return [{"task_id": task["task_id"], "buyer_key": task["buyer_key"], "org_name_as_found": task["buyer_name"],
@@ -117,7 +139,9 @@ def read(task, urls, max_pages=15):
              "evidence_url": url, "evidence_quote": q, "retrieved_date": C.TODAY, "status": "found",
              "queries_tried": "Wayback Machine URL index of %s (addresses about invoices / suppliers / finance), then %d live pages read "
                               "(robots.txt respected), no AI, no search engine" % (host, min(len(urls), max_pages)),
-             "notes": "found on the buyer's own site by tools/deep_pages.py" + (
+             "notes": ("found on the Internet Archive's copy (captured %s) of the buyer's own page %s; the live site refuses "
+                       "automated readers or the page moved" % (re.search(r"/web/(\d{8})", url).group(1), url.split("/web/", 1)[1].split("/", 1)[1])
+                       if "web.archive.org/web/" in url else "found on the buyer's own site by tools/deep_pages.py") + (
                  "; finance / accounting department mailbox: no invoicing or AP mailbox found" if kind == "finance" else
                  "; purchasing mailbox: no invoicing or AP mailbox found" if kind == "procurement" else "")}
             for e, (_, kind, url, q) in best]
@@ -140,12 +164,14 @@ def main():
     a.add_argument("--workers", type=int, default=16)
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--index", type=int, default=2, help="URL-index lookups at a time")
+    a.add_argument("--targets", default=TARGETS)
     a = a.parse_args()
     os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     os.makedirs(C.STATE, exist_ok=True)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     done = set(l.split("\t")[0] for l in open(DONE, encoding="utf-8")) if os.path.exists(DONE) else set()
-    tasks = [dict(r, task_id="CL-DP-%05d" % i) for i, r in enumerate(csv.DictReader(open(TARGETS, encoding="utf-8-sig")), 1)
+    prefix = "CL-DP-" if a.targets == TARGETS else "CL-DA-"
+    tasks = [dict(r, task_id="%s%05d" % (prefix, i)) for i, r in enumerate(csv.DictReader(open(a.targets, encoding="utf-8-sig")), 1)
              if r["buyer_key"] not in done and r["website"].startswith("http")]
     if a.limit:
         tasks = tasks[:a.limit]
