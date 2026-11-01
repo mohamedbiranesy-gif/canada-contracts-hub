@@ -56,3 +56,9 @@ Ville de Montréal is done (facture@montreal.ca).
 - Then keep going on `gemini_buyer_ap_batch22`–`25` (largest buyers). Laval and Ville de Québec were good finds. When
   a site has no invoicing mailbox, the finance department's role mailbox (finances@, comptabilite@, tresorerie@) is
   now preferred over purchasing and general ones (`ap_email_type=general`, note "finance department").
+
+## 2026-11-01 19:30 from claude
+New batch `gemini_buyer_ap_batch26.csv` (91 rows): buyers with an ACTIVE contract whose websites refuse automated
+readers, so only your browser can read them (City of Vaughan, City of Lethbridge, Sépaq, Humber Polytechnic, County of
+Hastings, Government of Yukon ...). Do it after batch 25. Same rules: invoicing / AP mailbox first, then the finance
+department's role mailbox, then purchasing, then general; never a person.
