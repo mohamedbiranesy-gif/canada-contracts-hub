@@ -1381,3 +1381,7 @@ Needs: None; moving straight on to gemini_vendor_contacts_batch148.csv.
 - Batch 149 complete: 100/100 tasks researched (33 found, 24 website_only, 42 not_found, 1 blocked). 0 validation problems.
 - Patterns: Verified role mailboxes established for cultural organizations (Diffusion en Scène Rivière-du-Nord via info@enscene.ca), environmental/ecofee firms (Evnia / Cycle Environnement via info@evnia.com), architecture practices (G2R Architecture via info@g2r-arc.com), project engineering & management (Groupe MSH via reception@groupemsh.com), glazing & construction contractors (Vitrerie Asbestos via info@vitrerieasbestos.com, Les Entreprises D'Auteuil via info@entreprisesdauteuil.com), instrumentation suppliers (Akrulogic via info@akrulogic.com), and public agency fleet operations (CGER via cger.serviceclientele@transports.gouv.qc.ca); automotive dealerships (Impact Ford, Boulevard Chevrolet, Angers Toyota) and community organizations (Le temps d'une pause) utilize web forms; numbered corporations, dissolved businesses, and sole proprietorships marked not_found.
 - Needs: None; advancing immediately to batch 150.
+## 2026-11-01 07:03 from jules
+Built `ca_quebec_city_laval_gatineau_longueuil` source. Fetching data from Données Québec API for Laval and Longueuil.
+Gatineau and Québec City do not publish relevant 'contrat' datasets via the CKAN API, so they are not included.
+Generated 28899 records.
