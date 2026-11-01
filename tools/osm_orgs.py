@@ -11,6 +11,7 @@ HDR = ["task_id", "org_group", "buyer_key", "buyer_name", "other_spellings", "co
        "known_general_email", "known_procurement_email", "contracts_in_dataset"]
 SKIP = ("facebook.com", "instagram.com", "twitter.com", "x.com", "linkedin.com", "youtube.com", "google.com", "wikipedia.org",
         "yelp.", "tripadvisor.", "linktr.ee", "wixsite.com", "squarespace.com", "canada.ca", "gc.ca")
+PROVINCES = ["ON", "QC", "BC", "AB", "MB", "SK", "NS", "NB", "NL", "PE", "YT", "NT", "NU"]
 GROUPS = [("904", ['["office"]', '["craft"]', '["industrial"]', '["man_made"="works"]', '["company"]']),
           ("905", ['["amenity"~"^(hospital|clinic|school|college|university|townhall|courthouse|library|community_centre|social_facility|dentist|doctors|veterinary|kindergarten|nursing_home)$"]',
                    '["healthcare"]', '["tourism"~"^(hotel|motel|museum)$"]', '["leisure"~"^(sports_centre|golf_course|marina)$"]']),
@@ -40,10 +41,11 @@ for f in glob.glob("coord/tasks/*/*_buyer_ap_batch*.csv"):
 for num, filters in GROUPS:
     rows = []
     for flt in filters:
-        for tag in ("website", "contact:website"):
-            q = '[out:json][timeout:900][maxsize:2000000000];area["ISO3166-1"="CA"][admin_level=2]->.ca;nwr["%s"]%s(area.ca);out tags;' % (tag, flt)
+        for prov in PROVINCES:  # one province per query: Canada-wide queries are cut off by the servers
+            q = ('[out:json][timeout:600];area["ISO3166-2"="CA-%s"]->.a;(nwr["website"]%s(area.a);nwr["contact:website"]%s(area.a););out tags;'
+                 % (prov, flt, flt))
             els = overpass(q)
-            print(num, tag, flt[:40], len(els), flush=True)
+            print(num, prov, flt[:40], len(els), flush=True)
             for e in els:
                 t = e.get("tags", {})
                 site, name = (t.get("website") or t.get("contact:website") or "").strip(), (t.get("name") or t.get("operator") or "").strip()
@@ -54,7 +56,7 @@ for num, filters in GROUPS:
                 if site and name and h and h not in hosts and not any(s in h for s in SKIP):
                     hosts.add(h)
                     rows.append(("osm:%s%s" % (e["type"][0], e["id"]), name, site))
-            time.sleep(20)
+            time.sleep(10)
     with open("coord/tasks/claude/claude_buyer_ap_batch%s.csv" % num, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(HDR)
