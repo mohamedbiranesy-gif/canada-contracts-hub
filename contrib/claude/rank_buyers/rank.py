@@ -209,7 +209,9 @@ for k, L in leads.items():
         "buyer": L["buyer_name"], "buyer_website": L["website"], "award_date": L.get("latest_record_date") or "",
         "email": m["mailbox"], "email_type": m["mailbox_type"], "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
         "contract_status": "client listing on the vendor's own site (undated)" if client else
-                           "likely active (payment / subcontract record dated in the last 12 months)" if recent else "payment / subaward record",
+                           ("likely active (contract announced by the Canada-based vendor in the last 12 months: press release / EDC transaction)"
+                            if re.search(r"release dateline|EDC", L.get("canada_field_value", "")) else
+                            "likely active (payment / subcontract record dated in the last 12 months)") if recent else "payment / subaward record",
         "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"], "vendor_country_basis": L["canada_field_value"],
         "contracts_with_canadian_suppliers": L["canadian_vendor_rows"]})
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
