@@ -135,6 +135,22 @@ def vendor_site_ok(r, freq):
     return bool(label) and not GENERIC_LABEL.match(label) and not PLATFORMS.search(r["domain"]) and freq[r["domain"]] <= 15
 
 
+DATE_KEY = re.compile(r"date|period|posted|paid|issued|signed|award", re.I)
+DATE_VAL = re.compile(r"(20\d\d)-?(\d\d)-?(\d\d)")
+
+
+def latest_date(row):
+    """Latest YYYY-MM-DD found in the record's date-like fields (payment, check, award, action dates)."""
+    best = ""
+    for k, v in (row or {}).items():
+        if isinstance(v, str) and DATE_KEY.search(k):
+            m = DATE_VAL.search(v)
+            if m and m.group(0)[:4] <= time.strftime("%Y"):
+                d = "%s-%s-%s" % m.groups()
+                best = max(best, d)
+    return best
+
+
 def bridge():
     while True:
         buyers, freq = {}, collections.Counter()
@@ -156,8 +172,12 @@ def bridge():
                 name = (r["publisher"] if not r["buyer_unit"] else "%s - %s" % (r["publisher"], r["buyer_unit"])).strip()
                 key = "lead:" + hashlib.sha1(("%s|%s" % (r["domain"], name.lower())).encode()).hexdigest()[:16]
                 b = buyers.setdefault(key, {"name": name, "website": r["website"] if not r["buyer_unit"] else "", "rows": 0,
-                                            "example_vendor": r["vendor"], "dataset_url": r["dataset_url"], "canada": "%s=%s" % (r["canada_field"], r["canada_value"])})
+                                            "example_vendor": r["vendor"], "dataset_url": r["dataset_url"], "canada": "%s=%s" % (r["canada_field"], r["canada_value"]),
+                                            "latest": ""})
                 b["rows"] += 1
+                d = latest_date(r.get("row")) if r.get("platform") != "vendor_site" else ""
+                if d > b["latest"]:  # keep the most recent record as the example
+                    b.update(latest=d, example_vendor=r["vendor"], dataset_url=r["dataset_url"], canada="%s=%s" % (r["canada_field"], r["canada_value"]))
         os.makedirs(os.path.join(CRAWLER, "coord/tasks/claude"), exist_ok=True)
         os.makedirs(os.path.join(CRAWLER, "data/incoming/claude"), exist_ok=True)
         with open(os.path.join(CRAWLER, "coord/tasks/claude/claude_buyer_ap_batch901.csv"), "w", newline="", encoding="utf-8") as f:
@@ -168,9 +188,9 @@ def bridge():
                 w.writerow(["CL-LD-%05d" % i, "", k, b["name"], "", "", b["website"], "", "", b["rows"]])
         with open(os.path.join(CRAWLER, "data/incoming/claude/claude_buyer_leads.csv"), "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
-            w.writerow(["buyer_key", "buyer_name", "website", "canadian_vendor_rows", "example_vendor", "canada_field_value", "evidence_dataset"])
+            w.writerow(["buyer_key", "buyer_name", "website", "canadian_vendor_rows", "example_vendor", "canada_field_value", "evidence_dataset", "latest_record_date"])
             for k, b in sorted(buyers.items()):
-                w.writerow([k, b["name"], b["website"], b["rows"], b["example_vendor"], b["canada"], b["dataset_url"]])
+                w.writerow([k, b["name"], b["website"], b["rows"], b["example_vendor"], b["canada"], b["dataset_url"], b["latest"]])
         print(time.strftime("%H:%M"), "bridge: %d lead buyers" % len(buyers), flush=True)
         time.sleep(1800)
 
