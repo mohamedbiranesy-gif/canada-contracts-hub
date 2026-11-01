@@ -1,0 +1,56 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-P0301,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:fd49c3578cee91ed,"Ministère des Forêts, de la Faune et des Parcs",,CA,,,,189
+GE-AP-P0302,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:fa30dd2b3a4edb05,Société du Grand Théâtre de Québec.,,CA,,,,189
+GE-AP-P0303,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:117191c40b9a94aa,Canton de Orford,,CA,https://www.canton.orford.qc.ca,,,188
+GE-AP-P0304,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:9e177794d3e096de,Centre de services scolaire de la Côte-du-Sud,,CA,https://csscotesud.gouv.qc.ca,,,188
+GE-AP-P0305,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:9950578f4b730c5f,Centre de services scolaire de la Côte-du-Sud,,CA,https://csscotesud.gouv.qc.ca,,,186
+GE-AP-P0306,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:78c532d5d466fcb4,Ville de L'Île-Perrot,,CA,https://www.ile-perrot.qc.ca,,,185
+GE-AP-P0307,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:c78c2c00a38088ee,Centre de services scolaire de l'Énergie,,CA,https://cssenergie.gouv.qc.ca,,,184
+GE-AP-P0308,priority: largest buyers without an invoicing/AP mailbox (current best: finance_general),b:61901bbe24c8dcb0,Office municipal de l'habitation de Laval,,CA,,,,184
+GE-AP-P0309,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:7f4667540f66c5e0,Ville de Sutton,,CA,https://www.sutton.ca,,,183
+GE-AP-P0310,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:6d2381d67a275253,Municipalité régionale de comté Les Sources,,CA,https://www.mrcdessources.com,,,183
+GE-AP-P0311,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:8b0e28ff3616d66d,Ville de Cowansville,,CA,https://www.ville.cowansville.qc.ca,,,183
+GE-AP-P0312,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:0482864e18a471cc,Société de transport du Saguenay,,CA,,,,183
+GE-AP-P0313,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:bf4a3e223c5fcd89,Municipality of Lakeshore,,CA,http://www.townoflakeshore.on.ca,,,182
+GE-AP-P0314,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:4aac7add9684ba57,Conférence Régionale des Élus de Laval,,CA,,,,182
+GE-AP-P0315,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:878295703ee16a63,Municipalité régionale de comté Le Haut-Saint-Laurent,,CA,https://www.mrchsl.com,,,181
+GE-AP-P0316,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:2e89399b5d44ddd9,Ministère du Développement durable de l'Environnement et de la Lutte contre les changements climatiques,,CA,,,,180
+GE-AP-P0317,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:5f684ee226e98609,Centre de services scolaire du Fleuve-et-des-Lacs,,CA,https://cssfl.gouv.qc.ca,,,179
+GE-AP-P0318,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:577fad9647d8aa8b,Ville de La Pocatière,,CA,https://www.lapocatiere.ca,,,179
+GE-AP-P0319,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:f7795f2c19673ea7,Ville de Otterburn Park,,CA,https://www.opark.ca,,,177
+GE-AP-P0320,priority: largest buyers without an invoicing/AP mailbox (current best: general_finance),b:bd04424a4d5cd213,Centre de services scolaire des Laurentides,,CA,https://csslaurentides.gouv.qc.ca,,,177
+GE-AP-P0321,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:b3b0b2c726742420,Cégep Limoilou,,CA,https://www.cegeplimoilou.ca,,,177
+GE-AP-P0322,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:692000a252e4f997,Groupe d'Approvisionnement en commun du Nord-Ouest du Québec secteur Abitibi-Témiscamingue,,CA,,,,177
+GE-AP-P0323,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:758fec00cd69f9f5,Municipalité régionale de comté Marguerite-D'Youville,,CA,https://www.margueritedyouville.ca,,,176
+GE-AP-P0324,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:52ae69e437f9570a,Ville de Coaticook,,CA,https://www.coaticook.ca,,,176
+GE-AP-P0325,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:263dba58b780bfaa,Commission Scolaire au Coeur-des-Vallées,,CA,,,,176
+GE-AP-P0326,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:d65cf2b597f77b5a,Centre de services scolaire de Saint-Hyacinthe,,CA,https://www.csssh.gouv.qc.ca,,,176
+GE-AP-P0327,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:ee790425ebd1dbfe,Ville de Bois-des-Filion,,CA,https://villebdf.ca,,,174
+GE-AP-P0328,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:bd1b30644cd4b2c6,Santé Québec – Bas-Saint-Laurent,,CA,https://www.cisss-bsl.gouv.qc.ca,,,174
+GE-AP-P0329,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:96194fa3862749c7,Municipalité de Saint-Joseph-du-Lac,,CA,https://www.sjdl.qc.ca/fr,,,173
+GE-AP-P0330,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:dd2bfc66e0e73bb4,Centre de services scolaire des Samares,,CA,https://csssamares.gouv.qc.ca,,,172
+GE-AP-P0331,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:bae1ecd81740d1ff,Société québécoise des infrastructures,,CA,https://www.sqi.gouv.qc.ca,,,172
+GE-AP-P0332,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:eb1c190d5cf1d5f7,Santé Québec – Gaspésie,,CA,https://cisss-gaspesie.gouv.qc.ca,,,172
+GE-AP-P0333,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:5b90fc42edefd5b7,Municipalité de Saint-Donat,,CA,https://www.saint-donat.ca,,,171
+GE-AP-P0334,priority: largest buyers without an invoicing/AP mailbox (current best: ap_or_invoicing),b:6c2ba0e71d02aadc,Ville de Saint-Lazare,,CA,https://www.ville.saint-lazare.qc.ca,,,171
+GE-AP-P0335,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:12d32a8111543264,Centre de services scolaire Harricana,,CA,https://www.cssh.gouv.qc.ca,,,171
+GE-AP-P0336,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:57911ab6f4b1f3d1,Ville de Thurso,,CA,https://www.ville.thurso.qc.ca,,,171
+GE-AP-P0337,priority: largest buyers without an invoicing/AP mailbox (current best: general_finance),b:9d153b5726bb2e5b,Centre de services scolaire de la Beauce-Etchemin,,CA,https://cssbe.gouv.qc.ca,,,171
+GE-AP-P0338,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:5d68dcf76d5836a7,Ville de Dolbeau-Mistassini,,CA,https://www.ville.dolbeau-mistassini.qc.ca,,,169
+GE-AP-P0339,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:36bfdfa5ee3d17f4,Ville de Baie-D'Urfé,,CA,https://www.baie-durfe.qc.ca,,,168
+GE-AP-P0340,priority: largest buyers without an invoicing/AP mailbox (current best: ap),b:90146b8e74ba2543,Municipalité de Saint-Côme--Linière,,CA,https://www.stcomeliniere.com,,,168
+GE-AP-P0341,priority: largest buyers without an invoicing/AP mailbox (current best: finance),b:d34268a4888e9125,Cégep Garneau,,CA,,,,167
+GE-AP-P0342,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:b5f6b8b5e55244e0,Société de la Place des Arts de Montréal,,CA,https://placedesarts.com,,,167
+GE-AP-P0343,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:16f93956a480e819,Groupe d'approvisionnement en commun de l'OUEST du Québec,,CA,,,,166
+GE-AP-P0344,priority: largest buyers without an invoicing/AP mailbox (current best: finance),b:4e3e0835565c1242,Commission scolaire de Kamouraska - Rivière du Loup,,CA,,,,166
+GE-AP-P0345,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:b1f487b5aa0cc34f,Régie de Gestion des Matières Résiduelles de la Mauricie.,,CA,,,,164
+GE-AP-P0346,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:57063d066394535d,Régie régionale de la santé et des services sociaux du Nunavik,,CA,,,,162
+GE-AP-P0347,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:8ba8aeec3c0b286e,Municipalité de Morin-Heights,,CA,https://www.morinheights.com,,,162
+GE-AP-P0348,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:de9e4ac7ece5062d,Ville de Dégelis,,CA,https://www.degelis.ca,,,162
+GE-AP-P0349,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:964fb10860bfd70f,Ville de Dunham,,CA,https://www.ville.dunham.qc.ca,,,162
+GE-AP-P0350,priority: largest buyers without an invoicing/AP mailbox (current best: finance),b:412e4bec5c1ec697,Centre de services scolaire de la Baie-James,,CA,https://cssbj.gouv.qc.ca,,,162
+GE-AP-P0351,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:1a43344a2fb7d285,Cégep Abitibi-Témiscamingue,,CA,,,,162
+GE-AP-P0352,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:3fc88bb62acf8692,Société de transport de Sherbrooke,,CA,https://www.sts.qc.ca,,,162
+GE-AP-P0353,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:91d6d43988e9f50e,Société du Centre des congrès de Québec,,CA,,,,162
+GE-AP-P0354,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:f2d1292de3d4050a,Cégep de Saint-Jérôme,,CA,https://www.cstj.qc.ca,,,161
+GE-AP-P0355,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:6bbc87397754d206,Autorité des marchés financiers,,CA,https://lautorite.qc.ca,,,160

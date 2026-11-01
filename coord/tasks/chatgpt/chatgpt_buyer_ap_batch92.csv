@@ -1,0 +1,46 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CH-AP-P0201,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:a7caac9db2c1f250,Dalhousie University,,CA,https://www.dal.ca,,,196
+CH-AP-P0202,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:69e9dd5a04b92ac1,Town of Okotoks,,CA,http://www.okotoks.ca,,,195
+CH-AP-P0203,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:d7135b782a7164b8,CEGEP de Ste-Foy,,CA,,,,195
+CH-AP-P0204,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:bfe56284793873de,"Jobs, Economy, Trade and Immigration",,CA,https://www.alberta.ca,,,194
+CH-AP-P0205,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:d8c701691a2ea78f,"Centre de santé et de services sociaux Ahuntsic et Montréal Nord, Hôpital Fleury",,CA,,,,194
+CH-AP-P0206,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:a4f720a99364699d,Infrastructure Ontario,,CA,https://www.infrastructureontario.ca,,,193
+CH-AP-P0207,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:6e7148d86b1fe1ca,Halton District School Board,,CA,http://www.hdsb.ca,,,191
+CH-AP-P0208,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:3caed1b4fc6c9987,Parks Canada,,CA,https://parks.canada.ca/index,,,190
+CH-AP-P0209,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:64dd7a712622a1ac,Durham Catholic District School Board,,CA,http://www.dcdsb.ca,,,189
+CH-AP-P0210,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:c98387ae68471eba,Musée de la civilisation,,CA,,,,189
+CH-AP-P0211,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:7dad342dec32f6de,Ministry of Justice,,CA,https://www2.gov.bc.ca,,,187
+CH-AP-P0212,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:7e001f1c29f2758b,Education and Childcare,,CA,https://www.alberta.ca,,,186
+CH-AP-P0213,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:4ff6fd843d2e3f98,City of Port Moody,,CA,https://www.portmoody.ca,,,185
+CH-AP-P0214,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:d7edd6df28f61853,Centre de santé et de services sociaux de Jonquière,,CA,,,,185
+CH-AP-P0215,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:1f8a78e0c47ed339,York Regional Police,,CA,https://www.yrp.ca,,,183
+CH-AP-P0216,priority: largest buyers without an invoicing/AP mailbox (current best: ap_or_invoicing),b:f14cc981f5702bcf,Agence de mobilité durable,,CA,https://agencemobilitedurable.ca,,,183
+CH-AP-P0217,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:fe3ea60bfc32d20c,World Health Organization - Headquarters,,CA,https://www.who.int,,,183
+CH-AP-P0218,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:25dc54b3bbbb1dcb,County of Elgin,,CA,http://www.elgin-county.on.ca,,,182
+CH-AP-P0219,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:da23fb287d9766d3,(inactive sub-organization),,CA,,,,182
+CH-AP-P0220,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:9d711a1f8bf9708d,City of Edmonton,,CA,https://www.edmonton.ca,,,181
+CH-AP-P0221,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:34d574ac09615e62,Manitoba Water Services Board,,CA,,,,181
+CH-AP-P0222,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:496391f4ef815376,McMaster University,,CA,https://www.mcmaster.ca,,,179
+CH-AP-P0223,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:90b86a2f7b9ea31a,Commission Administrative des régimes de retraite et d'assurances (Carra),,CA,,,,179
+CH-AP-P0224,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:8926a108bac75bb1,CENTRE HOSPITALIER RÉGIONAL DE TROIS RIVIÈRES,,CA,,,,179
+CH-AP-P0225,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:6e81f0ade8711428,Town of Lincoln,,CA,http://www.lincoln.ca,,,175
+CH-AP-P0226,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:c937aac85d59190e,Collège De-Bois-De-Boulogne,,CA,,,,174
+CH-AP-P0227,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:405f4b09863fb299,Champlain Regional College,,CA,,,,174
+CH-AP-P0228,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:83cd9c6db32d9cfe,District of Squamish,,CA,https://squamish.ca,,,173
+CH-AP-P0229,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:883f697ff92109de,Natural Resources Canada,,CA,https://natural-resources.canada.ca,,,173
+CH-AP-P0230,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:73282a19a3ad841f,Peterborough Victoria Northumberland and Clarington Catholic District School Board,,CA,http://www.pvnccdsb.on.ca,,,171
+CH-AP-P0231,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:90bd64af14c7a516,County of Wellington,,CA,https://www.wellington.ca,,,171
+CH-AP-P0232,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:e28b951466504744,Courts Administration Service,,CA,https://www.cas-satj.gc.ca/en/home,,,171
+CH-AP-P0233,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:f05397afd04fdaf0,Bureau de l'efficacité et de l'innovation énergétiques,,CA,,,,170
+CH-AP-P0234,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:4009c489788af637,Centre de Santé et de Services Sociaux de l'Énergie .,,CA,,,,169
+CH-AP-P0235,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:4691d490391e5603,Upper Grand District School Board,,CA,https://www.ugdsb.ca,,,168
+CH-AP-P0236,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:d825d9f9c93b7953,Rural Municipalities of Alberta,,CA,https://rmalberta.com,,,167
+CH-AP-P0237,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:9c2fb4dd454cfd04,Centre de santé et de services sociaux de la Vallée-de-l'Or,,CA,,,,166
+CH-AP-P0238,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:a4027e85db24b425,City of Campbell River,,CA,https://www.campbellriver.ca,,,165
+CH-AP-P0239,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:16087206cd3c3220,Township of Leeds and Thousand Islands,,CA,,,,165
+CH-AP-P0240,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:260ba79f81a56bcf,City of Airdrie,,CA,http://www.airdrie.ca,,,163
+CH-AP-P0241,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:e4180c0dbe4ad6fa,Sturgeon County,,CA,http://sturgeoncounty.ca,,,162
+CH-AP-P0242,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:d0d5822109f788e3,City of Woodstock,,CA,http://www.cityofwoodstock.ca,,,162
+CH-AP-P0243,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:09f0602e8d0b472c,Saskatchewan Public Safety Agency,,CA,,,,161
+CH-AP-P0244,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:d01b327c4cbf0869,Collecto Services regroupés en éducation,,CA,https://www.collecto.ca,,,161
+CH-AP-P0245,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:1f1d73f59c337bd2,Fonds des ressources informationnelles du secteur de la santé et des services sociaux,,CA,,,,160

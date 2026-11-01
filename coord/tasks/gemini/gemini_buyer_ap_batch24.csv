@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+GE-AP-P0201,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:63b4c0ce1058e7c2,Centre de services scolaire des Mille-Îles,,CA,https://www.cssmi.qc.ca,,,297
+GE-AP-P0202,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:c6eda118d51815ee,Municipalité de Sainte-Julienne,,CA,https://www.sainte-julienne.com,,,295
+GE-AP-P0203,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:744449e23b88c469,Ville de Sainte-Anne-de-Bellevue,,CA,https://www.sadb.qc.ca,,,292
+GE-AP-P0204,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:d0be40b00ed4345d,Ministère des Transports et de la Mobilité durable,,CA,https://www.transports.gouv.qc.ca,,,292
+GE-AP-P0205,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:3eab437806e7ee93,Santé Québec – Outaouais,,CA,https://cisss-outaouais.gouv.qc.ca,,,290
+GE-AP-P0206,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:80fb9c09fac61bfb,Ville de Contrecoeur,,CA,https://www.ville.contrecoeur.qc.ca,,,286
+GE-AP-P0207,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:1ab03389452d9774,Centre de services scolaire des Rives-du-Saguenay,,CA,https://www.csrsaguenay.qc.ca,,,286
+GE-AP-P0208,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:256368c8553d334d,Ville de Prévost,,CA,https://www.ville.prevost.qc.ca,,,284
+GE-AP-P0209,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:82166845dfe6a7f8,Santé Québec – Laurentides,,CA,https://www.santelaurentides.gouv.qc.ca,,,284
+GE-AP-P0210,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:9dc17b7924358f25,Université du Québec en Abitibi-Témiscamingue,,CA,https://www.uqat.ca,,,282
+GE-AP-P0211,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:6bcd419cd6cb000f,Ville de Sainte-Adèle,,CA,https://www.ville.sainte-adele.qc.ca,,,282
+GE-AP-P0212,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:537f2013ae519634,Centre de services scolaire des Samares,,CA,https://csssamares.gouv.qc.ca,,,282
+GE-AP-P0213,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:6d40b33fc450cd8b,Ville de Mercier,,CA,https://www.ville.mercier.qc.ca,,,280
+GE-AP-P0214,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:f25f0f5b7e74045c,Ville de Saint-Sauveur,,CA,https://vss.ca,,,278
+GE-AP-P0215,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:50042a5f0c960941,Santé Québec – Centre-Sud-de-l’Île-de-Montréal – Universitaire,,CA,https://ciusss-centresudmtl.gouv.qc.ca,,,278
+GE-AP-P0216,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:0071a6cc826e4324,Vérificateur général du Québec,,CA,https://www.vgq.qc.ca,,,278
+GE-AP-P0217,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:4d031d4c3b5426f0,Municipality of Clarington,,CA,http://www.clarington.net,,,277
+GE-AP-P0218,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:f8261f719e7048a5,Municipalité de Boischatel,,CA,https://www.boischatel.ca,,,276
+GE-AP-P0219,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:ea0ea47c8f3c65b3,Santé Québec – Montérégie-Est,,CA,https://www.santemonteregie.qc.ca/est,,,275
+GE-AP-P0220,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:6a4ccce5dcfca57e,Centre de services scolaire De La Jonquière,,CA,https://cssdlj.gouv.qc.ca,,,274
+GE-AP-P0221,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:8471a137042e83ed,Centre de services scolaire des Découvreurs,,CA,https://www.cssdd.gouv.qc.ca,,,274
+GE-AP-P0222,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:c580a6d8a932e91b,Centre de services scolaire des Portages-de-l'Outaouais,,CA,https://www.csspo.gouv.qc.ca,,,272
+GE-AP-P0223,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:accc5e6d56c39fd7,Ville de Carignan,,CA,https://www.carignan.quebec,,,271
+GE-AP-P0224,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:32baecd328013adc,Ville de Boisbriand,,CA,https://www.ville.boisbriand.qc.ca,,,269
+GE-AP-P0225,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:173779dd00ed0db9,Ville de Sainte-Julie,,CA,https://www.saintejulie.ca,,,267
+GE-AP-P0226,priority: largest buyers without an invoicing/AP mailbox (current best: ap_or_invoicing),b:16daab01b9112516,Société de développement des entreprises culturelles  (SODEC),,CA,,,,266
+GE-AP-P0227,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:16d8c0ad2b1b547c,Société québécoise des infrastructures,,CA,https://www.sqi.gouv.qc.ca,,,266
+GE-AP-P0228,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:c3effdc6c1488ea2,Santé Québec – Centre hospitalier de l’Université de Montréal,,CA,https://www.chumontreal.qc.ca,,,265
+GE-AP-P0229,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:e91ae7f5a47af3c5,CÉGEP Sherbrooke,,CA,,,,264
+GE-AP-P0230,priority: largest buyers without an invoicing/AP mailbox (current best: general_info_fallback),b:96fe5b060839ea0a,Ministère de la Sécurité publique / Sécurité intérieure,,CA,https://www.quebec.ca/gouvernement/ministere/securite-publique,,,264
+GE-AP-P0231,priority: largest buyers without an invoicing/AP mailbox (current best: general_finance),b:c606f8559227c06a,Ville de Saint-Charles-Borromée,,CA,https://vivrescb.com,,,259
+GE-AP-P0232,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:3c2f0cba1d240736,Groupe d'approvisionnement en commun de l'Est du Québec - Section Mauricie - Centre-du-Québec,,CA,,,,259
+GE-AP-P0233,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:11c83ddbfc082bd1,Ville de Saint-Lin--Laurentides,,CA,https://www.saint-lin-laurentides.com,,,258
+GE-AP-P0234,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:4b36432d699f548f,Ville de Saint-Basile-le-Grand,,CA,https://www.villesblg.ca,,,258
+GE-AP-P0235,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:0f36563ed81dcfd4,Santé Québec – Capitale-Nationale – Universitaire,,CA,https://www.ciusss-capitalenationale.gouv.qc.ca,,,258
+GE-AP-P0236,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:8e3f7390486e5d49,Municipalité de Chelsea,,CA,https://www.chelsea.ca,,,257
+GE-AP-P0237,priority: largest buyers without an invoicing/AP mailbox (current best: general_info_fallback),b:b558a4607afb527e,Ville de Boucherville,,CA,https://www.boucherville.ca,,,256
+GE-AP-P0238,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:776696bd10ba9d10,Société québécoise des infrastructures,,CA,https://www.sqi.gouv.qc.ca,,,255
+GE-AP-P0239,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:8b67ff70c7edde6b,Santé Québec – Montérégie-Centre,,CA,https://www.santemonteregie.qc.ca/centre,,,255
+GE-AP-P0240,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:663cdf88bca54384,CNESST,,CA,https://www.cnesst.gouv.qc.ca,,,253
+GE-AP-P0241,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:eba869f97dcf3d9c,Curateur public du Québec,,CA,https://www.curateur.gouv.qc.ca,,,252
+GE-AP-P0242,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:665a482e08c9ea5a,Cégep de Saint-Laurent,,CA,https://www.cegepsl.qc.ca,,,252
+GE-AP-P0243,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:4e740eb8550fd991,Centre de services scolaire des Chênes,,CA,https://www.cssdeschenes.gouv.qc.ca,,,249
+GE-AP-P0244,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:3a6d5c048fdb9569,Société québécoise des infrastructures,,CA,https://www.sqi.gouv.qc.ca,,,249
+GE-AP-P0245,priority: largest buyers without an invoicing/AP mailbox (current best: finance_general),b:007768bcaea3726f,Ville de Thetford Mines,,CA,https://www.villethetford.ca,,,249
+GE-AP-P0246,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:6d1b1d250bf8a3e0,Ville de Notre-Dame-de-l'Île-Perrot,,CA,https://www.ndip.org,,,245
+GE-AP-P0247,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:2a563f1b4b89841f,Société du parc Jean-Drapeau,,CA,https://www.parcjeandrapeau.com,,,245
+GE-AP-P0248,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:b25d753024db63f7,Centre de services scolaire des Affluents,,CA,https://cssda.gouv.qc.ca,,,241
+GE-AP-P0249,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:d2b5e47402c96629,Santé Québec – Ouest-de-l’Île-de-Montréal – Universitaire,,CA,https://www.ciusss-ouestmtl.gouv.qc.ca,,,239
+GE-AP-P0250,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:f19f6650dca6cb66,Société du Palais des congrès de Montréal,,CA,https://congresmtl.com,,,238
+GE-AP-P0251,priority: largest buyers without an invoicing/AP mailbox (current best: general_info_fallback),b:6573ccb822cbd2da,Institut de tourisme et d'hôtellerie du Québec,,CA,https://www.ithq.qc.ca,,,237
+GE-AP-P0252,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:f7367cd057051505,Municipalité de Les Cèdres,,CA,https://www.ville.lescedres.qc.ca,,,237
+GE-AP-P0253,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:7dc75e905593db5e,"Ministère de l'Immigration, de la Diversité et de l'Inclusion",,CA,,,,235
+GE-AP-P0254,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:323ffbf10f57c1b2,exo (Réseau de transport métropolitain),,CA,https://exo.quebec,,,233
+GE-AP-P0255,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:2c76487277685bef,Ministère des Transports et de la Mobilité durable,,CA,https://www.transports.gouv.qc.ca,,,233
+GE-AP-P0256,priority: largest buyers without an invoicing/AP mailbox (current best: general_finance),b:6e8888ad5b64323f,Ville de Lorraine,,CA,https://www.ville.lorraine.qc.ca,,,231
+GE-AP-P0257,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:aa04f0430136be55,Commission scolaire Eastern Townships,,CA,https://www.etsb.qc.ca,,,229
+GE-AP-P0258,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:f34ee0e09409f6a3,Ville de Louiseville,,CA,https://www.louiseville.ca,,,228
+GE-AP-P0259,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:992d3bfc36232f63,Ville de Saint-Constant,,CA,https://www.saint-constant.ca,,,228
+GE-AP-P0260,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:7055da1f9397cac2,Centre de services scolaire des Trois-Lacs,,CA,https://csstl.gouv.qc.ca,,,227
+GE-AP-P0261,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:0c9f9539bfa60d64,Centre de services scolaire des Monts-et-Marées,,CA,https://www.cssmm.gouv.qc.ca,,,226
+GE-AP-P0262,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:1a9a97a9b7ade66f,Ville de Baie-Comeau,,CA,https://www.ville.baie-comeau.qc.ca,,,222
+GE-AP-P0263,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:7c8e3927d0a086ed,Municipalité de Saint-Casimir,,CA,https://www.saint-casimir.com,,,221
+GE-AP-P0264,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:6cd6f341b3b8923c,Société québécoise des infrastructures,,CA,https://www.sqi.gouv.qc.ca,,,220
+GE-AP-P0265,priority: largest buyers without an invoicing/AP mailbox (current best: general_finance),b:340d58f9cbe52fcd,Société d'habitation du Québec,,CA,https://www.habitation.gouv.qc.ca,,,216
+GE-AP-P0266,priority: largest buyers without an invoicing/AP mailbox (current best: general_info_fallback),b:62dccc6d8ba627a7,Centre de services scolaire du Chemin-du-Roy,,CA,https://csscdr.gouv.qc.ca,,,216
+GE-AP-P0267,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:30e447a151689917,Santé Québec – Institut national de psychiatrie légale Philippe-Pinel,,CA,https://pinel.qc.ca,,,215
+GE-AP-P0268,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:03849d49c9e41c25,Centre de services scolaire des Monts-et-Marées,,CA,https://www.cssmm.gouv.qc.ca,,,215
+GE-AP-P0269,priority: largest buyers without an invoicing/AP mailbox (current best: general_finance),b:188d103311a4c9f6,Ville de Sainte-Brigitte-de-Laval,,CA,https://www.sbdl.net,,,214
+GE-AP-P0270,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:929e6911643d7d91,Santé Québec – Ouest-de-l’Île-de-Montréal – Universitaire,,CA,https://www.ciusss-ouestmtl.gouv.qc.ca,,,214
+GE-AP-P0271,priority: largest buyers without an invoicing/AP mailbox (current best: general_info_fallback),b:f12c6dcfa650f3c6,Centre de services scolaire du Chemin-du-Roy,,CA,https://csscdr.gouv.qc.ca,,,213
+GE-AP-P0272,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:23539f1e5912ba32,Centre de services scolaire des Navigateurs,,CA,https://cssdn.gouv.qc.ca,,,213
+GE-AP-P0273,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:a063525403d70688,Ville de Chibougamau,,CA,https://www.ville.chibougamau.qc.ca,,,212
+GE-AP-P0274,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:64da78f130050951,Santé Québec – Montérégie-Ouest,,CA,https://www.santemonteregie.qc.ca/ouest,,,212
+GE-AP-P0275,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:bffc5f51e2c11a6b,Municipalité régionale de comté La Haute-Yamaska,,CA,https://www.haute-yamaska.ca,,,211
+GE-AP-P0276,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:e4f6bfec79d4c770,Municipalité de Chertsey,,CA,https://www.chertsey.ca,,,210
+GE-AP-P0277,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:d4b094ee73a1921f,Ville de Rigaud,,CA,https://www.ville.rigaud.qc.ca,,,209
+GE-AP-P0278,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:ba141122239fba33,Société québécoise des infrastructures,,CA,https://www.sqi.gouv.qc.ca,,,208
+GE-AP-P0279,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:b8e5859cdd90aa0f,Centre de services partagés du Québec,,CA,,,,207
+GE-AP-P0280,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:9a0edd048f672303,Santé Québec – Centre universitaire de santé McGill,,CA,https://cusm.ca,,,206
+GE-AP-P0281,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:c9cbcfb120a8c583,Santé Québec – Capitale-Nationale – Universitaire,,CA,https://www.ciusss-capitalenationale.gouv.qc.ca,,,205
+GE-AP-P0282,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:b5ead8473ec5e11e,CIUSSS MCQ - HDA,,CA,,,,205
+GE-AP-P0283,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:6721db70cbfa00b7,Municipalité régionale de comté Abitibi,,CA,https://www.mrcabitibi.qc.ca,,,204
+GE-AP-P0284,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:0efc06f0c72f1f62,Ville de Nicolet,,CA,https://www.nicolet.ca,,,203
+GE-AP-P0285,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:3d4108d87b549363,Retraite Québec,,CA,https://www.retraitequebec.gouv.qc.ca,,,203
+GE-AP-P0286,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:f406ecce875b5a94,Municipalité de Cantley,,CA,https://www.cantley.ca,,,201
+GE-AP-P0287,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:604012f978d9588c,Santé Québec - Établissement CIUSSS de l’Est-de-l’Île-de-Montréal,,CA,,,,198
+GE-AP-P0288,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:97182febf8d07944,Ville de New Richmond,,CA,https://www.villenewrichmond.com,,,197
+GE-AP-P0289,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:32d4d1c8e08e7028,La Financière agricole du Québec,,CA,https://www.fadq.qc.ca,,,196
+GE-AP-P0290,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:1d8fd51cf53f961f,Ministère des Relations internationales et de la Francophonie,,CA,,,,194
+GE-AP-P0291,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:dec1fb3eda6b19bb,Office municipal d'habitation de Montréal,,CA,https://www.omhm.qc.ca,,,194
+GE-AP-P0292,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:c4a73ec4a90047f7,Centre de services scolaire des Hauts-Cantons,,CA,https://csshc.gouv.qc.ca,,,193
+GE-AP-P0293,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:191763eb0930fba6,Commission de la capitale nationale du Québec,,CA,https://www.capitale.gouv.qc.ca,,,192
+GE-AP-P0294,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:24c4106ea7b26061,Santé Québec – Centre hospitalier de l’Université de Montréal,,CA,https://www.chumontreal.qc.ca,,,192
+GE-AP-P0295,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:2a6589e4bbd037a5,Ville de Sept-Îles,,CA,https://www.septiles.ca,,,191
+GE-AP-P0296,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:fb5884b7b90639a8,Groupe d'approvisionnement en commun de l'Est du Québec,,CA,,,,190
+GE-AP-P0297,priority: largest buyers without an invoicing/AP mailbox (current best: none),b:676767bc44aff884,Société québécoise des infrastructures,,CA,https://www.sqi.gouv.qc.ca,,,190
+GE-AP-P0298,priority: largest buyers without an invoicing/AP mailbox (current best: general_info),b:24f64a1e47470765,Cégep de l'Outaouais...,,CA,,,,190
+GE-AP-P0299,priority: largest buyers without an invoicing/AP mailbox (current best: general),b:2042e6951de9e47b,Collège de Maisonneuve,,CA,https://www.cmaisonneuve.qc.ca,,,190
+GE-AP-P0300,priority: largest buyers without an invoicing/AP mailbox (current best: procurement),b:218c663a68756eb4,Santé Québec – Laurentides,,CA,https://www.santelaurentides.gouv.qc.ca,,,190
