@@ -13,7 +13,7 @@ jobs:
   rank:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    concurrency: { group: main-writer, cancel-in-progress: false }
+    concurrency: { group: ranker, cancel-in-progress: false }  # own group: a queued referee run must not cancel it
     steps:
       - uses: actions/checkout@v4
       - name: Rank, split into batches, commit
