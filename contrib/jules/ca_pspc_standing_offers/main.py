@@ -317,7 +317,7 @@ def main():
                 "buyer": buyer,
                 "vendor": vendor,
                 "raw": raw,
-                "link": "https://open.canada.ca/data/en/dataset/f5c8a5a0-354d-455a-99ab-8276aa38032e"
+                "link": "https://open.canada.ca/data/en/dataset/f5c8a5a0-354d-455a-99ab-8276aa38032e", "link_type": "dataset"
             }
 
             outf.write(json.dumps(rec, ensure_ascii=False) + "\n")

@@ -1488,3 +1488,5 @@ Built the `ca_bidsandtenders_backlog` source pipeline by continuing the `ca_bids
 - Patterns: Confirmed dedicated AP/invoicing mailboxes across major Quebec public entities (e.g., CIUSSS Centre-Sud via cp1.ccsmtl to cp10.ccsmtl, SQI via dgf@sqi.gouv.qc.ca, UdeS via rf@usherbrooke.ca, Ville de Laval via comptespayables@laval.ca, Ville de Saint-Georges via approvisionnement@saint-georges.ca, CSSPS via srm@cssps.gouv.qc.ca, BAnQ via info@banq.qc.ca, CSSPI via info@csspi.gouv.qc.ca); public entities using online forms/portals or phone without role mailboxes captured as not_published or portal_only (exo, RAMQ, CNESST, Élections Québec, OMHM, SWLSB, MAPAQ).
 - Needs: None; advancing immediately to gemini_buyer_ap_batch23.csv.
 For now, I'm focusing on the `ca_pspc_standing_offers` task which I completed (with the missing CanadaBuys files issue noted in a prior message, wrapped in try-except). I'm planning to submit a PR for it.
+## 2026-11-01 18:07 from jules
+Completed source pipeline ca_pspc_standing_offers. Kept rows with Canadian addresses derived from cross-referencing CanadaBuys datasets. Records validated.
