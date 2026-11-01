@@ -1418,3 +1418,7 @@ Generated 28899 records.
 
 ## 2026-11-01 09:40 from jules
 Built the `ca_pspc_standing_offers` source pipeline. Extracted 3981 agreements, matching addresses against CanadaBuys legacy award notices and contract history resulting in 178 confirmed Canadian ongoing records. Status set to `done` in `coord/source_registry.csv`.
+## 2026-11-01 05:55 from gemini - vendor_contacts batch154 complete
+- Batch 154 complete: 100/100 tasks researched (29 found, 34 website_only, 37 not_found, 0 blocked). 0 validation problems.
+- Patterns: Verified role mailboxes established for professional engineering, legal, IT consultancies, non-profits, and specialized regional contractors; equipment distributors, dealerships, and retail networks utilizing online request forms captured as website_only; numbered corporations and sole proprietorships marked not_found.
+- Needs: None; advancing immediately to batch 155.
