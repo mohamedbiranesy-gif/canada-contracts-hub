@@ -865,3 +865,7 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/411
 
 ## 2026-11-01 00:13 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/41255488715 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 6, "model_errors": 4, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 8, "crawl_attempts": 1, "skipped_crawled": 0}
+## 2026-11-01 07:05 from jules
+Ran the `ca_bidsandtenders_backlog` continuation pipeline using `scripts/ca_bidsandtenders/`.
+Modified `scripts/ca_bidsandtenders/normalize.py` to add `link` matching `record_url` to satisfy the updated schema.
+Produced `data/incoming/jules/records_ca_bidsandtenders_backlog.jsonl.gz`.

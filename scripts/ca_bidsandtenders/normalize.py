@@ -238,6 +238,7 @@ with open(out_main, "w") as fo, open(out_unv, "w") as fu, open(details_path) as 
                     },
                     "contact": {"primary_contact": a.get("PrimaryContact"), "email": a.get("Email")},
                 },
+                "link": lst.get("detail_url") or d.get("detail_url"),
                 "raw": {
                     "listing_row": lst,
                     "bid_details": bd,
