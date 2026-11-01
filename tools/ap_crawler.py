@@ -92,10 +92,13 @@ def allowed(url):
     return robots[key].can_fetch(UA, url)
 
 
+PDFTOTEXT = shutil.which("pdftotext") or next((p for p in ("/opt/homebrew/bin/pdftotext", "/usr/local/bin/pdftotext") if os.path.exists(p)), None)
+
+
 def pdf_text(data):
-    if shutil.which("pdftotext"):
+    if PDFTOTEXT:  # poppler reads far more PDFs than pypdf (fonts, encodings)
         try:
-            r = subprocess.run(["pdftotext", "-layout", "-", "-"], input=data, capture_output=True, timeout=60)
+            r = subprocess.run([PDFTOTEXT, "-layout", "-", "-"], input=data, capture_output=True, timeout=60)
             if r.stdout.strip():
                 return r.stdout.decode("utf-8", "replace")
         except Exception:
