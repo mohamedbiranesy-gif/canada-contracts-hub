@@ -85,6 +85,7 @@ jobs:
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/ingest_results.py > /dev/null
+            python3 tools/export_orgs.py > /dev/null || true
             python3 tools/next_batch.py > /dev/null
             python3 tools/status_board.py > /dev/null
             git add coord/results coord/NEXT.md coord/STATUS_BOARD.md coord/INGEST_REPORT.md coord/tasks coord/source_registry.csv
