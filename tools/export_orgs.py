@@ -22,7 +22,11 @@ for path in glob.glob("data/incoming/*/*buyer_ap_results*.csv"):
         if not k or not e:
             continue
         o = outcome.get((k, e, r.get("evidence_url") or ""), "not_checked")
-        score = (STATE.get(o, 2), RANK.get(r.get("ap_email_type") or "", 5))
+        t = (r.get("ap_email_type") or "").lower()  # agents sometimes write their own labels (ap_dedicated, general_info ...)
+        t = t if t in RANK else ("invoice_submission" if "invoic" in t else "accounts_payable" if ("ap" in t.split("_") or "payable" in t or "finance" in t or "account" in t)
+             else "procurement" if ("procure" in t or "purchas" in t) else "general")
+        r = dict(r, ap_email_type=t)
+        score = (STATE.get(o, 2), RANK[t])
         if k not in best or score < best[k][0]:
             best[k] = (score, r, o, os.path.basename(os.path.dirname(path)))
 # vendors (Canadian companies) researched by the agents: their general role mailbox counts as an organisation mailbox
