@@ -31,7 +31,7 @@ KEEP = {"invoice_submission", "accounts_payable", "supplier_payment", "finance",
 SCORE = [(re.compile(r"(?<!manu)factur|invoic|payable|comptes?[-_ ]?(a|à)?[-_ ]?payer|accounts?[-_ ]?pay", re.I), 10),
          (re.compile(r"fournisseur|supplier|vendor|depot|deposit|paiement|payment", re.I), 6),
          (re.compile(r"financ|comptab|accounting|tresor|treasur", re.I), 5),
-         (re.compile(r"achat|approvisionnement|purchas|procure|faire-affaire|doing-business", re.I), 3),
+         (re.compile(r"achat|approvisionnement|purchas|procure|faire-affaire|doing-business|conditions|terms", re.I), 5),
          (re.compile(r"tuition|student|etudiant|étudiant|osap|admission|program|course|cours/|career|carriere|emploi|job|"
                      r"news|nouvelle|media|event|evenement|événement|blog|calendar|calendrier|/api/|feed|search|recherche", re.I), -8)]
 lock = threading.Lock()
