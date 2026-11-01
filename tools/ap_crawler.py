@@ -32,7 +32,8 @@ LINK_KW = [(re.compile(r"factur|invoice|payable|comptes?[-_ ]?(a|à)[-_ ]?payer|
                        r"doing[-_ ]business|business[-_ ]with|appels?[-_ ]d|tender|bid", re.I), 6),
            (re.compile(r"financ|tr[ée]sor|treasur|comptab|accounting|paiement|payment", re.I), 5),
            (re.compile(r"nous[-_ ]joindre|contact|coordonn|directory|bottin|annuaire|services", re.I), 2)]
-SKIP_EXT = re.compile(r"\.(jpe?g|png|gif|svg|webp|ico|mp4|mov|mp3|zip|docx?|xlsx?|pptx?|ics|css|js|xml|rss)(\?|$)", re.I)
+SKIP_EXT = re.compile(r"\.(jpe?g|png|gif|svg|webp|ico|mp4|mov|mp3|zip|doc|xls|pptx?|ics|css|js|xml|rss)(\?|$)", re.I)
+OFFICE = re.compile(r"\.(docx|xlsx)(\?|$)", re.I)
 EMAIL_RX = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")
 AP_LOCAL = re.compile(r"factur|invoice|bill|payable|compt|account|^ap$|^ap[._-]|[._-]ap$|[._-]cap$|financ|fourniss|"
                       r"supplier|vendor|approv|achat|purchas|procure|paiement|payment|tresor|treasur|acquisition", re.I)
@@ -104,6 +105,17 @@ def pdf_text(data):
         return ""
 
 
+def office_text(data):
+    """Text of a .docx / .xlsx file (zip of XML), for supplier forms and invoicing guides."""
+    import zipfile
+    try:
+        z = zipfile.ZipFile(io.BytesIO(data))
+        parts = [n for n in z.namelist() if n in ("word/document.xml", "xl/sharedStrings.xml") or n.startswith(("word/header", "word/footer"))]
+        return " ".join(re.sub(r"<[^>]+>", " ", z.read(n).decode("utf-8", "replace")) for n in parts)
+    except Exception:
+        return ""
+
+
 def visible(raw):
     t = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", raw)
     t = re.sub(r"(?s)<[^>]+>", " ", t)
@@ -145,8 +157,10 @@ def classify(email, context, general=False):
         return "supplier_payment"
     if re.search(r"fourniss|supplier|vendor|approv|achat|purchas|procure|acquisition", local, re.I):
         return "procurement"
-    if CONTEXT_AP.search(context):  # finance@, comptabilite@, tresorerie@ ... only when the page talks about invoicing
+    if CONTEXT_AP.search(context):  # finance@, comptabilite@, tresorerie@ ... when the page talks about invoicing
         return "accounts_payable"
+    if re.search(r"compt|financ|tresor|tr[ée]sor|treasur|account", local, re.I):
+        return "general"  # finance / accounting department mailbox: kept; ranked above other general mailboxes
     return None
 
 
@@ -234,7 +248,9 @@ def crawl(task, max_pages, general=False):
         if status != 200 or not data:
             continue
         is_pdf = "pdf" in ctype.lower() or data[:5] == b"%PDF-"
-        raw = pdf_text(data) if is_pdf else html.unescape(data.decode("utf-8", "replace"))
+        is_office = data[:2] == b"PK" and (OFFICE.search(url) or "officedocument" in ctype.lower())
+        raw = pdf_text(data) if is_pdf else office_text(data) if is_office else html.unescape(data.decode("utf-8", "replace"))
+        is_pdf = is_pdf or is_office  # documents: no links to follow
         text = re.sub(r"\s+", " ", raw) if is_pdf else visible(raw)
         for e in set(x.lower().rstrip(".") for x in EMAIL_RX.findall(raw)):
             if e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp") or e in found:
@@ -251,7 +267,7 @@ def crawl(task, max_pages, general=False):
             if p.scheme not in ("http", "https") or not same(p.hostname) or link in seen or SKIP_EXT.search(p.path):
                 continue
             score = sum(w for rx, w in LINK_KW if rx.search(p.path + " " + p.query + " " + label))
-            if p.path.lower().endswith(".pdf") and score < 5:
+            if (p.path.lower().endswith(".pdf") or OFFICE.search(p.path)) and score < 5:
                 continue
             if score > 0:
                 heapq.heappush(heap, (-score * 10 + depth, depth + 1, link))
