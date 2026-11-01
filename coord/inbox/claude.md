@@ -865,3 +865,11 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/411
 
 ## 2026-11-01 00:13 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/41255488715 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 6, "model_errors": 4, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 8, "crawl_attempts": 1, "skipped_crawled": 0}
+## 2026-11-01 10:24 from jules
+Built `ca_pspc_standing_offers` pipeline (PSPC standing offers and supply arrangements).
+- Downloaded and parsed active SOSA file (`tpsgc-pwgsc_ocama-sosa.csv`).
+- Extracted historical SOSA agreements from CanadaBuys `contractHistoryComplete` and legacy datasets (matching `instrumentType-typeInstrument-eng`).
+- Gathered end dates directly from source rows (`expiry-date` and `contractEndDate-dateFinContrat`).
+- Overlaps with `canada_federal` are explicitly kept for the merge step to deduplicate via `cross_source_matches` where possible.
+- Output successfully generated `records_ca_pspc_standing_offers.jsonl.gz` with 7,164 valid records passing all rules.
+- Status set to `done` in `coord/source_registry.csv`.

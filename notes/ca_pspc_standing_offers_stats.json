@@ -1,0 +1,60 @@
+{
+ "by_status": {
+  "ongoing": 7149,
+  "ongoing_inferred": 15
+ },
+ "by_status_unverified": {
+  "ongoing": 185
+ },
+ "sosa": {
+  "rows": 6842,
+  "agreements": 3981,
+  "historical_agreements": 9514
+ },
+ "address_join": {
+  "agreements_with_canadabuys_rows": 2880,
+  "row_vendor_mismatch": 26
+ },
+ "tier2": {
+  "unresolved_agreements": 1101,
+  "names_with_rows": 1031,
+  "ok": 861,
+  "conflicting_or_foreign_country": 87,
+  "no_rows": 98
+ },
+ "excluded": {
+  "expiry_before_ref": 140,
+  "vendor_not_canada": 334,
+  "missing_buyer": 1,
+  "historical_ended": 2780,
+  "starts_after_ref": 18
+ },
+ "vendor_country_values_excluded": {
+  "US": 248,
+  "GB": 42,
+  "PL": 1,
+  "LT": 1,
+  "FI": 1,
+  "KR": 1,
+  "IT": 1,
+  "BE": 3,
+  "AU": 3,
+  "DE": 10,
+  "TT": 1,
+  "AE": 1,
+  "ES": 2,
+  "RO": 1,
+  "LV": 1,
+  "GR": 1,
+  "CH": 1,
+  "IL": 1,
+  "FR": 5,
+  "IS": 2,
+  "NL": 1,
+  "NO": 1,
+  "": 2,
+  "DK": 1,
+  "AT": 1,
+  "BR": 1
+ }
+}
