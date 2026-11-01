@@ -1,0 +1,2142 @@
+buyer_key,buyer_name,website,tier,email_grade,contracts
+b:3223b8cd7949da1c,Department of Defense,https://www.defense.gov,A,0,1201
+b:c3dbf5f79a13e8c7,Humber Polytechnic,https://humber.ca,A,0,228
+b:d825d9f9c93b7953,Rural Municipalities of Alberta,https://rmalberta.com,A,0,167
+b:22229035ff39b715,Workplace Safety and Insurance Board (WSIB),https://www.wsib.ca,A,0,142
+b:8e7fa3b3f2d85d39,Department of the Interior,https://www.doi.gov,A,0,100
+b:404e1da067aef2af,Toronto Police Service,https://www.tps.ca,A,0,94
+b:884bf25641b0e05d,Brock University,https://brocku.ca,A,0,84
+b:a10ac9259f15fa19,University of Alberta,https://www.ualberta.ca,A,0,74
+b:a732a58cc5ba77fe,Department of Health and Human Services,https://www.hhs.gov,A,0,48
+b:4637795044032491,Big Lakes County,https://www.biglakescounty.ca,A,0,38
+b:197e29409d3cc355,Department of State,https://www.state.gov,A,0,37
+b:44236e3135559039,Department of Commerce,https://www.commerce.gov,A,0,35
+b:3ce6e0591c0db46b,Department of Agriculture,https://www.usda.gov,A,0,30
+b:a03e4ce638dfe2f7,Special Areas Board,http://www.specialareas.ab.ca,A,0,29
+b:d1ee16c6847994b6,National Aeronautics and Space Administration,https://www.nasa.gov,A,0,29
+b:dba433d964b05c87,Town of Stettler,https://www.stettler.net,A,0,28
+b:966eeaa0909c6024,Department of Homeland Security,https://www.dhs.gov,A,0,27
+b:a716c5c51676d802,Calgary Catholic School District,https://www.cssd.ab.ca,A,0,26
+b:0c4a0df2007cd1a7,Civilian Review and Complaints Commission for the RCMP,https://www.crcc-ccetp.gc.ca/en,A,0,22
+b:7708e52ceab37348,Flagstaff County,http://www.flagstaff.ab.ca,A,0,22
+b:d22d6e57a0331c52,Calgary Public Library,https://calgarylibrary.ca,A,0,19
+b:777a2032afd27a30,Greater St. Albert Catholic Schools,https://www.gsacrd.ab.ca,A,0,18
+b:f73a2738bdd827eb,Brazeau County,http://www.brazeau.ab.ca,A,0,12
+b:5ee7b7a74cc4b93b,Sturgeon Public Schools,https://www.sturgeon.ab.ca,A,0,10
+b:568ae07833e2da80,Northern Lights Public Schools,https://www.nlpsab.ca,A,0,10
+b:f2ce069f8f2b4a04,Parkland School Division,https://www.psd.ca,A,0,9
+b:3fed7d791ca06b2a,Thunder Bay Regional Health Sciences Centre,https://tbrhsc.net,A,0,9
+b:ae43a963b3e56478,St. Albert Public Schools,https://www.spschools.org,A,0,9
+b:5964961a44b04740,The Correctional Investigator Canada,https://oci-bec.gc.ca/en,A,0,8
+b:c366a6d844c8f155,Smithsonian Institution,https://www.si.edu,A,0,8
+b:4f7fb97484adcb22,Bundesamt für Wirtschaft und Ausfuhrkontrolle (BAFA),http://www.bafa.de,A,0,8
+b:4ba850e3b818c61b,Municipality of Jasper,https://jasper-alberta.com,A,0,7
+b:c786c20604470463,Ontario Securities Commission,https://www.osc.ca,A,0,7
+b:b712a7a676db191a,Environmental Protection Agency,https://www.epa.gov,A,0,6
+b:eb578bd32631b9aa,Danish Ministry of Defence Acquisition and Logistics Organisation,http://www.fmi.dk,A,0,6
+b:e75e61ef6199a78c,Millennium Challenge Corporation,https://www.mcc.gov,A,0,6
+b:1c4e9efe6874a5f1,NHS Blood and Transplant,https://www.gov.uk/government/organisations/nhs-blood-and-transplant,A,0,6
+b:7d960c75eb91645b,Deutsches Zentrum für Luft- und Raumfahrt e.V. (DLR),http://www.dlr.de,A,0,5
+b:0b9463bf92f369a2,COMISION DE PROMOCION DEL PERU PARA LA EXPORTACION Y EL TURISMO - PROMPERU,https://www.promperu.gob.pe,A,0,5
+b:4ee8295211aa564a,British Council,https://www.gov.uk/government/organisations/british-council,A,0,5
+b:45e478fe59163afa,Palliser School Division,https://www.pallisersd.ab.ca,A,0,4
+b:7cdc8bd5352e23d8,Norsk Polarinstitutt,https://www.npolar.no,A,0,4
+b:4525c1a8f558868d,Sjöfartsverket,http://www.sjofartsverket.se,A,0,4
+b:ecb6edd08f8be3dc,Calgary Economic Development,https://calgaryeconomicdevelopment.com,A,0,3
+b:c42dc89329ca0ece,University of Winnipeg,https://www.uwinnipeg.ca,A,0,3
+b:51870d89390bda8c,Town of Fox Creek,http://www.foxcreek.ca,A,0,3
+b:af62ed6b94470c4c,Alberta Securities Commission,https://www.asc.ca,A,0,3
+b:8b2a60fda026319a,Lethbridge School Division,https://www.lethsd.ab.ca,A,0,3
+b:44ee89ab91f18a3c,Prairie Rose School Division,https://www.prrd.ab.ca,A,0,3
+b:14496db9f1315867,Grande Yellowhead Public School Division,https://www.gypsd.ca,A,0,3
+b:77002e7afbcc4d1a,Wood Buffalo Housing,https://www.wbhadc.ca,A,0,3
+b:040f0ad1d9206974,Dirección de Adquisiciones del Mando de Apoyo Logístico del Ejército del Aire y del Espacio,http://www.ejercitodelaire.mde.es,A,0,3
+b:96ce3805140b76a8,Staten og Kommunernes Indkøbsservice A/S,https://www.ski.dk,A,0,2
+b:c29130e8d1bc5286,Explore Edmonton,https://exploreedmonton.com,A,0,2
+b:3202beb3ec11d3a8,UT Health San Antonio,https://www.uthscsa.edu,A,0,2
+b:88e74c41977250be,Golden Hills School Division,https://www.goldenhills.ca,A,0,2
+b:60e7a6e7e3a01b86,Town of Cardston,http://www.cardston.ca,A,0,2
+b:b0ec6fa9529b6ae8,New Model in Technology & Engineering,http://nmite.org.uk,A,0,2
+b:53f92109dd1aa5d7,The Coal Authority,https://inbye.coal.gov.uk/s2c,A,0,2
+b:31414f7f9217e08c,Teacher Retirement System of Texas,https://www.trs.texas.gov,A,0,2
+b:2b385698f6c69aba,Securities and Exchange Commission,https://www.sec.gov,A,0,2
+b:d3a4658a5e2d461c,County of Forty Mile No. 8,http://www.fortymile.ab.ca,A,0,2
+b:92653f9f9267f3d6,Wolf Creek Public Schools,https://www.wolfcreek.ab.ca,A,0,2
+b:0fffbf7820fa1183,Town of Barrhead,http://www.barrhead.ca,A,0,2
+b:d18f8c1889d9df71,Pembina Hills School Division,https://www.pembinahills.ca,A,0,2
+b:aaebb3380e451a16,FAIR - Facility for Antiproton and Ion Research in Europe GmbH,http://www.fair-center.de,A,0,2
+b:f94bb659d236219f,Technische Universität Berlin,https://www.tu.berlin.de,A,0,2
+b:2fbca94920f46853,Rijkswaterstaat Centrale Informatievoorziening,http://www.rijkswaterstaat.nl,A,0,2
+b:2d1e17b46ff258c0,Grande Prairie Catholic Schools,https://www.gpcsd.ca,A,0,2
+b:42352a19d39e90af,Group Health Centre,https://www.ghc.on.ca,A,0,2
+b:687c25e1c31e32a0,Sveriges Television Aktiebolag,http://svt.se,A,0,2
+b:04cb8b1c7bcf88c4,Federal Communications Commission,https://www.fcc.gov,A,0,2
+b:1d34d163c1d4fbdd,PROGRAMA SUBSECTORIAL DE IRRIGACIONES - PSI,https://www.gob.pe/psi,A,0,1
+b:359fe9d25ba0a8ae,National Gallery of Art,https://www.nga.gov,A,0,1
+b:7b661efc5e8649fc,Railroad Retirement Board,https://www.rrb.gov,A,0,1
+b:8b1562dd9573a249,Alfred-Wegener-Institut Helmholtz-Zentrum für Polar- und Meeresforschung,http://www.awi.de,A,0,1
+b:3a2cad94dbf306eb,Village of Boyle,https://www.boylealberta.ca,A,0,1
+b:25dbe96ac43e12f1,Metroselskabet I/S,http://www.m.dk,A,0,1
+b:df6505674025d29b,Lunds universitet,http://www.lu.se,A,0,1
+b:6281d6e4b7083e3e,Texas Tech University Health Sciences Center El Paso,https://elpaso.ttuhsc.edu,A,0,1
+b:168742b45880a5d1,Stephen F. Austin State University,https://www.sfasu.edu,A,0,1
+b:00d01d874956936e,Texas A&M University–Central Texas,https://www.tamuct.edu,A,0,1
+b:dcc8d71bd0c57223,Texas A&M Engineering Extension Service (TEEX),https://teex.org,A,0,1
+b:c9ff0459dd27d806,Consumer Product Safety Commission,https://www.cpsc.gov,A,0,1
+b:7a701edb86e37c1d,District of Columbia Courts,https://www.dccourts.gov,A,0,1
+b:30a7c3f96de82234,Library of Congress,https://www.loc.gov,A,0,1
+b:7710f4c5085afc06,CAJA DE PENSIONES MILITAR - POLICIAL,https://www.lacaja.com.pe,A,0,1
+b:3db2c3997f163d15,CAP SCIENCES,https://www.cap-sciences.net,A,0,1
+b:1c9c8edf703e2b46,Medicine Hat Public School Division,https://www.mhpsd.ca,A,0,1
+b:ad28fc3dd1abe294,Elk Island Catholic Schools,https://www.eics.ab.ca,A,0,1
+b:8cf5f1fa5d322585,Ponoka County,http://www.ponokacounty.com,A,0,1
+b:4142b664395d688f,Battle River School Division,https://www.brsd.ab.ca,A,0,1
+b:aa51753bb541e05c,Starland County,http://www.starlandcounty.com,A,0,1
+b:458449653a66c9d7,Village of Veteran,http://www.villageofveteran.ca,A,0,1
+b:95e32ef5d2be57ee,County of Vermilion River,http://www.vermilion-river.com,A,0,1
+b:54ea09e68789ebd6,Northland School Division,https://www.nsd61.ca,A,0,1
+b:da343f469f2ffb1d,Town of Drayton Valley,http://www.draytonvalley.ca,A,0,1
+b:e299276082eb7cf0,"Ministerie van Economische Zaken, Rijksdienst voor Ondernemend Nederland (RVO)",http://www.rvo.nl,A,0,1
+b:cca4ac233be9187e,Siemens Mobility GmbH,https://www.mobility.siemens.com,A,0,1
+b:01b22cad6650f844,Texas Department of Information Resources (DIR),https://dir.texas.gov,A,0,1
+b:7fa37620b06bc890,Texas Lottery Commission,https://www.texaslottery.com,A,0,1
+b:b997b87911a06ea3,The University of Texas at Dallas,https://www.utdallas.edu,A,0,1
+b:bd022c8e0dd3f1ce,Town of Coalhurst,http://www.coalhurst.ca,A,0,1
+b:59bab4fcf0a12f20,Ville de Laval,https://www.laval.ca,A,1,27457
+b:015607e8f776c765,National Defence,https://www.canada.ca/en/department-national-defence.html,A,1,12297
+b:031350c1192bf30a,Ministère des Transports et de la Mobilité durable,https://www.transports.gouv.qc.ca,A,1,12272
+b:0365cbdda18f4cd6,Société québécoise des infrastructures,https://www.sqi.gouv.qc.ca,A,1,7191
+b:4cd72d62d2202c1c,Ministère de l'Emploi et de la Solidarité sociale,https://www.quebec.ca/gouvernement/ministere/emploi-solidarite-sociale,A,1,5244
+b:3724be863b6f0cce,Ville de Saguenay,https://ville.saguenay.ca,A,1,3174
+b:31999c82c6f5ef53,Centre d'acquisitions gouvernementales (CAG),https://www.quebec.ca/gouvernement/ministeres-organismes/centre-acquisitions-gouvernementales,A,1,2720
+b:223ac39221849f6a,Société des traversiers du Québec,https://www.traversiers.com,A,1,2682
+b:20ce5c29bd01bb97,Société de transport de Montréal,https://www.stm.info,A,1,2448
+b:3caed1b4fc6c9987,Parks Canada,https://parks.canada.ca/index,A,1,2325
+b:0e11f421fe219825,Centre de services scolaire Marguerite-Bourgeoys,https://www.cssmb.gouv.qc.ca,A,1,2050
+b:b640758e67e74fc5,Ville de Terrebonne,https://terrebonne.ca,A,1,1980
+b:eb065f1c15fe4e08,Ville de Gatineau,https://www.gatineau.ca,A,1,1863
+b:1673b55329421ce9,Centre de services scolaire de la Pointe-de-l'Île,https://www.csspi.gouv.qc.ca,A,1,1703
+b:540e4b4e71b2e0a8,Société de l'assurance automobile du Québec,https://saaq.gouv.qc.ca,A,1,1638
+b:06fa12ce373f9e31,Ministère de l'Éducation,https://www.quebec.ca/gouvernement/ministere/education,A,1,1559
+b:6fc7c2f42226e13d,Revenu Québec,https://www.revenuquebec.ca,A,1,1385
+b:2cd4b5b6bc78a14d,Natural Resources Canada,https://natural-resources.canada.ca/home,A,1,1367
+b:3d42e5bc3a45803f,Ville de Saint-Hyacinthe,https://www.st-hyacinthe.ca,A,1,1251
+b:c16ae7a169e1e6a6,Ministère de la Justice du Québec,https://www.justice.gouv.qc.ca,A,1,1205
+b:03715524c0652eaa,Commission scolaire English-Montréal,https://www.emsb.qc.ca,A,1,1127
+b:5c68cfe5449dbd4c,Centre de services scolaire Marie-Victorin,https://cssmv.gouv.qc.ca,A,1,1124
+b:eda937981af3daf8,Ville de Lévis,https://www.ville.levis.qc.ca,A,1,1007
+b:865de89344d9d0c7,Health Canada,https://www.canada.ca/en/health-canada.html,A,1,985
+b:1922c65945925eaa,Canada Border Services Agency,https://www.cbsa-asfc.gc.ca/menu-eng.html,A,1,923
+b:2dad2321bc7b9e19,Ville de Granby,https://www.granby.ca,A,1,895
+b:4f0bd1d2b20cf418,Centre de services scolaire des Premières-Seigneuries,https://www.cssps.gouv.qc.ca,A,1,876
+b:323ffbf10f57c1b2,exo (Réseau de transport métropolitain),https://exo.quebec,A,1,848
+b:8157c45fc71abedd,Ville de Saint-Eustache,https://www.ville.saint-eustache.qc.ca,A,1,820
+b:369995634a3f0341,Office municipal d'habitation de Montréal,https://www.omhm.qc.ca,A,1,817
+b:cdff388aafe14d8b,Ville de Saint-Jérôme,https://www.vsj.ca,A,1,814
+b:5aa069f84bb89bbb,Ville de Mascouche,https://www.mascouche.ca,A,1,805
+b:48625c15f2c33b26,Société de transport de l'Outaouais,https://www.sto.ca,A,1,805
+b:7ca35bf4eb29a6f4,Ville de Westmount,https://www.westmount.org,A,1,753
+b:7963fcde176c345a,Assemblée nationale du Québec,https://www.assnat.qc.ca,A,1,737
+b:66448cbe10da8ab4,Centre de services scolaire de la Vallée-des-Tisserands,https://cssvt.gouv.qc.ca,A,1,733
+b:7f919a8875ca9065,Élections Québec,https://www.electionsquebec.qc.ca,A,1,695
+b:77ff082aad4c26cc,Télé-Québec,https://www.telequebec.tv,A,1,687
+b:f45eadade0bee638,Institut national de santé publique du Québec,https://www.inspq.qc.ca,A,1,668
+b:34835ad4dde0f8cd,Global Affairs Canada,https://international.canada.ca/en/global-affairs,A,1,661
+b:d27e7b8a2e1d2f54,Réseau de transport de Longueuil,https://www.rtl-longueuil.qc.ca,A,1,656
+b:25752c7759c09ea0,Centre de services scolaire des Affluents,https://cssda.gouv.qc.ca,A,1,645
+b:3c0d053ae5e2e9c6,Indigenous Services Canada,https://www.canada.ca/en/indigenous-services-canada.html,A,1,640
+b:112685ca8e509afc,Centre de services scolaire des Navigateurs,https://cssdn.gouv.qc.ca,A,1,631
+b:c68565549f14db7c,Régie de l'assurance maladie du Québec,https://www.ramq.gouv.qc.ca,A,1,626
+b:2914e614d0c5a4f3,Centre de services scolaire du Val-des-Cerfs,https://cssvdc.gouv.qc.ca,A,1,614
+b:217a96f2901d1709,Bibliothèque et Archives nationales du Québec,https://www.banq.qc.ca,A,1,602
+b:73c89be0d0b9c5fb,Ville de Bromont,https://www.bromont.com,A,1,574
+b:1efdeaffeffe8164,École de technologie supérieure,https://www.etsmtl.ca,A,1,567
+b:44f541634b33417f,Ville de Sainte-Agathe-des-Monts,https://www.vsadm.ca,A,1,555
+b:5ddb116a3ea554f4,Commission scolaire Sir-Wilfrid-Laurier,https://www.swlauriersb.qc.ca,A,1,550
+b:43ba877932ca04db,Government of Newfoundland and Labrador (GNL) - Public Procurement Agency,https://www.gov.nl.ca,A,1,542
+b:3b4c2196fcd19f0e,Centre de services scolaire des Trois-Lacs,https://csstl.gouv.qc.ca,A,1,540
+b:688c1d42dab1ecb0,Public Health Agency of Canada,https://www.canada.ca/en/public-health.html,A,1,533
+b:7fbcf1ad3f5be6f3,"Ministère de l'Agriculture, des Pêcheries et de l'Alimentation",https://www.mapaq.gouv.qc.ca,A,1,518
+b:e1f949fa1016950c,Sépaq,https://www.sepaq.com,A,1,516
+b:c54cda6b541fea60,Société de transport de Laval,https://stlaval.ca,A,1,514
+b:7985c29623a6741f,Sûreté du Québec,https://www.sq.gouv.qc.ca,A,1,513
+b:5d4f96a657720544,HEC Montréal,https://www.hec.ca,A,1,511
+b:0d339258cd11ee9f,Newfoundland and Labrador Housing Corporation,https://www.nlhc.nl.ca,A,1,504
+b:0f24b7f9d0d5c121,"Innovation, Science and Economic Development Canada",https://ised-isde.canada.ca/site/ised/en,A,1,482
+b:6ff002c230632db6,Ville de Amos,https://www.amos.quebec,A,1,475
+b:5f8d46ac210e3b2a,Ville de L'Assomption,https://www.ville.lassomption.qc.ca,A,1,470
+b:d06e899627b934d0,Ville de Victoriaville,https://www.victoriaville.ca,A,1,467
+b:2c36268ba6fbcfe0,Centre de services scolaire des Patriotes,https://cssp.gouv.qc.ca,A,1,455
+b:c40adf72b7590fdc,Université du Québec à Chicoutimi,https://www.uqac.ca,A,1,445
+b:71ded5754b4f47e4,Société d'habitation et de développement de Montréal,https://www.shdm.org,A,1,443
+b:03849d49c9e41c25,Centre de services scolaire des Monts-et-Marées,https://www.cssmm.gouv.qc.ca,A,1,441
+b:06c1f9e211e0455e,"Ministère de l'Environnement, de la Lutte contre les changements climatiques, de la Faune et des Parcs",https://www.environnement.gouv.qc.ca,A,1,431
+b:866008e22572fc91,Commission scolaire Lester-B.-Pearson,http://www.lbpsb.qc.ca,A,1,429
+b:62dccc6d8ba627a7,Centre de services scolaire du Chemin-du-Roy,https://csscdr.gouv.qc.ca,A,1,429
+b:f1736b07d59b0709,Commission scolaire Kativik,https://www.kativik.qc.ca,A,1,429
+b:2bdf8dc558042c44,Ministère des Ressources naturelles et des Forêts,https://mrnf.gouv.qc.ca,A,1,424
+b:09ce378a98ba0da5,Commission scolaire New Frontiers,https://www.nfsb.qc.ca,A,1,423
+b:da5296e3a55ffcfd,Ville de Bécancour,https://www.becancour.net,A,1,401
+b:428789b63702cb2e,Ministère de la Cybersécurité et du Numérique,https://www.quebec.ca/gouvernement/ministere/cybersecurite-numerique,A,1,397
+b:7e04a0ad8737df66,Centre de services scolaire des Portages-de-l'Outaouais,https://www.csspo.gouv.qc.ca,A,1,395
+b:32067f0f19b3ae6b,Ville de Dollard-des-Ormeaux,https://www.ville.ddo.qc.ca,A,1,393
+b:c7ecbc15d42e6bf8,Institut national de la recherche scientifique,https://inrs.ca,A,1,377
+b:96f46ddf9d21a0db,Ministère de la Culture et des Communications,https://www.quebec.ca/gouvernement/ministere/culture-communications,A,1,376
+b:9950578f4b730c5f,Centre de services scolaire de la Côte-du-Sud,https://csscotesud.gouv.qc.ca,A,1,374
+b:d31f75647c17e86a,Ville de Saint-Colomban,https://www.st-colomban.qc.ca,A,1,371
+b:3e3e99a19e6d9a2a,Centre de services scolaire des Chênes,https://www.cssdeschenes.gouv.qc.ca,A,1,367
+b:35cdcbffea6d0163,Ministère de la Santé et des Services sociaux,https://www.msss.gouv.qc.ca,A,1,365
+b:0eb2bba05ce121d0,Ville de Pincourt,https://www.villepincourt.qc.ca,A,1,362
+b:c0da5838377c92cd,Ville de Deux-Montagnes,https://www.ville.deux-montagnes.qc.ca,A,1,356
+b:c3e4a93af7e81e33,Ville de L'Ancienne-Lorette,https://www.lancienne-lorette.org,A,1,355
+b:bcaddc601a32e371,Ville de Dorval,https://www.ville.dorval.qc.ca,A,1,354
+b:359e52cf4c3fb0ed,Commission scolaire Riverside,https://www.rsb.qc.ca,A,1,351
+b:1f32e0ec74a25354,Ville de Shawinigan,https://www.shawinigan.ca,A,1,344
+b:47ec19dc016458d3,Ville de Rosemère,https://www.ville.rosemere.qc.ca,A,1,338
+b:ff4699f23d0b8aac,College of the North Atlantic,https://www.cna.nl.ca,A,1,338
+b:ecfb0d2978e1759e,Ville de Candiac,https://www.candiac.ca,A,1,333
+b:ad7dc69629691a7b,Héma-Québec,https://www.hema-quebec.qc.ca,A,1,321
+b:735bf368114e5add,Commission scolaire Western Québec,https://westernquebec.ca,A,1,317
+b:6cd62f0d5f723fc8,Ville de La Tuque,https://www.ville.latuque.qc.ca,A,1,315
+b:1b3378c1c0bd5e79,Department of Justice Canada,https://www.justice.gc.ca/eng,A,1,313
+b:75d62202ee65556e,Commission des services électriques de Montréal,https://cse.montreal.ca,A,1,307
+b:b3b7a8688c5114ca,Parc olympique,https://parcolympique.qc.ca,A,1,306
+b:05e73119a2672e88,Ville de Magog,https://www.ville.magog.qc.ca,A,1,301
+b:70e4f56add7e58a8,Centre de services scolaire des Laurentides,https://csslaurentides.gouv.qc.ca,A,1,301
+b:3e667f2b925e85d8,Université du Québec à Rimouski,https://www.uqar.ca,A,1,300
+b:7d5eb12a3e7d4c61,Canadian Food Inspection Agency,https://inspection.canada.ca/en,A,1,299
+b:c4a73ec4a90047f7,Centre de services scolaire des Hauts-Cantons,https://csshc.gouv.qc.ca,A,1,296
+b:744449e23b88c469,Ville de Sainte-Anne-de-Bellevue,https://www.sadb.qc.ca,A,1,292
+b:09c0f20da211dc70,National Capital Commission,https://ncc-ccn.gc.ca,A,1,288
+b:256368c8553d334d,Ville de Prévost,https://www.ville.prevost.qc.ca,A,1,284
+b:412e4bec5c1ec697,Centre de services scolaire de la Baie-James,https://cssbj.gouv.qc.ca,A,1,283
+b:6bcd419cd6cb000f,Ville de Sainte-Adèle,https://www.ville.sainte-adele.qc.ca,A,1,282
+b:6d40b33fc450cd8b,Ville de Mercier,https://www.ville.mercier.qc.ca,A,1,280
+b:0071a6cc826e4324,Vérificateur général du Québec,https://www.vgq.qc.ca,A,1,278
+b:f25f0f5b7e74045c,Ville de Saint-Sauveur,https://vss.ca,A,1,278
+b:f8261f719e7048a5,Municipalité de Boischatel,https://www.boischatel.ca,A,1,276
+b:accc5e6d56c39fd7,Ville de Carignan,https://www.carignan.quebec,A,1,271
+b:4a6550c20da47347,Centre de services scolaire du Pays-des-Bleuets,https://csspb.gouv.qc.ca,A,1,270
+b:32baecd328013adc,Ville de Boisbriand,https://www.ville.boisbriand.qc.ca,A,1,269
+b:173779dd00ed0db9,Ville de Sainte-Julie,https://www.saintejulie.ca,A,1,267
+b:78c1ddb28e6f06be,Canadian Heritage,https://www.canada.ca/en/canadian-heritage.html,A,1,262
+b:11c83ddbfc082bd1,Ville de Saint-Lin--Laurentides,https://www.saint-lin-laurentides.com,A,1,258
+b:8e3f7390486e5d49,Municipalité de Chelsea,https://www.chelsea.ca,A,1,257
+b:b558a4607afb527e,Ville de Boucherville,https://www.boucherville.ca,A,1,256
+b:663cdf88bca54384,CNESST,https://www.cnesst.gouv.qc.ca,A,1,253
+b:484887c7a9d245a5,Centre de services scolaire de l'Énergie,https://cssenergie.gouv.qc.ca,A,1,252
+b:eba869f97dcf3d9c,Curateur public du Québec,https://www.curateur.gouv.qc.ca,A,1,252
+b:665a482e08c9ea5a,Cégep de Saint-Laurent,https://www.cegepsl.qc.ca,A,1,252
+b:6d1b1d250bf8a3e0,Ville de Notre-Dame-de-l'Île-Perrot,https://www.ndip.org,A,1,245
+b:f19f6650dca6cb66,Société du Palais des congrès de Montréal,https://congresmtl.com,A,1,238
+b:6573ccb822cbd2da,Institut de tourisme et d'hôtellerie du Québec,https://www.ithq.qc.ca,A,1,237
+b:f7367cd057051505,Municipalité de Les Cèdres,https://www.ville.lescedres.qc.ca,A,1,237
+b:7540f477aa9daf11,Crown-Indigenous Relations and Northern Affairs Canada,https://www.canada.ca/en/crown-indigenous-relations-northern-affairs.html,A,1,235
+b:aa04f0430136be55,Commission scolaire Eastern Townships,https://www.etsb.qc.ca,A,1,229
+b:f34ee0e09409f6a3,Ville de Louiseville,https://www.louiseville.ca,A,1,228
+b:5f684ee226e98609,Centre de services scolaire du Fleuve-et-des-Lacs,https://cssfl.gouv.qc.ca,A,1,225
+b:1a9a97a9b7ade66f,Ville de Baie-Comeau,https://www.ville.baie-comeau.qc.ca,A,1,222
+b:4035596a371f1803,Centre de services scolaire de la Riveraine,https://cssdlr.gouv.qc.ca,A,1,219
+b:340d58f9cbe52fcd,Société d'habitation du Québec,https://www.habitation.gouv.qc.ca,A,1,216
+b:975cf59c8d9f3d26,Centre de services scolaire de Saint-Hyacinthe,https://www.csssh.gouv.qc.ca,A,1,212
+b:a063525403d70688,Ville de Chibougamau,https://www.ville.chibougamau.qc.ca,A,1,212
+b:bffc5f51e2c11a6b,Municipalité régionale de comté La Haute-Yamaska,https://www.haute-yamaska.ca,A,1,211
+b:e4f6bfec79d4c770,Municipalité de Chertsey,https://www.chertsey.ca,A,1,210
+b:d4b094ee73a1921f,Ville de Rigaud,https://www.ville.rigaud.qc.ca,A,1,209
+b:6721db70cbfa00b7,Municipalité régionale de comté Abitibi,https://www.mrcabitibi.qc.ca,A,1,204
+b:0efc06f0c72f1f62,Ville de Nicolet,https://www.nicolet.ca,A,1,203
+b:3d4108d87b549363,Retraite Québec,https://www.retraitequebec.gouv.qc.ca,A,1,203
+b:f406ecce875b5a94,Municipalité de Cantley,https://www.cantley.ca,A,1,201
+b:97182febf8d07944,Ville de New Richmond,https://www.villenewrichmond.com,A,1,197
+b:32d4d1c8e08e7028,La Financière agricole du Québec,https://www.fadq.qc.ca,A,1,196
+b:69e9dd5a04b92ac1,Town of Okotoks,http://www.okotoks.ca,A,1,195
+b:838aae1c2de9d288,Centre de services scolaire des Draveurs,https://www.cssd.gouv.qc.ca,A,1,193
+b:191763eb0930fba6,Commission de la capitale nationale du Québec,https://www.capitale.gouv.qc.ca,A,1,192
+b:2042e6951de9e47b,Collège de Maisonneuve,https://www.cmaisonneuve.qc.ca,A,1,190
+b:117191c40b9a94aa,Canton de Orford,https://www.canton.orford.qc.ca,A,1,188
+b:78c532d5d466fcb4,Ville de L'Île-Perrot,https://www.ile-perrot.qc.ca,A,1,185
+b:7f4667540f66c5e0,Ville de Sutton,https://www.sutton.ca,A,1,183
+b:8b0e28ff3616d66d,Ville de Cowansville,https://www.ville.cowansville.qc.ca,A,1,183
+b:6d2381d67a275253,Municipalité régionale de comté Les Sources,https://www.mrcdessources.com,A,1,183
+b:878295703ee16a63,Municipalité régionale de comté Le Haut-Saint-Laurent,https://www.mrchsl.com,A,1,181
+b:496391f4ef815376,McMaster University,https://www.mcmaster.ca,A,1,179
+b:577fad9647d8aa8b,Ville de La Pocatière,https://www.lapocatiere.ca,A,1,179
+b:b3b0b2c726742420,Cégep Limoilou,https://www.cegeplimoilou.ca,A,1,177
+b:f7795f2c19673ea7,Ville de Otterburn Park,https://www.opark.ca,A,1,177
+b:758fec00cd69f9f5,Municipalité régionale de comté Marguerite-D'Youville,https://www.margueritedyouville.ca,A,1,176
+b:ee790425ebd1dbfe,Ville de Bois-des-Filion,https://villebdf.ca,A,1,174
+b:96194fa3862749c7,Municipalité de Saint-Joseph-du-Lac,https://www.sjdl.qc.ca/fr,A,1,173
+b:5b90fc42edefd5b7,Municipalité de Saint-Donat,https://www.saint-donat.ca,A,1,171
+b:57911ab6f4b1f3d1,Ville de Thurso,https://www.ville.thurso.qc.ca,A,1,171
+b:25215411213cee5d,Centre de services scolaire des Hauts-Bois-de-l'Outaouais,https://www.csshbo.gouv.qc.ca,A,1,169
+b:5d68dcf76d5836a7,Ville de Dolbeau-Mistassini,https://www.ville.dolbeau-mistassini.qc.ca,A,1,169
+b:36bfdfa5ee3d17f4,Ville de Baie-D'Urfé,https://www.baie-durfe.qc.ca,A,1,168
+b:b5f6b8b5e55244e0,Société de la Place des Arts de Montréal,https://placedesarts.com,A,1,167
+b:cb2f89e497572b5c,Treasury Board of Canada Secretariat,https://www.canada.ca/en/treasury-board-secretariat.html,A,1,166
+b:de9e4ac7ece5062d,Ville de Dégelis,https://www.degelis.ca,A,1,162
+b:3fc88bb62acf8692,Société de transport de Sherbrooke,https://www.sts.qc.ca,A,1,162
+b:8ba8aeec3c0b286e,Municipalité de Morin-Heights,https://www.morinheights.com,A,1,162
+b:964fb10860bfd70f,Ville de Dunham,https://www.ville.dunham.qc.ca,A,1,162
+b:d01b327c4cbf0869,Collecto Services regroupés en éducation,https://www.collecto.ca,A,1,161
+b:6bbc87397754d206,Autorité des marchés financiers,https://lautorite.qc.ca,A,1,160
+b:1dd2ff9389d7dfcb,Centre de services scolaire des Phares,https://www.cssphares.gouv.qc.ca,A,1,160
+b:2dc71f5e00149408,Municipalité de Lac-Beauport,https://www.lac-beauport.quebec,A,1,159
+b:c45033639586aca7,Ville de Saint-Amable,https://www.st-amable.qc.ca,A,1,153
+b:c12869dba1b37dae,Ville de Brownsburg-Chatham,https://www.brownsburgchatham.ca,A,1,152
+b:0dc05bf19051a605,Municipalité de Sainte-Sophie,https://www.stesophie.ca,A,1,151
+b:22fc46ef892b0468,Loto-Québec,https://societe.lotoquebec.com,A,1,150
+b:8e26d7453a6679d2,Ministère des Finances du Québec,https://www.finances.gouv.qc.ca,A,1,149
+b:113bc8657f90cab1,Ville de Malartic,https://www.ville.malartic.qc.ca,A,1,149
+b:194b539e90615aad,Ville de Port-Cartier,https://www.villeport-cartier.com,A,1,146
+b:56b2aab3fa53684e,Ville de Saint-Zotique,https://www.st-zotique.com,A,1,146
+b:12f7506228eab738,Ville de Donnacona,https://www.villededonnacona.com,A,1,145
+b:a08495f2e260bef1,Ministère du Tourisme,https://www.quebec.ca/gouvernement/ministere/tourisme,A,1,145
+b:b9ca747cf742855b,Ville de McMasterville,https://www.mcmasterville.ca,A,1,144
+b:b5620818fd6762c9,Canadian Commercial Corporation,https://www.ccc.ca/en,A,1,143
+b:642f28fa92f9747d,Municipalité de Saint-Denis-de-Brompton,https://www.sddb.ca/accueil,A,1,142
+b:d063557a16f824f9,Municipalité régionale de comté Vaudreuil-Soulanges,https://www.mrcvs.ca,A,1,141
+b:3134bf5fe4a4b174,Privy Council Office,https://www.canada.ca/en/privy-council.html,A,1,140
+b:bc02584c2331e1f3,Municipalité régionale de comté La Vallée-du-Richelieu,https://www.mrcvr.ca,A,1,139
+b:ce5614fcff049032,Ville de Farnham,https://www.ville.farnham.qc.ca,A,1,138
+b:ff25e3d95d7f2338,"Ministère de l'Immigration, de la Francisation et de l'Intégration",https://www.quebec.ca/gouvernement/ministere/immigration,A,1,135
+b:294648b3dc412aaf,Ville de L'Épiphanie,https://www.lepiphanie.ca,A,1,134
+b:dfcc11ed935b1505,Ville de Sainte-Anne-des-Plaines,https://www.villesadp.ca,A,1,134
+b:15f899434ab27c3a,Edmonton Catholic Schools,https://www.ecsd.net,A,1,133
+b:68349dfa5795d7c1,Ville de Lac-Brome,https://lacbrome.ca,A,1,131
+b:d671035d678ddc00,Université du Québec (siège social),https://www.uquebec.ca,A,1,129
+b:d1d95f301aaf38a1,Municipalité de Saint-Félix-de-Valois,https://www.st-felix-de-valois.com,A,1,129
+b:77921a90670097ba,Municipalité de Saint-Lambert-de-Lauzon,https://www.mun-sldl.ca,A,1,129
+b:09b37d8ccdefd2bb,Municipalité régionale de comté Beauharnois-Salaberry,https://mrcbhs.ca,A,1,128
+b:cf9617930b4891ca,Town of Gander,http://www.gandercanada.com,A,1,126
+b:0930da2c8f36bced,Centre de services scolaire de Portneuf,https://cssportneuf.gouv.qc.ca,A,1,124
+b:e2257a27d13ba28e,Ville de Fossambault-sur-le-Lac,https://www.fossambault-sur-le-lac.com,A,1,123
+b:a9e698b28b146a5c,Village de Laurier-Station,https://laurierstation.ca,A,1,122
+b:26ad9550d415fb43,Ville de Clermont,https://www.ville.clermont.qc.ca,A,1,122
+b:10a9176ece1deac1,Ministère des Affaires municipales et de l'Habitation,https://www.quebec.ca/gouvernement/ministere/affaires-municipales,A,1,121
+b:039fd80473f210b7,Ville de Warwick,https://www.villedewarwick.quebec,A,1,121
+b:0e8064386ecf2782,Ville de Baie-Saint-Paul,https://www.baiesaintpaul.com,A,1,121
+b:07e7198f3c01f97d,Ville de Saint-Joseph-de-Sorel,https://www.vsjs.ca,A,1,121
+b:39ad167661ecbbca,Centre de services scolaire des Appalaches,https://cssa.gouv.qc.ca,A,1,121
+b:647aa888e95d66c1,Municipalité de Saint-Cyrille-de-Wendover,https://www.stcyrille.qc.ca,A,1,120
+b:d0325780ccd0b44f,Ville de Beauharnois,https://www.ville.beauharnois.qc.ca,A,1,119
+b:a1f9358503fea786,Municipalité régionale de comté Rouville,https://www.mrcrouville.qc.ca,A,1,119
+b:20534779a5d1bc92,Centre de services scolaire du Lac-Témiscamingue,https://csslt.gouv.qc.ca,A,1,119
+b:806bbcbbc6f0fa9f,Ville de Plessisville,https://plessisville.quebec,A,1,117
+b:546052157511cb06,Ville de Hudson,https://www.hudson.quebec,A,1,117
+b:c151a50d126fc549,Ville de East Angus,https://www.eastangus.ca,A,1,116
+b:f49fe5ab2ffd306d,Municipalité de Saint-Hippolyte,https://www.saint-hippolyte.ca,A,1,115
+b:e60d5bde68e3c4fb,Municipalité de Oka,https://www.municipalite.oka.qc.ca,A,1,115
+b:0ef37f84b1d2c80d,Municipalité régionale de comté Pierre-De Saurel,https://www.mrcpierredesaurel.com,A,1,114
+b:0738579c7d4219de,Commission scolaire Central Québec,https://www.cqsb.qc.ca,A,1,112
+b:0bc1f4bb0407379c,Municipalité de Saint-Prosper,https://www.saint-prosper.com,A,1,109
+b:c23001bab279c47e,Institut de technologie agroalimentaire du Québec,https://www.itaq.ca,A,1,108
+b:32417de623cf2343,Ville de Windsor,https://www.villedewindsor.qc.ca,A,1,107
+b:953178c0022380ba,Municipalité de Les Îles-de-la-Madeleine,https://www.muniles.ca,A,1,106
+b:21fbcaabaca98b7b,Municipalité de Saint-Paul,https://www.saintpaul.quebec,A,1,106
+b:e34e67ba04942c4a,Veterans Affairs Canada,https://www.veterans.gc.ca/eng,A,1,106
+b:f3c579fec614337b,"Ministère de l'Économie, de l'Innovation et de l'Énergie",https://www.economie.gouv.qc.ca,A,1,105
+b:5c26c818e9455635,Municipalité régionale de comté Les Moulins,https://www.mrclesmoulins.ca,A,1,104
+b:a7c95b422000ac69,Ville de Cookshire-Eaton,https://www.cookshire-eaton.qc.ca,A,1,104
+b:fb920370c4e07abc,Municipalité régionale de comté La Matapédia,https://www.mrcmatapedia.qc.ca,A,1,104
+b:45853495289a815f,Ville de Kirkland,https://www.ville.kirkland.qc.ca,A,1,103
+b:f9bd3cda54a25c21,Union des municipalités du Québec,https://umq.qc.ca,A,1,102
+b:2add6b28180a38d2,Ministère de la Famille,https://www.quebec.ca/gouvernement/ministere/famille,A,1,101
+b:a47c24a2b34f0423,Commission de la construction du Québec,https://www.ccq.org,A,1,99
+b:4eb8a3c2443cee90,Ville de Saint-Tite,https://www.villest-tite.com,A,1,96
+b:3c028e7da80fa610,Municipalité régionale de comté Les Pays-d'en-Haut,https://www.lespaysdenhaut.com,A,1,95
+b:9078b266df1ffb78,Municipalité régionale de comté Montcalm,https://www.mrcmontcalm.com,A,1,92
+b:c9cb2b15624c46b7,"Alberta Gaming, Liquor and Cannabis Commission (AGLC)",https://aglc.ca,A,1,89
+b:e1dfc7f8a9afbe69,National Gallery of Canada,https://www.gallery.ca,A,1,89
+b:37c863fc3e970beb,Société parc-auto du Québec,https://www.spaq.com,A,1,89
+b:db5a847a57f555e1,Ville de Bedford,https://www.ville.bedford.qc.ca,A,1,88
+b:ebda3045735cf7fb,École nationale de police du Québec,https://www.enpq.qc.ca,A,1,87
+b:4865801b8c5ddedc,Ville de Sainte-Marie,https://www.sainte-marie.ca,A,1,86
+b:3cc77cf40dd23fa5,Municipalité de Cap-Saint-Ignace,https://www.capsaintignace.ca,A,1,86
+b:a706c8edc3c4f221,Municipalité de Saint-Esprit,https://www.saint-esprit.ca,A,1,86
+b:9bc8bac8a1206b6a,Municipalité régionale de comté Lotbinière,https://www.mrclotbiniere.org,A,1,85
+b:6ebb8d7bd555b4cb,Ville de Richelieu,https://www.ville.richelieu.qc.ca,A,1,85
+b:a9951be5295f4781,Municipalité de Saint-Germain-de-Grantham,https://www.st-germain.info,A,1,83
+b:ac26fc4f35103f0b,Canton de Shefford,https://cantonshefford.qc.ca,A,1,83
+b:098779c1edaee280,Ville de Mont-Joli,https://www.ville.mont-joli.qc.ca,A,1,82
+b:1224ce81fe51162b,ENMAX Corporation,https://www.enmax.com,A,1,82
+b:5a9f0fdb12e5fdc5,Paroisse de Saint-Étienne-des-Grès,https://www.mun-stedg.qc.ca,A,1,82
+b:665b22f791cc46ce,Municipalité régionale de comté La Nouvelle-Beauce,https://www.nouvellebeauce.com,A,1,82
+b:a8611d0ed60e6c79,Centre de services scolaire de Sorel-Tracy,https://cssst.gouv.qc.ca,A,1,80
+b:b5d68e152eb8f0f7,Ville de Saint-Basile,https://www.saintbasile.qc.ca,A,1,80
+b:8d1b0c196afde65e,Municipalité régionale de comté Charlevoix-Est,https://www.mrccharlevoixest.ca,A,1,79
+b:e277ca0cd440eb0a,Municipalité de Beaulac-Garthby,https://www.beaulac-garthby.ca,A,1,79
+b:c43ea1310687ed47,Municipalité régionale de comté La Vallée-de-la-Gatineau,https://www.mrcvg.qc.ca,A,1,79
+b:d5abc1c61de42225,Municipalité de Nominingue,https://www.nominingue.ca,A,1,78
+b:697213fefa078c0e,Municipalité de Ascot Corner,https://www.ascot-corner.com,A,1,78
+b:38f915518dfca6cc,Ville de Côte-Saint-Luc,https://www.cotesaintluc.org,A,1,77
+b:f0d97eeaf5595c9e,Municipalité de Sainte-Croix,https://www.saintecroix.ca,A,1,77
+b:91bd023ad91f1d44,Municipalité de Upton,https://www.upton.ca,A,1,77
+b:e7cfa38a6a265c61,Société de développement de la Baie-James,https://www.sdbj.gouv.qc.ca,A,1,76
+b:7a76e82fe2c44557,Ville de Percé,https://www.ville.perce.qc.ca,A,1,76
+b:b4a5adad4edb3603,Municipalité de Les Coteaux,https://www.les-coteaux.qc.ca,A,1,75
+b:1297e93dedabb900,National Film Board,https://www.canada.ca/en/national-film-board.html,A,1,75
+b:755a8f615dde1fd9,Municipalité de Saint-Nazaire,https://www.ville.saint-nazaire.qc.ca,A,1,75
+b:7f848af88db86b87,Ville de La Malbaie,https://www.ville.lamalbaie.qc.ca,A,1,73
+b:ae9c0ecdcdbdd59c,Municipalité régionale de comté Le Haut-Richelieu,https://www.mrchr.qc.ca,A,1,72
+b:fde708bf25a2d953,Paroisse de Sainte-Anne-des-Lacs,https://www.sadl.qc.ca,A,1,72
+b:0218906b8e1829c3,Ville de Cap-Santé,https://www.capsante.qc.ca,A,1,72
+b:787ed85804954067,Municipalité de Weedon,https://www.weedon.ca,A,1,72
+b:ceb82f728ec3920d,Régie du bâtiment du Québec,https://www.rbq.gouv.qc.ca,A,1,71
+b:eceee88d89b2351e,Ville de Lac-Mégantic,https://www.ville.lac-megantic.qc.ca,A,1,71
+b:029082c3560ae86f,Société québécoise d'information juridique,https://soquij.qc.ca,A,1,71
+b:13eb7af148339115,Canton de Hatley,https://www.cantondehatley.ca,A,1,70
+b:6be9cf41f42e10f8,Canton de Amherst,https://www.municipalite.amherst.qc.ca,A,1,69
+b:5e6a5044ddad3c4f,Alberta Innovates,https://albertainnovates.ca,A,1,68
+b:15c0237a084c2f72,Municipalité régionale de comté Matawinie,https://www.matawinie.org,A,1,68
+b:f4b608535c043c34,Municipalité régionale de comté L'Érable,https://www.erable.ca,A,1,68
+b:5721a0f30d1da960,Village de Pointe-aux-Outardes,https://www.pointe-aux-outardes.ca,A,1,67
+b:f8cd9bc84c8ffab6,Municipalité de Sainte-Catherine-de-Hatley,https://www.sainte-catherine-de-hatley.ca,A,1,67
+b:b85ec364bc873500,Town of Sylvan Lake,http://sylvanlake.ca,A,1,66
+b:addee4b625799580,Ville de Roberval,https://www.roberval.ca,A,1,64
+b:57c02451ea2dfc49,Department of Finance Canada,https://www.canada.ca/en/department-finance.html,A,1,64
+b:b8f50c2ed45c436b,Municipalité de Havre-Saint-Pierre,https://www.havresaintpierre.com,A,1,63
+b:a757a96eb4e34db2,Municipalité de Mille-Isles,https://www.mille-isles.ca,A,1,63
+b:2133da9d8d883a3e,Municipalité de Saint-Polycarpe,https://stpolycarpe.ca,A,1,63
+b:f2d116919e0b5f19,Ville de Shannon,https://www.shannon.ca,A,1,63
+b:6e7beccfab0b9c65,Municipalité de Saint-Boniface,https://www.municipalitesaint-boniface.ca,A,1,62
+b:253977e0932a790a,Marine Atlantic Inc.,https://www.marineatlantic.ca,A,1,61
+b:894ecbf45a7d3199,Municipalité de Sainte-Barbe,https://www.ste-barbe.com,A,1,61
+b:5405aac448cba955,Ville de Forestville,https://www.forestville.ca,A,1,61
+b:181e614c6e186d20,Municipalité de Grenville-sur-la-Rouge,https://www.gslr.ca,A,1,60
+b:fad56f21f8554854,Municipalité régionale de comté D'Autray,https://www.mrcautray.qc.ca,A,1,60
+b:8af2a2df40ff5ac2,Municipalité de Saint-Isidore,https://www.saint-isidore.net,A,1,59
+b:9c7350df55695493,Ville de Témiscouata-sur-le-Lac,https://www.temiscouatasurlelac.ca,A,1,59
+b:f898767fe16cad01,Municipalité de Pontiac,https://municipalitepontiac.com,A,1,58
+b:7276472ac3dba86e,Municipalité de Napierville,https://www.napierville.ca,A,1,58
+b:a015e35c3ab722ca,Municipalité régionale de comté L'Assomption,https://www.mrclassomption.qc.ca,A,1,58
+b:242d86f8555b0e83,Municipalité régionale de comté La Haute-Gaspésie,https://www.hautegaspesie.com,A,1,58
+b:498d895dbbaca226,Ville de Saint-Rémi,https://www.ville.saint-remi.qc.ca,A,1,57
+b:3385f9ae7954dc73,Accessibility Standards Canada,https://accessible.canada.ca,A,1,57
+b:e9dcab335c2aed54,Municipalité de Saint-Ferréol-les-Neiges,https://www.saintferreollesneiges.qc.ca,A,1,57
+b:2054f1d31e174407,Municipalité de Saint-Félix-de-Kingsey,https://www.saintfelixdekingsey.ca,A,1,57
+b:a0fe0beafc9eb7fd,Municipalité de Verchères,https://www.ville.vercheres.qc.ca,A,1,57
+b:ce6fb21fca88d39c,Municipalité régionale de comté Minganie,https://mrcminganie.com,A,1,57
+b:3064b26722a9d5fc,Manitoba Housing,https://www.gov.mb.ca/housing,A,1,57
+b:e9bde89a4591a3b5,Municipalité de Val-des-Lacs,https://www.val-des-lacs.ca,A,1,56
+b:b19e3a60f8b738f2,Paroisse de Lac-aux-Sables,https://www.lac-aux-sables.qc.ca,A,1,56
+b:e3a684fe1e2257db,Municipalité de Nantes,https://www.munantes.qc.ca,A,1,56
+b:cace8314a5298890,Centre de services scolaire des Hautes-Laurentides,https://csshl.gouv.qc.ca,A,1,56
+b:45613d64ffb5f7a2,Municipalité de Venise-en-Québec,https://www.veniseenquebec.ca,A,1,56
+b:897891fc1ee00657,Ville de Acton Vale,https://www.ville.actonvale.qc.ca,A,1,55
+b:9a9d34e85c4934f9,Municipalité de Saint-Anselme,https://www.st-anselme.ca,A,1,55
+b:14ec88cfc53844f6,Municipalité de Mont-Saint-Grégoire,https://www.mmsg.ca,A,1,55
+b:f9d76f88628139aa,Ville de Neuville,https://www.ville.neuville.qc.ca,A,1,55
+b:98faf340c6123a28,Municipalité de Sainte-Mélanie,https://www.sainte-melanie.ca,A,1,55
+b:b392cdcb59419e19,Paroisse de Saint-Louis-de-Gonzague,https://www.sldg.ca,A,1,55
+b:a9f4e431f7fd5801,Municipalité de Sainte-Agathe-de-Lotbinière,https://www.steagathedelotbiniere.com,A,1,55
+b:584956e2c56dce8b,Municipalité de Sayabec,https://www.municipalitesayabec.com,A,1,54
+b:5841e21c0e266d4b,Municipalité de Sainte-Justine-de-Newton,https://www.sainte-justine-de-newton.ca,A,1,54
+b:486326a944a45bcf,Ville de La Sarre,https://www.ville.lasarre.qc.ca,A,1,54
+b:2adb592ae1df7a41,Municipalité régionale de comté Coaticook,https://www.mrcdecoaticook.qc.ca,A,1,54
+b:93e75d01b936f8e0,Municipalité de Saint-Cyprien-de-Napierville,https://www.st-cypriendenapierville.com,A,1,54
+b:c55f04969411f5ca,Municipalité de Saint-Claude,https://www.municipalite.st-claude.ca,A,1,54
+b:2016b77c1f60d1ff,Municipalité de Pointe-Calumet,https://www.pointe-calumet.ca,A,1,54
+b:5ef5c8465fbc4b34,Municipalité régionale de comté Bellechasse,https://www.bellechasse.ca,A,1,53
+b:0bd8ca784c6a31e3,Municipalité de La Présentation,https://www.municipalitelapresentation.qc.ca,A,1,53
+b:f75250192fb63c4b,Municipalité de Wotton,https://www.wotton.ca,A,1,52
+b:758d533f0d08d5a1,Municipalité de Sainte-Geneviève-de-Berthier,https://www.municipalites-du-quebec.ca/sainte-genevieve-de-berthier,A,1,52
+b:b15c8a552f26d126,Municipalité de Sainte-Brigide-d'Iberville,https://www.sainte-brigide.com,A,1,52
+b:fb40ae2c162b2793,Municipalité de Saint-Ludger,https://www.st-ludger.qc.ca,A,1,52
+b:a1102946ef30b370,Ville de Rivière-Rouge,https://www.riviere-rouge.ca,A,1,51
+b:72eee59e893f8283,Village de Tring-Jonction,https://www.tringjonction.qc.ca,A,1,51
+b:746baa991ae6e929,Municipalité de Compton,https://www.compton.ca,A,1,51
+b:5ddd316c011f4fee,Municipalité de Saint-Siméon,https://www.saintsimeon.ca,A,1,50
+b:d11dcd5309156daf,Ville de Saint-Joseph-de-Beauce,https://www.vsjb.ca,A,1,49
+b:b0290ca8bfda0613,Canton de Stanstead,https://www.cantonstanstead.ca,A,1,49
+b:0fb5cb284fe12492,Municipalité de Labelle,https://www.municipalite.labelle.qc.ca,A,1,49
+b:4ab45606fc851605,Municipalité de Saint-Urbain-Premier,https://www.saint-urbain-premier.com,A,1,48
+b:16c566e76e7eaacc,Municipalité de Saint-François-Xavier-de-Brompton,https://sfxb.qc.ca,A,1,47
+b:d72aa5c17e042145,Municipalité régionale de comté Portneuf,https://www.portneuf.ca,A,1,47
+b:c40c48206cb03f11,Village de Tadoussac,https://www.municipalite.tadoussac.com,A,1,47
+b:f1f01a3fcf250a2e,Municipalité de Lambton,https://www.lambton.ca,A,1,47
+b:800ddd015f87d2a3,Municipalité de Lyster,https://www.lyster.ca,A,1,46
+b:513e7cb903412dea,Natural Sciences and Engineering Research Council of Canada,https://www.nserc-crsng.gc.ca/index_eng.asp,A,1,46
+b:674091d7e126956f,Municipalité de Saint-Ulric,https://www.st-ulric.ca,A,1,46
+b:2fb74fc749130eab,Rocky View Schools,https://www.rockyview.ab.ca,A,1,45
+b:833b8e64a44eff12,Municipalité de Saint-Jean-Baptiste,https://www.msjb.qc.ca,A,1,45
+b:2a68450937693514,Municipalité de Brigham,https://www.brigham.ca,A,1,45
+b:c905653a923ddce0,Municipalité de L'Islet,https://www.lislet.com,A,1,45
+b:cd200379083efe60,Municipalité de Saint-Calixte,https://www.saint-calixte.ca,A,1,44
+b:1bbd128d9f7643a3,Municipalité régionale de comté Les Maskoutains,https://www.mrcmaskoutains.qc.ca,A,1,44
+b:d9d18030f7712339,Municipalité de Sainte-Hélène-de-Bagot,https://www.saintehelenedebagot.com,A,1,44
+b:35c946d2a77e8d8f,Municipalité de Saint-David-de-Falardeau,https://www.villefalardeau.ca,A,1,43
+b:28c1524b15d32cb0,Ville de Léry,https://www.lery.ca,A,1,43
+b:7c98db6e94c6562b,Municipalité de Ferme-Neuve,https://www.municipalite.ferme-neuve.qc.ca,A,1,43
+b:10aee6ae256df954,Municipalité de L'Isle-aux-Coudres,https://www.municipaliteiac.ca,A,1,43
+b:17ff0b7e842e2672,Municipalité de Saint-Roch-de-l'Achigan,https://www.sra.quebec,A,1,42
+b:91131ef485457c1b,Municipalité de Caplan,https://www.municipalitecaplan.com,A,1,42
+b:f48436234dcf06a1,Ville de Beaupré,https://www.villedebeaupre.com,A,1,42
+b:b940a172bf1ff1eb,Canton de Ham-Nord,https://www.ham-nord.ca,A,1,42
+b:ac9ddf8a21f16250,Ville de Pont-Rouge,https://www.ville.pontrouge.qc.ca,A,1,41
+b:a9163cc206129ca6,Department of Veterans Affairs,https://www.va.gov,A,1,41
+b:bae68e97009a5e79,Village de Vaudreuil-sur-le-Lac,https://www.vsll.ca,A,1,40
+b:1785c8e3497d3b85,Commission scolaire Eastern Shores,https://www.essb.qc.ca,A,1,40
+b:7585a0627bf0ce79,Municipalité de Lac-Etchemin,https://www.lac-etchemin.ca,A,1,40
+b:a5f0b87faa7f95c1,Municipalité de Saint-Alphonse-de-Granby,https://www.st-alphonse.qc.ca,A,1,39
+b:6e46c7127e9340b7,Ville de Saint-Pascal,https://www.villesaintpascal.com,A,1,39
+b:616ca48f093e7c6b,Municipalité de Saint-Benjamin,https://www.st-benjamin.qc.ca,A,1,39
+b:4b4f64dffe4d356c,Municipalité de Saint-Gédéon-de-Beauce,https://www.st-gedeon-de-beauce.qc.ca,A,1,39
+b:f7d8e701c064f706,Social Sciences and Humanities Research Council of Canada,https://sshrc-crsh.canada.ca/en.aspx,A,1,39
+b:750c26ecf570a4de,Municipalité de Sainte-Anne-de-Sorel,https://www.msads.ca,A,1,39
+b:10b1445480ba928c,Municipalité régionale de comté Maskinongé,https://www.mrcmaskinonge.ca,A,1,38
+b:18de546a5c7d395d,Municipalité de Saint-André-Avellin,https://www.ville.st-andre-avellin.qc.ca,A,1,38
+b:79975fb172b13029,Municipalité de Saint-Ambroise-de-Kildare,https://www.saintambroise.ca,A,1,38
+b:c6fa62571ad74eb2,Autorité des marchés publics,https://amp.quebec,A,1,37
+b:72acaf33cd44acea,Ville de Château-Richer,https://www.chateauricher.qc.ca,A,1,37
+b:d78c32e6ae977894,Municipalité de Saint-Paul-de-Montminy,https://www.stpauldemontminy.com,A,1,37
+b:db3d13963d8b80a6,Municipalité de Lotbinière,https://www.municipalite-lotbiniere.com,A,1,36
+b:9f651f6792f56f5a,Municipalité de Saint-Gabriel-de-Brandon,https://saintgabrieldebrandon.com,A,1,36
+b:270e039ad3b5831f,Municipalité de Très-Saint-Sacrement,https://www.tres-st-sacrement.ca,A,1,36
+b:eb18e67c5c6a404d,Municipalité de Saint-Éphrem-de-Beauce,https://www.saint-ephrem.com,A,1,36
+b:7786315523debc00,Impact Assessment Agency of Canada,https://www.canada.ca/en/impact-assessment-agency.html,A,1,36
+b:b6ed2b1df44c3e55,Municipalité de Saint-Charles-de-Bellechasse,https://www.saint-charles.ca,A,1,36
+b:6aa1a3b893642a86,Canada Water Agency,https://www.canada.ca/en/canada-water-agency.html,A,1,35
+b:3ed4719f86dce9bc,Canadian Human Rights Commission,https://www.chrc-ccdp.gc.ca,A,1,35
+b:f7338bd803a8ca17,Municipalité de Austin,https://www.municipalite.austin.qc.ca,A,1,35
+b:58e68b1f51a641bc,Municipalité de Sainte-Claire,https://www.ste-claire.ca,A,1,35
+b:c6ee0817a016fa49,Municipalité de Frelighsburg,https://frelighsburg.ca,A,1,35
+b:a44793556e802ef1,Municipalité de Leclercville,https://www.munleclercville.qc.ca,A,1,35
+b:bbe4cee8b624a7e9,Société du parc industriel et portuaire de Bécancour,https://www.spipb.com,A,1,34
+b:4d6bef065ac5cd6c,Municipalité de Rougemont,https://www.rougemont.ca,A,1,34
+b:477179f3782ae0f2,Canton de Harrington,https://www.harrington.ca,A,1,34
+b:c16c7845a9c6f382,Municipalité de Grande-Vallée,https://www.grande-vallee.ca,A,1,34
+b:ffa37b64462bc8e2,Municipalité de Saint-Ambroise,https://www.st-ambroise.qc.ca,A,1,33
+b:2f20254fbfb3c115,Municipalité régionale de comté Joliette,https://www.mrcjoliette.qc.ca,A,1,33
+b:6b14c9a714b7b4a8,Municipalité de Saint-Mathieu-de-Beloeil,https://www.saint-mathieu-de-beloeil.com,A,1,33
+b:a10128b36aa970f1,Municipalité de Saint-Fulgence,https://www.ville.st-fulgence.qc.ca,A,1,33
+b:e253cd97d95dd10b,Municipalité de Chambord,https://www.chambord.ca,A,1,33
+b:c103bd0e33e739d5,Ville de Gracefield,https://www.gracefield.ca,A,1,32
+b:cec9a0dac435f010,Municipalité de Bristol,https://www.bristolmunicipality.qc.ca,A,1,32
+b:31514e4cc2e22d7e,Municipalité de Yamachiche,https://www.yamachiche.ca,A,1,32
+b:843e5559dea692ee,Municipalité de Saint-Victor,https://www.st-victor.qc.ca,A,1,32
+b:c6421cdecdf9bdf8,Municipalité de Sainte-Justine,https://www.stejustine.net,A,1,32
+b:48aa8542537eba06,Municipalité de Ormstown,https://www.ormstown.ca,A,1,31
+b:eee1eca30e370b04,Municipalité de Inverness,https://www.invernessquebec.ca,A,1,31
+b:ec53f1b34cd3624a,Municipalité de Saint-Ubalde,https://www.stubalde.com,A,1,31
+b:5ff97f054b65f261,Municipalité de Montcalm,https://www.montcalm.ca,A,1,31
+b:f385c0c62ab0bd7f,Ville de Senneterre,https://www.ville.senneterre.qc.ca,A,1,30
+b:8924a1ec92d6394c,Town of Stony Plain,https://www.stonyplain.com/en/index.aspx,A,1,30
+b:9a4b61f958c54669,Municipalité de Labrecque,https://www.ville.labrecque.qc.ca,A,1,30
+b:3412689f76894a63,Municipalité régionale de comté Charlevoix,https://www.mrccharlevoix.ca,A,1,30
+b:9c3b4630fa91ef32,Municipalité de L'Isle-aux-Allumettes,https://www.isle-aux-allumettes.com,A,1,30
+b:f666b97fdd14f900,Municipalité de Saint-Élie-de-Caxton,https://www.st-elie-de-caxton.ca,A,1,30
+b:2b81d774ad97bed0,Municipalité de Saint-Alexandre-de-Kamouraska,https://www.stalexkamouraska.com,A,1,30
+b:9d7c00816795a651,Canton de Potton,https://www.potton.ca,A,1,30
+b:846e720206a63414,Municipalité régionale de comté Montmagny,https://www.montmagny.com,A,1,29
+b:c398f19a87958fcb,Village de Grenville,https://www.grenville.ca,A,1,29
+b:837fbc59d9531f64,Municipalité régionale de comté Le Val-Saint-François,https://val-saint-francois.qc.ca,A,1,29
+b:58f2dc251c8bbdba,Paroisse de Sainte-Marguerite,https://www.sainte-marguerite.ca,A,1,29
+b:d30f491a5724f082,Canton de Melbourne,https://www.melbournecanton.ca,A,1,29
+b:6024c341e13f8296,Municipalité de Baie-du-Febvre,https://www.baie-du-febvre.net,A,1,29
+b:f973e60aa78ead9b,Municipalité de Natashquan,https://www.natashquan.org,A,1,29
+b:4b209e4fc6ffe87c,Municipalité de Saint-Jean-de-Matha,https://www.municipalitestjeandematha.qc.ca,A,1,28
+b:527d63e6a8e0cb5a,Municipalité de Campbell's Bay,https://www.campbellsbay.ca,A,1,28
+b:58b144bd66ed5017,Canton de Low,https://www.lowquebec.ca,A,1,28
+b:273920032369fea9,Village de Stukely-Sud,https://www.stukely-sud.com,A,1,28
+b:365c02471dd7500b,Societatea Nationala Nuclearelectrica S.A. (SNN),http://www.nuclearelectrica.ro,A,1,28
+b:933d89f288b6d57f,Municipalité de La Macaza,https://www.munilamacaza.ca,A,1,28
+b:9fd28cb5cc9c450b,Municipalité de Saint-Prime,https://www.saint-prime.ca,A,1,28
+b:6768e1e7f345936a,Municipalité de Saint-Henri,https://www.saint-henri.ca,A,1,27
+b:e3f15d975f4cdcd6,Municipalité de Saint-Ferdinand,https://www.stferdinand.ca,A,1,27
+b:bf67ff66aa2ee86f,Canton de Valcourt,https://www.cantonvalcourt.qc.ca,A,1,27
+b:aa1c9a56ab6ace49,Municipalité de Sainte-Christine-d'Auvergne,https://sca.quebec,A,1,27
+b:03a431b6bf34b87b,Paroisse de Sainte-Praxède,https://www.ste-praxede.ca,A,1,27
+b:6db06c0aaada9aef,Village de Ayer's Cliff,https://www.ayerscliff.ca,A,1,27
+b:e76b6281c78b6746,Municipalité de Sainte-Anne-de-la-Rochelle,https://www.steannedelarochelle.ca,A,1,26
+b:cee88d490a2df69d,Municipalité régionale de comté La Vallée-de-l'Or,https://www.mrcvo.qc.ca,A,1,26
+b:995683dbc0529083,Invest in Canada,https://www.investcanada.ca,A,1,26
+b:c862821cd8122740,Municipalité de Chesterville,https://www.chesterville.net,A,1,26
+b:2faa63d9cebacb47,Paroisse de Notre-Dame-de-Lourdes,https://www.municipalitelourdes.com,A,1,26
+b:7d6e9a62493040ab,Paroisse de Saint-Sulpice,https://www.municipalitesaintsulpice.com,A,1,26
+b:c9173fb0a76346bf,Municipalité de Grosses-Roches,https://www.municipalite.grossesroches.ca,A,1,26
+b:78fde2feea2dd1a7,Municipalité de Sainte-Élizabeth-de-Warwick,https://www.sainte-elizabeth-de-warwick.ca,A,1,26
+b:9172a175e5156249,Department of Justice,https://www.justice.gov,A,1,26
+b:dce7d3625f772143,Municipalité de Bolton-Ouest,https://www.bolton-ouest.ca,A,1,25
+b:4563bbd573573957,Municipalité de Saint-Antoine-de-Tilly,https://www.saintantoinedetilly.com,A,1,25
+b:d3c5ead89ad1e58c,Ville de Normandin,https://www.ville.normandin.qc.ca,A,1,25
+b:a433adb971a3d9b5,Municipalité de Saint-Mathieu-du-Parc,https://saint-mathieu-du-parc.ca,A,1,25
+b:57dcf12ddc6cdec1,Municipalité de Notre-Dame-de-Stanbridge,https://www.notredamedestanbridge.qc.ca,A,1,25
+b:67568e6c25cc7a17,The Good Samaritan Society (A Lutheran Social Service Organization),https://www.good-sam.com,A,1,24
+b:00903867f894df95,Village de Chute-aux-Outardes,https://www.municipalitecao.ca,A,1,24
+b:ebf87ee494bb7872,Municipalité de Messines,https://www.messines.ca,A,1,24
+b:304424fcb9d5c860,Clearwater County,https://www.clearwatercounty.ca,A,1,24
+b:c342d5ec9fce99b6,Municipalité de Beaumont,https://www.beaumont-qc.com,A,1,24
+b:42505b43531f9f60,Investissement Québec,https://www.investquebec.com,A,1,24
+b:0621f9d76c2e66c5,Ville de Chapais,https://www.villedechapais.com,A,1,24
+b:72458ddb50483fb3,Municipalité régionale de comté Nicolet-Yamaska,https://www.mrcnicolet-yamaska.qc.ca,A,1,24
+b:4a3e44294551cb3e,Village de Sainte-Jeanne-d'Arc,https://www.stejeannedarc.qc.ca,A,1,24
+b:88ad0f04ec6aed27,Village de Pointe-des-Cascades,https://www.pointe-des-cascades.com,A,1,24
+b:bed1334cb7afc26d,Municipalité de Laverlochère-Angliers,https://www.laverlochere-angliers.org,A,1,24
+b:b8f9b1caf6e4d52d,Municipalité régionale de comté Arthabaska,https://mrcarthabaska.ca,A,1,24
+b:5a30ae75386cba7e,Municipalité de Newport,https://www.municipalitenewport.ca,A,1,24
+b:389fb52c019cd7c7,Municipalité de Sainte-Sabine,https://www.stesabine.ca,A,1,24
+b:6ce395aa4291fc57,Municipalité de Hatley,https://www.municipalitehatley.com,A,1,24
+b:1c90cb9cf4e22a2b,Municipalité de Saint-Paul-d'Abbotsford,https://www.saintpauldabbotsford.qc.ca,A,1,24
+b:601ff1b12fbc5d4c,Municipalité régionale de comté Les Collines-de-l'Outaouais,https://www.mrcdescollinesdeloutaouais.qc.ca,A,1,23
+b:bdd21db61fcba6f1,Municipalité de Sainte-Aurélie,https://www.ste-aurelie.qc.ca,A,1,23
+b:8b66a30e59a17bd5,Ville de Sainte-Anne-de-Beaupré,https://www.sainteannedebeaupre.com,A,1,23
+b:7b55f16433d9b24f,Paroisse de Sainte-Marie-Madeleine,https://www.sainte-marie-madeleine.ca,A,1,23
+b:8d8dbb33c843f9d7,Municipalité régionale de comté Drummond,https://www.mrcdrummond.qc.ca,A,1,22
+b:0599a3a5c0bbd5af,Paroisse de Saint-Martin,https://www.st-martin.qc.ca,A,1,22
+b:36ace3c22021206a,Municipalité de Bonsecours,https://www.bonsecours.ca,A,1,22
+b:6d9611c2e7ebf48f,Municipalité de Saint-Thomas-Didyme,https://www.stthomasdidyme.qc.ca,A,1,22
+b:12f4a471181074e5,Village de Sainte-Pétronille,https://www.stepetronille.com,A,1,22
+b:4f8b3ffc817382ea,Black Gold School Division,https://www.blackgold.ca,A,1,21
+b:fc0380718b5d25c6,Town of Banff,https://www.banff.ca,A,1,21
+b:71e6ed7065b736c5,Edmonton Police Service,https://www.edmontonpolice.ca,A,1,21
+b:321a8fb9487e6fb0,Municipalité de Montebello,https://www.montebello.ca,A,1,21
+b:cf6c5c4edbb80104,Municipalité de La Minerve,https://www.municipalite.laminerve.qc.ca,A,1,21
+b:c2d4f94d0784d92b,Municipalité régionale de comté L'Islet,https://www.mrclislet.com,A,1,21
+b:1b86e98af32d5f8f,Municipalité de Saint-Alexandre,https://www.saint-alexandre.ca,A,1,21
+b:ee27d54ea29eb5dd,Municipalité de Batiscan,https://www.batiscan.ca,A,1,21
+b:6fbe529db10b2b6a,Municipalité de Saint-Damase,https://www.st-damase.qc.ca,A,1,20
+b:0ad1893405d3ecee,Municipalité régionale de comté Manicouagan,https://www.mrcmanicouagan.qc.ca,A,1,20
+b:0c9c6c950996e7b2,Municipalité de Cacouna,https://www.cacouna.ca,A,1,20
+b:4967cc5760fffaef,Municipalité de Saint-Étienne-de-Beauharnois,https://www.st-etiennedebeauharnois.qc.ca,A,1,20
+b:fc94c5c50a4fdfc2,Municipalité de Saint-Zacharie,https://www.st-zacharie.qc.ca,A,1,20
+b:457476b394bc9e36,Paroisse de Saint-Didace,https://www.saint-didace.com,A,1,20
+b:c3f3ba829b5fa530,Municipalité de Grand-Remous,https://www.grandremous.ca,A,1,20
+b:5cde4518fc47850f,Municipalité de Notre-Dame-des-Neiges,https://www.notredamedesneiges.qc.ca,A,1,20
+b:ec246f428dc094ad,Paroisse de Sainte-Hénédine,https://www.ste-henedine.com,A,1,20
+b:b211ceb5629cb19e,Municipalité de Barnston-Ouest,https://www.barnston-ouest.ca,A,1,20
+b:9938b114cbca3cfe,Athabasca County,http://www.athabascacounty.com,A,1,19
+b:2535585a622e0c54,Foothills County,https://www.foothillscountyab.ca,A,1,19
+b:38bc86d456184041,Paroisse de Saint-Marc-de-Figuery,https://www.saint-marc-de-figuery.org,A,1,19
+b:fd7d84d6c31de6cf,Municipalité de Saint-Gabriel-de-Valcartier,https://www.saint-gabriel-de-valcartier.ca,A,1,19
+b:1cb268b52a0c1066,Rexforêt,https://www.rexforet.com,A,1,19
+b:cac15a62d2e32f4d,Municipalité de Saint-Barnabé-Sud,https://www.saintbarnabesud.ca,A,1,19
+b:8d9eeed99bcb5eb2,Municipalité de Petit-Saguenay,https://www.petit-saguenay.com,A,1,19
+b:d27a832226247f37,Municipalité de Marston-Canton,https://www.munmarston.qc.ca/pages/nous-joindre,A,1,19
+b:28f6ff6c0ff7c33e,Municipalité de Papineauville,https://www.papineauville.ca,A,1,18
+b:beaa97fe69237a31,Municipalité de Maria,https://www.mariaquebec.com,A,1,18
+b:58b4e3381d95b697,Municipalité de Albertville,https://www.municipalite-albertville.ca,A,1,18
+b:eae3d1154a9a02fe,Municipalité de Boileau,https://www.boileau.ca,A,1,18
+b:2cc7622ae55a9169,Municipalité de Ulverton,https://www.municipaliteulverton.com,A,1,18
+b:4e4fa5f33c8e27b8,Municipalité de Saint-Marcel,https://www.saintmarcel.qc.ca,A,1,18
+b:ab9517d645155e34,Paroisse de Saint-Édouard-de-Lotbinière,https://www.st-edouard.com,A,1,18
+b:184b2764ba4e6917,Municipalité de Saint-Marc-sur-Richelieu,https://www.smsr.quebec,A,1,18
+b:7fa5a80289062537,Municipalité de Berry,https://www.municipalite-berry.org,A,1,18
+b:9b62765977fa8dbb,Municipalité de Saint-Antoine-sur-Richelieu,https://www.saint-antoine-sur-richelieu.ca,A,1,18
+b:6e0e35112bcfd939,Paroisse de Parisville,https://www.municipalite.parisville.qc.ca,A,1,18
+b:9a05e6c38c2c9f35,Municipalité de Saint-Philibert,https://www.st-philibert.qc.ca,A,1,18
+b:6f4d40c0b16e6849,Municipalité de Saint-Léonard-d'Aston,https://www.saint-leonard-daston.net,A,1,17
+b:17c333c07ac298c4,Municipalité régionale de comté Rimouski-Neigette,https://mrc-rn.ca,A,1,17
+b:5cfb309c9d751204,Paroisse de Saint-Pierre-Baptiste,https://www.saintpierrebaptiste.qc.ca,A,1,17
+b:763cb2aed25d3b8b,Municipalité de Palmarolle,https://WWW.palmarolle.ao.ca,A,1,17
+b:a0180da89a606470,Municipalité de Sainte-Hélène-de-Chester,https://www.sainte-helene-de-chester.ca,A,1,17
+b:183ca9bdb0373844,Paroisse de Disraeli,https://www.paroissedisraeli.com,A,1,17
+b:722730515677241f,Municipalité de Saint-Stanislas-de-Kostka,https://www.st-stanislas-de-kostka.ca,A,1,17
+b:8766bff061e54b14,Municipalité de La Visitation-de-Yamaska,https://www.lavisitationdeyamaska.net,A,1,16
+b:86a8884740cf66aa,Municipalité de Saint-François-du-Lac,https://www.saint-francois-du-lac.ca,A,1,16
+b:de7a387a83bd0921,Municipalité régionale de comté La Jacques-Cartier,https://www.mrc.jacques-cartier.com,A,1,16
+b:21b485b740fe50d3,Municipalité régionale de comté La Matanie,https://www.lamatanie.ca,A,1,16
+b:c6f91bcd8374ad36,Ville de Crabtree,https://www.crabtree.quebec,A,1,16
+b:2c9357bf2a679a03,Municipalité de Sainte-Sophie-d'Halifax,https://www.saintesophiedhalifax.com,A,1,16
+b:54d73abc4a9178ca,Municipalité régionale de comté Le Rocher-Percé,https://www.mrcrocherperce.qc.ca,A,1,16
+b:d2c763531933a9d9,Canton de Sainte-Edwidge-de-Clifton,https://www.ste-edwidge.ca,A,1,16
+b:4940db10fefee48e,Municipalité de Saint-Roch-des-Aulnaies,https://www.saintrochdesaulnaies.ca,A,1,16
+b:de8d1eeeccc7a7c4,Municipalité de Lac-Bouchette,https://www.lac-bouchette.com,A,1,16
+b:90e961da3b8cde38,Ville de Val-des-Sources,https://valdessources.ca,A,1,15
+b:de731f028e878e0c,Canton de Wentworth,https://www.wentworth.ca,A,1,15
+b:9a9949c1f6131cd4,Municipalité de Saint-Guillaume,https://www.saintguillaume.ca,A,1,15
+b:e516d74116d7c4df,Municipalité de Irlande,https://www.mundirlande.qc.ca,A,1,15
+b:99019b77f316debe,Municipalité régionale de comté Acton,https://www.mrcacton.ca,A,1,15
+b:838839d6ce01dd78,Municipalité régionale de comté Deux-Montagnes,https://www.mrc2m.qc.ca,A,1,15
+b:061e9a8c01717025,Municipalité de Saint-Honoré-de-Shenley,https://www.sthonoredeshenley.com,A,1,15
+b:e7608fe898a4b50e,Municipalité régionale de comté Sept-Rivières,https://www.mrc.septrivieres.qc.ca,A,1,14
+b:e2960ed165771b22,Municipalité de Saint-Raphaël,https://www.saint-raphael.ca,A,1,14
+b:483c6251f61b79d9,Municipalité de Val-Brillant,https://www.valbrillant.ca,A,1,14
+b:fc2eeb884d7f78e9,Municipalité de Montpellier,https://www.montpellier.ca,A,1,14
+b:d4e7524a7e9407ee,Municipalité de Lac-des-Plages,https://www.lacdesplages.com,A,1,14
+b:07382479ff270165,Municipalité régionale de comté Le Haut-Saint-François,https://www.mrchsf.com,A,1,14
+b:72e3a3574b90dc4b,Municipalité régionale de comté Le Domaine-du-Roy,https://domaineduroy.ca,A,1,14
+b:415d07d72d4cf2cd,Municipalité de Villeroy,http://municipalitevilleroy.ca,A,1,14
+b:f4da3802f9555ab9,Municipalité de Maricourt,https://www.maricourt.ca,A,1,14
+b:afeb416901c72f7d,Municipalité de Lac-des-Écorces,https://www.lacdesecorces.ca,A,1,14
+b:9fb396d9c55185a3,Paroisse de Saint-Fabien-de-Panet,https://www.saintfabiendepanet.com,A,1,14
+b:fa4a3f45818c694e,Municipalité de Saint-Adalbert,https://www.saintadalbert.qc.ca,A,1,14
+b:d0221c947b63562e,Municipalité de Saint-Damase-de-L'Islet,https://saintdamasedelislet.com,A,1,14
+b:6a3f16d5e36723fa,Municipalité de Stornoway,https://www.munstornoway.qc.ca,A,1,14
+b:19a16d249848bbe9,Municipalité de Bégin,https://www.begin.ca,A,1,14
+b:112968192e88888c,Municipalité de Saint-Jean-de-l'Île-d'Orléans,https://st-jean.iledorleans.com,A,1,13
+b:6f404b0397c277dd,Municipalité de Saint-Célestin,https://www.saint-celestin.net,A,1,13
+b:1555d87a3415f90b,Red Deer Public Schools,https://www.rdpsd.ab.ca,A,1,13
+b:63941beaa372ea0a,Town of Whitecourt,https://www.whitecourt.ca,A,1,13
+b:7b4fd115fadd73dd,Municipalité de Saint-Hugues,https://www.saint-hugues.com,A,1,13
+b:b62a9cac0a42a966,Municipalité de La Patrie,https://www.lapatrie.ca,A,1,13
+b:d13cf4a17e9377cf,Municipalité de Fortierville,https://www.fortierville.com,A,1,13
+b:8bb12a443d7e8122,Municipalité de Saint-Bruno-de-Kamouraska,https://www.stbrunokamouraska.ca,A,1,13
+b:78af119e5303a682,Municipalité de Audet,https://www.munaudet.qc.ca,A,1,13
+b:fce0497edce18615,Municipalité de Frontenac,https://www.municipalitefrontenac.qc.ca,A,1,13
+b:4dd9fb70a0bc3c4c,Municipalité de East Broughton,https://www.municipaliteeastbroughton.com,A,1,13
+b:ab4ccea5220bdd9e,HomeEd (City of Edmonton Non-Profit Housing Corporation),https://www.homeed.ca,A,1,12
+b:c15cd12992cd6bd5,Agriculture Financial Services Corporation (AFSC),https://afsc.ca,A,1,12
+b:66605a393c162689,Municipalité de Saint-Gabriel-de-Rimouski,https://www.municipalite.saint-gabriel-de-rimouski.qc.ca,A,1,12
+b:5f52393bff0e3c4d,Municipalité de Kinnear's Mills,https://www.kinnearsmills.com,A,1,12
+b:0e1c70c821b0f4aa,Paroisse de Saint-Damien-de-Buckland,https://www.saint-damien.com,A,1,12
+b:f981dad5cabd5c4c,Municipalité de Saint-Eugène-d'Argentenay,https://www.municipalites-du-quebec.org/municipalites/st-eugene-argentenay,A,1,12
+b:35b56f751506f98a,Municipalité de Sainte-Anne-du-Lac,https://www.steannedulac.ca,A,1,12
+b:445059d492538a64,Paroisse de Saint-Elphège,https://www.st-elphege.ca,A,1,12
+b:0925610f30fdf7f7,Municipalité de Manseau,https://manseau.ca,A,1,12
+b:ea2c005ea1581315,Municipalité de Péribonka,https://www.peribonka.ca,A,1,12
+b:47c1a5a282e9eae9,Municipalité régionale de comté Mékinac,https://www.mrcmekinac.com,A,1,12
+b:69c0900d66ac6be8,Municipalité de La Morandière-Rochebaucourt,https://www.lamorandiere.ca,A,1,12
+b:c349576fb0124827,Municipalité de Bois-Franc,https://www.bois-franc.ca,A,1,12
+b:f34bc54cc1189789,Municipalité de Saint-François-de-Sales,https://stfrancoisdesales.qc.ca,A,1,12
+b:687f77c914cafc19,Municipalité régionale de comté Des Chenaux,https://www.mrcdeschenaux.ca,A,1,12
+b:0a45056aa2c99c08,Waypoint Centre for Mental Health Care,http://www.waypointcentre.ca,A,1,12
+b:0c397851b54ae249,Waterloo Regional Health Network,https://www.wrhn.ca,A,1,11
+b:11f8c50fe4dd2e45,Municipalité de Brébeuf,https://www.brebeuf.ca,A,1,11
+b:d5127941b35d9bb9,Municipalité de L'Anse-Saint-Jean,https://www.lanse-saint-jean.ca,A,1,11
+b:b6ed4629b621e1ee,Paroisse de Saint-Fabien,https://www.saint-fabien.ca,A,1,11
+b:edfc044bae83b98a,Municipalité de Port-Daniel--Gascons,https://www.munpdg.ca,A,1,11
+b:8d42235f3bc166fc,Municipalité de Tourville,https://www.muntourville.qc.ca,A,1,11
+b:adbdfa4edd995b02,Ville de Saint-Marc-des-Carrières,https://www.villestmarc.com,A,1,11
+b:8590feaa8576d8ec,Municipalité régionale de comté Avignon,https://www.mrcavignon.com,A,1,11
+b:a48491401fa0b2bc,Lacombe County,https://www.lacombecounty.com,A,1,10
+b:9c38faadc9690495,Bank of Canada,https://www.bankofcanada.ca,A,1,10
+b:489bdf54bf8c0f8e,New York Power Authority,https://www.nypa.gov,A,1,10
+b:126f90b91589754d,Yukon University,https://www.yukonu.ca,A,1,10
+b:242494c124946071,Ville de Macamic,https://www.villemacamic.qc.ca,A,1,10
+b:2748e20b4e8cae7e,Municipalité régionale de comté La Haute-Côte-Nord,https://www.mrchcn.qc.ca,A,1,10
+b:2f3983b4b9953ce0,Village de La Guadeloupe,https://www.munlaguadeloupe.qc.ca,A,1,10
+b:b4a1ea5bb55840f7,Municipalité de Entrelacs,https://www.entrelacs.com,A,1,10
+b:ba4cec6c6b0d7051,Municipalité de Sainte-Lucie-des-Laurentides,https://www.msldl.ca,A,1,10
+b:77f67edd00fa3b5e,Municipalité de East Farnham,https://www.municipalite.eastfarnham.qc.ca,A,1,10
+b:f2681d1fffee7bb4,Municipalité de Saint-Roch-Ouest,https://www.saint-roch-ouest.ca,A,1,10
+b:651d89eb48a1a66a,Municipalité de Hope Town,https://www.municipalitehopetown.com,A,1,10
+b:8a61218add1e052f,Municipalité de Sainte-Marie-de-Blandford,https://www.saintemariedeblandford.org,A,1,10
+b:460d0b728f581700,Municipalité de Piopolis,https://www.piopolis.quebec,A,1,9
+b:17d99adc290fde2a,Paroisse de Sainte-Rose-du-Nord,https://www.ste-rosedunord.qc.ca,A,1,9
+b:08ba897f7686bebf,Town of High River,http://www.highriver.ca,A,1,9
+b:a0963595b49d106e,Veterans Review and Appeal Board,https://vrab-tacra.gc.ca/en,A,1,9
+b:61428ba654b070ae,Municipalité de Saint-Pierre-de-l'Île-d'Orléans,https://www.st-pierre.iledorleans.com,A,1,9
+b:4e2babeeaf7aa9eb,Municipalité de Larouche,https://www.larouche.ca,A,1,9
+b:d46a0f98287f752a,Village de Abercorn,https://www.abercorn.ca,A,1,9
+b:68f088ead76e9378,Municipalité de Sainte-Clotilde,https://www.ste-clotilde.ca,A,1,9
+b:3eeef365087ea410,Municipalité de Authier,https://authier.ao.ca,A,1,9
+b:2542e8b0d8e956ff,Village de Brome,https://www.bromevillage.ca,A,1,9
+b:051b0beaba838cbf,Municipalité régionale de comté Beauce-Sartigan,https://www.mrcbeaucesartigan.com,A,1,9
+b:ea5263489643ee61,Municipalité de Bowman,https://www.bowman.ca,A,1,9
+b:32c3fa6c2d12df1c,Paroisse de Saint-Narcisse-de-Beaurivage,https://www.saintnarcissedebeaurivage.ca,A,1,9
+b:806969775ac58105,Municipalité de Noyan,https://www.ville.noyan.qc.ca,A,1,9
+b:1547c7dcebb0b180,Municipalité de Namur,https://www.namur.ca,A,1,9
+b:bc707cb62760d8e5,Municipalité de Chartierville,https://www.chartierville.ca,A,1,9
+b:cbb229a7bbe59e4f,Canada Mortgage and Housing Corporation,https://www.cmhc-schl.gc.ca/en,A,1,8
+b:7bede6b89cc26faa,Municipalité régionale de comté Les Basques,https://www.mrcdesbasques.com,A,1,8
+b:d790aa86352e5786,Municipal District of Taber,http://www.mdtaber.ab.ca,A,1,8
+b:7ece3bf15c0091ad,County of Wetaskiwin No. 10,https://www.county.wetaskiwin.ab.ca,A,1,8
+b:e5cf1603c53eed2a,Canton de Clermont,https://clermont.ao.ca/fr,A,1,8
+b:d0d5e97743c11e74,Municipalité de Sainte-Émélie-de-l'Énergie,https://www.steemelie.ca,A,1,8
+b:c12e7164c0dc8ed4,Municipalité de Mulgrave-et-Derry,https://www.mulgrave-derry.ca,A,1,8
+b:2c997c536ee81908,Municipalité régionale de comté Pontiac,https://www.mrcpontiac.qc.ca,A,1,8
+b:d2bad4142ef3fd35,Municipalité de Calixa-Lavallée,https://www.calixa-lavallee.ca,A,1,8
+b:4668c7eb5e38c7a5,Municipalité de Dixville,https://www.dixville.ca,A,1,8
+b:85a61ea4267277aa,Paroisse de Saint-Norbert,https://www.saint-norbert.net,A,1,8
+b:ef71eb8a80217b81,Municipalité de Mont-Saint-Michel,https://www.montsaintmichel.ca,A,1,8
+b:f6bd15fed070dbcf,Municipalité de Rivière-Bleue,https://www.riviere-bleue.ca,A,1,8
+b:fa697e88f95a8ce2,Municipalité de Lamarche,https://www.ville.lamarche.qc.ca,A,1,8
+b:91dd14a4c6c785fe,Federal Economic Development Agency for Northern Ontario,https://fednor.canada.ca/en,A,1,7
+b:b08b113045d45a7e,Municipalité de Saint-Jean-de-Brébeuf,https://st-jean-de-brebeuf.ca,A,1,7
+b:86869dfa22da22c9,Municipalité de Saint-Aubert,https://saint-aubert.net,A,1,7
+b:477d71288d80a8b4,Municipalité de Sainte-Rose-de-Watford,https://www.sainterosedewatford.qc.ca,A,1,7
+b:aa0b13eacd8ea45a,Mountain View County,http://www.mountainviewcounty.com,A,1,7
+b:99878f8b2f809e4d,Municipalité régionale de comté Memphrémagog,https://www.mrcmemphremagog.com,A,1,7
+b:4b448bff684c4142,Municipalité de Auclair,https://www.municipaliteauclair.ca,A,1,7
+b:2b536b8bf55ff1ed,Municipalité de Saint-Janvier-de-Joly,https://www.municipalitedejoly.com,A,1,7
+b:a08df7fdf89e4a46,Municipalité de Thorne,https://www.thornequebec.ca,A,1,7
+b:1e659ec35f6d80c7,Municipalité de Aston-Jonction,https://www.aston-jonction.ca,A,1,7
+b:1eef5dfabb6bc01b,Town of Bonnyville,http://www.town.bonnyville.ab.ca,A,1,7
+b:7e76a0f3674d985c,Municipalité de Saint-Alban,https://www.st-alban.qc.ca,A,1,7
+b:fc871a31318e90a1,Municipalité régionale de comté L'Île-d'Orléans,https://www.iledorleans.com,A,1,6
+b:5c8339ac30652fea,Municipalité de Saint-Mathieu-de-Rioux,https://www.st-mathieu-de-rioux.ca,A,1,6
+b:984e550e8d351e70,Municipalité de Val-Joli,https://www.val-joli.ca,A,1,6
+b:1e8ea3e142dec26e,Ville de Saint-Pie,https://www.villest-pie.ca,A,1,6
+b:398f88826d7a63f4,Municipalité de Notre-Dame-de-la-Paix,https://www.notredamedelapaix.qc.ca,A,1,6
+b:e034741d225dc0f7,Municipalité de Matapédia,https://www.matapedialesplateaux.com,A,1,6
+b:a89a55c00f0853f1,Municipalité de Saint-Pacôme,https://www.st-pacome.ca,A,1,6
+b:d94d57112672ef02,Municipalité régionale de comté La Côte-de-Gaspé,https://www.cotedegaspe.ca,A,1,6
+b:7c543a256a6c72f5,Paroisse de Sainte-Irène,https://www.sainteirene.com,A,1,6
+b:3d2f1d14e986313d,Municipalité de Sheenboro,https://www.pontiacouest.ca,A,1,6
+b:e5ba1430116e0483,Municipalité régionale de comté Bécancour,https://www.mrcbecancour.qc.ca,A,1,6
+b:49e51c6bafa516a7,Municipalité de La Visitation-de-l'Île-Dupas,https://www.ile-dupas.ca,A,1,6
+b:b474c76f9adaa433,Municipalité régionale de comté La Côte-de-Beaupré,https://www.mrccotedebeaupre.com,A,1,6
+b:1113078c321b48f0,Municipalité de L'Île-d'Anticosti,https://www.municipalite-anticosti.org,A,1,6
+b:2b651f457991d298,Municipalité de Déléage,https://www.deleage.ca,A,1,6
+b:d36cc735cf281e8c,Municipalité de Saint-Laurent-de-l'Île-d'Orléans,https://www.saintlaurentio.com,A,1,6
+b:3096019cd2600c66,Municipalité de Roquemaure,https://roquemaure.ao.ca/fr,A,1,6
+b:7a421ad07121d0d9,Municipalité de Henryville,https://www.henryville.ca,A,1,6
+b:670708dd55a6b5bd,Law Commission of Canada,https://www.canada.ca/en/law-commission-canada.html,A,1,6
+b:6e33509dceec359f,Municipalité de Rivière-Saint-Jean,https://www.rivieresaintjean-magpie.com,A,1,5
+b:41147a40c8321cfa,Municipalité de Barraute,https://www.municipalitedebarraute.com,A,1,5
+b:2d0d28ed5aa7227b,Athabasca University,https://www.athabascau.ca,A,1,5
+b:828c0b061dca8c33,Northern Lakes College,http://www.northernlakescollege.ca,A,1,5
+b:9883c15341d6a5ab,Medicine Hat College,https://www.mhc.ab.ca,A,1,5
+b:944ed9ab4669c2ad,Camrose County,http://www.county.camrose.ab.ca,A,1,5
+b:cf512bdcd0dbb358,Rural Municipality of Gimli,http://www.gimli.ca,A,1,5
+b:79b56c58e35af97e,Municipalité de Saint-Sylvère,https://www.saint-sylvere.ca,A,1,5
+b:896968037db7ce95,Municipalité régionale de comté Bonaventure,https://www.mrcbonaventure.com,A,1,5
+b:af9846d65719cc9a,Municipalité de Saint-Justin,https://www.saint-justin.ca,A,1,5
+b:63bc19fb93e6e549,Municipalité de La Bostonnais,https://www.labostonnais.ca/accueil,A,1,5
+b:cccd939962688cc9,Village de Lawrenceville,https://www.lawrenceville.ca,A,1,5
+b:88e1fccc4550af24,Municipalité de La Corne,https://www.lacorne.ca,A,1,5
+b:e4675658278d4e9b,Municipalité de Maskinongé,https://www.mun-maskinonge.ca,A,1,5
+b:0d0d34b299fc2da9,Paroisse de Sainte-Séraphine,https://www.munsainteseraphine.ca,A,1,5
+b:e5b5ecf2fae74efd,Municipalité de Aguanish,https://www.aguanish.org,A,1,5
+b:f0d9bc7f2f6df62c,Municipalité de Portneuf-sur-Mer,https://www.portneuf-sur-mer.ca,A,1,5
+b:53495a45890990c4,Municipalité de Dupuy,http://dupuy.ao.ca/fr,A,1,5
+b:21016207f00723eb,Municipalité de Sainte-Germaine-Boulé,https://www.saintegermaineboule.com,A,1,4
+b:69a7623b9f5e9559,Municipal District of Provost No. 52,http://www.mdprovost.ca,A,1,4
+b:2a0209a7289ed535,UK Research and Innovation,http://www.uksbs.co.uk/Pages/default.aspx,A,1,4
+b:23932f239d2d2bb6,Department of Energy,https://www.energy.gov,A,1,4
+b:df1c9fe0098905bf,TransAlta Tri Leisure Centre,https://www.trileisure.com,A,1,4
+b:2c4173e2e79353ed,Town of Olds,http://www.olds.ca,A,1,4
+b:e58a3c39ea58491e,Alberta University of the Arts,https://www.auarts.ca,A,1,4
+b:193670581525be36,Cypress County,https://www.cypress.ab.ca,A,1,4
+b:0acdcd00b75cd245,Town of Picture Butte,http://www.picturebutte.ca,A,1,4
+b:adebe4eac468a8aa,Town of Three Hills,http://www.threehills.ca,A,1,4
+b:955bd79a2aa0b5fd,Canton de Godmanchester,https://www.godmanchester.ca,A,1,4
+b:5e4e02e1ed8d5912,Municipalité de Clerval,https://clerval.ao.ca/fr,A,1,4
+b:0ac00339b1b0b2e1,Municipalité de Laurierville,https://www.laurierville.net,A,1,4
+b:39fa1467d6301ca5,Federal Trade Commission,https://www.ftc.gov,A,1,4
+b:10f83c454bc04291,Alberta Foundation for the Arts,http://www.affta.ab.ca,A,1,4
+b:559cf91d29654e06,Paroisse de Saint-Augustin-de-Woburn,https://www.saintaugustindewoburn.ca,A,1,4
+b:a6231d0d465d2c73,Paroisse de Sainte-Anne-de-Sabrevois,https://sainte-anne-de-sabrevois.com,A,1,4
+b:90822ac59826a95f,Village de Lac-Saguay,https://www.lacsaguay.qc.ca,A,1,4
+b:29d640457ec66271,Lethbridge County,http://www.lethcounty.ca,A,1,3
+b:5bc5bcbbaf54cd13,Alberta Utilities Commission,https://www.auc.ab.ca,A,1,3
+b:4594c0e316126ef1,"Montgomery County, MD - Department of Recreation",https://www.montgomerycountymd.gov,A,1,3
+b:30bd9b45f8e70e99,Municipalité de Rivière-Héva,https://www.riviere-heva.com,A,1,3
+b:c2eea6dcef2e3e12,Paroisse de Saint-Hilaire-de-Dorset,https://www.sthilairededorset.ca,A,1,3
+b:75a58a9795f04146,Akademska in raziskovalna mreža Slovenije,http://www.arnes.si,A,1,3
+b:fb73d7eddfadf7f4,Town of Peace River,http://peaceriver.ca,A,1,3
+b:e27489ff721ff599,Vulcan County,http://www.vulcancounty.ab.ca,A,1,3
+b:90e4c5a202054972,Municipalité de Saint-Mathieu-d'Harricana,https://www.stmathieudharricana.com,A,1,3
+b:3622312db2a9c8c6,Municipalité de Poularies,https://poularies.ao.ca,A,1,3
+b:bc53abdaabb2cae2,Village de Grandes-Piles,https://www.grandespiles.qc.ca,A,1,3
+b:cf82bec75442889c,Paroisse de Saint-Éloi,https://www.municipalite-st-eloi.com,A,1,3
+b:6c86a66c64b84be8,Municipalité de Rapide-Danseur,https://rapide-danseur.ao.ca/fr,A,1,3
+b:439b3c787dc1c412,Paroisse de Saint-Gilbert,https://saint-gilbert.ca,A,1,3
+b:8eb3968847b08e30,Aston University,http://www.aston.ac.uk,A,1,2
+b:6dbec43ed40deae3,Town of Coaldale,http://www.coaldale.ca,A,1,2
+b:0668b44e66eaf085,Alliander N.V.,https://www.alliander.com/nl,A,1,2
+b:0b3520524018cbb4,Municipalité régionale de comté Le Golfe-du-Saint-Laurent,https://www.mrcgsl.ca,A,1,2
+b:cbf209326d2df240,Municipalité de Saint-Augustin,https://www.saintaugustin.ca,A,1,2
+b:f6cea68c3d77a6a2,Village de North Hatley,https://www.northhatley.org,A,1,2
+b:5be96fd6e9058b31,Texas Division of Emergency Management,https://tdem.texas.gov,A,1,2
+b:6a7c63276a719de8,Town of Calmar,https://www.calmar.ca,A,1,2
+b:c81cd4a4913c8418,Municipality of North Grenville,http://www.northgrenville.on.ca,A,1,2
+b:debd78866445f74f,Paroisse de Saint-Philémon,https://www.saintphilemon.com,A,1,2
+b:a46582dcbef9bde3,Paroisse de Saint-Jean-de-Cherbourg,https://www.st-jeandecherbourg.ca,A,1,2
+b:509bc24c086e7cff,Aspen View Public Schools,https://www.aspenview.org,A,1,2
+b:78bfd8eb5c3fbb09,Paroisse de Sainte-Apolline-de-Patton,https://www.sainteapollinedepatton.ca,A,1,2
+b:1b1099c7a0d5deab,Municipalité de Lefebvre,https://www.municipalite-lefebvre.ca,A,1,2
+b:a8e1a249e7146e3d,Village de Saint-André-du-Lac-Saint-Jean,https://www.standredulac.qc.ca,A,1,2
+b:e8c5558cc55094c1,Municipalité de Pike River,https://www.pikeriver.com,A,1,2
+b:ea37ff89b40694a0,Glencore Ltd.,https://www.glencore.com,A,1,2
+b:3f9d3d5129381a20,Royal Australian Mint,https://www.ramint.gov.au,A,1,1
+b:df0fca739117a578,Fort McMurray Catholic Schools,https://www.fmcschools.ca,A,1,1
+b:561cfa7cbe98084a,Holy Spirit Catholic Schools,https://www.holyspirit.ab.ca,A,1,1
+b:366669cc51e94f5a,Forest Products Commission,http://www.fpc.wa.gov.au,A,1,1
+b:1038f47160456a96,Northern Sunrise County,http://www.northernsunrise.net,A,1,1
+b:9c62f61f755c278a,Canton de Ristigouche-Sud-Est,https://www.ristigouche.ca,A,1,1
+b:59a13c38a5a5acce,Canton de Guérin,https://municipalites-du-quebec.ca/guerin/conseil-municipal.php,A,1,1
+b:1cf693db51496191,Paroisse de Notre-Dame-Auxiliatrice-de-Buckland,https://www.buckland.qc.ca,A,1,1
+b:debfee2842e2c3cb,Cabinet Office,https://www.gov.uk/government/organisations/cabinet-office,A,1,1
+b:f47ffc00c70b44a1,Texas A&M University at Galveston,https://www.tamug.edu,A,1,1
+b:0c70dcd2eebefa50,Texas Parks and Wildlife Department,https://tpwd.texas.gov,A,1,1
+b:7d0d7acedceb0c99,National Archives and Records Administration,https://www.archives.gov,A,1,1
+b:ba662a7326d8aa49,Clean Energy Regulator,https://cer.gov.au,A,1,1
+b:eb17b22fd71dde2b,City of Lacombe,http://www.lacombe.ca,A,1,1
+b:80325e01b15b8f7a,Town of Bentley,https://www.townofbentley.ca,A,1,1
+b:73c165e6d6ed4a8b,Town of Morinville,https://morinville.ca,A,1,1
+b:6540a38fe753afcf,Municipalité de Les Escoumins,https://www.escoumins.ca,A,1,1
+b:b93fa6799e9c3b45,Municipalité de Saint-Denis-De La Bouteillerie,https://www.munstdenis.com,A,1,1
+b:91a41eb9bee2c629,Department of Primary Industries and Regional Development,https://www.dpird.wa.gov.au,A,1,1
+b:cbe208c4a373bd7c,Banff Centre,https://www.banffcentre.ca,A,1,1
+b:8e111989df8cf6ca,City of Brooks,https://www.brooks.ca,A,1,1
+b:3a6a4174c3f30464,Conseil scolaire FrancoSud,https://www.francosud.ca,A,1,1
+b:597d00b80fb2b230,Town of Strathmore,http://www.strathmore.ca,A,1,1
+b:510cdc017f3a10b5,Municipalité de Saint-Omer,https://www.st-omer.qc.ca,A,1,1
+b:4cf9afb42a94e334,Canton de Saint-Godefroi,https://www.municipalitestgodefroi.com,A,1,1
+b:1f0c4ea8411e7bd5,National Transportation Safety Board,https://www.ntsb.gov,A,1,1
+b:b4893cf520eb5677,"Department of Biodiversity, Conservation and Attractions",https://www.dbca.wa.gov.au,A,1,1
+b:ef80d9b1a86f663d,Ville de Longueuil,https://www.longueuil.quebec,A,2,5403
+b:60e83ccfcdf2accb,Centre de services scolaire de Montréal,https://www.cssdm.gouv.qc.ca,A,2,5399
+b:81b47f73d9c10c00,Ville de Trois-Rivières,https://www.v3r.net,A,2,2223
+b:89bf80dcff88d603,Centre de services scolaire de Laval,https://csslaval.gouv.qc.ca,A,2,1907
+b:43240b176b1f24b7,Hydro-Québec,https://www.hydroquebec.com,A,2,1599
+b:58db306f2a169cfb,Ville de Drummondville,https://www.drummondville.ca,A,2,1247
+b:d43afa0dea58c450,Réseau de transport de la Capitale,https://www.rtcquebec.ca,A,2,1017
+b:32446bc5c3d3dbdf,Ville de Saint-Jean-sur-Richelieu,https://www.sjsr.ca,A,2,991
+b:8471a137042e83ed,Centre de services scolaire des Découvreurs,https://www.cssdd.gouv.qc.ca,A,2,908
+b:28c673c1c08b4aae,Centre de services scolaire de la Capitale,https://cssc.gouv.qc.ca,A,2,848
+b:7c6184faae853053,SaskPower,https://www.saskpower.com,A,2,827
+b:332a22487a24723a,Ville de Saint-Georges,https://www.saint-georges.ca,A,2,624
+b:8c2f6b1ddc1cc673,City of Lethbridge,https://www.lethbridge.ca,A,2,530
+b:8835d320fe5a70a3,Ville de Pointe-Claire,https://www.pointe-claire.ca,A,2,498
+b:88199167af0d9163,Ville de Saint-Bruno-de-Montarville,https://www.stbruno.ca,A,2,495
+b:449db4070f8ca175,City of Grande Prairie,http://www.cityofgp.com,A,2,489
+b:fb69c9119f6e9678,Ville de Val-d'Or,https://www.ville.valdor.qc.ca,A,2,489
+b:537f2013ae519634,Centre de services scolaire des Samares,https://csssamares.gouv.qc.ca,A,2,454
+b:7aef08e29d7d4daf,Ville de Rouyn-Noranda,https://www.ville.rouyn-noranda.qc.ca,A,2,440
+b:6a4ccce5dcfca57e,Centre de services scolaire De La Jonquière,https://cssdlj.gouv.qc.ca,A,2,374
+b:2945a30875641f9d,Elections Canada,https://www.elections.ca/home.aspx,A,2,371
+b:16a96fd85f88fc6f,Provincial Health Shared Services Supply Chain (NL Health Services),https://nlhealthservices.ca,A,2,362
+b:9131530d19e466ac,EPCOR,https://www.epcor.com,A,2,339
+b:b8cc4bd246a23320,Manitoba Public Service Delivery,https://www.gov.mb.ca,A,2,312
+b:63b4c0ce1058e7c2,Centre de services scolaire des Mille-Îles,https://www.cssmi.qc.ca,A,2,297
+b:80fb9c09fac61bfb,Ville de Contrecoeur,https://www.ville.contrecoeur.qc.ca,A,2,286
+b:9dc17b7924358f25,Université du Québec en Abitibi-Témiscamingue,https://www.uqat.ca,A,2,282
+b:2a563f1b4b89841f,Société du parc Jean-Drapeau,https://www.parcjeandrapeau.com,A,2,245
+b:166f601d429a693b,Business Development Bank of Canada,https://www.bdc.ca/en,A,2,238
+b:992d3bfc36232f63,Ville de Saint-Constant,https://www.saint-constant.ca,A,2,228
+b:ecedb3b20a718a77,Town of Collingwood,https://www.collingwood.ca,A,2,228
+b:b63b65a0e2027839,Primary and Preventative Health Services,https://www.alberta.ca,A,2,202
+b:69bd8968c682c9c2,Ministry of Justice,https://www2.gov.bc.ca,A,2,196
+b:a4f720a99364699d,Infrastructure Ontario,https://www.infrastructureontario.ca,A,2,193
+b:35d065b76fa9aa01,Courts Administration Service,https://www.cas-satj.gc.ca/en/home,A,2,176
+b:f2d1292de3d4050a,Cégep de Saint-Jérôme,https://www.cstj.qc.ca,A,2,161
+b:f01d7426b7fc7c59,University of Toronto Mississauga,https://www.utoronto.ca,A,2,158
+b:6e72106a97507453,Ville de Lavaltrie,https://www.ville.lavaltrie.qc.ca,A,2,157
+b:257e82e26acf42e5,Ville de Beloeil,https://beloeil.ca,A,2,154
+b:63c8e3b6c88248e8,Farm Credit Canada,https://www.fcc-fac.ca/en,A,2,129
+b:78de61ffbc3f24b4,Ottawa Community Housing,https://www.och.ca,A,2,118
+b:7850efc953a36d86,Société des alcools du Québec,https://www.saq.com,A,2,108
+b:c33c8f9325f76ae0,General Services Administration,https://www.gsa.gov,A,2,90
+b:20983f2bba0552be,Calgary Housing Company,https://www.calgaryhousingcompany.org,A,2,79
+b:1fd09aa18c90e839,Alberta Investment Management Corporation (AIMCo),https://www.aimco.ca,A,2,75
+b:3fa8f53d32defbf9,Ville de Mont-Saint-Hilaire,https://www.villemsh.ca,A,2,71
+b:2ae7be2a59d53121,Canada Deposit Insurance Corporation,https://www.cdic.ca,A,2,65
+b:cabd9938fc63d038,Canadian Air Transport Security Authority (CATSA),https://www.catsa-acsta.gc.ca/en,A,2,63
+b:2aa5e3d1f7b796f4,Canada Post,https://www.canadapost-postescanada.ca/cpc/en/home.page,A,2,51
+b:ccbe2dc3c564b304,MacEwan University,https://www.macewan.ca,A,2,36
+b:c33dae8e5c24aafa,Town of Taber,http://www.taber.ca,A,2,34
+b:29486c29ef79e120,Centennial College,https://www.centennialcollege.ca,A,2,32
+b:e6e6f94d3fe5a127,Edmonton Public Schools,https://www.epsb.ca,A,2,28
+b:5ddea734c5d55d3e,Parkland County,http://parklandcounty.com,A,2,26
+b:3d199ab33120e943,Department of the Treasury,https://treasury.gov.au,A,2,26
+b:31f8edee1aee749e,ATB Financial,https://www.atb.com,A,2,25
+b:7572ca40768ca955,Calgary Board of Education,https://cbe.ab.ca,A,2,23
+b:7dd47d8428f320df,Department of Defence,https://www.defence.gov.au,A,2,22
+b:b55593b9b24a127b,Société québécoise du cannabis,https://www.sqdc.ca,A,2,22
+b:d053ae3785148b0d,Alberta Social Housing Corporation,https://purchasing.alberta.ca/posting/AB-2026-06380,A,2,20
+b:db9a56db9bb5b3b2,Leduc County,https://www.leduc-county.com/en/index.aspx,A,2,19
+b:eeb06d068638417d,Bow Valley College,https://bowvalleycollege.ca,A,2,19
+b:b746c5c4c09ea454,Christ the Redeemer Catholic Schools,https://www.redeemer.ab.ca,A,2,17
+b:082238294e111381,Canada Lands Company CLC Limited,https://www.clc-sic.ca,A,2,16
+b:3834f88043d3bcf6,Yellowhead County,https://yhcounty.ca,A,2,15
+b:b1d44f34848fcfb5,Department of Foreign Affairs and Trade - Australian Aid Program,https://www.dfat.gov.au,A,2,15
+b:4b164629bd242f42,Austrade,https://www.austrade.gov.au,A,2,9
+b:0e45e20017635de6,Lethbridge Polytechnic,https://lethpolytech.ca,A,2,8
+b:a6c80fa07560d59a,Geoscience Australia,https://www.ga.gov.au,A,2,7
+b:0c58902d28e95fb4,Elk Island Public Schools,https://www.eips.ca,A,2,7
+b:d4c3c3cb06b1646b,County of Northern Lights,http://www.countyofnorthernlights.com,A,2,6
+b:83e7fa0f0353e588,Bureau of Meteorology,https://www.bom.gov.au,A,2,5
+b:a1f3f656f251a179,"Department of Industry, Science and Resources",https://www.industry.gov.au,A,2,4
+b:baf82f1d3033d4cf,Employees Retirement System of Texas,https://ers.texas.gov,A,2,4
+b:7680bbfe5d41cd76,"Department of Climate Change, Energy, the Environment and Water",https://www.dcceew.gov.au,A,2,4
+b:3c7811a7c36c1291,Edmonton Public Library,https://www.epl.ca,A,2,4
+b:d29167e4727d30a2,Red Deer Catholic Regional Schools,https://www.rdcrs.ca,A,2,4
+b:831d00bddf5c4e52,Australian Signals Directorate,https://www.asd.gov.au,A,2,3
+b:f083f73996c0c6e8,LAPP Corporation,https://www.lapp.ca,A,2,3
+b:c646e286cf538104,Surrey Place Centre,http://www.surreyplace.on.ca,A,2,3
+b:e37d85407011f070,The Pensions Regulator,https://www.gov.uk/government/organisations/the-pensions-regulator,A,2,3
+b:1ef64b1cf2a9e663,Met Office,https://www.gov.uk/government/organisations/met-office,A,2,3
+b:70178e265d12a777,Crown Commercial Service,https://www.gov.uk/government/organisations/crown-commercial-service,A,2,3
+b:75abd4bca492fcc2,Oregon Health Authority,https://www.oregon.gov/oha,A,2,3
+b:2c51da694c80c804,UK Hydrographic Office,https://www.gov.uk/government/organisations/uk-hydrographic-office,A,2,3
+b:31b566f215535e2f,"General Atomics Aeronautical Systems, Inc. (GA-ASI)",https://www.ga-asi.com,A,2,3
+b:eaf9bb6d42db8920,"Department of Health, Disability and Ageing",https://www.health.gov.au,A,2,2
+b:6f6b0730ff6a9cd7,Australian Centre for International Agricultural Research,https://www.aciar.gov.au,A,2,2
+b:f652c632581315a8,Australian Transaction Reports and Analysis Centre,https://www.austrac.gov.au,A,2,2
+b:409a8679b37ed8bb,"Department of Infrastructure, Transport, Regional Development, Communications, Sport and the Arts",https://www.infrastructure.gov.au,A,2,2
+b:93fb346adedc2edf,Municipal District of Pincher Creek No. 9,https://mdpinchercreek.ab.ca,A,2,2
+b:69488f2f6b33925e,Services Australia,https://www.servicesaustralia.gov.au,A,2,1
+b:b47b83708073c0ac,Australian Criminal Intelligence Commission,https://www.acic.gov.au,A,2,1
+b:87e42ad5e36a51a7,Australian Office of Financial Management,https://www.aofm.gov.au,A,2,1
+b:cd0f636acc6cb4e1,Australian Prudential Regulation Authority,https://www.apra.gov.au,A,2,1
+b:8abbd002bccf8b76,NDIS Quality and Safeguards Commission,https://www.ndiscommission.gov.au,A,2,1
+b:bee76c80fa257d41,Care Quality Commission,https://www.gov.uk/government/organisations/care-quality-commission,A,2,1
+b:4fa17c4b47847146,Tourism Australia,https://www.tourism.australia.com,A,2,1
+b:69e5633ed0d95900,Attorney-General's Department,https://www.ag.gov.au,A,2,1
+b:7c443e8aa1edf1b2,Federal Court of Australia,https://www.fedcourt.gov.au,A,2,1
+b:a9e76663aa3201ca,Australian Financial Security Authority,https://www.afsa.gov.au,A,2,1
+b:2ff3a3396284124b,Office of the Australian Accounting Standards Board,https://aasb.gov.au,A,2,1
+b:754c75046d3dbe9a,GIP RESAH,https://www.resah.fr,A,2,1
+b:257a4a76918d9f74,National Highways,https://www.gov.uk/government/organisations/national-highways,A,2,1
+b:6080693736d10adc,UK SHARED BUSINESS SERVICES LIMITED,http://www.uksbs.co.uk,A,2,1
+b:118ee76b7e511a72,Ofcom,https://www.gov.uk/government/organisations/ofcom,A,2,1
+b:7322c46958a2c767,Department for Business and Trade,https://www.gov.uk/government/organisations/department-for-business-and-trade,A,2,1
+b:195bbe33e690c305,HM Treasury,https://www.gov.uk/government/organisations/hm-treasury,A,2,1
+b:4ea8832f5248232c,Tarleton State University,https://www.tarleton.edu,A,2,1
+b:4fd9e9ed8cbb47d6,Texas State Library and Archives Commission,https://www.tsl.texas.gov,A,2,1
+b:b781e3a7f94d80d4,Department of Home Affairs,https://www.homeaffairs.gov.au,A,2,1
+b:1875693a2a6979ac,Australian Research Council,https://www.arc.gov.au,A,2,1
+b:80030129727d4c77,Australian Centre for Disease Control,https://www.cdc.gov.au,A,2,1
+b:5f0dec5978c8e36d,CSIRO,https://www.csiro.au,A,2,1
+b:c3d334be1bf67dd7,Canadian Museum of Nature,https://nature.ca/en,A,2,1
+b:c1f64345b89776ac,Maritime and Coastguard Agency,https://www.gov.uk/government/organisations/maritime-and-coastguard-agency,A,2,1
+b:dac6dcd3c14e2d02,Bank of England,https://www.gov.uk/government/organisations/bank-of-england,A,2,1
+b:153cedf6c0a38143,VIA HFR - VIA TGF Inc.,https://www.viarail.ca/en,A,2,1
+b:0bd9975d4a38d5bc,CHU Sainte-Justine,https://www.chusj.org,A,3,2963
+b:3c780e1a2e5c54f2,Fisheries and Oceans Canada,https://www.dfo-mpo.gc.ca/index-eng.html,A,3,2668
+b:1f5ceead65eb653b,Royal Canadian Mounted Police,https://rcmp.ca/en,A,3,2463
+b:96fe5b060839ea0a,Ministère de la Sécurité publique / Sécurité intérieure,https://www.quebec.ca/gouvernement/ministere/securite-publique,A,3,1855
+b:d9bf0d3b2e8b3b19,Manitoba Hydro,https://www.hydro.mb.ca,A,3,961
+b:80e08f7a7db76591,Ville de Repentigny,https://repentigny.ca,A,3,949
+b:1ab03389452d9774,Centre de services scolaire des Rives-du-Saguenay,https://www.csrsaguenay.qc.ca,A,3,746
+b:701ca4a1f10cf41e,Centre de services scolaire des Grandes-Seigneuries,https://www.cssdgs.gouv.qc.ca,A,3,647
+b:106f053cb863d8b6,Ville de Vaudreuil-Dorion,https://www.ville.vaudreuil-dorion.qc.ca,A,3,506
+b:5fc11ae949830a84,Ville de Châteauguay,https://www.ville.chateauguay.qc.ca,A,3,415
+b:76fc9cf62cda7cb4,Ville de La Prairie,https://www.laprairie.ca,A,3,408
+b:dd5d696bebac4b9a,Ville de Chambly,https://www.ville.chambly.qc.ca,A,3,384
+b:699eee6db50358f6,Ville de Salaberry-de-Valleyfield,https://www.ville.valleyfield.qc.ca,A,3,371
+b:e6517fb113996640,Ville de Matane,https://www.ville.matane.qc.ca,A,3,363
+b:3a6fdd512d727e98,Ville de Sainte-Catherine,https://www.ville.sainte-catherine.qc.ca,A,3,362
+b:abceead5bd50c7f2,Ville de Rivière-du-Loup,https://www.villerdl.ca,A,3,355
+b:bf4a961bd766b734,Ville de Saint-Charles-Borromée,https://vivrescb.com,A,3,339
+b:7c93f114a648ffff,University of Calgary,https://www.ucalgary.ca,A,3,330
+b:a3dbfc9279711c7f,Ville de Sorel-Tracy,https://www.ville.sorel-tracy.qc.ca,A,3,315
+b:5ea792e063fa59e7,Ville de Saint-Lambert,https://www.saint-lambert.ca,A,3,310
+b:a58416d785257f3d,Ville de Saint-Augustin-de-Desmaures,https://vsad.ca,A,3,297
+b:c6eda118d51815ee,Municipalité de Sainte-Julienne,https://www.sainte-julienne.com,A,3,295
+b:811f627d8ebdb806,Centre de services scolaire de la Beauce-Etchemin,https://cssbe.gouv.qc.ca,A,3,273
+b:4b36432d699f548f,Ville de Saint-Basile-le-Grand,https://www.villesblg.ca,A,3,258
+b:2e637bd2ffc3b393,Centre de services scolaire du Lac-Abitibi,https://cssla.gouv.qc.ca,A,3,256
+b:007768bcaea3726f,Ville de Thetford Mines,https://www.villethetford.ca,A,3,249
+b:616b46d9cba4933d,Centre de services scolaire des Bois-Francs,https://www.cssbf.gouv.qc.ca,A,3,249
+b:bd054cf3c662ae52,Corporation d'urgences-santé,https://www.urgences-sante.qc.ca,A,3,238
+b:6e8888ad5b64323f,Ville de Lorraine,https://www.ville.lorraine.qc.ca,A,3,231
+b:a231049a405d49c1,Canadian Nuclear Safety Commission,https://www.cnsc-ccsn.gc.ca/eng,A,3,217
+b:188d103311a4c9f6,Ville de Sainte-Brigitte-de-Laval,https://www.sbdl.net,A,3,214
+b:cedcd6e2117e56d2,Ville de Maniwaki,https://www.ville.maniwaki.qc.ca,A,3,196
+b:4d597a738eb267f3,Office of the Auditor General of Canada,https://www.oag-bvg.gc.ca/internet/English/admin_e_41.html,A,3,181
+b:0157d488dd73469b,Bishop's University,https://www.ubishops.ca,A,3,176
+b:90146b8e74ba2543,Municipalité de Saint-Côme--Linière,https://www.stcomeliniere.com,A,3,168
+b:133e563acfa3319f,Ville de Marieville,https://www.ville.marieville.qc.ca,A,3,153
+b:1c00f71ee606914d,Ville de Varennes,https://www.ville.varennes.qc.ca,A,3,153
+b:e898269d917a9405,Municipalité régionale de comté Brome-Missisquoi,https://www.mrcbm.qc.ca,A,3,139
+b:ad4863eee4174791,Ville de Saint-Philippe,https://www.ville.saintphilippe.quebec,A,3,137
+b:d98ec2f3c7639efa,Ville de Sainte-Marguerite-du-Lac-Masson,https://www.lacmasson.com,A,3,131
+b:c2505c00f246b023,Library and Archives Canada,https://www.canada.ca/en/library-archives.html,A,3,123
+b:05812405f13fc511,Public Safety Canada,https://www.publicsafety.gc.ca/index-en.aspx,A,3,121
+b:a36e7d5e13f65a49,Cantons unis de Stoneham-et-Tewkesbury,https://www.villestoneham.com,A,3,120
+b:6b853ebad69be1a2,Ville de Mont-Laurier,https://www.villemontlaurier.qc.ca,A,3,117
+b:e6184c7e1e46eb67,Ville de Sainte-Marthe-sur-le-Lac,https://www.ville.sainte-marthe-sur-le-lac.qc.ca,A,3,115
+b:ab380362e1d5065f,Municipalité de Val-Morin,https://www.val-morin.ca,A,3,114
+b:2e91df6d7a3709fd,Ville de Princeville,https://princeville.quebec,A,3,98
+b:f1203e75ba7aec99,Municipalité de La Conception,https://www.municipalite.laconception.qc.ca,A,3,97
+b:a329acdd56d57323,Canadian Grain Commission,https://www.canada.ca/en/grain-commission.html,A,3,96
+b:635a789b88626a7d,Municipalité régionale de comté Roussillon,https://www.roussillon.ca,A,3,95
+b:b3c228509dab2884,Ville de Valcourt,https://www.valcourt.ca,A,3,93
+b:8b182f22222359d1,Ville de Notre-Dame-des-Prairies,https://www.notredamedesprairies.com,A,3,88
+b:575ddc074ec888d1,Canada School of Public Service,https://www.csps-efpc.gc.ca/index-eng.aspx,A,3,84
+b:ad395ddb891a6cbc,Strathcona County,https://strathcona.ca,A,3,81
+b:911b90d7f289603c,Paroisse de Sainte-Geneviève-de-Batiscan,https://www.stegenevieve.ca,A,3,76
+b:6c83de13f89aed91,Administrative Tribunals Support Service of Canada,https://www.canada.ca/en/administrative-tribunals-support-service.html,A,3,63
+b:a161d2a5d5087f75,Municipalité régionale de comté Rivière-du-Loup,https://mrcriviereduloup.ca,A,3,56
+b:afc134067060a5c0,Municipalité régionale de comté Les Appalaches,https://www.mrcdesappalaches.ca,A,3,53
+b:882c242d052ff217,Village de Senneville,https://www.senneville.ca,A,3,50
+b:8c57d2cbc6770852,Ville de Carleton-sur-Mer,https://www.carletonsurmer.com,A,3,47
+b:f0c056de34616546,Municipalité de Rivière-Ouelle,https://www.riviereouelle.ca,A,3,46
+b:b619f9842aee2763,Municipalité de Stoke,https://www.stoke.ca,A,3,46
+b:bd8942d94dcbbd1a,Municipalité régionale de comté La Rivière-du-Nord,https://www.mrcrdn.qc.ca,A,3,45
+b:a6e2c4d91e373c5a,Ville de Saint-Antonin,https://ville.saint-antonin.qc.ca,A,3,45
+b:8482ce9ab95d9ea3,Municipalité régionale de comté Témiscamingue,https://www.mrctemiscamingue.org,A,3,45
+b:9f30875624bbba55,Women and Gender Equality Canada,https://www.canada.ca/en/women-gender-equality.html,A,3,40
+b:ab8a0712ca631f6f,Canadian Institutes of Health Research,https://www.cihr-irsc.gc.ca/e/193.html,A,3,39
+b:15b16f7958b7aee0,Canada Economic Development for Quebec Regions,https://www.canada.ca/en/economic-development-quebec-regions.html,A,3,38
+b:2ecdaf7432aa1c52,Municipalité de Lac-Supérieur,https://www.muni.lacsuperieur.qc.ca,A,3,37
+b:49a70c948d38b792,Financial Transactions and Reports Analysis Centre of Canada,https://fintrac-canafe.canada.ca/intro-eng,A,3,36
+b:7bad849098b1e6eb,Ville de Saint-Ours,https://www.saintours.qc.ca,A,3,35
+b:b49417dd30b94e15,Ville de Berthierville,https://www.ville.berthierville.qc.ca,A,3,34
+b:39c83f39e1101978,Municipalité de Saint-Jacques-le-Mineur,https://www.sjlm.ca,A,3,32
+b:7cd6a2b79d468ec4,Municipalité de Saint-Jean-Port-Joli,https://www.saintjeanportjoli.com,A,3,32
+b:ea10258e6b0637bc,Atlantic Canada Opportunities Agency,https://www.canada.ca/en/atlantic-canada-opportunities.html,A,3,31
+b:c2abb04b970b93a0,Municipalité de Notre-Dame-de-Lourdes,https://www.notredamedelourdes.ca,A,3,30
+b:d195df1b60534be8,Olds College,https://www.oldscollege.ca,A,3,28
+b:5786141a8c464c70,Ville de Kingsey Falls,https://www.kingseyfalls.ca,A,3,28
+b:19fd92577bbc3854,Parole Board of Canada,https://www.canada.ca/en/parole-board.html,A,3,28
+b:9575143ed1d991ec,Ville de Disraeli,https://www.villededisraeli.ca,A,3,28
+b:56dad3e0ae81262c,Municipalité de Saint-Côme,https://www.stcomelanaudiere.ca,A,3,27
+b:12cb27f9533dca10,NAIT,https://www.nait.ca,A,3,26
+b:40356f51cd969753,Municipalité régionale de comté Argenteuil,https://www.argenteuil.qc.ca,A,3,26
+b:f2941b95d0bc97ed,Municipalité de Adstock,https://www.adstock.ca,A,3,26
+b:3270e21298034677,Municipalité de Mont-Carmel,https://www.mont-carmel.ca,A,3,26
+b:2ed10aaa47708cdc,Municipalité de Bolton-Est,https://www.boltonest.ca,A,3,26
+b:df83afa02bedb1f6,Municipalité de Saint-Jacques-de-Leeds,https://www.saintjacquesdeleeds.ca,A,3,25
+b:26df76618796be0b,Municipalité de Lacolle,https://www.lacolle.com,A,3,24
+b:3c935fb3fd84e66d,Municipalité de Plaisance,https://www.ville.plaisance.qc.ca,A,3,24
+b:3a726379a2d291d9,Municipalité de Sainte-Angèle-de-Monnoir,https://www.sainte-angele-de-monnoir.ca,A,3,24
+b:eb89dbd0e651448d,Paroisse de Notre-Dame-du-Mont-Carmel,https://www.mont-carmel.org,A,3,22
+b:f269bb72792af4fc,Municipalité de Saint-Armand,https://www.municipalite.saint-armand.qc.ca,A,3,22
+b:e716ca1dff21550e,Municipalité de Saint-Gabriel-Lalemant,https://www.saintgabriellalemant.qc.ca,A,3,21
+b:87447f613df35a33,Prairies Economic Development Canada,https://www.canada.ca/en/prairies-economic-development.html,A,3,21
+b:9ccbc552f787f8c7,Municipalité de Ripon,https://ripon.ca,A,3,19
+b:919e96be7d98434d,Municipalité de Saint-Bernard-de-Michaudville,https://www.saintbernarddemichaudville.qc.ca,A,3,19
+b:226b5599a55a3814,Ville de Lac-Sergent,https://www.villelacsergent.com,A,3,19
+b:106be7de1d92823e,Municipalité de Les Éboulements,https://www.leseboulements.com,A,3,18
+b:e51e5697ffa91163,Ville de Causapscal,https://www.causapscal.net,A,3,17
+b:f385e074d2c688c8,Municipalité de Saint-Hubert-de-Rivière-du-Loup,https://www.municipalite.saint-hubert-de-riviere-du-loup.qc.ca,A,3,17
+b:7ad77ed2502f4ba6,Ville de Ville-Marie,https://www.villevillemarie.org,A,3,15
+b:f6f3722d9f678d8d,Municipalité régionale de comté Beauce-Centre,https://www.mrcbeaucecentre.ca,A,3,15
+b:9463c0375dd36d31,Transportation Safety Board of Canada,https://www.canada.ca/en/transportation-safety-board.html,A,3,15
+b:48694965ec9e2f11,Municipalité de Ivry-sur-le-Lac,https://www.ivry-sur-le-lac.qc.ca,A,3,14
+b:080b9c70aaada4e6,Pacific Economic Development Canada,https://www.canada.ca/en/pacific-economic-development.html,A,3,14
+b:e141346aa6b8cbc5,Municipalité de Chénéville,https://www.ville-cheneville.com,A,3,13
+b:0e0d8966e6004419,Village de Pointe-Lebel,https://www.pointe-lebel.com,A,3,13
+b:534d2317e791220d,Polar Knowledge Canada,https://www.canada.ca/en/polar-knowledge.html,A,3,13
+b:7863a0bbfac373d6,City of Cold Lake,https://www.coldlake.com,A,3,12
+b:dcbf263e98ecbd85,City of Fort Saskatchewan,http://fortsask.ca,A,3,12
+b:ec25af541c97c9da,Municipalité de Lac-des-Seize-Îles,https://www.lac-des-seize-iles.com,A,3,12
+b:206c0fefc5224365,Municipalité de Saint-Jacques,https://www.st-jacques.org,A,3,11
+b:eb5491d016d72fba,Municipalité de Les Bergeronnes,https://www.bergeronnes.com,A,3,10
+b:564328fc431fb5b1,Municipalité de Saint-Fortunat,https://www.munsaintfortunat.ca,A,3,9
+b:cd1aba9111d1f77c,Municipalité de Lac-Simon,https://www.lac-simon.net,A,3,9
+b:5a52e7c3185e7b87,Town of Vegreville,https://www.vegreville.com,A,3,8
+b:4a64c40aeeff14d5,Ville de Saint-Pamphile,https://www.saintpamphile.ca,A,3,7
+b:e5b35c079cda72f4,Municipalité de Grosse-Île,https://www.mungi.ca,A,3,7
+b:b9502921cdb0afea,Canadian Northern Economic Development Agency,https://www.cannor.gc.ca/eng/1351104567432/1351104589057,A,3,7
+b:5026752c6d6178d7,Northwestern Polytechnic,https://www.nwpolytech.ca,A,3,6
+b:4f653b271d4369ef,Municipalité régionale de comté Témiscouata,https://www.mrctemiscouata.qc.ca,A,3,6
+b:bc379145f50ab312,Municipalité de Gallichan,https://gallichan.ao.ca,A,3,6
+b:ad1b0cb38eba60bc,Municipal District of Bighorn No. 8,http://www.mdbighorn.ca,A,3,5
+b:5d6da85988c076fd,Town of Fort Macleod,https://www.fortmacleod.com,A,3,4
+b:caa5a4ef7fad5ba9,Town of Diamond Valley,http://www.diamondvalley.town,A,3,2
+b:cd2807626be00d67,Smoky Lake County,http://www.smokylakecounty.ab.ca,A,3,2
+b:7665325a7f48115b,Australian Bureau of Statistics,https://www.abs.gov.au,A,3,1
+b:efbdea865f5002e2,Lamar University,https://www.lamar.edu,A,3,1
+b:0dd20f87a49e28cf,Public Services and Procurement Canada,https://www.canada.ca/en/public-services-procurement.html,A,4,17540
+b:217bb8d242ad4108,Shared Services Canada,https://www.canada.ca/en/shared-services.html,A,4,3877
+b:010258aa2f17659c,Correctional Service of Canada,https://www.canada.ca/en/correctional-service.html,A,4,2996
+b:176040b1c2f687a9,Environment and Climate Change Canada,https://www.canada.ca/en/environment-climate-change.html,A,4,1139
+b:0cd8398875fe41fb,National Research Council Canada,https://nrc.canada.ca/en,A,4,1074
+b:33c612a0a4feb08a,Immigration and Refugee Board of Canada,https://www.canada.ca/en/immigration-refugee.html,A,4,902
+b:10152451444cb28d,Employment and Social Development Canada,https://www.canada.ca/en/employment-social-development.html,A,4,869
+b:57706182e300e490,Transport Canada,https://tc.canada.ca/en,A,4,779
+b:09235f35888966c3,Canada Revenue Agency,https://www.canada.ca/en/revenue-agency.html,A,4,454
+b:46e04e2a43d177ca,Canadian Space Agency,https://www.asc-csa.gc.ca/eng,A,4,425
+b:6be73a6997bac897,"Immigration, Refugees and Citizenship Canada",https://www.canada.ca/en/immigration-refugees-citizenship.html?_ga=2.154721784.1999166723.1511794548-2057276988.1508789311,A,4,356
+b:79fe3754d5c789b0,Statistics Canada,https://www.statcan.gc.ca/eng/start,A,4,173
+b:4a231ad4cf1dac40,Ville de Lebel-sur-Quévillon,https://www.lsq.quebec,A,4,159
+b:c1920a9a151b8365,Canadian Radio-television and Telecommunications Commission,https://www.crtc.gc.ca/eng/home-accueil.htm,A,4,79
+b:488078dbb00270a8,Civida (Capital Region Housing),https://civida.ca,A,4,59
+b:74136d7377b1f692,Canadian Transportation Agency,https://www.canada.ca/en/transportation-agency.html,A,4,36
+b:17424d4e375ef957,The National Battlefields Commission,https://www.canada.ca/en/national-battlefields-commission.html,A,4,28
+b:e4d293e98d4ed2d2,Department of Transportation,https://www.transportation.gov,A,4,13
+b:66390009ec2971ab,Clear Hills County,http://www.clearhillscounty.ab.ca,A,4,9
+b:9e8554223ff75a95,Travel Alberta,https://www.travelalberta.com,A,4,4
+b:28f8c688882ca45b,Communications Security Establishment Canada,https://www.cse-cst.gc.ca/en,A,4,1
+b:60ef5d5b36d1d258,Government of Yukon,https://yukon.ca,B,0,2288
+b:acec1a3bf143faf9,City of Vaughan,https://www.vaughan.ca,B,0,1092
+b:d8d4ee9f30fa1066,Dufferin-Peel Catholic District School Board,http://www.dpcdsb.org,B,0,715
+b:6b609f575b856333,London District Catholic School Board,http://ldcsb.on.ca,B,0,326
+b:bd8c11bb3957f8fd,United Counties of Prescott and Russell,https://www.prescott-russell.on.ca,B,0,318
+b:9f9b48c97b2dc3f5,Town of Halton Hills,http://www.haltonhills.ca,B,0,230
+b:99f512011711dc44,Canoe Procurement Group of Canada,https://canoeprocurement.ca,B,0,123
+b:e0a37d1081df52b7,County of Lambton,http://www.lambtononline.ca,B,0,100
+b:16f3f0da4d9a214d,Waterloo Regional Police Service,https://www.wrps.on.ca,B,0,98
+b:86c887aa136a294c,Utilities Kingston,https://utilitieskingston.com,B,0,67
+b:30e994beb9bb0696,St. Clair Township,https://stclairtownship.ca,B,0,41
+b:9d7deed2fa8719ba,Town of LaSalle,https://www.lasalle.ca,B,0,41
+b:2abbc8bea5382b9f,HONEYWELL INTERNATIONAL INC.,https://www.honeywell.com,B,0,31
+b:645657f0625a26df,CGI FEDERAL INC.,https://www.cgifederal.com,B,0,19
+b:e6a8c2926d00636e,FAO,https://www.fao.org,B,0,12
+b:aeb87d8eba4410d0,Rainbow District School Board,http://www.rainbowschools.ca,B,0,11
+b:d0dc7df63e95afb3,BATTELLE MEMORIAL INSTITUTE,https://www.battelle.org,B,0,8
+b:47184de798aea71b,Ministerie van Defensie,https://www.mindef.nl,B,0,8
+b:26462af31e6d07b0,TEXTRON AVIATION DEFENSE LLC,https://txtav.com,B,0,6
+b:ab304cf27342564c,"GENERAL DYNAMICS MISSION SYSTEMS, INC",https://gdmissionsystems.com,B,0,5
+b:92a306d7ddc97c09,"M. C. DEAN, INC.",https://www.mcdean.com,B,0,5
+b:9b3402c3a93cccf4,Danish Defence Acquisition and Logistics Organization,http://forsvaret.dk/FMI/ENG/Pages/default.aspx,B,0,4
+b:ba10de65ce9b1cae,Technische Universität Bergakademie Freiberg,https://tu-freiberg.de,B,0,3
+b:9326e34c28b1874b,Gynybos resursų agentūra prie Krašto apsaugos ministerijos,http://gra.lrv.lt,B,0,3
+b:c2b2302872d43d97,TenneT TSO B.V.,http://www.tennet.eu,B,0,3
+b:455ca896f0be792e,DRS NETWORK & IMAGING SYSTEMS LLC,https://www.leonardodrs.com,B,0,3
+b:a554663284790cd3,Inter Beaujolais,http://www.beaujolais.com,B,0,3
+b:dd29a379b87dffd6,ROLLS-ROYCE CORPORATION,https://www.rolls-royce.com,B,0,3
+b:fc8674b66e08ab63,Gerencia de la Empresa Malagueña de Transportes S.A.M.,http://www.emtmalaga.es,B,0,2
+b:c1e563265a2877f6,Nationale Loterij N.V. van publiek recht,http://www.loterie-nationale.be,B,0,2
+b:090ba2fa37456419,Danmarks Tekniske Universitet - DTU,http://www.dtu.dk,B,0,2
+b:7a812d63cebe4bcc,Luonnonvarakeskus,https://www.luke.fi,B,0,2
+b:7e6d9c944a94f42d,BOOZ ALLEN HAMILTON INC.,https://www.boozallen.com,B,0,2
+b:42c78b2c2799ee61,"GENERAL DYNAMICS ORDNANCE AND TACTICAL SYSTEMS, INC.",https://www.gd-ots.com,B,0,2
+b:512d6bab44c3419d,City of New York - Transportation,https://www.nyc.gov,B,0,2
+b:fd55e6ee4b39a171,Texas Instruments Incorporated,https://www.ti.com,B,0,2
+b:aa2277280675f543,Teck Metals Ltd.,https://www.teck.com,B,0,2
+b:3947a3bd84d5b6fa,General Motors Holdings LLC,https://www.gm.com,B,0,2
+b:b77766d9e85098cb,meteo france,http://www.meteo-france.fr,B,0,2
+b:90a7b91feaf1b1c2,PARSONS GOVERNMENT SERVICES INTERNATIONAL INC.,https://www.parsons.com,B,0,2
+b:1cba3b76060e0101,Politsei- ja Piirivalveamet,http://www.politsei.ee,B,0,1
+b:ccc8b24b5d426ff4,institut polaire français,https://institut-polaire.fr,B,0,1
+b:87571c1c32d73c20,RATP,http://www.ratp.fr,B,0,1
+b:fa3394f1b64ba6cc,NORCE Research AS,https://www.norceresearch.no,B,0,1
+b:41cedc09c818f5a8,Northern Ireland Electricity Networks Limited,http://www.nienetworks.co.uk,B,0,1
+b:485bdadef69ffc71,"Superior Court of California, County of Los Angeles",https://www.lacourt.org,B,0,1
+b:287f6c06651e6c2f,Network Rail,https://www.gov.uk/government/organisations/network-rail,B,0,1
+b:025d6e5eafdd094a,Andel Holding A/S,http://www.andel.dk,B,0,1
+b:d107a82e9b7bf1f1,Danske Lotteri Spil A/S,https://danskespil.dk,B,0,1
+b:6970b24479d99c42,"Commission européenne, INTPA - International Partnerships",https://international-partnerships.ec.europa.eu/index_en,B,0,1
+b:d58528969813f76c,BAE SYSTEMS TECHNOLOGY SOLUTIONS & SERVICES INC.,https://www.baesystems.com/en-us,B,0,1
+b:1cc516cb1b449afc,"CACI TECHNOLOGIES, INC.",https://www.caci.com,B,0,1
+b:9960f43c62189a06,Sobeys Inc.,https://www.sobeys.com,B,0,1
+b:84db812231e7893a,Elektrilevi OÜ,https://riigihanked.riik.ee/rhr-web/#/procurement/2982752/general-info,B,0,1
+b:bc6947d20f0ba1f5,"azienda mobilità e trasporti - genova
+
+",http://www.amt.genova.it,B,0,1
+b:308ef77b41e8f964,Trinity College Dublin the University of Dublin_336,https://www.tcd.ie,B,0,1
+b:553ba795bd2fe4e8,Società per Azioni Esercizi Aeroportuali S.E.A.,http://www.seamilano.eu,B,0,1
+b:187d9976996552d8,"Empresa Municipal de Transports Públics de Tarragona, SA",http://www.emtanemambtu.cat,B,0,1
+b:56b5a3fdf340c78a,Centro Nacional de Investigaciones Cardiovasculares Carlos III (F.S.P.),http://www.cnic.es,B,0,1
+b:256bc3064bc0a11b,Jyväskylän yliopisto,http://www.jyu.fi,B,0,1
+b:9184401bf5bedb5d,City of Markham,https://www.markham.ca,B,1,650
+b:ff53132a297e8ca6,Hamilton-Wentworth District School Board,http://www.hwdsb.on.ca,B,1,504
+b:6cc40f0a66858731,Ottawa-Carleton District School Board,http://www.ocdsb.ca,B,1,431
+b:3d6e19c741702a4b,Simcoe Muskoka Catholic District School Board,http://www.smcdsb.on.ca,B,1,404
+b:2442e6414e6469d8,York Catholic District School Board,http://www.ycdsb.ca,B,1,270
+b:5b98815f4484772b,Haldimand County,http://www.haldimandcounty.on.ca,B,1,247
+b:0c524c54eb329a87,City of Moncton,https://www.moncton.ca,B,1,229
+b:7c8e3927d0a086ed,Municipalité de Saint-Casimir,https://www.saint-casimir.com,B,1,221
+b:1db9d4f8bda4d103,City of St. Thomas,https://www.stthomas.ca,B,1,220
+b:069c7e7d760e4322,Town of Orangeville,https://www.orangeville.ca,B,1,209
+b:73282a19a3ad841f,Peterborough Victoria Northumberland and Clarington Catholic District School Board,http://www.pvnccdsb.on.ca,B,1,171
+b:90bd64af14c7a516,County of Wellington,https://www.wellington.ca,B,1,171
+b:d0d5822109f788e3,City of Woodstock,http://www.cityofwoodstock.ca,B,1,162
+b:11699c1522158020,Niagara Catholic District School Board,http://www.niagaracatholic.ca,B,1,150
+b:806c15f327458f6e,Trillium Lakelands District School Board,http://www.tldsb.ca,B,1,128
+b:74dfea7c3f063411,Municipalité régionale de comté Antoine-Labelle,https://www.mrcal.ca,B,1,125
+b:06263a312b83820d,Township of King,https://www.king.ca,B,1,118
+b:33bf25856788a635,Brant Haldimand Norfolk Catholic District School Board,http://www.bhncdsb.ca,B,1,115
+b:6e37c14bbf1cc3fe,Ville de Sainte-Catherine-de-la-Jacques-Cartier,https://www.villescjc.com,B,1,110
+b:ab24d25c9fe3de72,City of Port Colborne,https://www.portcolborne.ca,B,1,110
+b:7c030eb2de0a3314,Municipalité de Saint-Modeste,https://www.municipalite.saint-modeste.qc.ca,B,1,100
+b:40d7631ba645d462,Paroisse de Saint-Arsène,https://www.municipalite.saint-arsene.qc.ca,B,1,98
+b:ec23868cb295fdc7,Ville de Amqui,https://www.amqui.ca,B,1,97
+b:e6019d3de2f4c1ac,Municipalité régionale de comté Les Laurentides,https://www.mrclaurentides.qc.ca,B,1,95
+b:79402833bb7efd3d,Municipalité de Saint-Bernard,https://saint-bernard.quebec,B,1,92
+b:e3d146a0f2a3e84b,Municipalité de Deschambault-Grondines,https://www.deschambault-grondines.com,B,1,89
+b:390333a9c4376604,Renfrew County District School Board,http://www.renfrew.edu.on.ca,B,1,88
+b:48bd2b316f126b89,Niagara Peninsula Conservation Authority,https://npca.ca,B,1,85
+b:b1a891075db3f243,Canton de Stratford,https://www.stratford.quebec,B,1,84
+b:655dbf616be6f06c,Municipalité de Saint-Gervais,https://www.saint-gervais.ca,B,1,78
+b:01d05819ef0192de,Municipalité de Tingwick,https://www.tingwick.ca,B,1,77
+b:2f9a82e1a063fd8d,Ville de Saint-Césaire,https://www.villesaintcesaire.com,B,1,75
+b:8f60b6885e569c68,Municipalité de Dudswell,https://municipalitededudswell.ca,B,1,72
+b:9629aa4c580bd2e9,Municipalité de Saint-Isidore-de-Clifton,https://www.st-isidore-clifton.qc.ca,B,1,70
+b:d79c2cd0f318941b,Ville de Estérel,https://www.villedesterel.com,B,1,69
+b:551781ed3bbab9dc,Toronto Zoo,https://www.torontozoo.com,B,1,67
+b:f0f5137c21000510,Paroisse de Saint-Christophe-d'Arthabaska,https://www.saint-christophe-darthabaska.ca,B,1,66
+b:e3f7f274146ee363,Municipalité de Wickham,https://www.wickham.ca,B,1,61
+b:47159b1c67546382,Municipalité de L'Avenir,https://www.municipalitelavenir.qc.ca,B,1,61
+b:d4701f323a4c5c00,Municipalité régionale de comté Kamouraska,https://www.mrckamouraska.com,B,1,60
+b:b9824cf8d222aa02,Municipalité de Saint-Roch-de-Richelieu,https://www.saintrochderichelieu.qc.ca,B,1,59
+b:bab017772c73300e,Municipalité de Saint-Ignace-de-Stanbridge,https://www.saint-ignace-de-stanbridge.com,B,1,57
+b:882ec9902935b0bf,Municipalité de Racine,https://www.racine.ca,B,1,56
+b:9f4a23346e99b287,Town of Tecumseh,http://www.tecumseh.ca,B,1,56
+b:cdae9fdbb4fff083,Municipalité de Saint-Liguori,https://www.saint-liguori.com,B,1,54
+b:513aa52e1ff632c3,Municipalité de Ogden,https://www.munogden.ca,B,1,52
+b:6fddb54f8d96be96,Conservation Halton,https://www.conservationhalton.ca,B,1,52
+b:d9c67b03f70b6dfa,Ville de Trois-Pistoles,https://www.ville-trois-pistoles.ca,B,1,50
+b:ee3b8dd7e2b091c0,Canton de Cleveland,https://www.cleveland.ca,B,1,49
+b:e0ec3664c872b0dc,Municipalité de Saint-Joachim-de-Shefford,https://www.st-joachim.ca,B,1,47
+b:5421647736c3fe3e,Municipalité de Saint-Lucien,https://www.saint-lucien.ca,B,1,46
+b:295995406d843dd7,Ville de Stanstead,https://www.stanstead.ca,B,1,45
+b:96c8f1f2501d0c15,Ville de Bonaventure,https://www.villebonaventure.ca,B,1,44
+b:a513ec32302efb1d,Ville de Métis-sur-Mer,https://www.ville.metis-sur-mer.qc.ca,B,1,43
+b:a0c75bfa3d549545,Municipalité de Lac-Drolet,https://www.lacdrolet.ca,B,1,43
+b:9bbb9580b6c1460a,Ville de Danville,https://www.danville.ca,B,1,41
+b:15072e667887a7e2,County of Haliburton,http://www.haliburtoncounty.ca,B,1,41
+b:b84adb83d826735e,Municipalité de Saints-Anges,https://www.saintsanges.com,B,1,40
+b:db3a0fcddf2011cd,Town of Gravenhurst,https://www.gravenhurst.ca/en/doing-business/doing-business2.aspx,B,1,40
+b:46f71d150f822c73,Municipalité de Saint-Norbert-d'Arthabaska,https://www.saint-norbert-darthabaska.ca,B,1,39
+b:bace93a8aae18318,Municipalité de Saint-Zénon,https://www.saint-zenon.com,B,1,39
+b:87b338571b65ebc2,Ville de Métabetchouan--Lac-à-la-Croix,https://www.ville.metabetchouan.qc.ca,B,1,38
+b:35bff074cee18a93,Municipalité de Saint-Malo,https://www.saint-malo.ca,B,1,38
+b:e8397b90f2003077,Municipalité de Sainte-Luce,https://www.sainteluce.ca,B,1,37
+b:8ba7b8406e342d08,Paroisse de Saint-Narcisse,https://www.saint-narcisse.com,B,1,37
+b:38983f2e32364874,Municipalité de Saint-Agapit,https://www.st-agapit.qc.ca,B,1,34
+b:fa6cda4ce42f47bd,Municipalité de Sainte-Thècle,https://www.ste-thecle.qc.ca,B,1,34
+b:d642e5b19dc8b5df,Municipalité de Saint-Étienne-de-Bolton,https://www.sedb.qc.ca,B,1,34
+b:23e21378d0ecb774,Municipalité de Saint-Wenceslas,https://municipalitestwenceslas.com,B,1,34
+b:66891ff2944cdace,Municipalité régionale de comté Maria-Chapdelaine,https://www.mrcdemaria-chapdelaine.ca,B,1,33
+b:d883ea3defb97f08,Town of Niagara-on-the-Lake,https://www.notl.com,B,1,33
+b:4fe149b0728570b1,Municipalité de Durham-Sud,https://www.durham-sud.com,B,1,32
+b:c7b585f86e8b31de,Municipalité régionale de comté Les Etchemins,https://www.mrcetchemins.qc.ca,B,1,32
+b:3bc7c67ab58e2594,Municipalité de Notre-Dame-de-Bonsecours,https://www.ndbonsecours.com,B,1,32
+b:8d8edcb49d12ece5,Municipalité de Notre-Dame-de-la-Merci,https://www.mun-ndm.ca,B,1,31
+b:e70aa34cddd7da4e,Paroisse de Saint-Zéphirin-de-Courval,https://www.saint-zephirin.ca,B,1,31
+b:d45530eac2e21053,Municipalité de Saint-Alphonse,https://www.st-alphonsegaspesie.com,B,1,31
+b:585ed8ecdbbe2497,Ville de Cap-Chat,https://www.cap-chat.ca,B,1,31
+b:e9ec83623ec979a1,Municipalité de Yamaska,https://www.yamaska.ca,B,1,31
+b:65ea0fb1656e82d6,Municipalité de Saint-Eugène,https://www.saint-eugene.ca,B,1,31
+b:e7d1b7446810eea4,Municipalité de Saint-Cuthbert,https://www.st-cuthbert.qc.ca,B,1,31
+b:04bdbfbc9af9dba0,Municipalité de Stanbridge Station,https://www.stanbridge-station.ca,B,1,31
+b:dca7037255dfc066,Village de Price,https://www.municipaliteprice.ca,B,1,30
+b:c0da0dfd34552362,Municipalité de Saint-Dominique,https://st-dominique.ca,B,1,30
+b:4b6dc54602bb74b7,Russell Township,http://www.russell.ca,B,1,30
+b:367167bc3af64e89,Municipalité de Saint-Mathias-sur-Richelieu,https://www.st-mathias.org,B,1,29
+b:419eaf8281a39678,Municipalité de Mandeville,https://www.mandeville.ca,B,1,29
+b:99831128cf6f41ee,Municipalité de Saint-Marcel-de-Richelieu,https://www.saintmarcelderichelieu.ca,B,1,29
+b:508560166676e61a,Municipalité de Saint-Benoît-Labre,https://www.saintbenoitlabre.com,B,1,29
+b:4fb795e1d89d9c56,City of Thorold,https://www.thorold.ca/en/index.aspx,B,1,28
+b:6522ba7504a59476,Canton de Roxton,https://www.cantonderoxton.qc.ca,B,1,28
+b:ff8c023134ca4761,Red Deer County,http://www.rdcounty.ca,B,1,28
+b:a707ede0d87f1100,Municipalité de Saint-Honoré-de-Témiscouata,https://www.sainthonoredetemiscouata.ca,B,1,27
+b:9c4ac9139a6d5c05,Municipalité de Saint-Georges-de-Windsor,https://www.st-georges-de-windsor.org,B,1,27
+b:e5e971380de0677f,Municipalité de Notre-Dame-de-Pontmain,https://www.munpontmain.qc.ca,B,1,27
+b:04f180ecf8cdb55f,Municipalité de Saint-Paulin,https://www.st-paulin.qc.ca,B,1,27
+b:1559347444d97bb2,Municipalité de Sainte-Eulalie,https://www.municipalite.sainte-eulalie.qc.ca,B,1,26
+b:a4299efe690a5ac0,Municipalité de Saint-Flavien,https://www.st-flavien.com,B,1,26
+b:a326469375dd4a6a,Municipalité de Saint-Charles-sur-Richelieu,https://www.saint-charles-sur-richelieu.ca,B,1,26
+b:588ef51db1eccbf7,Canton de Aumond,https://www.aumond.ca,B,1,26
+b:73aa8ea1d4e01db7,Paroisse de Saint-Barnabé,https://www.saint-barnabe.ca,B,1,26
+b:0fdd1c8badf3e488,Municipalité de Notre-Dame-de-la-Salette,https://www.muni-ndsalette.qc.ca,B,1,26
+b:9b0220ec0986275f,Municipalité de Saint-Rémi-de-Tingwick,https://www.st-remi-de-tingwick.qc.ca,B,1,26
+b:9b39f1b61d1638e9,Municipalité de Saint-Thomas,https://www.saintthomas.qc.ca,B,1,25
+b:011ad3a147e9f9ef,Municipalité de Girardville,https://www.ville.girardville.qc.ca,B,1,25
+b:5862d3b6ecf676b6,Municipalité de Saint-Patrice-de-Beaurivage,https://www.spdb.qc.ca,B,1,25
+b:4d01f8c1f948c4c7,Ville de Portneuf,https://www.villedeportneuf.com,B,1,24
+b:26335da83ea6db05,Municipalité de Saint-Édouard-de-Maskinongé,https://www.st-edouard-de-maskinonge.ca,B,1,24
+b:446f1b67b44046ee,Municipalité de Saint-Pierre-les-Becquets,https://www.st-pierre-les-becquets.qc.ca,B,1,24
+b:0b8104e11d70048d,Municipalité de Sainte-Perpétue,https://www.sainteperpetue.com,B,1,24
+b:07b417654b745adc,Municipalité de Trois-Rives,https://www.trois-rives.com,B,1,24
+b:c8859dbfc0a4a98a,Municipalité de Saint-Romain,https://www.st-romain.ca,B,1,23
+b:52e25da22d883cc8,Municipalité de Lac-Saint-Paul,https://www.lac-saint-paul.ca,B,1,23
+b:bde43c3e0cd18669,Municipalité de Saint-Gilles,https://www.st-gilles.qc.ca,B,1,22
+b:9b91091dd03ac9cf,Municipalité de Saint-René-de-Matane,https://saintrene.ca,B,1,22
+b:3d8b14eb89fa4b34,Paroisse de Saint-Adelme,https://st-adelme.ca,B,1,22
+b:d314ccd24e05598c,Municipalité de Bouchette,https://www.bouchette.ca,B,1,22
+b:29b6d21fa71b5d30,Municipalité de Saint-Alphonse-Rodriguez,https://www.munsar.ca,B,1,21
+b:18a756b029d654f2,Municipalité de Saint-Adrien,https://www.st-adrien.com,B,1,21
+b:f67036a7dd479c37,Municipalité de Saint-Louis-de-Gonzague,https://www.st-louisdegonzague.qc.ca,B,1,21
+b:7f0b32f8be58b464,Paroisse de La Doré,https://www.ladore.ca,B,1,20
+b:2b955dd75f9c1342,Municipalité de Saint-Alexis,https://www.st-alexis.com,B,1,20
+b:31048116854b7f05,Municipalité de Ham-Sud,https://www.ham-sud.ca,B,1,20
+b:129de4377cb4cf63,Municipalité de Saint-Cyprien,https://www.saintcyprien.ca,B,1,19
+b:38deede56186bfbc,Municipalité de Saint-Jean-de-Dieu,https://www.saintjeandedieu.ca,B,1,19
+b:c96cfa7402ee5fb8,Municipalité de Huberdeau,https://www.huberdeau.ca,B,1,19
+b:5fbb22c67abb71dc,Paroisse de Saint-Urbain,https://www.sainturbain.qc.ca,B,1,19
+b:5980fd38ba8d3875,Municipalité de Saint-Maxime-du-Mont-Louis,https://www.st-maxime.qc.ca,B,1,19
+b:0eb11121796ebb1b,Municipalité de Wentworth-Nord,https://www.wentworth-nord.ca,B,1,19
+b:175f4d34bd3d661b,Paroisse de Notre-Dame-des-Pins,https://www.notredamedespins.qc.ca,B,1,19
+b:f626dbf448685de3,Municipalité de East Hereford,https://www.easthereford.ca,B,1,19
+b:e3169f2ce3cc10ae,Paroisse de Saint-Hilarion,https://www.sainthilarion.ca,B,1,19
+b:01311900d32dedaf,Divert NS,https://divertns.ca,B,1,18
+b:b09f1dc06551d5da,Municipalité de Sainte-Marie-Salomé,https://www.sainte-marie-salome.ca,B,1,18
+b:582b612d6cbe95d5,Municipalité de Sainte-Élisabeth,https://www.ste-elisabeth.qc.ca,B,1,18
+b:45fb0a4510d1330b,Municipalité de Saint-Michel-du-Squatec,https://www.squatec.qc.ca,B,1,17
+b:86bf18f0f67e0d75,Canton de Saint-Camille,https://www.saint-camille.ca,B,1,17
+b:a2497c49a718cec7,Paroisse de Saint-Adelphe,https://www.st-adelphe.qc.ca,B,1,17
+b:d6b4f666d443adfa,Municipalité de Lorrainville,https://www.lorrainville.ca,B,1,17
+b:22c652cd4e9bbf78,Township of Mapleton,http://www.mapleton.ca,B,1,17
+b:085084f07b70d927,Municipalité de Saint-Charles-de-Bourget,https://www.stcharlesdebourget.ca,B,1,16
+b:db56aef583b404e5,Municipalité de Egan-Sud,https://www.egan-sud.ca,B,1,16
+b:f225769a9a57b86e,Municipalité de Saint-Bonaventure,https://www.saint-bonaventure.ca,B,1,16
+b:47c993db19bf3147,Ville de Saint-Honoré,https://www.ville.sthonore.qc.ca,B,1,16
+b:ba52f76b81ee3a7f,Municipalité de Sainte-Anne-de-la-Pérade,https://sadlp.ca,B,1,16
+b:f934353f6c702fd7,Municipalité de Kamouraska,https://www.kamouraska.ca,B,1,16
+b:25b55a2489373ec4,Municipalité de Deschaillons-sur-Saint-Laurent,https://www.deschaillons.ca,B,1,16
+b:66073df46c0407f2,Municipalité de Saint-Edmond-de-Grantham,https://www.st-edmond-de-grantham.qc.ca,B,1,16
+b:25ae76c50af80c1b,Municipalité de Notre-Dame-du-Nord,https://www.nddn.ca,B,1,16
+b:49a925a733db45de,Municipalité de Saint-Louis-de-Blandford,https://www.saint-louis-de-blandford.ca,B,1,16
+b:074ef2c96364d017,Municipalité de Saint-Liboire,https://www.st-liboire.ca,B,1,15
+b:dd800de5f7b5759f,Municipalité de Saint-Gédéon,http://www.st-gedeon.qc.ca,B,1,15
+b:07926bfc972c455c,Municipalité de Terrasse-Vaudreuil,https://www.terrasse-vaudreuil.ca,B,1,15
+b:a2a5b05872486953,Municipalité de Lac-au-Saumon,https://municipalites-du-quebec.com/lac-au-saumon,B,1,15
+b:d1bae12e08b101af,Municipalité de Saint-Henri-de-Taillon,https://www.ville.st-henri-de-taillon.qc.ca,B,1,15
+b:103b811f3aa1b215,Paroisse de Sainte-Brigitte-des-Saults,https://www.saintebrigittedessaults.ca,B,1,15
+b:373f44a9e6259c6c,Municipalité de Armagh,https://www.armagh.ca,B,1,15
+b:89e7a5b0c2c2fee4,Municipalité de Notre-Dame-de-Ham,https://www.notre-dame-de-ham.ca,B,1,15
+b:a3b1b13102336f3d,Paroisse de Saint-Louis-du-Ha! Ha!,https://www.saintlouisduhaha.com,B,1,14
+b:3db999e6deb98c3f,Municipalité de Pierreville,https://www.pierreville.net,B,1,14
+b:2aa3ae4afce56d38,Municipalité de Petite-Rivière-Saint-François,https://www.petiteriviere.com,B,1,14
+b:4066b30934c2e397,Municipalité de Val-Racine,https://www.val-racine.com,B,1,14
+b:168a3426f32314b4,Municipalité de Saint-Blaise-sur-Richelieu,https://www.st-blaise.ca,B,1,14
+b:ff41bab7a81f488e,Municipalité de Saint-Aimé,https://www.saintaime.qc.ca,B,1,14
+b:16fd935623d11aaa,Paroisse de Saint-Camille-de-Lellis,https://www.saint-camille.net,B,1,14
+b:71fe3b542f65145e,Municipalité de Sainte-Clotilde-de-Beauce,https://www.ste-clotilde.com,B,1,14
+b:5a56fa96a7ee3b4d,Municipalité de Saint-Cléophas-de-Brandon,https://www.st-cleophas.qc.ca,B,1,14
+b:aab2c7c6472f627b,Municipalité de Frampton,https://www.frampton.ca,B,1,14
+b:d445afe119d8c5fd,Municipalité de Saint-Eugène-de-Guigues,https://www.st-eugene-de-guigues.qc.ca,B,1,14
+b:de0925fd207091d6,Paroisse de Saint-Alexandre-des-Lacs,https://www.saintalexandredeslacs.com,B,1,13
+b:9567db539e2985bb,Paroisse de Saint-Valérien,https://www.municipalite.saint-valerien.qc.ca,B,1,13
+b:a04b522fbcfd55a7,Municipalité de Cayamant,https://www.cayamant.ca,B,1,13
+b:ed3b46f0efba71d9,Municipalité de Roxton Pond,https://www.roxtonpond.ca,B,1,13
+b:4b57c16effbfd49b,Municipalité de Sainte-Angèle-de-Prémont,https://www.sainte-angele-de-premont.ca,B,1,13
+b:16f28f574f8b9c8b,Municipalité de Kiamika,https://www.kiamika.ca,B,1,13
+b:15a79ddefeec146b,Municipalité de Saint-Alfred,https://www.st-alfred.qc.ca,B,1,13
+b:99a78052989957f6,Paroisse de Saint-Frédéric,https://www.saint-frederic.com,B,1,13
+b:6b8d4fbe09fb4b80,Municipalité de Ferland-et-Boilleau,https://www.ferlandetboilleau.ca,B,1,13
+b:0945e7ffd63a55aa,Municipalité de Val-Alain,https://www.val-alain.com,B,1,13
+b:032a7721ad89cc14,Municipalité de Saint-Lazare-de-Bellechasse,https://www.st-lazare-qc.com,B,1,13
+b:596fb15fd4f07d63,NUCLEARELECTRICA,https://www.nuclearelectrica.ro,B,1,13
+b:8755686230197095,Technische Universiteit Delft,http://www.tudelft.nl,B,1,13
+b:b74f912ecc55ebd8,Municipalité de Notre-Dame-du-Laus,https://www.notre-dame-du-laus.ca,B,1,12
+b:562a9557bec54d42,Municipalité de Biencourt,https://www.biencourt.ca,B,1,12
+b:bb95199d9afba8e2,Municipalité de Saint-Irénée,https://www.saintirenee.ca,B,1,12
+b:c34af3641fbeb72e,Municipalité de Rivière-au-Tonnerre,https://www.riviere-au-tonnerre.ca,B,1,12
+b:0a5b46738a919708,Town of Drumheller,https://www.drumheller.ca,B,1,12
+b:228feca7a1105f02,Paroisse de Packington,https://www.packington.org,B,1,12
+b:c1deb81f70d98ec4,Municipalité de Saint-Télesphore,https://www.saint-telesphore.com,B,1,12
+b:b4010c559ac42b73,Ville de Lac-Delage,https://www.lacdelage.qc.ca,B,1,12
+b:4be0a421e843fc67,Municipalité de Saint-Théophile,https://www.sainttheophile.qc.ca,B,1,12
+b:93a24f90f1a3ec6d,Municipalité de Charette,https://www.municipalite-charette.ca,B,1,12
+b:cf143fb73a62ef6d,Village de Roxton Falls,https://www.roxtonfalls.ca,B,1,12
+b:c0fb39454b50d357,Municipalité de Saint-Simon,https://www.saint-simon.ca,B,1,12
+b:ac62c8588416432e,Paroisse de Saint-Nazaire-de-Dorchester,https://saint-nazaire-de-dorchester.com,B,1,12
+b:2ba0d6a58576e65d,Municipalité de Grand-Saint-Esprit,https://www.grandsaintesprit.qc.ca,B,1,12
+b:ae87a6639443b31a,Municipalité de Sainte-Clotilde-de-Horton,https://steclotildehorton.ca,B,1,11
+b:1843fde829426cc3,Municipalité de Saint-Magloire,https://www.saint-magloire.com,B,1,11
+b:45c5d0fa1eef8bdb,Ville de Grande-Rivière,https://www.villegranderiviere.ca,B,1,11
+b:89bcd7e19654495e,Municipalité de Saint-Simon-les-Mines,https://www.sslm.ca,B,1,11
+b:bd01ae0434ce6aa2,Paroisse de Saint-Joseph-de-Kamouraska,https://www.stjosephkam.ca,B,1,11
+b:cf14a4ce86f92f89,Municipalité de Saint-Édouard,https://www.saintedouard.ca,B,1,11
+b:6230d05d8e37b102,Municipalité de Saint-Patrice-de-Sherrington,https://www.st-patrice-sherrington.com,B,1,11
+b:925ce96664c1b58a,Municipalité de Saint-Adrien-d'Irlande,https://stadriendirlande.ca,B,1,11
+b:a14af4468b41b82a,Municipalité de Lac-Sainte-Marie,https://www.lac-sainte-marie.com,B,1,11
+b:89bdb71f38028b1b,Municipalité de Bury,https://www.municipalitedebury.qc.ca,B,1,11
+b:07057046d4447ae1,Municipalité de Notre-Dame-des-Monts,https://www.notredamedesmonts.com,B,1,11
+b:d84be09cdb6741b3,Municipalité de Saint-Aimé-du-Lac-des-Îles,https://www.saldi.ca,B,1,11
+b:a3bc3427ffb4d112,Ville de Lac-des-Aigles,https://www.lacdesaigles.ca,B,1,11
+b:992868dabd15608d,Municipalité régionale de comté Thérèse-De Blainville,https://www.mrc-tdb.org,B,1,11
+b:3c5cc6e95a4dcee4,Municipalité de Grand-Métis,https://www.grandmetis.ca,B,1,11
+b:4a7178a969890619,Municipalité de Saint-Jean-de-la-Lande,https://www.saintjeandelalande.ca,B,1,11
+b:4839a3e17e109084,Municipalité de Preissac,https://www.preissac.com,B,1,11
+b:2bd5bcd1259fd61a,Municipalité de Sainte-Cécile-de-Whitton,https://www.stececiledewhitton.qc.ca,B,1,11
+b:8b6ae5b659ccdd6b,Paroisse de Saint-Moïse,https://www.st-moise.com,B,1,10
+b:8d07ccfb2406448d,Municipalité de Sainte-Florence,https://www.sainte-florence.org,B,1,10
+b:cce18c84a6b28be8,Municipalité de Sainte-Françoise,https://www.ste-francoise.com,B,1,10
+b:af0ff72984bbd8d0,Paroisse de Saint-Maurice,https://www.st-maurice.ca,B,1,10
+b:bf9f2b24a3e1e76b,Paroisse de Saint-Cyrille-de-Lessard,https://www.st-cyrille-de-lessard.ca,B,1,10
+b:f7bbe9a930bc957b,Municipalité de Notre-Dame-de-Montauban,https://www.notredamedemontauban.com,B,1,10
+b:887683fef2f98e63,Township of Mulmur,https://mulmur.ca,B,1,10
+b:14fa570fd918fc0f,Municipalité de Notre-Dame-des-Bois,https://www.notredamedesbois.qc.ca,B,1,10
+b:685bf5d4d53fa8d0,Municipalité de Saint-Just-de-Bretenières,https://www.saintjustdebretenieres.com,B,1,10
+b:24f4b296ed2573be,Municipalité de Sainte-Victoire-de-Sorel,https://www.saintevictoiredesorel.qc.ca,B,1,10
+b:1fe05a1fab43a0a8,Municipalité de Sainte-Hedwidge,https://www.ste-hedwidge.qc.ca,B,1,10
+b:3a5fdfcbea7d99af,Canton de Lingwick,https://www.lingwick.ca,B,1,10
+b:5b11845523d46c64,Municipalité de Sainte-Ursule,https://www.sainte-ursule.ca,B,1,10
+b:616744017d981860,Municipalité de Saint-Aimé-des-Lacs,https://www.saintaimedeslacs.ca,B,1,10
+b:ac01d15c68518e3a,Municipalité de Val-des-Bois,https://www.val-des-bois.ca,B,1,10
+b:e2546691a6dbb368,Municipalité de Saint-Prosper-de-Champlain,https://www.st-prosper.ca,B,1,10
+b:61f5fd27b98f32e9,Municipalité de Lac-Frontière,https://www.lac-frontiere.ca,B,1,10
+b:c24a7a5d96fd805d,Paroisse de Saint-Rosaire,https://www.strosaire.ca,B,1,10
+b:3fb5d28c1a317e73,Municipalité de Saint-Athanase,https://www.saint-athanase.com,B,1,10
+b:9631549d9de2d461,Municipalité de Lac-du-Cerf,https://www.lacducerf.ca,B,1,10
+b:5ed2f8a244c4cec0,Municipalité de Stanbridge East,https://www.stanbridgeeast.ca,B,1,9
+b:9501b7b72e3dd438,Ville de Saint-Gabriel,https://www.ville.stgabriel.qc.ca,B,1,9
+b:306fd8809e09dd3d,Municipalité de Saint-Michel-de-Bellechasse,https://www.stmicheldebellechasse.ca,B,1,9
+b:e789deefa2c1e81c,Municipalité de Saint-Odilon-de-Cranbourne,https://www.saint-odilon.qc.ca,B,1,9
+b:d826fef670308200,Municipalité de Saint-Ludger-de-Milot,https://www.ville.st-ludger-de-milot.qc.ca,B,1,9
+b:1883db142808372c,Village de Saint-Noël,https://www.st-noel.com,B,1,9
+b:3aa32695fa03c575,Paroisse de Saint-Damien,https://www.st-damien.com,B,1,9
+b:361f52cdd66a8a3f,Municipalité de Saint-Vianney,https://www.saint-vianney.net,B,1,9
+b:19686283cf48e701,Municipalité de Milan,https://www.munmilan.qc.ca,B,1,9
+b:979aefbfe1271e8f,Municipalité de Clarenceville,https://www.clarenceville.qc.ca,B,1,9
+b:8de9f2e2af6ad5fc,Paroisse de Saint-Narcisse-de-Rimouski,https://www.saintnarcisse.net,B,1,9
+b:b726f1b7a888fa5a,Municipalité de Saint-Herménégilde,https://www.st-hermenegilde.qc.ca,B,1,9
+b:178db2d7fcc8d309,Municipalité de Saint-Ignace-de-Loyola,https://www.stignacedeloyola.qc.ca,B,1,9
+b:a29caa43bdcb00e6,Municipalité de Sainte-Marthe,https://www.sainte-marthe.ca,B,1,9
+b:03ebfcce80501ad8,Municipalité de Baie-Johan-Beetz,https://www.baiejohanbeetz.qc.ca,B,1,9
+b:19dd1332b6bbf2fc,Municipalité de Saint-David,https://www.stdavid.qc.ca,B,1,9
+b:2b103141c5c794f5,Paroisse de Saint-Roch-de-Mékinac,https://www.strochdemekinac.com,B,1,9
+b:0546430451b21303,Municipalité de Béthanie,https://www.municipalitedebethanie.ca,B,1,9
+b:9048334707dad26e,GENERAL ELECTRIC COMPANY,https://www.geaerospace.com,B,1,9
+b:ba074d3c1468dd0c,Paroisse de Saint-Malachie,https://www.st-malachie.qc.ca,B,1,8
+b:5626323b780628e2,Municipalité de Honfleur,https://www.munhonfleur.net,B,1,8
+b:1c04cd6e7b0b6caa,Municipalité de Saint-Joseph-des-Érables,https://www.stjosephdeserables.com,B,1,8
+b:2da67f3c82ddaf32,Municipalité de Longue-Rive,https://www.longuerive.ca,B,1,8
+b:d347e9c679e6cd19,Municipalité de Sainte-Rita,https://www.ste-rita.ca,B,1,8
+b:046f05966230a52c,Municipalité de Pointe-à-la-Croix,https://www.pointe-a-la-croix.com,B,1,8
+b:3d79ca450d1996ec,Paroisse de Saint-Gérard-Majella,https://www.saintgerardmajella.ca,B,1,8
+b:2546e58ff3c2d7f2,Municipalité de Kazabazua,https://www.kazabazua.ca,B,1,8
+b:c9e2bedb9589cfef,Paroisse de Saint-Octave-de-Métis,https://municipalites-du-quebec.ca/st-octave-de-metis,B,1,8
+b:7ee44bd833bec340,Municipalité de Sainte-Hélène-de-Kamouraska,https://sainte-helene.net,B,1,8
+b:27106dc534a8cf91,Municipalité de Blue Sea,https://www.bluesea.ca,B,1,8
+b:57ed17884a3474f3,Municipalité de Rémigny,https://www.municipaliteremigny.qc.ca,B,1,8
+b:297d58212465e1f3,Village de Mont-Saint-Pierre,https://www.mont-saint-pierre.ca,B,1,8
+b:c08b25ab2d405be6,Municipalité de Saint-Michel-des-Saints,https://www.smds.quebec,B,1,7
+b:bc68a291c7f3cd59,Municipalité de Saint-François-de-l'Île-d'Orléans,https://www.msfio.ca,B,1,7
+b:70eeb8fff317d8ce,Municipalité de Saint-Bruno-de-Guigues,https://www.guigues.ca,B,1,7
+b:0df960265ab4295f,Municipalité de Colombier,https://www.colombierhcn.com,B,1,7
+b:32051422708879d2,Municipalité de New Carlisle,https://www.new-carlisle.ca,B,1,7
+b:1208682ea34a6829,Municipalité de Champlain,https://www.municipalite.champlain.qc.ca,B,1,7
+b:05b36e50ccfc35de,Municipalité de Lemieux,https://www.municipalitelemieux.ca,B,1,7
+b:a72d409450325267,Cantons unis de Latulipe-et-Gaboury,https://www.latulipeetgaboury.net,B,1,7
+b:9442c5befc6fcde1,Municipalité de Saint-Luc-de-Bellechasse,https://www.st-luc-bellechasse.qc.ca,B,1,7
+b:9e8fe010d0535710,Municipalité de Béarn,https://www.bearn.ca,B,1,6
+b:5309103c3ab6dac8,Municipalité de Sacré-Coeur,https://www.sacre-coeur.ca,B,1,6
+b:b7e8a98608a82b46,Paroisse de L'Ascension-de-Notre-Seigneur,https://www.ville.ascension.qc.ca,B,1,6
+b:db60039cc1282c9b,Paroisse de Hérouxville,https://www.municipalite.herouxville.qc.ca,B,1,6
+b:c3009f34f7bb097f,Ville de Schefferville,https://www.ville-schefferville.ca,B,1,6
+b:ea342f40fbe7a139,Municipalité de Saint-François-de-la-Rivière-du-Sud,https://www.stfrancois.ca,B,1,6
+b:389099cade7e2ba1,Municipalité de Sainte-Famille-de-l'Île-d'Orléans,https://www.ste-famille.iledorleans.com,B,1,6
+b:01053c7af93dd1c2,"AAR GOVERNMENT SERVICES, INC.",https://www.aarcorp.com,B,1,6
+b:b7b23de2fda67fe3,Municipalité régionale de comté Papineau,https://www.mrcpapineau.com,B,1,6
+b:8f21875fe30902fd,Municipalité régionale de comté Le Granit,https://www.mrcgranit.qc.ca,B,1,6
+b:5d1ddbae76622fbe,Municipalité de Mayo,https://www.mayo.ca,B,1,6
+b:366a76b740ec9535,Municipalité de Baie-des-Sables,https://www.municipalite.baiedessables.ca,B,1,6
+b:3f104239d596ea09,Village de Baie-Trinité,https://baie-trinite.quebec,B,1,6
+b:e3e8133a022435f6,Municipalité de Saint-Julien,https://www.st-julien.ca,B,1,6
+b:37d43488d3a334e6,Village de Sainte-Madeleine,https://www.stemadeleine.quebec,B,1,6
+b:05b5b1ae30900860,Canton de Westbury,https://www.westbury.ca,B,1,6
+b:6c2cf4de91e556ee,Canton de Hampden,https://www.cantonhampden.ca,B,1,6
+b:4f3822a9cb523bab,Paroisse de Saint-Léandre,https://www.st-leandre.ca,B,1,6
+b:f6fde5b6f0655082,Paroisse de Saint-Marcellin,https://www.st-marcellin.qc.ca,B,1,5
+b:4f1a45c2070a9f6e,Municipalité de Les Hauteurs,https://municipalites-du-quebec.com/les-hauteurs,B,1,5
+b:ca864cf47080e7b7,Paroisse de Saint-Eusèbe,https://www.sainteusebe.ca,B,1,5
+b:04c13ee6f0fecf92,Municipalité de Saint-Clet,https://www.st-clet.com,B,1,5
+b:b7ad0383c1a9eb3c,Municipalité de Saint-Robert,https://www.saintrobert.qc.ca,B,1,5
+b:4657577a5d2a219d,Paroisse de Saint-Tharcisius,https://saint-tharcisius.ca,B,1,5
+b:fb99415b231f3bae,Municipalité de Sainte-Thérèse-de-la-Gatineau,https://www.sainte-therese-de-la-gatineau.ca,B,1,5
+b:0506fe1293ceb202,Canton de Arundel,https://www.arundel.ca,B,1,5
+b:eccb8d2abd6903c7,Municipalité de Saint-Léonard-de-Portneuf,https://st-leonard.com,B,1,5
+b:86ab4998fc90777c,Municipalité de Saint-Tite-des-Caps,https://www.sainttitedescaps.com,B,1,5
+b:c5b7afaf48a05b6d,Municipalité de Saint-Denis-sur-Richelieu,https://www.stdenissurrichelieu.com,B,1,5
+b:10cb6a9e61ef9c5e,Canton de Dundee,http://www.cantondundee.ca,B,1,5
+b:b000f7fd447cd419,Municipalité de Saint-Sixte,https://www.saintsixte.ca,B,1,5
+b:5ed526159885ef6a,Municipalité de Saint-Juste-du-Lac,https://www.saintjustedulac.com,B,1,5
+b:d4b75c8b2e5b8b6b,Municipalité de Saint-Sylvestre,https://www.st-sylvestre.org,B,1,5
+b:05679538d9748fab,Paroisse de Saint-Marc-du-Lac-Long,https://www.saintmarcdulaclong.ca,B,1,5
+b:0c6b2157ddbcb4ec,Municipalité de L'Isle-Verte,https://www.municipalite.lisle-verte.qc.ca,B,1,5
+b:8b0b0579399bede3,Canton de Hope,https://www.municipalitedehope.ca,B,1,5
+b:874a1c9e05876149,Village de Marsoui,https://marsoui-village.ca,B,1,5
+b:b07d99c01a673257,Municipalité de Sainte-Marcelline-de-Kildare,https://www.ste-marcelline.com,B,1,5
+b:6d74280b2cf79974,Municipalité de Authier-Nord,https://authier-nord.ao.ca,B,1,5
+b:ae60d55466e408b1,Paroisse de Sainte-Flavie,https://www.sainte-flavie.net,B,1,4
+b:9f1bcc803a05a850,Municipalité de Saint-Clément,https://www.st-clement.ca,B,1,4
+b:fe906208083854ba,Municipalité de Clarendon,https://www.clarendonqc.ca,B,1,4
+b:2eb59b91c87db5e8,Municipalité régionale de comté Caniapiscau,https://www.caniapiscau.ca,B,1,4
+b:5a4a4c19a9babb04,Paroisse de Sainte-Hélène-de-Mancebourg,https://www.ste-helene.ao.ca/fr,B,1,4
+b:e2bda605dd059ddc,Municipalité de Rivière-Éternité,https://www.riviere-eternite.com,B,1,4
+b:a2d6b953239cec07,Paroisse de Saint-René,https://www.st-rene.ca,B,1,4
+b:bb432e6d78ef3e3d,Municipalité de Saint-Médard,https://municipalites-du-quebec.ca/st-medard,B,1,4
+b:5fbeaff6e569ecb9,Municipalité de Les Méchins,https://www.lesmechins.com,B,1,4
+b:312befdc1423d4ae,Village de Fort-Coulonge,https://www.fortcoulonge.qc.ca,B,1,4
+b:e4e15a5e204e17df,Municipalité de Blanc-Sablon,http://www.municipalitedeblancsablon.ca,B,1,4
+b:b4cf37f491796191,Municipalité de Taschereau,https://WWW.taschereau.ao.ca,B,1,4
+b:c391093291186466,Municipalité de Saint-Théodore-d'Acton,https://www.st-theodore.com,B,1,4
+b:d5b8b472c9db8a79,Paroisse de Saint-Nazaire-d'Acton,https://stnazairedacton.ca,B,1,4
+b:e97d35e7d1d417ed,Municipalité de Saint-Nérée-de-Bellechasse,https://www.st-neree.qc.ca,B,1,4
+b:7394898d4d0b16cb,Paroisse de Sainte-Louise,https://www.saintelouise.qc.ca,B,1,4
+b:42bd1a87111889b2,Municipalité de Saint-Pierre-de-Lamy,https://www.municipalites-du-quebec.com/saint-pierre-de-lamy,B,1,4
+b:59670637a7853706,Municipalité de Saint-Dominique-du-Rosaire,https://www.st-dominique-du-rosaire.org,B,1,4
+b:aea2f20aaa61ae45,Paroisse de Notre-Dame-des-Sept-Douleurs,https://www.ileverte-municipalite.com,B,1,4
+b:7a9d4c29e178e8c6,Paroisse de Saint-Philippe-de-Néri,https://www.stphilippedeneri.com,B,1,4
+b:8a493a4f42f001a6,Municipalité de Baie-Sainte-Catherine,https://www.baiestecatherine.com,B,1,4
+b:573ca96b04442afb,Canton de Trécesson,https://www.municipalitedetrecesson.com,B,1,4
+b:d2488944daeccf68,Municipality of Trent Hills,http://www.trenthills.ca,B,1,4
+b:08746a1eaa783711,London Police Service,https://www.londonpolice.ca,B,1,4
+b:ba67baa4c8c13e27,Municipalité de Notre-Dame-du-Rosaire,https://www.notredamedurosaire.com,B,1,4
+b:c0fbf91e370f9ec8,Municipalité de Saint-Robert-Bellarmin,https://www.st-robertbellarmin.qc.ca,B,1,4
+b:a5a2be8fcf8e30a0,Paroisse de La Durantaye,https://www.munladurantaye.qc.ca,B,1,4
+b:dd899721b7880a15,Paroisse de Saint-Sévère,https://www.st-severe.ca,B,1,3
+b:10027760587f07c2,Paroisse de Saint-Cléophas,https://www.stcleophas.com,B,1,3
+b:26c367d111e42b61,Municipalité régionale de comté La Mitis,https://www.mrcmitis.ca,B,1,3
+b:c219444b9a781f55,Municipalité de Chazel,https://chazel.ao.ca,B,1,3
+b:bc35b66e50a68670,Municipalité de Saint-François-Xavier-de-Viger,https://www.municipalite.saint-francois-xavier-de-viger.qc.ca,B,1,3
+b:3b10375afa99004d,Paroisse de Saint-Thuribe,https://www.st-thuribe.net,B,1,3
+b:dc023e56c25da116,Municipalité de Rivière-à-Pierre,https://www.riviereapierre.com,B,1,3
+b:e393134975a1e136,Municipalité de Sainte-Angèle-de-Mérici,https://municipalitesam.ca,B,1,3
+b:4c373d05d5f01780,Ville de Duparquet,https://www.duparquet.ao.ca/fr,B,1,3
+b:f591a025a9f12228,Municipalité de Kipawa,https://www.kipawa.ca,B,1,3
+b:f7cf9d4d53a635f1,Municipalité de Montcerf-Lytton,https://www.montcerf-lytton.com,B,1,3
+b:30ad648ed786e848,Paroisse de Saint-Joseph-de-Lepage,https://www.municipalite.saint-joseph-de-lepage.qc.ca,B,1,3
+b:120b3279da773aa8,Municipalité de Sainte-Paule,https://www.municipalite.sainte-paule.qc.ca,B,1,3
+b:56d763ac8e9682c6,Village de Massueville,https://www.massueville.net,B,1,3
+b:1784489fc05ada1d,Municipalité de Saint-Venant-de-Paquette,https://www.saint-venant-de-paquette.ca,B,1,3
+b:aafc37795833d7f5,Paroisse de Saint-Édouard-de-Fabre,https://www.st-edouard-de-fabre.ca,B,1,3
+b:2d14c68d95cab657,Paroisse de Saints-Martyrs-Canadiens,https://www.saints-martyrs-canadiens.ca,B,1,3
+b:9f1628babb21b268,Ville de Desbiens,https://www.ville.desbiens.qc.ca,B,1,2
+b:ca1f7b8599a1c148,Village de Portage-du-Fort,https://www.portage-du-fort.com,B,1,2
+b:eb2cd38f920730d6,European Investment Bank,https://www.eib.org/en,B,1,2
+b:0c7ec7e9e55c4032,Municipalité de Saint-Louis,https://www.saint-louis.ca,B,1,2
+b:bd58c2d8aa93ab5d,Municipalité de Saint-Samuel,https://www.saint-samuel.ca,B,1,2
+b:d48a8ced61c7753e,Municipalité de Normétal,https://normetal.ao.ca/fr,B,1,2
+b:5ae2bdc7bbe34f08,Ville de Barkmere,https://www.barkmere.ca,B,1,2
+b:ae55b4ed9083f2b3,Municipalité de Sainte-Thérèse-de-Gaspé,https://www.saintetheresedegaspe.com,B,1,2
+b:cb37ea9b7e60a4f1,Municipalité de Saint-Albert,https://www.munstalbert.ca,B,1,2
+b:f79a6166c022c7c8,Municipalité de Saint-Luc-de-Vincennes,https://www.stlucdevincennes.com,B,1,2
+b:df5369d5b7a46003,Canton de Chichester,https://www.chichestermunicipality.com,B,1,2
+b:4ce983232a8366c2,Ville de L'Île-Cadieux,https://www.ilecadieux.ca,B,1,2
+b:f953f32bf4bc406e,Municipalité de Saint-Émile-de-Suffolk,https://www.st-emile-de-suffolk.com,B,1,2
+b:b472da0198c1f992,Municipalité de Sainte-Gertrude-Manneville,https://municipalites-du-quebec.ca/ste-gertrude-manneville,B,1,2
+b:7482ae9da1cf13a4,Paroisse de La Rédemption,https://www.municipalite.laredemption.qc.ca,B,1,2
+b:6316e4ed3d678380,"AECOM TECHNICAL SERVICES, INC.",https://aecom.com,B,1,2
+b:ad9b4ed53f3a6f86,Ville de Lac-Saint-Joseph,https://www.villelacstjoseph.com,B,1,2
+b:46f7fc5dd0736153,Municipalité de Rapides-des-Joachims,https://www.rapides-des-joachims.org,B,1,2
+b:43cda9eb1228397c,Municipalité de Champneuf,https://www.champneuf.ca,B,1,2
+b:8064b6a9c6150ddc,MASSACHUSETTS INSTITUTE OF TECHNOLOGY,https://www.mit.edu,B,1,2
+b:f9af327ee57d2029,Paroisse de Saint-Charles-Garnier,https://www.municipalite.saint-charles-garnier.qc.ca,B,1,1
+b:ce936a703160422e,Université Paris-Saclay,https://www.universite-paris-saclay.fr,B,1,1
+b:4830bb4317a59bd6,Municipalité de Esprit-Saint,https://www.municipalite.esprit-saint.qc.ca,B,1,1
+b:1cbe54e82ace926a,Paroisse de La Trinité-des-Monts,https://la-trinite-des-monts.ca,B,1,1
+b:b00312a1ac39c773,Municipalité de Maddington Falls,https://www.maddington.ca,B,1,1
+b:76ce56ca5a76b3cf,Municipalité de Moffet,https://www.moffet.ca,B,1,1
+b:918c07e09ac4946e,Municipalité de Sainte-Madeleine-de-la-Rivière-Madeleine,https://www.stemadeleine.ca,B,1,1
+b:0a60ce88a72f87ff,Municipalité de Franquelin,https://www.municipalitefranquelin.ca,B,1,1
+b:dbdfe6cc805580eb,Universiteit Hasselt,http://www.uhasselt.be,B,1,1
+b:ddaf122e282d016a,Paroisse de Saint-Lambert,https://www.st-lambert.ao.ca,B,1,1
+b:e3493b4cc2ae385c,Municipalité de Shigawake,https://www.municipalityshigawake.com,B,1,1
+b:0a29c9d7383cf8c8,Municipalité de La Reine,https://lareine.ao.ca/fr,B,1,1
+b:5bd434b9d833e397,Municipalité de Cascapédia--Saint-Jules,https://www.cascapediastjules.com,B,1,1
+b:7d2d4ff4eb78fc17,Municipalité de Saint-Vallier,https://www.stvallierbellechasse.qc.ca,B,1,1
+b:a0c5a40cf3bb5c69,Elering AS,http://www.elering.ee,B,1,1
+b:0ce1a63c71e51932,Municipalité de Lejeune,https://www.municipalitelejeune.com,B,1,1
+b:1de2fb3016129aa9,Canton de Nédélec,https://www.municipalite.nedelec.qc.ca,B,1,1
+b:ca5f4fc389c637f0,Municipalité de Saint-Germain-de-Kamouraska,https://www.munsaintgermain.ca,B,1,1
+b:59c0c4a859705374,Municipalité de Sainte-Lucie-de-Beauregard,https://www.sainteluciedebeauregard.com,B,1,1
+b:393752571a6b4ed2,Canton de Cloridorme,https://municipalitedecloridorme.ca,B,1,1
+b:6a1ffc3d4d646760,Municipalité de Otter Lake,https://www.otterlakequebec.ca,B,1,1
+b:7f20e0fe9250682b,Municipalité de Nouvelle,https://nouvellegaspesie.com,B,1,1
+b:0c4429da009918d5,York Region,https://www.york.ca,B,2,1668
+b:911e951c93efa008,Toronto Catholic District School Board,http://www.tcdsb.org,B,2,893
+b:4c188fda0093a557,City of London,https://london.ca,B,2,756
+b:464fe38aa257e3e1,Niagara Region,http://www.niagararegion.ca,B,2,727
+b:98aba40bca810ae3,Conseil scolaire catholique MonAvenir,http://www.cscmonavenir.ca,B,2,700
+b:db5826c4c4707c9b,Simcoe County District School Board,http://www.scdsb.on.ca,B,2,647
+b:9c364d9558e38c1b,Town of Milton,http://www.milton.ca,B,2,534
+b:1140654fde121848,County of Simcoe,http://www.simcoe.ca,B,2,532
+b:26c5e9691294c539,Kawartha Pine Ridge District School Board,http://www.kprschools.ca,B,2,447
+b:525f309a23f5b3df,City Of Peterborough,http://www.peterborough.ca,B,2,404
+b:fe3ae88095477bd3,City of Kawartha Lakes,https://www.kawarthalakes.ca,B,2,324
+b:07b1796c781382f7,City of Richmond,https://richmond.ca,B,2,296
+b:359379eead9f876f,City of Waterloo,http://www.waterloo.ca,B,2,292
+b:4d031d4c3b5426f0,Municipality of Clarington,http://www.clarington.net,B,2,277
+b:318fb939be75a2bb,Lambton Kent District School Board,http://www.lkdsb.net,B,2,249
+b:2412c515dc367642,Toronto and Region Conservation Authority,https://trca.ca,B,2,226
+b:e3e8c139e605f828,City of North Bay,https://northbay.ca,B,2,222
+b:fa935e362223789f,Centre Wellington,http://www.centrewellington.ca,B,2,210
+b:068834c9973233b3,City of Pickering,http://www.pickering.ca,B,2,197
+b:1f8a78e0c47ed339,York Regional Police,https://www.yrp.ca,B,2,183
+b:83cd9c6db32d9cfe,District of Squamish,https://squamish.ca,B,2,173
+b:4691d490391e5603,Upper Grand District School Board,https://www.ugdsb.ca,B,2,168
+b:6f2919b760214da9,City of Prince George,https://princegeorge.ca,B,2,156
+b:2ba180c5fa643101,The Corporation of the County of Prince Edward,http://www.pecounty.on.ca,B,2,145
+b:da64e9bbd5ccf16b,City of Mount Pearl,http://www.mountpearl.ca,B,2,140
+b:0d4de9030a77c3c2,Town of Bradford West Gwillimbury,http://www.townofbwg.com,B,2,130
+b:b9b861c08a381ea6,Northumberland County,https://northumberland.ca,B,2,121
+b:342933ced52cf030,St Clair Catholic District School Board,http://www.st-clair.net,B,2,106
+b:5fe41da483650689,MPAC,https://www.mpac.ca,B,2,81
+b:e0f0c365187b98a8,Town of Midland,http://www.midland.ca,B,2,76
+b:d985372a85f335d0,Hastings & Prince Edward District School Board,http://www.hpedsb.on.ca,B,2,48
+b:696fa2acf444c7b5,School District No. 43 (Coquitlam),https://www.sd43.bc.ca,B,2,47
+b:4b3a966e52251840,InnServices Utilities Inc.,https://innservices.ca,B,2,44
+b:df7bec2acb66b733,GENERAL DYNAMICS LAND SYSTEMS INC.,https://www.gdls.com,B,2,41
+b:f8c5b4ebc9a8a88b,Municipality of the County of Kings,https://www.countyofkings.ca,B,2,27
+b:74bbae97b0ac56d8,GE RENEWABLES US LLC,https://www.gevernova.com,B,2,22
+b:6275c26e69b9e3ad,Greater Essex County District School Board,http://www.publicboard.ca,B,2,20
+b:8ef79f5f5ec09145,AMENTUM SERVICES INC,https://www.amentum.com,B,2,19
+b:484b5aaa57357b3e,Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ) GmbH,http://www.giz.de,B,2,10
+b:41201b3002114617,VERTEX AEROSPACE LLC,https://www.vtxaero.com,B,2,8
+b:4c4593354a687dfe,"TRIAD NATIONAL SECURITY, LLC",https://www.lanl.gov,B,2,7
+b:484e322a7711ee41,"OSHKOSH DEFENSE, LLC",https://oshkoshdefense.com,B,2,7
+b:19885755303d228b,Education Procurement Service (EPS),https://www.educationprocurementservice.ie,B,2,6
+b:86caa87f01756345,DEWBERRY ENGINEERS INC.,https://www.dewberry.com,B,2,5
+b:7deed5c66a362a97,CDM FEDERAL PROGRAMS CORPORATION,https://www.cdmsmith.com,B,2,5
+b:66908471209d64f9,"ROCKWELL COLLINS, INC.",https://www.collinsaerospace.com,B,2,4
+b:c500e21f63c7f8e8,"GENERAL DYNAMICS INFORMATION TECHNOLOGY, INC.",https://www.gdit.com,B,2,4
+b:bf61d5b8f123bee3,"National University of Ireland, Galway (NUI Galway)",http://www.nuigalway.ie,B,2,3
+b:eae87686deb2521e,"Swissnoso, Nationales Zentrum für Infektionsprävention",https://www.swissnoso.ch,B,2,3
+b:90fedcda710b5e44,"CHARLES STARK DRAPER LABORATORY, INC., THE",https://www.draper.com,B,2,3
+b:e5389101781012da,BRGM EXPLORE,https://www.brgm.fr/fr,B,2,2
+b:2ab15cf4e5af47f0,"ICF INCORPORATED, L.L.C.",https://www.icf.com,B,2,2
+b:77d31ba24c8688b9,N.V. Nederlandse Gasunie,http://www.gasunie.nl,B,2,2
+b:a4516ec23319b8a1,TEXTRON SYSTEMS CORP,https://www.textronsystems.com,B,2,2
+b:c61d8dce65a07018,Fáilte Ireland-National Tourism Development Authority,http://www.failteireland.ie,B,2,2
+b:a72fbdda5c2e8895,universite clermont auvergne,http://www.uca.fr,B,2,1
+b:66760b00d1b27f63,Universitat de Barcelona - Oficina de Contratación Administrativa,https://contractaciopublica.gencat.cat/perfil/UB,B,2,1
+b:5b5157d69f43f00c,Raytheon UK (Omnia Training consortium lead) for the British Army,https://www.rtx.com,B,2,1
+b:040e9aaa49fe4205,Irish Water,http://Irishwater.ie,B,2,1
+b:1f77bb7ee34e8e1f,St George's Healthcare NHS Trust,https://suppliers.multiquote.com,B,2,1
+b:bc2cf5ae92c15181,Institut géographique national,http://www.ign.fr,B,2,1
+b:f003ac335eb54a39,"Centre d'études et d'expertise sur les risques, l'environnement, la mobilité et l'aménagement",https://www.cerema.fr,B,2,1
+b:846ac22c25e1dc53,INSTITUT NATIONAL DE RECHERCHE ET SECURITE (INRS),https://www.inrs.fr,B,2,1
+b:143c53524b279b57,European Central Bank,http://www.ecb.europa.eu,B,2,1
+b:f7ba361d764726d0,Halifax Regional Municipality,https://www.halifax.ca,B,3,960
+b:6f87af6985701507,City of Barrie,http://www.barrie.ca,B,3,852
+b:249ea1eddbbf215e,York Region District School Board,http://www.yrdsb.ca,B,3,462
+b:ebf4272c82dbb197,City of Orillia,https://www.orillia.ca,B,3,241
+b:a7caac9db2c1f250,Dalhousie University,https://www.dal.ca,B,3,196
+b:369f81bcbce7d745,County of Dufferin,http://www.dufferincounty.ca,B,3,182
+b:702395beeb974caf,Lakehead District School Board,http://www.lakeheadschools.ca,B,3,178
+b:6e81f0ade8711428,Town of Lincoln,http://www.lincoln.ca,B,3,175
+b:0ce7797511fd4ea9,Town of Huntsville,https://www.huntsville.ca,B,3,138
+b:f39de4a6edbf5de4,District School Board Ontario North East (DSB1),https://www.dsb1.ca,B,3,81
+b:ecd13b2dfa28001c,Commission scolaire crie,https://eeyoueducation.ca,B,3,76
+b:251aec3ad62e7478,Ville de Pohénégamook,https://www.villepohenegamook.ca,B,3,67
+b:fa939b610595e8b7,Municipalité de Saint-Valérien-de-Milton,https://www.st-valerien-de-milton.qc.ca,B,3,59
+b:bbe29c5d19a8999a,Paroisse de Sainte-Cécile-de-Lévrard,https://stececiledelevrard.com,B,3,59
+b:e6d46a895635d408,Municipalité de Saint-Michel,https://www.municipalite-saint-michel.ca,B,3,57
+b:ae75d20736a3f2c0,Municipalité de Notre-Dame-du-Portage,https://www.municipalite.notre-dame-du-portage.qc.ca,B,3,51
+b:da39806dbc20df56,District of Sechelt,https://www.sechelt.ca,B,3,51
+b:a58bea5ef53df6b9,Municipalité de Vallée-Jonction,https://www.valleejonction.qc.ca,B,3,45
+b:52dc3ec8932f9206,Municipalité de Saint-Joseph-de-Coleraine,https://www.coleraine.qc.ca,B,3,40
+b:72456b69f7bbf86c,Ville de Huntingdon,https://www.villehuntingdon.com,B,3,35
+b:8300d205e1b9a7d7,Municipalité de Saint-Anicet,https://www.stanicet.com,B,3,35
+b:a61630273f0ad614,Municipalité de Saint-Chrysostome,https://www.mun-sc.ca,B,3,33
+b:dca4abb1d6d33138,Municipality of Chester,http://www.chesterareans.ca,B,3,31
+b:e8bb9c8f052bba7c,Ville de Témiscaming,https://www.temiscaming.net,B,3,28
+b:7457bc391733a090,Paroisse de Saint-Anaclet-de-Lessard,https://stanaclet.qc.ca,B,3,27
+b:3947b6a5a0b743c6,Municipalité de L'Ascension,https://www.municipalite-lascension.qc.ca,B,3,26
+b:6235ddf6df6a51df,Municipalité de Saint-Paul-de-l'Île-aux-Noix,https://www.ileauxnoix.com,B,3,24
+b:8665157a796f541a,Paroisse de Sacré-Coeur-de-Jésus,https://www.sacrecoeurdejesus.qc.ca,B,3,24
+b:501f5f19dd73c0ed,Municipalité de Très-Saint-Rédempteur,https://www.tressaintredempteur.ca,B,3,23
+b:cd4378534b2f630e,Paroisse de Sainte-Sophie-de-Lévrard,https://www.munstesophie.org,B,3,21
+b:2c9f9dc50ac84354,Municipalité de Sainte-Cécile-de-Milton,https://www.miltonqc.ca,B,3,21
+b:696fffc78b62c5ce,Paroisse de Sainte-Christine,https://www.ste-christine.com,B,3,20
+b:c69a956153cb811a,Ville de Richmond,https://www.richmond.quebec,B,3,19
+b:006b5405f5c88b84,Paroisse de Saint-Joachim,https://www.saintjoachim.qc.ca,B,3,16
+b:81ef4b343b51c9ce,Municipalité de Pointe-Fortune,https://pointefortune.ca,B,3,14
+b:6a85ea31343ff4cc,Municipalité de Saint-Pierre-de-Broughton,https://www.saintpierredebroughton.ca,B,3,12
+b:664cee646e0c534f,Canton de Landrienne,https://www.landrienne.com,B,3,11
+b:390bbdfe623a16c6,Municipalité de Saint-Valère,"https://www.msvalere.qc,ca",B,3,10
+b:d3f91d0d3504df86,Municipalité de Denholm,https://www.denholm.ca,B,3,10
+b:3bcbf55c792831d9,Ville de Daveluyville,https://www.ville.daveluyville.qc.ca,B,3,9
+b:a5d39c6360f0399f,Ville de Murdochville,https://www.murdochville.com,B,3,7
+b:baa6e8294004298f,Municipalité de Saint-Épiphane,https://www.saint-epiphane.ca,B,3,5
+b:67ce21b3d4d1a438,Ottawa Catholic School Board,http://www.ocsb.ca,B,3,4
+b:529881d88261e30f,Municipalité de Lac-Tremblant-Nord,https://www.lac-tremblant-nord.qc.ca,B,3,2
+b:1b8c1065f65e3ac6,Paroisse de Ragueneau,https://www.municipalite.ragueneau.qc.ca,B,3,2
+b:71093e7cb3f9e3e5,DELOITTE & TOUCHE LLP,https://www2.deloitte.com/us,B,3,2
+b:305c35f9fe48553c,NORTHWESTERN UNIVERSITY,https://www.northwestern.edu,B,3,2
+b:05a559521e307365,City of Burlington,https://www.burlington.ca,B,4,561
+b:fbcacbd257c4ae2e,ALSTOM RENEWABLE US LLC,https://www.alstom.com,B,4,58
+b:2dd5683a6e1c79ac,"L3HARRIS TECHNOLOGIES, INC.",https://www.l3harris.com,B,4,11
+b:9fd3402cd6b8b460,Aramark,http://www.aramark.com,C,0,316
+b:57813809cea26488,City of Quinte West,https://quintewest.ca,C,0,196
+b:cbbd69948ace3efc,County of Hastings,http://www.hastingscounty.com,C,0,141
+b:2d368bbae031d818,Town of South Bruce Peninsula,http://www.southbrucepeninsula.com,C,0,71
+b:010aad73d384e28b,UNDP - TOGO,https://www.undp.org,C,0,51
+b:8218af8c33807695,Oregon Lottery,https://www.oregonlottery.org,C,0,44
+b:bf0124165c79a0c0,County of Frontenac,http://www.frontenaccounty.ca,C,0,44
+b:07e21922f0432b14,City of Swift Current,http://www.swiftcurrent.ca,C,0,21
+b:0e68fdd639afb445,Rural Municipality of Mervin No. 499,https://www.rmofmervin.ca,C,0,17
+b:af0a32c9f42ec0cc,Hopital Montfort,http://www.hopitalmontfort.com,C,0,12
+b:97e776737049408d,TO Live,https://www.tolive.com,C,0,11
+b:1ef58b5ad8167a70,City of San José - Purchasing,https://www.sanjoseca.gov,C,0,9
+b:9b5eca9701d1e75c,Yee Hong Centre for Geriatric Care,https://www.yeehong.com,C,0,8
+b:b65497a6f85a7d6e,Geological Survey of Norway (NGU),https://www.ngu.no,C,0,7
+b:5f462d2d45a9a546,Township of Central Frontenac,https://www.centralfrontenac.com,C,0,7
+b:024d723567f501ae,Bundesanstalt für Geowissenschaften und Rohstoffe,http://www.bgr.bund.de,C,0,7
+b:40d35f5cf57c4438,"Bundesamt für Ausrüstung, Informationstechnik und Nutzung der Bundeswehr",http://www.evergabe-online.de,C,0,6
+b:05b8fbfe3827561d,Fraunhofer Gesellschaft zur Förderung der angewandten Forschung e.V.,https://www.deutsche-evergabe.de,C,0,6
+b:96f65858365ea637,Virginia Museum of Fine Arts,https://vmfa.museum,C,0,5
+b:87c922580b670d6e,Norsk Tipping AS,http://www.norsk-tipping.no,C,0,5
+b:854d7d1870790ae7,Aarhus Universitet,http://www.au.dk,C,0,5
+b:43bab25c8c0ef663,Universität Stuttgart,https://www.uni-stuttgart.de,C,0,4
+b:11cd34cd07b40dbb,Fraunhofer-Gesellschaft - Einkauf B12,https://vergabe.fraunhofer.de,C,0,4
+b:db3518eeb0064b0e,City of Kelowna,https://kelowna.ca,C,0,4
+b:767af2421d7ed984,Rainy River District School Board,http://www.rrdsb.com,C,0,4
+b:f5a80191b25475e7,Le Mans Métropole,http://www.lemans.fr,C,0,4
+b:e0f2158503e1a625,HRT,https://www.hrt.hr,C,0,4
+b:c208b9f81370e368,"SVEUČILIŠTE U ZAGREBU, KINEZIOLOŠKI FAKULTET",https://www.kif.unizg.hr,C,0,4
+b:124e9f6a6ce147d8,University of Virginia,https://www.virginia.edu,C,0,4
+b:788007a700ca2fd0,"Bundesrepublik Deutschland, vertreten durch das Bundesministerium des Innern und für Heimat, vertreten durch das Beschaffungsamt des BMI",http://www.bescha.bund.de,C,0,3
+b:25b9391ecde8fdb5,HRVATSKI GEOLOŠKI INSTITUT,http://www.hgi-cgs.hr,C,0,3
+b:06011c205112b41f,Tisseo,https://www.tisseo.fr,C,0,3
+b:3e7ecd7545fcdbda,Library of Virginia,https://www.lva.virginia.gov,C,0,3
+b:4401427e5f7230a4,TenneT TSO,https://www.tennet.eu/nl/home,C,0,3
+b:65da1e1fd377a1ac,Istituto Nazionale di Fisica Nucleare,http://www.ac.infn.it,C,0,3
+b:8d5cf419444b3ec4,Bw Bekleidungsmanagement GmbH,http://www.bwbm.de,C,0,3
+b:b55a5b9348eff8b1,Town of St. Alban's,http://www.stalbans.ca,C,0,3
+b:1378d014bdb52709,Assiniboine Community College,http://public.assiniboine.net,C,0,2
+b:ba4bcfd663e6a62a,"Freie Universität Berlin Abteilung II: Finanzen, Einkauf und Stellenwirtschaft Referat II C - Zentraler Einkauf",https://www.fu-berlin.de,C,0,2
+b:19bbbc267faeded2,Chalmers Tekniska Högskola Aktiebolag,http://www.chalmers.se,C,0,2
+b:5147424dcf3ab8f2,"City of Indio, California — Information Technology",https://www.indio.org,C,0,2
+b:d12c9a37b7b51445,District of Kitimat,https://www.kitimat.ca,C,0,2
+b:e68e9850ee540375,Nature Conservancy of Canada,https://www.natureconservancy.ca,C,0,2
+b:17990787f815accd,Town of St. Marys,http://townofstmarys.com,C,0,2
+b:19a87d966f3fdfb4,"Universität zu Köln, Abteilung 64 - Einkauf",https://uni-koeln.de,C,0,2
+b:886f3d94466f2038,Cardiff University,http://www.cardiff.ac.uk/purch,C,0,2
+b:1b219e84a37c5049,"AS ""Latvijas valsts meži""",http://www.lvm.lv,C,0,2
+b:930a0a227742d624,Valsts aizsardzības loģistikas un iepirkumu centrs,http://www.valic.gov.lv,C,0,2
+b:daae670af0f91944,université de Lorraine,https://www.univ-lorraine.fr,C,0,2
+b:e08bb1f49ca41a36,Rajavartiolaitos,https://www.raja.fi,C,0,2
+b:794e055bb37c34e1,Veikkaus Oy,https://www.veikkaus.fi,C,0,2
+b:9a1a1c0c23ad955e,Greater Vancouver Regional District (Metro Vancouver),https://metrovancouver.org,C,0,2
+b:53a5848149169141,Town of Aylmer,https://www.aylmer.ca,C,0,2
+b:d88bb9b793557226,Rural Municipality of Moose Creek No. 33,https://www.rmofmoosecreek.com,C,0,2
+b:082f04d328c16536,Luther College,http://www.luthercollege.edu,C,0,2
+b:2491b93e4f8a640a,Julius-Maximilians-Universität Würzburg als staatliche Einrichtung in Vertretung des FS Bayern,http://www.uni-wuerzburg.de,C,0,2
+b:7af9ad86af947c5f,Verkehrsbetriebe Hamburg-Holstein GmbH,https://www.vhh-mobility.de,C,0,2
+b:fcac4e9725773f79,NUKLEARNA ELEKTRARNA KRŠKO d.o.o.,https://www.nek.si,C,0,2
+b:4e8d119d3ad62fbe,Département de la Somme,http://somme.fr,C,0,2
+b:2dbaf1144a7c69b3,"Ústav výzkumu globální změny AV ČR, v.v.i.",http://www.czechglobe.cz,C,0,2
+b:b422ff0778dc4bf6,Finnish Transport Agency,http://www.liikennevirasto.fi/en,C,0,2
+b:2e000d77cf62fa78,Medizinische Universität Graz,http://www.schramm-oehler.at,C,0,2
+b:03dce3e8424d6771,Consiglio Nazionale delle Ricerche,http://www.imaa.cnr.it,C,0,2
+b:9d1a422fe808d9dd,Town of Pouch Cove,http://www.pouchcove.ca,C,0,2
+b:3b703d80d507119a,Rural Municipality of Dundurn No. 314,http://www.dundurnrm.com,C,0,2
+b:cb50b67ff06c5760,Institut de Veille Sanitaire,http://www.invs.sante.fr,C,0,2
+b:6e16896a69763a20,CIVA,http://www.vinsalsace.com,C,0,2
+b:31ceb68753bb874a,Department of Climate Energy and the Environment,http://www.decc.gov.ie,C,0,2
+b:e8147b20408c9bd0,Elections Ontario,http://www.elections.on.ca,C,0,2
+b:064cffef33ce0f3e,Middlesex London Health Unit,https://www.healthunit.com,C,0,1
+b:20c3a286684ebf66,Avinor AS,https://avinor.no,C,0,1
+b:985be9457677bc21,Marketing Birmingham,http://www.marketingbirmingham.com/tenders,C,0,1
+b:b438656e02c26e49,Technische Universität Clausthal; Institut für Chemische und Elektrochemische Verfahrenstechnik,http://www.tu-clausthal.de,C,0,1
+b:dc83898bc593dcde,Austro Control GmbH,http://www.austrocontrol.at,C,0,1
+b:b7e6d9d80f4bfd6d,Fraunhofer Gesellschaft zur Förderung der angewandten Forschung e.V. über Vergabeportal deutsche eVergabe,http://www.fraunhofer.de,C,0,1
+b:95a56022184cc853,Max-Planck-Institut für Chemische Energiekonversion,http://www.cec.mpg.de,C,0,1
+b:56edd7a71e68988a,Technische Universität Braunschweig - Institut für Technische Chemie -Technische Elektrokatalyse (ITEC),https://www.tu-braunschweig.de,C,0,1
+b:5a753683aefc0a90,GRAND E-NOV,https://www.grandenov.fr,C,0,1
+b:68e09f49bfc8b1a4,BERNMOBIL Städt. Verkehrsbetriebe Bern (SVB),https://bernmobil.ch,C,0,1
+b:f1620836a7800a51,State of Oklahoma — DEPARTMENT OF TOURISM AND RECREATION,https://oklahoma.gov,C,0,1
+b:14f59c2e2d266f9c,Eidgenössische Technische Hochschule Zürich Schweizerischer Erdbebendienst,https://ethz.ch,C,0,1
+b:b766726300ee3fd8,EFSA,https://www.efsa.europa.eu,C,0,1
+b:cac5d62c6b52c17e,Zadarska županija,http://www.zadarska-zupanija.hr,C,0,1
+b:0ec5eba68a0d1962,Forsvarets forskningsinstitutt,http://www.ffi.no,C,0,1
+b:531862f1e1d6c56e,Invest Northern Ireland,https://www.gov.uk/government/organisations/invest-northern-ireland,C,0,1
+b:3b25e6af772010f3,Liverpool Vision Limited,http://www.liverpoolvision.co.uk,C,0,1
+b:56a1d907beb6f06d,HungaroControl Magyar Légiforgalmi Szolgálat Zártkörűen Működő Részvénytársaság,http://www.hungarocontrol.hu,C,0,1
+b:5e20aa8d261346e8,MRMP-L/A - Direction Générale Material Resources - Division Marchés Publics - Section Land Systems - Sous-section Acquisition,http://www.mil.be/mr/subject/index.asp?LAN=fr&ID=1190,C,0,1
+b:e13d60b0cce1b619,Sveriges Lantbruksuniversitet,http://www.slu.se,C,0,1
+b:e3e2ef75387ddb3c,Österreichische Akademie der Wissenschaften,https://oeaw.vemap.com,C,0,1
+b:499457e5cc5eabba,REPUBLIKA HRVATSKA MINISTARSTVO OBRANE,https://www.morh.hr,C,0,1
+b:efd70083722bac8e,Somerset NHS Foundation Trust  Yeovil,https://discovery.ariba.com/rfx/19710254,C,0,1
+b:3b93736f0a500a16,The University of Texas Permian Basin,https://www.utpb.edu,C,0,1
+b:573301f0ddc9aae1,Zambia Medicines and Medical Supplies Agency,https://www.medstore.co.zm,C,0,1
+b:15d1d3a923c8e21b,Bigstone Cree Nation,https://www.bigstone.ca,C,0,1
+b:610218a047f5effc,Naviair,http://www.naviair.dk,C,0,1
+b:8d6944462913d30a,Ministry for Foreign Affairs of Finland,https://um.fi,C,0,1
+b:aaaa286cfa3e0dc0,Geologian tutkimuskeskus,http://www.gtk.fi,C,0,1
+b:576f568cc132f124,Jernbaneverket,http://www.jernbaneverket.no,C,0,1
+b:d7bedc19ce0a218b,Universitetet i Oslo,https://www.uio.no,C,0,1
+b:86f3d1679a2187ec,Umeå universitet,https://www.umu.se,C,0,1
+b:95a407fd97eff338,Högskolan Väst,http://www.hv.se,C,0,1
+b:65619798f2654f56,Institut de physique du globe de Paris,http://www.ipgp.fr,C,0,1
+b:f29dd2dd00105383,Wojskowa Akademia Techniczna im. Jarosława Dąbrowskiego,http://www.wat.edu.pl,C,0,1
+b:c7d168c7309dab18,Rennes Métropole,http://metropole.rennes.fr,C,0,1
+b:c18d5ea74ed6726d,"European Commission, Directorate-General for Energy, Directorate E — Euratom Safeguards",https://ec.europa.eu/energy/en,C,0,1
+b:171e8a0de96d373a,Ministero dell'Interno – Dipartimento della Pubblica sicurezza – Direzione centrale dei Servizi tecnico-logistici e della gestione patrimoniale - Ufficio Attività contrattuali per la motorizzazione,http://www.interno.it,C,0,1
+b:c8c796c05836b368,Agence wallonne à l'exportation et aux Investissements étrangers — Branche investissements,http://enot.publicprocurement.be/enot-war/preViewNotice.do?noticeId=296868,C,0,1
+b:0b60a87f5fa7b1ea,"Renfe Viajeros SME, S.A.",http://www.renfe.com,C,0,1
+b:ccf34c2e8eccc514,Liikenne- ja viestintävirasto Traficom,https://www.traficom.fi,C,0,1
+b:02016bb836e15155,Max-Planck-Gesellschaft zur Förderung der Wissenschaften e. V.; Max Planck Digital Library,https://www.mpdl.mpg.de,C,0,1
+b:cc2a1247a17c01a4,SNCB-Procurement,http://www.B-rail.be,C,0,1
+b:7d6cf6f2d900cd9b,"UJV Řež, a.s.",https://www.ujv.cz,C,0,1
+b:855ec3a8288b45f4,chu de lille,https://www.chu-lille.fr,C,0,1
+b:414ad87803f370ac,Luftfartsverket,https://www.lfv.se,C,0,1
+b:f793c531b545fb1d,WIENER LINIEN GmbH & Co KG,https://www.wienerlinien.at,C,0,1
+b:d94e727f215d742f,Havforskningsinstituttet,http://www.hi.no,C,0,1
+b:5b26a0f3be6afe37,Päästeamet,http://www.rescue.ee,C,0,1
+b:dbfb91640b577a9d,Town of Lumsden,http://www.lumsden.ca,C,0,1
+b:6597928fcfe0fa80,"Medicoteknik, Region Syddanmark",http://www.medicoteknik-rsd.dk,C,0,1
+b:90795cb411dbec3e,Technical University of Denmark,https://www.dtu.dk,C,0,1
+b:308cf5ff29206564,"Silkeborg Kraftvarmeværk, SKVV",http://www.silkeborgforsyning.dk,C,0,1
+b:e9228f27953638c9,Europol,https://www.europol.europa.eu,C,0,1
+b:a8ac7771ed86c052,Oulun yliopisto,https://oulu.fi,C,0,1
+b:d0224cd570a20f47,"Norges Teknisk Naturvitenskapelige universitet (NTNU), Innkjøp",http://www.ntnu.no,C,0,1
+b:3b32138823a1dd93,Bundesanstalt für Landwirtschaft und Ernährung,http://www.ble.de,C,0,1
+b:26992a517fb3aa47,Lietuvos mokslinių bibliotekų asociacija,http://www.lmba.lt,C,0,1
+b:af5fce0b3118dbee,Santé publique France,https://www.santepubliquefrance.fr,C,0,1
+b:988351bff07a2e91,Northern Gas Networks,http://www.northerngas.co.uk,C,0,1
+b:9a3d25c7ac860189,"Ústav struktury a mechaniky hornin AV ČR, v.v.i.",http://www.irsm.cas.cz,C,0,1
+b:5a212ff35eeda4c8,SNCF Mobilités,http://www.sncf.com/fr/fournisseurs/avis-de-marche,C,0,1
+b:e9e360f4854244bc,IMEC VZW,http://www.imec.be,C,0,1
+b:e8bf78975782aec1,Ville de Saint-Nazaire,http://www.saintnazaire.fr,C,0,1
+b:a0748952aad011be,"Univerzita Karlova, Lékařská fakulta v Hradci Králové",https://www.lfhk.cuni.cz,C,0,1
+b:88852b2a77276622,Forschungsverbund Berlin e. V.,http://www.leibniz-fvb.de,C,0,1
+b:f98e8333098921ab,Valsts aizsardzības militāro objektu un iepirkumu centrs,http://www.vamoic.gov.lv,C,0,1
+b:0fac69cb354083e4,Ministerie van Defensie/CLAS/MatlogCo,http://www.landmacht.nl,C,0,1
+b:4865dec12e4f7206,České vysoké učení technické v Praze Fakulta elektrotechnická,http://www.cvut.cz,C,0,1
+b:62f294c7a29f290b,Universität zu Köln,http://www.uni-koeln.de,C,0,1
+b:595082f1780d925f,Městská část Praha 5,http://www.praha5.cz,C,0,1
+b:b62fc21064d07236,Tartu Linnatransport,http://www.tartu.ee,C,0,1
+b:16d0209634cad4df,Anivin de France,https://www.vindefrance.com/pro,C,0,1
+b:13b49d34a9939994,FERROCAMPUS,https://www.ferrocampus.fr,C,0,1
+b:acf2f711e80b4d50,Viešoji įstaiga Centrinė projektų valdymo agentūra,http://www.cpva.lt,C,0,1
+b:7971c868e30288a2,Bundesministerium für Inneres,https://www.bmi.gv.at,C,0,1
+b:ef0e8196823a602f,The Health Research Board,https://www.hrb.ie,C,0,1
+b:f79a1955502af4fc,Trafikselskabet Movia,http://www.moviatrafik.dk/omos/Pages/Omos.aspx,C,0,1
+b:54a6c941a8a49e60,Stockholms universitet,https://www.su.se,C,0,1
+b:2781f4df8ffcf6cc,Mon Sheong Foundation,https://www.monsheong.org,C,0,1
+b:eab6ada7768ebb9f,Town of Bay Roberts,http://www.bayroberts.com,C,0,1
+b:e45439f45ff31b00,Rural Municipality of Corman Park No. 344,http://www.rmcormanpark.ca,C,0,1
+b:eb13c269abdec3d8,Village of Kelliher,http://villageofkelliher.com,C,0,1
+b:44df143818806526,Rural Municipality of Browning No. 34,https://www.rmofbrowning.ca,C,0,1
+b:85ec6198ce0c67dd,École Polytechnique Fédérale de Lausanne (EPFL) SV – Flow Cytometry Core Facility (PTCF),https://www.epfl.ch,C,0,1
+b:c7f62c6b3eb72068,Norwegian Space Centre,https://www.romsenter.no/en,C,0,1
+b:29f6fe63cfb7b45b,Luleå tekniska universitet,http://www.ltu.se,C,0,1
+b:9e08d9f1e26dcacb,UKHO,http://www.ukho.gov.uk,C,0,1
+b:a8830f778d2e0c06,Semcoda,http://semcoda.com,C,0,1
+b:213c6fc5bb384058,Instytut Metali Nieżelaznych,http://www.imn.gliwice.pl,C,0,1
+b:41e41b82f0646515,Forsvarsministeriet Materiel- og Indkøbsstyrelsen (FMI),https://www.ethics.dk/ethics/eo#/07c0ecf9-fa12-4277-8b79-5b0feb96b6de/homepage,C,0,1
+b:2a9f2043bffdb2ee,La Poste,http://espacefournisseurs.inter.laposte.fr/fr-FR,C,0,1
+b:4a6ac62a9cb35673,Politecnico di Torino,http://www.swas.polito.it,C,0,1
+b:77f21b9e7602311c,Physikalisch-Technische Bundesanstalt,http://www.ptb.de,C,0,1
+b:8ed67ee60ec8423e,InterLoire — Interprofession des Vins du Val de Loire,https://www.vinsvaldeloire.fr/fr/interloire,C,0,1
+b:0214994c9fce4a6d,Biblioteka Narodowa,http://www.bn.org.pl,C,0,1
+b:51d8ad2816e3e457,SERVICIO MADRILEÑO DE SALUD - HOSPITAL UNIVERSITARIO 12 DE OCTUBRE,http://www.madrid.org/contratospublicos,C,0,1
+b:3cc3ea8e3e4ac289,universite Côte d'azur,http://univ-cotedazur.fr,C,0,1
+b:7ba876c9dc2e9b2a,Universitätsklinikum Halle (Saale) - Kaufmännische Direktion,https://www.medizin.uni-halle.de/index.php?id=788,C,0,1
+b:879bca91a36849e6,Universität Wien,http://bcr.univie.ac.at/ausschreibungen,C,0,1
+b:7983be59351d4a52,Universitätsklinikum Tübingen,https://www.medizin.uni-tuebingen.de/de,C,0,1
+b:54b1654db587fe67,"Landschaftsverband Westfalen-Lippe, LWL-Haupt- und Personalabteilung, Zentrale Einkaufskoordination",http://www.lwl.org,C,0,1
+b:914436a07a09553d,Autobahn GmbH des Bundes,https://www.autobahn.de,C,0,1
+b:9710380c11130c7d,HRVATSKA RADIOTELEVIZIJA Javna ustanova,http://www.hrt.hr,C,0,1
+b:3a0a47b12c8dd295,Helsingin yliopisto,https://www.helsinki.fi/fi,C,0,1
+b:eb9d00fadbf09826,UiT Norges arktiske universitet,http://uit.no,C,0,1
+b:f54d79893220e3cc,Medizinische Universität Innsbruck,https://i-med.vemap.com,C,0,1
+b:14a18528259a81d7,Royal Roads University,https://www.royalroads.ca,C,0,1
+b:916ac57625953748,Rural Municipality of Cymri No. 36,https://rm36.ca,C,0,1
+b:820e8c44f004b0e0,FCO Services,https://www.gov.uk/government/organisations/fco-services,C,0,1
+b:9650e96d950b8279,Karlsruher Institut für Technologie,http://www.kit.edu,C,0,1
+b:a469cc7eccfe6625,Danish Defence Acquisition and Logistic Organization,http://www.forsvaret.dk/fmi,C,0,1
+b:6e4d58621dd04848,In-flight Catering (Canada),https://www.leidos.com/uk-eu,C,0,1
+b:62ef5826a881ca11,Region Hovedstaden,https://www.regionh.dk,C,0,1
+b:1674fd2240b8fdeb,Region of Waterloo,https://www.regionofwaterloo.ca,C,1,1572
+b:012110bf31236267,Hamilton-Wentworth Catholic District School Board,http://www.hwcdsb.ca,C,1,301
+b:b296a202e585580c,Regina School Division No. 4,https://www.reginapublicschools.ca,C,1,300
+b:3f9917e0d5d50f8a,District School Board of Niagara,http://www.dsbn.org,C,1,248
+b:f48cc11e8ac31a4a,Town of Pelham,http://www.pelham.ca,C,1,154
+b:e59ee871d8343aa9,Town of East Gwillimbury,http://www.eastgwillimbury.ca,C,1,148
+b:3b8a187f262f22f8,3sHealth (Health Shared Services Saskatchewan),https://www.3shealth.ca,C,1,123
+b:7282247eb180f685,Municipality of Leamington,http://www.leamington.ca,C,1,55
+b:4b2c7cb616e92ea1,Township of Huron-Kinloss,http://www.huronkinloss.com,C,1,53
+b:03c734588a299485,Municipality of Dysart et al,http://www.dysartetal.ca,C,1,51
+b:d9677300a9eb5d7e,Township of Severn,https://www.severn.ca,C,1,45
+b:a71be1c357f41b4b,Township of Lake of Bays,https://www.lakeofbays.on.ca,C,1,38
+b:281b46db6303ae93,Municipality of Casselman,http://www.casselman.ca,C,1,34
+b:fdbf8860300fc415,Rural Municipality of Reciprocity No. 32,https://www.rmofreciprocity.ca,C,1,30
+b:f9cd5e42a25124d6,Municipality of Thames Centre,https://www.thamescentre.on.ca,C,1,26
+b:39c60857d11d795b,London Public Library,https://www.londonpubliclibrary.ca,C,1,22
+b:8480915b41c2af45,City of Elliot Lake,http://cityofelliotlake.com,C,1,21
+b:05f7e5f378ce1232,Thunder Bay Public Library,https://www.tbpl.ca,C,1,19
+b:90b17672b1b5c48f,William & Mary,https://www.wm.edu,C,1,17
+b:3d21f06d14d5ae26,Kneehill County,http://www.kneehillcounty.com,C,1,16
+b:5ef9a4d6f1ffd260,Town of Carbonear,https://carbonear.ca,C,1,14
+b:8e647f63446956ab,Town of Kingsville,http://www.kingsville.ca,C,1,13
+b:c9b6754925e1970a,The Township of Greater Madawaska,https://www.greatermadawaska.com,C,1,13
+b:6aa180249288c8ea,Township of Tyendinaga,http://www.tyendinagatownship.com,C,1,13
+b:e9cb939b47466270,Forschungszentrum Jülich GmbH,http://www.fz-juelich.de,C,1,12
+b:2755827fa86a4bd7,Lambton College,https://www.lambtoncollege.ca,C,1,12
+b:658ffab44ab9fbf8,Kawartha Conservation,https://kawarthaconservation.com,C,1,12
+b:d46f114dffe1412a,Town of Petrolia,http://town.petrolia.on.ca,C,1,12
+b:8143ebce23706ba4,Rural Municipality of Coalfields No. 4,https://rmofcoalfields.com,C,1,11
+b:2fd7f163e404cc59,Town of Marystown,http://www.townofmarystown.ca,C,1,10
+b:6ea6cb035feac4d2,Municipality of Neebing,http://www.neebing.org,C,1,9
+b:e8ce69f65a0acf05,Township of Wellesley,https://www.wellesley.ca,C,1,7
+b:414f8a65c77523cb,Virginia Department of Health,https://www.vdh.virginia.gov,C,1,7
+b:2c3c81a844dc45fe,Science Museum of Virginia,https://smv.org,C,1,5
+b:2211377b097fd9a0,Chinook's Edge School Division,https://www.cesd73.ca,C,1,5
+b:c1a7b64342b29cfc,City of Providence,https://www.providenceri.gov,C,1,5
+b:b6d9e46bbcaee672,Virginia State University,https://www.vsu.edu,C,1,4
+b:781388b17f0e6b7a,Islands Trust,https://islandstrust.bc.ca,C,1,4
+b:5228271eb1db1dfa,Regia Autonoma Administratia Patrimoniului Protocolului de Stat Bucuresti,https://www.apps.ro,C,1,4
+b:1fc4cc371b27a2f8,European Maritime Safety Agency,http://www.emsa.europa.eu,C,1,4
+b:8b2b8083d17b02c6,Helmholtz-Zentrum Dresden-Rossendorf e.V.,http://www.hzdr.de,C,1,3
+b:69a15deae73b3f11,Hamburger Hochbahn AG,http://hochbahn.de,C,1,3
+b:710b01d6fa2664b8,Université de Strasbourg,http://www.unistra.fr,C,1,3
+b:b8e875ebdf13a09d,Town of Kirkland Lake,https://www.kirklandlake.ca,C,1,2
+b:66931e2ac8f8b63b,Texas Tech University,https://www.ttu.edu,C,1,2
+b:4e0a0ce9cec4d7cf,BC Assessment,https://info.bcassessment.ca,C,1,2
+b:db6296a8313b820a,Max-Planck-Gesellschaft zur Förderung der Wissenschaften e.V. / Max-Planck-Institut für Verhaltensbiologie,http://www.ab.mpg.de,C,1,2
+b:1e07b278c445dfa2,Stichting Nederlandse Wetenschappelijk Onderzoek Instituten (NWO-I),http://www.nwo-i.nl,C,1,2
+b:aff10df726a92e14,Rural Municipality of East St. Paul,http://www.eaststpaul.com,C,1,2
+b:1613276e62d8f0d8,SPRIND GmbH,https://www.sprind.org,C,1,2
+b:0dcec02fc2a14f46,Town of Balgonie,http://www.townofbalgonie.ca,C,1,2
+b:af233e3c49cc8e43,International Development Research Centre,https://idrc-crdi.ca/en,C,1,2
+b:361bf8db147f07ab,Health Service Executive (HSE),http://www.hse.ie,C,1,2
+b:f89b71f7d2136fd5,AbleLiving Services Inc.,https://ableliving.org/contact-us/,C,1,2
+b:57e4ed4c7c7972ff,Institutul National de Cercetare - Dezvoltare Turbomotoare Comoti,http://www.comoti.ro,C,1,1
+b:2bbb455aa4c95b23,Fondazione Ri.MED (la «Stazione appaltante» o la «Fondazione»),http://www.fondazionerimed.eu,C,1,1
+b:8c415ee6ddbfb596,Materia Nova,http://www.materianova.be,C,1,1
+b:a564bb69f761e6b1,"Ministerie van Defensie, Koninklijke Marine",https://www.defensie.nl,C,1,1
+b:319b5df09b248be9,Irish Defence Forces,https://www.military.ie,C,1,1
+b:4d4d6e39bff4ac04,Fraser Health Authority,https://www.fraserhealth.ca,C,1,1
+b:dec39021726ae7fb,Orillia Soldiers' Memorial Hospital,https://www.osmh.on.ca,C,1,1
+b:071c6fa5d9926641,Township of South Frontenac,https://www.southfrontenac.net,C,1,1
+b:45b83d750020afe6,Village of Saskatchewan Beach,http://www.saskatchewanbeach.ca,C,1,1
+b:dc56d4e9e4f3a894,Geological Survey of Denmark and Greenland (GEUS),http://www.geus.dk,C,1,1
+b:630c85db6bf703bc,Azienda USL di Bologna,http://www.ausl.bologna.it,C,1,1
+b:7826d18065718ab4,Municipality of West Grey,http://www.westgrey.com,C,1,1
+b:0457cecdaa312070,Central Lake Ontario Conservation Authority,https://www.cloca.com,C,1,1
+b:45f483696cb4d406,Welland Public Library,http://www.wellandlibrary.ca,C,1,1
+b:f9f20962771c642e,Municipality of Mississippi Mills,http://www.mississippimills.ca,C,1,1
+b:5ae794237e632271,Rural Municipality of Britannia No. 502,http://www.rmbritannia.com,C,1,1
+b:16549952ff508103,Town of Regina Beach,http://reginabeach.ca,C,1,1
+b:92107490ccd3da9d,Boom Tisk s.r.o.,http://www.boomtisk.cz,C,1,1
+b:f3d9c2614ea470a3,"Lošbates, dobrovolný svazek obcí",http://www.losbates.cz,C,1,1
+b:0ae5292a2c1ca304,Behala Berliner Hafen- und Lagerhausgesellschaft mbH,https://www.behala.de,C,1,1
+b:e0ca7888228e71c9,Magyar Nemzeti Múzeum,http://www.hnm.hu,C,1,1
+b:01858b6d334fb910,sorbonne Université,http://www.sorbonne-universite.fr,C,1,1
+b:a465d521d41c43bf,IFW Dresden e. V.,http://www.ifw-dresden.de,C,1,1
+b:81e73a06d8146c85,Dirección de la Fundación para la Internacionalización de las Administraciones Públicas,http://www.fiap.gob.es,C,1,1
+b:fa014aa2528e5849,Municipality of Arran-Elderslie,http://www.arran-elderslie.com,C,1,1
+b:7ab874513f18eb7b,​Township of Ramara,http://www.ramara.ca,C,1,1
+b:91d79d58774e792d,Township of Stirling-Rawdon,http://www.stirling-rawdon.com,C,1,1
+b:a4afcec1659500d1,Métis Nation of Ontario,https://www.metisnation.org,C,1,1
+b:4216bfc2d0362e36,Town of Fogo Island,http://www.townoffogoisland.ca,C,1,1
+b:aee5ae07b22ec02b,Town of Placentia,http://www.placentia.ca,C,1,1
+b:4391b419a02a9dee,Town of La Ronge,http://www.laronge.ca,C,1,1
+b:d0943e06d0635b95,Rural Municipality of Martin No. 122,http://www.rmofmartin.com,C,1,1
+b:185b82834b7ca2bd,Town of Waldheim,http://waldheim.ca,C,1,1
+b:f2f7c558feca1c5f,"Parc d'Atraccions del Tibidabo, S.A.",http://www.bsmsa.cat,C,1,1
+b:6813cef9b357f090,Helmholtz-Zentrum Potsdam Deutsches GeoForschungsZentrum GFZ,http://www.gfz-potsdam.de,C,1,1
+b:8fdc29db731136a7,Educational Research Centre,http://www.erc.ie,C,1,1
+b:30d8af877f636d26,FUNDACIÓ INSTITUT DE BIOENGINYERIA DE CATALUNYA,https://ibecbarcelona.eu,C,1,1
+b:c05e20fd18851c3b,Munster Technological University.,https://www.mtu.ie,C,1,1
+b:dd3e74f0581fb8e9,Educational Research Centre_1014,https://www.erc.ie,C,1,1
+b:ba68147dd27bf938,Leibniz-Institut für Analytische Wissenschaften - ISAS - e.V.,https://www.isas.de,C,1,1
+b:2aa168550c67798f,Town of Caledon,http://www.town.caledon.on.ca,C,2,406
+b:b83f5cd1ff7329d9,Atlantic Lottery Corporation,https://www.alc.ca,C,2,284
+b:11d793e16fb33657,World Health Organization,https://www.who.int,C,2,270
+b:9b3accedef6912c1,eHealth Saskatchewan,https://www.ehealthsask.ca,C,2,209
+b:64dd7a712622a1ac,Durham Catholic District School Board,http://www.dcdsb.ca,C,2,189
+b:25dc54b3bbbb1dcb,County of Elgin,http://www.elgin-county.on.ca,C,2,182
+b:0fe819b9deec5337,CreateTO,https://createto.ca,C,2,156
+b:3f4422845c7dafa2,City of Moose Jaw,https://moosejaw.ca,C,2,154
+b:014bc47d28086d9b,City of New Westminster,https://newwestcity.ca,C,2,99
+b:63929af956beeab7,SaskTel,https://www.sasktel.com,C,2,89
+b:0682979dfde5aac1,Sourcewell,https://www.sourcewell-mn.gov,C,2,84
+b:d7edb6788810fea7,Saskatchewan Polytechnic,http://www.saskpolytech.ca,C,2,39
+b:ad2ad0256b889f01,Lake Simcoe Region Conservation Authority,http://www.lsrca.on.ca,C,2,38
+b:0c434d85c0e0cfbb,Town of Erin,http://www.erin.ca,C,2,19
+b:083cbacde11256e5,Canadian Partnership Against Cancer (CPAC),http://www.partnershipagainstcancer.ca,C,2,11
+b:89919a4d6b730fd1,Atlantic Technological University,https://www.atu.ie,C,2,9
+b:75e7db6ebb63c49c,City of Thompson,https://www.thompson.ca,C,2,7
+b:2b229c53ea5563b7,Tartu Ülikool,https://www.ut.ee,C,2,5
+b:77423abb9642aa28,Christopher Newport University,https://cnu.edu,C,2,4
+b:87522c1687d0d479,BC Housing,https://www.bchousing.org,C,2,3
+b:a07fb0492872e702,Ferrocarrils de la Generalitat de Catalunya,https://www.fgc.cat,C,2,2
+b:bfede9338682a319,Riigi Kaitseinvesteeringute Keskus,https://www.kaitseinvesteeringud.ee,C,2,2
+b:59bf77d26c2ff666,Jisc Services Ltd,http://www.jisc.ac.uk,C,2,2
+b:0e637be7f44b6ec1,Malta Air Traffic Services Ltd,http://www.maltats.com,C,2,2
+b:5954eba1544b8e07,Université Grenoble Alpes,http://www.univ-grenoble-alpes.fr,C,2,2
+b:dd3d629abfb5ec33,Inserm Délégation régionale Grand Ouest,http://www.inserm.fr,C,2,2
+b:9afcbdc1562896a6,"European Commission, Joint Research Centre, Institute for Energy",https://commission.europa.eu,C,2,1
+b:efd3e53ce029db36,European Aviation Safety Agency,http://www.easa.europa.eu,C,2,1
+b:edce296ab2e5795d,CNRS Délégation Occitanie Est,https://www.occitanie-est.cnrs.fr,C,2,1
+b:82dd737a5e0c2514,Dirección General de la Entidad Pública Empresarial RED.ES,http://www.red.es,C,2,1
+b:bb42c73415ab220b,Rectorado de la Universitat de València,http://www.uv.es/uvweb/servei-contractacio-administrativa/ca/servei-contractacio-administrativa-1285867388934.html,C,2,1
+b:b3349a6c979e4859,Catholic District School Board of Eastern Ontario,http://www.cdsbeo.on.ca,C,2,1
+b:4f5c85bb5daaf4c6,Uppsala universitet,https://www.uu.se,C,2,1
+b:908e5fd30337a70c,Cente for Process Innnovation Limited,http://www.uk-cpi.com,C,2,1
+b:16325ef40bcd4e67,Scotia Gas Networks Limited,https://www.sgn.co.uk,C,2,1
+b:ebb8415852a5f6dd,WorkSafeBC,https://www.worksafebc.com,C,2,1
+b:f285bdc2e83706b2,Royal Victoria Regional Health Centre,http://www.rvh.on.ca,C,2,1
+b:ee001b9744b1082d,EMSA,https://www.emsa.europa.eu,C,2,1
+b:bbac7ec3847edf2f,"Brněnské komunikace, a.s.",https://www.vhodne-uverejneni.cz/profil/60733098,C,2,1
+b:a9a5d907a199a40e,Dirección General de Tráfico,http://www.dgt.es,C,2,1
+b:948017520b3ade67,Rectorado de la Universidad Miguel Hernández de Elche,http://contratacion.umh.es,C,2,1
+b:cac82a96c78b51c7,Centre for Process Innovation,http://www.uk-cpi.com/tenders,C,2,1
+b:193fe921bcd57d1e,CNRS délégation Paris-Centre,http://www.cnrs.fr,C,2,1
+b:b8c977bbcdaa7cfc,Puolustusvoimat,http://puolustusvoimat.fi,C,2,1
+b:92827df545d511d8,Bord Iascaigh Mhara - Irish Sea Fisheries Board ( BIM ),https://bim.ie,C,2,1
+b:392b9b492a711325,ANDALUCIA TRADE-AGENCIA EMPRESARIAL PARA LA TRANSFORMACION Y EL DESARROLLO ECONOMICO,http://www.andaluciatrade.es,C,2,1
+b:07b1028c9dd61a9a,"EXTENDA - EMPRESA PÚBLICA ANDALUZA DE PROMOCIÓN EXTERIOR, S.A.",http://www.extenda.es,C,2,1
+b:5aa9db4859844bab,Town of Langham,http://www.langham.ca,C,2,1
+b:51c1be94a727cb41,Caribbean Development Bank,https://www.caribank.org,C,2,1
+b:b0584443e8600530,Agriculture and Horticulture Development Board,https://www.gov.uk/government/organisations/agriculture-and-horticulture-development-board,C,2,1
+b:301f57151b0b2c77,NHS Supply Chain acting as agent for NHS Business Services Authority,http://www.supplychain.nhs.uk,C,2,1
+b:63c5e9e859e65440,Toronto Transit Commission - PCM Capital,https://www.ttc.ca,C,3,1459
+b:eb7db7bf06497f48,SGI,https://www.sgi.sk.ca,C,3,221
+b:c127a69d968d1bff,University of Regina,https://www.uregina.ca,C,3,209
+b:13fd4220e55a2dd2,Waterloo Catholic District School Board,http://www.wcdsb.ca,C,3,104
+b:527b5cd9c47c6829,Perth County,http://www.countyofperth.on.ca,C,3,76
+b:116ca7920d2d547f,Commonwealth of Massachusetts - DEPARTMENT OF STATE POLICE (POL),https://www.mass.gov,C,3,58
+b:2f20018e96f332ef,West Lincoln,http://www.westlincoln.ca,C,3,57
+b:9972fe43215a9be6,Northern Rockies Regional Municipality,https://www.northernrockies.ca,C,3,53
+b:8022e4d5e3f2b17e,City of Weyburn,http://www.weyburn.ca,C,3,50
+b:713f093b7bfa4c6a,Township of North Frontenac,http://www.northfrontenac.com,C,3,32
+b:93917cd13f79be46,Municipality of West Perth,https://www.westperth.com,C,3,32
+b:4e8dc7974639adbd,Township of Perth South,https://www.perthsouth.ca,C,3,27
+b:a86226ec708c4ef5,Township of Wellington North,http://wellington-north.com,C,3,14
+b:014c30d1ea33c0fd,City of Baton Rouge / Parish of East Baton Rouge — H R,https://www.brla.gov,C,3,10
+b:28c20d1c087ca16c,Carling Township,https://carling.ca,C,3,6
+b:60cb4d8c688a6d45,Township of Puslinch,http://www.puslinch.ca/en/index.asp,C,3,5
+b:ac0d4238c141cf20,Township of Southwold,https://www.southwold.ca/public/download/files/363197,C,3,4
+b:9977448fbb101784,City of Corner Brook,http://www.cornerbrook.com,C,3,3
+b:eabd701ac6460578,INL - INTERNATIONAL IBERIAN NANOTECHNOLOGY LABORATORY,http://www.inl.int,C,3,1
+b:68256514fe5f556a,City of Regina,https://regina.ca,C,4,2132
+b:c6f52a31039caedb,City of Burnaby,https://www.burnaby.ca,C,4,1165
+b:62e5a14763cbe8b5,Oxford County,https://www.oxfordcounty.ca,C,4,829
+b:e65148d24f22662f,City of Kitchener,http://www.kitchener.ca,C,4,805
+b:3c1991407080ffa9,City of Timmins,http://www.timmins.ca,C,4,596
+b:9c482120cd823348,City of Thunder Bay,https://www.thunderbay.ca,C,4,534
+b:f4db63c63d7ddcb9,SaskEnergy,https://www.saskenergy.com,C,4,480
+b:995396f49f72bdd7,University of Saskatchewan,https://www.usask.ca,C,4,444
+b:fa2f368b19f00b7e,Saskatchewan Health Authority,https://www.saskhealthauthority.ca,C,4,413
+b:4141564afe8fcffe,State of Vermont — Transportation Agency,https://vermont.gov,C,4,321
+b:abb6b6284a4e3737,City of Cambridge,https://www.cambridge.ca,C,4,301
+b:669eb30d53e242ee,Municipality of Chatham-Kent,https://www.chatham-kent.ca/Pages/default.aspx,C,4,300
+b:0874d63013f95f75,City of Prince Albert,http://www.citypa.ca,C,4,274
+b:4ff6fd843d2e3f98,City of Port Moody,https://www.portmoody.ca,C,4,185
+b:f42fd003b2c5a19b,Manitoba Public Insurance,https://www.mpi.mb.ca,C,4,179
+b:bd22b662cb9ca6ef,London Hydro,https://www.londonhydro.com,C,4,179
+b:a0ddebdc6ff16eb7,Island Health,https://www.islandhealth.ca,C,4,164
+b:65fd7de3eda8df13,George Mason University,https://www.gmu.edu,C,4,147
+b:e61ed01cd7961009,Comox Valley Regional District,https://www.comoxvalleyrd.ca,C,4,144
+b:1557c856f66bc5c3,Township of Wilmot,http://www.wilmot.ca,C,4,138
+b:d279c70c1b493a8d,Municipality of South Huron,http://www.southhuron.ca,C,4,130
+b:5e7c95f8d572029e,Social Services,https://www.saskatchewan.ca,C,4,130
+b:07e74dc49ac8d7f2,Durham College,http://www.durhamcollege.ca,C,4,110
+b:586bf30acd009f14,Municipality of Meaford,https://www.meaford.ca,C,4,103
+b:2c4b4c8e7dd2c51b,Township of Woolwich,http://www.woolwich.ca,C,4,94
+b:67cdc339a0d7814c,Town of Tillsonburg,https://www.tillsonburg.ca,C,4,85
+b:f3c6620cc9b3c7aa,Saskatchewan Disease Control Laboratory,http://www.health.gov.sk.ca/lab,C,4,80
+b:95b5e0b33b230c7b,Sudbury Catholic District School Board,http://www.scdsb.edu.on.ca,C,4,63
+b:020c6f22383c4b70,City of Port Coquitlam,https://www.portcoquitlam.ca,C,4,60
+b:11a22be91b6b2ebe,City of Los Angeles - MAYOR,https://lacity.gov,C,4,58
+b:39dd2656c354ad4f,Township of Clearview,https://www.clearview.ca,C,4,54
+b:5fbbf00588420191,James Madison University,https://www.jmu.edu,C,4,52
+b:670c0a75dc758fc9,Strathroy-Caradoc,http://www.strathroy-caradoc.ca,C,4,52
+b:284b69a0d39fc094,Town of Smiths Falls,http://www.smithsfalls.ca,C,4,52
+b:a8c0d905d506fdae,Township of North Dundas,http://www.northdundas.com,C,4,42
+b:ad061fd6c0955ef9,Town of Wasaga Beach,https://www.wasagabeach.com,C,4,40
+b:eacd76e15beba927,Township of Tiny,http://www.tiny.ca,C,4,34
+b:896abaa17872167e,Town of Arnprior,http://www.arnprior.ca,C,4,30
+b:28038a9805a5e41a,University of Guelph,https://www.uoguelph.ca,C,4,26
+b:6078592b23d074c2,Town of Cobourg,http://www.cobourg.ca,C,4,22
+b:3d311fb0e376a200,City of North Battleford,http://www.cityofnb.ca,C,4,21
+b:39511de38b64f6c0,Provincial Health Services Authority (PHSA),http://www.phsa.ca,C,4,20
+b:38e60c5e144e100f,Old Dominion University,https://www.odu.edu,C,4,20
+b:1f4bcc279e542c1e,Saskatoon Health Region,https://www.saskatoonhealthregion.ca,C,4,19
+b:67add0f5f1bc83a2,Radford University,https://www.radford.edu,C,4,19
+b:0178ade1a6630ca1,Town of Ingersoll,http://www.ingersoll.ca,C,4,17
+b:c1b1be9cca4af439,Virginia Tech,https://www.vt.edu,C,4,16
+b:913d3580901a3a65,University of Mary Washington,https://www.umw.edu,C,4,12
+b:7825925c1c46cd83,Town of Slave Lake,http://www.slavelake.ca,C,4,11
+b:11c356c3bff06e17,Miami-Dade County (business unit CU05010000),https://www.miamidade.gov,C,4,10
+b:f8662c8e9045cd3e,City of Coquitlam,https://www.coquitlam.ca,C,4,10
+b:cbdf4790e1dff4b0,Township of East Garafraxa,http://www.eastgarafraxa.ca,C,4,10
+b:51a5a9c80e8d198f,City of Austin,https://www.austintexas.gov,C,4,9
+b:d2bf4a8383503258,The Corporation of the Township of Brock,http://www.townshipofbrock.ca,C,4,8
+b:929807802f7b8ef9,"City of Corona, California — INFORMATION TECHNOLOGY",https://www.coronaca.gov,C,4,7
+b:10c6254d64ff8956,State of Alaska — Department of Fish and Game (Wildlife Conservation Division),https://alaska.gov,C,4,5
+b:203ef6db95431178,City of Kamloops,https://kamloops.ca,C,4,5
+b:ec9a8507e2d56816,Municipality of Kincardine,http://www.kincardine.net,C,4,5
+b:12a3ee326dfc7b8c,University of Edinburgh,http://www.ed.ac.uk/schools-departments/procurement/supplying,C,4,5
+b:af7809e2b1fa7c81,Virginia Military Institute,https://www.vmi.edu,C,4,4
+b:e6d5c1de7f871e5d,Brabant Water N.V.,https://www.brabantwater.nl,C,4,4
+b:d31317b06e02e3bb,Universitetet i Bergen,http://www.uib.no/oka/77486/seksjons-innkj%C3%B8p,C,4,3
+b:51974e3f5725bc7d,Town of Mahone Bay,http://www.townofmahonebay.ca,C,4,3
+b:22eea1ebe75e1fbe,Erasmus MC,http://www.erasmusmc.nl,C,4,2
+b:bdc6591874093dbe,City of Fort St John,https://fortstjohn.ca,C,4,2
+b:a45f1a67d11a3df2,Newcastle University,http://www.ncl.ac.uk,C,4,2
+b:5e1b39c662f3ac63,Rural Municipality of Edenwold No. 158,http://www.rmedenwold.ca,C,4,2
+b:e7d8c24499363999,"City of Mesquite, Texas — GIS Operations",https://www.cityofmesquite.com,C,4,1
+b:2dfeea708dc23023,"Fulton County, Georgia — Sheriff''s Office",https://www.fultoncountyga.gov,C,4,1
+b:5003c58861c45d02,"Ministry of Defence, Information Systems and Services, ISS Commercial Sourcing Team",https://www.gov.uk/government/organisations/joint-forces-command,C,4,1
+b:ec257b82af0a9065,"Ministry of Defence, C&C, C&C",http://www.gov.uk,C,4,1
+b:527e05e8783024ee,"City of Richmond, California — ECON DEV/PUBLIC ART 1.5%",https://www.ci.richmond.ca.us,C,4,1
+b:76bfe56ff3e730e2,"Ministry of Defence, Land Equipment, Soldier Systems Programme (SSP)",https://www.gov.uk/government/organisations/defence-equipment-and-support,C,4,1
+b:3947a2722cc49e30,"Ministry of Defence, Land Equipment, Soldier Training and Special Programmes",https://www.contracts.mod.uk,C,4,1
+b:a17d3005bc34a95d,Single European Sky ATM Research 3 Joint Undertaking (SESAR),https://www.sesarju.eu,C,4,1
+b:cfb3043da51baad0,Transport Infrastructure Ireland (TII),http://www.tii.ie,C,4,1
+b:92a9768e3216bb2b,Vrije Universiteit Brussel,http://www.vub.be,C,4,1
+b:e7167b3de7f6c17e,Competition and Markets Authority,https://www.gov.uk/government/organisations/competition-and-markets-authority,C,4,1
+b:34eba74a7144c066,Max-Delbrück-Centrum für Molekulare Medizin,http://www.mdc-berlin.de,C,4,1
+b:169827064f26e66f,SESAR Joint Undertaking,http://www.sesarju.eu,C,4,1
+b:8b75f7dd8664a31b,The City of Edinburgh Council,http://www.edinburgh.gov.uk,C,4,1
+b:47761c3013b9507f,European Securities and Markets Authority (ESMA),http://www.esma.europa.eu/page/procurement,C,4,1
+b:656de745c04d2e8f,Bruce Power,https://www.brucepower.com,C,4,1
+b:24548fac1787c645,Prifysgol Bangor / Bangor University,http://www.bangor.ac.uk,C,4,1
