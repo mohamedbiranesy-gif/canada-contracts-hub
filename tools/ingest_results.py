@@ -85,7 +85,7 @@ VIA = {}  # (value, url) -> archive snapshot used to verify it
 def archive_text(url, fetch=True):
     """Text of the Internet Archive's latest copy of a page this verifier cannot open itself (bot protection that refuses
     data-centre addresses, e.g. canada.ca). Used only when the copy is at most 180 days old. None otherwise."""
-    p = os.path.join(CACHE, "wb-" + hashlib.sha1(url.encode()).hexdigest())
+    p = os.path.join(CACHE, "wb2-" + hashlib.sha1(url.encode()).hexdigest())  # wb2: earlier lookups failed on raw copies
     if os.path.exists(p):
         txt = open(p, encoding="utf-8", errors="replace").read()
         snap, _, body = txt.partition("\n")
