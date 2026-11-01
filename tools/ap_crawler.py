@@ -168,6 +168,9 @@ def crawl(task, max_pages, general=False):
     base = host0[4:] if host0.startswith("www.") else host0
     same = lambda h: bool(h) and (h.lower() == base or h.lower().endswith("." + base))
     heap, seen, pages, found = [(-100, 0, start), (-90, 0, "https://%s/" % host0)], set(), 0, {}
+    for i, path in enumerate(("contact", "contact-us", "nous-joindre", "suppliers", "fournisseurs")):  # common pages, often unlinked from home
+        heap.append((-60 + i, 1, "https://%s/%s" % (host0, path)))
+    heapq.heapify(heap)
     while heap and pages < max_pages:
         neg, depth, url = heapq.heappop(heap)
         url = url.split("#")[0]
