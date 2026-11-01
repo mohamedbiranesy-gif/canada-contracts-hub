@@ -4,9 +4,9 @@ One row per organisation in `org_mailboxes.csv`. Total organisations: **26013**.
 
 | referee status | invoicing/AP | purchasing | general |
 |---|---|---|---|
-| accepted | 2226 | 969 | 20963 |
+| accepted | 2018 | 970 | 20969 |
 | waiting | 0 | 0 | 0 |
-| not accepted | 77 | 17 | 1761 |
+| not accepted | 276 | 18 | 1762 |
 
 | proof of a Canada-located supplier | organisations |
 |---|---|
