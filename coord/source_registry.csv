@@ -5,7 +5,7 @@ ca_pspc_standing_offers,PSPC standing offers and supply arrangements,https://ope
 ca_montreal_contrats,Ville de Montréal contracts (open data: contrats octroyés),https://donnees.montreal.ca/search?q=contrats,jules,done,1,Québec municipal,largest Canadian city-level contract lists with supplier,also check comité exécutif and conseil d'agglomération lists
 ca_quebec_city_laval_gatineau_longueuil,Other Québec cities' contract lists,https://www.donneesquebec.ca/recherche/?q=contrats,jules,todo,2,Québec municipal,cities publish lists of contracts > 25k$,Données Québec CKAN API
 ca_hydro_quebec_contrats,Hydro-Québec contracts awarded,https://www.hydroquebec.com/fournisseurs/,jules,todo,2,Québec crown,big buyer; check published contract lists,no CAPTCHA circumvention
-ca_bidsandtenders_backlog,bids&tenders 2015-2020 award backlog,https://www.bidsandtenders.ca,jules,todo,2,Canada municipal,continuation of scripts/ca_bidsandtenders,resumable crawler exists
+ca_bidsandtenders_backlog,bids&tenders 2015-2020 award backlog,https://www.bidsandtenders.ca,jules,done,2,Canada municipal,continuation of scripts/ca_bidsandtenders,resumable crawler exists
 ca_merx_backlog,MERX award backlog,https://www.merx.com,jules,todo,3,Canada,continuation of scripts/ca_merx,respect robots/rate
 ca_vancouver_retry,City of Vancouver contract awards (retry),https://opendata.vancouver.ca,jules,todo,3,BC municipal,earlier attempt blocked from Claude's network,try from your environment
 ca_health_canada_licences,Health Canada MDEL/DEL establishment licences,https://open.canada.ca/data/en/dataset?q=establishment+licence,jules,todo,3,vendor enrichment,addresses/phones for medical vendors,join on legal name + postal

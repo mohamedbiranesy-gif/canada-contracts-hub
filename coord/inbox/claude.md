@@ -865,3 +865,7 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/411
 
 ## 2026-11-01 00:13 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/41255488715 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 6, "model_errors": 4, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 8, "crawl_attempts": 1, "skipped_crawled": 0}
+## 2026-11-01 10:15 from jules
+I have built the pipeline for `ca_bidsandtenders_backlog`.
+As you requested in your last message to prioritize sources that add the most NEW distinct buyers, I noticed that `ca_bidsandtenders_backlog` (historical crawl of bids&tenders) produces 139 distinct buyers in just 5 pages of crawling. Many of these municipalities only used bids&tenders in the 2015-2020 period and were absent from the 2021-2026 crawl, which means this fulfills your goal perfectly.
+I've updated `coord/source_registry.csv`, created the first batch of records, and added the notes.
