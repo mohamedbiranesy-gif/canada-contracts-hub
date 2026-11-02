@@ -7086,7 +7086,7 @@ gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00058,b:ec8f414748979d94,compte
 chatgpt,chatgpt_buyer_ap_results_batch11.csv,CH-AP-01092,b:ec9a8507e2d56816,AccountsPayable@kincardine.ca,https://www.kincardine.ca/media/iwxnlonm/po-terms-and-conditions.pdf,verified
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00521,b:ecabd9c29fab4c8b,spu.agence16@ssss.gouv.qc.ca,https://www.quebec.ca/sante/systeme-et-services-de-sante/services-prehospitaliers-urgence/informations-etudiants-intervenants-parties-prenantes-services-prehospitaliers-urgence/joindre-services-prehospitaliers-urgence,verified
 chatgpt,chatgpt_buyer_ap_results_batch09.csv,CH-AP-00865,b:ecc1a292f5238abd,Payables@brandonu.ca,https://www.brandonu.ca/finance/faculty-staff-resources/accounts-payable/,verified
-gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01723,b:eccb8d2abd6903c7,info@st-leonard.com,https://st-leonard.com/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01723,b:eccb8d2abd6903c7,info@st-leonard.com,https://st-leonard.com/,verified
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01723,b:eccb8d2abd6903c7,saintleonard@derytele.com,https://services.qgdeportneuf.com/organismes/municipalite-de-saint-leonard-de-portneuf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00645,b:ecd13b2dfa28001c,finance@cscree.qc.ca,https://eeyoueducation.ca/docs/articles/finance-1/1609-depots-directs-formulaire-de-consentement-2020/file,cross_verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00645,b:ecd13b2dfa28001c,finance@cscree.qc.ca,https://eeyoueducation.ca/docs/articles/finance-1/1609-depots-directs-formulaire-de-consentement-2020/file,cross_verified
@@ -27403,6 +27403,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-010341,osm:w103574027,info@b
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS904-006377,osm:w1036432483,info@cavespring.ca,https://cavespring.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-012771,osm:w1036886469,info@mnpcentre.com,https://mnpcentre.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-012771,osm:w1036886469,info@mnpcentre.com,https://mnpcentre.com/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-OS906-005457,osm:w103689917,info@kwrimdoctor.ca,https://www.kwrimdoctor.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS904-007668,osm:w1039033473,info@valleybrewing.ca,https://www.valleybrewing.ca,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS904-007669,osm:w1039062159,info@fallentimbermeadery.ca,https://fallentimbermeadery.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-011236,osm:w1039450276,info@galianoinn.com,https://galianoinn.com/,verified
@@ -29273,6 +29274,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-012603,osm:w584956208,info@p
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-012603,osm:w584956208,info@pittmeadowsarena.com,https://www.pittmeadowsarena.com,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-011167,osm:w585049442,info@mennonitemuseum.org,https://mennonitemuseum.org/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-011167,osm:w585049442,info@mennonitemuseum.org,https://mennonitemuseum.org/contact-us/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-OS906-005390,osm:w58565875,info@acurasherway.com,https://acurasherway.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-008112,osm:w585997410,info@vvcasaskatoon.com,https://vvcasaskatoon.com/albert-community-centre-2/albert-community-centre/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-008112,osm:w585997410,info@vvcasaskatoon.com,https://vvcasaskatoon.com/albert-community-centre-2/albert-community-centre/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-011684,osm:w586046491,info@avonleamuseum.ca,https://avonleamuseum.ca/,not_found_on_page
@@ -29509,6 +29511,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-OS904-004487,osm:w671677633,office
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS904-004489,osm:w671677636,info@integralwealth.com,https://integralwealth.com/ca/team/wealth-management-team/nanaimo/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-011184,osm:w671842575,info@executivesuitessquamish.com,https://executivesuitessquamish.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-011184,osm:w671842575,info@executivesuitessquamish.com,https://executivesuitessquamish.com/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-OS906-005413,osm:w67224155,info@bluebarncayuga.ca,https://bluebarncayuga.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-010411,osm:w672675867,info@aubergemoteldrakkar.ca,https://www.aubergemoteldrakkar.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-010411,osm:w672675867,info@aubergemoteldrakkar.com,https://www.aubergemoteldrakkar.com/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-010411,osm:w672675867,info@aubergemoteldrakkar.ca,https://www.aubergemoteldrakkar.ca/,verified
@@ -29899,6 +29902,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-OS904-006359,osm:w800650348,info@m
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS904-001833,osm:w802227971,info@dcc259.ca,https://danforthcreativecommons.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-011600,osm:w80296519,info@fortlareinemuseum.com,https://www.fortlareinemuseum.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-011600,osm:w80296519,info@fortlareinemuseum.com,https://www.fortlareinemuseum.com/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-OS906-005446,osm:w80309834,info@lockyers.com,https://www.lockyers.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS906-005446,osm:w80309834,info@lockyers.com,https://www.lockyers.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-004474,osm:w80395375,info@maisonanitalebel.ca,https://www.maisonanitalebel.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-004474,osm:w80395375,info@maisonanitalebel.ca,https://www.maisonanitalebel.org/,verified
