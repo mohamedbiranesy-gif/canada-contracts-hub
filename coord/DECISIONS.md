@@ -120,3 +120,15 @@ lever is finding NEW dated relationships at scale, then AP mailboxes. Checked to
 - Collapsed sub-units: 3,861 buyer keys inside 3,113 active rows (not a large lever).
 Plan: (1) AP mailbox for every active non-Gold buyer (~2,600: P02–P04 + 967 with no email), search rounds every
 ~20 min, active first; (2) every new dated private source as found; (3) keep the long crawlers running.
+
+## 2026-11-02 07:45 — claude: new dated private sources; dated customer stories; Colombian site search
+- Built and running (leads in ~/cch-leads, picked up by lead_scanner): Colombia DIAN import declarations (exporter
+  country Canada: 1,675 importers, 1,205 in the last 12 months), SEC/PCAOB providers in Canada (Form AP, ADV Sch. D,
+  Form D, N-CEN: 1,066 in 12 months), Toronto + BC consultant-lobbyist registrations (1,006), FERC EQR, COR, EPA
+  hazardous-waste exports, Form 5500 Sch. C, FEC, Czech register, Spain menores, CMS (1,069), Texas 1295 + state
+  checkbooks (169), IRS 990 (61), dated customer stories (running). Blocked and skipped: federal OCL zip (Cloudflare),
+  Québec Carrefour (403), Ontario OICO (login).
+- A customer story that a Canada-located vendor dated within 12 months counts like its own news release ("deal
+  announced by the vendor"), labelled with its source; undated stories stay client listings (owner: P06 not Gold).
+- Website search for Colombian importers: the e-invoicing query returned only DIAN guidance (180 searches, 1 site);
+  the query is now "<name> Colombia". Clearbit autocomplete finds ~2% of these names (exact name + verified title).
