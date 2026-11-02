@@ -83,7 +83,16 @@ def sitemap_urls(site, cap):
                     queue.append(loc)
             elif STORY.search(urllib.parse.urlparse(loc).path) and not NOT_STORY.search(loc):
                 out.append(loc.split("#")[0])
-    return list(dict.fromkeys(out))[:cap]
+    best = {}
+    for u in out:  # one URL per story: the same story in other languages (/fr/, /zh/, /en-gb/ ...) counts once, English first
+        p = urllib.parse.urlparse(u).path
+        m = re.match(r"^/([a-z]{2}(?:[-_][a-zA-Z]{2})?)(/.*)$", p)
+        loc, rest = (m.group(1).lower(), m.group(2)) if m else ("", p)
+        k = rest.rstrip("/").lower()
+        rank = 0 if loc in ("", "en", "en-us", "en-ca") else 1
+        if k not in best or rank < best[k][0]:
+            best[k] = (rank, u)
+    return [u for r, u in sorted(best.values())][:cap]
 
 
 def name_from(title, h1, vendor_words):
