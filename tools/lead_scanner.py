@@ -131,7 +131,10 @@ PLATFORMS = re.compile(r"genially|geneanet|issuu|canva|calameo|prezi|eventbrite|
 
 
 def vendor_site_ok(r, freq):
-    label = ((r.get("row") or {}).get("client_label") or "").strip()
+    row = r.get("row") or {}
+    label = (row.get("client_label") or "").strip()
+    if row.get("pass") in ("logo_wall", "customer_story", "logo"):  # a client logo / story page: the linked domain is the client
+        return not PLATFORMS.search(r["domain"]) and freq[r["domain"]] <= 15
     return bool(label) and not GENERIC_LABEL.match(label) and not PLATFORMS.search(r["domain"]) and freq[r["domain"]] <= 15
 
 
