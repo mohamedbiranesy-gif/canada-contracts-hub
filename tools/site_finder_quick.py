@@ -32,7 +32,7 @@ def clean(name):
 
 
 def get(params):
-    wait = last[0] + 1.0 - time.time()
+    wait = last[0] + 0.4 - time.time()  # ~2.5 requests per second in all
     if wait > 0:
         time.sleep(wait)
     last[0] = time.time()
