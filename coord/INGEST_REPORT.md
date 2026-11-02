@@ -1,4 +1,4 @@
-# Ingest report — 2026-11-02T04:01:57Z
+# Ingest report — 2026-11-02T04:05:41Z
 
 - buyers with team findings: 29699 (with at least one verified e-mail/portal: 27617)
 - vendors with team findings: 15387
