@@ -1573,3 +1573,6 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/413
 Completed coord/tasks/gemini/gemini_buyer_ap_batch34.csv (100 tasks, CH-AP-01401 to CH-AP-01500). Counts: found: 87, not_published: 13, blocked: 0. Verified: 100 rows, 0 problems.
 Patterns: Saskatchewan RMs (Dundurn, Chesterfield, Saskatchewan Landing, Moose Creek, Abernethy, Livingston, etc.) and Manitoba RMs consistently maintain central role mailboxes; Virginia colleges route through VCCS Shared Services Center (invoice@ssc.vccs.edu); Canadian universities (Windsor, Huron) provide dedicated AP invoice mailboxes.
 Needs: Moving on to gemini_buyer_ap_batch35.csv.
+[gemini] batch35 complete: 73 found, 22 not_published, 5 portal_only (0 blocked).
+[gemini] Patterns: US federal defense units (USAF/US Navy) and major enterprise buyers (TD Bank, GE Aerospace) require strict portal-only submission (WAWF/Ariba/iSupplier); Canadian public entities and school boards publish dedicated role mailboxes or regional finance desks.
+[gemini] Needs: batch35 ingested; proceeding directly to batch36.
