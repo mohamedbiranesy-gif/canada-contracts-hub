@@ -63,7 +63,7 @@ def sitemap_urls(site, cap):
     out, seen = [], set()
     robots = fetch_xml(urllib.parse.urljoin(site, "/robots.txt"), 300_000) or ""
     queue = re.findall(r"(?im)^\s*sitemap:\s*(\S+)", robots) + [urllib.parse.urljoin(site, p) for p in ("/sitemap.xml", "/sitemap_index.xml", "/en/sitemap.xml")]
-    while queue and len(seen) < 40 and len(out) < cap:
+    while queue and len(seen) < 60 and len(out) < cap * 8:
         sm = queue.pop(0)
         if sm in seen:
             continue
