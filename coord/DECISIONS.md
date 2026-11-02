@@ -106,3 +106,17 @@ only for contract buyers (first) and relationship buyers.
   Persons are skipped. Evidence page: ProPublica Nonprofit Explorer's full view of the same filing (EIN + object id).
 - rank.py: any dated non-client relationship (deal announcement or payment record, incl. Form 990) 12–36 months old is
   tier L (P05, own package); within 12 months it is tier B (Gold with an invoicing mailbox).
+
+## 2026-11-01 23:00 — claude: the 10k Gold arithmetic (for the owner's goal; rules unchanged)
+Gold = distinct buyer with a dated relationship (active, or deal / payment dated in the last 12 months) with a
+source-proven Canada-located vendor AND a confirmed invoicing / AP mailbox. Today every source together holds about
+3,100 active contract buyers + a few hundred dated leads, so Gold cannot pass ~3,400 even at 100% AP coverage; the
+lever is finding NEW dated relationships at scale, then AP mailboxes. Checked tonight:
+- Vendor client listings: 30,472 buyer domains, but undated (P06–P08, never Gold). Public-looking clients: ~2,400.
+- Buyer-side documents (council / board approvals naming a Canadian vendor): Canada-HQ vendors usually contract
+  through US subsidiaries (e.g. Riverside County 2026: "Geotab USA, Inc., Las Vegas"), so few pass the vendor rule.
+- EDC: 87 buyer-financing deals in two years (exhausted). IRS Form 990 2025+2026: 294 buyers, 61 with a fiscal year
+  ending in the last 12 months. US subaward primes ~300; newswire ~136; vendor newsrooms ~1 per 100 vendor sites.
+- Collapsed sub-units: 3,861 buyer keys inside 3,113 active rows (not a large lever).
+Plan: (1) AP mailbox for every active non-Gold buyer (~2,600: P02–P04 + 967 with no email), search rounds every
+~20 min, active first; (2) every new dated private source as found; (3) keep the long crawlers running.
