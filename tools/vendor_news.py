@@ -132,8 +132,9 @@ def clean_buyer(b):
 
 def parse(title, names):
     """(buyer, relation) when the title says the site owner sells to a named buyer, else None."""
-    if DROP.search(title):
-        return None
+    if DROP.search(title) or re.search(r"of the year|honou?r|accolade", title, re.I) or (
+            re.search(r"\bawards?\b|\bprix\b", title, re.I) and not re.search(r"contract|order|tender|contrat|commande", title, re.I)):
+        return None  # prizes and rankings, not deals
     span = find_vendor(title, names)
     if not span:
         return None
@@ -198,14 +199,37 @@ def buyer_site(buyer, page, final, vhost):
         lab = squash(h.split(".")[-2] if h.count(".") >= 1 else h)
         if len(lab) >= 4 and (lab in sq or (len(sq) >= 5 and sq in lab)) or (len(acr) >= 3 and lab == acr):
             return "https://%s/" % h, "link in the release"
-    try:
-        import logo_sites
-        hit = logo_sites.find_any(buyer)
-    except Exception:
-        hit = None
-    if hit:
-        return hit[0], "Wikidata %s" % hit[1]
+    for name in dict.fromkeys([buyer, re.sub(r"[\s,]+(inc|incorporated|ltd|limited|llc|plc|corp|corporation|s\.?a\.?|ag|gmbh|ltée|ltee)\.?$", "", buyer, flags=re.I)]):
+        try:
+            hit = wikidata_site(name)
+        except Exception:
+            hit = None
+        if hit:
+            return hit[0], "Wikidata %s" % hit[1]
     return "", ""
+
+
+def wikidata_site(name):
+    """Official website of the Wikidata item whose label or alias is exactly the buyer's name, in any country (a release
+    names its customer precisely; customers abroad count). A one-word name counts only when the website's domain spells it."""
+    import site_finder_quick as SF
+    n = SF.norm(name)
+    if len(n) < 4:
+        return None
+    res = SF.get({"action": "wbsearchentities", "search": name, "language": "en", "limit": 7, "type": "item"}).get("search", [])
+    ids = [x["id"] for x in res if SF.norm(x.get("label")) == n or SF.norm((x.get("match") or {}).get("text")) == n]
+    if not ids:
+        return None
+    ents = SF.get({"action": "wbgetentities", "ids": "|".join(ids[:5]), "props": "claims"}).get("entities", {})
+    for qid in ids:
+        c = (ents.get(qid) or {}).get("claims", {})
+        sites = [(x["mainsnak"].get("datavalue") or {}).get("value") for x in c.get("P856", [])]
+        if not sites or not sites[0]:
+            continue
+        host = (urllib.parse.urlparse(sites[0]).hostname or "").lower()
+        if len(n.split()) >= 2 or n.replace(" ", "") in host.replace("-", ""):
+            return sites[0], qid
+    return None
 
 
 def news_urls(site, cap):
@@ -214,7 +238,7 @@ def news_urls(site, cap):
     robots = fetch_xml(urllib.parse.urljoin(site, "/robots.txt"), 300_000) or ""
     queue = re.findall(r"(?im)^\s*sitemap:\s*(\S+)", robots) + [urllib.parse.urljoin(site, p) for p in
             ("/sitemap.xml", "/sitemap_index.xml", "/news-sitemap.xml", "/post-sitemap.xml")]
-    seen = set()
+    seen, readable = set(), 0
     while queue and len(seen) < 25:
         sm = queue.pop(0)
         if sm in seen or not CL.allowed(sm):
@@ -223,6 +247,7 @@ def news_urls(site, cap):
         txt = fetch_xml(sm)
         if not txt or "<" not in txt[:500]:
             continue
+        readable += 1
         index = "<sitemapindex" in txt[:3000].lower()
         for blk in re.findall(r"(?is)<(?:url|sitemap)>(.*?)</(?:url|sitemap)>", txt):
             loc = re.search(r"<loc>\s*([^<\s]+)\s*</loc>", blk)
@@ -244,9 +269,9 @@ def news_urls(site, cap):
                 d = d or ("%s-%s-01" % u.groups() if u else "")
                 if not d or d >= OLDEST:
                     found[loc.split("#")[0]] = d
-    if len(found) < cap:  # newsroom pages: deal-titled links on /news, /press ... (sites without a usable sitemap)
+    if not readable:  # no usable sitemap: deal-titled links on the newsroom pages (/news, /press ...)
         vhost = CL.base(urllib.parse.urlparse(site).hostname)
-        for p in ("news", "newsroom", "press", "press-releases", "media", "nouvelles", "communiques", "fr/nouvelles", "en/news"):
+        for p in ("news", "newsroom", "press", "media", "nouvelles"):
             u = urllib.parse.urljoin(site, "/" + p)
             if not CL.allowed(u):
                 continue

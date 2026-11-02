@@ -209,11 +209,14 @@ for k, L in leads.items():
         if vh and bh and registrable(vh) == registrable(bh):  # the same organisation linking to itself (sister schools, own departments)
             continue
     recent = (L.get("latest_record_date") or "") >= CUTOFF and not client  # paid / subcontracted in the last 12 months
-    tier = "E" if client == "other" else "D" if client else "B" if recent else "C"
+    announced = bool(re.search(r"release dateline|EDC|own news release", L.get("canada_field_value", "")))
+    likely = announced and not client and not recent and CUTOFF3 <= (L.get("latest_record_date") or "") < CUTOFF  # owner's 12-36 month rule
+    tier = "E" if client == "other" else "D" if client else "B" if recent else "L" if likely else "C"
     rows.append({"rank_group": ("GOLD" if tier == "B" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0),
         "buyer": L["buyer_name"], "buyer_website": L["website"], "award_date": L.get("latest_record_date") or "",
         "email": m["mailbox"], "email_type": m["mailbox_type"], "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
-        "contract_status": "linked from a page of the Canada-located vendor's site (not a client page)" if client == "other" else
+        "contract_status": "likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if likely else
+                           "linked from a page of the Canada-located vendor's site (not a client page)" if client == "other" else
                            "client listing on the vendor's own site (undated)" if client else
                            ("likely active (contract announced by the Canada-based vendor in the last 12 months: press release / EDC transaction)"
                             if re.search(r"release dateline|EDC|own news release", L.get("canada_field_value", "")) else
