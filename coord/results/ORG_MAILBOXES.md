@@ -4,7 +4,7 @@ One row per organisation in `org_mailboxes.csv`. Total organisations: **37524**.
 
 | referee status | invoicing/AP | purchasing | general |
 |---|---|---|---|
-| accepted | 2858 | 1258 | 30432 |
+| accepted | 2860 | 1258 | 30430 |
 | waiting | 0 | 0 | 0 |
 | not accepted | 322 | 48 | 2606 |
 
