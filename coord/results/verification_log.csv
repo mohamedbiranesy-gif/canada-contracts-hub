@@ -2371,6 +2371,7 @@ gemini,gemini_buyer_ap_results_batch13.csv,GE-AP-01209,b:38deede56186bfbc,secret
 gemini,gemini_buyer_ap_results_batch13.csv,GE-AP-01209,b:38deede56186bfbc,loisirs1@saintjeandedieu.ca,https://urls-bsl.qc.ca/images/Upload/loisir-municipal/repertoire_des_professionnels_en_loisir_municipal_novembre_2024.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00765,b:38e190104e12d308,finances@municipalite.duhamel.qc.ca,https://www.municipalite.duhamel.qc.ca/fr/municipalite/administration/commis-a-ladministration/comptabilite-finance-et-taxation,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00765,b:38e190104e12d308,finances@municipalite.duhamel.qc.ca,https://www.municipalite.duhamel.qc.ca/citoyens/services-a-la-population/nous-joindre,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-00062,b:38e190104e12d308,finances@municipalite.duhamel.qc.ca,https://www.municipalite.duhamel.qc.ca/municipalite/administration/finance,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00021,b:38e190104e12d308,info@municipalite.duhamel.qc.ca,https://www.municipalite.duhamel.qc.ca/fr/municipalite/administration/commis-a-ladministration,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00021,b:38e190104e12d308,info.duhamel@mrcpapineau.com,https://www.municipalite.duhamel.qc.ca/fr/municipalite/administration/commis-a-ladministration,verified
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00765,b:38e190104e12d308,finances@municipalite.duhamel.qc.ca,https://www.municipalite.duhamel.qc.ca/fr/citoyens/services-a-la-population/nous-joindre,verified
@@ -19436,6 +19437,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21891,lead:943c2f898146cc74,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21891,lead:943c2f898146cc74,info@wehrmannfurniture.com,https://wehrmannfurniture.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09346,lead:9443f132db81af8f,info@emmapp.de,https://emmapp.de/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01374,lead:94450296ebe3c113,info@southplainscollege.edu,https://www.southplainscollege.edu/,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00008,lead:94450296ebe3c113,info@southplainscollege.edu,https://web.archive.org/web/20251210055925/http://www.southplainscollege.edu/human_resources/policy_procedure/cba.php,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-17441,lead:944f1d38c479998d,contact@bioscancanada.org,https://bioscancanada.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-17441,lead:944f1d38c479998d,contact@bioscancanada.org,https://bioscancanada.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-36481,lead:9456cdf1c1c2ab2c,procurement@cumberlandcounty.ns.ca,https://www.cumberlandcounty.ns.ca/documents/procurement/3443-rfp-mcc-2621-design-build-new-river-hebert-firehall/file.html,verified
@@ -20897,6 +20899,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08380,lead:ad6bda71b3f9beba,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01600,lead:ad73cfa78e08e41f,accounts.payable@sanantonio.gov,https://www.sa.gov/Directory/Departments/Finance/About/Divisions/Procurement/Resources/Doing-Business,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01600,lead:ad73cfa78e08e41f,vendors@sanantonio.gov,https://www.sa.gov/files/assets/main/v/2/finance/documents/procurement/registration.pdf,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01600,lead:ad73cfa78e08e41f,vvendors@sanantonio.gov,https://www.sa.gov/files/assets/main/v/1/finance/documents/procurement/password.pdf,unverified_page_unavailable
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00002,lead:ad73cfa78e08e41f,accounts.payable@sanantonio.gov,https://www.sa.gov/files/assets/main/v/2/finance/documents/workingwithcosa.pdf,unverified_page_unavailable
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00002,lead:ad73cfa78e08e41f,vendors@sanantonio.gov,https://www.sa.gov/files/assets/main/v/2/finance/documents/workingwithcosa.pdf,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08524,lead:ad87b5854ad28119,info@highriveronline.com,https://highriveronline.com/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05404,lead:ad9565d2b2a36dcb,info@colonialacres.com,https://www.colonialacres.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-36380,lead:ad9bc2c31de40a84,info@barrhavenfootcare.com,https://www.barrhavenfootcare.com/contact.html,verified
@@ -21791,6 +21795,9 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-42325,lead:bc9d9a820769a200,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24396,lead:bca4524649b71b05,info@loopindustries.com,https://loopindustries.com/,not_found_on_page
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24396,lead:bca4524649b71b05,info@loopindustries.com,https://loopindustries.com/,not_found_on_page
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01762,lead:bca4fa0734a54198,finance@ucalgary.ca,https://www.ucalgary.ca/registrar/finances/pay-your-fees/late-fees-and-payment-issues,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00001,lead:bca4fa0734a54198,invoices@ucalgary.ca,https://www.ucalgary.ca/finance/expenses-reimbursement/submit-invoice,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00001,lead:bca4fa0734a54198,finance@ucalgary.ca,https://www.ucalgary.ca/finance/expenses-reimbursement/submit-invoice,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00001,lead:bca4fa0734a54198,procure@ucalgary.ca,https://www.ucalgary.ca/finance/sites/default/files/teams/5/scm-purchasinghandbook.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14459,lead:bcaf44dc9a9ede22,hello@thefreewebsiteguys.com,https://thefreewebsiteguys.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14459,lead:bcaf44dc9a9ede22,hello@thefreewebsiteguys.com,https://thefreewebsiteguys.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-20963,lead:bcc3ca00b3a688f6,info@hopeandme.ca,https://hopeandme.org/,verified
@@ -24009,6 +24016,7 @@ claude,claude_buyer_ap_results_search01.csv,CL-WS-00066,lead:e052ba165cfcba5f,he
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04682,lead:e05afbfa69f0eab4,info@fironroofing.ca,https://fironroofing.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-02069,lead:e067c981fc585c02,finance.director@houstontx.gov,https://www.houstontx.gov/finance/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-02069,lead:e067c981fc585c02,houstonpurchasing@houstontx.gov,https://www.houstontx.gov/bizwithhou/,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00007,lead:e067c981fc585c02,finaccountspayable@houstontx.gov,https://www.houstontx.gov/finance/acct_payable.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35719,lead:e06c777c9b093736,info@halifaxnaturopathic.ca,https://halifaxnaturopathic.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35719,lead:e06c777c9b093736,info@halifaxnaturopathic.ca,https://halifaxnaturopathic.ca/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00065,lead:e06c777c9b093736,info@halifaxnaturopathic.ca,https://halifaxnaturopathic.ca/contact/,verified
