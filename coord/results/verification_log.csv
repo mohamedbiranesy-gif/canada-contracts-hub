@@ -130,7 +130,7 @@ gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01024,b:04f180ecf8cdb55f,munici
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01024,b:04f180ecf8cdb55f,https://saint-paulin.ca,https://fr.wikivoyage.org/wiki/w:Saint-Paulin_(Qu%C3%A9bec),verified
 gemini,gemini_buyer_ap_results_batch12.csv,GE-AP-01105,b:04ff15aea0052f4b,appro.assistance.cissslau@ssss.gouv.qc.ca,https://www.quebec.ca/sante/systeme-et-services-de-sante/regimes-dassurance/frais-accessoires/liste-repondants-gestion-approvisionnement-fournitures-medicaments-cliniques,verified
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01764,b:0506fe1293ceb202,info@arundel.ca,https://www.arundel.ca/,verified
-gemini,gemini_buyer_ap_results_batch16.csv,GE-AP-01539,b:051b0beaba838cbf,informations.generales@mrcbeaucesartigan.com,https://mrcbeaucesartigan.com/contact/nous-joindre/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch16.csv,GE-AP-01539,b:051b0beaba838cbf,informations.generales@mrcbeaucesartigan.com,https://mrcbeaucesartigan.com/contact/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch16.csv,GE-AP-01539,b:051b0beaba838cbf,informations.generales@mrcbeaucesartigan.com,https://taxsaleshub.ca/quebec/beauce-sartigan/,verified
 gemini,gemini_buyer_ap_results_batch26.csv,GE-AP-B0044,b:051b0beaba838cbf,informations.generales@mrcbeaucesartigan.com,https://taxsaleshub.ca/quebec/beauce-sartigan/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01368,b:051d43187376f886,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
