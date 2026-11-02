@@ -1,0 +1,89 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CL-DT-00001,,lead:024bc31065277034,Honeywell International Inc.,,,https://www.honeywell.com,,,1
+CL-DT-00002,,lead:0446795ad6836c36,"Fluor Federal Petroleum Operations, Llc",,,https://fluor.com,,,1
+CL-DT-00003,,lead:04b7bbc60b15da1e,Brigham & Womens Hospital Inc,,,https://www.massgeneralbrigham.org,,,1
+CL-DT-00004,,lead:0915b64922cc7596,"General Atomics Aeronautical Systems, Inc.",,,https://ga.com,,,1
+CL-DT-00005,,lead:0b69204881b3e4c6,Childrens Mercy Hospital,,,https://childrensmercy.org,,,1
+CL-DT-00006,,lead:178aa94596e8cf07,Itaú Unibanco S.A.,,,https://www.itau.com.br,,,1
+CL-DT-00007,,lead:17de3a7d174c113a,Worcester Polytechnic Institute,,,https://wpi.edu,,,1
+CL-DT-00008,,lead:1f1ce9ad0ba8393b,The Univeristy Of Texas M.D. Anderson Cancer Center,,,https://mdanderson.org,,,1
+CL-DT-00009,,lead:231b09a3c8e71761,Case Western Reserve University,,,https://case.edu,,,1
+CL-DT-00010,,lead:250eec20352a498e,Battelle Memorial Institute,,,https://battelle.org,,,1
+CL-DT-00011,,lead:2feb523fd776ea8c,Emory University,,,https://emory.edu,,,1
+CL-DT-00012,,lead:3219c36f6a78d3bf,The Children'S Hospital Of Philadelphia,,,https://chop.edu,,,1
+CL-DT-00013,,lead:366124a97fe4b312,"Salk Institute For Biological Studies, San Diego, California, The",,,https://www.salk.edu,,,1
+CL-DT-00014,,lead:3afe19135dcc9fc0,Deloitte Consulting Llp,,,https://www.deloitte.com,,,1
+CL-DT-00015,,lead:3b5e9e85e79dddb9,General Electric Company,,,https://geaerospace.com,,,1
+CL-DT-00016,,lead:403d1d0435077488,"General Dynamics Ots (Wilkes Barre), Llc",,,https://gd.com,,,1
+CL-DT-00017,,lead:4684529344063ff7,Wsp Usa Environment & Infrastructure Inc.,,,https://www.wsp.com,,,1
+CL-DT-00018,,lead:46d5755be73afbdc,Bae Systems Information And Electronic Systems Integration I,,,https://baesystems.com,,,1
+CL-DT-00019,,lead:485249cb4aa73717,The Johns Hopkins University,,,https://jhu.edu,,,1
+CL-DT-00020,,lead:48cb83a48a46003d,The Trustees Of Columbia University In The City Of New York,,,https://www.columbia.edu,,,1
+CL-DT-00021,,lead:4998d82cbe5d1d5e,Parsons Government Services International Inc.,,,https://parsons.com,,,1
+CL-DT-00022,,lead:49a3aabfd5d1c3a2,"Regents Of The University Of California, San Francisco, The",,,https://ucsf.edu,,,1
+CL-DT-00023,,lead:4d39e4e51df15b89,"Boeing Company, The",,,https://www.boeingsuppliers.com,,,1
+CL-DT-00024,,lead:4e599112ee2d895d,Brown University,,,https://brown.edu,,,1
+CL-DT-00025,,lead:52879a9bb714a23b,"General Dynamics-Ots, Inc.",,,https://gd.com,,,1
+CL-DT-00026,,lead:5a4d6eaf92dc7a59,Sierra Nevada Corporation,,,https://sncorp.com,,,1
+CL-DT-00027,,lead:5a8b2ebfdb7c5ff2,North Carolina State University,,,https://www.ncsu.edu,,,1
+CL-DT-00028,,lead:5b8732e96d87905d,Arizona State University,,,https://asu.edu,,,1
+CL-DT-00029,,lead:5f1ad32e75b74dc0,University Of North Carolina At Chapel Hill,,,https://www.unc.edu,,,1
+CL-DT-00030,,lead:61b179048aa614fe,Villanova University In The State Of Pennsylvania,,,https://www.villanova.edu,,,1
+CL-DT-00031,,lead:67bef0c1cff051ce,"Johns Hopkins University Applied Physics Laboratory Llc, The",,,https://www.jhuapl.edu,,,1
+CL-DT-00032,,lead:6801acd850f68e13,Syracuse University,,,https://syr.edu,,,1
+CL-DT-00033,,lead:6bffd83716255443,"Src, Inc.",,,https://srcinc.com,,,1
+CL-DT-00034,,lead:6c6076e0fca1477e,Rector & Visitors Of The University Of Virginia,,,https://virginia.edu,,,1
+CL-DT-00035,,lead:76608c9f8b59f60f,"Ohio State University, The",,,https://www.ohio-state.edu,,,1
+CL-DT-00036,,lead:7d16facc909dded1,The University Of British Columbia,,,https://ubc.ca,,,1
+CL-DT-00037,,lead:7f0697d0e9f55066,University Of Washington,,,https://uw.edu,,,1
+CL-DT-00038,,lead:808604d32539a310,The University Of Iowa,,,https://uiowa.edu,,,1
+CL-DT-00039,,lead:81aa923162a1846c,Coles Group Limited,,,https://www.colesgroup.com.au,,,1
+CL-DT-00040,,lead:86572e185d6dc87e,Lockheed Martin Corporation,,,https://lockheedmartin.com,,,1
+CL-DT-00041,,lead:86c154fa89abad32,Baylor College Of Medicine,,,https://bcm.edu,,,1
+CL-DT-00042,,lead:87b92842a13583ed,University Of Pittsburgh The,,,https://www.pitt.edu,,,1
+CL-DT-00043,,lead:884de7fb1b1f839c,AT&T Inc.,,,https://attpurchasing.com,,,1
+CL-DT-00044,,lead:88d0c48ace6c3d12,"Trustees Of The University Of Pennsylvania, The",,,https://www.upenn.edu,,,1
+CL-DT-00045,,lead:8a0fd2679dff5d2b,Pa Department Of Education Omb,,,https://www.pa.gov,,,1
+CL-DT-00046,,lead:8bce27e844ca7fa0,Beckman Research Institute Of The City Of Hope,,,https://cityofhopejobs.org,,,1
+CL-DT-00047,,lead:8be68afc800fb9e8,Deloitte & Touche Llp,,,https://deloitte.com,,,1
+CL-DT-00048,,lead:8c249a54ab77b079,Yale Univ,,,https://yale.edu,,,1
+CL-DT-00049,,lead:8e298d2e6c6a04ee,"L3Harris Technologies, Inc.",,,https://l3harris.com,,,1
+CL-DT-00050,,lead:913a42553ca48d92,Northrop Grumman Systems Corporation,,,https://www.northropgrumman.com,,,1
+CL-DT-00051,,lead:91a609a8eaf1c81f,The Boeing Company,,,https://www.boeingsuppliers.com,,,1
+CL-DT-00052,,lead:92ce7dd5a71f1ccb,The University Of Texas Southwestern Medical Center,,,https://utsouthwestern.edu,,,1
+CL-DT-00053,,lead:95ae13b741e5a882,Northwestern University,,,https://www.northwestern.edu,,,1
+CL-DT-00054,,lead:9fbff95d8d144c8e,Duke University,,,https://www.duke.edu,,,1
+CL-DT-00055,,lead:a4d60d25d2973fb4,University Of South Carolina,,,https://sc.edu,,,1
+CL-DT-00056,,lead:a7ead56ada424498,Raytheon Technologies Corporation,,,https://rtx.com,,,1
+CL-DT-00057,,lead:a853bccf7fe93312,Raytheon Company,,,https://www.rtx.com,,,1
+CL-DT-00058,,lead:a9bc3ede9de5bb6a,Cgi Federal Inc.,,,https://www.cgi.com,,,1
+CL-DT-00059,,lead:a9daaf4687da2ff9,Booz Allen Hamilton Inc.,,,https://boozallen.com,,,1
+CL-DT-00060,,lead:abe1d264fed4d964,"Johns Hopkins University, The",,,https://jhu.edu,,,1
+CL-DT-00061,,lead:ac48400f02126ddf,DeVry University,,,https://www.devry.edu,,,1
+CL-DT-00062,,lead:ae14fa984bc632d9,Bae Systems Land & Armaments L.P.,,,https://www.baesystems.com,,,1
+CL-DT-00063,,lead:af17863121fa49d9,Kiewit Infrastructure South Co,,,https://kiewit.com,,,1
+CL-DT-00064,,lead:b180c1c3a6171633,Viasat Inc,,,https://www.viasat.com,,,1
+CL-DT-00065,,lead:b1d550d3657648b4,Trustees Of Dartmouth College,,,https://www.dartmouth.edu,,,1
+CL-DT-00066,,lead:b214b06fed8be025,Verizon Communications Inc.,,,https://verizon.com,,,1
+CL-DT-00067,,lead:b24f0c5936fbc2dd,The Leland Stanford Junior University,,,https://stanford.edu,,,1
+CL-DT-00068,,lead:b2f4e32b77968c3a,Siemens Mobility GmbH,,,https://www.siemens.com,,,1
+CL-DT-00069,,lead:bce5b28d5231c875,Peraton Inc.,,,https://peraton.com,,,1
+CL-DT-00070,,lead:c4da4522e89b4419,Trustees Of Boston University,,,https://bu.edu,,,1
+CL-DT-00071,,lead:c7dec7606adbbd42,Ge Renewables Us Llc,,,https://www.gevernova.com,,,1
+CL-DT-00072,,lead:cc2036a5bb5df86e,"Pantexas Deterrence, Llc",,,https://pantex.energy.gov,,,1
+CL-DT-00073,,lead:cc3d2a7c3f26ca35,Royal Institute For Advancement Of Learning Mcgill,,,https://mcgill.ca,,,1
+CL-DT-00074,,lead:d2a344c111a0436a,University Of Tennessee,,,https://tennessee.edu,,,1
+CL-DT-00075,,lead:dc5c8ab3cf518b40,Huntington Ingalls Incorporated,,,https://www.hii.com,,,1
+CL-DT-00076,,lead:dcf86d2afc0fd602,Texas Department of Transportation (TxDOT),,,https://www.txdot.gov,,,1
+CL-DT-00077,,lead:e074698086f50efb,University Of Illinois,,,https://uillinois.edu,,,1
+CL-DT-00078,,lead:e1cd814e6a8dbbeb,"L3 Technologies, Inc.",,,https://l3harris.com,,,1
+CL-DT-00079,,lead:e2813b3d82ff31af,University Of Notre Dame Du Lac,,,https://nd.edu,,,1
+CL-DT-00080,,lead:e3f44ff4d29e2214,Vanderbilt University,,,https://vanderbilt.edu,,,1
+CL-DT-00081,,lead:e986ca91f80fa94a,University Of Arkansas For Medical Sciences,,,https://uams.edu,,,1
+CL-DT-00082,,lead:ec624a4d5a837272,Washington State (agency name cut off in excerpt),,,https://wa.gov,,,1
+CL-DT-00083,,lead:f0f8316d812f35f3,Textron Aviation Defense Llc,,,https://txtav.com,,,1
+CL-DT-00084,,lead:f1acf6da397a8e4e,University Of Pittsburgh - Of The Commonwealth System Of Higher Education,,,https://pitt.edu,,,1
+CL-DT-00085,,lead:f57a9eb7be4f2ca3,Purdue University,,,https://www.purdue.edu,,,1
+CL-DT-00086,,lead:f57ad604ac59b47a,Central Michigan University,,,https://www.cmich.edu,,,1
+CL-DT-00087,,lead:f7d99660b18f425d,L-3 Communications Integrated Systems L.P.,,,https://l3harris.com,,,1
+CL-DT-00088,,lead:fa27acb7799a34e6,"Washington University, The",,,https://wustl.edu,,,1
