@@ -1,19 +1,20 @@
-# Ranked buyers — 2026-11-02T00:55Z
+# Ranked buyers — 2026-11-02T01:10Z
 
 ```
-rows 6382
-[('GOLD', 450), ('A0', 439), ('A1', 827), ('A2', 132), ('A3', 168), ('A4', 20), ('B0', 538), ('B1', 289), ('B2', 194), ('B3', 55), ('B4', 1), ('C0', 956), ('C1', 423), ('C2', 204), ('C3', 35), ('C4', 118), ('D1', 1372), ('D2', 34), ('D3', 43), ('D4', 84)]
-with any email: 4449 | contract buyers: 0
-1_GOLD_active_contract_invoicing_email                     450
-1b_active_contract_finance_accounting_email                200
-2_active_contract_purchasing_email                         323
-3_active_contract_general_email                           1085
-4_active_contract_email_not_yet_confirmed                   78
-5_active_contract_no_email_yet                             977
-6_payment_or_subaward_record_confirmed_email                43
-6b_client_listing_on_vendor_site_confirmed_email          1469
-6c_relationship_email_not_yet_confirmed                     65
-7_older_contract_with_email                                736
-8_older_contract_no_email                                  956
+rows 9961
+[('GOLD', 450), ('A0', 439), ('A1', 827), ('A2', 132), ('A3', 168), ('A4', 20), ('B0', 538), ('B1', 289), ('B2', 194), ('B3', 55), ('B4', 1), ('C0', 791), ('C1', 402), ('C2', 137), ('C3', 29), ('C4', 78), ('D1', 1372), ('D2', 34), ('D3', 43), ('D4', 84), ('E1', 3247), ('E2', 97), ('E3', 108), ('E4', 127), ('L0', 165), ('L1', 21), ('L2', 67), ('L3', 6), ('L4', 40)]
+with any email: 8028 | contract buyers: 0
+P01_GOLD_active_relationship_invoicing_AP_email            450
+P02_active_relationship_finance_accounting_email           200
+P03_active_relationship_purchasing_email                   323
+P04_active_relationship_general_email                     1085
+P05_likely_active_awarded_12_36_months_any_email           131
+P06_client_listing_invoicing_AP_email                       82
+P07_client_listing_finance_or_purchasing_email              75
+P08_client_listing_general_email                          1312
+P09_older_contract_or_payment_any_email                    643
+P10_linked_from_vendor_site_any_email                     3416
+P11_any_relationship_email_not_yet_confirmed               311
+Z_no_email_yet_not_delivered                              1933
 unassigned 0 []
 ```
