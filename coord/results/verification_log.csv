@@ -908,6 +908,9 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-P0227,b:16d8c0ad2b1b547c,info_c
 gemini,gemini_buyer_ap_results_batch24.csv,GE-AP-P0227,b:16d8c0ad2b1b547c,dgf@sqi.gouv.qc.ca,https://www.sqi.gouv.qc.ca/fileadmin/faire_affaire_avec_la_sqi/outils_partenaires/formulaire_d_adhesion_au_depot_direct__fournisseur_.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00274,b:16daab01b9112516,services.financiers@sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/appel-projets-prototypage-fmc-sodec.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00274,b:16daab01b9112516,services.financiers@sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/appel-projets-prototypage-fmc-sodec.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-DT06-00001,b:16daab01b9112516,services.financiers@sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/appel-projets-prototypage-fmc-sodec.pdf,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00004,b:16daab01b9112516,info@sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/pre-authorized-payment-pap.pdf,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00004,b:16daab01b9112516,info-patrimoine@sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/sodec-declaration-de-services-2024.pdf,verified
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00274,b:16daab01b9112516,ACCEO@sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/services/paiement-debit-preautorises/,verified
 gemini,gemini_buyer_ap_results_batch24.csv,GE-AP-P0226,b:16daab01b9112516,sodec@sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/english/contact-sodec/,verified
 gemini,gemini_buyer_ap_results_batch30.csv,GE-AP-30079,b:16e7348aafcd509e,https://www.cerrejon.com/es/grupos-de-interes/proveedores-y-contratistas/coupa,https://www.cerrejon.com/es/contactenos,not_found_on_page
@@ -2763,6 +2766,8 @@ chatgpt,chatgpt_buyer_ap_results_batch10.csv,CH-AP-00913,b:43159e7ecbcaef00,AP@n
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00913,b:43159e7ecbcaef00,administration@newellmail.ca,https://countyofnewell.ab.ca/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00015,b:431691231fd66abe,procurement@nbt.nhs.uk,https://www.nbt.nhs.uk/bristol-weston-nhs-purchasing-consortium/contact-bwpc,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00015,b:431691231fd66abe,supplierenablement@nbt.nhs.uk,https://www.nbt.nhs.uk/bristol-weston-nhs-purchasing-consortium,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00002,b:431691231fd66abe,supplierenablement@nbt.nhs.uk,https://www.nbt.nhs.uk/bristol-weston-nhs-purchasing-consortium,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00002,b:431691231fd66abe,procurement@nbt.nhs.uk,https://www.nbt.nhs.uk/bristol-weston-nhs-purchasing-consortium,verified
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29097,b:431691231fd66abe,Procurement@nbt.nhs.uk,https://www.nbt.nhs.uk/bristol-weston-nhs-purchasing-consortium/contact-bwpc,verified
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29097,b:431691231fd66abe,Procurement@nbt.nhs.uk,https://www.nbt.nhs.uk/bristol-weston-nhs-purchasing-consortium/contact-bwpc,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-P0027,b:43240b176b1f24b7,infoacquisition@hydro.qc.ca,https://www.hydroquebec.com/suppliers/invoicing-payment/preparing-submitting-invoice.html,verified
@@ -10462,6 +10467,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06474,lead:067e61debe916e2d,inv
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06474,lead:067e61debe916e2d,invoice.v102@webasto.com,https://www.webasto.com/content/dam/webasto/en/supplier-portal/accounting/Accounting%20Contact%20Details%20(2).pdf.coredownload.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19544,lead:06943cfcd6ddf2fd,info@shgph.org,https://www.shgph.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19544,lead:06943cfcd6ddf2fd,info@shgph.org,https://www.shgph.org/,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05071,lead:069d765153bd6688,suppliersupport.belgium@arcelormittal.com,https://web.archive.org/web/20260410072220/http://corporate.arcelormittal.com/suppliers/ariba-supplier-information-portal,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05071,lead:069d765153bd6688,supplier.helpdesk@arcelormittal.com,https://web.archive.org/web/20260410072220/http://corporate.arcelormittal.com/suppliers/ariba-supplier-information-portal,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09430,lead:06a0c6f9005c1a4c,info@engaged-learning.com,https://engaged-learning.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07309,lead:06a103d37f7a22b2,inquiries@uleth.ca,https://www.ulethbridge.ca/about/contact,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00169,lead:06a103d37f7a22b2,financial.services@uleth.ca,https://www.ulethbridge.ca/financial-services/directory/person/finance.ap,verified
@@ -11538,6 +11545,9 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24252,lead:1c87baf35a2ce79b,roy
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24252,lead:1c87baf35a2ce79b,openinvoicesupplier@wcap.ca,https://www.wcap.ca/about-whitecap/suppliers/supplier-management,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24252,lead:1c87baf35a2ce79b,accountspayable@wcap.ca,https://www.wcap.ca/about-whitecap/suppliers/supplier-management,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24252,lead:1c87baf35a2ce79b,royaltypayments@wcap.ca,https://www.wcap.ca/contact,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05041,lead:1c87baf35a2ce79b,openinvoicesupplier@wcap.ca,https://www.wcap.ca/about-whitecap/suppliers/supplier-management,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05041,lead:1c87baf35a2ce79b,accountspayable@wcap.ca,https://www.wcap.ca/about-whitecap/suppliers/supplier-management,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05041,lead:1c87baf35a2ce79b,vendormaintenance@wcap.ca,https://www.wcap.ca/about-whitecap/suppliers/supplier-management,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00077,lead:1c87baf35a2ce79b,openinvoicesupplier@wcap.ca,https://www.wcap.ca/about-whitecap/suppliers/supplier-management,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00077,lead:1c87baf35a2ce79b,accountspayable@wcap.ca,https://www.wcap.ca/about-whitecap/suppliers/supplier-management,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00077,lead:1c87baf35a2ce79b,vendormaintenance@wcap.ca,https://www.wcap.ca/about-whitecap/suppliers/supplier-management,verified
@@ -11758,6 +11768,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11179,lead:211d53c52d399502,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11670,lead:211da4aac607efde,hello@activetruth.com,https://www.activetruth.com.au/pages/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06685,lead:2124f5e3f0ee2051,info@arcandwhitecpa.ca,https://www.arcandwhitecpa.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24397,lead:2125bd7e01d23bf1,suppliercontact@kemira.com,https://www.kemira.com/app/uploads/2025/06/kemira-supplier-contact-form.pdf,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05076,lead:2125bd7e01d23bf1,suppliercontact@kemira.com,https://www.kemira.com/app/uploads/2025/06/kemira-supplier-contact-form.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12019,lead:2128a9829469cdd2,contact.us@eliteeleven.com.au,https://eliteelevensporting.com/pages/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14943,lead:213403bcca36ba5b,info@joeyai.com,https://www.joeyai.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14943,lead:213403bcca36ba5b,info@joeyai.com,https://www.joeyai.com/,verified
@@ -14953,6 +14964,9 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00584,lead:5edda9ce4cd23f69,fic
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09371,lead:5ee2e04131397dd1,info@westrans.com,https://www.westrans.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03270,lead:5eebad7902f8588b,invoicesfrance@kraftheinz.com,https://www.kraftheinzcompany.com/terms_conditions_purchase/purchase_terms/Kraft_Heinz_Legal_Entity_Details.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03270,lead:5eebad7902f8588b,kraftheinzpurchasetopay.na@kraftheinz.com,https://www.kraftheinzcompany.com/terms_conditions_purchase/purchase_terms/Kraft_Heinz_e-Invoicing_Tungsten_2024.pdf,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05060,lead:5eebad7902f8588b,apinvoices@kraftheinz.com,https://www.kraftheinzcompany.com/terms_conditions_purchase/purchase_terms/Kraft_Heinz_Communication_Channels_for_Suppliers_2024.pdf,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05060,lead:5eebad7902f8588b,suppliersupport@kraftheinz.com,https://www.kraftheinzcompany.com/terms_conditions_purchase/purchase_terms/Accounts_Payable_(AP)_Information_for_Suppliers_(Vendor_Info_At-A-Glance)_5.22.2024.pdf,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05060,lead:5eebad7902f8588b,kraftheinzpurchasetopay.na@kraftheinz.com,https://www.kraftheinzcompany.com/terms_conditions_purchase/purchase_terms/Accounts_Payable_(AP)_Information_for_Suppliers_(Vendor_Info_At-A-Glance)_5.22.2024.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06432,lead:5eec55a43bb500ae,info@uhnopenlab.ca,https://www.uhnopenlab.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22324,lead:5ef69e42d2db2c18,info@give.ubc.ca,https://give.ubc.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22324,lead:5ef69e42d2db2c18,info@give.ubc.ca,https://give.ubc.ca/,verified
@@ -17884,6 +17898,7 @@ claude,claude_buyer_ap_results_search01.csv,CL-WS-00020,lead:9952b9df79bcafe4,pa
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00020,lead:9952b9df79bcafe4,procurement@sfu.ca,https://www.sfu.ca/finance/services/procurement/suppliers.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01707,lead:996086a92839d8bd,accounting@caorda.com,https://www.caorda.com/support/faq/how-to-pay-an-invoice/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01707,lead:996086a92839d8bd,info@caorda.com,https://www.caorda.com/,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-05002,lead:996086a92839d8bd,accounting@caorda.com,https://www.caorda.com/support/faq/how-to-pay-an-invoice/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00072,lead:996086a92839d8bd,accounting@caorda.com,https://www.caorda.com/support/faq/how-to-pay-an-invoice/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00072,lead:996086a92839d8bd,info@caorda.com,https://www.caorda.com/support/faq/how-to-pay-an-invoice/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09711,lead:996244d09aa1f030,info@ecoletroubadour.com,https://ecoletroubadour.com/,verified
