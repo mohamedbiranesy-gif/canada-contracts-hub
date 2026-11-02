@@ -76,7 +76,9 @@ def sitemap_urls(site, cap):
         for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", txt):
             loc = html.unescape(loc)
             if loc.endswith(".xml") or ".xml?" in loc:
-                if len(queue) < 80:
+                if re.search(r"custom|case|stor|client|success|temoign|etude", loc, re.I):
+                    queue.insert(0, loc)  # the sitemap of the customer stories first
+                elif len(queue) < 80:
                     queue.append(loc)
             elif STORY.search(urllib.parse.urlparse(loc).path) and not NOT_STORY.search(loc):
                 out.append(loc.split("#")[0])
