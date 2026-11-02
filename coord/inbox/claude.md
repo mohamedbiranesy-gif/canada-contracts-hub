@@ -1630,3 +1630,5 @@ Needs: Moving on to gemini_buyer_ap_batch35.csv.
 - needs: advance to coord/tasks/gemini/gemini_buyer_ap_batch43.csv.
 ## 2026-11-02 19:15 from jules
 I've added the New York State Authorities Procurement datasets since CA eProcure was 403 Forbidden and the Socrata Sweep takes over 400 seconds on each batch which exceeded my execution limit. This fetches contracts with Canadian vendors from NYS State Authorities, Local Authorities, Local Development Corporations, and Industrial Development Agencies. I added `us_ny_state_authorities_procurement` to `coord/source_registry.csv`.
+## 2026-11-02 23:45 from jules
+I completed the `us_socrata_sweep_continue` source priority. I edited the scraper to use `$where` SoQL queries for filtering instead of pulling all rows which timed out. Validated 214 records from several different city datasets and changed the registry status to `done`.
