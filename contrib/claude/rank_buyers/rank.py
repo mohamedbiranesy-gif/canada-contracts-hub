@@ -73,7 +73,7 @@ for r in csv.DictReader(io.StringIO(raw)):
         mail[r["org_key"]] = (s, r)
 # 2. contracts: best proof record per parent organisation
 TIER = {"ongoing": "A", "ongoing_inferred": "B", "end_date_unknown": "C"}
-TS = {"A": 3, "B": 2, "L": 1.5, "C": 1, "D": 1, "E": 0.5}
+TS = {"A": 3, "B": 2, "T": 1.8, "L": 1.5, "C": 1, "D": 1, "E": 0.5}
 CUTOFF = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
 def award_date(r):
     d = r["contract"].get("dates") or {}
@@ -213,11 +213,13 @@ for k, L in leads.items():
     src = (L.get("canada_field_value") or "").split("=")[0].strip()[:90]  # the source's Canada field, e.g. "contractor address country (IRS Form 990)"
     likely = not client and not recent and CUTOFF3 <= (L.get("latest_record_date") or "") < CUTOFF  # owner's 12-36 month rule (dated deal or payment)
     irs = "IRS Form" in L.get("canada_field_value", "")
-    tier = "E" if client == "other" else "D" if client else "B" if recent else "L" if likely else "C"
-    rows.append({"rank_group": ("GOLD" if tier == "B" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0),
+    tech = "(tech)" in L.get("canada_field_value", "")  # buyer's own site shows it uses a Canada-HQ vendor's paid service today
+    tier = "T" if tech else "E" if client == "other" else "D" if client else "B" if recent else "L" if likely else "C"
+    rows.append({"rank_group": ("GOLD" if tier == "B" and g == 4 and acc else "GOLD-T" if tier == "T" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0),
         "buyer": L["buyer_name"], "buyer_website": L["website"], "award_date": L.get("latest_record_date") or "",
         "email": m["mailbox"], "email_type": m["mailbox_type"], "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
-        "contract_status": ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
+        "contract_status": ("active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if tech else
+                           ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
                             "likely active (awarded 12-36 months ago; paid in a fiscal year ending 12-36 months ago: IRS Form 990 contractor located in Canada)" if irs else
                             "likely active (awarded 12-36 months ago; record dated 12-36 months ago: %s)" % src) if likely else
                            "linked from a page of the Canada-located vendor's site (not a client page)" if client == "other" else
