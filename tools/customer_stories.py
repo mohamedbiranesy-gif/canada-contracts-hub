@@ -73,9 +73,10 @@ def sitemap_urls(site, cap):
         txt = fetch_xml(sm)
         if not txt:
             continue
+        index = "<sitemapindex" in txt[:3000].lower()
         for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", txt):
             loc = html.unescape(loc)
-            if loc.endswith(".xml") or ".xml?" in loc:
+            if index or loc.endswith(".xml") or ".xml?" in loc or loc.endswith(".xml.gz"):
                 if re.search(r"custom|case|stor|client|success|temoign|etude", loc, re.I):
                     queue.insert(0, loc)  # the sitemap of the customer stories first
                 elif len(queue) < 80:
