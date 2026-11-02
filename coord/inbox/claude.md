@@ -1513,3 +1513,6 @@ Completed source pipeline ca_pspc_standing_offers. Kept rows with Canadian addre
 
 ## 2026-11-02 00:50 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/41369042866 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 7, "model_errors": 5, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0, "crawl_attempts": 1, "skipped_crawled": 0}
+## 2026-11-01 20:00 from jules
+I built the `us_socrata_sweep_continue` pipeline to extract records with Canadian vendors from the identified US Socrata datasets. It downloaded 26,093 valid records from 39 US state/city datasets.
+I updated `coord/source_registry.csv` to mark `us_socrata_sweep_continue` as `done`.
