@@ -245,6 +245,8 @@ def same_org(email, site, org_name):
     acr.discard("")
     if any(len(w) >= 3 and core == w for w in words):  # the domain is one of the name's words, e.g. @olg.ca for "... (OLG)"
         return True
+    if len(bcore) >= 2 and core != bcore and core.startswith(bcore) and len(core) - len(bcore) <= 2:
+        return False  # a sibling body of the same system: @tamuk.edu (Kingsville) for tamu.edu, @uncc.edu for unc.edu
     for x in acr:
         if (len(x) >= 3 and (core == x or core.startswith(x) or (len(x) >= 4 and x in core))) or (len(x) >= 2 and core2 != core and core2 == x) \
                 or (len(core) >= 4 and x.startswith(core)):
