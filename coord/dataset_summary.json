@@ -1,10 +1,10 @@
 {
  "reference_date": "2026-11-02",
- "verified_ca_records": 802261,
+ "verified_ca_records": 802387,
  "unverified_records": 51346,
  "status_verified_ca": {
   "ongoing": 84594,
-  "end_date_unknown": 396116,
+  "end_date_unknown": 396242,
   "ongoing_inferred": 321551
  },
  "confidence_verified_ca": {
@@ -160,7 +160,7 @@
    "ca_buyer_website": 745989,
    "ca_vendor_website": 266423,
    "ca_vendor_contact_any": 273765,
-   "ca_vendor_registry_match": 412928,
+   "ca_vendor_registry_match": 412929,
    "ca_vendor_bn9": 128131,
    "ca_buyer_invoice_portal": 70234,
    "ca_buyer_ap_email": 777287,
@@ -191,25 +191,23 @@
    "not_enriched": 104
   }
  },
- "last_rebuild": "2026-11-02T23:15:46Z",
+ "last_rebuild": "2026-11-02T23:51:59Z",
  "last_rebuild_report": {
   "team_buyers_verified": 31872,
   "team_vendors": 15387,
   "seao_api_end_dates": 63,
   "web_vendors_with_site": 18725,
   "orgbook_xp_matches": 2345,
-  "records_ap_extended": 726067,
-  "records_vendor_patched": 181476,
-  "records_ap_added": 892,
-  "seao_status_upgraded": 2,
-  "moved_to_ended": 66,
-  "new_records_duplicate": 259398,
-  "new_records_vendor_matched": 202,
-  "new_records_buyer_matched": 229,
-  "new_records_added": 483,
-  "records_orgbook_added": 7,
-  "records_web_added": 9,
-  "built_at": "2026-11-02T23:15:46Z",
+  "records_ap_extended": 726957,
+  "records_vendor_patched": 181475,
+  "new_records_duplicate": 259803,
+  "new_records_vendor_matched": 51,
+  "new_records_buyer_matched": 64,
+  "new_records_added": 190,
+  "moved_to_ended": 64,
+  "records_orgbook_added": 3,
+  "records_web_added": 1,
+  "built_at": "2026-11-02T23:51:59Z",
   "reference_date": "2026-11-02"
  }
 }
