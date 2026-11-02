@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-02 14:40 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-02 14:47 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-01)
 | metric | value |
@@ -44,7 +44,7 @@
 | claude | claude_buyer_ap_results_xverify01.csv | 21 | 21 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_xverify02.csv | 9 | 9 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_xverify03.csv | 17 | 17 | 0 | 0 | 0 |
-| claude | claude_buyer_leads.csv | 40761 | 0 | 0 | 0 | 40761 |
+| claude | claude_buyer_leads.csv | 41989 | 0 | 0 | 0 | 41989 |
 | gemini | gemini_buyer_ap_results_batch01.csv | 178 | 141 | 35 | 0 | 2 |
 | gemini | gemini_buyer_ap_results_batch02.csv | 188 | 145 | 37 | 0 | 6 |
 | gemini | gemini_buyer_ap_results_batch03.csv | 195 | 157 | 34 | 0 | 4 |
