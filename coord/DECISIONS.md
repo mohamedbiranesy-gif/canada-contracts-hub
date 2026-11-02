@@ -68,3 +68,18 @@ refuses the referee, it looks up a capture of exactly that page made in the last
 at a time) and accepts the value if it is on that copy. The evidence keeps the snapshot as `verified_via`. Failed pages
 are remembered for 3 days so they no longer consume every run's time budget; second-read tasks go to the other lane
 only for contract buyers (first) and relationship buyers.
+
+## 2026-11-01 20:15 — delivery packages for the owner's survey (claude, approved by the owner in chat)
+- The deliverable is one row per distinct buyer (vendors may repeat), each in its best package, and every delivered row
+  carries the buyer's own e-mail: P01 active relationship + invoicing/AP (Gold) … P11 e-mail not yet confirmed
+  (contrib/claude/rank_buyers/batches.py; refreshed every 3 h into coord/results/ranked/).
+- Owner's item 1: contracts awarded 12–36 months ago with no end date are "likely active" (own package P05), never mixed
+  with active ones.
+- Owner's item 3: links to an organisation from a Canada-located vendor's own site count as a relationship at three
+  strengths, kept apart: client listing (client / case-study / testimonial / portfolio page, logo wall "trusted by",
+  customer story: P06–P08) and any other page of the vendor's site (P10, weakest).
+- Private buyers are the focus: customer stories of Canada-HQ vendors (tools/customer_stories.py), home-page logo walls
+  (tools/logo_walls.py), deeper client pages (tools/client_lists2.py), logo names resolved in Wikidata (tools/logo_sites.py),
+  newswire.ca contract announcements and EDC buyer financing (dated, counted as active).
+- Owner's item 2 (vendor located in Canada through a business-registry name match, e.g. the rejected Nova Scotia records)
+  is approved for its own labelled package only; not built yet.
