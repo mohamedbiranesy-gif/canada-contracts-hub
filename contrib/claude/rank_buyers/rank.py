@@ -216,7 +216,7 @@ for k, L in leads.items():
         "contract_status": "linked from a page of the Canada-located vendor's site (not a client page)" if client == "other" else
                            "client listing on the vendor's own site (undated)" if client else
                            ("likely active (contract announced by the Canada-based vendor in the last 12 months: press release / EDC transaction)"
-                            if re.search(r"release dateline|EDC", L.get("canada_field_value", "")) else
+                            if re.search(r"release dateline|EDC|own news release", L.get("canada_field_value", "")) else
                             "likely active (payment / subcontract record dated in the last 12 months)") if recent else "payment / subaward record",
         "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"], "vendor_country_basis": L["canada_field_value"],
         "contracts_with_canadian_suppliers": L["canadian_vendor_rows"], "keys": k, "buyer_keys": 1, "tier": tier, "grade": g, "acc": acc})
