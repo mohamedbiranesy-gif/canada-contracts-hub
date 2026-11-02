@@ -1,18 +1,25 @@
 import csv, collections, os
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 rows = list(csv.DictReader(open(ROOT + "/out/ranked/ranked_buyers.csv", encoding="utf-8")))
+OK = ("confirmed", "from dataset enrichment")
+def rel(r):
+    st = r["contract_status"]
+    return ("client" if st.startswith("client listing") else "other_link" if st.startswith("linked from") else
+            "older" if st.startswith(("end date unknown", "payment / subaward")) else "likely" if st.startswith("likely active (awarded 12-36") else "active")
+# One row per buyer, in the best package it qualifies for (owner's layout, 2026-11-01): every package row has an email.
 B = collections.OrderedDict([
- ("1_GOLD_active_contract_invoicing_email", lambda r: r["rank_group"] == "GOLD"),
- ("1b_active_contract_finance_accounting_email", lambda r: r["rank_group"] in ("A3", "B3") and r["email_check"] in ("confirmed", "from dataset enrichment")),
- ("2_active_contract_purchasing_email", lambda r: r["rank_group"] in ("A2", "B2") and r["email_check"] in ("confirmed", "from dataset enrichment")),
- ("3_active_contract_general_email", lambda r: r["rank_group"] in ("A1", "B1") and r["email_check"] in ("confirmed", "from dataset enrichment")),
- ("4_active_contract_email_not_yet_confirmed", lambda r: r["rank_group"][0] in "AB" and r["rank_group"] != "GOLD" and r["email"] and r["email_check"] not in ("confirmed", "from dataset enrichment")),
- ("5_active_contract_no_email_yet", lambda r: r["rank_group"] in ("A0", "B0")),
- ("6_payment_or_subaward_record_confirmed_email", lambda r: r["contract_status"] == "payment / subaward record" and r["email_check"] == "confirmed"),
- ("6b_client_listing_on_vendor_site_confirmed_email", lambda r: r["contract_status"].startswith("client listing") and r["email_check"] == "confirmed"),
- ("6c_relationship_email_not_yet_confirmed", lambda r: r["contract_status"] == "payment / subaward record" or r["contract_status"].startswith("client listing")),
- ("7_older_contract_with_email", lambda r: r["rank_group"] in ("C1", "C2", "C3", "C4") ),
- ("8_older_contract_no_email", lambda r: r["rank_group"] == "C0"),
+ ("P01_GOLD_active_relationship_invoicing_AP_email", lambda r: r["rank_group"] == "GOLD"),
+ ("P02_active_relationship_finance_accounting_email", lambda r: rel(r) == "active" and r["grade"] == "3" and r["email_check"] in OK),
+ ("P03_active_relationship_purchasing_email", lambda r: rel(r) == "active" and r["grade"] == "2" and r["email_check"] in OK),
+ ("P04_active_relationship_general_email", lambda r: rel(r) == "active" and r["grade"] == "1" and r["email_check"] in OK),
+ ("P05_likely_active_awarded_12_36_months_any_email", lambda r: rel(r) == "likely" and r["email"] and r["email_check"] in OK),
+ ("P06_client_listing_invoicing_AP_email", lambda r: rel(r) == "client" and r["grade"] == "4" and r["email_check"] in OK),
+ ("P07_client_listing_finance_or_purchasing_email", lambda r: rel(r) == "client" and r["grade"] in ("2", "3") and r["email_check"] in OK),
+ ("P08_client_listing_general_email", lambda r: rel(r) == "client" and r["grade"] == "1" and r["email_check"] in OK),
+ ("P09_older_contract_or_payment_any_email", lambda r: rel(r) == "older" and r["email"] and r["email_check"] in OK),
+ ("P10_linked_from_vendor_site_any_email", lambda r: rel(r) == "other_link" and r["email"] and r["email_check"] in OK),
+ ("P11_any_relationship_email_not_yet_confirmed", lambda r: bool(r["email"])),
+ ("Z_no_email_yet_not_delivered", lambda r: True),
 ])
 os.makedirs(ROOT + "/out/ranked/batches", exist_ok=True)
 used, summary = set(), []

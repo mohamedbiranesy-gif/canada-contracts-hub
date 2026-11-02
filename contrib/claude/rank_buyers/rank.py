@@ -73,7 +73,7 @@ for r in csv.DictReader(io.StringIO(raw)):
         mail[r["org_key"]] = (s, r)
 # 2. contracts: best proof record per parent organisation
 TIER = {"ongoing": "A", "ongoing_inferred": "B", "end_date_unknown": "C"}
-TS = {"A": 3, "B": 2, "C": 1}
+TS = {"A": 3, "B": 2, "L": 1.5, "C": 1, "D": 1, "E": 0.5}
 CUTOFF = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
 def award_date(r):
     d = r["contract"].get("dates") or {}
@@ -85,6 +85,8 @@ def tier_of(r):
         t = "C"
     if t == "C" and CUTOFF <= award_date(r) <= today:
         return "B"
+    if t == "C" and CUTOFF3 <= award_date(r) < CUTOFF and r["status"] != "ended":
+        return "L"  # owner's rule (2026-11-01): multi-year contracts awarded 12-36 months ago, no end date: "likely active", own package
     return t
 def contract_score(r):
     c, v = r["contract"], r.get("vendor") or {}
@@ -178,7 +180,7 @@ for p, o in orgs.items():
     rows.append({"jurisdiction": gj, "rank_group": ("GOLD" if tier in "AB" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": score,
         "buyer": o["name"], "buyer_website": be.get("official_website") or "", "buyer_address": json.dumps(be.get("address") or {}, ensure_ascii=False)[:200],
         "email": em, "email_type": et, "email_check": es, "email_evidence_url": eu, "email_evidence_quote": eq,
-        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + ("Québec, awarded in the last 3 years, no closing notice" if r["status"] == "ongoing_inferred" and award_date(r) >= CUTOFF3 else "awarded in the last 12 months, no end date published") + ")", "C": "end date unknown, awarded over a year ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200],
+        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + ("Québec, awarded in the last 3 years, no closing notice" if r["status"] == "ongoing_inferred" and award_date(r) >= CUTOFF3 else "awarded in the last 12 months, no end date published") + ")", "L": "likely active (awarded 12-36 months ago, no end date published; multi-year contracts often still run)", "C": "end date unknown, awarded over 3 years ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200],
         "contract_value": c.get("value") or "", "currency": c.get("currency") or "", "award_date": award_date(r), "start_date": d.get("start") or "", "end_date": d.get("end") or "",
         "contract_link": r.get("link") or "", "source": (r.get("source") or {}).get("name", ""), "vendor": v.get("name") or "", "vendor_legal_name": ve.get("legal_name") or "",
         "vendor_address": ", ".join(x for x in (a.get("line1"), a.get("city"), a.get("region"), a.get("postal_code")) if x), "vendor_country_basis": v.get("country_basis") or "",
@@ -198,25 +200,26 @@ for k, L in leads.items():
     client = "vendor located in Canada" in L.get("canada_field_value", "")
     if client and re.search(r"\((wall|stories)\)", L.get("canada_field_value", "")):
         pass  # a client logo wall on the vendor's home page, or one of its customer stories: a client listing by construction
-    elif client:  # a link on a Canadian vendor's page: kept only from a real client / case-study / references page
+    elif client:  # a link on a Canadian vendor's page: a client listing only on a real client / case-study / references page
         path = urllib.parse.urlparse(L.get("evidence_dataset") or "").path.lower()
         if not REL_PATH.search(path) or NOT_REL_PATH.search(path):
-            continue
+            client = "other"  # owner's rule (2026-11-01): kept as the weakest relationship package, never mixed with client listings
         vh = (urllib.parse.urlparse(L.get("evidence_dataset") or "").hostname or "").lower().removeprefix("www.")
         bh = (urllib.parse.urlparse(L.get("website") or "").hostname or L.get("buyer_name") or "").lower().removeprefix("www.")
         if vh and bh and registrable(vh) == registrable(bh):  # the same organisation linking to itself (sister schools, own departments)
             continue
     recent = (L.get("latest_record_date") or "") >= CUTOFF and not client  # paid / subcontracted in the last 12 months
-    tier = "D" if client else "B" if recent else "C"
+    tier = "E" if client == "other" else "D" if client else "B" if recent else "C"
     rows.append({"rank_group": ("GOLD" if tier == "B" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0),
         "buyer": L["buyer_name"], "buyer_website": L["website"], "award_date": L.get("latest_record_date") or "",
         "email": m["mailbox"], "email_type": m["mailbox_type"], "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
-        "contract_status": "client listing on the vendor's own site (undated)" if client else
+        "contract_status": "linked from a page of the Canada-located vendor's site (not a client page)" if client == "other" else
+                           "client listing on the vendor's own site (undated)" if client else
                            ("likely active (contract announced by the Canada-based vendor in the last 12 months: press release / EDC transaction)"
                             if re.search(r"release dateline|EDC", L.get("canada_field_value", "")) else
                             "likely active (payment / subcontract record dated in the last 12 months)") if recent else "payment / subaward record",
         "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"], "vendor_country_basis": L["canada_field_value"],
-        "contracts_with_canadian_suppliers": L["canadian_vendor_rows"], "keys": k, "buyer_keys": 1})
+        "contracts_with_canadian_suppliers": L["canadian_vendor_rows"], "keys": k, "buyer_keys": 1, "tier": tier, "grade": g, "acc": acc})
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = list(rows[0].keys())
 rows.sort(key=lambda x: (x["rank_group"] != "GOLD", -x["completeness_score"]))
