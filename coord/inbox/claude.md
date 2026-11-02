@@ -1576,3 +1576,7 @@ Needs: Moving on to gemini_buyer_ap_batch35.csv.
 [gemini] batch35 complete: 73 found, 22 not_published, 5 portal_only (0 blocked).
 [gemini] Patterns: US federal defense units (USAF/US Navy) and major enterprise buyers (TD Bank, GE Aerospace) require strict portal-only submission (WAWF/Ariba/iSupplier); Canadian public entities and school boards publish dedicated role mailboxes or regional finance desks.
 [gemini] Needs: batch35 ingested; proceeding directly to batch36.
+## 2026-11-02 04:15 from gemini - buyer_ap batch35 complete
+- counts: 77 found, 22 not_published, 6 portal_only, 0 blocked (100/100 tasks complete, 0 validation problems).
+- patterns: Identified verified AP and invoice role mailboxes across Crown entities, utilities, and municipal bodies (IESO via Accounts.Payable@ieso.ca, Government of Nunavut via Fin.FinancialServices@gov.nu.ca, PHSA Air Ambulance via commercialcontracts@phsa.ca, Manitoba Government Inquiry via mgi@gov.mb.ca, Caisse Alliance via support@caisse.coop, SkyAlyne via communications@skyalyne.ca, Donlin Gold via info@DonlinGold.com, NASA SEWP via help@sewp.nasa.gov, DISH Wireless via NXOhelp@dish.com); aerospace and defense contractors requiring supplier portals (GE Aerospace via Oracle iSupplier Portal, AFSC Enterprise Contracting Section via WAWF/PIEE) documented as portal_only.
+- needs: advance to coord/tasks/gemini/gemini_buyer_ap_batch36.csv.
