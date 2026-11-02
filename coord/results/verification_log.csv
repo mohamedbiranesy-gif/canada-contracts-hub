@@ -5036,6 +5036,7 @@ gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01089,b:9962599189bdabad,info@s
 chatgpt,chatgpt_buyer_ap_results_batch06.csv,CH-AP-00523,b:9972fe43215a9be6,finance@northernrockies.ca,https://nr.civicweb.net/document/139423,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01240,b:9977448fbb101784,accountsrec@cornerbrook.com,https://www.cornerbrook.com/doing-business/business-taxes-2/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01240,b:9977448fbb101784,accountsrec@cornerbrook.com,https://www.cornerbrook.com/doing-business/business-taxes-2/,verified
+gemini,gemini_buyer_ap_results_batch32.csv,CH-AP-01240,b:9977448fbb101784,csr@cornerbrook.com,https://vch.cornerbrook.com:9443/VCH/city/contact/contact.aspx,verified
 gemini,gemini_buyer_ap_results_batch10.csv,GE-AP-00993,b:99831128cf6f41ee,direction@saintmarcelderichelieu.ca,https://saintmarcelderichelieu.ca/coordonnees.wfs,verified
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00200,b:998695dc942a3398,fb-dfapvendorcreatio@nrc-cnrc.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,unverified_page_unavailable
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00005,b:998695dc942a3398,nrc.fpsapvendorcreation-creationdefournisseursccsfa.cnrc@nrc-cnrc.gc.ca,https://nrc.canada.ca/en/corporate/direct-deposit/,verified
@@ -5123,6 +5124,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0220,b:9d711a1f8bf9708d,suppli
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0220,b:9d711a1f8bf9708d,vendormaintenance@edmonton.ca,https://www.edmonton.ca/business_economy/selling_to_the_city/corporate-accounts-payable,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00058,b:9d711a1f8bf9708d,vendormaintenance@edmonton.ca,https://www.edmonton.ca/business_economy/selling_to_the_city/corporate-accounts-payable,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00058,b:9d711a1f8bf9708d,suppliersupport@edmonton.ca,https://www.edmonton.ca/business_economy/selling_to_the_city/sap-ariba,verified
+gemini,gemini_buyer_ap_results_batch32.csv,CH-AP-01238,b:9d74b0f2f03186e8,info@oilconl.com,https://oilconl.com/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00883,b:9d792a50d99086fc,gca.facturation@outlook.com,https://www.chute-saint-philippe.ca/fr/services-aux-citoyens/bottin/,verified
 gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00883,b:9d792a50d99086fc,reception@chute-saint-philippe.ca,https://www.chute-saint-philippe.ca/fr/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch21.csv,GE-AP-02008,b:9d7af9302a05185c,longpointfirstnation@tlb.sympatico.ca,https://www.quebec.ca/gouvernement/portrait-quebec/premieres-nations-inuits/coordonnees/coordonnees-communautes-autochtones-quebec,verified
@@ -7700,6 +7702,7 @@ gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01094,b:f603ce35ec5fa4ac,info@m
 gemini,gemini_buyer_ap_results_batch13.csv,GE-AP-01208,b:f626dbf448685de3,direction@easthereford.ca,https://www.mrcdecoaticook.qc.ca/municipalites/east-hereford.php,verified
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29069,b:f633c47d98b3a09a,ekonomi@fba.se,https://fba.se/en/about-fba/contact/invoicing,verified
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00096,b:f6438f553a3a2496,directdeposit-depotdirect@vac-acc.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch32.csv,CH-AP-01239,b:f64db67fa44ac09c,info@oilconl.com,https://oilconl.com/contact/,verified
 gemini,gemini_buyer_ap_results_batch28.csv,GE-AP-28005,b:f652c632581315a8,contact@austrac.gov.au,https://www.austrac.gov.au/sites/default/files/2024-07/2024%20AUSTRAC%20Money%20Laundering%20NRA.pdf,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01149,b:f665b6483a13add4,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 gemini,gemini_buyer_ap_results_batch10.csv,GE-AP-00970,b:f666b97fdd14f900,info@st-elie-de-caxton.ca,https://www.st-elie-de-caxton.ca/fr/nous-joindre,verified
