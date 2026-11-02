@@ -1,4 +1,4 @@
-# Ranked buyers — 2026-11-02T19:31Z
+# Ranked buyers — 2026-11-02T21:45Z
 
 ```
 rows 11957
