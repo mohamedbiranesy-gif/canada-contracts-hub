@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-02 23:24 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-02 23:50 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-02)
 | metric | value |
@@ -260,7 +260,7 @@
 | lane | todo | in_progress | done | blocked |
 |---|---|---|---|---|
 | codex | 15 | 0 | 0 | 0 |
-| jules | 8 | 0 | 8 | 0 |
+| jules | 7 | 0 | 9 | 0 |
 
 ## Last ingest
 - buyers with team findings: 34237 (with at least one verified e-mail/portal: 31844)
