@@ -77,8 +77,32 @@ for j in DATASETS:
 
     offset = 0
     limit = 10000
+
+    def q(s): return "'" + s.replace("'", "''") + "'"
+    PROVS = ["ON", "ONT", "ONTARIO", "QC", "PQ", "QUE", "QUEBEC", "QUÉBEC", "BC", "B.C.", "BRITISH COLUMBIA", "AB", "ALTA",
+             "ALBERTA", "MB", "MAN", "MANITOBA", "SK", "SASK", "SASKATCHEWAN", "NS", "N.S.", "NOVA SCOTIA", "NB", "N.B.",
+             "NEW BRUNSWICK", "NL", "NF", "NFLD", "NEWFOUNDLAND", "NEWFOUNDLAND AND LABRADOR", "PE", "PEI", "P.E.I.",
+             "PRINCE EDWARD ISLAND", "YT", "YUKON", "NT", "NWT", "NORTHWEST TERRITORIES", "NU", "NUNAVUT", "CANADA", "CAN", "CDN"]
+
+    where_clauses = []
+    for c in j['cols']:
+        col = c['col']
+        kind = c['kind']
+        c_name = f"upper(`{col}`)"
+        if kind == "country":
+            where_clauses.append(f"({c_name} in ('CA','CAN','CANADA','CDN') OR {c_name} like '%CANADA%')")
+        elif kind == "state":
+            where_clauses.append(f"({c_name} in ({','.join(q(p) for p in PROVS)}) OR {c_name} like '%CANADA%')")
+        elif kind == "zip":
+            where_clauses.append(f"({c_name} >= 'A' AND {c_name} < '[')")
+        elif kind in ("address", "city"):
+            where_clauses.append(f"({c_name} like '%CANADA%')")
+
+    where_query = " OR ".join(where_clauses)
+    where_query_encoded = urllib.parse.quote(where_query)
+
     while True:
-        u = f"https://{dom}/resource/{id}.json?$limit={limit}&$offset={offset}"
+        u = f"https://{dom}/resource/{id}.json?$limit={limit}&$offset={offset}&$where={where_query_encoded}"
         try:
             req = urllib.request.Request(u, headers={'User-Agent': 'contracts-research/1.0'})
             with urllib.request.urlopen(req, timeout=120) as r:
