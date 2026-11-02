@@ -196,7 +196,9 @@ for k, L in leads.items():
     (acc, g), m = mail[k]
     if BAD_LOCAL.search(m["mailbox"].split("@")[0]): continue
     client = "vendor located in Canada" in L.get("canada_field_value", "")
-    if client:  # a link on a Canadian vendor's page: kept only from a real client / case-study / references page
+    if client and re.search(r"\((wall|stories)\)", L.get("canada_field_value", "")):
+        pass  # a client logo wall on the vendor's home page, or one of its customer stories: a client listing by construction
+    elif client:  # a link on a Canadian vendor's page: kept only from a real client / case-study / references page
         path = urllib.parse.urlparse(L.get("evidence_dataset") or "").path.lower()
         if not REL_PATH.search(path) or NOT_REL_PATH.search(path):
             continue
