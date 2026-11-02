@@ -41,8 +41,28 @@ lock = threading.Lock()
 LEADS = CL.LEADS
 
 
+def fetch_xml(url, limit=8_000_000):
+    """Like client_lists.fetch, but for sitemaps (XML, possibly gzipped)."""
+    import gzip, time, urllib.request
+    host = urllib.parse.urlparse(url).hostname or ""
+    wait = CL.last.get(host, 0) + 1.0 - time.time()
+    if wait > 0:
+        time.sleep(wait)
+    CL.last[host] = time.time()
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": CL.UA}), timeout=30) as r:
+            data = r.read(limit)
+        if data[:2] == b"\x1f\x8b":
+            data = gzip.decompress(data)
+        return data.decode("utf-8", "replace")
+    except Exception:
+        return None
+
+
 def sitemap_urls(site, cap):
-    out, seen, queue = [], set(), [urllib.parse.urljoin(site, p) for p in ("/sitemap.xml", "/sitemap_index.xml", "/en/sitemap.xml")]
+    out, seen = [], set()
+    robots = fetch_xml(urllib.parse.urljoin(site, "/robots.txt"), 300_000) or ""
+    queue = re.findall(r"(?im)^\s*sitemap:\s*(\S+)", robots) + [urllib.parse.urljoin(site, p) for p in ("/sitemap.xml", "/sitemap_index.xml", "/en/sitemap.xml")]
     while queue and len(seen) < 40 and len(out) < cap:
         sm = queue.pop(0)
         if sm in seen:
@@ -50,13 +70,13 @@ def sitemap_urls(site, cap):
         seen.add(sm)
         if not CL.allowed(sm):
             continue
-        txt, _ = CL.fetch(sm, 8_000_000)
+        txt = fetch_xml(sm)
         if not txt:
             continue
         for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", txt):
             loc = html.unescape(loc)
             if loc.endswith(".xml") or ".xml?" in loc:
-                if re.search(r"custom|case|stor|client|success|page|post|resource|sitemap\d|en", loc, re.I) and len(queue) < 60:
+                if len(queue) < 80:
                     queue.append(loc)
             elif STORY.search(urllib.parse.urlparse(loc).path) and not NOT_STORY.search(loc):
                 out.append(loc.split("#")[0])
