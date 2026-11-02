@@ -53,6 +53,10 @@ def real_grade(email, etype, quote, org=""):
     local = email.split("@")[0]
     if not roleish(local, org):
         return -1  # looks like a person's mailbox: never used
+    q = (quote or "").lower(); i = q.find(email.lower()); near = q[max(0, i - 160):i + len(email) + 160] if i >= 0 else q[:320]
+    if g >= 3 and re.search(r"receivable|recevable|tuition|student account|pay your|pay online|your bill|utility bill|donat|customer service|client payment|paiement de votre", near) \
+            and not re.search(r"payable|payer|supplier|vendor|fournisseur", near):
+        g = 1  # a receivable / customer-payment mailbox (customers pay the organisation), not where suppliers send invoices
     if g == 4 and not (STRONG.search(local) or invoice_near(email, quote)):
         g = 2 if re.search(r"procure|purchas|achat|approv", email, re.I) else 1   # labelled AP but nothing says invoicing
     if g < 3 and FIN.search(local) and not re.search(r"procure|purchas|achat|approv|aid|bourse|scholar|tuition|student|etudiant|soutien|financement|funding|grant|subvention|invest|sustainab|bank|loan|pret|credit|client", local, re.I):
@@ -180,7 +184,7 @@ for p, o in orgs.items():
     rows.append({"jurisdiction": gj, "rank_group": ("GOLD" if tier in "AB" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": score,
         "buyer": o["name"], "buyer_website": be.get("official_website") or "", "buyer_address": json.dumps(be.get("address") or {}, ensure_ascii=False)[:200],
         "email": em, "email_type": et, "email_check": es, "email_evidence_url": eu, "email_evidence_quote": eq,
-        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + ("Québec, awarded in the last 3 years, no closing notice" if r["status"] == "ongoing_inferred" and award_date(r) >= CUTOFF3 else "awarded in the last 12 months, no end date published") + ")", "L": "likely active (awarded 12-36 months ago, no end date published; multi-year contracts often still run)", "C": "end date unknown, awarded over 3 years ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200],
+        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + (("Québec, awarded in the last 3 years, no closing notice" if jur_of_record(r) == "QC" else "source marks it as continuing; awarded in the last 3 years, no end date published") if r["status"] == "ongoing_inferred" and award_date(r) >= CUTOFF3 else "awarded in the last 12 months, no end date published") + ")", "L": "likely active (awarded 12-36 months ago, no end date published; multi-year contracts often still run)", "C": "end date unknown, awarded over 3 years ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200],
         "contract_value": c.get("value") or "", "currency": c.get("currency") or "", "award_date": award_date(r), "start_date": d.get("start") or "", "end_date": d.get("end") or "",
         "contract_link": r.get("link") or "", "source": (r.get("source") or {}).get("name", ""), "vendor": v.get("name") or "", "vendor_legal_name": ve.get("legal_name") or "",
         "vendor_address": ", ".join(x for x in (a.get("line1"), a.get("city"), a.get("region"), a.get("postal_code")) if x), "vendor_country_basis": v.get("country_basis") or "",
@@ -189,6 +193,8 @@ for p, o in orgs.items():
 # 4. buyers proven by payment / subaward records or client listings (no contract in the dataset)
 leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8", errors="replace"))}
 seen = {norm(x["buyer"]) for x in rows}
+seen_dom = {registrable((urllib.parse.urlparse(x["buyer_website"]).hostname or "").lower().removeprefix("www.")) for x in rows if x.get("buyer_website")}
+seen_dom.discard("")
 import urllib.parse
 REL_PATH = re.compile(r"client|customer|case-stud|casestud|case_stud|temoignage|t%C3%A9moignage|testimonial|success-stor|"
                       r"portfolio|our-work|realisations?\b|r%C3%A9alisations?|nos-realisations|clientele")
@@ -197,6 +203,17 @@ for k, L in leads.items():
     if k not in mail or norm(L["buyer_name"]) in seen: continue
     (acc, g), m = mail[k]
     if BAD_LOCAL.search(m["mailbox"].split("@")[0]): continue
+    lsite = L.get("website") or ""
+    if lsite and not same_org(m["mailbox"], lsite, L["buyer_name"]):
+        continue  # a contractor's, parent government's or other body's mailbox seen on the lead's pages
+    if not lsite:
+        ph = (urllib.parse.urlparse(m.get("evidence_url") or "").hostname or "").lower().removeprefix("www.")
+        if not (ph and same_org(m["mailbox"], "https://" + ph, L["buyer_name"])):
+            continue
+    ldom = registrable((urllib.parse.urlparse(lsite).hostname or m["mailbox"].split("@")[-1]).lower().removeprefix("www."))
+    if ldom in seen_dom:
+        continue  # the same organisation already delivered (contract buyer or another lead with the same website)
+    seen_dom.add(ldom)
     client = "vendor located in Canada" in L.get("canada_field_value", "")
     if client and re.search(r"\((wall|stories)\)", L.get("canada_field_value", "")):
         pass  # a client logo wall on the vendor's home page, or one of its customer stories: a client listing by construction
