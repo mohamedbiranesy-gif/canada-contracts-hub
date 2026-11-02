@@ -209,7 +209,8 @@ for k, L in leads.items():
         if vh and bh and registrable(vh) == registrable(bh):  # the same organisation linking to itself (sister schools, own departments)
             continue
     recent = (L.get("latest_record_date") or "") >= CUTOFF and not client  # paid / subcontracted in the last 12 months
-    announced = bool(re.search(r"release dateline|EDC|own news release", L.get("canada_field_value", "")))
+    announced = bool(re.search(r"release dateline|EDC|own news release|customer story published by the vendor", L.get("canada_field_value", "")))
+    src = (L.get("canada_field_value") or "").split("=")[0].strip()[:90]  # the source's Canada field, e.g. "contractor address country (IRS Form 990)"
     likely = not client and not recent and CUTOFF3 <= (L.get("latest_record_date") or "") < CUTOFF  # owner's 12-36 month rule (dated deal or payment)
     irs = "IRS Form" in L.get("canada_field_value", "")
     tier = "E" if client == "other" else "D" if client else "B" if recent else "L" if likely else "C"
@@ -218,13 +219,13 @@ for k, L in leads.items():
         "email": m["mailbox"], "email_type": m["mailbox_type"], "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
         "contract_status": ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
                             "likely active (awarded 12-36 months ago; paid in a fiscal year ending 12-36 months ago: IRS Form 990 contractor located in Canada)" if irs else
-                            "likely active (awarded 12-36 months ago; payment / subaward record dated 12-36 months ago)") if likely else
+                            "likely active (awarded 12-36 months ago; record dated 12-36 months ago: %s)" % src) if likely else
                            "linked from a page of the Canada-located vendor's site (not a client page)" if client == "other" else
                            "client listing on the vendor's own site (undated)" if client else
                            ("likely active (contract announced by the Canada-based vendor in the last 12 months: press release / EDC transaction)"
                             if re.search(r"release dateline|EDC|own news release", L.get("canada_field_value", "")) else
                             "likely active (paid in a fiscal year ending in the last 12 months: IRS Form 990 contractor located in Canada)" if irs else
-                            "likely active (payment / subcontract record dated in the last 12 months)") if recent else "payment / subaward record",
+                            "likely active (record dated in the last 12 months: %s)" % src) if recent else "payment / subaward record",
         "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"], "vendor_country_basis": L["canada_field_value"],
         "contracts_with_canadian_suppliers": L["canadian_vendor_rows"], "keys": k, "buyer_keys": 1, "tier": tier, "grade": g, "acc": acc})
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)

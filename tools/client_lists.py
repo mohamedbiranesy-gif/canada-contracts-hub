@@ -12,7 +12,7 @@ OpenStreetMap offices/industry in Canada (batch904), from the crawler's local wo
 Leads: ~/cch-leads/socrata_rel_<I>.jsonl (picked up by tools/lead_scanner.py --bridge -> tools/ap_crawler.py, which then
 finds each buyer's invoicing / AP mailbox on its own site). Polite: robots.txt, one request per second per site.
 """
-import argparse, csv, glob, hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request, urllib.robotparser
+import argparse, csv, glob, hashlib, html, json, os, re, sys, time, urllib.error, urllib.parse, urllib.request, urllib.robotparser
 from concurrent.futures import ThreadPoolExecutor
 
 LEADS = os.path.expanduser("~/cch-leads")
@@ -43,12 +43,30 @@ def fetch(url, limit=3_000_000):
         return None, url
 
 
+def fetch_text(url, limit=300_000):
+    """Any text reply (robots.txt). None when missing or unreachable, False when refused (401/403)."""
+    host = urllib.parse.urlparse(url).hostname or ""
+    wait = last.get(host, 0) + 1.0 - time.time()
+    if wait > 0:
+        time.sleep(wait)
+    last[host] = time.time()
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=20) as r:
+            return r.read(limit).decode("utf-8", "replace")
+    except urllib.error.HTTPError as e:
+        return False if e.code in (401, 403) else None
+    except Exception:
+        return None
+
+
 def allowed(url):
     p = urllib.parse.urlparse(url)
     key = "%s://%s" % (p.scheme, p.netloc)
     if key not in robots:
         rp = urllib.robotparser.RobotFileParser()
-        txt, _ = fetch(key + "/robots.txt", 300_000)
+        txt = fetch_text(key + "/robots.txt", 300_000)  # robots.txt is text/plain: fetch() keeps only HTML
+        if txt is False:
+            rp.disallow_all = True  # robots.txt refused (401/403): stay out, as urllib.robotparser does
         rp.parse((txt or "").splitlines())
         robots[key] = rp
     try:
