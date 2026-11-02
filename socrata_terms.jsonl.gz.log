@@ -1,0 +1,72 @@
+10:07:21 {"q": "contract"} total=1062 got=1062 new=1062 seen=1062
+10:07:23 {"q": "contracts"} total=1062 got=1062 new=0 seen=1062
+10:07:25 {"q": "contractor"} total=437 got=437 new=313 seen=1375
+10:07:26 {"q": "contractors"} total=437 got=437 new=0 seen=1375
+10:07:27 {"q": "contract awards"} total=139 got=139 new=0 seen=1375
+10:07:33 {"q": "awarded contracts"} total=139 got=139 new=0 seen=1375
+10:07:34 {"q": "award"} total=556 got=556 new=411 seen=1786
+10:07:35 {"q": "awards"} total=556 got=556 new=0 seen=1786
+10:07:37 {"q": "agreement"} total=464 got=464 new=339 seen=2125
+10:07:38 {"q": "agreements"} total=464 got=464 new=0 seen=2125
+10:07:39 {"q": "purchase order"} total=167 got=167 new=69 seen=2194
+10:07:40 {"q": "purchase orders"} total=167 got=167 new=0 seen=2194
+10:07:42 {"q": "purchasing"} total=746 got=746 new=413 seen=2607
+10:07:43 {"q": "procurement"} total=256 got=256 new=65 seen=2672
+10:07:45 {"q": "purchases"} total=746 got=746 new=0 seen=2672
+10:07:52 {"q": "vendor"} total=596 got=596 new=319 seen=2991
+10:07:53 {"q": "vendors"} total=596 got=596 new=0 seen=2991
+10:07:54 {"q": "supplier"} total=101 got=101 new=33 seen=3024
+10:07:55 {"q": "suppliers"} total=101 got=101 new=0 seen=3024
+10:08:01 {"q": "payee"} total=55 got=55 new=29 seen=3053
+10:08:03 {"q": "payees"} total=55 got=55 new=0 seen=3053
+10:08:04 {"q": "encumbrance"} total=73 got=73 new=66 seen=3119
+10:08:05 {"q": "encumbrances"} total=73 got=73 new=0 seen=3119
+10:08:09 {"q": "checkbook"} total=46 got=46 new=9 seen=3128
+10:08:10 {"q": "check register"} total=40 got=40 new=11 seen=3139
+10:08:14 {"q": "ledger"} total=59 got=59 new=33 seen=3172
+10:08:19 {"q": "expenditure"} total=826 got=826 new=536 seen=3708
+10:08:20 {"q": "expenditures"} total=826 got=826 new=0 seen=3708
+10:08:25 {"q": "spending"} total=523 got=523 new=273 seen=3981
+10:08:30 {"q": "spend"} total=523 got=523 new=0 seen=3981
+10:08:33 {"q": "payment"} total=934 got=934 new=417 seen=4398
+10:08:34 {"q": "payments"} total=934 got=934 new=0 seen=4398
+10:08:35 {"q": "disbursement"} total=145 got=145 new=30 seen=4428
+10:08:36 {"q": "disbursements"} total=145 got=145 new=0 seen=4428
+10:08:37 {"q": "accounts payable"} total=33 got=33 new=4 seen=4432
+10:08:38 {"q": "invoice"} total=98 got=98 new=15 seen=4447
+10:08:39 {"q": "invoices"} total=98 got=98 new=0 seen=4447
+10:08:40 {"q": "warrant"} total=102 got=102 new=84 seen=4531
+10:08:41 {"q": "warrants"} total=102 got=102 new=0 seen=4531
+10:08:42 {"q": "obligation"} total=255 got=255 new=74 seen=4605
+10:08:43 {"q": "obligations"} total=255 got=255 new=0 seen=4605
+10:08:45 {"q": "bid"} total=146 got=146 new=34 seen=4639
+10:08:47 {"q": "bids"} total=146 got=146 new=0 seen=4639
+10:08:47 {"q": "solicitation"} total=106 got=106 new=50 seen=4689
+10:08:51 {"q": "sole source"} total=63 got=63 new=44 seen=4733
+10:08:57 {"q": "professional services"} total=386 got=386 new=163 seen=4896
+10:08:58 {"q": "transparency"} total=435 got=435 new=198 seen=5094
+10:08:59 {"q": "open book"} total=73 got=73 new=51 seen=5145
+10:09:00 {"q": "purchasing card"} total=35 got=35 new=0 seen=5145
+10:09:01 {"q": "p-card"} total=38 got=38 new=26 seen=5171
+10:09:02 {"q": "blanket"} total=18 got=18 new=4 seen=5175
+10:09:11 {"q": "master agreement"} total=16 got=16 new=0 seen=5175
+10:09:12 {"q": "cooperative contract"} total=33 got=33 new=0 seen=5175
+10:09:13 {"q": "statewide contract"} total=121 got=121 new=0 seen=5175
+10:09:14 {"q": "consultant"} total=353 got=353 new=221 seen=5396
+10:09:15 {"q": "consulting"} total=353 got=353 new=0 seen=5396
+10:09:24 {"q": "expense"} total=695 got=695 new=167 seen=5563
+10:09:26 {"q": "expenses"} total=695 got=695 new=0 seen=5563
+10:09:27 {"q": "transactions"} total=434 got=434 new=187 seen=5750
+10:09:36 {"q": "general ledger"} total=40 got=40 new=0 seen=5750
+10:09:38 {"q": "commitments"} total=682 got=682 new=471 seen=6221
+10:09:39 {"q": "requisition"} total=16 got=16 new=4 seen=6225
+10:09:41 {"q": "goods and services"} total=344 got=344 new=131 seen=6356
+10:09:42 {"q": "services agreement"} total=224 got=224 new=0 seen=6356
+10:09:43 {"q": "lease"} total=229 got=229 new=89 seen=6445
+10:09:46 {"q": "concession"} total=28 got=28 new=7 seen=6452
+10:09:50 {"q": "PO"} total=71 got=71 new=37 seen=6489
+10:09:50 {"q": "open checkbook"} total=13 got=13 new=0 seen=6489
+10:09:51 {"q": "vendor payments"} total=213 got=213 new=0 seen=6489
+10:09:52 {"q": "spending data"} total=245 got=245 new=0 seen=6489
+10:09:54 {"q": "financial transactions"} total=145 got=145 new=0 seen=6489
+10:09:55 {"q": "supplier payments"} total=35 got=35 new=0 seen=6489
