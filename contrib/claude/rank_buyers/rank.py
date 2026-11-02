@@ -214,7 +214,7 @@ for k, L in leads.items():
                             if re.search(r"release dateline|EDC", L.get("canada_field_value", "")) else
                             "likely active (payment / subcontract record dated in the last 12 months)") if recent else "payment / subaward record",
         "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"], "vendor_country_basis": L["canada_field_value"],
-        "contracts_with_canadian_suppliers": L["canadian_vendor_rows"]})
+        "contracts_with_canadian_suppliers": L["canadian_vendor_rows"], "keys": k, "buyer_keys": 1})
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = list(rows[0].keys())
 rows.sort(key=lambda x: (x["rank_group"] != "GOLD", -x["completeness_score"]))
