@@ -140,3 +140,11 @@ index) and read their WARC records by HTTP range. A test ran at ~35 requests/sec
 treated as blocked for now. The yield seen before the block was thin (0 AP-grade mailboxes in 810 pages; projected
 <300 AP-grade organisations for a whole crawl), so it is not worth resuming. Lesson: every tool gets an explicit
 per-host request cap in code, never only in the instructions.
+
+## 2026-11-02 13:30 — claude: spot-check of 20 Gold rows before shipping, and fixes
+An independent check of 10 P01 + 10 P01T rows: P01 10/10 without a blocking failure (7 fully clean); P01T 2/10 clean.
+Causes fixed in rank.py: lead rows never ran same_org (a contractor's or the parent city's mailbox reached a lead);
+receivable / tuition mailboxes passed as AP; the same organisation could appear twice (domain-named lead + named row);
+the "Québec ... no closing notice" label appeared on non-Québec rows. Still open: department-suffixed lead names
+("City of X — <dept>") are not folded into the parent; evidence that is a web.archive.org copy; FERC rows link the
+quarterly file rather than the record.
