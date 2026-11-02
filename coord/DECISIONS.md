@@ -83,3 +83,18 @@ only for contract buyers (first) and relationship buyers.
   newswire.ca contract announcements and EDC buyer financing (dated, counted as active).
 - Owner's item 2 (vendor located in Canada through a business-registry name match, e.g. the rejected Nova Scotia records)
   is approved for its own labelled package only; not built yet.
+
+## 2026-11-01 22:20 — claude: dated private buyers from vendors' own news releases; announcements 12–36 months old are "likely active"
+- tools/vendor_news.py reads the newsrooms of the ~42,600 Canada-located vendor sites (batch903/904/902 + the Canada-HQ
+  list): release URLs from sitemaps / newsroom pages whose slug carries a deal word, titles parsed so that the site owner
+  is the seller ("<Buyer> selects <Vendor>", "<Vendor> wins contract with <Buyer>", "<Vendor> to provide <Buyer> with",
+  French forms). Financing, investment, grants, M&A, MOU/LOI, distribution, partnerships, prizes and rankings are dropped.
+  A vendor site that is not .ca (outside the curated Canada-HQ list) must show a Canadian dateline, head-office phrase or
+  postal code in the release, so a global group's newsroom never stands for its Canadian entity. Buyer website: a link in
+  the release that spells the buyer, else an exact Wikidata label match (any country; one-word names only when the domain
+  spells them). Leads carry row.news_date, so lead_scanner dates them.
+- rank.py: a deal announced by the Canada-based vendor (newswire dateline, EDC transaction, own news release) dated in
+  the last 12 months is tier B (GOLD with an invoicing mailbox); 12–36 months old is tier L, package P05 (owner's
+  12–36 month rule), never mixed with active ones.
+- same_org: a sibling campus domain (@tamuk.edu for tamu.edu, @uncc.edu for unc.edu) is not the buyer's own mailbox
+  (found in the P01 spot-check).

@@ -1529,3 +1529,12 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/413
 - Batch 29 complete: 100/100 tasks researched (64 found, 23 not_published, 13 portal_only, 0 blocked; 0 validation problems).
 - Patterns: Secured high-value dedicated AP, procurement and central institutional mailboxes across Crown agencies and universities (GLPA via accountspayables@glpa-apgl.com, ECB via ap.invoices@ecb.europa.eu, Royal Holloway via Finance-Payments@rhul.ac.uk, Somerset NHS via FinAc@somersetft.nhs.uk, FBA Sweden via ekonomi@fba.se, BWPC via Procurement@nbt.nhs.uk, UNRA Uganda via procurement@unra.go.ug, TANROADS via tanroadshq@tanroads.go.tz, DFG via postmaster@dfg.de, Norsk Polarinstitutt via post@npolar.no, UKHSA via correspondence@ukhsa.gov.uk); defense primes and multi-national bodies mandating electronic portals (Bank of England, Saab AB via Pagero/Ivalua, Raytheon/RTX via Exostar, UNICEF GSSC portal) recorded as portal_only; World Bank multi-ministry borrower records without implementing agencies recorded as not_published.
 - Needs: None; advancing immediately to gemini_buyer_ap_batch30.csv.
+## 2026-11-01 22:20 from claude (private buyers)
+- Search p10 (B_311, 53 new client domains): 13 buyers with pages, 3 mailboxes. The client-page domain pool is nearly
+  drained (build_new gave 72 rows), so the search budget moved to recently dated buyers that had no website.
+- New: search p11 = official site + AP page of 88 of 180 recently dated buyers without a website (US subaward primes,
+  EDC buyers, newswire buyers); deep_pages --urls running (20 of the first 50 with a mailbox) plus crawl_some on their
+  sites (contrib/claude/private_buyers/dated_buyer_sites01.csv). D_005–D_008 (171 rows) are next.
+- New: tools/vendor_news.py running on the Mac, 3 shards over ~42,300 vendor sites (~/cch-leads/socrata_vnews_*.jsonl).
+- Fixed: same_org sibling-campus false credit (Texas A&M University had TAMUK's invoices@ mailbox). P01 spot-check
+  otherwise 9/10 clean.
