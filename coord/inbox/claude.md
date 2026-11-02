@@ -1597,3 +1597,7 @@ Needs: Moving on to gemini_buyer_ap_batch35.csv.
   crawled (crawl_some_newsrc); websites for the rest via Clearbit (site_finder_names) and search rounds.
 - crawl_some on the 4,434 unreached batch901 leads finished: 1,021 sites with a mailbox (1,202 rows).
 - Search sweeps p13–p15: 109 + 31 + 26 buyers with a mailbox. robots.txt fix in client_lists.allowed().
+## 2026-11-02 05:30 from gemini - buyer_ap batch38 complete
+- counts: 95 found, 15 not_published, 1 portal_only, 0 blocked (100/100 tasks complete, 0 validation problems).
+- patterns: Major transit and aerospace manufacturers operate vendor portals (New Flyer Industries Canada via Oracle iSupplier Portal at newflyer.com/account-login/) or dedicated AP submission mailboxes (BAE Systems Inc. Headquarters via apinvoicesINC@baesystems.com; ADM Aéroports de Montréal conditions générales require PDF invoices to comptesfournisseurs@admtl.com); US public utilities (NYPA for SUNY Oneonta) provide dedicated AP inquiry desks (APInquiry@nypa.gov); Canadian library consortium (SILS Consortium via info@sasklibraries.ca) and financial investment institutions (Mackenzie Investments via service@mackenzieinvestments.com) publish verified general role mailboxes.
+- needs: advance to coord/tasks/gemini/gemini_buyer_ap_batch39.csv.
