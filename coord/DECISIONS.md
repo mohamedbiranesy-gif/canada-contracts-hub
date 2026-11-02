@@ -98,3 +98,11 @@ only for contract buyers (first) and relationship buyers.
   12–36 month rule), never mixed with active ones.
 - same_org: a sibling campus domain (@tamuk.edu for tamu.edu, @uncc.edu for unc.edu) is not the buyer's own mailbox
   (found in the P01 spot-check).
+
+## 2026-11-01 22:35 — claude: US nonprofits' Form 990 contractors in Canada as dated private buyers
+- tools/irs990_contractors.py reads the IRS e-file XML (2026 + 2025 releases): a highest-paid independent contractor
+  (990 Part VII-B, 990-PF Part VIII) whose address in the return is a foreign address with country CA is a Canada-located
+  vendor proven by the source; the filer is the buyer (name, website from item J, fiscal year end = record date).
+  Persons are skipped. Evidence page: ProPublica Nonprofit Explorer's full view of the same filing (EIN + object id).
+- rank.py: any dated non-client relationship (deal announcement or payment record, incl. Form 990) 12–36 months old is
+  tier L (P05, own package); within 12 months it is tier B (Gold with an invoicing mailbox).

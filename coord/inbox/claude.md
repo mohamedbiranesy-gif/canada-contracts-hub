@@ -1538,3 +1538,10 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/413
 - New: tools/vendor_news.py running on the Mac, 3 shards over ~42,300 vendor sites (~/cch-leads/socrata_vnews_*.jsonl).
 - Fixed: same_org sibling-campus false credit (Texas A&M University had TAMUK's invoices@ mailbox). P01 spot-check
   otherwise 9/10 clean.
+## 2026-11-01 22:35 from claude (private buyers)
+- p11 deep_pages: 36 of 87 dated buyers got a mailbox. p12 (59 more official sites) running + crawl_some on both lists.
+- New source running: tools/irs990_contractors.py (~1 Canada-located contractor per 1,000 returns; 122 rows / 81 buyers
+  from the first 6 zips, mostly fiscal years ending in the last 12 months).
+- crawl_some started on the 4,434 lead buyers of batch901 the crawler had not reached yet.
+- Queued for the next search rounds: 581 active buyers (A0/B0) with no website (scratchpad D_101–D_113) and 386 with a
+  website but no mailbox (B_401).
