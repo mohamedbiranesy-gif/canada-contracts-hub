@@ -2,8 +2,8 @@
 """Every delivered buyer that still lacks a confirmed invoicing / AP mailbox, as search batches (owner, 2026-11-01: an
 AP mailbox for every buyer of every package, private buyers first). Reads out/ranked/ranked_buyers.csv or
 coord/results/ranked/ranked_buyers.csv; skips buyers already searched (keys in claude_search_urls_p*.csv and in
---skip files). Order: private relationship packages first, then the active-contract packages (an AP mailbox makes them
-Gold), then the rest. Writes B_NNN.tsv (buyers with a website: 10 sites per search) and D_NNN.tsv (no website: one
+--skip files). Order: active relationships first (an AP mailbox makes them Gold), then likely active, client listings, other links,
+older records. Writes B_NNN.tsv (buyers with a website: 10 sites per search) and D_NNN.tsv (no website: one
 search per buyer) into <dir>.
   python3 contrib/claude/private_buyers/ap_upgrade_targets.py <dir> --b-start 402 --d-start 201 [--skip f ...] [--exclude-out x.csv N]
 """
@@ -14,14 +14,14 @@ a = argparse.ArgumentParser()
 a.add_argument("dir")
 a.add_argument("--b-start", type=int, required=True)
 a.add_argument("--d-start", type=int, required=True)
-a.add_argument("--skip", nargs="*", default=[])
+a.add_argument("--skip", nargs="*", default=[], help="CSV or TSV files whose buyer_key column lists buyers already searched")
 a = a.parse_args()
 src = ROOT + "/out/ranked/ranked_buyers.csv"
 src = src if os.path.exists(src) else ROOT + "/coord/results/ranked/ranked_buyers.csv"
 rows = list(csv.DictReader(open(src, encoding="utf-8")))
 done = set()
 for f in glob.glob(ROOT + "/coord/tasks/claude/claude_search_urls_p*.csv") + a.skip:
-    for r in csv.DictReader(open(f, encoding="utf-8", errors="replace")):
+    for r in csv.DictReader(open(f, encoding="utf-8", errors="replace"), delimiter="\t" if f.endswith(".tsv") else ","):
         done.add(r.get("buyer_key") or "")
 OK = ("confirmed", "from dataset enrichment")
 
@@ -34,7 +34,7 @@ def rel(r):
 
 def prio(r):
     g, private = int(r["grade"] or 0), r["keys"].startswith("lead:")
-    order = {"client": 0, "likely": 1, "active": 2 if private else 4, "other_link": 3, "older": 5}[rel(r)]
+    order = {"active": 0, "likely": 1, "client": 2, "other_link": 3, "older": 4}[rel(r)]  # an AP mailbox turns an active one into Gold
     return (order, -g)
 
 
