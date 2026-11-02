@@ -16632,7 +16632,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-17047,lead:eebd1b583473ea4a,mar
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-17047,lead:eebd1b583473ea4a,supplierinclusion@costco.com,https://www.costco.com/f/-/supplier-diversity,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04090,lead:eebe52ef188f03ff,hello@palettecafe.ca,https://www.palettecafe.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03379,lead:eedfc9a2040e6666,contact-investors@colas.fr,https://www.colas.com/sites/g/files/tkmtob366/files/2025-08/CP%20Colas%20-%20Programme%20de%20rachat%20d%27actions%20-%20R%C3%A9duction%20de%20moyens%20au%20contrat%20de%20liquidit%C3%A9%20avec%20Kepler%20Cheuvreux.pdf,unverified_page_unavailable
-gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00665,lead:eedfc9a2040e6666,communication@colas.fr,https://www.colas.com/en/legal-information,unverified_page_unavailable
+gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00665,lead:eedfc9a2040e6666,communication@colas.fr,https://www.colas.com/en/legal-information,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15220,lead:eef13760898d6792,info@marketingmedia.ca,https://marketing.media/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15220,lead:eef13760898d6792,info@marketingmedia.ca,https://marketing.media/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03634,lead:eef4f1ac4a90c07a,contact@generationrobots.com,https://www.generationrobots.com/fr/content/5-modes-de-paiement-acceptes,verified
