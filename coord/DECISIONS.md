@@ -132,3 +132,11 @@ Plan: (1) AP mailbox for every active non-Gold buyer (~2,600: P02–P04 + 967 wi
   announced by the vendor"), labelled with its source; undated stories stay client listings (owner: P06 not Gold).
 - Website search for Colombian importers: the e-invoicing query returned only DIAN guidance (180 searches, 1 site);
   the query is now "<name> Colombia". Clearbit autocomplete finds ~2% of these names (exact name + verified title).
+
+## 2026-11-02 08:40 — claude: Common Crawl AP-page mining stopped (politeness incident)
+tools/cc_mine.py located AP / vendor / invoice pages in the Common Crawl URL index (DuckDB over the public columnar
+index) and read their WARC records by HTTP range. A test ran at ~35 requests/second (an agent's mistake, against rule
+9) and data.commoncrawl.org answered 403. Both the index scan and the miner were stopped; per rule 6 the source is
+treated as blocked for now. The yield seen before the block was thin (0 AP-grade mailboxes in 810 pages; projected
+<300 AP-grade organisations for a whole crawl), so it is not worth resuming. Lesson: every tool gets an explicit
+per-host request cap in code, never only in the instructions.
