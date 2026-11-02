@@ -80,6 +80,11 @@ CANADA_LINE = re.compile(r"\b(TORONTO|MONTR[ÉE]AL|VANCOUVER|CALGARY|OTTAWA|EDMO
                          r"Ont\.?|Qu[ée]\.?|B\.C\.|Alta\.?|Man\.?|Sask\.?|N\.S\.|N\.B\.|Ontario|Qu[ée]bec|British Columbia|Alberta|"
                          r"Manitoba|Saskatchewan|Nova Scotia|New Brunswick|Newfoundland|Prince Edward Island|Canada))\b[^.\n]{0,60}?"
                          r"(?:20\d\d|/CNW/|/PRNewswire/|Newswire|GLOBE NEWSWIRE|–|—|-)")
+CANADA_PLACE = (r"Canada|Ontario|Qu[ée]bec|British Columbia|Alberta|Manitoba|Saskatchewan|Nova Scotia|New Brunswick|Newfoundland|"
+                r"Prince Edward Island|Toronto|Montr[ée]al|Vancouver|Calgary|Ottawa|Edmonton|Winnipeg|Waterloo|Kitchener|Saskatoon|"
+                r"Regina|Halifax|Mississauga|Markham|Burnaby|Laval|Gatineau|Sherbrooke|Victoria|Kelowna|Moncton|Fredericton")
+CANADA_HQ = re.compile(r"(?:headquartered|based|head\s+office|headquarters|si[èe]ge\s+social|bas[ée]e?|[ée]tablie?)\s+(?:is\s+)?(?:in|à|a|au|en)\s+"
+                       r"(?:[A-Z][\w.'’-]+,?\s+){0,3}?(?:" + CANADA_PLACE + r")\b|\b[A-CEGHJ-NPR-TVXY]\d[A-CEGHJ-NPR-TV-Z]\s?\d[A-CEGHJ-NPR-TV-Z]\d\b")
 BASIS = {"v": "contract data: vendor country Canada", "osm": "OpenStreetMap office in Canada",
          "wd": "Wikidata: country Canada", "hq": "Canada-headquartered company list"}
 lock = threading.Lock()
@@ -121,7 +126,7 @@ def find_vendor(title, names):
 def clean_buyer(b):
     b = html.unescape(b or "").strip(" '\"“”‘’.")
     b = CUT.sub("", b).strip(" '\"“”‘’.,")
-    b = re.sub(r"^(the|la|le|les|l')\s*", "", b, flags=re.I).strip()
+    b = re.sub(r"^(?:(?:why|how|when|where)\s+)?(?:the|la|le|les|l')?\s*", "", b, flags=re.I).strip()
     b = re.sub(r"(?:'s|’s)$", "", b)
     if not b or len(b) > 80 or len(b.split()) > 9 or BAD_BUYER.match(b) or not re.search(r"[A-Za-zÀ-ÿ]{2}", b):
         return ""
@@ -326,9 +331,9 @@ def one(v, out, nosite, done, cap, stats):
         if not d or d < OLDEST or d > TODAY.isoformat():
             continue
         text = body_text(page)
-        place = CANADA_LINE.search(text[:1500])
-        place = place.group(0)[:160] if place else ""
-        if basis in ("wd", "osm") and not vhost.endswith(".ca") and not place:
+        place = CANADA_LINE.search(text[:4000]) or CANADA_HQ.search(text)
+        place = re.sub(r"\s+", " ", text[max(0, place.start() - 40):place.end() + 40]).strip()[:200] if place else ""
+        if basis != "hq" and not vhost.endswith(".ca") and not place:  # a global group's newsroom is not its Canadian entity's
             stats["no_canada_line"] += 1
             continue
         if squash(buyer) in squash(" ".join(pnames)) or any(squash(n) in squash(buyer) for n in pnames if len(n) >= 4):
