@@ -38,20 +38,29 @@ OUT = os.path.join(LEADS, "socrata_news_match.jsonl")
 UA = CL.UA if hasattr(CL, "UA") else "canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)"
 lock = threading.Lock()
 
-BUY = re.compile(r"\b(select(?:s|ed)?|chooses|chose|chosen|picks|picked|taps|tapped|award(?:s|ed)?|contract(?:s|ed)?|agreement|"
-                 r"deploy(?:s|ed|ment)?|implement(?:s|ed|ation)?|goes live|go live|went live|roll(?:s|ed)? out|rollout|adopt(?:s|ed)?|"
-                 r"renew(?:s|ed|al)?|extend(?:s|ed)?|expan(?:ds|ded|sion)|purchas(?:e|es|ed)|order(?:s|ed)?|suppl(?:y|ies|ied)|"
-                 r"deliver(?:s|ed|y)?|provid(?:e|es|ed|ing)|standardi[sz]e[sd]? on|customer|client|subscri(?:bes|ption)|licen[cs]e[sd]?|"
-                 r"signs?|signed|wins?|won|secure[sd]?|engage[sd]?|retain(?:s|ed)?|mandate|tender|rfp|procure(?:s|d|ment)|"
-                 r"choisi\w*|retenu\w*|s[ée]lectionn\w*|octroi\w*|attribu\w*|confi[ée]\w*|contrat|entente|commande|d[ée]ploie\w*|"
-                 r"adopte\w*|renouvel\w*|fournir\w*|livrer\w*|client[eè]?l?e?|mandat|remport\w*|obtien\w*|d[ée]croch\w*)\b", re.I)
+BUY = re.compile(r"\b(select(?:s|ed)|chose|chooses|chosen|picks|picked|taps|tapped|awarded|awards|contract(?:ed)?\s+(?:to|with|by|from)|"
+                 r"purchase\s+order|orders?\s+(?:from|of|for)|ordered|renew(?:s|ed|al)|standardi[sz]e[sd]\s+on|goes\s+live|went\s+live|go\s+live|"
+                 r"roll(?:s|ed)?\s+out|rollout|deploy(?:s|ed|ment|ing)|implement(?:s|ed|ation|ing)|adopt(?:s|ed|ion)|licen[cs]e[sd]|"
+                 r"subscri(?:bed|ption)|(?:new|latest|newest|first)\s+(?:customer|client)|as\s+(?:a\s+)?(?:new\s+)?(?:customer|client)|"
+                 r"customer\s+(?:win|agreement|contract)|to\s+(?:provide|supply|deliver|deploy|implement|equip|power|support|serve|build|"
+                 r"design|modernize|modernise|digitize|digitise|operate|manage)|will\s+(?:provide|supply|deliver|deploy|implement|equip|build|"
+                 r"design|operate)|has\s+(?:been\s+)?(?:selected|chosen|awarded|contracted|engaged|retained)|mandat[ée]?e?|choisi\w*|retenu\w*|"
+                 r"octroy\w*|adjug\w*|attribu\w*|d[ée]ploie\w*|renouvel\w*|commande|livrera|fournira|r[ée]alisera|nouveau\s+client|"
+                 r"nouvelle\s+cliente|contrat\s+(?:avec|de|du|pour|octroy|attribu|accord))\b", re.I)
 DROP_T = re.compile(r"financ|credit facilit|\bloan|\bprêt|invest(?!igat)|raises?\b|funding|\bfund\b|grant(?!ed a contract)|subvention|"
                     r"acqui|merger|\bmerge|fusion|\bmou\b|memorand|letter of intent|\bloi\b|lettre d.intention|distribut|reseller|"
                     r"resell|revendeur|dealer|franchis|\bprize|\bprix\b|laur[ée]at|finalist|ranked|ranking|\btop \d|recogni|"
                     r"named (a|one|to)|appoint|nomm|hires|\bceo\b|\bcfo\b|board of directors|dividend|earnings|results|quarter|"
                     r"trimestr|webinar|conference|congr[èe]s|\bipo\b|shares|sponsor|donat|\bdon\b|charit|scholarship|bourse|"
                     r"internship|career fair|job fair|hackathon|study|survey|report finds|research shows|white ?paper|podcast|"
-                    r"opinion|editorial|holiday|season.s greetings", re.I)
+                    r"opinion|editorial|holiday|season.s greetings|notes\b|debenture|maturity|interest rate|offering|private placement|"
+                    r"bought deal|warrant|prospectus|buyback|issuer bid|\bncib\b|annual meeting|\bagm\b|voting results|retire|passing|"
+                    r"obituary|certification|\biso\b|arbitration|collective agreement|strike|union|lockout|layoff|guidance|outlook|"
+                    r"fiscal|revenue|profit|loss|production|reserves|drill|assay|resource estimate|feasibility|permit|exploration|"
+                    r"mineral|ounces|tonnes|wells?\b|pipeline capacity|open season|rate case|tariff|conversion|redemption|"
+                    r"normal course|\bexchange\b|listing|delist|halt|material change|insider|governance|sustainability report|"
+                    r"esg report|climate|emissions target|anniversary|celebrat|welcomes? (?:the )?(?:new )?(?:vice|president|chief|director|"
+                    r"officer|members?)|joins? (?:the )?(?:board|team)|statement on|statement regarding|responds? to|update on)", re.I)
 GENERIC = {"the", "of", "and", "de", "du", "des", "la", "le", "les", "et", "l", "d", "for", "in", "a", "an", "inc", "ltd", "llc",
            "corp", "corporation", "co", "company", "limited", "ltee", "group", "groupe", "holdings", "international", "canada",
            "city", "town", "village", "county", "district", "municipality", "township", "region", "regional", "university",
@@ -78,9 +87,25 @@ def registrable(host):
     return _reg(h) if h and "." in h else h
 
 
+STOP = {"the", "of", "and", "de", "du", "des", "la", "le", "les", "et", "l", "d", "for", "in", "a", "an", "inc", "ltd", "llc", "corp",
+        "corporation", "co", "company", "limited", "ltee", "plc", "sa", "ulc", "lp", "llp", "the"}
+_COMMON = set()
+for _wf in ("/usr/share/dict/words", "/usr/dict/words"):
+    if os.path.exists(_wf):
+        _COMMON = {w.strip().lower() for w in open(_wf, encoding="utf-8", errors="replace") if w.strip()}
+        break
+
+
 def sig_tokens(name):
-    toks = [t for t in norm(name).split() if t not in GENERIC and len(t) > 1]
-    return toks
+    """the name's words without articles / legal suffixes (type words such as city, hospital, university stay)"""
+    return [t for t in norm(name).split() if t not in STOP and len(t) > 1]
+
+
+def distinctive(toks):
+    """a phrase worth matching in running text: 2+ words with one that is not an everyday word, or 3+ words"""
+    if len(toks) < 2:
+        return False
+    return len(toks) >= 3 or any(t not in _COMMON and not t.isdigit() for t in toks)
 
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -122,17 +147,10 @@ def load_orgs():
         n = o["name"]
         if not n or re.fullmatch(r"[a-z0-9.-]+\.[a-z]{2,}", n.lower()):
             continue  # a bare domain is matched through links, not words
-        full = norm(n).split()
         toks = sig_tokens(n)
-        if not toks:
-            continue
-        if len(toks) == 1 and (len(toks[0]) < 9 or toks[0].isdigit()):
-            continue  # one short word (nelson, marathon …) is not a name match
-        typed = any(TYPE_WORD.match(t) for t in full)  # "city of x": the whole phrase must appear
-        phrase = tuple(full) if typed else tuple(toks)
-        if len(phrase) > 9:
-            continue
-        index[phrase[0]].append((phrase, o, typed))
+        if not distinctive(toks) or len(toks) > 9:
+            continue  # one word, or only everyday words: not a name match
+        index[toks[0]].append((tuple(toks), o, False))
     return orgs, by_dom, index
 
 
@@ -153,7 +171,7 @@ def find_names(text, index, limit=6):
                 while k < n and ok:
                     if j < len(toks) and toks[j] == phrase[k]:
                         k += 1; j += 1
-                    elif j < len(toks) and toks[j] in GENERIC and j - i < n + 4:
+                    elif j < len(toks) and toks[j] in STOP and j - i < n + 4:
                         j += 1
                     else:
                         ok = False
@@ -363,29 +381,28 @@ def one(v, orgs, by_dom, index, cap, stats, done):
         if basis != "hq" and not vhost.endswith(".ca") and not place:
             stats["no_canada_line"] += 1
             continue
-        cands = []
-        for href, label in CL.anchors(page, final):  # organisations linked from the release
+        linked = set()
+        for href, label in CL.anchors(page, final):  # organisations linked from the release (confirms a name match)
             h = registrable((urllib.parse.urlparse(href).hostname or "").lower().removeprefix("www."))
             if h and h != vhost and not h.endswith("." + vhost) and h in by_dom:
-                o = by_dom[h]
-                i = head.lower().find(norm(o["name"]).split()[0] if o["name"] else "\0")
-                cands.append((o, "link", i if i >= 0 else 0, i + 10 if i >= 0 else 0))
+                linked.add(by_dom[h]["key"])
         for o, a, b in find_names(head, index):
-            cands.append((o, "name", a, b))
-        for o, how, a, b in cands:
+            how = "name+link" if o["key"] in linked else "name"
             od = o.get("dom") or ""
             if od and (od == vhost or od.endswith("." + vhost) or vhost.endswith("." + od)):
                 continue  # the vendor itself
             if norm(o["name"]) and norm(o["name"]) in norm(vname):
                 continue
-            sent = sentence_at(head, a, b) if how == "name" else (sentence_at(head, a, b) if a else title[:300])
-            cue_zone = title + " " + sent
-            if not BUY.search(cue_zone):
+            if a < 160 and re.match(r"\s*,\s*(?:ON|QC|BC|AB|MB|SK|NS|NB|NL|PE|Ont|Que|Alta|Canada|[A-Z]{2})\b", head[b:b + 12]):
+                continue  # the dateline (MISSISSAUGA, ON, …) names the vendor's city, not a buyer
+            sent = sentence_at(head, a, b)
+            cue = BUY.search(sent)
+            if not cue or abs(cue.start() - (a - max(0, head.rfind(sent, 0, a + 1)))) > 220:
                 stats["no_buy_cue"] += 1
                 continue
-            if DROP_T.search(sent) and not BUY.search(title):
+            if DROP_T.search(sent):
                 continue
-            if how == "name" and o["name"].lower() not in sent.lower() and norm(o["name"]) not in norm(sent):
+            if norm(o["name"]) not in norm(sent) and not all(t in norm(sent) for t in sig_tokens(o["name"])):
                 sent = head[max(0, a - 120):b + 160]
             k = o["key"]
             if k in rows and rows[k]["row"]["record_date"] >= d:
