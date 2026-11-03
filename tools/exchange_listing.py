@@ -36,6 +36,8 @@ NOT_ISSUER = re.compile(r"\b(ETF|CDR|Index|Fund|Split Corp|Capital Pool|Acquisit
                         r"Preferred|Debentures?|Warrants?|Receipts?|Notes|Bond|Units)\b", re.I)
 TICKER = re.compile(r"\b(TSX[\s\-]?V|TSXV|TSX Venture(?: Exchange)?|TSX|Toronto Stock Exchange|Bourse de Toronto|"
                     r"Bourse de croissance TSX)\s*(?:[:：\-–]|under the (?:stock )?symbol|sous le symbole|\(symbol)?\s*[\"“”']?\s*([A-Z]{1,6}(?:\.[A-Z]{1,3})?)\b")
+TICKER2 = re.compile(r"\b(?:symbol|ticker|symbole)s?\s*[\"“”']?\s*([A-Z]{1,6}(?:\.[A-Z]{1,3})?)\s*[\"“”']?\s*(?:on|at|sur|à la)\s+(?:the\s+)?"
+                     r"(TSX Venture Exchange|TSX[\s\-]?V|TSXV|Toronto Stock Exchange|TSX|Bourse de Toronto|Bourse de croissance TSX)\b")
 INVEST = re.compile(r"invest|actionnaire|stock|share|\bir\b|about|a-propos|corporate|company|entreprise|financial", re.I)
 lock = threading.Lock()
 
@@ -102,6 +104,9 @@ def ticker_on(page, symbol):
     for m in TICKER.finditer(text):
         if m.group(2).split(".")[0] == symbol.split(".")[0]:
             return text[max(0, m.start() - 120):m.end() + 120].strip()[:300], m.group(1)
+    for m in TICKER2.finditer(text):
+        if m.group(1).split(".")[0] == symbol.split(".")[0]:
+            return text[max(0, m.start() - 120):m.end() + 120].strip()[:300], m.group(2)
     return "", ""
 
 
