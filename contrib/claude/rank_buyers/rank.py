@@ -23,9 +23,9 @@ def parent(n):
     return p.strip()
 GRADE = {"invoice_submission": 4, "accounts_payable": 4, "supplier_payment": 4, "procurement": 2, "general": 1}
 FIN = re.compile(r"compt|financ|tresor|treasur|account|fiscal", re.I)  # finance / accounting department mailbox
-STRONG = re.compile(r"^cap$|[._-]cap$|factur|invoic|invsub|inv[._-]sub|payable|payables|compt\w*pay|comptesapayer|^ap$|^ap[._-]|[._-]ap$|[._-]ap[._-]|accounts?[._-]?pay|fournisseur|supplier|vendor|paiement|payment|paymt|apinvoice", re.I)
-QUOTE_AP = re.compile(r"factur|invoice|payable|comptes? (à|a) payer|accounts payable|paiement des fournisseurs|supplier payment", re.I)
-ROLEISH = re.compile(r"factur|invoic|bill|payable|compt|account|financ|tresor|treasur|fourniss|supplier|vendor|approv|achat|purchas|procure|"
+STRONG = re.compile(r"^cap$|[._-]cap$|(?<!manu)factur|invoic|invsub|inv[._-]sub|payable|payables|compt\w*pay|comptesapayer|^ap$|^ap[._-]|[._-]ap$|[._-]ap[._-]|accounts?[._-]?pay|fournisseur|supplier|vendor|paiement|payment|paymt|apinvoice", re.I)
+QUOTE_AP = re.compile(r"(?<!manu)factur|invoice|payable|comptes? (à|a) payer|accounts payable|paiement des fournisseurs|supplier payment", re.I)
+ROLEISH = re.compile(r"(?<!manu)factur|invoic|bill|payable|compt|account|financ|tresor|treasur|fourniss|supplier|vendor|approv|achat|purchas|procure|"
                      r"paiement|payment|acquisition|^ap$|^ap[._-]|[._-]ap$|info|contact|reception|admin|general|greffe|mairie|municipal|"
                      r"townhall|cityhall|clerk|office|bureau|secretar|accueil|hello|inquir|enquir|renseign|direction|courrier|mail|service|"
                      r"support|commande|order|depot|deposit|ddenrol|dpf|cap$|contrat|contract|appel|tender|soumission|ville|city|town|"
@@ -37,7 +37,7 @@ ROLEISH = re.compile(r"factur|invoic|bill|payable|compt|account|financ|tresor|tr
                      r"water|eau|aqueduc|egout|sewer|waste|dechet|matieres|council|conseil|board|commission|municipalit|village|canton|"
                      r"paroisse|county|comte|regie|corporation|society|societe|association|federation|institut|universit|college|cegep|ecole|school|"
                      r"customer|care|client|rfp|rfq|procserv|^proc|invsub|inv[._-]sub|guichet|adjoint", re.I)
-STRONG_ANY = re.compile(r"factur|invoic|payable|comptesapayer|accountspayable|comptespayables|apinvoice|invsub", re.I)
+STRONG_ANY = re.compile(r"(?<!manu)factur|invoic|payable|comptesapayer|accountspayable|comptespayables|apinvoice|invsub", re.I)
 def roleish(local, org=""):
     toks = [t for t in re.split(r"[._+-]+", local.lower()) if t]
     if STRONG_ANY.search(local) or any(ROLEISH.match(t) or ROLEISH.match(t[1:] if len(t) > 3 and t[0].isdigit() else t) for t in toks):
@@ -297,9 +297,49 @@ import urllib.parse
 REL_PATH = re.compile(r"client|customer|case-stud|casestud|case_stud|temoignage|t%C3%A9moignage|testimonial|success-stor|"
                       r"portfolio|our-work|realisations?\b|r%C3%A9alisations?|nos-realisations|clientele")
 NOT_REL_PATH = re.compile(r"terms|reference|support|service|product|letter|lettre|news|nouvelle|blog|article|press|media|document|conditions|bill|/loi|career|emploi|job|event|evenement|contact|about|a-propos|partner|partenaire")
-for k, L in leads.items():
-    if k not in mail or norm(L["buyer_name"]) in seen: continue
-    (acc, g), m = mail[k]
+# a lead whose own key has no mailbox yet borrows the confirmed mailbox found for the same organisation under another key
+# (same registrable website domain, held by ONE organisation only: shared government domains never lend)
+mail_dom = collections.defaultdict(dict)
+for mk, (ms, mr) in mail.items():
+    md = registrable((mr["mailbox"].split("@")[-1] or "").lower())
+    if md:
+        mail_dom[md][mk] = (ms, mr)
+GEN_W = {"city", "town", "county", "district", "university", "college", "municipality", "corporation", "township", "village", "school",
+         "board", "society", "association", "national", "foundation", "company", "group", "services", "international", "canada"}
+def name_fits(a, b):
+    """two names of one body: a bare domain on either side, or a shared distinctive word"""
+    if not a or not b or ("." in a and " " not in a.strip()) or ("." in b and " " not in b.strip()):
+        return True
+    ta = {w for w in re.findall(r"[a-z]{4,}", norm(a)) if w not in GEN_W}
+    tb = {w for w in re.findall(r"[a-z]{4,}", norm(b)) if w not in GEN_W}
+    return bool(ta & tb) or not ta or not tb
+def borrow(L):
+    d = registrable(host_of(L.get("website") or ""))
+    owners = mail_dom.get(d) or {}
+    if len(owners) != 1:
+        return None
+    ms, mr = next(iter(owners.values()))
+    return (ms, mr) if name_fits(L.get("buyer_name") or "", mr.get("org_name") or "") else None  # e.g. a person named in a customer story is not the university
+borrowed = 0
+def lead_strength(kl):
+    """dated records first, then services seen on the buyer's site, 12-36 month records, client listings, other links:
+    the strongest relationship of an organisation claims its website domain (one row per organisation)"""
+    cfv, ld = kl[1].get("canada_field_value") or "", (kl[1].get("latest_record_date") or "")[:10]
+    if "vendor located in Canada" in cfv:
+        return 4 if re.search(r"\((wall|stories)\)", cfv) else 5
+    if "(tech)" in cfv:
+        return 1
+    return 0 if CUTOFF <= ld <= today else 2 if CUTOFF3 <= ld else 3
+UNNAMED_VENDOR = re.compile(r"redact|withheld|\bPII\b|confidential|not disclosed|undisclosed|anonymi", re.I)
+for k, L in sorted(leads.items(), key=lead_strength):
+    if norm(L["buyer_name"]) in seen or UNNAMED_VENDOR.search(L.get("example_vendor") or ""): continue
+    if k in mail:
+        (acc, g), m = mail[k]
+    else:
+        b = borrow(L)
+        if not b: continue
+        (acc, g), m = b
+        borrowed += 1
     if BAD_LOCAL.search(m["mailbox"].split("@")[0]): continue
     lsite = L.get("website") or ""
     if lsite and not same_org(m["mailbox"], lsite, L["buyer_name"]):
@@ -353,6 +393,59 @@ for k, L in leads.items():
                    "the Canada-located vendor's own website" if client else src or "relationship record")
 for x in rows:
     x.setdefault("_jur", "")
+# 4b. a dated record from the last 12 months (lead: payment, auditor's report, filing, release ...) for an organisation
+# already delivered with an older or undated relationship (contract 12-36 months / over 3 years old, client listing,
+# other link, service seen on its site): the row takes the newer relationship. Only when ONE delivered row has that
+# registrable website domain (never guess between bodies sharing a domain).
+up = collections.defaultdict(list)
+for k, L in leads.items():
+    cfv, ld = L.get("canada_field_value") or "", (L.get("latest_record_date") or "")[:10]
+    if "vendor located in Canada" in cfv or "(tech)" in cfv or not (CUTOFF <= ld <= today) or UNNAMED_VENDOR.search(L.get("example_vendor") or ""):
+        continue  # client listings and services seen on a site are not dated records; the vendor must be named
+    d = registrable(host_of(L.get("website") or ""))
+    if d:
+        up[d].append((ld, k, L))
+dom_rows = collections.defaultdict(list)
+for x in rows:
+    d = registrable(host_of(x.get("buyer_website") or ""))
+    if d:
+        dom_rows[d].append(x)
+upgraded = 0
+GENERIC_W = ("city", "town", "county", "district", "university", "college", "municipality", "corporation", "township", "village", "school", "board", "society", "association")
+named = lambda nm: "." not in nm or " " in nm.strip()  # a real name, not a bare domain
+def same_body(L, x):
+    lt = {w for w in re.findall(r"[a-z]{4,}", norm(L.get("buyer_name") or "")) if w not in GENERIC_W}
+    return not (lt and named(L.get("buyer_name") or "") and named(x["buyer"]) and not lt & set(re.findall(r"[a-z]{4,}", norm(x["buyer"]))))
+for d, cands in up.items():
+    xs = dom_rows.get(d) or []
+    if len(xs) != 1 or xs[0]["tier"] in ("A", "B"):
+        continue
+    x = xs[0]
+    pick = next(((k, L) for ld, k, L in sorted(cands, key=lambda c: c[0], reverse=True) if same_body(L, x)), None)
+    if not pick:
+        continue  # every dated lead names another body (e.g. a library or board on the same website)
+    k, L = pick
+    cfv = L.get("canada_field_value") or ""
+    g, acc = int(x["grade"] or 0), x["acc"]
+    src = cfv.split("=")[0].strip()[:90]
+    x.update({"tier": "B", "rank_group": "GOLD" if g == 4 and acc else "B%d" % g, "completeness_score": TS["B"] * 10 + g * 6 + (3 if acc else 0),
+              "award_date": L["latest_record_date"][:10], "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"],
+              "vendor_country_basis": cfv, "contracts_with_canadian_suppliers": L["canadian_vendor_rows"],
+              "contract_status": ("likely active (contract announced by the Canada-based vendor in the last 12 months: press release / EDC transaction)"
+                                  if re.search(r"release dateline|EDC|own news release", cfv) else
+                                  "likely active (paid in a fiscal year ending in the last 12 months: IRS Form 990 contractor located in Canada)" if "IRS Form" in cfv else
+                                  "likely active (record dated in the last 12 months: %s)" % src),
+              "source": src or "relationship record", "keys": "|".join(sorted(set((x.get("keys") or "").split("|") + [k]) - {""})),
+              "buyer_keys": int(x.get("buyer_keys") or 1) + 1})
+    for col in ("contract_reference", "contract_title", "contract_value", "currency", "start_date", "end_date", "vendor_legal_name",
+                "vendor_address", "vendor_bn9", "vendor_gst_hst_derived", "vendor_website", "vendor_emails"):
+        x[col] = ""
+    ev = (L.get("example_vendor") or "").strip()
+    dm = re.search(r"=\s*([a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,})(?:[;/\s]|$)", cfv.lower())
+    vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
+    x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
+    upgraded += 1
+print("leads with a borrowed mailbox: %d | rows upgraded by a newer dated record: %d" % (borrowed, upgraded))
 # 5. P12 (owner 2026-11-03, "lowest quality but still AP"): organisations not ranked above, with their own confirmed
 # mailbox, whose relationship is weaker: a contract whose vendor is in Canada only through a business-registry match
 # (the source has no vendor country; owner's item 2 of 2026-11-01), or a contract that already ended, dated (award /

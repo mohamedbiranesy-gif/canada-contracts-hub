@@ -27,7 +27,7 @@ UA = "canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/
 COLS = ["task_id", "buyer_key", "org_name_as_found", "ap_email", "ap_email_type", "invoice_portal_url", "ap_phone",
         "invoice_mailing_address", "invoicing_requirements_summary", "applies_to", "evidence_url", "evidence_quote",
         "retrieved_date", "status", "queries_tried", "notes"]
-LINK_KW = [(re.compile(r"factur|invoice|payable|comptes?[-_ ]?(a|à)[-_ ]?payer|accounts?[-_ ]?pay|e-?invoic", re.I), 10),
+LINK_KW = [(re.compile(r"(?<!manu)factur|invoice|payable|comptes?[-_ ]?(a|à)[-_ ]?payer|accounts?[-_ ]?pay|e-?invoic", re.I), 10),
            (re.compile(r"fournisseur|supplier|vendor|approvisionnement|purchas|procure|achats?\b|faire[-_ ]affaire|"
                        r"doing[-_ ]business|business[-_ ]with|appels?[-_ ]d|tender|bid", re.I), 6),
            (re.compile(r"financ|tr[ée]sor|treasur|comptab|accounting|paiement|payment", re.I), 5),
@@ -35,11 +35,11 @@ LINK_KW = [(re.compile(r"factur|invoice|payable|comptes?[-_ ]?(a|à)[-_ ]?payer|
 SKIP_EXT = re.compile(r"\.(jpe?g|png|gif|svg|webp|ico|mp4|mov|mp3|zip|doc|xls|pptx?|ics|css|js|xml|rss)(\?|$)", re.I)
 OFFICE = re.compile(r"\.(docx|xlsx)(\?|$)", re.I)
 EMAIL_RX = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")
-AP_LOCAL = re.compile(r"factur|invoice|payable|compt|account|^ap$|^ap[._-]|[._-]ap$|[._-]cap$|financ|fourniss|"
+AP_LOCAL = re.compile(r"(?<!manu)factur|invoice|payable|compt|account|^ap$|^ap[._-]|[._-]ap$|[._-]cap$|financ|fourniss|"
                       r"supplier|vendor|approv|achat|purchas|procure|paiement|payment|tresor|treasur|acquisition", re.I)
 NOT_AP = re.compile(r"plainte|complaint|recevable|receivable|billing|patient|usager|emploi|career|job|media|presse|press|"
                     r"benevol|volunteer|fondation|foundation|donat|webmaster|privacy|confidential|rh[._-]|^rh$|hr[._-]|^hr$", re.I)
-CONTEXT_AP = re.compile(r"factur|invoice|payable|comptes? (à|a) payer|paiement|payment|fournisseur|supplier|vendor", re.I)
+CONTEXT_AP = re.compile(r"(?<!manu)factur|invoice|payable|comptes? (à|a) payer|paiement|payment|fournisseur|supplier|vendor", re.I)
 BLOCK_RX = re.compile(r"captcha|cf-challenge|challenge-platform|attention required|access denied|are you a robot", re.I)
 FIN_NOT = re.compile(r"aid|bourse|scholar|tuition|student|etudiant|soutien|financement|funding|grant|subvention|invest|sustainab|"
                      r"bank|loan|pret|credit|donat|fondation|foundation|japan|china|europe|client", re.I)  # not the buyer's payables
@@ -163,7 +163,7 @@ def classify(email, context, general=False):
         return "general" if general and GENERAL.search(local) and EMAIL.match(email) else None
     if not EMAIL.match(email) or (PERSONAL.match(local) and not ROLE_HINT.search(local)):
         return None
-    if re.search(r"factur|invoice", local, re.I):
+    if re.search(r"(?<!manu)factur|invoice", local, re.I):
         return "invoice_submission"
     if re.search(r"payable|compt.*pay|^ap$|^ap[._-]|[._-]ap$|[._-]cap$", local, re.I):
         return "accounts_payable"
@@ -277,7 +277,7 @@ def same_org(email, site, org_name):
         return not rem
     loc = flat(local)
     distinct = {t for t in tokens(org_name) if len(t) >= 5}
-    if re.search(r"invoic|factur|payable|^ap[._-]|[._-]ap([._-]|$)", local) and (any(len(x) >= 3 and x in loc for x in acr) or any(t in loc for t in distinct)):
+    if re.search(r"invoic|(?<!manu)factur|payable|^ap[._-]|[._-]ap([._-]|$)", local) and (any(len(x) >= 3 and x in loc for x in acr) or any(t in loc for t in distinct)):
         return True  # e.g. cityofx_invoicecapture@<invoice service>.com named on the buyer's own page
     for t in distinct:
         if t in core and explained(core.replace(t, "", 1)):
@@ -431,7 +431,7 @@ def load_tasks():
             o = json.loads(line)
             for e in (o.get("ap_contact_team") or {}).get("evidence") or []:
                 if (e.get("verification") in ("verified", "cross_verified") and e.get("type") in ("invoice_submission", "accounts_payable", "supplier_payment")
-                        and re.search(r"factur|invoic|payable|compt\w*pay|^ap$|^ap[._-]|[._-]ap$|paiement|payment", (e.get("email") or "").split("@")[0], re.I)):
+                        and re.search(r"(?<!manu)factur|invoic|payable|compt\w*pay|^ap$|^ap[._-]|[._-]ap$|paiement|payment", (e.get("email") or "").split("@")[0], re.I)):
                     verified.add(o["buyer_key"])
                     break
     def size(r):
