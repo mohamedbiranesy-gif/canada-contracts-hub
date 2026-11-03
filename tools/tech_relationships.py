@@ -667,30 +667,49 @@ def portal_info(vkey, purl):
 
 def cdx_urls(pattern, limit=60000):
     """URLs of the vendor's customer portals listed by the Internet Archive's CDX index (captured since 2022); the
-    LIVE portal page is what gets read. One index call per pattern, 3 s apart, cached for a week."""
+    LIVE portal page is what gets read. Large domains are read page by page (the index's own pagination), 3 s apart,
+    one host of each URL kept; cached for a week (never an empty answer)."""
     os.makedirs(os.path.join(CACHE, "cdx"), exist_ok=True)
     dom = pattern.replace("*.", "").split("/")[0]
     cf = os.path.join(CACHE, "cdx", re.sub(r"[^a-z0-9.]+", "_", pattern) + ".jsonl")
-    if os.path.exists(cf) and time.time() - os.path.getmtime(cf) < 7 * 86400:
+    if os.path.exists(cf) and os.path.getsize(cf) > 0 and time.time() - os.path.getmtime(cf) < 7 * 86400:
         return [l.strip() for l in open(cf, encoding="utf-8") if l.strip()]
-    out = []
-    for extra in ([("filter", "original:^https?://[^/]+/?$")], []):
-        q = urllib.parse.urlencode([("url", dom if pattern.startswith("*.") else pattern), ("matchType", "domain" if pattern.startswith("*.") else "prefix"),
-                                    ("output", "json"), ("fl", "original"), ("filter", "statuscode:200"), ("from", "2022"),
-                                    ("collapse", "urlkey"), ("limit", str(limit))] + extra)
+    base = [("url", dom if pattern.startswith("*.") else pattern), ("matchType", "domain" if pattern.startswith("*.") else "prefix"),
+            ("output", "json"), ("fl", "original"), ("filter", "statuscode:200"), ("filter", "mimetype:text/html"), ("from", "2022"),
+            ("collapse", "urlkey")]
+    def get(params, timeout=120):
         time.sleep(3)
+        req = urllib.request.Request("https://web.archive.org/cdx/search/cdx?" + urllib.parse.urlencode(params), headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return r.read(80_000_000).decode("utf-8", "replace")
+    hosts, out = set(), []
+    def take(rows):
+        for row in rows:
+            u = row[0] if isinstance(row, list) else row
+            h = (urllib.parse.urlparse(u).hostname or "").lower()
+            if h and h not in hosts:
+                hosts.add(h); out.append(u)
+    try:  # how many index pages (blocks) the query spans
+        n = int((get(base + [("showNumPages", "true")], 60) or "1").strip() or 1)
+    except Exception as e:
+        print("cdx %s pages: %s" % (pattern, e), flush=True)
+        n = 1
+    pages_read = 0
+    for pg in range(min(n, 400)):
         try:
-            req = urllib.request.Request("https://web.archive.org/cdx/search/cdx?" + q, headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=120) as r:
-                rows = json.loads(r.read(50_000_000).decode("utf-8", "replace") or "[]")[1:]
+            txt = get(base + [("page", str(pg))])
+            rows = json.loads(txt or "[]")
+            take(rows[1:] if rows and rows[0] == ["original"] else rows)
+            pages_read += 1
         except Exception as e:
-            print("cdx %s: %s" % (pattern, e), flush=True)
-            rows = []
-        out += [row[0] for row in rows]
+            print("cdx %s page %d/%d: %s" % (pattern, pg, n, e), flush=True)
+            continue
         if len(out) >= limit:
             break
-    with open(cf, "w", encoding="utf-8") as f:
-        f.write("\n".join(out))
+    print(time.strftime("%H:%M:%S"), "cdx %s: %d pages (%d read), %d hosts" % (pattern, n, pages_read, len(out)), flush=True)
+    if out:
+        with open(cf, "w", encoding="utf-8") as f:
+            f.write("\n".join(out))
     return out
 
 
