@@ -92,6 +92,26 @@ VENDORS = {
                    host_re=r"^([a-z0-9-]+)\.myabsorb\.(?:com|ca|eu|com\.au)$",
                    cc=["*.myabsorb.com", "*.myabsorb.ca", "*.myabsorb.eu"],
                    excl={"www", "help", "support", "status", "api", "cdn", "demo", "sandbox", "test", "staging", "dev"}),
+    "benevity": dict(name="Benevity", legal="Benevity, Inc.", kind="portal",
+                     hq_url="https://benevity.com/contact-us",
+                     hq="Calgary Head Office #700, 611 Meredith Road NE Calgary, AB T2E 2W5 CA",
+                     host_re=r"^([a-z0-9-]+)\.benevity\.org$", cc=["*.benevity.org"],
+                     excl={"www", "help", "support", "status", "api", "cdn", "static", "assets", "demo", "sandbox", "test", "staging",
+                           "dev", "causes", "cause", "community", "login", "app", "my", "secure", "accounts", "mail", "email", "go",
+                           "info", "blog", "docs", "developer", "developers", "partners", "benevity", "spark", "goodness", "giving",
+                           "volunteer", "grants", "admin", "portal", "events", "impact", "affinity", "missions", "fund", "funds"}),
+    "coconut": dict(name="Coconut Software", legal="Coconut Software Corporation", kind="portal",
+                    hq_url="https://www.coconutsoftware.com/privacy-policy/",
+                    hq="Privacy Officer Coconut Software 201-111 Research Drive Saskatoon, SK S7N 3R2",
+                    host_re=r"^([a-z0-9-]+)\.coconutcalendar\.com$", cc=["*.coconutcalendar.com"],
+                    excl={"www", "help", "support", "status", "api", "cdn", "static", "assets", "demo", "sandbox", "test", "staging",
+                          "dev", "app", "my", "secure", "accounts", "login", "admin", "widget", "widgets", "book", "booking"}),
+    "mobius": dict(name="Möbius (DigitalEd)", legal="DigitalEd", kind="portal",
+                   hq_url="https://www.digitaled.com/contact",
+                   hq="Corporate Headquarters 180 Northfield Drive West, Unit 4, Waterloo, Ontario, Canada, N2L 0C7",
+                   host_re=r"^([a-z0-9-]+)\.mobius\.cloud$", cc=["*.mobius.cloud"],
+                   excl={"www", "help", "support", "status", "api", "cdn", "static", "assets", "demo", "sandbox", "test", "staging",
+                         "dev", "app", "my", "secure", "accounts", "login", "admin", "docs", "mobius", "digitaled", "trial", "learn"}),
     "shopify": dict(name="Shopify", legal="Shopify Inc.", kind="asset",
                     hq_url="https://www.shopify.com/legal/terms",
                     hq="United States or Canada Shopify Inc., a Canadian corporation 151 O'Connor Street, Ground floor, Ottawa, Ontario, K2P 2L8, Canada",
@@ -115,7 +135,8 @@ for _k, _v in VENDORS.items():
     for _f in ("host_re", "link_re", "path_re", "asset_re"):
         if _v.get(_f):
             _v[_f + "_c"] = re.compile(_v[_f], re.I)
-VENDOR_BASES = {"escribemeetings.com", "bibliocommons.com", "bibliocms.com", "brightspace.com", "desire2learn.com",
+VENDOR_BASES = {"benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
+                "escribemeetings.com", "bibliocommons.com", "bibliocms.com", "brightspace.com", "desire2learn.com",
                 "d2l.com", "edsby.com", "amilia.com", "janeapp.com", "jane.app", "docebosaas.com", "docebo.com",
                 "myabsorb.com", "myabsorb.ca", "myabsorb.eu", "absorbai.com", "absorblms.com", "shopify.com",
                 "myshopify.com", "coveo.com", "unbounce.com", "ubembed.com", "lightspeedhq.com", "shoplightspeed.com"}
@@ -644,22 +665,59 @@ def portal_info(vkey, purl):
             "practitioners_listed": len(staff) if vkey == "jane" else None}, "ok"
 
 
+def cdx_urls(pattern, limit=60000):
+    """URLs of the vendor's customer portals listed by the Internet Archive's CDX index (captured since 2022); the
+    LIVE portal page is what gets read. One index call per pattern, 3 s apart, cached for a week."""
+    os.makedirs(os.path.join(CACHE, "cdx"), exist_ok=True)
+    dom = pattern.replace("*.", "").split("/")[0]
+    cf = os.path.join(CACHE, "cdx", re.sub(r"[^a-z0-9.]+", "_", pattern) + ".jsonl")
+    if os.path.exists(cf) and time.time() - os.path.getmtime(cf) < 7 * 86400:
+        return [l.strip() for l in open(cf, encoding="utf-8") if l.strip()]
+    out = []
+    for extra in ([("filter", "original:^https?://[^/]+/?$")], []):
+        q = urllib.parse.urlencode([("url", dom if pattern.startswith("*.") else pattern), ("matchType", "domain" if pattern.startswith("*.") else "prefix"),
+                                    ("output", "json"), ("fl", "original"), ("filter", "statuscode:200"), ("from", "2022"),
+                                    ("collapse", "urlkey"), ("limit", str(limit))] + extra)
+        time.sleep(3)
+        try:
+            req = urllib.request.Request("https://web.archive.org/cdx/search/cdx?" + q, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                rows = json.loads(r.read(50_000_000).decode("utf-8", "replace") or "[]")[1:]
+        except Exception as e:
+            print("cdx %s: %s" % (pattern, e), flush=True)
+            rows = []
+        out += [row[0] for row in rows]
+        if len(out) >= limit:
+            break
+    with open(cf, "w", encoding="utf-8") as f:
+        f.write("\n".join(out))
+    return out
+
+
 def forward(vkey, args):
     v = VENDORS[vkey]
-    coll = json.loads(cc_get("https://index.commoncrawl.org/collinfo.json") or "[]")
-    crawls = [(c["id"], c["cdx-api"]) for c in coll[:args.crawls]]
     portals = {}
-    for pat in v["cc"]:
-        for cid, u in cc_urls(pat, crawls, args.max_pages):
-            for k, slug, purl in portal_hits(u):
-                if k == vkey and slug not in portals:
-                    portals[slug] = (purl, cid, u)
+    if getattr(args, "source", "cc") == "cdx":
+        crawls = [("wayback-cdx", "")]
+        for pat in v["cc"]:
+            for u in cdx_urls(pat):
+                for k, slug, purl in portal_hits(u):
+                    if k == vkey and slug not in portals:
+                        portals[slug] = (purl, "wayback-cdx", u)
+    else:
+        coll = json.loads(cc_get("https://index.commoncrawl.org/collinfo.json") or "[]")
+        crawls = [(c["id"], c["cdx-api"]) for c in coll[:args.crawls]]
+        for pat in v["cc"]:
+            for cid, u in cc_urls(pat, crawls, args.max_pages):
+                for k, slug, purl in portal_hits(u):
+                    if k == vkey and slug not in portals:
+                        portals[slug] = (purl, cid, u)
     slugs = sorted(portals)
     print(time.strftime("%H:%M:%S"), "%s: %d distinct portals in Common Crawl" % (vkey, len(slugs)), flush=True)
     if args.limit:
         slugs = slugs[:args.limit]
     os.makedirs(LEADS, exist_ok=True)
-    out_path = args.out or os.path.join(LEADS, "socrata_tech_%s.jsonl" % vkey)
+    out_path = args.out or os.path.join(LEADS, "socrata_tech_%s%s.jsonl" % (vkey, "_cdx" if getattr(args, "source", "cc") == "cdx" else ""))
     stats = {"vendor": vkey, "crawls": [c[0] for c in crawls], "portals_in_cc": len(portals), "portals_read": len(slugs),
              "status": {}, "leads": 0, "with_website": 0}
     seen = set()
@@ -679,7 +737,7 @@ def forward(vkey, args):
                     row = {"portal_url": info["final_url"], "portal_slug": info["slug"], "page_title": info["page_title"],
                            "og_site_name": info["og_site_name"], "name_basis": info["name_basis"],
                            "website_basis": info["website_basis"], "signature": host_of(purl) + urllib.parse.urlparse(purl).path,
-                           "signature_kind": "vendor-hosted customer portal (Common Crawl %s)" % cid,
+                           "signature_kind": "vendor-hosted customer portal (%s)" % ("listed by the Internet Archive CDX index, live page read" if cid == "wayback-cdx" else "Common Crawl %s" % cid),
                            "common_crawl_url": ccu}
                     if info["practitioners_listed"] is not None:
                         row["practitioners_listed"] = info["practitioners_listed"]
@@ -704,6 +762,7 @@ def main():
     a.add_argument("--crawls", type=int, default=2)
     a.add_argument("--max-pages", type=int, default=300, help="Common Crawl index pages per pattern per crawl")
     a.add_argument("--out", default="")
+    a.add_argument("--source", default="cc", choices=["cc", "cdx"], help="portal list: Common Crawl index or Internet Archive CDX")
     args = a.parse_args()
     if args.reverse:
         reverse(args)
