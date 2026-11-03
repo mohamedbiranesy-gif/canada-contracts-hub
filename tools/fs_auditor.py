@@ -12,6 +12,7 @@ latest audited financial statements (PDF) and reads the independent auditor's re
 Lead file: $CCH_LEADS/socrata_fs_auditor.jsonl (picked up by tools/lead_scanner.py --bridge). Per-site outcome log:
 $CCH_SMALL_CACHE/fs_auditor_log.csv.
     python3 tools/fs_auditor.py <tasks.csv> [--workers 16] [--limit N]
+    python3 tools/fs_auditor.py <located.tsv>     (columns buyer_key, buyer, website, url: statements found by a search)
 """
 import argparse, csv, datetime as dt, hashlib, heapq, html, os, re, sys, threading, urllib.parse
 from concurrent.futures import ThreadPoolExecutor
@@ -275,7 +276,16 @@ def one(t):
     if not site:
         return t, "no website", None
     try:
-        cands = candidates(site)
+        if t.get("urls"):  # --urls: statements located by a web search (a PDF, or a page that links them)
+            cands = []
+            for u in t["urls"]:
+                if re.search(r"\.pdf(\?|$)", u, re.I):
+                    cands.append((3, u, "found by web search"))
+                else:
+                    cands += [c for c in (candidates(u, max_pages=4) or []) if c[1] not in {x[1] for x in cands}]
+            cands.sort(key=lambda x: -x[0])
+        else:
+            cands = candidates(site)
     except Exception as ex:
         return t, "error %s" % type(ex).__name__, None
     if cands is None:
@@ -330,7 +340,17 @@ def main():
     ap.add_argument("--workers", type=int, default=16)
     ap.add_argument("--limit", type=int, default=0)
     a = ap.parse_args()
-    tasks = list(csv.DictReader(open(a.tasks, encoding="utf-8", errors="replace")))
+    tasks = list(csv.DictReader(open(a.tasks, encoding="utf-8", errors="replace"), delimiter="\t" if a.tasks.endswith(".tsv") else ","))
+    urls_mode = bool(tasks) and "url" in tasks[0]
+    if urls_mode:  # one task per organisation with all its located URLs
+        g = {}
+        for t in tasks:
+            k = t["buyer_key"]
+            if k not in g:
+                g[k] = {"buyer_key": k, "buyer_name": t.get("buyer_name") or t.get("buyer") or "", "website": t["website"], "urls": []}
+            if t["url"] and t["url"] not in g[k]["urls"]:
+                g[k]["urls"].append(t["url"])
+        tasks = list(g.values())
     if a.limit:
         tasks = tasks[:a.limit]
     path = os.path.join(S.LEADS, "socrata_fs_auditor.jsonl")
@@ -341,7 +361,7 @@ def main():
             r = json.loads(line)
             leads[r["domain"]] = r
     os.makedirs(S.CACHE, exist_ok=True)
-    logp = os.path.join(S.CACHE, "fs_auditor_log.csv")
+    logp = os.path.join(S.CACHE, "fs_auditor_urls_log.csv" if urls_mode else "fs_auditor_log.csv")
     done = set()
     if os.path.exists(logp):
         done = {r["buyer_key"] for r in csv.DictReader(open(logp, encoding="utf-8"))}
