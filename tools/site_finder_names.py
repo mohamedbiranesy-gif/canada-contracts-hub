@@ -102,10 +102,11 @@ def main():
             w.writerow(["task_id", "org_group", "buyer_key", "buyer_name", "other_spellings", "country", "known_website",
                         "known_general_email", "known_procurement_email", "contracts_in_dataset"])
         for i, (key, name) in enumerate(todo.items(), 1):
-            n, hit = norm(name), ""
+            n, hit = norm(re.sub(r"\s+", " ", LEGAL.sub(" ", norm(name)))).strip() or norm(name), ""
             for s in suggest(name)[:5]:
                 dom = (s.get("domain") or "").lower().strip()
-                if dom and not BAD.search(dom) and norm(s.get("name")) == n and verified(dom, n):
+                sn = norm(re.sub(r"\s+", " ", LEGAL.sub(" ", norm(s.get("name") or "")))).strip()
+                if dom and not BAD.search(dom) and sn and sn == n and verified(dom, n):  # same name once legal suffixes are ignored
                     hit = dom
                     break
             dn.write("%s\t%s\n" % (key, hit))
