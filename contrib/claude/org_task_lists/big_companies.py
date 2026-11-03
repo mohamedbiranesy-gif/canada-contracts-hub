@@ -13,21 +13,40 @@ CACHE = os.path.expanduser("~/cch-crawler-state/wikidata_big_companies.json")
 a = argparse.ArgumentParser()
 a.add_argument("--min-employees", type=int, default=3000)
 a = a.parse_args()
-if os.path.exists(CACHE) and time.time() - os.path.getmtime(CACHE) < 14 * 86400:
-    rows = json.load(open(CACHE))
-else:
-    q = """SELECT DISTINCT ?c ?cLabel ?web ?countryLabel ?emp WHERE {
-      ?c wdt:P31/wdt:P279* wd:Q4830453 ; wdt:P856 ?web ; wdt:P1128 ?emp .
-      FILTER(?emp >= %d)
-      OPTIONAL { ?c wdt:P17 ?country . }
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,de,es". }
-    } LIMIT 40000""" % a.min_employees
+def sparql(q):
     url = "https://query.wikidata.org/sparql?format=json&query=" + urllib.parse.quote(q)
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/sparql-results+json"})
     with urllib.request.urlopen(req, timeout=300) as r:
-        data = json.loads(r.read().decode("utf-8"))
-    rows = [{"qid": b["c"]["value"].rsplit("/", 1)[-1], "name": b["cLabel"]["value"], "web": b["web"]["value"],
-             "country": (b.get("countryLabel") or {}).get("value", ""), "emp": int(float(b["emp"]["value"]))} for b in data["results"]["bindings"]]
+        return json.loads(r.read().decode("utf-8"))["results"]["bindings"]
+
+
+if os.path.exists(CACHE) and time.time() - os.path.getmtime(CACHE) < 14 * 86400:
+    rows = json.load(open(CACHE))
+else:
+    rows, seen_q = [], set()
+    # small queries (one instance-of class, one employee band each) keep under the endpoint's 60 s limit
+    classes = ("Q4830453", "Q891723", "Q6881511", "Q783794", "Q1058914", "Q161726", "Q18388277", "Q134161", "Q1589009")
+    bands = [(a.min_employees, 5000), (5000, 10000), (10000, 20000), (20000, 50000), (50000, 100000), (100000, 10 ** 8)]
+    for cls in classes:
+        for lo, hi in bands:
+            q = """SELECT DISTINCT ?c ?cLabel ?web ?countryLabel ?emp WHERE {
+              ?c wdt:P31 wd:%s ; wdt:P856 ?web ; wdt:P1128 ?emp . FILTER(?emp >= %d && ?emp < %d)
+              OPTIONAL { ?c wdt:P17 ?country . }
+              SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,de,es". } } LIMIT 20000""" % (cls, lo, hi)
+            try:
+                bs = sparql(q)
+            except Exception as e:
+                print("sparql %s %d-%d: %s" % (cls, lo, hi, e))
+                time.sleep(10)
+                continue
+            for b in bs:
+                qid = b["c"]["value"].rsplit("/", 1)[-1]
+                if qid in seen_q:
+                    continue
+                seen_q.add(qid)
+                rows.append({"qid": qid, "name": b["cLabel"]["value"], "web": b["web"]["value"],
+                             "country": (b.get("countryLabel") or {}).get("value", ""), "emp": int(float(b["emp"]["value"]))})
+            time.sleep(2)
     json.dump(rows, open(CACHE, "w"))
 seen, out = set(), []
 for r in sorted(rows, key=lambda x: -x["emp"]):
