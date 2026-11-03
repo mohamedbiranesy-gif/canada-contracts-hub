@@ -10425,6 +10425,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-CRA-23827,cra:118832443,office@her
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRA-26539,cra:118836030,contact@worldaccord.org,https://worldaccord.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRA-13565,cra:118841378,accounting@cyo.on.ca,https://www.cyo.on.ca/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRA-13800,cra:118851450,accounting@chestermerecrca.com,https://www.chestermerecrca.com/crca-lounge-bartender-server/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRA-07030,cra:118852581,treasurer@cisvvictoria.ca,https://cisvvictoria.ca/aboutus/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRA-14173,cra:118864776,treasurer@cifoc.org,https://cifoc.org/contact.php,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRA-14285,cra:118868181,treasurer@greatnorthernex.com,https://www.greatnorthernex.com/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRA-14285,cra:118868181,vendor@greatnorthernex.com,https://www.greatnorthernex.com/contact/,verified
@@ -12384,8 +12385,15 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004025,crux:ridethewind.ca,he
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004029,crux:riekerlongueuil.ca,info@riekerlongueuil.ca,https://riekerlongueuil.ca/pages/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004033,crux:ringuettegatineau.ca,info@ringuettegatineau.ca,https://ringuettegatineau.ca/content/nous-joindre,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-000678,crux:ritma.ca,info@ritma.ca,https://ritma.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004053,crux:roadstartirewholesale.ca,info@roadstartirewholesale.ca,https://www.roadstartirewholesale.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004055,crux:robertbarakett.ca,info@robertbarakett.com,https://help.robertbarakett.com/fr-CA?shpxid=716acc53-cd9f-48c3-821a-d7e583ea9ead,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004057,crux:rocheleau.ca,info@rocheleau.ca,https://www.rocheleau.ca/fr,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004063,crux:rockymountaindog.ca,info@rockymountaindog.ca,https://rockymountaindog.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004067,crux:roguewavecoffee.ca,hello@roguewavecoffee.ca,https://roguewavecoffee.ca/pages/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-000680,crux:rovelab.ca,hello@rovelab.ca,https://rovelab.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-000680,crux:rovelab.ca,hello@rovelab.com,https://rovelab.ca/pages/contact-support-modular-sofa-inquiries,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004098,crux:rustydesign.ca,info@rustydesign.ca,https://rustydesign.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-004100,crux:rvcover.ca,info@rvcover.ca,https://www.rvcover.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-000310,crux:saje.ca,hello@saje.com,https://www.saje.ca/pages/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-000684,crux:salonbergeron.ca,info@salonbergeron.com,https://www.salonbergeron.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-000312,crux:saxxunderwear.ca,info@saxxunderwear.com,https://www.saxxunderwear.ca/,verified
