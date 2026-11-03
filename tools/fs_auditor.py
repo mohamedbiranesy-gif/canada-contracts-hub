@@ -30,8 +30,8 @@ PROVS = (r"(Ontario|Alberta|British Columbia|B\.C\.|Manitoba|Saskatchewan|Nova S
          r"(?: and Labrador)?|Prince Edward Island|P\.E\.I\.|Yukon|Northwest Territories|Nunavut|Qu[ée]bec|Canada|"
          r"Nouveau-Brunswick|Nouvelle-[ÉE]cosse|Colombie-Britannique|Ont\.|Alta\.|Sask\.|Man\.|ON|AB|BC|MB|SK|NS|NB|NL|"
          r"PE|YT|NT|NU|QC)")
-CITY_PROV = re.compile(r"\b([A-ZÀ-Ý][A-Za-zÀ-ÿ.'’\-]+(?:[ \-][A-ZÀ-Ý][A-Za-zÀ-ÿ.'’\-]+){0,3}),?[ \t]+" + PROVS +
-                       r"(?![A-Za-z])")
+CITY_PROV = re.compile(r"\b(?!(?:KPMG|BDO|MNP|EY|PwC|Deloitte|Grant|Thornton|Young|LLP)\b)([A-ZÀ-Ý][A-Za-zÀ-ÿ.'’\-]+(?:[ \-]"
+                       r"[A-ZÀ-Ý][A-Za-zÀ-ÿ.'’\-]+){0,3}),[ \t]*" + PROVS + r"(?![A-Za-z])")
 FIRM = re.compile(r"((?:[A-Z][A-Za-z&'’.\-]*[ \t]+(?:&[ \t]+)?){1,6}?(?:LLP|L\.L\.P\.|S\.E\.N\.C\.R\.L\.|s\.e\.n\.c\.r\.l\.|"
                   r"SENCRL|Professional Corporation|CPA[,]? (?:Inc|Ltd)\.?|Chartered Professional Accountants?,? "
                   r"(?:Inc|Ltd)\.?|Chartered Accountants?,? (?:Inc|Ltd)\.?)(?![A-Za-z]))")
@@ -165,8 +165,10 @@ def auditor(txt):
             if f and ACCT.search(txt[max(0, x.start() - 200):x.end() + 200]):
                 firms.append((2 * 10 ** 6, "statement", x.start(), f))
                 break
-    if not firms:
-        return None
+    if not firms:  # firm only in the signature image: the caller reads that page (OCR)
+        cp = re.sub(r"\s+", " ", cpm.group(0)).strip()
+        lo, hi = min(p, cpm.start()), max(p + 20, cpm.end())
+        return "", cp, d, S.quote(re.sub(r"\s{2,}", " | ", body[max(0, lo - 10):hi + 10].strip())), txt[:i + p].count("\f") + 1
     dist, where, fp, firm = min(firms)
     cp = re.sub(r"\s+", " ", cpm.group(0)).strip()
     lo, hi = min(p, cpm.start()), max(p + 20, cpm.end())
@@ -180,6 +182,44 @@ def auditor(txt):
         if j >= 0:
             q = S.quote(src[max(0, j - 80):j + len(firm) + 40], 150) + " ... " + q
     return firm, cp, d, S.quote(q)
+
+
+OCR = os.environ.get("CCH_OCR") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "ocr")  # tools/ocr_vision.swift
+BIG = [(r"Ernst\s*[+&]\s*Young|\bEY\b.{0,40}Ernst", "Ernst & Young LLP"), (r"\bKPMG\b", "KPMG LLP"), (r"Deloitte", "Deloitte LLP"),
+       (r"Pricewaterhouse|\bPwC\b", "PricewaterhouseCoopers LLP"), (r"Doane\s+Grant\s+Thornton", "Doane Grant Thornton LLP"),
+       (r"Raymond\s+Chabot", "Raymond Chabot Grant Thornton LLP"), (r"Grant\s+Thornton", "Grant Thornton LLP"),
+       (r"\bBDO\b", "BDO Canada LLP"), (r"\bMNP\b", "MNP LLP")]
+CPA_LINE = re.compile(r"chartered (?:professional )?accountants?|licensed public accountants?|comptables? professionnels? agr|"
+                      r"\bCPA\b", re.I)
+
+
+def ocr_firm(body, page):
+    """(firm, ocr quote) from the signature page image (Apple Vision on the owner's Mac); ('', '') when unreadable"""
+    if not os.path.exists(OCR):
+        return "", ""
+    import subprocess, tempfile
+    with tempfile.TemporaryDirectory() as d:
+        open(d + "/a.pdf", "wb").write(body)
+        try:
+            subprocess.run(["pdftoppm", "-f", str(page), "-l", str(page), "-r", "150", "-png", d + "/a.pdf", d + "/p"],
+                           check=True, timeout=120, capture_output=True)
+            png = next(f for f in os.listdir(d) if f.endswith(".png"))
+            lines = [l.strip() for l in subprocess.run([OCR, d + "/" + png], capture_output=True, text=True, timeout=120).stdout.splitlines() if l.strip()]
+        except Exception:
+            return "", ""
+    k = next((j for j in range(len(lines) - 1, -1, -1) if CPA_LINE.search(lines[j])), None)  # the signature: last one on the page
+    if k is None:
+        return "", ""
+    win = lines[max(0, k - 3):k + 6]  # firm signature, CPA line, city, date, letterhead footer ("A member firm of ...")
+    blob = " | ".join(win)
+    for rx, legal in BIG:
+        if re.search(rx, blob, re.I if "Ernst" in rx else 0):
+            return legal, S.quote(blob, 220)
+    for l in win:
+        m = FIRM.search(l)
+        if m and _firm(m.group(1)):
+            return _firm(m.group(1)), S.quote(blob, 220)
+    return "", ""
 
 
 def one(t):
@@ -201,17 +241,24 @@ def one(t):
             seen_out.append("not pdf")
             continue
         txt = S.pdf_text(body)
-        if not re.search(r"financial statements|[ée]tats financiers", txt[:8000], re.I):
+        if not re.search(r"financial statements|[ée]tats financiers", txt, re.I):
             seen_out.append("not statements")
             continue
-        if not name_ok(t["buyer_name"], txt[:8000]):
+        domain_name = re.fullmatch(r"[a-z0-9.-]+\.[a-z]{2,}", t["buyer_name"].strip().lower())
+        if not (domain_name or name_ok(t["buyer_name"], txt[:8000])):
             seen_out.append("other organisation")
             continue
         a = auditor(txt)
         if not a:
             seen_out.append("no auditor's report signature")
             continue
-        firm, cp, d, q = a
+        firm, cp, d, q = a[:4]
+        if not firm and len(a) > 4:  # signed in the window, firm only in the signature / letterhead image
+            firm, oq = ocr_firm(body, a[4])
+            if not firm:
+                seen_out.append("signed %s, firm not readable" % d)
+                continue
+            q = S.quote("signature block read from the page image (page %d, on-device OCR): %s ... text layer: %s" % (a[4], oq, a[3]))
         if not firm:
             seen_out.append("signed %s (outside window)" % d)
             continue
