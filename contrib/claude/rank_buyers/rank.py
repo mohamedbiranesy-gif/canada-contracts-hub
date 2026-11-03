@@ -493,11 +493,21 @@ PROV_DOM = {"qc": "QC", "on": "ON", "bc": "BC", "ab": "AB", "mb": "MB", "sk": "S
             "yk": "YT", "nt": "NT", "nu": "NU"}
 PNAME = {"QC": "Québec", "ON": "Ontario", "BC": "British Columbia", "AB": "Alberta", "MB": "Manitoba", "SK": "Saskatchewan", "NS": "Nova Scotia",
          "NB": "New Brunswick", "NL": "Newfoundland and Labrador", "PE": "Prince Edward Island", "YT": "Yukon", "NT": "Northwest Territories", "NU": "Nunavut"}
+# Registered addresses from public registries (CRA List of charities, provincial school directories), built by
+# org_places.py: key -> province / city. A key listed there is an organisation located in Canada by that registry.
+PLACES = {}
+if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "org_places.csv.gz")):
+    with gzip.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "org_places.csv.gz"), "rt", encoding="utf-8") as _fh:
+        for _r in csv.DictReader(_fh):
+            if (_r.get("country") or "CA") == "CA":
+                PLACES[_r["buyer_key"]] = _r
 def province_of(k, email, site, quote):
     if k in VEN and VEN[k]["region"]:
         return VEN[k]["region"], "its address in the vendor table of the release"
     if k in BUY and region_code(BUY[k].get("address")):
         return region_code(BUY[k].get("address")), "its address in the buyer table of the release"
+    if k in PLACES and PLACES[k].get("province") in PNAME:
+        return PLACES[k]["province"], "its registered address in %s" % PLACES[k]["source"]
     for dom in (email.split("@")[-1].lower(), host_of(site)):
         m = re.search(r"\.([a-z]{2})\.ca$", dom)
         if m and m.group(1) in PROV_DOM:
@@ -555,14 +565,15 @@ for k, ((acc, g), m) in mail.items():
         skipped13["mailbox not the organisation's own"] += 1; continue
     fed = jur_of_mail(e) == "FED" and not k.startswith("v:")
     prov, how = province_of(k, e, site, m.get("evidence_quote") or "")
-    country = "CA" if (k.split(":")[0] in ("osm", "wd", "v") or prov or fed or md.endswith(".ca") or host_of(site).endswith(".ca")
+    country = "CA" if (k.split(":")[0] in ("osm", "wd", "v") or k in PLACES or prov or fed or md.endswith(".ca") or host_of(site).endswith(".ca")
                        or (BUY.get(k) or {}).get("country") == "CA") else ""
     if not country:
         skipped13["not located in Canada (no honest inference)"] += 1; continue
     if site and not (VEN.get(k) or {}).get("website") and not (BUY.get(k) or {}).get("official_website") and not (k in leads and leads[k].get("website")) \
             and registrable(host_of(site)) != registrable(md) and not FREEMAIL.match(md):
         site = "https://" + md  # the page was a directory or partner page: the organisation's own domain is its mailbox's
-    place = " ".join([(m.get("evidence_quote") or ""), addr_text((BUY.get(k) or {}).get("address")), (VEN.get(k) or {}).get("address") or ""])
+    place = " ".join([(m.get("evidence_quote") or ""), addr_text((BUY.get(k) or {}).get("address")), (VEN.get(k) or {}).get("address") or "",
+                      (PLACES.get(k) or {}).get("city") or ""])
     vid, conf, what, why = infer(name, e, site, prov, fed, place)
     if registrable(host_of(INFV[vid][1])) in (registrable(md), registrable(host_of(site))):
         skipped13["is the inferred vendor itself"] += 1; continue
@@ -578,7 +589,8 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         covered_dom.add(dom)
     vname, vsite, vaddr, vurl, vquote = INFV[vid]
     LABEL = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}
-    b_addr = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or ""
+    b_addr = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or \
+             ", ".join(x for x in ((PLACES.get(k) or {}).get(f) for f in ("address", "city", "province", "postal_code")) if x)
     rows.append({"jurisdiction": "", "_jur": prov or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
         "buyer": name, "buyer_website": site, "buyer_address": b_addr,
         "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",

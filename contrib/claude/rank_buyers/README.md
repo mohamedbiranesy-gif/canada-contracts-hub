@@ -33,8 +33,10 @@ absent, which only empties P12 and some filled fields). Output: `out/ranked/batc
 | other organisation in BC | BC Hydro | low | as above |
 | other municipality or institution located in Canada | Canada Post Corporation | medium | exclusive letter privilege; they mail tax notices / letters |
 | any other organisation located in Canada | Canada Post Corporation | low | generic: exclusive letter privilege; not every organisation mails letters |
-Province: the release's vendor / buyer table address, else a provincial domain (.qc.ca, gov.bc.ca …), else the single postal
-code on the organisation's own page. Organisations not shown to be located in Canada get no inference (skipped). One row
+Province: the release's vendor / buyer table address, else the registered address in a public registry
+(`org_places.csv.gz`, built by `org_places.py`: CRA List of charities `cra:<BN9>`, Ontario private schools `onps:`, Alberta
+schools / authorities `abed:`; a key listed there counts as located in Canada), else a provincial domain (.qc.ca, gov.bc.ca …),
+else the single postal code on the organisation's own page. Organisations not shown to be located in Canada get no inference (skipped). One row
 per organisation: P12 / P13 never repeat an organisation, registrable domain or mailbox already in a row above.
 
 ## Key columns
