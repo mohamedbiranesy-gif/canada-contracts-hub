@@ -142,7 +142,7 @@ def canonical(firm, ctx):
 def auditor(txt):
     """(firm, city_prov, date_iso, quote) from the independent auditor's report, or None"""
     starts = [m.start() for m in REPORT.finditer(txt)]
-    i = next((x for x in starts if re.search(r"\bOpinion\b|We have audited|Nous avons effectu|avons audit", txt[x:x + 5000])), None)
+    i = next((x for x in starts if re.search(r"(?i)\bopinion\b|we have audited|nous avons effectu|avons audit", txt[x:x + 5000])), None)
     if i is None:
         return None
     body = txt[i:i + 20000]
@@ -157,6 +157,8 @@ def auditor(txt):
     if not best:
         return None
     p, d, cpm = best
+    if re.search(r"Auditor General|V[ée]rificat(?:eur|rice) g[ée]n[ée]ral|Provincial Auditor|Auditor of the Province", body[max(0, p - 500):p + 300], re.I):
+        return ("", "", d, "")  # a legislative auditor (an office of the legislature), not a vendor
     if not (WINDOW <= d <= TODAY):
         return ("", "", d, "")  # signed outside the window: reported, not kept
     firms = []
