@@ -185,3 +185,24 @@ Open: tighten client-listing extraction (exclude partner / reseller / credit / e
   ~/cch-leads/disabled/. A Corporations Canada bulk-file match could replace the BC class later.
 - Measured AP-mailbox rates (strict invoicing types): universities ~12%, school districts ~11%, cities ~7%, counties
   ~6.5%, companies / hospitals / libraries <2%; eSCRIBE customers 28–41%.
+
+## 2026-11-03 19:55 — claude: auditor's report as a dated record; one organisation, one mailbox, the strongest record
+- **fs_auditor (tools/fs_auditor.py, no AI).** An organisation that already publishes its own invoicing mailbox but has
+  no dated record gets one from its OWN audited financial statements: the independent auditor's report signed in the
+  last 12 months, the signature block printing the firm's city + province (the record itself puts the vendor, the audit
+  firm it engages and pays, in Canada), the firm named in the report, its letterhead or "audited by ..." (or read from
+  the signature image by on-device OCR on the owner's Mac, labelled so in the quote). The statements must name the
+  organisation. First run: Canadian AP-grade organisations without a dated record (328), then every other Canadian
+  organisation with a confirmed mailbox (20,259; moves P13 rows to P02-P05 when dated). Sample: 21 of the first 211
+  kept; most misses are sites whose statements link the crawler cannot find.
+- **rank.py.** (1) Leads are taken strongest first (dated record > service seen on the site > 12-36 months > client
+  listing > other link), so a weak link no longer claims an organisation's domain before its dated record. (2) A lead
+  whose own key has no mailbox yet borrows the confirmed mailbox of the same organisation found under another key, only
+  when one organisation holds mailboxes on that registrable domain and the names fit (a person named in a customer story
+  never borrows a university's mailbox). (3) A dated lead from the last 12 months upgrades the one delivered row with the
+  same website domain when that row's relationship is older or undated. (4) Leads whose vendor is redacted / withheld
+  are dropped. (5) "manufacturing" no longer counts as "factur" (FutureManufacturing@nsf.gov was typed invoicing).
+  Local run before the fs_auditor leads: Gold 502 -> 530, P01T 34 -> 40.
+- **Crawler fix (tools/ap_crawler.py, tools/deep_pages.py):** an address is located only as a whole token (ap@x inside
+  rap@x is not ap@x); an address seen only in a link target while the page shows a longer one is skipped (the
+  "ccountspayable@" rows were mikisewcree.ca's own typo'd mailto, not a crawler cut).
