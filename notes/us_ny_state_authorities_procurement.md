@@ -1,31 +1,30 @@
 # New York State Authorities Procurement
 
-Endpoints used:
-- `https://data.ny.gov/resource/ehig-g5x3.json` (Procurement Report for State Authorities)
-- `https://data.ny.gov/resource/8w5p-k45m.json` (Procurement Report for Local Authorities)
-- `https://data.ny.gov/resource/d84c-dk28.json` (Procurement Report for Local Development Corporations)
-- `https://data.ny.gov/resource/p3p6-xqr5.json` (Procurement Report for Industrial Development Agencies)
+Datasets:
+- Procurement Report for State Authorities (ehig-g5x3)
+- Procurement Report for Local Authorities (8w5p-k45m)
+- Procurement Report for Local Development Corporations (d84c-dk28)
+- Procurement Report for Industrial Development Agencies (p3p6-xqr5)
+Publisher: New York State
 
-Parameters used:
-`$where=upper(vendor_country) = 'CANADA'`
+This dataset contains a point-in-time snapshot of active contract records for NYS Authorities, including State Authorities, Local Authorities, LDCs, and IDAs.
 
-Fields used:
-- `authority_name` -> buyer name
-- `vendor_name` -> vendor name
-- `vendor_address_1`, `vendor_city`, `vendor_state`, `vendor_province_region`, `vendor_postal_code`, `vendor_country` -> vendor address
-- `procurement_description` -> contract title and description
-- `contract_amount` -> contract value
-- `type_of_procurement` -> contract instrument type
-- `award_process` -> contract procurement method
-- `award_date`, `begin_date`, `end_date` -> contract dates
+## Method
+* For each dataset, filtered on server-side using SoQL: `$where=upper(vendor_country) = 'CAN' OR upper(vendor_country) = 'CANADA' OR upper(vendor_country) = 'CA' OR upper(vendor_country) = 'ONTARIO, CANADA'`
+* Total records matched:
+  - state_authorities: 3519
+  - local_authorities: 296
+  - local_development_corps: 26
+  - industrial_development_agencies: 2
+* Filtered out records with an end date before the reference date (2026-11-02) and those with start dates in the future.
+* Yielded 786 valid ongoing or end_date_unknown records across all sets.
 
-Counts:
-- State Authorities: 773 records (Canada vendor)
-- Local Authorities: 144 records (Canada vendor)
-- Local Development Corporations: 26 records (Canada vendor)
-- Industrial Development Agencies: 2 records (Canada vendor)
-- Total ongoing: 317 records
+## Quirks
+* `vendor_country` is free-text and we fetch the CA / CAN / CANADA variants.
+* `transaction_number` is often 'NONE' or not provided. To ensure unique `record_id`s, we create a stable SHA-256 hash using the dataset key, `authority_name`, `vendor_name`, `award_date`, `begin_date`, `end_date`, `contract_amount`, `amount_expended_for_fiscal_year`, `transaction_number` and `fiscal_year_end_date`. If collisions still occur, we append an incrementing number suffix.
+* Monetary amounts can contain $ and comma characters; `parse_float` cleans them up.
+* There is no direct link to a record so we link back to the source dataset URL for each record.
 
-Quirks:
-- Values can sometimes be strings starting with `$` and containing `,`. Parsing is done manually.
-- Duplicate transaction numbers can happen if they are for the same vendor/authority, so an index is added to `record_id` to ensure uniqueness.
+## Counts
+* Canadian vendor rows: 3843
+* Ongoing/unknown end date rows: 786
