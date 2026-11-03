@@ -60,7 +60,7 @@ DROP_T = re.compile(r"financ|credit facilit|\bloan|\bprêt|invest(?!igat)|raises
                     r"mineral|ounces|tonnes|wells?\b|pipeline capacity|open season|rate case|tariff|conversion|redemption|"
                     r"normal course|\bexchange\b|listing|delist|halt|material change|insider|governance|sustainability report|"
                     r"esg report|climate|emissions target|anniversary|celebrat|welcomes? (?:the )?(?:new )?(?:vice|president|chief|director|"
-                    r"officer|members?)|joins? (?:the )?(?:board|team)|statement on|statement regarding|responds? to|update on)", re.I)
+                    r"officer|members?)|joins? (?:the )?(?:board|team)|statement on|statement regarding|responds? to|update on", re.I)
 GENERIC = {"the", "of", "and", "de", "du", "des", "la", "le", "les", "et", "l", "d", "for", "in", "a", "an", "inc", "ltd", "llc",
            "corp", "corporation", "co", "company", "limited", "ltee", "group", "groupe", "holdings", "international", "canada",
            "city", "town", "village", "county", "district", "municipality", "township", "region", "regional", "university",
