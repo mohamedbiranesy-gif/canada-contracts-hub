@@ -390,9 +390,9 @@ def one(v, orgs, by_dom, index, cap, stats, done):
         head = title + ". " + text[:2500]
         place = VN.CANADA_LINE.search(text[:4000]) or VN.CANADA_HQ.search(text)
         place = re.sub(r"\s+", " ", text[max(0, place.start() - 40):place.end() + 40]).strip()[:200] if place else ""
-        if basis != "hq" and not vhost.endswith(".ca") and not place:
-            stats["no_canada_line"] += 1
-            continue
+        if basis not in ("hq", "v") and not vhost.endswith(".ca") and not place:
+            stats["no_canada_line"] += 1  # a Wikidata company's global newsroom: the release itself must place it in Canada
+            continue  # (basis "v": the contract data's own vendor-country field already says Canada)
         linked = set()
         for href, label in CL.anchors(page, final):  # organisations linked from the release (confirms a name match)
             h = registrable((urllib.parse.urlparse(href).hostname or "").lower().removeprefix("www."))
