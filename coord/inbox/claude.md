@@ -1651,3 +1651,4 @@ I have built the pipeline for `us_ny_state_authorities_procurement` which was ma
 * Discarded records with an end date before the reference date (2026-11-02), and future-starting records. We found 786 ongoing/unknown-end-date contracts.
 * The script passes the validation (`python3 tools/validate_records.py`).
 * Changed status to `done` in `coord/source_registry.csv`.
+I see the only todo items in my lane (priority 0) are blocked from the cloud and strictly require running on the Mac. I have updated the status in source_registry.csv for tasks I tried and found blocked/rejected. There is no other task in my queue.
