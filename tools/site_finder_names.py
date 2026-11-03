@@ -75,7 +75,7 @@ def main():
     done = set()
     if os.path.exists(DONE):
         done = {l.split("\t")[0] for l in open(DONE, encoding="utf-8") if not (a.retry_misses and not l.rstrip("\n").split("\t")[-1])}
-    todo = {}
+    todo, slugs = {}, {}
     files = [os.path.join(LEADS, "socrata_%s.jsonl" % s) for s in a.sources] if a.sources else glob.glob(os.path.join(LEADS, "socrata_*.jsonl"))
     for f in files:
         if not os.path.exists(f):
@@ -96,6 +96,9 @@ def main():
             key = "lead:" + hashlib.sha1(("%s|%s" % (r["domain"], name.lower())).encode()).hexdigest()[:16]
             if key not in have and key not in done and len(norm(name)) >= 3:
                 todo.setdefault(key, name)
+                slug = (r.get("row") or {}).get("portal_slug") or ""
+                if r.get("platform") == "tech" and slug and "." not in slug and len(slug) >= 4:
+                    slugs[key] = slug  # <employer>.benevity.org: the employer's own identifier
     print(time.strftime("%H:%M"), "names to look up:", len(todo), flush=True)
     found = 0
     new = not os.path.exists(TASKS)
@@ -113,6 +116,15 @@ def main():
                 if dom and not BAD.search(dom) and sn and sn == n and verified(dom, n):  # same name once legal suffixes are ignored
                     hit = dom
                     break
+            if not hit and key in slugs:  # a tenant portal's slug (microsoft.benevity.org): the domain whose first label is the slug
+                slug = slugs[key]
+                for s in suggest(slug)[:5]:
+                    dom = (s.get("domain") or "").lower().strip()
+                    first = dom.split(".")[0]
+                    sn = norm(s.get("name") or "")
+                    if dom and not BAD.search(dom) and first == slug and (sn.split()[0] in norm(name).split() if sn else False or len(slug) >= 7) and verified(dom, sn or slug):
+                        hit = dom
+                        break
             dn.write("%s\t%s\n" % (key, hit))
             if hit:
                 found += 1

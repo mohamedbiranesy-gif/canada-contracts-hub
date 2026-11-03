@@ -653,6 +653,14 @@ def portal_info(vkey, purl):
                 name, basis = alt.strip(), "logo alt text"
                 break
     slug = host_of(fu).split(".")[0].replace("pub-", "")
+    if vkey == "benevity":  # the page shows the programme's brand ("My Impact Hub"); the employer is in the text or the slug
+        txt = re.sub(r"\s+", " ", html.unescape(re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>|<[^>]+>", " ", body[:400_000])))
+        m = re.search(r"(?:Welcome to|Welcome,?|for|of)\s+(?:the\s+)?([A-Z][\w&.,'’ -]{2,60}?)\s+(?:Employees|employees|Team Members|team members|Associates|Colleagues|Staff)\b", txt) or \
+            re.search(r"\b([A-Z][\w&.,'’ -]{2,60}?)\s+(?:Employee|Team Member|Associate|Colleague)\s+(?:Giving|Volunteering|Impact|Community|Engagement)\b", txt)
+        if m and not BAD_TITLE.search(m.group(1)):
+            name, basis = m.group(1).strip(" ,.-"), "programme text (employer named)"
+        elif name and re.search(r"benevity|login|sign in", name, re.I):
+            name = ""
     if vkey == "amilia":
         m = re.search(r"/store/(?:en|fr|es)/([a-z0-9-]+)", fu, re.I)
         slug = m.group(1) if m else slug
@@ -666,6 +674,8 @@ def portal_info(vkey, purl):
                 basis = "title of the linked organisation website" if name else ""
     if not name:
         return None, "no_name"
+    if vkey == "benevity" and website and re.search(r"g2\.com|benevity\.|linkedin|facebook|twitter|instagram|youtube|apple\.com|google\.com", website):
+        website, wbasis = "", ""
     return {"name": name, "name_basis": basis, "website": website, "website_basis": wbasis, "final_url": fu,
             "page_title": title[:200], "og_site_name": meta.get("og:site_name", "")[:200], "slug": slug,
             "practitioners_listed": len(staff) if vkey == "jane" else None}, "ok"
