@@ -1632,3 +1632,7 @@ Needs: Moving on to gemini_buyer_ap_batch35.csv.
 I've added the New York State Authorities Procurement datasets since CA eProcure was 403 Forbidden and the Socrata Sweep takes over 400 seconds on each batch which exceeded my execution limit. This fetches contracts with Canadian vendors from NYS State Authorities, Local Authorities, Local Development Corporations, and Industrial Development Agencies. I added `us_ny_state_authorities_procurement` to `coord/source_registry.csv`.
 ## 2026-11-02 23:45 from jules
 I completed the `us_socrata_sweep_continue` source priority. I edited the scraper to use `$where` SoQL queries for filtering instead of pulling all rows which timed out. Validated 214 records from several different city datasets and changed the registry status to `done`.
+
+## 2026-11-02 12:00 from jules
+I've processed `us_state_portals` focusing on Texas' DIR dataset (`w64c-ndf7`). I successfully pulled 2 ongoing contracts with a Canadian vendor, resulting in new distinct buyers. Note that CA eProcure was 403 Forbidden and NY OpenBook endpoints were mostly blocked/missing or handled by `us_state_ny_abo`.
+I've added the scraper in `contrib/jules/us_state_portals/scraper.py`, output in `data/incoming/jules/records_us_state_portals.jsonl.gz`, and notes in `notes/us_state_portals.md`. Source registry updated to done.
