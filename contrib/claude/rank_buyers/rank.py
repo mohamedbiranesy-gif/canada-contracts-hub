@@ -168,11 +168,11 @@ def emailcols(keys, be, gj="", name="", site=""):
         c = be.get(kind) or {}
         if c.get("emails") and fits(c["emails"][0]) and roleish(c["emails"][0].split("@")[0], name):
             ev = (c.get("evidence") or [{}])[0] if isinstance(c.get("evidence"), list) else {}
-            if not (ev.get("page_url") and ev.get("quote")):
-                continue  # evidence or nothing: an enrichment contact without its page and quote is not delivered
-            g = real_grade(c["emails"][0], {"ap_contact": "accounts_payable", "procurement_contact": "procurement", "general_contact": "general"}[kind], (ev.get("quote") or ""), name)
+            if not ev.get("page_url"):
+                continue  # evidence or nothing: an enrichment contact without the page it was read on is not delivered
+            g = real_grade(c["emails"][0], {"ap_contact": "accounts_payable", "procurement_contact": "procurement", "general_contact": "general"}[kind], (ev.get("quote") or ev.get("snippet") or ""), name)
             if g >= 1:
-                opts.append(((True, g), (c["emails"][0], LABEL[g], "from dataset enrichment", ev.get("page_url", ""), (ev.get("quote") or "")[:300], g, True)))
+                opts.append(((True, g), (c["emails"][0], LABEL[g], "from dataset enrichment", ev.get("page_url", ""), (ev.get("quote") or ev.get("snippet") or "")[:300], g, True)))
     if opts:
         return max(opts, key=lambda x: x[0])[1]
     return "", "", "", "", "", 0, False
