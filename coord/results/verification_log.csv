@@ -9570,6 +9570,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00202,b:eee29ab6e096d29e,procur
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00202,b:eee29ab6e096d29e,procurement@trca.ca,https://trca.ca/about/procurement/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0185,b:ef2b82a9f7fbb866,finance@glendon.yorku.ca,https://futurestudents.yorku.ca/financing-your-degree/scholarships-bursaries,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0185,b:ef2b82a9f7fbb866,finance@glendon.yorku.ca,https://futurestudents.yorku.ca/financing-your-degree/scholarships-bursaries,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-00004,b:ef2b82a9f7fbb866,invoices@yorku.ca,https://www.yorku.ca/finance/wp-content/uploads/sites/76/2024/10/InvoiceReq-V3.xlsx,not_found_on_page
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-00004,b:ef2b82a9f7fbb866,purchase@yorku.ca,https://www.yorku.ca/finance/how-to-services/how-to-pay-external-vendors/,verified
 gemini,gemini_buyer_ap_results_batch42.csv,CH-AP-P0185,b:ef2b82a9f7fbb866,vendorinvoices@yorku.ca,https://www.yorku.ca/procurement/purchasing-channel-info/non-po-invoices/,verified
 chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00403,b:ef312603a15fd4cd,AskAccounting@worldbankgroup.org,https://www.worldbank.org/en/about/corporate-procurement/vendors/invoicing-and-payment,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00403,b:ef312603a15fd4cd,corporateprocurement@worldbank.org,https://www.worldbank.org/en/about/corporate-procurement,verified
@@ -10049,6 +10051,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01208,b:fae2aed633be7407,ebilli
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01208,b:fae2aed633be7407,finance@redcliff.ca,https://redcliff.ca/corporate-services/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01208,b:fae2aed633be7407,ebilling@redcliff.ca,https://redcliff.ca/corporate-services/utilities/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01208,b:fae2aed633be7407,finance@redcliff.ca,https://redcliff.ca/corporate-services/payment-options/,verified
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-00089,b:fae2aed633be7407,finance@redcliff.ca,https://redcliff.ca/wp-content/uploads/2018/09/Direct-Deposit-Accounts-Payable-Form.pdf,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00045,b:fae2aed633be7407,finance@redcliff.ca,https://redcliff.ca/corporate-services/,verified
 gemini,gemini_buyer_ap_results_batch32.csv,CH-AP-01208,b:fae2aed633be7407,finance@redcliff.ca,https://redcliff.ca/corporate-services/,verified
 gemini,gemini_buyer_ap_results_batch34.csv,CH-AP-01425,b:faecc344c40e85bf,Purchasing@DASNY.org,https://www.dasny.org/contact-us,not_found_on_page_hidden
