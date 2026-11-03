@@ -97,7 +97,7 @@ def main():
             if key not in have and key not in done and len(norm(name)) >= 3:
                 todo.setdefault(key, name)
                 slug = (r.get("row") or {}).get("portal_slug") or ""
-                if r.get("platform") == "tech" and slug and "." not in slug and len(slug) >= 4:
+                if r.get("platform") == "tech" and slug and "." not in slug and len(slug) >= 3 and slug not in ("benevity", "www", "app", "login"):
                     slugs[key] = slug  # <employer>.benevity.org: the employer's own identifier
     print(time.strftime("%H:%M"), "names to look up:", len(todo), flush=True)
     found = 0
@@ -122,7 +122,7 @@ def main():
                     dom = (s.get("domain") or "").lower().strip()
                     first = dom.split(".")[0]
                     sn = norm(s.get("name") or "")
-                    if dom and not BAD.search(dom) and first == slug and ((bool(sn) and sn.split()[0] in norm(name).split()) or len(slug) >= 7) and verified(dom, sn or slug):
+                    if dom and not BAD.search(dom) and first == slug and ((bool(sn) and sn.split()[0] in norm(name).split()) or len(slug) >= 5) and verified(dom, sn or slug):
                         hit = dom
                         break
             dn.write("%s\t%s\n" % (key, hit))
