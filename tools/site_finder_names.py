@@ -106,7 +106,8 @@ def main():
                         "known_general_email", "known_procurement_email", "contracts_in_dataset"])
         for i, (key, name) in enumerate(todo.items(), 1):
             n, hit = norm(re.sub(r"\s+", " ", LEGAL.sub(" ", norm(name)))).strip() or norm(name), ""
-            for s in suggest(name)[:5]:
+            sugg = suggest(n or name) or (suggest(" ".join(n.split()[:3])) if len(n.split()) > 3 else [])  # the autocomplete is prefix-based: no legal suffix
+            for s in sugg[:5]:
                 dom = (s.get("domain") or "").lower().strip()
                 sn = norm(re.sub(r"\s+", " ", LEGAL.sub(" ", norm(s.get("name") or "")))).strip()
                 if dom and not BAD.search(dom) and sn and sn == n and verified(dom, n):  # same name once legal suffixes are ignored
