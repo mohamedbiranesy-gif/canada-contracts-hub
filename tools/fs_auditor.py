@@ -115,53 +115,70 @@ def candidates(site, max_pages=25):
     return sorted(((v[0], u, v[1]) for u, v in hits.items()), key=lambda x: -x[0])
 
 
+AUDITED_BY = re.compile(r"(?:audited by|examined by|external auditors?,?|independent auditors?,?|v[ée]rificateurs? externes?,?|"
+                        r"auditeurs? ind[ée]pendants?,?)\s+(?:the\s+)?((?:[A-Z][A-Za-z&'’.\-]*[ \t,]+(?:&[ \t]+)?){0,6}?(?:LLP|"
+                        r"S\.E\.N\.C\.R\.L\.|s\.e\.n\.c\.r\.l\.|Professional Corporation|CPA[,]? (?:Inc|Ltd)\.?|Chartered "
+                        r"Professional Accountants?,? (?:Inc|Ltd)\.?)|KPMG|MNP|BDO Canada|Deloitte|PricewaterhouseCoopers|"
+                        r"Ernst & Young|Grant Thornton|Raymond Chabot Grant Thornton|Mallette|Baker Tilly [A-Z][A-Za-z]+)")
+ACCT = re.compile(r"chartered|accountants?|comptables?|CPA|auditor|auditeur", re.I)
+
+
+def _firm(raw):
+    f = re.sub(r"\s+", " ", raw).strip(" ,.")
+    f = re.sub(r"^(?:\(?signed\)?|original signed by|per|by)\s+", "", f, flags=re.I)
+    return "" if NOT_FIRM.search(f) or len(f) < 3 else f
+
+
 def auditor(txt):
     """(firm, city_prov, date_iso, quote) from the independent auditor's report, or None"""
-    m = REPORT.search(txt)
-    if not m:
+    starts = [m.start() for m in REPORT.finditer(txt)]
+    i = next((x for x in starts if re.search(r"\bOpinion\b|We have audited|Nous avons effectu|avons audit", txt[x:x + 5000])), None)
+    if i is None:
         return None
-    i = m.start()
-    e = END.search(txt, i + 400)
-    body = txt[i:(e.start() if e and e.start() - i < 30000 else i + 20000)]
-    dates = [(x.start(), iso(x)) for x in EN_DATE.finditer(body)] + [(x.start(), iso(x, True)) for x in FR_DATE.finditer(body)]
+    body = txt[i:i + 20000]
+    dates = sorted([(x.start(), iso(x)) for x in EN_DATE.finditer(body)] + [(x.start(), iso(x, True)) for x in FR_DATE.finditer(body)])
     cps = [(x.start(), x) for x in CITY_PROV.finditer(body)]
     best = None
     for p, d in dates:
-        if not d:
-            continue
-        near = [(abs(cp - p), x) for cp, x in cps if abs(cp - p) <= 260]
+        near = [(abs(cp - p), x) for cp, x in cps if abs(cp - p) <= 260] if d else []
         if near:
-            best = (p, d, min(near, key=lambda t: t[0])[1])  # the last dated city-province pair = the signature block
+            best = (p, d, min(near, key=lambda t: t[0])[1])  # the first dated city-province pair = the signature block
+            break
     if not best:
         return None
     p, d, cpm = best
     if not (WINDOW <= d <= TODAY):
         return ("", "", d, "")  # signed outside the window: reported, not kept
     firms = []
-    for x in FIRM.finditer(body):
-        f = re.sub(r"\s+", " ", x.group(1)).strip(" ,.")
-        f = re.sub(r"^(?:\(?signed\)?|original signed by|per)\s+", "", f, flags=re.I)
-        if NOT_FIRM.search(f) or len(f) < 5:
-            continue
-        firms.append((abs(x.start() - p), x.start(), f))
-    if not firms:  # letterhead above the report title (e.g. "KPMG LLP / 150 Elgin Street ...")
-        head = txt[max(0, i - 2500):i]
-        for x in FIRM.finditer(head):
-            f = re.sub(r"\s+", " ", x.group(1)).strip(" ,.")
-            if not NOT_FIRM.search(f) and len(f) >= 5:
-                firms.append((10 ** 6, None, f))
+    for x in FIRM.finditer(body[:p + 400]):  # in the report, nearest the signature
+        f = _firm(x.group(1))
+        if f:
+            firms.append((abs(x.start() - p), "report", x.start(), f))
+    if not firms:  # letterhead above the report title
+        for x in FIRM.finditer(txt[max(0, i - 2500):i]):
+            f = _firm(x.group(1))
+            if f:
+                firms.append((10 ** 6, "letterhead", None, f))
+    if not firms:  # management's responsibility page: "... audited by KPMG LLP, the external auditors ..."
+        for x in AUDITED_BY.finditer(txt[:max(i + 20000, 40000)]):
+            f = _firm(x.group(1))
+            if f and ACCT.search(txt[max(0, x.start() - 200):x.end() + 200]):
+                firms.append((2 * 10 ** 6, "statement", x.start(), f))
+                break
     if not firms:
         return None
-    dist, fp, firm = min(firms)
+    dist, where, fp, firm = min(firms)
     cp = re.sub(r"\s+", " ", cpm.group(0)).strip()
     lo, hi = min(p, cpm.start()), max(p + 20, cpm.end())
-    if fp is not None and dist <= 260:
+    if where == "report" and dist <= 260:
         lo, hi = min(lo, fp), max(hi, fp + len(firm))
     q = re.sub(r"\s{2,}", " | ", body[max(0, lo - 10):hi + 10].strip())
     if firm.lower() not in q.lower():
-        q2 = re.sub(r"\s{2,}", " | ", txt[max(0, i - 2500):i])
-        j = q2.lower().find(firm.lower())
-        q = (q2[max(0, j - 20):j + len(firm) + 60] + " ... " + q) if j >= 0 else q
+        src = txt[max(0, i - 2500):i] if where == "letterhead" else txt[max(0, fp - 120):fp + len(firm) + 80] if fp is not None else ""
+        src = re.sub(r"\s{2,}", " | ", src)
+        j = src.lower().find(firm.lower())
+        if j >= 0:
+            q = S.quote(src[max(0, j - 80):j + len(firm) + 40], 150) + " ... " + q
     return firm, cp, d, S.quote(q)
 
 
@@ -224,6 +241,7 @@ def main():
         for line in open(path, encoding="utf-8"):
             r = json.loads(line)
             leads[r["domain"]] = r
+    os.makedirs(S.CACHE, exist_ok=True)
     logp = os.path.join(S.CACHE, "fs_auditor_log.csv")
     done = set()
     if os.path.exists(logp):
