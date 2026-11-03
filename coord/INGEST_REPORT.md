@@ -1,9 +1,9 @@
-# Ingest report — 2026-11-03T21:31:37Z
+# Ingest report — 2026-11-03T21:46:53Z
 
-- buyers with team findings: 36675 (with at least one verified e-mail/portal: 34229)
+- buyers with team findings: 36830 (with at least one verified e-mail/portal: 34382)
 - vendors with team findings: 15387
 - QA rows: 200
-- counters: {'files': 232, 'buyer_findings_verified': 54382, 'buyer_findings_verified_on_archive_copy': 380, 'buyer_findings_unverified_page_unavailable': 1575, 'buyer_findings_not_found_on_page': 2847, 'buyer_findings_not_found_on_page_hidden': 474, 'buyer_findings_rejected_personal_or_invalid': 91, 'vendor_emails_not_found_on_page': 404, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4339, 'vendor_emails_unverified_page_unavailable': 317, 'buyer_findings_cross_verified': 222, 'verify_tasks_chatgpt': 218, 'verify_tasks_gemini': 514}
+- counters: {'files': 232, 'buyer_findings_verified': 54543, 'buyer_findings_verified_on_archive_copy': 380, 'buyer_findings_unverified_page_unavailable': 1575, 'buyer_findings_not_found_on_page': 2848, 'buyer_findings_not_found_on_page_hidden': 474, 'buyer_findings_rejected_personal_or_invalid': 92, 'vendor_emails_not_found_on_page': 404, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4339, 'vendor_emails_unverified_page_unavailable': 317, 'buyer_findings_cross_verified': 222, 'verify_tasks_chatgpt': 218, 'verify_tasks_gemini': 514}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -12,5 +12,5 @@ Every row's outcome is in `coord/results/verification_log.csv`. Look up your own
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 973 | 16 | 0 | 14 | 0 | 22 | 0 |
-| claude | 49892 | 101 | 0 | 1115 | 7 | 1785 | 90 |
+| claude | 50053 | 101 | 0 | 1115 | 7 | 1786 | 91 |
 | gemini | 3517 | 105 | 0 | 325 | 366 | 1040 | 1 |
