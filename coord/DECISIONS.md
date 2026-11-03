@@ -206,3 +206,30 @@ Open: tighten client-listing extraction (exclude partner / reseller / credit / e
 - **Crawler fix (tools/ap_crawler.py, tools/deep_pages.py):** an address is located only as a whole token (ap@x inside
   rap@x is not ap@x); an address seen only in a link target while the page shows a longer one is skipped (the
   "ccountspayable@" rows were mikisewcree.ca's own typo'd mailto, not a crawler cut).
+
+## 2026-11-03 21:40 — claude: the Gold programme (owner: "get Gold to the thousands, private and public, full autonomous")
+Gold is bounded by organisations that BOTH publish an invoicing mailbox AND have a dated / active Canadian-vendor
+record (today ~1,150 confirmed AP-grade organisations, 579 of them Gold / Gold-T). New engines, all no-AI, all on the
+owner's Mac, each writing leads the bridge picks up:
+- **tools/news_match.py** — our ~114,000 known organisations (buyers, crawled sites, leads) matched by name in the
+  title / first paragraphs of Canadian vendors' own dated releases (4,325 newsrooms: Wikidata-listed Canadian
+  companies, the Canada-HQ list, every newsroom vendor_news.py found releases on), next to a buying cue and away from
+  financing / M&A / prize / partnership / sponsorship cues; vendor location from the release's Canadian dateline.
+  (vendor_news.py's title parser gave 22 leads from 51,000 releases; the dictionary finds the organisations we care
+  about — the ones with mailboxes — wherever the release names them.)
+- **tools/exchange_listing.py** — TSX / TSXV issuers (tsx.com directory, websites from TMX's public quote service) whose
+  OWN site prints "TSX: ABC": an active paid service (annual sustaining listing fee) of TMX Group Limited, Toronto
+  (HQ quoted from tmx.com/privacy-policy). Tier T like the other vendor-hosted / buyer-published signals; ~3,000
+  private-sector buyers; their sites are then crawled for the invoicing mailbox (exchange_sites.csv).
+- **tools/tech_relationships.py --source cdx** — customer portals enumerated from the Internet Archive's CDX index
+  (paginated, 3 s apart) instead of Common Crawl (403 after the 2026-11-02 incident); new vendors with HQ quoted from
+  their own sites: Benevity (Calgary; <company>.benevity.org, enterprises), Coconut Software (Saskatoon;
+  <bank>.coconutcalendar.com, 188 credit unions / banks), Möbius / DigitalEd (Waterloo; <inst>.mobius.cloud, 244
+  universities). Dropped after checking their sites: Igloo (Appspace, Tampa), Bonfire / Questica (Euna, US), PerfectMind
+  (Xplor), Achievers / Axonify / Intelex tenant pages (robots.txt disallows them; HQ is Canadian, so buyer-side mentions
+  may still be used), SDPC registry (members-only since 2022; robots disallows /agreements/).
+- **tools/site_finder_names.py** — names compared without legal suffixes and queried without them (the autocomplete is
+  prefix-based): "LOCKHEED MARTIN CORPORATION" now resolves; 3,275 dated lead buyers without a website re-tried.
+- **tools/fs_auditor.py** continues over the 20,000 Canadian organisations with a confirmed mailbox (102 kept of the
+  first 1,698; most misses are statements the crawler cannot find).
+- Standing prompt for the loop: prompts/claude_gold_loop.md (re-fired hourly by a scheduled task).
