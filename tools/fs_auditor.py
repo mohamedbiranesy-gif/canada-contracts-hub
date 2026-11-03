@@ -129,6 +129,15 @@ def _firm(raw):
     return "" if NOT_FIRM.search(f) or len(f) < 3 else f
 
 
+def canonical(firm, ctx):
+    """'Young LLP' cut from 'Ernst &\nYoung LLP' and similar: the full name when the text just before says so"""
+    for rx, legal in (BIG if "BIG" in globals() else []):
+        last = legal.split()[-2]
+        if re.search(rx, ctx, re.I if "Ernst" in rx else 0) and last.lower() in firm.lower() and len(firm) < len(legal) + 4:
+            return legal if not firm.lower().startswith(("baker", "doane")) else firm
+    return firm
+
+
 def auditor(txt):
     """(firm, city_prov, date_iso, quote) from the independent auditor's report, or None"""
     starts = [m.start() for m in REPORT.finditer(txt)]
@@ -171,6 +180,8 @@ def auditor(txt):
         return ("", cp, d, S.quote(re.sub(r"\s{2,}", " | ", body[max(0, lo - 10):hi + 10].strip())), txt[:i + p].count("\f") + 1,
                 txt[:i].count("\f") + 1)
     dist, where, fp, firm = min(firms)
+    ctx = (body if where == "report" else txt)[max(0, (fp or 0) - 40):(fp or 0) + len(firm) + 5] if fp is not None else txt[max(0, i - 2500):i]
+    firm = canonical(firm, ctx)
     cp = re.sub(r"\s+", " ", cpm.group(0)).strip()
     lo, hi = min(p, cpm.start()), max(p + 20, cpm.end())
     if where == "report" and dist <= 260:
