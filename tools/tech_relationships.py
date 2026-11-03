@@ -690,7 +690,7 @@ def cdx_urls(pattern, limit=60000):
             if h and h not in hosts:
                 hosts.add(h); out.append(u)
     try:  # how many index pages (blocks) the query spans
-        n = int((get(base + [("showNumPages", "true")], 60) or "1").strip() or 1)
+        n = int((get([kv for kv in base if kv[0] != "output"] + [("showNumPages", "true")], 60) or "1").strip() or 1)
     except Exception as e:
         print("cdx %s pages: %s" % (pattern, e), flush=True)
         n = 1
