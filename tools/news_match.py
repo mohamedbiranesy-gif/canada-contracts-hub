@@ -391,14 +391,17 @@ def one(v, orgs, by_dom, index, cap, stats, done):
             od = o.get("dom") or ""
             if od and (od == vhost or od.endswith("." + vhost) or vhost.endswith("." + od)):
                 continue  # the vendor itself
-            if norm(o["name"]) and norm(o["name"]) in norm(vname):
-                continue
+            ot, vt = set(sig_tokens(o["name"])), set(sig_tokens(vname)) | set(sig_tokens(vhost.split(".")[0]))
+            if ot and vt and (ot <= vt or vt <= ot or (len(ot & vt) >= 2)):
+                continue  # the vendor itself (or its own group company)
             if a < 160 and re.match(r"\s*,\s*(?:ON|QC|BC|AB|MB|SK|NS|NB|NL|PE|Ont|Que|Alta|Canada|[A-Z]{2})\b", head[b:b + 12]):
                 continue  # the dateline (MISSISSAUGA, ON, …) names the vendor's city, not a buyer
             sent = sentence_at(head, a, b)
             cue = BUY.search(sent)
             if not cue or abs(cue.start() - (a - max(0, head.rfind(sent, 0, a + 1)))) > 220:
                 stats["no_buy_cue"] += 1
+                with lock, open(OUT + ".nearmiss", "a", encoding="utf-8") as nf:
+                    nf.write("%s\t%s\t%s\t%s\t%s\n" % (d, o["name"][:40], vname[:30], title[:90].replace("\t", " "), sent[:220].replace("\t", " ")))
                 continue
             if DROP_T.search(sent):
                 continue
