@@ -79,7 +79,8 @@ PLATFORM_DOM = re.compile(r"(^|\.)(linkedin|facebook|twitter|x|instagram|youtube
                           r"wordpress|wix|squarespace|shopify|hubspot|mailchimp|eventbrite|zoom|microsoft|adobe|gov|canada|"
                           r"gc|quebec|ontario|alberta|bcgov|europa|un|who|w3|github|medium|substack|spotify|soundcloud)\.[a-z.]+$|"
                           r"^(gov\.uk|canada\.ca|gc\.ca|quebec\.ca|ontario\.ca|alberta\.ca|gov\.bc\.ca|europa\.eu|un\.org|who\.int)$")
-norm = VN.norm
+import unicodedata
+norm = lambda s: re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()).strip()
 
 
 from ap_crawler import registrable as _reg
@@ -104,11 +105,16 @@ def sig_tokens(name):
     return [t for t in norm(name).split() if t not in STOP and len(t) > 1]
 
 
+def _common(t):
+    return t in _COMMON or (t.endswith("s") and t[:-1] in _COMMON) or (t.endswith("es") and t[:-2] in _COMMON) or t.isdigit() or len(t) < 4
+
+
 def distinctive(toks):
-    """a phrase worth matching in running text: 2+ words with one that is not an everyday word, or 3+ words"""
+    """a phrase worth matching in running text: 2+ words, at least one of them not an everyday word (plurals and
+    capitalised place names count as everyday), or 4+ words"""
     if len(toks) < 2:
         return False
-    return len(toks) >= 3 or any(t not in _COMMON and not t.isdigit() for t in toks)
+    return len(toks) >= 4 or any(not _common(t) for t in toks)
 
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -244,9 +250,11 @@ def vendors_from_done(min_urls):
             h = registrable((urllib.parse.urlparse(site).hostname or "").lower().removeprefix("www."))
             if h in seen or not h:
                 continue
-            seen.add(h)
             nm, key = names.get(h, ("", ""))
-            out.append({"buyer_key": key or "site:" + h, "buyer_name": nm, "known_website": site, "basis": (key.split(":")[0] if key else "site"), "urls": int(p[1])})
+            if not key.startswith("v:"):
+                continue  # only vendors proven by contract data (batch903); Wikidata organisations / OSM shops are not vendors
+            seen.add(h)
+            out.append({"buyer_key": key, "buyer_name": nm, "known_website": site, "basis": "v", "urls": int(p[1])})
     out.sort(key=lambda v: -v["urls"])
     return out
 
