@@ -122,7 +122,7 @@ def main():
                     dom = (s.get("domain") or "").lower().strip()
                     first = dom.split(".")[0]
                     sn = norm(s.get("name") or "")
-                    if dom and not BAD.search(dom) and first == slug and (sn.split()[0] in norm(name).split() if sn else False or len(slug) >= 7) and verified(dom, sn or slug):
+                    if dom and not BAD.search(dom) and first == slug and ((bool(sn) and sn.split()[0] in norm(name).split()) or len(slug) >= 7) and verified(dom, sn or slug):
                         hit = dom
                         break
             dn.write("%s\t%s\n" % (key, hit))
