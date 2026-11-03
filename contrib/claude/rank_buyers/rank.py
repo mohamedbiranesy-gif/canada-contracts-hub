@@ -314,11 +314,17 @@ def name_fits(a, b):
     tb = {w for w in re.findall(r"[a-z]{4,}", norm(b)) if w not in GEN_W}
     return bool(ta & tb) or not ta or not tb
 def borrow(L):
+    """the confirmed mailbox of the organisation that owns the lead's website domain: one organisation (possibly under
+    several keys whose names fit each other), never a domain shared by several bodies"""
     d = registrable(host_of(L.get("website") or ""))
-    owners = mail_dom.get(d) or {}
-    if len(owners) != 1:
+    owners = list((mail_dom.get(d) or {}).values())
+    if not owners:
         return None
-    ms, mr = next(iter(owners.values()))
+    names = [norm(mr.get("org_name") or "") for ms, mr in owners]
+    same_box = len({mr["mailbox"].lower() for ms, mr in owners}) == 1
+    if not same_box and not all(a and b and (a in b or b in a) for a in names for b in names):
+        return None  # several bodies share this domain (a county and its library, a government and its ministries)
+    ms, mr = max(owners, key=lambda x: x[0])
     return (ms, mr) if name_fits(L.get("buyer_name") or "", mr.get("org_name") or "") else None  # e.g. a person named in a customer story is not the university
 borrowed = 0
 def lead_strength(kl):
