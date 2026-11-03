@@ -172,3 +172,16 @@ Open: tighten client-listing extraction (exclude partner / reseller / credit / e
 - Delivered cells are never blank: derived fills from the record and the release's vendor / buyer tables, else the
   literal not_published. Also fixed: government mail domains are anchored on a dot (aicanada.ca was read as federal),
   and the mailbox choice among a buyer's keys is now deterministic (a set's random order used to break ties).
+
+## 2026-11-03 12:40 — claude: owner "add them all" for Gold; small categories built; robots-respecting cuts
+- The owner (2026-11-03) asked to add every small category that yields buyers with an AP mailbox. Built
+  (tools/small_sources.py): Ontario FIR Schedule 02 auditor of record (226 municipalities, 2026 filings: the audit firm
+  is a paid supplier; firm address from the firm's site or the municipality's audited statements letterhead) and ACI
+  World ASQ 2025 airports (paid survey programme, Montréal). eSCRIBE / D2L customer portals (tools/tech_portals2.py)
+  feed P01T. Cross-web e-mail-domain search for 3,301 active buyers without an AP mailbox ("invoices "@domain" ..."):
+  160 searches, ~15 organisations with a page — dropped as a method.
+- Not used, to respect robots.txt: BC SOFI vendors proven through the OrgBook API (robots.txt disallows /api/) and the
+  FNFTA audit-report class (robots.txt answers 401, which our fetcher treats as disallow-all). Leads moved to
+  ~/cch-leads/disabled/. A Corporations Canada bulk-file match could replace the BC class later.
+- Measured AP-mailbox rates (strict invoicing types): universities ~12%, school districts ~11%, cities ~7%, counties
+  ~6.5%, companies / hospitals / libraries <2%; eSCRIBE customers 28–41%.
