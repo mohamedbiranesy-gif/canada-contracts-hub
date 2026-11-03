@@ -229,6 +229,108 @@ def vendors_from_done(min_urls):
     return out
 
 
+NEWS_INDEX = ("news", "newsroom", "news-releases", "press", "press-releases", "media", "media-centre", "media-center", "blog",
+              "nouvelles", "salle-de-presse", "communiques", "actualites", "investors/news", "about/news", "company/news", "en/news")
+RSS_LINK = re.compile(r"(?is)<link[^>]+type\s*=\s*[\"']application/(?:rss|atom)\+xml[\"'][^>]*>")
+
+
+def release_urls(site, cap):
+    """Every release-looking URL of the site's newsroom (sitemaps, RSS, newsroom index pages), newest first.
+    Unlike tools/vendor_news.py, the slug need not carry a deal word: the dictionary does the selecting."""
+    from customer_stories import fetch_xml
+    found = {}
+    def keep(u, d=""):
+        u = html.unescape(u).split("#")[0]
+        p = urllib.parse.urlparse(u)
+        if p.scheme not in ("http", "https") or CL.base(p.hostname) != CL.base(urllib.parse.urlparse(site).hostname):
+            return
+        if VN.NEWS_PATH.search(p.path) and not VN.NOT_SLUG.search(p.path) and len(p.path.strip("/").split("/")) >= 2:
+            if not d:
+                m = re.search(r"/(20\d\d)/(\d\d)/", p.path)
+                d = "%s-%s-01" % m.groups() if m else ""
+            if d and d < OLDEST:
+                return
+            if u not in found or (d and d > found[u]):
+                found[u] = d
+    robots = fetch_xml(urllib.parse.urljoin(site, "/robots.txt"), 300_000) or ""
+    queue = re.findall(r"(?im)^\s*sitemap:\s*(\S+)", robots) + [urllib.parse.urljoin(site, p) for p in
+            ("/sitemap.xml", "/sitemap_index.xml", "/news-sitemap.xml", "/post-sitemap.xml", "/sitemap/sitemap.xml")]
+    seen = set()
+    while queue and len(seen) < 30 and len(found) < cap * 3:
+        sm = queue.pop(0)
+        if sm in seen or not CL.allowed(sm):
+            continue
+        seen.add(sm)
+        txt = fetch_xml(sm)
+        if not txt or "<" not in txt[:500]:
+            continue
+        index = "<sitemapindex" in txt[:3000].lower()
+        for blk in re.findall(r"(?is)<(?:url|sitemap)>(.*?)</(?:url|sitemap)>", txt):
+            loc = re.search(r"<loc>\s*([^<\s]+)\s*</loc>", blk)
+            if not loc:
+                continue
+            loc = html.unescape(loc.group(1))
+            lm = re.search(r"<(?:lastmod|news:publication_date)>\s*(20\d\d-\d\d-\d\d)", blk)
+            if index or loc.endswith((".xml", ".xml.gz")) or ".xml?" in loc:
+                if lm and lm.group(1) < OLDEST:
+                    continue
+                if re.search(r"news|press|post|media|blog|actualit|nouvell|communiq|release|article|stor", loc, re.I):
+                    queue.insert(0, loc)
+                elif len(queue) < 40 and not re.search(r"product|produit|image|video|categor|tag|author|page-sitemap|attachment", loc, re.I):
+                    queue.append(loc)
+                continue
+            keep(loc, lm.group(1) if lm else "")
+    if len(found) < 10:  # RSS feed(s) and the newsroom index pages
+        home, hfinal = CL.fetch(site) if CL.allowed(site) else ("", site)
+        feeds = [urllib.parse.urljoin(hfinal, m.group(1)) for m in re.finditer(r"href\s*=\s*[\"']([^\"']+)", " ".join(RSS_LINK.findall(home or "")))]
+        feeds += [urllib.parse.urljoin(site, p) for p in ("/feed", "/rss", "/rss.xml", "/news/rss", "/news/feed", "/feed/", "/blog/feed")]
+        for fu in feeds[:6]:
+            if not CL.allowed(fu):
+                continue
+            txt = fetch_xml(fu, 3_000_000)
+            if not txt or "<item" not in txt and "<entry" not in txt:
+                continue
+            for blk in re.findall(r"(?is)<(?:item|entry)>(.*?)</(?:item|entry)>", txt):
+                lk = re.search(r"<link>\s*([^<\s]+)", blk) or re.search(r"<link[^>]+href\s*=\s*[\"']([^\"']+)", blk)
+                dt = re.search(r"(20\d\d)-(\d\d)-(\d\d)", blk) or None
+                pd = re.search(r"(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\w*\s+(20\d\d)", blk)
+                d = "-".join(dt.groups()) if dt else ("%s-%02d-%02d" % (pd.group(3), ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"].index(pd.group(2).lower()[:3]) + 1, int(pd.group(1)))) if pd else ""
+                if lk:
+                    u = html.unescape(lk.group(1)).strip()
+                    p = urllib.parse.urlparse(u)
+                    if CL.base(p.hostname) == CL.base(urllib.parse.urlparse(site).hostname) and not VN.NOT_SLUG.search(p.path) and (not d or d >= OLDEST):
+                        found.setdefault(u.split("#")[0], d)
+            if len(found) >= 10:
+                break
+        tried = 0
+        for pth in NEWS_INDEX:
+            if len(found) >= 10 or tried >= 4:
+                break
+            u = urllib.parse.urljoin(site, "/" + pth)
+            if not CL.allowed(u):
+                continue
+            page, final = CL.fetch(u)
+            tried += 1
+            if not page or len(page) < 2000:
+                continue
+            for href, label in CL.anchors(page, final):
+                keep(href)
+            for href in re.findall(r"href\s*=\s*[\"']([^\"']+)[\"'][^>]*>\s*(?:next|older|more|suivant|\d+)\s*<", page, re.I)[:2]:
+                p2, f2 = CL.fetch(urllib.parse.urljoin(final, href)) if CL.allowed(urllib.parse.urljoin(final, href)) else ("", "")
+                for h2, l2 in CL.anchors(p2 or "", f2 or final):
+                    keep(h2)
+    best = {}
+    for u, d in found.items():  # one URL per release across language copies, English first
+        p = urllib.parse.urlparse(u).path
+        m = re.match(r"^/([a-z]{2}(?:[-_][a-zA-Z]{2})?)(/.*)$", p)
+        loc, rest = (m.group(1).lower(), m.group(2)) if m else ("", p)
+        rank = 0 if loc in ("", "en", "en-us", "en-ca") else 1
+        k = rest.rstrip("/").lower()
+        if k not in best or rank < best[k][0]:
+            best[k] = (rank, d, u)
+    return [u for _, d, u in sorted(best.values(), key=lambda x: x[1], reverse=True)][:cap]
+
+
 def one(v, orgs, by_dom, index, cap, stats, done):
     site = v["known_website"]
     vhost = registrable((urllib.parse.urlparse(site).hostname or "").lower().removeprefix("www."))
@@ -237,7 +339,7 @@ def one(v, orgs, by_dom, index, cap, stats, done):
     basis = v.get("basis") or "site"
     vname = v.get("buyer_name") or vhost
     try:
-        urls = VN.news_urls(site, cap) if CL.allowed(site) else []
+        urls = release_urls(site, cap) if CL.allowed(site) else []
     except Exception:
         urls = []
     rows, n_read = {}, 0
