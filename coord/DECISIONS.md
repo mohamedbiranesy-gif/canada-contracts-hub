@@ -233,3 +233,20 @@ owner's Mac, each writing leads the bridge picks up:
 - **tools/fs_auditor.py** continues over the 20,000 Canadian organisations with a confirmed mailbox (102 kept of the
   first 1,698; most misses are statements the crawler cannot find).
 - Standing prompt for the loop: prompts/claude_gold_loop.md (re-fired hourly by a scheduled task).
+
+## 2026-11-03 23:59 — claude: loop #2 notes
+- **Mac clone stuck in a rebase (push_loop "push attempt failed" from 18:52 local).** Eight autostashes had piled up.
+  Fixed by: abort, save every version of data/incoming/claude/*.csv (working tree + each stash), reset to origin/main,
+  union the RESULT files as CSV records (not lines: quoted fields span lines, a line union corrupted crawl01 for one
+  push, repaired in the next commit), newest working copy for claude_buyer_leads.csv. Verified: every record of the
+  pre-incident origin file and of the working copy is in the committed file (46,879 distinct records; the working copy
+  held 56,178 rows because the crawler appends duplicates). push_loop restarted.
+- **BC SOFI (small_sources.py bcsofi --proof site):** 214 BC bodies, 46 with a FY2025 schedule of payments whose
+  suppliers are proven by the Canadian street address on their own site (112 dated payment records).
+- **provider_mentions over 20,587 Canadian sites:** 88 leads — Voyent Alert! (28 municipalities), Brightspace (18),
+  PressReader (14), Edsby (10), School Cash Online (9), Amilia (6); benefits carriers almost never appear with a binding
+  phrase on public pages (1).
+- **exchange_listing finished:** 956 of 2,109 reachable issuers print their TSX / TSXV ticker; crawl of their sites for
+  the invoicing mailbox: first 340 → 167 sites with a role mailbox.
+- **Benevity:** 442 enterprise portals read; websites resolved from the portal slug (microsoft.benevity.org → microsoft.com,
+  first domain label = slug, home page title checked).
