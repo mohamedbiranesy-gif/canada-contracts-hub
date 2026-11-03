@@ -46,7 +46,10 @@ BUY = re.compile(r"\b(select(?:s|ed)|chose|chooses|chosen|picks|picked|taps|tapp
                  r"design|modernize|modernise|digitize|digitise|operate|manage)|will\s+(?:provide|supply|deliver|deploy|implement|equip|build|"
                  r"design|operate)|has\s+(?:been\s+)?(?:selected|chosen|awarded|contracted|engaged|retained)|mandat[ée]?e?|choisi\w*|retenu\w*|"
                  r"octroy\w*|adjug\w*|attribu\w*|d[ée]ploie\w*|renouvel\w*|commande|livrera|fournira|r[ée]alisera|nouveau\s+client|"
-                 r"nouvelle\s+cliente|contrat\s+(?:avec|de|du|pour|octroy|attribu|accord))\b", re.I)
+                 r"nouvelle\s+cliente|contrat\s+(?:avec|de|du|pour|octroy|attribu|accord)|contract\b[^.]{0,80}?\bwith|"
+                 r"(?:supply|services?|purchase|licen[cs]e|subscription|maintenance|support|framework|master|long[- ]term|multi[- ]year|"
+                 r"tolling|offtake|off-take)\s+agreements?\s+(?:with|for)|signing\s+of\s+(?:a|an|the)\b[^.]{0,60}?\bagreements?\s+with|"
+                 r"entente\s+(?:de\s+)?(?:service|fourniture|approvisionnement|licence)s?\s+avec)\b", re.I)
 DROP_T = re.compile(r"financ|credit facilit|\bloan|\bprêt|invest(?!igat)|raises?\b|funding|\bfund\b|grant(?!ed a contract)|subvention|"
                     r"acqui|merger|\bmerge|fusion|\bmou\b|memorand|letter of intent|\bloi\b|lettre d.intention|distribut|reseller|"
                     r"resell|revendeur|dealer|franchis|\bprize|\bprix\b|laur[ée]at|finalist|ranked|ranking|\btop \d|recogni|"
@@ -183,13 +186,14 @@ def find_names(text, index, limit=6):
 
 
 def sentence_at(text, a, b):
+    """(sentence containing text[a:b], position of a inside it)"""
     s = max(text.rfind(". ", 0, a), text.rfind("! ", 0, a), text.rfind("? ", 0, a), text.rfind("\n", 0, a)) + 1
     e = min(x for x in (text.find(". ", b), text.find("! ", b), text.find("? ", b), len(text)) if x >= 0)
-    sent = text[s:e + 1].strip()
-    if len(sent) > 300:
-        lo = max(0, a - s - 120)
-        sent = sent[lo:lo + 300]
-    return sent
+    sent, rel = text[s:e + 1], a - s
+    if len(sent) > 320:
+        lo = max(0, rel - 140)
+        sent, rel = sent[lo:lo + 320], rel - lo
+    return sent.strip(), rel - (len(sent) - len(sent.lstrip()))
 
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -396,9 +400,9 @@ def one(v, orgs, by_dom, index, cap, stats, done):
                 continue  # the vendor itself (or its own group company)
             if a < 160 and re.match(r"\s*,\s*(?:ON|QC|BC|AB|MB|SK|NS|NB|NL|PE|Ont|Que|Alta|Canada|[A-Z]{2})\b", head[b:b + 12]):
                 continue  # the dateline (MISSISSAUGA, ON, …) names the vendor's city, not a buyer
-            sent = sentence_at(head, a, b)
-            cue = BUY.search(sent)
-            if not cue or abs(cue.start() - (a - max(0, head.rfind(sent, 0, a + 1)))) > 220:
+            sent, rel = sentence_at(head, a, b)
+            cue = min((m for m in BUY.finditer(sent)), key=lambda m: abs(m.start() - rel), default=None)
+            if not cue or abs(cue.start() - rel) > 220:
                 stats["no_buy_cue"] += 1
                 with lock, open(OUT + ".nearmiss", "a", encoding="utf-8") as nf:
                     nf.write("%s\t%s\t%s\t%s\t%s\n" % (d, o["name"][:40], vname[:30], title[:90].replace("\t", " "), sent[:220].replace("\t", " ")))
