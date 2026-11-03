@@ -3,7 +3,7 @@
 
     python3 tools/small_sources.py fir      [--years 2025,2024]   Ontario FIR Schedule 02: municipality -> audit firm
     python3 tools/small_sources.py fnfta    [--bands 1-820]       First Nations FNFTA audited statements -> audit firm
-    python3 tools/small_sources.py bcsofi   [--bodies file]       BC FIA schedules of payments -> OrgBook-matched suppliers
+    python3 tools/small_sources.py bcsofi   [--proof site]        BC FIA schedules of payments -> suppliers proven by the address on their own site
     python3 tools/small_sources.py pubs                           Canada-HQ publishers' institutional agreements
     python3 tools/small_sources.py aci                            ACI World (Montreal) dated airport programmes
     python3 tools/small_sources.py tasks <lead.jsonl> <out.csv>   crawl task list for tools/crawl_some.py
@@ -835,6 +835,50 @@ def orgbook_exact(name):
     return None
 
 
+_site_proofs, _sp_lock, _cb_last = {}, threading.Lock(), [0.0]
+CB_LEGAL = re.compile(r"\b(inc|incorporated|ltd|limited|ltee|ltée|corp|corporation|co|company|llc|lp|llp|ulc|the|group|holdings?|canada)\b\.?", re.I)
+
+
+def site_proof(name):
+    """The supplier's own website (Clearbit's name autocomplete, exact name once legal suffixes are ignored) and the
+    Canadian street address printed on it: a match dict like orgbook_exact's, or None. Cached per name."""
+    k = norm_co(name)
+    with _sp_lock:
+        if k in _site_proofs:
+            return _site_proofs[k]
+    res = None
+    short = re.sub(r"\s+", " ", CB_LEGAL.sub(" ", name)).strip(" ,.")
+    with _sp_lock:
+        wait = _cb_last[0] + 1.0 - time.time()
+        if wait > 0:
+            time.sleep(wait)
+        _cb_last[0] = time.time()
+    try:
+        req = urllib.request.Request("https://autocomplete.clearbit.com/v1/companies/suggest?query=" + urllib.parse.quote(short[:80]),
+                                     headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            sugg = json.loads(r.read().decode("utf-8", "replace"))
+    except Exception:
+        sugg = []
+    want = norm_co(short)
+    for sg in sugg[:5]:
+        dom = (sg.get("domain") or "").lower().strip()
+        if not dom or norm_co(CB_LEGAL.sub(" ", sg.get("name") or "")) != want or dom in GENERIC_MAIL:
+            continue
+        q, u = canada_address_on_site("https://%s/" % dom)
+        if q:
+            res = {"registry": "the supplier's own website", "registration": dom, "legal_name": name.strip(), "entity_type": "",
+                   "entity_type_label": "address on its own site", "home_jurisdiction": "CA", "status": "", "business_number": "",
+                   "registry_url": u, "api_url": "", "registration_date": "", "site_quote": q}
+            break
+    with _sp_lock:
+        _site_proofs[k] = res
+    return res
+
+
+PROOF = "orgbook"
+
+
 def bc_bodies():
     out = []
     st, body, _, _ = get("https://query.wikidata.org/sparql?format=json&query=" + urllib.parse.quote(BC_WD_QUERY),
@@ -875,7 +919,7 @@ def bc_one(b, max_queries=14, want=3):
             if tried >= max_queries or len(matches) >= want:
                 break
             tried += 1
-            m = orgbook_exact(n)
+            m = site_proof(n) if PROOF == "site" else orgbook_exact(n)
             if m:
                 line = next((l for l in txt.splitlines() if n in re.sub(r"\s+", " ", l)), n)
                 matches.append((n, v, m, quote(re.sub(r"\s{2,}", " ", line.strip()))))
@@ -903,9 +947,10 @@ def cmd_bcsofi(a):
                                "to suppliers of goods and services" % fy,
                     "dataset_url": doc[0], "publisher": b["name"], "buyer_unit": "", "website": web,
                     "vendor": m["legal_name"],
-                    "canada_field": "registry match: %s (%s SOFI %s schedule of payments)" % (
-                        m["registry"], b["name"], "FY2025-26" if b["march"] else "FY2025"),
-                    "canada_value": "%s %s: %s, %s, home jurisdiction %s, status Active%s" % (
+                    "canada_field": ("supplier's own site address (%s SOFI %s schedule of payments)" if m.get("site_quote") else
+                                     "registry match: %s (%s SOFI %s schedule of payments)") % tuple(([] if m.get("site_quote") else [m["registry"]]) +
+                                                                                                   [b["name"], "FY2025-26" if b["march"] else "FY2025"]),
+                    "canada_value": m["site_quote"] if m.get("site_quote") else "%s %s: %s, %s, home jurisdiction %s, status Active%s" % (
                         m["registry"], m["registration"], m["legal_name"], m["entity_type_label"], m["home_jurisdiction"],
                         (", BN " + m["business_number"]) if m["business_number"] else ""),
                     "row": {"supplier_as_printed": n, "amount": v, "fiscal_year": fy, "record_date": rdate,
@@ -1102,12 +1147,15 @@ def main():
     p.add_argument("--late", action="store_true", help="also FY2024-25 reports dated on/after the window start")
     p = sp.add_parser("bcsofi")
     p.add_argument("--workers", type=int, default=12)
+    p.add_argument("--proof", default="site", choices=["site", "orgbook"], help="vendor Canada proof: its own site's address (default) or OrgBook (robots-disallowed /api/)")
     sp.add_parser("pubs")
     sp.add_parser("aci")
     p = sp.add_parser("tasks")
     p.add_argument("out")
     p.add_argument("lead_files", nargs="+")
     a = ap.parse_args()
+    if a.cmd == "bcsofi":
+        globals()["PROOF"] = a.proof
     globals()["cmd_" + a.cmd](a)
 
 
