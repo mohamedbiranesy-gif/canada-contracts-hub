@@ -32,4 +32,9 @@ AGENTS.md §2 (no fabrication, evidence or nothing, robots/blocks respected, ≤
    - fs_auditor for the organisations whose statements the crawler could not find: web-search rounds (sonnet agents,
      INSTRUCTIONS_FS.md) for AP-grade organisations first, then `fs_auditor.py <located.tsv>`;
    - AP-mailbox search rounds for new dated buyers without one (ap_upgrade_targets.py → B/D files → agents → merge_search.py).
+   - once a day: `tech_relationships.py --reverse` over the new crawl results (big_companies, exchange_sites, crux)
+     so Shopify / Coveo / Unbounce / Lightspeed / Benevity links on newly crawled sites become T leads; then
+     `crawl_some.py` on ~/cch-crawl-some/exchange_sites.csv again (the done list skips finished issuers);
+   - RDAP registrar check of AP-grade organisations' own domains (Tucows Domains Inc., Webnames.ca, Rebel.ca,
+     easyDNS — Canadian registrars; current registration = paid service): own package, owner to decide.
 6. Re-schedule this loop (send_later, 60 min) unless the owner said stop. Commit tools/docs; push with `timeout 200`.
