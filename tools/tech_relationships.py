@@ -112,6 +112,12 @@ VENDORS = {
                    host_re=r"^([a-z0-9-]+)\.mobius\.cloud$", cc=["*.mobius.cloud"],
                    excl={"www", "help", "support", "status", "api", "cdn", "static", "assets", "demo", "sandbox", "test", "staging",
                          "dev", "app", "my", "secure", "accounts", "login", "admin", "docs", "mobius", "digitaled", "trial", "learn"}),
+    "kev": dict(name="SchoolCash Online (KEV Group)", legal="KEV Group Inc.", kind="portal",
+                hq_url="https://kevgroup.com/general-inquiries/",
+                hq="Toronto, Canada 90 Eglinton Avenue East, Suite 502 Toronto, ON, M4P 2Y3",
+                host_re=r"^([a-z0-9-]+)\.schoolcashonline\.com$", cc=["*.schoolcashonline.com"],
+                excl={"www", "help", "support", "status", "api", "cdn", "static", "assets", "demo", "sandbox", "test", "staging", "dev",
+                      "app", "my", "secure", "accounts", "login", "admin", "docs", "kev", "parent", "parents", "school", "schools", "district"}),
     "shopify": dict(name="Shopify", legal="Shopify Inc.", kind="asset",
                     hq_url="https://www.shopify.com/legal/terms",
                     hq="United States or Canada Shopify Inc., a Canadian corporation 151 O'Connor Street, Ground floor, Ottawa, Ontario, K2P 2L8, Canada",
@@ -135,7 +141,7 @@ for _k, _v in VENDORS.items():
     for _f in ("host_re", "link_re", "path_re", "asset_re"):
         if _v.get(_f):
             _v[_f + "_c"] = re.compile(_v[_f], re.I)
-VENDOR_BASES = {"benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
+VENDOR_BASES = {"schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
                 "escribemeetings.com", "bibliocommons.com", "bibliocms.com", "brightspace.com", "desire2learn.com",
                 "d2l.com", "edsby.com", "amilia.com", "janeapp.com", "jane.app", "docebosaas.com", "docebo.com",
                 "myabsorb.com", "myabsorb.ca", "myabsorb.eu", "absorbai.com", "absorblms.com", "shopify.com",
