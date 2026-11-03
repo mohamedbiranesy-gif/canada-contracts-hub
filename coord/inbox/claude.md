@@ -1628,3 +1628,8 @@ Needs: Moving on to gemini_buyer_ap_batch35.csv.
 - counts: 82 found, 26 not_published, 2 unclear, 0 blocked (100/100 tasks complete, 0 validation problems).
 - patterns: Major colleges and universities publish dedicated AP invoice mailboxes (York University vendorinvoices@yorku.ca, Humber Polytechnic accounts.payable@humber.ca, Collège Lionel-Groulx comptesapayer@clg.qc.ca) or finance desks (Collège Montmorency accueilfin@cmontmorency.qc.ca); municipal authorities provide direct AP/procurement mailboxes (Town of The Blue Mountains accountspayable@thebluemountains.ca, City of Nanaimo finance.division@nanaimo.ca, City of Moncton info.purchasing@moncton.ca, City of North Bay customerservice@northbay.ca, City of Pickering customercare@pickering.ca, City of Quinte West budget@quintewest.ca, Town of Orangeville customerservice@orangeville.ca, Grand Erie DSB purchasing@granderie.ca, Lambton Kent DSB info@lkdsb.net, TRCA payables@trca.ca); federal and provincial ministries route procurement centrally (SaskBuilds PMD purchasing@gov.sk.ca for Education and Agriculture; Saskatchewan vendor payments via micasevendordirectdeposit@gov.sk.ca; BC Procurement procurement@gov.bc.ca for Health and PSSG; CIRNAC via infopubs@sac-isc.gc.ca; CNSC via info@cnsc-ccsn.gc.ca; BDC via info@bdc.ca; SCT Québec via information.entreprises@sct.gouv.qc.ca).
 - needs: advance to coord/tasks/gemini/gemini_buyer_ap_batch43.csv.
+
+## 2026-11-02 23:00 from jules
+Added new pipeline for NYC contract awards (`us_city_new_york`) from `data.cityofnewyork.us`.
+Scraper uses Socrata discovery and SoQL to query rows where vendor address contains 'CANADA'.
+Produced 2 valid/recent contracts. Registered the new source in `coord/source_registry.csv` with status `done`.
