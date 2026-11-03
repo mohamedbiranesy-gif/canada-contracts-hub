@@ -353,7 +353,8 @@ def main():
         tasks = list(g.values())
     if a.limit:
         tasks = tasks[:a.limit]
-    path = os.path.join(S.LEADS, "socrata_fs_auditor.jsonl")
+    key = "fs_auditor_search" if urls_mode else "fs_auditor"  # separate files: both modes can run at once
+    path = os.path.join(S.LEADS, "socrata_%s.jsonl" % key)
     leads = {}
     if os.path.exists(path):  # resume: keep earlier leads (one per domain)
         import json
@@ -382,8 +383,8 @@ def main():
                 if lead:
                     leads[lead["domain"]] = lead
                 if lead or n % 50 == 0:
-                    S.write_leads("fs_auditor", list(leads.values()))
-    S.write_leads("fs_auditor", list(leads.values()))
+                    S.write_leads(key, list(leads.values()))
+    S.write_leads(key, list(leads.values()))
     S.log("fs_auditor finished: %d sites, %d leads" % (n, len(leads)))
 
 
