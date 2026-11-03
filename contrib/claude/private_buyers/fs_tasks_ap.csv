@@ -1,0 +1,329 @@
+buyer_key,buyer_name,website,tier,grade
+b:39511de38b64f6c0,Provincial Health Services Authority (PHSA),https://phsa.ca/,L,4
+b:bdc6591874093dbe,City of Fort St John,https://fortstjohn.ca/,L,4
+b:0178ade1a6630ca1,Town of Ingersoll,https://ingersoll.ca/,L,4
+b:39dd2656c354ad4f,Township of Clearview,https://clearview.ca/,L,4
+b:d2bf4a8383503258,The Corporation of the Township of Brock,https://townshipofbrock.ca/,L,4
+b:ecc1a292f5238abd,Brandon University,https://brandonu.ca/,L,4
+b:0457cecdaa312070,Central Lake Ontario Conservation Authority,https://cloca.com/,L,4
+b:a36ad28e1095f26a,Westbank First Nation,https://wfn.ca/,L,4
+b:e74863e9d54d8fb1,Municipality of Brockton,https://brockton.ca/,L,4
+b:61565d58b9504f2e,City of Surrey,https://surrey.ca/,L,4
+b:401784246f1b1c69,Eastern Regional Health Authority,https://nlhealthservices.ca/,C,4
+b:19900a17e3ac6ba6,Municipalité de Scott,https://municipalitescott.com/,C,4
+b:b01e7bd1fed3fe9e,Société en Commandite Stationnement de Montréal .,https://montreal.ca/,C,4
+b:19a1f456936fcfb5,Paroisse de Notre-Dame-du-Sacré-Coeur-d'Issoudun,https://issoudun.qc.ca/,C,4
+b:9b0424c541e44111,San Juan College,https://sanjuancollege.edu/,C,4
+b:8ff84945bc1efb04,Children's Hospital of Eastern Ontario (CHEO),https://cheo.on.ca/,C,4
+b:22eea1ebe75e1fbe,Erasmus MC,https://erasmusmc.nl/,C,4
+lead:081165e50245476b,City of Fredericton,https://fredericton.ca/,T,4
+lead:0a59341944e83bb3,City of Victoria,https://victoria.ca/,T,4
+lead:0e478d8d3c351ce2,Fanshawe College,https://fanshawec.ca/,T,4
+lead:14319ee2dca35da6,Kenora,https://kenora.ca/,T,4
+lead:15aa02c6d68d5a66,uwindsor.ca,https://uwindsor.ca/,T,4
+lead:2489f79847de050a,The Municipality of Lakeshore,https://lakeshore.ca/,T,4
+lead:2f33763ec0dfd933,Western University,https://uwo.ca/,T,4
+lead:32afb4c53f702327,East Zorra-Tavistock,https://ezt.ca/,T,4
+lead:48894807c35cfc6f,thebigcarrot.ca,https://thebigcarrot.ca/,T,4
+lead:9369fe4c038bfcd1,West Nipissing Ouest,https://westnipissing.ca/,T,4
+lead:aa55efaae11c239d,City of Pitt Meadows,https://pittmeadows.ca/,T,4
+lead:b9fbd4d75befea7b,Ashton College,https://ashtoncollege.ca/,T,4
+lead:ba99824cd4c300fc,Town of Goderich,https://goderich.ca/,T,4
+lead:c3137fa3d37a5dd5,Gregg Distributors LP,https://greggdistributors.ca/,T,4
+lead:cf211e826c36df63,Okanagan College,https://okanagancollege.ca/,T,4
+b:203ef6db95431178,City of Kamloops,https://kamloops.ca/,C,4
+b:7825925c1c46cd83,Town of Slave Lake,https://slavelake.ca/,C,4
+b:4e45159292acf091,Mitacs Inc.,https://mitacs.ca/,C,4
+b:d88bb9b793557226,Rural Municipality of Moose Creek No. 33,https://rmofmoosecreek.com/,C,4
+lead:3954dd12803e6ca2,OCAD University,https://ocadu.ca/,L,4
+lead:bc33ce724b3627db,UNIVERSITY OF WATERLOO,https://uwaterloo.ca/,L,4
+lead:efde0a40e7229fcf,Canadian Blood Services,https://sang.ca/,L,4
+b:3adc49d1eb8aa00e,Stantec,https://stantec.com/,C,4
+lead:06de60ece4f1d2be,calgary.ca,https://calgary.ca/,D,4
+lead:09e5efe589bec3ad,capreit.ca,https://capreit.ca/,D,4
+lead:1c87baf35a2ce79b,wcap.ca,https://wcap.ca/,D,4
+lead:1fc1730fcac57997,sickkids.ca,https://sickkids.ca/,D,4
+lead:1fda342fb7e86135,mentalhealthcommission.ca,https://mentalhealthcommission.ca/,D,4
+lead:22f5a6e6a213042a,winzen.ca,https://winzen.ca/,D,4
+lead:237a4b78f63609de,torontohousing.ca,https://torontohousing.ca/,D,4
+lead:496669646f239fa8,gov.edmonton.ab.ca,https://gov.edmonton.ab.ca/,D,4
+lead:500f7fb86c4f9b8d,quintehealth.ca,https://quintehealth.ca/,D,4
+lead:50b2d86a12d78716,concordia.ab.ca,https://concordia.ab.ca/,D,4
+lead:51c853527a6f6e2e,411.ca,https://411.ca/,D,4
+lead:5b473a513f41afb6,nscminerals.ca,https://nscminerals.ca/,D,4
+lead:5f6e2456caf1d2d5,pfizer.ca,https://pfizer.ca/,D,4
+lead:7636f1492143c754,tohu.ca,https://tohu.ca/,D,4
+lead:7b2bb9599ef487dc,stanislas.qc.ca,https://stanislas.qc.ca/,D,4
+lead:90a3ba05ee99a170,mainroad.ca,https://mainroad.ca/,D,4
+lead:90fd680a23e910c2,altalink.ca,https://altalink.ca/,D,4
+lead:92bb9f2024711022,nshealth.ca,https://nshealth.ca/,D,4
+lead:9cbf89c95fe5ee66,surreyschools.ca,https://surreyschools.ca/,D,4
+lead:9d488f12dbb7f486,groupetyt.ca,https://groupetyt.ca/,D,4
+lead:a266b659e75bc099,blackflysolutions.ca,https://blackflysolutions.ca/,D,4
+lead:ae6784c77245177b,ia.ca,https://ia.ca/,D,4
+lead:b2ae403a68550996,arlafoods.ca,https://arlafoods.ca/,D,4
+lead:b81c7a4278007d06,toronto.ca,https://toronto.ca/,D,4
+lead:d38ab04fdb775d51,shn.ca,https://shn.ca/,D,4
+lead:dfeb58be5a3a1d69,mission.ca,https://mission.ca/,D,4
+lead:e030a81441e44469,glencore.ca,https://glencore.ca/,D,4
+lead:f7127b3f383b63df,nspower.ca,https://nspower.ca/,D,4
+lead:fcc6297b53f0354f,trentu.ca,https://trentu.ca/,D,4
+lead:0d7046198b99e6c8,nvrc.ca,https://nvrc.ca/,E,4
+lead:1b0d42b178a91c65,ontariocreates.ca,https://ontariocreates.ca/,E,4
+lead:1e938a1d661c5fd4,cpaquebec.ca,https://cpaquebec.ca/,E,4
+lead:2348a65a2a0267f0,viu.ca,https://viu.ca/,E,4
+lead:2520d9e5b8cde3db,rdck.ca,https://rdck.ca/,E,4
+lead:342717b828dbfa7a,townofyarmouth.ca,https://townofyarmouth.ca/,E,4
+lead:4ec8c1e66b331cd5,finiquip.ca,https://finiquip.ca/,E,4
+lead:61990f1950d97c71,orphanwell.ca,https://orphanwell.ca/,E,4
+lead:6a9b0c583075d060,cnc.bc.ca,https://cnc.bc.ca/,E,4
+lead:6fe84ad10ba206cb,swd.ca,https://swd.ca/,E,4
+lead:81a94763401cbc05,designers.ca,https://designers.ca/,E,4
+lead:839143ce6827ab1f,mun.ca,https://mun.ca/,E,4
+lead:887387caffc26a1a,rsfq.qc.ca,https://rsfq.qc.ca/,E,4
+lead:9952b9df79bcafe4,sfu.ca,https://sfu.ca/,E,4
+lead:9b10e187855286d4,tru.ca,https://tru.ca/,E,4
+lead:a00b1eec5f9f7dd4,bcib.ca,https://bcib.ca/,E,4
+lead:a59cd7c865da086f,crimestoppers.ca,https://crimestoppers.ca/,E,4
+lead:b589322aaf4dbb70,caut.ca,https://caut.ca/,E,4
+lead:bed36c6bcf260ab5,thebao.ca,https://thebao.ca/,E,4
+lead:c2b9a1e58b356254,ufv.ca,https://ufv.ca/,E,4
+lead:cb84e56a5e24ff7d,terapro.ca,https://terapro.ca/,E,4
+lead:e8fd3eefd6958471,kaleidos.ca,https://kaleidos.ca/,E,4
+lead:ef3659dc72807c61,aibc.ca,https://aibc.ca/,E,4
+lead:f58d2baf111f2afb,immostar.ca,https://immostar.ca/,E,4
+lead:fa3a31a086d11b2b,conestogac.on.ca,https://conestogac.on.ca/,E,4
+b:0d7974adc9f7c48d,Town of High Level,https://highlevel.ca/,F,4
+b:3f801d25b207434a,Municipality of East Hants,https://easthants.ca/,F,4
+b:814f51727d977570,Conseil Scolaire Acadien Provincial,https://csap.ca/,F,4
+b:d50f070d79e47781,Acadia University,https://financial-services.acadiau.ca/,F,4
+b:ea7f414623932c4e,Town of Truro,https://truro.ca/,F,4
+b:ae9a6af6a4cc8bf9,Village of New Minas,https://newminas.com/,F,4
+b:df1537f72f1598f1,Mount Saint Vincent University,https://msvu.ca/,F,4
+b:a96dfecff6f3d396,Halifax Regional Centre for Education,https://hrce.ca/,F,4
+cra:129688396,THE MINISTRY TO SEAFARERS OF THE CHRISTIAN REFORMED CHURCH,https://ministrytoseafarers.org/,I,4
+b:deba6b26413eb8ec,Strait Regional School Board,https://srce.ca/,I,4
+cra:106967094,MENNONITE CHURCH MANITOBA INC.,https://mennochurch.mb.ca/,I,4
+cra:119057990,NIPAWIN MUSIC FESTIVAL ASSOCIATION,https://nipawinmusicfestival.ca/,I,4
+cra:119126498,THE ROYAL CANADIAN COLLEGE OF ORGANISTS-OTTAWA CENTRE,https://rcco-ottawa.ca/,I,4
+cra:119216513,The Board of Education of School District No. 78 (Fraser-Cascade),https://sd78.bc.ca/,I,4
+cra:119303923,Woodview Mental Health and Autism Services,https://woodview.ca/,I,4
+cra:893970970,CORNERSTONE CHRISTIAN SCHOOL INC.,https://ccsmj.ca/,I,4
+lead:0ce392beab960e5c,The University of British Columbia (UBC),https://ok.ubc.ca/,I,4
+lead:dcae58f6b7a4c092,Mikisew Cree First Nation,https://mikisewcree.ca/,I,4
+lead:ea6ff7ba84824c98,Village of Golden,https://golden.ca/,I,4
+osm:n12928142601,Multiplis,https://multiplis.qc.ca/,I,4
+osm:n13971311572,Work in Progress Mental Health Collective,https://workinprogressto.ca/,I,4
+osm:n2215545037,Hollybank Animal Hospital,https://avonleaanimalhospital.ca/,I,4
+osm:w1052375488,Canadian Czechoslovak Benevolent Association,https://czechslovakbenevolentassoc.ca/,I,4
+osm:w243735458,Sugar Blooms and Cakes,https://sugarbloomsandcakes.com/,I,4
+osm:w471916597,Orleans Veterinary Hospital,https://orleansvet.ca/,I,4
+osm:w80492284,City of Portage la Prairie,https://city-plap.com/,I,4
+v:067443eadf8cefd0,Jeux-Tec Inc.,https://jeux-tec.com/,I,4
+v:0d0bcfbad940203f,Plomberie Richard Jubinville,https://plomberiejubinville.com/,I,4
+v:26f265509209cf28,MOISAN - PORTES DE GARAGE INC.,https://portesmoisan.com/,I,4
+v:2cfdfd4df9dbe776,Laurin et Laurin (1991) Inc..,https://laurinlaurin.ca/,I,4
+v:37bf13a7960839b8,BLS Asphalt Inc,https://blsasphalt.com/,I,4
+v:4ec373f93c94becb,SOLUTIONS MBG,https://solutionsmbg.com/,I,4
+v:68349823c71eb8e8,CONSTRUCTION FINITION INC.,https://constructionfinition.com/,I,4
+v:68c5ff58de8788e6,BOMImed Inc.,https://bomimed.ca/,I,4
+v:800baa179d8047d7,Ardel Steel,https://ardelsteel.com/,I,4
+v:883ab616194df8f4,Ambioner inc.,https://ambioner.com/,I,4
+v:8aa80eb4793a59b4,Sablières Demers inc.,https://sablieresdemers.ca/,I,4
+v:8de073d61e029c11,Groupe TVA inc.,https://groupetva.ca/,I,4
+v:8e609c8c0fd34c59,Douglas College,https://douglascollege.ca/,I,4
+v:9e4a64bba7453fe1,Organon Canada Inc.,https://organon.com/,I,4
+v:a11a306a1c333db5,Vohl Inc,https://vohl.ca/,I,4
+v:d31636618b1ad849,CAPITAL PROPANE INC.,https://capitalpropane.com/,I,4
+v:d4726d1cfa578fc3,Corporation du Cinéma Beaubien,https://cinemacinema.ca/,I,4
+v:f986fb94dc3b00b8,Dafco Filtration Group,https://filtrationgroupiaq.com/,I,4
+v:f9fe0ff74c764de1,Clinique GO,https://cliniquego.com/,I,4
+v:ffc4977a8f203b12,PROPANE G.R.G. INC.,https://propanegrg.com/,I,4
+wd:Q108699284,Collège St-Jean-Vianney,https://csjv.ca/,I,4
+wd:Q1542592,Grand Falls-Windsor,https://townofgfw.com/,I,4
+wd:Q21071197,Whitefish River First Nation,https://whitefishriver.ca/,I,4
+wd:Q2909951,Bonavista,https://townofbonavista.com/,I,4
+wd:Q3091626,Fédération des employées et employés de services publics,https://feesp.csn.qc.ca/,I,4
+wd:Q3235333,Les Sceptiques du Québec,https://sceptiques.qc.ca/,I,4
+wd:Q368114,Michipicoten First Nation,https://michipicoten.com/,I,4
+wd:Q4540498,ʼNa̱mg̱is First Nation,https://namgis.bc.ca/,I,4
+wd:Q4917409,Bishop's College School,https://bishopscollegeschool.com/,I,4
+wd:Q5568601,Glenlyon Norfolk School,https://mygns.ca/,I,4
+wd:Q5644977,Hamilton Health Sciences,https://hhsc.ca/,I,4
+wd:Q5946827,Huron-Perth Catholic District School Board,https://huronperthcatholic.ca/,I,4
+wd:Q61432,Brandon,https://purchasing.brandon.ca/,I,4
+wd:Q6421523,Lhoosk’uz Dené First Nation,https://lhooskuz.com/,I,4
+wd:Q6960074,Nak'azdli Whut'en First Nation,https://nakazdliwhuten.ca/,I,4
+wd:Q7252644,Provincial Health Services Authority,https://hssbc.ca/,I,4
+wd:Q7305718,Redeemer University,https://redeemer.ca/,I,4
+wd:Q7504532,Sipekne'katik First Nation,https://sipeknekatik.ca/,I,4
+wd:Q7586852,St. Andrew's College,https://sac.on.ca/,I,4
+b:c6c9159905fe531d,South Shore Regional Centre for Education,https://ssrce.ca/,I,4
+cra:106710965,ANDREW FLECK CHILDREN'S SERVICES / SERVICES A L'ENFANCE ANDREW FLECK,https://afchildrensservices.ca/,I,4
+cra:118841378,CATHOLIC YOUTH ORGANIZATION,https://cyo.on.ca/,I,4
+cra:118974849,ST. JOHN BOSCO CAMP,https://johnboscocamp.com/,I,4
+cra:129718037,WOMEN'S PLACE (ST CATHARINES & DISTRICT) INC,https://gilliansplace.com/,I,4
+cra:136747276,(A.C.C.E.S.) ACCESSIBLE COMMUNITY COUNSELLING AND EMPLOYMENT SERVICES,https://accesemployment.ca/,I,4
+cra:702362302,Beacon Hill Christian Academy,https://beaconhillca.org/,I,4
+cra:704163336,Alnwick/Haldimand Public Library Board,https://ahtwp.ca/,I,4
+cra:852798875,YUKON WILDLIFE PRESERVE OPERATING SOCIETY,https://yukonwildlife.ca/,I,4
+cra:891723843,COWICHAN THERAPEUTIC RIDING ASSOCIATION,https://ctra.ca/,I,4
+lead:6ab41578e6069006,capebretonpartnership.com,https://capebretonpartnership.com/,I,4
+osm:n11184131137,Guardian Law Group LLP (Calgary),https://guardian.law/,I,4
+osm:n11371093518,Massload Technologies Inc.,https://massload.com/,I,4
+osm:n12801554926,Milestone Equipment Contracting Inc.,https://milestonecontracting.com/,I,4
+osm:n13398831736,Empire Trading,https://empiretradings.com/,I,4
+osm:n13505819844,British Columbia Association of Aboriginal Friendship Centres,https://bcaafc.com/,I,4
+osm:n13653398695,Drake Law Family Lawyers,https://drakelaw.ca/,I,4
+osm:n13768602847,Aeraden Energy Group,https://aeraden.com/,I,4
+osm:n13768922484,Reliable Tax Services,https://rtsreliabletaxes.com/,I,4
+osm:n1422261817,Avantu CPA,https://avanticpa.ca/,I,4
+osm:n14311409540,Nortech Business Solutions,https://nortech.ca/,I,4
+osm:n2188781421,ABC Fire Door Limited,https://abcfiredoor.com/,I,4
+osm:n2562376017,Jay Green Plumbing,https://jaygreenplumbing.ca/,I,4
+osm:n2849278921,Arrow Furniture,https://arrowfurniture.com/,I,4
+osm:n3144312696,Nicol Insurance,https://nicolinsurance.com/,I,4
+osm:n3278134996,Goemans Appliances London,https://goemans.com/,I,4
+osm:n3351042224,Klassen & Co. Barristers & Solicitors,https://klassenandcompany.ca/,I,4
+osm:n3501104736,Allen Insurance Group,https://alleninsurance.ca/,I,4
+osm:n4012888519,Twisted Coiil Vapes,https://twistedcoilvapes.ca/,I,4
+osm:n4232002165,Ocean View Hotel,https://theoceanview.ca/,I,4
+osm:n5225796992,Right-Link Logistics Ltd.,https://rightlink.ca/,I,4
+osm:n5329369366,JRG Mechanical,https://jrgmechanical.ca/,I,4
+osm:n5824539368,On Side Restoration,https://onside.ca/,I,4
+osm:n6571761652,Canada Vape Club,https://canadavapeclub.com/,I,4
+osm:n8088157517,Lakefield Auto Parts,https://ptboauto.com/,I,4
+osm:n8156259925,Palantir Computers,https://palantir.ca/,I,4
+osm:n8195453101,Prairie Provident Resources,https://ppr.ca/,I,4
+osm:n8502076017,International Alliance of Theatrical Stage Employees,https://iatse.com/,I,4
+osm:n9133561186,Company 3,https://company3.com/,I,4
+osm:n9813358000,My Legacy Cannabis,https://mylegacycannabis.ca/,I,4
+osm:w116273787,Iron Eagle Sheet Metal,https://ironeagle.ca/,I,4
+osm:w116896462,Nutrien Ag Solutions,https://nutrien.com/,I,4
+osm:w1328502539,Russell Insurance Group Limited,https://rigl.ca/,I,4
+osm:w1337272285,McKillop Mutual Insurance Co,https://mutualone.ca/,I,4
+osm:w1420661019,Axiom Mutual Insurance,https://axiommutual.ca/,I,4
+osm:w1422501983,Portage Transport,https://portagetransport.com/,I,4
+osm:w1557502303,Next Floor Inc,https://nextfloor.net/,I,4
+osm:w184174431,E J Broomfield Arena,https://townhvgb.com/,I,4
+osm:w207672987,Canlin Energy,https://canlinenergy.com/,I,4
+osm:w280174687,Alpine Aerotech,https://alpineaerotech.com/,I,4
+osm:w306884738,R & B Brewing,https://randbbrewing.com/,I,4
+osm:w33300778,Luxury Appliances Outlet,https://tascoappliance.ca/,I,4
+osm:w49547895,Stanley Park Brewing Restaurant and Brewpub,https://stanleyparkbrewing.com/,I,4
+osm:w630779756,Politeski Strilchuk Milen,https://psmlaw.ca/,I,4
+osm:w67136162,Toronto Zenith,https://torontozenith.com/,I,4
+osm:w707074824,Ed's Concrete,https://edsconcrete.com/,I,4
+osm:w819244370,Smiths Falls Veterinary Services,https://avet.ca/,I,4
+osm:w899698535,Tree Island Steel,https://treeisland.com/,I,4
+osm:w935885281,Rath Eastlink Community Centre,https://therecc.ca/,I,4
+v:02052c16a5834cbe,Béton Fortin Inc,https://betonfortin.com/,I,4
+v:05851e156bfc9379,"PPM Civil Constructors, ULC",https://ppmcivilconstructors.com/,I,4
+v:09a0684dcb44c560,Precision Gradall Ltd,https://precisiongradall.com/,I,4
+v:17de0ee04e14c97d,Selectra Inc.,https://selectra.ca/,I,4
+v:2079e8ad0a20924e,Mustang Helicopters Inc.,https://mustanghelicopters.com/,I,4
+v:27b4d8ec1a12fe89,Glen Armstrong Construction Ltd.,https://glenarmstrongconstruction.com/,I,4
+v:2e9b33140eb37dff,Hepburn Engineering Inc.,https://hepeng.com/,I,4
+v:37634d9a9e6bc275,Global Asset Care,https://globalassetcare.com/,I,4
+v:500a2c186e4352a0,Alpine Glass Inc.,https://alpineglass.ca/,I,4
+v:55da0f3b7711555b,Trackless Vehicles Ltd.,https://tracklessvehicles.com/,I,4
+v:65a868773b14757c,Pinnacle Aquatic Group Inc.,https://pinnacleaquaticgroup.com/,I,4
+v:7247c1da8c4289b4,fraser valley refrigeration ltd,https://fraservalleyrefrigeration.com/,I,4
+v:7a63fe6025748c03,ASI Group Ltd.,https://asi-group.com/,I,4
+v:80809d79a2e3608e,TRANSPORT BAIE-COMEAU INC.,https://transportbaiecomeau.com/,I,4
+v:8826d2f4986ace66,AdvantageVM Corp,https://advantagevm.ca/,I,4
+v:8ca569fe13067749,MTE Logistix,https://mtelogistix.com/,I,4
+v:95345c3d3c9a0614,Cascades Recovery Inc.,https://cascades.com/,I,4
+v:972c6113b657f16d,Access Waterwells Inc.,https://accesswaterwells.com/,I,4
+v:9c9d0b95b2dd8ef6,WeirFoulds LLP,https://weirfoulds.com/,I,4
+v:a097878cd0fa69ea,SUPERIOR NORTH AMERICA INC.,https://superiorna.ca/,I,4
+v:b061a7b3994bd245,Jastram Technologies,https://jastram.com/,I,4
+v:b2e55de755e9be6f,Stewart McKelvey,https://stewartmckelvey.com/,I,4
+v:c0958fe2ed492529,North West Paving Ltd.,https://northwestpaving.com/,I,4
+v:ce53ad404ff7006d,TERUMO MEDICAL CANADA INC.,https://terumocanada.ca/,I,4
+v:ecbb80bbb9c7833d,ABS Excavating Ltd,https://abs-excavating.ca/,I,4
+v:f35f940f055fcd1b,FLEET CANADA INC.,https://fleet.ca/,I,4
+wd:Q100210907,Saulteau First Nations,https://saulteau.com/,I,4
+wd:Q1012625,Dawson Creek,https://dawsoncreek.ca/,I,4
+wd:Q1026567,Steinbach,https://steinbach.ca/,I,4
+wd:Q1027634,Kapuskasing,https://kapuskasing.ca/,I,4
+wd:Q104093594,Theatre NorthWest,https://theatrenorthwest.com/,I,4
+wd:Q110895165,Oakville Symphony Youth Orchestra,https://osyo.ca/,I,4
+wd:Q111391541,Best Western Mermaid,https://swmermaid.com/,I,4
+wd:Q111392442,Best Western Brantford Hotel and Conference Centre,https://bestwesternbrantford.com/,I,4
+wd:Q120985905,Agawa Canyon Railroad,https://watco.com/,I,4
+wd:Q121798055,Frontier Adjusters,https://frontieradjusters.com/,I,4
+wd:Q128242858,Abbotsford Arts Centre,https://finance.abbyschools.ca/,I,4
+wd:Q128792528,MetCap Living,https://metcap.com/,I,4
+wd:Q133229153,Stitch It,https://stitchit.com/,I,4
+wd:Q1341278,Marathon,https://marathon.ca/,I,4
+wd:Q134416554,Konecranes Canada Homepage,https://konecranes.com/,I,4
+wd:Q136398809,"Burnet, Duckworth & Palmer",https://bdplaw.com/,I,4
+wd:Q138973,Ste. Anne,https://steanne.ca/,I,4
+wd:Q1422308,Radium Hot Springs,https://radiumhotsprings.ca/,I,4
+wd:Q1438931,Parksville,https://parksville.ca/,I,4
+wd:Q14874807,Hines Creek,https://hinescreek.com/,I,4
+wd:Q14875121,Canadian Stage,https://canadianstage.com/,I,4
+wd:Q1660054,Headingley,https://rmofheadingley.cadevelopment/,I,4
+wd:Q1661409,St. Andrews,https://rmofstandrews.com/,I,4
+wd:Q1661655,Taché,https://rmtache.ca/,I,4
+wd:Q1779015,Nelson,https://nelson.ca/,I,4
+wd:Q1904137,Martensville,https://martensville.ca/,I,4
+wd:Q1904178,Meadow Lake,https://meadowlake.ca/,I,4
+wd:Q1916449,Pilot Butte,https://pilotbutte.ca/,I,4
+wd:Q1916498,Porcupine Plain,https://pplain.com/,I,4
+wd:Q1944412,MoneyGram,https://moneygram.com/,I,4
+wd:Q1955411,Muskoka Lakes,https://muskokalakes.ca/,I,4
+wd:Q1969623,Native Education Centre,https://necvancouver.org/,I,4
+wd:Q21070652,Attawapiskat Indian Reserve 91,https://attawapiskat.org/,I,4
+wd:Q22480177,Parc du Bois-Beckett,https://boisbeckett.org/,I,4
+wd:Q2270394,Hearst,https://hearst.ca/,I,4
+wd:Q27691835,Cree Nation of Chisasibi,https://chisasibi.ca/,I,4
+wd:Q2982694,Gore Bay,https://gorebay.ca/,I,4
+wd:Q30289529,Canadian Academic Accounting Association,https://caaa.ca/,I,4
+wd:Q30292249,Top Hat (Canada),https://tophat.com/,I,4
+wd:Q30295045,Canadian Water and Wastewater Association,https://cwwa.ca/,I,4
+wd:Q30295396,PRT Growing Services (Canada),https://prt.com/,I,4
+wd:Q3094641,Beaverbrook Art Gallery,https://beaverbrookartgallery.org/,I,4
+wd:Q3268630,Lycée Claudel d'Ottawa,https://claudel.org/,I,4
+wd:Q3396172,Empress,https://villageofempress.ca/,I,4
+wd:Q3403305,Prince Albert No. 461,https://rmprincealbert.ca/,I,4
+wd:Q341968,Acme,https://acme.ca/,I,4
+wd:Q3461790,Saint-Antoine-de-l'Isle-aux-Grues,https://isle-aux-grues.com/,I,4
+wd:Q3492472,Huron East,https://huroneast.com/,I,4
+wd:Q3564125,Véloroute des Bleuets,https://veloroutedesbleuets.com/,I,4
+wd:Q38282380,George Layh Theatre,https://langenburgarts.ca/,I,4
+wd:Q4859506,Morris-Turnberry,https://morristurnberry.ca/,I,4
+wd:Q4859933,Highlands East,https://highlandseast.ca/,I,4
+wd:Q4859967,Barclays Bank Canada,https://barclays.com/,I,4
+wd:Q5011745,CIMC-TV,https://telile.tv/,I,4
+wd:Q5024308,Calvin,https://calvintownship.ca/,I,4
+wd:Q5289230,Dollar Tree,https://corporate.dollartree.com/,I,4
+wd:Q5325627,Ear Falls,https://ear-falls.com/,I,4
+wd:Q5603958,Greenfield Energy Centre,https://calpine.com/,I,4
+wd:Q5698221,Heffel Gallery,https://heffel.com/,I,4
+wd:Q573968,Bow Island,https://bowisland.com/,I,4
+wd:Q5933280,Hughenden,https://hughendenab.ca/,I,4
+wd:Q6016623,Independent First Nations Alliance,https://ifna.ca/,I,4
+wd:Q608478,Magrath,https://magrath.ca/,I,4
+wd:Q641228,Minden Hills,https://mindenhills.ca/,I,4
+wd:Q6484730,Landlord and Tenant Board,https://ontario.ca/,I,4
+wd:Q64876684,Kernels Popcorn,https://kernelspopcorn.com/,I,4
+wd:Q6517431,Legal Services Society,https://legalaid.bc.ca/,I,4
+wd:Q6674405,Longview,https://village.longview.ab.ca/,I,4
+wd:Q7029133,Nicola Valley Institute of Technology,https://nvit.ca/,I,4
+wd:Q7045829,Nobleford,https://nobleford.ca/,I,4
+wd:Q719547,Tuktoyaktuk,https://tuktoyaktuk.ca/,I,4
+wd:Q7205437,Plummer Additional,https://plummertownship.ca/,I,4
+wd:Q7332569,Rideau Club,https://rideauclub.ca/,I,4
+wd:Q7368570,Roseneath Theatre,https://roseneath.ca/,I,4
+wd:Q747623,Hanna,https://hanna.ca/,I,4
+wd:Q7499840,Shock Trauma Air Rescue Service,https://stars.ca/,I,4
+wd:Q7590073,St. Mary's Academy,https://smamb.ca/,I,4
+wd:Q7638429,Sun Peaks,https://sunpeaksmunicipality.ca/,I,4
+wd:Q7646853,Surrey United Firefighters,https://surreyunitedsoccer.com/,I,4
+wd:Q76609347,Canadian Research Knowledge Network,https://crkn.ca/,I,4
+wd:Q7826279,Toronto Bicycling Network,https://tbn.ca/,I,4
+wd:Q7977815,We Wai Kai Nation,https://wewaikai.com/,I,4
+wd:Q921327,International Thriller Writers Awards,https://thrillerwriters.org/,I,4
+wd:Q991257,Edmundston,https://edmundston.ca/,I,4
