@@ -58,6 +58,9 @@ def real_grade(email, etype, quote, org=""):
     if g >= 3 and re.search(r"receivable|recevable|tuition|student account|pay your|pay online|your bill|utility bill|donat|customer service|client payment|paiement de votre", near) \
             and not re.search(r"payable|payer|supplier|vendor|fournisseur", near):
         g = 1  # a receivable / customer-payment mailbox (customers pay the organisation), not where suppliers send invoices
+    if g >= 3 and re.search(r"water|sewer|hydro|utilit|tax|parking|ticket|fine|permit|tuition|fee|donat|rent|licen|bill", local, re.I) \
+            and re.search(r"pay|bill", local, re.I) and not re.search(r"payable|supplier|vendor|fourniss", local, re.I):
+        g = 1  # waterpayment@, taxpayments@, utilitybilling@: residents pay the organisation
     if g == 4 and not (STRONG.search(local) or invoice_near(email, quote)):
         g = 2 if re.search(r"procure|purchas|achat|approv", email, re.I) else 1   # labelled AP but nothing says invoicing
     if g < 3 and FIN.search(local) and not re.search(r"procure|purchas|achat|approv|aid|bourse|scholar|tuition|student|etudiant|soutien|financement|funding|grant|subvention|invest|sustainab|bank|loan|pret|credit|client", local, re.I):
