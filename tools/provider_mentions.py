@@ -83,6 +83,17 @@ NOT_PAGE = re.compile(r"donor|donat|sponsor|scholarship|bourse|news|nouvelle|blo
                       r"giving|campaign|award|tender|rfp|bid|procure|login|\.pdf$|\.docx?$", re.I)
 
 
+VENDOR_DOMS = {"sunlife.ca", "sunlife.com", "manulife.ca", "manulife.com", "canadalife.com", "ia.ca", "desjardins.com", "beneva.ca", "ssq.ca",
+               "cooperators.ca", "empire.ca", "equitable.ca", "greenshield.ca", "medavie.ca", "medaviebc.ca", "bluecross.ca", "pac.bluecross.ca",
+               "ab.bluecross.ca", "crowdmark.com", "maplesoft.com", "digitaled.com", "pressreader.com", "telus.com", "telushealth.com",
+               "lifeworks.com", "homewoodhealth.com", "tumblebooks.com", "moneris.com"}
+
+
+def is_vendor_site(h):
+    h = h.lower().removeprefix("www.")
+    return any(h == d or h.endswith("." + d) for d in VENDOR_DOMS)
+
+
 def text_of(page):
     t = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", page[:1_500_000])
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"(?s)<[^>]+>", " ", t)))
@@ -121,7 +132,7 @@ def scan(text, vendors_ok):
 def one(t, vendors_ok, pages_max, done):
     site = (t.get("website") or "").strip()
     h = (urllib.parse.urlparse(site if "//" in site else "https://" + site).hostname or "").lower()
-    if not h or h in done:
+    if not h or h in done or is_vendor_site(h):
         return
     site = "https://%s/" % h
     rows, status = {}, "ok"
