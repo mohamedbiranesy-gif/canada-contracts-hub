@@ -168,7 +168,8 @@ def auditor(txt):
     if not firms:  # firm only in the signature image: the caller reads that page (OCR)
         cp = re.sub(r"\s+", " ", cpm.group(0)).strip()
         lo, hi = min(p, cpm.start()), max(p + 20, cpm.end())
-        return "", cp, d, S.quote(re.sub(r"\s{2,}", " | ", body[max(0, lo - 10):hi + 10].strip())), txt[:i + p].count("\f") + 1
+        return ("", cp, d, S.quote(re.sub(r"\s{2,}", " | ", body[max(0, lo - 10):hi + 10].strip())), txt[:i + p].count("\f") + 1,
+                txt[:i].count("\f") + 1)
     dist, where, fp, firm = min(firms)
     cp = re.sub(r"\s+", " ", cpm.group(0)).strip()
     lo, hi = min(p, cpm.start()), max(p + 20, cpm.end())
@@ -176,7 +177,8 @@ def auditor(txt):
         lo, hi = min(lo, fp), max(hi, fp + len(firm))
     q = re.sub(r"\s{2,}", " | ", body[max(0, lo - 10):hi + 10].strip())
     if firm.lower() not in q.lower():
-        src = txt[max(0, i - 2500):i] if where == "letterhead" else txt[max(0, fp - 120):fp + len(firm) + 80] if fp is not None else ""
+        src = txt[max(0, i - 2500):i] if where == "letterhead" else body[max(0, fp - 120):fp + len(firm) + 80] if where == "report" \
+            else txt[max(0, fp - 120):fp + len(firm) + 80]
         src = re.sub(r"\s{2,}", " | ", src)
         j = src.lower().find(firm.lower())
         if j >= 0:
@@ -193,7 +195,7 @@ CPA_LINE = re.compile(r"chartered (?:professional )?accountants?|licensed public
                       r"\bCPA\b", re.I)
 
 
-def ocr_firm(body, page):
+def ocr_firm(body, page, letterhead=False):
     """(firm, ocr quote) from the signature page image (Apple Vision on the owner's Mac); ('', '') when unreadable"""
     if not os.path.exists(OCR):
         return "", ""
@@ -207,10 +209,14 @@ def ocr_firm(body, page):
             lines = [l.strip() for l in subprocess.run([OCR, d + "/" + png], capture_output=True, text=True, timeout=120).stdout.splitlines() if l.strip()]
         except Exception:
             return "", ""
-    k = next((j for j in range(len(lines) - 1, -1, -1) if CPA_LINE.search(lines[j])), None)  # the signature: last one on the page
-    if k is None:
-        return "", ""
-    win = lines[max(0, k - 3):k + 6]  # firm signature, CPA line, city, date, letterhead footer ("A member firm of ...")
+    if letterhead:  # the report's first page: the firm's printed name above the title, or its footer
+        t = next((j for j, l in enumerate(lines) if REPORT.search(l)), None)
+        win = (lines[:t] if t else lines[:8]) + lines[-4:]
+    else:
+        k = next((j for j in range(len(lines) - 1, -1, -1) if CPA_LINE.search(lines[j])), None)  # the signature: last on the page
+        if k is None:
+            return "", ""
+        win = lines[max(0, k - 3):k + 6]  # firm signature, CPA line, city, date, letterhead footer ("A member firm of ...")
     blob = " | ".join(win)
     for rx, legal in BIG:
         if re.search(rx, blob, re.I if "Ernst" in rx else 0):
@@ -220,6 +226,37 @@ def ocr_firm(body, page):
         if m and _firm(m.group(1)):
             return _firm(m.group(1)), S.quote(blob, 220)
     return "", ""
+
+
+_cdx_lock = threading.Lock()
+
+
+def cdx_candidates(site):
+    """Statements PDFs of the site listed by the Internet Archive's index (captured since 2026); the LIVE copy is read."""
+    import json, time, urllib.request
+    host = S.host_of(site)
+    q = urllib.parse.urlencode([("url", host + "/*"), ("output", "json"), ("from", "2026"), ("fl", "original"),
+                                ("filter", "statuscode:200"), ("filter", "mimetype:application/pdf"),
+                                ("filter", r"original:(?i).*(financ|statement|audit|annual|rapport|etats|%C3%A9tats).*"),
+                                ("collapse", "urlkey"), ("limit", "400")])
+    with _cdx_lock:  # one index lookup at a time, 3 s apart (polite to the archive)
+        time.sleep(3)
+        try:
+            req = urllib.request.Request("https://web.archive.org/cdx/search/cdx?" + q, headers={"User-Agent": S.UA})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                rows = json.loads(r.read(5_000_000).decode("utf-8", "replace") or "[]")[1:]
+        except Exception:
+            return []
+    out = {}
+    for (u,) in rows:
+        u = u.replace("http://", "https://", 1)
+        yb = urllib.parse.unquote(u.split("?")[0].rsplit("/", 1)[-1])
+        if not FS_LINK.search(urllib.parse.unquote(u)) or SIDE.search(yb):
+            continue
+        sc = 3 if re.search(r"2026|2025[-_ /]?(?:20)?26|25[-_]26", yb) else 2 if "2025" in yb else 0 if re.search(r"20(?:1\d|2[0-4])", yb) else 1
+        if sc:
+            out[u] = sc + (0.5 if re.search(r"audited|consolidated|[ée]tats", yb, re.I) else 0)
+    return sorted(((v, u, "archive index") for u, v in out.items()), key=lambda x: -x[0])
 
 
 def one(t):
@@ -232,6 +269,8 @@ def one(t):
         return t, "error %s" % type(ex).__name__, None
     if cands is None:
         return t, "blocked", None
+    if not cands or max(c[0] for c in cands) < 2:
+        cands = sorted(set(cands) | set(cdx_candidates(site)), key=lambda x: -x[0])
     if not cands:
         return t, "no statements link", None
     seen_out = []
@@ -255,6 +294,8 @@ def one(t):
         firm, cp, d, q = a[:4]
         if not firm and len(a) > 4:  # signed in the window, firm only in the signature / letterhead image
             firm, oq = ocr_firm(body, a[4])
+            if not firm and a[5] != a[4]:
+                firm, oq = ocr_firm(body, a[5], letterhead=True)
             if not firm:
                 seen_out.append("signed %s, firm not readable" % d)
                 continue
