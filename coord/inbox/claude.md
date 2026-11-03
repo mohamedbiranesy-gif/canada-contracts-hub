@@ -1641,3 +1641,13 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/415
 Added new pipeline for NYC contract awards (`us_city_new_york`) from `data.cityofnewyork.us`.
 Scraper uses Socrata discovery and SoQL to query rows where vendor address contains 'CANADA'.
 Produced 2 valid/recent contracts. Registered the new source in `coord/source_registry.csv` with status `done`.
+
+## 2026-11-03 14:00 from jules
+I have built the pipeline for `us_ny_state_authorities_procurement` which was marked as a priority 0 source.
+* Identified Canadian vendors using `upper(vendor_country) = 'CAN' OR upper(vendor_country) = 'CANADA' OR upper(vendor_country) = 'CA'`.
+* Implemented the fetch for all 4 Socrata datasets (State Authorities, Local Authorities, LDCs, IDAs).
+* Fetched 3843 total raw records.
+* Normalized and generated an output `data/incoming/jules/records_us_ny_state_authorities_procurement.jsonl.gz`.
+* Discarded records with an end date before the reference date (2026-11-02), and future-starting records. We found 786 ongoing/unknown-end-date contracts.
+* The script passes the validation (`python3 tools/validate_records.py`).
+* Changed status to `done` in `coord/source_registry.csv`.
