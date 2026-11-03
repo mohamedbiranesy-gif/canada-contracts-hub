@@ -148,3 +148,13 @@ receivable / tuition mailboxes passed as AP; the same organisation could appear 
 the "Québec ... no closing notice" label appeared on non-Québec rows. Still open: department-suffixed lead names
 ("City of X — <dept>") are not folded into the parent; evidence that is a web.archive.org copy; FERC rows link the
 quarterly file rather than the record.
+
+## 2026-11-03 06:15 — claude: pre-shipment spot-check (3 rows per package) and fixes
+Independent check of 39 rows: 22 clean. Strong: P01 2/3, P01T 2/3, P02 3/3, P06T 3/3. Weak: client-listing and link
+packages (P06–P08, P10: building names, resellers, partners, a designer's footer credit, the vendor's own events),
+P05 (ended lobbyist registrations counted as likely active), some receivable mailboxes typed AP, one person's address.
+Fixed before shipping: JSON-escape debris on addresses; enrichment contacts without the page they were read on are
+not delivered (their evidence key is 'snippet'); one delivered row per mailbox (branches sharing a government's
+central box no longer count as separate buyers). Final counts 11:12Z: P01 490, P01T 24, P02 199, P03 196, P04 1,393,
+P05 339, P06 154, P06T 964, P07 163, P08 2,183, P09 382, P10 2,610, P11 395; 9,492 delivered rows with a mailbox.
+Open: tighten client-listing extraction (exclude partner / reseller / credit / event links), use lobbyist end dates.
