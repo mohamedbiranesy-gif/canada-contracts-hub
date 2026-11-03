@@ -62,6 +62,26 @@ VENDORS = {
                r"259 King St\.? E\.?\s+Kingston,?\s+(?:ON|Ontario)", "benefits"),
     "cooperators": ("Co-operators Life Insurance Company", r"Co-operators", "https://www.cooperators.ca/en/accessibility-plan/details",
                     r"101 Cooper Drive,?\s+Guelph,?\s+(?:ON|Ontario)", "benefits"),
+    "manulife2": ("The Manufacturers Life Insurance Company (Manulife)", r"Manulife", "https://www.manulife.com/en/privacy-policy.html",
+                  r"200 Bloor Street East,?\s+Toronto", "benefits"),
+    "canadalife2": ("The Canada Life Assurance Company", r"Canada\s+Life|Great-West\s+Life", "https://www.canadalife.com/privacy-policy.html",
+                    r"(?:100 Osborne Street North|Winnipeg),?\s+(?:MB|Manitoba)", "benefits"),
+    "telus2": ("TELUS Health (TELUS Corporation)", r"TELUS\s+Health|LifeWorks|Morneau\s+Shepell|Shepell", "https://www.telus.com/en/about/privacy",
+               r"(?:510 West Georgia|Vancouver),?\s+(?:BC|British Columbia)", "eap"),
+    "achievers": ("Achievers Solutions Inc.", r"Achievers(?=\s+(?:platform|program|recognition|Inc)|\b)(?<!high Achievers)", "https://www.achievers.com/company/contact/",
+                  r"99 Atlantic Ave.{0,30}Toronto,?\s+(?:ON|Ontario)", "hr"),
+    "axonify": ("Axonify Inc.", r"Axonify", "https://axonify.com/contact/", r"450 Phillip St.{0,20}Waterloo,?\s+Ontario", "hr"),
+    "intelex": ("Intelex Technologies ULC", r"Intelex", "https://www.intelex.com/contact-us", r"48 Yonge Street.{0,30}Toronto,?\s+(?:ON|Ontario)", "hr"),
+    "jostle": ("Jostle Corporation", r"Jostle(?:\s+(?:intranet|platform|Corporation))?", "https://jostle.me/privacy-policy/", r"1090 West Georgia.{0,40}Vancouver,?\s+(?:BC|British Columbia)", "hr"),
+    "procurify": ("Procurify Technologies Inc.", r"Procurify", "https://www.procurify.com/contact/", r"701 West Georgia.{0,40}Vancouver,?\s+(?:BC|British Columbia)", "hr"),
+    "d2l": ("D2L Corporation", r"Brightspace|Desire2Learn|\bD2L\b", "https://www.d2l.com/legal/privacy-notice/", r"137 Glasgow Street.{0,30}Kitchener,?\s+(?:ON|Ontario)", "academic"),
+    "xello": ("Xello Inc.", r"Xello", "https://xello.world/en/contact/", r"1867 Yonge St.{0,30}Toronto,?\s+(?:ON|Ontario)", "academic"),
+    "edsby": ("CoreFour Inc. (Edsby)", r"Edsby", "https://www.edsby.com/privacy-policy/", r"68B Leek Crescent.{0,30}Richmond Hill,?\s+Ontario", "academic"),
+    "lumio": ("SMART Technologies ULC (Lumio)", r"Lumio(?:\s+by\s+SMART)?", "https://www.smarttech.com/contact", r"SMART Technologies ULC.{0,40}Calgary,?\s+(?:AB|Alberta)", "academic"),
+    "kev": ("KEV Group Inc. (School Cash Online)", r"School\s*Cash\s*Online|SchoolCash", "https://kevgroup.com/general-inquiries/", r"90 Eglinton Avenue East.{0,30}Toronto,?\s+(?:ON|Ontario)", "academic"),
+    "voyent": ("ICEsoft Technologies Canada Corp. (Voyent Alert!)", r"Voyent\s+Alert", "https://voyent-alert.com/", r"600 Crowfoot Crescent.{0,20}Calgary,?\s+(?:AB|Alberta)", "municipal"),
+    "bookking": ("Univerus Software Inc. (BookKing)", r"Book\s?King", "https://www.univerussportandrecreation.com/", r"3292 Production Way.{0,20}Burnaby,?\s+(?:BC|British Columbia)", "municipal"),
+    "amilia": ("Amilia Enterprises Inc.", r"Amilia", "https://www.amilia.com/contact", r"Richardson St.{0,20}Montr[ée]al,?\s+(?:QC|Qu[ée]bec)", "municipal"),
     "crowdmark": ("Crowdmark, Inc.", r"Crowdmark", "https://www.crowdmark.com/privacy/", r"Toronto,?\s+(?:ON|Ontario)", "academic"),
     "maplesoft": ("Maplesoft (Waterloo Maple Inc.)", r"Maplesoft|Waterloo\s+Maple|Maple\s*T\.?A\.?|Maple\s+Learn", "https://www.maplesoft.com/contact/",
                   r"609 Kumpf Drive,?\s+Waterloo,?\s+(?:ON|Ontario)", "academic"),
@@ -80,7 +100,10 @@ CTX = {"eap": r"(?:employee(?:\s+and\s+family)?\s+assistance|\bE\.?F?\.?A\.?P\.?
                    r"(?:benefits? package|total rewards|benefits? program(?:me)?)[^.]{0,80}?\b(?:through|with|provided by|from)\b|"
                    r"(?:r[ée]gime d.assurance collective|assurance collective|avantages sociaux)[^.]{0,80}?\b(?:avec|aupr[èe]s|administr|par|offert)|"
                    r"(?:plan|policy|group|contract)\s+(?:number|no\.?|#)|plan sponsor",
-       "academic": r"grad(?:e|ing)|assess|exam|course|student|instructor|licen[cs]e|site\s+licen[cs]e|available\s+to|campus|teaching|learning|software",
+       "academic": r"grad(?:e|ing)|assess|exam|course|student|instructor|licen[cs]e|site\s+licen[cs]e|available\s+to|campus|teaching|learning|software|"
+                   r"\bLMS\b|learning management|portal|parents?|families|school fees|pay(?:ment)?s? (?:online|for)|career|planning|lessons?|classroom",
+       "hr": r"recogni|rewards?|training|learning|onboarding|employees?|staff|frontline|intranet|EHS|health and safety|safety management|procurement|purchase requisition|purchasing",
+       "municipal": r"alert|notification|emergency|register|registration|book(?:ing)?|rentals?|facilit|program|recreation|loisirs|inscription",
        "library": r"librar|e-?resource|database|access|subscri|magazine|newspaper|e-?book|digital\s+collection|cardholder|library card"}
 INSURER_NAMES = re.compile(r"Sun\s*Life|Manulife|Canada\s+Life|Great-West|Green\s*Shield|Medavie|Blue\s+Cross|Desjardins|Beneva|\bSSQ\b|Industrial\s+Alliance|iA\s+Financial|"
                            r"Equitable\s+Life|Empire\s+Life|Co-operators|ClaimSecure|GroupHEALTH|GroupSource|Johnson\s+Inc|Cowan|Chambers?\s+of\s+Commerce|RBC\s+Insurance|"
@@ -140,6 +163,8 @@ def scan(text, vendors_ok, org_hint=""):
         if kind == "academic" and not ACADEMIC_ORG.search(org_hint):
             continue
         if kind == "library" and not LIBRARY_ORG.search(org_hint):
+            continue
+        if kind == "municipal" and not LIBRARY_ORG.search(org_hint):
             continue
         for m in re.finditer(nm, text):
             win = text[max(0, m.start() - 200):m.end() + 200]
