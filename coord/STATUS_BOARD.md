@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-03 19:12 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-03 19:38 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-03)
 | metric | value |
@@ -37,13 +37,13 @@
 | claude | claude_buyer_ap_results_agent01.csv | 31 | 31 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_agent02.csv | 28 | 28 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_agent03.csv | 8 | 8 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_crawl01.csv | 49040 | 49040 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_crawl01.csv | 49172 | 49172 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 471 | 471 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_federal01.csv | 242 | 242 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_manual01.csv | 88 | 88 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_peppol01.csv | 45 | 45 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_reverse01.csv | 12 | 12 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_search01.csv | 2016 | 2016 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_search01.csv | 2037 | 2037 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_xverify01.csv | 21 | 21 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_xverify02.csv | 9 | 9 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_xverify03.csv | 17 | 17 | 0 | 0 | 0 |
@@ -253,7 +253,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 35804 entities researched, 33410 with at least one verified contact.
+**team_buyers**: 35922 entities researched, 33523 with at least one verified contact.
 
 **team_vendors**: 15387 entities researched, 4004 with at least one verified contact.
 
@@ -264,10 +264,10 @@
 | jules | 7 | 0 | 9 | 0 |
 
 ## Last ingest
-- buyers with team findings: 35804 (with at least one verified e-mail/portal: 33382)
+- buyers with team findings: 35922 (with at least one verified e-mail/portal: 33495)
 - vendors with team findings: 15387
 - QA rows: 200
-- counters: {'files': 232, 'buyer_findings_verified': 53450, 'buyer_findings_verified_on_archive_copy': 378, 'buyer_findings_unverified_page_unavailable': 1554, 'buyer_findings_not_found_on_page': 2838, 'buyer_findings_not_found_on_page_hidden': 474, 'buyer_findings_rejected_personal_or_invalid': 91, 'vendor_emails_not_found_on_page': 404, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4339, 'vendor_emails_unverified_page_unavailable': 317, 'buyer_findings_cross_verified': 222, 'verify_tasks_chatgpt': 218, 'verify_tasks_gemini': 511}
+- counters: {'files': 232, 'buyer_findings_verified': 53590, 'buyer_findings_verified_on_archive_copy': 378, 'buyer_findings_unverified_page_unavailable': 1561, 'buyer_findings_not_found_on_page': 2844, 'buyer_findings_not_found_on_page_hidden': 474, 'buyer_findings_rejected_personal_or_invalid': 91, 'vendor_emails_not_found_on_page': 404, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4339, 'vendor_emails_unverified_page_unavailable': 317, 'buyer_findings_cross_verified': 222, 'verify_tasks_chatgpt': 218, 'verify_tasks_gemini': 514}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -276,7 +276,7 @@ Every row's outcome is in `coord/results/verification_log.csv`. Look up your own
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 973 | 16 | 0 | 14 | 0 | 22 | 0 |
-| claude | 48960 | 101 | 0 | 1094 | 7 | 1776 | 90 |
+| claude | 49100 | 101 | 0 | 1101 | 7 | 1782 | 90 |
 | gemini | 3517 | 105 | 0 | 325 | 366 | 1040 | 1 |
 
 ## Where to look
