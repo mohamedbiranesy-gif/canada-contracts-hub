@@ -158,3 +158,17 @@ not delivered (their evidence key is 'snippet'); one delivered row per mailbox (
 central box no longer count as separate buyers). Final counts 11:12Z: P01 490, P01T 24, P02 199, P03 196, P04 1,393,
 P05 339, P06 154, P06T 964, P07 163, P08 2,183, P09 382, P10 2,610, P11 395; 9,492 delivered rows with a mailbox.
 Open: tighten client-listing extraction (exclude partner / reseller / credit / event links), use lobbyist end dates.
+
+## 2026-11-03 — claude: packages P12 / P13 and full field completeness (owner's request of 2026-11-03)
+- P12 "weaker relationship (within 5 years)": an ended contract (ended_*.jsonl.gz) or a contract whose vendor is in Canada
+  only through an exact / strong business-registry match with a Canadian registered office (owner's item 2 of 2026-11-01),
+  dated on or after today minus 5 years; own confirmed mailbox; organisations not already in a row. Small (31 today):
+  the release has only ~400 buyers in the unverified-country file and ~360 in the ended files, most already ranked.
+- P13 "inferred relationship (no record)": every other organisation with its own confirmed role mailbox gets the
+  Canada-located vendor it very likely pays, with the law / market fact and a confidence: federal body → Canada Post
+  (exclusive letter privilege); Ontario municipality → MPAC; QC / MB / SK / NB / NU → the provincial electricity utility
+  (BC Hydro at medium / low); anything else in Canada → Canada Post (medium for municipalities / institutions, low
+  otherwise). Vendor locations are quoted from the vendors' own sites. Organisations not shown to be in Canada get none.
+- Delivered cells are never blank: derived fills from the record and the release's vendor / buyer tables, else the
+  literal not_published. Also fixed: government mail domains are anchored on a dot (aicanada.ca was read as federal),
+  and the mailbox choice among a buyer's keys is now deterministic (a set's random order used to break ties).

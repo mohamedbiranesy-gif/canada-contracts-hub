@@ -2,7 +2,9 @@
 
 `rank.py` builds one row per DISTINCT buyer organisation (a buyer never repeats; a vendor may), with its best proof of a
 relationship with a Canada-located vendor and its best own published role mailbox. `batches.py` puts each buyer in the
-single best package it qualifies for. Output: `out/ranked/batches/*.csv` (refreshed every 3 h into
+single best package it qualifies for. Inputs from the release: `canadian_vendor_contracts.jsonl.gz` (required),
+`vendors_enriched`, `buyers_enriched`, `vendor_country_unverified_contracts`, `ended_*` (optional: each is skipped when
+absent, which only empties P12 and some filled fields). Output: `out/ranked/batches/*.csv` (refreshed every 3 h into
 `coord/results/ranked/batches/` by the `rank-buyers` workflow; `coord/results/ranked/SUMMARY.md` has the counts).
 
 ## Packages (best first; every delivered row carries the buyer's own mailbox)
@@ -17,7 +19,23 @@ single best package it qualifies for. Output: `out/ranked/batches/*.csv` (refres
 | P09 | older contract or payment record (awarded over 3 years ago / undated) | any confirmed |
 | P10 | linked from a page of the Canada-located vendor's site that is not a client page | any confirmed |
 | P11 | any relationship above | mailbox found but not yet confirmed by the referee |
+| P12 | weaker relationship, dated within the last 5 years (award / start / end on or after today minus 5 years): a contract that already ended (vendor in Canada per the source, `ended_*.jsonl.gz`), or a contract whose vendor is in Canada only through a business-registry match (exact / strong match with a Canadian registered office; the source publishes no vendor country, `vendor_country_unverified_contracts.jsonl.gz`). `contract_status` starts with "weaker relationship" | own mailbox, confirmed |
+| P13 | inferred relationship, no record: every other organisation with its own confirmed role mailbox (`coord/results/org_mailboxes.csv`) gets the Canada-located vendor it very likely pays, from its type and province (see below). `vendor` = "inferred: …", `contract_status` = "inferred relationship (no record): <confidence>; <buyer type>; <law or fact>" | own mailbox, confirmed |
 | Z | any relationship | no mailbox yet (not delivered) |
+
+### P13 inference rules (first match wins; each vendor's location is quoted from its own site in `vendor_country_basis`)
+| buyer | inferred vendor | confidence | basis |
+|---|---|---|---|
+| federal department / agency (mailbox on gc.ca / canada.ca) | Canada Post Corporation | high | exclusive letter privilege, Canada Post Corporation Act s. 14 |
+| Ontario municipality | MPAC | high | "funded by all Ontario municipalities" (mpac.ca), MPAC Act 1997 |
+| municipality or institution (school, college, university, health or government body) in QC / MB / SK / NB / NU | Hydro-Québec / Manitoba Hydro / SaskPower / NB Power / Qulliq Energy | high | the province's electricity distribution monopoly (towns with their own utility are excluded) |
+| other organisation in QC / MB / SK / NB / NU; municipality or institution in BC | same utilities; BC Hydro | medium | as above; a tenant may pay electricity through its lease; FortisBC / municipal utilities serve parts of BC |
+| other organisation in BC | BC Hydro | low | as above |
+| other municipality or institution located in Canada | Canada Post Corporation | medium | exclusive letter privilege; they mail tax notices / letters |
+| any other organisation located in Canada | Canada Post Corporation | low | generic: exclusive letter privilege; not every organisation mails letters |
+Province: the release's vendor / buyer table address, else a provincial domain (.qc.ca, gov.bc.ca …), else the single postal
+code on the organisation's own page. Organisations not shown to be located in Canada get no inference (skipped). One row
+per organisation: P12 / P13 never repeat an organisation, registrable domain or mailbox already in a row above.
 
 ## Key columns
 `buyer`, `buyer_website`, `email`, `email_type` (invoicing/AP, finance, purchasing, general), `email_check` (confirmed =
@@ -25,6 +43,15 @@ the referee re-opened the page and saw the address), `email_evidence_url` + `ema
 containing the address), `contract_status` (which relationship rule applies, with its source), `award_date`,
 `contract_link` (the record), `vendor`, `vendor_country_basis` (the source's own proof that the vendor is located in
 Canada), vendor registry fields when known, `keys` (all buyer keys folded into the row).
+
+## Field completeness (owner, 2026-11-03)
+Every cell of a delivered package is filled: from the record (identifiers, value, currency, dates, link), then the
+release's vendor table (`vendors_enriched.jsonl.gz`: legal name, BN9, address, website, e-mails, only from an exact /
+strong registry match) and buyer table (`buyers_enriched.jsonl.gz`: website, address); `buyer_website` falls back to the
+mailbox's domain (or the evidence page's host when it is the same domain); `vendor_gst_hst_derived` = BN9 + RT0001,
+always labelled derived; a currency missing from a Canadian / US government source is labelled "derived from the
+source's government". A field no source gives is the literal `not_published` (Z: e-mail columns are `not_found_yet`).
+`ranked_buyers.csv` keeps blanks (it is the working file batches.py reads).
 
 ## Quality rules on top of the referee's checks
 - Vendor in Canada only from the source itself (address / country field, release dateline, the vendor's own Canada-HQ

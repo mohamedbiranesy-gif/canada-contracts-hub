@@ -1,5 +1,6 @@
 """One row per distinct buyer, ranked by proof quality and completeness (see README.md). Run from anywhere:
-    gh release download dataset-latest -D data/release   # once
+    gh release download dataset-latest -D data/release   # once (needs canadian_vendor_contracts; vendors_enriched, buyers_enriched,
+                                                          # vendor_country_unverified_contracts and ended_* are optional: P12 + field fill)
     python3 contrib/claude/rank_buyers/rank.py && python3 contrib/claude/rank_buyers/batches.py
 """
 import csv, gzip, json, re, io, collections, unicodedata, datetime, sys, os
@@ -76,6 +77,75 @@ for r in csv.DictReader(io.StringIO(raw)):
     s = (acc, g)
     if r["org_key"] not in mail or s > mail[r["org_key"]][0]:
         mail[r["org_key"]] = (s, r)
+# 1b. optional release tables (each skipped when absent): vendor registry facts / websites / addresses (field fill),
+# buyer websites / addresses, and the weaker-relationship inputs of P12 (registry-match contracts, ended contracts)
+REL = ROOT + "/data/release/"
+def jl(*paths):
+    for path in paths:
+        if os.path.exists(path):
+            with gzip.open(path, "rt", encoding="utf-8") as fh:
+                for line in fh:
+                    yield json.loads(line)
+_t = datetime.date.today()
+CUT5 = (_t.replace(year=_t.year - 5) if not (_t.month == 2 and _t.day == 29) else _t.replace(year=_t.year - 5, day=28)).isoformat()  # owner 2026-11-03: P12 = up to 5 years old
+POSTAL = re.compile(r"\b([ABCEGHJKLMNPRSTVXY])\d[ABCEGHJ-NPRSTV-Z] ?\d[ABCEGHJ-NPRSTV-Z]\d\b")
+PC1 = {"A": "NL", "B": "NS", "C": "PE", "E": "NB", "G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON",
+       "R": "MB", "S": "SK", "T": "AB", "V": "BC", "Y": "YT"}
+def prov_of_postal(pc):
+    pc = pc.upper().replace(" ", "")
+    return ("NU" if pc[:3] in ("X0A", "X0B", "X0C") else "NT") if pc[:1] == "X" else PC1.get(pc[:1], "")
+REGION = {"quebec": "QC", "qc": "QC", "ontario": "ON", "on": "ON", "british columbia": "BC", "bc": "BC", "alberta": "AB", "ab": "AB",
+          "manitoba": "MB", "mb": "MB", "saskatchewan": "SK", "sk": "SK", "nova scotia": "NS", "ns": "NS", "new brunswick": "NB", "nb": "NB",
+          "newfoundland and labrador": "NL", "newfoundland": "NL", "nl": "NL", "prince edward island": "PE", "pe": "PE", "pei": "PE",
+          "yukon": "YT", "yt": "YT", "northwest territories": "NT", "nt": "NT", "nunavut": "NU", "nu": "NU"}
+def region_code(a):
+    """province of an address dict (region field, else its postal code)"""
+    a = a or {}
+    r = REGION.get(norm(a.get("region") or ""), "")
+    if not r:
+        m = POSTAL.search(" ".join(str(x) for x in ([a.get("postal_code")] + list(a.get("lines") or [])) if x).upper())
+        r = prov_of_postal(m.group(0)) if m else ""
+    return r
+def addr_text(a):
+    a = a or {}
+    if a.get("lines"):
+        return ", ".join(x for x in a["lines"] if x)
+    return ", ".join(str(x) for x in (a.get("line1"), a.get("line2"), a.get("city"), a.get("region"), a.get("postal_code"), a.get("country")) if x)
+def host_of(u):
+    h = (urllib.parse.urlparse(u if "//" in (u or "") else "https://" + (u or "")).hostname or "").lower()
+    return h[4:] if h.startswith("www.") else h
+FREEMAIL = re.compile(r"^(gmail|hotmail|outlook|live|yahoo|ymail|msn|aol|icloud|me|mac|videotron|sympatico|bell|rogers|shaw|telus|cogeco|eastlink|"
+                      r"globetrotter|qc\.aira|aira|tlb|xplornet|nbnet\.nb|nb\.aibn|mts|sasktel|protonmail|proton|gmx|mail|bellnet|cgocable|"
+                      r"derytele|axion|tbaytel|execulink|personainternet|primus|distributel|teksavvy|ciril|netrevolution|b2b2c|live\.ca|outlook\.fr)\.", re.I)
+VEN, VEN_NAME, VEN_DOM = {}, {}, {}
+for v in jl(REL + "vendors_enriched.jsonl.gz"):
+    s = v.get("summary") or {}
+    reg = s.get("registry_match_level") in ("exact", "strong")  # registry facts only from a confident match
+    ra = (s.get("registered_address") or {}) if reg else {}
+    ca = next((x["value"] for x in v.get("addresses_in_contract_data") or [] if (x.get("value") or {}).get("line1") or (x.get("value") or {}).get("city")), {})
+    bn = s.get("business_number_bn9") if reg else None
+    rec = {"name": v.get("name") or "", "legal_name": (s.get("legal_name") or "") if reg else "", "bn9": bn or "",
+           "gst": (s.get("gst_hst_account_derived") or (bn + "RT0001" if bn else "")) if reg else "",
+           "address": addr_text(ca) or addr_text(ra), "region": region_code(ca) or region_code(ra), "website": s.get("website") or "",
+           "emails": "; ".join(e if isinstance(e, str) else (e.get("email") or "") for e in s.get("contact_emails_published") or []),
+           "registry": next(({"registry": m.get("registry"), "id": m.get("id"), "legal_name": m.get("legal_name"), "url": m.get("source_url")}
+                             for m in s.get("matches") or [] if m.get("match_confidence") in ("exact", "strong")), None) if reg else None,
+           "reg_address": addr_text(ra), "reg_region": region_code(ra)}
+    VEN[v["vendor_key"]] = rec
+    for n in {norm(v.get("name")), norm(rec["legal_name"])} - {""}:
+        VEN_NAME[n] = v["vendor_key"] if VEN_NAME.get(n, v["vendor_key"]) == v["vendor_key"] else None  # ambiguous name: no lookup
+    if rec["website"]:
+        VEN_DOM.setdefault(registrable(host_of(rec["website"])), v["vendor_key"])
+BUY = {b["buyer_key"]: b for b in jl(REL + "buyers_enriched.jsonl.gz") if b.get("buyer_key")}
+def vend_fill(key="", name="", domain=""):
+    """vendor columns from the release's vendor table: by vendor key, by website domain, then by exact name"""
+    k = key if key in VEN else VEN_DOM.get(registrable(domain)) if domain else None
+    if not k and name:
+        k = VEN_NAME.get(norm(name)) or VEN_NAME.get(parent(name))
+    v = VEN.get(k) or {}
+    return {"vendor_legal_name": v.get("legal_name", ""), "vendor_address": v.get("address", ""), "vendor_bn9": v.get("bn9", ""),
+            "vendor_gst_hst_derived": v.get("gst", ""), "vendor_website": v.get("website", "") or ("https://" + domain if domain else ""),
+            "vendor_emails": v.get("emails", "")}
 # 2. contracts: best proof record per parent organisation
 TIER = {"ongoing": "A", "ongoing_inferred": "B", "end_date_unknown": "C"}
 TS = {"A": 3, "B": 2, "T": 1.8, "L": 1.5, "C": 1, "D": 1, "E": 0.5}
@@ -110,9 +180,10 @@ JUR_SRC = [(r"CanadaBuys|Proactive Publication|Standing Offers|Government of Can
            (r"Ontario Tenders|Supply Ontario", "ON"), (r"BC Bid|British Columbia", "BC"), (r"Yukon", "YT"), (r"Nunavut", "NU"),
            (r"Prince Edward", "PE"), (r"USAspending|SAM\.gov|FPDS", "US"), (r"Tenders Electronic", "EU"), (r"Contracts Finder|Find a Tender", "UK"),
            (r"AusTender", "AU")]
-JUR_DOM = [(r"(\.gc\.ca|canada\.ca|\.forces\.ca)$", "FED"), (r"(gov\.ab\.ca|alberta\.ca)$", "AB"), (r"gov\.nt\.ca$", "NT"), (r"gov\.nl\.ca$", "NL"),
-           (r"gov\.sk\.ca$", "SK"), (r"(gouv\.qc\.ca|quebec\.ca)$", "QC"), (r"novascotia\.ca$", "NS"), (r"gnb\.ca$", "NB"), (r"gov\.mb\.ca$", "MB"),
-           (r"ontario\.ca$", "ON"), (r"gov\.bc\.ca$", "BC"), (r"(gov\.yk\.ca|yukon\.ca)$", "YT"), (r"gov\.nu\.ca$", "NU"), (r"gov\.pe\.ca$", "PE")]
+JUR_DOM = [(r"\.(gc\.ca|canada\.ca|forces\.ca)$", "FED"), (r"\.(gov\.ab\.ca|alberta\.ca)$", "AB"), (r"\.gov\.nt\.ca$", "NT"), (r"\.gov\.nl\.ca$", "NL"),
+           (r"\.gov\.sk\.ca$", "SK"), (r"\.(gouv\.qc\.ca|quebec\.ca)$", "QC"), (r"\.novascotia\.ca$", "NS"), (r"\.gnb\.ca$", "NB"), (r"\.gov\.mb\.ca$", "MB"),
+           (r"\.ontario\.ca$", "ON"), (r"\.gov\.bc\.ca$", "BC"), (r"\.(gov\.yk\.ca|yukon\.ca)$", "YT"), (r"\.gov\.nu\.ca$", "NU"), (r"\.gov\.pe\.ca$", "PE")]
+# anchored on a dot (2026-11-03): "aicanada.ca" or "visitquebec.ca" are not government mail domains
 PLACE = re.compile(r"canada|quebec|alberta|ontario|saskatchewan|manitoba|scotia|brunswick|newfoundland|labrador|yukon|northwest|nunavut|"
                    r"british columbia|prince edward|county|city|ville|town|municipal|college|cegep|universit|hydro|\b(bc|nl|ns|nb|pei)\b")
 BAD_LOCAL = re.compile(r"recrut|recruit|emploi|career|carriere|job|plainte|complaint|frais|accessoire|patient|usager|media|presse|press|"
@@ -122,7 +193,7 @@ def jur_of_record(r):
     s = (r.get("source") or {}).get("name", "")
     return next((j for rx, j in JUR_SRC if re.search(rx, s)), "")
 def jur_of_mail(email):
-    d = (email or "").split("@")[-1].lower()
+    d = "." + (email or "").split("@")[-1].lower()
     return next((j for rx, j in JUR_DOM if re.search(rx, d)), "")
 orgs = {}
 for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "rt", encoding="utf-8"):
@@ -160,7 +231,7 @@ def emailcols(keys, be, gj="", name="", site=""):
     fits = lambda e, page="": (not gj or jur_of_mail(e) in ("", gj)) and not BAD_LOCAL.search((e or "").split("@")[0]) and own(e, page)
     LABEL = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}
     opts = []  # (accepted, grade, row) from the referee's mailboxes and from earlier enrichment; the best accepted one wins
-    for k in keys:
+    for k in sorted(k for k in keys if k):  # sorted: equal mailboxes are broken the same way on every run (a set's order is random)
         if k in mail and fits(mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or ""):
             (acc, g), m = mail[k]
             opts.append(((acc, g), (m["mailbox"], LABEL[g], "confirmed" if acc else m["check_status"], m["evidence_url"], m["evidence_quote"], g, acc)))
@@ -176,6 +247,29 @@ def emailcols(keys, be, gj="", name="", site=""):
     if opts:
         return max(opts, key=lambda x: x[0])[1]
     return "", "", "", "", "", 0, False
+CUR = {"FED": "CAD", "AB": "CAD", "NT": "CAD", "NL": "CAD", "SK": "CAD", "QC": "CAD", "NS": "CAD", "NB": "CAD", "MB": "CAD", "ON": "CAD", "BC": "CAD",
+       "YT": "CAD", "NU": "CAD", "PE": "CAD", "US": "USD", "AU": "AUD", "UK": "GBP"}
+def fill_contract(x, r, keys):
+    """owner 2026-11-03: every field the record or the release tables give is filled (the rest becomes not_published in batches.py)"""
+    v, ve, src = r.get("vendor") or {}, r.get("vendor_enrichment") or {}, r.get("source") or {}
+    x["buyer_address"] = addr_text(json.loads(x["buyer_address"]) if x["buyer_address"].startswith("{") and x["buyer_address"].endswith("}") else {}) \
+        or addr_text((r.get("buyer") or {}).get("address")) or next((addr_text(BUY[k].get("address")) for k in keys if k in BUY and BUY[k].get("address")), "")
+    if not x["buyer_website"]:
+        x["buyer_website"] = next((BUY[k]["official_website"] for k in keys if k in BUY and BUY[k].get("official_website")), "")
+    for col, val in vend_fill(ve.get("vendor_key") or "", v.get("name") or "").items():
+        if not x[col] and val:
+            x[col] = val
+    if not x["vendor_legal_name"] and ve.get("legal_name"):
+        x["vendor_legal_name"] = ve["legal_name"]
+    if x["vendor_bn9"] and not x["vendor_gst_hst_derived"]:
+        x["vendor_gst_hst_derived"] = x["vendor_bn9"] + "RT0001"
+    if x["contract_value"] and not x["currency"] and CUR.get(jur_of_record(r)):
+        x["currency"] = CUR[jur_of_record(r)] + " (derived from the source's government)"
+    if not x["contract_link"]:
+        x["contract_link"] = src.get("record_url") or src.get("dataset_url") or ""
+    if x["contract_reference"] in ("{}", "") and r.get("record_id"):
+        x["contract_reference"] = json.dumps({"record_id": r["record_id"]}, ensure_ascii=False)
+    x["_jur"] = (r.get("buyer") or {}).get("country") or ""  # filled after the one-row-per-body merge, which keys on jurisdiction
 for p, o in orgs.items():
     r, be = o["best"], o["be"]
     c, v, ve, d = r["contract"], r.get("vendor") or {}, r.get("vendor_enrichment") or {}, (r["contract"].get("dates") or {})
@@ -193,6 +287,7 @@ for p, o in orgs.items():
         "vendor_address": ", ".join(x for x in (a.get("line1"), a.get("city"), a.get("region"), a.get("postal_code")) if x), "vendor_country_basis": v.get("country_basis") or "",
         "vendor_bn9": ve.get("business_number_bn9") or "", "vendor_gst_hst_derived": ve.get("gst_hst_account_derived") or "", "vendor_website": ve.get("website") or "",
         "vendor_emails": "; ".join((x.get("email") or x.get("value") or "") if isinstance(x, dict) else str(x) for x in (ve.get("contact_emails_published") or [])), "contracts_with_canadian_suppliers": o["n"], "buyer_keys": len(o["keys"]), "keys": "|".join(sorted(k for k in o["keys"] if k)), "tier": tier, "grade": g, "acc": acc})
+    fill_contract(rows[-1], r, o["keys"])
 # 4. buyers proven by payment / subaward records or client listings (no contract in the dataset)
 leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8", errors="replace"))}
 seen = {norm(x["buyer"]) for x in rows}
@@ -250,9 +345,253 @@ for k, L in leads.items():
                             "likely active (record dated in the last 12 months: %s)" % src) if recent else "payment / subaward record",
         "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"], "vendor_country_basis": L["canada_field_value"],
         "contracts_with_canadian_suppliers": L["canadian_vendor_rows"], "keys": k, "buyer_keys": 1, "tier": tier, "grade": g, "acc": acc})
+    x, ev, cfv = rows[-1], (L.get("example_vendor") or "").strip(), (L.get("canada_field_value") or "")
+    dm = re.search(r"=\s*([a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,})(?:[;/\s]|$)", cfv.lower())
+    vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
+    x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
+    x["source"] = ("the buyer's own website (service of a Canada-HQ vendor in use)" if tech else
+                   "the Canada-located vendor's own website" if client else src or "relationship record")
+for x in rows:
+    x.setdefault("_jur", "")
+# 5. P12 (owner 2026-11-03, "lowest quality but still AP"): organisations not ranked above, with their own confirmed
+# mailbox, whose relationship is weaker: a contract whose vendor is in Canada only through a business-registry match
+# (the source has no vendor country; owner's item 2 of 2026-11-01), or a contract that already ended, dated (award /
+# start / end) on or after CUT5 (5 years). Labelled "weaker relationship" so it never mixes with P01-P11.
+covered_keys = {k for x in rows for k in (x.get("keys") or "").split("|") if k}
+covered_dom = {registrable(host_of(x["buyer_website"])) for x in rows if x.get("buyer_website")} - {""}
+covered_name = {norm(x["buyer"]) for x in rows} - {""}
+covered_mail = {(x.get("email") or "").lower() for x in rows} - {""}
+def reg_canada(ve):
+    """the vendor is in Canada through a registry match: a confident match whose registered office is in Canada"""
+    if ve.get("registry_match_level") not in ("exact", "strong"):
+        return ""
+    ra = ve.get("registered_address") or {}
+    if not (ra.get("country") in ("CA", "CAN", "Canada") or POSTAL.search(addr_text(ra).upper())):
+        return ""
+    m = next((m for m in ve.get("matches") or [] if m.get("match_confidence") in ("exact", "strong")), {})
+    return "registry match only (%s): %s %s '%s', registered office %s (%s); the source publishes no vendor country" % (
+        ve.get("registry_match_level"), m.get("registry") or "registry", m.get("id") or "", m.get("legal_name") or ve.get("legal_name") or "",
+        addr_text(ra), (m.get("source_url") or "")[:120])
+import glob as _glob
+orgs12, seen_rec = {}, set()
+for kind, paths in (("ended", sorted(_glob.glob(REL + "ended_*.jsonl.gz"))), ("registry", [REL + "vendor_country_unverified_contracts.jsonl.gz"])):
+    for r in jl(*paths):
+        if r.get("record_id") in seen_rec:
+            continue
+        seen_rec.add(r.get("record_id"))
+        d = r["contract"].get("dates") or {}
+        end, ad = str(d.get("end") or "")[:10], award_date(r)
+        if ad > today:
+            continue
+        if kind == "ended":
+            basis = (r.get("vendor") or {}).get("country_basis") or ""
+            if not basis or not (ad >= CUT5 or CUT5 <= end < today):
+                continue
+        else:
+            basis = reg_canada(r.get("vendor_enrichment") or {})
+            if not basis or not (ad >= CUT5 or end >= today):
+                continue
+        be = r.get("buyer_enrichment") or {}
+        key = be.get("buyer_key"); name = be.get("canonical_name") or (r.get("buyer") or {}).get("name") or ""
+        p, j, own = parent(name), jur_of_record(r), (r.get("buyer") or {}).get("name") or ""
+        po = parent(own)
+        if po and len(po.split()) <= 3 and not PLACE.search(po) and j:
+            p, name = po + " | " + j, own
+        if not p or p in orgs or key in covered_keys or norm(name) in covered_name:
+            continue
+        s12 = (kind == "ended", max(ad, end if end < today else ad), contract_score(r)[1])
+        o = orgs12.setdefault(p, {"keys": set(), "best": None, "bs": None, "n": 0, "name": name, "be": be, "jur": collections.Counter(), "basis": "", "kind": ""})
+        o["keys"].add(key); o["n"] += 1; o["jur"][j] += 1
+        if o["bs"] is None or s12 > o["bs"]:
+            o.update(best=r, bs=s12, basis=basis, kind=kind, fields=s12[2])
+n12, skipped12 = 0, collections.Counter()
+for p, o in orgs12.items():
+    r, be = o["best"], o["be"]
+    c, v, ve, d = r["contract"], r.get("vendor") or {}, r.get("vendor_enrichment") or {}, (r["contract"].get("dates") or {})
+    gj = o["jur"].most_common(1)[0][0] if o["jur"] else ""
+    site = be.get("official_website") or next((BUY[k]["official_website"] for k in o["keys"] if k in BUY and BUY[k].get("official_website")), "")
+    em, et, es, eu, eq, g, acc = emailcols(o["keys"], be, gj, o["name"], site)
+    if not (em and acc and g >= 1) or em.lower() in covered_mail or (site and registrable(host_of(site)) in covered_dom):
+        skipped12["no own confirmed mailbox" if not (em and acc and g >= 1) else "same organisation already in a row"] += 1
+        continue  # P12 needs the organisation's own confirmed mailbox and an organisation not delivered above
+    end, ad = str(d.get("end") or "")[:10], award_date(r)
+    st = ("weaker relationship (within 5 years): contract ended %s (awarded %s); vendor located in Canada per the source" % (end, ad or "date not published")
+          if o["kind"] == "ended" else
+          "weaker relationship (within 5 years): %s; vendor located in Canada only through a business-registry match" %
+          ("active contract (published end date %s)" % end if end >= today else "contract awarded %s" % ad))
+    a = v.get("address") or {}
+    rows.append({"jurisdiction": gj, "rank_group": "F%d" % g, "completeness_score": (20 if o["kind"] == "ended" else 10) + g * 6 + 3 + o["fields"],
+        "buyer": o["name"], "buyer_website": site, "buyer_address": json.dumps(be.get("address") or {}, ensure_ascii=False)[:200],
+        "email": em, "email_type": et, "email_check": es, "email_evidence_url": eu, "email_evidence_quote": eq, "contract_status": st,
+        "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200],
+        "contract_value": c.get("value") or "", "currency": c.get("currency") or "", "award_date": ad, "start_date": d.get("start") or "", "end_date": end,
+        "contract_link": r.get("link") or "", "source": (r.get("source") or {}).get("name", ""), "vendor": v.get("name") or "", "vendor_legal_name": ve.get("legal_name") or "",
+        "vendor_address": addr_text(a), "vendor_country_basis": o["basis"] if o["kind"] == "registry" else v.get("country_basis") or "",
+        "vendor_bn9": ve.get("business_number_bn9") or "", "vendor_gst_hst_derived": ve.get("gst_hst_account_derived") or "", "vendor_website": ve.get("website") or "",
+        "vendor_emails": "; ".join((x.get("email") or x.get("value") or "") if isinstance(x, dict) else str(x) for x in (ve.get("contact_emails_published") or [])),
+        "contracts_with_canadian_suppliers": o["n"], "buyer_keys": len(o["keys"]), "keys": "|".join(sorted(k for k in o["keys"] if k)), "tier": "F", "grade": g, "acc": acc})
+    fill_contract(rows[-1], r, o["keys"])
+    n12 += 1
+    covered_keys |= o["keys"]; covered_mail.add(em.lower()); covered_name.add(norm(o["name"]))
+    if rows[-1]["buyer_website"]:
+        covered_dom.add(registrable(host_of(rows[-1]["buyer_website"])))
+# 6. P13 (owner 2026-11-03, "even more inferred"): every other organisation with its own confirmed role mailbox
+# (coord/results/org_mailboxes.csv) and no relationship row: the Canada-located vendor it very likely pays, inferred
+# from its type and province, with the law or market fact in plain words. Never a record: vendor "inferred: ...",
+# contract_status "inferred relationship (no record): ...". Each vendor's location is quoted from its own site
+# (pages read 2026-11-03).
+INFV = {
+    "MPAC": ("Municipal Property Assessment Corporation (MPAC)", "https://www.mpac.ca", "1340 Pickering Parkway, Suite 101, Pickering ON L1V 0C4",
+             "https://www.mpac.ca/en/ContactUs", "or by mail to MPAC, 1340 Pickering Parkway, Suite 101, Pickering ON L1V 0C4"),
+    "CPC": ("Canada Post Corporation", "https://www.canadapost-postescanada.ca", "2701 Riverside Drive, Ottawa ON K1A 0B1",
+            "https://www.canadapost-postescanada.ca/cpc/en/our-company/transparency-and-trust/privacy-centre/info-source/additional-information.page",
+            "Access to Information and Privacy Canada Post Corporation 2701 Riverside Drive, N1160 Ottawa ON K1A 0B1"),
+    "HQ": ("Hydro-Québec", "https://www.hydroquebec.com", "75, boulevard René-Lévesque Ouest, Montréal (Québec) H2Z 1A4",
+           "https://www.hydroquebec.com/nous-joindre/", "Siège social Édifice Jean-Lesage 75, boulevard René‑Lévesque Ouest Montréal (Québec) H2Z 1A4"),
+    "MBH": ("Manitoba Hydro", "https://www.hydro.mb.ca", "360 Portage Avenue, Winnipeg, MB R3C 0G8",
+            "https://www.hydro.mb.ca/support/contact/", "Mail Manitoba Hydro 360 Portage Avenue Winnipeg, MB Canada R3C 0G8"),
+    "SKP": ("SaskPower", "https://www.saskpower.com", "2025 Victoria Avenue, Regina, SK S4P 0S1", "https://saskpower.com/contact",
+            "Send us a letter: SaskPower Corporate Relations and Communications 9th Floor, 2025 Victoria Ave Regina, SK S4P 0S1"),
+    "NBP": ("NB Power", "https://www.nbpower.com", "515 King Street, Fredericton, NB E3B 4X1", "https://www.nbpower.com/en/contact-us/",
+            "For correspondence NB Power 515 King Street PO Box 2000, STN A Fredericton, NB E3B 4X1"),
+    "QEC": ("Qulliq Energy Corporation", "https://www.qec.nu.ca", "3091 6th Street, Baker Lake, NU X0C 0A0", "https://www.qec.nu.ca/contact-us",
+            "REGIONAL OFFICES Baker Lake Iqaluit 3091 6th Street Baker Lake, NU X0C 0A0"),
+    "BCH": ("BC Hydro", "https://www.bchydro.com", "333 Dunsmuir St., Vancouver, B.C. V6B 5R3", "https://www.bchydro.com/contact.html",
+            "Corporate head office 333 Dunsmuir St. Vancouver, B.C. V6B 5R3"),
+}
+FACT = {
+    "MPAC": "MPAC is 'an independent, not-for-profit corporation funded by all Ontario municipalities' (its own site, https://www.mpac.ca/en/AboutUs; "
+            "levy under the Municipal Property Assessment Corporation Act, 1997; a lower-tier municipality's share may be paid through its county or region)",
+    "CPC": "Canada Post holds the exclusive privilege of collecting, transmitting and delivering letters within Canada (Canada Post Corporation Act, s. 14)",
+    "HQ": "Hydro-Québec holds the exclusive right to distribute electricity in Québec outside the 9 municipal networks (Alma, Amos, Baie-Comeau, Coaticook, "
+          "Joliette, Magog, Saguenay-Jonquière, Sherbrooke, Westmount) and the Saint-Jean-Baptiste-de-Rouville co-op (Act respecting the Régie de l'énergie)",
+    "MBH": "Manitoba Hydro is the only electricity distributor in Manitoba (The Manitoba Hydro Act; it took over Winnipeg Hydro in 2002)",
+    "SKP": "SaskPower holds the electricity franchise in Saskatchewan outside the Saskatoon and Swift Current municipal utilities (The Power Corporation Act)",
+    "NBP": "NB Power distributes electricity across New Brunswick outside the Saint John, Edmundston and Perth-Andover utilities (Electricity Act)",
+    "QEC": "Qulliq Energy Corporation is the only electricity utility in Nunavut, serving all 25 communities (Qulliq Energy Corporation Act)",
+    "BCH": "BC Hydro is the electricity utility for most of British Columbia (FortisBC and a few municipal utilities serve parts of the Okanagan and Kootenays)",
+}
+UTIL = {"QC": ("HQ", r"\b(alma|amos|baie comeau|coaticook|joliette|magog|saguenay|jonquiere|sherbrooke|lennoxville|rock forest|fleurimont|"
+                    r"westmount|saint jean baptiste)\b"),
+        "MB": ("MBH", r"$^"), "SK": ("SKP", r"\b(saskatoon|swift current)\b"), "NB": ("NBP", r"\b(saint john|edmundston|perth andover)\b"),
+        "NU": ("QEC", r"$^"),
+        "BC": ("BCH", r"\b(new westminster|nelson|penticton|summerland|grand forks|kelowna|trail|castlegar|rossland|osoyoos|oliver|princeton|creston|"
+                      r"peachland|lake country|keremeos|greenwood|midway|fruitvale|montrose|warfield|salmo|kaslo|naramata)\b")}
+NOT_MUNI = re.compile(r"librar|biblioth|police|housing|habitation|hydro|museum|musee|arena|chamber|chambre|school|ecole|scolaire|fire|incendie|club|church|"
+                      r"eglise|tourism|tourisme|caisse|foundation|fondation|association|society|societe|cooperative|centre|center|festival|golf|marina|"
+                      r"hotel|restaurant|\binc\b|\bltd\b|\bltee\b|corporation de developpement|economic development|\bbia\b|business|improvement|plumbing|heating|"
+                      r"construction|trades|energy|services|solutions|\bgroup|groupe|realty|immobili|consult|church|parish|diocese|motel|\bclub\b", re.I)
+MUNI_NAME = re.compile(r"^(?:the\s+)?(?:corporation of the\s+)?(?:(?:ville|municipalite|cite|canton|cantons unis|paroisse|village|town|city|township|county|"
+                       r"comte|united counties|regional municipality|region|rural municipality|resort village|summer village|municipal district|"
+                       r"district municipality|municipality|regional district|district|hamlet)\s+(?:of|de|du|des|d)\b|mrc\b|m r c\b|municipalite regionale de comte\b)|"
+                       r"\s(?:township|county|municipality)$")
+MUNI_DOM = re.compile(r"^(?:ville|town|city|township|municipalite|municipality|canton|paroisse|county|comte|mrc)\.[a-z0-9-]+\.|"
+                      r"^(?:villede|townof|cityof|townshipof|countyof|municipalitede|municipalityof|cantonde|paroissede|mrcde)[a-z]{3,}", re.I)
+INST = re.compile(r"\b(school|schools|scolaire|cegep|college|universit\w*|hospital|hopital|cisss|ciusss|health|sante|board of education|school district|"
+                  r"centre de services scolaire|commission scolaire|conseil scolaire|first nation|premiere nation|government|gouvernement|ministry|ministere)\b")
+PROV_DOM = {"qc": "QC", "on": "ON", "bc": "BC", "ab": "AB", "mb": "MB", "sk": "SK", "ns": "NS", "nb": "NB", "nl": "NL", "nf": "NL", "pe": "PE",
+            "yk": "YT", "nt": "NT", "nu": "NU"}
+PNAME = {"QC": "Québec", "ON": "Ontario", "BC": "British Columbia", "AB": "Alberta", "MB": "Manitoba", "SK": "Saskatchewan", "NS": "Nova Scotia",
+         "NB": "New Brunswick", "NL": "Newfoundland and Labrador", "PE": "Prince Edward Island", "YT": "Yukon", "NT": "Northwest Territories", "NU": "Nunavut"}
+def province_of(k, email, site, quote):
+    if k in VEN and VEN[k]["region"]:
+        return VEN[k]["region"], "its address in the vendor table of the release"
+    if k in BUY and region_code(BUY[k].get("address")):
+        return region_code(BUY[k].get("address")), "its address in the buyer table of the release"
+    for dom in (email.split("@")[-1].lower(), host_of(site)):
+        m = re.search(r"\.([a-z]{2})\.ca$", dom)
+        if m and m.group(1) in PROV_DOM:
+            return PROV_DOM[m.group(1)], "its domain %s" % dom
+        j = jur_of_mail("x@" + dom)
+        if j and j != "FED":
+            return j, "its domain %s" % dom
+    pcs = {prov_of_postal(m.group(0)) for m in POSTAL.finditer((quote or "").upper())} - {""}
+    if len(pcs) == 1:
+        return pcs.pop(), "the postal code on its own page (%s)" % POSTAL.search((quote or "").upper()).group(0)
+    return "", ""
+def infer(name, email, site, prov, fed, place=""):
+    """(vendor id, confidence, buyer description, why): near-certain by law / market structure first, generic last"""
+    n, dom = norm(name), email.split("@")[-1].lower()
+    muni = (bool(MUNI_NAME.search(n)) or bool(MUNI_DOM.search(dom)) or bool(MUNI_DOM.search(host_of(site)))) and not NOT_MUNI.search(n)
+    inst = bool(INST.search(n)) and not re.search(r"\b(inc|ltd|ltee|corp|llc|enr)\b", n)  # a company named "... Health Inc." is not an institution
+    if fed:
+        return "CPC", "high", "a federal department or agency of Canada (mailbox on a Government of Canada domain)", \
+               FACT["CPC"] + "; federal bodies mail letters, cheques and notices"
+    if prov == "ON" and muni:
+        return "MPAC", "high", "an Ontario municipality", FACT["MPAC"]
+    if prov in UTIL:
+        vid, skip = UTIL[prov]
+        local = re.search(skip, n) or re.search(skip, norm(place))  # it may be served by a municipal or co-op utility
+        if not local:
+            conf = "high" if (muni or inst) and prov != "BC" else "medium" if (muni or inst or prov != "BC") else "low"
+            what = "%s in %s" % ("a municipality" if muni else "an institution (school, college, university, health or government body)" if inst else "an organisation", PNAME[prov])
+            why = FACT[vid] + ("; it pays electricity for the buildings and street lighting it operates" if muni else
+                               "; it pays electricity for the buildings it operates" if inst else
+                               "; an organisation with premises there buys its electricity from it, unless its landlord pays it through the lease")
+            return vid, conf, what, why
+    what = "%s located in Canada%s" % ("a municipality" if muni else "an institution (school, college, university, health or government body)" if inst else "an organisation", " (%s)" % PNAME[prov] if prov else "")
+    if muni:
+        return "CPC", "medium", what, FACT["CPC"] + "; municipalities mail property-tax and assessment notices"
+    if inst:
+        return "CPC", "medium", what, FACT["CPC"] + "; such institutions mail letters and notices"
+    return "CPC", "low", what, "generic: " + FACT["CPC"] + "; most organisations mail some letters, but not every one does"
+cands = []
+skipped13 = collections.Counter()
+for k, ((acc, g), m) in mail.items():
+    if not acc or g < 1 or k in covered_keys:
+        continue
+    e = (m.get("mailbox") or "").strip()
+    local, _, md = e.lower().partition("@")
+    if not md or BAD_LOCAL.search(local):
+        skipped13["bad mailbox"] += 1; continue
+    found = (m.get("org_name") or "").strip()  # the name the agent wrote next to the mailbox; the key's own name decides identity
+    ident = (VEN.get(k) or {}).get("name") or (BUY.get(k) or {}).get("canonical_name") or (BUY.get(k) or {}).get("name") or \
+            (leads[k].get("buyer_name") if k in leads else "") or found
+    name = found if (re.fullmatch(r"(https?://)?[\w.-]+\.[a-z]{2,}/?", ident.strip(), re.I) and found and not re.match(r"https?://|www\.", found, re.I)) else ident
+    eh = host_of(m.get("evidence_url") or "")
+    site = (VEN.get(k) or {}).get("website") or (BUY.get(k) or {}).get("official_website") or \
+           (leads[k].get("website") if k in leads else "") or ("https://" + eh if eh else "")
+    if not same_org(e, site or "https://unknown.invalid", ident):
+        skipped13["mailbox not the organisation's own"] += 1; continue
+    fed = jur_of_mail(e) == "FED" and not k.startswith("v:")
+    prov, how = province_of(k, e, site, m.get("evidence_quote") or "")
+    country = "CA" if (k.split(":")[0] in ("osm", "wd", "v") or prov or fed or md.endswith(".ca") or host_of(site).endswith(".ca")
+                       or (BUY.get(k) or {}).get("country") == "CA") else ""
+    if not country:
+        skipped13["not located in Canada (no honest inference)"] += 1; continue
+    if site and not (VEN.get(k) or {}).get("website") and not (BUY.get(k) or {}).get("official_website") and not (k in leads and leads[k].get("website")) \
+            and registrable(host_of(site)) != registrable(md) and not FREEMAIL.match(md):
+        site = "https://" + md  # the page was a directory or partner page: the organisation's own domain is its mailbox's
+    place = " ".join([(m.get("evidence_quote") or ""), addr_text((BUY.get(k) or {}).get("address")), (VEN.get(k) or {}).get("address") or ""])
+    vid, conf, what, why = infer(name, e, site, prov, fed, place)
+    if registrable(host_of(INFV[vid][1])) in (registrable(md), registrable(host_of(site))):
+        skipped13["is the inferred vendor itself"] += 1; continue
+    dom = registrable(host_of(site)) if site else ("" if FREEMAIL.match(md) else registrable(md))
+    cands.append(({"high": 3, "medium": 2, "low": 1}[conf], g, k, e, name, site, dom, prov, how, vid, conf, what, why, m))
+cands.sort(key=lambda c: (-c[0], -c[1], c[2]))
+n13 = 0
+for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
+    if e.lower() in covered_mail or (dom and dom in covered_dom) or norm(name) in covered_name:
+        skipped13["same organisation already in a row (domain / mailbox / name)"] += 1; continue
+    covered_mail.add(e.lower()); covered_name.add(norm(name)); covered_keys.add(k)
+    if dom:
+        covered_dom.add(dom)
+    vname, vsite, vaddr, vurl, vquote = INFV[vid]
+    LABEL = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}
+    b_addr = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or ""
+    rows.append({"jurisdiction": "", "_jur": prov or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
+        "buyer": name, "buyer_website": site, "buyer_address": b_addr,
+        "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",
+        "contract_status": "inferred relationship (no record): %s confidence; the buyer is %s%s; %s" % (conf, what, (" (province from %s)" % how) if how else "", why),
+        "source": "inference from the buyer's type and province (no contract, payment or listing record)",
+        "vendor": "inferred: " + vname, "vendor_address": vaddr, "vendor_website": vsite,
+        "vendor_country_basis": "the vendor's own site, %s: '%s'" % (vurl, vquote),
+        "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True})
+    n13 += 1
+print("P12 organisations:", len(orgs12), "added:", n12, dict(skipped12), "| P13 added:", n13, "| P13 skipped:", dict(skipped13))
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
-cols = list(rows[0].keys())
-rows.sort(key=lambda x: (x["rank_group"] != "GOLD", -x["completeness_score"]))
+cols = [c for c in rows[0].keys() if not c.startswith("_")]
+rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
 # one row per body: two spellings of one name ("MRC Charlevoix" / "MRC  de Charlevoix") that share a buyer key within the
 # same government are one buyer; the best-ranked row stands for it and carries all its keys
 seen, merged = {}, []
@@ -280,6 +619,12 @@ for x in rows:
             x[col] = ""
         x["grade"], x["rank_group"] = 0, "%s0" % x.get("tier", "")
     used_mail.add(e)
+for x in rows:  # owner 2026-11-03: fill what can be derived (after the merge, which keys on jurisdiction and website)
+    if not x.get("jurisdiction"):
+        x["jurisdiction"] = x.get("_jur") or ""
+    if not x.get("buyer_website") and x.get("email"):
+        md, eh = x["email"].split("@")[-1].lower(), host_of(x.get("email_evidence_url") or "")
+        x["buyer_website"] = "https://" + (eh if eh and registrable(eh) == registrable(md) else md if not FREEMAIL.match(md) else eh) if (eh or not FREEMAIL.match(md)) else ""
 with open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
 cnt = collections.Counter(x["rank_group"] for x in rows)

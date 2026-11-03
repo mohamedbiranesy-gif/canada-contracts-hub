@@ -21,7 +21,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p data/release
-          gh release download dataset-latest -p canadian_vendor_contracts.jsonl.gz -D data/release --clobber
+          gh release download dataset-latest -p canadian_vendor_contracts.jsonl.gz -p vendors_enriched.jsonl.gz -p buyers_enriched.jsonl.gz \
+            -p vendor_country_unverified_contracts.jsonl.gz -p 'ended_2*.jsonl.gz' -D data/release --clobber
           git config user.name "ranker-bot"; git config user.email "ranker-bot@users.noreply.github.com"
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main
