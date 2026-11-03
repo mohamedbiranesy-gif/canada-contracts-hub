@@ -67,13 +67,14 @@ def verified(domain, n):
 def main():
     a = argparse.ArgumentParser()
     a.add_argument("--sources", nargs="*", default=[])
+    a.add_argument("--retry-misses", action="store_true", help="look up again the names that found nothing before")
     a = a.parse_args()
     have = set()
     if os.path.exists(OUT):
         have = {l.split("\t")[0] for l in open(OUT, encoding="utf-8")}
     done = set()
     if os.path.exists(DONE):
-        done = {l.split("\t")[0] for l in open(DONE, encoding="utf-8")}
+        done = {l.split("\t")[0] for l in open(DONE, encoding="utf-8") if not (a.retry_misses and not l.rstrip("\n").split("\t")[-1])}
     todo = {}
     files = [os.path.join(LEADS, "socrata_%s.jsonl" % s) for s in a.sources] if a.sources else glob.glob(os.path.join(LEADS, "socrata_*.jsonl"))
     for f in files:
@@ -90,6 +91,8 @@ def main():
             if d < CUTOFF:
                 continue
             name = (r["publisher"] if not r.get("buyer_unit") else "%s - %s" % (r["publisher"], r["buyer_unit"])).strip()
+            if re.search(r"\b(test|sandbox|demo|trial|staging|training site)\b", name, re.I):
+                continue
             key = "lead:" + hashlib.sha1(("%s|%s" % (r["domain"], name.lower())).encode()).hexdigest()[:16]
             if key not in have and key not in done and len(norm(name)) >= 3:
                 todo.setdefault(key, name)
