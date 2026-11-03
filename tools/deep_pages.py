@@ -163,13 +163,16 @@ def read(task, urls, max_pages=15, keep=KEEP):
         text = re.sub(r"\s+", " ", raw) if (is_pdf or is_office) else C.visible(raw)
         if task.get("site_from_search") and not name_on_page(task.get("buyer_name", ""), text):
             continue  # website suggested by a search engine: the page must name the buyer
+        vis = set(filter(None, (clean_email(x) for x in C.EMAIL_RX.findall(text))))
         for e in set(filter(None, (clean_email(x) for x in C.EMAIL_RX.findall(raw)))):
             if e in found or e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp"):
                 continue
+            if e not in vis and any(v != e and v.endswith(e) for v in vis):
+                continue  # only in a link target while the page shows a longer address (typo'd mailto)
             if not C.same_org(e, site, task.get("buyer_name", "")):
                 continue
             q = C.quote_for(e, text, raw)
-            i = text.lower().find(e)
+            i = C.find_tok(text, e)
             kind = C.classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q, general="general" in keep)
             if kind in keep and q:
                 found[e] = (C.RANK[kind] + (0.5 if "web.archive.org" in final else 0), kind, final, q)  # live pages first

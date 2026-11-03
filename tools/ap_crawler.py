@@ -127,22 +127,31 @@ def visible(raw):
     return re.sub(r"\s+", " ", t)
 
 
+def find_tok(src, email):
+    """Position of the address as a whole token (not the tail of a longer address such as rap@x for ap@x), else -1."""
+    m = re.search(r"(?<![A-Za-z0-9._%+-])" + re.escape(email) + r"(?![A-Za-z0-9-]|\.[A-Za-z0-9])", src, re.I)
+    return m.start() if m else -1
+
+
 def quote_for(email, text, raw):
     for src in (text, re.sub(r"\s+", " ", raw)):
-        i = src.lower().find(email)
-        if i >= 0:
-            a = max(0, i - 140)
-            q = src[a:a + 290]
-            j = q.lower().find(email)
-            for m in EMAIL_RX.finditer(q):  # keep other people's addresses out of the quote
-                if m.group(0).lower() != email:
-                    if m.start() > j:
-                        q = q[:m.start()]
-                        break
-                    q, j = q[m.end():], j - m.end()
-            q = q.strip()
-            if email in q.lower():
-                return q
+        i = find_tok(src, email)
+        if i < 0:
+            continue
+        a = max(0, i - 140)
+        q = src[a:a + 290]
+        j, lo, hi = i - a, 0, len(q)
+        for m in EMAIL_RX.finditer(q):  # keep other people's addresses out of the quote
+            if m.start() == j:
+                continue
+            if m.end() <= j:
+                lo = m.end()
+            elif m.start() >= j + len(email):
+                hi = m.start()
+                break
+        q = q[lo:hi].strip()
+        if find_tok(q, email) >= 0:
+            return q
     return ""
 
 
@@ -366,13 +375,16 @@ def crawl(task, max_pages, general=False):
         raw = pdf_text(data) if is_pdf else office_text(data) if is_office else html.unescape(data.decode("utf-8", "replace"))
         is_pdf = is_pdf or is_office  # documents: no links to follow
         text = re.sub(r"\s+", " ", raw) if is_pdf else visible(raw)
+        vis = set(x.lower().rstrip(".") for x in EMAIL_RX.findall(text))
         for e in set(x.lower().rstrip(".") for x in EMAIL_RX.findall(raw)):
             if e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp") or e in found:
                 continue
+            if e not in vis and any(v != e and v.endswith(e) for v in vis):
+                continue  # only in a link target while the page shows a longer address (typo'd mailto: ccountspayable@ for accountspayable@)
             if not same_org(e, task["known_website"], task.get("buyer_name", "")):
                 continue
             q = quote_for(e, text, raw)
-            i = text.lower().find(e)
+            i = find_tok(text, e)
             kind = classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q, general)
             if kind and q:
                 found[e] = (RANK[kind] * 100 + neg, kind, final, q)
