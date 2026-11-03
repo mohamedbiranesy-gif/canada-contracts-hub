@@ -66,6 +66,7 @@ def real_grade(email, etype, quote, org=""):
 mail = {}
 raw = open(ROOT + "/coord/results/org_mailboxes.csv", encoding="utf-8", errors="replace").read().replace("\0", "")
 for r in csv.DictReader(io.StringIO(raw)):
+    r["mailbox"] = re.sub(r"^(?:u003e|u003c|>|<)+", "", (r.get("mailbox") or "").strip(), flags=re.I)  # JSON escape debris glued to the address
     acc = r["check_status"] in ("verified", "cross_verified")
     g = real_grade(r["mailbox"], r["mailbox_type"], r["evidence_quote"], r.get("org_name") or "")
     if g < 0:
@@ -167,6 +168,8 @@ def emailcols(keys, be, gj="", name="", site=""):
         c = be.get(kind) or {}
         if c.get("emails") and fits(c["emails"][0]) and roleish(c["emails"][0].split("@")[0], name):
             ev = (c.get("evidence") or [{}])[0] if isinstance(c.get("evidence"), list) else {}
+            if not (ev.get("page_url") and ev.get("quote")):
+                continue  # evidence or nothing: an enrichment contact without its page and quote is not delivered
             g = real_grade(c["emails"][0], {"ap_contact": "accounts_payable", "procurement_contact": "procurement", "general_contact": "general"}[kind], (ev.get("quote") or ""), name)
             if g >= 1:
                 opts.append(((True, g), (c["emails"][0], LABEL[g], "from dataset enrichment", ev.get("page_url", ""), (ev.get("quote") or "")[:300], g, True)))
@@ -267,6 +270,16 @@ for x in rows:
         seen[(k, x.get("jurisdiction") or "")] = x
     merged.append(x)
 rows = merged
+used_mail = set()  # one delivered row per mailbox: buyers that share one mailbox (branches on a government's central box) are one contact point
+for x in rows:
+    e = (x.get("email") or "").lower()
+    if not e:
+        continue
+    if e in used_mail:
+        for col in ("email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote"):
+            x[col] = ""
+        x["grade"], x["rank_group"] = 0, "%s0" % x.get("tier", "")
+    used_mail.add(e)
 with open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
 cnt = collections.Counter(x["rank_group"] for x in rows)
