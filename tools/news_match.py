@@ -70,8 +70,12 @@ PLATFORM_DOM = re.compile(r"(^|\.)(linkedin|facebook|twitter|x|instagram|youtube
 norm = VN.norm
 
 
+from ap_crawler import registrable as _reg
+
+
 def registrable(host):
-    return CL.base(host) if host else ""
+    h = CL.base(host) if host else ""
+    return _reg(h) if h and "." in h else h
 
 
 def sig_tokens(name):
