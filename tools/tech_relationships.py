@@ -696,14 +696,16 @@ def cdx_urls(pattern, limit=60000):
         n = 1
     pages_read = 0
     for pg in range(min(n, 400)):
-        try:
-            txt = get(base + [("page", str(pg))])
-            rows = json.loads(txt or "[]")
-            take(rows[1:] if rows and rows[0] == ["original"] else rows)
-            pages_read += 1
-        except Exception as e:
-            print("cdx %s page %d/%d: %s" % (pattern, pg, n, e), flush=True)
-            continue
+        for attempt in range(4):  # the index answers 503 / 504 under load: wait and ask again
+            try:
+                txt = get(base + [("page", str(pg))])
+                rows = json.loads(txt or "[]")
+                take(rows[1:] if rows and rows[0] == ["original"] else rows)
+                pages_read += 1
+                break
+            except Exception as e:
+                print("cdx %s page %d/%d try %d: %s" % (pattern, pg, n, attempt + 1, e), flush=True)
+                time.sleep(30 * (attempt + 1))
         if len(out) >= limit:
             break
     print(time.strftime("%H:%M:%S"), "cdx %s: %d pages (%d read), %d hosts" % (pattern, n, pages_read, len(out)), flush=True)
