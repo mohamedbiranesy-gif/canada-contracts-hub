@@ -72,10 +72,26 @@ VENDORS = {
     "tumblebooks": ("Tumbleweed Press Inc. (TumbleBooks)", r"TumbleBook(?:s|Library|Cloud)", "https://www.tumblebooks.com/contact/",
                     r"(?:Toronto|Montr[ée]al),?\s+(?:ON|QC|Ontario|Qu[ée]bec)", "library"),
 }
-CTX = {"eap": r"employee(?:\s+and\s+family)?\s+assistance|\bE\.?F?\.?A\.?P\.?\b|programme?\s+d.aide\s+aux\s+employ|assistance\s+program|counselling|counseling|wellness|mental\s+health\s+support",
-       "benefits": r"benefit|insurance|assurance|group\s+plan|extended\s+health|dental|carrier|insurer|administered|underwritten|coverage|r[ée]gime|avantages\s+sociaux|provided\s+(?:by|through)|through\s+our|our\s+provider|plan\s+member|policy\s+number|group\s+number",
+CTX = {"eap": r"(?:employee(?:\s+and\s+family)?\s+assistance|\bE\.?F?\.?A\.?P\.?\b|programme?\s+d.aide\s+aux\s+employ)[^.]{0,120}?\b(?:through|with|provided|offered|administered|delivered|by|via|our)\b|"
+              r"\b(?:through|with|provided by|offered by|administered by|delivered by|our)\b[^.]{0,120}?(?:employee(?:\s+and\s+family)?\s+assistance|\bE\.?F?\.?A\.?P\.?\b)",
+       "benefits": r"(?:our|the (?:company|university|college|city|town|board|organization|organisation)'?s?)\s+(?:group\s+)?(?:benefits?|insurance|pension|health|dental)\s+(?:plan\s+)?(?:carrier|provider|insurer|administrator|is|are|:|through|with)|"
+                   r"(?:benefits?|coverage|insurance|pension|plan)\s+(?:is|are|will be)?\s*(?:provided|administered|underwritten|insured|offered|delivered|managed)\s+(?:by|through)|"
+                   r"(?:group|employee|extended health|health and dental|dental|life|disability|long[- ]term disability)\s+(?:benefits?|insurance|plan|coverage)[^.]{0,60}?\b(?:through|with|from|by|via)\b|"
+                   r"(?:benefits? package|total rewards|benefits? program(?:me)?)[^.]{0,80}?\b(?:through|with|provided by|from)\b|"
+                   r"(?:r[ée]gime d.assurance collective|assurance collective|avantages sociaux)[^.]{0,80}?\b(?:avec|aupr[èe]s|administr|par|offert)|"
+                   r"(?:plan|policy|group|contract)\s+(?:number|no\.?|#)|plan sponsor",
        "academic": r"grad(?:e|ing)|assess|exam|course|student|instructor|licen[cs]e|site\s+licen[cs]e|available\s+to|campus|teaching|learning|software",
-       "library": r"librar|e-?resource|database|access|subscri|magazine|newspaper|e-?book|digital\s+collection"}
+       "library": r"librar|e-?resource|database|access|subscri|magazine|newspaper|e-?book|digital\s+collection|cardholder|library card"}
+INSURER_NAMES = re.compile(r"Sun\s*Life|Manulife|Canada\s+Life|Great-West|Green\s*Shield|Medavie|Blue\s+Cross|Desjardins|Beneva|\bSSQ\b|Industrial\s+Alliance|iA\s+Financial|"
+                           r"Equitable\s+Life|Empire\s+Life|Co-operators|ClaimSecure|GroupHEALTH|GroupSource|Johnson\s+Inc|Cowan|Chambers?\s+of\s+Commerce|RBC\s+Insurance|"
+                           r"Maximum\s+Benefit|NexgenRx|People\s+Corporation|Johnston\s+Group|Telus\s*Health|La\s+Capitale|First\s+Canadian|Manion|GMS", re.I)
+NOT_CTX = re.compile(r"direct[- ]bill|we bill|bill(?:ing)? (?:directly|your)|accept(?:ed|s)? (?:most |all )?(?:major )?(?:insurance|insurers|plans)|insurers? we (?:work|deal)|"
+                     r"insurance providers? (?:include|accepted|we)|providers? (?:include|we (?:bill|accept))|claims? (?:submission|form|directly)|submit(?:ting)? (?:your )?claims?|"
+                     r"avantages? des membres|member(?:ship)? (?:benefits?|perks|discounts?|savings)|affiliate|discount|rabais|offre exclusive|exclusive offer|group rates?|"
+                     r"sold through|such as|for example|e\.g\.|including|like\b|partner(?:ed|s)? with [^.]{0,40}insurance|preferred rates?|home and auto|auto and home|"
+                     r"insurance (?:broker|advisor|agency|agent)|we (?:represent|offer|sell|compare|quote)|get a quote|our carriers|carriers we", re.I)
+ACADEMIC_ORG = re.compile(r"univ|college|coll[eè]ge|c[ée]gep|polytech|institute|school|acad|\.edu$|\.ac\.", re.I)
+LIBRARY_ORG = re.compile(r"librar|biblio|city|town|county|village|municipal|school|board|college|univ|\.gov|\.ca$|\.us$|\.org$|\.edu$", re.I)
 PAGE_LINK = re.compile(r"career|employment|\bjobs?\b|benefit|human[-_ ]?resources|\bhr\b|total[-_ ]rewards|work(?:ing)?[-_ ](?:with|for|at)[-_ ]us|"
                        r"join[-_ ]our[-_ ]team|employee|staff|carri[eè]re|emploi|ressources[-_ ]humaines|avantages|personnel|"
                        r"teaching|learning|instructor|faculty|library|biblioth|e-?resources|software|technology|academic", re.I)
@@ -116,13 +132,21 @@ def verify_hq():
     return out
 
 
-def scan(text, vendors_ok):
+def scan(text, vendors_ok, org_hint=""):
     hits = {}
     for k, (legal, nm, url, rx, kind) in VENDORS.items():
         if k not in vendors_ok:
             continue
+        if kind == "academic" and not ACADEMIC_ORG.search(org_hint):
+            continue
+        if kind == "library" and not LIBRARY_ORG.search(org_hint):
+            continue
         for m in re.finditer(nm, text):
-            win = text[max(0, m.start() - 160):m.end() + 160]
+            win = text[max(0, m.start() - 200):m.end() + 200]
+            wide = text[max(0, m.start() - 500):m.end() + 500]
+            if kind in ("eap", "benefits"):
+                if NOT_CTX.search(wide) or len({x.lower() for x in INSURER_NAMES.findall(wide)}) >= 3:
+                    continue  # a clinic's list of insurers it bills, a broker, an affinity programme: not the organisation's own carrier
             if re.search(CTX[kind], win, re.I) and not re.search(r"donor|donat|sponsor|scholarship|bourse|in memory|gift|pledge|stock|shares|TSX|invest", win, re.I):
                 hits.setdefault(k, text[max(0, m.start() - 130):m.end() + 130].strip()[:300])
                 break
@@ -143,7 +167,8 @@ def one(t, vendors_ok, pages_max, done):
         if not page:
             status = "unreachable"
         else:
-            for k, q in scan(text_of(page), vendors_ok).items():
+            hint = (t.get("buyer_name") or "") + " " + h
+            for k, q in scan(text_of(page), vendors_ok, hint).items():
                 rows.setdefault(k, (q, final))
             n = 0
             for href, label in CL.anchors(page, final):
@@ -159,7 +184,7 @@ def one(t, vendors_ok, pages_max, done):
                 pg, fu = CL.fetch(href)
                 n += 1
                 if pg:
-                    for k, q in scan(text_of(pg), vendors_ok).items():
+                    for k, q in scan(text_of(pg), vendors_ok, hint).items():
                         rows.setdefault(k, (q, fu))
                 if n >= pages_max:
                     break
