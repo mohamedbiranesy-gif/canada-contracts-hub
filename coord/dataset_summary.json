@@ -191,24 +191,23 @@
    "not_enriched": 104
   }
  },
- "last_rebuild": "2026-11-03T10:23:10Z",
+ "last_rebuild": "2026-11-03T14:37:26Z",
  "last_rebuild_report": {
-  "team_buyers_verified": 31875,
+  "team_buyers_verified": 31876,
   "team_vendors": 15387,
   "seao_api_end_dates": 63,
   "web_vendors_with_site": 18725,
   "orgbook_xp_matches": 2345,
-  "records_ap_extended": 727430,
-  "records_vendor_patched": 181519,
-  "moved_to_ended": 142,
-  "new_records_duplicate": 259612,
-  "new_records_vendor_matched": 422,
-  "new_records_buyer_matched": 694,
-  "new_records_added": 852,
-  "records_orgbook_added": 8,
-  "records_web_added": 9,
-  "records_ap_added": 8,
-  "built_at": "2026-11-03T10:23:10Z",
+  "records_ap_extended": 727400,
+  "records_vendor_patched": 181500,
+  "new_records_duplicate": 260398,
+  "new_records_vendor_matched": 52,
+  "new_records_buyer_matched": 66,
+  "new_records_added": 66,
+  "moved_to_ended": 66,
+  "records_orgbook_added": 3,
+  "records_web_added": 1,
+  "built_at": "2026-11-03T14:37:26Z",
   "reference_date": "2026-11-03"
  }
 }
