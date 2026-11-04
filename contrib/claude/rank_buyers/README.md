@@ -74,6 +74,8 @@ Since 2026-11-04 two more fillers run before the packages are cut:
   in the JSONL (`date`), and the quote (≤300 characters around the address) in `address_quote`.
 
 ## Quality rules on top of the referee's checks
+- A mailbox whose domain publishes no mail server (no MX, A or AAAA record; `data/incoming/claude/claude_mx_check.tsv`,
+  tools/mx_check.py, DNS only — never an SMTP probe) is not delivered: the row stays in Z without it.
 - Vendor in Canada only from the source itself (address / country field, release dateline, the vendor's own Canada-HQ
   site); never from a name.
 - A mailbox counts only if it belongs to the buyer itself (`tools/ap_crawler.py:same_org`: same registrable domain, a

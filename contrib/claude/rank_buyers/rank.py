@@ -790,6 +790,19 @@ for x in rows:
         seen[(k, x.get("jurisdiction") or "")] = x
     merged.append(x)
 rows = merged
+# a mailbox whose domain publishes no mail server (tools/mx_check.py, DNS only) cannot receive the survey: the row stays, without it
+MX = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_mx_check.tsv"):
+    for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_mx_check.tsv", encoding="utf-8"), delimiter="\t"):
+        MX[r["domain"]] = r["status"]
+n_mx = 0
+for x in rows:
+    e = (x.get("email") or "").lower()
+    if e and MX.get(e.split("@")[-1]) == "none":
+        for col in ("email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote"):
+            x[col] = ""
+        x["grade"], x["rank_group"], n_mx = 0, "%s0" % x.get("tier", ""), n_mx + 1
+print("mx_check: %d domains known; %d mailboxes on domains with no mail server removed" % (len(MX), n_mx))
 used_mail = set()  # one delivered row per mailbox: buyers that share one mailbox (branches on a government's central box) are one contact point
 for x in rows:
     e = (x.get("email") or "").lower()
