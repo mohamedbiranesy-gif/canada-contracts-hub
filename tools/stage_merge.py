@@ -14,7 +14,7 @@ def read_records(path):
     """header, rows (as tuples) of a CSV; conflict markers from a failed merge are dropped"""
     if not os.path.exists(path):
         return None, []
-    raw = open(path, encoding="utf-8", errors="replace", newline="").read()
+    raw = open(path, encoding="utf-8", errors="replace", newline="").read().replace("\0", "")
     if "<<<<<<<" in raw[:200] or "\n<<<<<<< " in raw or "\n>>>>>>> " in raw:
         raw = "\n".join(l for l in raw.split("\n") if not re.match(r"^(<<<<<<< |=======$|>>>>>>> )", l))
     rows = list(csv.reader(io.StringIO(raw)))
