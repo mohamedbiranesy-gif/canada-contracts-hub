@@ -388,3 +388,20 @@ so the referee fetches every page; (2) `rank.py` ranks a dataset-enrichment mail
 gate 3 fails on any non-confirmed mailbox outside P11. Expected effect: P01 dips by up to 82 rows on the first re-rank and
 recovers as the referee confirms the pages (the ones it cannot see stay out, correctly). `validate_returns.py` ROLE_HINT now
 recognises bilingual role boxes (`water-eau@`, `dfotenders-soumissionsmpo@`, `communications.<org>@`, `travaux.<x>@`, customer/client).
+
+## 2026-11-04 08:05 (claude) — every referee-verified mailbox counts; legal-name and P13-name hygiene
+- `coord/results/org_mailboxes.csv` keeps one mailbox per organisation key, so a verified invoicing mailbox could hide behind a
+  general one or behind one rank.py rejects as person-like (Dalhousie: `fin.pay@` kept, `apinvoice@` verified too). rank.py now
+  also reads `coord/results/verification_log.csv` (every verified / cross_verified key + mailbox) with the lane row's type, page
+  and quote, and keeps the best graded mailbox per key: 587 organisations gain a better mailbox; P01 +12 (e.g. City of Kitchener,
+  City of Windsor, London Hydro, University of Regina — `accountspayable@` boxes that a lane had filed as "finance" or "general").
+- A mailbox NAMED for invoices / accounts payable (`accountspayable@`, `ap@`, `cap@`, `factures@`) is graded invoicing whatever the
+  lane's label, after the receivables demotions.
+- `first.last` locals whose first token is a first name are persons even when the surname looks like a role word
+  (`marie.paiement@`), unless the second token is an unambiguous role word; finance abbreviations (`fin`, `acc`, `acct`, `pay`,
+  `inv`, `ar`, `cp`) count as role tokens.
+- Legal names from the copyright line: fragments ("Information posted by the Government of Canada is subject to the Copyright
+  Act"), web-platform copyrights (SchoolMessenger, SportsEngine, LaunchIT, CivicPlus…) and names cut at a hyphen by
+  org_extras ≤ 2026-11-04 ("Municipalité de Saint") are dropped (384 rows); org_extras now cuts only at a spaced dash.
+- P13 rows whose "buyer" was a bare domain or a page title ("Contactez-nous") take the site's legal name when one is printed
+  (794 rows), else the mailbox's domain (5 rows).

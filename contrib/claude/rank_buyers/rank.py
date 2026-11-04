@@ -21,7 +21,7 @@ def parent(n):
     for _ in range(2):
         p = LEGAL_END.sub("", p)
     return p.strip()
-GRADE = {"invoice_submission": 4, "accounts_payable": 4, "supplier_payment": 4, "procurement": 2, "general": 1}
+GRADE = {"invoice_submission": 4, "accounts_payable": 4, "supplier_payment": 4, "finance": 3, "procurement": 2, "general": 1}
 FIN = re.compile(r"compt|financ|tresor|treasur|account|fiscal", re.I)  # finance / accounting department mailbox
 STRONG = re.compile(r"^cap$|[._-]cap$|(?<!manu)factur|invoic|invsub|inv[._-]sub|payable|payables|compt\w*pay|comptesapayer|^ap$|^ap[._-]|[._-]ap$|[._-]ap[._-]|accounts?[._-]?pay|fournisseur|supplier|vendor|paiement|payment|paymt|apinvoice", re.I)
 QUOTE_AP = re.compile(r"(?<!manu)factur|invoice|payable|comptes? (à|a) payer|accounts payable|paiement des fournisseurs|supplier payment", re.I)
@@ -36,10 +36,17 @@ ROLEISH = re.compile(r"(?<!manu)factur|invoic|bill|payable|compt|account|financ|
                      r"police|fire|incendie|securite|safety|sante|health|hr$|rh$|paie|payroll|legal|juridique|planning|permis|permit|"
                      r"water|eau|aqueduc|egout|sewer|waste|dechet|matieres|council|conseil|board|commission|municipalit|village|canton|"
                      r"paroisse|county|comte|regie|corporation|society|societe|association|federation|institut|universit|college|cegep|ecole|school|"
-                     r"customer|care|client|rfp|rfq|procserv|^proc|invsub|inv[._-]sub|guichet|adjoint", re.I)
+                     r"customer|care|client|rfp|rfq|procserv|^proc|invsub|inv[._-]sub|guichet|adjoint|^fin$|^acc$|^accts?$|^acct$|^pay$|^inv$|^fact$|^ar$|^cp$|^cap$|^finance$|^payables?$", re.I)
 STRONG_ANY = re.compile(r"(?<!manu)factur|invoic|payable|comptesapayer|accountspayable|comptespayables|apinvoice|invsub", re.I)
+try:
+    from buyer_pages import FIRST_NAMES as _FIRST
+except Exception:
+    _FIRST = set()
+PERSON_OK2 = {"payables", "payable", "invoices", "invoice", "factures", "facturation", "comptabilite", "finance", "finances", "ap", "ar", "accounting", "accounts", "achats", "purchasing"}
 def roleish(local, org=""):
     toks = [t for t in re.split(r"[._+-]+", local.lower()) if t]
+    if len(toks) == 2 and toks[0] in _FIRST and len(toks[1]) >= 3 and not STRONG_ANY.search(local) and toks[1] not in PERSON_OK2:
+        return False  # first.last: a person (Marie Paiement, Jean Comptois) even when the surname looks like a role word
     if STRONG_ANY.search(local) or any(ROLEISH.match(t) or ROLEISH.match(t[1:] if len(t) > 3 and t[0].isdigit() else t) for t in toks):
         return True
     words = [w for w in re.split(r"[^a-z0-9]+", norm(org)) if w]
@@ -71,31 +78,73 @@ def real_grade(email, etype, quote, org=""):
         g = 2 if re.search(r"procure|purchas|achat|approv", email, re.I) else 1   # labelled AP but nothing says invoicing
     if g < 3 and FIN.search(local) and not re.search(r"procure|purchas|achat|approv|aid|bourse|scholar|tuition|student|etudiant|soutien|financement|funding|grant|subvention|invest|sustainab|bank|loan|pret|credit|client", local, re.I):
         g = 3
+    if g == 3 and (STRONG_ANY.search(local) or re.search(r"^ap$|^ap[._-]|[._-]ap$|accounts?[._-]?pay|^cap$|[._-]cap$", local, re.I)):
+        g = 4  # named for invoices / accounts payable, whatever label the lane gave it (accountspayable@ filed as "finance")
     return g
 # 1. best mailbox per buyer key (referee export)
 WRONG_ENTITY = {"ptvi.invoice@vale.com": "PT Vale Indonesia's invoicing mailbox (an overseas shipping instruction on vale.com), not Vale Canada's"}
 mail = {}
-raw = open(ROOT + "/coord/results/org_mailboxes.csv", encoding="utf-8", errors="replace").read().replace("\0", "")
-for r in csv.DictReader(io.StringIO(raw)):
+def mail_entry(r):
+    """(accepted, grade) of one referee mailbox row, or None when rank.py never uses it"""
     r["mailbox"] = re.sub(r"^(?:u003e|u003c|>|<)+", "", (r.get("mailbox") or "").strip(), flags=re.I)  # JSON escape debris glued to the address
     acc = r["check_status"] in ("verified", "cross_verified")
     g = real_grade(r["mailbox"], r["mailbox_type"], r["evidence_quote"], r.get("org_name") or "")
     if g < 0:
-        continue
+        return None
     if re.search(r"direct-deposit|depot-direct", r.get("evidence_url") or "") and g < 3:
         g = 3  # PSPC's table of each federal institution's supplier-payment office: finance tier, not invoicing
     if r["mailbox"].lower() in WRONG_ENTITY:
-        continue  # a mailbox of another entity on the group's shared domain (spot-check 2026-11-04)
+        return None  # a mailbox of another entity on the group's shared domain (spot-check 2026-11-04)
     if g >= 3 and re.search(r"property-tax|paying-|pay-your|pay-online|payonline|tax-pay|taxes|utility-bill|utilit|water-bill|billing|fines|tickets|tuition|donat|fees|"
                             r"make-a-payment|payment-method|payment-option|/payments?(?:/|$|\.)|e-?transfer|how-to-pay|ways-to-pay|pay-?bills?|pay-?my",
                             (r.get("evidence_url") or "").lower()) and not re.search(r"payable|supplier|vendor|fourniss|invoice|factur|procure|purchas|finance|accounting",
                                                                                      ((r.get("evidence_url") or "") + " " + (r.get("evidence_quote") or "")).lower()):
         g = 1  # a mailbox published on the page where residents / customers pay the organisation
-    s = (acc, g)
+    return (acc, g)
+raw = open(ROOT + "/coord/results/org_mailboxes.csv", encoding="utf-8", errors="replace").read().replace("\0", "")
+for r in csv.DictReader(io.StringIO(raw)):
+    s = mail_entry(r)
+    if not s:
+        continue
     for ok in (r["org_key"] or "").split("|"):  # a results row may carry several keys of one organisation joined by "|"
         ok = ok.strip()
         if ok and (ok not in mail or s > mail[ok][0]):
             mail[ok] = (s, r)
+# 1a. the other mailboxes the referee verified for a key: org_mailboxes.csv keeps ONE row per key, so a verified
+# invoicing mailbox can hide behind a general one (or behind one rank.py rejects as person-like: Dalhousie's fin.pay@
+# kept, apinvoice@ verified too). The verification log names every verified (key, mailbox); the lane's own row gives
+# its type, page and quote.
+import glob as _glob
+LANE_ROWS = {}
+for path in _glob.glob(ROOT + "/data/incoming/*/*buyer_ap*results*.csv"):
+    try:
+        for r in csv.DictReader(io.StringIO(open(path, encoding="utf-8", errors="replace").read().replace("\0", ""))):
+            e = (r.get("ap_email") or "").strip().lower()
+            u = (r.get("evidence_url") or "").strip()
+            if e and u.startswith("http"):
+                for k in (r.get("buyer_key") or "").split("|"):
+                    LANE_ROWS.setdefault((k.strip(), e, u), r); LANE_ROWS.setdefault((k.strip(), e, ""), r)
+    except Exception as ex:
+        print("lane rows skipped:", path, type(ex).__name__)
+TYPE_MAP = {"invoicing": "invoice_submission", "finance": "finance", "procurement": "procurement", "general": "general"}
+n_vl = 0
+_vl = ROOT + "/coord/results/verification_log.csv"
+if os.path.exists(_vl):
+    for r in csv.DictReader(io.StringIO(open(_vl, encoding="utf-8", errors="replace").read().replace("\0", ""))):
+        if r.get("outcome") not in ("verified", "cross_verified") or "@" not in (r.get("value") or ""):
+            continue
+        e = r["value"].strip().lower()
+        for k in (r.get("buyer_key") or "").split("|"):
+            k = k.strip()
+            lr = LANE_ROWS.get((k, e, (r.get("page_url") or "").strip())) or LANE_ROWS.get((k, e, ""))
+            if not k or not lr:
+                continue
+            ent = {"org_key": k, "org_name": lr.get("org_name_as_found") or "", "mailbox": e, "mailbox_type": TYPE_MAP.get((lr.get("ap_email_type") or "").strip().lower(), "general"),
+                   "check_status": r["outcome"], "evidence_url": lr.get("evidence_url") or "", "evidence_quote": (lr.get("evidence_quote") or "")[:300], "found_by": r.get("found_by") or ""}
+            s = mail_entry(ent)
+            if s and (k not in mail or s > mail[k][0]):
+                mail[k] = (s, ent); n_vl += 1
+print("mailboxes taken from the verification log (better than org_mailboxes' single pick):", n_vl)
 # 1b. optional release tables (each skipped when absent): vendor registry facts / websites / addresses (field fill),
 # buyer websites / addresses, and the weaker-relationship inputs of P12 (registry-match contracts, ended contracts)
 REL = ROOT + "/data/release/"
@@ -923,9 +972,24 @@ def ox_of(url):
     return OX.get(registrable(h)) if h else None
 TRAIL = re.compile(r"(?:\s+(?:our|the|all|home|about|contact|site|web|privacy|terms|follow|connect|menu|search|login|accessibility|faq|careers|news|events|donate|"
                    r"language|english|french|fran[çc]ais|skip|top|back|rights|reserved|reserves|tous|droits|r[ée]serv[ée]s|powered|by|design|website|sitemap|plan))+$", re.I)
-def clean_legal(name):
+BAD_LEGAL = re.compile(r"copyright act|subject to|proprietary|affiliated|licen[cs]e|rights reserved|droits r[ée]serv|\btheme\b|muffin group|posted by|"
+                       r"schoolmessenger|sportsengine|launchit|civicplus|civic plus|granicus|esolutions|blackboard|finalsite|apptegy|edlio|\bwix\b|squarespace|"
+                       r"wordpress|shopify|weebly|godaddy|intrado|blackbaud|municipal website|all content|this (?:web)?site|ce site", re.I)
+CUT_PREFIX = re.compile(r"\b(?:saint|sainte|st|ste|lac|val|mont|rivi[èe]re|baie|cap|pointe|notre|port|fort|grand|grande|petit|petite|trois|sept|[îi]le|[îi]les|bois|"
+                        r"la|le|les|du|de|des|d|l|au|aux|sur|en|et|and|of|the|for|&)$", re.I)
+GENERIC_NAME = re.compile(r"^(?:contactez[- ]nous|contact(?:ez)?(?:[- ]us)?|nous joindre|accueil|home(?: page)?|bienvenue|welcome|about(?: us)?|[àa] propos|coordonn[ée]es|"
+                          r"page d.accueil|untitled|index|services|joindre|page not found|404|login|connexion)\W*$", re.I)
+DOMAIN_NAME = re.compile(r"^(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}$", re.I)
+def clean_legal(name, buyer=""):
+    """the copyright-line name, or "" when it is a sentence fragment, a web platform's own copyright, or a name cut at a hyphen
+    (org_extras ≤ 2026-11-04 stopped at the first dash: 'Municipalité de Saint' for Saint-Jean-sur-Richelieu)"""
     n = re.sub(r"\s+", " ", name or "").strip(" .,-–—|:")
+    n = re.sub(r"^(?:tous droits r[ée]serv[ée]s|all rights reserved|copyright|©|\(c\))\s*(?:(?:19|20)\d\d\s*)?", "", n, flags=re.I).strip(" .,-–—|:")
     n = TRAIL.sub("", n).strip(" .,-–—|:")
+    if BAD_LEGAL.search(n) or CUT_PREFIX.search(n):
+        return ""
+    if buyer and re.sub(r"\s+", " ", buyer).strip().lower().startswith(n.lower() + "-"):
+        return ""
     return n if 3 <= len(n) <= 90 and re.search(r"[A-Za-zÀ-ÿ]{3}", n) else ""
 def bn_ok(d):
     lab = (d.get("bn_label") or "") + " " + (d.get("bn_quote") or "")
@@ -943,9 +1007,11 @@ for x in rows:
         x.setdefault(col, "")
     b, bo = ox_of(x.get("buyer_website")), oc_of(x.get("buyer_website"))
     if b:
-        ln = clean_legal(b.get("legal_name"))
+        ln = clean_legal(b.get("legal_name"), x.get("buyer") or "")
         if ln:
             x["buyer_legal_name_as_published"] = ln; n_ox["buyer_legal_name"] += 1
+            if x.get("tier") == "I" and (GENERIC_NAME.match(x.get("buyer") or "") or DOMAIN_NAME.match(x.get("buyer") or "")):
+                x["buyer"] = ln; n_ox["p13_name_from_legal_name"] += 1  # the crawler only had the site's domain or a page title
         if b.get("bn") and bn_ok(b):
             x["buyer_bn_as_published"] = "%s %s (as printed: %s; %s)" % (b["bn"], b.get("bn_program") or "", b.get("bn_label") or "", b.get("bn_url") or "")
             x["buyer_gst_hst_derived"] = b["bn"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"; n_ox["buyer_bn"] += 1
@@ -955,10 +1021,12 @@ for x in rows:
             x["language_hint"] = b["language"]
     if bo and bo.get("status"):
         x["buyer_website_status"] = SITE_STATUS.get(bo["status"], bo["status"])
+    if x.get("tier") == "I" and GENERIC_NAME.match(x.get("buyer") or ""):  # "Contactez-nous", "Home": the mailbox's domain names the body better
+        x["buyer"] = (x.get("email") or "").split("@")[-1] or x["buyer"]; n_ox["p13_name_from_domain"] += 1
     v, vo = ox_of(x.get("vendor_website")), oc_of(x.get("vendor_website"))
     if v and not (x.get("vendor") or "").startswith("inferred"):
-        if not x.get("vendor_legal_name") and clean_legal(v.get("legal_name")):
-            x["vendor_legal_name"] = clean_legal(v["legal_name"]) + " (as printed on the vendor's site: %s)" % (v.get("legal_name_url") or ""); n_ox["vendor_legal_name"] += 1
+        if not x.get("vendor_legal_name") and clean_legal(v.get("legal_name"), x.get("vendor") or ""):
+            x["vendor_legal_name"] = clean_legal(v["legal_name"], x.get("vendor") or "") + " (as printed on the vendor's site: %s)" % (v.get("legal_name_url") or ""); n_ox["vendor_legal_name"] += 1
         if v.get("neq"):
             x["vendor_neq"] = "%s (as printed: %s)" % (v["neq"], v.get("neq_url") or ""); n_ox["vendor_neq"] += 1
         if v.get("qst"):

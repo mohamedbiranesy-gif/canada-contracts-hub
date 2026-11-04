@@ -23,7 +23,7 @@ RESUME = os.path.join(STATE, "org_extras.jsonl")
 TODAY = time.strftime("%Y-%m-%d")
 lock = threading.Lock()
 COPY = re.compile(r"(?:©|&copy;|\(c\)|copyright|tous droits r[ée]serv[ée]s|all rights reserved)[\s,.]*(?:copyright\s*)?(?:(?:19|20)\d\d(?:\s*[-–]\s*(?:19|20)?\d\d)?)?[\s,.]*"
-                  r"(?:by\s+|par\s+)?([A-Z0-9][^|•\n©]{2,90}?)(?=\s*(?:\.|\||•|all rights|tous droits|-|–|—|$|\n|privacy|confidentialit|terms|conditions|site|powered|design|web|\d{4}))", re.I)
+                  r"(?:by\s+|par\s+)?([A-Z0-9][^|•\n©]{2,90}?)(?=\s*(?:\.|\||•|all rights|tous droits|\s[-–—]\s|$|\n|privacy|confidentialit|terms|conditions|site|powered|design|web|\d{4}))", re.I)
 COPY2 = re.compile(r"([A-Z0-9][^|•\n©]{2,90}?)\s*(?:©|&copy;)\s*(?:19|20)\d\d", re.I)
 LEGAL_TAIL = re.compile(r"\b(inc|incorporated|ltd|limited|lt[ée]e|llc|llp|lp|corp|corporation|co|company|s\.?e\.?n\.?c|s\.?a|plc|gmbh|ag|srl|ulc|society|association|foundation|fondation|"
                         r"university|universit[ée]|college|coll[èe]ge|c[ée]gep|city of|town of|village of|municipality of|ville de|municipalit[ée] de|county of|district of|"
