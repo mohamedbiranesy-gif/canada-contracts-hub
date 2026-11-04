@@ -26,10 +26,34 @@ def dig(domain, rtype):
         return None
 
 
-def lookup(domain):
+def lookup_via(domain, nameserver):
+    """the same lookup through one public resolver (dnspython only; dig fallback uses @nameserver)"""
+    if _dns:
+        return lookup(domain, nameserver)
+    mx = None
+    try:
+        out = subprocess.run(["dig", "+short", "+time=5", "+tries=2", "@" + nameserver, "MX", domain], capture_output=True, text=True, timeout=20).stdout
+        mx = [l.strip() for l in out.splitlines() if l.strip()]
+    except Exception:
+        return "error", "dig failed"
+    hosts = [l.split()[-1].rstrip(".") for l in mx if len(l.split()) == 2]
+    if hosts and hosts not in ([""], ["."]):
+        return "mx", ";".join(sorted(hosts)[:4])
+    for t in ("A", "AAAA"):
+        try:
+            if subprocess.run(["dig", "+short", "+time=5", "@" + nameserver, t, domain], capture_output=True, text=True, timeout=20).stdout.strip():
+                return "a_only", t
+        except Exception:
+            pass
+    return "none", "no MX, A or AAAA"
+
+
+def lookup(domain, nameserver=None):
     """(status, hosts)"""
     if _dns:
-        res = _dns.Resolver(); res.lifetime = 8; res.timeout = 4
+        res = _dns.Resolver(configure=nameserver is None); res.lifetime = 8; res.timeout = 4
+        if nameserver:
+            res.nameservers = [nameserver]
         try:
             mx = sorted(str(r.exchange).rstrip(".") for r in res.resolve(domain, "MX"))
             mx = [m for m in mx if m and m != ""]
@@ -90,6 +114,15 @@ def main():
     stats = {}
     def one(d):
         st, hosts = lookup(d)
+        if st in ("none", "error"):  # owner 2026-11-04 ("what about false negatives"): a negative is confirmed by two public resolvers
+            confirm = [lookup_via(d, ns) for ns in ("8.8.8.8", "1.1.1.1")]
+            if any(c[0] in ("mx", "a_only") for c in confirm):
+                st, hosts = next(c for c in confirm if c[0] in ("mx", "a_only"))
+                hosts = hosts + " (public resolver)"
+            elif all(c[0] == "none" for c in confirm):
+                st, hosts = "none", hosts + "; confirmed by 8.8.8.8 and 1.1.1.1"
+            else:
+                st = "error"
         with lock:
             prev[d] = {"domain": d, "status": st, "mail_hosts": hosts, "checked_date": TODAY}
             stats[st] = stats.get(st, 0) + 1
