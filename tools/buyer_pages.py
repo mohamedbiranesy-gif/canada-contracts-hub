@@ -96,10 +96,14 @@ def direction_cue(before, after, line, url, strict=False):
     """the cue that makes the named organisation the buyer's supplier, else None. strict (the site's organisation is a
     company, which may itself be the supplier in the sentence): symmetric words such as "agreement with" do not count."""
     m = CUE_BEFORE.search(before)
-    if m and not REVERSE.search(before) and not (strict and SYMMETRIC.match(m.group(0).split()[0])):
-        return m.group(0).split()[0] + " … [name]"
-    m = CUE_AFTER.search(after)
     if m:
+        cue_word = m.group(0).split()[0]
+        between = before[m.start() + len(cue_word):]
+        if not REVERSE.search(before) and not re.search(r"\b(?:by|from|par|de la part de|with|avec|and|et|as well as|ainsi que)\b", between) \
+                and not (strict and SYMMETRIC.match(cue_word)):
+            return cue_word + " … [name]"
+    m = CUE_AFTER.search(after)
+    if m and not (strict and re.search(r"\b(?:will|to|shall)\s", m.group(0), re.I)):
         return "[name] … " + m.group(0).strip()[:40]
     if AWARD_URL.search(url) and MONEY.search(line) and len(line) < 300 and not REVERSE.search(before):
         return "award page: the line names the vendor with an amount"
@@ -145,6 +149,35 @@ food foods farm farms market markets grocery bakery cafe restaurant catering hot
 music arts art studio studios gallery theatre theater film films photo photography video production productions event events
 rental rentals leasing sales sale store stores shop shops centre center plaza mall workforce development program programs
 shoreline restoration project projects partners partner station stations power plant plants water works""".split())
+MARKER = re.compile(r"\b(inc|ltd|ltee|ltée|llc|llp|lp|corp|corporation|co|company|compagnie|limited|limitee|limitée|group|groupe|holdings|"
+                    r"enterprises|entreprises|services|service|consulting|consultants|associates|associés|partners|solutions|systems|systèmes|"
+                    r"technologies|technology|engineering|ingénierie|construction|contracting|contractors|builders|industries|international|"
+                    r"canada|québec|quebec|ontario|alberta|manitoba|saskatchewan|logistics|transport|trucking|electric|électrique|mechanical|"
+                    r"plumbing|roofing|paving|excavating|landscaping|printing|media|communications|design|studio|software|labs|laboratories|"
+                    r"clinic|pharmacy|supply|supplies|equipment|rentals|machinery|manufacturing|products|foods|farms|energy|power|resources|"
+                    r"mining|forest|lumber|steel|concrete|aggregates|environmental|security|cleaning|janitorial|maintenance|recycling|"
+                    r"waste|disposal|towing|automotive|motors|marine|aviation|aerospace|architects|architecture|law|avocats|notaires|"
+                    r"accountants|cpa|insurance|assurance|financial|capital|investments|realty|properties|developments|homes|hotel|inn|"
+                    r"restaurant|catering|bakery|brewing|distillery|fitness|dental|medical|health|santé|pharma|bio|tech|net|digital|data|"
+                    r"cloud|online|web|global|national|regional|pacific|atlantic|northern|western|eastern|central|\d|&|/|-)\b", re.I)
+FIRST_NAMES = set("""james john robert michael william david richard joseph thomas charles christopher daniel matthew anthony mark donald steven
+paul andrew joshua kenneth kevin brian george timothy ronald edward jason jeffrey ryan jacob gary nicholas eric jonathan stephen larry justin
+scott brandon benjamin samuel gregory alexander frank patrick raymond jack dennis jerry tyler aaron jose adam nathan henry douglas zachary
+peter kyle noah ethan jeremy walter christian keith roger terry austin sean gerald carl harold dylan arthur lawrence jordan jesse bryan
+billy bruce gabriel joe logan alan juan albert willie elijah wayne randy vincent mason roy ralph bobby russell bradley philip eugene
+mary patricia jennifer linda elizabeth barbara susan jessica sarah karen lisa nancy betty sandra margaret ashley kimberly emily donna
+michelle carol amanda melissa deborah stephanie dorothy rebecca sharon laura cynthia amy kathleen angela shirley brenda emma anna pamela
+nicole samantha katherine christine helen debra rachel carolyn janet maria catherine heather diane olivia julie joyce victoria ruth
+virginia lauren kelly christina joan evelyn judith andrea hannah megan cheryl jacqueline martha madison teresa gloria sara janice ann
+kathryn abigail sophia frances jean alice judy isabella julia grace amber denise danielle marilyn beverly charlotte natalie theresa
+diana brittany doris kayla alexis lori marie lyndsay lindsay lindsey jamie jennie jenny julien julie luc marc pierre jean michel andré
+andre françois francois louis guy claude yves denis daniel martin sylvain benoit benoît patrick stéphane stephane alain réjean rejean
+gilles serge normand robert roger marcel richard eric éric mathieu maxime nicolas simon olivier philippe pascal sébastien sebastien
+vincent xavier antoine hugo jacques bernard christian dominique frédéric frederic ghislain jocelyn josée josee lise line louise lucie
+manon marie martine monique nathalie nicole sylvie suzanne chantal caroline carole diane france geneviève genevieve hélène helene
+isabelle johanne josiane julie karine linda lyne mélanie melanie mylène nancy pauline sophie stéphanie valérie valerie véronique annie
+sam tom bob jim mike dave steve chris dan matt tony ken greg jeff rick rob ron ed ted pat andy josh nate ben alex sarah kate liz beth
+amy ann jen jess kim meg sue""".split())
 JUNK_NAME = re.compile(r"request for|proposal|tender|\bn/?a\b|various|multiple|unknown|redact|withheld|confidential|not disclosed|"
                        r"^(the )?(supplier|vendor|contractor|consultant|company|corporation)s?$|^misc|^sundry|^employee|^individual|^payee",
                        re.I)
@@ -171,6 +204,10 @@ def load_vendors(path):
     for (name, addr, basis), toks in rows:
         if not any(rare(t) for t in toks):
             continue
+        if len(toks) == 2 and (toks[0] in FIRST_NAMES or toks[1] in FIRST_NAMES) and not MARKER.search(name):
+            continue  # an individual contractor (Lyndsay Francis), not a firm
+        if len(toks) == 2 and not MARKER.search(name) and all(NM._common(t) or t in EVERYDAY for t in toks):
+            continue  # two everyday words ("Curbside Collection") are not matchable as a firm's name
         key = "v:" + hashlib.sha1(NM.norm(name).encode()).hexdigest()[:12]
         if key in vendors:
             continue
