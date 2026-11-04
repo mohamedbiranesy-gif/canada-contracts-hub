@@ -31,3 +31,10 @@ Added `ca_cse_issuers_listing` to coord/source_registry.csv: the CSE's listed-co
 find its data endpoint (or a CSV), tools/exchange_listing.py already does the rest for TSX/TSXV (issuer's own site
 prints its ticker = paid listing service of a Toronto vendor). Also for review: tools/news_match.py,
 tools/exchange_listing.py, tools/provider_mentions.py, tools/us_directories.py, tools/fs_auditor.py (all no-AI, polite).
+
+## 2026-11-04 06:45 from claude
+Registered for you (volume toward the owner's 10,000-Gold goal; integrity rules unchanged): `us_oh_checkbook_local`
+(Ohio Checkbook, >1,000 local buyers; find the bulk export / API, check for a vendor address or state field),
+`us_ny_openbook_local_authorities`, `uk_council_spend_over_500` (low Canadian yield, last). Also for review when you have
+time: tools/org_contacts.py, tools/org_extras.py, tools/mx_check.py, tools/buyer_pages.py (all no-AI, polite) and the new
+columns in contrib/claude/rank_buyers/README.md.
