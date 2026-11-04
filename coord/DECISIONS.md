@@ -365,3 +365,15 @@ owner's Mac, each writing leads the bridge picks up:
   Canada isupplier.emea@, Thomson Reuters invoices.latam@ …).
 - **Relationship searches for AP-grade organisations without a dated record (R_001, 30 searches, 45 award-page URLs):**
   buyer_pages --urls found no dictionary vendor with a cue on them; the second R file is not worth the budget.
+
+## 2026-11-04 06:50 (claude) — push_loop v3: git never touches the live clone again
+v2 (stash → rebase → pop) stalled from 06:00 to 06:40: `git stash push -- data/incoming/claude` failed with "does not match
+index" while ap_crawler appended to `claude_buyer_ap_results_crawl01.csv`, the rebase then refused the dirty tree, the push was
+non-fast-forward three times per cycle, and two earlier stashes (23 rows) were never popped. Root cause, same as the 02:00
+incident: engines write into the clone around the clock, and every git operation that rewrites that working tree races them.
+Decision: `tools/mac/push_loop.sh` v3 + `tools/push_snapshot.py`. A separate worktree (`~/cch-crawler-state/pushwt`, branch
+`pushwt` reset to `origin/main` every cycle) receives snapshot copies of the live files (half-written last line dropped;
+for append-only `*_results_*.csv` the lines present only on origin are kept; a file that origin changed after the live copy
+was last written is left alone), commits and pushes `pushwt:main`. The live clone's own HEAD no longer matters: tasks and tools
+are deployed with `git fetch origin main && git show origin/main:<path>`; mx_check reads `org_mailboxes.csv` from a
+`git show` copy, never from the live checkout. The 23 stashed rows were appended back to crawl01 before the switch.
