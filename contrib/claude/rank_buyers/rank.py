@@ -63,7 +63,7 @@ def real_grade(email, etype, quote, org=""):
         g = 1  # waterpayment@, taxpayments@, utilitybilling@: residents pay the organisation
     if g >= 3 and re.search(r"e-?transfer|interac|by cheque|cheque or|cost is \$|fee is \$|\$\s?\d[\d,.]* (?:is )?payable|payable (?:by|via|to the) (?:cheque|e-?transfer|cash|credit|debit|town|village|city|municipalit)|"
                             r"tax roll|late fees|your account number|your tax|your utility|utility and tax|utilities and taxes|pay (?:their|your) bills", near) \
-            and not re.search(r"supplier|vendor|fourniss|invoice|factur|payable[s]? (?:department|clerk|inquir)", near) and not STRONG.search(local):
+            and not re.search(r"supplier|vendor|fourniss|invoice|factur|payable[s]? (?:department|clerk|inquir)", near) and not STRONG_ANY.search(local):
         g = 1  # spot-check 2026-11-04: payments@ / accounting@ mailboxes published where residents e-transfer their taxes and fees to the town
     if g == 4 and not (STRONG.search(local) or invoice_near(email, quote)):
         g = 2 if re.search(r"procure|purchas|achat|approv", email, re.I) else 1   # labelled AP but nothing says invoicing
