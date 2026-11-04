@@ -308,7 +308,7 @@ def apply_details(x, k):
     for col, key in (("contract_value", "value"), ("currency", "currency"), ("contract_reference", "reference"), ("start_date", "start"),
                      ("end_date", "end"), ("vendor_address", "vendor_address"), ("contract_title", "title")):
         if not x.get(col) and d.get(key):
-            x[col] = d[key]
+            x[col] = d[key] if col != "contract_value" or not d.get("value_field") else "%s (source field: %s)" % (d[key], d["value_field"])
     if x.get("contract_value") and not x.get("currency"):
         pf = d.get("platform") or ""
         x["currency"] = "USD (derived from the source's government)" if re.search(r"usa|socrata|ckan_us|tx1295|ferc|990|sec|cms", pf) else \

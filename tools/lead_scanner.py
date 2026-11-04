@@ -155,7 +155,8 @@ def latest_date(row):
 
 
 VAL_KEY = re.compile(r"amount|value|total|montant|obligat|award_amount|contract_value|valeur|payment|paid|sum\b|cost|price", re.I)
-NOT_VAL = re.compile(r"date|year|count|number|no\b|id\b|code|percent|rate|qty|quantity", re.I)
+NOT_VAL = re.compile(r"date|year|count|number|no\b|id\b|code|percent|rate|qty|quantity|asset|gross|net.?worth|revenue|budget|appropriat|balance|"
+                     r"valuation|assessed|appraised|market.?value|book.?value|aum|holding", re.I)  # a fund's or a body's size is not a contract value
 CUR_KEY = re.compile(r"currency|devise", re.I)
 REF_KEY = re.compile(r"award.?id|contract.?(?:id|no|number|num)|\bpo\b|purchase.?order|reference|r[ée]f[ée]rence|num[ée]ro|solicitation|tender|"
                      r"bid.?(?:no|number)|agreement.?(?:no|number)|registration|permit|declaration|internal_id|\bid$|generated_internal_id|docket|filing", re.I)
@@ -178,7 +179,7 @@ def record_details(row, platform=""):
         if "value" not in d and VAL_KEY.search(kl) and not NOT_VAL.search(kl):
             m = re.search(r"-?\$?\s?\d[\d,]*(?:\.\d+)?", sv)
             if m and re.sub(r"[^\d]", "", m.group(0)):
-                d["value"] = m.group(0).replace("$", "").replace(" ", "")
+                d["value"], d["value_field"] = m.group(0).replace("$", "").replace(" ", ""), k[:60]
         if "currency" not in d and CUR_KEY.search(kl) and re.fullmatch(r"[A-Za-z]{3}", sv):
             d["currency"] = sv.upper()
         if REF_KEY.search(kl) and not re.search(r"date|url|link", kl) and len(sv) <= 60:
