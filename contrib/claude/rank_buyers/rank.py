@@ -977,6 +977,33 @@ for x in rows:
     if m:
         x["po_required_as_published"] = "yes (as published: %s)" % flat_q(m.group(0))[:120]; n_ox["po_required"] += 1
 print("org_extras: %d organisations read; filled %s" % (len(OX), dict(n_ox)))
+# a regional mailbox of a multinational (invoices.aunz@, ap.emea@, ptvi.invoice@) is not the entity's own box unless the region is the buyer's
+REGION_TOK = {"aunz": {"AU", "NZ"}, "anz": {"AU", "NZ"}, "apac": {"AU", "NZ", "SG", "JP", "IN", "CN", "HK", "MY", "PH"}, "emea": {"UK", "GB", "FR", "DE", "IE", "NL", "BE", "ES", "IT", "CH", "SE", "ZA", "AE"},
+              "latam": {"MX", "BR", "AR", "CL", "CO"}, "uk": {"UK", "GB"}, "gb": {"UK", "GB"}, "usa": {"US"}, "us": {"US"}, "india": {"IN"}, "china": {"CN"}, "brasil": {"BR"}, "brazil": {"BR"},
+              "mexico": {"MX"}, "france": {"FR"}, "germany": {"DE"}, "japan": {"JP"}, "singapore": {"SG"}, "australia": {"AU"}, "nz": {"NZ"}, "europe": {"UK", "GB", "FR", "DE", "IE", "NL", "BE", "ES", "IT", "CH", "SE"},
+              "asia": {"SG", "JP", "IN", "CN", "HK", "MY", "PH"}, "ptvi": {"ID"}, "indonesia": {"ID"}, "africa": {"ZA"}, "canada": {"CA"}, "ca": {"CA"}}
+CA_PROV = {"ON", "QC", "BC", "AB", "MB", "SK", "NS", "NB", "NL", "PE", "YT", "NT", "NU", "CA"}
+n_reg = 0
+for x in rows:
+    e = (x.get("email") or "").lower()
+    if not e:
+        continue
+    toks = [t for t in re.split(r"[._-]", e.split("@")[0]) if t]
+    j = (x.get("jurisdiction") or "").upper()
+    jset = {"CA"} if j in CA_PROV else {j}
+    for t in toks:
+        if t in REGION_TOK and t not in ("ca", "canada", "us", "usa") and not (REGION_TOK[t] & jset):
+            for col in ("email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote", "ap_phone", "invoice_mailing_address",
+                        "invoicing_requirements", "invoice_portal_url", "ap_contact_name_as_published"):
+                x[col] = ""
+            x["grade"], x["rank_group"], n_reg = 0, "%s0" % x.get("tier", ""), n_reg + 1
+            break
+        if t in ("us", "usa") and j in CA_PROV or (t in ("ca", "canada") and j and j not in CA_PROV):
+            for col in ("email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote"):
+                x[col] = ""
+            x["grade"], x["rank_group"], n_reg = 0, "%s0" % x.get("tier", ""), n_reg + 1
+            break
+print("regional mailboxes of multinationals removed from other-country entities:", n_reg)
 # a mailbox whose domain publishes no mail server (tools/mx_check.py, DNS only) cannot receive the survey: the row stays, without it
 MX = {}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_mx_check.tsv"):
