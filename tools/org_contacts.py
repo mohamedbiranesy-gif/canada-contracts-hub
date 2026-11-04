@@ -32,13 +32,16 @@ POSTAL = r"[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z] ?\d[ABCEGHJ-NPRSTV-Z]\d"
 US_ST = r"(?:AL|AK|AZ|AR|CA|CO|CT|DE|DC|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|" \
         r"SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)"
 AU_ST = r"(?:NSW|VIC|QLD|SA|WA|TAS|NT|ACT)"
-STREET = r"(?:\d{1,6}[A-Za-z]?(?:-\d{1,6})?[ ,][^\n|•]{2,90}?|P\.?O\.? Box \d[^\n|•]{0,60}?|C\.? ?P\.? ?\d[^\n|•]{0,60}?)(?:\n\s*[^\n|•]{2,60}?)?"
-GB_STREET = r"(?:" + STREET + r"|(?:[A-Z][A-Za-z'.-]+ ){1,4}(?:Hall|House|Street|Road|Lane|Way|Square|Place|Court|Centre|Building|Park|Avenue|Gardens)" \
-            r"[^\n|•]{0,70}?(?:\n\s*[^\n|•]{2,60}?)?)"
-PATTERNS = [("CA", re.compile(STREET + r"[,\s(]+" + PROV + r"\)?\.?[,\s)]+(?:Canada[,\s]+)?" + POSTAL + r"(?![A-Za-z0-9])")),
-            ("US", re.compile(STREET + r",?\s+" + US_ST + r"\.?,?\s+\d{5}(?:-\d{4})?(?!\d)")),
-            ("GB", re.compile(GB_STREET + r"[,\s]+[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}(?![A-Za-z0-9])")),
-            ("AU", re.compile(STREET + r"[,\s]+" + AU_ST + r"[,\s]+\d{4}(?!\d)"))]
+# Addresses are found from their rare tail (postal code / ZIP / postcode) backwards: a street-first pattern backtracks for
+# minutes on digit-dense pages (schedules, financial tables).
+TAILS = [("CA", re.compile(r"[,\s(]" + PROV + r"\)?\.?[,\s)]+(?:Canada[,\s]+)?" + POSTAL + r"(?![A-Za-z0-9])")),
+         ("US", re.compile(r",?\s" + US_ST + r"\.?,?\s+\d{5}(?:-\d{4})?(?!\d)")),
+         ("GB", re.compile(r"[,\s][A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}(?![A-Za-z0-9])")),
+         ("AU", re.compile(r"[,\s]" + AU_ST + r"[,\s]+\d{4}(?!\d)"))]
+STREET_START = re.compile(r"(?<![\d\-(.#/:])\d{1,6}[A-Za-z]?(?:-\d{1,6})?[ ,](?=[^\n|•]{2,})|G?P\.?O\.? Box \d|C\.? ?P\.? ?\d|(?:[A-Z][A-Za-z'.-]+ ){1,4}"
+                          r"(?:Hall|House|Street|Road|Lane|Way|Square|Place|Court|Centre|Building|Park|Avenue|Gardens)\b")
+NOT_START = re.compile(r"\d{3}[-.]\d{4}|\d{1,2}:\d{2}|\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}|\d{4}-\d{2}-\d{2}|\d+(?:\.\d+)?\s?%")
+BOX_START = re.compile(r"\d|G?P\.?O\.? Box|C\.? ?P\.? ?\d")  # a phone, a time, a date, a rate
 NOT_ADDR = re.compile(r"copyright|©|all rights|tous droits|privacy|cookie", re.I)
 TEL_LABEL = re.compile(r"(?:\bT[ée]l(?:[ée]phone)?\b|\bPhone\b|\bTel\b|\bT\s?:|\bCall(?: us)?\b|\bToll[- ]free\b|\bSans frais\b)[\s.:]*"
                        r"(\+?\d[\d\s().-]{8,20}\d)", re.I)
@@ -56,6 +59,7 @@ lock = threading.Lock()
 
 def visible_keep_lines(raw):
     """visible text with line breaks kept at block boundaries (addresses are written over several lines)"""
+    raw = raw[:1_500_000]
     t = re.sub(r"(?is)<(script|style|noscript|svg)[^>]*>.*?</\1>", " ", raw)
     t = re.sub(r"(?i)<br\s*/?>|</(p|div|li|tr|td|th|h\d|address|span)>", "\n", t)
     t = re.sub(r"(?s)<[^>]+>", " ", t)
@@ -136,7 +140,7 @@ def address_tag(raw):
 
 
 def country_of(addr):
-    for cc, rx in PATTERNS:
+    for cc, rx in TAILS:
         if rx.search(addr):
             return cc
     return ""
@@ -147,14 +151,32 @@ HQ_WORDS = re.compile(r"head ?office|headquarters|si[èe]ge social|city hall|h[�
 
 
 def pattern_address(text):
-    """the first street address on the page, unless a later one is labelled as the head office / city hall"""
+    """the first street address on the page, unless a later one is labelled as the head office / city hall: the address's
+    rare tail (province + postal code, state + ZIP, UK postcode, state + postcode) is found first, then the leftmost street
+    start within 110 characters / 2 lines before it that is not a phone, time, date or rate"""
     best = None
-    for cc, rx in PATTERNS:
+    text = text[:400_000]
+    for cc, rx in TAILS:
         for m in rx.finditer(text):
-            a = flat(m.group(0).replace("\n", ", "))
-            if NOT_ADDR.search(a) or len(a) >= 200:
+            w0 = max(0, m.start() - 110)
+            win = text[w0:m.start()]
+            cut = max(win.rfind("|"), win.rfind("•"), win.rfind(" · "))
+            if cut >= 0:
+                win = win[cut + 1:]; w0 += cut + 1
+            start = None
+            for x in STREET_START.finditer(win):
+                if win.count("\n", x.start()) > 2 or NOT_START.match(win[x.start():]):
+                    continue
+                if BOX_START.match(x.group(0)):
+                    start = x.start(); break
+                if start is None:
+                    start = x.start()
+            if start is None:
                 continue
-            hq = bool(HQ_WORDS.search(text[max(0, m.start() - 120):m.start()]))
+            a = flat(text[w0 + start:m.end()].replace("\n", ", "))
+            if NOT_ADDR.search(a) or not (10 <= len(a) < 200):
+                continue
+            hq = bool(HQ_WORDS.search(text[max(0, w0 + start - 140):w0 + start]))
             score = (2 if hq else 0, -m.start())
             if best is None or score > best[0]:
                 best = (score, a, cc)
