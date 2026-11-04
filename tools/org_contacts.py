@@ -72,6 +72,14 @@ def watchdog():
                   "; ".join("%s %s %ds" % (d, w, a) for a, d, w in stuck), flush=True)
 
 
+LONG_TOKEN = re.compile(r"data:[a-z/+.-]+;base64,[A-Za-z0-9+/=]+|[A-Za-z0-9+/=_%-]{120,}")
+
+
+def strip_long(raw):
+    """inline base64 images and other very long tokens make the e-mail regex quadratic (and hold the GIL for minutes)"""
+    return LONG_TOKEN.sub(" ", raw[:1_500_000])
+
+
 def visible_keep_lines(raw):
     """visible text with line breaks kept at block boundaries (addresses are written over several lines)"""
     raw = raw[:1_500_000]
@@ -264,14 +272,14 @@ def read_site(site, name):
         res["status"] = "http_%s" % st; return res
     if data[:5] == b"%PDF-" or "html" not in (ct or "").lower():
         res["status"] = "not_html"; return res
-    raw0 = data.decode("utf-8", "replace")
+    raw0 = strip_long(data.decode("utf-8", "replace"))
     m = re.search(r"(?is)<meta[^>]+http-equiv\s*=\s*[\"']?refresh[^>]+url\s*=\s*[\"']?([^\"'>\s]+)", raw0[:3000]) or \
         re.search(r"(?is)(?:window\.location|location\.href)\s*=\s*[\"']([^\"']+)", raw0[:3000]) if len(raw0) < 3000 else None
     if m:  # a redirect page: follow once
         st, ct, data, final = C.fetch(urllib.parse.urljoin(final, html.unescape(m.group(1))), 4_000_000)
         if st != 200 or not data or "html" not in (ct or "").lower():
             res["status"] = "http_%s" % st; return res
-        raw0 = data.decode("utf-8", "replace")
+        raw0 = strip_long(data.decode("utf-8", "replace"))
     host = (urllib.parse.urlparse(final).hostname or "").lower().removeprefix("www.")
     if C.BLOCK_RX.search(raw0[:5000]) or (len(raw0) < 2500 and re.search(r"_Incapsula_Resource|incapsula|imperva|distil_r|perimeterx|datadome|akamai|bot ?detect", raw0, re.I)):
         res["status"] = "blocked"; return res
@@ -283,7 +291,7 @@ def read_site(site, name):
         stage(dom, "fetch " + u[:60])
         st, ct, data, fin = C.fetch(u, 4_000_000)
         if st == 200 and data and "html" in (ct or "").lower():
-            pages.append((fin, data.decode("utf-8", "replace")))
+            pages.append((fin, strip_long(data.decode("utf-8", "replace"))))
     res["pages"] = len(pages)
     order = pages[1:] + pages[:1]  # contact pages first: home-page footers often list several offices
     for url, raw in order:
