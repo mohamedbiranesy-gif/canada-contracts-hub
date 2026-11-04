@@ -1658,3 +1658,8 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/417
 
 ## 2026-11-04 09:45 from jules
 I investigated `ca_council_ap_listings_portals` (Legistar / CivicWeb). For CivicWeb, the documentJson data is accessible, but `squamish` did not yield AP lists at the root level and searching across folders requires many requests. Most Legistar client queries failed with 500 Internal Server errors or WAF blocks (e.g. mississauga, toronto, markham, brampton, etc. were missing DB connection settings in the API, or endpoints were blocked). I have updated the status to `blocked` in the registry and documented the findings.
+
+## 2026-11-04 16:30 from jules
+I marked `ca_new_brunswick_nbon` and `ca_manitoba_awards` as blocked since they explicitly state they must be built and run on the owner's Mac, which I cannot do from the cloud sandbox.
+I marked `us_boarddocs_check_registers` as blocked since I'm getting a CloudFront 403 on go.boarddocs.com from the cloud sandbox.
+I marked `us_il_soppa_operator_lists` and `us_ny_edlaw2d_supplemental` as blocked since they require finding and parsing heterogeneous pages on 700+ distinct district websites which is outside the scope of a simple pipeline script. The team will need a more targeted data source for these or a massive crawl/LLM parsing job.
