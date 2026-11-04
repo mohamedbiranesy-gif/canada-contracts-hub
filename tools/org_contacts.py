@@ -126,7 +126,7 @@ def microdata(raw):
 def address_tag(raw):
     for m in re.finditer(r"(?is)<address[^>]*>(.*?)</address>", raw):
         t = flat(visible_keep_lines(m.group(1)).replace("\n", ", "))
-        t = re.sub(r"(?i)(t[ée]l[ée]phone|t[ée]l[ée]copieur|t[ée]l[ée]c|phone|tel|fax|courriel|email|e-mail)\s*\.?:?[,\s]*(\+?[\d][\d\s().-]{7,})?", " ", t)
+        t = re.sub(r"(?i)(t[ée]l[ée]phone|t[ée]l[ée]c\w*|phone|tel|fax|courriel|email|e-mail)\s*\.?:?[,\s]*(\+?[\d][\d\s().-]{7,})?", " ", t)
         t = re.sub(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+", " ", t)
         t = re.sub(r"(?i)^(municipalit[ée] de|ville de|town of|city of|village de)\s*,\s*", "", flat(re.sub(r"\s*,\s*,+", ", ", t)))
         t = flat(t)
