@@ -46,8 +46,9 @@ DROP_B = re.compile(r"financ|\bloan|grant(?!ed a contract)|subvention|donat|spon
                     r"\bwinner|(?:planning|excellence|achievement|leadership|innovation|design|heritage|safety|environmental|community) awards?|"
                     r"\bm[ée]rite|\bgagnant|\bremport|\bc[ée]r[ée]monie|\bgala\b", re.I)
 DROP_URL = re.compile(r"awards?-(?:night|gala|program|ceremony|celebration|recipient|winner)|(?:arts|business|volunteer|heritage|citizen|community|"
-                      r"excellence|achievement|leadership|sports|environmental|design|safety)-awards?|recognition|hall-of-fame|scholarship|bursar|"
-                      r"awareness|proclamation|calendar|events?-calendar|obituar|in-memoriam", re.I)
+                      r"excellence|achievement|leadership|sports|environmental|design|safety|science|student)-awards?|/awards?/?(?:$|\?|\.)|/award-|"
+                      r"recognition|hall-of-fame|scholarship|bursar|awareness|proclamation|calendar|events?-calendar|obituar|in-memoriam|"
+                      r"science-fair|sponsor|donor|our-impact|foundation-news", re.I)
 PUBLIC_BODY = re.compile(r"\b(university|universit[ée]|college|coll[èe]ge|c[ée]gep|school|[ée]cole|county|comt[ée]|city of|town of|village of|ville de|"
                          r"municipalit|township|region of|regional|ministry|minist[èe]re|government|gouvernement|department|hospital|h[ôo]pital|health|"
                          r"sant[ée]|authority|commission|agency|agence|board|conseil|first nation|nation|band|society|foundation|fondation|association|"
@@ -67,6 +68,42 @@ def to_iso(m):
     k = NM.norm(mon)[:4] if NM.norm(mon)[:4] in MON else NM.norm(mon)[:3]
     mm = MON.get(k) or MON.get(NM.norm(mon)[:3])
     return "%s-%02d-%02d" % (year, mm, int(day)) if mm and 1 <= int(day) <= 31 else ""
+
+
+# The buyer is the organisation whose site we read, so the vendor must be the OBJECT of the award: a cue just before the
+# name ("awarded the contract to", "has contracted", "services of", "mandaté à") or just after it ("was awarded the
+# tender", "will provide", "has been retained"), or an award-page table row with an amount. A name after "from" / "by" /
+# "par" is the other party (the site's organisation is then the supplier), so it is skipped.
+CUE_BEFORE = re.compile(r"(?:\bawarded|\baward of (?:the )?(?:contract|tender|work|project)|\bcontract(?:ed|s)?\b|\btender\b|purchase order|"
+                        r"\bselected|\bchosen|\bretained|\bengaged|\bhired|\bappointed|agreement with|services of|provided by|supplied by|"
+                        r"built by|delivered by|designed by|operated by|installed by|performed by|completed by|\bvendor\b|\bsupplier\b|"
+                        r"\bcontractor\b|\bconsultant\b|successful (?:bidder|proponent)|lowest (?:compliant )?bid|mandat[ée]e?s? (?:à|a|au|aux)|"
+                        r"octroy[ée]e?s? (?:à|a|au|aux)|adjug[ée]e?s? (?:à|a|au|aux)|attribu[ée]e?s? (?:à|a|au|aux)|confi[ée]e?s? (?:à|a|au|aux)|"
+                        r"\bretenue?s?\b|contrat (?:avec|à|a|au)|\bfournisseur|\bentrepreneur|\badjudicataire|soumissionnaire)\b[^\n]{0,55}$", re.I)
+REVERSE = re.compile(r"\b(?:from|by|par|de la part de|awarded to us|to us)\s*(?:the\s+)?$", re.I)
+CUE_AFTER = re.compile(r"^[^.\n]{0,45}?\b(?:has been|have been|was|were|is|are|a été|ont été|est|sont)\s+(?:awarded|selected|chosen|retained|"
+                       r"contracted|engaged|hired|appointed|the successful|retenue?|choisie?|mandat[ée]e?|s[ée]lectionn[ée]e?)|"
+                       r"^\s*(?:\([^)]{0,40}\)\s*)?(?:awarded|has been awarded|was awarded)\s+(?:the\s+)?(?:contract|tender|work|project)|"
+                       r"^[^.\n]{0,45}?\b(?:will|to|shall)\s+(?:provide|supply|deliver|build|construct|design|operate|manage|install|complete|"
+                       r"perform|undertake|carry out|conduct|replace|repair|upgrade)\b|^[^.\n]{0,40}?\b(?:fournira|livrera|r[ée]alisera|"
+                       r"effectuera|construira)\b", re.I)
+
+
+SYMMETRIC = re.compile(r"^(?:agreement|contract|contracts|contrat|tender|vendor|supplier|contractor|consultant|fournisseur|entrepreneur)$", re.I)
+
+
+def direction_cue(before, after, line, url, strict=False):
+    """the cue that makes the named organisation the buyer's supplier, else None. strict (the site's organisation is a
+    company, which may itself be the supplier in the sentence): symmetric words such as "agreement with" do not count."""
+    m = CUE_BEFORE.search(before)
+    if m and not REVERSE.search(before) and not (strict and SYMMETRIC.match(m.group(0).split()[0])):
+        return m.group(0).split()[0] + " … [name]"
+    m = CUE_AFTER.search(after)
+    if m:
+        return "[name] … " + m.group(0).strip()[:40]
+    if AWARD_URL.search(url) and MONEY.search(line) and len(line) < 300 and not REVERSE.search(before):
+        return "award page: the line names the vendor with an amount"
+    return None
 
 
 def page_date(raw, text, pos):
@@ -106,7 +143,8 @@ network networks data information security safety medical health care clinic cli
 transport transportation logistics freight trucking express delivery courier auto automotive motors motor truck trucks tire tires
 food foods farm farms market markets grocery bakery cafe restaurant catering hotel hotels travel tours tour sports fitness golf
 music arts art studio studios gallery theatre theater film films photo photography video production productions event events
-rental rentals leasing sales sale store stores shop shops centre center plaza mall""".split())
+rental rentals leasing sales sale store stores shop shops centre center plaza mall workforce development program programs
+shoreline restoration project projects partners partner station stations power plant plants water works""".split())
 JUNK_NAME = re.compile(r"request for|proposal|tender|\bn/?a\b|various|multiple|unknown|redact|withheld|confidential|not disclosed|"
                        r"^(the )?(supplier|vendor|contractor|consultant|company|corporation)s?$|^misc|^sundry|^employee|^individual|^payee",
                        re.I)
@@ -200,6 +238,7 @@ def scan(org, index, cap, stats):
     if st != "ok":
         return st, []
     btoks = set(NM.sig_tokens(name))
+    strict = not PUBLIC_BODY.search(name or "") and not re.search(r"\.(gov|gc\.ca|edu|org)\b|\.(qc|on|bc|ab|mb|sk|ns|nb|nl|pe|nt|nu|yt)\.ca$|\.(gov|govt|edu|ac|org)\.[a-z]{2}$", host)
     leads, seen_v = [], set()
     for u in pages:
         if not C.allowed(u) or DROP_URL.search(u):
@@ -213,25 +252,29 @@ def scan(org, index, cap, stats):
         else:
             raw = strip_long(data.decode("utf-8", "replace"))
             text = visible_keep_lines(raw)[:400_000]
-        for v, a, b in NM.find_names(text, index, limit=12):
+        for v, a0, b0 in NM.find_names(text, index, limit=12):
             if v["key"] in seen_v:
                 continue
             vt = set(NM.sig_tokens(v["name"]))
             if vt <= btoks or btoks <= vt:
                 continue  # the buyer's own name (or a part of it)
-            words = re.findall(r"[A-Za-zÀ-ÿ][\w'&.-]*", text[a:b])
+            words = re.findall(r"[A-Za-zÀ-ÿ][\w'&.-]*", text[a0:b0])
             if sum(w[0].isupper() for w in words) < max(1, len(words) * 0.6):
                 continue  # written as ordinary words, not as a name ("low impact", "make it")
-            sent, rel = NM.sentence_at(text, a, b)
-            line = text[text.rfind("\n", 0, a) + 1:text.find("\n", b) if text.find("\n", b) >= 0 else len(text)]
-            cue = NM.BUY.search(sent) or AWARD_CTX.search(sent) or AWARD_CTX.search(line) or (AWARD_URL.search(u) and MONEY.search(line))
-            if not cue or DROP_B.search(sent) or DROP_B.search(line):
+            cue = None
+            for m in list(re.finditer(re.escape(text[a0:b0]), text))[:6]:  # the headline may name it without a cue; the body with one
+                a, b = m.start(), m.end()
+                sent, rel = NM.sentence_at(text, a, b)
+                ls, le = text.rfind("\n", 0, a) + 1, text.find("\n", b)
+                line = text[ls:le if le >= 0 else len(text)]
+                before, after = text[max(ls, a - 90):a], text[b:min(le if le >= 0 else len(text), b + 90)]
+                cue = direction_cue(before, after, line, u, strict)
+                if cue and (DROP_B.search(sent) or DROP_B.search(line) or (len(re.findall(r"[A-Za-zÀ-ÿ]{2,}", line)) < 6 and not MONEY.search(line))):
+                    cue = None  # a prize context, or a menu item / list entry rather than a statement
+                if cue:
+                    break
+            if not cue:
                 continue
-            if hasattr(cue, "group") and cue.group(0).lower() in NM.norm(v["name"]).replace("  ", " "):
-                continue  # the "cue" is part of the vendor's own name (Victorian Order of Nurses)
-            cue = cue.group(0) if hasattr(cue, "group") else "award page: the line names the vendor with an amount"
-            if re.match(r"attribut", cue, re.I) and not re.match(r"attribu[ée]", cue, re.I):
-                continue  # English "attributes" is not the French "attribué"
             d, how = page_date(raw, text, a)
             if not d or d < OLDEST:
                 continue
