@@ -32,9 +32,8 @@ def txt(name, nameserver=None):
     """('ok', [records]) | ('none', reason) | ('error', reason)"""
     if not _dns:
         return "error", "dnspython missing"
-    res = _dns.Resolver(configure=nameserver is None); res.lifetime = 5; res.timeout = 2.5
-    if nameserver:
-        res.nameservers = [nameserver]
+    res = _dns.Resolver(configure=False); res.lifetime = 5; res.timeout = 2.5
+    res.nameservers = [nameserver or "1.1.1.1"]  # straight to a public resolver: the Mac's stub resolver serialises bulk lookups
     try:
         ans = res.resolve(name, "TXT")
         recs = []
