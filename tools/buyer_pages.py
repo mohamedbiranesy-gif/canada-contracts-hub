@@ -331,14 +331,15 @@ def site_pages(site, host, cap):
     return "ok", listings[:12] + urls[:cap]
 
 
-def scan(org, index, cap, stats):
+def scan(org, index, cap, stats, pages=None):
     key, name, site = org
     host = (urllib.parse.urlparse(site).hostname or "").lower().removeprefix("www.")
-    if not C.allowed(site):
-        return "robots", []
-    st, pages = site_pages(site, host, cap)
-    if st != "ok":
-        return st, []
+    if pages is None:
+        if not C.allowed(site):
+            return "robots", []
+        st, pages = site_pages(site, host, cap)
+        if st != "ok":
+            return st, []
     btoks = set(NM.sig_tokens(name))
     foreign = not re.search(r"\.ca$|\.quebec$|\.qc\.ca$", host) and not re.search(r"canada|canadian|qu[ée]bec|ontario|alberta|manitoba|saskatchewan|nova scotia|"
                                                                            r"new brunswick|newfoundland|british columbia|yukon|nunavut|northwest territories|"
@@ -446,7 +447,8 @@ def scan(org, index, cap, stats):
 
 def main():
     a = argparse.ArgumentParser()
-    a.add_argument("--orgs", required=True)
+    a.add_argument("--orgs", default="")
+    a.add_argument("--urls", default="", help="CSV buyer_key,buyer_name,website,official_site,url (claude_search_urls_pNN.csv): read these pages only")
     a.add_argument("--vendors", required=True)
     a.add_argument("--workers", type=int, default=32)
     a.add_argument("--pages", type=int, default=40)
@@ -458,6 +460,33 @@ def main():
     done = set()
     if os.path.exists(DONE):
         done = {l.split("\t")[0] for l in open(DONE, encoding="utf-8")}
+    if a.urls:  # located pages: one scan per organisation over its listed pages (no site crawl, no done list)
+        by_org = collections.OrderedDict()
+        for r in csv.DictReader(open(a.urls, encoding="utf-8", errors="replace")):
+            w = (r.get("website") or r.get("official_site") or "").strip()
+            h = (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
+            if h and (r.get("url") or "").startswith("http"):
+                by_org.setdefault((r.get("buyer_key", ""), r.get("buyer_name", ""), "https://%s/" % h), []).append(r["url"])
+        stats, n_leads = collections.Counter(), 0
+        def one_u(item):
+            nonlocal n_leads
+            org, pages = item
+            try:
+                st, leads = scan(org, index, a.pages, stats, pages=pages[:a.pages])
+            except Exception as e:
+                st, leads = "error", []
+            with lock:
+                stats[st] += 1
+                if leads:
+                    with open(OUT, "a", encoding="utf-8") as f:
+                        for L in leads:
+                            f.write(json.dumps(L, ensure_ascii=False) + "\n")
+                    n_leads += len(leads)
+        print("organisations with located pages: %d" % len(by_org), flush=True)
+        with ThreadPoolExecutor(a.workers) as ex:
+            list(ex.map(one_u, list(by_org.items())))
+        print("finished", dict(stats), "leads", n_leads, flush=True)
+        return
     orgs, seen = [], set()
     for r in csv.DictReader(open(a.orgs, encoding="utf-8", errors="replace")):
         w = (r.get("website") or "").strip()
