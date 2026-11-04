@@ -99,8 +99,8 @@ def direction_cue(before, after, line, url, strict=False):
     if m:
         cue_word = m.group(0).split()[0]
         between = before[m.start() + len(cue_word):]
-        if not REVERSE.search(before) and not re.search(r"\b(?:by|from|par|de la part de|with|avec|and|et|as well as|ainsi que)\b", between) \
-                and not (strict and SYMMETRIC.match(cue_word)):
+        other = r"\b(?:by|from|par|de la part de|and|et|as well as|ainsi que" + (r"|with|avec" if strict else "") + r")\b"
+        if not REVERSE.search(before) and not re.search(other, between) and not (strict and SYMMETRIC.match(cue_word)):
             return cue_word + " … [name]"
     m = CUE_AFTER.search(after)
     if m and not (strict and re.search(r"\b(?:will|to|shall)\s", m.group(0), re.I)):
