@@ -44,7 +44,9 @@ DROP_B = re.compile(r"financ|\bloan|grant(?!ed a contract)|subvention|donat|spon
                     r"job fair|career|business awards?|award winner|award recipient|nominee|nominat|awards? (?:was|were|is|are|will be) (?:presented|given|"
                     r"handed)|awards? (?:event|ceremony|gala|program|night|dinner|luncheon)|recogni[sz]|honou?r(?:ed|s|ing)?\b|celebrat|presented (?:to|with)|"
                     r"\bwinner|(?:planning|excellence|achievement|leadership|innovation|design|heritage|safety|environmental|community) awards?|"
-                    r"\bm[ée]rite|\bgagnant|\bremport|\bc[ée]r[ée]monie|\bgala\b", re.I)
+                    r"\bm[ée]rite|\bgagnant|\bremport|\bc[ée]r[ée]monie|\bgala\b|\bprix\b|\bmedal|\bm[ée]daille|awarded jointly|jointly with|"
+                    r"\bappoint|\bnomm[ée]|\bin (?:19|20)[0-9]{2}\b|\ben (?:19|20)[0-9]{2}\b|\bhistor|\banniversar|\bspeaker|\bconf[ée]renc|"
+                    r"\bwebinar|\bpanel|\bkeynote|\bpresenter|\bexhibitor|\bbooth|\bsession\b|\btrade ?show|\bvotre campagne|\byour campaign", re.I)
 DROP_URL = re.compile(r"awards?-(?:night|gala|program|ceremony|celebration|recipient|winner)|(?:arts|business|volunteer|heritage|citizen|community|"
                       r"excellence|achievement|leadership|sports|environmental|design|safety|science|student)-awards?|/awards?/?(?:$|\?|\.)|/award-|"
                       r"recognition|hall-of-fame|scholarship|bursar|awareness|proclamation|calendar|events?-calendar|obituar|in-memoriam|"
@@ -177,7 +179,12 @@ vincent xavier antoine hugo jacques bernard christian dominique frédéric frede
 manon marie martine monique nathalie nicole sylvie suzanne chantal caroline carole diane france geneviève genevieve hélène helene
 isabelle johanne josiane julie karine linda lyne mélanie melanie mylène nancy pauline sophie stéphanie valérie valerie véronique annie
 sam tom bob jim mike dave steve chris dan matt tony ken greg jeff rick rob ron ed ted pat andy josh nate ben alex sarah kate liz beth
-amy ann jen jess kim meg sue""".split())
+amy ann jen jess kim meg sue geoffrey jeffrey gregory harold howard irene jane janet jeanne joanne karen keith kenneth kevin larry lee
+leslie lloyd lynn marc marie mario marjorie mark martin maurice melissa michel michelle nancy neil norman pamela patricia patrick paul
+pauline peggy peter philip phyllis ralph randy ray raymond rebecca rhonda rita robert robin rodney roger ronald rose ross roy ruby russell
+ruth ryan sally sandra sara scott shannon sharon sheila shirley stanley stephen steven stuart susan suzanne sylvia tammy terry theresa
+thomas tim timothy tina todd tracy travis troy valerie vernon victor vincent virginia wade walter wanda warren wayne wendy william
+willie yvonne""".split())
 JUNK_NAME = re.compile(r"request for|proposal|tender|\bn/?a\b|various|multiple|unknown|redact|withheld|confidential|not disclosed|"
                        r"^(the )?(supplier|vendor|contractor|consultant|company|corporation)s?$|^misc|^sundry|^employee|^individual|^payee",
                        re.I)
@@ -204,8 +211,8 @@ def load_vendors(path):
     for (name, addr, basis), toks in rows:
         if not any(rare(t) for t in toks):
             continue
-        if len(toks) == 2 and (toks[0] in FIRST_NAMES or toks[1] in FIRST_NAMES) and not MARKER.search(name):
-            continue  # an individual contractor (Lyndsay Francis), not a firm
+        if len(toks) == 2 and (toks[0] in FIRST_NAMES or toks[1] in FIRST_NAMES or "," in name) and not MARKER.search(name):
+            continue  # an individual contractor (Lyndsay Francis, "Kelley, Geoffrey"), not a firm
         if len(toks) == 2 and not MARKER.search(name) and all(NM._common(t) or t in EVERYDAY for t in toks):
             continue  # two everyday words ("Curbside Collection") are not matchable as a firm's name
         key = "v:" + hashlib.sha1(NM.norm(name).encode()).hexdigest()[:12]
