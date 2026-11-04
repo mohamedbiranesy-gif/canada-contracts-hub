@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-04 16:00 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-04 16:14 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-04)
 | metric | value |
@@ -38,7 +38,7 @@
 | claude | claude_buyer_ap_results_agent02.csv | 28 | 28 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_agent03.csv | 8 | 8 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_apfirst01.csv | 5352 | 5352 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_crawl01.csv | 63122 | 63122 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_crawl01.csv | 63354 | 63354 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_dsenrich01.csv | 168 | 168 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_federal01.csv | 242 | 242 | 0 | 0 | 0 |
@@ -255,7 +255,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 62180 entities researched, 59423 with at least one verified contact.
+**team_buyers**: 62406 entities researched, 59646 with at least one verified contact.
 
 **team_vendors**: 15387 entities researched, 4004 with at least one verified contact.
 
@@ -266,10 +266,10 @@
 | jules | 5 | 0 | 11 | 4 |
 
 ## Last ingest
-- buyers with team findings: 62180 (with at least one verified e-mail/portal: 59396)
+- buyers with team findings: 62406 (with at least one verified e-mail/portal: 59619)
 - vendors with team findings: 15387
 - QA rows: 200
-- counters: {'files': 234, 'buyer_findings_verified': 73668, 'buyer_findings_verified_on_archive_copy': 383, 'buyer_findings_unverified_page_unavailable': 1672, 'buyer_findings_not_found_on_page': 2470, 'buyer_findings_not_found_on_page_hidden': 473, 'buyer_findings_rejected_personal_or_invalid': 83, 'vendor_emails_not_found_on_page': 404, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4339, 'vendor_emails_unverified_page_unavailable': 317, 'buyer_findings_cross_verified': 218, 'verify_tasks_chatgpt': 216, 'verify_tasks_gemini': 550}
+- counters: {'files': 234, 'buyer_findings_verified': 73897, 'buyer_findings_verified_on_archive_copy': 383, 'buyer_findings_unverified_page_unavailable': 1674, 'buyer_findings_not_found_on_page': 2471, 'buyer_findings_not_found_on_page_hidden': 473, 'buyer_findings_rejected_personal_or_invalid': 83, 'vendor_emails_not_found_on_page': 404, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4339, 'vendor_emails_unverified_page_unavailable': 317, 'buyer_findings_cross_verified': 218, 'verify_tasks_chatgpt': 216, 'verify_tasks_gemini': 550}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -278,7 +278,7 @@ Every row's outcome is in `coord/results/verification_log.csv`. Look up your own
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 973 | 16 | 0 | 14 | 0 | 22 | 0 |
-| claude | 69178 | 97 | 0 | 1215 | 7 | 1408 | 82 |
+| claude | 69407 | 97 | 0 | 1217 | 7 | 1409 | 82 |
 | gemini | 3517 | 105 | 0 | 325 | 366 | 1040 | 1 |
 
 ## Where to look
