@@ -56,6 +56,11 @@ DROP_B = re.compile(r"financ|\bloan|grant(?!ed a contract)|subvention|donat|spon
                     r"\bm[ée]rite|\bgagnant|\bremport|\bc[ée]r[ée]monie|\bgala\b|\bprix\b|\bmedal|\bm[ée]daille|awarded jointly|jointly with|"
                     r"\bappoint|\bnomm[ée]|\bin (?:19|20)[0-9]{2}\b|\ben (?:19|20)[0-9]{2}\b|\bhistor|\banniversar|\bspeaker|\bconf[ée]renc|"
                     r"\bwebinar|\bpanel|\bkeynote|\bpresenter|\bexhibitor|\bbooth|\bsession\b|\btrade ?show|\bvotre campagne|\byour campaign", re.I)
+OTHER_BODY = re.compile(r"\b(?:(?:the )?(?:Ontario |Québec |Quebec |Alberta |Manitoba |BC |B\.C\. |federal |provincial )?(?:Ministry|Minist[èe]re|Department|Government|Gouvernement|Province|"
+                        r"County|Comt[ée]|Region|R[ée]gion|City|Ville|Town|Township|Municipality|Municipalit[ée]|District|School Board|Conseil scolaire|Centre de services scolaire|"
+                        r"Health Authority|Hospital|University|Universit[ée]|College|Coll[èe]ge) (?:of |de |du |des |d')?[A-ZÀ-Ý][\w'À-ÿ-]+(?: [A-ZÀ-Ý][\w'À-ÿ-]+){0,3})", re.I)
+CA_WORD = re.compile(r"canada|canadian|canadien|qu[ée]bec|ontario|alberta|manitoba|saskatchewan|nova scotia|new brunswick|newfoundland|british columbia|"
+                     r"toronto|montr[ée]al|vancouver|calgary|ottawa|edmonton|winnipeg|halifax|lt[ée]e|ltee|s\.e\.n\.c|senc|enr\.|inc\.?$", re.I)
 DROP_URL = re.compile(r"awards?-(?:night|gala|program|ceremony|celebration|recipient|winner)|(?:arts|business|volunteer|heritage|citizen|community|"
                       r"excellence|achievement|leadership|sports|environmental|design|safety|science|student)-awards?|/awards?/?(?:$|\?|\.)|/award-|"
                       r"recognition|hall-of-fame|scholarship|bursar|awareness|proclamation|calendar|events?-calendar|obituar|in-memoriam|"
@@ -63,7 +68,8 @@ DROP_URL = re.compile(r"awards?-(?:night|gala|program|ceremony|celebration|recip
 PUBLIC_BODY = re.compile(r"\b(university|universit[ée]|college|coll[èe]ge|c[ée]gep|school|[ée]cole|county|comt[ée]|city of|town of|village of|ville de|"
                          r"municipalit|township|region of|regional|ministry|minist[èe]re|government|gouvernement|department|hospital|h[ôo]pital|health|"
                          r"sant[ée]|authority|commission|agency|agence|board|conseil|first nation|nation|band|society|foundation|fondation|association|"
-                         r"church|[ée]glise|parish|paroisse|library|biblioth)\b", re.I)
+                         r"church|[ée]glise|parish|paroisse|library|biblioth|district|conservation|watershed|office|bureau|minist|promotion|"
+                         r"d[ée]veloppement [ée]conomique|economic development|chamber|chambre|institute|institut|museum|mus[ée]e|gallery|galerie)\b", re.I)
 AWARD_URL = re.compile(r"award|adjudic|octroi|contrats?-(?:octroy|accord|attribu)|successful", re.I)
 MONEY = re.compile(r"\$\s?\d[\d,. ]{2,}|\d[\d,. ]{2,}\s?\$")
 lock = threading.Lock()
@@ -197,7 +203,12 @@ leslie lloyd lynn marc marie mario marjorie mark martin maurice melissa michel m
 pauline peggy peter philip phyllis ralph randy ray raymond rebecca rhonda rita robert robin rodney roger ronald rose ross roy ruby russell
 ruth ryan sally sandra sara scott shannon sharon sheila shirley stanley stephen steven stuart susan suzanne sylvia tammy terry theresa
 thomas tim timothy tina todd tracy travis troy valerie vernon victor vincent virginia wade walter wanda warren wayne wendy william
-willie yvonne""".split())
+willie yvonne brigitte fiona chantal geneviève genevieve nathalie isabelle céline celine josée josee manon sylvie francine danielle
+dominique élise elise émilie emilie camille charlotte léa lea rosalie florence juliette gabrielle maude noémie noemie laurence sarah
+olivia alice zoé zoe jade mia maya eva léonie leonie coralie amélie amelie audrey mélissa melissa vanessa jessica caroline catherine
+mathieu maxime nicolas simon olivier philippe pascal sébastien sebastien vincent xavier antoine hugo jacques bernard christian dominique
+frédéric frederic ghislain jocelyn gabriel samuel william thomas félix felix nathan jérémie jeremie raphaël raphael alexis émile emile
+étienne etienne louis-philippe jean-françois jean-francois marc-andré pierre-luc francis martin denis réal real andré andre""".split())
 JUNK_NAME = re.compile(r"request for|proposal|tender|\bn/?a\b|various|multiple|unknown|redact|withheld|confidential|not disclosed|"
                        r"^(the )?(supplier|vendor|contractor|consultant|company|corporation)s?$|^misc|^sundry|^employee|^individual|^payee",
                        re.I)
@@ -226,8 +237,8 @@ def load_vendors(path):
             continue
         if len(toks) == 2 and (toks[0] in FIRST_NAMES or toks[1] in FIRST_NAMES or "," in name) and not MARKER.search(name):
             continue  # an individual contractor (Lyndsay Francis, "Kelley, Geoffrey"), not a firm
-        if len(toks) == 2 and not MARKER.search(name) and all(NM._common(t) or t in EVERYDAY for t in toks):
-            continue  # two everyday words ("Curbside Collection") are not matchable as a firm's name
+        if len(toks) == 2 and not MARKER.search(name):
+            continue  # two bare words: a person (artists, consultants) or everyday words — a firm's name carries a marker
         key = "v:" + hashlib.sha1(NM.norm(name).encode()).hexdigest()[:12]
         if key in vendors:
             continue
@@ -329,6 +340,9 @@ def scan(org, index, cap, stats):
     if st != "ok":
         return st, []
     btoks = set(NM.sig_tokens(name))
+    foreign = not re.search(r"\.ca$|\.quebec$|\.qc\.ca$", host) and not re.search(r"canada|canadian|qu[ée]bec|ontario|alberta|manitoba|saskatchewan|nova scotia|"
+                                                                           r"new brunswick|newfoundland|british columbia|yukon|nunavut|northwest territories|"
+                                                                           r"\b(?:ville|municipalit[ée]|mrc|cégep|cegep)\b", name or "", re.I)
     strict = not PUBLIC_BODY.search(name or "") and not re.search(r"\.(gov|gc\.ca|edu|org)\b|\.(qc|on|bc|ab|mb|sk|ns|nb|nl|pe|nt|nu|yt)\.ca$|\.(gov|govt|edu|ac|org)\.[a-z]{2}$", host)
     leads, seen_v = [], set()
     for u in pages:
@@ -391,6 +405,8 @@ def scan(org, index, cap, stats):
             vt = set(NM.sig_tokens(v["name"]))
             if vt <= btoks or btoks <= vt:
                 continue  # the buyer's own name (or a part of it)
+            if foreign and not CA_WORD.search(v["name"]):
+                continue  # a multinational's name on a non-Canadian buyer's page points to the local entity, not the Canadian one
             words = re.findall(r"[A-Za-zÀ-ÿ][\w'&.-]*", text[a0:b0])
             if sum(w[0].isupper() for w in words) < max(1, len(words) * 0.6):
                 continue  # written as ordinary words, not as a name ("low impact", "make it")
@@ -404,6 +420,8 @@ def scan(org, index, cap, stats):
                 cue = direction_cue(before, after, line, u, strict)
                 if cue and (DROP_B.search(sent) or DROP_B.search(line) or (len(re.findall(r"[A-Za-zÀ-ÿ]{2,}", line)) < 6 and not MONEY.search(line))):
                     cue = None  # a prize context, or a menu item / list entry rather than a statement
+                if cue and OTHER_BODY.search(sent) and not any(t in NM.norm(OTHER_BODY.search(sent).group(0)) for t in btoks):
+                    cue = None  # another public body is the one that retained / awarded (a ministry's project reported on a town's site)
                 if cue:
                     break
             if not cue:
