@@ -386,7 +386,7 @@ def lead_strength(kl):
     return 0 if CUTOFF <= ld <= today else 2 if CUTOFF3 <= ld else 3
 UNNAMED_VENDOR = re.compile(r"redact|withheld|\bPII\b|confidential|not disclosed|undisclosed|anonymi", re.I)
 for k, L in sorted(leads.items(), key=lead_strength):
-    if norm(L["buyer_name"]) in seen or UNNAMED_VENDOR.search(L.get("example_vendor") or ""): continue
+    if norm(L["buyer_name"]) in seen or UNNAMED_VENDOR.search(L.get("example_vendor") or "") or not (L.get("example_vendor") or "").strip(): continue  # a relationship needs a named vendor
     if k in mail:
         (acc, g), m = mail[k]
     else:
