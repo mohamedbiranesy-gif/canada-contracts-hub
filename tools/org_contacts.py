@@ -55,6 +55,21 @@ ROLE = re.compile(r"^(?:info|infos|information|contact|contactus|contact-us|cont
 NOT_ROLE = re.compile(r"noreply|no-reply|donotreply|unsubscribe|abuse|postmaster|webmaster|privacy|dpo|security|career|jobs?|hr$|"
                       r"recruit|emploi|media|press|investor|^ir@|sentry|example|domain|email@|yourname|name@", re.I)
 lock = threading.Lock()
+STAGE = {}  # thread -> (domain, stage, since): a watchdog thread logs workers stuck for over a minute
+
+
+def stage(dom, what):
+    STAGE[threading.get_ident()] = (dom, what, time.time())
+
+
+def watchdog():
+    while True:
+        time.sleep(60)
+        now = time.time()
+        stuck = sorted(((now - t, d, w) for d, w, t in list(STAGE.values()) if now - t > 60), reverse=True)[:8]
+        if stuck:
+            print(time.strftime("%H:%M"), "watchdog: %d workers over a minute on one step:" % len(stuck),
+                  "; ".join("%s %s %ds" % (d, w, a) for a, d, w in stuck), flush=True)
 
 
 def visible_keep_lines(raw):
@@ -237,8 +252,11 @@ def contact_links(raw, base, host, name=""):
 def read_site(site, name):
     site = site if site.startswith("http") else "https://" + site
     res = {"status": "no_contact", "pages": 0}
+    dom = urllib.parse.urlparse(site).hostname or site
+    stage(dom, "robots")
     if not C.allowed(site):
         res["status"] = "robots"; return res
+    stage(dom, "fetch home")
     st, ct, data, final = C.fetch(site, 4_000_000)
     if st in (401, 403, 429):
         res["status"] = "blocked"; return res
@@ -258,17 +276,21 @@ def read_site(site, name):
     if C.BLOCK_RX.search(raw0[:5000]) or (len(raw0) < 2500 and re.search(r"_Incapsula_Resource|incapsula|imperva|distil_r|perimeterx|datadome|akamai|bot ?detect", raw0, re.I)):
         res["status"] = "blocked"; return res
     pages = [(final, raw0)]
+    stage(dom, "links")
     for u in contact_links(raw0, final, host, name):
         if not C.allowed(u):
             continue
+        stage(dom, "fetch " + u[:60])
         st, ct, data, fin = C.fetch(u, 4_000_000)
         if st == 200 and data and "html" in (ct or "").lower():
             pages.append((fin, data.decode("utf-8", "replace")))
     res["pages"] = len(pages)
     order = pages[1:] + pages[:1]  # contact pages first: home-page footers often list several offices
     for url, raw in order:
+        stage(dom, "visible %d" % len(raw))
         text = visible_keep_lines(raw)
         if not res.get("address"):
+            stage(dom, "address %d" % len(text))
             a, cc, tel, mail = jsonld(raw)
             method = "json-ld"
             if not a:
@@ -285,10 +307,12 @@ def read_site(site, name):
                 if tel and not res.get("phone"):
                     res.update({"phone": tel[:40], "phone_url": url})
         if not res.get("phone"):
+            stage(dom, "phones")
             ph = phones(raw, text)
             if ph:
                 res.update({"phone": ph[0], "phone_url": url})
         if not res.get("emails"):
+            stage(dom, "emails")
             em = role_emails(raw, text, "https://%s/" % host, name)
             if em:
                 res.update({"emails": "; ".join(em), "emails_url": url})
@@ -357,6 +381,7 @@ def main():
         if due:
             dump()
 
+    threading.Thread(target=watchdog, daemon=True).start()
     with ThreadPoolExecutor(a.workers) as ex:
         list(ex.map(one, tasks))
     dump()
