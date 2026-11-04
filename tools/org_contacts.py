@@ -40,7 +40,8 @@ TAILS = [("CA", re.compile(r"[,\s(]" + PROV + r"\)?\.?[,\s)]+(?:Canada[,\s]+)?" 
          ("AU", re.compile(r"[,\s]" + AU_ST + r"[,\s]+\d{4}(?!\d)"))]
 STREET_START = re.compile(r"(?<![\d\-(.#/:])\d{1,6}[A-Za-z]?(?:-\d{1,6})?[ ,](?=[^\n|•]{2,})|G?P\.?O\.? Box \d|C\.? ?P\.? ?\d|(?:[A-Z][A-Za-z'.-]+ ){1,4}"
                           r"(?:Hall|House|Street|Road|Lane|Way|Square|Place|Court|Centre|Building|Park|Avenue|Gardens)\b")
-NOT_START = re.compile(r"\d{3}[-.]\d{4}|\d{1,2}:\d{2}|\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}|\d{4}-\d{2}-\d{2}|\d+(?:\.\d+)?\s?%")
+NOT_START = re.compile(r"\d{3}[-.]\d{4}|\d{1,2}\s\(?\d{3}\)?[-.\s]\d{3}[-.\s]\d{4}|\d{3}[-.\s]\d{3}[-.\s]\d{4}|\d{1,2}:\d{2}|\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}|"
+                       r"\d{4}-\d{2}-\d{2}|\d+(?:\.\d+)?\s?%")
 BOX_START = re.compile(r"\d|G?P\.?O\.? Box|C\.? ?P\.? ?\d")  # a phone, a time, a date, a rate
 NOT_ADDR = re.compile(r"copyright|©|all rights|tous droits|privacy|cookie", re.I)
 TEL_LABEL = re.compile(r"(?:\bT[ée]l(?:[ée]phone)?\b|\bPhone\b|\bTel\b|\bT\s?:|\bCall(?: us)?\b|\bToll[- ]free\b|\bSans frais\b)[\s.:]*"
