@@ -335,3 +335,19 @@ owner's Mac, each writing leads the bridge picks up:
   bounded by organisations with a dated Canadian-vendor record × the ~10 % that publish an invoicing mailbox. The
   payment-listing sources (councils, school boards) are the only pool large enough to change the order of magnitude,
   and they need portal adapters.
+
+## 2026-11-04 08:40 — claude: loops #7–#8
+- **Second pass on the Gold-eligible pool:** 5,466 A / B / T / M organisations still without an invoicing mailbox were
+  re-searched with a different query (INSTRUCTIONS_BATCH3.md); first 5 files → 342 URLs for 194 buyers (p39), deep_pages
+  finds a mailbox on ~22 % of them — each one is a direct Gold / GOLD-T after the referee. Remaining files B_935–B_946
+  run one block per loop. The city-by-city mailbox-first queries (Q_13–Q_16) gave 58 URLs for 160 searches: dropped in
+  favour of the second pass.
+- **Owner's extract pages read:** 10,097 pages → 4,502 with the organisation's own role mailbox (referee verifying in
+  batches: 804 ap: keys verified so far).
+- **buyer_pages round 2 (public bodies) sampled after the listing mode:** multinational names on non-Canadian buyers'
+  pages (Motorola Solutions on a Wisconsin county) and persons (artists) slipped through → vendor names on non-Canadian
+  buyers' pages must say Canada; two bare words are a person; another public body as the sentence's subject (a ministry's
+  project reported on a town's site) is not this buyer's purchase; conservation / watershed / promotion bodies are not
+  vendors. 10 leads pruned; round 2 re-run under the new rules.
+- **org_extras finished its first pass (61,598 sites):** BN never read out of a URL / identifier; copyright-line legal names
+  lose trailing navigation words.
