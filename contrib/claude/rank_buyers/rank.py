@@ -61,12 +61,17 @@ def real_grade(email, etype, quote, org=""):
     if g >= 3 and re.search(r"water|sewer|hydro|utilit|tax|parking|ticket|fine|permit|tuition|fee|donat|rent|licen|bill", local, re.I) \
             and re.search(r"pay|bill", local, re.I) and not re.search(r"payable|supplier|vendor|fourniss", local, re.I):
         g = 1  # waterpayment@, taxpayments@, utilitybilling@: residents pay the organisation
+    if g >= 3 and re.search(r"e-?transfer|interac|by cheque|cheque or|cost is \$|fee is \$|\$\s?\d[\d,.]* (?:is )?payable|payable (?:by|via|to the) (?:cheque|e-?transfer|cash|credit|debit|town|village|city|municipalit)|"
+                            r"tax roll|late fees|your account number|your tax|your utility|utility and tax|utilities and taxes|pay (?:their|your) bills", near) \
+            and not re.search(r"supplier|vendor|fourniss|invoice|factur|payable[s]? (?:department|clerk|inquir)", near) and not STRONG.search(local):
+        g = 1  # spot-check 2026-11-04: payments@ / accounting@ mailboxes published where residents e-transfer their taxes and fees to the town
     if g == 4 and not (STRONG.search(local) or invoice_near(email, quote)):
         g = 2 if re.search(r"procure|purchas|achat|approv", email, re.I) else 1   # labelled AP but nothing says invoicing
     if g < 3 and FIN.search(local) and not re.search(r"procure|purchas|achat|approv|aid|bourse|scholar|tuition|student|etudiant|soutien|financement|funding|grant|subvention|invest|sustainab|bank|loan|pret|credit|client", local, re.I):
         g = 3
     return g
 # 1. best mailbox per buyer key (referee export)
+WRONG_ENTITY = {"ptvi.invoice@vale.com": "PT Vale Indonesia's invoicing mailbox (an overseas shipping instruction on vale.com), not Vale Canada's"}
 mail = {}
 raw = open(ROOT + "/coord/results/org_mailboxes.csv", encoding="utf-8", errors="replace").read().replace("\0", "")
 for r in csv.DictReader(io.StringIO(raw)):
@@ -77,7 +82,10 @@ for r in csv.DictReader(io.StringIO(raw)):
         continue
     if re.search(r"direct-deposit|depot-direct", r.get("evidence_url") or "") and g < 3:
         g = 3  # PSPC's table of each federal institution's supplier-payment office: finance tier, not invoicing
-    if g >= 3 and re.search(r"property-tax|paying-|pay-your|pay-online|payonline|tax-pay|taxes|utility-bill|utilit|water-bill|billing|fines|tickets|tuition|donat|fees",
+    if r["mailbox"].lower() in WRONG_ENTITY:
+        continue  # a mailbox of another entity on the group's shared domain (spot-check 2026-11-04)
+    if g >= 3 and re.search(r"property-tax|paying-|pay-your|pay-online|payonline|tax-pay|taxes|utility-bill|utilit|water-bill|billing|fines|tickets|tuition|donat|fees|"
+                            r"make-a-payment|payment-method|payment-option|/payments?(?:/|$|\.)|e-?transfer|how-to-pay|ways-to-pay|pay-?bills?|pay-?my",
                             (r.get("evidence_url") or "").lower()) and not re.search(r"payable|supplier|vendor|fourniss|invoice|factur|procure|purchas|finance|accounting",
                                                                                      ((r.get("evidence_url") or "") + " " + (r.get("evidence_quote") or "")).lower()):
         g = 1  # a mailbox published on the page where residents / customers pay the organisation
