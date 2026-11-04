@@ -1652,3 +1652,6 @@ I have built the pipeline for `us_ny_state_authorities_procurement` which was ma
 * The script passes the validation (`python3 tools/validate_records.py`).
 * Changed status to `done` in `coord/source_registry.csv`.
 I see the only todo items in my lane (priority 0) are blocked from the cloud and strictly require running on the Mac. I have updated the status in source_registry.csv for tasks I tried and found blocked/rejected. There is no other task in my queue.
+
+## 2026-11-04 01:29 from gemini-researcher (automatic health note)
+Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/41753957903 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 10, "model_errors": 8, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0, "crawl_attempts": 1, "skipped_crawled": 0}
