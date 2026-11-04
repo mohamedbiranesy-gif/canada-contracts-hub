@@ -7,7 +7,7 @@ extra CSV/TSV given), writes <repo>/data/incoming/claude/claude_mx_check.tsv: do
 mail_hosts, checked_date. contrib/claude/rank_buyers/rank.py blanks the mailbox of a `none` domain (the row stays, as Z).
   python3 tools/mx_check.py [--repo ~/cch-crawler] [--workers 32] [--recheck-days 7] [extra.csv ...]
 """
-import argparse, csv, os, subprocess, sys, threading, time, urllib.parse
+import argparse, csv, gzip, os, subprocess, sys, threading, time, urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 
 try:
@@ -98,11 +98,11 @@ def main():
     if os.path.exists(out):
         for r in csv.DictReader(open(out, encoding="utf-8"), delimiter="\t"):
             prev[r["domain"]] = r
-    files = a.files or [os.path.join(a.repo, "coord/results/ranked/ranked_buyers.csv")]
+    files = a.files or [os.path.join(a.repo, "coord/results/ranked/ranked_buyers.csv.gz")]
     domains = set()
     import io
     for f in files:
-        text = open(f, encoding="utf-8", errors="replace").read().replace("\0", "")
+        text = (gzip.open(f, "rt", encoding="utf-8", errors="replace") if f.endswith(".gz") else open(f, encoding="utf-8", errors="replace")).read().replace("\0", "")
         for r in csv.DictReader(io.StringIO(text), delimiter="\t" if f.endswith(".tsv") else ","):
             for col in ("email", "ap_email", "mailbox"):
                 e = (r.get(col) or "").strip().lower()

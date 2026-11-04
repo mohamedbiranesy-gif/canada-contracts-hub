@@ -36,9 +36,9 @@ def main():
         "5 one row per mailbox across packages", "6 no blank cell", "7 receivables mailbox graded as invoicing (heuristic, review)"))
     seen_mail, total, per_pkg, quote_misses = {}, 0, collections.OrderedDict(), []
     for f in files:
-        name = os.path.basename(f)[:-4]
+        name = re.sub(r"_part\d+_of_\d+$", "", os.path.basename(f)[:-4])  # a big package is delivered in numbered part files
         rows = list(csv.DictReader(open(f, encoding="utf-8")))
-        per_pkg[name] = len(rows); total += len(rows)
+        per_pkg[name] = per_pkg.get(name, 0) + len(rows); total += len(rows)
         for i, r in enumerate(rows, 2):
             where = "%s:%d %s" % (name, i, (r.get("buyer") or "")[:40])
             e = (r.get("email") or "").strip()
@@ -68,7 +68,7 @@ def main():
             if (r.get("email_type") or "").startswith("invoicing") and re.search(r"pay your|tax roll|utility bill|tuition|e-?transfer|donat|votre facture", q, re.I) \
                     and not re.search(r"supplier|vendor|fourniss|invoice|factur|payable", q, re.I):
                 gates["7 receivables mailbox graded as invoicing (heuristic, review)"].append(where + " | " + e)
-    lines = ["# Integrity gates — %d delivered rows in %d packages" % (total, len(files)), ""]
+    lines = ["# Integrity gates — %d delivered rows in %d packages (%d files)" % (total, len(per_pkg), len(files)), ""]
     for k, v in gates.items():
         hard = not k.startswith("7")
         lines.append("- **%s**: %s (%d)" % (k, ("PASS" if not v else ("FAIL" if hard else "REVIEW")), len(v)))

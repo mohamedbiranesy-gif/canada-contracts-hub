@@ -66,6 +66,11 @@ registration from the registry match), `vendor_registry_url`, `vendor_registered
 Fields no public source gives (signatory name and title, WSIB clearance number, certificate of insurance, QST number
 unless printed, buyer cost centre / vote / project code, delivery address, tax-exempt certificate) are `not_published`.
 
+## Files
+`coord/results/ranked/batches/<package>.csv` — one CSV per package; a package over ~45 MB is delivered in numbered part files
+(`P13_…_part1_of_4.csv` …, same columns, split only by size). `coord/results/ranked/ranked_buyers.csv.gz` — every row incl. Z, gzipped
+(GitHub refuses files over 100 MB). `SUMMARY.md`, `VALIDATION.md`, `DMARC.md`, `dmarc_no_enforcement.csv` next to them.
+
 ## Mailbox rules
 Webmail addresses (gmail, hotmail, outlook, yahoo, icloud, proton…) are never delivered, whoever publishes them: a webmail account is
 not an organisational mailbox. ISP-hosted mailboxes that a small municipality publishes as its official contact (videotron.ca, bellnet.ca…)

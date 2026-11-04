@@ -134,8 +134,11 @@ def load_orgs():
         if h and not PLATFORM_DOM.search(h) and not re.search(r"^(gmail|hotmail|outlook|yahoo|live|icloud)\.", h):
             by_dom.setdefault(h, o)
     rb = os.path.join(REPO, "coord/results/ranked/ranked_buyers.csv")
+    if not os.path.exists(rb) and os.path.exists(rb + ".gz"):
+        rb = rb + ".gz"
     if os.path.exists(rb):
-        for r in csv.DictReader(open(rb, encoding="utf-8", errors="replace")):
+        import gzip as _gz
+        for r in csv.DictReader(_gz.open(rb, "rt", encoding="utf-8", errors="replace") if rb.endswith(".gz") else open(rb, encoding="utf-8", errors="replace")):
             add(r["buyer"], r["buyer_website"], (r["keys"] or "").split("|")[0] or "rb:" + hashlib.sha1(r["buyer"].encode()).hexdigest()[:12], r.get("grade") or "")
     lf = os.path.join(REPO, "data/incoming/claude/claude_buyer_leads.csv")
     if os.path.exists(lf):

@@ -54,9 +54,18 @@ for name, f in B.items():
         if i not in used and f(r): used.add(i)
     sel.sort(key=lambda r: -int(float(r["completeness_score"] or 0)))
     blank[name] = sum(1 for r in sel for c in r if (r[c] or "").strip() in ("", "{}"))
-    with open(ROOT + "/out/ranked/batches/%s.csv" % name, "w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(filled(r, name) for r in sel)
-    summary.append((name, len(sel)))
+    out_rows = [filled(r, name) for r in sel]
+    approx = sum(len(v or "") + 1 for r in out_rows[:2000] for v in r.values()) / max(1, min(2000, len(out_rows))) * len(out_rows) if out_rows else 0
+    parts = max(1, int(approx // (45 * 1024 * 1024)) + 1)  # GitHub refuses files over 100 MB: a big package is delivered in numbered parts
+    if parts == 1:
+        with open(ROOT + "/out/ranked/batches/%s.csv" % name, "w", newline="", encoding="utf-8") as fh:
+            w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(out_rows)
+    else:
+        step = -(-len(out_rows) // parts)
+        for pi in range(parts):
+            with open(ROOT + "/out/ranked/batches/%s_part%d_of_%d.csv" % (name, pi + 1, parts), "w", newline="", encoding="utf-8") as fh:
+                w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(out_rows[pi * step:(pi + 1) * step])
+    summary.append((name + ("" if parts == 1 else " (%d part files)" % parts), len(sel)))
 left = [r for i, r in enumerate(rows) if i not in used]
 for n, c in summary: print("%-55s %6d" % (n, c))
 print("unassigned", len(left), collections.Counter(r["rank_group"] for r in left).most_common(5))

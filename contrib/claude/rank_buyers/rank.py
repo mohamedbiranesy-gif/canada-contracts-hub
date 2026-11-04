@@ -1347,10 +1347,7 @@ for x in rows:
     if x.get("vendor_website"): vp.append("website: %s%s" % (x["vendor_website"], (" (%s)" % x["vendor_website_status"]) if x.get("vendor_website_status") else ""))
     if x.get("vendor_neq"): vp.append("NEQ: %s" % x["vendor_neq"])
     x["vendor_facts_provenance"] = "; ".join(vp) if vp else "no vendor facts beyond the record"
-    x["method_notes"] = ("No value in this row was written by an AI: records come from public procurement / payment / listing sources (see `source`); the mailbox page was "
-                         "re-fetched by the referee; DNS facts (MX, DMARC, SPF) by tools/mx_check.py and tools/dmarc_check.py; registry facts from bulk registry data; "
-                         "site facts by tools/org_contacts.py and org_extras.py. Every fact carries its page in the matching *_evidence_url / *_provenance column; "
-                         "blank facts are `not_published`. Rules: AGENTS.md §2 (vendor in Canada only per the source's own field or the vendor's own site; role mailboxes only; no blocks circumvented).")
+    x["method_notes"] = "no AI-written values; every fact carries its page in the matching *_evidence_url / *_provenance column; blank = not_published; method and rules: contrib/claude/rank_buyers/README.md, AGENTS.md §2"
 print("narrative columns:", dict(n9))
 for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"]),
                    ("email_evidence_quote", ["mailbox_provenance", "email_deliverability", "email_security_posture", "dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "dns_checked_date",
@@ -1367,6 +1364,8 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]
 with open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf-8") as f:
+    w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
+with gzip.open(ROOT + "/out/ranked/ranked_buyers.csv.gz", "wt", newline="", encoding="utf-8", compresslevel=6) as f:  # the committed copy (GitHub's 100 MB limit)
     w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
 cnt = collections.Counter(x["rank_group"] for x in rows)
 print("rows", len(rows)); print(sorted(cnt.items(), key=lambda kv: (kv[0] != "GOLD", kv[0])))
