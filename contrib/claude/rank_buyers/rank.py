@@ -55,7 +55,9 @@ def real_grade(email, etype, quote, org=""):
     if not roleish(local, org):
         return -1  # looks like a person's mailbox: never used
     q = (quote or "").lower(); i = q.find(email.lower()); near = q[max(0, i - 160):i + len(email) + 160] if i >= 0 else q[:320]
-    if g >= 3 and re.search(r"receivable|recevable|tuition|student account|pay your|pay online|your bill|utility bill|donat|customer service|client payment|paiement de votre", near) \
+    if g >= 3 and re.search(r"receivable|recevable|tuition|student account|pay your|pay online|your bill|utility bill|donat|customer service|client payment|paiement de votre|"
+                            r"votre facture|vos factures|facture d.imp[ôo]t|compte de taxes|taxes municipales|paiement des? taxes|facture d.eau|imp[ôo]t foncier|"
+                            r"droits de scolarit|frais de scolarit|relev[ée] de compte", near) \
             and not re.search(r"payable|payer|supplier|vendor|fournisseur", near):
         g = 1  # a receivable / customer-payment mailbox (customers pay the organisation), not where suppliers send invoices
     if g >= 3 and re.search(r"water|sewer|hydro|utilit|tax|parking|ticket|fine|permit|tuition|fee|donat|rent|licen|bill", local, re.I) \
