@@ -297,6 +297,22 @@ for p, o in orgs.items():
     fill_contract(rows[-1], r, o["keys"])
 # 4. buyers proven by payment / subaward records or client listings (no contract in the dataset)
 leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8", errors="replace"))}
+LDET = {}  # owner 2026-11-03 ("every field"): the lead's own record details (amount, currency, identifiers, dates, vendor address, title)
+if os.path.exists(ROOT + "/data/incoming/claude/claude_lead_details.jsonl.gz"):
+    for _d in jl(ROOT + "/data/incoming/claude/claude_lead_details.jsonl.gz"):
+        LDET[_d.get("key")] = _d
+def apply_details(x, k):
+    d = LDET.get(k)
+    if not d:
+        return
+    for col, key in (("contract_value", "value"), ("currency", "currency"), ("contract_reference", "reference"), ("start_date", "start"),
+                     ("end_date", "end"), ("vendor_address", "vendor_address"), ("contract_title", "title")):
+        if not x.get(col) and d.get(key):
+            x[col] = d[key]
+    if x.get("contract_value") and not x.get("currency"):
+        pf = d.get("platform") or ""
+        x["currency"] = "USD (derived from the source's government)" if re.search(r"usa|socrata|ckan_us|tx1295|ferc|990|sec|cms", pf) else \
+                        "CAD (derived from the source's government)" if re.search(r"bc_sofi|fir|fnfta|ckan|cz_|advd", pf) else ""
 seen = {norm(x["buyer"]) for x in rows}
 seen_dom = {registrable((urllib.parse.urlparse(x["buyer_website"]).hostname or "").lower().removeprefix("www.")) for x in rows if x.get("buyer_website")}
 seen_dom.discard("")
@@ -411,6 +427,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
     dm = re.search(r"=\s*([a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,})(?:[;/\s]|$)", cfv.lower())
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
+    apply_details(x, k)
     x["source"] = ("the Canadian body's own current member / participant list" if member else "the buyer's own website (service of a Canada-HQ vendor in use)" if tech else
                    "the Canada-located vendor's own website" if client else src or "relationship record")
 for x in rows:
@@ -469,6 +486,7 @@ for d, cands in up.items():
     dm = re.search(r"=\s*([a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,})(?:[;/\s]|$)", cfv.lower())
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
+    apply_details(x, k)
     upgraded += 1
 upgraded_t = 0
 for d, cands in up_t.items():

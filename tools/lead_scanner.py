@@ -154,9 +154,58 @@ def latest_date(row):
     return best
 
 
+VAL_KEY = re.compile(r"amount|value|total|montant|obligat|award_amount|contract_value|valeur|payment|paid|sum\b|cost|price", re.I)
+NOT_VAL = re.compile(r"date|year|count|number|no\b|id\b|code|percent|rate|qty|quantity", re.I)
+CUR_KEY = re.compile(r"currency|devise", re.I)
+REF_KEY = re.compile(r"award.?id|contract.?(?:id|no|number|num)|\bpo\b|purchase.?order|reference|r[ée]f[ée]rence|num[ée]ro|solicitation|tender|"
+                     r"bid.?(?:no|number)|agreement.?(?:no|number)|registration|permit|declaration|internal_id|\bid$|generated_internal_id|docket|filing", re.I)
+START_KEY = re.compile(r"start|begin|d[ée]but|effective|from|period_of_performance_start|signed|issue", re.I)
+END_KEY = re.compile(r"end|expir|completion|fin\b|until|period_of_performance_(?:current_)?end|closing|termination", re.I)
+VADDR_KEY = re.compile(r"(?:vendor|supplier|recipient|contractor|subawardee|payee|fournisseur|shipper|firm|seller)[^a-z]*(?:address|city|state|province|country|postal|zip|location)", re.I)
+TITLE_KEY = re.compile(r"description|title|objet|subject|purpose|scope|commodity|service|product|category", re.I)
+
+
+def record_details(row, platform=""):
+    """Contract / payment details carried by the lead's record, for the ranked deliverable's columns."""
+    d = {}
+    if not isinstance(row, dict):
+        return d
+    for k, v in row.items():
+        if v in (None, "", [], {}):
+            continue
+        sv = re.sub(r"\s+", " ", str(v)).strip()
+        kl = k.lower()
+        if "value" not in d and VAL_KEY.search(kl) and not NOT_VAL.search(kl):
+            m = re.search(r"-?\$?\s?\d[\d,]*(?:\.\d+)?", sv)
+            if m and re.sub(r"[^\d]", "", m.group(0)):
+                d["value"] = m.group(0).replace("$", "").replace(" ", "")
+        if "currency" not in d and CUR_KEY.search(kl) and re.fullmatch(r"[A-Za-z]{3}", sv):
+            d["currency"] = sv.upper()
+        if REF_KEY.search(kl) and not re.search(r"date|url|link", kl) and len(sv) <= 60:
+            d.setdefault("reference", {})[k] = sv
+        if "start" not in d and START_KEY.search(kl) and not END_KEY.search(kl):
+            m = re.search(r"(20\d\d|19\d\d)-(\d\d)-(\d\d)", sv)
+            if m:
+                d["start"] = "-".join(m.groups())
+        if "end" not in d and END_KEY.search(kl):
+            m = re.search(r"(20\d\d|19\d\d)-(\d\d)-(\d\d)", sv)
+            if m:
+                d["end"] = "-".join(m.groups())
+        if VADDR_KEY.search(kl) and len(sv) <= 120:
+            d.setdefault("vendor_address_parts", []).append("%s: %s" % (k, sv))
+        if "title" not in d and TITLE_KEY.search(kl) and 3 <= len(sv) <= 200 and not re.search(r"https?://", sv):
+            d["title"] = sv
+    if "reference" in d:
+        d["reference"] = json.dumps(d["reference"], ensure_ascii=False)[:200]
+    if "vendor_address_parts" in d:
+        d["vendor_address"] = "; ".join(d.pop("vendor_address_parts"))[:200]
+    return d
+
+
 def bridge():
     while True:
         buyers, freq = {}, collections.Counter()
+        details = {}  # lead key -> details of its most recent record (owner 2026-11-03: every field the record gives)
         sites = {}  # websites found later for lead buyers (tools/site_finder*.py, us_directories.py): key -> (website, basis)
         wp = os.path.expanduser("~/cch-crawler-state/websites.tsv")
         if os.path.exists(wp):
@@ -190,8 +239,13 @@ def bridge():
                         b["name"] = sites[key][1][14:].strip() or b["name"]  # a tenant portal's programme title replaced by the employer's name
                 b["rows"] += 1
                 d = latest_date(r.get("row")) if r.get("platform") != "vendor_site" else ""
-                if d > b["latest"]:  # keep the most recent record as the example
-                    b.update(latest=d, example_vendor=r["vendor"], dataset_url=r["dataset_url"], canada="%s=%s" % (r["canada_field"], r["canada_value"]))
+                if d > b["latest"] or key not in details:  # keep the most recent record as the example
+                    if d > b["latest"]:
+                        b.update(latest=d, example_vendor=r["vendor"], dataset_url=r["dataset_url"], canada="%s=%s" % (r["canada_field"], r["canada_value"]))
+                    det = record_details(r.get("row"), r.get("platform") or "")
+                    if det:
+                        det.update(key=key, platform=r.get("platform") or "", record_url=r.get("dataset_url") or "", vendor=r.get("vendor") or "", record_date=d)
+                        details[key] = det
         os.makedirs(os.path.join(CRAWLER, "coord/tasks/claude"), exist_ok=True)
         os.makedirs(os.path.join(CRAWLER, "data/incoming/claude"), exist_ok=True)
         with open(os.path.join(CRAWLER, "coord/tasks/claude/claude_buyer_ap_batch901.csv"), "w", newline="", encoding="utf-8") as f:
@@ -205,7 +259,11 @@ def bridge():
             w.writerow(["buyer_key", "buyer_name", "website", "canadian_vendor_rows", "example_vendor", "canada_field_value", "evidence_dataset", "latest_record_date"])
             for k, b in sorted(buyers.items()):
                 w.writerow([k, b["name"], b["website"], b["rows"], b["example_vendor"], b["canada"], b["dataset_url"], b["latest"]])
-        print(time.strftime("%H:%M"), "bridge: %d lead buyers" % len(buyers), flush=True)
+        import gzip
+        with gzip.open(os.path.join(CRAWLER, "data/incoming/claude/claude_lead_details.jsonl.gz"), "wt", encoding="utf-8") as f:
+            for k in sorted(details):
+                f.write(json.dumps(details[k], ensure_ascii=False) + "\n")
+        print(time.strftime("%H:%M"), "bridge: %d lead buyers, %d with record details" % (len(buyers), len(details)), flush=True)
         time.sleep(1800)
 
 
