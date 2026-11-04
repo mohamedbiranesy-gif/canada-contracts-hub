@@ -1,7 +1,7 @@
 import csv, collections, os
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 rows = list(csv.DictReader(open(ROOT + "/out/ranked/ranked_buyers.csv", encoding="utf-8")))
-OK = ("confirmed", "from dataset enrichment")
+OK = ("confirmed",)  # owner 2026-11-04 ("ironclad"): referee-confirmed only; dataset-enrichment mailboxes wait in P11 until the referee has seen them
 def rel(r):
     st, t = r["contract_status"], r.get("tier", "")
     return ("weak" if t == "F" else "inferred" if t == "I" else "member" if t == "M" else

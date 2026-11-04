@@ -32,7 +32,7 @@ def main():
     files = sorted(f for f in glob.glob(os.path.join(a.dir, "batches", "*.csv")) if not os.path.basename(f).startswith("Z_"))
     gates = collections.OrderedDict((k, []) for k in (
         "1 mailbox present, valid, domain with a mail server", "2 role mailbox (no person-like local part, no freemail)",
-        "3 mailbox evidence url + quote containing the address", "4 relationship evidence (contract_status + vendor_country_basis + vendor)",
+        "3 mailbox evidence url + quote containing the address, referee-confirmed (all packages but P11)", "4 relationship evidence (contract_status + vendor_country_basis + vendor)",
         "5 one row per mailbox across packages", "6 no blank cell", "7 receivables mailbox graded as invoicing (heuristic, review)"))
     seen_mail, total, per_pkg, quote_misses = {}, 0, collections.OrderedDict(), []
     for f in files:
@@ -51,8 +51,8 @@ def main():
             if e and (personish or (FREEMAIL.match(dom) and personish)):
                 gates["2 role mailbox (no person-like local part, no freemail)"].append(where + " | " + e)
             q, u = (r.get("email_evidence_quote") or ""), (r.get("email_evidence_url") or "")
-            if e and not u.startswith("http"):
-                gates["3 mailbox evidence url + quote containing the address"].append(where + " | " + e)
+            if e and (not u.startswith("http") or (not name.startswith("P11") and (r.get("email_check") or "") != "confirmed")):
+                gates["3 mailbox evidence url + quote containing the address, referee-confirmed (all packages but P11)"].append(where + " | " + e + " | " + (r.get("email_check") or ""))
             elif e and e.lower() not in q.lower().replace(" ", "") and e.lower() not in q.lower():
                 quote_misses.append(where + " | " + e)  # the referee saw the address on the page (often in a mailto link); the quote shows the label
             if not (r.get("contract_status") and r.get("vendor_country_basis") and r.get("vendor")) or r.get("vendor") == "not_published":

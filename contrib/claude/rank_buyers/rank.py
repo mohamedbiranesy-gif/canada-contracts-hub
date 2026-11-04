@@ -272,8 +272,10 @@ def emailcols(keys, be, gj="", name="", site=""):
             if not ev.get("page_url"):
                 continue  # evidence or nothing: an enrichment contact without the page it was read on is not delivered
             g = real_grade(c["emails"][0], {"ap_contact": "accounts_payable", "procurement_contact": "procurement", "general_contact": "general"}[kind], (ev.get("quote") or ev.get("snippet") or ""), name)
-            if g >= 1:
-                opts.append(((True, g), (c["emails"][0], LABEL[g], "from dataset enrichment", ev.get("page_url", ""), (ev.get("quote") or ev.get("snippet") or "")[:300], g, True)))
+            if g >= 1:  # owner 2026-11-04 ("ironclad"): only a mailbox the referee saw on the page counts as confirmed; the dataset
+                # build's mailboxes are re-submitted as claude_buyer_ap_results_dsenrich01.csv and come back as referee rows above.
+                # Until then they rank below any confirmed mailbox and never make Gold (batches.py routes them to P11).
+                opts.append(((False, g), (c["emails"][0], LABEL[g], "from dataset enrichment", ev.get("page_url", ""), (ev.get("quote") or ev.get("snippet") or "")[:300], g, False)))
     if opts:
         return max(opts, key=lambda x: x[0])[1]
     return "", "", "", "", "", 0, False
