@@ -81,6 +81,8 @@ def real_grade(email, etype, quote, org=""):
         g = 3
     if g == 3 and (STRONG_ANY.search(local) or re.search(r"^ap$|^ap[._-]|[._-]ap$|accounts?[._-]?pay|^cap$|[._-]cap$", local, re.I)):
         g = 4  # named for invoices / accounts payable, whatever label the lane gave it (accountspayable@ filed as "finance")
+    if g == 4 and re.search(r"^payments?$|^payment[._-]|[._-]payments?$|^paiements?$", local, re.I) and not re.search(r"invoice|factur|supplier|vendor|fourniss|payable", near):
+        g = 3  # deep audit 2026-11-04: payments@ is as often the box residents pay as the one suppliers invoice; without invoice words nearby it is finance-grade
     return g
 # 1. best mailbox per buyer key (referee export)
 WRONG_ENTITY = {"ptvi.invoice@vale.com": "PT Vale Indonesia's invoicing mailbox (an overseas shipping instruction on vale.com), not Vale Canada's"}
@@ -272,7 +274,8 @@ PLACE = re.compile(r"canada|quebec|alberta|ontario|saskatchewan|manitoba|scotia|
                    r"british columbia|prince edward|county|city|ville|town|municipal|college|cegep|universit|hydro|\b(bc|nl|ns|nb|pei)\b")
 BAD_LOCAL = re.compile(r"recrut|recruit|emploi|career|carriere|job|plainte|complaint|frais|accessoire|patient|usager|media|presse|press|"
                        r"privacy|confidential|aiprp|atip|benevol|volunteer|fondation|foundation|donat|webmaster|^rh$|^hr$|recevable|receivable|revenue|revenu|"
-                       r"billing|taxation|^taxe", re.I)
+                       r"billing|taxation|^taxe|vie-?privee|accessibilit|billetterie|boxoffice|box-office|tickets?$|^tickets|admission|registrar|newsletter|abonnement|"
+                       r"unsubscribe|no-?reply|donotreply|^events?$|^news$|alumni|scholarship|bourse|^social$|^marketing$|^comms?$|^communications?$", re.I)
 def jur_of_record(r):
     s = (r.get("source") or {}).get("name", "")
     return next((j for rx, j in JUR_SRC if re.search(rx, s)), "")
@@ -1247,6 +1250,30 @@ for i, x in enumerate(rows):
     used_mail[e] = x
 rows = [x for i, x in enumerate(rows) if i not in drop]
 print("same organisation under another key folded into the row that holds its mailbox:", n_fold)
+# second pass: two rows of ONE organisation with two different mailboxes (info@ and ap@ of the same body) — same site domain, same
+# mail domain, same name family (first two significant words) — keep the better-graded / better-tiered row and carry the keys
+STOP_W = {"the", "of", "de", "du", "des", "la", "le", "les", "and", "et", "for", "a", "an", "d", "l", "ville", "city", "town", "municipalite", "municipality", "county", "universite", "university", "college"}
+def _fam(x):
+    toks = [t for t in re.split(r"[^a-z0-9]+", norm(x.get("buyer") or "")) if t and t not in STOP_W]
+    return " ".join(toks[:2])
+TIER_RANK = {"A": 0, "B": 1, "T": 2, "M": 3, "C": 4, "D": 5, "L": 6, "E": 7, "F": 8, "I": 9}
+groups = collections.defaultdict(list)
+for x in rows:
+    e = (x.get("email") or "").lower(); sd = _site_dom(x)
+    if e and sd and sd == registrable(e.split("@")[-1]) and not SHARED_GOV.match(sd):
+        groups[(sd, _fam(x))].append(x)
+drop2, n_fold2 = set(), 0
+for (sd, fam), lst in groups.items():
+    if len(lst) < 2 or not fam:
+        continue
+    lst.sort(key=lambda x: (TIER_RANK.get(x.get("tier") or "I", 9), -int(x.get("grade") or 0), -int(float(x.get("completeness_score") or 0))))
+    keep = lst[0]
+    for x in lst[1:]:
+        hk = set((keep.get("keys") or "").split("|")) | set((x.get("keys") or "").split("|"))
+        keep["keys"] = "|".join(sorted(k for k in hk if k)); keep["buyer_keys"] = len([k for k in hk if k])
+        drop2.add(id(x)); n_fold2 += 1
+rows = [x for x in rows if id(x) not in drop2]
+print("second mailbox of the same organisation (same site and mail domain, same name family) folded:", n_fold2)
 for x in rows:  # owner 2026-11-03: fill what can be derived (after the merge, which keys on jurisdiction and website)
     if not x.get("jurisdiction"):
         x["jurisdiction"] = x.get("_jur") or ""
