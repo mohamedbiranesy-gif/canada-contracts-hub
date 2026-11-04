@@ -358,3 +358,10 @@ owner's Mac, each writing leads the bridge picks up:
   resolves a conflicted CSV by keeping every record of both sides), push_loop v2 stashes only data/incoming/claude by
   name and never pops a foreign stash; the two leftover autostashes were mined (15 rows) and dropped; the 4,502 pool pages
   are being re-read.
+- **10:55Z spot-check of the 3 new Gold rows:** Novartis Pharmaceuticals Canada carried `invoices.aunz@novartis.com` (the
+  group's Australia / New Zealand box, from a global supplier PDF). Rule added: a mailbox whose name carries a region
+  token (aunz, anz, apac, emea, latam, uk, usa, india, china, france, germany, japan, singapore, ptvi …) is not the box of
+  an entity in another country — 16 rows lose their mailbox (WSP Global uk-invoice@, Nike emea.ptp.invoices@, Citibank
+  Canada isupplier.emea@, Thomson Reuters invoices.latam@ …).
+- **Relationship searches for AP-grade organisations without a dated record (R_001, 30 searches, 45 award-page URLs):**
+  buyer_pages --urls found no dictionary vendor with a cue on them; the second R file is not worth the budget.
