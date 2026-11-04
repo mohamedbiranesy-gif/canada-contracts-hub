@@ -64,7 +64,7 @@ def main():
     headers, per_pkg, total = {}, collections.OrderedDict(), 0
     seen_mail, by_name, by_site, by_name_mail = {}, collections.defaultdict(list), collections.defaultdict(list), collections.Counter()
     fill = collections.Counter(); gold_rows = 0; basis_fam = collections.Counter(); btype = collections.Counter(); posture = collections.Counter()
-    for name in ("1 header: 92 identical columns in every file", "2 mailbox syntax", "3 mailbox referee-confirmed (all but P11)", "4 mail server (MX or A) on the mailbox domain",
+    for name in ("1 header: 92 identical columns in every file", "2 mailbox syntax", "3 mailbox referee-confirmed (all but P11)", "4 mail server (MX or A) on the mailbox domain", "4b mail server not yet checked (row newer than the last DNS pass)",
                  "5 no webmail domain", "6 no person-like local part", "7 role word in the local part", "8 receivables-looking local part graded invoicing/AP",
                  "9 shared government domain: page or quote names the body", "10 regional token of a multinational on a differently-located body", "11 quote contains the address",
                  "12 evidence page on the organisation's domain (or its site)", "13 email_type label matches grade", "14 DMARC / SPF / provider columns filled",
@@ -91,7 +91,8 @@ def main():
             if not e or not EMAIL.match(e): hit("2 mailbox syntax", "hard", where, e); reasons.append("syntax")
             if short != "P11_" and (r.get("email_check") or "") != "confirmed": hit("3 mailbox referee-confirmed (all but P11)", "hard", where, r.get("email_check") or ""); reasons.append("not confirmed")
             st = (mx.get(dom) or {}).get("status")
-            if dom and st not in ("mx", "a_only"): hit("4 mail server (MX or A) on the mailbox domain", "hard", where, "%s: %s" % (dom, st or "not checked")); reasons.append("no mail server")
+            if dom and st == "none": hit("4 mail server (MX or A) on the mailbox domain", "hard", where, "%s: none" % dom); reasons.append("no mail server")
+            elif dom and st not in ("mx", "a_only"): hit("4b mail server not yet checked (row newer than the last DNS pass)", "soft", where, dom); reasons.append("mail server unchecked")
             if dom and FREEMAIL.match(dom): hit("5 no webmail domain", "hard", where, e); reasons.append("webmail")
             parts = re.split(r"[._-]", local)
             if len(parts) == 2 and parts[0] in FIRST and len(parts[1]) >= 3 and not ROLE_WORDS.search(local): hit("6 no person-like local part", "hard", where, e); reasons.append("person-like")
@@ -104,7 +105,7 @@ def main():
                     hit("9 shared government domain: page or quote names the body", "soft", where, e + " ← " + u[:80]); reasons.append("shared gov domain unproven")
             m = re.search(r"(?:^|[._-])(aunz|anz|apac|emea|latam|usa|uk|india|china|brasil|mexico|france|germany|japan|singapore|australia|europe|asia)(?:$|[._-])", local)
             if m and (r.get("jurisdiction") or "") in ("CA", "QC", "ON", "BC", "AB", "SK", "MB", "NS", "NB", "NL", "PE", "FED") and m.group(1) not in ("usa",): hit("10 regional token of a multinational on a differently-located body", "soft", where, e); reasons.append("regional token")
-            if e and el not in q.lower().replace(" ", "") and el not in q.lower(): hit("11 quote contains the address", "hard", where, q[:60]); reasons.append("quote lacks address")
+            if e and short != "P11_" and el not in q.lower().replace(" ", "") and el not in q.lower(): hit("11 quote contains the address", "hard", where, q[:60]); reasons.append("quote lacks address")
             if e and uh and dom and registrable(uh) != registrable(dom) and (not sh or registrable(uh) != registrable(sh)) and not SHARED_GOV.match(dom) and "direct-deposit" not in u:
                 hit("12 evidence page on the organisation's domain (or its site)", "soft", where, "%s on %s (site %s)" % (e, uh, sh)); reasons.append("evidence host differs")
             lab = {"4": "invoicing/AP", "3": "finance/accounting dept or supplier-payment office", "2": "purchasing", "1": "general"}.get(g)

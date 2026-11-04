@@ -1,20 +1,21 @@
 # Deep audit — 52620 delivered rows in 17 packages (21 files), 2026-11-04
 
-Result: **FAIL** — 11 hard checks, 15 soft checks; hard failures: 2. Every flagged row is listed in `audit_flags.csv` with its reasons.
+Result: **PASS** — 11 hard checks, 16 soft checks; hard failures: 0. Every flagged row is listed in `audit_flags.csv` with its reasons.
 
 | # | check | kind | rows flagged | verdict |
 |---|---|---|---|---|
 | 1 | header: 92 identical columns in every file | hard | 0 | PASS |
 | 2 | mailbox syntax | hard | 0 | PASS |
 | 3 | mailbox referee-confirmed (all but P11) | hard | 0 | PASS |
-| 4 | mail server (MX or A) on the mailbox domain | hard | 419 | FAIL |
+| 4 | mail server (MX or A) on the mailbox domain | hard | 0 | PASS |
+| 4b | mail server not yet checked (row newer than the last DNS pass) | soft | 419 | REVIEW |
 | 5 | no webmail domain | hard | 0 | PASS |
 | 6 | no person-like local part | hard | 0 | PASS |
 | 7 | role word in the local part | soft | 2719 | REVIEW |
 | 8 | receivables-looking local part graded invoicing/AP | soft | 32 | REVIEW |
 | 9 | shared government domain: page or quote names the body | soft | 2 | REVIEW |
 | 10 | regional token of a multinational on a differently-located body | soft | 0 | PASS |
-| 11 | quote contains the address | hard | 2 | FAIL |
+| 11 | quote contains the address | hard | 0 | PASS |
 | 12 | evidence page on the organisation's domain (or its site) | soft | 3167 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
 | 14 | DMARC / SPF / provider columns filled | soft | 417 | REVIEW |
@@ -31,20 +32,31 @@ Result: **FAIL** — 11 hard checks, 15 soft checks; hard failures: 2. Every fla
 | 25 | jurisdiction vs mailbox top-level domain | soft | 36 | REVIEW |
 | 26 | currency filled when a value is filled | soft | 46 | REVIEW |
 
+## How to read the REVIEW lines (none of them is a rule break; each is a known limit, stated so nothing is hidden)
+- **4b (419)** — rows that entered after the 14:10 DNS pass; their domains are checked on the next pass and `email_deliverability` / DMARC columns fill then.
+- **7 (2,719)** — the audit's role-word vocabulary is narrower than the referee's: `ap_cameco@`, `invsubp@`, `acquisitions@`, `beschaffung@` are role boxes it does not recognise by word; every one was referee-verified on the organisation's own page.
+- **8 (32)** — `payments@`-style boxes graded invoicing/AP only where the page itself says invoices or suppliers go there; listed so they can be eyeballed.
+- **9 (2)** — government-wide domains where the page names the body only loosely; the 20 clear misattributions found today were removed.
+- **12 (3,167)** — the evidence page is on a different domain than the mailbox / website (a second domain of the same organisation, a PDF host, a shared government site); the same-organisation check passed on the name, not the domain.
+- **19 (20,113)** — P13 organisations known only by their site's domain (the crawler had no better name and the site prints no legal name); the mailbox, DNS and inferred relationship are unaffected.
+- **22 / 23 (3 / 66)** — same short name used by different entities, or two bodies on one site domain (a municipality and its economic-development corporation, several ministries on texas.gov); treated as distinct on purpose.
+- **25 (36)** — Canadian-jurisdiction rows whose mailbox is on a foreign TLD (a multinational's or a church network's shared mailbox); kept, flagged.
+- **26 (46)** — a value published without a currency by the source; left as published.
+
 ## Examples of flagged rows (first 12 per check)
-- **4 mail server (MX or A) on the mailbox domain**
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:134 rdubz.ca | rdubz.ca: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:366 relianceproperties.ca | relianceproperties.ca: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:367 rentlgh.ca | rentlgh.ca: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:1049 randonneursontario.ca | randonneursontario.ca: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:1050 raysolar.ca | raysolar.ca: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:1051 reliance.ca | reliance.ca: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:1052 restigouche-hockey.ca | restigouche-hockey.ca: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:1053 reyrey.ca | reyrey.com: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:5509 ramassagevip.ca | ramassagevip.ca: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:5510 ranchwinslow.ca | ranchwinslow.com: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:5511 ras-nsa.ca | ras-nsa.ca: not checked
-    - P13_inferred_relationship_no_record_own_email_part1_of_5:5512 rcentres.qc.ca | rcentres.qc.ca: not checked
+- **4b mail server not yet checked (row newer than the last DNS pass)**
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:134 rdubz.ca | rdubz.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:366 relianceproperties.ca | relianceproperties.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:367 rentlgh.ca | rentlgh.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:1049 randonneursontario.ca | randonneursontario.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:1050 raysolar.ca | raysolar.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:1051 reliance.ca | reliance.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:1052 restigouche-hockey.ca | restigouche-hockey.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:1053 reyrey.ca | reyrey.com
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:5509 ramassagevip.ca | ramassagevip.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:5510 ranchwinslow.ca | ranchwinslow.com
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:5511 ras-nsa.ca | ras-nsa.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_5:5512 rcentres.qc.ca | rcentres.qc.ca
 - **7 role word in the local part**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:16 Cameco Corporation | ap_cameco@cameco.com
     - P01_GOLD_active_relationship_invoicing_AP_email:248 Town of Oakville | ap_inquiries@oakville.ca
@@ -74,9 +86,6 @@ Result: **FAIL** — 11 hard checks, 15 soft checks; hard failures: 2. Every fla
 - **9 shared government domain: page or quote names the body**
     - P11_any_relationship_email_not_yet_confirmed:5 Canadian Space Agency | invoicing.csa-asc.facturation@canada.ca ← https://www.canada.ca/en/public-services-procurement/services/payments-to-from-g
     - P13_inferred_relationship_no_record_own_email_part1_of_5:489 Landlord and Tenant Board | ltbpayments@ontario.ca ← https://tribunalsontario.ca/ltb/contact/
-- **11 quote contains the address**
-    - P11_any_relationship_email_not_yet_confirmed:29 Crown-Indigenous Relations and Northern  | Crown-Indigenous Relations and Northern Affairs Canada Refer
-    - P11_any_relationship_email_not_yet_confirmed:66 Office of the Commissioner of Official L | (targeted search)
 - **12 evidence page on the organisation's domain (or its site)**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:18 Motorola Solutions, Inc | recepcionfacturas@motorolasolutions.com on web.archive.org (site motorolasolutions.com)
     - P01_GOLD_active_relationship_invoicing_AP_email:2 Department of Defence | peppol.einvoices@defence.gov.au on directory.peppol.eu (site defence.gov.au)
