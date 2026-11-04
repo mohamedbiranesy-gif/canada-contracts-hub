@@ -232,6 +232,8 @@ def rec_extra(c):
 TIER = {"ongoing": "A", "ongoing_inferred": "B", "end_date_unknown": "C"}
 TS = {"A": 3, "B": 2, "T": 1.8, "L": 1.5, "M": 1.2, "C": 1, "D": 1, "E": 0.5}
 CUTOFF = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
+CUR = {"FED": "CAD", "AB": "CAD", "NT": "CAD", "NL": "CAD", "SK": "CAD", "QC": "CAD", "NS": "CAD", "NB": "CAD", "MB": "CAD", "ON": "CAD", "BC": "CAD",
+       "YT": "CAD", "NU": "CAD", "PE": "CAD", "US": "USD", "AU": "AUD", "UK": "GBP"}
 def award_date(r):
     d = r["contract"].get("dates") or {}
     return max((str(d.get(k) or "")[:10] for k in ("awarded", "award", "signed", "start")), default="") or str(d.get("published") or "")[:10]
@@ -289,8 +291,24 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
     if po and len(po.split()) <= 3 and not PLACE.search(po) and j:  # generic ministry-style name: one group per government
         p, name = po + " | " + j, own
     sc, fields = contract_score(r)
-    o = orgs.setdefault(p, {"keys": set(), "best": None, "bs": -1, "n": 0, "name": name, "be": be, "jur": collections.Counter()})
+    o = orgs.setdefault(p, {"keys": set(), "best": None, "bs": -1, "n": 0, "name": name, "be": be, "jur": collections.Counter(),
+                            "vendors": collections.Counter(), "n12": 0, "latest": "", "value": 0.0, "nval": 0, "cur": collections.Counter(), "sources": collections.Counter()})
     o["keys"].add(key); o["n"] += 1; o["jur"][j] += 1
+    _vn = ((r.get("vendor") or {}).get("name") or "").strip()
+    if _vn:
+        o["vendors"][_vn] += 1
+    _ad = award_date(r) or ""
+    if _ad >= CUTOFF:
+        o["n12"] += 1
+    if _ad > o["latest"]:
+        o["latest"] = _ad
+    try:
+        _val = float(str((r.get("contract") or {}).get("value") or "").replace(",", ""))
+        if _val > 0:
+            o["value"] += _val; o["nval"] += 1; o["cur"][(r.get("contract") or {}).get("currency") or CUR.get(j, "") or "?"] += 1
+    except ValueError:
+        pass
+    o["sources"][(r.get("source") or {}).get("name") or ""] += 1
     if sc > o["bs"] or (sc == o["bs"] and award_date(r) > award_date(o["best"])):
         o["best"], o["bs"], o["fields"] = r, sc, fields
         if len(name) < len(o["name"]) or not o["name"]: o["name"] = name
@@ -331,8 +349,6 @@ def emailcols(keys, be, gj="", name="", site=""):
     if opts:
         return max(opts, key=lambda x: x[0])[1]
     return "", "", "", "", "", 0, False
-CUR = {"FED": "CAD", "AB": "CAD", "NT": "CAD", "NL": "CAD", "SK": "CAD", "QC": "CAD", "NS": "CAD", "NB": "CAD", "MB": "CAD", "ON": "CAD", "BC": "CAD",
-       "YT": "CAD", "NU": "CAD", "PE": "CAD", "US": "USD", "AU": "AUD", "UK": "GBP"}
 def fill_contract(x, r, keys):
     """owner 2026-11-03: every field the record or the release tables give is filled (the rest becomes not_published in batches.py)"""
     v, ve, src = r.get("vendor") or {}, r.get("vendor_enrichment") or {}, r.get("source") or {}
@@ -372,6 +388,17 @@ for p, o in orgs.items():
         "vendor_bn9": ve.get("business_number_bn9") or "", "vendor_gst_hst_derived": ve.get("gst_hst_account_derived") or "", "vendor_website": ve.get("website") or "",
         "vendor_emails": "; ".join((x.get("email") or x.get("value") or "") if isinstance(x, dict) else str(x) for x in (ve.get("contact_emails_published") or [])), "contracts_with_canadian_suppliers": o["n"], "buyer_keys": len(o["keys"]), "keys": "|".join(sorted(k for k in o["keys"] if k)), "tier": tier, "grade": g, "acc": acc})
     fill_contract(rows[-1], r, o["keys"])
+    x = rows[-1]
+    x["distinct_canadian_vendors"] = str(len(o["vendors"]))
+    x["records_last_12_months"] = str(o["n12"])
+    x["latest_award_date_any_vendor"] = o["latest"]
+    x["total_known_value_canadian_suppliers"] = ("%.2f %s over %d of %d records with a published value" % (o["value"], "/".join(k for k, _ in o["cur"].most_common(2)), o["nval"], o["n"])) if o["nval"] else ""
+    x["other_canadian_vendors_sample"] = "; ".join("%s (%d)" % (n, c) for n, c in o["vendors"].most_common(6) if n != x.get("vendor"))[:400]
+    x["record_sources"] = "; ".join("%s (%d)" % (n, c) for n, c in o["sources"].most_common(4))[:300]
+    x["vendor_registry_status"] = ve.get("registry_status") or ""
+    x["vendor_registry_match_level"] = ve.get("registry_match_level") or ""
+    x["vendor_incorporation_date"] = (ve.get("incorporation_or_registration_date") or "")[:10]
+    x["vendor_bn_source"] = ve.get("business_number_source") or ""
 # 4. buyers proven by payment / subaward records or client listings (no contract in the dataset)
 leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8", errors="replace"))}
 LDET = {}  # owner 2026-11-03 ("every field"): the lead's own record details (amount, currency, identifiers, dates, vendor address, title)
@@ -1196,14 +1223,146 @@ for x in rows:
             x["vendor_emails"] = v["emails"]; n_oc["vendor_emails"] += 1
         x["vendor_contact_evidence_url"] = v.get("address_url") or v.get("emails_url") or v.get("phone_url") or ""
 print("org_contacts: %d organisations read; filled %s" % (len(OC), dict(n_oc)))
+# 9. owner 2026-11-04 10:50: every row states the nature of the relationship, how it was found, and where every fact comes from
+LANE_META = {}  # (key, mailbox) -> (lane, file, retrieved_date, task_id)
+for path in _glob.glob(ROOT + "/data/incoming/*/*buyer_ap*results*.csv"):
+    lane = os.path.basename(os.path.dirname(path))
+    try:
+        for r in csv.DictReader(io.StringIO(open(path, encoding="utf-8", errors="replace").read().replace("\0", ""))):
+            e = (r.get("ap_email") or "").strip().lower()
+            if e:
+                for k in (r.get("buyer_key") or "").split("|"):
+                    LANE_META.setdefault((k.strip(), e), (lane, os.path.basename(path), r.get("retrieved_date") or "", r.get("task_id") or ""))
+                LANE_META.setdefault(("", e), (lane, os.path.basename(path), r.get("retrieved_date") or "", r.get("task_id") or ""))
+    except Exception:
+        pass
+INGEST_DATE = ""
+try:
+    INGEST_DATE = re.search(r"Ingest report — (\S+)", open(ROOT + "/coord/INGEST_REPORT.md", encoding="utf-8").read()).group(1)
+except Exception:
+    pass
+BTYPE = (
+    (r"\b(first nation|nation|band council|tribal|m[ée]tis|inuit|conseil de bande|cree|mohawk|anishinabe|innu)\b", "First Nation / Indigenous government"),
+    (r"\b(school board|school district|school division|board of education|centre de services scolaire|commission scolaire|cssd|csd|dsb|conseil scolaire|academy trust|independent school district|isd|public schools|k-12)\b", "school board / school district"),
+    (r"\b(universit|polytechnic|institute of technology|college|coll[èe]ge|c[ée]gep|cegep|school of|academy|institut universitaire)\b", "university / college"),
+    (r"\b(hospital|h[ôo]pital|health (?:authority|region|services|network|centre|center|system)|ciusss|cisss|chu\b|healthcare|sant[ée]|medical cent|clinic|long[- ]term care|nursing home|chsld)\b", "hospital / health authority"),
+    (r"\b(ville|city of|town of|village|municipalit|township|canton|county of|comt[ée]|mrc\b|regional municipality|regional district|district of|borough|parish|paroisse|arrondissement|metro vancouver|metropolitan)\b", "municipality / local government"),
+    (r"\b(transit|transport|transpo|airport|a[ée]roport|port authority|port of|harbour|ferry|rail|m[ée]tro|r[ée]seau de transport|soci[ée]t[ée] de transport)\b", "transport / transit authority"),
+    (r"\b(hydro|power|electric|utilit|water|wastewater|energy|gas|sewer|waterworks|[ée]nergie|r[ée]gie)\b", "utility / public corporation"),
+    (r"\b(ministry|minist[èe]re|department of|secr[ée]tariat|government of|gouvernement|province of|state of|commonwealth of|treasury board|legislative|assembly|parliament|service canada|agency|agence|commission|tribunal|board|office of|bureau|crown|authority|administration|service|services)\b", "government ministry / agency"),
+    (r"\b(library|biblioth|museum|mus[ée]e|gallery|theatre|theater|arts|festival|zoo|aquarium|orchestra|foundation|fondation|charit|church|[ée]glise|diocese|parish|association|society|soci[ée]t[ée]|federation|f[ée]d[ée]ration|council|conseil|union|syndicat|chamber|chambre|institute|institut|centre|center|club|non-?profit|coop|co-op|credit union|caisse)\b", "non-profit / association / cultural body"),
+    (r"\b(inc|ltd|lt[ée]e|llc|llp|corp|corporation|company|co\b|plc|gmbh|sa\b|s\.a\.|bv|ag\b|group|groupe|holdings|industries|enterprises|entreprises|partners|bank|banque|insurance|assurance|trust|capital|realty|construction|technologies|systems|solutions|pharma|mining|resources|oil|petroleum|motors|airlines|shipbuilding|aerospace|laboratories)\b", "company (private sector)"),
+)
+def buyer_type(name, jur):
+    n = (name or "").lower()
+    for rx, label in BTYPE:
+        if re.search(rx, n, re.I):
+            if label == "government ministry / agency" and jur == "US":
+                return "US government body (federal, state or local)"
+            if label == "municipality / local government" and jur == "US":
+                return "US city / county / local government"
+            return label
+    return "organisation (type not stated in the record)"
+KIND = {"A": "public contract / purchase award with a published end date (dated record)", "B": "public contract / purchase award in the last 12 months (dated record)",
+        "T": "active paid service of a Canada-HQ vendor seen on the buyer's own site", "M": "member or regulated payer of a Canadian body (current list)",
+        "C": "named as a client by the Canada-located vendor (client list / customer story / case study)", "D": "named as a client by the Canada-located vendor (client list / customer story), dated",
+        "L": "dated deal or payment 12 to 36 months ago", "E": "linked from the Canada-located vendor's site (weakest listed relationship)", "F": "older contract or payment (more than 36 months, or ended)",
+        "I": "inferred: no record; the organisation's type and province make a Canadian supplier relationship near-certain", "N": "no relationship record"}
+HOW_FOUND = {"A": "the award record was harvested from the public procurement source named in `source` (scripts/<source> pipeline), matched to the buyer by its canonical name/key, and the vendor's Canada location read from the source's own vendor address/country field (`vendor_country_basis`)",
+             "B": "same as above: a dated award record from the public source in `source`, vendor located in Canada per the source's own field",
+             "T": "tools/tech_portals2.py / tech_relationships.py found the buyer's own web property running the Canada-HQ vendor's paid platform (portal host or embedded service), dated by the page read",
+             "M": "tools/member_lists.py read the Canadian body's current member / regulated-payer list and matched the buyer by name",
+             "C": "tools/client_lists.py / customer_stories.py read the vendor's own client list or customer story naming the buyer",
+             "D": "tools/client_lists.py / dated_stories.py read the vendor's dated customer story / case study naming the buyer",
+             "L": "a dated public record (payment register, subaward, vendor news release or EDC transaction) 12 to 36 months old, harvested by the lead scanners",
+             "E": "tools/provider_mentions.py / news_match.py found the buyer linked from the vendor's own site or release",
+             "F": "an older or ended record in the contract dataset (release tables)",
+             "I": "no record; tools/org_lists.py / osm_orgs.py / the crawlers placed the organisation in Canada by type and province; the vendor named is the Canada-located supplier such bodies almost always pay (see `vendor_country_basis`)",
+             "N": "no relationship record"}
+LANE_WORDS = {"claude": "the claude lane's no-AI tools", "chatgpt": "the ChatGPT/Codex agent (lane chatgpt)", "codex": "the Codex agent (lane codex)", "gemini": "the Gemini agent (lane gemini)", "jules": "the Jules agent (lane jules)"}
+def mailbox_how(file, lane):
+    f = (file or "").lower()
+    if "crawl" in f: return "found by the no-AI crawler tools/ap_crawler.py reading the buyer's own site (contact / finance / supplier pages)"
+    if "search" in f or "deep" in f: return "page located by a web search (AI agent located the URL only), then read by tools/deep_pages.py without AI"
+    if "apfirst" in f: return "page from the owner's earlier extract, re-read by tools/ap_pages.py without AI"
+    if "dsenrich" in f: return "mailbox from the dataset build, re-submitted so the referee re-fetched the page"
+    if "federal" in f: return "PSPC / departmental supplier-payment directory read by the claude lane"
+    if "manual" in f or "agent" in f: return "researched by a Claude agent that opened the page and quoted it"
+    if "peppol" in f: return "Peppol directory lookup by the claude lane"
+    if "xverify" in f: return "cross-verification row (a second lane quoting the same page)"
+    return "researched by %s (page opened and quoted)" % LANE_WORDS.get(lane, lane or "a lane agent")
+n9 = collections.Counter()
+for x in rows:
+    for col in ("relationship_kind", "relationship_detail", "how_relationship_was_found", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
+                "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
+                "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
+        x.setdefault(col, "")
+    t = x.get("tier") or "N"
+    x["buyer_type"] = buyer_type(x.get("buyer"), x.get("jurisdiction") or x.get("_jur") or "")
+    x["relationship_kind"] = KIND.get(t, KIND["N"])
+    x["how_relationship_was_found"] = HOW_FOUND.get(t, HOW_FOUND["N"])
+    parts = ["%s (%s, %s) — %s: %s" % (x.get("buyer") or "", x["buyer_type"], x.get("jurisdiction") or x.get("_jur") or "jurisdiction not stated", x["relationship_kind"], x.get("vendor") or "vendor not named")]
+    if x.get("contract_title"): parts.append("subject: %s" % x["contract_title"][:200])
+    if x.get("instrument_type"): parts.append("instrument: %s" % x["instrument_type"])
+    if x.get("contract_reference") and x["contract_reference"] not in ("{}", ""): parts.append("reference: %s" % x["contract_reference"][:200])
+    if x.get("contract_value"): parts.append("value: %s %s" % (x["contract_value"], x.get("currency") or ""))
+    dates = ", ".join(l for l in (("awarded %s" % x["award_date"]) if x.get("award_date") else "", ("start %s" % x["start_date"]) if x.get("start_date") else "", ("end %s" % x["end_date"]) if x.get("end_date") else "") if l)
+    if dates: parts.append(dates)
+    if x.get("source"): parts.append("published by: %s" % x["source"])
+    if x.get("contract_link"): parts.append("record: %s" % x["contract_link"])
+    if x.get("vendor_country_basis"): parts.append("vendor in Canada because: %s" % x["vendor_country_basis"][:220])
+    if x.get("contract_status"): parts.append("status rule: %s" % x["contract_status"][:220])
+    if x.get("distinct_canadian_vendors"): parts.append("this buyer has %s records with Canada-located vendors (%s distinct vendors; %s in the last 12 months; latest %s)" % (x.get("contracts_with_canadian_suppliers"), x["distinct_canadian_vendors"], x.get("records_last_12_months") or "0", x.get("latest_award_date_any_vendor") or "n/a"))
+    x["relationship_detail"] = " | ".join(parts)
+    e = (x.get("email") or "").lower()
+    if e:
+        meta = next((LANE_META.get((k, e)) for k in (x.get("keys") or "").split("|") if (k, e) in LANE_META), None) or LANE_META.get(("", e))
+        lane, file, rdate, task = meta if meta else ("", "", "", "")
+        n9["mailbox meta found" if meta else "mailbox meta missing"] += 1
+        mp = ["%s (%s)" % (e, x.get("email_type") or "")]
+        mp.append(mailbox_how(file, lane) + (" on %s" % rdate if rdate else ""))
+        mp.append("page: %s" % (x.get("email_evidence_url") or ""))
+        if x.get("email_evidence_quote"): mp.append("quote: \"%s\"" % x["email_evidence_quote"][:160].replace("\n", " "))
+        mp.append(("verified: the referee (verify-and-merge workflow) re-fetched the page and saw the address (report %s)" % INGEST_DATE) if x.get("email_check") == "confirmed" else "verification: %s" % (x.get("email_check") or "pending"))
+        if x.get("email_deliverability"): mp.append("DNS: %s" % x["email_deliverability"])
+        if x.get("email_security_posture"): mp.append(x["email_security_posture"])
+        if lane: mp.append("lane file: %s/%s%s" % (lane, file, (" task %s" % task) if task else ""))
+        x["mailbox_provenance"] = " | ".join(mp)
+    bp = []
+    if x.get("buyer_address") and x.get("buyer_contact_evidence_url"): bp.append("address and phone: the buyer's own site, %s (tools/org_contacts.py: JSON-LD / contact page; no AI)" % x["buyer_contact_evidence_url"])
+    elif x.get("buyer_address"): bp.append("address: the buyer's record / buyer table")
+    if x.get("buyer_legal_name_as_published"): bp.append("legal name: the site's copyright / footer line (tools/org_extras.py)")
+    if x.get("buyer_bn_as_published"): bp.append("BN: as printed on the buyer's site (see buyer_bn_as_published for the page); GST/HST derived as BN9 + RT0001, not confirmed")
+    if x.get("buyer_logo_url"): bp.append("logo: og:image / logo image of the buyer's site")
+    if x.get("buyer_website_status"): bp.append("website: %s" % x["buyer_website_status"])
+    for col, lab in (("ap_phone", "AP phone"), ("invoice_mailing_address", "invoice mailing address"), ("invoicing_requirements", "invoicing requirements"), ("payment_terms_as_published", "payment terms"), ("po_required_as_published", "PO requirement"), ("invoice_portal_url", "invoice portal"), ("ap_contact_name_as_published", "AP contact name")):
+        if x.get(col): bp.append("%s: the lane's AP page (%s)" % (lab, x.get("email_evidence_url") or "evidence page"))
+    x["buyer_facts_provenance"] = "; ".join(bp) if bp else "no buyer facts beyond the record and the mailbox page"
+    vp = []
+    if x.get("vendor"): vp.append("name and address: the record's vendor block (%s)" % (x.get("source") or "source"))
+    if x.get("vendor_registry_id"): vp.append("registry identity: %s%s (scripts/enrichment_*: Corporations Canada / REQ / BC OrgBook bulk data; %s)" % (x["vendor_registry_id"], (" status %s" % x["vendor_registry_status"]) if x.get("vendor_registry_status") else "", x.get("vendor_registry_match_level") or "match"))
+    if x.get("vendor_bn9"): vp.append("BN9: %s; GST/HST %s" % (x.get("vendor_bn_source") or "registry match", "derived BN9 + RT0001 (CRA registry is CAPTCHA-protected; not automated)"))
+    if x.get("vendor_incorporation_date"): vp.append("incorporated / registered: %s" % x["vendor_incorporation_date"])
+    if x.get("vendor_contact_evidence_url"): vp.append("phone / role e-mails / logo: the vendor's own site, %s (tools/org_contacts.py, org_extras.py)" % x["vendor_contact_evidence_url"])
+    if x.get("vendor_website"): vp.append("website: %s%s" % (x["vendor_website"], (" (%s)" % x["vendor_website_status"]) if x.get("vendor_website_status") else ""))
+    if x.get("vendor_neq"): vp.append("NEQ: %s" % x["vendor_neq"])
+    x["vendor_facts_provenance"] = "; ".join(vp) if vp else "no vendor facts beyond the record"
+    x["method_notes"] = ("No value in this row was written by an AI: records come from public procurement / payment / listing sources (see `source`); the mailbox page was "
+                         "re-fetched by the referee; DNS facts (MX, DMARC, SPF) by tools/mx_check.py and tools/dmarc_check.py; registry facts from bulk registry data; "
+                         "site facts by tools/org_contacts.py and org_extras.py. Every fact carries its page in the matching *_evidence_url / *_provenance column; "
+                         "blank facts are `not_published`. Rules: AGENTS.md §2 (vendor in Canada only per the source's own field or the vendor's own site; role mailboxes only; no blocks circumvented).")
+print("narrative columns:", dict(n9))
 for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"]),
-                   ("email_evidence_quote", ["email_deliverability", "email_security_posture", "dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "dns_checked_date",
+                   ("email_evidence_quote", ["mailbox_provenance", "email_deliverability", "email_security_posture", "dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "dns_checked_date",
                                              "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
+                   ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found"]),
                    ("contract_title", ["contract_description", "instrument_type", "procurement_method", "commodity", "number_of_bids"]),
                    ("buyer_contact_evidence_url", ["buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status"]),
                    ("vendor_legal_name", ["vendor_trading_name", "vendor_registry_id", "vendor_registry_url", "vendor_registered_address", "vendor_neq", "vendor_qst_as_published"]),
                    ("vendor_contact_evidence_url", ["vendor_logo_url", "vendor_website_status"]),
-                   ("invoicing_requirements", ["payment_terms_as_published", "po_required_as_published"])):
+                   ("invoicing_requirements", ["payment_terms_as_published", "po_required_as_published"]),
+                   ("buyer_website_status", ["buyer_type", "buyer_facts_provenance", "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources"]),
+                   ("vendor_website_status", ["vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source", "vendor_facts_provenance", "method_notes"])):
     if after in cols:
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]

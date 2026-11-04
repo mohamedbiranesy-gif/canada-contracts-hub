@@ -40,7 +40,7 @@ schools / authorities `abed:`; a key listed there counts as located in Canada), 
 else the single postal code on the organisation's own page. Organisations not shown to be located in Canada get no inference (skipped). One row
 per organisation: P12 / P13 never repeat an organisation, registrable domain or mailbox already in a row above.
 
-## Columns (74, in file order)
+## Columns (92, in file order)
 `jurisdiction`, `rank_group`, `completeness_score`, `buyer`, `buyer_website`, `buyer_address`, `buyer_phone`,
 `buyer_contact_evidence_url`, `buyer_legal_name_as_published` (copyright / footer line of the buyer's site),
 `buyer_bn_as_published` (BN / charity number as printed, with the page), `buyer_gst_hst_derived` (BN9 + RT0001, labelled
@@ -70,6 +70,19 @@ unless printed, buyer cost centre / vote / project code, delivery address, tax-e
 Webmail addresses (gmail, hotmail, outlook, yahoo, icloud, proton…) are never delivered, whoever publishes them: a webmail account is
 not an organisational mailbox. ISP-hosted mailboxes that a small municipality publishes as its official contact (videotron.ca, bellnet.ca…)
 are kept and labelled `mail_provider = ISP mail`.
+
+## Narrative and provenance columns (owner 2026-11-04 10:50: every row states the relationship and how it was found)
+`buyer_type` (derived from the name: municipality, school board, university, hospital/health authority, ministry/agency, utility, First
+Nation, non-profit, company…), `relationship_kind` (contract award with end date · award in the last 12 months · active paid service seen
+on the buyer's site · member/regulated payer · named as a client by the vendor · dated deal/payment 12–36 months · linked from the
+vendor's site · older record · inferred), `relationship_detail` (one line with buyer, vendor, subject, instrument, reference, value,
+dates, publishing source, record link, the Canada proof and the status rule, plus the buyer's record counts),
+`how_relationship_was_found` (the pipeline step and tool that produced the record), `mailbox_provenance` (who located the mailbox and
+how — crawler / web search + no-AI page read / lane agent —, the page, the quote, the referee verification, DNS and security posture,
+the lane file and task id), `buyer_facts_provenance` and `vendor_facts_provenance` (the page or table behind every buyer / vendor
+fact), `distinct_canadian_vendors`, `records_last_12_months`, `latest_award_date_any_vendor`, `total_known_value_canadian_suppliers`,
+`other_canadian_vendors_sample`, `record_sources` (the buyer's whole history with Canada-located vendors in the dataset),
+`vendor_registry_status`, `vendor_registry_match_level`, `vendor_incorporation_date`, `vendor_bn_source`, `method_notes`.
 
 ## Key columns
 `buyer`, `buyer_website`, `email`, `email_type` (invoicing/AP, finance, purchasing, general), `email_check` (confirmed =

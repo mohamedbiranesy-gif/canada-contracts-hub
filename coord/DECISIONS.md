@@ -429,3 +429,12 @@ rank.py adds eight columns after `email_deliverability`: `email_security_posture
 Summary `coord/results/ranked/DMARC.md`, list `dmarc_no_enforcement.csv`. Webmail addresses (gmail, hotmail, outlook, yahoo, icloud,
 proton…) leave the delivered packages (159 P13 rows, tiny businesses): a webmail account is not an organisational mailbox, whoever
 publishes it. ISP-hosted municipal mailboxes (videotron.ca, bellnet.ca) stay, labelled `mail_provider = ISP mail`.
+
+## 2026-11-04 11:05 (claude) — every row tells its own story (18 narrative / provenance / aggregate columns)
+Owner (10:50): each row must state the nature of the relationship, how it was found, and carry everything known about buyer and vendor.
+rank.py now derives, from the final values of each row: `buyer_type`, `relationship_kind`, `relationship_detail`, `how_relationship_was_found`,
+`mailbox_provenance` (lane / tool, page, quote, retrieval date, referee verification, DNS + security posture, lane file and task id — from the
+lane result files joined by key + mailbox), `buyer_facts_provenance`, `vendor_facts_provenance`, `method_notes`; per-buyer aggregates over the
+whole contract dataset (`distinct_canadian_vendors`, `records_last_12_months`, `latest_award_date_any_vendor`,
+`total_known_value_canadian_suppliers`, `other_canadian_vendors_sample`, `record_sources`); vendor registry facts already in the release
+(`vendor_registry_status`, `vendor_registry_match_level`, `vendor_incorporation_date`, `vendor_bn_source`). 92 columns; gates unchanged (PASS).
