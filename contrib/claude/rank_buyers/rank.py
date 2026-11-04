@@ -410,12 +410,15 @@ for x in rows:
 # already delivered with an older or undated relationship (contract 12-36 months / over 3 years old, client listing,
 # other link, service seen on its site): the row takes the newer relationship. Only when ONE delivered row has that
 # registrable website domain (never guess between bodies sharing a domain).
-up = collections.defaultdict(list)
+up, up_t = collections.defaultdict(list), collections.defaultdict(list)
 for k, L in leads.items():
     cfv, ld = L.get("canada_field_value") or "", (L.get("latest_record_date") or "")[:10]
-    if "vendor located in Canada" in cfv or "(tech)" in cfv or not (CUTOFF <= ld <= today) or UNNAMED_VENDOR.search(L.get("example_vendor") or ""):
-        continue  # client listings and services seen on a site are not dated records; the vendor must be named
     d = registrable(host_of(L.get("website") or ""))
+    if "(tech)" in cfv and d and CUTOFF <= ld <= today:
+        up_t[d].append((ld, k, L))  # an active service seen on the buyer's own site: upgrades a client-listing / link / old row to T
+        continue
+    if "vendor located in Canada" in cfv or not (CUTOFF <= ld <= today) or UNNAMED_VENDOR.search(L.get("example_vendor") or ""):
+        continue  # client listings are not dated records; the vendor must be named
     if d:
         up[d].append((ld, k, L))
 dom_rows = collections.defaultdict(list)
@@ -458,7 +461,30 @@ for d, cands in up.items():
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
     upgraded += 1
-print("leads with a borrowed mailbox: %d | rows upgraded by a newer dated record: %d" % (borrowed, upgraded))
+upgraded_t = 0
+for d, cands in up_t.items():
+    xs = dom_rows.get(d) or []
+    if len(xs) != 1 or xs[0]["tier"] not in ("C", "D", "E", "L"):
+        continue
+    x = xs[0]
+    pick = next(((k, L) for ld, k, L in sorted(cands, key=lambda c: c[0], reverse=True) if same_body(L, x)), None)
+    if not pick:
+        continue
+    k, L = pick
+    g, acc = int(x["grade"] or 0), x["acc"]
+    x.update({"tier": "T", "rank_group": "GOLD-T" if g == 4 and acc else "T%d" % g, "completeness_score": TS["T"] * 10 + g * 6 + (3 if acc else 0),
+              "award_date": L["latest_record_date"][:10], "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"],
+              "vendor_country_basis": L.get("canada_field_value") or "", "contracts_with_canadian_suppliers": L["canadian_vendor_rows"],
+              "contract_status": "active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % (L["latest_record_date"][:10], L["example_vendor"]),
+              "source": "the buyer's own website (service of a Canada-HQ vendor in use)",
+              "keys": "|".join(sorted(set((x.get("keys") or "").split("|") + [k]) - {""})), "buyer_keys": int(x.get("buyer_keys") or 1) + 1})
+    for col in ("contract_reference", "contract_title", "contract_value", "currency", "start_date", "end_date", "vendor_legal_name",
+                "vendor_address", "vendor_bn9", "vendor_gst_hst_derived", "vendor_website", "vendor_emails"):
+        x[col] = ""
+    ev = (L.get("example_vendor") or "").strip()
+    x.update(vend_fill("", ev, ""))
+    upgraded_t += 1
+print("leads with a borrowed mailbox: %d | rows upgraded by a newer dated record: %d | rows upgraded to an active service seen on the buyer's site: %d" % (borrowed, upgraded, upgraded_t))
 # 5. P12 (owner 2026-11-03, "lowest quality but still AP"): organisations not ranked above, with their own confirmed
 # mailbox, whose relationship is weaker: a contract whose vendor is in Canada only through a business-registry match
 # (the source has no vendor country; owner's item 2 of 2026-11-01), or a contract that already ended, dated (award /
