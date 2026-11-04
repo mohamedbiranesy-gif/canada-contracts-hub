@@ -109,9 +109,20 @@ def name_from(title, h1, vendor_words):
     return ""
 
 
-def one(vendor, cap):
-    site = "https://www." + vendor if vendor.count(".") == 1 else "https://" + vendor
+def one(vendor, cap, meta=None):
+    """vendor: a host (HQ list) or, with meta, a crawler-list row (buyer_key v:/wd:/osm:, buyer_name, known_website)"""
+    meta = meta or {}
+    site = meta.get("known_website") or ("https://www." + vendor if vendor.count(".") == 1 else "https://" + vendor)
     vhost = CL.base(urllib.parse.urlparse(site).hostname)
+    basis = (meta.get("buyer_key") or "hq:").split(":")[0]
+    vname = meta.get("buyer_name") or vhost
+    proof = ""  # the vendor's Canadian address on its own site (needed before a dated story counts as a dated record)
+    if basis not in ("v", "hq"):
+        try:
+            from small_sources import canada_address_on_site
+            proof, _ = canada_address_on_site(site, max_pages=4)
+        except Exception:
+            proof = ""
     vwords = [w for w in re.split(r"[^a-z]+", vhost.split(".")[0]) if len(w) >= 4]
     urls = sitemap_urls(site, cap)
     n_site = n_name = 0
@@ -147,18 +158,24 @@ def one(vendor, cap):
         if not cust and len(doms) == 1:
             cust = next(iter(doms))
         row = {"relationship_page": final, "page_title": re.sub(r"\s+", " ", title).strip()[:160], "client_label": name[:120],
-               "story_date": date, "vendor_site": site, "pass": "customer_story"}
+               "story_date": date, "vendor_site": site, "pass": "customer_story", "vendor_basis": basis, "vendor_canada_address": proof}
         with lock:
             if cust:
                 n_site += 1
                 with open(os.path.join(LEADS, "socrata_stories.jsonl"), "a", encoding="utf-8") as f:
-                    f.write(json.dumps({"platform": "vendor_site", "domain": cust, "dataset_id": final, "dataset": "customer story of a Canada-headquartered vendor",
-                                        "dataset_url": final, "publisher": cust, "buyer_unit": "", "website": "https://%s/" % cust, "vendor": vhost,
-                                        "canada_field": "vendor located in Canada (stories)", "canada_value": vhost, "row": row}, ensure_ascii=False) + "\n")
+                    f.write(json.dumps({"platform": "vendor_site", "domain": cust, "dataset_id": final, "dataset": "customer story of a Canada-located vendor",
+                                        "dataset_url": final, "publisher": name[:120] or cust, "buyer_unit": "", "website": "https://%s/" % cust, "vendor": vname,
+                                        "canada_field": "vendor located in Canada (stories; %s)" % {"v": "contract data vendor country", "hq": "Canada-HQ list",
+                                                                                                     "wd": "Wikidata country + address on its site", "osm": "OpenStreetMap + address on its site"}.get(basis, basis),
+                                        "canada_value": proof or vhost, "row": row}, ensure_ascii=False) + "\n")
             elif name:
                 n_name += 1
                 with open(os.path.join(LEADS, "logo_names_9stories.jsonl"), "a", encoding="utf-8") as f:
                     f.write(json.dumps({"name": name, "vendor": vhost, "vendor_key": "stories:" + vhost, "vendor_site": site, "page": final}, ensure_ascii=False) + "\n")
+                with open(os.path.join(LEADS, "socrata_stories_named.jsonl"), "a", encoding="utf-8") as f:  # website found later by site_finder_names
+                    f.write(json.dumps({"platform": "vendor_site_story", "domain": "", "dataset_id": final, "dataset": "customer story of a Canada-located vendor",
+                                        "dataset_url": final, "publisher": name[:120], "buyer_unit": "", "website": "", "vendor": vname,
+                                        "canada_field": "vendor located in Canada (stories; %s)" % basis, "canada_value": proof or vhost, "row": row}, ensure_ascii=False) + "\n")
     with lock:
         with open(os.path.join(LEADS, "stories.done"), "a") as f:
             f.write("%s\t%d\t%d\t%d\n" % (vendor, len(urls), n_site, n_name))
@@ -170,8 +187,23 @@ def main():
     a.add_argument("--per-vendor", type=int, default=600)
     a.add_argument("--workers", type=int, default=8)
     a.add_argument("--vendors", default="")
+    a.add_argument("--vendors-file", nargs="*", default=[], help="crawler lists (buyer_key, buyer_name, known_website): every vendor site in them")
+    a.add_argument("--shard", type=int, default=0)
+    a.add_argument("--of", type=int, default=1)
     a = a.parse_args()
     done = set(l.split("\t")[0] for l in open(os.path.join(LEADS, "stories.done"))) if os.path.exists(os.path.join(LEADS, "stories.done")) else set()
+    if a.vendors_file:
+        import csv, hashlib
+        vendors, seen = [], set()
+        for f in a.vendors_file:
+            for r in csv.DictReader(open(os.path.expanduser(f), encoding="utf-8-sig", errors="replace")):
+                h = CL.base(urllib.parse.urlparse(r.get("known_website") or "").hostname)
+                if h and h not in seen and h not in done and int(hashlib.sha1(h.encode()).hexdigest(), 16) % a.of == a.shard:
+                    seen.add(h); vendors.append((h, r))
+        print("shard %d: %d vendor sites" % (a.shard, len(vendors)), flush=True)
+        with ThreadPoolExecutor(a.workers) as ex:
+            list(ex.map(lambda hv: one(hv[0], a.per_vendor, hv[1]), vendors))
+        return
     vendors = [v for v in dict.fromkeys((a.vendors.split(",") if a.vendors else VENDORS)) if v and v not in done]
     with ThreadPoolExecutor(a.workers) as ex:
         list(ex.map(lambda v: one(v, a.per_vendor), vendors))

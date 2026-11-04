@@ -366,8 +366,12 @@ for k, L in sorted(leads.items(), key=lead_strength):
         continue  # the same organisation already delivered (contract buyer or another lead with the same website)
     seen_dom.add(ldom)
     client = "vendor located in Canada" in L.get("canada_field_value", "")
-    if client and re.search(r"\((wall|stories)\)", L.get("canada_field_value", "")):
-        pass  # a client logo wall on the vendor's home page, or one of its customer stories: a client listing by construction
+    cfv0, ld0 = L.get("canada_field_value", ""), (L.get("latest_record_date") or "")[:10]
+    story_dated = "(stories" in cfv0 and CUTOFF <= ld0 <= today and bool(re.search(r"\(stories; (?:contract data|Canada-HQ)", cfv0) or POSTAL.search(cfv0.upper()))
+    if story_dated:
+        client = False  # a customer story the vendor published in the last 12 months, vendor proven in Canada: a dated record (B)
+    elif client and re.search(r"\((wall|stories)", L.get("canada_field_value", "")):
+        pass  # a client logo wall on the vendor's home page, or one of its (undated) customer stories: a client listing by construction
     elif client:  # a link on a Canadian vendor's page: a client listing only on a real client / case-study / references page
         path = urllib.parse.urlparse(L.get("evidence_dataset") or "").path.lower()
         if not REL_PATH.search(path) or NOT_REL_PATH.search(path):
@@ -392,7 +396,8 @@ for k, L in sorted(leads.items(), key=lead_strength):
                             "likely active (awarded 12-36 months ago; record dated 12-36 months ago: %s)" % src) if likely else
                            "linked from a page of the Canada-located vendor's site (not a client page)" if client == "other" else
                            "client listing on the vendor's own site (undated)" if client else
-                           ("likely active (contract announced by the Canada-based vendor in the last 12 months: press release / EDC transaction)"
+                           ("likely active (customer story published by the Canada-located vendor in the last 12 months)" if story_dated else
+                            "likely active (contract announced by the Canada-based vendor in the last 12 months: press release / EDC transaction)"
                             if re.search(r"release dateline|EDC|own news release", L.get("canada_field_value", "")) else
                             "likely active (paid in a fiscal year ending in the last 12 months: IRS Form 990 contractor located in Canada)" if irs else
                             "likely active (record dated in the last 12 months: %s)" % src) if recent else "payment / subaward record",
