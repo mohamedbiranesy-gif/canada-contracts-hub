@@ -6,7 +6,7 @@ domain's record applies — its sp= tag for subdomains, else its p= tag). Negati
 being written as `no_record`. Reads the e-mail column of the CSVs given (default: coord/results/ranked/batches/*.csv) and
 writes <repo>/data/incoming/claude/claude_dmarc_check.tsv:
   domain, policy (none | quarantine | reject | no_record | invalid | error), record_domain (where the record was found),
-  record (the raw TXT, first 300 chars), pct, rua_present, checked_date
+  record (the raw TXT, first 300 chars), pct, rua_present, spf_policy (hard_fail | soft_fail | neutral | pass_all | no_all | no_record), spf_record, checked_date
   python3 tools/dmarc_check.py [--repo ~/cch-crawler] [--workers 32] [--recheck-days 30] [file.csv ...]
 """
 import argparse, csv, glob, io, os, re, sys, threading, time
@@ -60,8 +60,36 @@ def parse(recs):
     return None
 
 
+SPF_ALL = re.compile(r"(?:^|\s)([-~?+]?)all(?:\s|$)", re.I)
+
+
+def spf(domain):
+    """(policy, record) of the domain's SPF: hard_fail (-all) | soft_fail (~all) | neutral (?all) | pass_all (+all) | no_all | no_record | error"""
+    st, recs = txt(domain)
+    if st == "error":
+        st, recs = txt(domain, "8.8.8.8")
+    if st == "error":
+        return "error", ""
+    rec = next((r for r in (recs if st == "ok" else []) if re.match(r"\s*v=spf1\b", r, re.I)), "")
+    if not rec:
+        st2, recs2 = txt(domain, "8.8.8.8")
+        rec = next((r for r in (recs2 if st2 == "ok" else []) if re.match(r"\s*v=spf1\b", r, re.I)), "")
+    if not rec:
+        return "no_record", ""
+    m = SPF_ALL.search(rec)
+    pol = {"-": "hard_fail", "~": "soft_fail", "?": "neutral", "+": "pass_all", "": "pass_all"}[m.group(1)] if m else "no_all"
+    return pol, rec[:300]
+
+
 def check(domain):
     """policy that applies to mail from <domain>"""
+    sp, sr = spf(domain)
+    r = dmarc(domain)
+    r["spf_policy"], r["spf_record"] = sp, sr
+    return r
+
+
+def dmarc(domain):
     st, recs = txt("_dmarc." + domain)
     if st == "error":
         st2, recs2 = txt("_dmarc." + domain, "8.8.8.8")
@@ -95,6 +123,7 @@ def main():
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
     a.add_argument("--workers", type=int, default=96)
     a.add_argument("--recheck-days", type=int, default=30)
+    a.add_argument("--force", action="store_true", help="re-check every domain (new columns)")
     a = a.parse_args()
     out = os.path.join(a.repo, "data/incoming/claude/claude_dmarc_check.tsv")
     prev = {}
@@ -111,14 +140,14 @@ def main():
                 if "@" in e:
                     domains.add(e.split("@")[-1])
     cutoff = time.strftime("%Y-%m-%d", time.localtime(time.time() - a.recheck_days * 86400))
-    todo = sorted(d for d in domains if d not in prev or prev[d]["checked_date"] < cutoff or prev[d]["policy"] == "error")
+    todo = sorted(d for d in domains if a.force or d not in prev or prev[d]["checked_date"] < cutoff or prev[d]["policy"] == "error" or "spf_policy" not in prev[d])
     print("domains: %d, to check: %d" % (len(domains), len(todo)), flush=True)
     stats = {}
     def one(d):
         try:
             r = check(d)
         except Exception as e:
-            r = {"policy": "error", "record_domain": "", "record": type(e).__name__, "pct": "", "rua_present": ""}
+            r = {"policy": "error", "record_domain": "", "record": type(e).__name__, "pct": "", "rua_present": "", "spf_policy": "error", "spf_record": ""}
         with lock:
             prev[d] = dict(domain=d, checked_date=TODAY, **r)
             stats[r["policy"]] = stats.get(r["policy"], 0) + 1
@@ -136,10 +165,10 @@ def main():
 def write(out, prev):
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["domain", "policy", "record_domain", "record", "pct", "rua_present", "checked_date"], delimiter="\t")
+        w = csv.DictWriter(f, fieldnames=["domain", "policy", "record_domain", "record", "pct", "rua_present", "spf_policy", "spf_record", "checked_date"], delimiter="\t")
         w.writeheader()
         for d in sorted(prev):
-            w.writerow(prev[d])
+            w.writerow({k: prev[d].get(k, "") for k in w.fieldnames})
     os.replace(out + ".tmp", out)
 
 
