@@ -160,9 +160,14 @@ def vend_fill(key="", name="", domain=""):
     if not k and name:
         k = VEN_NAME.get(norm(name)) or VEN_NAME.get(parent(name))
     v = VEN.get(k) or {}
+    rg = v.get("registry") or {}
+    REGN = {"quebec_req": "Québec REQ (NEQ)", "corporations_canada": "Corporations Canada (corporation number)", "bc_orgbook": "BC OrgBook (BC registration)",
+            "rbq": "RBQ licence", "cra_charities": "CRA charities (BN)", "alberta": "Alberta corporate registry", "ontario": "Ontario business registry"}
     return {"vendor_legal_name": v.get("legal_name", ""), "vendor_address": v.get("address", ""), "vendor_bn9": v.get("bn9", ""),
             "vendor_gst_hst_derived": v.get("gst", ""), "vendor_website": v.get("website", "") or ("https://" + domain if domain else ""),
-            "vendor_emails": v.get("emails", "")}
+            "vendor_emails": v.get("emails", ""),
+            "vendor_registry_id": ("%s: %s" % (REGN.get(rg.get("registry"), rg.get("registry")), rg.get("id"))) if rg.get("id") else "",
+            "vendor_registry_url": rg.get("url") or "", "vendor_registered_address": v.get("reg_address", "") if v.get("reg_address") and v.get("reg_address") != v.get("address") else ""}
 def rec_extra(c):
     """owner 2026-11-04: every field the record gives — instrument (standing offer / blanket order / contract), method, commodity, description"""
     com = c.get("commodity") or {}
@@ -282,7 +287,7 @@ def fill_contract(x, r, keys):
     if not x["buyer_website"]:
         x["buyer_website"] = next((BUY[k]["official_website"] for k in keys if k in BUY and BUY[k].get("official_website")), "")
     for col, val in vend_fill(ve.get("vendor_key") or "", v.get("name") or "").items():
-        if not x[col] and val:
+        if not x.get(col) and val:
             x[col] = val
     if not x["vendor_legal_name"] and ve.get("legal_name"):
         x["vendor_legal_name"] = ve["legal_name"]
@@ -820,10 +825,22 @@ NOT_NAME = re.compile(r"accounts|payable|finance|services?|department|office|cit
                       r"contact|email|phone|invoice|supplier|vendor|general|public|canada|ontario|quebec|british|columbia|alberta|manitoba|street|avenue|road|box|suite|floor|"
                       r"monday|friday|hours|please|send|submit|questions|inquiries|information|center|centre|main|north|south|east|west|hall|building|bank|credit|union|first|nation",
                       re.I)
-def ap_contact_name(quote, email):
+try:
+    from buyer_pages import FIRST_NAMES as _FIRST
+except Exception:
+    _FIRST = set()
+HONORIFIC = re.compile(r"\b(?:Mme|M\.|Mr\.?|Mrs\.?|Ms\.?|Madame|Monsieur|Dr\.?)\s+$")
+ROLE_NEAR = re.compile(r"treasurer|tr[ée]sori|accounts? payable|payables?|comptes? (?:à|a) payer|comptes payables|comptab|accounting|accountant|finance|finances|"
+                       r"bookkeeper|contr[ôo]leur|controller|\bAP\b|factur|invoic|commis-comptable|technicienne? (?:en )?comptab", re.I)
+NOT_NAME2 = re.compile(r"purchase|order|address|adresse|ville|city|town|code|group|church|services?|management|budget|close|state|technicien|comptable|clerk|office|"
+                       r"administrat|contact|courriel|email|t[ée]l[ée]phone|poste|ext\b|fax|department|finance|accounting|invoice|accounts|payable|payroll|visiting|"
+                       r"general|inquir|treasurer|secretary|ladies|budget|close|main|navigation|hours|please|questions|vendors?|suppliers?|area|field|hill|hills|park|"
+                       r"lake|river|valley|county|region|district|municipal|school|university|college|hospital|centre|center|society|association|foundation", re.I)
+def ap_contact_name(quote, email, buyer=""):
     """the AP contact the organisation itself prints next to its invoicing mailbox (business contact information published by
-    the organisation; never used as a mailbox). Conservative: a 2-3 word proper name within 60 characters of the mailbox,
-    with an AP / finance title in the same window and no organisation word in the name."""
+    the organisation; never used as a mailbox). Conservative: a 2-3 word proper name within 60 characters of the mailbox whose
+    first word is a known given name or that follows an honorific, with an AP / finance role word next to it, and sharing
+    no word with the organisation's name."""
     q = quote or ""
     i = q.lower().find(email.lower())
     if i < 0:
@@ -831,9 +848,20 @@ def ap_contact_name(quote, email):
     win = q[max(0, i - 70):i + len(email) + 70]
     if not AP_TITLE.search(win):
         return ""
+    btoks = set(re.findall(r"[a-zà-ÿ]{3,}", (buyer or "").lower()))
     for m in NAME_RX.finditer(win):
         nm = m.group(1)
-        if not NOT_NAME.search(nm) and len(nm.split()) >= 2 and not re.search(r"\d", nm):
+        toks = nm.split()
+        hon = bool(HONORIFIC.search(win[max(0, m.start() - 12):m.start()]))
+        if toks[0] in ("Mme", "Madame", "Monsieur", "Mr", "Mrs", "Ms", "Dr"):
+            hon, toks = True, toks[1:]
+            nm = " ".join(toks)
+        if NOT_NAME2.search(nm) or len(toks) < 2 or re.search(r"\d", nm) or set(t.lower() for t in toks) & btoks:
+            continue
+        if not (toks[0].lower() in _FIRST or hon):
+            continue
+        near = win[max(0, m.start() - 40):m.end() + 40]
+        if ROLE_NEAR.search(near) and not re.search(r"secretary|secr[ée]taire|ressources humaines|human resources|\bHR\b|president|pr[ée]sident|director|directeur|directrice|mayor|maire|clerk\b(?!.{0,20}(?:finance|account|comptab))", near, re.I):
             return nm
     return ""
 FR = re.compile(r"\b(de la|du|des|les|pour|avec|nous|vous|facture|factures|courriel|téléphone|ville|municipalité|comptes|fournisseurs|paiement|adresse|envoyer|veuillez|service des finances|hôtel de ville|greffe|bureau)\b", re.I)
@@ -863,11 +891,79 @@ for x in rows:
         x["invoicing_requirements"] = d["invoicing_requirements_summary"]; n_x["invoicing_requirements"] += 1
     if d.get("invoice_portal_url"):
         x["invoice_portal_url"] = d["invoice_portal_url"] + " (additional channel published by the buyer; the e-mail is the contact)"; n_x["invoice_portal_url"] += 1
-    nm = ap_contact_name(x.get("email_evidence_quote") or "", e)
+    nm = ap_contact_name(x.get("email_evidence_quote") or "", e, x.get("buyer") or "")
     if nm:
         x["ap_contact_name_as_published"] = nm + " (as printed by the organisation next to its invoicing mailbox)"; n_x["ap_contact_name"] += 1
     x["language_hint"] = language_hint(x)
 print("extras from the lanes' result rows:", dict(n_x))
+OC = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
+    for d in jl(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
+        OC[d.get("domain")] = d
+def oc_of(url):
+    h = host_of(url or "")
+    return OC.get(registrable(h)) if h else None
+def flat_q(t):
+    return re.sub(r"\s+", " ", t or "").strip()
+# owner 2026-11-04: facts each organisation prints on its own site (tools/org_extras.py): legal name (copyright line), BN / GST-HST /
+# charity number, NEQ / QST, logo, language; and the site's status from org_contacts
+OX = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_org_extras.jsonl.gz"):
+    for d in jl(ROOT + "/data/incoming/claude/claude_org_extras.jsonl.gz"):
+        OX[d.get("domain")] = d
+def ox_of(url):
+    h = host_of(url or "")
+    return OX.get(registrable(h)) if h else None
+SITE_STATUS = {"ok": "site answers", "no_contact": "site answers (no contact details found)", "blocked": "site blocks automated readers",
+               "robots": "robots.txt disallows reading", "http_0": "site unreachable when read", "not_html": "site served no HTML", "error": "read error"}
+TERMS = re.compile(r"\b(net\s?\d{2}\b|\d{2}\s?(?:calendar |business )?days?\b|within\s\d{2}\s?(?:calendar |business )?days|\d{2}\s?jours|dans les \d{2} jours|upon receipt|on receipt|"
+                   r"[àa] (?:la )?r[ée]ception|2%\s?\d{2}|net\s?\d{2}\s?days|payment terms?[^.]{0,40})", re.I)
+PO_REQ = re.compile(r"(?:purchase order|\bPO\b|P\.O\.|bon de commande|num[ée]ro de (?:bon de )?commande)[^.]{0,80}?(?:required|must|need|doit|obligatoire|requis|include|indiqu|mention|quote|reference|référenc)|"
+                    r"(?:required|must|need|doit|obligatoire|requis|include|indiqu|mention|quote|reference|référenc)[^.]{0,80}?(?:purchase order|\bPO\b|P\.O\.|bon de commande|num[ée]ro de (?:bon de )?commande)", re.I)
+n_ox = collections.Counter()
+for x in rows:
+    for col in ("buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status",
+                "vendor_trading_name", "vendor_neq", "vendor_qst_as_published", "vendor_logo_url", "vendor_website_status", "payment_terms_as_published", "po_required_as_published"):
+        x.setdefault(col, "")
+    b, bo = ox_of(x.get("buyer_website")), oc_of(x.get("buyer_website"))
+    if b:
+        if b.get("legal_name"):
+            x["buyer_legal_name_as_published"] = b["legal_name"]; n_ox["buyer_legal_name"] += 1
+        if b.get("bn"):
+            x["buyer_bn_as_published"] = "%s %s (as printed: %s; %s)" % (b["bn"], b.get("bn_program") or "", b.get("bn_label") or "", b.get("bn_url") or "")
+            x["buyer_gst_hst_derived"] = b["bn"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"; n_ox["buyer_bn"] += 1
+        if b.get("logo_url"):
+            x["buyer_logo_url"] = b["logo_url"]; n_ox["buyer_logo"] += 1
+        if not x.get("language_hint") and b.get("language"):
+            x["language_hint"] = b["language"]
+    if bo and bo.get("status"):
+        x["buyer_website_status"] = SITE_STATUS.get(bo["status"], bo["status"])
+    v, vo = ox_of(x.get("vendor_website")), oc_of(x.get("vendor_website"))
+    if v and not (x.get("vendor") or "").startswith("inferred"):
+        if not x.get("vendor_legal_name") and v.get("legal_name"):
+            x["vendor_legal_name"] = v["legal_name"] + " (as printed on the vendor's site: %s)" % (v.get("legal_name_url") or ""); n_ox["vendor_legal_name"] += 1
+        if v.get("neq"):
+            x["vendor_neq"] = "%s (as printed: %s)" % (v["neq"], v.get("neq_url") or ""); n_ox["vendor_neq"] += 1
+        if v.get("qst"):
+            x["vendor_qst_as_published"] = "%s (as printed: %s)" % (v["qst"], v.get("qst_url") or ""); n_ox["vendor_qst"] += 1
+        if not x.get("vendor_bn9") and v.get("bn"):
+            x["vendor_bn9"] = v["bn"] + " (as printed on the vendor's site: %s)" % (v.get("bn_url") or "")
+            x["vendor_gst_hst_derived"] = v["bn"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"; n_ox["vendor_bn"] += 1
+        if v.get("logo_url"):
+            x["vendor_logo_url"] = v["logo_url"]; n_ox["vendor_logo"] += 1
+    if vo and vo.get("status") and not (x.get("vendor") or "").startswith("inferred"):
+        x["vendor_website_status"] = SITE_STATUS.get(vo["status"], vo["status"])
+    vl, vn = (x.get("vendor_legal_name") or "").split(" (as printed")[0], x.get("vendor") or ""
+    if vl and vn and norm(vl) != norm(vn) and not vn.startswith("inferred"):
+        x["vendor_trading_name"] = vn
+    txt = " ".join((x.get(c) or "") for c in ("invoicing_requirements", "email_evidence_quote"))
+    m = TERMS.search(txt)
+    if m:
+        x["payment_terms_as_published"] = flat_q(m.group(0))[:80]; n_ox["payment_terms"] += 1
+    m = PO_REQ.search(txt)
+    if m:
+        x["po_required_as_published"] = "yes (as published: %s)" % flat_q(m.group(0))[:120]; n_ox["po_required"] += 1
+print("org_extras: %d organisations read; filled %s" % (len(OX), dict(n_ox)))
 # a mailbox whose domain publishes no mail server (tools/mx_check.py, DNS only) cannot receive the survey: the row stays, without it
 MX = {}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_mx_check.tsv"):
@@ -904,13 +1000,6 @@ for x in rows:  # owner 2026-11-03: fill what can be derived (after the merge, w
         x["buyer_website"] = "https://" + (eh if eh and registrable(eh) == registrable(md) else md if not FREEMAIL.match(md) else eh) if (eh or not FREEMAIL.match(md)) else ""
 # owner 2026-11-03 ("the address, the headquarters, everything about the buyer and the vendor"): head-office address, phone and
 # role mailboxes read from each organisation's own site by tools/org_contacts.py (evidence URL kept), by registrable domain
-OC = {}
-if os.path.exists(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
-    for d in jl(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
-        OC[d.get("domain")] = d
-def oc_of(url):
-    h = host_of(url or "")
-    return OC.get(registrable(h)) if h else None
 NA_ADDR = re.compile(r"\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z] ?\d[ABCEGHJ-NPRSTV-Z]\d\b|\b\d{5}(?:-\d{4})?\b.*\b(?:USA|United States)|, [A-Z]{2},? \d{5}\b|\b(?:ON|QC|BC|AB|MB|SK|NS|NB|NL|PE|YT|NT|NU)\b")
 def phone_fits(phone, address):
     """a foreign-country number on a group site is not the Canadian / US entity's phone"""
@@ -939,7 +1028,11 @@ for x in rows:
 print("org_contacts: %d organisations read; filled %s" % (len(OC), dict(n_oc)))
 for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"]),
                    ("email_evidence_quote", ["email_deliverability", "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
-                   ("contract_title", ["contract_description", "instrument_type", "procurement_method", "commodity", "number_of_bids"])):
+                   ("contract_title", ["contract_description", "instrument_type", "procurement_method", "commodity", "number_of_bids"]),
+                   ("buyer_contact_evidence_url", ["buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status"]),
+                   ("vendor_legal_name", ["vendor_trading_name", "vendor_registry_id", "vendor_registry_url", "vendor_registered_address", "vendor_neq", "vendor_qst_as_published"]),
+                   ("vendor_contact_evidence_url", ["vendor_logo_url", "vendor_website_status"]),
+                   ("invoicing_requirements", ["payment_terms_as_published", "po_required_as_published"])):
     if after in cols:
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]
