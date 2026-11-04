@@ -284,3 +284,26 @@ owner's Mac, each writing leads the bridge picks up:
   crawl or a search can see. New Gold comes from NEW organisations with a dated record (member lists, stories, tech
   portals, auditors, exchange issuers) × the ~10 % that publish an AP mailbox. The search budget is therefore spent on
   B_908, then mailbox-first sector queries (Q_04–Q_11) and client-listing organisations (B_909–B_911, P06 growth).
+
+## 2026-11-04 04:05 — claude: loop #4 notes
+- **tools/buyer_pages.py direction rules** (after a first run at ~40 % precision): the vendor must be the OBJECT of the award —
+  a cue just before the name ("awarded the contract to", "has contracted", "engaged", "services of", "mandaté à") or just
+  after it ("has been awarded the tender", "will provide"), or a bid-table line with an amount on an award page; a name
+  after "from" / "by" / "par" is the other party (the site's organisation is then the supplier); on company sites the
+  symmetric words (agreement / contract with) do not count; prize, sponsor, awareness and calendar pages are skipped;
+  every occurrence of a name on the page is tried (headlines name the firm, the body carries the cue); names are matched
+  only when written as a name (capitalised) and only if one of their words is rare among vendor names and not an everyday
+  word. Second run: 8 of 8 sampled leads correct (Enbridge Gas ← Dillon Consulting, Truro ← BioBurn Pros, Martensville ←
+  Nustadia, Timmins hospital ← Waterhouse Executive Search, St. Thomas hospital ← Chorley & Bisset); yield ≈ 1.2 % of
+  organisations, many of them 12–36 months old (P05, not Gold).
+- **GOLD-M spot-check (16 rows) → 3 referee-mailbox rules tightened in rank.py:** payments@ / accounting@ mailboxes
+  published where residents e-transfer taxes and fees ("make-a-payment", "payment-methods", "e-transfer", "tax roll",
+  "late fees") are general / finance, not invoicing (8 earlier Gold rows fell with them: J.P. Morgan "payments unbound"
+  magazine, Addington Highlands tax payments, Canada Vape Club EMT, Ashton College tuition …); French taxpayer phrases
+  ("votre facture d'impôts", "compte de taxes") mark a receivables context; ptvi.invoice@vale.com (PT Vale Indonesia, on an
+  overseas shipping instruction) is not Vale Canada's mailbox. P01 564 → 560, P01T 94 → 90, GOLD-M 16 → 11: all drops verified.
+- **Completeness engine results (first 18,343 organisations):** buyer_address 14,466 → 26,322 rows, buyer_phone 12,099,
+  vendor_phone 14,247, vendor_emails 2,879 → 4,992. A foreign-country number on a group site (Eco-Counter +33, LS telcom
+  +49) is not filled for an entity with a Canadian / US address.
+- **Search round 4 (177 searches):** B_906 rest / B_907 / B_908 → p35–p37 (117 URLs, 71 buyers; deep_pages: 29 rows from
+  p37 alone); Q_04 rest / Q_05 rest / Q_06 → 77 mailbox-first URLs (19 new; 8 pages with the organisation's own mailbox).
