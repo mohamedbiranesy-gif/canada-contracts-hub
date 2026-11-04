@@ -60,6 +60,7 @@ def read(url):
         return url, "http_%s" % status, []
     is_pdf = "pdf" in (ctype or "").lower() or data[:5] == b"%PDF-"
     raw = C.pdf_text(data) if is_pdf else html.unescape(data.decode("utf-8", "replace"))
+    raw = re.sub(r"data:[a-z/+.-]+;base64,[A-Za-z0-9+/=]+|[A-Za-z0-9+/=_%-]{120,}", " ", raw[:3_000_000])  # the e-mail regex is quadratic on long tokens
     text = re.sub(r"\s+", " ", raw) if is_pdf else C.visible(raw)
     host = (urllib.parse.urlparse(final).hostname or "").lower()
     site = "https://%s/" % host
