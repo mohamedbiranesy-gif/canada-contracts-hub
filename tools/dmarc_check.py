@@ -32,7 +32,7 @@ def txt(name, nameserver=None):
     """('ok', [records]) | ('none', reason) | ('error', reason)"""
     if not _dns:
         return "error", "dnspython missing"
-    res = _dns.Resolver(configure=nameserver is None); res.lifetime = 8; res.timeout = 4
+    res = _dns.Resolver(configure=nameserver is None); res.lifetime = 5; res.timeout = 2.5
     if nameserver:
         res.nameservers = [nameserver]
     try:
@@ -94,7 +94,7 @@ def main():
     a = argparse.ArgumentParser()
     a.add_argument("files", nargs="*")
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
-    a.add_argument("--workers", type=int, default=32)
+    a.add_argument("--workers", type=int, default=96)
     a.add_argument("--recheck-days", type=int, default=30)
     a = a.parse_args()
     out = os.path.join(a.repo, "data/incoming/claude/claude_dmarc_check.tsv")
@@ -123,10 +123,18 @@ def main():
         with lock:
             prev[d] = dict(domain=d, checked_date=TODAY, **r)
             stats[r["policy"]] = stats.get(r["policy"], 0) + 1
-            if sum(stats.values()) % 2000 == 0:
-                print(sum(stats.values()), stats, flush=True)
+            n = sum(stats.values())
+            if n % 2000 == 0:
+                print(n, stats, flush=True)
+            if n % 5000 == 0:
+                write(out, prev)  # resumable: a killed run keeps what it did
     with ThreadPoolExecutor(a.workers) as ex:
         list(ex.map(one, todo))
+    write(out, prev)
+    print("wrote", out, len(prev), "domains", stats, flush=True)
+
+
+def write(out, prev):
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=["domain", "policy", "record_domain", "record", "pct", "rua_present", "checked_date"], delimiter="\t")
@@ -134,7 +142,6 @@ def main():
         for d in sorted(prev):
             w.writerow(prev[d])
     os.replace(out + ".tmp", out)
-    print("wrote", out, len(prev), "domains", stats, flush=True)
 
 
 if __name__ == "__main__":
