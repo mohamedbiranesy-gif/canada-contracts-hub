@@ -405,3 +405,16 @@ recognises bilingual role boxes (`water-eau@`, `dfotenders-soumissionsmpo@`, `co
   org_extras ≤ 2026-11-04 ("Municipalité de Saint") are dropped (384 rows); org_extras now cuts only at a spaced dash.
 - P13 rows whose "buyer" was a bare domain or a page title ("Contactez-nous") take the site's legal name when one is printed
   (794 rows), else the mailbox's domain (5 rows).
+
+## 2026-11-04 10:15 (claude) — deadline state (owner's 11:00 soft deadline)
+Final pre-deadline re-rank 15:12Z: **P01 Gold 565**, P01T 89, P01M 18 · P02 333 · P03 230 · P04 1,597 · P05 380 · P06 164 · P06T 2,425 ·
+P06M 167 · P07 242 · P08 3,060 · P09 371 · P10 2,605 · P11 517 · P12 23 · P13 36,579 — 49,365 delivered rows in 17 packages, all seven
+integrity gates PASS (VALIDATION.md). Since 07:00: push_loop v3 (git never touches the live clone), referee-confirmed-only rule for
+every package but P11 (168 dataset-build mailboxes re-verified: 132 confirmed, 36 out), every referee-verified mailbox per
+organisation considered (not only org_mailboxes' single pick), AP-named mailboxes graded invoicing, first.last persons rejected,
+legal-name and P13-name hygiene, label/grade consistency, mx_check over 55,015 domains, search passes 3 (third query), 4 (documents),
+5 (supplier EFT / direct-deposit forms) and the no-website and re-evidence rounds (p42–p47). 10,000 Gold was not reachable under the
+quality rules: Gold needs an organisation with a dated Canadian-vendor record in a public source AND a published invoicing / AP
+mailbox the referee can see; the first set is ~7,000 organisations after merging, roughly one in ten publishes such a mailbox, and
+every remaining lever (more passes, documents, forms, no-website names, relationship searches) now yields single digits per round.
+The loop continues until end of day: engines, hourly referee / re-rank, a search round only where a pool still yields.
