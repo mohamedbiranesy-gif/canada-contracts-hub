@@ -351,3 +351,10 @@ owner's Mac, each writing leads the bridge picks up:
   vendors. 10 leads pruned; round 2 re-run under the new rules.
 - **org_extras finished its first pass (61,598 sites):** BN never read out of a URL / identifier; copyright-line legal names
   lose trailing navigation words.
+- **Data-loss incident (08:50Z) and fix:** tools/ap_pages.py held its output file open for a whole run inside the clone;
+  push_loop's rebase / autostash replaced the file's inode, so 4,502 rows written after that went into an orphan and were
+  lost (ap_crawler / deep_pages open-append-close per row and were not affected). Fix: engines with long-lived handles
+  write to ~/cch-crawler-state/stage/, tools/stage_merge.py unions staged records into the clone before each commit (also
+  resolves a conflicted CSV by keeping every record of both sides), push_loop v2 stashes only data/incoming/claude by
+  name and never pops a foreign stash; the two leftover autostashes were mined (15 rows) and dropped; the 4,502 pool pages
+  are being re-read.
