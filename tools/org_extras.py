@@ -31,8 +31,8 @@ LEGAL_TAIL = re.compile(r"\b(inc|incorporated|ltd|limited|lt[ée]e|llc|llp|lp|co
                         r"commission scolaire|hospital|health|sant[ée]|authority|board|commission|agency|office|ministry|department|government|gouvernement|library|biblioth[èe]que|"
                         r"church|[ée]glise|parish|paroisse|trust|group|groupe|holdings|partners|partnership|cooperative|co-op|coop|credit union|caisse)\b", re.I)
 BN = re.compile(r"(?:(?:GST|HST|GST/HST|TPS|TVH|TPS/TVH|business\s*number|numéro\s*d['’]entreprise(?:\s*(?:f[ée]d[ée]ral|du\s*Canada))?|\bBN\b|charitable\s*registration|registration\s*(?:no|number|#)|"
-                r"num[ée]ro\s*d['’]enregistrement|num[ée]ro\s*d['’]organisme\s*de\s*bienfaisance|charity\s*(?:no|number|#)|RR\s*0001|RT\s*0001)[^\d]{0,40})"
-                r"(\d{5}\s?\d{4}|\d{9})\s*((?:RT|RR|RP|RC)\s?\d{4})?", re.I)
+                r"num[ée]ro\s*d['’]enregistrement|num[ée]ro\s*d['’]organisme\s*de\s*bienfaisance|charity\s*(?:no|number|#)|RR\s*0001|RT\s*0001)[^\d/A-Za-z]{0,12}(?:[A-Za-z]{0,3}[^\d/A-Za-z]{0,6})?)"
+                r"(?<![\dA-Za-z/])(\d{5}\s?\d{4}|\d{9})(?!\d)\s*((?:RT|RR|RP|RC)\s?\d{4})?", re.I)
 NEQ = re.compile(r"(?:NEQ|num[ée]ro\s*d['’]entreprise\s*du\s*Qu[ée]bec)[^\d]{0,20}(\d{10})\b", re.I)
 QST = re.compile(r"(?:TVQ|QST)[^\d]{0,15}(\d{10})\s*(TQ\s?\d{4})", re.I)
 LOGO = re.compile(r"(?is)<img[^>]+(?:src|data-src)\s*=\s*[\"']([^\"']+)[\"'][^>]*>")

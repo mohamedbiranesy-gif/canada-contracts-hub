@@ -917,6 +917,15 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_org_extras.jsonl.gz"):
 def ox_of(url):
     h = host_of(url or "")
     return OX.get(registrable(h)) if h else None
+TRAIL = re.compile(r"(?:\s+(?:our|the|all|home|about|contact|site|web|privacy|terms|follow|connect|menu|search|login|accessibility|faq|careers|news|events|donate|"
+                   r"language|english|french|fran[çc]ais|skip|top|back|rights|reserved|reserves|tous|droits|r[ée]serv[ée]s|powered|by|design|website|sitemap|plan))+$", re.I)
+def clean_legal(name):
+    n = re.sub(r"\s+", " ", name or "").strip(" .,-–—|:")
+    n = TRAIL.sub("", n).strip(" .,-–—|:")
+    return n if 3 <= len(n) <= 90 and re.search(r"[A-Za-zÀ-ÿ]{3}", n) else ""
+def bn_ok(d):
+    lab = (d.get("bn_label") or "") + " " + (d.get("bn_quote") or "")
+    return not re.search(r"wikidata|https?://|/wiki/|\bQ\d{6,}", lab, re.I)
 SITE_STATUS = {"ok": "site answers", "no_contact": "site answers (no contact details found)", "blocked": "site blocks automated readers",
                "robots": "robots.txt disallows reading", "http_0": "site unreachable when read", "not_html": "site served no HTML", "error": "read error"}
 TERMS = re.compile(r"\b(net\s?\d{2}\b|\d{2}\s?(?:calendar |business )?days?\b|within\s\d{2}\s?(?:calendar |business )?days|\d{2}\s?jours|dans les \d{2} jours|upon receipt|on receipt|"
@@ -930,9 +939,10 @@ for x in rows:
         x.setdefault(col, "")
     b, bo = ox_of(x.get("buyer_website")), oc_of(x.get("buyer_website"))
     if b:
-        if b.get("legal_name"):
-            x["buyer_legal_name_as_published"] = b["legal_name"]; n_ox["buyer_legal_name"] += 1
-        if b.get("bn"):
+        ln = clean_legal(b.get("legal_name"))
+        if ln:
+            x["buyer_legal_name_as_published"] = ln; n_ox["buyer_legal_name"] += 1
+        if b.get("bn") and bn_ok(b):
             x["buyer_bn_as_published"] = "%s %s (as printed: %s; %s)" % (b["bn"], b.get("bn_program") or "", b.get("bn_label") or "", b.get("bn_url") or "")
             x["buyer_gst_hst_derived"] = b["bn"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"; n_ox["buyer_bn"] += 1
         if b.get("logo_url"):
@@ -943,13 +953,13 @@ for x in rows:
         x["buyer_website_status"] = SITE_STATUS.get(bo["status"], bo["status"])
     v, vo = ox_of(x.get("vendor_website")), oc_of(x.get("vendor_website"))
     if v and not (x.get("vendor") or "").startswith("inferred"):
-        if not x.get("vendor_legal_name") and v.get("legal_name"):
-            x["vendor_legal_name"] = v["legal_name"] + " (as printed on the vendor's site: %s)" % (v.get("legal_name_url") or ""); n_ox["vendor_legal_name"] += 1
+        if not x.get("vendor_legal_name") and clean_legal(v.get("legal_name")):
+            x["vendor_legal_name"] = clean_legal(v["legal_name"]) + " (as printed on the vendor's site: %s)" % (v.get("legal_name_url") or ""); n_ox["vendor_legal_name"] += 1
         if v.get("neq"):
             x["vendor_neq"] = "%s (as printed: %s)" % (v["neq"], v.get("neq_url") or ""); n_ox["vendor_neq"] += 1
         if v.get("qst"):
             x["vendor_qst_as_published"] = "%s (as printed: %s)" % (v["qst"], v.get("qst_url") or ""); n_ox["vendor_qst"] += 1
-        if not x.get("vendor_bn9") and v.get("bn"):
+        if not x.get("vendor_bn9") and v.get("bn") and bn_ok(v):
             x["vendor_bn9"] = v["bn"] + " (as printed on the vendor's site: %s)" % (v.get("bn_url") or "")
             x["vendor_gst_hst_derived"] = v["bn"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"; n_ox["vendor_bn"] += 1
         if v.get("logo_url"):
