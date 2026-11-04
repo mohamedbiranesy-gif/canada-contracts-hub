@@ -1082,10 +1082,17 @@ MX = {}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_mx_check.tsv"):
     for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_mx_check.tsv", encoding="utf-8"), delimiter="\t"):
         MX[r["domain"]] = r["status"]
-n_mx = 0
+FREEMAIL = re.compile(r"^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|rocketmail|aol|icloud|me|mac|protonmail|proton|gmx|mail|yandex|zoho|hush|hushmail|fastmail|tutanota|tuta|pm)\.(?:com|ca|net|org|fr|me|co\.uk|de|ch)$", re.I)
+n_mx = n_free = 0
 for x in rows:
     e = (x.get("email") or "").lower()
     st = MX.get(e.split("@")[-1]) if e else None
+    if e and FREEMAIL.match(e.split("@")[-1]):  # owner 2026-11-04 10:21 ("ironclad"): a webmail address is not an organisational mailbox, whoever publishes it
+        for col in ("email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote", "ap_phone", "invoice_mailing_address",
+                    "invoicing_requirements", "invoice_portal_url", "ap_contact_name_as_published"):
+            x[col] = ""
+        x["grade"], x["rank_group"], n_free = 0, "%s0" % x.get("tier", ""), n_free + 1
+        continue
     if e and st == "none":
         for col in ("email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote", "ap_phone", "invoice_mailing_address",
                     "invoicing_requirements", "invoice_portal_url", "ap_contact_name_as_published"):
@@ -1094,7 +1101,57 @@ for x in rows:
     elif e:
         x["email_deliverability"] = {"mx": "domain publishes a mail server (MX)", "a_only": "no MX record; A record only (deliverability uncertain)",
                                      "error": "DNS check failed; re-checked next run"}.get(st, "not checked yet")
-print("mx_check: %d domains known; %d mailboxes on domains with no mail server removed" % (len(MX), n_mx))
+print("mx_check: %d domains known; %d mailboxes on domains with no mail server removed; %d webmail (freemail) addresses removed" % (len(MX), n_mx, n_free))
+# e-mail security posture of the mailbox's domain (owner 2026-11-04 10:45: DMARC / SPF in every row; tools/dmarc_check.py, DNS only)
+MXH = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_mx_check.tsv"):
+    for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_mx_check.tsv", encoding="utf-8"), delimiter="\t"):
+        MXH[r["domain"]] = r.get("mail_hosts") or ""
+DM = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_dmarc_check.tsv"):
+    for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_dmarc_check.tsv", encoding="utf-8"), delimiter="\t"):
+        DM[r["domain"]] = r
+PROVIDER = (("outlook.com|protection.outlook|mail.protection", "Microsoft 365"), ("google.com|googlemail|aspmx", "Google Workspace"), ("pphosted|proofpoint", "Proofpoint"),
+            ("mimecast", "Mimecast"), ("barracuda", "Barracuda"), ("messagelabs|symantec|broadcom", "Symantec / Broadcom"), ("fortimail|fortinet", "Fortinet"),
+            ("cisco|iphmx|ironport", "Cisco"), ("trendmicro", "Trend Micro"), ("mxlogic|mcafee", "McAfee"), ("secureserver|godaddy", "GoDaddy"), ("zoho", "Zoho"),
+            ("mailgun|sendgrid|amazonses|awsapps|amazonaws", "Amazon / transactional"), ("ovh\\.net|ovh\\.ca", "OVH"), ("1and1|ionos|kundenserver", "IONOS"),
+            ("emailsrvr|rackspace", "Rackspace"), ("hostinger|titan", "Titan / Hostinger"), ("videotron|bell\\.ca|bellnet|sympatico|telus|shaw\\.ca|rogers|cogeco|eastlink|sasktel|mts\\.net", "ISP mail"),
+            ("icloud|me\\.com|yahoodns|yahoo|aol", "consumer webmail"), ("protonmail|proton\\.me", "Proton"), ("hostedemail|opensrs|tucows", "Tucows / OpenSRS"), ("websitewelcome|hostgator", "HostGator"),
+            ("bluehost", "Bluehost"), ("dreamhost", "DreamHost"), ("siteground", "SiteGround"), ("cloudflare|mx\\.cloudflare", "Cloudflare"), ("registrar-servers|namecheap|privateemail", "Namecheap"),
+            ("qq\\.com|163\\.com|aliyun", "Chinese provider"), ("mailbox\\.org|posteo", "German provider"))
+def provider(hosts):
+    h = (hosts or "").lower()
+    for rx, name in PROVIDER:
+        if re.search(rx, h):
+            return name
+    return ("self-hosted or other (%s)" % h.split(";")[0][:60]) if h and not h.startswith(("A", "AAAA")) else "no MX record" if h.startswith(("A", "AAAA")) else "not checked"
+DMARC_LABEL = {"no_record": "no DMARC record", "none": "v=DMARC1; p=none (monitor only, no enforcement)", "quarantine": "p=quarantine", "reject": "p=reject",
+               "invalid": "invalid DMARC record", "error": "DNS lookup failed"}
+SPF_LABEL = {"hard_fail": "SPF -all (hard fail)", "soft_fail": "SPF ~all (soft fail)", "neutral": "SPF ?all (neutral)", "pass_all": "SPF +all (allows everyone)",
+             "no_all": "SPF without an all mechanism", "no_record": "no SPF record", "error": "DNS lookup failed"}
+n_dm = collections.Counter()
+for x in rows:
+    e = (x.get("email") or "").lower()
+    d = e.split("@")[-1] if e else ""
+    r = DM.get(d) or {}
+    for col in ("dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "email_security_posture", "dns_checked_date"):
+        x.setdefault(col, "")
+    if not e:
+        continue
+    pol, spfp = r.get("policy") or "", r.get("spf_policy") or ""
+    x["dmarc_policy"] = DMARC_LABEL.get(pol, "not checked yet")
+    x["dmarc_record"] = r.get("record") or ""
+    x["dmarc_record_domain"] = r.get("record_domain") or ("" if pol in ("", "no_record") else d)
+    x["spf_policy"] = SPF_LABEL.get(spfp, "not checked yet")
+    x["spf_record"] = r.get("spf_record") or ""
+    x["mail_provider"] = provider(MXH.get(d))
+    x["dns_checked_date"] = r.get("checked_date") or ""
+    if pol:
+        exposed = pol in ("no_record", "none", "invalid")
+        x["email_security_posture"] = ("EXPOSED to sender spoofing: %s" % x["dmarc_policy"] if exposed else "DMARC enforced: %s" % x["dmarc_policy"]) + \
+                                      "; %s; mail handled by %s" % (x["spf_policy"], x["mail_provider"])
+        n_dm["exposed" if exposed else "enforced"] += 1
+print("dmarc/spf: %d domains known; rows %s" % (len(DM), dict(n_dm)))
 used_mail = set()  # one delivered row per mailbox: buyers that share one mailbox (branches on a government's central box) are one contact point
 for x in rows:
     e = (x.get("email") or "").lower()
@@ -1140,7 +1197,8 @@ for x in rows:
         x["vendor_contact_evidence_url"] = v.get("address_url") or v.get("emails_url") or v.get("phone_url") or ""
 print("org_contacts: %d organisations read; filled %s" % (len(OC), dict(n_oc)))
 for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"]),
-                   ("email_evidence_quote", ["email_deliverability", "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
+                   ("email_evidence_quote", ["email_deliverability", "email_security_posture", "dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "dns_checked_date",
+                                             "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
                    ("contract_title", ["contract_description", "instrument_type", "procurement_method", "commodity", "number_of_bids"]),
                    ("buyer_contact_evidence_url", ["buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status"]),
                    ("vendor_legal_name", ["vendor_trading_name", "vendor_registry_id", "vendor_registry_url", "vendor_registered_address", "vendor_neq", "vendor_qst_as_published"]),

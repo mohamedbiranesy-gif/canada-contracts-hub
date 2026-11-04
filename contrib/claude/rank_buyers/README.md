@@ -40,12 +40,17 @@ schools / authorities `abed:`; a key listed there counts as located in Canada), 
 else the single postal code on the organisation's own page. Organisations not shown to be located in Canada get no inference (skipped). One row
 per organisation: P12 / P13 never repeat an organisation, registrable domain or mailbox already in a row above.
 
-## Columns (66, in file order)
+## Columns (74, in file order)
 `jurisdiction`, `rank_group`, `completeness_score`, `buyer`, `buyer_website`, `buyer_address`, `buyer_phone`,
 `buyer_contact_evidence_url`, `buyer_legal_name_as_published` (copyright / footer line of the buyer's site),
 `buyer_bn_as_published` (BN / charity number as printed, with the page), `buyer_gst_hst_derived` (BN9 + RT0001, labelled
 derived, registration not confirmed), `buyer_logo_url`, `buyer_website_status`, `email`, `email_type`, `email_check`,
-`email_evidence_url`, `email_evidence_quote`, `email_deliverability` (tools/mx_check.py), `ap_contact_name_as_published`
+`email_evidence_url`, `email_evidence_quote`, `email_deliverability` (tools/mx_check.py), `email_security_posture` (one line: EXPOSED to
+sender spoofing / DMARC enforced, SPF result, mail provider), `dmarc_policy` (no DMARC record · v=DMARC1; p=none · p=quarantine · p=reject ·
+invalid), `dmarc_record` (raw TXT), `dmarc_record_domain` (where it was found; the organizational domain when the mailbox is on a subdomain),
+`spf_policy` (-all hard fail · ~all soft fail · ?all neutral · +all · no all · no SPF record), `spf_record`, `mail_provider` (from the MX hosts:
+Microsoft 365, Google Workspace, Proofpoint, Mimecast, ISP mail, self-hosted…), `dns_checked_date` (tools/dmarc_check.py, DNS only, negatives
+re-confirmed through 8.8.8.8), `ap_contact_name_as_published`
 (only as the organisation prints it next to its AP mailbox: business contact information, never a mailbox), `ap_phone`,
 `invoice_mailing_address`, `invoicing_requirements`, `payment_terms_as_published`, `po_required_as_published`,
 `invoice_portal_url` (an additional channel the buyer publishes; the e-mail is the contact), `language_hint`,
@@ -60,6 +65,11 @@ registration from the registry match), `vendor_registry_url`, `vendor_registered
 `buyer_keys`, `keys`, `tier`, `grade`, `acc`.
 Fields no public source gives (signatory name and title, WSIB clearance number, certificate of insurance, QST number
 unless printed, buyer cost centre / vote / project code, delivery address, tax-exempt certificate) are `not_published`.
+
+## Mailbox rules
+Webmail addresses (gmail, hotmail, outlook, yahoo, icloud, proton…) are never delivered, whoever publishes them: a webmail account is
+not an organisational mailbox. ISP-hosted mailboxes that a small municipality publishes as its official contact (videotron.ca, bellnet.ca…)
+are kept and labelled `mail_provider = ISP mail`.
 
 ## Key columns
 `buyer`, `buyer_website`, `email`, `email_type` (invoicing/AP, finance, purchasing, general), `email_check` (confirmed =

@@ -418,3 +418,14 @@ quality rules: Gold needs an organisation with a dated Canadian-vendor record in
 mailbox the referee can see; the first set is ~7,000 organisations after merging, roughly one in ten publishes such a mailbox, and
 every remaining lever (more passes, documents, forms, no-website names, relationship searches) now yields single digits per round.
 The loop continues until end of day: engines, hourly referee / re-rank, a search round only where a pool still yields.
+
+## 2026-11-04 10:50 (claude) — e-mail security posture in every row; webmail addresses out
+Owner (10:21, 10:45): which delivered mailboxes have no DMARC record or `p=none`, and put it in every package. `tools/dmarc_check.py`
+(DNS TXT at `_dmarc.<domain>`, organizational-domain fallback for subdomains, SPF at the domain, negatives re-confirmed through 8.8.8.8;
+queries go straight to 1.1.1.1 because the Mac's stub resolver serialised bulk lookups) → `data/incoming/claude/claude_dmarc_check.tsv`.
+rank.py adds eight columns after `email_deliverability`: `email_security_posture`, `dmarc_policy`, `dmarc_record`, `dmarc_record_domain`,
+`spf_policy`, `spf_record`, `mail_provider` (from the MX hosts), `dns_checked_date`. First full check (15:35Z): of 49,365 delivered rows,
+16,479 no DMARC record, 19,611 p=none, 8,631 quarantine, 4,596 reject; among the 1,321 invoicing/AP mailboxes 91 / 377 / 408 / 445.
+Summary `coord/results/ranked/DMARC.md`, list `dmarc_no_enforcement.csv`. Webmail addresses (gmail, hotmail, outlook, yahoo, icloud,
+proton…) leave the delivered packages (159 P13 rows, tiny businesses): a webmail account is not an organisational mailbox, whoever
+publishes it. ISP-hosted municipal mailboxes (videotron.ca, bellnet.ca) stay, labelled `mail_provider = ISP mail`.
