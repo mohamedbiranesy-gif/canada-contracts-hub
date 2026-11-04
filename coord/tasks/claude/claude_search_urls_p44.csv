@@ -1,33 +1,33 @@
 buyer_key,buyer_name,website,official_site,url
-1,OC Transpo (City of Ottawa),,https://ottawa.ca,https://ottawa.ca/en/business/doing-business-city/accounts-payable
-1,St. Albert Transit (City of St. Albert),,https://stalbert.ca,https://stalbert.ca/dev/purchasing/invoicing/
-1,NASA (SEWP program office) - US government-wide acquisition contract,,https://www.nasa.gov,https://www.sewp.nasa.gov/ordering.shtml
-1,NASA (SEWP program office) - US government-wide acquisition contract,,https://www.nasa.gov,https://nasa.gov/osbp/itpo
-1,"City of Tacoma, Department of Public Utilities, Light Division",,https://tacoma.gov,https://tacoma.gov/?p=1574
-1,"City of Tacoma, Department of Public Utilities, Light Division",,https://tacoma.gov,https://tacoma.gov/government/departments/finance/procurement-and-payables-division/purchasing/contracting-opportunities/services-solicitations
-1,"City of Tacoma, Department of Public Utilities, Light Division",,https://tacoma.gov,https://cms.tacoma.gov/Purchasing/OnlineProcurementPlatform/SIM_Supplier_FAQs.pdf
-1,Société de transport de Lévis,,https://stlevis.ca,https://stlevis.ca/sites/default/files/public/assets/stlevis/reglements-politiques/reglement_149_consolide_gestion_contractuelle_0.pdf
-1,Société de transport de Lévis,,https://stlevis.ca,https://www.stlevis.ca/sites/default/files/public/formulaire-demande-acces-information_site-web-stlevis.pdf
-1,Régie régionale de la santé et des services sociaux du Nunavik,,https://nrbhss.ca,https://nrbhss.ca/sites/default/files/Annual_Report_2024-2025_NRBHSS_FR.pdf
-1,Conseil Cri de la santé et des services sociaux de la Baie James,,https://creehealth.org,https://creehealth.org/sites/default/files/2025-10/CBHSSJB_FR-AnnualReport24-25_v6web.pdf
-1,"Société du Musée d'archéologie et d'histoire de Montréal, Pointe-à-Callière",,https://pacmusee.qc.ca,https://pacmusee.qc.ca/workspace/uploads/modeles/documents/2026-006_commis_comptes_payables-et-paie_ext_1.pdf
-1,Centre de services scolaire au Coeur-des-Vallées,,https://www.csscv.gouv.qc.ca,https://www.csscv.gouv.qc.ca/application/files/3916/7164/9292/RA_2021-2022.pdf
-1,The University of Texas at Arlington,,https://www.uta.edu,https://www.uta.edu/business-affairs/suppliers/hub/accounts-payable-supplier-management-and-1099-reporting
-1,The University of Texas at Arlington,,https://www.uta.edu,https://resources.uta.edu/business-affairs/training/files/business-apps/paymentworks/Invite-a-Supplier.pdf
-1,Ministère des Relations internationales et de la Francophonie,,https://cdn-contenu.quebec.ca,https://cdn-contenu.quebec.ca/cdn-contenu/adm/min/relations-internationales/publications-adm/acces-information/contrats-et-engagements-financiers/2026/FIN-Engagement-financier-mai-2026-MRIF.pdf
-1,BRISTOL & WESTON NHS PURCHASING CONSORTIUM,,https://www.nbt.nhs.uk,https://www.nbt.nhs.uk/bristol-weston-nhs-purchasing-consortium
+b:910a6453563c53ed,OC Transpo (City of Ottawa),,https://ottawa.ca,https://ottawa.ca/en/business/doing-business-city/accounts-payable
+b:61e1487f21a0f5e3,St. Albert Transit (City of St. Albert),,https://stalbert.ca,https://stalbert.ca/dev/purchasing/invoicing/
+b:7b22c1824b510c96,NASA (SEWP program office) - US government-wide acquisition contract,,https://www.nasa.gov,https://www.sewp.nasa.gov/ordering.shtml
+b:7b22c1824b510c96,NASA (SEWP program office) - US government-wide acquisition contract,,https://www.nasa.gov,https://nasa.gov/osbp/itpo
+lead:d9a97739571a7513,"City of Tacoma, Department of Public Utilities, Light Division",,https://tacoma.gov,https://tacoma.gov/?p=1574
+lead:d9a97739571a7513,"City of Tacoma, Department of Public Utilities, Light Division",,https://tacoma.gov,https://tacoma.gov/government/departments/finance/procurement-and-payables-division/purchasing/contracting-opportunities/services-solicitations
+lead:d9a97739571a7513,"City of Tacoma, Department of Public Utilities, Light Division",,https://tacoma.gov,https://cms.tacoma.gov/Purchasing/OnlineProcurementPlatform/SIM_Supplier_FAQs.pdf
+b:139f192846a1875a,Société de transport de Lévis,,https://stlevis.ca,https://stlevis.ca/sites/default/files/public/assets/stlevis/reglements-politiques/reglement_149_consolide_gestion_contractuelle_0.pdf
+b:139f192846a1875a,Société de transport de Lévis,,https://stlevis.ca,https://www.stlevis.ca/sites/default/files/public/formulaire-demande-acces-information_site-web-stlevis.pdf
+b:57063d066394535d,Régie régionale de la santé et des services sociaux du Nunavik,,https://nrbhss.ca,https://nrbhss.ca/sites/default/files/Annual_Report_2024-2025_NRBHSS_FR.pdf
+b:f9749eca30c36919,Conseil Cri de la santé et des services sociaux de la Baie James,,https://creehealth.org,https://creehealth.org/sites/default/files/2025-10/CBHSSJB_FR-AnnualReport24-25_v6web.pdf
+b:43439de9c8938021,"Société du Musée d'archéologie et d'histoire de Montréal, Pointe-à-Callière",,https://pacmusee.qc.ca,https://pacmusee.qc.ca/workspace/uploads/modeles/documents/2026-006_commis_comptes_payables-et-paie_ext_1.pdf
+b:d269fc289abaada3,Centre de services scolaire au Coeur-des-Vallées,,https://www.csscv.gouv.qc.ca,https://www.csscv.gouv.qc.ca/application/files/3916/7164/9292/RA_2021-2022.pdf
+b:df74ab2a062c9e39,The University of Texas at Arlington,,https://www.uta.edu,https://www.uta.edu/business-affairs/suppliers/hub/accounts-payable-supplier-management-and-1099-reporting
+b:df74ab2a062c9e39,The University of Texas at Arlington,,https://www.uta.edu,https://resources.uta.edu/business-affairs/training/files/business-apps/paymentworks/Invite-a-Supplier.pdf
+b:1d8fd51cf53f961f,Ministère des Relations internationales et de la Francophonie,,https://cdn-contenu.quebec.ca,https://cdn-contenu.quebec.ca/cdn-contenu/adm/min/relations-internationales/publications-adm/acces-information/contrats-et-engagements-financiers/2026/FIN-Engagement-financier-mai-2026-MRIF.pdf
+b:431691231fd66abe,BRISTOL & WESTON NHS PURCHASING CONSORTIUM,,https://www.nbt.nhs.uk,https://www.nbt.nhs.uk/bristol-weston-nhs-purchasing-consortium
 1,Defence R&D Canada - Ottawa,,https://www.canada.ca,https://www.canada.ca/en/department-national-defence/services/contact-us/accounts-payable-receivable.html
-1,Queensway Carleton Hospital,,https://qch.on.ca,https://qch.on.ca/HowtoPayYourBill
-1,GE Aerospace,,https://www.geaerospace.com,https://supplier.geaerospace.com/wp-content/uploads/2023/08/GE-Supplier-Guide-to-Invoicing-consolidated-LATEST-12082020-GLOBAL-MAILROOM-VERSION-V3.2.pdf
-1,GE Aerospace,,https://www.geaerospace.com,https://supplier.geaerospace.com/wp-content/uploads/2023/08/Supplier_Invoicing_Instructions_Guide2.pdf
-1,GE Aerospace,,https://www.geaerospace.com,https://www.geaerospace.com/sites/default/files/faq-for-suppliers.pdf
-1,Société de développement des entreprises culturelles  (SODEC),,https://sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/pre-authorized-payment-pap.pdf
-1,Société de développement des entreprises culturelles  (SODEC),,https://sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/politique-financiere-corpo-banque-affaires-sodec-3.pdf
-1,Société de développement des entreprises culturelles  (SODEC),,https://sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/sodec-declaration-de-services-2024.pdf
-1,Centre de services scolaire de Kamouraska - Rivière-du-Loup,,https://www.csskamloup.gouv.qc.ca,https://csskamloup.gouv.qc.ca/wp-content/uploads/2024/11/LISTE-DES-ECOLES-2024-2025-FINAL.pdf
-1,"Ministry of Defence, Land Equipment, Training and Simulation Systems Programme (TSSP)",,https://www.gov.uk,https://www.gov.uk/government/collections/ministry-of-defence-supplier-invoicing-and-payment-information
-1,Norsk Polarinstitutt,,https://npolar.no,https://npolar.no/en/invoice/
-1,Norsk Polarinstitutt,,https://npolar.no,https://npolar.no/en/?p=38684
-1,OPEN UNIVERSITY(THE),,https://about.open.ac.uk,https://about.open.ac.uk/governance/procurement-services/information-suppliers
-1,OPEN UNIVERSITY(THE),,https://about.open.ac.uk,https://about.open.ac.uk/node/201
-1,OPEN UNIVERSITY(THE),,https://about.open.ac.uk,https://about.open.ac.uk/governance-ou/procurement-services/information-suppliers
+b:bf7fcb617918858a,Queensway Carleton Hospital,,https://qch.on.ca,https://qch.on.ca/HowtoPayYourBill
+b:df6257a20c6b059e,GE Aerospace,,https://www.geaerospace.com,https://supplier.geaerospace.com/wp-content/uploads/2023/08/GE-Supplier-Guide-to-Invoicing-consolidated-LATEST-12082020-GLOBAL-MAILROOM-VERSION-V3.2.pdf
+b:df6257a20c6b059e,GE Aerospace,,https://www.geaerospace.com,https://supplier.geaerospace.com/wp-content/uploads/2023/08/Supplier_Invoicing_Instructions_Guide2.pdf
+b:df6257a20c6b059e,GE Aerospace,,https://www.geaerospace.com,https://www.geaerospace.com/sites/default/files/faq-for-suppliers.pdf
+b:16daab01b9112516,Société de développement des entreprises culturelles  (SODEC),,https://sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/pre-authorized-payment-pap.pdf
+b:16daab01b9112516,Société de développement des entreprises culturelles  (SODEC),,https://sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/politique-financiere-corpo-banque-affaires-sodec-3.pdf
+b:16daab01b9112516,Société de développement des entreprises culturelles  (SODEC),,https://sodec.gouv.qc.ca,https://sodec.gouv.qc.ca/wp-content/uploads/sodec-declaration-de-services-2024.pdf
+b:5f0bf59d0dfdda84,Centre de services scolaire de Kamouraska - Rivière-du-Loup,,https://www.csskamloup.gouv.qc.ca,https://csskamloup.gouv.qc.ca/wp-content/uploads/2024/11/LISTE-DES-ECOLES-2024-2025-FINAL.pdf
+b:3b955b93bb442e92,"Ministry of Defence, Land Equipment, Training and Simulation Systems Programme (TSSP)",,https://www.gov.uk,https://www.gov.uk/government/collections/ministry-of-defence-supplier-invoicing-and-payment-information
+b:85f7ebe092d91dc8,Norsk Polarinstitutt,,https://npolar.no,https://npolar.no/en/invoice/
+b:85f7ebe092d91dc8,Norsk Polarinstitutt,,https://npolar.no,https://npolar.no/en/?p=38684
+b:11da308788a00407,OPEN UNIVERSITY(THE),,https://about.open.ac.uk,https://about.open.ac.uk/governance/procurement-services/information-suppliers
+b:11da308788a00407,OPEN UNIVERSITY(THE),,https://about.open.ac.uk,https://about.open.ac.uk/node/201
+b:11da308788a00407,OPEN UNIVERSITY(THE),,https://about.open.ac.uk,https://about.open.ac.uk/governance-ou/procurement-services/information-suppliers
