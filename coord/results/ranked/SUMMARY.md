@@ -1,8 +1,9 @@
-# Ranked buyers — 2026-11-04T05:44Z
+# Ranked buyers — 2026-11-04T05:49Z
 
 ```
 leads with a borrowed mailbox: 2336 | rows upgraded by a newer dated record: 39 | rows upgraded to an active service seen on the buyer's site: 12
 P12 organisations: 108 added: 23 {'no own confirmed mailbox': 64, 'same organisation already in a row': 21} | P13 added: 25127 | P13 skipped: {'bad mailbox': 84, 'not located in Canada (no honest inference)': 752, "mailbox not the organisation's own": 2130, 'same organisation already in a row (domain / mailbox / name)': 6461}
+extras from the lanes' result rows: {'invoicing_requirements': 1846, 'invoice_portal_url': 84, 'ap_phone': 2100, 'invoice_mailing_address': 2038, 'ap_contact_name': 618}
 mx_check: 41450 domains known; 153 mailboxes on domains with no mail server removed
 org_contacts: 32507 organisations read; filled {'vendor_phone': 14670, 'vendor_emails': 2152, 'buyer_phone': 19492, 'buyer_address': 14888, 'vendor_address': 2597}
 rows 39862
@@ -27,5 +28,5 @@ P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email     16
 P06M_member_or_regulated_payer_of_canadian_body_other_email    168
 Z_no_email_yet_not_delivered                              2774
 unassigned 0 []
-blank cells filled with not_published (delivered P01-P13): 493248
+blank cells filled with not_published (delivered P01-P13): 853566
 ```
