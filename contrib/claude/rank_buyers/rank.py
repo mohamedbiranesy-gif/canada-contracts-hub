@@ -796,6 +796,40 @@ for x in rows:  # owner 2026-11-03: fill what can be derived (after the merge, w
     if not x.get("buyer_website") and x.get("email"):
         md, eh = x["email"].split("@")[-1].lower(), host_of(x.get("email_evidence_url") or "")
         x["buyer_website"] = "https://" + (eh if eh and registrable(eh) == registrable(md) else md if not FREEMAIL.match(md) else eh) if (eh or not FREEMAIL.match(md)) else ""
+# owner 2026-11-03 ("the address, the headquarters, everything about the buyer and the vendor"): head-office address, phone and
+# role mailboxes read from each organisation's own site by tools/org_contacts.py (evidence URL kept), by registrable domain
+OC = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
+    for d in jl(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
+        OC[d.get("domain")] = d
+def oc_of(url):
+    h = host_of(url or "")
+    return OC.get(registrable(h)) if h else None
+n_oc = collections.Counter()
+for x in rows:
+    for col in ("buyer_phone", "buyer_contact_evidence_url", "vendor_phone", "vendor_contact_evidence_url"):
+        x.setdefault(col, "")
+    b = oc_of(x.get("buyer_website"))
+    if b:
+        if not x.get("buyer_address") and b.get("address"):
+            x["buyer_address"] = b["address"]; n_oc["buyer_address"] += 1
+        if b.get("phone"):
+            x["buyer_phone"] = b["phone"]; n_oc["buyer_phone"] += 1
+        x["buyer_contact_evidence_url"] = b.get("address_url") or b.get("phone_url") or ""
+    v = oc_of(x.get("vendor_website"))
+    if v:
+        if not x.get("vendor_address") and v.get("address"):
+            x["vendor_address"] = v["address"]; n_oc["vendor_address"] += 1
+        if v.get("phone"):
+            x["vendor_phone"] = v["phone"]; n_oc["vendor_phone"] += 1
+        if not x.get("vendor_emails") and v.get("emails"):
+            x["vendor_emails"] = v["emails"]; n_oc["vendor_emails"] += 1
+        x["vendor_contact_evidence_url"] = v.get("address_url") or v.get("emails_url") or v.get("phone_url") or ""
+print("org_contacts: %d organisations read; filled %s" % (len(OC), dict(n_oc)))
+for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"])):
+    if after in cols:
+        i = cols.index(after) + 1
+        cols[i:i] = [c for c in new if c not in cols]
 with open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
 cnt = collections.Counter(x["rank_group"] for x in rows)

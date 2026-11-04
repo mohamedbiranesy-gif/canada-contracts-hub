@@ -209,12 +209,33 @@ def tokens(s):
     return {t for t in re.split(r"[^a-z0-9]+", ascii_low(s)) if len(t) >= 4 and t not in AFF_STOP}
 
 
+GENERIC_SLD = set("gov govt gob gouv go gv gc ac edu sch school org or co com net nhs mil police ltd plc k12 state asn id health cri "
+                  "parliament iwi nic res ernet muni info biz web me ne gen".split())  # second-level labels shared by many bodies
+AU_STATE = {"vic", "nsw", "qld", "wa", "sa", "tas", "nt", "act"}
+US_TYPE = {"ci", "co", "town", "vil", "twp", "k12", "state", "lib", "cc", "tec", "boro", "cog", "dst", "pvt"}
+US_STATE = set("al ak az ar ca co ct de dc fl ga hi id il in ia ks ky la me md ma mi mn ms mo mt ne nv nh nj nm ny nc nd oh ok or pa ri "
+               "sc sd tn tx ut vt va wa wv wi wy pr gu vi as mp".split())
+
+
 def registrable(host):
+    """the organisation's own domain: one label above a public / shared suffix (x.gouv.qc.ca, x.qc.ca, x.ac.uk, x.govt.nz,
+    x.vic.gov.au, ci.x.co.us), else the last two labels"""
+    host = host.lower().strip(".")
+    host = host[4:] if host.startswith("www.") else host
+    labels = host.split(".")
+    if len(labels) >= 3:
+        tld, sld = labels[-1], labels[-2]
+        if tld == "us" and sld in US_STATE:  # ci.boulder.co.us, co.boulder.co.us, boulder.co.us, x.k12.ca.us
+            return ".".join(labels[-4:] if len(labels) >= 4 and (labels[-3] in US_TYPE or labels[-4] in US_TYPE) else labels[-3:])
+        if tld == "au" and len(labels) >= 4 and labels[-3] in AU_STATE and sld in ("gov", "edu"):
+            return ".".join(labels[-4:])
     m = SHARED_SUFFIX.search(host)
     if m:  # one label above a shared suffix: x.gouv.qc.ca, x.ac.uk, x.qc.ca
         head = host[:m.start()].rsplit(".", 1)[-1]
         return head + m.group(0)
-    return ".".join(host.split(".")[-2:])
+    if len(labels) >= 3 and len(labels[-1]) == 2 and labels[-2] in GENERIC_SLD:
+        return ".".join(labels[-3:])
+    return ".".join(labels[-2:])
 
 
 def same_org(email, site, org_name):
