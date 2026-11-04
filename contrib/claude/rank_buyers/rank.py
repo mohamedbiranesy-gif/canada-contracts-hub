@@ -813,6 +813,11 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
 def oc_of(url):
     h = host_of(url or "")
     return OC.get(registrable(h)) if h else None
+NA_ADDR = re.compile(r"\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z] ?\d[ABCEGHJ-NPRSTV-Z]\d\b|\b\d{5}(?:-\d{4})?\b.*\b(?:USA|United States)|, [A-Z]{2},? \d{5}\b|\b(?:ON|QC|BC|AB|MB|SK|NS|NB|NL|PE|YT|NT|NU)\b")
+def phone_fits(phone, address):
+    """a foreign-country number on a group site is not the Canadian / US entity's phone"""
+    p = (phone or "").strip()
+    return not (p.startswith("+") and not re.match(r"\+\s?1\b", p) and NA_ADDR.search(address or ""))
 n_oc = collections.Counter()
 for x in rows:
     for col in ("buyer_phone", "buyer_contact_evidence_url", "vendor_phone", "vendor_contact_evidence_url"):
@@ -821,14 +826,14 @@ for x in rows:
     if b:
         if not x.get("buyer_address") and b.get("address"):
             x["buyer_address"] = b["address"]; n_oc["buyer_address"] += 1
-        if b.get("phone"):
+        if b.get("phone") and phone_fits(b["phone"], x.get("buyer_address")):
             x["buyer_phone"] = b["phone"]; n_oc["buyer_phone"] += 1
         x["buyer_contact_evidence_url"] = b.get("address_url") or b.get("phone_url") or ""
     v = oc_of(x.get("vendor_website"))
     if v:
         if not x.get("vendor_address") and v.get("address"):
             x["vendor_address"] = v["address"]; n_oc["vendor_address"] += 1
-        if v.get("phone"):
+        if v.get("phone") and phone_fits(v["phone"], x.get("vendor_address")):
             x["vendor_phone"] = v["phone"]; n_oc["vendor_phone"] += 1
         if not x.get("vendor_emails") and v.get("emails"):
             x["vendor_emails"] = v["emails"]; n_oc["vendor_emails"] += 1
