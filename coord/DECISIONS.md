@@ -438,3 +438,15 @@ lane result files joined by key + mailbox), `buyer_facts_provenance`, `vendor_fa
 whole contract dataset (`distinct_canadian_vendors`, `records_last_12_months`, `latest_award_date_any_vendor`,
 `total_known_value_canadian_suppliers`, `other_canadian_vendors_sample`, `record_sources`); vendor registry facts already in the release
 (`vendor_registry_status`, `vendor_registry_match_level`, `vendor_incorporation_date`, `vendor_bn_source`). 92 columns; gates unchanged (PASS).
+
+## 2026-11-04 11:45 (claude) — deliverable files split; staff-directory pass is the live lever
+- The 18 narrative columns pushed `ranked_buyers.csv` to 232 MB and P13 to 187 MB; GitHub refused the ranker's push (100 MB limit, 16:11Z).
+  Fix: `batches.py` writes any package over ~45 MB in numbered part files (`P13_…_part1_of_4.csv` …, same columns); `rank.py` writes
+  `ranked_buyers.csv.gz` (21 MB) and the workflow commits the gz only; `method_notes` shortened to a pointer; readers (mx_check,
+  news_match) accept the gz; `validate_deliverable.py` counts packages, not files. 16:43Z run: 92 columns, 50,024 rows, 7 gates PASS.
+- Sixth mailbox pass = staff directories / department contact pages (`"accounts payable" staff directory OR "department contacts" OR
+  "contact us" email`, 10 sites per search): A-tier 1,250 organisations → 392 pages for 336 of them → deep_pages found a mailbox for
+  83 (136 rows) — by far the best yield of the day (the first five passes asked for invoice pages, documents and forms). The same pass
+  runs on the 1,350 B-tier organisations (p50 = first 2 files, 172 pages); the rest follow in the next loops.
+- Payment-listing search on the 180 public bodies that have an AP mailbox but no dated record: 9 bodies with listings, 0 dated
+  vendor matches (buyer_pages.py) — the relationship side stays closed under the rules.
