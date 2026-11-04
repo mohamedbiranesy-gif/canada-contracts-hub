@@ -315,12 +315,48 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
 # 3. one row per organisation
 rows = []
 MTL_KEYS = {r["buyer_key"] for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_ap_results_manual01.csv", encoding="utf-8"))}
+SHARED_GOV = re.compile(r"^(?:[a-z]{2}\.gov|state\.[a-z]{2}\.us|[a-z]+\.state\.[a-z]{2}\.us|gov\.[a-z]{2}\.ca|gnb\.ca|novascotia\.ca|ontario\.ca|gouv\.qc\.ca|canada\.ca|gc\.ca|"
+                        r"alberta\.ca|saskatchewan\.ca|manitoba\.ca|gov\.uk|service\.gov\.uk|nsw\.gov\.au|vic\.gov\.au|qld\.gov\.au|wa\.gov\.au|sa\.gov\.au|gov\.au|govt\.nz)$", re.I)
+GENERIC_TOK = {"department", "dept", "ministry", "ministere", "ministère", "state", "province", "government", "gouvernement", "services", "service", "office", "bureau", "agency",
+               "agence", "commission", "board", "authority", "canada", "ontario", "quebec", "québec", "alberta", "british", "columbia", "manitoba", "saskatchewan", "nova", "scotia",
+               "brunswick", "newfoundland", "labrador", "tennessee", "texas", "california", "florida", "york", "north", "south", "west", "east", "public", "general", "national",
+               "federal", "regional", "division", "branch", "secretariat", "secrétariat", "direction", "the", "and", "of", "for", "des", "du", "de", "la", "le", "les", "et"}
+GENERIC_LOCAL = re.compile(r"^(?:ap|a\.?p|accounts?[._-]?payables?|payables?|invoices?|e-?invoic\w*|ap[._-]?invoices?|financial[._-]?shared[._-]?services?|shared[._-]?services?|vendors?\w*|suppliers?\w*|"
+                           r"comptes?[._-]?payables?|comptes?[._-]?a[._-]?payer|factures?|facturation|accounting|finance|treasury|payments?)$", re.I)
+GENERIC_PATH = {"gov", "content", "en", "fr", "sites", "default", "files", "about", "contact", "contacts", "departments", "department", "ministries", "ministry", "agencies", "agency",
+                "organizations", "organisations", "fin", "finance", "shared", "services", "service", "doing-business", "business", "vendors", "vendor", "suppliers", "supplier",
+                "procurement", "purchasing", "payments", "payment", "accounts-payable", "ap", "invoices", "invoice", "forms", "documents", "publications", "media", "uploads",
+                "pdf", "pdfs", "assets", "docs", "government", "governments", "topics", "programs", "program", "index", "home", "www", "www2", "wp-content", "portal", "treasury", "treasury-board"}
+def shared_gov_page_names_buyer(e, page, quote, name):
+    """on a government-wide mail domain (tn.gov, canada.ca, gov.bc.ca…) a mailbox counts for THIS body when (a) it is the government's generic
+    AP / shared-services mailbox, or (b) the page or quote names the body, and never when the page sits under another agency's path
+    (spot-check 2026-11-04: tn.gov/correction/… credited to the Department of Transportation)"""
+    local = e.split("@")[0].lower()
+    nm = norm(re.sub(r"\(.*?\)", " ", name))
+    words = [w for w in re.split(r"[^a-z0-9]+", nm) if w]
+    toks = [t for t in words if len(t) >= 5 and t not in GENERIC_TOK]
+    acrs = {"".join(w[0] for w in words if w not in ("of", "the", "and", "de", "du", "des", "la", "le", "les", "et", "for")), "".join(w[0] for w in words)}
+    acrs |= {m.lower() for m in re.findall(r"\(([A-Z]{3,6})\)", name)}
+    acrs = {a for a in acrs if len(a) >= 3}
+    hay = ((page or "") + " " + (quote or "")).lower()
+    named = any(t in hay for t in toks) or any(re.search(r"(?<![a-z])%s(?![a-z])" % re.escape(a), hay) for a in acrs) or any(a in local for a in acrs)
+    segs = [sg for sg in (urllib.parse.urlparse(page or "").path or "").lower().split("/") if sg]
+    first = next((sg for sg in segs if not re.match(r"^[a-z]{2}(?:-[a-z]{2})?$", sg)), "")  # the first path segment names the agency on a shared site (tn.gov/correction)
+    conflict = bool(first) and first not in GENERIC_PATH and len(re.sub(r"[^a-z]", "", first)) >= 4 and not named and not any(t in first for t in toks) and not any(a in first for a in acrs)
+    if named:
+        return True
+    if GENERIC_LOCAL.match(local) and not conflict:
+        return True  # the government's own AP / shared-services box, published on a government page that names no other agency
+    return False
 def emailcols(keys, be, gj="", name="", site=""):
-    def own(e, page=""):
+    def own(e, page="", quote=""):
         if keys & MTL_KEYS and re.search(r"@(ville\.)?montreal\.(ca|qc\.ca)$", e or "", re.I):  # units of the Ville de Montréal (manual01)
             return True
         if "direct-deposit" in page or "depot-direct" in page:  # PSPC's table maps each federal institution to its mailbox
             return True
+        md = (e or "").split("@")[-1].lower()
+        if SHARED_GOV.match(md) and not shared_gov_page_names_buyer(e, page, quote, name):
+            return False  # another agency's mailbox on the same government domain (spot-check 2026-11-04: tn.gov/correction credited to TDOT)
         if gj and gj != "FED" and jur_of_mail(e) == gj and re.search(r"@(gov\.[a-z]{2}\.ca|gnb\.ca|novascotia\.ca|ontario\.ca)$", e or "", re.I):
             return True  # a provincial government's shared mail domain, for a body of that same government
         if not site and page:  # no known website: the page counts as the buyer's own site only if its domain names the buyer
@@ -328,11 +364,11 @@ def emailcols(keys, be, gj="", name="", site=""):
             if h and same_org("x@" + registrable(h[4:] if h.startswith("www.") else h), "https://unknown.invalid", name):
                 return same_org(e, "https://" + h, name)
         return same_org(e, site or "https://unknown.invalid", name)
-    fits = lambda e, page="": (not gj or jur_of_mail(e) in ("", gj)) and not BAD_LOCAL.search((e or "").split("@")[0]) and own(e, page)
+    fits = lambda e, page="", quote="": (not gj or jur_of_mail(e) in ("", gj)) and not BAD_LOCAL.search((e or "").split("@")[0]) and own(e, page, quote)
     LABEL = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}
     opts = []  # (accepted, grade, row) from the referee's mailboxes and from earlier enrichment; the best accepted one wins
     for k in sorted(k for k in keys if k):  # sorted: equal mailboxes are broken the same way on every run (a set's order is random)
-        if k in mail and fits(mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or ""):
+        if k in mail and fits(mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or "", mail[k][1].get("evidence_quote") or ""):
             (acc, g), m = mail[k]
             opts.append(((acc, g), (m["mailbox"], LABEL[g], "confirmed" if acc else m["check_status"], m["evidence_url"], m["evidence_quote"], g, acc)))
     for kind in ("ap_contact", "procurement_contact", "general_contact"):  # earlier enrichment, evidence kept
@@ -1011,11 +1047,14 @@ DOMAIN_NAME = re.compile(r"^(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}$", 
 def clean_legal(name, buyer=""):
     """the copyright-line name, or "" when it is a sentence fragment, a web platform's own copyright, or a name cut at a hyphen
     (org_extras ≤ 2026-11-04 stopped at the first dash: 'Municipalité de Saint' for Saint-Jean-sur-Richelieu)"""
-    n = re.sub(r"\s+", " ", name or "").strip(" .,-–—|:")
+    n = re.sub(r"[\uf000-\uf8ff\u2000-\u206f\ue000-\uf8ff]", " ", name or "")  # icon-font glyphs glued to footer text
+    n = re.sub(r"\s+", " ", n).strip(" .,-–—|:")
     n = re.sub(r"^(?:tous droits r[ée]serv[ée]s|all rights reserved|copyright|©|\(c\))\s*(?:(?:19|20)\d\d\s*)?", "", n, flags=re.I).strip(" .,-–—|:")
+    n = re.split(r"\s+(?:connect with us|follow us|stay connected|subscribe|sign up|cricos\b|abn\b|acn\b|registered charity|charitable registration|privacy|terms|all rights|"
+                 r"tous droits|site ?map|plan du site|accessibilit|contact us|nous joindre|back to top|retour en haut)\b", n, 1, flags=re.I)[0].strip(" .,-–—|:")
     n = TRAIL.sub("", n).strip(" .,-–—|:")
-    if BAD_LEGAL.search(n) or CUT_PREFIX.search(n):
-        return ""
+    if BAD_LEGAL.search(n) or CUT_PREFIX.search(n) or re.match(r"^(?:'?s\b|[a-z])", n) or re.search(r"\bno\.?$", n, re.I):
+        return ""  # a fragment cut at the front ("s Union Partners"), lowercase start, or ending in "No" (a registration number followed)
     if buyer and re.sub(r"\s+", " ", buyer).strip().lower().startswith(n.lower() + "-"):
         return ""
     return n if 3 <= len(n) <= 90 and re.search(r"[A-Za-zÀ-ÿ]{3}", n) else ""
@@ -1038,7 +1077,7 @@ for x in rows:
         ln = clean_legal(b.get("legal_name"), x.get("buyer") or "")
         if ln:
             x["buyer_legal_name_as_published"] = ln; n_ox["buyer_legal_name"] += 1
-            if x.get("tier") == "I" and (GENERIC_NAME.match(x.get("buyer") or "") or DOMAIN_NAME.match(x.get("buyer") or "")):
+            if GENERIC_NAME.match(x.get("buyer") or "") or DOMAIN_NAME.match(x.get("buyer") or ""):
                 x["buyer"] = ln; n_ox["p13_name_from_legal_name"] += 1  # the crawler only had the site's domain or a page title
         if b.get("bn") and bn_ok(b):
             x["buyer_bn_as_published"] = "%s %s (as printed: %s; %s)" % (b["bn"], b.get("bn_program") or "", b.get("bn_label") or "", b.get("bn_url") or "")

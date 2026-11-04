@@ -450,3 +450,14 @@ whole contract dataset (`distinct_canadian_vendors`, `records_last_12_months`, `
   runs on the 1,350 B-tier organisations (p50 = first 2 files, 172 pages); the rest follow in the next loops.
 - Payment-listing search on the 180 public bodies that have an AP mailbox but no dated record: 9 bodies with listings, 0 dated
   vendor matches (buyer_pages.py) — the relationship side stays closed under the rules.
+
+## 2026-11-04 13:40 (claude) — shared government domains: another agency's mailbox is not this buyer's
+Spot-check of new Gold rows: `bi-centraloffice.ap@tn.gov` read on tn.gov/correction/… was credited to the Tennessee Department of
+Transportation, and `micasevendordirectdeposit@gov.sk.ca` (the Income Assistance vendor direct-deposit box of Saskatchewan's Ministry of
+Social Services) to 15 other Saskatchewan ministries — the same-organisation check passed because the mail domain is shared by the whole
+government. rank.py: on a government-wide mail domain (tn.gov, state.xx.us, canada.ca, gc.ca, gov.bc.ca, gouv.qc.ca, ontario.ca, gov.uk,
+gov.au…) a mailbox counts for a body only when the page or quote names that body (distinctive word or acronym), or when it is the
+government's generic AP / shared-services box (`ap@`, `accountspayable@`, `financial_sharedservices@`…) read on a page whose first path
+segment does not name another agency. Verified: GNWT Financial Shared Services stays for every GNWT department; the TDOT and the 14
+Saskatchewan misattributions leave. Also: rows named only by a bare domain take the site's legal name in every tier (sickkids.ca → The
+Hospital for Sick Children), with fragment guards (icon glyphs, "Connect with us…", "CRICOS No", cut-at-front "s Union Partners").
