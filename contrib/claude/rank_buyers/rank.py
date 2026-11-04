@@ -163,6 +163,14 @@ def vend_fill(key="", name="", domain=""):
     return {"vendor_legal_name": v.get("legal_name", ""), "vendor_address": v.get("address", ""), "vendor_bn9": v.get("bn9", ""),
             "vendor_gst_hst_derived": v.get("gst", ""), "vendor_website": v.get("website", "") or ("https://" + domain if domain else ""),
             "vendor_emails": v.get("emails", "")}
+def rec_extra(c):
+    """owner 2026-11-04: every field the record gives — instrument (standing offer / blanket order / contract), method, commodity, description"""
+    com = c.get("commodity") or {}
+    com = " ".join(str(com.get(k)) for k in ("unspsc", "unspsc_description") if com.get(k)) if isinstance(com, dict) else str(com)
+    return {"instrument_type": str(c.get("instrument_type") or c.get("canadabuys_instrument_type") or c.get("instrument_type_source_code") or "")[:120],
+            "procurement_method": str(c.get("procurement_method") or c.get("solicitation_procedure") or "")[:120],
+            "commodity": com[:160], "contract_description": re.sub(r"\s+", " ", str(c.get("description") or ""))[:300],
+            "number_of_bids": str(c.get("number_of_bids") or "")}
 # 2. contracts: best proof record per parent organisation
 TIER = {"ongoing": "A", "ongoing_inferred": "B", "end_date_unknown": "C"}
 TS = {"A": 3, "B": 2, "T": 1.8, "L": 1.5, "M": 1.2, "C": 1, "D": 1, "E": 0.5}
@@ -298,7 +306,7 @@ for p, o in orgs.items():
     rows.append({"jurisdiction": gj, "rank_group": ("GOLD" if tier in "AB" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": score,
         "buyer": o["name"], "buyer_website": be.get("official_website") or "", "buyer_address": json.dumps(be.get("address") or {}, ensure_ascii=False)[:200],
         "email": em, "email_type": et, "email_check": es, "email_evidence_url": eu, "email_evidence_quote": eq,
-        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + (("Québec, awarded in the last 3 years, no closing notice" if jur_of_record(r) == "QC" else "source marks it as continuing; awarded in the last 3 years, no end date published") if r["status"] == "ongoing_inferred" and award_date(r) >= CUTOFF3 else "awarded in the last 12 months, no end date published") + ")", "L": "likely active (awarded 12-36 months ago, no end date published; multi-year contracts often still run)", "C": "end date unknown, awarded over 3 years ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200],
+        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + (("Québec, awarded in the last 3 years, no closing notice" if jur_of_record(r) == "QC" else "source marks it as continuing; awarded in the last 3 years, no end date published") if r["status"] == "ongoing_inferred" and award_date(r) >= CUTOFF3 else "awarded in the last 12 months, no end date published") + ")", "L": "likely active (awarded 12-36 months ago, no end date published; multi-year contracts often still run)", "C": "end date unknown, awarded over 3 years ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200], **rec_extra(c),
         "contract_value": c.get("value") or "", "currency": c.get("currency") or "", "award_date": award_date(r), "start_date": d.get("start") or "", "end_date": d.get("end") or "",
         "contract_link": r.get("link") or "", "source": (r.get("source") or {}).get("name", ""), "vendor": v.get("name") or "", "vendor_legal_name": ve.get("legal_name") or "",
         "vendor_address": ", ".join(x for x in (a.get("line1"), a.get("city"), a.get("region"), a.get("postal_code")) if x), "vendor_country_basis": v.get("country_basis") or "",
@@ -592,7 +600,7 @@ for p, o in orgs12.items():
     rows.append({"jurisdiction": gj, "rank_group": "F%d" % g, "completeness_score": (20 if o["kind"] == "ended" else 10) + g * 6 + 3 + o["fields"],
         "buyer": o["name"], "buyer_website": site, "buyer_address": json.dumps(be.get("address") or {}, ensure_ascii=False)[:200],
         "email": em, "email_type": et, "email_check": es, "email_evidence_url": eu, "email_evidence_quote": eq, "contract_status": st,
-        "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200],
+        "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200], **rec_extra(c),
         "contract_value": c.get("value") or "", "currency": c.get("currency") or "", "award_date": ad, "start_date": d.get("start") or "", "end_date": end,
         "contract_link": r.get("link") or "", "source": (r.get("source") or {}).get("name", ""), "vendor": v.get("name") or "", "vendor_legal_name": ve.get("legal_name") or "",
         "vendor_address": addr_text(a), "vendor_country_basis": o["basis"] if o["kind"] == "registry" else v.get("country_basis") or "",
@@ -790,6 +798,76 @@ for x in rows:
         seen[(k, x.get("jurisdiction") or "")] = x
     merged.append(x)
 rows = merged
+# owner 2026-11-04 ("each row as populated as possible"): what the lanes read on the SAME page as the verified mailbox —
+# AP phone, invoice mailing address, invoicing requirements / payment terms, invoice portal (an extra channel, never the contact)
+EXTRA = {}
+for f in sorted(_glob.glob(ROOT + "/data/incoming/*/*buyer_ap*results*.csv") + _glob.glob(ROOT + "/data/incoming/*/*_ap_*results*.csv")):
+    try:
+        for r in csv.DictReader(io.StringIO(open(f, encoding="utf-8", errors="replace").read().replace("\0", ""))):
+            e = (r.get("ap_email") or "").strip().lower()
+            if not e:
+                continue
+            d = EXTRA.setdefault(e, {})
+            for col in ("ap_phone", "invoice_mailing_address", "invoicing_requirements_summary", "invoice_portal_url"):
+                v = re.sub(r"\s+", " ", (r.get(col) or "")).strip()
+                if v and v.lower() not in ("not_published", "none", "n/a", "-", "na", "null") and col not in d:
+                    d[col] = v[:300]
+    except Exception:
+        pass
+AP_TITLE = re.compile(r"accounts? payable|comptes? (?:à|a) payer|comptes payables|\bAP\b|payables?|finance clerk|accounting clerk|treasurer|tr[ée]sori|comptab|accountant", re.I)
+NAME_RX = re.compile(r"\b([A-ZÉÈ][a-zéèêàçï'\-]{2,}(?:\s(?:[A-ZÉÈ]\.?\s)?[A-ZÉÈ][a-zéèêàçï'\-]{2,}){1,2})\b")
+NOT_NAME = re.compile(r"accounts|payable|finance|services?|department|office|city|town|village|county|municipal|district|regional|ministry|university|college|school|hospital|health|"
+                      r"contact|email|phone|invoice|supplier|vendor|general|public|canada|ontario|quebec|british|columbia|alberta|manitoba|street|avenue|road|box|suite|floor|"
+                      r"monday|friday|hours|please|send|submit|questions|inquiries|information|center|centre|main|north|south|east|west|hall|building|bank|credit|union|first|nation",
+                      re.I)
+def ap_contact_name(quote, email):
+    """the AP contact the organisation itself prints next to its invoicing mailbox (business contact information published by
+    the organisation; never used as a mailbox). Conservative: a 2-3 word proper name within 60 characters of the mailbox,
+    with an AP / finance title in the same window and no organisation word in the name."""
+    q = quote or ""
+    i = q.lower().find(email.lower())
+    if i < 0:
+        return ""
+    win = q[max(0, i - 70):i + len(email) + 70]
+    if not AP_TITLE.search(win):
+        return ""
+    for m in NAME_RX.finditer(win):
+        nm = m.group(1)
+        if not NOT_NAME.search(nm) and len(nm.split()) >= 2 and not re.search(r"\d", nm):
+            return nm
+    return ""
+FR = re.compile(r"\b(de la|du|des|les|pour|avec|nous|vous|facture|factures|courriel|téléphone|ville|municipalité|comptes|fournisseurs|paiement|adresse|envoyer|veuillez|service des finances|hôtel de ville|greffe|bureau)\b", re.I)
+EN = re.compile(r"\b(the|and|for|with|please|send|invoice|invoices|email|phone|accounts|payable|department|office|hours|contact|submit|payment|address|finance|city hall|town hall)\b", re.I)
+def language_hint(x):
+    t = " ".join((x.get(c) or "") for c in ("email_evidence_quote", "buyer", "contract_title"))
+    fr, en = len(FR.findall(t)), len(EN.findall(t))
+    j = (x.get("jurisdiction") or "")
+    if fr > en * 1.5 and fr >= 2:
+        return "fr"
+    if en > fr * 1.5 and en >= 2:
+        return "en" if j != "QC" else "en (Québec: fr likely accepted)"
+    return "fr/en" if j in ("QC", "NB") or (fr and en) else ("en" if en else ("fr" if fr else ""))
+n_x = collections.Counter()
+for x in rows:
+    for col in ("ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "ap_contact_name_as_published", "email_deliverability", "language_hint"):
+        x.setdefault(col, "")
+    e = (x.get("email") or "").lower()
+    if not e:
+        continue
+    d = EXTRA.get(e) or {}
+    if d.get("ap_phone"):
+        x["ap_phone"] = d["ap_phone"]; n_x["ap_phone"] += 1
+    if d.get("invoice_mailing_address"):
+        x["invoice_mailing_address"] = d["invoice_mailing_address"]; n_x["invoice_mailing_address"] += 1
+    if d.get("invoicing_requirements_summary"):
+        x["invoicing_requirements"] = d["invoicing_requirements_summary"]; n_x["invoicing_requirements"] += 1
+    if d.get("invoice_portal_url"):
+        x["invoice_portal_url"] = d["invoice_portal_url"] + " (additional channel published by the buyer; the e-mail is the contact)"; n_x["invoice_portal_url"] += 1
+    nm = ap_contact_name(x.get("email_evidence_quote") or "", e)
+    if nm:
+        x["ap_contact_name_as_published"] = nm + " (as printed by the organisation next to its invoicing mailbox)"; n_x["ap_contact_name"] += 1
+    x["language_hint"] = language_hint(x)
+print("extras from the lanes' result rows:", dict(n_x))
 # a mailbox whose domain publishes no mail server (tools/mx_check.py, DNS only) cannot receive the survey: the row stays, without it
 MX = {}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_mx_check.tsv"):
@@ -798,10 +876,15 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_mx_check.tsv"):
 n_mx = 0
 for x in rows:
     e = (x.get("email") or "").lower()
-    if e and MX.get(e.split("@")[-1]) == "none":
-        for col in ("email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote"):
+    st = MX.get(e.split("@")[-1]) if e else None
+    if e and st == "none":
+        for col in ("email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote", "ap_phone", "invoice_mailing_address",
+                    "invoicing_requirements", "invoice_portal_url", "ap_contact_name_as_published"):
             x[col] = ""
         x["grade"], x["rank_group"], n_mx = 0, "%s0" % x.get("tier", ""), n_mx + 1
+    elif e:
+        x["email_deliverability"] = {"mx": "domain publishes a mail server (MX)", "a_only": "no MX record; A record only (deliverability uncertain)",
+                                     "error": "DNS check failed; re-checked next run"}.get(st, "not checked yet")
 print("mx_check: %d domains known; %d mailboxes on domains with no mail server removed" % (len(MX), n_mx))
 used_mail = set()  # one delivered row per mailbox: buyers that share one mailbox (branches on a government's central box) are one contact point
 for x in rows:
@@ -854,7 +937,9 @@ for x in rows:
             x["vendor_emails"] = v["emails"]; n_oc["vendor_emails"] += 1
         x["vendor_contact_evidence_url"] = v.get("address_url") or v.get("emails_url") or v.get("phone_url") or ""
 print("org_contacts: %d organisations read; filled %s" % (len(OC), dict(n_oc)))
-for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"])):
+for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"]),
+                   ("email_evidence_quote", ["email_deliverability", "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
+                   ("contract_title", ["contract_description", "instrument_type", "procurement_method", "commodity", "number_of_bids"])):
     if after in cols:
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]
