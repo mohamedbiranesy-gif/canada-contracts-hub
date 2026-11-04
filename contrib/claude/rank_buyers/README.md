@@ -63,7 +63,9 @@ unless printed, buyer cost centre / vote / project code, delivery address, tax-e
 
 ## Key columns
 `buyer`, `buyer_website`, `email`, `email_type` (invoicing/AP, finance, purchasing, general), `email_check` (confirmed =
-the referee re-opened the page and saw the address), `email_evidence_url` + `email_evidence_quote` (≤300 characters
+the referee re-opened the page and saw the address; since 2026-11-04 every package except P11 contains only `confirmed`
+mailboxes — the dataset build's own mailboxes were re-submitted to the referee as `claude_buyer_ap_results_dsenrich01.csv`
+and a row whose mailbox the referee has not yet seen waits in P11), `email_evidence_url` + `email_evidence_quote` (≤300 characters
 containing the address), `contract_status` (which relationship rule applies, with its source), `award_date`,
 `contract_link` (the record), `vendor`, `vendor_country_basis` (the source's own proof that the vendor is located in
 Canada), vendor registry fields when known, `buyer_phone` / `vendor_phone` / `vendor_emails` and the two

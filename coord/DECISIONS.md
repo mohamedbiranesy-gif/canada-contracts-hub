@@ -377,3 +377,14 @@ for append-only `*_results_*.csv` the lines present only on origin are kept; a f
 was last written is left alone), commits and pushes `pushwt:main`. The live clone's own HEAD no longer matters: tasks and tools
 are deployed with `git fetch origin main && git show origin/main:<path>`; mx_check reads `org_mailboxes.csv` from a
 `git show` copy, never from the live checkout. The 23 stashed rows were appended back to crawl01 before the switch.
+
+## 2026-11-04 07:00 (claude) — referee-confirmed mailboxes only (Gold and P02–P10)
+A random spot-check of five P01 rows showed two whose `email_check` was `from dataset enrichment`: mailboxes the dataset
+build had taken from a crawled page or a targeted search, never re-fetched by the referee, 53 of the 168 such delivered rows
+with no page quote at all ("(targeted search)"). Owner's standard is "ironclad": a mailbox counts only when the referee saw it on
+the cited page. Decision: (1) the 168 mailboxes are re-submitted as `data/incoming/claude/claude_buyer_ap_results_dsenrich01.csv`
+so the referee fetches every page; (2) `rank.py` ranks a dataset-enrichment mailbox below any confirmed one and never as Gold;
+(3) `batches.py` accepts only `confirmed` in P01–P10, P12, P13 — an unconfirmed mailbox waits in P11; (4) `validate_deliverable.py`
+gate 3 fails on any non-confirmed mailbox outside P11. Expected effect: P01 dips by up to 82 rows on the first re-rank and
+recovers as the referee confirms the pages (the ones it cannot see stay out, correctly). `validate_returns.py` ROLE_HINT now
+recognises bilingual role boxes (`water-eau@`, `dfotenders-soumissionsmpo@`, `communications.<org>@`, `travaux.<x>@`, customer/client).
