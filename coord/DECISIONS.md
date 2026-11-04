@@ -307,3 +307,31 @@ owner's Mac, each writing leads the bridge picks up:
   +49) is not filled for an entity with a Canadian / US address.
 - **Search round 4 (177 searches):** B_906 rest / B_907 / B_908 → p35–p37 (117 URLs, 71 buyers; deep_pages: 29 rows from
   p37 alone); Q_04 rest / Q_05 rest / Q_06 → 77 mailbox-first URLs (19 new; 8 pages with the organisation's own mailbox).
+
+## 2026-11-04 06:25 — claude: loops #5–#6 (owner 00:37 / 00:44 / 00:50: integrity + every field + volume; soft deadline 11:00 local)
+- **Owner's earlier extract (pool_audit.jsonl.gz, 65,981 e-mails):** assessed in contrib/claude/pool_audit/README.md. 65 % RBQ
+  licence-holder (vendor) e-mails, mostly personal; CanadaBuys "buyer_side" rows are named procurement officers (rule 5).
+  Kept as hints only: the source pages of role mailboxes on 3,237 domains we lacked (10,097 URLs → tools/ap_pages.py,
+  evidence or nothing; 48 % of pages show the organisation's own mailbox) and 8 delivered buyers that had no mailbox.
+- **Deliverability (learning adopted from the extract):** tools/mx_check.py — MX, else A/AAAA, DNS only, never an SMTP
+  probe; a `none` is confirmed by 8.8.8.8 and 1.1.1.1 before the mailbox is removed (16 of 272 first negatives were
+  resolver misses). 257 domains confirmed without a mail server → 153 delivered rows lose their mailbox (stay in Z).
+- **Integrity gates** (tools/validate_deliverable.py, VALIDATION.md written by the rank workflow): all hard gates PASS on
+  37,088 rows; one lead row without a named vendor (CDP) found and excluded by rank.
+- **Every field:** rank.py now carries instrument type / procurement method / commodity / description / bids from the
+  record; AP phone, invoice mailing address, invoicing requirements, payment terms, PO requirement and invoice portal from
+  the lanes' result rows (same page as the verified mailbox); registry id / url / registered address / trading name;
+  AP contact name only as printed next to the AP mailbox with a known given name or honorific and a finance role word
+  (85 rows; the first heuristic gave 615 with ~50 % place names and titles — rejected). tools/org_extras.py reads 61,598
+  sites for the copyright-line legal name, BN / GST-HST / charity number / NEQ / QST as printed, logo, language.
+- **buyer_pages round 2:** company / association / news pages name third parties (1 true lead in 9) → round 2 restricted
+  to public bodies and institutions; prize / appointment / historical / event contexts dropped; "Last, First" and
+  given-name vendor names dropped; "with" reverses only on company sites. **Accounts-payable listing mode** added
+  (council lists of accounts / cheque registers: every dictionary vendor on a line with an amount, dated by the
+  document; agenda packages scanned for the list-of-accounts section; the buyer's meeting portal followed one level).
+  eSCRIBE renders agendas in JavaScript only — no public endpoint; portal adapters (CivicWeb, iCompass, Legistar API,
+  Granicus, BoardDocs) registered for jules; Ohio Checkbook local, NY Open Book, UK spend-over-£500 for codex.
+- **Honest position on 10,000 Gold:** every lever that respects the rules is running or handed to a lane; the count is
+  bounded by organisations with a dated Canadian-vendor record × the ~10 % that publish an invoicing mailbox. The
+  payment-listing sources (councils, school boards) are the only pool large enough to change the order of magnitude,
+  and they need portal adapters.
