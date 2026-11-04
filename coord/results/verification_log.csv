@@ -6438,9 +6438,9 @@ gemini,gemini_buyer_ap_results_batch27.csv,GE-AP-27063,b:19f2d1e42e4519d0,epa.ou
 gemini,gemini_buyer_ap_results_batch27.csv,GE-AP-27063,b:19f2d1e42e4519d0,https://www.alberta.ca/1gx,https://www.alberta.ca/1gx,verified
 claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00088,b:19fd92577bbc3854,finance.gen-npb-cnlcno@pbc-clcc.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00047,b:19fd92577bbc3854,finance.gen-npb-cnlcno@pbc-clcc.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00011,b:19fd92577bbc3854,info-ont@pbc-clcc.gc.ca,https://www.canada.ca/en/parole-board/corporate/contact-information.html,unverified_page_unavailable
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00011,b:19fd92577bbc3854,info-pra@pbc-clcc.gc.ca,https://www.canada.ca/en/parole-board/corporate/contact-information.html,unverified_page_unavailable
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00011,b:19fd92577bbc3854,info-atl@pbc-clcc.gc.ca,https://www.canada.ca/en/parole-board/corporate/contact-information.html,unverified_page_unavailable
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00011,b:19fd92577bbc3854,info-ont@pbc-clcc.gc.ca,https://www.canada.ca/en/parole-board/corporate/contact-information.html,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00011,b:19fd92577bbc3854,info-pra@pbc-clcc.gc.ca,https://www.canada.ca/en/parole-board/corporate/contact-information.html,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00011,b:19fd92577bbc3854,info-atl@pbc-clcc.gc.ca,https://www.canada.ca/en/parole-board/corporate/contact-information.html,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00004,b:19fd92577bbc3854,finance.gen-npb-cnlcno@pbc-clcc.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
 gemini,gemini_buyer_ap_results_batch32.csv,CH-AP-01293,b:1a033be81f86c4dd,info@drumhellerlandfill.com,https://www.drumhellerlandfill.com/general-info/faq-s,verified
 gemini,gemini_buyer_ap_results_batch05.csv,GE-AP-00416,b:1a43344a2fb7d285,infocentre@cegepat.qc.ca,https://www.cegepat.qc.ca/public/infocentre/,verified
