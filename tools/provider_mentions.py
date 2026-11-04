@@ -82,6 +82,7 @@ VENDORS = {
     "voyent": ("ICEsoft Technologies Canada Corp. (Voyent Alert!)", r"Voyent\s+Alert", "https://voyent-alert.com/", r"600 Crowfoot Crescent.{0,20}Calgary,?\s+(?:AB|Alberta)", "municipal"),
     "bookking": ("Univerus Software Inc. (BookKing)", r"Book\s?King", "https://www.univerussportandrecreation.com/", r"3292 Production Way.{0,20}Burnaby,?\s+(?:BC|British Columbia)", "municipal"),
     "amilia": ("Amilia Enterprises Inc.", r"Amilia", "https://www.amilia.com/contact", r"Richardson St.{0,20}Montr[ée]al,?\s+(?:QC|Qu[ée]bec)", "municipal"),
+    "benevity": ("Benevity, Inc.", r"Benevity", "https://benevity.com/legal/terms-of-use", r"administered by Benevity from within the Province of Alberta, Canada", "hr"),
     "crowdmark": ("Crowdmark, Inc.", r"Crowdmark", "https://www.crowdmark.com/privacy/", r"Toronto,?\s+(?:ON|Ontario)", "academic"),
     "maplesoft": ("Maplesoft (Waterloo Maple Inc.)", r"Maplesoft|Waterloo\s+Maple|Maple\s*T\.?A\.?|Maple\s+Learn", "https://www.maplesoft.com/contact/",
                   r"609 Kumpf Drive,?\s+Waterloo,?\s+(?:ON|Ontario)", "academic"),
@@ -102,7 +103,8 @@ CTX = {"eap": r"(?:employee(?:\s+and\s+family)?\s+assistance|\bE\.?F?\.?A\.?P\.?
                    r"(?:plan|policy|group|contract)\s+(?:number|no\.?|#)|plan sponsor",
        "academic": r"grad(?:e|ing)|assess|exam|course|student|instructor|licen[cs]e|site\s+licen[cs]e|available\s+to|campus|teaching|learning|software|"
                    r"\bLMS\b|learning management|portal|parents?|families|school fees|pay(?:ment)?s? (?:online|for)|career|planning|lessons?|classroom",
-       "hr": r"recogni|rewards?|training|learning|onboarding|employees?|staff|frontline|intranet|EHS|health and safety|safety management|procurement|purchase requisition|purchasing",
+       "hr": r"recogni|rewards?|training|learning|onboarding|employees?|staff|frontline|intranet|EHS|health and safety|safety management|procurement|purchase requisition|purchasing|"
+             r"giving|volunteer|donation match|matching gift|workplace giving|charitable|community investment|philanthrop",
        "municipal": r"alert|notification|emergency|register|registration|book(?:ing)?|rentals?|facilit|program|recreation|loisirs|inscription",
        "library": r"librar|e-?resource|database|access|subscri|magazine|newspaper|e-?book|digital\s+collection|cardholder|library card"}
 INSURER_NAMES = re.compile(r"Sun\s*Life|Manulife|Canada\s+Life|Great-West|Green\s*Shield|Medavie|Blue\s+Cross|Desjardins|Beneva|\bSSQ\b|Industrial\s+Alliance|iA\s+Financial|"
@@ -122,7 +124,7 @@ NOT_PAGE = re.compile(r"donor|donat|sponsor|scholarship|bourse|news|nouvelle|blo
                       r"giving|campaign|award|tender|rfp|bid|procure|login|\.pdf$|\.docx?$", re.I)
 
 
-VENDOR_DOMS = {"sunlife.ca", "sunlife.com", "manulife.ca", "manulife.com", "canadalife.com", "ia.ca", "desjardins.com", "beneva.ca", "ssq.ca",
+VENDOR_DOMS = {"benevity.com", "benevity.org", "sunlife.ca", "sunlife.com", "manulife.ca", "manulife.com", "canadalife.com", "ia.ca", "desjardins.com", "beneva.ca", "ssq.ca",
                "cooperators.ca", "empire.ca", "equitable.ca", "greenshield.ca", "medavie.ca", "medaviebc.ca", "bluecross.ca", "pac.bluecross.ca",
                "ab.bluecross.ca", "crowdmark.com", "maplesoft.com", "digitaled.com", "pressreader.com", "telus.com", "telushealth.com",
                "lifeworks.com", "homewoodhealth.com", "tumblebooks.com", "moneris.com"}
