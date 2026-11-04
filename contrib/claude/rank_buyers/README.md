@@ -40,6 +40,27 @@ schools / authorities `abed:`; a key listed there counts as located in Canada), 
 else the single postal code on the organisation's own page. Organisations not shown to be located in Canada get no inference (skipped). One row
 per organisation: P12 / P13 never repeat an organisation, registrable domain or mailbox already in a row above.
 
+## Columns (66, in file order)
+`jurisdiction`, `rank_group`, `completeness_score`, `buyer`, `buyer_website`, `buyer_address`, `buyer_phone`,
+`buyer_contact_evidence_url`, `buyer_legal_name_as_published` (copyright / footer line of the buyer's site),
+`buyer_bn_as_published` (BN / charity number as printed, with the page), `buyer_gst_hst_derived` (BN9 + RT0001, labelled
+derived, registration not confirmed), `buyer_logo_url`, `buyer_website_status`, `email`, `email_type`, `email_check`,
+`email_evidence_url`, `email_evidence_quote`, `email_deliverability` (tools/mx_check.py), `ap_contact_name_as_published`
+(only as the organisation prints it next to its AP mailbox: business contact information, never a mailbox), `ap_phone`,
+`invoice_mailing_address`, `invoicing_requirements`, `payment_terms_as_published`, `po_required_as_published`,
+`invoice_portal_url` (an additional channel the buyer publishes; the e-mail is the contact), `language_hint`,
+`contract_status`, `contract_reference`, `contract_title`, `contract_description`, `instrument_type` (contract / standing
+offer / blanket order / supply arrangement as the source names it), `procurement_method`, `commodity`, `number_of_bids`,
+`contract_value` (lead rows name the source field), `currency`, `award_date`, `start_date`, `end_date`, `contract_link`,
+`source`, `vendor`, `vendor_legal_name`, `vendor_trading_name`, `vendor_registry_id` (NEQ / corporation number / BC
+registration from the registry match), `vendor_registry_url`, `vendor_registered_address`, `vendor_neq`,
+`vendor_qst_as_published`, `vendor_address`, `vendor_country_basis`, `vendor_bn9`, `vendor_gst_hst_derived`,
+`vendor_website`, `vendor_emails` (role boxes on the vendor's own domain: billing / AR / info), `vendor_phone`,
+`vendor_contact_evidence_url`, `vendor_logo_url`, `vendor_website_status`, `contracts_with_canadian_suppliers`,
+`buyer_keys`, `keys`, `tier`, `grade`, `acc`.
+Fields no public source gives (signatory name and title, WSIB clearance number, certificate of insurance, QST number
+unless printed, buyer cost centre / vote / project code, delivery address, tax-exempt certificate) are `not_published`.
+
 ## Key columns
 `buyer`, `buyer_website`, `email`, `email_type` (invoicing/AP, finance, purchasing, general), `email_check` (confirmed =
 the referee re-opened the page and saw the address), `email_evidence_url` + `email_evidence_quote` (≤300 characters
