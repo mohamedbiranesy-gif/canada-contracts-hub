@@ -250,3 +250,37 @@ owner's Mac, each writing leads the bridge picks up:
   the invoicing mailbox: first 340 → 167 sites with a role mailbox.
 - **Benevity:** 442 enterprise portals read; websites resolved from the portal slug (microsoft.benevity.org → microsoft.com,
   first domain label = slug, home page title checked).
+
+## 2026-11-04 02:40 — claude: loop #3 notes (owner 20:56: "every entry of every package as complete as possible", "×10")
+- **Member / regulated-payer relationships are their own packages, P01M / P06M** (contrib/claude/rank_buyers: tier M,
+  GOLD-M): the organisation is on the CURRENT list the Canadian body publishes (IESO / AESO participants, OSFI, CDIC,
+  Payments Canada, CBA, CLHIA, IBC, Electricity Canada, CCUA, CICan, Alberta Municipalities ...) and pays it (fee basis and
+  the body's head office quoted). Kept apart from P01 / P01T because the body is a regulator or association, not a
+  supplier the buyer chose. tools/member_lists.py: 2,290 leads; websites via site_finder_names, then the crawler.
+- **Customer stories at scale** (tools/customer_stories.py --vendors-file, 3 shards over 42,000 Canadian vendor sites):
+  a dated story (≤12 months, vendor proven in Canada from the contract data or its own site address) is tier B; an
+  undated one is a client listing (D). Vendor proof per vendor, never from the name.
+- **Mailbox-first discovery** (tools/ap_pages.py): web searches locate pages that publish an invoicing mailbox; the reader
+  (no AI) keeps the page's own role mailboxes (same_org against the page host) with the quote; the organisations found
+  (apfirst_orgs.csv) are then fed to fs_auditor / news_match / exchange_listing for the dated record. Round 1: 122 URLs →
+  89 rows (83 AP-grade). Town-by-town queries return job postings; sector × province queries work.
+- **Every field the record gives** (tools/lead_scanner.py record_details → claude_lead_details.jsonl.gz, rank.py
+  apply_details): amount (with its source field named; asset / budget / valuation fields excluded), identifiers (JSON of
+  the id-like fields), dates, vendor address fields, title. 47,489 of 54,666 lead buyers carry details.
+- **Completeness engine** (tools/org_contacts.py, 48 workers on the Mac over 37,913 buyer + vendor domains): head-office
+  address, phone and role mailboxes from each organisation's OWN site, evidence URL + quote + date; rank.py fills
+  buyer_address / buyer_phone / vendor_address / vendor_phone / vendor_emails and names the page. Contact pages are read
+  before the home page (footers list several offices); the head-office / city-hall labelled address wins; Incapsula /
+  Imperva walls are `blocked`.
+- **registrable() fixed for public suffixes outside Canada** (tools/ap_crawler.py): govt.nz / ac.nz / vic.gov.au /
+  ci.<city>.<st>.us / k12.<st>.us / co.jp ... were collapsing to the suffix, so the Department of Conservation's
+  info@doc.govt.nz passed same_org for Christchurch City Libraries (ccc.govt.nz). One label above the shared suffix now.
+- **Mac shell incident:** `pkill -f "lead_scanner.py --bridge"` matched the MacOS-MCP shell's own bash and killed it; the
+  tool no longer answers. All Mac work now goes through Control_your_Mac (osascript `do shell script`); processes are
+  killed by PID from `ps`, never by a pattern the command itself contains; background jobs are started with
+  `(nohup … > log 2>&1 < /dev/null &)`.
+- **Where Gold can still come from (honest):** the upgrade searches (10 known domains per search) have now covered almost
+  every A / B / T organisation with a website (B_908 holds the last 189); the rest publish no invoicing mailbox that a
+  crawl or a search can see. New Gold comes from NEW organisations with a dated record (member lists, stories, tech
+  portals, auditors, exchange issuers) × the ~10 % that publish an AP mailbox. The search budget is therefore spent on
+  B_908, then mailbox-first sector queries (Q_04–Q_11) and client-listing organisations (B_909–B_911, P06 growth).

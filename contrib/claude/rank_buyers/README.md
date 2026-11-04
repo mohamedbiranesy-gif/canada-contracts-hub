@@ -45,7 +45,8 @@ per organisation: P12 / P13 never repeat an organisation, registrable domain or 
 the referee re-opened the page and saw the address), `email_evidence_url` + `email_evidence_quote` (≤300 characters
 containing the address), `contract_status` (which relationship rule applies, with its source), `award_date`,
 `contract_link` (the record), `vendor`, `vendor_country_basis` (the source's own proof that the vendor is located in
-Canada), vendor registry fields when known, `keys` (all buyer keys folded into the row).
+Canada), vendor registry fields when known, `buyer_phone` / `vendor_phone` / `vendor_emails` and the two
+`*_contact_evidence_url` columns (the organisation's own site, see below), `keys` (all buyer keys folded into the row).
 
 ## Field completeness (owner, 2026-11-03)
 Every cell of a delivered package is filled: from the record (identifiers, value, currency, dates, link), then the
@@ -55,6 +56,22 @@ mailbox's domain (or the evidence page's host when it is the same domain); `vend
 always labelled derived; a currency missing from a Canadian / US government source is labelled "derived from the
 source's government". A field no source gives is the literal `not_published` (Z: e-mail columns are `not_found_yet`).
 `ranked_buyers.csv` keeps blanks (it is the working file batches.py reads).
+
+Since 2026-11-04 two more fillers run before the packages are cut:
+- **the lead's own record** (`data/incoming/claude/claude_lead_details.jsonl.gz`, written by the bridge in
+  tools/lead_scanner.py): for buyers proven by a payment / subaward / filing record rather than a contract in the dataset,
+  the record's amount (`contract_value`, suffixed with the source field's name, e.g. "313560 (source field:
+  contractamount)"; a fund's or body's asset / budget figure is never taken), identifiers (`contract_reference`, a JSON of
+  the record's id-like fields: PO, contract number, award id, filing id), start / end dates, the vendor's address fields
+  and the record's title / description;
+- **each organisation's own website** (`data/incoming/claude/claude_org_contacts.jsonl.gz`, written by tools/org_contacts.py):
+  head-office address (schema.org PostalAddress, an `<address>` element, or a street address pattern with province +
+  postal code / state + ZIP / UK postcode / Australian state + postcode; the head-office / city-hall labelled one when a
+  page lists several), phone (tel: link or a number next to "Tel" / "Phone" / "Téléphone", never a fax) and role mailboxes
+  (info@, contact@, sales@ ... on the organisation's own domain, never a named person). Fills `buyer_address` when the
+  buyer table has none, `buyer_phone`, `vendor_address` when the record has none, `vendor_phone`, `vendor_emails` when the
+  registry match has none; `buyer_contact_evidence_url` / `vendor_contact_evidence_url` name the page read, the date is
+  in the JSONL (`date`), and the quote (≤300 characters around the address) in `address_quote`.
 
 ## Quality rules on top of the referee's checks
 - Vendor in Canada only from the source itself (address / country field, release dateline, the vendor's own Canada-HQ
