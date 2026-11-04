@@ -92,8 +92,10 @@ for r in csv.DictReader(io.StringIO(raw)):
                                                                                      ((r.get("evidence_url") or "") + " " + (r.get("evidence_quote") or "")).lower()):
         g = 1  # a mailbox published on the page where residents / customers pay the organisation
     s = (acc, g)
-    if r["org_key"] not in mail or s > mail[r["org_key"]][0]:
-        mail[r["org_key"]] = (s, r)
+    for ok in (r["org_key"] or "").split("|"):  # a results row may carry several keys of one organisation joined by "|"
+        ok = ok.strip()
+        if ok and (ok not in mail or s > mail[ok][0]):
+            mail[ok] = (s, r)
 # 1b. optional release tables (each skipped when absent): vendor registry facts / websites / addresses (field fill),
 # buyer websites / addresses, and the weaker-relationship inputs of P12 (registry-match contracts, ended contracts)
 REL = ROOT + "/data/release/"
