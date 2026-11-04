@@ -77,6 +77,10 @@ for r in csv.DictReader(io.StringIO(raw)):
         continue
     if re.search(r"direct-deposit|depot-direct", r.get("evidence_url") or "") and g < 3:
         g = 3  # PSPC's table of each federal institution's supplier-payment office: finance tier, not invoicing
+    if g >= 3 and re.search(r"property-tax|paying-|pay-your|pay-online|payonline|tax-pay|taxes|utility-bill|utilit|water-bill|billing|fines|tickets|tuition|donat|fees",
+                            (r.get("evidence_url") or "").lower()) and not re.search(r"payable|supplier|vendor|fourniss|invoice|factur|procure|purchas|finance|accounting",
+                                                                                     ((r.get("evidence_url") or "") + " " + (r.get("evidence_quote") or "")).lower()):
+        g = 1  # a mailbox published on the page where residents / customers pay the organisation
     s = (acc, g)
     if r["org_key"] not in mail or s > mail[r["org_key"]][0]:
         mail[r["org_key"]] = (s, r)
