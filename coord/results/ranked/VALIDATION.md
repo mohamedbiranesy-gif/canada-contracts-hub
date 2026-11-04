@@ -1,4 +1,4 @@
-# Integrity gates — 47884 delivered rows in 17 packages
+# Integrity gates — 48549 delivered rows in 17 packages
 
 - **1 mailbox present, valid, domain with a mail server**: PASS (0)
 - **2 role mailbox (no person-like local part, no freemail)**: PASS (0)
@@ -13,10 +13,10 @@ Informational: 2 rows whose quote shows the label next to the address rather tha
 ## Rows per package
 - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 18
 - P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 89
-- P01_GOLD_active_relationship_invoicing_AP_email: 562
-- P02_active_relationship_finance_accounting_email: 333
-- P03_active_relationship_purchasing_email: 228
-- P04_active_relationship_general_email: 1599
+- P01_GOLD_active_relationship_invoicing_AP_email: 564
+- P02_active_relationship_finance_accounting_email: 332
+- P03_active_relationship_purchasing_email: 229
+- P04_active_relationship_general_email: 1596
 - P05_likely_active_awarded_12_36_months_any_email: 380
 - P06M_member_or_regulated_payer_of_canadian_body_other_email: 167
 - P06T_active_service_seen_on_buyer_site_other_email: 2425
@@ -27,4 +27,4 @@ Informational: 2 rows whose quote shows the label next to the address rather tha
 - P10_linked_from_vendor_site_any_email: 2605
 - P11_any_relationship_email_not_yet_confirmed: 517
 - P12_weaker_relationship_within_5_years_own_email: 23
-- P13_inferred_relationship_no_record_own_email: 35101
+- P13_inferred_relationship_no_record_own_email: 35767
