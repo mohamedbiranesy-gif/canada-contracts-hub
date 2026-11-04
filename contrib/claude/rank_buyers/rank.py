@@ -1179,16 +1179,35 @@ for x in rows:
                                       "; %s; mail handled by %s" % (x["spf_policy"], x["mail_provider"])
         n_dm["exposed" if exposed else "enforced"] += 1
 print("dmarc/spf: %d domains known; rows %s" % (len(DM), dict(n_dm)))
-used_mail = set()  # one delivered row per mailbox: buyers that share one mailbox (branches on a government's central box) are one contact point
-for x in rows:
+used_mail = {}  # one delivered row per mailbox: buyers that share one mailbox (branches on a government's central box) are one contact point
+def _site_dom(x):
+    h = host_of(x.get("buyer_website") or "")
+    return registrable(h) if h else ""
+drop = set(); n_fold = 0
+for i, x in enumerate(rows):
     e = (x.get("email") or "").lower()
     if not e:
         continue
     if e in used_mail:
+        holder = used_mail[e]
+        # the same organisation under another key or spelling (same website domain as the row that keeps the mailbox): one row, not a
+        # mailbox-less duplicate (owner 2026-11-04 10:18 "all distinct buyers?"; e.g. "Township of Leeds and the Thousand Islands" twice)
+        if _site_dom(x) and _site_dom(x) == _site_dom(holder) and _site_dom(x) == registrable(e.split("@")[-1]):
+            hk = set((holder.get("keys") or "").split("|")); hk |= set((x.get("keys") or "").split("|"))
+            holder["keys"] = "|".join(sorted(k for k in hk if k)); holder["buyer_keys"] = len([k for k in hk if k])
+            try:
+                holder["contracts_with_canadian_suppliers"] = max(int(holder.get("contracts_with_canadian_suppliers") or 0), int(x.get("contracts_with_canadian_suppliers") or 0))
+            except (TypeError, ValueError):
+                pass
+            drop.add(i); n_fold += 1
+            continue
         for col in ("email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote"):
             x[col] = ""
         x["grade"], x["rank_group"] = 0, "%s0" % x.get("tier", "")
-    used_mail.add(e)
+        continue
+    used_mail[e] = x
+rows = [x for i, x in enumerate(rows) if i not in drop]
+print("same organisation under another key folded into the row that holds its mailbox:", n_fold)
 for x in rows:  # owner 2026-11-03: fill what can be derived (after the merge, which keys on jurisdiction and website)
     if not x.get("jurisdiction"):
         x["jurisdiction"] = x.get("_jur") or ""
