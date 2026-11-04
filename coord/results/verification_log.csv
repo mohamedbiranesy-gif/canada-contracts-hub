@@ -8648,6 +8648,8 @@ gemini,gemini_buyer_ap_results_batch20.csv,GE-AP-01976,b:510cdc017f3a10b5,direct
 gemini,gemini_buyer_ap_results_batch20.csv,GE-AP-01976,b:510cdc017f3a10b5,direction@municipalitestomer.com,https://mrclislet.com/la-region/les-14-municipalites/,verified
 claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00035,b:5121d50551f10607,facturation@coteau-du-lac.com,https://coteau-du-lac.com/vie-municipale/administration-et-finances/notre-equipe,verified
 gemini,gemini_buyer_ap_results_batch19.csv,GE-AP-01843,b:5128015a2d79ed45,info@ecoregie.ca,https://www.ecoregie.ca/,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00028,b:512d6bab44c3419d,1042vendor@comptroller.nyc.gov,https://a127-pip.nyc.gov/LoginExternal/Forms/EFT_Enrollment_Form_and_Instructions.pdf,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00028,b:512d6bab44c3419d,vendoreft@finance.nyc.gov,https://a127-pip.nyc.gov/LoginExternal/Forms/EFT_Quick_Start_Guide.pdf,verified
 gemini,gemini_buyer_ap_results_batch34.csv,CH-AP-01453,b:512d6bab44c3419d,pip@fisa-opa.nyc.gov,https://www.nyc.gov/site/mocs/opportunities/pip.page,verified
 gemini,gemini_buyer_ap_results_batch38.csv,CH-AP-01880,b:5136a9ace65d8ea7,rm97@sasktel.net,https://municipalhail.ca/assets/smhi-rm-contacts.pdf,verified
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00773,b:513aa52e1ff632c3,info@munogden.ca,https://www.munogden.ca/contact.html,not_found_on_page_hidden
@@ -33399,10 +33401,15 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044380,crux:martek.ca,wpurcha
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044397,crux:martinpariseinc.ca,info@martinpariseinc.com,https://martinpariseinc.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044398,crux:martinsbakery.ca,martinsbakery.payment@gmail.com,https://www.martinsbakery.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044399,crux:martinsbus.ca,info@martinsbus.ca,https://martinsbus.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044411,crux:marvelmarketing.ca,info@marvelmarketing.ca,https://marvelmarketing.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044414,crux:marvelousmascots.ca,info@marvelousmascots.ca,https://www.marvelousmascots.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044421,crux:maryqueentrade.ca,info@maryqueentrade.ca,https://www.maryqueentrade.ca/fr,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044426,crux:maryvale.ca,info@maryvale.ca,https://www.maryvale.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044430,crux:masadeli.ca,info@masadeli.ca,https://masadeli.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044435,crux:masakisushi.ca,info@masakisushi.ca,https://masakisushi.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044436,crux:masakosushibar.ca,info@masakosushibar.ca,https://masakosushibar.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044438,crux:masala-cafe.ca,info@masala-cafe.ca,https://masala-cafe.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-044439,crux:masalaboyz.ca,info.masalaboyz@gmail.com,https://www.masalaboyz.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-008402,crux:masjidbilal.ca,info@masjidbilal.ca,https://masjidbilal.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-008403,crux:masjidquba.ca,info@masjidquba.ca,https://masjidquba.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-CRUX-008407,crux:massotherapeutes.qc.ca,info@massotherapeutes.qc.ca,https://www.massotherapeutes.qc.ca/,verified
@@ -43159,6 +43166,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11174,lead:80b3e1d3df8e5e5b,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01221,lead:80b5750e7088ff83,info@newcardealers.ca,https://business.newcardealers.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-18740,lead:80b8fc9f28a7d5b6,info@aavaa.com,https://aavaa.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-SN-00871,lead:80bbd93fb4b6e2b8,info@evolugen.com,https://evolugen.com/,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00005,lead:80bbd93fb4b6e2b8,ap@brookfieldrenewable.com,https://evolugen.com/wp-content/uploads/2021/06/2021-04-08_Evolugen_Invoice-CommunitySupportApplicationFormEN.pdf,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00005,lead:80bbd93fb4b6e2b8,info@evolugen.com,https://evolugen.com/wp-content/uploads/2021/06/2021-04-08_Evolugen_Invoice-CommunitySupportApplicationFormEN.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03017,lead:80bcec719749ee17,u003epurchase.invoices@fortum.com,https://www.fortum.com/contact-us/suppliers/invoice-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03017,lead:80bcec719749ee17,purchase.invoices@fortum.com,https://www.fortum.com/contact-us/suppliers/invoice-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03017,lead:80bcec719749ee17,procurement.fortum@fortum.com,https://www.fortum.com/contact-us/suppliers,verified
@@ -50959,6 +50968,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-EX-VML,lead:f502774430a8b781,info@
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35380,lead:f5109991da83d9c1,info@amodernspace.ca,https://amodernspace.ca/pages/contact-us-1,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-02261,lead:f51230b2584bc2b6,info@marrbc.ca,https://www.marrbc.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-33003,lead:f5204708b32d9086,admin@townofkearney.ca,https://www.townofkearney.ca/,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00009,lead:f5204708b32d9086,admin@townofkearney.ca,https://www.townofkearney.ca/finance-0,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-13581,lead:f52ac7f2d8144575,info@iwa.ie,https://www.iwa.ie/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06788,lead:f52d29f387a7f8d1,info@globesign.com,https://www.globesign.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15837,lead:f52e80d2e42da096,info@npei.ca,https://www.npei.ca/about-us/news/notice-npeis-payment-drop-box-will-be-inaccessible-until-july-28,verified
@@ -51083,6 +51093,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11597,lead:f6dccebb2883d2fa,inv
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11597,lead:f6dccebb2883d2fa,procurement@reading.ac.uk,https://www.reading.ac.uk/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11597,lead:f6dccebb2883d2fa,newsupplierandamendments@reading.ac.uk,https://www.reading.ac.uk/procurement/information-for-suppliers,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00620,lead:f6e818f3cc33f490,info@vertexaerospace.com,https://vertexaerospace.com/,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00012,lead:f6f2b171d15fe954,apelectronicinvoice@nbpower.com,https://www.nbpower.com/media/1494002/procurement_act_non_nuclear_terms_and_conditions_rev_2026_01_06.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-EX-CAM,lead:f6f2ffa7aff0eae0,info@cascadiaminerals.com,https://cascadiaminerals.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-EX-CAM,lead:f6f2ffa7aff0eae0,info@cascadiaminerals.comtel,https://cascadiaminerals.com/corporate/corporate-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09766,lead:f6f58e22dccf119a,info@thenounproject.com,https://thenounproject.com/,verified
