@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Task list for tools/org_contacts.py: every buyer and vendor website of the ranked deliverable (and of the lead buyers
 with a website) whose registrable domain is not yet in the engine's resume file. Buyers lacking an address first.
-  python3 contrib/claude/org_contacts/make_tasks.py [--done ~/cch-crawler-state/org_contacts.jsonl] -> contrib/claude/org_contacts/tasks_round2.csv.gz"""
+  python3 contrib/claude/org_contacts/make_tasks.py --done data/incoming/claude/claude_org_contacts.jsonl.gz -> contrib/claude/org_contacts/tasks_round2.csv.gz
+(the committed gz holds the organisations read with a result; on the Mac the engine's own resume file also skips the failures)"""
 import argparse, csv, gzip, json, os, sys, urllib.parse
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 sys.path.insert(0, ROOT + "/tools"); sys.argv_backup = sys.argv[:]; 
@@ -10,7 +11,7 @@ a = a.parse_args(); sys.argv = sys.argv[:1]
 from ap_crawler import registrable
 done = set()
 if a.done and os.path.exists(a.done):
-    for l in open(a.done, encoding="utf-8", errors="replace"):
+    for l in (gzip.open(a.done, "rt", encoding="utf-8", errors="replace") if a.done.endswith(".gz") else open(a.done, encoding="utf-8", errors="replace")):
         try:
             done.add(json.loads(l)["domain"])
         except Exception:
