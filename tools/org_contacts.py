@@ -365,11 +365,18 @@ def main():
     def dump():
         with lock:
             rows = [d for d in done.values() if d.get("status") == "ok"]
-        os.makedirs(os.path.dirname(out_gz), exist_ok=True)
-        with gzip.open(out_gz + ".tmp", "wt", encoding="utf-8") as f:
-            for d in sorted(rows, key=lambda d: d["domain"]):
-                f.write(json.dumps(d, ensure_ascii=False) + "\n")
-        os.replace(out_gz + ".tmp", out_gz)
+        for attempt in range(3):  # push_loop's rebase may be rewriting the clone's working tree at this moment
+            try:
+                os.makedirs(os.path.dirname(out_gz), exist_ok=True)
+                tmp = out_gz + ".%d.tmp" % os.getpid()
+                with gzip.open(tmp, "wt", encoding="utf-8") as f:
+                    for d in sorted(rows, key=lambda d: d["domain"]):
+                        f.write(json.dumps(d, ensure_ascii=False) + "\n")
+                os.replace(tmp, out_gz)
+                break
+            except Exception as e:
+                print(time.strftime("%H:%M"), "dump failed (%s), retrying" % e, flush=True)
+                time.sleep(20)
         print(time.strftime("%H:%M"), "wrote", out_gz, len(rows), "organisations", dict(stats), flush=True)
 
     def one(t):
@@ -388,7 +395,10 @@ def main():
             if due:
                 last_dump[0] = time.time()
         if due:
-            dump()
+            try:
+                dump()
+            except Exception as e:
+                print(time.strftime("%H:%M"), "dump error", e, flush=True)
 
     threading.Thread(target=watchdog, daemon=True).start()
     with ThreadPoolExecutor(a.workers) as ex:
