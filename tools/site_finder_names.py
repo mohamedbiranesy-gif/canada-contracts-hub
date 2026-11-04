@@ -108,7 +108,7 @@ def main():
             w.writerow(["task_id", "org_group", "buyer_key", "buyer_name", "other_spellings", "country", "known_website",
                         "known_general_email", "known_procurement_email", "contracts_in_dataset"])
         for i, (key, name) in enumerate(todo.items(), 1):
-            n, hit = norm(re.sub(r"\s+", " ", LEGAL.sub(" ", norm(name)))).strip() or norm(name), ""
+            n, hit, how = norm(re.sub(r"\s+", " ", LEGAL.sub(" ", norm(name)))).strip() or norm(name), "", "clearbit:" + name.replace("\t", " ")[:80]
             sugg = suggest(n or name) or (suggest(" ".join(n.split()[:3])) if len(n.split()) > 3 else [])  # the autocomplete is prefix-based: no legal suffix
             for s in sugg[:5]:
                 dom = (s.get("domain") or "").lower().strip()
@@ -123,12 +123,12 @@ def main():
                     first = dom.split(".")[0]
                     sn = norm(s.get("name") or "")
                     if dom and not BAD.search(dom) and first == slug and ((bool(sn) and sn.split()[0] in norm(name).split()) or len(slug) >= 5) and verified(dom, sn or slug):
-                        hit = dom
+                        hit, how = dom, "clearbit-slug:" + (s.get("name") or slug)  # the employer's own name (the portal title is its programme's brand)
                         break
             dn.write("%s\t%s\n" % (key, hit))
             if hit:
                 found += 1
-                out.write("%s\thttps://%s/\tclearbit:%s\n" % (key, hit, name.replace("\t", " ")[:80]))
+                out.write("%s\thttps://%s/\t%s\n" % (key, hit, how.replace("\t", " ")[:120]))
                 w.writerow(["CL-SN-%05d" % i, "", key, name, "", "", "https://%s/" % hit, "", "", 1])
                 out.flush(); tf.flush()
             dn.flush()

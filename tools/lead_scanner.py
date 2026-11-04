@@ -157,6 +157,13 @@ def latest_date(row):
 def bridge():
     while True:
         buyers, freq = {}, collections.Counter()
+        sites = {}  # websites found later for lead buyers (tools/site_finder*.py, us_directories.py): key -> (website, basis)
+        wp = os.path.expanduser("~/cch-crawler-state/websites.tsv")
+        if os.path.exists(wp):
+            for line in open(wp, encoding="utf-8", errors="replace"):
+                parts = line.rstrip("\n").split("\t")
+                if len(parts) >= 2 and parts[1].startswith("http"):
+                    sites[parts[0]] = (parts[1], parts[2] if len(parts) > 2 else "")
         for f in glob.glob(os.path.join(LEADS, "socrata_rel_*.jsonl")):  # how many different vendors link each domain
             for line in open(f, encoding="utf-8"):
                 try:
@@ -177,6 +184,10 @@ def bridge():
                 b = buyers.setdefault(key, {"name": name, "website": r["website"] if not r["buyer_unit"] else "", "rows": 0,
                                             "example_vendor": r["vendor"], "dataset_url": r["dataset_url"], "canada": "%s=%s" % (r["canada_field"], r["canada_value"]),
                                             "latest": ""})
+                if not b["website"] and key in sites:
+                    b["website"] = sites[key][0]
+                    if sites[key][1].startswith("clearbit-slug:") and len(sites[key][1]) > 14:
+                        b["name"] = sites[key][1][14:].strip() or b["name"]  # a tenant portal's programme title replaced by the employer's name
                 b["rows"] += 1
                 d = latest_date(r.get("row")) if r.get("platform") != "vendor_site" else ""
                 if d > b["latest"]:  # keep the most recent record as the example
