@@ -4,7 +4,7 @@ rows = list(csv.DictReader(open(ROOT + "/out/ranked/ranked_buyers.csv", encoding
 OK = ("confirmed", "from dataset enrichment")
 def rel(r):
     st, t = r["contract_status"], r.get("tier", "")
-    return ("weak" if t == "F" else "inferred" if t == "I" else
+    return ("weak" if t == "F" else "inferred" if t == "I" else "member" if t == "M" else
             "tech" if st.startswith("active service seen") else "client" if st.startswith("client listing") else "other_link" if st.startswith("linked from") else
             "older" if st.startswith(("end date unknown", "payment / subaward")) else "likely" if st.startswith("likely active (awarded 12-36") else "active")
 # One row per buyer, in the best package it qualifies for (owner's layout, 2026-11-01): every package row has an email.
@@ -21,11 +21,16 @@ B = collections.OrderedDict([
  ("P08_client_listing_general_email", lambda r: rel(r) == "client" and r["grade"] == "1" and r["email_check"] in OK),
  ("P09_older_contract_or_payment_any_email", lambda r: rel(r) == "older" and r["email"] and r["email_check"] in OK),
  ("P10_linked_from_vendor_site_any_email", lambda r: rel(r) == "other_link" and r["email"] and r["email_check"] in OK),
- ("P11_any_relationship_email_not_yet_confirmed", lambda r: bool(r["email"]) and rel(r) not in ("weak", "inferred")),
+ ("P11_any_relationship_email_not_yet_confirmed", lambda r: bool(r["email"]) and rel(r) not in ("weak", "inferred", "member")),
  # owner 2026-11-03: P12 weaker relationship within 5 years (ended contract, or vendor in Canada only by registry match),
  # P13 inferred relationship (no record) from the buyer's type and province; both need the buyer's own confirmed mailbox
  ("P12_weaker_relationship_within_5_years_own_email", lambda r: rel(r) == "weak" and r["email"] and r["email_check"] in OK),
  ("P13_inferred_relationship_no_record_own_email", lambda r: rel(r) == "inferred" and r["email"] and r["email_check"] in OK),
+ # claude 2026-11-03 (owner: "no door closed"; own package, never mixed with P01): the organisation is on the CURRENT member /
+ # participant / regulated-institution list that a Canadian body publishes, and pays that body (premiums, market charges,
+ # assessments, dues; the fee basis is quoted); P01M needs the organisation's own confirmed invoicing mailbox
+ ("P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email", lambda r: r["rank_group"] == "GOLD-M"),
+ ("P06M_member_or_regulated_payer_of_canadian_body_other_email", lambda r: rel(r) == "member" and r["email"] and r["email_check"] in OK),
  ("Z_no_email_yet_not_delivered", lambda r: True),
 ])
 # owner 2026-11-03 "make sure all the fields are populated": a field no source gives is written as the literal

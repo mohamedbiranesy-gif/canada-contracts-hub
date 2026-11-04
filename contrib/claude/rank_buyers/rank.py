@@ -155,7 +155,7 @@ def vend_fill(key="", name="", domain=""):
             "vendor_emails": v.get("emails", "")}
 # 2. contracts: best proof record per parent organisation
 TIER = {"ongoing": "A", "ongoing_inferred": "B", "end_date_unknown": "C"}
-TS = {"A": 3, "B": 2, "T": 1.8, "L": 1.5, "C": 1, "D": 1, "E": 0.5}
+TS = {"A": 3, "B": 2, "T": 1.8, "L": 1.5, "M": 1.2, "C": 1, "D": 1, "E": 0.5}
 CUTOFF = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
 def award_date(r):
     d = r["contract"].get("dates") or {}
@@ -342,6 +342,8 @@ def lead_strength(kl):
         return 4 if re.search(r"\((wall|stories)\)", cfv) else 5
     if "(tech)" in cfv:
         return 1
+    if "membership / statutory fee relationship" in cfv:
+        return 3.5
     return 0 if CUTOFF <= ld <= today else 2 if CUTOFF3 <= ld else 3
 UNNAMED_VENDOR = re.compile(r"redact|withheld|\bPII\b|confidential|not disclosed|undisclosed|anonymi", re.I)
 for k, L in sorted(leads.items(), key=lead_strength):
@@ -386,11 +388,13 @@ for k, L in sorted(leads.items(), key=lead_strength):
     likely = not client and not recent and CUTOFF3 <= (L.get("latest_record_date") or "") < CUTOFF  # owner's 12-36 month rule (dated deal or payment)
     irs = "IRS Form" in L.get("canada_field_value", "")
     tech = "(tech)" in L.get("canada_field_value", "")  # buyer's own site shows it uses a Canada-HQ vendor's paid service today
-    tier = "T" if tech else "E" if client == "other" else "D" if client else "B" if recent else "L" if likely else "C"
-    rows.append({"rank_group": ("GOLD" if tier == "B" and g == 4 and acc else "GOLD-T" if tier == "T" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0),
+    member = "membership / statutory fee relationship" in L.get("canada_field_value", "")  # current member / regulated payer list of a Canadian body (own package)
+    tier = "M" if member else "T" if tech else "E" if client == "other" else "D" if client else "B" if recent else "L" if likely else "C"
+    rows.append({"rank_group": ("GOLD" if tier == "B" and g == 4 and acc else "GOLD-T" if tier == "T" and g == 4 and acc else "GOLD-M" if tier == "M" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0),
         "buyer": L["buyer_name"], "buyer_website": L["website"], "award_date": L.get("latest_record_date") or "",
         "email": m["mailbox"], "email_type": m["mailbox_type"], "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
-        "contract_status": ("active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if tech else
+        "contract_status": ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
+                           ("active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
                             "likely active (awarded 12-36 months ago; paid in a fiscal year ending 12-36 months ago: IRS Form 990 contractor located in Canada)" if irs else
                             "likely active (awarded 12-36 months ago; record dated 12-36 months ago: %s)" % src) if likely else
@@ -407,7 +411,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
     dm = re.search(r"=\s*([a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,})(?:[;/\s]|$)", cfv.lower())
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
-    x["source"] = ("the buyer's own website (service of a Canada-HQ vendor in use)" if tech else
+    x["source"] = ("the Canadian body's own current member / participant list" if member else "the buyer's own website (service of a Canada-HQ vendor in use)" if tech else
                    "the Canada-located vendor's own website" if client else src or "relationship record")
 for x in rows:
     x.setdefault("_jur", "")
@@ -422,8 +426,8 @@ for k, L in leads.items():
     if "(tech)" in cfv and d and CUTOFF <= ld <= today:
         up_t[d].append((ld, k, L))  # an active service seen on the buyer's own site: upgrades a client-listing / link / old row to T
         continue
-    if "vendor located in Canada" in cfv or not (CUTOFF <= ld <= today) or UNNAMED_VENDOR.search(L.get("example_vendor") or ""):
-        continue  # client listings are not dated records; the vendor must be named
+    if "vendor located in Canada" in cfv or "membership / statutory fee relationship" in cfv or not (CUTOFF <= ld <= today) or UNNAMED_VENDOR.search(L.get("example_vendor") or ""):
+        continue  # client listings and member lists are not dated purchase records; the vendor must be named
     if d:
         up[d].append((ld, k, L))
 dom_rows = collections.defaultdict(list)

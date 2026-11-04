@@ -29,13 +29,14 @@ OK = ("confirmed", "from dataset enrichment")
 def rel(r):
     st = r["contract_status"]
     return ("inferred" if st.startswith("inferred relationship") else "weak" if st.startswith("weaker relationship") else  # P13 / P12: last
+            "member" if st.startswith("member / regulated payer") else
             "client" if st.startswith("client listing") else "other_link" if st.startswith("linked from") else
             "older" if st.startswith(("end date unknown", "payment / subaward")) else "likely" if st.startswith("likely active (awarded 12-36") else "active")
 
 
 def prio(r):
     g, private = int(r["grade"] or 0), r["keys"].startswith("lead:")
-    order = {"active": 0, "likely": 1, "client": 2, "other_link": 3, "older": 4, "weak": 5, "inferred": 6}[rel(r)]  # an AP mailbox turns an active one into Gold
+    order = {"active": 0, "likely": 1, "client": 2, "other_link": 3, "member": 3, "older": 4, "weak": 5, "inferred": 6}[rel(r)]  # an AP mailbox turns an active one into Gold
     return (order, -g)
 
 
