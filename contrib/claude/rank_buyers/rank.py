@@ -835,7 +835,8 @@ ROLE_NEAR = re.compile(r"treasurer|tr[ée]sori|accounts? payable|payables?|compt
 NOT_NAME2 = re.compile(r"purchase|order|address|adresse|ville|city|town|code|group|church|services?|management|budget|close|state|technicien|comptable|clerk|office|"
                        r"administrat|contact|courriel|email|t[ée]l[ée]phone|poste|ext\b|fax|department|finance|accounting|invoice|accounts|payable|payroll|visiting|"
                        r"general|inquir|treasurer|secretary|ladies|budget|close|main|navigation|hours|please|questions|vendors?|suppliers?|area|field|hill|hills|park|"
-                       r"lake|river|valley|county|region|district|municipal|school|university|college|hospital|centre|center|society|association|foundation", re.I)
+                       r"lake|river|valley|county|region|district|municipal|school|university|college|hospital|centre|center|society|association|foundation|"
+                       r"hall|house|building|tower|plaza|campus|library|arena|stadium", re.I)
 def ap_contact_name(quote, email, buyer=""):
     """the AP contact the organisation itself prints next to its invoicing mailbox (business contact information published by
     the organisation; never used as a mailbox). Conservative: a 2-3 word proper name within 60 characters of the mailbox whose
@@ -856,6 +857,8 @@ def ap_contact_name(quote, email, buyer=""):
         if toks[0] in ("Mme", "Madame", "Monsieur", "Mr", "Mrs", "Ms", "Dr"):
             hon, toks = True, toks[1:]
             nm = " ".join(toks)
+        if len(toks) == 3 and re.match(r"(?i)manager|comptab|greff|commis|previous|technicien|secr|agent|adjoint|directeur|directrice|tr[ée]sor|clerk|officer|coordinat|supervis|assistant|controller|contr[ôo]leur|bookkeeper|accountant|treasurer|finance|payable", toks[2]):
+            toks = toks[:2]; nm = " ".join(toks)
         if NOT_NAME2.search(nm) or len(toks) < 2 or re.search(r"\d", nm) or set(t.lower() for t in toks) & btoks:
             continue
         if not (toks[0].lower() in _FIRST or hon):
