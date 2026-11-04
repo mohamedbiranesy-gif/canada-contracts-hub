@@ -22,6 +22,7 @@ def parent(n):
         p = LEGAL_END.sub("", p)
     return p.strip()
 GRADE = {"invoice_submission": 4, "accounts_payable": 4, "supplier_payment": 4, "finance": 3, "procurement": 2, "general": 1}
+LABEL_G = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general", 0: ""}  # one label per grade, everywhere
 FIN = re.compile(r"compt|financ|tresor|treasur|account|fiscal", re.I)  # finance / accounting department mailbox
 STRONG = re.compile(r"^cap$|[._-]cap$|(?<!manu)factur|invoic|invsub|inv[._-]sub|payable|payables|compt\w*pay|comptesapayer|^ap$|^ap[._-]|[._-]ap$|[._-]ap[._-]|accounts?[._-]?pay|fournisseur|supplier|vendor|paiement|payment|paymt|apinvoice", re.I)
 QUOTE_AP = re.compile(r"(?<!manu)factur|invoice|payable|comptes? (à|a) payer|accounts payable|paiement des fournisseurs|supplier payment", re.I)
@@ -484,7 +485,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
     tier = "M" if member else "T" if tech else "E" if client == "other" else "D" if client else "B" if recent else "L" if likely else "C"
     rows.append({"rank_group": ("GOLD" if tier == "B" and g == 4 and acc else "GOLD-T" if tier == "T" and g == 4 and acc else "GOLD-M" if tier == "M" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0),
         "buyer": L["buyer_name"], "buyer_website": L["website"], "award_date": L.get("latest_record_date") or "",
-        "email": m["mailbox"], "email_type": m["mailbox_type"], "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
+        "email": m["mailbox"], "email_type": LABEL_G.get(g, m["mailbox_type"]), "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
         "contract_status": ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
                            ("active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
