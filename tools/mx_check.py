@@ -76,8 +76,10 @@ def main():
             prev[r["domain"]] = r
     files = a.files or [os.path.join(a.repo, "coord/results/ranked/ranked_buyers.csv")]
     domains = set()
+    import io
     for f in files:
-        for r in csv.DictReader(open(f, encoding="utf-8", errors="replace"), delimiter="\t" if f.endswith(".tsv") else ","):
+        text = open(f, encoding="utf-8", errors="replace").read().replace("\0", "")
+        for r in csv.DictReader(io.StringIO(text), delimiter="\t" if f.endswith(".tsv") else ","):
             for col in ("email", "ap_email", "mailbox"):
                 e = (r.get(col) or "").strip().lower()
                 if "@" in e:
