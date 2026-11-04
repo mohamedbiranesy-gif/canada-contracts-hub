@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ap_crawler as C
 
 REPO = os.path.expanduser("~/cch-crawler")
-OUT = os.path.join(REPO, "data/incoming/claude/claude_buyer_ap_results_apfirst01.csv")
+OUT = os.path.expanduser("~/cch-crawler-state/stage/claude_buyer_ap_results_apfirst01.csv")  # outside the clone; tools/stage_merge.py unions it in before each commit
 ORGS = os.path.expanduser("~/cch-crawl-some/apfirst_orgs.csv")
 DONE = os.path.expanduser("~/cch-crawler-state/ap_pages_done.tsv")
 TODAY = time.strftime("%Y-%m-%d")
