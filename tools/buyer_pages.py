@@ -27,6 +27,15 @@ DONE = os.path.join(STATE, "buyer_pages_done.tsv")
 TODAY = datetime.date.today()
 RECENT = (TODAY - datetime.timedelta(days=365)).isoformat()
 OLDEST = (TODAY - datetime.timedelta(days=3 * 365)).isoformat()
+# Accounts-payable listings: councils and boards approve a monthly "list of accounts" / cheque register (vendor, amount, date),
+# on their own site or on their meeting portal. Every dictionary hit on a line with an amount is a paid supplier.
+LISTING_RX = re.compile(r"cheque|check register|accounts? payable|payables|list of accounts|accounts? (?:for|list)|disbursement|paid invoices|bills? list|"
+                        r"bill list|warrant|expenditure report|vendor payments?|payments? (?:report|listing|register)|liste des comptes|comptes pay[ée]s|"
+                        r"d[ée]bours[ée]s|registre des ch[èe]ques|liste des ch[èe]ques|approbation des comptes|comptes [àa] payer", re.I)
+PORTAL_HOST = re.compile(r"(escribemeetings\.com|civicweb\.net|icompasstech\.com|legistar\.com|granicus\.com|boarddocs\.com|novusagenda\.com|iqm2\.com|"
+                         r"primegov\.com|civicclerk\.com|municodemeetings\.com|civicplus\.com|pub-[a-z0-9-]+\.escribemeetings\.com|agendaonline\.net|"
+                         r"diligent\.com|meetings\.[a-z0-9-]+\.[a-z]{2,})$", re.I)
+MEETING_RX = re.compile(r"agenda|meeting|council|minutes|committee|board|s[ée]ance|ordre du jour|proc[èe]s-verbal|conseil", re.I)
 PAGE_RX = re.compile(r"award|bid|tender|rfp|rfq|procure|purchas|contract|vendor|supplier|news|media|press|release|announce|partner|"
                      r"blog|stories|story|achat|appel|offres|octroi|soumission|fournisseur|nouvelles|communiqu|actualit|projet|project|"
                      r"council|conseil|minutes|agenda|report|rapport", re.I)
@@ -110,6 +119,10 @@ def direction_cue(before, after, line, url, strict=False):
     if AWARD_URL.search(url) and MONEY.search(line) and len(line) < 300 and not REVERSE.search(before):
         return "award page: the line names the vendor with an amount"
     return None
+
+
+def flat_line(t):
+    return re.sub(r"\s+", " ", t or "").strip()
 
 
 def page_date(raw, text, pos):
@@ -241,7 +254,16 @@ def site_pages(site, host, cap):
     raw = strip_long(data.decode("utf-8", "replace"))
     if C.BLOCK_RX.search(raw[:5000]):
         return "blocked", []
+    listings, portals = [], []
+    def add_listing(u, label=""):
+        u = html.unescape(u).split("#")[0]
+        if u not in listings and (LISTING_RX.search(urllib.parse.unquote(u)) or LISTING_RX.search(label or "")):
+            listings.append(u)
     for u, label in C.links(raw, final):
+        h = (urllib.parse.urlparse(u).hostname or "").lower()
+        if h and h.removeprefix("www.") != host and PORTAL_HOST.search(h) and u not in portals and len(portals) < 2:
+            portals.append(u)  # the buyer's own meeting portal (eSCRIBE, CivicWeb, Legistar ...)
+        add_listing(u, label)
         if PAGE_RX.search(urllib.parse.urlparse(u).path or "") or PAGE_RX.search(label or ""):
             add(u)
     # sitemap (robots.txt Sitemap: lines, else /sitemap.xml), up to 6 maps
@@ -269,8 +291,33 @@ def site_pages(site, host, cap):
                     maps.append(loc)
             elif PAGE_RX.search(urllib.parse.urlparse(loc).path or ""):
                 add(loc)
+                add_listing(loc)
+    # meeting pages (own site, then the portal): one more level to reach the agenda attachments
+    meeting_pages = [u for u in urls if MEETING_RX.search(urllib.parse.urlparse(u).path or "")][:6] + portals
+    for mp in meeting_pages:
+        if not C.allowed(mp):
+            continue
+        st2, ct2, data2, fin2 = C.fetch(mp, 3_000_000)
+        if st2 != 200 or not data2 or "html" not in (ct2 or "").lower():
+            continue
+        raw2 = strip_long(data2.decode("utf-8", "replace"))
+        ph = (urllib.parse.urlparse(fin2).hostname or "").lower()
+        sub = []
+        for u, label in C.links(raw2, fin2):
+            uh = (urllib.parse.urlparse(u).hostname or "").lower()
+            if uh.removeprefix("www.") == host or uh == ph or PORTAL_HOST.search(uh):
+                add_listing(u, label)
+                if MEETING_RX.search(urllib.parse.urlparse(u).path or "") and len(sub) < 8 and u not in sub:
+                    sub.append(u)
+        for u in sub[:8]:  # recent meeting pages → their attachments
+            if len(listings) >= 12 or not C.allowed(u):
+                break
+            st3, ct3, data3, fin3 = C.fetch(u, 3_000_000)
+            if st3 == 200 and data3 and "html" in (ct3 or "").lower():
+                for u3, label3 in C.links(strip_long(data3.decode("utf-8", "replace")), fin3):
+                    add_listing(u3, label3)
     urls.sort(key=lambda u: (0 if FIRST.search(u) else 1, len(u)))
-    return "ok", urls[:cap]
+    return "ok", listings[:12] + urls[:cap]
 
 
 def scan(org, index, cap, stats):
@@ -287,15 +334,57 @@ def scan(org, index, cap, stats):
     for u in pages:
         if not C.allowed(u) or DROP_URL.search(u):
             continue
-        st, ct, data, final = C.fetch(u, 3_000_000)
+        big = bool(LISTING_RX.search(urllib.parse.unquote(u)) or MEETING_RX.search(urllib.parse.unquote(u)))
+        st, ct, data, final = C.fetch(u, 25_000_000 if big else 3_000_000)
         if st != 200 or not data:
             continue
         is_pdf = "pdf" in (ct or "").lower() or data[:5] == b"%PDF-"
         if is_pdf:
-            text = re.sub(r"[ \t]+", " ", C.pdf_text(data)[:400_000]); raw = ""
+            text = re.sub(r"[ \t]+", " ", C.pdf_text(data)[:1_500_000]); raw = ""
         else:
             raw = strip_long(data.decode("utf-8", "replace"))
             text = visible_keep_lines(raw)[:400_000]
+        listing = bool(LISTING_RX.search(urllib.parse.unquote(final)) or LISTING_RX.search(text[:1500])) and not strict
+        if not listing and is_pdf and not strict:  # an agenda package: the list of accounts is a section inside it
+            mm = re.search(r"(?im)^.{0,40}(?:accounts? payable|list of accounts|cheque register|cheque listing|disbursements?|liste des comptes|comptes [àa] payer|d[ée]bours[ée]s).{0,60}$", text)
+            if mm and MONEY.search(text[mm.end():mm.end() + 3000]):
+                text, listing = text[mm.start():mm.start() + 250_000], True
+        if listing:
+            doc_date, how = page_date(raw, text, 0)
+            if not doc_date:
+                m = DATE_TXT.search(text[:4000])
+                doc_date, how = (to_iso(m), "first date in the listing") if m else ("", "")
+            n_hits = 0
+            for v, a0, b0 in NM.find_names(text, index, limit=60):
+                if v["key"] in seen_v or n_hits >= 25:
+                    continue
+                vt = set(NM.sig_tokens(v["name"]))
+                if vt <= btoks or btoks <= vt or PUBLIC_BODY.search(v["name"]):
+                    continue
+                ls, le = text.rfind("\n", 0, a0) + 1, text.find("\n", b0)
+                line = text[ls:le if le >= 0 else len(text)]
+                if not MONEY.search(line) or len(line) > 400:
+                    continue
+                words = re.findall(r"[A-Za-zÀ-ÿ][\w'&.-]*", text[a0:b0])
+                if sum(w[0].isupper() for w in words) < max(1, len(words) * 0.6):
+                    continue
+                d = doc_date
+                m = DATE_TXT.search(line)
+                if m and to_iso(m):
+                    d, how = to_iso(m), "date on the listing line"
+                if not d or d < OLDEST:
+                    continue
+                seen_v.add(v["key"]); n_hits += 1
+                leads.append({"platform": "buyer_ap_listing", "domain": host, "dataset_id": hashlib.sha1(final.encode()).hexdigest()[:12],
+                              "dataset": "the buyer's own accounts-payable listing (council / board list of accounts)", "dataset_url": final, "publisher": name,
+                              "buyer_unit": "", "website": "https://%s/" % host, "vendor": v["name"],
+                              "canada_field": "buyer's own accounts-payable listing names the supplier; supplier in Canada per the contract dataset's source field (%s)" % v["basis"][:150],
+                              "canada_value": v["address"][:160],
+                              "row": {"record_date": d, "date_basis": how, "quote": flat_line(line)[:300], "cue": "accounts-payable listing line with an amount",
+                                      "buyer_key": key, "page_url": final}})
+            if leads:
+                break
+            continue
         for v, a0, b0 in NM.find_names(text, index, limit=12):
             if v["key"] in seen_v:
                 continue
