@@ -96,7 +96,9 @@ def members(key, b):
         req = urllib.request.Request(b["data_url"], headers={"User-Agent": UA, "Accept": "application/json"})
         with urllib.request.urlopen(req, timeout=60) as r:
             d = json.loads(r.read().decode("utf-8", "replace"))
-        rows = d if isinstance(d, list) else (d.get("Rows") or d.get("rows") or d.get("data") or d.get("Data") or [])
+        if isinstance(d, list) and d and isinstance(d[0], dict) and "TableRows" in d[0]:
+            d = d[0]
+        rows = d if isinstance(d, list) else (d.get("TableRows") or d.get("Rows") or d.get("rows") or d.get("data") or d.get("Data") or [])
         for row in rows:
             cells = row if isinstance(row, list) else (row.get("Cells") or row.get("cells") or list(row.values()))
             vals = []
