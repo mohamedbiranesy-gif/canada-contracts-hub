@@ -1,0 +1,303 @@
+#!/usr/bin/env python3
+"""Dated relationships read from the BUYER's own website: its award notices, bid results, procurement news, press releases
+and supplier pages that name a vendor the contract dataset already proves to be located in Canada, next to a buying cue
+(awarded, contract with, selected, supplied by, deploys ...), with the page's own date within the last 12 months (tier B)
+or 36 months (tier L). No AI: dictionary matching (tools/news_match.py's matcher) over ~170,000 Canadian vendor names.
+
+Why: ~600 organisations publish an invoicing mailbox but have no dated record yet (P06 / P10 / P13 with an AP mailbox):
+one dated award on their own site makes each of them Gold. Vendor in Canada = the dataset's own source field for that
+vendor (never the name). Polite: robots.txt, 1 request / second / host, identified UA, ≤ 40 pages per site.
+  python3 tools/buyer_pages.py --orgs orgs.csv --vendors vendors_ca.tsv.gz [--workers 32] [--pages 40]
+orgs.csv: key,name,website ; vendors_ca.tsv.gz: name<TAB>address<TAB>country_basis (contrib/claude/buyer_pages/make_vendors.py).
+Output ~/cch-leads/socrata_buyer_pages.jsonl (lead format; tools/lead_scanner.py --bridge picks it up), progress in
+~/cch-crawler-state/buyer_pages_done.tsv.
+"""
+import argparse, collections, csv, datetime, gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse
+from concurrent.futures import ThreadPoolExecutor
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ap_crawler as C
+import news_match as NM
+from org_contacts import strip_long, visible_keep_lines
+
+LEADS = os.path.expanduser("~/cch-leads")
+STATE = os.path.expanduser("~/cch-crawler-state")
+OUT = os.path.join(LEADS, "socrata_buyer_pages.jsonl")
+DONE = os.path.join(STATE, "buyer_pages_done.tsv")
+TODAY = datetime.date.today()
+RECENT = (TODAY - datetime.timedelta(days=365)).isoformat()
+OLDEST = (TODAY - datetime.timedelta(days=3 * 365)).isoformat()
+PAGE_RX = re.compile(r"award|bid|tender|rfp|rfq|procure|purchas|contract|vendor|supplier|news|media|press|release|announce|partner|"
+                     r"blog|stories|story|achat|appel|offres|octroi|soumission|fournisseur|nouvelles|communiqu|actualit|projet|project|"
+                     r"council|conseil|minutes|agenda|report|rapport", re.I)
+FIRST = re.compile(r"award|bid|tender|rfp|rfq|procure|purchas|contract|vendor|supplier|achat|appel|offres|octroi|soumission|fournisseur", re.I)
+DATE_META = re.compile(r"(?is)(?:article:published_time|datePublished|dc\.date|date)[\"']?\s*(?:content|:)\s*[=:]?\s*[\"']?((?:19|20)\d\d-\d\d-\d\d)")
+TIME_TAG = re.compile(r"(?is)<time[^>]+datetime\s*=\s*[\"']((?:19|20)\d\d-\d\d-\d\d)")
+MONTHS = "january|february|march|april|may|june|july|august|september|october|november|december|janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[ée]cembre|jan|feb|mar|apr|jun|jul|aug|sept?|oct|nov|dec"
+DATE_TXT = re.compile(r"\b((?:19|20)\d\d)-(\d\d)-(\d\d)\b|\b(%s)\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+((?:19|20)\d\d)\b|\b(\d{1,2})(?:er)?\s+(%s)\.?,?\s+((?:19|20)\d\d)\b" % (MONTHS, MONTHS), re.I)
+MON = {m: i + 1 for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])}
+MON.update({"janv": 1, "fev": 2, "fév": 2, "mars": 3, "avr": 4, "mai": 5, "juin": 6, "juil": 7, "aou": 8, "aoû": 8, "sept": 9, "déc": 12, "dec": 12})
+AWARD_CTX = re.compile(r"\bawarded\b|\baward of (?:the )?(?:contract|tender|rfp|work)|contract award|tender award|successful (?:bidder|proponent|"
+                       r"tenderer|vendor)|lowest (?:compliant )?(?:bid|tender)|adjug|octroy|retenu|contract(?:ed)? (?:to|with)|recommended (?:bidder|"
+                       r"proponent)|contrat (?:octroy|accord|attribu)|soumissionnaire retenu|plus bas soumissionnaire|purchase order|bon de commande", re.I)
+DROP_B = re.compile(r"financ|\bloan|grant(?!ed a contract)|subvention|donat|sponsor|merger|acqui|\bprize|laur[ée]at|finalist|scholarship|bourse|"
+                    r"job fair|career|business awards?|award winner|award recipient|nominee|nominat|awards? (?:was|were|is|are|will be) (?:presented|given|"
+                    r"handed)|awards? (?:event|ceremony|gala|program|night|dinner|luncheon)|recogni[sz]|honou?r(?:ed|s|ing)?\b|celebrat|presented (?:to|with)|"
+                    r"\bwinner|(?:planning|excellence|achievement|leadership|innovation|design|heritage|safety|environmental|community) awards?|"
+                    r"\bm[ée]rite|\bgagnant|\bremport|\bc[ée]r[ée]monie|\bgala\b", re.I)
+DROP_URL = re.compile(r"awards?-(?:night|gala|program|ceremony|celebration|recipient|winner)|(?:arts|business|volunteer|heritage|citizen|community|"
+                      r"excellence|achievement|leadership|sports|environmental|design|safety)-awards?|recognition|hall-of-fame|scholarship|bursar|"
+                      r"awareness|proclamation|calendar|events?-calendar|obituar|in-memoriam", re.I)
+PUBLIC_BODY = re.compile(r"\b(university|universit[ée]|college|coll[èe]ge|c[ée]gep|school|[ée]cole|county|comt[ée]|city of|town of|village of|ville de|"
+                         r"municipalit|township|region of|regional|ministry|minist[èe]re|government|gouvernement|department|hospital|h[ôo]pital|health|"
+                         r"sant[ée]|authority|commission|agency|agence|board|conseil|first nation|nation|band|society|foundation|fondation|association|"
+                         r"church|[ée]glise|parish|paroisse|library|biblioth)\b", re.I)
+AWARD_URL = re.compile(r"award|adjudic|octroi|contrats?-(?:octroy|accord|attribu)|successful", re.I)
+MONEY = re.compile(r"\$\s?\d[\d,. ]{2,}|\d[\d,. ]{2,}\s?\$")
+lock = threading.Lock()
+
+
+def to_iso(m):
+    if m.group(1):
+        return "%s-%s-%s" % (m.group(1), m.group(2), m.group(3))
+    if m.group(4):
+        mon, day, year = m.group(4), m.group(5), m.group(6)
+    else:
+        day, mon, year = m.group(7), m.group(8), m.group(9)
+    k = NM.norm(mon)[:4] if NM.norm(mon)[:4] in MON else NM.norm(mon)[:3]
+    mm = MON.get(k) or MON.get(NM.norm(mon)[:3])
+    return "%s-%02d-%02d" % (year, mm, int(day)) if mm and 1 <= int(day) <= 31 else ""
+
+
+def page_date(raw, text, pos):
+    """the page's published date (article metadata / first <time> tag), else the date nearest the mention (±800 chars)"""
+    for rx, how in ((DATE_META, "page metadata"), (TIME_TAG, "<time> tag")):
+        m = rx.search(raw)
+        if m and m.group(1) <= TODAY.isoformat():
+            return m.group(1), how
+    best = None
+    lo = max(0, pos - 800)
+    for m in DATE_TXT.finditer(text[lo:pos + 800]):
+        d = to_iso(m)
+        if d and d <= TODAY.isoformat():
+            dist = abs(lo + m.start() - pos)
+            if best is None or dist < best[0]:
+                best = (dist, d)
+    if best:
+        return best[1], "date %d characters from the mention" % best[0]
+    return "", ""
+
+
+EVERYDAY = set("""about above after again against along among around because before being below between beyond could every first found great
+house large little might never often other people place point right shall should small sound still their there these thing think three
+through under until water where which while white world would write young about green black brown north south east west central
+community county country people public private general national local family health house home school office place street road river
+lake park tree trees planting garden works project projects program programs service services system systems solution solutions group
+company limited enterprises enterprise industries industry international canada canadian ontario quebec alberta british columbia manitoba
+saskatchewan atlantic pacific northern southern eastern western united global world first second third north east west south make made
+making take taken taking give given giving find finding found keep keeping start started starting change changed changing better best
+clean cleaning power energy light lights bright clear simple smart quick fast fresh total trust value values quality premier prime
+premium standard standards select choice choices advanced modern future vision mission action actions active progress unique united
+universal creative design designs designer digital media print printing paper supply supplies equipment products product trade trading
+building buildings construction contracting contractors contractor engineering engineers consulting consultants consultant management
+managers manager maintenance repair repairs property properties development developments developer developers holdings investments
+capital finance financial insurance realty real estate marketing communications technologies technology tech software hardware
+network networks data information security safety medical health care clinic clinics pharmacy dental vision optical physio
+transport transportation logistics freight trucking express delivery courier auto automotive motors motor truck trucks tire tires
+food foods farm farms market markets grocery bakery cafe restaurant catering hotel hotels travel tours tour sports fitness golf
+music arts art studio studios gallery theatre theater film films photo photography video production productions event events
+rental rentals leasing sales sale store stores shop shops centre center plaza mall""".split())
+JUNK_NAME = re.compile(r"request for|proposal|tender|\bn/?a\b|various|multiple|unknown|redact|withheld|confidential|not disclosed|"
+                       r"^(the )?(supplier|vendor|contractor|consultant|company|corporation)s?$|^misc|^sundry|^employee|^individual|^payee",
+                       re.I)
+
+
+def load_vendors(path):
+    """name tokens index like news_match (first significant token -> [(tokens, vendor, False)]). A name is matched in running
+    text only if one of its words is rare among vendor names (engineering / services / construction / group are not)."""
+    rows, df = [], collections.Counter()
+    opener = gzip.open if path.endswith(".gz") else open
+    for line in opener(path, "rt", encoding="utf-8", errors="replace"):
+        parts = line.rstrip("\n").split("\t")
+        if len(parts) < 3 or parts[0] == "name" or JUNK_NAME.search(parts[0]):
+            continue
+        toks = NM.sig_tokens(parts[0])
+        if PUBLIC_BODY.search(parts[0]):
+            continue  # a public body or charity named on a buyer's page is usually a partner, not its supplier
+        if 2 <= len(toks) <= 8:
+            rows.append((parts, toks)); df.update(set(toks))
+    cap = max(40, len(rows) // 400)  # a word in over 0.25 % of vendor names is an everyday business word here
+    def rare(t):
+        return len(t) >= 5 and df[t] <= cap and t not in NM.GENERIC and t not in EVERYDAY and not NM._common(t) and not t.isdigit()
+    index, vendors = collections.defaultdict(list), {}
+    for (name, addr, basis), toks in rows:
+        if not any(rare(t) for t in toks):
+            continue
+        key = "v:" + hashlib.sha1(NM.norm(name).encode()).hexdigest()[:12]
+        if key in vendors:
+            continue
+        vendors[key] = {"name": name, "key": key, "address": addr, "basis": basis}
+        index[toks[0]].append((tuple(toks), vendors[key], False))
+    return vendors, index
+
+
+def site_pages(site, host, cap):
+    """candidate pages: sitemap entries and home-page links whose URL / anchor looks like awards, procurement, news"""
+    urls, seen = [], set()
+    def add(u):
+        u = html.unescape(u).split("#")[0]
+        p = urllib.parse.urlparse(u)
+        h = (p.hostname or "").lower().removeprefix("www.")
+        if h != host or C.SKIP_EXT.search(p.path or "") or u in seen:
+            return
+        seen.add(u); urls.append(u)
+    st, ct, data, final = C.fetch(site, 3_000_000)
+    if st in (401, 403, 429):
+        return "blocked", []
+    if st != 200 or not data:
+        return "http_%s" % st, []
+    raw = strip_long(data.decode("utf-8", "replace"))
+    if C.BLOCK_RX.search(raw[:5000]):
+        return "blocked", []
+    for u, label in C.links(raw, final):
+        if PAGE_RX.search(urllib.parse.urlparse(u).path or "") or PAGE_RX.search(label or ""):
+            add(u)
+    # sitemap (robots.txt Sitemap: lines, else /sitemap.xml), up to 6 maps
+    root = "%s://%s" % (urllib.parse.urlparse(final).scheme, urllib.parse.urlparse(final).netloc)
+    rp = C.robots.get(root)
+    maps = list((rp.site_maps() if rp and hasattr(rp, "site_maps") else None) or []) or [root + "/sitemap.xml", root + "/sitemap_index.xml"]
+    seen_maps = set()
+    while maps and len(seen_maps) < 6 and len(urls) < cap * 4:
+        m = maps.pop(0)
+        if m in seen_maps or not C.allowed(m):
+            continue
+        seen_maps.add(m)
+        st, _, data, _ = C.fetch(m, 8_000_000)
+        if st != 200 or not data:
+            continue
+        if data[:2] == b"\x1f\x8b":
+            try:
+                data = gzip.decompress(data)
+            except Exception:
+                continue
+        for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", data.decode("utf-8", "replace"))[:20000]:
+            loc = html.unescape(loc)
+            if loc.lower().split("?")[0].endswith((".xml", ".xml.gz")):
+                if PAGE_RX.search(loc) or len(maps) < 4:
+                    maps.append(loc)
+            elif PAGE_RX.search(urllib.parse.urlparse(loc).path or ""):
+                add(loc)
+    urls.sort(key=lambda u: (0 if FIRST.search(u) else 1, len(u)))
+    return "ok", urls[:cap]
+
+
+def scan(org, index, cap, stats):
+    key, name, site = org
+    host = (urllib.parse.urlparse(site).hostname or "").lower().removeprefix("www.")
+    if not C.allowed(site):
+        return "robots", []
+    st, pages = site_pages(site, host, cap)
+    if st != "ok":
+        return st, []
+    btoks = set(NM.sig_tokens(name))
+    leads, seen_v = [], set()
+    for u in pages:
+        if not C.allowed(u) or DROP_URL.search(u):
+            continue
+        st, ct, data, final = C.fetch(u, 3_000_000)
+        if st != 200 or not data:
+            continue
+        is_pdf = "pdf" in (ct or "").lower() or data[:5] == b"%PDF-"
+        if is_pdf:
+            text = re.sub(r"[ \t]+", " ", C.pdf_text(data)[:400_000]); raw = ""
+        else:
+            raw = strip_long(data.decode("utf-8", "replace"))
+            text = visible_keep_lines(raw)[:400_000]
+        for v, a, b in NM.find_names(text, index, limit=12):
+            if v["key"] in seen_v:
+                continue
+            vt = set(NM.sig_tokens(v["name"]))
+            if vt <= btoks or btoks <= vt:
+                continue  # the buyer's own name (or a part of it)
+            words = re.findall(r"[A-Za-zÀ-ÿ][\w'&.-]*", text[a:b])
+            if sum(w[0].isupper() for w in words) < max(1, len(words) * 0.6):
+                continue  # written as ordinary words, not as a name ("low impact", "make it")
+            sent, rel = NM.sentence_at(text, a, b)
+            line = text[text.rfind("\n", 0, a) + 1:text.find("\n", b) if text.find("\n", b) >= 0 else len(text)]
+            cue = NM.BUY.search(sent) or AWARD_CTX.search(sent) or AWARD_CTX.search(line) or (AWARD_URL.search(u) and MONEY.search(line))
+            if not cue or DROP_B.search(sent) or DROP_B.search(line):
+                continue
+            if hasattr(cue, "group") and cue.group(0).lower() in NM.norm(v["name"]).replace("  ", " "):
+                continue  # the "cue" is part of the vendor's own name (Victorian Order of Nurses)
+            cue = cue.group(0) if hasattr(cue, "group") else "award page: the line names the vendor with an amount"
+            if re.match(r"attribut", cue, re.I) and not re.match(r"attribu[ée]", cue, re.I):
+                continue  # English "attributes" is not the French "attribué"
+            d, how = page_date(raw, text, a)
+            if not d or d < OLDEST:
+                continue
+            seen_v.add(v["key"])
+            leads.append({"platform": "buyer_site_mention", "domain": host, "dataset_id": hashlib.sha1(final.encode()).hexdigest()[:12],
+                          "dataset": "the buyer's own page naming its supplier", "dataset_url": final, "publisher": name, "buyer_unit": "",
+                          "website": "https://%s/" % host, "vendor": v["name"],
+                          "canada_field": "buyer's own page names the supplier; supplier in Canada per the contract dataset's source field (%s)" % v["basis"][:150],
+                          "canada_value": v["address"][:160],
+                          "row": {"record_date": d, "date_basis": how, "quote": sent[:300], "cue": cue,
+                                  "buyer_key": key, "page_url": final}})
+            if len(leads) >= 3:
+                break
+        if len(leads) >= 3:
+            break
+    return "ok", leads
+
+
+def main():
+    a = argparse.ArgumentParser()
+    a.add_argument("--orgs", required=True)
+    a.add_argument("--vendors", required=True)
+    a.add_argument("--workers", type=int, default=32)
+    a.add_argument("--pages", type=int, default=40)
+    a.add_argument("--limit", type=int, default=0)
+    a = a.parse_args()
+    os.makedirs(LEADS, exist_ok=True); os.makedirs(STATE, exist_ok=True)
+    vendors, index = load_vendors(a.vendors)
+    print("vendors indexed: %d" % len(vendors), flush=True)
+    done = set()
+    if os.path.exists(DONE):
+        done = {l.split("\t")[0] for l in open(DONE, encoding="utf-8")}
+    orgs, seen = [], set()
+    for r in csv.DictReader(open(a.orgs, encoding="utf-8", errors="replace")):
+        w = (r.get("website") or "").strip()
+        h = (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
+        if not h or "." not in h or h in seen or h in done:
+            continue
+        seen.add(h); orgs.append((r.get("key", ""), r.get("name", ""), "https://%s/" % h))
+    if a.limit:
+        orgs = orgs[:a.limit]
+    print("organisations: %d (%d done before)" % (len(orgs), len(done)), flush=True)
+    stats, n_leads = collections.Counter(), [0]
+
+    def one(org):
+        try:
+            st, leads = scan(org, index, a.pages, stats)
+        except Exception as e:
+            st, leads = "error", []
+        host = (urllib.parse.urlparse(org[2]).hostname or "").lower().removeprefix("www.")
+        with lock:
+            stats[st] += 1
+            with open(DONE, "a", encoding="utf-8") as f:
+                f.write("%s\t%s\t%d\n" % (host, st, len(leads)))
+            if leads:
+                with open(OUT, "a", encoding="utf-8") as f:
+                    for L in leads:
+                        f.write(json.dumps(L, ensure_ascii=False) + "\n")
+                n_leads[0] += len(leads)
+            if sum(stats.values()) % 50 == 0:
+                print(time.strftime("%H:%M"), dict(stats), "leads", n_leads[0], flush=True)
+
+    with ThreadPoolExecutor(a.workers) as ex:
+        list(ex.map(one, orgs))
+    print("finished", dict(stats), "leads", n_leads[0], flush=True)
+
+
+if __name__ == "__main__":
+    main()
