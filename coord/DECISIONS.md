@@ -461,3 +461,13 @@ government's generic AP / shared-services box (`ap@`, `accountspayable@`, `finan
 segment does not name another agency. Verified: GNWT Financial Shared Services stays for every GNWT department; the TDOT and the 14
 Saskatchewan misattributions leave. Also: rows named only by a bare domain take the site's legal name in every tier (sickkids.ca → The
 Hospital for Sick Children), with fragment guards (icon glyphs, "Connect with us…", "CRICOS No", cut-at-front "s Union Partners").
+
+## 2026-11-04 14:40 (claude) — pause state (owner: "think of it like a pause")
+Final re-rank 19:38Z: P01 Gold 564 · P01T 90 · P01M 18 · P02 338 · P03 226 · P04 1,568 · P05 375 · P06 160 · P06T 2,423 · P06M 168 · P07 245 ·
+P08 3,054 · P09 364 · P10 2,600 · P11 504 · P12 22 · P13 39,899 — 52,620 delivered rows, 92 columns, VALIDATION 7/7 PASS, deep audit
+(tools/audit_deliverable.py, 27 checks) 11/11 hard PASS with REVIEW items explained in AUDIT.md. Everything copied to the owner's Mac:
+~/Downloads/canada-contracts-gold-2026-11-04/ (packages, part files, ranked_buyers_ALL_ROWS.csv, SUMMARY, VALIDATION, AUDIT + flags, DMARC
+report + list, README, DECISIONS, START_HERE.md). The hourly loop is stopped; the Mac engines (ap_crawler, crawl_some, fs_auditor, bridge,
+push loop v3) keep running and the referee keeps verifying, so the next re-rank will carry whatever they add. Open items for the resume:
+419 rows whose mail domain entered after the last DNS pass (soft), the T/M staff-directory files T6_004–009 (unsearched), the no-name P13
+rows (20,113 known only by domain), and the honest ceiling on Gold under the rules.
