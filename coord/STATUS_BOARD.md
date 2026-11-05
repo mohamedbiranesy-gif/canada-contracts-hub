@@ -1,21 +1,21 @@
-# STATUS BOARD (auto-generated 2026-11-05 14:54 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-05 15:09 UTC — do not edit by hand)
 
-## Dataset (release `dataset-latest`, reference date 2026-11-04)
+## Dataset (release `dataset-latest`, reference date 2026-11-05)
 | metric | value |
 |---|---|
-| contracts, vendor verified in Canada | 803,035 |
+| contracts, vendor verified in Canada | 804,795 |
 | contracts, vendor country unverified | 51,346 |
-| sources with records / checked without | 81 / 119 |
-| status: ongoing (explicit end date) | 84,588 |
+| sources with records / checked without | 82 / 119 |
+| status: ongoing (explicit end date) | 84,478 |
 | status: ongoing_inferred | 321,551 |
-| status: end_date_unknown | 396,896 |
-| buyer AP e-mail | 777967 (97%) |
-| buyer invoice portal | 70593 (9%) |
-| buyer website | 746069 (93%) |
-| vendor registry match | 412935 (51%) |
-| vendor Business Number (BN9) | 128150 (16%) |
-| vendor website | 266539 (33%) |
-| vendor any contact | 273881 (34%) |
+| status: end_date_unknown | 398,766 |
+| buyer AP e-mail | 778352 (97%) |
+| buyer invoice portal | 70568 (9%) |
+| buyer website | 745959 (93%) |
+| vendor registry match | 412937 (51%) |
+| vendor Business Number (BN9) | 128157 (16%) |
+| vendor website | 266524 (33%) |
+| vendor any contact | 273863 (34%) |
 
 ## Team research progress (rows returned → verified)
 | lane | task | rows | found | not_published | blocked | other |
@@ -93,7 +93,7 @@
 | gemini | gemini_buyer_ap_results_batch41.csv | 110 | 69 | 41 | 0 | 0 |
 | gemini | gemini_buyer_ap_results_batch42.csv | 109 | 88 | 20 | 0 | 1 |
 | gemini | gemini_buyer_ap_results_batch43.csv | 46 | 25 | 21 | 0 | 0 |
-| gemini | gemini_vendor_contacts_results_batch01.csv | 186 | 163 | 23 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch01.csv | 196 | 172 | 24 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch02.csv | 148 | 129 | 19 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch03.csv | 143 | 116 | 25 | 2 | 0 |
 | gemini | gemini_vendor_contacts_results_batch04.csv | 165 | 120 | 43 | 2 | 0 |
@@ -257,7 +257,7 @@
 
 **team_buyers**: 76300 entities researched, 73682 with at least one verified contact.
 
-**team_vendors**: 15387 entities researched, 4012 with at least one verified contact.
+**team_vendors**: 15387 entities researched, 4013 with at least one verified contact.
 
 ## Source registry (`coord/source_registry.csv`)
 | lane | todo | in_progress | done | blocked |
@@ -269,7 +269,7 @@
 - buyers with team findings: 76300 (with at least one verified e-mail/portal: 73663)
 - vendors with team findings: 15387
 - QA rows: 200
-- counters: {'files': 234, 'buyer_findings_verified': 88947, 'buyer_findings_verified_on_archive_copy': 622, 'buyer_findings_not_found_on_page': 2537, 'buyer_findings_unverified_page_unavailable': 1358, 'buyer_findings_not_found_on_page_hidden': 477, 'buyer_findings_rejected_personal_or_invalid': 88, 'vendor_emails_not_found_on_page': 405, 'vendor_emails_not_found_on_page_hidden': 423, 'vendor_emails_verified': 4347, 'vendor_emails_unverified_page_unavailable': 305, 'buyer_findings_cross_verified': 199, 'verify_tasks_chatgpt': 213, 'verify_tasks_gemini': 344}
+- counters: {'files': 234, 'buyer_findings_verified': 88947, 'buyer_findings_verified_on_archive_copy': 622, 'buyer_findings_not_found_on_page': 2537, 'buyer_findings_unverified_page_unavailable': 1358, 'buyer_findings_not_found_on_page_hidden': 477, 'buyer_findings_rejected_personal_or_invalid': 88, 'vendor_emails_not_found_on_page': 407, 'vendor_emails_not_found_on_page_hidden': 423, 'vendor_emails_verified': 4349, 'vendor_emails_unverified_page_unavailable': 306, 'buyer_findings_cross_verified': 199, 'verify_tasks_chatgpt': 213, 'verify_tasks_gemini': 344}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
