@@ -1,9 +1,9 @@
-# Ingest report — 2026-11-05T15:09:40Z
+# Ingest report — 2026-11-05T15:23:09Z
 
 - buyers with team findings: 76300 (with at least one verified e-mail/portal: 73663)
 - vendors with team findings: 15387
 - QA rows: 200
-- counters: {'files': 234, 'buyer_findings_verified': 88947, 'buyer_findings_verified_on_archive_copy': 622, 'buyer_findings_not_found_on_page': 2537, 'buyer_findings_unverified_page_unavailable': 1358, 'buyer_findings_not_found_on_page_hidden': 477, 'buyer_findings_rejected_personal_or_invalid': 88, 'vendor_emails_not_found_on_page': 407, 'vendor_emails_not_found_on_page_hidden': 423, 'vendor_emails_verified': 4349, 'vendor_emails_unverified_page_unavailable': 306, 'buyer_findings_cross_verified': 199, 'verify_tasks_chatgpt': 213, 'verify_tasks_gemini': 344}
+- counters: {'files': 234, 'buyer_findings_verified': 88947, 'buyer_findings_verified_on_archive_copy': 622, 'buyer_findings_not_found_on_page': 2537, 'buyer_findings_unverified_page_unavailable': 1358, 'buyer_findings_not_found_on_page_hidden': 477, 'buyer_findings_rejected_personal_or_invalid': 88, 'vendor_emails_not_found_on_page': 407, 'vendor_emails_not_found_on_page_hidden': 423, 'vendor_emails_verified': 4353, 'vendor_emails_unverified_page_unavailable': 307, 'buyer_findings_cross_verified': 199, 'verify_tasks_chatgpt': 213, 'verify_tasks_gemini': 344}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
