@@ -10,7 +10,7 @@ DNS TXT lookup at `_dmarc.<mail domain>` (organizational domain when the mailbox
 | p=reject | 4777 | 447 |
 | invalid DMARC record | 45 | 0 |
 | lookup error | 6 | 0 |
-| not checked | 11006 | 44 |
+| not checked | 11007 | 44 |
 
 Rows without enforcement (no record / p=none / invalid): **38486**
 
@@ -24,11 +24,11 @@ Rows without enforcement (no record / p=none / invalid): **38486**
 - P05: 57 / 125 / 114 / 80
 - P06: 2 / 29 / 45 / 84
 - P06M: 32 / 60 / 37 / 39
-- P06T: 685 / 1133 / 365 / 236
+- P06T: 685 / 1134 / 365 / 236
 - P07: 17 / 85 / 69 / 75
 - P08: 714 / 1180 / 721 / 429
 - P09: 87 / 121 / 106 / 49
 - P10: 652 / 1088 / 560 / 301
-- P11: 42 / 218 / 118 / 82
+- P11: 42 / 217 / 118 / 82
 - P12: 4 / 11 / 4 / 3
 - P13: 14969 / 15850 / 5939 / 2706

@@ -1,4 +1,4 @@
-# Deep audit — 63286 delivered rows in 17 packages (22 files), 2026-11-05
+# Deep audit — 63287 delivered rows in 17 packages (22 files), 2026-11-05
 
 Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every flagged row is listed in `audit_flags.csv` with its reasons.
 
@@ -8,7 +8,7 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 | 2 | mailbox syntax | hard | 0 | PASS |
 | 3 | mailbox referee-confirmed (all but P11) | hard | 0 | PASS |
 | 4 | mail server (MX or A) on the mailbox domain | hard | 0 | PASS |
-| 4b | mail server not yet checked (row newer than the last DNS pass) | soft | 11008 | REVIEW |
+| 4b | mail server not yet checked (row newer than the last DNS pass) | soft | 11009 | REVIEW |
 | 5 | no webmail domain | hard | 0 | PASS |
 | 6 | no person-like local part | hard | 0 | PASS |
 | 7 | role word in the local part | soft | 3523 | REVIEW |
@@ -18,7 +18,7 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 | 11 | quote contains the address | hard | 1 | FAIL |
 | 12 | evidence page on the organisation's domain (or its site) | soft | 3751 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
-| 14 | DMARC / SPF / provider columns filled | soft | 11006 | REVIEW |
+| 14 | DMARC / SPF / provider columns filled | soft | 11007 | REVIEW |
 | 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 0 | PASS |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
@@ -169,20 +169,20 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 - P04_active_relationship_general_email: 1627
 - P05_likely_active_awarded_12_36_months_any_email: 376
 - P06M_member_or_regulated_payer_of_canadian_body_other_email: 170
-- P06T_active_service_seen_on_buyer_site_other_email: 2421
+- P06T_active_service_seen_on_buyer_site_other_email: 2422
 - P06_client_listing_invoicing_AP_email: 160
 - P07_client_listing_finance_or_purchasing_email: 246
 - P08_client_listing_general_email: 3051
 - P09_older_contract_or_payment_any_email: 365
 - P10_linked_from_vendor_site_any_email: 2606
-- P11_any_relationship_email_not_yet_confirmed: 460
+- P11_any_relationship_email_not_yet_confirmed: 459
 - P12_weaker_relationship_within_5_years_own_email: 22
-- P13_inferred_relationship_no_record_own_email: 50500
+- P13_inferred_relationship_no_record_own_email: 50501
 
 ## Field fill across all delivered rows (value present, not `not_published`)
-- buyer_website: 63286 (100.0%)
-- vendor_address: 60108 (95.0%)
-- vendor_website: 58703 (92.8%)
+- buyer_website: 63287 (100.0%)
+- vendor_address: 60109 (95.0%)
+- vendor_website: 58704 (92.8%)
 - buyer_logo_url: 31081 (49.1%)
 - buyer_address: 30545 (48.3%)
 - buyer_phone: 21869 (34.6%)
@@ -209,10 +209,10 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 - vendor_neq: 23 (0.0%)
 
 ## Canada-proof families
-- other: 47001; source field: 16285
+- other: 47002; source field: 16285
 
 ## Buyer types
-- organisation (type not stated in the record): 44984
+- organisation (type not stated in the record): 44985
 - company (private sector): 8022
 - non-profit / association / cultural body: 6178
 - municipality / local government: 1108
@@ -229,7 +229,7 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 ## DMARC posture of the delivered mailboxes
 - v=DMARC1; p=none (monitor only, no enforcement): 20822
 - no DMARC record: 17619
-- not checked yet: 11006
+- not checked yet: 11007
 - p=quarantine: 9011
 - p=reject: 4777
 - invalid DMARC record: 45
