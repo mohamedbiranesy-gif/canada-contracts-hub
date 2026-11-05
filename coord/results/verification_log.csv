@@ -8617,7 +8617,7 @@ gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00576,b:4eb8a3c2443cee90,info@v
 gemini,gemini_buyer_ap_results_batch12.csv,GE-AP-01188,b:4ebe66be3edcf276,08.cisssat.spu@ssss.gouv.qc.ca,https://www.quebec.ca/sante/systeme-et-services-de-sante/services-prehospitaliers-urgence/informations-etudiants-intervenants-parties-prenantes-services-prehospitaliers-urgence/joindre-services-prehospitaliers-urgence,verified
 gemini,gemini_buyer_ap_results_batch28.csv,GE-AP-28001,b:4ee509b4504b8dd7,beschaffung@tu-dresden.de,https://tu-dresden.de/tu-dresden/organisation/ressourcen/dateien/dezernat-1/SG-1.2/binnenmarktrelevanz/Binnenmarktrelevanz_AZ030033_24.pdf,verified
 gemini,gemini_buyer_ap_results_batch27.csv,GE-AP-27096,b:4ee8295211aa564a,Global.Procurement@britishcouncil.org,https://opportunities-insight.britishcouncil.org/short-articles/opportunities/consultancy-internationalisation-learning-cohorts,verified
-gemini,gemini_buyer_ap_results_batch28.csv,GE-AP-28011,b:4ee8295211aa564a,CEO.Office@britishcouncil.org,https://register-of-charities.charitycommission.gov.uk/en/about-the-register-of-charities/-/charity-details/209131/contact-information,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch28.csv,GE-AP-28011,b:4ee8295211aa564a,CEO.Office@britishcouncil.org,https://register-of-charities.charitycommission.gov.uk/en/about-the-register-of-charities/-/charity-details/209131/contact-information,verified
 claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00123,b:4f0bd1d2b20cf418,dg@cssps.gouv.qc.ca,https://www.cssps.gouv.qc.ca/centre-de-services-scolaire/les-premieres-seigneuries-cest/services-administratifs-et-educatifs,verified
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00219,b:4f0bd1d2b20cf418,srf@cssps.gouv.qc.ca,https://www.cssps.gouv.qc.ca/centre-de-services-scolaire/les-premieres-seigneuries-cest/services-administratifs-et-educatifs,verified
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00219,b:4f0bd1d2b20cf418,srm@cssps.gouv.qc.ca,https://www.cssps.gouv.qc.ca/centre-de-services-scolaire/les-premieres-seigneuries-cest/services-administratifs-et-educatifs,verified
@@ -9188,7 +9188,7 @@ gemini,gemini_buyer_ap_results_batch37.csv,CH-AP-01702,b:5de5c4846dac68d7,servic
 claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00082,b:5e1b39c662f3ac63,accounts.payable@edenwold-sk.ca,https://rmedenwold.ca/contact-us,verified
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00581,b:5e316d641689e124,02.ciusss.spu@ssss.gouv.qc.ca,https://www.quebec.ca/sante/systeme-et-services-de-sante/services-prehospitaliers-urgence/informations-etudiants-intervenants-parties-prenantes-services-prehospitaliers-urgence/joindre-services-prehospitaliers-urgence,verified
 chatgpt,chatgpt_buyer_ap_results_batch12.csv,CH-AP-01108,b:5e37017c13e8bda9,elections@novascotia.ca,https://www.novascotia.ca/sites/default/files/documents/1-2502/municipal-returning-officers-election-handbook-en.pdf,verified
-gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29044,b:5e44af05a6102b9a,customer.services@tfwm.org.uk,https://www.wmca.org.uk/accessibility-statement/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29044,b:5e44af05a6102b9a,customer.services@tfwm.org.uk,https://www.wmca.org.uk/accessibility-statement/,verified
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01760,b:5e4e02e1ed8d5912,clerval@mrcao.qc.ca,https://vivre.ao.ca/municipalite/clerval/,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01760,b:5e4e02e1ed8d5912,clerval@mrcao.qc.ca,https://vivre.ao.ca/municipalite/clerval/,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01760,b:5e4e02e1ed8d5912,clerval@mrcao.qc.ca,https://abitibi-temiscamingue.org/services-transports/municipalite-de-clerval/,not_found_on_page_hidden
@@ -9682,7 +9682,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01486,b:685bf5d4d53fa8d0,info@s
 gemini,gemini_buyer_ap_results_batch15.csv,GE-AP-01486,b:685bf5d4d53fa8d0,info@saintjustdebretenieres.com,https://www.saintjustdebretenieres.com/municipalite/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00116,b:6867a54722364974,info@icm-biobanque.org,https://icm-mhi.org/centre-de-recherche/plateformes-services-recherche/biobanque/,verified
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00116,b:6867a54722364974,courrier.cliniques@icm-mhi.org,https://icm-mhi.org/patient-ou-visiteur/prendre-et-preparer-un-rendez-vous/prendre-un-rendez-vous/,verified
-gemini,gemini_buyer_ap_results_batch28.csv,GE-AP-28069,b:687c25e1c31e32a0,https://b2b.svt.se/program/fakturering.html,https://b2b.svt.se/program/fakturering.html,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch28.csv,GE-AP-28069,b:687c25e1c31e32a0,https://b2b.svt.se/program/fakturering.html,https://b2b.svt.se/program/fakturering.html,not_found_on_page
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01414,b:687f77c914cafc19,info@mrcdeschenaux.ca,https://www.mrcdeschenaux.ca,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01414,b:687f77c914cafc19,reception@mrcdeschenaux.ca,https://www.mrcdeschenaux.ca/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch15.csv,GE-AP-01414,b:687f77c914cafc19,info@mrcdeschenaux.ca,https://www.mrcdeschenaux.ca/coordonees/,verified
@@ -46114,7 +46114,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12825,lead:2f91afb1127f33d6,off
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09501,lead:2f9542096c35cd38,info@kuenemanteam.ca,https://kuenemanteam.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15818,lead:2f97258c99afcfa9,accountspayable@reddeer.ca,https://reddeer.ca/city-government/accounts-payable-inquiries/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15818,lead:2f97258c99afcfa9,info@reddeer.ca,https://reddeer.ca/contact-us/,verified
-claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00682,lead:2f99cc4898783c08,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,unverified_page_unavailable
+claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00682,lead:2f99cc4898783c08,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00682,lead:2f99cc4898783c08,accounts@museum.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie4567183k,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00682,lead:2f99cc4898783c08,aaiaccounts@aai.gov.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie9599929m,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-DT11-00014,lead:2f9da90090d5faeb,procurementreviewgroup@sce.com,https://www.sce.com/about-sce/energy-procurement/cost-allocation-mechanisms-group,verified
@@ -49195,7 +49195,7 @@ claude,claude_buyer_ap_results_search01.csv,CL-WS-00010,lead:5b5db115c6681949,co
 claude,claude_buyer_ap_results_crawl01.csv,CL-SN-03496,lead:5b677f12e14fea82,info@shepherdvillage.org,https://shepherdvillage.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-29763,lead:5b706e5c19f596f4,info@margaretsns.ca,https://www.margaretsns.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-13718,lead:5b747430f7e6fa20,contact@hosencapital.com,https://www.hosencapital.com/,verified
-claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00788,lead:5b75a56b8f49c7ce,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,unverified_page_unavailable
+claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00788,lead:5b75a56b8f49c7ce,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00788,lead:5b75a56b8f49c7ce,accounts@museum.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie4567183k,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00788,lead:5b75a56b8f49c7ce,aaiaccounts@aai.gov.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie9599929m,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00092,lead:5b77688dbc88baa1,payable@plombco.com,http://www.plombco.com/contact-us/,verified
@@ -50422,7 +50422,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01333,lead:6d2880ec21241d19,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14729,lead:6d2a128ee7266234,info@villmag.com,https://www.villmag.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02607,lead:6d2be14a5d94bb74,info@deafblindontario.com,https://deafblindontario.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04962,lead:6d332d9247986238,enquiries@nfp.co.uk,https://www.nfpireland.ie/,verified
-claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00086,lead:6d332d9247986238,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,unverified_page_unavailable
+claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00086,lead:6d332d9247986238,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00086,lead:6d332d9247986238,accounts@museum.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie4567183k,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00086,lead:6d332d9247986238,aaiaccounts@aai.gov.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie9599929m,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04771,lead:6d3780b90a60b50a,info@impaad.com,https://www.impaerostructures.com/contact-us.php,verified
@@ -51341,7 +51341,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00939,lead:7ac5630dcb5af0bb,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-10740,lead:7ac5bb80a37dbc4d,contactus@nwsm.info,https://www.nwsm.info/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-20257,lead:7ac634d75a161aa1,info@1crm.com,https://1crm.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04270,lead:7ac8cd51e8899153,admin@ecelaw.ca,https://www.ecelaw.ca/contact,verified
-claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00054,lead:7acd45609306110a,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,unverified_page_unavailable
+claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00054,lead:7acd45609306110a,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00054,lead:7acd45609306110a,accounts@museum.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie4567183k,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00054,lead:7acd45609306110a,aaiaccounts@aai.gov.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie9599929m,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06216,lead:7ad6663d776063cd,info@gradeidea.com,https://gradeidea.com/,verified
@@ -57029,7 +57029,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-27470,lead:cda00c58eccdb183,off
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07648,lead:cda326ffe20b1a09,contact.apollohairstudio@gmail.com,https://www.iloveapollo.ca/contact-5,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11033,lead:cda5436d341a8b49,info@valianttms.com,https://www.valianttms.com/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09751,lead:cdafe517bb2f1ea4,info@anthemproperties.com,https://anthemproperties.com/contact/,verified
-claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00154,lead:cdb3867d1986078c,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,unverified_page_unavailable
+claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00154,lead:cdb3867d1986078c,accountspayable@centralbank.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie0646290p,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00154,lead:cdb3867d1986078c,accounts@museum.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie4567183k,verified
 claude,claude_buyer_ap_results_peppol01.csv,CL-PP-00154,lead:cdb3867d1986078c,aaiaccounts@aai.gov.ie,https://directory.peppol.eu/search/1.0/json?participant=iso6523-actorid-upis%3A%3A9935%3Aie9599929m,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-26819,lead:cdb7b4f2cef8694b,info@mollymaid.ca,https://mollymaid.ca/contact/,verified
