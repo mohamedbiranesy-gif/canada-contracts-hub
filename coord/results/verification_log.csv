@@ -50233,7 +50233,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01117,lead:04f3e8449152fcb2,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-36156,lead:05030b1dacfca821,info@spinmeayarn.ca,https://spinmeayarn.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12174,lead:050664171e7adfd0,procurement@surrey.ac.uk,https://www.surrey.ac.uk/procurement,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-00051,lead:050a0f85b47a136f,info@texasrealtors.com,https://www.texasrealestate.com:443/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35513,lead:050f55d35b3b5d7b,info@cazzapetitezacks.com,https://cazzapetitezacks.com/fr,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35513,lead:050f55d35b3b5d7b,info@cazzapetitezacks.com,https://cazzapetitezacks.com/fr,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21029,lead:0510c31092b82ceb,info@cjc-ccj.ca,https://cjc-ccj.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-EX-STE,lead:05346bcdc3efd3a5,info@starrpeakminingltd.com,https://starrpeakminingltd.com/contact-info/contact-info/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-17541,lead:0534d124ab3d13b1,info@altinc.ca,https://altinc.ca/contactus,verified
@@ -83145,6 +83145,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001852,wd:Q1137610,financeassis
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-020773,wd:Q113834949,info@coulsonaviation.com.au,https://coulsongroup.com/,not_found_on_page
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00256,wd:Q113834949,info@coulsonaviation.com,https://careers.coulsongroup.com/,not_found_on_page
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-020775,wd:Q113839473,info@lesfilmsopale.com,https://www.lesfilmsopale.com/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-01613,wd:Q113841352,contact@transtev.dz,https://transtev.dz/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-020869,wd:Q113884312,info@grimsbypower.com,https://www.grimsbypower.com/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001856,wd:Q1138898,info@mouvementproduction.com,https://www.crankworx.com/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001856,wd:Q1138898,info@crankworx.com,https://www.crankworx.com/contact/,verified
@@ -92516,6 +92517,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011401,wd:Q7457664,secretariat@
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001380,wd:Q745964,hello@example.com,https://www.fairmont.com/fr/hotels/quebec-city/fairmont-le-chateau-frontenac.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011405,wd:Q7460217,info@shad.ca,https://www.shad.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011408,wd:Q7462833,info@shakespearebythesea.ca,https://www.shakespearebythesea.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-01609,wd:Q747394,masspayments@alpha.gr,https://www.alpha.gr/-/media/AlphaGr/pdf-files/diafora-sunodeutika-pdf/sepa/Alpha-Mass-Payments.pdf,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001381,wd:Q747623,payments@hanna.ca,https://hanna.ca/payment-methods,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001381,wd:Q747623,contact@raymond.ca,https://hanna.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001384,wd:Q748612,secretariat@cdpdj.qc.ca,https://www.cdpdj.qc.ca/en/contact-us,verified
@@ -92780,6 +92782,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011873,wd:Q7742227,inquiries@ic
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011877,wd:Q7745348,admin@conservancy.bc.ca,https://conservancy.bc.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011564,wd:Q7751769,info@watsoninvestments.com,https://www.mississauga.com/life/personal-finance/magic-of-early-investing-compound-interest-retirement/article_92e7d136-e6b9-53cd-8b45-51bf4f6d1f63.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011565,wd:Q7751848,info@modelrailroadclub.com,http://www.modelrailroadclub.com/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-01614,wd:Q7752327,mosaic.accountspayable@mosaicco.com,https://suppliers.mosaicco.com/documents/Invoice_Submission_Overview___NA_Suppliers_Mosaic.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011570,wd:Q7753533,info@nbif.ca,https://www.nbif.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011571,wd:Q7753606,info@thenewgallery.org,https://thenewgallery.org/Contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-011575,wd:Q7754356,admin@townshipofthenorthshore.ca,https://townshipofthenorthshore.ca/contact/,verified
