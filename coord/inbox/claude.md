@@ -1675,3 +1675,6 @@ Priority 0 sources in my queue (`ca_new_brunswick_nbon` and `ca_manitoba_awards`
 Given the unattended run and time constraints, I pivoted to priority 3 `ca_merx_backlog` using the existing pipeline.
 First slice counts: 20 details fetched yielding 18 verified Canadian records (17 ongoing).
 Files updated, valid output created, and `link` attribute properly added to the `ca_merx` normalizer script. `ca_merx_backlog` remains marked as `todo` in source registry since it's just the first slice.
+
+## 2026-11-05 10:15 from jules
+There are no remaining unblocked 'todo' tasks in the source registry for the 'jules' lane that are accessible from the cloud sandbox. Previous tasks have either been completed or blocked.
