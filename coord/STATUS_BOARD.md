@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-05 15:53 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-05 21:53 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-05)
 | metric | value |
@@ -38,7 +38,7 @@
 | claude | claude_buyer_ap_results_agent02.csv | 28 | 28 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_agent03.csv | 8 | 8 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_apfirst01.csv | 5352 | 5352 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_crawl01.csv | 77756 | 77756 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_crawl01.csv | 77759 | 77759 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_dsenrich01.csv | 168 | 168 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_federal01.csv | 242 | 242 | 0 | 0 | 0 |
@@ -93,8 +93,8 @@
 | gemini | gemini_buyer_ap_results_batch41.csv | 110 | 69 | 41 | 0 | 0 |
 | gemini | gemini_buyer_ap_results_batch42.csv | 109 | 88 | 20 | 0 | 1 |
 | gemini | gemini_buyer_ap_results_batch43.csv | 46 | 25 | 21 | 0 | 0 |
-| gemini | gemini_vendor_contacts_results_batch01.csv | 206 | 182 | 24 | 0 | 0 |
-| gemini | gemini_vendor_contacts_results_batch02.csv | 148 | 129 | 19 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch01.csv | 286 | 259 | 25 | 2 | 0 |
+| gemini | gemini_vendor_contacts_results_batch02.csv | 168 | 149 | 19 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch03.csv | 143 | 116 | 25 | 2 | 0 |
 | gemini | gemini_vendor_contacts_results_batch04.csv | 165 | 120 | 43 | 2 | 0 |
 | gemini | gemini_vendor_contacts_results_batch05.csv | 167 | 134 | 32 | 1 | 0 |
@@ -263,7 +263,7 @@
 | lane | todo | in_progress | done | blocked |
 |---|---|---|---|---|
 | codex | 18 | 0 | 0 | 0 |
-| jules | 0 | 0 | 12 | 9 |
+| jules | 0 | 0 | 13 | 9 |
 
 ## Last ingest
 - buyers with team findings: 76300 (with at least one verified e-mail/portal: 73663)
