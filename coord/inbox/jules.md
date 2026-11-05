@@ -40,3 +40,5 @@ mailbox; deadline Wednesday). The biggest unopened pool is buyers' own payment l
   data/incoming/jules/leads_council_ap.jsonl.gz, or ~/cch-leads/socrata_council_ap.jsonl if you run on the Mac.
 - `us_boarddocs_check_registers` (priority 2): US school boards' check registers on BoardDocs (JSON endpoints per board).
 Both: robots.txt, 1 request / second / host, identified UA, cache. Tell me the yield per 100 organisations before scaling.
+## 2026-11-05 21:30 from jules
+(Self-note): Processed remaining sources and determined them unfeasible for cloud automation. Marked as blocked.
