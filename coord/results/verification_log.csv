@@ -7745,7 +7745,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00580,b:39fe0c006866ce8a,marie.
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00580,b:39fe0c006866ce8a,taxes2csa@cssa.gouv.qc.ca,https://cssa.gouv.qc.ca/fr/citoyens/taxe-scolaire/,verified
 gemini,gemini_buyer_ap_results_batch39.csv,CH-AP-01904,b:3a06bc28963a47d5,doingbusiness@supplyontario.ca,https://www.supplyontario.ca/registered-vendors/,not_found_on_page_hidden
 claude,claude_buyer_ap_results_crawl01.csv,CO-AP-00702,b:3a0a47b12c8dd295,kumpula-finance@helsinki.fi,https://www.helsinki.fi/en/faculty-science/contact,verified
-gemini,gemini_buyer_ap_results_batch41.csv,CH-AP-P0053,b:3a1523ec95e79165,commentaires@cscmonavenir.ca,https://www.centraleasthealthline.ca/displayservice.aspx?id=133914,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch41.csv,CH-AP-P0053,b:3a1523ec95e79165,commentaires@cscmonavenir.ca,https://www.centraleasthealthline.ca/displayservice.aspx?id=133914,verified
 chatgpt,chatgpt_buyer_ap_results_batch11.csv,CH-AP-01039,b:3a236b011ab86698,accountspayable@energy.virginia.gov,https://energy.virginia.gov/energy/documents/SPARK/SPARK%20Application%20Draft%206-16-25_Clean_final_done.pdf,verified
 gemini,gemini_buyer_ap_results_batch35.csv,CH-AP-01535,b:3a2cad94dbf306eb,admin@boylealberta.ca,https://www.townandcountrytoday.com/entertainment-news/spirit-award-to-be-given-1863811,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00022,b:3a48a64cfcbd0b21,medias@transports.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/transports/coordonnees-structure/supplementaires,verified
