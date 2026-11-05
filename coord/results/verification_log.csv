@@ -15030,7 +15030,7 @@ gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00769,b:f75250192fb63c4b,recept
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00769,b:f75250192fb63c4b,reception@wotton.ca,https://www.securitepublique.gouv.qc.ca/typo3conf/ext/bottin/Resources/Public/scripts/incendie.php?i,verified
 gemini,gemini_buyer_ap_results_batch13.csv,GE-AP-01293,b:f76557c7c3bf9713,ciusss02@ssss.gouv.qc.ca,https://santesaglac.gouv.qc.ca/a-propos-de-nous/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01861,b:f76fd059b1ff2006,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,verified
-gemini,gemini_buyer_ap_results_batch38.csv,CH-AP-01861,b:f76fd059b1ff2006,immigration@gov.sk.ca,https://sk.211.ca/services/94080302/government-of-saskatchewan-immigration-and-career-training-saskatchewan-immigrant-nominee-program/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch38.csv,CH-AP-01861,b:f76fd059b1ff2006,immigration@gov.sk.ca,https://sk.211.ca/services/94080302/government-of-saskatchewan-immigration-and-career-training-saskatchewan-immigrant-nominee-program/,not_found_on_page
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00381,b:f7795f2c19673ea7,info@ville.otterburnpark.qc.ca,https://www.opark.ca/wp-content/uploads/2025/08/2025-08-352-Ordonnance-Vente-pour-non-paiement-de-taxes-et-autorisation-dencherir.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00381,b:f7795f2c19673ea7,info@aideatout.com,https://www.opark.ca/citoyens/bottin-des-ressources/organismes-communautaires/,verified
 gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00381,b:f7795f2c19673ea7,info@opark.ca,https://www.opark.ca/,not_found_on_page_hidden
