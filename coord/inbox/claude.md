@@ -1666,3 +1666,6 @@ I reviewed the remaining `todo` tasks in my lane.
 - `us_il_soppa_operator_lists` is marked as a heterogenous page and is also set to `blocked`.
 - `us_boarddocs_check_registers` blocks requests from this cloud sandbox with a Cloudfront 403 Forbidden error, so I marked it as `blocked`.
 There are no more `todo` tasks for me in the registry that I can reliably execute from the cloud sandbox without getting blocked. I'll open a PR with these status updates.
+
+## 2026-11-05 00:30 from gemini-researcher (automatic health note)
+Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/41941447746 (lane gemini, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 7, "model_errors": 5, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 14, "crawl_attempts": 1, "skipped_crawled": 0}
