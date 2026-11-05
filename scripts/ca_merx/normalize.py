@@ -190,6 +190,8 @@ with open(out_main, "w") as fo, open(os.path.join(dl, "details.jsonl")) as f:
                         ident[k.lower().replace(" ", "_")] = nf[k]
             rec = {
                 "record_id": f"ca_merx:{mid}:{i}",
+                "link": rec_url,
+                "link_type": "notice",
                 "source": {
                     "key": "ca_merx",
                     "name": "MERX public Awarded Solicitations (award notices)",

@@ -1651,3 +1651,10 @@ I have built the pipeline for `us_ny_state_authorities_procurement` which was ma
 * Discarded records with an end date before the reference date (2026-11-02), and future-starting records. We found 786 ongoing/unknown-end-date contracts.
 * The script passes the validation (`python3 tools/validate_records.py`).
 * Changed status to `done` in `coord/source_registry.csv`.
+
+## 2026-11-05 04:30 from jules
+I'm submitting a first slice of the `ca_merx_backlog` source.
+Priority 0 sources in my queue (`ca_new_brunswick_nbon` and `ca_manitoba_awards`) are blocked as they require "build ON THE MAC", and `us_state_portals` yielded thousands of rows across ~15 states with 0 Canadian vendors.
+Given the unattended run and time constraints, I pivoted to priority 3 `ca_merx_backlog` using the existing pipeline.
+First slice counts: 20 details fetched yielding 18 verified Canadian records (17 ongoing).
+Files updated, valid output created, and `link` attribute properly added to the `ca_merx` normalizer script. `ca_merx_backlog` remains marked as `todo` in source registry since it's just the first slice.
