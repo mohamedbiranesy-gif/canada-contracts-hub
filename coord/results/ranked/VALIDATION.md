@@ -1,4 +1,4 @@
-# Integrity gates — 63288 delivered rows in 17 packages (22 files)
+# Integrity gates — 63322 delivered rows in 17 packages (22 files)
 
 - **1 mailbox present, valid, domain with a mail server**: PASS (0)
 - **2 role mailbox (no person-like local part, no freemail)**: PASS (0)
@@ -27,4 +27,4 @@ Informational: 2 rows whose quote shows the label next to the address rather tha
 - P10_linked_from_vendor_site_any_email: 2606
 - P11_any_relationship_email_not_yet_confirmed: 459
 - P12_weaker_relationship_within_5_years_own_email: 22
-- P13_inferred_relationship_no_record_own_email: 50502
+- P13_inferred_relationship_no_record_own_email: 50536

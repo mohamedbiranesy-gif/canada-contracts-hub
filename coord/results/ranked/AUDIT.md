@@ -1,10 +1,10 @@
-# Deep audit — 63288 delivered rows in 17 packages (22 files), 2026-11-06
+# Deep audit — 63322 delivered rows in 17 packages (22 files), 2026-11-06
 
-Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every flagged row is listed in `audit_flags.csv` with its reasons.
+Result: **FAIL** — 11 hard checks, 17 soft checks; hard failures: 1. Every flagged row is listed in `audit_flags.csv` with its reasons.
 
 | # | check | kind | rows flagged | verdict |
 |---|---|---|---|---|
-| 1 | header: 92 identical columns in every file | hard | 0 | PASS |
+| 1 | header: 92 identical columns in every file | hard | 1 | FAIL |
 | 2 | mailbox syntax | hard | 0 | PASS |
 | 3 | mailbox referee-confirmed (all but P11) | hard | 0 | PASS |
 | 4 | mail server (MX or A) on the mailbox domain | hard | 0 | PASS |
@@ -15,15 +15,16 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 | 8 | receivables-looking local part graded invoicing/AP | soft | 35 | REVIEW |
 | 9 | shared government domain: page or quote names the body | soft | 2 | REVIEW |
 | 10 | regional token of a multinational on a differently-located body | soft | 0 | PASS |
-| 11 | quote contains the address | hard | 1 | FAIL |
-| 12 | evidence page on the organisation's domain (or its site) | soft | 3752 | REVIEW |
+| 11 | quote contains the address | hard | 0 | PASS |
+| 11b | quote shows the label next to the address (referee saw the address on the page) | soft | 1 | REVIEW |
+| 12 | evidence page on the organisation's domain (or its site) | soft | 3756 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
 | 14 | DMARC / SPF / provider columns filled | soft | 11008 | REVIEW |
 | 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 0 | PASS |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
-| 19 | buyer name is a name (not a domain or a page title) | soft | 30702 | REVIEW |
+| 19 | buyer name is a name (not a domain or a page title) | soft | 30712 | REVIEW |
 | 20 | legal name is not a fragment or a platform copyright | soft | 0 | PASS |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 3 | REVIEW |
@@ -33,6 +34,8 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 | 26 | currency filled when a value is filled | soft | 46 | REVIEW |
 
 ## Examples of flagged rows (first 12 per check)
+- **1 header: 92 identical columns in every file**
+    - files | 1 distinct headers; widths [106]
 - **4b mail server not yet checked (row newer than the last DNS pass)**
     - P06M_member_or_regulated_payer_of_canadian_body_other_email:59 Selkirk College | selkirk.ca
     - P06M_member_or_regulated_payer_of_canadian_body_other_email:133 Holden | holden.ca
@@ -75,7 +78,7 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 - **9 shared government domain: page or quote names the body**
     - P01_GOLD_active_relationship_invoicing_AP_email:42 Canadian Space Agency | invoicing.csa-asc.facturation@canada.ca ← https://www.canada.ca/en/public-services-procurement/services/payments-to-from-g
     - P13_inferred_relationship_no_record_own_email_part1_of_6:540 Landlord and Tenant Board | ltbpayments@ontario.ca ← https://tribunalsontario.ca/ltb/contact/
-- **11 quote contains the address**
+- **11b quote shows the label next to the address (referee saw the address on the page)**
     - P02_active_relationship_finance_accounting_email:13 Crown-Indigenous Relations and Northern  | Crown-Indigenous Relations and Northern Affairs Canada Refer
 - **12 evidence page on the organisation's domain (or its site)**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:18 Motorola Solutions, Inc | recepcionfacturas@motorolasolutions.com on web.archive.org (site motorolasolutions.com)
@@ -137,15 +140,15 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
     - P13_inferred_relationship_no_record_own_email_part1_of_6:493 Rheinmetall AG | CA / rheinmetall.com.au
     - P13_inferred_relationship_no_record_own_email_part1_of_6:505 Westpac | CA / westpac.com.au
     - P13_inferred_relationship_no_record_own_email_part1_of_6:544 United States Postal Service | CA / usps.gov
-    - P13_inferred_relationship_no_record_own_email_part1_of_6:1362 Randstad Deutschland | CA / randstad.de
-    - P13_inferred_relationship_no_record_own_email_part1_of_6:2700 LA MAISON DES JEUNES DE PLESSISVILLE INC | QC / lycos.fr
-    - P13_inferred_relationship_no_record_own_email_part1_of_6:3279 The Redeemed Christian Church of God Lov | SK / loveassembly.co.uk
-    - P13_inferred_relationship_no_record_own_email_part1_of_6:7858 Trotec Laser Canada | QC / troteclaser.com.au
-    - P13_inferred_relationship_no_record_own_email_part2_of_6:3747 KNDS | CA / knds.de
-    - P13_inferred_relationship_no_record_own_email_part2_of_6:3766 The Warehouse Group | CA / thewarehousegroup.co.nz
-    - P13_inferred_relationship_no_record_own_email_part3_of_6:1297 akelius.ca | CA / akelius.fr
-    - P13_inferred_relationship_no_record_own_email_part3_of_6:1751 apexauctions.ca | CA / apexauctions.co.uk
-    - P13_inferred_relationship_no_record_own_email_part3_of_6:6026 custompens.ca | CA / custompens.com.au
+    - P13_inferred_relationship_no_record_own_email_part1_of_6:1365 Randstad Deutschland | CA / randstad.de
+    - P13_inferred_relationship_no_record_own_email_part1_of_6:2705 LA MAISON DES JEUNES DE PLESSISVILLE INC | QC / lycos.fr
+    - P13_inferred_relationship_no_record_own_email_part1_of_6:3286 The Redeemed Christian Church of God Lov | SK / loveassembly.co.uk
+    - P13_inferred_relationship_no_record_own_email_part1_of_6:7873 Trotec Laser Canada | QC / troteclaser.com.au
+    - P13_inferred_relationship_no_record_own_email_part2_of_6:3756 KNDS | CA / knds.de
+    - P13_inferred_relationship_no_record_own_email_part2_of_6:3775 The Warehouse Group | CA / thewarehousegroup.co.nz
+    - P13_inferred_relationship_no_record_own_email_part3_of_6:1311 akelius.ca | CA / akelius.fr
+    - P13_inferred_relationship_no_record_own_email_part3_of_6:1765 apexauctions.ca | CA / apexauctions.co.uk
+    - P13_inferred_relationship_no_record_own_email_part3_of_6:6044 custompens.ca | CA / custompens.com.au
 - **26 currency filled when a value is filled**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:22 RENTON SCHOOL DISTRICT #403 | 332345.13 (source field: amount)
     - P01_GOLD_active_relationship_invoicing_AP_email:423 Rectorado de la Universitat de València | 12698.25 (source field: PayableAmount)
@@ -177,16 +180,16 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 - P10_linked_from_vendor_site_any_email: 2606
 - P11_any_relationship_email_not_yet_confirmed: 459
 - P12_weaker_relationship_within_5_years_own_email: 22
-- P13_inferred_relationship_no_record_own_email: 50502
+- P13_inferred_relationship_no_record_own_email: 50536
 
 ## Field fill across all delivered rows (value present, not `not_published`)
-- buyer_website: 63288 (100.0%)
-- vendor_address: 60110 (95.0%)
-- vendor_website: 58706 (92.8%)
+- buyer_website: 63322 (100.0%)
+- vendor_address: 60144 (95.0%)
+- vendor_website: 58740 (92.8%)
 - buyer_logo_url: 31081 (49.1%)
-- buyer_address: 30546 (48.3%)
-- buyer_phone: 21869 (34.6%)
-- vendor_phone: 18441 (29.1%)
+- buyer_address: 30569 (48.3%)
+- buyer_phone: 21869 (34.5%)
+- vendor_phone: 18459 (29.2%)
 - contract_link: 12786 (20.2%)
 - vendor_logo_url: 6789 (10.7%)
 - buyer_legal_name_as_published: 6554 (10.4%)
@@ -209,14 +212,14 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 - vendor_neq: 23 (0.0%)
 
 ## Canada-proof families
-- other: 47003; source field: 16285
+- other: 47031; source field: 16291
 
 ## Buyer types
-- organisation (type not stated in the record): 44985
-- company (private sector): 8023
-- non-profit / association / cultural body: 6178
-- municipality / local government: 1108
-- government ministry / agency: 959
+- organisation (type not stated in the record): 44999
+- company (private sector): 8024
+- non-profit / association / cultural body: 6194
+- municipality / local government: 1110
+- government ministry / agency: 960
 - hospital / health authority: 660
 - university / college: 422
 - utility / public corporation: 411
@@ -227,10 +230,10 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 - US city / county / local government: 11
 
 ## DMARC posture of the delivered mailboxes
-- v=DMARC1; p=none (monitor only, no enforcement): 20822
-- no DMARC record: 17619
+- v=DMARC1; p=none (monitor only, no enforcement): 20842
+- no DMARC record: 17630
 - not checked yet: 11008
 - p=quarantine: 9011
-- p=reject: 4777
+- p=reject: 4779
 - invalid DMARC record: 45
-- DNS lookup failed: 6
+- DNS lookup failed: 7
