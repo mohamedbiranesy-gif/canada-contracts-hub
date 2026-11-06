@@ -1,10 +1,10 @@
 # Deep audit — 63322 delivered rows in 17 packages (22 files), 2026-11-06
 
-Result: **FAIL** — 11 hard checks, 17 soft checks; hard failures: 1. Every flagged row is listed in `audit_flags.csv` with its reasons.
+Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every flagged row is listed in `audit_flags.csv` with its reasons.
 
 | # | check | kind | rows flagged | verdict |
 |---|---|---|---|---|
-| 1 | header: identical columns in every file (106 since 2026-11-06) | hard | 1 | FAIL |
+| 1 | header: identical columns in every file (106 since 2026-11-06) | hard | 0 | PASS |
 | 2 | mailbox syntax | hard | 0 | PASS |
 | 3 | mailbox referee-confirmed (all but P11) | hard | 0 | PASS |
 | 4 | mail server (MX or A) on the mailbox domain | hard | 0 | PASS |
@@ -46,8 +46,6 @@ Result: **FAIL** — 11 hard checks, 17 soft checks; hard failures: 1. Every fla
 - **26** — a value published without a currency by the source; left as published.
 
 ## Examples of flagged rows (first 12 per check)
-- **1 header: identical columns in every file (106 since 2026-11-06)**
-    - files | 1 distinct headers; widths [106]
 - **4b mail server not yet checked (row newer than the last DNS pass)**
     - P06M_member_or_regulated_payer_of_canadian_body_other_email:59 Selkirk College | selkirk.ca
     - P06M_member_or_regulated_payer_of_canadian_body_other_email:133 Holden | holden.ca

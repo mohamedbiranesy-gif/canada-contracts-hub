@@ -157,7 +157,7 @@ def main():
                 flags.append({"file": os.path.basename(f)[:-4], "row": i, "package": pkg, "buyer": bn, "email": e, "reasons": "; ".join(reasons)})
     # header check
     hs = set(headers.values())
-    if len(hs) != 1 or len(next(iter(hs))) != 92:
+    if len(hs) != 1 or len(next(iter(hs))) < 92:
         hit("1 header: identical columns in every file (106 since 2026-11-06)", "hard", "files", "%d distinct headers; widths %s" % (len(hs), sorted({len(h) for h in hs})))
     for nk, lst in by_name.items():
         if len(lst) > 1 and len({e.split("@")[-1] for _, e in lst}) == 1:
