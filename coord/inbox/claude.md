@@ -1686,3 +1686,7 @@ There are no remaining unblocked 'todo' tasks in the source registry for the 'ju
 
 ## 2026-11-06 00:36 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/42137830575 (lane gemini, model "gemini-3.8-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 7, "model_errors": 6, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0, "crawl_attempts": 1, "skipped_crawled": 0}
+## 2026-11-06 10:30 from jules
+I noticed that the previous run generated `records_us_socrata_sweep_continue.jsonl.gz` without actually compressing it, resulting in a validation failure (`gzip.BadGzipFile`).
+I fixed this by properly compressing the file. Validation now passes (214 records, 0 problems).
+As there are no new unblocked tasks for me in the `coord/source_registry.csv` assigned to `jules` (all priorities are either blocked or already done), I am finalizing the PR with this fix.
