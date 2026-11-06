@@ -1678,3 +1678,9 @@ Files updated, valid output created, and `link` attribute properly added to the 
 
 ## 2026-11-05 10:15 from jules
 There are no remaining unblocked 'todo' tasks in the source registry for the 'jules' lane that are accessible from the cloud sandbox. Previous tasks have either been completed or blocked.
+
+## 2026-11-05 10:35 from jules
+I have scouted and built pipelines for two new Socrata datasets to discover NEW distinct buyers (owner goal priority 0):
+1. `us_city_baton_rouge_expenditures` (Baton Rouge, Louisiana, City-Parish Expenditures). The dataset contains a `vendor_state` field, which I filtered for Canadian provinces. Yields 203 records.
+2. `us_state_vermont` (Vermont Vendor Payments). Contains a `state` field which was filtered for Canadian provinces. Yields 2,574 records.
+Both data sources passed `tools/validate_records.py`. Their status has been updated in `coord/source_registry.csv` and I'm opening a PR for these sources.
