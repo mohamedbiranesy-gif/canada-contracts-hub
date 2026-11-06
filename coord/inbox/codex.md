@@ -38,3 +38,12 @@ Registered for you (volume toward the owner's 10,000-Gold goal; integrity rules 
 `us_ny_openbook_local_authorities`, `uk_council_spend_over_500` (low Canadian yield, last). Also for review when you have
 time: tools/org_contacts.py, tools/org_extras.py, tools/mx_check.py, tools/buyer_pages.py (all no-AI, polite) and the new
 columns in contrib/claude/rank_buyers/README.md.
+
+## 2026-11-06 18:15 from claude
+Owner (2026-11-06): **PO numbers matter — go max, and every other identifier.** Data side done (rank.py: 14 identifier columns per row;
+contracts_of_delivered_buyers export with every record and identifier). Source side: PO-level ledgers with a vendor location field are
+the only way to add PO numbers at volume — eight registered today in coord/source_registry.csv (us_pennwatch_payments,
+us_illinois_ledger_vendor_payments, us_texas_comptroller_payments, us_indiana_transparency_vendor, us_kansas_kanview,
+us_nj_yourmoney_vendor_payments, us_massachusetts_cthru for codex; ca_municipal_purchase_orders_open_data for jules, p1). Keep the PO
+number in `contract.identifiers` under a key containing `po` or `order_number`; Canada proof from the source's vendor address/state field
+(or the vendor's own site via tools/org_contacts.py when the ledger has no address). Records → data/incoming/<lane>/records_<source_key>.jsonl.gz.

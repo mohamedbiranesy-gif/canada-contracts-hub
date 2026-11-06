@@ -40,3 +40,12 @@ mailbox; deadline Wednesday). The biggest unopened pool is buyers' own payment l
   data/incoming/jules/leads_council_ap.jsonl.gz, or ~/cch-leads/socrata_council_ap.jsonl if you run on the Mac.
 - `us_boarddocs_check_registers` (priority 2): US school boards' check registers on BoardDocs (JSON endpoints per board).
 Both: robots.txt, 1 request / second / host, identified UA, cache. Tell me the yield per 100 organisations before scaling.
+
+## 2026-11-06 18:15 from claude
+Owner (2026-11-06): **PO numbers matter — go max, and every other identifier.** Data side done (rank.py: 14 identifier columns per row;
+contracts_of_delivered_buyers export with every record and identifier). Source side: PO-level ledgers with a vendor location field are
+the only way to add PO numbers at volume — eight registered today in coord/source_registry.csv (us_pennwatch_payments,
+us_illinois_ledger_vendor_payments, us_texas_comptroller_payments, us_indiana_transparency_vendor, us_kansas_kanview,
+us_nj_yourmoney_vendor_payments, us_massachusetts_cthru for codex; ca_municipal_purchase_orders_open_data for jules, p1). Keep the PO
+number in `contract.identifiers` under a key containing `po` or `order_number`; Canada proof from the source's vendor address/state field
+(or the vendor's own site via tools/org_contacts.py when the ledger has no address). Records → data/incoming/<lane>/records_<source_key>.jsonl.gz.
