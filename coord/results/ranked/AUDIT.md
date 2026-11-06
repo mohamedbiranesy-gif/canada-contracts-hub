@@ -19,7 +19,7 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 | 12 | evidence page on the organisation's domain (or its site) | soft | 3752 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
 | 14 | DMARC / SPF / provider columns filled | soft | 11008 | REVIEW |
-| 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 8 | REVIEW |
+| 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 0 | PASS |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
@@ -103,15 +103,6 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
     - P13_inferred_relationship_no_record_own_email_part1_of_6:13 aliasformation.ca | not checked yet | not checked yet | not checked
     - P13_inferred_relationship_no_record_own_email_part1_of_6:18 sun-nurses.sk.ca | not checked yet | not checked yet | not checked
     - P13_inferred_relationship_no_record_own_email_part1_of_6:123 aventuriers.qc.ca | not checked yet | not checked yet | not checked
-- **15 tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m)**
-    - P02_active_relationship_finance_accounting_email:102 Municipalité de Lac-Beauport | A with end 2026-11-05
-    - P03_active_relationship_purchasing_email:88 Infrastructure Ontario | A with end 2026-11-05
-    - P04_active_relationship_general_email:303 Municipalité de Sainte-Catherine-de-Hatl | A with end 2026-11-05
-    - P04_active_relationship_general_email:307 Municipalité de Oka | A with end 2026-11-05
-    - P04_active_relationship_general_email:366 Municipalité de Albertville | A with end 2026-11-05
-    - P04_active_relationship_general_email:402 Village de Sainte-Jeanne-d'Arc | A with end 2026-11-05
-    - P04_active_relationship_general_email:562 Municipalité de Chambord | A with end 2026-11-05
-    - P04_active_relationship_general_email:591 Municipalité de Déléage | A with end 2026-11-05
 - **19 buyer name is a name (not a domain or a page title)**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:13 uwindsor.ca | uwindsor.ca
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:28 thebigcarrot.ca | thebigcarrot.ca
@@ -127,7 +118,7 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
     - P02_active_relationship_finance_accounting_email:279 saddlehills.ab.ca | saddlehills.ab.ca
 - **22 one row per organisation name (same name twice)**
     - P03_active_relationship_purchasing_email:226 Westbank First Nation | 2 rows, same mail domain: wfn.ca
-    - P04_active_relationship_general_email:335 Cégep de Victoriaville. | 2 rows, same mail domain: cegepvicto.ca
+    - P04_active_relationship_general_email:334 Cégep de Victoriaville. | 2 rows, same mail domain: cegepvicto.ca
     - P05_likely_active_awarded_12_36_months_any_email:6 Brandon University | 2 rows, same mail domain: brandonu.ca
 - **23 one row per site domain (two rows, different mailboxes, same domain)**
     - P01_GOLD_active_relationship_invoicing_AP_email:26 University of Toronto | utoronto.ca: 2 rows, ap.fsd@utoronto.ca; fmdinvoice.utsc@utoronto.ca
@@ -175,14 +166,14 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 - P01_GOLD_active_relationship_invoicing_AP_email: 579
 - P02_active_relationship_finance_accounting_email: 368
 - P03_active_relationship_purchasing_email: 225
-- P04_active_relationship_general_email: 1626
+- P04_active_relationship_general_email: 1625
 - P05_likely_active_awarded_12_36_months_any_email: 377
 - P06M_member_or_regulated_payer_of_canadian_body_other_email: 170
 - P06T_active_service_seen_on_buyer_site_other_email: 2422
 - P06_client_listing_invoicing_AP_email: 160
 - P07_client_listing_finance_or_purchasing_email: 246
 - P08_client_listing_general_email: 3051
-- P09_older_contract_or_payment_any_email: 366
+- P09_older_contract_or_payment_any_email: 367
 - P10_linked_from_vendor_site_any_email: 2606
 - P11_any_relationship_email_not_yet_confirmed: 459
 - P12_weaker_relationship_within_5_years_own_email: 22
@@ -191,24 +182,24 @@ Result: **FAIL** — 11 hard checks, 16 soft checks; hard failures: 1. Every fla
 ## Field fill across all delivered rows (value present, not `not_published`)
 - buyer_website: 63288 (100.0%)
 - vendor_address: 60110 (95.0%)
-- vendor_website: 58705 (92.8%)
+- vendor_website: 58706 (92.8%)
 - buyer_logo_url: 31081 (49.1%)
 - buyer_address: 30546 (48.3%)
 - buyer_phone: 21869 (34.6%)
-- vendor_phone: 18437 (29.1%)
+- vendor_phone: 18441 (29.1%)
 - contract_link: 12786 (20.2%)
-- vendor_logo_url: 6785 (10.7%)
+- vendor_logo_url: 6789 (10.7%)
 - buyer_legal_name_as_published: 6554 (10.4%)
 - award_date: 6478 (10.2%)
-- vendor_legal_name: 6471 (10.2%)
-- vendor_registry_id: 5263 (8.3%)
+- vendor_legal_name: 6472 (10.2%)
+- vendor_registry_id: 5264 (8.3%)
 - vendor_emails: 4277 (6.8%)
-- vendor_bn9: 2465 (3.9%)
+- vendor_bn9: 2468 (3.9%)
 - contract_value: 2281 (3.6%)
-- vendor_incorporation_date: 2067 (3.3%)
+- vendor_incorporation_date: 2068 (3.3%)
 - ap_phone: 1758 (2.8%)
 - invoice_mailing_address: 1671 (2.6%)
-- end_date: 1651 (2.6%)
+- end_date: 1648 (2.6%)
 - buyer_bn_as_published: 1615 (2.6%)
 - invoicing_requirements: 1349 (2.1%)
 - payment_terms_as_published: 169 (0.3%)
