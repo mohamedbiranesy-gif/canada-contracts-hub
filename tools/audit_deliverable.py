@@ -66,7 +66,7 @@ def main():
     fill = collections.Counter(); gold_rows = 0; basis_fam = collections.Counter(); btype = collections.Counter(); posture = collections.Counter()
     for name in ("1 header: 92 identical columns in every file", "2 mailbox syntax", "3 mailbox referee-confirmed (all but P11)", "4 mail server (MX or A) on the mailbox domain", "4b mail server not yet checked (row newer than the last DNS pass)",
                  "5 no webmail domain", "6 no person-like local part", "7 role word in the local part", "8 receivables-looking local part graded invoicing/AP",
-                 "9 shared government domain: page or quote names the body", "10 regional token of a multinational on a differently-located body", "11 quote contains the address",
+                 "9 shared government domain: page or quote names the body", "10 regional token of a multinational on a differently-located body", "11 quote contains the address", "11b quote shows the label next to the address (referee saw the address on the page)",
                  "12 evidence page on the organisation's domain (or its site)", "13 email_type label matches grade", "14 DMARC / SPF / provider columns filled",
                  "15 tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m)", "16 vendor named and Canada proof present", "17 Canada proof is a source field or the vendor's site (never a name)",
                  "18 record link present for dated-record tiers", "19 buyer name is a name (not a domain or a page title)", "20 legal name is not a fragment or a platform copyright",
@@ -105,7 +105,11 @@ def main():
                     hit("9 shared government domain: page or quote names the body", "soft", where, e + " ← " + u[:80]); reasons.append("shared gov domain unproven")
             m = re.search(r"(?:^|[._-])(aunz|anz|apac|emea|latam|usa|uk|india|china|brasil|mexico|france|germany|japan|singapore|australia|europe|asia)(?:$|[._-])", local)
             if m and (r.get("jurisdiction") or "") in ("CA", "QC", "ON", "BC", "AB", "SK", "MB", "NS", "NB", "NL", "PE", "FED") and m.group(1) not in ("usa",): hit("10 regional token of a multinational on a differently-located body", "soft", where, e); reasons.append("regional token")
-            if e and short != "P11_" and el not in q.lower().replace(" ", "") and el not in q.lower(): hit("11 quote contains the address", "hard", where, q[:60]); reasons.append("quote lacks address")
+            if e and short != "P11_" and el not in q.lower().replace(" ", "") and el not in q.lower():
+                if (r.get("email_check") or "") == "confirmed":
+                    hit("11b quote shows the label next to the address (referee saw the address on the page)", "soft", where, q[:60]); reasons.append("quote is the label")
+                else:
+                    hit("11 quote contains the address", "hard", where, q[:60]); reasons.append("quote lacks address")
             if e and uh and dom and registrable(uh) != registrable(dom) and (not sh or registrable(uh) != registrable(sh)) and not SHARED_GOV.match(dom) and "direct-deposit" not in u:
                 hit("12 evidence page on the organisation's domain (or its site)", "soft", where, "%s on %s (site %s)" % (e, uh, sh)); reasons.append("evidence host differs")
             lab = {"4": "invoicing/AP", "3": "finance/accounting dept or supplier-payment office", "2": "purchasing", "1": "general"}.get(g)
