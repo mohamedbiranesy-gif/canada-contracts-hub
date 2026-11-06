@@ -222,6 +222,61 @@ def vend_fill(key="", name="", domain=""):
             "vendor_emails": v.get("emails", ""),
             "vendor_registry_id": ("%s: %s" % (REGN.get(rg.get("registry"), rg.get("registry")), rg.get("id"))) if rg.get("id") else "",
             "vendor_registry_url": rg.get("url") or "", "vendor_registered_address": v.get("reg_address", "") if v.get("reg_address") and v.get("reg_address") != v.get("address") else ""}
+# owner 2026-11-06 ("PO matters, all identifiers possible, max"): every identifier the record carries, verbatim, plus a classification
+ID_CLASSES = (
+    ("po", re.compile(r"(?:^|[_.\- ])(?:po|pon|purchase[_\- ]?orders?|orders?|bons?[_\- ]?de[_\- ]?commande|commandes?)(?:[_\- ]?(?:number|no|num|nbr|id|identifier))?(?:$|[_.\- ])|^pd_procurement_id$|^piid$", re.I)),
+    ("buyer_vendor_id", re.compile(r"(?:supplier|vendor|fournisseur|payee|recipient|contractor)[_\- ]?(?:id|number|no|code|num)", re.I)),
+    ("vendor_registry", re.compile(r"(?:^|[_\- ])uei(?:$|[_\- ])|duns|cage|business[_\- ]?number|^bn$|neq|(?:^|[_\- ])(?:gst|hst|vat|ein|abn|acn|kvk|cvr)(?:$|[_\- ])|tax[_\- ]?id|siret|siren|companies[_\- ]?house", re.I)),
+    ("commodity", re.compile(r"unspsc|gsin|naics|\bcpv\b|commodity|economic_object|\bpsc\b|product_service_code|category", re.I)),
+    ("org_code", re.compile(r"agency_code|sub_agency|owner_org|department_code|org_code|office_code|ministry_code|entity_code|business_unit|agency_id", re.I)),
+    ("modification", re.compile(r"modification|amendment|\bmod\b|version|revision", re.I)),
+    ("contract", re.compile(r"contract|agreement|entente|contrat|reference[_\- ]?numbers?|no[_\- ]?reference|standing[_\- ]?offer|supply[_\- ]?arrangement|framework|^num[eé]ro$|^numero$|^reference$|^ref(?:erence)?[_\- ]?(?:no|id)?$|parent_award_id|^cn[_\- ]?(?:id|number|no)$|agency[_\- ]?ref|buyer[_\- ]?ref|internal[_\- ]?ref|your[_\- ]?ref|reference[_\- ]?id|^ref[_\- ]?id$", re.I)),
+    ("solicitation", re.compile(r"solicitation|tender|\bbid|appel|rfp|rfq|rfx|competition|opportunit|numero_appel|notice[_\- ]?(?:number|no|id)|^avis", re.I)),
+    ("award", re.compile(r"award|ocid|ocds|seao_item_id|numeroseao|merx_id|record_id|tender_id|notice_id|item_id|guid|unique_key|transaction|^id$|_id$", re.I)),
+)
+ID_EXCLUDE = re.compile(r"year|type|desc|date|status|count|amount|total|flag|url|name|title|text|_keys$|^transaction_unique_keys$", re.I)
+CLASS_LABEL = {"po": "purchase order / procurement number", "contract": "contract or agreement number", "solicitation": "solicitation / tender number",
+               "award": "award or notice id", "buyer_vendor_id": "the buyer's own vendor id", "vendor_registry": "vendor registry id", "commodity": "commodity code",
+               "org_code": "buyer organisation code", "modification": "amendment / modification"}
+def _flat(v):
+    if isinstance(v, list):
+        return "|".join(_flat(x) for x in v if x not in (None, ""))[:200]
+    if isinstance(v, dict):
+        return "; ".join("%s=%s" % (k, _flat(x)) for k, x in v.items() if x not in (None, ""))[:200]
+    return str(v).strip()
+def classify_ids(ids, src_key="", instrument=""):
+    """columns po_number_as_published, contract_or_agreement_number, solicitation_or_tender_number, award_or_notice_id, buyer_vendor_id,
+    vendor_ids_in_record, commodity_codes, buyer_org_codes, amendment_or_modification, all_identifiers, identifier_count, invoice_reference_hint"""
+    out = {k: [] for k in ("po", "contract", "solicitation", "award", "buyer_vendor_id", "vendor_registry", "commodity", "org_code", "modification")}
+    allid = []
+    for k, v in (ids or {}).items():
+        fv = _flat(v)
+        if not fv or fv.lower() in ("none", "null", "nan", "n/a", "[]", "{}"):
+            continue
+        allid.append("%s=%s" % (k, fv))
+        kl = str(k).lower()
+        if ID_EXCLUDE.search(kl) and kl not in ("po", "piid", "order", "order_no", "po_no"):
+            continue
+        cls = next((c for c, rx in ID_CLASSES if rx.search(kl)), None)
+        if cls == "po" and kl == "piid" and not re.search(r"purchase order|delivery order|\bpo\b|\bdo\b|call", instrument or "", re.I):
+            cls = "contract"  # a PIID on a definitive contract is the contract number; on a PO / delivery order it is the order number
+        if cls:
+            systemish = ("unique" in kl or "guid" in kl or "item_id" in kl or kl.endswith("_key") or "transaction" in kl or kl in ("ocid", "release_id")
+                         or re.fullmatch(r"(?:prod-|ocds-)?[0-9a-f]{20,}(?:-[0-9a-f]+)*", fv.lower()) is not None or re.fullmatch(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", fv.lower()) is not None)
+            out[cls].append((systemish, len(kl), "%s (%s)" % (fv, k)))
+    out = {c: [t[2] for t in sorted(v)] for c, v in out.items()}  # human-usable numbers first, system keys last
+    res = {"po_number_as_published": "; ".join(out["po"])[:300], "contract_or_agreement_number": "; ".join(out["contract"])[:300],
+           "solicitation_or_tender_number": "; ".join(out["solicitation"])[:300], "award_or_notice_id": "; ".join(out["award"])[:300],
+           "buyer_vendor_id": "; ".join(out["buyer_vendor_id"])[:200], "vendor_ids_in_record": "; ".join(out["vendor_registry"])[:200],
+           "commodity_codes": "; ".join(out["commodity"])[:200], "buyer_org_codes": "; ".join(out["org_code"])[:200],
+           "amendment_or_modification": "; ".join(out["modification"])[:200], "all_identifiers": "; ".join(allid)[:1500], "identifier_count": str(len(allid))}
+    for cls in ("po", "contract", "solicitation", "award"):
+        if out[cls]:
+            res["invoice_reference_hint"] = "%s: %s%s" % (CLASS_LABEL[cls], out[cls][0], (" — source %s" % src_key) if src_key else "")
+            break
+    else:
+        res["invoice_reference_hint"] = "no identifier published with the record" if not allid else "only system ids published (see all_identifiers)"
+    return res
 def rec_extra(c):
     """owner 2026-11-04: every field the record gives — instrument (standing offer / blanket order / contract), method, commodity, description"""
     com = c.get("commodity") or {}
@@ -312,6 +367,13 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
     except ValueError:
         pass
     o["sources"][(r.get("source") or {}).get("name") or ""] += 1
+    if _vn:
+        _ids = (r.get("contract") or {}).get("identifiers") or {}
+        _cl = classify_ids(_ids, "", str((r.get("contract") or {}).get("instrument_type") or ""))
+        _ref = _cl["po_number_as_published"] or _cl["contract_or_agreement_number"] or _cl["solicitation_or_tender_number"] or _cl["award_or_notice_id"]
+        _lst = o.setdefault("vrefs", {}).setdefault(_vn, [])
+        if _ref and len(_lst) < 12:
+            _lst.append("%s%s" % (_ref.split(";")[0][:80], (" [%s]" % _ad) if _ad else ""))
     if sc > o["bs"] or (sc == o["bs"] and award_date(r) > award_date(o["best"])):
         o["best"], o["bs"], o["fields"] = r, sc, fields
         if len(name) < len(o["name"]) or not o["name"]: o["name"] = name
@@ -420,7 +482,7 @@ for p, o in orgs.items():
     rows.append({"jurisdiction": gj, "rank_group": ("GOLD" if tier in "AB" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": score,
         "buyer": o["name"], "buyer_website": be.get("official_website") or "", "buyer_address": json.dumps(be.get("address") or {}, ensure_ascii=False)[:200],
         "email": em, "email_type": et, "email_check": es, "email_evidence_url": eu, "email_evidence_quote": eq,
-        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + (("Québec, awarded in the last 3 years, no closing notice" if jur_of_record(r) == "QC" else "source marks it as continuing; awarded in the last 3 years, no end date published") if r["status"] == "ongoing_inferred" and award_date(r) >= CUTOFF3 else "awarded in the last 12 months, no end date published") + ")", "L": "likely active (awarded 12-36 months ago, no end date published; multi-year contracts often still run)", "C": "end date unknown, awarded over 3 years ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200], **rec_extra(c),
+        "contract_status": {"A": "active (published end date today or later)", "B": "likely active (" + (("Québec, awarded in the last 3 years, no closing notice" if jur_of_record(r) == "QC" else "source marks it as continuing; awarded in the last 3 years, no end date published") if r["status"] == "ongoing_inferred" and award_date(r) >= CUTOFF3 else "awarded in the last 12 months, no end date published") + ")", "L": "likely active (awarded 12-36 months ago, no end date published; multi-year contracts often still run)", "C": "end date unknown, awarded over 3 years ago"}[tier], "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:3000], "contract_title": (c.get("title") or "")[:200], **rec_extra(c), **classify_ids(c.get("identifiers") or {}, (r.get("source") or {}).get("key") or "", str(c.get("instrument_type") or "")),
         "contract_value": c.get("value") or "", "currency": c.get("currency") or "", "award_date": award_date(r), "start_date": d.get("start") or "", "end_date": d.get("end") or "",
         "contract_link": r.get("link") or "", "source": (r.get("source") or {}).get("name", ""), "vendor": v.get("name") or "", "vendor_legal_name": ve.get("legal_name") or "",
         "vendor_address": ", ".join(x for x in (a.get("line1"), a.get("city"), a.get("region"), a.get("postal_code")) if x), "vendor_country_basis": v.get("country_basis") or "",
@@ -434,6 +496,9 @@ for p, o in orgs.items():
     x["total_known_value_canadian_suppliers"] = ("%.2f %s over %d of %d records with a published value" % (o["value"], "/".join(k for k, _ in o["cur"].most_common(2)), o["nval"], o["n"])) if o["nval"] else ""
     x["other_canadian_vendors_sample"] = "; ".join("%s (%d)" % (n, c) for n, c in o["vendors"].most_common(6) if n != x.get("vendor"))[:400]
     x["record_sources"] = "; ".join("%s (%d)" % (n, c) for n, c in o["sources"].most_common(4))[:300]
+    _vr = (o.get("vrefs") or {}).get((x.get("vendor") or "").strip(), [])
+    x["records_with_this_vendor"] = str(o["vendors"].get((x.get("vendor") or "").strip(), 0))
+    x["all_references_with_this_vendor"] = "; ".join(_vr)[:800]
     x["vendor_registry_status"] = ve.get("registry_status") or ""
     x["vendor_registry_match_level"] = ve.get("registry_match_level") or ""
     x["vendor_incorporation_date"] = (ve.get("incorporation_or_registration_date") or "")[:10]
@@ -452,6 +517,12 @@ def apply_details(x, k):
                      ("end_date", "end"), ("vendor_address", "vendor_address"), ("contract_title", "title")):
         if not x.get(col) and d.get(key):
             x[col] = d[key] if col != "contract_value" or not d.get("value_field") else "%s (source field: %s)" % (d[key], d["value_field"])
+    if d.get("reference") and not x.get("all_identifiers"):
+        try:
+            _ids = json.loads(d["reference"]) if str(d["reference"]).startswith("{") else {"reference": d["reference"]}
+        except Exception:
+            _ids = {"reference": str(d["reference"])}
+        x.update(classify_ids(_ids if isinstance(_ids, dict) else {"reference": str(_ids)}, d.get("platform") or "", x.get("instrument_type") or ""))
     if x.get("contract_value") and not x.get("currency"):
         pf = d.get("platform") or ""
         x["currency"] = "USD (derived from the source's government)" if re.search(r"usa|socrata|ckan_us|tx1295|ferc|990|sec|cms", pf) else \
@@ -725,7 +796,7 @@ for p, o in orgs12.items():
     rows.append({"jurisdiction": gj, "rank_group": "F%d" % g, "completeness_score": (20 if o["kind"] == "ended" else 10) + g * 6 + 3 + o["fields"],
         "buyer": o["name"], "buyer_website": site, "buyer_address": json.dumps(be.get("address") or {}, ensure_ascii=False)[:200],
         "email": em, "email_type": et, "email_check": es, "email_evidence_url": eu, "email_evidence_quote": eq, "contract_status": st,
-        "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:200], "contract_title": (c.get("title") or "")[:200], **rec_extra(c),
+        "contract_reference": json.dumps(c.get("identifiers") or {}, ensure_ascii=False)[:3000], "contract_title": (c.get("title") or "")[:200], **rec_extra(c), **classify_ids(c.get("identifiers") or {}, (r.get("source") or {}).get("key") or "", str(c.get("instrument_type") or "")),
         "contract_value": c.get("value") or "", "currency": c.get("currency") or "", "award_date": ad, "start_date": d.get("start") or "", "end_date": end,
         "contract_link": r.get("link") or "", "source": (r.get("source") or {}).get("name", ""), "vendor": v.get("name") or "", "vendor_legal_name": ve.get("legal_name") or "",
         "vendor_address": addr_text(a), "vendor_country_basis": o["basis"] if o["kind"] == "registry" else v.get("country_basis") or "",
@@ -1378,7 +1449,9 @@ def mailbox_how(file, lane):
     return "researched by %s (page opened and quoted)" % LANE_WORDS.get(lane, lane or "a lane agent")
 n9 = collections.Counter()
 for x in rows:
-    for col in ("relationship_kind", "relationship_detail", "how_relationship_was_found", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
+    for col in ("invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
+                "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count", "records_with_this_vendor", "all_references_with_this_vendor",
+                "relationship_kind", "relationship_detail", "how_relationship_was_found", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
                 "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
                 "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
         x.setdefault(col, "")
@@ -1389,7 +1462,10 @@ for x in rows:
     parts = ["%s (%s, %s) — %s: %s" % (x.get("buyer") or "", x["buyer_type"], x.get("jurisdiction") or x.get("_jur") or "jurisdiction not stated", x["relationship_kind"], x.get("vendor") or "vendor not named")]
     if x.get("contract_title"): parts.append("subject: %s" % x["contract_title"][:200])
     if x.get("instrument_type"): parts.append("instrument: %s" % x["instrument_type"])
-    if x.get("contract_reference") and x["contract_reference"] not in ("{}", ""): parts.append("reference: %s" % x["contract_reference"][:200])
+    if x.get("po_number_as_published"): parts.append("PO / procurement number: %s" % x["po_number_as_published"][:160])
+    if x.get("contract_or_agreement_number"): parts.append("contract number: %s" % x["contract_or_agreement_number"][:160])
+    if x.get("solicitation_or_tender_number"): parts.append("solicitation: %s" % x["solicitation_or_tender_number"][:120])
+    if x.get("contract_reference") and x["contract_reference"] not in ("{}", ""): parts.append("all identifiers: %s" % x["contract_reference"][:300])
     if x.get("contract_value"): parts.append("value: %s %s" % (x["contract_value"], x.get("currency") or ""))
     dates = ", ".join(l for l in (("awarded %s" % x["award_date"]) if x.get("award_date") else "", ("start %s" % x["start_date"]) if x.get("start_date") else "", ("end %s" % x["end_date"]) if x.get("end_date") else "") if l)
     if dates: parts.append(dates)
@@ -1438,6 +1514,9 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("email_evidence_quote", ["mailbox_provenance", "email_deliverability", "email_security_posture", "dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "dns_checked_date",
                                              "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
                    ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found"]),
+                   ("contract_reference", ["invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id",
+                                           "buyer_vendor_id", "vendor_ids_in_record", "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count",
+                                           "records_with_this_vendor", "all_references_with_this_vendor"]),
                    ("contract_title", ["contract_description", "instrument_type", "procurement_method", "commodity", "number_of_bids"]),
                    ("buyer_contact_evidence_url", ["buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status"]),
                    ("vendor_legal_name", ["vendor_trading_name", "vendor_registry_id", "vendor_registry_url", "vendor_registered_address", "vendor_neq", "vendor_qst_as_published"]),

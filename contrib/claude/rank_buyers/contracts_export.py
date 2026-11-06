@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""Every contract record behind the delivered buyers, with every identifier (owner 2026-11-06: "PO matters, all identifiers, max").
+
+The package rows carry ONE record per buyer. This export lists ALL records of each delivered organisation with a dated or listed
+relationship (tiers A, B, L, C, D, F — the rows that came from the contract dataset), most recent first, capped at 500 per
+organisation, each with the classified identifiers of rank.py (PO / procurement number, contract number, solicitation number,
+award id, the buyer's vendor id, vendor registry ids, commodity codes, amendments, and the full verbatim identifier list), the
+delivered buyer name, mailbox and mailbox grade, so accounts-payable matching has every reference the source publishes.
+Output: out/ranked/contracts/contracts_of_delivered_buyers_partN_of_M.csv.gz (45 MB parts, gzipped for git).
+  python3 contrib/claude/rank_buyers/contracts_export.py
+"""
+import collections, csv, datetime, gzip, io, json, os, re, sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "rank.py"), encoding="utf-8").read()
+ns = {"re": re, "json": json}
+exec(src[src.index("ID_CLASSES = ("):src.index("def rec_extra(c):")], ns)  # the identifier classifier, same code as the package rows
+classify_ids = ns["classify_ids"]
+CAP = 500
+COLS = ["buyer", "rank_group", "tier", "email", "email_type", "jurisdiction", "record_id", "source", "record_url", "vendor", "vendor_address", "vendor_country_basis",
+        "status", "status_basis", "award_date", "start_date", "end_date", "value", "currency", "instrument_type", "procurement_method", "title", "description",
+        "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id",
+        "vendor_ids_in_record", "commodity_codes", "buyer_org_codes", "amendment_or_modification", "identifier_count", "all_identifiers"]
+
+
+def award_date(c):
+    d = c.get("dates") or {}
+    return max((str(d.get(k) or "")[:10] for k in ("awarded", "award", "signed", "start")), default="") or str(d.get("published") or "")[:10]
+
+
+def main():
+    key2row = {}
+    with open(os.path.join(ROOT, "out/ranked/ranked_buyers.csv"), encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            if (r.get("tier") or "") not in ("A", "B", "L", "C", "D", "F") or not (r.get("email") or ""):
+                continue
+            for k in (r.get("keys") or "").split("|"):
+                if k.startswith("b:"):
+                    key2row[k] = r
+    print("delivered organisations with dataset records:", len({id(v) for v in key2row.values()}), flush=True)
+    # pass 1 (light): the most recent CAP record ids per organisation
+    per_org = collections.defaultdict(list)  # row id -> [(award_date, record_id)]
+    n = 0
+    path = os.path.join(ROOT, "data/release/canadian_vendor_contracts.jsonl.gz")
+    with gzip.open(path, "rt", encoding="utf-8") as f:
+        for line in f:
+            n += 1
+            r = json.loads(line)
+            row = key2row.get((r.get("buyer_enrichment") or {}).get("buyer_key"))
+            if row:
+                per_org[id(row)].append((award_date(r.get("contract") or {}), r.get("record_id", "")))
+    wanted = {}
+    for rid, lst in per_org.items():
+        lst.sort(reverse=True)
+        for ad, rec_id in lst[:CAP]:
+            wanted[rec_id] = rid
+    print("records read:", n, "matched:", sum(len(v) for v in per_org.values()), "kept (cap %d/org):" % CAP, len(wanted), flush=True)
+    rows_by_id = {id(v): v for v in key2row.values()}
+    out_rows = []
+    with gzip.open(path, "rt", encoding="utf-8") as f:
+        for line in f:
+            r = json.loads(line)
+            rid = wanted.get(r.get("record_id", ""))
+            if rid is None:
+                continue
+            row = rows_by_id[rid]
+            c, v, sdef = r.get("contract") or {}, r.get("vendor") or {}, r.get("source") or {}
+            d = c.get("dates") or {}
+            cl = classify_ids(c.get("identifiers") or {}, sdef.get("key") or "", str(c.get("instrument_type") or ""))
+            va = v.get("address") or {}
+            addr = va if isinstance(va, str) else ", ".join(str(va.get(x)) for x in ("line1", "line2", "street", "city", "region", "postal_code", "country") if va.get(x))
+            out_rows.append({"buyer": row["buyer"], "rank_group": row.get("rank_group", ""), "tier": row.get("tier", ""), "email": row.get("email", ""), "email_type": row.get("email_type", ""),
+                             "jurisdiction": row.get("jurisdiction", ""), "record_id": r.get("record_id", ""), "source": sdef.get("name", ""), "record_url": sdef.get("record_url") or sdef.get("dataset_url") or "",
+                             "vendor": v.get("name", ""), "vendor_address": addr, "vendor_country_basis": v.get("country_basis") or "", "status": r.get("status", ""), "status_basis": (r.get("status_basis") or "")[:300],
+                             "award_date": award_date(c), "start_date": str(d.get("start") or "")[:10], "end_date": str(d.get("end") or "")[:10], "value": c.get("value", ""), "currency": c.get("currency", ""),
+                             "instrument_type": str(c.get("instrument_type") or "")[:80], "procurement_method": str(c.get("procurement_method") or c.get("solicitation_procedure") or "")[:80],
+                             "title": (c.get("title") or "")[:200], "description": re.sub(r"\s+", " ", str(c.get("description") or ""))[:200], **{k: cl[k] for k in cl}})
+    out_rows.sort(key=lambda x: (x["rank_group"] != "GOLD", x["buyer"], x["award_date"]), reverse=False)
+    os.makedirs(os.path.join(ROOT, "out/ranked/contracts"), exist_ok=True)
+    approx = sum(len(str(v)) + 1 for x in out_rows[:2000] for v in x.values()) / max(1, min(2000, len(out_rows))) * len(out_rows)
+    parts = max(1, int(approx // (45 * 1024 * 1024)) + 1)
+    step = -(-len(out_rows) // parts)
+    for pi in range(parts):
+        path = os.path.join(ROOT, "out/ranked/contracts/contracts_of_delivered_buyers_part%d_of_%d.csv.gz" % (pi + 1, parts))
+        with gzip.open(path, "wt", newline="", encoding="utf-8", compresslevel=6) as fh:
+            w = csv.DictWriter(fh, fieldnames=COLS); w.writeheader(); w.writerows(out_rows[pi * step:(pi + 1) * step])
+    po = sum(1 for x in out_rows if x["po_number_as_published"]); con = sum(1 for x in out_rows if x["contract_or_agreement_number"])
+    summary = ["# Contracts of the delivered buyers — %s" % datetime.date.today().isoformat(), "",
+               "%d contract records of %d delivered organisations (tiers A/B/L/C/D/F, most recent first, at most %d per organisation), in %d gzipped part files." % (len(out_rows), len(per_org), CAP, parts),
+               "- with a purchase-order / procurement number: %d" % po, "- with a contract / agreement number: %d" % con,
+               "- with a solicitation / tender number: %d" % sum(1 for x in out_rows if x["solicitation_or_tender_number"]),
+               "- with the buyer's own vendor id for the supplier: %d" % sum(1 for x in out_rows if x["buyer_vendor_id"]),
+               "- Gold buyers' records: %d" % sum(1 for x in out_rows if x["rank_group"] == "GOLD"), ""]
+    open(os.path.join(ROOT, "out/ranked/contracts/CONTRACTS.md"), "w", encoding="utf-8").write("\n".join(summary) + "\n")
+    print("\n".join(summary), flush=True)
+
+
+if __name__ == "__main__":
+    main()

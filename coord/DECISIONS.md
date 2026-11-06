@@ -471,3 +471,18 @@ report + list, README, DECISIONS, START_HERE.md). The hourly loop is stopped; th
 push loop v3) keep running and the referee keeps verifying, so the next re-rank will carry whatever they add. Open items for the resume:
 419 rows whose mail domain entered after the last DNS pass (soft), the T/M staff-directory files T6_004–009 (unsearched), the no-name P13
 rows (20,113 known only by domain), and the honest ceiling on Gold under the rules.
+
+## 2026-11-06 18:40 (claude) — PO numbers and every other identifier, maximal
+Owner: "PO matters, go max, and all other identifiers possible". Facts first: of 803,097 contract records, 796,667 carry an identifier,
+681,650 a contract/agreement number, 151,791 a solicitation number and 32,425 a purchase-order / procurement number (federal proactive
+disclosure `pd_procurement_id` — the department's contract/PO number — 29,616; US purchase and delivery orders `piid` 1,304; Virginia eVA,
+Vermont, WHO, Checkbook L.A., Oregon, Montgomery County). Public procurement is disclosed at award level; PO ledgers exist for a handful of
+US bodies and almost no Canadian one, so the contract number is the reference most buyers can match an invoice against.
+Decisions: (1) rank.py classifies every identifier key of the record (and of lead details) into 14 columns after `contract_reference`
+(itself no longer truncated at 200 chars): invoice_reference_hint, po_number_as_published, contract_or_agreement_number,
+solicitation_or_tender_number, award_or_notice_id, buyer_vendor_id, vendor_ids_in_record, commodity_codes, buyer_org_codes,
+amendment_or_modification, all_identifiers, identifier_count, records_with_this_vendor, all_references_with_this_vendor — 106 columns;
+(2) `contrib/claude/rank_buyers/contracts_export.py` writes every record of every delivered buyer with a dataset relationship (2,391
+organisations, 210,225 records, ≤ 500 per organisation, 11,672 with PO numbers, 65,315 for Gold buyers) to
+`coord/results/ranked/contracts/*.csv.gz`, run by the rank workflow; (3) next lever for PO volume is new PO-ledger sources with vendor
+addresses (Florida FACTS, NY Open Book, state checkbooks with vendor state fields) — registered for the harvest lanes.

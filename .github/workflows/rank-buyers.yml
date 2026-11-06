@@ -30,6 +30,7 @@ jobs:
             rm -rf out/ranked/batches && python3 contrib/claude/rank_buyers/batches.py > batches.log
             python3 tools/validate_deliverable.py out/ranked --mx data/incoming/claude/claude_mx_check.tsv --write out/ranked/VALIDATION.md > validate.log || true
             python3 tools/dmarc_report.py out/ranked > dmarc.log || true
+            python3 contrib/claude/rank_buyers/contracts_export.py > contracts.log || true
             python3 tools/audit_deliverable.py out/ranked --write out/ranked > audit.log || true
             rm -rf coord/results/ranked && mkdir -p coord/results/ranked && cp -r out/ranked/* coord/results/ranked/ && rm -f coord/results/ranked/ranked_buyers.csv
             { echo "# Ranked buyers — $(date -u +%Y-%m-%dT%H:%MZ)"; echo; echo '```'; cat rank.log batches.log; echo '```'; echo; echo "Integrity gates: see VALIDATION.md in this folder; columns and rules: contrib/claude/rank_buyers/README.md"; } > coord/results/ranked/SUMMARY.md

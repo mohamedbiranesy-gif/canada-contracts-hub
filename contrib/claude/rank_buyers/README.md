@@ -40,7 +40,7 @@ schools / authorities `abed:`; a key listed there counts as located in Canada), 
 else the single postal code on the organisation's own page. Organisations not shown to be located in Canada get no inference (skipped). One row
 per organisation: P12 / P13 never repeat an organisation, registrable domain or mailbox already in a row above.
 
-## Columns (92, in file order)
+## Columns (106, in file order)
 `jurisdiction`, `rank_group`, `completeness_score`, `buyer`, `buyer_website`, `buyer_address`, `buyer_phone`,
 `buyer_contact_evidence_url`, `buyer_legal_name_as_published` (copyright / footer line of the buyer's site),
 `buyer_bn_as_published` (BN / charity number as printed, with the page), `buyer_gst_hst_derived` (BN9 + RT0001, labelled
@@ -69,12 +69,25 @@ unless printed, buyer cost centre / vote / project code, delivery address, tax-e
 ## Files
 `coord/results/ranked/batches/<package>.csv` — one CSV per package; a package over ~45 MB is delivered in numbered part files
 (`P13_…_part1_of_4.csv` …, same columns, split only by size). `coord/results/ranked/ranked_buyers.csv.gz` — every row incl. Z, gzipped
-(GitHub refuses files over 100 MB). `SUMMARY.md`, `VALIDATION.md`, `DMARC.md`, `dmarc_no_enforcement.csv` next to them.
+(GitHub refuses files over 100 MB). `SUMMARY.md`, `VALIDATION.md`, `AUDIT.md` + `audit_flags.csv`, `DMARC.md` + `dmarc_no_enforcement.csv` next to them;
+`contracts/` holds every contract record of the delivered buyers with all identifiers (gzipped part files).
 
 ## Mailbox rules
 Webmail addresses (gmail, hotmail, outlook, yahoo, icloud, proton…) are never delivered, whoever publishes them: a webmail account is
 not an organisational mailbox. ISP-hosted mailboxes that a small municipality publishes as its official contact (videotron.ca, bellnet.ca…)
 are kept and labelled `mail_provider = ISP mail`.
+
+## Identifier columns (owner 2026-11-06: "PO matters — all identifiers possible")
+Right after `contract_reference` (which now holds the record's complete identifier block, no longer truncated): `invoice_reference_hint`
+(the one reference to quote: PO / procurement number first, else contract number, else solicitation number, else award id — with the
+source field name), `po_number_as_published` (purchase-order / procurement numbers: `pd_procurement_id` of the federal proactive
+disclosure, `piid` of US purchase and delivery orders, `order_number` / `po_id` of state purchase-order ledgers, bons de commande),
+`contract_or_agreement_number`, `solicitation_or_tender_number`, `award_or_notice_id` (OCDS ocid, SEAO, MERX, bids&tenders ids),
+`buyer_vendor_id` (the supplier's id in the buyer's own system), `vendor_ids_in_record` (UEI / DUNS / CAGE / BN as the source prints
+them), `commodity_codes` (UNSPSC / GSIN / NAICS / CPV), `buyer_org_codes`, `amendment_or_modification`, `all_identifiers` (every
+identifier verbatim, `key=value`), `identifier_count`, `records_with_this_vendor` and `all_references_with_this_vendor` (up to 12
+references across every record of this buyer with this vendor). Every record behind a delivered buyer — not only the one shown in
+the row — is in `coord/results/ranked/contracts/contracts_of_delivered_buyers_part*.csv.gz` (CONTRACTS.md gives the counts).
 
 ## Narrative and provenance columns (owner 2026-11-04 10:50: every row states the relationship and how it was found)
 `buyer_type` (derived from the name: municipality, school board, university, hospital/health authority, ministry/agency, utility, First
