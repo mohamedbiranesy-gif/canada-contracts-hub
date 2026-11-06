@@ -64,7 +64,7 @@ def main():
     headers, per_pkg, total = {}, collections.OrderedDict(), 0
     seen_mail, by_name, by_site, by_name_mail = {}, collections.defaultdict(list), collections.defaultdict(list), collections.Counter()
     fill = collections.Counter(); gold_rows = 0; basis_fam = collections.Counter(); btype = collections.Counter(); posture = collections.Counter()
-    for name in ("1 header: 92 identical columns in every file", "2 mailbox syntax", "3 mailbox referee-confirmed (all but P11)", "4 mail server (MX or A) on the mailbox domain", "4b mail server not yet checked (row newer than the last DNS pass)",
+    for name in ("1 header: identical columns in every file (106 since 2026-11-06)", "2 mailbox syntax", "3 mailbox referee-confirmed (all but P11)", "4 mail server (MX or A) on the mailbox domain", "4b mail server not yet checked (row newer than the last DNS pass)",
                  "5 no webmail domain", "6 no person-like local part", "7 role word in the local part", "8 receivables-looking local part graded invoicing/AP",
                  "9 shared government domain: page or quote names the body", "10 regional token of a multinational on a differently-located body", "11 quote contains the address", "11b quote shows the label next to the address (referee saw the address on the page)",
                  "12 evidence page on the organisation's domain (or its site)", "13 email_type label matches grade", "14 DMARC / SPF / provider columns filled",
@@ -158,7 +158,7 @@ def main():
     # header check
     hs = set(headers.values())
     if len(hs) != 1 or len(next(iter(hs))) != 92:
-        hit("1 header: 92 identical columns in every file", "hard", "files", "%d distinct headers; widths %s" % (len(hs), sorted({len(h) for h in hs})))
+        hit("1 header: identical columns in every file (106 since 2026-11-06)", "hard", "files", "%d distinct headers; widths %s" % (len(hs), sorted({len(h) for h in hs})))
     for nk, lst in by_name.items():
         if len(lst) > 1 and len({e.split("@")[-1] for _, e in lst}) == 1:
             hit("22 one row per organisation name (same name twice)", "soft", lst[0][0], "%d rows, same mail domain: %s" % (len(lst), lst[0][1].split("@")[-1]))

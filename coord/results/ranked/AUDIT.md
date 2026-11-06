@@ -4,7 +4,7 @@ Result: **FAIL** — 11 hard checks, 17 soft checks; hard failures: 1. Every fla
 
 | # | check | kind | rows flagged | verdict |
 |---|---|---|---|---|
-| 1 | header: 92 identical columns in every file | hard | 1 | FAIL |
+| 1 | header: identical columns in every file (106 since 2026-11-06) | hard | 1 | FAIL |
 | 2 | mailbox syntax | hard | 0 | PASS |
 | 3 | mailbox referee-confirmed (all but P11) | hard | 0 | PASS |
 | 4 | mail server (MX or A) on the mailbox domain | hard | 0 | PASS |
@@ -33,8 +33,20 @@ Result: **FAIL** — 11 hard checks, 17 soft checks; hard failures: 1. Every fla
 | 25 | jurisdiction vs mailbox top-level domain | soft | 40 | REVIEW |
 | 26 | currency filled when a value is filled | soft | 46 | REVIEW |
 
+## How to read the REVIEW lines (none of them is a rule break; each is a known limit, stated so nothing is hidden)
+- **4b** — rows whose mail domain entered after the last DNS pass; checked on the next pass.
+- **7** — the audit's role-word vocabulary is narrower than the referee's (`ap_cameco@`, `invsubp@`, `acquisitions@`, `beschaffung@` are role boxes it does not recognise by word); every one was referee-verified on the organisation's own page.
+- **8** — `payments@`-style boxes graded invoicing/AP only where the page itself says invoices or suppliers go there.
+- **9** — government-wide domains where the page names the body only loosely; clear misattributions were removed on 2026-11-04.
+- **11b** — the referee saw the address on the page; the stored quote shows the label next to it.
+- **12** — the evidence page is on a different domain than the mailbox / website (a second domain of the same organisation, a PDF host, a shared government site); the same-organisation check passed on the name.
+- **19** — P13 organisations known only by their site's domain (no better name on the site); mailbox, DNS and inferred relationship unaffected.
+- **22 / 23** — same short name used by different entities, or two bodies on one site domain; treated as distinct on purpose.
+- **25** — Canadian-jurisdiction rows whose mailbox is on a foreign TLD (a multinational's or a network's shared mailbox); kept, flagged.
+- **26** — a value published without a currency by the source; left as published.
+
 ## Examples of flagged rows (first 12 per check)
-- **1 header: 92 identical columns in every file**
+- **1 header: identical columns in every file (106 since 2026-11-06)**
     - files | 1 distinct headers; widths [106]
 - **4b mail server not yet checked (row newer than the last DNS pass)**
     - P06M_member_or_regulated_payer_of_canadian_body_other_email:59 Selkirk College | selkirk.ca
