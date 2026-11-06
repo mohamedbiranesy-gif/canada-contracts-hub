@@ -12,7 +12,7 @@ permissions:
 jobs:
   rank:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     concurrency: { group: ranker, cancel-in-progress: false }  # own group: a queued referee run must not cancel it
     steps:
       - uses: actions/checkout@v4
@@ -37,6 +37,11 @@ jobs:
             git add coord/results/ranked
             git diff --cached --quiet && break
             git commit -q -m "ranker: buyers re-ranked into quality batches [skip ci]"
-            git push -q origin HEAD:main && break
+            pushed=0
+            for j in 1 2 3 4 5 6 7 8; do  # the ranker's commit touches only coord/results/ranked: rebase onto whatever landed meanwhile and push again
+              git push -q origin HEAD:main && { pushed=1; break; }
+              sleep $((j * 5)); git fetch -q origin main && git rebase -q origin/main || { git rebase --abort; break; }
+            done
+            [ "$pushed" = "1" ] && break
             sleep $((i * 7))
           done
