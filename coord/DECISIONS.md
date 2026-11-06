@@ -486,3 +486,10 @@ amendment_or_modification, all_identifiers, identifier_count, records_with_this_
 organisations, 210,225 records, ≤ 500 per organisation, 11,672 with PO numbers, 65,315 for Gold buyers) to
 `coord/results/ranked/contracts/*.csv.gz`, run by the rank workflow; (3) next lever for PO volume is new PO-ledger sources with vendor
 addresses (Florida FACTS, NY Open Book, state checkbooks with vendor state fields) — registered for the harvest lanes.
+
+## 2026-11-06 19:00 (claude) — delivered: identifiers maximal (106 columns) + every contract of every delivered buyer
+Re-rank 23:52Z: P01 579 · P01T 91 · P01M 18 · P13 50,536 — 63,322 delivered rows, 106 columns, VALIDATION 7/7 PASS, deep audit 11/11
+hard PASS. Copied to the owner's Mac: ~/Downloads/canada-contracts-gold-2026-11-06/ (packages, Z, ranked_buyers_ALL_ROWS.csv,
+contracts_of_delivered_buyers/ with 7 CSVs = 210,141 records, SUMMARY / VALIDATION / AUDIT + flags / DMARC + list / README / DECISIONS /
+START_HERE). Workflow: the ranker now rebases-and-retries its push instead of regenerating (8-minute passes were losing the race to the
+push loop and timing out); budget 45 min. The 3-hourly scheduled rank keeps everything current while the loop is paused.
