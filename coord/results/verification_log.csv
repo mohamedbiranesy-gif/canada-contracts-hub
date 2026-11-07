@@ -13361,8 +13361,8 @@ chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00059,b:c256c2eb519aa05d,prop
 gemini,gemini_buyer_ap_results_batch39.csv,CH-AP-01964,b:c27c59101290cb3a,customersupport@wcwsa.org,https://wcwsa.org/,not_found_on_page
 chatgpt,chatgpt_verify_buyer_ap_results_batch02.csv,CH-VF2-0215,b:c2845aa690c2fb2a,ddenrol-inscriredd@forces.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00215,b:c2845aa690c2fb2a,ddenrol-inscriredd@forces.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
-gemini,gemini_buyer_ap_results_batch26.csv,GE-AP-B0069,b:c29130e8d1bc5286,info@exploreedmonton.com,https://exploreedmonton.com/contact-us,unverified_page_unavailable
-gemini,gemini_buyer_ap_results_batch33.csv,CH-AP-01306,b:c29130e8d1bc5286,info@exploreedmonton.com,https://exploreedmonton.com/contact-us,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch26.csv,GE-AP-B0069,b:c29130e8d1bc5286,info@exploreedmonton.com,https://exploreedmonton.com/contact-us,verified
+gemini,gemini_buyer_ap_results_batch33.csv,CH-AP-01306,b:c29130e8d1bc5286,info@exploreedmonton.com,https://exploreedmonton.com/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01271,b:c29abbe65264f947,billing@ems.tamu.edu,https://uhs.tamu.edu/medical/index.html,verified
 claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00146,b:c29abbe65264f947,admissions@tamu.edu,https://www.tamu.edu/contact/index.html,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00060,b:c29abbe65264f947,invoices@tamuk.edu,https://aggiebuy.tamu.edu/contacts.html,verified
