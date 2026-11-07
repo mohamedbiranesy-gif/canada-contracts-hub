@@ -50867,7 +50867,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-SM-00004,lead:08ad44d9f50d492b,adm
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07985,lead:08af0ebe8fe43fab,info@produitsmatra.com,http://www.produitsmatra.com/nous-joindre.php,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24441,lead:08b1ad0cbd9a90df,info@cci.ca,https://cci.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24441,lead:08b1ad0cbd9a90df,admin@cci.ca,https://cci.ca/contact,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14794,lead:08b5fd88dfba0ebd,info@somfy.de,https://www.somfy.ch/de-ch/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14794,lead:08b5fd88dfba0ebd,info@somfy.de,https://www.somfy.ch/de-ch/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-00083,lead:08c39418c9b8445c,info@fertilitymatters.ca,https://www.fertilitymatters.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-EX-OGN,lead:08c5138826ab7615,info@orogenroyalties.com,https://www.orogenroyalties.com/contact/general-contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04642,lead:08c84095ab424fe6,info@casa-acsa.ca,https://casa-acsa.ca/en/canadian-agricultural-safety-association/,verified
@@ -52820,7 +52820,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11853,lead:25d540482e2e4d45,tre
 claude,claude_buyer_ap_results_deep01.csv,CL-DA-02750,lead:25d9da34731265fe,procurement@villanova.edu,https://www.villanova.edu/content/dam/villanova/finance/documents/procurement/Vendors/concur_inv_ltr.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-23181,lead:25db8d9c5723dea3,epayment@chem.ubc.ca,https://www.chem.ubc.ca/emilie-payment,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16784,lead:25eb149b09330ab2,adpaccountant@adp.com,https://www.adp.com/contact-us/partners.aspx,unverified_page_unavailable
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16784,lead:25eb149b09330ab2,supplier.diversity@adp.com,https://www.adp.com/about-adp/corporate-social-responsibility/supplier-diversity.aspx,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16784,lead:25eb149b09330ab2,supplier.diversity@adp.com,https://www.adp.com/about-adp/corporate-social-responsibility/supplier-diversity.aspx,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12332,lead:25f0653b145baf83,info@styllar.com,https://styllar.com/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-25186,lead:25fe2a4cfa2ef463,finance@glendon.yorku.ca,https://futurestudents.yorku.ca/financing-your-degree/scholarships-bursaries,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16155,lead:25feb02213c0486b,uni.approvisionnement@acadie.com,https://www.uni.ca/fr/appel-d-offres/,verified
@@ -60532,7 +60532,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19961,lead:9475e83aca2e1832,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-42976,lead:9481dd0ab6839329,invoices.alstom@pdf.basware.com,https://supplierinvoices.alstom.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-27189,lead:9487856a5b2ee3d5,info@canadianfoodfocus.org,https://canadianfoodfocus.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-45716,lead:948c30de3c9336e1,info@newhazelton.ca,https://newhazelton.ca/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16419,lead:948fe34d5c9f287c,info@agewell-nce.ca,https://agewell-nce.ca/contact,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16419,lead:948fe34d5c9f287c,info@agewell-nce.ca,https://agewell-nce.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22932,lead:9496d2e255df591c,info@bacalhoa.pt,https://bacalhoa.pt/en/contacts,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-25385,lead:949c3f89c89efd81,finance@glendon.yorku.ca,https://futurestudents.yorku.ca/financing-your-degree/scholarships-bursaries,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-EX-TNGD,lead:94a19798911d3cf5,info@tiernangold.com,https://www.tiernangold.com/,verified
@@ -61563,7 +61563,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21226,lead:a4028a0e71780d48,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14310,lead:a40f030411226811,info_randa@randa.net,https://randa.net/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22437,lead:a4108358df03e9a1,accountspayable@reddeer.ca,https://reddeer.ca/city-government/accounts-payable-inquiries/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22437,lead:a4108358df03e9a1,info@reddeer.ca,https://reddeer.ca/contact-us/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12828,lead:a415f6c35df8c36a,info@mastersgalleryltd.com,https://www.mastersgalleryltd.com/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12828,lead:a415f6c35df8c36a,info@mastersgalleryltd.com,https://www.mastersgalleryltd.com/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00018,lead:a415f6c35df8c36a,info@mastersgalleryltd.com,https://www.mastersgalleryltd.com/contact,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01972,lead:a42c6b2c9053c59e,info@localjobshop.ca,https://localjobshop.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15041,lead:a42d0ef88be1e7fd,info@choirsontario.org,https://choirsontario.org/contact/,verified
@@ -62722,7 +62722,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06245,lead:b53d6cf8ac5a742a,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-28094,lead:b53db63fa19eeb6b,info@boxxcraft.com,https://www.boxxcraft.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19149,lead:b542b1542b6488d9,info@mhs.mb.ca,https://www.mhs.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16722,lead:b542d888ac84aa61,info@aquilinedrones.com,https://www.aquilinedrones.com/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14420,lead:b543a6dce4284adc,info@tiensher.com,https://tiensher.com/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14420,lead:b543a6dce4284adc,info@tiensher.com,https://tiensher.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-20552,lead:b543edda67e15765,info@lolodrinkcompany.com,https://lolodrinkcompany.com/,verified
 claude,claude_buyer_ap_results_agent01.csv,CL-RD-1-004,lead:b54a01dcc6b22e07,hello@lumecreative.co,https://www.lumecreative.co/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03211,lead:b54a01dcc6b22e07,hello@lumecreative.co,https://www.lumecreative.co/,verified
@@ -63589,7 +63589,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21903,lead:c2720b4d81d96a50,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-25297,lead:c2749288663d374d,info@pacificsummitenergy.com,https://pacificsummitenergy.com/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09931,lead:c276c029741d6e88,reception@saltriveronline.com,https://saltriveronline.com/contact/,not_found_on_page
 claude,claude_buyer_ap_results_agent01.csv,CL-RD-3-003,lead:c277a5958eb25454,info@uoftmedstore.com,https://www.uoftmedstore.com/contact.sz,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11984,lead:c277a5958eb25454,info@uoftmedstore.com,https://uoftmedstore.com/index.sz,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11984,lead:c277a5958eb25454,info@uoftmedstore.com,https://uoftmedstore.com/index.sz,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00015,lead:c277a5958eb25454,info@uoftmedstore.com,https://www.uoftmedstore.com/contact.sz,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14363,lead:c27def5f9a28ae39,info@conceptsdevie.com,https://www.conceptsdevie.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14055,lead:c2925d1c9cab2ab4,finance@vpch.com,https://www.vpch.com/tcp,verified
@@ -64509,7 +64509,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19963,lead:cf4ce1650e925932,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19963,lead:cf4ce1650e925932,info@cafi-nb.org,https://cafi-nb.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14432,lead:cf4dc70a6b9a4ba9,info.de@ibexa.co,https://ibexa.ai/en/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-25410,lead:cf50032a4131b339,finance@glendon.yorku.ca,https://futurestudents.yorku.ca/financing-your-degree/scholarships-bursaries,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14783,lead:cf556d13f28c8c9c,info@somfy.de,https://www.somfy.de/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14783,lead:cf556d13f28c8c9c,info@somfy.de,https://www.somfy.de/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00045,lead:cf556d13f28c8c9c,info@somfy.de,https://www.somfy.de/hilfe/hilfe-center,unverified_page_unavailable
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00029,lead:cf55783c25a1d122,poland-invoices@ubs.com,https://www.ubs.com/content/dam/assets/cc/static/our-firm/supplier/doc/2024/ubs-supply-chain-poland-buso-vendor-faq.pdf,unverified_page_unavailable
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00029,lead:cf55783c25a1d122,sh-poinvoices@ubs.com,https://www.ubs.com/content/dam/assets/cc/static/our-firm/supplier/doc/2024/ubs-supply-chain-india-buso-merger-vendor-faq.pdf,unverified_page_unavailable
@@ -66819,7 +66819,7 @@ claude,claude_buyer_ap_results_search01.csv,CL-WS-00007,lead:f142612a6e059ee1,in
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16253,lead:f1426f16ab15d763,comptesapayer@brossard.ca,https://brossard.ca/sujets/paiements-aux-fournisseurs/,unverified_page_unavailable
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00075,lead:f1426f16ab15d763,comptesapayer@brossard.ca,https://brossard.ca/sujets/paiements-aux-fournisseurs/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11906,lead:f14592475e6b17d7,info@lavieenrose.com,https://www.lavieenrose.com/fr,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14778,lead:f146fd53db42dde5,info@somfy.de,https://www.somfy.at/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14778,lead:f146fd53db42dde5,info@somfy.de,https://www.somfy.at/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06180,lead:f14fcd42e71cb95c,info@chsinc.ca,https://www.chsinc.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12359,lead:f1517ab6ac1d41a3,info@ghostwhalelondon.com,https://www.ghostwhalelondon.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22693,lead:f153c12257e698aa,contactus@hedleynutritionals.ca,https://hedleynutritionals.ca/,verified
@@ -83960,7 +83960,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-WD-021605,wd:Q123512425,info@canss
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-021606,wd:Q123512432,info@canlyme.com,https://canlyme.com/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-021607,wd:Q123512440,info@makeway.org,http://makeway.org/about/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-021608,wd:Q123512466,info@sn.ulaval.ca,https://sentinellenord.ulaval.ca,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-WD-021609,wd:Q123512481,info@agewell-nce.ca,https://agewell-nce.ca/contact,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-021609,wd:Q123512481,info@agewell-nce.ca,https://agewell-nce.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-021610,wd:Q123517149,administration@leplacoteux.com,https://leplacoteux.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-012688,wd:Q12352509,admin@summervillageofgulllake.com,https://www.summervillageofgulllake.com/our-village/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-021759,wd:Q123562074,info@abac.org,https://abac.org/fr/,verified
