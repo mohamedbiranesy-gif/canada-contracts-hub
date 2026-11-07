@@ -1521,10 +1521,13 @@ def mailbox_how(file, lane):
     return "researched by %s (page opened and quoted)" % LANE_WORDS.get(lane, lane or "a lane agent")
 # ---- owner 2026-11-06 D-items: evidence-page re-read (terms, PO, portal, phone, address, printed AP contact, buyer GST), Peppol, dataset back-reference, sensitivity, template language ----
 AT = {}
-if os.path.exists(ROOT + "/data/incoming/claude/claude_ap_terms.csv"):
-    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_ap_terms.csv", encoding="utf-8", errors="replace")):
-        if _r.get("status") == "ok":
-            AT.setdefault(_r["email"].lower(), _r)
+try:
+    if os.path.exists(ROOT + "/data/incoming/claude/claude_ap_terms.csv"):
+        for _r in csv.DictReader(io.StringIO(open(ROOT + "/data/incoming/claude/claude_ap_terms.csv", encoding="utf-8", errors="replace").read().replace("\0", ""))):
+            if _r.get("status") == "ok" and _r.get("email"):
+                AT.setdefault(_r["email"].lower(), _r)
+except Exception as _e:
+    print("ap_terms file unreadable:", type(_e).__name__, _e); AT = {}
 n_at = collections.Counter()
 for x in rows:
     e = (x.get("email") or "").lower()

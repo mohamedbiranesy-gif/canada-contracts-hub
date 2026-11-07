@@ -189,7 +189,8 @@ def main():
     out = os.path.join(a.repo, "data/incoming/claude/claude_ap_terms.csv")
     prev = {}
     if os.path.exists(out):
-        for r in csv.DictReader(open(out, encoding="utf-8")):
+        import io
+        for r in csv.DictReader(io.StringIO(open(out, encoding="utf-8", errors="replace").read().replace("\0", ""))):  # a page text once carried a NUL byte
             prev[(r["email"], r["evidence_url"])] = r
     ranked = a.ranked or os.path.join(a.repo, "coord/results/ranked/ranked_buyers.csv.gz")
     opener = gzip.open if ranked.endswith(".gz") else open
@@ -249,7 +250,7 @@ def write(out, prev):
         w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore")
         w.writeheader()
         for k in sorted(prev):
-            w.writerow({c: prev[k].get(c, "") for c in COLS})
+            w.writerow({c: str(prev[k].get(c, "") or "").replace("\0", "").replace("\r", " ") for c in COLS})
     os.replace(out + ".tmp", out)
 
 
