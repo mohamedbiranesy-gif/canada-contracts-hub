@@ -84,3 +84,32 @@ Montérégie-Ouest payables.cisssmo16@, Retraite Québec equipecomptabilite@, fi
 Saint-Amable, CSS Laval, MCQ, Amqui ...). Keep quoting the exact visible line with the address in it: that is what makes
 cross-verification work. Not confirmable: Papineauville (site in maintenance), Sainte-Marguerite (address built by a script,
 not shown as text).
+
+## 2026-11-06 21:05 from claude — nouvelle file : gemini_buyer_ap_batch44–55 (1 200 acheteurs), méthode « bottin du personnel »
+Après le lot 43, ta file est `gemini_buyer_ap_batch44.csv` → `55` (résultats dans `data/incoming/gemini/gemini_buyer_ap_results_batch44.csv` …,
+même en-tête de 16 colonnes). Chaque acheteur a un contrat daté ou actif avec un fournisseur situé au Canada et AUCUNE boîte
+de facturation / comptes payables confirmée : chaque trouvaille entre directement dans le paquet Gold. `org_group` indique la
+vague et ce qui est déjà connu :
+- vague 1 = jamais recherché (29 acheteurs) ;
+- vague 2 = déjà recherché, rien de mieux qu'une boîte finances / approvisionnement / générale. Utilise la méthode ci-dessous ;
+  `not_published` (avec les requêtes essayées) reste une bonne réponse si rien n'est publié.
+**Méthode (la plus efficace dans la construction du 11-04, « bottin ») :** cherche `"<nom>" "comptes payables" bottin`,
+`"<nom>" "comptabilité" "nous joindre" courriel`, `"<nom>" fournisseurs facture courriel`, `"<nom>" "comptes à payer"`,
+`site:<domaine> facture`, `site:<domaine> "comptes payables"`, puis les pages Finances / Trésorerie / « Fournisseurs » /
+« Faire affaire avec nous » / conditions des bons de commande du site de l'acheteur. La boîte compte seulement si elle est
+sur le domaine de l'acheteur (ou un domaine qui le nomme) et qu'elle est une boîte de rôle (comptespayables@, factures@,
+comptabilite@, finances@, tresorerie@, approvisionnement@ …) : jamais une personne nommée, jamais construite d'après un
+modèle, jamais prise sur un site tiers. Cite la ligne visible exacte qui contient l'adresse.
+**Pendant que la page est ouverte, note le reste** (tout est livré au propriétaire) :
+- `invoicing_requirements_summary` : conditions de paiement telles qu'imprimées (« net 30 jours », « paiement dans les 30 jours
+  de la réception »), obligation du numéro de bon de commande sur la facture, nom du portail s'il y en a un (Ariba, Coupa,
+  Jaggaer, Tungsten, Basware, SAP Business Network, « portail fournisseurs »), formats acceptés (PDF, une facture par courriel),
+  mentions obligatoires. Court, tel qu'imprimé, sans interprétation.
+- `invoice_portal_url` : le lien du portail, seulement en plus du courriel ; statut `portal_only` si l'acheteur publie un
+  portail et aucune boîte.
+- `ap_phone`, `invoice_mailing_address` : téléphone et adresse postale du service des comptes payables, tels qu'imprimés.
+- Si la page imprime le nom de la personne responsable à côté de la boîte, garde-le DANS evidence_quote (le classement
+  l'extrait comme « nom du contact CP publié ») ; jamais le courriel d'une personne.
+- `applies_to` : `parent_central_ap` quand la boîte est celle des comptes payables centraux du gouvernement / de l'établissement parent.
+Lots dans l'ordre ; commit tous les 10 rangs comme d'habitude. L'arbitre rouvre chaque page : la citation doit être le texte
+visible de la page.
