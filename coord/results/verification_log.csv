@@ -8225,8 +8225,8 @@ claude,claude_buyer_ap_results_search01.csv,CL-WS-00097,b:44ac58a7ef89eec6,strat
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00097,b:44ac58a7ef89eec6,procurement@londonmet.ac.uk,https://www.londonmet.ac.uk/about/procurement/how-to-do-business-guidance/,verified
 gemini,gemini_buyer_ap_results_batch30.csv,GE-AP-30098,b:44ac58a7ef89eec6,strategic-procurement@londonmet.ac.uk,https://www.londonmet.ac.uk/about/procurement/contact-the-procurement-unit/,verified
 chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00170,b:44b66dcd935119ec,accounts.payable@tbdssab.ca,https://www.tbdssab.ca/about/contact-directory/,verified
-gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00003,b:44b66dcd935119ec,accounts.payable@tbdssab.ca,https://www.tbdssab.ca/about/corporate/,unverified_page_unavailable
-gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00003,b:44b66dcd935119ec,procurement@tbdssab.ca,https://www.tbdssab.ca/about/corporate/,unverified_page_unavailable
+gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00003,b:44b66dcd935119ec,accounts.payable@tbdssab.ca,https://www.tbdssab.ca/about/corporate/,verified
+gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00003,b:44b66dcd935119ec,procurement@tbdssab.ca,https://www.tbdssab.ca/about/corporate/,verified
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00003,b:44b66dcd935119ec,intake@tbdssab.ca,https://211north.ca/record/65302199/agency/,unverified_page_unavailable
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00001,b:44b66dcd935119ec,accounts.payable@tbdssab.ca,https://www.tbdssab.ca/about/contact-directory/,verified
 gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00891,b:44ba62d477a07d39,finances@ville.varennes.qc.ca,https://www.ville.varennes.qc.ca/services/services-en-ligne/taxes-evaluations,verified
