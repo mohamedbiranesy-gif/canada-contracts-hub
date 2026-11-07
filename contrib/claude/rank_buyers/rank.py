@@ -1790,6 +1790,12 @@ try:
             conf = m.group(1) if m else "not stated in this build"
             if re.search(r"canada post|postes canada", x.get("vendor") or "", re.I) and re.search(r"non-profit|religious|library", x.get("buyer_type") or "", re.I):
                 conf = "LOW (small organisation: mailing volume unknown)"
+            # H2: cities served by a municipal electricity distributor, not by the provincial utility at retail
+            _city = " ".join((x.get(c) or "") for c in ("buyer", "buyer_address"))
+            if re.search(r"hydro-?qu[ée]bec", x.get("vendor") or "", re.I) and re.search(r"\b(Alma|Amos|Baie-Comeau|Coaticook|Joliette|Magog|Saguenay|Chicoutimi|Jonqui[èe]re|Sherbrooke|Westmount|Saint-Jean-Baptiste-de-Rouville)\b", _city, re.I):
+                conf = "LOW (this city is served at retail by its municipal electricity distributor; Hydro-Québec supplies it at wholesale)"
+            if re.search(r"saskpower", x.get("vendor") or "", re.I) and re.search(r"\b(Saskatoon|Swift Current)\b", _city, re.I):
+                conf = "LOW (this city runs its own electricity utility; SaskPower supplies it at wholesale)"
             x["inference_confidence"] = conf
         else:
             x["inference_confidence"] = "n/a (the relationship is a record, not an inference)"
