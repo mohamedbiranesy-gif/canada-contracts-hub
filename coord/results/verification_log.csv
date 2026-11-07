@@ -6019,9 +6019,9 @@ gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00838,b:10a9176ece1deac1,recrut
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00843,b:10aee6ae256df954,contact@municipaliteiac.ca,https://www.municipaliteiac.ca,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00098,b:10aee6ae256df954,contact@municipaliteiac.ca,https://www.municipaliteiac.ca/fr/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00843,b:10aee6ae256df954,contact@municipaliteiac.ca,https://www.municipaliteiac.ca/fr/nous-joindre/,verified
-gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00879,b:10b1445480ba928c,mrcinfo@mrc-maskinonge.qc.ca,https://mrcmaskinonge.ca/nous-joindre/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00879,b:10b1445480ba928c,mrcinfo@mrc-maskinonge.qc.ca,https://mrcmaskinonge.ca/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00879,b:10b1445480ba928c,mrcinfo@mrc-maskinonge.qc.ca,https://www.sainte-angele-de-premont.ca/municipalite/mrc/,verified
-gemini,gemini_buyer_ap_results_batch26.csv,GE-AP-B0026,b:10b1445480ba928c,mrcinfo@mrc-maskinonge.qc.ca,https://mrcmaskinonge.ca/nous-joindre/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch26.csv,GE-AP-B0026,b:10b1445480ba928c,mrcinfo@mrc-maskinonge.qc.ca,https://mrcmaskinonge.ca/nous-joindre/,verified
 chatgpt,chatgpt_buyer_ap_results_batch11.csv,CH-AP-01011,b:10ba3dafb0ddf57a,info@tidaltransit.ca,https://tidaltransit.ca/contact-us/,verified
 chatgpt,chatgpt_buyer_ap_results_batch08.csv,CH-AP-00752,b:10c6254d64ff8956,DFG.DWC.HunterAccess@alaska.gov,https://www.adfg.alaska.gov/static/hunting/access/pdfs/hunter-access-program-invoicing-policies-procedures-2026.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00752,b:10c6254d64ff8956,doa.dof.vendor.helpdesk@alaska.gov,https://dot.alaska.gov/aashtoware/docs/AWP-Vendor-Guidance-Procurement.pdf,verified
@@ -6496,7 +6496,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00258,b:1ab03389452d9774,ress-f
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00258,b:1ab03389452d9774,ress-finances6@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/wp-content/uploads/2026/07/Formulaire_Correction-de-paiement-Internet.pdf,cross_verified
 claude,claude_buyer_ap_results_deep01.csv,CL-DP-00992,b:1ab03389452d9774,ress-finances11@csrsaguenay.qc.ca,https://www.csrsaguenay.qc.ca/wp-content/uploads/2024/02/Etat-financier-2022-2023.pdf,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00258,b:1ab03389452d9774,ress-finances6@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/wp-content/uploads/2026/07/Formulaire_Correction-de-paiement-Internet.pdf,cross_verified
-gemini,gemini_buyer_ap_results_batch24.csv,GE-AP-P0207,b:1ab03389452d9774,info@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/nous-joindre/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch24.csv,GE-AP-P0207,b:1ab03389452d9774,info@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/nous-joindre/,verified
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00007,b:1ab03389452d9774,ress-finances6@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/wp-content/uploads/2026/07/Formulaire_Correction-de-paiement-Internet.pdf,cross_verified
 gemini,gemini_buyer_ap_results_batch32.csv,CH-AP-01235,b:1abd093e0d58eb15,info@skilledtradesontario.ca,https://www.skilledtradesontario.ca/changes-to-the-delivery-of-apprenticeship-and-certifying-exam-services/,verified
 gemini,gemini_buyer_ap_results_batch40.csv,CH-AP-02008,b:1abe227870568832,info@southshorewaste.ca,https://southshorewaste.ca/,verified
@@ -6653,7 +6653,7 @@ gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29038,b:1ef64b1cf2a9e663,procur
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0059,b:1efdeaffeffe8164,aidefinanciere@etsmtl.ca,https://www.etsmtl.ca/etudier-a-lets/bourses-finance-et-budget/paiement-frais-de-scolarite,unverified_page_unavailable
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00021,b:1efdeaffeffe8164,comptepayable@etsmtl.ca,https://www.etsmtl.ca/a-propos/gouvernance/secretariat-general/cadre-reglementaire/avis-aux-fournisseurs-de-lets,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00021,b:1efdeaffeffe8164,approvisonnements@etsmtl.ca,https://www.etsmtl.ca/uploads/directive-acquisition.pdf,verified
-gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00139,b:1efdeaffeffe8164,acces.info@etsmtl.ca,https://www.etsmtl.ca/a-propos/gouvernance/secretariat-general,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00139,b:1efdeaffeffe8164,acces.info@etsmtl.ca,https://www.etsmtl.ca/a-propos/gouvernance/secretariat-general,verified
 gemini,gemini_buyer_ap_results_batch41.csv,CH-AP-P0059,b:1efdeaffeffe8164,comptepayable@etsmtl.ca,https://www.etsmtl.ca/a-propos/gouvernance/secretariat-general/cadre-reglementaire/avis-aux-fournisseurs-de-lets,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00133,b:1f029af4fdc19e47,internationalaccounts@cbu.ca,https://www.cbu.ca/current-students/student-finance-hub/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00133,b:1f029af4fdc19e47,studentaccounts@cbu.ca,https://www.cbu.ca/current-students/student-finance-hub/,verified
@@ -11125,9 +11125,9 @@ gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01786,b:86d4d14cc0ecdcb3,info@m
 claude,claude_buyer_ap_results_crawl01.csv,CO-AP-00560,b:86f3d1679a2187ec,info@skelleftea.umu.se,https://www.umu.se/en/contact-us/our-campuses/campus-skelleftea/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00123,b:86f3d1679a2187ec,invoice.scanning@umu.se,https://www.umu.se/en/about-umea-university/for-our-suppliers-and-customers/for-our-suppliers/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00123,b:86f3d1679a2187ec,info@bildmuseet.umu.se,https://www.bildmuseet.umu.se/en/about-bildmuseet/contact-us/adresses/,verified
-gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00342,b:87003f70ba7fe217,info@quartierdesspectacles.com,https://www.quartierdesspectacles.com/en/contact,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00342,b:87003f70ba7fe217,info@quartierdesspectacles.com,https://www.quartierdesspectacles.com/en/contact,verified
 gemini,gemini_buyer_ap_results_batch04.csv,GE-AP-00342,b:87003f70ba7fe217,info@quartierdesspectacles.com,https://www.mtl.org/fr/quoi-faire/culture-arts-patrimoine/quartier-des-spectacles,verified
-gemini,gemini_buyer_ap_results_batch42.csv,CH-AP-P0199,b:87003f70ba7fe217,info@quartierdesspectacles.com,https://www.quartierdesspectacles.com/en/contact,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch42.csv,CH-AP-P0199,b:87003f70ba7fe217,info@quartierdesspectacles.com,https://www.quartierdesspectacles.com/en/contact,verified
 claude,claude_buyer_ap_results_manual01.csv,CL-MAN-00088,b:87078cd715d47ac8,facture@montreal.ca,https://ville.montreal.qc.ca/pls/portal/docs/page/prt_vdm_fr/media/documents/tableau_exigences_de_facturation_vdm.pdf,verified
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00791,b:873055bbc57aa07f,administration@stsimeon.ca,https://www.stsimeon.ca/nous-joindre,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00791,b:873055bbc57aa07f,administration@stsimeon.ca,https://mrcbonaventure.com/municipalites-villes-et-tno/saint-simeon/,verified
@@ -11886,7 +11886,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00502,b:9aac3004735a56c7,recept
 gemini,gemini_buyer_ap_results_batch06.csv,GE-AP-00502,b:9aac3004735a56c7,taxescolaire@cssd.gouv.qc.ca,https://www.cssd.gouv.qc.ca/joindre,verified
 chatgpt,chatgpt_verify_buyer_ap_results_batch02.csv,CH-VF2-0159,b:9ac45d68c807588c,fb-dfapvendorcreatio@nrc-cnrc.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00159,b:9ac45d68c807588c,fb-dfapvendorcreatio@nrc-cnrc.gc.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
-gemini,gemini_buyer_ap_results_batch14.csv,GE-AP-01319,b:9ad0d5abe914756b,acces.info@etsmtl.ca,https://www.etsmtl.ca/a-propos/gouvernance/secretariat-general,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch14.csv,GE-AP-01319,b:9ad0d5abe914756b,acces.info@etsmtl.ca,https://www.etsmtl.ca/a-propos/gouvernance/secretariat-general,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01053,b:9b0220ec0986275f,info@st-remi-de-tingwick.qc.ca,https://st-remi-de-tingwick.qc.ca/,verified
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01053,b:9b0220ec0986275f,info@st-remi-de-tingwick.qc.ca,https://st-remi-de-tingwick.qc.ca/administration/conseil-municipal-et-equipe/,verified
 chatgpt,chatgpt_buyer_ap_results_batch11.csv,CH-AP-01088,b:9b0424c541e44111,accountspayable@sanjuancollege.edu,https://www.sanjuancollege.edu/media/sanjuancollegeedu-2023/documents/homepage/offices-and-departments/purchasing/Standard-PO-TC-Rev-Final.pdf,verified
@@ -14487,7 +14487,7 @@ gemini,gemini_buyer_ap_results_batch36.csv,CH-AP-01622,b:df74ab2a062c9e39,accoun
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00166,b:df7897c8c5544179,ress-finances6@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/wp-content/uploads/2026/07/Formulaire_Correction-de-paiement-Internet.pdf,cross_verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00166,b:df7897c8c5544179,ress-finances6@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/wp-content/uploads/2026/07/Formulaire_Correction-de-paiement-Internet.pdf,cross_verified
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00166,b:df7897c8c5544179,ress-finances6@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/wp-content/uploads/2026/07/Formulaire_Correction-de-paiement-Internet.pdf,cross_verified
-gemini,gemini_buyer_ap_results_batch23.csv,GE-AP-P0124,b:df7897c8c5544179,info@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/nous-joindre/,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch23.csv,GE-AP-P0124,b:df7897c8c5544179,info@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/nous-joindre/,verified
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00006,b:df7897c8c5544179,ress-finances6@csrsaguenay.qc.ca,https://csrsaguenay.qc.ca/wp-content/uploads/2026/07/Formulaire_Correction-de-paiement-Internet.pdf,cross_verified
 chatgpt,chatgpt_buyer_ap_results_batch06.csv,CH-AP-00575,b:df7bec2acb66b733,https://isuppliermfa.gdls.com,https://www.gdls.com/suppliers/isupplier/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00575,b:df7bec2acb66b733,isupplierpoc@supplier.com,https://www.gdls.com/wp-content/uploads/2026/01/GDLS-Global-Supplier-Performance-Scorecard-2025-12-external.pdf,verified
