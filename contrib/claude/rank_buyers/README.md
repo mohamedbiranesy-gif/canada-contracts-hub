@@ -40,7 +40,7 @@ schools / authorities `abed:`; a key listed there counts as located in Canada), 
 else the single postal code on the organisation's own page. Organisations not shown to be located in Canada get no inference (skipped). One row
 per organisation: P12 / P13 never repeat an organisation, registrable domain or mailbox already in a row above.
 
-## Columns (106, in file order)
+## Columns (108, in file order)
 `jurisdiction`, `rank_group`, `completeness_score`, `buyer`, `buyer_website`, `buyer_address`, `buyer_phone`,
 `buyer_contact_evidence_url`, `buyer_legal_name_as_published` (copyright / footer line of the buyer's site),
 `buyer_bn_as_published` (BN / charity number as printed, with the page), `buyer_gst_hst_derived` (BN9 + RT0001, labelled
@@ -100,7 +100,9 @@ how — crawler / web search + no-AI page read / lane agent —, the page, the q
 the lane file and task id), `buyer_facts_provenance` and `vendor_facts_provenance` (the page or table behind every buyer / vendor
 fact), `distinct_canadian_vendors`, `records_last_12_months`, `latest_award_date_any_vendor`, `total_known_value_canadian_suppliers`,
 `other_canadian_vendors_sample`, `record_sources` (the buyer's whole history with Canada-located vendors in the dataset),
-`vendor_registry_status`, `vendor_registry_match_level`, `vendor_incorporation_date`, `vendor_bn_source`, `method_notes`.
+`vendor_registry_status`, `vendor_registry_match_level`, `vendor_incorporation_date`, `vendor_bn_source`, `vendor_billing_ar_email` and
+`vendor_contacts_found_by` (the team's referee-verified vendor contacts — lane gemini researched 15,427 vendors, 8,670 with a verified role
+mailbox or website, 171 with a billing / AR mailbox — merged into `vendor_emails`), `method_notes`.
 
 ## Key columns
 `buyer`, `buyer_website`, `email`, `email_type` (invoicing/AP, finance, purchasing, general), `email_check` (confirmed =

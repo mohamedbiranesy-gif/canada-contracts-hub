@@ -181,6 +181,19 @@ def main():
             lines.append("- **%s**" % k)
             for h in v["hits"]:
                 lines.append("    - " + h)
+    # independent QA audit by the chatgpt lane (coord/tasks/chatgpt/chatgpt_qa_audit_*: random dataset records re-opened at the source)
+    qa = collections.Counter(); qn = 0
+    for qf in glob.glob("data/incoming/chatgpt/chatgpt_qa_audit_results_*.csv"):
+        for r in csv.DictReader(open(qf, encoding="utf-8")):
+            qn += 1
+            for col in ("link_opened", "buyer_match", "vendor_match", "title_match", "value_match", "dates_match", "status_supported"):
+                qa[(col, r.get(col) or "")] += 1
+    if qn:
+        lines += ["", "## Independent QA audit of dataset records (lane chatgpt, %d random records re-opened at the publishing source)" % qn]
+        for col in ("link_opened", "buyer_match", "vendor_match", "title_match", "value_match", "dates_match", "status_supported"):
+            vals = {k[1]: v for k, v in qa.items() if k[0] == col}
+            lines.append("- %s: %s" % (col, ", ".join("%s %d" % kv for kv in sorted(vals.items(), key=lambda kv: -kv[1]))))
+        lines.append("- reading: a `no` on buyer_match in the sample was a ministry renamed since the award (same body); `status_supported = unclear / no` concentrates in SEAO records marked ongoing_inferred, which the packages rank as B/C, never as A.")
     lines += ["", "## Rows per package"] + ["- %s: %d" % (k, v) for k, v in per_pkg.items()]
     lines += ["", "## Field fill across all delivered rows (value present, not `not_published`)"] + ["- %s: %d (%.1f%%)" % (c, n, 100.0 * n / max(1, total)) for c, n in fill.most_common()]
     lines += ["", "## Canada-proof families", "- " + "; ".join("%s: %d" % kv for kv in basis_fam.most_common())]

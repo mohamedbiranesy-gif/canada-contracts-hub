@@ -493,3 +493,18 @@ hard PASS. Copied to the owner's Mac: ~/Downloads/canada-contracts-gold-2026-11-
 contracts_of_delivered_buyers/ with 7 CSVs = 210,141 records, SUMMARY / VALIDATION / AUDIT + flags / DMARC + list / README / DECISIONS /
 START_HERE). Workflow: the ranker now rebases-and-retries its push instead of regenerating (8-minute passes were losing the race to the
 push loop and timing out); budget 45 min. The 3-hourly scheduled rank keeps everything current while the loop is paused.
+
+## 2026-11-06 20:40 (claude) — the other lanes' work, accounted for
+Owner (20:23): "ChatGPT and Gemini have been working this whole time — did you include it? Jules too". Check: since 2026-11-01 the lanes
+pushed 56 (chatgpt), 58 (gemini), 8 (jules), 1 (codex) commits. What was already in the packages: every buyer mailbox they found —
+the referee verifies all lanes' rows and rank.py reads org_mailboxes.csv (8,521 organisations' best mailbox from gemini, 888 from chatgpt)
+and every verified (key, mailbox) of the verification log; Jules' sources (bids&tenders backlog, CanadaBuys history, Hydro-Québec, MERX
+backlog, Montréal, PSPC standing offers, Québec City/Laval/Gatineau/Longueuil, NYC, NY authorities, Socrata sweep, USAspending subawards)
+are in the release dataset through the rebuild workflow. What was NOT in the packages until now: gemini's vendor-contact batches
+(160 batches, 15,427 vendors; 4,035 with a referee-verified role mailbox, 171 billing / AR boxes) — rank.py now merges them into
+`vendor_emails`, adds `vendor_billing_ar_email` and `vendor_contacts_found_by` (108 columns); and chatgpt's independent QA audit of 200
+random dataset records (181 buyer matches, 173 vendor matches; the 5 "no" on buyer are ministries renamed since the award; 11 "status not
+supported" are SEAO ongoing_inferred records that the packages rank B/C) — now a section of AUDIT.md. The chatgpt lane also flagged three
+bilingual government role boxes rejected by validate_returns' person check (systemesfinanciers-financialsystems@, directdep-depdirect@,
+sigmadonneesprincipales.sigmamasterdata@) — ROLE_HINT widened. Gemini's own GitHub researcher saves 0 rows (no search grounding on the
+free API key); the Gemini app on the Mac is the one producing.

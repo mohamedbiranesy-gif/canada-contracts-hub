@@ -207,6 +207,22 @@ for v in jl(REL + "vendors_enriched.jsonl.gz"):
         VEN_NAME[n] = v["vendor_key"] if VEN_NAME.get(n, v["vendor_key"]) == v["vendor_key"] else None  # ambiguous name: no lookup
     if rec["website"]:
         VEN_DOM.setdefault(registrable(host_of(rec["website"])), v["vendor_key"])
+# the team's vendor contacts (lane gemini, referee-verified: coord/results/team_vendors.jsonl) — role mailboxes, billing/AR boxes, websites
+TEAMV = {}
+if os.path.exists(ROOT + "/coord/results/team_vendors.jsonl"):
+    for line in open(ROOT + "/coord/results/team_vendors.jsonl", encoding="utf-8"):
+        try:
+            d = json.loads(line)
+        except Exception:
+            continue
+        gen, bill, pages, by = [], [], [], set()
+        for e in d.get("evidence") or []:
+            if e.get("verification") not in ("verified", "cross_verified") or not e.get("email"):
+                continue
+            (bill if e.get("kind") == "billing_or_ar_email" else gen).append(e["email"].lower()); pages.append(e.get("page_url") or ""); by.add(e.get("found_by") or "team")
+        if gen or bill or d.get("website"):
+            TEAMV[d.get("vendor_key")] = {"emails": sorted(set(gen)), "billing": sorted(set(bill)), "pages": [p for p in pages if p][:3], "website": d.get("website") or "", "by": ",".join(sorted(by))}
+print("team vendor contacts (referee-verified):", len(TEAMV), "vendors;", sum(1 for v in TEAMV.values() if v["billing"]), "with a billing / AR mailbox")
 BUY = {b["buyer_key"]: b for b in jl(REL + "buyers_enriched.jsonl.gz") if b.get("buyer_key")}
 def vend_fill(key="", name="", domain=""):
     """vendor columns from the release's vendor table: by vendor key, by website domain, then by exact name"""
@@ -457,6 +473,14 @@ def fill_contract(x, r, keys):
         or addr_text((r.get("buyer") or {}).get("address")) or next((addr_text(BUY[k].get("address")) for k in keys if k in BUY and BUY[k].get("address")), "")
     if not x["buyer_website"]:
         x["buyer_website"] = next((BUY[k]["official_website"] for k in keys if k in BUY and BUY[k].get("official_website")), "")
+    tv = TEAMV.get(ve.get("vendor_key") or "")
+    if tv:
+        have = set(e.strip().lower() for e in (x.get("vendor_emails") or "").split(";") if e.strip())
+        x["vendor_emails"] = "; ".join(sorted(have | set(tv["emails"]) | set(tv["billing"])))
+        x["vendor_billing_ar_email"] = "; ".join(tv["billing"])
+        if not x.get("vendor_website") and tv["website"]:
+            x["vendor_website"] = tv["website"]
+        x["vendor_contacts_found_by"] = "%s lane, referee-verified on %s" % (tv["by"], "; ".join(tv["pages"])[:300])
     for col, val in vend_fill(ve.get("vendor_key") or "", v.get("name") or "").items():
         if not x.get(col) and val:
             x[col] = val
@@ -1449,7 +1473,7 @@ def mailbox_how(file, lane):
     return "researched by %s (page opened and quoted)" % LANE_WORDS.get(lane, lane or "a lane agent")
 n9 = collections.Counter()
 for x in rows:
-    for col in ("invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
+    for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
                 "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count", "records_with_this_vendor", "all_references_with_this_vendor",
                 "relationship_kind", "relationship_detail", "how_relationship_was_found", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
                 "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
@@ -1505,6 +1529,7 @@ for x in rows:
     if x.get("vendor_bn9"): vp.append("BN9: %s; GST/HST %s" % (x.get("vendor_bn_source") or "registry match", "derived BN9 + RT0001 (CRA registry is CAPTCHA-protected; not automated)"))
     if x.get("vendor_incorporation_date"): vp.append("incorporated / registered: %s" % x["vendor_incorporation_date"])
     if x.get("vendor_contact_evidence_url"): vp.append("phone / role e-mails / logo: the vendor's own site, %s (tools/org_contacts.py, org_extras.py)" % x["vendor_contact_evidence_url"])
+    if x.get("vendor_contacts_found_by"): vp.append("role / billing mailboxes researched by the %s" % x["vendor_contacts_found_by"][:200])
     if x.get("vendor_website"): vp.append("website: %s%s" % (x["vendor_website"], (" (%s)" % x["vendor_website_status"]) if x.get("vendor_website_status") else ""))
     if x.get("vendor_neq"): vp.append("NEQ: %s" % x["vendor_neq"])
     x["vendor_facts_provenance"] = "; ".join(vp) if vp else "no vendor facts beyond the record"
@@ -1523,7 +1548,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("vendor_contact_evidence_url", ["vendor_logo_url", "vendor_website_status"]),
                    ("invoicing_requirements", ["payment_terms_as_published", "po_required_as_published"]),
                    ("buyer_website_status", ["buyer_type", "buyer_facts_provenance", "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources"]),
-                   ("vendor_website_status", ["vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source", "vendor_facts_provenance", "method_notes"])):
+                   ("vendor_website_status", ["vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source", "vendor_billing_ar_email", "vendor_contacts_found_by", "vendor_facts_provenance", "method_notes"])):
     if after in cols:
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]
