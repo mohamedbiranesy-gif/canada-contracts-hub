@@ -18,7 +18,8 @@ if a.done and os.path.exists(a.done):
             pass
 def host(u):
     return (urllib.parse.urlparse(u if "//" in u else "https://" + u).hostname or "").lower().removeprefix("www.")
-rows = list(csv.DictReader(open(ROOT + "/coord/results/ranked/ranked_buyers.csv", encoding="utf-8")))
+_rk = ROOT + "/coord/results/ranked/ranked_buyers.csv"
+rows = list(csv.DictReader(gzip.open(_rk + ".gz", "rt", encoding="utf-8") if os.path.exists(_rk + ".gz") else open(_rk, encoding="utf-8")))
 def pri(r):
     g = r["rank_group"]; t = r["tier"]
     return (0 if g.startswith("GOLD") else 1 if t in "AB" else 2 if t in "TML" else 3 if t in "CDE" else 4, 0 if not r["buyer_address"] else 1)
