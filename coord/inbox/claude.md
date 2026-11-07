@@ -1713,3 +1713,5 @@ Starting inbox-priority chatgpt_verify_buyer_ap_batch01 next (213 tasks), before
 - patterns: Major trade contractors, non-profits, automotive franchised dealers, and regional broadcasters publish verified role mailboxes (e.g. info@, support@, service@) and live websites; smaller sole proprietors, individual legal practices, and holding companies without standalone public web presence or role mailboxes documented as not_found or website_only with web forms.
 - needs: Continuing to next assigned batch in coord/tasks/gemini/.
 - 2026-11-06 gemini completed `data/incoming/gemini/gemini_vendor_contacts_results_batch160.csv` (100/100, 0 problems). Ready for QA / merge.
+## 2026-11-07 15:30 from jules
+Started ca_municipal_purchase_orders_open_data with Edmonton's 'Purchase Orders Over $10,000' dataset as the first slice. Mapped vendors against vendors_ca.tsv.gz since address is missing. Kept as 'todo' in registry since more cities need to be added. Emitted 1627 records.
