@@ -12326,7 +12326,7 @@ chatgpt,chatgpt_verify_buyer_ap_results_batch02.csv,CH-VF2-0230,b:a670a19274e326
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00230,b:a670a19274e32625,invoicing.csa-asc.facturation@canada.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
 gemini,gemini_buyer_ap_results_batch14.csv,GE-AP-01316,b:a68aea54ea4d4de8,paroisse@ste-anne-de-la-pocatiere.com,https://www.ste-anne-de-la-pocatiere.com/nous-joindre/,unverified_page_unavailable
 chatgpt,chatgpt_buyer_ap_results_batch04.csv,CH-AP-00334,b:a69cd4968ce6f6bf,info@townofpictou.ca,https://townofpictou.ca/town-staff,verified
-claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00334,b:a69cd4968ce6f6bf,info@townofpictou.ca,https://www.townofpictou.ca/town-staff,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00334,b:a69cd4968ce6f6bf,info@townofpictou.ca,https://www.townofpictou.ca/town-staff,verified
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00007,b:a69cd4968ce6f6bf,info@townofpictou.ca,https://townofpictou.ca/town-staff,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01716,b:a6bd17053f657b1c,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
 gemini,gemini_buyer_ap_results_batch37.csv,CH-AP-01716,b:a6bd17053f657b1c,servicebc@gov.bc.ca,https://www2.gov.bc.ca/gov/content/governments/about-the-bc-government/gender-equity,verified
@@ -82591,7 +82591,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001095,wd:Q1017477,info@courten
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001097,wd:Q1017624,info@city-plap.com,https://www.city-plap.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001103,wd:Q1018325,admin@wildroseassmt.com,https://www.strathmore.ca/municipal-centre/budget-finances-and-reports/taxes-and-assessments/property-tax-exemption/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001105,wd:Q1018643,treasury@redlake.ca,http://www.red-lake.com/living-here/pay-a-bill/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001106,wd:Q1018711,info@townofpictou.ca,https://www.townofpictou.ca/town-staff,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001106,wd:Q1018711,info@townofpictou.ca,https://www.townofpictou.ca/town-staff,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001108,wd:Q1019096,info@townofhartland.com,https://townofhartland.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001220,wd:Q1019496,procurement@moosejaw.ca,https://moosejaw.ca/wp-content/uploads/2026/10/Tender-Supply-Synology-NAS.pdf,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001221,wd:Q1019990,info@tmx.com,https://www.m-x.ca/en/contact,verified
