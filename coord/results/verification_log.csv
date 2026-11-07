@@ -6133,6 +6133,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01454,b:134b1def335f98ad,wicven
 gemini,gemini_buyer_ap_results_batch34.csv,CH-AP-01454,b:134b1def335f98ad,accounts.payable@okstate.edu,https://directory.okstate.edu/index.php/module/Default/action/ViewFunctionalGroup?group_id=1536,verified
 gemini,gemini_buyer_ap_results_batch37.csv,CH-AP-01780,b:13586be2588236f0,inquiries@facswaterloo.org,https://www.facswaterloo.org/contact,verified
 gemini,gemini_buyer_ap_results_batch33.csv,CH-AP-01395,b:1378d014bdb52709,info@assiniboine.net,https://assiniboine.net/community/employment/department-directory,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-58001,b:137973d892cbe413,finance@mitt.ca,https://mitt.ca/financial-aid/sponsorships/,verified
 gemini,gemini_buyer_ap_results_batch33.csv,CH-AP-01396,b:137973d892cbe413,finance@mitt.ca,https://mitt.ca/tuition-and-fees/refunds/,verified
 claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00050,b:1382482eb35e183b,payment.paiement@telefilm.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
 gemini,gemini_buyer_ap_results_batch41.csv,CH-AP-P0034,b:13910a21835e28a4,AccountsPayable@MetroVancouver.org,https://metrovancouver.org/filming/Documents/EFTTransferAuthorizationAgreement.pdf,verified
@@ -9100,6 +9101,8 @@ gemini,gemini_buyer_ap_results_batch10.csv,GE-AP-00962,b:585ed8ecdbbe2497,direct
 gemini,gemini_buyer_ap_results_batch10.csv,GE-AP-00962,b:585ed8ecdbbe2497,urbanisme@ville.cap-chat.ca,https://www.cap-chat.ca/images/documents/services-mun/Urbanisme/DemandePermisV6.pdf,verified
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01069,b:5862d3b6ecf676b6,administration@spdb.ca,https://www.spdb.ca/fr/municipalite/equipe/,verified
 claude,claude_buyer_ap_results_manual01.csv,CL-MAN-00052,b:586a174f75d65ee8,facture@montreal.ca,https://ville.montreal.qc.ca/pls/portal/docs/page/prt_vdm_fr/media/documents/tableau_exigences_de_facturation_vdm.pdf,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-50061,b:586bf30acd009f14,ap@meaford.ca,https://www.meaford.ca/staff-directory/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-50061,b:586bf30acd009f14,purchasing@meaford.ca,https://www.meaford.ca/staff-directory/,verified
 claude,claude_buyer_ap_results_deep01.csv,CL-DP-02079,b:586bf30acd009f14,purchasing@meaford.ca,https://www.meaford.ca/wp-content/uploads/2026/06/purchasing-policy-2022.pdf,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00090,b:586c5a9405ecf24f,ressources-materielles-info@csspi.gouv.qc.ca,https://www.csspi.gouv.qc.ca/citoyens-entreprises/entreprises/devenir-fournisseurs,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00090,b:586c5a9405ecf24f,sarca@csspi.gouv.qc.ca,https://sarca.csspi.ca/,verified
@@ -12671,6 +12674,7 @@ claude,claude_buyer_ap_results_manual01.csv,CL-MAN-00031,b:b0e35a5019e54d4c,fact
 gemini,gemini_buyer_ap_results_batch34.csv,CH-AP-01482,b:b0e97f395500bbe2,toronto@parkin.ca,https://parkin.ca/files/postcard1.pdf,verified
 gemini,gemini_buyer_ap_results_batch28.csv,GE-AP-28007,b:b0ec6fa9529b6ae8,accounts@nmite.ac.uk,https://nmite.ac.uk/fees-and-finances,verified
 chatgpt,chatgpt_buyer_ap_results_batch10.csv,CH-AP-00959,b:b1039b2deecc5566,procurementservices@opb.ca,https://www.opb.ca/about-opb/doing-business-with-opb,verified
+claude,claude_buyer_ap_results_crawl01.csv,CH-AP-58078,b:b1039b2deecc5566,procurementservices@opb.ca,https://opb.ca/about-opb/doing-business-with-opb,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0041,b:b105feb2ea8422c1,apinvoices@brampton.ca,https://www.brampton.ca/EN/Business/Doing-Business-with-the-City/Documents/Good-Services-Conditions.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0041,b:b105feb2ea8422c1,purchasing@brampton.ca,https://www.brampton.ca/EN/Business/Doing-Business-with-the-City/Pages/About-Purchasing.aspx,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-P0041,b:b105feb2ea8422c1,invitational.procurement@brampton.ca,https://www.brampton.ca/EN/Business/Doing-Business-with-the-City/Pages/Supply-Chain-Program.aspx,verified
@@ -13753,6 +13757,7 @@ chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00062,b:cd95f91215e71ee6,acco
 claude,claude_buyer_ap_results_xverify01.csv,CL-XV-GE-AP-00698,b:cda0ce281de77da9,payables.cisssmo16@ssss.gouv.qc.ca,https://www.santemonteregie.qc.ca/ouest/partenaires-daffaires-et-fournisseurs,cross_verified
 gemini,gemini_buyer_ap_results_batch07.csv,GE-AP-00698,b:cda0ce281de77da9,payables.cisssmo16@ssss.gouv.qc.ca,https://www.santemonteregie.qc.ca/ouest/partenaires-daffaires-et-fournisseurs,cross_verified
 gemini,gemini_buyer_ap_results_batch07.csv,GE-AP-00698,b:cda0ce281de77da9,communications.cisssmo16@ssss.gouv.qc.ca,https://www.211qc.ca/organisme/centre-integre-de-sante-et-de-services-sociaux-de-la-monteregie-ouest-27119852,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-52033,b:cda70da59e149fab,finances@les-coteaux.qc.ca,https://les-coteaux.qc.ca/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01706,b:cda70da59e149fab,reception@les-coteaux.qc.ca,https://les-coteaux.qc.ca/citoyens/environnement-voirie/eau/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01241,b:cdace882116d13de,supplier.relations@nlhealthservices.ca,https://nlhealthservices.ca/partners/suppliers/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01241,b:cdace882116d13de,vendor.relations@centralhealth.nl.ca,https://nlhealthservices.ca/partners/suppliers/,verified
@@ -14593,6 +14598,7 @@ gemini,gemini_buyer_ap_results_batch17.csv,GE-AP-01626,b:e4597c46bde90055,sarl@o
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01703,b:e4675658278d4e9b,info@mun-maskinonge.ca,https://www.mun-maskinonge.ca,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01703,b:e4675658278d4e9b,info@mun-maskinonge.ca,https://www.mun-maskinonge.ca,verified
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01703,b:e4675658278d4e9b,info@mun-maskinonge.ca,https://www.mun-maskinonge.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-49078,b:e4745709b6ddaba3,accounting@reformar.ca,https://reformar.ca/fr/contact-us/,verified
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01100,b:e4745709b6ddaba3,info@reformar.ca,https://reformar.ca/fr/nous-contacter/,verified
 gemini,gemini_buyer_ap_results_batch27.csv,GE-AP-27026,b:e48a3289180b47d7,epa.outreach-services@gov.ab.ca,https://www.alberta.ca/contacts-for-environment-and-protected-areas,not_found_on_page_hidden
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00780,b:e49aa76a3e0ee4ac,u003etaxliensalebid.finance@montgomerycountymd.gov,https://www.montgomerycountymd.gov/department-finance/tax-sale/tax-sale-information-procedures,verified
@@ -14811,6 +14817,9 @@ chatgpt,chatgpt_verify_buyer_ap_results_batch02.csv,CH-VF2-0011,b:ea10258e6b0637
 claude,claude_buyer_ap_results_federal01.csv,CL-FED-00011,b:ea10258e6b0637bc,acoa.hofinancialoperationsoperationsfinancieresss.apeca@canada.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00018,b:ea10258e6b0637bc,acoa.hofinancialoperationsoperationsfinancieresss.apeca@canada.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00738,b:ea10258e6b0637bc,acoa.hofinancialoperationsoperationsfinancieresss.apeca@canada.ca,https://www.canada.ca/en/public-services-procurement/services/payments-to-from-government/direct-deposit/businesses/suppliers.html,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-45017,b:ea19690065a96f05,finances@blainville.ca,https://blainville.ca/ville/administration-municipale/nous-joindre,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-45017,b:ea19690065a96f05,approvisionnements@blainville.ca,https://blainville.ca/ville/administration-municipale/nous-joindre,verified
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-45017,b:ea19690065a96f05,fournisseurslocaux@blainville.ca,https://blainville.ca/storage/app/media/Ville/Administration%20municipale/gestion-contractuelle/politique_dapprovisionnement.pdf,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00051,b:ea19690065a96f05,finances@blainville.ca,https://blainville.ca/ville/administration-municipale/nous-joindre,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00051,b:ea19690065a96f05,approvisionnements@blainville.ca,https://blainville.ca/ville/administration-municipale/nous-joindre,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00051,b:ea19690065a96f05,mairie@blainville.ca,https://blainville.ca/ville/administration-municipale/nous-joindre,verified
