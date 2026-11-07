@@ -116,8 +116,9 @@ def extract(email, buyer, text, raw, final):
     m = NO_PO_NO_PAY.search(text) or PO_REQ.search(win_txt) or PO_REQ.search(text)
     if m:
         src = m.string
-        out["po_required"] = "yes (as published: %s)" % re.sub(r"\s+", " ", m.group(0)).strip()[:120]
+        frag = re.sub(r"\s+", " ", m.group(0)).strip()[:120]
         out["po_quote"] = q300(src, m.start(), m.end())
+        out["po_required"] = ("yes (as published: %s)" if re.search(r"invoice|factur", out["po_quote"], re.I) else "purchase-order terms published (as published: %s)") % frag
     for name, rx in PORTALS:
         m = re.search(rx, win_txt, re.I) or re.search(rx, text, re.I)
         if m:
