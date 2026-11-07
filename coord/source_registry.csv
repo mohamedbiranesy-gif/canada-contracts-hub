@@ -18,7 +18,7 @@ ua_prozorro,Prozorro (Ukraine) contracts with supplier country,https://public.ap
 mx_compras,Mexico ComprasMX / CompraNet contracts,https://upcp-compranet.buengobierno.gob.mx/,codex,todo,3,Mexico,supplier country field,check open data downloads
 br_pncp,Brazil PNCP contracts,https://pncp.gov.br/api/consulta/swagger-ui/index.html,codex,todo,3,Brazil,foreign supplier flag/country,API open
 unicef_awards,UNICEF Supply Division contract awards,https://www.unicef.org/supply/contracts-awarded,codex,todo,1,IGO,supplier country published,check full history files
-unops_awards,UNOPS contract awards,https://www.unops.org/business-opportunities/contract-awards,codex,todo,1,IGO,supplier country published,
+unops_awards,UNOPS contract awards,https://www.unops.org/business-opportunities/contract-awards,codex,done,1,IGO,supplier country published,
 undp_awards,UNDP procurement contract awards,https://procurement-notices.undp.org/,codex,todo,2,IGO,award notices with vendor country,
 idb_awards,Inter-American Development Bank procurement awards,https://www.iadb.org/en/how-we-can-work-together/procurement,codex,todo,2,IGO,awards with supplier country,
 eib_awards,European Investment Bank procurement awards,https://www.eib.org/en/about/procurement/index,codex,todo,3,IGO,,
