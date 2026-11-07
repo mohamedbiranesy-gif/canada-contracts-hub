@@ -1,119 +1,24 @@
 change,buyer,rank_group,email,detail
-mailbox changed,Municipality of Meaford,GOLD,ap@meaford.ca,was purchasing@meaford.ca
-package moved,Municipality of Meaford,GOLD,ap@meaford.ca,was B2
-mailbox changed,Régie d'assainissement des Coteaux,A3,finances@les-coteaux.qc.ca,was reception@les-coteaux.qc.ca
-package moved,Régie d'assainissement des Coteaux,A3,finances@les-coteaux.qc.ca,was A1
-mailbox changed,Municipalité de Les Coteaux,A0,,was finances@les-coteaux.qc.ca
-package moved,Municipalité de Les Coteaux,A0,,was A3
-mailbox changed,REFORMAR INC.,B3,accounting@reformar.ca,was info@reformar.ca
-package moved,REFORMAR INC.,B3,accounting@reformar.ca,was B1
-row added,scaleai.ca,D1,info@scaleai.ca,new organisation in the ranked file
-row added,papcom.qc.ca,E1,info@papcom.qc.ca,new organisation in the ranked file
-mailbox changed,uofmaggies.ca,I0,,was treasurer@uofmaggies.cafebruary
-package moved,uofmaggies.ca,I0,,was I3
-mailbox changed,alimentsbaril.ca,I0,,was info@alimentsbaril.com
-package moved,alimentsbaril.ca,I0,,was I1
-mailbox changed,netnettoyage.ca,I0,,was contact@netnettoyage.com
-package moved,netnettoyage.ca,I0,,was I1
-mailbox changed,yiasou.ca,I0,,was info@yiasou.com
-package moved,yiasou.ca,I0,,was I1
-row added,ASSOCIATION Y.W.C.A. DE QUÉBEC,I1,info@ywcaquebec.qc.ca,new organisation in the ranked file
-row added,ALPHACO,I1,info@alphaco.ca,new organisation in the ranked file
-row added,MULTI COMBUSTION,I1,info@multicombustion.com,new organisation in the ranked file
-row added,ORTHODONTIE FACE & PROFIL INC.,I1,info@faceprofil.ca,new organisation in the ranked file
-row added,SERVICE RÉGIONAL D'INTERPRÉTARIAT DE L'EST DU QUÉBEC INC.,I1,info@srieq.ca,new organisation in the ranked file
-row added,AtmODC inc.,I1,info@atmodc.com,new organisation in the ranked file
-row added,Le Groupe Lam-É St-Pierre inc.,I1,info@lamestpierre.com,new organisation in the ranked file
-row added,Créations Hit The Floor,I1,info@hitthefloor.ca,new organisation in the ranked file
-row added,Reformar,I1,info@reformar.ca,new organisation in the ranked file
-row added,MAISON LA VIREVOLTE,I1,info@maisonlavirevolte.com,new organisation in the ranked file
-row added,"INITIUM, AU-DELÀ DE LA SCHIZOPHRÉNIE",I1,info@initium-org.ca,new organisation in the ranked file
-mailbox changed,5oclockcafe.ca,I0,,was info@5oclockcafe.com
-package moved,5oclockcafe.ca,I0,,was I1
-mailbox changed,autoqc.ca,I0,,was info@autoq.ca
-package moved,autoqc.ca,I0,,was I1
-mailbox changed,bluebirdpsychology.ca,I0,,was office@bluebirdpsychology.ca.we
-package moved,bluebirdpsychology.ca,I0,,was I1
-mailbox changed,buttermilkcreekkennels.ca,I0,,was info@buttermilkcreekkennels.com
-package moved,buttermilkcreekkennels.ca,I0,,was I1
-mailbox changed,canadahistorysociety.ca,I0,,was info@canadahistorysociety.catel
-package moved,canadahistorysociety.ca,I0,,was I1
-mailbox changed,carn-recar.ca,I0,,was info@carn.recar.ca
-package moved,carn-recar.ca,I0,,was I1
-mailbox changed,dreamerswalkcanada.ca,I0,,was general@dreamerswalkcanada.org
-package moved,dreamerswalkcanada.ca,I0,,was I1
-mailbox changed,footyforall.ca,I0,,was admin@footyforall.com
-package moved,footyforall.ca,I0,,was I1
-mailbox changed,hospicemississauga.ca,I0,,was info@hospicemississauga.com
-package moved,hospicemississauga.ca,I0,,was I1
-mailbox changed,krystalcar.ca,I0,,was admin@kkrystalcar.ca
-package moved,krystalcar.ca,I0,,was I1
-mailbox changed,lereparateurdelectromenager.ca,I0,,was info@ereparateurdelectromenager.ca
-package moved,lereparateurdelectromenager.ca,I0,,was I1
-mailbox changed,mybeautybridal.ca,I0,,was info@mybeautybridal.com
-package moved,mybeautybridal.ca,I0,,was I1
-mailbox changed,rmic.ca,I0,,was info@rmic.com
-package moved,rmic.ca,I0,,was I1
-mailbox changed,roughhandclothingco.ca,I0,,was info@roughhandclothingco.cayou
-package moved,roughhandclothingco.ca,I0,,was I1
-mailbox changed,ruharuh.ca,I0,,was info@ruharuh.com
-package moved,ruharuh.ca,I0,,was I1
-mailbox changed,sadiastiffinservice.ca,I0,,was info@sadiastiffinservice.com
-package moved,sadiastiffinservice.ca,I0,,was I1
-mailbox changed,sahanrestaurant.ca,I0,,was info@sahanrestaurant.com
-package moved,sahanrestaurant.ca,I0,,was I1
-mailbox changed,scugogequipmentrental.ca,I0,,was info@scugogequipment.com
-package moved,scugogequipmentrental.ca,I0,,was I1
-mailbox changed,secretzonebar.ca,I0,,was info@secretzone.ca
-package moved,secretzonebar.ca,I0,,was I1
-mailbox changed,sidebysidetherapy.ca,I0,,was info@sidebysidetherapy.caaddress
-package moved,sidebysidetherapy.ca,I0,,was I1
-mailbox changed,soutienmaghreb.ca,I0,,was contact@soutienmaghreb.caa
-package moved,soutienmaghreb.ca,I0,,was I1
-mailbox changed,speechassociates.ca,I0,,was info@thespeechassociates.com
-package moved,speechassociates.ca,I0,,was I1
-mailbox changed,swiftam.ca,I0,,was info@swift.ca
-package moved,swiftam.ca,I0,,was I1
-mailbox changed,tagme.ca,I0,,was hello@contact.tagme.ca
-package moved,tagme.ca,I0,,was I1
-mailbox changed,tceft.ca,I0,,was info@tceft.carefund
-package moved,tceft.ca,I0,,was I1
-mailbox changed,tcr.ca,I0,,was payment@tcr.ca.veuillez
-package moved,tcr.ca,I0,,was I1
-mailbox changed,thelangleydrycleanerlaundromat.ca,I0,,was info@thelangleydrycleaner.ca
-package moved,thelangleydrycleanerlaundromat.ca,I0,,was I1
-mailbox changed,themegastore.ca,I0,,was info@megastore.ca
-package moved,themegastore.ca,I0,,was I1
-mailbox changed,theregistry.ca,I0,,was hello@theregistry.com
-package moved,theregistry.ca,I0,,was I1
-mailbox changed,tomatoesbazar.ca,I0,,was info@tomatoesbazar.com
-package moved,tomatoesbazar.ca,I0,,was I1
-mailbox changed,trueperformanceroofing.ca,I0,,was info@trueperformanceroofing.com
-package moved,trueperformanceroofing.ca,I0,,was I1
-mailbox changed,unavu.ca,I0,,was info@unavu.to
-package moved,unavu.ca,I0,,was I1
-mailbox changed,urplug.ca,I0,,was contact@urplug.cc
-package moved,urplug.ca,I0,,was I1
-mailbox changed,valleyredemption.ca,I0,,was info@valleyredemption.com
-package moved,valleyredemption.ca,I0,,was I1
-mailbox changed,vivamexicofestival.ca,I0,,was info@vivamexicofestival.com
-package moved,vivamexicofestival.ca,I0,,was I1
-mailbox changed,voltzebikescalgary.ca,I0,,was info@voltzebikes.ca
-package moved,voltzebikescalgary.ca,I0,,was I1
-mailbox changed,wbnb-fanb.ca,I0,,was info@wbnb-fanb.cacontact
-package moved,wbnb-fanb.ca,I0,,was I1
-mailbox changed,west-torontonotary.ca,I0,,was info@westtorontonotary.ca
-package moved,west-torontonotary.ca,I0,,was I1
-mailbox changed,westernbeefjerky.ca,I0,,was info@westernbeefjerky.com
-package moved,westernbeefjerky.ca,I0,,was I1
-mailbox changed,winnipeghid.ca,I0,,was info@winnipeghid.caaddress
-package moved,winnipeghid.ca,I0,,was I1
-mailbox changed,zendala.ca,I0,,was info@zendala.com
-package moved,zendala.ca,I0,,was I1
-row added,"TREMBLAY, HUISSIERS DE JUSTICE INC.",I1,info@tremblayhuissiers.ca,new organisation in the ranked file
-mailbox changed,GASTOPS LTD,I0,,was info.eu@gastops.com
-package moved,GASTOPS LTD,I0,,was I1
-row added,Luméd inc.,I1,info@lumed.ca,new organisation in the ranked file
-mailbox changed,Smollan,I0,,was contact.benelux@smollan.com
-package moved,Smollan,I0,,was I1
-row removed,D'UN COUVERT À L'AUTRE,I1,info@initium-org.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+mailbox changed,Product Distribution Centre,GOLD,pdcinvoices@gov.bc.ca,was PDCCustomerSer@gov.bc.ca
+package moved,Product Distribution Centre,GOLD,pdcinvoices@gov.bc.ca,was B1
+mailbox changed,"Régie d'assainissement des eaux usées de Boischatel, L'ange-Gardien, Chateau-Richer",A3,comptabilite@langegardien.qc.ca,was info@langegardien.qc.ca
+package moved,"Régie d'assainissement des eaux usées de Boischatel, L'ange-Gardien, Chateau-Richer",A3,comptabilite@langegardien.qc.ca,was A1
+mailbox changed,"Intergovernmental Authority on Development (IGAD), Federal Republic of Somalia, Republic of South Sudan, East African Community (EAC) / Intergovernmental Authority on Development (IGAD), Ministry of Communications and Technology (Somalia), Ministry of Information, Communication Technology and Postal Services (South Sudan), East African Community (EAC)",B2,procurement@igad.int,was info@igad.int
+package moved,"Intergovernmental Authority on Development (IGAD), Federal Republic of Somalia, Republic of South Sudan, East African Community (EAC) / Intergovernmental Authority on Development (IGAD), Ministry of Communications and Technology (Somalia), Ministry of Information, Communication Technology and Postal Services (South Sudan), East African Community (EAC)",B2,procurement@igad.int,was B1
+row added,Carré des Légendes,I1,info@carredeslegendes.ca,new organisation in the ranked file
+row added,acupuncturemaca.ca,I1,info@acupuncturemaca.ca,new organisation in the ranked file
+row added,arcticboardgames.ca,I1,info@arcticboardgames.ca,new organisation in the ranked file
+row added,L'Ange-Gardien,I1,info@municipalitedelangegardien.com,new organisation in the ranked file
+row added,Focus Media Arts Centre,I1,info@focusmediaarts.ca,new organisation in the ranked file
+row added,Blank,I1,info@carrelart.ca,new organisation in the ranked file
+row added,academietaekwondoquebec.ca,I1,administration@academietaekwondoquebec.ca,new organisation in the ranked file
+row added,autoroute20.ca,I1,info@autoroute20.ca,new organisation in the ranked file
+row added,aysc.ca,I1,info@aysc.ca,new organisation in the ranked file
+row added,b-attitude.ca,I1,info@b-attitude.ca,new organisation in the ranked file
+row added,backeddy.ca,I1,info@backeddy.ca,new organisation in the ranked file
+row added,backinhealth.ca,I1,admin@backinhealth.ca,new organisation in the ranked file
+row added,backsinaction.ca,I1,info@backsinaction.ca,new organisation in the ranked file
+row added,balcondepot.ca,I1,info@balcondepot.ca,new organisation in the ranked file
+row added,suburbanfc.ca,I1,admin@suburbanfc.ca,new organisation in the ranked file
+row added,supercricket.ca,I1,info@supercricket.ca,new organisation in the ranked file
+row removed,L'Ange-Gardien,I3,comptabilite@langegardien.qc.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
