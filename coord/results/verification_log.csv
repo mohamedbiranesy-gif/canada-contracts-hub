@@ -10281,7 +10281,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00722,b:7276472ac3dba86e,munici
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00009,b:7276472ac3dba86e,municipalite@napierville.ca,https://www.napierville.ca/fr/municipalite/administration/taxation-et-perception/,verified
 gemini,gemini_buyer_ap_results_batch08.csv,GE-AP-00722,b:7276472ac3dba86e,municipalite@napierville.ca,https://www.napierville.ca/fr/nous-joindre/,verified
 gemini,gemini_buyer_ap_results_batch02.csv,GE-AP-00114,b:727fcc2bc87961be,payables@sherbrooke.ca,https://www.sherbrooke.ca/fr/services-aux-entreprises/fournisseurs/paiement-et-facturation,verified
-chatgpt,chatgpt_buyer_ap_results_batch06.csv,CH-AP-00519,b:7282247eb180f685,clerks@leamington.ca,https://www.leamington.ca/municipal-services/elections-2026/voter-information-2026/,unverified_page_unavailable
+chatgpt,chatgpt_buyer_ap_results_batch06.csv,CH-AP-00519,b:7282247eb180f685,clerks@leamington.ca,https://www.leamington.ca/municipal-services/elections-2026/voter-information-2026/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00519,b:7282247eb180f685,info@ombudsman.on.ca,https://www.leamington.ca/municipal-services/complaints-compliments/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00519,b:7282247eb180f685,contact@ethanwuerch.ca,https://www.leamington.ca/municipal-services/elections-2026/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-P0179,b:729b655e2c5955d3,info_clauseajustement@sqi.gouv.qc.ca,https://www.sqi.gouv.qc.ca/faire-affaire-avec-la-sqi/outils-pour-les-partenaires,verified
