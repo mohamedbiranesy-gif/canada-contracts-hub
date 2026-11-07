@@ -13639,7 +13639,7 @@ chatgpt,chatgpt_buyer_ap_results_batch04.csv,CH-AP-00393,b:c8aded69852f718c,AskA
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00393,b:c8aded69852f718c,corporateprocurement@worldbank.org,https://www.worldbank.org/en/about/corporate-procurement,verified
 gemini,gemini_buyer_ap_results_batch07.csv,GE-AP-00637,b:c8b1fef6b7ad9374,recrutement@mamh.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/affaires-municipales/emplois-stages,verified
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29090,b:c8bd41e942835ae2,postmaster@dfg.de,https://www.dfg.de/de/service/kontakt,verified
-claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00820,b:c905653a923ddce0,info@lislet.com,https://www.lislet.com,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00820,b:c905653a923ddce0,info@lislet.com,https://www.lislet.com,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00820,b:c905653a923ddce0,reception@lislet.com,https://www.lislet.com/contact,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00064,b:c905653a923ddce0,info@lislet.com,https://lislet.com/contact,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00064,b:c905653a923ddce0,reception@lislet.com,https://lislet.com/contact,verified
@@ -55920,7 +55920,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-29626,lead:51fbee2f92a4e90e,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14355,lead:51fd5b06b03bca04,nonpo.invoices@cenovus.com,https://www.cenovus.com/Suppliers/Current-suppliers/Invoicing-for-suppliers,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14355,lead:51fd5b06b03bca04,po.invoices@cenovus.com,https://www.cenovus.com/Suppliers/Current-suppliers/Invoicing-for-suppliers,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14355,lead:51fd5b06b03bca04,vmcolima.accountspayable@cenovus.com,https://www.cenovus.com/Suppliers/Current-suppliers/Invoicing-for-suppliers,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LT-00794,lead:5200f7823523183d,ftw_erp_vendor_mgmt@fortworthtexas.gov,https://www.fortworthtexas.gov/departments/finance/purchasing,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LT-00794,lead:5200f7823523183d,ftw_erp_vendor_mgmt@fortworthtexas.gov,https://www.fortworthtexas.gov/departments/finance/purchasing,verified
 claude,claude_buyer_ap_results_deep01.csv,CL-DA-03055,lead:5200f7823523183d,fmspurchasingresponses@fortworthtexas.gov,https://www.fortworthtexas.gov/departments/finance/bids/20-0141?lang_update=639289071806584036,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-36545,lead:52109262071f7090,info@freeflophysio.ca,https://www.freeflophysio.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02288,lead:5210e1155dd61c05,info@nvchamber.ca,https://www.nvchamber.ca/contact/,verified
