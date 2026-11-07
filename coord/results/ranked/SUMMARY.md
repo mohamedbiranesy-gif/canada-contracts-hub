@@ -1,4 +1,4 @@
-# Ranked buyers — 2026-11-06T23:52Z
+# Ranked buyers — 2026-11-07T00:02Z
 
 ```
 mailboxes taken from the verification log (better than org_mailboxes' single pick): 625

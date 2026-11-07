@@ -1,4 +1,4 @@
-# Deep audit — 63322 delivered rows in 17 packages (22 files), 2026-11-06
+# Deep audit — 63322 delivered rows in 17 packages (22 files), 2026-11-07
 
 Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every flagged row is listed in `audit_flags.csv` with its reasons.
 
@@ -20,7 +20,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 12 | evidence page on the organisation's domain (or its site) | soft | 3756 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
 | 14 | DMARC / SPF / provider columns filled | soft | 11008 | REVIEW |
-| 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 0 | PASS |
+| 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 4 | REVIEW |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
@@ -116,6 +116,11 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P13_inferred_relationship_no_record_own_email_part1_of_6:13 aliasformation.ca | not checked yet | not checked yet | not checked
     - P13_inferred_relationship_no_record_own_email_part1_of_6:18 sun-nurses.sk.ca | not checked yet | not checked yet | not checked
     - P13_inferred_relationship_no_record_own_email_part1_of_6:123 aventuriers.qc.ca | not checked yet | not checked yet | not checked
+- **15 tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m)**
+    - P01_GOLD_active_relationship_invoicing_AP_email:141 Commission scolaire New Frontiers | A with end 2026-11-06
+    - P02_active_relationship_finance_accounting_email:40 Cégep Édouard-Montpetit | A with end 2026-11-06
+    - P02_active_relationship_finance_accounting_email:131 Municipalité de Rivière-Ouelle | A with end 2026-11-06
+    - P04_active_relationship_general_email:116 Municipalité de Brébeuf | A with end 2026-11-06
 - **19 buyer name is a name (not a domain or a page title)**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:13 uwindsor.ca | uwindsor.ca
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:28 thebigcarrot.ca | thebigcarrot.ca

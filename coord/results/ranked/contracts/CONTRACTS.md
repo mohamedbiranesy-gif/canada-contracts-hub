@@ -1,4 +1,4 @@
-# Contracts of the delivered buyers — 2026-11-06
+# Contracts of the delivered buyers — 2026-11-07
 
 210141 contract records of 2391 delivered organisations (tiers A/B/L/C/D/F, most recent first, at most 500 per organisation), in 7 gzipped part files.
 - with a purchase-order / procurement number: 11637
