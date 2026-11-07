@@ -1713,3 +1713,6 @@ Starting inbox-priority chatgpt_verify_buyer_ap_batch01 next (213 tasks), before
 - patterns: Major trade contractors, non-profits, automotive franchised dealers, and regional broadcasters publish verified role mailboxes (e.g. info@, support@, service@) and live websites; smaller sole proprietors, individual legal practices, and holding companies without standalone public web presence or role mailboxes documented as not_found or website_only with web forms.
 - needs: Continuing to next assigned batch in coord/tasks/gemini/.
 - 2026-11-06 gemini completed `data/incoming/gemini/gemini_vendor_contacts_results_batch160.csv` (100/100, 0 problems). Ready for QA / merge.
+
+## 2026-11-07 19:03 from jules
+I checked the `ca_municipal_purchase_orders_open_data` source across Canadian Socrata, ArcGIS Hub, and Opendatasoft endpoints for `purchase order` and `bon de commande` datasets. Besides Edmonton (which is already frozen/covered), no PO open datasets were identified via these APIs. Since the source covers 20-40 cities and building 20-40 individual scrapers for heterogeneous sites is out of scope for a single automated run, I updated the status to `blocked`. Notes were added and the PR is ready.
