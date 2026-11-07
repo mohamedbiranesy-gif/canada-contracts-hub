@@ -11325,7 +11325,7 @@ chatgpt,chatgpt_buyer_ap_results_batch04.csv,CH-AP-00315,b:8c1f9cc623e1a91f,purc
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00315,b:8c1f9cc623e1a91f,micasevendordirectdeposit@gov.sk.ca,https://publications.saskatchewan.ca/api/v1/products/101651/formats/153209/download,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-52100,b:8c23d222347efcfd,admin@la-martre.ca,https://la-martre.ca,verified
 gemini,gemini_buyer_ap_results_batch20.csv,GE-AP-01973,b:8c23d222347efcfd,admin@la-martre.ca,https://www.la-martre.ca/ou-sommes-nous.php,verified
-chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00068,b:8c2f6b1ddc1cc673,tenders@lethbridge.ca,https://www.lethbridge.ca/business-in-lethbridge/doing-business-with-the-city/,unverified_page_unavailable
+chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00068,b:8c2f6b1ddc1cc673,tenders@lethbridge.ca,https://www.lethbridge.ca/business-in-lethbridge/doing-business-with-the-city/,verified
 chatgpt,chatgpt_buyer_ap_results_batch05.csv,CH-AP-00417,b:8c3a8d2b9a5174ed,AskAccounting@worldbankgroup.org,https://www.worldbank.org/en/about/corporate-procurement/vendors/invoicing-and-payment,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00417,b:8c3a8d2b9a5174ed,corporateprocurement@worldbank.org,https://www.worldbank.org/en/about/corporate-procurement,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01372,b:8c3acae34db9b6ca,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
@@ -11835,8 +11835,8 @@ claude,claude_buyer_ap_results_search01.csv,CL-WS-00066,b:995396f49f72bdd7,treas
 gemini,gemini_buyer_ap_results_batch26.csv,GE-AP-B0031,b:995683dbc0529083,info@invcanada.ca,https://www.investcanada.ca/contact-us,verified
 gemini,gemini_buyer_ap_results_batch35.csv,CH-AP-01553,b:995683dbc0529083,Corporateservices-Servicesdentreprise@invcanada.ca,https://www.investcanada.ca/transparency/info-source-chapter-invest-canada,verified
 gemini,gemini_buyer_ap_results_batch35.csv,CH-AP-01553,b:995683dbc0529083,Corporateservices-Servicesdentreprise@invcanada.ca,https://www.investcanada.ca/transparency/info-source-chapter-invest-canada,verified
-gemini,gemini_buyer_ap_results_batch26.csv,GE-AP-B0088,b:9960f43c62189a06,customer.service@sobeys.com,https://www.sobeys.com/faqs,unverified_page_unavailable
-gemini,gemini_buyer_ap_results_batch35.csv,CH-AP-01566,b:9960f43c62189a06,customer.service@sobeys.com,https://www.sobeys.com/faqs,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch26.csv,GE-AP-B0088,b:9960f43c62189a06,customer.service@sobeys.com,https://www.sobeys.com/faqs,verified
+gemini,gemini_buyer_ap_results_batch35.csv,CH-AP-01566,b:9960f43c62189a06,customer.service@sobeys.com,https://www.sobeys.com/faqs,verified
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01089,b:9962599189bdabad,info@st-jules.qc.ca,https://www.st-jules.qc.ca/pages/nous-joindre,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01089,b:9962599189bdabad,info@st-jules.qc.ca,https://destinationbeauce.com/municipalites-beauce/municipalite-de-saint-jules/,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch11.csv,GE-AP-01089,b:9962599189bdabad,info@st-jules.qc.ca,https://www.211quebecregions.ca/record/QBC1628?Ln=en-CA&UseCICVw=66&PrintMd=on&UseCICVwTmp=,verified
