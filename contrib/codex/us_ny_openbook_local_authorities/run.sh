@@ -1,0 +1,2 @@
+#!/bin/bash
+python3 contrib/codex/us_ny_openbook_local_authorities/us_ny_openbook_local_authorities.py data/incoming/codex/records_us_ny_openbook_local_authorities.jsonl.gz
