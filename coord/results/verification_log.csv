@@ -5886,7 +5886,7 @@ gemini,gemini_buyer_ap_results_batch27.csv,GE-AP-27057,b:0d088f9661d79ae2,https:
 gemini,gemini_buyer_ap_results_batch18.csv,GE-AP-01708,b:0d0d34b299fc2da9,info@mrcarthabaska.ca,https://mrcarthabaska.ca/nous-joindre,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-01911,b:0d10fe1957efbadd,info@rbe.sk.ca,https://www.reginapublicschools.ca/,verified
 gemini,gemini_buyer_ap_results_batch39.csv,CH-AP-01911,b:0d10fe1957efbadd,info@rbe.sk.ca,https://www.reginapublicschools.ca/contact_us,verified
-gemini,gemini_buyer_ap_results_batch39.csv,CH-AP-01917,b:0d22721f23ac4816,invoice@mtabsc.org,https://www.mta.info/doing-business-with-us/vendor-resources,unverified_page_unavailable
+gemini,gemini_buyer_ap_results_batch39.csv,CH-AP-01917,b:0d22721f23ac4816,invoice@mtabsc.org,https://www.mta.info/doing-business-with-us/vendor-resources,verified
 gemini,gemini_buyer_ap_results_batch39.csv,CH-AP-01919,b:0d2303790c1510bc,roadwayfunding@rtcsnv.com,https://www.rtcsnv.com/projects-initiatives/roadway-funding/roadway-funding-contact-information/,unverified_page_unavailable
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00072,b:0d339258cd11ee9f,inquiries@nlhc.nl.ca,https://www.nlhc.nl.ca/contact/contact-nlhc/,verified
 chatgpt,chatgpt_buyer_ap_results_batch01.csv,CH-AP-00072,b:0d339258cd11ee9f,inquiries@nlhc.nl.ca,https://www.nlhc.nl.ca/contact/frequently-called-numbers/,verified
@@ -15710,7 +15710,7 @@ gemini,gemini_buyer_ap_results_batch10.csv,GE-AP-00985,b:ff674c80da8d32c3,info@c
 gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00875,b:ff8b7e1230ae37bf,incendie@risivr.ca,https://risivr.ca/nous-joindre,verified
 chatgpt,chatgpt_buyer_ap_results_batch07.csv,CH-AP-00648,b:ff8c023134ca4761,info@rdcounty.ca,https://www.rdcounty.ca/Directory.aspx?did=23,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00648,b:ff8c023134ca4761,info@rdcounty.ca,https://www.rdcounty.ca/,verified
-claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00043,b:ff9b1d39d7f4e3f1,invoice@mtabsc.org,https://www.mta.info/doing-business-with-us/vendor-resources,unverified_page_unavailable
+claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00043,b:ff9b1d39d7f4e3f1,invoice@mtabsc.org,https://www.mta.info/doing-business-with-us/vendor-resources,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00930,b:ffa37b64462bc8e2,info@st-ambroise.qc.ca,https://www.st-ambroise.qc.ca/developpement-economique/bottin-des-entreprises/,verified
 gemini,gemini_buyer_ap_results_batch10.csv,GE-AP-00930,b:ffa37b64462bc8e2,info@st-ambroise.qc.ca,https://st-ambroise.qc.ca/nous-joindre/,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch10.csv,GE-AP-00930,b:ffa37b64462bc8e2,info@st-ambroise.qc.ca,https://www.st-ambroise.qc.ca/wp-content/uploads/2023/04/2-liste-des-organismes-2023-avril.pdf,verified
