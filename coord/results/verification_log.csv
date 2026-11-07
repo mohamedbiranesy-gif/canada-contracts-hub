@@ -7085,7 +7085,7 @@ chatgpt,chatgpt_buyer_ap_results_batch08.csv,CH-AP-00713,b:29cb412144d4932d,MSS@
 chatgpt,chatgpt_buyer_ap_results_batch08.csv,CH-AP-00713,b:29cb412144d4932d,mssap@mohawkmedbuy.ca,https://www.mohawkmedbuy.ca/accountspayable-contacts,verified
 chatgpt,chatgpt_buyer_ap_results_batch12.csv,CH-AP-01200,b:29d640457ec66271,mailbox@lethcounty.ca,https://www.lethcounty.ca/p/contact-us,verified
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29075,b:29d78626345ea565,aau@aau.dk,https://www.aau.dk/om-aau/kontakt,verified
-claude,claude_buyer_ap_results_agent03.csv,CL-RD-6-028,b:29f6fe63cfb7b45b,e-handel@ltu.se,https://www.ltu.se/en/contact-lulea-university-of-technology/for-suppliers,unverified_page_unavailable
+claude,claude_buyer_ap_results_agent03.csv,CL-RD-6-028,b:29f6fe63cfb7b45b,e-handel@ltu.se,https://www.ltu.se/en/contact-lulea-university-of-technology/for-suppliers,verified
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29031,b:2a0209a7289ed535,finance@uksbs.co.uk,https://www.ukri.org/wp-content/uploads/2024/12/UKRI-03122024-REDACTED_UKRI-3729-BGS-Food-Lot3-Agreement_Oct-2024.pdf,unverified_page_unavailable
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29036,b:2a0209a7289ed535,finance@uksbs.co.uk,https://www.ukri.org/wp-content/uploads/2023/03/UKRI-090323-ProcurementContractData-2784-Contract-January2023.pdf,verified
 gemini,gemini_buyer_ap_results_batch01.csv,GE-AP-00051,b:2a0718279451c8cb,servicealaclientele@cag.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/centre-acquisitions-gouvernementales/coordonnees-structure/generales,verified
@@ -58091,7 +58091,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11147,lead:71b2044e894fdc77,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15335,lead:71b27c396ef5dbb2,info@consort.ca,https://consort.ca/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00129,lead:71b27c396ef5dbb2,info@consort.ca,https://www.consort.ca/town-office/administration-policies/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00028,lead:71b3639cdced92ae,invoice@mtabsc.org,https://www.mta.info/document/14141,unverified_page_unavailable
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00028,lead:71b3639cdced92ae,vprocure@mnr.org,https://www.mta.info/doing-business-with-us/procurement/contacts,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00028,lead:71b3639cdced92ae,vprocure@mnr.org,https://www.mta.info/doing-business-with-us/procurement/contacts,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22413,lead:71b374b1cc0ae514,u003epurchase.invoices@fortum.com,https://www.fortum.com/contact-us/suppliers/invoice-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22413,lead:71b374b1cc0ae514,purchase.invoices@fortum.com,https://www.fortum.com/contact-us/suppliers/invoice-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22413,lead:71b374b1cc0ae514,procurement.fortum@fortum.com,https://www.fortum.com/contact-us/suppliers,verified
