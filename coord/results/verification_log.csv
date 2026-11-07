@@ -8613,10 +8613,10 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-29032,b:4c4593354a687dfe,specia
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-29032,b:4c4593354a687dfe,payments@lanl.gov,https://www.lanl.gov/lanl-resources/payments-to-the-lab,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-29032,b:4c4593354a687dfe,aribasuppliers@lanl.gov,https://www.lanl.gov/engage/business/prospective-suppliers,verified
 claude,claude_buyer_ap_results_deep01.csv,CL-DP-01635,b:4c4593354a687dfe,specialpayments@lanl.gov,https://www.lanl.gov/engage/business/existing-suppliers/accounts-payable.txt?_rsc=labi7,unverified_page_unavailable
-claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00114,b:4c4593354a687dfe,procurement@lanl.gov,https://www.lanl.gov/engage/business/supplier-resources,unverified_page_unavailable
+claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00114,b:4c4593354a687dfe,procurement@lanl.gov,https://www.lanl.gov/engage/business/supplier-resources,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00116,b:4c4593354a687dfe,specialpayments@lanl.gov,https://www.lanl.gov/engage/business/existing-suppliers/accounts-payable,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00116,b:4c4593354a687dfe,aribasuppliers@lanl.gov,https://www.lanl.gov/engage/business/business-contacts,unverified_page_unavailable
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00116,b:4c4593354a687dfe,procurement@lanl.gov,https://www.lanl.gov/engage/business/supplier-resources,unverified_page_unavailable
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00116,b:4c4593354a687dfe,procurement@lanl.gov,https://www.lanl.gov/engage/business/supplier-resources,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00033,b:4c4593354a687dfe,aribasuppliers@lanl.gov,https://www.lanl.gov/engage/business/existing-suppliers,unverified_page_unavailable
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00139,b:4c4593354a687dfe,payments@lanl.gov,https://www.lanl.gov/lanl-resources/payments-to-the-lab,verified
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29032,b:4c4593354a687dfe,apcustomerservice@lanl.gov,https://cdn.lanl.gov/files/bus-asm-coe-4039-lanl-supplier-guide-to-submitting-invoices-against-contracts-27sept2023_fec90.pdf,unverified_page_unavailable
@@ -12839,8 +12839,8 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01647,b:b474c76f9adaa433,info@m
 gemini,gemini_buyer_ap_results_batch17.csv,GE-AP-01647,b:b474c76f9adaa433,info@mrccotedebeaupre.qc.ca,https://www.mrccotedebeaupre.com/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CO-AP-00264,b:b4893cf520eb5677,enquiries@dbca.wa.gov.au,https://www.dbca.wa.gov.au/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CO-AP-00264,b:b4893cf520eb5677,enquiries@rottnestisland.com,https://www.dbca.wa.gov.au/contact-us,verified
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00010,b:b4893cf520eb5677,enquiries@dbca.wa.gov.au,https://www.dbca.wa.gov.au/contact-us/office-locations,cross_verified
-gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29024,b:b4893cf520eb5677,enquiries@dbca.wa.gov.au,https://www.dbca.wa.gov.au/contact-us/office-locations,cross_verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00010,b:b4893cf520eb5677,enquiries@dbca.wa.gov.au,https://www.dbca.wa.gov.au/contact-us/office-locations,verified
+gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29024,b:b4893cf520eb5677,enquiries@dbca.wa.gov.au,https://www.dbca.wa.gov.au/contact-us/office-locations,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-P0185,b:b48e100b218d1880,comptabilite.csssl@ssss.gouv.qc.ca,https://www.lavalensante.com/informations-pratiques/espace-usager/frais-et-paiement-de-facture/hospitalisation/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-P0185,b:b48e100b218d1880,comptabilite.csssl@ssss.gouv.qc.ca,https://www.lavalensante.com/en/useful-information/espace-usager/frais-et-paiement-de-facture/hospitalisation/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-P0185,b:b48e100b218d1880,approvisionnement.chum@ssss.gouv.qc.ca,https://www.lavalensante.com/fileadmin/internet/cisss_laval/Accueil/Fournisseurs_externes/Procedure_examen_plaintes_et_annexe_Sante_Quebec.pdf,verified
@@ -51522,7 +51522,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12065,lead:1217e567de51208e,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-29143,lead:121cf56054a99afd,info.li@vpbank.com,https://www.vpbank.com/en,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-29143,lead:121cf56054a99afd,info.ch@vpbank.com,https://www.vpbank.com/sites/default/files/2021_05_NadF_Manufacturers_face_component_shortages_EN.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-29143,lead:121cf56054a99afd,info.sg@vpbank.com,https://www.vpbank.com/sites/default/files/2021_05_NadF_Manufacturers_face_component_shortages_EN.pdf,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05938,lead:1221a79cff1a55cf,info@adage.com,https://adage.com/help/contact-us/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05938,lead:1221a79cff1a55cf,info@adage.com,https://adage.com/help/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24342,lead:12296fec5969e480,info@giftswithvision.ca,https://giftswithvision.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07074,lead:122af1599a5a472d,inquiries@glasgowsquare.com,https://glasgowsquare.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-20436,lead:1230da110f6bea60,info@ebmedia.ca,https://ebmediasolutions.com/,verified
@@ -52628,7 +52628,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05023,lead:22fefced3966eb8c,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06012,lead:2304c1d29fb8732b,info@elementhighschool.com,https://www.elementhighschool.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-SM-00019,lead:230b1f19fa8256b3,info@lacdesmillelacsfirstnation.ca,https://www.lacdesmillelacsfirstnation.ca/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00133,lead:23117a74a3253bb8,info@kassel.ihk.de,https://www.ihk.de/kassel-marburg/topnavigation/online-service-/erechnung-4696030,verified
-claude,claude_buyer_ap_results_deep01.csv,CL-DA-00056,lead:23161adfa8277935,fdavendorpaymentsteam@fda.gov,https://www.fda.gov/about-fda/doing-business-fda/vendor-payments,unverified_page_unavailable
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-00056,lead:23161adfa8277935,fdavendorpaymentsteam@fda.gov,https://www.fda.gov/about-fda/doing-business-fda/vendor-payments,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00494,lead:231b09a3c8e71761,financialaid@case.edu,https://case.edu/financialaid/undergraduates/financial-aid-timeline-incoming-first-year-students,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00009,lead:231b09a3c8e71761,invoices-pds@case.edu,https://case.edu/procurement/accounts-payable/invoices,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-SN-02660,lead:23214c58fb248f95,info@uwbc.ca,https://uwbc.ca/contact/,verified
@@ -55621,7 +55621,7 @@ claude,claude_buyer_ap_results_search01.csv,CL-WS-00010,lead:4d39e4e51df15b89,bc
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00010,lead:4d39e4e51df15b89,apsupplierinquiry@boeing.com,https://www.boeingsuppliers.com/content/dam/boeing/boeingsuppliers/boeing-suppliers/becoming/terms/Invoice_Requirements_03.2026.pdf,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00010,lead:4d39e4e51df15b89,mauiapprovals@boeing.com,https://www.boeingsuppliers.com/content/dam/boeing/boeingsuppliers/boeing-suppliers/becoming/terms/clause-index/fxxx/F302V_20110621.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02099,lead:4d3aafe3f0038ebf,info@quebec-cite.com,https://www.quebec-cite.com/en/about/contact,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11774,lead:4d3d0a36f8b712e6,info@theiso.org,https://theiso.org/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11774,lead:4d3d0a36f8b712e6,info@theiso.org,https://theiso.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-30094,lead:4d3e6b49a0de9d86,info@enable-javascript.com,https://www.enable-javascript.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14756,lead:4d41503afb2a08f7,contact@bcwwa.org,https://www.bcwwa.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35597,lead:4d4756f31573e865,info@drdrone.ca,https://drdrone.ca/pages/contact-us,verified
@@ -55896,8 +55896,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-30093,lead:51b2c3043a06ddce,con
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-20823,lead:51b2c75f6518c17d,info@projeteoliendescultures.com,https://projeteoliendescultures.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19530,lead:51c17e88d62260c5,info@ebmedia.ca,https://ebmediasolutions.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35397,lead:51c61379d85c3cdb,info@arbutusrecords.com,https://arbutusrecords.com/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16746,lead:51c853527a6f6e2e,facture@411.ca,https://411.ca/contact,unverified_page_unavailable
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00095,lead:51c853527a6f6e2e,facture@411.ca,https://411.ca/contact,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-16746,lead:51c853527a6f6e2e,facture@411.ca,https://411.ca/contact,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00095,lead:51c853527a6f6e2e,facture@411.ca,https://411.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11698,lead:51cfd7abf35a155d,info@mininghalloffame.ca,https://mininghalloffame.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-23045,lead:51d550c940e56124,reception@carnaval.qc.ca,https://carnaval.qc.ca/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12383,lead:51dc45cbcc7188f1,info@mediaspace.co,https://mediaspace.co/,verified
@@ -60979,8 +60979,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22208,lead:9b325a760326e3f0,enq
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21300,lead:9b3c4c1c55199293,info@discoveryloop.com,https://www.discoveryloop.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05158,lead:9b3ffcb138ad25f6,finance@rdn.bc.ca,https://rdn.bc.ca/current-bid-opportunities,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05158,lead:9b3ffcb138ad25f6,inquiries@rdn.bc.ca,https://rdn.bc.ca/,unverified_page_unavailable
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00015,lead:9b3ffcb138ad25f6,finance@rdn.bc.ca,https://rdn.bc.ca/finance,unverified_page_unavailable
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00015,lead:9b3ffcb138ad25f6,inquiries@rdn.bc.ca,https://rdn.bc.ca/finance,unverified_page_unavailable
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00015,lead:9b3ffcb138ad25f6,finance@rdn.bc.ca,https://rdn.bc.ca/finance,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00015,lead:9b3ffcb138ad25f6,inquiries@rdn.bc.ca,https://rdn.bc.ca/finance,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07759,lead:9b4c178c66ee0357,acdenmanufacturing@acden.com,https://www.acden.com/acdenmanufacturing,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07759,lead:9b4c178c66ee0357,info@acden.com,https://www.acden.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01437,lead:9b57da7594c2454c,info@ccminvests.com,https://www.ccminvests.com/,verified
@@ -61790,7 +61790,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24165,lead:a71a8d80afa04691,ret
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24165,lead:a71a8d80afa04691,canadapayables@nutrien.com,https://www.nutrien.com/suppliers,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-EX-AEF,lead:a71d3a0cb99e1623,info@aefuels.com,https://aefuels.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15367,lead:a71fc516c7e6d3e4,info@ottawacustomjewellery.com,https://www.ottawacustomjewellery.com/contact,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21834,lead:a7237be9f334fa62,info@adage.com,https://adage.com/help/contact-us/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21834,lead:a7237be9f334fa62,info@adage.com,https://adage.com/help/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-42350,lead:a7251398f0bf5b92,info@digitalhealthcanada.com,https://digitalhealthcanada.com/about/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-18389,lead:a727e7bac4340a2c,info@orangevillehydro.on.ca,https://orangevillehydro.on.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-23909,lead:a72868c6cb7922cd,comptabilite@danplex.qc.ca,https://www.danplex.qc.ca/,verified
@@ -64192,9 +64192,9 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04228,lead:ca66ba12125a2668,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00735,lead:ca66f58d9f1dc659,sapinvoices@stantec.com,https://www.stantec.com/en/about/vendor-supplier-diversity,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00735,lead:ca66f58d9f1dc659,accountspayable@stantec.com,https://www.stantec.com/en/about/vendor-supplier-diversity,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-00735,lead:ca66f58d9f1dc659,procurement.uk@stantec.com,https://www.stantec.com/en/about/vendor-supplier-diversity/supplier-alert-fraudulent-po-scam,verified
-claude,claude_buyer_ap_results_deep01.csv,CL-DA-04867,lead:ca66f58d9f1dc659,sapinvoices@stantec.com,https://www.stantec.com/en/about/vendor-supplier-diversity/_jcr_content,unverified_page_unavailable
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-04867,lead:ca66f58d9f1dc659,sapinvoices@stantec.com,https://www.stantec.com/en/about/vendor-supplier-diversity/_jcr_content,verified
 claude,claude_buyer_ap_results_deep01.csv,CL-DA-04867,lead:ca66f58d9f1dc659,sapfactures@stantec.com,https://www.stantec.com/fr/about/vendor-supplier-diversity,unverified_page_unavailable
-claude,claude_buyer_ap_results_deep01.csv,CL-DA-04867,lead:ca66f58d9f1dc659,accountspayable@stantec.com,https://www.stantec.com/en/about/vendor-supplier-diversity/_jcr_content,unverified_page_unavailable
+claude,claude_buyer_ap_results_deep01.csv,CL-DA-04867,lead:ca66f58d9f1dc659,accountspayable@stantec.com,https://www.stantec.com/en/about/vendor-supplier-diversity/_jcr_content,verified
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00626,lead:ca66f58d9f1dc659,SAPinvoices@Stantec.com,https://www.stantec.com/en/about/vendor-supplier-diversity,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01863,lead:ca6d671e8e9c836f,info@iavi.org,https://www.iavi.org/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-07802,lead:ca79a3fd6037733c,info@ineng.ca,https://inplanning.ca/,verified
@@ -64627,7 +64627,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22683,lead:d114e3731a512ae6,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24583,lead:d1161bd3f91ac697,info@si.ibm.com,https://www.ibm.com/contact/global,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24583,lead:d1161bd3f91ac697,info.finland@ibm.com,https://www.ibm.com/contact/global,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-24583,lead:d1161bd3f91ac697,info@ro.ibm.com,https://www.ibm.com/contact/global,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11773,lead:d11d0b2cab9d3edd,info@theiso.org,https://theiso.org/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-11773,lead:d11d0b2cab9d3edd,info@theiso.org,https://theiso.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01922,lead:d11d5ba6ce8cbfe5,info@interac.ca,https://www.interac.ca/en/resources/getting-help/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05934,lead:d1208c5d7c2fdb77,info@bonjourquebec.com,https://www.bonjourquebec.com/fr-ca,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-29049,lead:d12a1e4b837768d4,hello@finisterre.com,https://finisterre.com/en-ca,verified
@@ -65841,7 +65841,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04535,lead:e304916cc35cafd5,fin
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09773,lead:e30e632bbe4473e6,info@jdphotos.ca,https://jdphotos.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-12487,lead:e30f316e60dcafb8,info@vietnameducationweek.com,https://www.vietnameducationweek.com/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00033,lead:e31206af843949b4,fdareturnimproperinvoice@fda.gov,https://www.fda.gov/media/151332/download,unverified_page_unavailable
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00033,lead:e31206af843949b4,fdavendorpaymentsteam@fda.gov,https://www.fda.gov/about-fda/doing-business-fda/vendor-payments,unverified_page_unavailable
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00033,lead:e31206af843949b4,fdavendorpaymentsteam@fda.gov,https://www.fda.gov/about-fda/doing-business-fda/vendor-payments,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06203,lead:e313bd2c14a5ed53,contact@ernestines.ca,https://www.ernestines.ca/contact,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00100,lead:e313bd2c14a5ed53,contact@ernestines.ca,https://www.ernestines.ca/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-00125,lead:e31df169a8313553,info@municipalityofgrandlake.ca,https://municipalityofgrandlake.ca/,verified
@@ -67004,8 +67004,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-54886,lead:f3d924e0a8fe2266,usa
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-54886,lead:f3d924e0a8fe2266,payablessupportna@avisbudget.com,https://www.avisbudgetgroup.com/content/dam/avisbudgetgroup/partner-with-us/suppliers/Invoice-Submission-Placemat-PDF.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-00136,lead:f3daeb392554a59b,ap@southglengarry.com,https://www.southglengarry.com/municipal-services/contact-us/staff-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-04948,lead:f3db0030abe2cae2,info@islandpaving.com,https://islandpaving.com/head-office/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35674,lead:f3e26c82a8cb6592,info@frenchcreekphysio.ca,https://frenchcreekphysio.ca/,unverified_page_unavailable
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35674,lead:f3e26c82a8cb6592,info@frenchcreek.ca,https://frenchcreekphysio.ca/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35674,lead:f3e26c82a8cb6592,info@frenchcreekphysio.ca,https://frenchcreekphysio.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35674,lead:f3e26c82a8cb6592,info@frenchcreek.ca,https://frenchcreekphysio.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08343,lead:f3f5c52614cfe3b2,info@dayliter.com,https://www.dayliter.com/contact-us.php,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-08058,lead:f3fccccd64b1c1bc,info@lepec.ca,https://www.entreprisespec.com/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02824,lead:f40155b2a5f3241a,info@tntatelier.com,https://tntatelier.com/,verified
@@ -70071,8 +70071,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-001353,osm:n13230632199,cont
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS904-001436,osm:n13230661906,hello@duetpublicrelations.com,https://www.duetpublicrelations.com/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-008953,osm:n13231473799,info@purephysio.ca,https://purephysio.ca,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS904-007192,osm:n13231851922,info@harbourcityplumbing.ca,https://www.harbourcityplumbing.ca/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-009641,osm:n13231883776,info@frenchcreekphysio.ca,https://frenchcreekphysio.ca/,unverified_page_unavailable
-claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-009641,osm:n13231883776,info@frenchcreek.ca,https://frenchcreekphysio.ca/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-009641,osm:n13231883776,info@frenchcreekphysio.ca,https://frenchcreekphysio.ca/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-009641,osm:n13231883776,info@frenchcreek.ca,https://frenchcreekphysio.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS906-004814,osm:n13231929386,info@koreanshop.ca,https://koreanshop.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-007056,osm:n13231937549,info@jensenlakesdental.com,https://www.jensenlakesdental.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-OS905-004353,osm:n13232808554,info@cdvmontreal.ca,https://cdvmontreal.ca/,verified
