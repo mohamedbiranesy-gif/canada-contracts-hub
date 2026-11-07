@@ -1,0 +1,242 @@
+#!/usr/bin/env python3
+"""Invoicing terms, PO requirement, portal, AP phone / address / contact name and the buyer's own GST number, read from the
+evidence pages of the delivered mailboxes (owner 2026-11-06, D4 / D5 / D6 / D11: lift payment_terms, invoice_portal_url,
+ap_contact_name coverage without search credits).
+
+The ranking kept a 300-character quote per mailbox; the page usually says more (terms, "PO number required", portal, phone,
+mailing address, the AP clerk's printed name, the buyer's GST/HST number). This re-reads each evidence page once — politely
+(tools/ap_crawler.fetch: 1 request/second/host, identified user agent, robots.txt honoured; 401/403/429/CAPTCHA = blocked,
+never worked around) — and writes every fact with the URL actually opened, the retrieval date and a quote of at most 300
+characters that contains it. No search, no AI, no inference: a regex either finds the printed value or the cell stays empty.
+rank.py merges the file by mailbox (contrib/claude/rank_buyers/rank.py, "ap_terms").
+  python3 tools/ap_terms.py [--repo ~/cch-crawler] [--ranked path.csv.gz] [--tiers A,B,T,M,L,C,D,E,F] [--workers 24] [--limit N]
+Output: <repo>/data/incoming/claude/claude_ap_terms.csv (resumable: pages already read within --recheck-days are skipped).
+"""
+import argparse, csv, datetime, gzip, html, os, re, sys, threading, time, urllib.parse
+from concurrent.futures import ThreadPoolExecutor
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ap_crawler as C  # noqa: E402
+try:
+    from buyer_pages import FIRST_NAMES as _FIRST
+except Exception:
+    _FIRST = set()
+TODAY = datetime.date.today().isoformat()
+lock = threading.Lock()
+COLS = ["email", "evidence_url", "final_url", "retrieved_date", "status", "payment_terms", "payment_terms_quote", "po_required", "po_quote",
+        "portal_name", "portal_url", "portal_quote", "ap_phone", "ap_phone_quote", "invoice_mailing_address", "address_quote",
+        "ap_contact_name", "contact_quote", "invoice_format", "format_quote", "buyer_bn", "bn_quote", "mailbox_still_on_page"]
+TERMS = re.compile(r"\b(?:net\s?(?:30|45|60|90|15|10)\b(?:\s?(?:days|jours))?|(?:payment|paid|payable|paiement|pay[ée]e?s?)\b[^.;]{0,60}?\b(?:within|dans les|dans un d[ée]lai de|sous|in)\s(?:\d{2}|thirty|forty-five|sixty|trente|quarante-cinq|soixante)\s?(?:calendar |business |working |ouvrables? )?(?:days?|jours)\b|"
+                   r"(?:payment )?terms?(?: of payment| are| is|:)?\s?(?:are |is |:)?\s?net\s?\d{2}|conditions? de paiement\s?:?\s?[^.;]{0,40}?\d{2}\s?jours|"
+                   r"\b\d{2}\s?(?:calendar |business |working )?days? (?:from|after|of|following) (?:the )?(?:receipt|invoice date|date of invoice|approval)|"
+                   r"\b\d{2}\s?jours (?:suivant|apr[èe]s|de) (?:la )?(?:r[ée]ception|date de (?:la )?facture)|2\s?%\s?(?:10|15)\s?,?\s?net\s?\d{2})", re.I)
+PO_REQ = re.compile(r"(?:(?:valid |authorized |official )?purchase[- ]order(?: number| no\.?| #)?|\bP\.?O\.?(?: number| no\.?| #)\b|bon de commande|num[ée]ro de (?:bon de )?commande|\bBC\b num[ée]ro)[^.;]{0,100}?\b(?:required|must|needs?|shall|mandatory|doit|doivent|obligatoire|requis|exig|include|indiqu|mention|quote|quoted|reference|référenc|appear|appara)|"
+                    r"\b(?:required|must|needs?|shall|mandatory|doit|doivent|obligatoire|requis|exig|include|indiqu|mention|quote|reference|référenc)[^.;]{0,100}?(?:purchase[- ]order(?: number| no\.?| #)?|\bP\.?O\.?(?: number| no\.?| #)\b|bon de commande|num[ée]ro de (?:bon de )?commande)", re.I)
+NO_PO_NO_PAY = re.compile(r"no (?:purchase order|PO)[, ]+no pay(?:ment)?|pas de (?:bon de commande|BC)[, ]+pas de paiement", re.I)
+PORTALS = [("SAP Ariba", r"ariba"), ("Coupa", r"coupa"), ("Jaggaer", r"jaggaer|sciquest"), ("Tungsten / Kofax", r"tungsten"), ("Basware", r"basware"), ("SAP Business Network", r"sap business network"),
+           ("Esker", r"\besker\b"), ("Taulia", r"taulia"), ("Tradeshift", r"tradeshift"), ("Oracle iSupplier / Supplier Portal", r"isupplier|oracle supplier portal|oracle fusion supplier"), ("Workday supplier portal", r"workday[^.]{0,30}supplier"),
+           ("Bonfire", r"bonfirehub|gobonfire"), ("bids&tenders", r"bidsandtenders|bids ?& ?tenders"), ("MERX", r"\bmerx\b"), ("SEAO", r"\bseao\b"), ("Transcepta", r"transcepta"), ("OpenInvoice / Enverus", r"openinvoice"), ("Cortex", r"\bcortex\b[^.]{0,30}invoice"),
+           ("GHX", r"\bghx\b"), ("PaymentWorks", r"paymentworks"), ("Zycus", r"zycus"), ("Ivalua", r"ivalua"), ("GEP SMART", r"gep smart|smart by gep"), ("Medius", r"\bmedius\b"), ("Yooz", r"\byooz\b"), ("Procurify", r"procurify"),
+           ("supplier / vendor portal", r"(?:supplier|vendor|fournisseurs?) (?:self[- ]service )?portal|portail (?:des )?fournisseurs?|e-?invoicing portal|invoice portal|portail de facturation")]
+PORTAL_HREF = re.compile(r"href=[\"']([^\"']+)[\"']", re.I)
+PHONE = re.compile(r"(?:\+?1[\s.-]?)?\(?\b[2-9]\d{2}\)?[\s.-]\d{3}[\s.-]\d{4}\b(?:\s?(?:x|ext\.?|poste|p\.)\s?\d{1,6})?", re.I)
+PC_CA = r"[A-Z]\d[A-Z]\s?\d[A-Z]\d"
+ADDR = re.compile(r"(?:(?:P\.?\s?O\.?\s?Box|C\.?P\.?|Case postale|Boîte postale|Bo[iî]te postale)\s?\d+[^,\n]{0,40}|\b\d{1,6}[A-Za-z]?(?:[-–]\d{1,6})?\s(?:[A-Za-zÀ-ÿ'.-]+\s){1,6}(?:Street|St\.?|Avenue|Ave\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Way|Place|Crescent|Court|Highway|Hwy|Parkway|Trail|Lane|Square|Rue|Boul\.?|Chemin|Ch\.|Route|Avenue|Montée|Rang|Promenade)[^,\n]{0,40})"
+                  r"[,\s]+(?:(?:Suite|Unit|Bureau|Floor|#)\s?[\w-]+[,\s]+)?[A-Za-zÀ-ÿ'. -]{2,40}[,\s]+(?:[A-Z]{2}|Ontario|Québec|Quebec|Alberta|Manitoba|Saskatchewan|British Columbia|Nova Scotia|New Brunswick|Newfoundland and Labrador|Prince Edward Island|Yukon|Nunavut|Northwest Territories)[,\s]+(?:" + PC_CA + r"|\d{5}(?:-\d{4})?)", re.I)
+BN = re.compile(r"\b(\d{9})\s?(?:RT|RT\s?0001|RT0001)\b|\b(\d{9})\s?RT\s?0+1\b")
+BN_WORDS = re.compile(r"\bGST\b|\bHST\b|\bTPS\b|\bTVH\b|business number|num[ée]ro d'entreprise|registration (?:no|number)|BN\b", re.I)
+FORMAT = re.compile(r"(?:(?:one|single|1|une seule|une) (?:invoice|facture)s? per (?:e-?mail|courriel|attachment|PDF)|(?:invoices?|factures?)[^.;]{0,80}?\b(?:PDF|TIFF|TIF)\b[^.;]{0,60}|\b(?:PDF|TIFF)\b[^.;]{0,30}?(?:format|only|seulement|uniquement|attachments?|pi[èe]ces? jointes?)|"
+                    r"(?:do not|ne pas|n'envoyez pas)[^.;]{0,30}?(?:send|submit|envoyer)[^.;]{0,30}?(?:paper|duplicate|copies?|papier)[^.;]{0,60}|(?:maximum|max\.?|limit(?:ed)? to)[^.;]{0,20}?\d+\s?(?:MB|Mo|pages?|attachments?)[^.;]{0,40})", re.I)
+# the AP contact rule of rank.py (conservative; business contact information the organisation prints itself, never a mailbox)
+_cands = [os.path.join(d, "contrib/claude/rank_buyers/rank.py") for d in (os.path.dirname(os.path.dirname(os.path.abspath(__file__))), os.getcwd(), os.path.expanduser("~/cch-crawler"))]
+_src = open(next(p for p in _cands if os.path.exists(p)), encoding="utf-8").read()
+_ns = {"re": re, "_FIRST": _FIRST}
+exec(_src[_src.index("AP_TITLE = re.compile("):_src.index("NOT_NAME = re.compile(")], _ns)
+exec(_src[_src.index("HONORIFIC = re.compile("):_src.index("FR = re.compile(")], _ns)
+ap_contact_name = _ns["ap_contact_name"]
+
+
+def q300(text, start, end):
+    """a quote of at most 300 characters around text[start:end], cut at word boundaries"""
+    if end - start >= 290:
+        return text[start:start + 300].strip()
+    pad = (300 - (end - start)) // 2
+    a, b = max(0, start - pad), min(len(text), end + pad)
+    q = text[a:b]
+    if a > 0:
+        q = q.split(" ", 1)[-1]
+    if b < len(text):
+        q = q.rsplit(" ", 1)[0]
+    return q.strip()[:300]
+
+
+def near(text, i, span=600):
+    return text[max(0, i - span):i + span], max(0, i - span)
+
+
+def read_page(url):
+    if not C.allowed(url):
+        return "robots", url, "", ""
+    try:
+        status, ctype, data, final = C.fetch(url)
+    except Exception:
+        return "error", url, "", ""
+    if status in (401, 403, 429):
+        return "blocked", final, "", ""
+    if status != 200 or not data:
+        return "http_%s" % status, final, "", ""
+    is_pdf = "pdf" in (ctype or "").lower() or data[:5] == b"%PDF-"
+    if is_pdf:
+        text = re.sub(r"\s+", " ", C.pdf_text(data) or "")
+        return "ok", final, text, ""
+    raw = html.unescape(data.decode("utf-8", "replace"))
+    if C.BLOCK_RX.search(raw[:20000]) and len(raw) < 60000:
+        return "blocked", final, "", ""
+    raw = re.sub(r"data:[a-z/+.-]+;base64,[A-Za-z0-9+/=]+", " ", raw[:3_000_000])
+    return "ok", final, C.visible(raw), raw
+
+
+def extract(email, buyer, text, raw, final):
+    out = {}
+    low = text.lower()
+    i = low.find(email.lower())
+    out["mailbox_still_on_page"] = "yes" if i >= 0 or (raw and email.lower() in raw.lower()) else "no"
+    # windows: around the mailbox when it is on the page, else around invoice words
+    anchors = [i] if i >= 0 else [m.start() for m in re.finditer(r"invoice|factur|accounts? payable|comptes? (?:à|a) payer|comptes payables|payables", low)][:6]
+    win_txt = ""
+    for a in anchors:
+        w, _ = near(text, a, 700)
+        win_txt += " " + w
+    win_txt = win_txt.strip() or text[:4000]
+    m = TERMS.search(win_txt) or TERMS.search(text)
+    if m and not re.search(r"days? (?:a week|per week|of operation|notice)|opening hours", m.group(0), re.I):
+        src = win_txt if m.re.search(win_txt) and m.string is win_txt else text
+        out["payment_terms"] = re.sub(r"\s+", " ", m.group(0)).strip()[:100]
+        out["payment_terms_quote"] = q300(src, m.start(), m.end())
+    m = NO_PO_NO_PAY.search(text) or PO_REQ.search(win_txt) or PO_REQ.search(text)
+    if m:
+        src = m.string
+        out["po_required"] = "yes (as published: %s)" % re.sub(r"\s+", " ", m.group(0)).strip()[:120]
+        out["po_quote"] = q300(src, m.start(), m.end())
+    for name, rx in PORTALS:
+        m = re.search(rx, win_txt, re.I) or re.search(rx, text, re.I)
+        if m:
+            src = m.string
+            out["portal_name"] = name
+            out["portal_quote"] = q300(src, m.start(), m.end())
+            if raw:
+                for h in PORTAL_HREF.findall(raw):
+                    if re.search(rx, h, re.I) and not h.startswith(("mailto:", "#", "javascript")):
+                        out["portal_url"] = urllib.parse.urljoin(final, h)[:300]
+                        break
+            break
+    if i >= 0:
+        w, off = near(text, i, 250)
+        m = PHONE.search(w)
+        if m and not re.search(r"fax|t[ée]l[ée]copieur", w[max(0, m.start() - 25):m.start()], re.I):
+            out["ap_phone"] = re.sub(r"\s+", " ", m.group(0)).strip()
+            out["ap_phone_quote"] = q300(text, off + m.start(), off + m.end())
+        w, off = near(text, i, 450)
+        m = ADDR.search(w)
+        if m:
+            out["invoice_mailing_address"] = re.sub(r"\s+", " ", m.group(0)).strip()[:200]
+            out["address_quote"] = q300(text, off + m.start(), off + m.end())
+        w, off = near(text, i, 90)
+        nm = ap_contact_name(w, email, buyer)
+        if nm:
+            out["ap_contact_name"] = nm
+            out["contact_quote"] = q300(text, off, off + len(w))
+    m = FORMAT.search(win_txt)
+    if m:
+        out["invoice_format"] = re.sub(r"\s+", " ", m.group(0)).strip()[:160]
+        out["invoice_format_quote"] = q300(win_txt, m.start(), m.end())
+    for m in BN.finditer(text):
+        w = text[max(0, m.start() - 120):m.end() + 40]
+        if BN_WORDS.search(w):
+            out["buyer_bn"] = (m.group(1) or m.group(2)) + "RT0001"
+            out["bn_quote"] = q300(text, m.start() - 0, m.end())
+            break
+    if "invoice_format_quote" in out:
+        out["format_quote"] = out.pop("invoice_format_quote")
+    return out
+
+
+def main():
+    a = argparse.ArgumentParser()
+    a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
+    a.add_argument("--ranked", default="")
+    a.add_argument("--tiers", default="A,B,T,M,L,C,D,E,F")
+    a.add_argument("--workers", type=int, default=24)
+    a.add_argument("--limit", type=int, default=0)
+    a.add_argument("--recheck-days", type=int, default=45)
+    a.add_argument("--grades", default="invoicing,finance,purchasing", help="email_type prefixes to read (general pages rarely carry terms)")
+    a = a.parse_args()
+    out = os.path.join(a.repo, "data/incoming/claude/claude_ap_terms.csv")
+    prev = {}
+    if os.path.exists(out):
+        for r in csv.DictReader(open(out, encoding="utf-8")):
+            prev[(r["email"], r["evidence_url"])] = r
+    ranked = a.ranked or os.path.join(a.repo, "coord/results/ranked/ranked_buyers.csv.gz")
+    opener = gzip.open if ranked.endswith(".gz") else open
+    tiers = set(a.tiers.split(","))
+    grades = tuple(a.grades.split(","))
+    todo, seen = [], set()
+    cutoff = (datetime.date.today() - datetime.timedelta(days=a.recheck_days)).isoformat()
+    with opener(ranked, "rt", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            if (r.get("tier") or "") not in tiers or not (r.get("email") or "") or not (r.get("email_evidence_url") or "").startswith("http"):
+                continue
+            if not (r.get("email_type") or "").startswith(grades):
+                continue
+            k = (r["email"].lower(), r["email_evidence_url"])
+            if k in seen:
+                continue
+            seen.add(k)
+            p = prev.get(k)
+            if p and p.get("retrieved_date", "") >= cutoff and p.get("status") not in ("error", "http_0"):
+                continue
+            todo.append((r["email"].lower(), r["email_evidence_url"], r.get("buyer") or "", r.get("rank_group") or ""))
+    todo.sort(key=lambda t: (t[3] != "GOLD", t[3][:1] not in ("A", "B"), t[3]))
+    if a.limit:
+        todo = todo[:a.limit]
+    print("pages to read: %d (known: %d)" % (len(todo), len(prev)), flush=True)
+    stats = {}
+    n_done = [0]
+
+    def one(t):
+        email, url, buyer, grp = t
+        st, final, text, raw = read_page(url)
+        row = {c: "" for c in COLS}
+        row.update(email=email, evidence_url=url, final_url=final, retrieved_date=TODAY, status=st)
+        if st == "ok":
+            try:
+                row.update(extract(email, buyer, text, raw, final))
+            except Exception as e:
+                row["status"] = "extract_error:" + type(e).__name__
+        with lock:
+            prev[(email, url)] = row
+            stats[row["status"][:12]] = stats.get(row["status"][:12], 0) + 1
+            n_done[0] += 1
+            if n_done[0] % 200 == 0:
+                print(n_done[0], stats, "terms:%d po:%d portal:%d phone:%d addr:%d name:%d bn:%d" % tuple(sum(1 for v in prev.values() if v.get(c)) for c in ("payment_terms", "po_required", "portal_name", "ap_phone", "invoice_mailing_address", "ap_contact_name", "buyer_bn")), flush=True)
+            if n_done[0] % 1000 == 0:
+                write(out, prev)
+    with ThreadPoolExecutor(a.workers) as ex:
+        list(ex.map(one, todo))
+    write(out, prev)
+    print("wrote", out, len(prev), stats, flush=True)
+    print("filled:", {c: sum(1 for v in prev.values() if v.get(c)) for c in ("payment_terms", "po_required", "portal_name", "portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn")}, flush=True)
+
+
+def write(out, prev):
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore")
+        w.writeheader()
+        for k in sorted(prev):
+            w.writerow({c: prev[k].get(c, "") for c in COLS})
+    os.replace(out + ".tmp", out)
+
+
+if __name__ == "__main__":
+    main()
