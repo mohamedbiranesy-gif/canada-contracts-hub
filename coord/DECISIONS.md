@@ -508,3 +508,22 @@ supported" are SEAO ongoing_inferred records that the packages rank B/C) — now
 bilingual government role boxes rejected by validate_returns' person check (systemesfinanciers-financialsystems@, directdep-depdirect@,
 sigmadonneesprincipales.sigmamasterdata@) — ROLE_HINT widened. Gemini's own GitHub researcher saves 0 rows (no search grounding on the
 free API key); the Gemini app on the Mac is the one producing.
+
+## 2026-11-06 21:40 (claude) — the owner's D1–D15 list: credit-free work tonight, agent work after the reset
+Owner (2026-11-06): "credits reset tomorrow … set max god mode in motion to address these" and "if there's anything you can run on my
+Mac do it … go max … I can't waste a day". Decisions: (1) everything that needs no AI credits runs tonight on the Mac or in code —
+the Mac had rebooted at 06:05 and every engine was dead, so `launch15.sh` restarted push_loop / sync_loop / bridge / ap_crawler /
+site_finder first; (2) `tools/ap_terms.py` re-reads the evidence page of every delivered mailbox at grade ≥ purchasing and extracts,
+by regex on the page's own text, payment terms, the PO requirement, the portal name and link, the AP phone and mailing address, the
+printed AP contact (rank's conservative rule) and the buyer's own GST number — every value with URL, date and quote; rank.py merges it
+only into blank cells and labels the provenance; (3) `tools/peppol_directory.py` read the whole Peppol Directory for Canada: 77
+participants, nearly all suppliers — the honest D8 answer is that Canadian public bodies are not on Peppol, and every row now says so
+explicitly rather than leaving the cell blank; (4) rank.py gains `template_language` (fr for every Québec buyer), `sensitivity_tag`
+(police oversight, police, corrections, intelligence / defence / border, coroners, child protection, shelters / crisis services,
+courts, mental-health bodies — a tag, never a removal), `most_recent_record_reference_any_vendor` + `records_in_contract_dataset` +
+`other_relationship_sources` (dataset ↔ lead cross-reference by website domain or exact name only), commodity codes from the record's
+own commodity block, and the contracts export caps Gold buyers at 5,000 records; (5) D1 goes to the two Mac lanes tonight as 2,400
+tasks (the ChatGPT automation and the Gemini app are open and working): A/B/T/L buyers without a confirmed AP mailbox, never-researched
+first, with the staff-directory method and the extra fields (terms, PO rule, portal, AP contact) asked for in their inboxes; the
+search-agent passes (D1 second variant, D4 terms pass, D11 municipal directories, T6_004–009) wait for the credit reset;
+(6) D9 needs no action — the 11-06 build carries no MPAC-inferred rows. Plan and status table: `prompts/claude_d_items.md`.

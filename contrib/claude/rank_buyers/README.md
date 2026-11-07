@@ -40,7 +40,7 @@ schools / authorities `abed:`; a key listed there counts as located in Canada), 
 else the single postal code on the organisation's own page. Organisations not shown to be located in Canada get no inference (skipped). One row
 per organisation: P12 / P13 never repeat an organisation, registrable domain or mailbox already in a row above.
 
-## Columns (108, in file order)
+## Columns (116, in file order)
 `jurisdiction`, `rank_group`, `completeness_score`, `buyer`, `buyer_website`, `buyer_address`, `buyer_phone`,
 `buyer_contact_evidence_url`, `buyer_legal_name_as_published` (copyright / footer line of the buyer's site),
 `buyer_bn_as_published` (BN / charity number as printed, with the page), `buyer_gst_hst_derived` (BN9 + RT0001, labelled
@@ -53,7 +53,7 @@ Microsoft 365, Google Workspace, Proofpoint, Mimecast, ISP mail, self-hosted…)
 re-confirmed through 8.8.8.8), `ap_contact_name_as_published`
 (only as the organisation prints it next to its AP mailbox: business contact information, never a mailbox), `ap_phone`,
 `invoice_mailing_address`, `invoicing_requirements`, `payment_terms_as_published`, `po_required_as_published`,
-`invoice_portal_url` (an additional channel the buyer publishes; the e-mail is the contact), `language_hint`,
+`invoice_portal_url` (an additional channel the buyer publishes; the e-mail is the contact), `language_hint`, `template_language` (D15: fr for every Québec buyer — jurisdiction, .qc.ca site, QC address or French municipal name — en-fr for federal / New Brunswick bodies, else the language of the invoicing page),
 `contract_status`, `contract_reference`, `contract_title`, `contract_description`, `instrument_type` (contract / standing
 offer / blanket order / supply arrangement as the source names it), `procurement_method`, `commodity`, `number_of_bids`,
 `contract_value` (lead rows name the source field), `currency`, `award_date`, `start_date`, `end_date`, `contract_link`,
@@ -61,10 +61,23 @@ offer / blanket order / supply arrangement as the source names it), `procurement
 registration from the registry match), `vendor_registry_url`, `vendor_registered_address`, `vendor_neq`,
 `vendor_qst_as_published`, `vendor_address`, `vendor_country_basis`, `vendor_bn9`, `vendor_gst_hst_derived`,
 `vendor_website`, `vendor_emails` (role boxes on the vendor's own domain: billing / AR / info), `vendor_phone`,
-`vendor_contact_evidence_url`, `vendor_logo_url`, `vendor_website_status`, `contracts_with_canadian_suppliers`,
+`vendor_contact_evidence_url`, `vendor_logo_url`, `vendor_website_status`, `vendor_peppol_id` (D8: the vendor's Peppol Directory participant id when its exact name is listed), `contracts_with_canadian_suppliers`,
 `buyer_keys`, `keys`, `tier`, `grade`, `acc`.
 Fields no public source gives (signatory name and title, WSIB clearance number, certificate of insurance, QST number
 unless printed, buyer cost centre / vote / project code, delivery address, tax-exempt certificate) are `not_published`.
+
+Added 2026-11-06 (owner's D-items): `most_recent_record_reference_any_vendor` (D2: the organisation's most recent dataset reference — PO / contract /
+solicitation / award id — with vendor, source and date; lead rows get it when the same organisation, by website domain or exact name, has
+dataset records), `records_in_contract_dataset`, `other_relationship_sources` (D12: lead relationships — customer stories, auditor-of-record
+statements, lobbyist registries, SEC ADV, FERC, Form 990 — seen for a dataset buyer), `sensitivity_tag` (D13: police oversight bodies such
+as ASIRT / SIU / BEI / IIO, police services, corrections, intelligence / defence / border, coroners, child protection, shelters and crisis
+services, courts, mental-health / addiction / sexual-health bodies → "high-sensitivity buyer: suppress unless reviewed"; a tag from the
+published name / type, never a removal), `peppol_participant_id` / `peppol_registered` (D8: the Peppol Directory lists 77 Canadian
+participants in all, nearly all suppliers; every row says whether the buyer is one), `commodity_codes` now also carries the record's own
+commodity block (D14: UNSPSC, GSIN, NAICS, CPV, PSC, economic object codes with their descriptions). `payment_terms_as_published`,
+`po_required_as_published`, `invoice_portal_url`, `ap_phone`, `invoice_mailing_address`, `ap_contact_name_as_published`,
+`invoicing_requirements` (invoice format) and `buyer_bn_as_published` are also filled from a full re-read of each mailbox's evidence page
+(tools/ap_terms.py, D4 / D5 / D6 / D11: regex on the page's own text, URL and date in the cell, no AI, no inference).
 
 ## Files
 `coord/results/ranked/batches/<package>.csv` — one CSV per package; a package over ~45 MB is delivered in numbered part files
