@@ -25,7 +25,7 @@ TODAY = datetime.date.today().isoformat()
 lock = threading.Lock()
 COLS = ["email", "evidence_url", "final_url", "retrieved_date", "status", "payment_terms", "payment_terms_quote", "po_required", "po_quote",
         "portal_name", "portal_url", "portal_quote", "ap_phone", "ap_phone_quote", "invoice_mailing_address", "address_quote",
-        "ap_contact_name", "contact_quote", "invoice_format", "format_quote", "buyer_bn", "bn_quote", "mailbox_still_on_page"]
+        "ap_contact_name", "contact_quote", "invoice_format", "format_quote", "buyer_bn", "bn_quote", "mailbox_still_on_page", "mailbox_context"]
 TERMS = re.compile(r"\b(?:net\s?(?:30|45|60|90|15|10)\b(?:\s?(?:days|jours))?|(?:payment|paid|payable|paiement|pay[ée]e?s?)\b[^.;]{0,60}?\b(?:within|dans les|dans un d[ée]lai de|sous|in)\s(?:\d{2}|thirty|forty-five|sixty|trente|quarante-cinq|soixante)\s?(?:calendar |business |working |ouvrables? )?(?:days?|jours)\b|"
                    r"(?:payment )?terms?(?: of payment| are| is|:)?\s?(?:are |is |:)?\s?net\s?\d{2}|conditions? de paiement\s?:?\s?[^.;]{0,40}?\d{2}\s?jours|"
                    r"\b\d{2}\s?(?:calendar |business |working )?days? (?:from|after|of|following) (?:the )?(?:receipt|invoice date|date of invoice|approval)|"
@@ -101,6 +101,8 @@ def extract(email, buyer, text, raw, final):
     low = text.lower()
     i = low.find(email.lower())
     out["mailbox_still_on_page"] = "yes" if i >= 0 or (raw and email.lower() in raw.lower()) else "no"
+    if i >= 0:  # O1.2: the page's own text around the mailbox (500 characters), verbatim, for disambiguation — the 300-character quote stays the verified value
+        out["mailbox_context"] = re.sub(r"\s+", " ", text[max(0, i - 250):i + len(email) + 250]).strip()[:600]
     # windows: around the mailbox when it is on the page, else around invoice words
     anchors = [i] if i >= 0 else [m.start() for m in re.finditer(r"invoice|factur|accounts? payable|comptes? (?:à|a) payer|comptes payables|payables", low)][:6]
     win_txt = ""
@@ -171,6 +173,7 @@ def main():
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--recheck-days", type=int, default=45)
     a.add_argument("--grades", default="invoicing,finance,purchasing", help="email_type prefixes to read (general pages rarely carry terms)")
+    a.add_argument("--force", action="store_true", help="re-read pages already read (new columns)")
     a = a.parse_args()
     out = os.path.join(a.repo, "data/incoming/claude/claude_ap_terms.csv")
     prev = {}
@@ -194,7 +197,7 @@ def main():
                 continue
             seen.add(k)
             p = prev.get(k)
-            if p and p.get("retrieved_date", "") >= cutoff and p.get("status") not in ("error", "http_0"):
+            if p and not a.force and p.get("retrieved_date", "") >= cutoff and p.get("status") not in ("error", "http_0"):
                 continue
             todo.append((r["email"].lower(), r["email_evidence_url"], r.get("buyer") or "", r.get("rank_group") or ""))
     todo.sort(key=lambda t: (t[3] != "GOLD", t[3][:1] not in ("A", "B"), t[3]))

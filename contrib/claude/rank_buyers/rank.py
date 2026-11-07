@@ -1537,6 +1537,8 @@ for x in rows:
     if t.get("buyer_bn") and not x.get("buyer_bn_as_published") and re.match(r"^\d{9}RT0001$", t["buyer_bn"]):
         x["buyer_bn_as_published"] = "%s (GST/HST number as printed on %s: \"%s\")" % (t["buyer_bn"], t.get("final_url") or t.get("evidence_url"), (t.get("bn_quote") or "")[:160])
         x["buyer_gst_hst_derived"] = t["buyer_bn"] + " (printed by the buyer itself; not derived)"; x["_at"].add("buyer_bn_as_published"); n_at["buyer_bn"] += 1
+    if t.get("mailbox_context"):
+        x["email_evidence_context"] = "%s (page text around the mailbox, re-read %s)" % (t["mailbox_context"], t.get("retrieved_date")); n_at["context"] += 1
     if t.get("mailbox_still_on_page") == "no":
         x["email_check"] = (x.get("email_check") or "") + "; mailbox no longer seen on the page when re-read %s (check before use)" % t.get("retrieved_date") if "no longer" not in (x.get("email_check") or "") else x["email_check"]; n_at["mailbox_gone"] += 1
 print("ap_terms (evidence pages re-read): %d mailboxes read; filled %s" % (len(AT), dict(n_at)))
@@ -1878,7 +1880,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("language_hint", ["template_language"]),
                    ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
-                   ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]),
+                   ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context"]),
                    ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),

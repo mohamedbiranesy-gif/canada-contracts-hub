@@ -70,7 +70,7 @@ fabrication, evidence or nothing, no CAPTCHA/ToS circumvention) — with the rea
 - N1.1/N1.2 **partly**: `invoice_portal_kind` / `ap_system_hint` from the buyer's own pages (Ariba, Coupa, Workday, Oracle, SAP, Esker, Kofax, Tipalti, Bill.com, AvidXchange named on the page); BuiltWith/job-posting inference **NO**. N2.x **NO** (not published).
 
 ## O — audit trail
-- O1.1 **CODE** (`facts_provenance_json`). O1.2: quotes are verbatim page text, 300 characters by rule (the referee re-fetches; longer quotes fail more often on dynamic pages) — unchanged. O1.3 **CODE**: `evidence_age_days` + `reverify_due` (>60 days) from the retrieval/verification dates. O2.1/O2.2 **CODE**: `tools/release_diff.py` writes `CHANGELOG.md` + `rows_changed.csv` per build (rows added / removed / mailbox changed, per package).
+- O1.1 **CODE** (`facts_provenance_json`). O1.2 **RUNS/CODE**: `email_evidence_context` — 500 characters of the page's own text around the mailbox, captured by ap_terms (pass 3 tonight re-reads every delivered page for it); the 300-character quote stays the referee-verified value. O1.3 **CODE**: `evidence_age_days` + `reverify_due` (>60 days) from the retrieval/verification dates. O2.1/O2.2 **CODE**: `tools/release_diff.py` writes `CHANGELOG.md` + `rows_changed.csv` per build (rows added / removed / mailbox changed, per package).
 
 ## P / Q — value, cadence, payment history
 - P1.x, P2.x, P3.1, Q1.x, Q2.1 **NO/partly**: no payment-lag, dispute or invoice-amount data is public; `typical_contract_value_p50/p75` and `typical_cadence_days` (F2) are the honest proxies.
