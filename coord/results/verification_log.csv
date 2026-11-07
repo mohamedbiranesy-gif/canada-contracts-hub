@@ -9723,7 +9723,7 @@ claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01456,b:664cee646e0c534f,compta
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-01456,b:664cee646e0c534f,comptabilite@landrienne.com,https://www.landrienne.com/services-municipaux/gravieres-2,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00010,b:664cee646e0c534f,info@landrienne.com,https://www.landrienne.com/nous-joindre,verified
 gemini,gemini_buyer_ap_results_batch15.csv,GE-AP-01456,b:664cee646e0c534f,info@landrienne.com,https://www.landrienne.com/nous-joindre,verified
-claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00289,b:665a482e08c9ea5a,info@cegepsl.qc.ca,https://www.cegepsl.qc.ca,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00289,b:665a482e08c9ea5a,info@cegepsl.qc.ca,https://www.cegepsl.qc.ca,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00016,b:665a482e08c9ea5a,info@cegepsl.qc.ca,https://www.cegepsl.qc.ca/nous-joindre/,cross_verified
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00289,b:665a482e08c9ea5a,info@cegepsl.qc.ca,https://www.cegepsl.qc.ca/nous-joindre/,cross_verified
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00289,b:665a482e08c9ea5a,info@cegepsl.qc.ca,https://www.cegepsl.qc.ca/nous-joindre/,cross_verified
