@@ -411,6 +411,21 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
         o.setdefault("vals", []).append(_val)
     if _ad:
         o.setdefault("dates", []).append(_ad)
+        if _val > 0:
+            o.setdefault("yv", collections.Counter())[_ad[:4]] += _val
+    _dd = (r.get("contract") or {}).get("dates") or {}
+    if _dd.get("start") and _dd.get("end") and len(str(_dd["start"])) >= 10 and len(str(_dd["end"])) >= 10:
+        try:
+            _dur = (datetime.date.fromisoformat(str(_dd["end"])[:10]) - datetime.date.fromisoformat(str(_dd["start"])[:10])).days
+            if 0 < _dur < 7400:
+                o.setdefault("durs", []).append(_dur)
+        except ValueError:
+            pass
+    _com = (r.get("contract") or {}).get("commodity") or {}
+    if isinstance(_com, dict):
+        _cd = _com.get("unspsc_description") or _com.get("gsin_description") or _com.get("economic_object_description") or _com.get("commodity_type") or ""
+        if _cd:
+            o.setdefault("coms", collections.Counter())[str(_cd)[:60]] += 1
     o["sources"][(r.get("source") or {}).get("name") or ""] += 1
     if _vn:
         _lst = o.setdefault("vrefs", {}).setdefault(_vn, [])
@@ -1539,6 +1554,9 @@ for x in rows:
         x["buyer_gst_hst_derived"] = t["buyer_bn"] + " (printed by the buyer itself; not derived)"; x["_at"].add("buyer_bn_as_published"); n_at["buyer_bn"] += 1
     if t.get("mailbox_context"):
         x["email_evidence_context"] = "%s (page text around the mailbox, re-read %s)" % (t["mailbox_context"], t.get("retrieved_date")); n_at["context"] += 1
+    for col, lab in (("payment_method", "buyer_payment_method_preference"), ("ap_cycle", "buyer_ap_cycle_published"), ("tax_exempt", "buyer_tax_exempt_status"), ("esignature", "buyer_esignature_preference")):
+        if t.get(col):
+            x[lab] = "%s%s" % (t[col], src); n_at[col] += 1
     if t.get("mailbox_still_on_page") == "no":
         x["email_check"] = (x.get("email_check") or "") + "; mailbox no longer seen on the page when re-read %s (check before use)" % t.get("retrieved_date") if "no longer" not in (x.get("email_check") or "") else x["email_check"]; n_at["mailbox_gone"] += 1
 print("ap_terms (evidence pages re-read): %d mailboxes read; filled %s" % (len(AT), dict(n_at)))
@@ -1605,7 +1623,7 @@ for x in rows:
     else:
         x["records_in_contract_dataset"] = "%s records with Canada-located vendors (this row's organisation)" % x.get("contracts_with_canadian_suppliers") if x.get("contracts_with_canadian_suppliers") else ""
     _o2 = x.get("_org")
-    for c in ("typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"):
+    for c in ("typical_contract_value_p50", "typical_contract_value_p75", "typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"):
         x.setdefault(c, "" if _o2 else "no dataset record for this pair / buyer")
     if _o2:
         try:
@@ -1619,6 +1637,15 @@ for x in rows:
             if top and _o2["n"]:
                 x["vendor_concentration_top_share"] = "%s: %d%% of %d records" % (top[0][0][:60], 100 * top[0][1] // _o2["n"], _o2["n"])
             x["all_canadian_vendors"] = "; ".join("%s (%d)" % (nn, cc) for nn, cc in _o2["vendors"].most_common())[:2000]
+            if vals:
+                x["typical_contract_value_p90"] = "%.2f" % vals[min(len(vals) - 1, int(len(vals) * 0.9))]
+            if _o2.get("durs"):
+                x["average_contract_duration_days"] = str(round(sum(_o2["durs"]) / len(_o2["durs"])))
+            if _o2.get("coms"):
+                x["commodity_distribution_top3"] = "; ".join("%s (%d)" % (cc, nn) for cc, nn in _o2["coms"].most_common(3))[:300]
+            yv = sorted((y, v) for y, v in (_o2.get("yv") or {}).items() if y.isdigit())
+            if len(yv) >= 2:
+                x["year_over_year_spend_trend"] = "; ".join("%s: %.0f" % (y, v) for y, v in yv[-6:]) + (" — %s" % ("increasing" if yv[-1][1] > yv[-2][1] * 1.25 else "decreasing" if yv[-1][1] < yv[-2][1] * 0.8 else "stable") + " vs previous year (published values only)")
             vn = (x.get("vendor") or "").strip()
             pl = sorted(pp for pp in ((_o2.get("pairs") or {}).get(vn, [])) if pp[0])
             n_pair = _o2["vendors"].get(vn, 0)
@@ -1740,7 +1767,7 @@ for x in rows:
     x["method_notes"] = "no AI-written values; every fact carries its page in the matching *_evidence_url / *_provenance column; blank = not_published; method and rules: contrib/claude/rank_buyers/README.md, AGENTS.md §2"
 print("narrative columns:", dict(n9))
 # ---- downstream pack (owner 2026-11-06 22:00, the downstream agent's 150 questions: prompts/downstream_150_questions.md). Guarded: a failure here never stops the build.
-PACK_COLS = ["inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+PACK_COLS = ["statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
@@ -1860,6 +1887,43 @@ try:
                            else "yes (finance mailbox, not AP)" if (g == 3 and ec.startswith(("confirmed", "cross")) and t in ("A", "B", "T", "M") and x["sensitivity_flag"] == "no")
                            else "no (%s)" % ("sensitive buyer" if x["sensitivity_flag"] == "yes" else "vendor registry warning" if x.get("vendor_registry_warning") else "mailbox not referee-confirmed" if not ec.startswith(("confirmed", "cross")) else "mailbox below finance grade" if g < 3 else "relationship not dated / active"))
         npk["ship_ready_yes"] += x["ship_ready"] == "yes"
+        # statutory payees (downstream list 2 §10): legally mandated payers, one labelled column, never a row or a mailbox
+        pc = re.search(r"\b([A-Z])\d[A-Z]\s?\d[A-Z]\d\b", x.get("buyer_address") or "")
+        prov = {"QC": "QC", "ON": "ON", "BC": "BC", "AB": "AB", "SK": "SK", "MB": "MB", "NS": "NS", "NB": "NB", "NL": "NL", "PE": "PE", "YT": "YT", "NT": "NT", "NU": "NU"}.get(x.get("jurisdiction") or "", "")
+        if not prov and pc:
+            prov = {"G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON", "V": "BC", "T": "AB", "S": "SK", "R": "MB", "B": "NS", "E": "NB", "A": "NL", "C": "PE", "Y": "YT", "X": "NT"}.get(pc.group(1), "")
+        if not prov:
+            md2 = re.search(r"\.(qc|on|bc|ab|sk|mb|ns|nb|nl|pe|yk|nt|nu)\.ca(?:/|$)", (x.get("buyer_website") or "").lower())
+            prov = md2.group(1).upper().replace("YK", "YT") if md2 else ""
+        bt = x.get("buyer_type") or ""
+        public = bool(re.search(r"municipal|ministry|agency|school|hospital|health|university|college|utility|transit|transport|First Nation|US government", bt))
+        company = "company" in bt
+        board = {"QC": ("CNESST", "LATMP s. 280: every Québec employer must register"), "ON": ("WSIB", "Workplace Safety and Insurance Act: Schedule 1 / Schedule 2 employers (public bodies are Schedule 2; some private industries are not mandatory)"),
+                 "BC": ("WorkSafeBC", "Workers Compensation Act: employers with workers must register"), "AB": ("WCB-Alberta", "Workers' Compensation Act: mandatory except exempt industries"), "SK": ("Saskatchewan WCB", "Workers' Compensation Act"),
+                 "MB": ("WCB Manitoba", "Workers Compensation Act"), "NS": ("WCB Nova Scotia", "Workers' Compensation Act"), "NB": ("WorkSafeNB", "Workers' Compensation Act"), "NL": ("WorkplaceNL", "Workplace Health, Safety and Compensation Act"),
+                 "PE": ("WCB PEI", "Workers Compensation Act"), "YT": ("Yukon WCHSB", "Workers' Safety and Compensation Act"), "NT": ("WSCC", "Workers' Compensation Act (NT/NU)"), "NU": ("WSCC", "Workers' Compensation Act (NT/NU)")}.get(prov)
+        sp_ = []
+        if board and (public or company or "non-profit" in bt or "religious" in bt or "library" in bt) and (x.get("jurisdiction") or "") != "FED":
+            conf = "HIGH" if (prov == "QC" or public) else "MEDIUM (private employer: coverage depends on the industry schedule)"
+            sp_.append("%s — employer premiums (%s) — %s" % (board[0], board[1], conf))
+        if prov == "QC" and (company or "non-profit" in bt):
+            sp_.append("Registraire des entreprises du Québec — annual registration fee (Act respecting the legal publicity of enterprises) — HIGH for registered enterprises")
+        if prov == "QC" and (public or company or "non-profit" in bt):
+            sp_.append("Revenu Québec — source deductions / QST remittances — HIGH for employers")
+        x["statutory_payees_inferred"] = ("; ".join(sp_) + " | inferred from jurisdiction and organisation type; not a supplier contract; no mailbox attached") if sp_ else ("none inferred (province not identified)" if not prov else "none inferred for this organisation type")
+        # vendor years in business (mechanical)
+        vi = x.get("vendor_incorporation_date") or ""
+        if re.match(r"^\d{4}-\d{2}-\d{2}$", vi):
+            try:
+                x["vendor_years_in_business"] = "%.1f (since %s, registry date)" % ((_today - datetime.date.fromisoformat(vi)).days / 365.25, vi)
+            except ValueError:
+                pass
+        # DNS transport / brand records (dmarc_check: MTA-STS, TLS-RPT, BIMI)
+        dd = DM.get((x.get("email") or "").lower().split("@")[-1]) if x.get("email") else None
+        if dd is not None:
+            for k, lab in (("mta_sts", "MTA-STS"), ("tls_rpt", "TLS-RPT"), ("bimi", "BIMI")):
+                v = dd.get(k) or ""
+                x[k] = "not checked yet" if not v else ("no %s record" % lab if v == "none" else "yes (%s)" % v[:80])
     print("downstream pack:", dict(npk))
 except Exception as _e:
     import traceback; traceback.print_exc(); print("downstream pack skipped:", type(_e).__name__, _e)
@@ -1884,7 +1948,9 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
-                   ("method_notes", ["facts_provenance_json"])):
+                   ("method_notes", ["facts_provenance_json"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
+                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("peppol_registered", ["statutory_payees_inferred"]),
+                   ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
     if after in cols:
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]

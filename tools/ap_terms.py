@@ -25,7 +25,7 @@ TODAY = datetime.date.today().isoformat()
 lock = threading.Lock()
 COLS = ["email", "evidence_url", "final_url", "retrieved_date", "status", "payment_terms", "payment_terms_quote", "po_required", "po_quote",
         "portal_name", "portal_url", "portal_quote", "ap_phone", "ap_phone_quote", "invoice_mailing_address", "address_quote",
-        "ap_contact_name", "contact_quote", "invoice_format", "format_quote", "buyer_bn", "bn_quote", "mailbox_still_on_page", "mailbox_context"]
+        "ap_contact_name", "contact_quote", "invoice_format", "format_quote", "buyer_bn", "bn_quote", "mailbox_still_on_page", "mailbox_context", "payment_method", "payment_method_quote", "ap_cycle", "ap_cycle_quote", "tax_exempt", "tax_exempt_quote", "esignature", "esignature_quote"]
 TERMS = re.compile(r"\b(?:net\s?(?:30|45|60|90|15|10)\b(?:\s?(?:days|jours))?|(?:payment|paid|payable|paiement|pay[ée]e?s?)\b[^.;]{0,60}?\b(?:within|dans les|dans un d[ée]lai de|sous|in)\s(?:\d{2}|thirty|forty-five|sixty|trente|quarante-cinq|soixante)\s?(?:calendar |business |working |ouvrables? )?(?:days?|jours)\b|"
                    r"(?:payment )?terms?(?: of payment| are| is|:)?\s?(?:are |is |:)?\s?net\s?\d{2}|conditions? de paiement\s?:?\s?[^.;]{0,40}?\d{2}\s?jours|"
                    r"\b\d{2}\s?(?:calendar |business |working )?days? (?:from|after|of|following) (?:the )?(?:receipt|invoice date|date of invoice|approval)|"
@@ -47,6 +47,12 @@ BN = re.compile(r"\b(\d{9})\s?(?:RT|RT\s?0001|RT0001)\b|\b(\d{9})\s?RT\s?0+1\b")
 BN_WORDS = re.compile(r"\bGST\b|\bHST\b|\bTPS\b|\bTVH\b|business number|num[ée]ro d'entreprise|registration (?:no|number)|BN\b", re.I)
 FORMAT = re.compile(r"(?:(?:one|single|1|une seule|une) (?:invoice|facture)s? per (?:e-?mail|courriel|attachment|PDF)|(?:invoices?|factures?)[^.;]{0,80}?\b(?:PDF|TIFF|TIF)\b[^.;]{0,60}|\b(?:PDF|TIFF)\b[^.;]{0,30}?(?:format|only|seulement|uniquement|attachments?|pi[èe]ces? jointes?)|"
                     r"(?:do not|ne pas|n'envoyez pas)[^.;]{0,30}?(?:send|submit|envoyer)[^.;]{0,30}?(?:paper|duplicate|copies?|papier)[^.;]{0,60}|(?:maximum|max\.?|limit(?:ed)? to)[^.;]{0,20}?\d+\s?(?:MB|Mo|pages?|attachments?)[^.;]{0,40})", re.I)
+PAYMETHOD = re.compile(r"(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|e-?transfer|d[ée]p[ôo]t direct|virement|transfert [ée]lectronique de fonds|\bTEF\b)[^.;]{0,80}(?:preferred|encourag|required|mandatory|only|no longer|default|standard|privil[ée]gi|obligatoire|requis|exig)|"
+                       r"(?:preferred|encourag|required|mandatory|no longer issue|will not issue|discontinu|privil[ée]gi|obligatoire|ne (?:sera|seront) plus [ée]mis)[^.;]{0,80}(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|cheques?|checks?|d[ée]p[ôo]t direct|virement|ch[èe]ques?)", re.I)
+APCYCLE = re.compile(r"(?:cheque|check|payment|EFT|direct deposit|paiement|ch[èe]que)s?\s(?:runs?|cycles?|are (?:issued|processed|released|made)|is (?:issued|processed|released)|sont (?:[ée]mis|trait[ée]s|effectu[ée]s))[^.;]{0,100}?(?:weekly|bi-?weekly|every (?:second |other )?(?:week|monday|tuesday|wednesday|thursday|friday)|twice a month|monthly|on (?:monday|tuesday|wednesday|thursday|friday)s?|hebdomadaire|aux deux semaines|chaque (?:semaine|jeudi|vendredi|mardi|mercredi|lundi)|mensuel)|"
+                     r"(?:weekly|bi-?weekly|twice a month|monthly|hebdomadaire|aux deux semaines)\s(?:cheque|check|payment|EFT|paiement)\s(?:runs?|cycles?)", re.I)
+TAXEX = re.compile(r"(?:tax[- ]exempt(?:ion)?(?: status| certificate| number)?|exempt from (?:GST|HST|PST|QST|sales tax)|GST(?:/HST)? exempt|exemption (?:de|des) taxes?|exon[ée]r[ée]e? (?:de la |des )?(?:TPS|TVQ|TVH|taxes?)|do not charge (?:GST|HST|PST|tax)|ne pas (?:facturer|charger) (?:la |les )?(?:TPS|TVQ|taxes?)|status indian|first nation[^.;]{0,30}exempt|diplomatic (?:tax )?exempt)[^.;]{0,100}", re.I)
+ESIGN = re.compile(r"(?:DocuSign|Adobe Sign|Adobe Acrobat Sign|HelloSign|Dropbox Sign|PandaDoc|OneSpan|ConsignO|Notarius|signature [ée]lectronique|electronic signatures? (?:are |is )?(?:accepted|required|preferred|not accepted))[^.;]{0,80}", re.I)
 # the AP contact rule of rank.py (conservative; business contact information the organisation prints itself, never a mailbox)
 _cands = [os.path.join(d, "contrib/claude/rank_buyers/rank.py") for d in (os.path.dirname(os.path.dirname(os.path.abspath(__file__))), os.getcwd(), os.path.expanduser("~/cch-crawler"))]
 _src = open(next(p for p in _cands if os.path.exists(p)), encoding="utf-8").read()
@@ -159,6 +165,11 @@ def extract(email, buyer, text, raw, final):
             out["buyer_bn"] = (m.group(1) or m.group(2)) + "RT0001"
             out["bn_quote"] = q300(text, m.start() - 0, m.end())
             break
+    for col, rx in (("payment_method", PAYMETHOD), ("ap_cycle", APCYCLE), ("tax_exempt", TAXEX), ("esignature", ESIGN)):
+        m = rx.search(win_txt) or rx.search(text)
+        if m:
+            out[col] = re.sub(r"\s+", " ", m.group(0)).strip()[:160]
+            out[col + "_quote"] = q300(m.string, m.start(), m.end())
     if "invoice_format_quote" in out:
         out["format_quote"] = out.pop("invoice_format_quote")
     return out

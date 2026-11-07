@@ -81,11 +81,26 @@ def spf(domain):
     return pol, rec[:300]
 
 
+def txt_first(name, rx):
+    st, recs = txt(name)
+    if st == "error":
+        st, recs = txt(name, "8.8.8.8")
+    if st != "ok":
+        return ""
+    return next((r[:200] for r in recs if re.match(rx, r, re.I)), "")
+
+
 def check(domain):
-    """policy that applies to mail from <domain>"""
+    """policy that applies to mail from <domain>, plus the DNS-only transport / brand records (MTA-STS, TLS-RPT, BIMI)"""
     sp, sr = spf(domain)
     r = dmarc(domain)
     r["spf_policy"], r["spf_record"] = sp, sr
+    org = registrable(domain) or domain
+    r["mta_sts"] = txt_first("_mta-sts." + domain, r"\s*v=STSv1") or (txt_first("_mta-sts." + org, r"\s*v=STSv1") if org != domain else "")
+    r["tls_rpt"] = txt_first("_smtp._tls." + domain, r"\s*v=TLSRPTv1") or (txt_first("_smtp._tls." + org, r"\s*v=TLSRPTv1") if org != domain else "")
+    r["bimi"] = txt_first("default._bimi." + domain, r"\s*v=BIMI1") or (txt_first("default._bimi." + org, r"\s*v=BIMI1") if org != domain else "")
+    for k in ("mta_sts", "tls_rpt", "bimi"):
+        r[k] = r[k] or "none"  # checked, no record ('' = not checked yet)
     return r
 
 
@@ -140,7 +155,7 @@ def main():
                 if "@" in e:
                     domains.add(e.split("@")[-1])
     cutoff = time.strftime("%Y-%m-%d", time.localtime(time.time() - a.recheck_days * 86400))
-    todo = sorted(d for d in domains if a.force or d not in prev or prev[d]["checked_date"] < cutoff or prev[d]["policy"] == "error" or "spf_policy" not in prev[d])
+    todo = sorted(d for d in domains if a.force or d not in prev or prev[d]["checked_date"] < cutoff or prev[d]["policy"] == "error" or "spf_policy" not in prev[d] or "mta_sts" not in prev[d])
     print("domains: %d, to check: %d" % (len(domains), len(todo)), flush=True)
     stats = {}
     def one(d):
@@ -165,7 +180,7 @@ def main():
 def write(out, prev):
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["domain", "policy", "record_domain", "record", "pct", "rua_present", "spf_policy", "spf_record", "checked_date"], delimiter="\t")
+        w = csv.DictWriter(f, fieldnames=["domain", "policy", "record_domain", "record", "pct", "rua_present", "spf_policy", "spf_record", "checked_date", "mta_sts", "tls_rpt", "bimi"], delimiter="\t")
         w.writeheader()
         for d in sorted(prev):
             w.writerow({k: prev[d].get(k, "") for k in w.fieldnames})
