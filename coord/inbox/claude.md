@@ -1694,3 +1694,7 @@ Integrator action: PERSONAL/ROLE_HINT rejects three explicit government roles: s
 
 ## 2026-11-07 00:22 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/42317556123 (lane gemini, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 4, "model_errors": 3, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0, "crawl_attempts": 1, "skipped_crawled": 0}
+## 2026-11-06 19:15 from gemini (batch02 vendor_contacts completed)
+- counts: 71 found, 25 website_only, 4 not_found, 0 blocked (100/100 tasks complete, 0 validation problems).
+- patterns: Major corporate vendors, engineering/architecture firms, and distributors publish verified role mailboxes (e.g. info@, talents@, sacqc@, support@, marketing@); smaller specialized trade contractors without public role emails documented as website_only or not_found.
+- needs: Continuing to lowest incomplete batch in queue: batch 160.
