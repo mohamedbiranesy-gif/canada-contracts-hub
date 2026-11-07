@@ -401,17 +401,24 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
     if _ref and _ad >= o.get("latest_ref_date", ""):
         o["latest_ref"] = "%s — %s — %s%s" % (_ref.split(";")[0][:100], _vn or "vendor not named", (r.get("source") or {}).get("name") or "", (" [%s]" % _ad) if _ad else "")
         o["latest_ref_date"] = _ad
+    _val = 0.0
     try:
         _val = float(str((r.get("contract") or {}).get("value") or "").replace(",", ""))
-        if _val > 0:
-            o["value"] += _val; o["nval"] += 1; o["cur"][(r.get("contract") or {}).get("currency") or CUR.get(j, "") or "?"] += 1
     except ValueError:
-        pass
+        _val = 0.0
+    if _val > 0:
+        o["value"] += _val; o["nval"] += 1; o["cur"][(r.get("contract") or {}).get("currency") or CUR.get(j, "") or "?"] += 1
+        o.setdefault("vals", []).append(_val)
+    if _ad:
+        o.setdefault("dates", []).append(_ad)
     o["sources"][(r.get("source") or {}).get("name") or ""] += 1
     if _vn:
         _lst = o.setdefault("vrefs", {}).setdefault(_vn, [])
         if _ref and len(_lst) < 12:
-            _lst.append("%s%s" % (_ref.split(";")[0][:80], (" [%s]" % _ad) if _ad else ""))
+            _lst.append("%s%s%s" % (_ref.split(";")[0][:80], (" [%s]" % _ad) if _ad else "", (" %.2f %s" % (_val, (r.get("contract") or {}).get("currency") or "")).rstrip() if _val > 0 else ""))
+        _pl = o.setdefault("pairs", {}).setdefault(_vn, [])
+        if len(_pl) < 60:
+            _pl.append((_ad, _val))
     if sc > o["bs"] or (sc == o["bs"] and award_date(r) > award_date(o["best"])):
         o["best"], o["bs"], o["fields"] = r, sc, fields
         if len(name) < len(o["name"]) or not o["name"]: o["name"] = name
@@ -1242,6 +1249,8 @@ print("org_extras: %d organisations read; filled %s" % (len(OX), dict(n_ox)))
 REGION_TOK = {"aunz": {"AU", "NZ"}, "anz": {"AU", "NZ"}, "apac": {"AU", "NZ", "SG", "JP", "IN", "CN", "HK", "MY", "PH"}, "emea": {"UK", "GB", "FR", "DE", "IE", "NL", "BE", "ES", "IT", "CH", "SE", "ZA", "AE"},
               "latam": {"MX", "BR", "AR", "CL", "CO"}, "uk": {"UK", "GB"}, "gb": {"UK", "GB"}, "usa": {"US"}, "us": {"US"}, "india": {"IN"}, "china": {"CN"}, "brasil": {"BR"}, "brazil": {"BR"},
               "mexico": {"MX"}, "france": {"FR"}, "germany": {"DE"}, "japan": {"JP"}, "singapore": {"SG"}, "australia": {"AU"}, "nz": {"NZ"}, "europe": {"UK", "GB", "FR", "DE", "IE", "NL", "BE", "ES", "IT", "CH", "SE"},
+              "eu": {"UK", "GB", "FR", "DE", "IE", "NL", "BE", "ES", "IT", "CH", "SE", "EU", "DK", "FI", "NO", "AT", "PT", "PL", "LU"}, "asia": {"SG", "JP", "IN", "CN", "HK", "MY", "PH", "KR", "TH", "ID", "VN"}, "oceania": {"AU", "NZ"},
+              "mena": {"AE", "SA", "QA", "EG", "KW", "BH", "OM", "JO", "MA"}, "nordic": {"SE", "NO", "DK", "FI", "IS"}, "nordics": {"SE", "NO", "DK", "FI", "IS"}, "benelux": {"BE", "NL", "LU"}, "canada": {"CA", "FED", "QC", "ON", "BC", "AB", "SK", "MB", "NS", "NB", "PE", "NL", "YT", "NT", "NU"},
               "asia": {"SG", "JP", "IN", "CN", "HK", "MY", "PH"}, "ptvi": {"ID"}, "indonesia": {"ID"}, "africa": {"ZA"}, "canada": {"CA"}, "ca": {"CA"}}
 CA_PROV = {"ON", "QC", "BC", "AB", "MB", "SK", "NS", "NB", "NL", "PE", "YT", "NT", "NU", "CA"}
 n_reg = 0
@@ -1593,6 +1602,35 @@ for x in rows:
             n_x2["lead rows with dataset history"] += 1
     else:
         x["records_in_contract_dataset"] = "%s records with Canada-located vendors (this row's organisation)" % x.get("contracts_with_canadian_suppliers") if x.get("contracts_with_canadian_suppliers") else ""
+    _o2 = x.get("_org")
+    for c in ("typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"):
+        x.setdefault(c, "" if _o2 else "no dataset record for this pair / buyer")
+    if _o2:
+        try:
+            vals = sorted(_o2.get("vals") or [])
+            if vals:
+                x["typical_contract_value_p50"] = "%.2f" % vals[len(vals) // 2]; x["typical_contract_value_p75"] = "%.2f" % vals[min(len(vals) - 1, int(len(vals) * 0.75))]
+            ds = sorted(set(dd[:10] for dd in (_o2.get("dates") or []) if len(dd) >= 10))
+            if len(ds) >= 2:
+                x["typical_cadence_days"] = str(round((datetime.date.fromisoformat(ds[-1]) - datetime.date.fromisoformat(ds[0])).days / (len(ds) - 1)))
+            top = _o2["vendors"].most_common(1)
+            if top and _o2["n"]:
+                x["vendor_concentration_top_share"] = "%s: %d%% of %d records" % (top[0][0][:60], 100 * top[0][1] // _o2["n"], _o2["n"])
+            x["all_canadian_vendors"] = "; ".join("%s (%d)" % (nn, cc) for nn, cc in _o2["vendors"].most_common())[:2000]
+            vn = (x.get("vendor") or "").strip()
+            pl = sorted(pp for pp in ((_o2.get("pairs") or {}).get(vn, [])) if pp[0])
+            n_pair = _o2["vendors"].get(vn, 0)
+            x["pair_prior_records"] = str(n_pair)
+            x["pair_first_or_repeat"] = ("repeat relationship (%d records%s)" % (n_pair, (", %s to %s" % (pl[0][0][:10], pl[-1][0][:10])) if pl else "")) if n_pair > 1 else "single record of this pair in the dataset"
+            pv = [v for dd, v in pl if v > 0]
+            if len(pv) >= 3:
+                h = len(pv) // 2; a1, b1 = sum(pv[:h]) / h, sum(pv[h:]) / (len(pv) - h)
+                x["pair_value_trend"] = "increasing" if b1 > a1 * 1.25 else "decreasing" if b1 < a1 * 0.8 else "stable"
+            elif pv:
+                x["pair_value_trend"] = "too few dated values (%d)" % len(pv)
+            x["pair_dates_and_values"] = "; ".join("%s%s" % (dd[:10], (" %.2f" % v) if v > 0 else "") for dd, v in pl[-12:])[:400]
+        except Exception as _e2:
+            x["pair_value_trend"] = x.get("pair_value_trend") or ""
     _ls = (LEAD_DOM.get(_d) if _d else None) or LEAD_NAME.get(_n) or []
     if _ls and x.get("tier") in ("A", "B", "L", "C", "D", "F", "E", "M", "I"):
         x["other_relationship_sources"] = "also seen in the lead files: " + "; ".join(sorted(set(_ls))[:6])[:600]; n_x2["dataset rows with lead relationships"] += 1
@@ -1699,6 +1737,124 @@ for x in rows:
     x["vendor_facts_provenance"] = "; ".join(vp) if vp else "no vendor facts beyond the record"
     x["method_notes"] = "no AI-written values; every fact carries its page in the matching *_evidence_url / *_provenance column; blank = not_published; method and rules: contrib/claude/rank_buyers/README.md, AGENTS.md §2"
 print("narrative columns:", dict(n9))
+# ---- downstream pack (owner 2026-11-06 22:00, the downstream agent's 150 questions: prompts/downstream_150_questions.md). Guarded: a failure here never stops the build.
+PACK_COLS = ["inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+             "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
+             "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
+             "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
+EXTRA_SENS = [("law enforcement (incl. transit / parks)", re.compile(r"transit (?:police|enforcement|safety)|special constable|conservation officer|by-?law enforcement|peace officer", re.I)),
+              ("financial regulator / oversight office", re.compile(r"\bOSFI\b|superintendent of financial institutions|\bFINTRAC\b|\bCANAFE\b|competition bureau|bureau de la concurrence|privacy commissioner|protection de la vie priv[ée]e|auditor general|v[ée]rificat(?:eur|rice) g[ée]n[ée]ral|ombuds|integrity commissioner|elections? (?:canada|ontario|bc|alberta|qu[ée]bec)|[ée]lections qu[ée]bec|securities commission|autorit[ée] des march[ée]s financiers|\bAMF\b", re.I)),
+              ("justice / prosecution / law society", re.compile(r"public prosecution|poursuites p[ée]nales|courts administration|judicial council|attorney general|procureur g[ée]n[ée]ral|crown (?:attorney|counsel|prosecut)|law society|barreau du|directeur des poursuites|ministry of (?:the )?attorney|justice (?:canada|qu[ée]bec)|minist[èe]re de la justice|department of justice", re.I)),
+              ("major bank", re.compile(r"\bTD\b|toronto-dominion|\bBMO\b|bank of montreal|banque de montr[ée]al|scotiabank|bank of nova scotia|banque scotia|\bRBC\b|royal bank|banque royale|\bCIBC\b|canadian imperial bank|national bank of canada|banque nationale|desjardins", re.I)),
+              ("cybersecurity vendor", re.compile(r"crowdstrike|fortinet|palo alto|sentinelone|esentire|\bcisco\b|check ?point software|trend micro|mcafee|sophos|rapid7|tenable|\bokta\b|zscaler|proofpoint|mimecast|bell canada cyber|telus (?:security|cyber)", re.I)),
+              ("political party", re.compile(r"conservative party|parti conservateur|liberal party|parti lib[ée]ral|new democratic party|\bNDP\b|\bNPD\b|bloc qu[ée]b[ée]cois|green party|parti vert|parti qu[ée]b[ée]cois|coalition avenir|qu[ée]bec solidaire|people's party|united conservative|saskatchewan party|\bPC party\b", re.I)),
+              ("major media organisation", re.compile(r"\bCBC\b|radio-canada|\bCTV\b|global news|corus entertainment|postmedia|torstar|toronto star|globe and mail|qu[ée]becor|\bTVA\b|la presse\b|rogers (?:media|sports)|bell media|cogeco media|le devoir", re.I)),
+              ("named exclusion (owner)", re.compile(r"university of toronto|universit[ée] de toronto|\bUofT\b|utoronto\.ca", re.I))]
+PORTAL_ACTIONABLE = re.compile(r"ariba|coupa|jaggaer|sciquest|tungsten|basware|sap business|esker|taulia|tradeshift|isupplier|oracle|workday|bonfire|bidsandtenders|bids ?& ?tenders|merx|seao|transcepta|openinvoice|paymentworks|zycus|ivalua|gep ?smart|medius|yooz|procurify|supplier|vendor|fourniss|portal|portail|invoice|factur", re.I)
+AP_SYS = re.compile(r"\b(SAP Ariba|Ariba|Coupa|Jaggaer|Workday|Oracle (?:E-Business|ERP|Fusion|iSupplier)|Oracle|SAP S/4HANA|SAP|PeopleSoft|Esker|Kofax|Tipalti|Bill\.com|AvidXchange|Basware|Tungsten|Taulia|Tradeshift|Unit4|Dynamics 365|Sage Intacct|Sage 300|Munis|Tyler|Yardi|JD Edwards|Infor|Netsuite)\b", re.I)
+INSTR = [("standing offer", r"standing offer|offre [àa] commandes|\bSO\b"), ("supply arrangement", r"supply arrangement|arrangement en mati[èe]re"), ("purchase order", r"purchase order|bon de commande|\bPO\b|delivery order|call-?up"),
+         ("blanket order", r"blanket"), ("grant or contribution", r"\bgrant|contribution|subvention"), ("lease", r"\blease\b|\bbail\b"), ("amendment", r"amendment|modification|avenant"), ("contract", r"contract|contrat|agreement|entente|award|march[ée]")]
+SECTOR = [("government: municipal", r"municipal"), ("government: provincial / federal", r"ministry|agency|government"), ("government: US", r"US government"), ("education: post-secondary", r"university|college"),
+          ("education: K-12", r"school"), ("healthcare", r"hospital|health"), ("utility", r"utility"), ("transport / transit", r"transport|transit"), ("Indigenous government", r"First Nation|Indigenous"), ("non-profit", r"non-profit"), ("private sector", r"company")]
+TYPE_RULES = [("university / college", r"universit|college|coll[èe]ge|c[ée]gep|polytechni|\.edu\b|\.ac\."), ("hospital / health authority", r"hospital|h[ôo]pital|health (?:authority|services|centre|network)|cisss|ciusss|\bchu\b|clinic|sant[ée]"),
+              ("school board / school district", r"school (?:board|district|division)|centre de services scolaire|commission scolaire|\bcsd\b|\bk12\b"), ("municipality / local government", r"city of|town of|village of|township|county|municipalit|ville de|\bmrc\b|borough|district of|regional district|rural municipality"),
+              ("government ministry / agency", r"ministry|minist[èe]re|department of|government of|gouvernement|agency|agence|commission|office of|secr[ée]tariat|\.gov\b|gc\.ca|gouv\.qc"), ("utility / public corporation", r"hydro|power|energy|utilit|water (?:district|authority)|\bgas\b"),
+              ("transport / transit authority", r"transit|transport|airport|a[ée]roport|port authority|railway"), ("First Nation / Indigenous government", r"first nation|nation\b|band council|tribal|m[ée]tis|inuit|conseil des"), ("religious organisation", r"church|diocese|parish|paroisse|synagogue|mosque|temple|[ée]glise"),
+              ("library", r"librar|biblioth"), ("non-profit / association / cultural body", r"foundation|fondation|society|soci[ée]t[ée]|association|club|centre|center|council|museum|mus[ée]e|theatre|festival|charity|coalition|institute|institut"),
+              ("company (private sector)", r"\binc\b|\bltd|limited|corp|\bllc\b|lt[ée]e|\bco\b|group|groupe|holdings|enterprises|industries|technologies|services")]
+KEY_FIELDS = ["buyer_website", "buyer_address", "buyer_phone", "buyer_legal_name_as_published", "email_evidence_url", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "payment_terms_as_published",
+              "po_required_as_published", "contract_title", "contract_value", "award_date", "contract_link", "vendor_address", "vendor_bn9", "vendor_website", "vendor_emails", "vendor_phone", "vendor_legal_name", "invoice_reference_hint", "commodity_codes"]
+_today = datetime.date.today()
+try:
+    npk = collections.Counter()
+    for x in rows:
+        for c in PACK_COLS:
+            x.setdefault(c, "")
+        t, g, ec = x.get("tier") or "", int(x.get("grade") or 0), x.get("email_check") or ""
+        name_site = " ".join((x.get(c) or "") for c in ("buyer", "buyer_legal_name_as_published", "buyer_website"))
+        # buyer_type fallback (C4.1) and sector (S4.1)
+        if (x.get("buyer_type") or "").startswith("organisation (type not stated"):
+            for lab, rx in TYPE_RULES:
+                if re.search(rx, name_site, re.I):
+                    x["buyer_type"] = lab + " (from the organisation's name / web domain)"; npk["buyer_type_from_name"] += 1; break
+        x["buyer_sector"] = next((lab for lab, rx in SECTOR if re.search(rx, x.get("buyer_type") or "", re.I)), "not stated")
+        # sensitivity (M1/M2)
+        if (x.get("sensitivity_tag") or "").startswith("none"):
+            for lab, rx in EXTRA_SENS:
+                if rx.search(name_site):
+                    x["sensitivity_tag"] = "high-sensitivity buyer (%s): suppress from outreach unless reviewed (tag from the organisation's published name / domain)" % lab; npk["sensitivity_extra"] += 1; break
+        x["sensitivity_flag"] = "yes" if (x.get("sensitivity_tag") or "").startswith("high") else "no"
+        # confidence columns (H4.2 / T4)
+        m = re.search(r"\b(HIGH|MEDIUM|LOW)\b", " ".join((x.get(c) or "") for c in ("contract_status", "relationship_detail", "vendor_country_basis")))
+        if t == "I":
+            conf = m.group(1) if m else "not stated in this build"
+            if re.search(r"canada post|postes canada", x.get("vendor") or "", re.I) and re.search(r"non-profit|religious|library", x.get("buyer_type") or "", re.I):
+                conf = "LOW (small organisation: mailing volume unknown)"
+            x["inference_confidence"] = conf
+        else:
+            x["inference_confidence"] = "n/a (the relationship is a record, not an inference)"
+        x["mailbox_confidence"] = ("%s; %s" % ({"confirmed": "verified by the referee (page re-fetched)", "cross_verified": "cross-verified by two lanes", "pending": "pending referee check"}.get(ec.split(";")[0], ec or "no mailbox"),
+                                               {4: "invoicing / AP mailbox", 3: "finance mailbox", 2: "purchasing mailbox", 1: "general role mailbox"}.get(g, "no mailbox"))) if x.get("email") else "no mailbox"
+        # portal cleanup (D6)
+        pu = x.get("invoice_portal_url") or ""
+        if pu:
+            url_part, _, note = pu.partition(" (")
+            x["invoice_portal_url"] = url_part.strip()
+            x["invoice_portal_note"] = ("(" + note).strip() if note else ""
+            x["invoice_portal_kind"] = "actionable supplier / invoice portal named by the buyer" if PORTAL_ACTIONABLE.search(url_part) else "other page named by the buyer (check before use)"
+        # policy default (D4.2)
+        if (x.get("jurisdiction") or "") == "FED" or re.search(r"\.gc\.ca|canada\.ca", (x.get("buyer_website") or "") + " " + (x.get("email") or "")):
+            x["payment_terms_default_policy"] = "Government of Canada standard: payment within 30 days of receipt of a valid invoice (Treasury Board Directive on Payments) — policy default, not this buyer's published term"
+        # instrument normalisation (E4.2)
+        it = (x.get("instrument_type") or "") + " " + (x.get("contract_title") or "")[:80]
+        x["instrument_type_normalized"] = next((lab for lab, rx in INSTR if re.search(rx, it, re.I)), "other / not stated") if (x.get("instrument_type") or x.get("contract_title")) else ""
+        # description cut (E3.2)
+        d = x.get("contract_description") or ""
+        if len(d) >= 299:
+            cut = max(d.rfind(". ", 150), d.rfind("; ", 150))
+            x["contract_description"] = (d[:cut + 1] if cut > 0 else d[:d.rfind(" ", 150)]).strip() + " …"
+        # currency default (E1.2)
+        if x.get("contract_value") and not x.get("currency") and t in ("A", "B", "L", "C", "D", "F") and CUR.get(x.get("jurisdiction") or ""):
+            x["currency"] = "%s (default: this source publishes in %s)" % (CUR[x["jurisdiction"]], CUR[x["jurisdiction"]]); npk["currency_default"] += 1
+        # BN program (R4.1)
+        b = x.get("buyer_bn_as_published") or ""
+        if b:
+            x["buyer_bn_program"] = "RR (registered charity program account)" if re.search(r"\bRR\s?\d{4}", b) else "RT (GST/HST program account)" if re.search(r"RT\s?\d{4}|GST|HST|TPS|TVH", b) else "program not stated with the number"
+        # dissolved vendors (R5.1)
+        vs = x.get("vendor_registry_status") or ""
+        if re.search(r"dissol|inactive|radi[ée]|cancel|revoked|struck|annul|liquidat|discontinued|amalgamated", vs, re.I):
+            x["vendor_registry_warning"] = "WARNING: registry status '%s' — the match may be a namesake or the vendor may no longer exist; verify before use" % vs[:60]; npk["registry_warning"] += 1
+        # evidence age (O1.3)
+        md = re.search(r" on (\d{4}-\d{2}-\d{2})", x.get("mailbox_provenance") or "")
+        if md:
+            try:
+                age = (_today - datetime.date.fromisoformat(md.group(1))).days
+                x["evidence_age_days"] = str(age); x["reverify_due"] = "yes (mailbox evidence older than 60 days)" if age > 60 else "no"
+            except ValueError:
+                pass
+        # AP system hint (N1)
+        sysn = sorted(set(m2.group(1) for m2 in AP_SYS.finditer(" ".join((x.get(c) or "") for c in ("invoicing_requirements", "invoice_portal_url", "invoice_portal_note", "email_evidence_quote")))))
+        if sysn:
+            x["ap_system_hint"] = "named on the buyer's page: " + ", ".join(sysn)[:200]
+        # structured requirements (D3.2)
+        fmt = re.search(r"invoice format as published: ([^|]+)", x.get("invoicing_requirements") or "")
+        x["invoicing_requirements_structured"] = json.dumps({k: v for k, v in (("submission_channel", "e-mail" + (" + portal" if x.get("invoice_portal_url") else "")), ("payment_terms", x.get("payment_terms_as_published") or ""), ("po_required", x.get("po_required_as_published") or ""),
+                                                             ("portal_url", x.get("invoice_portal_url") or ""), ("portal_kind", x.get("invoice_portal_kind") or ""), ("invoice_format", fmt.group(1).strip() if fmt else ""), ("ap_phone", x.get("ap_phone") or ""),
+                                                             ("mailing_address", x.get("invoice_mailing_address") or ""), ("requirements_text", (x.get("invoicing_requirements") or "")[:300])) if v}, ensure_ascii=False) if x.get("email") else ""
+        x["facts_provenance_json"] = json.dumps({"mailbox": [p.strip() for p in (x.get("mailbox_provenance") or "").split(" | ") if p.strip()], "buyer_facts": [p.strip() for p in (x.get("buyer_facts_provenance") or "").split("; ") if p.strip()],
+                                                 "vendor_facts": [p.strip() for p in (x.get("vendor_facts_provenance") or "").split("; ") if p.strip()], "relationship": x.get("how_relationship_was_found") or ""}, ensure_ascii=False)[:4000]
+        # quality score / ship_ready (S2)
+        mq = {4: 40, 3: 30, 2: 20, 1: 12}.get(g, 0) if ec.startswith(("confirmed", "cross")) else (5 if x.get("email") else 0)
+        rq = {"A": 30, "B": 30, "T": 26, "M": 22, "L": 18, "C": 14, "D": 14, "F": 12, "E": 10, "I": 6}.get(t, 0)
+        fq = 30 * sum(1 for c in KEY_FIELDS if x.get(c)) / len(KEY_FIELDS)
+        x["data_quality_score"] = str(int(round(mq + rq + fq)))
+        x["ship_ready"] = ("yes" if (g == 4 and ec.startswith(("confirmed", "cross")) and t in ("A", "B", "T", "M") and x["sensitivity_flag"] == "no" and not x.get("vendor_registry_warning"))
+                           else "yes (finance mailbox, not AP)" if (g == 3 and ec.startswith(("confirmed", "cross")) and t in ("A", "B", "T", "M") and x["sensitivity_flag"] == "no")
+                           else "no (%s)" % ("sensitive buyer" if x["sensitivity_flag"] == "yes" else "vendor registry warning" if x.get("vendor_registry_warning") else "mailbox not referee-confirmed" if not ec.startswith(("confirmed", "cross")) else "mailbox below finance grade" if g < 3 else "relationship not dated / active"))
+        npk["ship_ready_yes"] += x["ship_ready"] == "yes"
+    print("downstream pack:", dict(npk))
+except Exception as _e:
+    import traceback; traceback.print_exc(); print("downstream pack skipped:", type(_e).__name__, _e)
 for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"]),
                    ("email_evidence_quote", ["mailbox_provenance", "email_deliverability", "email_security_posture", "dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "dns_checked_date",
                                              "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
@@ -1715,7 +1871,12 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("vendor_website_status", ["vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source", "vendor_billing_ar_email", "vendor_contacts_found_by", "vendor_peppol_id", "vendor_facts_provenance", "method_notes"]),
                    ("language_hint", ["template_language"]),
                    ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
-                   ("buyer_type", ["sensitivity_tag", "peppol_participant_id", "peppol_registered"])):
+                   ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
+                   ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]),
+                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
+                   ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
+                   ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
+                   ("method_notes", ["facts_provenance_json"])):
     if after in cols:
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]
@@ -1723,6 +1884,14 @@ with open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf
     w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
 with gzip.open(ROOT + "/out/ranked/ranked_buyers.csv.gz", "wt", newline="", encoding="utf-8", compresslevel=6) as f:  # the committed copy (GitHub's 100 MB limit)
     w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
+with gzip.open(ROOT + "/out/ranked/ranked_buyers.jsonl.gz", "wt", encoding="utf-8", compresslevel=6) as f:  # S1.1: the same rows as JSON lines
+    for x in rows:
+        f.write(json.dumps({c: x.get(c, "") for c in cols}, ensure_ascii=False) + "\n")
+try:
+    import subprocess
+    subprocess.run([sys.executable, ROOT + "/tools/release_diff.py", ROOT + "/coord/results/ranked/ranked_buyers.csv.gz", ROOT + "/out/ranked/ranked_buyers.csv.gz", ROOT + "/out/ranked"], timeout=1500)
+except Exception as _e:
+    print("release_diff skipped:", _e)
 cnt = collections.Counter(x["rank_group"] for x in rows)
 print("rows", len(rows)); print(sorted(cnt.items(), key=lambda kv: (kv[0] != "GOLD", kv[0])))
 print("with any email:", sum(1 for x in rows if x["email"]), "| contract buyers:", sum(1 for x in rows if x["contract_status"] in TIER))
