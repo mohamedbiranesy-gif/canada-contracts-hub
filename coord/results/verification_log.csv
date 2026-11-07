@@ -13641,8 +13641,8 @@ gemini,gemini_buyer_ap_results_batch07.csv,GE-AP-00637,b:c8b1fef6b7ad9374,recrut
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29090,b:c8bd41e942835ae2,postmaster@dfg.de,https://www.dfg.de/de/service/kontakt,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00820,b:c905653a923ddce0,info@lislet.com,https://www.lislet.com,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00820,b:c905653a923ddce0,reception@lislet.com,https://www.lislet.com/contact,verified
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00064,b:c905653a923ddce0,info@lislet.com,https://lislet.com/contact,unverified_page_unavailable
-claude,claude_buyer_ap_results_search01.csv,CL-WS-00064,b:c905653a923ddce0,reception@lislet.com,https://lislet.com/contact,unverified_page_unavailable
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00064,b:c905653a923ddce0,info@lislet.com,https://lislet.com/contact,verified
+claude,claude_buyer_ap_results_search01.csv,CL-WS-00064,b:c905653a923ddce0,reception@lislet.com,https://lislet.com/contact,verified
 gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00820,b:c905653a923ddce0,info@lislet.com,https://www.lislet.com/contact,verified
 chatgpt,chatgpt_buyer_ap_results_batch04.csv,CH-AP-00374,b:c907b26642db0aa1,accountspayable@bwdsb.on.ca,https://cdnsm5-ss14.sharpschool.com/UserFiles/Servers/Server_8166100/File/Departments/Purchasing/Tender%20Documents/RFQ%2021-00119%20Catch%20Basin%20Cleaning%20Services.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch04.csv,CH-AP-00374,b:c907b26642db0aa1,accountspayable@bgcdsb.org,https://cdnsm5-ss14.sharpschool.com/UserFiles/Servers/Server_8166100/File/Departments/Purchasing/Tender%20Documents/RFQ%2021-00119%20Catch%20Basin%20Cleaning%20Services.pdf,verified
