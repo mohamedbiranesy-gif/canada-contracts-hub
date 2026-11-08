@@ -20,12 +20,12 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 12 | evidence page on the organisation's domain (or its site) | soft | 3733 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
 | 14 | DMARC / SPF / provider columns filled | soft | 0 | PASS |
-| 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 6 | REVIEW |
+| 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 0 | PASS |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
-| 19 | buyer name is a name (not a domain or a page title) | soft | 28644 | REVIEW |
-| 20 | legal name is not a fragment or a platform copyright | soft | 6 | REVIEW |
+| 19 | buyer name is a name (not a domain or a page title) | soft | 27351 | REVIEW |
+| 20 | legal name is not a fragment or a platform copyright | soft | 25 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 5 | REVIEW |
 | 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 64 | REVIEW |
@@ -38,9 +38,9 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P13_inferred_relationship_no_record_own_email_part2_of_12:3053 Everest Services Ltd | everest.ca
 - **7 role word in the local part**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:16 Cameco Corporation | ap_cameco@cameco.com
-    - P01_GOLD_active_relationship_invoicing_AP_email:262 Town of Oakville | ap_inquiries@oakville.ca
-    - P01_GOLD_active_relationship_invoicing_AP_email:281 Miami-Dade County (business unit CU05010 | invsubp@miamidade.gov
-    - P01_GOLD_active_relationship_invoicing_AP_email:379 BELL TEXTRON INC | APBell@textron.com
+    - P01_GOLD_active_relationship_invoicing_AP_email:266 Town of Oakville | ap_inquiries@oakville.ca
+    - P01_GOLD_active_relationship_invoicing_AP_email:292 Miami-Dade County (business unit CU05010 | invsubp@miamidade.gov
+    - P01_GOLD_active_relationship_invoicing_AP_email:380 BELL TEXTRON INC | APBell@textron.com
     - P02_active_relationship_finance_accounting_email:7 Agriculture and Agri-Food Canada | directdeposit.depotdirect@canada.ca
     - P02_active_relationship_finance_accounting_email:13 Crown-Indigenous Relations and Northern  | depotdirect-directdeposit@sac-isc.gc.ca
     - P02_active_relationship_finance_accounting_email:14 Department of Justice Canada | mdv_dpf@justice.gc.ca
@@ -56,11 +56,11 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:468 Township of Georgian Bay | payments@gbtownship.ca
     - P05_likely_active_awarded_12_36_months_any_email:25 Martensville | payments@martensville.ca
     - P06_client_listing_invoicing_AP_email:27 University of Bath | payments@bath.ac.uk
-    - P06_client_listing_invoicing_AP_email:69 teamviewer.com | payments@teamviewer.com
-    - P06_client_listing_invoicing_AP_email:143 blomidonnurseries.com | payments@blomidonnurseries.com
-    - P10_linked_from_vendor_site_any_email:12 gov.scot | online_payments@gov.scot
+    - P06_client_listing_invoicing_AP_email:69 Edith Cowan University | payments@teamviewer.com
+    - P06_client_listing_invoicing_AP_email:143 Blomidon Nurseries (1970) Limited | payments@blomidonnurseries.com
+    - P10_linked_from_vendor_site_any_email:12 Equality and Human Rights Commission | online_payments@gov.scot
     - P10_linked_from_vendor_site_any_email:29 WeirFoulds LLP | payments@weirfoulds.com
-    - P10_linked_from_vendor_site_any_email:36 bcica.org | payments@bcica.org
+    - P10_linked_from_vendor_site_any_email:36 British Columbia Insulation Contractors  | payments@bcica.org
     - P13_inferred_relationship_no_record_own_email_part1_of_12:10 THE ROYAL CANADIAN COLLEGE OF ORGANISTS- | payment@rcco-ottawa.ca
 - **9 shared government domain: page or quote names the body**
     - P01_GOLD_active_relationship_invoicing_AP_email:42 Canadian Space Agency | invoicing.csa-asc.facturation@canada.ca ← https://www.canada.ca/en/public-services-procurement/services/payments-to-from-g
@@ -76,40 +76,39 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:125 City of Chestermere | city.ap@chestermere.ca on thecityofchestermere.ca (site chestermere.ca)
     - P01_GOLD_active_relationship_invoicing_AP_email:131 Newfoundland and Labrador Liquor Corpora | Accounts.Payable@nlliquor.com on nlliquorcorp.com (site nlliquor.com)
     - P01_GOLD_active_relationship_invoicing_AP_email:133 The Ottawa Hospital | tohaccountspayable@toh.ca on ottawahospital.on.ca (site toh.ca)
-    - P01_GOLD_active_relationship_invoicing_AP_email:156 UK Research and Innovation | finance@uksbs.co.uk on ukri.org (site uksbs.co.uk)
-    - P01_GOLD_active_relationship_invoicing_AP_email:162 Department of Foreign Affairs and Trade | dfat.e-invoicing.prod@dfat.gov.au on directory.peppol.eu (site dfat.gov.au)
-- **15 tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m)**
-    - P01_GOLD_active_relationship_invoicing_AP_email:140 Commission scolaire New Frontiers | A with end 2026-11-06
-    - P02_active_relationship_finance_accounting_email:40 Cégep Édouard-Montpetit | A with end 2026-11-06
-    - P02_active_relationship_finance_accounting_email:132 Municipalité de Rivière-Ouelle | A with end 2026-11-06
-    - P02_active_relationship_finance_accounting_email:185 Municipalité de Ripon | A with end 2026-11-07
-    - P04_active_relationship_general_email:114 Municipalité de Brébeuf | A with end 2026-11-06
-    - P04_active_relationship_general_email:338 Municipalité de Saint-Apollinaire | A with end 2026-11-07
+    - P01_GOLD_active_relationship_invoicing_AP_email:155 UK Research and Innovation | finance@uksbs.co.uk on ukri.org (site uksbs.co.uk)
+    - P01_GOLD_active_relationship_invoicing_AP_email:161 Department of Foreign Affairs and Trade | dfat.e-invoicing.prod@dfat.gov.au on directory.peppol.eu (site dfat.gov.au)
 - **19 buyer name is a name (not a domain or a page title)**
     - P01_GOLD_active_relationship_invoicing_AP_email:585 corporate.exxonmobil.com | corporate.exxonmobil.com
-    - P04_active_relationship_general_email:1208 national.ballet.ca | national.ballet.ca
-    - P04_active_relationship_general_email:1218 unitedwayeo.ca | unitedwayeo.ca
-    - P04_active_relationship_general_email:1226 ecojustice.ca | ecojustice.ca
-    - P04_active_relationship_general_email:1247 worldvision.ca | worldvision.ca
-    - P04_active_relationship_general_email:1249 payroll.ca | payroll.ca
-    - P04_active_relationship_general_email:1252 ccisab.ca | ccisab.ca
-    - P04_active_relationship_general_email:1279 poets.ca | poets.ca
     - P04_active_relationship_general_email:1319 goodroads.ca | goodroads.ca
     - P04_active_relationship_general_email:1335 researchns.ca | researchns.ca
-    - P04_active_relationship_general_email:1339 woodshomes.ca | woodshomes.ca
     - P04_active_relationship_general_email:1344 innovatebc.ca | innovatebc.ca
+    - P04_active_relationship_general_email:1483 bcscholarshipsociety.ca | bcscholarshipsociety.ca
+    - P04_active_relationship_general_email:1485 OneChurch.To | OneChurch.To
+    - P04_active_relationship_general_email:1548 ernestines.ca | ernestines.ca
+    - P04_active_relationship_general_email:1613 microsoft.com | microsoft.com
+    - P06T_active_service_seen_on_buyer_site_other_email:43 pier21.ca | pier21.ca
+    - P06T_active_service_seen_on_buyer_site_other_email:92 tafeqld.edu.au | tafeqld.edu.au
+    - P06T_active_service_seen_on_buyer_site_other_email:127 pangrampangram.com | pangrampangram.com
+    - P06T_active_service_seen_on_buyer_site_other_email:168 kaslosourdoughpasta.com | kaslosourdoughpasta.com
 - **20 legal name is not a fragment or a platform copyright**
-    - P04_active_relationship_general_email:118 Ministère de la Culture et des Communica | ministère de la Culture et des Communications (label per Wikidata Q331
-    - P04_active_relationship_general_email:162 Ministère de la Cybersécurité et du Numé | ministère de la Cybersécurité et du Numérique (label per Wikidata Q110
-    - P13_inferred_relationship_no_record_own_email_part1_of_12:90 L'Escale familiale de Boucherville | l'ESCALE FAMILIALE DE BOUCHERVILLE (CRA list of registered charities, 
-    - P13_inferred_relationship_no_record_own_email_part4_of_12:1659 AFFILIATED SERVICES FOR CHILDREN AND YOU | AFFILIATED SERVICES FOR CHILDREN AND YOUTH INC. (CRA list of registere
-    - P13_inferred_relationship_no_record_own_email_part4_of_12:3160 inGIRLS CLUB Association | inGIRLS CLUB Association (CRA list of registered charities, https://op
-    - P13_inferred_relationship_no_record_own_email_part5_of_12:512 c2Sea Evangelistic Association and Netwo | c2Sea Evangelistic Association and Network (CRA list of registered cha
+    - P04_active_relationship_general_email:117 Ministère de la Culture et des Communica | ministère de la Culture et des Communications (label per Wikidata Q331
+    - P04_active_relationship_general_email:161 Ministère de la Cybersécurité et du Numé | ministère de la Cybersécurité et du Numérique (label per Wikidata Q110
+    - P07_client_listing_finance_or_purchasing_email:81 lepointdevente.com | lepointdevente.com (recipient legal name in the federal grants & contr
+    - P08_client_listing_general_email:1767 Harvard University | Harvard University (stated on https://crosslight.com.cn/wordpress/abou
+    - P08_client_listing_general_email:2050 Christian Life Community | Christian Life Community (stated on https://www.christianlifecommunity
+    - P13_inferred_relationship_no_record_own_email_part11_of_12:386 Fowler Dental | fowler dental (recipient legal name in the federal grants & contributi
+    - P13_inferred_relationship_no_record_own_email_part11_of_12:914 Musée des communications et d'histoire d | musée des communications et d'histoire de Sutton (recipient legal name
+    - P13_inferred_relationship_no_record_own_email_part11_of_12:1363 Whiprsnapr Brewing Company | whiprsnapr brewing co inc. (recipient legal name in the federal grants
+    - P13_inferred_relationship_no_record_own_email_part11_of_12:1591 eSentire | eSentire Inc. (recipient legal name in the federal grants & contributi
+    - P13_inferred_relationship_no_record_own_email_part11_of_12:3214 eyecandy SIGNS | eyecandy SIGNS INC. (recipient legal name in the federal grants & cont
+    - P13_inferred_relationship_no_record_own_email_part11_of_12:3965 adHOME Creative Inc | adHOME Creative Inc. (recipient legal name in the federal grants & con
+    - P13_inferred_relationship_no_record_own_email_part12_of_12:428 ANCORA TECHNOLOGIES INC | ancora technologies inc. (recipient legal name in the federal grants &
 - **22 one row per organisation name (same name twice)**
-    - P01_GOLD_active_relationship_invoicing_AP_email:473 City of Edmonton | 2 rows, same mail domain: edmonton.ca
+    - P01_GOLD_active_relationship_invoicing_AP_email:350 Town of Lincoln | 2 rows, same mail domain: lincoln.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:522 Enbridge Inc. | 2 rows, same mail domain: enbridge.com
-    - P02_active_relationship_finance_accounting_email:322 Mount Saint Vincent University | 2 rows, same mail domain: msvu.ca
-    - P04_active_relationship_general_email:331 Cégep de Victoriaville. | 2 rows, same mail domain: cegepvicto.ca
+    - P02_active_relationship_finance_accounting_email:321 Mount Saint Vincent University | 2 rows, same mail domain: msvu.ca
+    - P04_active_relationship_general_email:330 Cégep de Victoriaville. | 2 rows, same mail domain: cegepvicto.ca
     - P05_likely_active_awarded_12_36_months_any_email:5 Brandon University | 2 rows, same mail domain: brandonu.ca
 - **23 one row per site domain (two rows, different mailboxes, same domain)**
     - P01_GOLD_active_relationship_invoicing_AP_email:26 University of Toronto | utoronto.ca: 2 rows, ap.fsd@utoronto.ca; fmdinvoice.utsc@utoronto.ca
@@ -119,11 +118,11 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:90 Ville de Blainville | blainville.ca: 2 rows, approvisionnements@blainville.ca; finances@blainville.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:113 Texas Department of Insurance | texas.gov: 7 rows, invoices@tdi.texas.gov; ap@tsl.texas.gov; accounts.payable@tpwd.texas.gov
     - P01_GOLD_active_relationship_invoicing_AP_email:127 University of Ottawa | uottawa.ca: 2 rows, payables@uottawa.ca; info@emba.uottawa.ca
-    - P01_GOLD_active_relationship_invoicing_AP_email:194 Oregon Department of Transportation | oregon.gov: 3 rows, opoinvoiceinquiries@odot.oregon.gov; omdaccounts.payable@omd.oregon.gov; odf.accountspayable@oregon.gov
-    - P01_GOLD_active_relationship_invoicing_AP_email:196 Texas Tech University Health Sciences Ce | ttuhsc.edu: 2 rows, Accounts.Payable@ttuhsc.edu; accountspayableelp@ttuhsc.edu
-    - P01_GOLD_active_relationship_invoicing_AP_email:228 Metrolinx | metrolinx.com: 2 rows, it.invoices@metrolinx.com; rti.invoices@metrolinx.com
-    - P01_GOLD_active_relationship_invoicing_AP_email:248 Niagara Region | niagararegion.ca: 2 rows, constructioninvoices@niagararegion.ca; NRHCapitalWorks@niagararegion.ca
-    - P01_GOLD_active_relationship_invoicing_AP_email:340 Virginia State Police | virginia.gov: 5 rows, ap@vsp.virginia.gov; accountspayable@energy.virginia.gov; support@dhrm.virginia.gov
+    - P01_GOLD_active_relationship_invoicing_AP_email:193 Oregon Department of Transportation | oregon.gov: 3 rows, opoinvoiceinquiries@odot.oregon.gov; omdaccounts.payable@omd.oregon.gov; odf.accountspayable@oregon.gov
+    - P01_GOLD_active_relationship_invoicing_AP_email:195 Texas Tech University Health Sciences Ce | ttuhsc.edu: 2 rows, Accounts.Payable@ttuhsc.edu; accountspayableelp@ttuhsc.edu
+    - P01_GOLD_active_relationship_invoicing_AP_email:227 Metrolinx | metrolinx.com: 2 rows, it.invoices@metrolinx.com; rti.invoices@metrolinx.com
+    - P01_GOLD_active_relationship_invoicing_AP_email:249 Niagara Region | niagararegion.ca: 2 rows, constructioninvoices@niagararegion.ca; NRHCapitalWorks@niagararegion.ca
+    - P01_GOLD_active_relationship_invoicing_AP_email:344 Virginia State Police | virginia.gov: 5 rows, ap@vsp.virginia.gov; accountspayable@energy.virginia.gov; support@dhrm.virginia.gov
 - **25 jurisdiction vs mailbox top-level domain**
     - P13_inferred_relationship_no_record_own_email_part11_of_12:2639 Beckhoff Automation Ltd. | CA / beckhoff.de
     - P13_inferred_relationship_no_record_own_email_part11_of_12:3692 Bernafon Canada | ON / bernafon.com.au
@@ -165,7 +164,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 20
 - P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 91
 - P01_GOLD_active_relationship_invoicing_AP_email: 585
-- P02_active_relationship_finance_accounting_email: 367
+- P02_active_relationship_finance_accounting_email: 366
 - P03_active_relationship_purchasing_email: 224
 - P04_active_relationship_general_email: 1615
 - P05_likely_active_awarded_12_36_months_any_email: 378
@@ -174,7 +173,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - P06_client_listing_invoicing_AP_email: 160
 - P07_client_listing_finance_or_purchasing_email: 246
 - P08_client_listing_general_email: 3038
-- P09_older_contract_or_payment_any_email: 368
+- P09_older_contract_or_payment_any_email: 369
 - P10_linked_from_vendor_site_any_email: 2587
 - P11_any_relationship_email_not_yet_confirmed: 497
 - P12_weaker_relationship_within_5_years_own_email: 21
@@ -183,28 +182,28 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 ## Field fill across all delivered rows (value present, not `not_published`)
 - buyer_website: 63579 (100.0%)
 - vendor_address: 60517 (95.2%)
-- vendor_website: 59019 (92.8%)
-- vendor_phone: 55735 (87.7%)
-- vendor_bn9: 49060 (77.2%)
-- buyer_logo_url: 47275 (74.4%)
-- buyer_phone: 47136 (74.1%)
-- buyer_address: 45843 (72.1%)
-- buyer_legal_name_as_published: 16830 (26.5%)
+- vendor_website: 59241 (93.2%)
+- vendor_phone: 55804 (87.8%)
+- vendor_bn9: 52242 (82.2%)
+- buyer_phone: 48119 (75.7%)
+- buyer_logo_url: 47611 (74.9%)
+- buyer_address: 47112 (74.1%)
+- buyer_legal_name_as_published: 20889 (32.9%)
 - contract_link: 12793 (20.1%)
-- buyer_bn_as_published: 8032 (12.6%)
-- vendor_logo_url: 6935 (10.9%)
-- vendor_legal_name: 6735 (10.6%)
+- buyer_bn_as_published: 10363 (16.3%)
+- vendor_legal_name: 8184 (12.9%)
+- vendor_logo_url: 6974 (11.0%)
+- vendor_registry_id: 6664 (10.5%)
 - award_date: 6482 (10.2%)
-- vendor_registry_id: 5268 (8.3%)
-- vendor_incorporation_date: 5062 (8.0%)
-- vendor_neq: 4599 (7.2%)
+- vendor_incorporation_date: 6456 (10.2%)
+- vendor_neq: 4595 (7.2%)
 - vendor_emails: 4345 (6.8%)
 - ap_phone: 2597 (4.1%)
-- contract_value: 2289 (3.6%)
+- contract_value: 2334 (3.7%)
 - invoice_mailing_address: 2105 (3.3%)
 - end_date: 1757 (2.8%)
 - invoicing_requirements: 1587 (2.5%)
-- invoice_portal_url: 656 (1.0%)
+- invoice_portal_url: 658 (1.0%)
 - po_required_as_published: 466 (0.7%)
 - payment_terms_as_published: 376 (0.6%)
 - ap_contact_name_as_published: 174 (0.3%)
@@ -213,30 +212,30 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - other: 47251; source field: 16328
 
 ## Buyer types
-- organisation (type not stated in the record): 38470
-- company (private sector): 9418
-- non-profit / association / cultural body: 6513
-- company (private sector) (from the organisation's name / web domain): 1667
-- municipality / local government: 1135
-- government ministry / agency: 1060
-- non-profit / association / cultural body (from the organisation's name / web domain): 917
-- municipality / local government (from the organisation's name / web domain): 906
-- hospital / health authority: 762
-- university / college: 462
-- utility / public corporation: 438
-- hospital / health authority (from the organisation's name / web domain): 375
-- university / college (from the organisation's name / web domain): 337
-- transport / transit authority: 186
-- school board / school district: 170
-- First Nation / Indigenous government: 159
-- government ministry / agency (from the organisation's name / web domain): 156
+- organisation (type not stated in the record): 37082
+- company (private sector): 9578
+- non-profit / association / cultural body: 6661
+- company (private sector) (from the organisation's name / web domain): 2118
+- municipality / local government: 1245
+- government ministry / agency: 1126
+- municipality / local government (from the organisation's name / web domain): 976
+- non-profit / association / cultural body (from the organisation's name / web domain): 962
+- hospital / health authority: 794
+- university / college (from the organisation's name / web domain): 550
+- university / college: 509
+- utility / public corporation: 447
+- hospital / health authority (from the organisation's name / web domain): 401
+- transport / transit authority: 190
+- school board / school district: 182
+- First Nation / Indigenous government: 161
+- government ministry / agency (from the organisation's name / web domain): 143
 - religious organisation (from the organisation's name / web domain): 143
-- utility / public corporation (from the organisation's name / web domain): 120
+- utility / public corporation (from the organisation's name / web domain): 118
 - transport / transit authority (from the organisation's name / web domain): 68
-- First Nation / Indigenous government (from the organisation's name / web domain): 43
+- First Nation / Indigenous government (from the organisation's name / web domain): 45
 - US government body (federal, state or local): 29
-- library (from the organisation's name / web domain): 21
-- school board / school district (from the organisation's name / web domain): 13
+- library (from the organisation's name / web domain): 23
+- school board / school district (from the organisation's name / web domain): 17
 - US city / county / local government: 11
 
 ## DMARC posture of the delivered mailboxes
