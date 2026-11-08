@@ -20,12 +20,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          pip install -q dnspython
           mkdir -p data/release
           gh release download dataset-latest -p canadian_vendor_contracts.jsonl.gz -p vendors_enriched.jsonl.gz -p buyers_enriched.jsonl.gz \
             -p vendor_country_unverified_contracts.jsonl.gz -p 'ended_2*.jsonl.gz' -D data/release --clobber
           git config user.name "ranker-bot"; git config user.email "ranker-bot@users.noreply.github.com"
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main
+            # DNS posture (DMARC / SPF / MTA-STS / TLS-RPT / BIMI) for mailbox domains not yet checked: new mailboxes arrive every build, the Mac's daily
+            # loop would leave them "not checked yet" for up to a day (12 DNS benchmarks fell from 100 % to 99.8 % on 2026-11-08 for that reason)
+            gunzip -c coord/results/ranked/ranked_buyers.csv.gz > /tmp/prev_ranked.csv 2>/dev/null || true
+            timeout 20m python3 tools/dmarc_check.py --repo "$PWD" --recheck-days 30 --workers 64 /tmp/prev_ranked.csv $(ls data/incoming/*/*results*.csv data/incoming/claude/claude_buyer_leads.csv 2>/dev/null | head -400) > dmarc_check.log 2>&1 || true
+            tail -2 dmarc_check.log
             python3 contrib/claude/rank_buyers/rank.py > rank.log
             if grep -q "downstream pack skipped" rank.log; then echo "::error::downstream pack skipped — build not published (the previous build stays)"; grep -A3 -B3 "downstream pack skipped" rank.log; exit 1; fi
             rm -rf out/ranked/batches && python3 contrib/claude/rank_buyers/batches.py > batches.log
@@ -36,7 +42,7 @@ jobs:
             python3 tools/coverage_targets.py --write out/ranked --history coord/results/coverage_history.csv > coverage.log 2>&1 || true
             rm -rf coord/results/ranked && mkdir -p coord/results/ranked && cp -r out/ranked/* coord/results/ranked/ && rm -f coord/results/ranked/ranked_buyers.csv coord/results/ranked/ranked_buyers.jsonl.gz
             { echo "# Ranked buyers — $(date -u +%Y-%m-%dT%H:%MZ)"; echo; echo '```'; cat rank.log batches.log; echo; echo "# coverage vs the downstream targets (COVERAGE_VS_TARGETS.md)"; cat coverage.log; echo '```'; echo; echo "Integrity gates: see VALIDATION.md in this folder; columns and rules: contrib/claude/rank_buyers/README.md"; } > coord/results/ranked/SUMMARY.md
-            git add coord/results/ranked coord/results/coverage_history.csv
+            git add coord/results/ranked coord/results/coverage_history.csv data/incoming/claude/claude_dmarc_check.tsv
             git diff --cached --quiet && break
             git commit -q -m "ranker: buyers re-ranked into quality batches [skip ci]"
             pushed=0
