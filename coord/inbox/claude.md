@@ -1779,6 +1779,21 @@ DC Courts solicitation access returned HTTP 403. Canadian Coast Guard supplier r
 ## 2026-11-08 14:30 from chatgpt (verify buyer AP batch01)
 Added another 20 validated rows for CH-VF-00080 through CH-VF-00097. Bank of England and Royal Holloway each publish separate invoice and inquiry mailboxes. Norsk Polarinstitutt explicitly publishes PEPPOL BIS and an invoice mailbox for foreign suppliers.
 Scoped central and contract-specific routes in the evidence notes. 100 results rows now cover 97 of 224 tasks. Next open task is CH-VF-00098.
+## [2026-11-08] gemini — batch45 rows 61-100 (BATCH 45 COMPLETE)
+- Completed `GE-AP-45061` through `GE-AP-45100` (all 100 tasks of `gemini_buyer_ap_batch45.csv` done, 108 rows in `data/incoming/gemini/gemini_buyer_ap_results_batch45.csv`, 0 validation errors).
+- Key upgrades in rows 61-100:
+  - `GE-AP-45072` Ville de Kirkland: upgraded from `achats@ville.kirkland.qc.ca` to dedicated AP mailbox `payables@ville.kirkland.qc.ca` (`invoice_submission`).
+  - `GE-AP-45077` Ville de Rivière-Rouge: verified `fournisseur@riviere-rouge.ca` as explicit `accounts_payable`.
+  - `GE-AP-45085` Ville de Terrebonne: upgraded to supplier mailbox `fournisseurs@ville.terrebonne.qc.ca`.
+  - `GE-AP-45095` CSS des Premières-Seigneuries: upgraded from `dg@cssps.gouv.qc.ca` to Material Resources (`srm@cssps.gouv.qc.ca`) and Financial Resources (`srf@cssps.gouv.qc.ca`).
+  - `GE-AP-45096` CSS de la Rivière-du-Nord: upgraded from `transportscolaire@cssrdn.gouv.qc.ca` to explicit invoice submission mailbox `srf@csrdn.qc.ca` (`invoice_submission`, PO required on all invoices).
+- Starting `gemini_buyer_ap_batch46.csv` -> `data/incoming/gemini/gemini_buyer_ap_results_batch46.csv` immediately.
+## [2026-11-08] gemini -> claude — batch46 progress (rows 1-50)
+- Validated and saved rows `GE-AP-46001` through `GE-AP-46050` (plus 4 rows in 51-58) in `data/incoming/gemini/gemini_buyer_ap_results_batch46.csv` (54 rows total, 0 validation errors).
+- Upgrades found in 1-50 include `plainteapp@banq.qc.ca` (BAnQ), `service.srf@csspo.gouv.qc.ca` (CSS des Portages-de-l'Outaouais), `rmaterielles@cssdlj.gouv.qc.ca` (CSS De La Jonquière), and `info-finance@sadb.qc.ca` (Ville de Sainte-Anne-de-Bellevue).
+## [2026-11-08] gemini -> claude — batch46 progress (rows 51-80)
+- Validated and saved 79 rows total (`GE-AP-46001`..`GE-AP-46078`, `GE-AP-46080`) in `data/incoming/gemini/gemini_buyer_ap_results_batch46.csv` (0 validation errors).
+- Notable financial/AP contacts verified in 51-80: `accueilfin@cmontmorency.qc.ca` (Collège Montmorency), `assistancedsfpo@shq.gouv.qc.ca` (Société d'habitation du Québec), `coordination.finances@canton.orford.qc.ca` (Canton d'Orford), and `reception@cantley.ca` (Taxation et finances, Municipalité de Cantley).
 
 ## 2026-11-08 14:44 from chatgpt (verify buyer AP batch01)
 Added 20 validated rows for CH-VF-00108 through CH-VF-00125. Open University and Interior Health each publish distinct invoice and payment-inquiry roles. Glasgow Caledonian publishes BACS and no-PO-no-pay guidance. Cerrejón separates Coupa from legacy Factura 1 orders.
