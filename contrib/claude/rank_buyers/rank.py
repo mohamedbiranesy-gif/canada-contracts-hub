@@ -1607,8 +1607,9 @@ def _dom_of(u):
         return ""
 # D11 / C1 / C2 / H1: provincial municipal directories (tools/municipal_directory.py) — legal name, address, phone, website, tier, population
 MD_DOM, MD_NAME = {}, {}
-_mdp = ROOT + "/data/incoming/claude/claude_municipal_directory.csv"
-if os.path.exists(_mdp):
+for _mdp in (ROOT + "/data/incoming/claude/claude_municipal_directory.csv", ROOT + "/data/incoming/claude/claude_org_directories.csv"):
+    if not os.path.exists(_mdp):
+        continue
     for _r in csv.DictReader(open(_mdp, encoding="utf-8", errors="replace")):
         _d = _dom_of(_r.get("website") or "") if _r.get("website") else ""
         if _d and not SHARED_GOV.match(_d):
@@ -1627,7 +1628,7 @@ for x in rows:
     hit = (MD_DOM.get(_d) if _d else None) or MD_NAME.get((prov, norm(x.get("buyer") or ""))) or MD_NAME.get((prov, norm((x.get("buyer_legal_name_as_published") or "").split(" (")[0])))
     if not hit:
         continue
-    if hit["province"] != prov and prov not in ("", "CA"):
+    if hit["province"] != prov and prov not in ("", "CA") and hit["province"] not in ("CA",) and not (hit["province"] == "FED" and prov == "FED"):
         continue
     src = " (provincial municipal directory: %s, %s)" % (hit["source_url"], hit["retrieved_date"])
     n_md["matched"] += 1
@@ -1648,7 +1649,86 @@ for x in rows:
     if hit.get("general_email"):
         x["directory_general_email"] = hit["general_email"] + " (the municipality's general mailbox as listed in the provincial directory; not the delivered mailbox)"
     x["municipal_directory_source"] = hit["source_url"]
-print("municipal directory:", dict(n_md))
+print("municipal / organisation directories:", dict(n_md))
+# CRA registered charities → buyers' BN (RR account), legal name, address, fiscal period end (tools/charity_buyers.py)
+CHB = {}
+_chp = ROOT + "/data/incoming/claude/claude_charity_buyers.csv"
+if os.path.exists(_chp):
+    for _r in csv.DictReader(open(_chp, encoding="utf-8", errors="replace")):
+        CHB.setdefault(_r["buyer_key"], _r)
+n_ch = collections.Counter()
+for x in rows:
+    for c in ("buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation"):
+        x.setdefault(c, "")
+    h = next((CHB[k] for k in (x.get("keys") or "").split("|") if k in CHB), None)
+    if not h:
+        continue
+    src = " (CRA list of registered charities, %s, %s; matched by %s)" % (h["source_url"], h["retrieved_date"], h["match_basis"])
+    n_ch["matched"] += 1
+    if not x.get("buyer_bn_as_published") and h.get("bn"):
+        x["buyer_bn_as_published"] = h["bn"] + " — charity registration number (RR program account)" + src; n_ch["bn"] += 1
+        if not x.get("buyer_gst_hst_derived") and h.get("bn9"):
+            x["buyer_gst_hst_derived"] = h["bn9"] + "RT0001 (derived from the charity's BN9; an RT account is not confirmed by the CRA list)"
+    if not x.get("buyer_legal_name_as_published") and h.get("legal_name"):
+        x["buyer_legal_name_as_published"] = h["legal_name"] + src; n_ch["legal_name"] += 1
+    if not x.get("buyer_address") and (h.get("address") or h.get("city")):
+        x["buyer_address"] = ", ".join(v for v in (h.get("address"), h.get("city"), h.get("province"), h.get("postal_code")) if v) + src; n_ch["address"] += 1
+    if not x.get("buyer_website") and h.get("website"):
+        x["buyer_website"] = h["website"]; n_ch["website"] += 1
+    if h.get("fiscal_period_end"):
+        x["buyer_fiscal_year_end"] = h["fiscal_period_end"] + src
+    x["buyer_charity_status"] = (h.get("charity_status") or "registered") + src
+    x["buyer_charity_designation"] = "; ".join(v for v in (h.get("designation"), h.get("category")) if v)
+print("charity buyers:", dict(n_ch))
+# Wikidata, one organisation at a time (tools/wikidata_orgs.py): official names, type, HQ, inception, budget, employees — blank cells only
+WDB, WDV = {}, {}
+_wdp = ROOT + "/data/incoming/claude/claude_wikidata_orgs.csv"
+if os.path.exists(_wdp):
+    for _r in csv.DictReader(open(_wdp, encoding="utf-8", errors="replace")):
+        if _r.get("status") == "matched":
+            (WDB if _r["side"] == "b" else WDV)[_r["key"]] = _r
+n_wd = collections.Counter()
+for x in rows:
+    for c in ("buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form", "vendor_wikidata", "vendor_founded", "vendor_employees"):
+        x.setdefault(c, "")
+    w = next((WDB[k] for k in (x.get("keys") or "").split("|") if k in WDB), None)
+    if w:
+        src = " (Wikidata %s, %s; %s)" % (w["qid"], w["match_basis"], w["retrieved_date"])
+        n_wd["buyers"] += 1
+        nm = (w.get("official_name") or "").split(" | ")[0].split(" [")[0] or w.get("label_en") or w.get("label_fr")
+        if not x.get("buyer_legal_name_as_published") and nm:
+            x["buyer_legal_name_as_published"] = nm + src.replace("(Wikidata", "(official name per Wikidata" if w.get("official_name") else "(label per Wikidata"); n_wd["buyer_legal_name"] += 1
+        if not x.get("buyer_address") and (w.get("street_address") or w.get("headquarters")):
+            x["buyer_address"] = (w.get("street_address") or w.get("headquarters")) + src; n_wd["buyer_address"] += 1
+        if not x.get("buyer_phone") and w.get("phone"):
+            x["buyer_phone"] = w["phone"] + src; n_wd["buyer_phone"] += 1
+        if not x.get("buyer_website") and w.get("website"):
+            x["buyer_website"] = w["website"].split(";")[0]; n_wd["buyer_website"] += 1
+        x["buyer_wikidata"] = w["evidence_url"] + ("; " + w["instance_of"] if w.get("instance_of") else "")
+        x["buyer_founded"] = (w.get("inception") or "") and (w["inception"] + src)
+        x["buyer_budget_or_revenue"] = (w.get("budget_or_revenue") or "") and (w["budget_or_revenue"].strip() + src)
+        x["buyer_employees"] = (w.get("employees") or "") and (w["employees"] + src)
+        x["buyer_legal_form"] = (w.get("legal_form") or "") and (w["legal_form"] + src)
+    vk = "v:" + norm(((x.get("vendor_legal_name") or "").split(" (")[0]) or (x.get("vendor") or ""))
+    v = WDV.get(vk) or WDV.get("v:" + norm(x.get("vendor") or ""))
+    if v and not (x.get("vendor") or "").startswith("inferred"):
+        src = " (Wikidata %s, %s; %s)" % (v["qid"], v["match_basis"], v["retrieved_date"])
+        n_wd["vendors"] += 1
+        nm = (v.get("official_name") or "").split(" | ")[0].split(" [")[0]
+        if not x.get("vendor_legal_name") and nm:
+            x["vendor_legal_name"] = nm + src; n_wd["vendor_legal_name"] += 1
+        if not x.get("vendor_address") and (v.get("street_address") or v.get("headquarters")):
+            x["vendor_address"] = (v.get("street_address") or v.get("headquarters")) + " (headquarters per Wikidata %s; not the registered address)" % v["qid"]; n_wd["vendor_address"] += 1
+        if not x.get("vendor_website") and v.get("website"):
+            x["vendor_website"] = v["website"].split(";")[0]; n_wd["vendor_website"] += 1
+        if not x.get("vendor_phone") and v.get("phone"):
+            x["vendor_phone"] = v["phone"] + src
+        if not x.get("vendor_neq") and v.get("neq"):
+            x["vendor_neq"] = v["neq"] + src; n_wd["vendor_neq"] += 1
+        x["vendor_wikidata"] = v["evidence_url"] + ("; " + v["instance_of"] if v.get("instance_of") else "")
+        x["vendor_founded"] = (v.get("inception") or "") and (v["inception"] + src)
+        x["vendor_employees"] = (v.get("employees") or "") and (v["employees"] + src)
+print("wikidata:", dict(n_wd))
 # D2 / D12: back-reference between the contract dataset and the lead relationships (same organisation by website domain or exact name)
 AGG_DOM, AGG_NAME = {}, {}
 for _p, _o in orgs.items():
@@ -2007,7 +2087,8 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
-                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source"]),
+                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
+                   ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
     if after in cols:
         i = cols.index(after) + 1
