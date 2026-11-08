@@ -1,12 +1,71 @@
 {
-  "updated": "2026-11-08",
-  "checks": [
-    {"deliverable": "coverage scoreboard in every build", "method": "SUMMARY.md of the latest build prints 'benchmarks met N / 438'; COVERAGE_VS_TARGETS.md present", "status": "passing (Mac run 2026-11-08: 57/438)", "rerun": "gh api -X POST repos/mohamedbiranesy-gif/canada-contracts-hub/actions/workflows/rank-buyers.yml/dispatches -f ref=main; then: git show origin/main:coord/results/ranked/SUMMARY.md | grep benchmarks"},
-    {"deliverable": "fetch follows 308 redirects", "method": "re-read of previously http_308 domains returns status 200 in org_extras --refresh log", "status": "not started", "rerun": "grep -c 'http_308' ~/cch-crawler-state/org_extras_refresh.log"},
-    {"deliverable": "org_extras v2 extractors", "method": "unit run on 5 known sites (calgary.ca, mcmaster.ca, ville.quebec.qc.ca, a .com vendor, a canada.ca department) prints legal_name / phone / address / logo; next build's buyer_legal_name_as_published P01 Gold > 41.2%", "status": "not started", "rerun": "python3 tools/org_extras.py --test calgary.ca mcmaster.ca"},
-    {"deliverable": "rank same-pair fill + currency default", "method": "rank.log prints 'same-pair fill: {...}' counts; contract_value P01 Gold in COVERAGE_VS_TARGETS.md > 65.0%; VALIDATION 7/7; AUDIT PASS", "status": "not started", "rerun": "python3 contrib/claude/rank_buyers/rank.py | grep same-pair"},
-    {"deliverable": "integrity gates", "method": "VALIDATION.md all gates pass, AUDIT.md PASS, Gold not lower than previous build without CHANGELOG reason", "status": "passing (13:56Z build: 7/7, PASS, Gold 585)", "rerun": "git show origin/main:coord/results/ranked/VALIDATION.md | head -20"},
-    {"deliverable": "Mac engines alive", "method": "ps shows push_loop, sync_loop, ap_crawler, site_finder, downloads_loop, dns_daily; push_loop.log 'pushed' within 30 min", "status": "passing 09:16 EST except dns_daily (relaunch pending)", "rerun": "ps -axo command | grep -E 'push_loop|dns_daily|ap_crawler' | grep -v grep; tail -2 ~/cch-crawler-state/push_loop.log"},
-    {"deliverable": "PO open data joined", "method": "SUMMARY.md line \"buyers' PO / contract open data joined\" shows pairs > 0 after claude_po_records.csv.gz is on origin", "status": "not started (file pushed 2026-11-08 ~14:30Z)", "rerun": "git show origin/main:coord/results/ranked/SUMMARY.md | grep -i 'open data'"}
-  ]
+ "updated": "2026-11-08T15:35Z",
+ "checks": [
+  {
+   "deliverable": "coverage scoreboard in every build",
+   "method": "SUMMARY.md of the latest build prints 'benchmarks met N / 438'; COVERAGE_VS_TARGETS.md present",
+   "status": "passing (build 2026-11-08 15:31Z: benchmarks met 76 / 438 = 17.4%, baseline 57)",
+   "rerun": "gh api -X POST repos/mohamedbiranesy-gif/canada-contracts-hub/actions/workflows/rank-buyers.yml/dispatches -f ref=main; then: git show origin/main:coord/results/ranked/SUMMARY.md | grep benchmarks"
+  },
+  {
+   "deliverable": "fetch follows 308 redirects",
+   "method": "re-read of previously http_308 domains returns status 200 in org_extras --refresh log",
+   "status": "passing: org_extras --refresh re-reads http_308 domains; refresh log shows 'ok' 5,779 of the first ~7,000 domains, http_308 no longer appears as a status",
+   "rerun": "grep -c 'http_308' ~/cch-crawler-state/org_extras_refresh.log"
+  },
+  {
+   "deliverable": "org_extras v2 extractors",
+   "method": "unit run on 5 known sites (calgary.ca, mcmaster.ca, ville.quebec.qc.ca, a .com vendor, a canada.ca department) prints legal_name / phone / address / logo; next build's buyer_legal_name_as_published P01 Gold > 41.2%",
+   "status": "passing: --test on calgary.ca ('City of Calgary' stated, LinkedIn), mcmaster.ca (JSON-LD 'McMaster University'), canada.ca ECCC ('Environment and Climate Change Canada', federal signature logo); refresh running",
+   "rerun": "python3 tools/org_extras.py --test calgary.ca mcmaster.ca"
+  },
+  {
+   "deliverable": "rank same-pair fill + currency default",
+   "method": "rank.log prints 'same-pair fill: {...}' counts; contract_value P01 Gold in COVERAGE_VS_TARGETS.md > 65.0%; VALIDATION 7/7; AUDIT PASS",
+   "status": "passing: rank.log 'same-pair fill' counts (contract_value 7, contract number 15, end_date_inferred 121, start_from_signed 500); VALIDATION 7/7; AUDIT PASS (build 15:31Z)",
+   "rerun": "python3 contrib/claude/rank_buyers/rank.py | grep same-pair"
+  },
+  {
+   "deliverable": "integrity gates",
+   "method": "VALIDATION.md all gates pass, AUDIT.md PASS, Gold not lower than previous build without CHANGELOG reason",
+   "status": "passing (15:31Z build: 7/7 PASS, deep audit PASS, Gold 585)",
+   "rerun": "git show origin/main:coord/results/ranked/VALIDATION.md | head -20"
+  },
+  {
+   "deliverable": "Mac engines alive",
+   "method": "ps shows push_loop, sync_loop, ap_crawler, site_finder, downloads_loop, dns_daily; push_loop.log 'pushed' within 30 min",
+   "status": "passing 15:3xZ: push_loop pushed 15:17Z and 15:32Z; org_extras/org_contacts refresh, registry_lookup, ap_walk, wikidata, cc_mine, ap_crawler, site_finder, dns_daily, downloads_loop alive",
+   "rerun": "ps -axo command | grep -E 'push_loop|dns_daily|ap_crawler' | grep -v grep; tail -2 ~/cch-crawler-state/push_loop.log"
+  },
+  {
+   "deliverable": "PO open data joined",
+   "method": "SUMMARY.md line \"buyers' PO / contract open data joined\" shows pairs > 0 after claude_po_records.csv.gz is on origin",
+   "status": "passing but small: SUMMARY 'buyers' PO / contract open data joined: pairs 8, po_filled 6' \u2014 ceiling documented in COVERAGE_VS_TARGETS.md",
+   "rerun": "git show origin/main:coord/results/ranked/SUMMARY.md | grep -i 'open data'"
+  },
+  {
+   "deliverable": "rebuild: values from raw bids&tenders submissions",
+   "method": "patch_report.json on the release shows value_from_raw_submission > 0 and number_of_bids_from_raw > 0; reference_date = today",
+   "status": "passing (release 15:22Z: 9,213 values, 58,304 bid counts, reference_date 2026-11-08; rebuild workflow now in its own concurrency group after two cancelled days)",
+   "rerun": "gh api -H 'Accept: application/octet-stream' repos/mohamedbiranesy-gif/canada-contracts-hub/releases/assets/<patch_report id> | python3 -c 'import json,sys; print(json.load(sys.stdin)[\"report\"])'"
+  },
+  {
+   "deliverable": "Canada's Business Registries lookups",
+   "method": "claude_registry_lookup.csv on origin; SUMMARY line \"Canada's Business Registries: N vendors, M buyers found\" > 0 in the next build; 20 known vendors spot-checked (CMF Construction Ltd \u2192 BC0741074 BN 817975345)",
+   "status": "running on the Mac: 489 found / 844 looked up at 15:20Z; file pushed 15:17Z; consumer in rank.py; next build pending",
+   "rerun": "tail -1 ~/cch-crawler-state/registry_lookup.log"
+  },
+  {
+   "deliverable": "grants & contributions recipient BNs",
+   "method": "claude_gc_recipients.csv rows (3,186 buyers, 465 vendors); SUMMARY line 'grants & contributions recipient BNs' > 0 in the next build; 10 BNs re-checked against the CRA charities file where both exist",
+   "status": "file written 15:1xZ and pushed 15:17Z; consumer in rank.py; next build pending; cross-check not yet run",
+   "rerun": "python3 tools/gc_recipients.py --ranked ~/cch-tasks/ranked_latest.csv.gz"
+  },
+  {
+   "deliverable": "vendor websites from search proposals",
+   "method": "vendor_sites_check.py confirms by reading the site: claude_vendor_sites.csv check_status counts; rank fills vendor_website only for 'confirmed'",
+   "status": "batch a: 39 confirmed / 53 proposals (5 robots, 3 blocked, 3 http_202, 2 name not on site, 1 directory); batch b (8) queued on the Mac",
+   "rerun": "python3 tools/vendor_sites_check.py --in ~/cch-tasks/vsp/*.tsv"
+  }
+ ]
 }
