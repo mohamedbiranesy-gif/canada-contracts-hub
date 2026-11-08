@@ -1542,10 +1542,17 @@ for x in rows:
         x["po_required_as_published"] = t["po_required"] + src; x["_at"].add("po_required_as_published"); n_at["po_required"] += 1
     if t.get("portal_name") and not x.get("invoice_portal_url"):
         x["invoice_portal_url"] = "%s%s (additional channel named on the buyer's page; the e-mail is the contact)" % (t.get("portal_url") or t["portal_name"], (" — " + t["portal_name"]) if t.get("portal_url") else ""); x["_at"].add("invoice_portal_url"); n_at["portal"] += 1
-    if t.get("ap_phone") and not x.get("ap_phone"):
-        x["ap_phone"] = t["ap_phone"] + src; x["_at"].add("ap_phone"); n_at["ap_phone"] += 1
-    if t.get("invoice_mailing_address") and not x.get("invoice_mailing_address"):
-        x["invoice_mailing_address"] = t["invoice_mailing_address"] + src; x["_at"].add("invoice_mailing_address"); n_at["address"] += 1
+    _ap_page = int(x.get("grade") or 0) >= 3  # next to an AP / finance mailbox it is the AP phone and address; next to a general mailbox it is the organisation's
+    if t.get("ap_phone"):
+        if _ap_page and not x.get("ap_phone"):
+            x["ap_phone"] = t["ap_phone"] + src; x["_at"].add("ap_phone"); n_at["ap_phone"] += 1
+        elif not _ap_page and not x.get("buyer_phone"):
+            x["buyer_phone"] = t["ap_phone"] + " (printed next to the organisation's mailbox%s)" % src; n_at["buyer_phone_from_page"] += 1
+    if t.get("invoice_mailing_address"):
+        if _ap_page and not x.get("invoice_mailing_address"):
+            x["invoice_mailing_address"] = t["invoice_mailing_address"] + src; x["_at"].add("invoice_mailing_address"); n_at["address"] += 1
+        elif not _ap_page and not x.get("buyer_address"):
+            x["buyer_address"] = t["invoice_mailing_address"] + " (printed next to the organisation's mailbox%s)" % src; n_at["buyer_address_from_page"] += 1
     if t.get("ap_contact_name") and not x.get("ap_contact_name_as_published"):
         x["ap_contact_name_as_published"] = t["ap_contact_name"] + " (as printed by the organisation next to its invoicing mailbox%s)" % src; x["_at"].add("ap_contact_name_as_published"); n_at["ap_contact_name"] += 1
     if t.get("invoice_format"):
@@ -1561,7 +1568,9 @@ for x in rows:
         if t.get(col):
             x[lab] = "%s%s" % (t[col], src); n_at[col] += 1
     if t.get("mailbox_still_on_page") == "no":
-        x["email_check"] = (x.get("email_check") or "") + "; mailbox no longer seen on the page when re-read %s (check before use)" % t.get("retrieved_date") if "no longer" not in (x.get("email_check") or "") else x["email_check"]; n_at["mailbox_gone"] += 1
+        x["mailbox_recheck_note"] = "mailbox not seen in the page text when re-read %s (dynamic page, PDF or removed — the referee's own re-fetch decides; check before use)" % t.get("retrieved_date"); n_at["mailbox_gone"] += 1
+    else:
+        x["mailbox_recheck_note"] = "mailbox seen again on the page when re-read %s" % t.get("retrieved_date")
 print("ap_terms (evidence pages re-read): %d mailboxes read; filled %s" % (len(AT), dict(n_at)))
 # Peppol Directory (D8): every Canadian participant, matched by key / exact name
 PEP = []
@@ -1947,7 +1956,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("language_hint", ["template_language"]),
                    ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
-                   ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context"]),
+                   ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
                    ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
