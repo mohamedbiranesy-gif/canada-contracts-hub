@@ -45,6 +45,16 @@ Each row carries `invoice_card_json` (these elements as one structure), `invoice
 (which elements the sources did not give). Work is prioritised by what an invoice needs first: bill-to name and submission channel, then PO rule
 and terms, then tax and vendor identity. The scoreboard prints the readiness distribution per package. Nothing is invented to fill an element.
 
+## AP grade (owner 2026-11-08 11:24 EST — "how stringent: max"; incorporated alongside the invoice framing)
+`ap_grade` A–E, `ap_score` 0–100 and `ap_grade_basis` (criteria met / missing / penalties) on every delivered row, computed only from columns that already
+carry their source. Criteria (weights): invoicing / AP mailbox (20) or finance mailbox (10); referee-confirmed (15); seen again within 60 days (8);
+mailbox on the buyer's own domain (7); MX published (5); bill-to legal name published (8); invoice or billing address (6); PO rule published (6);
+payment terms published (6); currency (2); format / requirements (3); AP phone or AP contact (2); payment cycle or method — plausibility (2).
+Penalties: DMARC not enforced (3), BN conflict between sources (2), vendor registry warning (2).
+A = confirmed invoicing / AP mailbox on the buyer's own domain with MX, legal name, address, PO rule and terms all published, no penalties;
+B = confirmed invoicing / AP or finance mailbox, legal name, address, and PO rule or terms; C = confirmed mailbox with legal name or address or an AP /
+finance mailbox; D = confirmed mailbox only; E = mailbox not confirmed. The scoreboard prints the A–E distribution per package.
+
 ## Expert sign-off checklist (before any build is called "better")
 - [ ] `COVERAGE_VS_TARGETS.md`: benchmarks met went up or a ceiling is documented; `coverage_history.csv` shows the delta.
 - [ ] `VALIDATION.md` all gates pass; `AUDIT.md` PASS (no named person, no pattern mailbox, every value has provenance).

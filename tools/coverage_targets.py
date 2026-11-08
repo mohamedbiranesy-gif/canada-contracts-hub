@@ -233,6 +233,15 @@ def main():
             counts.sort()
             L.append("| %s | %d | %.1f%% | %.1f%% | %d | %s |" % (pkg, len(rows), 100.0 * sum(1 for c in counts if c >= 11) / len(rows), 100.0 * sum(1 for c in counts if c >= 9) / len(rows), counts[len(counts) // 2], (miss.most_common(1)[0][0] + " (%d rows)" % miss.most_common(1)[0][1]) if miss else "—"))
         L.append("")
+    if any(rows and "ap_grade" in rows[0] for rows in pk.values()):
+        L += ["## AP grade (how stringently the row's accounts-payable data meets what an invoice needs; A = invoicing mailbox referee-confirmed on the buyer's own domain with MX, legal name, address, PO rule and terms all published, no penalties)", "", "| package | rows | A | B | C | D | E | median ap_score |", "|---|---|---|---|---|---|---|---|"]
+        for pkg, rows in pk.items():
+            if not rows or "ap_grade" not in rows[0]:
+                continue
+            gc = collections.Counter((r.get("ap_grade") or "").strip() for r in rows)
+            sc = sorted(int(r["ap_score"]) for r in rows if (r.get("ap_score") or "").strip().isdigit())
+            L.append("| %s | %d | %d | %d | %d | %d | %d | %s |" % (pkg, len(rows), gc.get("A", 0), gc.get("B", 0), gc.get("C", 0), gc.get("D", 0), gc.get("E", 0), sc[len(sc) // 2] if sc else "—"))
+        L.append("")
     L += ["## Where the work is (largest gaps in rows still needed)", "", "| field | package | now | target | rows needed |", "|---|---|---|---|---|"]
     for f, p, v, need in gaps[:40]:
         L.append("| %s | %s | %.1f%% | %d%% | %d |" % (f, p, v["pct"], v["target"], need))

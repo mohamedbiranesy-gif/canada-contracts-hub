@@ -2250,7 +2250,7 @@ for x in rows:
     x["method_notes"] = "no AI-written values; every fact carries its page in the matching *_evidence_url / *_provenance column; blank = not_published; method and rules: contrib/claude/rank_buyers/README.md, AGENTS.md §2"
 print("narrative columns:", dict(n9))
 # ---- downstream pack (owner 2026-11-06 22:00, the downstream agent's 150 questions: prompts/downstream_150_questions.md). Guarded: a failure here never stops the build.
-PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
@@ -2387,6 +2387,51 @@ try:
         have = [n for n, ok in elements if ok]; miss = [n for n, ok in elements if not ok]
         x["invoice_readiness"] = "%d/%d invoice elements present" % (len(have), len(elements)) if x.get("email") else ""
         x["invoice_missing"] = "; ".join(miss) if x.get("email") else ""
+        # owner 2026-11-08 11:24 EST ("add AP grade … how stringent, max"): the row's accounts-payable data graded A–E on what an invoice needs
+        # and on plausibility signals that the channel is real and current. Mechanical: every criterion is a column already carrying its source.
+        if x.get("email"):
+            et, ec = (x.get("email_type") or ""), (x.get("email_check") or "")
+            own_domain = bool(x.get("buyer_website")) and registrable(host_of(x.get("buyer_website") or "")) == registrable((x.get("email") or "").split("@")[-1].lower())
+            mx_ok = (x.get("email_deliverability") or "").startswith("domain publishes a mail server")
+            crit = [
+                ("invoicing / AP mailbox", et.startswith(("invoic", "accounts_payable", "supplier_payment", "ap")), 20),
+                ("finance mailbox", et.startswith("finance") and not et.startswith(("invoic", "accounts_payable")), 10),
+                ("referee-confirmed mailbox", ec.startswith("confirmed"), 15),
+                ("mailbox seen again within 60 days", (x.get("reverify_due") or "") == "no" or (x.get("mailbox_recheck_note") or "").startswith("mailbox seen again"), 8),
+                ("mailbox on the buyer's own domain", own_domain, 7),
+                ("domain publishes a mail server (MX)", mx_ok, 5),
+                ("bill-to legal name published", card["bill_to"]["legal_name_is_published"], 8),
+                ("invoice or billing address", bool(card["bill_to"]["address"]), 6),
+                ("PO rule published", bool(card["references_required"]["po_required"]), 6),
+                ("payment terms published", bool(_val("payment_terms_as_published")), 6),
+                ("currency known", bool(card["tax"]["currency"]), 2),
+                ("invoice format / requirements published", bool(card["submit_to"]["format"] or _val("invoicing_requirements")), 3),
+                ("AP phone or AP contact", bool(_val("ap_phone") or card["follow_up"]["ap_contact"]), 2),
+                ("payment cycle or method published (plausibility)", bool(card["terms"]["payment_cycle"] or card["terms"]["payment_method"]), 2),
+            ]
+            penalties = []
+            if (x.get("email_security_posture") or "").startswith("EXPOSED"):
+                penalties.append(("domain exposed to spoofing (no DMARC enforcement)", 3))
+            if x.get("buyer_bn_note"):
+                penalties.append(("BN conflict between sources", 2))
+            if (x.get("vendor_registry_warning") or ""):
+                penalties.append(("vendor registry warning", 2))
+            score = sum(w for _, ok, w in crit if ok) - sum(w for _, w in penalties)
+            score = max(0, min(100, score))
+            ap_mail = crit[0][1]; confirmed = crit[2][1]
+            if confirmed and ap_mail and crit[6][1] and crit[7][1] and crit[8][1] and crit[9][1] and crit[4][1] and crit[5][1] and not penalties:
+                g = "A"
+            elif confirmed and (ap_mail or crit[1][1]) and crit[6][1] and crit[7][1] and (crit[8][1] or crit[9][1]):
+                g = "B"
+            elif confirmed and (ap_mail or crit[1][1] or crit[6][1] or crit[7][1]):
+                g = "C"
+            elif confirmed:
+                g = "D"
+            else:
+                g = "E"
+            x["ap_grade"] = g
+            x["ap_score"] = str(score)
+            x["ap_grade_basis"] = "met: %s | missing: %s%s" % ("; ".join(n_ for n_, ok, _ in crit if ok) or "none", "; ".join(n_ for n_, ok, _ in crit if not ok) or "none", (" | penalties: " + "; ".join(n_ for n_, _ in penalties)) if penalties else "")
         x["facts_provenance_json"] = json.dumps({"mailbox": [p.strip() for p in (x.get("mailbox_provenance") or "").split(" | ") if p.strip()], "buyer_facts": [p.strip() for p in (x.get("buyer_facts_provenance") or "").split("; ") if p.strip()],
                                                  "vendor_facts": [p.strip() for p in (x.get("vendor_facts_provenance") or "").split("; ") if p.strip()], "relationship": x.get("how_relationship_was_found") or ""}, ensure_ascii=False)[:4000]
         # quality score / ship_ready (S2)
@@ -2456,7 +2501,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
                    ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
-                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "invoice_card_json", "invoice_readiness", "invoice_missing"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
+                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
