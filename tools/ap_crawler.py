@@ -54,8 +54,9 @@ stats = {"sites": 0, "pages": 0, "found_sites": 0, "rows": 0, "blocked": 0}
 # 2026-11-08 (downstream §4): the AP / supplier / purchasing pages (and PDFs) a crawl reads are kept per buyer, so tools/ap_terms.py --urls
 # can extract payment terms, PO rules, portals, invoice addresses from them even when the page shows no mailbox
 AP_PAGES = {}
-AP_PAGE_RX = re.compile(r"(?<!manu)factur|invoice|payable|comptes?[-_ ]?(a|à)[-_ ]?payer|accounts?[-_ ]?pay|e-?invoic|fournisseur|supplier|vendor|approvisionnement|purchas|procure|achats?\b|"
-                        r"doing[-_ ]business|business[-_ ]with|terms[-_ ]and[-_ ]conditions|conditions[-_ ]g[ée]n[ée]rales|payment|paiement|tender|bid|appels?[-_ ]d", re.I)
+AP_PAGE_RX = re.compile(r"(?<!manu)factur|invoice|payable|comptes?[-_ ]?(a|à)[-_ ]?payer|accounts?[-_ ]?pay|e-?invoic|fournisseur|supplier|vendor|approvisionnement|purchasing|procurement|achats?\b|"
+                        r"doing[-_ ]business|business[-_ ]with|terms[-_ ]and[-_ ]conditions|conditions[-_ ]g[ée]n[ée]rales|appels?[-_ ]d[-_ ]?offres|soumissions|tenders?\b|bids?\b|rfp|rfq", re.I)
+AP_PAGE_WEAK = re.compile(r"/news/|/nouvelles/|/blog/|/events?/|cemetery|cimeti|parking|stationnement|real-?estate|land|property-tax|taxes?-fonci|recreation|loisirs|permit|licen[cs]e|transit|library|biblioth", re.I)
 AP_TEXT_RX = re.compile(r"payment terms|net \d{2}|within \d{2} days|purchase order|bon de commande|conditions de paiement|modalit[ée]s de paiement|accounts payable|comptes [àa] payer|submit (?:your )?invoices?|"
                         r"soumettre (?:vos |les )?factures?|invoice[s]? (?:must|should|are to)|supplier portal|portail (?:des )?fournisseurs|vendor registration|inscription des fournisseurs|direct deposit|d[ée]p[ôo]t direct", re.I)
 AP_PAGES_FILE = os.path.join(STATE, "ap_pages_seen.csv")
@@ -65,11 +66,14 @@ def note_ap_page(buyer_key, buyer_name, site, url, text, is_doc):
     """remember an AP-relevant page of this buyer's site (URL words or page text), at most 10 per site"""
     if not buyer_key:
         return
-    if not (AP_PAGE_RX.search(urllib.parse.urlparse(url).path) or AP_TEXT_RX.search(text[:60000])):
+    path = urllib.parse.urlparse(url).path
+    if AP_PAGE_WEAK.search(path) and not AP_TEXT_RX.search(text[:60000]):
+        return  # news, cemetery lots, land purchases, parking payments: not the payables pages
+    if not (AP_PAGE_RX.search(path) or AP_TEXT_RX.search(text[:60000])):
         return
     with out_lock:
         lst = AP_PAGES.setdefault(buyer_key, [])
-        if len(lst) < 10 and url not in [u for u, _ in lst]:
+        if len(lst) < 12 and url not in [u for u, _ in lst]:
             lst.append((url, "document" if is_doc else "page"))
 
 
