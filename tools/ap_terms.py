@@ -185,6 +185,7 @@ def main():
     a.add_argument("--recheck-days", type=int, default=45)
     a.add_argument("--grades", default="invoicing,finance,purchasing", help="email_type prefixes to read (general pages rarely carry terms)")
     a.add_argument("--force", action="store_true", help="re-read pages already read (new columns)")
+    a.add_argument("--urls", default="", help="CSV buyer_key,buyer_name,website,official_site,url (search results): read these pages, keyed by buyer_key instead of mailbox")
     a = a.parse_args()
     out = os.path.join(a.repo, "data/incoming/claude/claude_ap_terms.csv")
     prev = {}
@@ -212,6 +213,12 @@ def main():
             if p and not a.force and p.get("retrieved_date", "") >= cutoff and p.get("status") not in ("error", "http_0"):
                 continue
             todo.append((r["email"].lower(), r["email_evidence_url"], r.get("buyer") or "", r.get("rank_group") or ""))
+    if a.urls:
+        todo = []
+        for r in csv.DictReader(open(a.urls, encoding="utf-8")):
+            k = (r.get("buyer_key") or "").strip(); u = (r.get("url") or "").strip()
+            if k and u.startswith("http") and (k, u) not in seen and (a.force or (k, u) not in prev):
+                seen.add((k, u)); todo.append((k, u, r.get("buyer_name") or "", "URLS"))
     todo.sort(key=lambda t: (t[3] != "GOLD", t[3][:1] not in ("A", "B"), t[3]))
     if a.limit:
         todo = todo[:a.limit]
@@ -223,7 +230,7 @@ def main():
         email, url, buyer, grp = t
         st, final, text, raw = read_page(url)
         row = {c: "" for c in COLS}
-        row.update(email=email, evidence_url=url, final_url=final, retrieved_date=TODAY, status=st)
+        row.update(email=email, evidence_url=url, final_url=final, retrieved_date=TODAY, status=st)  # in --urls mode the "email" column carries the buyer_key
         if st == "ok":
             try:
                 row.update(extract(email, buyer, text, raw, final))

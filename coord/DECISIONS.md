@@ -527,3 +527,14 @@ tasks (the ChatGPT automation and the Gemini app are open and working): A/B/T/L 
 first, with the staff-directory method and the extra fields (terms, PO rule, portal, AP contact) asked for in their inboxes; the
 search-agent passes (D1 second variant, D4 terms pass, D11 municipal directories, T6_004–009) wait for the credit reset;
 (6) D9 needs no action — the 11-06 build carries no MPAC-inferred rows. Plan and status table: `prompts/claude_d_items.md`.
+
+## 2026-11-08 01:40 (claude) — the referee's verdict is now sticky: a value it has seen stays verified when the page cannot be read later
+Between the 06:03Z and 13:07Z builds of 2026-11-07, 20 Gold rows and ~3,500 P13 rows disappeared although nothing had changed on
+their pages: twenty-odd verifier runs in a few hours (one per push) re-checked every page from a thin fetch cache, and pages that
+refused GitHub's runner that morning (tn.gov, psu.edu, bcm.edu, ag.gov.au …) came back `unverified_page_unavailable`, which the
+ranking treats as "not confirmed". That is a false negative: the referee HAD seen the mailbox on that page (its own log said so).
+Decision: `coord/results/verified_ledger.csv` records every (value, page) the referee verified, with first and last dates. When a
+later run cannot read the page (unavailable, hidden, time budget), a sighting younger than 120 days keeps the verdict `verified`
+and the log notes "referee saw it on this page on <date>; the page could not be read today". The verdict is overridden only when
+the page IS read and the value is gone (`not_found_on_page`) — that is the honest meaning of re-verification. Seeded from the
+verification logs of 2026-11-07 06:03Z and 2026-11-08. `evidence_age_days` / `reverify_due` in every row still flag stale sightings.

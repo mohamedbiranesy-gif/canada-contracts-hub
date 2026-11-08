@@ -80,6 +80,44 @@ def page_text(url):
 
 
 VIA = {}  # (value, url) -> archive snapshot used to verify it
+# Verified ledger (2026-11-08): a value the referee has SEEN on its page keeps that verdict when the page cannot be opened on a later run
+# (bot protection, outage, lost fetch cache, time budget). 20 Gold rows and ~3,500 P13 rows flapped out on 2026-11-07 for that reason alone.
+# It is only overridden when the page is fetched successfully and the value is no longer on it. Entries older than LEDGER_DAYS expire.
+LEDGER_PATH, LEDGER_DAYS = "coord/results/verified_ledger.csv", 120
+LEDGER, LEDGER_TODAY = {}, datetime.date.today().isoformat()
+if os.path.exists(LEDGER_PATH):
+    for _r in csv.DictReader(open(LEDGER_PATH, encoding="utf-8")):
+        LEDGER[(_r["value"], _r["url"])] = _r
+
+
+def ledger_note(value, url, status):
+    """record this run's verdict; return the earlier verified date that still stands when today's page could not be read, else None"""
+    k = (value.lower().strip(), url or "")
+    e = LEDGER.get(k)
+    if status == "verified":
+        LEDGER[k] = {"value": k[0], "url": k[1], "first_verified": (e or {}).get("first_verified") or LEDGER_TODAY, "last_verified": LEDGER_TODAY, "last_status": "verified"}
+        return None
+    if status in ("not_found_on_page", "rejected_personal_or_invalid"):
+        if e:
+            e["last_status"] = status  # the page was read and the value is gone: the earlier sighting no longer stands
+        return None
+    if e and e.get("last_verified") and e.get("last_status") == "verified":
+        try:
+            age = (datetime.date.today() - datetime.date.fromisoformat(e["last_verified"])).days
+        except ValueError:
+            age = LEDGER_DAYS + 1
+        if age <= LEDGER_DAYS:
+            return e["last_verified"]
+    return None
+
+
+def ledger_write():
+    os.makedirs(os.path.dirname(LEDGER_PATH), exist_ok=True)
+    with open(LEDGER_PATH, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=["value", "url", "first_verified", "last_verified", "last_status"])
+        w.writeheader()
+        for k in sorted(LEDGER):
+            w.writerow({c: LEDGER[k].get(c, "") for c in w.fieldnames})
 
 
 def archive_text(url, fetch=True):
@@ -138,6 +176,17 @@ def bad_email(e):
 
 
 def verify(value, url):
+    st = verify_now(value, url)
+    if st is None:
+        return None
+    seen = ledger_note(value, url, st)
+    if seen and st in ("pending_verification", "unverified_page_unavailable", "not_found_on_page_hidden"):
+        VIA[(value, url)] = "referee saw it on this page on %s; the page could not be read today (%s)" % (seen, st)
+        return "verified"
+    return st
+
+
+def verify_now(value, url):
     if not value:
         return None
     if bad_email(value):
@@ -363,6 +412,7 @@ for lane, items in verify.items():
                         "verify: %s found %s on %s but %s. Open it in your browser: if the value is there, save it with that page and a quote containing it; if not, find the right contact or record not_published" % (e["found_by"], e.get("email") or e.get("invoice_portal"), e.get("page_url"), WHY.get(e["verification"], e["verification"]))])
     report["verify_tasks_" + lane] += len(items)
 per_lane = collections.defaultdict(collections.Counter)
+ledger_write()
 with open("coord/results/verification_log.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.writer(f)
     w.writerow(["found_by", "source_file", "task_id", "buyer_key", "value", "page_url", "outcome"])

@@ -1525,15 +1525,17 @@ try:
     if os.path.exists(ROOT + "/data/incoming/claude/claude_ap_terms.csv"):
         for _r in csv.DictReader(io.StringIO(open(ROOT + "/data/incoming/claude/claude_ap_terms.csv", encoding="utf-8", errors="replace").read().replace("\0", ""))):
             if _r.get("status") == "ok" and _r.get("email"):
-                AT.setdefault(_r["email"].lower(), _r)
+                AT.setdefault(_r["email"].lower(), _r)  # mailbox rows; buyer_key rows (from --urls search passes) sit under their key
 except Exception as _e:
     print("ap_terms file unreadable:", type(_e).__name__, _e); AT = {}
 n_at = collections.Counter()
 for x in rows:
     e = (x.get("email") or "").lower()
-    t = AT.get(e)
+    t = AT.get(e) or next((AT[k] for k in (x.get("keys") or "").split("|") if k in AT), None)
     if not t:
         continue
+    if t.get("email") != e and not re.search(r"invoice|factur|payable|supplier|vendor|fourniss|payment|paiement|terms|conditions", (t.get("final_url") or "") + (t.get("payment_terms_quote") or ""), re.I):
+        continue  # a page found by search for this buyer: use it only when it is about invoicing / supplier terms
     src = " (as printed on %s, re-read %s)" % (t.get("final_url") or t.get("evidence_url"), t.get("retrieved_date"))
     x["_at"] = set()
     if t.get("payment_terms") and not x.get("payment_terms_as_published"):
