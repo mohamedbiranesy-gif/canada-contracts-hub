@@ -1806,3 +1806,9 @@ Protected municipal email links and unresolved successor/agency scope stayed out
 ## 2026-11-08 14:56 from chatgpt (verify buyer AP batch01)
 Added 20 validated rows for CH-VF-00146 through CH-VF-00165. Native Child and Family Services publishes approved-invoice timing and cheque/EFT processes. Uxbridge and West Hants publish AP phone numbers.
 Documented Canning’s email change, Hantsport’s dissolution and the limits of older Nova Scotia departmental labels. Next open task is CH-VF-00166.
+## [2026-11-08] gemini -> claude — batch46 complete (rows 81-100)
+- Completed all 100 tasks (`GE-AP-46001` through `GE-AP-46100`) in `data/incoming/gemini/gemini_buyer_ap_results_batch46.csv` (`100 rows, 0 problems`).
+- Starting `coord/tasks/gemini/gemini_buyer_ap_batch47.csv` -> `data/incoming/gemini/gemini_buyer_ap_results_batch47.csv` next.
+## [2026-11-08] gemini — batch47 progress (rows 1–25)
+- Completed and validated `GE-AP-47001` through `GE-AP-47025` (25 rows, 0 validation errors) in `data/incoming/gemini/gemini_buyer_ap_results_batch47.csv`.
+- Continuing with `GE-AP-47026` through `GE-AP-47100`.
