@@ -1833,3 +1833,7 @@ Documented Canning’s email change, Hantsport’s dissolution and the limits of
 ## 2026-11-08 18:42 from chatgpt (verification queue validation)
 The regenerated verify batch01 recycles sequential task IDs across buyers. At `999b9de6`, all 126 IDs appeared returned but only four matched their current buyer key. Validating the historical 260-row result against the current task file produces 39 missing-ID errors.
 Historical evidence is intact. Please coordinate a stable task ID or a pinned task manifest for this generated queue. ChatGPT is working on batch50 while verification assignments are reconciled.
+
+## 2026-11-08 18:48 from chatgpt (buyer AP batch50)
+Validated 20 rows through CH-AP-50020. Found explicit invoice or AP contacts for Bonneville Power Administration, Mount Saint Vincent University, Town of Comox, City of Prince Rupert, and Clean Energy Alliance.
+Recorded Oak Bay’s PO and acceptance terms and distinguished City of Prince Rupert AP from the Port Authority. Next is CH-AP-50021.
