@@ -1861,6 +1861,51 @@ for x in rows:
         x["vendor_gst_hst_derived"] = "%sRT0001 (%s)" % (c["bn9"], c["program_account_as_printed"])
         x["vendor_bn_source"] = x.get("vendor_bn_source") or "printed on the organisation's own page (%s)" % c["url"]; n_cr += 1
 print("crown-corporation BNs applied to inferred-vendor rows:", n_cr)
+# Canada's Business Registries (tools/registry_lookup.py → claude_registry_lookup.csv): BN, registered name, registry id, entity type, status,
+# incorporation date, registered office for vendors (and corporation-type buyers) that no other registry matched (downstream §2.1 / §3.2)
+CBR = {"vendor": {}, "buyer": {}}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_registry_lookup.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_registry_lookup.csv", encoding="utf-8", errors="replace")):
+        if _r.get("status") == "found" and _r.get("juri_id"):
+            CBR[_r["kind"]][_r["key"] if _r["kind"] == "buyer" else norm(_r["key"])] = _r
+n_cbr = collections.Counter()
+for x in rows:
+    vn = x.get("vendor") or ""
+    c = CBR["vendor"].get(norm(vn)) if vn and not vn.startswith("inferred") else None
+    if c:
+        src = "Canada's Business Registries, %s %s, %s" % (c["registry_source"], c["juri_id"], c["retrieved_date"])
+        if c.get("bn9") and not x.get("vendor_bn9"):
+            x["vendor_bn9"] = "%s (%s)" % (c["bn9"], src); x["vendor_bn_source"] = x.get("vendor_bn_source") or "registry: " + src; n_cbr["vendor_bn9"] += 1
+            if not x.get("vendor_gst_hst_derived"):
+                x["vendor_gst_hst_derived"] = c["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
+        if not x.get("vendor_legal_name") and c.get("matched_name"):
+            x["vendor_legal_name"] = "%s (as registered: %s)" % (c["matched_name"], src); n_cbr["vendor_legal_name"] += 1
+        if not x.get("vendor_registered_address") and (c.get("reg_office_city") or c.get("reg_office_province")):
+            x["vendor_registered_address"] = "%s (registered office city / province; %s)" % (", ".join(v for v in (c.get("reg_office_city"), c.get("reg_office_province")) if v), src); n_cbr["vendor_registered_address"] += 1
+        if not x.get("vendor_registry_status") and c.get("status_state"):
+            x["vendor_registry_status"] = "%s%s (%s)" % (c["status_state"], (" — " + c["status_notes"]) if c.get("status_notes") and c["status_notes"] != c["status_state"] else "", src); n_cbr["vendor_registry_status"] += 1
+        if not x.get("vendor_incorporation_date") and c.get("date_incorporated"):
+            x["vendor_incorporation_date"] = c["date_incorporated"]; n_cbr["vendor_incorporation_date"] += 1
+        if not x.get("vendor_legal_form") and c.get("entity_type"):
+            x["vendor_legal_form"] = "%s (%s)" % (c["entity_type"], src); n_cbr["vendor_legal_form"] += 1
+        if not x.get("vendor_trading_name") and c.get("alternate_names"):
+            x["vendor_trading_name"] = c["alternate_names"] + " (alternate names in the registry)"; n_cbr["vendor_trading_name"] += 1
+        x["vendor_registry_id"] = ((x.get("vendor_registry_id") + "; ") if x.get("vendor_registry_id") else "") + "%s %s (Canada's Business Registries)" % (c["registry_source"], c["juri_id"])
+        x["vendor_registry_url"] = x.get("vendor_registry_url") or c.get("ui_url") or ""
+    k = (x.get("keys") or "").split("|")[0]
+    b = CBR["buyer"].get(k) if k else None
+    if b:
+        src = "Canada's Business Registries, %s %s, %s" % (b["registry_source"], b["juri_id"], b["retrieved_date"])
+        if b.get("bn9") and not x.get("buyer_bn_as_published"):
+            x["buyer_bn_as_published"] = "%s (%s)" % (b["bn9"], src); n_cbr["buyer_bn"] += 1
+            if not x.get("buyer_gst_hst_derived"):
+                x["buyer_gst_hst_derived"] = b["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
+        if not x.get("buyer_legal_name_as_published") and b.get("matched_name"):
+            x["buyer_legal_name_as_published"] = "%s (as registered: %s)" % (b["matched_name"], src); n_cbr["buyer_legal_name"] += 1
+        if not x.get("buyer_legal_form") and b.get("entity_type"):
+            x["buyer_legal_form"] = "%s (%s)" % (b["entity_type"], src)
+        x["buyer_registry_id"] = "%s %s (Canada's Business Registries; %s)" % (b["registry_source"], b["juri_id"], b.get("ui_url") or "")
+print("Canada's Business Registries: %d vendors, %d buyers found; filled %s" % (len(CBR["vendor"]), len(CBR["buyer"]), dict(n_cbr)))
 # the buyers' own purchase-order / contract open data joined to existing pairs (tools/po_opendata.py → claude_po_records.csv; downstream §1.1)
 POD = collections.defaultdict(list)
 _pop = ROOT + "/data/incoming/claude/claude_po_records.csv.gz"
@@ -2265,7 +2310,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
-                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked"]), ("vendor_website_status", ["vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
+                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id"]), ("vendor_website_status", ["vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
                    ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
     if after in cols:
