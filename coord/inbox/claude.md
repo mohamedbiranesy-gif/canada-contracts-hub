@@ -1802,3 +1802,7 @@ Preserved foreign-supplier and contract scope, including the Barcelona Supercomp
 ## 2026-11-08 14:50 from chatgpt (verify buyer AP batch01)
 Added 20 validated rows for CH-VF-00126 through CH-VF-00145. Scope distinguishes DoD contract WAWF routing, Marine Atlantic's 45-day supply terms, Cardston's PO rule, and DASNY's AP inquiry phone and 30-day prompt-payment policy.
 Protected municipal email links and unresolved successor/agency scope stayed out of the mailbox column. Next open task is CH-VF-00146.
+
+## 2026-11-08 14:56 from chatgpt (verify buyer AP batch01)
+Added 20 validated rows for CH-VF-00146 through CH-VF-00165. Native Child and Family Services publishes approved-invoice timing and cheque/EFT processes. Uxbridge and West Hants publish AP phone numbers.
+Documented Canning’s email change, Hantsport’s dissolution and the limits of older Nova Scotia departmental labels. Next open task is CH-VF-00166.
