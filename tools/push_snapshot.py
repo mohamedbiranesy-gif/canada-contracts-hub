@@ -16,7 +16,6 @@ import glob, os, subprocess, sys
 
 SRC = os.path.expanduser(sys.argv[1] if len(sys.argv) > 1 else "~/cch-crawler/data/incoming/claude")
 WT = os.path.expanduser(sys.argv[2] if len(sys.argv) > 2 else "~/cch-crawler-state/pushwt")
-DST = os.path.join(WT, "data/incoming/claude")
 TEXT = (".csv", ".tsv", ".jsonl", ".txt", ".md")
 
 
@@ -25,15 +24,18 @@ def last_commit_time(rel):
     return int(out) if out.isdigit() else 0
 
 
-def main():
-    os.makedirs(DST, exist_ok=True)
+def snapshot(src, lane):
+    dst = os.path.join(WT, "data/incoming", lane)
+    os.makedirs(dst, exist_ok=True)
     copied, skipped, too_big = [], [], []
-    for p in sorted(glob.glob(os.path.join(SRC, "*"))):
+    for p in sorted(glob.glob(os.path.join(src, "*"))):
         name = os.path.basename(p)
         if os.path.isdir(p) or name.startswith(".") or name.endswith((".tmp", ".merge.tmp", ".lock", ".part")):
             continue
-        q = os.path.join(DST, name)
-        rel = "data/incoming/claude/" + name
+        if lane != "claude" and "_results_" not in name:
+            continue  # other lanes: only the result files the Claude-run research driver writes on this Mac
+        q = os.path.join(dst, name)
+        rel = "data/incoming/%s/%s" % (lane, name)
         if os.path.getsize(p) > 95 * 1024 * 1024:  # GitHub refuses files over 100 MB and one such file would block every push: skip it (writers gzip big outputs)
             if name not in too_big:
                 print("%s: %d MB, over GitHub's file limit, not pushed (gzip it)" % (name, os.path.getsize(p) >> 20), flush=True)
@@ -58,6 +60,16 @@ def main():
             f.write(b)
         os.replace(q + ".tmp", q)
         copied.append(name)
+    return copied, skipped
+
+
+def main():
+    copied, skipped = snapshot(SRC, "claude")
+    for lane in ("gemini", "chatgpt", "codex"):  # results the Claude-run research driver writes into the other lanes' folders on this Mac
+        d = os.path.join(os.path.dirname(SRC.rstrip("/")), lane)
+        if os.path.isdir(d):
+            c, sk = snapshot(d, lane)
+            copied += [lane + "/" + n for n in c]; skipped += [lane + "/" + n for n in sk]
     print("snapshot: %s%s" % (", ".join(copied) if copied else "no change", ("; stale (origin newer): " + ", ".join(skipped)) if skipped else ""), flush=True)
 
 
