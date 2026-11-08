@@ -57749,8 +57749,8 @@ claude,claude_buyer_ap_results_search01.csv,CL-WS-00079,lead:6cd18d7819d9b2ed,in
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-36483,lead:6cd2165a862fad80,procurement@cumberlandcounty.ns.ca,https://www.cumberlandcounty.ns.ca/documents/procurement/3443-rfp-mcc-2621-design-build-new-river-hebert-firehall/file.html,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01033,lead:6cd46a59824cb831,manufacturelations@mckesson.ca,https://www.mckesson.ca/contact-us,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21747,lead:6cf35db384406c44,campaignfinance@columbus.gov,https://www.columbus.gov/Government/Office-of-Ethics-Campaign-Finance,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21747,lead:6cf35db384406c44,vendorservices@columbus.gov,https://www.columbus.gov/Government/Departments/Finance-and-Management/Purchasing-Office,unverified_page_unavailable
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21747,lead:6cf35db384406c44,suppliercertifications@columbus.gov,https://www.columbus.gov/files/sharedassets/city/v/3/finance/3-easy-steps-brochure.pdf,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21747,lead:6cf35db384406c44,vendorservices@columbus.gov,https://www.columbus.gov/Government/Departments/Finance-and-Management/Purchasing-Office,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21747,lead:6cf35db384406c44,suppliercertifications@columbus.gov,https://www.columbus.gov/files/sharedassets/city/v/3/finance/3-easy-steps-brochure.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35432,lead:6cf59669fc0d37e8,info@belmontflowers.ca,https://belmontflowers.ca/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00040,lead:6cf59669fc0d37e8,info@belmontflowers.ca,https://belmontflowers.ca/pages/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-21891,lead:6cf61d3173bfd822,payments@oxford.gov.uk,https://www.oxford.gov.uk/finances/ways-make-payment,verified
