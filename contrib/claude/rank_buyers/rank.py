@@ -1923,6 +1923,30 @@ for x in rows:
             x["buyer_legal_form"] = "%s (%s)" % (b["entity_type"], src)
         x["buyer_registry_id"] = "%s %s (Canada's Business Registries; %s)" % (b["registry_source"], b["juri_id"], b.get("ui_url") or "")
 print("Canada's Business Registries: %d vendors, %d buyers found; filled %s" % (len(CBR["vendor"]), len(CBR["buyer"]), dict(n_cbr)))
+# federal grants & contributions disclosure (tools/gc_recipients.py → claude_gc_recipients.csv): recipient_business_number of buyers and vendors
+GCR = {"vendor": {}, "buyer": {}}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_gc_recipients.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_gc_recipients.csv", encoding="utf-8", errors="replace")):
+        if _r.get("bn9"):
+            GCR[_r["kind"]][_r["key"] if _r["kind"] == "buyer" else norm(_r["key"])] = _r
+n_gcr = collections.Counter()
+for x in rows:
+    k = (x.get("keys") or "").split("|")[0]
+    g = GCR["buyer"].get(k) if k else None
+    if g and not x.get("buyer_bn_as_published"):
+        x["buyer_bn_as_published"] = "%s (recipient_business_number in the federal grants & contributions disclosure, %s agreement(s), last %s; %s)" % (g["bn_as_published"], g.get("agreements") or "?", g.get("last_agreement_date") or "n/a", g["source_url"]); n_gcr["buyer_bn"] += 1
+        if not x.get("buyer_gst_hst_derived"):
+            x["buyer_gst_hst_derived"] = g["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
+        if not x.get("buyer_legal_name_as_published") and g.get("matched_name"):
+            x["buyer_legal_name_as_published"] = "%s (recipient legal name in the federal grants & contributions disclosure)" % g["matched_name"]; n_gcr["buyer_legal_name"] += 1
+    vn = x.get("vendor") or ""
+    g = GCR["vendor"].get(norm(vn)) if vn and not vn.startswith("inferred") else None
+    if g and not x.get("vendor_bn9"):
+        x["vendor_bn9"] = "%s (recipient_business_number in the federal grants & contributions disclosure, last agreement %s; %s)" % (g["bn9"], g.get("last_agreement_date") or "n/a", g["source_url"]); n_gcr["vendor_bn9"] += 1
+        x["vendor_bn_source"] = x.get("vendor_bn_source") or "federal grants & contributions disclosure (recipient_business_number)"
+        if not x.get("vendor_gst_hst_derived"):
+            x["vendor_gst_hst_derived"] = g["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
+print("grants & contributions recipient BNs: %d buyers, %d vendors in file; filled %s" % (len(GCR["buyer"]), len(GCR["vendor"]), dict(n_gcr)))
 # the buyers' own purchase-order / contract open data joined to existing pairs (tools/po_opendata.py → claude_po_records.csv; downstream §1.1)
 POD = collections.defaultdict(list)
 _pop = ROOT + "/data/incoming/claude/claude_po_records.csv.gz"
