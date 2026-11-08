@@ -25,7 +25,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
 | 19 | buyer name is a name (not a domain or a page title) | soft | 22853 | REVIEW |
-| 20 | legal name is not a fragment or a platform copyright | soft | 42 | REVIEW |
+| 20 | legal name is not a fragment or a platform copyright | soft | 41 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 8 | REVIEW |
 | 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 63 | REVIEW |
@@ -196,14 +196,14 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 ## Field fill across all delivered rows (value present, not `not_published`)
 - buyer_website: 63599 (100.0%)
 - vendor_address: 60804 (95.6%)
-- vendor_website: 59694 (93.9%)
+- vendor_website: 59722 (93.9%)
 - vendor_phone: 56187 (88.3%)
 - vendor_bn9: 53073 (83.4%)
 - buyer_logo_url: 53066 (83.4%)
 - buyer_phone: 49632 (78.0%)
-- buyer_address: 47681 (75.0%)
-- buyer_legal_name_as_published: 31720 (49.9%)
-- buyer_bn_as_published: 13209 (20.8%)
+- buyer_address: 47671 (75.0%)
+- buyer_legal_name_as_published: 31744 (49.9%)
+- buyer_bn_as_published: 13246 (20.8%)
 - contract_link: 12811 (20.1%)
 - vendor_legal_name: 9723 (15.3%)
 - vendor_registry_id: 8256 (13.0%)
@@ -212,29 +212,29 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - award_date: 6492 (10.2%)
 - vendor_neq: 5018 (7.9%)
 - vendor_emails: 4346 (6.8%)
-- ap_phone: 2650 (4.2%)
+- ap_phone: 2657 (4.2%)
 - contract_value: 2373 (3.7%)
-- invoice_mailing_address: 2160 (3.4%)
+- invoice_mailing_address: 2172 (3.4%)
 - end_date: 1774 (2.8%)
-- invoicing_requirements: 1658 (2.6%)
-- invoice_portal_url: 914 (1.4%)
-- po_required_as_published: 716 (1.1%)
-- payment_terms_as_published: 582 (0.9%)
-- ap_contact_name_as_published: 297 (0.5%)
+- invoicing_requirements: 1759 (2.8%)
+- invoice_portal_url: 1082 (1.7%)
+- po_required_as_published: 941 (1.5%)
+- payment_terms_as_published: 907 (1.4%)
+- ap_contact_name_as_published: 362 (0.6%)
 
 ## Canada-proof families
 - other: 47253; source field: 16346
 
 ## Buyer types
-- organisation (type not stated in the record): 33463
+- organisation (type not stated in the record): 33442
 - company (private sector): 10794
 - non-profit / association / cultural body: 7226
-- company (private sector) (from the organisation's name / web domain): 3690
+- company (private sector) (from the organisation's name / web domain): 3713
 - municipality / local government: 1336
 - government ministry / agency: 1213
-- municipality / local government (from the organisation's name / web domain): 1055
+- municipality / local government (from the organisation's name / web domain): 1054
 - hospital / health authority: 936
-- non-profit / association / cultural body (from the organisation's name / web domain): 885
+- non-profit / association / cultural body (from the organisation's name / web domain): 884
 - university / college: 591
 - utility / public corporation: 482
 - university / college (from the organisation's name / web domain): 455
