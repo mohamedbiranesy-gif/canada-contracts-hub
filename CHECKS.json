@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-08T15:35Z",
+ "updated": "2026-11-08T15:55Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
    "method": "SUMMARY.md of the latest build prints 'benchmarks met N / 438'; COVERAGE_VS_TARGETS.md present",
-   "status": "passing (build 2026-11-08 15:31Z: benchmarks met 76 / 438 = 17.4%, baseline 57)",
+   "status": "passing (build 15:48Z: 87 / 438 = 19.9%; 13:28Z baseline 57; 15:31Z 76). P01 Gold: buyer_legal_name 41.2\u219287.5%, vendor_bn9 63.1\u219279.0%, vendor_registered_address 59.0\u219275.4%, vendor_trading_name 25.3\u219252.5%, vendor_website 57.8\u219270.1%, buyer_bn 0.7\u219218.8%, buyer_address 74.5\u219289.1%, buyer_phone 55.2\u219269.9%, buyer_logo 54.2\u219268.9%, contract_value 65.0\u219268.7%, end_date 43.9\u219252.8%, number_of_bids 1.7\u219219.0%, records_with_this_vendor 72.5\u2192100%",
    "rerun": "gh api -X POST repos/mohamedbiranesy-gif/canada-contracts-hub/actions/workflows/rank-buyers.yml/dispatches -f ref=main; then: git show origin/main:coord/results/ranked/SUMMARY.md | grep benchmarks"
   },
   {
@@ -28,7 +28,7 @@
   {
    "deliverable": "integrity gates",
    "method": "VALIDATION.md all gates pass, AUDIT.md PASS, Gold not lower than previous build without CHANGELOG reason",
-   "status": "passing (15:31Z build: 7/7 PASS, deep audit PASS, Gold 585)",
+   "status": "passing (15:48Z build: 7/7 PASS, deep audit PASS, Gold 585)",
    "rerun": "git show origin/main:coord/results/ranked/VALIDATION.md | head -20"
   },
   {
@@ -52,19 +52,19 @@
   {
    "deliverable": "Canada's Business Registries lookups",
    "method": "claude_registry_lookup.csv on origin; SUMMARY line \"Canada's Business Registries: N vendors, M buyers found\" > 0 in the next build; 20 known vendors spot-checked (CMF Construction Ltd \u2192 BC0741074 BN 817975345)",
-   "status": "running on the Mac: 489 found / 844 looked up at 15:20Z; file pushed 15:17Z; consumer in rank.py; next build pending",
+   "status": "passing in build 15:48Z: 732 vendors found \u2192 vendor_bn9 filled on 2,228 rows, legal name 1,323, registered address 1,450, status 1,465; lookups continue (855/1,692 at 15:35Z); buyers pass pending",
    "rerun": "tail -1 ~/cch-crawler-state/registry_lookup.log"
   },
   {
    "deliverable": "grants & contributions recipient BNs",
    "method": "claude_gc_recipients.csv rows (3,186 buyers, 465 vendors); SUMMARY line 'grants & contributions recipient BNs' > 0 in the next build; 10 BNs re-checked against the CRA charities file where both exist",
-   "status": "file written 15:1xZ and pushed 15:17Z; consumer in rank.py; next build pending; cross-check not yet run",
+   "status": "passing in build 15:48Z: buyer_bn filled 2,313 rows, vendor_bn9 1,072, buyer legal name 1,242; cross-check vs CRA charities: 827/873 agree, 46 conflicts carried in buyer_bn_note",
    "rerun": "python3 tools/gc_recipients.py --ranked ~/cch-tasks/ranked_latest.csv.gz"
   },
   {
    "deliverable": "vendor websites from search proposals",
    "method": "vendor_sites_check.py confirms by reading the site: claude_vendor_sites.csv check_status counts; rank fills vendor_website only for 'confirmed'",
-   "status": "batch a: 39 confirmed / 53 proposals (5 robots, 3 blocked, 3 http_202, 2 name not on site, 1 directory); batch b (8) queued on the Mac",
+   "status": "passing in build 15:48Z: 39 confirmed sites applied to 236 rows; batch b +5 confirmed; batch c (99 proposals) under check",
    "rerun": "python3 tools/vendor_sites_check.py --in ~/cch-tasks/vsp/*.tsv"
   }
  ]
