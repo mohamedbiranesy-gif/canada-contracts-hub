@@ -17,6 +17,23 @@ import glob, os, subprocess, sys
 SRC = os.path.expanduser(sys.argv[1] if len(sys.argv) > 1 else "~/cch-crawler/data/incoming/claude")
 WT = os.path.expanduser(sys.argv[2] if len(sys.argv) > 2 else "~/cch-crawler-state/pushwt")
 TEXT = (".csv", ".tsv", ".jsonl", ".txt", ".md")
+# 2026-11-08 23:23Z: the Mac's ap_terms rewrote claude_ap_terms_pages.csv.gz from its own view and the snapshot replaced the runners' union on
+# origin (50,895 → 40,405 page rows). Files that several writers (GitHub runners + this Mac) produce rows for are UNIONED by key with the
+# origin copy (tools/merge_engine_outputs.py: newest retrieval wins, a successful read beats a failed one), never copied over it.
+MERGE = {"claude_ap_terms.csv": "ap_terms", "claude_registry_lookup.csv": "registry", "claude_org_extras.jsonl.gz": "jsonl", "claude_org_contacts.jsonl.gz": "jsonl"}
+MERGE_SKIP = {"claude_ap_terms_pages.csv.gz"}  # merged together with claude_ap_terms.csv
+
+
+def merge_into(q, p, kind, name):
+    """union origin's copy (q, in the worktree) with the live file (p) into q; the live file is the last input so its rows win ties"""
+    tool = os.path.join(WT, "tools/merge_engine_outputs.py")
+    ins = [q, p]
+    if kind == "ap_terms":
+        qp, pp = q[:-4] + "_pages.csv.gz", p[:-4] + "_pages.csv.gz"
+        ins = [x for x in (q, qp, p, pp) if os.path.exists(x)]
+    r = subprocess.run([sys.executable, tool, kind, q] + ins, capture_output=True, text=True)
+    print("%s: %s" % (name, (r.stdout.strip() or r.stderr.strip())[-200:]), flush=True)
+    return r.returncode == 0
 
 
 def last_commit_time(rel):
@@ -41,6 +58,16 @@ def snapshot(src, lane):
                 print("%s: %d MB, over GitHub's file limit, not pushed (gzip it)" % (name, os.path.getsize(p) >> 20), flush=True)
             too_big.append(name)
             continue
+        if name in MERGE_SKIP:
+            continue
+        if name in MERGE and os.path.exists(q) and os.path.exists(os.path.join(WT, "tools/merge_engine_outputs.py")):
+            before = open(q, "rb").read()
+            if merge_into(q, p, MERGE[name], name):
+                if open(q, "rb").read() != before:
+                    copied.append(name)
+                if MERGE[name] == "ap_terms":
+                    copied.append("claude_ap_terms_pages.csv.gz")
+                continue
         if os.path.exists(q) and last_commit_time(rel) > os.path.getmtime(p):
             skipped.append(name)
             continue
