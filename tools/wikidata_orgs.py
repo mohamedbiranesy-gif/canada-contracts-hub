@@ -135,10 +135,15 @@ def lookup(name, domain, country):
         lab_en, lab_fr = (labels.get("en") or {}).get("value", ""), (labels.get("fr") or {}).get("value", "")
         aliases = [a.get("value", "") for l in ("en", "fr") for a in (ent.get("aliases") or {}).get(l, [])]
         countries = [q for k, q in claim_values(ent, "P17") if k == "item"]
-        names_here = [x for x in [lab_en, lab_fr] + aliases + [v.split(" [")[0] for k, v in claim_values(ent, "P1448") if k == "text"] if x]
-        exact = norm(name) and norm(name) in {norm(x) for x in names_here}
+        offs = [v.split(" [")[0] for k, v in claim_values(ent, "P1448") if k == "text"]
+        names_here = [x for x in [lab_en, lab_fr] + aliases + offs if x]
+        strong_names = [x for x in [lab_en, lab_fr] + offs if x]  # labels and official names; aliases alone never decide
+        exact = norm(name) and norm(name) in {norm(x) for x in strong_names}
         core = core_tokens(name)
         core_ok = bool(core) and any(core <= set(norm(x).split()) for x in names_here)
+        inst_labels = " ".join(labels_for([q for q in inst if q.startswith("Q")]).values()).lower() if inst else ""
+        if re.search(r"performing arts|theat|venue|arena|stadium|festival|event|sports? (?:team|club)|building|facility|branch|album|film|song|book|magazine|newspaper|award|conference|campus|faculty|department of (?!national|defence|industry|finance|health|education|justice)", inst_labels):
+            continue  # a venue, team, publication or sub-unit that shares the organisation's domain or name
         if site_hit and (exact or core_ok):
             basis = "official website on the organisation's domain (%s) + name" % site_hit
         elif exact and want_c and want_c in countries and (sites or claim_values(ent, "P159") or claim_values(ent, "P1454") or claim_values(ent, "P6375")):
