@@ -1,4 +1,4 @@
-# Deep audit — 63579 delivered rows in 17 packages (26 files), 2026-11-08
+# Deep audit — 63579 delivered rows in 17 packages (27 files), 2026-11-08
 
 Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every flagged row is listed in `audit_flags.csv` with its reasons.
 
@@ -35,7 +35,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 
 ## Examples of flagged rows (first 12 per check)
 - **4b mail server not yet checked (row newer than the last DNS pass)**
-    - P13_inferred_relationship_no_record_own_email_part2_of_10:2207 Everest Services Ltd | everest.ca
+    - P13_inferred_relationship_no_record_own_email_part2_of_11:2669 Everest Services Ltd | everest.ca
 - **7 role word in the local part**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:16 Cameco Corporation | ap_cameco@cameco.com
     - P01_GOLD_active_relationship_invoicing_AP_email:262 Town of Oakville | ap_inquiries@oakville.ca
@@ -61,10 +61,10 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P10_linked_from_vendor_site_any_email:12 gov.scot | online_payments@gov.scot
     - P10_linked_from_vendor_site_any_email:29 WeirFoulds LLP | payments@weirfoulds.com
     - P10_linked_from_vendor_site_any_email:36 bcica.org | payments@bcica.org
-    - P13_inferred_relationship_no_record_own_email_part1_of_10:10 THE ROYAL CANADIAN COLLEGE OF ORGANISTS- | payment@rcco-ottawa.ca
+    - P13_inferred_relationship_no_record_own_email_part1_of_11:10 THE ROYAL CANADIAN COLLEGE OF ORGANISTS- | payment@rcco-ottawa.ca
 - **9 shared government domain: page or quote names the body**
     - P01_GOLD_active_relationship_invoicing_AP_email:42 Canadian Space Agency | invoicing.csa-asc.facturation@canada.ca ← https://www.canada.ca/en/public-services-procurement/services/payments-to-from-g
-    - P13_inferred_relationship_no_record_own_email_part1_of_10:542 Landlord and Tenant Board | ltbpayments@ontario.ca ← https://tribunalsontario.ca/ltb/contact/
+    - P13_inferred_relationship_no_record_own_email_part1_of_11:542 Landlord and Tenant Board | ltbpayments@ontario.ca ← https://tribunalsontario.ca/ltb/contact/
 - **12 evidence page on the organisation's domain (or its site)**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:18 Motorola Solutions, Inc | recepcionfacturas@motorolasolutions.com on web.archive.org (site motorolasolutions.com)
     - P01_GOLD_active_relationship_invoicing_AP_email:2 Department of Defence | peppol.einvoices@defence.gov.au on directory.peppol.eu (site defence.gov.au)
@@ -115,18 +115,18 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:248 Niagara Region | niagararegion.ca: 2 rows, constructioninvoices@niagararegion.ca; NRHCapitalWorks@niagararegion.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:340 Virginia State Police | virginia.gov: 5 rows, ap@vsp.virginia.gov; accountspayable@energy.virginia.gov; support@dhrm.virginia.gov
 - **25 jurisdiction vs mailbox top-level domain**
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:311 Bernafon Canada | ON / bernafon.com.au
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:2340 Déontologie : approche comparée FR / QC | CA / univ-droit.fr
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:2833 Shah's Halal Food | CA / shahshalalfood.co.uk
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:2892 Hochtief | CA / hochtief.de
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:3412 Canada at the 2013 World Aquatics Champi | CA / dsv.de
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:3441 Pro Seniore | CA / pro-seniore.de
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:3602 Marienhaus | CA / marienhaus.de
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:3616 Singa | CA / singa.fr
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:3629 SRH Holding | CA / srh.de
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:3639 Sparkassen-Finanzgruppe | CA / dsgv.de
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:3650 Stihl | CA / stihl.de
-    - P13_inferred_relationship_no_record_own_email_part10_of_10:3668 TÜV Nord | CA / tuev-nord.de
+    - P13_inferred_relationship_no_record_own_email_part10_of_11:3416 Beckhoff Automation Ltd. | CA / beckhoff.de
+    - P13_inferred_relationship_no_record_own_email_part10_of_11:4469 Bernafon Canada | ON / bernafon.com.au
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:1881 Déontologie : approche comparée FR / QC | CA / univ-droit.fr
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:2374 Shah's Halal Food | CA / shahshalalfood.co.uk
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:2433 Hochtief | CA / hochtief.de
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:2953 Canada at the 2013 World Aquatics Champi | CA / dsv.de
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:2982 Pro Seniore | CA / pro-seniore.de
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:3143 Marienhaus | CA / marienhaus.de
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:3157 Singa | CA / singa.fr
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:3170 SRH Holding | CA / srh.de
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:3180 Sparkassen-Finanzgruppe | CA / dsgv.de
+    - P13_inferred_relationship_no_record_own_email_part11_of_11:3191 Stihl | CA / stihl.de
 - **26 currency filled when a value is filled**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:22 RENTON SCHOOL DISTRICT #403 | 332345.13 (source field: amount)
     - P01_GOLD_active_relationship_invoicing_AP_email:425 Rectorado de la Universitat de València | 12698.25 (source field: PayableAmount)
@@ -174,6 +174,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - buyer_website: 63579 (100.0%)
 - vendor_address: 60418 (95.0%)
 - vendor_website: 58991 (92.8%)
+- vendor_bn9: 49055 (77.2%)
 - buyer_logo_url: 46981 (73.9%)
 - buyer_phone: 46695 (73.4%)
 - buyer_address: 44971 (70.7%)
@@ -184,12 +185,12 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - award_date: 6482 (10.2%)
 - vendor_legal_name: 6482 (10.2%)
 - vendor_registry_id: 5268 (8.3%)
+- vendor_incorporation_date: 5062 (8.0%)
+- vendor_neq: 4599 (7.2%)
 - vendor_emails: 4280 (6.7%)
 - ap_phone: 2597 (4.1%)
-- vendor_bn9: 2470 (3.9%)
 - contract_value: 2284 (3.6%)
 - invoice_mailing_address: 2105 (3.3%)
-- vendor_incorporation_date: 2071 (3.3%)
 - buyer_bn_as_published: 1901 (3.0%)
 - end_date: 1648 (2.6%)
 - invoicing_requirements: 1587 (2.5%)
@@ -197,7 +198,6 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - po_required_as_published: 466 (0.7%)
 - payment_terms_as_published: 376 (0.6%)
 - ap_contact_name_as_published: 174 (0.3%)
-- vendor_neq: 23 (0.0%)
 
 ## Canada-proof families
 - other: 47251; source field: 16328

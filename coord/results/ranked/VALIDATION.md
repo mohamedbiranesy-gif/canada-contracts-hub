@@ -1,4 +1,4 @@
-# Integrity gates — 63579 delivered rows in 17 packages (26 files)
+# Integrity gates — 63579 delivered rows in 17 packages (27 files)
 
 - **1 mailbox present, valid, domain with a mail server**: PASS (0)
 - **2 role mailbox (no person-like local part, no freemail)**: PASS (0)
