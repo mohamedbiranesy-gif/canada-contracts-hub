@@ -1216,8 +1216,14 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
     for d in jl(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
         OC[d.get("domain")] = d
 def oc_of(url):
+    """org_contacts record for a site; shared hosts (canada.ca …) are keyed by organisation path since 2026-11-08"""
     h = host_of(url or "")
-    return OC.get(registrable(h)) if h else None
+    if not h:
+        return None
+    dom = registrable(h)
+    pth = urllib.parse.urlparse(url if "//" in url else "https://" + url).path.rstrip("/")
+    seg = "/".join(pth.split("/")[:3]) if pth else ""
+    return (OC.get(dom + seg) if seg else None) or (OC.get(h + seg) if seg else None) or (OC.get(h) if h != dom else None) or OC.get(dom)
 def flat_q(t):
     return re.sub(r"\s+", " ", t or "").strip()
 # owner 2026-11-04: facts each organisation prints on its own site (tools/org_extras.py): legal name (copyright line), BN / GST-HST /

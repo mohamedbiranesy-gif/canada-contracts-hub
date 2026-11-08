@@ -258,15 +258,15 @@ def contact_links(raw, base, host, name=""):
     return out[:3]
 
 
-def read_site(site, name):
+def read_site(site, name, start_url=""):
     site = site if site.startswith("http") else "https://" + site
     res = {"status": "no_contact", "pages": 0}
     dom = urllib.parse.urlparse(site).hostname or site
     stage(dom, "robots")
-    if not C.allowed(site):
+    if not C.allowed(start_url or site):
         res["status"] = "robots"; return res
     stage(dom, "fetch home")
-    st, ct, data, final = C.fetch(site, 4_000_000)
+    st, ct, data, final = C.fetch(start_url or site, 4_000_000)  # shared hosts (canada.ca …): the organisation's own page, not the host root
     if st in (401, 403, 429):
         res["status"] = "blocked"; return res
     if st != 200 or not data:
@@ -331,12 +331,28 @@ def read_site(site, name):
     return res
 
 
+RETRY_STATUS = ("http_308", "http_307", "http_301", "http_302", "http_0", "error")
+SHARED_HOSTS = re.compile(r"(?:^|\.)(canada\.ca|gc\.ca|gov\.bc\.ca|ontario\.ca|gouv\.qc\.ca|quebec\.ca|alberta\.ca|gov\.ab\.ca|novascotia\.ca|gnb\.ca|gov\.mb\.ca|"
+                          r"saskatchewan\.ca|gov\.sk\.ca|gov\.nl\.ca|gov\.pe\.ca|yukon\.ca|gov\.nt\.ca|gov\.nu\.ca|gov\.au|gov\.uk|nhs\.uk|[a-z]{2}\.gov|[a-z]{2}\.us|wordpress\.com|wixsite\.com|squarespace\.com|weebly\.com|godaddysites\.com|google\.com|sites\.google\.com)$", re.I)
+
+
+def task_key(h, w):
+    """registrable domain, or domain + path on shared hosts (one record per organisation; same rule as org_extras.py)"""
+    dom = C.registrable(h)
+    if SHARED_HOSTS.search(h) or SHARED_HOSTS.search(dom):
+        p = urllib.parse.urlparse(w if "//" in w else "https://" + w).path.rstrip("/")
+        seg = "/".join(p.split("/")[:3]) if p else ""
+        return (dom + seg) if seg else (h if h != dom else dom), h + seg
+    return dom, ""
+
+
 def main():
     a = argparse.ArgumentParser()
     a.add_argument("--tasks", required=True)
     a.add_argument("--workers", type=int, default=48)
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
     a.add_argument("--limit", type=int, default=0)
+    a.add_argument("--refresh", action="store_true", help="re-read domains that failed on a redirect / network error, and shared-host organisations keyed by path")
     a = a.parse_args()
     os.makedirs(STATE, exist_ok=True)
     done = {}
@@ -352,13 +368,16 @@ def main():
         h = (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
         if not h or "." not in h:
             continue
-        dom = C.registrable(h)
-        if dom in seen or dom in done:
+        dom, start_path = task_key(h, w)
+        if dom in seen:
             continue
-        seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", "")))
+        old = done.get(dom)
+        if old is not None and not (a.refresh and (old.get("status") in RETRY_STATUS or old.get("status") == "no_contact" and start_path)):
+            continue
+        seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", ""), ("https://%s/" % start_path) if start_path else ""))
     if a.limit:
         tasks = tasks[:a.limit]
-    print("tasks: %d new domains (%d done before)" % (len(tasks), len(done)), flush=True)
+    print("tasks: %d domains to read (%d in resume file; refresh=%s)" % (len(tasks), len(done), a.refresh), flush=True)
     out_gz = os.path.join(a.repo, "data/incoming/claude/claude_org_contacts.jsonl.gz")
     stats, last_dump = {}, [time.time()]
 
@@ -380,13 +399,16 @@ def main():
         print(time.strftime("%H:%M"), "wrote", out_gz, len(rows), "organisations", dict(stats), flush=True)
 
     def one(t):
-        dom, key, name, site, kind = t
+        dom, key, name, site, kind, start = t
         try:
-            res = read_site(site, name)
+            res = read_site(site, name, start_url=start)
         except Exception as e:
             res = {"status": "error", "error": str(e)[:100]}
-        res.update({"domain": dom, "key": key, "name": name, "website": site, "kind": kind, "date": TODAY})
+        res.update({"domain": dom, "key": key, "name": name, "website": start or site, "kind": kind, "date": TODAY})
         with lock:
+            old = done.get(dom)
+            if old and old.get("status") == "ok" and res.get("status") != "ok":
+                res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"))
             done[dom] = res
             stats[res["status"]] = stats.get(res["status"], 0) + 1
             with open(RESUME, "a", encoding="utf-8") as f:
