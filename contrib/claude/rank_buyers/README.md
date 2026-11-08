@@ -105,6 +105,25 @@ corporations' own GST numbers on inferred-vendor rows (`vendor_bn9`, read and re
 `peppol_participant_id` / `peppol_registered` / `vendor_peppol_id`. `CHANGELOG.md` + `rows_changed.csv` (row- and field-level) ship with
 every build; `verified_ledger.csv` keeps the referee's sightings so a mailbox never loses its verdict to a transient fetch failure.
 
+Added 2026-11-08 (second pass, the downstream team's coverage targets): `COVERAGE_VS_TARGETS.md` + `coverage_vs_targets.json` in every
+build (tools/coverage_targets.py: every field × package against the targets of 2026-11-08, with Δ since the previous build from
+`coord/results/coverage_history.csv`); contract facts a proof record lacks are taken from another record of the SAME buyer–vendor pair and
+say so in the cell ("from another record of the same buyer-vendor pair: <reference>, <source>, <date>"); `end_date` carries the pipeline's
+inferred end ("inferred: award date + the duration the source publishes") when no end is published, `start_date` the signature date when no
+start is published, both labelled; `records_with_this_vendor` names the relationship record for lead-based rows; contract values of
+bids&tenders awards come from the awarded bidder's own submitted price when no award value was published (`value_detail.value_basis` in the
+dataset, 9,213 records) and `number_of_bids` from the portals' submission lists (58,304 records); `buyer_legal_name_as_published` and
+`vendor_legal_name` also come from schema.org JSON-LD `legalName` and from the name a Terms / Privacy / Legal page states ("operated by X
+Inc.", "X Inc. ("we")", "The Corporation of the City of X"), each labelled with the page; `buyer_linkedin_url` / `vendor_linkedin_url`,
+`buyer_supplier_portals_linked` (e-tendering / e-invoicing / e-signature portals the buyer's own site links to; `ap_system_hint` and
+`invoice_portal_url` take them when empty), `vendor_industry_naics` (JSON-LD), `buyer_registry_id`, `vendor_website_basis` (a site proposed
+by a web search is used only after tools/vendor_sites_check.py read it and found the company's name on it; the quote is in the cell);
+Canada's Business Registries (ISED's public multi-jurisdictional search, tools/registry_lookup.py): `vendor_bn9`, registered name, registered
+office city / province, status, incorporation date, entity type, alternate names for vendors, and BN / registered name for corporation-type
+buyers — exact registered name, home-jurisdiction record first, province decides ties, ambiguous names skipped; federal grants & contributions
+disclosure (tools/gc_recipients.py): `buyer_bn_as_published` / `vendor_bn9` from `recipient_business_number`, exact name + province; the
+inferred vendors' own published phone and address (Canada Post Credit Management Group, NB Power, Qulliq Energy) on P13 rows.
+
 ## Files
 `coord/results/ranked/batches/<package>.csv` — one CSV per package; a package over ~45 MB is delivered in numbered part files
 (`P13_…_part1_of_4.csv` …, same columns, split only by size). `coord/results/ranked/ranked_buyers.csv.gz` — every row incl. Z, gzipped
