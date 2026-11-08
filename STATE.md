@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-08 21:50Z)
+# STATE.md — Claude lane (updated 2026-11-08 22:50Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,21 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 22:50Z — build 22:23Z (scheduled) 94/438; deep A–F walk merged (+24k page keys); terms_refresh running; org_facts merged
+- Build 22:23Z: 94 of 438 (+1: vendor_website P01_GOLD); award_or_notice_id +10–19 pts in Gold / P02 / P03 (notice-id rule), vendor_website P04 +16.7
+  (API vendor-site searches + vendor_sites_check), payment terms P03 +7.5. Gold A 129 / B 255; payable today 789.
+- Deep A–F walk (only buyers still lacking a term or PO rule, 60 pages, one more link level): 10 shards × ~1,290 sites, ~28k pages per shard;
+  merge 22:34Z → ap_terms 114,266 unique keys (90,163 before); walker pages now carry payment terms 2,752 (1,277 at 19:45Z), PO rule 2,936,
+  portals 3,882, payment method 864, tax treatment 1,341, e-signature 441, AP system 428, cheque-run cadence 86. The run re-dispatched itself (a
+  redo-everything pass never shrinks "sites to walk") — cancelled, workflow fixed (no self-dispatch when redo_days = 0).
+- ap_terms: walker pages had ap_phone 0 and invoice address 0 because both were read only next to the mailbox; now read next to the first payables
+  anchor on mailbox-less AP / supplier pages. terms_refresh (every known page re-read with the current patterns; 10 runners, 90 min) dispatched 22:36Z
+  with that change; it queued behind the cancelled run.
+- org_facts merged 22:26Z (runner retries of blocked / failed domains: ~1,500 new successful reads). Mac org_extras --refresh: 6,717 of ~8,000 retried
+  domains are blocked for automated readers (small-business hosts); the honest ceiling for those stays the registries.
+- rank.py: vendor_trading_name from the vendor site's schema.org alternateName / Organization name when it differs from the legal name (not yet built).
+- Mac: API worker 4,571 tasks, $95.69 of the $120 cap (84 % with a page); Gemini batch 49 rows 1–30 (21:47Z); Codex resumes 23:34Z; push loop 22:20Z.
 
 ## 21:50Z — build 21:39Z **93 of 438** (72 → 93, nothing lost); Gold A 128 / B 253; ChatGPT account at its usage limit until 23:34Z
 - The first main build with the 20:30–20:45Z rank.py rules: +21 benchmarks — records_with_this_vendor met in 9 packages (relationship record = 1 record),

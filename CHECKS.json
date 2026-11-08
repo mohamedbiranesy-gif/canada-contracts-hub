@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T21:50Z",
+ "updated": "2026-11-08T22:50Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -121,6 +121,16 @@
    "deliverable": "Codex lane alive",
    "method": "'[chatgpt]'/'[codex]' commits on origin; ~/cch-crawler-state/codex_exec.log; the app automation's rollout files",
    "status": "blocked by the ChatGPT usage limit until 23:34Z (verified: codex exec returned 'usage limit … try again at 6:34 PM'); both the app automation and the headless loop resume then"
+  },
+  {
+   "deliverable": "deep A–F walk (policies / bylaws / PO terms) read and merged",
+   "method": "shard logs ('sites': 1286, 'pages': 27991, 'ap_pages': 2985 on shard 0; 'pages to read: 1232'), merge log 'ap_terms: 1035790 rows in, 114266 unique keys out', field counts in claude_ap_terms_pages.csv.gz",
+   "status": "passing 22:40Z: payment terms 1,277 → 2,752, PO rule 1,804 → 2,936 on walker pages; next build shows the row-level effect"
+  },
+  {
+   "deliverable": "no runaway engine runs",
+   "method": "gh run list claude-engines: at most one walk_terms and one terms_refresh active; no self-dispatch when redo_days=0",
+   "status": "fixed 22:48Z: self-dispatched deep walk 42530910632 cancelled; workflow guard pushed (55ccbe0)"
   }
  ]
 }
