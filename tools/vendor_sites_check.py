@@ -6,7 +6,8 @@ from the page it read, and writes <repo>/data/incoming/claude/claude_vendor_site
 empty, then org_contacts / org_extras read the site for phone, address, legal name, logo, BN). Politeness: robots.txt, 1 request / second / host.
   python3 tools/vendor_sites_check.py --in proposals.tsv [--repo ~/cch-crawler]
 """
-import argparse, csv, datetime, html, os, re, sys, unicodedata, urllib.parse
+import argparse, csv, datetime, html, os, re, sys, threading, unicodedata, urllib.parse
+from concurrent.futures import ThreadPoolExecutor
 
 csv.field_size_limit(1 << 30)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +44,7 @@ def main():
     a = argparse.ArgumentParser()
     a.add_argument("--in", dest="inp", required=True, nargs="+")
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
+    a.add_argument("--workers", type=int, default=12)
     a = a.parse_args()
     out = os.path.join(a.repo, "data/incoming/claude/claude_vendor_sites.csv")
     prev = {}
@@ -50,6 +52,8 @@ def main():
         for r in csv.DictReader(open(out, encoding="utf-8")):
             prev[r["vendor_key"]] = r
     n = {"confirmed": 0, "name_not_on_site": 0, "unreadable": 0, "directory": 0, "skipped": 0}
+    lock = threading.Lock()
+    todo = []
     for path in a.inp:
         for r in csv.DictReader(open(path, encoding="utf-8", errors="replace"), delimiter="\t"):
             key, name, site = (r.get("vendor_key") or "").strip(), (r.get("vendor_name") or "").strip(), (r.get("website") or "").strip()
@@ -60,36 +64,41 @@ def main():
             if DIRECTORY.search(site):
                 prev[key] = {"vendor_key": key, "vendor_name": name, "website": site, "check_status": "rejected: directory / social / government page, not the company's site", "evidence_url": "", "evidence_quote": "", "name_tokens_seen": "", "retrieved_date": TODAY, "proposed_by": os.path.basename(path)}
                 n["directory"] += 1; continue
-            want = toks(name)
-            best = None
-            site_host = (urllib.parse.urlparse(site).hostname or "").lower().removeprefix("www.")
-            pages = [site]
-            ev = (r.get("evidence_url") or "").strip()
-            if ev.startswith("http") and (urllib.parse.urlparse(ev).hostname or "").lower().removeprefix("www.").endswith(site_host.split(".", 1)[-1] if site_host.count(".") > 1 else site_host):
-                pages.append(ev)  # only pages on the proposed site itself: a press release or directory on another host proves nothing about this site
-            pages += [urllib.parse.urljoin(site, p) for p in ("about", "about-us", "contact", "contact-us", "a-propos", "nous-joindre")]
-            for u in dict.fromkeys(pages):
-                st, text, final = read(u)
-                if st != "ok":
-                    best = best or (st, u, "", [])
-                    continue
-                fh = (urllib.parse.urlparse(final or u).hostname or "").lower().removeprefix("www.")
-                if not (fh == site_host or fh.endswith("." + site_host) or site_host.endswith("." + fh)):
-                    continue  # redirected off the proposed site
-                low = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode().lower()
-                seen = [t for t in want if re.search(r"\b" + re.escape(t) + r"\b", low)]  # whole words only ("mda" must not match "amdahl")
-                exact = bool(want) and re.search(r"\b" + r"\W{0,3}".join(re.escape(t) for t in want) + r"\b", low) is not None
-                core_ok = exact or (len(want) >= 2 and len(seen) >= 2 and seen[0] == want[0]) or (len(want) == 1 and seen and len(want[0]) >= 5)
-                if core_ok:
-                    i = low.find(seen[0]) if seen else -1
-                    q = flat(text[max(0, i - 120):i + 180])[:300] if i >= 0 else ""
-                    best = ("confirmed", final or u, q, seen); break
-                best = ("name_not_on_site", final or u, "", seen)
-                if u == site and len(pages) > 1:
-                    continue
-            st, eu, q, seen = best or ("unreadable", site, "", [])
-            prev[key] = {"vendor_key": key, "vendor_name": name, "website": site if st == "confirmed" else "", "check_status": st, "evidence_url": eu if st == "confirmed" else "", "evidence_quote": q, "name_tokens_seen": " ".join(seen), "retrieved_date": TODAY, "proposed_by": os.path.basename(path)}
+            todo.append((key, name, site, (r.get("evidence_url") or "").strip(), os.path.basename(path)))
+
+    def check(t):
+        key, name, site, ev, src = t
+        want = toks(name)
+        best = None
+        site_host = (urllib.parse.urlparse(site).hostname or "").lower().removeprefix("www.")
+        pages = [site]
+        if ev.startswith("http") and (urllib.parse.urlparse(ev).hostname or "").lower().removeprefix("www.").endswith(site_host.split(".", 1)[-1] if site_host.count(".") > 1 else site_host):
+            pages.append(ev)  # only pages on the proposed site itself: a press release or directory on another host proves nothing about this site
+        pages += [urllib.parse.urljoin(site, p) for p in ("about", "about-us", "contact", "contact-us", "a-propos", "nous-joindre")]
+        for u in dict.fromkeys(pages):
+            st, text, final = read(u)
+            if st != "ok":
+                best = best or (st, u, "", [])
+                continue
+            fh = (urllib.parse.urlparse(final or u).hostname or "").lower().removeprefix("www.")
+            if not (fh == site_host or fh.endswith("." + site_host) or site_host.endswith("." + fh)):
+                continue  # redirected off the proposed site
+            low = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode().lower()
+            seen = [t2 for t2 in want if re.search(r"\b" + re.escape(t2) + r"\b", low)]  # whole words only ("mda" must not match "amdahl")
+            exact = bool(want) and re.search(r"\b" + r"\W{0,3}".join(re.escape(t2) for t2 in want) + r"\b", low) is not None
+            core_ok = exact or (len(want) >= 2 and len(seen) >= 2 and seen[0] == want[0]) or (len(want) == 1 and seen and len(want[0]) >= 5)
+            if core_ok:
+                i = low.find(seen[0]) if seen else -1
+                q = flat(text[max(0, i - 120):i + 180])[:300] if i >= 0 else ""
+                best = ("confirmed", final or u, q, seen); break
+            best = ("name_not_on_site", final or u, "", seen)
+        st, eu, q, seen = best or ("unreadable", site, "", [])
+        row = {"vendor_key": key, "vendor_name": name, "website": site if st == "confirmed" else "", "check_status": st, "evidence_url": eu if st == "confirmed" else "", "evidence_quote": q, "name_tokens_seen": " ".join(seen), "retrieved_date": TODAY, "proposed_by": src}
+        with lock:
+            prev[key] = row
             n[st if st in n else "unreadable"] += 1
+    with ThreadPoolExecutor(a.workers) as ex:  # different sites in parallel; ap_crawler.fetch keeps 1 request / second per host
+        list(ex.map(check, todo))
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=COLS); w.writeheader(); w.writerows(sorted(prev.values(), key=lambda d: d["vendor_key"]))
