@@ -16,6 +16,27 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "rank.py"), encoding="utf-8").read()
 ns = {"re": re, "json": json}
 exec(src[src.index("ID_CLASSES = ("):src.index("def rec_extra(c):")], ns)  # the identifier classifier, same code as the package rows
+import unicodedata
+ns.update({"unicodedata": unicodedata, "collections": collections})
+exec(src[src.index("norm = lambda s:"):src.index("GRADE = {")], ns)          # norm, LEGAL_END, SQ_STOP, parent — the organisation grouping of rank.py
+exec(src[src.index("JUR_SRC = "):src.index("JUR_DOM = ")], ns)
+exec(src[src.index("PLACE = re.compile("):src.index("BAD_LOCAL = re.compile(")], ns)
+exec(src[src.index("def jur_of_record(r):"):src.index("def jur_of_mail(email):")], ns)
+parent, PLACE, jur_of_record = ns["parent"], ns["PLACE"], ns["jur_of_record"]
+
+
+def group_key(r):
+    """same as rank.py step 2: parent(canonical name), or 'generic ministry name | jurisdiction'"""
+    be = r.get("buyer_enrichment") or {}
+    name = be.get("canonical_name") or (r.get("buyer") or {}).get("name") or ""
+    p = parent(name)
+    if not p:
+        return ""
+    j = jur_of_record(r)
+    po = parent((r.get("buyer") or {}).get("name") or "")
+    if po and len(po.split()) <= 3 and not PLACE.search(po) and j:
+        p = po + " | " + j
+    return p
 classify_ids, classify_plus = ns["classify_ids"], ns["classify_plus"]
 CAP = 500        # records per organisation (tiers A/B/L/C/D/F)
 CAP_GOLD = 5000  # owner D7 (2026-11-06): Gold buyers practically uncapped
@@ -39,6 +60,8 @@ def main():
             for k in (r.get("keys") or "").split("|"):
                 if k.startswith("b:"):
                     key2row[k] = r
+            if r.get("org_group_key"):
+                key2row["g:" + r["org_group_key"]] = r
     print("delivered organisations with dataset records:", len({id(v) for v in key2row.values()}), flush=True)
     # pass 1 (light): the most recent CAP record ids per organisation
     per_org = collections.defaultdict(list)  # row id -> [(award_date, record_id)]
@@ -48,7 +71,7 @@ def main():
         for line in f:
             n += 1
             r = json.loads(line)
-            row = key2row.get((r.get("buyer_enrichment") or {}).get("buyer_key"))
+            row = key2row.get("g:" + group_key(r)) or key2row.get((r.get("buyer_enrichment") or {}).get("buyer_key"))
             if row:
                 per_org[id(row)].append((award_date(r.get("contract") or {}), r.get("record_id", "")))
     wanted = {}

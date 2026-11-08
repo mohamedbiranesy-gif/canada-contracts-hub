@@ -6,6 +6,11 @@ mailbox changed, package moved — keyed by the organisation's first key. Run by
 import csv, datetime, gzip, os, subprocess, sys
 
 
+TRACKED = ["buyer_legal_name_as_published", "buyer_address", "buyer_phone", "buyer_website", "buyer_bn_as_published", "payment_terms_as_published", "po_required_as_published",
+           "invoice_portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name_as_published", "vendor_legal_name", "vendor_bn9", "vendor_neq", "vendor_address",
+           "contract_reference", "po_number_as_published", "email_check", "dmarc_policy", "ship_ready"]
+
+
 def load(path):
     if not path or not os.path.exists(path):
         return {}
@@ -29,6 +34,11 @@ def main():
                 rows.append({"change": "mailbox changed", "buyer": r.get("buyer", ""), "rank_group": r.get("rank_group", ""), "email": r.get("email", ""), "detail": "was %s" % (p.get("email") or "(none)")})
             if (p.get("rank_group") or "") != (r.get("rank_group") or ""):
                 rows.append({"change": "package moved", "buyer": r.get("buyer", ""), "rank_group": r.get("rank_group", ""), "email": r.get("email", ""), "detail": "was %s" % (p.get("rank_group") or "")})
+            for f in TRACKED:  # field-level changes (downstream §9.3)
+                a, b = (p.get(f) or ""), (r.get(f) or "")
+                if a != b and (a or b):
+                    rows.append({"change": "field changed: " + f, "buyer": r.get("buyer", ""), "rank_group": r.get("rank_group", ""), "email": r.get("email", ""),
+                                 "detail": ("was '%s' → now '%s'" % (a[:120], b[:120])) if a else ("filled: '%s'" % b[:160])})
     for k, p in prev.items():
         if k not in new:
             rows.append({"change": "row removed", "buyer": p.get("buyer", ""), "rank_group": p.get("rank_group", ""), "email": p.get("email", ""), "detail": "no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"})

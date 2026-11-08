@@ -201,7 +201,11 @@ for v in jl(REL + "vendors_enriched.jsonl.gz"):
            "emails": "; ".join(e if isinstance(e, str) else (e.get("email") or "") for e in s.get("contact_emails_published") or []),
            "registry": next(({"registry": m.get("registry"), "id": m.get("id"), "legal_name": m.get("legal_name"), "url": m.get("source_url")}
                              for m in s.get("matches") or [] if m.get("match_confidence") in ("exact", "strong")), None) if reg else None,
-           "reg_address": addr_text(ra), "reg_region": region_code(ra)}
+           "reg_address": addr_text(ra), "reg_region": region_code(ra), "full": {}}
+    if reg:  # the full registry records behind the confident matches (REQ: NEQ, trade names, legal form, CAE activity, employees; Corporations Canada: BN, act, directors range; OrgBook: entity type)
+        for m in v.get("registry_matches_full") or []:
+            if m.get("match_confidence") in ("exact", "strong") and m.get("registry") not in rec["full"]:
+                rec["full"][m["registry"]] = m
     VEN[v["vendor_key"]] = rec
     for n in {norm(v.get("name")), norm(rec["legal_name"])} - {""}:
         VEN_NAME[n] = v["vendor_key"] if VEN_NAME.get(n, v["vendor_key"]) == v["vendor_key"] else None  # ambiguous name: no lookup
@@ -233,7 +237,23 @@ def vend_fill(key="", name="", domain=""):
     rg = v.get("registry") or {}
     REGN = {"quebec_req": "Québec REQ (NEQ)", "corporations_canada": "Corporations Canada (corporation number)", "bc_orgbook": "BC OrgBook (BC registration)",
             "rbq": "RBQ licence", "cra_charities": "CRA charities (BN)", "alberta": "Alberta corporate registry", "ontario": "Ontario business registry"}
-    return {"vendor_legal_name": v.get("legal_name", ""), "vendor_address": v.get("address", ""), "vendor_bn9": v.get("bn9", ""),
+    full = v.get("full") or {}
+    req, cc, ob = full.get("quebec_req") or {}, full.get("corporations_canada") or {}, full.get("bc_orgbook") or {}
+    def _names(x):
+        x = x.get("other_names") or []
+        return [n for n in (x if isinstance(x, list) else [x]) if n and str(n) != "[]"]
+    trade = "; ".join(dict.fromkeys(str(n) for n in _names(req) + _names(cc) + _names(ob)))[:300]
+    extra = {"vendor_neq": (req.get("neq") + " (Registraire des entreprises du Québec, bulk register %s; retrieved %s)" % (req.get("dataset_url") or "", (req.get("retrieved_at") or "")[:10])) if req.get("neq") else "",
+             "vendor_trading_name": (trade + " (other names in the registry)") if trade else "",
+             "vendor_legal_form": (req.get("legal_form") or "") + ((" — " + (req.get("jurisdiction") or "")) if req.get("jurisdiction") else "") if req else ((cc.get("governing_legislation") or "") + (" (%s)" % cc.get("jurisdiction") if cc.get("jurisdiction") else "") if cc else ((ob.get("entity_type") or "") + ((" (home jurisdiction %s)" % ob.get("home_jurisdiction")) if ob.get("home_jurisdiction") else "") if ob else "")),
+             "vendor_registry_status": "; ".join("%s: %s%s" % (REGN.get(k, k), m.get("status") or "", (" (%s)" % m.get("status_date")) if m.get("status_date") else "") for k, m in full.items() if m.get("status"))[:200],
+             "vendor_incorporation_date": (req.get("constitution_date") or req.get("registration_date") or "")[:10] or (ob.get("registration_date") or "")[:10],
+             "vendor_activity_code": ("CAE %s — %s" % (req.get("main_activity_code_cae"), req.get("main_activity")) if req.get("main_activity_code_cae") else (req.get("main_activity") or "")) + ((" | secondary: " + req["secondary_activity"]) if req.get("secondary_activity") else ""),
+             "vendor_employees_quebec": req.get("employees_in_quebec") or "",
+             "vendor_last_annual_filing": (("REQ annual declaration %s" % req["last_annual_declaration_year"]) if req.get("last_annual_declaration_year") else "") + (("; Corporations Canada anniversary %s" % cc["anniversary_date"]) if cc.get("anniversary_date") else ""),
+             "vendor_directors_range": ("%s to %s directors (Corporations Canada)" % tuple(cc["directors_min_max"][:2])) if isinstance(cc.get("directors_min_max"), list) and len(cc["directors_min_max"]) >= 2 else "",
+             "vendor_establishments_quebec": "; ".join(("%s: %s" % (e.get("name") or "", ", ".join(e.get("address_lines") or []))) for e in (req.get("establishments") or [])[:3] if isinstance(e, dict))[:300]}
+    return {**extra, "vendor_legal_name": v.get("legal_name", ""), "vendor_address": v.get("address", ""), "vendor_bn9": v.get("bn9", ""),
             "vendor_gst_hst_derived": v.get("gst", ""), "vendor_website": v.get("website", "") or ("https://" + domain if domain else ""),
             "vendor_emails": v.get("emails", ""),
             "vendor_registry_id": ("%s: %s" % (REGN.get(rg.get("registry"), rg.get("registry")), rg.get("id"))) if rg.get("id") else "",
@@ -384,7 +404,7 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
     if po and len(po.split()) <= 3 and not PLACE.search(po) and j:  # generic ministry-style name: one group per government
         p, name = po + " | " + j, own
     sc, fields = contract_score(r)
-    o = orgs.setdefault(p, {"keys": set(), "best": None, "bs": -1, "n": 0, "name": name, "be": be, "jur": collections.Counter(),
+    o = orgs.setdefault(p, {"p": p, "keys": set(), "best": None, "bs": -1, "n": 0, "name": name, "be": be, "jur": collections.Counter(),
                             "vendors": collections.Counter(), "n12": 0, "latest": "", "value": 0.0, "nval": 0, "cur": collections.Counter(), "sources": collections.Counter()})
     o["keys"].add(key); o["n"] += 1; o["jur"][j] += 1
     _vn = ((r.get("vendor") or {}).get("name") or "").strip()
@@ -569,9 +589,10 @@ for p, o in orgs.items():
     x["all_references_with_this_vendor"] = "; ".join(_vr)[:800]
     x["most_recent_record_reference_any_vendor"] = o.get("latest_ref") or ""
     x["_org"] = o
-    x["vendor_registry_status"] = ve.get("registry_status") or ""
+    x["org_group_key"] = o.get("p") or ""  # the grouping key of the contract records (contracts_export joins on it)
+    x["vendor_registry_status"] = x.get("vendor_registry_status") or ve.get("registry_status") or ""
     x["vendor_registry_match_level"] = ve.get("registry_match_level") or ""
-    x["vendor_incorporation_date"] = (ve.get("incorporation_or_registration_date") or "")[:10]
+    x["vendor_incorporation_date"] = x.get("vendor_incorporation_date") or (ve.get("incorporation_or_registration_date") or "")[:10]
     x["vendor_bn_source"] = ve.get("business_number_source") or ""
 # 4. buyers proven by payment / subaward records or client listings (no contract in the dataset)
 leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8", errors="replace"))}
@@ -2076,7 +2097,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                                            "records_with_this_vendor", "all_references_with_this_vendor"]),
                    ("contract_title", ["contract_description", "instrument_type", "procurement_method", "commodity", "number_of_bids"]),
                    ("buyer_contact_evidence_url", ["buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status"]),
-                   ("vendor_legal_name", ["vendor_trading_name", "vendor_registry_id", "vendor_registry_url", "vendor_registered_address", "vendor_neq", "vendor_qst_as_published"]),
+                   ("vendor_legal_name", ["vendor_trading_name", "vendor_registry_id", "vendor_registry_url", "vendor_registered_address", "vendor_neq", "vendor_qst_as_published", "vendor_legal_form", "vendor_activity_code", "vendor_employees_quebec", "vendor_establishments_quebec", "vendor_directors_range", "vendor_last_annual_filing"]),
                    ("vendor_contact_evidence_url", ["vendor_logo_url", "vendor_website_status"]),
                    ("invoicing_requirements", ["payment_terms_as_published", "po_required_as_published"]),
                    ("buyer_website_status", ["buyer_type", "buyer_facts_provenance", "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources"]),
@@ -2088,7 +2109,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
-                   ("method_notes", ["facts_provenance_json"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
+                   ("method_notes", ["facts_provenance_json", "org_group_key"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
                    ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
                    ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
