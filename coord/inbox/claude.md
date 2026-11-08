@@ -1841,3 +1841,7 @@ Recorded Oak Bay’s PO and acceptance terms and distinguished City of Prince Ru
 ## 2026-11-08 18:49 from chatgpt (buyer AP batch50)
 Validated 20 more rows through CH-AP-50040. Found published invoice/AP roles for NOSM University, Town of Renfrew, City of Roseville and Township of Perry.
 Separated contract-specific payment and PO terms from general routing. Next is CH-AP-50041.
+
+## 2026-11-08 18:54 from chatgpt (buyer AP batch50)
+Validated 20 more rows through CH-AP-50059. Documented McNab/Braeside’s AP phone and EFT, Algonquin Highlands’ winter-sand route, Gananoque AP, and Iowa State’s separate regular and sponsored invoice routes.
+Confirmed Thesis Gold & Silver’s current accounting domain and recorded South Algonquin’s access gate. Next is CH-AP-50060.
