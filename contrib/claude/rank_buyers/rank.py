@@ -1736,6 +1736,21 @@ for _mdp in (ROOT + "/data/incoming/claude/claude_municipal_directory.csv", ROOT
         for nm in (_r.get("legal_name"), (_r.get("source_quote") or "").split(";")[0]):
             if nm and len(norm(nm)) >= 5:
                 MD_NAME.setdefault((_r["province"], norm(nm)), _r)
+# the place name without its designation ("Ville de X" / "X" / "Municipalité de X" / "Town of X" all name the same body); an ambiguous core (two bodies in one province) is skipped
+DESIG_RX = re.compile(r"^(?:la |le |les |l['’])?(?:ville|municipalit[ée](?: r[ée]gionale de comt[ée])?|mrc|cit[ée]|canton|paroisse|village|township|town|city|county|district|regional district|regional municipality|rural municipality|resort municipality|municipal district|united counties|the corporation of the (?:city|town|township|village|municipality|county|district|regional municipality))\s+(?:of|de|du|des|d['’])?\s*", re.I)
+def md_core(nm):
+    c = norm(DESIG_RX.sub("", (nm or "").strip()))
+    return c if len(c) >= 4 else ""
+MD_CORE, _md_amb = {}, set()
+for (_pv, _nm), _r in list(MD_NAME.items()):
+    _c = md_core(_nm)
+    if not _c:
+        continue
+    if (_pv, _c) in MD_CORE and MD_CORE[(_pv, _c)] is not _r and MD_CORE[(_pv, _c)].get("legal_name") != _r.get("legal_name"):
+        _md_amb.add((_pv, _c))
+    MD_CORE.setdefault((_pv, _c), _r)
+for _k in _md_amb:
+    MD_CORE.pop(_k, None)
 n_md = collections.Counter()
 for x in rows:
     for c in ("buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source"):
@@ -1745,6 +1760,10 @@ for x in rows:
     _d = _dom_of(x.get("buyer_website") or "") if x.get("buyer_website") else ""
     prov = x.get("jurisdiction") or ""
     hit = (MD_DOM.get(_d) if _d else None) or MD_NAME.get((prov, norm(x.get("buyer") or ""))) or MD_NAME.get((prov, norm((x.get("buyer_legal_name_as_published") or "").split(" (")[0])))
+    if not hit and prov and prov not in ("CA",) and re.search(r"\b(ville|municipalit|mrc|canton|paroisse|village|township|town|city|county|district|municipality)\b", x.get("buyer") or "", re.I):
+        hit = MD_CORE.get((prov, md_core(x.get("buyer") or "")))  # "Ville de X" ↔ directory "X" (designation separate); ambiguous cores were dropped
+        if hit:
+            n_md["matched_by_place_name"] += 1
     if not hit:
         continue
     if hit["province"] != prov and prov not in ("", "CA") and hit["province"] not in ("CA",) and not (hit["province"] == "FED" and prov == "FED"):
