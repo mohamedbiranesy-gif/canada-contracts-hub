@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T19:25Z",
+ "updated": "2026-11-08T20:45Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -96,6 +96,21 @@
    "method": "origin commits '[chatgpt] …' and 'gemini: merge agent branch …' within the last hour; data/incoming/<lane> result files growing; referee verification_log outcomes",
    "status": "passing 19:20Z: Gemini batch45 (85 lines) via sync branches; Codex batch01 rows 1–80 pushed; lane driver passes 25 rows / lane / 3 h",
    "rerun": "git log origin/main --format='%ci %s' -40 | grep -iE 'gemini|chatgpt'"
+  },
+  {
+   "deliverable": "build 20:24Z read against the previous (69 → 72 met; Gold A 67 → 117)",
+   "method": "COVERAGE_VS_TARGETS.md head + AP grade table; coverage_history.csv rows for 2026-11-08",
+   "status": "passing 20:30Z: 72/438, Gold A 117 B 237, payable today 746"
+  },
+  {
+   "deliverable": "normalisation levers in rank.py (SEAO tender reference, relationship record count, title/description fallbacks, PO-rule hint, published durations)",
+   "method": "local dry run of rank.py on data/release (Nov 3 copy): pack ran, counters contract_title_from_description 163, invoice_reference_hint_po_rule 536, records_with_this_vendor_lead 10,685; spot-check of SEAO, bids&tenders and relationship rows in out/ranked",
+   "status": "passing 20:36Z locally; next build on main confirms the benchmark deltas (expect solicitation_or_tender_number, records_with_this_vendor, contract_title/description up)"
+  },
+  {
+   "deliverable": "org_facts engine (site readers over the 10k domains never read) and terms_refresh engine",
+   "method": "run summary per shard (tasks → finished), merge commit 'claude-engines: org_facts merged', next build's n_ox / n_oc counters and buyer_address / buyer_phone / buyer_logo_url / buyer_legal_name deltas in P08 / P10 / P13",
+   "status": "org_facts dispatched 20:38Z (10 runners); terms_refresh not yet dispatched (after the deep walk, to stay under the concurrent-job limit)"
   }
  ]
 }

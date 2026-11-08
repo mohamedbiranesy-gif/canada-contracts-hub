@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-08 17:00Z)
+# STATE.md — Claude lane (updated 2026-11-08 20:45Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,37 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 20:45Z — build 20:24Z 72/438 (Gold A 117, B 237); normalisation audit → five levers that need no new fetch; two new runner engines
+- Build 20:24Z: 72 of 438 met (+3 on 19:33Z); AP grade A on Gold 67 → 117, B 207 → 237; ap_payable_today 746 rows. Inputs since 19:17Z: P13 + A–F walker terms,
+  payability, bulk registry, Gemini batch 45–48, Codex verify rows 1–170.
+- Why the A–F ap_terms merge showed "no new keys": the shard counts (75,049 known → 76,367) were cumulative per runner; 75k + 10 × ~1.3k new = the 90,163
+  unique keys of the union. Nothing lost.
+- Audit of the 371 unmet benchmarks against the dataset's own records (data/release, 803k records scanned per source): the biggest gaps that need NO new
+  fetch were normalisation and counting rules, fixed in rank.py (local dry run passed, pack ran, no skip):
+  1. SEAO `numero` is the organisation's notice reference (SEAO data dictionary) → solicitation_or_tender_number for 1,974 rows (was 0); when a source
+     publishes the award only under its tender number (SEAO, bids&tenders 464, SaskTenders, BC), that number is the contract reference, labelled so.
+  2. records_with_this_vendor: the relationship record counts as 1 (downstream §1.10, our own comment said so) — 10,685 rows were "0 in the contract
+     dataset; 1 relationship record" (label-only to the scoreboard) → "1 (relationship record: …; 0 in the contract dataset)".
+  3. contract_title from the record's description (163 rows), contract_description from the title (PD / SEAO publish one text) or the relationship
+     detail, both labelled; 4. average duration also from durations the source publishes (end_inferred / end_computed);
+  5. invoice_reference_hint from the buyer's PO rule for relationship rows (536) — the reference an AP clerk matches.
+- The five AP-policy fields (payment method, cheque-run cadence, tax treatment, e-signature, AP system) were 0–5 % in all 17 packages although 95k pages
+  are read: the statements exist in other words. tools/ap_terms.py reads them wider (registration number printed, "taxes shown separately",
+  "suppliers are paid by EFT", "cheque runs every Thursday", DocuSign on POs, Ariba / Coupa / SAP / Workday named in a payables context) with a
+  payables-context check, a menu-text guard and case-sensitive brand names (Determine / Avantage / Banner are also plain words). Sample re-read of 324
+  pages on the Mac: +8 AP systems, few others on mailbox pages — the gains are on policy / PO-terms pages, which the deep walk reads now.
+- New runner engines in claude-engines.yml: `terms_refresh` (ap_terms --reread-known --shard: every known page again with the current patterns; a page
+  that stops answering keeps its old row; the policy fields are re-extracted, old menu-text matches do not survive) and `org_facts` (org_extras +
+  org_contacts, sharded, seeded from the repo copies: 9,365 buyer domains and 694 vendor domains with a website were never read for legal name,
+  address, phone, logo, BN, portals — that is most of buyer_address / buyer_phone / buyer_logo_url / legal-name gaps in P08, P10, P13). org_facts
+  dispatched 20:38Z (10 runners, 120 min). Deep A–F walk (policies, bylaws, PO terms PDFs; max_pages 60, one more link level, only buyers still lacking
+  a term or PO rule) dispatched 20:39Z after two false starts (redo_days 0 skipped everything: cutoff direction — fixed twice, the second time right).
+- Mac: ~/cch-vnews is a plain mirror of tools/, not a clone; `~/cch-crawler-state/sync_tools.sh` now mirrors tools/ + rank_buyers/ from origin/main
+  (run it after every tools push). API worker: 2,171 tasks, $45.35, 78 % with a page; loop cycles every 5 min; Gemini batch 48 rows 1–60 committed
+  locally (sync merges hourly); Codex last commit 19:55Z (rows 161–170), its 30-min automation is due again.
+- P09 (369 rows = SEAO contracts awarded > 3 years ago with no published end) cannot honestly reach end_date 95 % / duration 90 %: the package is defined
+  by the missing end date. Ceiling note to add to the scoreboard; the rest of P09 moves with SEAO rules above.
 
 ## 17:15Z — owner 12:08 EST: "if levers are not moving, change them" → engines moved to parallel runners
 - Throughput was the problem, not the method: one Mac walking 63k sites at 1 request / second / host. New workflow `.github/workflows/claude-engines.yml`:
