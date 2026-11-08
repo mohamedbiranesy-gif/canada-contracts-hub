@@ -156,7 +156,7 @@ jobs:
         run: |
           ls -la shards || true
           git config user.name "claude-engines"; git config user.email "claude-engines@users.noreply.github.com"
-          for i in 1 2 3 4 5; do
+          for i in $(seq 1 15); do   # main moves every minute or two (verifier, lanes, the Mac): 15 attempts, short random waits (the registry merge lost 5 races on 2026-11-08)
             git fetch -q origin main && git reset -q --hard origin/main   # clean start each attempt: the merge below is redone from the shard files
             if [ "$ENGINE" = "terms_refresh" ]; then
               python3 tools/merge_engine_outputs.py ap_terms data/incoming/claude/claude_ap_terms.csv data/incoming/claude/claude_ap_terms.csv data/incoming/claude/claude_ap_terms_pages.csv.gz shards/ap_terms_*.csv shards/ap_terms_pages_*.csv.gz
@@ -182,7 +182,7 @@ jobs:
             git commit -q -m "claude-engines: $ENGINE merged ($SHARDS runner(s), $MINUTES min) [skip ci]" || true
             git push -q origin HEAD:main && break
             echo "push attempt $i failed (main moved); redoing the merge on the new head"
-            sleep $((RANDOM % 30 + 10))
+            sleep $((RANDOM % 12 + 3))
           done
           if [ "$ENGINE" = "walk_terms" ]; then
             left=$(cat shards/sites_left_*.txt 2>/dev/null | awk '{s+=$1} END {print s+0}')
