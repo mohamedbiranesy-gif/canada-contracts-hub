@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-08 22:55Z)
+# STATE.md — Claude lane (updated 2026-11-08 23:45Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,22 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 23:45Z — terms_refresh merged (23:09Z); two data-loss paths found and closed; registry shard recovered; Codex lanes back
+- terms_refresh (every known page re-read with the current patterns; 10 runners, ~30 min): merge 23:09Z, 114,266 keys; the pages file then carried
+  payment terms 2,752, PO rule 2,936, portals 3,882, payment method 864, tax treatment 1,341, e-signature 441–523, AP system 407–428, AP contact 1,349,
+  invoice format 441. (ap_phone / invoice address next to payables anchors: only 15 / 11 — the anchor rule found little; the mailbox pages still carry
+  35,021 phones and 12,839 addresses.)
+- DATA LOSS 1 (closed): at 23:23Z the Mac's push snapshot replaced origin's claude_ap_terms_pages.csv.gz (50,895 rows, runners' union) with the Mac's own
+  40,405-row copy (its ap_terms rewrote the file from its local view; the snapshot's "stale" rule only compares times). Restored by unioning the 23:09Z
+  files with main (121,427 keys, pages 58,055) — commit f1996fc; tools/push_snapshot.py now UNIONS multi-writer files (ap_terms pair, registry_lookup,
+  org_extras, org_contacts) with origin's copy via merge_engine_outputs.py instead of copying (10bec7b, mirrored to the Mac 23:38Z).
+- DATA LOSS 2 (closed): the registry engine's merge job (run 42503912200, shard 1/2 finished 22:34Z) lost all 5 push races against a main that moves
+  every minute; its artifact was merged by hand (1cf31ee: 34,313 keys, buyers found 3,944 → 6,446). The merge job now tries 15 times with short waits.
+- A cancelled deep-walk repeat still produced a partial "walk_terms merged" commit at 22:51Z (union, harmless).
+- Codex: the ChatGPT account's limit lifted at 23:34Z as announced — "[chatgpt] Buyer AP batch50 rows 1–10" at 23:39Z (app automation) and the headless
+  codex exec is researching lane codex batch02 (World Bank borrowers). Gemini batch 49 rows 1–60. API worker 5,511 tasks, $113.81 (cap $120).
+- Build dispatched 23:35Z (inputs: terms_refresh, award/notice-id and trading-name rules, lanes); read at the next wake-up.
 
 ## 22:55Z — build 22:49Z **99/438** (+5): ap_system_hint P01T / P09, buyer_tax_exempt_status P12, vendor_trading_name P03 / P04; Gold A 134, payable 805; payment terms +5–6 pts in P02 / P03 / P05 and PO rule +4–5 from the deep walk (27 cells up ≥3, none down)
 

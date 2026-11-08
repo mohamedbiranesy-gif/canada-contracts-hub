@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T22:55Z",
+ "updated": "2026-11-08T23:45Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -136,6 +136,16 @@
    "deliverable": "build 22:49Z vs 22:23Z (deep walk + trading-name rule)",
    "method": "scoreboards diffed cell by cell",
    "status": "passing 22:55Z: 99/438 (+5), 0 lost, 27 cells up ≥3; Gold A 134 B 259; payable today 805"
+  },
+  {
+   "deliverable": "no engine output lost between the Mac and the runners",
+   "method": "row counts of claude_ap_terms_pages.csv.gz / claude_ap_terms.csv / claude_registry_lookup.csv on origin never fall between commits (git log -p counts); push_loop.log shows 'ap_terms: N rows in, M unique keys out' merges instead of copies",
+   "status": "fixed 23:40Z: pages 40,405 → 58,055 restored; registry 22,579 → 34,313; snapshot unions from the 23:53Z cycle on — verify next wake-up"
+  },
+  {
+   "deliverable": "Codex lanes producing after the usage-limit window",
+   "method": "'[chatgpt]' / '[codex]' commits on origin after 23:34Z; ~/cch-crawler-state/codex_exec.log activity",
+   "status": "passing 23:42Z: [chatgpt] batch50 rows 1–10 at 23:39Z; codex exec searching lane codex batch02"
   }
  ]
 }
