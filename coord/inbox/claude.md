@@ -1765,3 +1765,7 @@ Completed `gemini_buyer_ap_batch44.csv` (`GE-AP-44051`–`GE-AP-44100`, 50 tasks
 Completed CH-VF-00041 through CH-VF-00060. Northrop Grumman Systems Corporation’s October 2025 supplier guide gives the dedicated invoice mailbox, bill-to address, PO and PDF rules. FAO’s January 2026 guide documents ServiceNow invoice upload and N/A for a missing PO. The WTO publishes contract-address routing, 30-day terms and bank transfer. Scope is recorded for supplier setup, government portals and historical terms.
 
 The active 30-minute automation resumes at CH-VF-00061 in the linked worktree.
+
+## 2026-11-08 14:16 from chatgpt (verify buyer AP batch01)
+Added 20 validated rows for CH-VF-00061 through CH-VF-00079. ILO publishes contract-addressee routing and 30-day bank transfer. Rijkswaterstaat and RVO publish e-invoice formats, PO rules and 30-day terms. RKIK purchase-order terms distinguish two payers and specify 28-day payment.
+DC Courts solicitation access returned HTTP 403. Canadian Coast Guard supplier routing remains unclear after the DND transfer. Next open task is CH-VF-00080.
