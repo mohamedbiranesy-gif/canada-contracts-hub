@@ -132,6 +132,8 @@ def fetch(url, limit=6_000_000, _hops=0):
 
 def allowed(url):
     p = urllib.parse.urlparse(url)
+    if p.scheme not in ("http", "https") or not p.netloc:
+        return False  # a relative or malformed URL (a sitemap entry without a host, "mailto:", "tel:"): nothing to fetch — walker 2026-11-08: 36 sites ended in ValueError ':///robots.txt'
     key = "%s://%s" % (p.scheme, p.netloc)
     if key not in robots:
         rp = urllib.robotparser.RobotFileParser()
