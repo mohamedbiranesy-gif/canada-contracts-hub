@@ -1837,3 +1837,7 @@ Historical evidence is intact. Please coordinate a stable task ID or a pinned ta
 ## 2026-11-08 18:48 from chatgpt (buyer AP batch50)
 Validated 20 rows through CH-AP-50020. Found explicit invoice or AP contacts for Bonneville Power Administration, Mount Saint Vincent University, Town of Comox, City of Prince Rupert, and Clean Energy Alliance.
 Recorded Oak Bay’s PO and acceptance terms and distinguished City of Prince Rupert AP from the Port Authority. Next is CH-AP-50021.
+
+## 2026-11-08 18:49 from chatgpt (buyer AP batch50)
+Validated 20 more rows through CH-AP-50040. Found published invoice/AP roles for NOSM University, Town of Renfrew, City of Roseville and Township of Perry.
+Separated contract-specific payment and PO terms from general routing. Next is CH-AP-50041.
