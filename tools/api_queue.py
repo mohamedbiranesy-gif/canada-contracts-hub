@@ -53,8 +53,8 @@ def main():
     rows = []
     for lst, mx in ((af, a.max_af), (pc, a.max_pc), (vw, a.max_vw)):
         lst.sort(key=lambda t: t[0])
-        rows += [(t[0], {"af": 1, "pc": 0, "vw": 2}[t[1]["kind"]], t[1]) for t in lst[:mx]]
-    rows.sort(key=lambda t: (t[0], t[1]))  # by package priority first (Gold AP pages before P06 award pages), then AP pages, award pages, vendor sites
+        rows += [((t[0] + 10) if t[1]["kind"] == "af" else t[0], {"af": 1, "pc": 0, "vw": 2}[t[1]["kind"]], t[1]) for t in lst[:mx]]
+    rows.sort(key=lambda t: (t[0], t[1]))  # AP / PO-terms pages and vendor sites of every package first; award pages (contract value, PO number: ~7 % yield) last — owner 2026-11-08 14:50 EST: don't burn the credits on PO numbers
     rows = [t[2] for t in rows]
     clean = lambda v: re.sub(r"[\t\r\n]+", " ", str(v or ""))[:200]
     with open(a.out, "w", newline="", encoding="utf-8") as f:
