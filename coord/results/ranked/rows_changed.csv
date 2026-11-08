@@ -1,15 +1,17 @@
 change,buyer,rank_group,email,detail
-mailbox changed,Town of Aurora,GOLD,payables@aurora.ca,was procurement@aurora.ca
-package moved,Town of Aurora,GOLD,payables@aurora.ca,was B2
-mailbox changed,chubb.com,D4,argfacturaselectronicas@chubb.com,was financiallinesdigitalconcierge@chubb.com
-package moved,chubb.com,D4,argfacturaselectronicas@chubb.com,was D3
-mailbox changed,Tennessee Department of Transportation,B2,supplier.maintenance@tn.gov,was vendor.insurance@tn.gov
-mailbox changed,"ADP, Inc",T2,supplier.diversity@adp.com,was adpaccountant@adp.com
-package moved,"ADP, Inc",T2,supplier.diversity@adp.com,was T3
-row added,City of Fort Worth,L2,ftw_erp_vendor_mgmt@fortworthtexas.gov,new organisation in the ranked file
-mailbox changed,Dallas Independent School District,L2,suppliers@dallasisd.org,was acctpayable@dallasisd.org
-package moved,Dallas Independent School District,L2,suppliers@dallasisd.org,was L4
-package moved,Municipalité de Saint-Charles-sur-Richelieu,C1,info@saint-charles-sur-richelieu.ca,was B1
-mailbox changed,National Information Technology Board (NITB),D1,info@moitt.gov.pk,was procurement.specialist@deep.moitt.gov.pk
-package moved,National Information Technology Board (NITB),D1,info@moitt.gov.pk,was D2
-mailbox changed,cckl.org,E1,admin@cckl.org,was info@cckl.org
+mailbox changed,Belton ISD,GOLD,accountspayabe@bisd.net,was accountspayable@bisd.net
+package moved,Belton ISD,GOLD,accountspayabe@bisd.net,was B4
+mailbox changed,Saudi Arabian Oil Co,D4,oadvendormasterpayablediv@aramco.com,was manufacturer-registration@aramco.com
+package moved,Saudi Arabian Oil Co,D4,oadvendormasterpayablediv@aramco.com,was D1
+mailbox changed,"Kalamazoo, MI",D3,treasurer@kalamazoocity.org,was apinvoice@kalamazoocity.org
+package moved,"Kalamazoo, MI",D3,treasurer@kalamazoocity.org,was D4
+mailbox changed,thedrum.com,D3,accounts@thedrum.com,was enquiries@thedrum.com
+package moved,thedrum.com,D3,accounts@thedrum.com,was D1
+mailbox changed,franklincountyohio.gov,D2,procurement@franklincountyohio.gov,was purch-dept-invoices@franklincountyohio.gov
+package moved,franklincountyohio.gov,D2,procurement@franklincountyohio.gov,was D4
+mailbox changed,Vanier College,L0,,was finance@vaniercollege.qc.ca
+package moved,Vanier College,L0,,was L3
+mailbox changed,Chabad of Etobicoke,I0,,was office@chabadetobicoke.com
+package moved,Chabad of Etobicoke,I0,,was I1
+mailbox changed,Hindu Temple of Ottawa-Carleton,I0,,was info@hindutemple.cafinancial
+package moved,Hindu Temple of Ottawa-Carleton,I0,,was I1
