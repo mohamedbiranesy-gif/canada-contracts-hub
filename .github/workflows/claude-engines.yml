@@ -37,7 +37,7 @@ env:
   TIERS: ${{ inputs.tiers || 'I' }}
   MAXP: ${{ inputs.max_pages || '15' }}
 concurrency:
-  group: claude-engines-${{ inputs.engine || 'bulk_registry' }}
+  group: claude-engines-${{ inputs.engine || 'bulk_registry' }}-${{ inputs.tiers || 'all' }}
   cancel-in-progress: false
 jobs:
   plan:
