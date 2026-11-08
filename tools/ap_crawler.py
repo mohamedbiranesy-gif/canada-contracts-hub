@@ -56,7 +56,7 @@ def log(*a):
     print(time.strftime("%Y-%m-%d %H:%M:%S"), *a, flush=True)
 
 
-def fetch(url, limit=6_000_000):
+def fetch(url, limit=6_000_000, _hops=0):
     """(status, content_type, bytes, final_url); one request per second per host across all threads."""
     host = urllib.parse.urlparse(url).hostname or ""
     while True:
@@ -71,8 +71,21 @@ def fetch(url, limit=6_000_000):
         with urllib.request.urlopen(req, timeout=20) as r:
             return r.status, r.headers.get("content-type", ""), r.read(limit), r.geturl()
     except urllib.error.HTTPError as e:
+        # 2026-11-08: Python 3.9's urllib does not follow 308 (and some 301/307 with odd Location headers): 55 of the Gold buyers'
+        # sites answered http_308 and were never read. Follow up to 5 redirects by hand.
+        loc = e.headers.get("Location") if e.headers else None
+        if e.code in (301, 302, 303, 307, 308) and loc and _hops < 5:
+            nxt = urllib.parse.urljoin(url, loc.strip())
+            if nxt != url:
+                return fetch(nxt, limit, _hops + 1)
         return e.code, "", b"", url
-    except Exception:
+    except Exception as ex:
+        msg = str(ex).lower()
+        p = urllib.parse.urlparse(url)
+        if _hops == 0 and p.scheme == "https" and ("ssl" in msg or "certificate" in msg or "handshake" in msg or "eof" in msg):
+            return fetch("http://" + url[8:], limit, 1)  # broken TLS on a small municipal site: the plain-http copy is the same public page
+        if _hops == 0 and ("nodename" in msg or "name or service" in msg or "getaddrinfo" in msg or "no address" in msg) and p.hostname and not p.hostname.startswith("www."):
+            return fetch(url.replace("://" + p.hostname, "://www." + p.hostname, 1), limit, 1)  # bare host without a DNS record, www. has one
         return 0, "", b"", url
 
 
