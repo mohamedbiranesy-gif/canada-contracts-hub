@@ -56167,7 +56167,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LT-00832,lead:558404c330ccffe1,inf
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00072,lead:558404c330ccffe1,info@gabelli.com,https://gabelli.com/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-32954,lead:55846afb9acc566e,apinvoices@xerox.com,https://www.xerox.com/downloads/usa/en/services/document/accounts-payable-technology.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-32954,lead:55846afb9acc566e,nafsuppliermaintenance@xerox.com,https://www.xerox.com/downloads/usa/en/services/document/accounts-payable-technology.pdf,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-32954,lead:55846afb9acc566e,supplier.compliance@xerox.com,https://www.xerox.com/en-us/about/supplier-relations/governance,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-32954,lead:55846afb9acc566e,supplier.compliance@xerox.com,https://www.xerox.com/en-us/about/supplier-relations/governance,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22511,lead:55878f466df41356,office@limitlesschiro.com,https://limitlesschiro.com/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00029,lead:55878f466df41356,office@limitlesschiro.com,https://limitlesschiro.com/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19563,lead:559130ba0cd1f41f,info@shgmi.ca,https://shgmi.ca/,verified
@@ -59838,7 +59838,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-30751,lead:8a7b684e580d222a,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-45717,lead:8a7dcdb5dcc0cf65,inquiries@canadians.org,https://canadians.org/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-20872,lead:8a8e8555ec294637,info@britanniawoods.com,https://britanniawoods.com/contact/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-20872,lead:8a8e8555ec294637,general@britanniawoods.com,https://britanniawoods.com/contact/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-LD-17514,lead:8a8f972d9d0dd550,info@collingwoodpubliclibrary.ca,https://collingwoodpubliclibrary.ca/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-LD-17514,lead:8a8f972d9d0dd550,info@collingwoodpubliclibrary.ca,https://collingwoodpubliclibrary.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-00021,lead:8a9127985957a9cf,finance@thecma.ca,https://thecma.ca/about/contact-cma,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-02957,lead:8a932aded8047614,info@proweb.ca,https://www.proweb.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-05495,lead:8a98546c1e40d856,info@dresden.gold,https://www.dresden.gold/,verified
@@ -86405,7 +86405,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001652,wd:Q1521274,contact@lake
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-013128,wd:Q15224695,info@locationfixerbc.com,https://www.holytrinitycathedral.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-00169,wd:Q152433,apinvoices@xerox.com,https://www.xerox.com/downloads/usa/en/services/document/accounts-payable-technology.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-00169,wd:Q152433,nafsuppliermaintenance@xerox.com,https://www.xerox.com/downloads/usa/en/services/document/accounts-payable-technology.pdf,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-00169,wd:Q152433,supplier.compliance@xerox.com,https://www.xerox.com/en-us/about/supplier-relations/governance,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-00169,wd:Q152433,supplier.compliance@xerox.com,https://www.xerox.com/en-us/about/supplier-relations/governance,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-013133,wd:Q15262491,info@northatlanticaviationmuseum.com,https://northatlanticaviationmuseum.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-000752,wd:Q152912,info@fcn.ca,https://www.fcn.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-001662,wd:Q1529818,info@vanopen.com,https://vanopen.com/guest-services-policies/,verified
