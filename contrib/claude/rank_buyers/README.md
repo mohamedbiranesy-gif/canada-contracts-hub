@@ -213,3 +213,20 @@ Since 2026-11-04 two more fillers run before the packages are cut:
 - Ministries with the same short name in different governments are split by the source's government, and a mailbox only
   attaches when its domain fits that government.
 - Spot-check 2026-11-02 (10 P01 + 10 P01T rows) and the fixes it led to: see `coord/DECISIONS.md`.
+
+## Invoice-grade columns and AP grade (owner 2026-11-08; all appended, nothing renamed)
+- `invoice_card_json`: the row as an invoice header — bill-to (legal name, address, tax number, language), submit-to (mailbox / portal /
+  format / AP system), references the invoice must quote (PO rule, PO / contract / vendor id), terms (published terms, else the
+  labelled default policy; method; cycle), tax (published status, else `DERIVED: …`; indicative rate; currency; vendor GST/HST and QST),
+  vendor identity, follow-up. `invoice_readiness` = "n/11 invoice elements present"; `invoice_missing` lists the elements no source gave.
+- `ap_grade` A–E, `ap_score` 0–100, `ap_grade_basis` (criteria met / missing / penalties) and `ap_gap_to_A` (what the row still lacks for A).
+  A = referee-confirmed invoicing / AP mailbox on the buyer's own domain (or published on the buyer's own site) with MX, published legal
+  name, invoice / billing address, PO rule and payment terms, no penalties (DMARC not enforced, BN conflict, vendor registry warning).
+  Grade A is the standard every row is worked towards; `COVERAGE_VS_TARGETS.md` prints the A–E distribution and what blocks A per package.
+- `payment_terms_default_policy`: a labelled default only — the Government of Canada 30-day directive for federal buyers, or the
+  statutory prompt-payment rule for CONSTRUCTION contracts (federal Act s. 9(2), Ontario Construction Act s. 6.4(1), Alberta PPCLA
+  s. 32.2(1): 28 days), each with the statute's URL, the date it was read and a quote. `payment_terms_as_published` is never filled
+  from it.
+- `buyer_tax_status_derived` / `tax_rate_indicative_derived`: GST/HST rules the buyer is subject to by type and province (CRA GST/HST
+  Memorandum 18-2: provincial pay-and-rebate vs point-of-purchase relief; a municipality is not a government; HST 13 % / 15 % or
+  GST 5 % by province), with URL, date read and quote. Derived, labelled, never written into `buyer_tax_exempt_status`.

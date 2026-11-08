@@ -2290,7 +2290,16 @@ PROMPT_PAY = {
     "AB": "statutory default for construction work (buyer published no terms): the owner must pay a proper invoice no later than 28 days after receiving it — Prompt Payment and Construction Lien Act, R.S.A. 2000, c. P-26.4, s. 32.2(1) (current to 2025-04-01) (https://kings-printer.alberta.ca/documents/Acts/P26P4.pdf, read 2026-11-08: \"an owner who owes money under a proper invoice must pay the amount payable under a proper invoice no later than 28 days after receiving the proper invoice\"); s. 1.1(1.1): does not apply to Crown public works; applies only if this contract is an improvement under the Act",
 }
 
-PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+# GST/HST status of public buyers, derived from CRA GST/HST Memorandum 18-2 "Provincial Governments" (canada.ca, read 2026-11-08 on the Mac engine; quotes ≤ 300 chars).
+# Derived = a rule the buyer is subject to by type and province, never a value the buyer published; labelled, in its own column; the invoice card uses it only when nothing is published.
+CRA_18_2 = "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/18-2/provincial-governments.html"
+TAX_PAY_REBATE = "pays GST/HST on purchases (pay-and-rebate model): charge GST/HST on the invoice — GST/HST Memorandum 18-2 para. 23 (%s, read 2026-11-08: \"The governments of all the participating provinces, as well as Quebec, British Columbia and Nunavut, have agreed to use the pay and rebate model. Therefore, their government departments and all of their Crown agents will pay the GST/HST on their purchases\"); derived from buyer type and province, not published by the buyer" % CRA_18_2
+TAX_POINT_RELIEF = "provincial government entity in %s: a LISTED entity does not pay GST/HST at the point of purchase when an authorized official certifies the purchase — ask for the exemption certificate or certification clause before invoicing without tax — GST/HST Memorandum 18-2 para. 24 (" + CRA_18_2 + ", read 2026-11-08: \"Listed entities in Manitoba, Saskatchewan, Alberta, the Northwest Territories and Yukon do not pay the GST/HST on purchases of taxable property and services, provided that an authorized official of the listed entity provides sufficient evidence\"); derived from buyer type and province, not published by the buyer; whether this body is a listed entity is not verified"
+TAX_MUNICIPAL = "municipality: GST/HST applies to supplies to it — a municipality is not a government for GST/HST purposes (GST/HST Memorandum 18-2 para. 2 note, %s, read 2026-11-08: \"Note: A municipality is not a government for purposes of the GST/HST\"); charge GST/HST; derived from buyer type, not published by the buyer" % CRA_18_2
+TAX_RATE = {"ON": "HST 13% (Ontario)", "NB": "HST 15% (New Brunswick)", "NL": "HST 15% (Newfoundland and Labrador)", "NS": "HST 15% (Nova Scotia)", "PE": "HST 15% (Prince Edward Island)"}
+TAX_RATE_NOTE = " — indicative rate for a supply made in the buyer's province (GST/HST Memorandum 18-2 'GST/HST rates', %s, read 2026-11-08: \"The HST applies in the participating provinces at the following rates: 13%% in Ontario and 15%% in New Brunswick, Newfoundland and Labrador, Nova Scotia, and Prince Edward Island. The GST applies in the rest of Canada at the rate of 5%%\"); the place-of-supply rules decide (Memorandum 3-3-2); provincial sales taxes (QST, PST) are not covered here" % CRA_18_2
+
+PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "buyer_tax_status_derived", "tax_rate_indicative_derived", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
@@ -2432,6 +2441,31 @@ try:
         def _val(c):
             v = (x.get(c) or "").strip()
             return "" if (not v or v in ("not_published", "{}", "[]") or re.match(r"^(?:no |none\b|not |0 in the|only system|n/a\b|not applicable|unknown\b|aucun|no dataset|no record|no identifier)", v, re.I)) else v
+        # derived GST/HST status and indicative rate (owner 2026-11-08 11:53 EST: plausibility values only where nothing is published, source-derived, labelled)
+        x["buyer_tax_status_derived"] = x["tax_rate_indicative_derived"] = ""
+        if (x.get("jurisdiction") or "") != "US" and not re.search(r"\.(gov|edu|org\.uk|gov\.uk|gov\.au|eu)$|\.gov\b", (x.get("buyer_website") or "").lower()):
+            pc2 = re.search(r"\b([A-Z])\d[A-Z]\s?\d[A-Z]\d\b", x.get("buyer_address") or "")
+            prov2 = {"QC": "QC", "ON": "ON", "BC": "BC", "AB": "AB", "SK": "SK", "MB": "MB", "NS": "NS", "NB": "NB", "NL": "NL", "PE": "PE", "YT": "YT", "NT": "NT", "NU": "NU"}.get(x.get("jurisdiction") or "", "")
+            if not prov2 and pc2:
+                prov2 = {"G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON", "V": "BC", "T": "AB", "S": "SK", "R": "MB", "B": "NS", "E": "NB", "A": "NL", "C": "PE", "Y": "YT", "X": "NT"}.get(pc2.group(1), "")
+            if not prov2:
+                md3 = re.search(r"\.(qc|on|bc|ab|sk|mb|ns|nb|nl|pe|yk|nt|nu)\.ca(?:/|$)", (x.get("buyer_website") or "").lower())
+                prov2 = md3.group(1).upper().replace("YK", "YT") if md3 else ""
+            bt2 = (x.get("buyer_type") or "").lower()
+            fed2 = (x.get("jurisdiction") or "") == "FED" or bool(re.search(r"\.gc\.ca|canada\.ca", (x.get("buyer_website") or "")))
+            if not fed2 and prov2 and ("ministry" in bt2 or "crown" in bt2 or re.search(r"\bgovernment\b", bt2)) and not re.search(r"municipal|school|hospital|university|college|transit|utility", bt2):
+                if prov2 in ("MB", "SK", "AB", "NT", "YT"):
+                    x["buyer_tax_status_derived"] = TAX_POINT_RELIEF % {"MB": "Manitoba", "SK": "Saskatchewan", "AB": "Alberta", "NT": "the Northwest Territories", "YT": "Yukon"}[prov2]
+                elif prov2 in ("ON", "NB", "NL", "NS", "PE", "QC", "BC", "NU"):
+                    x["buyer_tax_status_derived"] = TAX_PAY_REBATE
+            elif "municipal" in bt2 and prov2:
+                x["buyer_tax_status_derived"] = TAX_MUNICIPAL
+            if prov2 in TAX_RATE:
+                x["tax_rate_indicative_derived"] = TAX_RATE[prov2] + TAX_RATE_NOTE
+            elif prov2 in ("QC", "BC", "AB", "SK", "MB", "YT", "NT", "NU"):
+                x["tax_rate_indicative_derived"] = "GST 5% (%s)" % prov2 + TAX_RATE_NOTE
+            if x["buyer_tax_status_derived"] or x["tax_rate_indicative_derived"]:
+                npk["tax_derived"] += 1
         card = {
             "bill_to": {"legal_name": _val("buyer_legal_name_as_published") or _val("buyer"), "legal_name_is_published": bool(_val("buyer_legal_name_as_published")), "address": _val("invoice_mailing_address") or _val("buyer_address"),
                         "address_is_the_invoice_address": bool(_val("invoice_mailing_address")), "tax_number": _val("buyer_bn_as_published"), "language": _val("template_language") or _val("language_hint")},
@@ -2440,7 +2474,7 @@ try:
             "references_required": {"po_required": _val("po_required_as_published"), "po_number": _val("po_number_as_published"), "contract_or_agreement_number": _val("contract_or_agreement_number"),
                                     "vendor_id_with_buyer": _val("buyer_vendor_id"), "reference_hint": _val("invoice_reference_hint")},
             "terms": {"payment_terms": _val("payment_terms_as_published") or _val("payment_terms_default_policy"), "payment_method": _val("buyer_payment_method_preference"), "payment_cycle": _val("buyer_ap_cycle_published"), "e_signature": _val("buyer_esignature_preference")},
-            "tax": {"buyer_tax_status": _val("buyer_tax_exempt_status"), "currency": _val("currency"), "vendor_gst_hst": _val("vendor_gst_hst_derived"), "vendor_qst": _val("vendor_qst_as_published")},
+            "tax": {"buyer_tax_status": _val("buyer_tax_exempt_status") or (("DERIVED: " + x["buyer_tax_status_derived"][:160]) if x.get("buyer_tax_status_derived") else ""), "buyer_tax_status_is_published": bool(_val("buyer_tax_exempt_status")), "indicative_rate": (x.get("tax_rate_indicative_derived") or "").split(" — ")[0], "currency": _val("currency"), "vendor_gst_hst": _val("vendor_gst_hst_derived"), "vendor_qst": _val("vendor_qst_as_published")},
             "vendor_identity": {"legal_name": _val("vendor_legal_name") or _val("vendor"), "bn9": _val("vendor_bn9"), "neq": _val("vendor_neq"), "remit_address": _val("vendor_registered_address") or _val("vendor_address")},
             "follow_up": {"ap_phone": _val("ap_phone") or _val("buyer_phone"), "ap_contact": _val("ap_contact_name_as_published"), "requirements_text": (x.get("invoicing_requirements") or "")[:300]},
         }
