@@ -1846,3 +1846,6 @@ Separated contract-specific payment and PO terms from general routing. Next is C
 ## 2026-11-08 18:54 from chatgpt (buyer AP batch50)
 Validated 20 more rows through CH-AP-50059. Documented McNab/Braeside’s AP phone and EFT, Algonquin Highlands’ winter-sand route, Gananoque AP, and Iowa State’s separate regular and sponsored invoice routes.
 Confirmed Thesis Gold & Silver’s current accounting domain and recorded South Algonquin’s access gate. Next is CH-AP-50060.
+
+## 2026-11-08 18:56 from codex
+Batch02 tasks1-40 researched (42 result rows), validated0problems and checkpointing every10tasks in isolated clone. TU Dresden published role Zentraler.Rechnungseingang@tu-dresden.de fails PERSONAL/ROLE_HINT, preserved exact invoice quote with blank structured email/unclear for allowlist review. Companion mahnungen@ row is reminder-only. Seven sovereign/regional borrower labels lack implementing agency/project identifiers and need original payer resolution.
