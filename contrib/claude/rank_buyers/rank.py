@@ -2297,6 +2297,10 @@ for x in rows:
     if not x.get("contract_title") and (x.get("contract_description") or "").strip() and x.get("contract_link"):  # the source publishes a description but no separate title
         x["contract_title"] = re.split(r"(?<=[.!?])\s", x["contract_description"].strip(), maxsplit=1)[0][:150] + " (first sentence of the record's description; the source publishes no separate title)"
         n9["contract_title_from_description"] += 1
+    if (x.get("contract_description") or "") in ("", "not_published") and (x.get("contract_title") or "").strip() and "publishes no separate title" not in (x.get("contract_title") or ""):
+        x["contract_description"] = x["contract_title"].strip()[:300] + " (the record's title; the source publishes no separate description)"; n9["contract_description_from_title"] += 1
+    elif (x.get("contract_description") or "") in ("", "not_published") and (x.get("relationship_detail") or "").strip():
+        x["contract_description"] = "relationship record, no contract text: %s" % x["relationship_detail"].strip()[:280]; n9["contract_description_from_relationship"] += 1
     _hint = x.get("invoice_reference_hint") or ""
     if (not _hint or _hint.startswith(("no identifier", "only system"))) and (x.get("po_required_as_published") or "").startswith(("yes", "purchase-order terms published")):
         x["invoice_reference_hint"] = ("the buyer's purchase-order number: the buyer publishes that invoices must quote a PO number (%s)" if x["po_required_as_published"].startswith("yes") else
