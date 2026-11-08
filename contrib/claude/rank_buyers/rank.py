@@ -1861,6 +1861,20 @@ for x in rows:
         x["vendor_gst_hst_derived"] = "%sRT0001 (%s)" % (c["bn9"], c["program_account_as_printed"])
         x["vendor_bn_source"] = x.get("vendor_bn_source") or "printed on the organisation's own page (%s)" % c["url"]; n_cr += 1
 print("crown-corporation BNs applied to inferred-vendor rows:", n_cr)
+# vendor websites proposed by search and CONFIRMED by reading the site (tools/vendor_sites_check.py → claude_vendor_sites.csv)
+VSITE = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_vendor_sites.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_vendor_sites.csv", encoding="utf-8")):
+        if _r.get("check_status") == "confirmed" and _r.get("website"):
+            VSITE[norm(_r["vendor_key"])] = _r
+n_vs = 0
+for x in rows:
+    vn = x.get("vendor") or ""
+    v_ = VSITE.get(norm(vn)) if vn and not vn.startswith("inferred") and not x.get("vendor_website") else None
+    if v_:
+        x["vendor_website"] = v_["website"]
+        x["vendor_website_basis"] = "found by a web search, confirmed by reading the site on %s: %s (%s)" % (v_["retrieved_date"], v_["evidence_url"], (v_.get("evidence_quote") or "")[:160]); n_vs += 1
+print("vendor websites confirmed from search proposals:", len(VSITE), "applied:", n_vs)
 # inferred vendors' own published phone / address (claude_inferred_vendor_facts.csv: pages opened on the Crown corporation's site, quoted) → P13 rows
 IVF = {}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_inferred_vendor_facts.csv"):
@@ -2351,7 +2365,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
-                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id"]), ("vendor_website_status", ["vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
+                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id"]), ("vendor_website_status", ["vendor_website_basis", "vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
                    ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
     if after in cols:
