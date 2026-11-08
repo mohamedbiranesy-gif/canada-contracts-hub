@@ -30,6 +30,7 @@ jobs:
     runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
     timeout-minutes: 70
     env:
+      ANTHROPIC_SET: ${{ secrets.ANTHROPIC_API_KEY != '' && 'yes' || 'no' }}
       LANE: ${{ inputs.lane || (github.event.schedule == '17 3,9,15,21 * * *' && 'chatgpt' || 'gemini') }}
       MAX: ${{ inputs.max || vars.GEMINI_ROWS_PER_RUN || '40' }}
     steps:
@@ -50,11 +51,13 @@ jobs:
         run: python3 tools/pick_gemini_model.py
       - name: Research (Gemini proposes, code verifies)
         id: research
-        if: steps.key.outputs.ok == 'yes' && steps.models.outputs.model1 != ''
+        if: steps.key.outputs.ok == 'yes' && (steps.models.outputs.model1 != '' || env.ANTHROPIC_SET == 'yes')
         continue-on-error: true
         timeout-minutes: 55
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PROVIDER: ${{ secrets.ANTHROPIC_API_KEY != '' && 'anthropic' || 'gemini' }}
           MODELS: ${{ steps.models.outputs.models }}
           GEMINI_RPM: ${{ vars.GEMINI_RPM || '8' }}
           KINDS: ${{ inputs.kinds }}
