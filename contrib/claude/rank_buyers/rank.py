@@ -2425,14 +2425,16 @@ try:
         # and on plausibility signals that the channel is real and current. Mechanical: every criterion is a column already carrying its source.
         if x.get("email"):
             et, ec = (x.get("email_type") or ""), (x.get("email_check") or "")
-            own_domain = bool(x.get("buyer_website")) and registrable(host_of(x.get("buyer_website") or "")) == registrable((x.get("email") or "").split("@")[-1].lower())
+            bw_reg = registrable(host_of(x.get("buyer_website") or "")) if x.get("buyer_website") else ""
+            own_domain = bool(bw_reg) and (bw_reg == registrable((x.get("email") or "").split("@")[-1].lower())
+                                           or bw_reg == registrable(host_of(x.get("email_evidence_url") or "")))  # the buyer's second domain (uleth.ca / ulethbridge.ca, vdmt.ca / villedemont-tremblant.qc.ca, ec.gc.ca / canada.ca) counts when the buyer's own site publishes the mailbox
             mx_ok = (x.get("email_deliverability") or "").startswith("domain publishes a mail server")
             crit = [
                 ("invoicing / AP mailbox", et.startswith(("invoic", "accounts_payable", "supplier_payment", "ap")), 20),
                 ("finance mailbox", et.startswith("finance") and not et.startswith(("invoic", "accounts_payable")), 10),
                 ("referee-confirmed mailbox", ec.startswith("confirmed"), 15),
                 ("mailbox seen again within 60 days", (x.get("reverify_due") or "") == "no" or (x.get("mailbox_recheck_note") or "").startswith("mailbox seen again"), 8),
-                ("mailbox on the buyer's own domain", own_domain, 7),
+                ("mailbox on the buyer's own domain (or published on the buyer's own site)", own_domain, 7),
                 ("domain publishes a mail server (MX)", mx_ok, 5),
                 ("bill-to legal name published", card["bill_to"]["legal_name_is_published"], 8),
                 ("invoice or billing address", bool(card["bill_to"]["address"]), 6),
@@ -2466,7 +2468,7 @@ try:
             x["ap_grade"] = apg  # apg, not g: g is the mailbox grade 1-4 used by data_quality_score / ship_ready below (local test 16:40Z: TypeError str < int skipped the whole pack)
             x["ap_score"] = str(score)
             x["ap_grade_basis"] = "met: %s | missing: %s%s" % ("; ".join(n_ for n_, ok, _ in crit if ok) or "none", "; ".join(n_ for n_, ok, _ in crit if not ok) or "none", (" | penalties: " + "; ".join(n_ for n_, _ in penalties)) if penalties else "")
-            a_need = [n_ for k_, n_ in ((2, "referee confirmation of the mailbox"), (0, "an invoicing / AP mailbox (not finance / procurement / general)"), (4, "a mailbox on the buyer's own domain"), (5, "MX record for the mailbox domain"), (6, "published bill-to legal name"), (7, "invoice / billing address"), (8, "published PO rule"), (9, "published payment terms")) if not crit[k_][1]]
+            a_need = [n_ for k_, n_ in ((2, "referee confirmation of the mailbox"), (0, "an invoicing / AP mailbox (not finance / procurement / general)"), (4, "a mailbox on the buyer's own domain or published on its own site"), (5, "MX record for the mailbox domain"), (6, "published bill-to legal name"), (7, "invoice / billing address"), (8, "published PO rule"), (9, "published payment terms")) if not crit[k_][1]]
             a_need += ["clear the penalty: " + n_ for n_, _ in penalties]
             x["ap_gap_to_A"] = "; ".join(a_need) if apg != "A" else "none"
         x["facts_provenance_json"] = json.dumps({"mailbox": [p.strip() for p in (x.get("mailbox_provenance") or "").split(" | ") if p.strip()], "buyer_facts": [p.strip() for p in (x.get("buyer_facts_provenance") or "").split("; ") if p.strip()],
