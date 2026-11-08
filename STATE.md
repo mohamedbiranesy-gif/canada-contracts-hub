@@ -54,6 +54,21 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   values, 58,304 bid counts, reference date 2026-11-08). A build with them is dispatched automatically when the push lands (background job).
 - Rebuild workflow had been cancelled on 11-07 and 11-08 by the shared concurrency group → own group; today's run succeeded.
 
+## 18:20Z — owner 13:07 EST: hard deadline (this credit period), invoice framing for every row, all packages; API credits and the other lanes may be used
+- **API search worker** (tools/api_search_worker.py + api_queue.py): Anthropic web_search tool, URLs taken from the tool's result blocks only, every
+  page still read and quoted by the Mac readers. Pilot: 12 tasks, 43 URLs, $0.23 (≈ $0.019 / task). Loop `~/cch-crawler-state/api_search_loop.sh`
+  running: queue 1,852 award-page tasks + 6,000 AP / PO-terms tasks + 1,137 vendor-site tasks, 600 per cycle, absolute cap $150; readers
+  (award_facts, deep_pages, ap_terms, vendor_sites_check) run after each cycle. Key stored only in `~/cch-crawler-state/anthropic.key` (chmod 600),
+  never in the repo; the owner pasted it in chat → recommend rotating it when this is over.
+- **Runners**: A–F buyer sites (10,337) now walked by 10 GitHub runners (run 42509071867) alongside the P13 run; the Mac walker stopped (its done
+  file copied to data/incoming/claude/claude_ap_walk_done_mac.tsv for the release state); walk_terms re-dispatches itself while sites remain.
+- **Award facts**: tools/award_facts.py (value, dates, numbers, bids next to the vendor's name on the buyer's own award page) deployed; fed by the
+  API worker (af tasks) — first results in the next builds; rank.py consumer in place.
+- Other lanes (Gemini, ChatGPT/Codex): their queues already hold 1,200 + 1,200 + 799 buyer-AP tasks for buyers with Canadian-vendor contracts;
+  the owner opens the apps; no new batches needed yet.
+- Build dispatched 18:00Z (p59/p60 pages, in-build DNS check). Next: measure the award-facts hit rate, Public Accounts values, lower packages
+  (P06 / P08 / P10) get the same AP / vendor engines via the walker and VW waves — they are in the queues, Gold first.
+
 ## 17:40Z — owner 12:23 EST challenged the "ceilings" → retracted for 4 of 5 fields; new sources scouted and one built
 - Bulk registry match (tools/bulk_registry_match.py; REQ open data 270 MB zip + Corporations Canada 1.58 M rows): 11,286 organisations found
   (9,330 buyers, 1,956 vendors; 2,719 with BN; 11,452 with a registered address) in 5 minutes offline — committed to
