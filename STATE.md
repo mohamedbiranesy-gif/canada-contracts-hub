@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-08 20:45Z)
+# STATE.md — Claude lane (updated 2026-11-08 21:50Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,24 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 21:50Z — build 21:39Z **93 of 438** (72 → 93, nothing lost); Gold A 128 / B 253; ChatGPT account at its usage limit until 23:34Z
+- The first main build with the 20:30–20:45Z rank.py rules: +21 benchmarks — records_with_this_vendor met in 9 packages (relationship record = 1 record),
+  solicitation_or_tender_number P02 / P04 / P09 (SEAO numero), ap_system_hint P01_GOLD / P02 / P03 / P04 (portal names feed the hint), invoice_reference_hint
+  P01T / P06 (PO rule), contract_description P05 (title text), buyer_tax_exempt_status P01_GOLD, po_required P01T. 67 cells moved ≥ 3 points, none down.
+  Pack ran (ap_payable_today 785, ship_ready 593).
+- Codex: the ChatGPT account hit its usage limit ("try again at 6:34 PM" EST = 23:34Z) — that is why "[chatgpt]" commits stopped at 19:55Z; the app's
+  30-minute automation is ACTIVE and resumes by itself. A second, headless Codex (`codex exec`, GPT-6.1 Sol high from ~/.codex/config.toml, own clone
+  ~/cch-codex-exec, loop ~/cch-crawler-state/codex_exec_loop.sh) takes lane codex's buyer-AP batches from 23:34Z; inbox notes written for both lanes.
+- Mac site readers restarted (`site_readers_loop.sh`: org_extras --refresh 9,122 domains v1 → v2 / retries, then org_contacts --refresh, every 2 h).
+  Correction to 20:45Z: the 9,365 "never read" domains WERE attempted by the Mac (resume files: 103,991 domains; blocked 10.5k, network errors 5k,
+  robots 2.2k, no contact found 9.1k) — the repo copies hold only successful reads. The runner org_facts engine retries them from another network
+  (shard 5: 49 + 102 successes of ~1,000; most stay blocked) — worth its free runner minutes, not a lever. The honest ceiling for buyer address /
+  phone / logo on blocked sites is the registries and public directories already joined.
+- rank.py: a portal's tender-notice id (bidsandtenders_tender_id, competition_guid) is the award_or_notice_id when the source assigns no separate award id
+  (SaskTenders 18 of P09's 35 missing; bids&tenders 464 rows) — not yet built.
+- API worker: 3,497 tasks, $71.41 (cap $120), 80 % with a page. Gemini batch 48 complete (20:57Z). Deep A–F walk and org_facts still running; terms_refresh
+  after the walk.
 
 ## 20:45Z — build 20:24Z 72/438 (Gold A 117, B 237); normalisation audit → five levers that need no new fetch; two new runner engines
 - Build 20:24Z: 72 of 438 met (+3 on 19:33Z); AP grade A on Gold 67 → 117, B 207 → 237; ap_payable_today 746 rows. Inputs since 19:17Z: P13 + A–F walker terms,

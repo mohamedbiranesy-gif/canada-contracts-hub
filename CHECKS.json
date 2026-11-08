@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T20:45Z",
+ "updated": "2026-11-08T21:50Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -111,6 +111,16 @@
    "deliverable": "org_facts engine (site readers over the 10k domains never read) and terms_refresh engine",
    "method": "run summary per shard (tasks → finished), merge commit 'claude-engines: org_facts merged', next build's n_ox / n_oc counters and buyer_address / buyer_phone / buyer_logo_url / buyer_legal_name deltas in P08 / P10 / P13",
    "status": "org_facts dispatched 20:38Z (10 runners); terms_refresh not yet dispatched (after the deep walk, to stay under the concurrent-job limit)"
+  },
+  {
+   "deliverable": "build 21:39Z vs 20:24Z (first build with the normalisation rules)",
+   "method": "scoreboards diffed cell by cell (git show bd42b28 vs HEAD): newly met / lost / moved ≥3",
+   "status": "passing 21:45Z: 93/438 (+21), 0 lost, 67 cells up ≥3; Gold A 128 B 253; pack ran"
+  },
+  {
+   "deliverable": "Codex lane alive",
+   "method": "'[chatgpt]'/'[codex]' commits on origin; ~/cch-crawler-state/codex_exec.log; the app automation's rollout files",
+   "status": "blocked by the ChatGPT usage limit until 23:34Z (verified: codex exec returned 'usage limit … try again at 6:34 PM'); both the app automation and the headless loop resume then"
   }
  ]
 }
