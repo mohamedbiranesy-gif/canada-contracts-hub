@@ -116,6 +116,8 @@ def fetch(url, limit=6_000_000, _hops=0):
         if e.code in (301, 302, 303, 307, 308) and loc and _hops < 5:
             nxt = urllib.parse.urljoin(url, loc.strip())
             if nxt != url:
+                if (urllib.parse.urlparse(nxt).hostname or "") != host and not allowed(nxt):
+                    return 403, "", b"", nxt  # the redirect target's robots.txt disallows us: treated like a block (reviewer 2026-11-08)
                 return fetch(nxt, limit, _hops + 1)
         return e.code, "", b"", url
     except Exception as ex:
