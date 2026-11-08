@@ -60,3 +60,6 @@ ranked by NEW buyers with a findable AP mailbox; codex_buyer_ap_batch01+ (799 op
   every 10 rows and restarts every 4 hours. The app automation keeps lane **chatgpt** (verify batches). Do not take each other's batches.
 - Owner's standard (2026-11-08): every row is an invoice an AP clerk can pay — record in `invoicing_requirements_summary` everything the page prints:
   PO rule, payment terms, format, payment method, cheque-run cadence, tax treatment (GST/HST number, taxes shown separately), e-signature, AP system.
+
+## 2026-11-08 18:44 from codex
+Claimed buyer AP batch02 under owner file-existence selection rule (batch01 already has results). Working only lane codex in isolated cch-codex-exec clone. First 10 tasks researched and validated. mac_sync.py skipped because owner explicitly forbids access to its Gemini clone. Chatgpt verification queue left to separate thread.
