@@ -61,11 +61,21 @@ def pick_col(cols, rx, avoid=()):
 
 def parse_csv(data, src, prov, desi):
     text = data.decode("utf-8-sig", "replace").replace("\0", "")
-    try:
-        dialect = csv.Sniffer().sniff(text[:5000], delimiters=",;\t|")
-    except Exception:
-        dialect = csv.excel
-    rows = list(csv.DictReader(io.StringIO(text), dialect=dialect))
+    if text.lstrip().startswith(("<", "{")):
+        return []  # HTML or JSON, not a CSV
+    rows = []
+    for dialect in (None, csv.excel, "semicolon", "tab"):
+        try:
+            if dialect is None:
+                dialect = csv.Sniffer().sniff(text[:5000], delimiters=",;\t|")
+            kw = {"delimiter": ";"} if dialect == "semicolon" else {"delimiter": "\t"} if dialect == "tab" else {"dialect": dialect}
+            rows = list(csv.DictReader(io.StringIO(text, newline=""), **kw))
+            if rows and len(rows[0]) > 1:
+                break
+        except Exception:
+            rows = []
+    if not rows:
+        return []
     if not rows:
         return []
     cols = list(rows[0].keys())
@@ -164,9 +174,15 @@ def main():
     rows = []
     for base, q, prov, desi, must in CKAN:
         print("CKAN:", base, "|", q, flush=True)
-        rows += ckan(base, q, prov, desi, must, a.workdir)
-    rows += govuk()
-    rows += bc_local_gov()
+        try:
+            rows += ckan(base, q, prov, desi, must, a.workdir)
+        except Exception as e:
+            print("  failed:", type(e).__name__, e, flush=True)
+    for fn in (govuk, bc_local_gov):
+        try:
+            rows += fn()
+        except Exception as e:
+            print("  failed:", fn.__name__, type(e).__name__, e, flush=True)
     out = os.path.join(a.repo, "data/incoming/claude/claude_org_directories.csv")
     with open(out, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=COLS); w.writeheader(); w.writerows(rows)
