@@ -115,6 +115,9 @@ LABEL_ONLY = re.compile(r"^(?:no |none\b|not |0 in the|only system|n/a\b|not app
 DNS_FIELDS = {"mta_sts", "tls_rpt", "bimi"}
 
 
+A_NEEDS = ["referee confirmation of the mailbox", "an invoicing / AP mailbox (not finance / procurement / general)", "a mailbox on the buyer's own domain", "MX record for the mailbox domain", "published bill-to legal name", "invoice / billing address", "published PO rule", "published payment terms", "clear the penalty"]
+
+
 def filled(v, field=""):
     v = (v or "").strip()
     if v in EMPTY:
@@ -242,6 +245,21 @@ def main():
             sc = sorted(int(r["ap_score"]) for r in rows if (r.get("ap_score") or "").strip().isdigit())
             L.append("| %s | %d | %d | %d | %d | %d | %d | %s |" % (pkg, len(rows), gc.get("A", 0), gc.get("B", 0), gc.get("C", 0), gc.get("D", 0), gc.get("E", 0), sc[len(sc) // 2] if sc else "—"))
         L.append("")
+        # owner 2026-11-08 11:38 EST: grade A is the standard every row must reach, not a rating — print what blocks A, per package, so the next lever is the biggest blocker
+        if any(rows and "ap_gap_to_A" in rows[0] for rows in pk.values()):
+            L += ["### What still blocks grade A (rows per missing element; a row counts under every element it lacks)", "", "| package | rows not A | " + " | ".join(A_NEEDS) + " |", "|---|---|" + "---|" * len(A_NEEDS)]
+            for pkg, rows in pk.items():
+                if not rows or "ap_gap_to_A" not in rows[0]:
+                    continue
+                nota = [r for r in rows if (r.get("ap_grade") or "") != "A"]
+                hc = collections.Counter()
+                for r in nota:
+                    for part in (r.get("ap_gap_to_A") or "").split("; "):
+                        part = part.strip()
+                        if part and part != "none":
+                            hc[part.split(":")[0] if part.startswith("clear the penalty") else part] += 1
+                L.append("| %s | %d | %s |" % (pkg, len(nota), " | ".join(str(hc.get(k, 0)) for k in A_NEEDS)))
+            L.append("")
     L += ["## Where the work is (largest gaps in rows still needed)", "", "| field | package | now | target | rows needed |", "|---|---|---|---|---|"]
     for f, p, v, need in gaps[:40]:
         L.append("| %s | %s | %.1f%% | %d%% | %d |" % (f, p, v["pct"], v["target"], need))

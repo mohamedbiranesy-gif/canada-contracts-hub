@@ -2250,7 +2250,7 @@ for x in rows:
     x["method_notes"] = "no AI-written values; every fact carries its page in the matching *_evidence_url / *_provenance column; blank = not_published; method and rules: contrib/claude/rank_buyers/README.md, AGENTS.md §2"
 print("narrative columns:", dict(n9))
 # ---- downstream pack (owner 2026-11-06 22:00, the downstream agent's 150 questions: prompts/downstream_150_questions.md). Guarded: a failure here never stops the build.
-PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
@@ -2420,18 +2420,21 @@ try:
             score = max(0, min(100, score))
             ap_mail = crit[0][1]; confirmed = crit[2][1]
             if confirmed and ap_mail and crit[6][1] and crit[7][1] and crit[8][1] and crit[9][1] and crit[4][1] and crit[5][1] and not penalties:
-                g = "A"
+                apg = "A"
             elif confirmed and (ap_mail or crit[1][1]) and crit[6][1] and crit[7][1] and (crit[8][1] or crit[9][1]):
-                g = "B"
+                apg = "B"
             elif confirmed and (ap_mail or crit[1][1] or crit[6][1] or crit[7][1]):
-                g = "C"
+                apg = "C"
             elif confirmed:
-                g = "D"
+                apg = "D"
             else:
-                g = "E"
-            x["ap_grade"] = g
+                apg = "E"
+            x["ap_grade"] = apg  # apg, not g: g is the mailbox grade 1-4 used by data_quality_score / ship_ready below (local test 16:40Z: TypeError str < int skipped the whole pack)
             x["ap_score"] = str(score)
             x["ap_grade_basis"] = "met: %s | missing: %s%s" % ("; ".join(n_ for n_, ok, _ in crit if ok) or "none", "; ".join(n_ for n_, ok, _ in crit if not ok) or "none", (" | penalties: " + "; ".join(n_ for n_, _ in penalties)) if penalties else "")
+            a_need = [n_ for k_, n_ in ((2, "referee confirmation of the mailbox"), (0, "an invoicing / AP mailbox (not finance / procurement / general)"), (4, "a mailbox on the buyer's own domain"), (5, "MX record for the mailbox domain"), (6, "published bill-to legal name"), (7, "invoice / billing address"), (8, "published PO rule"), (9, "published payment terms")) if not crit[k_][1]]
+            a_need += ["clear the penalty: " + n_ for n_, _ in penalties]
+            x["ap_gap_to_A"] = "; ".join(a_need) if apg != "A" else "none"
         x["facts_provenance_json"] = json.dumps({"mailbox": [p.strip() for p in (x.get("mailbox_provenance") or "").split(" | ") if p.strip()], "buyer_facts": [p.strip() for p in (x.get("buyer_facts_provenance") or "").split("; ") if p.strip()],
                                                  "vendor_facts": [p.strip() for p in (x.get("vendor_facts_provenance") or "").split("; ") if p.strip()], "relationship": x.get("how_relationship_was_found") or ""}, ensure_ascii=False)[:4000]
         # quality score / ship_ready (S2)
@@ -2501,7 +2504,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
                    ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
-                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
+                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
