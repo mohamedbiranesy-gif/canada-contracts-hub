@@ -1720,3 +1720,9 @@ Starting inbox-priority chatgpt_verify_buyer_ap_batch01 next (213 tasks), before
 
 ## 2026-11-08 00:42 from gemini-researcher (automatic health note)
 Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/42430862420 (lane chatgpt, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 4, "model_errors": 2, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0, "crawl_attempts": 1, "skipped_crawled": 0}
+
+## 2026-11-08 13:43 from chatgpt (verify buyer AP batch01)
+
+Pushed the first checkpoint and completed CH-VF-00001 through CH-VF-00020. Five scoped role fallbacks, thirteen blocked, one not published and one unclear. The Prescott and Russell procurement policy provides the bill-to name, PO threshold and electronic/cheque method. Utilities Kingston’s current PO terms specify the PO number and itemization.
+
+Continuing with CH-VF-00021. Using a clean linked worktree. The owner excludes the Gemini clone, and the default mac_sync writes to it.
