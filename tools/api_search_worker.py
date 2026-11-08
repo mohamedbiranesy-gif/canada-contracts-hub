@@ -14,7 +14,8 @@ Outputs (appended, deduplicated): --out-dir/af_urls.csv (row_key,buyer_key,buyer
 Resume: --out-dir/done.tsv (task_id, status, n_urls, cost_usd_estimate). Budget: --max-usd stops the worker (search $10 / 1,000 + tokens).
   python3 tools/api_search_worker.py --queue ~/cch-tasks/apiq/queue.tsv --out-dir ~/cch-tasks/apiq [--limit 500] [--max-usd 20] [--model claude-haiku-5-5]
 """
-import argparse, csv, json, os, re, sys, time, urllib.error, urllib.parse, urllib.request
+import argparse, csv, json, os, re, sys, threading, time, urllib.error, urllib.parse, urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 API = "https://api.anthropic.com/v1/messages"
 DIRECTORY = re.compile(r"opencorporates|zoominfo|dnb\.com|linkedin|facebook|yellowpages|canada411|bloomberg|crunchbase|glassdoor|indeed|merx|biddingo|bidsandtenders|sedar|wikipedia|yelp|bbb\.org|manta\.com|cylex|hotfrog|\.gov\b|\.gc\.ca|\.gouv\.qc\.ca|instagram|twitter|x\.com|youtube|rocketreach|apollo\.io|signalhire|owler|craft\.co|tracxn|pitchbook|buzzfile|dandb|companieshouse|opengovca|canadacompanyregistry|infobel|cybo|bizapedia", re.I)
@@ -96,6 +97,7 @@ def main():
     a.add_argument("--max-usd", type=float, default=25.0)
     a.add_argument("--model", default="claude-haiku-5-5")
     a.add_argument("--sleep", type=float, default=0.7)
+    a.add_argument("--workers", type=int, default=4, help="parallel API calls (the web_search latency is 5-10 s; 4 workers ≈ 1,200 tasks / hour)")
     a = a.parse_args()
     api_key = key_file()
     if not api_key:
@@ -132,47 +134,56 @@ def main():
     if os.path.getsize(os.path.join(a.out_dir, "vw_proposals.tsv")) == 0:
         vw.write("vendor_key\tvendor_name\twebsite\tevidence_url\tevidence_quote\tconfidence\n")
     stats = {"ok": 0, "no_results": 0, "error": 0, "urls": 0}
-    for t in tasks:
-        if spent >= a.max_usd:
-            print("budget reached: $%.2f" % spent, flush=True); break
+    lock = threading.Lock()
+    state = {"spent": spent, "stop": False}
+
+    def one(t):
+        if state["stop"] or state["spent"] >= a.max_usd:
+            return
         q, allowed = query_for(t)
         resp, err = call(api_key, a.model, q, allowed)
-        if resp is None:
-            stats["error"] += 1
-            with open(done_p, "a", encoding="utf-8") as f:
-                f.write("%s\t%s\t0\t0\n" % (t["task_id"], err.split(" ")[0]))
-            if err.startswith("http_401") or err.startswith("http_403"):
-                print("API refused:", err); break
-            time.sleep(a.sleep); continue
-        res, n_search, tin, tout = results_of(resp)
-        cost = n_search * SEARCH_USD + tin / 1e6 * pin + tout / 1e6 * pout
-        spent += cost
-        host = (t.get("host") or "").lower().removeprefix("www.")
-        kept = 0
-        for url, title, age in res:
-            h = (urllib.parse.urlparse(url).hostname or "").lower().removeprefix("www.")
-            if t["kind"] in ("af", "pc"):
-                if not host or not (h == host or h.endswith("." + host) or host.endswith("." + h)):
-                    continue
-                if t["kind"] == "af":
-                    afw.writerow([t["key"], t.get("extra") or t["key"].split("||")[0], "", "https://%s" % host, t["name"], url])
+        with lock:
+            if resp is None:
+                stats["error"] += 1
+                with open(done_p, "a", encoding="utf-8") as f:
+                    f.write("%s\t%s\t0\t0\n" % (t["task_id"], err.split(" ")[0]))
+                if err.startswith("http_401") or err.startswith("http_403") or "credit" in err.lower():
+                    print("API refused:", err, flush=True); state["stop"] = True
+                return
+            res, n_search, tin, tout = results_of(resp)
+            cost = n_search * SEARCH_USD + tin / 1e6 * pin + tout / 1e6 * pout
+            state["spent"] += cost
+            host = (t.get("host") or "").lower().removeprefix("www.")
+            kept = 0
+            for url, title, age in res:
+                h = (urllib.parse.urlparse(url).hostname or "").lower().removeprefix("www.")
+                if t["kind"] in ("af", "pc"):
+                    if not host or not (h == host or h.endswith("." + host) or host.endswith("." + h)):
+                        continue
+                    if t["kind"] == "af":
+                        afw.writerow([t["key"], t.get("extra") or t["key"].split("||")[0], "", "https://%s" % host, t["name"], url])
+                    else:
+                        pcw.writerow([t["key"], t.get("name") or "", "https://%s" % host, "", url])
+                    kept += 1
                 else:
-                    pcw.writerow([t["key"], t.get("name") or "", "https://%s" % host, "", url])
-                kept += 1
-            else:
-                if DIRECTORY.search(url) or not h:
-                    continue
-                root = "https://%s/" % h
-                vw.write("\t".join([t["key"], t["name"], root, url, (title or "")[:200].replace("\t", " "), "search result"]) + "\n")
-                kept += 1
-                break  # one proposal per vendor: the reader confirms or rejects it
-        stats["ok" if kept else "no_results"] += 1; stats["urls"] += kept
-        with open(done_p, "a", encoding="utf-8") as f:
-            f.write("%s\t%s\t%d\t%.4f\n" % (t["task_id"], "ok" if kept else "no_results", kept, cost))
-        if (stats["ok"] + stats["no_results"]) % 25 == 0:
-            af.flush(); pc.flush(); vw.flush()
-            print(time.strftime("%H:%M"), stats, "spent ≈ $%.2f" % spent, flush=True)
+                    if DIRECTORY.search(url) or not h:
+                        continue
+                    vw.write("\t".join([t["key"], t["name"], "https://%s/" % h, url, (title or "")[:200].replace("\t", " "), "search result"]) + "\n")
+                    kept += 1
+                    break  # one proposal per vendor: the reader confirms or rejects it
+            stats["ok" if kept else "no_results"] += 1; stats["urls"] += kept
+            with open(done_p, "a", encoding="utf-8") as f:
+                f.write("%s\t%s\t%d\t%.4f\n" % (t["task_id"], "ok" if kept else "no_results", kept, cost))
+            if (stats["ok"] + stats["no_results"]) % 25 == 0:
+                af.flush(); pc.flush(); vw.flush()
+                print(time.strftime("%H:%M"), stats, "spent ≈ $%.2f" % state["spent"], flush=True)
         time.sleep(a.sleep)
+
+    with ThreadPoolExecutor(a.workers) as ex:
+        list(ex.map(one, tasks))
+    spent = state["spent"]
+    if spent >= a.max_usd:
+        print("budget reached: $%.2f" % spent, flush=True)
     af.close(); pc.close(); vw.close()
     print("done", stats, "spent ≈ $%.2f" % spent, flush=True)
 
