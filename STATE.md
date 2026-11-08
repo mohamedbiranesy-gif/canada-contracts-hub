@@ -54,6 +54,20 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   values, 58,304 bid counts, reference date 2026-11-08). A build with them is dispatched automatically when the push lands (background job).
 - Rebuild workflow had been cancelled on 11-07 and 11-08 by the shared concurrency group → own group; today's run succeeded.
 
+## 19:25Z — all engines live; first yields
+- Gemini app (Argon, Task): continuous task + new hourly scheduled task (its old scheduled tasks had all been PAUSED since 11-02/11-07 — the real reason
+  the lane was silent); rows flowing: batch45 85 lines on origin via mac_sync branches (19:00Z, 19:20Z). Codex app (GPT-6.1 Sol High): verifying
+  chatgpt batch01, pushing every 10 rows ("[chatgpt] Verify buyer AP batch01 rows 71–80" 19:17Z).
+- API worker: 2,100 tasks, $32 (1.8 ¢ / task); AP-page searches 96 % hit → 4,882 pages queued for deep_pages + ap_terms; award-page searches: 2,146
+  pages read → vendor named on 846, contract_value 123, end_date 34, term 24, start 14, PO number 1 (≈ 7 % of pairs get a value: real but modest;
+  kept, lower priority than AP pages). Lane driver (Claude on the lanes' queues): 25-row passes with 10–17 found.
+- P13 walk (10 runners, 70 min): 50,789 sites done, 25k pages, ap_terms file 63.7k → 88,940 rows (payment terms 746 → 1,047, PO rule 1,251 → 1,528,
+  portals 2,601, AP contacts 538). The run's merge job failed to push (dirty-index rebase) — recovered by hand from the artifacts; merge logic fixed;
+  walk state now lives in data/incoming/claude/claude_ap_walk_done.tsv (release uploads are not permitted from this session). A–F walk (10 runners)
+  running until ~23:15Z — its merge uses the old workflow version, so recover from artifacts if it fails.
+- Mac kept awake (caffeinate -dis + Gemini's keep-awake). Build dispatched 19:17Z.
+- Follow-up: claude_ap_terms.csv is 51 MB and growing (GitHub warns at 50, refuses at 100) → move the walker's page rows to a gzipped companion file.
+
 ## 18:20Z — owner 13:07 EST: hard deadline (this credit period), invoice framing for every row, all packages; API credits and the other lanes may be used
 - **API search worker** (tools/api_search_worker.py + api_queue.py): Anthropic web_search tool, URLs taken from the tool's result blocks only, every
   page still read and quoted by the Mac readers. Pilot: 12 tasks, 43 URLs, $0.23 (≈ $0.019 / task). Loop `~/cch-crawler-state/api_search_loop.sh`

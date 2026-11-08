@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T17:15Z",
+ "updated": "2026-11-08T19:25Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -84,6 +84,18 @@
    "method": "ap_terms_pages.log shows a pass over ap_pages_seen.csv every 2 hours; claude_ap_terms.csv rows keyed by buyer_key grow; next build's 'ap_terms (evidence pages re-read)' line shows pages used > mailboxes and payment_terms / po_required counts rising",
    "status": "running since 17:00Z (walk_terms_loop.sh; first pass 11,162 pages); the 2-hourly loop in ap_walk.sh had died with the reboot, so no walker page had been extracted before 17:00Z; walker ValueError root cause fixed (36 sites re-queued)",
    "rerun": "tail -3 ~/cch-crawler-state/ap_terms_pages.log"
+  },
+  {
+   "deliverable": "award facts from the buyers' own award pages (API search → award_facts.py)",
+   "method": "claude_award_facts.csv: pages with the vendor named / values filled; SUMMARY line 'award facts … filled' in the next build; 5 values re-opened by hand",
+   "status": "first pass 19:1xZ: 2,146 pages, vendor named on 846, contract_value 123, end_date 34, term 24, start_date 14, PO 1 (spot-check pending); consumer in rank.py",
+   "rerun": "tail -2 ~/cch-crawler-state/api_readers.log"
+  },
+  {
+   "deliverable": "other lanes producing (Gemini app, Codex app, Claude lane driver)",
+   "method": "origin commits '[chatgpt] …' and 'gemini: merge agent branch …' within the last hour; data/incoming/<lane> result files growing; referee verification_log outcomes",
+   "status": "passing 19:20Z: Gemini batch45 (85 lines) via sync branches; Codex batch01 rows 1–80 pushed; lane driver passes 25 rows / lane / 3 h",
+   "rerun": "git log origin/main --format='%ci %s' -40 | grep -iE 'gemini|chatgpt'"
   }
  ]
 }
