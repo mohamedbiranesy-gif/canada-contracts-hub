@@ -6,19 +6,19 @@ DNS TXT lookup at `_dmarc.<mail domain>` (organizational domain when the mailbox
 |---|---|---|
 | no DMARC record | 21266 | 90 |
 | v=DMARC1; p=none (monitor only) | 26420 | 375 |
-| p=quarantine | 10428 | 419 |
-| p=reject | 5396 | 464 |
+| p=quarantine | 10427 | 417 |
+| p=reject | 5395 | 463 |
 | invalid DMARC record | 59 | 0 |
 | lookup error | 10 | 0 |
-| not checked | 11 | 2 |
+| not checked | 22 | 6 |
 
 Rows without enforcement (no record / p=none / invalid): **47745**
 
 ## By package (no record / p=none / quarantine / reject)
-- P01: 22 / 167 / 192 / 202
+- P01: 22 / 167 / 190 / 202
 - P01M: 2 / 3 / 5 / 10
 - P01T: 3 / 25 / 38 / 25
-- P02: 41 / 135 / 114 / 78
+- P02: 41 / 135 / 115 / 78
 - P03: 0 / 48 / 82 / 94
 - P04: 257 / 568 / 501 / 286
 - P05: 56 / 124 / 117 / 81
@@ -31,4 +31,4 @@ Rows without enforcement (no record / p=none / invalid): **47745**
 - P10: 628 / 1095 / 561 / 300
 - P11: 41 / 242 / 128 / 86
 - P12: 4 / 11 / 3 / 3
-- P13: 18732 / 21351 / 7337 / 3311
+- P13: 18732 / 21351 / 7337 / 3310
