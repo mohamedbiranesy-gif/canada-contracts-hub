@@ -188,7 +188,7 @@ jobs:
             left=$(cat shards/sites_left_*.txt 2>/dev/null | awk '{s+=$1} END {print s+0}')
             walked=$(wc -l < /tmp/done.tsv 2>/dev/null || echo 0)
             echo "sites still to walk (sum over shards at start): $left; walked so far: $walked" >> "$GITHUB_STEP_SUMMARY"
-            if [ "$left" -gt "$((SHARDS * 50))" ]; then
+            if [ "$left" -gt "$((SHARDS * 50))" ] && [ "$REDO" != "0" ]; then  # a redo-everything pass (deep walk) must not re-dispatch itself: its "sites to walk" never shrinks
               gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=walk_terms" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" -f "inputs[tiers]=$TIERS" -f "inputs[max_pages]=$MAXP" -f "inputs[redo_days]=$REDO" -f "inputs[only_missing]=$ONLYMISS" && echo "re-dispatched walk_terms" >> "$GITHUB_STEP_SUMMARY" || true
             fi
           fi
