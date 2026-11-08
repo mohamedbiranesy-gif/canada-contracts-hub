@@ -245,6 +245,19 @@ def main():
             sc = sorted(int(r["ap_score"]) for r in rows if (r.get("ap_score") or "").strip().isdigit())
             L.append("| %s | %d | %d | %d | %d | %d | %d | %s |" % (pkg, len(rows), gc.get("A", 0), gc.get("B", 0), gc.get("C", 0), gc.get("D", 0), gc.get("E", 0), sc[len(sc) // 2] if sc else "—"))
         L.append("")
+        if any(rows and "ap_payability" in rows[0] for rows in pk.values()):  # owner 14:53 EST: the AP-team view — can an invoice be submitted and paid today?
+            L += ["### AP payability (confirmed channel + bill-to legal name and address + the buyer's reference rule + tax treatment known)", "", "| package | rows | payable today | % | most common gap |", "|---|---|---|---|---|"]
+            for pkg, rows in pk.items():
+                if not rows or "ap_payability" not in rows[0]:
+                    continue
+                pay = sum(1 for r in rows if (r.get("ap_payability") or "").startswith("payable"))
+                gaps = collections.Counter()
+                for r in rows:
+                    v = r.get("ap_payability") or ""
+                    if v.startswith("not yet"):
+                        gaps[v.split("missing: ", 1)[-1].split(";")[0].strip()] += 1
+                L.append("| %s | %d | %d | %.1f%% | %s |" % (pkg, len(rows), pay, 100.0 * pay / max(1, len(rows)), (gaps.most_common(1)[0][0] + " (%d)" % gaps.most_common(1)[0][1]) if gaps else "—"))
+            L.append("")
         # owner 2026-11-08 11:38 EST: grade A is the standard every row must reach, not a rating — print what blocks A, per package, so the next lever is the biggest blocker
         if any(rows and "ap_gap_to_A" in rows[0] for rows in pk.values()):
             L += ["### What still blocks grade A (rows per missing element; a row counts under every element it lacks)", "", "| package | rows not A | " + " | ".join(A_NEEDS) + " |", "|---|---|" + "---|" * len(A_NEEDS)]

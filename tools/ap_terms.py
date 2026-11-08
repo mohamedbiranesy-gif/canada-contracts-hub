@@ -25,7 +25,7 @@ TODAY = datetime.date.today().isoformat()
 lock = threading.Lock()
 COLS = ["email", "evidence_url", "final_url", "retrieved_date", "status", "payment_terms", "payment_terms_quote", "po_required", "po_quote",
         "portal_name", "portal_url", "portal_quote", "ap_phone", "ap_phone_quote", "invoice_mailing_address", "address_quote",
-        "ap_contact_name", "contact_quote", "invoice_format", "format_quote", "buyer_bn", "bn_quote", "mailbox_still_on_page", "mailbox_context", "payment_method", "payment_method_quote", "ap_cycle", "ap_cycle_quote", "tax_exempt", "tax_exempt_quote", "esignature", "esignature_quote"]
+        "ap_contact_name", "contact_quote", "invoice_format", "format_quote", "buyer_bn", "bn_quote", "mailbox_still_on_page", "mailbox_context", "payment_method", "payment_method_quote", "ap_cycle", "ap_cycle_quote", "tax_exempt", "tax_exempt_quote", "esignature", "esignature_quote", "setup_url", "setup_quote"]
 TERMS = re.compile(r"\b(?:net\s?(?:30|45|60|90|15|10)\b(?:\s?(?:days|jours))?|(?:payment|paid|payable|paiement|pay[ée]e?s?)\b[^.;]{0,60}?\b(?:within|dans les|dans un d[ée]lai de|sous|in)\s(?:\d{2}|thirty|forty-five|sixty|trente|quarante-cinq|soixante)\s?(?:calendar |business |working |ouvrables? )?(?:days?|jours)\b|"
                    r"(?:payment )?terms?(?: of payment| are| is|:)?\s?(?:are |is |:)?\s?net\s?\d{2}|conditions? de paiement\s?:?\s?[^.;]{0,40}?\d{2}\s?jours|"
                    r"\b\d{2}\s?(?:calendar |business |working )?days? (?:from|after|of|following) (?:the )?(?:receipt|invoice date|date of invoice|approval)|"
@@ -39,6 +39,9 @@ PORTALS = [("SAP Ariba", r"ariba"), ("Coupa", r"coupa"), ("Jaggaer", r"jaggaer|s
            ("GHX", r"\bghx\b"), ("PaymentWorks", r"paymentworks"), ("Zycus", r"zycus"), ("Ivalua", r"ivalua"), ("GEP SMART", r"gep smart|smart by gep"), ("Medius", r"\bmedius\b"), ("Yooz", r"\byooz\b"), ("Procurify", r"procurify"),
            ("supplier / vendor portal", r"(?:supplier|vendor|fournisseurs?) (?:self[- ]service )?portal|portail (?:des )?fournisseurs?|e-?invoicing portal|invoice portal|portail de facturation")]
 PORTAL_HREF = re.compile(r"href=[\"']([^\"']+)[\"']", re.I)
+# new-supplier setup: the forms AP teams require before a first payment (vendor registration, direct-deposit / EFT enrolment) — owner 2026-11-08 14:53 EST
+SETUP_LINK = re.compile(r"<a\s[^>]*href=[\"']([^\"']+)[\"'][^>]*>(.{0,160}?)</a>", re.I | re.S)
+SETUP_TXT = re.compile(r"vendor registration|supplier registration|become a (?:supplier|vendor)|new (?:vendor|supplier) (?:form|setup|set-up|registration|application)|vendor (?:setup|set-up|onboarding|information) form|supplier (?:setup|set-up|onboarding|information) form|direct deposit (?:form|enrol|authori[sz]ation|application|request)|EFT (?:form|enrol|authori[sz]ation|request|application)|electronic funds transfer (?:form|enrol|authori[sz]ation)|inscription des fournisseurs|devenir fournisseur|formulaire (?:de |d')(?:inscription|d[ée]p[ôo]t direct|paiement [ée]lectronique|fournisseur)|d[ée]p[ôo]t direct", re.I)
 PHONE = re.compile(r"(?:\+?1[\s.-]?)?\(?\b[2-9]\d{2}\)?[\s.-]\d{3}[\s.-]\d{4}\b(?:\s?(?:x|ext\.?|poste|p\.)\s?\d{1,6})?", re.I)
 PC_CA = r"[A-Z]\d[A-Z]\s?\d[A-Z]\d"
 ADDR = re.compile(r"(?:(?:P\.?\s?O\.?\s?Box|C\.?P\.?|Case postale|Boîte postale|Bo[iî]te postale)\s?\d+[^,\n]{0,40}|\b\d{1,6}[A-Za-z]?(?:[-–]\d{1,6})?\s(?:[A-Za-zÀ-ÿ'.-]+\s){1,6}(?:Street|St\.?|Avenue|Ave\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Way|Place|Crescent|Court|Highway|Hwy|Parkway|Trail|Lane|Square|Rue|Boul\.?|Chemin|Ch\.|Route|Avenue|Montée|Rang|Promenade)[^,\n]{0,40})"
@@ -206,6 +209,14 @@ def extract(email, buyer, text, raw, final):
             out[col + "_quote"] = q300(m.string, m.start(), m.end())
     if "invoice_format_quote" in out:
         out["format_quote"] = out.pop("invoice_format_quote")
+    for m in SETUP_LINK.finditer(raw):
+        href, label = m.group(1), re.sub(r"<[^>]+>|\s+", " ", m.group(2)).strip()
+        if href.startswith(("mailto:", "#", "javascript", "tel:")):
+            continue
+        if SETUP_TXT.search(label) or SETUP_TXT.search(urllib.parse.unquote(href).replace("-", " ").replace("_", " ")):
+            out["setup_url"] = urllib.parse.urljoin(final, href)[:300]
+            out["setup_quote"] = ("link text: %s" % label)[:300]
+            break
     return out
 
 
@@ -280,7 +291,7 @@ def main():
         list(ex.map(one, todo))
     write(out, prev)
     print("wrote", out, len(prev), stats, flush=True)
-    print("filled:", {c: sum(1 for v in prev.values() if v.get(c)) for c in ("payment_terms", "po_required", "portal_name", "portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn")}, flush=True)
+    print("filled:", {c: sum(1 for v in prev.values() if v.get(c)) for c in ("payment_terms", "po_required", "portal_name", "portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn", "setup_url")}, flush=True)
 
 
 def pages_file(out):

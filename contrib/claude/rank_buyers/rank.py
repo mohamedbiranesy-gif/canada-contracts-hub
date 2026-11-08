@@ -1681,7 +1681,7 @@ try:
 except Exception as _e:
     print("ap_terms file unreadable:", type(_e).__name__, _e); AT = {}
 AT_PAGE_RX = re.compile(r"invoice|factur|payable|supplier|vendor|fourniss|payment|paiement|terms|conditions|purchas|procure|achat|approvisionnement|accounts|comptabilit|finance", re.I)
-AT_FIELDS = ("payment_terms", "po_required", "portal_name", "portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn", "bn_quote", "mailbox_context", "payment_method", "ap_cycle", "tax_exempt", "esignature")
+AT_FIELDS = ("payment_terms", "po_required", "portal_name", "portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn", "bn_quote", "mailbox_context", "payment_method", "ap_cycle", "tax_exempt", "esignature", "setup_url", "setup_quote")
 
 
 def at_pages(x):
@@ -1752,6 +1752,8 @@ for x in rows:
     for col, lab in (("payment_method", "buyer_payment_method_preference"), ("ap_cycle", "buyer_ap_cycle_published"), ("tax_exempt", "buyer_tax_exempt_status"), ("esignature", "buyer_esignature_preference")):
         if t.get(col):
             x[lab] = "%s%s" % (t[col], t[col + "_src"]); n_at[col] += 1
+    if t.get("setup_url") and not x.get("supplier_setup_url"):
+        x["supplier_setup_url"] = "%s (%s%s)" % (t["setup_url"], (t.get("setup_quote") or "").replace("link text: ", "linked as \"") + ("\"" if t.get("setup_quote") else ""), t["setup_url_src"]); n_at["setup_url"] += 1
     if own and own[0].get("mailbox_still_on_page") == "no":
         x["mailbox_recheck_note"] = "mailbox not seen in the page text when re-read %s (dynamic page, PDF or removed — the referee's own re-fetch decides; check before use)" % own[0].get("retrieved_date"); n_at["mailbox_gone"] += 1
     elif own:
@@ -2356,7 +2358,7 @@ TAX_MUNICIPAL = "municipality: GST/HST applies to supplies to it — a municipal
 TAX_RATE = {"ON": "HST 13% (Ontario)", "NB": "HST 15% (New Brunswick)", "NL": "HST 15% (Newfoundland and Labrador)", "NS": "HST 15% (Nova Scotia)", "PE": "HST 15% (Prince Edward Island)"}
 TAX_RATE_NOTE = " — indicative rate for a supply made in the buyer's province (GST/HST Memorandum 18-2 'GST/HST rates', %s, read 2026-11-08: \"The HST applies in the participating provinces at the following rates: 13%% in Ontario and 15%% in New Brunswick, Newfoundland and Labrador, Nova Scotia, and Prince Edward Island. The GST applies in the rest of Canada at the rate of 5%%\"); the place-of-supply rules decide (Memorandum 3-3-2); provincial sales taxes (QST, PST) are not covered here" % CRA_18_2
 
-PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url", "buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
@@ -2529,7 +2531,7 @@ try:
         card = {
             "bill_to": {"legal_name": _val("buyer_legal_name_as_published") or _val("buyer"), "legal_name_is_published": bool(_val("buyer_legal_name_as_published")), "address": _val("invoice_mailing_address") or _val("buyer_address"),
                         "address_is_the_invoice_address": bool(_val("invoice_mailing_address")), "tax_number": _val("buyer_bn_as_published"), "language": _val("template_language") or _val("language_hint")},
-            "submit_to": {"email": _val("email"), "email_type": _val("email_type"), "portal_url": _val("invoice_portal_url"), "portal_kind": _val("invoice_portal_kind"), "mailing_address": _val("invoice_mailing_address"),
+            "submit_to": {"email": _val("email"), "email_type": _val("email_type"), "supplier_setup_url": (x.get("supplier_setup_url") or "").split(" (")[0], "portal_url": _val("invoice_portal_url"), "portal_kind": _val("invoice_portal_kind"), "mailing_address": _val("invoice_mailing_address"),
                           "format": (fmt.group(1).strip() if fmt else ""), "system": _val("ap_system_hint"), "e_invoicing_peppol": _val("peppol_participant_id")},
             "references_required": {"po_required": _val("po_required_as_published"), "po_number": _val("po_number_as_published"), "contract_or_agreement_number": _val("contract_or_agreement_number"),
                                     "vendor_id_with_buyer": _val("buyer_vendor_id"), "reference_hint": _val("invoice_reference_hint")},
@@ -2596,6 +2598,18 @@ try:
             a_need = [n_ for k_, n_ in ((2, "referee confirmation of the mailbox"), (0, "an invoicing / AP mailbox (not finance / procurement / general)"), (4, "a mailbox on the buyer's own domain or published on its own site"), (5, "MX record for the mailbox domain"), (6, "published bill-to legal name"), (7, "invoice / billing address"), (8, "published PO rule"), (9, "published payment terms")) if not crit[k_][1]]
             a_need += ["clear the penalty: " + n_ for n_, _ in penalties]
             x["ap_gap_to_A"] = "; ".join(a_need) if apg != "A" else "none"
+            # AP payability (owner 2026-11-08 14:53 EST: weigh the fields the way an AP team pays, not equally): an invoice is paid when it REACHES the right
+            # inbox / portal, is addressed to the right legal entity, carries the reference the buyer insists on, and is taxed right; terms, phone and
+            # cycle only change when and how — the PO number itself is handed to the vendor by the buyer and is not a public datum
+            chan = confirmed and (ap_mail or crit[1][1])
+            billto = card["bill_to"]["legal_name_is_published"] and bool(card["bill_to"]["address"])
+            po_known = bool(card["references_required"]["po_required"]) or bool(_val("po_number_as_published")) or bool(_val("contract_or_agreement_number"))
+            tax_known = bool(card["tax"]["buyer_tax_status"]) or bool(x.get("tax_rate_indicative_derived"))
+            setup_known = bool(x.get("supplier_setup_url")) or bool(card["submit_to"]["portal_url"]) or "registr" in (x.get("invoicing_requirements") or "").lower()
+            need = [n_ for ok_, n_ in ((chan, "a confirmed invoicing / AP or finance channel"), (billto, "bill-to legal name and address"), (po_known, "the buyer's PO / reference rule"), (tax_known, "tax treatment"))
+                    if not ok_]
+            x["ap_payability"] = ("payable today: channel + bill-to + reference rule + tax treatment%s%s" % ("; supplier setup known" if setup_known else "; supplier setup form not found (first payment may need it)", "; terms published" if crit[9][1] else "; terms not published (buyer's default applies)")) if not need else "not yet payable — missing: " + "; ".join(need)
+            npk["ap_payable_today"] += not need
         x["facts_provenance_json"] = json.dumps({"mailbox": [p.strip() for p in (x.get("mailbox_provenance") or "").split(" | ") if p.strip()], "buyer_facts": [p.strip() for p in (x.get("buyer_facts_provenance") or "").split("; ") if p.strip()],
                                                  "vendor_facts": [p.strip() for p in (x.get("vendor_facts_provenance") or "").split("; ") if p.strip()], "relationship": x.get("how_relationship_was_found") or ""}, ensure_ascii=False)[:4000]
         # quality score / ship_ready (S2)
