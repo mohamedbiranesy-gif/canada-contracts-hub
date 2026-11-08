@@ -29,16 +29,25 @@ owner's Mac; report the benchmark count every build; document the ceiling of any
 - `tools/ap_walk.py` + ap_crawler AP-page memory: AP site walker for the terms extractor — test run launched.
 - Earlier today: charity BNs (7,454 buyers), org directories (6,277), Wikidata (running), PO join (330,978 PO rows), Crown BNs, verified ledger in the referee.
 
+## Verified so far (15:35Z)
+- Build 15:31Z: **benchmarks met 76 / 438 (17.4 %)**, up from 57; VALIDATION 7/7 PASS; deep audit PASS; Gold 585; P13 vendor_phone filled on 37,244 rows.
+  Not yet in that build (files landed on origin at 15:17Z, after it started): Canada's Business Registries (489 vendors found of 844 looked up so far),
+  grants & contributions BNs (3,186 buyers + 465 vendors), confirmed vendor websites (39), the rebuilt release (15:22Z: 9,213 bids&tenders
+  values, 58,304 bid counts, reference date 2026-11-08). A build with them is dispatched automatically when the push lands (background job).
+- Rebuild workflow had been cancelled on 11-07 and 11-08 by the shared concurrency group → own group; today's run succeeded.
+
 ## In progress (Mac engines, all restart-safe, resume files in ~/cch-crawler-state)
-org_extras --refresh (65k domains) · org_contacts --refresh (5.2k) · registry_lookup.sh (vendors then buyers) · gc_recipients · wikidata_orgs · cc_mine · ap_crawler · site_finder · ap_walk test → full run · dns_daily · downloads_loop · push_loop (15 min) · per-company search waves (self-scheduling wake-up).
-Cloud: full local rank test of today's rank.py changes (rank_test2.log) before the next build is dispatched.
+org_extras --refresh (65k domains, ≈7k done) · org_contacts --refresh (5.2k) · registry_lookup.sh (vendors 4,040 then buyers) · ap_walk (63,582 sites,
+Gold first; 1,008 AP pages found in 15 min) + 2-hourly ap_terms over them · wikidata_orgs (4,200 of 42k, 1,136 matched) · cc_mine · ap_crawler ·
+site_finder · dns_daily · downloads_loop · push_loop (15 min).
+Search waves (credits): VW_001–006 done (vendor websites; 61 proposals → 39 confirmed); VW_007–010 + re-runs VW_011–015 (137 not-found vendors,
+candidates-only instructions) wait for the next turn's budget; per-company buyer waves PC_005… continue on the wake-up chain.
 
 ## Next (in order)
-1. rank test passes → dispatch rank-buyers build → read COVERAGE_VS_TARGETS.md (expect: contract_value / end_date / buyer_legal_name / vendor_bn9 up) → record in CHECKS.json.
-2. ap_walk full run (Gold → P02–P05 → rest) + 2-hourly `ap_terms --urls ~/cch-crawler-state/ap_pages_seen.csv`.
-3. rank consumer for claude_gc_recipients.csv (buyer_bn_as_published / vendor_bn9 when empty).
-4. vendor website waves (search credits; Gold vendors without a site first: 247 rows).
-5. more PO open data cities; US directories; docs (README, answers file, D-items).
+1. Next build → read COVERAGE_VS_TARGETS.md (expect vendor_bn9, buyer_bn, vendor_website, contract_value, number_of_bids up) → CHECKS.json.
+2. Waves VW_007–015 (vendor sites) and PC_005+ (buyer AP pages) as search budget allows; run vendor_sites_check on each batch.
+3. Cross-check 10 G&C BNs against the CRA charities file (same BN9 where both exist) — record in CHECKS.json.
+4. More PO open data cities (ceiling is small; low priority), US directories (133 US rows; low priority), docs (answers file §12 for today's additions).
 
 ## Decisions and why
 - Ledger in the referee (2026-11-08): a page unreadable today must not un-verify a value seen yesterday (20 Gold lost on 2026-11-07 to flaps).
