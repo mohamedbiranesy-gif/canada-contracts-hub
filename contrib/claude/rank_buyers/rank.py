@@ -2352,7 +2352,7 @@ TAX_MUNICIPAL = "municipality: GST/HST applies to supplies to it — a municipal
 TAX_RATE = {"ON": "HST 13% (Ontario)", "NB": "HST 15% (New Brunswick)", "NL": "HST 15% (Newfoundland and Labrador)", "NS": "HST 15% (Nova Scotia)", "PE": "HST 15% (Prince Edward Island)"}
 TAX_RATE_NOTE = " — indicative rate for a supply made in the buyer's province (GST/HST Memorandum 18-2 'GST/HST rates', %s, read 2026-11-08: \"The HST applies in the participating provinces at the following rates: 13%% in Ontario and 15%% in New Brunswick, Newfoundland and Labrador, Nova Scotia, and Prince Edward Island. The GST applies in the rest of Canada at the rate of 5%%\"); the place-of-supply rules decide (Memorandum 3-3-2); provincial sales taxes (QST, PST) are not covered here" % CRA_18_2
 
-PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "buyer_tax_status_derived", "tax_rate_indicative_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
@@ -2495,7 +2495,7 @@ try:
             v = (x.get(c) or "").strip()
             return "" if (not v or v in ("not_published", "{}", "[]") or re.match(r"^(?:no |none\b|not |0 in the|only system|n/a\b|not applicable|unknown\b|aucun|no dataset|no record|no identifier)", v, re.I)) else v
         # derived GST/HST status and indicative rate (owner 2026-11-08 11:53 EST: plausibility values only where nothing is published, source-derived, labelled)
-        x["buyer_tax_status_derived"] = x["tax_rate_indicative_derived"] = ""
+        x["buyer_tax_status_derived"] = x["tax_rate_indicative_derived"] = x["invoice_currency_derived"] = ""
         if (x.get("jurisdiction") or "") != "US" and not re.search(r"\.(gov|edu|org\.uk|gov\.uk|gov\.au|eu)$|\.gov\b", (x.get("buyer_website") or "").lower()):
             pc2 = re.search(r"\b([A-Z])\d[A-Z]\s?\d[A-Z]\d\b", x.get("buyer_address") or "")
             prov2 = {"QC": "QC", "ON": "ON", "BC": "BC", "AB": "AB", "SK": "SK", "MB": "MB", "NS": "NS", "NB": "NB", "NL": "NL", "PE": "PE", "YT": "YT", "NT": "NT", "NU": "NU"}.get(x.get("jurisdiction") or "", "")
@@ -2519,6 +2519,9 @@ try:
                 x["tax_rate_indicative_derived"] = "GST 5%% (%s)" % prov2 + TAX_RATE_NOTE
             if x["buyer_tax_status_derived"] or x["tax_rate_indicative_derived"]:
                 npk["tax_derived"] += 1
+            if not _val("currency") and (prov2 or fed2 or (x.get("jurisdiction") or "") == "CA"):
+                x["invoice_currency_derived"] = "CAD (derived: the buyer is in Canada and the row has no contract record stating a currency; the invoice would be in Canadian dollars unless the vendor and buyer agreed otherwise)"
+                npk["invoice_currency_derived"] += 1
         card = {
             "bill_to": {"legal_name": _val("buyer_legal_name_as_published") or _val("buyer"), "legal_name_is_published": bool(_val("buyer_legal_name_as_published")), "address": _val("invoice_mailing_address") or _val("buyer_address"),
                         "address_is_the_invoice_address": bool(_val("invoice_mailing_address")), "tax_number": _val("buyer_bn_as_published"), "language": _val("template_language") or _val("language_hint")},
@@ -2527,7 +2530,7 @@ try:
             "references_required": {"po_required": _val("po_required_as_published"), "po_number": _val("po_number_as_published"), "contract_or_agreement_number": _val("contract_or_agreement_number"),
                                     "vendor_id_with_buyer": _val("buyer_vendor_id"), "reference_hint": _val("invoice_reference_hint")},
             "terms": {"payment_terms": _val("payment_terms_as_published") or _val("payment_terms_default_policy"), "payment_method": _val("buyer_payment_method_preference"), "payment_cycle": _val("buyer_ap_cycle_published"), "e_signature": _val("buyer_esignature_preference")},
-            "tax": {"buyer_tax_status": _val("buyer_tax_exempt_status") or (("DERIVED: " + x["buyer_tax_status_derived"][:160]) if x.get("buyer_tax_status_derived") else ""), "buyer_tax_status_is_published": bool(_val("buyer_tax_exempt_status")), "indicative_rate": (x.get("tax_rate_indicative_derived") or "").split(" — ")[0], "currency": _val("currency"), "vendor_gst_hst": _val("vendor_gst_hst_derived"), "vendor_qst": _val("vendor_qst_as_published")},
+            "tax": {"buyer_tax_status": _val("buyer_tax_exempt_status") or (("DERIVED: " + x["buyer_tax_status_derived"][:160]) if x.get("buyer_tax_status_derived") else ""), "buyer_tax_status_is_published": bool(_val("buyer_tax_exempt_status")), "indicative_rate": (x.get("tax_rate_indicative_derived") or "").split(" — ")[0], "currency": _val("currency") or (("DERIVED: " + x["invoice_currency_derived"][:40]) if x.get("invoice_currency_derived") else ""), "currency_is_published": bool(_val("currency")), "vendor_gst_hst": _val("vendor_gst_hst_derived"), "vendor_qst": _val("vendor_qst_as_published")},
             "vendor_identity": {"legal_name": _val("vendor_legal_name") or _val("vendor"), "bn9": _val("vendor_bn9"), "neq": _val("vendor_neq"), "remit_address": _val("vendor_registered_address") or _val("vendor_address")},
             "follow_up": {"ap_phone": _val("ap_phone") or _val("buyer_phone"), "ap_contact": _val("ap_contact_name_as_published"), "requirements_text": (x.get("invoicing_requirements") or "")[:300]},
         }
@@ -2666,7 +2669,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("all_references_with_this_vendor", ["contract_value_from_pair", "start_date_from_pair", "end_date_from_pair", "contract_title_from_pair", "contract_description_from_pair", "instrument_type_from_pair", "procurement_method_from_pair", "number_of_bids_from_pair", "po_number_as_published_from_pair", "contract_or_agreement_number_from_pair", "solicitation_or_tender_number_from_pair", "award_or_notice_id_from_pair", "buyer_vendor_id_from_pair", "commodity_codes_from_pair", "buyer_org_codes_from_pair"]), ("vendor_website_status", ["vendor_website_basis", "vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
                    ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"]),
-                   ("buyer_tax_exempt_status", ["buyer_tax_status_derived", "tax_rate_indicative_derived"]), ("end_date", ["contract_term_as_published"])):
+                   ("buyer_tax_exempt_status", ["buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived"]), ("end_date", ["contract_term_as_published"])):
     if after in cols:
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]

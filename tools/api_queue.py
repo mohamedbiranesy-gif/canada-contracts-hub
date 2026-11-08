@@ -25,7 +25,7 @@ def main():
     a = argparse.ArgumentParser()
     a.add_argument("--ranked", required=True)
     a.add_argument("--out", required=True)
-    a.add_argument("--max-af", type=int, default=3000)
+    a.add_argument("--max-af", type=int, default=4000)
     a.add_argument("--max-pc", type=int, default=6000)
     a.add_argument("--max-vw", type=int, default=4000)
     a = a.parse_args()
@@ -41,10 +41,11 @@ def main():
             h = host(r.get("buyer_website") or "")
             v = (r.get("vendor") or "").strip()
             if h and bk:
-                if v and not v.startswith("inferred") and tier in ("A", "B", "L") and (not filled(r.get("contract_value")) or (not filled(r.get("start_date")) and not filled(r.get("end_date"))) or (not filled(r.get("po_number_as_published")) and not filled(r.get("contract_or_agreement_number")))):
+                lacking = (not filled(r.get("contract_value")) or (not filled(r.get("start_date")) and not filled(r.get("end_date"))) or (not filled(r.get("po_number_as_published")) and not filled(r.get("contract_or_agreement_number"))))
+                if v and not v.startswith("inferred") and lacking and (tier in ("A", "B", "L") or rg in ("GOLD-T", "GOLD-M") or tier in ("T", "M", "C")):
                     k = ("af", bk, v)
-                    if k not in seen:
-                        seen.add(k); af.append((pr, {"task_id": "af:%s||%s" % (bk, v), "kind": "af", "key": "%s||%s" % (bk, v), "name": v, "host": h, "extra": bk}))
+                    if k not in seen:  # client-listing / older-record pairs (P06, P07, P09) get the award-page search too — a buyer's own award report is the only place their contract facts can come from
+                        seen.add(k); af.append((pr if tier in ("A", "B", "L") else pr + 3, {"task_id": "af:%s||%s" % (bk, v), "kind": "af", "key": "%s||%s" % (bk, v), "name": v, "host": h, "extra": bk}))
                 if tier in ("A", "B", "T", "M", "L", "C", "D", "E", "F") and (not filled(r.get("payment_terms_as_published")) or not filled(r.get("po_required_as_published"))) and ("pc", bk) not in seen:
                     seen.add(("pc", bk)); pc.append((pr, {"task_id": "pc:" + bk, "kind": "pc", "key": bk, "name": r.get("buyer") or "", "host": h, "extra": r.get("buyer_type") or ""}))
             if v and not v.startswith("inferred") and not filled(r.get("vendor_website")) and ("vw", v.lower()) not in seen:
