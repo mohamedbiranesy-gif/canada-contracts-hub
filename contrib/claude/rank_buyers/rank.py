@@ -1763,6 +1763,44 @@ for x in rows:
         x["vendor_gst_hst_derived"] = "%sRT0001 (%s)" % (c["bn9"], c["program_account_as_printed"])
         x["vendor_bn_source"] = x.get("vendor_bn_source") or "printed on the organisation's own page (%s)" % c["url"]; n_cr += 1
 print("crown-corporation BNs applied to inferred-vendor rows:", n_cr)
+# the buyers' own purchase-order / contract open data joined to existing pairs (tools/po_opendata.py → claude_po_records.csv; downstream §1.1)
+POD = collections.defaultdict(list)
+_pop = ROOT + "/data/incoming/claude/claude_po_records.csv"
+if os.path.exists(_pop):
+    for _r in csv.DictReader(open(_pop, encoding="utf-8", errors="replace")):
+        POD[(parent(_r["buyer"]), norm(_r["vendor_name"]))].append(_r)
+        pv = parent(_r["vendor_name"])
+        if pv and pv != norm(_r["vendor_name"]):
+            POD[(parent(_r["buyer"]), pv)].append(_r)
+n_po = collections.Counter()
+for x in rows:
+    for c in ("po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"):
+        x.setdefault(c, "")
+    if not POD or (x.get("vendor") or "").startswith("inferred"):
+        continue
+    bkeys = {parent(x.get("buyer") or ""), parent((x.get("buyer_legal_name_as_published") or "").split(" (")[0]), (x.get("org_group_key") or "").split(" | ")[0]} - {""}
+    vkeys = {norm(x.get("vendor") or ""), parent(x.get("vendor") or ""), norm((x.get("vendor_legal_name") or "").split(" (")[0]), parent((x.get("vendor_legal_name") or "").split(" (")[0])} - {""}
+    hits = []
+    for b in bkeys:
+        for v in vkeys:
+            hits += POD.get((b, v), [])
+    if not hits:
+        continue
+    hits = sorted({(h["po_number"], h["date"], h["amount"], h["kind"], h["source_url"], h["id_label"]) for h in hits}, key=lambda t: t[1], reverse=True)
+    pos = [h for h in hits if h[3] == "po"]; cons = [h for h in hits if h[3] != "po"]
+    n_po["pairs"] += 1
+    if pos:
+        x["po_numbers_this_pair_open_data"] = "; ".join("%s (%s%s)" % (h[0], h[1] or "undated", (", " + h[2]) if h[2] else "") for h in pos[:8])[:400] + " — %s" % pos[0][5]
+        x["po_count_this_pair_open_data"] = str(len(pos))
+        if not x.get("po_number_as_published"):
+            x["po_number_as_published"] = "%s (%s; the buyer's own open data %s; dated %s%s)" % (pos[0][0], pos[0][5], pos[0][4], pos[0][1] or "n/a", (", " + pos[0][2]) if pos[0][2] else ""); n_po["po_filled"] += 1
+        if not x.get("invoice_reference_hint") or x["invoice_reference_hint"].startswith(("no identifier", "only system")):
+            x["invoice_reference_hint"] = "most recent purchase-order number for this pair in the buyer's own open data: %s (%s)" % (pos[0][0], pos[0][1] or "undated")
+    if cons:
+        x["contract_numbers_this_pair_open_data"] = "; ".join("%s (%s%s)" % (h[0], h[1] or "undated", (", " + h[2]) if h[2] else "") for h in cons[:8])[:400] + " — %s" % cons[0][5]
+        if not x.get("contract_or_agreement_number"):
+            x["contract_or_agreement_number"] = "%s (%s; the buyer's own open data %s; dated %s)" % (cons[0][0], cons[0][5], cons[0][4], cons[0][1] or "n/a"); n_po["contract_filled"] += 1
+print("buyers' PO / contract open data joined:", dict(n_po), "| records:", sum(len(v) for v in POD.values()))
 # D2 / D12: back-reference between the contract dataset and the lead relationships (same organisation by website domain or exact name)
 AGG_DOM, AGG_NAME = {}, {}
 for _p, _o in orgs.items():
@@ -2122,7 +2160,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
-                   ("method_notes", ["facts_provenance_json", "org_group_key"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
+                   ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
                    ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
                    ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
