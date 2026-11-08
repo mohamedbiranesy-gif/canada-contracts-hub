@@ -1409,6 +1409,13 @@ for x in rows:
                     x["vendor_legal_name"] = "%s (%s: %s)" % (cand, lab, v.get("jsonld_page") if k.startswith("jsonld") else v.get("legal_name_stated_url") or ""); n_ox["vendor_legal_name_v2"] += 1
                     break
         v2_fill(x, v, "vendor")
+        if not x.get("vendor_trading_name"):  # 2026-11-08: the name the vendor trades under on its own site when it differs from its legal name (schema.org alternateName / Organization name)
+            vl0 = (x.get("vendor_legal_name") or "").split(" (")[0].strip()
+            for k, lab in (("jsonld_alternate_name", "schema.org alternateName on the vendor's site"), ("jsonld_name", "schema.org Organization name on the vendor's site")):
+                cand = re.sub(r"\s+", " ", str(v.get(k) or "")).strip()
+                if cand and vl0 and norm(cand) != norm(vl0) and len(cand) <= 80 and not LEGAL_FORMISH.search(cand) and name_overlap(cand, x.get("vendor") or "", x.get("vendor_website") or ""):
+                    x["vendor_trading_name"] = "%s (%s: %s)" % (cand[:120], lab, v.get("jsonld_page") or ""); n_ox["vendor_trading_name_jsonld"] += 1
+                    break
     if vo and vo.get("status") and not (x.get("vendor") or "").startswith("inferred"):
         x["vendor_website_status"] = SITE_STATUS.get(vo["status"], vo["status"])
     vl, vn = (x.get("vendor_legal_name") or "").split(" (as printed")[0], x.get("vendor") or ""
