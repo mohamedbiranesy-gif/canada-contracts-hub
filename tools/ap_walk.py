@@ -49,6 +49,7 @@ def main():
     a.add_argument("--tiers", default="", help="only rows of these tiers (e.g. I for the inferred-relationship package), so a second walker can start on the long tail")
     a.add_argument("--skip-tiers", default="", help="skip rows of these tiers (the first walker keeps the stronger packages)")
     a.add_argument("--shard", default="", help="K/N: only buyers whose key hashes to shard K of N (parallel runners never share a host: one buyer = one site)")
+    a.add_argument("--only-missing", action="store_true", help="only buyers whose row still lacks a published payment term or PO rule (the second, deeper pass)")
     a = a.parse_args()
     shard_k, shard_n = (int(a.shard.split("/")[0]), int(a.shard.split("/")[1])) if a.shard else (0, 1)
     os.makedirs(STATE, exist_ok=True)
@@ -76,6 +77,8 @@ def main():
             if not key or not h or "." not in h or key in seen:
                 continue
             if done.get(key, "") >= cutoff:
+                continue
+            if a.only_missing and (r.get("payment_terms_as_published") or "").strip() not in ("", "not_published") and (r.get("po_required_as_published") or "").strip() not in ("", "not_published"):
                 continue
             if shard_n > 1 and int(hashlib.md5(h.encode()).hexdigest(), 16) % shard_n != shard_k:
                 continue  # sharded by host, so two runners never crawl the same site

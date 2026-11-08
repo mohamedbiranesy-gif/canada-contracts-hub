@@ -55,7 +55,8 @@ stats = {"sites": 0, "pages": 0, "found_sites": 0, "rows": 0, "blocked": 0}
 # can extract payment terms, PO rules, portals, invoice addresses from them even when the page shows no mailbox
 AP_PAGES = {}
 AP_PAGE_RX = re.compile(r"(?<!manu)factur|invoice|payable|comptes?[-_ ]?(a|à)[-_ ]?payer|accounts?[-_ ]?pay|e-?invoic|fournisseur|supplier|vendor|approvisionnement|purchasing|procurement|achats?\b|"
-                        r"doing[-_ ]business|business[-_ ]with|terms[-_ ]and[-_ ]conditions|conditions[-_ ]g[ée]n[ée]rales|appels?[-_ ]d[-_ ]?offres|soumissions|tenders?\b|bids?\b|rfp|rfq", re.I)
+                        r"doing[-_ ]business|business[-_ ]with|terms[-_ ]and[-_ ]conditions|conditions[-_ ]g[ée]n[ée]rales|appels?[-_ ]d[-_ ]?offres|soumissions|tenders?\b|bids?\b|rfp|rfq|"
+                        r"purchasing[-_ ](?:policy|bylaw|by-law|procedure)|procurement[-_ ](?:policy|bylaw|by-law|procedure)|accounts?[-_ ]payable[-_ ]policy|payment[-_ ]polic|politique[-_ ]d[-_ ]?(?:achat|approvisionnement)|r[èe]glement[-_ ]de[-_ ]gestion[-_ ]contractuelle|finance[-_ ]polic|bylaws?/|by-laws?/|policies/|politiques/", re.I)  # 2026-11-08: purchasing bylaws and AP policies carry the PO rule, payment terms and cheque-run cadence
 AP_PAGE_WEAK = re.compile(r"/news/|/nouvelles/|/blog/|/events?/|cemetery|cimeti|parking|stationnement|real-?estate|land|property-tax|taxes?-fonci|recreation|loisirs|permit|licen[cs]e|transit|library|biblioth", re.I)
 AP_TEXT_RX = re.compile(r"payment terms|net \d{2}|within \d{2} days|purchase order|bon de commande|conditions de paiement|modalit[ée]s de paiement|accounts payable|comptes [àa] payer|submit (?:your )?invoices?|"
                         r"soumettre (?:vos |les )?factures?|invoice[s]? (?:must|should|are to)|supplier portal|portail (?:des )?fournisseurs|vendor registration|inscription des fournisseurs|direct deposit|d[ée]p[ôo]t direct", re.I)

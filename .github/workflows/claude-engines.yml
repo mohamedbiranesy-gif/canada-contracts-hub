@@ -27,6 +27,12 @@ on:
       max_pages:
         description: "walk_terms: pages per site"
         default: "15"
+      redo_days:
+        description: "walk_terms: re-walk sites walked within this many days (0 = everything again, e.g. a deeper pass)"
+        default: "60"
+      only_missing:
+        description: "walk_terms: only buyers still lacking a published payment term or PO rule (true/false)"
+        default: "false"
 permissions:
   contents: write
   actions: write
@@ -36,6 +42,8 @@ env:
   MINUTES: ${{ inputs.minutes || '300' }}
   TIERS: ${{ inputs.tiers || 'I' }}
   MAXP: ${{ inputs.max_pages || '15' }}
+  REDO: ${{ inputs.redo_days || '60' }}
+  ONLYMISS: ${{ inputs.only_missing || 'false' }}
 concurrency:
   group: claude-engines-${{ inputs.engine || 'bulk_registry' }}-${{ inputs.tiers || 'all' }}
   cancel-in-progress: false
@@ -77,7 +85,7 @@ jobs:
         run: |
           N="$SHARDS"; K=${{ matrix.k }}
           M="$MINUTES"; W=$(( M > 60 ? M - 45 : M / 2 ))
-          timeout "${W}m" python3 tools/ap_walk.py --ranked coord/results/ranked/ranked_buyers.csv.gz --tiers "$TIERS" --shard "$K/$N" --workers 40 --max-pages "$MAXP" 2>&1 | tee walk.log | grep -E "sites to walk|\{" | tail -3 || true
+          timeout "${W}m" python3 tools/ap_walk.py --ranked coord/results/ranked/ranked_buyers.csv.gz --tiers "$TIERS" --shard "$K/$N" --workers 40 --max-pages "$MAXP" --redo-days "$REDO" $([ "$ONLYMISS" = "true" ] && echo --only-missing) 2>&1 | tee walk.log | grep -E "sites to walk|\{" | tail -3 || true
           mkdir -p out && grep -oE "sites to walk: [0-9]+" walk.log | grep -oE "[0-9]+" | head -1 > out/sites_left_$K.txt || echo 0 > out/sites_left_$K.txt
           if [ -s ~/cch-crawler-state/ap_pages_seen.csv ]; then
             timeout 40m python3 tools/ap_terms.py --urls ~/cch-crawler-state/ap_pages_seen.csv --ranked coord/results/ranked/ranked_buyers.csv.gz --repo "$PWD" --workers 24 || true
@@ -154,7 +162,7 @@ jobs:
             walked=$(wc -l < /tmp/done.tsv 2>/dev/null || echo 0)
             echo "sites still to walk (sum over shards at start): $left; walked so far: $walked" >> "$GITHUB_STEP_SUMMARY"
             if [ "$left" -gt "$((SHARDS * 50))" ]; then
-              gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=walk_terms" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" -f "inputs[tiers]=$TIERS" -f "inputs[max_pages]=$MAXP" && echo "re-dispatched walk_terms" >> "$GITHUB_STEP_SUMMARY" || true
+              gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=walk_terms" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" -f "inputs[tiers]=$TIERS" -f "inputs[max_pages]=$MAXP" -f "inputs[redo_days]=$REDO" -f "inputs[only_missing]=$ONLYMISS" && echo "re-dispatched walk_terms" >> "$GITHUB_STEP_SUMMARY" || true
             fi
           fi
           python3 - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
