@@ -2299,7 +2299,8 @@ for x in rows:
         n9["contract_title_from_description"] += 1
     _hint = x.get("invoice_reference_hint") or ""
     if (not _hint or _hint.startswith(("no identifier", "only system"))) and (x.get("po_required_as_published") or "").startswith(("yes", "purchase-order terms published")):
-        x["invoice_reference_hint"] = "the buyer's purchase-order number: the buyer publishes that invoices must quote a PO number (%s)" % x["po_required_as_published"][:200]  # owner 2026-11-08: the reference an AP clerk matches
+        x["invoice_reference_hint"] = ("the buyer's purchase-order number: the buyer publishes that invoices must quote a PO number (%s)" if x["po_required_as_published"].startswith("yes") else
+                                       "the buyer's purchase-order number: the buyer publishes purchase-order terms, so the PO number is the reference to quote (%s)") % x["po_required_as_published"][:200]  # owner 2026-11-08: the reference an AP clerk matches
         n9["invoice_reference_hint_po_rule"] += 1
     if not x.get("records_with_this_vendor") and not (x.get("vendor") or "").startswith("inferred"):  # downstream §1.10: a lead-based row has no contract record, the relationship record itself counts
         x["records_with_this_vendor"] = "1 (relationship record: %s; 0 in the contract dataset)" % ((x.get("how_relationship_was_found") or x.get("source") or "see contract_link")[:160])
