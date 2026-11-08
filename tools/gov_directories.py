@@ -18,9 +18,12 @@ COLS = ["province", "legal_name", "designation", "municipal_tier", "upper_tier_o
 CKAN = [
     ("https://data.ontario.ca", "school board contact information", "ON", "school board", r"school board|board.*contact"),
     ("https://data.ontario.ca", "hospital locations", "ON", "hospital", r"hospital"),
+    ("https://data.ontario.ca", "Ontario hospitals", "ON", "hospital", r"hospital"),
+    ("https://open.alberta.ca", "health facilities", "AB", "health facility", r"facilit"),
     ("https://data.ontario.ca", "colleges of applied arts and technology", "ON", "college", r"college"),
     ("https://data.ontario.ca", "universities", "ON", "university", r"universit"),
-    ("https://www.donneesquebec.ca/recherche", "établissements de santé et de services sociaux", "QC", "établissement de santé", r"tablissement|installation"),
+    ("https://www.donneesquebec.ca/recherche", "répertoire des établissements de santé et de services sociaux", "QC", "établissement de santé", r"r[ée]pertoire.*(tablissement|installation)|(tablissement|installation).*(sant|r[ée]pertoire)"),
+    ("https://www.donneesquebec.ca/recherche", "liste des établissements publics santé services sociaux", "QC", "établissement de santé", r"liste.*tablissement|tablissements? publics"),
     ("https://www.donneesquebec.ca/recherche", "organismes scolaires", "QC", "centre de services scolaire", r"organisme|scolaire"),
     ("https://www.donneesquebec.ca/recherche", "cégeps", "QC", "cégep", r"c[ée]gep|coll[èe]ge"),
     ("https://open.alberta.ca", "school authority contact information", "AB", "school authority", r"school|authorit"),
@@ -79,6 +82,8 @@ def parse_csv(data, src, prov, desi):
     if not rows:
         return []
     cols = list(rows[0].keys())
+    rows = [{(k or "").replace("_", " ").strip(): v for k, v in r.items()} for r in rows]
+    cols = [(c or "").replace("_", " ").strip() for c in cols]
     ncol = pick_col(cols, NAME_RX, avoid=(re.compile(r"contact name|first|last|director|principal|mayor|cao|clerk|official name of contact", re.I),))
     if not ncol:
         return []
@@ -112,6 +117,8 @@ def ckan(base, query, prov, desi, must, workdir):
                 continue
             if not re.search(must, title + " " + (res.get("name") or ""), re.I):
                 continue
+            if re.search(r"rapport|financ|AS-471|statisti|d[ée]pense|budget|indicat|survey|enqu[êe]te|program standards|strategic mandate", title + " " + (res.get("name") or ""), re.I):
+                continue  # financial / statistical tables, not directories
             try:
                 data = get(url, timeout=300)
             except Exception as e:
