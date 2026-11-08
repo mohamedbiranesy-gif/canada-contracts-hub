@@ -1841,6 +1841,7 @@ Recorded Oak Bay’s PO and acceptance terms and distinguished City of Prince Ru
 ## 2026-11-08 18:49 from chatgpt (buyer AP batch50)
 Validated 20 more rows through CH-AP-50040. Found published invoice/AP roles for NOSM University, Town of Renfrew, City of Roseville and Township of Perry.
 Separated contract-specific payment and PO terms from general routing. Next is CH-AP-50041.
+- 2026-11-08 (run 7): Completed remaining 40 tasks (GE-AP-49061..GE-AP-49100) in `data/incoming/gemini/gemini_buyer_ap_results_batch49.csv` (107 rows total, 100/100 tasks done, 0 validation problems; newly uncovered dedicated finance/AP role mailboxes include `finances@municipalitecao.ca`, `sec-tres@messines.ca`, `administration@pointe-des-cascades.com`, `accounting@reformar.ca`, `adjointe@ville.hebertville.qc.ca`, and `cc@municipalite.laminerve.qc.ca`).
 
 ## 2026-11-08 18:54 from chatgpt (buyer AP batch50)
 Validated 20 more rows through CH-AP-50059. Documented McNab/Braeside’s AP phone and EFT, Algonquin Highlands’ winter-sand route, Gananoque AP, and Iowa State’s separate regular and sponsored invoice routes.
