@@ -70,7 +70,7 @@ T = {
  "commodity_distribution_top3": {"P01_GOLD": 90},
  "year_over_year_spend_trend": {"P01_GOLD": 95},
  # 7. mail / domain security
- "mta_sts_record": {"*": 100}, "tls_rpt_record": {"*": 100}, "bimi_record": {"*": 100},
+ "mta_sts": {"*": 100}, "tls_rpt": {"*": 100}, "bimi": {"*": 100},
  # 2.8 / 2.10 vendor registry extras (QC vendors: measured on every row, the QC share is reported separately)
  "vendor_neq": {"P01_GOLD": 95, "P02": 95, "P03": 95, "P04": 95, "P09": 95},
  "vendor_years_in_business": {"P01_GOLD": 100, "P02": 100, "P03": 100, "P04": 100},
@@ -81,7 +81,7 @@ GROUP = {"1. identifiers": ["invoice_reference_hint", "po_number_as_published", 
          "4. AP": ["ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "payment_terms_as_published", "po_required_as_published", "invoice_portal_url", "buyer_payment_method_preference", "buyer_tax_exempt_status", "buyer_ap_cycle_published", "buyer_esignature_preference", "ap_system_hint"],
          "5. contract": ["contract_value", "currency", "start_date", "end_date", "contract_title", "contract_description", "number_of_bids"],
          "6. history": ["average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"],
-         "7. mail security": ["mta_sts_record", "tls_rpt_record", "bimi_record"]}
+         "7. mail security": ["mta_sts", "tls_rpt", "bimi"]}
 # a few fields only make sense on a subset of rows; the share is reported next to the rate so the ceiling is visible
 SUBSET = {"vendor_neq": ("QC vendors", lambda r: (r.get("vendor_province") or r.get("vendor_jurisdiction") or "").upper().startswith("QC") or "quebec" in (r.get("vendor_registered_address") or "").lower() or "québec" in (r.get("vendor_registered_address") or "").lower()),
           "vendor_years_in_business": ("vendors with a registry record", lambda r: (r.get("vendor_incorporation_date") or "") not in EMPTY or (r.get("vendor_registry_ids") or "") not in EMPTY),
