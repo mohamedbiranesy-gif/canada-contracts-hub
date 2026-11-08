@@ -108,8 +108,20 @@ def code_of(name):
     return p[0] + ("_GOLD" if len(p) > 1 and p[1] == "GOLD" else "")
 
 
-def filled(v):
-    return (v or "").strip() not in EMPTY
+# a cell that only says there is nothing ("no identifier published …", "no dataset record for this pair", "0 in the contract dataset …",
+# "only system ids published", "none inferred") is NOT a value for the scoreboard (reviewer 2026-11-08); the DNS checks are the exception,
+# where "no MTA-STS record" is the checked result the downstream team asked for
+LABEL_ONLY = re.compile(r"^(?:no |none\b|not |0 in the|only system|n/a\b|not applicable|unknown\b|aucun|no dataset|no record|no identifier)", re.I)
+DNS_FIELDS = {"mta_sts", "tls_rpt", "bimi"}
+
+
+def filled(v, field=""):
+    v = (v or "").strip()
+    if v in EMPTY:
+        return False
+    if field in DNS_FIELDS:
+        return True
+    return not LABEL_ONLY.match(v)
 
 
 def load_batches(d):
@@ -166,14 +178,15 @@ def main():
             target = tg.get(pkg, tg.get("*", "n/a")) if pkg in tg or "*" in tg else "n/a"
             n = len(rows)
             present = field in cols
-            k = sum(1 for r in rows if filled(r.get(field))) if present else 0
+            k = sum(1 for r in rows if filled(r.get(field), field)) if present else 0
+            k_any = sum(1 for r in rows if (r.get(field) or "").strip() not in EMPTY) if present else 0
             sub = ""
             if field in SUBSET and present:
                 label, fn = SUBSET[field]
                 m = [r for r in rows if fn(r)]
                 if m:
-                    sub = "%s: %d rows, %.1f%% filled" % (label, len(m), 100.0 * sum(1 for r in m if filled(r.get(field))) / len(m))
-            res[(field, pkg)] = {"rows": n, "filled": k, "pct": round(100.0 * k / n, 1), "target": target, "present": present, "subset": sub}
+                    sub = "%s: %d rows, %.1f%% filled" % (label, len(m), 100.0 * sum(1 for r in m if filled(r.get(field), field)) / len(m))
+            res[(field, pkg)] = {"rows": n, "filled": k, "pct": round(100.0 * k / n, 1), "pct_any": round(100.0 * k_any / n, 1), "target": target, "present": present, "subset": sub}
     # history (previous build's value per field/pkg)
     prev = {}
     hist = []
@@ -198,7 +211,7 @@ def main():
     gaps = sorted(((f, p, v, int(-(-v["target"] * v["rows"] // 100) - v["filled"])) for f, p, v in bench if v["pct"] < v["target"]), key=lambda t: -t[3])
     L = ["# Coverage vs the downstream team's targets — %s" % a.date, "",
          "Benchmarks (field × package with a numeric target): **%d of %d met** (%.1f%%); %d within 10 points; %d further away." % (len(met), len(bench), 100.0 * len(met) / max(1, len(bench)), len(near), len(bench) - len(met) - len(near)),
-         "A cell is filled unless blank / `not_published` / `not_found_yet`. Δ = change since the previous build in `coord/results/coverage_history.csv`.",
+         "A cell counts as filled only when it carries a value: blank, `not_published`, `not_found_yet` and label-only cells (\"no identifier published …\", \"no dataset record …\", \"0 in the contract dataset …\") do not count; the DNS checks count when checked. `any` = share of non-blank cells incl. such labels. Δ = change since the previous build in `coord/results/coverage_history.csv`.",
          "Rows per package: " + ", ".join("%s %d" % (p, len(r)) for p, r in pk.items()), ""]
     L += ["## Where the work is (largest gaps in rows still needed)", "", "| field | package | now | target | rows needed |", "|---|---|---|---|---|"]
     for f, p, v, need in gaps[:40]:
@@ -212,7 +225,7 @@ def main():
             if f not in cols:
                 L += ["### `%s` — column missing from this build" % f, ""]
                 continue
-            L += ["### `%s`" % f, ""] + (["> ceiling: " + CEILING[f], ""] if f in CEILING else []) + ["| package | rows | now | Δ | target | status |", "|---|---|---|---|---|---|"]
+            L += ["### `%s`" % f, ""] + (["> ceiling: " + CEILING[f], ""] if f in CEILING else []) + ["| package | rows | now (values) | any (incl. labels) | Δ | target | status |", "|---|---|---|---|---|---|---|"]
             for p in pk:
                 v = res.get((f, p))
                 if not v:
@@ -220,7 +233,7 @@ def main():
                 d = ("%+.1f" % (v["pct"] - prev[(f, p)])) if (f, p) in prev else ""
                 t = v["target"]
                 st = ("✅ met" if v["pct"] >= t else "🟡 %.0f pts to go" % (t - v["pct"]) if v["pct"] >= t - 10 else "❌ %.0f pts to go" % (t - v["pct"])) if isinstance(t, (int, float)) else ("— leave (by design)" if t is None else "no target")
-                L.append("| %s | %d | %.1f%% | %s | %s | %s%s |" % (p, v["rows"], v["pct"], d, ("%d%%" % t) if isinstance(t, (int, float)) else ("0% by design" if t is None else "n/a"), st, (" · " + v["subset"]) if v["subset"] else ""))
+                L.append("| %s | %d | %.1f%% | %.1f%% | %s | %s | %s%s |" % (p, v["rows"], v["pct"], v.get("pct_any", v["pct"]), d, ("%d%%" % t) if isinstance(t, (int, float)) else ("0% by design" if t is None else "n/a"), st, (" · " + v["subset"]) if v["subset"] else ""))
             L.append("")
     os.makedirs(a.write, exist_ok=True)
     open(os.path.join(a.write, "COVERAGE_VS_TARGETS.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")

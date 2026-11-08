@@ -549,6 +549,11 @@ def emailcols(keys, be, gj="", name="", site=""):
 def fill_contract(x, r, keys):
     """owner 2026-11-03: every field the record or the release tables give is filled (the rest becomes not_published in batches.py)"""
     v, ve, src = r.get("vendor") or {}, r.get("vendor_enrichment") or {}, r.get("source") or {}
+    _vd = (r.get("contract") or {}).get("value_detail") or {}
+    if x.get("contract_value") and _vd.get("value_basis") and "(" not in str(x["contract_value"]):  # reviewer 2026-11-08: a submitted price must not look like an award value
+        x["contract_value"] = "%s (%s)" % (x["contract_value"], str(_vd["value_basis"])[:200])
+    if x.get("currency") == "CAD" and (r.get("contract") or {}).get("currency_basis"):
+        x["currency"] = "CAD (%s)" % (r["contract"]["currency_basis"])
     x["buyer_address"] = addr_text(json.loads(x["buyer_address"]) if x["buyer_address"].startswith("{") and x["buyer_address"].endswith("}") else {}) \
         or addr_text((r.get("buyer") or {}).get("address")) or next((addr_text(BUY[k].get("address")) for k in keys if k in BUY and BUY[k].get("address")), "")
     if not x["buyer_website"]:
@@ -613,10 +618,11 @@ for p, o in orgs.items():
     for _k, (_v, _refid, _srcn, _ad, _rid) in _pb.items():
         if _k == "currency" or x.get(_k) or not _v or _rid == r.get("record_id"):
             continue
-        x[_k] = "%s (from another record of the same buyer-vendor pair: %s, %s%s)" % (_v[:300 if _k == "contract_description" else 200], _refid or "record", _srcn, (", " + _ad) if _ad else "")
+        # reviewer 2026-11-08: another contract's facts stay in their own columns; the row's contract columns describe the proof record only
+        x[_k + "_from_pair"] = "%s (another record of the same buyer-vendor pair: %s, %s%s)" % (_v[:300 if _k == "contract_description" else 200], _refid or "record", _srcn, (", " + _ad) if _ad else "")
         n_pair[_k] += 1
-        if _k == "contract_value" and not x.get("currency") and _pb.get("currency"):
-            x["currency"] = _pb["currency"][0]
+        if _k == "contract_value" and _pb.get("currency"):
+            x["contract_value_from_pair"] += " %s" % _pb["currency"][0]
     x["_org"] = o
     x["org_group_key"] = o.get("p") or ""  # the grouping key of the contract records (contracts_export joins on it)
     x["vendor_registry_status"] = x.get("vendor_registry_status") or ve.get("registry_status") or ""
@@ -1274,14 +1280,30 @@ TERMS = re.compile(r"\b(net\s?\d{2}\b|\d{2}\s?(?:calendar |business )?days?\b|wi
                    r"[àa] (?:la )?r[ée]ception|2%\s?\d{2}|net\s?\d{2}\s?days|payment terms?[^.]{0,40})", re.I)
 PO_REQ = re.compile(r"(?:purchase order|\bPO\b|P\.O\.|bon de commande|num[ée]ro de (?:bon de )?commande)[^.]{0,80}?(?:required|must|need|doit|obligatoire|requis|include|indiqu|mention|quote|reference|référenc)|"
                     r"(?:required|must|need|doit|obligatoire|requis|include|indiqu|mention|quote|reference|référenc)[^.]{0,80}?(?:purchase order|\bPO\b|P\.O\.|bon de commande|num[ée]ro de (?:bon de )?commande)", re.I)
+NAME_STOP = {"the", "and", "inc", "ltd", "city", "town", "ville", "corporation", "limited", "des", "les", "municipality", "county", "canada", "group", "groupe", "ltee", "corp", "company", "of", "de", "du", "la", "le", "services", "service", "international", "solutions", "consulting", "llp", "llc", "co"}
+def name_overlap(cand, org_name, website=""):
+    """a name taken from a page must share a core token with the organisation's own name or its host (reviewer 2026-11-08)"""
+    def toks(t):
+        return {w for w in re.findall(r"[a-z0-9]{3,}", unicodedata.normalize("NFKD", t or "").encode("ascii", "ignore").decode().lower()) if w not in NAME_STOP}
+    ct, ot = toks(cand), toks(org_name)
+    if ct & ot:
+        return True
+    h = unicodedata.normalize("NFKD", host_of(website or "") or "").encode("ascii", "ignore").decode().lower().replace("www.", "").replace("-", "")
+    return bool(h) and any(t in h for t in ct if len(t) >= 4)
 LEGAL_FORMISH = re.compile(r"\b(inc|ltd|limited|lt[ée]e|llc|llp|corp|corporation|company|co\.|society|association|foundation|fondation|university|universit[ée]|college|coll[èe]ge|c[ée]gep|city|town|village|municipality|municipalit[ée]|ville|county|district|township|school|scolaire|hospital|h[ôo]pital|health|sant[ée]|authority|board|commission|agency|office|ministry|minist[èe]re|department|government|gouvernement|library|biblioth[èe]que|church|trust|group|groupe|holdings|cooperative|coop[ée]rative|credit union|caisse|soci[ée]t[ée]|centre|center|institute|institut|canada|r[ée]gie|f[ée]d[ée]ration)\b", re.I)
 PORTAL_INVOICING = re.compile(r"e-invoicing|supplier payments|supplier onboarding", re.I)
+MENTION_STRICT = {"payment_method": re.compile(r"\b(?:direct deposit|d[ée]p[ôo]t direct|electronic funds transfer|EFT|ACH|virement|e-?transfer|Interac(?!t)|paid by cheque|payment by cheque|par ch[èe]que|credit card payments?|P-?card|wire transfer)\b", re.I),
+                  "tax_exempt": re.compile(r"\b(?:tax[- ]exempt|exempt from|exon[ée]r|HST rebate|GST rebate|PST exempt|exemption de taxe|municipal rebate)", re.I),
+                  "esignature": re.compile(r"\b(?:DocuSign|Adobe ?Sign|electronic signatures?|digital signatures?|signatures? [ée]lectroniques?|signatures? num[ée]riques?|e-?signatures?)\b", re.I),
+                  "ap_cycle": re.compile(r"(?:cheque runs?|payment runs?|payments? (?:are|is) (?:issued|processed|made|released)|paiements? (?:sont )?(?:[ée]mis|effectu[ée]s|trait[ée]s)|cycle de paiement|invoices? (?:are|is) paid)", re.I)}
+MENTION_CTX = re.compile(r"invoice|factur|supplier|vendor|fournisseur|payable|payment to|paiement|purchase order|bon de commande|accounts payable|comptes [àa] payer|remit|remise|procurement|approvisionnement|purchasing|achats", re.I)
+MENTION_NOISE = re.compile(r"copyright|dmca|infring|cookie|newsletter|donat|\bdon\b|tax receipt|re[çc]u|charitable|patient|student|[ée]tudiant|tuition|membership|adh[ée]sion|property tax|taxes fonci|parking|stationnement|utility bill|water bill|facture d['’]eau|compte de taxes|interact", re.I)
 def v2_fill(x, d, side):
     """org_extras v2 facts (schema.org JSON-LD, tel: links, portal links, page mentions) into the row's empty cells, each labelled with its page"""
     pre = "buyer_" if side == "buyer" else "vendor_"
     pg = d.get("jsonld_page") or d.get("website") or ""
     if not x.get(pre + "phone") and (d.get("jsonld_phone") or d.get("tel_links")):
-        x[pre + "phone"] = "%s (%s)" % ((d.get("jsonld_phone") or d["tel_links"].split(";")[0].strip())[:40], "schema.org JSON-LD telephone on %s" % pg if d.get("jsonld_phone") else "tel: link on the organisation's site"); n_ox[side + "_phone_v2"] += 1
+        x[pre + "phone"] = "%s (%s)" % ((d.get("jsonld_phone") or d["tel_links"].split(";")[0].strip())[:40], "schema.org JSON-LD telephone on %s" % pg if d.get("jsonld_phone") else "tel: link on %s" % (d.get("tel_links_url") or d.get("website") or "the organisation's site")); n_ox[side + "_phone_v2"] += 1
     acol = "buyer_address" if side == "buyer" else "vendor_address"
     if (not x.get(acol) or x.get(acol) in ("{}", "[]")) and d.get("jsonld_address"):
         x[acol] = "%s (schema.org JSON-LD PostalAddress on %s)" % (d["jsonld_address"][:160], pg); n_ox[side + "_address_v2"] += 1
@@ -1313,6 +1335,11 @@ def v2_fill(x, d, side):
         for k, col in (("payment_method", "buyer_payment_method_preference"), ("tax_exempt", "buyer_tax_exempt_status"), ("esignature", "buyer_esignature_preference"), ("ap_cycle", "buyer_ap_cycle_published")):
             m = (d.get("mentions") or {}).get(k)
             if m and not x.get(col):
+                # reviewer 2026-11-08: "interacting with the Sites", DMCA boilerplate — the mention must be a real term in a payables / supplier context
+                ctx = (m.get("quote") or "") + " " + (m.get("text") or "")
+                if not MENTION_STRICT[k].search(m.get("text") or "") or not MENTION_CTX.search(ctx) or MENTION_NOISE.search(ctx):
+                    n_ox[col + "_mention_rejected"] += 1
+                    continue
                 x[col] = "%s (mentioned on %s)" % (m["text"][:160], m.get("url") or "the buyer's site"); n_ox[col + "_mention"] += 1
 n_ox = collections.Counter()
 for x in rows:
@@ -1327,9 +1354,11 @@ for x in rows:
             for k, lab in (("jsonld_legal_name", "schema.org JSON-LD legalName on %s" % (b.get("jsonld_page") or "the site")), ("legal_name_stated", "stated on %s" % (b.get("legal_name_stated_url") or "the site's legal page")),
                            ("jsonld_name", "schema.org JSON-LD Organization name on %s" % (b.get("jsonld_page") or "the site"))):
                 cand = clean_legal(b.get(k) or "", x.get("buyer") or "")
-                if cand and (k != "jsonld_name" or LEGAL_FORMISH.search(cand)):
+                if cand and (k != "jsonld_name" or LEGAL_FORMISH.search(cand)) and name_overlap(cand, x.get("buyer") or "", x.get("buyer_website") or ""):
                     ln, basis = cand, lab; n_ox["buyer_legal_name_v2_" + k] += 1
                     break
+                elif cand:
+                    n_ox["buyer_legal_name_v2_rejected_no_overlap"] += 1  # reviewer 2026-11-08: "Internet Protocol", "Ville de Granby" on another body's site
         if ln:
             x["buyer_legal_name_as_published"] = ln if basis.startswith("the site's copyright") else "%s (%s)" % (ln, basis); n_ox["buyer_legal_name"] += 1
             if GENERIC_NAME.match(x.get("buyer") or "") or DOMAIN_NAME.match(x.get("buyer") or ""):
@@ -1362,7 +1391,7 @@ for x in rows:
         if not x.get("vendor_legal_name"):
             for k, lab in (("jsonld_legal_name", "schema.org JSON-LD legalName"), ("legal_name_stated", "stated on the vendor's legal page")):
                 cand = clean_legal(v.get(k) or "", x.get("vendor") or "")
-                if cand:
+                if cand and name_overlap(cand, x.get("vendor") or "", x.get("vendor_website") or ""):
                     x["vendor_legal_name"] = "%s (%s: %s)" % (cand, lab, v.get("jsonld_page") if k.startswith("jsonld") else v.get("legal_name_stated_url") or ""); n_ox["vendor_legal_name_v2"] += 1
                     break
         v2_fill(x, v, "vendor")
@@ -1911,6 +1940,14 @@ for x in rows:
     if not x.get("vendor_address") and f_.get("address"):
         x["vendor_address"] = "%s (%s; %s)" % (f_["address"], f_.get("address_label") or "", f_["address_url"]); n_ivf["address"] += 1
 print("inferred vendors' published phone / address applied:", dict(n_ivf))
+FORM_CLASS_RX = [(re.compile(r"\b(?:llp|l\.l\.p\.|lp|l\.p\.|senc|sencrl|s\.e\.n\.c\.|s\.e\.c\.|sec|partnership|soci[ée]t[ée] en nom collectif|soci[ée]t[ée] en commandite)\b", re.I), "partnership"),
+                 (re.compile(r"\b(?:inc|incorporated|incorpor[ée]e|ltd|limited|lt[ée]e|limit[ée]e|corp|corporation|ulc|llc|plc|s\.a\.|gmbh|ag|company|co|cie|compagnie)\b\.?", re.I), "corporation"),
+                 (re.compile(r"\b(?:enr|enrg|enregistr[ée]e|sole proprietor)\b", re.I), "sole proprietorship")]
+def form_class(name):
+    for rx, cls in FORM_CLASS_RX:
+        if rx.search(name or ""):
+            return cls
+    return ""
 # Canada's Business Registries (tools/registry_lookup.py → claude_registry_lookup.csv): BN, registered name, registry id, entity type, status,
 # incorporation date, registered office for vendors (and corporation-type buyers) that no other registry matched (downstream §2.1 / §3.2)
 CBR = {"vendor": {}, "buyer": {}}
@@ -1922,8 +1959,12 @@ n_cbr = collections.Counter()
 for x in rows:
     vn = x.get("vendor") or ""
     c = CBR["vendor"].get(norm(vn)) if vn and not vn.startswith("inferred") else None
+    if c and form_class(vn) and form_class(c.get("matched_name") or "") and form_class(vn) != form_class(c.get("matched_name") or ""):
+        n_cbr["vendor_skipped_legal_form"] += 1; c = None  # reviewer 2026-11-08: Smythe LLP is not Smythe Inc.
     if c:
         src = "Canada's Business Registries, %s %s, %s" % (c["registry_source"], c["juri_id"], c["retrieved_date"])
+        if re.search(r"\((?:stated on|schema\.org|as printed on the vendor's site)", x.get("vendor_legal_name") or ""):
+            x["vendor_legal_name"] = ""  # the registered name beats a name read off a page
         if c.get("bn9") and not x.get("vendor_bn9"):
             x["vendor_bn9"] = "%s (%s)" % (c["bn9"], src); x["vendor_bn_source"] = x.get("vendor_bn_source") or "registry: " + src; n_cbr["vendor_bn9"] += 1
             if not x.get("vendor_gst_hst_derived"):
@@ -1946,6 +1987,8 @@ for x in rows:
     b = CBR["buyer"].get(k) if k else None
     if b:
         src = "Canada's Business Registries, %s %s, %s" % (b["registry_source"], b["juri_id"], b["retrieved_date"])
+        if re.search(r"\((?:stated on|schema\.org|recipient legal name)", x.get("buyer_legal_name_as_published") or ""):
+            x["buyer_legal_name_as_published"] = ""  # the registered name beats a name read off a page or another dataset
         if b.get("bn9") and not x.get("buyer_bn_as_published"):
             x["buyer_bn_as_published"] = "%s (%s)" % (b["bn9"], src); n_cbr["buyer_bn"] += 1
             if not x.get("buyer_gst_hst_derived"):
@@ -1960,8 +2003,12 @@ print("Canada's Business Registries: %d vendors, %d buyers found; filled %s" % (
 GCR = {"vendor": {}, "buyer": {}}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_gc_recipients.csv"):
     for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_gc_recipients.csv", encoding="utf-8", errors="replace")):
-        if _r.get("bn9"):
-            GCR[_r["kind"]][_r["key"] if _r["kind"] == "buyer" else norm(_r["key"])] = _r
+        _bn = _r.get("bn9") or ""
+        if not _bn or _bn in ("999999999", "000000000", "123456789") or re.fullmatch(r"(\d)\1{8}", _bn):
+            continue  # placeholder numbers (reviewer 2026-11-08)
+        if re.match(r"^[A-Z][A-Za-zÀ-ÿ'’\- ]{1,40},\s*[A-Z][A-Za-zÀ-ÿ'’\-]{1,30}(?:\s+[A-Z]\.?)?$", _r.get("matched_name") or "") or (_r.get("recipient_type") or "").upper() in ("P", "I"):
+            continue  # an individual ("Surname, Given"): never an organisation's BN or legal name
+        GCR[_r["kind"]][_r["key"] if _r["kind"] == "buyer" else norm(_r["key"])] = _r
 n_gcr = collections.Counter()
 for x in rows:
     k = (x.get("keys") or "").split("|")[0]
@@ -2388,7 +2435,8 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
-                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id", "buyer_bn_note"]), ("vendor_website_status", ["vendor_website_basis", "vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
+                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id", "buyer_bn_note"]),
+                   ("all_references_with_this_vendor", ["contract_value_from_pair", "start_date_from_pair", "end_date_from_pair", "contract_title_from_pair", "contract_description_from_pair", "instrument_type_from_pair", "procurement_method_from_pair", "number_of_bids_from_pair", "po_number_as_published_from_pair", "contract_or_agreement_number_from_pair", "solicitation_or_tender_number_from_pair", "award_or_notice_id_from_pair", "buyer_vendor_id_from_pair", "commodity_codes_from_pair", "buyer_org_codes_from_pair"]), ("vendor_website_status", ["vendor_website_basis", "vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
                    ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
     if after in cols:

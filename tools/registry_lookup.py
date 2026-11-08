@@ -24,7 +24,18 @@ TODAY = datetime.date.today().isoformat()
 COLS = ["kind", "key", "name", "status", "matched_name", "bn9", "juri_id", "registry_source", "mras_id", "entity_type", "status_state", "status_notes", "date_incorporated",
         "reg_office_city", "reg_office_province", "alternate_names", "candidates", "match_basis", "api_url", "ui_url", "retrieved_date", "source_quote"]
 LEGAL = {"inc", "incorporated", "incorporee", "incorporée", "ltd", "limited", "ltee", "ltée", "limitee", "limitée", "corp", "corporation", "co", "company", "cie", "compagnie", "llc", "llp", "lp",
-         "enr", "enrg", "senc", "sencrl", "sec", "ulc", "plc", "the", "la", "le", "les", "l", "d", "de", "du", "des", "and", "et", "&", "of", "a"}
+         "enr", "enrg", "senc", "sencrl", "sec", "ulc", "plc", "the", "la", "le", "les", "de", "du", "des", "and", "et", "&", "of"}  # single letters stay: "A.J. Stone" is not "J L Stone"
+# legal-form class: a partnership (LLP / LP / SENC / SENCRL / s.e.c.) is never the corporation of the same name (Smythe LLP ≠ Smythe Inc.; MNP LLP ≠ MNP Ltd.)
+FORM_CLASS = [(re.compile(r"\b(?:llp|l\.l\.p\.|lp|l\.p\.|senc|sencrl|s\.e\.n\.c\.|s\.e\.c\.|sec|partnership|soci[ée]t[ée] en nom collectif|soci[ée]t[ée] en commandite)\b", re.I), "partnership"),
+              (re.compile(r"\b(?:inc|incorporated|incorpor[ée]e|ltd|limited|lt[ée]e|limit[ée]e|corp|corporation|ulc|llc|plc|s\.a\.|gmbh|ag|company|co|cie|compagnie)\b\.?", re.I), "corporation"),
+              (re.compile(r"\b(?:enr|enrg|enregistr[ée]e|sole proprietor)\b", re.I), "sole proprietorship")]
+
+
+def form_class(name):
+    for rx, cls in FORM_CLASS:
+        if rx.search(name or ""):
+            return cls
+    return ""
 PROV = {"alberta": "AB", "british columbia": "BC", "colombie-britannique": "BC", "manitoba": "MB", "new brunswick": "NB", "nouveau-brunswick": "NB", "newfoundland and labrador": "NL", "newfoundland": "NL",
         "terre-neuve-et-labrador": "NL", "nova scotia": "NS", "nouvelle-ecosse": "NS", "nouvelle-écosse": "NS", "northwest territories": "NT", "nunavut": "NU", "ontario": "ON", "prince edward island": "PE",
         "ile-du-prince-edouard": "PE", "quebec": "QC", "québec": "QC", "saskatchewan": "SK", "yukon": "YT", "federal": "FED", "canada": "FED", "cc": "FED"}
@@ -86,6 +97,13 @@ def pick(name, docs, prov_hint):
     basis = "registered name equals the vendor's name" if exact else ("registered name equals the vendor's name (spacing differs)" if strong else "")
     if not cands:
         return None, "no registered name equals this name", docs[:3] if docs else []
+    fc = form_class(name)
+    if fc:  # both names carry a legal form: the classes must agree (Smythe LLP is not Smythe Inc.)
+        kept = [d for d in cands if not form_class(d.get("Company_Name") or "") or form_class(d.get("Company_Name") or "") == fc]
+        if not kept:
+            return None, "the registered entity of this name has a different legal form (%s vs %s)" % (fc, "/".join(sorted({form_class(d.get("Company_Name") or "") for d in cands}))), cands[:3]
+        cands = kept
+        basis += "; same legal form (%s)" % fc
     if len(cands) > 1:
         home = [d for d in cands if (d.get("XP_TYPE") or "").upper() == "HJ"]  # the home-jurisdiction record; the others are extra-provincial registrations of the same body
         if len(home) == 1:
@@ -99,7 +117,14 @@ def pick(name, docs, prov_hint):
         if len(bns) == 1 and bns != {None}:
             return cands[0], basis + "; the same Business Number in every matching registry", cands
         return None, "ambiguous: %d registered entities carry this name in different jurisdictions" % len(cands), cands
-    return cands[0], basis, cands
+    d = cands[0]
+    if prov_hint and pcode(d.get("Reg_office_province")) and pcode(d.get("Reg_office_province")) != prov_hint and (d.get("XP_TYPE") or "").upper() == "HJ":
+        return None, "the only registered entity of this name is in %s; the vendor's address says %s" % (d.get("Reg_office_province"), prov_hint), cands
+    if not prov_hint:
+        basis += "; no province known for the vendor, so not checked"
+    elif pcode(d.get("Reg_office_province")) == prov_hint:
+        basis += "; registered-office province agrees with the vendor's address"
+    return d, basis, cands
 
 
 def main():

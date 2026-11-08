@@ -20,7 +20,7 @@ and a ≤300-char quote per fact.
   --refresh re-reads domains whose record predates v2 or failed on a redirect / network error (old facts are kept when the new read fails).
 """
 V = 2
-import argparse, csv, gzip, html, json, os, re, sys, threading, time, urllib.parse
+import argparse, csv, gzip, html, json, os, re, sys, threading, time, unicodedata, urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -89,10 +89,13 @@ PORTALS = [("ariba.com", "SAP Ariba", "e-procurement / e-invoicing"), ("coupa.co
            ("billtrust", "Billtrust", "e-invoicing"), ("tipalti", "Tipalti", "supplier payments"), ("oraclecloud.com", "Oracle Fusion Cloud (supplier portal)", "e-procurement"), ("myworkday.com", "Workday", "e-procurement / supplier portal"), ("workday.com", "Workday", "e-procurement / supplier portal"), ("sap.com/business-network", "SAP Business Network", "e-invoicing"),
            ("peoplesoft", "PeopleSoft", "finance system"), ("unit4", "Unit4", "finance system"), ("bidsandtenders.ca", "bids&tenders", "e-tendering"), ("docusign", "DocuSign", "e-signature"), ("adobesign", "Adobe Sign", "e-signature"), ("echosign", "Adobe Sign", "e-signature"), ("hellosign", "Dropbox Sign", "e-signature"), ("consigno", "ConsignO", "e-signature"),
            ("yardi", "Yardi", "finance system"), ("vendorcafe", "Yardi VendorCafe", "supplier portal"), ("nexonia", "Nexonia", "finance system"), ("supplier.", "supplier portal", "supplier portal"), ("vendorportal", "vendor portal", "supplier portal"), ("fournisseurs.", "portail fournisseurs", "supplier portal")]
-MENTIONS = {"payment_method": re.compile(r"((?:direct deposit|d[ée]p[ôo]t direct|electronic funds transfer|\bEFT\b|\bACH\b|virement(?: bancaire| [ée]lectronique)?|e-?transfer|Interac|paid by cheque|payment by cheque|par ch[èe]que|credit card payments?|P-?card|wire transfer)[^.\n]{0,80})", re.I),
+MENTIONS = {"payment_method": re.compile(r"((?:direct deposit|d[ée]p[ôo]t direct|electronic funds transfer|\bEFT\b|\bACH\b|virement(?: bancaire| [ée]lectronique)?|e-?transfer|\bInterac\b(?!t)|paid by cheque|payment by cheque|par ch[èe]que|credit card payments?|\bP-?card\b|wire transfer)[^.\n]{0,80})", re.I),
             "tax_exempt": re.compile(r"((?:tax[- ]exempt(?:ion)?|exempt from (?:GST|HST|PST|sales tax|the goods and services tax)|exon[ée]r[ée]e?s? de (?:la )?(?:TPS|TVQ|TVH|taxe)|HST rebate|GST rebate|PST exempt|exemption de taxe|municipal rebate)[^.\n]{0,80})", re.I),
             "esignature": re.compile(r"((?:DocuSign|Adobe Sign|AdobeSign|electronic signatures?|digital signatures?|signatures? [ée]lectroniques?|signatures? num[ée]riques?|e-?signatures?)[^.\n]{0,80})", re.I),
             "ap_cycle": re.compile(r"((?:cheque runs?|payment runs?|payments? (?:are|is) (?:issued|processed|made|released) (?:weekly|bi-?weekly|every|on|twice|once|within)|paiements? (?:sont )?(?:[ée]mis|effectu[ée]s|trait[ée]s) (?:chaque|toutes? les|le|hebdomadaire)|cycle de paiement|invoices? (?:are|is) paid (?:within|net|on|in))[^.\n]{0,80})", re.I)}
+# a mention counts only in an accounts-payable / supplier context, never in site boilerplate (cookies, DMCA, donations, newsletters)
+MENTION_CONTEXT = re.compile(r"invoice|factur|supplier|vendor|fournisseur|payable|payment to|paiement|purchase order|bon de commande|accounts payable|comptes [àa] payer|remit|remise|procurement|approvisionnement|purchasing|achats", re.I)
+MENTION_NOISE = re.compile(r"copyright|dmca|infring|cookie|newsletter|donat|don\b|tax receipt|re[çc]u|charitable|patient|student|[ée]tudiant|tuition|membership|adh[ée]sion|property tax|taxes fonci|parking|stationnement|utility bill|water bill|facture d['’]eau|compte de taxes", re.I)
 TEL_HREF = re.compile(r"(?i)href\s*=\s*[\"']tel:([^\"']{7,30})[\"']")
 ICON = re.compile(r"(?is)<link[^>]+rel\s*=\s*[\"'](?:apple-touch-icon(?:-precomposed)?|icon|shortcut icon)[\"'][^>]*>")
 HREF = re.compile(r"(?is)href\s*=\s*[\"']([^\"']+)[\"']")
@@ -247,7 +250,7 @@ def legal_name_text(text, host, name):
             cands.append((1, seg[start:].strip()))
     for m in PUBLIC_BODY.finditer(text):
         cands.append((2, m.group(1)))
-    core = {t for t in re.findall(r"[a-z0-9]{3,}", (name or "").lower()) if t not in ("the", "and", "inc", "ltd", "city", "town", "ville", "corporation", "limited", "des", "les", "municipality", "county")}
+    core = {t for t in re.findall(r"[a-z0-9]{3,}", unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().lower()) if t not in ("the", "and", "inc", "ltd", "city", "town", "ville", "corporation", "limited", "des", "les", "municipality", "county", "canada", "group", "groupe", "ltee", "corp", "company")}
     out = []
     for rank, c in cands:
         c = flat(c).strip(" .,;:-–—|«»\"“”'")
@@ -256,9 +259,12 @@ def legal_name_text(text, host, name):
             continue
         if rank < 2 and not (LEGAL_FORM_NAME.search(c + " ") or PUBLIC_BODY.search(c) or LEGAL_TAIL.search(c) or (len(c.split()) >= 2 and c[0].isupper() and sum(w[0].isupper() for w in c.split()) >= 2)):
             continue  # "operated by our team" / "between you and us"
-        toks = set(re.findall(r"[a-z0-9]{3,}", c.lower()))
-        hit = bool(core & toks) or (host and any(t in host.replace("-", "") for t in toks if len(t) >= 5))
-        out.append((0 if hit else 1, rank, len(c), c))
+        toks = set(re.findall(r"[a-z0-9]{3,}", unicodedata.normalize("NFKD", c).encode("ascii", "ignore").decode().lower()))
+        hostc = unicodedata.normalize("NFKD", host or "").encode("ascii", "ignore").decode().lower().replace("-", "").replace("www.", "")
+        hit = bool(core & toks) or (hostc and any(t in hostc for t in toks if len(t) >= 4 and t not in ("city", "town", "ville", "county", "canada", "ontario", "quebec", "group", "groupe")))
+        if not hit:
+            continue  # a defined term, another body named on the page ("Ville de Granby" on Waterloo's site), a law ("PIPEDA"): not this organisation
+        out.append((0, rank, len(c), c))
     if not out:
         return ""
     out.sort()
@@ -314,9 +320,11 @@ def mentions_from(pages):
         for key, rx in MENTIONS.items():
             if key in out:
                 continue
-            m = rx.search(text)
-            if m:
-                out[key] = {"text": flat(m.group(1))[:160], "url": url, "quote": quote_at(text, m.group(1)[:60])}
+            for m in rx.finditer(text):
+                ctx = text[max(0, m.start() - 250):m.end() + 250]
+                if MENTION_CONTEXT.search(ctx) and not MENTION_NOISE.search(ctx):
+                    out[key] = {"text": flat(m.group(1))[:160], "url": url, "quote": quote_at(text, m.group(1)[:60])}
+                    break
     return out
 
 
@@ -374,10 +382,11 @@ def read_site(site, kind, name="", start_url=""):
     li = next((m.group(0) for _, raw in pages for m in LINKEDIN.finditer(raw)), "")
     if li:
         res["linkedin_url"] = li[:160]
-    tels = [html.unescape(urllib.parse.unquote(m.group(1))).strip() for _, raw in pages for m in TEL_HREF.finditer(raw)]
-    tels = [t for t in tels if len(re.sub(r"\D", "", t)) >= 10]
+    tels = [(html.unescape(urllib.parse.unquote(m.group(1))).strip(), u) for u, raw in pages for m in TEL_HREF.finditer(raw)]
+    tels = [(t, u) for t, u in tels if len(re.sub(r"\D", "", t)) >= 10]
     if tels:
-        res["tel_links"] = "; ".join(dict.fromkeys(tels))[:120]
+        res["tel_links"] = "; ".join(dict.fromkeys(t for t, _ in tels))[:120]
+        res["tel_links_url"] = tels[0][1]
     m = LANG.search(raw0)
     lang = (m.group(1).lower() if m else "")
     t0 = visible_keep_lines(raw0)

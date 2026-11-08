@@ -15,7 +15,7 @@ from org_contacts import strip_long, visible_keep_lines, flat
 
 TODAY = datetime.date.today().isoformat()
 COLS = ["vendor_key", "vendor_name", "website", "check_status", "evidence_url", "evidence_quote", "name_tokens_seen", "retrieved_date", "proposed_by"]
-STOP = {"inc", "incorporated", "ltd", "limited", "ltee", "ltée", "corp", "corporation", "co", "company", "llc", "llp", "lp", "the", "and", "of", "de", "du", "des", "la", "le", "les", "et", "group", "groupe", "canada", "international", "services", "service", "solutions", "consulting", "t/a", "dba", "o/a"}
+STOP = {"inc", "incorporated", "ltd", "limited", "ltee", "ltée", "corp", "corporation", "co", "company", "llc", "llp", "lp", "the", "and", "of", "de", "du", "des", "la", "le", "les", "et", "group", "groupe", "canada", "international", "services", "service", "solutions", "consulting", "t/a", "dba", "o/a", "doing", "business", "as", "l.p", "s.e.n.c.r.l", "sencrl", "senc"}
 DIRECTORY = re.compile(r"opencorporates|zoominfo|dnb\.com|linkedin|facebook|yellowpages|canada411|bloomberg|crunchbase|glassdoor|indeed|merx|biddingo|bidsandtenders|sedar|wikipedia|yelp|bbb\.org|manta\.com|cylex|hotfrog|\.gov\b|\.gc\.ca|\.gouv\.qc\.ca|instagram|twitter|x\.com|youtube", re.I)
 
 
@@ -62,21 +62,31 @@ def main():
                 n["directory"] += 1; continue
             want = toks(name)
             best = None
-            for u in dict.fromkeys([site, (r.get("evidence_url") or "").strip()]):
-                if not u.startswith("http"):
-                    continue
+            site_host = (urllib.parse.urlparse(site).hostname or "").lower().removeprefix("www.")
+            pages = [site]
+            ev = (r.get("evidence_url") or "").strip()
+            if ev.startswith("http") and (urllib.parse.urlparse(ev).hostname or "").lower().removeprefix("www.").endswith(site_host.split(".", 1)[-1] if site_host.count(".") > 1 else site_host):
+                pages.append(ev)  # only pages on the proposed site itself: a press release or directory on another host proves nothing about this site
+            pages += [urllib.parse.urljoin(site, p) for p in ("about", "about-us", "contact", "contact-us", "a-propos", "nous-joindre")]
+            for u in dict.fromkeys(pages):
                 st, text, final = read(u)
                 if st != "ok":
                     best = best or (st, u, "", [])
                     continue
+                fh = (urllib.parse.urlparse(final or u).hostname or "").lower().removeprefix("www.")
+                if not (fh == site_host or fh.endswith("." + site_host) or site_host.endswith("." + fh)):
+                    continue  # redirected off the proposed site
                 low = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode().lower()
-                seen = [t for t in want if t in low]
-                core_ok = len(seen) >= max(1, (len(want) + 1) // 2) and (not want or seen[0] == want[0] or len(seen) >= 2)
+                seen = [t for t in want if re.search(r"\b" + re.escape(t) + r"\b", low)]  # whole words only ("mda" must not match "amdahl")
+                exact = bool(want) and re.search(r"\b" + r"\W{0,3}".join(re.escape(t) for t in want) + r"\b", low) is not None
+                core_ok = exact or (len(want) >= 2 and len(seen) >= 2 and seen[0] == want[0]) or (len(want) == 1 and seen and len(want[0]) >= 5)
                 if core_ok:
                     i = low.find(seen[0]) if seen else -1
                     q = flat(text[max(0, i - 120):i + 180])[:300] if i >= 0 else ""
                     best = ("confirmed", final or u, q, seen); break
                 best = ("name_not_on_site", final or u, "", seen)
+                if u == site and len(pages) > 1:
+                    continue
             st, eu, q, seen = best or ("unreadable", site, "", [])
             prev[key] = {"vendor_key": key, "vendor_name": name, "website": site if st == "confirmed" else "", "check_status": st, "evidence_url": eu if st == "confirmed" else "", "evidence_quote": q, "name_tokens_seen": " ".join(seen), "retrieved_date": TODAY, "proposed_by": os.path.basename(path)}
             n[st if st in n else "unreadable"] += 1

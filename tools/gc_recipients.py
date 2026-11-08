@@ -85,9 +85,14 @@ def main():
             cols = list(r.keys()); print("columns:", cols[:40], flush=True)
         n += 1
         bn = (r.get("recipient_business_number") or "").strip()
-        if not bn or not re.search(r"\d{9}", bn):
-            continue
-        names = {r.get("recipient_legal_name"), r.get("recipient_operating_name")}
+        bn9 = re.sub(r"\D", "", bn)[:9]
+        if not bn or len(bn9) < 9 or bn9 in ("999999999", "000000000", "123456789") or re.fullmatch(r"(\d)\1{8}", bn9):
+            continue  # placeholder numbers departments key when the recipient has no BN (reviewer 2026-11-08: 999999999 on 22 rows)
+        rtype = (r.get("recipient_type") or "").strip().upper()
+        legal = (r.get("recipient_legal_name") or "").strip()
+        if rtype in ("P", "I") or re.match(r"^[A-Z][A-Za-zÀ-ÿ'’\- ]{1,40},\s*[A-Z][A-Za-zÀ-ÿ'’\-]{1,30}(?:\s+[A-Z]\.?)?$", legal):
+            continue  # individuals (recipient_type P = person; "Surname, Given"): never a buyer or vendor organisation
+        names = {legal, r.get("recipient_operating_name")}
         for nm in names:
             k = norm(nm)
             if len(k) < 4:
@@ -110,7 +115,9 @@ def main():
             key = (x.get("keys") or "").split("|")[0]
             cands = []
             if not (x.get("buyer_bn_as_published") or "").strip() and key and ("buyer", key) not in seen:
-                cands.append(("buyer", key, [x.get("buyer"), (x.get("buyer_legal_name_as_published") or "").split(" (")[0]], prov_of(x.get("jurisdiction") or "", x.get("buyer_address") or "")))
+                bl = x.get("buyer_legal_name_as_published") or ""
+                bl = bl.split(" (")[0] if bl and not re.search(r"\((?:stated on|schema\.org|recipient legal name|as registered)", bl) else ""  # never match on a name that was itself inferred from a page or another dataset
+                cands.append(("buyer", key, [x.get("buyer"), bl], prov_of(x.get("jurisdiction") or "", x.get("buyer_address") or "")))
             v = (x.get("vendor") or "").strip()
             if v and not v.startswith("inferred") and not (x.get("vendor_bn9") or "").strip() and ("vendor", v) not in seen:
                 cands.append(("vendor", v, [v, (x.get("vendor_legal_name") or "").split(" (")[0]], prov_of(x.get("vendor_address") or "", x.get("vendor_registered_address") or "", x.get("vendor_country_basis") or "")))
@@ -141,7 +148,7 @@ def main():
                 out_rows.append({"kind": kind, "key": k, "name": names[0], "matched_name": r.get("recipient_legal_name") or r.get("recipient_operating_name") or "", "bn_as_published": bn, "bn9": re.sub(r"\D", "", bn)[:9],
                                  "province": r.get("recipient_province") or "", "city": r.get("recipient_city") or "", "postal_code": r.get("recipient_postal_code") or "", "recipient_type": r.get("recipient_type") or "",
                                  "agreements": e["n"], "last_agreement_date": e["last"], "last_agreement_title": e["title"],
-                                 "match_basis": "recipient name equals the organisation's name" + ("; province agrees" if prov else ""), "source_url": url, "retrieved_date": TODAY,
+                                 "match_basis": "recipient name equals the organisation's name" + ("; province agrees" if prov and bp else ("; recipient province blank, not checked" if prov else "; no province known for the organisation, not checked")), "source_url": url, "retrieved_date": TODAY,
                                  "source_quote": ("%s; %s; %s %s; %s %s" % (r.get("recipient_legal_name") or "", bn, r.get("recipient_city") or "", r.get("recipient_province") or "", e["last"], e["title"]))[:300]})
     out = os.path.join(a.repo, "data/incoming/claude/claude_gc_recipients.csv")
     with open(out, "w", newline="", encoding="utf-8") as f:
