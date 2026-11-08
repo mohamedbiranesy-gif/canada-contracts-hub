@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T15:55Z",
+ "updated": "2026-11-08T16:20Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -66,6 +66,12 @@
    "method": "vendor_sites_check.py confirms by reading the site: claude_vendor_sites.csv check_status counts; rank fills vendor_website only for 'confirmed'",
    "status": "passing in build 15:48Z: 39 confirmed sites applied to 236 rows; batch b +5 confirmed; batch c (99 proposals) under check",
    "rerun": "python3 tools/vendor_sites_check.py --in ~/cch-tasks/vsp/*.tsv"
+  },
+  {
+   "deliverable": "fresh-eyes review (reviewer had not seen the conversation) \u2014 2026-11-08 16:1xZ",
+   "method": "independent subagent reviewed today's code and 12 cells against PLAN/PROTOCOL/AGENTS \u00a72; verdict FIX FIRST; every HIGH/MEDIUM finding has a code change (commit 'fixes from the fresh-eyes review') and a re-run",
+   "status": "fixed in code; re-runs on the Mac: registry lookups (found entries re-queued under the stricter rule), gc_recipients, vendor_sites_check (all batches, host-only); next build will show 'now (values)' vs 'any (incl. labels)'. Findings: (1) page-stated legal names without token overlap ('Internet Protocol', 'Ville de Granby') \u2192 overlap required, registry name wins; (2) registry BN of a different legal form (Smythe LLP\u2192Smythe Inc.) \u2192 same-class rule, single letters kept, province checked; (3) G&C placeholder BNs 999999999 and individuals ('Le, Lawrence') \u2192 dropped; (4) 'Interac' matched 'interacting' \u2192 word boundaries + payables context; (5) scoreboard counted labels \u2192 values only, labels shown separately; (6) submitted price unlabelled \u2192 labelled, CAD default labelled; (7) vendor sites confirmed via other hosts \u2192 host-only, whole words; (8) same-pair facts in main columns \u2192 *_from_pair; (9) AP contact-person docs/code mismatch \u2192 resolved by the owner's 10:59 instruction (allowed), docs updated. LOW (robots re-check after redirect; audit check for provenance) \u2192 follow-ups in STATE.md",
+   "rerun": "python3 tools/coverage_targets.py \u2026; spot-check: Smythe LLP / MNP LLP rows must carry no Smythe Inc. / MNP Ltd. BN; no buyer_bn_as_published = 999999999; no buyer_legal_name 'Internet Protocol'"
   }
  ]
 }
