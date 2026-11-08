@@ -1861,6 +1861,23 @@ for x in rows:
         x["vendor_gst_hst_derived"] = "%sRT0001 (%s)" % (c["bn9"], c["program_account_as_printed"])
         x["vendor_bn_source"] = x.get("vendor_bn_source") or "printed on the organisation's own page (%s)" % c["url"]; n_cr += 1
 print("crown-corporation BNs applied to inferred-vendor rows:", n_cr)
+# inferred vendors' own published phone / address (claude_inferred_vendor_facts.csv: pages opened on the Crown corporation's site, quoted) → P13 rows
+IVF = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_inferred_vendor_facts.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_inferred_vendor_facts.csv", encoding="utf-8")):
+        IVF[norm(_r["vendor"])] = _r
+n_ivf = collections.Counter()
+for x in rows:
+    vn = x.get("vendor") or ""
+    f_ = IVF.get(norm(vn.replace("inferred: ", ""))) if vn.startswith("inferred") else None
+    if not f_:
+        continue
+    if not x.get("vendor_phone") and f_.get("phone"):
+        x["vendor_phone"] = "%s (%s; %s)" % (f_["phone"], f_.get("phone_label") or "", f_["phone_url"]); n_ivf["phone"] += 1
+        x["vendor_contact_evidence_url"] = x.get("vendor_contact_evidence_url") or f_["phone_url"]
+    if not x.get("vendor_address") and f_.get("address"):
+        x["vendor_address"] = "%s (%s; %s)" % (f_["address"], f_.get("address_label") or "", f_["address_url"]); n_ivf["address"] += 1
+print("inferred vendors' published phone / address applied:", dict(n_ivf))
 # Canada's Business Registries (tools/registry_lookup.py → claude_registry_lookup.csv): BN, registered name, registry id, entity type, status,
 # incorporation date, registered office for vendors (and corporation-type buyers) that no other registry matched (downstream §2.1 / §3.2)
 CBR = {"vendor": {}, "buyer": {}}
