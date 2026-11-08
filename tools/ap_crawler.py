@@ -48,8 +48,43 @@ GENERAL = re.compile(r"^(info|contact|contactus|reception|admin|administration|g
 TODAY = datetime.date.today().isoformat()
 
 host_lock, host_next, robots = threading.Lock(), {}, {}
+HOST_INTERVAL = 1.0  # seconds between two requests to one host in this process (other engines may read the same host: ap_walk uses 2.0)
 out_lock, state_lock = threading.Lock(), threading.Lock()
 stats = {"sites": 0, "pages": 0, "found_sites": 0, "rows": 0, "blocked": 0}
+# 2026-11-08 (downstream §4): the AP / supplier / purchasing pages (and PDFs) a crawl reads are kept per buyer, so tools/ap_terms.py --urls
+# can extract payment terms, PO rules, portals, invoice addresses from them even when the page shows no mailbox
+AP_PAGES = {}
+AP_PAGE_RX = re.compile(r"(?<!manu)factur|invoice|payable|comptes?[-_ ]?(a|à)[-_ ]?payer|accounts?[-_ ]?pay|e-?invoic|fournisseur|supplier|vendor|approvisionnement|purchas|procure|achats?\b|"
+                        r"doing[-_ ]business|business[-_ ]with|terms[-_ ]and[-_ ]conditions|conditions[-_ ]g[ée]n[ée]rales|payment|paiement|tender|bid|appels?[-_ ]d", re.I)
+AP_TEXT_RX = re.compile(r"payment terms|net \d{2}|within \d{2} days|purchase order|bon de commande|conditions de paiement|modalit[ée]s de paiement|accounts payable|comptes [àa] payer|submit (?:your )?invoices?|"
+                        r"soumettre (?:vos |les )?factures?|invoice[s]? (?:must|should|are to)|supplier portal|portail (?:des )?fournisseurs|vendor registration|inscription des fournisseurs|direct deposit|d[ée]p[ôo]t direct", re.I)
+AP_PAGES_FILE = os.path.join(STATE, "ap_pages_seen.csv")
+
+
+def note_ap_page(buyer_key, buyer_name, site, url, text, is_doc):
+    """remember an AP-relevant page of this buyer's site (URL words or page text), at most 10 per site"""
+    if not buyer_key:
+        return
+    if not (AP_PAGE_RX.search(urllib.parse.urlparse(url).path) or AP_TEXT_RX.search(text[:60000])):
+        return
+    with out_lock:
+        lst = AP_PAGES.setdefault(buyer_key, [])
+        if len(lst) < 10 and url not in [u for u, _ in lst]:
+            lst.append((url, "document" if is_doc else "page"))
+
+
+def flush_ap_pages(buyer_key, buyer_name, site):
+    with out_lock:
+        lst = AP_PAGES.pop(buyer_key, [])
+        if not lst:
+            return
+        new = not os.path.exists(AP_PAGES_FILE)
+        with open(AP_PAGES_FILE, "a", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            if new:
+                w.writerow(["buyer_key", "buyer_name", "website", "official_site", "url", "kind", "date"])
+            for u, k in lst:
+                w.writerow([buyer_key, buyer_name, site, site, u, k, TODAY])
 
 
 def log(*a):
@@ -63,7 +98,7 @@ def fetch(url, limit=6_000_000, _hops=0):
         with host_lock:
             wait = host_next.get(host, 0) - time.time()
             if wait <= 0:
-                host_next[host] = time.time() + 1.0
+                host_next[host] = time.time() + HOST_INTERVAL
                 break
         time.sleep(min(wait, 1.0))
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "fr-CA,fr;q=0.9,en;q=0.8"})
@@ -409,6 +444,7 @@ def crawl(task, max_pages, general=False):
         raw = pdf_text(data) if is_pdf else office_text(data) if is_office else html.unescape(data.decode("utf-8", "replace"))
         is_pdf = is_pdf or is_office  # documents: no links to follow
         text = re.sub(r"\s+", " ", raw) if is_pdf else visible(raw)
+        note_ap_page(task.get("buyer_key", ""), task.get("buyer_name", ""), task["known_website"], final, text, is_pdf)
         vis = set(x.lower().rstrip(".") for x in EMAIL_RX.findall(text))
         for e in set(x.lower().rstrip(".") for x in EMAIL_RX.findall(raw)):
             if e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp") or e in found:
@@ -500,6 +536,7 @@ def load_done():
 
 
 def save(task, pass_no, result, pages, rows):
+    flush_ap_pages(task.get("buyer_key", ""), task.get("buyer_name", ""), task.get("known_website", ""))
     with out_lock:
         new = not os.path.exists(OUT)
         os.makedirs(os.path.dirname(OUT), exist_ok=True)
