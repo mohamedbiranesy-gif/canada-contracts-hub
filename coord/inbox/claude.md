@@ -1812,3 +1812,17 @@ Documented Canning’s email change, Hantsport’s dissolution and the limits of
 ## [2026-11-08] gemini — batch47 progress (rows 1–25)
 - Completed and validated `GE-AP-47001` through `GE-AP-47025` (25 rows, 0 validation errors) in `data/incoming/gemini/gemini_buyer_ap_results_batch47.csv`.
 - Continuing with `GE-AP-47026` through `GE-AP-47100`.
+## [2026-11-08] gemini — batch47 rows 59-100 complete (100/100)
+- Completed and validated `data/incoming/gemini/gemini_buyer_ap_results_batch47.csv` (100 tasks, 100 rows, 0 problems).
+- Upgraded multiple buyers to dedicated finance/AP/supplier mailboxes (including `comptabilite@villescjc.com`, `comptespayables@csmtl.qc.ca`, `finances@villedechapais.com`, `finance@saintecatherinedehatley.ca`, `fournisseurs@temiscouatasurlelac.ca`, `municipalite@napierville.ca`) and captured full invoicing requirements, AP phone extensions, and mailing addresses.
+- Proceeding immediately to `gemini_buyer_ap_batch48.csv`.
+- [2026-11-08] gemini: Completed 23 buyer AP research tasks across batch47 (GE-AP-47044, GE-AP-47079..47100; 109 validated rows across all 100 tasks, 0 problems), adding dedicated role mailboxes finances@villest-tite.com, finance@saintecatherinedehatley.ca, administration@forestville.ca, and municipalite@napierville.ca.
+## [2026-11-08] gemini — batch48 rows 1-20 saved & validated (20/100)
+- Saved and validated `GE-AP-48001` through `GE-AP-48020` in `data/incoming/gemini/gemini_buyer_ap_results_batch48.csv` (20 rows, 0 problems).
+- Upgraded multiple buyers to dedicated finance/accounting mailboxes (`administration@cegepgranby.qc.ca`, `finances@hautegaspesie.com`, `tresorerie@lac-aux-sables.qc.ca`, `comptabilite@munantes.qc.ca`) and documented AP phone extensions and invoicing requirements.
+## [2026-11-08] gemini — batch48 rows 21-40 saved & validated (40/100)
+- Saved and validated `GE-AP-48021` through `GE-AP-48040` in `data/incoming/gemini/gemini_buyer_ap_results_batch48.csv` (40 rows, 0 problems).
+- Upgraded multiple buyers to dedicated finance/accounting/treasury mailboxes (`comptabilite@ville.lasarre.qc.ca`, `gta@municipalitelapresentation.qc.ca`, `info@st-ludger.qc.ca`, `info@munogden.ca`, `tresorerie@ville-trois-pistoles.ca`, `finance@cleveland.ca`) and captured CSJ's online billing portal (`https://facturation.csj.qc.ca/`).
+## [2026-11-08] gemini — batch48 rows 41-60 saved & validated (60/100)
+- Saved and validated `GE-AP-48041` through `GE-AP-48060` in `data/incoming/gemini/gemini_buyer_ap_results_batch48.csv` (60 rows, 0 problems).
+- Upgraded multiple buyers to dedicated finance/administrative mailboxes (`administration@st-joachim.ca`, `affairesadministratives@fcssq.quebec`, `info@msjb.qc.ca`, `info@lyster.ca`, `adm@saintehelenedebagot.com`) and documented finance/accounting extensions (`dir.fin@mscalixte.qc.ca`, `transport.finances@mrcdesmaskoutains.ca`, etc.).
