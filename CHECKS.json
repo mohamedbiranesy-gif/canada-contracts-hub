@@ -1,0 +1,12 @@
+{
+  "updated": "2026-11-08",
+  "checks": [
+    {"deliverable": "coverage scoreboard in every build", "method": "SUMMARY.md of the latest build prints 'benchmarks met N / 438'; COVERAGE_VS_TARGETS.md present", "status": "passing (Mac run 2026-11-08: 57/438)", "rerun": "gh api -X POST repos/mohamedbiranesy-gif/canada-contracts-hub/actions/workflows/rank-buyers.yml/dispatches -f ref=main; then: git show origin/main:coord/results/ranked/SUMMARY.md | grep benchmarks"},
+    {"deliverable": "fetch follows 308 redirects", "method": "re-read of previously http_308 domains returns status 200 in org_extras --refresh log", "status": "not started", "rerun": "grep -c 'http_308' ~/cch-crawler-state/org_extras_refresh.log"},
+    {"deliverable": "org_extras v2 extractors", "method": "unit run on 5 known sites (calgary.ca, mcmaster.ca, ville.quebec.qc.ca, a .com vendor, a canada.ca department) prints legal_name / phone / address / logo; next build's buyer_legal_name_as_published P01 Gold > 41.2%", "status": "not started", "rerun": "python3 tools/org_extras.py --test calgary.ca mcmaster.ca"},
+    {"deliverable": "rank same-pair fill + currency default", "method": "rank.log prints 'same-pair fill: {...}' counts; contract_value P01 Gold in COVERAGE_VS_TARGETS.md > 65.0%; VALIDATION 7/7; AUDIT PASS", "status": "not started", "rerun": "python3 contrib/claude/rank_buyers/rank.py | grep same-pair"},
+    {"deliverable": "integrity gates", "method": "VALIDATION.md all gates pass, AUDIT.md PASS, Gold not lower than previous build without CHANGELOG reason", "status": "passing (13:56Z build: 7/7, PASS, Gold 585)", "rerun": "git show origin/main:coord/results/ranked/VALIDATION.md | head -20"},
+    {"deliverable": "Mac engines alive", "method": "ps shows push_loop, sync_loop, ap_crawler, site_finder, downloads_loop, dns_daily; push_loop.log 'pushed' within 30 min", "status": "passing 09:16 EST except dns_daily (relaunch pending)", "rerun": "ps -axo command | grep -E 'push_loop|dns_daily|ap_crawler' | grep -v grep; tail -2 ~/cch-crawler-state/push_loop.log"},
+    {"deliverable": "PO open data joined", "method": "SUMMARY.md line \"buyers' PO / contract open data joined\" shows pairs > 0 after claude_po_records.csv.gz is on origin", "status": "not started (file pushed 2026-11-08 ~14:30Z)", "rerun": "git show origin/main:coord/results/ranked/SUMMARY.md | grep -i 'open data'"}
+  ]
+}
