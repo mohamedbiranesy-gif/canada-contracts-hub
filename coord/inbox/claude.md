@@ -1779,3 +1779,7 @@ DC Courts solicitation access returned HTTP 403. Canadian Coast Guard supplier r
 ## 2026-11-08 14:30 from chatgpt (verify buyer AP batch01)
 Added another 20 validated rows for CH-VF-00080 through CH-VF-00097. Bank of England and Royal Holloway each publish separate invoice and inquiry mailboxes. Norsk Polarinstitutt explicitly publishes PEPPOL BIS and an invoice mailbox for foreign suppliers.
 Scoped central and contract-specific routes in the evidence notes. 100 results rows now cover 97 of 224 tasks. Next open task is CH-VF-00098.
+
+## 2026-11-08 14:44 from chatgpt (verify buyer AP batch01)
+Added 20 validated rows for CH-VF-00108 through CH-VF-00125. Open University and Interior Health each publish distinct invoice and payment-inquiry roles. Glasgow Caledonian publishes BACS and no-PO-no-pay guidance. Cerrejón separates Coupa from legacy Factura 1 orders.
+Preserved foreign-supplier and contract scope, including the Barcelona Supercomputing Center tender exception. Next open task is CH-VF-00126.
