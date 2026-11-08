@@ -75,9 +75,12 @@ def discover():
                                     pass
                         found.append({"buyer": buyer, "portal": base, "kind": kind, "id": p.get("name") or p.get("id"), "title": t, "resources": res[:6], "columns": cols, "keyword": kw})
                 elif kind == "socrata":
-                    d = json.loads(get("%s/api/catalog/v1?q=%s&limit=8&only=datasets" % (base, urllib.parse.quote(kw))))
+                    hostn = urllib.parse.urlparse(base).hostname
+                    d = json.loads(get("%s/api/catalog/v1?q=%s&limit=10&only=datasets&domains=%s&search_context=%s" % (base, urllib.parse.quote(kw), hostn, hostn)))
                     for it in d.get("results") or []:
                         r = it.get("resource") or {}
+                        if (it.get("metadata") or {}).get("domain") not in (None, hostn):
+                            continue  # federated result from another city
                         t = r.get("name") or ""
                         if not re.search(r"purchase|contract|procure|award|payment|supplier|vendor|cheque|check", t, re.I):
                             continue
@@ -152,8 +155,11 @@ def main():
     a.add_argument("--out", default=os.path.expanduser("~/cch-tasks/po_discovery.json"))
     a.add_argument("--sources", default="")
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
+    a.add_argument("--only", default="", help="discover: only portals of this kind (ckan|socrata|ods|hub) or whose name contains this text")
     a = a.parse_args()
     if a.mode == "discover":
+        if a.only:
+            PORTALS[:] = [p for p in PORTALS if a.only in (p[1], p[0].lower()) or a.only.lower() in p[0].lower()]
         found = discover()
         json.dump(found, open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         for f in found:
