@@ -67,21 +67,31 @@ def search(name):
 
 def pick(name, docs, prov_hint):
     """the registered document that IS this organisation: equal normalised name (or alternate name); province decides ties"""
-    n = norm(name)
-    if len(n) < 3:
+    wanted = {norm(name)}
+    m = re.search(r"\(([^()]{3,80})\)", name or "")  # "Alstom Canada (Alstom Transport Canada Inc.)": the parenthesis names the legal entity
+    if m and re.search(r"\b(inc|ltd|limited|lt[ée]e|corp|corporation|llc|llp|lp|senc|sencrl|ulc)\b\.?", m.group(1), re.I):
+        wanted.add(norm(m.group(1)))
+    wanted.add(norm(re.sub(r"\([^()]*\)", " ", name or "")))
+    wanted = {w for w in wanted if len(w) >= 3}
+    if not wanted:
         return None, "name too short", []
     exact, strong = [], []
     for d in docs or []:
         names = [d.get("Company_Name") or ""] + [a for a in (d.get("Alternate_Name") or []) if a]
-        if any(norm(x) == n for x in names):
+        if any(norm(x) in wanted for x in names):
             exact.append(d)
-        elif any(norm(x).replace(" ", "") == n.replace(" ", "") for x in names):
+        elif any(norm(x).replace(" ", "") in {w.replace(" ", "") for w in wanted} for x in names):
             strong.append(d)
     cands = exact or strong
     basis = "registered name equals the vendor's name" if exact else ("registered name equals the vendor's name (spacing differs)" if strong else "")
     if not cands:
         return None, "no registered name equals this name", docs[:3] if docs else []
     if len(cands) > 1:
+        home = [d for d in cands if (d.get("XP_TYPE") or "").upper() == "HJ"]  # the home-jurisdiction record; the others are extra-provincial registrations of the same body
+        if len(home) == 1:
+            return home[0], basis + "; home-jurisdiction registration (the other matches are extra-provincial registrations)", cands
+        if home:
+            cands = home
         same_prov = [d for d in cands if prov_hint and pcode(d.get("Reg_office_province")) == prov_hint]
         if len(same_prov) == 1:
             return same_prov[0], basis + "; registered-office province agrees with the vendor's address", cands
@@ -154,6 +164,14 @@ def main():
         else:
             docs = data.get("docs") or []
             d, basis, cands = pick(name, docs, prov)
+            if not d and not cands and norm(name) and norm(name) != name.lower():  # "MALLETTE S.E.N.C.R.L.": the keyword search wants the plain words
+                time.sleep(1.0 / a.rate)
+                st2, data2, url2 = search(norm(name)[:170])
+                if st2 == 200 and data2:
+                    docs = data2.get("docs") or []
+                    d, basis, cands = pick(name, docs, prov)
+                    if d:
+                        row["api_url"] = url2
             row["candidates"] = "; ".join("%s [%s %s, %s]" % (c.get("Company_Name"), c.get("Registry_Source"), c.get("Juri_ID"), c.get("Reg_office_province") or "") for c in cands[:5])[:400]
             if d:
                 row.update({"status": "found", "matched_name": d.get("Company_Name") or "", "bn9": re.sub(r"\D", "", d.get("BN") or "")[:9], "juri_id": d.get("Juri_ID") or "", "registry_source": d.get("Registry_Source") or "",
