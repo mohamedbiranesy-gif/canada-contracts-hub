@@ -68,7 +68,8 @@ jobs:
       - name: Resume state from the harvest-state release
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
-          gh release download harvest-state -p 'claude_ap_walk_done.tsv' -D ~/cch-crawler-state 2>/dev/null && mv ~/cch-crawler-state/claude_ap_walk_done.tsv ~/cch-crawler-state/ap_walk_done.tsv || true
+          gh release download harvest-state -p 'claude_ap_walk_done.tsv' -D /tmp/prevrel 2>/dev/null || true
+          python3 tools/merge_engine_outputs.py tsv_done ~/cch-crawler-state/ap_walk_done.tsv /tmp/prevrel/claude_ap_walk_done.tsv data/incoming/claude/claude_ap_walk_done.tsv data/incoming/claude/claude_ap_walk_done_mac.tsv 2>/dev/null || true
           gh release download harvest-state -p 'claude_registry_lookup.jsonl.gz' -D ~/cch-crawler-state 2>/dev/null && gunzip -f ~/cch-crawler-state/claude_registry_lookup.jsonl.gz && mv ~/cch-crawler-state/claude_registry_lookup.jsonl ~/cch-crawler-state/registry_lookup.jsonl || true
           wc -l ~/cch-crawler-state/* 2>/dev/null || true
       - name: walk_terms shard
@@ -132,7 +133,8 @@ jobs:
               python3 tools/merge_engine_outputs.py pages /tmp/pages.csv /tmp/pages_main.csv shards/pages_*.csv && gzip -c /tmp/pages.csv > data/incoming/claude/claude_ap_pages_seen.csv.gz
               python3 tools/merge_engine_outputs.py tsv_done /tmp/done.tsv shards/done_*.tsv
               gh release download harvest-state -p 'claude_ap_walk_done.tsv' -D /tmp/prev 2>/dev/null && python3 tools/merge_engine_outputs.py tsv_done /tmp/done2.tsv /tmp/prev/claude_ap_walk_done.tsv /tmp/done.tsv && mv /tmp/done2.tsv /tmp/done.tsv || true
-              cp /tmp/done.tsv /tmp/claude_ap_walk_done.tsv && gh release upload harvest-state /tmp/claude_ap_walk_done.tsv --clobber || true
+              python3 tools/merge_engine_outputs.py tsv_done /tmp/done3.tsv /tmp/done.tsv data/incoming/claude/claude_ap_walk_done.tsv data/incoming/claude/claude_ap_walk_done_mac.tsv 2>/dev/null && cp /tmp/done3.tsv data/incoming/claude/claude_ap_walk_done.tsv
+              cp data/incoming/claude/claude_ap_walk_done.tsv /tmp/claude_ap_walk_done.tsv && gh release upload harvest-state /tmp/claude_ap_walk_done.tsv --clobber || true
             elif [ "$ENGINE" = "bulk_registry" ]; then
               [ -f shards/registry_bulk.csv ] && cp shards/registry_bulk.csv data/incoming/claude/claude_registry_bulk.csv
             else
