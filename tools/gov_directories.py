@@ -117,7 +117,7 @@ def ckan(base, query, prov, desi, must, workdir):
                 continue
             if not re.search(must, title + " " + (res.get("name") or ""), re.I):
                 continue
-            if re.search(r"rapport|financ|AS-471|statisti|d[ée]pense|budget|indicat|survey|enqu[êe]te|program standards|strategic mandate", title + " " + (res.get("name") or ""), re.I):
+            if re.search(r"rapport|financ|AS-471|statisti|d[ée]pense|budget|indicat|survey|enqu[êe]te|program standards|strategic mandate|researcher|chercheur|confidence in|graduate|enrol|salar", title + " " + (res.get("name") or ""), re.I):
                 continue  # financial / statistical tables, not directories
             try:
                 data = get(url, timeout=300)
