@@ -54,6 +54,22 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   values, 58,304 bid counts, reference date 2026-11-08). A build with them is dispatched automatically when the push lands (background job).
 - Rebuild workflow had been cancelled on 11-07 and 11-08 by the shared concurrency group → own group; today's run succeeded.
 
+## 17:15Z — owner 12:08 EST: "if levers are not moving, change them" → engines moved to parallel runners
+- Throughput was the problem, not the method: one Mac walking 63k sites at 1 request / second / host. New workflow `.github/workflows/claude-engines.yml`:
+  10 GitHub runners walk the P13 long tail (tier I, 50k sites, sharded by host so no site is read twice) and run the terms extraction on what they
+  find; a runner takes the second half of the registry lookups (shard 1/2) while the Mac keeps shard 0/2 — together ≤ 2 requests / second to
+  the registry. Outputs are unioned by key (tools/merge_engine_outputs.py); both writers now union with the on-disk file so runners never erase
+  each other. Runs 42503904567 (walk_terms, 10 × 300 min) and 42503912200 (registry, 320 min) started 17:13Z. The Mac's P13 walker was stopped;
+  its main walker keeps tiers A–F.
+- Realistic reading of the 438 benchmarks (build 16:55Z): 51 met, 55 within 10 points. Reachable with the engines now running: the 5 DNS cells
+  (9 rows), vendor_website ×5, buyer_legal_name ×4, buyer_address ×6 (100 % targets: the last rows are sites that publish no address),
+  vendor_trading_name ×6, buyer_logo ×2, buyer_phone, vendor_bn9 ×1 and the P13 buyer facts (legal name 28.8 → 60 %, address, logo, phone)
+  as the runners and registry halves finish. Structurally capped whatever the effort (documented as ceilings): PO numbers (only PO-level open
+  data publishes them), contract value / dates / ids on rows proven by lobbying, news or client lists, published e-signature / AP cycle /
+  tax status (rarely published; the derived tax status sits in its own column), vendor_neq outside Québec, every 100 % target where a source
+  is silent. P13 AP fields (payment terms, PO rule, AP mailbox) depend on what 50k inferred organisations publish — the runners will show
+  the real ceiling within hours.
+
 ## 17:15Z — build 16:55Z read (honest numbers) and the levers now running
 - Build 16:55Z (run 42501333285): **51 / 438 benchmarks met (11.6 %)** on values only (the earlier 87 / 94 counted labels); VALIDATION 7/7, AUDIT PASS;
   Gold 583 (2 losses logged). AP grade Gold: A 38, B 150, C 395; P13: A 1, B 14, C 39,217, D 11,557. Invoice readiness Gold median 7/11.
