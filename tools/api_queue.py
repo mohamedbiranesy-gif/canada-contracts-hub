@@ -53,7 +53,9 @@ def main():
     rows = []
     for lst, mx in ((af, a.max_af), (pc, a.max_pc), (vw, a.max_vw)):
         lst.sort(key=lambda t: t[0])
-        rows += [t[1] for t in lst[:mx]]
+        rows += [(t[0], {"af": 1, "pc": 0, "vw": 2}[t[1]["kind"]], t[1]) for t in lst[:mx]]
+    rows.sort(key=lambda t: (t[0], t[1]))  # by package priority first (Gold AP pages before P06 award pages), then AP pages, award pages, vendor sites
+    rows = [t[2] for t in rows]
     clean = lambda v: re.sub(r"[\t\r\n]+", " ", str(v or ""))[:200]
     with open(a.out, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=["task_id", "kind", "key", "name", "host", "extra"], delimiter="\t"); w.writeheader()
