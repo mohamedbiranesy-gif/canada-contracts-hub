@@ -31,6 +31,8 @@ LINK_KW = [(re.compile(r"(?<!manu)factur|invoice|payable|comptes?[-_ ]?(a|à)[-_
            (re.compile(r"fournisseur|supplier|vendor|approvisionnement|purchas|procure|achats?\b|faire[-_ ]affaire|"
                        r"doing[-_ ]business|business[-_ ]with|appels?[-_ ]d|tender|bid", re.I), 6),
            (re.compile(r"financ|tr[ée]sor|treasur|comptab|accounting|paiement|payment", re.I), 5),
+           (re.compile(r"terms[-_ ](?:and|&)[-_ ]conditions|conditions[-_ ]g[ée]n[ée]rales|modalit[ée]s|terms[-_ ]of|e-?procurement|ariba|coupa|portal|portail|"
+                       r"bylaw|by-law|r[èe]glement|policy|policies|politique", re.I), 5),  # 2026-11-08: PO terms and conditions, purchasing bylaws and AP policies (PO rule, payment terms, cheque runs)
            (re.compile(r"nous[-_ ]joindre|contact|coordonn|directory|bottin|annuaire|services", re.I), 2)]
 SKIP_EXT = re.compile(r"\.(jpe?g|png|gif|svg|webp|ico|mp4|mov|mp3|zip|doc|xls|pptx?|ics|css|js|xml|rss)(\?|$)", re.I)
 OFFICE = re.compile(r"\.(docx|xlsx)(\?|$)", re.I)
@@ -467,7 +469,7 @@ def crawl(task, max_pages, general=False):
             kind = classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q, general)
             if kind and q:
                 found[e] = (RANK[kind] * 100 + neg, kind, final, q)
-        if is_pdf or depth >= 3:
+        if is_pdf or depth >= (4 if max_pages > 30 else 3):  # the deeper pass (max_pages > 30) follows one more level: policies and bylaws sit behind an index page
             continue
         for link, label in links(raw, final):
             p = urllib.parse.urlparse(link)

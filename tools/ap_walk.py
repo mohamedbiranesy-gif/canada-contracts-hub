@@ -60,7 +60,7 @@ def main():
             p = l.rstrip("\n").split("\t")
             if len(p) >= 2:
                 done[p[0]] = p[1]
-    cutoff = time.strftime("%Y-%m-%d", time.localtime(time.time() - a.redo_days * 86400))
+    cutoff = "0000" if a.redo_days <= 0 else time.strftime("%Y-%m-%d", time.localtime(time.time() - a.redo_days * 86400))  # 0: walk every site again (the deeper pass)
     op = gzip.open if a.ranked.endswith(".gz") else open
     tasks, seen = [], set()
     with op(a.ranked, "rt", encoding="utf-8", newline="") as fh:
