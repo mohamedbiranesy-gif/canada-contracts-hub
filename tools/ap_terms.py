@@ -12,7 +12,7 @@ rank.py merges the file by mailbox (contrib/claude/rank_buyers/rank.py, "ap_term
   python3 tools/ap_terms.py [--repo ~/cch-crawler] [--ranked path.csv.gz] [--tiers A,B,T,M,L,C,D,E,F] [--workers 24] [--limit N]
 Output: <repo>/data/incoming/claude/claude_ap_terms.csv (resumable: pages already read within --recheck-days are skipped).
 """
-import argparse, csv, datetime, gzip, html, os, re, sys, threading, time, urllib.parse
+import argparse, hashlib, csv, datetime, gzip, html, os, re, sys, threading, time, urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +25,7 @@ TODAY = datetime.date.today().isoformat()
 lock = threading.Lock()
 COLS = ["email", "evidence_url", "final_url", "retrieved_date", "status", "payment_terms", "payment_terms_quote", "po_required", "po_quote",
         "portal_name", "portal_url", "portal_quote", "ap_phone", "ap_phone_quote", "invoice_mailing_address", "address_quote",
-        "ap_contact_name", "contact_quote", "invoice_format", "format_quote", "buyer_bn", "bn_quote", "mailbox_still_on_page", "mailbox_context", "payment_method", "payment_method_quote", "ap_cycle", "ap_cycle_quote", "tax_exempt", "tax_exempt_quote", "esignature", "esignature_quote", "setup_url", "setup_quote"]
+        "ap_contact_name", "contact_quote", "invoice_format", "format_quote", "buyer_bn", "bn_quote", "mailbox_still_on_page", "mailbox_context", "payment_method", "payment_method_quote", "ap_cycle", "ap_cycle_quote", "tax_exempt", "tax_exempt_quote", "esignature", "esignature_quote", "ap_system", "ap_system_quote", "setup_url", "setup_quote"]
 TERMS = re.compile(r"\b(?:net\s?(?:30|45|60|90|15|10)\b(?:\s?(?:days|jours))?|(?:payment|paid|payable|paiement|pay[ée]e?s?)\b[^.;]{0,60}?\b(?:within|dans les|dans un d[ée]lai de|sous|in)\s(?:\d{2}|thirty|forty-five|sixty|trente|quarante-cinq|soixante)\s?(?:calendar |business |working |ouvrables? )?(?:days?|jours)\b|"
                    r"(?:payment )?terms?(?: of payment| are| is|:)?\s?(?:are |is |:)?\s?net\s?\d{2}|conditions? de paiement\s?:?\s?[^.;]{0,40}?\d{2}\s?jours|"
                    r"\b\d{2}\s?(?:calendar |business |working )?days? (?:from|after|of|following) (?:the )?(?:receipt|invoice date|date of invoice|approval)|"
@@ -50,12 +50,29 @@ BN = re.compile(r"\b(\d{9})\s?(?:RT|RT\s?0001|RT0001)\b|\b(\d{9})\s?RT\s?0+1\b")
 BN_WORDS = re.compile(r"\bGST\b|\bHST\b|\bTPS\b|\bTVH\b|business number|num[ée]ro d'entreprise|registration (?:no|number)|BN\b", re.I)
 FORMAT = re.compile(r"(?:(?:one|single|1|une seule|une) (?:invoice|facture)s? per (?:e-?mail|courriel|attachment|PDF)|(?:invoices?|factures?)[^.;]{0,80}?\b(?:PDF|TIFF|TIF)\b[^.;]{0,60}|\b(?:PDF|TIFF)\b[^.;]{0,30}?(?:format|only|seulement|uniquement|attachments?|pi[èe]ces? jointes?)|"
                     r"(?:do not|ne pas|n'envoyez pas)[^.;]{0,30}?(?:send|submit|envoyer)[^.;]{0,30}?(?:paper|duplicate|copies?|papier)[^.;]{0,60}|(?:maximum|max\.?|limit(?:ed)? to)[^.;]{0,20}?\d+\s?(?:MB|Mo|pages?|attachments?)[^.;]{0,40})", re.I)
-PAYMETHOD = re.compile(r"(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|e-?transfer|d[ée]p[ôo]t direct|virement|transfert [ée]lectronique de fonds|\bTEF\b)[^.;]{0,80}(?:preferred|encourag|required|mandatory|only|no longer|default|standard|privil[ée]gi|obligatoire|requis|exig)|"
-                       r"(?:preferred|encourag|required|mandatory|no longer issue|will not issue|discontinu|privil[ée]gi|obligatoire|ne (?:sera|seront) plus [ée]mis)[^.;]{0,80}(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|cheques?|checks?|d[ée]p[ôo]t direct|virement|ch[èe]ques?)", re.I)
-APCYCLE = re.compile(r"(?:cheque|check|payment|EFT|direct deposit|paiement|ch[èe]que)s?\s(?:runs?|cycles?|are (?:issued|processed|released|made)|is (?:issued|processed|released)|sont (?:[ée]mis|trait[ée]s|effectu[ée]s))[^.;]{0,100}?(?:weekly|bi-?weekly|every (?:second |other )?(?:week|monday|tuesday|wednesday|thursday|friday)|twice a month|monthly|on (?:monday|tuesday|wednesday|thursday|friday)s?|hebdomadaire|aux deux semaines|chaque (?:semaine|jeudi|vendredi|mardi|mercredi|lundi)|mensuel)|"
-                     r"(?:weekly|bi-?weekly|twice a month|monthly|hebdomadaire|aux deux semaines)\s(?:cheque|check|payment|EFT|paiement)\s(?:runs?|cycles?)", re.I)
-TAXEX = re.compile(r"(?:tax[- ]exempt(?:ion)?(?: status| certificate| number)?|exempt from (?:GST|HST|PST|QST|sales tax)|GST(?:/HST)? exempt|exemption (?:de|des) taxes?|exon[ée]r[ée]e? (?:de la |des )?(?:TPS|TVQ|TVH|taxes?)|do not charge (?:GST|HST|PST|tax)|ne pas (?:facturer|charger) (?:la |les )?(?:TPS|TVQ|taxes?)|status indian|first nation[^.;]{0,30}exempt|diplomatic (?:tax )?exempt)[^.;]{0,100}", re.I)
-ESIGN = re.compile(r"(?:DocuSign|Adobe Sign|Adobe Acrobat Sign|HelloSign|Dropbox Sign|PandaDoc|OneSpan|ConsignO|Notarius|signature [ée]lectronique|electronic signatures? (?:are |is )?(?:accepted|required|preferred|not accepted))[^.;]{0,80}", re.I)
+PAYMETHOD = re.compile(r"(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|e-?transfer|d[ée]p[ôo]t direct|virement(?: bancaire)?|transfert [ée]lectronique de fonds|\bTEF\b)[^.;]{0,80}(?:preferred|encourag|required|mandatory|only|no longer|default|standard|privil[ée]gi|obligatoire|requis|exig|available|offered|enrol|sign[- ]?up|register|authori[sz]ation|formulaire|inscri)|"
+                       r"(?:preferred|encourag|required|mandatory|no longer issue|will not issue|discontinu|privil[ée]gi|obligatoire|ne (?:sera|seront) plus [ée]mis)[^.;]{0,80}(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|cheques?|checks?|d[ée]p[ôo]t direct|virement|ch[èe]ques?)|"
+                       r"(?:payments? (?:is|are|will be|shall be) (?:made|issued|processed|sent|remitted)|we pay|pays? (?:our |its )?(?:suppliers|vendors)|paiements?(?: aux fournisseurs| des fournisseurs| des factures)? (?:sont|est|seront) (?:effectu[ée]s?|[ée]mis|vers[ée]s?|faits?)|nous payons|r[èe]glement des factures)[^.;]{0,40}?(?:by|via|through|par|en)\s(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|e-?transfer|cheque|check|wire|d[ée]p[ôo]t direct|virement|ch[èe]que|carte de cr[ée]dit|credit card|p-?card|purchasing card)[^.;]{0,80}|"
+                       r"(?:direct deposit|\bEFT\b|\bACH\b|d[ée]p[ôo]t direct|virement)\s(?:form|enrol?l?ment|authori[sz]ation|request|application|sign[- ]?up|registration|formulaire|inscription|adh[ée]sion)[^.;]{0,80}|(?:formulaire|form)[^.;]{0,25}?(?:d'?inscription au |de |for |pour le )?(?:d[ée]p[ôo]t direct|direct deposit|\bEFT\b|virement)[^.;]{0,60}|"
+                       r"(?:supplier|vendor|fournisseur)s?[^.;]{0,40}?(?:paid|pay[ée]s?)[^.;]{0,20}?(?:by|par)\s(?:direct deposit|EFT|electronic funds transfer|cheque|check|d[ée]p[ôo]t direct|virement|ch[èe]que)[^.;]{0,60}", re.I)
+APCYCLE = re.compile(r"(?:cheque|check|payment|EFT|direct deposit|paiement|ch[èe]que|accounts? payable|AP)s?\s(?:runs?|cycles?|are (?:issued|processed|released|made|mailed|generated|disbursed)|is (?:issued|processed|released|made|generated)|will be (?:issued|processed|released|made)|sont (?:[ée]mis|trait[ée]s|effectu[ée]s|g[ée]n[ée]r[ée]s)|processing)[^.;]{0,100}?(?:weekly|bi-?weekly|every (?:second |other |two )?(?:week|monday|tuesday|wednesday|thursday|friday|\d+ (?:days|weeks))|twice (?:a|per) month|once (?:a|per) (?:week|month)|monthly|semi-?monthly|on (?:monday|tuesday|wednesday|thursday|friday)s?|(?:each|every) (?:monday|tuesday|wednesday|thursday|friday)|hebdomadaire|aux deux semaines|toutes les deux semaines|chaque (?:semaine|jeudi|vendredi|mardi|mercredi|lundi)|mensuel|deux fois par mois|les (?:lundis|mardis|mercredis|jeudis|vendredis))[^.;]{0,60}|"
+                     r"(?:weekly|bi-?weekly|twice[- ]monthly|semi-?monthly|monthly|hebdomadaire|aux deux semaines)\s(?:cheque|check|payment|EFT|paiement|AP|accounts payable)\s(?:runs?|cycles?|processing|[ée]mission)[^.;]{0,60}|"
+                     r"(?:payment|cheque|check|EFT) (?:run|cycle|processing) (?:dates?|schedule|calendar)[^.;]{0,100}|invoices? (?:received|approved|submitted|dated) (?:by|before|on or before)[^.;]{0,60}?(?:paid|processed|payment|issued)[^.;]{0,80}|(?:calendrier|dates?) (?:des )?(?:paiements?|d'[ée]mission des ch[èe]ques)[^.;]{0,80}", re.I)
+TAXEX = re.compile(r"(?:tax[- ]exempt(?:ion)?(?: status| certificate| number)?|exempt from (?:GST|HST|PST|QST|sales tax)|GST(?:/HST)? exempt|exemption (?:de|des) taxes?|exon[ée]r[ée]e? (?:de la |des )?(?:TPS|TVQ|TVH|taxes?)|do not charge (?:GST|HST|PST|tax)|ne pas (?:facturer|charger) (?:la |les )?(?:TPS|TVQ|taxes?)|status indian|first nation[^.;]{0,30}exempt|diplomatic (?:tax )?exempt)[^.;]{0,100}|"
+                   r"(?:GST|HST|GST/HST|PST|QST|TPS|TVQ|TVH)(?: registration| account)? (?:number|no\.?|#|num[ée]ro)s?[^.;]{0,40}?(?:must|should|shall|is required|are required|doit|doivent|required|requis|obligatoire)[^.;]{0,70}|"
+                   r"(?:show|indicate|itemi[sz]e|list|display|include|break out|state|identify)[^.;]{0,40}?(?:GST|HST|PST|QST|sales tax|taxes)[^.;]{0,30}?separately[^.;]{0,60}|(?:GST|HST|GST/HST|PST|QST|TPS|TVQ|TVH|sales taxes?|taxes)[^.;]{0,30}?(?:must|should|shall|is to|are to) (?:be )?(?:shown|indicated|itemi[sz]ed|listed|identified|stated|appear|broken out|charged|added|included)[^.;]{0,80}|(?:taxes?|TPS|TVQ|TVH)[^.;]{0,30}?(?:doivent|doit) (?:être )?(?:indiqu[ée]e?s?|pr[ée]sent[ée]e?s?|d[ée]taill[ée]e?s?|ventil[ée]e?s?|inscrite?s?) s[ée]par[ée]ment[^.;]{0,60}|"
+                   r"(?:applicable|all) (?:sales )?taxes? (?:must|should|shall|are to|will) be (?:shown|identified|itemi[sz]ed|listed|indicated|included|added|charged|extra)[^.;]{0,80}|(?:prices?|amounts?|pricing|montants?|prix)[^.;]{0,30}?(?:exclusive|inclusive|exclud|includ|incluent|excluent|avant|plus)[^.;]{0,20}?(?:of )?(?:applicable |les )?(?:GST|HST|taxes)[^.;]{0,60}|"
+                   r"(?:our|the (?:city|town|township|village|municipality|county|region|district|board|university|college|hospital|authority|agency|corporation|commission|school|centre)'s|notre|la ville|le centre)[^.;]{0,30}?(?:GST|HST|GST/HST|TPS|TVQ|TVH|business|tax) (?:registration |account )?(?:number|no\.?|#|num[ée]ro)[^.;]{0,20}?(?:is|:|est)\s?[^.;]{0,40}\d{9}[^.;]{0,30}|"
+                   r"(?:public service bod(?:y|ies)|PSB|municipal|municipalit[ée]s?) (?:rebate|remboursement)[^.;]{0,80}|(?:GST|HST|TPS|TVH)[^.;]{0,20}?(?:applies|is applicable|s'applique|is charged|will be added)[^.;]{0,60}|(?:PST|QST|TVQ)[^.;]{0,20}?(?:does not apply|not applicable|ne s'applique pas|exempt)[^.;]{0,60}|(?:zero[- ]rated|d[ée]tax[ée]e?s?)[^.;]{0,60}", re.I)
+ESIGN = re.compile(r"(?:DocuSign|Adobe Sign|Adobe Acrobat Sign|HelloSign|Dropbox Sign|PandaDoc|OneSpan|ConsignO|Notarius|signature[s]? (?:[ée]lectronique|num[ée]rique)s?|e-?signatures?|digital(?:ly)? sign(?:ed|ature)s?|electronic(?:ally)? sign(?:ed|ature)s?(?: (?:are |is )?(?:accepted|required|preferred|not accepted))?)[^.;]{0,80}", re.I)
+ESIGN_CTX = re.compile(r"contract|agreement|purchase order|\bPO\b|bon de commande|contrat|entente|invoice|factur|supplier|vendor|fournisseur|document", re.I)
+# AP / ERP / e-procurement systems the organisation names on its payables, supplier or purchasing pages (the AP system hint of the invoice card)
+SYSTEMS = re.compile(r"\b(SAP Ariba|Ariba|Coupa|Jaggaer|Workday|Oracle (?:E-Business Suite|EBS|ERP Cloud|Fusion|iSupplier|PeopleSoft|NetSuite)|PeopleSoft|SAP S/4 ?HANA|SAP Business Network|\bSAP\b|Esker|Kofax|Tipalti|Bill\.com|AvidXchange|Basware|Tungsten|Taulia|Tradeshift|Unit4|Agresso|Dynamics ?365|Dynamics GP|Great Plains|"
+                     r"Sage Intacct|Sage 300|Sage 50|Munis|Tyler Technologies|Yardi|JD Edwards|Infor|Lawson|NetSuite|Ellucian|Colleague|Acomba|Avantage|SOFE|Virtuo|PG Solutions|M[ée]gagest|Unicit[ée]|Paymode-?X|Bottomline|Telpay|Plooto|Versapay|Kyriba|Medius|Yooz|Procurify|Bonfire|Ivalua|Zycus|GEP SMART|OpenInvoice|Transcepta|PaymentWorks|Cortex|GHX|Vendorlink|"
+                     r"Paramount WorkPlace|Emburse|Blackbaud|Financial Edge|CaseWare|QuickBooks|Xero|FreshBooks|Wave Accounting|Microsoft Dynamics|Dynamics NAV|Business Central|Birchstreet|Determine|Periscope|Euna|eSolutions|Biddingo|MERX|SEAO|Ariba Network|Dayforce|Ceridian)\b", re.I)
+SYS_CTX = re.compile(r"invoice|factur|supplier|vendor|fournisseur|payable|paiement|payment|purchase order|bon de commande|procurement|approvisionnement|e-?procurement|portal|portail|\bAP\b|\bERP\b|accounting system|financial system|syst[èe]me (?:comptable|financier|de gestion)|e-?tendering|bid|soumission|appel d'offres", re.I)
+PAY_CTX = re.compile(r"invoice|factur|supplier|vendor|fournisseur|payable|payment to|paiements? (?:aux|des) fournisseurs|purchase order|bon de commande|remittance|accounts payable|comptes (?:à|a) payer|contractor|entrepreneur", re.I)
+PAY_NOISE = re.compile(r"property tax|taxes fonci|utility bill|water bill|parking|ticket|fine|permit fee|dog licen|tuition|pay your|payez votre|donation|\bdon\b|membership|registration fee|frais d'inscription|camp|program fee|rent payment|tenant", re.I)
 # the AP contact rule of rank.py (conservative; business contact information the organisation prints itself, never a mailbox)
 _cands = [os.path.join(d, "contrib/claude/rank_buyers/rank.py") for d in (os.path.dirname(os.path.dirname(os.path.abspath(__file__))), os.getcwd(), os.path.expanduser("~/cch-crawler"))]
 _src = open(next(p for p in _cands if os.path.exists(p)), encoding="utf-8").read()
@@ -203,10 +220,33 @@ def extract(email, buyer, text, raw, final):
             out["bn_quote"] = q300(text, m.start() - 0, m.end())
             break
     for col, rx in (("payment_method", PAYMETHOD), ("ap_cycle", APCYCLE), ("tax_exempt", TAXEX), ("esignature", ESIGN)):
-        m = rx.search(win_txt) or rx.search(text)
-        if m:
-            out[col] = re.sub(r"\s+", " ", m.group(0)).strip()[:160]
-            out[col + "_quote"] = q300(m.string, m.start(), m.end())
+        for src in (win_txt, text):
+            for m in rx.finditer(src):
+                ctx = src[max(0, m.start() - 300):m.end() + 300]
+                if PAY_NOISE.search(ctx) and not re.search(r"supplier|vendor|fournisseur|payable|invoice|factur", ctx, re.I):
+                    continue  # a citizen-payment page (property taxes, tickets), not payables
+                if col == "esignature" and not ESIGN_CTX.search(ctx):
+                    continue
+                if col in ("payment_method", "tax_exempt", "ap_cycle") and not PAY_CTX.search(ctx):
+                    continue
+                out[col] = re.sub(r"\s+", " ", m.group(0)).strip()[:160]
+                out[col + "_quote"] = q300(src, m.start(), m.end())
+                break
+            if out.get(col):
+                break
+    names = []
+    for m in SYSTEMS.finditer(text):
+        ctx = text[max(0, m.start() - 160):m.end() + 160]
+        if SYS_CTX.search(ctx) and not PAY_NOISE.search(ctx):
+            nm = m.group(1)
+            if nm.lower() not in [n.lower() for n in names]:
+                names.append(nm)
+                if "ap_system_quote" not in out:
+                    out["ap_system_quote"] = q300(text, m.start(), m.end())
+        if len(names) >= 3:
+            break
+    if names:
+        out["ap_system"] = ", ".join(names)[:160]
     if "invoice_format_quote" in out:
         out["format_quote"] = out.pop("invoice_format_quote")
     for m in SETUP_LINK.finditer(raw):
@@ -220,6 +260,9 @@ def extract(email, buyer, text, raw, final):
     return out
 
 
+QMAP = {"invoice_mailing_address": "address_quote", "ap_contact_name": "contact_quote", "invoice_format": "format_quote", "po_required": "po_quote", "buyer_bn": "bn_quote", "portal_name": "portal_quote", "setup_url": "setup_quote"}
+
+
 def main():
     a = argparse.ArgumentParser()
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
@@ -231,7 +274,13 @@ def main():
     a.add_argument("--grades", default="invoicing,finance,purchasing", help="email_type prefixes to read (general pages rarely carry terms)")
     a.add_argument("--force", action="store_true", help="re-read pages already read (new columns)")
     a.add_argument("--urls", default="", help="CSV buyer_key,buyer_name,website,official_site,url (search results): read these pages, keyed by buyer_key instead of mailbox")
+    a.add_argument("--reread-known", action="store_true", help="re-read every page already in the output files (new extraction patterns); a page that no longer answers keeps its old row")
+    a.add_argument("--shard", default="", help="K/N: only pages whose host hashes to shard K of N (parallel runners)")
     a = a.parse_args()
+    shard_k, shard_n = (int(a.shard.split("/")[0]), int(a.shard.split("/")[1])) if a.shard else (0, 1)
+    def in_shard(url):
+        h = (urllib.parse.urlparse(url).hostname or "").lower()
+        return shard_n == 1 or int(hashlib.md5(h.encode()).hexdigest(), 16) % shard_n == shard_k
     out = os.path.join(a.repo, "data/incoming/claude/claude_ap_terms.csv")
     prev = {}
     for r in read_rows(out) + read_rows(pages_file(out)):
@@ -262,6 +311,9 @@ def main():
             k = (r.get("buyer_key") or "").strip(); u = (r.get("url") or "").strip()
             if k and u.startswith("http") and (k, u) not in seen and (a.force or (k, u) not in prev):
                 seen.add((k, u)); todo.append((k, u, r.get("buyer_name") or "", "URLS"))
+    if a.reread_known:
+        todo = [(k[0], k[1], "", "REREAD") for k, r in prev.items() if r.get("status") == "ok" and k[1].startswith("http")]
+    todo = [t for t in todo if in_shard(t[1])]
     todo.sort(key=lambda t: (t[3] != "GOLD", t[3][:1] not in ("A", "B"), t[3]))
     if a.limit:
         todo = todo[:a.limit]
@@ -279,6 +331,20 @@ def main():
                 row.update(extract(email, buyer, text, raw, final))
             except Exception as e:
                 row["status"] = "extract_error:" + type(e).__name__
+        old = prev.get((email, url))
+        if old and old.get("status") == "ok":
+            if row["status"] != "ok":
+                return  # a page that no longer answers (timeout, 403 today) keeps the row read earlier: nothing verified is thrown away
+            for c in COLS:  # a value read earlier whose quote is still on the page stays when the new read left the column empty (pattern order, page layout)
+                if c.endswith("_quote") or c in ("email", "evidence_url", "final_url", "retrieved_date", "status", "mailbox_still_on_page", "mailbox_context"):
+                    continue
+                if old.get(c) and not row.get(c):
+                    oq = old.get(c + "_quote") or old.get(QMAP.get(c, ""), "")
+                    probe = re.sub(r"\s+", " ", (oq or old[c]))[:120].lower()
+                    if probe and probe in re.sub(r"\s+", " ", text).lower():
+                        row[c] = old[c]
+                        if oq:
+                            row[QMAP.get(c, c + "_quote")] = oq
         with lock:
             prev[(email, url)] = row
             stats[row["status"][:12]] = stats.get(row["status"][:12], 0) + 1

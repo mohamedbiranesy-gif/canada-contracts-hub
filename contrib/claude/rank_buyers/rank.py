@@ -300,7 +300,15 @@ def classify_ids(ids, src_key="", instrument=""):
             systemish = ("unique" in kl or "guid" in kl or "item_id" in kl or kl.endswith("_key") or "transaction" in kl or kl in ("ocid", "release_id")
                          or re.fullmatch(r"(?:prod-|ocds-)?[0-9a-f]{20,}(?:-[0-9a-f]+)*", fv.lower()) is not None or re.fullmatch(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", fv.lower()) is not None)
             out[cls].append((systemish, len(kl), "%s (%s)" % (fv, k)))
+    if src_key == "seao_quebec":  # 2026-11-08: SEAO's "numero" is the reference the organisation gives its notice (appel d'offres), i.e. the tender number; the concluded contract is published under it
+        _num = [t for t in out["contract"] if t[2].endswith("(numero)")]
+        out["contract"] = [t for t in out["contract"] if not t[2].endswith("(numero)")]
+        out["solicitation"] = _num + out["solicitation"]
     out = {c: [t[2] for t in sorted(v)] for c, v in out.items()}  # human-usable numbers first, system keys last
+    if not [t for t in out["contract"] if not re.search(r"\((?:ocds_contract_ids|contract_ids|collapsed_duplicate_contract_ids)\)$", t)] and out["solicitation"]:
+        _sol = out["solicitation"][0]
+        if not re.search(r"[0-9a-f]{8}-[0-9a-f]{4}-", _sol):
+            out["contract"] = out["contract"] + ["%s — the source publishes the award under this tender / notice number and no separate contract number; quote it as the contract reference" % _sol]
     res = {"po_number_as_published": "; ".join(out["po"])[:300], "contract_or_agreement_number": "; ".join(out["contract"])[:300],
            "solicitation_or_tender_number": "; ".join(out["solicitation"])[:300], "award_or_notice_id": "; ".join(out["award"])[:300],
            "buyer_vendor_id": "; ".join(out["buyer_vendor_id"])[:200], "vendor_ids_in_record": "; ".join(out["vendor_registry"])[:200],
@@ -434,9 +442,10 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
         if _val > 0:
             o.setdefault("yv", collections.Counter())[_ad[:4]] += _val
     _dd = (r.get("contract") or {}).get("dates") or {}
-    if _dd.get("start") and _dd.get("end") and len(str(_dd["start"])) >= 10 and len(str(_dd["end"])) >= 10:
+    _ds, _de = _dd.get("start") or _dd.get("signed") or _dd.get("awarded"), _dd.get("end") or _dd.get("end_inferred") or _dd.get("end_computed")  # end_inferred / end_computed = award + the duration the source publishes
+    if _ds and _de and len(str(_ds)) >= 10 and len(str(_de)) >= 10:
         try:
-            _dur = (datetime.date.fromisoformat(str(_dd["end"])[:10]) - datetime.date.fromisoformat(str(_dd["start"])[:10])).days
+            _dur = (datetime.date.fromisoformat(str(_de)[:10]) - datetime.date.fromisoformat(str(_ds)[:10])).days
             if 0 < _dur < 7400:
                 o.setdefault("durs", []).append(_dur)
         except ValueError:
@@ -1681,7 +1690,8 @@ try:
 except Exception as _e:
     print("ap_terms file unreadable:", type(_e).__name__, _e); AT = {}
 AT_PAGE_RX = re.compile(r"invoice|factur|payable|supplier|vendor|fourniss|payment|paiement|terms|conditions|purchas|procure|achat|approvisionnement|accounts|comptabilit|finance", re.I)
-AT_FIELDS = ("payment_terms", "po_required", "portal_name", "portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn", "bn_quote", "mailbox_context", "payment_method", "ap_cycle", "tax_exempt", "esignature", "setup_url", "setup_quote")
+AT_FIELDS = ("payment_terms", "po_required", "portal_name", "portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn", "bn_quote", "mailbox_context", "payment_method", "ap_cycle", "tax_exempt", "esignature", "ap_system", "setup_url", "setup_quote")
+AT_TERM_FIELDS = ("payment_terms", "po_required", "portal_name", "payment_method", "ap_cycle", "tax_exempt", "esignature", "ap_system", "buyer_bn", "invoice_format", "setup_url")
 
 
 def at_pages(x):
@@ -1691,8 +1701,8 @@ def at_pages(x):
     found = []
     for k in (x.get("keys") or "").split("|"):
         for r_ in AT.get(k) or []:
-            if r_ not in own and AT_PAGE_RX.search((r_.get("final_url") or r_.get("evidence_url") or "") + " " + (r_.get("payment_terms_quote") or "")):
-                found.append(r_)
+            if r_ not in own and (AT_PAGE_RX.search((r_.get("final_url") or r_.get("evidence_url") or "") + " " + (r_.get("payment_terms_quote") or "")) or any(r_.get(f) for f in AT_TERM_FIELDS)):
+                found.append(r_)  # a bylaw / policy PDF whose address says nothing counts when a term was read from it
     found.sort(key=lambda r_: (not re.search(r"payable|invoice|factur|supplier|vendor|fourniss", (r_.get("final_url") or "") , re.I), r_.get("final_url") or ""))
     return own + found
 
@@ -1752,6 +1762,8 @@ for x in rows:
     for col, lab in (("payment_method", "buyer_payment_method_preference"), ("ap_cycle", "buyer_ap_cycle_published"), ("tax_exempt", "buyer_tax_exempt_status"), ("esignature", "buyer_esignature_preference")):
         if t.get(col):
             x[lab] = "%s%s" % (t[col], t[col + "_src"]); n_at[col] += 1
+    if t.get("ap_system") and not (x.get("ap_system_hint") or "").startswith("named on"):
+        x["ap_system_hint"] = ("named on the buyer's page: %s%s" % (t["ap_system"], t["ap_system_src"])) + (("; " + x["ap_system_hint"]) if x.get("ap_system_hint") else ""); n_at["ap_system"] += 1
     if t.get("setup_url") and not x.get("supplier_setup_url"):
         x["supplier_setup_url"] = "%s (%s%s)" % (t["setup_url"], (t.get("setup_quote") or "").replace("link text: ", "linked as \"") + ("\"" if t.get("setup_quote") else ""), t["setup_url_src"]); n_at["setup_url"] += 1
     if own and own[0].get("mailbox_still_on_page") == "no":
@@ -2280,8 +2292,15 @@ for x in rows:
                 "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
                 "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
         x.setdefault(col, "")
+    if not x.get("contract_title") and (x.get("contract_description") or "").strip() and x.get("contract_link"):  # the source publishes a description but no separate title
+        x["contract_title"] = re.split(r"(?<=[.!?])\s", x["contract_description"].strip(), 1)[0][:150] + " (first sentence of the record's description; the source publishes no separate title)"
+        n9["contract_title_from_description"] += 1
+    _hint = x.get("invoice_reference_hint") or ""
+    if (not _hint or _hint.startswith(("no identifier", "only system"))) and (x.get("po_required_as_published") or "").startswith(("yes", "purchase-order terms published")):
+        x["invoice_reference_hint"] = "the buyer's purchase-order number: the buyer publishes that invoices must quote a PO number (%s)" % x["po_required_as_published"][:200]  # owner 2026-11-08: the reference an AP clerk matches
+        n9["invoice_reference_hint_po_rule"] += 1
     if not x.get("records_with_this_vendor") and not (x.get("vendor") or "").startswith("inferred"):  # downstream §1.10: a lead-based row has no contract record, the relationship record itself counts
-        x["records_with_this_vendor"] = "0 in the contract dataset; 1 relationship record: %s" % ((x.get("how_relationship_was_found") or x.get("source") or "see contract_link")[:160])
+        x["records_with_this_vendor"] = "1 (relationship record: %s; 0 in the contract dataset)" % ((x.get("how_relationship_was_found") or x.get("source") or "see contract_link")[:160])
         n9["records_with_this_vendor_lead"] += 1
     t = x.get("tier") or "N"
     x["buyer_type"] = buyer_type(x.get("buyer"), x.get("jurisdiction") or x.get("_jur") or "")
