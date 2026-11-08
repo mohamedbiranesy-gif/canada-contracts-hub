@@ -1668,60 +1668,91 @@ def mailbox_how(file, lane):
     if "xverify" in f: return "cross-verification row (a second lane quoting the same page)"
     return "researched by %s (page opened and quoted)" % LANE_WORDS.get(lane, lane or "a lane agent")
 # ---- owner 2026-11-06 D-items: evidence-page re-read (terms, PO, portal, phone, address, printed AP contact, buyer GST), Peppol, dataset back-reference, sensitivity, template language ----
-AT = {}
+AT = {}  # key (mailbox or buyer_key) -> every page read for it; merged field by field below (a buyer's terms, PO rule, phone, address sit on different pages)
 try:
     if os.path.exists(ROOT + "/data/incoming/claude/claude_ap_terms.csv"):
         for _r in csv.DictReader(io.StringIO(open(ROOT + "/data/incoming/claude/claude_ap_terms.csv", encoding="utf-8", errors="replace").read().replace("\0", ""))):
             if _r.get("status") == "ok" and _r.get("email"):
-                AT.setdefault(_r["email"].lower(), _r)  # mailbox rows; buyer_key rows (from --urls search passes) sit under their key
+                AT.setdefault(_r["email"].lower(), []).append(_r)
 except Exception as _e:
     print("ap_terms file unreadable:", type(_e).__name__, _e); AT = {}
+AT_PAGE_RX = re.compile(r"invoice|factur|payable|supplier|vendor|fourniss|payment|paiement|terms|conditions|purchas|procure|achat|approvisionnement|accounts|comptabilit|finance", re.I)
+AT_FIELDS = ("payment_terms", "po_required", "portal_name", "portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn", "bn_quote", "mailbox_context", "payment_method", "ap_cycle", "tax_exempt", "esignature")
+
+
+def at_pages(x):
+    """the pages read for this row: the mailbox's own evidence page first, then pages found for the buyer (walker / search) that are about invoicing, suppliers or purchasing"""
+    e = (x.get("email") or "").lower()
+    own = list(AT.get(e) or [])
+    found = []
+    for k in (x.get("keys") or "").split("|"):
+        for r_ in AT.get(k) or []:
+            if r_ not in own and AT_PAGE_RX.search((r_.get("final_url") or r_.get("evidence_url") or "") + " " + (r_.get("payment_terms_quote") or "")):
+                found.append(r_)
+    found.sort(key=lambda r_: (not re.search(r"payable|invoice|factur|supplier|vendor|fourniss", (r_.get("final_url") or "") , re.I), r_.get("final_url") or ""))
+    return own + found
+
+
+def at_merge(pages):
+    """first page that carries each field, with that page's own source note"""
+    m = {}
+    for r_ in pages:
+        for f in AT_FIELDS:
+            if r_.get(f) and f not in m:
+                m[f] = r_[f]; m[f + "_row"] = r_; m[f + "_src"] = " (as printed on %s, re-read %s)" % (r_.get("final_url") or r_.get("evidence_url"), r_.get("retrieved_date"))
+    return m
+
+
 n_at = collections.Counter()
+n_at_pages = 0
 for x in rows:
     e = (x.get("email") or "").lower()
-    t = AT.get(e) or next((AT[k] for k in (x.get("keys") or "").split("|") if k in AT), None)
-    if not t:
+    pages = at_pages(x)
+    if not pages:
         continue
-    if t.get("email") != e and not re.search(r"invoice|factur|payable|supplier|vendor|fourniss|payment|paiement|terms|conditions", (t.get("final_url") or "") + (t.get("payment_terms_quote") or ""), re.I):
-        continue  # a page found by search for this buyer: use it only when it is about invoicing / supplier terms
-    src = " (as printed on %s, re-read %s)" % (t.get("final_url") or t.get("evidence_url"), t.get("retrieved_date"))
+    n_at_pages += len(pages)
+    own = AT.get(e) or []
+    t = at_merge(pages)
     x["_at"] = set()
     if t.get("payment_terms") and not x.get("payment_terms_as_published"):
-        x["payment_terms_as_published"] = t["payment_terms"] + src; x["_at"].add("payment_terms_as_published"); n_at["payment_terms"] += 1
+        x["payment_terms_as_published"] = t["payment_terms"] + t["payment_terms_src"]; x["_at"].add("payment_terms_as_published"); n_at["payment_terms"] += 1
     if t.get("po_required") and not x.get("po_required_as_published"):
-        x["po_required_as_published"] = t["po_required"] + src; x["_at"].add("po_required_as_published"); n_at["po_required"] += 1
+        x["po_required_as_published"] = t["po_required"] + t["po_required_src"]; x["_at"].add("po_required_as_published"); n_at["po_required"] += 1
     if t.get("portal_name") and not x.get("invoice_portal_url"):
         x["invoice_portal_url"] = "%s%s (additional channel named on the buyer's page; the e-mail is the contact)" % (t.get("portal_url") or t["portal_name"], (" — " + t["portal_name"]) if t.get("portal_url") else ""); x["_at"].add("invoice_portal_url"); n_at["portal"] += 1
     _ap_page = int(x.get("grade") or 0) >= 3  # next to an AP / finance mailbox it is the AP phone and address; next to a general mailbox it is the organisation's
     if t.get("ap_phone"):
-        if _ap_page and not x.get("ap_phone"):
-            x["ap_phone"] = t["ap_phone"] + src; x["_at"].add("ap_phone"); n_at["ap_phone"] += 1
+        src = t["ap_phone_src"]
+        if (_ap_page or t["ap_phone_row"] not in own) and not x.get("ap_phone"):
+            x["ap_phone"] = t["ap_phone"] + src; x["_at"].add("ap_phone"); n_at["ap_phone"] += 1  # a phone on an AP / supplier / purchasing page is the AP phone even when the row's mailbox is general
         elif not _ap_page and not x.get("buyer_phone"):
             x["buyer_phone"] = t["ap_phone"] + " (printed next to the organisation's mailbox%s)" % src; n_at["buyer_phone_from_page"] += 1
     if t.get("invoice_mailing_address"):
-        if _ap_page and not x.get("invoice_mailing_address"):
+        src = t["invoice_mailing_address_src"]
+        if (_ap_page or t["invoice_mailing_address_row"] not in own) and not x.get("invoice_mailing_address"):
             x["invoice_mailing_address"] = t["invoice_mailing_address"] + src; x["_at"].add("invoice_mailing_address"); n_at["address"] += 1
         elif not _ap_page and not x.get("buyer_address"):
             x["buyer_address"] = t["invoice_mailing_address"] + " (printed next to the organisation's mailbox%s)" % src; n_at["buyer_address_from_page"] += 1
     if t.get("ap_contact_name") and not x.get("ap_contact_name_as_published"):
-        x["ap_contact_name_as_published"] = t["ap_contact_name"] + " (as printed by the organisation on its own accounts-payable page%s)" % src; x["_at"].add("ap_contact_name_as_published"); n_at["ap_contact_name"] += 1
+        x["ap_contact_name_as_published"] = t["ap_contact_name"] + " (as printed by the organisation on its own accounts-payable page%s)" % t["ap_contact_name_src"]; x["_at"].add("ap_contact_name_as_published"); n_at["ap_contact_name"] += 1
     if t.get("invoice_format"):
         add = "invoice format as published: %s" % t["invoice_format"]
         if add[:40] not in (x.get("invoicing_requirements") or ""):
-            x["invoicing_requirements"] = ((x.get("invoicing_requirements") + " | ") if x.get("invoicing_requirements") else "") + add + src; x["_at"].add("invoicing_requirements"); n_at["format"] += 1
+            x["invoicing_requirements"] = ((x.get("invoicing_requirements") + " | ") if x.get("invoicing_requirements") else "") + add + t["invoice_format_src"]; x["_at"].add("invoicing_requirements"); n_at["format"] += 1
     if t.get("buyer_bn") and not x.get("buyer_bn_as_published") and re.match(r"^\d{9}RT0001$", t["buyer_bn"]):
-        x["buyer_bn_as_published"] = "%s (GST/HST number as printed on %s: \"%s\")" % (t["buyer_bn"], t.get("final_url") or t.get("evidence_url"), (t.get("bn_quote") or "")[:160])
+        bn_page = t["buyer_bn_row"]
+        x["buyer_bn_as_published"] = "%s (GST/HST number as printed on %s: \"%s\")" % (t["buyer_bn"], bn_page.get("final_url") or bn_page.get("evidence_url"), (bn_page.get("bn_quote") or "")[:160])
         x["buyer_gst_hst_derived"] = t["buyer_bn"] + " (printed by the buyer itself; not derived)"; x["_at"].add("buyer_bn_as_published"); n_at["buyer_bn"] += 1
-    if t.get("mailbox_context"):
-        x["email_evidence_context"] = "%s (page text around the mailbox, re-read %s)" % (t["mailbox_context"], t.get("retrieved_date")); n_at["context"] += 1
+    if own and own[0].get("mailbox_context"):
+        x["email_evidence_context"] = "%s (page text around the mailbox, re-read %s)" % (own[0]["mailbox_context"], own[0].get("retrieved_date")); n_at["context"] += 1
     for col, lab in (("payment_method", "buyer_payment_method_preference"), ("ap_cycle", "buyer_ap_cycle_published"), ("tax_exempt", "buyer_tax_exempt_status"), ("esignature", "buyer_esignature_preference")):
         if t.get(col):
-            x[lab] = "%s%s" % (t[col], src); n_at[col] += 1
-    if t.get("mailbox_still_on_page") == "no":
-        x["mailbox_recheck_note"] = "mailbox not seen in the page text when re-read %s (dynamic page, PDF or removed — the referee's own re-fetch decides; check before use)" % t.get("retrieved_date"); n_at["mailbox_gone"] += 1
-    else:
-        x["mailbox_recheck_note"] = "mailbox seen again on the page when re-read %s" % t.get("retrieved_date")
-print("ap_terms (evidence pages re-read): %d mailboxes read; filled %s" % (len(AT), dict(n_at)))
+            x[lab] = "%s%s" % (t[col], t[col + "_src"]); n_at[col] += 1
+    if own and own[0].get("mailbox_still_on_page") == "no":
+        x["mailbox_recheck_note"] = "mailbox not seen in the page text when re-read %s (dynamic page, PDF or removed — the referee's own re-fetch decides; check before use)" % own[0].get("retrieved_date"); n_at["mailbox_gone"] += 1
+    elif own:
+        x["mailbox_recheck_note"] = "mailbox seen again on the page when re-read %s" % own[0].get("retrieved_date")
+print("ap_terms (evidence pages re-read): %d keys read, %d pages used across rows; filled %s" % (len(AT), n_at_pages, dict(n_at)))
 # Peppol Directory (D8): every Canadian participant, matched by key / exact name
 PEP = []
 if os.path.exists(ROOT + "/data/incoming/claude/claude_peppol_participants.csv"):
