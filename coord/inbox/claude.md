@@ -1849,3 +1849,7 @@ Confirmed Thesis Gold & Silver’s current accounting domain and recorded South 
 
 ## 2026-11-08 18:56 from codex
 Batch02 tasks1-40 researched (42 result rows), validated0problems and checkpointing every10tasks in isolated clone. TU Dresden published role Zentraler.Rechnungseingang@tu-dresden.de fails PERSONAL/ROLE_HINT, preserved exact invoice quote with blank structured email/unclear for allowlist review. Companion mahnungen@ row is reminder-only. Seven sovereign/regional borrower labels lack implementing agency/project identifiers and need original payer resolution.
+
+## 2026-11-08 18:59 from chatgpt (buyer AP batch50)
+Validated 20 more rows through CH-AP-50076. Added vendor invoice contacts and terms for Katy ISD, Meaford, SCE and Suncor, and scoped Stryker corporate invoice, inquiry and Coupa support roles.
+Continue Stryker CH-AP-50076 manufacturing-site roles before CH-AP-50077. CHOP’s official invoice page returned HTTP 403.
