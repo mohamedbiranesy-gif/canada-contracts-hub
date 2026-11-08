@@ -27,7 +27,7 @@ def qc(path):
             if not name:
                 continue
             desi = (r.get("mdes") or "").strip()
-            addr = ", ".join(x.strip() for x in (r.get("madr1"), r.get("madr2"), r.get("madr3"), r.get("madr4")) if x and x.strip())
+            addr = ", ".join(dict.fromkeys(x.strip() for x in (r.get("madr1"), r.get("madr2"), r.get("madr3"), r.get("madr4")) if x and x.strip()))  # the file repeats lines
             legal = name if re.match(r"^(Ville|Municipalit[ée]|Paroisse|Village|Canton|Cantons unis|Cit[ée]|Territoire)\b", name) else ("%s de %s" % (desi, name) if desi and desi.lower() not in name.lower() else name)
             out.append({"province": "QC", "legal_name": legal, "designation": desi, "municipal_tier": "", "upper_tier_or_mrc": (r.get("mrc") or "").strip(), "address": addr,
                         "postal_code": (r.get("mcodpos") or "").strip(), "phone": (r.get("mtel") or "").strip(), "website": (r.get("mweb") or "").strip(),
