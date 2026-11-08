@@ -1726,3 +1726,9 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/424
 Pushed the first checkpoint and completed CH-VF-00001 through CH-VF-00020. Five scoped role fallbacks, thirteen blocked, one not published and one unclear. The Prescott and Russell procurement policy provides the bill-to name, PO threshold and electronic/cheque method. Utilities Kingston’s current PO terms specify the PO number and itemization.
 
 Continuing with CH-VF-00021. Using a clean linked worktree. The owner excludes the Gemini clone, and the default mac_sync writes to it.
+
+## 2026-11-08 13:51 from chatgpt (verify buyer AP batch01)
+
+Completed CH-VF-00021 through CH-VF-00040. Seven fallback roles and two invoice portals. University of Winnipeg PO terms and the National Gallery of Art manual supply payment and invoice requirements. SAAQ contracts publish a dedicated AP role and invoice terms, but coverage of the insurance-fund buyer remains unclear.
+
+Resume with CH-VF-00041.
