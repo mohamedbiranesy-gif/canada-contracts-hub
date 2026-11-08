@@ -117,16 +117,17 @@ def main():
         if d and d in by_dom:
             cand = by_dom[d]
             cn = norm(cand.get("Legal Name")) + " " + norm(cand.get("Account Name"))
+            raw = ((cand.get("Legal Name") or "") + " " + (cand.get("Account Name") or "")).lower()  # norm() drops 'foundation' as a stop word; test the raw names
             # the charity on the organisation's domain must BE the organisation: same core name, and not a foundation / club / association of it
-            if core and core <= set(cn.split()) and not (SUB_RX.search(cn) and not SUB_RX.search(norm(bname))):
+            if core and core <= set(cn.split()) and not (SUB_RX.search(raw) and not SUB_RX.search(bname.lower())):
                 hit, basis = cand, "website domain (%s) + name" % d
         if not hit:
             for nm in (x.get("buyer"), (x.get("buyer_legal_name_as_published") or "").split(" (")[0]):
                 k = norm(nm)
                 if len(k) >= 6 and (k, prov) in by_name:
                     cand = by_name[(k, prov)]
-                    cn = norm(cand.get("Legal Name")) + " " + norm(cand.get("Account Name"))
-                    if SUB_RX.search(cn) and not SUB_RX.search(norm(nm)):
+                    raw = ((cand.get("Legal Name") or "") + " " + (cand.get("Account Name") or "")).lower()
+                    if SUB_RX.search(raw) and not SUB_RX.search((nm or "").lower()):
                         continue
                     hit, basis = cand, "exact name%s" % (" + province" if prov else "")
                     break
