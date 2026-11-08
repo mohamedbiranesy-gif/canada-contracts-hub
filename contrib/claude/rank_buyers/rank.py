@@ -2050,6 +2050,39 @@ for x in rows:
         if (b.get("_neq") or (b.get("juri_id") or "").startswith("NEQ")) and "NEQ" not in (x.get("buyer_registry_id") or "") and b.get("_neq"):
             x["buyer_registry_id"] += "; %s (%s)" % (b["_neq"], b["_neq_src"])
 print("Canada's Business Registries + registry open data: %d vendors, %d buyers found; filled %s" % (len(CBR["vendor"]), len(CBR["buyer"]), dict(n_cbr)))
+# award facts read from the buyer's own award page (tools/award_facts.py → claude_award_facts.csv): value, dates, PO / contract / tender numbers,
+# number of bids printed next to the vendor's name, for pairs whose proof record lacks them (owner 2026-11-08 12:47 EST: change the approach, not the goal)
+AF = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_award_facts.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_award_facts.csv", encoding="utf-8", errors="replace")):
+        if _r.get("status") != "ok" or not _r.get("vendor_seen"):
+            continue
+        _score = sum(1 for c in ("contract_value", "start_date", "end_date", "po_number", "contract_number", "tender_number", "number_of_bids") if _r.get(c)) + (1 if (_r.get("page_kind") or "").startswith(("council", "bid results", "award notice")) else 0)
+        if _score and (_r["row_key"] not in AF or _score > AF[_r["row_key"]][0]):
+            AF[_r["row_key"]] = (_score, _r)
+n_af = collections.Counter()
+for x in rows:
+    _k = (x.get("keys") or "").split("|")[0] + "||" + (x.get("vendor") or "").strip()
+    _hit = AF.get(_k)
+    if not _hit:
+        continue
+    f = _hit[1]
+    src = "as printed in the buyer's own %s: %s, read %s" % (f.get("page_kind") or "award page", f.get("final_url") or f.get("url"), f.get("retrieved_date"))
+    if f.get("contract_value") and not x.get("contract_value"):
+        x["contract_value"] = "%s (%s: \"%s\")" % (f["contract_value"], src, (f.get("value_quote") or "")[:200]); n_af["contract_value"] += 1
+        if f.get("currency") and not x.get("currency"):
+            x["currency"] = f["currency"]
+    for col, fc in (("start_date", "start_date"), ("end_date", "end_date")):
+        if f.get(fc) and not x.get(col):
+            x[col] = "%s (%s: \"%s\")" % (f[fc], src, (f.get("dates_quote") or "")[:200]); n_af[col] += 1
+    for col, fc in (("po_number_as_published", "po_number"), ("contract_or_agreement_number", "contract_number"), ("solicitation_or_tender_number", "tender_number")):
+        if f.get(fc) and not x.get(col):
+            x[col] = "%s (%s: \"%s\")" % (f[fc], src, (f.get("numbers_quote") or "")[:200]); n_af[col] += 1
+    if f.get("number_of_bids") and not x.get("number_of_bids"):
+        x["number_of_bids"] = "%s (%s: \"%s\")" % (f["number_of_bids"], src, (f.get("bids_quote") or "")[:200]); n_af["number_of_bids"] += 1
+    if f.get("term") and not x.get("end_date") and not x.get("contract_term_as_published"):
+        x["contract_term_as_published"] = "%s (%s: \"%s\")" % (f["term"], src, (f.get("dates_quote") or "")[:200]); n_af["term"] += 1
+print("award facts from the buyers' own award pages: %d pairs with a page; filled %s" % (len(AF), dict(n_af)))
 # federal grants & contributions disclosure (tools/gc_recipients.py → claude_gc_recipients.csv): recipient_business_number of buyers and vendors
 GCR = {"vendor": {}, "buyer": {}}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_gc_recipients.csv"):
@@ -2319,7 +2352,7 @@ TAX_MUNICIPAL = "municipality: GST/HST applies to supplies to it — a municipal
 TAX_RATE = {"ON": "HST 13% (Ontario)", "NB": "HST 15% (New Brunswick)", "NL": "HST 15% (Newfoundland and Labrador)", "NS": "HST 15% (Nova Scotia)", "PE": "HST 15% (Prince Edward Island)"}
 TAX_RATE_NOTE = " — indicative rate for a supply made in the buyer's province (GST/HST Memorandum 18-2 'GST/HST rates', %s, read 2026-11-08: \"The HST applies in the participating provinces at the following rates: 13%% in Ontario and 15%% in New Brunswick, Newfoundland and Labrador, Nova Scotia, and Prince Edward Island. The GST applies in the rest of Canada at the rate of 5%%\"); the place-of-supply rules decide (Memorandum 3-3-2); provincial sales taxes (QST, PST) are not covered here" % CRA_18_2
 
-PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "buyer_tax_status_derived", "tax_rate_indicative_derived", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "buyer_tax_status_derived", "tax_rate_indicative_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
@@ -2632,7 +2665,8 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id", "buyer_bn_note"]),
                    ("all_references_with_this_vendor", ["contract_value_from_pair", "start_date_from_pair", "end_date_from_pair", "contract_title_from_pair", "contract_description_from_pair", "instrument_type_from_pair", "procurement_method_from_pair", "number_of_bids_from_pair", "po_number_as_published_from_pair", "contract_or_agreement_number_from_pair", "solicitation_or_tender_number_from_pair", "award_or_notice_id_from_pair", "buyer_vendor_id_from_pair", "commodity_codes_from_pair", "buyer_org_codes_from_pair"]), ("vendor_website_status", ["vendor_website_basis", "vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
                    ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
-                   ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
+                   ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"]),
+                   ("buyer_tax_exempt_status", ["buyer_tax_status_derived", "tax_rate_indicative_derived"]), ("end_date", ["contract_term_as_published"])):
     if after in cols:
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]
