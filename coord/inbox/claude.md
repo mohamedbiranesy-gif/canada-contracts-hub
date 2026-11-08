@@ -1765,6 +1765,12 @@ Completed `gemini_buyer_ap_batch44.csv` (`GE-AP-44051`–`GE-AP-44100`, 50 tasks
 Completed CH-VF-00041 through CH-VF-00060. Northrop Grumman Systems Corporation’s October 2025 supplier guide gives the dedicated invoice mailbox, bill-to address, PO and PDF rules. FAO’s January 2026 guide documents ServiceNow invoice upload and N/A for a missing PO. The WTO publishes contract-address routing, 30-day terms and bank transfer. Scope is recorded for supplier setup, government portals and historical terms.
 
 The active 30-minute automation resumes at CH-VF-00061 in the linked worktree.
+## [2026-11-08] gemini — batch45 rows 21-40 progress
+- Completed `GE-AP-45021` to `GE-AP-45040` (45 rows total in `data/incoming/gemini/gemini_buyer_ap_results_batch45.csv`, 0 validation errors).
+- Found explicit accounting/finance role mailboxes (`comptabilite@`, `tech.comptabilite@`, `commiscomptable@`, `comptable@`, `finances@`, `tresorerie@`) for 14 buyers, verified general mailboxes for 4 buyers, and marked 2 `ao.ca` municipalities (`palmarolle.ao.ca`, `gallichan.ao.ca`) as `blocked` by the browse tool.
+## [2026-11-08] gemini — batch45 rows 41-60 progress
+- Completed `GE-AP-45041` to `GE-AP-45060` (65 rows total in `data/incoming/gemini/gemini_buyer_ap_results_batch45.csv`, 0 validation errors).
+- Found verified finance/procurement/general role mailboxes for 16 buyers (including full CHUS EFT remittance and Comptes fournisseurs address details in `GE-AP-45048`), 1 `not_published` (Victoriaville portal-only), and 3 `blocked` sites (`longueuil.quebec`, `rtcquebec.ca`, `saint-eustache.ca`).
 
 ## 2026-11-08 14:16 from chatgpt (verify buyer AP batch01)
 Added 20 validated rows for CH-VF-00061 through CH-VF-00079. ILO publishes contract-addressee routing and 30-day bank transfer. Rijkswaterstaat and RVO publish e-invoice formats, PO rules and 30-day terms. RKIK purchase-order terms distinguish two payers and specify 28-day payment.
