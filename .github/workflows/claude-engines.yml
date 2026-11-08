@@ -29,6 +29,7 @@ on:
         default: "15"
 permissions:
   contents: write
+  actions: write
 env:
   ENGINE: ${{ inputs.engine || 'bulk_registry' }}
   SHARDS: ${{ inputs.shards || '1' }}
@@ -75,11 +76,12 @@ jobs:
         run: |
           N="$SHARDS"; K=${{ matrix.k }}
           M="$MINUTES"; W=$(( M > 60 ? M - 45 : M / 2 ))
-          timeout "${W}m" python3 tools/ap_walk.py --ranked coord/results/ranked/ranked_buyers.csv.gz --tiers "$TIERS" --shard "$K/$N" --workers 40 --max-pages "$MAXP" || true
+          timeout "${W}m" python3 tools/ap_walk.py --ranked coord/results/ranked/ranked_buyers.csv.gz --tiers "$TIERS" --shard "$K/$N" --workers 40 --max-pages "$MAXP" 2>&1 | tee walk.log | grep -E "sites to walk|\{" | tail -3 || true
+          mkdir -p out && grep -oE "sites to walk: [0-9]+" walk.log | grep -oE "[0-9]+" | head -1 > out/sites_left_$K.txt || echo 0 > out/sites_left_$K.txt
           if [ -s ~/cch-crawler-state/ap_pages_seen.csv ]; then
             timeout 40m python3 tools/ap_terms.py --urls ~/cch-crawler-state/ap_pages_seen.csv --ranked coord/results/ranked/ranked_buyers.csv.gz --repo "$PWD" --workers 24 || true
           fi
-          mkdir -p out && cp data/incoming/claude/claude_ap_terms.csv out/ap_terms_$K.csv 2>/dev/null || true
+          cp data/incoming/claude/claude_ap_terms.csv out/ap_terms_$K.csv 2>/dev/null || true
           cp ~/cch-crawler-state/ap_pages_seen.csv out/pages_$K.csv 2>/dev/null || true
           cp ~/cch-crawler-state/ap_walk_done.tsv out/done_$K.tsv 2>/dev/null || true
           { echo "shard $K/$N: pages $(wc -l < out/pages_$K.csv 2>/dev/null || echo 0), terms rows $(wc -l < out/ap_terms_$K.csv 2>/dev/null || echo 0)"; } >> "$GITHUB_STEP_SUMMARY"
@@ -144,6 +146,14 @@ jobs:
             git reset -q --soft HEAD~1 || true
             sleep $((RANDOM % 30 + 10))
           done
+          if [ "$ENGINE" = "walk_terms" ]; then
+            left=$(cat shards/sites_left_*.txt 2>/dev/null | awk '{s+=$1} END {print s+0}')
+            walked=$(wc -l < /tmp/done.tsv 2>/dev/null || echo 0)
+            echo "sites still to walk (sum over shards at start): $left; walked so far: $walked" >> "$GITHUB_STEP_SUMMARY"
+            if [ "$left" -gt "$((SHARDS * 50))" ]; then
+              gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=walk_terms" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" -f "inputs[tiers]=$TIERS" -f "inputs[max_pages]=$MAXP" && echo "re-dispatched walk_terms" >> "$GITHUB_STEP_SUMMARY" || true
+            fi
+          fi
           python3 - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
           import csv, io, os
           csv.field_size_limit(1 << 30)
