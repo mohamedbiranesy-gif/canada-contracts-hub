@@ -24,6 +24,9 @@ ap.add_argument("--rpm", type=float, default=float(os.environ.get("GEMINI_RPM", 
 ap.add_argument("--kinds", default="verify_buyer_ap,buyer_ap,vendor_contacts")
 args = ap.parse_args()
 KEY = os.environ.get("GEMINI_API_KEY", "")
+AKEY = os.environ.get("ANTHROPIC_API_KEY", "") or (open(os.path.expanduser("~/cch-crawler-state/anthropic.key")).read().strip() if os.path.exists(os.path.expanduser("~/cch-crawler-state/anthropic.key")) else "")
+PROVIDER = os.environ.get("PROVIDER") or ("anthropic" if (AKEY and not KEY) else "gemini")  # owner 2026-11-08: the Gemini key is quota-exhausted (429 on every model); the plan's Anthropic credits take over
+AMODEL = os.environ.get("ANTHROPIC_MODEL", "claude-haiku-5-5")
 MODELS = [m for m in args.models.split(",") if m] or ["gemini-flash-latest"]
 T0, TODAY = time.time(), datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
 UA = {"User-Agent": "Mozilla/5.0 (compatible; contracts-research/1.0; evidence verification; polite)"}
@@ -147,8 +150,59 @@ GROUNDING = {"on": os.environ.get("GROUNDING", "auto") != "off"}
 NO_GROUND = set()  # models whose key/tier does not include Google Search grounding
 
 
+def anthropic_ask(prompt, grounded=True):
+    """Same contract as gemini(): (text, [source urls]) — Claude with the server-side web_search tool; the URLs come from the tool's
+    result blocks (the search engine's list), never from the model's prose. The caller still fetches every page and keeps a value only
+    if it is literally on the organisation's own page."""
+    body = {"model": AMODEL, "max_tokens": 900, "messages": [{"role": "user", "content": prompt}]}
+    if grounded:
+        body["tools"] = [{"type": "web_search_20250305", "name": "web_search", "max_uses": 3}]
+    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=json.dumps(body).encode(),
+                                 headers={"x-api-key": AKEY, "anthropic-version": "2023-06-01", "content-type": "application/json"})
+    for attempt in range(3):
+        wait = _last_call[0] + 60.0 / max(args.rpm, 20) - time.time()
+        if wait > 0:
+            time.sleep(wait)
+        _last_call[0] = time.time()
+        stats["gemini_calls"] += 1
+        try:
+            with urllib.request.urlopen(req, timeout=180) as r:
+                d = json.loads(r.read())
+            break
+        except urllib.error.HTTPError as e:
+            msg = e.read().decode("utf-8", "replace")[:300]
+            stats["model_errors"] += 1
+            if e.code in (401, 403) or (e.code == 400 and "credit" in msg.lower()):
+                raise QuotaExhausted("Anthropic API: %s" % msg)
+            if e.code in (429, 500, 529, 503) and attempt < 2:
+                time.sleep(10 * (attempt + 1)); continue
+            raise ModelUnavailable("Anthropic HTTP %s %s" % (e.code, msg[:120]))
+        except Exception as e:
+            stats["model_errors"] += 1
+            if attempt < 2:
+                time.sleep(5); continue
+            raise ModelUnavailable("Anthropic error %r" % e)
+    text = "".join(b.get("text", "") for b in (d.get("content") or []) if b.get("type") == "text")
+    urls = []
+    for b in d.get("content") or []:
+        if b.get("type") == "web_search_tool_result" and isinstance(b.get("content"), list):
+            urls += [r.get("url") for r in b["content"] if r.get("type") == "web_search_result" and r.get("url")]
+        for c in (b.get("citations") or []) if b.get("type") == "text" else []:
+            if c.get("url"):
+                urls.append(c["url"])
+    if grounded:
+        stats["grounded_ok"] += 1
+    seen, out = set(), []
+    for u in urls:
+        if u not in seen:
+            seen.add(u); out.append(u)
+    return text, out
+
+
 def gemini(prompt, grounded=True):
     """Generation, grounded with Google Search when available. Returns (text, [source urls]) or raises."""
+    if PROVIDER == "anthropic":
+        return anthropic_ask(prompt, grounded)
     grounded = grounded and GROUNDING["on"]
     for model in MODELS:
         if grounded and model in NO_GROUND:
@@ -424,7 +478,7 @@ def research_buyer(kind, t, out):
             "ap_phone": "", "applies_to": j.get("applies_to") if j.get("applies_to") in ("whole_organisation", "this_unit_only", "parent_central_ap") else "",
             "invoicing_requirements_summary": (j.get("invoicing_requirements_summary") or "")[:300],
             "queries_tried": ("site crawl of %s (%d pages, robots.txt respected) + Gemini URL suggestions, no web search" % (org_dom or "-", len(pages))
-                              if crawl else "Gemini grounded search (%s); %d source pages checked" % (MODELS[0], len(pages)))}
+                              if crawl else "%s grounded web search (%s); %d source pages checked" % ("Claude" if PROVIDER == "anthropic" else "Gemini", AMODEL if PROVIDER == "anthropic" else MODELS[0], len(pages)))}
     email = (j.get("ap_email") or "").strip().strip(".").lower()
     if email and role_ok(email):
         for final, raw in pages:
@@ -519,7 +573,7 @@ def research_vendor(kind, t, out):
         return
     if not site.startswith("http"):
         st = "ambiguous" if j.get("status") == "ambiguous" else "not_found"
-        write_row(kind, out, dict(base, status=st, notes=("Gemini grounded search: " + (j.get("notes") or "no official website found"))[:250]))
+        write_row(kind, out, dict(base, status=st, notes=(("Claude" if PROVIDER == "anthropic" else "Gemini") + " grounded search: " + (j.get("notes") or "no official website found"))[:250]))
         return
     dom = reg_domain(site)
     pages = []
@@ -594,9 +648,10 @@ def research_vendor(kind, t, out):
 
 
 def main():
-    if not KEY:
-        log("GEMINI_API_KEY missing")
+    if not KEY and PROVIDER != "anthropic":
+        log("GEMINI_API_KEY missing (and no Anthropic key)")
         return
+    log("provider: %s (%s)" % (PROVIDER, AMODEL if PROVIDER == "anthropic" else ",".join(MODELS)))
     n = 0
     try:
         for kind, t, out in open_tasks():
