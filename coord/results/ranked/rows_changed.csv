@@ -1,19 +1,1 @@
 change,buyer,rank_group,email,detail
-mailbox changed,HUNTINGTON INGALLS INCORPORATED,GOLD,invoices@hii-nns.com,was accountspayableinquiry@hii-nns.com
-package moved,HUNTINGTON INGALLS INCORPORATED,GOLD,invoices@hii-nns.com,was B4
-mailbox changed,Iowa State University,GOLD,invoices@iastate.edu,was financialsuccess@iastate.edu
-package moved,Iowa State University,GOLD,invoices@iastate.edu,was B3
-mailbox changed,Dexcom Canada Co.,GOLD,accountspayable@dexcom.com,was ca.accounts@dexcom.com
-package moved,Dexcom Canada Co.,GOLD,accountspayable@dexcom.com,was B3
-mailbox changed,Westbank First Nation,GOLD,ap@wfn.ca,was purchasing@wfn.ca
-package moved,Westbank First Nation,GOLD,ap@wfn.ca,was B2
-mailbox changed,Westbank First Nation,L0,,was ap@wfn.ca
-package moved,Westbank First Nation,L0,,was L4
-mailbox changed,Municipalité de Saint-Apollinaire,A1,municipalite@st-apollinaire.com,was comptes.payables@st-apollinaire.com
-package moved,Municipalité de Saint-Apollinaire,A1,municipalite@st-apollinaire.com,was A4
-mailbox changed,Beausoleil First Nation,B3,financemgr@chimnissing.ca,was info@chimnissing.ca
-package moved,Beausoleil First Nation,B3,financemgr@chimnissing.ca,was B1
-mailbox changed,"Archipelago, ON",T3,finance@thearchipelago.ca,was financeassistant@thearchipelago.ca
-package moved,Swan Hills,GOLD-M,treasurer@townofswanhills.com,was M3
-row added,California Department of Water Resources,B1,administration@energy.ca.gov,new organisation in the ranked file
-row removed,"Roseville, City Of",B3,finance@roseville.ca.gov,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
