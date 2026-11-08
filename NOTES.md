@@ -12,6 +12,18 @@ Evidence base: `~/cch-tasks/ranked_latest.csv.gz` (13:28Z build) joined to the r
 | H5 vendor has no known website | 247 of 419 Gold rows missing vendor_phone had no vendor site | — | established; lever: search → reader confirmation (125 confirmed of 160 proposals by 16:00Z) |
 | H6 contract value missing because the source has none | 205 Gold rows: bids&tenders 46, auditor-of-record 31, contact leads 24, BC registrar 16, customer stories 13, TEC 11, Biddingo 8, MERX 6 | bids&tenders raw stores held the awarded bidder's submitted price (9,213 records recovered) | likely for the rest: lobbying / news / auditor / client-list proofs have no value by nature (≈17 % of Gold) |
 
+## Question 2 (owner 11:38 EST): what blocks AP grade A on delivered rows, and which lever closes each blocker?
+Evidence: P01 Gold batch of the 16:12Z build (585 rows), checked 16:46Z with the grade's own criteria.
+
+| blocker | rows (Gold) | lever | confidence that the lever closes most of it |
+|---|---|---|---|
+| payment terms not published | 475 | AP walker pages + PDFs → ap_terms (2-hourly); per-buyer searches for PO terms & conditions / supplier guides (PC waves); statutory construction default in its own column | medium: many small buyers publish terms only inside PO T&C PDFs; some publish none |
+| PO rule not published | 409 | same pages (PO T&Cs, supplier guides, AP pages) | medium |
+| DMARC not enforced (penalty) | 190 | none — the buyer's DNS; reported, never "fixed" | n/a (documented ceiling for A) |
+| mailbox not on the buyer's own domain | 75 | shared-service / parent-domain cases: check whether the buyer's own site publishes that mailbox domain (deep_pages); otherwise the criterion stands | low–medium |
+| bill-to legal name not published | 73 | registries (CBR buyers pass running), REQ bulk (QC public bodies), JSON-LD, G&C recipients | high |
+| billing address not published | 45 | org_extras refresh (address_v2), AP pages (invoice_mailing_address), registries | high |
+
 ## What is established / likely / unknown (for the owner)
 - Established: 57 → 87 of 438 benchmarks in one day with no rule relaxed except the owner's own (named AP person allowed); gates PASS on every build.
 - Likely: 120–160 benchmarks by 2026-11-09 morning as the refresh (65k domains), registry lookups and AP walker finish; the P13 long tail (orgs without websites) stays below target.
@@ -27,6 +39,10 @@ Evidence base: `~/cch-tasks/ranked_latest.csv.gz` (13:28Z build) joined to the r
 | Canada's Business Registries search API | ISED (front-end config.js names it) | https://ised-isde.canada.ca/cbr/srch/api/v3/search?fq=keyword:{name}&lang=en&queryaction=fieldquery | 2026-11-08 | response fields: Company_Name, BN, Juri_ID, Registry_Source, Entity_Type, Status_State, Date_Incorporated, Reg_office_city, Reg_office_province, XP_TYPE | yes (primary) |
 | G&C disclosure carries recipient BNs | open.canada.ca dataset 432527ab-7aac-45b5-81d6-7597107a7013 | https://open.canada.ca/data/en/dataset/432527ab-7aac-45b5-81d6-7597107a7013 | 2026-11-08 | column recipient_business_number; 1,383,199 rows, 228,065 recipient names with a BN | yes (primary) |
 | G&C BN vs CRA charity BN | both files | — | 2026-11-08 | 827 of 873 overlapping buyers carry the same BN9; 46 differ (related entities or keying) | — |
+| Federal construction owners must pay a proper invoice within 28 days | Federal Prompt Payment for Construction Work Act, S.C. 2019, c. 29, s. 387 (Justice Laws, current to 2026-10-19, last amended 2023-12-09) | https://laws-lois.justice.gc.ca/eng/acts/F-7.7/FullText.html | 2026-11-08 | s. 9(2): "no later than the 28th day after the day on which the proper invoice is received"; s. 10(1) contractor → subcontractor 35th day; s. 11(1) 42nd day | yes (primary) |
+| Ontario owners (Crown bound, s. 3(1)) must pay a proper invoice within 28 days | Construction Act, R.S.O. 1990, c. C.30 (e-Laws, consolidation from 2026-01-01) | https://www.ontario.ca/laws/statute/90c30 | 2026-11-08 | s. 6.4(1): "an owner shall pay the amount payable under a proper invoice no later than 28 days after receiving the proper invoice from the contractor" (in force 01/10/2019); s. 6.5(1) contractor → subcontractor 7 days after payment | yes (primary; the e-Laws HTML carries the text server-side although the page says it needs JavaScript) |
+| Alberta owners must pay a proper invoice within 28 days; Act does not apply to Crown public works | Prompt Payment and Construction Lien Act, R.S.A. 2000, c. P-26.4 (King's Printer, current as of 2025-04-01) | https://kings-printer.alberta.ca/documents/Acts/P26P4.pdf | 2026-11-08 | s. 32.2(1): "an owner who owes money under a proper invoice must pay the amount payable under a proper invoice no later than 28 days after receiving the proper invoice"; s. 1.1(1.1): "Except as provided in the Public Works Act, this Act does not apply in respect of a public work" | yes (primary PDF) |
+| Saskatchewan / Manitoba / Nova Scotia / New Brunswick / Québec / BC prompt-payment rules | — | publications.saskatchewan.ca unreachable from the cloud (HTTP 000) | 2026-11-08 | not verified today → not applied | — |
 
 ## Raw-field audit (bids&tenders / Biddingo / MERX full files) — done 2026-11-08 14:3xZ
 - bids&tenders (69,975 records): 46,780 without a value; `stores.Submitted[].VerifiedValue` carries the awarded vendor's submitted price for 7,876 of the first 60,001 → implemented in tools/patch_dataset.py (9,213 records on the full file); `len(stores.Submitted)` = number of bids (58,304 records).

@@ -55,6 +55,12 @@ A = confirmed invoicing / AP mailbox on the buyer's own domain with MX, legal na
 B = confirmed invoicing / AP or finance mailbox, legal name, address, and PO rule or terms; C = confirmed mailbox with legal name or address or an AP /
 finance mailbox; D = confirmed mailbox only; E = mailbox not confirmed. The scoreboard prints the A–E distribution per package.
 
+Owner 2026-11-08 11:38 / 11:46 / 11:53 EST: **grade A is the standard every delivered row in every package must reach, not a rating.** Every row carries
+`ap_gap_to_A` (the A criteria it still lacks); the scoreboard prints "What still blocks grade A" per package; the next engine always goes at the biggest
+blocker. Derived "plausibility" values (a statute or government directive the buyer is bound by) are a last resort where nothing is published: they live
+in their own labelled column (`payment_terms_default_policy`) with the statute, section, URL, date read and quote, never in an `*_as_published` column,
+and they never satisfy the grade's "published" criteria.
+
 ## Expert sign-off checklist (before any build is called "better")
 - [ ] `COVERAGE_VS_TARGETS.md`: benchmarks met went up or a ceiling is documented; `coverage_history.csv` shows the delta.
 - [ ] `VALIDATION.md` all gates pass; `AUDIT.md` PASS (no named person, no pattern mailbox, every value has provenance).
