@@ -6,11 +6,20 @@
   - logo image URL (og:image or an <img> whose src / alt says logo);
   - language of the site (fr / en / fr-en from the html lang attribute and stopwords);
   - whether the site answers (status).
-Reads the home page and up to two "about / legal / contact / donate" pages. Polite: robots.txt, 1 request / second / host,
+  v2 (2026-11-08, downstream coverage targets): schema.org JSON-LD Organization facts (legalName, address, telephone, logo, taxID,
+    foundingDate, numberOfEmployees, sameAs); the legal name stated on Terms / Privacy / Legal pages ("operated by X Inc.",
+    "X Inc. ("we")", "The Corporation of the City of X", "Centre de services scolaire de X"); logo from the header or the
+    site icon when no og:image; links to supplier / e-tendering / e-invoicing / e-signature portals (ap_system_hint);
+    payment-method, tax-exempt and e-signature mentions; LinkedIn page. Shared hosts (canada.ca, gov.bc.ca, ontario.ca …)
+    are read from the organisation's own start URL, not the host root.
+Reads the home page and up to five "about / legal / privacy / terms / contact" pages. Polite: robots.txt, 1 request / second / host,
 identified UA. Output: ~/cch-crawler-state/org_extras.jsonl (resume) and <repo>/data/incoming/claude/claude_org_extras.jsonl.gz
-(read by contrib/claude/rank_buyers/rank.py), one JSON per registrable domain with the page URL and a ≤300-char quote per fact.
-  python3 tools/org_extras.py --tasks tasks.csv [--workers 48] [--repo ~/cch-crawler]
+(read by contrib/claude/rank_buyers/rank.py), one JSON per registrable domain (per start URL on shared hosts) with the page URL
+and a ≤300-char quote per fact.
+  python3 tools/org_extras.py --tasks tasks.csv [--workers 48] [--repo ~/cch-crawler] [--refresh] [--test URL ...]
+  --refresh re-reads domains whose record predates v2 or failed on a redirect / network error (old facts are kept when the new read fails).
 """
+V = 2
 import argparse, csv, gzip, html, json, os, re, sys, threading, time, urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 
@@ -41,7 +50,49 @@ OG2 = re.compile(r"(?is)<meta[^>]+content\s*=\s*[\"']([^\"']+)[\"'][^>]+property
 LANG = re.compile(r"(?is)<html[^>]+lang\s*=\s*[\"']([a-zA-Z]{2})")
 FRW = re.compile(r"\b(de la|des|les|pour|avec|nous|vous|notre|votre|est|sont|une|dans|sur|à propos|accueil|nous joindre|services)\b", re.I)
 ENW = re.compile(r"\b(the|and|for|with|our|your|about|home|contact|services|from|this|that|are|is|more)\b", re.I)
-PAGE_LINK = re.compile(r"about|a-propos|apropos|legal|mentions|privacy|confidentialit|terms|conditions|contact|nous-joindre|donate|don\b|faire-un-don|give|charitable|tax-receipt|re[cç]u", re.I)
+PAGE_LINK = re.compile(r"about|a-propos|apropos|legal|mentions|privacy|confidentialit|terms|conditions|contact|nous-joindre|donate|don\b|faire-un-don|give|charitable|tax-receipt|re[cç]u|accessibilit|disclaimer|avis", re.I)
+LEGAL_PAGE = re.compile(r"legal|mentions|privacy|confidentialit|terms|conditions|disclaimer|avis|accessibilit|about|a-propos|apropos", re.I)
+# shared hosts: many organisations publish under one registrable domain; each is read from its own start URL
+SHARED_HOSTS = re.compile(r"(?:^|\.)(canada\.ca|gc\.ca|gov\.bc\.ca|ontario\.ca|gouv\.qc\.ca|quebec\.ca|alberta\.ca|gov\.ab\.ca|novascotia\.ca|gnb\.ca|gov\.mb\.ca|"
+                          r"saskatchewan\.ca|gov\.sk\.ca|gov\.nl\.ca|gov\.pe\.ca|yukon\.ca|gov\.nt\.ca|gov\.nu\.ca|gov\.au|gov\.uk|nhs\.uk|[a-z]{2}\.gov|[a-z]{2}\.us|wordpress\.com|wixsite\.com|squarespace\.com|weebly\.com|godaddysites\.com|google\.com|sites\.google\.com)$", re.I)
+ORG_TYPES = re.compile(r"Organization|Corporation|GovernmentOrganization|EducationalOrganization|CollegeOrUniversity|School|Hospital|MedicalOrganization|NGO|LocalBusiness|"
+                       r"Library|Airport|SportsOrganization|Consortium|FundingAgency|ResearchOrganization|WorkersUnion|PerformingGroup|MedicalClinic|Dentist|Physician|"
+                       r"ProfessionalService|Store|FinancialService|InsuranceAgency|BankOrCreditUnion|Service|Place|CivicStructure|GovernmentOffice|Museum|Church|PublicSwimmingPool", re.I)
+NOT_ORG_TYPES = re.compile(r"^(?:Person|Article|NewsArticle|BlogPosting|WebPage|WebSite|BreadcrumbList|ItemList|Event|Product|Offer|Review|ImageObject|VideoObject|SearchAction|"
+                           r"FAQPage|Question|Answer|JobPosting|Recipe|Course|CreativeWork|ListItem|SiteNavigationElement|WPHeader|WPFooter|Thing)$", re.I)
+PUBLIC_BODY = re.compile(r"\b((?:The )?Corporation of the (?:City|Town|Township|Village|Municipality|County|District|Regional Municipality|United Counties|Municipal District|Norfolk County|Haldimand County)"
+                         r"(?: of)? [A-Z][A-Za-zÀ-ÿ'’.\- ]{2,60}?|(?:Ville|Municipalit[ée]|Municipalit[ée] r[ée]gionale de comt[ée]|MRC|Paroisse|Canton|Village|Cit[ée]) (?:de |du |des |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,60}?|"
+                         r"Centre de services scolaire (?:de |du |des |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,60}?|Commission scolaire (?:de |du |des |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,60}?|"
+                         r"Conseil scolaire [A-Za-zÀ-ÿ'’\- ]{3,70}?|C[IU]?SSS (?:de |du |des |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,70}?|[A-Z][A-Za-z'’\- ]{2,50} (?:District |Regional |Catholic |Public |Francophone )*School (?:Board|Division|District)(?: No\.? ?\d+)?|"
+                         r"Regional District of [A-Z][A-Za-z'’\- ]{2,50}?|(?:Regional Municipality|County|Municipal District|Township|Town|City|Village|District|Rural Municipality|Resort Municipality) of [A-Z][A-Za-zÀ-ÿ'’.\- ]{2,50}?|"
+                         r"Universit[ée] (?:de |du |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,50}?|University of [A-Z][A-Za-z'’\- ]{2,50}?|[A-Z][A-Za-z'’\- ]{2,50} (?:University|Polytechnic|College|Health (?:Authority|Services|Sciences Centre)|Hospital|Library Board|Police Services? Board|Conservation Authority|Transit Commission|Housing Corporation))"
+                         r")(?=[\s,.;:)(\]|\"“”«»]|$)")
+LEGAL_FORM_NAME = re.compile(r"\b([A-Z][A-Za-z0-9&'’.,\- ]{1,80}?\s(?:Inc\.?|Incorporated|Ltd\.?|Limited|Lt[ée]e\.?|LLC|L\.L\.C\.|LLP|L\.L\.P\.|LP|L\.P\.|Corp\.?|Corporation|Co\.|Company|S\.?E\.?N\.?C\.?|s\.e\.c\.|S\.A\.|S\.A\.R\.L\.|SARL|GmbH|AG|plc|ULC|"
+                             r"Soci[ée]t[ée](?: [a-zé]+){0,3}|Association(?: [A-Za-zÀ-ÿ'’\- ]{2,40})?|Foundation|Fondation(?: [A-Za-zÀ-ÿ'’\- ]{2,40})?|Society|Trust|Credit Union|Caisse(?: populaire)?(?: [A-Za-zÀ-ÿ'’\- ]{2,40})?|Co-?operative|Coop[ée]rative(?: [A-Za-zÀ-ÿ'’\- ]{2,40})?|Cooperative|Group|Groupe|Holdings|Partners|Partnership|Authority|Commission|Agency|Board|Institute|Institut))"
+                             r"(?=[\s,.;:)(\]|\"“”«»]|$)")
+OPERATED_BY = re.compile(r"(?:(?:is |are |website |site |web ?site |ce site (?:web )?(?:est |a été )?)(?:owned|operated|run|maintained|published|provided|managed|exploit[ée]|g[ée]r[ée]|administr[ée]|publi[ée]|[ée]dit[ée])(?: and (?:operated|maintained|managed))? (?:by|par) |"
+                         r"(?:a (?:web ?site|site) of|un site (?:web )?de) |(?:property of|propri[ée]t[ée] de) |(?:entre vous et|between you and) |(?:la pr[ée]sente politique|this (?:privacy )?policy) (?:describes|explains|s'applique|applies to) (?:how |the way |la fa[çc]on dont )?)"
+                         r"([A-Z][A-Za-z0-9&'’.,\-ÀÉÈÊÎÔÛàâçéèêëîïôöûüÿ ]{2,90}?)(?=\s*(?:[(,.;:]|\(|«|\"|“|'|and its|et ses| is | a | the | which | who |$))", re.M)
+WE_DEF = re.compile(r"([A-Z][A-Za-z0-9&'’.,\-ÀÉÈÊÎÔÛàâçéèêëîïôöûüÿ ]{2,90}?)\s*\((?:\s*(?:hereinafter|ci-apr[èe]s|collectively|together|referred to as|the|la|le|l['’]|also|or|ou)\s*)*[\"“«']?\s*(?:we|us|our|the Company|the Corporation|the City|the Town|the Municipality|the University|the College|the Hospital|the Board|the Society|the Organization|the Organisation|"
+                    r"nous|notre|la Ville|la Municipalit[ée]|la Soci[ée]t[ée]|l['’]Organisme|l['’]Universit[ée]|le Coll[èe]ge|le Centre|the Authority|the Agency)\b", re.I)
+PORTALS = [("ariba.com", "SAP Ariba", "e-procurement / e-invoicing"), ("coupa.com", "Coupa", "e-procurement / e-invoicing"), ("coupahost", "Coupa", "e-procurement / e-invoicing"), ("jaggaer", "Jaggaer", "e-procurement"), ("sciquest", "Jaggaer (SciQuest)", "e-procurement"),
+           ("bidsandtenders", "bids&tenders", "e-tendering"), ("bonfirehub", "Bonfire", "e-tendering"), ("biddingo", "Biddingo", "e-tendering"), ("merx.com", "MERX", "e-tendering"), ("seao.ca", "SEAO", "e-tendering"), ("seao.gouv.qc.ca", "SEAO", "e-tendering"),
+           ("bcbid", "BC Bid", "e-tendering"), ("purchasingconnection", "Alberta Purchasing Connection", "e-tendering"), ("sasktenders", "SaskTenders", "e-tendering"), ("nbon.gnb.ca", "NBON", "e-tendering"), ("publicpurchase.com", "Public Purchase", "e-tendering"),
+           ("demandstar", "DemandStar", "e-tendering"), ("bidnetdirect", "BidNet Direct", "e-tendering"), ("bidsync", "Periscope / BidSync", "e-tendering"), ("periscopeholdings", "Periscope", "e-tendering"), ("ionwave", "IonWave", "e-tendering"), ("opengov.com", "OpenGov Procurement", "e-tendering"),
+           ("vendorregistry", "Vendor Registry", "e-tendering"), ("planetbids", "PlanetBids", "e-tendering"), ("bidexpress", "Bid Express", "e-tendering"), ("canadabuys", "CanadaBuys", "e-tendering"), ("buyandsell.gc.ca", "CanadaBuys", "e-tendering"), ("tendersnb", "NBON", "e-tendering"),
+           ("tungsten-network", "Tungsten Network", "e-invoicing"), ("tungsten.", "Tungsten Network", "e-invoicing"), ("taulia", "Taulia", "e-invoicing / supplier payments"), ("basware", "Basware", "e-invoicing"), ("esker", "Esker", "e-invoicing"), ("paymentworks", "PaymentWorks", "supplier onboarding / payments"),
+           ("billtrust", "Billtrust", "e-invoicing"), ("tipalti", "Tipalti", "supplier payments"), ("oraclecloud.com", "Oracle Fusion Cloud (supplier portal)", "e-procurement"), ("myworkday.com", "Workday", "e-procurement / supplier portal"), ("workday.com", "Workday", "e-procurement / supplier portal"), ("sap.com/business-network", "SAP Business Network", "e-invoicing"),
+           ("peoplesoft", "PeopleSoft", "finance system"), ("unit4", "Unit4", "finance system"), ("bidsandtenders.ca", "bids&tenders", "e-tendering"), ("docusign", "DocuSign", "e-signature"), ("adobesign", "Adobe Sign", "e-signature"), ("echosign", "Adobe Sign", "e-signature"), ("hellosign", "Dropbox Sign", "e-signature"), ("consigno", "ConsignO", "e-signature"),
+           ("yardi", "Yardi", "finance system"), ("vendorcafe", "Yardi VendorCafe", "supplier portal"), ("nexonia", "Nexonia", "finance system"), ("supplier.", "supplier portal", "supplier portal"), ("vendorportal", "vendor portal", "supplier portal"), ("fournisseurs.", "portail fournisseurs", "supplier portal")]
+MENTIONS = {"payment_method": re.compile(r"((?:direct deposit|d[ée]p[ôo]t direct|electronic funds transfer|\bEFT\b|\bACH\b|virement(?: bancaire| [ée]lectronique)?|e-?transfer|Interac|paid by cheque|payment by cheque|par ch[èe]que|credit card payments?|P-?card|wire transfer)[^.\n]{0,80})", re.I),
+            "tax_exempt": re.compile(r"((?:tax[- ]exempt(?:ion)?|exempt from (?:GST|HST|PST|sales tax|the goods and services tax)|exon[ée]r[ée]e?s? de (?:la )?(?:TPS|TVQ|TVH|taxe)|HST rebate|GST rebate|PST exempt|exemption de taxe|municipal rebate)[^.\n]{0,80})", re.I),
+            "esignature": re.compile(r"((?:DocuSign|Adobe Sign|AdobeSign|electronic signatures?|digital signatures?|signatures? [ée]lectroniques?|signatures? num[ée]riques?|e-?signatures?)[^.\n]{0,80})", re.I),
+            "ap_cycle": re.compile(r"((?:cheque runs?|payment runs?|payments? (?:are|is) (?:issued|processed|made|released) (?:weekly|bi-?weekly|every|on|twice|once|within)|paiements? (?:sont )?(?:[ée]mis|effectu[ée]s|trait[ée]s) (?:chaque|toutes? les|le|hebdomadaire)|cycle de paiement|invoices? (?:are|is) paid (?:within|net|on|in))[^.\n]{0,80})", re.I)}
+TEL_HREF = re.compile(r"(?i)href\s*=\s*[\"']tel:([^\"']{7,30})[\"']")
+ICON = re.compile(r"(?is)<link[^>]+rel\s*=\s*[\"'](?:apple-touch-icon(?:-precomposed)?|icon|shortcut icon)[\"'][^>]*>")
+HREF = re.compile(r"(?is)href\s*=\s*[\"']([^\"']+)[\"']")
+LINKEDIN = re.compile(r"https?://(?:[a-z]{2,3}\.)?linkedin\.com/(?:company|school|showcase)/[A-Za-z0-9_%.\-]+/?", re.I)
+HEADER_IMG = re.compile(r"(?is)<(?:header|nav|div)[^>]*(?:class|id)\s*=\s*[\"'][^\"']*(?:header|navbar|brand|logo|masthead|site-title|banner)[^\"']*[\"'][^>]*>(.*?)</(?:header|nav|div)>")
 
 
 def quote_at(text, needle, n=300):
@@ -69,11 +120,178 @@ def legal_name(text, host):
     return cands[0]
 
 
-def read_site(site, kind):
+def _walk(o):
+    if isinstance(o, dict):
+        yield o
+        for v in o.values():
+            yield from _walk(v)
+    elif isinstance(o, list):
+        for v in o:
+            yield from _walk(v)
+
+
+def _types(o):
+    t = o.get("@type") or o.get("type") or ""
+    return [t] if isinstance(t, str) else [x for x in t if isinstance(x, str)] if isinstance(t, list) else []
+
+
+def _str(v):
+    if isinstance(v, str):
+        return flat(html.unescape(v))
+    if isinstance(v, dict):
+        return _str(v.get("name") or v.get("url") or v.get("@id") or v.get("value") or "")
+    if isinstance(v, list):
+        return "; ".join(x for x in (_str(i) for i in v[:3]) if x)
+    return flat(str(v)) if v not in (None, "", 0) else ""
+
+
+def _addr(a):
+    if isinstance(a, list):
+        a = next((x for x in a if isinstance(x, dict)), a[0] if a else None)
+    if isinstance(a, dict):
+        parts = [_str(a.get(k)) for k in ("streetAddress", "addressLocality", "addressRegion", "postalCode", "addressCountry")]
+        if parts[0] and (parts[1] or parts[3]):
+            return ", ".join(p for p in parts if p)[:200]
+        return ""
+    if isinstance(a, str) and re.search(r"\d", a) and 10 < len(a) < 200:
+        return flat(a)
+    return ""
+
+
+def jsonld_org(raw, host, name):
+    """schema.org Organization (or subtype) facts from the page's JSON-LD; the object whose url / @id is on this host or whose
+    name shares the organisation's core tokens wins; Person / Article / WebPage objects are ignored"""
+    best, best_score = None, -1
+    core = {t for t in re.findall(r"[a-z0-9]{3,}", (name or "").lower()) if t not in ("the", "and", "inc", "ltd", "city", "town", "ville", "corporation", "limited", "des", "les")}
+    for m in re.finditer(r"(?is)<script[^>]+application/ld\+json[^>]*>(.*?)</script>", raw):
+        txt = m.group(1).strip()
+        try:
+            data = json.loads(txt)
+        except Exception:
+            try:
+                data = json.loads(re.sub(r",\s*([}\]])", r"\1", txt))
+            except Exception:
+                continue
+        for o in _walk(data):
+            if not isinstance(o, dict):
+                continue
+            ts = _types(o)
+            if not ts or any(NOT_ORG_TYPES.match(t) for t in ts) or not any(ORG_TYPES.search(t) for t in ts):
+                if not o.get("legalName"):
+                    continue
+            nm = _str(o.get("legalName") or o.get("name"))
+            if not nm or len(nm) < 3:
+                continue
+            url = _str(o.get("url") or o.get("@id"))
+            uh = (urllib.parse.urlparse(url).hostname or "").lower().removeprefix("www.") if "//" in url else ""
+            score = 0
+            if uh and (uh == host or uh.endswith("." + host) or host.endswith("." + uh)):
+                score += 3
+            toks = set(re.findall(r"[a-z0-9]{3,}", nm.lower()))
+            if core and core & toks:
+                score += 2
+            if o.get("legalName"):
+                score += 1
+            if any(t in ("Organization", "GovernmentOrganization", "EducationalOrganization", "Corporation", "CollegeOrUniversity", "Hospital", "NGO") for t in ts):
+                score += 1
+            if score > best_score:
+                best, best_score = o, score
+    if best is None or best_score < 2:
+        return {}
+    o = best
+    out = {"jsonld_type": "/".join(_types(o))[:60], "jsonld_name": _str(o.get("name"))[:120], "jsonld_legal_name": _str(o.get("legalName"))[:120],
+           "jsonld_alternate_name": _str(o.get("alternateName"))[:120], "jsonld_address": _addr(o.get("address")), "jsonld_phone": _str(o.get("telephone"))[:40],
+           "jsonld_email": _str(o.get("email")).replace("mailto:", "")[:80], "jsonld_logo": _str(o.get("logo"))[:300], "jsonld_url": _str(o.get("url"))[:200],
+           "jsonld_founding_date": _str(o.get("foundingDate"))[:20], "jsonld_tax_id": _str(o.get("taxID") or o.get("vatID"))[:40], "jsonld_duns": _str(o.get("duns"))[:20],
+           "jsonld_lei": _str(o.get("leiCode"))[:30], "jsonld_naics": _str(o.get("naics"))[:40], "jsonld_employees": _str(o.get("numberOfEmployees"))[:40],
+           "jsonld_parent": _str(o.get("parentOrganization"))[:120], "jsonld_same_as": "; ".join(x for x in (_str(u) for u in (o.get("sameAs") if isinstance(o.get("sameAs"), list) else [o.get("sameAs")])) if x)[:400]}
+    out = {k: v for k, v in out.items() if v}
+    if out:
+        out["jsonld_quote"] = flat(txt)[:300]
+    return out
+
+
+def legal_name_text(text, host, name):
+    """the legal name a Terms / Privacy / Legal page states: "operated by X Inc.", "X Inc. ("we", "us")", a public body's full style"""
+    cands = []
+    for m in OPERATED_BY.finditer(text):
+        cands.append((0, m.group(1)))
+    for m in WE_DEF.finditer(text):
+        cands.append((1, m.group(1)))
+    for m in PUBLIC_BODY.finditer(text):
+        cands.append((2, m.group(1)))
+    core = {t for t in re.findall(r"[a-z0-9]{3,}", (name or "").lower()) if t not in ("the", "and", "inc", "ltd", "city", "town", "ville", "corporation", "limited", "des", "les", "municipality", "county")}
+    out = []
+    for rank, c in cands:
+        c = flat(c).strip(" .,;:-–—|«»\"“”'")
+        c = re.sub(r"^(?:by|par|the|la|le|l['’])\s+", lambda m: m.group(0) if re.match(r"(?i)the corporation", c) else "", c, flags=re.I).strip()
+        if not (3 <= len(c) <= 90) or re.search(r"\b(?:website|site web|cookies?|browser|google|facebook|wordpress|privacy policy|politique)\b", c, re.I):
+            continue
+        if rank < 2 and not (LEGAL_FORM_NAME.search(c + " ") or PUBLIC_BODY.search(c) or LEGAL_TAIL.search(c)):
+            continue  # "operated by our team" / "between you and us"
+        toks = set(re.findall(r"[a-z0-9]{3,}", c.lower()))
+        hit = bool(core & toks) or (host and any(t in host.replace("-", "") for t in toks if len(t) >= 5))
+        out.append((0 if hit else 1, rank, len(c), c))
+    if not out:
+        return ""
+    out.sort()
+    return out[0][3]
+
+
+def logo_from(raw, url):
+    """logo: header <img> whose src / alt / class says logo, else og:image, else the site icon (apple-touch-icon / icon)"""
+    for hm in HEADER_IMG.finditer(raw[:200_000]):
+        for im in LOGO.finditer(hm.group(1)):
+            src = re.sub(r"\s+", "", im.group(1))
+            if re.search(r"logo|brand|wordmark|armoiries|embl", src + " " + im.group(0), re.I) and not re.search(r"partner|sponsor|client|award|badge|payment|visa|mastercard|facebook|twitter|linkedin|instagram|youtube|flag", src, re.I):
+                return urllib.parse.urljoin(url, html.unescape(src)), "logo image in the site header"
+    for im in LOGO.finditer(raw):
+        src = re.sub(r"\s+", "", im.group(1))
+        if re.search(r"logo", src + " " + im.group(0), re.I) and not re.search(r"partner|sponsor|client|award|badge|icon-|payment|visa|mastercard|facebook|twitter|linkedin|instagram|youtube", src, re.I):
+            return urllib.parse.urljoin(url, html.unescape(src)), "logo image on the site"
+    m = OG.search(raw) or OG2.search(raw)
+    if m:
+        return urllib.parse.urljoin(url, html.unescape(m.group(1))), "og:image of the home page"
+    for lm in ICON.finditer(raw):
+        h = HREF.search(lm.group(0))
+        if h and not h.group(1).lower().endswith(".ico"):
+            return urllib.parse.urljoin(url, html.unescape(h.group(1))), "site icon (apple-touch-icon / icon)"
+    return "", ""
+
+
+def portals_from(pages):
+    found = {}
+    for url, raw in pages:
+        for m in HREF.finditer(raw):
+            h = html.unescape(m.group(1)).strip()
+            if not h.startswith("http"):
+                continue
+            hl = h.lower()
+            for pat, nm, kind in PORTALS:
+                if pat in hl and nm not in found:
+                    found[nm] = {"name": nm, "kind": kind, "url": h[:200], "on_page": url}
+                    break
+    return list(found.values())[:8]
+
+
+def mentions_from(pages):
+    out = {}
+    for url, raw in pages:
+        text = re.sub(r"\s+", " ", visible_keep_lines(raw))
+        for key, rx in MENTIONS.items():
+            if key in out:
+                continue
+            m = rx.search(text)
+            if m:
+                out[key] = {"text": flat(m.group(1))[:160], "url": url, "quote": quote_at(text, m.group(1)[:60])}
+    return out
+
+
+def read_site(site, kind, name="", start_url=""):
     res = {"status": "no_page"}
     if not C.allowed(site):
         res["status"] = "robots"; return res
-    st, ct, data, final = C.fetch(site, 3_000_000)
+    st, ct, data, final = C.fetch(start_url or site, 3_000_000)
     if st in (401, 403, 429):
         res["status"] = "blocked"; return res
     if st != 200 or not data or "html" not in (ct or "").lower():
@@ -90,9 +308,9 @@ def read_site(site, kind):
             continue
         if PAGE_LINK.search(p.path or "") or PAGE_LINK.search(label or ""):
             seen.add(u.split("#")[0])
-            if len(seen) >= 3:
+            if len(seen) >= 5:
                 break
-    for u in list(seen)[:3]:
+    for u in sorted(seen, key=lambda u: (not LEGAL_PAGE.search(u), len(u)))[:5]:
         if not C.allowed(u):
             continue
         st, ct, data, fin = C.fetch(u, 3_000_000)
@@ -100,6 +318,33 @@ def read_site(site, kind):
             pages.append((fin, strip_long(data.decode("utf-8", "replace"))))
     res["status"] = "ok"
     res["pages"] = len(pages)
+    res["v"] = V
+    res["pages_read"] = "; ".join(u for u, _ in pages)[:600]
+    # v2: structured and stated facts first (JSON-LD Organization, Terms / Privacy / Legal page statements), then the copyright line
+    for url, raw in pages:
+        jl_ = jsonld_org(raw, host, name)
+        if jl_:
+            jl_["jsonld_page"] = url
+            res.update(jl_)
+            break
+    for url, raw in sorted(pages, key=lambda p: (not LEGAL_PAGE.search(p[0]), p[0] != pages[0][0])):
+        ln = legal_name_text(re.sub(r"\s+", " ", visible_keep_lines(raw)), host, name)
+        if ln:
+            res.update({"legal_name_stated": ln, "legal_name_stated_url": url, "legal_name_stated_quote": quote_at(re.sub(r"\s+", " ", visible_keep_lines(raw)), ln)})
+            break
+    pf = portals_from(pages)
+    if pf:
+        res["portals"] = pf
+    mm = mentions_from(pages)
+    if mm:
+        res["mentions"] = mm
+    li = next((m.group(0) for _, raw in pages for m in LINKEDIN.finditer(raw)), "")
+    if li:
+        res["linkedin_url"] = li[:160]
+    tels = [html.unescape(urllib.parse.unquote(m.group(1))).strip() for _, raw in pages for m in TEL_HREF.finditer(raw)]
+    tels = [t for t in tels if len(re.sub(r"\D", "", t)) >= 10]
+    if tels:
+        res["tel_links"] = "; ".join(dict.fromkeys(tels))[:120]
     m = LANG.search(raw0)
     lang = (m.group(1).lower() if m else "")
     t0 = visible_keep_lines(raw0)
@@ -129,24 +374,42 @@ def read_site(site, kind):
             if m:
                 res.update({"qst": (m.group(1) + " " + m.group(2).replace(" ", "")).strip(), "qst_url": url, "qst_quote": quote_at(ftext, m.group(0))})
         if not res.get("logo_url"):
-            m = OG.search(raw) or OG2.search(raw)
-            cand = ""
-            for im in LOGO.finditer(raw):
-                src = re.sub(r"\s+", "", im.group(1))
-                tag = im.group(0)
-                if re.search(r"logo", src + " " + tag, re.I) and not re.search(r"partner|sponsor|client|award|badge|icon-|payment|visa|mastercard|facebook|twitter|linkedin|instagram|youtube", src, re.I):
-                    cand = urllib.parse.urljoin(url, html.unescape(src)); break
-            if cand or m:
-                res.update({"logo_url": cand or urllib.parse.urljoin(url, html.unescape(m.group(1))), "logo_basis": "logo image on the site" if cand else "og:image of the home page"})
+            lu, lb = logo_from(raw, url)
+            if lu:
+                res.update({"logo_url": lu, "logo_basis": lb})
+    if not res.get("logo_url") and res.get("jsonld_logo"):
+        res.update({"logo_url": res["jsonld_logo"], "logo_basis": "schema.org JSON-LD logo"})
     return res
+
+
+RETRY_STATUS = ("http_308", "http_307", "http_301", "http_302", "http_0", "error")
+
+
+def task_key(h, w):
+    """registrable domain, or domain + path for shared hosts (canada.ca/en/environment-climate-change → one record per organisation)"""
+    dom = C.registrable(h)
+    if SHARED_HOSTS.search(h) or SHARED_HOSTS.search(dom):
+        p = urllib.parse.urlparse(w if "//" in w else "https://" + w).path.rstrip("/")
+        seg = "/".join(p.split("/")[:3]) if p else ""
+        return (dom + seg) if seg else (h if h != dom else dom), h + seg
+    return dom, ""
 
 
 def main():
     a = argparse.ArgumentParser()
-    a.add_argument("--tasks", required=True)
+    a.add_argument("--tasks", default="")
     a.add_argument("--workers", type=int, default=48)
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
+    a.add_argument("--refresh", action="store_true", help="re-read domains read before v2 or that failed on a redirect / network error")
+    a.add_argument("--limit", type=int, default=0)
+    a.add_argument("--test", nargs="*", default=None, help="read these sites once and print the facts (no files written)")
     a = a.parse_args()
+    if a.test is not None:
+        for u in a.test:
+            u = u if u.startswith("http") else "https://" + u
+            res = read_site("https://%s/" % (urllib.parse.urlparse(u).hostname or ""), "buyer", name="", start_url=u)
+            print(json.dumps(res, ensure_ascii=False, indent=1)[:4000], flush=True)
+        return
     os.makedirs(STATE, exist_ok=True)
     done = {}
     if os.path.exists(RESUME):
@@ -161,17 +424,22 @@ def main():
         h = (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
         if not h or "." not in h:
             continue
-        dom = C.registrable(h)
-        if dom in seen or dom in done:
+        dom, start_path = task_key(h, w)
+        if dom in seen:
             continue
-        seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", "")))
-    print("tasks: %d new domains (%d done before)" % (len(tasks), len(done)), flush=True)
+        old = done.get(dom)
+        if old is not None and not (a.refresh and (int(old.get("v") or 1) < V or old.get("status") in RETRY_STATUS)):
+            continue
+        seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", ""), ("https://%s/" % start_path) if start_path else ""))
+    if a.limit:
+        tasks = tasks[:a.limit]
+    print("tasks: %d domains to read (%d in resume file; refresh=%s)" % (len(tasks), len(done), a.refresh), flush=True)
     out_gz = os.path.join(a.repo, "data/incoming/claude/claude_org_extras.jsonl.gz")
     stats, last = {}, [time.time()]
 
     def dump():
         with lock:
-            rows = [d for d in done.values() if d.get("status") == "ok" and any(d.get(k) for k in ("legal_name", "bn", "neq", "qst", "logo_url", "language"))]
+            rows = [d for d in done.values() if d.get("status") == "ok" and any(d.get(k) for k in ("legal_name", "legal_name_stated", "jsonld_legal_name", "jsonld_name", "bn", "neq", "qst", "logo_url", "language", "portals", "mentions", "tel_links", "jsonld_address", "jsonld_phone", "linkedin_url"))]
         for attempt in range(3):
             try:
                 tmp = out_gz + ".%d.tmp" % os.getpid()
@@ -184,13 +452,18 @@ def main():
         print(time.strftime("%H:%M"), "wrote", out_gz, len(rows), "organisations", dict(stats), flush=True)
 
     def one(t):
-        dom, key, name, site, kind = t
+        dom, key, name, site, kind, start = t
         try:
-            res = read_site(site, kind)
+            res = read_site(site, kind, name=name, start_url=start)
         except Exception as e:
             res = {"status": "error", "error": str(e)[:100]}
-        res.update({"domain": dom, "key": key, "name": name, "website": site, "kind": kind, "date": TODAY})
+        res.update({"domain": dom, "key": key, "name": name, "website": start or site, "kind": kind, "date": TODAY})
         with lock:
+            old = done.get(dom)
+            if old and old.get("status") == "ok" and res.get("status") != "ok":
+                res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"))  # keep yesterday's facts when today's read fails
+            elif old and old.get("status") == "ok":
+                merged = dict(old); merged.update({k: v for k, v in res.items() if v not in ("", None, [], {})}); res = merged
             done[dom] = res
             stats[res["status"]] = stats.get(res["status"], 0) + 1
             with open(RESUME, "a", encoding="utf-8") as f:
