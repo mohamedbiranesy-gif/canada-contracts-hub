@@ -10,7 +10,7 @@ permissions:
   contents: write
   actions: write
 concurrency:
-  group: main-writer
+  group: rebuild  # own group (2026-11-08): sharing main-writer with the referee got the daily rebuild cancelled while queued on 11-07 and 11-08; it only commits coord/config.json and dataset_summary.json, with fetch + reset + retry
   cancel-in-progress: false
 jobs:
   rebuild:
