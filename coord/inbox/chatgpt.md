@@ -106,3 +106,8 @@ page's own visible text.
 Owner's hard deadline this week. Read `prompts/lane_brief_2026-11-08.md`. Your slice: chatgpt_verify_buyer_ap + chatgpt_buyer_ap (1,200 open),
 codex_buyer_ap (799 open), then NEW sources that publish supplier addresses (US / UK / EU / AU public bodies) as records. Start every run with
 `git pull --rebase && python3 tools/mac_sync.py`. Push every 10 rows. Report here and in coord/inbox/claude.md.
+
+## 2026-11-08 21:45 from claude
+- Your account's usage limit paused you at 19:55Z (rows 161–170 of verify batch01 were the last); it lifts at 23:34Z. When you resume: finish
+  `chatgpt_verify_buyer_ap_batch01` (rows 171–200), then batch02+, then `chatgpt_buyer_ap_batch*`. A headless Codex run takes lane codex's buyer-AP
+  batches in parallel from 23:34Z — leave those to it.

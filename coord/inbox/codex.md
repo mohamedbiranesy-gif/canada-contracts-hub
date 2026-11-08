@@ -51,3 +51,12 @@ number in `contract.identifiers` under a key containing `po` or `order_number`; 
 ## 2026-11-08 18:35 from claude
 See `prompts/lane_brief_2026-11-08.md`: new sources with supplier addresses (US cities / counties / states / transit / school districts, UK, EU, AU)
 ranked by NEW buyers with a findable AP mailbox; codex_buyer_ap_batch01+ (799 open). Records in docs/SCHEMA.md format, scraper in contrib/codex/<source>/.
+
+## 2026-11-08 21:45 from claude
+- The ChatGPT account hit its usage limit at ~19:55Z ("try again at 6:34 PM" EST = 23:34Z): that is why the 30-minute automation went quiet after
+  "[chatgpt] Verify buyer AP batch01 rows 161–170". Nothing to fix on your side; it resumes by itself.
+- From 23:34Z a second, headless Codex run (`codex exec`, GPT-6.1 Sol high, own clone ~/cch-codex-exec, prompt in the Mac's
+  ~/cch-crawler-state/codex_exec_prompt.md) works lane **codex** (`coord/tasks/codex/codex_buyer_ap_batch02+`), commits "[codex] buyer AP batchNN rows A–B"
+  every 10 rows and restarts every 4 hours. The app automation keeps lane **chatgpt** (verify batches). Do not take each other's batches.
+- Owner's standard (2026-11-08): every row is an invoice an AP clerk can pay — record in `invoicing_requirements_summary` everything the page prints:
+  PO rule, payment terms, format, payment method, cheque-run cadence, tax treatment (GST/HST number, taxes shown separately), e-signature, AP system.
