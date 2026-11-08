@@ -29,6 +29,9 @@ jobs:
           for a in seao_api_notices vendors_web_progress vendors_orgbook_xp_progress; do
             gh release download harvest-state -D data/release -p "$a.jsonl.gz" || true
           done
+          for a in full_ca_bidsandtenders full_ca_biddingo; do  # raw stores: awarded bidder's submitted price, bid counts (tools/patch_dataset.py)
+            gh release download dataset-latest -D data/release -p "$a.jsonl.gz" || true
+          done
       - name: Advance reference date to today
         run: |
           python3 - <<'PY'

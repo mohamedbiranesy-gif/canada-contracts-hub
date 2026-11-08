@@ -9,6 +9,7 @@ Inputs in <release_dir> (download from the releases first; all optional except t
   seao_api_notices.jsonl.gz               harvest-state  (planned end dates of Québec contracts)
   vendors_web_progress.jsonl.gz           harvest-state  (verified vendor websites, role e-mails, phones)
   vendors_orgbook_xp_progress.jsonl.gz    harvest-state  (BC OrgBook extraprovincial registrations)
+  full_ca_bidsandtenders.jsonl.gz, full_ca_biddingo.jsonl.gz   dataset-latest (raw stores: awarded bidder's submitted price, bid counts)
 Also reads coord/results/team_buyers.jsonl, coord/results/team_vendors.jsonl (verified team findings) and
 data/incoming/*/records_*.jsonl.gz (validated new-source records).
 Writes <out_dir>/canadian_vendor_contracts.jsonl.gz, <out_dir>/ended_since_last_build.jsonl.gz,
@@ -55,6 +56,52 @@ for r in jl(os.path.join(REL, "vendors_orgbook_xp_progress.jsonl.gz")):
 rep.update({"team_buyers_verified": len(tb), "team_vendors": len(tv), "seao_api_end_dates": len(seao),
             "web_vendors_with_site": len(web), "orgbook_xp_matches": len(obx)})
 
+# ---------- values and bid counts the normalizers left behind, read again from the raw "full" files (claude 2026-11-08) ----------
+# bids&tenders: 46,780 of 69,975 awarded records carry no award value, but the portal's "Unofficial Bid Results" store lists every
+# submission with its Verified Value; when the awarded vendor's own submission carries a dollar amount, that is the contract value
+# the buyer published for it (labelled as the awarded bidder's submitted price). The submission count is the number of bids.
+RAWVAL = {}
+
+
+def _money_first(s):
+    s2 = re.sub(r"<[^>]+>", " ", str(s or "")).replace("\r", " ")
+    m = re.search(r"\$\s*([\d,]+(?:\.\d+)?)", s2) or re.search(r"\b(\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d{4,}(?:\.\d+)?)\b", s2)
+    try:
+        v = float(m.group(1).replace(",", "")) if m else None
+    except ValueError:
+        v = None
+    return v if v and v > 0 else None
+
+
+def _nk(x):
+    return re.sub(r"\W", "", (x or "").lower())
+
+
+for d in jl(os.path.join(REL, "full_ca_bidsandtenders.jsonl.gz")):
+    st = (d.get("raw") or {}).get("stores") or {}
+    sub = st.get("Submitted") if isinstance(st.get("Submitted"), list) else []
+    ent = {}
+    if sub:
+        ent["number_of_bids"] = len(sub)
+    if not (d.get("contract") or {}).get("value"):
+        vn = _nk((d.get("vendor") or {}).get("name"))
+        for sm in sub:
+            if vn and _nk(sm.get("CompanyName")) == vn:
+                v = _money_first(sm.get("VerifiedValue"))
+                if v:
+                    shown = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", str(sm.get("VerifiedValue")))).strip()[:160]
+                    ent["value"] = v
+                    ent["basis"] = "submitted price of the awarded bidder, bids&tenders 'Unofficial Bid Results' Verified Value: %s (no separate award value published)" % shown
+                break
+    if ent:
+        RAWVAL[d.get("record_id")] = ent
+for d in jl(os.path.join(REL, "full_ca_biddingo.jsonl.gz")):
+    bi = (d.get("raw") or {}).get("bidInfo") or {}
+    lst = bi.get("bidReceivedBidderList")
+    if isinstance(lst, list) and lst:
+        RAWVAL.setdefault(d.get("record_id"), {})["number_of_bids"] = len(lst)
+rep.update({"raw_full_files_entries": len(RAWVAL)})
+
 
 def enrich(r):
     """Apply every verified update to one record (existing or new)."""
@@ -99,6 +146,18 @@ def enrich(r):
         if v.get("main_phone") and not ve.get("phones_published"):
             ve["phones_published"] = [v["main_phone"]]
         rep["records_vendor_patched"] += 1
+    rv = RAWVAL.get(r.get("record_id"))
+    if rv:
+        c = r.setdefault("contract", {})
+        if rv.get("value") and not c.get("value"):
+            c["value"] = rv["value"]
+            c["currency"] = c.get("currency") or "CAD"
+            c.setdefault("value_detail", {})["value_basis"] = rv["basis"]
+            rep["value_from_raw_submission"] += 1
+        if rv.get("number_of_bids") and not c.get("number_of_bids"):
+            c["number_of_bids"] = rv["number_of_bids"]
+            c.setdefault("related", {})["number_of_bids_basis"] = "count of submissions listed by the portal (bids received)"
+            rep["number_of_bids_from_raw"] += 1
     src = r.get("source") or {}
     if src.get("key") == "seao_quebec" and r.get("status") != "ongoing":
         m = re.search(r"ItemId=([0-9a-f-]{36})", src.get("record_url") or "")
