@@ -54,6 +54,20 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   values, 58,304 bid counts, reference date 2026-11-08). A build with them is dispatched automatically when the push lands (background job).
 - Rebuild workflow had been cancelled on 11-07 and 11-08 by the shared concurrency group → own group; today's run succeeded.
 
+## 17:40Z — owner 12:23 EST challenged the "ceilings" → retracted for 4 of 5 fields; new sources scouted and one built
+- Bulk registry match (tools/bulk_registry_match.py; REQ open data 270 MB zip + Corporations Canada 1.58 M rows): 11,286 organisations found
+  (9,330 buyers, 1,956 vendors; 2,719 with BN; 11,452 with a registered address) in 5 minutes offline — committed to
+  data/incoming/claude/claude_registry_bulk.csv; rank.py reads it after the API rows (REQ rows add NEQ, registered address; buyers never
+  matched to struck-off / dissolved entities); daily rerun scheduled in claude-engines (bulk_registry).
+- Scouted (NOTES.md Question 3): Public Accounts payee schedules (ON CSV, AB XLSX, BC CSV) → pair facts for BC/AB/QC ministry buyers (to build);
+  Ontario ministries are not buyers yet and the schedule has no vendor address (rule 1), so it cannot create records alone; PO registers:
+  only Edmonton found (stale 2019); NS tenders already rejected by the team (no supplier location).
+- Build 17:32Z published WITHOUT the downstream pack (my "GST 5% (%s)" label broke %-formatting inside the try/except): 15/438 and empty
+  AP-grade tables. Fixed, and the workflow now refuses to publish a build whose pack was skipped; corrected build dispatched 17:36Z; a local
+  run is checking the pack line in parallel.
+- Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
+  p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
 ## 17:15Z — owner 12:08 EST: "if levers are not moving, change them" → engines moved to parallel runners
 - Throughput was the problem, not the method: one Mac walking 63k sites at 1 request / second / host. New workflow `.github/workflows/claude-engines.yml`:
   10 GitHub runners walk the P13 long tail (tier I, 50k sites, sharded by host so no site is read twice) and run the terms extraction on what they
