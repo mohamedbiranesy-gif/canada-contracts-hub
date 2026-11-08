@@ -31,6 +31,9 @@ FORM_CLASS = [(re.compile(r"\b(?:llp|l\.l\.p\.|lp|l\.p\.|senc|sencrl|s\.e\.n\.c\
               (re.compile(r"\b(?:enr|enrg|enregistr[ée]e|sole proprietor)\b", re.I), "sole proprietorship")]
 
 
+GOV_RX = re.compile(r"\b(ville|city|town|village|municipalit|township|canton|county|comt[ée]|regional district|district municipality|MRC|government|gouvernement|ministry|minist[èe]re|department|d[ée]partement|agency|agence|school|[ée]cole|board|conseil|commission scolaire|centre de services scolaire|universit|college|coll[èe]ge|c[ée]gep|first nation|nation|band|tribal|province|state of|parliament|assembly|court|tribunal|library|biblioth|police|fire|ambulance|canada|qu[ée]bec|ontario|alberta|manitoba|saskatchewan|columbia|brunswick|scotia|newfoundland|yukon|nunavut|territories)\b", re.I)
+
+
 def form_class(name):
     for rx, cls in FORM_CLASS:
         if rx.search(name or ""):
@@ -160,9 +163,13 @@ def main():
             if a.kind in ("buyer", "both"):
                 b = (r.get("buyer") or "").strip()
                 k = (r.get("keys") or "").split("|")[0] or b
-                if b and ("buyer:" + k) not in seen and re.search(r"\b(inc|corp|corporation|ltd|limited|lt[ée]e|hospital|h[ôo]pital|foundation|fondation|association|society|soci[ée]t[ée]|centre|center|institute|institut|coop|co-op|credit union|caisse|college|coll[èe]ge|c[ée]gep|health|sant[ée]|housing|transit|authority|commission)\b", b, re.I):
+                corp_like = re.search(r"\b(inc|corp|corporation|ltd|limited|lt[ée]e|hospital|h[ôo]pital|foundation|fondation|association|society|soci[ée]t[ée]|centre|center|institute|institut|coop|co-op|credit union|caisse|college|coll[èe]ge|c[ée]gep|health|sant[ée]|housing|transit|authority|commission)\b", b, re.I)
+                # owner 2026-11-08 11:46 EST (every row needs its bill-to legal name): organisations whose name carries no legal form — a company or association
+                # printed as "Acme Plumbing" on a vendor's client page — are looked up too, unless the name says it is a government body (not in the registries)
+                org_like = (r.get("tier") or "") == "I" and not GOV_RX.search(b) and re.search(r"company|organisation \(type not stated|non-profit|association|religious|utility|hospital", r.get("buyer_type") or "", re.I)
+                if b and ("buyer:" + k) not in seen and (corp_like or org_like):
                     seen.add("buyer:" + k)
-                    tasks.append((pr + 0.5, "buyer", k, b, prov_of(r.get("jurisdiction") or "", r.get("buyer_address"))))
+                    tasks.append((pr + (0.5 if corp_like else 0.8), "buyer", k, b, prov_of(r.get("jurisdiction") or "", r.get("buyer_address"))))
     tasks.sort(key=lambda t: t[0])
     tasks = [t for t in tasks if (t[1], t[2]) not in done]
     if a.limit:
