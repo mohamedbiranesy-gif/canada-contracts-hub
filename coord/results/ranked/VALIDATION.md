@@ -13,10 +13,10 @@ Informational: 2 rows whose quote shows the label next to the address rather tha
 ## Rows per package
 - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 20
 - P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 92
-- P01_GOLD_active_relationship_invoicing_AP_email: 582
-- P02_active_relationship_finance_accounting_email: 369
-- P03_active_relationship_purchasing_email: 225
-- P04_active_relationship_general_email: 1615
+- P01_GOLD_active_relationship_invoicing_AP_email: 581
+- P02_active_relationship_finance_accounting_email: 368
+- P03_active_relationship_purchasing_email: 224
+- P04_active_relationship_general_email: 1618
 - P05_likely_active_awarded_12_36_months_any_email: 379
 - P06M_member_or_regulated_payer_of_canadian_body_other_email: 167
 - P06T_active_service_seen_on_buyer_site_other_email: 2435
