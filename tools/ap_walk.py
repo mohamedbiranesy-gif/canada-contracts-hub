@@ -46,6 +46,8 @@ def main():
     a.add_argument("--max-pages", type=int, default=40)
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--redo-days", type=int, default=60)
+    a.add_argument("--tiers", default="", help="only rows of these tiers (e.g. I for the inferred-relationship package), so a second walker can start on the long tail")
+    a.add_argument("--skip-tiers", default="", help="skip rows of these tiers (the first walker keeps the stronger packages)")
     a = a.parse_args()
     os.makedirs(STATE, exist_ok=True)
     C.HOST_INTERVAL = 2.0  # the site readers may be on the same host at the same time: stay well under 2 requests / second per host overall
@@ -61,6 +63,10 @@ def main():
     with op(a.ranked, "rt", encoding="utf-8", newline="") as fh:
         for r in csv.DictReader(fh):
             if not r.get("email"):
+                continue
+            if a.tiers and (r.get("tier") or "") not in a.tiers.split(","):
+                continue
+            if a.skip_tiers and (r.get("tier") or "") in a.skip_tiers.split(","):
                 continue
             key = (r.get("keys") or "").split("|")[0]
             w = (r.get("buyer_website") or "").strip()
