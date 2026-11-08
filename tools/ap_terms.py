@@ -287,11 +287,21 @@ def main():
 
 def write(out, prev):
     os.makedirs(os.path.dirname(out), exist_ok=True)
+    rows = dict(prev)
+    if os.path.exists(out):  # rows another runner (GitHub Actions shard, synced into this clone) wrote meanwhile are kept: union by key, this process's rows win
+        try:
+            import io as _io
+            for r_ in csv.DictReader(_io.StringIO(open(out, encoding="utf-8", errors="replace").read().replace("\0", ""))):
+                k_ = (r_.get("email") or "", r_.get("evidence_url") or "")
+                if all(k_) and k_ not in rows:
+                    rows[k_] = r_
+        except Exception as e_:
+            print("union with the on-disk file failed:", type(e_).__name__, e_, flush=True)
     with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore")
         w.writeheader()
-        for k in sorted(prev):
-            w.writerow({c: str(prev[k].get(c, "") or "").replace("\0", "").replace("\r", " ") for c in COLS})
+        for k in sorted(rows):
+            w.writerow({c: str(rows[k].get(c, "") or "").replace("\0", "").replace("\r", " ") for c in COLS})
     os.replace(out + ".tmp", out)
 
 

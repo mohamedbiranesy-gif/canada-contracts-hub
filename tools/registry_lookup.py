@@ -12,7 +12,7 @@ agrees with the vendor's known province wins; otherwise the vendor is `ambiguous
 document as the quote; rank.py fills vendor_bn9 / legal name / registered office / status / incorporation date / legal form.
   python3 tools/registry_lookup.py --ranked ~/cch-tasks/ranked_latest.csv.gz [--kind vendor|buyer|both] [--limit N] [--repo ~/cch-crawler]
 """
-import argparse, csv, datetime, gzip, json, os, re, sys, time, unicodedata, urllib.parse, urllib.request
+import argparse, hashlib, csv, datetime, gzip, json, os, re, sys, time, unicodedata, urllib.parse, urllib.request
 
 csv.field_size_limit(1 << 30)
 UA = "canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)"
@@ -135,6 +135,7 @@ def main():
     a.add_argument("--ranked", default=os.path.expanduser("~/cch-tasks/ranked_latest.csv.gz"))
     a.add_argument("--kind", default="vendor")
     a.add_argument("--limit", type=int, default=0)
+    a.add_argument("--shard", default="", help="K/N: only names whose hash falls in shard K of N (a second runner takes the other half; together never more than 2 requests / second to the registry)")
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
     a.add_argument("--rate", type=float, default=1.0, help="requests per second (polite ceiling for a government service)")
     a = a.parse_args()
@@ -172,6 +173,9 @@ def main():
                     tasks.append((pr + (0.5 if corp_like else 0.8), "buyer", k, b, prov_of(r.get("jurisdiction") or "", r.get("buyer_address"))))
     tasks.sort(key=lambda t: t[0])
     tasks = [t for t in tasks if (t[1], t[2]) not in done]
+    if a.shard:
+        k_, n_ = int(a.shard.split("/")[0]), int(a.shard.split("/")[1])
+        tasks = [t for t in tasks if int(hashlib.md5(t[2].encode()).hexdigest(), 16) % n_ == k_]
     if a.limit:
         tasks = tasks[:a.limit]
     print("to look up: %d (%d done before)" % (len(tasks), len(done)), flush=True)
@@ -180,6 +184,14 @@ def main():
 
     def dump():
         rows = [d for d in done.values()]
+        if os.path.exists(out):  # rows another runner (GitHub Actions shard, synced into this clone) wrote meanwhile are kept: union by key, this process's rows win
+            try:
+                import io as _io
+                for r_ in csv.DictReader(_io.StringIO(open(out, encoding="utf-8", errors="replace").read().replace("\0", ""))):
+                    if (r_.get("kind"), r_.get("key")) not in done and r_.get("kind") and r_.get("key"):
+                        rows.append(r_)
+            except Exception as e_:
+                print("union with the on-disk file failed:", type(e_).__name__, e_, flush=True)
         tmp = out + ".%d.tmp" % os.getpid()
         with open(tmp, "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore"); w.writeheader(); w.writerows(sorted(rows, key=lambda d: (d["kind"], d["key"])))

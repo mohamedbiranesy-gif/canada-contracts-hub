@@ -1,0 +1,137 @@
+name: claude-engines
+# The claude lane's site engines on parallel runners (owner 2026-11-08 12:08 EST: "if levers are not moving, change them").
+# Each shard takes a disjoint set of buyers (hash of the site's host), so no host is ever read by two runners; every
+# runner keeps ap_crawler's politeness (robots.txt, 1 request / second / host, identified UA). Outputs are unioned by key
+# (tools/merge_engine_outputs.py) and committed to data/incoming/claude/, where rank.py reads them.
+#   walk_terms : tools/ap_walk.py (AP / supplier / purchasing pages and PDFs of every delivered buyer site) → tools/ap_terms.py
+#                (payment terms, PO rule, portal, AP phone, invoice address, AP contact, format, GST number)
+#   registry   : tools/registry_lookup.py --kind buyer (Canada's Business Registries: legal name, BN, registered office)
+#                — shard 1/2 only, the Mac runs shard 0/2, so the registry sees at most 2 requests / second in total
+on:
+  workflow_dispatch:
+    inputs:
+      engine:
+        description: "walk_terms | registry"
+        default: walk_terms
+      shards:
+        description: "number of parallel shards (walk_terms; 1-16)"
+        default: "10"
+      minutes:
+        description: "time box per shard in minutes (max 330)"
+        default: "300"
+      tiers:
+        description: "walk_terms: tiers to walk (I = the P13 long tail; A,B,T,M,L,C,D,E,F = the stronger packages)"
+        default: "I"
+      max_pages:
+        description: "walk_terms: pages per site"
+        default: "15"
+permissions:
+  contents: write
+concurrency:
+  group: claude-engines-${{ inputs.engine }}
+  cancel-in-progress: false
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        run: |
+          n=${{ inputs.shards }}; if [ "${{ inputs.engine }}" = "registry" ]; then n=1; fi
+          python3 -c "import json; print('matrix=' + json.dumps(list(range($n))))" >> "$GITHUB_OUTPUT"
+  shard:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tools
+        run: |
+          sudo apt-get install -y -q poppler-utils >/dev/null 2>&1 || true
+          pip install -q pypdf
+          mkdir -p ~/cch-crawler-state
+      - name: Resume state from the harvest-state release
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          gh release download harvest-state -p 'claude_ap_walk_done.tsv' -D ~/cch-crawler-state 2>/dev/null && mv ~/cch-crawler-state/claude_ap_walk_done.tsv ~/cch-crawler-state/ap_walk_done.tsv || true
+          gh release download harvest-state -p 'claude_registry_lookup.jsonl.gz' -D ~/cch-crawler-state 2>/dev/null && gunzip -f ~/cch-crawler-state/claude_registry_lookup.jsonl.gz && mv ~/cch-crawler-state/claude_registry_lookup.jsonl ~/cch-crawler-state/registry_lookup.jsonl || true
+          wc -l ~/cch-crawler-state/* 2>/dev/null || true
+      - name: walk_terms shard
+        if: inputs.engine == 'walk_terms'
+        run: |
+          N=${{ inputs.shards }}; K=${{ matrix.k }}
+          M=${{ inputs.minutes }}; W=$(( M > 60 ? M - 45 : M / 2 ))
+          timeout "${W}m" python3 tools/ap_walk.py --ranked coord/results/ranked/ranked_buyers.csv.gz --tiers "${{ inputs.tiers }}" --shard "$K/$N" --workers 40 --max-pages "${{ inputs.max_pages }}" || true
+          if [ -s ~/cch-crawler-state/ap_pages_seen.csv ]; then
+            timeout 40m python3 tools/ap_terms.py --urls ~/cch-crawler-state/ap_pages_seen.csv --ranked coord/results/ranked/ranked_buyers.csv.gz --repo "$PWD" --workers 24 || true
+          fi
+          mkdir -p out && cp data/incoming/claude/claude_ap_terms.csv out/ap_terms_$K.csv 2>/dev/null || true
+          cp ~/cch-crawler-state/ap_pages_seen.csv out/pages_$K.csv 2>/dev/null || true
+          cp ~/cch-crawler-state/ap_walk_done.tsv out/done_$K.tsv 2>/dev/null || true
+          { echo "shard $K/$N: pages $(wc -l < out/pages_$K.csv 2>/dev/null || echo 0), terms rows $(wc -l < out/ap_terms_$K.csv 2>/dev/null || echo 0)"; } >> "$GITHUB_STEP_SUMMARY"
+      - name: registry shard
+        if: inputs.engine == 'registry'
+        run: |
+          timeout "${{ inputs.minutes }}m" python3 tools/registry_lookup.py --ranked coord/results/ranked/ranked_buyers.csv.gz --kind buyer --shard 1/2 --repo "$PWD" || true
+          mkdir -p out && cp data/incoming/claude/claude_registry_lookup.csv out/registry_1.csv 2>/dev/null || true
+          cp ~/cch-crawler-state/registry_lookup.jsonl out/registry_resume_1.jsonl 2>/dev/null || true
+          echo "registry shard: $(wc -l < out/registry_1.csv 2>/dev/null || echo 0) rows" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: engine-${{ inputs.engine }}-${{ matrix.k }}
+          path: out/
+          if-no-files-found: ignore
+          retention-days: 3
+  merge:
+    needs: shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: engine-${{ inputs.engine }}-*
+          path: shards
+          merge-multiple: true
+      - name: Union with the files on main and commit
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ls -la shards || true
+          git config user.name "claude-engines"; git config user.email "claude-engines@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            git pull -q --rebase origin main || true
+            if [ "${{ inputs.engine }}" = "walk_terms" ]; then
+              python3 tools/merge_engine_outputs.py ap_terms data/incoming/claude/claude_ap_terms.csv data/incoming/claude/claude_ap_terms.csv shards/ap_terms_*.csv
+              [ -f data/incoming/claude/claude_ap_pages_seen.csv.gz ] && gunzip -c data/incoming/claude/claude_ap_pages_seen.csv.gz > /tmp/pages_main.csv || : > /tmp/pages_main.csv
+              python3 tools/merge_engine_outputs.py pages /tmp/pages.csv /tmp/pages_main.csv shards/pages_*.csv && gzip -c /tmp/pages.csv > data/incoming/claude/claude_ap_pages_seen.csv.gz
+              python3 tools/merge_engine_outputs.py tsv_done /tmp/done.tsv shards/done_*.tsv
+              gh release download harvest-state -p 'claude_ap_walk_done.tsv' -D /tmp/prev 2>/dev/null && python3 tools/merge_engine_outputs.py tsv_done /tmp/done2.tsv /tmp/prev/claude_ap_walk_done.tsv /tmp/done.tsv && mv /tmp/done2.tsv /tmp/done.tsv || true
+              cp /tmp/done.tsv /tmp/claude_ap_walk_done.tsv && gh release upload harvest-state /tmp/claude_ap_walk_done.tsv --clobber || true
+            else
+              python3 tools/merge_engine_outputs.py registry data/incoming/claude/claude_registry_lookup.csv data/incoming/claude/claude_registry_lookup.csv shards/registry_*.csv
+              [ -f shards/registry_resume_1.jsonl ] && gzip -c shards/registry_resume_1.jsonl > /tmp/claude_registry_lookup.jsonl.gz && gh release upload harvest-state /tmp/claude_registry_lookup.jsonl.gz --clobber || true
+            fi
+            git add data/incoming/claude/
+            git diff --cached --quiet && { echo "nothing new"; exit 0; }
+            git commit -q -m "claude-engines: ${{ inputs.engine }} shards merged (${{ inputs.shards }} runners, ${{ inputs.minutes }} min) [skip ci]" || true
+            git push -q origin HEAD:main && break
+            git reset -q --soft HEAD~1 || true
+            sleep $((RANDOM % 30 + 10))
+          done
+          python3 - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          import csv, io, os
+          csv.field_size_limit(1 << 30)
+          p = "data/incoming/claude/claude_ap_terms.csv" if "${{ inputs.engine }}" == "walk_terms" else "data/incoming/claude/claude_registry_lookup.csv"
+          rows = list(csv.DictReader(io.StringIO(open(p, encoding="utf-8", errors="replace").read().replace("\0", "")))) if os.path.exists(p) else []
+          print("merged file:", p, len(rows), "rows")
+          if rows and "payment_terms" in rows[0]:
+              print({c: sum(1 for r in rows if r.get(c)) for c in ("payment_terms", "po_required", "portal_name", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn")})
+          if rows and "status" in rows[0] and "bn9" in rows[0]:
+              import collections; print(collections.Counter(r["status"] for r in rows))
+          EOF

@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+"""Union of engine output files produced by parallel runners (GitHub Actions shards, the Mac) — one row per key, the newest
+retrieval wins. Nothing is dropped: a row absent from one copy is kept from the other. Used by .github/workflows/claude-engines.yml.
+  python3 tools/merge_engine_outputs.py ap_terms   OUT.csv  IN1.csv IN2.csv …     key = (email, evidence_url)
+  python3 tools/merge_engine_outputs.py registry   OUT.csv  IN1.csv …             key = (kind, key)
+  python3 tools/merge_engine_outputs.py pages      OUT.csv  IN1.csv …             key = (buyer_key, url)   (ap_pages_seen.csv)
+  python3 tools/merge_engine_outputs.py tsv_done   OUT.tsv  IN1.tsv …             key = column 1          (ap_walk_done.tsv)
+"""
+import csv, io, os, sys
+
+csv.field_size_limit(1 << 30)
+KEYS = {"ap_terms": ("email", "evidence_url"), "registry": ("kind", "key"), "pages": ("buyer_key", "url")}
+DATE = {"ap_terms": "retrieved_date", "registry": "retrieved_date", "pages": "date"}
+
+
+def read_csv(path):
+    if not path or not os.path.exists(path) or os.path.getsize(path) == 0:
+        return [], []
+    txt = open(path, encoding="utf-8", errors="replace").read().replace("\0", "")
+    rd = csv.DictReader(io.StringIO(txt))
+    rows = list(rd)
+    return rd.fieldnames or [], rows
+
+
+def main():
+    kind, out, ins = sys.argv[1], sys.argv[2], sys.argv[3:]
+    if kind == "tsv_done":
+        best = {}
+        for p in ins:
+            if not os.path.exists(p):
+                continue
+            for l in open(p, encoding="utf-8"):
+                f = l.rstrip("\n").split("\t")
+                if len(f) >= 2 and (f[0] not in best or f[1] >= best[f[0]].split("\t")[1]):
+                    best[f[0]] = l.rstrip("\n")
+        with open(out, "w", encoding="utf-8") as f:
+            for k in sorted(best):
+                f.write(best[k] + "\n")
+        print("tsv_done:", len(best), "keys from", len(ins), "files")
+        return
+    kcols, dcol = KEYS[kind], DATE[kind]
+    cols, merged, n_in = [], {}, 0
+    for p in ins:
+        fn, rows = read_csv(p)
+        for c in fn:
+            if c not in cols:
+                cols.append(c)
+        n_in += len(rows)
+        for r in rows:
+            k = tuple((r.get(c) or "").strip() for c in kcols)
+            if not all(k):
+                continue
+            old = merged.get(k)
+            if old is None or (r.get(dcol) or "") >= (old.get(dcol) or ""):
+                merged[k] = r
+    with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
+        w.writeheader()
+        for k in sorted(merged):
+            w.writerow({c: (merged[k].get(c) or "").replace("\0", "") for c in cols})
+    os.replace(out + ".tmp", out)
+    print("%s: %d rows in, %d unique keys out (%d files)" % (kind, n_in, len(merged), len(ins)))
+
+
+if __name__ == "__main__":
+    main()

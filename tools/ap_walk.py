@@ -9,7 +9,7 @@ Output: ~/cch-crawler-state/ap_pages_seen.csv (buyer_key,buyer_name,website,offi
   python3 tools/ap_terms.py --urls ~/cch-crawler-state/ap_pages_seen.csv --ranked ~/cch-tasks/ranked_latest.csv.gz
 Resume: ~/cch-crawler-state/ap_walk_done.tsv (buyer_key, date, pages, ap_pages).
 """
-import argparse, csv, gzip, os, sys, threading, time, urllib.parse
+import argparse, hashlib, csv, gzip, os, sys, threading, time, urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 
 csv.field_size_limit(1 << 30)
@@ -48,7 +48,9 @@ def main():
     a.add_argument("--redo-days", type=int, default=60)
     a.add_argument("--tiers", default="", help="only rows of these tiers (e.g. I for the inferred-relationship package), so a second walker can start on the long tail")
     a.add_argument("--skip-tiers", default="", help="skip rows of these tiers (the first walker keeps the stronger packages)")
+    a.add_argument("--shard", default="", help="K/N: only buyers whose key hashes to shard K of N (parallel runners never share a host: one buyer = one site)")
     a = a.parse_args()
+    shard_k, shard_n = (int(a.shard.split("/")[0]), int(a.shard.split("/")[1])) if a.shard else (0, 1)
     os.makedirs(STATE, exist_ok=True)
     C.HOST_INTERVAL = 2.0  # the site readers may be on the same host at the same time: stay well under 2 requests / second per host overall
     done = {}
@@ -75,6 +77,8 @@ def main():
                 continue
             if done.get(key, "") >= cutoff:
                 continue
+            if shard_n > 1 and int(hashlib.md5(h.encode()).hexdigest(), 16) % shard_n != shard_k:
+                continue  # sharded by host, so two runners never crawl the same site
             seen.add(key)
             tasks.append((prio(r), {"task_id": "", "buyer_key": key, "buyer_name": r.get("buyer") or "", "known_website": "https://%s/" % h}))
     tasks.sort(key=lambda t: t[0])
