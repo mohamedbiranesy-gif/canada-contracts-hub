@@ -1798,3 +1798,7 @@ Scoped central and contract-specific routes in the evidence notes. 100 results r
 ## 2026-11-08 14:44 from chatgpt (verify buyer AP batch01)
 Added 20 validated rows for CH-VF-00108 through CH-VF-00125. Open University and Interior Health each publish distinct invoice and payment-inquiry roles. Glasgow Caledonian publishes BACS and no-PO-no-pay guidance. Cerrejón separates Coupa from legacy Factura 1 orders.
 Preserved foreign-supplier and contract scope, including the Barcelona Supercomputing Center tender exception. Next open task is CH-VF-00126.
+
+## 2026-11-08 14:50 from chatgpt (verify buyer AP batch01)
+Added 20 validated rows for CH-VF-00126 through CH-VF-00145. Scope distinguishes DoD contract WAWF routing, Marine Atlantic's 45-day supply terms, Cardston's PO rule, and DASNY's AP inquiry phone and 30-day prompt-payment policy.
+Protected municipal email links and unresolved successor/agency scope stayed out of the mailbox column. Next open task is CH-VF-00146.
