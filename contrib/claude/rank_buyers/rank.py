@@ -1985,7 +1985,19 @@ CBR = {"vendor": {}, "buyer": {}}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_registry_lookup.csv"):
     for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_registry_lookup.csv", encoding="utf-8", errors="replace")):
         if _r.get("status") == "found" and _r.get("juri_id"):
+            _r["_label"] = "Canada's Business Registries, %s %s" % (_r.get("registry_source") or "", _r.get("juri_id") or "")
             CBR[_r["kind"]][_r["key"] if _r["kind"] == "buyer" else norm(_r["key"])] = _r
+n_bulk = 0
+if os.path.exists(ROOT + "/data/incoming/claude/claude_registry_bulk.csv"):  # tools/bulk_registry_match.py: REQ open data (NEQ) and Corporations Canada open data (BN); the API rows above win when both exist
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_registry_bulk.csv", encoding="utf-8", errors="replace")):
+        if _r.get("status") == "found" and _r.get("juri_id"):
+            _k = _r["key"] if _r["kind"] == "buyer" else norm(_r["key"])
+            _r["_label"] = "%s, %s" % (_r.get("registry_source") or "registry open data", _r.get("juri_id") or "")
+            if _k not in CBR[_r["kind"]]:
+                CBR[_r["kind"]][_k] = _r; n_bulk += 1
+            elif _r["juri_id"].startswith("NEQ") and not (CBR[_r["kind"]][_k].get("juri_id") or "").startswith("NEQ"):
+                CBR[_r["kind"]][_k]["_neq"] = _r["juri_id"]; CBR[_r["kind"]][_k]["_neq_src"] = _r.get("registry_source") or ""  # the API row has the BN, the REQ row the NEQ: keep both
+print("registry bulk rows added (no API row for the key):", n_bulk)
 n_cbr = collections.Counter()
 for x in rows:
     vn = x.get("vendor") or ""
@@ -1993,7 +2005,7 @@ for x in rows:
     if c and form_class(vn) and form_class(c.get("matched_name") or "") and form_class(vn) != form_class(c.get("matched_name") or ""):
         n_cbr["vendor_skipped_legal_form"] += 1; c = None  # reviewer 2026-11-08: Smythe LLP is not Smythe Inc.
     if c:
-        src = "Canada's Business Registries, %s %s, %s" % (c["registry_source"], c["juri_id"], c["retrieved_date"])
+        src = "%s, %s" % (c["_label"], c["retrieved_date"])
         if re.search(r"\((?:stated on|schema\.org|as printed on the vendor's site)", x.get("vendor_legal_name") or ""):
             x["vendor_legal_name"] = ""  # the registered name beats a name read off a page
         if c.get("bn9") and not x.get("vendor_bn9"):
@@ -2002,8 +2014,12 @@ for x in rows:
                 x["vendor_gst_hst_derived"] = c["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
         if not x.get("vendor_legal_name") and c.get("matched_name"):
             x["vendor_legal_name"] = "%s (as registered: %s)" % (c["matched_name"], src); n_cbr["vendor_legal_name"] += 1
-        if not x.get("vendor_registered_address") and (c.get("reg_office_city") or c.get("reg_office_province")):
-            x["vendor_registered_address"] = "%s (registered office city / province; %s)" % (", ".join(v for v in (c.get("reg_office_city"), c.get("reg_office_province")) if v), src); n_cbr["vendor_registered_address"] += 1
+        if not x.get("vendor_registered_address") and (c.get("reg_office_address") or c.get("reg_office_city") or c.get("reg_office_province")):
+            x["vendor_registered_address"] = ("%s (registered address; %s)" % (c["reg_office_address"], src)) if c.get("reg_office_address") else ("%s (registered office city / province; %s)" % (", ".join(v for v in (c.get("reg_office_city"), c.get("reg_office_province")) if v), src)); n_cbr["vendor_registered_address"] += 1
+        if (c.get("juri_id") or "").startswith("NEQ") and not x.get("vendor_neq"):
+            x["vendor_neq"] = "%s (%s)" % (c["juri_id"].replace("NEQ ", ""), src); n_cbr["vendor_neq"] += 1
+        elif c.get("_neq") and not x.get("vendor_neq"):
+            x["vendor_neq"] = "%s (%s, %s)" % (c["_neq"].replace("NEQ ", ""), c["_neq_src"], c["retrieved_date"]); n_cbr["vendor_neq"] += 1
         if not x.get("vendor_registry_status") and c.get("status_state"):
             x["vendor_registry_status"] = "%s%s (%s)" % (c["status_state"], (" — " + c["status_notes"]) if c.get("status_notes") and c["status_notes"] != c["status_state"] else "", src); n_cbr["vendor_registry_status"] += 1
         if not x.get("vendor_incorporation_date") and c.get("date_incorporated"):
@@ -2012,12 +2028,12 @@ for x in rows:
             x["vendor_legal_form"] = "%s (%s)" % (c["entity_type"], src); n_cbr["vendor_legal_form"] += 1
         if not x.get("vendor_trading_name") and c.get("alternate_names"):
             x["vendor_trading_name"] = c["alternate_names"] + " (alternate names in the registry)"; n_cbr["vendor_trading_name"] += 1
-        x["vendor_registry_id"] = ((x.get("vendor_registry_id") + "; ") if x.get("vendor_registry_id") else "") + "%s %s (Canada's Business Registries)" % (c["registry_source"], c["juri_id"])
+        x["vendor_registry_id"] = ((x.get("vendor_registry_id") + "; ") if x.get("vendor_registry_id") else "") + "%s (%s)" % (c["juri_id"], c["registry_source"])
         x["vendor_registry_url"] = x.get("vendor_registry_url") or c.get("ui_url") or ""
     k = (x.get("keys") or "").split("|")[0]
     b = CBR["buyer"].get(k) if k else None
     if b:
-        src = "Canada's Business Registries, %s %s, %s" % (b["registry_source"], b["juri_id"], b["retrieved_date"])
+        src = "%s, %s" % (b["_label"], b["retrieved_date"])
         if re.search(r"\((?:stated on|schema\.org|recipient legal name)", x.get("buyer_legal_name_as_published") or ""):
             x["buyer_legal_name_as_published"] = ""  # the registered name beats a name read off a page or another dataset
         if b.get("bn9") and not x.get("buyer_bn_as_published"):
@@ -2028,8 +2044,12 @@ for x in rows:
             x["buyer_legal_name_as_published"] = "%s (as registered: %s)" % (b["matched_name"], src); n_cbr["buyer_legal_name"] += 1
         if not x.get("buyer_legal_form") and b.get("entity_type"):
             x["buyer_legal_form"] = "%s (%s)" % (b["entity_type"], src)
-        x["buyer_registry_id"] = "%s %s (Canada's Business Registries; %s)" % (b["registry_source"], b["juri_id"], b.get("ui_url") or "")
-print("Canada's Business Registries: %d vendors, %d buyers found; filled %s" % (len(CBR["vendor"]), len(CBR["buyer"]), dict(n_cbr)))
+        x["buyer_registry_id"] = "%s (%s; %s)" % (b["juri_id"], b["registry_source"], b.get("ui_url") or "")
+        if not x.get("buyer_address") and b.get("reg_office_address"):
+            x["buyer_address"] = "%s (registered address; %s)" % (b["reg_office_address"], src); n_cbr["buyer_address"] += 1
+        if (b.get("_neq") or (b.get("juri_id") or "").startswith("NEQ")) and "NEQ" not in (x.get("buyer_registry_id") or "") and b.get("_neq"):
+            x["buyer_registry_id"] += "; %s (%s)" % (b["_neq"], b["_neq_src"])
+print("Canada's Business Registries + registry open data: %d vendors, %d buyers found; filled %s" % (len(CBR["vendor"]), len(CBR["buyer"]), dict(n_cbr)))
 # federal grants & contributions disclosure (tools/gc_recipients.py → claude_gc_recipients.csv): recipient_business_number of buyers and vendors
 GCR = {"vendor": {}, "buyer": {}}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_gc_recipients.csv"):
