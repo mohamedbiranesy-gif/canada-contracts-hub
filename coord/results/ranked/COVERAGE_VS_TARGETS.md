@@ -1,6 +1,6 @@
 # Coverage vs the downstream team's targets — 2026-11-08
 
-Benchmarks (field × package with a numeric target): **87 of 438 met** (19.9%); 41 within 10 points; 310 further away.
+Benchmarks (field × package with a numeric target): **94 of 438 met** (21.5%); 46 within 10 points; 298 further away.
 A cell is filled unless blank / `not_published` / `not_found_yet`. Δ = change since the previous build in `coord/results/coverage_history.csv`.
 Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P05 378, P06M 167, P06T 2429, P06 160, P07 246, P08 3038, P09 369, P10 2587, P11 497, P12 21, P13 50786
 
@@ -8,46 +8,46 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 
 | field | package | now | target | rows needed |
 |---|---|---|---|---|
-| buyer_legal_name_as_published | P13 | 26.4% | 60% | 17087 |
-| buyer_logo_url | P13 | 73.4% | 95% | 10951 |
-| buyer_address | P13 | 74.3% | 95% | 10526 |
-| buyer_ap_cycle_published | P13 | 0.0% | 20% | 10157 |
-| ap_system_hint | P13 | 0.3% | 20% | 9999 |
-| buyer_phone | P13 | 76.2% | 95% | 9561 |
-| buyer_esignature_preference | P13 | 0.1% | 15% | 7591 |
-| buyer_tax_exempt_status | P13 | 0.1% | 15% | 7566 |
-| buyer_payment_method_preference | P13 | 0.7% | 15% | 7275 |
-| buyer_bn_as_published | P13 | 17.6% | 30% | 6309 |
-| vendor_registered_address | P10 | 16.0% | 70% | 1398 |
-| buyer_legal_name_as_published | P10 | 18.1% | 70% | 1344 |
-| vendor_registered_address | P08 | 28.6% | 70% | 1257 |
+| buyer_legal_name_as_published | P13 | 28.8% | 60% | 15861 |
+| buyer_address | P13 | 74.3% | 95% | 10516 |
+| buyer_logo_url | P13 | 74.4% | 95% | 10450 |
+| buyer_ap_cycle_published | P13 | 0.0% | 20% | 10153 |
+| ap_system_hint | P13 | 0.3% | 20% | 9994 |
+| buyer_phone | P13 | 76.5% | 95% | 9381 |
+| buyer_esignature_preference | P13 | 0.1% | 15% | 7563 |
+| buyer_tax_exempt_status | P13 | 0.1% | 15% | 7552 |
+| buyer_bn_as_published | P13 | 17.6% | 30% | 6294 |
+| buyer_payment_method_preference | P13 | 3.8% | 15% | 5689 |
+| vendor_registered_address | P10 | 23.1% | 70% | 1214 |
 | buyer_address | P08 | 64.5% | 95% | 929 |
-| buyer_bn_as_published | P08 | 6.5% | 35% | 868 |
+| buyer_bn_as_published | P08 | 6.5% | 35% | 866 |
 | vendor_emails | P08 | 47.0% | 75% | 851 |
-| vendor_phone | P08 | 57.9% | 85% | 824 |
 | buyer_address | P10 | 63.7% | 95% | 811 |
 | invoice_reference_hint | P08 | 0.0% | 25% | 759 |
 | vendor_emails | P10 | 50.8% | 80% | 756 |
+| vendor_registered_address | P08 | 47.1% | 70% | 696 |
 | vendor_logo_url | P04 | 42.7% | 85% | 684 |
-| vendor_bn9 | P08 | 27.5% | 50% | 683 |
-| buyer_phone | P10 | 69.5% | 95% | 660 |
-| buyer_bn_as_published | P10 | 5.0% | 30% | 647 |
 | solicitation_or_tender_number | P04 | 10.0% | 50% | 646 |
 | po_required_as_published | P04 | 0.4% | 40% | 639 |
-| invoice_reference_hint | P10 | 0.4% | 25% | 637 |
 | payment_terms_as_published | P04 | 0.6% | 40% | 636 |
-| vendor_phone | P10 | 60.6% | 85% | 632 |
-| buyer_phone | P08 | 74.4% | 95% | 628 |
+| buyer_bn_as_published | P10 | 5.6% | 30% | 631 |
+| vendor_phone | P08 | 64.5% | 85% | 625 |
+| buyer_phone | P08 | 74.5% | 95% | 623 |
+| buyer_phone | P10 | 71.4% | 95% | 611 |
 | vendor_emails | P04 | 32.4% | 70% | 607 |
 | buyer_ap_cycle_published | P08 | 0.1% | 20% | 605 |
 | contract_description | P04 | 58.0% | 95% | 599 |
 | end_date | P04 | 53.1% | 90% | 596 |
 | currency | P04 | 58.5% | 95% | 590 |
-| ap_system_hint | P08 | 0.8% | 20% | 583 |
+| ap_system_hint | P08 | 0.9% | 20% | 582 |
 | ap_phone | P04 | 49.2% | 85% | 578 |
 | buyer_vendor_id | P04 | 4.3% | 40% | 576 |
 | vendor_neq | P04 | 59.7% | 95% | 571 |
 | invoicing_requirements | P04 | 35.4% | 70% | 560 |
+| commodity_codes | P04 | 51.2% | 85% | 546 |
+| award_or_notice_id | P04 | 52.6% | 85% | 523 |
+| invoice_reference_hint | P10 | 4.9% | 25% | 519 |
+| vendor_phone | P10 | 65.1% | 85% | 515 |
 
 ## 1. identifiers
 
@@ -68,10 +68,10 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P07 | 246 | 0.0% |  | 30% | ❌ 30 pts to go |
 | P08 | 3038 | 0.0% |  | 25% | ❌ 25 pts to go |
 | P09 | 369 | 99.2% |  | 100% | 🟡 1 pts to go |
-| P10 | 2587 | 0.4% |  | 25% | ❌ 25 pts to go |
-| P11 | 497 | 28.4% |  | 60% | ❌ 32 pts to go |
+| P10 | 2587 | 4.9% |  | 25% | ❌ 20 pts to go |
+| P11 | 497 | 28.6% |  | 60% | ❌ 31 pts to go |
 | P12 | 21 | 100.0% |  | 100% | ✅ met |
-| P13 | 50786 | 0.0% |  | 0% by design | — leave (by design) |
+| P13 | 50786 | 0.2% |  | 0% by design | — leave (by design) |
 
 ### `po_number_as_published`
 
@@ -92,7 +92,7 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P07 | 246 | 0.0% |  | n/a | no target |
 | P08 | 3038 | 0.0% |  | n/a | no target |
 | P09 | 369 | 0.5% |  | 50% | ❌ 50 pts to go |
-| P10 | 2587 | 0.0% |  | n/a | no target |
+| P10 | 2587 | 0.3% |  | n/a | no target |
 | P11 | 497 | 1.4% |  | n/a | no target |
 | P12 | 21 | 0.0% |  | n/a | no target |
 | P13 | 50786 | 0.0% |  | n/a | no target |
@@ -262,16 +262,16 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P01_GOLD | 585 | 79.0% |  | 90% | ❌ 11 pts to go |
 | P02 | 366 | 68.3% |  | 85% | ❌ 17 pts to go |
 | P03 | 224 | 81.7% |  | 90% | 🟡 8 pts to go |
-| P04 | 1615 | 56.9% |  | 75% | ❌ 18 pts to go |
+| P04 | 1615 | 57.0% |  | 75% | ❌ 18 pts to go |
 | P05 | 378 | 53.7% |  | 50% | ✅ met |
 | P06M | 167 | 70.1% |  | n/a | no target |
 | P06T | 2429 | 60.4% |  | n/a | no target |
 | P06 | 160 | 47.5% |  | 40% | ✅ met |
-| P07 | 246 | 27.6% |  | 50% | ❌ 22 pts to go |
-| P08 | 3038 | 27.5% |  | 50% | ❌ 22 pts to go |
-| P09 | 369 | 52.6% |  | 80% | ❌ 27 pts to go |
-| P10 | 2587 | 23.4% |  | 40% | ❌ 17 pts to go |
-| P11 | 497 | 35.6% |  | 60% | ❌ 24 pts to go |
+| P07 | 246 | 39.4% |  | 50% | ❌ 11 pts to go |
+| P08 | 3038 | 41.0% |  | 50% | 🟡 9 pts to go |
+| P09 | 369 | 54.7% |  | 80% | ❌ 25 pts to go |
+| P10 | 2587 | 27.7% |  | 40% | ❌ 12 pts to go |
+| P11 | 497 | 42.3% |  | 60% | ❌ 18 pts to go |
 | P12 | 21 | 47.6% |  | 85% | ❌ 37 pts to go |
 | P13 | 50786 | 91.7% |  | 0% by design | — leave (by design) |
 
@@ -284,16 +284,16 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P01_GOLD | 585 | 75.4% |  | 95% | ❌ 20 pts to go |
 | P02 | 366 | 83.6% |  | 95% | ❌ 11 pts to go |
 | P03 | 224 | 77.7% |  | 95% | ❌ 17 pts to go |
-| P04 | 1615 | 81.4% |  | 95% | ❌ 14 pts to go |
-| P05 | 378 | 54.0% |  | 70% | ❌ 16 pts to go |
+| P04 | 1615 | 81.5% |  | 95% | ❌ 14 pts to go |
+| P05 | 378 | 54.2% |  | 70% | ❌ 16 pts to go |
 | P06M | 167 | 6.6% |  | n/a | no target |
-| P06T | 2429 | 74.7% |  | n/a | no target |
+| P06T | 2429 | 75.3% |  | n/a | no target |
 | P06 | 160 | 52.5% |  | 80% | ❌ 28 pts to go |
-| P07 | 246 | 32.1% |  | 70% | ❌ 38 pts to go |
-| P08 | 3038 | 28.6% |  | 70% | ❌ 41 pts to go |
-| P09 | 369 | 85.1% |  | 100% | ❌ 15 pts to go |
-| P10 | 2587 | 16.0% |  | 70% | ❌ 54 pts to go |
-| P11 | 497 | 36.4% |  | 75% | ❌ 39 pts to go |
+| P07 | 246 | 48.0% |  | 70% | ❌ 22 pts to go |
+| P08 | 3038 | 47.1% |  | 70% | ❌ 23 pts to go |
+| P09 | 369 | 89.4% |  | 100% | ❌ 11 pts to go |
+| P10 | 2587 | 23.1% |  | 70% | ❌ 47 pts to go |
+| P11 | 497 | 46.7% |  | 75% | ❌ 28 pts to go |
 | P12 | 21 | 85.7% |  | n/a | no target |
 | P13 | 50786 | 0.0% |  | n/a | no target |
 
@@ -306,16 +306,16 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P01_GOLD | 585 | 52.5% |  | 60% | 🟡 8 pts to go |
 | P02 | 366 | 66.1% |  | 60% | ✅ met |
 | P03 | 224 | 58.9% |  | 60% | 🟡 1 pts to go |
-| P04 | 1615 | 56.5% |  | 55% | ✅ met |
-| P05 | 378 | 24.3% |  | 50% | ❌ 26 pts to go |
+| P04 | 1615 | 56.6% |  | 55% | ✅ met |
+| P05 | 378 | 24.9% |  | 50% | ❌ 25 pts to go |
 | P06M | 167 | 13.2% |  | n/a | no target |
 | P06T | 2429 | 53.4% |  | n/a | no target |
-| P06 | 160 | 40.0% |  | n/a | no target |
-| P07 | 246 | 36.6% |  | 55% | ❌ 18 pts to go |
-| P08 | 3038 | 34.3% |  | 50% | ❌ 16 pts to go |
-| P09 | 369 | 70.7% |  | 70% | ✅ met |
-| P10 | 2587 | 37.6% |  | 55% | ❌ 17 pts to go |
-| P11 | 497 | 35.6% |  | 50% | ❌ 14 pts to go |
+| P06 | 160 | 68.1% |  | n/a | no target |
+| P07 | 246 | 62.6% |  | 55% | ✅ met |
+| P08 | 3038 | 62.1% |  | 50% | ✅ met |
+| P09 | 369 | 72.4% |  | 70% | ✅ met |
+| P10 | 2587 | 67.6% |  | 55% | ✅ met |
+| P11 | 497 | 52.7% |  | 50% | ✅ met |
 | P12 | 21 | 85.7% |  | n/a | no target |
 | P13 | 50786 | 0.0% |  | n/a | no target |
 
@@ -332,12 +332,12 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P05 | 378 | 16.7% |  | 60% | ❌ 43 pts to go |
 | P06M | 167 | 6.6% |  | n/a | no target |
 | P06T | 2429 | 0.0% |  | n/a | no target |
-| P06 | 160 | 53.8% |  | 40% | ✅ met |
-| P07 | 246 | 60.2% |  | 85% | ❌ 25 pts to go |
-| P08 | 3038 | 57.9% |  | 85% | ❌ 27 pts to go |
-| P09 | 369 | 50.1% |  | 85% | ❌ 35 pts to go |
-| P10 | 2587 | 60.6% |  | 85% | ❌ 24 pts to go |
-| P11 | 497 | 44.3% |  | 75% | ❌ 31 pts to go |
+| P06 | 160 | 59.4% |  | 40% | ✅ met |
+| P07 | 246 | 65.0% |  | 85% | ❌ 20 pts to go |
+| P08 | 3038 | 64.5% |  | 85% | ❌ 20 pts to go |
+| P09 | 369 | 52.3% |  | 85% | ❌ 33 pts to go |
+| P10 | 2587 | 65.1% |  | 85% | ❌ 20 pts to go |
+| P11 | 497 | 48.1% |  | 75% | ❌ 27 pts to go |
 | P12 | 21 | 4.8% |  | n/a | no target |
 | P13 | 50786 | 100.0% |  | 60% | ✅ met |
 
@@ -347,20 +347,20 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 |---|---|---|---|---|---|
 | P01M | 20 | 45.0% |  | n/a | no target |
 | P01T | 91 | 11.0% |  | n/a | no target |
-| P01_GOLD | 585 | 70.1% |  | 90% | ❌ 20 pts to go |
-| P02 | 366 | 73.5% |  | 90% | ❌ 16 pts to go |
-| P03 | 224 | 67.4% |  | 90% | ❌ 23 pts to go |
-| P04 | 1615 | 56.8% |  | 85% | ❌ 28 pts to go |
-| P05 | 378 | 27.8% |  | 70% | ❌ 42 pts to go |
+| P01_GOLD | 585 | 85.1% |  | 90% | 🟡 5 pts to go |
+| P02 | 366 | 81.4% |  | 90% | 🟡 9 pts to go |
+| P03 | 224 | 86.6% |  | 90% | 🟡 3 pts to go |
+| P04 | 1615 | 60.6% |  | 85% | ❌ 24 pts to go |
+| P05 | 378 | 34.7% |  | 70% | ❌ 35 pts to go |
 | P06M | 167 | 10.2% |  | n/a | no target |
 | P06T | 2429 | 2.6% |  | n/a | no target |
 | P06 | 160 | 97.5% |  | 50% | ✅ met |
 | P07 | 246 | 94.3% |  | 100% | 🟡 6 pts to go |
-| P08 | 3038 | 92.7% |  | 100% | 🟡 7 pts to go |
-| P09 | 369 | 78.6% |  | 100% | ❌ 21 pts to go |
+| P08 | 3038 | 92.9% |  | 100% | 🟡 7 pts to go |
+| P09 | 369 | 80.2% |  | 100% | ❌ 20 pts to go |
 | P10 | 2587 | 100.0% |  | 100% | ✅ met |
-| P11 | 497 | 84.1% |  | 100% | ❌ 16 pts to go |
-| P12 | 21 | 23.8% |  | n/a | no target |
+| P11 | 497 | 85.5% |  | 100% | ❌ 14 pts to go |
+| P12 | 21 | 38.1% |  | n/a | no target |
 | P13 | 50786 | 100.0% |  | n/a | no target |
 
 ### `vendor_emails`
@@ -400,12 +400,12 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P05 | 378 | 22.8% |  | 75% | ❌ 52 pts to go |
 | P06M | 167 | 6.6% |  | n/a | no target |
 | P06T | 2429 | 0.0% |  | n/a | no target |
-| P06 | 160 | 85.6% |  | n/a | no target |
-| P07 | 246 | 84.6% |  | 100% | ❌ 15 pts to go |
-| P08 | 3038 | 82.8% |  | 100% | ❌ 17 pts to go |
-| P09 | 369 | 57.7% |  | n/a | no target |
-| P10 | 2587 | 84.1% |  | 100% | ❌ 16 pts to go |
-| P11 | 497 | 62.0% |  | n/a | no target |
+| P06 | 160 | 88.1% |  | n/a | no target |
+| P07 | 246 | 87.8% |  | 100% | ❌ 12 pts to go |
+| P08 | 3038 | 85.4% |  | 100% | ❌ 15 pts to go |
+| P09 | 369 | 58.8% |  | n/a | no target |
+| P10 | 2587 | 87.6% |  | 100% | ❌ 12 pts to go |
+| P11 | 497 | 64.4% |  | n/a | no target |
 | P12 | 21 | 14.3% |  | n/a | no target |
 | P13 | 50786 | 0.0% |  | n/a | no target |
 
@@ -425,11 +425,11 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P06M | 167 | 0.0% |  | n/a | no target |
 | P06T | 2429 | 53.4% |  | n/a | no target · QC vendors: 4 rows, 0.0% filled |
 | P06 | 160 | 21.9% |  | n/a | no target · QC vendors: 14 rows, 92.9% filled |
-| P07 | 246 | 17.1% |  | n/a | no target · QC vendors: 21 rows, 100.0% filled |
-| P08 | 3038 | 23.4% |  | n/a | no target · QC vendors: 437 rows, 100.0% filled |
-| P09 | 369 | 81.8% |  | 95% | ❌ 13 pts to go · QC vendors: 153 rows, 100.0% filled |
-| P10 | 2587 | 15.5% |  | n/a | no target · QC vendors: 218 rows, 100.0% filled |
-| P11 | 497 | 26.2% |  | n/a | no target · QC vendors: 64 rows, 96.9% filled |
+| P07 | 246 | 17.1% |  | n/a | no target · QC vendors: 23 rows, 91.3% filled |
+| P08 | 3038 | 23.4% |  | n/a | no target · QC vendors: 473 rows, 92.4% filled |
+| P09 | 369 | 81.8% |  | 95% | ❌ 13 pts to go · QC vendors: 154 rows, 99.4% filled |
+| P10 | 2587 | 15.5% |  | n/a | no target · QC vendors: 250 rows, 87.2% filled |
+| P11 | 497 | 26.2% |  | n/a | no target · QC vendors: 67 rows, 92.5% filled |
 | P12 | 21 | 71.4% |  | n/a | no target · QC vendors: 3 rows, 100.0% filled |
 | P13 | 50786 | 0.0% |  | n/a | no target |
 
@@ -442,16 +442,16 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P01_GOLD | 585 | 85.0% |  | 100% | ❌ 15 pts to go · vendors with a registry record: 497 rows, 100.0% filled |
 | P02 | 366 | 90.7% |  | 100% | 🟡 9 pts to go · vendors with a registry record: 332 rows, 100.0% filled |
 | P03 | 224 | 87.9% |  | 100% | ❌ 12 pts to go · vendors with a registry record: 197 rows, 100.0% filled |
-| P04 | 1615 | 83.9% |  | 100% | ❌ 16 pts to go · vendors with a registry record: 1355 rows, 100.0% filled |
-| P05 | 378 | 59.0% |  | n/a | no target · vendors with a registry record: 223 rows, 100.0% filled |
+| P04 | 1615 | 84.0% |  | 100% | ❌ 16 pts to go · vendors with a registry record: 1357 rows, 100.0% filled |
+| P05 | 378 | 59.3% |  | n/a | no target · vendors with a registry record: 224 rows, 100.0% filled |
 | P06M | 167 | 0.0% |  | n/a | no target |
-| P06T | 2429 | 73.4% |  | n/a | no target · vendors with a registry record: 1784 rows, 100.0% filled |
+| P06T | 2429 | 74.0% |  | n/a | no target · vendors with a registry record: 1797 rows, 100.0% filled |
 | P06 | 160 | 53.8% |  | n/a | no target · vendors with a registry record: 86 rows, 100.0% filled |
-| P07 | 246 | 32.5% |  | n/a | no target · vendors with a registry record: 80 rows, 100.0% filled |
-| P08 | 3038 | 29.4% |  | n/a | no target · vendors with a registry record: 894 rows, 100.0% filled |
-| P09 | 369 | 88.3% |  | n/a | no target · vendors with a registry record: 326 rows, 100.0% filled |
-| P10 | 2587 | 16.5% |  | n/a | no target · vendors with a registry record: 426 rows, 100.0% filled |
-| P11 | 497 | 40.0% |  | n/a | no target · vendors with a registry record: 199 rows, 100.0% filled |
+| P07 | 246 | 48.8% |  | n/a | no target · vendors with a registry record: 120 rows, 100.0% filled |
+| P08 | 3038 | 47.9% |  | n/a | no target · vendors with a registry record: 1455 rows, 100.0% filled |
+| P09 | 369 | 92.4% |  | n/a | no target · vendors with a registry record: 341 rows, 100.0% filled |
+| P10 | 2587 | 24.2% |  | n/a | no target · vendors with a registry record: 626 rows, 100.0% filled |
+| P11 | 497 | 50.3% |  | n/a | no target · vendors with a registry record: 250 rows, 100.0% filled |
 | P12 | 21 | 71.4% |  | n/a | no target · vendors with a registry record: 15 rows, 100.0% filled |
 | P13 | 50786 | 0.0% |  | n/a | no target |
 
@@ -467,17 +467,17 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P02 | 366 | 93.7% |  | 95% | 🟡 1 pts to go |
 | P03 | 224 | 84.8% |  | 85% | 🟡 0 pts to go |
 | P04 | 1615 | 77.4% |  | 90% | ❌ 13 pts to go |
-| P05 | 378 | 74.3% |  | 75% | 🟡 1 pts to go |
+| P05 | 378 | 75.4% |  | 75% | ✅ met |
 | P06M | 167 | 83.2% |  | n/a | no target |
-| P06T | 2429 | 70.3% |  | n/a | no target |
+| P06T | 2429 | 70.4% |  | n/a | no target |
 | P06 | 160 | 73.8% |  | 80% | 🟡 6 pts to go |
 | P07 | 246 | 75.2% |  | 80% | 🟡 5 pts to go |
-| P08 | 3038 | 58.3% |  | 75% | ❌ 17 pts to go |
-| P09 | 369 | 75.9% |  | 95% | ❌ 19 pts to go |
-| P10 | 2587 | 18.1% |  | 70% | ❌ 52 pts to go |
-| P11 | 497 | 28.6% |  | 65% | ❌ 36 pts to go |
-| P12 | 21 | 57.1% |  | 80% | ❌ 23 pts to go |
-| P13 | 50786 | 26.4% |  | 60% | ❌ 34 pts to go |
+| P08 | 3038 | 61.1% |  | 75% | ❌ 14 pts to go |
+| P09 | 369 | 76.4% |  | 95% | ❌ 19 pts to go |
+| P10 | 2587 | 58.8% |  | 70% | ❌ 11 pts to go |
+| P11 | 497 | 35.0% |  | 65% | ❌ 30 pts to go |
+| P12 | 21 | 76.2% |  | 80% | 🟡 4 pts to go |
+| P13 | 50786 | 28.8% |  | 60% | ❌ 31 pts to go |
 
 ### `buyer_bn_as_published`
 
@@ -498,7 +498,7 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P07 | 246 | 6.5% |  | 35% | ❌ 28 pts to go |
 | P08 | 3038 | 6.5% |  | 35% | ❌ 28 pts to go |
 | P09 | 369 | 17.6% |  | n/a | no target |
-| P10 | 2587 | 5.0% |  | 30% | ❌ 25 pts to go |
+| P10 | 2587 | 5.6% |  | 30% | ❌ 24 pts to go |
 | P11 | 497 | 9.1% |  | n/a | no target |
 | P12 | 21 | 23.8% |  | n/a | no target |
 | P13 | 50786 | 17.6% |  | 30% | ❌ 12 pts to go |
@@ -513,7 +513,7 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P02 | 366 | 95.4% |  | 100% | 🟡 5 pts to go |
 | P03 | 224 | 94.2% |  | 100% | 🟡 6 pts to go |
 | P04 | 1615 | 90.8% |  | 100% | 🟡 9 pts to go |
-| P05 | 378 | 79.9% |  | 100% | ❌ 20 pts to go |
+| P05 | 378 | 80.2% |  | 100% | ❌ 20 pts to go |
 | P06M | 167 | 69.5% |  | n/a | no target |
 | P06T | 2429 | 77.8% |  | n/a | no target |
 | P06 | 160 | 62.5% |  | 95% | ❌ 32 pts to go |
@@ -540,12 +540,12 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P06T | 2429 | 77.2% |  | n/a | no target |
 | P06 | 160 | 65.0% |  | 95% | ❌ 30 pts to go |
 | P07 | 246 | 65.0% |  | 90% | ❌ 25 pts to go |
-| P08 | 3038 | 74.4% |  | 95% | ❌ 21 pts to go |
+| P08 | 3038 | 74.5% |  | 95% | ❌ 20 pts to go |
 | P09 | 369 | 89.7% |  | 100% | ❌ 10 pts to go |
-| P10 | 2587 | 69.5% |  | 95% | ❌ 26 pts to go |
-| P11 | 497 | 27.4% |  | 75% | ❌ 48 pts to go |
-| P12 | 21 | 81.0% |  | n/a | no target |
-| P13 | 50786 | 76.2% |  | 95% | ❌ 19 pts to go |
+| P10 | 2587 | 71.4% |  | 95% | ❌ 24 pts to go |
+| P11 | 497 | 27.6% |  | 75% | ❌ 47 pts to go |
+| P12 | 21 | 85.7% |  | n/a | no target |
+| P13 | 50786 | 76.5% |  | 95% | ❌ 18 pts to go |
 
 ### `buyer_logo_url`
 
@@ -564,18 +564,18 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P06T | 2429 | 93.8% |  | n/a | no target |
 | P06 | 160 | 89.4% |  | 100% | ❌ 11 pts to go |
 | P07 | 246 | 87.0% |  | 100% | ❌ 13 pts to go |
-| P08 | 3038 | 89.8% |  | 100% | ❌ 10 pts to go |
+| P08 | 3038 | 90.2% |  | 100% | 🟡 10 pts to go |
 | P09 | 369 | 53.1% |  | n/a | no target |
-| P10 | 2587 | 84.7% |  | 100% | ❌ 15 pts to go |
-| P11 | 497 | 30.0% |  | 80% | ❌ 50 pts to go |
-| P12 | 21 | 52.4% |  | n/a | no target |
-| P13 | 50786 | 73.4% |  | 95% | ❌ 22 pts to go |
+| P10 | 2587 | 89.3% |  | 100% | ❌ 11 pts to go |
+| P11 | 497 | 31.8% |  | 80% | ❌ 48 pts to go |
+| P12 | 21 | 61.9% |  | n/a | no target |
+| P13 | 50786 | 74.4% |  | 95% | ❌ 21 pts to go |
 
 ## 4. AP
 
 ### `ap_contact_name_as_published`
 
-> ceiling: role titles only (Supervisor, Accounts Payable) — the owner's rule 'never a named person' overrides the 25 % target; a person's name is never collected
+> ceiling: owner 2026-11-08: the AP contact person the organisation itself names on its AP / finance page is allowed (name + role phrase, quoted); mailboxes stay organisational; many bodies publish no AP person
 
 | package | rows | now | Δ | target | status |
 |---|---|---|---|---|---|
@@ -746,12 +746,12 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P06T | 2429 | 36.1% |  | 15% | ✅ met |
 | P06 | 160 | 38.1% |  | 15% | ✅ met |
 | P07 | 246 | 37.4% |  | 15% | ✅ met |
-| P08 | 3038 | 31.1% |  | 15% | ✅ met |
+| P08 | 3038 | 33.4% |  | 15% | ✅ met |
 | P09 | 369 | 10.8% |  | 15% | 🟡 4 pts to go |
-| P10 | 2587 | 3.2% |  | 15% | ❌ 12 pts to go |
-| P11 | 497 | 7.0% |  | 15% | 🟡 8 pts to go |
-| P12 | 21 | 0.0% |  | 15% | ❌ 15 pts to go |
-| P13 | 50786 | 0.7% |  | 15% | ❌ 14 pts to go |
+| P10 | 2587 | 30.8% |  | 15% | ✅ met |
+| P11 | 497 | 11.7% |  | 15% | 🟡 3 pts to go |
+| P12 | 21 | 23.8% |  | 15% | ✅ met |
+| P13 | 50786 | 3.8% |  | 15% | ❌ 11 pts to go |
 
 ### `buyer_tax_exempt_status`
 
@@ -768,9 +768,9 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P06T | 2429 | 0.7% |  | 15% | ❌ 14 pts to go |
 | P06 | 160 | 6.2% |  | 15% | 🟡 9 pts to go |
 | P07 | 246 | 2.8% |  | 15% | ❌ 12 pts to go |
-| P08 | 3038 | 0.7% |  | 15% | ❌ 14 pts to go |
+| P08 | 3038 | 0.8% |  | 15% | ❌ 14 pts to go |
 | P09 | 369 | 0.3% |  | 15% | ❌ 15 pts to go |
-| P10 | 2587 | 0.2% |  | 15% | ❌ 15 pts to go |
+| P10 | 2587 | 0.7% |  | 15% | ❌ 14 pts to go |
 | P11 | 497 | 1.0% |  | 15% | ❌ 14 pts to go |
 | P12 | 21 | 9.5% |  | 15% | 🟡 6 pts to go |
 | P13 | 50786 | 0.1% |  | 15% | ❌ 15 pts to go |
@@ -792,7 +792,7 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P07 | 246 | 0.4% |  | 20% | ❌ 20 pts to go |
 | P08 | 3038 | 0.1% |  | 20% | ❌ 20 pts to go |
 | P09 | 369 | 0.0% |  | 20% | ❌ 20 pts to go |
-| P10 | 2587 | 0.0% |  | 20% | ❌ 20 pts to go |
+| P10 | 2587 | 0.1% |  | 20% | ❌ 20 pts to go |
 | P11 | 497 | 0.2% |  | 20% | ❌ 20 pts to go |
 | P12 | 21 | 0.0% |  | 20% | ❌ 20 pts to go |
 | P13 | 50786 | 0.0% |  | 20% | ❌ 20 pts to go |
@@ -812,9 +812,9 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P06T | 2429 | 1.4% |  | 15% | ❌ 14 pts to go |
 | P06 | 160 | 3.1% |  | 15% | ❌ 12 pts to go |
 | P07 | 246 | 2.4% |  | 15% | ❌ 13 pts to go |
-| P08 | 3038 | 1.5% |  | 15% | ❌ 14 pts to go |
+| P08 | 3038 | 1.6% |  | 15% | ❌ 13 pts to go |
 | P09 | 369 | 0.3% |  | 15% | ❌ 15 pts to go |
-| P10 | 2587 | 0.2% |  | 15% | ❌ 15 pts to go |
+| P10 | 2587 | 0.9% |  | 15% | ❌ 14 pts to go |
 | P11 | 497 | 0.2% |  | 15% | ❌ 15 pts to go |
 | P12 | 21 | 0.0% |  | 15% | ❌ 15 pts to go |
 | P13 | 50786 | 0.1% |  | 15% | ❌ 15 pts to go |
@@ -834,9 +834,9 @@ Rows per package: P01M 20, P01T 91, P01_GOLD 585, P02 366, P03 224, P04 1615, P0
 | P06T | 2429 | 1.1% |  | 20% | ❌ 19 pts to go |
 | P06 | 160 | 16.2% |  | 20% | 🟡 4 pts to go |
 | P07 | 246 | 9.8% |  | 20% | ❌ 10 pts to go |
-| P08 | 3038 | 0.8% |  | 20% | ❌ 19 pts to go |
+| P08 | 3038 | 0.9% |  | 20% | ❌ 19 pts to go |
 | P09 | 369 | 9.5% |  | 20% | ❌ 10 pts to go |
-| P10 | 2587 | 1.0% |  | 20% | ❌ 19 pts to go |
+| P10 | 2587 | 1.4% |  | 20% | ❌ 19 pts to go |
 | P11 | 497 | 2.0% |  | 20% | ❌ 18 pts to go |
 | P12 | 21 | 0.0% |  | 20% | ❌ 20 pts to go |
 | P13 | 50786 | 0.3% |  | 20% | ❌ 20 pts to go |

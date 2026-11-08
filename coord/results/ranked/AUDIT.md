@@ -24,10 +24,10 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
-| 19 | buyer name is a name (not a domain or a page title) | soft | 27351 | REVIEW |
-| 20 | legal name is not a fragment or a platform copyright | soft | 25 | REVIEW |
+| 19 | buyer name is a name (not a domain or a page title) | soft | 25581 | REVIEW |
+| 20 | legal name is not a fragment or a platform copyright | soft | 26 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
-| 22 | one row per organisation name (same name twice) | soft | 5 | REVIEW |
+| 22 | one row per organisation name (same name twice) | soft | 8 | REVIEW |
 | 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 64 | REVIEW |
 | 24 | no blank cell | hard | 0 | PASS |
 | 25 | jurisdiction vs mailbox top-level domain | soft | 40 | REVIEW |
@@ -97,19 +97,22 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P07_client_listing_finance_or_purchasing_email:81 lepointdevente.com | lepointdevente.com (recipient legal name in the federal grants & contr
     - P08_client_listing_general_email:1767 Harvard University | Harvard University (stated on https://crosslight.com.cn/wordpress/abou
     - P08_client_listing_general_email:2050 Christian Life Community | Christian Life Community (stated on https://www.christianlifecommunity
+    - P10_linked_from_vendor_site_any_email:1601 University of Toronto | University of Toronto (stated on https://www.camp1.ca/wordpress/)
     - P13_inferred_relationship_no_record_own_email_part11_of_12:386 Fowler Dental | fowler dental (recipient legal name in the federal grants & contributi
     - P13_inferred_relationship_no_record_own_email_part11_of_12:914 Musée des communications et d'histoire d | musée des communications et d'histoire de Sutton (recipient legal name
     - P13_inferred_relationship_no_record_own_email_part11_of_12:1363 Whiprsnapr Brewing Company | whiprsnapr brewing co inc. (recipient legal name in the federal grants
     - P13_inferred_relationship_no_record_own_email_part11_of_12:1591 eSentire | eSentire Inc. (recipient legal name in the federal grants & contributi
     - P13_inferred_relationship_no_record_own_email_part11_of_12:3214 eyecandy SIGNS | eyecandy SIGNS INC. (recipient legal name in the federal grants & cont
     - P13_inferred_relationship_no_record_own_email_part11_of_12:3965 adHOME Creative Inc | adHOME Creative Inc. (recipient legal name in the federal grants & con
-    - P13_inferred_relationship_no_record_own_email_part12_of_12:428 ANCORA TECHNOLOGIES INC | ancora technologies inc. (recipient legal name in the federal grants &
 - **22 one row per organisation name (same name twice)**
+    - P01_GOLD_active_relationship_invoicing_AP_email:154 MRC de Manicouagan | 2 rows, same mail domain: mrcmanicouagan.qc.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:350 Town of Lincoln | 2 rows, same mail domain: lincoln.ca
+    - P01_GOLD_active_relationship_invoicing_AP_email:421 City of Kamloops | 2 rows, same mail domain: kamloops.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:522 Enbridge Inc. | 2 rows, same mail domain: enbridge.com
     - P02_active_relationship_finance_accounting_email:321 Mount Saint Vincent University | 2 rows, same mail domain: msvu.ca
     - P04_active_relationship_general_email:330 Cégep de Victoriaville. | 2 rows, same mail domain: cegepvicto.ca
     - P05_likely_active_awarded_12_36_months_any_email:5 Brandon University | 2 rows, same mail domain: brandonu.ca
+    - P06T_active_service_seen_on_buyer_site_other_email:65 City of Dawson | 2 rows, same mail domain: cityofdawson.ca
 - **23 one row per site domain (two rows, different mailboxes, same domain)**
     - P01_GOLD_active_relationship_invoicing_AP_email:26 University of Toronto | utoronto.ca: 2 rows, ap.fsd@utoronto.ca; fmdinvoice.utsc@utoronto.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:56 Ville de Gatineau | gatineau.ca: 2 rows, gatineau.factures@gatineau.ca; idgatineau@gatineau.ca
@@ -181,21 +184,21 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 
 ## Field fill across all delivered rows (value present, not `not_published`)
 - buyer_website: 63579 (100.0%)
-- vendor_address: 60517 (95.2%)
-- vendor_website: 59241 (93.2%)
-- vendor_phone: 55804 (87.8%)
-- vendor_bn9: 52242 (82.2%)
-- buyer_phone: 48119 (75.7%)
-- buyer_logo_url: 47611 (74.9%)
-- buyer_address: 47112 (74.1%)
-- buyer_legal_name_as_published: 20889 (32.9%)
+- vendor_address: 60527 (95.2%)
+- vendor_website: 59508 (93.6%)
+- vendor_phone: 56168 (88.3%)
+- vendor_bn9: 52836 (83.1%)
+- buyer_phone: 48355 (76.1%)
+- buyer_logo_url: 48253 (75.9%)
+- buyer_address: 47123 (74.1%)
+- buyer_legal_name_as_published: 23300 (36.6%)
 - contract_link: 12793 (20.1%)
-- buyer_bn_as_published: 10363 (16.3%)
-- vendor_legal_name: 8184 (12.9%)
-- vendor_logo_url: 6974 (11.0%)
-- vendor_registry_id: 6664 (10.5%)
+- buyer_bn_as_published: 10396 (16.4%)
+- vendor_legal_name: 10275 (16.2%)
+- vendor_registry_id: 7551 (11.9%)
+- vendor_incorporation_date: 7339 (11.5%)
+- vendor_logo_url: 7170 (11.3%)
 - award_date: 6482 (10.2%)
-- vendor_incorporation_date: 6456 (10.2%)
 - vendor_neq: 4595 (7.2%)
 - vendor_emails: 4345 (6.8%)
 - ap_phone: 2597 (4.1%)
@@ -203,7 +206,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - invoice_mailing_address: 2105 (3.3%)
 - end_date: 1757 (2.8%)
 - invoicing_requirements: 1587 (2.5%)
-- invoice_portal_url: 658 (1.0%)
+- invoice_portal_url: 661 (1.0%)
 - po_required_as_published: 466 (0.7%)
 - payment_terms_as_published: 376 (0.6%)
 - ap_contact_name_as_published: 174 (0.3%)
@@ -212,30 +215,30 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - other: 47251; source field: 16328
 
 ## Buyer types
-- organisation (type not stated in the record): 37082
-- company (private sector): 9578
-- non-profit / association / cultural body: 6661
-- company (private sector) (from the organisation's name / web domain): 2118
-- municipality / local government: 1245
-- government ministry / agency: 1126
-- municipality / local government (from the organisation's name / web domain): 976
-- non-profit / association / cultural body (from the organisation's name / web domain): 962
-- hospital / health authority: 794
-- university / college (from the organisation's name / web domain): 550
-- university / college: 509
-- utility / public corporation: 447
-- hospital / health authority (from the organisation's name / web domain): 401
-- transport / transit authority: 190
-- school board / school district: 182
-- First Nation / Indigenous government: 161
-- government ministry / agency (from the organisation's name / web domain): 143
-- religious organisation (from the organisation's name / web domain): 143
-- utility / public corporation (from the organisation's name / web domain): 118
-- transport / transit authority (from the organisation's name / web domain): 68
-- First Nation / Indigenous government (from the organisation's name / web domain): 45
+- organisation (type not stated in the record): 35818
+- company (private sector): 9781
+- non-profit / association / cultural body: 6958
+- company (private sector) (from the organisation's name / web domain): 2185
+- municipality / local government: 1447
+- government ministry / agency: 1210
+- municipality / local government (from the organisation's name / web domain): 1060
+- non-profit / association / cultural body (from the organisation's name / web domain): 923
+- hospital / health authority: 835
+- university / college (from the organisation's name / web domain): 762
+- university / college: 561
+- utility / public corporation: 464
+- hospital / health authority (from the organisation's name / web domain): 404
+- transport / transit authority: 198
+- school board / school district: 197
+- First Nation / Indigenous government: 167
+- government ministry / agency (from the organisation's name / web domain): 154
+- religious organisation (from the organisation's name / web domain): 144
+- utility / public corporation (from the organisation's name / web domain): 111
+- transport / transit authority (from the organisation's name / web domain): 69
+- First Nation / Indigenous government (from the organisation's name / web domain): 43
 - US government body (federal, state or local): 29
-- library (from the organisation's name / web domain): 23
-- school board / school district (from the organisation's name / web domain): 17
+- school board / school district (from the organisation's name / web domain): 26
+- library (from the organisation's name / web domain): 22
 - US city / county / local government: 11
 
 ## DMARC posture of the delivered mailboxes
