@@ -109,7 +109,8 @@ def load_batches(d):
 
 
 def load_ranked(path):
-    src = open(os.path.join(ROOT, "contrib/claude/rank_buyers/batches.py"), encoding="utf-8").read()
+    cands = [os.path.join(ROOT, "contrib/claude/rank_buyers/batches.py"), os.path.expanduser("~/cch-crawler/contrib/claude/rank_buyers/batches.py")]
+    src = open([c for c in cands if os.path.exists(c)][0], encoding="utf-8").read()
     ns = {"collections": collections}
     exec(src[src.index("OK = ("):src.index("# owner 2026-11-03 \"make sure all the fields")], ns)  # OK, rel(), B: the package rules themselves
     op = gzip.open if path.endswith(".gz") else open
