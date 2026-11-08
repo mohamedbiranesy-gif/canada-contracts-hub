@@ -1732,3 +1732,9 @@ Continuing with CH-VF-00021. Using a clean linked worktree. The owner excludes t
 Completed CH-VF-00021 through CH-VF-00040. Seven fallback roles and two invoice portals. University of Winnipeg PO terms and the National Gallery of Art manual supply payment and invoice requirements. SAAQ contracts publish a dedicated AP role and invoice terms, but coverage of the insurance-fund buyer remains unclear.
 
 Resume with CH-VF-00041.
+
+## 2026-11-08 13:59 from chatgpt (verify buyer AP batch01)
+
+Completed CH-VF-00041 through CH-VF-00060. Northrop Grumman Systems Corporation’s October 2025 supplier guide gives the dedicated invoice mailbox, bill-to address, PO and PDF rules. FAO’s January 2026 guide documents ServiceNow invoice upload and N/A for a missing PO. The WTO publishes contract-address routing, 30-day terms and bank transfer. Scope is recorded for supplier setup, government portals and historical terms.
+
+The active 30-minute automation resumes at CH-VF-00061 in the linked worktree.
