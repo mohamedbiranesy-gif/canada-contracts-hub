@@ -17,6 +17,10 @@ TODAY = datetime.date.today().isoformat()
 COLS = ["buyer_key", "buyer", "bn", "bn9", "legal_name", "account_name", "address", "city", "province", "postal_code", "designation", "category", "fiscal_period_end", "charity_status",
         "website", "match_basis", "source_url", "retrieved_date", "source_quote"]
 STOP = {"the", "of", "de", "du", "des", "la", "le", "les", "l", "d", "and", "et", "inc", "incorporated", "corp", "corporation", "ltd", "ltee", "foundation", "fondation", "fund", "fonds"}
+ORG_WORDS = {"the", "city", "town", "village", "township", "municipality", "municipal", "district", "county", "regional", "region", "rural", "ville", "municipalite", "mrc", "canton", "paroisse",
+             "university", "universite", "college", "cegep", "school", "board", "hospital", "hopital", "health", "centre", "center", "services", "service", "society", "association", "foundation", "fondation",
+             "public", "general", "canada", "canadian", "corporation", "corp", "inc", "ltd", "limited", "ltee", "of", "de", "du", "des", "la", "le", "les", "and", "et"}
+SUB_RX = re.compile(r"\b(foundation|fondation|alumni|association|club|society|societe|auxiliary|friends|amis|parents|students|etudiants|union|trust|fund|fonds|endowment|booster|band|choir|team|league|church)\b")
 PROV = {"ON": "ON", "QC": "QC", "BC": "BC", "AB": "AB", "SK": "SK", "MB": "MB", "NS": "NS", "NB": "NB", "NL": "NL", "PE": "PE", "YT": "YT", "NT": "NT", "NU": "NU"}
 
 
@@ -108,13 +112,23 @@ def main():
         prov = PROV.get(x.get("jurisdiction") or "", "")
         d = host(x.get("buyer_website") or "") if x.get("buyer_website") else ""
         hit, basis = None, ""
+        bname = x.get("buyer") or ""
+        core = {t for t in norm(bname).split() if t not in ORG_WORDS and len(t) > 1}
         if d and d in by_dom:
-            hit, basis = by_dom[d], "website domain (%s)" % d
-        else:
+            cand = by_dom[d]
+            cn = norm(cand.get("Legal Name")) + " " + norm(cand.get("Account Name"))
+            # the charity on the organisation's domain must BE the organisation: same core name, and not a foundation / club / association of it
+            if core and core <= set(cn.split()) and not (SUB_RX.search(cn) and not SUB_RX.search(norm(bname))):
+                hit, basis = cand, "website domain (%s) + name" % d
+        if not hit:
             for nm in (x.get("buyer"), (x.get("buyer_legal_name_as_published") or "").split(" (")[0]):
                 k = norm(nm)
                 if len(k) >= 6 and (k, prov) in by_name:
-                    hit, basis = by_name[(k, prov)], "exact name%s" % (" + province" if prov else "")
+                    cand = by_name[(k, prov)]
+                    cn = norm(cand.get("Legal Name")) + " " + norm(cand.get("Account Name"))
+                    if SUB_RX.search(cn) and not SUB_RX.search(norm(nm)):
+                        continue
+                    hit, basis = cand, "exact name%s" % (" + province" if prov else "")
                     break
         if not hit:
             continue
