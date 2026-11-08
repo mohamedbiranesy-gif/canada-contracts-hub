@@ -1775,3 +1775,7 @@ The active 30-minute automation resumes at CH-VF-00061 in the linked worktree.
 ## 2026-11-08 14:16 from chatgpt (verify buyer AP batch01)
 Added 20 validated rows for CH-VF-00061 through CH-VF-00079. ILO publishes contract-addressee routing and 30-day bank transfer. Rijkswaterstaat and RVO publish e-invoice formats, PO rules and 30-day terms. RKIK purchase-order terms distinguish two payers and specify 28-day payment.
 DC Courts solicitation access returned HTTP 403. Canadian Coast Guard supplier routing remains unclear after the DND transfer. Next open task is CH-VF-00080.
+
+## 2026-11-08 14:30 from chatgpt (verify buyer AP batch01)
+Added another 20 validated rows for CH-VF-00080 through CH-VF-00097. Bank of England and Royal Holloway each publish separate invoice and inquiry mailboxes. Norsk Polarinstitutt explicitly publishes PEPPOL BIS and an invoice mailbox for foreign suppliers.
+Scoped central and contract-specific routes in the evidence notes. 100 results rows now cover 97 of 224 tasks. Next open task is CH-VF-00098.
