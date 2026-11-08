@@ -60,16 +60,21 @@ ORG_TYPES = re.compile(r"Organization|Corporation|GovernmentOrganization|Educati
                        r"ProfessionalService|Store|FinancialService|InsuranceAgency|BankOrCreditUnion|Service|Place|CivicStructure|GovernmentOffice|Museum|Church|PublicSwimmingPool", re.I)
 NOT_ORG_TYPES = re.compile(r"^(?:Person|Article|NewsArticle|BlogPosting|WebPage|WebSite|BreadcrumbList|ItemList|Event|Product|Offer|Review|ImageObject|VideoObject|SearchAction|"
                            r"FAQPage|Question|Answer|JobPosting|Recipe|Course|CreativeWork|ListItem|SiteNavigationElement|WPHeader|WPFooter|Thing)$", re.I)
+CAPW = r"(?:[A-Z0-9][A-Za-z0-9ÀÉÈÊÎÔÛàâçéèêëîïôöûüÿ'’.\-]*(?: (?:of|de|du|des|the|and|&|la|le|les|d['’]|et|en|pour|for|à|au|aux|sur|sous))? ){1,6}"
 PUBLIC_BODY = re.compile(r"\b((?:The )?Corporation of the (?:City|Town|Township|Village|Municipality|County|District|Regional Municipality|United Counties|Municipal District|Norfolk County|Haldimand County)"
                          r"(?: of)? [A-Z][A-Za-zÀ-ÿ'’.\- ]{2,60}?|(?:Ville|Municipalit[ée]|Municipalit[ée] r[ée]gionale de comt[ée]|MRC|Paroisse|Canton|Village|Cit[ée]) (?:de |du |des |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,60}?|"
                          r"Centre de services scolaire (?:de |du |des |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,60}?|Commission scolaire (?:de |du |des |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,60}?|"
-                         r"Conseil scolaire [A-Za-zÀ-ÿ'’\- ]{3,70}?|C[IU]?SSS (?:de |du |des |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,70}?|[A-Z][A-Za-z'’\- ]{2,50} (?:District |Regional |Catholic |Public |Francophone )*School (?:Board|Division|District)(?: No\.? ?\d+)?|"
+                         r"Conseil scolaire [A-Za-zÀ-ÿ'’\- ]{3,70}?|C[IU]?SSS (?:de |du |des |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,70}?|" + CAPW + r"(?:District |Regional |Catholic |Public |Francophone )*School (?:Board|Division|District)(?: No\.? ?\d+)?|"
                          r"Regional District of [A-Z][A-Za-z'’\- ]{2,50}?|(?:Regional Municipality|County|Municipal District|Township|Town|City|Village|District|Rural Municipality|Resort Municipality) of [A-Z][A-Za-zÀ-ÿ'’.\- ]{2,50}?|"
-                         r"Universit[ée] (?:de |du |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,50}?|University of [A-Z][A-Za-z'’\- ]{2,50}?|[A-Z][A-Za-z'’\- ]{2,50} (?:University|Polytechnic|College|Health (?:Authority|Services|Sciences Centre)|Hospital|Library Board|Police Services? Board|Conservation Authority|Transit Commission|Housing Corporation))"
+                         r"Universit[ée] (?:de |du |d['’])[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,50}?|University of [A-Z][A-Za-z'’\- ]{2,50}?|" + CAPW + r"(?:University|Polytechnic|College|Health (?:Authority|Services|Sciences Centre|Sciences)|Hospital|Library Board|Police Services? Board|Conservation Authority|Transit Commission|Housing Corporation)"
                          r")(?=[\s,.;:)(\]|\"“”«»]|$)")
-LEGAL_FORM_NAME = re.compile(r"\b([A-Z][A-Za-z0-9&'’.,\- ]{1,80}?\s(?:Inc\.?|Incorporated|Ltd\.?|Limited|Lt[ée]e\.?|LLC|L\.L\.C\.|LLP|L\.L\.P\.|LP|L\.P\.|Corp\.?|Corporation|Co\.|Company|S\.?E\.?N\.?C\.?|s\.e\.c\.|S\.A\.|S\.A\.R\.L\.|SARL|GmbH|AG|plc|ULC|"
-                             r"Soci[ée]t[ée](?: [a-zé]+){0,3}|Association(?: [A-Za-zÀ-ÿ'’\- ]{2,40})?|Foundation|Fondation(?: [A-Za-zÀ-ÿ'’\- ]{2,40})?|Society|Trust|Credit Union|Caisse(?: populaire)?(?: [A-Za-zÀ-ÿ'’\- ]{2,40})?|Co-?operative|Coop[ée]rative(?: [A-Za-zÀ-ÿ'’\- ]{2,40})?|Cooperative|Group|Groupe|Holdings|Partners|Partnership|Authority|Commission|Agency|Board|Institute|Institut))"
+LEGAL_FORM_NAME = re.compile(r"\b(" + CAPW + r"(?:Inc\.?|Incorporated|Ltd\.?|Limited|Lt[ée]e\.?|LLC|L\.L\.C\.|LLP|L\.L\.P\.|LP|L\.P\.|Corp\.?|Corporation|Co\.|Company|S\.?E\.?N\.?C\.?|s\.e\.c\.|S\.A\.|S\.A\.R\.L\.|SARL|GmbH|AG|plc|ULC|"
+                             r"Society|Trust|Credit Union|Co-?operative|Cooperative|Group|Groupe|Holdings|Partners|Partnership|Authority|Commission|Agency|Board|Institute|Institut|Foundation|Association)|"
+                             r"(?:Soci[ée]t[ée]|Association|Fondation|Caisse(?: populaire| Desjardins)?|Coop[ée]rative|Groupe|Institut|Centre|Office|Conseil|F[ée]d[ée]ration|Ordre|Corporation|R[ée]gie|Agence|Commission|Minist[èe]re) (?:[a-zà-ÿ'’\-]+ ){0,4}[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\- ]{2,60}?)"
                              r"(?=[\s,.;:)(\]|\"“”«»]|$)")
+ABBR_DEF = re.compile(r"((?:[A-Z0-9][A-Za-z0-9ÀÉÈÊÎÔÛàâçéèêëîïôöûüÿ'’.\-]*|of|de|du|des|the|and|&|la|le|les|d['’]|et|en|pour|for|à|au|aux)(?: (?:[A-Z0-9][A-Za-z0-9ÀÉÈÊÎÔÛàâçéèêëîïôöûüÿ'’.\-]*|of|de|du|des|the|and|&|la|le|les|d['’]|et|en|pour|for|à|au|aux|[a-zà-ÿ]{2,12})){0,8})"
+                      r"\s*\(\s*(?:(?:hereinafter|ci-apr[èe]s|the|la|le|l['’])\s*)?[\"“«']?\s*([A-Z][A-Za-z]{1,7})\s*[\"”»']?\s*\)")
+CONNECT = {"of", "de", "du", "des", "the", "and", "&", "la", "le", "les", "d'", "d’", "et", "en", "pour", "for", "à", "au", "aux"}
 OPERATED_BY = re.compile(r"(?:(?:is |are |website |site |web ?site |ce site (?:web )?(?:est |a été )?)(?:owned|operated|run|maintained|published|provided|managed|exploit[ée]|g[ée]r[ée]|administr[ée]|publi[ée]|[ée]dit[ée])(?: and (?:operated|maintained|managed))? (?:by|par) |"
                          r"(?:a (?:web ?site|site) of|un site (?:web )?de) |(?:property of|propri[ée]t[ée] de) |(?:entre vous et|between you and) |(?:la pr[ée]sente politique|this (?:privacy )?policy) (?:describes|explains|s'applique|applies to) (?:how |the way |la fa[çc]on dont )?)"
                          r"([A-Z][A-Za-z0-9&'’.,\-ÀÉÈÊÎÔÛàâçéèêëîïôöûüÿ ]{2,90}?)(?=\s*(?:[(,.;:]|\(|«|\"|“|'|and its|et ses| is | a | the | which | who |$))", re.M)
@@ -214,10 +219,32 @@ def jsonld_org(raw, host, name):
 def legal_name_text(text, host, name):
     """the legal name a Terms / Privacy / Legal page states: "operated by X Inc.", "X Inc. ("we", "us")", a public body's full style"""
     cands = []
+    def anchored(seg, pos=None):
+        """the legal-form / public-body name inside a captured segment (the capture may start a few words early: "Welcome to X University");
+        the longer of the two patterns' matches wins ("Hamilton Health Sciences Corporation" over "Hamilton Health Sciences")"""
+        ms = []
+        if pos is not None:
+            ms += [m.group(1) for m in (PUBLIC_BODY.match(text, pos), LEGAL_FORM_NAME.match(text, pos)) if m]
+        if not ms:
+            ms += [m.group(1) for m in (PUBLIC_BODY.search(seg), LEGAL_FORM_NAME.search(seg)) if m]
+        return max(ms, key=len) if ms else seg
+    def initials_ok(seg, abbr):
+        words = [w for w in re.findall(r"[A-Za-zÀ-ÿ0-9'’]+", seg) if w.lower() not in CONNECT]
+        ini = "".join(w[0] for w in words).upper()
+        return len(words) >= 2 and (ini == abbr.upper() or ini.endswith(abbr.upper()) and len(abbr) >= 3)
     for m in OPERATED_BY.finditer(text):
-        cands.append((0, m.group(1)))
+        cands.append((0, anchored(m.group(1), m.start(1))))
     for m in WE_DEF.finditer(text):
-        cands.append((1, m.group(1)))
+        cands.append((1, anchored(m.group(1))))
+    for m in ABBR_DEF.finditer(text):
+        seg, abbr = m.group(1).strip(), m.group(2)
+        if PUBLIC_BODY.search(seg) or LEGAL_FORM_NAME.search(seg):
+            cands.append((1, anchored(seg)))
+        elif initials_ok(seg, abbr):
+            words = [w for w in re.findall(r"[A-Za-zÀ-ÿ0-9'’]+", seg) if w.lower() not in CONNECT]
+            k = len(abbr)  # the name is the last k significant words (plus connectors between them)
+            start = seg.rfind(words[-k]) if k <= len(words) else 0
+            cands.append((1, seg[start:].strip()))
     for m in PUBLIC_BODY.finditer(text):
         cands.append((2, m.group(1)))
     core = {t for t in re.findall(r"[a-z0-9]{3,}", (name or "").lower()) if t not in ("the", "and", "inc", "ltd", "city", "town", "ville", "corporation", "limited", "des", "les", "municipality", "county")}
@@ -227,7 +254,7 @@ def legal_name_text(text, host, name):
         c = re.sub(r"^(?:by|par|the|la|le|l['’])\s+", lambda m: m.group(0) if re.match(r"(?i)the corporation", c) else "", c, flags=re.I).strip()
         if not (3 <= len(c) <= 90) or re.search(r"\b(?:website|site web|cookies?|browser|google|facebook|wordpress|privacy policy|politique)\b", c, re.I):
             continue
-        if rank < 2 and not (LEGAL_FORM_NAME.search(c + " ") or PUBLIC_BODY.search(c) or LEGAL_TAIL.search(c)):
+        if rank < 2 and not (LEGAL_FORM_NAME.search(c + " ") or PUBLIC_BODY.search(c) or LEGAL_TAIL.search(c) or (len(c.split()) >= 2 and c[0].isupper() and sum(w[0].isupper() for w in c.split()) >= 2)):
             continue  # "operated by our team" / "between you and us"
         toks = set(re.findall(r"[a-z0-9]{3,}", c.lower()))
         hit = bool(core & toks) or (host and any(t in host.replace("-", "") for t in toks if len(t) >= 5))
