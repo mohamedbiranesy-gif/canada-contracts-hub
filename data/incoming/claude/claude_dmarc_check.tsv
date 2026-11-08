@@ -55594,7 +55594,7 @@ romacatering.ca	none	romacatering.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali
 romagcontracting.ca	no_record		no DMARC record at _dmarc.romagcontracting.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 mx include:spfc9.megamailservers.com ~all	2026-11-06	none	none	none
 romali.ca	none	romali.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-06	none	none	none
 romamart.ca	none	romamart.ca	v=DMARC1; p=none; rua=mailto:technology@romamart.ca; ruf=mailto:technology@romamart.ca; sp=none; adkim=r; aspf=r	100	yes	soft_fail	v=spf1 include:zoho.com include:zohocloud.ca include:spf.zohocloud.ca include:ca.zeptomail.net include:zcsend.ca ~all	2026-11-06	none	none	none
-roman.agency	error		no nameservers			hard_fail	v=spf1 include:_spf.google.com -all	2026-11-08	none	none	none
+roman.agency	error		LifetimeTimeout			hard_fail	v=spf1 include:_spf.google.com -all	2026-11-08	none	none	none
 romanstexturing.ca	no_record		no DMARC record at _dmarc.romanstexturing.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-06	none	none	none
 romasoccer.com	no_record		no DMARC record at _dmarc.romasoccer.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-08	none	none	none
 romasocer.com	no_record		no DMARC record at _dmarc.romasocer.com; confirmed by 8.8.8.8			no_record		2026-11-04			
@@ -62562,6 +62562,7 @@ sutherlandmark.com	none	sutherlandmark.com	v=DMARC1; p=none	100	no	soft_fail	v=s
 sutherlaw.com	none	sutherlaw.com	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 sutton.ca	none	sutton.ca	v=DMARC1;p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com ip4:184.107.95.100 -all	2026-11-06	none	none	none
 sutton.com	quarantine	sutton.com	v=DMARC1; p=quarantine; rua=mailto:support@sutton.com; ruf=mailto:support@sutton.com; sp=quarantine; adkim=r; aspf=r	100	yes	soft_fail	v=spf1 include:zcsend.net include:servers.mcsv.net include:zoho.com include:mail.zendesk.com ip4:35.183.211.54 ip4:3.96.94.144 include:sendgrid.net include:48259951.spf10.hubspotemail.net ~all	2026-11-06	none	none	none
+sutton.gov.uk	reject	sutton.gov.uk	v=DMARC1;p=reject;sp=reject;rf=afrf;fo=1;pct=100;ri=86400;rua=mailto:dmarc.report@sutton.gov.uk,mailto:dmarc-rua@dmarc.service.gov.uk;ruf=mailto:dmarc.report@sutton.gov.uk,mailto:dmarc-ruf@dmarc.service.gov.uk	100	yes	soft_fail	v=spf1 ip4:85.13.230.49 ip4:45.145.101.156 ip4:18.132.169.240 ip4:91.236.56.0/24 ip4:31.170.120.82 ip4:45.131.138.189 include:_spf.google.com include:spf.logicalware.com include:mailcontrol.com include:docebosaas.com ip4:68.232.128.0/19 include:aspf.sutton.gov.uk include:spring.matshost.co.uk ~all	2026-11-08	none	none	none
 suttonchoice.com	no_record		no DMARC record at _dmarc.suttonchoice.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.vianet.ca ~all	2026-11-06	none	none	none
 suttonlawyers.ca	no_record		no DMARC record at _dmarc.suttonlawyers.ca; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
 suttonplace.com	none	suttonplace.com	v=DMARC1; p=none; ruf=mailto:it@northland.ca; rua=mailto:it@northland.ca	100	yes	hard_fail	v=spf1 ip4:168.245.4.165 include:spf.protection.outlook.com include:oracleindustry.com include:_spf.psm.knowbe4.com -all	2026-11-06	none	none	none
@@ -65090,7 +65091,7 @@ thespadayretreat.ca	no_record		no DMARC record at _dmarc.thespadayretreat.ca; co
 thespanishschoolhouse.ca	none	thespanishschoolhouse.ca	v=DMARC1; p=none; rua=mailto:info@thespanishschoolhouse.ca	100	yes	soft_fail	v=spf1 include:spf.protection.outlook.com include:sendersrv.com ~all	2026-11-06	none	none	none
 thesparkofhope.org	none	thesparkofhope.org	v=DMARC1; p=none	100	no	soft_fail	v=spf1 ip4:50.6.2.11 a mx include:websitewelcome.com ~all	2026-11-06	none	none	none
 thesparoom.ca	no_record		no DMARC record at _dmarc.thesparoom.ca; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
-thespeechassociates.com	error		LifetimeTimeout			error		2026-11-08	none	none	none
+thespeechassociates.com	error		no nameservers			error		2026-11-08	none	none	none
 thespinozafoundation.org	reject	thespinozafoundation.org	v=DMARC1;p=reject;	100	no	soft_fail	v=spf1 include:spf.privateemail.com ~all	2026-11-06	none	none	none
 thespoolsewingstudio.com	none	thespoolsewingstudio.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-06	none	none	none
 thesportgallery.com	none	thesportgallery.com	v=DMARC1; p=none;	100	no	no_record		2026-11-06	none	none	none
