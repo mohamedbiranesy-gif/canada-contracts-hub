@@ -1600,12 +1600,56 @@ for x in rows:
     if vh and not (x.get("vendor") or "").startswith("inferred"):
         x["vendor_peppol_id"] = "%s %s (Peppol Directory, registered %s; %s)" % (vh.get("participant_scheme") or "", vh.get("participant_id") or "", vh.get("registration_date") or "n/a", vh.get("public_page") or ""); n_pep["vendor"] += 1
 print("peppol: %d Canadian participants; matched buyers %d, vendors %d" % (len(PEP), n_pep["buyer"], n_pep["vendor"]))
-# D2 / D12: back-reference between the contract dataset and the lead relationships (same organisation by website domain or exact name)
 def _dom_of(u):
     try:
         return registrable((urllib.parse.urlparse(u if "//" in (u or "") else "https://" + (u or "")).hostname or "").lower().removeprefix("www."))
     except Exception:
         return ""
+# D11 / C1 / C2 / H1: provincial municipal directories (tools/municipal_directory.py) — legal name, address, phone, website, tier, population
+MD_DOM, MD_NAME = {}, {}
+_mdp = ROOT + "/data/incoming/claude/claude_municipal_directory.csv"
+if os.path.exists(_mdp):
+    for _r in csv.DictReader(open(_mdp, encoding="utf-8", errors="replace")):
+        _d = _dom_of(_r.get("website") or "") if _r.get("website") else ""
+        if _d and not SHARED_GOV.match(_d):
+            MD_DOM.setdefault(_d, _r)
+        for nm in (_r.get("legal_name"), (_r.get("source_quote") or "").split(";")[0]):
+            if nm and len(norm(nm)) >= 5:
+                MD_NAME.setdefault((_r["province"], norm(nm)), _r)
+n_md = collections.Counter()
+for x in rows:
+    for c in ("buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source"):
+        x.setdefault(c, "")
+    if not MD_DOM:
+        continue
+    _d = _dom_of(x.get("buyer_website") or "") if x.get("buyer_website") else ""
+    prov = x.get("jurisdiction") or ""
+    hit = (MD_DOM.get(_d) if _d else None) or MD_NAME.get((prov, norm(x.get("buyer") or ""))) or MD_NAME.get((prov, norm((x.get("buyer_legal_name_as_published") or "").split(" (")[0])))
+    if not hit:
+        continue
+    if hit["province"] != prov and prov not in ("", "CA"):
+        continue
+    src = " (provincial municipal directory: %s, %s)" % (hit["source_url"], hit["retrieved_date"])
+    n_md["matched"] += 1
+    if not x.get("buyer_legal_name_as_published") and hit.get("legal_name"):
+        x["buyer_legal_name_as_published"] = hit["legal_name"] + src; n_md["legal_name"] += 1
+    if not x.get("buyer_address") and hit.get("address"):
+        x["buyer_address"] = ", ".join(v for v in (hit["address"], hit.get("postal_code")) if v) + src; n_md["address"] += 1
+    if not x.get("buyer_phone") and hit.get("phone"):
+        x["buyer_phone"] = hit["phone"] + src; n_md["phone"] += 1
+    if not x.get("buyer_website") and hit.get("website"):
+        x["buyer_website"] = hit["website"]; x["buyer_website_status"] = (x.get("buyer_website_status") or "") + " (from the provincial municipal directory)"; n_md["website"] += 1
+    if hit.get("municipal_tier"):
+        x["buyer_municipal_tier"] = "%s (%s%s)" % (hit["municipal_tier"], ("within " + hit["upper_tier_or_mrc"] + "; ") if hit.get("upper_tier_or_mrc") and hit["municipal_tier"].lower().startswith("lower") else "", "Ontario MMAH list") + src
+    elif hit["province"] == "QC":
+        x["buyer_municipal_tier"] = "local municipality%s (MAMH répertoire)%s" % ((" of MRC " + hit["upper_tier_or_mrc"]) if hit.get("upper_tier_or_mrc") else "", src)
+    if hit.get("population"):
+        x["buyer_population"] = hit["population"] + src
+    if hit.get("general_email"):
+        x["directory_general_email"] = hit["general_email"] + " (the municipality's general mailbox as listed in the provincial directory; not the delivered mailbox)"
+    x["municipal_directory_source"] = hit["source_url"]
+print("municipal directory:", dict(n_md))
+# D2 / D12: back-reference between the contract dataset and the lead relationships (same organisation by website domain or exact name)
 AGG_DOM, AGG_NAME = {}, {}
 for _p, _o in orgs.items():
     _d = _dom_of((_o.get("be") or {}).get("official_website") or "")
@@ -1963,7 +2007,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
-                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("peppol_registered", ["statutory_payees_inferred"]),
+                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
     if after in cols:
         i = cols.index(after) + 1
