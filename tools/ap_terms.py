@@ -223,10 +223,8 @@ def main():
     a = a.parse_args()
     out = os.path.join(a.repo, "data/incoming/claude/claude_ap_terms.csv")
     prev = {}
-    if os.path.exists(out):
-        import io
-        for r in csv.DictReader(io.StringIO(open(out, encoding="utf-8", errors="replace").read().replace("\0", ""))):  # a page text once carried a NUL byte
-            prev[(r["email"], r["evidence_url"])] = r
+    for r in read_rows(out) + read_rows(pages_file(out)):
+        prev[(r["email"], r["evidence_url"])] = r
     ranked = a.ranked or os.path.join(a.repo, "coord/results/ranked/ranked_buyers.csv.gz")
     opener = gzip.open if ranked.endswith(".gz") else open
     tiers = set(a.tiers.split(","))
@@ -285,24 +283,42 @@ def main():
     print("filled:", {c: sum(1 for v in prev.values() if v.get(c)) for c in ("payment_terms", "po_required", "portal_name", "portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name", "invoice_format", "buyer_bn")}, flush=True)
 
 
+def pages_file(out):
+    """the walker / search page rows (keyed by buyer_key, no '@') live in a gzipped companion: the single CSV passed 50 MB on 2026-11-08 and GitHub refuses 100 MB"""
+    return out[:-4] + "_pages.csv.gz" if out.endswith(".csv") else out + "_pages.csv.gz"
+
+
+def read_rows(path):
+    if not os.path.exists(path):
+        return []
+    import io as _io
+    opener = gzip.open if path.endswith(".gz") else open
+    with opener(path, "rt", encoding="utf-8", errors="replace") as f:
+        txt = f.read().replace("\0", "")  # a page text once carried a NUL byte
+    return list(csv.DictReader(_io.StringIO(txt)))
+
+
 def write(out, prev):
     os.makedirs(os.path.dirname(out), exist_ok=True)
     rows = dict(prev)
-    if os.path.exists(out):  # rows another runner (GitHub Actions shard, synced into this clone) wrote meanwhile are kept: union by key, this process's rows win
+    for path in (out, pages_file(out)):  # rows another runner (GitHub Actions shard, synced into this clone) wrote meanwhile are kept: union by key, this process's rows win
         try:
-            import io as _io
-            for r_ in csv.DictReader(_io.StringIO(open(out, encoding="utf-8", errors="replace").read().replace("\0", ""))):
+            for r_ in read_rows(path):
                 k_ = (r_.get("email") or "", r_.get("evidence_url") or "")
                 if all(k_) and k_ not in rows:
                     rows[k_] = r_
         except Exception as e_:
-            print("union with the on-disk file failed:", type(e_).__name__, e_, flush=True)
-    with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore")
-        w.writeheader()
-        for k in sorted(rows):
-            w.writerow({c: str(rows[k].get(c, "") or "").replace("\0", "").replace("\r", " ") for c in COLS})
-    os.replace(out + ".tmp", out)
+            print("union with the on-disk file failed:", path, type(e_).__name__, e_, flush=True)
+    mail = {k: v for k, v in rows.items() if "@" in k[0]}
+    pages = {k: v for k, v in rows.items() if "@" not in k[0]}
+    for path, part in ((out, mail), (pages_file(out), pages)):
+        opener = gzip.open if path.endswith(".gz") else open
+        with opener(path + ".tmp", "wt", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore")
+            w.writeheader()
+            for k in sorted(part):
+                w.writerow({c: str(part[k].get(c, "") or "").replace("\0", "").replace("\r", " ") for c in COLS})
+        os.replace(path + ".tmp", path)
 
 
 if __name__ == "__main__":

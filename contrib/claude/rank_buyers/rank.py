@@ -1670,8 +1670,12 @@ def mailbox_how(file, lane):
 # ---- owner 2026-11-06 D-items: evidence-page re-read (terms, PO, portal, phone, address, printed AP contact, buyer GST), Peppol, dataset back-reference, sensitivity, template language ----
 AT = {}  # key (mailbox or buyer_key) -> every page read for it; merged field by field below (a buyer's terms, PO rule, phone, address sit on different pages)
 try:
-    if os.path.exists(ROOT + "/data/incoming/claude/claude_ap_terms.csv"):
-        for _r in csv.DictReader(io.StringIO(open(ROOT + "/data/incoming/claude/claude_ap_terms.csv", encoding="utf-8", errors="replace").read().replace("\0", ""))):
+    for _p in (ROOT + "/data/incoming/claude/claude_ap_terms.csv", ROOT + "/data/incoming/claude/claude_ap_terms_pages.csv.gz"):  # mailbox pages; walker / search pages (gzipped companion since 2026-11-08)
+        if not os.path.exists(_p):
+            continue
+        with (gzip.open if _p.endswith(".gz") else open)(_p, "rt", encoding="utf-8", errors="replace") as _fh:
+            _txt = _fh.read().replace("\0", "")
+        for _r in csv.DictReader(io.StringIO(_txt)):
             if _r.get("status") == "ok" and _r.get("email"):
                 AT.setdefault(_r["email"].lower(), []).append(_r)
 except Exception as _e:

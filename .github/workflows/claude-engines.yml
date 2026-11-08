@@ -83,6 +83,7 @@ jobs:
             timeout 40m python3 tools/ap_terms.py --urls ~/cch-crawler-state/ap_pages_seen.csv --ranked coord/results/ranked/ranked_buyers.csv.gz --repo "$PWD" --workers 24 || true
           fi
           cp data/incoming/claude/claude_ap_terms.csv out/ap_terms_$K.csv 2>/dev/null || true
+          cp data/incoming/claude/claude_ap_terms_pages.csv.gz out/ap_terms_pages_$K.csv.gz 2>/dev/null || true
           cp ~/cch-crawler-state/ap_pages_seen.csv out/pages_$K.csv 2>/dev/null || true
           cp ~/cch-crawler-state/ap_walk_done.tsv out/done_$K.tsv 2>/dev/null || true
           { echo "shard $K/$N: pages $(wc -l < out/pages_$K.csv 2>/dev/null || echo 0), terms rows $(wc -l < out/ap_terms_$K.csv 2>/dev/null || echo 0)"; } >> "$GITHUB_STEP_SUMMARY"
@@ -128,7 +129,7 @@ jobs:
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main   # clean start each attempt: the merge below is redone from the shard files
             if [ "$ENGINE" = "walk_terms" ]; then
-              python3 tools/merge_engine_outputs.py ap_terms data/incoming/claude/claude_ap_terms.csv data/incoming/claude/claude_ap_terms.csv shards/ap_terms_*.csv
+              python3 tools/merge_engine_outputs.py ap_terms data/incoming/claude/claude_ap_terms.csv data/incoming/claude/claude_ap_terms.csv data/incoming/claude/claude_ap_terms_pages.csv.gz shards/ap_terms_*.csv shards/ap_terms_pages_*.csv.gz
               [ -f data/incoming/claude/claude_ap_pages_seen.csv.gz ] && gunzip -c data/incoming/claude/claude_ap_pages_seen.csv.gz > /tmp/pages_main.csv || : > /tmp/pages_main.csv
               python3 tools/merge_engine_outputs.py pages /tmp/pages.csv /tmp/pages_main.csv shards/pages_*.csv && gzip -c /tmp/pages.csv > data/incoming/claude/claude_ap_pages_seen.csv.gz
               python3 tools/merge_engine_outputs.py tsv_done /tmp/done.tsv shards/done_*.tsv

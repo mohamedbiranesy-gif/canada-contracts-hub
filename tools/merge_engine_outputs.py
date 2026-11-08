@@ -6,7 +6,7 @@ retrieval wins. Nothing is dropped: a row absent from one copy is kept from the 
   python3 tools/merge_engine_outputs.py pages      OUT.csv  IN1.csv …             key = (buyer_key, url)   (ap_pages_seen.csv)
   python3 tools/merge_engine_outputs.py tsv_done   OUT.tsv  IN1.tsv …             key = column 1          (ap_walk_done.tsv)
 """
-import csv, io, os, sys
+import csv, gzip, io, os, sys
 
 csv.field_size_limit(1 << 30)
 KEYS = {"ap_terms": ("email", "evidence_url"), "registry": ("kind", "key"), "pages": ("buyer_key", "url")}
@@ -16,7 +16,8 @@ DATE = {"ap_terms": "retrieved_date", "registry": "retrieved_date", "pages": "da
 def read_csv(path):
     if not path or not os.path.exists(path) or os.path.getsize(path) == 0:
         return [], []
-    txt = open(path, encoding="utf-8", errors="replace").read().replace("\0", "")
+    with (gzip.open if path.endswith(".gz") else open)(path, "rt", encoding="utf-8", errors="replace") as fh:
+        txt = fh.read().replace("\0", "")
     rd = csv.DictReader(io.StringIO(txt))
     rows = list(rd)
     return rd.fieldnames or [], rows
@@ -39,6 +40,7 @@ def main():
         print("tsv_done:", len(best), "keys from", len(ins), "files")
         return
     kcols, dcol = KEYS[kind], DATE[kind]
+    split = kind == "ap_terms" and out.endswith("claude_ap_terms.csv")  # mailbox rows stay in the CSV, buyer-key (walker / search) rows go to claude_ap_terms_pages.csv.gz
     cols, merged, n_in = [], {}, 0
     for p in ins:
         fn, rows = read_csv(p)
@@ -53,12 +55,16 @@ def main():
             old = merged.get(k)
             if old is None or (r.get(dcol) or "") >= (old.get(dcol) or ""):
                 merged[k] = r
-    with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
-        w.writeheader()
-        for k in sorted(merged):
-            w.writerow({c: (merged[k].get(c) or "").replace("\0", "") for c in cols})
-    os.replace(out + ".tmp", out)
+    outputs = [(out, merged)]
+    if split:
+        outputs = [(out, {k: v for k, v in merged.items() if "@" in k[0]}), (out[:-4] + "_pages.csv.gz", {k: v for k, v in merged.items() if "@" not in k[0]})]
+    for path, part in outputs:
+        with (gzip.open if path.endswith(".gz") else open)(path + ".tmp", "wt", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
+            w.writeheader()
+            for k in sorted(part):
+                w.writerow({c: (part[k].get(c) or "").replace("\0", "") for c in cols})
+        os.replace(path + ".tmp", path)
     print("%s: %d rows in, %d unique keys out (%d files)" % (kind, n_in, len(merged), len(ins)))
 
 
