@@ -353,6 +353,8 @@ def main():
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--refresh", action="store_true", help="re-read domains that failed on a redirect / network error, and shared-host organisations keyed by path")
+    a.add_argument("--shard", default="", help="K/N: only domains that hash to shard K of N (parallel runners never share a host)")
+    a.add_argument("--seed-resume", default="", help="a jsonl(.gz) of organisations already read (the repo copy): skipped as if in the resume file")
     a = a.parse_args()
     os.makedirs(STATE, exist_ok=True)
     done = {}
@@ -362,6 +364,18 @@ def main():
                 d = json.loads(l); done[d["domain"]] = d
             except Exception:
                 pass
+    if a.seed_resume and os.path.exists(a.seed_resume):
+        import hashlib  # noqa: F811
+        with (gzip.open if a.seed_resume.endswith(".gz") else open)(a.seed_resume, "rt", encoding="utf-8") as fh:
+            for l in fh:
+                try:
+                    d = json.loads(l)
+                    if d.get("domain") and d["domain"] not in done:
+                        done[d["domain"]] = d
+                except Exception:
+                    pass
+    import hashlib
+    shard_k, shard_n = (int(a.shard.split("/")[0]), int(a.shard.split("/")[1])) if a.shard else (0, 1)
     tasks, seen = [], set()
     for r in csv.DictReader(open(a.tasks, encoding="utf-8", errors="replace")):
         w = (r.get("website") or "").strip()
@@ -373,6 +387,8 @@ def main():
             continue
         old = done.get(dom)
         if old is not None and not (a.refresh and (old.get("status") in RETRY_STATUS or old.get("status") == "no_contact" and start_path)):
+            continue
+        if shard_n > 1 and int(hashlib.md5(dom.encode()).hexdigest(), 16) % shard_n != shard_k:
             continue
         seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", ""), ("https://%s/" % start_path) if start_path else ""))
     if a.limit:

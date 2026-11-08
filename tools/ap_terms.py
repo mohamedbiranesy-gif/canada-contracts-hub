@@ -51,7 +51,7 @@ BN_WORDS = re.compile(r"\bGST\b|\bHST\b|\bTPS\b|\bTVH\b|business number|num[ée]
 FORMAT = re.compile(r"(?:(?:one|single|1|une seule|une) (?:invoice|facture)s? per (?:e-?mail|courriel|attachment|PDF)|(?:invoices?|factures?)[^.;]{0,80}?\b(?:PDF|TIFF|TIF)\b[^.;]{0,60}|\b(?:PDF|TIFF)\b[^.;]{0,30}?(?:format|only|seulement|uniquement|attachments?|pi[èe]ces? jointes?)|"
                     r"(?:do not|ne pas|n'envoyez pas)[^.;]{0,30}?(?:send|submit|envoyer)[^.;]{0,30}?(?:paper|duplicate|copies?|papier)[^.;]{0,60}|(?:maximum|max\.?|limit(?:ed)? to)[^.;]{0,20}?\d+\s?(?:MB|Mo|pages?|attachments?)[^.;]{0,40})", re.I)
 PAYMETHOD = re.compile(r"(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|e-?transfer|d[ée]p[ôo]t direct|virement(?: bancaire)?|transfert [ée]lectronique de fonds|\bTEF\b)[^.;]{0,80}(?:preferred|encourag|required|mandatory|only|no longer|default|standard|privil[ée]gi|obligatoire|requis|exig|available|offered|enrol|sign[- ]?up|register|authori[sz]ation|formulaire|inscri)|"
-                       r"(?:preferred|encourag|required|mandatory|no longer issue|will not issue|discontinu|privil[ée]gi|obligatoire|ne (?:sera|seront) plus [ée]mis)[^.;]{0,80}(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|cheques?|checks?|d[ée]p[ôo]t direct|virement|ch[èe]ques?)|"
+                       r"(?:preferred|encourag|required|mandatory|no longer issue|will not issue|discontinu|privil[ée]gi|obligatoire|ne (?:sera|seront) plus [ée]mis)[^.;]{0,80}(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|cheques?\b|paper checks?|checks? (?:by mail|are mailed|will be mailed|payments?)|payment by check|d[ée]p[ôo]t direct|virement|ch[èe]ques?)|"
                        r"(?:payments? (?:is|are|will be|shall be) (?:made|issued|processed|sent|remitted)|we pay|pays? (?:our |its )?(?:suppliers|vendors)|paiements?(?: aux fournisseurs| des fournisseurs| des factures)? (?:sont|est|seront) (?:effectu[ée]s?|[ée]mis|vers[ée]s?|faits?)|nous payons|r[èe]glement des factures)[^.;]{0,40}?(?:by|via|through|par|en)\s(?:direct deposit|electronic funds transfer|\bEFT\b|\bACH\b|e-?transfer|cheque|check|wire|d[ée]p[ôo]t direct|virement|ch[èe]que|carte de cr[ée]dit|credit card|p-?card|purchasing card)[^.;]{0,80}|"
                        r"(?:direct deposit|\bEFT\b|\bACH\b|d[ée]p[ôo]t direct|virement)\s(?:form|enrol?l?ment|authori[sz]ation|request|application|sign[- ]?up|registration|formulaire|inscription|adh[ée]sion)[^.;]{0,80}|(?:formulaire|form)[^.;]{0,25}?(?:d'?inscription au |de |for |pour le )?(?:d[ée]p[ôo]t direct|direct deposit|\bEFT\b|virement)[^.;]{0,60}|"
                        r"(?:supplier|vendor|fournisseur)s?[^.;]{0,40}?(?:paid|pay[ée]s?)[^.;]{0,20}?(?:by|par)\s(?:direct deposit|EFT|electronic funds transfer|cheque|check|d[ée]p[ôo]t direct|virement|ch[èe]que)[^.;]{0,60}", re.I)
@@ -67,9 +67,9 @@ TAXEX = re.compile(r"(?:tax[- ]exempt(?:ion)?(?: status| certificate| number)?|e
 ESIGN = re.compile(r"(?:DocuSign|Adobe Sign|Adobe Acrobat Sign|HelloSign|Dropbox Sign|PandaDoc|OneSpan|ConsignO|Notarius|signature[s]? (?:[ée]lectronique|num[ée]rique)s?|e-?signatures?|digital(?:ly)? sign(?:ed|ature)s?|electronic(?:ally)? sign(?:ed|ature)s?(?: (?:are |is )?(?:accepted|required|preferred|not accepted))?)[^.;]{0,80}", re.I)
 ESIGN_CTX = re.compile(r"contract|agreement|purchase order|\bPO\b|bon de commande|contrat|entente|invoice|factur|supplier|vendor|fournisseur|document", re.I)
 # AP / ERP / e-procurement systems the organisation names on its payables, supplier or purchasing pages (the AP system hint of the invoice card)
-SYSTEMS = re.compile(r"\b(SAP Ariba|Ariba|Coupa|Jaggaer|Workday|Oracle (?:E-Business Suite|EBS|ERP Cloud|Fusion|iSupplier|PeopleSoft|NetSuite)|PeopleSoft|SAP S/4 ?HANA|SAP Business Network|\bSAP\b|Esker|Kofax|Tipalti|Bill\.com|AvidXchange|Basware|Tungsten|Taulia|Tradeshift|Unit4|Agresso|Dynamics ?365|Dynamics GP|Great Plains|"
-                     r"Sage Intacct|Sage 300|Sage 50|Munis|Tyler Technologies|Yardi|JD Edwards|Infor|Lawson|NetSuite|Ellucian|Colleague|Acomba|Avantage|SOFE|Virtuo|PG Solutions|M[ée]gagest|Unicit[ée]|Paymode-?X|Bottomline|Telpay|Plooto|Versapay|Kyriba|Medius|Yooz|Procurify|Bonfire|Ivalua|Zycus|GEP SMART|OpenInvoice|Transcepta|PaymentWorks|Cortex|GHX|Vendorlink|"
-                     r"Paramount WorkPlace|Emburse|Blackbaud|Financial Edge|CaseWare|QuickBooks|Xero|FreshBooks|Wave Accounting|Microsoft Dynamics|Dynamics NAV|Business Central|Birchstreet|Determine|Periscope|Euna|eSolutions|Biddingo|MERX|SEAO|Ariba Network|Dayforce|Ceridian)\b", re.I)
+SYSTEMS = re.compile(r"\b(SAP Ariba|Ariba|Coupa|Jaggaer|Workday|Oracle (?:E-Business Suite|EBS|ERP Cloud|Fusion|iSupplier|PeopleSoft|NetSuite)|PeopleSoft|SAP S/4 ?HANA|SAP Business Network|SAP|Esker|Kofax|Tipalti|Bill\.com|AvidXchange|Basware|Tungsten|Taulia|Tradeshift|Unit4|Agresso|Dynamics ?365|Dynamics GP|Great Plains|"
+                     r"Sage Intacct|Sage 300|Sage 50|Munis|Tyler Technologies|Yardi|JD Edwards|NetSuite|Acomba|SOFE|Virtuo|PG Solutions|M[ée]gagest|Unicit[ée]|Paymode-?X|Bottomline|Telpay|Plooto|Versapay|Kyriba|Medius|Yooz|Procurify|Bonfire|Ivalua|Zycus|GEP SMART|OpenInvoice|Transcepta|PaymentWorks|GHX|VendorLink|"
+                     r"Paramount WorkPlace|Emburse|Blackbaud|Financial Edge|QuickBooks|Xero|FreshBooks|Microsoft Dynamics|Dynamics NAV|Business Central|BirchStreet|Infor CloudSuite|Infor Lawson)\b")  # case-sensitive: brand names as printed (Determine, Avantage, Colleague, Banner are also plain words)
 SYS_CTX = re.compile(r"invoice|factur|supplier|vendor|fournisseur|payable|paiement|payment|purchase order|bon de commande|procurement|approvisionnement|e-?procurement|portal|portail|\bAP\b|\bERP\b|accounting system|financial system|syst[èe]me (?:comptable|financier|de gestion)|e-?tendering|bid|soumission|appel d'offres", re.I)
 PAY_CTX = re.compile(r"invoice|factur|supplier|vendor|fournisseur|payable|payment to|paiements? (?:aux|des) fournisseurs|purchase order|bon de commande|remittance|accounts payable|comptes (?:à|a) payer|contractor|entrepreneur", re.I)
 PAY_NOISE = re.compile(r"property tax|taxes fonci|utility bill|water bill|parking|ticket|fine|permit fee|dog licen|tuition|pay your|payez votre|donation|\bdon\b|membership|registration fee|frais d'inscription|camp|program fee|rent payment|tenant", re.I)
@@ -150,6 +150,15 @@ def read_page(url):
     return "ok", final, C.visible(raw), raw
 
 
+def menu_like(frag):
+    """a run of capitalised words without a sentence structure is a menu, not a published term"""
+    w = frag.split()
+    if len(w) < 7:
+        return False
+    caps = sum(1 for t in w if t[:1].isupper())
+    return caps / len(w) > 0.6 and not re.search(r"[.;:,]", frag)
+
+
 def extract(email, buyer, text, raw, final):
     out = {}
     low = text.lower()
@@ -222,6 +231,8 @@ def extract(email, buyer, text, raw, final):
     for col, rx in (("payment_method", PAYMETHOD), ("ap_cycle", APCYCLE), ("tax_exempt", TAXEX), ("esignature", ESIGN)):
         for src in (win_txt, text):
             for m in rx.finditer(src):
+                if menu_like(m.group(0)):
+                    continue  # navigation / menu text run together ("Tax Exemption Refresh Downtown Small Initiatives Airport Plan")
                 ctx = src[max(0, m.start() - 300):m.end() + 300]
                 if PAY_NOISE.search(ctx) and not re.search(r"supplier|vendor|fournisseur|payable|invoice|factur", ctx, re.I):
                     continue  # a citizen-payment page (property taxes, tickets), not payables
@@ -291,7 +302,7 @@ def main():
     grades = tuple(a.grades.split(","))
     todo, seen = [], set()
     cutoff = (datetime.date.today() - datetime.timedelta(days=a.recheck_days)).isoformat()
-    with opener(ranked, "rt", encoding="utf-8") as f:
+    with (opener(ranked, "rt", encoding="utf-8") if not (a.reread_known or a.urls) else open(os.devnull)) as f:  # the ranked rows are only the mailbox-page queue
         for r in csv.DictReader(f):
             if (r.get("tier") or "") not in tiers or not (r.get("email") or "") or not (r.get("email_evidence_url") or "").startswith("http"):
                 continue
@@ -336,8 +347,8 @@ def main():
             if row["status"] != "ok":
                 return  # a page that no longer answers (timeout, 403 today) keeps the row read earlier: nothing verified is thrown away
             for c in COLS:  # a value read earlier whose quote is still on the page stays when the new read left the column empty (pattern order, page layout)
-                if c.endswith("_quote") or c in ("email", "evidence_url", "final_url", "retrieved_date", "status", "mailbox_still_on_page", "mailbox_context"):
-                    continue
+                if c.endswith("_quote") or c in ("email", "evidence_url", "final_url", "retrieved_date", "status", "mailbox_still_on_page", "mailbox_context", "payment_method", "ap_cycle", "tax_exempt", "esignature", "ap_system"):
+                    continue  # the policy fields are re-extracted with the stricter patterns: an old menu-text match must not survive
                 if old.get(c) and not row.get(c):
                     oq = old.get(c + "_quote") or old.get(QMAP.get(c, ""), "")
                     probe = re.sub(r"\s+", " ", (oq or old[c]))[:120].lower()

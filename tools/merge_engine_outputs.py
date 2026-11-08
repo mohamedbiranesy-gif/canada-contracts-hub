@@ -5,6 +5,7 @@ retrieval wins. Nothing is dropped: a row absent from one copy is kept from the 
   python3 tools/merge_engine_outputs.py registry   OUT.csv  IN1.csv …             key = (kind, key)
   python3 tools/merge_engine_outputs.py pages      OUT.csv  IN1.csv …             key = (buyer_key, url)   (ap_pages_seen.csv)
   python3 tools/merge_engine_outputs.py tsv_done   OUT.tsv  IN1.tsv …             key = column 1          (ap_walk_done.tsv)
+  python3 tools/merge_engine_outputs.py jsonl      OUT.jsonl.gz IN1.jsonl.gz …     key = domain            (org_extras / org_contacts)
 """
 import csv, gzip, io, os, sys
 
@@ -38,6 +39,32 @@ def main():
             for k in sorted(best):
                 f.write(best[k] + "\n")
         print("tsv_done:", len(best), "keys from", len(ins), "files")
+        return
+    if kind == "jsonl":  # org_extras / org_contacts: one JSON object per domain; a successful read beats a failed one, then the newest date
+        import json
+        best = {}
+        for p in ins:
+            if not p or not os.path.exists(p) or os.path.getsize(p) == 0:
+                continue
+            with (gzip.open if p.endswith(".gz") else open)(p, "rt", encoding="utf-8", errors="replace") as fh:
+                for l in fh:
+                    try:
+                        d = json.loads(l)
+                    except Exception:
+                        continue
+                    k = d.get("domain")
+                    if not k:
+                        continue
+                    o = best.get(k)
+                    if o is None or (d.get("status") == "ok", d.get("date") or "") >= (o.get("status") == "ok", o.get("date") or ""):
+                        if o and o.get("status") == "ok" and d.get("status") == "ok":
+                            m = dict(o); m.update({kk: vv for kk, vv in d.items() if vv not in ("", None, [], {})}); d = m  # facts read earlier stay when the newer read has fewer
+                        best[k] = d
+        with (gzip.open if out.endswith(".gz") else open)(out + ".tmp", "wt", encoding="utf-8") as f:
+            for k in sorted(best):
+                f.write(json.dumps(best[k], ensure_ascii=False) + "\n")
+        os.replace(out + ".tmp", out)
+        print("jsonl:", len(best), "domains from", len(ins), "files")
         return
     kcols, dcol = KEYS[kind], DATE[kind]
     split = kind == "ap_terms" and out.endswith("claude_ap_terms.csv")  # mailbox rows stay in the CSV, buyer-key (walker / search) rows go to claude_ap_terms_pages.csv.gz

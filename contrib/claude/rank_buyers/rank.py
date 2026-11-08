@@ -1762,6 +1762,8 @@ for x in rows:
     for col, lab in (("payment_method", "buyer_payment_method_preference"), ("ap_cycle", "buyer_ap_cycle_published"), ("tax_exempt", "buyer_tax_exempt_status"), ("esignature", "buyer_esignature_preference")):
         if t.get(col):
             x[lab] = "%s%s" % (t[col], t[col + "_src"]); n_at[col] += 1
+    if t.get("portal_name") and not t["portal_name"].startswith("supplier / vendor portal") and not (x.get("ap_system_hint") or "").startswith("named on"):
+        x["ap_system_hint"] = ("named on the buyer's page: %s%s" % (t["portal_name"], t["portal_name_src"])) + (("; " + x["ap_system_hint"]) if x.get("ap_system_hint") else ""); n_at["ap_system_portal"] += 1
     if t.get("ap_system") and not (x.get("ap_system_hint") or "").startswith("named on"):
         x["ap_system_hint"] = ("named on the buyer's page: %s%s" % (t["ap_system"], t["ap_system_src"])) + (("; " + x["ap_system_hint"]) if x.get("ap_system_hint") else ""); n_at["ap_system"] += 1
     if t.get("setup_url") and not x.get("supplier_setup_url"):
@@ -2293,7 +2295,7 @@ for x in rows:
                 "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
         x.setdefault(col, "")
     if not x.get("contract_title") and (x.get("contract_description") or "").strip() and x.get("contract_link"):  # the source publishes a description but no separate title
-        x["contract_title"] = re.split(r"(?<=[.!?])\s", x["contract_description"].strip(), 1)[0][:150] + " (first sentence of the record's description; the source publishes no separate title)"
+        x["contract_title"] = re.split(r"(?<=[.!?])\s", x["contract_description"].strip(), maxsplit=1)[0][:150] + " (first sentence of the record's description; the source publishes no separate title)"
         n9["contract_title_from_description"] += 1
     _hint = x.get("invoice_reference_hint") or ""
     if (not _hint or _hint.startswith(("no identifier", "only system"))) and (x.get("po_required_as_published") or "").startswith(("yes", "purchase-order terms published")):
