@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-08 22:50Z)
+# STATE.md — Claude lane (updated 2026-11-08 22:55Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,8 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 22:55Z — build 22:49Z **99/438** (+5): ap_system_hint P01T / P09, buyer_tax_exempt_status P12, vendor_trading_name P03 / P04; Gold A 134, payable 805; payment terms +5–6 pts in P02 / P03 / P05 and PO rule +4–5 from the deep walk (27 cells up ≥3, none down)
 
 ## 22:50Z — build 22:23Z (scheduled) 94/438; deep A–F walk merged (+24k page keys); terms_refresh running; org_facts merged
 - Build 22:23Z: 94 of 438 (+1: vendor_website P01_GOLD); award_or_notice_id +10–19 pts in Gold / P02 / P03 (notice-id rule), vendor_website P04 +16.7

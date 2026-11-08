@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T22:50Z",
+ "updated": "2026-11-08T22:55Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -131,6 +131,11 @@
    "deliverable": "no runaway engine runs",
    "method": "gh run list claude-engines: at most one walk_terms and one terms_refresh active; no self-dispatch when redo_days=0",
    "status": "fixed 22:48Z: self-dispatched deep walk 42530910632 cancelled; workflow guard pushed (55ccbe0)"
+  },
+  {
+   "deliverable": "build 22:49Z vs 22:23Z (deep walk + trading-name rule)",
+   "method": "scoreboards diffed cell by cell",
+   "status": "passing 22:55Z: 99/438 (+5), 0 lost, 27 cells up ≥3; Gold A 134 B 259; payable today 805"
   }
  ]
 }
