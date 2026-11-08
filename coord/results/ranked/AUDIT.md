@@ -114,7 +114,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P07_client_listing_finance_or_purchasing_email:82 lepointdevente.com | lepointdevente.com (recipient legal name in the federal grants & contr
     - P08_client_listing_general_email:2050 Christian Life Community | Christian Life Community (stated on https://www.christianlifecommunity
     - P10_linked_from_vendor_site_any_email:1503 Digify SEO Company | digify seo company Incorporated (as registered: Corporations Canada (o
-    - P13_inferred_relationship_no_record_own_email_part10_of_16:2193 Mon-Proprio.ca Inc | mon-proprio.ca inc. (as registered: Registraire des entreprises du Qué
+    - P13_inferred_relationship_no_record_own_email_part10_of_16:2193 Mon-Proprio.ca Inc | mon-proprio.ca inc. (as registered: Canada's Business Registries, QC 1
     - P13_inferred_relationship_no_record_own_email_part13_of_16:2744 COD3 Corporation | cod3 corporation (as registered: Canada's Business Registries, CC 1190
 - **22 one row per organisation name (same name twice)**
     - P01_GOLD_active_relationship_invoicing_AP_email:155 MRC de Manicouagan | 2 rows, same mail domain: mrcmanicouagan.qc.ca
@@ -196,15 +196,15 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 
 ## Field fill across all delivered rows (value present, not `not_published`)
 - buyer_website: 63609 (100.0%)
-- vendor_website: 62088 (97.6%)
+- vendor_website: 62145 (97.7%)
 - vendor_address: 60855 (95.7%)
 - vendor_phone: 56284 (88.5%)
 - buyer_logo_url: 53369 (83.9%)
 - vendor_bn9: 53075 (83.4%)
-- buyer_phone: 49767 (78.2%)
-- buyer_address: 47988 (75.4%)
-- buyer_legal_name_as_published: 32106 (50.5%)
-- buyer_bn_as_published: 13318 (20.9%)
+- buyer_phone: 49768 (78.2%)
+- buyer_address: 47993 (75.5%)
+- buyer_legal_name_as_published: 32108 (50.5%)
+- buyer_bn_as_published: 13328 (21.0%)
 - contract_link: 12813 (20.1%)
 - vendor_legal_name: 9729 (15.3%)
 - vendor_registry_id: 8248 (13.0%)
@@ -213,15 +213,15 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - award_date: 6482 (10.2%)
 - vendor_neq: 5017 (7.9%)
 - vendor_emails: 4369 (6.9%)
-- ap_phone: 2622 (4.1%)
+- ap_phone: 2644 (4.2%)
 - contract_value: 2359 (3.7%)
-- invoice_mailing_address: 2142 (3.4%)
-- invoicing_requirements: 1877 (3.0%)
+- invoice_mailing_address: 2153 (3.4%)
+- invoicing_requirements: 1894 (3.0%)
+- payment_terms_as_published: 1841 (2.9%)
 - end_date: 1759 (2.8%)
-- payment_terms_as_published: 1649 (2.6%)
-- invoice_portal_url: 1615 (2.5%)
-- po_required_as_published: 1328 (2.1%)
-- ap_contact_name_as_published: 454 (0.7%)
+- invoice_portal_url: 1666 (2.6%)
+- po_required_as_published: 1446 (2.3%)
+- ap_contact_name_as_published: 878 (1.4%)
 
 ## Canada-proof families
 - other: 47259; source field: 16350
