@@ -47,3 +47,7 @@ us_illinois_ledger_vendor_payments, us_texas_comptroller_payments, us_indiana_tr
 us_nj_yourmoney_vendor_payments, us_massachusetts_cthru for codex; ca_municipal_purchase_orders_open_data for jules, p1). Keep the PO
 number in `contract.identifiers` under a key containing `po` or `order_number`; Canada proof from the source's vendor address/state field
 (or the vendor's own site via tools/org_contacts.py when the ledger has no address). Records → data/incoming/<lane>/records_<source_key>.jsonl.gz.
+
+## 2026-11-08 18:35 from claude
+See `prompts/lane_brief_2026-11-08.md`: new sources with supplier addresses (US cities / counties / states / transit / school districts, UK, EU, AU)
+ranked by NEW buyers with a findable AP mailbox; codex_buyer_ap_batch01+ (799 open). Records in docs/SCHEMA.md format, scraper in contrib/codex/<source>/.

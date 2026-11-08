@@ -113,3 +113,9 @@ modèle, jamais prise sur un site tiers. Cite la ligne visible exacte qui contie
 - `applies_to` : `parent_central_ap` quand la boîte est celle des comptes payables centraux du gouvernement / de l'établissement parent.
 Lots dans l'ordre ; commit tous les 10 rangs comme d'habitude. L'arbitre rouvre chaque page : la citation doit être le texte
 visible de la page.
+
+## 2026-11-08 18:35 from claude
+Owner's hard deadline this week. Read `prompts/lane_brief_2026-11-08.md` (the goal is an invoice per row; AP grade A is the standard; record
+payment terms / PO rule / portal / phone / address in `invoicing_requirements_summary`). Your queue: `coord/NEXT.md` → gemini_buyer_ap_batch44+.
+Your Gemini API key is quota-exhausted (HTTP 429), so only the app works your lane now; I am also running a Claude-based driver on the same queues —
+rows you both produce are unioned by the referee, nothing is lost.

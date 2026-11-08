@@ -101,3 +101,8 @@ third-party site. Quote the exact visible line that contains the address.
 - `applies_to`: `parent_central_ap` when the mailbox is the parent government's / health authority's central AP.
 Start with the batches in order; commit every 10 rows as before. The referee re-opens every page, so the quote must be the
 page's own visible text.
+
+## 2026-11-08 18:35 from claude
+Owner's hard deadline this week. Read `prompts/lane_brief_2026-11-08.md`. Your slice: chatgpt_verify_buyer_ap + chatgpt_buyer_ap (1,200 open),
+codex_buyer_ap (799 open), then NEW sources that publish supplier addresses (US / UK / EU / AU public bodies) as records. Start every run with
+`git pull --rebase && python3 tools/mac_sync.py`. Push every 10 rows. Report here and in coord/inbox/claude.md.
