@@ -1,16 +1,15 @@
 change,buyer,rank_group,email,detail
-package moved,Metropolitan Transportation Authority (New York),GOLD,invoice@mtabsc.org,was A4
-package moved,City of Arlington,GOLD,accountspayable@arlingtontx.gov,was B4
-mailbox changed,Ville de Saint-Hyacinthe,A1,greffe@st-hyacinthe.ca,was (none)
-package moved,Ville de Saint-Hyacinthe,A1,greffe@st-hyacinthe.ca,was A0
-package moved,Southern New Hampshire University,GOLD-T,accountspayable@snhu.edu,was T4
-mailbox changed,"TRIAD NATIONAL SECURITY, LLC",B2,procurement@lanl.gov,was payments@lanl.gov
-package moved,"TRIAD NATIONAL SECURITY, LLC",B2,procurement@lanl.gov,was B1
-mailbox changed,Dragon Rises College Acupuncture Clinic,T3,accounting@dragonrises.edu,was info@dragonrises.edu
-package moved,Dragon Rises College Acupuncture Clinic,T3,accounting@dragonrises.edu,was T1
-mailbox changed,Municipality of Leamington,B1,clerks@leamington.ca,was waterbill@leamington.ca
-mailbox changed,Baylor College Of Medicine,B2,suppliers@bcm.edu,was apinvoices@bcm.edu
-package moved,Baylor College Of Medicine,B2,suppliers@bcm.edu,was B4
-mailbox changed,Stockholms universitet,B1,info@fs.su.se,was (none)
-package moved,Stockholms universitet,B1,info@fs.su.se,was B0
-row removed,fda.gov,E4,fdareturnimproperinvoice@fda.gov,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+mailbox changed,Town of Aurora,GOLD,payables@aurora.ca,was procurement@aurora.ca
+package moved,Town of Aurora,GOLD,payables@aurora.ca,was B2
+mailbox changed,chubb.com,D4,argfacturaselectronicas@chubb.com,was financiallinesdigitalconcierge@chubb.com
+package moved,chubb.com,D4,argfacturaselectronicas@chubb.com,was D3
+mailbox changed,Tennessee Department of Transportation,B2,supplier.maintenance@tn.gov,was vendor.insurance@tn.gov
+mailbox changed,"ADP, Inc",T2,supplier.diversity@adp.com,was adpaccountant@adp.com
+package moved,"ADP, Inc",T2,supplier.diversity@adp.com,was T3
+row added,City of Fort Worth,L2,ftw_erp_vendor_mgmt@fortworthtexas.gov,new organisation in the ranked file
+mailbox changed,Dallas Independent School District,L2,suppliers@dallasisd.org,was acctpayable@dallasisd.org
+package moved,Dallas Independent School District,L2,suppliers@dallasisd.org,was L4
+package moved,Municipalité de Saint-Charles-sur-Richelieu,C1,info@saint-charles-sur-richelieu.ca,was B1
+mailbox changed,National Information Technology Board (NITB),D1,info@moitt.gov.pk,was procurement.specialist@deep.moitt.gov.pk
+package moved,National Information Technology Board (NITB),D1,info@moitt.gov.pk,was D2
+mailbox changed,cckl.org,E1,admin@cckl.org,was info@cckl.org
