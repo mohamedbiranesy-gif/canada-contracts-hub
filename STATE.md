@@ -6,7 +6,9 @@ Raise the ranked deliverable's coverage against the downstream team's per-packag
 owner's Mac; report the benchmark count every build; document the ceiling of any benchmark that cannot be met honestly.
 
 ## Assumptions made (not asked)
-1. `ap_contact_name_as_published` carries role titles only — the owner's "never a named person" rule wins over the downstream 25 % target.
+1. `ap_contact_name_as_published`: the owner said on 2026-11-08 10:59 EST "person is allowed for AP" — read as: the AP contact person the organisation
+   itself publishes on its AP / finance page may be named (name + role phrase, quoted); mailboxes stay organisational (AGENTS.md §2.5 unchanged).
+   Implemented in tools/ap_terms.py (ap_contact_name_any) the same hour.
 2. Contract value / dates / title / identifiers may be filled from another record of the SAME buyer–vendor pair, labelled with that
    record's id; never from a different vendor. Rows proven by lobbying filings, news releases, auditor appointments, customer
    stories have no contract value: that is the ceiling (≈ 17 % of P01 Gold).

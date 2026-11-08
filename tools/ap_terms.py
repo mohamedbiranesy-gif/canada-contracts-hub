@@ -60,6 +60,34 @@ _ns = {"re": re, "_FIRST": _FIRST}
 exec(_src[_src.index("AP_TITLE = re.compile("):_src.index("NOT_NAME = re.compile(")], _ns)
 exec(_src[_src.index("HONORIFIC = re.compile("):_src.index("FR = re.compile(")], _ns)
 ap_contact_name = _ns["ap_contact_name"]
+_AP_TITLE, _NAME_RX, _NOT_NAME2, _HONORIFIC = _ns["AP_TITLE"], _ns["NAME_RX"], _ns["NOT_NAME2"], _ns["HONORIFIC"]
+AP_ROLE_PHRASE = re.compile(r"(?:(?:senior |junior |chief |assistant |associate )?(?:accounts? payable|payables?|comptes? (?:à|a) payer|comptes payables|finance|financial|accounting|comptabilit[ée]|treasury|tr[ée]sorerie|AP)"
+                            r"[\w /&'’-]{0,30}?(?:clerk|supervisor|manager|coordinator|coordinatrice|coordonnat\w+|technician|technicienne?|specialist|officer|administrator|analyst|lead|assistant|agente?|commis|adjointe?|directeur|directrice|director|controller|contr[ôo]leur|treasurer|tr[ée]sori[èe]re?|accountant|comptable)|"
+                            r"(?:commis|technicienne?|agente?|adjointe?|coordonnat\w+|pr[ée]pos[ée]e?|analyste|conseill[èe]re?|chef|directeur|directrice|responsable|superviseure?|clerk|technician|coordinator|supervisor|manager|specialist|officer)"
+                            r"(?: (?:en|de|des|du|à la|aux|of|for|,|-|–))? (?:la )?(?:comptabilit[ée]|comptes? (?:à|a) payer|comptes payables|accounts? payable|payables|finances?|paie|facturation|invoic\w+|accounting))", re.I)
+
+
+def ap_contact_name_any(text, buyer=""):
+    """owner 2026-11-08 ("person is allowed for AP"): the AP contact person the organisation itself prints on its AP / finance / staff
+    page — a proper name (known given name or honorific) within 80 characters of an accounts-payable role phrase; the role phrase is kept
+    with the name. Still only what the organisation publishes about itself; the mailbox columns stay organisational."""
+    btoks = set(re.findall(r"[a-zà-ÿ]{3,}", (buyer or "").lower()))
+    for m in AP_ROLE_PHRASE.finditer(text[:200_000]):
+        win = text[max(0, m.start() - 80):m.end() + 80]
+        for nmm in _NAME_RX.finditer(win):
+            nm = nmm.group(1)
+            toks = nm.split()
+            hon = bool(_HONORIFIC.search(win[max(0, nmm.start() - 12):nmm.start()]))
+            if toks[0] in ("Mme", "Madame", "Monsieur", "Mr", "Mrs", "Ms", "Dr"):
+                hon, toks = True, toks[1:]
+                nm = " ".join(toks)
+            if len(toks) < 2 or len(toks) > 3 or _NOT_NAME2.search(nm) or re.search(r"\d", nm) or set(t.lower() for t in toks) & btoks:
+                continue
+            if not (toks[0].lower() in _FIRST or hon):
+                continue
+            role = re.sub(r"\s+", " ", m.group(0)).strip()
+            return "%s (%s)" % (nm, role), win
+    return "", ""
 
 
 def q300(text, start, end):
@@ -155,6 +183,12 @@ def extract(email, buyer, text, raw, final):
         if nm:
             out["ap_contact_name"] = nm
             out["contact_quote"] = q300(text, off, off + len(w))
+    if not out.get("ap_contact_name"):  # owner 2026-11-08: the AP person the page names with an AP role phrase, anywhere on the AP page
+        nm, win = ap_contact_name_any(text, buyer)
+        if nm:
+            j = text.find(win)
+            out["ap_contact_name"] = nm
+            out["contact_quote"] = q300(text, j, j + len(win)) if j >= 0 else win[:300]
     m = FORMAT.search(win_txt)
     if m:
         out["invoice_format"] = re.sub(r"\s+", " ", m.group(0)).strip()[:160]

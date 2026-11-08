@@ -81,7 +81,7 @@ CEILING = {
  "contract_value": "rows proven by a lobbying filing, a news release, an auditor appointment, a customer story or a vendor's client list have no contract value by nature (≈17 % of P01 Gold); bids&tenders awards now carry the awarded bidder's submitted price when no award value was published",
  "start_date": "most award notices publish an award date, not a start date; start_date carries the signature date when the source gives one, labelled",
  "end_date": "an inferred end (award date + published duration) is labelled as such; sources without a duration leave end_date empty — the honest ceiling",
- "ap_contact_name_as_published": "role titles only (Supervisor, Accounts Payable) — the owner's rule 'never a named person' overrides the 25 % target; a person's name is never collected",
+ "ap_contact_name_as_published": "owner 2026-11-08: the AP contact person the organisation itself names on its AP / finance page is allowed (name + role phrase, quoted); mailboxes stay organisational; many bodies publish no AP person",
  "vendor_neq": "only Québec-registered vendors have an NEQ; the share of QC vendors is reported next to the rate",
  "number_of_bids": "published by some portals only (bids&tenders submission lists, Biddingo bidder lists); federal proactive disclosure does not publish bid counts",
  "buyer_bn_as_published": "a buyer's BN is public only where the buyer prints it or a public dataset carries it (CRA charities, federal grants & contributions recipients, business registries for corporations); municipalities rarely publish theirs",

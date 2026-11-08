@@ -1675,7 +1675,7 @@ for x in rows:
         elif not _ap_page and not x.get("buyer_address"):
             x["buyer_address"] = t["invoice_mailing_address"] + " (printed next to the organisation's mailbox%s)" % src; n_at["buyer_address_from_page"] += 1
     if t.get("ap_contact_name") and not x.get("ap_contact_name_as_published"):
-        x["ap_contact_name_as_published"] = t["ap_contact_name"] + " (as printed by the organisation next to its invoicing mailbox%s)" % src; x["_at"].add("ap_contact_name_as_published"); n_at["ap_contact_name"] += 1
+        x["ap_contact_name_as_published"] = t["ap_contact_name"] + " (as printed by the organisation on its own accounts-payable page%s)" % src; x["_at"].add("ap_contact_name_as_published"); n_at["ap_contact_name"] += 1
     if t.get("invoice_format"):
         add = "invoice format as published: %s" % t["invoice_format"]
         if add[:40] not in (x.get("invoicing_requirements") or ""):

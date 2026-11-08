@@ -22,8 +22,9 @@ targets. Reread at every milestone and after any context reset, together with PL
 ## Domain rules this work must satisfy (binding; AGENTS.md §2 + owner's orders)
 1. Vendor in Canada only from the source's own field or the vendor's own site. Never from the name.
 2. Evidence or nothing: URL opened + retrieval date + quote ≤ 300 chars containing the value. Blank = `not_published`.
-3. Organisational role mailboxes only; never a named person (this also keeps `ap_contact_name_as_published` to role titles);
-   never pattern-built; no webmail.
+3. Organisational role mailboxes only; never a named person's mailbox; never pattern-built; no webmail. Owner 2026-11-08 10:59 EST:
+   a named AP contact PERSON is allowed in `ap_contact_name_as_published` when the organisation itself publishes it on its AP / finance
+   page (name + role phrase, quoted); the mailbox columns are unchanged.
 4. No getting around blocks: 401/403/429/CAPTCHA/login/robots → `blocked`; no proxies; never automate the CRA GST registry.
 5. ≤ 2 requests/s per host, identified UA, cache everything. Two engines on one host = 1 req/s each.
 6. Nothing AI-written as a value: AI agents only propose URLs (leads); every value is read from the page by a Mac engine.
