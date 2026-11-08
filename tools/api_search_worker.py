@@ -108,7 +108,15 @@ def main():
             f = l.rstrip("\n").split("\t")
             if len(f) >= 2:
                 done[f[0]] = f[1]
-    spent = sum(float(l.rstrip("\n").split("\t")[3]) for l in open(done_p, encoding="utf-8") if len(l.split("\t")) >= 4 and l.split("\t")[3].replace(".", "", 1).isdigit()) if os.path.exists(done_p) else 0.0
+    spent = 0.0
+    if os.path.exists(done_p):
+        for l in open(done_p, encoding="utf-8"):
+            f = l.rstrip("\n").split("\t")
+            if len(f) >= 4:
+                try:
+                    spent += float(f[3])
+                except ValueError:
+                    pass
     tasks = [t for t in csv.DictReader(open(a.queue, encoding="utf-8", errors="replace"), delimiter="\t") if t.get("task_id") and t["task_id"] not in done]
     if a.limit:
         tasks = tasks[:a.limit]
