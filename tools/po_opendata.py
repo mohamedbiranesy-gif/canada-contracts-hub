@@ -5,13 +5,13 @@ Opendatasoft, ArcGIS Hub), downloaded, and joined to the buyer–vendor pairs al
 Mode `discover`: query each portal's catalogue for purchase-order / contract datasets and print dataset ids, titles, formats and
 columns (Socrata and CKAN datastores expose column names). Mode `harvest`: download the datasets listed in po_sources.json (written by
 hand from the discovery output — only datasets whose columns really carry a PO / order number), normalise (buyer, vendor name, PO
-number, date, amount, description, source URL) and write <repo>/data/incoming/claude/claude_po_records.csv. rank.py joins by buyer
+number, date, amount, description, source URL) and write <repo>/data/incoming/claude/claude_po_records.csv.gz. rank.py joins by buyer
 organisation + exact vendor name and fills po_number_as_published / most recent PO for pairs it already has — never new rows, because
 these files carry no vendor-location field (rule 1).
   python3 tools/po_opendata.py discover [--out ~/cch-tasks/po_discovery.json]
   python3 tools/po_opendata.py harvest --sources contrib/claude/po_sources.json [--repo ~/cch-crawler]
 """
-import argparse, csv, datetime, io, json, os, re, sys, time, urllib.parse, urllib.request
+import argparse, gzip, csv, datetime, io, json, os, re, sys, time, urllib.parse, urllib.request
 
 UA = "canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)"
 TODAY = datetime.date.today().isoformat()
@@ -151,8 +151,8 @@ def harvest(sources, repo):
                              "source_quote": ("%s; %s; %s; %s" % (po, vendor, r.get(s.get("date_col")) if s.get("date_col") else "", r.get(s.get("amount_col")) if s.get("amount_col") else ""))[:300]})
             n += 1
         print(s["buyer"], "→", n, "PO rows", flush=True)
-    out = os.path.join(repo, "data/incoming/claude/claude_po_records.csv")
-    with open(out, "w", newline="", encoding="utf-8") as f:
+    out = os.path.join(repo, "data/incoming/claude/claude_po_records.csv.gz")  # gzipped: the plain CSV passed 170 MB, over GitHub's 100 MB file limit
+    with gzip.open(out, "wt", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=["buyer", "kind", "id_label", "vendor_name", "po_number", "date", "amount", "description", "source_url", "source_title", "retrieved_date", "source_quote"])
         w.writeheader(); w.writerows(out_rows)
     print("wrote", out, len(out_rows), flush=True)

@@ -1765,9 +1765,11 @@ for x in rows:
 print("crown-corporation BNs applied to inferred-vendor rows:", n_cr)
 # the buyers' own purchase-order / contract open data joined to existing pairs (tools/po_opendata.py → claude_po_records.csv; downstream §1.1)
 POD = collections.defaultdict(list)
-_pop = ROOT + "/data/incoming/claude/claude_po_records.csv"
+_pop = ROOT + "/data/incoming/claude/claude_po_records.csv.gz"
+if not os.path.exists(_pop) and os.path.exists(_pop[:-3]):
+    _pop = _pop[:-3]
 if os.path.exists(_pop):
-    for _r in csv.DictReader(open(_pop, encoding="utf-8", errors="replace")):
+    for _r in csv.DictReader((gzip.open(_pop, "rt", encoding="utf-8", errors="replace") if _pop.endswith(".gz") else open(_pop, encoding="utf-8", errors="replace"))):
         POD[(parent(_r["buyer"]), norm(_r["vendor_name"]))].append(_r)
         pv = parent(_r["vendor_name"])
         if pv and pv != norm(_r["vendor_name"]):

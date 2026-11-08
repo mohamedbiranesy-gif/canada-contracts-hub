@@ -27,13 +27,18 @@ def last_commit_time(rel):
 
 def main():
     os.makedirs(DST, exist_ok=True)
-    copied, skipped = [], []
+    copied, skipped, too_big = [], [], []
     for p in sorted(glob.glob(os.path.join(SRC, "*"))):
         name = os.path.basename(p)
         if os.path.isdir(p) or name.startswith(".") or name.endswith((".tmp", ".merge.tmp", ".lock", ".part")):
             continue
         q = os.path.join(DST, name)
         rel = "data/incoming/claude/" + name
+        if os.path.getsize(p) > 95 * 1024 * 1024:  # GitHub refuses files over 100 MB and one such file would block every push: skip it (writers gzip big outputs)
+            if name not in too_big:
+                print("%s: %d MB, over GitHub's file limit, not pushed (gzip it)" % (name, os.path.getsize(p) >> 20), flush=True)
+            too_big.append(name)
+            continue
         if os.path.exists(q) and last_commit_time(rel) > os.path.getmtime(p):
             skipped.append(name)
             continue
