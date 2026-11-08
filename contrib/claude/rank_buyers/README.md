@@ -79,6 +79,32 @@ commodity block (D14: UNSPSC, GSIN, NAICS, CPV, PSC, economic object codes with 
 `invoicing_requirements` (invoice format) and `buyer_bn_as_published` are also filled from a full re-read of each mailbox's evidence page
 (tools/ap_terms.py, D4 / D5 / D6 / D11: regex on the page's own text, URL and date in the cell, no AI, no inference).
 
+Added 2026-11-08 (the downstream agent's per-package asks; every value carries its source in the cell): `org_group_key` (the
+grouping of the contract records; the contracts subfolder joins on it), `po_numbers_this_pair_open_data` / `po_count_this_pair_open_data` /
+`contract_numbers_this_pair_open_data` (the buyer's own purchase-order / contract open data — Montréal, Laval, Toronto to start — joined to
+the pair; `po_number_as_published` and `contract_or_agreement_number` take the most recent one when the record had none),
+`vendor_neq`, `vendor_trading_name`, `vendor_legal_form`, `vendor_activity_code` (REQ CAE), `vendor_employees_quebec`,
+`vendor_establishments_quebec`, `vendor_directors_range`, `vendor_last_annual_filing` (the full REQ / Corporations Canada / OrgBook
+records behind the confident registry matches), `buyer_fiscal_year_end` / `buyer_charity_status` / `buyer_charity_designation` and
+charity BNs (CRA list of registered charities, matched by domain + name or exact name + province), `buyer_municipal_tier` /
+`buyer_population` / `directory_general_email` / `municipal_directory_source` (provincial municipal and organisation directories:
+QC MAMH, ON MMAH, ON school boards, BC school districts, QC collèges and MSSS M02 establishments, IRCC designated learning
+institutions, GC Registry of Applied Titles, GOV.UK organisations, Australian Government Organisations Register),
+`buyer_wikidata` / `buyer_founded` / `buyer_budget_or_revenue` / `buyer_employees` / `buyer_legal_form` and `vendor_wikidata` /
+`vendor_founded` / `vendor_employees` (Wikidata, one organisation at a time, domain + name or exact name + country), Crown
+corporations' own GST numbers on inferred-vendor rows (`vendor_bn9`, read and re-verified on their pages), `email_evidence_context`,
+`mailbox_recheck_note`, `buyer_payment_method_preference`, `buyer_ap_cycle_published`, `buyer_tax_exempt_status`,
+`buyer_esignature_preference`, `mta_sts` / `tls_rpt` / `bimi`, `statutory_payees_inferred`, `vendor_years_in_business`,
+`typical_contract_value_p90`, `average_contract_duration_days`, `commodity_distribution_top3`, `year_over_year_spend_trend`,
+`inference_confidence` (HIGH / MEDIUM / LOW with the reason; "not applicable" for MPAC on lower-tier Ontario municipalities),
+`mailbox_confidence`, `data_quality_score`, `ship_ready`, `invoice_portal_kind` / `invoice_portal_note`, `ap_system_hint`,
+`invoicing_requirements_structured`, `facts_provenance_json`, `payment_terms_default_policy`, `instrument_type_normalized`,
+`buyer_bn_program`, `vendor_registry_warning`, `sensitivity_flag`, `buyer_sector`, `evidence_age_days`, `reverify_due`,
+`most_recent_record_reference_any_vendor`, `records_in_contract_dataset`, `other_relationship_sources`, pair columns
+(`pair_prior_records`, `pair_first_or_repeat`, `pair_value_trend`, `pair_dates_and_values`), `template_language`, `sensitivity_tag`,
+`peppol_participant_id` / `peppol_registered` / `vendor_peppol_id`. `CHANGELOG.md` + `rows_changed.csv` (row- and field-level) ship with
+every build; `verified_ledger.csv` keeps the referee's sightings so a mailbox never loses its verdict to a transient fetch failure.
+
 ## Files
 `coord/results/ranked/batches/<package>.csv` — one CSV per package; a package over ~45 MB is delivered in numbered part files
 (`P13_…_part1_of_4.csv` …, same columns, split only by size). `coord/results/ranked/ranked_buyers.csv.gz` — every row incl. Z, gzipped
