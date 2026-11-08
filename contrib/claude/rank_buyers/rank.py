@@ -454,11 +454,27 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
         _pl = o.setdefault("pairs", {}).setdefault(_vn, [])
         if len(_pl) < 60:
             _pl.append((_ad, _val))
+        # claude 2026-11-08 (downstream §5 / §1): the richest facts any record of this SAME buyer-vendor pair publishes, most recent first;
+        # the row's proof record may lack a value or dates that a sibling record of the pair carries
+        _pb = o.setdefault("pairbest", {}).setdefault(_vn, {})
+        _c = r.get("contract") or {}
+        _cp = classify_plus(_c, (r.get("source") or {}).get("key") or "")
+        _cands = {"contract_value": _c.get("value"), "currency": _c.get("currency"), "start_date": _dd.get("start"), "end_date": _dd.get("end"), "contract_title": _c.get("title"),
+                  "contract_description": re.sub(r"\s+", " ", str(_c.get("description") or ""))[:300] if _c.get("description") else "", "instrument_type": _c.get("instrument_type"),
+                  "procurement_method": _c.get("procurement_method") or _c.get("solicitation_procedure"), "number_of_bids": _c.get("number_of_bids"),
+                  "po_number_as_published": _cp.get("po_number_as_published"), "contract_or_agreement_number": _cp.get("contract_or_agreement_number"),
+                  "solicitation_or_tender_number": _cp.get("solicitation_or_tender_number"), "award_or_notice_id": _cp.get("award_or_notice_id"),
+                  "buyer_vendor_id": _cp.get("buyer_vendor_id"), "commodity_codes": _cp.get("commodity_codes"), "buyer_org_codes": _cp.get("buyer_org_codes")}
+        _refid = (_ref.split(";")[0][:80] if _ref else "") or (r.get("record_id") or "")[:80]
+        for _k, _v in _cands.items():
+            if _v not in (None, "", {}, []) and (_k not in _pb or _ad > _pb[_k][3]):
+                _pb[_k] = (str(_v), _refid, (r.get("source") or {}).get("name") or "", _ad, r.get("record_id") or "")
     if sc > o["bs"] or (sc == o["bs"] and award_date(r) > award_date(o["best"])):
         o["best"], o["bs"], o["fields"] = r, sc, fields
         if len(name) < len(o["name"]) or not o["name"]: o["name"] = name
 # 3. one row per organisation
 rows = []
+n_pair = collections.Counter()
 MTL_KEYS = {r["buyer_key"] for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_ap_results_manual01.csv", encoding="utf-8"))}
 SHARED_GOV = re.compile(r"^(?:[a-z]{2}\.gov|state\.[a-z]{2}\.us|[a-z]+\.state\.[a-z]{2}\.us|gov\.[a-z]{2}\.ca|gnb\.ca|novascotia\.ca|ontario\.ca|gouv\.qc\.ca|canada\.ca|gc\.ca|"
                         r"alberta\.ca|saskatchewan\.ca|manitoba\.ca|gov\.uk|service\.gov\.uk|nsw\.gov\.au|vic\.gov\.au|qld\.gov\.au|wa\.gov\.au|sa\.gov\.au|gov\.au|govt\.nz)$", re.I)
@@ -578,6 +594,10 @@ for p, o in orgs.items():
         "vendor_emails": "; ".join((x.get("email") or x.get("value") or "") if isinstance(x, dict) else str(x) for x in (ve.get("contact_emails_published") or [])), "contracts_with_canadian_suppliers": o["n"], "buyer_keys": len(o["keys"]), "keys": "|".join(sorted(k for k in o["keys"] if k)), "tier": tier, "grade": g, "acc": acc})
     fill_contract(rows[-1], r, o["keys"])
     x = rows[-1]
+    if not x.get("end_date") and d.get("end_inferred"):  # downstream §5.3: the pipeline's inferred end (award date + published duration), labelled
+        x["end_date"] = "%s (inferred: award date + the duration the source publishes; see contract_status)" % str(d["end_inferred"])[:10]; n_pair["end_date_inferred"] += 1
+    if not x.get("start_date") and d.get("signed"):
+        x["start_date"] = "%s (contract signature date as published)" % str(d["signed"])[:10]; n_pair["start_from_signed"] += 1
     x["distinct_canadian_vendors"] = str(len(o["vendors"]))
     x["records_last_12_months"] = str(o["n12"])
     x["latest_award_date_any_vendor"] = o["latest"]
@@ -588,12 +608,22 @@ for p, o in orgs.items():
     x["records_with_this_vendor"] = str(o["vendors"].get((x.get("vendor") or "").strip(), 0))
     x["all_references_with_this_vendor"] = "; ".join(_vr)[:800]
     x["most_recent_record_reference_any_vendor"] = o.get("latest_ref") or ""
+    # same-pair fill: a contract fact the proof record lacks, taken from another record of the same buyer-vendor pair (labelled with that record)
+    _pb = (o.get("pairbest") or {}).get((x.get("vendor") or "").strip(), {})
+    for _k, (_v, _refid, _srcn, _ad, _rid) in _pb.items():
+        if _k == "currency" or x.get(_k) or not _v or _rid == r.get("record_id"):
+            continue
+        x[_k] = "%s (from another record of the same buyer-vendor pair: %s, %s%s)" % (_v[:300 if _k == "contract_description" else 200], _refid or "record", _srcn, (", " + _ad) if _ad else "")
+        n_pair[_k] += 1
+        if _k == "contract_value" and not x.get("currency") and _pb.get("currency"):
+            x["currency"] = _pb["currency"][0]
     x["_org"] = o
     x["org_group_key"] = o.get("p") or ""  # the grouping key of the contract records (contracts_export joins on it)
     x["vendor_registry_status"] = x.get("vendor_registry_status") or ve.get("registry_status") or ""
     x["vendor_registry_match_level"] = ve.get("registry_match_level") or ""
     x["vendor_incorporation_date"] = x.get("vendor_incorporation_date") or (ve.get("incorporation_or_registration_date") or "")[:10]
     x["vendor_bn_source"] = ve.get("business_number_source") or ""
+print("same-pair fill (facts from another record of the same buyer-vendor pair):", dict(n_pair))
 # 4. buyers proven by payment / subaward records or client listings (no contract in the dataset)
 leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8", errors="replace"))}
 LDET = {}  # owner 2026-11-03 ("every field"): the lead's own record details (amount, currency, identifiers, dates, vendor address, title)
@@ -1197,8 +1227,14 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_org_extras.jsonl.gz"):
     for d in jl(ROOT + "/data/incoming/claude/claude_org_extras.jsonl.gz"):
         OX[d.get("domain")] = d
 def ox_of(url):
+    """org_extras record for a site; on shared hosts (canada.ca, ontario.ca …) org_extras v2 keys one record per organisation path"""
     h = host_of(url or "")
-    return OX.get(registrable(h)) if h else None
+    if not h:
+        return None
+    dom = registrable(h)
+    pth = urllib.parse.urlparse(url if "//" in url else "https://" + url).path.rstrip("/")
+    seg = "/".join(pth.split("/")[:3]) if pth else ""
+    return (OX.get(dom + seg) if seg else None) or (OX.get(h + seg) if seg else None) or (OX.get(h) if h != dom else None) or OX.get(dom)
 TRAIL = re.compile(r"(?:\s+(?:our|the|all|home|about|contact|site|web|privacy|terms|follow|connect|menu|search|login|accessibility|faq|careers|news|events|donate|"
                    r"language|english|french|fran[çc]ais|skip|top|back|rights|reserved|reserves|tous|droits|r[ée]serv[ée]s|powered|by|design|website|sitemap|plan))+$", re.I)
 BAD_LEGAL = re.compile(r"copyright act|subject to|proprietary|affiliated|licen[cs]e|rights reserved|droits r[ée]serv|\btheme\b|muffin group|posted by|"
@@ -1232,6 +1268,46 @@ TERMS = re.compile(r"\b(net\s?\d{2}\b|\d{2}\s?(?:calendar |business )?days?\b|wi
                    r"[àa] (?:la )?r[ée]ception|2%\s?\d{2}|net\s?\d{2}\s?days|payment terms?[^.]{0,40})", re.I)
 PO_REQ = re.compile(r"(?:purchase order|\bPO\b|P\.O\.|bon de commande|num[ée]ro de (?:bon de )?commande)[^.]{0,80}?(?:required|must|need|doit|obligatoire|requis|include|indiqu|mention|quote|reference|référenc)|"
                     r"(?:required|must|need|doit|obligatoire|requis|include|indiqu|mention|quote|reference|référenc)[^.]{0,80}?(?:purchase order|\bPO\b|P\.O\.|bon de commande|num[ée]ro de (?:bon de )?commande)", re.I)
+LEGAL_FORMISH = re.compile(r"\b(inc|ltd|limited|lt[ée]e|llc|llp|corp|corporation|company|co\.|society|association|foundation|fondation|university|universit[ée]|college|coll[èe]ge|c[ée]gep|city|town|village|municipality|municipalit[ée]|ville|county|district|township|school|scolaire|hospital|h[ôo]pital|health|sant[ée]|authority|board|commission|agency|office|ministry|minist[èe]re|department|government|gouvernement|library|biblioth[èe]que|church|trust|group|groupe|holdings|cooperative|coop[ée]rative|credit union|caisse|soci[ée]t[ée]|centre|center|institute|institut|canada|r[ée]gie|f[ée]d[ée]ration)\b", re.I)
+PORTAL_INVOICING = re.compile(r"e-invoicing|supplier payments|supplier onboarding", re.I)
+def v2_fill(x, d, side):
+    """org_extras v2 facts (schema.org JSON-LD, tel: links, portal links, page mentions) into the row's empty cells, each labelled with its page"""
+    pre = "buyer_" if side == "buyer" else "vendor_"
+    pg = d.get("jsonld_page") or d.get("website") or ""
+    if not x.get(pre + "phone") and (d.get("jsonld_phone") or d.get("tel_links")):
+        x[pre + "phone"] = "%s (%s)" % ((d.get("jsonld_phone") or d["tel_links"].split(";")[0].strip())[:40], "schema.org JSON-LD telephone on %s" % pg if d.get("jsonld_phone") else "tel: link on the organisation's site"); n_ox[side + "_phone_v2"] += 1
+    acol = "buyer_address" if side == "buyer" else "vendor_address"
+    if (not x.get(acol) or x.get(acol) in ("{}", "[]")) and d.get("jsonld_address"):
+        x[acol] = "%s (schema.org JSON-LD PostalAddress on %s)" % (d["jsonld_address"][:160], pg); n_ox[side + "_address_v2"] += 1
+    tid = re.sub(r"\D", "", d.get("jsonld_tax_id") or "")
+    bcol = "buyer_bn_as_published" if side == "buyer" else "vendor_bn9"
+    if not x.get(bcol) and len(tid) >= 9 and tid[:9] != "000000000" and not re.fullmatch(r"(\d)\1{8}", tid[:9]) and re.search(r"\d{9}\s?(?:RT|RR|RP|RC)?", d.get("jsonld_tax_id") or ""):
+        x[bcol] = "%s (schema.org JSON-LD taxID \"%s\" on %s)" % (tid[:9], (d.get("jsonld_tax_id") or "")[:30], pg); n_ox[side + "_bn_jsonld"] += 1
+        gcol = "buyer_gst_hst_derived" if side == "buyer" else "vendor_gst_hst_derived"
+        if not x.get(gcol):
+            x[gcol] = tid[:9] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
+    if d.get("linkedin_url"):
+        x[pre + "linkedin_url"] = d["linkedin_url"]
+    if side == "vendor":
+        if d.get("jsonld_founding_date") and not x.get("vendor_founded"):
+            x["vendor_founded"] = "%s (schema.org JSON-LD foundingDate on %s)" % (d["jsonld_founding_date"], pg)
+        if d.get("jsonld_employees") and not x.get("vendor_employees"):
+            x["vendor_employees"] = "%s (schema.org JSON-LD numberOfEmployees on %s)" % (d["jsonld_employees"], pg)
+        if d.get("jsonld_naics"):
+            x["vendor_industry_naics"] = "%s (schema.org JSON-LD naics on %s)" % (d["jsonld_naics"], pg)
+    else:
+        ports = d.get("portals") or []
+        if ports:
+            x["buyer_supplier_portals_linked"] = "; ".join("%s (%s): %s" % (q["name"], q["kind"], q["url"]) for q in ports)[:600]
+            if not x.get("ap_system_hint"):
+                x["ap_system_hint"] = "linked from the buyer's site: " + "; ".join("%s (%s)" % (q["name"], q["kind"]) for q in ports)[:220]; n_ox["ap_system_hint_links"] += 1
+            inv = next((q for q in ports if PORTAL_INVOICING.search(q["kind"])), None)
+            if inv and not x.get("invoice_portal_url"):
+                x["invoice_portal_url"] = inv["url"]; x["invoice_portal_kind"] = "%s (%s), linked from %s" % (inv["name"], inv["kind"], inv.get("on_page") or "the buyer's site"); n_ox["invoice_portal_links"] += 1
+        for k, col in (("payment_method", "buyer_payment_method_preference"), ("tax_exempt", "buyer_tax_exempt_status"), ("esignature", "buyer_esignature_preference"), ("ap_cycle", "buyer_ap_cycle_published")):
+            m = (d.get("mentions") or {}).get(k)
+            if m and not x.get(col):
+                x[col] = "%s (mentioned on %s)" % (m["text"][:160], m.get("url") or "the buyer's site"); n_ox[col + "_mention"] += 1
 n_ox = collections.Counter()
 for x in rows:
     for col in ("buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status",
@@ -1240,10 +1316,19 @@ for x in rows:
     b, bo = ox_of(x.get("buyer_website")), oc_of(x.get("buyer_website"))
     if b:
         ln = clean_legal(b.get("legal_name"), x.get("buyer") or "")
+        basis = "the site's copyright / footer line"
+        if not ln:  # v2 (2026-11-08): the name the organisation states itself — schema.org JSON-LD legalName, then its Terms / Privacy / Legal page
+            for k, lab in (("jsonld_legal_name", "schema.org JSON-LD legalName on %s" % (b.get("jsonld_page") or "the site")), ("legal_name_stated", "stated on %s" % (b.get("legal_name_stated_url") or "the site's legal page")),
+                           ("jsonld_name", "schema.org JSON-LD Organization name on %s" % (b.get("jsonld_page") or "the site"))):
+                cand = clean_legal(b.get(k) or "", x.get("buyer") or "")
+                if cand and (k != "jsonld_name" or LEGAL_FORMISH.search(cand)):
+                    ln, basis = cand, lab; n_ox["buyer_legal_name_v2_" + k] += 1
+                    break
         if ln:
-            x["buyer_legal_name_as_published"] = ln; n_ox["buyer_legal_name"] += 1
+            x["buyer_legal_name_as_published"] = ln if basis.startswith("the site's copyright") else "%s (%s)" % (ln, basis); n_ox["buyer_legal_name"] += 1
             if GENERIC_NAME.match(x.get("buyer") or "") or DOMAIN_NAME.match(x.get("buyer") or ""):
                 x["buyer"] = ln; n_ox["p13_name_from_legal_name"] += 1  # the crawler only had the site's domain or a page title
+        v2_fill(x, b, "buyer")
         if b.get("bn") and bn_ok(b):
             x["buyer_bn_as_published"] = "%s %s (as printed: %s; %s)" % (b["bn"], b.get("bn_program") or "", b.get("bn_label") or "", b.get("bn_url") or "")
             x["buyer_gst_hst_derived"] = b["bn"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"; n_ox["buyer_bn"] += 1
@@ -1268,6 +1353,13 @@ for x in rows:
             x["vendor_gst_hst_derived"] = v["bn"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"; n_ox["vendor_bn"] += 1
         if v.get("logo_url"):
             x["vendor_logo_url"] = v["logo_url"]; n_ox["vendor_logo"] += 1
+        if not x.get("vendor_legal_name"):
+            for k, lab in (("jsonld_legal_name", "schema.org JSON-LD legalName"), ("legal_name_stated", "stated on the vendor's legal page")):
+                cand = clean_legal(v.get(k) or "", x.get("vendor") or "")
+                if cand:
+                    x["vendor_legal_name"] = "%s (%s: %s)" % (cand, lab, v.get("jsonld_page") if k.startswith("jsonld") else v.get("legal_name_stated_url") or ""); n_ox["vendor_legal_name_v2"] += 1
+                    break
+        v2_fill(x, v, "vendor")
     if vo and vo.get("status") and not (x.get("vendor") or "").startswith("inferred"):
         x["vendor_website_status"] = SITE_STATUS.get(vo["status"], vo["status"])
     vl, vn = (x.get("vendor_legal_name") or "").split(" (as printed")[0], x.get("vendor") or ""
@@ -1922,6 +2014,9 @@ for x in rows:
                 "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
                 "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
         x.setdefault(col, "")
+    if not x.get("records_with_this_vendor") and not (x.get("vendor") or "").startswith("inferred"):  # downstream §1.10: a lead-based row has no contract record, the relationship record itself counts
+        x["records_with_this_vendor"] = "0 in the contract dataset; 1 relationship record: %s" % ((x.get("how_relationship_was_found") or x.get("source") or "see contract_link")[:160])
+        n9["records_with_this_vendor_lead"] += 1
     t = x.get("tier") or "N"
     x["buyer_type"] = buyer_type(x.get("buyer"), x.get("jurisdiction") or x.get("_jur") or "")
     x["relationship_kind"] = KIND.get(t, KIND["N"])
@@ -2084,7 +2179,8 @@ try:
         # AP system hint (N1)
         sysn = sorted(set(m2.group(1) for m2 in AP_SYS.finditer(" ".join((x.get(c) or "") for c in ("invoicing_requirements", "invoice_portal_url", "invoice_portal_note", "email_evidence_quote")))))
         if sysn:
-            x["ap_system_hint"] = "named on the buyer's page: " + ", ".join(sysn)[:200]
+            prev = x.get("ap_system_hint") or ""
+            x["ap_system_hint"] = ("named on the buyer's page: " + ", ".join(sysn)[:200]) + (("; " + prev) if prev and not prev.startswith("named on") else "")
         # structured requirements (D3.2)
         fmt = re.search(r"invoice format as published: ([^|]+)", x.get("invoicing_requirements") or "")
         x["invoicing_requirements_structured"] = json.dumps({k: v for k, v in (("submission_channel", "e-mail" + (" + portal" if x.get("invoice_portal_url") else "")), ("payment_terms", x.get("payment_terms_as_published") or ""), ("po_required", x.get("po_required_as_published") or ""),
@@ -2163,7 +2259,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
-                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
+                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked"]), ("vendor_website_status", ["vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
                    ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"])):
     if after in cols:

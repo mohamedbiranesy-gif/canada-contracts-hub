@@ -276,13 +276,19 @@ def logo_from(raw, url):
         src = re.sub(r"\s+", "", im.group(1))
         if re.search(r"logo", src + " " + im.group(0), re.I) and not re.search(r"partner|sponsor|client|award|badge|icon-|payment|visa|mastercard|facebook|twitter|linkedin|instagram|youtube", src, re.I):
             return urllib.parse.urljoin(url, html.unescape(src)), "logo image on the site"
+    for lm in ICON.finditer(raw):  # the site's own icon is the logo mark; og:image is often a photo (checked last, labelled)
+        h = HREF.search(lm.group(0))
+        if h and not h.group(1).lower().endswith(".ico") and "apple-touch" in lm.group(0).lower():
+            return urllib.parse.urljoin(url, html.unescape(h.group(1))), "site icon (apple-touch-icon)"
     m = OG.search(raw) or OG2.search(raw)
     if m:
-        return urllib.parse.urljoin(url, html.unescape(m.group(1))), "og:image of the home page"
+        og = html.unescape(m.group(1))
+        photo = bool(re.search(r"hero|banner|slide|photo|snow|aerial|skyline|campus|building|homepage|home-page|\.jpe?g(\?|$)", og, re.I))
+        return urllib.parse.urljoin(url, og), "og:image of the home page" + (" (looks like a photo, not a logo: check before use)" if photo else "")
     for lm in ICON.finditer(raw):
         h = HREF.search(lm.group(0))
         if h and not h.group(1).lower().endswith(".ico"):
-            return urllib.parse.urljoin(url, html.unescape(h.group(1))), "site icon (apple-touch-icon / icon)"
+            return urllib.parse.urljoin(url, html.unescape(h.group(1))), "site icon (icon link)"
     return "", ""
 
 
