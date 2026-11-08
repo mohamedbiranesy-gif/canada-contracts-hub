@@ -304,6 +304,11 @@ def classify_ids(ids, src_key="", instrument=""):
         _num = [t for t in out["contract"] if t[2].endswith("(numero)")]
         out["contract"] = [t for t in out["contract"] if not t[2].endswith("(numero)")]
         out["solicitation"] = _num + out["solicitation"]
+    if not out["award"] and out["solicitation"]:  # the portal's own id of the tender notice is a notice id (bidsandtenders_tender_id, competition_guid, opportunity_id): award_or_notice_id
+        _sys = [t for t in out["solicitation"] if t[0] or re.search(r"_(?:guid|id)\)$", t[2])]
+        if _sys:
+            out["award"] = [(t[0], t[1], t[2] + " — notice id; the award is published within this notice, the source assigns no separate award id") for t in _sys]
+            out["solicitation"] = [t for t in out["solicitation"] if t not in _sys] or out["solicitation"]
     out = {c: [t[2] for t in sorted(v)] for c, v in out.items()}  # human-usable numbers first, system keys last
     if not [t for t in out["contract"] if not re.search(r"\((?:ocds_contract_ids|contract_ids|collapsed_duplicate_contract_ids)\)$", t)] and out["solicitation"]:
         _sol = out["solicitation"][0]
