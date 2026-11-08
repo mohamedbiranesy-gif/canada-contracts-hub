@@ -1952,9 +1952,11 @@ try:
                     x["sensitivity_tag"] = "high-sensitivity buyer (%s): suppress from outreach unless reviewed (tag from the organisation's published name / domain)" % lab; npk["sensitivity_extra"] += 1; break
         x["sensitivity_flag"] = "yes" if (x.get("sensitivity_tag") or "").startswith("high") else "no"
         # confidence columns (H4.2 / T4)
-        m = re.search(r"\b(HIGH|MEDIUM|LOW)\b", " ".join((x.get(c) or "") for c in ("contract_status", "relationship_detail", "vendor_country_basis")))
+        m = re.search(r"\b(high|medium|low) confidence\b", (x.get("contract_status") or "") + " " + (x.get("relationship_detail") or ""), re.I)
         if t == "I":
-            conf = m.group(1) if m else "not stated in this build"
+            conf = (m.group(1).upper() + " (" + {"HIGH": "statutory or sole-provider relationship for this type of organisation", "MEDIUM": "typical supplier for this type of organisation", "LOW": "plausible supplier only"}[m.group(1).upper()] + ")") if m else "not stated in this build"
+            if re.search(r"municipal property assessment|\bMPAC\b", x.get("vendor") or "", re.I) and (x.get("buyer_municipal_tier") or "").lower().startswith("lower"):
+                conf = "not applicable — lower-tier Ontario municipality: MPAC levies the upper-tier municipality (MPAC Act s. 12(1)); do not use this inference"
             if re.search(r"canada post|postes canada", x.get("vendor") or "", re.I) and re.search(r"non-profit|religious|library", x.get("buyer_type") or "", re.I):
                 conf = "LOW (small organisation: mailing volume unknown)"
             # H2: cities served by a municipal electricity distributor, not by the provincial utility at retail
