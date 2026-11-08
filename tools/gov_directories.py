@@ -172,6 +172,97 @@ def bc_local_gov():
     return out
 
 
+def ckan_resource_url(base, rid):
+    try:
+        d = json.loads(get("%s/api/3/action/resource_show?id=%s" % (base, rid)))
+        return (d.get("result") or {}).get("url") or ""
+    except Exception:
+        return ""
+
+
+def fixed_sources(workdir):
+    """sources whose download links are known (found 2026-11-08): federal Registry of Applied Titles, Québec MSSS M02 establishments and
+    installations, Ontario hospital locations (ArcGIS REST), IRCC designated learning institutions (HTML tables), US Census GUS (datasets page)"""
+    out = []
+    # 1. Registry of Applied Titles (Federal Identity Program): legal titles of federal organisations
+    url = "https://open.canada.ca/data/dataset/83320390-7715-43bc-a281-2049bf5d4232/resource/f0ca63e0-c15e-45b5-9656-77abe1564b1c/download/fip-registry-of-applied-titles-registre-des-titres-dusage-du-pfim-p1-20250612.csv"
+    try:
+        text = get(url, timeout=300).decode("utf-8-sig", "replace")
+        rows = list(csv.DictReader(io.StringIO(text, newline="")))
+        cols = list(rows[0].keys()) if rows else []
+        lt = next((c for c in cols if re.search(r"legal title.*(en|english)|^legal title$|titre l[ée]gal", c, re.I)), None) or next((c for c in cols if re.search(r"legal", c, re.I)), None)
+        at = next((c for c in cols if re.search(r"applied title.*(en|english)|^applied title$", c, re.I)), None)
+        ltf = next((c for c in cols if re.search(r"legal title.*(fr|french)|titre l[ée]gal", c, re.I)), None)
+        for r in rows:
+            nm = (r.get(lt) or r.get(at) or "").strip() if (lt or at) else ""
+            if len(nm) < 3:
+                continue
+            out.append({"province": "FED", "legal_name": nm, "designation": "federal organisation (Registry of Applied Titles)", "municipal_tier": "", "upper_tier_or_mrc": (r.get(at) or "").strip() if at else "",
+                        "address": "", "postal_code": "", "phone": "", "website": "", "general_email": "", "population": "", "mayor_or_head": "",
+                        "source_url": url, "retrieved_date": TODAY, "source_quote": ("%s; %s; %s" % (nm, (r.get(at) or "") if at else "", (r.get(ltf) or "") if ltf else ""))[:300]})
+        print("  registry of applied titles:", len(out), "(columns: %s)" % cols[:6], flush=True)
+    except Exception as e:
+        print("  applied titles failed:", type(e).__name__, e, flush=True)
+    # 2. Québec MSSS M02: établissements and installations
+    for rid, desi in (("a1988030-1f8b-4c67-bc29-ca8b9f710afd", "établissement de santé et de services sociaux"), ("2aa06e66-c1d0-4e2f-bf3c-c2e413c3f84d", "installation de santé (MSSS M02)")):
+        u = ckan_resource_url("https://www.donneesquebec.ca/recherche", rid)
+        if not u:
+            print("  M02 resource url not found:", rid, flush=True); continue
+        try:
+            rows = parse_csv(get(u, timeout=300), u, "QC", desi)
+            print("  MSSS M02 %s: %d rows" % (desi[:14], len(rows)), flush=True); out += rows
+        except Exception as e:
+            print("  M02 failed:", type(e).__name__, e, flush=True)
+    # 3. Ontario hospital locations: ArcGIS REST service listed on open.canada.ca
+    try:
+        d = json.loads(get("https://open.canada.ca/data/api/3/action/package_show?id=9ca53911-a284-416e-8a0e-9a74722b5b8f"))
+        rest = next((r.get("url") for r in (d.get("result") or {}).get("resources") or [] if re.search(r"arcgis|rest/services|FeatureServer|MapServer", r.get("url") or "", re.I)), "")
+        if rest:
+            q = rest.rstrip("/") + ("" if re.search(r"/\d+$", rest.rstrip("/")) else "/0") + "/query?where=1%3D1&outFields=*&returnGeometry=false&f=json&resultRecordCount=5000"
+            dd = json.loads(get(q, timeout=300))
+            n = 0
+            for f in dd.get("features") or []:
+                pr = f.get("attributes") or {}
+                keys = {k.lower(): k for k in pr}
+                def g(*names):
+                    for nme in names:
+                        for k in keys:
+                            if nme in k and pr.get(keys[k]) not in (None, ""):
+                                return str(pr[keys[k]])
+                    return ""
+                nm = g("facility_name", "hospital_name", "name", "english_name", "nom")
+                if not nm:
+                    continue
+                out.append({"province": "ON", "legal_name": nm, "designation": g("hospital_type", "facility_type", "type") or "hospital", "municipal_tier": "", "upper_tier_or_mrc": g("lhin", "ontario_health_region", "region"),
+                            "address": ", ".join(v for v in (g("address", "street"), g("city", "community", "municipality")) if v), "postal_code": g("postal"), "phone": g("phone", "telephone"), "website": g("website", "url", "web"),
+                            "general_email": "", "population": "", "mayor_or_head": "", "source_url": q[:200], "retrieved_date": TODAY, "source_quote": ("%s; %s; %s" % (nm, g("address", "street"), g("city", "community")))[:300]})
+                n += 1
+            print("  ontario hospital locations:", n, "(fields: %s)" % list((dd.get("features") or [{}])[0].get("attributes", {}).keys())[:8], flush=True)
+        else:
+            print("  ontario hospitals: no REST resource in package", flush=True)
+    except Exception as e:
+        print("  ontario hospitals failed:", type(e).__name__, e, flush=True)
+    # 4. IRCC designated learning institutions (HTML tables per province)
+    try:
+        html_ = get("https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/prepare/designated-learning-institutions-list.html", timeout=120).decode("utf-8", "replace")
+        n = 0
+        for tbl in re.findall(r"<table.*?</table>", html_, re.S):
+            for tr in re.findall(r"<tr.*?</tr>", tbl, re.S):
+                cells = [re.sub(r"<[^>]+>", " ", c) for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", tr, re.S)]
+                cells = [re.sub(r"\s+", " ", c).strip() for c in cells]
+                if len(cells) >= 2 and cells[0] and not cells[0].lower().startswith(("name", "nom", "designated learning")):
+                    nm = cells[0]
+                    out.append({"province": "CA", "legal_name": nm, "designation": "designated learning institution (IRCC list)", "municipal_tier": "", "upper_tier_or_mrc": "",
+                                "address": ", ".join(cells[1:3])[:200], "postal_code": "", "phone": "", "website": "", "general_email": "", "population": "", "mayor_or_head": "",
+                                "source_url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/prepare/designated-learning-institutions-list.html",
+                                "retrieved_date": TODAY, "source_quote": ("; ".join(cells[:4]))[:300]})
+                    n += 1
+        print("  IRCC designated learning institutions:", n, flush=True)
+    except Exception as e:
+        print("  DLI failed:", type(e).__name__, e, flush=True)
+    return out
+
+
 def main():
     a = argparse.ArgumentParser()
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
@@ -185,7 +276,7 @@ def main():
             rows += ckan(base, q, prov, desi, must, a.workdir)
         except Exception as e:
             print("  failed:", type(e).__name__, e, flush=True)
-    for fn in (govuk, bc_local_gov):
+    for fn in (govuk, bc_local_gov, lambda: fixed_sources(a.workdir)):
         try:
             rows += fn()
         except Exception as e:

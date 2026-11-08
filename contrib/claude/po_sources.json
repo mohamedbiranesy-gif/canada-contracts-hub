@@ -1,0 +1,10 @@
+[
+ {"buyer": "Ville de Montréal", "title": "Contrats – Fonctionnaires (délégation de pouvoir), Ville de Montréal open data", "url": "https://donnees.montreal.ca/dataset/0b7955a7-8523-4254-8f95-81a59684866d/resource/e4b758ab-3edb-4b6a-8764-2a443b6b9404/download/contratsfonctionnaires.csv",
+  "kind": "po", "id_label": "numéro (bon de commande / contrat) as published by the City", "po_col": "NUMÉRO", "vendor_col": "NOM DU FOURNISSEUR", "date_col": "DATE D'APPROBATION", "amount_col": "MONTANT", "desc_col": "DESCRIPTION"},
+ {"buyer": "Ville de Laval", "title": "Contrats octroyés, Ville de Laval (Données Québec)", "url": "https://www.donneesquebec.ca/recherche/dataset/6acde2c0-6f08-407a-86e2-db49dd0bbb49/resource/db066d35-7e6d-465d-8fae-3a0937b800ae/download/contrats-octroyes.csv",
+  "kind": "po", "id_label": "No-reference (tender call or purchase-order reference) as published by the City", "po_col": "No-reference", "vendor_col": "Contractant", "date_col": "Date", "amount_col": "Montant", "desc_col": "Nature"},
+ {"buyer": "City of Toronto", "title": "Toronto Bids Awarded Contracts (City of Toronto open data)", "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/datastore/dump/e211f003-5909-4bea-bd96-d75899d8e612",
+  "kind": "contract", "id_label": "solicitation document number as published by the City", "po_col": "Document Number", "vendor_col": "Successful Supplier", "date_col": "Award Authority Obtained Date", "amount_col": "Award", "desc_col": "Solicitation Document Description"},
+ {"buyer": "City of Toronto", "title": "Toronto Bids Non-Competitive Contracts (City of Toronto open data)", "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/datastore/dump/a11b18b4-72e6-47e3-a4e9-05dcc8abd697",
+  "kind": "contract", "id_label": "workspace (contract) number as published by the City", "po_col": "Workspace Number", "vendor_col": "Supplier Name", "date_col": "Contract Date", "amount_col": "Contract Amount", "desc_col": "Reason"}
+]

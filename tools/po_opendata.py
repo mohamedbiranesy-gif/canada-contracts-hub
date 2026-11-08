@@ -131,12 +131,21 @@ def harvest(sources, repo):
         else:
             rows = list(csv.DictReader(io.StringIO(text), delimiter=s.get("delimiter") or ","))
         n = 0
+        if rows and not isinstance(rows, list):
+            rows = list(rows)
+        if rows and isinstance(rows[0], dict):
+            import unicodedata
+            def _k(k): return unicodedata.normalize("NFKD", str(k or "")).encode("ascii", "ignore").decode().strip().lower()
+            keymap = {_k(k): k for k in rows[0].keys()}
+            for ck in ("po_col", "vendor_col", "date_col", "amount_col", "desc_col"):
+                if s.get(ck) and s[ck] not in rows[0] and _k(s[ck]) in keymap:
+                    s[ck] = keymap[_k(s[ck])]
         for r in rows:
             po = str(r.get(s["po_col"]) or "").strip()
             vendor = str(r.get(s["vendor_col"]) or "").strip()
             if not po or not vendor or po.lower() in ("nan", "none", "null"):
                 continue
-            out_rows.append({"buyer": s["buyer"], "vendor_name": vendor[:200], "po_number": po[:80], "date": str(r.get(s.get("date_col")) or "")[:10] if s.get("date_col") else "",
+            out_rows.append({"buyer": s["buyer"], "kind": s.get("kind", "po"), "id_label": s.get("id_label", ""), "vendor_name": vendor[:200], "po_number": po[:80], "date": str(r.get(s.get("date_col")) or "")[:10] if s.get("date_col") else "",
                              "amount": str(r.get(s.get("amount_col")) or "")[:30] if s.get("amount_col") else "", "description": str(r.get(s.get("desc_col")) or "")[:200] if s.get("desc_col") else "",
                              "source_url": s["url"], "source_title": s.get("title", ""), "retrieved_date": TODAY,
                              "source_quote": ("%s; %s; %s; %s" % (po, vendor, r.get(s.get("date_col")) if s.get("date_col") else "", r.get(s.get("amount_col")) if s.get("amount_col") else ""))[:300]})
@@ -144,7 +153,7 @@ def harvest(sources, repo):
         print(s["buyer"], "→", n, "PO rows", flush=True)
     out = os.path.join(repo, "data/incoming/claude/claude_po_records.csv")
     with open(out, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["buyer", "vendor_name", "po_number", "date", "amount", "description", "source_url", "source_title", "retrieved_date", "source_quote"])
+        w = csv.DictWriter(f, fieldnames=["buyer", "kind", "id_label", "vendor_name", "po_number", "date", "amount", "description", "source_url", "source_title", "retrieved_date", "source_quote"])
         w.writeheader(); w.writerows(out_rows)
     print("wrote", out, len(out_rows), flush=True)
 
