@@ -1750,6 +1750,19 @@ for x in rows:
         x["vendor_founded"] = (v.get("inception") or "") and (v["inception"] + src)
         x["vendor_employees"] = (v.get("employees") or "") and (v["employees"] + src)
 print("wikidata:", dict(n_wd))
+# Crown corporations' own GST/BN numbers (printed on their own pages; data/incoming/claude/claude_crown_bn.csv) → inferred-vendor rows (downstream §8.5)
+CROWN = {}
+if os.path.exists(ROOT + "/data/incoming/claude/claude_crown_bn.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_crown_bn.csv", encoding="utf-8")):
+        CROWN[norm(_r["vendor"])] = _r
+n_cr = 0
+for x in rows:
+    c = CROWN.get(norm((x.get("vendor") or "").replace("inferred: ", "")))
+    if c and not x.get("vendor_bn9"):
+        x["vendor_bn9"] = "%s (GST/HST registration number printed by the organisation itself: %s, %s)" % (c["bn9"], c["url"], c["retrieved_date"])
+        x["vendor_gst_hst_derived"] = "%sRT0001 (%s)" % (c["bn9"], c["program_account_as_printed"])
+        x["vendor_bn_source"] = x.get("vendor_bn_source") or "printed on the organisation's own page (%s)" % c["url"]; n_cr += 1
+print("crown-corporation BNs applied to inferred-vendor rows:", n_cr)
 # D2 / D12: back-reference between the contract dataset and the lead relationships (same organisation by website domain or exact name)
 AGG_DOM, AGG_NAME = {}, {}
 for _p, _o in orgs.items():
