@@ -56876,8 +56876,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-29228,lead:5fc3b40f84a978dd,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22575,lead:5fc849c706829a33,admin@royaltreatmenttherapeutics.com,https://www.royaltreatmenttherapeutics.com/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00135,lead:5fc849c706829a33,admin@royaltreatmenttherapeutics.com,http://www.royaltreatmenttherapeutics.com/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14786,lead:5fd11301d3e5c901,info@nationalneon.com,https://nationalneonsigns.ca/,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-EX-NDM,lead:5fd25414c99b09da,info@northerndynastyminerals.com,https://northerndynastyminerals.com/,unverified_page_unavailable
-claude,claude_buyer_ap_results_crawl01.csv,CL-EX-NDM,lead:5fd25414c99b09da,info@northerndynasty.com,https://northerndynastyminerals.com/about-us/contact/contact-information/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-EX-NDM,lead:5fd25414c99b09da,info@northerndynastyminerals.com,https://northerndynastyminerals.com/,verified
+claude,claude_buyer_ap_results_crawl01.csv,CL-EX-NDM,lead:5fd25414c99b09da,info@northerndynasty.com,https://northerndynastyminerals.com/about-us/contact/contact-information/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15066,lead:5fd5aa30987d9932,info@pubcouncil.ca,https://pubcouncil.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-06727,lead:5fd62823d9b32bbf,info@geminihomes.ca,https://geminihomes.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-SM-00075,lead:5fd825e633f0ef0f,finance@northumberland.ca,https://northumberland.ca/county-government/budgets-and-finance-2/,verified
@@ -63049,7 +63049,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03643,lead:ba7b50bbc45ceb87,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-09009,lead:ba85ec9dd1a8b7a8,info@planeterebelle.qc.ca,https://planeterebelle.qc.ca/contactez-nous/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-00027,lead:ba99824cd4c300fc,payables@goderich.ca,https://www.goderich.ca/contacts-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LT-01737,lead:ba9dcfd11c472228,info@pelotoncapitalmanagement.com,https://www.pelotoncapitalmanagement.com/contact,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-SM-00141,lead:ba9e078f5aa1966a,admin@nairncentre.ca,https://nairncentre.ca/municipal-services/contact-us/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-SM-00141,lead:ba9e078f5aa1966a,admin@nairncentre.ca,https://nairncentre.ca/municipal-services/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-18643,lead:baa31e7274926c3e,info@autismontario.com,https://www.autismontario.com:443/contact-us-AO,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-15076,lead:baaf92f3886b7cdc,info@cmtdb.ca,https://www.cmtdb.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-14189,lead:baafcf1f6d772183,info@4origines.com,https://www.4origines.com/,verified
@@ -92426,7 +92426,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-00977,wd:Q695230,invoices0030@
 claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-01488,wd:Q6955139,invoices@nrg.com,https://www.nrg.com/content/dam/nrg/web/en/multimedia/documents/suppliers/NRG_Invoice_Instructions-2021R1.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-01488,wd:Q6955139,accountspayable@nrg.com,https://www.nrg.com/content/dam/nrg/web/en/multimedia/documents/suppliers/NRG_Invoice_Instructions-2021R1.pdf,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-BIG-01488,wd:Q6955139,supplierdiversity@nrg.com,https://www.nrg.com/en/suppliers/supplier-diversity,verified
-claude,claude_buyer_ap_results_crawl01.csv,CL-WD-010348,wd:Q6959757,admin@nairncentre.ca,https://nairncentre.ca/municipal-services/contact-us/,unverified_page_unavailable
+claude,claude_buyer_ap_results_crawl01.csv,CL-WD-010348,wd:Q6959757,admin@nairncentre.ca,https://nairncentre.ca/municipal-services/contact-us/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-010349,wd:Q6960074,payables@nakazdliwhuten.ca,https://www.nakazdliwhuten.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-010349,wd:Q6960074,reception@nakazdliwhuten.ca,https://www.nakazdliwhuten.ca/contact,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-WD-010350,wd:Q6962368,info@ncsnanaimo.com,https://www.ncsnanaimo.com/,verified
