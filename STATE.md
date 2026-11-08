@@ -16,6 +16,9 @@ owner's Mac; report the benchmark count every build; document the ceiling of any
 4. AI search agents only propose URLs; every value is read from the page by a Mac engine with URL + quote.
 5. The downstream's `mta_sts_record` / `tls_rpt_record` / `bimi_record` are my `mta_sts` / `tls_rpt` / `bimi` columns (filled since the 06:47Z build).
 6. No column is renamed; new facts are new columns. No irreversible action is planned; nothing needs the owner's decision today.
+7. Owner 11:21 EST: "invoice grade, invoice framing, invoice thinking … incorporate, don't overwrite" → read as: structure and prioritise every row as the
+   header of an invoice (bill-to, submit-to, references, terms, tax, vendor identity, follow-up); implemented as `invoice_card_json`, `invoice_readiness`,
+   `invoice_missing` on every delivered row and a readiness table in the scoreboard (PROTOCOL.md "Invoice-grade framing"); targets unchanged.
 
 ## Done today (2026-11-08, times UTC)
 - 14:1xZ scoreboard tool + workflow step (`tools/coverage_targets.py`; baseline 57/438 on the 13:28Z build).

@@ -213,6 +213,26 @@ def main():
          "Benchmarks (field × package with a numeric target): **%d of %d met** (%.1f%%); %d within 10 points; %d further away." % (len(met), len(bench), 100.0 * len(met) / max(1, len(bench)), len(near), len(bench) - len(met) - len(near)),
          "A cell counts as filled only when it carries a value: blank, `not_published`, `not_found_yet` and label-only cells (\"no identifier published …\", \"no dataset record …\", \"0 in the contract dataset …\") do not count; the DNS checks count when checked. `any` = share of non-blank cells incl. such labels. Δ = change since the previous build in `coord/results/coverage_history.csv`.",
          "Rows per package: " + ", ".join("%s %d" % (p, len(r)) for p, r in pk.items()), ""]
+    # owner 2026-11-08: invoice-grade framing — how many rows carry each element an invoice to this buyer needs (from invoice_readiness / invoice_missing)
+    if any("invoice_readiness" in (rows[0].keys() if rows else []) for rows in pk.values()):
+        L += ["## Invoice-grade readiness (the row as an invoice header: bill-to, submit-to, references, terms, tax, vendor identity, follow-up)", "", "| package | rows | all 11 elements | ≥ 9 of 11 | median elements | most-missing element |", "|---|---|---|---|---|---|"]
+        for pkg, rows in pk.items():
+            if not rows or "invoice_readiness" not in rows[0]:
+                continue
+            counts = []
+            miss = collections.Counter()
+            for r in rows:
+                m = re.match(r"(\d+)/(\d+)", r.get("invoice_readiness") or "")
+                if m:
+                    counts.append(int(m.group(1)))
+                for e in (r.get("invoice_missing") or "").split("; "):
+                    if e.strip() and e.strip() != "not_published":
+                        miss[e.strip()] += 1
+            if not counts:
+                continue
+            counts.sort()
+            L.append("| %s | %d | %.1f%% | %.1f%% | %d | %s |" % (pkg, len(rows), 100.0 * sum(1 for c in counts if c >= 11) / len(rows), 100.0 * sum(1 for c in counts if c >= 9) / len(rows), counts[len(counts) // 2], (miss.most_common(1)[0][0] + " (%d rows)" % miss.most_common(1)[0][1]) if miss else "—"))
+        L.append("")
     L += ["## Where the work is (largest gaps in rows still needed)", "", "| field | package | now | target | rows needed |", "|---|---|---|---|---|"]
     for f, p, v, need in gaps[:40]:
         L.append("| %s | %s | %.1f%% | %d%% | %d |" % (f, p, v["pct"], v["target"], need))

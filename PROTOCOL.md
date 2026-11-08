@@ -31,6 +31,20 @@ targets. Reread at every milestone and after any context reset, together with PL
 7. Never silently drop data; never git stash/rebase/checkout in the live Mac clone (push_loop v3 owns pushing).
 8. Columns are append-only for the downstream team: new columns, never renames.
 
+## Invoice-grade framing (owner 2026-11-08 11:21 EST — incorporated, nothing above overwritten)
+Every delivered row is read as the header of the invoice this vendor would send this buyer. The elements, in the order an invoice needs them,
+and the columns that carry them:
+1. Bill-to: legal name as the buyer publishes it (`buyer_legal_name_as_published`), billing / invoice address (`invoice_mailing_address`, else `buyer_address`), the buyer's tax number when published (`buyer_bn_as_published`), language (`template_language`).
+2. Submit-to: role mailbox or portal (`email`, `invoice_portal_url` / `invoice_portal_kind`), format (`invoicing_requirements_structured.invoice_format`), AP system (`ap_system_hint`), Peppol id.
+3. References the invoice must quote: PO rule (`po_required_as_published`), PO / contract / vendor-id (`po_number_as_published`, `contract_or_agreement_number`, `buyer_vendor_id`, `invoice_reference_hint`).
+4. Terms: `payment_terms_as_published` (else the published default policy), payment method, payment cycle, e-signature.
+5. Tax and money: buyer tax status, `currency`, vendor GST/HST (`vendor_gst_hst_derived`, labelled derived) and QST.
+6. Vendor identity on the invoice: `vendor_legal_name`, `vendor_bn9`, `vendor_neq`, remit address.
+7. Follow-up: `ap_phone`, `ap_contact_name_as_published` (person allowed when published), requirements text.
+Each row carries `invoice_card_json` (these elements as one structure), `invoice_readiness` ("n/11 invoice elements present") and `invoice_missing`
+(which elements the sources did not give). Work is prioritised by what an invoice needs first: bill-to name and submission channel, then PO rule
+and terms, then tax and vendor identity. The scoreboard prints the readiness distribution per package. Nothing is invented to fill an element.
+
 ## Expert sign-off checklist (before any build is called "better")
 - [ ] `COVERAGE_VS_TARGETS.md`: benchmarks met went up or a ceiling is documented; `coverage_history.csv` shows the delta.
 - [ ] `VALIDATION.md` all gates pass; `AUDIT.md` PASS (no named person, no pattern mailbox, every value has provenance).

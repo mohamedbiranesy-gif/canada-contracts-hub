@@ -2250,7 +2250,7 @@ for x in rows:
     x["method_notes"] = "no AI-written values; every fact carries its page in the matching *_evidence_url / *_provenance column; blank = not_published; method and rules: contrib/claude/rank_buyers/README.md, AGENTS.md §2"
 print("narrative columns:", dict(n9))
 # ---- downstream pack (owner 2026-11-06 22:00, the downstream agent's 150 questions: prompts/downstream_150_questions.md). Guarded: a failure here never stops the build.
-PACK_COLS = ["statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
@@ -2362,6 +2362,31 @@ try:
         x["invoicing_requirements_structured"] = json.dumps({k: v for k, v in (("submission_channel", "e-mail" + (" + portal" if x.get("invoice_portal_url") else "")), ("payment_terms", x.get("payment_terms_as_published") or ""), ("po_required", x.get("po_required_as_published") or ""),
                                                              ("portal_url", x.get("invoice_portal_url") or ""), ("portal_kind", x.get("invoice_portal_kind") or ""), ("invoice_format", fmt.group(1).strip() if fmt else ""), ("ap_phone", x.get("ap_phone") or ""),
                                                              ("mailing_address", x.get("invoice_mailing_address") or ""), ("requirements_text", (x.get("invoicing_requirements") or "")[:300])) if v}, ensure_ascii=False) if x.get("email") else ""
+        # owner 2026-11-08 11:21 EST ("invoice grade, invoice framing"): the row read as the header of an invoice this vendor would send this buyer —
+        # bill-to, submit-to, references, terms, tax, currency, vendor identity, follow-up — with every element's presence checked
+        def _val(c):
+            v = (x.get(c) or "").strip()
+            return "" if (not v or v in ("not_published", "{}", "[]") or re.match(r"^(?:no |none\b|not |0 in the|only system|n/a\b|not applicable|unknown\b|aucun|no dataset|no record|no identifier)", v, re.I)) else v
+        card = {
+            "bill_to": {"legal_name": _val("buyer_legal_name_as_published") or _val("buyer"), "legal_name_is_published": bool(_val("buyer_legal_name_as_published")), "address": _val("invoice_mailing_address") or _val("buyer_address"),
+                        "address_is_the_invoice_address": bool(_val("invoice_mailing_address")), "tax_number": _val("buyer_bn_as_published"), "language": _val("template_language") or _val("language_hint")},
+            "submit_to": {"email": _val("email"), "email_type": _val("email_type"), "portal_url": _val("invoice_portal_url"), "portal_kind": _val("invoice_portal_kind"), "mailing_address": _val("invoice_mailing_address"),
+                          "format": (fmt.group(1).strip() if fmt else ""), "system": _val("ap_system_hint"), "e_invoicing_peppol": _val("peppol_participant_id")},
+            "references_required": {"po_required": _val("po_required_as_published"), "po_number": _val("po_number_as_published"), "contract_or_agreement_number": _val("contract_or_agreement_number"),
+                                    "vendor_id_with_buyer": _val("buyer_vendor_id"), "reference_hint": _val("invoice_reference_hint")},
+            "terms": {"payment_terms": _val("payment_terms_as_published") or _val("payment_terms_default_policy"), "payment_method": _val("buyer_payment_method_preference"), "payment_cycle": _val("buyer_ap_cycle_published"), "e_signature": _val("buyer_esignature_preference")},
+            "tax": {"buyer_tax_status": _val("buyer_tax_exempt_status"), "currency": _val("currency"), "vendor_gst_hst": _val("vendor_gst_hst_derived"), "vendor_qst": _val("vendor_qst_as_published")},
+            "vendor_identity": {"legal_name": _val("vendor_legal_name") or _val("vendor"), "bn9": _val("vendor_bn9"), "neq": _val("vendor_neq"), "remit_address": _val("vendor_registered_address") or _val("vendor_address")},
+            "follow_up": {"ap_phone": _val("ap_phone") or _val("buyer_phone"), "ap_contact": _val("ap_contact_name_as_published"), "requirements_text": (x.get("invoicing_requirements") or "")[:300]},
+        }
+        x["invoice_card_json"] = json.dumps(card, ensure_ascii=False) if x.get("email") else ""
+        elements = [("bill-to legal name (published)", card["bill_to"]["legal_name_is_published"]), ("bill-to address", bool(card["bill_to"]["address"])), ("submission channel (mailbox or portal)", bool(card["submit_to"]["email"] or card["submit_to"]["portal_url"])),
+                    ("PO rule", bool(card["references_required"]["po_required"])), ("reference to quote (PO / contract / vendor id)", bool(card["references_required"]["po_number"] or card["references_required"]["contract_or_agreement_number"] or card["references_required"]["vendor_id_with_buyer"])),
+                    ("payment terms", bool(card["terms"]["payment_terms"])), ("currency", bool(card["tax"]["currency"])), ("buyer tax status", bool(card["tax"]["buyer_tax_status"])), ("vendor GST/HST number", bool(card["tax"]["vendor_gst_hst"])),
+                    ("vendor legal name", bool(_val("vendor_legal_name"))), ("AP phone or contact for follow-up", bool(card["follow_up"]["ap_phone"] or card["follow_up"]["ap_contact"]))]
+        have = [n for n, ok in elements if ok]; miss = [n for n, ok in elements if not ok]
+        x["invoice_readiness"] = "%d/%d invoice elements present" % (len(have), len(elements)) if x.get("email") else ""
+        x["invoice_missing"] = "; ".join(miss) if x.get("email") else ""
         x["facts_provenance_json"] = json.dumps({"mailbox": [p.strip() for p in (x.get("mailbox_provenance") or "").split(" | ") if p.strip()], "buyer_facts": [p.strip() for p in (x.get("buyer_facts_provenance") or "").split("; ") if p.strip()],
                                                  "vendor_facts": [p.strip() for p in (x.get("vendor_facts_provenance") or "").split("; ") if p.strip()], "relationship": x.get("how_relationship_was_found") or ""}, ensure_ascii=False)[:4000]
         # quality score / ship_ready (S2)
@@ -2431,7 +2456,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
                    ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
-                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
+                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "invoice_card_json", "invoice_readiness", "invoice_missing"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
