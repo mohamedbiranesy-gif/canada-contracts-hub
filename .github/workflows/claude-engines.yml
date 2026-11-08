@@ -125,7 +125,7 @@ jobs:
           ls -la shards || true
           git config user.name "claude-engines"; git config user.email "claude-engines@users.noreply.github.com"
           for i in 1 2 3 4 5; do
-            git pull -q --rebase origin main || true
+            git fetch -q origin main && git reset -q --hard origin/main   # clean start each attempt: the merge below is redone from the shard files
             if [ "$ENGINE" = "walk_terms" ]; then
               python3 tools/merge_engine_outputs.py ap_terms data/incoming/claude/claude_ap_terms.csv data/incoming/claude/claude_ap_terms.csv shards/ap_terms_*.csv
               [ -f data/incoming/claude/claude_ap_pages_seen.csv.gz ] && gunzip -c data/incoming/claude/claude_ap_pages_seen.csv.gz > /tmp/pages_main.csv || : > /tmp/pages_main.csv
@@ -143,7 +143,7 @@ jobs:
             git diff --cached --quiet && { echo "nothing new"; exit 0; }
             git commit -q -m "claude-engines: $ENGINE merged ($SHARDS runner(s), $MINUTES min) [skip ci]" || true
             git push -q origin HEAD:main && break
-            git reset -q --soft HEAD~1 || true
+            echo "push attempt $i failed (main moved); redoing the merge on the new head"
             sleep $((RANDOM % 30 + 10))
           done
           if [ "$ENGINE" = "walk_terms" ]; then
