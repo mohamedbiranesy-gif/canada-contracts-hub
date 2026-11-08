@@ -2250,6 +2250,15 @@ for x in rows:
     x["method_notes"] = "no AI-written values; every fact carries its page in the matching *_evidence_url / *_provenance column; blank = not_published; method and rules: contrib/claude/rank_buyers/README.md, AGENTS.md §2"
 print("narrative columns:", dict(n9))
 # ---- downstream pack (owner 2026-11-06 22:00, the downstream agent's 150 questions: prompts/downstream_150_questions.md). Guarded: a failure here never stops the build.
+# construction-work detector for the statutory prompt-payment default (contract text, NAICS 23, UNSPSC 72): conservative word list, contract fields only (never the vendor's name)
+CONSTR_RX = re.compile(r"travaux de construction|\bconstruction\b(?! equipment| materials? supply)|general contractor|entrepreneur g[ée]n[ée]ral|\bpaving\b|\bpavage\b|\broofing\b|\btoiture\b|\bdemolition\b|\bexcavation\b|watermain|\bsewer\b|[ée]gout|aqueduc|\bHVAC\b|road (?:work|reconstruction|rehabilitation)|r[ée]fection|bridge (?:rehabilitation|replacement|repair)|building (?:renovation|retrofit|envelope|addition)|\brenovation\b|r[ée]novation|site (?:servicing|works)|civil works|mechanical and electrical|electrical (?:work|contractor|upgrade)|plumbing", re.I)
+# statutes read 2026-11-08 (primary pages; quotes ≤ 300 chars); only Acts whose text was read are here — SK / MB / NS / NB / QC / BC prompt-payment rules were not verified today and are not applied
+PROMPT_PAY = {
+    "FED": "statutory default for construction work (buyer published no terms): the Crown must pay a proper invoice no later than the 28th day after receiving it — Federal Prompt Payment for Construction Work Act, S.C. 2019, c. 29, s. 387, s. 9(2), in force 2023-12-09 (https://laws-lois.justice.gc.ca/eng/acts/F-7.7/FullText.html, read 2026-11-08: \"no later than the 28th day after the day on which the proper invoice is received\"); applies only to construction work for a federal project under that Act",
+    "ON": "statutory default for construction work (buyer published no terms): the owner must pay a proper invoice no later than 28 days after receiving it — Construction Act, R.S.O. 1990, c. C.30, s. 6.4(1), in force 2019-10-01; s. 3(1) binds the Crown (https://www.ontario.ca/laws/statute/90c30, read 2026-11-08: \"an owner shall pay the amount payable under a proper invoice no later than 28 days after receiving the proper invoice from the contractor\"); applies only if this contract is an improvement under the Act",
+    "AB": "statutory default for construction work (buyer published no terms): the owner must pay a proper invoice no later than 28 days after receiving it — Prompt Payment and Construction Lien Act, R.S.A. 2000, c. P-26.4, s. 32.2(1) (current to 2025-04-01) (https://kings-printer.alberta.ca/documents/Acts/P26P4.pdf, read 2026-11-08: \"an owner who owes money under a proper invoice must pay the amount payable under a proper invoice no later than 28 days after receiving the proper invoice\"); s. 1.1(1.1): does not apply to Crown public works; applies only if this contract is an improvement under the Act",
+}
+
 PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
@@ -2325,6 +2334,31 @@ try:
         # policy default (D4.2)
         if (x.get("jurisdiction") or "") == "FED" or re.search(r"\.gc\.ca|canada\.ca", (x.get("buyer_website") or "") + " " + (x.get("email") or "")):
             x["payment_terms_default_policy"] = "Government of Canada standard: payment within 30 days of receipt of a valid invoice (Treasury Board Directive on Payments) — policy default, not this buyer's published term"
+        # statutory prompt-payment default for CONSTRUCTION work (owner 2026-11-08 11:53 EST: derived defaults only where nothing is published, source-cited, last resort):
+        # payment_terms_as_published stays empty; payment_terms_default_policy carries the statute the buyer is bound by, with URL, date read and quote.
+        if not x.get("payment_terms_default_policy") or (x.get("jurisdiction") or "") == "FED":
+            pc_ = re.search(r"\b([A-Z])\d[A-Z]\s?\d[A-Z]\d\b", x.get("buyer_address") or "")
+            prov = {"QC": "QC", "ON": "ON", "BC": "BC", "AB": "AB", "SK": "SK", "MB": "MB", "NS": "NS", "NB": "NB", "NL": "NL", "PE": "PE", "YT": "YT", "NT": "NT", "NU": "NU"}.get(x.get("jurisdiction") or "", "")
+            if not prov and pc_:
+                prov = {"G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON", "V": "BC", "T": "AB", "S": "SK", "R": "MB", "B": "NS", "E": "NB", "A": "NL", "C": "PE", "Y": "YT", "X": "NT"}.get(pc_.group(1), "")
+            if not prov:
+                md_ = re.search(r"\.(qc|on|bc|ab|sk|mb|ns|nb|nl|pe|yk|nt|nu)\.ca(?:/|$)", (x.get("buyer_website") or "").lower())
+                prov = md_.group(1).upper().replace("YK", "YT") if md_ else ""
+            bt = x.get("buyer_type") or ""
+            ctext = " ".join((x.get(c) or "") for c in ("contract_description", "commodity", "contract_title", "commodity_distribution_top3"))[:600]
+            naics = (x.get("vendor_industry_naics") or "").strip()
+            is_constr = bool(CONSTR_RX.search(ctext)) or bool(re.match(r"^23\d", naics)) or bool(re.search(r"\b72\d{6}\b", x.get("commodity_codes") or ""))
+            if is_constr:
+                fed = (x.get("jurisdiction") or "") == "FED" or bool(re.search(r"\.gc\.ca|canada\.ca", (x.get("buyer_website") or "") + " " + (x.get("email") or "")))
+                crown_ab = bool(re.search(r"ministry|government|agency|crown", bt, re.I))
+                if fed:
+                    x["payment_terms_default_policy"] = PROMPT_PAY["FED"]
+                elif prov == "ON":
+                    x["payment_terms_default_policy"] = PROMPT_PAY["ON"]
+                elif prov == "AB" and not crown_ab:
+                    x["payment_terms_default_policy"] = PROMPT_PAY["AB"]
+                if x.get("payment_terms_default_policy", "").startswith("statutory"):
+                    npk["prompt_payment_default"] += 1
         # instrument normalisation (E4.2)
         it = (x.get("instrument_type") or "") + " " + (x.get("contract_title") or "")[:80]
         x["instrument_type_normalized"] = next((lab for lab, rx in INSTR if re.search(rx, it, re.I)), "other / not stated") if (x.get("instrument_type") or x.get("contract_title")) else ""
