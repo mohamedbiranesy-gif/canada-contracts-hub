@@ -64,9 +64,22 @@ def same_domain(a, b):
     return a == b or a.endswith("." + b) or b.endswith("." + a)
 
 
+ORG_WORDS = {"city", "town", "village", "township", "municipality", "municipal", "district", "county", "regional", "region", "rural", "rm", "ville", "municipalite", "mrc", "canton", "paroisse",
+             "university", "universite", "college", "cegep", "school", "board", "hospital", "hopital", "health", "authority", "department", "ministry", "ministere", "office", "agency", "agence",
+             "commission", "board", "corporation", "corp", "inc", "ltd", "limited", "ltee", "group", "groupe", "services", "service", "society", "association", "foundation", "fondation", "centre", "center",
+             "public", "general", "national", "canada", "canadian", "government", "gouvernement", "province", "state", "federal", "first", "nation", "band", "council", "conseil"}
+
+
+def core_tokens(name):
+    return {t for t in norm(name).split() if t not in ORG_WORDS and len(t) > 1}
+
+
 def claim_values(ent, pid):
     out = []
-    for c in (ent.get("claims") or {}).get(pid, []):
+    claims = (ent.get("claims") or {}).get(pid, [])
+    if pid == "P1448":  # official name: current ones first (no end time), preferred rank first
+        claims = sorted([c for c in claims if "P582" not in (c.get("qualifiers") or {})] or claims, key=lambda c: c.get("rank") != "preferred")
+    for c in claims:
         dv = ((c.get("mainsnak") or {}).get("datavalue") or {}).get("value")
         if dv is None:
             continue
@@ -122,9 +135,12 @@ def lookup(name, domain, country):
         lab_en, lab_fr = (labels.get("en") or {}).get("value", ""), (labels.get("fr") or {}).get("value", "")
         aliases = [a.get("value", "") for l in ("en", "fr") for a in (ent.get("aliases") or {}).get(l, [])]
         countries = [q for k, q in claim_values(ent, "P17") if k == "item"]
-        exact = norm(name) and norm(name) in {norm(x) for x in [lab_en, lab_fr] + aliases if x}
-        if site_hit:
-            basis = "official website on the organisation's domain (%s)" % site_hit
+        names_here = [x for x in [lab_en, lab_fr] + aliases + [v.split(" [")[0] for k, v in claim_values(ent, "P1448") if k == "text"] if x]
+        exact = norm(name) and norm(name) in {norm(x) for x in names_here}
+        core = core_tokens(name)
+        core_ok = bool(core) and any(core <= set(norm(x).split()) for x in names_here)
+        if site_hit and (exact or core_ok):
+            basis = "official website on the organisation's domain (%s) + name" % site_hit
         elif exact and want_c and want_c in countries and (sites or claim_values(ent, "P159") or claim_values(ent, "P1454") or claim_values(ent, "P6375")):
             basis = "exact name match + country + organisation claims"
         else:
