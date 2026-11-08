@@ -27,6 +27,7 @@ jobs:
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 contrib/claude/rank_buyers/rank.py > rank.log
+            if grep -q "downstream pack skipped" rank.log; then echo "::error::downstream pack skipped — build not published (the previous build stays)"; grep -A3 -B3 "downstream pack skipped" rank.log; exit 1; fi
             rm -rf out/ranked/batches && python3 contrib/claude/rank_buyers/batches.py > batches.log
             python3 tools/validate_deliverable.py out/ranked --mx data/incoming/claude/claude_mx_check.tsv --write out/ranked/VALIDATION.md > validate.log || true
             python3 tools/dmarc_report.py out/ranked > dmarc.log || true

@@ -2483,7 +2483,7 @@ try:
             if prov2 in TAX_RATE:
                 x["tax_rate_indicative_derived"] = TAX_RATE[prov2] + TAX_RATE_NOTE
             elif prov2 in ("QC", "BC", "AB", "SK", "MB", "YT", "NT", "NU"):
-                x["tax_rate_indicative_derived"] = "GST 5% (%s)" % prov2 + TAX_RATE_NOTE
+                x["tax_rate_indicative_derived"] = "GST 5%% (%s)" % prov2 + TAX_RATE_NOTE
             if x["buyer_tax_status_derived"] or x["tax_rate_indicative_derived"]:
                 npk["tax_derived"] += 1
         card = {
