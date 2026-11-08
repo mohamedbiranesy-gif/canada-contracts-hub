@@ -196,7 +196,9 @@ def extract(email, buyer, text, raw, final):
                         out["portal_url"] = urllib.parse.urljoin(final, h)[:300]
                         break
             break
-    if i >= 0:
+    ai = i if i >= 0 else (anchors[0] if anchors else -1)  # 2026-11-08: on an AP / supplier page without the mailbox, the phone and address next to the first payables anchor
+    if ai >= 0:
+        i = ai
         w, off = near(text, i, 250)
         m = PHONE.search(w)
         if m and not re.search(r"fax|t[ée]l[ée]copieur", w[max(0, m.start() - 25):m.start()], re.I):
