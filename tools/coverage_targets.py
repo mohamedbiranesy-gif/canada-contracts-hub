@@ -75,6 +75,21 @@ T = {
  "vendor_neq": {"P01_GOLD": 95, "P02": 95, "P03": 95, "P04": 95, "P09": 95},
  "vendor_years_in_business": {"P01_GOLD": 100, "P02": 100, "P03": 100, "P04": 100},
 }
+# honest ceilings: why some targets cannot be met under the rules (printed under the field so the number is read with its reason)
+CEILING = {
+ "po_number_as_published": "a purchase-order number exists only where the buyer publishes PO-level data (Montréal, Laval, Toronto open data so far) or the record itself carries one; most sources publish awards, not POs — the target cannot be reached from public data for most buyers",
+ "contract_value": "rows proven by a lobbying filing, a news release, an auditor appointment, a customer story or a vendor's client list have no contract value by nature (≈17 % of P01 Gold); bids&tenders awards now carry the awarded bidder's submitted price when no award value was published",
+ "start_date": "most award notices publish an award date, not a start date; start_date carries the signature date when the source gives one, labelled",
+ "end_date": "an inferred end (award date + published duration) is labelled as such; sources without a duration leave end_date empty — the honest ceiling",
+ "ap_contact_name_as_published": "role titles only (Supervisor, Accounts Payable) — the owner's rule 'never a named person' overrides the 25 % target; a person's name is never collected",
+ "vendor_neq": "only Québec-registered vendors have an NEQ; the share of QC vendors is reported next to the rate",
+ "number_of_bids": "published by some portals only (bids&tenders submission lists, Biddingo bidder lists); federal proactive disclosure does not publish bid counts",
+ "buyer_bn_as_published": "a buyer's BN is public only where the buyer prints it or a public dataset carries it (CRA charities, federal grants & contributions recipients, business registries for corporations); municipalities rarely publish theirs",
+ "vendor_logo_url": "needs the vendor's website first; sites that block automated readers (robots.txt / 403) are never read",
+ "buyer_logo_url": "sites that block automated readers (robots.txt / 403) are never read; an og:image that looks like a photo is labelled",
+ "invoice_portal_url": "only portals the buyer names on its own pages; informational tax-authority links are not portals",
+ "mta_sts": "DNS-only check; 'no record' counts as checked", "tls_rpt": "DNS-only check; 'no record' counts as checked", "bimi": "DNS-only check; 'no record' counts as checked",
+}
 GROUP = {"1. identifiers": ["invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "commodity_codes", "buyer_org_codes", "records_with_this_vendor"],
          "2. vendor": ["vendor_bn9", "vendor_registered_address", "vendor_trading_name", "vendor_phone", "vendor_website", "vendor_emails", "vendor_logo_url", "vendor_neq", "vendor_years_in_business"],
          "3. buyer": ["buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_address", "buyer_phone", "buyer_logo_url"],
@@ -197,7 +212,7 @@ def main():
             if f not in cols:
                 L += ["### `%s` — column missing from this build" % f, ""]
                 continue
-            L += ["### `%s`" % f, "", "| package | rows | now | Δ | target | status |", "|---|---|---|---|---|---|"]
+            L += ["### `%s`" % f, ""] + (["> ceiling: " + CEILING[f], ""] if f in CEILING else []) + ["| package | rows | now | Δ | target | status |", "|---|---|---|---|---|---|"]
             for p in pk:
                 v = res.get((f, p))
                 if not v:
