@@ -1432,6 +1432,7 @@ aedifix.com	mx	alt1.aspmx.l.google.com	2026-11-04
 aediteur.ca	mx	aediteur-ca.mail.protection.outlook.com	2026-11-04
 aeecefquebec.org	mx	mx.aeecefquebec.org.cust.a.hostedemail.com	2026-11-04
 aeerum.org	mx	fb.mail.gandi.net;spool.mail.gandi.net	2026-11-04
+aefglobal.com	mx	aefglobal-com.mail.protection.outlook.com	2026-11-07
 aefoundation.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 aefuels.com	mx	aefuels-com.mail.protection.outlook.com	2026-11-04
 aegirsdottir.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com	2026-11-04
@@ -2654,6 +2655,7 @@ alphacandela.ca	mx	alphacandela-ca.mail.protection.outlook.com	2026-11-04
 alphacarpet.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-06
 alphacenter.ca	mx	mail.alphacenter.ca	2026-11-06
 alphacheer.ca	mx	smtp.google.com	2026-11-04
+alphaco.ca	mx	alphaco-ca.mail.protection.outlook.com	2026-11-07
 alphacollege.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 alphacombustion.ca	mx	alphacombustion-ca.mail.protection.outlook.com	2026-11-04
 alphacomptant.ca	mx	mx.alphacomptant.ca.cust.a.hostedemail.com	2026-11-06
@@ -4693,6 +4695,7 @@ atlanticfood.ca	mx	atlanticfood-ca.mail.protection.outlook.com	2026-11-04
 atlanticmotorsportpark.ca	mx	mail.atlanticmotorsportpark.ca	2026-11-04
 atlanticpf.ca	mx	atlanticpf-ca.mail.protection.outlook.com	2026-11-06
 atlanticpondsupply.ca	mx	atlanticpondsupply.ca	2026-11-04
+atlanticpresenters.ca	mx	mailpro5.whc.ca	2026-11-07
 atlanticpublishers.ca	mx	atlanticpublishers-ca.mail.protection.outlook.com	2026-11-04
 atlanticteam.ca	mx	atlanticteam-ca.mail.protection.outlook.com	2026-11-04
 atlanticuniversities.ca	mx	atlanticuniversities-ca.mail.protection.outlook.com	2026-11-04
@@ -4737,6 +4740,7 @@ atlinca.com	mx	atlinca-com.mail.protection.outlook.com	2026-11-04
 atm.it	mx	atm-it.mail.protection.outlook.com	2026-11-04
 atmacena.com	mx	atmacena-com.mail.protection.outlook.com	2026-11-04
 atmaclassique.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
+atmodc.com	mx	atmodc-com.mail.protection.outlook.com	2026-11-07
 atmosphare.com	mx	mx-cluster-ca-fallback.hornetsecurity.com;mx-cluster-ca01.hornetsecurity.com;mx-cluster-ca02.hornetsecurity.com;mx-cluster-ca03.hornetsecurity.com	2026-11-04
 atmosphere-vfx.com	mx	ALT1.ASPMX.L.GOOGLE.com;ALT2.ASPMX.L.GOOGLE.com;ALT3.ASPMX.L.GOOGLE.com;ALT4.ASPMX.L.GOOGLE.com	2026-11-04
 atmospherecatherine.ca	mx	mx.zohocloud.ca;mx2.zohocloud.ca;mx3.zohocloud.ca	2026-11-04
@@ -12476,6 +12480,7 @@ ch-tdl.info	mx	mx.stackmail.com	2026-11-04
 cha-cha.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 cha-noir.com	mx	chanoir-com0i.mail.protection.outlook.com	2026-11-04
 chabadbayview.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
+chabadetobicoke.com	none	NXDOMAIN; confirmed by 8.8.8.8 and 1.1.1.1	2026-11-07
 chabel.ca	mx	chabel-ca.mail.protection.outlook.com	2026-11-04
 chabertonwinery.com	mx	chabertonwinery-com.mail.protection.outlook.com	2026-11-04
 chabotavocats.com	mx	chabotavocats-com.mail.protection.outlook.com	2026-11-04
@@ -22447,7 +22452,7 @@ everbeautyclinic.ca	mx	smtp.google.com	2026-11-06
 everbrightled.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-06
 evercleanfs.com	mx	evercleanfs-com.mail.protection.outlook.com	2026-11-04
 evercold.ca	mx	evercold-ca.mail.protection.outlook.com	2026-11-04
-everest.ca	error	no MX, A or AAAA	2026-11-06
+everest.ca	error	no MX, A or AAAA	2026-11-07
 everestplumbing.ca	mx	smtp.google.com	2026-11-04
 everestsigns.ca	a_only	A	2026-11-04
 everestsolutionsgroup.ca	mx	everestsolutionsgroup-ca.mail.protection.outlook.com	2026-11-04
@@ -23034,6 +23039,7 @@ faceandsmile.ca	mx	faceandsmile-ca.mail.protection.outlook.com	2026-11-06
 facecosmeticsurgery.ca	mx	facecosmeticsurgery-ca.mail.protection.outlook.com	2026-11-04
 faceforafrica.com	mx	mail.faceforafrica.com	2026-11-04
 faceml.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
+faceprofil.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-07
 faceskinandbody.ca	mx	mx.faceskinandbody.ca.cust.a.hostedemail.com	2026-11-04
 facesmag.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com	2026-11-04
 facetheworldfoundation.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
@@ -26878,6 +26884,7 @@ godspeedbrewery.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspm
 godthefather.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-06
 godutch.ca	mx	godutch-ca.mail.protection.outlook.com	2026-11-04
 godzspeed.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com	2026-11-04
+goeastofedmonton.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com	2026-11-07
 goeastvan.ca	mx	goeastvan-ca.mail.protection.outlook.com	2026-11-04
 goedomega3.com	mx	alt1.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com;aspmx3.googlemail.com	2026-11-04
 goelectricalinc.ca	mx	p64mwdwkyxiywfmzyw5qjotariczayg63vxp6iaq6rlyrznb4d7q.mx-verification.google.com;smtp.google.com	2026-11-04
@@ -29739,6 +29746,7 @@ hindsformayor.ca	mx	mailserver.purelymail.com	2026-11-06
 hindsonmarina.com	mx	hindsonmarina-com.mail.protection.outlook.com	2026-11-04
 hindumondir.org	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 hindutemple.ca	mx	mail.hindutemple.ca	2026-11-04
+hindutemple.cafinancial	none	NXDOMAIN; confirmed by 8.8.8.8 and 1.1.1.1	2026-11-07
 hinduvision.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 hinescreek.com	mx	hinescreek-com.mail.protection.outlook.com	2026-11-04
 hinoottawa.com	mx	hinoottawa-com.mail.protection.outlook.com	2026-11-04
@@ -29793,6 +29801,7 @@ hitecindustries.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx
 hiteservices.com	mx	mx1.vianet.ca;mx2.vianet.ca;mx3.vianet.ca;mx4.vianet.ca	2026-11-04
 hitherfieldschool.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 hithouse.ca	mx	hithouse.ca	2026-11-04
+hitthefloor.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-07
 hitv.ca	mx	mx1.r4l.com;mx2.r4l.com;mx3.r4l.com	2026-11-06
 hivaidsconnection.ca	mx	hivaidsconnection-ca.mail.protection.outlook.com	2026-11-04
 hivandrehab.ca	mx	d401480.a.ess.ca.barracudanetworks.com;d401480.b.ess.ca.barracudanetworks.com	2026-11-04
@@ -31279,6 +31288,7 @@ imsinc.ca	mx	imsinc-ca.mail.protection.outlook.com	2026-11-04
 imsm.com	mx	eu-smtp-inbound-1.mimecast.com;eu-smtp-inbound-2.mimecast.com	2026-11-04
 imtexmembranes.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 imtm.ca	mx	mx1c9.bellcanadahosting.com;mx2c9.bellcanadahosting.com;mx3c9.bellcanadahosting.com	2026-11-04
+imusic.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-07
 imusic.dk	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com	2026-11-04
 imusici.com	mx	imusici-com.mail.protection.outlook.com	2026-11-04
 in-store.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com	2026-11-04
@@ -31502,6 +31512,7 @@ inlineandco.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.
 inlinguavictoria.com	mx	inlinguavictoria-com.mail.protection.outlook.com	2026-11-04
 inmindtechnologies.com	mx	inmindtechnologies-com.mail.protection.outlook.com	2026-11-04
 inmotionservices.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
+inmq.gouv.qc.ca	mx	inmq-gouv-qc-ca.mail.protection.outlook.com	2026-11-07
 innatspencesbridge.com	mx	mailstore1.secureserver.net;smtp.secureserver.net	2026-11-04
 innatthequay.com	mx	innatthequay-com.mx1.arsmtp.com;innatthequay-com.mx2.arsmtp.com	2026-11-04
 innaut.nl	mx	innaut-nl.mail.protection.outlook.com	2026-11-04
@@ -31801,6 +31812,7 @@ interdigital.com	mx	us-smtp-inbound-1.mimecast.com;us-smtp-inbound-2.mimecast.co
 interestingthings.ca	mx	mx1.forwardemail.net;mx2.forwardemail.net	2026-11-04
 interfacesurgery.ca	mx	interfacesurgery-ca.mail.protection.outlook.com	2026-11-04
 interfaxsystems.com	mx	interfaxsystems-com.mail.protection.outlook.com	2026-11-04
+interfishmarket.com	mx	mail.register.it	2026-11-07
 interforumcanada.com	mx	mail.interforumcanada.com	2026-11-04
 interglobe.com.cy	mx	interglobe.com.cy	2026-11-04
 interglobealliance.com	mx	mail.interglobealliance.com	2026-11-04
@@ -35072,6 +35084,7 @@ lamer.ca	mx	alt1.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com	202
 lameraki.com	a_only	A	2026-11-04
 lamesita.ca	mx	mx1-usg1.ppe-hosted.com;mx2-usg1.ppe-hosted.com;mx3-usg1.ppe-hosted.com	2026-11-06
 lamessebasse.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
+lamestpierre.com	mx	lamestpierre-com.mail.protection.outlook.com	2026-11-07
 lametisse.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 lamfamilylaw.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 lamical.ca	mx	mx1.hostinger.com;mx2.hostinger.com	2026-11-06
@@ -37746,6 +37759,7 @@ lumberone.ca	mx	mx1.emailsrvr.com;mx2.emailsrvr.com	2026-11-06
 lumby.ca	mx	lumby-ca.mail.protection.outlook.com	2026-11-04
 lumealiving.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 lumecreative.co	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
+lumed.ca	mx	lumed-ca.mail.protection.outlook.com	2026-11-07
 lumelo.ca	mx	smtp.google.com	2026-11-04
 lumen.ws	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com	2026-11-04
 lumenhomes.ca	mx	mx.lumenhomes.ca.cust.a.hostedemail.com	2026-11-04
@@ -38342,6 +38356,7 @@ maisonlagree.ca	mx	maisonlagree-ca.mail.protection.outlook.com	2026-11-04
 maisonlamontagne.com	mx	ALT1.ASPMX.L.GOOGLE.com;ALT2.ASPMX.L.GOOGLE.com;ALT3.ASPMX.L.GOOGLE.com;ALT4.ASPMX.L.GOOGLE.com	2026-11-04
 maisonlaparenthese.org	mx	maisonlaparenthese-org.mail.protection.outlook.com	2026-11-04
 maisonlavande.ca	mx	maisonlavande-ca.mail.protection.outlook.com	2026-11-04
+maisonlavirevolte.com	mx	maisonlavirevolte-com.mail.protection.outlook.com	2026-11-07
 maisonlefar.ca	mx	maisonlefar-ca.mail.protection.outlook.com	2026-11-04
 maisonleonprovancher.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 maisonleparavent.org	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
@@ -41056,6 +41071,7 @@ moishistoiredesnoirs.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3
 moisson-mcdq.org	mx	moissonmcdq-org01i.mail.protection.outlook.com	2026-11-04
 moissonestrie.com	mx	moissonestrie-com.mail.protection.outlook.com	2026-11-04
 moissonmontreal.org	mx	moissonmontreal-org.mail.protection.outlook.com	2026-11-04
+moitt.gov.pk	mx	email.moitt.gov.pk;mx01.ntc.net.pk	2026-11-07
 mojacoffee.com	mx	mx.mojacoffee.com	2026-11-04
 mojocycles.ca	mx	mojocycles.ca	2026-11-04
 mojofeet.com	mx	mail.mojofeet.com	2026-11-04
@@ -41961,6 +41977,7 @@ multicaf.org	mx	multicaf-org.mail.protection.outlook.com	2026-11-04
 multicaisses.com	mx	multicaisses-com.mail.protection.outlook.com	2026-11-04
 multicam.quebec	mx	mail.multicam.quebec	2026-11-04
 multicolore.ca	mx	multicolore-ca.mail.protection.outlook.com	2026-11-04
+multicombustion.com	mx	mx1c9.megamailservers.com;mx2c9.megamailservers.com;mx3c9.megamailservers.com	2026-11-07
 multicomptoirs.com	mx	multicomptoirs-com.mail.protection.outlook.com	2026-11-04
 multiconfortfp.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 multiconstruction.ca	mx	multiconstruction.ca	2026-11-04
@@ -46615,6 +46632,7 @@ paparazzikids.ca	mx	mx1.emailsrvr.com;mx2.emailsrvr.com	2026-11-04
 papasburgers.ca	mx	mail.papasburgers.ca	2026-11-06
 papaya-pizza.ca	mx	papayapizza-ca01e.mail.protection.outlook.com	2026-11-04
 papayareusables.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
+papcom.qc.ca	mx	mx-cluster-ca-fallback.hornetsecurity.com;mx-cluster-ca01.hornetsecurity.com;mx-cluster-ca02.hornetsecurity.com;mx-cluster-ca03.hornetsecurity.com	2026-11-07
 papecami.com	mx	papecami.com	2026-11-04
 papedental.ca	mx	papedental-ca.mail.protection.outlook.com	2026-11-04
 paperchasepress.com	mx	paperchasepress-com.mail.protection.outlook.com	2026-11-04
@@ -49569,6 +49587,7 @@ prima.ca	mx	prima-ca.mail.protection.outlook.com	2026-11-04
 primacy.ca	mx	primacy-ca.mail.protection.outlook.com	2026-11-04
 primadanse.com	mx	primadanse-com.mail.protection.outlook.com	2026-11-04
 primadenta.ca	none	NXDOMAIN; confirmed by 8.8.8.8 and 1.1.1.1	2026-11-04
+primadental.ca	mx	ALT1.ASPMX.L.GOOGLE.COM;ALT2.ASPMX.L.GOOGLE.COM;ALT3.ASPMX.L.GOOGLE.COM;ALT4.ASPMX.L.GOOGLE.COM	2026-11-07
 primagraphics.ca	mx	primagraphics-ca.mail.protection.outlook.com	2026-11-06
 primaharmony.com	mx	primaharmony-com.mail.protection.outlook.com	2026-11-04
 primalgroundscafe.com	mx	mx.primalgroundscafe.com.cust.a.hostedemail.com	2026-11-04
@@ -50143,6 +50162,7 @@ pstar.ca	mx	route1.mx.cloudflare.net;route2.mx.cloudflare.net;route3.mx.cloudfla
 pstr.on.ca	mx	mailrouter1.execulink.com	2026-11-04
 pstsauveur.ca	mx	pstsauveur-ca.mail.protection.outlook.com	2026-11-06
 psu.cas.cz	mx	psu-cas-cz.mail.protection.outlook.com	2026-11-04
+psu.edu	mx	psu-edu.mail.protection.outlook.com;tr10g04.aset.psu.edu;tr10g05.aset.psu.edu;tr16g04.aset.psu.edu	2026-11-07
 psyberspacetherapy.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 psyced.umontreal.ca	mx	psyced-umontreal-ca.mail.protection.outlook.com	2026-11-04
 psychodetailing.ca	mx	ALT1.ASPMX.L.GOOGLE.COM;ALT2.ASPMX.L.GOOGLE.COM;ALT3.ASPMX.L.GOOGLE.COM;ALT4.ASPMX.L.GOOGLE.COM	2026-11-04
@@ -51051,6 +51071,7 @@ rayneragencies.ca	mx	rayneragencies-ca.mail.protection.outlook.com	2026-11-06
 rayscottages.ca	mx	mx1.mailchannels.net;mx2.mailchannels.net	2026-11-06
 rayside.qc.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 raysolar.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-06
+raytheon.com	mx	mxa-00105402.gslb.gpphosted.com;mxb-00105402.gslb.gpphosted.com	2026-11-07
 raythompsontrucking.com	mx	raythompsontrucking-com.mail.protection.outlook.com	2026-11-04
 raytivehomes.com	mx	raytivehomes-com.mail.protection.outlook.com	2026-11-04
 rayvn.io	mx	mx00.1and1.com;mx01.1and1.com	2026-11-04
@@ -54545,6 +54566,7 @@ scaa.ca	mx	mail.scaa.ca	2026-11-04
 scabric.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 scacalgary.ca	mx	scacalgary-ca.mail.protection.outlook.com	2026-11-04
 scaffold-fast.ca	mx	scaffoldfast-ca02b.mail.protection.outlook.com	2026-11-06
+scaleai.ca	mx	d205370a.ess.barracudanetworks.com;d205370b.ess.barracudanetworks.com	2026-11-07
 scalecomputing.com	mx	ALT1.ASPMX.L.GOOGLE.com;ALT2.ASPMX.L.GOOGLE.com;ALT3.ASPMX.L.GOOGLE.com;ALT4.ASPMX.L.GOOGLE.com	2026-11-04
 scaleinstitute.ca	mx	ALT1.ASPMX.L.GOOGLE.COM;ALT2.ASPMX.L.GOOGLE.COM;ALT3.ASPMX.L.GOOGLE.COM;ALT4.ASPMX.L.GOOGLE.COM	2026-11-04
 scalekitchens.ca	mx	smtp.google.com	2026-11-06
@@ -57984,6 +58006,7 @@ srftoronto.org	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.g
 srgit.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;aspmx.l.google.com;aspmx2.googlemail.com	2026-11-04
 srh.de	mx	mx-74021879.mail.eu.retarus.com	2026-11-04
 sri.com	mx	sri-com.mail.protection.office365.us	2026-11-04
+srieq.ca	mx	srieq-ca.mail.protection.outlook.com	2026-11-07
 srilancanevents.ca	mx	mx1.hostinger.com;mx2.hostinger.com	2026-11-06
 srim.ca	mx	srim-ca.mail.protection.outlook.com	2026-11-06
 srintegration.ca	mx	srintegration-ca.mail.protection.outlook.com	2026-11-04
@@ -61443,6 +61466,7 @@ theharbourchurch.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspm
 theharbourchurch.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 theharvest.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 thehatcherylabs.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
+thehatchwines.com	mx	thehatchwines-com.mail.protection.outlook.com	2026-11-07
 thehatcwines.com	none	NXDOMAIN; confirmed by 8.8.8.8 and 1.1.1.1	2026-11-04
 thehaven.cloud	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 thehavenhouse.ca	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-06
@@ -63712,6 +63736,7 @@ tremainmedia.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l
 tremblant.ca	mx	tremblant-ca.mail.protection.outlook.com	2026-11-04
 tremblaybois.ca	mx	tremblaybois-ca.mail.protection.outlook.com	2026-11-04
 tremblayetassocies.ca	mx	tremblayetassocies-ca.mail.protection.outlook.com	2026-11-04
+tremblayhuissiers.ca	mx	mail.tremblayhuissiers.ca	2026-11-07
 tremblaylawgroup.ca	mx	tremblaylawgroup-ca.mail.protection.outlook.com	2026-11-06
 tremblaylemieux.com	mx	alt1.aspmx.l.google.com;alt2.aspmx.l.google.com;alt3.aspmx.l.google.com;alt4.aspmx.l.google.com	2026-11-04
 tremblaymaitreconstructeur.com	mx	tremblaymaitreconstructeur-com.mail.protection.outlook.com	2026-11-04
