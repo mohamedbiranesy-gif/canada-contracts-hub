@@ -99,13 +99,14 @@ is the relationship (`relationship_detail`), the amount is yours.
 - Bill-to addresses / legal names on sites that block automated readers (~10 % of organisations) and P13 companies absent from registries.
 - Contract numbers, values and dates for relationship-proof rows; end dates for P09 (unpublished by definition); PO numbers anywhere the buyer
   publishes no PO-level data.
-- P11 (478 rows): mailboxes the referee cannot re-fetch; a second lane's quote confirms them over time.
+- P11 (~475 rows): mailboxes the referee cannot re-fetch; a second lane's quote confirms them over time.
 
 ## 5. What keeps running without anyone (zero cost to the owner) and how to stop it
 - GitHub: `rank-buyers.yml` (builds every 6 h + on dispatch), `verify-and-merge.yml` (referee, on every push), `claude-engines.yml` (bulk registry daily).
-- The Mac: push loop (15 min), walker-terms loop, site readers (every 2 h), API worker (capped at $170, idle), lane driver (3 h), Gemini's hourly task,
-  Codex app automation (30 min, your ChatGPT quota) and a headless `codex exec` loop (`~/cch-crawler-state/codex_exec_loop.sh`, same quota).
-  Stop all Mac loops: `pkill -f 'cch-crawler-state/.*_loop' ; pkill -f codex_exec_loop.sh` — the engines are restart-safe (resume files).
+- The Mac, still running and free: push loop (15 min), walker-terms loop, site readers (every 2 h), downloads / sync loops, Gemini's hourly task and the
+  Codex app automation (30 min — the owner's own ChatGPT quota). Stopped at the stop order because they spend quotas: the API search worker (Anthropic
+  API, $170.04 of the $170 cap, 7,690 buyer searches), the lane driver and the headless `codex exec` loop. Stop everything left on the Mac with one line:
+  `pkill -f 'cch-crawler-state/.*_loop'` — the engines are restart-safe (resume files), so starting them again later loses nothing.
 - Every result still goes through the referee; nothing lands unverified.
 
 ## 6. Levers audited at the stop order (all pushed or ruled out)
