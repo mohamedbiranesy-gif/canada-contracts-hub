@@ -216,7 +216,9 @@ Since 2026-11-04 two more fillers run before the packages are cut:
 
 ## Invoice-grade columns and AP grade (owner 2026-11-08; all appended, nothing renamed)
 - `invoice_card_json`: the row as an invoice header — bill-to (legal name, address, tax number, language), submit-to (mailbox / portal /
-  format / AP system), references the invoice must quote (PO rule, PO / contract / vendor id), terms (published terms, else the
+  format / AP system; `portal_is_invoice_channel` is true only for an e-invoicing / supplier-invoice network — Ariba, Coupa, Tungsten,
+  Basware, GHX, Jaggaer, Workday, Oracle iSupplier … — and `portal_class` names tender portals such as SEAO / MERX / bids&tenders, which
+  are never an invoice channel and never count toward pay-on-sight tier 1), references the invoice must quote (PO rule, PO / contract / vendor id), terms (published terms, else the
   labelled default policy; method; cycle), tax (published status, else `DERIVED: …`; indicative rate; currency; vendor GST/HST and QST),
   vendor identity, follow-up. `invoice_readiness` = "n/11 invoice elements present"; `invoice_missing` lists the elements no source gave.
 - `ap_grade` A–E, `ap_score` 0–100, `ap_grade_basis` (criteria met / missing / penalties) and `ap_gap_to_A` (what the row still lacks for A).
