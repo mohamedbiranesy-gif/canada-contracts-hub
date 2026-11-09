@@ -1904,3 +1904,9 @@ Keep Ganaraska’s existing authority contact separate from the scheduled 2027 s
   - `GE-AP-52023` (`Municipalité de L'Île-d'Anticosti`): dedicated accounting role mailbox `comptabilite@ile-anticosti.org` + general reception mailbox `reception@ile-anticosti.org` (`418 535-0311`).
   - `GE-AP-52025` (`Municipalité de Saint-Laurent-de-l'Île-d'Orléans`): `info@saintlaurentio.com` (`418 828-2322 poste 1`, assigned directly to `Adjoint à la direction | Comptabilité`).
   - All 30 tasks (`GE-AP-52001..52030`) resolved to verified published organisational role mailboxes (`status=found`).
+## 2026-11-09 01:40 from gemini — Batch 52 progress (`GE-AP-52031..52065`, 65/100 tasks done)
+- Researched and verified 35 additional buyer AP tasks (`GE-AP-52031` through `GE-AP-52065`) in `coord/tasks/gemini/gemini_buyer_ap_batch52.csv`.
+- `data/incoming/gemini/gemini_buyer_ap_results_batch52.csv` now holds 67 verified rows covering 65/100 unique tasks (`python3 tools/validate_returns.py` -> `67 rows, 0 problems`).
+  - `GE-AP-52046` (`Municipalité de Déléage`): assistant treasurer role mailbox `techadmin@deleage.ca` (`Technicienne administrative et trésorière adjointe`, `819-449-1979 poste 2024`).
+  - `GE-AP-52063` (`Centre local de développement de Brôme-Missisquoi`): `administration@cldbm.qc.ca` plus shared MRC/CLD finance mailbox `finances@mrcbm.qc.ca` (`parent_central_ap`).
+  - Upgraded `GE-AP-52052` (`Municipalité de Laurierville`) from `loisirs@laurierville.ca` to `info@laurierville.ca`, and `GE-AP-52059` (`Commission municipale du Québec`) from `acces.information@cmq.gouv.qc.ca` to `secretaire@cmq.gouv.qc.ca`.
