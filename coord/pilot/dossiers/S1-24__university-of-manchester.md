@@ -313,4 +313,12 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**The buyer's invoicing rule, in full.** "Payment and invoicing", https://www.staffnet.manchester.ac.uk/procurement/supplying/payment-and-invoicing/:
+"no purchase order, no pay" system (work without a valid PO at the supplier's own risk); invoices as PDF to supplier.invoices@manchester.ac.uk; postal
+option "The University of Manchester, Accounts Payable Office", John Owens Building, Oxford Road, Manchester, M13 9PL; invoice must quote "a legitimate
+University purchase order number"; terms "within 30 days of receipt of a valid invoice"; "payment usually made through the BACS system". Terms and
+Conditions of Purchase (April 2024): https://documents.manchester.ac.uk/display.aspx?DocID=15179; Procurement Policy (July 2026):
+https://documents.manchester.ac.uk/display.aspx?DocID=79637; Supplier Set-Up Form: https://documents.manchester.ac.uk/display.aspx?DocID=3998 (the vendor
+must be set up — bank details — before the first payment). → Droplet Lab: GBP invoice, PO number mandatory, zero-rated for Canadian GST (export).

@@ -346,4 +346,14 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**Statutory channel: Chorus Pro (mandatory e-invoicing for every French public entity).** "FAQ Fournisseurs", https://www.universite-paris-saclay.fr/faq-fournisseurs:
+« Votre/Vos facture(s) doit/doivent normalement être déposées sur Chorus Portail Pro » (e-mail to the service facturier only while the Chorus account is
+being created); SIRET of the university 13002602400054; « Aucun code service n’est nécessaire au dépôt des factures. »; the numéro d'engagement juridique
+(EJ = bon de commande) comes from the ordering service: « Sans engagement juridique conforme inscrit, la facture sera rejetée sur Chorus Pro ou refusée par
+mail. »; a marché/convention number is not enough: « Non, un engagement juridique est indispensable pour le traitement et la mise en paiement de la facture. »
+Payment terms and foreign-supplier VAT handling absent from the page (statutory délai global de paiement for public bodies: 30 days, Code de la commande
+publique art. R2192-10 — derived). → DNA Genotek: register on Chorus Pro as a foreign supplier (no SIRET: foreign-company identifier), invoice in EUR with
+the EJ number; no Canadian GST (export); French VAT is self-assessed by the university (reverse charge). The pack should carry "Chorus Pro" as the channel
+for every French public buyer (new track: statutory e-invoicing channels).

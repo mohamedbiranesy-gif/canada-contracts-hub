@@ -356,4 +356,16 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**The buyer's complete invoicing rule (its standard T&Cs).** "Terms and conditions for the supply of services Version 1.3 (April 2024)",
+https://www.eastsussex.gov.uk/business/doing-business/rules-regulations-policies/purchase-orders/purchase-orders-services — cl. 1.1 "“Council” means East
+Sussex County Council of County Hall, St Anne’s Crescent, Lewes, East Sussex, BN7 1UE;" (bill-to legal name + address); cl. 6.1.6 invoices must show "a
+valid purchase order number as issued by the Council;"; cl. 6.1.4 "any VAT payable, with a breakdown showing the net figure, the VAT amount and the gross
+figure;"; cl. 6.1.5 VAT registration number if registered; cl. 6.2 "The Supplier must submit all invoices electronically via email to
+APInvoices@eastsussex.gov.uk and shall:" — subject must include "Invoice" (6.2.1), PDF or TIFF attachment with the PO number (6.2.2–6.2.3); cl. 6.3 paper
+only with prior written notice; cl. 6.4 payment "within 30 days of receipt by the Council of a proper invoice", normally by BACS; cl. 5.2 price "exclusive
+of any applicable Value Added Tax". Systems page https://www.eastsussex.gov.uk/business/doing-business/electronic-procurement: "Include our purchase
+order number and contact details on invoices.", POs come from "the SAP system", back office "uses Oracle Fusion software", BACS bank-details form linked.
+→ Spare Labs (Canadian, not UK-VAT registered unless it has a UK VAT number): invoice in GBP, no Canadian GST (zero-rated export of services), state
+"VAT: not applicable — supplier not UK VAT registered / reverse charge" as its UK adviser directs; PO number from the Council is mandatory.

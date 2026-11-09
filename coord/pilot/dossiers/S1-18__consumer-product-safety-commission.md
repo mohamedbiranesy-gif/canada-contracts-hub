@@ -318,4 +318,13 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**Who actually pays CPSC's vendors — a shared federal AP centre.** CPSC OIG, "Review of Vendor Payments in FY 2017", April 6, 2018 (Report 18-A-05),
+https://www.cpsc.gov/s3fs-public/Review-of-Vendor-Payments-in-FY-2017.pdf: "CPSC contracts with the Department of Transportation’s ESC to process all
+financial and accounting transactions." — "ESC uses Delphi, a web-based Oracle system, as the CPSC’s primary accounting system." — the Division of
+Financial Management Service monitors ESC, "which processes the CPSC’s accounts payable for disbursement."; CORs handle "the subsequent approval of vendor
+invoices for payments." → The invoice channel for a CPSC contract is the DOT Enterprise Services Center's electronic invoicing (Delphi eInvoicing), as
+written in the contract's invoicing clause — not an e-mail to CPSC; the row's mailbox is the contact, not the channel. Confirm the clause on the
+Pagefreezer contract (USAspending record in the row), register in Delphi eInvoicing / SAM (UEI), Prompt Payment Act 30 days (5 CFR 1315). The CPSC vendor
+payment page itself was not fetchable (client error). Track opened: "shared AP centres" — ESC also serves other small agencies.
