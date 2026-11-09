@@ -89,6 +89,8 @@ jobs:
           M="$MINUTES"; W=$(( M > 60 ? M - 45 : M / 2 ))
           timeout "${W}m" python3 tools/ap_walk.py --ranked coord/results/ranked/ranked_buyers.csv.gz --tiers "$TIERS" --shard "$K/$N" --workers 40 --max-pages "$MAXP" --redo-days "$REDO" $([ "$ONLYMISS" = "true" ] && echo --only-missing) 2>&1 | tee walk.log | grep -E "sites to walk|\{" | tail -3 || true
           mkdir -p out && grep -oE "sites to walk: [0-9]+" walk.log | grep -oE "[0-9]+" | head -1 > out/sites_left_$K.txt || echo 0 > out/sites_left_$K.txt
+          # pages found by hand research (pilot dossiers, layer 2) feed the same extractor: data/incoming/claude/claude_ap_pages_manual.csv (same columns); shard 0 reads them
+          if [ "$K" = "0" ] && [ -s data/incoming/claude/claude_ap_pages_manual.csv ]; then tail -n +2 data/incoming/claude/claude_ap_pages_manual.csv >> ~/cch-crawler-state/ap_pages_seen.csv; fi
           if [ -s ~/cch-crawler-state/ap_pages_seen.csv ]; then
             timeout 40m python3 tools/ap_terms.py --urls ~/cch-crawler-state/ap_pages_seen.csv --ranked coord/results/ranked/ranked_buyers.csv.gz --repo "$PWD" --workers 24 || true
           fi

@@ -423,4 +423,33 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**The contract behind this row — council resolution (strongest reference an invoice can quote).** Township of Gore council minutes, 2024-10-07,
+https://www.cantondegore.qc.ca/storage/app/media/uploaded-files/2024-10-07-pv-mois-doctobre-va.pdf — resolution **2024-10-284**: "CONTRACT WITH
+“SERVICES RICOVA INC.” FOR THE COLLECTION AND TRANSPORTATION OF RESIDUAL MATERIALS"; "TO AWARD the contract for the collection and transportation of
+residual materials and bulky waste" to "“Service Ricova Inc.”" "for the period starting January 1, 2025," "running to December 31, 2029, with the
+possibility of renewal for two subsequent one-year periods"; "for an annual amount of $ 183 055.68 taxes included"; "THAT the amount indicated above be
+indexed each year in accordance with the contract;" tender: "as specified in the tender submitted on August 28, 2024 as part of the public call for
+tenders ARG-2024-GMR" ("lot 3 of contract 3" — a grouped MRC d'Argenteuil tender: the municipality refused option 1, organic matter). Signing: "TO
+AUTHORIZE the General Manager to sign any document necessary". → Invoice: monthly 1/12 of the indexed annual amount, reference "Résolution 2024-10-284 /
+appel d'offres ARG-2024-GMR, lot 3"; the dataset's contract 20029145 is the SEAO record of the same award.
+
+**Relationship active in 2025.** "MUNICIPALITY OF THE TOWNSHIP OF GORE" list of contracts "NAME OF CONTRACTOR SUBJECT OF CONTRACT - EXPENSE AMOUNT TOTAL
+PER SUPPLIER", "the time period covering January 1 to December 31, 2025", names "RICOVA SERVICES INC" —
+https://www.cantondegore.qc.ca/storage/app/media/2025%20Contrats%202%20000%20plus%2025%20000%20-%20VA%20.pdf (table columns not aligned in the PDF text;
+amount not extractable).
+
+**Procurement bylaw — no PO / payment / invoice article (confirms `po_required_as_published` = not published).** "Règlement numéro 225.1 sur la gestion
+contractuelle", "Adopté à Gore, ce 6e jour d'avril 2020",
+https://www.cantondegore.qc.ca/storage/app/media/uploaded-files/R-%20225-1%20SUR%20LA%20GESTION%20CONTRACTUELLE%20-%20sign%C3%A9.pdf — no article on
+bons de commande, paiement or factures; art. 23 "délègue à la direction générale le pouvoir de choisir les soumissionnaires invités"; art. 32 the direction
+générale applies the regulation. The gestion-contractuelle page (https://cantondegore.qc.ca/fr/publications/gestion-contractuelle) says "Le règlement 280
+sur la gestion contractuelle est disponible sur la page des règlements" while the PDF is 225.1 — numbering inconsistent on the site; annual reports on
+contract management 2020–2025 are linked there; contracts > $25,000 are on SEAO ("https://seao.gouv.qc.ca/contrats-par-organisation").
+
+**Vendor name as the buyer writes it:** "Service Ricova Inc." / "SERVICES RICOVA INC." (minutes) vs the registry legal name in the row — print the registry
+name, quote the resolution.
+
+**Not found (queries tried):** a published payment-terms or invoicing page beyond the AP mailbox already confirmed; the vendor's AR mailbox on its site
+(search "Ricova Services inc. Brossard comptes recevables / facturation" returned only job postings).

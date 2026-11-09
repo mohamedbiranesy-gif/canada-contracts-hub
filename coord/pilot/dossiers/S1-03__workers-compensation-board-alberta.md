@@ -355,4 +355,18 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**Buyer's standard supplier terms (the walker had not reached this PDF).** "The Workers' Compensation Board – Alberta" / "GENERAL TERMS & CONDITIONS",
+"08/19/2025 - Approved", https://www.wcb.ab.ca/assets/pdfs/public/General_Terms_and_Conditions.pdf —
+- payment terms, cl. 26: "within thirty (30) days of receipt of such invoice" (undisputed portion, in arrears; "Provided that an invoice is submitted as required, herein");
+- PO / agreement before work, cl. 9: "until receiving an executed Agreement or purchase order"; cl. 17: "Supplementary invoices not supported by change orders will not be honored.";
+- **tax status published**, cl. 42: "the WCB is not subject to the Goods and Services Tax (GST) or Harmonized Sales Tax (HST)" — "Exempt #124072513RT0001." → invoice WITHOUT GST,
+  print the WCB's exemption number on the invoice (overrides the row's DERIVED tax line);
+- no clause on invoice content, submission channel, EFT.
+→ These three facts (terms, PO rule, tax status) go back into the pack through `data/incoming/claude/` research rows so the referee verifies them and the
+row's `payment_terms_as_published`, `po_required_as_published`, `buyer_tax_exempt_status` fill.
+
+**Award reference.** Alberta Purchasing Connection / CanadaBuys reference AB-2024-07911, RFQ2438AS (row). CanadaBuys lists WCB-Alberta notices under
+https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/ab-2024-… (other WCB RFQs seen: AB-2024-03857 stationery, AB-2024-07856 home
+modification; the award notice for AB-2024-07911 itself was not returned by the search — the row's contract_link is the record to quote).
