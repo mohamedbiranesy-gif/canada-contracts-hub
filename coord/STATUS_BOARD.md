@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-09 10:00 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-09 10:16 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-08)
 | metric | value |
@@ -33,7 +33,8 @@
 | chatgpt | chatgpt_buyer_ap_results_batch11.csv | 138 | 83 | 4 | 8 | 43 |
 | chatgpt | chatgpt_buyer_ap_results_batch12.csv | 117 | 80 | 3 | 13 | 21 |
 | chatgpt | chatgpt_buyer_ap_results_batch50.csv | 123 | 105 | 7 | 4 | 7 |
-| chatgpt | chatgpt_buyer_ap_results_batch51.csv | 90 | 83 | 1 | 5 | 1 |
+| chatgpt | chatgpt_buyer_ap_results_batch51.csv | 105 | 96 | 1 | 5 | 3 |
+| chatgpt | chatgpt_buyer_ap_results_batch52.csv | 10 | 9 | 1 | 0 | 0 |
 | chatgpt | chatgpt_qa_audit_results_batch01.csv | 100 | 0 | 0 | 0 | 100 |
 | chatgpt | chatgpt_qa_audit_results_batch02.csv | 100 | 0 | 0 | 0 | 100 |
 | chatgpt | chatgpt_verify_buyer_ap_results_batch01.csv | 335 | 157 | 124 | 40 | 14 |
@@ -70,7 +71,8 @@
 | claude | claude_wikidata_orgs.csv | 42229 | 0 | 0 | 0 | 42229 |
 | codex | codex_buyer_ap_results_batch01.csv | 100 | 44 | 56 | 0 | 0 |
 | codex | codex_buyer_ap_results_batch02.csv | 101 | 50 | 15 | 18 | 18 |
-| codex | codex_buyer_ap_results_batch03.csv | 85 | 50 | 0 | 13 | 22 |
+| codex | codex_buyer_ap_results_batch03.csv | 95 | 57 | 0 | 14 | 24 |
+| codex | codex_buyer_ap_results_batch04.csv | 43 | 23 | 1 | 5 | 14 |
 | gemini | gemini_buyer_ap_results_batch01.csv | 178 | 141 | 35 | 0 | 2 |
 | gemini | gemini_buyer_ap_results_batch02.csv | 188 | 145 | 37 | 0 | 6 |
 | gemini | gemini_buyer_ap_results_batch03.csv | 195 | 157 | 34 | 0 | 4 |
@@ -287,7 +289,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 77282 entities researched, 74963 with at least one verified contact.
+**team_buyers**: 77284 entities researched, 74967 with at least one verified contact.
 
 **team_vendors**: 15497 entities researched, 4033 with at least one verified contact.
 
@@ -298,10 +300,10 @@
 | jules | 1 | 0 | 12 | 9 |
 
 ## Last ingest
-- buyers with team findings: 77282 (with at least one verified e-mail/portal: 74959)
+- buyers with team findings: 77284 (with at least one verified e-mail/portal: 74963)
 - vendors with team findings: 15497
 - QA rows: 200
-- counters: {'files': 266, 'buyer_findings_verified': 95284, 'buyer_findings_verified_on_archive_copy': 5832, 'buyer_findings_not_found_on_page': 2769, 'buyer_findings_unverified_page_unavailable': 1080, 'buyer_findings_not_found_on_page_hidden': 455, 'buyer_findings_rejected_personal_or_invalid': 70, 'vendor_emails_not_found_on_page': 418, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4411, 'vendor_emails_unverified_page_unavailable': 346, 'buyer_findings_cross_verified': 13, 'verify_tasks_chatgpt': 117, 'verify_tasks_gemini': 425, 'verify_tasks_jules': 6}
+- counters: {'files': 267, 'buyer_findings_verified': 95308, 'buyer_findings_verified_on_archive_copy': 5835, 'buyer_findings_not_found_on_page': 2770, 'buyer_findings_unverified_page_unavailable': 1085, 'buyer_findings_not_found_on_page_hidden': 455, 'buyer_findings_rejected_personal_or_invalid': 70, 'vendor_emails_not_found_on_page': 418, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4411, 'vendor_emails_unverified_page_unavailable': 346, 'buyer_findings_cross_verified': 13, 'verify_tasks_chatgpt': 116, 'verify_tasks_gemini': 425, 'verify_tasks_jules': 9}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -311,7 +313,7 @@ Every row's outcome is in `coord/results/verification_log.csv`. Look up your own
 |---|---|---|---|---|---|---|---|
 | chatgpt | 1545 | 5 | 0 | 58 | 1 | 44 | 0 |
 | claude | 89143 | 1 | 0 | 668 | 12 | 1578 | 69 |
-| codex | 139 | 0 | 0 | 12 | 0 | 2 | 0 |
+| codex | 163 | 0 | 0 | 17 | 0 | 3 | 0 |
 | gemini | 4457 | 7 | 0 | 329 | 442 | 1145 | 1 |
 
 ## Where to look
