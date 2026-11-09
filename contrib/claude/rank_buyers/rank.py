@@ -2445,6 +2445,9 @@ CITY_TO_PROV = {"toronto": "ON", "ottawa": "ON", "mississauga": "ON", "brampton"
                 "winnipeg": "MB", "brandon": "MB", "steinbach": "MB", "thompson": "MB", "portage la prairie": "MB", "regina": "SK", "saskatoon": "SK", "prince albert": "SK", "moose jaw": "SK", "swift current": "SK", "yorkton": "SK", "north battleford": "SK",
                 "halifax": "NS", "dartmouth": "NS", "sydney": "NS", "truro": "NS", "new glasgow": "NS", "kentville": "NS", "moncton": "NB", "saint john": "NB", "fredericton": "NB", "dieppe": "NB", "miramichi": "NB", "bathurst": "NB", "edmundston": "NB", "st. john's": "NL", "mount pearl": "NL", "corner brook": "NL", "gander": "NL", "grand falls-windsor": "NL", "charlottetown": "PE", "summerside": "PE", "whitehorse": "YT", "yellowknife": "NT", "iqaluit": "NU"}
 CITY_PROV = re.compile(r"\b(" + "|".join(sorted((re.escape(c) for c in CITY_TO_PROV), key=len, reverse=True)) + r")\b")
+PROV_NAMES = {"newfoundland": "NL", "labrador": "NL", "terre-neuve": "NL", "nova scotia": "NS", "nouvelle-ecosse": "NS", "new brunswick": "NB", "nouveau-brunswick": "NB", "prince edward island": "PE", "ile-du-prince-edouard": "PE",
+              "quebec": "QC", "ontario": "ON", "manitoba": "MB", "saskatchewan": "SK", "alberta": "AB", "british columbia": "BC", "colombie-britannique": "BC", "yukon": "YT", "northwest territories": "NT", "territoires du nord-ouest": "NT", "nunavut": "NU"}
+PROV_NAME = re.compile(r"\b(" + "|".join(sorted((re.escape(c) for c in PROV_NAMES), key=len, reverse=True)) + r")\b")
 PACK_COLS = ["pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url", "buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "vendor_registry_note", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
@@ -2616,8 +2619,14 @@ try:
             if not prov2:
                 _city = CITY_PROV.search(unicodedata.normalize("NFKD", (x.get("buyer_address") or "") + " | " + (x.get("buyer") or "")).encode("ascii", "ignore").decode().lower())
                 prov2 = CITY_TO_PROV[_city.group(1)] if _city else ""
+            if not prov2:  # the province named in the address ("NS, CA") or in the body's own name ("Efficiency Manitoba", "NLSchools (Newfoundland and Labrador …)")
+                _pa = re.search(r"\b(QC|ON|BC|AB|SK|MB|NS|NB|NL|PE|YT|NT|NU)\b(?=[,\s)]|$)", x.get("buyer_address") or "")
+                _pn = PROV_NAME.search(unicodedata.normalize("NFKD", (x.get("buyer") or "") + " | " + (x.get("buyer_legal_name_as_published") or "") + " | " + (x.get("buyer_address") or "")).encode("ascii", "ignore").decode().lower())
+                prov2 = _pa.group(1) if _pa else (PROV_NAMES[_pn.group(1)] if _pn else "")
             bt2 = (x.get("buyer_type") or "").lower()
             fed2 = (x.get("jurisdiction") or "") == "FED" or bool(re.search(r"\.gc\.ca|canada\.ca", (x.get("buyer_website") or "")))
+            if fed2 and not prov2:
+                x["buyer_tax_status_derived"] = "DERIVED: federal body — the Government of Canada pays GST/HST on its purchases (since 1991-04-01; federal departments, agencies and Crown corporations); charge the rate of the province where the supply is made (place-of-supply rules), 5 % GST where no HST applies"
             if not fed2 and prov2 and ("ministry" in bt2 or "crown" in bt2 or re.search(r"\bgovernment\b", bt2)) and not re.search(r"municipal|school|hospital|university|college|transit|utility", bt2):
                 if prov2 in ("MB", "SK", "AB", "NT", "YT"):
                     x["buyer_tax_status_derived"] = TAX_POINT_RELIEF % {"MB": "Manitoba", "SK": "Saskatchewan", "AB": "Alberta", "NT": "the Northwest Territories", "YT": "Yukon"}[prov2]
