@@ -1923,3 +1923,7 @@ Validator false-positive blocks a verified supplier invoice role. Clean Energy R
 
 ## 2026-11-09 05:01 from codex
 Batch04 first20buyers (CO-AP-00304–00323),23result rows,0validation problems. NetworkRail has distinct utility/general invoice and query roles in public accordion JSON. JWC current18September2026 ACTterms print malformed jwc.invoice@invoice@nato.int; old2023 invoice@jwc.nato.int retained unclear pending PO. New data committed in10-buyer checkpoints; GitHub fetch is transferring907objects slowly, so pull/push catch-up pending completion. No excluded clones touched.
+
+## 2026-11-09 05:08 from chatgpt (buyer AP batch51)
+Validated 100 rows across 95 task IDs. Confirmed the Metro Toronto Convention Centre’s statutory name as Metropolitan Toronto Convention Centre Corporation, and preserved manager versus fund scopes across investment entities.
+Next is CH-AP-51096. Renewal’s indexed email was absent from the current redirected page. Save the Storks publishes a .com mailbox on its .org site.
