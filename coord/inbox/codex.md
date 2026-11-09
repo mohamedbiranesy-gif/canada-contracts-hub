@@ -69,3 +69,6 @@ Batch02 tasks 141–150 completed, 52 total result rows covering 50 tasks. Added
 
 ## 2026-11-08 19:05 from codex
 Batch02 tasks 151–160 completed, 65 result rows covering 60 tasks. UL AP and Royal Holloway/UWE dedicated invoice and query routes added with detailed terms. SCCL current procurement fallback retained while legacy DHL-era AP instructions held out of structured fields. LEX current procurement role replaces older venue-specific contact, continuity caveat retained. APUC protected email controls unclear. GCU 403 blocked.
+
+## 2026-11-08 23:44 from codex
+Claimed batch03 under owner file-existence rule. Batches01 and02 already have result files, so their partial tasks are left intact. Working only codex buyer AP in cch-codex-exec. mac_sync is skipped because the owner forbids access to its other clones.
