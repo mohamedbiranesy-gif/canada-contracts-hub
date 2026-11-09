@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 02:45Z)
+# STATE.md — Claude lane (updated 2026-11-09 03:25Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,14 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 03:25Z — build 03:00Z flat (1,032 / 857 / 21,746); the referee had not landed a result since 22:16Z — root cause fixed
+- Organic gain 02:26Z → 03:00Z: +0 pay-on-sight, +2 reference-less, +203 routed (P13 site readers). Below the 100-rows/hour signal — but the pipeline
+  that carries the channel upgrades was stalled: the verify-and-merge workflow re-ran its 40-minute evidence re-check on every push race and lost all of
+  them (verification_log.csv last changed 22:16Z while claude_buyer_ap_results_search01.csv gained 3,583 rows today — the deep_pages invoicing-mailbox
+  finds). Fixed (48c70d7): the ingest runs once, the push loop restores its outputs onto the latest main and retries only the cheap queue / board steps
+  (12 attempts). The next verifier run lands the 3,583 rows → channel tier upgrades (P03–P05 → pay on sight; P11's 440 unconfirmed) in the build after.
+- Owner's signal: I will call the engines' organic rate after two verifier runs have landed (≈ 04:30Z), not on this stalled reading.
 
 ## 02:45Z — build 02:26Z: pay on sight 1,032 + 855 + 21,543 routed; Gold 361 / 597 (60.5 %); 105 / 438
 - Rate since 02:05Z (21 min): +55 pay-on-sight, +29 reference-less, +455 routed — from the public-body billing name and vendor carry-over rules.

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T02:45Z",
+ "updated": "2026-11-09T03:25Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -176,6 +176,11 @@
    "deliverable": "build 02:26Z pay-on-sight delta",
    "method": "Pay on sight table vs 02:05Z",
    "status": "passing: 1,032 yes (+55), 855 (+29), 21,543 routed (+455); Gold 361; 105/438; integrity intact (pages 69,559)"
+  },
+  {
+   "deliverable": "referee results landing on main",
+   "method": "git log -- coord/results/verification_log.csv: a 'verifier:' commit within the last 90 min; the log holds rows for claude_buyer_ap_results_search01.csv dated today",
+   "status": "FAILED 22:16Z–03:20Z (every run lost the push race after a 40-min ingest); workflow fixed 48c70d7 — verify at the next wake-up"
   }
  ]
 }
