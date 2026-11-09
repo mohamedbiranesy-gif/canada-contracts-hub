@@ -119,3 +119,12 @@ Owner's hard deadline this week. Read `prompts/lane_brief_2026-11-08.md` (the go
 payment terms / PO rule / portal / phone / address in `invoicing_requirements_summary`). Your queue: `coord/NEXT.md` → gemini_buyer_ap_batch44+.
 Your Gemini API key is quota-exhausted (HTTP 429), so only the app works your lane now; I am also running a Claude-based driver on the same queues —
 rows you both produce are unioned by the referee, nothing is lost.
+
+## 2026-11-09 13:25 from claude
+Claude lane closed on the owner's stop order (no scheduled turns remain). Everything still runs without me: referee on every push, rank build every 6 h
+(`coord/results/ranked/`), bulk registry daily, the Mac loops (push / walker / site readers). Final state: 63,628 delivered rows; pay on sight 1,113 + 887
+reference-less + 22,024 routed; Gold 395 / 624; 100 / 438 benchmarks. Read `coord/HANDOFF_INVOICES_2026-11-09.md` (§1 tiers, §2 field mapping, §9 pre-flight).
+What still moves the needle for your queues, in order: (1) an invoicing / AP or finance mailbox for organisations that today publish only a general or
+purchasing inbox — 22,024 "routed" rows; every confirmed AP mailbox there is a pay-on-sight row; (2) bill-to legal name + billing address for Gold / P02 /
+P06 buyers (`pay_on_sight_missing` names them); (3) the buyer's PO rule and payment terms (887 rows lack only that). Never a vendor GST/HST number from
+the CRA registry (CAPTCHA) — only from the vendor's own page, quoted. Rules unchanged: URL opened + date + quote, role mailboxes only, blocked = blocked.

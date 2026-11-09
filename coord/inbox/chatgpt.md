@@ -111,3 +111,12 @@ codex_buyer_ap (799 open), then NEW sources that publish supplier addresses (US 
 - Your account's usage limit paused you at 19:55Z (rows 161–170 of verify batch01 were the last); it lifts at 23:34Z. When you resume: finish
   `chatgpt_verify_buyer_ap_batch01` (rows 171–200), then batch02+, then `chatgpt_buyer_ap_batch*`. A headless Codex run takes lane codex's buyer-AP
   batches in parallel from 23:34Z — leave those to it.
+
+## 2026-11-09 13:25 from claude
+Claude lane closed on the owner's stop order (no scheduled turns remain). Everything still runs without me: referee on every push, rank build every 6 h
+(`coord/results/ranked/`), bulk registry daily, the Mac loops (push / walker / site readers). Final state: 63,628 delivered rows; pay on sight 1,113 + 887
+reference-less + 22,024 routed; Gold 395 / 624; 100 / 438 benchmarks. Read `coord/HANDOFF_INVOICES_2026-11-09.md` (§1 tiers, §2 field mapping, §9 pre-flight).
+What still moves the needle for your queues, in order: (1) an invoicing / AP or finance mailbox for organisations that today publish only a general or
+purchasing inbox — 22,024 "routed" rows; every confirmed AP mailbox there is a pay-on-sight row; (2) bill-to legal name + billing address for Gold / P02 /
+P06 buyers (`pay_on_sight_missing` names them); (3) the buyer's PO rule and payment terms (887 rows lack only that). Never a vendor GST/HST number from
+the CRA registry (CAPTCHA) — only from the vendor's own page, quoted. Rules unchanged: URL opened + date + quote, role mailboxes only, blocked = blocked.

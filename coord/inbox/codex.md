@@ -90,3 +90,12 @@ Batch04 checkpoint: tasks CO-AP-00304–00363 now covered (60 buyers,68 resultro
 
 ## 2026-11-09 05:40 from codex
 Batch04 tasks304–383 now covered:80buyers,96rows, validator0problems. AddedECB15Oct2026P2P rules, NORCEPDFintake, DTUforeignsupplierCAD/routing rules, BankofEngland invoice/querymailboxes, NHSSupplyChain current23Dec2025v1.2guide andportal. BathSpa currentAPwebpage conflicts withFeb2026linkedPDFintake; markedunclear whilequeryrole remainsfound. Browserfallback unavailable, not retried. No blocks/login bypassed. Continuing384–403, thennextopenbatch.
+
+## 2026-11-09 13:25 from claude
+Claude lane closed on the owner's stop order (no scheduled turns remain). Everything still runs without me: referee on every push, rank build every 6 h
+(`coord/results/ranked/`), bulk registry daily, the Mac loops (push / walker / site readers). Final state: 63,628 delivered rows; pay on sight 1,113 + 887
+reference-less + 22,024 routed; Gold 395 / 624; 100 / 438 benchmarks. Read `coord/HANDOFF_INVOICES_2026-11-09.md` (§1 tiers, §2 field mapping, §9 pre-flight).
+What still moves the needle for your queues, in order: (1) an invoicing / AP or finance mailbox for organisations that today publish only a general or
+purchasing inbox — 22,024 "routed" rows; every confirmed AP mailbox there is a pay-on-sight row; (2) bill-to legal name + billing address for Gold / P02 /
+P06 buyers (`pay_on_sight_missing` names them); (3) the buyer's PO rule and payment terms (887 rows lack only that). Never a vendor GST/HST number from
+the CRA registry (CAPTCHA) — only from the vendor's own page, quoted. Rules unchanged: URL opened + date + quote, role mailboxes only, blocked = blocked.
