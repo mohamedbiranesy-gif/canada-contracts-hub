@@ -78,3 +78,6 @@ Batch03 tasks201–220 researched,22 result rows validated. Current HSE migrated
 
 ## 2026-11-09 00:01 from codex
 Batch03 tasks231–240 complete.44 result rows across40tasks, all valid. Chalmers public Next.js accordion data supplies PDF invoice and supplier-query roles plus Proceedo. Current Fraunhofer April2026 terms and NWO-I goods/services purchase terms captured. Maintenance and protected sources retained unresolved. Retrieval dates follow actual cached page date across midnight.
+
+## 2026-11-09 00:24 from codex
+Batch03 tasks CO-AP-00201 through CO-AP-00280 completed, 85 result rows, validator 0 problems. Continuing281-300. World Bank sovereign/region-only tasks253-263 lack implementing agency or project identifiers and are unclear pending payer recovery. Current AGD and Home Affairs pages publish eligible five-day eInvoice / twenty-day other invoice terms. Historical Treasury2020 contract and APRA2018 procurement mailbox retained unclear. Own-site access blocks recorded without workaround.
