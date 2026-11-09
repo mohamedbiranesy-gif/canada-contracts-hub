@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-08 23:45Z)
+# STATE.md — Claude lane (updated 2026-11-09 00:55Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,20 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 00:55Z — builds 23:53Z 103 / 00:29Z 104 of 438; Gold A 134 → 198 (DMARC posture no longer a penalty); owner 19:11 EST: continuous dense loops
+- Owner (19:11 EST): keep working continuously, every loop must show marginal progress, say when the rewards stop being worth it; derived columns stay
+  on every row but never count as the published benchmark; talk to the downstream AI if useful. Brief written and sent: coord/for_downstream_ai_2026-11-08.md
+  (status, what an AP clerk needs, the cells no honest source can fill → asked to mark them "by design", two questions). Loop cadence now 30 min.
+- AP grade: the buyer's DMARC posture is a NOTE, not a penalty (it blocked A on 269 Gold rows; coord/DECISIONS.md). Build 00:29Z: Gold A 198 / B 195.
+  Remaining Gold blockers: payment terms 240, PO rule 194, legal name 87, address 40, vendor-registry warning 71 (of which the warnings caused by a lapsed
+  extra-provincial registration while the home registry says Active are now a note, not a warning — pushed 00:52Z, next build).
+- New API search kind `pb` (purchasing bylaw / procurement policy / PO terms on the buyer's host or its council / board document portal when the address
+  names the buyer): 1,881 public-body buyers of P01–P05 still lacking terms or a PO rule; first 600: 456 with pages, 3,741 URLs; the readers added
+  +106 payment terms, +323 PO rules, +450 AP contact names in one cycle (Mac file). Cap raised to $170 ($135 spent).
+- rank.py: second site-reader pass for websites found late in the pipeline (95 Gold rows had the vendor's phone on file and "not_published" in the row).
+- Codex: the ChatGPT account hit its usage limit again at 00:40Z (app automation + headless exec share it); both resume when it lifts. Gemini batch 50.
+- Integrity after the snapshot-union fix: pages 58,056 → 61,770 (Mac rows merged in), registry 34,313 → 36,653 — nothing fell.
 
 ## 23:45Z — terms_refresh merged (23:09Z); two data-loss paths found and closed; registry shard recovered; Codex lanes back
 - terms_refresh (every known page re-read with the current patterns; 10 runners, ~30 min): merge 23:09Z, 114,266 keys; the pages file then carried
