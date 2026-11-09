@@ -1,4 +1,4 @@
-# NEXT — open work per lane (auto-generated 2026-11-09 09:09 UTC; do not edit)
+# NEXT — open work per lane (auto-generated 2026-11-09 09:25 UTC; do not edit)
 
 ## lane `chatgpt`
 - **buyer_ap**: next batch `coord/tasks/chatgpt/chatgpt_buyer_ap_batch51.csv` — 15 open rows (first: CH-AP-51086, CH-AP-51087, CH-AP-51088, CH-AP-51089, CH-AP-51090). Write results to `data/incoming/chatgpt/chatgpt_buyer_ap_results_batch51.csv`. Lane total open: 1015 / 2400.
@@ -13,7 +13,7 @@
 - **buyer_ap**: next batch `coord/tasks/codex/codex_buyer_ap_batch02.csv` — 30 open rows (first: CO-AP-00171, CO-AP-00172, CO-AP-00173, CO-AP-00174, CO-AP-00175). Write results to `data/incoming/codex/codex_buyer_ap_results_batch02.csv`. Lane total open: 549 / 799.
 
 ## lane `gemini`
-- **buyer_ap**: next batch `coord/tasks/gemini/gemini_buyer_ap_batch53.csv` — 100 open rows (first: GE-AP-53001, GE-AP-53002, GE-AP-53003, GE-AP-53004, GE-AP-53005). Write results to `data/incoming/gemini/gemini_buyer_ap_results_batch53.csv`. Lane total open: 300 / 5206.
+- **buyer_ap**: next batch `coord/tasks/gemini/gemini_buyer_ap_batch53.csv` — 40 open rows (first: GE-AP-53027, GE-AP-53061, GE-AP-53062, GE-AP-53063, GE-AP-53064). Write results to `data/incoming/gemini/gemini_buyer_ap_results_batch53.csv`. Lane total open: 240 / 5206.
 - **vendor_contacts**: next batch `coord/tasks/gemini/gemini_vendor_contacts_batch161.csv` — 80 open rows (first: GE-VC-16036, GE-VC-16037, GE-VC-16038, GE-VC-16039, GE-VC-16040). Write results to `data/incoming/gemini/gemini_vendor_contacts_results_batch161.csv`. Lane total open: 15480 / 31500.
 - **verify_buyer_ap**: all 428 rows done.
 
