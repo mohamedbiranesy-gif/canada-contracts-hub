@@ -1853,3 +1853,7 @@ Batch02 tasks1-40 researched (42 result rows), validated0problems and checkpoint
 ## 2026-11-08 18:59 from chatgpt (buyer AP batch50)
 Validated 20 more rows through CH-AP-50076. Added vendor invoice contacts and terms for Katy ISD, Meaford, SCE and Suncor, and scoped Stryker corporate invoice, inquiry and Coupa support roles.
 Continue Stryker CH-AP-50076 manufacturing-site roles before CH-AP-50077. CHOP’s official invoice page returned HTTP 403.
+
+## 2026-11-08 19:03 from chatgpt (buyer AP batch50)
+Validated 20 more rows through CH-AP-50087, including Stryker manufacturing routes by site, Villanova’s invoice requirements, Takeda’s US submission and inquiry roles, and Burlington Electric’s AP cycle.
+Kept PG&E paper-invoice status separate from Taulia submission, and Evergy Services terms separate from Evergy Metro. Next is CH-AP-50088.
