@@ -9,7 +9,9 @@ name: claude-engines
 #                — shard 1/2 only, the Mac runs shard 0/2, so the registry sees at most 2 requests / second in total
 on:
   schedule:
-    - cron: "41 9 * * *"   # daily bulk-registry match (inputs default to bulk_registry on schedule, see plan job)
+    - cron: "41 9 * * *"    # daily bulk-registry match (REQ + Corporations Canada open data)
+    - cron: "11 */6 * * *"  # org_facts: legal name / address / phone / portals from buyer and vendor sites not read yet (8 shards, 2 h) — cloud-only since 2026-11-09 (owner's Mac is off)
+    - cron: "31 2 * * *"    # walk_terms over the stronger packages (AP pages → payment terms, PO rule, invoice address), 6 shards, 4 h
   workflow_dispatch:
     inputs:
       engine:
@@ -37,15 +39,15 @@ permissions:
   contents: write
   actions: write
 env:
-  ENGINE: ${{ inputs.engine || 'bulk_registry' }}
-  SHARDS: ${{ inputs.shards || '1' }}
-  MINUTES: ${{ inputs.minutes || '300' }}
-  TIERS: ${{ inputs.tiers || 'I' }}
+  ENGINE: ${{ inputs.engine || (github.event.schedule == '11 */6 * * *' && 'org_facts') || (github.event.schedule == '31 2 * * *' && 'walk_terms') || 'bulk_registry' }}
+  SHARDS: ${{ inputs.shards || (github.event.schedule == '11 */6 * * *' && '8') || (github.event.schedule == '31 2 * * *' && '6') || '1' }}
+  MINUTES: ${{ inputs.minutes || (github.event.schedule == '11 */6 * * *' && '120') || (github.event.schedule == '31 2 * * *' && '240') || '300' }}
+  TIERS: ${{ inputs.tiers || (github.event.schedule == '31 2 * * *' && 'A,B,T,M,L,C,D,E,F') || 'I' }}
   MAXP: ${{ inputs.max_pages || '15' }}
   REDO: ${{ inputs.redo_days || '60' }}
   ONLYMISS: ${{ inputs.only_missing || 'false' }}
 concurrency:
-  group: claude-engines-${{ inputs.engine || 'bulk_registry' }}-${{ inputs.tiers || 'all' }}
+  group: claude-engines-${{ inputs.engine || github.event.schedule || 'bulk_registry' }}-${{ inputs.tiers || 'all' }}
   cancel-in-progress: false
 jobs:
   plan:
