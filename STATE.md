@@ -106,6 +106,10 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Measured: 39,626 incomplete rows; bill-to (legal name / address) missing on 33,136 of them (17,902 have an address but no legal name; 24,670 are
   .ca; 26,180 sites answer); 22,394 lack exactly one element. Peer-group inference: PO rule concentrates (100 % "required" among publishing peers,
   selection bias noted) → 29k rows inferable at p ≥ 0.9; payment terms and method do not concentrate (net 30 43–62 %) → distributions, not values.
+- 16:15Z: org_facts cloud run measured — the leftover domains are the hard ones (shard 0: 1,120 domains → 24 ok, 872 blocked, 85 robots, 106 no answer).
+  Crawling will NOT close the bill-to gap; registries / bulk files (Companies House, GLEIF, SEC, Canadian registries) and batch extraction from pages
+  already fetched are the T2 levers. Pilot designed on the owner's "payability, not plausibility" rule: coord/pilot/ (230 rows, 5 strata, real
+  invoices by the row's vendor only); downstream AI briefed (coord/for_downstream_ai_2026-11-09_pilot.md).
 - Lanes briefed (inboxes 16:00); 8 T1/T2 sources registered (USAspending Canada-recipient full, US local checkbooks, FL FACTS, Companies House bulk,
   SEC EDGAR submissions, …). API credits: batch extraction only, capped, yield per dollar reported.
 
