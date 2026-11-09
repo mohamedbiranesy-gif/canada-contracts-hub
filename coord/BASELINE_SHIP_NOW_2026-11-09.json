@@ -1,0 +1,43 @@
+{
+ "rows": 63641,
+ "buyers_total": 63641,
+ "buyers_ap_confirmed": 1364,
+ "buyers_fin_confirmed": 1715,
+ "buyers_any_confirmed": 63163,
+ "pay_on_sight_yes": 833,
+ "pay_on_sight_ref": 841,
+ "pay_on_sight_routed": 22341,
+ "gold_rows": 624,
+ "gold_pay_on_sight": 395,
+ "grade_A": 306,
+ "gold_A": 225,
+ "grade_A_or_B": 867,
+ "inferred_policy_cells_p80": 0,
+ "benchmarks_met": 100,
+ "rows_by_package": {
+  "A": 1278,
+  "B": 1619,
+  "C": 402,
+  "D": 3623,
+  "E": 2763,
+  "F": 19,
+  "I": 50806,
+  "L": 397,
+  "M": 189,
+  "T": 2545
+ },
+ "sources": {
+  "abed": 6,
+  "ap": 3018,
+  "b": 2451,
+  "cra": 5373,
+  "crux": 26386,
+  "lead": 10427,
+  "onps": 14,
+  "osm": 6381,
+  "v": 5449,
+  "wd": 4136
+ },
+ "date": "2026-11-09",
+ "label": "89b4386"
+}

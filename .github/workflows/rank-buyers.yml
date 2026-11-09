@@ -41,9 +41,11 @@ jobs:
             python3 tools/audit_deliverable.py out/ranked --write out/ranked > audit.log || true
             python3 tools/coverage_targets.py --write out/ranked --history coord/results/coverage_history.csv > coverage.log 2>&1 || true
             [ -s out/ranked/COVERAGE_VS_TARGETS.md ] || { echo "::warning::scoreboard not written (see coverage.log) — previous scoreboard kept"; cp coord/results/ranked/COVERAGE_VS_TARGETS.md out/ranked/ 2>/dev/null || true; }
+            # owner 2026-11-09 10:45 EST ("show me that I should wait"): every build diffed against the pack he could have shipped on Nov 9
+            python3 tools/growth_report.py --ranked out/ranked/ranked_buyers.csv.gz --coverage-json out/ranked/coverage_vs_targets.json --baseline coord/BASELINE_SHIP_NOW_2026-11-09.json --write coord/GROWTH_VS_BASELINE.md --history coord/growth_history.csv --label "$(git rev-parse --short HEAD)" > growth.log 2>&1 || echo "::warning::growth report failed (see growth.log)"
             rm -rf coord/results/ranked && mkdir -p coord/results/ranked && cp -r out/ranked/* coord/results/ranked/ && rm -f coord/results/ranked/ranked_buyers.csv coord/results/ranked/ranked_buyers.jsonl.gz
             { echo "# Ranked buyers — $(date -u +%Y-%m-%dT%H:%MZ)"; echo; echo '```'; cat rank.log batches.log; echo; echo "# coverage vs the downstream targets (COVERAGE_VS_TARGETS.md)"; cat coverage.log; echo '```'; echo; echo "Integrity gates: see VALIDATION.md in this folder; columns and rules: contrib/claude/rank_buyers/README.md"; } > coord/results/ranked/SUMMARY.md
-            git add coord/results/ranked coord/results/coverage_history.csv data/incoming/claude/claude_dmarc_check.tsv
+            git add coord/results/ranked coord/results/coverage_history.csv data/incoming/claude/claude_dmarc_check.tsv coord/GROWTH_VS_BASELINE.md coord/growth_history.csv
             git diff --cached --quiet && break
             git commit -q -m "ranker: buyers re-ranked into quality batches [skip ci]"
             pushed=0
