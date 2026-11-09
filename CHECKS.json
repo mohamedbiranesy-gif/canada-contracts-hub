@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T06:25Z",
+ "updated": "2026-11-09T07:15Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -196,6 +196,11 @@
    "deliverable": "build 05:33Z vs 04:09Z (first with verified mailbox finds)",
    "method": "Pay on sight table, grade table, 438 head diffed",
    "status": "102/438 (−3 from Gold row growth 597→623), Gold A 225 (+11), pay on sight 1,032 (flat) / 862 / 21,868; organic strict rate ≈ 0 per hour → pull-the-plug recommendation written"
+  },
+  {
+   "deliverable": "ranker outputs survive verifier pushes",
+   "method": "after each verifier commit, coord/results/ranked/COVERAGE_VS_TARGETS.md's build time is not older than the latest 'ranker:' commit (git log -1 -- the file)",
+   "status": "FAILED 06:41Z (reverted 06:36Z → 05:32Z); workflow fixed 1468ce7; verify at the next loop"
   }
  ]
 }

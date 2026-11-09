@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 06:25Z)
+# STATE.md — Claude lane (updated 2026-11-09 07:15Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,15 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 07:15Z — build 06:36Z: pay on sight 1,104 (+72) / 885 / 21,947; Gold 393 / 624 (63 %); 101 / 438 — then reverted by a verifier push, fix pushed
+- The country-first tax / currency fix moved 72 Gold / P02 rows to pay on sight (1,032 → 1,104). 101 / 438 (Gold row growth dilutes a few cells).
+- A third regression path closed: my 03:20Z verifier fix restored the whole coord/results snapshot on retry, including coord/results/ranked, so the
+  verifier's 06:41Z push put the 05:32Z build back over the 06:36Z one. Now rsync restores only the verifier's own files (1468ce7). The scheduled
+  ranker build in progress (06:38Z) republishes; if a pre-fix verifier run reverts it once more, the next loop re-dispatches.
+- Lanes: Gemini batch 52 rows 31–65 (06:39Z); Codex at the ChatGPT limit again (the window closed ≈06:30Z after batch51 rows 81–90 / batch03 rows 261–270);
+  org_extras refresh second cycle started (9,012 domains). Verifier landing every ~15 min.
+- Verdict (06:25Z) unchanged: organic pay-on-sight ≈ 0 / h; today's +72 came from an inspection fix. Awaiting the owner's answer on stopping.
 
 ## 06:25Z — VERDICT for the owner (asked 19:55 EST: "tell me when the rewards won't be worth it")
 - Build 05:33Z (first with the 6,168 verified mailbox finds): 102 / 438 (−3: Gold grew 597 → 623 rows as P03 / P04 buyers gained a confirmed
