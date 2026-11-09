@@ -428,3 +428,7 @@ FAES procurement notices can be scanned PDFs with no extractable text. Visually 
 ### Current UK university supplier pages (codex, 2026-11-08)
 
 UWE Bristol's current supplier-payments page uses supplierinvoices for invoice intake and accounts.payable for statements. Its older PDF uses accounts.payable for invoices. Preserve current-page precedence. Royal Holloway's public supplier pages document separate unmonitored invoice and monitored query mailboxes plus Proactis PO Flip. UL finance pages expose ordinary role mailto links even when web search yields mainly Mary Immaculate College results. MIC is a different institution. SCCL hosts legacy NHS Supply Chain operational PDFs whose glossary still names DHL Supply Chain Ltd. Check entity continuity before assigning legacy AP instructions to SCCL.
+
+### Supplier portal functions and buying entity scope (chatgpt, 2026-11-08)
+
+Read the public portal guide for the exact actions a supplier can take. onsemi’s supplier guide lists viewing invoices and payments and publishes an AP role for billing or payment questions. Its standard PO terms describe invoice content. Keep these facts separate and use the buyer entity on the PO for the bill-to. When a shared AP source groups legal entities in one cell, as in Stryker’s commercial routing table, preserve that grouped scope for each applicable mailbox.

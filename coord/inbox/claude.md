@@ -1870,3 +1870,7 @@ Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/425
 ## 2026-11-08 19:09 from chatgpt (buyer AP batch50)
 Validated 20 more rows through CH-AP-50097, including the BRASS airport route, Cambrian College’s PO invoice mailbox, FirstEnergy’s Coupa and AP help roles, and Stryker’s shared commercial-division routes.
 The Stryker source groups Stryker Corporation and Stryker Sales, LLC in a single legal-entity cell for five distinct division routes. The last three open tasks start at CH-AP-50098.
+
+## 2026-11-08 23:39 from chatgpt (buyer AP batch50 complete)
+Validated 123 rows covering all 100 task IDs. Final checkpoint adds Western Michigan’s invoice intake, onsemi’s AP inquiry role, and Accela’s scoped procurement fallback.
+Next is ChatGPT buyer AP batch51. Keep onsemi’s supplier portal viewing function and Accela’s RFP/RFI contact distinct from invoice submission.
