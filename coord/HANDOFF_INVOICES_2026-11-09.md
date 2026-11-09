@@ -165,3 +165,12 @@ server. 3. `sensitivity_flag` = no. 4. `vendor_registry_warning` blank (a dissol
 hand. 6. `invoicing_requirements` obeyed literally (format, one per e-mail, subject line, attachments). 7. Amount ≥ $500 → vendor GST/HST number, buyer
 name, terms, description all present (§2 legal minimum). 8. Québec buyer → French + TVQ. 9. Buyer outside Canada → no Canadian tax, their currency unless
 the contract says otherwise. 10. `evidence_age_days` > 60 → one courtesy confirmation of the mailbox before a first invoice.
+
+## 10. The e-mail that carries the invoice (what the buyers' own pages ask for, counted over the rows that publish requirements)
+PDF required or preferred on 479 rows, "PO number on the invoice" on 284, an attachment size limit on 94 (10–30 MB), a vendor-setup / EFT form on 77,
+"one invoice per e-mail" on 27, a prescribed subject line on 11 (typical: "vendor name, PO number, contract number, invoice number"), no paper on 9.
+So the default that satisfies every rule at once: one PDF per e-mail (invoice + backup in the same PDF, under 10 MB), nothing in the body that is not
+also on the invoice, subject `<Vendor legal name> — Invoice <no.> — PO <no.> — <contract / tender no.>` (French for Québec: `<Fournisseur> — Facture
+<no> — Bon de commande <no> — Contrat <no>`), from the vendor's own AR mailbox (`vendor_billing_ar_email`) so replies land with the vendor, and the
+buyer's `invoicing_requirements` applied on top where they say something stricter. For `routed` rows the subject starts with "Accounts Payable /
+Comptes payables:" so the general inbox forwards it unopened. Never attach a W-9 (Canadian vendor) — a W-8BEN-E goes only when the US buyer asks.
