@@ -99,7 +99,7 @@ corporations' own GST numbers on inferred-vendor rows (`vendor_bn9`, read and re
 `inference_confidence` (HIGH / MEDIUM / LOW with the reason; "not applicable" for MPAC on lower-tier Ontario municipalities),
 `mailbox_confidence`, `data_quality_score`, `ship_ready`, `invoice_portal_kind` / `invoice_portal_note`, `ap_system_hint`,
 `invoicing_requirements_structured`, `facts_provenance_json`, `payment_terms_default_policy`, `instrument_type_normalized`,
-`buyer_bn_program`, `vendor_registry_warning`, `sensitivity_flag`, `buyer_sector`, `evidence_age_days`, `reverify_due`,
+`buyer_bn_program`, `vendor_registry_warning` (primary registry record dead, or no registry shows the vendor alive), `vendor_registry_note` (an extra-provincial registration lapsed while the primary record is alive — no penalty), `sensitivity_flag`, `buyer_sector`, `evidence_age_days`, `reverify_due`,
 `most_recent_record_reference_any_vendor`, `records_in_contract_dataset`, `other_relationship_sources`, pair columns
 (`pair_prior_records`, `pair_first_or_repeat`, `pair_value_trend`, `pair_dates_and_values`), `template_language`, `sensitivity_tag`,
 `peppol_participant_id` / `peppol_registered` / `vendor_peppol_id`. `CHANGELOG.md` + `rows_changed.csv` (row- and field-level) ship with

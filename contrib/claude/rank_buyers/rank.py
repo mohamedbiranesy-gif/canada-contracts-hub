@@ -2416,7 +2416,7 @@ TAX_RATE = {"ON": "HST 13% (Ontario)", "NB": "HST 15% (New Brunswick)", "NL": "H
 TAX_RATE_NOTE = " — indicative rate for a supply made in the buyer's province (GST/HST Memorandum 18-2 'GST/HST rates', %s, read 2026-11-08: \"The HST applies in the participating provinces at the following rates: 13%% in Ontario and 15%% in New Brunswick, Newfoundland and Labrador, Nova Scotia, and Prince Edward Island. The GST applies in the rest of Canada at the rate of 5%%\"); the place-of-supply rules decide (Memorandum 3-3-2); provincial sales taxes (QST, PST) are not covered here" % CRA_18_2
 
 PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url", "buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
-             "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
+             "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "vendor_registry_note", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
 EXTRA_SENS = [("law enforcement (incl. transit / parks)", re.compile(r"transit (?:police|enforcement|safety)|special constable|conservation officer|by-?law enforcement|peace officer", re.I)),
@@ -2532,8 +2532,15 @@ try:
             x["buyer_bn_program"] = "RR (registered charity program account)" if re.search(r"\bRR\s?\d{4}", b) else "RT (GST/HST program account)" if re.search(r"RT\s?\d{4}|GST|HST|TPS|TVH", b) else "program not stated with the number"
         # dissolved vendors (R5.1)
         vs = x.get("vendor_registry_status") or ""
-        if re.search(r"dissol|inactive|radi[ée]|cancel|revoked|struck|annul|liquidat|discontinued|amalgamated", vs, re.I):
+        _segs = [t.strip() for t in vs.split(";") if t.strip()]
+        _dead = re.compile(r"dissol|inactive|radi[ée]|cancel|revoked|struck|annul|liquidat|discontinued|amalgamated|historical", re.I)
+        _live = re.compile(r"\bactive\b|immatricul|en vigueur|in good standing|registered\b|existing|current", re.I)
+        # 2026-11-08 19:55 EST: warn when the vendor's PRIMARY registry record is dead, or when no registry shows it alive — not when an extra-provincial
+        # registration lapsed while the home registry says Active (542 Gold rows carried the warning for that and lost grade A)
+        if _segs and (_dead.search(_segs[0]) and not _live.search(_segs[0]) or (not any(_live.search(t) for t in _segs) and any(_dead.search(t) for t in _segs))):
             x["vendor_registry_warning"] = "WARNING: registry status '%s' — the match may be a namesake or the vendor may no longer exist; verify before use" % vs[:60]; npk["registry_warning"] += 1
+        elif _segs and any(_dead.search(t) for t in _segs[1:]):
+            x["vendor_registry_note"] = "another registry lists a lapsed registration (%s); the primary record is alive" % "; ".join(t[:50] for t in _segs[1:] if _dead.search(t))[:160]; npk["registry_note"] += 1
         # evidence age (O1.3)
         md = re.search(r" on (\d{4}-\d{2}-\d{2})", x.get("mailbox_provenance") or "")
         if md:
@@ -2738,7 +2745,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
                    ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
                    ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
-                   ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning"]),
+                   ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning", "vendor_registry_note"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
                    ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id", "buyer_bn_note"]),
