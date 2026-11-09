@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 10:00Z)
+# STATE.md — Claude lane (updated 2026-11-09 11:00Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,8 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 11:00Z — no build since 09:00Z; Codex lanes back (chatgpt batch52 rows 11–30, codex batch04 rows 384–393 at 10:38–10:42Z), Gemini batch 53; verifier landing (10:56Z); integrity intact; build dispatched 10:58Z.
 
 ## 10:00Z — build 09:00Z: 1,112 / 887 / 22,023 (flat); Gold 395 / 624; 101 / 438. Gold's 209 non-payable rows: 87 miss ONLY the vendor GST number
 - The province-from-name fix moved 10 Gold rows' tax treatment (59 → 49 missing) but they still lack the vendor GST number, so pay on sight is flat.
