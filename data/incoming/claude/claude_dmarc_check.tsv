@@ -8746,6 +8746,7 @@ bostonrs.com	none	bostonrs.com	v=DMARC1; p=none; pct=100; rua=mailto:re+tenfuchi
 bot.com	quarantine	bot.com	v=DMARC1; p=quarantine; pct=100; rua=mailto:; fo=1	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:customers.clickdimensions.com include:_spf.pcbscloud.com include:spf.mandrillapp.com include:spf.ca.exclaimer.net -all	2026-11-06	none	none	none
 botanicplanet.ca	no_record		no DMARC record at _dmarc.botanicplanet.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:74.208.92.241 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 botaniful.ca	no_record		no DMARC record at _dmarc.botaniful.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.cloudus.oxcs.net ~all	2026-11-06	none	none	none
+botanix.com	none	botanix.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:spf.altitude3.net -all	2026-11-09	none	none	none
 botanixcloutier.ca	none	botanixcloutier.ca	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 botbrawl.ca	none	botbrawl.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:mailgun.org ~all	2026-11-06	none	none	none
 botg.ca	none	botg.ca	v=DMARC1; p=none;	100	no	no_record		2026-11-06	none	none	none
@@ -12690,7 +12691,7 @@ centrale.coop	no_record		no DMARC record at _dmarc.centrale.coop; confirmed by 8
 centralelgin.org	no_record		no DMARC record at _dmarc.centralelgin.org; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:216.167.248.146/31 ip4:50.31.156.96/27 ip4:104.245.209.192/26 ip4:72.2.4.226 ip4:72.2.4.227 ip4:3.97.99.43 include:_spf.esolutionsgroup.ca include:spf.protection.outlook.com include:_spf.mailgun.org include:autotask.net -all	2026-11-06	none	none	none
 centralfellowship.ca	no_record		no DMARC record at _dmarc.centralfellowship.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:142.44.136.69 ~all	2026-11-06	none	none	none
 centralfootclinic.ca	no_record		no DMARC record at _dmarc.centralfootclinic.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
-centralfootclinic.co.uk	error		no nameservers			error		2026-11-09	none	none	none
+centralfootclinic.co.uk	error		LifetimeTimeout			error		2026-11-09	none	none	none
 centralfuneralhomes.ca	no_record		no DMARC record at _dmarc.centralfuneralhomes.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 centralhealth.ca	no_record		no DMARC record at _dmarc.centralhealth.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.cloudus.oxcs.net mx a:spf.mindzplay.net -all	2026-11-04			
 centralhealth.nl.ca	none	centralhealth.nl.ca	v=DMARC1; p=none; rua=mailto:greg.forward@centralhealth.nl.ca,mailto:re+fcpqiockmom@dmarc.postmarkapp.com; ruf=mailto:greg.forward@centralhealth.nl.ca	100	yes	hard_fail	v=spf1 a mx include:spf.protection.outlook.com ip4:209.128.31.150 ip4:209.128.31.148 ip4:209.128.7.242 ip4:209.128.15.30 ip4:209.128.15.31 exists:%{i}.spf.hc628-92.ca.iphmx.com -all	2026-11-04			
@@ -16736,6 +16737,7 @@ cortescommunityhousing.org	none	cortescommunityhousing.org	v=DMARC1; p=none;	100
 cortesmuseum.com	none	cortesmuseum.com	v=DMARC1; p=none;	100	no	no_record		2026-11-04			
 corteva.com	reject	corteva.com	v=DMARC1; p=reject; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; sp=reject; fo=1; ri=86400; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com	100	yes	soft_fail	v=spf1 include:%{ir}.%{v}.%{d}.spf.has.pphosted.com ~all	2026-11-06	none	none	none
 cortoncapital.ca	no_record		no DMARC record at _dmarc.cortoncapital.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-8e814c8572._spfm.cortoncapital.ca ~all	2026-11-06	none	none	none
+cortorev.com	no_record		no DMARC record at _dmarc.cortorev.com; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:104.196.232.125 include:_spf.google.com ~all	2026-11-09	none	none	none
 corvus.ca	no_record		no DMARC record at _dmarc.corvus.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 +mx +a +ip4:69.27.102.5 +ip4:69.27.96.200 +ip4:69.27.97.200 ~all	2026-11-06	none	none	none
 corvusenergy.com	none	corvusenergy.com	v=DMARC1; p=none; pct=100; rua=mailto:dmarc@corvusenergy.com	100	yes	error		2026-11-06	none	none	none
 corvuslaw.ca	no_record		no DMARC record at _dmarc.corvuslaw.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
@@ -37966,6 +37968,7 @@ lepelerin.org	quarantine	lepelerin.org	v=DMARC1;p=quarantine;sp=quarantine;pct=1
 lepetitmas.ca	no_record		no DMARC record at _dmarc.lepetitmas.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:51.222.43.65 include:spf.web-dns1.com include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 lepetitsalon.ca	no_record		no DMARC record at _dmarc.lepetitsalon.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf-us.ionos.com ~all	2026-11-06	none	none	none
 lepetitseptieme.ca	no_record		no DMARC record at _dmarc.lepetitseptieme.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 mx a ip4:198.50.126.156 a:smtp.webdynamique.net a:mx1.webdynamique.net a:smtp.devops-sysops.net ~all	2026-11-06	none	none	none
+lephare.ca	reject	lephare.ca	v=DMARC1; p=reject; rua=mailto:julieg@lephare.ca	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-09	none	none	none
 lepierrerenovation.com	no_record		no DMARC record at _dmarc.lepierrerenovation.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.perfora.net include:_spf.kundenserver.de ~all	2026-11-04			
 lepilier.org	none	lepilier.org	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 a mx include:spf.protection.outlook.com include:md02.com include:transmail.net ip4:173.46.148.17 ~all	2026-11-06	none	none	none
 lepinebernier.com	quarantine	lepinebernier.com	v=DMARC1; p=quarantine; rua=mailto:contact@admin.absolium.com	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-08	none	none	none
@@ -59381,6 +59384,7 @@ slocanvalleyrailtrail.ca	none	slocanvalleyrailtrail.ca	v=DMARC1; p=none	100	no	s
 sloe.net	none	sloe.net	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:dc-aa8e722993._spfm.sloe.net ~all	2026-11-06	none	none	none
 slofac.ca	no_record		no DMARC record at _dmarc.slofac.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 +mx +a +ip4:38.111.114.25 +include:sendmetric.com ~all	2026-11-06	none	none	none
 slogar.ca	reject	slogar.ca	v=DMARC1; p=reject; pct=100; rua=mailto:49d8vefhbu@reports.palisade.email; aspf=r; adkim=r; ri=86400;	100	yes	soft_fail	v=spf1 include:slogar.ca._spf0.dns.palisade.email ~all	2026-11-06	none	none	none
+slormiere.com	none	slormiere.com	v=DMARC1; p=none; rua=mailto:dmarc@slormiere.com; ruf=mailto:dmarc@slormiere.com; sp=none; aspf=r; adkim=s; fo=1	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-09	none	none	none
 slowtide.co	reject	slowtide.co	v=DMARC1;p=reject;pct=100;	100	no	soft_fail	v=spf1 include:servers.outfunnel.com include:_spf.salesforce.com include:_spf.google.com ~all	2026-11-06	none	none	none
 slrd.bc.ca	reject	slrd.bc.ca	v=DMARC1; p=reject; sp=reject; ri=84600; fo=1;rua=mailto:rua@slrd.bc.ca;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 slrebound.com	quarantine	slrebound.com	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none

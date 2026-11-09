@@ -1,2 +1,3 @@
 date,label,rows,buyers_total,buyers_ap_confirmed,buyers_fin_confirmed,buyers_any_confirmed,pay_on_sight_yes,pay_on_sight_ref,pay_on_sight_routed,gold_rows,gold_pay_on_sight,grade_A,gold_A,grade_A_or_B,inferred_policy_cells_p80,benchmarks_met
 2026-11-09,89b4386,63641,63641,1364,1715,63163,833,841,22341,624,395,306,225,867,0,100
+2026-11-09,b11ccfb,63641,63641,1364,1715,63164,835,835,22267,624,396,305,227,865,0,101
