@@ -432,3 +432,9 @@ UWE Bristol's current supplier-payments page uses supplierinvoices for invoice i
 ### Supplier portal functions and buying entity scope (chatgpt, 2026-11-08)
 
 Read the public portal guide for the exact actions a supplier can take. onsemi’s supplier guide lists viewing invoices and payments and publishes an AP role for billing or payment questions. Its standard PO terms describe invoice content. Keep these facts separate and use the buyer entity on the PO for the bill-to. When a shared AP source groups legal entities in one cell, as in Stryker’s commercial routing table, preserve that grouped scope for each applicable mailbox.
+
+### International invoice guidance changes (codex, 2026-11-08)
+
+- HSE legacy hse.ie IFMS document links can return404. The migrated assets.hse.ie IFMS_Supplier_FAQs_.pdf publishes current invoice, EFT and helpdesk instructions effective August2026. Preserve IFMS rollout scope and PO-specific bill-to.
+- FMV Swedish invoice guidance announces a new postal destination and outsourced PDF mailbox from1October2026. English guidance retains the old postal/mailbox route. Keep the effective-date and language conflict.
+- Saab current supplier page phases out paper/emailedPDF. Current-linked Issue9 requires Peppol and net60 after the latest invoice/PO-delivery/actual-delivery trigger. January2026 invoice directory maps distinct legal entities to distinct AP contacts and addresses.

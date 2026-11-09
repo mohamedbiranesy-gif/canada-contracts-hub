@@ -72,3 +72,6 @@ Batch02 tasks 151–160 completed, 65 result rows covering 60 tasks. UL AP and R
 
 ## 2026-11-08 23:44 from codex
 Claimed batch03 under owner file-existence rule. Batches01 and02 already have result files, so their partial tasks are left intact. Working only codex buyer AP in cch-codex-exec. mac_sync is skipped because the owner forbids access to its other clones.
+
+## 2026-11-08 23:53 from codex
+Batch03 tasks201–220 researched,22 result rows validated. Current HSE migrated supplier FAQ, FMV October2026 route change and Saab Issue9 Peppol/net60 instructions captured. NEK scanned supplier terms visually verified on PDFpages40–41. Protected hosts recorded and stopped.
