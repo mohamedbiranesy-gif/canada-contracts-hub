@@ -823,7 +823,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,invoice_reference_hint,P04,1575,1084,68.8,90
 2026-11-09,invoice_reference_hint,P05,379,153,40.4,70
 2026-11-09,invoice_reference_hint,P06M,168,12,7.1,n/a
-2026-11-09,invoice_reference_hint,P06T,2440,105,4.3,n/a
+2026-11-09,invoice_reference_hint,P06T,2440,107,4.4,n/a
 2026-11-09,invoice_reference_hint,P06,165,79,47.9,30
 2026-11-09,invoice_reference_hint,P07,252,58,23.0,30
 2026-11-09,invoice_reference_hint,P08,3038,71,2.3,25
@@ -1103,7 +1103,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_legal_name_as_published,P10,2597,846,32.6,70
 2026-11-09,buyer_legal_name_as_published,P11,475,120,25.3,65
 2026-11-09,buyer_legal_name_as_published,P12,21,17,81.0,80
-2026-11-09,buyer_legal_name_as_published,P13,50796,26140,51.5,60
+2026-11-09,buyer_legal_name_as_published,P13,50796,26471,52.1,60
 2026-11-09,buyer_bn_as_published,P01M,18,7,38.9,50
 2026-11-09,buyer_bn_as_published,P01T,92,19,20.7,n/a
 2026-11-09,buyer_bn_as_published,P01_GOLD,597,123,20.6,40
@@ -1137,7 +1137,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_address,P10,2597,1690,65.1,95
 2026-11-09,buyer_address,P11,475,172,36.2,80
 2026-11-09,buyer_address,P12,21,21,100.0,100
-2026-11-09,buyer_address,P13,50796,38446,75.7,95
+2026-11-09,buyer_address,P13,50796,38545,75.9,95
 2026-11-09,buyer_phone,P01M,18,16,88.9,n/a
 2026-11-09,buyer_phone,P01T,92,74,80.4,n/a
 2026-11-09,buyer_phone,P01_GOLD,597,420,70.4,90
@@ -1154,7 +1154,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_phone,P10,2597,1855,71.4,95
 2026-11-09,buyer_phone,P11,475,139,29.3,75
 2026-11-09,buyer_phone,P12,21,19,90.5,n/a
-2026-11-09,buyer_phone,P13,50796,40259,79.3,95
+2026-11-09,buyer_phone,P13,50796,40260,79.3,95
 2026-11-09,buyer_logo_url,P01M,18,14,77.8,n/a
 2026-11-09,buyer_logo_url,P01T,92,84,91.3,95
 2026-11-09,buyer_logo_url,P01_GOLD,597,486,81.4,90
@@ -1194,7 +1194,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,ap_phone,P01_GOLD,597,263,44.1,80
 2026-11-09,ap_phone,P02,399,257,64.4,90
 2026-11-09,ap_phone,P03,223,49,22.0,60
-2026-11-09,ap_phone,P04,1575,796,50.5,85
+2026-11-09,ap_phone,P04,1575,798,50.7,85
 2026-11-09,ap_phone,P05,379,50,13.2,50
 2026-11-09,ap_phone,P06M,168,11,6.5,n/a
 2026-11-09,ap_phone,P06T,2440,60,2.5,n/a
@@ -1211,7 +1211,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,invoice_mailing_address,P01_GOLD,597,204,34.2,70
 2026-11-09,invoice_mailing_address,P02,399,173,43.4,75
 2026-11-09,invoice_mailing_address,P03,223,47,21.1,55
-2026-11-09,invoice_mailing_address,P04,1575,793,50.3,75
+2026-11-09,invoice_mailing_address,P04,1575,796,50.5,75
 2026-11-09,invoice_mailing_address,P05,379,44,11.6,50
 2026-11-09,invoice_mailing_address,P06M,168,3,1.8,n/a
 2026-11-09,invoice_mailing_address,P06T,2440,30,1.2,n/a
@@ -1228,7 +1228,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,invoicing_requirements,P01_GOLD,597,341,57.1,80
 2026-11-09,invoicing_requirements,P02,399,201,50.4,75
 2026-11-09,invoicing_requirements,P03,223,88,39.5,70
-2026-11-09,invoicing_requirements,P04,1575,635,40.3,70
+2026-11-09,invoicing_requirements,P04,1575,643,40.8,70
 2026-11-09,invoicing_requirements,P05,379,59,15.6,50
 2026-11-09,invoicing_requirements,P06M,168,7,4.2,n/a
 2026-11-09,invoicing_requirements,P06T,2440,37,1.5,n/a
@@ -1245,10 +1245,10 @@ date,field,package,rows,filled,pct,target
 2026-11-09,payment_terms_as_published,P01_GOLD,597,376,63.0,70
 2026-11-09,payment_terms_as_published,P02,399,177,44.4,50
 2026-11-09,payment_terms_as_published,P03,223,130,58.3,55
-2026-11-09,payment_terms_as_published,P04,1575,306,19.4,40
+2026-11-09,payment_terms_as_published,P04,1575,307,19.5,40
 2026-11-09,payment_terms_as_published,P05,379,66,17.4,40
 2026-11-09,payment_terms_as_published,P06M,168,27,16.1,n/a
-2026-11-09,payment_terms_as_published,P06T,2440,290,11.9,n/a
+2026-11-09,payment_terms_as_published,P06T,2440,298,12.2,n/a
 2026-11-09,payment_terms_as_published,P06,165,50,30.3,n/a
 2026-11-09,payment_terms_as_published,P07,252,40,15.9,n/a
 2026-11-09,payment_terms_as_published,P08,3038,140,4.6,n/a
@@ -1265,7 +1265,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,po_required_as_published,P04,1575,156,9.9,40
 2026-11-09,po_required_as_published,P05,379,80,21.1,45
 2026-11-09,po_required_as_published,P06M,168,12,7.1,n/a
-2026-11-09,po_required_as_published,P06T,2440,102,4.2,n/a
+2026-11-09,po_required_as_published,P06T,2440,104,4.3,n/a
 2026-11-09,po_required_as_published,P06,165,79,47.9,n/a
 2026-11-09,po_required_as_published,P07,252,58,23.0,n/a
 2026-11-09,po_required_as_published,P08,3038,71,2.3,n/a
@@ -1282,7 +1282,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,invoice_portal_url,P04,1575,411,26.1,n/a
 2026-11-09,invoice_portal_url,P05,379,61,16.1,n/a
 2026-11-09,invoice_portal_url,P06M,168,7,4.2,n/a
-2026-11-09,invoice_portal_url,P06T,2440,95,3.9,n/a
+2026-11-09,invoice_portal_url,P06T,2440,98,4.0,n/a
 2026-11-09,invoice_portal_url,P06,165,58,35.2,n/a
 2026-11-09,invoice_portal_url,P07,252,45,17.9,n/a
 2026-11-09,invoice_portal_url,P08,3038,44,1.4,n/a
@@ -1299,7 +1299,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_payment_method_preference,P04,1575,81,5.1,15
 2026-11-09,buyer_payment_method_preference,P05,379,31,8.2,15
 2026-11-09,buyer_payment_method_preference,P06M,168,10,6.0,15
-2026-11-09,buyer_payment_method_preference,P06T,2440,36,1.5,15
+2026-11-09,buyer_payment_method_preference,P06T,2440,37,1.5,15
 2026-11-09,buyer_payment_method_preference,P06,165,17,10.3,15
 2026-11-09,buyer_payment_method_preference,P07,252,17,6.7,15
 2026-11-09,buyer_payment_method_preference,P08,3038,27,0.9,15
@@ -1316,7 +1316,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_tax_exempt_status,P04,1575,127,8.1,15
 2026-11-09,buyer_tax_exempt_status,P05,379,45,11.9,15
 2026-11-09,buyer_tax_exempt_status,P06M,168,4,2.4,15
-2026-11-09,buyer_tax_exempt_status,P06T,2440,63,2.6,15
+2026-11-09,buyer_tax_exempt_status,P06T,2440,65,2.7,15
 2026-11-09,buyer_tax_exempt_status,P06,165,20,12.1,15
 2026-11-09,buyer_tax_exempt_status,P07,252,19,7.5,15
 2026-11-09,buyer_tax_exempt_status,P08,3038,29,1.0,15
@@ -1350,7 +1350,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_esignature_preference,P04,1575,72,4.6,15
 2026-11-09,buyer_esignature_preference,P05,379,11,2.9,15
 2026-11-09,buyer_esignature_preference,P06M,168,4,2.4,15
-2026-11-09,buyer_esignature_preference,P06T,2440,34,1.4,15
+2026-11-09,buyer_esignature_preference,P06T,2440,35,1.4,15
 2026-11-09,buyer_esignature_preference,P06,165,9,5.5,15
 2026-11-09,buyer_esignature_preference,P07,252,8,3.2,15
 2026-11-09,buyer_esignature_preference,P08,3038,22,0.7,15
@@ -1367,7 +1367,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,ap_system_hint,P04,1575,471,29.9,20
 2026-11-09,ap_system_hint,P05,379,62,16.4,20
 2026-11-09,ap_system_hint,P06M,168,7,4.2,20
-2026-11-09,ap_system_hint,P06T,2440,104,4.3,20
+2026-11-09,ap_system_hint,P06T,2440,107,4.4,20
 2026-11-09,ap_system_hint,P06,165,58,35.2,20
 2026-11-09,ap_system_hint,P07,252,36,14.3,20
 2026-11-09,ap_system_hint,P08,3038,68,2.2,20

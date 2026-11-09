@@ -78,9 +78,9 @@
 },
 "invoice_reference_hint|P06T": {
 "rows": 2440,
-"filled": 105,
-"pct": 4.3,
-"pct_any": 4.4,
+"filled": 107,
+"pct": 4.4,
+"pct_any": 4.5,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -2598,9 +2598,9 @@
 },
 "buyer_legal_name_as_published|P13": {
 "rows": 50796,
-"filled": 26140,
-"pct": 51.5,
-"pct_any": 51.5,
+"filled": 26471,
+"pct": 52.1,
+"pct_any": 52.1,
 "target": 60,
 "present": true,
 "subset": ""
@@ -2904,9 +2904,9 @@
 },
 "buyer_address|P13": {
 "rows": 50796,
-"filled": 38446,
-"pct": 75.7,
-"pct_any": 75.7,
+"filled": 38545,
+"pct": 75.9,
+"pct_any": 75.9,
 "target": 95,
 "present": true,
 "subset": ""
@@ -3057,7 +3057,7 @@
 },
 "buyer_phone|P13": {
 "rows": 50796,
-"filled": 40259,
+"filled": 40260,
 "pct": 79.3,
 "pct_any": 79.3,
 "target": 95,
@@ -3417,9 +3417,9 @@
 },
 "ap_phone|P04": {
 "rows": 1575,
-"filled": 796,
-"pct": 50.5,
-"pct_any": 50.5,
+"filled": 798,
+"pct": 50.7,
+"pct_any": 50.7,
 "target": 85,
 "present": true,
 "subset": ""
@@ -3570,9 +3570,9 @@
 },
 "invoice_mailing_address|P04": {
 "rows": 1575,
-"filled": 793,
-"pct": 50.3,
-"pct_any": 50.3,
+"filled": 796,
+"pct": 50.5,
+"pct_any": 50.5,
 "target": 75,
 "present": true,
 "subset": ""
@@ -3723,9 +3723,9 @@
 },
 "invoicing_requirements|P04": {
 "rows": 1575,
-"filled": 635,
-"pct": 40.3,
-"pct_any": 40.3,
+"filled": 643,
+"pct": 40.8,
+"pct_any": 40.8,
 "target": 70,
 "present": true,
 "subset": ""
@@ -3876,9 +3876,9 @@
 },
 "payment_terms_as_published|P04": {
 "rows": 1575,
-"filled": 306,
-"pct": 19.4,
-"pct_any": 19.4,
+"filled": 307,
+"pct": 19.5,
+"pct_any": 19.5,
 "target": 40,
 "present": true,
 "subset": ""
@@ -3903,9 +3903,9 @@
 },
 "payment_terms_as_published|P06T": {
 "rows": 2440,
-"filled": 290,
-"pct": 11.9,
-"pct_any": 11.9,
+"filled": 298,
+"pct": 12.2,
+"pct_any": 12.2,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -4056,9 +4056,9 @@
 },
 "po_required_as_published|P06T": {
 "rows": 2440,
-"filled": 102,
-"pct": 4.2,
-"pct_any": 4.2,
+"filled": 104,
+"pct": 4.3,
+"pct_any": 4.3,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -4209,9 +4209,9 @@
 },
 "invoice_portal_url|P06T": {
 "rows": 2440,
-"filled": 95,
-"pct": 3.9,
-"pct_any": 3.9,
+"filled": 98,
+"pct": 4.0,
+"pct_any": 4.0,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -4362,7 +4362,7 @@
 },
 "buyer_payment_method_preference|P06T": {
 "rows": 2440,
-"filled": 36,
+"filled": 37,
 "pct": 1.5,
 "pct_any": 1.5,
 "target": 15,
@@ -4515,9 +4515,9 @@
 },
 "buyer_tax_exempt_status|P06T": {
 "rows": 2440,
-"filled": 63,
-"pct": 2.6,
-"pct_any": 2.6,
+"filled": 65,
+"pct": 2.7,
+"pct_any": 2.7,
 "target": 15,
 "present": true,
 "subset": ""
@@ -4821,7 +4821,7 @@
 },
 "buyer_esignature_preference|P06T": {
 "rows": 2440,
-"filled": 34,
+"filled": 35,
 "pct": 1.4,
 "pct_any": 1.4,
 "target": 15,
@@ -4974,9 +4974,9 @@
 },
 "ap_system_hint|P06T": {
 "rows": 2440,
-"filled": 104,
-"pct": 4.3,
-"pct_any": 4.3,
+"filled": 107,
+"pct": 4.4,
+"pct_any": 4.4,
 "target": 20,
 "present": true,
 "subset": ""

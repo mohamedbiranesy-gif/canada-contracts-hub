@@ -13003,7 +13003,7 @@ cfameriques.com	reject	cfameriques.com	v=DMARC1;p=reject;pct=100;rua=mailto:ee5c
 cfan.eu	quarantine	cfan.eu	v=DMARC1; p=quarantine; pct=25; rua=mailto:dmarc@cfan.eu; ruf=mailto:it@cfan.eu; fo=1; adkim=s; aspf=s	25	yes	soft_fail	v=spf1 ip4:92.205.232.36 ip4:217.92.192.144 ip4:80.147.219.11 include:aspmx.pardot.com include:_spf.salesforce.com include:shops.shopify.com include:secureserver.net include:spf.protection.outlook.com ~all	2026-11-08	none	none	none
 cfan.org.za	none	cfan.org.za	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 mx include:spf.protection.outlook.com include:sparkpostmail.com ~all	2026-11-06	none	none	none
 cfaq.net	no_record		no DMARC record at _dmarc.cfaq.net; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
-cfarley.com	error		no nameservers			error		2026-11-09	none	none	none
+cfarley.com	error		LifetimeTimeout			error		2026-11-09	none	none	none
 cfautogear.ca	none	cfautogear.ca	v=DMARC1; p=none	100	no	no_record		2026-11-06	none	none	none
 cfaxsantas.com	reject	cfaxsantas.com	v=DMARC1; p=reject; rua=mailto:emailreports@cfaxsantas.com, mailto:emailreports@cfaxsantas.com; pct=01; adkim=r; aspf=r	01	yes	soft_fail	v=spf1 include:spf.protection.outlook.com include:_spf.google.com ~all	2026-11-06	none	none	none
 cfb.ca	none	cfb.ca	v=DMARC1; p=none;	100	no	neutral	v=spf1 ip4:135.84.181.84 include:spf.web-dns1.com +a +mx +ip4:69.89.31.134 ?all	2026-11-06	none	none	none
