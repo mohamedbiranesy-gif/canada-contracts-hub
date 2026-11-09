@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-09 16:39 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-09 16:51 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-09)
 | metric | value |
@@ -39,7 +39,7 @@
 | chatgpt | chatgpt_qa_audit_results_batch02.csv | 100 | 0 | 0 | 0 | 100 |
 | chatgpt | chatgpt_verify_buyer_ap_results_batch01.csv | 360 | 166 | 140 | 40 | 14 |
 | chatgpt | chatgpt_verify_buyer_ap_results_batch02.csv | 262 | 237 | 0 | 0 | 25 |
-| claude | claude_ap_pages_manual.csv | 1 | 0 | 0 | 0 | 1 |
+| claude | claude_ap_pages_manual.csv | 5 | 0 | 0 | 0 | 5 |
 | claude | claude_ap_terms.csv | 63372 | 0 | 0 | 2507 | 60865 |
 | claude | claude_award_facts.csv | 2146 | 0 | 0 | 76 | 2070 |
 | claude | claude_buyer_ap_results_agent01.csv | 31 | 31 | 0 | 0 | 0 |
