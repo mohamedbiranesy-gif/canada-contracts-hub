@@ -10,6 +10,7 @@ DNS TXT lookup at `_dmarc.<mail domain>` (organizational domain when the mailbox
 | p=reject | 5416 | 488 |
 | invalid DMARC record | 59 | 0 |
 | lookup error | 7 | 0 |
+| not checked | 4 | 0 |
 
 Rows without enforcement (no record / p=none / invalid): **47771**
 

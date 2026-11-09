@@ -149,7 +149,7 @@
 "subset": ""
 },
 "invoice_reference_hint|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 77,
 "pct": 0.2,
 "pct_any": 0.3,
@@ -302,7 +302,7 @@
 "subset": ""
 },
 "po_number_as_published|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -455,7 +455,7 @@
 "subset": ""
 },
 "contract_or_agreement_number|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -608,7 +608,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -761,7 +761,7 @@
 "subset": ""
 },
 "award_or_notice_id|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -914,7 +914,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1067,7 +1067,7 @@
 "subset": ""
 },
 "commodity_codes|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1220,7 +1220,7 @@
 "subset": ""
 },
 "buyer_org_codes|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1373,7 +1373,7 @@
 "subset": ""
 },
 "records_with_this_vendor|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1526,8 +1526,8 @@
 "subset": ""
 },
 "vendor_bn9|P13": {
-"rows": 50802,
-"filled": 46601,
+"rows": 50806,
+"filled": 46605,
 "pct": 91.7,
 "pct_any": 91.7,
 "target": null,
@@ -1679,7 +1679,7 @@
 "subset": ""
 },
 "vendor_registered_address|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1832,7 +1832,7 @@
 "subset": ""
 },
 "vendor_trading_name|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1985,8 +1985,8 @@
 "subset": ""
 },
 "vendor_phone|P13": {
-"rows": 50802,
-"filled": 50802,
+"rows": 50806,
+"filled": 50806,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 60,
@@ -2138,8 +2138,8 @@
 "subset": ""
 },
 "vendor_website|P13": {
-"rows": 50802,
-"filled": 50802,
+"rows": 50806,
+"filled": 50806,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": "n/a",
@@ -2291,7 +2291,7 @@
 "subset": ""
 },
 "vendor_emails|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -2328,9 +2328,9 @@
 },
 "vendor_logo_url|P02": {
 "rows": 404,
-"filled": 309,
-"pct": 76.5,
-"pct_any": 76.5,
+"filled": 310,
+"pct": 76.7,
+"pct_any": 76.7,
 "target": 90,
 "present": true,
 "subset": ""
@@ -2444,7 +2444,7 @@
 "subset": ""
 },
 "vendor_logo_url|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 42013,
 "pct": 82.7,
 "pct_any": 82.7,
@@ -2499,9 +2499,9 @@
 },
 "buyer_legal_name_as_published|P04": {
 "rows": 1566,
-"filled": 1236,
-"pct": 78.9,
-"pct_any": 78.9,
+"filled": 1237,
+"pct": 79.0,
+"pct_any": 79.0,
 "target": 90,
 "present": true,
 "subset": ""
@@ -2526,7 +2526,7 @@
 },
 "buyer_legal_name_as_published|P06T": {
 "rows": 2440,
-"filled": 1574,
+"filled": 1575,
 "pct": 64.5,
 "pct_any": 64.5,
 "target": "n/a",
@@ -2553,7 +2553,7 @@
 },
 "buyer_legal_name_as_published|P08": {
 "rows": 3039,
-"filled": 1126,
+"filled": 1127,
 "pct": 37.1,
 "pct_any": 37.1,
 "target": 75,
@@ -2597,7 +2597,7 @@
 "subset": ""
 },
 "buyer_legal_name_as_published|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 26678,
 "pct": 52.5,
 "pct_any": 52.5,
@@ -2750,7 +2750,7 @@
 "subset": ""
 },
 "buyer_bn_as_published|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 12530,
 "pct": 24.7,
 "pct_any": 24.7,
@@ -2903,8 +2903,8 @@
 "subset": ""
 },
 "buyer_address|P13": {
-"rows": 50802,
-"filled": 38594,
+"rows": 50806,
+"filled": 38600,
 "pct": 76.0,
 "pct_any": 76.0,
 "target": 95,
@@ -3012,7 +3012,7 @@
 },
 "buyer_phone|P08": {
 "rows": 3039,
-"filled": 2269,
+"filled": 2270,
 "pct": 74.7,
 "pct_any": 74.7,
 "target": 95,
@@ -3056,8 +3056,8 @@
 "subset": ""
 },
 "buyer_phone|P13": {
-"rows": 50802,
-"filled": 40265,
+"rows": 50806,
+"filled": 40267,
 "pct": 79.3,
 "pct_any": 79.3,
 "target": 95,
@@ -3111,7 +3111,7 @@
 },
 "buyer_logo_url|P04": {
 "rows": 1566,
-"filled": 1312,
+"filled": 1313,
 "pct": 83.8,
 "pct_any": 83.8,
 "target": 90,
@@ -3165,7 +3165,7 @@
 },
 "buyer_logo_url|P08": {
 "rows": 3039,
-"filled": 2753,
+"filled": 2754,
 "pct": 90.6,
 "pct_any": 90.6,
 "target": 100,
@@ -3183,18 +3183,18 @@
 },
 "buyer_logo_url|P10": {
 "rows": 2596,
-"filled": 2336,
-"pct": 90.0,
-"pct_any": 90.0,
+"filled": 2338,
+"pct": 90.1,
+"pct_any": 90.1,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "buyer_logo_url|P11": {
 "rows": 475,
-"filled": 172,
-"pct": 36.2,
-"pct_any": 36.2,
+"filled": 174,
+"pct": 36.6,
+"pct_any": 36.6,
 "target": 80,
 "present": true,
 "subset": ""
@@ -3209,8 +3209,8 @@
 "subset": ""
 },
 "buyer_logo_url|P13": {
-"rows": 50802,
-"filled": 42765,
+"rows": 50806,
+"filled": 42772,
 "pct": 84.2,
 "pct_any": 84.2,
 "target": 95,
@@ -3362,7 +3362,7 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 330,
 "pct": 0.6,
 "pct_any": 0.6,
@@ -3515,7 +3515,7 @@
 "subset": ""
 },
 "ap_phone|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 507,
 "pct": 1.0,
 "pct_any": 1.0,
@@ -3668,7 +3668,7 @@
 "subset": ""
 },
 "invoice_mailing_address|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 329,
 "pct": 0.6,
 "pct_any": 0.6,
@@ -3821,7 +3821,7 @@
 "subset": ""
 },
 "invoicing_requirements|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 173,
 "pct": 0.3,
 "pct_any": 0.3,
@@ -3974,7 +3974,7 @@
 "subset": ""
 },
 "payment_terms_as_published|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 130,
 "pct": 0.3,
 "pct_any": 0.3,
@@ -4127,7 +4127,7 @@
 "subset": ""
 },
 "po_required_as_published|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 77,
 "pct": 0.2,
 "pct_any": 0.2,
@@ -4280,8 +4280,8 @@
 "subset": ""
 },
 "invoice_portal_url|P13": {
-"rows": 50802,
-"filled": 208,
+"rows": 50806,
+"filled": 209,
 "pct": 0.4,
 "pct_any": 0.4,
 "target": "n/a",
@@ -4433,7 +4433,7 @@
 "subset": ""
 },
 "buyer_payment_method_preference|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 278,
 "pct": 0.5,
 "pct_any": 0.5,
@@ -4586,7 +4586,7 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 36,
 "pct": 0.1,
 "pct_any": 0.1,
@@ -4739,7 +4739,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 8,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -4866,7 +4866,7 @@
 },
 "buyer_esignature_preference|P10": {
 "rows": 2596,
-"filled": 20,
+"filled": 21,
 "pct": 0.8,
 "pct_any": 0.8,
 "target": 15,
@@ -4892,7 +4892,7 @@
 "subset": ""
 },
 "buyer_esignature_preference|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 39,
 "pct": 0.1,
 "pct_any": 0.1,
@@ -5045,8 +5045,8 @@
 "subset": ""
 },
 "ap_system_hint|P13": {
-"rows": 50802,
-"filled": 290,
+"rows": 50806,
+"filled": 291,
 "pct": 0.6,
 "pct_any": 0.6,
 "target": 20,
@@ -5198,7 +5198,7 @@
 "subset": ""
 },
 "contract_value|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5351,7 +5351,7 @@
 "subset": ""
 },
 "currency|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5504,7 +5504,7 @@
 "subset": ""
 },
 "start_date|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5657,7 +5657,7 @@
 "subset": ""
 },
 "end_date|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5810,7 +5810,7 @@
 "subset": ""
 },
 "contract_title|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5963,7 +5963,7 @@
 "subset": ""
 },
 "contract_description|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -6116,7 +6116,7 @@
 "subset": "rows from a source that publishes bids: 19 rows, 0.0% filled"
 },
 "number_of_bids|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -6269,7 +6269,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6422,7 +6422,7 @@
 "subset": ""
 },
 "commodity_distribution_top3|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6575,7 +6575,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6728,7 +6728,7 @@
 "subset": ""
 },
 "mta_sts|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 50802,
 "pct": 100.0,
 "pct_any": 100.0,
@@ -6881,7 +6881,7 @@
 "subset": ""
 },
 "tls_rpt|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 50802,
 "pct": 100.0,
 "pct_any": 100.0,
@@ -7034,7 +7034,7 @@
 "subset": ""
 },
 "bimi|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 50802,
 "pct": 100.0,
 "pct_any": 100.0,
@@ -7187,7 +7187,7 @@
 "subset": "QC vendors: 3 rows, 100.0% filled"
 },
 "vendor_neq|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -7340,7 +7340,7 @@
 "subset": "vendors with a registry record: 19 rows, 100.0% filled"
 },
 "vendor_years_in_business|P13": {
-"rows": 50802,
+"rows": 50806,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
