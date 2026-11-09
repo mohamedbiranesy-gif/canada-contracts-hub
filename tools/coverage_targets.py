@@ -260,6 +260,27 @@ def main():
                         gaps[v.split("missing: ", 1)[-1].split(";")[0].strip()] += 1
                 L.append("| %s | %d | %d | %.1f%% | %s |" % (pkg, len(rows), pay, 100.0 * pay / max(1, len(rows)), (gaps.most_common(1)[0][0] + " (%d)" % gaps.most_common(1)[0][1]) if gaps else "—"))
             L.append("")
+        if any(rows and "pay_on_sight" in rows[0] for rows in pk.values()):
+            # owner 2026-11-08 19:55 EST: the goal — "you see the invoice, boom, it's paid": could an invoice be generated from the row and clear AP matching?
+            L += ["### Pay on sight (an invoice generated from the row would clear AP: confirmed invoicing / AP or finance channel, bill-to legal name + address, vendor legal name + GST/HST number + remit-to address, tax treatment and currency known — published or labelled-derived; the buyer's reference rule is reported separately)", "",
+                  "| package | rows | pay on sight | % | + reference rule not published | routed (general inbox only) | most common gap |", "|---|---|---|---|---|---|---|"]
+            tot = collections.Counter()
+            for pkg, rows in pk.items():
+                if not rows or "pay_on_sight" not in rows[0]:
+                    continue
+                yes = sum(1 for r in rows if (r.get("pay_on_sight") or "") == "yes")
+                yes_ref = sum(1 for r in rows if (r.get("pay_on_sight") or "").startswith("yes —"))
+                routed = sum(1 for r in rows if (r.get("pay_on_sight") or "").startswith("routed"))
+                gaps = collections.Counter()
+                for r in rows:
+                    if (r.get("pay_on_sight") or "") == "no":
+                        g = (r.get("pay_on_sight_missing") or "").split(";")[0].strip()
+                        if g and not g.startswith("("):
+                            gaps[g] += 1
+                tot["rows"] += len(rows); tot["yes"] += yes; tot["yes_ref"] += yes_ref; tot["routed"] += routed
+                L.append("| %s | %d | %d | %.1f%% | %d | %d | %s |" % (pkg, len(rows), yes, 100.0 * yes / max(1, len(rows)), yes_ref, routed, (gaps.most_common(1)[0][0][:70] + " (%d)" % gaps.most_common(1)[0][1]) if gaps else "—"))
+            L.append("| **all** | %d | %d | %.1f%% | %d | %d | |" % (tot["rows"], tot["yes"], 100.0 * tot["yes"] / max(1, tot["rows"]), tot["yes_ref"], tot["routed"]))
+            L.append("")
         # owner 2026-11-08 11:38 EST: grade A is the standard every row must reach, not a rating — print what blocks A, per package, so the next lever is the biggest blocker
         if any(rows and "ap_gap_to_A" in rows[0] for rows in pk.values()):
             L += ["### What still blocks grade A (rows per missing element; a row counts under every element it lacks)", "", "| package | rows not A | " + " | ".join(A_NEEDS) + " |", "|---|---|" + "---|" * len(A_NEEDS)]

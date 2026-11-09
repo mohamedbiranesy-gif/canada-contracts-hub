@@ -2415,7 +2415,14 @@ TAX_MUNICIPAL = "municipality: GST/HST applies to supplies to it — a municipal
 TAX_RATE = {"ON": "HST 13% (Ontario)", "NB": "HST 15% (New Brunswick)", "NL": "HST 15% (Newfoundland and Labrador)", "NS": "HST 15% (Nova Scotia)", "PE": "HST 15% (Prince Edward Island)"}
 TAX_RATE_NOTE = " — indicative rate for a supply made in the buyer's province (GST/HST Memorandum 18-2 'GST/HST rates', %s, read 2026-11-08: \"The HST applies in the participating provinces at the following rates: 13%% in Ontario and 15%% in New Brunswick, Newfoundland and Labrador, Nova Scotia, and Prince Edward Island. The GST applies in the rest of Canada at the rate of 5%%\"); the place-of-supply rules decide (Memorandum 3-3-2); provincial sales taxes (QST, PST) are not covered here" % CRA_18_2
 
-PACK_COLS = ["invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url", "buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+CITY_TO_PROV = {"toronto": "ON", "ottawa": "ON", "mississauga": "ON", "brampton": "ON", "hamilton": "ON", "london": "ON", "markham": "ON", "vaughan": "ON", "kitchener": "ON", "windsor": "ON", "richmond hill": "ON", "oakville": "ON", "burlington": "ON", "sudbury": "ON", "oshawa": "ON", "barrie": "ON", "st. catharines": "ON", "guelph": "ON", "cambridge": "ON", "whitby": "ON", "kingston": "ON", "thunder bay": "ON", "waterloo": "ON", "brantford": "ON", "pickering": "ON", "niagara falls": "ON", "peterborough": "ON", "sault ste. marie": "ON", "sarnia": "ON", "north bay": "ON", "belleville": "ON", "cornwall": "ON", "timmins": "ON", "orillia": "ON", "stratford": "ON", "owen sound": "ON",
+                "montreal": "QC", "quebec": "QC", "laval": "QC", "gatineau": "QC", "longueuil": "QC", "sherbrooke": "QC", "levis": "QC", "saguenay": "QC", "trois-rivieres": "QC", "terrebonne": "QC", "saint-jean-sur-richelieu": "QC", "repentigny": "QC", "brossard": "QC", "drummondville": "QC", "saint-jerome": "QC", "granby": "QC", "blainville": "QC", "saint-hyacinthe": "QC", "shawinigan": "QC", "dollard-des-ormeaux": "QC", "rimouski": "QC", "victoriaville": "QC", "rouyn-noranda": "QC", "boucherville": "QC", "sept-iles": "QC", "val-d'or": "QC", "alma": "QC", "baie-comeau": "QC", "thetford mines": "QC", "joliette": "QC", "sorel-tracy": "QC", "magog": "QC",
+                "vancouver": "BC", "surrey": "BC", "burnaby": "BC", "richmond": "BC", "abbotsford": "BC", "coquitlam": "BC", "kelowna": "BC", "langley": "BC", "saanich": "BC", "delta": "BC", "kamloops": "BC", "nanaimo": "BC", "victoria": "BC", "chilliwack": "BC", "prince george": "BC", "vernon": "BC", "courtenay": "BC", "campbell river": "BC", "penticton": "BC", "north vancouver": "BC", "new westminster": "BC", "port coquitlam": "BC", "maple ridge": "BC", "cranbrook": "BC", "fort st. john": "BC",
+                "calgary": "AB", "edmonton": "AB", "red deer": "AB", "lethbridge": "AB", "st. albert": "AB", "medicine hat": "AB", "grande prairie": "AB", "airdrie": "AB", "spruce grove": "AB", "leduc": "AB", "fort mcmurray": "AB", "lloydminster": "AB", "okotoks": "AB", "cochrane": "AB", "camrose": "AB", "brooks": "AB",
+                "winnipeg": "MB", "brandon": "MB", "steinbach": "MB", "thompson": "MB", "portage la prairie": "MB", "regina": "SK", "saskatoon": "SK", "prince albert": "SK", "moose jaw": "SK", "swift current": "SK", "yorkton": "SK", "north battleford": "SK",
+                "halifax": "NS", "dartmouth": "NS", "sydney": "NS", "truro": "NS", "new glasgow": "NS", "kentville": "NS", "moncton": "NB", "saint john": "NB", "fredericton": "NB", "dieppe": "NB", "miramichi": "NB", "bathurst": "NB", "edmundston": "NB", "st. john's": "NL", "mount pearl": "NL", "corner brook": "NL", "gander": "NL", "grand falls-windsor": "NL", "charlottetown": "PE", "summerside": "PE", "whitehorse": "YT", "yellowknife": "NT", "iqaluit": "NU"}
+CITY_PROV = re.compile(r"\b(" + "|".join(sorted((re.escape(c) for c in CITY_TO_PROV), key=len, reverse=True)) + r")\b")
+PACK_COLS = ["pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url", "buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "vendor_registry_note", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
@@ -2562,7 +2569,8 @@ try:
         # owner 2026-11-08 11:21 EST ("invoice grade, invoice framing"): the row read as the header of an invoice this vendor would send this buyer —
         # bill-to, submit-to, references, terms, tax, currency, vendor identity, follow-up — with every element's presence checked
         def _val(c):
-            v = (x.get(c) or "").strip()
+            v = x.get(c)
+            v = ("" if v is None else str(v)).strip()  # contract_value may still be a float in a few rows
             return "" if (not v or v in ("not_published", "{}", "[]") or re.match(r"^(?:no |none\b|not |0 in the|only system|n/a\b|not applicable|unknown\b|aucun|no dataset|no record|no identifier)", v, re.I)) else v
         # derived GST/HST status and indicative rate (owner 2026-11-08 11:53 EST: plausibility values only where nothing is published, source-derived, labelled)
         x["buyer_tax_status_derived"] = x["tax_rate_indicative_derived"] = x["invoice_currency_derived"] = ""
@@ -2572,8 +2580,16 @@ try:
             if not prov2 and pc2:
                 prov2 = {"G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON", "V": "BC", "T": "AB", "S": "SK", "R": "MB", "B": "NS", "E": "NB", "A": "NL", "C": "PE", "Y": "YT", "X": "NT"}.get(pc2.group(1), "")
             if not prov2:
-                md3 = re.search(r"\.(qc|on|bc|ab|sk|mb|ns|nb|nl|pe|yk|nt|nu)\.ca(?:/|$)", (x.get("buyer_website") or "").lower())
+                md3 = re.search(r"\.(qc|on|bc|ab|sk|mb|ns|nb|nl|pe|yk|nt|nu)\.ca(?:/|$)", (x.get("buyer_website") or "").lower() + " " + (x.get("email") or "").lower().split("@")[-1] + "/")
                 prov2 = md3.group(1).upper().replace("YK", "YT") if md3 else ""
+            if not prov2:  # 2026-11-08 20:10 EST (owner: tax treatment on every row an invoice can be built for): the registry place table, then the city named in the address
+                for _k in (x.get("keys") or "").split("|"):
+                    _pp = (PLACES.get(_k) or {}).get("province") or ""
+                    if _pp.upper() in TAX_RATE or _pp.upper() in ("QC", "BC", "AB", "SK", "MB", "YT", "NT", "NU"):
+                        prov2 = _pp.upper(); break
+            if not prov2:
+                _city = CITY_PROV.search(unicodedata.normalize("NFKD", (x.get("buyer_address") or "") + " | " + (x.get("buyer") or "")).encode("ascii", "ignore").decode().lower())
+                prov2 = CITY_TO_PROV[_city.group(1)] if _city else ""
             bt2 = (x.get("buyer_type") or "").lower()
             fed2 = (x.get("jurisdiction") or "") == "FED" or bool(re.search(r"\.gc\.ca|canada\.ca", (x.get("buyer_website") or "")))
             if not fed2 and prov2 and ("ministry" in bt2 or "crown" in bt2 or re.search(r"\bgovernment\b", bt2)) and not re.search(r"municipal|school|hospital|university|college|transit|utility", bt2):
@@ -2583,15 +2599,26 @@ try:
                     x["buyer_tax_status_derived"] = TAX_PAY_REBATE
             elif "municipal" in bt2 and prov2:
                 x["buyer_tax_status_derived"] = TAX_MUNICIPAL
+            elif prov2:  # every other Canadian purchaser (university, hospital, school board, company, non-profit): taxable supply at the place-of-supply rate; any PSB rebate is the buyer's own claim
+                x["buyer_tax_status_derived"] = "DERIVED: taxable purchaser presumed (no exemption published); charge GST/HST at the place-of-supply rate of %s on the invoice; public service bodies claim their own rebate afterwards (ETA s. 259); a registrant buyer recovers tax through ITCs" % prov2
             if prov2 in TAX_RATE:
                 x["tax_rate_indicative_derived"] = TAX_RATE[prov2] + TAX_RATE_NOTE
             elif prov2 in ("QC", "BC", "AB", "SK", "MB", "YT", "NT", "NU"):
                 x["tax_rate_indicative_derived"] = "GST 5%% (%s)" % prov2 + TAX_RATE_NOTE
             if x["buyer_tax_status_derived"] or x["tax_rate_indicative_derived"]:
                 npk["tax_derived"] += 1
-            if not _val("currency") and (prov2 or fed2 or (x.get("jurisdiction") or "") == "CA"):
+            if not _val("currency") and (prov2 or fed2 or (x.get("jurisdiction") or "") == "CA" or (x.get("buyer_website") or "").lower().rstrip("/").endswith(".ca")):
                 x["invoice_currency_derived"] = "CAD (derived: the buyer is in Canada and the row has no contract record stating a currency; the invoice would be in Canadian dollars unless the vendor and buyer agreed otherwise)"
                 npk["invoice_currency_derived"] += 1
+        else:  # buyer outside Canada: exported supply, local tax is the buyer's; currency from the buyer's country
+            _site = (x.get("buyer_website") or "").lower(); _jur = x.get("jurisdiction") or ""
+            _cc = "US" if (_jur == "US" or re.search(r"\.gov\b|\.(gov|edu|us)$", _site)) else "GB" if re.search(r"\.(gov\.uk|org\.uk|co\.uk|ac\.uk|uk)$", _site) else "AU" if re.search(r"\.(gov\.au|edu\.au|com\.au|au)$", _site) else "EU" if re.search(r"\.(eu|fr|de|nl|be|it|es|ie|fi|se|dk|pt|at|pl)$", _site) else ""
+            if _cc:
+                x["buyer_tax_status_derived"] = "DERIVED: buyer outside Canada — services and goods exported to a non-resident are generally zero-rated for GST/HST (ETA Schedule VI, Parts V and VII); %s" % {"US": "US state sales / use tax is self-assessed by the buyer", "GB": "UK VAT is accounted for by the buyer under the reverse charge where applicable", "AU": "Australian GST is accounted for by the buyer where applicable", "EU": "EU VAT is accounted for by the buyer under the reverse charge where applicable"}[_cc]
+                if not _val("currency"):
+                    x["invoice_currency_derived"] = {"US": "USD", "GB": "GBP", "AU": "AUD", "EU": "EUR"}[_cc] + " (derived from the buyer's country; CAD if the parties agreed so)"
+                    npk["invoice_currency_derived"] += 1
+                npk["tax_derived_foreign"] += 1
         card = {
             "bill_to": {"legal_name": _val("buyer_legal_name_as_published") or _val("buyer"), "legal_name_is_published": bool(_val("buyer_legal_name_as_published")), "address": _val("invoice_mailing_address") or _val("buyer_address"),
                         "address_is_the_invoice_address": bool(_val("invoice_mailing_address")), "tax_number": _val("buyer_bn_as_published"), "language": _val("template_language") or _val("language_hint")},
@@ -2674,6 +2701,37 @@ try:
             need = [n_ for ok_, n_ in ((chan, "a confirmed invoicing / AP or finance channel"), (billto, "bill-to legal name and address"), (po_known, "the buyer's PO / reference rule"), (tax_known, "tax treatment"))
                     if not ok_]
             x["ap_payability"] = ("payable today: channel + bill-to + reference rule + tax treatment%s%s" % ("; supplier setup known" if setup_known else "; supplier setup form not found (first payment may need it)", "; terms published" if crit[9][1] else "; terms not published (buyer's default applies)")) if not need else "not yet payable — missing: " + "; ".join(need)
+            # pay on sight (owner 2026-11-08 19:55 EST: "you see the invoice, boom, it's paid"): could an invoice be generated from this row and clear AP matching?
+            # channel tier 1 = confirmed invoicing / AP mailbox or invoice portal, 2 = confirmed finance mailbox, 3 = confirmed purchasing / general mailbox (routed internally), 0 = unconfirmed
+            _portal_ok = bool(card["submit_to"]["portal_url"]) and (x.get("invoice_portal_kind") or "").lower().find("invoic") >= 0
+            tier = 1 if (confirmed and ap_mail) or _portal_ok else 2 if confirmed and crit[1][1] else 3 if confirmed else 0
+            x["channel_tier"] = str(tier)
+            v_legal = _val("vendor_legal_name") or (_val("vendor") if not (x.get("vendor") or "").startswith("inferred") else "")
+            v_gst = _val("vendor_bn9")
+            v_addr = _val("vendor_address") or _val("vendor_registered_address")
+            tax_any = bool(card["tax"]["buyer_tax_status"]) or bool(x.get("tax_rate_indicative_derived")) or bool(x.get("buyer_tax_status_derived"))
+            cur_any = bool(card["tax"]["currency"]) or bool(x.get("invoice_currency_derived"))
+            pos_need = [n_ for ok_, n_ in ((tier in (1, 2), "a confirmed invoicing / AP or finance channel" if tier != 3 else "an invoicing / AP or finance mailbox (only a purchasing / general inbox is confirmed: the invoice is routed, not addressed)"),
+                                           (billto, "bill-to legal name and address"), (bool(v_legal), "the vendor's legal name"), (bool(v_gst), "the vendor's GST/HST number (BN9)"), (bool(v_addr), "the vendor's remit-to address"),
+                                           (tax_any, "tax treatment"), (cur_any, "currency")) if not ok_]
+            if not pos_need:
+                x["pay_on_sight"] = "yes" if po_known else "yes — reference rule not published (quote the buyer's PO / order number when one is issued)"
+            elif tier == 3 and all(ok_ for ok_ in (billto, bool(v_legal), bool(v_gst), bool(v_addr), tax_any, cur_any)):
+                x["pay_on_sight"] = "routed — complete invoice, but only a purchasing / general inbox is confirmed"
+            else:
+                x["pay_on_sight"] = "no"
+            x["pay_on_sight_missing"] = "; ".join(pos_need + ([] if po_known else ["(reference rule not published)"]))
+            npk["pay_on_sight_" + x["pay_on_sight"].split(" ")[0]] += 1
+            _terms = _val("payment_terms_as_published") or (x.get("payment_terms_default_policy") or "").split(" (")[0] or "vendor's standard terms (buyer publishes none)"
+            _ref = "; ".join(t_ for t_ in (("PO " + _val("po_number_as_published")) if _val("po_number_as_published") else "", ("contract " + _val("contract_or_agreement_number").split(";")[0]) if _val("contract_or_agreement_number") else "", ("tender " + _val("solicitation_or_tender_number").split(";")[0]) if _val("solicitation_or_tender_number") else "") if t_)
+            _lines = ["DRAFT INVOICE HEADER — built only from the row's sourced and labelled-derived columns (provenance in facts_provenance_json)",
+                      "BILL TO: %s%s" % (card["bill_to"]["legal_name"] or "(legal name not published)", (" — " + card["bill_to"]["address"]) if card["bill_to"]["address"] else " — (address not published)") + ((" — buyer tax no. " + card["bill_to"]["tax_number"]) if card["bill_to"]["tax_number"] else ""),
+                      "SUBMIT TO: %s%s%s%s" % (_val("email") or "(no mailbox)", " (%s mailbox, %s)" % (_val("email_type") or "type unknown", "confirmed by the referee" if confirmed else "not yet confirmed"), (" | portal: " + card["submit_to"]["portal_url"]) if card["submit_to"]["portal_url"] else "", (" | format: " + card["submit_to"]["format"]) if card["submit_to"]["format"] else ""),
+                      "REFERENCE: %s%s" % (_ref or "none in the record", (" | PO rule: " + card["references_required"]["po_required"].split(" (as printed")[0][:120]) if card["references_required"]["po_required"] else " | PO rule: not published"),
+                      "FROM / REMIT TO: %s%s%s%s" % (v_legal or "(vendor legal name not confirmed)", (" — " + v_addr) if v_addr else " — (remit-to address not published)", (" | GST/HST %sRT0001 (account derived from the BN9)" % v_gst) if v_gst else " | GST/HST number not public", (" | NEQ " + _val("vendor_neq").split(" ")[0]) if _val("vendor_neq") else ""),
+                      "TAX: %s | CURRENCY: %s | TERMS: %s" % ((card["tax"]["buyer_tax_status"] or x.get("buyer_tax_status_derived") or x.get("tax_rate_indicative_derived") or "treatment unknown")[:160], (card["tax"]["currency"] or (x.get("invoice_currency_derived") or "").split(" (")[0] or "unknown"), _terms[:100]),
+                      "DESCRIPTION: %s%s" % ((_val("contract_title") or _val("contract_description") or _val("relationship_detail") or "(no contract text)")[:140], (" | AMOUNT: %s %s" % (_val("contract_value"), (card["tax"]["currency"] or "").split(" (")[0])) if _val("contract_value") else "")]
+            x["invoice_text"] = "\n".join(_lines)[:1500]
             npk["ap_payable_today"] += not need
         x["facts_provenance_json"] = json.dumps({"mailbox": [p.strip() for p in (x.get("mailbox_provenance") or "").split(" | ") if p.strip()], "buyer_facts": [p.strip() for p in (x.get("buyer_facts_provenance") or "").split("; ") if p.strip()],
                                                  "vendor_facts": [p.strip() for p in (x.get("vendor_facts_provenance") or "").split("; ") if p.strip()], "relationship": x.get("how_relationship_was_found") or ""}, ensure_ascii=False)[:4000]
@@ -2744,7 +2802,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
                    ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
-                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
+                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning", "vendor_registry_note"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
