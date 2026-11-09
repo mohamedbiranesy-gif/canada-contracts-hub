@@ -1,104 +1,189 @@
 change,buyer,rank_group,email,detail
-field changed: buyer_address,"Immigration, Refugees and Citizenship Canada",GOLD,vendors_fournisseurs@cic.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: vendor_address,"Electric Reliability Council of Texas, Inc.",GOLD,accountspayable@ercot.com,"filled: '201 High Street SE, STE 100, Salem, OR 97301'"
-field changed: vendor_address,Travis County,GOLD,ap@traviscountytx.gov,"filled: '450 Mart St. Williams Lake, BC V2G 1N3'"
-field changed: vendor_address,"City of Tacoma, Department of Public Utilities, Light Division",B0,,"filled: '201 High Street SE, STE 100, Salem, OR 97301'"
-field changed: buyer_address,Canada School of Public Service,A3,csps.finance.efpc@canada.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '373 Sussex Dr., Ottawa, Ontario, K1N 5H5, Canada'"
-field changed: buyer_address,Public Safety Canada,A3,financial_systems.systemes_financiers@ps-sp.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Veterans Affairs Canada,A3,directdeposit-depotdirect@vac-acc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_phone,Office of the Child and Youth Advocate,A3,ocya.finance@ocya.alberta.ca,filled: '1-800-661-3446'
-field changed: ap_contact_name_as_published,Municipalité de Saint-Anicet,B3,comptabilite@stanicet.com,was 'Patricia Breton O'connor (as printed by the organisation on its own accounts-payable page (as printed on https://stanice' → now 'Patricia Breton O'connor (as printed by the organisation next to its invoicing mailbox)'
-field changed: vendor_address,Town of Slave Lake,GOLD-T,accountspayable@slavelake.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,St. Andrew's College,GOLD-T,ap@sac.on.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: vendor_address,Kindersley,GOLD-T,accountspayable@kindersley.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Pilot Butte,GOLD-T,accountspayable@pilotbutte.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Parksville,GOLD-T,ap@parksville.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: buyer_phone,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,filled: '+44 (0)141 552 4400'
-field changed: vendor_address,BARRHAVEN FOOD CUPBOARD,B3,treasurer@barrhavenfoodcupboard.ca,"filled: '5415 E High St, Suite 350, Phoenix, AZ, 85054'"
-field changed: vendor_address,Durham Christian High School,T3,finance@dchs.com,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: vendor_address,Haines Junction,T3,finance@hainesjunction.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Princeton,T0,,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Watson Lake,T3,treasurer@watsonlake.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,oliverpaipoonge.ca,T3,treasurer@oliverpaipoonge.on.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Regional District of Bulkley-Nechako,T3,finance@rdbn.bc.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Guido de Brès Christian High School,T3,finance@guidodebres.com,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: vendor_address,Weyburn No. 67,T3,finance@rmweyburn.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Regional District of Okanagan-Similkameen,T3,finance@rdos.bc.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Atikokan,T3,finance@atikokan.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Oromocto,T3,finance@oromocto.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Salt River Project Agricultural Improvement and Power District,B2,supplierdiversity@srpnet.com,"filled: '201 High Street SE, STE 100, Salem, OR 97301'"
-field changed: buyer_address,transportation.ky.gov,D3,finance.crcgroup@ky.gov,"filled: '200 Mero St Frankfort, KY , Contact Form , (502) 564-4890, Transportation.ky.gov'"
-field changed: vendor_address,"Univerzita Karlova, Lékařská fakulta v Hradci Králové",B1,info@cuni.cz,"filled: '21 st Floor, 777 Bay Street , Toronto, Ontario, Canada , M5G 2N4'"
-field changed: vendor_address,OCM MUTUAL FUND - OCM MUTUAL FUND,B1,info@ocmgoldfund.com,"filled: '2500 – 733 Seymour Street, Vancouver, BC, V6B 0S6'"
-field changed: vendor_address,SENATOR INVESTMENT GROUP LP - SENATOR GLOBAL OPPORTUNITY MASTER FUND LP,B1,info@senatorlp.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,Guzman Energy LLC,B1,Info@GuzmanEnergy.com,"filled: '201 High Street SE, STE 100, Salem, OR 97301'"
-field changed: vendor_address,TUDOR INVESTMENT CORPORATION - TUDOR RIVERBEND CROSSING PARTNERS PORTFOLIO LTD.,B1,info@tudor.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,"BRIGHTWOOD CAPITAL ADVISORS, LLC - BRIGHTWOOD CAPITAL OFFSHORE FUND V-U, LP",B1,info@brightwoodlp.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
-field changed: vendor_address,MGG INVESTMENT GROUP LP - MGG RATED DEBT FEEDER FUND 2025LP,B1,info@mgginvestment.com,"filled: '4th Floor, Sir Walter Raleigh House, 48-50 Esplanade, St Helier, Jersey, JE2 3QB'"
-field changed: vendor_address,"SOFINNOVA INVESTMENTS, INC. - SOFINNOVA BIOEQUITIES ENHANCED MASTER FUND, LP",B1,info@sofinnova.com,"filled: '6 IMPASSE BONNE NOUVELLE, Paris, Ile-de-France, 75010'"
-field changed: vendor_address,32 DEGREES CAPITAL ADVISOR LTD. - 32 DEGREES DIVERSIFIED ENERGY FUND III (U.S.) LP,B1,info@32degrees.ca,"filled: '150 Cheapside, London, EC2V 6ET'"
-field changed: vendor_address,"CHILTON INVESTMENT SERVICES, LLC - CHILTON TRUST ROYAL PALM EQUITY FUND, L.P.",B1,inquiries@chiltontrust.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,INSTAR ASSET MANAGEMENT INC. - INSTAR ESSENTIAL INFRASTRUCTURE III (USP-USD) LP,B1,info@instarinvest.com,"filled: '285 Fulton Street, 56th Floor , New York City, NY 10007'"
-field changed: vendor_address,"DSF ADVISORS, LLC - DSF MULTI-FAMILY FUND-2023, LP",B1,info@dsfadvisors.com,"filled: '1 Kentish Buildings, 125 Borough High Street, London SE1 1NP'"
-field changed: vendor_address,"MYRMIKAN CAPITAL MANAGEMENT, LLC - MYRMIKAN GOLD FUND LLC",B1,info@myrmikan.com,"filled: '2500 – 733 Seymour Street, Vancouver, BC, V6B 0S6'"
-field changed: vendor_address,RAM REALTY ADVISORS LLC - RAM RETAIL PARTNERS LP,B1,info@ramrealestate.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
-field changed: vendor_address,The Bunkie,B1,hello@bunkie.co,"filled: '410 Toronto St, Newcastle, ON L1B 1C2'"
-field changed: vendor_address,ESCHATON OPPORTUNITIES FUND MANAGEMENT LP - ESCHATON OPPORTUNITIES FUND II LP,B1,info@eschatonfunds.com,"filled: 'PO Box 2581, STN Central, Calgary, AB, T2P 1C8'"
-field changed: vendor_address,"CATHOLIC INVESTMENT SERVICES, INC. - CATHOLIC ENDOWMENT FUND, LP",B1,info@catholicinvest.org,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,"MSD PARTNERS, L.P. - MSDC EIV, LLC",B1,contact@bdtmsd.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,"FOURWORLD CAPITAL MANAGEMENT LLC - DOMUS ES, LLC",B1,inquiries@fourworldcapital.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,"BOREALIS STRATEGIC CAPITAL PARTNERS, LP - BOREALIS STRATEGIC CAPITAL PARTNERS MASTER FUND I, LP",B1,info@borealisstratcap.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,Elite Cladding,B1,info@elitecladding.com,"filled: 'House 405, Road 6, Baridhara DOHS, Dhaka, 1206'"
-field changed: vendor_address,"AVALON GLOBAL ASSET MANAGEMENT LLC - AVALON GLOBAL PARTNERS, LLC",B1,info@avalon-global.com,"filled: '4th Floor, Sir Walter Raleigh House, 48-50 Esplanade, St Helier, Jersey, JE2 3QB'"
-field changed: vendor_address,"GOTHAM GREEN PARTNERS, LLC - GOTHAM GREEN PARTNERS SPV V, L.P.",B1,info@gothamgreenpartners.com,"filled: '2500 – 733 Seymour Street, Vancouver, BC, V6B 0S6'"
-field changed: vendor_address,Village of Nakusp,B1,info@nakusp.com,"filled: '91 Baker Street, Nelson, BC, V1L 4G8'"
-field changed: vendor_address,STARBOARD VALUE LP - STARBOARD VALUE AND OPPORTUNITY MASTER FUND LTD,B1,info@starboardvalue.com,"filled: '60 East 42nd Street, New York, NY 10165'"
-field changed: vendor_address,PAG - PAG LOAN FUND VI LP,B1,info@pag.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
-field changed: vendor_address,ROSEMAWR MANAGEMENT LLC - ROSEMAWR CAPITAL V LP,B1,info@rosemawr.com,"filled: '4th Floor, Sir Walter Raleigh House, 48-50 Esplanade, St Helier, Jersey, JE2 3QB'"
-field changed: vendor_address,goodroads.ca,B1,info@goodroads.ca,"filled: '120 Jevlan Drive, Unit 2B, Vaughan, ON, L4L 8G3'"
-field changed: vendor_address,TORONTO CAT RESCUE,B1,info@torontocatrescue.ca,"filled: '121 Commerce Park Drive, Unit A, Barrie, ON L4N 8X1'"
-field changed: vendor_address,"LEM CAPITAL, L.P. - LEM MULTIFAMILY FUND VI, L.P.",B1,info@lemcapital.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
-field changed: vendor_address,Dirección General de la Fundación para la Investigación del Hospital Universitario de la Fe,B1,info@iislafe.es,"filled: 'Wales Hospital High Street, Randwick, NSW 2031'"
-field changed: vendor_address,U.S. International Development Finance Corporation - U.S. International Development Finance Corporation,B1,info@dfc.gov,"filled: 'Dimmuhvarf 13A, Kópavogur, 203'"
-field changed: vendor_address,"STELLUS CAPITAL MANAGEMENT, LLC - STELLUS CREDIT VCOC FUND IV, LLC",B1,info@stelluscapital.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
-field changed: vendor_address,"TIFF ENDOWMENT ASSET MANAGEMENT, LLC - THE TIFF KEYSTONE FUND, LP",B1,info@tiff.org,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,AXONIC CAPITAL LLC - AXONIC COMMERCIAL REAL ESTATE MASTER FUND III LP,B1,info@axoniccap.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,"TEKNE CAPITAL MANAGEMENT, LLC - TEKNE MASTER FUND, L.P.",B1,info@teknecap.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,"REDWOOD CAPITAL MANAGEMENT, LLC - REDWOOD DRAWDOWN MASTER FUND IV, LP",B1,info@redwoodcap.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
-field changed: vendor_address,St. Andrew's Society of Montreal,B1,info@standrews.qc.ca,"filled: '3 More London Riverside, London SE1 2RE'"
-field changed: vendor_address,"TENOR CAPITAL MANAGEMENT COMPANY, L.P. - TENOR SPECIAL SITUATIONS FUND, LP",B1,info@tenorcapital.com,"filled: '4th Floor, Sir Walter Raleigh House, 48-50 Esplanade, St Helier, Jersey, JE2 3QB'"
-field changed: vendor_address,"PROSPECT RIDGE ADVISORS, LLC - PROSPECT RIDGE U.S. REAL ESTATE PARTNERS IV L.P.",B1,info@prospectridge.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
-field changed: vendor_address,GI MANAGER L.P. - GI PARTNERS ETS FUND LP,B1,info@gipartners.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
-field changed: vendor_address,Conservation de la Nation Sud,B1,info@nation.on.ca,"filled: '5415 E High St, Suite 350, Phoenix, AZ, 85054'"
-field changed: vendor_address,"EAST ROCK CAPITAL, LLC - EAST ROCK FOCUS FUND, L.P.",B1,info@eastrockcap.com,"filled: '6 IMPASSE BONNE NOUVELLE, Paris, Ile-de-France, 75010'"
-field changed: vendor_address,Parkdale Community Foodbank,B1,info@pcfb.ca,"filled: '170 The Donway W., Suite 213, Toronto, Ontario, M3C 2G3'"
-field changed: vendor_address,"CLOCKTOWER GROUP, L.P. - CLOCKTOWER STRATEGIC FUND PARTNERS MASTER III LP",B1,contact@clocktowergroup.com,"filled: '6 IMPASSE BONNE NOUVELLE, Paris, Ile-de-France, 75010'"
-field changed: vendor_address,Town of Balgonie,T1,general@balgonie.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: buyer_phone,KNMI (Represented by Ministry of Infrastructure and Water Management),C1,informatiecentrum@knmi.nl,filled: 'Telefoon 030 22 06 911'
-field changed: vendor_address,Brampton Christian School,T1,admin@bramptoncs.org,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: buyer_address,theorganibrands.com,T1,hello@theorganibrands.com,"filled: '3272 E Sunset Road suite 120, Las Vegas NV 89120'"
-field changed: vendor_address,City of Melville,T1,cityhall@melville.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Whitewood,T1,general@townofwhitewood.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,King's Christian Collegiate,T1,office@kingschristian.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: vendor_address,Prairie Land Regional Division No. 25,T1,hello@plrd.ab.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: vendor_address,Prairie Spirit Division Office,T1,contact@spiritsd.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: buyer_address,Stockyard Chiropractors,T1,info@thedogjointchiro.com,"was '2567 St. Clair Avenue West Toronto, Ontario M6N 4Z5 (printed next to the organisation's mailbox (as printed on https://w' → now '2567 St. Clair Avenue West, Toronto, Ontario M6N 4Z5'"
-field changed: buyer_phone,Stockyard Chiropractors,T1,info@thedogjointchiro.com,was '416 604 2555 (tel: link on https://thedogjointchiro.com/)' → now '(416) 604-2555'
-field changed: vendor_address,Toronto District Christian High School,T1,info@tdchristian.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: vendor_address,Rehoboth Christian School,T1,office@rcsnorwich.com,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: vendor_address,Sunbury-York South,T1,contact@sysrc.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Kipling,T1,info@townofkipling.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,town of Leader,T1,clerk@leader.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: buyer_phone,LeidiDonna Luxe Inc,T1,info@leididonna.com,was '1 (800) 958 1867 (tel: link on https://leididonna.com/fr)' → now '1 (800) 958 1867'
-field changed: vendor_address,Hanwell,T1,administration@hanwell.nb.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Irishtown-Summerside,T1,info@irishtownsummerside.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Hamilton District Christian High School,T1,info@hdch.org,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
-field changed: buyer_phone,The American Whistle Corporation,T1,info@americanwhistle.com,was '+1-614-846-2918 (schema.org JSON-LD telephone on https://www.americanwhistle.com/)' → now '+1-614-846-2918'
-field changed: buyer_phone,ehobbyasia.com,T1,info@ehobbyasia.com,filled: '+852 5707-2604'
-field changed: vendor_address,Meadow Lake,T1,payments@meadowlake.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: vendor_address,Salmo,T1,info@salmo.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
-field changed: buyer_phone,"THE REPUBLIC OF COTE D'IVOIRE / Greater Abidjan Urban Mobility Authority (AMUGA), Ministry of Transport",C1,info@amuga.ci,filled: '+2252722598615'
-field changed: buyer_legal_name_as_published,TIER Mailing Address UBC Supermileage Team University,I1,admin@supermileage.ca,filled: 'TIER Mailing Address UBC Supermileage Team University (stated on https://www.supermileage.ca/)'
-field changed: buyer_legal_name_as_published,Room Collection,I1,info@theroomcollection.ca,filled: 'Room Collection (stated on https://theroomcollection.ca/policies/terms-of-service)'
-field changed: buyer_address,East Coast Bakery,I1,info@eastcoastbakery.ca,"was '6257 quinpool road, Halifax, Nova Scotia, B3L1A4' → now '6257 quinpool road, Halifax, Nova Scotia, B3L1A4, CA (schema.org JSON-LD PostalAddress on https://eastcoastbakery.ca/)'"
-field changed: buyer_legal_name_as_published,Dudswell,I1,municipalite@municipalitedudswell.ca,filled: 'Municipality of Dudswell'
+field changed: po_required_as_published,Department of Defence,GOLD,invoices@defence.gov.au,filled: 'yes (as published: must include Defence PO)'
+field changed: invoice_mailing_address,Department of Defence,GOLD,invoices@defence.gov.au,"filled: 'Defence Accounts Payable, PO Box 800, Salisbury South SA 5106'"
+mailbox changed,BATH SPA UNIVERSITY,GOLD,supplierinvoices@bathspa.ac.uk,was accountspayable@bathspa.ac.uk
+field changed: payment_terms_as_published,BATH SPA UNIVERSITY,GOLD,supplierinvoices@bathspa.ac.uk,"was '30 days from the date of invoice (as printed on https://www.bathspa.ac.uk/media/bathspaacuk/about-us/policies/finance/no' → now 'payment terms are 30 days from receipt of a valid, un'"
+field changed: po_required_as_published,BATH SPA UNIVERSITY,GOLD,supplierinvoices@bathspa.ac.uk,"was 'purchase-order terms published (as published: No purchase order, No pay) (as printed on https://www.bathspa.ac.uk/media/' → now 'yes (as published: No Purchase Order, no pay) (as printed on https://www.bathspa.ac.uk/about-us/governance/procurement-/'"
+field changed: invoice_mailing_address,UNIVERSITY OF SUSSEX(THE),GOLD,invoices@sussex.ac.uk,"filled: 'Accounts Payable, Room 207 Sussex House, Falmer, Brighton, BN1 9RH'"
+field changed: invoice_mailing_address,Université Paris-Saclay,GOLD,service.facturier@universite-paris-saclay.fr,"filled: 'Université Paris-Saclay, Service facturier, rue du doyen Georges Poitou, 91400 Orsay'"
+field changed: invoice_mailing_address,"Slovenské elektrárne, a.s.",GOLD,info.e-invoice@seas.sk,"was 'Slovenské elektrárne, a.s., Závod Atómové elektrárne Mochovce, Odbor fakturácie, P.O.BOX 11, 935 39 Mochovce, Slovakia' → now 'Slovenské elektrárne, a.s., Odbor fakturácie, Závod Atómové elektrárne Mochovce, P.O.BOX 11, 935 39 Mochovce'"
+field changed: po_required_as_published,Network Rail,GOLD,invoices@networkrail.co.uk,was 'yes (as published: Must state valid PO)' → now 'yes (as published: PO reference)'
+field changed: invoice_mailing_address,Network Rail,GOLD,invoices@networkrail.co.uk,"was 'PO Box 4145, Manchester M60 7WZ, United Kingdom' → now 'Accounts Payable, Network Rail, PO Box 4145, Manchester M60 7WZ'"
+mailbox changed,Debiopharm International SA,GOLD,accounting@debiopharm.com,was (none)
+package moved,Debiopharm International SA,GOLD,accounting@debiopharm.com,was B0
+field changed: buyer_website,Debiopharm International SA,GOLD,accounting@debiopharm.com,filled: 'https://debiopharm.com'
+field changed: payment_terms_as_published,Debiopharm International SA,GOLD,accounting@debiopharm.com,filled: 'net45'
+field changed: email_check,Debiopharm International SA,GOLD,accounting@debiopharm.com,filled: 'confirmed'
+field changed: dmarc_policy,Debiopharm International SA,GOLD,accounting@debiopharm.com,filled: 'p=reject'
+field changed: po_required_as_published,Trinity College Dublin the University of Dublin_336,GOLD,payables@tcd.ie,was 'yes (as published: must quote 7-digit PO)' → now 'yes (as published: must include a valid PO)'
+field changed: buyer_address,Public Safety Canada,A3,financial_systems.systemes_financiers@ps-sp.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Veterans Affairs Canada,A3,directdeposit-depotdirect@vac-acc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+mailbox changed,Ville de Nicolet,A3,finance@nicolet.ca,was (none)
+package moved,Ville de Nicolet,A3,finance@nicolet.ca,was A0
+field changed: ap_phone,Ville de Nicolet,A3,finance@nicolet.ca,"filled: '819 293-6901, poste 1130'"
+field changed: invoice_mailing_address,Ville de Nicolet,A3,finance@nicolet.ca,"filled: '180, rue de Monseigneur-Panet, Nicolet, Québec J3T 1S6'"
+field changed: email_check,Ville de Nicolet,A3,finance@nicolet.ca,filled: 'confirmed'
+field changed: dmarc_policy,Ville de Nicolet,A3,finance@nicolet.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,Ville de Nicolet,A3,finance@nicolet.ca,"was 'no (mailbox not referee-confirmed)' → now 'yes (finance mailbox, not AP)'"
+field changed: buyer_address,Canadian Grain Commission,A3,cgcfinancesystemssupport@grainscanada.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Canada Border Services Agency,A2,cbsa-asfc_solicitations-demandes_de_soumissions@cbsa-asfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+mailbox changed,Australian Financial Security Authority,A2,procurement@afsa.gov.au,was (none)
+package moved,Australian Financial Security Authority,A2,procurement@afsa.gov.au,was A0
+field changed: email_check,Australian Financial Security Authority,A2,procurement@afsa.gov.au,filled: 'confirmed'
+field changed: dmarc_policy,Australian Financial Security Authority,A2,procurement@afsa.gov.au,filled: 'p=reject'
+field changed: ship_ready,Australian Financial Security Authority,A2,procurement@afsa.gov.au,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,was (none)
+package moved,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,was A0
+field changed: buyer_website,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,was 'https://www.supplychain.nhs.uk/' → now 'https://supplychain.nhs.uk'
+field changed: invoice_portal_url,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,filled: 'https://suppliers.supplychain.nhs.uk/SupplierPortal/Account/LogOn'
+field changed: invoice_mailing_address,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,"filled: 'NHS Supply Chain, Accounts Payable, PO Box 253, Wymondham, Norfolk, NR18 8DL'"
+field changed: email_check,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,filled: 'confirmed'
+field changed: dmarc_policy,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,filled: 'p=quarantine'
+field changed: po_required_as_published,CSIRO,A2,procuretopay@csiro.au,"was 'yes (as published: purchase orders from CSIRO, appear) (as printed on https://www.csiro.au/en/work-with-us/Working-with-' → now 'yes (as published: Include PO)'"
+field changed: ap_phone,CSIRO,A2,procuretopay@csiro.au,"was '1300 503 418' → now '1300 503 418 (Australia), +61 3 9545 8962 (international)'"
+mailbox changed,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,was (none)
+package moved,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,was A0
+field changed: ap_phone,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,filled: '418-856-3394'
+field changed: invoice_mailing_address,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,"filled: '412, 9e rue boulevard Desrochers, La Pocatière, Québec G0R 1Z0'"
+field changed: email_check,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,filled: 'confirmed'
+field changed: dmarc_policy,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,filled: 'p=quarantine'
+field changed: ship_ready,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,was (none)
+package moved,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,was A0
+field changed: buyer_website,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,filled: 'https://ssss.gouv.qc.ca'
+field changed: ap_phone,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,filled: '418 722-0939'
+field changed: invoice_mailing_address,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,"filled: '355, boulevard Saint-Germain, Rimouski, QC G5L 3N2, Canada'"
+field changed: email_check,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,filled: 'confirmed'
+field changed: dmarc_policy,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,filled: 'p=quarantine'
+field changed: ship_ready,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,was (none)
+package moved,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,was A0
+field changed: email_check,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,filled: 'confirmed'
+field changed: dmarc_policy,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,filled: 'p=reject'
+field changed: ship_ready,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,was (none)
+package moved,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,was B0
+field changed: buyer_website,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,filled: 'https://hmrc.gov.uk'
+field changed: ap_phone,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,filled: '+44 (03000) 514066'
+field changed: email_check,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,filled: 'not_found_on_page'
+field changed: dmarc_policy,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,filled: 'p=reject'
+mailbox changed,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,was (none)
+package moved,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,was B0
+field changed: ap_phone,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,filled: '450-774-9939 Poste 224'
+field changed: invoice_mailing_address,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,"filled: '1199, rue Principale, Saint-Dominique (Québec) J0H 1L0'"
+field changed: email_check,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,filled: 'confirmed'
+field changed: dmarc_policy,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,"was 'no (mailbox not referee-confirmed)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,was (none)
+package moved,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,was A0
+field changed: ap_phone,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,filled: '418 362-2078'
+field changed: invoice_mailing_address,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,"filled: '30, rue Saint-Charles, Sainte-Geneviève-de-Batiscan, Québec G0X 2R0'"
+field changed: email_check,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,filled: 'confirmed'
+field changed: dmarc_policy,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,was (none)
+package moved,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,was A0
+field changed: ap_phone,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,filled: '819 629-2829'
+field changed: invoice_mailing_address,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,"filled: '21, rue Notre-Dame-de-Lourdes, bureau 209, Ville-Marie (Québec) J9V 1X8'"
+field changed: email_check,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,filled: 'confirmed'
+field changed: dmarc_policy,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,was info@hinchinbrooke.com
+package moved,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,was B1
+field changed: payment_terms_as_published,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,"was '20 days following receipt (as printed on https://hinchinbrooke.com/en/privacy-policy/, re-read 2026-11-08)' → now 'payment terms, or PO rules published; treasury/financ'"
+field changed: invoice_portal_url,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,was 'https://www.seao.ca/Reports/Rapport_Adjudication.aspx?g_org_id=F4629dc4-7b7e-49f7-bbc9-e3f471ef3d4a — SEAO' → now 'Coupa'
+field changed: invoice_mailing_address,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,"was '1056, chemin Brook, Hinchinbrooke (Québec) J0S 1A0' → now '1056, chemin Brook, Hinchinbrooke (QC) J0S 1A0'"
+field changed: ap_contact_name_as_published,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,filled: 'Nancy Westerman (as printed by the organisation next to its invoicing mailbox)'
+field changed: ship_ready,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Lunds universitet,A1,registrator@lu.se,was (none)
+package moved,Lunds universitet,A1,registrator@lu.se,was A0
+field changed: invoice_mailing_address,Lunds universitet,A1,registrator@lu.se,"filled: 'Lund University, Box 188, SE-221 00 Lund, Sweden'"
+field changed: email_check,Lunds universitet,A1,registrator@lu.se,filled: 'confirmed'
+field changed: dmarc_policy,Lunds universitet,A1,registrator@lu.se,filled: 'p=quarantine'
+field changed: payment_terms_as_published,Municipalité de Saint-Denis-De La Bouteillerie,A1,dg@munstdenis.com,"filled: 'payment terms, or PO rules published; general managem'"
+field changed: invoice_mailing_address,Municipalité de Saint-Denis-De La Bouteillerie,A1,dg@munstdenis.com,"filled: '5, Route 287, Saint-Denis-De La Bouteillerie (Québec) G0L 2R0'"
+field changed: payment_terms_as_published,Régie de Loisirs de Roxton Falls,A1,loisirs@regieloisirsrf.ca,"filled: 'payment terms, or PO rules published; general contact'"
+mailbox changed,CAP SCIENCES,A1,contact@cap-sciences.net,was (none)
+package moved,CAP SCIENCES,A1,contact@cap-sciences.net,was A0
+field changed: email_check,CAP SCIENCES,A1,contact@cap-sciences.net,filled: 'confirmed'
+field changed: dmarc_policy,CAP SCIENCES,A1,contact@cap-sciences.net,filled: 'p=quarantine'
+field changed: ship_ready,CAP SCIENCES,A1,contact@cap-sciences.net,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,Municipalité de Bolton-Est,A1,info@boltonest.ca,was (none)
+package moved,Municipalité de Bolton-Est,A1,info@boltonest.ca,was A0
+field changed: ap_phone,Municipalité de Bolton-Est,A1,info@boltonest.ca,filled: '450 292-3444'
+field changed: invoice_mailing_address,Municipalité de Bolton-Est,A1,info@boltonest.ca,"filled: '858, route Missisquoi, Bolton-Est (Québec) J0E 1G0'"
+field changed: email_check,Municipalité de Bolton-Est,A1,info@boltonest.ca,filled: 'confirmed'
+field changed: dmarc_policy,Municipalité de Bolton-Est,A1,info@boltonest.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,Municipalité de Bolton-Est,A1,info@boltonest.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+field changed: payment_terms_as_published,Municipalité de Saint-Omer,A1,direction@municipalitestomer.com,"filled: 'payment terms, or PO rules published; general managem'"
+field changed: payment_terms_as_published,Canton de Saint-Godefroi,A1,dg@municipalitestgodefroi.com,"filled: 'payment terms, or PO rules published; general managem'"
+mailbox changed,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,was (none)
+package moved,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,was A0
+field changed: buyer_phone,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,"was '4185342611 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)' → now '4183872534 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)'"
+field changed: buyer_website,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,was 'www.saintelzear.net' → now 'https://st-elzear.ca'
+field changed: ap_phone,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,filled: '418-387-2534 Poste 101'
+field changed: invoice_mailing_address,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,"filled: '597, rue des Érables, Saint-Elzéar (Québec) G0S 2J1'"
+field changed: email_check,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,filled: 'not_found_on_page_hidden'
+field changed: dmarc_policy,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+mailbox changed,COMPASS Pathways plc,A1,info@compasspathways.com,was (none)
+package moved,COMPASS Pathways plc,A1,info@compasspathways.com,was A0
+field changed: buyer_website,COMPASS Pathways plc,A1,info@compasspathways.com,filled: 'https://compasspathways.com'
+field changed: email_check,COMPASS Pathways plc,A1,info@compasspathways.com,filled: 'confirmed'
+field changed: dmarc_policy,COMPASS Pathways plc,A1,info@compasspathways.com,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,COMPASS Pathways plc,A1,info@compasspathways.com,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,Irish Water,C4,payables@water.ie,was (none)
+package moved,Irish Water,C4,payables@water.ie,was C0
+field changed: po_required_as_published,Irish Water,C4,payables@water.ie,"filled: 'yes (as published: include such information as may be requested by the Purchaser, shall reference the Purchase Order)'"
+field changed: invoice_portal_url,Irish Water,C4,payables@water.ie,filled: 'https://supplierportal.water.ie/OA_HTML/AppsLocalLogin.jsp'
+field changed: ap_phone,Irish Water,C4,payables@water.ie,filled: '021-4534777 ext 1'
+field changed: invoice_mailing_address,Irish Water,C4,payables@water.ie,"filled: 'P.O. Box 900, South Delivery Office, Cork City, Co. Cork, Ireland'"
+field changed: email_check,Irish Water,C4,payables@water.ie,filled: 'confirmed'
+field changed: dmarc_policy,Irish Water,C4,payables@water.ie,filled: 'p=reject'
+mailbox changed,Centrale municipale d'achat et d'impression de la Ville de Genève,B2,achats.cmai@geneve.ch,was info.a21@geneve.ch
+package moved,Centrale municipale d'achat et d'impression de la Ville de Genève,B2,achats.cmai@geneve.ch,was B1
+field changed: ap_phone,Centrale municipale d'achat et d'impression de la Ville de Genève,B2,achats.cmai@geneve.ch,filled: '+41 22 418 58 15'
+field changed: invoice_mailing_address,Centrale municipale d'achat et d'impression de la Ville de Genève,B2,achats.cmai@geneve.ch,"filled: 'Case postale 164, 1219 Le Lignon, Switzerland'"
+field changed: po_required_as_published,networkrail.co.uk,D0,,was 'yes (as published: Must state valid PO)' → now 'yes (as published: PO reference)'
+field changed: invoice_mailing_address,networkrail.co.uk,D0,,"was 'PO Box 4145, Manchester M60 7WZ, United Kingdom' → now 'Accounts Payable, Network Rail, PO Box 4145, Manchester M60 7WZ'"
+field changed: payment_terms_as_published,Société de développement du réservoir Kiamika,B1,info@reservoirkiamika.org,"filled: 'payment terms, or PO rules published; general role ma'"
+mailbox changed,Parc Marie-Victorin,B1,info@parcmarievictorin.com,was accueil@parcmarievictorin.com
+field changed: payment_terms_as_published,Parc Marie-Victorin,B1,info@parcmarievictorin.com,"filled: 'payment terms, or PO rules published; administrative'"
+field changed: ap_phone,Parc Marie-Victorin,B1,info@parcmarievictorin.com,"was '819-363-2528, #224' → now '819-363-2528'"
+field changed: invoice_mailing_address,Parc Marie-Victorin,B1,info@parcmarievictorin.com,"was '385, boul. Marie-Victorin, Kingsey Falls Québec J0A 1B0' → now '385, boul. Marie-Victorin, Kingsey Falls (QC) J0A 1B0'"
+field changed: payment_terms_as_published,Bureau des enquêtes indépendantes,B1,info@bei.gouv.qc.ca,"filled: 'payment terms, or PO rules published; general contact'"
+field changed: payment_terms_as_published,Municipalité de La Reine,B1,lareine@mrcao.qc.ca,"filled: 'payment terms, or PO rules published; general municip'"
+package moved,The Co-operators Group Limited,B2,inquiries_cvm@cooperators.ca,was B1
+field changed: payment_terms_as_published,Canton de Nédélec,B1,dg@nedelec.org,"filled: 'payment terms, or PO rules published; general managem'"
+field changed: payment_terms_as_published,Municipalité de Saint-Germain-de-Kamouraska,B1,dg@munsaintgermain.ca,"filled: 'payment terms, or PO rules published; general managem'"
+field changed: invoice_mailing_address,Municipalité de Saint-Germain-de-Kamouraska,B1,dg@munsaintgermain.ca,"filled: '506, rue Jean-Baptiste-Moreau, Saint-Germain-de-Kamouraska, Québec, Canada, G0L 3G0'"
+field changed: po_required_as_published,Andel Holding A/S,C2,supplier@andel.dk,"was 'yes (as published: must be sent electronically to the company specified on the purchase order) (as printed on https://an' → now 'yes (as published: PO with company name/EAN, PO number, name reference)'"
+field changed: payment_terms_as_published,Municipalité de Mayo,B1,mun@mayo.ca,"filled: 'payment terms, or PO rules published; general municip'"
+mailbox changed,poets.ca,B1,info@poets.ca,was admin@poets.ca
+mailbox changed,Construction Maintenance and Allied Workers (CMAW),B1,info@cmaw.ca,was reception@cmaw.ca
+field changed: payment_terms_as_published,"Municipality of Tweed, Ontario",B1,info@tweed.ca,filled: 'net 30'
+field changed: invoice_mailing_address,"Municipality of Tweed, Ontario",B1,info@tweed.ca,"filled: 'The Corporation of the Municipality of Tweed, 255 Metcalf Street Postal Bag 729, Tweed, ON, K0K 3J0'"
+mailbox changed,Northam Realty Advisors Ltd.,B1,info@northamrealty.com,was reception@northamrealty.com
+field changed: payment_terms_as_published,Centre de Réadaptation Lisette Dupras,C1,informations.comtl@ssss.gouv.qc.ca,"filled: 'payment terms, or PO rules published; general informa'"
+field changed: payment_terms_as_published,Municipalité de Saint-Germain.,C0,,"filled: 'payment terms, or PO rules published; general managem'"
+field changed: invoice_mailing_address,Municipalité de Saint-Germain.,C0,,"filled: '506, rue Jean-Baptiste-Moreau, Saint-Germain-de-Kamouraska, Québec, Canada, G0L 3G0'"
+mailbox changed,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was registrator@fmv.se
+package moved,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was B1
+field changed: buyer_website,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was 'https://fmv.se' → now ''
+field changed: ap_phone,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was '+46 8 782 40 00' → now ''
+field changed: invoice_mailing_address,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,"was 'Försvarets materielverk, 115 88 Stockholm, Sweden' → now ''"
+field changed: email_check,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was 'confirmed' → now ''
+field changed: dmarc_policy,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now ''"
+mailbox changed,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,was (none)
+package moved,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,was C0
+field changed: email_check,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,filled: 'confirmed'
+field changed: dmarc_policy,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,filled: 'p=reject'
+field changed: ship_ready,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+field changed: ap_phone,Parc Benson,I1,info@ville.hudson.qc.ca,filled: '450-458-5347'
+field changed: invoice_mailing_address,Parc Benson,I1,info@ville.hudson.qc.ca,"filled: '481 rue Main, Hudson, Québec J0P 1H0'"
+field changed: buyer_phone,BioChambers,I1,info@biochambers.com,was '//18003617778 (tel: link on https://biochambers.com/)' → now '1-800-361-7778'
+field changed: ap_phone,Saint-Bernard-de-Lacolle,I1,info@mun-sbdl.ca,filled: '450-246-3348'
+field changed: buyer_address,Chippewa Secondary School,I1,info@nearnorthschools.ca,"was '963 Airport Rd, North Bay, P1B8H1 (provincial municipal directory: https://data.ontario.ca/dataset/9831236f-6e01-447a-9e' → now '963 Airport Road, P.O. Box 3110 North Bay, ON, P1B 8H1'"
+field changed: buyer_phone,Chippewa Secondary School,I1,info@nearnorthschools.ca,was '+17054728170 (tel: link on https://www.nearnorthschools.ca/)' → now '705-472-8170'
+field changed: buyer_phone,FOOTHILLS COUNTRY HOSPICE SOCIETY,I1,info@countryhospice.org,filled: '1-403-995-4673'
+row removed,Université TÉLUQ,D1,info@teluq.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+row removed,MRC de Témiscamingue,I1,mrct@mrctemiscamingue.qc.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
