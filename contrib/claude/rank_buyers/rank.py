@@ -2706,7 +2706,7 @@ try:
             _portal_ok = bool(card["submit_to"]["portal_url"]) and (x.get("invoice_portal_kind") or "").lower().find("invoic") >= 0
             tier = 1 if (confirmed and ap_mail) or _portal_ok else 2 if confirmed and crit[1][1] else 3 if confirmed else 0
             x["channel_tier"] = str(tier)
-            v_legal = _val("vendor_legal_name") or (_val("vendor") if not (x.get("vendor") or "").startswith("inferred") else "")
+            v_legal = _val("vendor_legal_name") or re.sub(r"^inferred:\s*", "", _val("vendor"))  # an inferred relationship's vendor (Canada Post Corporation, BC Hydro) is a certain identity; only the relationship is inferred
             v_gst = _val("vendor_bn9")
             v_addr = _val("vendor_address") or _val("vendor_registered_address")
             tax_any = bool(card["tax"]["buyer_tax_status"]) or bool(x.get("tax_rate_indicative_derived")) or bool(x.get("buyer_tax_status_derived"))
