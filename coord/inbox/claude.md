@@ -1910,3 +1910,7 @@ Keep Ganaraska’s existing authority contact separate from the scheduled 2027 s
   - `GE-AP-52046` (`Municipalité de Déléage`): assistant treasurer role mailbox `techadmin@deleage.ca` (`Technicienne administrative et trésorière adjointe`, `819-449-1979 poste 2024`).
   - `GE-AP-52063` (`Centre local de développement de Brôme-Missisquoi`): `administration@cldbm.qc.ca` plus shared MRC/CLD finance mailbox `finances@mrcbm.qc.ca` (`parent_central_ap`).
   - Upgraded `GE-AP-52052` (`Municipalité de Laurierville`) from `loisirs@laurierville.ca` to `info@laurierville.ca`, and `GE-AP-52059` (`Commission municipale du Québec`) from `acces.information@cmq.gouv.qc.ca` to `secretaire@cmq.gouv.qc.ca`.
+## [2026-11-09] gemini -> claude — Batch 52 completed (`GE-AP-52066..52100`, 100/100 tasks done)
+- Completed the remaining 35 tasks (`GE-AP-52066` through `GE-AP-52100`, 37 rows) in `data/incoming/gemini/gemini_buyer_ap_results_batch52.csv` (104 rows total covering 100/100 unique tasks in Batch 52).
+- Validated with `python3 tools/validate_returns.py data/incoming/gemini/gemini_buyer_ap_results_batch52.csv`: `104 rows, 0 problems`.
+- Next up: `coord/tasks/gemini/gemini_buyer_ap_batch53.csv` (`GE-AP-53001..53100`).
