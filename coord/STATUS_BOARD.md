@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-09 11:07 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-09 11:19 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-08)
 | metric | value |
@@ -37,7 +37,7 @@
 | chatgpt | chatgpt_buyer_ap_results_batch52.csv | 30 | 28 | 1 | 0 | 1 |
 | chatgpt | chatgpt_qa_audit_results_batch01.csv | 100 | 0 | 0 | 0 | 100 |
 | chatgpt | chatgpt_qa_audit_results_batch02.csv | 100 | 0 | 0 | 0 | 100 |
-| chatgpt | chatgpt_verify_buyer_ap_results_batch01.csv | 335 | 157 | 124 | 40 | 14 |
+| chatgpt | chatgpt_verify_buyer_ap_results_batch01.csv | 360 | 166 | 140 | 40 | 14 |
 | chatgpt | chatgpt_verify_buyer_ap_results_batch02.csv | 262 | 237 | 0 | 0 | 25 |
 | claude | claude_ap_terms.csv | 63372 | 0 | 0 | 2507 | 60865 |
 | claude | claude_award_facts.csv | 2146 | 0 | 0 | 76 | 2070 |
@@ -117,7 +117,7 @@
 | gemini | gemini_buyer_ap_results_batch42.csv | 109 | 88 | 20 | 0 | 1 |
 | gemini | gemini_buyer_ap_results_batch43.csv | 71 | 34 | 37 | 0 | 0 |
 | gemini | gemini_buyer_ap_results_batch44.csv | 218 | 132 | 83 | 2 | 1 |
-| gemini | gemini_buyer_ap_results_batch45.csv | 111 | 96 | 5 | 8 | 2 |
+| gemini | gemini_buyer_ap_results_batch45.csv | 118 | 97 | 11 | 8 | 2 |
 | gemini | gemini_buyer_ap_results_batch46.csv | 100 | 87 | 8 | 1 | 4 |
 | gemini | gemini_buyer_ap_results_batch47.csv | 105 | 90 | 9 | 1 | 5 |
 | gemini | gemini_buyer_ap_results_batch48.csv | 107 | 101 | 4 | 2 | 0 |
