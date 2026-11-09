@@ -13,9 +13,9 @@ queued = set()
 for p in glob.glob("coord/tasks/*/*.csv"):
     for r in csv.DictReader(open(p, encoding="utf-8-sig", newline="")):
         queued.add(r.get("buyer_key") or r.get("vendor_key") or "")
-for p in ("coord/results/team_buyers.jsonl", "coord/results/team_vendors.jsonl"):
+for p in ("coord/results/team_buyers.jsonl.gz", "coord/results/team_buyers.jsonl", "coord/results/team_vendors.jsonl.gz", "coord/results/team_vendors.jsonl"):
     if os.path.exists(p):
-        for l in open(p, encoding="utf-8"):
+        for l in (gzip.open(p, "rt", encoding="utf-8") if p.endswith(".gz") else open(p, encoding="utf-8")):
             d = json.loads(l)
             queued.add(d.get("buyer_key") or d.get("vendor_key") or "")
 

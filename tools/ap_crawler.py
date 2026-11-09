@@ -14,7 +14,7 @@ State and log: ~/cch-crawler-state/.  Output: data/incoming/claude/claude_buyer_
 Pass 1 reads up to 25 pages per site; pass 2 re-reads sites with nothing found, up to 60 pages. Then it checks for new
 queue batches every 6 hours until --days is over.
 """
-import argparse, csv, datetime, glob, heapq, html, io, json, os, re, shutil, subprocess, sys, threading, time, unicodedata
+import gzip, argparse, csv, datetime, glob, heapq, html, io, json, os, re, shutil, subprocess, sys, threading, time, unicodedata
 import urllib.error, urllib.parse, urllib.request, urllib.robotparser
 from concurrent.futures import ThreadPoolExecutor
 
@@ -507,8 +507,9 @@ def load_tasks():
             if (r.get("known_website") or "").strip() and r.get("buyer_key") and r["buyer_key"] not in tasks:
                 tasks[r["buyer_key"]] = r
     verified = set()  # buyers that already have a verified invoicing / AP mailbox (a general or purchasing one is not enough)
-    if os.path.exists("coord/results/team_buyers.jsonl"):
-        for line in open("coord/results/team_buyers.jsonl", encoding="utf-8"):
+    _tb = next((q for q in ("coord/results/team_buyers.jsonl.gz", "coord/results/team_buyers.jsonl") if os.path.exists(q)), None)
+    if _tb:
+        for line in (gzip.open(_tb, "rt", encoding="utf-8") if _tb.endswith(".gz") else open(_tb, encoding="utf-8")):
             o = json.loads(line)
             for e in (o.get("ap_contact_team") or {}).get("evidence") or []:
                 if (e.get("verification") in ("verified", "cross_verified") and e.get("type") in ("invoice_submission", "accounts_payable", "supplier_payment")

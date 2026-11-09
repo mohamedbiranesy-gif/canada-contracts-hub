@@ -39,7 +39,7 @@ def jl(p):
 
 
 # ---------- update sources ----------
-tb = {r["buyer_key"]: r["ap_contact_team"] for r in jl("coord/results/team_buyers.jsonl")
+tb = {r["buyer_key"]: r["ap_contact_team"] for r in jl("coord/results/team_buyers.jsonl.gz" if os.path.exists("coord/results/team_buyers.jsonl.gz") else "coord/results/team_buyers.jsonl")
       if (r.get("ap_contact_team") or {}).get("emails") or (r.get("ap_contact_team") or {}).get("invoice_portal")}
 tv = {r["vendor_key"]: r for r in jl("coord/results/team_vendors.jsonl")}
 seao = {}

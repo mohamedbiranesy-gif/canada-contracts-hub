@@ -29,9 +29,10 @@ for p in sorted(glob.glob("data/incoming/*/*.csv")):
     L.append("| %s | %s | %d | %d | %d | %d | %d |" % (lane, os.path.basename(p), sum(st.values()), st["found"] + st["portal_only"] + st["website_only"],
                                                     st["not_published"] + st["not_found"], st["blocked"], sum(st.values()) - st["found"] - st["portal_only"] - st["website_only"] - st["not_published"] - st["not_found"] - st["blocked"]))
 for name in ("team_buyers", "team_vendors"):
-    p = "coord/results/%s.jsonl" % name
-    if os.path.exists(p):
-        rows = [json.loads(l) for l in open(p, encoding="utf-8")]
+    p = next((q for q in ("coord/results/%s.jsonl.gz" % name, "coord/results/%s.jsonl" % name) if os.path.exists(q)), "")
+    if p:
+        import gzip as _gz
+        rows = [json.loads(l) for l in (_gz.open(p, "rt", encoding="utf-8") if p.endswith(".gz") else open(p, encoding="utf-8"))]
         ver = sum(1 for r in rows if (r.get("ap_contact_team") or {}).get("emails") or (r.get("ap_contact_team") or {}).get("invoice_portal") or r.get("verified_emails"))
         L.append("\n**%s**: %d entities researched, %d with at least one verified contact." % (name, len(rows), ver))
 L.append("")

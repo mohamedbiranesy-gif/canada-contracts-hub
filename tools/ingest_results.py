@@ -2,7 +2,7 @@
 """Ingest team research results, verify evidence, write enrichment files the assembly consumes.
 
 Reads   data/incoming/**/*.csv   (formats: docs/RETURN_FORMATS.md; file name says the kind and the author)
-Writes  coord/results/team_buyers.jsonl, coord/results/team_vendors.jsonl, coord/results/qa_results.jsonl,
+Writes  coord/results/team_buyers.jsonl.gz (gzipped since 2026-11-09), coord/results/team_vendors.jsonl, coord/results/qa_results.jsonl,
         coord/tasks/<other lane>/<other>_verify_buyer_ap_batch01.csv (pages we could not fetch), coord/source_registry.csv, coord/INGEST_REPORT.md
 Usage   python3 tools/ingest_results.py [--no-fetch]      (run from the repo root; idempotent)
 Verification: each cited page is fetched once (cached in work/evidence_cache/) and the e-mail/portal must appear in it.
@@ -14,7 +14,7 @@ Verification: each cited page is fetched once (cached in work/evidence_cache/) a
                   value from it in a browser. The verifier never decodes protected e-mails or gets around a block.
   Anything else is routed to another lane as a verify task. coord/results/verification_log.csv lists every row's outcome.
 """
-import csv, glob, hashlib, html, json, os, re, subprocess, sys, time, urllib.request, collections, datetime
+import os, csv, glob, hashlib, html, json, re, subprocess, sys, time, urllib.request, collections, datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from validate_returns import EMAIL, PERSONAL, ROLE_HINT
@@ -355,7 +355,10 @@ for k, b in buyers.items():
             report["buyer_findings_cross_verified"] += 1
 
 now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-with open("coord/results/team_buyers.jsonl", "w", encoding="utf-8") as f:
+import gzip as _gzip  # 2026-11-09 04:35Z: team_buyers.jsonl passed GitHub's 100 MB file limit (101.4 MB) and every verifier push was rejected by the pre-receive hook since 22:16Z
+if os.path.exists("coord/results/team_buyers.jsonl"):
+    os.remove("coord/results/team_buyers.jsonl")
+with _gzip.open("coord/results/team_buyers.jsonl.gz", "wt", encoding="utf-8") as f:
     for k, b in buyers.items():
         ev = sorted(b["evidence"], key=lambda e: (e["verification"] not in ACCEPTED, RANK.get(e["type"] or "", 9)))
         good = [e for e in ev if e["verification"] in ACCEPTED]
