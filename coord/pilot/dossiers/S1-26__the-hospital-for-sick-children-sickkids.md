@@ -374,4 +374,11 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**Legal name and the relationship in the buyer's own statements.** "The Hospital for Sick Children", financial statements "the year ended March 31,
+2026", auditor "Ernst & Young LLP", "Toronto, Canada", report dated "June 1, 2026" —
+https://www.sickkids.ca/siteassets/about/about-sickkids/the-hospital-for-sick-children---audited-financials---2025-2026.pdf; "Accounts payable mature within
+six months." → BILL TO "The Hospital for Sick Children" (not "SickKids"); the hospital is an Ontario public hospital (HST 13 % charged, hospital claims its
+PSB rebate). BPSAA attestation (June 2026) at https://www.sickkids.ca/siteassets/about/accountability/bpsaa-attestation-form/broader-public-sector-accountabiliy-act-attestation-form-june2026.pdf
+confirms it follows the Broader Public Sector procurement directive (competitive procurement, PO practice).

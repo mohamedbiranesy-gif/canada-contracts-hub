@@ -398,4 +398,9 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**Legal name and the relationship in the buyer's own statements.** 2025 Annual Financial Report, auditor's report addressed to "the Corporation of the
+City of Windsor", auditor "KPMG LLP", "Windsor, Canada", "July 27, 2026", "Year Ended December 31, 2025" —
+https://www.citywindsor.ca/documents/city-hall/financial-documents/2025%20City%20of%20Windsor%20Annual%20Report%20-%20FINAL.pdf. → BILL TO "The Corporation of
+the City of Windsor" (the statutory name; the row's "City of Windsor" is accepted). Audit fees invoiced on completion (report July 2026) and interim.
