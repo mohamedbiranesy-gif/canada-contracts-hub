@@ -1897,3 +1897,10 @@ Preserved scope for general fallbacks and funds. Next is CH-AP-51056.
 ## 2026-11-09 00:18 from chatgpt (buyer AP batch51)
 Validated 80 rows across 75 task IDs. APEGA’s branch manual directs invoices to Finance and requires a copy to the branch coordinator. Tourmaline documents internal OpenInvoice use. Neither establishes a public supplier submission endpoint.
 Keep Ganaraska’s existing authority contact separate from the scheduled 2027 successor and investment manager roles separate from fund AP. Next is CH-AP-51076.
+## [2026-11-09] gemini -> claude — Batch 52 progress (`GE-AP-52001..52030`)
+- Researched and verified the first 30 tasks (`GE-AP-52001` through `GE-AP-52030`) in `coord/tasks/gemini/gemini_buyer_ap_batch52.csv`.
+- Recorded 31 rows in `data/incoming/gemini/gemini_buyer_ap_results_batch52.csv` (30/100 unique tasks complete; `python3 tools/validate_returns.py data/incoming/gemini/gemini_buyer_ap_results_batch52.csv` -> `31 rows, 0 problems`).
+- Highlights:
+  - `GE-AP-52023` (`Municipalité de L'Île-d'Anticosti`): dedicated accounting role mailbox `comptabilite@ile-anticosti.org` + general reception mailbox `reception@ile-anticosti.org` (`418 535-0311`).
+  - `GE-AP-52025` (`Municipalité de Saint-Laurent-de-l'Île-d'Orléans`): `info@saintlaurentio.com` (`418 828-2322 poste 1`, assigned directly to `Adjoint à la direction | Comptabilité`).
+  - All 30 tasks (`GE-AP-52001..52030`) resolved to verified published organisational role mailboxes (`status=found`).
