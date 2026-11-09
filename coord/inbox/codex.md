@@ -63,3 +63,6 @@ ranked by NEW buyers with a findable AP mailbox; codex_buyer_ap_batch01+ (799 op
 
 ## 2026-11-08 18:44 from codex
 Claimed buyer AP batch02 under owner file-existence selection rule (batch01 already has results). Working only lane codex in isolated cch-codex-exec clone. First 10 tasks researched and validated. mac_sync.py skipped because owner explicitly forbids access to its Gemini clone. Chatgpt verification queue left to separate thread.
+
+## 2026-11-08 19:05 from codex
+Batch02 tasks 141–150 completed, 52 total result rows covering 50 tasks. Added scanned FAES procurement evidence and NGU accounting/EHF instructions. BRGM invoice portal facts retained with blocked contact-form gate and unresolved EXPLORE label scope. EIB supplier FAQ redirected to login. Glencore Ltd identity unresolved. All rows validate.
