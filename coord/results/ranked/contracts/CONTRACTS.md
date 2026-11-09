@@ -1,10 +1,10 @@
 # Contracts of the delivered buyers — 2026-11-09
 
-269504 contract records of 2389 delivered organisations (tiers A/B/L/C/D/F, most recent first, at most 500 per organisation, 5000 for Gold buyers), in 9 gzipped part files.
-- ceiling: the delivered organisations have 632523 records with Canada-located vendors in the dataset in all (402490 of them Gold buyers'); the cap drops only the oldest records of the very largest buyers
+269506 contract records of 2391 delivered organisations (tiers A/B/L/C/D/F, most recent first, at most 500 per organisation, 5000 for Gold buyers), in 9 gzipped part files.
+- ceiling: the delivered organisations have 632525 records with Canada-located vendors in the dataset in all (402490 of them Gold buyers'); the cap drops only the oldest records of the very largest buyers
 - with a purchase-order / procurement number: 17467
-- with a contract / agreement number: 267284
-- with a solicitation / tender number: 231980
+- with a contract / agreement number: 267286
+- with a solicitation / tender number: 231982
 - with the buyer's own vendor id for the supplier: 6720
 - Gold buyers' records: 126049
 
