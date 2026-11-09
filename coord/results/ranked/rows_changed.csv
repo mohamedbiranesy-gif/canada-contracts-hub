@@ -1,189 +1,95 @@
 change,buyer,rank_group,email,detail
-field changed: po_required_as_published,Department of Defence,GOLD,invoices@defence.gov.au,filled: 'yes (as published: must include Defence PO)'
-field changed: invoice_mailing_address,Department of Defence,GOLD,invoices@defence.gov.au,"filled: 'Defence Accounts Payable, PO Box 800, Salisbury South SA 5106'"
-mailbox changed,BATH SPA UNIVERSITY,GOLD,supplierinvoices@bathspa.ac.uk,was accountspayable@bathspa.ac.uk
-field changed: payment_terms_as_published,BATH SPA UNIVERSITY,GOLD,supplierinvoices@bathspa.ac.uk,"was '30 days from the date of invoice (as printed on https://www.bathspa.ac.uk/media/bathspaacuk/about-us/policies/finance/no' → now 'payment terms are 30 days from receipt of a valid, un'"
-field changed: po_required_as_published,BATH SPA UNIVERSITY,GOLD,supplierinvoices@bathspa.ac.uk,"was 'purchase-order terms published (as published: No purchase order, No pay) (as printed on https://www.bathspa.ac.uk/media/' → now 'yes (as published: No Purchase Order, no pay) (as printed on https://www.bathspa.ac.uk/about-us/governance/procurement-/'"
-field changed: invoice_mailing_address,UNIVERSITY OF SUSSEX(THE),GOLD,invoices@sussex.ac.uk,"filled: 'Accounts Payable, Room 207 Sussex House, Falmer, Brighton, BN1 9RH'"
-field changed: invoice_mailing_address,Université Paris-Saclay,GOLD,service.facturier@universite-paris-saclay.fr,"filled: 'Université Paris-Saclay, Service facturier, rue du doyen Georges Poitou, 91400 Orsay'"
-field changed: invoice_mailing_address,"Slovenské elektrárne, a.s.",GOLD,info.e-invoice@seas.sk,"was 'Slovenské elektrárne, a.s., Závod Atómové elektrárne Mochovce, Odbor fakturácie, P.O.BOX 11, 935 39 Mochovce, Slovakia' → now 'Slovenské elektrárne, a.s., Odbor fakturácie, Závod Atómové elektrárne Mochovce, P.O.BOX 11, 935 39 Mochovce'"
-field changed: po_required_as_published,Network Rail,GOLD,invoices@networkrail.co.uk,was 'yes (as published: Must state valid PO)' → now 'yes (as published: PO reference)'
-field changed: invoice_mailing_address,Network Rail,GOLD,invoices@networkrail.co.uk,"was 'PO Box 4145, Manchester M60 7WZ, United Kingdom' → now 'Accounts Payable, Network Rail, PO Box 4145, Manchester M60 7WZ'"
-mailbox changed,Debiopharm International SA,GOLD,accounting@debiopharm.com,was (none)
-package moved,Debiopharm International SA,GOLD,accounting@debiopharm.com,was B0
-field changed: buyer_website,Debiopharm International SA,GOLD,accounting@debiopharm.com,filled: 'https://debiopharm.com'
-field changed: payment_terms_as_published,Debiopharm International SA,GOLD,accounting@debiopharm.com,filled: 'net45'
-field changed: email_check,Debiopharm International SA,GOLD,accounting@debiopharm.com,filled: 'confirmed'
-field changed: dmarc_policy,Debiopharm International SA,GOLD,accounting@debiopharm.com,filled: 'p=reject'
-field changed: po_required_as_published,Trinity College Dublin the University of Dublin_336,GOLD,payables@tcd.ie,was 'yes (as published: must quote 7-digit PO)' → now 'yes (as published: must include a valid PO)'
-field changed: buyer_address,Public Safety Canada,A3,financial_systems.systemes_financiers@ps-sp.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Veterans Affairs Canada,A3,directdeposit-depotdirect@vac-acc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-mailbox changed,Ville de Nicolet,A3,finance@nicolet.ca,was (none)
-package moved,Ville de Nicolet,A3,finance@nicolet.ca,was A0
-field changed: ap_phone,Ville de Nicolet,A3,finance@nicolet.ca,"filled: '819 293-6901, poste 1130'"
-field changed: invoice_mailing_address,Ville de Nicolet,A3,finance@nicolet.ca,"filled: '180, rue de Monseigneur-Panet, Nicolet, Québec J3T 1S6'"
-field changed: email_check,Ville de Nicolet,A3,finance@nicolet.ca,filled: 'confirmed'
-field changed: dmarc_policy,Ville de Nicolet,A3,finance@nicolet.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
-field changed: ship_ready,Ville de Nicolet,A3,finance@nicolet.ca,"was 'no (mailbox not referee-confirmed)' → now 'yes (finance mailbox, not AP)'"
-field changed: buyer_address,Canadian Grain Commission,A3,cgcfinancesystemssupport@grainscanada.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Canada Border Services Agency,A2,cbsa-asfc_solicitations-demandes_de_soumissions@cbsa-asfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-mailbox changed,Australian Financial Security Authority,A2,procurement@afsa.gov.au,was (none)
-package moved,Australian Financial Security Authority,A2,procurement@afsa.gov.au,was A0
-field changed: email_check,Australian Financial Security Authority,A2,procurement@afsa.gov.au,filled: 'confirmed'
-field changed: dmarc_policy,Australian Financial Security Authority,A2,procurement@afsa.gov.au,filled: 'p=reject'
-field changed: ship_ready,Australian Financial Security Authority,A2,procurement@afsa.gov.au,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-mailbox changed,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,was (none)
-package moved,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,was A0
-field changed: buyer_website,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,was 'https://www.supplychain.nhs.uk/' → now 'https://supplychain.nhs.uk'
-field changed: invoice_portal_url,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,filled: 'https://suppliers.supplychain.nhs.uk/SupplierPortal/Account/LogOn'
-field changed: invoice_mailing_address,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,"filled: 'NHS Supply Chain, Accounts Payable, PO Box 253, Wymondham, Norfolk, NR18 8DL'"
-field changed: email_check,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,filled: 'confirmed'
-field changed: dmarc_policy,NHS Supply Chain,A2,purchase.ledger@supplychain.nhs.uk,filled: 'p=quarantine'
-field changed: po_required_as_published,CSIRO,A2,procuretopay@csiro.au,"was 'yes (as published: purchase orders from CSIRO, appear) (as printed on https://www.csiro.au/en/work-with-us/Working-with-' → now 'yes (as published: Include PO)'"
-field changed: ap_phone,CSIRO,A2,procuretopay@csiro.au,"was '1300 503 418' → now '1300 503 418 (Australia), +61 3 9545 8962 (international)'"
-mailbox changed,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,was (none)
-package moved,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,was A0
-field changed: ap_phone,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,filled: '418-856-3394'
-field changed: invoice_mailing_address,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,"filled: '412, 9e rue boulevard Desrochers, La Pocatière, Québec G0R 1Z0'"
-field changed: email_check,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,filled: 'confirmed'
-field changed: dmarc_policy,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,filled: 'p=quarantine'
-field changed: ship_ready,Ville de La Pocatière,A1,direction.generale@lapocatiere.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-mailbox changed,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,was (none)
-package moved,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,was A0
-field changed: buyer_website,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,filled: 'https://ssss.gouv.qc.ca'
-field changed: ap_phone,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,filled: '418 722-0939'
-field changed: invoice_mailing_address,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,"filled: '355, boulevard Saint-Germain, Rimouski, QC G5L 3N2, Canada'"
-field changed: email_check,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,filled: 'confirmed'
-field changed: dmarc_policy,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,filled: 'p=quarantine'
-field changed: ship_ready,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,A1,acces.information.cisssbsl@ssss.gouv.qc.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-mailbox changed,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,was (none)
-package moved,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,was A0
-field changed: email_check,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,filled: 'confirmed'
-field changed: dmarc_policy,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,filled: 'p=reject'
-field changed: ship_ready,NDIS Quality and Safeguards Commission,A1,contactcentre@ndiscommission.gov.au,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-mailbox changed,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,was (none)
-package moved,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,was B0
-field changed: buyer_website,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,filled: 'https://hmrc.gov.uk'
-field changed: ap_phone,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,filled: '+44 (03000) 514066'
-field changed: email_check,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,filled: 'not_found_on_page'
-field changed: dmarc_policy,His Majesty's Revenue and Customs (HMRC),B4,payments.team@hmrc.gov.uk,filled: 'p=reject'
-mailbox changed,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,was (none)
-package moved,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,was B0
-field changed: ap_phone,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,filled: '450-774-9939 Poste 224'
-field changed: invoice_mailing_address,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,"filled: '1199, rue Principale, Saint-Dominique (Québec) J0H 1L0'"
-field changed: email_check,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,filled: 'confirmed'
-field changed: dmarc_policy,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
-field changed: ship_ready,Municipalité de Saint-Dominique,B3,finance@st-dominique.ca,"was 'no (mailbox not referee-confirmed)' → now 'yes (finance mailbox, not AP)'"
-mailbox changed,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,was (none)
-package moved,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,was A0
-field changed: ap_phone,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,filled: '418 362-2078'
-field changed: invoice_mailing_address,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,"filled: '30, rue Saint-Charles, Sainte-Geneviève-de-Batiscan, Québec G0X 2R0'"
-field changed: email_check,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,filled: 'confirmed'
-field changed: dmarc_policy,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
-field changed: ship_ready,Paroisse de Sainte-Geneviève-de-Batiscan,A1,municipalite@stegenevieve.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-mailbox changed,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,was (none)
-package moved,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,was A0
-field changed: ap_phone,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,filled: '819 629-2829'
-field changed: invoice_mailing_address,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,"filled: '21, rue Notre-Dame-de-Lourdes, bureau 209, Ville-Marie (Québec) J9V 1X8'"
-field changed: email_check,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,filled: 'confirmed'
-field changed: dmarc_policy,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
-field changed: ship_ready,MRC du Témiscamingue.,A1,mrct@mrctemiscamingue.qc.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-mailbox changed,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,was info@hinchinbrooke.com
-package moved,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,was B1
-field changed: payment_terms_as_published,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,"was '20 days following receipt (as printed on https://hinchinbrooke.com/en/privacy-policy/, re-read 2026-11-08)' → now 'payment terms, or PO rules published; treasury/financ'"
-field changed: invoice_portal_url,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,was 'https://www.seao.ca/Reports/Rapport_Adjudication.aspx?g_org_id=F4629dc4-7b7e-49f7-bbc9-e3f471ef3d4a — SEAO' → now 'Coupa'
-field changed: invoice_mailing_address,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,"was '1056, chemin Brook, Hinchinbrooke (Québec) J0S 1A0' → now '1056, chemin Brook, Hinchinbrooke (QC) J0S 1A0'"
-field changed: ap_contact_name_as_published,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,filled: 'Nancy Westerman (as printed by the organisation next to its invoicing mailbox)'
-field changed: ship_ready,Municipalité de Hinchinbrooke,B3,tresorier@hinchinbrooke.com,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
-mailbox changed,Lunds universitet,A1,registrator@lu.se,was (none)
-package moved,Lunds universitet,A1,registrator@lu.se,was A0
-field changed: invoice_mailing_address,Lunds universitet,A1,registrator@lu.se,"filled: 'Lund University, Box 188, SE-221 00 Lund, Sweden'"
-field changed: email_check,Lunds universitet,A1,registrator@lu.se,filled: 'confirmed'
-field changed: dmarc_policy,Lunds universitet,A1,registrator@lu.se,filled: 'p=quarantine'
-field changed: payment_terms_as_published,Municipalité de Saint-Denis-De La Bouteillerie,A1,dg@munstdenis.com,"filled: 'payment terms, or PO rules published; general managem'"
-field changed: invoice_mailing_address,Municipalité de Saint-Denis-De La Bouteillerie,A1,dg@munstdenis.com,"filled: '5, Route 287, Saint-Denis-De La Bouteillerie (Québec) G0L 2R0'"
-field changed: payment_terms_as_published,Régie de Loisirs de Roxton Falls,A1,loisirs@regieloisirsrf.ca,"filled: 'payment terms, or PO rules published; general contact'"
-mailbox changed,CAP SCIENCES,A1,contact@cap-sciences.net,was (none)
-package moved,CAP SCIENCES,A1,contact@cap-sciences.net,was A0
-field changed: email_check,CAP SCIENCES,A1,contact@cap-sciences.net,filled: 'confirmed'
-field changed: dmarc_policy,CAP SCIENCES,A1,contact@cap-sciences.net,filled: 'p=quarantine'
-field changed: ship_ready,CAP SCIENCES,A1,contact@cap-sciences.net,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-mailbox changed,Municipalité de Bolton-Est,A1,info@boltonest.ca,was (none)
-package moved,Municipalité de Bolton-Est,A1,info@boltonest.ca,was A0
-field changed: ap_phone,Municipalité de Bolton-Est,A1,info@boltonest.ca,filled: '450 292-3444'
-field changed: invoice_mailing_address,Municipalité de Bolton-Est,A1,info@boltonest.ca,"filled: '858, route Missisquoi, Bolton-Est (Québec) J0E 1G0'"
-field changed: email_check,Municipalité de Bolton-Est,A1,info@boltonest.ca,filled: 'confirmed'
-field changed: dmarc_policy,Municipalité de Bolton-Est,A1,info@boltonest.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
-field changed: ship_ready,Municipalité de Bolton-Est,A1,info@boltonest.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-field changed: payment_terms_as_published,Municipalité de Saint-Omer,A1,direction@municipalitestomer.com,"filled: 'payment terms, or PO rules published; general managem'"
-field changed: payment_terms_as_published,Canton de Saint-Godefroi,A1,dg@municipalitestgodefroi.com,"filled: 'payment terms, or PO rules published; general managem'"
-mailbox changed,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,was (none)
-package moved,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,was A0
-field changed: buyer_phone,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,"was '4185342611 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)' → now '4183872534 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)'"
-field changed: buyer_website,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,was 'www.saintelzear.net' → now 'https://st-elzear.ca'
-field changed: ap_phone,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,filled: '418-387-2534 Poste 101'
-field changed: invoice_mailing_address,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,"filled: '597, rue des Érables, Saint-Elzéar (Québec) G0S 2J1'"
-field changed: email_check,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,filled: 'not_found_on_page_hidden'
-field changed: dmarc_policy,Municipalité  de Saint-Elzéar,A1,administration@st-elzear.ca,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
-mailbox changed,COMPASS Pathways plc,A1,info@compasspathways.com,was (none)
-package moved,COMPASS Pathways plc,A1,info@compasspathways.com,was A0
-field changed: buyer_website,COMPASS Pathways plc,A1,info@compasspathways.com,filled: 'https://compasspathways.com'
-field changed: email_check,COMPASS Pathways plc,A1,info@compasspathways.com,filled: 'confirmed'
-field changed: dmarc_policy,COMPASS Pathways plc,A1,info@compasspathways.com,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
-field changed: ship_ready,COMPASS Pathways plc,A1,info@compasspathways.com,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-mailbox changed,Irish Water,C4,payables@water.ie,was (none)
-package moved,Irish Water,C4,payables@water.ie,was C0
-field changed: po_required_as_published,Irish Water,C4,payables@water.ie,"filled: 'yes (as published: include such information as may be requested by the Purchaser, shall reference the Purchase Order)'"
-field changed: invoice_portal_url,Irish Water,C4,payables@water.ie,filled: 'https://supplierportal.water.ie/OA_HTML/AppsLocalLogin.jsp'
-field changed: ap_phone,Irish Water,C4,payables@water.ie,filled: '021-4534777 ext 1'
-field changed: invoice_mailing_address,Irish Water,C4,payables@water.ie,"filled: 'P.O. Box 900, South Delivery Office, Cork City, Co. Cork, Ireland'"
-field changed: email_check,Irish Water,C4,payables@water.ie,filled: 'confirmed'
-field changed: dmarc_policy,Irish Water,C4,payables@water.ie,filled: 'p=reject'
-mailbox changed,Centrale municipale d'achat et d'impression de la Ville de Genève,B2,achats.cmai@geneve.ch,was info.a21@geneve.ch
-package moved,Centrale municipale d'achat et d'impression de la Ville de Genève,B2,achats.cmai@geneve.ch,was B1
-field changed: ap_phone,Centrale municipale d'achat et d'impression de la Ville de Genève,B2,achats.cmai@geneve.ch,filled: '+41 22 418 58 15'
-field changed: invoice_mailing_address,Centrale municipale d'achat et d'impression de la Ville de Genève,B2,achats.cmai@geneve.ch,"filled: 'Case postale 164, 1219 Le Lignon, Switzerland'"
-field changed: po_required_as_published,networkrail.co.uk,D0,,was 'yes (as published: Must state valid PO)' → now 'yes (as published: PO reference)'
-field changed: invoice_mailing_address,networkrail.co.uk,D0,,"was 'PO Box 4145, Manchester M60 7WZ, United Kingdom' → now 'Accounts Payable, Network Rail, PO Box 4145, Manchester M60 7WZ'"
-field changed: payment_terms_as_published,Société de développement du réservoir Kiamika,B1,info@reservoirkiamika.org,"filled: 'payment terms, or PO rules published; general role ma'"
-mailbox changed,Parc Marie-Victorin,B1,info@parcmarievictorin.com,was accueil@parcmarievictorin.com
-field changed: payment_terms_as_published,Parc Marie-Victorin,B1,info@parcmarievictorin.com,"filled: 'payment terms, or PO rules published; administrative'"
-field changed: ap_phone,Parc Marie-Victorin,B1,info@parcmarievictorin.com,"was '819-363-2528, #224' → now '819-363-2528'"
-field changed: invoice_mailing_address,Parc Marie-Victorin,B1,info@parcmarievictorin.com,"was '385, boul. Marie-Victorin, Kingsey Falls Québec J0A 1B0' → now '385, boul. Marie-Victorin, Kingsey Falls (QC) J0A 1B0'"
-field changed: payment_terms_as_published,Bureau des enquêtes indépendantes,B1,info@bei.gouv.qc.ca,"filled: 'payment terms, or PO rules published; general contact'"
-field changed: payment_terms_as_published,Municipalité de La Reine,B1,lareine@mrcao.qc.ca,"filled: 'payment terms, or PO rules published; general municip'"
-package moved,The Co-operators Group Limited,B2,inquiries_cvm@cooperators.ca,was B1
-field changed: payment_terms_as_published,Canton de Nédélec,B1,dg@nedelec.org,"filled: 'payment terms, or PO rules published; general managem'"
-field changed: payment_terms_as_published,Municipalité de Saint-Germain-de-Kamouraska,B1,dg@munsaintgermain.ca,"filled: 'payment terms, or PO rules published; general managem'"
-field changed: invoice_mailing_address,Municipalité de Saint-Germain-de-Kamouraska,B1,dg@munsaintgermain.ca,"filled: '506, rue Jean-Baptiste-Moreau, Saint-Germain-de-Kamouraska, Québec, Canada, G0L 3G0'"
-field changed: po_required_as_published,Andel Holding A/S,C2,supplier@andel.dk,"was 'yes (as published: must be sent electronically to the company specified on the purchase order) (as printed on https://an' → now 'yes (as published: PO with company name/EAN, PO number, name reference)'"
-field changed: payment_terms_as_published,Municipalité de Mayo,B1,mun@mayo.ca,"filled: 'payment terms, or PO rules published; general municip'"
-mailbox changed,poets.ca,B1,info@poets.ca,was admin@poets.ca
-mailbox changed,Construction Maintenance and Allied Workers (CMAW),B1,info@cmaw.ca,was reception@cmaw.ca
-field changed: payment_terms_as_published,"Municipality of Tweed, Ontario",B1,info@tweed.ca,filled: 'net 30'
-field changed: invoice_mailing_address,"Municipality of Tweed, Ontario",B1,info@tweed.ca,"filled: 'The Corporation of the Municipality of Tweed, 255 Metcalf Street Postal Bag 729, Tweed, ON, K0K 3J0'"
-mailbox changed,Northam Realty Advisors Ltd.,B1,info@northamrealty.com,was reception@northamrealty.com
-field changed: payment_terms_as_published,Centre de Réadaptation Lisette Dupras,C1,informations.comtl@ssss.gouv.qc.ca,"filled: 'payment terms, or PO rules published; general informa'"
-field changed: payment_terms_as_published,Municipalité de Saint-Germain.,C0,,"filled: 'payment terms, or PO rules published; general managem'"
-field changed: invoice_mailing_address,Municipalité de Saint-Germain.,C0,,"filled: '506, rue Jean-Baptiste-Moreau, Saint-Germain-de-Kamouraska, Québec, Canada, G0L 3G0'"
-mailbox changed,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was registrator@fmv.se
-package moved,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was B1
-field changed: buyer_website,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was 'https://fmv.se' → now ''
-field changed: ap_phone,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was '+46 8 782 40 00' → now ''
-field changed: invoice_mailing_address,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,"was 'Försvarets materielverk, 115 88 Stockholm, Sweden' → now ''"
-field changed: email_check,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,was 'confirmed' → now ''
-field changed: dmarc_policy,Swedish Armed Forces via Swedish Defence Materiel Administration (FMV),B0,,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now ''"
-mailbox changed,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,was (none)
-package moved,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,was C0
-field changed: email_check,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,filled: 'confirmed'
-field changed: dmarc_policy,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,filled: 'p=reject'
-field changed: ship_ready,Elektrilevi OÜ,C1,elektrilevi@elektrilevi.ee,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-field changed: ap_phone,Parc Benson,I1,info@ville.hudson.qc.ca,filled: '450-458-5347'
-field changed: invoice_mailing_address,Parc Benson,I1,info@ville.hudson.qc.ca,"filled: '481 rue Main, Hudson, Québec J0P 1H0'"
-field changed: buyer_phone,BioChambers,I1,info@biochambers.com,was '//18003617778 (tel: link on https://biochambers.com/)' → now '1-800-361-7778'
-field changed: ap_phone,Saint-Bernard-de-Lacolle,I1,info@mun-sbdl.ca,filled: '450-246-3348'
-field changed: buyer_address,Chippewa Secondary School,I1,info@nearnorthschools.ca,"was '963 Airport Rd, North Bay, P1B8H1 (provincial municipal directory: https://data.ontario.ca/dataset/9831236f-6e01-447a-9e' → now '963 Airport Road, P.O. Box 3110 North Bay, ON, P1B 8H1'"
-field changed: buyer_phone,Chippewa Secondary School,I1,info@nearnorthschools.ca,was '+17054728170 (tel: link on https://www.nearnorthschools.ca/)' → now '705-472-8170'
-field changed: buyer_phone,FOOTHILLS COUNTRY HOSPICE SOCIETY,I1,info@countryhospice.org,filled: '1-403-995-4673'
-row removed,Université TÉLUQ,D1,info@teluq.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
-row removed,MRC de Témiscamingue,I1,mrct@mrctemiscamingue.qc.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+field changed: buyer_address,Canada School of Public Service,A3,csps.finance.efpc@canada.ca,"was '373 Sussex Dr., Ottawa, Ontario, K1N 5H5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Financial Consumer Agency of Canada,A3,fcac.finance.acfc@fcac-acfc.gc.ca,"was '427 Laurier Ave. W, Suite#500, Ottawa, Ontario, K1R 1B9, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Office of the Auditor General of Canada,A3,finance@oag-bvg.gc.ca,"was '240 Sparks Street, Ottawa, Ontario, K1A0G6, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Canadian Grain Commission,A3,cgcfinancesystemssupport@grainscanada.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+mailbox changed,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,was (none)
+package moved,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,was A0
+field changed: buyer_website,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,filled: 'https://saint-eustache.ca'
+field changed: ap_phone,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,filled: '450 974-5111 / 450 974-5000'
+field changed: invoice_mailing_address,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,"filled: '145, rue Saint-Louis, Saint-Eustache (Québec) J7R 1X9'"
+field changed: email_check,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,filled: 'confirmed'
+field changed: dmarc_policy,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,filled: 'p=reject'
+field changed: ship_ready,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,was (none)
+package moved,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,was A0
+field changed: buyer_website,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,filled: 'https://regiegeant.ca'
+field changed: ap_phone,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,"filled: '418 274-2004, poste 3241'"
+field changed: email_check,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,filled: 'confirmed'
+field changed: dmarc_policy,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,filled: 'p=reject'
+field changed: ship_ready,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+field changed: ap_phone,Régie Intermunicipale d'Incendie de la région de Windsor,A0,,"filled: '(819) 845-7888, poste 121'"
+field changed: invoice_mailing_address,Régie Intermunicipale d'Incendie de la région de Windsor,A0,,"filled: '11, rue Saint-Georges, Local 230, C.P. 90, Windsor (Québec) J1S 2L7'"
+field changed: ap_contact_name_as_published,Régie Intermunicipale d'Incendie de la région de Windsor,A0,,filled: 'Isabelle Lemieux (as printed by the organisation next to its invoicing mailbox)'
+field changed: dmarc_policy,Régie Intermunicipale d'Incendie de la région de Windsor,A0,,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+mailbox changed,Fouquet Morel,T3,Comptabilite@FouquetMorel.com,was comptabilite@fouquetmorel.com
+field changed: ap_phone,Fouquet Morel,T3,Comptabilite@FouquetMorel.com,"was '819-376-3567 poste 300 (as printed on https://fouquetmorel.com, re-read 2026-11-08)' → now '819-376-3567 poste 302'"
+field changed: invoice_mailing_address,Fouquet Morel,T3,Comptabilite@FouquetMorel.com,"filled: '730 Boulevard des Récollets, Trois-Rivières, QC G8Z 3W2'"
+mailbox changed,Natural Resources Conservation Board,A0,,was info@nrcb.ca
+package moved,Natural Resources Conservation Board,A0,,was A1
+field changed: buyer_website,Natural Resources Conservation Board,A0,,was 'https://nrcb.ca' → now ''
+field changed: email_check,Natural Resources Conservation Board,A0,,was 'not_found_on_page_hidden' → now ''
+field changed: dmarc_policy,Natural Resources Conservation Board,A0,,was 'no DMARC record' → now ''
+mailbox changed,Village of Boyle,A0,,was admin@boylealberta.ca
+package moved,Village of Boyle,A0,,was A1
+field changed: ap_phone,Village of Boyle,A0,,was '(780) 689-3643' → now ''
+field changed: invoice_mailing_address,Village of Boyle,A0,,"was '4800 3 Street South, Box 9, Boyle, AB T0A 0M0, Canada' → now ''"
+field changed: email_check,Village of Boyle,A0,,was 'not_found_on_page_hidden' → now ''
+field changed: dmarc_policy,Village of Boyle,A0,,was 'no DMARC record' → now ''
+field changed: ap_phone,Régie intermunicipale de gestion des déchets de L'Islet Sud,A0,,was '418-598-3076' → now ''
+field changed: invoice_mailing_address,Régie intermunicipale de gestion des déchets de L'Islet Sud,A0,,"was '34 rue Fortin, Saint-Jean-Port-Joli (Québec) G0R 3G0' → now ''"
+field changed: dmarc_policy,Régie intermunicipale de gestion des déchets de L'Islet Sud,A0,,was 'p=quarantine' → now ''
+mailbox changed,Starland County,A0,,was info@starlandcounty.com
+package moved,Starland County,A0,,was A1
+field changed: ap_phone,Starland County,A0,,was '(403) 772-3793' → now ''
+field changed: invoice_mailing_address,Starland County,A0,,"was '217 Railway Avenue North, PO Box 249, Morrin, AB T0J 2B0, Canada' → now ''"
+field changed: email_check,Starland County,A0,,was 'unverified_page_unavailable' → now ''
+field changed: dmarc_policy,Starland County,A0,,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now ''"
+row added,astrazeneca.com,D4,apinvoicescntz@astrazeneca.com,new organisation in the ranked file
+field changed: ap_phone,Laura,T2,vendors@laura.ca,filled: '(450) 973-6090'
+field changed: invoice_mailing_address,Laura,T2,vendors@laura.ca,"filled: '3000 Boulevard Le Corbusier, Laval QC H7L 3W2'"
+field changed: ap_phone,Équipement Polar,T2,achats@equipementpolar.com,filled: '418-682-3011 / 1-800-567-3206'
+field changed: invoice_mailing_address,Équipement Polar,T2,achats@equipementpolar.com,"filled: '3425, boul. Wilfrid-Hamel, Québec (Québec), G1P 2J3'"
+mailbox changed,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,was dgsfleetinvoices@dgs.ca.gov
+package moved,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,was GOLD
+field changed: buyer_website,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,was 'http://www.water.ca.gov/' → now 'https://energy.ca.gov/'
+field changed: dmarc_policy,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,"was 'p=quarantine' → now 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,was 'yes' → now 'no (mailbox below finance grade)'
+field changed: ap_phone,cavavin.com,T1,info@cavavin.com,filled: '(450) 676-6447'
+field changed: invoice_mailing_address,cavavin.com,T1,info@cavavin.com,"filled: '4575 Blvd. Sir-Wilfrid-Laurier, Saint-Hubert, QC J3Y 3X3, Canada'"
+mailbox changed,Kartouche Plus Ordivert Shawinigan,T1,info@kartoucheplus.com,was achat@kartoucheplus.com
+package moved,Kartouche Plus Ordivert Shawinigan,T1,info@kartoucheplus.com,was T2
+field changed: ap_phone,Kartouche Plus Ordivert Shawinigan,T1,info@kartoucheplus.com,filled: '1 855 853-3335 / 819-601-2323'
+field changed: invoice_mailing_address,Kartouche Plus Ordivert Shawinigan,T1,info@kartoucheplus.com,"filled: '5704, boulevard Jean-XXIII, Trois-Rivières, QC, G8Z 4B5'"
+field changed: ap_phone,ecosolaris.com,T1,info@ecosolaris.com,filled: '1-800-966-7987'
+field changed: invoice_mailing_address,ecosolaris.com,T1,info@ecosolaris.com,"filled: '622 Boul. Roland-Godard, Saint-Jerome, QC J7Y 4C5, Canada'"
+mailbox changed,European Investment Bank,C0,,was info@eib.org
+package moved,European Investment Bank,C0,,was C1
+field changed: email_check,European Investment Bank,C0,,was 'confirmed' → now ''
+field changed: dmarc_policy,European Investment Bank,C0,,was 'p=reject' → now ''
+field changed: ship_ready,European Investment Bank,C0,,was 'no (mailbox below finance grade)' → now 'no (mailbox not referee-confirmed)'
+mailbox changed,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was informatiecentrum@knmi.nl
+package moved,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was C1
+field changed: buyer_phone,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'Telefoon 030 22 06 911' → now ''
+field changed: buyer_website,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'https://knmi.nl' → now ''
+field changed: email_check,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'confirmed' → now ''
+field changed: dmarc_policy,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'p=quarantine' → now ''
+field changed: ship_ready,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'no (mailbox below finance grade)' → now 'no (mailbox not referee-confirmed)'
+field changed: ap_phone,District of Nipissing Social Services,C0,,was '705-474-2151' → now ''
+field changed: invoice_mailing_address,District of Nipissing Social Services,C0,,"was '200 McIntyre Street East, North Bay, ON P1B 8V6' → now ''"
+field changed: dmarc_policy,District of Nipissing Social Services,C0,,was 'p=quarantine' → now ''
+mailbox changed,Town of Cottlesville,C0,,was towncottlesville@eastlink.ca
+package moved,Town of Cottlesville,C0,,was C1
+field changed: buyer_address,Town of Cottlesville,C0,,"was 'P.O. Box 8660, Station A, Halifax, NS, B3K 5M3' → now ''"
+field changed: buyer_phone,Town of Cottlesville,C0,,was '+1-888-345-1111' → now ''
+field changed: buyer_website,Town of Cottlesville,C0,,was 'https://eastlink.ca' → now ''
+field changed: ap_phone,Town of Cottlesville,C0,,was '(709) 629-3505' → now ''
+field changed: invoice_mailing_address,Town of Cottlesville,C0,,"was '12 Luke's Arm Road, Cottlesville, NL A0G 1S0, Canada' → now ''"
+field changed: email_check,Town of Cottlesville,C0,,was 'not_found_on_page' → now ''
+field changed: dmarc_policy,Town of Cottlesville,C0,,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now ''"
+field changed: ap_phone,Corporation des événements de Trois-Rivières,E1,info@ce3r.com,filled: '1-844-267-4487'
+field changed: invoice_mailing_address,Corporation des événements de Trois-Rivières,E1,info@ce3r.com,"filled: '100, avenue des Draveurs, C.P. 368, Trois-Rivières (Québec) G9A 5H3'"
+row removed,rcsdsc.ca,E1,info@rcsdsc.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+row removed,ab-conservation.com,E1,info@ab-conservation.com,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+row removed,eastlink.ca,E0,,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+row removed,nrcb.ca,E0,,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
