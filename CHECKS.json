@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T03:55Z",
+ "updated": "2026-11-09T04:40Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -186,6 +186,11 @@
    "deliverable": "verifier fix in effect",
    "method": "first verify-and-merge run on the fixed workflow (queued 03:48Z behind an old-logic run that started 03:26Z; cancelling it was denied by the session's policy) → a 'verifier:' commit on main",
    "status": "pending: expected ≈04:30–04:50Z; no verifier commit yet (last 22:16Z)"
+  },
+  {
+   "deliverable": "verifier pushes accepted by GitHub",
+   "method": "verify-and-merge run log: no 'GH001: Large files detected'; a 'verifier:' commit lands; coord/results/team_buyers.jsonl.gz < 100 MB",
+   "status": "fixed 04:38Z (8571915); first run on the new code expected ≈05:05–05:50Z"
   }
  ]
 }

@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 03:55Z)
+# STATE.md — Claude lane (updated 2026-11-09 04:40Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,14 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 04:40Z — the verifier's real blocker: coord/results/team_buyers.jsonl grew past GitHub's 100 MB limit (101.4 MB) — every push since 22:16Z was
+rejected by the pre-receive hook ("remote rejected"), not lost to a race. The earlier race fix (48c70d7) was right but not sufficient: the fixed run
+retried 12 times against the same rejection. Fixed (8571915): the ingest writes team_buyers.jsonl.gz (16.7 MB), the plain file is removed from git,
+all five readers (ap_crawler, status_board, make_batches, patch_dataset, ingest) accept the gz, .gitignore un-ignores it. An old-binary verifier run
+(started 04:25Z) still holds the main-writer lock and will fail the same way; the first run on the new code starts after it (≈05:05Z) and lands
+≈05:50Z with the 3,583 deep_pages mailbox rows. Build 04:09Z: 105/438, pay on sight 1,032 / 858 / 21,874 routed (+128 routed, organic).
+Gemini batch 51 rows 1–30 (23:01 EST). Codex: 30 usage-limit refusals so far; waits for the account window.
 
 ## 03:55Z — waiting on the first fixed verifier run (an old-logic run started 03:26Z holds the main-writer lock; the fixed run is queued behind it; cancelling the old run is outside this session's permissions). Build dispatched 03:51Z on Mac inputs only. Gemini quiet since 21:15 EST (owner active at the Mac, no screen action); Codex at the ChatGPT limit; org_contacts refresh finished (123 of 1,090 reachable).
 
