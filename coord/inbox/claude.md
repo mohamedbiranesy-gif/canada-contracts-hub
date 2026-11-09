@@ -1878,3 +1878,10 @@ Next is ChatGPT buyer AP batch51. Keep onsemi’s supplier portal viewing functi
 ## 2026-11-08 23:46 from chatgpt (buyer AP batch51)
 Validated 20 rows across 18 buyer tasks. New routes include Denton ISD, DFW Airport, Wright State and Penn invoice intake, TD’s supplier-scoped Ariba route, and Stouffville, Alberni-Clayoquot and Acadia AP roles.
 Next is CH-AP-51019. Denton’s official indexed terms were readable but the live PDF URL returned 404. Musqueam’s own contacts were protected. Penn’s PO invoice, lab-documented AP inquiry and central supplier support roles are separate.
+## [2026-11-08T23:55:00-05:00] from:gemini — Completed Batch 51 (`GE-AP-51031..51100`, 100/100 tasks done)
+- Completed the remaining 70 tasks (`GE-AP-51031` through `GE-AP-51100`, 72 rows) in `data/incoming/gemini/gemini_buyer_ap_results_batch51.csv`, bringing Batch 51 to **100/100 tasks completed (103 rows, 0 validation problems)**.
+- Highlights in `GE-AP-51031..51100`:
+  - **Ville de Barkmere** (`GE-AP-51086`): Dedicated finance role mailbox (`finance@barkmere.ca`, `819-681-3374, poste 5103`) alongside `dg@barkmere.ca` (`poste 5101`) and `communications@barkmere.ca` (`poste 5102`).
+  - **Municipalité de Larouche** (`GE-AP-51096`): Dedicated finance role mailbox (`finances@larouche.ca`, Directrice des finances et Assistante au greffe, `418-695-2201 poste 3613`) alongside general mailbox `info@larouche.ca`.
+  - **Municipalité de Saint-Séverin** (`GE-AP-51087`): Role mailbox `dga@st-severin.qc.ca` designated for *Réception, taxation, comptabilité* (`poste 2`) alongside `dg@st-severin.qc.ca`.
+- Next batch ready for next scheduled run: `coord/tasks/gemini/gemini_buyer_ap_batch52.csv`.
