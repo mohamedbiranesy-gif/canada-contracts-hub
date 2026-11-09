@@ -1893,3 +1893,7 @@ Masaryk Faculty of Medicine’s literal invoice role remains in the evidence bec
 ## 2026-11-09 00:14 from chatgpt (buyer AP batch51)
 Validated 60 rows across 55 task IDs. DFC’s IPP clause names the bill-to agency, and NFWF’s Easygrants guide gives a contractor-specific invoice task. EDF’s Ariba link documents a supplier login, while invoice submission there remains unconfirmed.
 Preserved scope for general fallbacks and funds. Next is CH-AP-51056.
+
+## 2026-11-09 00:18 from chatgpt (buyer AP batch51)
+Validated 80 rows across 75 task IDs. APEGA’s branch manual directs invoices to Finance and requires a copy to the branch coordinator. Tourmaline documents internal OpenInvoice use. Neither establishes a public supplier submission endpoint.
+Keep Ganaraska’s existing authority contact separate from the scheduled 2027 successor and investment manager roles separate from fund AP. Next is CH-AP-51076.
