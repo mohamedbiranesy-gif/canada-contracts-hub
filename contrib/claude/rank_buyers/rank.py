@@ -1604,6 +1604,8 @@ for x in rows:
     for col in ("buyer_phone", "buyer_contact_evidence_url", "vendor_phone", "vendor_contact_evidence_url"):
         x.setdefault(col, "")
     b = oc_of(x.get("buyer_website"))
+    if (x.get("buyer_address") or "").strip() in ("CA", "US", "Canada", "CA, CA"):
+        x["buyer_address"] = ""  # the release's buyer table had only the country: that is no bill-to address (2026-11-09)
     if b:
         if not x.get("buyer_address") and b.get("address"):
             x["buyer_address"] = b["address"]; n_oc["buyer_address"] += 1
@@ -2595,7 +2597,10 @@ try:
             return "" if (not v or v in ("not_published", "{}", "[]") or re.match(r"^(?:no |none\b|not |0 in the|only system|n/a\b|not applicable|unknown\b|aucun|no dataset|no record|no identifier)", v, re.I)) else v
         # derived GST/HST status and indicative rate (owner 2026-11-08 11:53 EST: plausibility values only where nothing is published, source-derived, labelled)
         x["buyer_tax_status_derived"] = x["tax_rate_indicative_derived"] = x["invoice_currency_derived"] = ""
-        if (x.get("jurisdiction") or "") != "US" and not re.search(r"\.(gov|edu|org\.uk|gov\.uk|gov\.au|eu)$|\.gov\b", (x.get("buyer_website") or "").lower()):
+        _site0 = (x.get("buyer_website") or "").lower().rstrip("/"); _jur0 = (x.get("jurisdiction") or "").upper()
+        _cc0 = ({"US": "US", "UK": "GB", "GB": "GB", "AU": "AU", "NZ": "AU", "EU": "EU", "DE": "EU", "FR": "EU", "NL": "EU", "BE": "EU", "IE": "EU", "IT": "EU", "ES": "EU", "AT": "EU", "SE": "EU", "DK": "EU", "FI": "EU", "PL": "EU", "PT": "EU", "CH": "EU", "NO": "EU"}.get(_jur0) or
+                ("US" if re.search(r"\.(gov|edu|mil|us)$|\.gov\b", _site0) else "GB" if re.search(r"\.uk$", _site0) else "AU" if re.search(r"\.(au|nz)$", _site0) else "EU" if re.search(r"\.(eu|de|fr|nl|be|ie|it|es|at|se|dk|fi|pl|pt|ch|no)$", _site0) else ""))
+        if not _cc0:
             pc2 = re.search(r"\b([A-Z])\d[A-Z]\s?\d[A-Z]\d\b", x.get("buyer_address") or "")
             prov2 = {"QC": "QC", "ON": "ON", "BC": "BC", "AB": "AB", "SK": "SK", "MB": "MB", "NS": "NS", "NB": "NB", "NL": "NL", "PE": "PE", "YT": "YT", "NT": "NT", "NU": "NU"}.get(x.get("jurisdiction") or "", "")
             if not prov2 and pc2:
@@ -2632,8 +2637,7 @@ try:
                 x["invoice_currency_derived"] = "CAD (derived: the buyer is in Canada and the row has no contract record stating a currency; the invoice would be in Canadian dollars unless the vendor and buyer agreed otherwise)"
                 npk["invoice_currency_derived"] += 1
         else:  # buyer outside Canada: exported supply, local tax is the buyer's; currency from the buyer's country
-            _site = (x.get("buyer_website") or "").lower(); _jur = x.get("jurisdiction") or ""
-            _cc = "US" if (_jur == "US" or re.search(r"\.gov\b|\.(gov|edu|us)$", _site)) else "GB" if re.search(r"\.(gov\.uk|org\.uk|co\.uk|ac\.uk|uk)$", _site) else "AU" if re.search(r"\.(gov\.au|edu\.au|com\.au|au)$", _site) else "EU" if re.search(r"\.(eu|fr|de|nl|be|it|es|ie|fi|se|dk|pt|at|pl)$", _site) else ""
+            _cc = _cc0
             if _cc:
                 x["buyer_tax_status_derived"] = "DERIVED: buyer outside Canada — services and goods exported to a non-resident are generally zero-rated for GST/HST (ETA Schedule VI, Parts V and VII); %s" % {"US": "US state sales / use tax is self-assessed by the buyer", "GB": "UK VAT is accounted for by the buyer under the reverse charge where applicable", "AU": "Australian GST is accounted for by the buyer where applicable", "EU": "EU VAT is accounted for by the buyer under the reverse charge where applicable"}[_cc]
                 if not _val("currency"):
