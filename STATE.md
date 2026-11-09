@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 04:40Z)
+# STATE.md — Claude lane (updated 2026-11-09 05:35Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,13 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 05:35Z — verifier landing again (commits 04:49Z and 05:01Z); search01's 6,168 rows verified; both Codex lanes back; build 05:13Z in progress
+- The gzip fix worked on the first run: verification_log now holds claude_buyer_ap_results_search01.csv verified 6,168 / page-unavailable 132 /
+  not-on-page 42 / personal-mailbox rejected 8 (the deep_pages finds from the policy pages), deep01 434 verified.
+- ChatGPT limit lifted ≈05:05Z: "[chatgpt] Buyer AP batch51 rows 31–50" and "[codex] buyer AP batch03 rows 261–270" (05:08–05:12Z); Gemini batch 51
+  complete (04:58Z). API capped; deep_pages queue drained (last pass 0 buyers left).
+- Build dispatched 05:13Z (first with the verified mailbox finds) — still running at 05:35Z; the channel-tier upgrades (P03–P05, P11) read at the next loop.
 
 ## 04:40Z — the verifier's real blocker: coord/results/team_buyers.jsonl grew past GitHub's 100 MB limit (101.4 MB) — every push since 22:16Z was
 rejected by the pre-receive hook ("remote rejected"), not lost to a race. The earlier race fix (48c70d7) was right but not sufficient: the fixed run

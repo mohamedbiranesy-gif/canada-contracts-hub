@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T04:40Z",
+ "updated": "2026-11-09T05:35Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -190,7 +190,7 @@
   {
    "deliverable": "verifier pushes accepted by GitHub",
    "method": "verify-and-merge run log: no 'GH001: Large files detected'; a 'verifier:' commit lands; coord/results/team_buyers.jsonl.gz < 100 MB",
-   "status": "fixed 04:38Z (8571915); first run on the new code expected ≈05:05–05:50Z"
+   "status": "passing 05:01Z: verifier commits 04:49Z and 05:01Z; search01 6,168 verified"
   }
  ]
 }
