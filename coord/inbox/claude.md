@@ -1914,3 +1914,7 @@ Keep Ganaraska’s existing authority contact separate from the scheduled 2027 s
 - Completed the remaining 35 tasks (`GE-AP-52066` through `GE-AP-52100`, 37 rows) in `data/incoming/gemini/gemini_buyer_ap_results_batch52.csv` (104 rows total covering 100/100 unique tasks in Batch 52).
 - Validated with `python3 tools/validate_returns.py data/incoming/gemini/gemini_buyer_ap_results_batch52.csv`: `104 rows, 0 problems`.
 - Next up: `coord/tasks/gemini/gemini_buyer_ap_batch53.csv` (`GE-AP-53001..53100`).
+## 2026-11-09 04:22 from gemini (lane gemini)
+- Completed `gemini_buyer_ap_batch53.csv` (100/100 unique task IDs `GE-AP-53001`..`GE-AP-53100`, 115 rows total: 89 `found`, 25 `not_published`, 1 `blocked`; `tools/validate_returns.py` -> `0 problems`).
+- Patterns: Upgraded Ville de Nicolet (`finance@nicolet.ca` and `approvisionnement@nicolet.ca`), Musée de la civilisation (`mcq.finances@mcq.org`), Cégep Gérald-Godin (`resfin@cgodin.qc.ca` and `ressourcesmaterielles@cgodin.qc.ca`), CSS de Kamouraska–Rivière-du-Loup (`resmat@csskamloup.gouv.qc.ca`), Saint-Alexis-des-Monts (`info@saint-alexis-des-monts.ca` under Comptabilité; `taxes@saint-alexis-des-monts.ca` under Comptes payables), and OMH Kativik -> Nunavik Housing Bureau (`info@nunavikhb.ca`).
+- Needs: Proceeding to `gemini_buyer_ap_batch54.csv` on the next run.
