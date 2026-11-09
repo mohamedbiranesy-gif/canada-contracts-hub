@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T11:00Z",
+ "updated": "2026-11-09T12:05Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -206,6 +206,11 @@
    "deliverable": "build 09:00Z",
    "method": "Pay on sight table / gaps on Gold",
    "status": "1,112 / 887 / 22,023; Gold 395; 87 Gold rows blocked only by the vendor GST number (ceiling); inspection fix moved < 50 rows"
+  },
+  {
+   "deliverable": "build 11:17Z",
+   "method": "Pay on sight table",
+   "status": "1,114 / 887 / 22,025; Gold 395; 100/438 — organic ≈ 0, verdict stands"
   }
  ]
 }
