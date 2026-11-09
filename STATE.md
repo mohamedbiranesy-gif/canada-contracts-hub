@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 08:05Z)
+# STATE.md — Claude lane (updated 2026-11-09 08:55Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,13 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 08:55Z — build 08:16Z (ranker-bot, no revert since): pay on sight 1,112 (+8) / 887 / 22,022 (+75 routed); Gold 395 / 624; 101 / 438
+- Scoreboard provenance verified (ranker-bot 08:16Z); verifier commits keep landing (08:24Z). Build for the province-from-name / federal fix dispatched 08:50Z.
+- Inspection: P02's 158 non-payable rows — vendor GST/HST number 130; P04's 920 — general-inbox channel 748, vendor GST 693, bill-to 207, tax 196.
+  The vendor GST number is now the single remaining blocker across Gold / P02 / P04 (≈ 960 rows) and no public source exposes it beyond what is
+  already joined (Corporations Canada, Canada's Business Registries, CRA charities, federal grant recipients, the vendor's own pages). Ceiling.
+- Gemini batch 52 complete (02:28 EST; hourly task next); Codex at the ChatGPT limit; integrity intact (org_contacts 74,911). Verdict unchanged.
 
 ## 08:05Z — build 07:13Z: 1,104 / 885 / 21,947 (flat vs 06:36Z); Gold 393 / 624; reverted again at 07:18Z by a pre-fix verifier run; republish dispatched 08:00Z
 - The 07:18Z revert came from a verifier run queued before the 07:12Z fix; runs since (07:41Z, 07:56Z) are on the new code and do not touch

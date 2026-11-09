@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T08:05Z",
+ "updated": "2026-11-09T08:55Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -200,7 +200,7 @@
   {
    "deliverable": "ranker outputs survive verifier pushes",
    "method": "after each verifier commit, coord/results/ranked/COVERAGE_VS_TARGETS.md's build time is not older than the latest 'ranker:' commit (git log -1 -- the file)",
-   "status": "fixed 1468ce7; one more revert at 07:18Z from a pre-fix run; republish dispatched 08:00Z — confirm at the next loop that the scoreboard's last change is a ranker-bot commit"
+   "status": "passing 08:49Z: scoreboard last changed by ranker-bot 08:16Z with verifier commits at 08:24Z in between"
   }
  ]
 }
