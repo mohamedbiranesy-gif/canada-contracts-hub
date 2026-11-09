@@ -55671,7 +55671,7 @@ romacatering.ca	none	romacatering.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali
 romagcontracting.ca	no_record		no DMARC record at _dmarc.romagcontracting.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 mx include:spfc9.megamailservers.com ~all	2026-11-06	none	none	none
 romali.ca	none	romali.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-06	none	none	none
 romamart.ca	none	romamart.ca	v=DMARC1; p=none; rua=mailto:technology@romamart.ca; ruf=mailto:technology@romamart.ca; sp=none; adkim=r; aspf=r	100	yes	soft_fail	v=spf1 include:zoho.com include:zohocloud.ca include:spf.zohocloud.ca include:ca.zeptomail.net include:zcsend.ca ~all	2026-11-06	none	none	none
-roman.agency	error		LifetimeTimeout			hard_fail	v=spf1 include:_spf.google.com -all	2026-11-09	none	none	none
+roman.agency	error		no nameservers			hard_fail	v=spf1 include:_spf.google.com -all	2026-11-09	none	none	none
 romanstexturing.ca	no_record		no DMARC record at _dmarc.romanstexturing.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-06	none	none	none
 romasoccer.com	no_record		no DMARC record at _dmarc.romasoccer.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-08	none	none	none
 romasocer.com	no_record		no DMARC record at _dmarc.romasocer.com; confirmed by 8.8.8.8			no_record		2026-11-04			

@@ -1,4 +1,4 @@
-# Integrity gates — 63628 delivered rows in 17 packages (34 files)
+# Integrity gates — 63634 delivered rows in 17 packages (34 files)
 
 - **1 mailbox present, valid, domain with a mail server**: PASS (0)
 - **2 role mailbox (no person-like local part, no freemail)**: PASS (0)
@@ -22,9 +22,9 @@ Informational: 4 rows whose quote shows the label next to the address rather tha
 - P06T_active_service_seen_on_buyer_site_other_email: 2440
 - P06_client_listing_invoicing_AP_email: 166
 - P07_client_listing_finance_or_purchasing_email: 252
-- P08_client_listing_general_email: 3038
+- P08_client_listing_general_email: 3039
 - P09_older_contract_or_payment_any_email: 381
 - P10_linked_from_vendor_site_any_email: 2596
-- P11_any_relationship_email_not_yet_confirmed: 474
+- P11_any_relationship_email_not_yet_confirmed: 475
 - P12_weaker_relationship_within_5_years_own_email: 19
-- P13_inferred_relationship_no_record_own_email: 50798
+- P13_inferred_relationship_no_record_own_email: 50802

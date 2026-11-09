@@ -1,95 +1,12 @@
 change,buyer,rank_group,email,detail
-field changed: buyer_address,Canada School of Public Service,A3,csps.finance.efpc@canada.ca,"was '373 Sussex Dr., Ottawa, Ontario, K1N 5H5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Financial Consumer Agency of Canada,A3,fcac.finance.acfc@fcac-acfc.gc.ca,"was '427 Laurier Ave. W, Suite#500, Ottawa, Ontario, K1R 1B9, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Office of the Auditor General of Canada,A3,finance@oag-bvg.gc.ca,"was '240 Sparks Street, Ottawa, Ontario, K1A0G6, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Canadian Grain Commission,A3,cgcfinancesystemssupport@grainscanada.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-mailbox changed,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,was (none)
-package moved,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,was A0
-field changed: buyer_website,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,filled: 'https://saint-eustache.ca'
-field changed: ap_phone,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,filled: '450 974-5111 / 450 974-5000'
-field changed: invoice_mailing_address,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,"filled: '145, rue Saint-Louis, Saint-Eustache (Québec) J7R 1X9'"
-field changed: email_check,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,filled: 'confirmed'
-field changed: dmarc_policy,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,filled: 'p=reject'
-field changed: ship_ready,Association du sport et du plein air de Saint-Eustache (ASPA),A1,info_spa@saint-eustache.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-mailbox changed,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,was (none)
-package moved,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,was A0
-field changed: buyer_website,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,filled: 'https://regiegeant.ca'
-field changed: ap_phone,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,"filled: '418 274-2004, poste 3241'"
-field changed: email_check,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,filled: 'confirmed'
-field changed: dmarc_policy,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,filled: 'p=reject'
-field changed: ship_ready,Régie intermunicipale  Géant,A1,directeursisc@regiegeant.ca,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-field changed: ap_phone,Régie Intermunicipale d'Incendie de la région de Windsor,A0,,"filled: '(819) 845-7888, poste 121'"
-field changed: invoice_mailing_address,Régie Intermunicipale d'Incendie de la région de Windsor,A0,,"filled: '11, rue Saint-Georges, Local 230, C.P. 90, Windsor (Québec) J1S 2L7'"
-field changed: ap_contact_name_as_published,Régie Intermunicipale d'Incendie de la région de Windsor,A0,,filled: 'Isabelle Lemieux (as printed by the organisation next to its invoicing mailbox)'
-field changed: dmarc_policy,Régie Intermunicipale d'Incendie de la région de Windsor,A0,,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
-mailbox changed,Fouquet Morel,T3,Comptabilite@FouquetMorel.com,was comptabilite@fouquetmorel.com
-field changed: ap_phone,Fouquet Morel,T3,Comptabilite@FouquetMorel.com,"was '819-376-3567 poste 300 (as printed on https://fouquetmorel.com, re-read 2026-11-08)' → now '819-376-3567 poste 302'"
-field changed: invoice_mailing_address,Fouquet Morel,T3,Comptabilite@FouquetMorel.com,"filled: '730 Boulevard des Récollets, Trois-Rivières, QC G8Z 3W2'"
-mailbox changed,Natural Resources Conservation Board,A0,,was info@nrcb.ca
-package moved,Natural Resources Conservation Board,A0,,was A1
-field changed: buyer_website,Natural Resources Conservation Board,A0,,was 'https://nrcb.ca' → now ''
-field changed: email_check,Natural Resources Conservation Board,A0,,was 'not_found_on_page_hidden' → now ''
-field changed: dmarc_policy,Natural Resources Conservation Board,A0,,was 'no DMARC record' → now ''
-mailbox changed,Village of Boyle,A0,,was admin@boylealberta.ca
-package moved,Village of Boyle,A0,,was A1
-field changed: ap_phone,Village of Boyle,A0,,was '(780) 689-3643' → now ''
-field changed: invoice_mailing_address,Village of Boyle,A0,,"was '4800 3 Street South, Box 9, Boyle, AB T0A 0M0, Canada' → now ''"
-field changed: email_check,Village of Boyle,A0,,was 'not_found_on_page_hidden' → now ''
-field changed: dmarc_policy,Village of Boyle,A0,,was 'no DMARC record' → now ''
-field changed: ap_phone,Régie intermunicipale de gestion des déchets de L'Islet Sud,A0,,was '418-598-3076' → now ''
-field changed: invoice_mailing_address,Régie intermunicipale de gestion des déchets de L'Islet Sud,A0,,"was '34 rue Fortin, Saint-Jean-Port-Joli (Québec) G0R 3G0' → now ''"
-field changed: dmarc_policy,Régie intermunicipale de gestion des déchets de L'Islet Sud,A0,,was 'p=quarantine' → now ''
-mailbox changed,Starland County,A0,,was info@starlandcounty.com
-package moved,Starland County,A0,,was A1
-field changed: ap_phone,Starland County,A0,,was '(403) 772-3793' → now ''
-field changed: invoice_mailing_address,Starland County,A0,,"was '217 Railway Avenue North, PO Box 249, Morrin, AB T0J 2B0, Canada' → now ''"
-field changed: email_check,Starland County,A0,,was 'unverified_page_unavailable' → now ''
-field changed: dmarc_policy,Starland County,A0,,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now ''"
-row added,astrazeneca.com,D4,apinvoicescntz@astrazeneca.com,new organisation in the ranked file
-field changed: ap_phone,Laura,T2,vendors@laura.ca,filled: '(450) 973-6090'
-field changed: invoice_mailing_address,Laura,T2,vendors@laura.ca,"filled: '3000 Boulevard Le Corbusier, Laval QC H7L 3W2'"
-field changed: ap_phone,Équipement Polar,T2,achats@equipementpolar.com,filled: '418-682-3011 / 1-800-567-3206'
-field changed: invoice_mailing_address,Équipement Polar,T2,achats@equipementpolar.com,"filled: '3425, boul. Wilfrid-Hamel, Québec (Québec), G1P 2J3'"
-mailbox changed,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,was dgsfleetinvoices@dgs.ca.gov
-package moved,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,was GOLD
-field changed: buyer_website,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,was 'http://www.water.ca.gov/' → now 'https://energy.ca.gov/'
-field changed: dmarc_policy,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,"was 'p=quarantine' → now 'v=DMARC1; p=none (monitor only, no enforcement)'"
-field changed: ship_ready,City of Roseville Accessibility Statement,B1,administration@energy.ca.gov,was 'yes' → now 'no (mailbox below finance grade)'
-field changed: ap_phone,cavavin.com,T1,info@cavavin.com,filled: '(450) 676-6447'
-field changed: invoice_mailing_address,cavavin.com,T1,info@cavavin.com,"filled: '4575 Blvd. Sir-Wilfrid-Laurier, Saint-Hubert, QC J3Y 3X3, Canada'"
-mailbox changed,Kartouche Plus Ordivert Shawinigan,T1,info@kartoucheplus.com,was achat@kartoucheplus.com
-package moved,Kartouche Plus Ordivert Shawinigan,T1,info@kartoucheplus.com,was T2
-field changed: ap_phone,Kartouche Plus Ordivert Shawinigan,T1,info@kartoucheplus.com,filled: '1 855 853-3335 / 819-601-2323'
-field changed: invoice_mailing_address,Kartouche Plus Ordivert Shawinigan,T1,info@kartoucheplus.com,"filled: '5704, boulevard Jean-XXIII, Trois-Rivières, QC, G8Z 4B5'"
-field changed: ap_phone,ecosolaris.com,T1,info@ecosolaris.com,filled: '1-800-966-7987'
-field changed: invoice_mailing_address,ecosolaris.com,T1,info@ecosolaris.com,"filled: '622 Boul. Roland-Godard, Saint-Jerome, QC J7Y 4C5, Canada'"
-mailbox changed,European Investment Bank,C0,,was info@eib.org
-package moved,European Investment Bank,C0,,was C1
-field changed: email_check,European Investment Bank,C0,,was 'confirmed' → now ''
-field changed: dmarc_policy,European Investment Bank,C0,,was 'p=reject' → now ''
-field changed: ship_ready,European Investment Bank,C0,,was 'no (mailbox below finance grade)' → now 'no (mailbox not referee-confirmed)'
-mailbox changed,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was informatiecentrum@knmi.nl
-package moved,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was C1
-field changed: buyer_phone,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'Telefoon 030 22 06 911' → now ''
-field changed: buyer_website,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'https://knmi.nl' → now ''
-field changed: email_check,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'confirmed' → now ''
-field changed: dmarc_policy,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'p=quarantine' → now ''
-field changed: ship_ready,KNMI (Represented by Ministry of Infrastructure and Water Management),C0,,was 'no (mailbox below finance grade)' → now 'no (mailbox not referee-confirmed)'
-field changed: ap_phone,District of Nipissing Social Services,C0,,was '705-474-2151' → now ''
-field changed: invoice_mailing_address,District of Nipissing Social Services,C0,,"was '200 McIntyre Street East, North Bay, ON P1B 8V6' → now ''"
-field changed: dmarc_policy,District of Nipissing Social Services,C0,,was 'p=quarantine' → now ''
-mailbox changed,Town of Cottlesville,C0,,was towncottlesville@eastlink.ca
-package moved,Town of Cottlesville,C0,,was C1
-field changed: buyer_address,Town of Cottlesville,C0,,"was 'P.O. Box 8660, Station A, Halifax, NS, B3K 5M3' → now ''"
-field changed: buyer_phone,Town of Cottlesville,C0,,was '+1-888-345-1111' → now ''
-field changed: buyer_website,Town of Cottlesville,C0,,was 'https://eastlink.ca' → now ''
-field changed: ap_phone,Town of Cottlesville,C0,,was '(709) 629-3505' → now ''
-field changed: invoice_mailing_address,Town of Cottlesville,C0,,"was '12 Luke's Arm Road, Cottlesville, NL A0G 1S0, Canada' → now ''"
-field changed: email_check,Town of Cottlesville,C0,,was 'not_found_on_page' → now ''
-field changed: dmarc_policy,Town of Cottlesville,C0,,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now ''"
-field changed: ap_phone,Corporation des événements de Trois-Rivières,E1,info@ce3r.com,filled: '1-844-267-4487'
-field changed: invoice_mailing_address,Corporation des événements de Trois-Rivières,E1,info@ce3r.com,"filled: '100, avenue des Draveurs, C.P. 368, Trois-Rivières (Québec) G9A 5H3'"
-row removed,rcsdsc.ca,E1,info@rcsdsc.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
-row removed,ab-conservation.com,E1,info@ab-conservation.com,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
-row removed,eastlink.ca,E0,,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
-row removed,nrcb.ca,E0,,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+field changed: buyer_address,Financial Consumer Agency of Canada,A3,fcac.finance.acfc@fcac-acfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '427 Laurier Ave. W, Suite#500, Ottawa, Ontario, K1R 1B9, Canada'"
+field changed: buyer_address,Canadian Grain Commission,A3,cgcfinancesystemssupport@grainscanada.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Canada Border Services Agency,A2,cbsa-asfc_solicitations-demandes_de_soumissions@cbsa-asfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+row added,apprentx.rocks,D1,info@apprentx.rocks,new organisation in the ranked file
+row added,legacy.equiterre.org,E1,info@equiterre.org,new organisation in the ranked file
+row added,Décontamination Québec Inc.,I1,info@decontaminationquebec.com,new organisation in the ranked file
+row added,Pavage Mont-Tremblant inc.,I1,info@pavagemont-tremblant.ca,new organisation in the ranked file
+row added,VILLIARD SERRES ET JARDINS INC.,I1,info@villiardserresetjardins.com,new organisation in the ranked file
+row added,DIRECT IMPACT SOLUTIONS INC,I1,hello@directimpactsolutions.com,new organisation in the ranked file
+row added,S.E.E.L. INC.,I1,info@seelinc.com,new organisation in the ranked file
+row removed,DIRECT IMPACT SERVICES INC.,I1,hello@directimpactsolutions.com,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
