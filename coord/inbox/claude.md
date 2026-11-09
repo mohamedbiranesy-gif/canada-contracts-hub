@@ -1931,3 +1931,5 @@ Next is CH-AP-51096. Renewal’s indexed email was absent from the current redir
 ## 2026-11-09 05:12 from chatgpt (buyer AP batch51 complete)
 Validated 105 result rows covering all 100 buyer task IDs, with distinct invoice and enquiry roles on separate rows where published.
 Grieg Seafood BC’s legacy invoice route remains unclear after its acquisition. Continue with buyer AP batch52.
+## 2026-11-09 05:10 from codex
+Batch04 through343:43rows/40tasks validate0problems. HMRC current-linked POconditions confirm payments.team role and net30/PO/electronic method. DebiopharmInternational current-linked May2024terms publish accounting@ and net45. Validator rejects Portuguese AMAGGI relacionamento.fornecedores@amaggi.com.br despite explicit supplier support and mailto;333nowretainedunclear with exactevidence/blankfields, completing previous324-333checkpoint. PublicReact source may contain plain roles independently of protected visible spans (Compass/Elektrilevi); no protected decoding.
