@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 00:55Z)
+# STATE.md — Claude lane (updated 2026-11-09 01:55Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,26 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 01:55Z — the goal restated by the owner (19:55 EST): PAY ON SIGHT — every row an invoice that clears AP; the 438 stay, payability leads
+- Owner: "you see the invoice, boom, it's paid"; add fields that push payability; keep the 438 but don't be limited by them; derived columns stay, never
+  count as published; say when the rewards stop being worth it; credits allow until tomorrow night at most.
+- Strict measurement before tonight's changes: 380 of 63,499 rows could have an invoice generated that clears AP (confirmed invoicing / AP or finance
+  channel + bill-to legal name and address + vendor legal name, GST/HST number and remit-to address + tax treatment + currency). Top blockers by rows:
+  tax treatment unresolved (province unknown) ~49k; reference rule unpublished (reported separately, does not block); channel = purchasing / general
+  inbox only (P03, P04, P08, P13 — routed, not addressed); vendor GST/HST number (130 Gold … 731 P04); bill-to legal name / address on P13 companies.
+- Shipped (b73458e, 855dca4, 700edbf): `pay_on_sight` (yes / yes — reference rule not published / routed / no), `pay_on_sight_missing`, `channel_tier`
+  (1 invoicing-AP or invoice portal, 2 finance, 3 purchasing / general, 0 unconfirmed) and `invoice_text` — a rendered draft invoice header on every row;
+  tax treatment and currency derived for every row with a resolvable province (jurisdiction → postal code → website / mailbox domain → registry place
+  table → city) or country (US / UK / EU / AU export treatment); the inferred relationship's vendor (Canada Post Corporation, BC Hydro) counts as a
+  certain identity; scoreboard "Pay on sight" table per package. First pack with it (01:44Z): pay_on_sight yes 1,116, routed 1,642, no 60,854;
+  ap_payable_today 905; ship_ready 612; Gold A 211 (00:50Z build). The 01:44Z scoreboard was dropped by a shadowed variable in the new table
+  (TypeError) — fixed, workflow now keeps the previous scoreboard when the new one is not written; build re-dispatched 01:48Z.
+- Build 00:50Z (late site-reader pass): 105/438; vendor_logo +15–29 pts, vendor_phone +11–17, buyer_logo +10–18 across P01–P05.
+- Mac: API $152 of $170, pb 1,200 / 1,881 (749 with pages; marginal yield now ~+30 terms per 600 — the pass finishes at the cap, no extension);
+  Gemini last local commit 19:13 EST (batch 50 rows 1–30; hourly task irregular); Codex exec and app both at the ChatGPT usage limit again.
+- Next: read the Pay-on-sight table (02:03Z build) → the next engines go at the top gap per package in ROWS; honest answer to the owner on what the
+  remaining gaps are (channel type for P03/P04/P08/P13 = routed at best; vendor GST for vendors absent from registries; bill-to for blocked sites).
 
 ## 00:55Z — builds 23:53Z 103 / 00:29Z 104 of 438; Gold A 134 → 198 (DMARC posture no longer a penalty); owner 19:11 EST: continuous dense loops
 - Owner (19:11 EST): keep working continuously, every loop must show marginal progress, say when the rewards stop being worth it; derived columns stay

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T00:55Z",
+ "updated": "2026-11-09T01:55Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -156,6 +156,16 @@
    "deliverable": "pb search pass yields invoice terms",
    "method": "done.tsv pb ok share; api_readers.log 'filled' deltas per cycle; next build's payment_terms / po_required in P01–P05",
    "status": "first cycle 00:45Z: 456/600 buyers with pages; +106 terms, +323 PO rules on the Mac file; row-level effect at the next merge + build"
+  },
+  {
+   "deliverable": "pay-on-sight layer on every row (verdict, missing list, channel tier, invoice_text) and its scoreboard table",
+   "method": "SUMMARY 'downstream pack' counters pay_on_sight_*; COVERAGE_VS_TARGETS.md 'Pay on sight' table present; 10 rows' invoice_text read by eye against their provenance columns",
+   "status": "pack passing 01:44Z (yes 1,116 / routed 1,642 / no 60,854); scoreboard table pending the 01:48Z build (first attempt crashed on a shadowed name — fixed 700edbf)"
+  },
+  {
+   "deliverable": "build 00:50Z vs 00:29Z (late site-reader pass)",
+   "method": "scoreboards diffed cell by cell",
+   "status": "passing 01:30Z: 105/438 (+1), 22 cells up ≥3 (vendor logo / phone, buyer logo), 0 lost; Gold A 211"
   }
  ]
 }
