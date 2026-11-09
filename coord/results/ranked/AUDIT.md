@@ -19,13 +19,13 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 11b | quote shows the label next to the address (referee saw the address on the page) | soft | 0 | PASS |
 | 12 | evidence page on the organisation's domain (or its site) | soft | 3732 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
-| 14 | DMARC / SPF / provider columns filled | soft | 1 | REVIEW |
+| 14 | DMARC / SPF / provider columns filled | soft | 0 | PASS |
 | 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 0 | PASS |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
 | 19 | buyer name is a name (not a domain or a page title) | soft | 22946 | REVIEW |
-| 20 | legal name is not a fragment or a platform copyright | soft | 62 | REVIEW |
+| 20 | legal name is not a fragment or a platform copyright | soft | 66 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 7 | REVIEW |
 | 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 60 | REVIEW |
@@ -90,8 +90,6 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:134 The Ottawa Hospital | tohaccountspayable@toh.ca on ottawahospital.on.ca (site toh.ca)
     - P01_GOLD_active_relationship_invoicing_AP_email:162 Department of Foreign Affairs and Trade | dfat.e-invoicing.prod@dfat.gov.au on directory.peppol.eu (site dfat.gov.au)
     - P01_GOLD_active_relationship_invoicing_AP_email:192 HM Land Registry | apinvoices@landregistry.gov.uk on assets.publishing.service.gov.uk (site gov.uk)
-- **14 DMARC / SPF / provider columns filled**
-    - P13_inferred_relationship_no_record_own_email_part4_of_18:2600 GROUPE ERGO RESSOURCES INC. | not checked yet | not checked yet | not checked
 - **19 buyer name is a name (not a domain or a page title)**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:33 ovs.com | ovs.com
     - P01_GOLD_active_relationship_invoicing_AP_email:450 capreit.ca | capreit.ca
@@ -116,8 +114,8 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P07_client_listing_finance_or_purchasing_email:82 lepointdevente.com | lepointdevente.com (recipient legal name in the federal grants & contr
     - P08_client_listing_general_email:2051 Christian Life Community | Christian Life Community (stated on https://www.christianlifecommunity
     - P10_linked_from_vendor_site_any_email:1502 Digify SEO Company | digify seo company Incorporated (as registered: Corporations Canada (o
-    - P13_inferred_relationship_no_record_own_email_part11_of_18:2548 Mon-Proprio.ca Inc | mon-proprio.ca inc. (as registered: Canada's Business Registries, QC 1
-    - P13_inferred_relationship_no_record_own_email_part15_of_18:1331 COD3 Corporation | cod3 corporation (as registered: Canada's Business Registries, CC 1190
+    - P13_inferred_relationship_no_record_own_email_part10_of_18:111 Freshever Produce Inc | freshever produce Inc. (as registered: Corporations Canada (open data)
+    - P13_inferred_relationship_no_record_own_email_part11_of_18:2125 MENAGER.CA INC | menager.ca inc. (as registered: Canada's Business Registries, QC 11702
 - **22 one row per organisation name (same name twice)**
     - P01_GOLD_active_relationship_invoicing_AP_email:155 MRC de Manicouagan | 2 rows, same mail domain: mrcmanicouagan.qc.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:438 City of Kamloops | 2 rows, same mail domain: kamloops.ca
@@ -201,18 +199,18 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - vendor_address: 61180 (96.1%)
 - vendor_phone: 57138 (89.8%)
 - buyer_logo_url: 53976 (84.8%)
-- vendor_bn9: 53135 (83.5%)
+- vendor_bn9: 53071 (83.4%)
 - vendor_logo_url: 52373 (82.3%)
 - buyer_phone: 49818 (78.3%)
-- buyer_address: 48223 (75.8%)
-- buyer_legal_name_as_published: 33611 (52.8%)
-- buyer_bn_as_published: 14885 (23.4%)
+- buyer_address: 48279 (75.9%)
+- buyer_legal_name_as_published: 33724 (53.0%)
+- buyer_bn_as_published: 15535 (24.4%)
 - contract_link: 12831 (20.2%)
-- vendor_legal_name: 9677 (15.2%)
-- vendor_registry_id: 8260 (13.0%)
-- vendor_incorporation_date: 8249 (13.0%)
+- vendor_legal_name: 9679 (15.2%)
+- vendor_registry_id: 8263 (13.0%)
+- vendor_incorporation_date: 8252 (13.0%)
 - award_date: 6499 (10.2%)
-- vendor_neq: 5025 (7.9%)
+- vendor_neq: 5117 (8.0%)
 - vendor_emails: 4883 (7.7%)
 - ap_phone: 2670 (4.2%)
 - contract_value: 2375 (3.7%)
@@ -228,19 +226,19 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - other: 47269; source field: 16369
 
 ## Buyer types
-- organisation (type not stated in the record): 33175
+- organisation (type not stated in the record): 32865
 - company (private sector): 10818
 - non-profit / association / cultural body: 7187
-- company (private sector) (from the organisation's name / web domain): 4044
+- company (private sector) (from the organisation's name / web domain): 4356
 - municipality / local government: 1337
 - government ministry / agency: 1216
-- municipality / local government (from the organisation's name / web domain): 1062
+- municipality / local government (from the organisation's name / web domain): 1059
 - hospital / health authority: 929
-- non-profit / association / cultural body (from the organisation's name / web domain): 901
+- non-profit / association / cultural body (from the organisation's name / web domain): 902
 - university / college: 579
 - utility / public corporation: 485
-- university / college (from the organisation's name / web domain): 444
-- hospital / health authority (from the organisation's name / web domain): 341
+- university / college (from the organisation's name / web domain): 443
+- hospital / health authority (from the organisation's name / web domain): 342
 - transport / transit authority: 207
 - school board / school district: 176
 - First Nation / Indigenous government: 166
@@ -255,10 +253,9 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - US city / county / local government: 11
 
 ## DMARC posture of the delivered mailboxes
-- v=DMARC1; p=none (monitor only, no enforcement): 26440
+- v=DMARC1; p=none (monitor only, no enforcement): 26441
 - no DMARC record: 21275
 - p=quarantine: 10439
 - p=reject: 5417
 - invalid DMARC record: 59
 - DNS lookup failed: 7
-- not checked yet: 1

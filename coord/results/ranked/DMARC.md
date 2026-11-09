@@ -5,14 +5,13 @@ DNS TXT lookup at `_dmarc.<mail domain>` (organizational domain when the mailbox
 | posture | delivered rows | of which invoicing/AP mailboxes |
 |---|---|---|
 | no DMARC record | 21275 | 92 |
-| v=DMARC1; p=none (monitor only) | 26440 | 386 |
+| v=DMARC1; p=none (monitor only) | 26441 | 386 |
 | p=quarantine | 10439 | 435 |
 | p=reject | 5417 | 488 |
 | invalid DMARC record | 59 | 0 |
 | lookup error | 7 | 0 |
-| not checked | 1 | 0 |
 
-Rows without enforcement (no record / p=none / invalid): **47774**
+Rows without enforcement (no record / p=none / invalid): **47775**
 
 ## By package (no record / p=none / quarantine / reject)
 - P01: 25 / 178 / 207 / 214
@@ -31,4 +30,4 @@ Rows without enforcement (no record / p=none / invalid): **47774**
 - P10: 627 / 1096 / 565 / 305
 - P11: 38 / 231 / 119 / 86
 - P12: 4 / 11 / 1 / 3
-- P13: 18739 / 21360 / 7340 / 3314
+- P13: 18739 / 21361 / 7340 / 3314

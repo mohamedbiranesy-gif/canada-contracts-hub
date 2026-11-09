@@ -9,9 +9,9 @@ The baseline is what could have been shipped on 2026-11-09. Waiting pays only if
 | buyers_ap_confirmed | 1364 | 1364 | +0 |
 | buyers_fin_confirmed | 1715 | 1715 | +0 |
 | buyers_any_confirmed | 63163 | 63164 | +1 |
-| pay_on_sight_yes | 833 | 835 | +2 |
+| pay_on_sight_yes | 833 | 834 | +1 |
 | pay_on_sight_ref | 841 | 835 | -6 |
-| pay_on_sight_routed | 22341 | 22267 | -74 |
+| pay_on_sight_routed | 22341 | 22372 | +31 |
 | gold_rows | 624 | 624 | +0 |
 | gold_pay_on_sight | 395 | 396 | +1 |
 | grade_A | 306 | 305 | -1 |
