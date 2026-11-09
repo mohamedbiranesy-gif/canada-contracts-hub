@@ -17,6 +17,11 @@ The baseline is what could have been shipped on 2026-11-09. Waiting pays only if
 | grade_A | 306 | 305 | -1 |
 | gold_A | 225 | 227 | +2 |
 | grade_A_or_B | 867 | 865 | -2 |
+| public_rows | 12835 | 12834 | -1 |
+| terms_published_public | 1877 | 1902 | +25 |
+| po_rule_published_public | 1396 | 1415 | +19 |
+| billto_legal_name_published | 33765 | 33727 | -38 |
+| vendor_bn9_known | 53138 | 53074 | -64 |
 | inferred_policy_cells_p80 | 0 | 0 | +0 |
 | benchmarks_met | 100 | 101 | +1 |
 

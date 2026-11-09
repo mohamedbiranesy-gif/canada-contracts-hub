@@ -48,6 +48,12 @@ def metrics(rows, cov_json=None):
     m["grade_A_or_B"] = sum(1 for r in rows if (r.get("ap_grade") or "") in ("A", "B"))
     inf_cols = [c for c in (rows[0].keys() if rows else []) if c.endswith("_inferred")]
     m["inferred_policy_cells_p80"] = sum(1 for r in rows for c in inf_cols if re.search(r"\(p=0\.([89]\d|[89])", r.get(c) or "") or re.search(r"\b(0\.[89]\d?|1\.00?)\b", (r.get(c) or "")[:60]))
+    pub = [r for r in rows if (r.get("tier") or "") != "I"]  # public bodies / strong tiers: where AP policies are published
+    m["public_rows"] = len(pub)
+    m["terms_published_public"] = sum(1 for r in pub if (r.get("payment_terms_as_published") or "").strip() not in ("", "not_published"))
+    m["po_rule_published_public"] = sum(1 for r in pub if (r.get("po_required_as_published") or "").strip() not in ("", "not_published"))
+    m["billto_legal_name_published"] = sum(1 for r in rows if (r.get("buyer_legal_name_as_published") or "").strip())
+    m["vendor_bn9_known"] = sum(1 for r in rows if (r.get("vendor_bn9") or "").strip())
     m["benchmarks_met"] = (cov_json or {}).get("met")
     m["rows_by_package"] = dict(sorted(collections.Counter(r.get("tier") or "?" for r in rows).items()))
     m["sources"] = dict(sorted(collections.Counter(source_of(r) for r in rows if source_of(r)).items()))
@@ -83,7 +89,8 @@ def main():
         sys.exit("no baseline at %s" % a.baseline)
     base = json.load(open(a.baseline, encoding="utf-8"))
     keys = ["rows", "buyers_total", "buyers_ap_confirmed", "buyers_fin_confirmed", "buyers_any_confirmed", "pay_on_sight_yes", "pay_on_sight_ref",
-            "pay_on_sight_routed", "gold_rows", "gold_pay_on_sight", "grade_A", "gold_A", "grade_A_or_B", "inferred_policy_cells_p80", "benchmarks_met"]
+            "pay_on_sight_routed", "gold_rows", "gold_pay_on_sight", "grade_A", "gold_A", "grade_A_or_B", "public_rows", "terms_published_public", "po_rule_published_public",
+            "billto_legal_name_published", "vendor_bn9_known", "inferred_policy_cells_p80", "benchmarks_met"]
     L = ["# Growth vs the ship-now baseline (%s, build %s) — measured %s" % (base.get("date"), base.get("label") or "?", TODAY), "",
          "The baseline is what could have been shipped on 2026-11-09. Waiting pays only if the right-hand columns keep moving; the owner reads this file, not the scoreboard.", "",
          "| metric | baseline | now | change |", "|---|---|---|---|"]

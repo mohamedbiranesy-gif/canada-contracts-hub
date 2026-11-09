@@ -39,5 +39,10 @@
   "wd": 4136
  },
  "date": "2026-11-09",
- "label": "89b4386"
+ "label": "89b4386",
+ "public_rows": 12835,
+ "terms_published_public": 1877,
+ "po_rule_published_public": 1396,
+ "billto_legal_name_published": 33765,
+ "vendor_bn9_known": 53138
 }
