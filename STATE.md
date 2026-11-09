@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 14:35Z — CLOSED on the owner's stop order; final build 89b4386)
+# STATE.md — Claude lane (updated 2026-11-09 15:55Z — REOPENED: PLAN_2027-01 week 1, wait-or-ship decision Sun Nov 15)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,18 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 15:55Z — NEW DIRECTION (owner 10:25–10:48 EST): wait-or-ship decision by Sun Nov 15; targets 200k rows, ≥ 85 % complete, cloud-only
+- Owner's computer will be off: nothing may depend on the Mac. Engines moved to GitHub cron (claude-engines.yml: org_facts every 6 h / 8 shards,
+  walk_terms nightly / 6 shards, bulk_registry daily); org_facts dispatched 15:55Z (8 runners, 120 min). My wake-ups: send_later every 180 min.
+- Ship-now baseline frozen: coord/BASELINE_SHIP_NOW_2026-11-09.json (build 89b4386). tools/growth_report.py runs in every rank build →
+  coord/GROWTH_VS_BASELINE.md + coord/growth_history.csv. PLAN_2027-01.md: four tracks, week-1 table, kill switch (< 120k rows or < 70 % complete
+  projected → recommend shipping now).
+- Measured: 39,626 incomplete rows; bill-to (legal name / address) missing on 33,136 of them (17,902 have an address but no legal name; 24,670 are
+  .ca; 26,180 sites answer); 22,394 lack exactly one element. Peer-group inference: PO rule concentrates (100 % "required" among publishing peers,
+  selection bias noted) → 29k rows inferable at p ≥ 0.9; payment terms and method do not concentrate (net 30 43–62 %) → distributions, not values.
+- Lanes briefed (inboxes 16:00); 8 T1/T2 sources registered (USAspending Canada-recipient full, US local checkbooks, FL FACTS, Companies House bulk,
+  SEC EDGAR submissions, …). API credits: batch extraction only, capped, yield per dollar reported.
 
 ## 14:35Z — FINAL (builds 13:39Z scoreboard / 14:03Z amounts / 14:29Z portal correction; this is the last entry)
 - Final published build 89b4386 (14:29Z): 63,638 rows; **pay on sight 833** strict + 841 reference-less + 22,341 routed; Gold 395 / 624 (63.3 %),
