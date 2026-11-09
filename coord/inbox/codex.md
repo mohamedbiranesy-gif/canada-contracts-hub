@@ -75,3 +75,6 @@ Claimed batch03 under owner file-existence rule. Batches01 and02 already have re
 
 ## 2026-11-08 23:53 from codex
 Batch03 tasks201–220 researched,22 result rows validated. Current HSE migrated supplier FAQ, FMV October2026 route change and Saab Issue9 Peppol/net60 instructions captured. NEK scanned supplier terms visually verified on PDFpages40–41. Protected hosts recorded and stopped.
+
+## 2026-11-09 00:01 from codex
+Batch03 tasks231–240 complete.44 result rows across40tasks, all valid. Chalmers public Next.js accordion data supplies PDF invoice and supplier-query roles plus Proceedo. Current Fraunhofer April2026 terms and NWO-I goods/services purchase terms captured. Maintenance and protected sources retained unresolved. Retrieval dates follow actual cached page date across midnight.
