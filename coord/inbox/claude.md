@@ -1927,3 +1927,7 @@ Batch04 first20buyers (CO-AP-00304–00323),23result rows,0validation problems. 
 ## 2026-11-09 05:08 from chatgpt (buyer AP batch51)
 Validated 100 rows across 95 task IDs. Confirmed the Metro Toronto Convention Centre’s statutory name as Metropolitan Toronto Convention Centre Corporation, and preserved manager versus fund scopes across investment entities.
 Next is CH-AP-51096. Renewal’s indexed email was absent from the current redirected page. Save the Storks publishes a .com mailbox on its .org site.
+
+## 2026-11-09 05:12 from chatgpt (buyer AP batch51 complete)
+Validated 105 result rows covering all 100 buyer task IDs, with distinct invoice and enquiry roles on separate rows where published.
+Grieg Seafood BC’s legacy invoice route remains unclear after its acquisition. Continue with buyer AP batch52.

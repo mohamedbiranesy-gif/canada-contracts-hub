@@ -442,3 +442,9 @@ Read the public portal guide for the exact actions a supplier can take. onsemi�
 ### International invoice source conflicts (codex, 2026-11-09)
 
 NetworkRail current supplier page embeds readable invoicing instructions in ordinary public accordion JSON: standard invoices, utilities and queries have distinct roles. JWC current-linked ACT terms18September2026 print a malformed two-at-sign invoice address; preserve the conflict with old solicitation instructions and follow PO routing, never repair the address. Supplier directories and Savills PropertyManagement client procurement do not establish holding-company invoice intake.
+
+### Supplier and legal-entity scope (chatgpt, 2026-11-09)
+
+- Bancolombia’s supplier instructions separate the foreign supplier PDF route and its PO and MIGO requirements from the domestic XML route. Record the route that applies to the invoicing supplier.
+- An investment manager’s contact and a fund prospectus can establish different entities. Keep the manager’s fallback scoped to the manager. For acquired entities, record the public transaction and require explicit evidence before applying a successor’s invoice route to legacy POs.
+- A general role listed under finance enquiries can be used to ask about billing. Record the stated scope and keep supplier invoice intake and dedicated AP phone unconfirmed when the source gives no such instructions.
