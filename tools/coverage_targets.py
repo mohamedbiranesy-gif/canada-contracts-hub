@@ -253,12 +253,12 @@ def main():
                 if not rows or "ap_payability" not in rows[0]:
                     continue
                 pay = sum(1 for r in rows if (r.get("ap_payability") or "").startswith("payable"))
-                gaps = collections.Counter()
+                _ag = collections.Counter()  # never `gaps`: that is the scoreboard's field-gap list used below (2026-11-09 13:08Z build lost its scoreboard to this shadowing)
                 for r in rows:
                     v = r.get("ap_payability") or ""
                     if v.startswith("not yet"):
-                        gaps[v.split("missing: ", 1)[-1].split(";")[0].strip()] += 1
-                L.append("| %s | %d | %d | %.1f%% | %s |" % (pkg, len(rows), pay, 100.0 * pay / max(1, len(rows)), (gaps.most_common(1)[0][0] + " (%d)" % gaps.most_common(1)[0][1]) if gaps else "—"))
+                        _ag[v.split("missing: ", 1)[-1].split(";")[0].strip()] += 1
+                L.append("| %s | %d | %d | %.1f%% | %s |" % (pkg, len(rows), pay, 100.0 * pay / max(1, len(rows)), (_ag.most_common(1)[0][0][:70] + " (%d)" % _ag.most_common(1)[0][1]) if _ag else "—"))
             L.append("")
         if any(rows and "pay_on_sight" in rows[0] for rows in pk.values()):
             # owner 2026-11-08 19:55 EST: the goal — "you see the invoice, boom, it's paid": could an invoice be generated from the row and clear AP matching?
