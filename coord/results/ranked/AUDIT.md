@@ -25,7 +25,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
 | 19 | buyer name is a name (not a domain or a page title) | soft | 22834 | REVIEW |
-| 20 | legal name is not a fragment or a platform copyright | soft | 53 | REVIEW |
+| 20 | legal name is not a fragment or a platform copyright | soft | 56 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 8 | REVIEW |
 | 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 61 | REVIEW |
@@ -204,9 +204,9 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - buyer_logo_url: 53913 (84.8%)
 - vendor_bn9: 53075 (83.4%)
 - vendor_logo_url: 52074 (81.9%)
-- buyer_phone: 49775 (78.3%)
-- buyer_address: 47932 (75.4%)
-- buyer_legal_name_as_published: 32945 (51.8%)
+- buyer_phone: 49778 (78.3%)
+- buyer_address: 47986 (75.4%)
+- buyer_legal_name_as_published: 33079 (52.0%)
 - buyer_bn_as_published: 14892 (23.4%)
 - contract_link: 12813 (20.1%)
 - vendor_legal_name: 9729 (15.3%)
@@ -218,21 +218,21 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - ap_phone: 2659 (4.2%)
 - contract_value: 2359 (3.7%)
 - invoice_mailing_address: 2172 (3.4%)
-- invoicing_requirements: 1928 (3.0%)
-- payment_terms_as_published: 1914 (3.0%)
+- invoicing_requirements: 1930 (3.0%)
+- payment_terms_as_published: 1921 (3.0%)
 - end_date: 1759 (2.8%)
-- invoice_portal_url: 1707 (2.7%)
+- invoice_portal_url: 1727 (2.7%)
 - po_required_as_published: 1462 (2.3%)
-- ap_contact_name_as_published: 903 (1.4%)
+- ap_contact_name_as_published: 908 (1.4%)
 
 ## Canada-proof families
 - other: 47259; source field: 16350
 
 ## Buyer types
-- organisation (type not stated in the record): 32993
+- organisation (type not stated in the record): 33017
 - company (private sector): 10811
 - non-profit / association / cultural body: 7229
-- company (private sector) (from the organisation's name / web domain): 4168
+- company (private sector) (from the organisation's name / web domain): 4144
 - municipality / local government: 1339
 - government ministry / agency: 1213
 - municipality / local government (from the organisation's name / web domain): 1057

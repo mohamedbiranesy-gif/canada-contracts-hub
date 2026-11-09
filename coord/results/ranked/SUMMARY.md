@@ -1,18 +1,18 @@
-# Ranked buyers — 2026-11-09T01:44Z
+# Ranked buyers — 2026-11-09T02:04Z
 
 ```
-# Changelog — build 2026-11-09T01:39Z (b73458e)
+# Changelog — build 2026-11-09T01:59Z (855dca4)
 
 Build id = the commit that produced this folder; every build is a full regeneration from the same rules, so the delta below is the only thing downstream needs to apply.
 
 - rows: 66671 → 66671
 - Gold (P01): 597 → 597
 - field changed: ap_contact_name_as_published: 8
-- field changed: ap_phone: 1
-- field changed: buyer_address: 60
-- field changed: buyer_bn_as_published: 175
-- field changed: buyer_legal_name_as_published: 309
-- field changed: buyer_phone: 8
+- field changed: buyer_address: 65
+- field changed: buyer_bn_as_published: 1
+- field changed: buyer_legal_name_as_published: 182
+- field changed: buyer_phone: 3
+- field changed: invoice_portal_url: 29
 mailboxes taken from the verification log (better than org_mailboxes' single pick): 640
 team vendor contacts (referee-verified): 8716 vendors; 172 with a billing / AR mailbox
 same-pair fill (facts from another record of the same buyer-vendor pair): {'solicitation_or_tender_number': 11, 'number_of_bids': 10, 'award_or_notice_id': 2, 'buyer_vendor_id': 2, 'commodity_codes': 8, 'end_date_inferred': 123, 'contract_value': 7, 'procurement_method': 3, 'contract_description': 3, 'po_number_as_published': 3, 'buyer_org_codes': 1, 'start_from_signed': 496, 'end_date': 1, 'contract_or_agreement_number': 2, 'contract_title': 1}
@@ -22,28 +22,28 @@ extras from the lanes' result rows: {'invoicing_requirements': 1739, 'ap_phone':
 org_extras: 83347 organisations read; filled {'vendor_logo': 8557, 'vendor_phone_v2': 4704, 'vendor_trading_name_jsonld': 1124, 'po_required': 166, 'buyer_legal_name': 22384, 'buyer_phone_v2': 32117, 'buyer_payment_method_preference_mention_rejected': 17880, 'buyer_logo': 54481, 'payment_terms': 199, 'buyer_tax_exempt_status_mention_rejected': 268, 'buyer_legal_name_v2_rejected_no_overlap': 25307, 'buyer_legal_name_v2_legal_name_stated': 6902, 'buyer_bn': 2160, 'buyer_legal_name_v2_jsonld_legal_name': 2583, 'ap_system_hint_links': 304, 'buyer_legal_name_v2_jsonld_name': 2010, 'buyer_payment_method_preference_mention': 290, 'vendor_legal_name': 1487, 'vendor_neq': 32, 'buyer_esignature_preference_mention_rejected': 486, 'vendor_legal_name_v2': 927, 'buyer_address_v2': 6153, 'p13_name_from_legal_name': 9820, 'buyer_esignature_preference_mention': 17, 'vendor_bn': 184, 'invoice_portal_links': 23, 'buyer_tax_exempt_status_mention': 27, 'vendor_address_v2': 416, 'vendor_bn_jsonld': 6, 'buyer_bn_jsonld': 65, 'buyer_ap_cycle_published_mention': 11, 'vendor_qst': 4, 'buyer_ap_cycle_published_mention_rejected': 31, 'p13_name_from_domain': 2}
 regional mailboxes of multinationals removed from other-country entities: 20
 mx_check: 69559 domains known; 263 mailboxes on domains with no mail server removed; 226 webmail (freemail) addresses removed
-dmarc/spf: 72951 domains known; rows {'enforced': 16194, 'exposed': 47914}
+dmarc/spf: 72956 domains known; rows {'enforced': 16194, 'exposed': 47914}
 same organisation under another key folded into the row that holds its mailbox: 52
 second mailbox of the same organisation (same site and mail domain, same name family) folded: 6
 org_contacts: 74819 organisations read; filled {'vendor_phone': 19841, 'vendor_emails': 2359, 'buyer_phone': 36368, 'buyer_address': 26924, 'vendor_address': 2496}
-ap_terms (evidence pages re-read): 64703 keys read, 84731 pages used across rows; filled {'payment_terms': 1737, 'po_required': 1330, 'payment_method': 620, 'ap_cycle': 93, 'tax_exempt': 752, 'portal': 1643, 'format': 593, 'context': 46082, 'esignature': 382, 'ap_system_portal': 1464, 'ap_phone': 865, 'buyer_bn': 32, 'ap_contact_name': 774, 'address': 471, 'mailbox_gone': 299, 'ap_system': 217, 'setup_url': 183, 'buyer_phone_from_page': 10110, 'buyer_address_from_page': 1772}
+ap_terms (evidence pages re-read): 64708 keys read, 84935 pages used across rows; filled {'payment_terms': 1745, 'po_required': 1330, 'payment_method': 621, 'ap_cycle': 93, 'tax_exempt': 758, 'portal': 1663, 'format': 597, 'context': 46082, 'esignature': 386, 'ap_system_portal': 1484, 'ap_phone': 865, 'buyer_bn': 32, 'ap_contact_name': 779, 'address': 471, 'mailbox_gone': 299, 'ap_system': 214, 'setup_url': 183, 'buyer_phone_from_page': 10110, 'buyer_address_from_page': 1772}
 peppol: 77 Canadian participants; matched buyers 2, vendors 36
 municipal / organisation directories: {'matched': 1817, 'legal_name': 733, 'address': 52, 'phone': 300, 'matched_by_place_name': 11, 'website': 18}
 charity buyers: {'matched': 7454, 'bn': 6157, 'legal_name': 3991, 'address': 307, 'website': 25}
-wikidata: {'vendors': 1047, 'buyers': 3396, 'buyer_legal_name': 1380, 'buyer_phone': 71, 'buyer_address': 362, 'buyer_website': 109, 'vendor_legal_name': 36, 'vendor_address': 290, 'vendor_website': 203, 'vendor_neq': 6}
+wikidata: {'vendors': 1047, 'buyers': 3704, 'buyer_legal_name': 1562, 'buyer_phone': 74, 'buyer_address': 424, 'buyer_website': 109, 'vendor_legal_name': 36, 'vendor_address': 290, 'vendor_website': 203, 'vendor_neq': 6}
 crown-corporation BNs applied to inferred-vendor rows: 47006
 vendor websites confirmed from search proposals: 502 applied: 3084
 inferred vendors' published phone / address applied: {'phone': 37249}
 registry bulk rows added (no API row for the key): 7355
-Canada's Business Registries + registry open data: 2787 vendors, 13355 buyers found; filled {'buyer_bn': 4976, 'buyer_legal_name': 7460, 'vendor_registered_address': 3137, 'vendor_bn9': 3327, 'vendor_legal_name': 3092, 'vendor_registry_status': 3093, 'vendor_incorporation_date': 3295, 'vendor_legal_form': 3093, 'vendor_neq': 420, 'vendor_trading_name': 116, 'buyer_address': 229, 'vendor_skipped_legal_form': 1}
+Canada's Business Registries + registry open data: 2787 vendors, 13355 buyers found; filled {'buyer_bn': 4976, 'buyer_legal_name': 7418, 'vendor_registered_address': 3137, 'vendor_bn9': 3327, 'vendor_legal_name': 3092, 'vendor_registry_status': 3093, 'vendor_incorporation_date': 3295, 'vendor_legal_form': 3093, 'vendor_neq': 420, 'vendor_trading_name': 116, 'buyer_address': 221, 'vendor_skipped_legal_form': 1}
 award facts from the buyers' own award pages: 237 pairs with a page; filled {'contract_value': 41, 'end_date': 17, 'start_date': 10, 'number_of_bids': 2, 'contract_or_agreement_number': 3, 'solicitation_or_tender_number': 7, 'term': 2, 'po_number_as_published': 1}
-grants & contributions recipient BNs: 3202 buyers, 454 vendors in file; filled {'buyer_bn': 1676, 'buyer_bn_conflict_noted': 93, 'vendor_bn9': 818, 'buyer_legal_name': 377}
+grants & contributions recipient BNs: 3202 buyers, 454 vendors in file; filled {'buyer_bn': 1676, 'buyer_bn_conflict_noted': 93, 'vendor_bn9': 818, 'buyer_legal_name': 372}
 buyers' PO / contract open data joined: {'pairs': 9, 'po_filled': 8, 'contract_filled': 1} | records: 555539
 back-references: {'dataset rows with lead relationships': 9796, 'lead rows with dataset history': 118}
 sensitivity tags: {'corrections / detention': 26, 'health: mental health / addiction / sexual health': 191, 'intelligence / security / defence': 15, 'police service / police board': 62, 'courts / tribunals / legal aid': 44, 'child / youth protection': 18, 'police oversight body': 3, 'shelter / crisis / sexual-assault service': 54, 'coroner / medical examiner': 1}
 site readers, second pass (websites found late): {'buyer_logo': 604, 'vendor_emails': 444, 'vendor_phone': 761, 'vendor_logo': 45298, 'buyer_phone': 47, 'vendor_address': 206, 'buyer_address': 5}
 narrative columns: {'mailbox meta found': 61468, 'contract_description_from_title': 9334, 'contract_title_from_description': 163, 'invoice_reference_hint_po_rule': 772, 'records_with_this_vendor_lead': 10698, 'mailbox meta missing': 2144}
-downstream pack: {'tax_derived_foreign': 887, 'pay_on_sight_yes': 1116, 'ap_payable_today': 905, 'ship_ready_yes': 612, 'tax_derived': 49795, 'pay_on_sight_no': 60854, 'registry_note': 220, 'prompt_payment_default': 131, 'buyer_type_from_name': 7929, 'sensitivity_extra': 122, 'registry_warning': 1004, 'invoice_currency_derived': 58376, 'pay_on_sight_routed': 1642, 'currency_default': 2}
+downstream pack: {'tax_derived_foreign': 887, 'pay_on_sight_yes': 1803, 'ap_payable_today': 905, 'ship_ready_yes': 612, 'tax_derived': 49828, 'pay_on_sight_no': 40721, 'registry_note': 220, 'prompt_payment_default': 131, 'buyer_type_from_name': 7905, 'sensitivity_extra': 122, 'registry_warning': 1004, 'invoice_currency_derived': 58376, 'pay_on_sight_routed': 21088, 'currency_default': 2}
 rows 66691
 [('GOLD', 597), ('A0', 528), ('A1', 710), ('A2', 89), ('A3', 220), ('A4', 10), ('B0', 623), ('B1', 928), ('B2', 144), ('B3', 184), ('B4', 9), ('C0', 1011), ('C1', 316), ('C2', 18), ('C3', 34), ('C4', 25), ('D0', 116), ('D1', 3178), ('D2', 120), ('D3', 149), ('D4', 174), ('E0', 97), ('E1', 2586), ('E2', 45), ('E3', 74), ('E4', 59), ('F0', 1), ('F1', 11), ('F2', 2), ('F3', 3), ('F4', 5), ('GOLD-M', 18), ('GOLD-T', 92), ('I0', 448), ('I1', 49381), ('I2', 174), ('I3', 930), ('I4', 311), ('L0', 224), ('L1', 272), ('L2', 31), ('L3', 23), ('L4', 67), ('M0', 10), ('M1', 135), ('M2', 9), ('M3', 26), ('M4', 1), ('T0', 21), ('T1', 2328), ('T2', 49), ('T3', 73), ('T4', 2)]
 with any email: 63612 | contract buyers: 0
@@ -66,15 +66,25 @@ P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email     18
 P06M_member_or_regulated_payer_of_canadian_body_other_email    168
 Z_no_email_yet_not_delivered                              3082
 unassigned 0 []
-blank cells filled with not_published (delivered P01-P13): 7567678
+blank cells filled with not_published (delivered P01-P13): 7566828
 
 # coverage vs the downstream targets (COVERAGE_VS_TARGETS.md)
-Traceback (most recent call last):
-  File "/home/runner/work/canada-contracts-hub/canada-contracts-hub/tools/coverage_targets.py", line 331, in <module>
-    main()
-  File "/home/runner/work/canada-contracts-hub/canada-contracts-hub/tools/coverage_targets.py", line 300, in main
-    for f, p, v, need in gaps[:40]:
-TypeError: 'int' object is not iterable
+benchmarks met 105 / 438 (24.0%); near 77; written out/ranked/COVERAGE_VS_TARGETS.md
+  gap buyer_ap_cycle_published           P13        0.0% ->  20%  rows needed 10152
+  gap buyer_address                      P13       75.5% ->  95%  rows needed 9882
+  gap ap_system_hint                     P13        0.6% ->  20%  rows needed 9870
+  gap buyer_phone                        P13       79.2% ->  95%  rows needed 8008
+  gap buyer_tax_exempt_status            P13        0.1% ->  15%  rows needed 7584
+  gap buyer_esignature_preference        P13        0.1% ->  15%  rows needed 7581
+  gap buyer_payment_method_preference    P13        0.5% ->  15%  rows needed 7342
+  gap buyer_logo_url                     P13       84.2% ->  95%  rows needed 5495
+  gap buyer_legal_name_as_published      P13       51.2% ->  60%  rows needed 4467
+  gap buyer_bn_as_published              P13       24.7% ->  30%  rows needed 2708
+  gap buyer_legal_name_as_published      P08       37.1% ->  75%  rows needed 1153
+  gap buyer_legal_name_as_published      P10       32.6% ->  70%  rows needed 972
+  gap buyer_address                      P08       66.1% ->  95%  rows needed 879
+  gap vendor_emails                      P08       48.7% ->  75%  rows needed 800
+  gap buyer_address                      P10       65.1% ->  95%  rows needed 778
 ```
 
 Integrity gates: see VALIDATION.md in this folder; columns and rules: contrib/claude/rank_buyers/README.md

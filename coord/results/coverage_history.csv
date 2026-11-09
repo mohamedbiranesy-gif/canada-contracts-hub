@@ -1103,7 +1103,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_legal_name_as_published,P10,2597,846,32.6,70
 2026-11-09,buyer_legal_name_as_published,P11,475,120,25.3,65
 2026-11-09,buyer_legal_name_as_published,P12,21,17,81.0,80
-2026-11-09,buyer_legal_name_as_published,P13,50796,25877,50.9,60
+2026-11-09,buyer_legal_name_as_published,P13,50796,26011,51.2,60
 2026-11-09,buyer_bn_as_published,P01M,18,7,38.9,50
 2026-11-09,buyer_bn_as_published,P01T,92,19,20.7,n/a
 2026-11-09,buyer_bn_as_published,P01_GOLD,597,123,20.6,40
@@ -1137,7 +1137,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_address,P10,2597,1690,65.1,95
 2026-11-09,buyer_address,P11,475,172,36.2,80
 2026-11-09,buyer_address,P12,21,21,100.0,100
-2026-11-09,buyer_address,P13,50796,38321,75.4,95
+2026-11-09,buyer_address,P13,50796,38375,75.5,95
 2026-11-09,buyer_phone,P01M,18,16,88.9,n/a
 2026-11-09,buyer_phone,P01T,92,74,80.4,n/a
 2026-11-09,buyer_phone,P01_GOLD,597,420,70.4,90
@@ -1154,7 +1154,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_phone,P10,2597,1855,71.4,95
 2026-11-09,buyer_phone,P11,475,139,29.3,75
 2026-11-09,buyer_phone,P12,21,19,90.5,n/a
-2026-11-09,buyer_phone,P13,50796,40246,79.2,95
+2026-11-09,buyer_phone,P13,50796,40249,79.2,95
 2026-11-09,buyer_logo_url,P01M,18,14,77.8,n/a
 2026-11-09,buyer_logo_url,P01T,92,84,91.3,95
 2026-11-09,buyer_logo_url,P01_GOLD,597,486,81.4,90
@@ -1177,7 +1177,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,ap_contact_name_as_published,P01_GOLD,597,85,14.2,25
 2026-11-09,ap_contact_name_as_published,P02,399,107,26.8,40
 2026-11-09,ap_contact_name_as_published,P03,223,19,8.5,20
-2026-11-09,ap_contact_name_as_published,P04,1575,106,6.7,20
+2026-11-09,ap_contact_name_as_published,P04,1575,110,7.0,20
 2026-11-09,ap_contact_name_as_published,P05,379,15,4.0,15
 2026-11-09,ap_contact_name_as_published,P06M,168,8,4.8,n/a
 2026-11-09,ap_contact_name_as_published,P06T,2440,76,3.1,n/a
@@ -1186,7 +1186,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,ap_contact_name_as_published,P08,3038,31,1.0,n/a
 2026-11-09,ap_contact_name_as_published,P09,374,30,8.0,n/a
 2026-11-09,ap_contact_name_as_published,P10,2597,34,1.3,n/a
-2026-11-09,ap_contact_name_as_published,P11,475,10,2.1,n/a
+2026-11-09,ap_contact_name_as_published,P11,475,11,2.3,n/a
 2026-11-09,ap_contact_name_as_published,P12,21,2,9.5,n/a
 2026-11-09,ap_contact_name_as_published,P13,50796,330,0.6,n/a
 2026-11-09,ap_phone,P01M,18,7,38.9,n/a
@@ -1228,7 +1228,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,invoicing_requirements,P01_GOLD,597,341,57.1,80
 2026-11-09,invoicing_requirements,P02,399,201,50.4,75
 2026-11-09,invoicing_requirements,P03,223,88,39.5,70
-2026-11-09,invoicing_requirements,P04,1575,632,40.1,70
+2026-11-09,invoicing_requirements,P04,1575,633,40.2,70
 2026-11-09,invoicing_requirements,P05,379,59,15.6,50
 2026-11-09,invoicing_requirements,P06M,168,7,4.2,n/a
 2026-11-09,invoicing_requirements,P06T,2440,37,1.5,n/a
@@ -1237,7 +1237,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,invoicing_requirements,P08,3038,31,1.0,n/a
 2026-11-09,invoicing_requirements,P09,374,159,42.5,80
 2026-11-09,invoicing_requirements,P10,2597,40,1.5,n/a
-2026-11-09,invoicing_requirements,P11,475,82,17.3,n/a
+2026-11-09,invoicing_requirements,P11,475,83,17.5,n/a
 2026-11-09,invoicing_requirements,P12,21,8,38.1,n/a
 2026-11-09,invoicing_requirements,P13,50796,168,0.3,n/a
 2026-11-09,payment_terms_as_published,P01M,18,7,38.9,n/a
@@ -1245,7 +1245,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,payment_terms_as_published,P01_GOLD,597,376,63.0,70
 2026-11-09,payment_terms_as_published,P02,399,171,42.9,50
 2026-11-09,payment_terms_as_published,P03,223,123,55.2,55
-2026-11-09,payment_terms_as_published,P04,1575,300,19.0,40
+2026-11-09,payment_terms_as_published,P04,1575,306,19.4,40
 2026-11-09,payment_terms_as_published,P05,379,66,17.4,40
 2026-11-09,payment_terms_as_published,P06M,168,27,16.1,n/a
 2026-11-09,payment_terms_as_published,P06T,2440,285,11.7,n/a
@@ -1254,7 +1254,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,payment_terms_as_published,P08,3038,140,4.6,n/a
 2026-11-09,payment_terms_as_published,P09,374,19,5.1,n/a
 2026-11-09,payment_terms_as_published,P10,2597,90,3.5,n/a
-2026-11-09,payment_terms_as_published,P11,475,34,7.2,n/a
+2026-11-09,payment_terms_as_published,P11,475,35,7.4,n/a
 2026-11-09,payment_terms_as_published,P12,21,4,19.0,n/a
 2026-11-09,payment_terms_as_published,P13,50796,130,0.3,n/a
 2026-11-09,po_required_as_published,P01M,18,8,44.4,n/a
@@ -1279,7 +1279,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,invoice_portal_url,P01_GOLD,597,302,50.6,50
 2026-11-09,invoice_portal_url,P02,399,153,38.3,n/a
 2026-11-09,invoice_portal_url,P03,223,131,58.7,60
-2026-11-09,invoice_portal_url,P04,1575,394,25.0,n/a
+2026-11-09,invoice_portal_url,P04,1575,411,26.1,n/a
 2026-11-09,invoice_portal_url,P05,379,61,16.1,n/a
 2026-11-09,invoice_portal_url,P06M,168,7,4.2,n/a
 2026-11-09,invoice_portal_url,P06T,2440,91,3.7,n/a
@@ -1288,7 +1288,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,invoice_portal_url,P08,3038,44,1.4,n/a
 2026-11-09,invoice_portal_url,P09,374,72,19.3,n/a
 2026-11-09,invoice_portal_url,P10,2597,60,2.3,n/a
-2026-11-09,invoice_portal_url,P11,475,34,7.2,n/a
+2026-11-09,invoice_portal_url,P11,475,37,7.8,n/a
 2026-11-09,invoice_portal_url,P12,21,4,19.0,n/a
 2026-11-09,invoice_portal_url,P13,50796,208,0.4,n/a
 2026-11-09,buyer_payment_method_preference,P01M,18,5,27.8,15
@@ -1296,7 +1296,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_payment_method_preference,P01_GOLD,597,214,35.8,40
 2026-11-09,buyer_payment_method_preference,P02,399,56,14.0,25
 2026-11-09,buyer_payment_method_preference,P03,223,49,22.0,25
-2026-11-09,buyer_payment_method_preference,P04,1575,80,5.1,15
+2026-11-09,buyer_payment_method_preference,P04,1575,81,5.1,15
 2026-11-09,buyer_payment_method_preference,P05,379,31,8.2,15
 2026-11-09,buyer_payment_method_preference,P06M,168,10,6.0,15
 2026-11-09,buyer_payment_method_preference,P06T,2440,36,1.5,15
@@ -1313,7 +1313,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_tax_exempt_status,P01_GOLD,597,169,28.3,25
 2026-11-09,buyer_tax_exempt_status,P02,399,109,27.3,15
 2026-11-09,buyer_tax_exempt_status,P03,223,60,26.9,15
-2026-11-09,buyer_tax_exempt_status,P04,1575,122,7.7,15
+2026-11-09,buyer_tax_exempt_status,P04,1575,127,8.1,15
 2026-11-09,buyer_tax_exempt_status,P05,379,45,11.9,15
 2026-11-09,buyer_tax_exempt_status,P06M,168,4,2.4,15
 2026-11-09,buyer_tax_exempt_status,P06T,2440,63,2.6,15
@@ -1322,7 +1322,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_tax_exempt_status,P08,3038,29,1.0,15
 2026-11-09,buyer_tax_exempt_status,P09,374,2,0.5,15
 2026-11-09,buyer_tax_exempt_status,P10,2597,32,1.2,15
-2026-11-09,buyer_tax_exempt_status,P11,475,21,4.4,15
+2026-11-09,buyer_tax_exempt_status,P11,475,22,4.6,15
 2026-11-09,buyer_tax_exempt_status,P12,21,5,23.8,15
 2026-11-09,buyer_tax_exempt_status,P13,50796,36,0.1,15
 2026-11-09,buyer_ap_cycle_published,P01M,18,1,5.6,20
@@ -1347,7 +1347,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_esignature_preference,P01_GOLD,597,58,9.7,15
 2026-11-09,buyer_esignature_preference,P02,399,51,12.8,15
 2026-11-09,buyer_esignature_preference,P03,223,49,22.0,15
-2026-11-09,buyer_esignature_preference,P04,1575,70,4.4,15
+2026-11-09,buyer_esignature_preference,P04,1575,72,4.6,15
 2026-11-09,buyer_esignature_preference,P05,379,11,2.9,15
 2026-11-09,buyer_esignature_preference,P06M,168,4,2.4,15
 2026-11-09,buyer_esignature_preference,P06T,2440,34,1.4,15
@@ -1356,7 +1356,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_esignature_preference,P08,3038,22,0.7,15
 2026-11-09,buyer_esignature_preference,P09,374,2,0.5,15
 2026-11-09,buyer_esignature_preference,P10,2597,20,0.8,15
-2026-11-09,buyer_esignature_preference,P11,475,7,1.5,15
+2026-11-09,buyer_esignature_preference,P11,475,9,1.9,15
 2026-11-09,buyer_esignature_preference,P12,21,1,4.8,15
 2026-11-09,buyer_esignature_preference,P13,50796,39,0.1,15
 2026-11-09,ap_system_hint,P01M,18,2,11.1,20
@@ -1364,7 +1364,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,ap_system_hint,P01_GOLD,597,275,46.1,40
 2026-11-09,ap_system_hint,P02,399,179,44.9,20
 2026-11-09,ap_system_hint,P03,223,120,53.8,35
-2026-11-09,ap_system_hint,P04,1575,458,29.1,20
+2026-11-09,ap_system_hint,P04,1575,471,29.9,20
 2026-11-09,ap_system_hint,P05,379,62,16.4,20
 2026-11-09,ap_system_hint,P06M,168,7,4.2,20
 2026-11-09,ap_system_hint,P06T,2440,100,4.1,20
@@ -1373,7 +1373,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,ap_system_hint,P08,3038,68,2.2,20
 2026-11-09,ap_system_hint,P09,374,84,22.5,20
 2026-11-09,ap_system_hint,P10,2597,65,2.5,20
-2026-11-09,ap_system_hint,P11,475,36,7.6,20
+2026-11-09,ap_system_hint,P11,475,39,8.2,20
 2026-11-09,ap_system_hint,P12,21,3,14.3,20
 2026-11-09,ap_system_hint,P13,50796,290,0.6,20
 2026-11-09,contract_value,P01M,18,0,0.0,n/a
