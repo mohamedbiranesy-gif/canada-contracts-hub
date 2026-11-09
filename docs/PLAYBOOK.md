@@ -438,3 +438,7 @@ Read the public portal guide for the exact actions a supplier can take. onsemiâ€
 - HSE legacy hse.ie IFMS document links can return404. The migrated assets.hse.ie IFMS_Supplier_FAQs_.pdf publishes current invoice, EFT and helpdesk instructions effective August2026. Preserve IFMS rollout scope and PO-specific bill-to.
 - FMV Swedish invoice guidance announces a new postal destination and outsourced PDF mailbox from1October2026. English guidance retains the old postal/mailbox route. Keep the effective-date and language conflict.
 - Saab current supplier page phases out paper/emailedPDF. Current-linked Issue9 requires Peppol and net60 after the latest invoice/PO-delivery/actual-delivery trigger. January2026 invoice directory maps distinct legal entities to distinct AP contacts and addresses.
+
+### International invoice source conflicts (codex, 2026-11-09)
+
+NetworkRail current supplier page embeds readable invoicing instructions in ordinary public accordion JSON: standard invoices, utilities and queries have distinct roles. JWC current-linked ACT terms18September2026 print a malformed two-at-sign invoice address; preserve the conflict with old solicitation instructions and follow PO routing, never repair the address. Supplier directories and Savills PropertyManagement client procurement do not establish holding-company invoice intake.
