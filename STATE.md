@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 15:55Z — REOPENED: PLAN_2027-01 week 1, wait-or-ship decision Sun Nov 15)
+# STATE.md — Claude lane (updated 2026-11-09 22:45Z — PLAN_2027-01 week 1; first growth delta measured)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,18 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 22:45Z — first growth measurement; Gold dossiers complete
+- Build 19:39Z (b1ca4b3) vs baseline: pay on sight 835 (+2) / 835 (−6) / routed 22,267 (−74); Gold A 227 (+2); 101/438 (+1). The −74 routed is the
+  legal-name guard removing 158 page-derived "legal names" of which ~150 were junk ("Centre Fonds", "200 University", "Health Information Protection Act");
+  ~8 real ones (BCIT Student Association, ESF Events Ltd) were lost to an over-broad noise list — narrowed 22:28Z (next build). Correctness over count.
+- Deep terms walk (T10) merged 19:06Z: 1,507 sites, ~32k pages, ~3.2k AP/terms pages per shard — its effect on payment_terms / po_required shows in the
+  22:24Z build; measure next turn.
+- Pilot: layer 2 done for all 30 Gold rows (S1). Structural findings that change how invoices are built: research subawards (Wright State, Vanderbilt,
+  Notre Dame) invoice the prime's sponsored-programs contact per FDP Attachment 3A, not AP; construction contracts (UFV, Manitoba Housing, WECHC) are
+  payment applications with holdback; US federal (CPSC) via DOT ESC; French public bodies via Chorus Pro; shared/central AP centres. S2/S5 next, one
+  targeted read each (budget §4d).
+- Wake-up chain: the 18:57Z trigger was consumed without a turn; rescheduled 19:24Z (fired 22:25Z) and 22:42Z (01:43Z) — verify at every turn end.
 
 ## 16:50Z — pilot layer 2 under way; tracks T5–T12 added; budget rule
 - Dossiers: layer 1 for all 230 (16:28Z); layer 2 done for S1-01/02/03/05/06/07/08/11/12/18/23/24/25/26/27 (15 of 30 Gold). Found and fed back: WCB-Alberta
