@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 03:25Z)
+# STATE.md — Claude lane (updated 2026-11-09 03:55Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,8 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 03:55Z — waiting on the first fixed verifier run (an old-logic run started 03:26Z holds the main-writer lock; the fixed run is queued behind it; cancelling the old run is outside this session's permissions). Build dispatched 03:51Z on Mac inputs only. Gemini quiet since 21:15 EST (owner active at the Mac, no screen action); Codex at the ChatGPT limit; org_contacts refresh finished (123 of 1,090 reachable).
 
 ## 03:25Z — build 03:00Z flat (1,032 / 857 / 21,746); the referee had not landed a result since 22:16Z — root cause fixed
 - Organic gain 02:26Z → 03:00Z: +0 pay-on-sight, +2 reference-less, +203 routed (P13 site readers). Below the 100-rows/hour signal — but the pipeline

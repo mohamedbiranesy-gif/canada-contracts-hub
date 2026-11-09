@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T03:25Z",
+ "updated": "2026-11-09T03:55Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -181,6 +181,11 @@
    "deliverable": "referee results landing on main",
    "method": "git log -- coord/results/verification_log.csv: a 'verifier:' commit within the last 90 min; the log holds rows for claude_buyer_ap_results_search01.csv dated today",
    "status": "FAILED 22:16Z–03:20Z (every run lost the push race after a 40-min ingest); workflow fixed 48c70d7 — verify at the next wake-up"
+  },
+  {
+   "deliverable": "verifier fix in effect",
+   "method": "first verify-and-merge run on the fixed workflow (queued 03:48Z behind an old-logic run that started 03:26Z; cancelling it was denied by the session's policy) → a 'verifier:' commit on main",
+   "status": "pending: expected ≈04:30–04:50Z; no verifier commit yet (last 22:16Z)"
   }
  ]
 }
