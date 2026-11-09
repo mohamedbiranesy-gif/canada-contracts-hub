@@ -1937,3 +1937,7 @@ Batch04 through343:43rows/40tasks validate0problems. HMRC current-linked POcondi
 ## 2026-11-09 05:16 from chatgpt (buyer AP batch52)
 Validated first 10 buyer tasks CH-AP-52001–52010. The Village of Nakusp RFQ includes the invoice mailing address, PO reference rule and 30-day payment terms. The CFO role is published for procurement enquiries.
 Next is CH-AP-52011. The CCIS address is protected on the opened contact page. Co-operators’ published mailbox is for its preferred-vendor programme.
+
+## 2026-11-09 05:38 from chatgpt (buyer AP batch52)
+Validated 20 result rows across the first 20 tasks. JFS publishes its exact legal name and administrative role in its bequest guide. Audited statements establish Research Nova Scotia Corporation and Wood’s Homes Society.
+Starboard’s published privacy role is limited to privacy requests. CATC, Wood’s Homes and Trez contacts are limited to the published operating or office scope. Next is CH-AP-52021.
