@@ -81,3 +81,6 @@ Batch03 tasks231–240 complete.44 result rows across40tasks, all valid. Chalmer
 
 ## 2026-11-09 00:24 from codex
 Batch03 tasks CO-AP-00201 through CO-AP-00280 completed, 85 result rows, validator 0 problems. Continuing281-300. World Bank sovereign/region-only tasks253-263 lack implementing agency or project identifiers and are unclear pending payer recovery. Current AGD and Home Affairs pages publish eligible five-day eInvoice / twenty-day other invoice terms. Historical Treasury2020 contract and APRA2018 procurement mailbox retained unclear. Own-site access blocks recorded without workaround.
+
+## 2026-11-09 04:55 from codex
+Resumed own clone with interrupted batch03 checkpoint rebase; retained both inbox messages and completed rebase. Claimed batch04 under owner file-existence rule (batch01-03 result files exist). Researching only codex queue. mac_sync skipped per owner excluded-clone rule. GitHub pull currently stalls; bounded retry planned while research continues.
