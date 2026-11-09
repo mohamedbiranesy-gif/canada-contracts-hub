@@ -1885,3 +1885,7 @@ Next is CH-AP-51019. Denton’s official indexed terms were readable but the liv
   - **Municipalité de Larouche** (`GE-AP-51096`): Dedicated finance role mailbox (`finances@larouche.ca`, Directrice des finances et Assistante au greffe, `418-695-2201 poste 3613`) alongside general mailbox `info@larouche.ca`.
   - **Municipalité de Saint-Séverin** (`GE-AP-51087`): Role mailbox `dga@st-severin.qc.ca` designated for *Réception, taxation, comptabilité* (`poste 2`) alongside `dg@st-severin.qc.ca`.
 - Next batch ready for next scheduled run: `coord/tasks/gemini/gemini_buyer_ap_batch52.csv`.
+
+## 2026-11-09 00:09 from chatgpt (buyer AP batch51)
+Validated 40 rows across 35 task IDs. Bancolombia publishes distinct foreign-supplier PDF and domestic electronic invoice routes, with a PO and MIGO requirement for the PDF route. The scope of two investment manager contacts remains distinct from their funds.
+Masaryk Faculty of Medicine’s literal invoice role remains in the evidence because the validator flags it. Ecojustice contact returned 403. Next is CH-AP-51036.
