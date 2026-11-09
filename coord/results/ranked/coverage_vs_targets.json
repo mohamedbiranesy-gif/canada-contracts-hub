@@ -2598,9 +2598,9 @@
 },
 "buyer_legal_name_as_published|P13": {
 "rows": 50796,
-"filled": 26471,
-"pct": 52.1,
-"pct_any": 52.1,
+"filled": 26674,
+"pct": 52.5,
+"pct_any": 52.5,
 "target": 60,
 "present": true,
 "subset": ""
@@ -2904,9 +2904,9 @@
 },
 "buyer_address|P13": {
 "rows": 50796,
-"filled": 38545,
-"pct": 75.9,
-"pct_any": 75.9,
+"filled": 38590,
+"pct": 76.0,
+"pct_any": 76.0,
 "target": 95,
 "present": true,
 "subset": ""
@@ -3057,7 +3057,7 @@
 },
 "buyer_phone|P13": {
 "rows": 50796,
-"filled": 40260,
+"filled": 40263,
 "pct": 79.3,
 "pct_any": 79.3,
 "target": 95,

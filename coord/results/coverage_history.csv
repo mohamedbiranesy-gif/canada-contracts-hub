@@ -1103,7 +1103,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_legal_name_as_published,P10,2597,846,32.6,70
 2026-11-09,buyer_legal_name_as_published,P11,475,120,25.3,65
 2026-11-09,buyer_legal_name_as_published,P12,21,17,81.0,80
-2026-11-09,buyer_legal_name_as_published,P13,50796,26471,52.1,60
+2026-11-09,buyer_legal_name_as_published,P13,50796,26674,52.5,60
 2026-11-09,buyer_bn_as_published,P01M,18,7,38.9,50
 2026-11-09,buyer_bn_as_published,P01T,92,19,20.7,n/a
 2026-11-09,buyer_bn_as_published,P01_GOLD,597,123,20.6,40
@@ -1137,7 +1137,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_address,P10,2597,1690,65.1,95
 2026-11-09,buyer_address,P11,475,172,36.2,80
 2026-11-09,buyer_address,P12,21,21,100.0,100
-2026-11-09,buyer_address,P13,50796,38545,75.9,95
+2026-11-09,buyer_address,P13,50796,38590,76.0,95
 2026-11-09,buyer_phone,P01M,18,16,88.9,n/a
 2026-11-09,buyer_phone,P01T,92,74,80.4,n/a
 2026-11-09,buyer_phone,P01_GOLD,597,420,70.4,90
@@ -1154,7 +1154,7 @@ date,field,package,rows,filled,pct,target
 2026-11-09,buyer_phone,P10,2597,1855,71.4,95
 2026-11-09,buyer_phone,P11,475,139,29.3,75
 2026-11-09,buyer_phone,P12,21,19,90.5,n/a
-2026-11-09,buyer_phone,P13,50796,40260,79.3,95
+2026-11-09,buyer_phone,P13,50796,40263,79.3,95
 2026-11-09,buyer_logo_url,P01M,18,14,77.8,n/a
 2026-11-09,buyer_logo_url,P01T,92,84,91.3,95
 2026-11-09,buyer_logo_url,P01_GOLD,597,486,81.4,90

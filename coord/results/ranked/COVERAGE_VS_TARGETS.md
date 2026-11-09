@@ -46,7 +46,7 @@ Rows per package: P01M 18, P01T 92, P01_GOLD 597, P02 399, P03 223, P04 1575, P0
 | P10 | 2597 | 3 | 13 | 1864 | 717 | 0 | 43 |
 | P11 | 475 | 0 | 0 | 0 | 0 | 475 | 28 |
 | P12 | 21 | 1 | 1 | 19 | 0 | 0 | 56 |
-| P13 | 50796 | 7 | 24 | 41693 | 9072 | 0 | 45 |
+| P13 | 50796 | 7 | 24 | 41759 | 9006 | 0 | 45 |
 
 ### Pay on sight (an invoice generated from the row would clear AP: confirmed invoicing / AP or finance channel, bill-to legal name + address, vendor legal name + GST/HST number + remit-to address, tax treatment and currency known — published or labelled-derived; the buyer's reference rule is reported separately)
 
@@ -68,8 +68,8 @@ Rows per package: P01M 18, P01T 92, P01_GOLD 597, P02 399, P03 223, P04 1575, P0
 | P10 | 2597 | 3 | 0.1% | 11 | 178 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (2243) |
 | P11 | 475 | 16 | 3.4% | 0 | 0 | a confirmed invoicing / AP or finance channel (440) |
 | P12 | 21 | 5 | 23.8% | 0 | 5 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (6) |
-| P13 | 50796 | 14 | 0.0% | 683 | 20033 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (29337) |
-| **all** | 63609 | 1032 | 1.6% | 857 | 21746 | |
+| P13 | 50796 | 14 | 0.0% | 684 | 20161 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (29209) |
+| **all** | 63609 | 1032 | 1.6% | 858 | 21874 | |
 
 ### What still blocks grade A (rows per missing element; a row counts under every element it lacks)
 
@@ -91,7 +91,7 @@ Rows per package: P01M 18, P01T 92, P01_GOLD 597, P02 399, P03 223, P04 1575, P0
 | P10 | 2594 | 0 | 2539 | 0 | 26 | 1751 | 898 | 2544 | 2507 | 130 |
 | P11 | 475 | 475 | 439 | 0 | 9 | 355 | 229 | 442 | 439 | 32 |
 | P12 | 20 | 0 | 16 | 0 | 0 | 4 | 0 | 18 | 17 | 1 |
-| P13 | 50789 | 0 | 50485 | 0 | 460 | 24325 | 12207 | 50719 | 50666 | 62 |
+| P13 | 50789 | 0 | 50485 | 0 | 460 | 24122 | 12162 | 50719 | 50666 | 62 |
 
 ## Where the work is (largest gaps in rows still needed)
 
@@ -99,13 +99,13 @@ Rows per package: P01M 18, P01T 92, P01_GOLD 597, P02 399, P03 223, P04 1575, P0
 |---|---|---|---|---|
 | buyer_ap_cycle_published | P13 | 0.0% | 20% | 10152 |
 | ap_system_hint | P13 | 0.6% | 20% | 9870 |
-| buyer_address | P13 | 75.9% | 95% | 9712 |
-| buyer_phone | P13 | 79.3% | 95% | 7997 |
+| buyer_address | P13 | 76.0% | 95% | 9667 |
+| buyer_phone | P13 | 79.3% | 95% | 7994 |
 | buyer_tax_exempt_status | P13 | 0.1% | 15% | 7584 |
 | buyer_esignature_preference | P13 | 0.1% | 15% | 7581 |
 | buyer_payment_method_preference | P13 | 0.5% | 15% | 7342 |
 | buyer_logo_url | P13 | 84.2% | 95% | 5495 |
-| buyer_legal_name_as_published | P13 | 52.1% | 60% | 4007 |
+| buyer_legal_name_as_published | P13 | 52.5% | 60% | 3804 |
 | buyer_bn_as_published | P13 | 24.7% | 30% | 2708 |
 | buyer_legal_name_as_published | P08 | 37.1% | 75% | 1153 |
 | buyer_legal_name_as_published | P10 | 32.6% | 70% | 972 |
@@ -568,7 +568,7 @@ Rows per package: P01M 18, P01T 92, P01_GOLD 597, P02 399, P03 223, P04 1575, P0
 | P10 | 2597 | 32.6% | 32.6% | +0.0 | 70% | ❌ 37 pts to go |
 | P11 | 475 | 25.3% | 25.3% | +0.0 | 65% | ❌ 40 pts to go |
 | P12 | 21 | 81.0% | 81.0% | +0.0 | 80% | ✅ met |
-| P13 | 50796 | 52.1% | 52.1% | +2.8 | 60% | 🟡 8 pts to go |
+| P13 | 50796 | 52.5% | 52.5% | +3.2 | 60% | 🟡 8 pts to go |
 
 ### `buyer_bn_as_published`
 
@@ -614,7 +614,7 @@ Rows per package: P01M 18, P01T 92, P01_GOLD 597, P02 399, P03 223, P04 1575, P0
 | P10 | 2597 | 65.1% | 65.1% | -0.1 | 95% | ❌ 30 pts to go |
 | P11 | 475 | 36.2% | 36.2% | +0.0 | 80% | ❌ 44 pts to go |
 | P12 | 21 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P13 | 50796 | 75.9% | 75.9% | +0.3 | 95% | ❌ 19 pts to go |
+| P13 | 50796 | 76.0% | 76.0% | +0.4 | 95% | ❌ 19 pts to go |
 
 ### `buyer_phone`
 

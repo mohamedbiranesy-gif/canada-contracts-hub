@@ -25,7 +25,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
 | 19 | buyer name is a name (not a domain or a page title) | soft | 22834 | REVIEW |
-| 20 | legal name is not a fragment or a platform copyright | soft | 61 | REVIEW |
+| 20 | legal name is not a fragment or a platform copyright | soft | 62 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 8 | REVIEW |
 | 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 61 | REVIEW |
@@ -204,9 +204,9 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - buyer_logo_url: 53913 (84.8%)
 - vendor_bn9: 53120 (83.5%)
 - vendor_logo_url: 52074 (81.9%)
-- buyer_phone: 49789 (78.3%)
-- buyer_address: 48156 (75.7%)
-- buyer_legal_name_as_published: 33539 (52.7%)
+- buyer_phone: 49792 (78.3%)
+- buyer_address: 48201 (75.8%)
+- buyer_legal_name_as_published: 33742 (53.0%)
 - buyer_bn_as_published: 14892 (23.4%)
 - contract_link: 12813 (20.1%)
 - vendor_legal_name: 9729 (15.3%)
@@ -229,15 +229,15 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - other: 47259; source field: 16350
 
 ## Buyer types
-- organisation (type not stated in the record): 33084
+- organisation (type not stated in the record): 33119
 - company (private sector): 10811
 - non-profit / association / cultural body: 7229
-- company (private sector) (from the organisation's name / web domain): 4079
+- company (private sector) (from the organisation's name / web domain): 4047
 - municipality / local government: 1339
 - government ministry / agency: 1213
 - municipality / local government (from the organisation's name / web domain): 1057
 - hospital / health authority: 939
-- non-profit / association / cultural body (from the organisation's name / web domain): 871
+- non-profit / association / cultural body (from the organisation's name / web domain): 868
 - university / college: 590
 - utility / public corporation: 482
 - university / college (from the organisation's name / web domain): 445
