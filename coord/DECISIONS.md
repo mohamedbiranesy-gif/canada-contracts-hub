@@ -538,3 +538,9 @@ later run cannot read the page (unavailable, hidden, time budget), a sighting yo
 and the log notes "referee saw it on this page on <date>; the page could not be read today". The verdict is overridden only when
 the page IS read and the value is gone (`not_found_on_page`) — that is the honest meaning of re-verification. Seeded from the
 verification logs of 2026-11-07 06:03Z and 2026-11-08. `evidence_age_days` / `reverify_due` in every row still flag stale sightings.
+
+## 2026-11-08 19:15 EST — AP grade: DMARC posture is a note, not a penalty (claude)
+`ap_grade` A requires the invoice data a vendor needs (confirmed invoicing mailbox on the buyer's own domain with MX, published legal name, billing
+address, PO rule, payment terms). The buyer's DMARC enforcement was a 3-point penalty that also blocked A; it blocked A on 269 of 463 non-A Gold rows
+while saying nothing about the vendor's invoice. It stays reported (`email_security_posture`, `dmarc_*` columns, a note in `ap_grade_basis`) but no
+longer decides the grade. BN conflicts and vendor-registry warnings remain penalties: those are data-integrity doubts about the parties.

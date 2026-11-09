@@ -50,7 +50,7 @@ and terms, then tax and vendor identity. The scoreboard prints the readiness dis
 carry their source. Criteria (weights): invoicing / AP mailbox (20) or finance mailbox (10); referee-confirmed (15); seen again within 60 days (8);
 mailbox on the buyer's own domain (7); MX published (5); bill-to legal name published (8); invoice or billing address (6); PO rule published (6);
 payment terms published (6); currency (2); format / requirements (3); AP phone or AP contact (2); payment cycle or method — plausibility (2).
-Penalties: DMARC not enforced (3), BN conflict between sources (2), vendor registry warning (2).
+Penalties: BN conflict between sources (2), vendor registry warning (2). DMARC not enforced is a NOTE in `ap_grade_basis` (and the DNS columns), not a penalty — owner 2026-11-08 19:11 EST: the grade measures the invoice data a vendor needs; the buyer's mail-security posture is reported, it does not make the row less payable (it blocked A on 269 Gold rows).
 A = confirmed invoicing / AP mailbox on the buyer's own domain with MX, legal name, address, PO rule and terms all published, no penalties;
 B = confirmed invoicing / AP or finance mailbox, legal name, address, and PO rule or terms; C = confirmed mailbox with legal name or address or an AP /
 finance mailbox; D = confirmed mailbox only; E = mailbox not confirmed. The scoreboard prints the A–E distribution per package.

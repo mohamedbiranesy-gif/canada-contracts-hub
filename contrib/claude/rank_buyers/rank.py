@@ -2611,8 +2611,9 @@ try:
                 ("payment cycle or method published (plausibility)", bool(card["terms"]["payment_cycle"] or card["terms"]["payment_method"]), 2),
             ]
             penalties = []
+            notes = []
             if (x.get("email_security_posture") or "").startswith("EXPOSED"):
-                penalties.append(("domain exposed to spoofing (no DMARC enforcement)", 3))
+                notes.append("buyer domain without DMARC enforcement (mail-security posture; see email_security_posture)")  # owner 2026-11-08 19:11 EST: the grade measures the invoice data; the buyer's DNS posture is reported, it is not the vendor's invoice gap (it blocked A on 269 Gold rows)
             if x.get("buyer_bn_note"):
                 penalties.append(("BN conflict between sources", 2))
             if (x.get("vendor_registry_warning") or ""):
@@ -2632,7 +2633,7 @@ try:
                 apg = "E"
             x["ap_grade"] = apg  # apg, not g: g is the mailbox grade 1-4 used by data_quality_score / ship_ready below (local test 16:40Z: TypeError str < int skipped the whole pack)
             x["ap_score"] = str(score)
-            x["ap_grade_basis"] = "met: %s | missing: %s%s" % ("; ".join(n_ for n_, ok, _ in crit if ok) or "none", "; ".join(n_ for n_, ok, _ in crit if not ok) or "none", (" | penalties: " + "; ".join(n_ for n_, _ in penalties)) if penalties else "")
+            x["ap_grade_basis"] = "met: %s | missing: %s%s%s" % ("; ".join(n_ for n_, ok, _ in crit if ok) or "none", "; ".join(n_ for n_, ok, _ in crit if not ok) or "none", (" | notes: " + "; ".join(notes)) if notes else "", (" | penalties: " + "; ".join(n_ for n_, _ in penalties)) if penalties else "")
             a_need = [n_ for k_, n_ in ((2, "referee confirmation of the mailbox"), (0, "an invoicing / AP mailbox (not finance / procurement / general)"), (4, "a mailbox on the buyer's own domain or published on its own site"), (5, "MX record for the mailbox domain"), (6, "published bill-to legal name"), (7, "invoice / billing address"), (8, "published PO rule"), (9, "published payment terms")) if not crit[k_][1]]
             a_need += ["clear the penalty: " + n_ for n_, _ in penalties]
             x["ap_gap_to_A"] = "; ".join(a_need) if apg != "A" else "none"
