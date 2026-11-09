@@ -97,6 +97,14 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
 
+## 16:50Z — pilot layer 2 under way; tracks T5–T12 added; budget rule
+- Dossiers: layer 1 for all 230 (16:28Z); layer 2 done for S1-01/02/03/05/06/07/08/11/12/18/23/24/25/26/27 (15 of 30 Gold). Found and fed back: WCB-Alberta
+  T&Cs (net 30, PO first, GST-exempt #124072513RT0001), East Sussex T&Cs (APInvoices@, PO mandatory, PDF/TIFF, 30 days), Manchester (no PO no pay,
+  supplier.invoices@), Paris-Saclay (Chorus Pro + engagement juridique), CPSC (DOT ESC shared AP), legal names from audited statements (Cambrian,
+  Windsor "Corporation of", SickKids, FWFN). rank.py: legal-name guard (distinctive token), First Nation B-039 tax note. Pages → claude_ap_pages_manual.csv.
+- Owner 11:43/11:47: all 230 before invoices go out; never a static plan (T5–T12 in PLAN §4c); weekly limit 78 % used → §4d budget rule.
+- Cloud: walk_terms (6 shards, 4 h) and registry (5 h) dispatched 16:19Z; org_facts leftovers measured (24 ok / 1,120 — blocked sites).
+
 ## 15:55Z — NEW DIRECTION (owner 10:25–10:48 EST): wait-or-ship decision by Sun Nov 15; targets 200k rows, ≥ 85 % complete, cloud-only
 - Owner's computer will be off: nothing may depend on the Mac. Engines moved to GitHub cron (claude-engines.yml: org_facts every 6 h / 8 shards,
   walk_terms nightly / 6 shards, bulk_registry daily); org_facts dispatched 15:55Z (8 runners, 120 min). My wake-ups: send_later every 180 min.
