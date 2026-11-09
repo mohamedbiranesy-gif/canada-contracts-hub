@@ -1,6 +1,6 @@
 # Coverage vs the downstream team's targets — 2026-11-09
 
-Benchmarks (field × package with a numeric target): **97 of 438 met** (22.1%); 87 within 10 points; 254 further away.
+Benchmarks (field × package with a numeric target): **100 of 438 met** (22.8%); 84 within 10 points; 254 further away.
 A cell counts as filled only when it carries a value: blank, `not_published`, `not_found_yet` and label-only cells ("no identifier published …", "no dataset record …", "0 in the contract dataset …") do not count; the DNS checks count when checked. `any` = share of non-blank cells incl. such labels. Δ = change since the previous build in `coord/results/coverage_history.csv`.
 Rows per package: P01M 18, P01T 92, P01_GOLD 624, P02 404, P03 208, P04 1566, P05 384, P06M 168, P06T 2440, P06 166, P07 252, P08 3039, P09 381, P10 2596, P11 475, P12 19, P13 50802
 
@@ -1210,7 +1210,7 @@ Rows per package: P01M 18, P01T 92, P01_GOLD 624, P02 404, P03 208, P04 1566, P0
 | P08 | 3039 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P09 | 381 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P10 | 2596 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P11 | 475 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
+| P11 | 475 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P12 | 19 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P13 | 50802 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 
@@ -1234,7 +1234,7 @@ Rows per package: P01M 18, P01T 92, P01_GOLD 624, P02 404, P03 208, P04 1566, P0
 | P08 | 3039 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P09 | 381 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P10 | 2596 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P11 | 475 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
+| P11 | 475 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P12 | 19 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P13 | 50802 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 
@@ -1258,7 +1258,7 @@ Rows per package: P01M 18, P01T 92, P01_GOLD 624, P02 404, P03 208, P04 1566, P0
 | P08 | 3039 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P09 | 381 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P10 | 2596 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P11 | 475 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
+| P11 | 475 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P12 | 19 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 | P13 | 50802 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
 

@@ -1,12 +1,12 @@
 change,buyer,rank_group,email,detail
-field changed: buyer_address,Financial Consumer Agency of Canada,A3,fcac.finance.acfc@fcac-acfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '427 Laurier Ave. W, Suite#500, Ottawa, Ontario, K1R 1B9, Canada'"
-field changed: buyer_address,Canadian Grain Commission,A3,cgcfinancesystemssupport@grainscanada.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Canada Border Services Agency,A2,cbsa-asfc_solicitations-demandes_de_soumissions@cbsa-asfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-row added,apprentx.rocks,D1,info@apprentx.rocks,new organisation in the ranked file
-row added,legacy.equiterre.org,E1,info@equiterre.org,new organisation in the ranked file
-row added,Décontamination Québec Inc.,I1,info@decontaminationquebec.com,new organisation in the ranked file
-row added,Pavage Mont-Tremblant inc.,I1,info@pavagemont-tremblant.ca,new organisation in the ranked file
-row added,VILLIARD SERRES ET JARDINS INC.,I1,info@villiardserresetjardins.com,new organisation in the ranked file
-row added,DIRECT IMPACT SOLUTIONS INC,I1,hello@directimpactsolutions.com,new organisation in the ranked file
-row added,S.E.E.L. INC.,I1,info@seelinc.com,new organisation in the ranked file
-row removed,DIRECT IMPACT SERVICES INC.,I1,hello@directimpactsolutions.com,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+field changed: buyer_address,"Immigration, Refugees and Citizenship Canada",GOLD,vendors_fournisseurs@cic.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Canada School of Public Service,A3,csps.finance.efpc@canada.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '373 Sussex Dr., Ottawa, Ontario, K1N 5H5, Canada'"
+field changed: buyer_address,Financial Consumer Agency of Canada,A3,fcac.finance.acfc@fcac-acfc.gc.ca,"was '427 Laurier Ave. W, Suite#500, Ottawa, Ontario, K1R 1B9, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Public Safety Canada,A3,financial_systems.systemes_financiers@ps-sp.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Canada Border Services Agency,A2,cbsa-asfc_solicitations-demandes_de_soumissions@cbsa-asfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: dmarc_policy,apprentx.rocks,D1,info@apprentx.rocks,was 'not checked yet' → now 'p=quarantine'
+field changed: dmarc_policy,legacy.equiterre.org,E1,info@equiterre.org,was 'not checked yet' → now 'p=reject'
+field changed: dmarc_policy,Décontamination Québec Inc.,I1,info@decontaminationquebec.com,was 'not checked yet' → now 'no DMARC record'
+field changed: dmarc_policy,Pavage Mont-Tremblant inc.,I1,info@pavagemont-tremblant.ca,was 'not checked yet' → now 'no DMARC record'
+field changed: dmarc_policy,VILLIARD SERRES ET JARDINS INC.,I1,info@villiardserresetjardins.com,"was 'not checked yet' → now 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: dmarc_policy,S.E.E.L. INC.,I1,info@seelinc.com,"was 'not checked yet' → now 'v=DMARC1; p=none (monitor only, no enforcement)'"

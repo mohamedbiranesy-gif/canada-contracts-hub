@@ -19,7 +19,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 11b | quote shows the label next to the address (referee saw the address on the page) | soft | 0 | PASS |
 | 12 | evidence page on the organisation's domain (or its site) | soft | 3730 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
-| 14 | DMARC / SPF / provider columns filled | soft | 6 | REVIEW |
+| 14 | DMARC / SPF / provider columns filled | soft | 0 | PASS |
 | 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 1 | REVIEW |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
@@ -90,13 +90,6 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:134 The Ottawa Hospital | tohaccountspayable@toh.ca on ottawahospital.on.ca (site toh.ca)
     - P01_GOLD_active_relationship_invoicing_AP_email:162 Department of Foreign Affairs and Trade | dfat.e-invoicing.prod@dfat.gov.au on directory.peppol.eu (site dfat.gov.au)
     - P01_GOLD_active_relationship_invoicing_AP_email:192 HM Land Registry | apinvoices@landregistry.gov.uk on assets.publishing.service.gov.uk (site gov.uk)
-- **14 DMARC / SPF / provider columns filled**
-    - P08_client_listing_general_email:1889 apprentx.rocks | not checked yet | not checked yet | not checked
-    - P11_any_relationship_email_not_yet_confirmed:356 legacy.equiterre.org | not checked yet | not checked yet | not checked
-    - P13_inferred_relationship_no_record_own_email_part17_of_18:1085 S.E.E.L. INC. | not checked yet | not checked yet | not checked
-    - P13_inferred_relationship_no_record_own_email_part4_of_18:226 Décontamination Québec Inc. | not checked yet | not checked yet | not checked
-    - P13_inferred_relationship_no_record_own_email_part4_of_18:1027 Pavage Mont-Tremblant inc. | not checked yet | not checked yet | not checked
-    - P13_inferred_relationship_no_record_own_email_part4_of_18:1082 VILLIARD SERRES ET JARDINS INC. | not checked yet | not checked yet | not checked
 - **15 tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m)**
     - P04_active_relationship_general_email:40 Centre de services scolaire Marguerite-B | A with end 2026-11-08
 - **19 buyer name is a name (not a domain or a page title)**
@@ -262,10 +255,9 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - US city / county / local government: 11
 
 ## DMARC posture of the delivered mailboxes
-- v=DMARC1; p=none (monitor only, no enforcement): 26436
-- no DMARC record: 21272
-- p=quarantine: 10439
-- p=reject: 5415
+- v=DMARC1; p=none (monitor only, no enforcement): 26438
+- no DMARC record: 21274
+- p=quarantine: 10440
+- p=reject: 5416
 - invalid DMARC record: 59
 - DNS lookup failed: 7
-- not checked yet: 6

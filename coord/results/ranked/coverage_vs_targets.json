@@ -1,8 +1,8 @@
 {
 "date": "2026-11-09",
 "benchmarks": 438,
-"met": 97,
-"near": 87,
+"met": 100,
+"near": 84,
 "cells": {
 "invoice_reference_hint|P01M": {
 "rows": 18,
@@ -6684,7 +6684,7 @@
 },
 "mta_sts|P08": {
 "rows": 3039,
-"filled": 3038,
+"filled": 3039,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -6711,9 +6711,9 @@
 },
 "mta_sts|P11": {
 "rows": 475,
-"filled": 474,
-"pct": 99.8,
-"pct_any": 99.8,
+"filled": 475,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6729,7 +6729,7 @@
 },
 "mta_sts|P13": {
 "rows": 50802,
-"filled": 50798,
+"filled": 50802,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -6837,7 +6837,7 @@
 },
 "tls_rpt|P08": {
 "rows": 3039,
-"filled": 3038,
+"filled": 3039,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -6864,9 +6864,9 @@
 },
 "tls_rpt|P11": {
 "rows": 475,
-"filled": 474,
-"pct": 99.8,
-"pct_any": 99.8,
+"filled": 475,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6882,7 +6882,7 @@
 },
 "tls_rpt|P13": {
 "rows": 50802,
-"filled": 50798,
+"filled": 50802,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -6990,7 +6990,7 @@
 },
 "bimi|P08": {
 "rows": 3039,
-"filled": 3038,
+"filled": 3039,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -7017,9 +7017,9 @@
 },
 "bimi|P11": {
 "rows": 475,
-"filled": 474,
-"pct": 99.8,
-"pct_any": 99.8,
+"filled": 475,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
@@ -7035,7 +7035,7 @@
 },
 "bimi|P13": {
 "rows": 50802,
-"filled": 50798,
+"filled": 50802,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,

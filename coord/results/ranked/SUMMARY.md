@@ -1,15 +1,14 @@
-# Ranked buyers — 2026-11-09T13:38Z
+# Ranked buyers — 2026-11-09T14:03Z
 
 ```
-# Changelog — build 2026-11-09T13:33Z (462438c)
+# Changelog — build 2026-11-09T13:58Z (b4695d6)
 
 Build id = the commit that produced this folder; every build is a full regeneration from the same rules, so the delta below is the only thing downstream needs to apply.
 
-- rows: 66663 → 66669
+- rows: 66669 → 66669
 - Gold (P01): 624 → 624
-- field changed: buyer_address: 3
-- row added: 7
-- row removed: 1
+- field changed: buyer_address: 5
+- field changed: dmarc_policy: 6
 
 Row-level list: `rows_changed.csv` (change, buyer, rank_group, email, detail).
 mailboxes taken from the verification log (better than org_mailboxes' single pick): 682
@@ -21,7 +20,7 @@ extras from the lanes' result rows: {'invoice_mailing_address': 1951, 'invoicing
 org_extras: 83475 organisations read; filled {'vendor_logo': 8553, 'vendor_phone_v2': 4703, 'po_required': 180, 'vendor_trading_name_jsonld': 1124, 'buyer_legal_name': 22391, 'buyer_phone_v2': 32129, 'buyer_payment_method_preference_mention_rejected': 17876, 'buyer_logo': 54488, 'payment_terms': 284, 'buyer_tax_exempt_status_mention_rejected': 268, 'buyer_legal_name_v2_rejected_no_overlap': 25314, 'buyer_legal_name_v2_legal_name_stated': 6909, 'buyer_bn': 2161, 'buyer_legal_name_v2_jsonld_legal_name': 2583, 'ap_system_hint_links': 304, 'buyer_legal_name_v2_jsonld_name': 2009, 'buyer_payment_method_preference_mention': 290, 'vendor_legal_name': 1485, 'vendor_neq': 32, 'buyer_esignature_preference_mention_rejected': 486, 'vendor_legal_name_v2': 929, 'buyer_address_v2': 6155, 'p13_name_from_legal_name': 9825, 'buyer_esignature_preference_mention': 17, 'vendor_bn': 184, 'invoice_portal_links': 23, 'buyer_tax_exempt_status_mention': 27, 'vendor_address_v2': 416, 'vendor_bn_jsonld': 6, 'buyer_bn_jsonld': 65, 'buyer_ap_cycle_published_mention': 11, 'vendor_qst': 4, 'buyer_ap_cycle_published_mention_rejected': 31, 'p13_name_from_domain': 2}
 regional mailboxes of multinationals removed from other-country entities: 20
 mx_check: 69559 domains known; 262 mailboxes on domains with no mail server removed; 226 webmail (freemail) addresses removed
-dmarc/spf: 73025 domains known; rows {'enforced': 16208, 'exposed': 47914}
+dmarc/spf: 73031 domains known; rows {'enforced': 16210, 'exposed': 47918}
 same organisation under another key folded into the row that holds its mailbox: 52
 second mailbox of the same organisation (same site and mail domain, same name family) folded: 7
 org_contacts: 74916 organisations read; filled {'vendor_phone': 19843, 'vendor_emails': 2356, 'buyer_phone': 36370, 'buyer_address': 27000, 'vendor_address': 2492}
@@ -66,10 +65,10 @@ P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email     18
 P06M_member_or_regulated_payer_of_canadian_body_other_email    168
 Z_no_email_yet_not_delivered                              3054
 unassigned 0 []
-blank cells filled with not_published (delivered P01-P13): 7625745
+blank cells filled with not_published (delivered P01-P13): 7625699
 
 # coverage vs the downstream targets (COVERAGE_VS_TARGETS.md)
-benchmarks met 97 / 438 (22.1%); near 87; written out/ranked/COVERAGE_VS_TARGETS.md
+benchmarks met 100 / 438 (22.8%); near 84; written out/ranked/COVERAGE_VS_TARGETS.md
   gap buyer_ap_cycle_published           P13        0.0% ->  20%  rows needed 10153
   gap ap_system_hint                     P13        0.6% ->  20%  rows needed 9871
   gap buyer_address                      P13       76.0% ->  95%  rows needed 9668
