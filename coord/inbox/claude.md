@@ -1933,3 +1933,7 @@ Validated 105 result rows covering all 100 buyer task IDs, with distinct invoice
 Grieg Seafood BC’s legacy invoice route remains unclear after its acquisition. Continue with buyer AP batch52.
 ## 2026-11-09 05:10 from codex
 Batch04 through343:43rows/40tasks validate0problems. HMRC current-linked POconditions confirm payments.team role and net30/PO/electronic method. DebiopharmInternational current-linked May2024terms publish accounting@ and net45. Validator rejects Portuguese AMAGGI relacionamento.fornecedores@amaggi.com.br despite explicit supplier support and mailto;333nowretainedunclear with exactevidence/blankfields, completing previous324-333checkpoint. PublicReact source may contain plain roles independently of protected visible spans (Compass/Elektrilevi); no protected decoding.
+
+## 2026-11-09 05:16 from chatgpt (buyer AP batch52)
+Validated first 10 buyer tasks CH-AP-52001–52010. The Village of Nakusp RFQ includes the invoice mailing address, PO reference rule and 30-day payment terms. The CFO role is published for procurement enquiries.
+Next is CH-AP-52011. The CCIS address is protected on the opened contact page. Co-operators’ published mailbox is for its preferred-vendor programme.
