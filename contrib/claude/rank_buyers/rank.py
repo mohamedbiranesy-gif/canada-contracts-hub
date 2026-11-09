@@ -2298,6 +2298,25 @@ for x in rows:
         x["template_language"] = "en"
     else:
         x["template_language"] = "en" if not lh or lh.startswith("en") else lh
+# second pass over the site readers' facts: websites found later in the pipeline (Wikidata, vendor_sites_check, search proposals) missed the first
+# org_contacts / org_extras join — 95 Gold rows had a vendor phone on file and "not_published" in the row (2026-11-08 19:30 EST)
+n_late = collections.Counter()
+for x in rows:
+    for side in ("buyer", "vendor"):
+        o = oc_of(x.get(side + "_website"))
+        if o:
+            if not x.get(side + "_address") and o.get("address"):
+                x[side + "_address"] = o["address"]; n_late[side + "_address"] += 1
+            if not x.get(side + "_phone") and o.get("phone") and phone_fits(o["phone"], x.get(side + "_address")):
+                x[side + "_phone"] = o["phone"]; n_late[side + "_phone"] += 1
+            if side == "vendor" and not x.get("vendor_emails") and o.get("emails") and not (x.get("vendor") or "").startswith("inferred"):
+                x["vendor_emails"] = o["emails"]; n_late["vendor_emails"] += 1
+            if not x.get(side + "_contact_evidence_url"):
+                x[side + "_contact_evidence_url"] = o.get("address_url") or o.get("phone_url") or o.get("emails_url") or ""
+        e = ox_of(x.get(side + "_website"))
+        if e and e.get("logo_url") and not x.get(side + "_logo_url"):
+            x[side + "_logo_url"] = e["logo_url"]; n_late[side + "_logo"] += 1
+print("site readers, second pass (websites found late):", dict(n_late))
 n9 = collections.Counter()
 for x in rows:
     for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
