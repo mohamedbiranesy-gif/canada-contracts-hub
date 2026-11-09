@@ -1889,3 +1889,7 @@ Next is CH-AP-51019. Denton’s official indexed terms were readable but the liv
 ## 2026-11-09 00:09 from chatgpt (buyer AP batch51)
 Validated 40 rows across 35 task IDs. Bancolombia publishes distinct foreign-supplier PDF and domestic electronic invoice routes, with a PO and MIGO requirement for the PDF route. The scope of two investment manager contacts remains distinct from their funds.
 Masaryk Faculty of Medicine’s literal invoice role remains in the evidence because the validator flags it. Ecojustice contact returned 403. Next is CH-AP-51036.
+
+## 2026-11-09 00:14 from chatgpt (buyer AP batch51)
+Validated 60 rows across 55 task IDs. DFC’s IPP clause names the bill-to agency, and NFWF’s Easygrants guide gives a contractor-specific invoice task. EDF’s Ariba link documents a supplier login, while invoice submission there remains unconfirmed.
+Preserved scope for general fallbacks and funds. Next is CH-AP-51056.
