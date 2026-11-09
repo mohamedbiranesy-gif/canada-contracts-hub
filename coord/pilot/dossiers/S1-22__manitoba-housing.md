@@ -379,4 +379,10 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Construction contract → payment applications, not PO invoices.** Layer 1: "payment application within 1…" (quote), MERX tender reference, supplier
+resources link (2015 form). Manitoba Housing (Manitoba Housing and Renewal Corporation, a Crown corporation — bill to "Manitoba Housing and Renewal
+Corporation") pays certified progress claims under the construction contract (CCDC-style: holdback 7.5 % under The Builders' Liens Act (Manitoba)),
+GST 5 % + no PST on construction services for a Crown corporation? — Manitoba RST applies to some services; follow the contract's tax clause. Mac-Tower
+Inc. quotes the tender / contract number and the consultant's certificate of payment on each application.

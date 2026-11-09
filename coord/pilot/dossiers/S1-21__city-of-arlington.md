@@ -299,4 +299,8 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Row is complete as published** (City of Arlington, TX: PO terms published, "30 days from the invoice date", supplier portal, confirmed AP mailbox).
+Texas municipality: exempt from Texas sales tax (derived), USD, Prompt Payment Act ch. 2251. Bubble Technology Industries (Chalk River, ON): zero-rated
+export; the City requires vendor registration in its supplier portal before payment (row: portal named) — register first.

@@ -362,4 +362,9 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Row is complete as published** (TxDOT: PO/contract number "shall be" on the invoice, 30 days from receipt, format rule "do not send…", supplier portal).
+State of Texas: payment via the Comptroller (CAPPS / TINS vendor setup — the vendor needs a Texas Payee ID / TIN registration before the first payment);
+Prompt Payment Act interest after 30 days (Tex. Gov't Code ch. 2251). No Texas sales tax on state purchases; AtkinsRéalis invoices from a US entity if the
+contract was signed by its US subsidiary — the row's vendor is the Canadian parent per the source's own field; check which legal entity signed.

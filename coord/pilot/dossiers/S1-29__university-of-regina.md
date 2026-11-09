@@ -496,4 +496,8 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Row is complete as published** (University of Regina: "Purchase Order" required, Net 30, "Canadian funds" PO terms, confirmed AP mailbox). Saskatchewan:
+GST 5 % + PST 6 % on taxable software/services (the University is a PSB that pays PST on most purchases); Softchoice (Toronto) invoices in CAD per the
+PO terms; the PO number is the match key (U of R uses Banner Finance — PO-matched).

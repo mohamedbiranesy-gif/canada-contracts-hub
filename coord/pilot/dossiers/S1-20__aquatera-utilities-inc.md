@@ -369,4 +369,8 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Row is complete as published** (Aquatera's PO terms updated 2026-10-26: "must include" the PO number; submission instruction in `invoicing_requirements`;
+confirmed AP mailbox). Aquatera Utilities Inc. is a municipally controlled corporation (Grande Prairie, AB) — a taxable purchaser: GST 5 % (Alberta,
+no PST). Stantec bills from Stantec Consulting Ltd. (Canadian entity) — the registry name in the row; project / PO number on every progress invoice.

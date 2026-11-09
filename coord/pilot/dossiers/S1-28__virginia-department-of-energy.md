@@ -295,4 +295,9 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Subaward under a state programme (SPARK).** Layer 1: "payment requests through Virginia's … eVA", "SPARK subaward guideline: confirm eVA re[gistration]".
+Virginia Department of Energy pays through the Commonwealth's eVA / Cardinal system: the vendor (Activation Laboratories Ltd., Ancaster ON) must be
+registered in eVA (free for a foreign vendor; W-8BEN-E on file) before a payment request is honoured; Virginia Prompt Payment Act: 30 days (Va. Code
+§ 2.2-4350). Invoice in USD, no Canadian GST (export); quote the SPARK subaward / agreement number.

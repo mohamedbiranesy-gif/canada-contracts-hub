@@ -291,4 +291,14 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**This is a research SUBAWARD, not a purchase — the channel is the prime's sponsored-programs financial contact, not its AP mailbox.** US universities
+issue subawards on the Federal Demonstration Partnership template (FDP Cost Reimbursement Research Subaward, "FDP Sept 2017" footer; copy read at
+https://www.tntech.edu/research/pdf/ada-compliantpdf/Sub_Cost_Reimburse_RE.pdf): invoices "not more often than monthly and not less frequently than
+quarterly"; "shall be directed to the party's Contact, shown in Attachment 3A." (Attachment 3A: "Email invoices? Yes", "Invoice email (if different)");
+each invoice "shall include current and cumulative costs (including cost sharing), Subaward number, and certification"; payment "in accordance with this
+Subaward and 2 CFR 200.305"; final invoice "not later than 60 days after the" end of the period. → York University invoices Notre Dame's post-award office at the e-mail named
+in Attachment 3A of the executed subaward, quoting the subaward number (the subaward number on the executed agreement), cumulative costs and the certification; the university AP mailbox in the row
+is the fallback contact, and the PO terms in the row apply only if the prime issued a PO for the subaward. No Canadian GST (export of research services);
+invoice in USD unless the subaward says CAD. Notre Dame's controller portal (row) is for vendor invoices; subaward invoices follow Attachment 3A.

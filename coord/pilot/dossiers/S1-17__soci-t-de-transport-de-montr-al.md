@@ -378,4 +378,8 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Covered in the hand-off (§8 worked example).** STM: French invoice, TPS + TVQ on separate lines with both numbers, "numéro de contrat 6000041033 /
+bon de commande", net 30 jours (stm.info/espace-affaires/fournisseur), one PDF to facture.comptesapayer@stm.info; SEAO is the tender portal, not a
+channel; DECASULT's TVQ number is not in the data — the vendor prints its own. Contracts 20168351|20168352 (SEAO), $416,594.66.

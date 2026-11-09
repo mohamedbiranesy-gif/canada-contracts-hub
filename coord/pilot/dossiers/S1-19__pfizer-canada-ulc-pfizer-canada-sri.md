@@ -295,4 +295,11 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Private buyer with a published supplier programme.** Layer 1 (pfizer.ca/en/suppliers and channels.pfizer.ca/en/supplier/invoicing, re-read 2026-11-08):
+invoices "must match the details of this Purchase Order", PDF images to canadaapinvoices@pfizer.com, supplier portal named. Pfizer's standard PO terms
+(e.g. https://cdn.pfizer.com/pfizercom/b2b/standardTCs_purchase_US_101521.pdf, "Revised 10/15/2021") are the governing conditions in the absence of a
+signed agreement. Two Canadian legal entities exist (Pfizer Canada ULC; Pfizer Canada SRI — the row names both): bill the entity named on the PO. The
+relationship evidence is the Québec/federal lobbying registry (Graphite Public Affairs) — a services engagement; expect a PO from Pfizer before the first
+invoice (no PO, no match).

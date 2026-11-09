@@ -302,4 +302,10 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Nature of the contract changes the channel.** Powerex Corp. (BC Hydro's trading subsidiary) sells wholesale electricity / capacity to Riverside Public
+Utilities; such sales are invoiced under the WSPP Agreement / the parties' confirmation, with netting and payment on the 20th of the month following
+delivery (WSPP Agreement s. 9 — inference from the contract type, not from a Riverside page; confirm the confirmation sheet). The City's AP terms in the
+row ("45 days after receipt", PO terms published) govern ordinary vendor invoices; for power purchases the trading confirmation prevails. Bill to
+"City of Riverside, Riverside Public Utilities" (the utility is a city department, not a separate legal entity). USD; no Canadian GST (export).

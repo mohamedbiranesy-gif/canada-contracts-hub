@@ -406,4 +406,10 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Vendor registration gates payment.** Layer 1: "Vendors without VendorCafe registration …" (WECHC uses Yardi VendorCafe for invoice submission — the
+portal in the row), bids&tenders award page (tender portal, not a channel). Windsor Essex Community Housing Corporation (Ontario local housing
+corporation, HST 13 %, PSB rebate) — MCAM Construction Inc. registers in VendorCafe, submits progress invoices there with the contract / PO number;
+construction holdback 10 % (Ontario Construction Act) and prompt payment: 28 days from a proper invoice (Construction Act s. 6.4) — the statutory default
+already labelled in the row's `payment_terms_default_policy`.

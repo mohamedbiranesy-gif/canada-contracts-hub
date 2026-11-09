@@ -307,4 +307,9 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Row is complete as published** (City PO number and PO prices on the invoice; the City's payment-terms text; confirmed AP mailbox). Buyer entity:
+the row's buyer is the "City of Mesquite, Texas — 4B Capital Projects" (the Mesquite Quality of Life Corporation, a Type B sales-tax corporation, funds the
+project; the City issues the PO) — bill to the entity named on the PO. Texas local government: no sales tax on the City's purchases (Texas Tax Code
+151.309 — exempt entity; derived), USD, Prompt Payment Act (Tex. Gov't Code ch. 2251: 30 days). Vendor Whitewater West (BC): zero-rated export.

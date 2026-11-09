@@ -371,4 +371,11 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane). Budget rule (PLAN §4d): layer 1 already carries this buyer's confirmed channel, PO rule and terms with quotes; the notes below add only what changes how the invoice is built.
+
+**Federal Canadian buyer.** Layer 1 holds NRCan's own AP instruction (PO/contract reference required; payment "60 days of the receipt" as quoted — check
+the quote: the federal standard under the Financial Administration Act / PSPC general conditions is 30 days after receipt of a proper invoice, interest
+after that (Treasury Board Directive on Payments; PSPC General Conditions 2010A s. 10); 60 days may refer to a specific instrument). Invoices to a federal
+department must show the PSPC contract number and the department's reference / requisition number, GST/HST at 5 % (federal departments pay GST/HST and
+recover it internally — TAX_FEDERAL in the row), remittance by direct deposit (Receiver General) — the vendor must be enrolled for direct deposit with
+PSPC. The proactive-disclosure record in the row is the public reference; the contract number on the PWGSC/NRCan contract document is what AP matches.
