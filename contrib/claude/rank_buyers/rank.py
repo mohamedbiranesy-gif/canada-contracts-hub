@@ -1290,6 +1290,7 @@ def clean_legal(name, buyer=""):
     n = re.split(r"\s+(?:connect with us|follow us|stay connected|subscribe|sign up|cricos\b|abn\b|acn\b|registered charity|charitable registration|privacy|terms|all rights|"
                  r"tous droits|site ?map|plan du site|accessibilit|contact us|nous joindre|back to top|retour en haut)\b", n, 1, flags=re.I)[0].strip(" .,-–—|:")
     n = TRAIL.sub("", n).strip(" .,-–—|:")
+    n = re.sub(r"^(?:[àa] la|au|aux|[àa] l'|the|la|le|les|l')\s+", "", n, flags=re.I).strip() if re.match(r"^(?:[àa] la|au|aux|[àa] l')\s", n, re.I) else n  # "à la Commission scolaire …" (pilot dossier S1-12)
     if BAD_LEGAL.search(n) or CUT_PREFIX.search(n) or re.match(r"^(?:'?s\b|[a-z])", n) or re.search(r"\bno\.?$", n, re.I):
         return ""  # a fragment cut at the front ("s Union Partners"), lowercase start, or ending in "No" (a registration number followed)
     if buyer and re.sub(r"\s+", " ", buyer).strip().lower().startswith(n.lower() + "-"):
@@ -1305,15 +1306,29 @@ TERMS = re.compile(r"\b(net\s?\d{2}\b|\d{2}\s?(?:calendar |business )?days?\b|wi
 PO_REQ = re.compile(r"(?:purchase order|\bPO\b|P\.O\.|bon de commande|num[ée]ro de (?:bon de )?commande)[^.]{0,80}?(?:required|must|need|doit|obligatoire|requis|include|indiqu|mention|quote|reference|référenc)|"
                     r"(?:required|must|need|doit|obligatoire|requis|include|indiqu|mention|quote|reference|référenc)[^.]{0,80}?(?:purchase order|\bPO\b|P\.O\.|bon de commande|num[ée]ro de (?:bon de )?commande)", re.I)
 NAME_STOP = {"the", "and", "inc", "ltd", "city", "town", "ville", "corporation", "limited", "des", "les", "municipality", "county", "canada", "group", "groupe", "ltee", "corp", "company", "of", "de", "du", "la", "le", "services", "service", "international", "solutions", "consulting", "llp", "llc", "co"}
+GENERIC_ORG = {"university", "universite", "college", "school", "board", "district", "county", "region", "regional", "municipalite", "municipal", "department", "departement",
+               "ministry", "ministere", "hospital", "hopital", "health", "sante", "centre", "center", "authority", "agency", "agence", "office", "bureau", "commission", "council",
+               "conseil", "community", "communaute", "public", "national", "federal", "provincial", "state", "government", "gouvernement", "first", "nation", "nations",
+               "society", "association", "foundation", "fondation", "institute", "institut", "library", "bibliotheque", "township", "canton", "village", "cite", "city", "town"}
+PAGE_NOISE = re.compile(r"\b(faculty|staff|students?|alumni|careers?|jobs?|news|events?|login|log in|sign in|portal|home ?page|welcome|search|menu|path|pathways?|about us|contact)\b", re.I)
+
+
 def name_overlap(cand, org_name, website=""):
-    """a name taken from a page must share a core token with the organisation's own name or its host (reviewer 2026-11-08)"""
+    """a name taken from a page must share a DISTINCTIVE token with the organisation's own name or its host (reviewer 2026-11-08; pilot dossiers
+    2026-11-09: "Cambrian College Faculty and staff" and "Pioneer Path University" had passed on the generic words college / university)"""
+    if PAGE_NOISE.search(cand or ""):
+        return False
     def toks(t):
         return {w for w in re.findall(r"[a-z0-9]{3,}", unicodedata.normalize("NFKD", t or "").encode("ascii", "ignore").decode().lower()) if w not in NAME_STOP}
     ct, ot = toks(cand), toks(org_name)
-    if ct & ot:
+    cd, od = ct - GENERIC_ORG, ot - GENERIC_ORG
+    if cd and od:
+        if cd & od:
+            return True
+    elif ct & ot:  # one side has only generic words (e.g. "Health Authority"): fall back to any shared token
         return True
     h = unicodedata.normalize("NFKD", host_of(website or "") or "").encode("ascii", "ignore").decode().lower().replace("www.", "").replace("-", "")
-    return bool(h) and any(t in h for t in ct if len(t) >= 4)
+    return bool(h) and any(t in h for t in (cd or ct) if len(t) >= 4)
 LEGAL_FORMISH = re.compile(r"\b(inc|ltd|limited|lt[ée]e|llc|llp|corp|corporation|company|co\.|society|association|foundation|fondation|university|universit[ée]|college|coll[èe]ge|c[ée]gep|city|town|village|municipality|municipalit[ée]|ville|county|district|township|school|scolaire|hospital|h[ôo]pital|health|sant[ée]|authority|board|commission|agency|office|ministry|minist[èe]re|department|government|gouvernement|library|biblioth[èe]que|church|trust|group|groupe|holdings|cooperative|coop[ée]rative|credit union|caisse|soci[ée]t[ée]|centre|center|institute|institut|canada|r[ée]gie|f[ée]d[ée]ration)\b", re.I)
 PORTAL_INVOICING = re.compile(r"e-invoicing|supplier payments|supplier onboarding", re.I)
 MENTION_STRICT = {"payment_method": re.compile(r"\b(?:direct deposit|d[ée]p[ôo]t direct|electronic funds transfer|EFT|ACH|virement|e-?transfer|Interac(?!t)|paid by cheque|payment by cheque|par ch[èe]que|credit card payments?|P-?card|wire transfer)\b", re.I),
