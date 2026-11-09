@@ -1,3 +1,9 @@
+# PLAN.md — closed 2026-11-09 13:00Z at the owner's stop order
+
+Final state and hand-off: `coord/HANDOFF_INVOICES_2026-11-09.md` (how to build the invoices, ceilings, what keeps running), `coord/for_downstream_ai_2026-11-08.md`, `STATE.md` (timeline), `coord/results/ranked/COVERAGE_VS_TARGETS.md` (Pay on sight table, 438 benchmarks with ceiling notes). Pay on sight 1,114 + 887 reference-less + 22,025 routed of 63,633 rows; Gold 395 / 625 (63 %); 100 / 438 benchmarks (51 on 2026-11-08 morning); Gold AP grade A 225 (67). The engines' organic rate had fallen to ≈ 0 pay-on-sight rows per hour; what remains is ceiling under the no-fabrication rules.
+
+---
+
 # PLAN.md — closing the downstream team's coverage targets (Claude lane, 2026-11-08)
 
 Goal: raise "benchmarks met" in `coord/results/ranked/COVERAGE_VS_TARGETS.md` (baseline 2026-11-08 13:28Z build: **57 / 438**)

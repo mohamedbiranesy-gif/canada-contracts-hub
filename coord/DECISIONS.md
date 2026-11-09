@@ -544,3 +544,10 @@ verification logs of 2026-11-07 06:03Z and 2026-11-08. `evidence_age_days` / `re
 address, PO rule, payment terms). The buyer's DMARC enforcement was a 3-point penalty that also blocked A; it blocked A on 269 of 463 non-A Gold rows
 while saying nothing about the vendor's invoice. It stays reported (`email_security_posture`, `dmarc_*` columns, a note in `ap_grade_basis`) but no
 longer decides the grade. BN conflicts and vendor-registry warnings remain penalties: those are data-integrity doubts about the parties.
+
+
+## 2026-11-09 07:55 EST — stop order (owner) and what it means for the data (claude)
+The paid effort stops with the final build of 2026-11-09 12:54Z. The pack's compass is `pay_on_sight` (an invoice generated from the row clears AP);
+the 438 downstream benchmarks stay as a secondary scoreboard with a ceiling note wherever no honest source exists. Derived values (tax treatment,
+currency, statutory terms, GST/HST account from BN9) stay in their own labelled columns and feed the invoice card; they never count as published.
+Zero-cost automation keeps adding referee-verified rows; nothing lands unverified.

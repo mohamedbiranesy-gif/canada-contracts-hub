@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 12:05Z)
+# STATE.md — Claude lane (updated 2026-11-09 13:00Z — STOP ORDER)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,19 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 13:00Z — STOP ORDER (owner 07:51 EST: "stop … make sure this is really it … advice to the other AI … go out with a bang")
+- Final lever audit: nothing left that moves ≥ 50 pay-on-sight rows within the rules (list in coord/HANDOFF_INVOICES_2026-11-09.md §6). Two last
+  defects fixed before the final build: `ap_payability` and `supplier_setup_url` were computed but never written to the pack (missing from the column
+  map since 2026-11-08 — now emitted); the doubled "DERIVED:" prefix in invoice_text.
+- Hand-off written for the downstream AI: coord/HANDOFF_INVOICES_2026-11-09.md — build order by pay-on-sight tier, field-by-field mapping of the
+  invoice to the columns (bill-to, channel, references, vendor identity, tax, currency, terms, follow-up), bounce rules learned from the buyers'
+  pages, ceilings, what keeps running and how to stop it, the levers audited. Companion: coord/for_downstream_ai_2026-11-08.md (status + by-design cells).
+- Stopped on the Mac (they spend the owner's quotas): codex_exec_loop (ChatGPT), api_search_loop (Anthropic API, $170.04 of the cap, 7,690 tasks),
+  lane_driver_loop (Anthropic API). Left running, restart-safe and free: push loop, walker-terms loop, site readers, downloads/sync loops, Gemini's
+  hourly task, the Codex app automation (owner's own); GitHub: builds every 6 h, referee on push, bulk registry daily. One-liner to stop everything on
+  the Mac: `pkill -f 'cch-crawler-state/.*_loop'`.
+- Final build dispatched 12:54Z; numbers below when it lands. My wake-up chain ends with this turn (no further send_later).
 
 ## 12:05Z — build 11:17Z: 1,114 (+2) / 887 / 22,025; Gold 395 / 625; 100 / 438 (row growth). Codex lanes quiet again since 10:42Z (ChatGPT limit); Gemini sync 12:00Z; verifier 11:45Z; integrity intact. Flat as forecast; loops stretch to 90 min until the owner answers.
 

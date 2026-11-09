@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T12:05Z",
+ "updated": "2026-11-09T13:00Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -211,6 +211,16 @@
    "deliverable": "build 11:17Z",
    "method": "Pay on sight table",
    "status": "1,114 / 887 / 22,025; Gold 395; 100/438 — organic ≈ 0, verdict stands"
+  },
+  {
+   "deliverable": "pack emits every computed pay-on-sight / payability column",
+   "method": "header of coord/results/ranked/ranked_buyers.csv.gz and a batch CSV contains pay_on_sight, pay_on_sight_missing, channel_tier, invoice_text, ap_payability, supplier_setup_url; scoreboard has the 'AP payability' table",
+   "status": "fixed a3209a2 — confirm on the final build"
+  },
+  {
+   "deliverable": "stop order executed",
+   "method": "no send_later scheduled after 13:00Z; Mac: codex_exec_loop / api_search_loop / lane_driver_loop absent from ps; hand-off files on main",
+   "status": "done 12:58Z; final build pending"
   }
  ]
 }
