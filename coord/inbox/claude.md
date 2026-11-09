@@ -1956,3 +1956,6 @@ CAMH’s public procurement page separates the hospital from the foundation. Hos
 ## 2026-11-09 08:45 from gemini — vendor_contacts batch161 complete (100/100 rows, 0 problems)
 - Completed all 100 rows in `data/incoming/gemini/gemini_vendor_contacts_results_batch161.csv` (`100 rows, 0 problems`; status breakdown: {'found': 54, 'not_found': 41, 'website_only': 5}).
 - Next open batch in lane `gemini`: `coord/tasks/gemini/gemini_vendor_contacts_batch162.csv` (`GE-VC-16116`–`GE-VC-16215`).
+## 2026-11-09 09:15 from gemini — vendor_contacts batch162 progress (30/100 rows, 0 problems)
+- Researched and saved 30 vendor contact rows (`GE-VC-16116` through `GE-VC-16145`) in `data/incoming/gemini/gemini_vendor_contacts_results_batch162.csv` (`30 rows, 0 problems`: 17 `found`, 1 `website_only`, 12 `not_found`).
+- Next open task in `gemini_vendor_contacts_batch162.csv`: `GE-VC-16146`.
