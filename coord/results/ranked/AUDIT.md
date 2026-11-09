@@ -24,7 +24,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
-| 19 | buyer name is a name (not a domain or a page title) | soft | 22830 | REVIEW |
+| 19 | buyer name is a name (not a domain or a page title) | soft | 22828 | REVIEW |
 | 20 | legal name is not a fragment or a platform copyright | soft | 62 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 7 | REVIEW |
@@ -198,14 +198,14 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 ## Field fill across all delivered rows (value present, not `not_published`)
 - buyer_website: 63618 (100.0%)
 - vendor_website: 62145 (97.7%)
-- vendor_address: 61067 (96.0%)
-- vendor_phone: 56984 (89.6%)
-- buyer_logo_url: 53925 (84.8%)
+- vendor_address: 61148 (96.1%)
+- vendor_phone: 57101 (89.8%)
+- buyer_logo_url: 53927 (84.8%)
 - vendor_bn9: 53124 (83.5%)
 - vendor_logo_url: 52346 (82.3%)
-- buyer_phone: 49794 (78.3%)
-- buyer_address: 48173 (75.7%)
-- buyer_legal_name_as_published: 33750 (53.1%)
+- buyer_phone: 49799 (78.3%)
+- buyer_address: 48175 (75.7%)
+- buyer_legal_name_as_published: 33753 (53.1%)
 - buyer_bn_as_published: 14886 (23.4%)
 - contract_link: 12819 (20.1%)
 - vendor_legal_name: 9730 (15.3%)
@@ -213,7 +213,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - vendor_incorporation_date: 8236 (12.9%)
 - award_date: 6487 (10.2%)
 - vendor_neq: 5013 (7.9%)
-- vendor_emails: 4775 (7.5%)
+- vendor_emails: 4870 (7.7%)
 - ap_phone: 2657 (4.2%)
 - contract_value: 2364 (3.7%)
 - invoice_mailing_address: 2177 (3.4%)
@@ -228,7 +228,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - other: 47261; source field: 16357
 
 ## Buyer types
-- organisation (type not stated in the record): 33121
+- organisation (type not stated in the record): 33120
 - company (private sector): 10813
 - non-profit / association / cultural body: 7228
 - company (private sector) (from the organisation's name / web domain): 4046
@@ -239,7 +239,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - non-profit / association / cultural body (from the organisation's name / web domain): 868
 - university / college: 591
 - utility / public corporation: 484
-- university / college (from the organisation's name / web domain): 445
+- university / college (from the organisation's name / web domain): 446
 - hospital / health authority (from the organisation's name / web domain): 341
 - transport / transit authority: 207
 - school board / school district: 179

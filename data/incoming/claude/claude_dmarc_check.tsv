@@ -2229,6 +2229,7 @@ albatrans.com	reject	albatrans.com	v=DMARC1; p=reject; fo=1; rua=mailto:dmarc_ru
 albatros14.es	none	albatros14.es	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:externo.inmovilla.com -all	2026-11-06	none	none	none
 albatrossgolf.ca	none	albatrossgolf.ca	v=DMARC1; p=none;	100	no	no_all	v=spf1 +a +mx +include:spf.web-dns1.com ~allgoogle-site-verification=OiYiqVqABL5xrvUzDvcPawE4dGofO6wTbmR-TdNGPGo	2026-11-06	none	none	none
 albc.ca	no_record		no DMARC record at _dmarc.albc.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
+albemarle.com	quarantine	albemarle.com	v=DMARC1; p=quarantine; sp=quarantine; rua=mailto:dmarc_agg@vali.email; fo=1	100	yes	soft_fail	v=spf1 include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email ~all	2026-11-09	none	none	none
 alberco.com	none	alberco.com	v=DMARC1; p=none; rua=mailto:dmarc@alberco.com; aspf=r; adkim=r	100	yes	soft_fail	v=spf1 +a +mx +ip4:173.231.205.4 +include:_spf.google.com ~all	2026-11-06	none	none	none
 alberniathletics.ca	no_record		no DMARC record at _dmarc.alberniathletics.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.alberniathletics.ca ~all	2026-11-06	none	none	none
 albernibrewingcompany.ca	no_record		no DMARC record at _dmarc.albernibrewingcompany.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-08	none	none	none
@@ -65606,6 +65607,7 @@ tigrisshawarma.ca	no_record		no DMARC record at _dmarc.tigrisshawarma.ca; confir
 tihc.ca	no_record		no DMARC record at _dmarc.tihc.ca; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
 tii.ie	none	tii.ie	v=DMARC1; p=none; rua=mailto:qz5gx8qe@ag.eu.dmarcian.com; ruf=mailto:qz5gx8qe@fr.eu.dmarcian.com;	100	yes	hard_fail	v=spf1 a:scanscope.net ip4:137.191.242.6 ip4:137.191.242.7 ip4:51.140.50.9 a:smtp1.scanscope.net a:smtp2.scanscope.net a:smtp2-delivery.scanscope.net include:spf.protection.outlook.com include:spf.scanscope.net -all	2026-11-06	none	none	none
 tiicma.com	no_record		no DMARC record at _dmarc.tiicma.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.tiicma.com ~all	2026-11-06	none	none	none
+tiime.fr	reject	tiime.fr	v=DMARC1; p=reject; sp=reject; np=reject; rua=mailto:71b97615795e884@rep.de.mimecastdmarcanalyzer.com; ruf=mailto:71b97615795e884@rep.de.mimecastdmarcanalyzer.com;	100	yes	no_all	v=spf1 redirect=9e22f6d7._1.de.2._d.mim.ec	2026-11-09	none	v=TLSRPTv1; rua=mailto:71b97615795e884@tlsrpt.de.mimecastdmarcanalyzer.com	none
 tijaro.com	none	tijaro.com	v=DMARC1;p=none; sp=none	100	no	hard_fail	v=spf1 a ip4:158.85.89.116 ip4:158.85.77.121 include:spf.protection.outlook.com include:spf.turbo-smtp.com -all	2026-11-06	none	none	none
 tiketi.com	no_record		no DMARC record at _dmarc.tiketi.com; confirmed by 8.8.8.8			hard_fail	v=spf1 a mx a:tiketi.com -all	2026-11-08	none	none	none
 tikitaxi.ca	none	tikitaxi.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	no_record		2026-11-06	none	none	none

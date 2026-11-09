@@ -1,406 +1,104 @@
 change,buyer,rank_group,email,detail
-field changed: buyer_address,University of Toronto,GOLD,ap.fsd@utoronto.ca,"was 'CA' → now '222 College Street, Second Floor, Toronto, Ontario M5T 3J1, Canada'"
-field changed: buyer_address,York University,GOLD,vendorinvoices@yorku.ca,"was 'CA' → now '4700 Keele Street, Toronto, ON M3J 1P3'"
-field changed: buyer_address,University of Manitoba,GOLD,SPSInvoices@umanitoba.ca,"was 'CA' → now 'University of Manitoba , Winnipeg, Manitoba Canada, R3T 2N2, Maps and directions'"
-field changed: buyer_address,University of Toronto Scarborough,GOLD,fmdinvoice.utsc@utoronto.ca,"was 'CA' → now '222 College Street, Second Floor, Toronto, Ontario M5T 3J1, Canada'"
-field changed: buyer_address,City of Ottawa,GOLD,apayable-cfournisseurs@ottawa.ca,was 'CA' → now ''
-field changed: buyer_address,Toronto Metropolitan University,GOLD,poinvoices@torontomu.ca,"was 'CA' → now '350 Victoria Street, Toronto, ON M5B 2K3, P: 416-979-5000'"
-field changed: buyer_address,McMaster University,GOLD,ap@mcmaster.ca,"was 'CA' → now 'OJN409 - 1280 MAIN ST W, HAMILTON, ON, L8S4L8 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c'"
-field changed: buyer_address,Efficiency Manitoba,GOLD,suppliers@efficiencyMB.ca,was 'CA' → now ''
-field changed: buyer_address,Office of the Chief Information Officer,GOLD,gnlinvoices@gov.nl.ca,"was 'CA' → now 'Confederation Building, St. John’s, NL, A1B 4J6'"
-field changed: buyer_address,Carleton University,GOLD,accounts.payable@carleton.ca,"was 'CA' → now '1125 Colonel By Drive, Ottawa, Ontario, K1S 5B6'"
-field changed: buyer_address,Technical Standards and Safety Authority (TSSA),GOLD,ap@tssa.org,was 'CA' → now ''
-field changed: buyer_address,Newfoundland and Labrador Liquor Corporation,GOLD,Accounts.Payable@nlliquor.com,"was 'CA' → now 'PO. Box 8750, Station A , 90 Kenmount Road , St. John's, NL A1B 3V1'"
-field changed: buyer_address,Ornge,GOLD,finance-ap@ornge.ca,"was 'CA' → now '5310 EXPLORER DRIVE, MISSISSAUGA, ON, L4W5H8 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c0'"
-field changed: buyer_address,The Ottawa Hospital,GOLD,tohaccountspayable@toh.ca,"was 'CA' → now '1053 Carling Avenue, Ottawa ON K1Y 4E9'"
-field changed: invoice_mailing_address,Attorney-General's Department,GOLD,invoices@ag.gov.au,"was 'GPO Box 1245, Tuggeranong BC ACT 2901, Australia' → now 'GPO Box 1245, TUGGERANONG BC ACT 2901'"
-field changed: buyer_address,Manitoba Liquor & Lotteries,GOLD,accountspayable@mbll.ca,"was 'CA' → now '1555 Buffalo Place, Winnipeg, MB, R3T 1L9'"
-field changed: buyer_address,NLSchools (Newfoundland and Labrador English School District),GOLD,accountspayable@nlschools.ca,was 'CA' → now ''
-field changed: buyer_address,Surrey Place Centre,GOLD,accounts.payable@surreyplace.ca,"was 'CA' → now '2 Surrey Place , Toronto, ON, Canada M5S 2C2'"
-field changed: buyer_address,Newfoundland and Labrador Housing Corporation,GOLD,invoices@nlhc.nl.ca,was 'CA' → now ''
-field changed: buyer_address,Greater Toronto Airports Authority,GOLD,ap@gtaa.com,"was 'CA' → now 'Toronto Pearson International Airport (Wikidata Q2872768, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_address,Manitoba Housing,GOLD,housingaccountspayable@gov.mb.ca,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of De Salaberry,GOLD,accounts@rmdesalaberry.mb.ca,was 'CA' → now ''
-field changed: buyer_address,WorkplaceNL,GOLD,accounts.payable@workplacenl.ca,was 'CA' → now ''
-field changed: buyer_address,Musée canadien de l'histoire/Canadian Museum of History,GOLD,payables@historymuseum.ca,"was 'CA' → now '100 Laurier Street, Gatineau, Quebec, K1A 0M8'"
-field changed: buyer_address,City of Saskatoon,GOLD,accountspayable@saskatoon.ca,"was 'CA' → now '222 - 3rd Avenue North, Saskatoon SK S7K 0J5'"
-field changed: buyer_address,City of Regina,GOLD,payables@regina.ca,"was 'CA' → now 'Regina City Hall , 2476 Victoria Avenue, Regina, SK Canada, S4P 3C8'"
-field changed: buyer_address,University of Regina,GOLD,accounts.payable@uregina.ca,"was 'CA' → now '3737 Wascana Parkway, Regina, SK S4S 0A2'"
-field changed: buyer_address,Saskatchewan Health Authority,GOLD,supplierinvoices@saskhealthauthority.ca,"was 'CA' → now '701 Queen Street, Saskatoon, SK S7K 0M7'"
-field changed: buyer_address,Manitoba Institute of Trades and Technology,GOLD,accountspayable@mitt.ca,"was 'CA' → now '130 Henlow Bay, Winnipeg, Manitoba, Canada R3Y 1G4'"
-field changed: buyer_address,City of North Battleford,GOLD,accountspayable@cityofnb.ca,was 'CA' → now ''
-field changed: buyer_address,City of Prince Albert,GOLD,copa.ap@citypa.com,"was 'CA' → now '1084 Central Avenue, Prince Albert, Saskatchewan, Canada S6V 7P3'"
-field changed: buyer_address,Bruce Power,GOLD,invoicereview@brucepower.com,"was 'CA' → now '177 Tie Rd., R.R. 2, Tiverton ON, N0G 2T0'"
-field changed: buyer_address,Rural Municipality of Edenwold No. 158,GOLD,accounts.payable@edenwold-sk.ca,"was 'CA' → now '100 Hutchence Road, Emerald Park, Saskatchewan S4L 1C6'"
-mailbox changed,BANCOLOMBIA S.A.,GOLD,procesarfactura@bancolombia.com.co,was info@bancolombia.com
-package moved,BANCOLOMBIA S.A.,GOLD,procesarfactura@bancolombia.com.co,was B1
-field changed: po_required_as_published,BANCOLOMBIA S.A.,GOLD,procesarfactura@bancolombia.com.co,filled: 'yes (as published: include the purchase order)'
-field changed: ap_phone,BANCOLOMBIA S.A.,GOLD,procesarfactura@bancolombia.com.co,filled: '3203503976'
-field changed: ship_ready,BANCOLOMBIA S.A.,GOLD,procesarfactura@bancolombia.com.co,was 'no (mailbox below finance grade)' → now 'yes'
-field changed: buyer_address,Humber Polytechnic,A4,accounts.payable@humber.ca,was 'CA' → now ''
-field changed: buyer_address,Canada School of Public Service,A3,csps.finance.efpc@canada.ca,"was '373 Sussex Dr., Ottawa, Ontario, K1N 5H5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Canadian Nuclear Safety Commission,A3,finance@cnsc-ccsn.gc.ca,"was 'CA' → now 'Ottawa (Wikidata Q654536, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_address,Financial Consumer Agency of Canada,A3,fcac.finance.acfc@fcac-acfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '427 Laurier Ave. W, Suite#500, Ottawa, Ontario, K1R 1B9, Canada'"
-field changed: buyer_address,Public Safety Canada,A3,financial_systems.systemes_financiers@ps-sp.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Veterans Affairs Canada,A3,directdeposit-depotdirect@vac-acc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Canadian Grain Commission,A3,cgcfinancesystemssupport@grainscanada.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Municipality of North Grenville,A3,finance@northgrenville.on.ca,"was 'CA' → now '285 County Road #44, PO Box 130, Kemptville, ON K0G 1J0'"
-field changed: ap_phone,Municipalité de L'Île-d'Anticosti,A3,comptabilite@ile-anticosti.org,filled: '418 535-0311'
-field changed: invoice_mailing_address,Municipalité de L'Île-d'Anticosti,A3,comptabilite@ile-anticosti.org,"filled: '10, rue des Eudistes, Port-Menier, Île d'Anticosti, Québec, Canada, G0G 2Y0'"
-field changed: ap_contact_name_as_published,Municipalité de L'Île-d'Anticosti,A3,comptabilite@ile-anticosti.org,was 'Isabelle Morency (as printed by the organisation next to its invoicing mailbox)' → now ''
-field changed: buyer_address,City of Yorkton,A3,finance@yorkton.ca,"was 'CA' → now '37 Third Avenue North, Yorkton , Saskatchewan, Canada S3N 2W3'"
-mailbox changed,Australian Prudential Regulation Authority,A2,procurement@apra.gov.au,was (none)
-package moved,Australian Prudential Regulation Authority,A2,procurement@apra.gov.au,was A0
-field changed: email_check,Australian Prudential Regulation Authority,A2,procurement@apra.gov.au,filled: 'confirmed'
-field changed: dmarc_policy,Australian Prudential Regulation Authority,A2,procurement@apra.gov.au,filled: 'p=reject'
-field changed: ship_ready,Australian Prudential Regulation Authority,A2,procurement@apra.gov.au,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-field changed: buyer_address,Manitoba Hydro,A2,purchasing@hydro.mb.ca,"was 'CA' → now 'Manitoba Hydro, 360 Portage Avenue, Winnipeg, MB, Canada R3C 0G8'"
-field changed: buyer_address,Provincial Health Shared Services Supply Chain (NL Health Services),A2,supplier.relations@nlhealthservices.ca,was 'CA' → now ''
-field changed: buyer_address,Canadian Air Transport Security Authority (CATSA),A2,ProcurementInfo@catsa.gc.ca,was 'CA' → now ''
-field changed: buyer_address,Canada Border Services Agency,A2,cbsa-asfc_solicitations-demandes_de_soumissions@cbsa-asfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,SaskPower,A2,procurementinquiries@saskpower.com,"was 'CA' → now '10,000 , PO Box 6300, STN Main, Regina, SK S4P 4J5'"
-field changed: buyer_address,Centennial College,A2,purchasing@centennialcollege.ca,"was 'CA' → now 'P.O. Box 631 Station A, Toronto, ON, M1K 5E9'"
-mailbox changed,Australian Criminal Intelligence Commission,A2,ACICTenders@acic.gov.au,was (none)
-package moved,Australian Criminal Intelligence Commission,A2,ACICTenders@acic.gov.au,was A0
-field changed: email_check,Australian Criminal Intelligence Commission,A2,ACICTenders@acic.gov.au,filled: 'unverified_page_unavailable'
-field changed: dmarc_policy,Australian Criminal Intelligence Commission,A2,ACICTenders@acic.gov.au,filled: 'p=quarantine'
-field changed: buyer_address,University of Saskatchewan,B3,accounting.center@edwards.usask.ca,"was 'CA' → now '911 (off campus), 129-72 Campus Drive, Saskatoon SK S7N 5B5'"
-field changed: buyer_address,SGI,B3,FinanceDisbursements@sgi.sk.ca,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Urban Municipalities Association,B3,accounting@suma.org,"was 'CA' → now '305 - 4741 Parliament Ave., Regina, SK S4W 0T9'"
-field changed: buyer_address,Waterloo Regional Health Network,A1,info@wrhn.ca,"was 'CA' → now '835 King St. W., P.O. Box 9056, Kitchener, ON, N2G 1G3'"
-mailbox changed,Parc éolien Pierre-De Saurel,B0,,was info@mrcpierredesaurel.com
-package moved,Parc éolien Pierre-De Saurel,B0,,was B1
-field changed: buyer_phone,Parc éolien Pierre-De Saurel,B0,,was '450 743-2703' → now ''
-field changed: buyer_website,Parc éolien Pierre-De Saurel,B0,,was 'https://mrcpierredesaurel.com' → now ''
-field changed: ap_phone,Parc éolien Pierre-De Saurel,B0,,was '450 743-2703' → now '450-743-2703 ext. 247'
-field changed: invoice_mailing_address,Parc éolien Pierre-De Saurel,B0,,"was '50, rue du Fort, Sorel-Tracy (Québec) J3P 7X7' → now '50, rue du Fort, Sorel-Tracy, QC J3P 7X7'"
-field changed: email_check,Parc éolien Pierre-De Saurel,B0,,was 'confirmed' → now ''
-field changed: ship_ready,Parc éolien Pierre-De Saurel,B0,,was 'no (mailbox below finance grade)' → now 'no (mailbox not referee-confirmed)'
-field changed: buyer_address,Ottawa Community Housing,A1,info@och.ca,was 'CA' → now ''
-field changed: buyer_address,University of Guelph,B3,treasury@uoguelph.ca,"was 'CA' → now '50 STONE RD E, GUELPH, ON, N1G2W1 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-1358-4'"
-field changed: buyer_address,Ontario Pension Board,B3,finance@opb.ca,"was 'CA' → now '200 King Street West, Suite 2200, Toronto ON M5H 3X6'"
-field changed: buyer_address,College of the North Atlantic,A1,info@cna.nl.ca,"was 'CA' → now '432 Massachusetts Drive, Stephenville, NL, A2N 2Z6'"
-field changed: buyer_address,St. Clair College,A1,financialaid@stclaircollege.ca,"was 'CA' → now 'Main Windsor Campus, 2000 Talbot Rd. W., Windsor, ON N9A 6S4, 519-966-1656, Campus Location'"
-mailbox changed,Municipalité de Saint-Sylvère,A1,dg@saint-sylvere.ca,was info@saint-sylvere.ca
-field changed: ap_phone,Municipalité de Saint-Sylvère,A1,dg@saint-sylvere.ca,was '819 285-2075' → now '819 285-2075 poste 2'
-mailbox changed,Municipalité de Thorne,A1,dg@thorneque.ca,was admin@thorneque.ca
-field changed: buyer_phone,Municipalité de Thorne,A1,dg@thorneque.ca,"was '819-647-3206 (printed next to the organisation's mailbox (as printed on https://www.thorneque.ca/contact?lang=fr, re-rea' → now '8196473206 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)'"
-field changed: invoice_mailing_address,Municipalité de Thorne,A1,dg@thorneque.ca,"was '775 Route 366, Ladysmith (Thorne), Québec J0X 2A0' → now '775 Route 366, Ladysmith (Thorne), QC J0X 2A0'"
-mailbox changed,Municipalité de Saint-Pacôme,A1,administration@st-pacome.ca,was info@st-pacome.ca
-field changed: invoice_portal_url,Municipalité de Saint-Pacôme,A1,administration@st-pacome.ca,was 'Coupa' → now ''
-field changed: ap_phone,Municipalité de Saint-Pacôme,A1,administration@st-pacome.ca,was '418 852-2356' → now '418 852-2356 poste 210'
-mailbox changed,Municipalité de Rivière-Héva,A1,administration@mun-r-h.com,was info@mun-r-h.com
-field changed: ap_phone,Municipalité de Rivière-Héva,A1,administration@mun-r-h.com,was '(819) 735-3521' → now '819 735-3521'
-mailbox changed,Régie Intermunicipale des Trois-Lacs,A1,direction@ritl.ca,was info@ritl.ca
-field changed: ap_phone,Régie Intermunicipale des Trois-Lacs,A1,direction@ritl.ca,"was '819 681-3379' → now '819 681-3379, #2'"
-mailbox changed,Municipalité de Saint-Mathieu-d'Harricana,A1,direction@stmathieudharricana.com,was accueil@stmathieudharricana.com
-field changed: payment_terms_as_published,Municipalité de Saint-Mathieu-d'Harricana,A1,direction@stmathieudharricana.com,"filled: 'payment terms, or PO rules published; general managem'"
-field changed: ap_phone,Municipalité de Saint-Mathieu-d'Harricana,A1,direction@stmathieudharricana.com,was '819-727-9557' → now '(819) 727-9557 poste 322'
-field changed: invoice_mailing_address,Municipalité de Saint-Mathieu-d'Harricana,A1,direction@stmathieudharricana.com,"was '203, chemin Lanoix, St-Mathieu-d'Harricana (Québec) J0Y 1M0' → now '203 Chemin Lanoix, St-Mathieu-d'Harricana, QC J0Y 1M0'"
-field changed: buyer_address,RFP Solutions Inc.,A1,info@rfpsolutions.ca,"was 'CA' → now 'P.O. Box 11294, Station H, Ottawa, ON, K2H 7T9'"
-field changed: buyer_address,Assiniboine Park Conservancy,A1,info@assiniboinepark.ca,"was 'CA' → now '55 PAVILION CRESCENT, WINNIPEG, MB, R3P2N6 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00c'"
-mailbox changed,Municipalité de Roquemaure,A1,dg@munroquemaure.ca,was roquemaure@mrcao.qc.ca
-field changed: ap_phone,Municipalité de Roquemaure,A1,dg@munroquemaure.ca,was '819-787-6311' → now '819-787-6311 poste 221'
-field changed: invoice_mailing_address,Municipalité de Roquemaure,A1,dg@munroquemaure.ca,"was '15, Rue Raymond Est, Roquemaure, QC J0Z 3K0' → now '15, rue Raymond Est, ROQUEMAURE (Québec) J0Z 3K0'"
-field changed: dmarc_policy,Municipalité de Roquemaure,A1,dg@munroquemaure.ca,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now 'p=quarantine'"
-mailbox changed,M. Baie Sainte Catherine,A1,municipalite@baiestecatherine.com,was info@baiestecatherine.com
-field changed: buyer_phone,M. Baie Sainte Catherine,A1,municipalite@baiestecatherine.com,"was '418-620-5020 (printed next to the organisation's mailbox (as printed on https://www.baiestecatherine.com/, re-read 2026-' → now '4186205020 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)'"
-field changed: ap_phone,M. Baie Sainte Catherine,A1,municipalite@baiestecatherine.com,was '418-620-5020' → now '418-620-5020 poste 5801'
-field changed: buyer_address,Toronto Transit Commission - PCM Capital,B2,green.procurement@ttc.ca,"was 'CA' → now '1900 Yonge Street, Toronto, Ontario M4S 1Z2'"
-field changed: buyer_address,Riverside Health Care Facilities Inc,A1,riverside@rhcf.on.ca,"was 'CA' → now '110 Victoria Ave., Fort Frances, ON P9A 2B7'"
-field changed: buyer_address,Municipality of WestLake-Gladstone,A1,info@westlake-gladstone.ca,"was 'CA' → now '14 Dennis St. East, Box 150, Gladstone, Manitoba R0J 0T0'"
-field changed: buyer_address,Waypoint Centre for Mental Health Care,A1,info@waypointcentre.ca,"was 'CA' → now '500 Church Street Penetanguishene, ON L9M 1G3'"
-field changed: buyer_address,Water Security Agency,B2,wsaapprovals@wsask.ca,was 'CA' → now ''
-field changed: buyer_address,SaskBuilds and Procurement,B2,purchasing@gov.sk.ca,was 'CA' → now ''
-field changed: buyer_address,Infrastructure Ontario,B2,procurement@infrastructureontario.ca,"was 'CA' → now '1, rue Dundas Ouest, Bureau 2000 , Toronto, Ontario , M5G 1Z3'"
-field changed: buyer_address,Mitacs Inc.,C4,helpdesk@mitacs.ca,"was 'CA' → now '800 Rue du Square-Victoria, Suite 463, Montreal, QC H3C 1E8'"
-field changed: buyer_address,Luther College,C4,accountspayable@luthercollege.edu,"was 'CA' → now 'LUTHER COLLEGE UNIV. OF REGINA, REGINA, SK, S4S0A2 (CRA list of registered charities, https://open.canada.ca/data/datase'"
-field changed: buyer_address,CreateTO,B2,procurement@createto.ca,"was 'CA' → now '61 Front Street West, Union Station, East Wing, 3rd Floor, Toronto, Ontario, Canada, M5J 1E5'"
-field changed: buyer_address,Saskatchewan Public Safety Agency,B2,spsaprocurement@gov.sk.ca,was 'CA' → now ''
-field changed: buyer_address,City of Moose Jaw,B2,procurement@moosejaw.ca,was 'CA' → now ''
-field changed: buyer_address,Manitoba Public Service Delivery,A0,,was 'CA' → now ''
-field changed: buyer_address,Government of Newfoundland and Labrador (GNL) - Public Procurement Agency,A0,,"was 'CA' → now 'Confederation Building, St. John’s, NL, A1B 4J6'"
-field changed: buyer_address,Toronto Police Service,A0,,was 'CA' → now ''
-field changed: buyer_address,Brock University,A0,,"was 'CA' → now '1812 Sir Isaac Brock Way, St. Catharines, Ontario, L2S 3A1'"
-field changed: buyer_address,Veolia Waste Services Alberta Inc.,B2,info.procurement@veolia.com,was 'CA' → now ''
-field changed: buyer_address,CBC/Radio-Canada,A0,,"was 'CA' → now 'Ottawa (Wikidata Q461761, official website on the organisation's domain (https://cbc.radio-canada.ca/) + name; 2026-11-0'"
-field changed: buyer_address,Parliamentary Protective Services,A0,,was 'CA' → now ''
-field changed: buyer_address,SaskTel,B2,sasktel.procurement@sasktel.com,"was 'CA' → now 'Regina (Wikidata Q339928, official website on the organisation's domain (https://www.sasktel.com/) + name; 2026-11-08)'"
-field changed: buyer_address,Manitoba Transportation and Infrastructure - Tendering and Contracts,A0,,was 'CA' → now ''
-field changed: buyer_address,University of Winnipeg,A0,,"was 'CA' → now '515 PORTAGE AVE, WINNIPEG, MB, R3B2E9 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-13'"
-field changed: buyer_address,Department Led Capital Projects Office,A0,,was 'CA' → now ''
-field changed: buyer_address,Yukon University,A0,,"was 'CA' → now '500 University Drive, PO Box 2799, Whitehorse, Yukon Y1A 5K4'"
-field changed: buyer_address,Elections Ontario,B2,procurement@elections.on.ca,"was 'CA' → now 'Toronto (Wikidata Q5354585, official website on the organisation's domain (http://www.elections.on.ca/) + name; 2026-11-'"
-field changed: buyer_address,Northern Municipal Trust Account,C4,nmtaaccountspayable@gov.sk.ca,was 'CA' → now ''
-field changed: buyer_address,La Cité Collégiale,A0,,"was 'CA' → now '801 PROMENADE DE LAVIATION, PIECE C3090, OTTAWA, ON, K1K4R3 (CRA list of registered charities, https://open.canada.ca/da'"
-field changed: buyer_address,Conseil des Écoles Catholiques du Centre-Est,A0,,"was 'CA' → now 'Ottawa (Wikidata Q2993865, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_address,Ontario Securities Commission,A0,,"was 'CA' → now '20 Queen Street West, 20th Floor, Toronto ON, M5H 3S8'"
-field changed: buyer_address,Rural Municipality of Gimli,A0,,"was 'CA' → now 'P.O Box 1246 62-2nd Avenue, Gimli, MB R0C 1B0'"
-field changed: buyer_address,Queensway Carleton Hospital,A0,,was 'CA' → now ''
-field changed: buyer_address,Thunder Bay Regional Health Sciences Centre,A0,,"was 'CA' → now 'Centre régional des sciences de la santé de Thunder Bay, 980, chemin Oliver, Thunder Bay (Ontario), P7B 6V4, Site Web : '"
-field changed: buyer_address,eHealth Saskatchewan,B1,servicedesk@ehealthsask.ca,"was 'CA' → now '1901 Scarth St. , Regina, Saskatchewan , S4P 2H1'"
-field changed: buyer_address,3sHealth,B1,info@3sHealth.ca,"was 'CA' → now '600 - 1919 Saskatchewan Drive, Regina, SK S4P 4H2'"
-field changed: buyer_address,Saskatoon Public Schools,L2,purchasingmail@spsd.sk.ca,was 'CA' → now ''
-field changed: buyer_address,Manitoba Public Insurance,B1,healthcareservices@mpi.mb.ca,"was 'CA' → now '100, 234 Donald Street, Winnipeg, MB R3C 4A4'"
-field changed: buyer_address,Asset Management Division,A0,,was 'CA' → now ''
-field changed: buyer_address,Tourism HR Canada,B1,info@TourismHR.ca,"was 'CA' → now '901 – 275 Slater Street, Ottawa, Ontario, Canada, K1P 5H9'"
-field changed: buyer_address,City of Thompson,L2,purchasingagent@thompson.ca,"was 'CA' → now '226 Mystery Lake Road Thompson, MB R8N 1S6 (printed next to the organisation's mailbox (as printed on https://www.thomps'"
-field changed: buyer_address,Saskatchewan Polytechnic,L2,procurement@saskpolytech.ca,"was 'CA' → now '400-119 4TH AVE S, SASKATOON, SK, S7K5X2 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb'"
-field changed: buyer_address,North East School Division No. 200,C3,accounting@nesd.ca,"was 'CA' → now '400, 701 93rd Avenue, Tisdale, SK S0E 1T0'"
-mailbox changed,Municipalité de Sainte-Thérèse-de-la-Gatineau,B1,administration@sainte-therese-de-la-gatineau.ca,was info@sainte-therese-de-la-gatineau.ca
-field changed: buyer_legal_name_as_published,Met Office College,D4,accountspayable@metoffice.gov.uk,filled: 'Met Office College (stated on https://www.metoffice.gov.uk/about-us)'
-field changed: buyer_address,Met Office College,D4,accountspayable@metoffice.gov.uk,"was 'Met Office, FitzRoy Road, Exeter, Devon, EX1 3PB, United Kingdom' → now 'Met Office, FitzRoy Road, Exeter, Devon, EX1 3PB, GB (schema.org JSON-LD PostalAddress on https://www.metoffice.gov.uk/)'"
-field changed: buyer_legal_name_as_published,Edwards develops vacuum pumps,D4,invoices.it@edwardsvacuum.com,filled: 'Ion Getter Pumps (stated on https://www.edwardsvacuum.com/en-uk/vacuum-pumps/knowledge/applications/working-under-hv-uhv-conditions)'
-field changed: buyer_address,Lambton College,B1,info@lambtoncollege.ca,"was 'CA' → now '1457 London Road, Sarnia, ON, N7S 6K4'"
-field changed: buyer_address,Group Health Centre,A0,,"was 'CA' → now '240 McNabb St. Sault Ste. Marie, ON., P6B1Y5'"
-field changed: buyer_address,ISL Engineering and Land Services Ltd.,A0,,was 'CA' → now ''
-field changed: buyer_address,Manitoba Environment and Climate Change,A0,,was 'CA' → now ''
-field changed: ap_phone,Village de Warden.,B1,info@village.warden.qc.ca,filled: '450-539-1349'
-field changed: invoice_mailing_address,Village de Warden.,B1,info@village.warden.qc.ca,"filled: '172, rue Principale, Warden, QC, J0E 2M0'"
-mailbox changed,Commission municipale du Québec,B1,secretaire@cmq.gouv.qc.ca,was acces.information@cmq.gouv.qc.ca
-field changed: invoice_mailing_address,Commission municipale du Québec,B1,secretaire@cmq.gouv.qc.ca,"was '10, rue Pierre-Olivier-Chauveau, Mezzanine, aile Chauveau, Québec (Québec) G1R 4J3' → now '10, rue Pierre-Olivier-Chauveau, Mezzanine, Aile Chauveau, Québec (Québec) G1R 4J3'"
-mailbox changed,Régie intermunicipale de gestion des installations sportives et récréatives Beauharnois-Châteauguay - Sports et loisirs Beau-Château,B1,administration@beauchateau.ca,was info@beauchateau.ca
-field changed: ap_phone,Régie intermunicipale de gestion des installations sportives et récréatives Beauharnois-Châteauguay - Sports et loisirs Beau-Château,B1,administration@beauchateau.ca,was '450-692-8910' → now '450-692-8910 poste 105'
-field changed: buyer_address,Municipality of Mississippi Mills,B1,town@mississippimills.ca,"was 'CA' → now '3131 Old Perth Rd, Box 400, Almonte, ON K0A 1A0'"
-field changed: buyer_address,Nasittuq Corporation,A0,,was 'CA' → now ''
-field changed: payment_terms_as_published,Centre de communication sante de L'Outaouais,B1,direction@ccsoutaouais.com,"filled: 'payment terms, or PO rules published; general managem'"
-field changed: buyer_address,Town of Carbonear,B1,carbonear@nf.aibn.com,"was 'CA' → now 'PO Box 999 256 Water Street, Carbonear NL A1Y 1C5'"
-field changed: buyer_address,Rural Municipality of East St. Paul,B1,administration@eaststpaul.com,"was 'CA' → now '1 - 3021 Birds Hill Rd, East St. Paul, Manitoba R2E 1A7'"
-field changed: buyer_address,CECON LTD.,B1,admin@cecon.ca,"was 'CA' → now '93 Edinburgh Ave 2nd Floor Gander, NL A1V 1C9 (printed next to the organisation's mailbox (as printed on https://www.cec'"
-field changed: buyer_address,Town of Bay Roberts,B1,info@bayroberts.com,"was 'CA' → now '321 Water Street, P.O. Box 114, Bay Roberts, NL A0A 1G0'"
-field changed: buyer_address,Conseil Scolaire catholique du Nouvel-Ontario,B1,info@nouvelon.ca,"was 'CA' → now 'Surintendance d’affaires et de finances, CSC Nouvelon, 201, rue Jogues, Sudbury (Ontario), P3C 5L7'"
-field changed: buyer_address,Strides Toronto,B1,contactus@stridestoronto.ca,"was 'CA' → now '100 Consilium Place, Suite 600, Toronto, ON M1H 3E3'"
-field changed: payment_terms_as_published,Centre communautaire juridique Bas-Saint-Laurent - Gaspésie,B1,ccjbslg@ccjbslg.qc.ca,"filled: 'payment terms, or PO rules published; general adminis'"
-field changed: payment_terms_as_published,Centre communautaire juridique de l'Abitibi-Témiscamingue,B1,administration@ccjat.qc.ca,"filled: 'payment terms, or PO rules published; general adminis'"
-field changed: buyer_address,Association des collèges et universités de la francophonie canadienne (ACUFC),B1,info@acufc.ca,"was 'CA' → now '223, rue Main, Ottawa (Ontario) K1S 1C4'"
-field changed: buyer_address,Assiniboine Community College,L1,info@assiniboine.net,"was 'CA' → now '180 Centennaire Drive, Southport, MB, R0H 1N1'"
-field changed: buyer_address,csn.qc.ca,E4,feesp.factures@csn.qc.ca,"was '1601, avenue De Lorimier, Montréal, Québec, H2K 4M5' → now '1601, avenue De Lorimier, Montréal, Québec, H2K 4M5, CA (schema.org JSON-LD PostalAddress on https://www.csn.qc.ca/)'"
-field changed: buyer_legal_name_as_published,Maps and Directions Visit UCR University,E4,apinvoice@ucr.edu,filled: 'Maps and Directions Visit UCR University (stated on https://news.ucr.edu/)'
-field changed: buyer_address,Bigstone Cree Nation,L1,bcnadmin@bigstone.ca,"was 'CA' → now 'P.O Box 960 Wabasca, AB T0G 2K0 (printed next to the organisation's mailbox (as printed on https://www.bigstone.ca/, re-'"
-field changed: buyer_address,Creative Saskatchewan,L1,office@creativesask.ca,"was 'CA' → now '208 - 1831 College Ave., Regina, SK S4P 4V5'"
-field changed: buyer_address,Saskatchewan Liquor and Gaming Authority,C2,productpurchasing@slga.com,was 'CA' → now ''
-field changed: buyer_address,Urban Systems,B0,,was 'CA' → now ''
-field changed: buyer_address,Mills & Wright Landscape Architecture Inc.,L1,hello@millsandwright.ca,"was 'CA' → now '55 Bond Street St. John's, NL, A1C 1S9 Canada'"
-field changed: buyer_address,MCM Architects Inc.,L1,info@mcmarchitects.ca,"was 'CA' → now '141 St Anne’s Road, Winnipeg, MB, R2M 2Z3'"
-field changed: buyer_address,Highways,B0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Workers' Compensation Board,B0,,was 'CA' → now ''
-field changed: buyer_address,Town of Lanigan,L1,townoffice@lanigan.ca,"was 'CA' → now '110 Main Street Box 280 Lanigan, SK S0K 2M0 (printed next to the organisation's mailbox (as printed on https://www.thriv'"
-field changed: buyer_address,City of Melfort,L1,city@melfort.ca,"was 'CA' → now '202 Burrows Avenue West, PO Box 2230, Melfort, Saskatchewan, Canada S0E 1A0'"
-field changed: buyer_address,Elections Saskatchewan,L1,info@elections.sk.ca,"was 'CA' → now 'Hillsdale Street, Regina, Saskatchewan, Canada S4S 6W9'"
-field changed: buyer_address,Rural Municipality of Cymri No. 36,B1,rmcymri@sasktel.net,"was 'CA' → now '238, Midale, SK S0C 1S0'"
-mailbox changed,ACASTA PARTNERS US LLC - ACASTA GLOBAL MASTER FUND,B1,info@acasta.com,was info@acastapartners.com
-field changed: buyer_address,ACASTA PARTNERS US LLC - ACASTA GLOBAL MASTER FUND,B1,info@acasta.com,"filled: '4 Sloane Terrace​, London SW1X 9DQ​'"
-field changed: buyer_phone,ACASTA PARTNERS US LLC - ACASTA GLOBAL MASTER FUND,B1,info@acasta.com,filled: '+44 20 7070 2500'
-field changed: buyer_website,ACASTA PARTNERS US LLC - ACASTA GLOBAL MASTER FUND,B1,info@acasta.com,was 'https://acastapartners.com' → now 'https://acasta.com'
-field changed: payment_terms_as_published,Tourmaline Oil Corp.,B1,info@tourmalineoil.com,filled: 'payment terms were unconfirmed'
-mailbox changed,Ch’íyáqtel First Nations,B1,admin@tzeachten.ca,was reception@tzeachten.ca
-mailbox changed,Wine Growers British Columbia Society,B1,Info@WineBC.Com,was info@winebc.com
-mailbox changed,Save the Storks,B1,info@savethestorks.com,was info@savethestorks.org
-mailbox changed,First Nations Health Authority,B1,Info@fnha.ca,was info@fnha.ca
-mailbox changed,Cedar Shake and Shingle Bureau,B1,info@cedarbureau.org,was info@cedarbureau.com
-mailbox changed,Guzman Energy LLC,B1,Info@GuzmanEnergy.com,was info@guzmanenergy.com
-mailbox changed,BAROMETER CAPITAL MANAGEMENT INC. - RCP 4FRONT PRIVATE CREDIT I LP,B1,contact@barometercapital.ca,was info@barometercapital.ca
-field changed: buyer_address,Mohawk Medbuy,B0,,was 'CA' → now ''
-field changed: buyer_address,Colliers Project Leaders,B0,,was 'CA' → now ''
-field changed: buyer_address,RCP Consulting Ltd.,B0,,was 'CA' → now ''
-field changed: buyer_address,METAFOR Architecture Inc.,L1,info@metafor.studio,was 'CA' → now ''
-field changed: buyer_address,Kowalchuk Consulting Engineers Ltd.,B0,,was 'CA' → now ''
-field changed: buyer_address,Cornwall Community Hospital,B0,,was 'CA' → now ''
-field changed: buyer_address,Kensington Health,B0,,"was 'CA' → now '100, 340 College Street, Toronto, ON, M5T 3A9'"
-field changed: buyer_address,Regina School Division No. 4,B0,,"was 'CA' → now '20 application fee, to the LAFOIPP Coordinator, Regina Public Schools, 1600 4th Avenue, Regina, SK, S4R 8C8'"
-field changed: buyer_address,SaskEnergy Incorporated,B0,,was 'CA' → now ''
-field changed: buyer_address,Social Services,B0,,was 'CA' → now ''
-field changed: buyer_address,Innovation and New Technology – Digital and Technology Solutions,B0,,was 'CA' → now ''
-field changed: buyer_address,Belleville and Quinte West Community Health Centre,B0,,"was 'CA' → now '161 BRIDGE ST W, BELLEVILLE, ON, K8P1K2 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-'"
-field changed: buyer_address,Hopital Montfort,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Mervin No. 499,B0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Research Council,B0,,"was 'CA' → now 'Saskatoon (Wikidata Q7425606, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_address,"Parks, Culture and Sport",B0,,was 'CA' → now ''
-field changed: buyer_address,Community Safety,B0,,was 'CA' → now ''
-field changed: buyer_address,South East Cornerstone School Division No. 209,B0,,"was 'CA' → now '80A 18TH STREET NE, WEYBURN, SK, S4H2W4 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-'"
-field changed: buyer_address,Trade and Export Development,B0,,was 'CA' → now ''
-field changed: buyer_address,Immigration and Career Training,B0,,was 'CA' → now ''
-field changed: buyer_address,Government Relations,B0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Housing Corporation,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Lomond No. 37,B0,,was 'CA' → now ''
-field changed: buyer_address,"Corrections, Policing and Public Safety",B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Dufferin No. 190,B0,,was 'CA' → now ''
-field changed: buyer_address,All Government Ministries and Agencies,B0,,was 'CA' → now ''
-field changed: buyer_address,"Justice, Corrections and Policing",B0,,was 'CA' → now ''
-field changed: buyer_address,Village of North Portal,B0,,was 'CA' → now ''
-field changed: buyer_address,Prairie Valley School Division No. 208,B0,,"was 'CA' → now '3080 ALBERT ST N, RM OF SHERWOOD, SK, S4K0A8 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c0'"
-field changed: buyer_address,Town of Balgonie,T1,general@balgonie.ca,"was 'CA' → now '129 SOUTH RAILWAY ST E, PO BOX 310, BALGONIE, SK S0G 0E0'"
-field changed: buyer_address,Town of Regina Beach,T1,townoffice@reginabeach.ca,"was 'CA' → now '218 Centre Street PO Box 10 , Regina Beach, SK S0G 4C0'"
-field changed: buyer_legal_name_as_published,LeidiDonna Luxe Inc,T1,info@leididonna.com,filled: 'LeidiDonna Luxe Inc'
-field changed: buyer_phone,LeidiDonna Luxe Inc,T1,info@leididonna.com,filled: '1 (800) 958 1867 (tel: link on https://leididonna.com/fr)'
-field changed: buyer_legal_name_as_published,The American Whistle Corporation,T1,info@americanwhistle.com,filled: 'The American Whistle Corporation'
-field changed: buyer_address,The American Whistle Corporation,T1,info@americanwhistle.com,"filled: '6540 B Huntley Road, Columbus, OH, 43229, US (schema.org JSON-LD PostalAddress on https://www.americanwhistle.com/)'"
-field changed: buyer_phone,The American Whistle Corporation,T1,info@americanwhistle.com,filled: '+1-614-846-2918 (schema.org JSON-LD telephone on https://www.americanwhistle.com/)'
-field changed: buyer_address,SMS Engineering Ltd,B0,,was 'CA' → now ''
-field changed: buyer_address,Town of Arnprior,B0,,was 'CA' → now ''
-field changed: buyer_address,LM Architectural Group,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Sarnia No. 221,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Reciprocity No. 32,B0,,was 'CA' → now ''
-field changed: buyer_address,Legislative Assembly Service of Saskatchewan,B0,,was 'CA' → now ''
-field changed: buyer_address,Village of Saskatchewan Beach,C1,office@saskatchewanbeach.ca,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Water Corporation,C1,customerservice@saskwater.com,"was 'CA' → now '200-111 Fairford Street East, Moose Jaw, SK S6H 1C8'"
-mailbox changed,Centre local de développement de Brôme-Missisquoi,B0,,was administration@cldbm.qc.ca
-package moved,Centre local de développement de Brôme-Missisquoi,B0,,was B1
-field changed: buyer_phone,Centre local de développement de Brôme-Missisquoi,B0,,was '450 266-4928 (printed next to the organisation's mailbox (as printed on https://lacbrome.ca/fr/services/services-a-la-po' → now ''
-field changed: buyer_website,Centre local de développement de Brôme-Missisquoi,B0,,was 'https://cldbm.qc.ca' → now ''
-field changed: ap_phone,Centre local de développement de Brôme-Missisquoi,B0,,was '450 266-4928' → now ''
-field changed: invoice_mailing_address,Centre local de développement de Brôme-Missisquoi,B0,,"was '749, rue Principale, Cowansville (Québec) J2K 1J8' → now ''"
-field changed: email_check,Centre local de développement de Brôme-Missisquoi,B0,,was 'confirmed' → now ''
-field changed: dmarc_policy,Centre local de développement de Brôme-Missisquoi,B0,,was 'no DMARC record' → now ''
-field changed: ship_ready,Centre local de développement de Brôme-Missisquoi,B0,,was 'no (mailbox below finance grade)' → now 'no (mailbox not referee-confirmed)'
-mailbox changed,Municipalité de Baie-Sainte-Catherine,C1,info@baiestecatherine.com,was (none)
-package moved,Municipalité de Baie-Sainte-Catherine,C1,info@baiestecatherine.com,was C0
-field changed: buyer_phone,Municipalité de Baie-Sainte-Catherine,C1,info@baiestecatherine.com,"was '4186205020 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)' → now '418-620-5020 (printed next to the organisation's mailbox (as printed on https://www.baiestecatherine.com/, re-read 2026-'"
-field changed: email_check,Municipalité de Baie-Sainte-Catherine,C1,info@baiestecatherine.com,filled: 'confirmed'
-field changed: ship_ready,Municipalité de Baie-Sainte-Catherine,C1,info@baiestecatherine.com,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
-field changed: buyer_address,Avia NG Inc.,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Montcalm,B0,,was 'CA' → now ''
-field changed: buyer_address,Nunatsiavut Government,B0,,was 'CA' → now ''
-field changed: buyer_address,Metro Richelieu,B0,,was 'CA' → now ''
-field changed: buyer_address,AbleLiving Services Inc.,L1,info@ableliving.org,"was 'CA' → now '205 - 565 SANATORIUM RD, HAMILTON, ON, L9C7N4 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c'"
-field changed: buyer_address,Rural Municipality of Spy Hill No. 152,B0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Rivers School Division No. 119,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Enniskillen No. 3,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Arlington No. 79,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Baildon No. 131,B0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Association of Rural Municipalities,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Wawken No. 93,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Hoodoo No. 401,B0,,was 'CA' → now ''
-field changed: buyer_address,Prairie Spirit School Division No. 206,B0,,was 'CA' → now ''
-field changed: buyer_address,Justice and Attorney General,B0,,was 'CA' → now ''
-field changed: buyer_address,Good Spirit School Division,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Moose Creek No. 33,C1,payments@rmofmoosecreek.com,was 'CA' → now ''
-field changed: buyer_address,Town of Lumsden,C1,town@lumsden.ca,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Britannia No. 502,C1,office@rmbritannia.com,"was 'CA' → now 'P.O. Box 661, Lloydminster, SK S9V 0Y7'"
-field changed: buyer_address,Saskatchewan Indian Gaming Authority,C1,siga@siga.sk.ca,was 'CA' → now ''
-field changed: buyer_address,Citywide Administrative Services,B0,,was 'US' → now ''
-field changed: buyer_address,"AppFolio, Inc",D2,vendor-portal@appfolio.com,"was '70 Castilian Dr., Goleta, CA 93117' → now '70 Castilian Dr., Santa Barbara, CA, 93117, US (schema.org JSON-LD PostalAddress on https://www.appfolio.com/)'"
-field changed: buyer_address,J.L. Richards & Associates Limited,B0,,was 'CA' → now ''
-field changed: buyer_address,Thunder Bay International Airports Authority Inc.,B0,,was 'CA' → now ''
-field changed: buyer_address,Ottawa Climate Action Fund,B0,,"was 'CA' → now '305 - 75 ALBERT ST, OTTAWA, ON, K1P5E7 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-1'"
-field changed: buyer_address,Northwest School Division No. 203,B0,,"was 'CA' → now '525 5 ST W, MEADOW LAKE, SK, S9X1B4 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-1358'"
-field changed: buyer_address,Rural Municipality of Walpole No. 92,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Bengough No. 40,B0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Mayfield No. 406,B0,,was 'CA' → now ''
-field changed: buyer_address,Sask Gaming,B0,,was 'CA' → now ''
-field changed: buyer_address,Regina Public Library,B0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Crop Insurance Corporation,L0,,was 'CA' → now ''
-field changed: buyer_address,Town of La Ronge,C1,reception@laronge.ca,"was 'CA' → now '1212 Hildebrand Drive, P.O. Box 5680, La Ronge SK S0J 1L0'"
-field changed: buyer_address,Rural Municipality of Martin No. 122,C1,admin@rmofmartin.com,"was 'CA' → now '602 Main Street , Box 1109 , Moosomin SK S0G 3N0'"
-field changed: buyer_address,Rural Municipality of Dundurn No. 314,C1,admin.314@dundurnrm.ca,was 'CA' → now ''
-field changed: buyer_address,Village of Kelliher,C1,villageofkelliher@sasktel.net,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Newcombe No. 260,C1,info@rmnewcombe.ca,was 'CA' → now ''
-field changed: buyer_address,Town of Waldheim,C1,admin@waldheim.ca,was 'CA' → now ''
-field changed: buyer_address,Village of Marsden,C1,marsden@sasktel.net,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Assessment Management Agency,C1,info.request@sama.sk.ca,"was 'CA' → now '#200 - 2201 11th Avenue , Regina SK, S4P 0J8'"
-field changed: buyer_legal_name_as_published,Rafat General Contracting,L1,info@rafat.ca,filled: 'Rafat Group (stated on https://rafat.ca/company/)'
-field changed: buyer_address,"Council of Ministers of Education, Canada",L0,,was 'CA' → now ''
-field changed: buyer_address,Provincial Capital Commission,L0,,"was 'CA' → now 'BOX 7111  2900 WASCANA DRIVE, REGINA, SK, S4P3S7 (CRA list of registered charities, https://open.canada.ca/data/dataset/'"
-field changed: buyer_address,Highways and Infrastructure,L0,,was 'CA' → now ''
-field changed: buyer_address,First Nations and Metis Relations,C1,fnmr@gov.sk.ca,was 'CA' → now ''
-field changed: buyer_address,Energy and Resources,L0,,was 'CA' → now ''
-field changed: buyer_address,Village of Pangman,L0,,was 'CA' → now ''
-field changed: buyer_address,Innovation Saskatchewan,C1,info@innovationsask.ca,"was 'CA' → now 'Regina (Wikidata Q17007810, official website on the organisation's domain (http://www.innovationsask.ca/) + name; 2026-1'"
-field changed: buyer_address,Rural Municipality of Kelvington No. 366,L0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Morris No. 312,L0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Apprenticeship and Trade Certification Commission,C1,apprenticeship@gov.sk.ca,was 'CA' → now ''
-field changed: buyer_address,Riverhurst Irrigation District No. 24,C1,irrigation@gov.sk.ca,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Snipe Lake No. 259,L0,,was 'CA' → now ''
-field changed: buyer_address,Holy Family Roman Catholic Separate School Division No. 140,L0,,was 'CA' → now ''
-field changed: buyer_address,Corrections and Policing,L0,,was 'CA' → now ''
-field changed: buyer_address,Office of the Saskatchewan Information and Privacy Commissioner,L0,,was 'CA' → now ''
-field changed: buyer_address,Labour Relations and Workplace Safety,L0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Connaught No. 457,L0,,was 'CA' → now ''
-field changed: buyer_address,Village of Frobisher,L0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Indian Head No. 156,L0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Ituna Bon Accord No. 246,L0,,was 'CA' → now ''
-field changed: buyer_address,Living Sky School Division No. 202,L0,,"was 'CA' → now '509 PIONEER AVE, NORTH BATTLEFORD, SK, S9A4A5 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c'"
-field changed: buyer_address,Rural Municipality of Corman Park No. 344,L0,,"was 'CA' → now '111 Pinehouse Drive, Saskatoon, Saskatchewan, S7K 5W1'"
-field changed: buyer_address,SaskBuilds,L0,,was 'CA' → now ''
-field changed: buyer_address,Town of Langham,C1,admin@langham.ca,"was 'CA' → now '203 Main Street East , Box 289, Langham, SK S0K 2L0'"
-field changed: buyer_address,Transportation,L0,,was 'US' → now ''
-field changed: buyer_address,KCMS,L0,,was 'CA' → now ''
-field changed: buyer_address,Prairie South School Division No. 210,L0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Canwood No. 494,L0,,was 'CA' → now ''
-field changed: buyer_address,Chinook School Division No. 211,C0,,"was 'CA' → now 'BOX 1809, SWIFT CURRENT, SK, S9H4J8 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-1358'"
-field changed: buyer_address,Rural Municipality of Mount Hope No. 279,C0,,was 'CA' → now ''
-field changed: buyer_address,Public Employees Benefits Agency,C0,,was 'CA' → now ''
-field changed: buyer_address,Information Technology Office,C0,,was 'CA' → now ''
-field changed: buyer_address,"Tourism, Parks, Culture and Sport",C0,,was 'CA' → now ''
-field changed: buyer_address,Central Services,C0,,was 'CA' → now ''
-field changed: buyer_address,Five Hills Regional Health Authority,C0,,was 'CA' → now ''
-field changed: buyer_address,Saskatoon Health Region,C0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Disease Control Laboratory,C0,,was 'CA' → now ''
-field changed: buyer_address,Government Services,C0,,was 'CA' → now ''
-field changed: buyer_address,Information Services Corporation of Saskatchewan,C0,,was 'CA' → now ''
-field changed: buyer_address,National Energy Board,C0,,was 'Canada' → now ''
-field changed: buyer_address,Professional Organizers in Canada,C0,,was 'CA' → now ''
-field changed: buyer_address,City of Swift Current,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Moosomin No. 121,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Milton No. 292,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Coalfields No. 4,C0,,"was 'CA' → now 'PO Box 190, Bienfait SK S0C 0M0'"
-field changed: buyer_address,Cumberland College,C0,,"was 'CA' → now 'BOX 2225, NIPAWIN, SK, S0E1E0 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-1358-415c-'"
-field changed: buyer_address,Economy,C0,,was 'CA' → now ''
-field changed: buyer_address,"Advanced Education, Employment and Labour",C0,,was 'CA' → now ''
-field changed: buyer_address,Fulton County Government (GA),C0,,was 'US' → now ''
-field changed: buyer_address,Rural Municipality of South Qu'Appelle No. 157,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Livingston No. 331,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Torch River No. 488,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Fertile Valley No. 285,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Progress No. 351,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Laurier No. 38,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Elcapo No. 154,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Meota No. 468,C0,,was 'CA' → now ''
-field changed: buyer_address,St. Paul's Roman Catholic Separate School Division No. 20,C0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Archives Board,C0,,was 'CA' → now ''
-field changed: buyer_address,"Advanced Education, Employment and Immigration",C0,,was 'CA' → now ''
-field changed: buyer_address,Details Home Design,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Antelope Park No. 322,C0,,was 'CA' → now ''
-field changed: buyer_address,Northern Lights School Division No. 113,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Calder No. 241,C0,,was 'CA' → now ''
-field changed: buyer_address,Lloydminster Roman Catholic Separate School Division No. 89,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Winslow No. 319,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Monet No. 257,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Brock No. 64,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Tecumseh No. 65,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Clayton No. 333,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Chesterfield No. 261,C0,,was 'CA' → now ''
-field changed: buyer_address,Ombudsman Saskatchewan,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Lumsden No. 189,C0,,was 'CA' → now ''
-field changed: buyer_address,Immigration,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Lac Pelletier No. 107,C0,,was 'CA' → now ''
-field changed: buyer_address,Regina Qu'Appelle Regional Health Authority,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Browning No. 34,C0,,was 'CA' → now ''
-field changed: buyer_address,Prairie North Regional Health Authority,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of LeRoy No. 339,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Piapot No. 110,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Oakdale No. 320,C0,,was 'CA' → now ''
-field changed: buyer_address,Regina Catholic Schools,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Wilton No. 472,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Insinger No. 275,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Wellington No. 97,C0,,was 'CA' → now ''
-field changed: buyer_address,Enterprise Saskatchewan,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Abernethy No. 186,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of North Qu'Appelle No. 187,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Frenchman Butte No. 501,C0,,was 'CA' → now ''
-field changed: buyer_address,Sun West School Division No. 207,C0,,"was 'CA' → now 'BOX 700, ROSETOWN, SK, S0L2V0 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-1358-415c-'"
-field changed: buyer_address,Christ the Teacher RCSSD No.212,C0,,was 'CA' → now ''
-field changed: buyer_address,Mamawetan Churchill River Regional Health Authority,C0,,was 'CA' → now ''
-field changed: buyer_address,Rural Municipality of Saskatchewan Landing No. 167,C0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Legal Aid Commission,C0,,was 'CA' → now ''
-field changed: buyer_address,Liquor and Gaming Authority,C0,,was 'CA' → now ''
-field changed: buyer_address,Saskatchewan Information and Library Services Consortium,C0,,was 'CA' → now ''
-field changed: buyer_address,Authorities Budget Office,C0,,was 'US' → now ''
-field changed: vendor_legal_name,ich.unesco.org,E1,info@unesco.org,filled: 'Twin Island Cider (schema.org JSON-LD legalName: https://www.twinislandcider.com/)'
-row added,Sportplex,I1,info@beauchateau.ca,new organisation in the ranked file
-field changed: buyer_address,Appraisal Institute of Canada,I1,info@aicanada.ca,"was 'CA' → now '403-200 Catherine St., Ottawa, ON K2P 2K9 (printed next to the organisation's mailbox (as printed on https://www.aicanad'"
-field changed: buyer_address,Plannera Pensions & Benefits,I1,info@plannera.ca,"was 'CA' → now '110 - 1801 Hamilton Street, Regina, SK S4P 4W3'"
-field changed: buyer_bn_as_published,Card for Change / Carte pour le Changement,I1,info@cardforchange.org,"was '796824308RR0001 — charity registration number (RR program account) (CRA list of registered charities, https://open.canad' → now '796824308 RR0001 (as printed: Registration Number: 796824308 RR 0001; https://cardforchange.org/)'"
-field changed: buyer_legal_name_as_published,ALLPOWERS INC,I1,info@allpowers.com,filled: 'ALLPOWERS INC (stated on https://allpowers.com/ALLPOWERS/index.aspx)'
-row removed,ACASTA PARTNERS UK LLP - ACASTA ENERGY EVOLUTION MASTER FUND,B1,info@acasta.com,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
-row removed,BAROMETER CAPITAL MANAGEMENT INC. - BAROMETER GLOBAL MACRO POOL,I1,contact@barometercapital.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+field changed: buyer_address,"Immigration, Refugees and Citizenship Canada",GOLD,vendors_fournisseurs@cic.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: vendor_address,"Electric Reliability Council of Texas, Inc.",GOLD,accountspayable@ercot.com,"filled: '201 High Street SE, STE 100, Salem, OR 97301'"
+field changed: vendor_address,Travis County,GOLD,ap@traviscountytx.gov,"filled: '450 Mart St. Williams Lake, BC V2G 1N3'"
+field changed: vendor_address,"City of Tacoma, Department of Public Utilities, Light Division",B0,,"filled: '201 High Street SE, STE 100, Salem, OR 97301'"
+field changed: buyer_address,Canada School of Public Service,A3,csps.finance.efpc@canada.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '373 Sussex Dr., Ottawa, Ontario, K1N 5H5, Canada'"
+field changed: buyer_address,Public Safety Canada,A3,financial_systems.systemes_financiers@ps-sp.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Veterans Affairs Canada,A3,directdeposit-depotdirect@vac-acc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_phone,Office of the Child and Youth Advocate,A3,ocya.finance@ocya.alberta.ca,filled: '1-800-661-3446'
+field changed: ap_contact_name_as_published,Municipalité de Saint-Anicet,B3,comptabilite@stanicet.com,was 'Patricia Breton O'connor (as printed by the organisation on its own accounts-payable page (as printed on https://stanice' → now 'Patricia Breton O'connor (as printed by the organisation next to its invoicing mailbox)'
+field changed: vendor_address,Town of Slave Lake,GOLD-T,accountspayable@slavelake.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,St. Andrew's College,GOLD-T,ap@sac.on.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: vendor_address,Kindersley,GOLD-T,accountspayable@kindersley.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Pilot Butte,GOLD-T,accountspayable@pilotbutte.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Parksville,GOLD-T,ap@parksville.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: buyer_phone,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,filled: '+44 (0)141 552 4400'
+field changed: vendor_address,BARRHAVEN FOOD CUPBOARD,B3,treasurer@barrhavenfoodcupboard.ca,"filled: '5415 E High St, Suite 350, Phoenix, AZ, 85054'"
+field changed: vendor_address,Durham Christian High School,T3,finance@dchs.com,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: vendor_address,Haines Junction,T3,finance@hainesjunction.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Princeton,T0,,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Watson Lake,T3,treasurer@watsonlake.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,oliverpaipoonge.ca,T3,treasurer@oliverpaipoonge.on.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Regional District of Bulkley-Nechako,T3,finance@rdbn.bc.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Guido de Brès Christian High School,T3,finance@guidodebres.com,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: vendor_address,Weyburn No. 67,T3,finance@rmweyburn.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Regional District of Okanagan-Similkameen,T3,finance@rdos.bc.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Atikokan,T3,finance@atikokan.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Oromocto,T3,finance@oromocto.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Salt River Project Agricultural Improvement and Power District,B2,supplierdiversity@srpnet.com,"filled: '201 High Street SE, STE 100, Salem, OR 97301'"
+field changed: buyer_address,transportation.ky.gov,D3,finance.crcgroup@ky.gov,"filled: '200 Mero St Frankfort, KY , Contact Form , (502) 564-4890, Transportation.ky.gov'"
+field changed: vendor_address,"Univerzita Karlova, Lékařská fakulta v Hradci Králové",B1,info@cuni.cz,"filled: '21 st Floor, 777 Bay Street , Toronto, Ontario, Canada , M5G 2N4'"
+field changed: vendor_address,OCM MUTUAL FUND - OCM MUTUAL FUND,B1,info@ocmgoldfund.com,"filled: '2500 – 733 Seymour Street, Vancouver, BC, V6B 0S6'"
+field changed: vendor_address,SENATOR INVESTMENT GROUP LP - SENATOR GLOBAL OPPORTUNITY MASTER FUND LP,B1,info@senatorlp.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,Guzman Energy LLC,B1,Info@GuzmanEnergy.com,"filled: '201 High Street SE, STE 100, Salem, OR 97301'"
+field changed: vendor_address,TUDOR INVESTMENT CORPORATION - TUDOR RIVERBEND CROSSING PARTNERS PORTFOLIO LTD.,B1,info@tudor.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,"BRIGHTWOOD CAPITAL ADVISORS, LLC - BRIGHTWOOD CAPITAL OFFSHORE FUND V-U, LP",B1,info@brightwoodlp.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
+field changed: vendor_address,MGG INVESTMENT GROUP LP - MGG RATED DEBT FEEDER FUND 2025LP,B1,info@mgginvestment.com,"filled: '4th Floor, Sir Walter Raleigh House, 48-50 Esplanade, St Helier, Jersey, JE2 3QB'"
+field changed: vendor_address,"SOFINNOVA INVESTMENTS, INC. - SOFINNOVA BIOEQUITIES ENHANCED MASTER FUND, LP",B1,info@sofinnova.com,"filled: '6 IMPASSE BONNE NOUVELLE, Paris, Ile-de-France, 75010'"
+field changed: vendor_address,32 DEGREES CAPITAL ADVISOR LTD. - 32 DEGREES DIVERSIFIED ENERGY FUND III (U.S.) LP,B1,info@32degrees.ca,"filled: '150 Cheapside, London, EC2V 6ET'"
+field changed: vendor_address,"CHILTON INVESTMENT SERVICES, LLC - CHILTON TRUST ROYAL PALM EQUITY FUND, L.P.",B1,inquiries@chiltontrust.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,INSTAR ASSET MANAGEMENT INC. - INSTAR ESSENTIAL INFRASTRUCTURE III (USP-USD) LP,B1,info@instarinvest.com,"filled: '285 Fulton Street, 56th Floor , New York City, NY 10007'"
+field changed: vendor_address,"DSF ADVISORS, LLC - DSF MULTI-FAMILY FUND-2023, LP",B1,info@dsfadvisors.com,"filled: '1 Kentish Buildings, 125 Borough High Street, London SE1 1NP'"
+field changed: vendor_address,"MYRMIKAN CAPITAL MANAGEMENT, LLC - MYRMIKAN GOLD FUND LLC",B1,info@myrmikan.com,"filled: '2500 – 733 Seymour Street, Vancouver, BC, V6B 0S6'"
+field changed: vendor_address,RAM REALTY ADVISORS LLC - RAM RETAIL PARTNERS LP,B1,info@ramrealestate.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
+field changed: vendor_address,The Bunkie,B1,hello@bunkie.co,"filled: '410 Toronto St, Newcastle, ON L1B 1C2'"
+field changed: vendor_address,ESCHATON OPPORTUNITIES FUND MANAGEMENT LP - ESCHATON OPPORTUNITIES FUND II LP,B1,info@eschatonfunds.com,"filled: 'PO Box 2581, STN Central, Calgary, AB, T2P 1C8'"
+field changed: vendor_address,"CATHOLIC INVESTMENT SERVICES, INC. - CATHOLIC ENDOWMENT FUND, LP",B1,info@catholicinvest.org,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,"MSD PARTNERS, L.P. - MSDC EIV, LLC",B1,contact@bdtmsd.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,"FOURWORLD CAPITAL MANAGEMENT LLC - DOMUS ES, LLC",B1,inquiries@fourworldcapital.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,"BOREALIS STRATEGIC CAPITAL PARTNERS, LP - BOREALIS STRATEGIC CAPITAL PARTNERS MASTER FUND I, LP",B1,info@borealisstratcap.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,Elite Cladding,B1,info@elitecladding.com,"filled: 'House 405, Road 6, Baridhara DOHS, Dhaka, 1206'"
+field changed: vendor_address,"AVALON GLOBAL ASSET MANAGEMENT LLC - AVALON GLOBAL PARTNERS, LLC",B1,info@avalon-global.com,"filled: '4th Floor, Sir Walter Raleigh House, 48-50 Esplanade, St Helier, Jersey, JE2 3QB'"
+field changed: vendor_address,"GOTHAM GREEN PARTNERS, LLC - GOTHAM GREEN PARTNERS SPV V, L.P.",B1,info@gothamgreenpartners.com,"filled: '2500 – 733 Seymour Street, Vancouver, BC, V6B 0S6'"
+field changed: vendor_address,Village of Nakusp,B1,info@nakusp.com,"filled: '91 Baker Street, Nelson, BC, V1L 4G8'"
+field changed: vendor_address,STARBOARD VALUE LP - STARBOARD VALUE AND OPPORTUNITY MASTER FUND LTD,B1,info@starboardvalue.com,"filled: '60 East 42nd Street, New York, NY 10165'"
+field changed: vendor_address,PAG - PAG LOAN FUND VI LP,B1,info@pag.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
+field changed: vendor_address,ROSEMAWR MANAGEMENT LLC - ROSEMAWR CAPITAL V LP,B1,info@rosemawr.com,"filled: '4th Floor, Sir Walter Raleigh House, 48-50 Esplanade, St Helier, Jersey, JE2 3QB'"
+field changed: vendor_address,goodroads.ca,B1,info@goodroads.ca,"filled: '120 Jevlan Drive, Unit 2B, Vaughan, ON, L4L 8G3'"
+field changed: vendor_address,TORONTO CAT RESCUE,B1,info@torontocatrescue.ca,"filled: '121 Commerce Park Drive, Unit A, Barrie, ON L4N 8X1'"
+field changed: vendor_address,"LEM CAPITAL, L.P. - LEM MULTIFAMILY FUND VI, L.P.",B1,info@lemcapital.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
+field changed: vendor_address,Dirección General de la Fundación para la Investigación del Hospital Universitario de la Fe,B1,info@iislafe.es,"filled: 'Wales Hospital High Street, Randwick, NSW 2031'"
+field changed: vendor_address,U.S. International Development Finance Corporation - U.S. International Development Finance Corporation,B1,info@dfc.gov,"filled: 'Dimmuhvarf 13A, Kópavogur, 203'"
+field changed: vendor_address,"STELLUS CAPITAL MANAGEMENT, LLC - STELLUS CREDIT VCOC FUND IV, LLC",B1,info@stelluscapital.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
+field changed: vendor_address,"TIFF ENDOWMENT ASSET MANAGEMENT, LLC - THE TIFF KEYSTONE FUND, LP",B1,info@tiff.org,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,AXONIC CAPITAL LLC - AXONIC COMMERCIAL REAL ESTATE MASTER FUND III LP,B1,info@axoniccap.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,"TEKNE CAPITAL MANAGEMENT, LLC - TEKNE MASTER FUND, L.P.",B1,info@teknecap.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,"REDWOOD CAPITAL MANAGEMENT, LLC - REDWOOD DRAWDOWN MASTER FUND IV, LP",B1,info@redwoodcap.com,"filled: '201 South College Street, 20th Floor, Charlotte, NC 28244'"
+field changed: vendor_address,St. Andrew's Society of Montreal,B1,info@standrews.qc.ca,"filled: '3 More London Riverside, London SE1 2RE'"
+field changed: vendor_address,"TENOR CAPITAL MANAGEMENT COMPANY, L.P. - TENOR SPECIAL SITUATIONS FUND, LP",B1,info@tenorcapital.com,"filled: '4th Floor, Sir Walter Raleigh House, 48-50 Esplanade, St Helier, Jersey, JE2 3QB'"
+field changed: vendor_address,"PROSPECT RIDGE ADVISORS, LLC - PROSPECT RIDGE U.S. REAL ESTATE PARTNERS IV L.P.",B1,info@prospectridge.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
+field changed: vendor_address,GI MANAGER L.P. - GI PARTNERS ETS FUND LP,B1,info@gipartners.com,"filled: '8 Wellington Street East, Fourth Floor, Toronto, Ontario, Canada, M5E 1C5'"
+field changed: vendor_address,Conservation de la Nation Sud,B1,info@nation.on.ca,"filled: '5415 E High St, Suite 350, Phoenix, AZ, 85054'"
+field changed: vendor_address,"EAST ROCK CAPITAL, LLC - EAST ROCK FOCUS FUND, L.P.",B1,info@eastrockcap.com,"filled: '6 IMPASSE BONNE NOUVELLE, Paris, Ile-de-France, 75010'"
+field changed: vendor_address,Parkdale Community Foodbank,B1,info@pcfb.ca,"filled: '170 The Donway W., Suite 213, Toronto, Ontario, M3C 2G3'"
+field changed: vendor_address,"CLOCKTOWER GROUP, L.P. - CLOCKTOWER STRATEGIC FUND PARTNERS MASTER III LP",B1,contact@clocktowergroup.com,"filled: '6 IMPASSE BONNE NOUVELLE, Paris, Ile-de-France, 75010'"
+field changed: vendor_address,Town of Balgonie,T1,general@balgonie.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: buyer_phone,KNMI (Represented by Ministry of Infrastructure and Water Management),C1,informatiecentrum@knmi.nl,filled: 'Telefoon 030 22 06 911'
+field changed: vendor_address,Brampton Christian School,T1,admin@bramptoncs.org,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: buyer_address,theorganibrands.com,T1,hello@theorganibrands.com,"filled: '3272 E Sunset Road suite 120, Las Vegas NV 89120'"
+field changed: vendor_address,City of Melville,T1,cityhall@melville.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Whitewood,T1,general@townofwhitewood.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,King's Christian Collegiate,T1,office@kingschristian.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: vendor_address,Prairie Land Regional Division No. 25,T1,hello@plrd.ab.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: vendor_address,Prairie Spirit Division Office,T1,contact@spiritsd.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: buyer_address,Stockyard Chiropractors,T1,info@thedogjointchiro.com,"was '2567 St. Clair Avenue West Toronto, Ontario M6N 4Z5 (printed next to the organisation's mailbox (as printed on https://w' → now '2567 St. Clair Avenue West, Toronto, Ontario M6N 4Z5'"
+field changed: buyer_phone,Stockyard Chiropractors,T1,info@thedogjointchiro.com,was '416 604 2555 (tel: link on https://thedogjointchiro.com/)' → now '(416) 604-2555'
+field changed: vendor_address,Toronto District Christian High School,T1,info@tdchristian.ca,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: vendor_address,Rehoboth Christian School,T1,office@rcsnorwich.com,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: vendor_address,Sunbury-York South,T1,contact@sysrc.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Kipling,T1,info@townofkipling.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,town of Leader,T1,clerk@leader.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: buyer_phone,LeidiDonna Luxe Inc,T1,info@leididonna.com,was '1 (800) 958 1867 (tel: link on https://leididonna.com/fr)' → now '1 (800) 958 1867'
+field changed: vendor_address,Hanwell,T1,administration@hanwell.nb.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Irishtown-Summerside,T1,info@irishtownsummerside.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Hamilton District Christian High School,T1,info@hdch.org,"filled: '68B Leek Crescent, Suite 200, Richmond Hill, Ontario, Canada L4B 1H1'"
+field changed: buyer_phone,The American Whistle Corporation,T1,info@americanwhistle.com,was '+1-614-846-2918 (schema.org JSON-LD telephone on https://www.americanwhistle.com/)' → now '+1-614-846-2918'
+field changed: buyer_phone,ehobbyasia.com,T1,info@ehobbyasia.com,filled: '+852 5707-2604'
+field changed: vendor_address,Meadow Lake,T1,payments@meadowlake.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: vendor_address,Salmo,T1,info@salmo.ca,"filled: '100 King Street West, Suite 7210, Toronto, (Ontario), M5X 1E1'"
+field changed: buyer_phone,"THE REPUBLIC OF COTE D'IVOIRE / Greater Abidjan Urban Mobility Authority (AMUGA), Ministry of Transport",C1,info@amuga.ci,filled: '+2252722598615'
+field changed: buyer_legal_name_as_published,TIER Mailing Address UBC Supermileage Team University,I1,admin@supermileage.ca,filled: 'TIER Mailing Address UBC Supermileage Team University (stated on https://www.supermileage.ca/)'
+field changed: buyer_legal_name_as_published,Room Collection,I1,info@theroomcollection.ca,filled: 'Room Collection (stated on https://theroomcollection.ca/policies/terms-of-service)'
+field changed: buyer_address,East Coast Bakery,I1,info@eastcoastbakery.ca,"was '6257 quinpool road, Halifax, Nova Scotia, B3L1A4' → now '6257 quinpool road, Halifax, Nova Scotia, B3L1A4, CA (schema.org JSON-LD PostalAddress on https://eastcoastbakery.ca/)'"
+field changed: buyer_legal_name_as_published,Dudswell,I1,municipalite@municipalitedudswell.ca,filled: 'Municipality of Dudswell'
