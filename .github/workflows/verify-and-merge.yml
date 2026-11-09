@@ -92,7 +92,9 @@ jobs:
           [ -f coord/source_registry.csv ] && cp coord/source_registry.csv /tmp/gen/ || true
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
-            rm -rf coord/results && cp -r /tmp/gen/results coord/results && cp /tmp/gen/INGEST_REPORT.md coord/ 2>/dev/null || true
+            # only the verifier's own outputs come back from the snapshot: coord/results/ranked/* and coverage_history.csv belong to the ranker, which may
+            # have published a newer build meanwhile (06:41Z: a verifier push reverted the 06:36Z build to the 05:32Z one)
+            rsync -a --delete --exclude ranked --exclude coverage_history.csv /tmp/gen/results/ coord/results/ && cp /tmp/gen/INGEST_REPORT.md coord/ 2>/dev/null || true
             [ -f /tmp/gen/source_registry.csv ] && cp /tmp/gen/source_registry.csv coord/ || true
             python3 tools/next_batch.py > /dev/null
             python3 tools/status_board.py > /dev/null
