@@ -1,322 +1,565 @@
 change,buyer,rank_group,email,detail
-field changed: buyer_address,Canada School of Public Service,A3,csps.finance.efpc@canada.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '373 Sussex Dr., Ottawa, Ontario, K1N 5H5, Canada'"
-field changed: buyer_address,Financial Consumer Agency of Canada,A3,fcac.finance.acfc@fcac-acfc.gc.ca,"was '427 Laurier Ave. W, Suite#500, Ottawa, Ontario, K1R 1B9, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Office of the Auditor General of Canada,A3,finance@oag-bvg.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '240 Sparks Street, Ottawa, Ontario, K1A0G6, Canada'"
-field changed: buyer_address,Public Safety Canada,A3,financial_systems.systemes_financiers@ps-sp.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
-field changed: buyer_address,Desert Surfside Waterfront Accommodations,I1,office@surfside-osoyoos.com,"filled: '7310 Main Street, PO Box 929, Osoyoos, BC, V0H 1V0'"
-field changed: buyer_phone,Desert Surfside Waterfront Accommodations,I1,office@surfside-osoyoos.com,was '+12504952228 (tel: link on https://surfside-osoyoos.com/)' → now '+1-250-495-2228'
-field changed: buyer_legal_name_as_published,CUPE 3902,I1,office@cupe3902.org,"filled: 'CUPE 3902 (label per Wikidata Q5014711, official website on the organisation's domain (http://www.cupe3902.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Calaway Park,I1,info@calawaypark.com,"was 'CALAWAY PARK LTD. (as registered: Canada's Business Registries, AB 202211231, 2026-11-08)' → now 'Calaway Park (label per Wikidata Q5018638, official website on the organisation's domain (http://www.calawaypark.com/) +'"
-field changed: buyer_legal_name_as_published,Calgary Curling Club,I1,info@calgarycurlingclub.com,"filled: 'Calgary Curling Club (label per Wikidata Q5019662, official website on the organisation's domain (http://www.calgarycurlingclub.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Camp Pathfinder,I1,info@camppathfinder.com,"filled: 'Camp Pathfinder (label per Wikidata Q5027492, official website on the organisation's domain (http://www.camppathfinder.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Campbell House,I1,info@campbellhousemuseum.ca,"was 'CAMPBELL HOUSE LTD. (as registered: Canada's Business Registries, ON 2202832, 2026-11-08)' → now 'Campbell House (label per Wikidata Q5028095, official website on the organisation's domain (http://www.campbellhousemuse'"
-field changed: buyer_address,Campbell House,I1,info@campbellhousemuseum.ca,"filled: '160 Queen Street West [en] (Wikidata Q5028095, official website on the organisation's domain (http://www.campbellhousemuseum.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Canadian Association for Information Science,I1,info@cais-acsi.ca,"filled: 'Canadian Association for Information Science (label per Wikidata Q5029710, official website on the organisation's domain (http://www.cais-acsi.ca/) + name; 2026'"
-field changed: buyer_legal_name_as_published,Canadian Badlands Passion Play,I1,info@badlandsamp.com,"filled: 'Canadian Badlands Passion Play (label per Wikidata Q5029756, official website on the organisation's domain (https://badlandsamp.com/badlands-passion-play/) + na'"
-field changed: buyer_legal_name_as_published,EdCan Network,I1,info@edcan.ca,"filled: 'EdCan Network (label per Wikidata Q5029957, official website on the organisation's domain (https://www.edcan.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Canadian Food for the Hungry,I1,info@fhcanada.org,"filled: 'Canadian Food for the Hungry (label per Wikidata Q5030009, official website on the organisation's domain (http://www.fhcanada.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Canadian Information Processing Society,I1,info@cips.ca,"was 'CANADIAN INFORMATION PROCESSING SOCIETY (as registered: Corporations Canada (open data), corporation number 347477, 2026' → now 'Canadian Information Processing Society (label per Wikidata Q5030172, official website on the organisation's domain (htt'"
-field changed: buyer_legal_name_as_published,Canadian International Organ Competition,I1,info@ciocm.org,"was 'CONCOURS INTERNATIONAL D'ORGUE DU CANADA (as registered: Registraire des entreprises du Québec (open data), NEQ 11642034' → now 'Canadian International Organ Competition (label per Wikidata Q5030202, official website on the organisation's domain (ht'"
-field changed: buyer_legal_name_as_published,Canadian Jewish Political Affairs Committee,I1,info@cjpac.ca,"was 'Canadian Jewish Political Affairs Committee (recipient legal name in the federal grants & contributions disclosure)' → now 'Canadian Jewish Political Affairs Committee (label per Wikidata Q5030224, official website on the organisation's domain '"
-field changed: buyer_address,Canadian Jewish Political Affairs Committee,I1,info@cjpac.ca,"filled: 'Toronto (Wikidata Q5030224, official website on the organisation's domain (http://www.cjpac.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Canadian Junior Golf Association,I1,info@cjga.com,"was 'CANADIAN JUNIOR GOLF ASSOCIATION (as registered: Corporations Canada (open data), corporation number 3371352, 2026-11-08' → now 'Canadian Junior Golf Association (label per Wikidata Q5030265, official website on the organisation's domain (http://www'"
-field changed: buyer_address,Canadian Junior Golf Association,I1,info@cjga.com,"was '12481 Bathurst Street, Richmond Hill, ON, L4E 2B4 (registered address; Corporations Canada (open data), corporation numb' → now 'Markham (Wikidata Q5030265, official website on the organisation's domain (http://www.cjga.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,The ArQuives,I1,admin@arquives.ca,"filled: 'The ArQuives (label per Wikidata Q5030289, official website on the organisation's domain (https://arquives.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Canadian Ski Patrol System,I1,info@skipatrol.ca,"filled: 'Canadian Ski Patrol System (label per Wikidata Q5030565, official website on the organisation's domain (https://www.skipatrol.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Canadian Society of Transplantation,I1,admin@cst-transplant.ca,"was 'CANADIAN SOCIETY OF TRANSPLANTATION (as registered: Corporations Canada (open data), corporation number 3482812, 2026-11' → now 'Canadian Society of Transplantation (label per Wikidata Q5030590, official website on the organisation's domain (http://'"
-field changed: buyer_legal_name_as_published,Canyon Meadows,I1,info@cmca.ca,"filled: 'Canyon Meadows (label per Wikidata Q5034226, official website on the organisation's domain (http://www.cmca.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Carillon News,I1,contact@thecarillon.com,"filled: 'Carillon News (label per Wikidata Q5039569, official website on the organisation's domain (http://www.thecarillon.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Cataraqui Golf and Country Club,I1,info@cataraqui.com,"filled: 'Cataraqui Golf and Country Club (label per Wikidata Q5051476, official website on the organisation's domain (http://www.cataraqui.com/Curling.aspx) + name; 2026'"
-field changed: buyer_legal_name_as_published,Cathedral of St. John the Baptist,I1,office@ourcathedral.ca,"filled: 'Cathedral of St. John the Baptist (label per Wikidata Q5052397, official website on the organisation's domain (https://ourcathedral.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Cedar Brae Golf & Country Club,I1,info@cedarbraegolf.com,"filled: 'Cedar Brae Golf & Country Club (label per Wikidata Q5056581, official website on the organisation's domain (https://cedarbraegolf.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Centennial Park Golf Centre,I1,info@golfcpgc.com,"filled: 'Centennial Park Golf Centre (label per Wikidata Q5059199, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Central Conference of American Rabbis,I1,info@ccarnet.org,"filled: 'Central Conference of American Rabbis (label per Wikidata Q5060634, official website on the organisation's domain (https://www.ccarnet.org) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Centreville Amusement Park,I1,info@centreisland.ca,"was 'William Beasley Enterprises Limited (recipient legal name in the federal grants & contributions disclosure)' → now 'Centreville Amusement Park (label per Wikidata Q5062718, official website on the organisation's domain (http://www.centr'"
-field changed: buyer_legal_name_as_published,Chateau Lacombe Hotel,I1,info@chateaulacombe.com,"filled: 'Chateau Lacombe Hotel (label per Wikidata Q5087538, official website on the organisation's domain (https://www.chateaulacombe.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Cheremosh Ukrainian Dance Company,I1,contact@cheremosh.ca,"filled: 'Cheremosh Ukrainian Dance Company (label per Wikidata Q5091876, official website on the organisation's domain (http://www.cheremosh.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Child Welfare League of Canada,I1,info@cwlc.ca,"was 'CHILD WELFARE LEAGUE OF CANADA (as registered: Corporations Canada (open data), corporation number 3023443, 2026-11-08)' → now 'Child Welfare League of Canada (label per Wikidata Q5097804, official website on the organisation's domain (http://www.c'"
-field changed: buyer_legal_name_as_published,Chilliwack Huskers,I1,billets@valleyhuskers.ca,"filled: 'Chilliwack Huskers (label per Wikidata Q5099100, official website on the organisation's domain (https://www.valleyhuskers.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Aetios Productions,I1,info@aetios.com,"was 'AETIOS PRODUCTIONS INC. (as registered: Registraire des entreprises du Québec (open data), NEQ 1170474622, 2026-11-08)' → now 'Aetios Productions (label per Wikidata Q51482546, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Cormorant Books,I1,info@cormorantbooks.com,"was 'Cormorant Books Inc. (as registered: Canada's Business Registries, CC 2740427, 2026-11-08)' → now 'Cormorant Books (label per Wikidata Q5170993, official website on the organisation's domain (https://www.cormorantbooks.'"
-field changed: buyer_legal_name_as_published,Country Heritage Park,I1,info@countryheritagepark.com,"filled: 'Country Heritage Park (label per Wikidata Q5177315, official website on the organisation's domain (http://www.countryheritagepark.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Cream Productions,I1,info@creamproductions.com,"was 'Cream Productions Inc (recipient legal name in the federal grants & contributions disclosure)' → now 'Cream Productions (label per Wikidata Q5183354, official website on the organisation's domain (https://www.creamproducti'"
-field changed: buyer_address,Cream Productions,I1,info@creamproductions.com,"filled: '380 Adelaide St W, Toronto, ON M5V 1R7, Canada [en-ca] (Wikidata Q5183354, official website on the organisation's domain (https://www.creamproductions.com/) + n'"
-field changed: buyer_legal_name_as_published,Crestwood Curling Club,I1,info@crestwoodcurling.com,"was 'Crestwood Curling Club Ltd. (recipient legal name in the federal grants & contributions disclosure)' → now 'Crestwood Curling Club (label per Wikidata Q5184662, official website on the organisation's domain (http://www.crestwood'"
-field changed: buyer_legal_name_as_published,Davies Ward Phillips & Vineberg,I1,info@dwpv.com,"filled: 'Davies Ward Phillips & Vineberg (label per Wikidata Q5241741, official website on the organisation's domain (http://www.dwpv.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Deerhurst Resort,I1,info@deerhurstresort.com,"filled: 'Deerhurst Resort (label per Wikidata Q5250954, official website on the organisation's domain (http://www.deerhurstresort.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Delta Youth Orchestra,I1,info@rdyo.ca,"filled: 'Delta Youth Orchestra (label per Wikidata Q5254784, official website on the organisation's domain (https://www.rdyo.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Demeter Press,I1,info@demeterpress.org,"filled: 'Demeter Press (label per Wikidata Q5255193, official website on the organisation's domain (https://www.demeterpress.org) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,International Information and Engineering Technology Association,I1,info@iieta.org,"filled: 'International Information and Engineering Technology Association (label per Wikidata Q52633897, official website on the organisation's domain (https://iieta.org'"
-field changed: buyer_legal_name_as_published,Diocese of Kootenay,I1,admin@kootenay.info,"filled: 'Diocese of Kootenay (label per Wikidata Q5278899, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Diocese of Nova Scotia and Prince Edward Island,I1,office@nspeidiocese.ca,"filled: 'Diocese of Nova Scotia and Prince Edward Island (label per Wikidata Q5278950, official website on the organisation's domain (http://www.nspeidiocese.ca) + name;'"
-field changed: buyer_legal_name_as_published,Dougall Media,I1,inquiries@dougallmedia.com,"filled: 'Dougall Media (label per Wikidata Q5301072, official website on the organisation's domain (http://www.dougallmedia.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Dreamstate,I1,info@dreamstate.to,"filled: 'Dreamstate (label per Wikidata Q5306253, official website on the organisation's domain (https://www.dreamstate.to) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,EMAC Recording Studios,I1,info@emacstudios.com,"filled: 'EMAC Recording Studios (label per Wikidata Q5323344, official website on the organisation's domain (http://www.emacstudios.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,ESG Solutions,I1,info@esgsolutions.com,"filled: 'ESG Solutions (label per Wikidata Q5324167, official website on the organisation's domain (http://www.esgsolutions.com) + name; 2026-11-08)'"
-field changed: buyer_address,ESG Solutions,I1,info@esgsolutions.com,"filled: 'Kingston (Wikidata Q5324167, official website on the organisation's domain (http://www.esgsolutions.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Ebco Industries,I1,info@ebco.com,"filled: 'Ebco Industries (label per Wikidata Q5331578, official website on the organisation's domain (http://www.ebco.com/) + name; 2026-11-08)'"
-field changed: buyer_address,Ebco Industries,I1,info@ebco.com,"filled: 'Richmond (Wikidata Q5331578, official website on the organisation's domain (http://www.ebco.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Economic Club of Canada,I1,info@economicclub.ca,"was 'The Economic Club of Canada Ltd. (recipient legal name in the federal grants & contributions disclosure)' → now 'Economic Club of Canada (label per Wikidata Q5333354, official website on the organisation's domain (http://www.economic'"
-field changed: buyer_legal_name_as_published,Edmonton City Centre,I1,hello@edmontoncitycentre.com,"was 'EDMONTON CITY CENTRE INC. (as registered: Canada's Business Registries, AB 2022116426, 2026-11-08)' → now 'Edmonton City Centre (label per Wikidata Q5339023, official website on the organisation's domain (http://www.edmontoncit'"
-field changed: buyer_legal_name_as_published,Edmonton Huskies,I1,admin@edmontonhuskies.com,"filled: 'Edmonton Huskies (label per Wikidata Q5339064, official website on the organisation's domain (https://www.edmontonhuskies.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Edmonton Queen,I1,info@edmontonriverboat.ca,"filled: 'Edmonton Queen (label per Wikidata Q5339085, official website on the organisation's domain (http://edmontonriverboat.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Eldon House,I1,info@eldonhouse.ca,"filled: 'Eldon House (label per Wikidata Q5354037, official website on the organisation's domain (http://www.eldonhouse.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,"Burk's Falls, Armour & Ryerson Union Public Library",I1,info@burksfallslibrary.com,"filled: 'Burk's Falls, Armour & Ryerson Union Public Library (label per Wikidata Q53677845, official website on the organisation's domain (http://www.burksfallslibrary.c'"
-field changed: buyer_address,Fort Erie Public Library,I1,info@fepl.ca,"filled: '136 Gilmore Road, Fort Erie, Ontario, L2A 2M1 [en] (Wikidata Q53677933, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Six Nations Public Library,I1,info@snpl.ca,"was 'Six Nations Public Library (recipient legal name in the federal grants & contributions disclosure)' → now 'Six Nations Public Library (label per Wikidata Q53678171, official website on the organisation's domain (http://www.snpl'"
-field changed: buyer_legal_name_as_published,"Embassy of Lebanon, Ottawa",I1,info@lebanonembassy.ca,"filled: 'Embassy of Lebanon, Ottawa (label per Wikidata Q5369769, official website on the organisation's domain (http://www.lebanonembassy.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Esprida,I1,info@esprida.com,"filled: 'Esprida (label per Wikidata Q5399165, official website on the organisation's domain (http://www.esprida.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Sainte-Anne-de-Sorel,I1,info@sainteannedesorel.ca,"filled: 'Sainte-Anne-de-Sorel (label per Wikidata Q540163, official website on the organisation's domain (http://www.sainteannedesorel.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,False Creek Ferries,I1,info@granvilleislandferries.bc.ca,"filled: 'False Creek Ferries (label per Wikidata Q5432638, official website on the organisation's domain (https://granvilleislandferries.bc.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Filipino TV,I1,info@myfilipinotv.com,"filled: 'Filipino TV (label per Wikidata Q5448611, official website on the organisation's domain (https://www.myfilipinotv.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Illumisonics,I1,contact@illumisonics.com,"was 'ILLUMISONICS INC. (as registered: Canada's Business Registries, AB 2018627741, 2026-11-08)' → now 'Illumisonics (label per Wikidata Q54833991, official website on the organisation's domain (http://www.illumisonics.com/)'"
-field changed: buyer_address,Illumisonics,I1,contact@illumisonics.com,"filled: 'Edmonton (Wikidata Q54833991, official website on the organisation's domain (http://www.illumisonics.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Music Canada,I1,info@musiccanada.com,"was 'MUSIC CANADA (as registered: Corporations Canada (open data), corporation number 201936, 2026-11-08)' → now 'Music Canada (label per Wikidata Q550619, official website on the organisation's domain (https://musiccanada.com) + name'"
-field changed: buyer_legal_name_as_published,Coalition Publi.ca,I1,info@coalition-publi.ca,"filled: 'Coalition Publi.ca (label per Wikidata Q55083082, official website on the organisation's domain (https://www.coalition-publi.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Prime Asia Television,I1,info@primeasiatv.com,"filled: 'Prime Asia Television (label per Wikidata Q55137543, official website on the organisation's domain (https://primeasiatv.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Brampton Honey Badgers,I1,info@honeybadgers.ca,"filled: 'Brampton Honey Badgers (label per Wikidata Q55138789, official website on the organisation's domain (https://www.honeybadgers.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Gaspereau Vineyards,I1,info@gaspereauwine.com,"filled: 'Gaspereau Vineyards (label per Wikidata Q5526620, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Global Relay Gastown Grand Prix,I1,info@globalrelayggp.org,"filled: 'Global Relay Gastown Grand Prix (label per Wikidata Q5570590, official website on the organisation's domain (http://www.globalrelayGGP.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Great West Newspapers,I1,info@greatwest.ca,"filled: 'Great West Newspapers (label per Wikidata Q5600171, official website on the organisation's domain (http://www.greatwest.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,GuestLogix,I1,info@guestlogix.com,"was 'Guestlogix Inc. (recipient legal name in the federal grants & contributions disclosure)' → now 'GuestLogix (label per Wikidata Q5615107, official website on the organisation's domain (http://www.guestlogix.com) + nam'"
-field changed: buyer_legal_name_as_published,The Registry Theatre,I1,info@registrytheatre.com,"filled: 'The Registry Theatre (label per Wikidata Q56285771, official website on the organisation's domain (https://www.registrytheatre.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Half Pints Brewing Company,I1,info@halfpintsbrewing.com,"filled: 'Half Pints Brewing Company (label per Wikidata Q5641743, official website on the organisation's domain (http://halfpintsbrewing.com) + name; 2026-11-08)'"
-field changed: buyer_address,Half Pints Brewing Company,I1,info@halfpintsbrewing.com,"filled: 'Winnipeg (Wikidata Q5641743, official website on the organisation's domain (http://halfpintsbrewing.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Hawksworth Restaurant,I1,info@hawksworthrestaurant.com,"filled: 'Hawksworth Restaurant (label per Wikidata Q5685303, official website on the organisation's domain (http://www.hawksworthrestaurant.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,EssilorLuxottica,I1,contact@essilorluxottica.com,"filled: 'EssilorLuxottica (label per Wikidata Q56853086, official website on the organisation's domain (https://www.essilorluxottica.com) + name; 2026-11-08)'"
-field changed: buyer_address,EssilorLuxottica,I1,contact@essilorluxottica.com,"filled: 'Charenton-le-Pont (Wikidata Q56853086, official website on the organisation's domain (https://www.essilorluxottica.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Haysboro,I1,info@haysboro.org,"filled: 'Haysboro (label per Wikidata Q5687221, official website on the organisation's domain (https://www.haysboro.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Hazelton Lanes,I1,info@yorkvillevillage.com,"filled: 'Hazelton Lanes (label per Wikidata Q5688125, official website on the organisation's domain (http://yorkvillevillage.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Hero Certified Burgers,I1,info@heroburgers.com,"was 'HERO CERTIFIED BURGERS INC. (as registered: Canada's Business Registries, ON 2018209, 2026-11-08)' → now 'Hero Certified Burgers (label per Wikidata Q5742641, official website on the organisation's domain (http://www.heroburge'"
-field changed: buyer_address,Hero Certified Burgers,I1,info@heroburgers.com,"filled: 'Toronto (Wikidata Q5742641, official website on the organisation's domain (http://www.heroburgers.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Higher Education Quality Council of Ontario,I1,info@heqco.ca,"filled: 'Higher Education Quality Council of Ontario (label per Wikidata Q5758102, official website on the organisation's domain (http://www.heqco.ca/) + name; 2026-11-0'"
-field changed: buyer_legal_name_as_published,Správa pohledávek OKD,I1,info@okd.cz,"filled: 'Správa pohledávek OKD, a.s. (official name per Wikidata Q58623100, official website on the organisation's domain (http://www.okd.cz/) + name; 2026-11-08)'"
-field changed: buyer_address,Správa pohledávek OKD,I1,info@okd.cz,"filled: 'Karviná (Wikidata Q58623100, official website on the organisation's domain (http://www.okd.cz/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Holy Trinity Ukrainian Orthodox Cathedral,I1,administration@uocvancouver.com,"filled: 'Holy Trinity Ukrainian Orthodox Cathedral (label per Wikidata Q5886843, official website on the organisation's domain (http://www.uocvancouver.com/) + name; 202'"
-field changed: buyer_legal_name_as_published,Centre SCAMA,I1,info@centrescama.org,"was 'CENTRE S.C.A.M.A. (CENTRE DE SERVICES COMMUNAUTAIRES ET D'AIDE AU MAINTIEN DE L'AUTONOMIE) (as registered: Registraire d' → now 'Centre SCAMA (label per Wikidata Q58876491, official website on the organisation's domain (http://centrescama.org) + nam'"
-field changed: buyer_legal_name_as_published,Hotel Senator,I1,info@hotelsenator.ca,"filled: 'Hotel Senator (label per Wikidata Q5911958, official website on the organisation's domain (http://www.hotelsenator.ca/) + name; 2026-11-08)'"
-field changed: buyer_address,Hotel Senator,I1,info@hotelsenator.ca,"filled: '243 21st Street East [en] (Wikidata Q5911958, official website on the organisation's domain (http://www.hotelsenator.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,House of Cool,I1,info@houseofcool.com,"filled: 'House of Cool (label per Wikidata Q5914858, official website on the organisation's domain (https://www.houseofcool.com/) + name; 2026-11-08)'"
-field changed: buyer_address,Bestseller,I1,contact@bestseller.com,"filled: 'Brande (Wikidata Q594721, official website on the organisation's domain (http://www.bestseller.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Penticton Gallery,I1,inquiries@pentictonartgallery.com,"filled: 'Penticton Gallery (label per Wikidata Q59509513, official website on the organisation's domain (http://pentictonartgallery.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Salt Spring Island Museum,I1,info@saltspringarchives.com,"filled: 'Salt Spring Island Museum (label per Wikidata Q59510119, official website on the organisation's domain (http://www.saltspringarchives.com) + name; 2026-11-08)'"
-field changed: ship_ready,Salt Spring Island Museum,I1,info@saltspringarchives.com,was 'no (mailbox below finance grade)' → now 'no (sensitive buyer)'
-field changed: buyer_legal_name_as_published,MItoCanada,I1,info@mitocanada.org,"filled: 'MItoCanada (label per Wikidata Q59535404, official website on the organisation's domain (http://mitocanada.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Black Coalition for AIDS Prevention,I1,info@black-cap.com,"filled: 'Black Coalition for AIDS Prevention (label per Wikidata Q59535443, official website on the organisation's domain (http://www.black-cap.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,ARCTIConnexion,I1,info@arcticonnexion.ca,"filled: 'ARCTIConnexion (label per Wikidata Q59535472, official website on the organisation's domain (https://arcticonnexion.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Centre Jacques-Cartier,I1,info@centrejacquescartier.org,"filled: 'Centre Jacques-Cartier (label per Wikidata Q59535512, official website on the organisation's domain (http://centrejacquescartier.org/site_cjc/) + name; 2026-11-'"
-field changed: buyer_legal_name_as_published,MA Art Museum,I1,info@museema.org,"filled: 'MA Art Museum (label per Wikidata Q59541543, official website on the organisation's domain (http://www.museema.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Quebec Advanced Materials Cluster,I1,info@rqmp.ca,"filled: 'Quebec Advanced Materials Cluster (label per Wikidata Q59685043, official website on the organisation's domain (http://www.rqmp.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,D-Noy Muzik,I1,info@d-noy.com,"was 'D-NOY MUZIK INC. (as registered: Corporations Canada (open data), corporation number 11152416, 2026-11-08)' → now 'D-Noy Muzik (label per Wikidata Q600179, official website on the organisation's domain (http://www.d-noy.com) + name; 20'"
-field changed: buyer_address,D-Noy Muzik,I1,info@d-noy.com,"was '4553 Rue des Ancêtres, Terrebonne, QC, J6V 1G6 (registered address; Corporations Canada (open data), corporation number ' → now 'Montreal (Wikidata Q600179, official website on the organisation's domain (http://www.d-noy.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Inglewood,I1,info@icacalgary.com,"was 'INGLEWOOD CORP. (as registered: Canada's Business Registries, ON 2388859, 2026-11-08)' → now 'Inglewood (label per Wikidata Q6032698, official website on the organisation's domain (http://www.icacalgary.com/) + nam'"
-field changed: buyer_legal_name_as_published,Interchill Records,I1,contact@interchill.com,"filled: 'Interchill Records (label per Wikidata Q6045725, official website on the organisation's domain (http://www.interchill.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Iranian Railroad for Queer Refugees,I1,info@irqr.ca,"filled: 'Iranian Railroad for Queer Refugees (label per Wikidata Q6067327, official website on the organisation's domain (http://www.irqr.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,CFED-FM,I1,info@radiocitefm.ca,"filled: 'CFED-FM (label per Wikidata Q60785894, official website on the organisation's domain (http://radiocitefm.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,COZIC,I1,info@cozic.ca,"filled: 'COZIC (label per Wikidata Q60965476, official website on the organisation's domain (http://www.cozic.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Jackson Grills,I1,info@jacksongrills.com,"filled: 'Jackson Grills (label per Wikidata Q6117116, official website on the organisation's domain (http://www.jacksongrills.com/) + name; 2026-11-08)'"
-field changed: buyer_address,Jackson Grills,I1,info@jacksongrills.com,"filled: 'Abbotsford (Wikidata Q6117116, official website on the organisation's domain (http://www.jacksongrills.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Mont Farlagne,I1,info@republiknature.com,"filled: 'Mont Farlagne (label per Wikidata Q61234454, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Jewish Student Union,I1,info@jsu.org,"filled: 'Jewish Student Union (label per Wikidata Q6189956, official website on the organisation's domain (http://jsu.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Brasserie Artisanale Albion,I1,admin@brasseriealbion.com,"was '9215-0648 QUÉBEC INC. (as registered: Registraire des entreprises du Québec (open data), NEQ 1166176553, 2026-11-08)' → now 'Brasserie Artisanale Albion (label per Wikidata Q62107126, official website on the organisation's domain (http://www.bra'"
-field changed: buyer_legal_name_as_published,Smak Makeup,I1,hello@smakmakeup.com,"filled: 'Smak Makeup (label per Wikidata Q62263656, official website on the organisation's domain (https://smakmakeup.com/) + name; 2026-11-08)'"
-field changed: buyer_address,Smak Makeup,I1,hello@smakmakeup.com,"filled: 'Vancouver (Wikidata Q62263656, official website on the organisation's domain (https://smakmakeup.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,White Pass and Yukon Route,I1,info@wpyr.com,"filled: 'White Pass and Yukon Route (label per Wikidata Q632324, official website on the organisation's domain (https://wpyr.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Northern Bruce Peninsula,I1,clerk@northernbruce.ca,"filled: 'Northern Bruce Peninsula (label per Wikidata Q634034, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Kegedonce Press,I1,admin@kegedonce.com,"was 'KEGEDONCE PRESS INC. (as registered: Canada's Business Registries, ON 2537080, 2026-11-08)' → now 'Kegedonce Press (label per Wikidata Q6383438, official website on the organisation's domain (https://kegedonce.com/) + n'"
-field changed: buyer_legal_name_as_published,Kiever Synagogue,I1,admin@kievershul.com,"filled: 'Kiever Synagogue (label per Wikidata Q6405720, official website on the organisation's domain (http://kievershul.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Kilcoo Camp,I1,inquiries@kilcoo.com,"filled: 'Kilcoo Camp (label per Wikidata Q6406670, official website on the organisation's domain (https://kilcoo.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,"Killaloe, Hagarty and Richards",I1,info@khrtownship.ca,"filled: 'Killaloe, Hagarty and Richards (label per Wikidata Q6407265, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Kings County Museum,I1,info@kingscountymuseum.ca,"filled: 'Kings County Museum (label per Wikidata Q6412891, official website on the organisation's domain (https://www.kingscountymuseum.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Kispiox Band,I1,info@kispioxband.ca,"was 'Kispiox Band (recipient legal name in the federal grants & contributions disclosure)' → now 'Kispiox Band (label per Wikidata Q6416857, official website on the organisation's domain (https://www.kispioxband.ca/) +'"
-field changed: buyer_address,Banting Homestead Heritage Park,I1,info@bantinglegacy.ca,"filled: '5116 Sir Frederick Banting Road [en] (Wikidata Q64211757, official website on the organisation's domain (http://bantinglegacy.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Kollel Ohr Yosef,I1,info@thornhillkollel.com,"filled: 'Kollel Ohr Yosef (label per Wikidata Q6427369, official website on the organisation's domain (http://thornhillkollel.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Kootenay International Junior Hockey League,I1,info@kijhl.ca,"filled: 'Kootenay International Junior Hockey League (label per Wikidata Q6430825, official website on the organisation's domain (http://www.kijhl.ca) + name; 2026-11-08'"
-field changed: buyer_address,Fraport,I1,info@fraport.de,"filled: 'Frankfurt; Frankfurt (Wikidata Q643578, official website on the organisation's domain (http://www.fraport.de) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,The Capital Fair,I1,info@capitalfair.ca,"filled: 'The Capital Fair (label per Wikidata Q64692271, official website on the organisation's domain (http://www.capitalfair.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Carp Fair,I1,info@carpfair.ca,"was 'Carp Agricultural Society (recipient legal name in the federal grants & contributions disclosure)' → now 'Carp Fair (label per Wikidata Q64692389, official website on the organisation's domain (http://carpfair.ca/) + name; 202'"
-field changed: buyer_legal_name_as_published,Lake Babine Nation,I1,reception@lbnforestry.ca,"filled: 'Lake Babine Nation (label per Wikidata Q6474876, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Lambton House,I1,admin@lambtonhouse.org,"filled: 'Lambton House (label per Wikidata Q6481600, official website on the organisation's domain (http://www.lambtonhouse.org/History.htm) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Lang Pioneer Village Museum,I1,info@langpioneervillage.ca,"filled: 'Lang Pioneer Village Museum (label per Wikidata Q6485609, official website on the organisation's domain (https://www.langpioneervillage.ca) + name; 2026-11-08)'"
-field changed: buyer_address,Embracer Group,I1,info@embracer.com,"filled: 'Karlstad (Wikidata Q65083539, official website on the organisation's domain (https://embracer.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Microclimat Films,I1,info@microclimatfilms.com,"was 'MICROCLIMAT FILMS INC. (as registered: Registraire des entreprises du Québec (open data), NEQ 1166989070, 2026-11-08)' → now 'Microclimat Films (label per Wikidata Q65092135, official website on the organisation's domain (https://microclimatfilms'"
-field changed: buyer_legal_name_as_published,Commissariat House,I1,info@seethesites.ca,"filled: 'Commissariat House (label per Wikidata Q65153442, official website on the organisation's domain (http://www.seethesites.ca/the-sites/the-commissariat.aspx) + na'"
-field changed: buyer_legal_name_as_published,Lethbridge Regional Police Service,I1,inquiries@lethbridgepolice.ca,"filled: 'Lethbridge Regional Police Service (label per Wikidata Q6533312, official website on the organisation's domain (http://www.lethbridgepolice.ca/) + name; 2026-11'"
-field changed: buyer_legal_name_as_published,Light Organ Records,I1,info@lightorganrecords.com,"filled: 'Light Organ Records (label per Wikidata Q6546061, official website on the organisation's domain (https://lightorganrecords.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Grande Plée Bleue,I1,contact@grandepleebleue.ca,"filled: 'Grande Plée Bleue (label per Wikidata Q66058109, official website on the organisation's domain (http://grandepleebleue.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Microbrasserie du Lac Saint-Jean,I1,administration@microdulac.com,"filled: 'Microbrasserie du Lac Saint-Jean (label per Wikidata Q66123793, official website on the organisation's domain (https://microdulac.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,HopEra,I1,info@hopera.ca,"filled: 'HopEra (label per Wikidata Q66123820, official website on the organisation's domain (https://www.hopera.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Le Lion bleu,I1,contact@microlionbleu.com,"was '9311-8818 Québec inc. (as registered: Registraire des entreprises du Québec (open data), NEQ 1177796795, 2026-11-08)' → now 'Le Lion bleu (label per Wikidata Q66123843, official website on the organisation's domain (https://www.microlionbleu.com'"
-field changed: buyer_legal_name_as_published,Pie Braque,I1,info@piebraque.com,"filled: 'Pie Braque (label per Wikidata Q66124012, official website on the organisation's domain (http://piebraque.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Microbrasserie Saint-Honoré,I1,info@zoneboreale.com,"filled: 'Microbrasserie Saint-Honoré (label per Wikidata Q66124030, official website on the organisation's domain (http://zoneboreale.com/businesses/pub-le-laser-microbr'"
-field changed: buyer_legal_name_as_published,The Besnard Lakes,I1,info@thebesnardlakes.com,"filled: 'The Besnard Lakes (label per Wikidata Q664536, official website on the organisation's domain (http://www.thebesnardlakes.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Loewen Windows,I1,billholt@loewen.com,"filled: 'Loewen Windows (label per Wikidata Q6666611, official website on the organisation's domain (http://www.loewen.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,LogiSense,I1,info@logisense.com,"was 'LOGISENSE CORPORATION (as registered: Canada's Business Registries, ON 1273882, 2026-11-08)' → now 'LogiSense (label per Wikidata Q6667402, official website on the organisation's domain (http://www.logisense.com/) + name'"
-field changed: buyer_legal_name_as_published,MS Walk,I1,info@mscanada.ca,"filled: 'MS Walk (label per Wikidata Q6718284, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_address,MS Walk,I1,info@mscanada.ca,"filled: 'Toronto (Wikidata Q6718284, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_address,Kempinski,I1,info.development@kempinski.com,"filled: 'Geneva (Wikidata Q671990, official website on the organisation's domain (http://www.kempinski.com) + name; 2026-11-08)'"
-field changed: buyer_address,Archdiocese of Montréal,I1,info@diocesemontreal.org,"filled: 'Montreal (Wikidata Q672512, official website on the organisation's domain (http://www.diocesemontreal.org) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Maison Cartier,I1,info@jardinnelson.com,"filled: 'Maison Cartier (label per Wikidata Q6737029, official website on the organisation's domain (http://www.jardinnelson.com/en/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Mapleview Centre,I1,info@mapleviewcentre.com,"was 'MAPLEVIEW CENTRE LIMITED (as registered: Canada's Business Registries, ON 869872, 2026-11-08)' → now 'Mapleview Centre (label per Wikidata Q6754090, official website on the organisation's domain (http://www.mapleviewcentre'"
-field changed: buyer_legal_name_as_published,Matias Corporation,I1,info@matias.ca,"was 'THE MATIAS CORPORATION (as registered: Canada's Business Registries, ON 906943, 2026-11-08)' → now 'Matias Corporation (label per Wikidata Q6787405, official website on the organisation's domain (http://www.matias.ca/) +'"
-field changed: buyer_legal_name_as_published,Friedrich Krupp AG,I1,info@thyssenkrupp.com,"filled: 'Friedrich Krupp AG (label per Wikidata Q679201, official website on the organisation's domain (http://www.thyssenkrupp.com) + name; 2026-11-08)'"
-field changed: buyer_address,Friedrich Krupp AG,I1,info@thyssenkrupp.com,"filled: 'Berndorf; Essen (Wikidata Q679201, official website on the organisation's domain (http://www.thyssenkrupp.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Mennonite Educational Institute,I1,info@meischools.com,"filled: 'Mennonite Educational Institute (label per Wikidata Q6817198, official website on the organisation's domain (https://www.meischools.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Lanxess,I1,info@lanxess.com,"filled: 'Lanxess (label per Wikidata Q682992, official website on the organisation's domain (http://www.lanxess.com) + name; 2026-11-08)'"
-field changed: buyer_address,Lanxess,I1,info@lanxess.com,"filled: 'Cologne (Wikidata Q682992, official website on the organisation's domain (http://www.lanxess.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Capital Canada Limited,I1,info@capitalcanada.com,"was 'CAPITAL CANADA LIMITED (as registered: Canada's Business Registries, ON 367589, 2026-11-08)' → now 'Capital Canada Limited (label per Wikidata Q68494353, official website on the organisation's domain (https://www.capital'"
-field changed: buyer_legal_name_as_published,Mint Records,I1,info@mintrecs.com,"filled: 'Mint Records (label per Wikidata Q6869568, official website on the organisation's domain (http://www.mintrecs.com/) + name; 2026-11-08)'"
-field changed: buyer_address,Mint Records,I1,info@mintrecs.com,"filled: 'Vancouver (Wikidata Q6869568, official website on the organisation's domain (http://www.mintrecs.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Mistigris,I1,info@mistigris.org,"filled: 'Mistigris (label per Wikidata Q6880390, official website on the organisation's domain (http://www.mistigris.org) + name; 2026-11-08)'"
-field changed: buyer_address,Mistigris,I1,info@mistigris.org,"filled: 'Canada (Wikidata Q6880390, official website on the organisation's domain (http://www.mistigris.org) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Mother's Pizza,I1,info@motherspizza.ca,"filled: 'Mother's Pizza (label per Wikidata Q6917251, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Green Party of Canada,I1,info@greenparty.ca,"filled: 'Green Party of Canada (label per Wikidata Q691730, official website on the organisation's domain (https://greenparty.ca/fr) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Murney Tower,I1,info@murneytower.com,"filled: 'Murney Tower (label per Wikidata Q6938803, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Orthodox Church in America,I1,contact@oca.org,"filled: 'Orthodox Church in America (label per Wikidata Q694002, official website on the organisation's domain (http://www.oca.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,MusicNL,I1,info@musicnl.ca,"was 'Music Industry Association of Newfoundland and Labrador Inc. (recipient legal name in the federal grants & contributions' → now 'MusicNL (label per Wikidata Q6941408, official website on the organisation's domain (http://www.musicnl.ca/) + name; 202'"
-field changed: buyer_address,Kärcher,I1,info@vertrieb.kaercher.com,"filled: 'Winnenden (Wikidata Q696798, official website on the organisation's domain (https://www.kaercher.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,ONroute,I1,contactus@onroute.ca,"filled: 'ONroute (label per Wikidata Q7072776, official website on the organisation's domain (https://www.onroute.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Oliphant's Gym,I1,contact@oliphantsgym.com,"filled: 'Oliphant's Gym (label per Wikidata Q7086948, official website on the organisation's domain (http://www.oliphantsgym.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Oliver Sudden Productions,I1,info@oliversudden.com,"was 'OLIVER SUDDEN PRODUCTIONS INC. (as registered: Canada's Business Registries, CC 3298370, 2026-11-08)' → now 'Oliver Sudden Productions (label per Wikidata Q7087861, official website on the organisation's domain (http://www.oliver'"
-field changed: buyer_address,Oliver Sudden Productions,I1,info@oliversudden.com,"filled: 'Montreal (Wikidata Q7087861, official website on the organisation's domain (http://www.oliversudden.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Ontario Co-operative Association,I1,info@ontario.coop,"filled: 'Ontario Co-operative Association (label per Wikidata Q7094623, official website on the organisation's domain (http://www.ontario.coop) + name; 2026-11-08)'"
-field changed: buyer_address,Ontario Co-operative Association,I1,info@ontario.coop,"filled: 'Guelph (Wikidata Q7094623, official website on the organisation's domain (http://www.ontario.coop) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Ontario Genomics,I1,info@ontariogenomics.ca,"filled: 'Ontario Genomics (label per Wikidata Q7094670, official website on the organisation's domain (http://www.ontariogenomics.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Ottawa Hunt and Golf Club,I1,info@ottawahuntclub.org,"was 'OTTAWA HUNT AND GOLF CLUB, LIMITED (as registered: Canada's Business Registries, ON 4972, 2026-11-08)' → now 'Ottawa Hunt and Golf Club (label per Wikidata Q7109194, official website on the organisation's domain (https://ottawahun'"
-field changed: buyer_legal_name_as_published,Palais des congrès de Gatineau,I1,info@congresgatineau.com,"filled: 'Palais des congrès de Gatineau (label per Wikidata Q7126612, official website on the organisation's domain (https://www.congresgatineau.com/) + name; 2026-11-08'"
-field changed: buyer_legal_name_as_published,Palimpsest Press,I1,info@palimpsestpress.ca,"was 'PALIMPSEST PRESS INC. (as registered: Canada's Business Registries, ON 2231722, 2026-11-08)' → now 'Palimpsest Press (label per Wikidata Q7127551, official website on the organisation's domain (https://www.palimpsestpres'"
-field changed: buyer_legal_name_as_published,Park House Museum,I1,info@parkhousemuseum.com,"filled: 'Park House Museum (label per Wikidata Q7137797, official website on the organisation's domain (http://www.parkhousemuseum.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Parker Place,I1,contact@parkerplace.com,"filled: 'Parker Place (label per Wikidata Q7138359, official website on the organisation's domain (https://parkerplace.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Partners & Spade,I1,info@mythology.com,"filled: 'Partners & Spade (label per Wikidata Q7140708, official website on the organisation's domain (https://www.mythology.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Party for People with Special Needs,I1,info@partyforpeoplewithspecialneeds.ca,"filled: 'Party for People with Special Needs (label per Wikidata Q7141007, official website on the organisation's domain (https://partyforpeoplewithspecialneeds.ca/) + n'"
-field changed: buyer_legal_name_as_published,People & Power,I1,info@aggregateiq.com,"filled: 'People & Power (label per Wikidata Q7165846, official website on the organisation's domain (https://aggregateiq.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Videoton,I1,info@videoton.hu,"filled: 'VIDEOTON HOLDING ZRT. (official name per Wikidata Q718097, official website on the organisation's domain (https://videoton.hu/) + name; 2026-11-08)'"
-field changed: buyer_address,Videoton,I1,info@videoton.hu,"filled: 'Székesfehérvár (Wikidata Q718097, official website on the organisation's domain (https://videoton.hu/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Phoenix Concert Theatre,I1,info@thephoenixconcerttheatre.com,"filled: 'Phoenix Concert Theatre (label per Wikidata Q7186822, official website on the organisation's domain (http://www.thephoenixconcerttheatre.com) + name; 2026-11-08'"
-field changed: buyer_legal_name_as_published,Phoenix Labs,I1,info@phxlabs.ca,"was 'PHOENIX LABS LIMITED (as registered: Canada's Business Registries, ON 497707, 2026-11-08)' → now 'Phoenix Labs (label per Wikidata Q7186915, official website on the organisation's domain (https://phxlabs.ca/) + name; 2'"
-field changed: buyer_legal_name_as_published,Power Machines,I1,office.yu@power-m.ru,"filled: 'Power Machines (label per Wikidata Q722847, official website on the organisation's domain (http://www.power-m.ru) + name; 2026-11-08)'"
-field changed: buyer_address,Power Machines,I1,office.yu@power-m.ru,"filled: 'Saint Petersburg (Wikidata Q722847, official website on the organisation's domain (http://www.power-m.ru) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Port Credit,I1,info@portcredit.com,"filled: 'Port Credit (label per Wikidata Q7230570, official website on the organisation's domain (http://www.portcredit.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Port Moody Police Department,I1,info@portmoodypolice.com,"filled: 'Port Moody Police Department (label per Wikidata Q7230803, official website on the organisation's domain (http://www.portmoodypolice.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Port Stanley Terminal Rail,I1,info@pstr.on.ca,"filled: 'Port Stanley Terminal Rail (label per Wikidata Q7230952, official website on the organisation's domain (http://www.pstr.on.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Prairieland Park,I1,contactus@prairielandpark.com,"filled: 'Prairieland Park (label per Wikidata Q7238055, official website on the organisation's domain (https://prairielandpark.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,The Polygon Gallery,I1,info@thepolygon.ca,"filled: 'The Polygon Gallery (label per Wikidata Q7240975, official website on the organisation's domain (https://thepolygon.ca) + name; 2026-11-08)'"
-field changed: buyer_phone,The Polygon Gallery,I1,info@thepolygon.ca,"filled: '+1-604-986-1351 (Wikidata Q7240975, official website on the organisation's domain (https://thepolygon.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Project Seahorse,I1,info@projectseahorse.org,"filled: 'Project Seahorse (label per Wikidata Q7249315, official website on the organisation's domain (https://projectseahorse.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Scw'exmx Tribal Council,I1,administration@scwexmxtribal.org,"filled: 'Scw'exmx Tribal Council (official name per Wikidata Q72574110, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Quathiaski Cove,I1,info@quadraisland.ca,"filled: 'Quathiaski Cove (label per Wikidata Q7269572, official website on the organisation's domain (https://www.quadraisland.ca/about_quadra_island/quathiaskicove.html'"
-field changed: buyer_legal_name_as_published,QuickPlay Media,I1,hello@quickplay.com,"was 'Quickplay Media Inc. (as registered: Canada's Business Registries, CC 4311922, 2026-11-08)' → now 'QuickPlay Media (label per Wikidata Q7271670, official website on the organisation's domain (http://www.quickplay.com/) '"
-field changed: buyer_address,Red Deer Symphony,I1,info@rdso.ca,"filled: '206-4807 50 Ave, Red Deer, AB T4N 4A5 [en] (Wikidata Q7304011, official website on the organisation's domain (http://www.rdso.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Remington Centre,I1,info@remingtoncentre.ca,"was 'THE REMINGTON CENTRE INC. (as registered: Canada's Business Registries, ON 2201071, 2026-11-08)' → now 'Remington Centre (label per Wikidata Q7311826, official website on the organisation's domain (http://www.remingtoncentre'"
-field changed: buyer_legal_name_as_published,Ride Norfolk,I1,info@ridenorfolk.ca,"filled: 'Ride Norfolk (label per Wikidata Q7332498, official website on the organisation's domain (http://www.ridenorfolk.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Rocky Mountain Lacrosse League,I1,admin@rockymountainlax.com,"filled: 'Rocky Mountain Lacrosse League (label per Wikidata Q7355914, official website on the organisation's domain (http://www.rockymountainlax.com/) + name; 2026-11-08'"
-field changed: buyer_legal_name_as_published,Royal Agricultural Winter Fair,I1,info@royalfair.org,"was 'The Royal Agricultural Winter Fair Association of Canada (recipient legal name in the federal grants & contributions dis' → now 'Royal Agricultural Winter Fair (label per Wikidata Q7373591, official website on the organisation's domain (http://www.r'"
-field changed: buyer_legal_name_as_published,Royal Vancouver Yacht Club,I1,reception@royalvan.com,"filled: 'Royal Vancouver Yacht Club (label per Wikidata Q7374960, official website on the organisation's domain (http://www.royalvan.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,SC Waterloo Region,I1,info@scwaterloo.ca,"was 'SC WATERLOO REGION LTD. (as registered: Canada's Business Registries, ON 2444076, 2026-11-08)' → now 'SC Waterloo Region (label per Wikidata Q7389398, official website on the organisation's domain (http://www.scwaterloo.ca'"
-field changed: buyer_legal_name_as_published,SPoT Coffee,I1,info@spotcoffee.com,"filled: 'SPoT Coffee (label per Wikidata Q7392718, official website on the organisation's domain (http://www.spotcoffee.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Safari Zoo Camp,I1,info@zoocamp.com,"filled: 'Safari Zoo Camp (label per Wikidata Q7398401, official website on the organisation's domain (http://www.zoocamp.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Scotia Speedworld,I1,admin@scotiaspeedworld.ca,"filled: 'Scotia Speedworld (label per Wikidata Q7435586, official website on the organisation's domain (http://www.scotiaspeedworld.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Seeds of Diversity,I1,bureau@semences.ca,"filled: 'Seeds of Diversity (label per Wikidata Q7445703, official website on the organisation's domain (https://www.semences.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Shearwater Aviation Museum,I1,info@shearwateraviationmuseum.ca,"filled: 'Shearwater Aviation Museum (label per Wikidata Q7492221, official website on the organisation's domain (https://shearwateraviationmuseum.ca/) + name; 2026-11-08'"
-field changed: buyer_legal_name_as_published,Sidney Museum and Archives,I1,info@sidneymuseum.ca,"filled: 'Sidney Museum and Archives (label per Wikidata Q7509247, official website on the organisation's domain (http://www.sidneymuseum.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Sitka Fine Arts Camp,I1,office@fineartscamp.org,"filled: 'Sitka Fine Arts Camp (label per Wikidata Q7531926, official website on the organisation's domain (https://www.fineartscamp.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Socialist Party of Ontario,I1,info@socialistpartyofontario.ca,"filled: 'Socialist Party of Ontario (label per Wikidata Q7551700, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Soma Sonic,I1,info@subsonicrecordings.com,"filled: 'Soma Sonic (label per Wikidata Q7559106, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,BC Live Performance Network,I1,admin@bclive.ca,"filled: 'BC Live Performance Network (official name per Wikidata Q75640653, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Southern Alberta Art Gallery,I1,info@saag.ca,"filled: 'Southern Alberta Art Gallery (label per Wikidata Q7569602, official website on the organisation's domain (http://www.saag.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Squash Canada,I1,info@squash.ca,"was 'Squash Canada (as registered: Corporations Canada (open data), corporation number 382060, 2026-11-08)' → now 'Squash Canada (label per Wikidata Q7582102, official website on the organisation's domain (http://www.squash.ca/) + name'"
-field changed: buyer_legal_name_as_published,St. Christopher House,I1,info@westnh.org,"filled: 'St. Christopher House (label per Wikidata Q7587553, official website on the organisation's domain (https://www.westnh.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Sudbury Symphony Orchestra,I1,info@sudburysymphony.com,"filled: 'Sudbury Symphony Orchestra (label per Wikidata Q7633533, official website on the organisation's domain (http://sudburysymphony.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Sudden Death Records,I1,info@suddendeath.com,"was 'SUDDEN DEATH RECORDS LTD. (as registered: Canada's Business Registries, BC BC0557648, 2026-11-08)' → now 'Sudden Death Records (label per Wikidata Q7633580, official website on the organisation's domain (http://www.suddendeath'"
-field changed: buyer_legal_name_as_published,Sunnyside Mall,I1,office@sunnysidemall.ca,"filled: 'Sunnyside Mall (label per Wikidata Q7640892, official website on the organisation's domain (http://www.sunnysidemall.ca) + name; 2026-11-08)'"
-field changed: buyer_address,Sunnyside Mall,I1,office@sunnysidemall.ca,"filled: '1595 Bedford Highway, Bedford, Nova Scotia B4A 3Y4 [en] (Wikidata Q7640892, official website on the organisation's domain (http://www.sunnysidemall.ca) + name; '"
-field changed: buyer_phone,Sunnyside Mall,I1,office@sunnysidemall.ca,"filled: '+1-902-835-5099 (Wikidata Q7640892, official website on the organisation's domain (http://www.sunnysidemall.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Sunridge Ski Area,I1,info@skisunridge.com,"filled: 'Sunridge Ski Area (label per Wikidata Q7641007, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Sylvia Hotel,I1,info@sylviahotel.com,"was 'SYLVIA HOTEL LIMITED (as registered: Canada's Business Registries, BC BC0006809, 2026-11-08)' → now 'Sylvia Hotel (label per Wikidata Q7660934, official website on the organisation's domain (https://sylviahotel.com/) + na'"
-field changed: buyer_legal_name_as_published,Novanet,I1,office@novanet.ca,"was 'NOVANET INCORPORATED (as registered: Canada's Business Registries, NS 2323730, 2026-11-08)' → now 'Novanet (label per Wikidata Q76620907, official website on the organisation's domain (https://www.novanet.ca) + name; 20'"
-field changed: buyer_legal_name_as_published,SynthMaster,I1,info@kv331audio.com,"filled: 'SynthMaster (label per Wikidata Q7662688, official website on the organisation's domain (http://www.kv331audio.com/synthmaster.aspx) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Talentvision,I1,info@talentvisiontv.com,"filled: 'Talentvision (label per Wikidata Q7679212, official website on the organisation's domain (http://www.talentvisiontv.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Actual Humans,I1,info@actualhumans.com,"was 'ACTUAL HUMANS INC. (as registered: Corporations Canada (open data), corporation number 8894043, 2026-11-08)' → now 'Actual Humans (label per Wikidata Q76887630, official website on the organisation's domain (http://actualhumans.com/) + '"
-field changed: buyer_address,Actual Humans,I1,info@actualhumans.com,"was '3-2525 Bloor St. W., Toronto, ON, M6S 1R9 (registered address; Corporations Canada (open data), corporation number 88940' → now 'Toronto (Wikidata Q76887630, official website on the organisation's domain (http://actualhumans.com/) + name; 2026-11-08'"
-field changed: buyer_legal_name_as_published,Teach Away,I1,info@teachaway.com,"filled: 'Teach Away (label per Wikidata Q7691158, official website on the organisation's domain (http://www.teachaway.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Appili Therapeutics (Canada),I1,info@appilitherapeutics.com,"filled: 'Appili Therapeutics (Canada) (label per Wikidata Q77082629, official website on the organisation's domain (https://www.appilitherapeutics.com/) + name; 2026-11-'"
-field changed: buyer_legal_name_as_published,Textile Museum of Canada,I1,info@textilemuseum.ca,"filled: 'Textile Museum of Canada (label per Wikidata Q7708469, official website on the organisation's domain (http://www.textilemuseum.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,The Aquabus,I1,info@theaquabus.com,"filled: 'The Aquabus (label per Wikidata Q7714107, official website on the organisation's domain (https://theaquabus.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,The Beautiful Music,I1,admin@thebeautifulmusic.com,"filled: 'The Beautiful Music (label per Wikidata Q7716178, official website on the organisation's domain (http://www.thebeautifulmusic.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,The Model Railroad Club of Toronto,I1,info@modelrailroadclub.com,"filled: 'The Model Railroad Club of Toronto (label per Wikidata Q7751848, official website on the organisation's domain (http://www.modelrailroadclub.com/) + name; 2026-'"
-field changed: buyer_legal_name_as_published,The New Gallery,I1,info@thenewgallery.org,"filled: 'The New Gallery (label per Wikidata Q7753606, official website on the organisation's domain (http://www.thenewgallery.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,The Waldorf Hotel,I1,info@hotelatthewaldorf.ca,"was 'WALDORF HOTEL LIMITED (as registered: Canada's Business Registries, BC BC0030226, 2026-11-08)' → now 'The Waldorf Hotel (label per Wikidata Q7773258, official website on the organisation's domain (https://www.hotelatthewal'"
-field changed: buyer_legal_name_as_published,Unidisc Music,I1,info@unidisc.com,"was 'UNIDISC MUSIQUE INC. (as registered: Canada's Business Registries, CC 1065203, 2026-11-08)' → now 'Unidisc Music (label per Wikidata Q780223, official website on the organisation's domain (http://www.unidisc.com) + name'"
-field changed: buyer_address,Unidisc Music,I1,info@unidisc.com,"filled: 'Montreal (Wikidata Q780223, official website on the organisation's domain (http://www.unidisc.com) + name; 2026-11-08)'"
-field changed: buyer_address,Toronto PET User's Group,I1,info@tpug.ca,"filled: 'Toronto (Wikidata Q7826462, official website on the organisation's domain (http://www.tpug.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Canada men's national basketball team,I1,info@basketball.ca,"filled: 'Canada men's national basketball team (label per Wikidata Q783548, official website on the organisation's domain (https://www.basketball.ca/) + name; 2026-11-08'"
-field changed: buyer_legal_name_as_published,True North Records,I1,info@truenorthrecords.com,"filled: 'True North Records (label per Wikidata Q7847498, official website on the organisation's domain (http://truenorthrecords.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Twillingate Museum,I1,info@tmacs.ca,"filled: 'Twillingate Museum (label per Wikidata Q7858048, official website on the organisation's domain (http://tmacs.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Ucluelet Aquarium,I0,,"filled: 'Ucluelet Aquarium (label per Wikidata Q7876799, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,"StreamYard, Inc.",I1,contact@streamyard.com,"filled: 'StreamYard (label per Wikidata Q76760709, official website on the organisation's domain (https://streamyard.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,UniverCity,I1,info@univercity.ca,"filled: 'UniverCity (label per Wikidata Q7893857, official website on the organisation's domain (http://www.univercity.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Vancouver Southsiders,I1,info@vancouversouthsiders.ca,"filled: 'Vancouver Southsiders (label per Wikidata Q7914252, official website on the organisation's domain (http://www.vancouversouthsiders.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Victoria Conference Centre,I1,info@tourismvictoria.com,"filled: 'Victoria Conference Centre (label per Wikidata Q7926658, official website on the organisation's domain (https://www.tourismvictoria.com/meetings/victoria-confer'"
-field changed: buyer_legal_name_as_published,Voice for Animals Humane Society,I1,info@v4a.org,"filled: 'Voice for Animals Humane Society (label per Wikidata Q7939509, official website on the organisation's domain (https://www.v4a.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Waterloo Central Railway,I1,info@waterloocentralrailway.com,"filled: 'Waterloo Central Railway (label per Wikidata Q7974217, official website on the organisation's domain (http://www.waterloocentralrailway.com/) + name; 2026-11-08'"
-field changed: buyer_legal_name_as_published,"Watts, Griffis and McOuat Limited",I1,info@wgm.ca,"was 'WATTS, GRIFFIS AND MCOUAT LIMITED (as registered: Canada's Business Registries, ON 1273642, 2026-11-08)' → now 'Watts, Griffis and McOuat Limited (label per Wikidata Q7975005, official website on the organisation's domain (http://ww'"
-field changed: buyer_legal_name_as_published,Webers,I1,info@webers.com,"filled: 'Webers (label per Wikidata Q7978771, official website on the organisation's domain (http://www.webers.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,West Coast League,I1,info@westcoastleague.com,"filled: 'West Coast League (label per Wikidata Q7984809, official website on the organisation's domain (http://westcoastleague.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,West Moberly First Nations,I1,info@westmo.org,"was 'West Moberly First Nations (recipient legal name in the federal grants & contributions disclosure)' → now 'West Moberly First Nations (label per Wikidata Q7986011, official website on the organisation's domain (https://westmo.o'"
-field changed: buyer_legal_name_as_published,Canadian Association of Stand-Up Comedians,I1,info@canadianstandup.ca,"filled: 'Canadian Association of Stand-Up Comedians (label per Wikidata Q80208088, official website on the organisation's domain (https://canadianstandup.ca/) + name; 20'"
-field changed: buyer_legal_name_as_published,Baitun Nur Mosque,I1,info@baitunnur.org,"filled: 'Baitun Nur Mosque (label per Wikidata Q803998, official website on the organisation's domain (http://baitunnur.org/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Baker Lake,I1,reception@bakerlake.ca,"filled: 'Baker Lake (label per Wikidata Q804378, official website on the organisation's domain (https://bakerlake.ca/en/home/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Yarmouth County Museum & Archives,I1,info@yarmouthcountymuseum.ca,"filled: 'Yarmouth County Museum & Archives (label per Wikidata Q8049396, official website on the organisation's domain (https://www.yarmouthcountymuseum.ca/) + name; 202'"
-field changed: buyer_legal_name_as_published,Équipe Autonomiste,I1,info@equipeautonomiste.ca,"filled: 'Équipe Autonomiste (label per Wikidata Q8078364, official website on the organisation's domain (https://equipeautonomiste.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Woodland Cemetery,I1,info@woodlandcemetery.on.ca,"filled: 'Woodland Cemetery (label per Wikidata Q8086145, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Bata Shoe Museum,I1,info@batashoemuseum.ca,"filled: 'Bata Shoe Museum (label per Wikidata Q810693, official website on the organisation's domain (http://www.batashoemuseum.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Bella Coola,I1,info@bellacoola.ca,"filled: 'Bella Coola (label per Wikidata Q815765, official website on the organisation's domain (https://bellacoola.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Parcours Ignace-Bourget,I1,info@adgm.ca,"filled: 'Parcours Ignace-Bourget (label per Wikidata Q83178459, official website on the organisation's domain (https://www.adgm.ca/fr/parcours-disc-golf-montreal-ignace-'"
-field changed: buyer_legal_name_as_published,Atmosphere Visual Effects,I1,info@atmosphere-vfx.com,"filled: 'Atmosphere Visual Effects (label per Wikidata Q8322, official website on the organisation's domain (http://www.atmosphere-vfx.com) + name; 2026-11-08)'"
-field changed: buyer_address,Atmosphere Visual Effects,I1,info@atmosphere-vfx.com,"filled: 'Vancouver (Wikidata Q8322, official website on the organisation's domain (http://www.atmosphere-vfx.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Austrian Federal Railways,I1,info.ts@oebb.at,"filled: 'Österreichische Bundesbahnen-Holding Aktien­gesellschaft (official name per Wikidata Q83822, official website on the organisation's domain (https://konzern.oebb'"
-field changed: buyer_address,Austrian Federal Railways,I1,info.ts@oebb.at,"filled: 'ÖBB Konzernzentrale Hauptbahnhof Wien (Wikidata Q83822, official website on the organisation's domain (https://konzern.oebb.at/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,1000 Islands Tower,I1,info@1000islandstower.com,"filled: '1000 Islands Tower (label per Wikidata Q85719550, official website on the organisation's domain (http://1000islandstower.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,North Pacific Cannery National Historic Site,I1,info@northpacificcannery.ca,"filled: 'North Pacific Cannery National Historic Site (label per Wikidata Q85789625, official website on the organisation's domain (https://northpacificcannery.ca/) + na'"
-field changed: buyer_legal_name_as_published,Seigneurie de Beaupré Wind Farms,I1,info@parcseoliensseigneuriedebeaupre.com,"filled: 'Seigneurie de Beaupré Wind Farms (label per Wikidata Q85800243, official website on the organisation's domain (https://www.parcseoliensseigneuriedebeaupre.com/)'"
-field changed: buyer_legal_name_as_published,Kitchen Stuff Plus,I1,contactus@kitchenstuffplus.com,"was 'KITCHEN STUFF PLUS INC. (as registered: Canada's Business Registries, ON 964515, 2026-11-08)' → now 'Kitchen Stuff Plus (label per Wikidata Q85850908, official website on the organisation's domain (https://www.kitchenstuf'"
-field changed: buyer_legal_name_as_published,Capilano Suspension Bridge,I1,info@capbridge.com,"was 'CAPILANO SUSPENSION BRIDGE LTD. (as registered: Canada's Business Registries, BC C0687235, 2026-11-08)' → now 'Capilano Suspension Bridge (label per Wikidata Q862283, official website on the organisation's domain (https://www.capbr'"
-field changed: buyer_legal_name_as_published,Canada Learning Code,I1,info@canadalearningcode.ca,"was 'CANADA LEARNING CODE INC. (as registered: Corporations Canada (open data), corporation number 8067180, 2026-11-08)' → now 'Canada Learning Code (label per Wikidata Q86475988, official website on the organisation's domain (https://www.canadalea'"
-field changed: buyer_address,Canada Learning Code,I1,info@canadalearningcode.ca,"was '12 Peel Street, Lindsay, ON, K9V 3L8 (registered address; Corporations Canada (open data), corporation number 8067180, 2' → now 'Toronto (Wikidata Q86475988, official website on the organisation's domain (https://www.canadalearningcode.ca/) + name; '"
-field changed: buyer_legal_name_as_published,Théâtre du Tandem,I1,info@theatretandem.com,"was 'THÉÂTRE DU TANDEM INC. (as registered: Registraire des entreprises du Québec (open data), NEQ 1146634176, 2026-11-08)' → now 'Théâtre du Tandem (label per Wikidata Q86730987, official website on the organisation's domain (http://theatretandem.com'"
-field changed: buyer_legal_name_as_published,Roman Catholic Diocese of Kamloops,I1,info@rcdk.org,"filled: 'Roman Catholic Diocese of Kamloops (label per Wikidata Q870261, official website on the organisation's domain (http://www.rcdk.org/history/location.htm) + name;'"
-field changed: buyer_legal_name_as_published,Roman Catholic Diocese of Prince George,I1,reception@pgdiocese.bc.ca,"filled: 'Roman Catholic Diocese of Prince George (label per Wikidata Q874566, official website on the organisation's domain (http://www.pgdiocese.bc.ca/) + name; 2026-11'"
-field changed: buyer_legal_name_as_published,Roman Catholic Diocese of Sainte-Anne-de-la-Pocatière,I1,info@esap.ca,"filled: 'Roman Catholic Diocese of Sainte-Anne-de-la-Pocatière (label per Wikidata Q875487, official website on the organisation's domain (https://www.esap.ca/) + name; '"
-field changed: buyer_address,Roman Catholic Diocese of Sainte-Anne-de-la-Pocatière,I1,info@esap.ca,"filled: 'La Pocatière (Wikidata Q875487, official website on the organisation's domain (https://www.esap.ca/) + name; 2026-11-08)'"
-field changed: buyer_phone,Roman Catholic Diocese of Sainte-Anne-de-la-Pocatière,I1,info@esap.ca,"filled: '+1-418-856-1811 (Wikidata Q875487, official website on the organisation's domain (https://www.esap.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Roman Catholic Diocese of Saskatoon,I1,info@rcdos.ca,"filled: 'Roman Catholic Diocese of Saskatoon (label per Wikidata Q876256, exact name match + country + organisation claims; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Archéo-Québec,I1,info@archeoquebec.com,"was 'ARCHÉO-QUÉBEC (as registered: Registraire des entreprises du Québec (open data), NEQ 1160178241, 2026-11-08)' → now 'Archéo-Québec (label per Wikidata Q87727962, official website on the organisation's domain (https://archeoquebec.com/) +'"
-field changed: buyer_legal_name_as_published,Culture Mauricie,I1,info@culturemauricie.ca,"was 'CONSEIL DE LA CULTURE ET DES COMMUNICATIONS DE LA MAURICIE (as registered: Registraire des entreprises du Québec (open d' → now 'Culture Mauricie (label per Wikidata Q87727963, official website on the organisation's domain (https://culturemauricie.c'"
-field changed: buyer_legal_name_as_published,Culture Lanaudière,I1,info@culturelanaudiere.qc.ca,"was 'Culture Lanaudière (as registered: Registraire des entreprises du Québec (open data), NEQ 1142140871, 2026-11-08)' → now 'Culture Lanaudière (label per Wikidata Q87727968, official website on the organisation's domain (https://culturelanaudie'"
-field changed: buyer_legal_name_as_published,Blow Me Down Provincial Park,I1,info@parksnl.ca,"filled: 'Blow Me Down Provincial Park (label per Wikidata Q885483, official website on the organisation's domain (https://www.parksnl.ca/parks/blow-me-down-provincial-pa'"
-field changed: buyer_legal_name_as_published,Tashkent Mechanical Plant,I1,admin@tmz.uz,"filled: 'Tashkent Mechanical Plant (label per Wikidata Q899438, official website on the organisation's domain (http://www.tmz.uz) + name; 2026-11-08)'"
-field changed: buyer_address,Tashkent Mechanical Plant,I1,admin@tmz.uz,"filled: 'Tashkent (Wikidata Q899438, official website on the organisation's domain (http://www.tmz.uz) + name; 2026-11-08)'"
-field changed: buyer_address,EuroChem,I1,info@eurochemgroup.com,"filled: 'Zug (Wikidata Q905159, official website on the organisation's domain (http://www.eurochemgroup.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Extremely OK Games,I1,contact@exok.com,"filled: 'Extremely OK Games (label per Wikidata Q91624939, official website on the organisation's domain (https://exok.com) + name; 2026-11-08)'"
-field changed: buyer_address,Extremely OK Games,I1,contact@exok.com,"filled: 'Vancouver (Wikidata Q91624939, official website on the organisation's domain (https://exok.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Ottawa New Edinburgh Club,I1,info@onec.ca,"filled: 'Ottawa New Edinburgh Club (label per Wikidata Q93447874, official website on the organisation's domain (https://www.onec.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Centre Sportif Bois-de-Boulogne,I1,info@multi-sports.ca,"filled: 'Centre Sportif Bois-de-Boulogne (label per Wikidata Q938990, official website on the organisation's domain (http://www.multi-sports.ca) + name; 2026-11-08)'"
-field changed: buyer_address,Treehouse TV,I1,info@treehousetv.com,"filled: 'Toronto (Wikidata Q945825, official website on the organisation's domain (https://www.treehousetv.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,"VU, centre de diffusion et de production de la photographie",I1,info@vuphoto.org,"filled: 'VU, centre de diffusion et de production de la photographie (label per Wikidata Q95691007, official website on the organisation's domain (http://vuphoto.org/) +'"
-field changed: buyer_address,"VU, centre de diffusion et de production de la photographie",I1,info@vuphoto.org,"filled: '550, côte d’Abraham, Québec (Québec), Canada, G1K 3P9 [fr-ca] (Wikidata Q95691007, official website on the organisation's domain (http://vuphoto.org/) + name; 2'"
-field changed: buyer_legal_name_as_published,Whistler Brewing Company,I1,info@whistlerbeer.com,"filled: 'Whistler Brewing Company (label per Wikidata Q95995075, official website on the organisation's domain (http://www.whistlerbeer.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,The Tocqueville Review/La Revue Tocqueville,I1,contact@tocqueville21.com,"filled: 'The Tocqueville Review/La Revue Tocqueville (label per Wikidata Q96334403, official website on the organisation's domain (https://tocqueville21.com/the-tocquevi'"
-field changed: buyer_legal_name_as_published,Kinngait Co-operative,I1,info@westbaffin.com,"filled: 'Kinngait Co-operative (label per Wikidata Q96386018, official website on the organisation's domain (https://www.westbaffin.com/) + name; 2026-11-08)'"
-field changed: buyer_address,Kinngait Co-operative,I1,info@westbaffin.com,"filled: 'Kinngait (Wikidata Q96386018, official website on the organisation's domain (https://www.westbaffin.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Kissa Tanto,I1,hello@kissatanto.com,"filled: 'Kissa Tanto (label per Wikidata Q96386070, official website on the organisation's domain (https://www.kissatanto.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Michael Green Architecture,I1,hello@mg-architecture.ca,"was 'MICHAEL GREEN ARCHITECTURE INC. (recipient legal name in the federal grants & contributions disclosure)' → now 'Michael Green Architecture (label per Wikidata Q96392808, official website on the organisation's domain (https://mg-arch'"
-field changed: buyer_legal_name_as_published,gh3*,I1,info@gh3.ca,"filled: 'gh3* (label per Wikidata Q96418471, official website on the organisation's domain (https://www.gh3.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Quispamsis,I1,info@quispamsis.ca,"filled: 'Quispamsis (label per Wikidata Q964313, official website on the organisation's domain (http://www.quispamsis.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Ontario Turtle Conservation Centre,I1,info@ontarioturtle.ca,"filled: 'Ontario Turtle Conservation Centre (label per Wikidata Q97040349, official website on the organisation's domain (https://ontarioturtle.ca/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Les Foutoukours,I1,info@lesfoutoukours.com,"filled: 'Les Foutoukours (label per Wikidata Q97188295, official website on the organisation's domain (https://lesfoutoukours.com/fr/accueil/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Guard Crush Games,I1,contact@guardcrushgames.com,"filled: 'Guard Crush Games (label per Wikidata Q97301884, official website on the organisation's domain (http://www.guardcrushgames.com) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Sussex,I1,info@sussex.ca,"filled: 'Sussex (label per Wikidata Q984084, official website on the organisation's domain (http://www.sussex.ca) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,MB Labs,I1,info@mblabs.com,"filled: 'MB Labs (label per Wikidata Q98442484, official website on the organisation's domain (https://www.mblabs.com/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Voluntas Dei Institute,I1,secretariat@voluntasdei.org,"filled: 'Voluntas Dei Institute (label per Wikidata Q99547667, official website on the organisation's domain (https://www.voluntasdei.org/en/) + name; 2026-11-08)'"
-field changed: buyer_legal_name_as_published,Morningstar Mill,I1,info@morningstarmill.ca,"filled: 'Morningstar Mill (label per Wikidata Q99978138, official website on the organisation's domain (http://morningstarmill.ca/) + name; 2026-11-08)'"
-field changed: buyer_address,Morningstar Mill,I1,info@morningstarmill.ca,"filled: '2716 DeCew Road [en] (Wikidata Q99978138, official website on the organisation's domain (http://morningstarmill.ca/) + name; 2026-11-08)'"
+field changed: buyer_address,"Immigration, Refugees and Citizenship Canada",GOLD,vendors_fournisseurs@cic.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: payment_terms_as_published,National Oceanography Centre,GOLD,noc_ap@noc.ac.uk,"was '30 days of receipt (as printed on https://www.noc.ac.uk/work-with-us/supplier-information, re-read 2026-11-08)' → now 'within 30 days'"
+mailbox changed,Crown Commercial Service,GOLD,supplier@gca.gov.uk,was markets-sourcing-suppliers@gca.gov.uk
+package moved,Crown Commercial Service,GOLD,supplier@gca.gov.uk,was A2
+field changed: ship_ready,Crown Commercial Service,GOLD,supplier@gca.gov.uk,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,Employees Retirement System of Texas,GOLD,ap@ers.texas.gov,was purchasing-all@ers.texas.gov
+package moved,Employees Retirement System of Texas,GOLD,ap@ers.texas.gov,was A2
+field changed: po_required_as_published,Employees Retirement System of Texas,GOLD,ap@ers.texas.gov,filled: 'yes (as published: must submit invoices to ERS by mail: P.O.)'
+field changed: ship_ready,Employees Retirement System of Texas,GOLD,ap@ers.texas.gov,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,BRITISH COUNCIL(THE),GOLD,invoices@sutton.gov.uk,was Global.Procurement@britishcouncil.org
+package moved,BRITISH COUNCIL(THE),GOLD,invoices@sutton.gov.uk,was A2
+field changed: payment_terms_as_published,BRITISH COUNCIL(THE),GOLD,invoices@sutton.gov.uk,"was 'paid within 5 days,Percentage of Invoices paid within 30 days (as printed on https://assets.publishing.service.gov.uk/me' → now 'payment terms are 30 days from receipt of a valid inv'"
+field changed: po_required_as_published,BRITISH COUNCIL(THE),GOLD,invoices@sutton.gov.uk,was 'purchase-order terms published (as published: purchase orders raised with Magnox Ltd for the events are set out below: 2' → now 'yes (as published: quote a valid purchase order)'
+field changed: invoice_portal_url,BRITISH COUNCIL(THE),GOLD,invoices@sutton.gov.uk,was 'https://tap.tcsapps.com/tap2/#/bc-supplier-registration' → now ''
+field changed: ap_phone,BRITISH COUNCIL(THE),GOLD,invoices@sutton.gov.uk,was '+44 (0)161 884 0291' → now ''
+field changed: invoice_mailing_address,BRITISH COUNCIL(THE),GOLD,invoices@sutton.gov.uk,"was '1 Redman Place, Stratford, London E20 1JQ, United Kingdom' → now ''"
+field changed: dmarc_policy,BRITISH COUNCIL(THE),GOLD,invoices@sutton.gov.uk,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now 'p=reject'"
+field changed: ship_ready,BRITISH COUNCIL(THE),GOLD,invoices@sutton.gov.uk,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,Siemens Mobility GmbH,GOLD,e-invoiceclarificationinternal.de@siemens.com,was contact.mobility@siemens.com
+package moved,Siemens Mobility GmbH,GOLD,e-invoiceclarificationinternal.de@siemens.com,was A1
+field changed: ap_phone,Siemens Mobility GmbH,GOLD,e-invoiceclarificationinternal.de@siemens.com,was '+49 (89) 3803 5491' → now ''
+field changed: invoice_mailing_address,Siemens Mobility GmbH,GOLD,e-invoiceclarificationinternal.de@siemens.com,"was 'Krauss-Maffei-Straße 2, 80997 München, Germany' → now ''"
+mailbox changed,Municipality of West Grey,GOLD,accountspayable@westgrey.com,was finance@westgrey.com
+package moved,Municipality of West Grey,GOLD,accountspayable@westgrey.com,was B3
+field changed: ship_ready,Municipality of West Grey,GOLD,accountspayable@westgrey.com,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+field changed: buyer_legal_name_as_published,"Commission européenne, INTPA - International Partnerships",GOLD,ap.invoices@ecb.europa.eu,"was 'European Central Bank s (stated on https://www.ecb.europa.eu/home/html/index.en.html)' → now 'European Central Bank (label per Wikidata Q8901, official website on the organisation's domain (https://www.ecb.europa.e'"
+field changed: buyer_address,"Commission européenne, INTPA - International Partnerships",GOLD,ap.invoices@ecb.europa.eu,"was 'Frankfurt am Main, 60314, DEU' → now 'Nouakchott, MRT'"
+field changed: buyer_website,"Commission européenne, INTPA - International Partnerships",GOLD,ap.invoices@ecb.europa.eu,was 'http://www.ecb.europa.eu' → now 'https://international-partnerships.ec.europa.eu/index_en'
+field changed: vendor_legal_name,"Commission européenne, INTPA - International Partnerships",GOLD,ap.invoices@ecb.europa.eu,was 'Malloc Inc.' → now ''
+field changed: vendor_neq,"Commission européenne, INTPA - International Partnerships",GOLD,ap.invoices@ecb.europa.eu,"was '1178703329 (Registraire des entreprises du Québec, bulk register https://www.donneesquebec.ca/recherche/dataset/registre' → now ''"
+field changed: vendor_address,"Commission européenne, INTPA - International Partnerships",GOLD,ap.invoices@ecb.europa.eu,"was '150 King Street West, Suite 200, Toronto, M5H 1J9' → now '200, 14707 BANNISTER ROAD SE, CALGARY, T2X 1Z2'"
+field changed: contract_reference,"Commission européenne, INTPA - International Partnerships",GOLD,ap.invoices@ecb.europa.eu,"was '{""publication_number"": ""715865-2025"", ""ojs_issue"": ""208/2025"", ""notice_id_uuid"": ""784b6e6a-c375-4cc3-b84e-274570caa3fe"",' → now '{""publication_number"": ""82584-2026"", ""ojs_issue"": ""24/2026"", ""notice_id_uuid"": ""ab0ac6f5-e4a0-454f-9431-0dbf5daad60f"", ""'"
+mailbox changed,World Bank Group - IBRD - -,GOLD,hqwbinvoices@worldbank.org,was corporateprocurement@worldbank.org
+package moved,World Bank Group - IBRD - -,GOLD,hqwbinvoices@worldbank.org,was B2
+field changed: buyer_website,World Bank Group - IBRD - -,GOLD,hqwbinvoices@worldbank.org,was 'https://worldbank.org' → now 'https://thedocs.worldbank.org'
+field changed: ship_ready,World Bank Group - IBRD - -,GOLD,hqwbinvoices@worldbank.org,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,Manitoba Institute of Trades and Technology,GOLD,accountspayable@mitt.ca,was finance@mitt.ca
+package moved,Manitoba Institute of Trades and Technology,GOLD,accountspayable@mitt.ca,was B3
+field changed: po_required_as_published,Manitoba Institute of Trades and Technology,GOLD,accountspayable@mitt.ca,was 'purchase-order terms published (as published: shall perform the services described in the applicable Purchase Order) (as' → now 'yes (as published: include MITT’s Purchase Order)'
+field changed: ap_phone,Manitoba Institute of Trades and Technology,GOLD,accountspayable@mitt.ca,was '204-989-6500' → now ''
+field changed: invoice_mailing_address,Manitoba Institute of Trades and Technology,GOLD,accountspayable@mitt.ca,"was '130 Henlow Bay, Winnipeg, MB R3Y 1G4, Canada' → now ''"
+field changed: ship_ready,Manitoba Institute of Trades and Technology,GOLD,accountspayable@mitt.ca,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+mailbox changed,Norfolk State University,GOLD,accountspayabledept@nsu.edu,was financeandadministration@nsu.edu
+package moved,Norfolk State University,GOLD,accountspayabledept@nsu.edu,was B3
+field changed: po_required_as_published,Norfolk State University,GOLD,accountspayabledept@nsu.edu,was 'purchase-order terms published (as published: mandatory source is required prior to issuing any purchase order) (as prin' → now 'yes (as published: must reference Purchase Order)'
+field changed: ap_phone,Norfolk State University,GOLD,accountspayabledept@nsu.edu,"was '757) 823-8011 (as printed on https://www.nsu.edu/About/Administrative-Offices-Services/Finance-and-Administration/Forms,' → now ''"
+field changed: invoice_mailing_address,Norfolk State University,GOLD,accountspayabledept@nsu.edu,was '700 Park Avenue Norfolk VA 23504 (as printed on https://www.nsu.edu/About/Administrative-Offices-Services/Finance-and-Ad' → now ''
+field changed: ship_ready,Norfolk State University,GOLD,accountspayabledept@nsu.edu,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+mailbox changed,Burlington Electric Department,GOLD,bedap@burlingtonelectric.com,was purchasing@burlingtonelectric.com
+package moved,Burlington Electric Department,GOLD,bedap@burlingtonelectric.com,was B2
+field changed: buyer_address,Burlington Electric Department,GOLD,bedap@burlingtonelectric.com,"was '585 Pine Street Burlington, VT 05401 (printed next to the organisation's mailbox (as printed on https://www.burlingtonel' → now ''"
+field changed: po_required_as_published,Burlington Electric Department,GOLD,bedap@burlingtonelectric.com,was 'purchase-order terms published (as published: purchase order shall) (as printed on https://www.burlingtonelectric.com/wp' → now 'yes (as published: shall furnish a packing slip with all shipments showing the purchase order number) (as printed on htt'
+field changed: ship_ready,Burlington Electric Department,GOLD,bedap@burlingtonelectric.com,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,Southern California Edison Company,GOLD,sceinvoices@sce.com,was procurementreviewgroup@sce.com
+package moved,Southern California Edison Company,GOLD,sceinvoices@sce.com,was B2
+field changed: payment_terms_as_published,Southern California Edison Company,GOLD,sceinvoices@sce.com,was '30 days of the approval (as printed on https://www.sce.com/es/ahorrar-dinero/reembolsos-asistencia-financiera/programas-' → now 'net 60'
+field changed: ship_ready,Southern California Edison Company,GOLD,sceinvoices@sce.com,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,City of Riverside,GOLD,fleetinvoices@riversideca.gov,was vendors@riversideca.gov
+package moved,City of Riverside,GOLD,fleetinvoices@riversideca.gov,was B2
+field changed: buyer_phone,City of Riverside,GOLD,fleetinvoices@riversideca.gov,was '951-826-5279 (printed next to the organisation's mailbox (as printed on https://riversideca.gov/finance/PDF/City%20of%20' → now ''
+field changed: ap_phone,City of Riverside,GOLD,fleetinvoices@riversideca.gov,was '(951) 826-5548' → now ''
+field changed: ship_ready,City of Riverside,GOLD,fleetinvoices@riversideca.gov,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,Stryker Corporation,GOLD,CRFCAP_Invoices_corp@stryker.com,was suppliernotifications@stryker.com
+package moved,Stryker Corporation,GOLD,CRFCAP_Invoices_corp@stryker.com,was B2
+field changed: ship_ready,Stryker Corporation,GOLD,CRFCAP_Invoices_corp@stryker.com,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,"AEP Energy Partners, Inc.",GOLD,apayable@aep.com,was vendormgmnt@aep.com
+package moved,"AEP Energy Partners, Inc.",GOLD,apayable@aep.com,was B2
+field changed: ship_ready,"AEP Energy Partners, Inc.",GOLD,apayable@aep.com,was 'no (mailbox below finance grade)' → now 'yes'
+package moved,Village of Lytton,GOLD,finance@lytton.ca,was B3
+field changed: ship_ready,Village of Lytton,GOLD,finance@lytton.ca,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+mailbox changed,Village of Lions Bay,GOLD,accounting@lionsbay.ca,was finance@lionsbay.ca
+package moved,Village of Lions Bay,GOLD,accounting@lionsbay.ca,was B3
+field changed: ap_phone,Village of Lions Bay,GOLD,accounting@lionsbay.ca,"was '604-921-9333 ext. 1001 (as printed on https://www.lionsbay.ca/municipal-services/finance, re-read 2026-11-08)' → now ''"
+field changed: invoice_mailing_address,Village of Lions Bay,GOLD,accounting@lionsbay.ca,"was '400 Centre Road Lions Bay, British Columbia V0N 2E0 (as printed on https://www.lionsbay.ca/municipal-services/finance, r' → now ''"
+field changed: ap_contact_name_as_published,Village of Lions Bay,GOLD,accounting@lionsbay.ca,was 'Karen Jeffery (as printed by the organisation next to its invoicing mailbox)' → now 'Pamela Rooke (Chief Financial Officer) (as printed by the organisation on its own accounts-payable page (as printed on h'
+field changed: ship_ready,Village of Lions Bay,GOLD,accounting@lionsbay.ca,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+package moved,Villanova University In The State Of Pennsylvania,GOLD,procurement@villanova.edu,was B2
+field changed: invoice_mailing_address,Villanova University In The State Of Pennsylvania,GOLD,procurement@villanova.edu,"filled: '789 E. Lancaster Ave. Villanova, PA 19085 (as printed on https://www.villanova.edu/university/financial-affairs/vendors.html, re-read 2026-11-08)'"
+field changed: ship_ready,Villanova University In The State Of Pennsylvania,GOLD,procurement@villanova.edu,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,msvu.ca,GOLD,accounts.payable@msvu.ca,was financial.services@msvu.ca
+package moved,msvu.ca,GOLD,accounts.payable@msvu.ca,was B3
+field changed: ship_ready,msvu.ca,GOLD,accounts.payable@msvu.ca,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+mailbox changed,Cambrian College,GOLD,POINVOICE@cambriancollege.ca,was purchasing@cambriancollege.ca
+package moved,Cambrian College,GOLD,POINVOICE@cambriancollege.ca,was B2
+field changed: po_required_as_published,Cambrian College,GOLD,POINVOICE@cambriancollege.ca,was 'purchase-order terms published (as published: Requisition Entry & Management Internal Procedures (Purchasing Services) R' → now 'yes (as published: Include PO)'
+field changed: ship_ready,Cambrian College,GOLD,POINVOICE@cambriancollege.ca,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,Western Michigan University,GOLD,acctspay-dept@wmich.edu,was wmu-purchasing@wmich.edu
+package moved,Western Michigan University,GOLD,acctspay-dept@wmich.edu,was B2
+field changed: payment_terms_as_published,Western Michigan University,GOLD,acctspay-dept@wmich.edu,"was 'paid within 30 days (as printed on https://wmich.edu/accounting-services/cashiering/advance-payments, re-read 2026-11-08' → now 'net 30'"
+field changed: ap_phone,Western Michigan University,GOLD,acctspay-dept@wmich.edu,filled: '269-387-4253'
+field changed: ship_ready,Western Michigan University,GOLD,acctspay-dept@wmich.edu,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,Clean Energy Alliance,GOLD,accountspayable@thecleanenergyalliance.org,was accountservices@thecleanenergyalliance.org
+package moved,Clean Energy Alliance,GOLD,accountspayable@thecleanenergyalliance.org,was B3
+field changed: payment_terms_as_published,Clean Energy Alliance,GOLD,accountspayable@thecleanenergyalliance.org,filled: 'within 15 days'
+field changed: ap_phone,Clean Energy Alliance,GOLD,accountspayable@thecleanenergyalliance.org,"was '(833) 232-3110 (as printed on https://thecleanenergyalliance.org/contact/, re-read 2026-11-08)' → now ''"
+field changed: ship_ready,Clean Energy Alliance,GOLD,accountspayable@thecleanenergyalliance.org,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+package moved,Township of McNab-Braeside,GOLD,finance@mcnabbraeside.com,was B3
+field changed: ship_ready,Township of McNab-Braeside,GOLD,finance@mcnabbraeside.com,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+mailbox changed,Wright State University,GOLD,accounts_payable@wright.edu,was purchasing@wright.edu
+package moved,Wright State University,GOLD,accounts_payable@wright.edu,was B2
+field changed: payment_terms_as_published,Wright State University,GOLD,accounts_payable@wright.edu,was 'payment terms are NET30 (as printed on https://www.wright.edu/sites/www.wright.edu/files/page/attachments/procurement-te' → now 'Net 30'
+field changed: po_required_as_published,Wright State University,GOLD,accounts_payable@wright.edu,was 'purchase-order terms published (as published: needed to an existing purchase order) (as printed on https://www.wright.ed' → now 'purchase-order terms published (as published: purchase orders for their departments with vendors on behalf of the univer'
+field changed: invoice_mailing_address,Wright State University,GOLD,accounts_payable@wright.edu,"filled: 'Wright State University, c/o Accounts Payable, 3640 Colonel Glenn Hwy, 300 University Hall, Dayton, OH 45435'"
+field changed: ship_ready,Wright State University,GOLD,accounts_payable@wright.edu,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,ACADIA UNIVERSITY,GOLD,accountspayable@acadiau.ca,was student.accounts@acadiau.ca
+package moved,ACADIA UNIVERSITY,GOLD,accountspayable@acadiau.ca,was B1
+field changed: ap_phone,ACADIA UNIVERSITY,GOLD,accountspayable@acadiau.ca,filled: '585-1450 (Manager Accounts Payable);585-1235 (AP Clerk);585-1398 (AP/AR Clerk); seven-digit numbers as published'
+field changed: invoice_mailing_address,ACADIA UNIVERSITY,GOLD,accountspayable@acadiau.ca,"filled: '15 University Avenue Wolfville, Nova Scotia B4P 2R6 (as printed on https://financial-services.acadiau.ca/accounts-payable.html, re-read 2026-11-08)'"
+field changed: ship_ready,ACADIA UNIVERSITY,GOLD,accountspayable@acadiau.ca,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,NOSM University,GOLD,accountspayable@nosm.ca,was finance@nosm.ca
+package moved,NOSM University,GOLD,accountspayable@nosm.ca,was B3
+field changed: ap_phone,NOSM University,GOLD,accountspayable@nosm.ca,"was '807-766-7383 (as printed on https://www.nosm.ca/about/administrative-offices/finance/, re-read 2026-11-08)' → now ''"
+field changed: ap_contact_name_as_published,NOSM University,GOLD,accountspayable@nosm.ca,was 'Lori Piccolo Director (Financial Services Coordinator) (as printed by the organisation on its own accounts-payable page ' → now ''
+field changed: ship_ready,NOSM University,GOLD,accountspayable@nosm.ca,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+mailbox changed,Town of Gananoque,GOLD,accountspayable@gananoque.ca,was treasurer@gananoque.ca
+package moved,Town of Gananoque,GOLD,accountspayable@gananoque.ca,was B3
+field changed: ap_phone,Town of Gananoque,GOLD,accountspayable@gananoque.ca,"was '613-382-2149 Ext 1124 (as printed on https://www.gananoque.ca/town-hall/finance/annual-budgets, re-read 2026-11-08)' → now '613-382-2149 ext. 1110'"
+field changed: ship_ready,Town of Gananoque,GOLD,accountspayable@gananoque.ca,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+mailbox changed,Katy Independent School District,GOLD,ap@katyisd.org,was purchasingdepartment@katyisd.org
+package moved,Katy Independent School District,GOLD,ap@katyisd.org,was B2
+field changed: invoice_mailing_address,Katy Independent School District,GOLD,ap@katyisd.org,"filled: 'P.O. Box 159 Katy, TX 77492-0159 (as printed on https://resources.finalsite.net/images/v1745888084/katyisdorg/cs5dbzt1s7xdr7julo82/1910ak_a.pdf, re-read 2026-11'"
+field changed: ship_ready,Katy Independent School District,GOLD,ap@katyisd.org,was 'no (mailbox below finance grade)' → now 'yes'
+mailbox changed,Town of Comox,GOLD,payables@comox.ca,was finance@comox.ca
+package moved,Town of Comox,GOLD,payables@comox.ca,was B3
+field changed: ap_phone,Town of Comox,GOLD,payables@comox.ca,"was '250-339-2202 (as printed on https://www.comox.ca/finance/deposits-letters-credit-and-surety-bonds, re-read 2026-11-08)' → now '250-331-6424'"
+field changed: invoice_mailing_address,Town of Comox,GOLD,payables@comox.ca,"was '1809 Beaufort Avenue Comox, BC V9M 1R9 (as printed on https://www.comox.ca/finance/deposits-letters-credit-and-surety-bo' → now ''"
+field changed: ship_ready,Town of Comox,GOLD,payables@comox.ca,"was 'yes (finance mailbox, not AP)' → now 'yes'"
+mailbox changed,Town of Stouffville,B0,,was procurement@townofws.ca
+package moved,Town of Stouffville,B0,,was B2
+field changed: ap_phone,Town of Stouffville,B0,,filled: '905-640-1900 (AP form questions)'
+field changed: email_check,Town of Stouffville,B0,,was 'confirmed' → now ''
+field changed: ship_ready,Town of Stouffville,B0,,was 'no (mailbox below finance grade)' → now 'no (mailbox not referee-confirmed)'
+field changed: buyer_address,Public Safety Canada,A3,financial_systems.systemes_financiers@ps-sp.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+field changed: buyer_address,Veterans Affairs Canada,A3,directdeposit-depotdirect@vac-acc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+mailbox changed,Municipalité de Saint-Ferdinand,A3,tresorerie@stferdinand.ca,was info@stferdinand.ca
+package moved,Municipalité de Saint-Ferdinand,A3,tresorerie@stferdinand.ca,was A1
+field changed: buyer_phone,Municipalité de Saint-Ferdinand,A3,tresorerie@stferdinand.ca,"was '418-334-8851 (printed next to the organisation's mailbox (as printed on https://www.stferdinand.ca/nous-joindre, re-read' → now '4184283480 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)'"
+field changed: ap_phone,Municipalité de Saint-Ferdinand,A3,tresorerie@stferdinand.ca,was '418-428-3480' → now '418 428-3480 #4303'
+field changed: invoice_mailing_address,Municipalité de Saint-Ferdinand,A3,tresorerie@stferdinand.ca,"was '375, rue Principale, Saint-Ferdinand, Québec, G0N 1N0' → now '375 rue Principale, Saint-Ferdinand, QC G0N 1N0'"
+field changed: ship_ready,Municipalité de Saint-Ferdinand,A3,tresorerie@stferdinand.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Municipalité de Sainte-Christine-d'Auvergne,A3,tresorerie@sca.quebec,was loisirs@sca.quebec
+package moved,Municipalité de Sainte-Christine-d'Auvergne,A3,tresorerie@sca.quebec,was A1
+field changed: ap_phone,Municipalité de Sainte-Christine-d'Auvergne,A3,tresorerie@sca.quebec,was '418 329-3304' → now '418 329-3304 poste 102'
+field changed: ap_contact_name_as_published,Municipalité de Sainte-Christine-d'Auvergne,A3,tresorerie@sca.quebec,filled: 'Rosalie Perron (as printed by the organisation next to its invoicing mailbox)'
+field changed: ship_ready,Municipalité de Sainte-Christine-d'Auvergne,A3,tresorerie@sca.quebec,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Municipalité de Péribonka,A3,comptabilite@peribonka.ca,was dg@peribonka.ca
+package moved,Municipalité de Péribonka,A3,comptabilite@peribonka.ca,was A1
+field changed: ap_phone,Municipalité de Péribonka,A3,comptabilite@peribonka.ca,was '418 374-2967' → now '418-374-2967 poste 111'
+field changed: invoice_mailing_address,Municipalité de Péribonka,A3,comptabilite@peribonka.ca,"was '300, boul. Edouard Niquet, Péribonka, Qc G0W 2G0' → now '300, rue Édouard-Niquet, Péribonka (QC) G0W 2G0'"
+field changed: ship_ready,Municipalité de Péribonka,A3,comptabilite@peribonka.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Village de Ayer's Cliff,A3,comptabilite@ayerscliff.ca,was info@ayerscliff.ca
+package moved,Village de Ayer's Cliff,A3,comptabilite@ayerscliff.ca,was A1
+field changed: buyer_phone,Village de Ayer's Cliff,A3,comptabilite@ayerscliff.ca,"was '819 838-5006 (printed next to the organisation's mailbox (as printed on https://ayerscliff.ca/contactez-nous/, re-read 2' → now '8198385006 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)'"
+field changed: ap_phone,Village de Ayer's Cliff,A3,comptabilite@ayerscliff.ca,was '819-838-5006' → now '819 838-5006'
+field changed: ap_contact_name_as_published,Village de Ayer's Cliff,A3,comptabilite@ayerscliff.ca,filled: 'Nicole Fauteux (as printed by the organisation next to its invoicing mailbox)'
+field changed: ship_ready,Village de Ayer's Cliff,A3,comptabilite@ayerscliff.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Municipalité de L'Île-d'Anticosti,A3,comptabilite@ile-anticosti.org,was reception@ile-anticosti.org
+package moved,Municipalité de L'Île-d'Anticosti,A3,comptabilite@ile-anticosti.org,was A1
+field changed: ap_phone,Municipalité de L'Île-d'Anticosti,A3,comptabilite@ile-anticosti.org,was '418 535-0311' → now ''
+field changed: invoice_mailing_address,Municipalité de L'Île-d'Anticosti,A3,comptabilite@ile-anticosti.org,"was '10, rue des Eudistes, Port-Menier, Île d'Anticosti, Québec, Canada, G0G 2Y0' → now ''"
+field changed: ap_contact_name_as_published,Municipalité de L'Île-d'Anticosti,A3,comptabilite@ile-anticosti.org,filled: 'Isabelle Morency (as printed by the organisation next to its invoicing mailbox)'
+field changed: ship_ready,Municipalité de L'Île-d'Anticosti,A3,comptabilite@ile-anticosti.org,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,"Department of Health, Disability and Ageing",A2,procurement.advice@health.gov.au,was enquiries@health.gov.au
+package moved,"Department of Health, Disability and Ageing",A2,procurement.advice@health.gov.au,was A1
+field changed: ap_phone,"Department of Health, Disability and Ageing",A2,procurement.advice@health.gov.au,was '02 6289 1555' → now ''
+field changed: invoice_mailing_address,"Department of Health, Disability and Ageing",A2,procurement.advice@health.gov.au,"was 'Sirius Building, 23 Furzer Street, Phillip ACT 2606, Australia' → now ''"
+field changed: buyer_address,Canada Border Services Agency,A2,cbsa-asfc_solicitations-demandes_de_soumissions@cbsa-asfc.gc.ca,"was '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada' → now '11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada'"
+mailbox changed,Government Commercial Agency,A2,markets-sourcing-suppliers@gca.gov.uk,was (none)
+package moved,Government Commercial Agency,A2,markets-sourcing-suppliers@gca.gov.uk,was A0
+field changed: email_check,Government Commercial Agency,A2,markets-sourcing-suppliers@gca.gov.uk,filled: 'confirmed'
+field changed: ship_ready,Government Commercial Agency,A2,markets-sourcing-suppliers@gca.gov.uk,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,Town of Midland,B3,finance@midland.ca,was procurement@midland.ca
+package moved,Town of Midland,B3,finance@midland.ca,was B2
+field changed: ship_ready,Town of Midland,B3,finance@midland.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Ville de Bécancour,A1,greffe@ville.becancour.qc.ca,was info@ville.becancour.qc.ca
+field changed: ap_phone,Ville de Bécancour,A1,greffe@ville.becancour.qc.ca,was '819-294-6500' → now ''
+field changed: invoice_mailing_address,Ville de Bécancour,A1,greffe@ville.becancour.qc.ca,"was '1295, av. Nicolas-Perrot, Bécancour, Québec G9H 1A1' → now ''"
+field changed: payment_terms_as_published,Régie Intermunicipale Argenteuil Deux-Montagnes,A1,info@riadm.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Saint-Jean-de-Brébeuf,A1,info@st-jean-de-brebeuf.ca,"filled: 'payment terms, or PO rules published'"
+mailbox changed,Municipalité de Saint-Alphonse-Rodriguez,B3,comptabilite@munsar.ca,was info@munsar.ca
+package moved,Municipalité de Saint-Alphonse-Rodriguez,B3,comptabilite@munsar.ca,was B1
+field changed: payment_terms_as_published,Municipalité de Saint-Alphonse-Rodriguez,B3,comptabilite@munsar.ca,filled: 'payment terms and PO rules not published'
+field changed: ap_phone,Municipalité de Saint-Alphonse-Rodriguez,B3,comptabilite@munsar.ca,"was '450-883-2264' → now '450 883-2264, poste 7401'"
+field changed: invoice_mailing_address,Municipalité de Saint-Alphonse-Rodriguez,B3,comptabilite@munsar.ca,"was '101, rue de la Plage, Saint-Alphonse-Rodriguez (Québec) J0K 1W0' → now '101, rue de la Plage, Saint-Alphonse-Rodriguez (Qc) Canada J0K 1W0'"
+field changed: ship_ready,Municipalité de Saint-Alphonse-Rodriguez,B3,comptabilite@munsar.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+field changed: payment_terms_as_published,Municipalité de Saint-Aubert,A1,administration@saint-aubert.net,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Développement Côte-de-Beaupré (CLD),A1,info@mrccotedebeaupre.qc.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Paroisse de Sainte-Rose-du-Nord,A1,secretariat@ste-rosedunord.qc.ca,"was '90 jours suivant la réception (as printed on https://www.ste-rosedunord.qc.ca/wp-content/uploads/2025/05/proces-verbal-s' → now 'payment terms, or PO rules published'"
+mailbox changed,Municipalité de Armagh,B3,comptabilite@armagh.ca,was info@armagh.ca
+package moved,Municipalité de Armagh,B3,comptabilite@armagh.ca,was B1
+field changed: ap_phone,Municipalité de Armagh,B3,comptabilite@armagh.ca,was '418-466-2916' → now '418 466-2916'
+field changed: ap_contact_name_as_published,Municipalité de Armagh,B3,comptabilite@armagh.ca,filled: 'Michelle Kohnen (as printed by the organisation next to its invoicing mailbox)'
+field changed: ship_ready,Municipalité de Armagh,B3,comptabilite@armagh.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,European Maritime Safety Agency,L4,e-invoicing@emsa.europa.eu,was csn-info@emsa.europa.eu
+package moved,European Maritime Safety Agency,L4,e-invoicing@emsa.europa.eu,was L1
+field changed: ship_ready,European Maritime Safety Agency,L4,e-invoicing@emsa.europa.eu,was 'no (mailbox below finance grade)' → now 'no (relationship not dated / active)'
+mailbox changed,Ontario Pension Board,B3,finance@opb.ca,was procurementservices@opb.ca
+package moved,Ontario Pension Board,B3,finance@opb.ca,was B2
+field changed: ship_ready,Ontario Pension Board,B3,finance@opb.ca,"was 'no (vendor registry warning)' → now 'yes (finance mailbox, not AP)'"
+field changed: payment_terms_as_published,Municipalité de Auclair,A1,info@municipaliteauclair.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Canton de Clermont,A1,clermont@mrcao.qc.ca,"filled: 'payment terms, or PO rules published'"
+mailbox changed,Municipalité de Larouche,B3,finances@larouche.ca,was info@larouche.ca
+package moved,Municipalité de Larouche,B3,finances@larouche.ca,was B1
+field changed: payment_terms_as_published,Municipalité de Larouche,B3,finances@larouche.ca,was 'payées en un versement unique dans les trente jours (as printed on https://www.larouche.ca/documentation/taxes-municipal' → now 'payment terms or PO rules published'
+field changed: ap_phone,Municipalité de Larouche,B3,finances@larouche.ca,was '418 695-2201' → now '418-695-2201 poste 3613'
+field changed: ship_ready,Municipalité de Larouche,B3,finances@larouche.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+field changed: payment_terms_as_published,Village de Abercorn,A1,info@abercorn.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Sainte-Émélie-de-l'Énergie,A1,info@steemelie.ca,"filled: 'payment terms, or PO rules published'"
+field changed: ap_contact_name_as_published,Municipalité de Sainte-Émélie-de-l'Énergie,A1,info@steemelie.ca,filled: 'Martine Pinard (as printed by the organisation next to its invoicing mailbox)'
+field changed: payment_terms_as_published,Village de Brome,A1,admin@bromevillage.ca,"filled: 'payment terms, or PO rules published'"
+field changed: ap_contact_name_as_published,Ville de Saint-Marc-des-Carrières,A1,info@villestmarc.com,filled: 'Daphné Bellavance (as printed by the organisation next to its invoicing mailbox)'
+field changed: payment_terms_as_published,Municipalité de Saint-Simon-de-Rimsouki,A1,admin@st-simon.qc.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Bowman,A1,dg@bowman.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Saint-Damase-de-Matapédia,A1,stdamase@mrcmatapedia.quebec,"filled: 'payment terms, or PO rules published'"
+field changed: ap_contact_name_as_published,Municipalité de Saint-Mathieu-du-Parc,A1,info@saint-mathieu-du-parc.ca,filled: 'David Richer (as printed by the organisation next to its invoicing mailbox)'
+mailbox changed,Village de Sainte-Jeanne-d'Arc,A1,admin@stejeannedarc.qc.ca,was direction@stejeannedarc.qc.ca
+field changed: invoice_mailing_address,Village de Sainte-Jeanne-d'Arc,A1,admin@stejeannedarc.qc.ca,"was '378, rue François Bilodeau, Sainte-Jeanne-d'Arc, Qc G0W 1E0' → now '385, rue François-Bilodeau, Sainte-Jeanne-d'Arc, QC G0W 1E0'"
+field changed: payment_terms_as_published,Municipalité de Calixa-Lavallée,A1,info@calixa-lavallee.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité régionale de comté La Côte-de-Beaupré,A0,,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Paroisse de Saint-Narcisse-de-Beaurivage,A1,dg@saintnarcissedebeaurivage.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Dixville,A1,secretariat@dixville.ca,"filled: 'payment terms, or PO rules published'"
+field changed: invoice_mailing_address,université de Lorraine,L4,ac-facturier@univ-lorraine.fr,"filled: 'Université de Lorraine, Agence comptable – service facturier, 91 avenue de la Libération, BP 32142, 54021 NANCY Cedex'"
+field changed: email_check,université de Lorraine,L4,ac-facturier@univ-lorraine.fr,was 'unverified_page_unavailable' → now 'confirmed'
+field changed: ship_ready,université de Lorraine,L4,ac-facturier@univ-lorraine.fr,was 'no (mailbox not referee-confirmed)' → now 'no (relationship not dated / active)'
+mailbox changed,Stockholms universitet,B3,finance@astro.su.se,was info@fs.su.se
+package moved,Stockholms universitet,B3,finance@astro.su.se,was B1
+field changed: ship_ready,Stockholms universitet,B3,finance@astro.su.se,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+field changed: ap_contact_name_as_published,Municipalité de Sainte-Françoise-de-Lotbinière,A1,municipalite@ste-francoise.com,filled: 'Geneviève Dubuc Kean (as printed by the organisation next to its invoicing mailbox)'
+field changed: payment_terms_as_published,Municipalité de Noyan,A1,dgnoyan@ville.noyan.qc.ca,"filled: 'payment terms, or PO rules publishe Guy Bérubé Direct'"
+field changed: ap_contact_name_as_published,Municipalité de Noyan,A1,dgnoyan@ville.noyan.qc.ca,was 'Julie Allison (as printed by the organisation on its own accounts-payable page (as printed on https://www.ville.noyan.qc' → now 'Julie Allison (as printed by the organisation next to its invoicing mailbox)'
+field changed: payment_terms_as_published,Municipalité de Namur,A1,dir.general@namur.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Paroisse de Saint-Norbert,A1,municipalite@saint-norbert.net,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Chartierville,A1,dg@chartierville.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Rivière-Bleue,A1,info@riviere-bleue.ca,"was '60 jours suivant la réception (as printed on https://riviere-bleue.ca/municipalite/administration-municipale/evaluation-' → now 'payment terms, or PO rules published'"
+mailbox changed,"National University of Ireland, Galway (NUI Galway)",C4,supplierinvoices@universityofgalway.ie,was (none)
+package moved,"National University of Ireland, Galway (NUI Galway)",C4,supplierinvoices@universityofgalway.ie,was C0
+field changed: po_required_as_published,"National University of Ireland, Galway (NUI Galway)",C4,supplierinvoices@universityofgalway.ie,filled: 'yes (as published: Include a valid University of Galway PO)'
+field changed: email_check,"National University of Ireland, Galway (NUI Galway)",C4,supplierinvoices@universityofgalway.ie,filled: 'confirmed'
+field changed: dmarc_policy,"National University of Ireland, Galway (NUI Galway)",C4,supplierinvoices@universityofgalway.ie,filled: 'p=reject'
+field changed: ship_ready,"National University of Ireland, Galway (NUI Galway)",C4,supplierinvoices@universityofgalway.ie,was 'no (mailbox not referee-confirmed)' → now 'no (relationship not dated / active)'
+field changed: ap_phone,Chalmers Tekniska Högskola Aktiebolag,C4,pdf.invoice@chalmers.se,filled: '+46317723000'
+field changed: invoice_mailing_address,Chalmers Tekniska Högskola Aktiebolag,C4,pdf.invoice@chalmers.se,"filled: 'Chalmers University of Technology, Invoice service, SE-412 96 Gothenburg'"
+mailbox changed,Suncor Energy Inc.,B4,AP@Suncor.com,was supplierhelp@suncor.com
+package moved,Suncor Energy Inc.,B4,AP@Suncor.com,was B2
+field changed: payment_terms_as_published,Suncor Energy Inc.,B4,AP@Suncor.com,was 'net 60 (as printed on https://web.archive.org/web/20260702050123/http://www.suncor.com/en-ca/doing-business-with-suncor/' → now 'Net 60'
+field changed: po_required_as_published,Suncor Energy Inc.,B4,AP@Suncor.com,was 'yes (as published: Include invoice and PO)' → now ''
+field changed: invoice_portal_url,Suncor Energy Inc.,B4,AP@Suncor.com,was 'SAP Ariba' → now ''
+field changed: email_check,Suncor Energy Inc.,B4,AP@Suncor.com,was 'confirmed' → now 'unverified_page_unavailable'
+field changed: ship_ready,Suncor Energy Inc.,B4,AP@Suncor.com,was 'no (mailbox below finance grade)' → now 'no (mailbox not referee-confirmed)'
+mailbox changed,Health Service Executive (HSE),C4,vendorinvoices@hse.ie,was (none)
+package moved,Health Service Executive (HSE),C4,vendorinvoices@hse.ie,was C0
+field changed: po_required_as_published,Health Service Executive (HSE),C4,vendorinvoices@hse.ie,filled: 'yes (as published: need official PO)'
+field changed: ap_phone,Health Service Executive (HSE),C4,vendorinvoices@hse.ie,filled: '(01) 511 9700'
+field changed: email_check,Health Service Executive (HSE),C4,vendorinvoices@hse.ie,filled: 'confirmed'
+field changed: dmarc_policy,Health Service Executive (HSE),C4,vendorinvoices@hse.ie,filled: 'p=reject'
+field changed: ship_ready,Health Service Executive (HSE),C4,vendorinvoices@hse.ie,was 'no (mailbox not referee-confirmed)' → now 'no (relationship not dated / active)'
+mailbox changed,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,was (none)
+package moved,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,was C0
+field changed: buyer_website,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,was 'https://www.strath.ac.uk/' → now 'https://strath.ac.uk'
+field changed: po_required_as_published,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,filled: 'yes (as published: must include university PO)'
+field changed: invoice_mailing_address,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,"filled: 'University of Strathclyde, Finance Directorate, Room 601, Level 6, Dame Jocelyn Bell Wing, Learning & Teaching Building, 49 Richmond Street, Glasgow, G1 1XU'"
+field changed: email_check,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,filled: 'confirmed'
+field changed: dmarc_policy,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,University of Strathclyde,C4,fms-supplierinvoices@strath.ac.uk,was 'no (mailbox not referee-confirmed)' → now 'no (relationship not dated / active)'
+field changed: payment_terms_as_published,World Health Organization,B2,procurement@who.int,was 'payment will be acceptable within 60 days (as printed on https://iris.who.int/server/api/core/bitstreams/51cc4c7c-1efd-4' → now 'net30'
+field changed: po_required_as_published,World Health Organization,B2,procurement@who.int,"was 'yes (as published: shall inform their purchase order) (as printed on https://iris.who.int/server/api/core/bitstreams/51c' → now 'yes (as published: PO unless authorized, quote)'"
+mailbox changed,North York General Hospital,B3,corporate.finance@nygh.on.ca,was vendor.program@nygh.on.ca
+package moved,North York General Hospital,B3,corporate.finance@nygh.on.ca,was B2
+field changed: ship_ready,North York General Hospital,B3,corporate.finance@nygh.on.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,BURLINGTON COMMUNITY FOUNDATION,B3,Finance@BurlingtonFoundation.org,was finance@burlingtonfoundation.org
+field changed: ap_contact_name_as_published,Township of Laird,B3,treasurer@lairdtownship.ca,was 'Rhonda Crozier Sent (as printed by the organisation next to its invoicing mailbox)' → now 'Rhonda Crozier Sent (as printed by the organisation on its own accounts-payable page (as printed on https://lairdtownshi'
+mailbox changed,District of Fort St. James,B3,accounting@fortstjames.ca,was finance@fortstjames.ca
+field changed: ap_contact_name_as_published,District of Fort St. James,B3,accounting@fortstjames.ca,was 'Alexander Bihori (Chief Financial Officer) (as printed by the organisation on its own accounts-payable page (as printed ' → now ''
+mailbox changed,Township of Perry,B3,tpaccounts@townshipofperry.ca,was treasurer@townshipofperry.ca
+field changed: payment_terms_as_published,Township of Perry,B3,tpaccounts@townshipofperry.ca,was '60 business days of receipt (as printed on https://townshipofperry.ca/wp-content/uploads/2021/12/2020-90-Civic-Address-a' → now 'net 30'
+field changed: invoice_mailing_address,Township of Perry,B3,tpaccounts@townshipofperry.ca,"filled: 'Township of Perry, Accounts Payable, 1695 Emsdale Road, PO Box 70, Emsdale, ON P0A 1J0'"
+mailbox changed,Modesto Irrigation District,B3,accounting@mid.org,was rpd_procurement@mid.org
+package moved,Modesto Irrigation District,B3,accounting@mid.org,was B2
+field changed: ap_phone,Modesto Irrigation District,B3,accounting@mid.org,filled: '209-526-7489 or 209-526-7479'
+field changed: ship_ready,Modesto Irrigation District,B3,accounting@mid.org,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+field changed: ap_contact_name_as_published,Township of McKellar,B3,treasurer@mckellar.ca,was 'Sue Poff Title (as printed by the organisation next to its invoicing mailbox)' → now 'Sue Poff Title (as printed by the organisation on its own accounts-payable page (as printed on https://www.mckellar.ca/y'
+mailbox changed,Alberni-Clayoquot Regional District,B3,accounting@acrd.bc.ca,was procurement@acrd.bc.ca
+package moved,Alberni-Clayoquot Regional District,B3,accounting@acrd.bc.ca,was B2
+field changed: ap_phone,Alberni-Clayoquot Regional District,B3,accounting@acrd.bc.ca,filled: '250-720-2723'
+field changed: ship_ready,Alberni-Clayoquot Regional District,B3,accounting@acrd.bc.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+field changed: ap_contact_name_as_published,Municipality of Huron Shores,B3,treasurer@huronshores.ca,was 'Heather Tener (as printed by the organisation next to its invoicing mailbox)' → now 'Heather Tener (as printed by the organisation on its own accounts-payable page (as printed on https://huronshores.ca/con'
+mailbox changed,Thesis Gold and Silver Inc.,B3,accounting@thesisgoldsilver.com,was accounting@thesisgold.com
+field changed: ap_phone,Thesis Gold and Silver Inc.,B3,accounting@thesisgoldsilver.com,"was '+1 672-910-0026 (as printed on https://www.thesisgoldsilver.com/contact/, re-read 2026-11-08)' → now ''"
+field changed: invoice_mailing_address,Thesis Gold and Silver Inc.,B3,accounting@thesisgoldsilver.com,"was '1075 West Georgia Street, Suite 1050, Vancouver, BC, V6E 3C9 (as printed on https://www.thesisgoldsilver.com/contact/, r' → now ''"
+mailbox changed,NUKLEARNA ELEKTRARNA KRŠKO d.o.o.,C4,invoices@nek.si,was (none)
+package moved,NUKLEARNA ELEKTRARNA KRŠKO d.o.o.,C4,invoices@nek.si,was C0
+field changed: email_check,NUKLEARNA ELEKTRARNA KRŠKO d.o.o.,C4,invoices@nek.si,filled: 'unverified_page_unavailable'
+field changed: dmarc_policy,NUKLEARNA ELEKTRARNA KRŠKO d.o.o.,C4,invoices@nek.si,filled: 'p=reject'
+mailbox changed,Yorkshire Purchasing Organisation,A0,,was contactus@ypo.co.uk
+package moved,Yorkshire Purchasing Organisation,A0,,was A1
+field changed: buyer_website,Yorkshire Purchasing Organisation,A0,,was 'https://rebate.ypo.co.uk' → now 'http://www.ypo.co.uk/'
+field changed: payment_terms_as_published,Yorkshire Purchasing Organisation,A0,,was 'within 30 days' → now ''
+field changed: ap_phone,Yorkshire Purchasing Organisation,A0,,was '01924 834 834' → now ''
+field changed: invoice_mailing_address,Yorkshire Purchasing Organisation,A0,,"was '41 Industrial Park, Wakefield WF2 0XE, United Kingdom' → now ''"
+field changed: email_check,Yorkshire Purchasing Organisation,A0,,was 'confirmed' → now ''
+field changed: dmarc_policy,Yorkshire Purchasing Organisation,A0,,was 'p=reject' → now ''
+mailbox changed,Durham Christian High School,T3,finance@dchs.com,was office@dchs.com
+package moved,Durham Christian High School,T3,finance@dchs.com,was T1
+field changed: buyer_address,Durham Christian High School,T3,finance@dchs.com,"was '340 West Scugog Lane, Bowmanville, ON L1C 7C1 (printed next to the organisation's mailbox (as printed on https://www.dur' → now '340 WEST SCUGOG LANE, BOWMANVILLE, ON, L1C7C1 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c'"
+field changed: buyer_phone,Durham Christian High School,T3,finance@dchs.com,"was '905-623-5940 (printed next to the organisation's mailbox (as printed on https://www.durhamchristianhs.com/contact-us, re' → now ''"
+field changed: ship_ready,Durham Christian High School,T3,finance@dchs.com,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Parkland Regional Library System,T3,finance@prl.ab.ca,was info@prl.ab.ca
+package moved,Parkland Regional Library System,T3,finance@prl.ab.ca,was T1
+field changed: ship_ready,Parkland Regional Library System,T3,finance@prl.ab.ca,"was 'no (vendor registry warning)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Thesis Gold & Silver Inc.,T3,accounting@thesisgold.com,was (none)
+package moved,Thesis Gold & Silver Inc.,T3,accounting@thesisgold.com,was T0
+field changed: ap_phone,Thesis Gold & Silver Inc.,T3,accounting@thesisgold.com,"filled: '+1 672-910-0026 (as printed on https://www.thesisgoldsilver.com/contact/, re-read 2026-11-08)'"
+field changed: invoice_mailing_address,Thesis Gold & Silver Inc.,T3,accounting@thesisgold.com,"filled: '1075 West Georgia Street, Suite 1050, Vancouver, BC, V6E 3C9 (as printed on https://www.thesisgoldsilver.com/contact/, re-read 2026-11-08)'"
+field changed: email_check,Thesis Gold & Silver Inc.,T3,accounting@thesisgold.com,filled: 'confirmed'
+field changed: ship_ready,Thesis Gold & Silver Inc.,T3,accounting@thesisgold.com,"was 'no (mailbox not referee-confirmed)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,NetraMark Holdings Inc.,T3,accounting@netramark.com,was info@netramark.com
+package moved,NetraMark Holdings Inc.,T3,accounting@netramark.com,was T1
+field changed: ship_ready,NetraMark Holdings Inc.,T3,accounting@netramark.com,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Bridgeland/Riverside,T3,treasurer@brcacalgary.org,was contact@brcacalgary.org
+package moved,Bridgeland/Riverside,T3,treasurer@brcacalgary.org,was T1
+field changed: ship_ready,Bridgeland/Riverside,T3,treasurer@brcacalgary.org,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Guido de Brès Christian High School,T3,finance@guidodebres.com,was office@guidodebres.com
+package moved,Guido de Brès Christian High School,T3,finance@guidodebres.com,was T1
+field changed: ship_ready,Guido de Brès Christian High School,T3,finance@guidodebres.com,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Cape Breton Regional Library,T3,finance@cbrl.ca,was info@cbrl.ca
+package moved,Cape Breton Regional Library,T3,finance@cbrl.ca,was T1
+field changed: ship_ready,Cape Breton Regional Library,T3,finance@cbrl.ca,"was 'no (vendor registry warning)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Carleton Place,T3,treasury@carletonplace.ca,was info@carletonplace.ca
+package moved,Carleton Place,T3,treasury@carletonplace.ca,was T1
+field changed: ap_contact_name_as_published,Carleton Place,T3,treasury@carletonplace.ca,was 'Tyler Duval (Accounts Payable Administrator) (as printed by the organisation on its own accounts-payable page (as printe' → now ''
+field changed: ship_ready,Carleton Place,T3,treasury@carletonplace.ca,"was 'no (vendor registry warning)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,MAMA SHELTER,T3,accounting.prague@mamashelter.com,was contact@mamashelter.com
+package moved,MAMA SHELTER,T3,accounting.prague@mamashelter.com,was T1
+mailbox changed,Calabogie Brewing Company,T3,accounting@calabogiebrewing.com,was info@calabogiebrewing.com
+package moved,Calabogie Brewing Company,T3,accounting@calabogiebrewing.com,was T1
+field changed: ship_ready,Calabogie Brewing Company,T3,accounting@calabogiebrewing.com,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Les Impatients,T3,comptabilite@impatients.ca,was reception@impatients.ca
+package moved,Les Impatients,T3,comptabilite@impatients.ca,was T1
+field changed: ap_contact_name_as_published,Les Impatients,T3,comptabilite@impatients.ca,filled: 'Carole Leblanc (as printed by the organisation next to its invoicing mailbox)'
+field changed: ship_ready,Les Impatients,T3,comptabilite@impatients.ca,"was 'no (mailbox below finance grade)' → now 'yes (finance mailbox, not AP)'"
+mailbox changed,Municipalité de Hébertville,B1,adjointe@ville.hebertville.qc.ca,was reception@ville.hebertville.qc.ca
+field changed: buyer_phone,Municipalité de Hébertville,B1,adjointe@ville.hebertville.qc.ca,"was '418 344-1302 poste 3201 (printed next to the organisation's mailbox (as printed on https://www.hebertville.qc.ca/vie-mun' → now '4183432303 (provincial municipal directory: https://donneesouvertes.affmunqc.net/repertoire/MUN.csv, 2026-11-08)'"
+field changed: ap_phone,Municipalité de Hébertville,B1,adjointe@ville.hebertville.qc.ca,was '418-344-1302' → now '418 344-1302 poste 3204'
+field changed: payment_terms_as_published,Ville de Barkmere,C3,finance@barkmere.ca,filled: 'payment terms or PO rules published'
+field changed: ap_phone,Ville de Barkmere,C3,finance@barkmere.ca,"was '819-681-3374 (as printed on https://barkmere.ca/?page_id=2313, re-read 2026-11-08)' → now '819-681-3374, poste 5103'"
+field changed: invoice_mailing_address,Ville de Barkmere,C3,finance@barkmere.ca,"filled: '199, chemin Barkmere, Barkmere (Quebec) - J0T 1A0'"
+field changed: payment_terms_as_published,Centre de Communication Santé des Capitales,B1,info@ccscapitales.com,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,SOFAD.,B1,info@sofad.qc.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité Canton Bedford,B1,municipalite@cantondebedford.ca,"filled: 'payment terms, or PO rules published'"
+field changed: ap_contact_name_as_published,Municipalité Canton Bedford,B1,municipalite@cantondebedford.ca,filled: 'Manon Blanchet (as printed by the organisation next to its invoicing mailbox)'
+field changed: payment_terms_as_published,Mobilité infra Québec,B1,info@miq.gouv.qc.ca,"filled: 'payment terms, or PO rules published'"
+mailbox changed,Met Office,A0,,was accountspayable@metoffice.gov.uk
+package moved,Met Office,A0,,was GOLD
+field changed: payment_terms_as_published,Met Office,A0,,"was 'paid within 5 days Percentage of invoices paid within 30 days (as printed on https://www.metoffice.gov.uk/about-us/worki' → now 'paid within 5 days,Percentage of Invoices paid within 30 days (as printed on https://assets.publishing.service.gov.uk/me'"
+field changed: po_required_as_published,Met Office,A0,,was 'yes (as published: Include clear reference to a Met Office Purchase Order)' → now 'purchase-order terms published (as published: purchase orders raised with Magnox Ltd for the events are set out below: 2'
+field changed: email_check,Met Office,A0,,was 'confirmed' → now ''
+field changed: dmarc_policy,Met Office,A0,,was 'p=reject' → now ''
+field changed: ship_ready,Met Office,A0,,was 'yes' → now 'no (mailbox not referee-confirmed)'
+mailbox changed,OPEN UNIVERSITY(THE),A0,,was APInvoices@open.ac.uk
+package moved,OPEN UNIVERSITY(THE),A0,,was A4
+field changed: buyer_website,OPEN UNIVERSITY(THE),A0,,was 'https://about.open.ac.uk' → now ''
+field changed: payment_terms_as_published,OPEN UNIVERSITY(THE),A0,,was '30 days' → now ''
+field changed: po_required_as_published,OPEN UNIVERSITY(THE),A0,,was 'yes (as published: MUST include a valid Purchase Order)' → now ''
+field changed: ap_phone,OPEN UNIVERSITY(THE),A0,,was '+44 01908 653955' → now ''
+field changed: email_check,OPEN UNIVERSITY(THE),A0,,was 'unverified_page_unavailable' → now ''
+field changed: dmarc_policy,OPEN UNIVERSITY(THE),A0,,was 'p=quarantine' → now ''
+field changed: payment_terms_as_published,Paroisse de Saint-Maurice,B1,infocitoyens@st-maurice.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Centre communautaire juridique de Montréal,B1,aidejuridiquemtl@ccjm.qc.ca,"filled: 'payment terms, or PO rules published'"
+mailbox changed,metoffice.gov.uk,D4,accountspayable@metoffice.gov.uk,was (none)
+package moved,metoffice.gov.uk,D4,accountspayable@metoffice.gov.uk,was D0
+field changed: payment_terms_as_published,metoffice.gov.uk,D4,accountspayable@metoffice.gov.uk,filled: 'paid within 5 days Percentage of invoices paid within 30 days (as printed on https://www.metoffice.gov.uk/about-us/working-with-the-met-office/commercial/financ'
+field changed: email_check,metoffice.gov.uk,D4,accountspayable@metoffice.gov.uk,filled: 'confirmed'
+field changed: ship_ready,metoffice.gov.uk,D4,accountspayable@metoffice.gov.uk,was 'no (mailbox not referee-confirmed)' → now 'no (relationship not dated / active)'
+mailbox changed,Wood Buffalo Housing,A0,,was info@wbhousing.ca
+package moved,Wood Buffalo Housing,A0,,was A1
+field changed: ap_phone,Wood Buffalo Housing,A0,,was '(780) 799-4050' → now ''
+field changed: invoice_mailing_address,Wood Buffalo Housing,A0,,"was '9915 Franklin Avenue, Suite 9011, Fort McMurray, AB T9H 2K4, Canada' → now ''"
+field changed: email_check,Wood Buffalo Housing,A0,,was 'not_found_on_page' → now ''
+field changed: dmarc_policy,Wood Buffalo Housing,A0,,was 'no DMARC record' → now ''
+mailbox changed,RWANDA DEVELOPMENT BOARD (RDB),L2,procurement@rdb.rw,was (none)
+package moved,RWANDA DEVELOPMENT BOARD (RDB),L2,procurement@rdb.rw,was L0
+field changed: buyer_website,RWANDA DEVELOPMENT BOARD (RDB),L2,procurement@rdb.rw,filled: 'https://rdb.rw'
+field changed: email_check,RWANDA DEVELOPMENT BOARD (RDB),L2,procurement@rdb.rw,filled: 'confirmed'
+field changed: dmarc_policy,RWANDA DEVELOPMENT BOARD (RDB),L2,procurement@rdb.rw,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,RWANDA DEVELOPMENT BOARD (RDB),L2,procurement@rdb.rw,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+field changed: payment_terms_as_published,Paroisse de Saint-Narcisse-de-Rimouski,B1,direction@saintnarcisse.net,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Ville de Lac-des-Aigles,B1,info@lacdesaigles.ca,"was '21 jours suivant la date de la facture (as printed on https://lacdesaigles.ca/media/attachments/2023/11/20/pv-du-5-juill' → now 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Paroisse de Saint-Moïse,B1,stmoise@mrcmatapedia.qc.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,IRICoR,B1,info@iricor.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Sainte-Hélène-de-Kamouraska,B1,dg@sainte-helene.net,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Régie intermunicipale de valorisation des matières organiques de Beauharnois-Salaberry et de Roussillon.,B1,info@rivmo.ca,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,"Éducation Internationale, Coopérative de services de développement et d'échanges en éducation",B1,info@education-internationale.com,"filled: 'payment terms, or PO rules published'"
+field changed: ap_phone,"Éducation Internationale, Coopérative de services de développement et d'échanges en éducation",B1,info@education-internationale.com,filled: '1-418-651-4667'
+field changed: invoice_mailing_address,"Éducation Internationale, Coopérative de services de développement et d'échanges en éducation",B1,info@education-internationale.com,"filled: '3005, 4e avenue, Bureau 300, QUÉBEC (QUÉBEC) G1J 3G6, CANADA'"
+field changed: payment_terms_as_published,Office des personnes handicapées du Québec,B1,info@ophq.gouv.qc.ca,"filled: 'payment terms, or PO rules published'"
+mailbox changed,Municipalité de Saint-Odilon-de-Cranbourne,B1,dg@saint-odilon.qc.ca,was info@saint-odilon.qc.ca
+field changed: payment_terms_as_published,Municipalité de Saint-Odilon-de-Cranbourne,B1,dg@saint-odilon.qc.ca,"filled: 'payment terms, or PO rules published'"
+mailbox changed,Municipalité de Bury,B1,information@bury.ca,was dg@bury.ca
+field changed: payment_terms_as_published,Municipalité de Bury,B1,information@bury.ca,"filled: 'payment terms, or PO rules published'"
+field changed: ap_phone,Municipalité de Bury,B1,information@bury.ca,was '819 560-8414 #2800' → now '819 560-8414'
+field changed: payment_terms_as_published,Société du port de Valleyfield.,B1,info@portvalleyfield.com,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Saint-Athanase,B1,info@saint-athanase.com,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité Saint -Elzéar-de-Bonaventure,B1,muni@saintelzear.net,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,Municipalité de Béthanie,B1,info@municipalitedebethanie.ca,"filled: 'payment terms, or PO rules published'"
+mailbox changed,"Puget Sound Energy, Inc.",B2,supplierenablement@pse.com,was psesupplierenablement@pse.com
+field changed: invoice_portal_url,"Puget Sound Energy, Inc.",B2,supplierenablement@pse.com,was 'https://www.ariba.com/ariba-network/ariba-network-for-suppliers/subscriptions-and-pricing — SAP Ariba' → now 'https://www.pse.com/en/pages/suppliers/transacting-via-ariba-network — SAP Ariba'
+field changed: payment_terms_as_published,HAYS CONSOLIDATED INDEPENDENT SCHOOL DISTRICT,B2,purchasing@hayscisd.net,was 'Upon receipt' → now ''
+mailbox changed,Southern Company,B2,SupplierInformation@SouthernCo.com,was supplierquality@southernco.com
+field changed: payment_terms_as_published,Southern Company,B2,SupplierInformation@SouthernCo.com,was '30 days after receipt (as printed on https://www.southerncompany.com/content/dam/southerncompany/pdfs/about/suppliers/te' → now ''
+field changed: po_required_as_published,Southern Company,B2,SupplierInformation@SouthernCo.com,"was 'purchase-order terms published (as published: purchase order is awarded, or prior to the award of business, the EPC Cont' → now ''"
+mailbox changed,Loblaw Companies Limited,B2,vendorcomm@loblaw.ca,was vendorpromosupport@loblaw.ca
+mailbox changed,Maple Leaf Foods Inc,B2,PurchasingServices@mapleleaf.com,was purchasingservices@mapleleaf.com
+mailbox changed,Municipalité de Saint-Irénée,B1,info@saintirenee.ca,was dg@saintirenee.ca
+field changed: invoice_mailing_address,Municipalité de Saint-Irénée,B1,info@saintirenee.ca,"was '350, rue Principale, Saint-Irénée, G0T 1V0' → now '350, rue Principale, Saint-Irénée (Québec) G0T 1V0'"
+mailbox changed,Université Grenoble Alpes,L2,service-commande-publique-fs@univ-grenoble-alpes.fr,was (none)
+package moved,Université Grenoble Alpes,L2,service-commande-publique-fs@univ-grenoble-alpes.fr,was L0
+field changed: email_check,Université Grenoble Alpes,L2,service-commande-publique-fs@univ-grenoble-alpes.fr,filled: 'confirmed'
+field changed: dmarc_policy,Université Grenoble Alpes,L2,service-commande-publique-fs@univ-grenoble-alpes.fr,filled: 'p=quarantine'
+field changed: ship_ready,Université Grenoble Alpes,L2,service-commande-publique-fs@univ-grenoble-alpes.fr,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,UNDP - UNDP,L2,officeofprocurement@undp.org,was (none)
+package moved,UNDP - UNDP,L2,officeofprocurement@undp.org,was L0
+field changed: po_required_as_published,UNDP - UNDP,L2,officeofprocurement@undp.org,filled: 'yes (as published: PO must)'
+field changed: invoice_portal_url,UNDP - UNDP,L2,officeofprocurement@undp.org,filled: 'http://supplier.quantum.partneragencies.org/'
+field changed: email_check,UNDP - UNDP,L2,officeofprocurement@undp.org,filled: 'confirmed'
+field changed: dmarc_policy,UNDP - UNDP,L2,officeofprocurement@undp.org,filled: 'p=quarantine'
+field changed: ship_ready,UNDP - UNDP,L2,officeofprocurement@undp.org,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+field changed: po_required_as_published,United Nations Development Programme,L0,,filled: 'yes (as published: PO must)'
+field changed: invoice_portal_url,United Nations Development Programme,L0,,filled: 'http://supplier.quantum.partneragencies.org/'
+field changed: dmarc_policy,United Nations Development Programme,L0,,filled: 'p=quarantine'
+mailbox changed,"Bundesrepublik Deutschland, vertreten durch das Bundesministerium des Innern und für Heimat, vertreten durch das Beschaffungsamt des BMI",L1,info@bescha.bund.de,was (none)
+package moved,"Bundesrepublik Deutschland, vertreten durch das Bundesministerium des Innern und für Heimat, vertreten durch das Beschaffungsamt des BMI",L1,info@bescha.bund.de,was L0
+field changed: email_check,"Bundesrepublik Deutschland, vertreten durch das Bundesministerium des Innern und für Heimat, vertreten durch das Beschaffungsamt des BMI",L1,info@bescha.bund.de,filled: 'confirmed'
+field changed: dmarc_policy,"Bundesrepublik Deutschland, vertreten durch das Bundesministerium des Innern und für Heimat, vertreten durch das Beschaffungsamt des BMI",L1,info@bescha.bund.de,filled: 'p=quarantine'
+field changed: ship_ready,"Bundesrepublik Deutschland, vertreten durch das Bundesministerium des Innern und für Heimat, vertreten durch das Beschaffungsamt des BMI",L1,info@bescha.bund.de,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,"European Commission, Directorate-General for Energy",C2,ENER-B3-TENDERS@ec.europa.eu,was (none)
+package moved,"European Commission, Directorate-General for Energy",C2,ENER-B3-TENDERS@ec.europa.eu,was C0
+field changed: email_check,"European Commission, Directorate-General for Energy",C2,ENER-B3-TENDERS@ec.europa.eu,filled: 'not_found_on_page'
+field changed: dmarc_policy,"European Commission, Directorate-General for Energy",C2,ENER-B3-TENDERS@ec.europa.eu,filled: 'p=reject'
+mailbox changed,Northern Gas Networks,C2,procurement@northerngas.co.uk,was (none)
+package moved,Northern Gas Networks,C2,procurement@northerngas.co.uk,was C0
+field changed: invoice_mailing_address,Northern Gas Networks,C2,procurement@northerngas.co.uk,"filled: 'Northern Gas Networks, Accounts Payable, Thorpe Park Business Park, 1100 Century Way, Colton, Leeds, LS15 8TU'"
+field changed: email_check,Northern Gas Networks,C2,procurement@northerngas.co.uk,filled: 'confirmed'
+field changed: dmarc_policy,Northern Gas Networks,C2,procurement@northerngas.co.uk,filled: 'p=quarantine'
+mailbox changed,Municipalité de Saint-Bernard,B0,,was comptabilite@saint-bernard.quebec
+package moved,Municipalité de Saint-Bernard,B0,,was B3
+field changed: ap_phone,Municipalité de Saint-Bernard,B0,,was '418 475-6060' → now ''
+field changed: invoice_mailing_address,Municipalité de Saint-Bernard,B0,,"was '1499, rue Saint-Georges, Saint-Bernard, Québec G0S 2G0' → now ''"
+field changed: email_check,Municipalité de Saint-Bernard,B0,,was 'confirmed' → now ''
+field changed: dmarc_policy,Municipalité de Saint-Bernard,B0,,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now ''"
+field changed: ship_ready,Municipalité de Saint-Bernard,B0,,"was 'yes (finance mailbox, not AP)' → now 'no (mailbox not referee-confirmed)'"
+mailbox changed,County of Grande Prairie No. 1,B1,info@countygp.ab.ca,was procurement@countygp.ab.ca
+package moved,County of Grande Prairie No. 1,B1,info@countygp.ab.ca,was B2
+field changed: invoice_portal_url,County of Grande Prairie No. 1,B1,info@countygp.ab.ca,was 'https://countygp.bidsandtenders.ca/Module/Tenders/en — bids&tenders' → now ''
+field changed: invoice_portal_url,National Fish And Wildlife Foundation,B1,info@nfwf.org,was 'SAP Ariba' → now 'https://easygrants.nfwf.org/'
+field changed: payment_terms_as_published,OTTAWA HOSPITAL RESEARCH INSTITUTE,B1,info@ohri.ca,was 'payable and accrued liabilities are generally due within 30 days (as printed on https://ohri.ca/sites/ohri/files/2025-10' → now 'within 30 days'
+field changed: payment_terms_as_published,Municipalité Canton Lochaber,C1,dg@cantonlochaber.ca,"filled: 'payment terms, or PO rules published'"
+field changed: ap_phone,Municipalité Canton Lochaber,C1,dg@cantonlochaber.ca,filled: '819 985-3291'
+field changed: invoice_mailing_address,Municipalité Canton Lochaber,C1,dg@cantonlochaber.ca,"filled: '259 Montée du Gore, Lochaber, Québec J0X 3B0, Canada'"
+mailbox changed,KNMI (Represented by Ministry of Infrastructure and Water Management),C1,informatiecentrum@knmi.nl,was (none)
+package moved,KNMI (Represented by Ministry of Infrastructure and Water Management),C1,informatiecentrum@knmi.nl,was C0
+field changed: buyer_website,KNMI (Represented by Ministry of Infrastructure and Water Management),C1,informatiecentrum@knmi.nl,filled: 'https://knmi.nl'
+field changed: email_check,KNMI (Represented by Ministry of Infrastructure and Water Management),C1,informatiecentrum@knmi.nl,filled: 'confirmed'
+field changed: dmarc_policy,KNMI (Represented by Ministry of Infrastructure and Water Management),C1,informatiecentrum@knmi.nl,filled: 'p=quarantine'
+field changed: ship_ready,KNMI (Represented by Ministry of Infrastructure and Water Management),C1,informatiecentrum@knmi.nl,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+field changed: payment_terms_as_published,All Figure,T1,info@allfigure.ca,filled: 'within 14 days'
+field changed: payment_terms_as_published,Trunkshop,T1,info@sicilyclothing.com,"was '10 days of receipt (as printed on https://sicilyclothing.com/pages/return-refund-policy, re-read 2026-11-08)' → now 'within 10 days'"
+mailbox changed,GGX Gold Corp.,T1,office@ggxgoldcorp.com,was office@ggxgold.com
+field changed: dmarc_policy,GGX Gold Corp.,T1,office@ggxgoldcorp.com,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now 'no DMARC record'"
+field changed: po_required_as_published,Pianos Bolduc,T1,info@pianosbolduc.com,filled: 'yes (as published: Quote history STORE INFORMATION St-Joseph Store and Factory 230 Rte des Fermes P.O.)'
+mailbox changed,Ville de Québec,T1,info@ymcaquebec.org,was contact@ymcaquebec.org
+mailbox changed,The Church Brewing Co.,T1,admin@churchbrewing.ca,was info@churchbrewing.ca
+field changed: payment_terms_as_published,wlknstore.com,T1,info@wlknstore.com,was '30 jours' → now '30 days'
+field changed: payment_terms_as_published,semencesduportage.com,T1,info@semencesduportage.com,"was 'payment method (within 14 days (as printed on https://semencesduportage.com/en/pages/politique-de-livraison, re-read 202' → now '14 days'"
+mailbox changed,Relais Plein Air,T1,reception@relaispleinair.ca,was info@relaispleinair.ca
+field changed: payment_terms_as_published,Love Me Do Baby,T1,info@lovemedobaby.com,filled: 'within 14 days'
+mailbox changed,BabyUni Kid’s Boutique,T1,info@babyuni.ca,was contact@babyuni.ca
+mailbox changed,Pinnacle Silver and Gold Corp.,T1,info@pinnaclesilverandgold.com,was info@pinnaclesilver.com
+field changed: dmarc_policy,Pinnacle Silver and Gold Corp.,T1,info@pinnaclesilverandgold.com,"was 'no DMARC record' → now 'v=DMARC1; p=none (monitor only, no enforcement)'"
+mailbox changed,Handpie Company,T1,admin@handpie.ca,was info@handpie.ca
+mailbox changed,The Meathead Store,T1,info@meatheadstore.com,was info@themeatheadstore.com
+field changed: dmarc_policy,The Meathead Store,T1,info@meatheadstore.com,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now 'no DMARC record'"
+mailbox changed,Highland Park Physiotherapy Clinic,T1,office@highlandparkphysio.ca,was info@highlandparkphysio.ca
+field changed: payment_terms_as_published,Tanda Shoes,T1,info@tandashoes.com,filled: '20 days'
+field changed: po_required_as_published,A2 Gold Corp.,T1,info@a2gold.com,"was 'yes (as published: P.O. Box 1625 Tonopah, NV USA, 89049 Updates "" * "" indicates required)' → now ''"
+mailbox changed,VIP Cannabis,T1,admin@vipcannabis.ca,was info@vipcannabis.ca
+mailbox changed,Wellü,T1,info@welluinc.com,was hello@welluinc.com
+field changed: payment_terms_as_published,Whetung Ojibwa Centre,T1,info@whetung.com,filled: 'within 60 days'
+mailbox changed,Prescott,T1,info.prescottmemorials@bellnet.ca,was admin@prescott.ca
+field changed: dmarc_policy,Prescott,T1,info.prescottmemorials@bellnet.ca,"was 'p=quarantine' → now 'v=DMARC1; p=none (monitor only, no enforcement)'"
+mailbox changed,Motherpluckers,T1,info@motherpluckers.co,was reception@motherpluckers.co
+mailbox changed,alliedtherapy.ca,T1,info@alliedtherapy.ca,was office@alliedtherapy.ca
+mailbox changed,olly.com,T1,hello@olly.com,was hello@olly.com.sg
+mailbox changed,Agua,T1,info@aguacanada.com,was contact@aguacanada.com
+field changed: payment_terms_as_published,Agua,T1,info@aguacanada.com,was '30 DAYS' → now ''
+mailbox changed,Tricot - Thé Serré,T1,info@tricottheserre.co,was info@tricottheserre.com
+field changed: dmarc_policy,Tricot - Thé Serré,T1,info@tricottheserre.co,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now 'no DMARC record'"
+mailbox changed,Germotte Photo & Framing Studio,T1,info@germotte.com,was contact@germotte.ca
+field changed: dmarc_policy,Germotte Photo & Framing Studio,T1,info@germotte.com,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now 'no DMARC record'"
+mailbox changed,En Gold Studio LLC,T1,hello@engold.com,was hello@engold.com.au
+field changed: ap_phone,En Gold Studio LLC,T1,hello@engold.com,"filled: '+1 346 684 0068 (as printed on https://engold.com/pages/terms-and-services, re-read 2026-11-08)'"
+field changed: payment_terms_as_published,goodmorningsnoresolution.com,T1,info@goodmorningsnoresolution.com,filled: 'within 30 days'
+mailbox changed,BPI Sports,T1,info@bpisports.net,was info@bpisports.com
+field changed: dmarc_policy,BPI Sports,T1,info@bpisports.net,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now 'p=quarantine'"
+mailbox changed,Park & Province,T1,info@parkprovince.com,was hello@parkprovince.com
+mailbox changed,Core Wellness and Chiropractic,T1,info@corewellnessandchiropractic.cacom,was reception@corewellness.ca
+mailbox changed,CleanTech Vanadium Mining Corp.,T1,info@cleantechvanadium.com,was info@cleantechctv.com
+field changed: dmarc_policy,CleanTech Vanadium Mining Corp.,T1,info@cleantechvanadium.com,"was 'no DMARC record' → now 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: payment_terms_as_published,Les Editions Passe-Temps,T1,info@placote.com,filled: 'within 30 days'
+field changed: payment_terms_as_published,secondcell.ca,T1,info@secondcell.ca,was '30 jours' → now ''
+field changed: payment_terms_as_published,Kingston Olive Oil Co.,T1,info@kingstonoliveoil.com,filled: '14 days'
+mailbox changed,Golden Anchor Marina,T1,info@goldenanchormarina.on.ca,was info@goldenanchormarina.com
+field changed: dmarc_policy,Golden Anchor Marina,T1,info@goldenanchormarina.on.ca,was 'p=reject' → now 'no DMARC record'
+field changed: ap_phone,Societatea Nationala Nuclearelectrica SA,C0,,filled: '+40 21 203 8200'
+field changed: invoice_mailing_address,Societatea Nationala Nuclearelectrica SA,C0,,"filled: 'Bulevardul Iancu de Hunedoara, Nr. 48, CP 011745, Bucuresti, Romania'"
+field changed: dmarc_policy,Societatea Nationala Nuclearelectrica SA,C0,,filled: 'p=quarantine'
+mailbox changed,"THE REPUBLIC OF COTE D'IVOIRE / Greater Abidjan Urban Mobility Authority (AMUGA), Ministry of Transport",C1,info@amuga.ci,was (none)
+package moved,"THE REPUBLIC OF COTE D'IVOIRE / Greater Abidjan Urban Mobility Authority (AMUGA), Ministry of Transport",C1,info@amuga.ci,was C0
+field changed: buyer_website,"THE REPUBLIC OF COTE D'IVOIRE / Greater Abidjan Urban Mobility Authority (AMUGA), Ministry of Transport",C1,info@amuga.ci,filled: 'https://amuga.ci'
+field changed: email_check,"THE REPUBLIC OF COTE D'IVOIRE / Greater Abidjan Urban Mobility Authority (AMUGA), Ministry of Transport",C1,info@amuga.ci,filled: 'confirmed'
+field changed: dmarc_policy,"THE REPUBLIC OF COTE D'IVOIRE / Greater Abidjan Urban Mobility Authority (AMUGA), Ministry of Transport",C1,info@amuga.ci,filled: 'no DMARC record'
+field changed: ship_ready,"THE REPUBLIC OF COTE D'IVOIRE / Greater Abidjan Urban Mobility Authority (AMUGA), Ministry of Transport",C1,info@amuga.ci,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+mailbox changed,United Nations Industrial Development Organization,B0,,was unido@unido.org
+package moved,United Nations Industrial Development Organization,B0,,was B1
+field changed: buyer_website,United Nations Industrial Development Organization,B0,,was 'https://unido.org' → now 'https://www.unido.org/'
+field changed: invoice_mailing_address,United Nations Industrial Development Organization,B0,,"was 'Vienna International Centre, Wagramer Straße 5, P.O. Box 300, A-1400 Vienna, Austria' → now ''"
+field changed: email_check,United Nations Industrial Development Organization,B0,,was 'confirmed' → now ''
+field changed: dmarc_policy,United Nations Industrial Development Organization,B0,,was 'p=reject' → now ''
+mailbox changed,"Saint Lucia, Organization of Eastern Caribbean States (OECS) Commission, Grenada / Saint Lucia, Grenada, Organization of Eastern Caribbean States (OECS) Commission",B0,,was oecs@oecs.int
+package moved,"Saint Lucia, Organization of Eastern Caribbean States (OECS) Commission, Grenada / Saint Lucia, Grenada, Organization of Eastern Caribbean States (OECS) Commission",B0,,was B1
+field changed: buyer_phone,"Saint Lucia, Organization of Eastern Caribbean States (OECS) Commission, Grenada / Saint Lucia, Grenada, Organization of Eastern Caribbean States (OECS) Commission",B0,,was '+1758-455-6327' → now ''
+field changed: buyer_website,"Saint Lucia, Organization of Eastern Caribbean States (OECS) Commission, Grenada / Saint Lucia, Grenada, Organization of Eastern Caribbean States (OECS) Commission",B0,,was 'https://oecs.int' → now ''
+field changed: ap_phone,"Saint Lucia, Organization of Eastern Caribbean States (OECS) Commission, Grenada / Saint Lucia, Grenada, Organization of Eastern Caribbean States (OECS) Commission",B0,,was '+1 758-455-6327' → now ''
+field changed: invoice_mailing_address,"Saint Lucia, Organization of Eastern Caribbean States (OECS) Commission, Grenada / Saint Lucia, Grenada, Organization of Eastern Caribbean States (OECS) Commission",B0,,"was 'Morne Fortune, P.O. Box 179, Castries, Saint Lucia' → now ''"
+field changed: email_check,"Saint Lucia, Organization of Eastern Caribbean States (OECS) Commission, Grenada / Saint Lucia, Grenada, Organization of Eastern Caribbean States (OECS) Commission",B0,,was 'not_found_on_page' → now ''
+field changed: dmarc_policy,"Saint Lucia, Organization of Eastern Caribbean States (OECS) Commission, Grenada / Saint Lucia, Grenada, Organization of Eastern Caribbean States (OECS) Commission",B0,,was 'p=quarantine' → now ''
+field changed: email_check,Full Cycle,T1,hello@fullcycle.ca,was 'confirmed' → now 'unverified_page_unavailable'
+field changed: ship_ready,Full Cycle,T1,hello@fullcycle.ca,was 'no (mailbox below finance grade)' → now 'no (mailbox not referee-confirmed)'
+mailbox changed,meteo france,C1,contact@meteo.fr,was (none)
+package moved,meteo france,C1,contact@meteo.fr,was C0
+field changed: email_check,meteo france,C1,contact@meteo.fr,filled: 'confirmed'
+field changed: dmarc_policy,meteo france,C1,contact@meteo.fr,"filled: 'v=DMARC1; p=none (monitor only, no enforcement)'"
+field changed: ship_ready,meteo france,C1,contact@meteo.fr,was 'no (mailbox not referee-confirmed)' → now 'no (mailbox below finance grade)'
+row added,EMSA,C1,csn-info@emsa.europa.eu,new organisation in the ranked file
+mailbox changed,Interior Health Authority,C0,,was AP_VEN_INVOICES@interiorhealth.ca
+package moved,Interior Health Authority,C0,,was C4
+field changed: buyer_address,Interior Health Authority,C0,,"was '505 Doyle Ave., Kelowna, BC, V1Y 0C5' → now '505 DOYLE AVE, KELOWNA, BC, V1Y0C5 (CRA list of registered charities, https://open.canada.ca/data/dataset/80c00cdb-1358-'"
+field changed: buyer_website,Interior Health Authority,C0,,was 'https://interiorhealth.ca' → now 'WWW.INTERIORHEALTH.CA'
+field changed: payment_terms_as_published,Interior Health Authority,C0,,was 'within 30 days' → now ''
+field changed: ap_phone,Interior Health Authority,C0,,was '250-491-6330' → now ''
+field changed: invoice_mailing_address,Interior Health Authority,C0,,"was '#101 – 2355 Ackland Rd, Kelowna, BC V1X 7X9' → now ''"
+field changed: email_check,Interior Health Authority,C0,,was 'confirmed' → now ''
+field changed: dmarc_policy,Interior Health Authority,C0,,"was 'v=DMARC1; p=none (monitor only, no enforcement)' → now ''"
+field changed: ship_ready,Interior Health Authority,C0,,was 'no (relationship not dated / active)' → now 'no (mailbox not referee-confirmed)'
+field changed: payment_terms_as_published,rivmo.ca,E0,,"filled: 'payment terms, or PO rules published'"
+field changed: payment_terms_as_published,MRC de La Côte-de-Beaupré,E0,,"filled: 'payment terms, or PO rules published'"
+row added,Bécancour,I1,info@ville.becancour.qc.ca,new organisation in the ranked file
+row added,Hébertville,I1,reception@ville.hebertville.qc.ca,new organisation in the ranked file
+row added,Pinnacle Silver and Gold,I1,info@pinnaclesilver.com,new organisation in the ranked file
+row removed,"Commission européenne, INTPA - International Partnerships",B0,,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+row removed,ieltsregistration.britishcouncil.org,D0,,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+row removed,The World Bank Group,E0,,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+row removed,unido.org,D0,,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+row removed,Acadia University,F4,accountspayable@acadiau.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
+row removed,Mount Saint Vincent University,F4,accounts.payable@msvu.ca,"no longer in the ranked file (folded into another row, mailbox rejected, or organisation dropped)"
