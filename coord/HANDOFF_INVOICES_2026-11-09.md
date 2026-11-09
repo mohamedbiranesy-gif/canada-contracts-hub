@@ -134,8 +134,11 @@ Seven blocks; every value is a copy of the row's column named here, so the prove
 - `follow_up`: `ap_phone`, `ap_contact` (the person the organisation itself names), `requirements_text`.
 Anything prefixed "DERIVED:" is a rule applied to the buyer's province / type, never a published fact: print it, but as the vendor's tax treatment, not
 as the buyer's statement. `invoice_text` is the same card rendered as a draft header (BILL TO / SUBMIT TO / REFERENCE / FROM-REMIT TO / TAX |
-CURRENCY | TERMS / DESCRIPTION | AMOUNT); the portal is labelled "invoice portal" only when the buyer's page says invoices go there, otherwise
-"supplier / tender portal (not an invoice channel)" (SEAO, MERX, bids&tenders are tender portals — never send an invoice to them).
+CURRENCY | TERMS / DESCRIPTION | AMOUNT). `submit_to.portal_is_invoice_channel` is true only for an e-invoicing / supplier-invoice network
+(Ariba, Coupa, Tungsten / Kofax, Basware, GHX, Jaggaer, Workday, Oracle iSupplier, Esker, Taulia …); `submit_to.portal_class` and the label in
+`invoice_text` say "e-invoicing portal", "tender portal (not an invoice channel)" (SEAO, MERX, bids&tenders, Bonfire — never send an invoice there)
+or "portal (not confirmed as an invoice channel)" (a generic "supplier portal" mention: register there if the buyer asks, invoice by e-mail). Only
+an e-invoicing portal makes channel tier 1 on its own; with a purchasing / general mailbox and a tender portal the row is `routed`.
 
 ## 8. Two rows as they render (final build) — what "pay on sight" looks like
 ```
@@ -151,7 +154,7 @@ Build it as: a PDF, one invoice, PO number asked from APInvoices@calgary.ca firs
 reference line "Contract AB-2026-05492 / RFQ 26-0108 / PO …", sent to the Ariba portal (the mailbox is the fallback the page itself names).
 ```
 BILL TO: Société de transport de Montréal — 1170-800 RUE de La Gauchetière O, Montréal, QC, H5A1J6
-SUBMIT TO: facture.comptesapayer@stm.info (invoicing/AP mailbox, confirmed by the referee) | supplier / tender portal (not an invoice channel): SEAO
+SUBMIT TO: facture.comptesapayer@stm.info (invoicing/AP mailbox, confirmed by the referee) | tender portal (not an invoice channel): SEAO
 REFERENCE: contract 20168351|20168352 (ocds_contract_ids); tender 6000041033 (numero) | PO rule: purchase-order terms published (as published: … TVQ et la TPS …)
 FROM / REMIT TO: DECASULT INC. — 600 de Maisonneuve Ouest, Suite 3200, Montréal, QC, H3A3J2 | GST/HST 101313286RT0001 (derived from the BN9) | NEQ 1142909408
 TAX: DERIVED: taxable purchaser presumed … place-of-supply rate of QC | CURRENCY: CAD | TERMS: net 30 jours (as printed on https://www.stm.info/espace-affaires/fournisseur)
