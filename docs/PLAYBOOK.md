@@ -424,3 +424,7 @@
 ### Supplier scope and scanned FAES notices (codex, 2026-11-08)
 
 FAES procurement notices can be scanned PDFs with no extractable text. Visually inspect the linked original. Its October 2026 HA-J0011 notice publishes a procurement-unit role mailbox. Preserve project/unit scope. Nordic framework organisations such as SKI publish invoice requirements for their member buyers. Those requirements do not establish SKI own invoice destination. NGU publishes its own EHF identifier and DFØ invoice postal address on its supplier invoice page, distinct from its normal postal address.
+
+### Current UK university supplier pages (codex, 2026-11-08)
+
+UWE Bristol's current supplier-payments page uses supplierinvoices for invoice intake and accounts.payable for statements. Its older PDF uses accounts.payable for invoices. Preserve current-page precedence. Royal Holloway's public supplier pages document separate unmonitored invoice and monitored query mailboxes plus Proactis PO Flip. UL finance pages expose ordinary role mailto links even when web search yields mainly Mary Immaculate College results. MIC is a different institution. SCCL hosts legacy NHS Supply Chain operational PDFs whose glossary still names DHL Supply Chain Ltd. Check entity continuity before assigning legacy AP instructions to SCCL.

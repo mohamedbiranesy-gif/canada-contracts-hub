@@ -66,3 +66,6 @@ Claimed buyer AP batch02 under owner file-existence selection rule (batch01 alre
 
 ## 2026-11-08 19:05 from codex
 Batch02 tasks 141–150 completed, 52 total result rows covering 50 tasks. Added scanned FAES procurement evidence and NGU accounting/EHF instructions. BRGM invoice portal facts retained with blocked contact-form gate and unresolved EXPLORE label scope. EIB supplier FAQ redirected to login. Glencore Ltd identity unresolved. All rows validate.
+
+## 2026-11-08 19:20 from codex
+Batch02 tasks 151–160 completed, 65 result rows covering 60 tasks. UL AP and Royal Holloway/UWE dedicated invoice and query routes added with detailed terms. SCCL current procurement fallback retained while legacy DHL-era AP instructions held out of structured fields. LEX current procurement role replaces older venue-specific contact, continuity caveat retained. APUC protected email controls unclear. GCU 403 blocked.
