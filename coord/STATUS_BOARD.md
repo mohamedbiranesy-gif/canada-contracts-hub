@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-09 08:07 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-09 08:24 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-08)
 | metric | value |
@@ -69,7 +69,7 @@
 | claude | claude_vendor_sites.csv | 842 | 0 | 0 | 0 | 842 |
 | claude | claude_wikidata_orgs.csv | 42229 | 0 | 0 | 0 | 42229 |
 | codex | codex_buyer_ap_results_batch01.csv | 100 | 44 | 56 | 0 | 0 |
-| codex | codex_buyer_ap_results_batch02.csv | 76 | 40 | 0 | 18 | 18 |
+| codex | codex_buyer_ap_results_batch02.csv | 101 | 50 | 15 | 18 | 18 |
 | codex | codex_buyer_ap_results_batch03.csv | 85 | 50 | 0 | 13 | 22 |
 | gemini | gemini_buyer_ap_results_batch01.csv | 178 | 141 | 35 | 0 | 2 |
 | gemini | gemini_buyer_ap_results_batch02.csv | 188 | 145 | 37 | 0 | 6 |
@@ -114,8 +114,8 @@
 | gemini | gemini_buyer_ap_results_batch41.csv | 110 | 69 | 41 | 0 | 0 |
 | gemini | gemini_buyer_ap_results_batch42.csv | 109 | 88 | 20 | 0 | 1 |
 | gemini | gemini_buyer_ap_results_batch43.csv | 71 | 34 | 37 | 0 | 0 |
-| gemini | gemini_buyer_ap_results_batch44.csv | 204 | 131 | 70 | 2 | 1 |
-| gemini | gemini_buyer_ap_results_batch45.csv | 108 | 96 | 2 | 8 | 2 |
+| gemini | gemini_buyer_ap_results_batch44.csv | 218 | 132 | 83 | 2 | 1 |
+| gemini | gemini_buyer_ap_results_batch45.csv | 111 | 96 | 5 | 8 | 2 |
 | gemini | gemini_buyer_ap_results_batch46.csv | 100 | 87 | 8 | 1 | 4 |
 | gemini | gemini_buyer_ap_results_batch47.csv | 105 | 90 | 9 | 1 | 5 |
 | gemini | gemini_buyer_ap_results_batch48.csv | 107 | 101 | 4 | 2 | 0 |
@@ -286,7 +286,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 77282 entities researched, 74955 with at least one verified contact.
+**team_buyers**: 77282 entities researched, 74963 with at least one verified contact.
 
 **team_vendors**: 15497 entities researched, 4033 with at least one verified contact.
 
@@ -297,10 +297,10 @@
 | jules | 1 | 0 | 12 | 9 |
 
 ## Last ingest
-- buyers with team findings: 77282 (with at least one verified e-mail/portal: 74951)
+- buyers with team findings: 77282 (with at least one verified e-mail/portal: 74959)
 - vendors with team findings: 15497
 - QA rows: 200
-- counters: {'files': 265, 'buyer_findings_verified': 95199, 'buyer_findings_verified_on_archive_copy': 5829, 'buyer_findings_not_found_on_page': 2762, 'buyer_findings_unverified_page_unavailable': 1078, 'buyer_findings_not_found_on_page_hidden': 449, 'buyer_findings_rejected_personal_or_invalid': 70, 'vendor_emails_not_found_on_page': 418, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4411, 'vendor_emails_unverified_page_unavailable': 346, 'buyer_findings_cross_verified': 13, 'verify_tasks_chatgpt': 117, 'verify_tasks_gemini': 425, 'verify_tasks_jules': 6}
+- counters: {'files': 265, 'buyer_findings_verified': 95210, 'buyer_findings_verified_on_archive_copy': 5829, 'buyer_findings_not_found_on_page': 2762, 'buyer_findings_unverified_page_unavailable': 1078, 'buyer_findings_not_found_on_page_hidden': 449, 'buyer_findings_rejected_personal_or_invalid': 70, 'vendor_emails_not_found_on_page': 418, 'vendor_emails_not_found_on_page_hidden': 420, 'vendor_emails_verified': 4411, 'vendor_emails_unverified_page_unavailable': 346, 'buyer_findings_cross_verified': 13, 'verify_tasks_chatgpt': 117, 'verify_tasks_gemini': 425, 'verify_tasks_jules': 6}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -310,8 +310,8 @@ Every row's outcome is in `coord/results/verification_log.csv`. Look up your own
 |---|---|---|---|---|---|---|---|
 | chatgpt | 1545 | 5 | 0 | 58 | 1 | 44 | 0 |
 | claude | 89143 | 1 | 0 | 668 | 12 | 1578 | 69 |
-| codex | 129 | 0 | 0 | 12 | 0 | 2 | 0 |
-| gemini | 4382 | 7 | 0 | 327 | 436 | 1138 | 1 |
+| codex | 139 | 0 | 0 | 12 | 0 | 2 | 0 |
+| gemini | 4383 | 7 | 0 | 327 | 436 | 1138 | 1 |
 
 ## Where to look
 - Next work per lane: `coord/NEXT.md`
