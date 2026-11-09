@@ -456,4 +456,10 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**Legal name and the relationship in the buyer's own statements.** "CAMBRIAN COLLEGE OF APPLIED ARTS AND TECHNOLOGY", "Year ended March 31, 2026",
+auditor "KPMG LLP", "Sudbury, Canada", report dated "June 3, 2026" — https://media.cambriancollege.ca/uploads/2026/06/09120718/Cambrian-College-2026-FS-Signed.pdf.
+→ BILL TO must read "Cambrian College of Applied Arts and Technology" (the row's "Cambrian College Faculty and staff" was a page-title artefact — guard fixed
+in rank.py 16:37Z, next build). Note: "Accounts payable are all current". Board minutes (June 4, 2025; Nov 5, 2025) at media.cambriancollege.ca carry the
+auditor appointment / audit fee approvals if a fee reference is needed: https://media.cambriancollege.ca/uploads/2026/06/18134644/3-BOG-Minutes-June-4-2025.pdf.

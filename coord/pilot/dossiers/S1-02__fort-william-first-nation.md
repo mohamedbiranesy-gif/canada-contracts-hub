@@ -361,4 +361,14 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**The relationship in the buyer's own statements (auditor engagement, recurring annually).** "Fort William First Nation" consolidated financial
+statements "For the year ended March 31, 2025", auditor "MNP LLP", "Thunder Bay, Ontario Chartered Professional Accountants", report dated "February 11,
+2026" — https://fwfn.com/wp-content/uploads/2026/04/Consolidated-Financial-Statements-FWFN.pdf. MNP's engagement office: "1095 Barton Street, Thunder Bay,
+Ontario, P7B 5N3" (the vendor's remit-to for this engagement may be the Thunder Bay office rather than the LLP's head office — confirm on the engagement
+letter). Fiscal year end March 31 → audit fees are invoiced on completion (Feb 2026) and interim billing by milestone. GST: an Indian band / band-empowered entity is relieved of GST/HST under CRA Technical Information Bulletin B-039 on goods delivered to the reserve and on
+services acquired for band management activities (on or off reserve) when the band certifies the purchase — audit services for the band's own
+financial statements are band management activities; ask FWFN's finance office for its certification wording before the first invoice. The pack's derived
+tax line for First Nation buyers now says this (rank.py, next build) instead of "taxable purchaser presumed".
+Prior years' statements are mirrored at canadaspends.com (ISC_187, 2020–2024) — same auditor, continuous relationship.

@@ -381,4 +381,12 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**The project behind the relationship.** ReNew Canada, "January 30, 2023", https://www.renewcanada.net/contract-awarded-to-build-student-housing-for-university-of-fraser-valley/:
+"Turner Construction Company and Clark Builders are pleased to announce that they have been selected" — "The $73.7-million new student housing facility",
+"The six-storey, $73 million mass timber building will provide 398 beds", Abbotsford campus, occupancy slated for fall 2024; funding "received $62.3
+million from the Province of British Columbian [sic], with $11.4 million funded by UFV." → a construction contract (Turner / Clark Builders joint venture):
+invoices are progress claims against the construction contract (BC Builders Lien Act holdback 10 %), not a PO invoice; UFV's AP rule "purchase order, all
+invoices must" (row) applies to goods/services — for this contract quote the contract/project number on the certified progress claim. Confirm which entity
+bills: the JV, Clark Builders Inc. (row) or Turner — the row's vendor is Clark Builders Inc. (the Canadian partner).

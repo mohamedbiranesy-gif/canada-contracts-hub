@@ -421,4 +421,12 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**The relationship in the buyer's own statements.** "City of Kamloops" financial statements "For the year ended December 31, 2025", independent
+auditor's report on BDO letterhead ("BDO Canada LLP"), signed "Chartered Professional Accountants", "Kamloops, British Columbia", "April 15, 2026" —
+https://www.kamloops.ca/sites/default/files/2025%20Financial%20Statements%20-%20City%20of%20Kamloops.pdf. Note 1: "The City of Kamloops (the "City") was
+incorporated in 1893." — the statements use "City of Kamloops", not "The Corporation of the City of Kamloops": bill to "City of Kamloops". Note 20:
+"accounts payable maturities are all within the next fiscal year" (no vendor payment terms in the notes).
+**Reference.** Tender 344842 (bids&tenders, row) is the audit-services award; the auditor's report date (April 15, 2026) dates the latest deliverable.
+A June 2026 external audit of the City's procurement found the system "sound but modernization needed" (radionl.com 2026-06-02) — expect PO discipline.

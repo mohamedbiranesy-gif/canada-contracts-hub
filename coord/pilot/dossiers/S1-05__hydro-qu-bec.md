@@ -441,4 +441,13 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**Layer 1 already carries Hydro-Québec's complete invoicing rule** (preparer-transmettre-facture.html, re-read 2026-11-08): bill to "Hydro-Québec ou la
+Société d'énergie de la Baie James (SEBJ)"; a "Numéro de commande (10 chiffres débutant par 45, ou 7 chiffres 9XXXXXX / 8 chiffres 19XXXXXX ou 7XXXXXXX) ou
+CII (2 lettres + 4 chiffres)" is mandatory; PDF attachment; "paiement se fait habituellement dans les 30 jours"; mailbox comptes.fournisseurs@hydro.qc.ca.
+**Supplier number (the vendor's own id with this buyer).** "Où trouver votre numéro de fournisseur ?",
+https://www.hydroquebec.com/data/fournisseurs/pdf/ou-trouver-numero-fournisseur.pdf: "Votre numéro de fournisseur est indiqué sur le bon de commande,
+contrat-cadre, avis de paiement ou talon de chèque." — "Il est composé de six à dix caractères – chiffres ou lettres – et débute par un chiffre."
+(examples 123456, 0A12345678). → G.L.R. inc. finds its number on any HQ purchase order or payment advice; print it on the invoice next to the 45-series
+order number. The SEAO record (contract 20169105, tender AM010743) is the public reference of the award; the order number comes from HQ, not SEAO.

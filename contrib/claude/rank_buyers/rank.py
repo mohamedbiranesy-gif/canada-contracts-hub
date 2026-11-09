@@ -2663,6 +2663,10 @@ try:
                     x["buyer_tax_status_derived"] = TAX_PAY_REBATE
             elif "municipal" in bt2 and prov2:
                 x["buyer_tax_status_derived"] = TAX_MUNICIPAL
+            elif re.search(r"first nation|indigenous government|band council|conseil de bande", bt2) and prov2:  # pilot dossier S1-02 (2026-11-09): band councils are relieved, not "taxable presumed"
+                x["buyer_tax_status_derived"] = ("DERIVED: Indian band / band-empowered entity — GST/HST relief under CRA Technical Information Bulletin B-039 (goods delivered to a reserve; services acquired for "
+                                                 "band management activities or for real property on reserve, on or off reserve) when the band certifies the purchase; otherwise charge the %s place-of-supply rate; "
+                                                 "ask the band's finance office for its certificate wording before the first invoice (https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/b-039.html)" % prov2)
             elif prov2:  # every other Canadian purchaser (university, hospital, school board, company, non-profit): taxable supply at the place-of-supply rate; any PSB rebate is the buyer's own claim
                 x["buyer_tax_status_derived"] = "DERIVED: taxable purchaser presumed (no exemption published); charge GST/HST at the place-of-supply rate of %s on the invoice; public service bodies claim their own rebate afterwards (ETA s. 259); a registrant buyer recovers tax through ITCs" % prov2
             if prov2 in TAX_RATE:

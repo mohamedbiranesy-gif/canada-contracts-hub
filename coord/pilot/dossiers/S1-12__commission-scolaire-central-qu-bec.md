@@ -507,4 +507,17 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**Buyer's contract policy (the PO rule the row already quotes, in full).** "POLICY ON SUPPLY, SERVICE AND CONSTRUCTION CONTRACTS", adopted May 10, 2013,
+revised Oct 18, 2013 and March 25, 2015 (s. 18.1), https://www.cqsb.qc.ca/documents/37503/40386/Policy+on+Supply%2C+Services+and+Construction+Contracts.pdf/4c5e6650-08b8-1bba-301a-4e0e33c2dc9d?t=1623708185550
+(linked from https://www.cqsb.qc.ca/en/purchasing-department/policies, the only purchasing policy listed): s. 16.2 commitments "must be confirmed by signing a
+contract or by issuing a purchase order."; s. 16.3 "All contracts and purchase orders must be signed by a person authorized by the School Board."; s. 16.4
+"Invoices are paid by Financial Services or the schools and Centre."; thresholds: public tender "equal to or more than $100,000" (10.1.1 / 11.1.1 / 12.1.1),
+invitation $10,000–$99,999 (goods/services), direct quotes $2,500–$9,999. No payment-terms or invoice-address clause (absent). The Englobe mandate
+("Mandat - Laboratoire de contrôle - Surveillance", $73,999.86, SEAO contract 20128057 / tender JSMS10M-Laboratoire) sits in the invitation band → a signed
+contract or PO exists; quote the SEAO contract number and the PO; invoices go to Financial Services (the row's confirmed mailbox).
+**Purchasing service page** https://www.cqsb.qc.ca/en/service-d-approvisionnement/mandat: mandate "purchase goods and services at the best possible cost";
+no PO / invoice / payment text; contact page https://www.cqsb.qc.ca/en/purchasing-department/contact-us (not read). Note: the board has been a Centre de
+services scolaire since 2020 for French boards, but English boards kept the "Commission scolaire / School Board" name — bill to "Central Québec School
+Board / Commission scolaire Central Québec" (row's registry name), never "à la …".

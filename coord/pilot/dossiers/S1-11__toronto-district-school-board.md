@@ -433,4 +433,11 @@ _none_
 
 ## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
 
-_pending_
+Read 2026-11-09 (Claude, integrator lane).
+
+**Award page re-read.** https://tdsb.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/505f529e-b841-4e0f-b17d-d365c0b0f2d6 — "BM26-278P - Cisco
+Email Security Service", status "Awarded", closing "Fri May 8, 2026 2:00 PM (EDT)", "Bid Awarded Date" "Mon Jun 1, 2026 (EDT)", buyer written as
+"The Toronto District School Board (TDSB)"; the request asked "pricing for one and three-year subscription terms". The public page now shows "No Awarded
+Vendors" (award details visible only to plan takers) — the dataset captured Softchoice from the portal's award data at harvest time; quote the bid number
+and the award date on the invoice, and expect a one- or three-year subscription term from June 2026.
+**Channel.** apinvoices@tdsb.on.ca (confirmed); the AP page's "Purchase Order Number" rule stands (row) — no invoice without the TDSB PO.
