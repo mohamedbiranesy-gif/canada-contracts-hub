@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-09 15:06 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-09 16:05 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-08)
 | metric | value |
@@ -299,7 +299,7 @@
 ## Source registry (`coord/source_registry.csv`)
 | lane | todo | in_progress | done | blocked |
 |---|---|---|---|---|
-| codex | 25 | 0 | 0 | 0 |
+| codex | 33 | 0 | 0 | 0 |
 | jules | 1 | 0 | 12 | 9 |
 
 ## Last ingest
