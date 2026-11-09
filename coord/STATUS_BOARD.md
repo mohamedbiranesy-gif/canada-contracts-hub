@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-09 13:52 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-09 14:05 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-08)
 | metric | value |
@@ -205,7 +205,7 @@
 | gemini | gemini_vendor_contacts_results_batch159.csv | 100 | 69 | 30 | 1 | 0 |
 | gemini | gemini_vendor_contacts_results_batch16.csv | 100 | 100 | 0 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch160.csv | 100 | 72 | 28 | 0 | 0 |
-| gemini | gemini_vendor_contacts_results_batch161.csv | 50 | 27 | 23 | 0 | 0 |
+| gemini | gemini_vendor_contacts_results_batch161.csv | 100 | 59 | 41 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch17.csv | 100 | 83 | 17 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch18.csv | 120 | 97 | 23 | 0 | 0 |
 | gemini | gemini_vendor_contacts_results_batch19.csv | 100 | 78 | 22 | 0 | 0 |
