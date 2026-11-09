@@ -13,18 +13,18 @@ Informational: 4 rows whose quote shows the label next to the address rather tha
 ## Rows per package
 - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 18
 - P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 92
-- P01_GOLD_active_relationship_invoicing_AP_email: 623
+- P01_GOLD_active_relationship_invoicing_AP_email: 624
 - P02_active_relationship_finance_accounting_email: 401
-- P03_active_relationship_purchasing_email: 203
-- P04_active_relationship_general_email: 1562
+- P03_active_relationship_purchasing_email: 204
+- P04_active_relationship_general_email: 1558
 - P05_likely_active_awarded_12_36_months_any_email: 384
 - P06M_member_or_regulated_payer_of_canadian_body_other_email: 168
 - P06T_active_service_seen_on_buyer_site_other_email: 2440
 - P06_client_listing_invoicing_AP_email: 166
 - P07_client_listing_finance_or_purchasing_email: 252
 - P08_client_listing_general_email: 3038
-- P09_older_contract_or_payment_any_email: 380
+- P09_older_contract_or_payment_any_email: 381
 - P10_linked_from_vendor_site_any_email: 2597
-- P11_any_relationship_email_not_yet_confirmed: 476
+- P11_any_relationship_email_not_yet_confirmed: 477
 - P12_weaker_relationship_within_5_years_own_email: 19
 - P13_inferred_relationship_no_record_own_email: 50799
