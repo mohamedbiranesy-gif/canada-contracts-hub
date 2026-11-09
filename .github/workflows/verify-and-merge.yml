@@ -82,18 +82,26 @@ jobs:
           (pip install -q --break-system-packages pypdf || pip install -q pypdf) > /dev/null 2>&1 || true
           which pdftotext || echo "pdftotext missing; pypdf fallback"
           git config user.name "verifier-bot"; git config user.email "verifier-bot@users.noreply.github.com"
-          export VERIFY_DEADLINE=$(( $(date +%s) + VERIFY_BUDGET_SECONDS ))  # one budget for all retries below
-          for i in 1 2 3 4 5; do
+          export VERIFY_DEADLINE=$(( $(date +%s) + VERIFY_BUDGET_SECONDS ))  # one budget for the ingest
+          # 2026-11-09 03:20Z: the evidence re-check takes up to 40 min; re-running it on every push race meant no verification landed on main for
+          # five hours. The ingest runs ONCE; the push loop restores its outputs onto the latest main and only redoes the cheap queue / board steps.
+          git fetch -q origin main && git reset -q --hard origin/main
+          python3 tools/ingest_results.py > /dev/null
+          python3 tools/export_orgs.py > /dev/null || true
+          rm -rf /tmp/gen && mkdir -p /tmp/gen && cp -r coord/results /tmp/gen/results && cp coord/INGEST_REPORT.md /tmp/gen/ 2>/dev/null || true
+          [ -f coord/source_registry.csv ] && cp coord/source_registry.csv /tmp/gen/ || true
+          for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
-            python3 tools/ingest_results.py > /dev/null
-            python3 tools/export_orgs.py > /dev/null || true
+            rm -rf coord/results && cp -r /tmp/gen/results coord/results && cp /tmp/gen/INGEST_REPORT.md coord/ 2>/dev/null || true
+            [ -f /tmp/gen/source_registry.csv ] && cp /tmp/gen/source_registry.csv coord/ || true
             python3 tools/next_batch.py > /dev/null
             python3 tools/status_board.py > /dev/null
             git add coord/results coord/NEXT.md coord/STATUS_BOARD.md coord/INGEST_REPORT.md coord/tasks coord/source_registry.csv
             git diff --cached --quiet && break
             git commit -q -m "verifier: evidence re-checked, board refreshed [skip ci]"
             git push -q origin HEAD:main && break
-            sleep $((i * 7))
+            echo "push attempt $i lost the race; retrying on the new head"
+            sleep $((RANDOM % 10 + 3))
           done
       - uses: actions/cache/save@v4
         if: always()
