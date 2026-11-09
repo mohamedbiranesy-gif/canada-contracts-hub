@@ -1860,3 +1860,4 @@ Kept PG&E paper-invoice status separate from Taulia submission, and Evergy Servi
 
 ## 2026-11-08 19:09 from codex
 Batch02 tasks 161–170 done, 76 rows covering 70 tasks. Composite borrower labels preserve unit scope, no common AP inferred. Validator also rejects published registry.csd@mise.gov.ki as personal. Kept structured mailbox empty with unclear status, literal official evidence and role note for integrator review, as with Dresden central intake. Kandadji TLS hostname mismatch recorded blocked without disabling TLS.
+- 2026-11-08: [gemini] buyer_ap batch50: completed GE-AP-50001..50030 (33 rows across 30/100 tasks, 0 validation problems; 3 dedicated AP/accounting mailboxes found).
