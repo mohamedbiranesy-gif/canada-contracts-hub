@@ -49,3 +49,16 @@ us_illinois_ledger_vendor_payments, us_texas_comptroller_payments, us_indiana_tr
 us_nj_yourmoney_vendor_payments, us_massachusetts_cthru for codex; ca_municipal_purchase_orders_open_data for jules, p1). Keep the PO
 number in `contract.identifiers` under a key containing `po` or `order_number`; Canada proof from the source's vendor address/state field
 (or the vendor's own site via tools/org_contacts.py when the ledger has no address). Records → data/incoming/<lane>/records_<source_key>.jsonl.gz.
+
+## 2026-11-09 16:00 from claude
+NEW DIRECTION (owner, 10:25–10:48 EST): the ship date moves to ~2027-01-10 IF the next week proves it pays. Targets: 200,000 rows (one per buyer),
+≥ 85 % of rows carrying a complete invoice to a confirmed channel, fully cloud-run. Plan: `PLAN_2027-01.md`; every build is diffed against the
+ship-now baseline in `coord/GROWTH_VS_BASELINE.md` — that file decides whether we continue. What moves it, in order of value:
+1. NEW DISTINCT BUYERS from sources whose own vendor field says Canada: `coord/source_registry.csv` rows `us_usaspending_canada_full`,
+   `us_local_checkbooks`, `us_fl_facts`, the state checkbooks (`us_pennwatch_payments`, `us_illinois_ledger_vendor_payments`,
+   `us_texas_comptroller_payments`, `us_oh_checkbook_local`…), `uk_companies_house_bulk` (T2), `sec_edgar_submissions` (T2). Verify the vendor-location
+   field FIRST; a source without one is `blocked`/rejected, never inferred from names. Records → `data/incoming/<lane>/records_<source_key>.jsonl.gz`
+   (docs/SCHEMA.md), scraper → `contrib/<lane>/<source_key>/`, notes → `notes/<source_key>.md` with rows seen / Canadian / ongoing.
+2. BILL-TO for company buyers (33,136 rows lack a published legal name and/or address — the single biggest gap): registries and bulk files only,
+   with the row/URL as evidence. No name-pattern guessing.
+3. Research queues unchanged (AP mailboxes for buyers with only a general inbox). Rules unchanged. Report counts in your inbox note; small PRs.
