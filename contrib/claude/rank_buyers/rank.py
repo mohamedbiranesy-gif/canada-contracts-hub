@@ -2317,6 +2317,27 @@ for x in rows:
         if e and e.get("logo_url") and not x.get(side + "_logo_url"):
             x[side + "_logo_url"] = e["logo_url"]; n_late[side + "_logo"] += 1
 print("site readers, second pass (websites found late):", dict(n_late))
+# the same vendor's BN9 / remit-to address read for one row applies to every row of that vendor (same legal entity); carried with its source
+_vbn, _vad = {}, {}
+for x in rows:
+    _vn = norm(re.sub(r"^inferred:\s*", "", x.get("vendor") or ""))
+    if not _vn:
+        continue
+    if re.match(r"^\d{9}", x.get("vendor_bn9") or "") and _vn not in _vbn:
+        _vbn[_vn] = (x["vendor_bn9"], x.get("vendor_bn_source") or "", x.get("buyer") or "")
+    _ad = x.get("vendor_address") or x.get("vendor_registered_address") or ""
+    if _ad and _ad not in ("not_published",) and _vn not in _vad:
+        _vad[_vn] = (_ad, x.get("buyer") or "")
+n_carry = collections.Counter()
+for x in rows:
+    _vn = norm(re.sub(r"^inferred:\s*", "", x.get("vendor") or ""))
+    if not _vn:
+        continue
+    if not re.match(r"^\d{9}", x.get("vendor_bn9") or "") and _vn in _vbn:
+        x["vendor_bn9"] = _vbn[_vn][0]; x["vendor_bn_source"] = (_vbn[_vn][1] or "see the same vendor's other rows") + " — carried from this vendor's row with %s" % _vbn[_vn][2][:60]; n_carry["bn9"] += 1
+    if not (x.get("vendor_address") or x.get("vendor_registered_address")) and _vn in _vad:
+        x["vendor_registered_address"] = _vad[_vn][0] + " (carried from this vendor's row with %s)" % _vad[_vn][1][:60]; n_carry["address"] += 1
+print("same-vendor carry-over (BN9 / address from the vendor's other rows):", dict(n_carry))
 n9 = collections.Counter()
 for x in rows:
     for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
@@ -2711,12 +2732,14 @@ try:
             v_addr = _val("vendor_address") or _val("vendor_registered_address")
             tax_any = bool(card["tax"]["buyer_tax_status"]) or bool(x.get("tax_rate_indicative_derived")) or bool(x.get("buyer_tax_status_derived"))
             cur_any = bool(card["tax"]["currency"]) or bool(x.get("invoice_currency_derived"))
+            _public = bool(re.search(r"municipal|government|ministry|agency|utility|public corporat|crown|school|scolaire|health|hospital|universit|college|c[ée]gep|transit|library|police|first nation|band council", (x.get("buyer_type") or "").lower()))
+            billto_pos = bool(card["bill_to"]["address"]) and (card["bill_to"]["legal_name_is_published"] or (_public and bool(_val("buyer")) and not DOMAIN_NAME.match(_val("buyer")) and not GENERIC_NAME.match(_val("buyer"))))  # a public body bills under the name it publishes itself (Ville de Laval, City of Kelowna)
             pos_need = [n_ for ok_, n_ in ((tier in (1, 2), "a confirmed invoicing / AP or finance channel" if tier != 3 else "an invoicing / AP or finance mailbox (only a purchasing / general inbox is confirmed: the invoice is routed, not addressed)"),
-                                           (billto, "bill-to legal name and address"), (bool(v_legal), "the vendor's legal name"), (bool(v_gst), "the vendor's GST/HST number (BN9)"), (bool(v_addr), "the vendor's remit-to address"),
+                                           (billto_pos, "bill-to legal name and address" if not card["bill_to"]["address"] else "bill-to legal name"), (bool(v_legal), "the vendor's legal name"), (bool(v_gst), "the vendor's GST/HST number (BN9)"), (bool(v_addr), "the vendor's remit-to address"),
                                            (tax_any, "tax treatment"), (cur_any, "currency")) if not ok_]
             if not pos_need:
                 x["pay_on_sight"] = "yes" if po_known else "yes — reference rule not published (quote the buyer's PO / order number when one is issued)"
-            elif tier == 3 and all(ok_ for ok_ in (billto, bool(v_legal), bool(v_gst), bool(v_addr), tax_any, cur_any)):
+            elif tier == 3 and all(ok_ for ok_ in (billto_pos, bool(v_legal), bool(v_gst), bool(v_addr), tax_any, cur_any)):
                 x["pay_on_sight"] = "routed — complete invoice, but only a purchasing / general inbox is confirmed"
             else:
                 x["pay_on_sight"] = "no"
