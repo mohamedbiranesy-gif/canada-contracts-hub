@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 13:25Z — STOP ORDER executed; final builds landing)
+# STATE.md — Claude lane (updated 2026-11-09 14:35Z — CLOSED on the owner's stop order; final build 89b4386)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,19 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 14:35Z — FINAL (builds 13:39Z scoreboard / 14:03Z amounts / 14:29Z portal correction; this is the last entry)
+- Final published build 89b4386 (14:29Z): 63,638 rows; **pay on sight 833** strict + 841 reference-less + 22,341 routed; Gold 395 / 624 (63.3 %),
+  Gold at AP grade A 225, AP payability Gold 452 / 624; 100 / 438 benchmarks (the three P11 DNS cells healed by the re-check); amounts formatted.
+- Correction found while writing the worked examples, and the reason the strict count fell from 1,113: `_portal_ok` accepted any portal whose kind
+  text said "invoice" — the generic kind text does for every portal — so 466 rows with only a purchasing / general mailbox counted a tender portal
+  (SEAO 190, MERX, bids&tenders) as their invoice channel. Now only e-invoicing networks (Ariba, Coupa, Tungsten / Kofax, Basware, GHX, Jaggaer,
+  Workday, Oracle iSupplier, Esker, Taulia …) make tier 1 on their own; the card carries `portal_is_invoice_channel` + `portal_class`, invoice_text
+  labels tender portals "not an invoice channel". 280 rows moved to `routed`, which is what they are. Gold unchanged (AP mailboxes).
+- Verified ceilings once more: of 138 Gold rows without a vendor GST number, 110 have a vendor site, 94 were read in full by org_extras and none
+  prints the number (a GST/HST account is printed on 0.14 % of 83,475 organisation sites). Nothing else within the rules moves ≥ 50 rows.
+- Closed: wake-up trigger deleted (13:19Z); inbox notes to codex / chatgpt / gemini; hand-off `coord/HANDOFF_INVOICES_2026-11-09.md` §0–§10 (tiers,
+  field mapping, legal minimum SOR/91-45 s. 3, bounce rules, ceilings, what runs, levers, card schema, two rendered rows, pre-flight, cover e-mail).
 
 ## 13:00Z — STOP ORDER (owner 07:51 EST: "stop … make sure this is really it … advice to the other AI … go out with a bang")
 - Final lever audit: nothing left that moves ≥ 50 pay-on-sight rows within the rules (list in coord/HANDOFF_INVOICES_2026-11-09.md §6). Two last

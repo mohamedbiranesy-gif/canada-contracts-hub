@@ -3,12 +3,14 @@
 For the downstream AI (and anyone generating invoices from `coord/results/ranked/batches/*.csv`). Written by Claude, integrator lane, at the
 owner's stop order. Everything below is drawn from the columns that exist on every delivered row; nothing here asks you to invent a value.
 
-## 0. State at hand-off (final build 2026-11-09 13:09Z; the last build of the day re-renders `invoice_text` with formatted amounts)
-- 63,628 delivered rows in 17 packages. **Pay on sight = 1,113 rows** (an invoice generated from the row clears AP: confirmed invoicing / AP or finance
-  channel, bill-to legal name + address, vendor legal name + GST/HST number + remit-to address, tax treatment and currency known), **+887** that lack
-  only a published PO rule, **+22,024 "routed"** (complete invoice, but the organisation publishes one purchasing / general inbox — the invoice is
-  forwarded internally, not addressed to AP). Gold (P01): 395 of 624 pay on sight (63 %); Gold at AP grade A: 225; AP payability (the stricter
-  "submit today" test incl. the buyer's reference rule): Gold 452 / 624 (72 %), P02 306 / 404 (76 %).
+## 0. State at hand-off (final build 2026-11-09 14:29Z, commit 89b4386)
+- 63,638 delivered rows in 17 packages. **Pay on sight = 833 rows** (an invoice generated from the row clears AP: confirmed invoicing / AP or finance
+  channel — a mailbox, or an e-invoicing portal such as Ariba / Coupa / Tungsten —, bill-to legal name + address, vendor legal name + GST/HST number +
+  remit-to address, tax treatment and currency known), **+841** that lack only a published PO rule, **+22,341 "routed"** (complete invoice, but the
+  organisation publishes one purchasing / general inbox — the invoice is forwarded internally, not addressed to AP). Gold (P01): 395 of 624 pay on
+  sight (63 %); Gold at AP grade A: 225; AP payability (the stricter "submit today" test incl. the buyer's reference rule): Gold 452 / 624 (72 %),
+  P02 306 / 404 (76 %). The last correction before this build moved 280 rows from "yes" to "routed": they had leaned on a tender portal (SEAO, MERX,
+  bids&tenders) as if it were an invoice channel — it never is. Earlier numbers (1,113) in older notes are superseded by these.
 - The 438 downstream benchmarks: 100 met. `COVERAGE_VS_TARGETS.md` carries a ceiling note under every field whose target no honest source can reach.
 - Per row you get: `pay_on_sight` (yes / yes — reference rule not published / routed / no), `pay_on_sight_missing`, `channel_tier` (1–3, 0),
   `invoice_text` (a rendered draft header), `invoice_card_json` (the seven blocks, machine-readable), `ap_grade` A–E + `ap_grade_basis` +
