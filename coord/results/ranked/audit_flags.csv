@@ -167,7 +167,7 @@ P04_active_relationship_general_email,30,P04_active_relationship_general_email,V
 P04_active_relationship_general_email,32,P04_active_relationship_general_email,Santé Québec – Nord-de-l’Île-de-Montréal – Universitaire,affaires.juridiques.cnmtl@ssss.gouv.qc.ca,no role word
 P04_active_relationship_general_email,37,P04_active_relationship_general_email,Municipalité régionale de comté Le Haut-Saint-Laurent,mrchsl@mrchsl.com,no role word
 P04_active_relationship_general_email,39,P04_active_relationship_general_email,Institut de tourisme et d'hôtellerie du Québec,info@ithq.qc.ca,evidence host differs
-P04_active_relationship_general_email,41,P04_active_relationship_general_email,Centre de services scolaire Marguerite-Bourgeoys,transport@cssmb.gouv.qc.ca,no role word
+P04_active_relationship_general_email,41,P04_active_relationship_general_email,Centre de services scolaire Marguerite-Bourgeoys,transport@cssmb.gouv.qc.ca,no role word; tier/date A
 P04_active_relationship_general_email,42,P04_active_relationship_general_email,Cité de Dorval,dorval@ville.dorval.qc.ca,no role word
 P04_active_relationship_general_email,43,P04_active_relationship_general_email,Assemblée nationale du Québec,renseignements@assnat.qc.ca,no role word
 P04_active_relationship_general_email,44,P04_active_relationship_general_email,Centre de Santé Inuulitsivik.,information_rrsss17@ssss.gouv.qc.ca,evidence host differs
@@ -18241,7 +18241,6 @@ P13_inferred_relationship_no_record_own_email_part3_of_16,1734,P13_inferred_rela
 P13_inferred_relationship_no_record_own_email_part3_of_16,1753,P13_inferred_relationship_no_record_own_email,"INGÉTEC, EXPERTS-CONSEILS EN BÂTIMENT INC.",ingetec@ingetec.pro,no role word; evidence host differs
 P13_inferred_relationship_no_record_own_email_part3_of_16,1756,P13_inferred_relationship_no_record_own_email,A.C. Carbone Canada Inc.,admin@accarbone.com,evidence host differs
 P13_inferred_relationship_no_record_own_email_part3_of_16,1759,P13_inferred_relationship_no_record_own_email,9115-1951 QUÉBEC INC.,info@excavatechjl.com,evidence host differs
-P13_inferred_relationship_no_record_own_email_part3_of_16,1761,P13_inferred_relationship_no_record_own_email,turquoise design inc.,info@turquoise-ap.ca,legal-name fragment
 P13_inferred_relationship_no_record_own_email_part3_of_16,1795,P13_inferred_relationship_no_record_own_email,CORPORATION DU CENTRE JEAN-CLAUDE-MALÉPART,info@ccjcm.ca,evidence host differs
 P13_inferred_relationship_no_record_own_email_part3_of_16,1818,P13_inferred_relationship_no_record_own_email,PME Création de valeur inc.,info@pmecdv.com,evidence host differs
 P13_inferred_relationship_no_record_own_email_part3_of_16,1819,P13_inferred_relationship_no_record_own_email,Industries Cablek Inc.,sales-info@cablek.com,evidence host differs

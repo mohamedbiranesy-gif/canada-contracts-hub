@@ -1,4 +1,4 @@
-# Deep audit — 63609 delivered rows in 17 packages (32 files), 2026-11-08
+# Deep audit — 63609 delivered rows in 17 packages (32 files), 2026-11-09
 
 Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every flagged row is listed in `audit_flags.csv` with its reasons.
 
@@ -20,12 +20,12 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 12 | evidence page on the organisation's domain (or its site) | soft | 3727 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
 | 14 | DMARC / SPF / provider columns filled | soft | 0 | PASS |
-| 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 0 | PASS |
+| 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 1 | REVIEW |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
 | 19 | buyer name is a name (not a domain or a page title) | soft | 22834 | REVIEW |
-| 20 | legal name is not a fragment or a platform copyright | soft | 46 | REVIEW |
+| 20 | legal name is not a fragment or a platform copyright | soft | 45 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 8 | REVIEW |
 | 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 61 | REVIEW |
@@ -90,6 +90,8 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:134 The Ottawa Hospital | tohaccountspayable@toh.ca on ottawahospital.on.ca (site toh.ca)
     - P01_GOLD_active_relationship_invoicing_AP_email:162 Department of Foreign Affairs and Trade | dfat.e-invoicing.prod@dfat.gov.au on directory.peppol.eu (site dfat.gov.au)
     - P01_GOLD_active_relationship_invoicing_AP_email:192 HM Land Registry | apinvoices@landregistry.gov.uk on assets.publishing.service.gov.uk (site gov.uk)
+- **15 tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m)**
+    - P04_active_relationship_general_email:41 Centre de services scolaire Marguerite-B | A with end 2026-11-08
 - **19 buyer name is a name (not a domain or a page title)**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:33 ovs.com | ovs.com
     - P01_GOLD_active_relationship_invoicing_AP_email:442 capreit.ca | capreit.ca
@@ -108,7 +110,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P04_active_relationship_general_email:110 Ministère de la Culture et des Communica | ministère de la Culture et des Communications (label per Wikidata Q331
     - P04_active_relationship_general_email:155 Ministère de la Cybersécurité et du Numé | ministère de la Cybersécurité et du Numérique (label per Wikidata Q110
     - P06T_active_service_seen_on_buyer_site_other_email:370 Uppdoo | uppdoo Inc. (as registered: Corporations Canada (open data), corporati
-    - P06T_active_service_seen_on_buyer_site_other_email:1068 MyHealth Inc | myhealth inc. (as registered: Corporations Canada (open data), corpora
+    - P06T_active_service_seen_on_buyer_site_other_email:1068 MyHealth Inc | myhealth inc. (as registered: Canada's Business Registries, CC 3660222
     - P06T_active_service_seen_on_buyer_site_other_email:1239 do+dare undie co. | do+dare undie co. (label per Wikidata Q141143888, official website on 
     - P06T_active_service_seen_on_buyer_site_other_email:1405 de Montigny Contemporain | de Montigny Contemporain (label per Wikidata Q139820434, official webs
     - P07_client_listing_finance_or_purchasing_email:82 lepointdevente.com | lepointdevente.com (recipient legal name in the federal grants & contr
@@ -202,9 +204,9 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - buyer_logo_url: 53369 (83.9%)
 - vendor_bn9: 53075 (83.4%)
 - buyer_phone: 49768 (78.2%)
-- buyer_address: 47993 (75.5%)
-- buyer_legal_name_as_published: 32108 (50.5%)
-- buyer_bn_as_published: 13328 (21.0%)
+- buyer_address: 47915 (75.3%)
+- buyer_legal_name_as_published: 32448 (51.0%)
+- buyer_bn_as_published: 14413 (22.7%)
 - contract_link: 12813 (20.1%)
 - vendor_legal_name: 9729 (15.3%)
 - vendor_registry_id: 8248 (13.0%)
@@ -213,24 +215,24 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - award_date: 6482 (10.2%)
 - vendor_neq: 5017 (7.9%)
 - vendor_emails: 4369 (6.9%)
-- ap_phone: 2644 (4.2%)
+- ap_phone: 2653 (4.2%)
 - contract_value: 2359 (3.7%)
-- invoice_mailing_address: 2153 (3.4%)
-- invoicing_requirements: 1894 (3.0%)
-- payment_terms_as_published: 1841 (2.9%)
+- invoice_mailing_address: 2163 (3.4%)
+- invoicing_requirements: 1921 (3.0%)
+- payment_terms_as_published: 1882 (3.0%)
 - end_date: 1759 (2.8%)
-- invoice_portal_url: 1666 (2.6%)
-- po_required_as_published: 1446 (2.3%)
-- ap_contact_name_as_published: 878 (1.4%)
+- invoice_portal_url: 1684 (2.6%)
+- po_required_as_published: 1456 (2.3%)
+- ap_contact_name_as_published: 893 (1.4%)
 
 ## Canada-proof families
 - other: 47259; source field: 16350
 
 ## Buyer types
-- organisation (type not stated in the record): 33400
+- organisation (type not stated in the record): 33328
 - company (private sector): 10811
 - non-profit / association / cultural body: 7229
-- company (private sector) (from the organisation's name / web domain): 3744
+- company (private sector) (from the organisation's name / web domain): 3818
 - municipality / local government: 1339
 - government ministry / agency: 1213
 - municipality / local government (from the organisation's name / web domain): 1060
@@ -238,7 +240,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - non-profit / association / cultural body (from the organisation's name / web domain): 880
 - university / college: 590
 - utility / public corporation: 482
-- university / college (from the organisation's name / web domain): 452
+- university / college (from the organisation's name / web domain): 450
 - hospital / health authority (from the organisation's name / web domain): 342
 - transport / transit authority: 206
 - school board / school district: 179
