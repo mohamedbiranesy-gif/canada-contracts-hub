@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T02:15Z",
+ "updated": "2026-11-09T02:45Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -171,6 +171,11 @@
    "deliverable": "Pay-on-sight table published",
    "method": "COVERAGE_VS_TARGETS.md '### Pay on sight' table present with per-package rows; totals match SUMMARY pack counters",
    "status": "passing 02:10Z: 977 / 826 / 21,088 of 63,609; Gold 340 (57 %)"
+  },
+  {
+   "deliverable": "build 02:26Z pay-on-sight delta",
+   "method": "Pay on sight table vs 02:05Z",
+   "status": "passing: 1,032 yes (+55), 855 (+29), 21,543 routed (+455); Gold 361; 105/438; integrity intact (pages 69,559)"
   }
  ]
 }

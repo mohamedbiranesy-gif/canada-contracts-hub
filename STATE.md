@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 02:15Z)
+# STATE.md — Claude lane (updated 2026-11-09 02:45Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,15 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 02:45Z — build 02:26Z: pay on sight 1,032 + 855 + 21,543 routed; Gold 361 / 597 (60.5 %); 105 / 438
+- Rate since 02:05Z (21 min): +55 pay-on-sight, +29 reference-less, +455 routed — from the public-body billing name and vendor carry-over rules.
+  Engines' organic flow now: deep_pages found invoicing mailboxes for 87 of 105 buyers in its last pass (policy / AP pages from the pb search) →
+  referee → channel upgrades for P03–P05 in the coming builds; Gemini completed batch 50 (21:15 EST); Codex lanes still at the ChatGPT limit.
+- Gold's remaining gap is the vendor GST/HST number (126 rows): 89 vendors not found in Canada's Business Registries, 25 found in the Québec REQ
+  (which publishes no BN), 6 ambiguous. Name-variant matching might recover ~20–30 of the 89; the REQ ones have no public BN — a ceiling.
+- 21,543 "routed" rows (19,829 of them P13) are complete invoices addressed to an organisation's general inbox: the honest state for small
+  organisations that publish one mailbox.
 
 ## 02:15Z — Pay on sight on the scoreboard: 977 yes + 826 yes-no-reference + 21,088 routed of 63,609 (build 02:05Z); Gold 57 % (340 / 597)
 - Top gap per package (rows): Gold — bill-to legal name / address 105 (public bodies whose published name is the billing name → counted from the next
