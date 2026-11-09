@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 13:00Z — STOP ORDER)
+# STATE.md — Claude lane (updated 2026-11-09 13:25Z — STOP ORDER executed; final builds landing)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -108,7 +108,13 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   lane_driver_loop (Anthropic API). Left running, restart-safe and free: push loop, walker-terms loop, site readers, downloads/sync loops, Gemini's
   hourly task, the Codex app automation (owner's own); GitHub: builds every 6 h, referee on push, bulk registry daily. One-liner to stop everything on
   the Mac: `pkill -f 'cch-crawler-state/.*_loop'`.
-- Final build dispatched 12:54Z; numbers below when it lands. My wake-up chain ends with this turn (no further send_later).
+- Final build 12:54Z → landed 13:09Z (3a4b3d5): 63,628 delivered rows; pay on sight 1,113 strict + 887 reference-less + 22,024 routed; Gold 395 / 624
+  (63.3 %), Gold at AP grade A 225; AP payability Gold 452 / 624 (72.4 %), P02 306 / 404; 100 / 438 benchmarks. Its scoreboard was NOT written (the
+  new AP-payability table shadowed the field-gap list `gaps` — same bug class as 700edbf; fixed, build 13:17Z re-dispatched for the scoreboard).
+  Two last invoice_text defects found while writing the worked examples: amounts printed as raw floats (416594.66000000003) and tender portals (SEAO)
+  labelled "portal" next to the mailbox — fixed in rank.py (`_money`, "supplier / tender portal (not an invoice channel)"); last build carries them.
+- Hand-off extended (§2 legal minimum per SOR/91-45 s. 3 — $100 / $500 tiers, replacing the outdated $30; §7 invoice_card_json schema; §8 two rows
+  rendered as invoices with build instructions; §9 pre-flight checklist). Wake-up trigger for 13:33Z deleted: no further turn is scheduled.
 
 ## 12:05Z — build 11:17Z: 1,114 (+2) / 887 / 22,025; Gold 395 / 625; 100 / 438 (row growth). Codex lanes quiet again since 10:42Z (ChatGPT limit); Gemini sync 12:00Z; verifier 11:45Z; integrity intact. Flat as forecast; loops stretch to 90 min until the owner answers.
 

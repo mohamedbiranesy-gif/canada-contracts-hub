@@ -215,12 +215,12 @@
   {
    "deliverable": "pack emits every computed pay-on-sight / payability column",
    "method": "header of coord/results/ranked/ranked_buyers.csv.gz and a batch CSV contains pay_on_sight, pay_on_sight_missing, channel_tier, invoice_text, ap_payability, supplier_setup_url; scoreboard has the 'AP payability' table",
-   "status": "fixed a3209a2 — confirm on the final build"
+   "status": "confirmed on build 13:09Z (3a4b3d5): both columns in the gz header and in P01 batch (col 94–95); AP payability table renders locally from that build (Gold 452/624) — published by the 13:17Z build after the shadowing fix"
   },
   {
    "deliverable": "stop order executed",
    "method": "no send_later scheduled after 13:00Z; Mac: codex_exec_loop / api_search_loop / lane_driver_loop absent from ps; hand-off files on main",
-   "status": "done 12:58Z; final build pending"
+   "status": "done: build 13:09Z landed (1,113 / 887 / 22,024; Gold 395/624; 100/438); 13:33Z wake-up deleted 13:19Z; Mac quota loops absent; hand-off on main"
   }
  ]
 }

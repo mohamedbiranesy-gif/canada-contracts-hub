@@ -4,6 +4,16 @@
     python3 contrib/claude/rank_buyers/rank.py && python3 contrib/claude/rank_buyers/batches.py
 """
 import csv, gzip, json, re, io, collections, unicodedata, datetime, sys, os
+
+
+def _money(v):
+    """contract_value as it should print on an invoice: 2 decimals, thousands separators (the records carry floats such as 416594.66000000003)"""
+    try:
+        return "{:,.2f}".format(float(str(v).replace(",", "").replace("$", "").strip()))
+    except (TypeError, ValueError):
+        return str(v)
+
+
 ROOT = __import__("os").path.abspath(__import__("os").path.join(__import__("os").path.dirname(__file__), "../../.."))
 sys.path.insert(0, ROOT + "/tools"); sys.argv = sys.argv[:1]
 import urllib.parse
@@ -2762,11 +2772,11 @@ try:
             _ref = "; ".join(t_ for t_ in (("PO " + _val("po_number_as_published")) if _val("po_number_as_published") else "", ("contract " + _val("contract_or_agreement_number").split(";")[0]) if _val("contract_or_agreement_number") else "", ("tender " + _val("solicitation_or_tender_number").split(";")[0]) if _val("solicitation_or_tender_number") else "") if t_)
             _lines = ["DRAFT INVOICE HEADER — built only from the row's sourced and labelled-derived columns (provenance in facts_provenance_json)",
                       "BILL TO: %s%s" % (card["bill_to"]["legal_name"] or "(legal name not published)", (" — " + card["bill_to"]["address"]) if card["bill_to"]["address"] else " — (address not published)") + ((" — buyer tax no. " + card["bill_to"]["tax_number"]) if card["bill_to"]["tax_number"] else ""),
-                      "SUBMIT TO: %s%s%s%s" % (_val("email") or "(no mailbox)", " (%s mailbox, %s)" % (_val("email_type") or "type unknown", "confirmed by the referee" if confirmed else "not yet confirmed"), (" | portal: " + card["submit_to"]["portal_url"]) if card["submit_to"]["portal_url"] else "", (" | format: " + card["submit_to"]["format"]) if card["submit_to"]["format"] else ""),
+                      "SUBMIT TO: %s%s%s%s" % (_val("email") or "(no mailbox)", " (%s mailbox, %s)" % (_val("email_type") or "type unknown", "confirmed by the referee" if confirmed else "not yet confirmed"), ((" | invoice portal: " if _portal_ok else " | supplier / tender portal (not an invoice channel): ") + card["submit_to"]["portal_url"]) if card["submit_to"]["portal_url"] else "", (" | format: " + card["submit_to"]["format"]) if card["submit_to"]["format"] else ""),
                       "REFERENCE: %s%s" % (_ref or "none in the record", (" | PO rule: " + card["references_required"]["po_required"].split(" (as printed")[0][:120]) if card["references_required"]["po_required"] else " | PO rule: not published"),
                       "FROM / REMIT TO: %s%s%s%s" % (v_legal or "(vendor legal name not confirmed)", (" — " + v_addr) if v_addr else " — (remit-to address not published)", (" | GST/HST %sRT0001 (account derived from the BN9)" % v_gst) if v_gst else " | GST/HST number not public", (" | NEQ " + _val("vendor_neq").split(" ")[0]) if _val("vendor_neq") else ""),
                       "TAX: %s | CURRENCY: %s | TERMS: %s" % (re.sub(r"^(?:DERIVED: )+", "DERIVED: ", (card["tax"]["buyer_tax_status"] or x.get("buyer_tax_status_derived") or x.get("tax_rate_indicative_derived") or "treatment unknown"))[:160], (card["tax"]["currency"] or (x.get("invoice_currency_derived") or "").split(" (")[0] or "unknown"), _terms[:100]),
-                      "DESCRIPTION: %s%s" % ((_val("contract_title") or _val("contract_description") or _val("relationship_detail") or "(no contract text)")[:140], (" | AMOUNT: %s %s" % (_val("contract_value"), (card["tax"]["currency"] or "").split(" (")[0])) if _val("contract_value") else "")]
+                      "DESCRIPTION: %s%s" % ((_val("contract_title") or _val("contract_description") or _val("relationship_detail") or "(no contract text)")[:140], (" | AMOUNT: %s %s" % (_money(_val("contract_value")), (card["tax"]["currency"] or x.get("invoice_currency_derived") or "").split(" (")[0].replace("DERIVED: ", ""))) if _val("contract_value") else "")]
             x["invoice_text"] = "\n".join(_lines)[:1500]
             npk["ap_payable_today"] += not need
         x["facts_provenance_json"] = json.dumps({"mailbox": [p.strip() for p in (x.get("mailbox_provenance") or "").split(" | ") if p.strip()], "buyer_facts": [p.strip() for p in (x.get("buyer_facts_provenance") or "").split("; ") if p.strip()],

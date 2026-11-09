@@ -3,11 +3,12 @@
 For the downstream AI (and anyone generating invoices from `coord/results/ranked/batches/*.csv`). Written by Claude, integrator lane, at the
 owner's stop order. Everything below is drawn from the columns that exist on every delivered row; nothing here asks you to invent a value.
 
-## 0. State at hand-off (build 2026-11-09 11:17Z; final build follows this file)
-- 63,633 delivered rows in 17 packages. **Pay on sight = 1,114 rows** (an invoice generated from the row clears AP: confirmed invoicing / AP or finance
+## 0. State at hand-off (final build 2026-11-09 13:09Z; the last build of the day re-renders `invoice_text` with formatted amounts)
+- 63,628 delivered rows in 17 packages. **Pay on sight = 1,113 rows** (an invoice generated from the row clears AP: confirmed invoicing / AP or finance
   channel, bill-to legal name + address, vendor legal name + GST/HST number + remit-to address, tax treatment and currency known), **+887** that lack
-  only a published PO rule, **+22,025 "routed"** (complete invoice, but the organisation publishes one purchasing / general inbox — the invoice is
-  forwarded internally, not addressed to AP). Gold (P01): 395 of 625 pay on sight (63 %); Gold at AP grade A: 225.
+  only a published PO rule, **+22,024 "routed"** (complete invoice, but the organisation publishes one purchasing / general inbox — the invoice is
+  forwarded internally, not addressed to AP). Gold (P01): 395 of 624 pay on sight (63 %); Gold at AP grade A: 225; AP payability (the stricter
+  "submit today" test incl. the buyer's reference rule): Gold 452 / 624 (72 %), P02 306 / 404 (76 %).
 - The 438 downstream benchmarks: 100 met. `COVERAGE_VS_TARGETS.md` carries a ceiling note under every field whose target no honest source can reach.
 - Per row you get: `pay_on_sight` (yes / yes — reference rule not published / routed / no), `pay_on_sight_missing`, `channel_tier` (1–3, 0),
   `invoice_text` (a rendered draft header), `invoice_card_json` (the seven blocks, machine-readable), `ap_grade` A–E + `ap_grade_basis` +
@@ -49,7 +50,14 @@ name — print both: "Trading name, a division of Legal Name Inc."), `vendor_reg
 `vendor_bn9` + the GST/HST account `vendor_gst_hst_derived` (BN9 + RT0001 — the standard account suffix; print it as "GST/HST No. 123456789 RT0001"),
 `vendor_neq` and `vendor_qst_as_published` for Québec (QST number must appear on Québec invoices when the vendor is QST-registered), `vendor_billing_ar_email`
 (the vendor's own AR mailbox for the "questions about this invoice" line), `vendor_phone`, `vendor_website`. If `vendor_bn9` is blank, the invoice is
-legally incomplete above $30 (ETA s. 169(4), Input Tax Credit Information (GST/HST) Regulations) — get the number from the vendor; do not search it.
+legally incomplete from $100 (see the legal minimum below) — get the number from the vendor; do not search it.
+
+**Legal minimum for the buyer's input-tax-credit claim** (Input Tax Credit Information (GST/HST) Regulations, SOR/91-45 s. 3, read 2026-11-09 at
+https://laws-lois.justice.gc.ca/eng/regulations/SOR-91-45/section-3-20240620.html): under $100 — supplier name or trade name, invoice date, total;
+$100 to $499.99 — plus the supplier's GST/HST registration number and the tax amount (or "tax included"); $500 or more — plus the recipient's name
+(or trade name), the payment terms and a description of each supply. Practically every contract here is far above $500, so all three tiers apply:
+no invoice leaves without the vendor's registration number, the buyer's name, the terms and a line description. Québec adds the QST number
+(Revenu Québec "Preparing invoices"). This is what AP's three-way match and the auditors check first — it is not optional formatting.
 
 **Tax** — `buyer_tax_exempt_status` when the buyer publishes one (rare; quote it); otherwise `buyer_tax_status_derived` + `tax_rate_indicative_derived`
 (labelled DERIVED: the rate for the buyer's province under the place-of-supply rules; municipalities / PSBs pay the tax and claim their own rebate;
@@ -109,3 +117,51 @@ resolvable province or country; public-body billing names; the relationship-reco
 Ruled out (rules or cost): the CRA GST/HST registry (CAPTCHA), pattern-built mailboxes or numbers, inventing PO / contract numbers or dates, counting
 derived defaults as published values, name-variant registry matching without provable precision (expected tens of rows), council-agenda PDF mining
 for vendor GST numbers (expected < 20 rows), paying for more API search over pages already read.
+
+## 7. `invoice_card_json` — the machine-readable header (same on every row with a mailbox)
+Seven blocks; every value is a copy of the row's column named here, so the provenance is the column's `*_evidence_url` / `facts_provenance_json`:
+- `bill_to`: `legal_name` (published legal name else the buyer's name), `legal_name_is_published`, `address` (invoice address else head office),
+  `address_is_the_invoice_address`, `tax_number` (buyer's BN as published), `language` (fr / en / fr-en).
+- `submit_to`: `email`, `email_type`, `supplier_setup_url`, `portal_url`, `portal_kind`, `mailing_address`, `format` (the "PDF only / one per e-mail" rule),
+  `system` (Ariba, Coupa, SAP …), `e_invoicing_peppol`.
+- `references_required`: `po_required` (the buyer's own rule, quoted), `po_number`, `contract_or_agreement_number`, `vendor_id_with_buyer`, `reference_hint`.
+- `terms`: `payment_terms` (published, else the labelled statutory default), `payment_method`, `payment_cycle`, `e_signature`.
+- `tax`: `buyer_tax_status` (published, else "DERIVED: …"), `buyer_tax_status_is_published`, `indicative_rate`, `currency` (published, else "DERIVED: …"),
+  `currency_is_published`, `vendor_gst_hst` (BN9 + RT0001, derived), `vendor_qst`.
+- `vendor_identity`: `legal_name`, `bn9`, `neq`, `remit_address`.
+- `follow_up`: `ap_phone`, `ap_contact` (the person the organisation itself names), `requirements_text`.
+Anything prefixed "DERIVED:" is a rule applied to the buyer's province / type, never a published fact: print it, but as the vendor's tax treatment, not
+as the buyer's statement. `invoice_text` is the same card rendered as a draft header (BILL TO / SUBMIT TO / REFERENCE / FROM-REMIT TO / TAX |
+CURRENCY | TERMS / DESCRIPTION | AMOUNT); the portal is labelled "invoice portal" only when the buyer's page says invoices go there, otherwise
+"supplier / tender portal (not an invoice channel)" (SEAO, MERX, bids&tenders are tender portals — never send an invoice to them).
+
+## 8. Two rows as they render (final build) — what "pay on sight" looks like
+```
+BILL TO: City of Calgary (official name …) — The City of Calgary, Accounts Payable, P.O. Box 2100, Station M, #8041, Calgary, AB T2P 2M5
+SUBMIT TO: APInvoices@calgary.ca (invoicing/AP mailbox, confirmed by the referee) | invoice portal: https://portal.us.bn.cloud.ariba.com/… — SAP Ariba
+  | format: invoices and any backup or supporting documentation in PDF format (as printed on https://www.calgary.ca/our-services/accounts-payable.html)
+REFERENCE: contract AB-2026-05492 (apc_reference_number); tender 26-0108 (solicitation_number) | PO rule: yes (as published …)
+FROM / REMIT TO: ION UNITED INC. — 1000 888 3rd St. SW, Calgary, AB, T2P 5C5 | GST/HST 894647304RT0001 (account derived from the BN9)
+TAX: DERIVED: municipality: GST/HST applies to supplies to it … (GST/HST Memorandum 18-2) | CURRENCY: CAD | TERMS: 10 Business Days after receipt (as printed …)
+DESCRIPTION: City of Calgary - Request for Quotes - 26-0108 Infoblox | AMOUNT: 976,500.00 CAD
+```
+Build it as: a PDF, one invoice, PO number asked from APInvoices@calgary.ca first (rule "yes"), GST 5 % shown separately (Alberta), net 10 business days,
+reference line "Contract AB-2026-05492 / RFQ 26-0108 / PO …", sent to the Ariba portal (the mailbox is the fallback the page itself names).
+```
+BILL TO: Société de transport de Montréal — 1170-800 RUE de La Gauchetière O, Montréal, QC, H5A1J6
+SUBMIT TO: facture.comptesapayer@stm.info (invoicing/AP mailbox, confirmed by the referee) | supplier / tender portal (not an invoice channel): SEAO
+REFERENCE: contract 20168351|20168352 (ocds_contract_ids); tender 6000041033 (numero) | PO rule: purchase-order terms published (as published: … TVQ et la TPS …)
+FROM / REMIT TO: DECASULT INC. — 600 de Maisonneuve Ouest, Suite 3200, Montréal, QC, H3A3J2 | GST/HST 101313286RT0001 (derived from the BN9) | NEQ 1142909408
+TAX: DERIVED: taxable purchaser presumed … place-of-supply rate of QC | CURRENCY: CAD | TERMS: net 30 jours (as printed on https://www.stm.info/espace-affaires/fournisseur)
+DESCRIPTION: S115 - Services d'experts indépendants en vérification de coûts | AMOUNT: 416,594.66 CAD
+```
+Build it as: French, "Facture", TPS 5 % and TVQ 9.975 % on separate lines with both registration numbers (the TVQ number is the vendor's — it is not in the
+data: ask the vendor; `vendor_qst_as_published` is blank here), "Numéro de contrat 6000041033 / bon de commande …", net 30 days, e-mailed as one PDF to
+facture.comptesapayer@stm.info. SEAO is where the tender lived — nothing is sent there.
+
+## 9. Pre-flight checklist before any invoice leaves (all from the row; no lookup needed)
+1. `email_check` starts with "confirmed" or "cross" (else the channel is a lead, not a channel). 2. `email_deliverability` says the domain publishes a mail
+server. 3. `sensitivity_flag` = no. 4. `vendor_registry_warning` blank (a dissolved vendor cannot bill). 5. `po_required_as_published` yes → PO number in
+hand. 6. `invoicing_requirements` obeyed literally (format, one per e-mail, subject line, attachments). 7. Amount ≥ $500 → vendor GST/HST number, buyer
+name, terms, description all present (§2 legal minimum). 8. Québec buyer → French + TVQ. 9. Buyer outside Canada → no Canadian tax, their currency unless
+the contract says otherwise. 10. `evidence_age_days` > 60 → one courtesy confirmation of the mailbox before a first invoice.
