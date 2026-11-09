@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 01:55Z)
+# STATE.md — Claude lane (updated 2026-11-09 02:15Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,18 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 02:15Z — Pay on sight on the scoreboard: 977 yes + 826 yes-no-reference + 21,088 routed of 63,609 (build 02:05Z); Gold 57 % (340 / 597)
+- Top gap per package (rows): Gold — bill-to legal name / address 105 (public bodies whose published name is the billing name → counted from the next
+  build; the address gaps stay with registries / site readers); P02 / P01T — vendor GST/HST number (121 / 18; registry coverage); P03–P06T, P08–P10, P12,
+  P13 — only a purchasing / general inbox confirmed (the invoice is routed, not addressed: 21,088 routed rows, 19,451 of them P13); P11 — channel not yet
+  referee-confirmed (440).
+- deep_pages over the pb / pc pages is finding invoicing mailboxes at 41 / 50 and 63 / 75 buyers per pass (Mac log 21:11 EST) — the honest route from
+  "routed" to "pay on sight" for P03–P05; they go through the referee first.
+- API worker: budget reached ($170.04; pb 1,735 of 1,881 done, 1,195 with pages). The loop now sleeps; the cap stays (owner: don't burn the key).
+- Same-vendor carry-over of BN9 / remit-to address (45 / 56 rows) and the public-body billing name pushed (8a3f9df); build dispatched 02:11Z.
+- Rate: pay-on-sight rows 380 (00:30Z strict measure) → 1,803 (02:05Z) — +1,400 in 95 min, almost all from resolving tax / currency / vendor identity
+  rules on data already held; the engines' organic contribution per hour is measured from the next build on (signal to the owner: < 100 rows / hour).
 
 ## 01:55Z — the goal restated by the owner (19:55 EST): PAY ON SIGHT — every row an invoice that clears AP; the 438 stay, payability leads
 - Owner: "you see the invoice, boom, it's paid"; add fields that push payability; keep the 438 but don't be limited by them; derived columns stay, never
