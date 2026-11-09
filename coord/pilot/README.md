@@ -14,7 +14,7 @@ registry warning are excluded from the sample.
 **Sample** — `PILOT_SAMPLE_2026-11-09.csv`, 230 rows, drawn with seed 20261109, spread across organisation types and provinces:
 | stratum | rows | what it tests |
 |---|---|---|
-| S1 gold, complete, published PO rule (grade A/B) | 30 of 270 | the model itself: is "everything public" enough to be paid on sight? (30, not 833 — the owner will not burn the Gold on a test) |
+| S1 gold, complete, reference known (published PO rule or contract number), grade A/B | 30 of 270 | the model itself: is "everything public" enough to be paid on sight? (30, not 833 — the owner will not burn the Gold on a test) |
 | S2 complete, no published PO rule | 50 of 803 | does "PO: as provided by the buyer" clear, or does the buyer send it back for a number first? how many days to get one? |
 | S3 routed — public body, general / purchasing inbox only | 50 of 1,877 | does an invoice to the only published inbox reach AP and get paid, and how much slower? |
 | S4 routed — company buyer (P13), general inbox | 50 of 20,050 | the weakest and largest layer: payment rate when the relationship is inferred from the vendor's own evidence |

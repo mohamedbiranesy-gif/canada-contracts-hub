@@ -1,0 +1,356 @@
+# S2-08 — Township of Otonabee-South Monaghan ⇄ Baker Tilly KDN LLP
+
+Stratum: **S2_complete_no_published_PO_rule** · pay on sight: yes — reference rule not published (quote the buyer's PO / order number when one is issued) · channel tier 2 · AP grade B · missing: (reference rule not published)
+
+## 1. Draft invoice header (from the row)
+```
+DRAFT INVOICE HEADER — built only from the row's sourced and labelled-derived columns (provenance in facts_provenance_json)
+BILL TO: Township of Otonabee-South (stated on https://www.osmtownship.ca/resident-services/accessibility/) — P.O. Box 70, 20 Third Street, Keene, ON, K0L 2G0 — buyer tax no. 867994659RP0001 (recipient_business_number in the federal grants & contributions disclosure, 1 agreement(s), last 2018-06-25; https://open.canada.ca/data/dataset/432527ab-7aac-45b5-81d6-7597107a7013/resource/1d15a62f-5656-49ad-8c88-f40ce689d831/download/grants.csv)
+SUBMIT TO: treasurer@osmtownship.ca (finance/accounting dept or supplier-payment office mailbox, confirmed by the referee) | tender portal (not an invoice channel): https://dourodummer.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/6adf49e3-3056-4968-a167-f3152f8ca373 — bids&tenders
+REFERENCE: none in the record | PO rule: not published
+FROM / REMIT TO: BAKER TILLY KDN LLP (as registered: Canada's Business Registries, ON 1000850218, 2026-11-08) — 272 Charlotte Street, Peterborough, ON, K9J 2V4, Canada | GST/HST 864673058 (Canada's Business Registries, ON 1000850218, 2026-11-08)RT0001 (account derived from the BN9)
+TAX: prices bid shall include applicable taxes, customs duty, excise tax, freight, insurance and all other (as printed on https://www.osmtownship.ca/media/osynwrx0/r | CURRENCY: DERIVED: CAD (derived: the buyer is in Canada and | TERMS: within 30 days
+DESCRIPTION: Township of Otonabee-South Monaghan (municipa
+```
+
+## Relationship
+- **rank_group**: B3
+- **data_quality_score**: 80
+- **ship_ready**: yes (finance mailbox, not AP)
+- **sensitivity_flag**: no
+- **evidence_age_days**: 1
+- **reverify_due**: no
+- **inference_confidence**: n/a (the relationship is a record, not an inference)
+- **relationship_detail**: Township of Otonabee-South Monaghan (municipality / local government, jurisdiction not stated) — public contract / purchase award in the last 12 months (dated record): Baker Tilly KDN LLP | awarded 2026-10-15 | published by: auditor of record (Ontario FIR 2025 Schedule 02) | record: https://efis.fma.csc.gov.on.ca/fir/wp-content/uploads/fir-files/reports-and-dashboards/by-year-and-municipality/2025//FI251506%20Otonabee-South%20Monaghan%20Tp.zip | vendor in Canada because: auditor of record (Ontario FIR 2025 Schedule 02)=Baker Tilly KDN LLP 17 Queen Street PO Box 87 Cobourg, ON K9A 4K2 | status rule: likely active (record dated in the last 12 months: auditor of record (Ontario FIR 2025 Schedule 02))
+- **how_relationship_was_found**: same as above: a dated award record from the public source in `source`, vendor located in Canada per the source's own field
+- **keys**: lead:d13461d58ec7cc54
+- **tier**: B
+- **grade**: 3
+- **records_with_this_vendor**: 1 (relationship record: auditor of record (Ontario FIR 2025 Schedule 02); 0 in the contract dataset)
+
+## Buyer
+- **buyer**: Township of Otonabee-South Monaghan
+- **buyer_website**: https://www.osmtownship.ca/
+- **buyer_address**: P.O. Box 70, 20 Third Street, Keene, ON, K0L 2G0
+- **buyer_phone**: 705-295-6852
+- **buyer_contact_evidence_url**: https://www.osmtownship.ca/
+- **buyer_legal_name_as_published**: Township of Otonabee-South (stated on https://www.osmtownship.ca/resident-services/accessibility/)
+- **buyer_bn_as_published**: 867994659RP0001 (recipient_business_number in the federal grants & contributions disclosure, 1 agreement(s), last 2018-06-25; https://open.canada.ca/data/dataset/432527ab-7aac-45b5-81d6-7597107a7013/resource/1d15a62f-5656-49ad-8c88-f40ce689d831/download/grants.csv)
+- **buyer_bn_program**: program not stated with the number
+- **buyer_gst_hst_derived**: 867994659RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)
+- **buyer_logo_url**: https://media-001-ca.cdn.govstack.com/osmtownship-001-ca/media/wbafufxu/otonabee-south-monaghan-logo.png
+- **buyer_website_status**: site answers
+- **buyer_type**: municipality / local government
+- **buyer_sector**: government: municipal
+- **buyer_municipal_tier**: Lower Tier (within Peterborough; Ontario MMAH list) (provincial municipal directory: https://data.ontario.ca/dataset/62e83cbc-0731-4d66-abdc-2f2b31bcd76c/resource/6783a586-6b05-4a73-9663-e60a6963c91e/download/municipalities_-_en_2026-0526.csv, 2026-11-08)
+- **buyer_facts_provenance**: address and phone: the buyer's own site, https://www.osmtownship.ca/ (tools/org_contacts.py: JSON-LD / contact page; no AI); legal name: the site's copyright / footer line (tools/org_extras.py); BN: as printed on the buyer's site (see buyer_bn_as_published for the page); GST/HST derived as BN9 + RT0001, not confirmed; logo: og:image / logo image of the buyer's site; website: site answers; invoicing requirements: the lane's AP page (https://www.osmtownship.ca/contact-directory/); payment terms: the lane's AP page (https://www.osmtownship.ca/contact-directory/); invoice portal: the mailbox's evidence page re-read in full by tools/ap_terms.py (no AI; URL and date in the cell)
+- **buyer_tax_exempt_status**: prices bid shall include applicable taxes, customs duty, excise tax, freight, insurance and all other (as printed on https://www.osmtownship.ca/media/osynwrx0/rfp-development-charges-background-study-2025.pdf, re-read 2026-11-08)
+- **buyer_tax_status_derived**: municipality: GST/HST applies to supplies to it — a municipality is not a government for GST/HST purposes (GST/HST Memorandum 18-2 para. 2 note, https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/18-2/provincial-governments.html, read 2026-11-08: "Note: A municipality is not a government for purposes of the GST/HST"); charge GST/HST; derived from buyer type, not published by the buyer
+- **buyer_keys**: 1
+
+## Submit-to / AP
+- **peppol_registered**: not listed in the Peppol Directory (country=CA search on 2026-11-06: 77 Canadian participants in total)
+- **email**: treasurer@osmtownship.ca
+- **email_type**: finance/accounting dept or supplier-payment office
+- **email_check**: confirmed
+- **mailbox_confidence**: verified by the referee (page re-fetched); finance mailbox
+- **email_evidence_url**: https://www.osmtownship.ca/contact-directory/
+- **email_evidence_quote**: Email Us (treasurer@osmtownship.ca)
+- **mailbox_recheck_note**: mailbox seen again on the page when re-read 2026-11-08
+- **mailbox_provenance**: treasurer@osmtownship.ca (finance/accounting dept or supplier-payment office) | researched by the ChatGPT/Codex agent (lane chatgpt) (page opened and quoted) on 2026-11-08 | page: https://www.osmtownship.ca/contact-directory/ | quote: "Email Us (treasurer@osmtownship.ca)" | verified: the referee (verify-and-merge workflow) re-fetched the page and saw the address (report 2026-11-09T14:16:08Z) | DNS: domain publishes a mail server (MX) | EXPOSED to sender spoofing: no DMARC record; SPF -all (hard fail); mail handled by Microsoft 365 | lane file: chatgpt/chatgpt_buyer_ap_results_batch50.csv task CH-AP-50052
+- **email_deliverability**: domain publishes a mail server (MX)
+- **email_security_posture**: EXPOSED to sender spoofing: no DMARC record; SPF -all (hard fail); mail handled by Microsoft 365
+- **dmarc_policy**: no DMARC record
+- **dmarc_record**: no DMARC record at _dmarc.osmtownship.ca; confirmed by 8.8.8.8
+- **spf_policy**: SPF -all (hard fail)
+- **spf_record**: v=spf1 include:spf.protection.outlook.com -all
+- **mta_sts**: no MTA-STS record
+- **tls_rpt**: no TLS-RPT record
+- **bimi**: no BIMI record
+- **invoicing_requirements**: The 2025 development-charges study RFP requires approval by the Director or designate and payment within 30 days from receipt of an approved invoice.
+- **payment_terms_as_published**: within 30 days
+- **invoice_portal_url**: https://dourodummer.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/6adf49e3-3056-4968-a167-f3152f8ca373 — bids&tenders
+- **invoice_portal_kind**: actionable supplier / invoice portal named by the buyer
+- **invoice_portal_note**: (additional channel named on the buyer's page; the e-mail is the contact)
+- **ap_system_hint**: named on the buyer's page: bids&tenders (as printed on https://www.osmtownship.ca/contact-directory/, re-read 2026-11-08)
+- **invoicing_requirements_structured**: {"submission_channel": "e-mail + portal", "payment_terms": "within 30 days", "portal_url": "https://dourodummer.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/6adf49e3-3056-4968-a167-f3152f8ca373 — bids&tenders", "portal_kind": "actionable supplier / invoice portal named by the buyer", "requirements_text": "The 2025 development-charges study RFP requires approval by the Director or designate and payment within 30 days from receipt of an approved invoice."}
+- **invoice_currency_derived**: CAD (derived: the buyer is in Canada and the row has no contract record stating a currency; the invoice would be in Canadian dollars unless the vendor and buyer agreed otherwise)
+- **channel_tier**: 2
+- **invoice_text**: DRAFT INVOICE HEADER — built only from the row's sourced and labelled-derived columns (provenance in facts_provenance_json) ⏎ BILL TO: Township of Otonabee-South (stated on https://www.osmtownship.ca/resident-services/accessibility/) — P.O. Box 70, 20 Third Street, Keene, ON, K0L 2G0 — buyer tax no. 867994659RP0001 (recipient_business_number in the federal grants & contributions disclosure, 1 agreement(s), last 2018-06-25; https://open.canada.ca/data/dataset/432527ab-7aac-45b5-81d6-7597107a7013/resource/1d15a62f-5656-49ad-8c88-f40ce689d831/download/grants.csv) ⏎ SUBMIT TO: treasurer@osmtownship.ca (finance/accounting dept or supplier-payment office mailbox, confirmed by the referee) | tender portal (not an invoice channel): https://dourodummer.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/6adf49e3-3056-4968-a167-f3152f8ca373 — bids&tenders ⏎ REFERENCE: none in the record | PO rule: not published ⏎ FROM / REMIT TO: BAKER TILLY KDN LLP (as registered: Canada's Business Registries, ON 1000850218, 2026-11-08) — 272 Charlotte Street, Peterborough, ON, K9J 2V4, Canada | GST/HST 864673058 (Canada's Business Registries, ON 1000850218, 2026-11-08)RT0001 (account derived from the BN9) ⏎ TAX: prices bid shall include applicable taxes, customs duty, excise tax, freight, insurance and all other (as printed on https://www.osmtownship.ca/media/osynwrx0/r | CURRENCY: DERIVED: CAD (derived: the buyer is in Canada and | TERMS: within 30 days ⏎ DESCRIPTION: Township of Otonabee-South Monagh
+- **invoice_card_json**: {"bill_to": {"legal_name": "Township of Otonabee-South (stated on https://www.osmtownship.ca/resident-services/accessibility/)", "legal_name_is_published": true, "address": "P.O. Box 70, 20 Third Street, Keene, ON, K0L 2G0", "address_is_the_invoice_address": false, "tax_number": "867994659RP0001 (recipient_business_number in the federal grants & contributions disclosure, 1 agreement(s), last 2018-06-25; https://open.canada.ca/data/dataset/432527ab-7aac-45b5-81d6-7597107a7013/resource/1d15a62f-5656-49ad-8c88-f40ce689d831/download/grants.csv)", "language": "en"}, "submit_to": {"email": "treasurer@osmtownship.ca", "email_type": "finance/accounting dept or supplier-payment office", "supplier_setup_url": "", "portal_url": "https://dourodummer.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/6adf49e3-3056-4968-a167-f3152f8ca373 — bids&tenders", "portal_kind": "actionable supplier / invoice portal named by the buyer", "mailing_address": "", "format": "", "system": "named on the buyer's page: bids&tenders (as printed on https://www.osmtownship.ca/contact-directory/, re-read 2026-11-08)", "e_invoicing_peppol": "", "portal_is_invoice_channel": false, "portal_class": "tender portal (not an invoice channel)"}, "references_required": {"po_required": "", "po_number": "", "contract_or_agreement_number": "", "vendor_id_with_buyer": "", "reference_hint": ""}, "terms": {"payment_terms": "within 30 days", "payment_method": "", "payment_cycle": "", "e_signature": ""}, "tax": {"buyer_tax_status"
+- **invoice_readiness**: 9/11 invoice elements present
+- **invoice_missing**: PO rule; reference to quote (PO / contract / vendor id)
+- **ap_grade**: B
+- **ap_score**: 70
+- **ap_grade_basis**: met: finance mailbox; referee-confirmed mailbox; mailbox seen again within 60 days; mailbox on the buyer's own domain (or published on the buyer's own site); domain publishes a mail server (MX); bill-to legal name published; invoice or billing address; payment terms published; currency known; invoice format / requirements published | missing: invoicing / AP mailbox; PO rule published; AP phone or AP contact; payment cycle or method published (plausibility) | notes: buyer domain without DMARC enforcement (mail-security posture; see email_security_posture)
+- **ap_gap_to_A**: an invoicing / AP mailbox (not finance / procurement / general); published PO rule
+- **ap_payability**: not yet payable — missing: the buyer's PO / reference rule
+- **language_hint**: en
+- **template_language**: en
+
+## Vendor
+- **vendor**: Baker Tilly KDN LLP
+- **vendor_legal_name**: BAKER TILLY KDN LLP (as registered: Canada's Business Registries, ON 1000850218, 2026-11-08)
+- **vendor_registry_id**: 1000850218 (ON)
+- **vendor_registry_url**: https://ised-isde.canada.ca/cbr-rec/en/search?q=Baker%20Tilly%20KDN%20LLP
+- **vendor_registered_address**: Peterborough, Ontario (registered office city / province; Canada's Business Registries, ON 1000850218, 2026-11-08)
+- **vendor_legal_form**: LIMITED PARTNERSHIP ON (Canada's Business Registries, ON 1000850218, 2026-11-08)
+- **vendor_address**: 272 Charlotte Street, Peterborough, ON, K9J 2V4, Canada
+- **vendor_country_basis**: auditor of record (Ontario FIR 2025 Schedule 02)=Baker Tilly KDN LLP 17 Queen Street PO Box 87 Cobourg, ON K9A 4K2
+- **vendor_bn9**: 864673058 (Canada's Business Registries, ON 1000850218, 2026-11-08)
+- **vendor_gst_hst_derived**: 864673058RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)
+- **vendor_website**: https://www.bakertilly.ca/
+- **vendor_emails**: info@bakertilly.ca
+- **vendor_phone**: (902) 404-4000
+- **vendor_contact_evidence_url**: https://www.bakertilly.ca/locations
+- **vendor_logo_url**: https://www.bakertilly.ca/assets/images/logo.svg
+- **vendor_website_basis**: found by a web search, confirmed by reading the site on 2026-11-08: https://www.bakertilly.ca/ (Baker Tilly Canada | Canadian audit, tax, and advisory solutions. Skip to main content this.$refs.searchInput.focus()) }, closeSearch() { this.searchVisible = f)
+- **vendor_facts_provenance**: name and address: the record's vendor block (auditor of record (Ontario FIR 2025 Schedule 02)); registry identity: 1000850218 (ON) status Active — registered (Canada's Business Registries, ON 1000850218, 2026-11-08) (scripts/enrichment_*: Corporations Canada / REQ / BC OrgBook bulk data; match); BN9: registry: Canada's Business Registries, ON 1000850218, 2026-11-08; GST/HST derived BN9 + RT0001 (CRA registry is CAPTCHA-protected; not automated); incorporated / registered: 2024-04-02; phone / role e-mails / logo: the vendor's own site, https://www.bakertilly.ca/locations (tools/org_contacts.py, org_extras.py); website: https://www.bakertilly.ca/
+- **vendor_concentration_top_share**: no dataset record for this pair / buyer
+- **vendor_registry_status**: Active — registered (Canada's Business Registries, ON 1000850218, 2026-11-08)
+- **vendor_incorporation_date**: 2024-04-02
+- **vendor_years_in_business**: 2.6 (since 2024-04-02, registry date)
+- **vendor_bn_source**: registry: Canada's Business Registries, ON 1000850218, 2026-11-08
+
+## Contract
+- **contract_status**: likely active (record dated in the last 12 months: auditor of record (Ontario FIR 2025 Schedule 02))
+- **award_date**: 2026-10-15
+- **contract_link**: https://efis.fma.csc.gov.on.ca/fir/wp-content/uploads/fir-files/reports-and-dashboards/by-year-and-municipality/2025//FI251506%20Otonabee-South%20Monaghan%20Tp.zip
+- **source**: auditor of record (Ontario FIR 2025 Schedule 02)
+- **contracts_with_canadian_suppliers**: 1
+- **records_with_this_vendor**: 1 (relationship record: auditor of record (Ontario FIR 2025 Schedule 02); 0 in the contract dataset)
+- **records_in_contract_dataset**: 1 records with Canada-located vendors (this row's organisation)
+- **commodity_distribution_top3**: no dataset record for this pair / buyer
+
+## Tax / currency / terms (derived)
+- **buyer_gst_hst_derived**: 867994659RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)
+- **buyer_tax_status_derived**: municipality: GST/HST applies to supplies to it — a municipality is not a government for GST/HST purposes (GST/HST Memorandum 18-2 para. 2 note, https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/18-2/provincial-governments.html, read 2026-11-08: "Note: A municipality is not a government for purposes of the GST/HST"); charge GST/HST; derived from buyer type, not published by the buyer
+- **tax_rate_indicative_derived**: HST 13% (Ontario) — indicative rate for a supply made in the buyer's province (GST/HST Memorandum 18-2 'GST/HST rates', https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/18-2/provincial-governments.html, read 2026-11-08: "The HST applies in the participating provinces at the following rates: 13% in Ontario and 15% in New Brunswick, Newfoundland and Labrador, Nova Scotia, and Prince Edward Island. The GST applies in the rest of Canada at the rate of 5%"); the place-of-supply rules decide (Memorandum 3-3-2); provincial sales taxes (QST, PST) are not covered here
+- **invoice_currency_derived**: CAD (derived: the buyer is in Canada and the row has no contract record stating a currency; the invoice would be in Canadian dollars unless the vendor and buyer agreed otherwise)
+- **vendor_gst_hst_derived**: 864673058RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)
+
+## Pay on sight / grades
+- **pay_on_sight**: yes — reference rule not published (quote the buyer's PO / order number when one is issued)
+- **pay_on_sight_missing**: (reference rule not published)
+- **invoice_text**: DRAFT INVOICE HEADER — built only from the row's sourced and labelled-derived columns (provenance in facts_provenance_json) ⏎ BILL TO: Township of Otonabee-South (stated on https://www.osmtownship.ca/resident-services/accessibility/) — P.O. Box 70, 20 Third Street, Keene, ON, K0L 2G0 — buyer tax no. 867994659RP0001 (recipient_business_number in the federal grants & contributions disclosure, 1 agreement(s), last 2018-06-25; https://open.canada.ca/data/dataset/432527ab-7aac-45b5-81d6-7597107a7013/resource/1d15a62f-5656-49ad-8c88-f40ce689d831/download/grants.csv) ⏎ SUBMIT TO: treasurer@osmtownship.ca (finance/accounting dept or supplier-payment office mailbox, confirmed by the referee) | tender portal (not an invoice channel): https://dourodummer.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/6adf49e3-3056-4968-a167-f3152f8ca373 — bids&tenders ⏎ REFERENCE: none in the record | PO rule: not published ⏎ FROM / REMIT TO: BAKER TILLY KDN LLP (as registered: Canada's Business Registries, ON 1000850218, 2026-11-08) — 272 Charlotte Street, Peterborough, ON, K9J 2V4, Canada | GST/HST 864673058 (Canada's Business Registries, ON 1000850218, 2026-11-08)RT0001 (account derived from the BN9) ⏎ TAX: prices bid shall include applicable taxes, customs duty, excise tax, freight, insurance and all other (as printed on https://www.osmtownship.ca/media/osynwrx0/r | CURRENCY: DERIVED: CAD (derived: the buyer is in Canada and | TERMS: within 30 days ⏎ DESCRIPTION: Township of Otonabee-South Monagh
+- **invoice_card_json**: {"bill_to": {"legal_name": "Township of Otonabee-South (stated on https://www.osmtownship.ca/resident-services/accessibility/)", "legal_name_is_published": true, "address": "P.O. Box 70, 20 Third Street, Keene, ON, K0L 2G0", "address_is_the_invoice_address": false, "tax_number": "867994659RP0001 (recipient_business_number in the federal grants & contributions disclosure, 1 agreement(s), last 2018-06-25; https://open.canada.ca/data/dataset/432527ab-7aac-45b5-81d6-7597107a7013/resource/1d15a62f-5656-49ad-8c88-f40ce689d831/download/grants.csv)", "language": "en"}, "submit_to": {"email": "treasurer@osmtownship.ca", "email_type": "finance/accounting dept or supplier-payment office", "supplier_setup_url": "", "portal_url": "https://dourodummer.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/6adf49e3-3056-4968-a167-f3152f8ca373 — bids&tenders", "portal_kind": "actionable supplier / invoice portal named by the buyer", "mailing_address": "", "format": "", "system": "named on the buyer's page: bids&tenders (as printed on https://www.osmtownship.ca/contact-directory/, re-read 2026-11-08)", "e_invoicing_peppol": "", "portal_is_invoice_channel": false, "portal_class": "tender portal (not an invoice channel)"}, "references_required": {"po_required": "", "po_number": "", "contract_or_agreement_number": "", "vendor_id_with_buyer": "", "reference_hint": ""}, "terms": {"payment_terms": "within 30 days", "payment_method": "", "payment_cycle": "", "e_signature": ""}, "tax": {"buyer_tax_status"
+- **invoice_readiness**: 9/11 invoice elements present
+- **invoice_missing**: PO rule; reference to quote (PO / contract / vendor id)
+- **ap_grade**: B
+- **ap_score**: 70
+- **ap_grade_basis**: met: finance mailbox; referee-confirmed mailbox; mailbox seen again within 60 days; mailbox on the buyer's own domain (or published on the buyer's own site); domain publishes a mail server (MX); bill-to legal name published; invoice or billing address; payment terms published; currency known; invoice format / requirements published | missing: invoicing / AP mailbox; PO rule published; AP phone or AP contact; payment cycle or method published (plausibility) | notes: buyer domain without DMARC enforcement (mail-security posture; see email_security_posture)
+- **ap_gap_to_A**: an invoicing / AP mailbox (not finance / procurement / general); published PO rule
+- **ap_payability**: not yet payable — missing: the buyer's PO / reference rule
+- **facts_provenance_json**: {"mailbox": ["treasurer@osmtownship.ca (finance/accounting dept or supplier-payment office)", "researched by the ChatGPT/Codex agent (lane chatgpt) (page opened and quoted) on 2026-11-08", "page: https://www.osmtownship.ca/contact-directory/", "quote: \"Email Us (treasurer@osmtownship.ca)\"", "verified: the referee (verify-and-merge workflow) re-fetched the page and saw the address (report 2026-11-09T14:16:08Z)", "DNS: domain publishes a mail server (MX)", "EXPOSED to sender spoofing: no DMARC record; SPF -all (hard fail); mail handled by Microsoft 365", "lane file: chatgpt/chatgpt_buyer_ap_results_batch50.csv task CH-AP-50052"], "buyer_facts": ["address and phone: the buyer's own site, https://www.osmtownship.ca/ (tools/org_contacts.py: JSON-LD / contact page", "no AI)", "legal name: the site's copyright / footer line (tools/org_extras.py)", "BN: as printed on the buyer's site (see buyer_bn_as_published for the page)", "GST/HST derived as BN9 + RT0001, not confirmed", "logo: og:image / logo image of the buyer's site", "website: site answers", "invoicing requirements: the lane's AP page (https://www.osmtownship.ca/contact-directory/)", "payment terms: the lane's AP page (https://www.osmtownship.ca/contact-directory/)", "invoice portal: the mailbox's evidence page re-read in full by tools/ap_terms.py (no AI", "URL and date in the cell)"], "vendor_facts": ["name and address: the record's vendor block (auditor of record (Ontario FIR 2025 Schedule 02))", "registry identity: 10008
+
+## AP pages read for this buyer (tools/ap_terms.py; every value with its quote)
+| evidence_url | retrieved_date | status | payment_terms | po_required | portal_name | ap_phone | invoice_mailing_address | invoice_format | ap_system | payment_terms_quote | po_quote |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| https://www.osmtownship.ca/contact-directory/ | 2026-11-08 | ok |  |  | bids&tenders |  |  |  |  |  |  |
+
+## Buyer site facts (org_extras, osmtownship.ca)
+- **status**: ok
+- **pages**: 6
+- **v**: 2
+- **legal_name_stated**: Township of Otonabee-South
+- **legal_name_stated_url**: https://www.osmtownship.ca/resident-services/accessibility/
+- **legal_name_stated_quote**: ssibility for Ontarians with Disabilities Act AODA Integrated Regulation Accessibility Training The Township of Otonabee-South Monaghan requires Members of Council and all employees to complete accessibility training within 30
+- **language**: en
+- **logo_url**: https://media-001-ca.cdn.govstack.com/osmtownship-001-ca/media/wbafufxu/otonabee-south-monaghan-logo.png
+- **logo_basis**: logo image in the site header
+- **domain**: osmtownship.ca
+- **key**: lead:d13461d58ec7cc54
+- **name**: Township of Otonabee-South Monaghan
+- **website**: https://osmtownship.ca/
+- **kind**: buyer
+- **date**: 2026-11-08
+
+## Buyer role mailboxes found on its site (org_contacts)
+- {"status": "ok", "pages": 1, "address": "P.O. Box 70, 20 Third Street, Keene, ON, K0L 2G0", "address_country": "CA", "address_url": "https://www.osmtownship.ca/", "address_method": "pattern", "address_quote": "Township Updates Subscribe Contact Us P.O. Box 70, 20 Third Street, Keene, ON, K0L 2G0 Phone: 705-295-6852 Fax: 705-295-6405 info@osmtownship.ca Toll free: 800-999-48", "phone": "705-295-6852", "phone_url": "https://www.osmtownship.ca/", "emails": "info@osmtownship.ca", "emails_url": "https://www.osmtownship.ca/", "domain": "osmtownship.ca", "key": "lead:d13461d58ec7cc54", "name": "Township of Otonabee-South Monaghan", "website": "https://osmtownship.ca/", "kind": "buyer", "date": "2026-11-08"}
+
+## Vendor site facts (org_extras, bakertilly.ca)
+- **status**: ok
+- **pages**: 6
+- **language**: en
+- **logo_url**: https://www.bakertilly.ca/assets/images/logo.svg
+- **logo_basis**: logo image on the site
+- **domain**: bakertilly.ca
+- **key**: lead:7bc22d4cc3b6b17d
+- **name**: Unlocking the highest value
+- **website**: https://bakertilly.ca/
+- **kind**: buyer
+- **date**: 2026-11-08
+- **v**: 2
+- **jsonld_type**: LocalBusiness
+- **jsonld_name**: Baker Tilly Canada
+- **jsonld_alternate_name**: BTI
+- **jsonld_logo**: https://bti-global.transforms.svdcdn.com/production/network/canada/images/logos/Growth-symbol_Charcoal-RGB.jpg?w=600&h=600&q=82&fm=png&fit=max&dm=1727186527&s=a1012d09fd6f6cf603b582d82e80867b
+- **jsonld_url**: https://www.bakertilly.ca
+- **jsonld_quote**: {"@context":"https://schema.org","@graph":[{"@type":"WebSite","author":{"@id":"https://www.bakertilly.ca#identity"},"copyrightHolder":{"@id":"https://www.bakertilly.ca#identity"},"copyrightYear":"2025","creator":{"@id":"#creator"},"dateCreated":"2025-01-30T08:26:44-05:00","dateModified":"2026-11-06T
+- **jsonld_page**: https://www.bakertilly.ca/
+- **mentions**: {'payment_method': {'text': 'interactions or transactions with Baker Tilly or otherwise receive the full benefit of', 'url': 'https://www.bakertilly.ca/privacy-policy', 'quote': 'and on reasonable notice to Baker Tilly, but you then may not be able to proceed with your intended interactions or transactions with Baker Tilly or otherwise receive the full benefit of Baker Tilly’s products and services. Please refer to section 7 of this Pr'}}
+- **linkedin_url**: https://www.linkedin.com/company/baker-tilly-canada/
+
+## Vendor role mailboxes found on its site (org_contacts)
+- {"status": "ok", "pages": 4, "address": "130 Eileen Stubbs Ave, Suite 201, Dartmouth, NS, B3B 2C4", "address_country": "CA", "address_url": "https://www.bakertilly.ca/locations", "address_method": "pattern", "address_quote": "chewan Nationwide National office 130 Eileen Stubbs Ave Suite 201 Dartmouth, NS B3B 2C4 (902) 404-4000 info@bakertilly.ca Baker Tilly Canada Capital Corporation 900-40", "phone": "(902) 404-4000", "phone_url": "https://www.bakertilly.ca/locations", "emails": "info@bakertilly.ca", "emails_url": "https://www.bakertilly.ca/locations", "domain": "bakertilly.ca", "key": "lead:7bc22d4cc3b6b17d", "name": "Unlocking the highest value", "website": "https://bakertilly.ca/", "kind": "buyer", "date": "2026-11-04"}
+
+## Registry records (Canada's Business Registries lookups)
+_none_
+
+## Registry records (REQ / Corporations Canada bulk match)
+_none_
+
+## Wikidata
+| side | name | qid | match_basis | official_name | label_en | label_fr | instance_of | legal_form | country | inception | headquarters |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| b | Unlocking the highest value |  |  |  |  |  |  |  |  |  |  |
+| b | Township of Otonabee-South Monaghan |  |  |  |  |  |  |  |  |  |  |
+
+## Lanes' verified findings for this buyer (team_buyers)
+```
+{
+ "buyer_key": "lead:d13461d58ec7cc54",
+ "ap_contact_team": {
+  "emails": [
+   "treasurer@osmtownship.ca",
+   "deputytreasurer@osmtownship.ca",
+   "info@osmtownship.ca",
+   "clerk@osmtownship.ca"
+  ],
+  "invoice_portal": null,
+  "phone": null,
+  "mailing_address": null,
+  "invoicing_requirements": "The 2025 development-charges study RFP requires approval by the Director or designate and payment within 30 days from receipt of an approved invoice.",
+  "evidence": [
+   {
+    "email": "treasurer@osmtownship.ca",
+    "type": "general",
+    "invoice_portal": null,
+    "phone": null,
+    "mailing_address": null,
+    "requirements": "The 2025 development-charges study RFP requires approval by the Director or designate and payment within 30 days from receipt of an approved invoice.",
+    "applies_to": "whole_organisation",
+    "page_url": "https://www.osmtownship.ca/contact-directory/",
+    "quote": "Email Us (treasurer@osmtownship.ca)",
+    "retrieved_date": "2026-11-08",
+    "found_by": "chatgpt",
+    "verification": "verified",
+    "source_file": "chatgpt_buyer_ap_results_batch50.csv",
+    "org": "The Corporation of the Township of Otonabee-South Monaghan",
+    "task_id": "CH-AP-50052"
+   },
+   {
+    "email": "deputytreasurer@osmtownship.ca",
+    "type": "general",
+    "invoice_portal": null,
+    "phone": null,
+    "mailing_address": null,
+    "requirements": null,
+    "applies_to": "whole_organisation",
+    "page_url": "https://www.osmtownship.ca/contact-directory/",
+    "quote": "cba-b744-ae41ae9a02f4_2\" class=\"info repeatable-content collapse \"> <div class=\"text\"><p>Stephen Whitnall<br><a rel=\"noopener\" href=\"mailto:deputytreasurer@osmtownship.ca\" target=\"_blank\" title=\"Click here to email me\">Email Us</a><br>705-295-6852 Ext. 216</p></div> </div> <p class=\"tab \">",
+    "retrieved_date": "2026-11-03",
+    "found_by": "claude",
+    "verification": "verified",
+    "source_file": "claude_buyer_ap_results_crawl01.csv",
+    "org": "Township of Otonabee-South Monaghan",
+    "task_id": "CL-SM-00170"
+   },
+   {
+    "email": "treasurer@osmtownship.ca",
+    "type": "general",
+    "invoice_portal": null,
+    "phone": null,
+    "mailing_address": null,
+    "requirements": null,
+    "applies_to": "whole_organisation",
+    "page_url": "https://www.osmtownship.ca/contact-directory/",
+    "quote": "68c3-4cba-b744-ae41ae9a02f4_1\" class=\"info repeatable-content collapse \"> <div class=\"text\"><p>Dane Smith<br><a rel=\"noopener\" href=\"mailto:treasurer@osmtownship.ca\" target=\"_blank\" title=\"Click here to email me\">Email Us</a><br>705-295-6852 Ext. 211</p></div> </div> <p class=\"tab \"> <a cl",
+    "retrieved_date": "2026-11-03",
+    "found_by": "claude",
+    "verification": "verified",
+    "source_file": "claude_buyer_ap_results_crawl01.csv",
+    "org": "Township of Otonabee-South Monaghan",
+    "task_id": "CL-SM-00170"
+   },
+   {
+    "email": "info@osmtownship.ca",
+    "type": "general",
+    "invoice_portal": null,
+    "phone": null,
+    "mailing_address": null,
+    "requirements": null,
+    "applies_to": "whole_organisation",
+    "page_url": "https://www.osmtownship.ca/municipal-services/finance-department/property-taxes/payment-options/",
+    "quote": "gic Plan Career & Volunteer Opportunities Contact Us P.O. Box 70, 20 Third Street, Keene, ON, K0L 2G0 Phone: 705-295-6852 Fax: 705-295-6405 info@osmtownship.ca STAY UP TO DATE Subscribe for Township Updates Subscribe Home Municipal Services Finance Department Property Taxes Payment Options",
+    "retrieved_date": "2026-11-08",
+    "found_by": "claude",
+    "verification": "verified",
+    "source_file": "claude_buyer_ap_results_search01.csv",
+    "org": "Township of Otonabee-South Monaghan",
+    "task_id": "CL-WS-00477"
+   },
+   {
+    "email": "clerk@osmtownship.ca",
+    "type": "general",
+    "invoice_portal": null,
+    "phone": null,
+    "mailing_address": null,
+    "requirements": null,
+    "applies_to": "whole_organisation",
+    "page_url": "https://www.osmtownship.ca/media/j0ijqlsq/2024-osm-cleaning-contract-request-for-quotations-final-01-18-24.pdf",
+    "quote": "tacts for each site. Arrangements for site visits can be made with the staff below. Municipal Office: Christine Killackey (705) 295-6852 or clerk@osmtownship.ca Fire Station #1: Chuck Parsons (705) 295-6880 or",
+    "retrieved_date": "2026-11-08",
+    "found_by": "claude",
+    "verification": "verified",
+    "source_file": "claude_buyer_ap_results_search01.csv",
+    "org": "Township of Otonabee-South Monaghan",
+    "task_id": "CL-WS-00477"
+   }
+  ]
+ },
+ "research_status": {
+  "found": 5
+ },
+ "queries_tried": [
+  "site:osmtownship.ca accounts payable supplier invoice purchase order Otonabee South Monaghan | site:osmtownship.ca invoice \"payment\" vendor purchase order tender Otonabee",
+  "site crawl of www.osmtownship.ca (60 pages, robots.txt respected), no AI, no search engine",
+  "site crawl of www.osmtownship.ca (60 pages, robots.txt respected), no AI, no search engine",
+  "web search for the buyer's invoicing / accounts payable page (the search only gave the address); the page then read by tools/deep_pages.py with the crawler's rules, no AI",
+  "web search for the buyer's invoicing / accounts payable page (the search only gave the address); the page then read by tools/deep_pages.py with the crawler's rules, no AI"
+ ],
+ "ingested_at": "2026-11-09T16:04:50Z"
+}
+```
+
+## PO-level open data naming this buyer
+_none_
+
+## Contract records between the pair (dataset)
+_none_
+
+## The buyer's other Canadian-vendor records (first 60 of 0)
+_none_
+
+## The vendor's other buyers in the dataset (first 60 of 9)
+| record_id | buyer | title | value | start | end | link |
+|---|---|---|---|---|---|---|
+| ca_bidsandtenders:f3a070d2-5349-435b-aaa0-62f529a829bf:1 | Township of Douro-Dummer | Financial Audit Services |  |  |  | https://dourodummer.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/f3a070d2-5349-435b-aaa0-62f529a829bf |
+| ca_bidsandtenders:92388fee-5a36-474f-bc2b-33291ab1822b:1 | Municipality of Dysart et al | External Audit Services |  |  |  | https://dysartetal.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/92388fee-5a36-474f-bc2b-33291ab1822b |
+| ca_bidsandtenders:613331b8-63ea-4896-95b9-d457f50b4484:1 | Municipality of Trent Lakes | Auditing Services |  |  |  | https://trentlakes.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/613331b8-63ea-4896-95b9-d457f50b4484 |
+| ca_bidsandtenders:c1512b97-f488-40e6-99e9-a4a63582cb0f:1 | Loyalist Township | Financial Audit Services |  |  |  | https://loyalist.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/c1512b97-f488-40e6-99e9-a4a63582cb0f |
+| ca_bidsandtenders:cd09c3b9-e6d5-49b6-bedf-bad4fe66fa58:1 | Peterborough Victoria Northumberland and Clarington Catholic District School Board | External Auditing Services |  |  |  | https://pvnccdsb.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/cd09c3b9-e6d5-49b6-bedf-bad4fe66fa58 |
+| ca_bidsandtenders:1dce5bd9-b5e8-40c4-a340-0e6bd57ba3d2:1 | City Of Peterborough | Audit Services |  |  |  | https://cityofpeterborough.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/1dce5bd9-b5e8-40c4-a340-0e6bd57ba3d2 |
+| ca_bidsandtenders:b8cf84c5-4167-4105-b571-5592c583c50e:1 | County of Simcoe | External Audit Services |  |  |  | https://simcoecounty.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/b8cf84c5-4167-4105-b571-5592c583c50e |
+| ca_bidsandtenders:bb3f28af-8020-4976-bb8f-75201a7beae5:1 | Township of Springwater | External Audit Services |  |  |  | https://springwater.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/bb3f28af-8020-4976-bb8f-75201a7beae5 |
+| ca_bidsandtenders:c7eb4d73-8fb6-47fb-856a-4c3271129e9d:1 | Durham Catholic District School Board | External Audit Services |  |  |  | https://dcdsb.bidsandtenders.ca/Module/Tenders/en/Tender/Detail/c7eb4d73-8fb6-47fb-856a-4c3271129e9d |
+
+## Open questions for hand research (layer 2)
+
+- (reference rule not published)
+- buyer: supplier registration / vendor setup process, invoice submission rules, AP system, fiscal year end, procurement policy, PO practice, recent budget / annual report mentions of this vendor, council or board minutes approving this contract (they carry PO / contract numbers)
+- vendor: legal name and registry ids, GST/HST number if printed anywhere public, remit-to address, AR contact, NAICS / line of business, other public-sector customers, news about this relationship
+
+## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
+
+_pending_

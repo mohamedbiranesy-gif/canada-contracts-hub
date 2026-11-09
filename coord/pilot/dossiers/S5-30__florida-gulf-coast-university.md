@@ -1,0 +1,319 @@
+# S5-30 — Florida Gulf Coast University ⇄ moderncampus.com
+
+Stratum: **S5_vendor_supplies_own_GST** · pay on sight: no · channel tier 1 · AP grade B · missing: the vendor's GST/HST number (BN9)
+
+## 1. Draft invoice header (from the row)
+```
+DRAFT INVOICE HEADER — built only from the row's sourced and labelled-derived columns (provenance in facts_provenance_json)
+BILL TO: Florida Gulf Coast University — 10501 FGCU Blvd. S. , Fort Myers, FL 33965
+SUBMIT TO: accountspayable@fgcu.edu (invoicing/AP mailbox, confirmed by the referee) | portal (not confirmed as an invoice channel): supplier / vendor portal
+REFERENCE: none in the record | PO rule: yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchas
+FROM / REMIT TO: MODERN CAMPUS INC. — 40 Holly Street, Suite 800, Toronto, ON, M4S 3C3, Canada | GST/HST number not public | NEQ 1179600292
+TAX: tax exemption, and make no excessive or unnecessary purchases (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/card-h | CURRENCY: DERIVED: USD (derived from the buyer's country; C | TERMS: vendor's standard terms (buyer publishes none)
+DESCRIPTION: Florida Gulf Coast University (organisation (type not stated in the record), jurisdiction not stated) — named as a client by the Canada-loca
+```
+
+## Relationship
+- **rank_group**: D4
+- **data_quality_score**: 72
+- **ship_ready**: no (relationship not dated / active)
+- **sensitivity_flag**: no
+- **evidence_age_days**: 8
+- **reverify_due**: no
+- **inference_confidence**: n/a (the relationship is a record, not an inference)
+- **relationship_detail**: Florida Gulf Coast University (organisation (type not stated in the record), jurisdiction not stated) — named as a client by the Canada-located vendor (client list / customer story), dated: moderncampus.com | published by: the Canada-located vendor's own website | record: https://moderncampus.com/success-stories/florida-gulf-coast-university-boosts-digital-engagement | vendor in Canada because: vendor located in Canada (stories)=moderncampus.com | status rule: client listing on the vendor's own site (undated)
+- **how_relationship_was_found**: tools/client_lists.py / dated_stories.py read the vendor's dated customer story / case study naming the buyer
+- **keys**: lead:12600970efc43379
+- **tier**: D
+- **grade**: 4
+- **records_with_this_vendor**: 1 (relationship record: the Canada-located vendor's own website; 0 in the contract dataset)
+
+## Buyer
+- **buyer**: Florida Gulf Coast University
+- **buyer_website**: http://www.fgcu.edu
+- **buyer_address**: 10501 FGCU Blvd. S. , Fort Myers, FL 33965
+- **buyer_phone**: 239-590-1000
+- **buyer_contact_evidence_url**: https://www.fgcu.edu/about/contactus
+- **buyer_legal_name_as_published**: Florida Gulf Coast University
+- **buyer_logo_url**: https://fgcucdn.fgcu.edu/_resources/images/fgcu-lettermark-fullcolor-logo.svg
+- **buyer_website_status**: site answers
+- **buyer_linkedin_url**: https://www.linkedin.com/school/fgcu/
+- **buyer_supplier_portals_linked**: Workday (e-procurement / supplier portal): https://wd5.myworkday.com/fgcu/learning/course/b4f3af9656351001607b708313ca0001?record=61e751d834501001b9671b437e8f0000&type=9882927d138b100019b928e75843018d
+- **buyer_type**: university / college (from the organisation's name / web domain)
+- **buyer_sector**: education: post-secondary
+- **buyer_wikidata**: https://www.wikidata.org/wiki/Q1430054; university; public educational institution of the United States; census-designated place in the United States
+- **buyer_founded**: 1991-00-00 (Wikidata Q1430054, official website on the organisation's domain (http://www.fgcu.edu) + name; 2026-11-08)
+- **buyer_employees**: 1726 (Wikidata Q1430054, official website on the organisation's domain (http://www.fgcu.edu) + name; 2026-11-08)
+- **buyer_legal_form**: Q130264548 (Wikidata Q1430054, official website on the organisation's domain (http://www.fgcu.edu) + name; 2026-11-08)
+- **buyer_facts_provenance**: address and phone: the buyer's own site, https://www.fgcu.edu/about/contactus (tools/org_contacts.py: JSON-LD / contact page; no AI); legal name: the site's copyright / footer line (tools/org_extras.py); logo: og:image / logo image of the buyer's site; website: site answers; PO requirement: the mailbox's evidence page re-read in full by tools/ap_terms.py (no AI; URL and date in the cell); invoice portal: the mailbox's evidence page re-read in full by tools/ap_terms.py (no AI; URL and date in the cell); AP contact name: the mailbox's evidence page re-read in full by tools/ap_terms.py (no AI; URL and date in the cell)
+- **buyer_payment_method_preference**: ACH Enrol (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/finance/proceduresandforms, re-read 2026-11-08)
+- **buyer_tax_exempt_status**: tax exemption, and make no excessive or unnecessary purchases (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/card-holder-responsibilities, re-read 2026-11-08)
+- **buyer_tax_status_derived**: DERIVED: buyer outside Canada — services and goods exported to a non-resident are generally zero-rated for GST/HST (ETA Schedule VI, Parts V and VII); US state sales / use tax is self-assessed by the buyer
+- **buyer_keys**: 1
+
+## Submit-to / AP
+- **peppol_registered**: not listed in the Peppol Directory (country=CA search on 2026-11-06: 77 Canadian participants in total)
+- **email**: accountspayable@fgcu.edu
+- **email_type**: invoicing/AP
+- **email_check**: confirmed
+- **mailbox_confidence**: verified by the referee (page re-fetched); invoicing / AP mailbox
+- **email_evidence_url**: https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/
+- **email_evidence_quote**: f="mailto:accountspayable@fgcu.edu"><span style="text-decoration: underline;"><strong>Payment Services (Accounts Payable)</strong></span></a></p> <div class="co
+- **mailbox_recheck_note**: mailbox seen again on the page when re-read 2026-11-08
+- **mailbox_provenance**: accountspayable@fgcu.edu (invoicing/AP) | found by the no-AI crawler tools/ap_crawler.py reading the buyer's own site (contact / finance / supplier pages) on 2026-11-01 | page: https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/ | quote: "f="mailto:accountspayable@fgcu.edu"><span style="text-decoration: underline;"><strong>Payment Services (Accounts Payable)</strong></span></a></p> <div class="co" | verified: the referee (verify-and-merge workflow) re-fetched the page and saw the address (report 2026-11-09T14:16:08Z) | DNS: domain publishes a mail server (MX) | DMARC enforced: p=reject; DNS lookup failed; mail handled by Microsoft 365 | lane file: claude/claude_buyer_ap_results_crawl01.csv task CL-LD-37720
+- **email_deliverability**: domain publishes a mail server (MX)
+- **email_security_posture**: DMARC enforced: p=reject; DNS lookup failed; mail handled by Microsoft 365
+- **dmarc_policy**: p=reject
+- **dmarc_record**: v=DMARC1; p=reject; rua=mailto:rua@fgcu.edu; ruf=mailto:ruf@fgcu.edu; fo=1; pct=100
+- **dmarc_record_domain**: fgcu.edu
+- **spf_policy**: DNS lookup failed
+- **mta_sts**: no MTA-STS record
+- **tls_rpt**: no TLS-RPT record
+- **bimi**: no BIMI record
+- **ap_contact_name_as_published**: Mark Deboy (approved by their Dean or Director) (as printed by the organisation on its own accounts-payable page (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/faqs, re-read 2026-11-08))
+- **po_required_as_published**: yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchase order) (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/accountspayable, re-read 2026-11-08)
+- **invoice_portal_url**: supplier / vendor portal
+- **invoice_portal_kind**: actionable supplier / invoice portal named by the buyer
+- **invoice_portal_note**: (additional channel named on the buyer's page; the e-mail is the contact)
+- **ap_system_hint**: named on the buyer's page: Workday (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/finance/proceduresandforms, re-read 2026-11-08); linked from the buyer's site: Workday (e-procurement / supplier portal)
+- **invoicing_requirements_structured**: {"submission_channel": "e-mail + portal", "po_required": "yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchase order) (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/accountspayable, re-read 2026-11-08)", "portal_url": "supplier / vendor portal", "portal_kind": "actionable supplier / invoice portal named by the buyer"}
+- **invoice_currency_derived**: USD (derived from the buyer's country; CAD if the parties agreed so)
+- **channel_tier**: 1
+- **invoice_text**: DRAFT INVOICE HEADER — built only from the row's sourced and labelled-derived columns (provenance in facts_provenance_json) ⏎ BILL TO: Florida Gulf Coast University — 10501 FGCU Blvd. S. , Fort Myers, FL 33965 ⏎ SUBMIT TO: accountspayable@fgcu.edu (invoicing/AP mailbox, confirmed by the referee) | portal (not confirmed as an invoice channel): supplier / vendor portal ⏎ REFERENCE: none in the record | PO rule: yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchas ⏎ FROM / REMIT TO: MODERN CAMPUS INC. — 40 Holly Street, Suite 800, Toronto, ON, M4S 3C3, Canada | GST/HST number not public | NEQ 1179600292 ⏎ TAX: tax exemption, and make no excessive or unnecessary purchases (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/card-h | CURRENCY: DERIVED: USD (derived from the buyer's country; C | TERMS: vendor's standard terms (buyer publishes none) ⏎ DESCRIPTION: Florida Gulf Coast University (organisation (type not stated in the record), jurisdiction not stated) — named as a client by the Canada-loca
+- **invoice_card_json**: {"bill_to": {"legal_name": "Florida Gulf Coast University", "legal_name_is_published": true, "address": "10501 FGCU Blvd. S. , Fort Myers, FL 33965", "address_is_the_invoice_address": false, "tax_number": "", "language": "en"}, "submit_to": {"email": "accountspayable@fgcu.edu", "email_type": "invoicing/AP", "supplier_setup_url": "", "portal_url": "supplier / vendor portal", "portal_kind": "actionable supplier / invoice portal named by the buyer", "mailing_address": "", "format": "", "system": "named on the buyer's page: Workday (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/finance/proceduresandforms, re-read 2026-11-08); linked from the buyer's site: Workday (e-procurement / supplier portal)", "e_invoicing_peppol": "", "portal_is_invoice_channel": false, "portal_class": "portal (not confirmed as an invoice channel)"}, "references_required": {"po_required": "yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchase order) (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/accountspayable, re-read 2026-11-08)", "po_number": "", "contract_or_agreement_number": "", "vendor_id_with_buyer": "", "reference_hint": "the buyer's purchase-order number: the buyer publishes that invoices must quote a PO number (yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchase order) (as printed on https:/
+- **invoice_readiness**: 8/11 invoice elements present
+- **invoice_missing**: reference to quote (PO / contract / vendor id); payment terms; vendor GST/HST number
+- **ap_grade**: B
+- **ap_score**: 81
+- **ap_grade_basis**: met: invoicing / AP mailbox; referee-confirmed mailbox; mailbox seen again within 60 days; mailbox on the buyer's own domain (or published on the buyer's own site); domain publishes a mail server (MX); bill-to legal name published; invoice or billing address; PO rule published; currency known; AP phone or AP contact; payment cycle or method published (plausibility) | missing: finance mailbox; payment terms published; invoice format / requirements published
+- **ap_gap_to_A**: published payment terms
+- **ap_payability**: payable today: channel + bill-to + reference rule + tax treatment; supplier setup known; terms not published (buyer's default applies)
+- **language_hint**: en
+- **template_language**: en
+- **invoice_reference_hint**: the buyer's purchase-order number: the buyer publishes that invoices must quote a PO number (yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchase order) (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller)
+
+## Vendor
+- **vendor**: moderncampus.com
+- **vendor_legal_name**: MODERN CAMPUS INC.
+- **vendor_trading_name**: moderncampus.com
+- **vendor_registry_id**: Québec REQ (NEQ): 1179600292
+- **vendor_registry_url**: https://www.donneesquebec.ca/recherche/dataset/registre-des-entreprises
+- **vendor_registered_address**: 2482 Yonge Street #1366, Toronto (Ontario), M4P2H5
+- **vendor_neq**: 1179600292 (Registraire des entreprises du Québec, bulk register https://www.donneesquebec.ca/recherche/dataset/registre-des-entreprises; retrieved 2026-10-25)
+- **vendor_legal_form**: Société par actions ou compagnie — ONTARIO : Loi sur les sociétés par actions, L.R.O. 1990, c. B.16
+- **vendor_activity_code**: CAE 9999 — Société de développement de logiciels
+- **vendor_employees_quebec**: De 1 à 5
+- **vendor_last_annual_filing**: REQ annual declaration 2026
+- **vendor_address**: 40 Holly Street, Suite 800, Toronto, ON, M4S 3C3, Canada
+- **vendor_country_basis**: vendor located in Canada (stories)=moderncampus.com
+- **vendor_website**: https://moderncampus.com/
+- **vendor_emails**: sales@moderncampus.com; support@moderncampus.com; marketing@moderncampus.com
+- **vendor_phone**: +14164800500 (tel: link on https://moderncampus.com/)
+- **vendor_contact_evidence_url**: https://moderncampus.com/contact-us
+- **vendor_logo_url**: https://moderncampus.com/hubfs/logo-school-1.svg
+- **vendor_website_status**: site answers
+- **vendor_linkedin_url**: https://www.linkedin.com/company/moderncampus/
+- **vendor_facts_provenance**: name and address: the record's vendor block (the Canada-located vendor's own website); registry identity: Québec REQ (NEQ): 1179600292 status Québec REQ (NEQ): Immatriculée (2024-03-06) (scripts/enrichment_*: Corporations Canada / REQ / BC OrgBook bulk data; match); incorporated / registered: 2018-05-16; phone / role e-mails / logo: the vendor's own site, https://moderncampus.com/contact-us (tools/org_contacts.py, org_extras.py); website: https://moderncampus.com/ (site answers); NEQ: 1179600292 (Registraire des entreprises du Québec, bulk register https://www.donneesquebec.ca/recherche/dataset/registre-des-entreprises; retrieved 2026-10-25)
+- **vendor_concentration_top_share**: no dataset record for this pair / buyer
+- **vendor_registry_status**: Québec REQ (NEQ): Immatriculée (2024-03-06)
+- **vendor_incorporation_date**: 2018-05-16
+- **vendor_years_in_business**: 8.5 (since 2018-05-16, registry date)
+
+## Contract
+- **po_required_as_published**: yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchase order) (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/accountspayable, re-read 2026-11-08)
+- **contract_status**: client listing on the vendor's own site (undated)
+- **contract_link**: https://moderncampus.com/success-stories/florida-gulf-coast-university-boosts-digital-engagement
+- **source**: the Canada-located vendor's own website
+- **contracts_with_canadian_suppliers**: 1
+- **records_with_this_vendor**: 1 (relationship record: the Canada-located vendor's own website; 0 in the contract dataset)
+- **records_in_contract_dataset**: 1 records with Canada-located vendors (this row's organisation)
+- **commodity_distribution_top3**: no dataset record for this pair / buyer
+
+## Tax / currency / terms (derived)
+- **buyer_tax_status_derived**: DERIVED: buyer outside Canada — services and goods exported to a non-resident are generally zero-rated for GST/HST (ETA Schedule VI, Parts V and VII); US state sales / use tax is self-assessed by the buyer
+- **invoice_currency_derived**: USD (derived from the buyer's country; CAD if the parties agreed so)
+
+## Pay on sight / grades
+- **pay_on_sight**: no
+- **pay_on_sight_missing**: the vendor's GST/HST number (BN9)
+- **invoice_text**: DRAFT INVOICE HEADER — built only from the row's sourced and labelled-derived columns (provenance in facts_provenance_json) ⏎ BILL TO: Florida Gulf Coast University — 10501 FGCU Blvd. S. , Fort Myers, FL 33965 ⏎ SUBMIT TO: accountspayable@fgcu.edu (invoicing/AP mailbox, confirmed by the referee) | portal (not confirmed as an invoice channel): supplier / vendor portal ⏎ REFERENCE: none in the record | PO rule: yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchas ⏎ FROM / REMIT TO: MODERN CAMPUS INC. — 40 Holly Street, Suite 800, Toronto, ON, M4S 3C3, Canada | GST/HST number not public | NEQ 1179600292 ⏎ TAX: tax exemption, and make no excessive or unnecessary purchases (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/card-h | CURRENCY: DERIVED: USD (derived from the buyer's country; C | TERMS: vendor's standard terms (buyer publishes none) ⏎ DESCRIPTION: Florida Gulf Coast University (organisation (type not stated in the record), jurisdiction not stated) — named as a client by the Canada-loca
+- **invoice_card_json**: {"bill_to": {"legal_name": "Florida Gulf Coast University", "legal_name_is_published": true, "address": "10501 FGCU Blvd. S. , Fort Myers, FL 33965", "address_is_the_invoice_address": false, "tax_number": "", "language": "en"}, "submit_to": {"email": "accountspayable@fgcu.edu", "email_type": "invoicing/AP", "supplier_setup_url": "", "portal_url": "supplier / vendor portal", "portal_kind": "actionable supplier / invoice portal named by the buyer", "mailing_address": "", "format": "", "system": "named on the buyer's page: Workday (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/finance/proceduresandforms, re-read 2026-11-08); linked from the buyer's site: Workday (e-procurement / supplier portal)", "e_invoicing_peppol": "", "portal_is_invoice_channel": false, "portal_class": "portal (not confirmed as an invoice channel)"}, "references_required": {"po_required": "yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchase order) (as printed on https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/accountspayable, re-read 2026-11-08)", "po_number": "", "contract_or_agreement_number": "", "vendor_id_with_buyer": "", "reference_hint": "the buyer's purchase-order number: the buyer publishes that invoices must quote a PO number (yes (as published: required prior to payment processing if there is a dollar of quantity discrepancy between the purchase order) (as printed on https:/
+- **invoice_readiness**: 8/11 invoice elements present
+- **invoice_missing**: reference to quote (PO / contract / vendor id); payment terms; vendor GST/HST number
+- **ap_grade**: B
+- **ap_score**: 81
+- **ap_grade_basis**: met: invoicing / AP mailbox; referee-confirmed mailbox; mailbox seen again within 60 days; mailbox on the buyer's own domain (or published on the buyer's own site); domain publishes a mail server (MX); bill-to legal name published; invoice or billing address; PO rule published; currency known; AP phone or AP contact; payment cycle or method published (plausibility) | missing: finance mailbox; payment terms published; invoice format / requirements published
+- **ap_gap_to_A**: published payment terms
+- **ap_payability**: payable today: channel + bill-to + reference rule + tax treatment; supplier setup known; terms not published (buyer's default applies)
+- **facts_provenance_json**: {"mailbox": ["accountspayable@fgcu.edu (invoicing/AP)", "found by the no-AI crawler tools/ap_crawler.py reading the buyer's own site (contact / finance / supplier pages) on 2026-11-01", "page: https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/", "quote: \"f=\"mailto:accountspayable@fgcu.edu\"><span style=\"text-decoration: underline;\"><strong>Payment Services (Accounts Payable)</strong></span></a></p> <div class=\"co\"", "verified: the referee (verify-and-merge workflow) re-fetched the page and saw the address (report 2026-11-09T14:16:08Z)", "DNS: domain publishes a mail server (MX)", "DMARC enforced: p=reject; DNS lookup failed; mail handled by Microsoft 365", "lane file: claude/claude_buyer_ap_results_crawl01.csv task CL-LD-37720"], "buyer_facts": ["address and phone: the buyer's own site, https://www.fgcu.edu/about/contactus (tools/org_contacts.py: JSON-LD / contact page", "no AI)", "legal name: the site's copyright / footer line (tools/org_extras.py)", "logo: og:image / logo image of the buyer's site", "website: site answers", "PO requirement: the mailbox's evidence page re-read in full by tools/ap_terms.py (no AI", "URL and date in the cell)", "invoice portal: the mailbox's evidence page re-read in full by tools/ap_terms.py (no AI", "URL and date in the cell)", "AP contact name: the mailbox's evidence page re-read in full by tools/ap_terms.py (no AI", "URL and date in the cell)"], "vendor_facts": ["name and address: the record's vendor block (
+
+## AP pages read for this buyer (tools/ap_terms.py; every value with its quote)
+| evidence_url | retrieved_date | status | payment_terms | po_required | portal_name | ap_phone | invoice_mailing_address | invoice_format | ap_system | payment_terms_quote | po_quote |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/ | 2026-11-08 | ok |  |  |  |  |  |  |  |  |  |
+
+## Buyer site facts (org_extras, fgcu.edu)
+- **status**: ok
+- **pages**: 6
+- **language**: en
+- **legal_name**: Florida Gulf Coast University
+- **legal_name_url**: https://www.fgcu.edu/
+- **legal_name_quote**: Florida Gulf Coast University Skip to the content FGCU Privacy Policy This website stores cookies on your computer to improve you
+- **logo_url**: https://fgcucdn.fgcu.edu/_resources/images/fgcu-lettermark-fullcolor-logo.svg
+- **logo_basis**: logo image on the site
+- **domain**: fgcu.edu
+- **key**: lead:12600970efc43379
+- **name**: Florida Gulf Coast University
+- **website**: https://fgcu.edu/
+- **kind**: buyer
+- **date**: 2026-11-08
+- **v**: 2
+- **legal_name_stated**: Our Vision Florida Gulf Coast University
+- **legal_name_stated_url**: https://www.fgcu.edu/about/
+- **legal_name_stated_quote**: learning, community service, and participation in a living laboratory of sustainability practices. Our Vision Florida Gulf Coast University (FGCU) aspires for national prominence and global recognition as a community-focused, comprehensive
+- **portals**: [{'name': 'Workday', 'kind': 'e-procurement / supplier portal', 'url': 'https://wd5.myworkday.com/fgcu/learning/course/b4f3af9656351001607b708313ca0001?record=61e751d834501001b9671b437e8f0000&type=9882927d138b100019b928e75843018d', 'on_page': 'https://www.fgcu.edu/generalcounsel/resources'}]
+- **linkedin_url**: https://www.linkedin.com/school/fgcu/
+- **tel_links**: +12395901000; +18005903428
+
+## Buyer role mailboxes found on its site (org_contacts)
+- {"status": "ok", "pages": 4, "address": "10501 FGCU Blvd. S. , Fort Myers, FL 33965", "address_country": "US", "address_url": "https://www.fgcu.edu/about/contactus", "address_method": "address-tag", "address_quote": "mber: 239-590-1000 or 800-590-3428 Search using FGCU directory Mailing Address: 10501 FGCU Blvd. S. Fort Myers, FL 33965-6502 FGCU Colleges Name Email Phone College of Arts and Sci", "phone": "239-590-1000", "phone_url": "https://www.fgcu.edu/about/contactus", "emails": "info@fgcu.edu", "emails_url": "https://www.fgcu.edu/", "domain": "fgcu.edu", "key": "lead:12600970efc43379", "name": "fgcu.edu", "website": "https://fgcu.edu/", "kind": "buyer", "date": "2026-11-03"}
+
+## Vendor site facts (org_extras, moderncampus.com)
+- **status**: ok
+- **pages**: 6
+- **language**: en
+- **legal_name**: Modern Campus is a registered trademark of Modern Campus USA Inc
+- **legal_name_url**: https://moderncampus.com/
+- **legal_name_quote**: hat's happening around campus. Join Our Mailing List Get the latest delivered to your inbox! © 2026 Modern Campus is a registered trademark of Modern Campus USA Inc. All rights reserved. Privacy Policy | Accessibility
+- **logo_url**: https://moderncampus.com/hubfs/logo-school-1.svg
+- **logo_basis**: logo image in the site header
+- **domain**: moderncampus.com
+- **key**: vendor:moderncampus.com
+- **name**: moderncampus.com
+- **website**: https://moderncampus.com/
+- **kind**: vendor
+- **date**: 2026-11-08
+- **v**: 2
+- **legal_name_stated**: Success Story Ferris State University
+- **legal_name_stated_url**: https://moderncampus.com/
+- **legal_name_stated_quote**: tion Discover how workforce pell is expanding access to short-term workforce programs. Learn More → Success Story Ferris State University Increased Website Clickthrough by 2800% Using Personalization How a top-ranked national university
+- **mentions**: {'payment_method': {'text': 'interaction with the institution—improving their likelihood to succeed within their pro', 'url': 'https://moderncampus.com/', 'quote': 'leges and universities can ensure they’re delivering a high-quality experience with every student’s interaction with the institution—improving their likelihood to succeed within their program, increasing their openness to return for ongoing learning and to con'}}
+- **linkedin_url**: https://www.linkedin.com/company/moderncampus/
+- **tel_links**: +14164800500; +18664030500
+
+## Vendor role mailboxes found on its site (org_contacts)
+- {"status": "ok", "pages": 3, "address": "2482 Yonge Street #1366 Toronto, Ontario M4P 2H5", "address_country": "CA", "address_url": "https://moderncampus.com/contact-us", "address_method": "pattern", "address_quote": "rt The EvoLLLution Contact Information 2482 Yonge Street #1366 Toronto, Ontario M4P 2H5 330 N Lantana St Suite 28 PMB 1014 Camarillo, CA 93010 (416) 480-0500 (866) 403", "emails": "sales@moderncampus.com; support@moderncampus.com", "emails_url": "https://moderncampus.com/contact-us", "domain": "moderncampus.com", "key": "vd:moderncampus.com", "name": "moderncampus.com", "website": "https://moderncampus.com/", "kind": "vendor", "date": "2026-11-04"}
+
+## Registry records (Canada's Business Registries lookups)
+_none_
+
+## Registry records (REQ / Corporations Canada bulk match)
+_none_
+
+## Wikidata
+| side | name | qid | match_basis | official_name | label_en | label_fr | instance_of | legal_form | country | inception | headquarters |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| b | Florida Gulf Coast University | Q1430054 | official website on the organisation's domain (http://www.fgcu.edu) + name |  | Florida Gulf Coast University | Florida Gulf Coast University | university; public educational institution of the United States; census-designated place in the United States | Q130264548 | United States | 1991-00-00 | Fort Myers |
+| v | MODERN CAMPUS INC. |  |  |  |  |  |  |  |  |  |  |
+
+## Lanes' verified findings for this buyer (team_buyers)
+```
+{
+ "buyer_key": "lead:12600970efc43379",
+ "ap_contact_team": {
+  "emails": [
+   "accountspayable@fgcu.edu",
+   "procurement@fgcu.edu",
+   "finance@fgcu.edu"
+  ],
+  "invoice_portal": null,
+  "phone": null,
+  "mailing_address": null,
+  "invoicing_requirements": null,
+  "evidence": [
+   {
+    "email": "accountspayable@fgcu.edu",
+    "type": "accounts_payable",
+    "invoice_portal": null,
+    "phone": null,
+    "mailing_address": null,
+    "requirements": null,
+    "applies_to": "whole_organisation",
+    "page_url": "https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/",
+    "quote": "f=\"mailto:accountspayable@fgcu.edu\"><span style=\"text-decoration: underline;\"><strong>Payment Services (Accounts Payable)</strong></span></a></p> <div class=\"co",
+    "retrieved_date": "2026-11-01",
+    "found_by": "claude",
+    "verification": "verified",
+    "source_file": "claude_buyer_ap_results_crawl01.csv",
+    "org": "fgcu.edu",
+    "task_id": "CL-LD-37720"
+   },
+   {
+    "email": "procurement@fgcu.edu",
+    "type": "procurement",
+    "invoice_portal": null,
+    "phone": null,
+    "mailing_address": null,
+    "requirements": null,
+    "applies_to": "whole_organisation",
+    "page_url": "https://www.fgcu.edu/adminservices/officeofthecontroller/procurementservices/",
+    "quote": "We’re Here to Answer Your Questions. Procurement & Payment Services procurement@fgcu.edu South Village Modular I 10501 FGCU Blvd. S. Fort Myers, FL 33965 CONTACT 10501 FGCU Blvd. S. Fort Myers, FL 33965 239-590-1000 To",
+    "retrieved_date": "2026-11-01",
+    "found_by": "claude",
+    "verification": "verified",
+    "source_file": "claude_buyer_ap_results_crawl01.csv",
+    "org": "fgcu.edu",
+    "task_id": "CL-LD-37720"
+   },
+   {
+    "email": "finance@fgcu.edu",
+    "type": "general",
+    "invoice_portal": null,
+    "phone": null,
+    "mailing_address": null,
+    "requirements": null,
+    "applies_to": "whole_organisation",
+    "page_url": "https://www.fgcu.edu/adminservices/officeofthecontroller/finance/",
+    "quote": "iv class=\"row\"> <div class=\"col-xs-12\"> <p class=\"phone\">239-590-1201</p> </div> <div class=\"col-xs-12\"> <p class=\"contact\"><a href=\"mailto:finance@fgcu.edu\">Contact Us</a></p> </div> </div> </div> </div> </div> </div> </div> </div> </section> </article> </main> <fgcufooter id=\"colophon\" r",
+    "retrieved_date": "2026-11-01",
+    "found_by": "claude",
+    "verification": "verified",
+    "source_file": "claude_buyer_ap_results_crawl01.csv",
+    "org": "fgcu.edu",
+    "task_id": "CL-LD-37720"
+   }
+  ]
+ },
+ "research_status": {
+  "found": 3
+ },
+ "queries_tried": [
+  "site crawl of www.fgcu.edu (25 pages, robots.txt respected), no AI, no search engine",
+  "site crawl of www.fgcu.edu (25 pages, robots.txt respected), no AI, no search engine",
+  "site crawl of www.fgcu.edu (25 pages, robots.txt respected), no AI, no search engine"
+ ],
+ "ingested_at": "2026-11-09T16:04:50Z"
+}
+```
+
+## PO-level open data naming this buyer
+_none_
+
+## Contract records between the pair (dataset)
+_none_
+
+## The buyer's other Canadian-vendor records (first 60 of 0)
+_none_
+
+## The vendor's other buyers in the dataset (first 60 of 0)
+_none_
+
+## Open questions for hand research (layer 2)
+
+- the vendor's GST/HST number (BN9)
+- buyer: supplier registration / vendor setup process, invoice submission rules, AP system, fiscal year end, procurement policy, PO practice, recent budget / annual report mentions of this vendor, council or board minutes approving this contract (they carry PO / contract numbers)
+- vendor: legal name and registry ids, GST/HST number if printed anywhere public, remit-to address, AR contact, NAICS / line of business, other public-sector customers, news about this relationship
+
+## Web research (layer 2 — appended by the integrator; every fact with URL, date read and a quote ≤ 300 chars)
+
+_pending_
