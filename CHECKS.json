@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T05:35Z",
+ "updated": "2026-11-09T06:25Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -191,6 +191,11 @@
    "deliverable": "verifier pushes accepted by GitHub",
    "method": "verify-and-merge run log: no 'GH001: Large files detected'; a 'verifier:' commit lands; coord/results/team_buyers.jsonl.gz < 100 MB",
    "status": "passing 05:01Z: verifier commits 04:49Z and 05:01Z; search01 6,168 verified"
+  },
+  {
+   "deliverable": "build 05:33Z vs 04:09Z (first with verified mailbox finds)",
+   "method": "Pay on sight table, grade table, 438 head diffed",
+   "status": "102/438 (−3 from Gold row growth 597→623), Gold A 225 (+11), pay on sight 1,032 (flat) / 862 / 21,868; organic strict rate ≈ 0 per hour → pull-the-plug recommendation written"
   }
  ]
 }

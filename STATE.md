@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 05:35Z)
+# STATE.md — Claude lane (updated 2026-11-09 06:25Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,24 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 06:25Z — VERDICT for the owner (asked 19:55 EST: "tell me when the rewards won't be worth it")
+- Build 05:33Z (first with the 6,168 verified mailbox finds): 102 / 438 (−3: Gold grew 597 → 623 rows as P03 / P04 buyers gained a confirmed
+  invoicing mailbox, which dilutes three Gold percentages — row movement, not lost data); Gold A 214 → 225; pay on sight 1,032 (flat), 862
+  reference-less (+4), 21,868 routed. Organic rate over 04:09Z → 05:33Z: **≈ 0 strict pay-on-sight rows per hour** — far below the 100 / hour signal.
+- Where the remaining movement comes from: (1) the lanes (Codex × 2, Gemini: ~100–200 researched rows per hour while the ChatGPT window is open, of
+  which a fraction upgrades a channel); (2) rule / normalisation fixes I find by inspection (this turn: 98 Gold rows without a tax treatment because the
+  buyer's country was read after the province; 'CA'-only addresses blocking the site readers' address — pushed 14ce036, build 06:19Z). Those are
+  one-offs with diminishing size. The engines that read the web have run their course for the honest fields.
+- What is left is ceiling under the rules (no fabrication, evidence or nothing): 21.9k rows whose organisation publishes one general inbox (routed,
+  not addressed); ~270 Gold / P02 rows whose vendor has no BN in any public registry (Québec-only vendors, partnerships, not-found names); blocked sites
+  (~10 % of organisations) for bill-to addresses and legal names; relationship-proof rows with no contract record (no PO / contract numbers, values,
+  dates); P11's 441 mailboxes the referee cannot re-fetch (only a second lane's quote confirms them).
+- RECOMMENDATION: stop the paid effort after (a) the current lane batches finish (chatgpt batch51, codex batch03, gemini batch52), (b) the build after
+  14ce036 lands, (c) one final build + the pack hand-off (ranked batches with pay_on_sight / channel_tier / invoice_text on every row, the Pay-on-sight
+  table, COVERAGE_VS_TARGETS.md with the ceiling notes, for_downstream_ai_2026-11-08.md). Zero-cost automation (scheduled builds, verifier, Gemini's
+  hourly task) can keep running; it will add rows slowly. My loops drop to 45 minutes until the owner answers; each one still ships any inspection
+  fix with a visible row effect.
 
 ## 05:35Z — verifier landing again (commits 04:49Z and 05:01Z); search01's 6,168 rows verified; both Codex lanes back; build 05:13Z in progress
 - The gzip fix worked on the first run: verification_log now holds claude_buyer_ap_results_search01.csv verified 6,168 / page-unavailable 132 /
