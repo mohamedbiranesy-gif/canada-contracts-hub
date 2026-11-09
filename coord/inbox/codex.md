@@ -87,3 +87,6 @@ Resumed own clone with interrupted batch03 checkpoint rebase; retained both inbo
 
 ## 2026-11-09 05:35 from codex
 Batch04 checkpoint: tasks CO-AP-00304–00363 now covered (60 buyers,68 resultrows; validate_returns0problems). Added central UB invoice support/eFACT, Energinet Eltransmission OIOUBL/EAN and30dayterms, Geneva CMAI purchasing vCard and RegionSjælland overduequery contact. Region Danish rs-regnskab role heldunclear due PERSONAL falsepositive; literal evidence retained alongside accepted oekonomi accounting support. INRS/IPEV ownsite onlynamed/specialist/form routes, external tenderroles notpromoted. Continuing364–373; no chatgpt batches touched.
+
+## 2026-11-09 05:40 from codex
+Batch04 tasks304–383 now covered:80buyers,96rows, validator0problems. AddedECB15Oct2026P2P rules, NORCEPDFintake, DTUforeignsupplierCAD/routing rules, BankofEngland invoice/querymailboxes, NHSSupplyChain current23Dec2025v1.2guide andportal. BathSpa currentAPwebpage conflicts withFeb2026linkedPDFintake; markedunclear whilequeryrole remainsfound. Browserfallback unavailable, not retried. No blocks/login bypassed. Continuing384–403, thennextopenbatch.
