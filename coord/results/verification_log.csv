@@ -12447,7 +12447,7 @@ chatgpt,chatgpt_buyer_ap_results_batch08.csv,CH-AP-00701,b:8480915b41c2af45,apel
 gemini,gemini_buyer_ap_results_batch09.csv,GE-AP-00824,b:8482ce9ab95d9ea3,techcomptable@mrctemiscamingue.qc.ca,https://www.mrctemiscamingue.org/equipe/,verified
 gemini,gemini_buyer_ap_results_batch16.csv,GE-AP-01569,b:84a46666e85b9db4,medias@transports.gouv.qc.ca,https://www.quebec.ca/gouvernement/ministeres-organismes/transports/coordonnees-structure/supplementaires,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00937,b:84ab6924600c26e2,procurement@gov.bc.ca,https://www2.gov.bc.ca/gov/content/bc-procurement-resources/buy-for-government/goods-and-services-catalogue,verified
-codex,codex_buyer_ap_results_batch03.csv,CO-AP-00273,b:84ba20a6c4e9f6c3,contracts@finance.gov.au,https://www.finance.gov.au/government/procurement/procurement-complaints,unverified_page_unavailable
+codex,codex_buyer_ap_results_batch03.csv,CO-AP-00273,b:84ba20a6c4e9f6c3,contracts@finance.gov.au,https://www.finance.gov.au/government/procurement/procurement-complaints,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-29012,b:84dd7ff75593d2fc,enquiries@southampton.ac.uk,https://www.southampton.ac.uk/study/subjects/business-accounting-finance-marketing,not_found_on_page
 claude,claude_buyer_ap_results_dsenrich01.csv,CL-DS-00135,b:84dd7ff75593d2fc,enquiries@southampton.ac.uk,https://www.southampton.ac.uk/about/contact,verified
 gemini,gemini_buyer_ap_results_batch29.csv,GE-AP-29012,b:84dd7ff75593d2fc,invoices@soton.ac.uk,https://www.southampton.ac.uk/finance/services/General-information-for-suppliers.page,verified
