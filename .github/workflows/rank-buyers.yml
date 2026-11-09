@@ -40,6 +40,7 @@ jobs:
             python3 contrib/claude/rank_buyers/contracts_export.py > contracts.log || true
             python3 tools/audit_deliverable.py out/ranked --write out/ranked > audit.log || true
             python3 tools/coverage_targets.py --write out/ranked --history coord/results/coverage_history.csv > coverage.log 2>&1 || true
+            [ -s out/ranked/COVERAGE_VS_TARGETS.md ] || { echo "::warning::scoreboard not written (see coverage.log) — previous scoreboard kept"; cp coord/results/ranked/COVERAGE_VS_TARGETS.md out/ranked/ 2>/dev/null || true; }
             rm -rf coord/results/ranked && mkdir -p coord/results/ranked && cp -r out/ranked/* coord/results/ranked/ && rm -f coord/results/ranked/ranked_buyers.csv coord/results/ranked/ranked_buyers.jsonl.gz
             { echo "# Ranked buyers — $(date -u +%Y-%m-%dT%H:%MZ)"; echo; echo '```'; cat rank.log batches.log; echo; echo "# coverage vs the downstream targets (COVERAGE_VS_TARGETS.md)"; cat coverage.log; echo '```'; echo; echo "Integrity gates: see VALIDATION.md in this folder; columns and rules: contrib/claude/rank_buyers/README.md"; } > coord/results/ranked/SUMMARY.md
             git add coord/results/ranked coord/results/coverage_history.csv data/incoming/claude/claude_dmarc_check.tsv
