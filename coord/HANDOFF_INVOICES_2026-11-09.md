@@ -93,7 +93,8 @@ is the relationship (`relationship_detail`), the amount is yours.
 
 ## 4. Ceilings — what the data cannot give you (do not wait for it)
 - Vendor GST/HST numbers for ~960 rows (Gold 138, P02 127, P04 693): no public registry exposes them (Québec-only vendors, partnerships, names absent
-  from Canada's Business Registries). The vendor has it; ask.
+  from Canada's Business Registries). The vendors' own sites were read too (Gold: 110 of the 138 have a site, 94 read in full — none prints the number;
+  across 83,475 organisation sites read, a GST/HST account is printed on 0.14 %). The vendor has it; ask.
 - 22,025 "routed" rows: organisations that publish one inbox. That is their AP channel.
 - Bill-to addresses / legal names on sites that block automated readers (~10 % of organisations) and P13 companies absent from registries.
 - Contract numbers, values and dates for relationship-proof rows; end dates for P09 (unpublished by definition); PO numbers anywhere the buyer
