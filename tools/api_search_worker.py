@@ -9,6 +9,8 @@ Task kinds (TSV in --queue, one task per line, header task_id, kind, key, name, 
   af  award facts for a buyer–vendor pair: host = buyer site, name = vendor, key = buyer_key||vendor → query "<vendor core> contract award"
   pc  AP / PO-terms pages of a buyer: host = buyer site, key = buyer_key → query "accounts payable invoice payment terms purchase order supplier"
   vw  vendor website: name = vendor, host empty, key = vendor_key → query "<vendor> official website" (directories dropped)
+  pb  purchasing bylaw / procurement policy / PO terms of a public body: host = buyer site; the search may also return the buyer's council / board
+      document portal (eSCRIBE, CivicWeb, Legistar, BoardDocs, Granicus, iCompass, Municode …) — kept only when the portal address names the buyer
 Outputs (appended, deduplicated): --out-dir/af_urls.csv (row_key,buyer_key,buyer_name,website,vendor,url), pc_urls.csv
 (buyer_key,buyer_name,website,official_site,url), vw_proposals.tsv (vendor_key, vendor_name, website, evidence_url, evidence_quote, confidence).
 Resume: --out-dir/done.tsv (task_id, status, n_urls, cost_usd_estimate). Budget: --max-usd stops the worker (search $10 / 1,000 + tokens).
@@ -39,6 +41,16 @@ def core(name):
     return " ".join(toks[:5]) or (name or "")
 
 
+PORTALS = ("escribemeetings.com", "civicweb.net", "legistar.com", "icompasstech.com", "granicus.com", "boarddocs.com", "primegov.com", "novusagenda.com", "municode.com", "ecode360.com", "municipalcodeonline.com", "civicplus.com", "legistarweb.com", "iqm2.com", "agendaonline.net", "meetings.municipalworld.com")
+GENERIC = {"city", "town", "village", "county", "region", "regional", "district", "township", "municipality", "municipal", "ville", "school", "board", "public", "catholic", "health", "services", "service", "centre", "center", "authority", "commission", "office", "department", "university", "college", "hospital", "general", "the", "of", "de", "la", "le", "les", "des", "du", "and", "et", "canada", "ontario", "quebec", "alberta", "columbia", "british", "nova", "scotia", "brunswick", "manitoba", "saskatchewan", "government", "ministry", "agency", "corporation", "library", "police", "fire", "transit", "first", "nation", "saint", "sainte", "mont", "lake", "port", "fort", "north", "south", "east", "west", "upper", "lower", "grand", "greater", "metropolitan", "united", "township", "parish", "paroisse", "united", "community", "communaut"}
+
+
+def buyer_tokens(name):
+    import unicodedata
+    plain = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().lower()
+    return [t for t in re.findall(r"[a-z0-9]{4,}", plain) if t not in GENERIC]
+
+
 def query_for(t):
     k = t["kind"]
     if k == "af":
@@ -48,11 +60,16 @@ def query_for(t):
         return ("comptes payables facture modalités de paiement bon de commande fournisseurs" if fr else "accounts payable invoice payment terms purchase order supplier"), [t["host"]] if t.get("host") else None
     if k == "vw":
         return "%s official website" % (t["name"]), None
+    if k == "pb":
+        fr = t.get("host", "").endswith(".qc.ca") or re.search(r"\b(ville|municipalit|centre de services|cégep|cegep|québec|quebec|commission scolaire)\b", t.get("extra", "") + " " + t.get("name", ""), re.I)
+        q = ('"%s" règlement de gestion contractuelle OR politique d\'approvisionnement OR conditions bon de commande modalités de paiement facture' if fr else
+             '"%s" purchasing bylaw OR procurement policy OR purchase order terms and conditions payment terms invoice') % t["name"]
+        return q, ([t["host"]] + list(PORTALS)) if t.get("host") else list(PORTALS)
     return t.get("name", ""), None
 
 
 def call(api_key, model, query, allowed, max_uses=1):
-    tool = {"type": "web_search_20250305", "name": "web_search", "max_uses": max_uses}
+    tool = {"type": "web_search_20250305", "name": "web_search", "max_uses": max_uses}  # allowed_domains: at most 20 entries (API limit) — pb passes host + 15 portals
     if allowed:
         tool["allowed_domains"] = [h for h in allowed if h]
     body = {"model": model, "max_tokens": 300, "tools": [tool],
@@ -157,12 +174,18 @@ def main():
             kept = 0
             for url, title, age in res:
                 h = (urllib.parse.urlparse(url).hostname or "").lower().removeprefix("www.")
-                if t["kind"] in ("af", "pc"):
-                    if not host or not (h == host or h.endswith("." + host) or host.endswith("." + h)):
+                if t["kind"] in ("af", "pc", "pb"):
+                    own = bool(host) and (h == host or h.endswith("." + host) or host.endswith("." + h))
+                    if t["kind"] == "pb" and not own:  # the buyer's document portal: the address (subdomain or path) must name the buyer
+                        toks = buyer_tokens(t.get("name"))
+                        where = (h + " " + urllib.parse.urlparse(url).path).lower()
+                        if not (any(h.endswith(pd) for pd in PORTALS) and toks and any(tk in where for tk in toks)):
+                            continue
+                    elif not own:
                         continue
                     if t["kind"] == "af":
                         afw.writerow([t["key"], t.get("extra") or t["key"].split("||")[0], "", "https://%s" % host, t["name"], url])
-                    else:
+                    else:  # pc and pb share the readers (deep_pages for mailboxes, ap_terms --urls for terms, PO rule, portals, policy facts)
                         pcw.writerow([t["key"], t.get("name") or "", "https://%s" % host, "", url])
                     kept += 1
                 else:
