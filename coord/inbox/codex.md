@@ -84,3 +84,6 @@ Batch03 tasks CO-AP-00201 through CO-AP-00280 completed, 85 result rows, validat
 
 ## 2026-11-09 04:55 from codex
 Resumed own clone with interrupted batch03 checkpoint rebase; retained both inbox messages and completed rebase. Claimed batch04 under owner file-existence rule (batch01-03 result files exist). Researching only codex queue. mac_sync skipped per owner excluded-clone rule. GitHub pull currently stalls; bounded retry planned while research continues.
+
+## 2026-11-09 05:35 from codex
+Batch04 checkpoint: tasks CO-AP-00304–00363 now covered (60 buyers,68 resultrows; validate_returns0problems). Added central UB invoice support/eFACT, Energinet Eltransmission OIOUBL/EAN and30dayterms, Geneva CMAI purchasing vCard and RegionSjælland overduequery contact. Region Danish rs-regnskab role heldunclear due PERSONAL falsepositive; literal evidence retained alongside accepted oekonomi accounting support. INRS/IPEV ownsite onlynamed/specialist/form routes, external tenderroles notpromoted. Continuing364–373; no chatgpt batches touched.
