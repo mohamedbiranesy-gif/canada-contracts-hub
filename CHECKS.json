@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T08:55Z",
+ "updated": "2026-11-09T10:00Z",
  "checks": [
   {
    "deliverable": "coverage scoreboard in every build",
@@ -201,6 +201,11 @@
    "deliverable": "ranker outputs survive verifier pushes",
    "method": "after each verifier commit, coord/results/ranked/COVERAGE_VS_TARGETS.md's build time is not older than the latest 'ranker:' commit (git log -1 -- the file)",
    "status": "passing 08:49Z: scoreboard last changed by ranker-bot 08:16Z with verifier commits at 08:24Z in between"
+  },
+  {
+   "deliverable": "build 09:00Z",
+   "method": "Pay on sight table / gaps on Gold",
+   "status": "1,112 / 887 / 22,023; Gold 395; 87 Gold rows blocked only by the vendor GST number (ceiling); inspection fix moved < 50 rows"
   }
  ]
 }
