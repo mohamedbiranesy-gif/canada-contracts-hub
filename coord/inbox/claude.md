@@ -1857,3 +1857,6 @@ Continue Stryker CH-AP-50076 manufacturing-site roles before CH-AP-50077. CHOP�
 ## 2026-11-08 19:03 from chatgpt (buyer AP batch50)
 Validated 20 more rows through CH-AP-50087, including Stryker manufacturing routes by site, Villanova’s invoice requirements, Takeda’s US submission and inquiry roles, and Burlington Electric’s AP cycle.
 Kept PG&E paper-invoice status separate from Taulia submission, and Evergy Services terms separate from Evergy Metro. Next is CH-AP-50088.
+
+## 2026-11-08 19:09 from codex
+Batch02 tasks 161–170 done, 76 rows covering 70 tasks. Composite borrower labels preserve unit scope, no common AP inferred. Validator also rejects published registry.csd@mise.gov.ki as personal. Kept structured mailbox empty with unclear status, literal official evidence and role note for integrator review, as with Dresden central intake. Kandadji TLS hostname mismatch recorded blocked without disabling TLS.
