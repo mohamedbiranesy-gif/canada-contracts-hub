@@ -8,27 +8,27 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 2 | mailbox syntax | hard | 0 | PASS |
 | 3 | mailbox referee-confirmed (all but P11) | hard | 0 | PASS |
 | 4 | mail server (MX or A) on the mailbox domain | hard | 0 | PASS |
-| 4b | mail server not yet checked (row newer than the last DNS pass) | soft | 86 | REVIEW |
+| 4b | mail server not yet checked (row newer than the last DNS pass) | soft | 84 | REVIEW |
 | 5 | no webmail domain | hard | 0 | PASS |
 | 6 | no person-like local part | hard | 0 | PASS |
-| 7 | role word in the local part | soft | 3528 | REVIEW |
+| 7 | role word in the local part | soft | 3529 | REVIEW |
 | 8 | receivables-looking local part graded invoicing/AP | soft | 36 | REVIEW |
 | 9 | shared government domain: page or quote names the body | soft | 3 | REVIEW |
 | 10 | regional token of a multinational on a differently-located body | soft | 0 | PASS |
 | 11 | quote contains the address | hard | 0 | PASS |
 | 11b | quote shows the label next to the address (referee saw the address on the page) | soft | 0 | PASS |
-| 12 | evidence page on the organisation's domain (or its site) | soft | 3731 | REVIEW |
+| 12 | evidence page on the organisation's domain (or its site) | soft | 3730 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
 | 14 | DMARC / SPF / provider columns filled | soft | 0 | PASS |
 | 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 1 | REVIEW |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
-| 19 | buyer name is a name (not a domain or a page title) | soft | 22830 | REVIEW |
+| 19 | buyer name is a name (not a domain or a page title) | soft | 22835 | REVIEW |
 | 20 | legal name is not a fragment or a platform copyright | soft | 62 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 7 | REVIEW |
-| 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 58 | REVIEW |
+| 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 59 | REVIEW |
 | 24 | no blank cell | hard | 0 | PASS |
 | 25 | jurisdiction vs mailbox top-level domain | soft | 41 | REVIEW |
 | 26 | currency filled when a value is filled | soft | 46 | REVIEW |
@@ -45,8 +45,8 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:455 The Clorox Company of Canada Ltd. | uberfreight.com
     - P01_GOLD_active_relationship_invoicing_AP_email:457 California Department of Water Resources | dgs.ca.gov
     - P01_GOLD_active_relationship_invoicing_AP_email:495 New York State Energy Research and Devel | nyserda.ny.gov
-    - P01_GOLD_active_relationship_invoicing_AP_email:550 BANCOLOMBIA S.A. | bancolombia.com.co
-    - P01_GOLD_active_relationship_invoicing_AP_email:554 Indiana Department of Transportation | health.in.gov
+    - P01_GOLD_active_relationship_invoicing_AP_email:553 Indiana Department of Transportation | health.in.gov
+    - P02_active_relationship_finance_accounting_email:61 Institut national de la recherche scient | adm.inrs.ca
 - **7 role word in the local part**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:16 Cameco Corporation | ap_cameco@cameco.com
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:43 New Relic | ap_ireland@newrelic.com
@@ -64,7 +64,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:4 Texas Tech University | payment.strategies@ttu.edu
     - P01_GOLD_active_relationship_invoicing_AP_email:39 Environment and Climate Change Canada | renseignement-paiements-payments-inquiry@ec.gc.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:215 County of Minburn No. 27 | payments@minburncounty.ab.ca
-    - P01_GOLD_active_relationship_invoicing_AP_email:584 TMX Group Limited | payments@tmx.com
+    - P01_GOLD_active_relationship_invoicing_AP_email:583 TMX Group Limited | payments@tmx.com
     - P05_likely_active_awarded_12_36_months_any_email:27 Martensville | payments@martensville.ca
     - P06_client_listing_invoicing_AP_email:28 University of Bath | payments@bath.ac.uk
     - P06_client_listing_invoicing_AP_email:70 teamviewer.com | payments@teamviewer.com
@@ -72,7 +72,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P10_linked_from_vendor_site_any_email:13 gov.scot | online_payments@gov.scot
     - P10_linked_from_vendor_site_any_email:31 WeirFoulds LLP | payments@weirfoulds.com
     - P10_linked_from_vendor_site_any_email:39 bcica.org | payments@bcica.org
-    - P11_any_relationship_email_not_yet_confirmed:75 Social Security Administration - Social  | payment.inquiries@ssa.gov
+    - P11_any_relationship_email_not_yet_confirmed:74 Social Security Administration - Social  | payment.inquiries@ssa.gov
 - **9 shared government domain: page or quote names the body**
     - P01_GOLD_active_relationship_invoicing_AP_email:43 Canadian Space Agency | invoicing.csa-asc.facturation@canada.ca ← https://www.canada.ca/en/public-services-procurement/services/payments-to-from-g
     - P07_client_listing_finance_or_purchasing_email:25 transportation.ky.gov | finance.crcgroup@ky.gov ← https://finance.ky.gov/eProcurement/Pages/doing-business-with-the-commonwealth.a
@@ -96,17 +96,17 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:33 ovs.com | ovs.com
     - P01_GOLD_active_relationship_invoicing_AP_email:449 capreit.ca | capreit.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:527 msvu.ca | msvu.ca
-    - P01_GOLD_active_relationship_invoicing_AP_email:553 bcib.ca | bcib.ca
-    - P01_GOLD_active_relationship_invoicing_AP_email:606 slrd.bc.ca | slrd.bc.ca
-    - P01_GOLD_active_relationship_invoicing_AP_email:624 corporate.exxonmobil.com | corporate.exxonmobil.com
+    - P01_GOLD_active_relationship_invoicing_AP_email:552 bcib.ca | bcib.ca
+    - P01_GOLD_active_relationship_invoicing_AP_email:605 slrd.bc.ca | slrd.bc.ca
+    - P01_GOLD_active_relationship_invoicing_AP_email:623 corporate.exxonmobil.com | corporate.exxonmobil.com
     - P02_active_relationship_finance_accounting_email:305 healthpartners.ca | healthpartners.ca
     - P02_active_relationship_finance_accounting_email:311 osoyoos.ca | osoyoos.ca
     - P02_active_relationship_finance_accounting_email:383 ccib.ca | ccib.ca
     - P02_active_relationship_finance_accounting_email:387 OneChurch.To | OneChurch.To
     - P02_active_relationship_finance_accounting_email:394 apega.ca | apega.ca
-    - P03_active_relationship_purchasing_email:168 surreyplace.ca | surreyplace.ca
+    - P03_active_relationship_purchasing_email:167 surreyplace.ca | surreyplace.ca
 - **20 legal name is not a fragment or a platform copyright**
-    - P03_active_relationship_purchasing_email:191 onsemi | onsemi (label per Wikidata Q1671509, official website on the organisat
+    - P03_active_relationship_purchasing_email:190 onsemi | onsemi (label per Wikidata Q1671509, official website on the organisat
     - P04_active_relationship_general_email:109 Ministère de la Culture et des Communica | ministère de la Culture et des Communications (label per Wikidata Q331
     - P04_active_relationship_general_email:154 Ministère de la Cybersécurité et du Numé | ministère de la Cybersécurité et du Numérique (label per Wikidata Q110
     - P06T_active_service_seen_on_buyer_site_other_email:380 Uppdoo | uppdoo Inc. (as registered: Corporations Canada (open data), corporati
@@ -117,11 +117,11 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P08_client_listing_general_email:2050 Christian Life Community | Christian Life Community (stated on https://www.christianlifecommunity
     - P10_linked_from_vendor_site_any_email:1503 Digify SEO Company | digify seo company Incorporated (as registered: Corporations Canada (o
     - P13_inferred_relationship_no_record_own_email_part11_of_18:2540 Mon-Proprio.ca Inc | mon-proprio.ca inc. (as registered: Canada's Business Registries, QC 1
-    - P13_inferred_relationship_no_record_own_email_part15_of_18:1323 COD3 Corporation | cod3 corporation (as registered: Canada's Business Registries, CC 1190
+    - P13_inferred_relationship_no_record_own_email_part15_of_18:1324 COD3 Corporation | cod3 corporation (as registered: Canada's Business Registries, CC 1190
 - **22 one row per organisation name (same name twice)**
     - P01_GOLD_active_relationship_invoicing_AP_email:155 MRC de Manicouagan | 2 rows, same mail domain: mrcmanicouagan.qc.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:437 City of Kamloops | 2 rows, same mail domain: kamloops.ca
-    - P01_GOLD_active_relationship_invoicing_AP_email:552 Enbridge Inc. | 2 rows, same mail domain: enbridge.com
+    - P01_GOLD_active_relationship_invoicing_AP_email:551 Enbridge Inc. | 2 rows, same mail domain: enbridge.com
     - P04_active_relationship_general_email:316 Cégep de Victoriaville. | 2 rows, same mail domain: cegepvicto.ca
     - P05_likely_active_awarded_12_36_months_any_email:5 Brandon University | 2 rows, same mail domain: brandonu.ca
     - P06T_active_service_seen_on_buyer_site_other_email:78 City of Dawson | 2 rows, same mail domain: cityofdawson.ca
@@ -150,8 +150,8 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P13_inferred_relationship_no_record_own_email_part13_of_18:797 Roka Harness Pty Ltd | CA / rokaharness.com.au
     - P13_inferred_relationship_no_record_own_email_part13_of_18:1965 Skin Cupid | CA / skincupid.co.uk
     - P13_inferred_relationship_no_record_own_email_part13_of_18:2162 Snowdonia Cheese Ltd | CA / snowdonia-cheese.co.uk
-    - P13_inferred_relationship_no_record_own_email_part16_of_18:2633 Beckhoff Automation Ltd. | CA / beckhoff.de
-    - P13_inferred_relationship_no_record_own_email_part17_of_18:863 Bernafon Canada | ON / bernafon.com.au
+    - P13_inferred_relationship_no_record_own_email_part16_of_18:2634 Beckhoff Automation Ltd. | CA / beckhoff.de
+    - P13_inferred_relationship_no_record_own_email_part17_of_18:864 Bernafon Canada | ON / bernafon.com.au
 - **26 currency filled when a value is filled**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:23 RENTON SCHOOL DISTRICT #403 | 332345.13 (source field: amount)
     - P01_GOLD_active_relationship_invoicing_AP_email:441 Rectorado de la Universitat de València | 12698.25 (source field: PayableAmount)
@@ -163,8 +163,8 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:534 BELLEVUE SCHOOL DISTRICT #405 | 5395.88 (source field: amount)
     - P01_GOLD_active_relationship_invoicing_AP_email:540 SNOQUALMIE VALLEY SCHOOL DISTRICT #410 | 23980.42 (source field: amount)
     - P01_GOLD_active_relationship_invoicing_AP_email:547 MARYLAND STADIUM AUTHORITY | 251569.05 (source field: amount)
-    - P01_GOLD_active_relationship_invoicing_AP_email:550 BANCOLOMBIA S.A. | 0 (source field: TOTAL_LIQUIDADO_ARANCEL)
-    - P01_GOLD_active_relationship_invoicing_AP_email:561 ECOPETROL S A | 0 (source field: TOTAL_LIQUIDADO_ARANCEL)
+    - P01_GOLD_active_relationship_invoicing_AP_email:560 ECOPETROL S A | 0 (source field: TOTAL_LIQUIDADO_ARANCEL)
+    - P01_GOLD_active_relationship_invoicing_AP_email:595 Fundación para la Investigación del Hosp | 1236.23 (source field: PayableAmount)
 
 ## Independent QA audit of dataset records (lane chatgpt, 200 random records re-opened at the publishing source)
 - link_opened: yes 187, blocked 13
@@ -179,10 +179,10 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 ## Rows per package
 - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 18
 - P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 92
-- P01_GOLD_active_relationship_invoicing_AP_email: 624
+- P01_GOLD_active_relationship_invoicing_AP_email: 623
 - P02_active_relationship_finance_accounting_email: 401
-- P03_active_relationship_purchasing_email: 204
-- P04_active_relationship_general_email: 1560
+- P03_active_relationship_purchasing_email: 203
+- P04_active_relationship_general_email: 1562
 - P05_likely_active_awarded_12_36_months_any_email: 384
 - P06M_member_or_regulated_payer_of_canadian_body_other_email: 168
 - P06T_active_service_seen_on_buyer_site_other_email: 2440
@@ -191,62 +191,62 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - P08_client_listing_general_email: 3038
 - P09_older_contract_or_payment_any_email: 380
 - P10_linked_from_vendor_site_any_email: 2597
-- P11_any_relationship_email_not_yet_confirmed: 477
+- P11_any_relationship_email_not_yet_confirmed: 476
 - P12_weaker_relationship_within_5_years_own_email: 19
-- P13_inferred_relationship_no_record_own_email: 50798
+- P13_inferred_relationship_no_record_own_email: 50799
 
 ## Field fill across all delivered rows (value present, not `not_published`)
 - buyer_website: 63618 (100.0%)
 - vendor_website: 62145 (97.7%)
 - vendor_address: 61067 (96.0%)
 - vendor_phone: 56984 (89.6%)
-- buyer_logo_url: 53926 (84.8%)
-- vendor_bn9: 53124 (83.5%)
-- vendor_logo_url: 52347 (82.3%)
-- buyer_phone: 49794 (78.3%)
-- buyer_address: 48174 (75.7%)
-- buyer_legal_name_as_published: 33749 (53.0%)
+- buyer_logo_url: 53915 (84.7%)
+- vendor_bn9: 53123 (83.5%)
+- vendor_logo_url: 52074 (81.9%)
+- buyer_phone: 49793 (78.3%)
+- buyer_address: 48207 (75.8%)
+- buyer_legal_name_as_published: 33741 (53.0%)
 - buyer_bn_as_published: 14886 (23.4%)
-- contract_link: 12820 (20.2%)
-- vendor_legal_name: 9731 (15.3%)
-- vendor_registry_id: 8248 (13.0%)
-- vendor_incorporation_date: 8237 (12.9%)
-- award_date: 6488 (10.2%)
-- vendor_neq: 5014 (7.9%)
-- vendor_emails: 4775 (7.5%)
-- ap_phone: 2657 (4.2%)
-- contract_value: 2365 (3.7%)
-- invoice_mailing_address: 2177 (3.4%)
-- invoicing_requirements: 2067 (3.2%)
-- payment_terms_as_published: 1990 (3.1%)
-- end_date: 1758 (2.8%)
-- invoice_portal_url: 1746 (2.7%)
-- po_required_as_published: 1474 (2.3%)
-- ap_contact_name_as_published: 928 (1.5%)
+- contract_link: 12819 (20.1%)
+- vendor_legal_name: 9728 (15.3%)
+- vendor_registry_id: 8246 (13.0%)
+- vendor_incorporation_date: 8235 (12.9%)
+- award_date: 6487 (10.2%)
+- vendor_neq: 5012 (7.9%)
+- vendor_emails: 4773 (7.5%)
+- ap_phone: 2654 (4.2%)
+- contract_value: 2363 (3.7%)
+- invoice_mailing_address: 2175 (3.4%)
+- invoicing_requirements: 2012 (3.2%)
+- payment_terms_as_published: 1989 (3.1%)
+- end_date: 1756 (2.8%)
+- invoice_portal_url: 1747 (2.7%)
+- po_required_as_published: 1473 (2.3%)
+- ap_contact_name_as_published: 929 (1.5%)
 
 ## Canada-proof families
-- other: 47260; source field: 16358
+- other: 47261; source field: 16357
 
 ## Buyer types
-- organisation (type not stated in the record): 33121
-- company (private sector): 10813
+- organisation (type not stated in the record): 33124
+- company (private sector): 10811
 - non-profit / association / cultural body: 7229
-- company (private sector) (from the organisation's name / web domain): 4046
+- company (private sector) (from the organisation's name / web domain): 4045
 - municipality / local government: 1338
-- government ministry / agency: 1218
+- government ministry / agency: 1216
 - municipality / local government (from the organisation's name / web domain): 1058
 - hospital / health authority: 938
 - non-profit / association / cultural body (from the organisation's name / web domain): 868
-- university / college: 591
-- utility / public corporation: 484
+- university / college: 590
+- utility / public corporation: 485
 - university / college (from the organisation's name / web domain): 445
 - hospital / health authority (from the organisation's name / web domain): 341
 - transport / transit authority: 207
 - school board / school district: 179
 - First Nation / Indigenous government: 166
-- government ministry / agency (from the organisation's name / web domain): 146
+- government ministry / agency (from the organisation's name / web domain): 147
 - religious organisation (from the organisation's name / web domain): 142
-- utility / public corporation (from the organisation's name / web domain): 97
+- utility / public corporation (from the organisation's name / web domain): 98
 - transport / transit authority (from the organisation's name / web domain): 61
 - First Nation / Indigenous government (from the organisation's name / web domain): 45
 - school board / school district (from the organisation's name / web domain): 30
@@ -255,9 +255,9 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - US city / county / local government: 11
 
 ## DMARC posture of the delivered mailboxes
-- v=DMARC1; p=none (monitor only, no enforcement): 26431
+- v=DMARC1; p=none (monitor only, no enforcement): 26433
 - no DMARC record: 21276
-- p=quarantine: 10438
-- p=reject: 5407
+- p=quarantine: 10437
+- p=reject: 5406
 - invalid DMARC record: 59
 - DNS lookup failed: 7
