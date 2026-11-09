@@ -1310,7 +1310,7 @@ GENERIC_ORG = {"university", "universite", "college", "school", "board", "distri
                "ministry", "ministere", "hospital", "hopital", "health", "sante", "centre", "center", "authority", "agency", "agence", "office", "bureau", "commission", "council",
                "conseil", "community", "communaute", "public", "national", "federal", "provincial", "state", "government", "gouvernement", "first", "nation", "nations",
                "society", "association", "foundation", "fondation", "institute", "institut", "library", "bibliotheque", "township", "canton", "village", "cite", "city", "town"}
-PAGE_NOISE = re.compile(r"\b(faculty|staff|students?|alumni|careers?|jobs?|news|events?|login|log in|sign in|portal|home ?page|welcome|search|menu|path|pathways?|about us|contact)\b", re.I)
+PAGE_NOISE = re.compile(r"\b(faculty and staff|faculty & staff|log ?in|sign ?in|search|disclaimers?|whitepapers?|brochures|data sheets|menu|home ?page|skip to|click here|read more|locations & hours|privacy policy|terms of use|cookie)\b|^(address|contact|about|welcome to)\b", re.I)  # navigation fragments; legitimate names such as "BCIT Student Association" or "ESF Events Ltd" must pass (19:39Z build lost 158 names, 150 junk, ~8 real)
 
 
 def name_overlap(cand, org_name, website=""):
