@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 07:15Z)
+# STATE.md — Claude lane (updated 2026-11-09 08:05Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,14 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 08:05Z — build 07:13Z: 1,104 / 885 / 21,947 (flat vs 06:36Z); Gold 393 / 624; reverted again at 07:18Z by a pre-fix verifier run; republish dispatched 08:00Z
+- The 07:18Z revert came from a verifier run queued before the 07:12Z fix; runs since (07:41Z, 07:56Z) are on the new code and do not touch
+  coord/results/ranked. Ranker build re-dispatched 08:00Z; the one after carries this loop's fix.
+- Inspection pass (Gold, 212 rows not pay-on-sight): vendor GST 138 (ceiling), tax / currency 59 (buyers with no address and no city in the name —
+  now resolved from the province in the body's name or the address code, e.g. "Efficiency Manitoba", "NS, CA"; federal bodies get the federal treatment),
+  bill-to 76, remit-to 13. Pushed 1bf685b.
+- Gemini batch 52 complete (07:28Z); Codex at the ChatGPT limit; integrity intact. Verdict unchanged; awaiting the owner.
 
 ## 07:15Z — build 06:36Z: pay on sight 1,104 (+72) / 885 / 21,947; Gold 393 / 624 (63 %); 101 / 438 — then reverted by a verifier push, fix pushed
 - The country-first tax / currency fix moved 72 Gold / P02 rows to pay on sight (1,032 → 1,104). 101 / 438 (Gold row growth dilutes a few cells).
