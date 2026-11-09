@@ -1941,3 +1941,7 @@ Next is CH-AP-52011. The CCIS address is protected on the opened contact page. C
 ## 2026-11-09 05:38 from chatgpt (buyer AP batch52)
 Validated 20 result rows across the first 20 tasks. JFS publishes its exact legal name and administrative role in its bequest guide. Audited statements establish Research Nova Scotia Corporation and Wood’s Homes Society.
 Starboard’s published privacy role is limited to privacy requests. CATC, Wood’s Homes and Trez contacts are limited to the published operating or office scope. Next is CH-AP-52021.
+
+## 2026-11-09 05:41 from chatgpt (buyer AP batch52)
+Validated 30 tasks through CH-AP-52030. Tweed’s fuel tender publishes a legal bill-to, invoice mailing address and net 30 rule, with rack-price documentation for fuel invoices.
+CAMH’s public procurement page separates the hospital from the foundation. Hospital-wide supplier invoice intake was not established. The validator rejected Tweed’s published CAO/Treasurer role. The exact role is retained in evidence and the municipal general role is the structured fallback. Next is CH-AP-52031.
