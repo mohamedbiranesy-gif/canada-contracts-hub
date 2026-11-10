@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 01:25Z — PLAN_2027-01 week 1; cloud ROW FACTORY live, first 988 new buyers at the referee)
+# STATE.md — Claude lane (updated 2026-11-10 02:15Z — four cloud engines live: row factory, tenant factory, site facts, referee; 1,119 new buyers verified)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,18 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 02:15Z — referee verified the first 1,119 new buyers; three more engines launched (owner 20:42 / 20:48 EST: "do that … no maximum")
+- Referee (01:23Z run): 1,216 of 1,230 cloud mailbox rows verified → **1,119 new buyers verified**. Rank build dispatched 01:55Z to deliver them.
+- Row factory cycle 2: back-off works (unreadable 24 of 7,064 per shard); leads 9,487 (+5,050); their mailbox crawl is running (25 pages).
+- NEW engines (all cloud, no AI): (1) page classes `sponsor` / `dealer` in cc_clients (parties that pay a Canadian organiser / supplier), re-index
+  dispatched 02:00Z; (2) `tenant-factory.yml` — customers of Canada-HQ software vendors (portals of the vetted table + Shopify redirects; accept
+  only with role mailbox + address in the vendor's contracting scope + service still seen), index dispatched 01:54Z; (3) `site-facts.yml` —
+  bill-to name / address for delivered rows from their own pages, first pass dispatched 02:04Z; rank accepts a self-published trade name +
+  address as bill-to (SOR/91-45 s. 3(c)(i)), reads `claude_lead_site_facts.jsonl.gz`, files sponsor / dealer rows with the client listings.
+- Backlog of pathways: PLAN §4e table (15 items, ranked). Next OPEN: #4 address pass, #5 .com hosts, #6 member directories, #7 older crawls.
+- Watch: first runs of tenant-factory index (per-domain equality queries over 300 index parts — slow or failing?), site-facts yield
+  (addresses found / sites), and whether `rows` rises in GROWTH_VS_BASELINE after the 01:55Z build (if not: where rank.py drops cc leads).
 
 ## 2026-11-10 01:25Z — row factory: first measured yields; NEXT STEPS for whichever session runs next
 - Index (crawl CC-MAIN-2026-43): 66,321 client pages on 28,538 .ca vendor domains. Extraction, first pass: the archive refused ~68 % of the range
