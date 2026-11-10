@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-10 02:40 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-10 02:51 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-10)
 | metric | value |
@@ -46,7 +46,7 @@
 | claude | claude_buyer_ap_results_agent02.csv | 28 | 28 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_agent03.csv | 8 | 8 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_apfirst01.csv | 5352 | 5352 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl01.csv | 1421 | 1421 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl01.csv | 2764 | 2764 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
@@ -60,7 +60,7 @@
 | claude | claude_buyer_ap_results_xverify02.csv | 9 | 9 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_xverify03.csv | 17 | 17 | 0 | 0 | 0 |
 | claude | claude_buyer_leads.csv | 70990 | 0 | 0 | 0 | 70990 |
-| claude | claude_buyer_leads_cc.csv | 9664 | 0 | 0 | 0 | 9664 |
+| claude | claude_buyer_leads_cc.csv | 16253 | 0 | 0 | 0 | 16253 |
 | claude | claude_charity_buyers.csv | 7454 | 0 | 0 | 0 | 7454 |
 | claude | claude_crown_bn.csv | 4 | 0 | 0 | 0 | 4 |
 | claude | claude_gc_recipients.csv | 3668 | 0 | 0 | 0 | 3668 |
