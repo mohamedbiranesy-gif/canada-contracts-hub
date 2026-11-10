@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-10 08:07 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-10 08:35 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-10)
 | metric | value |
@@ -60,7 +60,7 @@
 | claude | claude_buyer_ap_results_xverify02.csv | 9 | 9 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_xverify03.csv | 17 | 17 | 0 | 0 | 0 |
 | claude | claude_buyer_leads.csv | 70990 | 0 | 0 | 0 | 70990 |
-| claude | claude_buyer_leads_cc.csv | 119997 | 0 | 0 | 0 | 119997 |
+| claude | claude_buyer_leads_cc.csv | 168154 | 0 | 0 | 0 | 168154 |
 | claude | claude_charity_buyers.csv | 7454 | 0 | 0 | 0 | 7454 |
 | claude | claude_crown_bn.csv | 4 | 0 | 0 | 0 | 4 |
 | claude | claude_gc_recipients.csv | 3668 | 0 | 0 | 0 | 3668 |
