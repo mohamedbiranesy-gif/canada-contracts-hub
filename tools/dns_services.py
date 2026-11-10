@@ -314,9 +314,13 @@ def lookup(a):
 def merge(a):
     os.makedirs(DIR, exist_ok=True)
     stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
-    have = set()
-    for o in records():
-        have.add(o["d"])
+    have = set()  # domains with a cloud record (the MX / SPF checks made from the Mac are older and poorer: a cloud record replaces them)
+    for pth in state_files("dns"):
+        with gzip.open(pth, "rt", encoding="utf-8", errors="replace") as fh:
+            for l in fh:
+                i = l.find('"d": "')
+                if i >= 0:
+                    have.add(l[i + 6:l.find('"', i + 6)])
     n = 0
     for f in sorted(glob.glob(os.path.join(a.dir, "dns_*.jsonl"))):
         lines = []
@@ -340,8 +344,9 @@ def merge(a):
     keys = collections.Counter()
     for o in records():
         keys.update(o.get("txt") or [])
-    print("DNS records on file: %d domains (+%d this run); providers named by %d+ domains and not a known foreign giant: %d; most frequent TXT keys: %s"
-          % (len(have) + n, n, MIN_CLIENTS, len(candidates(100000)), ", ".join("%s %d" % kv for kv in keys.most_common(25))))
+    shops = sum(1 for o in records() if o.get("shop"))
+    print("DNS records from the cloud lookups: %d domains (+%d this run); stores on Shopify's addresses: %d; providers named by %d+ domains and not a known foreign giant: %d; "
+          "most frequent TXT keys: %s" % (len(have) + n, n, shops, MIN_CLIENTS, len(candidates(100000)), ", ".join("%s %d" % kv for kv in keys.most_common(25))))
 
 
 # ------------------------------------------------------------------------------------------------------------------- leads (called by credit_scan.merge)
