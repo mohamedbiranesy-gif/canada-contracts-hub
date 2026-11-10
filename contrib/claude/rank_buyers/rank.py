@@ -744,7 +744,8 @@ MEMBER_ONE_PATH = re.compile(r"^/list/member/[^/]+/?$")
 _OURWORK_TOP = re.compile(r"^/(?:(?:en|fr|en-ca|fr-ca)/)?[^/]*our-work")
 def rel_path(p):
     """REL_PATH with "our-work" only as the first path part (2026-11-10 row audit: /advocacy/our-work/policy-areas/… is an organisation's programme page; its links are partners)"""
-    return REL_PATH.search(p if _OURWORK_TOP.match(p) else p.replace("our-work", "our-w0rk"))
+    q = p if _OURWORK_TOP.match(p) else p.replace("our-work", "our-w0rk")
+    return any(len(seg) <= 30 and REL_PATH.search(seg) for seg in q.split("/"))  # the word in a short path part; a long slug that merely contains it is an article
 INVESTOR = re.compile(r"ventures?\b|venture capital|capital\b|invest|private equity|\bequity\b|\bfunds?\b|\bfonds\b|holdings?\b|incubat|accelerat|\bangels?\b|placements", re.I)
 MEMBER_PATH = re.compile(r"/[^/]*(members|membres|member-directory|membership-directory|member-list|directory-of-members|repertoire-des-membres|liste-des-membres)([-_.][^/]*)?/?$")
 NOT_MEMBER_PATH = re.compile(r"board|council|committee|comit|conseil|team|equipe|%c3%a9quipe|staff|personnel|faculty|executive|ex%c3%a9cutif|directors|administrat|family|famil|only|area|zone|login|log-in|signin|sign-in"

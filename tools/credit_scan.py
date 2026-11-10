@@ -751,6 +751,16 @@ def vendors(a):
         for c in o.get("credits") or []:
             cnt[c["v"]] += 1
     tasks = [{"dom": v, "n": c} for v, c in cnt.most_common() if v not in have and v not in known and shard_ok(v, k, n) and not PLATFORM.search(v)]
+    # the row factory's vendors whose client page (and archived contact page) printed no address: 11,096 domains, 39,313 buyer domains wait on them.
+    # Their live home / contact / legal page is read the same way; tools/cc_clients.py merge promotes their client links when the proof is found.
+    rf = collections.Counter()
+    for o in CCL._side_records():
+        vd = ((o.get("row") or {}).get("vendor_key") or "")[3:]
+        if vd:
+            rf[vd] += 1
+    queued = {t["dom"] for t in tasks}
+    arch = CCL._vendor_addrs()
+    tasks += [{"dom": v, "n": c} for v, c in rf.most_common() if v not in have and v not in arch and v not in queued and shard_ok(v, k, n) and not PLATFORM.search(v)]
     if a.limit:
         tasks = tasks[:a.limit]
     print("shard %d/%d: %d credited vendor domains to check (%d checked before, %d proven by the row factory)" % (k, n, len(tasks), len(have), len(known)), flush=True)

@@ -43,8 +43,11 @@ APAGE_COLS = ["dom", "url", "host", "path", "fetch_time", "warc_filename", "warc
 CF_CA = "vendor located in Canada (cc: .ca domain + Canadian postal address on its own page)"
 
 
-def canada_field(dom, basis=""):
-    """the lead's Canada field: for a .ca host its domain + its own address; for another host the dataset's location basis + its own address"""
+def canada_field(dom, basis="", how=""):
+    """the lead's Canada field: for a .ca host its domain + its own address; for another host the dataset's location basis + its own address.
+    how == "CA-loc": the vendor's live site prints no postal code; its own location line (a Canadian province) and a Canadian telephone number"""
+    if how == "CA-loc":
+        return "vendor located in Canada (cc: %s + its own site gives its location in Canada and a Canadian telephone number)" % (".ca domain" if (dom or "").lower().endswith(".ca") else (basis or "an organisation the dataset locates in Canada").replace("=", ":"))
     if (dom or "").lower().endswith(".ca"):
         return CF_CA
     return "vendor located in Canada (cc: %s + Canadian postal address on its own page)" % ((basis or "an organisation the dataset locates in Canada").replace("=", ":"))
@@ -119,7 +122,10 @@ _OURWORK_TOP = re.compile(r"^/(?:(?:en|fr|en-ca|fr-ca)/)?[^/]*our-work")
 def rel_path(p):
     """the client-page words of REL_SQL; "our-work" only as the first path part (/our-work/…: a firm's portfolio) — deeper
     (/advocacy/our-work/policy-areas/…) it is an organisation describing its programmes, and the links there are partners"""
-    return _REL_RX.search(p if _OURWORK_TOP.match(p) else p.replace("our-work", "our-w0rk"))
+    q = p if _OURWORK_TOP.match(p) else p.replace("our-work", "our-w0rk")
+    # … and only in a short path part ("/clients/", "/case-studies/acme", "/portfolio/x"): a long slug that merely contains the word
+    # ("/story/abbyy-names-…-chief-customer-experience-officer", "/alleviate-customers-booking-frustrations-…") is an article
+    return any(len(seg) <= 30 and _REL_RX.search(seg) for seg in q.split("/"))
 
 
 CLASS_TEXT = {"client": "client page of a Canada-located vendor (Common Crawl capture)",
@@ -131,7 +137,7 @@ VENDOR_SKIP = re.compile(r"(^|\.)(gc|canada)\.ca$|\.gouv\.qc\.ca$|(^|\.)gov\.[a-
                          r"canadiantire|homedepot|(^|\.)cbc\.ca$|ctvnews|globalnews|radio-canada|lapresse|ledevoir|thestar|nationalpost|theglobeandmail|wikipedia|reddit|craigslist|linkedin|facebook|"
                          r"google|youtube|yelp|tripadvisor|booking|expedia|airbnb|realtor\.ca|centris|duproprio|autotrader|workopolis|glassdoor|monster|jobbank|canadapost|purolator|(^|\.)bell\.ca$|"
                          r"videotron|blogspot|wordpress|wixsite|weebly|squarespace|myshopify|godaddysites|webflow\.io|github\.io|tumblr|substack|medium\.com", re.I)
-LABEL_SKIP = re.compile(r"\b(powered by|website by|site by|web ?site design|web design|design(?:ed)? by|developed by|built by|cr[ée]ation (?:de )?site|conception (?:de |du )?site|conception web|"
+LABEL_SKIP = re.compile(r"\b(listed on|featured (?:on|in)|as seen (?:on|in)|reviewed on|rated on|find us on|verified|badge|award|winner|nominee|top rated|best of|voted|powered by|website by|site by|web ?site design|web design|design(?:ed)? by|developed by|built by|cr[ée]ation (?:de )?site|conception (?:de |du )?site|conception web|"
                         r"r[ée]alis[ée] par|propuls[ée] par|hosted by|h[ée]berg[ée]|theme by|template by|follow us|suivez|share|partager|privacy|confidentialit\w*|politique\w*|policy|policies|l[ée]gal\w*|mentions|terms|conditions|cookie\w*|"
                         r"sitemap|plan du site|accessibilit\w*|careers?|carri[èe]res?|emplois?|jobs?|log ?in|sign ?in|connexion|newsletter|infolettre|subscribe|abonne\w*|donate|faire un don|growthzone|chambermaster)\b", re.I)
 PROV = (r"(?:QC|Qc|ON|BC|AB|MB|SK|NS|NB|NL|PE|PEI|YT|NT|NU|Qu[ée]bec|Ontario|British Columbia|Colombie-Britannique|Alberta|Manitoba|Saskatchewan|Nova Scotia|Nouvelle-[ÉE]cosse|"
@@ -160,6 +166,16 @@ try:
 except Exception:  # pragma: no cover
     PLATFORMS = re.compile(r"genially|issuu|canva|calameo|prezi|eventbrite|surveymonkey|typeform|jotform|dropbox|box\.com", re.I)
     GENERIC_LABEL = re.compile(r"^(read more|learn more|more|visit|website|site web|click here|here|cliquez ici|en savoir plus|voir|view|link|lien|home|accueil|\W*)$", re.I)
+
+
+# a country / language selector ("USA", "Polska | Polski", "United States | English"): the organisation's own sites abroad, not its clients
+COUNTRY_LABEL = re.compile(r"^(?:usa?|u\.s\.a?\.?|united states(?: of america)?|[ée]tats-unis|canada|uk|u\.k\.|united kingdom|royaume-uni|australia|australie|new zealand|ireland|irlande|france|germany|allemagne|deutschland|"
+                           r"espa[ñn]a|spain|espagne|italia|italy|italie|polska|poland|pologne|china|chine|japan|japon|india|inde|brasil|brazil|br[ée]sil|m[ée]xico|mexique|chile|chili|argentina|argentine|colombia|"
+                           r"colombie|peru|p[ée]rou|nigeria|south africa|slovenia|slov[ée]nie|latvia|lettonie|lithuania|estonia|sweden|su[èe]de|norway|norv[èe]ge|denmark|danemark|finland|finlande|netherlands|"
+                           r"pays-bas|belgium|belgique|switzerland|suisse|austria|autriche|portugal|greece|gr[èe]ce|turkey|turquie|israel|uae|united arab emirates|saudi arabia|singapore|singapour|malaysia|"
+                           r"indonesia|thailand|vietnam|philippines|korea|cor[ée]e|taiwan|hong kong|cura[çc]ao|costa rica|guatemala|honduras|panama|ecuador|uruguay|paraguay|bolivia|venezuela|"
+                           r"global|international|worldwide|europe|asia|asie|africa|afrique|americas?|latin america|middle east|"
+                           r"english|fran[çc]ais|french|espa[ñn]ol|spanish|deutsch|german|italiano|italian|portugu[êe]s|polski|nederlands|中文|日本語|한국어)(?:\s*[|/·(–-]\s*[\w\s().-]{1,30})?$", re.I)
 
 
 def http_get(url, headers=None, timeout=90, tries=6, retry_http=()):
@@ -485,6 +501,7 @@ def leads_of(page, row):
     title = re.sub(r"\s+", " ", re.sub(r"(?s)<[^>]+>", " ", title.group(1))).strip()[:120] if title else ""
     site = re.search(r"(?is)<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=[\"']([^\"']{2,80})[\"']", page[:200_000])
     hits, n_spam = {}, 0
+    vlabel = dom.split(".")[0]
     try:  # "Website by X" in the footer of a testimonials page: X is the page owner's web vendor (tools/credit_scan.py finds those the right way round)
         import credit_scan as _CS
         credited = {c["vh"] for c in _CS.find_credits(page, url)} | {c["v"] for c in _CS.find_credits(page, url)}
@@ -498,6 +515,8 @@ def leads_of(page, row):
         if h in credited:
             continue
         label = (label or "").strip()
+        if COUNTRY_LABEL.match(label) or (len(vlabel) >= 4 and (h.split(".")[0] == vlabel or (len(vlabel) >= 6 and vlabel in h))):
+            continue  # the organisation's own site in another country (rgis.pl on rgis.ca, catalystteambuilding.ng on catalystteambuilding.ca)
         n_spam += bool(h and h != vhost and (SPAM.search(h) or SPAM.search(label)))
         if (not h or "." not in h or len(h) > 60 or h == vhost or h == dom or h.endswith("." + dom) or re.fullmatch(r"[\d.]+", h)
                 or SKIP.search(h) or PLATFORMS.search(h) or VENDOR_SKIP.search(h)
@@ -876,16 +895,41 @@ def merge(a):
                 pass
     # address pass: a client link whose vendor page printed no address becomes a lead once the vendor's own home / contact page gave one
     vaddr, promoted = _vendor_addrs(), 0
+    try:  # 2026-11-10: the vendor's own LIVE home / contact / legal page read by tools/credit_scan.py (postal address, schema.org address, or its
+        # location line with a Canadian telephone number) — the archive had no contact page for 2,660 vendors and no postal code for 6,994
+        import credit_scan as _CS
+        for vd_, o_ in _CS.vendor_state().items():
+            if vd_ not in vaddr and o_.get("status") in ("CA", "CA-loc") and o_.get("quote"):
+                vaddr[vd_] = {"dom": vd_, "quote": o_["quote"], "url": o_.get("url") or "", "capture": o_.get("date") or "", "live": o_["status"]}
+    except Exception as e:
+        print("live vendor proofs not loaded: %s" % e)
     if vaddr:
-        for o in _side_records():
+        side = list(_side_records())
+        pages_of, link_pages = collections.defaultdict(set), collections.defaultdict(set)
+        for o in side:
+            vd_ = ((o.get("row") or {}).get("vendor_key") or "")[3:]
+            pages_of[vd_].add(o.get("dataset_url"))
+            link_pages[(vd_, o.get("domain"))].add(o.get("dataset_url"))
+        n_boiler = 0
+        for o in side:
             row = dict(o.get("row") or {})
-            va = vaddr.get((row.get("vendor_key") or "")[3:])
+            vd_ = (row.get("vendor_key") or "")[3:]
+            va = vaddr.get(vd_)
             if not va or not o.get("domain") or not o.get("dataset_url"):
                 continue
+            if len(pages_of[vd_]) >= 3 and len(link_pages[(vd_, o["domain"])]) >= max(3, 0.6 * len(pages_of[vd_])):
+                n_boiler += 1
+                continue  # the same link on most pages of the site: its menu or footer (badges, partner networks), not a client named on a client page
+            lab = (row.get("client_label") or "").strip()
+            if COUNTRY_LABEL.match(lab) or LABEL_SKIP.search(lab) or (len(vd_.split(".")[0]) >= 4 and o["domain"].split(".")[0] == vd_.split(".")[0]):
+                continue
             row["vendor_address_quote"], row["vendor_address_url"], row["vendor_address_capture"] = va["quote"], va["url"], (va.get("capture") or "")[:10]
+            row["vendor_address_how"] = va.get("live") or ""
             recs.append({"domain": o["domain"], "dataset_url": o["dataset_url"], "website": "https://%s/" % o["domain"], "vendor": o.get("vendor") or o.get("canada_value") or "",
-                         "canada_field": canada_field((row.get("vendor_key") or "")[3:], row.get("basis")), "canada_value": o.get("canada_value") or "", "row": row})
+                         "canada_field": canada_field(vd_, row.get("basis"), va.get("live") or ""), "canada_value": o.get("canada_value") or "", "row": row})
             promoted += 1
+        if n_boiler:
+            print("not promoted: %d links that sit on most pages of the vendor's site (menu / footer links)" % n_boiler)
     vendors_of = collections.defaultdict(set)
     for r in recs:
         vendors_of[r["domain"]].add(r["canada_value"])
@@ -903,8 +947,9 @@ def merge(a):
             prev[key] = {"buyer_key": key, "buyer_name": dom, "website": r["website"], "canadian_vendor_rows": 0, "example_vendor": r["vendor"],
                          "canada_field_value": "%s=%s" % (r["canada_field"], r["canada_value"]), "evidence_dataset": r["dataset_url"], "latest_record_date": ""}
             pdet[key] = {"key": key, "platform": "vendor_site_cc", "record_url": r["dataset_url"], "vendor": r["vendor"], "record_date": "", "title": "",
-                         "vendor_address": ("%s (as printed on %s, archive capture %s)" % (address_from(row.get("vendor_address_quote")), row.get("vendor_address_url") or r["dataset_url"],
-                                                                                           row.get("vendor_address_capture") or (row.get("capture") or "")[:10])) if row.get("vendor_address_quote") else "",
+                         "vendor_address": ("%s (as printed on %s, %s %s)" % (address_from(row.get("vendor_address_quote")) if row.get("vendor_address_how") != "CA-loc" else "“%s”" % row.get("vendor_address_quote"),
+                                                                             row.get("vendor_address_url") or r["dataset_url"], "read" if row.get("vendor_address_how") else "archive capture",
+                                                                             row.get("vendor_address_capture") or (row.get("capture") or "")[:10])) if row.get("vendor_address_quote") else "",
                          "vendor_address_quote": row.get("vendor_address_quote") or "", "vendor_address_url": row.get("vendor_address_url") or r["dataset_url"],
                          "page_class": row.get("page_class") or page_class(urllib.parse.urlparse(r["dataset_url"]).path) or "client", "member_address_quote": row.get("member_address_quote") or "",
                          "page_links": links_of_page[r["dataset_url"]],
@@ -934,9 +979,17 @@ def merge(a):
         _vn = collections.Counter(c["v"] for o in _CS.sightings().values() for c in (o.get("credits") or []))
     except Exception:
         _vn = collections.Counter()
-    n_inv = n_cred = 0
+    n_inv = n_cred = n_sis = 0
     for k, d in pdet.items():
-        if d.get("platform") != "vendor_site_cc" or (d.get("page_class") or "client") != "client" or k in drop:
+        if d.get("platform") != "vendor_site_cc" or k in drop:
+            continue
+        _vl = base(urllib.parse.urlparse(d.get("vendor_site") or "").hostname or "").split(".")[0]
+        _bh = base(urllib.parse.urlparse((prev.get(k) or {}).get("website") or "").hostname or "")
+        _lab = (d.get("client_label") or "").strip()
+        if COUNTRY_LABEL.match(_lab) or (_lab and LABEL_SKIP.search(_lab)) or (len(_vl) >= 4 and _bh.split(".")[0] == _vl):
+            drop.append(k); n_sis += 1
+            continue
+        if (d.get("page_class") or "client") != "client":
             continue
         path = urllib.parse.urlparse(d.get("record_url") or "").path.lower()
         bdom = base(urllib.parse.urlparse((prev.get(k) or {}).get("website") or "").hostname or "")
@@ -944,8 +997,8 @@ def merge(a):
             drop.append(k); n_inv += 1
         elif bdom and _vn.get(bdom, 0) >= 2:
             drop.append(k); n_cred += 1
-    if n_inv or n_cred:
-        print("withdrawn: %d companies listed in an investor's portfolio; %d web agencies named on a client page (footer credits of the page owner)" % (n_inv, n_cred))
+    if n_inv or n_cred or n_sis:
+        print("withdrawn: %d companies listed in an investor's portfolio; %d web agencies named on a client page (footer credits of the page owner); %d country selectors, sister sites and badge links" % (n_inv, n_cred, n_sis))
     for k in drop:
         prev.pop(k, None)
         pdet.pop(k, None)
