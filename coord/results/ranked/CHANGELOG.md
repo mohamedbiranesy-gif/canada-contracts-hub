@@ -1,32 +1,30 @@
-# Changelog — build 2026-11-10T14:21Z (e6420d0)
+# Changelog — build 2026-11-10T15:38Z (ecb7566)
 
 Build id = the commit that produced this folder; every build is a full regeneration from the same rules, so the delta below is the only thing downstream needs to apply.
 
-- rows: 169750 → 169749
+- rows: 169749 → 172751
 - Gold (P01): 625 → 625
-- field changed: ap_contact_name_as_published: 34
-- field changed: ap_phone: 191
-- field changed: buyer_address: 226
-- field changed: buyer_bn_as_published: 22
-- field changed: buyer_legal_name_as_published: 1999
-- field changed: buyer_phone: 1
-- field changed: buyer_website: 14
-- field changed: contract_reference: 32476
-- field changed: dmarc_policy: 1864
-- field changed: email_check: 25
-- field changed: invoice_mailing_address: 66
-- field changed: invoice_portal_url: 246
-- field changed: payment_terms_as_published: 1207
-- field changed: po_number_as_published: 6
-- field changed: po_required_as_published: 454
-- field changed: ship_ready: 46
-- field changed: vendor_address: 11639
-- field changed: vendor_bn9: 9
-- field changed: vendor_legal_name: 6920
-- field changed: vendor_neq: 5579
-- mailbox changed: 77
-- package moved: 754
-- row added: 1143
-- row removed: 1144
+- field changed: ap_contact_name_as_published: 12
+- field changed: ap_phone: 89
+- field changed: buyer_address: 112
+- field changed: buyer_bn_as_published: 39
+- field changed: buyer_legal_name_as_published: 8
+- field changed: buyer_phone: 8
+- field changed: buyer_website: 4
+- field changed: contract_reference: 1
+- field changed: dmarc_policy: 60
+- field changed: email_check: 714
+- field changed: invoice_mailing_address: 21
+- field changed: invoice_portal_url: 69
+- field changed: payment_terms_as_published: 680
+- field changed: po_required_as_published: 154
+- field changed: ship_ready: 702
+- field changed: vendor_address: 2
+- field changed: vendor_bn9: 1
+- field changed: vendor_legal_name: 1
+- mailbox changed: 48
+- package moved: 30
+- row added: 3126
+- row removed: 124
 
 Row-level list: `rows_changed.csv` (change, buyer, rank_group, email, detail).
