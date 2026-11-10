@@ -38,6 +38,18 @@ DETAILS_CC = os.path.join(INC, "claude_lead_details_cc.jsonl.gz")
 SIDE = os.path.join(INC, "claude_cc_leads_noaddr.jsonl.gz")   # client links of vendors whose page printed no address (never delivered from here)
 VADDR = os.path.join(INC, "claude_cc_vendor_addr.jsonl.gz")   # the vendor's Canadian postal address read on its own home / contact page (address pass)
 ADONE = os.path.join(INC, "claude_cc_addr_done.tsv")          # vendor domain, crawl, date, status, pages read
+APAGES = os.path.join(INC, "claude_cc_addr_pages.csv.gz")      # home / contact pages (index rows) of non-.ca organisations located in Canada (universe index)
+APAGE_COLS = ["dom", "url", "host", "path", "fetch_time", "warc_filename", "warc_record_offset", "warc_record_length", "crawl"]
+CF_CA = "vendor located in Canada (cc: .ca domain + Canadian postal address on its own page)"
+
+
+def canada_field(dom, basis=""):
+    """the lead's Canada field: for a .ca host its domain + its own address; for another host the dataset's location basis + its own address"""
+    if (dom or "").lower().endswith(".ca"):
+        return CF_CA
+    return "vendor located in Canada (cc: %s + Canadian postal address on its own page)" % ((basis or "an organisation the dataset locates in Canada").replace("=", ":"))
+
+
 LEAD_COLS = ["buyer_key", "buyer_name", "website", "canadian_vendor_rows", "example_vendor", "canada_field_value", "evidence_dataset", "latest_record_date"]
 PAGE_COLS = ["url", "host", "dom", "path", "fetch_time", "warc_filename", "warc_record_offset", "warc_record_length"]
 
@@ -246,7 +258,7 @@ def index(a):
             by[r[2]].append(r)
     with open("out/cc_rel_pages_%d.csv" % k, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(PAGE_COLS + ["crawl", "cls"])
+        w.writerow(PAGE_COLS + ["crawl", "cls", "basis"])
         kept = 0
         for dom, rs in by.items():
             per = collections.Counter()
@@ -258,9 +270,101 @@ def index(a):
                     continue
                 seen_u.add(r[0])
                 per[c2] += 1
-                w.writerow(list(r) + [c])  # r ends with its crawl id
+                w.writerow(list(r) + [c, ""])  # r ends with its crawl id; basis is empty for a .ca host (its domain + its own address)
                 kept += 1
     print("shard %d: %d matching pages on %d .ca domains; kept %d (at most %d per domain)" % (k, len(rows), len(by), kept, a.per_domain), flush=True)
+
+
+def index_u(a):
+    """universe index: class pages AND home / contact pages of the non-.ca organisations the dataset locates in Canada (tools/ca_universe.py).
+    One scan of the big top-level domains; the home / contact rows are kept for the address pass, so it never scans them again."""
+    k, n = shard_of(a)
+    uni = {}
+    with open(a.universe, encoding="utf-8", newline="") as f:
+        for r in csv.DictReader(f):
+            uni[r["dom"]] = r["basis"]
+    os.makedirs("out", exist_ok=True)
+    if not uni:
+        print("empty universe", flush=True)
+        return
+    tlds = sorted({d.rsplit(".", 1)[-1] for d in uni if re.fullmatch(r"[a-z0-9.-]+", d)})
+    con = _duck()
+    con.execute("CREATE TEMP TABLE doms(d VARCHAR)")
+    con.executemany("INSERT INTO doms VALUES (?)", [(d,) for d in sorted(uni)])
+    rows, t0 = [], time.time()
+    for spec in crawl_ids(a.crawl):
+        try:
+            cid, paths = newest_crawl(spec)
+        except SystemExit as e:
+            print("crawl %s skipped: %s" % (spec, e), flush=True)
+            continue
+        queue = list(enumerate(paths[k::n]))
+        if a.limit_parts:
+            queue = queue[:a.limit_parts]
+        print("crawl %s: shard %d/%d reads %d index parts for %d organisations on %s" % (cid, k, n, len(queue), len(uni), ", ".join("." + t for t in tlds[:12])), flush=True)
+        for rnd in range(5):
+            if not queue:
+                break
+            if rnd:
+                print("round %d: %d index parts to read again after a pause" % (rnd + 1, len(queue)), flush=True)
+                time.sleep(60 * rnd + random.uniform(0, 30))
+            nxt = []
+            for i, p in queue:
+                q = ("SELECT url, url_host_name, url_host_registered_domain, url_path, CAST(fetch_time AS VARCHAR), warc_filename, warc_record_offset, warc_record_length "
+                     "FROM read_parquet('%s') WHERE url_host_tld IN (%s) AND url_host_registered_domain IN (SELECT d FROM doms) AND fetch_status = 200 "
+                     "AND content_mime_detected = 'text/html' AND url_query IS NULL AND length(url_path) BETWEEN 1 AND 90 "
+                     "AND ((regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')) "
+                     "OR (regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')) "
+                     "OR regexp_matches(lower(url_path), '%s') OR (regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')) "
+                     "OR regexp_matches(lower(url_path), '%s'))") % (
+                         CC + p, ", ".join("'%s'" % t for t in tlds), REL_SQL.replace("'", "''"), NOT_SQL.replace("'", "''"),
+                         (SPONSOR_SQL + "|" + DEALER_SQL + "|" + TENANT_SQL).replace("'", "''"), NOT2_SQL.replace("'", "''"),
+                         MEMBER_ONE_SQL.replace("'", "''"), MEMBER_SQL.replace("'", "''"), NOT3_SQL.replace("'", "''"), ADDR_PAGE_SQL.replace("'", "''"))
+                try:
+                    got = con.execute(q).fetchall()
+                except Exception as e:
+                    print("part %d failed (round %d): %s" % (i, rnd + 1, str(e)[:160]), flush=True)
+                    nxt.append((i, p))
+                    time.sleep(10)
+                    continue
+                rows += [tuple(r) + (cid,) for r in got]
+                if got or i % 10 == 0:
+                    print("%s %s part %d: %d pages (total %d, %.0f s)" % (time.strftime("%H:%M:%S"), cid, i, len(got), len(rows), time.time() - t0), flush=True)
+            queue = nxt
+        if queue:
+            print("UNREAD index parts of %s after 5 rounds: %s" % (cid, ", ".join(str(i) for i, p in queue)), flush=True)
+    by = collections.defaultdict(list)
+    for r in rows:
+        if r[2] in uni and not VENDOR_SKIP.search(r[1] or ""):
+            by[r[2]].append(r)
+    kept = kept_a = with_rel = 0
+    with open("out/cc_rel_pages_%d.csv" % k, "a", newline="", encoding="utf-8") as f, open("out/cc_addr_pages_%d.csv" % k, "a", newline="", encoding="utf-8") as fa:
+        w, wa = csv.writer(f), csv.writer(fa)
+        if f.tell() == 0:
+            w.writerow(PAGE_COLS + ["crawl", "cls", "basis"])
+        if fa.tell() == 0:
+            wa.writerow(APAGE_COLS)
+        for dom, rs in by.items():
+            per, seen_u, rel = collections.Counter(), set(), 0
+            for r in sorted(rs, key=lambda r: (len(r[3] or ""), r[0], r[8])):
+                c = page_class(r[3])
+                c2 = "member1" if c == "member" and _M1_RX.search((r[3] or "").lower()) else c
+                if not c or r[0] in seen_u or per[c2] >= (PER_DOMAIN_MEMBER_PAGES if c2 == "member1" else a.per_domain):
+                    continue
+                seen_u.add(r[0])
+                per[c2] += 1
+                w.writerow(list(r) + [c, uni[dom]])
+                kept += 1
+                rel += 1
+            if not rel:
+                continue  # no relationship page: its address is never needed
+            with_rel += 1
+            ad = [r for r in rs if not page_class(r[3]) and re.search(ADDR_PAGE_SQL, (r[3] or "/").lower())]
+            for r in sorted(ad, key=lambda r: (0 if re.search(r"contact|joindre|coordonn", (r[3] or "").lower()) else 1, len(r[3] or ""), r[0]))[:4]:
+                wa.writerow([dom, r[0], r[1], r[3], r[4], r[5], r[6], r[7], r[8]])
+                kept_a += 1
+    print("shard %d: %d matching pages on %d organisations; %d relationship pages kept on %d organisations, %d home / contact pages kept for the address pass" % (
+        k, len(rows), len(by), kept, with_rel, kept_a), flush=True)
 
 
 def warc_html(fn, off, ln):
@@ -355,8 +459,8 @@ def leads_of(page, row):
         site = re.search(r"(?is)<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=[\"']([^\"']{2,80})[\"']", page[:200_000])
         return [{"platform": "vendor_site", "domain": h, "dataset_id": url, "dataset": CLASS_TEXT["member"], "dataset_url": url, "publisher": h, "buyer_unit": "", "website": "https://%s/" % h,
                  "vendor": (site.group(1).strip() if site else "") or vhost,
-                 "canada_field": "vendor located in Canada (cc: .ca domain + Canadian postal address on its own page)", "canada_value": vhost,
-                 "row": {"relationship_page": url, "page_title": title, "client_label": name[:120], "vendor_key": "cc:" + dom, "vendor_site": "https://%s/" % vhost, "pass": "cc_index",
+                 "canada_field": canada_field(dom, row.get("basis")), "canada_value": vhost,
+                 "row": {"relationship_page": url, "page_title": title, "client_label": name[:120], "vendor_key": "cc:" + dom, "vendor_site": "https://%s/" % vhost, "pass": "cc_index", "basis": row.get("basis") or "",
                          "page_class": "member", "capture": (row.get("fetch_time") or "")[:19], "vendor_address_quote": quote, "member_address_quote": mq,
                          "warc": "%s:%s:%s" % (row["warc_filename"], row["warc_record_offset"], row["warc_record_length"])}}], quote
     title = re.search(r"(?is)<title[^>]*>(.*?)</title>", page[:200_000])
@@ -375,9 +479,9 @@ def leads_of(page, row):
             continue
         hits.setdefault(h, {"platform": "vendor_site", "domain": h, "dataset_id": url, "dataset": CLASS_TEXT.get(row.get("cls") or page_class(row.get("path")) or "client", CLASS_TEXT["client"]),
                             "dataset_url": url, "publisher": h, "buyer_unit": "", "website": "https://%s/" % h, "vendor": (site.group(1).strip() if site else "") or vhost,
-                            "canada_field": "vendor located in Canada (cc: .ca domain + Canadian postal address on its own page)", "canada_value": vhost,
+                            "canada_field": canada_field(dom, row.get("basis")), "canada_value": vhost,
                             "row": {"relationship_page": url, "page_title": title, "client_label": label[:120], "vendor_key": "cc:" + dom, "vendor_site": "https://%s/" % vhost,
-                                    "pass": "cc_index", "page_class": row.get("cls") or page_class(row.get("path")) or "client", "capture": (row.get("fetch_time") or "")[:19], "vendor_address_quote": quote,
+                                    "pass": "cc_index", "basis": row.get("basis") or "", "page_class": row.get("cls") or page_class(row.get("path")) or "client", "capture": (row.get("fetch_time") or "")[:19], "vendor_address_quote": quote,
                                     "warc": "%s:%s:%s" % (row["warc_filename"], row["warc_record_offset"], row["warc_record_length"])}})
     return (list(hits.values()) if 0 < len(hits) <= (600 if cls0 == "member" else 150) else []), quote
 
@@ -483,11 +587,25 @@ def _vendor_addrs():
 
 def addr(a):
     """address pass: the vendors whose client page printed no postal address (two thirds of the client links found). Their home / contact /
-    about page is looked up in the same crawl's index and read from the archive; a Canadian postal address printed there is the proof."""
+    about page is read from the archive; a Canadian postal address printed there is the proof. Pages of non-.ca organisations were kept by
+    the universe index (claude_cc_addr_pages.csv.gz); pages of .ca hosts are looked up in the index of the newest crawls."""
     k, n = shard_of(a)
     os.makedirs("out", exist_ok=True)
-    found_now = set()  # domains this shard already read a page of in a newer crawl (address found or not): older crawls are for the others
+    found_now = set()  # domains this shard already read a page of (address found or not): older crawls are for the others
     deadline = time.time() + a.minutes * 60
+    fa = open("out/cc_vendor_addr_%d.jsonl" % k, "a", encoding="utf-8")
+    fd = open("out/cc_addr_done_%d.tsv" % k, "a", encoding="utf-8")
+    # 1. stored home / contact pages (non-.ca organisations of the universe)
+    if os.path.exists(APAGES):
+        want = _addr_want("stored", found_now)
+        pages = collections.defaultdict(list)
+        with gzip.open(APAGES, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                if r["dom"] in want and int(hashlib.sha1(r["dom"].encode()).hexdigest(), 16) % n == k:
+                    pages[r["dom"]].append((r["url"], r["host"], r["dom"], r["path"], r["fetch_time"], r["warc_filename"], r["warc_record_offset"], r["warc_record_length"]))
+        print("stored pages, shard %d/%d: %d organisations need an address, %d have a stored home / contact page in this shard" % (k, n, len(want), len(pages)), flush=True)
+        _addr_read(a, pages, "stored", found_now, deadline, fa, fd)
+    # 2. .ca hosts: the index of the newest crawls
     for spec in crawl_ids(a.crawl):
         try:
             cid, paths = newest_crawl(spec)
@@ -495,10 +613,12 @@ def addr(a):
             print("crawl %s skipped: %s" % (spec, e), flush=True)
             continue
         if time.time() < deadline:
-            _addr_one_crawl(a, k, n, cid, paths, found_now, deadline)
+            _addr_one_crawl(a, k, n, cid, paths, found_now, deadline, fa, fd)
+    fa.close(); fd.close()
 
 
-def _addr_one_crawl(a, k, n, cid, paths, found_now, deadline):
+def _addr_want(cid, found_now):
+    """vendor domains that still need an address and were not tried for this crawl ('stored' = the stored pages)"""
     have = _vendor_addrs()
     tried = set()
     if os.path.exists(ADONE):
@@ -509,44 +629,13 @@ def _addr_one_crawl(a, k, n, cid, paths, found_now, deadline):
     want = set()
     for o in _side_records():
         d = ((o.get("row") or {}).get("vendor_key") or "")[3:]
-        if d and d not in have and d not in tried and d not in found_now:
+        if d and d not in have and d not in tried and d not in found_now and (d.endswith(".ca") != (cid == "stored")):
             want.add(d)
-    fa = open("out/cc_vendor_addr_%d.jsonl" % k, "a", encoding="utf-8")
-    fd = open("out/cc_addr_done_%d.tsv" % k, "a", encoding="utf-8")
-    print("crawl %s, shard %d/%d: %d vendor domains need an address" % (cid, k, n, len(want)), flush=True)
-    if not want:
-        fa.close(); fd.close()
-        return
-    con = _duck()
-    con.execute("CREATE TEMP TABLE doms(d VARCHAR)")
-    con.executemany("INSERT INTO doms VALUES (?)", [(d,) for d in sorted(want)])
-    pages, t0 = collections.defaultdict(list), time.time()
-    queue = list(enumerate(paths[k::n]))
-    for rnd in range(5):
-        if not queue:
-            break
-        if rnd:
-            print("round %d: %d index parts to read again after a pause" % (rnd + 1, len(queue)), flush=True)
-            time.sleep(60 * rnd + random.uniform(0, 30))
-        nxt = []
-        for i, p in queue:
-            q = ("SELECT url, url_host_name, url_host_registered_domain, url_path, CAST(fetch_time AS VARCHAR), warc_filename, warc_record_offset, warc_record_length "
-                 "FROM read_parquet('%s') WHERE url_host_tld = 'ca' AND fetch_status = 200 AND content_mime_detected = 'text/html' AND url_query IS NULL AND length(url_path) <= 45 "
-                 "AND url_host_registered_domain IN (SELECT d FROM doms) AND regexp_matches(lower(url_path), '%s')") % (CC + p, ADDR_PAGE_SQL.replace("'", "''"))
-            try:
-                got = con.execute(q).fetchall()
-            except Exception as e:
-                print("part %d failed (round %d): %s" % (i, rnd + 1, str(e)[:160]), flush=True)
-                nxt.append((i, p))
-                time.sleep(10)
-                continue
-            for r in got:
-                pages[r[2]].append(r)
-            if got or i % 25 == 0:
-                print("%s part %d: %d pages (domains with a page so far %d, %.0f s)" % (time.strftime("%H:%M:%S"), i, len(got), len(pages), time.time() - t0), flush=True)
-        queue = nxt
-    unread = len(queue)
+    return want
 
+
+def _addr_read(a, pages, cid, found_now, deadline, fa, fd):
+    """read each domain's pages (contact first, then home, then about) until one prints a Canadian postal address"""
     def order(r):
         path = (r[3] or "/").lower()
         return (0 if re.search(r"contact|joindre|coordonn", path) else 1 if re.fullmatch(r"/((en|fr|en-ca|fr-ca)/)?", path) else 2, len(path), (r[1] or "").startswith("www.") is False)
@@ -583,16 +672,54 @@ def _addr_one_crawl(a, k, n, cid, paths, found_now, deadline):
             # an unreadable domain stays in the queue for the next run (merge-addr does not record that status)
             fd.write("%s\t%s\t%s\t%s\t%d\n" % (dom, cid, TODAY, "found" if found else "no_address" if n_read else "unreadable", n_read))
             if stats["domains"] % 500 == 0:
+                fa.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
     with ThreadPoolExecutor(a.workers) as ex:
         list(ex.map(one, sorted(pages)))
+    print("address pages read (%s): %s" % (cid, dict(stats)), flush=True)
+
+
+def _addr_one_crawl(a, k, n, cid, paths, found_now, deadline, fa, fd):
+    want = _addr_want(cid, found_now)
+    print("crawl %s, shard %d/%d: %d .ca vendor domains need an address" % (cid, k, n, len(want)), flush=True)
+    if not want:
+        return
+    con = _duck()
+    con.execute("CREATE TEMP TABLE doms(d VARCHAR)")
+    con.executemany("INSERT INTO doms VALUES (?)", [(d,) for d in sorted(want)])
+    pages, t0 = collections.defaultdict(list), time.time()
+    queue = list(enumerate(paths[k::n]))
+    for rnd in range(5):
+        if not queue:
+            break
+        if rnd:
+            print("round %d: %d index parts to read again after a pause" % (rnd + 1, len(queue)), flush=True)
+            time.sleep(60 * rnd + random.uniform(0, 30))
+        nxt = []
+        for i, p in queue:
+            q = ("SELECT url, url_host_name, url_host_registered_domain, url_path, CAST(fetch_time AS VARCHAR), warc_filename, warc_record_offset, warc_record_length "
+                 "FROM read_parquet('%s') WHERE url_host_tld = 'ca' AND fetch_status = 200 AND content_mime_detected = 'text/html' AND url_query IS NULL AND length(url_path) <= 45 "
+                 "AND url_host_registered_domain IN (SELECT d FROM doms) AND regexp_matches(lower(url_path), '%s')") % (CC + p, ADDR_PAGE_SQL.replace("'", "''"))
+            try:
+                got = con.execute(q).fetchall()
+            except Exception as e:
+                print("part %d failed (round %d): %s" % (i, rnd + 1, str(e)[:160]), flush=True)
+                nxt.append((i, p))
+                time.sleep(10)
+                continue
+            for r in got:
+                pages[r[2]].append(r)
+            if got or i % 25 == 0:
+                print("%s part %d: %d pages (domains with a page so far %d, %.0f s)" % (time.strftime("%H:%M:%S"), i, len(got), len(pages), time.time() - t0), flush=True)
+        queue = nxt
+    unread = len(queue)
+    _addr_read(a, pages, cid, found_now, deadline, fa, fd)
     if not unread:  # every index part of this shard was read. A wanted domain is settled as "no page in this crawl" by merge-addr only when
         # ALL shards say so (a domain's pages sit in one index part, which may belong to any shard)
         open("out/cc_addr_complete_%d_%s.txt" % (k, cid), "w").write("%d/%d %s\n" % (k, n, cid))
         for d in sorted(d for d in want if d not in pages and int(hashlib.sha1(d.encode()).hexdigest(), 16) % n == k):
             fd.write("%s\t%s\t%s\tno_page_in_shard\t0\n" % (d, cid, TODAY))
-    fa.close(); fd.close()
-    print("finished: %d domains had a page in this shard's index parts; %s; unread index parts %d" % (len(pages), dict(stats), unread), flush=True)
+    print("finished %s: %d domains had a page in this shard's index parts; unread index parts %d" % (cid, len(pages), unread), flush=True)
 
 
 def merge_addr(a):
@@ -725,7 +852,7 @@ def merge(a):
                 continue
             row["vendor_address_quote"], row["vendor_address_url"], row["vendor_address_capture"] = va["quote"], va["url"], (va.get("capture") or "")[:10]
             recs.append({"domain": o["domain"], "dataset_url": o["dataset_url"], "website": "https://%s/" % o["domain"], "vendor": o.get("vendor") or o.get("canada_value") or "",
-                         "canada_field": "vendor located in Canada (cc: .ca domain + Canadian postal address on its own page)", "canada_value": o.get("canada_value") or "", "row": row})
+                         "canada_field": canada_field((row.get("vendor_key") or "")[3:], row.get("basis")), "canada_value": o.get("canada_value") or "", "row": row})
             promoted += 1
     vendors_of = collections.defaultdict(set)
     for r in recs:
@@ -764,6 +891,8 @@ def merge_index(a):
     rows, crawl = {}, ""
     for f in sorted(glob.glob(os.path.join(a.dir, "cc_rel_pages_*.csv"))):
         for r in csv.DictReader(open(f, encoding="utf-8")):
+            if not r.get("url") or r["url"] == "url":
+                continue  # a second header line (the .ca index and the universe index append to one shard file)
             rows[r["url"]] = r
             crawl = r.get("crawl") or crawl
     if not rows:
@@ -778,8 +907,25 @@ def merge_index(a):
             for r in csv.DictReader(fh):
                 if r["url"] not in rows:
                     by[r["dom"]].append(r)
+    ap_rows = {}
+    if os.path.exists(APAGES):
+        with gzip.open(APAGES, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                ap_rows[r["url"]] = r
+    n_ap0 = len(ap_rows)
+    for f in sorted(glob.glob(os.path.join(a.dir, "cc_addr_pages_*.csv"))):
+        for r in csv.DictReader(open(f, encoding="utf-8")):
+            if r.get("url") and r["url"] != "url":
+                ap_rows.setdefault(r["url"], r)
+    if ap_rows:
+        with gzip.open(APAGES, "wt", encoding="utf-8", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=APAGE_COLS, extrasaction="ignore")
+            w.writeheader()
+            for u in sorted(ap_rows):
+                w.writerow(ap_rows[u])
+        print("address pages of non-.ca organisations: %d (+%d)" % (len(ap_rows), len(ap_rows) - n_ap0))
     with gzip.open(PAGES, "wt", encoding="utf-8", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=PAGE_COLS + ["crawl", "cls"], extrasaction="ignore")
+        w = csv.DictWriter(fh, fieldnames=PAGE_COLS + ["crawl", "cls", "basis"], extrasaction="ignore")
         w.writeheader()
         for dom in sorted(by):
             per = collections.Counter()
@@ -793,20 +939,22 @@ def merge_index(a):
                 w.writerow(r)
                 n += 1
                 cls_n[c] += 1
-    print("index %s: %d pages on %d .ca domains (%s) -> %s" % (crawl, n, len(by), dict(cls_n), os.path.basename(PAGES)))
+    print("index %s: %d pages on %d domains (%d not .ca) (%s) -> %s" % (crawl, n, len(by), sum(1 for d in by if not d.endswith(".ca")), dict(cls_n), os.path.basename(PAGES)))
 
 
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("index"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="auto"); p.add_argument("--limit-parts", type=int, default=0); p.add_argument("--per-domain", type=int, default=6)
+    p = sub.add_parser("index-u"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="auto"); p.add_argument("--limit-parts", type=int, default=0)
+    p.add_argument("--per-domain", type=int, default=6); p.add_argument("--universe", default="out/ca_universe.csv")
     p = sub.add_parser("merge-index"); p.add_argument("dir"); p.add_argument("--per-domain", type=int, default=6)
     p = sub.add_parser("extract"); p.add_argument("--shard", default="0/1"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=10); p.add_argument("--limit", type=int, default=0)
     p = sub.add_parser("merge"); p.add_argument("dir")
     p = sub.add_parser("addr"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="last:3"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=4)
     p = sub.add_parser("merge-addr"); p.add_argument("dir")
     a = ap.parse_args()
-    {"index": index, "merge-index": merge_index, "extract": extract, "merge": merge, "addr": addr, "merge-addr": merge_addr}[a.cmd](a)
+    {"index": index, "index-u": index_u, "merge-index": merge_index, "extract": extract, "merge": merge, "addr": addr, "merge-addr": merge_addr}[a.cmd](a)
 
 
 if __name__ == "__main__":

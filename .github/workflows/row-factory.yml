@@ -21,8 +21,11 @@ on:
         description: "minutes per step and runner"
         default: "150"
       crawl:
-        description: "Common Crawl id for the index stage (auto = newest with a published index)"
+        description: "Common Crawl id for the index stage (auto = newest with a published index; last:N = the newest N crawls)"
         default: "auto"
+      universe:
+        description: "index stage: also look up the non-.ca organisations the dataset locates in Canada (yes | no)"
+        default: "yes"
 permissions:
   contents: write
   actions: write
@@ -62,6 +65,11 @@ jobs:
       - run: pip install -q duckdb
       - name: Scan the Common Crawl URL index for .ca client pages
         run: python3 tools/cc_clients.py index --shard ${{ matrix.k }}/4 --crawl "$CRAWL"
+      - name: Universe index — organisations the dataset locates in Canada whose site is not on .ca (newest crawl)
+        if: ${{ inputs.universe != 'no' }}
+        run: |
+          python3 tools/ca_universe.py --out /tmp/ca_universe.csv
+          python3 tools/cc_clients.py index-u --shard ${{ matrix.k }}/4 --universe /tmp/ca_universe.csv || echo "universe index failed (the .ca index is kept)"
       - uses: actions/upload-artifact@v4
         with: { name: "rf-index-${{ matrix.k }}", path: out/, retention-days: 3 }
 
@@ -82,9 +90,9 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/cc_clients.py merge-index shards | tee -a "$GITHUB_STEP_SUMMARY"
-            git add data/incoming/claude/claude_cc_rel_pages.csv.gz
+            for f in claude_cc_rel_pages.csv.gz claude_cc_addr_pages.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
-            git commit -q -m "row-factory: Common Crawl index of .ca client pages [skip ci]"
+            git commit -q -m "row-factory: Common Crawl index of relationship pages of Canada-located organisations [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
