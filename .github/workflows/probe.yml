@@ -16,12 +16,15 @@ on:
       grep:
         description: "also list the links and passages that match this expression"
         default: ""
+      vet:
+        description: "yes = the addresses are vendor domains: print a vetting sheet for each (who contracts, where, free plan)"
+        default: "no"
 permissions:
   contents: read
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
@@ -31,8 +34,14 @@ jobs:
           GREP: ${{ inputs.grep }}
           CHARS: ${{ inputs.chars || '3000' }}
           RAW: ${{ inputs.raw || 'no' }}
+          VET: ${{ inputs.vet || 'no' }}
         run: |
           set -f
+          if [ "$VET" = "yes" ]; then
+            python3 tools/probe.py --vet $URLS | tee /tmp/probe.txt
+            { echo '```'; head -c 900000 /tmp/probe.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
           args="--chars $CHARS"
           [ "$RAW" = "yes" ] && args="$args --raw"
           if [ -n "$GREP" ]; then python3 tools/probe.py $args --grep "$GREP" $URLS | tee /tmp/probe.txt; else python3 tools/probe.py $args $URLS | tee /tmp/probe.txt; fi
