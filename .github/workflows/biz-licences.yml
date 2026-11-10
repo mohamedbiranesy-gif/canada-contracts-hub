@@ -1,0 +1,53 @@
+name: biz-licences
+# Municipal business licences (cities' open data) joined to the organisations we already hold (tools/biz_licences.py).
+# A business licence is a dated payment to a Canadian municipality: licence number, legal and trade name, address, issue and expiry dates.
+# Only the open-data portals' catalogue / bulk endpoints are asked (a few requests per city); no site is crawled.
+#   probe : search each portal's catalogue; print dataset ids, fields, row counts and two sample rows (nothing is written)
+#   pull  : download the configured datasets -> match by postal code + name -> data/incoming/claude/claude_licence_matches.csv
+on:
+  schedule:
+    - cron: "41 4 * * 2"
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "probe | pull"
+        default: "pull"
+      only:
+        description: "cities (comma separated; empty = all configured)"
+        default: ""
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: biz-licences
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Probe the catalogues (stage=probe)
+        if: ${{ inputs.stage == 'probe' }}
+        run: |
+          python3 tools/biz_licences.py probe 2>&1 | tee /tmp/probe.txt
+          { echo '```'; head -c 900000 /tmp/probe.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Download, match, commit (stage=pull)
+        if: ${{ inputs.stage != 'probe' }}
+        env: { GH_TOKEN: "${{ github.token }}", ONLY: "${{ inputs.only || '' }}" }
+        run: |
+          python3 tools/biz_licences.py pull --only "$ONLY" 2>&1 | tee /tmp/l.txt
+          python3 tools/biz_licences.py match out 2>&1 | tee -a /tmp/l.txt
+          mkdir -p keep && cp out/licence_matches.csv keep/ 2>/dev/null || true
+          git config user.name "biz-licences"; git config user.email "biz-licences@users.noreply.github.com"
+          for i in $(seq 1 10); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/biz_licences.py merge keep | tee /tmp/m.txt
+            git add data/incoming/claude/claude_licence_matches.csv 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "biz-licences: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          { echo '```'; cat /tmp/l.txt /tmp/m.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
