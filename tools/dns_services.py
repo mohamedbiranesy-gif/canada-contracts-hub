@@ -22,6 +22,10 @@ inferred relationship have a live, named, Canada-located service provider in the
                                      the DNS leads), with the place in the list where the shard stopped (sweep_cursor.json): the next run goes
                                      on from there; the part swept before the second question existed is caught up at the end. `sweep-plan`
                                      prints the shards that still have work.
+  hosts --shard K/8 [--minutes M]    stores that live on a SUBDOMAIN (shop.brand.com, store.brand.com, us.brand.com …): the host-level web graph
+                                     (243 M host names, 48 files) names 7.2 M three-label hosts of ordinary domains on the endings the sweep
+                                     covers and .ca; each is asked one question (its address record). A host on Shopify's storefront network
+                                     whose domain is not already a known store is kept like a sweep hit; `hosts-plan` prints the shards left.
 The provider's location is proven the same way as for a credited web agency (tools/credit_scan.py `vendors`: its own site prints a Canadian
 postal address, or schema.org address, or location line + Canadian telephone number), and the leads are made by tools/credit_scan.py `merge`
 (leads() below). Nothing here contacts the organisations' own servers: only DNS resolvers are asked.
@@ -591,6 +595,188 @@ def sweep(a):
         state["ns_pos"] if catch_up else state["pos"], " (end)" if state["ns_complete" if catch_up else "complete"] else "", state["asked"], state["stores"], state["ns_hits"], state["ns_asked"], state["no_answer"]), flush=True)
 
 
+# ------------------------------------------------------------------------------------------------------------------- stores on a subdomain
+HOSTS_SHARDS = 8
+HOST_TLDS = SWEEP_TLDS + ("ca",)
+# first labels that are never a storefront of their own: the site itself, mail and technical hosts
+HOST_SKIP = frozenset("www www1 www2 www3 ww ww1 ww2 wwww m mail webmail email smtp pop pop3 imap mx mx1 mx2 ftp sftp cpanel whm webdisk autodiscover autoconfig ns ns1 ns2 ns3 ns4 dns "
+                      "vpn remote rdp ssh git svn cdn cdn1 cdn2 static assets img images media files api dev staging stage test beta demo sandbox preview old legacy "
+                      "admin secure login sso auth status analytics stats tracking track click links link email-links blog blogs help support docs doc kb wiki forum forums "
+                      "community news careers career jobs pagead2 app apps portal dashboard intranet".split())
+HOST_DOMAIN_MAX = 30  # a domain with more host names than this in the graph is a platform or a large organisation: its hosts are not asked
+
+
+def hosts_left(cur):
+    h = cur.get("hosts") or {}
+    done, pos = h.get("complete") or {}, h.get("pos") or {}
+    return sorted((k for k in range(HOSTS_SHARDS) if not done.get(str(k))), key=lambda k: (int(pos.get(str(k), 0)), k))
+
+
+def host_groups(lines, tlds=HOST_TLDS):
+    """the host names of the graph, in its own order (reversed names, sorted: the hosts of one domain follow each other) ->
+    (domain, [three-label hosts worth asking]) for every domain with at most HOST_DOMAIN_MAX host names"""
+    cur, buf, size = None, [], 0
+    for line in lines:
+        rev = line.rstrip("\n").partition("\t")[2]
+        q = rev.split(".")
+        if len(q) < 3 or q[0] not in tlds:
+            continue
+        d = q[1] + "." + q[0]
+        if d != cur:
+            if cur is not None and buf and size <= HOST_DOMAIN_MAX:
+                yield cur, buf
+            cur, buf, size = d, [], 0
+        size += 1
+        if len(q) == 3 and q[2] not in HOST_SKIP and len(q[2]) <= 40:
+            buf.append(q[2] + "." + d)
+    if cur is not None and buf and size <= HOST_DOMAIN_MAX:
+        yield cur, buf
+
+
+def hosts_sweep(a):
+    """one question per host: is its address record on Shopify's storefront network? (see the module text, `hosts`)"""
+    import shutil
+    import subprocess
+    import zlib
+    import dns.exception
+    import dns.resolver
+    import credit_scan as CS
+    import cc_clients as CCL
+    k, n = int(a.shard.split("/")[0]), HOSTS_SHARDS
+    os.makedirs("out", exist_ok=True)
+    cur = sweep_cursor()
+    hc = cur.get("hosts") or {}
+    rel = hc.get("release") or cur.get("release") or (a.release if a.release and a.release != "auto" else CS.newest_graph())
+    start = int((hc.get("pos") or {}).get(str(k), 0))
+    state = {"release": rel, "shard": k, "pos": start, "complete": bool((hc.get("complete") or {}).get(str(k))), "asked": 0, "stores": 0, "no_answer": 0, "skipped_known_store": 0}
+
+    def save():
+        with open("out/hosts_cursor_%d.json" % k, "w", encoding="utf-8") as fo:
+            json.dump(state, fo)
+    save()
+    if k >= n or state["complete"]:
+        print("host sweep shard %d/%d: nothing left" % (k, n), flush=True)
+        return
+    known = {o["d"] for o in records() if o.get("shop")}  # stores already found: their other host names are the same store
+    print("host sweep shard %d/%d of graph %s: starting after place %d; stores already known: %d" % (k, n, rel, start, len(known)), flush=True)
+    deadline = time.time() + a.minutes * 60
+    local = None
+    if a.resolver:
+        host, _, port = a.resolver.partition(":")
+        probe = dns.resolver.Resolver(configure=False)
+        probe.nameservers, probe.port, probe.timeout, probe.lifetime = [host], int(port or 53), 5, 10
+        for _ in range(6):
+            try:
+                probe.resolve("cira.ca", "NS")
+                local = (host, int(port or 53))
+                break
+            except Exception as e:
+                print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
+                time.sleep(5)
+    qps = a.qps if local else min(a.qps, 60)
+    print("resolver: %s, %d hosts/s" % ("%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
+    tl = threading.local()
+    gate, nxt = threading.Lock(), [0.0]
+
+    def turn():
+        with gate:
+            t = max(time.time(), nxt[0])
+            nxt[0] = t + 1.0 / qps
+        w = t - time.time()
+        if w > 0:
+            time.sleep(w)
+        r = getattr(tl, "r", None)
+        if r is None:
+            r = dns.resolver.Resolver(configure=False)
+            if local:
+                r.nameservers, r.port, r.timeout, r.lifetime = [local[0]], local[1], 6.0, 6.0
+            else:
+                r.nameservers, r.timeout, r.lifetime = random.sample(RESOLVERS, 3), 2.5, 5.0
+            tl.r = r
+        return r
+
+    def ask(h):
+        try:
+            ans = turn().resolve(h, "A", raise_on_no_answer=False)
+        except dns.resolver.NXDOMAIN:
+            return h, "", "nx"
+        except dns.exception.DNSException:
+            return h, "", "fail"
+        if ans.rrset is None:
+            return h, "", "none"
+        return h, ans[0].address, "ok"
+
+    work = next((d for d in (os.environ.get("RUNNER_TEMP") or "", ".") if d and os.access(d, os.W_OK)), ".")
+    unz = shutil.which("pigz") or "gzip"
+    ok_name = re.compile(r"[a-z0-9-]+(?:\.[a-z0-9-]+)+")
+    if a.base:  # tests: local files, one per line or a single file
+        parts = [x for x in a.base.split(",") if x]
+    else:
+        raw = CCL.http_get("%sprojects/hyperlinkgraph/%s/host/%s-host-vertices.paths.gz" % (CCL.CC, rel, rel))
+        parts = [CCL.CC + l.strip() for l in gzip.decompress(raw).decode().split("\n") if l.strip()]
+    print("host-level graph: %d files" % len(parts), flush=True)
+
+    def lines():
+        for i, src in enumerate(parts):
+            f = src
+            if src.startswith("http"):
+                f = os.path.join(work, "hv_%02d.gz" % i)
+                subprocess.run(["curl", "-sS", "-L", "--fail", "--retry", "10", "--retry-delay", "10", "--retry-all-errors", "-A", CCL.UA, "-o", f, src], check=True)
+            pr = subprocess.Popen([unz, "-dc", f], stdout=subprocess.PIPE, text=True, encoding="utf-8", errors="replace", bufsize=1 << 20)
+            for l in pr.stdout:
+                yield l
+            pr.wait()
+            if src.startswith("http"):
+                os.remove(f)
+
+    def batches():
+        pos, batch = 0, []
+        for dom, hosts in host_groups(lines()):
+            if zlib.crc32(dom.encode()) % n != k or CS.PLATFORM.search(dom):
+                continue
+            if dom in known:
+                state["skipped_known_store"] += len(hosts)
+                continue
+            for h in hosts:
+                if not ok_name.fullmatch(h):
+                    continue
+                pos += 1
+                if pos <= start:
+                    continue
+                batch.append(h)
+                if len(batch) >= a.batch:
+                    yield pos, batch
+                    batch = []
+        if batch:
+            yield pos, batch
+        yield -1, []
+
+    from concurrent.futures import ThreadPoolExecutor
+    fo = open("out/dns_%d.jsonl" % k, "a", encoding="utf-8")
+    with ThreadPoolExecutor(a.workers) as ex:
+        for pos, batch in batches():
+            if pos == -1:
+                state["complete"] = True
+                break
+            if deadline - time.time() < 1.3 * len(batch) / qps + 20:
+                break  # not enough time left for this batch: the next run starts with it
+            st = collections.Counter()
+            for h, ip, how in ex.map(ask, batch):
+                st[how] += 1
+                if ip and SHOPIFY_A.match(ip):
+                    fo.write(json.dumps({"d": h, "t": TODAY, "st": "ok", "l": 1, "sw": 2, "shop": 1, "a": ip}, ensure_ascii=False, separators=(",", ": ")) + "\n")
+                    state["stores"] += 1
+            fo.flush()
+            state["asked"] += len(batch); state["no_answer"] += st["fail"]; state["pos"] = pos
+            save()
+            print(time.strftime("%H:%M:%S"), "place %d: asked %d hosts, %d on Shopify's storefront addresses, no answer %d (last batch: %s)" % (
+                pos, state["asked"], state["stores"], state["no_answer"], dict(st)), flush=True)
+    fo.close()
+    save()
+    print("finished: place %d%s; asked %d hosts, %d on Shopify's storefront addresses, %d without an answer; hosts of known stores not asked: %d" % (
+        state["pos"], " (end)" if state["complete"] else "", state["asked"], state["stores"], state["no_answer"], state["skipped_known_store"]), flush=True)
+
+
 def merge(a):
     os.makedirs(DIR, exist_ok=True)
     stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
@@ -645,6 +831,32 @@ def merge(a):
             json.dump(cur, f, indent=1, sort_keys=True)
         print("sweep of graph %s (%s): +%d domains asked, +%d stores this run; %d asked, %d stores and %d domains served by a watched provider so far; shards finished: %d of %d" % (
             cur.get("release"), ",".join(cur.get("tlds") or []), asked, stores, cur["asked"], cur["stores_found"], int(cur.get("ns_hits") or 0), len(cur["complete"]), SWEEP_SHARDS))
+    hfiles = sorted(glob.glob(os.path.join(a.dir, "hosts_cursor_*.json")))
+    if hfiles:  # the host sweep: where each shard stopped (single writer: this merge; its own key of the cursor file)
+        cur = sweep_cursor()
+        hc = cur.setdefault("hosts", {})
+        hc.setdefault("pos", {}); hc.setdefault("complete", {})
+        asked = stores = 0
+        for cf in hfiles:
+            try:
+                o = json.load(open(cf, encoding="utf-8"))
+            except Exception:
+                continue
+            if hc.get("release") and hc["release"] != o.get("release"):
+                continue
+            hc["release"], hc["shards"] = o["release"], HOSTS_SHARDS
+            ks = str(o["shard"])
+            hc["pos"][ks] = max(int(hc["pos"].get(ks, 0)), int(o.get("pos") or 0))
+            if o.get("complete"):
+                hc["complete"][ks] = True
+            asked += int(o.get("asked") or 0); stores += int(o.get("stores") or 0)
+        hc["asked"] = int(hc.get("asked") or 0) + asked
+        hc["stores_found"] = int(hc.get("stores_found") or 0) + stores
+        hc["updated"] = time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())
+        with open(CURSOR, "w", encoding="utf-8") as f:
+            json.dump(cur, f, indent=1, sort_keys=True)
+        print("host sweep of graph %s: +%d hosts asked, +%d stores on a subdomain this run; %d asked and %d stores so far; shards finished: %d of %d" % (
+            hc.get("release"), asked, stores, hc["asked"], hc["stores_found"], len(hc["complete"]), HOSTS_SHARDS))
     try:
         print("name-server providers watched by the sweep: %d" % write_ns_watch())
     except Exception as e:
@@ -751,7 +963,7 @@ def leads(prev, pdet, proof, main_keys, vstate, stats, names=None, in_canada=Non
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["lookup", "merge", "table", "sweep", "sweep-plan"])
+    ap.add_argument("cmd", choices=["lookup", "merge", "table", "sweep", "sweep-plan", "hosts", "hosts-plan"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--minutes", type=float, default=100)
@@ -764,6 +976,11 @@ def main():
     ap.add_argument("--release", default="auto", help="sweep: the web graph release (default: the one the sweep started with, else the newest)")
     ap.add_argument("--base", default="", help="sweep: URL or local path of the vertices file (tests)")
     a = ap.parse_args()
+    if a.cmd == "hosts":
+        return hosts_sweep(a)
+    if a.cmd == "hosts-plan":
+        print(json.dumps(hosts_left(sweep_cursor())[:max(1, a.limit or HOSTS_SHARDS)]))
+        return
     if a.cmd == "sweep":
         sweep(a)
     elif a.cmd == "sweep-plan":

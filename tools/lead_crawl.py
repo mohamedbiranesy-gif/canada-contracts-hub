@@ -32,6 +32,7 @@ DONE = os.path.join(INC, "claude_lead_crawl_done.tsv")
 TDONE = os.path.join(INC, "claude_tenant_crawl_done.tsv")
 OUT = os.path.join(INC, "claude_buyer_ap_results_cccrawl01.csv")
 TODAY = time.strftime("%Y-%m-%d")
+MYSHOPIFY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data/incoming/claude/credit_scan/graph_myshopify_hosts.txt.gz")  # <store> of every <store>.myshopify.com host name in the web graph
 US_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)"
                      r"\.?,?\s+(\d{5})(?:-\d{4})?(?![A-Za-z0-9])")
 GB_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})(?![A-Za-z0-9])")
@@ -500,13 +501,20 @@ def candidates_mode(a, k, n):
                           **({"_no_sitemap": True, "_max_pages": 6} if r["vendor_key"] == "shopify" else {})})
     # stores the DNS lookups found on Shopify's storefront addresses (tools/dns_services.py): candidates made here, never written to the
     # candidates file (they number in the hundreds of thousands); their done lines go to the shards like every other candidate's
-    n_dns = 0
+    n_dns = n_my = 0
     if a.dns_stores and (not a.vendors or "shopify" in a.vendors.split(",")) and "shopify" not in (a.skip_vendors or "").split(","):
         try:
             import dns_services as DNS
+            # 2026-11-10, measured on the first 32,989 stores read: accepted 43 % on .ca, 38 % on .us, 26 % on .com, 0-2 % on another country's
+            # ending (.uk 672 of 703 out of scope, .au 641 of 654, .de 421 of 436 …: those stores contract with Shopify's Irish or Singapore
+            # company). A run reads a bounded number of stores: the endings where a store is most often in scope come first.
+            GEN = {"com", "co", "net", "org", "shop", "store"}
+            GEN2 = {"io", "me", "tv", "cc", "ai", "gg", "ly", "fm", "to", "la", "vc", "ws", "sh", "so", "xyz", "info", "biz", "online", "site", "club", "life", "world", "love", "art", "design", "boutique"}
+            def cls_of(h):
+                e = h.rsplit(".", 1)[-1]
+                return 0 if e in ("ca", "us") else 1 if e in GEN else 2 if (e in GEN2 or len(e) > 2) else 3
+            cand = []
             for o in DNS.records():
-                if n_dns >= a.dns_stores:
-                    break
                 if not o.get("shop"):
                     continue
                 h = o["d"]
@@ -514,16 +522,50 @@ def candidates_mode(a, k, n):
                 if ck in done or h in hosts or ("www." + h) in hosts or not shard_ok(h, k, n):
                     continue
                 hosts.add(h)
+                cand.append((cls_of(h), hashlib.sha1(h.encode()).hexdigest(), h, o))
+            cand.sort()
+            print("stores from the DNS lookups not read yet: %d (by ending: %s)" % (len(cand), dict(sorted(collections.Counter(c[0] for c in cand).items()))), flush=True)
+            dns_tasks = []
+            for _, _, h, o in cand[:a.dns_stores]:
+                ck = "t:shopify:%s" % h
                 r = {"cand_key": ck, "vendor_key": "shopify", "name": "", "website": "https://%s/" % h, "evidence_url": "https://dns.google/resolve?name=%s&type=A" % h, "capture": o.get("t") or "",
                      "name_basis": "", "website_basis": "the domain's address record points to Shopify's storefront network (A %s, looked up %s)" % (o.get("a") or "", o.get("t") or ""),
                      "slug": "asset", "extra": "{}"}
-                tasks.append({"task_id": "TN-" + hashlib.sha1(ck.encode()).hexdigest()[:10], "buyer_key": ck, "buyer_name": h, "known_website": "https://%s/" % h, "_c": r,
-                              "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy"), "_no_sitemap": True, "_max_pages": 6})
+                dns_tasks.append({"task_id": "TN-" + hashlib.sha1(ck.encode()).hexdigest()[:10], "buyer_key": ck, "buyer_name": h, "known_website": "https://%s/" % h, "_c": r,
+                                  "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy"), "_no_sitemap": True, "_max_pages": 6})
                 n_dns += 1
         except Exception as e:
+            dns_tasks = []
             print("DNS store candidates not loaded: %s" % e, flush=True)
         print("stores from the DNS lookups queued: %d" % n_dns, flush=True)
-    tasks.sort(key=lambda t: (t["_c"]["vendor_key"] == "shopify", t["buyer_key"]))  # customer portals (organisation named by the portal) before stores
+        # stores named by their myshopify.com address only (2026-11-10): the host-level web graph holds 206,386 <store>.myshopify.com names. A store
+        # with a domain of its own answers its myshopify.com address with that domain (a redirect; "domain" in its meta.json): one request tells
+        # whether there is a store, where it is and which site is its own. The site is then read like any other store's.
+        if getattr(a, "myshopify", 0) and os.path.exists(MYSHOPIFY):
+            try:
+                with gzip.open(MYSHOPIFY, "rt", encoding="utf-8") as fh:
+                    names = [l.strip().lower() for l in fh if l.strip()]
+                names = sorted((hashlib.sha1(x.encode()).hexdigest(), x) for x in names if re.fullmatch(r"[a-z0-9][a-z0-9-]{1,60}", x) and shard_ok(x + ".myshopify.com", k, n))
+                for _, x in names:
+                    if n_my >= a.myshopify:
+                        break
+                    h = x + ".myshopify.com"
+                    ck = "t:shopify:%s" % h
+                    if ck in done or h in hosts:
+                        continue
+                    hosts.add(h)
+                    r = {"cand_key": ck, "vendor_key": "shopify", "name": "", "website": "https://%s/" % h, "evidence_url": "https://%s/meta.json" % h, "capture": TODAY,
+                         "name_basis": "", "website_basis": "the store's own myshopify.com address (%s, a host name of the web graph) answers with this domain as its own" % h, "slug": "asset", "extra": "{}"}
+                    tasks.append({"task_id": "TN-" + hashlib.sha1(ck.encode()).hexdigest()[:10], "buyer_key": ck, "buyer_name": h, "known_website": "https://%s/" % h, "_c": r,
+                                  "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy"), "_no_sitemap": True, "_max_pages": 6})
+                    n_my += 1
+            except Exception as e:
+                print("myshopify.com addresses not loaded: %s" % e, flush=True)
+            print("stores named by their myshopify.com address queued: %d (read before the DNS stores: a bounded number a run)" % n_my, flush=True)
+        tasks.extend(dns_tasks)
+    for i, t in enumerate(tasks):
+        t["_i"] = i
+    tasks.sort(key=lambda t: (t["_c"]["vendor_key"] == "shopify", t["_i"] if t["_c"]["vendor_key"] == "shopify" else 0, t["buyer_key"]))  # customer portals (organisation named by the portal) before stores; stores in the order queued
     if a.limit:
         tasks = tasks[:a.limit]
     print("shard %d/%d: %d candidate sites to read (%d done before)" % (k, n, len(tasks), len(done)), flush=True)
@@ -558,6 +600,25 @@ def candidates_mode(a, k, n):
                             meta = mj
             except Exception:
                 meta = None
+            if st["host"].endswith(".myshopify.com"):
+                # the candidate is the store's myshopify.com address: the site to read is the domain the store gives as its own
+                own = re.sub(r"^https?://", "", str((meta or {}).get("domain") or "")).strip("/").lower()
+                why = "" if meta else "no_store"
+                if meta and (not own or own.endswith(".myshopify.com") or not re.fullmatch(r"[a-z0-9.-]+\.[a-z]{2,}", own)):
+                    why = "no_own_domain"
+                elif meta and ("t:shopify:%s" % own in done or "t:shopify:%s" % (own[4:] if own.startswith("www.") else own) in done):
+                    why = "known_store"
+                if why:
+                    _tl.st = None
+                    with lock:
+                        stats["sites"] += 1
+                        stats["myshopify_" + why] += 1
+                        fd.write("%s\t%s\t%s\t1\t0\t%s\tr2\ts2\tp2\tb2\n" % (t["buyer_key"], TODAY, why + (":" + own if own and why == "known_store" else ""), vkey))
+                    return
+                t["known_website"] = "https://%s/" % own
+                st["host"], mu = own, "https://%s/meta.json" % own
+                with lock:
+                    stats["myshopify_own_domain_found"] += 1
             mcc = str((meta or {}).get("country") or "").upper()
             if meta and mcc and mcc not in scope:  # a store abroad contracts with Shopify's Irish or Singapore company: no further page is read
                 _tl.st = None
@@ -861,6 +922,7 @@ def main():
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--stamp", default="", help="with --merge: the name of this run's shard files")
     a.add_argument("--facts-shards", action="store_true", help="with --merge --stamp: the site facts go to site_facts/facts_<stamp>.gz (the workflow commits that folder)")
+    a.add_argument("--myshopify", type=int, default=0, help="candidates mode: also read up to this many stores per shard named only by their myshopify.com address (host names of the web graph)")
     a.add_argument("--dns-stores", type=int, default=0, help="candidates mode: also read up to this many stores per shard that the DNS lookups found on Shopify's storefront addresses")
     a.add_argument("--registry", type=int, default=0, help="leads mode: also read up to this many registry candidates per shard (.ca sites whose home page prints a role mailbox)")
     a.add_argument("--registry2", type=int, default=0, help="leads mode: then up to this many second-class registry candidates per shard (.ca sites whose home page prints no mailbox; 4 pages each)")

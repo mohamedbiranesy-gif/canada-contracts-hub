@@ -14,6 +14,10 @@ name: dns-services
 #          whc.ca, webnames.ca, easydns.com, hover.com … — data/incoming/claude/credit_scan/sweep_ns_watch.txt, rewritten by the merge)? Only
 #          the hits are kept; each shard notes its place in the list and the run after it goes on from there, until the list is done and
 #          the part swept before the second question existed is caught up (the merge starts the next run).   (tools/dns_services.py sweep)
+# hosts  : (mode=hosts) stores that live on a subdomain (shop.brand.com, store.brand.com, us.brand.com …): the 7 M three-label host names the
+#          host-level web graph holds for ordinary domains on the same endings and .ca, one question each (the address record); a host on
+#          Shopify's storefront network whose domain is not a known store is kept. Its own concurrency group: it runs beside the sweep and
+#          starts its next run until its eight shards are done.                                             (tools/dns_services.py hosts)
 # Nothing here contacts the organisations' own servers. No AI, no search engine, no Mac.
 on:
   schedule:
@@ -30,13 +34,13 @@ on:
         description: "at most this many domains per runner (0 = no limit)"
         default: "0"
       mode:
-        description: "lookup | sweep"
+        description: "lookup | sweep | hosts"
         default: "lookup"
 permissions:
   contents: write
   actions: write
 concurrency:
-  group: dns-services
+  group: dns-services${{ inputs.mode == 'hosts' && '-hosts' || '' }}
   cancel-in-progress: false
 env:
   SHARDS: ${{ inputs.shards || '4' }}
@@ -56,6 +60,8 @@ jobs:
         run: |
           if [ "$MODE" = "sweep" ]; then   # the sweep shards that still have work, least advanced first
             echo "matrix=$(python3 tools/dns_services.py sweep-plan --limit "$(python3 -c "import os; print(max(1,min(8,int(os.environ['SHARDS']))))")")" >> "$GITHUB_OUTPUT"
+          elif [ "$MODE" = "hosts" ]; then
+            echo "matrix=$(python3 tools/dns_services.py hosts-plan --limit "$(python3 -c "import os; print(max(1,min(8,int(os.environ['SHARDS']))))")")" >> "$GITHUB_OUTPUT"
           else
             python3 -c "import os; n=max(1,min(8,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
           fi
@@ -91,6 +97,8 @@ jobs:
             # 250 domains a second per runner: under the 300 questions a second this runner's resolver allows itself towards any one zone (the
             # .com servers are asked once per domain; the second question goes to the domain's own name servers)
             python3 tools/dns_services.py sweep --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 250
+          elif [ "$MODE" = "hosts" ]; then
+            python3 tools/dns_services.py hosts --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 250
           else
             python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 300 --limit "$LIMIT" --resolver 127.0.0.1:5353 --qps 480
           fi
@@ -128,6 +136,10 @@ jobs:
             left=$(python3 tools/dns_services.py sweep-plan | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "sweep shards with work left: $left"
             if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=sweep" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" || true; fi
+          elif [ "$MODE" = "hosts" ]; then
+            left=$(python3 tools/dns_services.py hosts-plan | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
+            echo "host sweep shards with work left: $left"
+            if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=hosts" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" || true; fi
           else
             gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/credit-scan.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" || true
           fi
