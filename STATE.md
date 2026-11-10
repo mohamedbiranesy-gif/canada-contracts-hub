@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 15:10Z — published build 14:29Z = 169,768 rows, 165,320 with a mailbox; the build path rebuilt for a table five times larger)
+# STATE.md — Claude lane (updated 2026-11-10 17:25Z — published build 15:47Z = 172,770 rows, 168,245 with a mailbox; row audit round 3; the referee reads a page once)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -97,6 +97,30 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
 
+## 2026-11-10 17:25Z — build 15:47Z: 172,770 rows (168,245 with a mailbox); audit round 3; referee fixed; two supply lanes started
+**Where the table is.** Build 15:47Z, the first on the rebuilt path: 172,770 rows, 42 minutes, ranker peak 3.6 GB, runner disk 85 GB free
+(I had assumed 14 GB: corrected in coord/DECISIONS.md 15:10Z — the disk was never the near limit). The table grew by 3,000 rows only because
+the 14:25Z crawl's ~53,000 mailboxes were not verified yet: the referee run that covers them started 16:21Z on the old code.
+
+**Referee.** Every run since 11:26Z fetched every page again (the cache save failed): 65–105 minutes a run, runs queued behind each other,
+3–4 hours from crawl to table. Fixed 16:28Z (b66d054): a verdict stands from the ledger, a run reads the new rows' pages only. The first
+run on the new code is the next one after 16:21Z's; expect its page count in the log line "prefetched N new pages; rows whose page was not
+asked for again: M".
+
+**Row audit, round 3** (coord/DECISIONS.md 17:25Z): a site reader's record only for its own host (readers keyed by host from now on); a
+name off a page only when the page ties it to the buyer, plus three new strong statements (the site's operator, its own JSON-LD node,
+"doing business as"); a registry record only while it can be the row's; directories by the site itself; the address cut at the street
+number. On the local build: legal names 550 gone / 295 new / 668 replaced, 1,343 addresses cleaned, rows / tiers / mailboxes unchanged.
+
+**Supply started this afternoon.** Member directories from the archive index: 1,926 directory hosts, 1,860 judged, 20 new Canadian bodies
+(most of the platform's tenants are American chambers; 258 print no address on their home page — the contact page is the next look); the
+crawl of the 22 ran 15:41–17:14Z. DNS sweep of the web graph's domains for Shopify storefront addresses: four shards running since 15:40Z,
+self-continuing.
+
+**Next, in order.** (1) Watch the first referee run on the new code and the rank build after it (expect ~215–220k rows). (2) Readers: the
+org_facts run of 18:11Z reads each host for itself; check the "not taken" look-ups fall. (3) Ranking in parts: one run on GitHub against a
+normal build, then the slim partition pass before ~500k rows. (4) More Canada-based platforms with public tenants, vetted one by one.
+
 ## 2026-11-10 15:10Z — build 14:29Z: 169,768 rows; why no build landed between 10:54Z and 14:29Z; the build path measured and rebuilt
 **Published and committed (14:29Z, first build with every audit fix of 12:45Z):** 169,768 rows, 165,320 with a mailbox.
 | Line | Rows with a mailbox |
@@ -111,8 +135,8 @@ Tier E grew by 691 against the 13:27Z table (3,762): the own-site rules of the a
 `coord/results/ranked/ranked_buyers.csv.gz` (151 MB) had stayed tracked by git although .gitignore named it; the retry loop rebuilt and was
 shut down by the runner in the DNS step, which read the 2 GB table three times into memory. Both fixed 13:45Z; build 14:29Z is the result.
 
-**Then measured, because the next ones were visible from there** (table in coord/DECISIONS.md 15:10Z): disk ~65 KB a row (limit ~215,000
-rows — the very next build), scoreboard and growth report holding whole rows (limit ~400,000), the DNS file in git (limit ~470,000 domains),
+**Then measured, because the next ones were visible from there** (table in coord/DECISIONS.md 15:10Z): disk ~65 KB a row (limit ~1.3 million
+rows: a runner has 85 GB free, measured in the 15:47Z build — I had first written ~215,000 on an assumed 14 GB), scoreboard and growth report holding whole rows (limit ~400,000), the DNS file in git (limit ~470,000 domains),
 the ranker's own memory (3.6 GB at 169,768 rows, +11.8 KB a row: limit ~800,000). Built and verified byte-identical on a full local build:
 tables compressed only (disk of a build 2.6 → 0.35 GB at 76,913 rows), reports that keep cells instead of rows (2.83 → 0.22 GB, 2.33 → 0.09 GB),
 the DNS file and the crawl results in parts, one prep script and one tail script for both workflows.

@@ -720,12 +720,18 @@ retry died for lack of memory in the DNS step. Measuring the build end to end fo
 
 | What | Measured | Limit reached at |
 |---|---|---|
-| disk used by one build | ~65 KB a row: previous table as plain text, new table as plain text, the packages, a working copy of the packages (11 GB at 170,000 rows; a runner has ~14 GB free) | ~215,000 rows |
+| disk used by one build | ~65 KB a row: previous table as plain text, new table as plain text, the packages, a working copy of the packages (11 GB at 170,000 rows; a runner has 85 GB free — see the correction below) | ~1.3 million rows (not ~215,000 as first written) |
 | scoreboard (`coverage_targets.py`) | 2.83 GB of memory at 73,600 delivered rows (whole rows held) | ~400,000 rows |
 | growth report | 2.33 GB at 73,600 delivered rows | ~500,000 rows |
 | DNS-posture file `claude_dmarc_check.tsv` | 213 bytes a domain, one file in git | ~470,000 domains (GitHub's 100 MB) |
 | crawl result file | rotated at 30 MB only between merges; one merge brought 35 MB | a merge of ~100,000 rows |
 | the ranker itself | 3.6 GB at 169,768 rows, +11.8 KB a row | ~800,000 rows on a 16 GB runner |
+
+**Correction, 16:20Z.** The disk line was written on an assumption (a runner with ~14 GB free) that I had not measured. The first build on
+the new path printed it: `/dev/root 145G 61G 85G 42%` — 85 GB free. At ~65 KB a row the old path would have filled that at ~1.3 million rows,
+not at 215,000: the disk was never "one build away". The compressed-only path stays (a build uses a fifth of the disk and nothing reads the
+plain files), but it was not the urgent limit; the urgent ones were the commit of a 151 MB file and the memory of the DNS step, both fixed
+at 13:45Z. Every build now prints the free disk at its start, after the prep, after the ranking and before the publish.
 
 **Decided and built (each verified on a full local build of 76,913 rows: every report, every package file and every member of the release's
 zips byte-identical to the build before the change):**
@@ -752,3 +758,63 @@ The 23 extra inferred rows are worth a line: one process leaves out an inferred 
 Of the 23 that a second part let through, 18 are different organisations with a common name ("Calvary Baptist Church" of another town,
 "First Presbyterian Church") and 5 the same organisation on a second domain. The name rule stays as it is — it costs ~0.1 % of the rows and
 its mistakes go both ways.
+
+## 2026-11-10 17:25Z from claude — row audit, round 3 (whose record, whose name) and a referee that reads a page once
+Read on the published table (build 14:29Z, 169,768 rows), then measured on a full local build (76,706 rows; the rows, the tiers and the 73,665
+mailboxes come out the same — only cells change).
+
+**What was wrong**
+- 549 rows carried a site reader's record read on ANOTHER host of the same registrable domain: "Texas Department of Insurance" (tdi.texas.gov)
+  on five other Texas agencies, one municipality's name, address and telephone on the sixteen others hosted on ao.ca, one church's address on
+  another church on churchcenter.com, a realtor's logo on the platform that hosts it. The readers kept one record per registrable domain.
+- A name printed on a page was taken for the buyer's legal name when it shared one everyday word with it: "Canadian Dental Care" (a federal
+  programme) on 71 dental clinics, "Canadian Real Estate Association" on 29 brokers, "Doctor of Dental Surgery" on 16, "University" on 11,
+  "Réalisation : SIGNÉ FRANÇOIS ROY INC" (the web agency) on 9, "Company name" (a template) on 4.
+- A buyer's registry record stayed under the row's key after the row's name changed: "VILLE DE QUÉBEC" with the City's NEQ on a row now named
+  "LES YMCA DU QUÉBEC", "UNIVERSITÉ DU QUÉBEC" on calculquebec.ca.
+- 3,792 of 82,492 printed buyer addresses carried words of the page in front of the street number (opening hours, menu words, a price).
+- The provincial directories were looked up by registrable domain: "Village de Godbout" for every municipality with a page on
+  municipalites-du-quebec.com.
+
+**Decided (each rule measured on the local build; counts are cells or look-ups there)**
+A. **A site reader's record is a row's own when it was read on the row's own host.** Read on another host of the domain it is taken in two
+   cases only: the reader read that host for this very organisation (the name it was given is the row's name: bookstore.upei.ca and upei.ca),
+   or the row's host is the member directory of the body whose own site was read (business.ottawabot.ca → ottawabot.ca, from
+   tools/member_live.py). Look-ups not taken: 1,838; taken for the same name: 235; taken for a body's directory host: 1,569. The readers now
+   keep one record per host (tools/org_extras.py, org_contacts.py), so each host gets its own at the next reader run; the hosts of one
+   registrable domain share two requests a second (tools/ap_crawler.py).
+B. **A name read off a page is the buyer's legal name when the page ties it to the buyer**: a shared word that few names carry (a word in more
+   than 1 in 2,000 of the 83,191 names of organisations read proves nothing), or one name inside the other, or the site's address beginning
+   with / made of the name's own words ("stonechurchvet" = Stone Church Animal Clinic; not "smiledentalcare" = Canadian Dental Care). A name
+   printed on three or more sites (1,053 names) is somebody else's unless it is the row's own. Not a name: a placeholder, a degree, a
+   professional title, a kind of body with no name ("University", "Canadian Association"), a credit line, a piece of a sentence, a date in front.
+   New, because they are the strongest statements a site makes and a numbered company shares no word with the name it trades under:
+   - the site says who operates it — "operated by 1688150 Alberta Ltd", "X Ltd. («we»)" — on its own domain, naming a legal person, not a web
+     platform's own terms: 104 names;
+   - the site's own JSON-LD Organization node (the node gives this very site as the organisation's address): 303 names;
+   - "X Ltd doing business as <the site's name>", "<the site's name>, a division of X": X is taken: 8 names.
+   Legal-name cells: 36,347 → 36,092 filled; 550 gone, 295 new, 668 replaced.
+C. **A registry record is left out when the name it was looked up under is no longer the row's name AND the registered name fails the test of
+   rule B** while being made of a kind of body, a place and everyday words only, or naming an institution of a kind the row is not: 33 records
+   (27 visible names: Ville de Québec, de Montréal, de Lévis, de Granby …, Université du Québec, de Montréal, the Canadian Real Estate
+   Association). A company's registered name stays. A record of another name than the legal person the site itself states is left out too (10).
+   The registry tools look a row up again when its name has changed, and look up the stated legal person when the site states one
+   (tools/registry_names.py).
+D. **A directory entry is a row's own when the row's site is the entry's site** (same host; same first folder when the entry's address has
+   one); a site that entries of different names give is a portal and names none of them (112 sites); a directory "address" must have a number
+   and a word.
+E. **The address is cut at the street number**: opening hours skipped like telephone numbers; the first number followed by its street with no
+   page word in between; a unit or a floor in front stays. 1,343 addresses lost the page's words, 67 kept a unit or floor that was cut before.
+
+**Tried and not kept** — dropping every registry record whose looked-up name had changed (it removed about 55 plausible numbered companies to
+remove 15 wrong public bodies); taking the bare domain's record for any host under it (a client's portal on its software vendor's domain would
+get the vendor's logo, telephone and address); a frequency rule on copyright-line names (a broadcaster's or developer's name on each of its
+own sites is the true owner). Known to remain: a few stated operators that are partners, not operators; JSON-LD nodes left over from a
+staging site; rows on a second host of an organisation wait for the readers to read that host.
+
+**The referee reads a page once.** Its cache of fetched pages (300,000 files, 5.6 GB) had not been saved since 11:26Z, so every run fetched
+every newer page again: 80,953 pages for 4,200 new rows, 65–105 minutes a run. The verdict is in git (`coord/results/verified_ledger.csv`):
+it now stands for 45–59 days for a value seen on its page, 7 for a value not on it, 3 for a page that could not be opened, and the ledger
+says how the value was seen. Checked offline on today's inputs with no page at hand: 205,325 values verified on their page, 4,906 seen
+earlier and 997 on an archive copy come out as in the last real run. The cache steps are gone from the workflow.
+

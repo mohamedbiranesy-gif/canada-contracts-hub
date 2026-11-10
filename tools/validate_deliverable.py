@@ -11,7 +11,10 @@ try:
 except Exception:
     FIRST = set()
 EMAIL = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$")
-FREEMAIL = re.compile(r"^(gmail|hotmail|outlook|live|yahoo|ymail|msn|aol|icloud|me|mac|protonmail|googlemail)\.", re.I)
+# a webmail provider's own domain (the ranker's rule, contrib/claude/rank_buyers/rank.py). Until 2026-11-10 this matched any domain whose first
+# label was a provider's name: "live.palmer.edu" (a college's own host) failed the audit's hard check 5 in every build since it entered the table.
+FREEMAIL = re.compile(r"^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|rocketmail|aol|icloud|me|mac|protonmail|proton|gmx|mail|yandex|zoho|hush|hushmail|fastmail|tutanota|tuta|pm)"
+                      r"\.(?:com|ca|net|org|fr|me|co\.uk|de|ch)$", re.I)
 PERSONISH = re.compile(r"^[a-z]+[._-][a-z]+$")  # first.last — checked against role words
 ROLE_WORDS = re.compile(r"info|contact|account|payable|invoice|factur|compt|financ|purchas|procure|achat|admin|office|bureau|reception|accueil|general|"
                         r"greffe|mairie|municipal|ville|town|city|clerk|treasur|tresor|secretar|direction|service|support|sales|vente|mail|courrier|ap\b|ar\b|"

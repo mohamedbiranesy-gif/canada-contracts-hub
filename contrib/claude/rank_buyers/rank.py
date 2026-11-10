@@ -970,6 +970,8 @@ _CA_PC0 = re.compile(r"\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s?\d[ABCEGHJ-NPR
 n_lf = collections.Counter()
 def apply_details(x, k):
     f = LFACTS.get(k) or LFACTS_DOM.get(registrable(host_of(x.get("buyer_website") or "")))
+    if f and not LFACTS.get(k) and host_of(f.get("site") or "") != host_of(x.get("buyer_website") or ""):
+        f = None; n_lf["facts of another host of the domain not taken"] += 1  # eastridge-emc.churchcenter.com is not lcachurch.churchcenter.com
     if f:
         if f.get("site_name") and (re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/?", (x.get("buyer") or "").lower()) or x.get("tier") == "R"):
             # the lead only carried the domain (or its address) — or the row is about the site itself (tier R) and its name so far is what a third party
@@ -1235,6 +1237,26 @@ if _PN > 1:
     print("RANK_PART %d/%d: %d of %d leads in this part (leads per part: %s); organisations placed: %d, of which %d stand with a row that exists before the leads or a buyer of the contract dataset (part 0)" % (
         _PI, _PN, len(leads), _nl, dict(sorted(_sizes.items())), len(_part_of), _n_core))
     _free(globals(), "_up", "_node", "_core", "_core_roots")
+    # What belongs to the other parts' organisations is not read again by this process: the ranker only joins what the partition keeps
+    # together. Measured before this (two parts of 76,913 rows): a part peaked at 2.42 GB against 2.49 GB for one process — every table was
+    # still whole. The tables read later (DNS posture, the lanes' row details) are cut to this part's mailboxes where they are loaded.
+    _memstat("at the partition", rows, globals())
+    _others = {k for k, p in _part_of.items() if p != _PI}
+    _n0 = (len(mail), len(LDET), len(LFACTS))
+    for _k in _others:
+        mail.pop(_k, None); LDET.d.pop(_k, None); LFACTS.pop(_k, None)
+    for _d in list(mail_dom):
+        _o = mail_dom[_d]
+        for _k in [k for k in _o if k in _others]:
+            del _o[_k]
+        if not _o:
+            del mail_dom[_d]
+    for _d in [d for d, f in LFACTS_DOM.items() if f.get("key") in _others]:
+        del LFACTS_DOM[_d]
+    _PART_BOXES = {(m.get("mailbox") or "").strip().lower() for _s, m in mail.values()}  # every mailbox an organisation of this part may end up with
+    print("RANK_PART %d/%d: tables cut to this part — mailboxes %d -> %d, lead details %d -> %d, site facts %d -> %d" % (_PI, _PN, _n0[0], len(mail), _n0[1], len(LDET), _n0[2], len(LFACTS)))
+    del _others
+    _memstat("after the cut", rows, globals())
 _SN = int(os.environ.get("RANK_SAMPLE") or 0)  # debug only: a fixed 1-in-N sample of the leads and of the inferred rows, to compare two versions of this script on a small machine
 def _in_sample(k):
     import hashlib as _hs
@@ -1954,7 +1976,38 @@ OC = {}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
     for d in jl(ROOT + "/data/incoming/claude/claude_org_contacts.jsonl.gz"):
         OC[d.get("domain")] = d
-def oc_of(url):
+N_OTHER_HOST = collections.Counter()
+# the member-directory hosts of Canada-located bodies and each body's own domain (tools/member_live.py: "business.ottawabot.ca" is the Ottawa
+# Board of Trade's directory, its own site is ottawabot.ca) — the one case where the lane itself says whose another host of a domain is
+BODY_DOM = {}
+try:
+    import member_live as _ML0
+    BODY_DOM = {(_h[4:] if _h.startswith("www.") else _h): _v[0] for _h, _v in _ML0.known_hosts().items()}
+except Exception as _e:
+    print("member-directory hosts not read (%s): a body's own site is not taken for its directory host" % str(_e)[:80])
+def own_host_record(rec, h, table, name=""):
+    """2026-11-10 (row audit, round 3): a site reader's record was kept under its site's registrable domain and handed to every row on that
+    domain — "Texas Department of Insurance" (read on tdi.texas.gov) to five other Texas agencies, one municipality's name and address to the
+    sixteen others on ao.ca, one church's address to another church on churchcenter.com, a realtor's logo to the platform it is hosted on. A
+    record is a row's own when it was read on the row's own host. Read on another host of the domain, it is still the row's own in two cases
+    only: the reader read that host for this very organisation (the name it was given is the row's name: bookstore.upei.ca and upei.ca are both
+    "University of Prince Edward Island"), or the row's host is the member directory of the body whose own site was read (BODY_DOM). Anything
+    else says nothing about this row; the readers key their records by host since that day, so each host gets its own."""
+    if rec is None:
+        return None
+    rh = host_of(rec.get("website") or "")
+    if rh and h and rh != h:
+        rn = norm(rec.get("name") or "").replace(" ", "")  # "University of King's College" = "University of Kings College"
+        if name and rn and rn == norm(name).replace(" ", "") and not DOMAIN_NAME.match((rec.get("name") or "").strip()):
+            N_OTHER_HOST[table + ": taken, read on another host for the same organisation (same name)"] += 1
+            return rec
+        if BODY_DOM.get(h) and rh == BODY_DOM[h]:
+            N_OTHER_HOST[table + ": taken, the row's host is the member directory of the body whose own site was read"] += 1
+            return rec
+        N_OTHER_HOST[table + ": not taken"] += 1
+        return None
+    return rec
+def oc_of(url, name=""):
     """org_contacts record for a site; shared hosts (canada.ca …) are keyed by organisation path since 2026-11-08"""
     h = host_of(url or "")
     if not h:
@@ -1962,7 +2015,7 @@ def oc_of(url):
     dom = registrable(h)
     pth = urllib.parse.urlparse(url if "//" in url else "https://" + url).path.rstrip("/")
     seg = "/".join(pth.split("/")[:3]) if pth else ""
-    return (OC.get(dom + seg) if seg else None) or (OC.get(h + seg) if seg else None) or (OC.get(h) if h != dom else None) or OC.get(dom)
+    return (OC.get(dom + seg) if seg else None) or (OC.get(h + seg) if seg else None) or own_host_record((OC.get(h) if h != dom else None) or OC.get(dom), h, "org_contacts", name)
 def flat_q(t):
     return re.sub(r"\s+", " ", t or "").strip()
 # where an address is (2026-11-10): every row's vendor is located in Canada by the row's own evidence, so an address that the vendor's website
@@ -2014,7 +2067,7 @@ OX = {}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_org_extras.jsonl.gz"):
     for d in jl(ROOT + "/data/incoming/claude/claude_org_extras.jsonl.gz"):
         OX[d.get("domain")] = d
-def ox_of(url):
+def ox_of(url, name=""):
     """org_extras record for a site; on shared hosts (canada.ca, ontario.ca …) org_extras v2 keys one record per organisation path"""
     h = host_of(url or "")
     if not h:
@@ -2022,7 +2075,7 @@ def ox_of(url):
     dom = registrable(h)
     pth = urllib.parse.urlparse(url if "//" in url else "https://" + url).path.rstrip("/")
     seg = "/".join(pth.split("/")[:3]) if pth else ""
-    return (OX.get(dom + seg) if seg else None) or (OX.get(h + seg) if seg else None) or (OX.get(h) if h != dom else None) or OX.get(dom)
+    return (OX.get(dom + seg) if seg else None) or (OX.get(h + seg) if seg else None) or own_host_record((OX.get(h) if h != dom else None) or OX.get(dom), h, "org_extras", name)
 TRAIL = re.compile(r"(?:\s+(?:our|the|all|home|about|contact|site|web|privacy|terms|follow|connect|menu|search|login|accessibility|faq|careers|news|events|donate|"
                    r"language|english|french|fran[çc]ais|skip|top|back|rights|reserved|reserves|tous|droits|r[ée]serv[ée]s|powered|by|design|website|sitemap|plan))+$", re.I)
 BAD_LEGAL = re.compile(r"copyright act|subject to|proprietary|affiliated|licen[cs]e|rights reserved|droits r[ée]serv|\btheme\b|muffin group|posted by|"
@@ -2042,7 +2095,23 @@ _NAV_STRONG = re.compile(r"\b(?:about us|contact us|[àa] propos|nous joindre|fa
 _NAV_WEAK = re.compile(r"\b(?:home|accueil|services|support|news|events|resources|team|portfolio|employment|partners|products|solutions|shop|gallery|investors|company|contact|about|"
                        r"twitter|instagram|facebook|linkedin|youtube)\b", re.I)
 _CREDIT_LINE = re.compile(r"\b(?:designed|developed|created|built|made|hosted|powered|maintained|managed|provided|crafted|produced)\s+(?:and\s+\w+\s+)?by\b|"
-                          r"\b(?:web ?site|site|web design|design|marketing|d[ée]veloppement)\s+(?:by|par)\b|\b(?:cr[ée]{2}|con[çc]u|r[ée]alis[ée]|propuls[ée]|h[ée]berg[ée]|d[ée]velopp[ée])e?s?\s+par\b", re.I)
+                          r"\b(?:web ?site|site|web design|design|marketing|d[ée]veloppement)\s+(?:by|par)\b|\b(?:cr[ée]{2}|con[çc]u|r[ée]alis[ée]|propuls[ée]|h[ée]berg[ée]|d[ée]velopp[ée])e?s?\s+par\b|"
+                          # 2026-11-10 (round 3): "© WEYMOK Tous droits réservés Réalisation : SIGNÉ FRANÇOIS ROY INC" gave the agency as the legal name of 9 sites
+                          r"\b(?:r[ée]alisation|conception|cr[ée]ation|design|d[ée]veloppement|h[ée]bergement|une r[ée]alisation de|un site de|site web)\s*:", re.I)
+# a template's placeholder, a degree or a professional title, a programme: printed on a page, never the legal name of the organisation
+_PLACEHOLDER = re.compile(r"^(?:your |my |the )?(?:company|business|site|website|store|shop|brand|organi[sz]ation)(?: |')?s? ?(?:name|title)(?: here)?$|^(?:doctor|docteur|master|bachelor|ma[îi]trise|baccalaur[ée]at)\s+(?:of|in|en|[èe]s)\b|"
+                          r"^(?:registered|certified|licensed|chartered|accredited)\s+[a-zà-ÿ]+(?:\s+[a-zà-ÿ]+)?\s*(?:therap|technolog|nurse|practition|professional|accountant|planner|engineer|dietitian|hygienist)\w*$", re.I)
+_PLACE_NOUN = {"canada", "quebec", "ontario", "alberta", "manitoba", "saskatchewan", "columbia", "scotia", "brunswick", "newfoundland", "labrador", "yukon", "nunavut", "territories",
+               "island", "montreal", "toronto", "vancouver", "calgary", "ottawa", "edmonton", "winnipeg", "halifax", "america", "states", "kingdom", "australia", "france", "texas", "california"}
+def only_generic_words(n, buyer=""):
+    """"University", "Canadian Association", "Municipalité du canton", "Centre", "Community Foundation": a kind of body, not a body. A name that
+    carries a place ("Health Canada", "Santé Québec", "Ville de Québec") is complete; so is a run of three such words and more ("First Nations
+    Health Authority", "Provincial Health Services Authority"); and the organisation's own name is never refused."""
+    t = set(re.findall(r"[a-z]{2,}|\d+", unicodedata.normalize("NFKD", n or "").encode("ascii", "ignore").decode().lower()))
+    t -= {"the", "of", "de", "du", "des", "la", "le", "les", "and", "et", "for", "pour", "inc", "ltd"}
+    if not t or (t & _PLACE_NOUN) or (t - NAME_STOP - GENERIC_ORG - _NATIONAL) or len(t - NAME_STOP) >= 3:
+        return False  # a number is a word of its own: "District 3", "School District 43"
+    return re.sub(r"^(?:the|la|le|les|l) ", "", norm(buyer)) != re.sub(r"^(?:the|la|le|les|l) ", "", norm(n))
 _NOT_A_NAME = re.compile(r"\d{1,2}:\d{2}|\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s?\d[ABCEGHJ-NPRSTV-Z]\d\b|\b(?:floor|[ée]tage|suite\s+\d|c/o|attn|office location|office hours|heures d.ouverture|boul\.|p\.?o\.? box|"
                          r"case postale)\b|\b(?:we (?:use|acknowledge|are|carry|offer|have)|we['’]re|you (?:consent|agree|need|can)|(?:to|for|give|help) you|who we are|what we|this field|should be|shall be|"
                          r"are you|limited time|book an?|click here|read more|learn more|and our|(?:visit|meet|join|contact|call|email|follow|see|find|work with|connect with|stay with) (?:our|us)|"
@@ -2055,7 +2124,12 @@ def clean_legal(name, buyer=""):
     n = re.sub(r"\s+", " ", n).strip(" .,-–—|:")
     n = re.sub(r"^(?:tous droits r[ée]serv[ée]s|all rights reserved|copyright|©|\(c\))\s*(?:(?:19|20)\d\d\s*)?", "", n, flags=re.I).strip(" .,-–—|:")
     n = re.sub(r"^(?:19|20)\d\d\s*[/|–—-]*\s*", "", n).strip(" .,-–—|:/")  # "2026 // Coop Audiovisuelle GTS"
+    n = re.sub(r"^(?:(?:january|february|march|april|may|june|july|august|september|october|november|december|janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[ûu]t|septembre|octobre|novembre|"
+               r"d[ée]cembre)\.?\s+(?:\d{1,2},?\s+)?(?:19|20)\d\d|\d{1,2}(?:er)?\s+(?:january|february|march|april|may|june|july|august|september|october|november|december|janvier|f[ée]vrier|mars|avril|mai|juin|"
+               r"juillet|ao[ûu]t|septembre|octobre|novembre|d[ée]cembre)\.?\s+(?:19|20)\d\d)\s+", "", n, flags=re.I).strip(" .,-–—|:/")  # "July 16, 2026 City Best Limousine": the page's "last updated" date
     n = re.sub(r"^(?:\(?\d{3}\)?[\s.-]?)?\d{3}[\s.-]\d{4}\s+(?=[A-Za-zÀ-ÿ])", "", n)  # "775-8387 Midtown Veterinary Hospital": the end of a telephone number
+    n = re.sub(r"^\d{1,2}[.)]\s+(?:introduction|d[ée]finitions?|agreement to (?:the )?terms|acceptance of (?:the )?terms|general(?: terms)?|g[ée]n[ée]ralit[ée]s|pr[ée]ambule|overview|scope|"
+               r"who we are|qui sommes-nous|about us|[àa] propos)\s+", "", n, flags=re.I).strip(" .,-–—|:/")  # "1. Introduction Divertissements Oxygames inc"
     if " | " in n and len(n.split(" | ")[0].strip()) >= 3:
         n = n.split(" | ")[0].strip(" .,-–—|:")  # "Canadian College of Traditional Chinese Medicine | CCTCM | …"
     n = re.split(r"\s+(?:connect with us|follow us|stay connected|subscribe|sign up|cricos\b|abn\b|acn\b|registered charity|charitable registration|privacy(?=\s+(?:policy|notice|statement|terms|settings|&|and\s+(?:terms|cookie)|\|)|\s*$)|terms(?=\s+(?:of|and|&|conditions|\|)|\s*$)|all rights|"
@@ -2071,8 +2145,11 @@ def clean_legal(name, buyer=""):
     _ns, _nw = len(_NAV_STRONG.findall(n)), len(_NAV_WEAK.findall(n))
     if _ns >= 2 or (_ns >= 1 and _nw >= 2) or "@" in n or n.count("(") != n.count(")"):
         return ""  # a run of menu words ("Releases Company Careers About Us …"), a mailbox, or a fragment cut inside brackets ("Act)to Company at support@")
-    if _CREDIT_LINE.search(n) or _NOT_A_NAME.search(n) or _BARE_GENERIC.match(n) or len(n.split()) > 12:
-        return ""  # the web agency's credit, an address / opening hours / consent sentence, a bare generic word
+    if _CREDIT_LINE.search(n) or _NOT_A_NAME.search(n) or _BARE_GENERIC.match(n) or len(n.split()) > 12 or _PLACEHOLDER.search(n) or only_generic_words(n, buyer):
+        return ""  # the web agency's credit, an address / opening hours / consent sentence, a bare generic word, a placeholder, a degree or title
+    if re.search(r"\s(?:by|with|and|are|is|of|the|to|for|from|or|as|that|which|par|de|du|des|et|avec|pour|sur|dans|le|la|les|qui|que)$", n, re.I) or re.match(r"(?:by|en)\s+\w+(?:ing|ant)\b", n, re.I) or \
+            re.search(r"\b(?:and|et)\s+(?:are|is|sont|est)\b|\b(?:are|is|sont|est)\s+(?:protected|owned|the property|registered|prot[ée]g[ée]e?s?|la propri[ée]t[ée])\b", n, re.I):
+        return ""  # a piece of a sentence: "XXL IT Services and are protected by", "By booking a cleaning service with NeatNow"
     return n if 3 <= len(n) <= 90 and re.search(r"[A-Za-zÀ-ÿ]{3}", n) else ""
 # the footer of a site built on a government template credits the government ("© Gouvernement du Québec" on every centre de services scolaire's
 # site): that is not the legal name of a body that is a legal person in its own right
@@ -2099,7 +2176,7 @@ PAGE_NOISE = re.compile(r"\b(faculty and staff|faculty & staff|log ?in|sign ?in|
 
 _NATIONAL = {"canadian", "canadien", "canadienne", "national", "nationale", "provincial", "federal", "quebec", "ontario", "alberta"}
 _KIND = {"municipality": re.compile(r"\b(?:town|city|village|municipality|township|county|ville|municipalit[ee]|canton|mrc)\b"),
-         "hospital": re.compile(r"\b(?:hospital|hopital|health authority|hospitalier)\b"), "university": re.compile(r"\b(?:university|universite)\b"),
+         "hospital": re.compile(r"(?<!\banimal\s)(?<!\bpet\s)(?<!\bveterinary\s)(?<!\bvet\s)\b(?:hospital|hopital(?! veterinaire)|health authority|hospitalier)\b"), "university": re.compile(r"\b(?:university|universite)\b"),
          "college": re.compile(r"\b(?:college|cegep|polytechnic)\b"), "school": re.compile(r"\b(?:school|ecole|school board|commission scolaire)\b"),
          "church": re.compile(r"\b(?:church|eglise|parish|paroisse|diocese)\b"), "bank": re.compile(r"\b(?:bank|banque|credit union|caisse)\b"),
          "ministry": re.compile(r"\b(?:ministry|ministere|government of|gouvernement)\b"), "police": re.compile(r"\bpolice\b"),
@@ -2123,7 +2200,7 @@ def label_from_words(cand, hl):
     "mcgill" = MCGILL (University), "chumontreal" = C. H. de l'U. de MONTREAL, "westspringsvet" = WEST SPRINGS VET. Words may be left out only
     when they are articles / prepositions, or a kind-of-body word in front of the name ("Town of BANFF"); what follows the label does not matter.
     "vernonchamber" is not written with "Vernon Jubilee Hospital", "kitchenermarket" not with "City of Kitchener"."""
-    words = re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", cand or "").encode("ascii", "ignore").decode().lower())
+    words = re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", (cand or "").replace("&", " and ")).encode("ascii", "ignore").decode().lower())
     n = len(hl)
     if n < 2 or not words or len(words) > 14:
         return False
@@ -2146,6 +2223,34 @@ def label_from_words(cand, hl):
         memo[key] = ok
         return ok
     return go(0, 0, False, 0)
+def label_begins(cand, hl):
+    """the site's label begins with the candidate's own leading words, written whole: "stonechurch|vet" = STONE CHURCH Animal Clinic,
+    "northernfire|store" = NORTHERN FIRE, "unitedcanada|inc", "newlife|pt" = NEW LIFE Physiotherapy — over two words and more, or over one word
+    that few names carry and that is at least half of the label ("brock|u"). A word further inside the label proves nothing: "smile|dentalcare"
+    is not Canadian DENTAL CARE, "lapointe|dental" is not DENTAL Corporation of Canada, "bristol|dental" not the Ontario DENTAL Association."""
+    words = re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", (cand or "").replace("&", " and ")).encode("ascii", "ignore").decode().lower())
+    i = nw = 0
+    first = ""
+    for w in words:
+        if len(w) >= 2 and hl.startswith(w, i):
+            i += len(w); nw += 1; first = first or w
+        elif w in _INI_STOP or (nw == 0 and w in _LEAD_SKIP):
+            continue
+        else:
+            break
+    return i >= 4 and (nw >= 2 or (nw == 1 and 2 * i >= len(hl) and first not in WORD_COMMON))
+def label_of_whole_words(cand, hl):
+    """the whole label is two and more of the candidate's words, written whole and in their order, others left out: "qualityhomes" = QUALITY
+    (Engineered) HOMES Ltd, "torontodental" = TORONTO DENTAL Clinic Inc. Not "smiledentalcare" for Canadian Dental Care: "smile" is nobody's."""
+    words = re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", (cand or "").replace("&", " and ")).encode("ascii", "ignore").decode().lower())[:14]
+    memo = {}
+    def go(i, j, n):
+        if i == len(hl):
+            return n >= 2
+        if (i, j, min(n, 2)) not in memo:
+            memo[(i, j, min(n, 2))] = any(len(words[k]) >= 2 and hl.startswith(words[k], i) and go(i + len(words[k]), k + 1, n + 1) for k in range(j, len(words)))
+        return memo[(i, j, min(n, 2))]
+    return len(hl) >= 4 and go(0, 0, 0)
 _NUMBERED_CO = re.compile(r"\d[\d\s-]*\s+(?:Qu[ée]bec|Canada|Ontario|Alberta|Manitoba|Saskatchewan|B\.?C\.?|Nova Scotia|N\.?B\.?|N\.?S\.?|Yukon|Newfoundland)\s+(?:Inc|Ltd|Lt[ée]e|Corp|Limited|Limit[ée]e|ULC)\b", re.I)
 def tight_name(cand, website):
     """the beginning of an accepted name that still writes the site's own label, when what follows is not part of a name: a street address
@@ -2172,7 +2277,7 @@ def name_overlap(cand, org_name, website=""):
         return False
     def toks(t):
         return {w for w in re.findall(r"[a-z0-9]{3,}", unicodedata.normalize("NFKD", t or "").encode("ascii", "ignore").decode().lower()) if w not in NAME_STOP}
-    ct, ot = toks(cand), toks(org_name)
+    ct, ot = toks(re.sub(r"\s*\([^()]{1,12}\)\s*$", "", cand or "")), toks(org_name)
     h = unicodedata.normalize("NFKD", host_of(website or "") or "").encode("ascii", "ignore").decode().lower().replace("www.", "").replace("-", "")
     hl = _host_label(website)
     words_all = re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", cand or "").encode("ascii", "ignore").decode().lower())
@@ -2192,13 +2297,21 @@ def name_overlap(cand, org_name, website=""):
         if not ((len(ini) >= 3 and (ini == on or ini in h)) or (hl and label_from_words(cand, hl))):
             return False
     cd, od = ct - GENERIC_ORG - _NATIONAL, ot - GENERIC_ORG - _NATIONAL
-    if cd and od:
-        if cd & od:
+    # 2026-11-10 (round 3): the shared word must be one that few organisations carry. "Canadian Dental Care" (a federal programme) was the legal
+    # name of 71 dental clinics on the word "dental", "Doctor of Dental Surgery" of 16 on "surgery", "Canadian Real Estate Association" of 29
+    # brokers on "real estate", "Texas Department of Insurance" of five other agencies on "texas". A word carried by more than one name in 2,000
+    # (WORD_COMMON, counted on the names of the organisations whose site was read) proves nothing by itself: the names must then be one inside
+    # the other. The site's address written with the candidate's own words still proves it ("dentalcorp.ca" = DENTAL CORPoration of Canada).
+    shared = (cd & od) if (cd and od) else (ct & ot)  # one side has only generic words (e.g. "Health Authority"): any shared token
+    if shared and (any(t not in WORD_COMMON for t in shared) or ot <= ct or (ct <= ot and len(ct) >= 2)):
+        return True  # a word few names carry — or the organisation's whole name inside the candidate ("Desjardins" in "Fédération des caisses
+                     # Desjardins du Québec", "Toronto Dental Clinic Inc"), or the candidate a part of it of two words and more
+    if h and (hl in ct or label_begins(cand, hl) or label_of_whole_words(cand, hl) or any(t in h for t in (cd or ct) if len(t) >= 4 and t not in WORD_COMMON)):
+        return True  # the address is the candidate's own word ("desjardins.com"), begins with or is made of its words, or carries a word few names carry
+    if DOMAIN_NAME.match((org_name or "").strip()):  # the organisation is known by a domain only ("centrerecreatifzone15.ca"): that label is its name
+        ol = _host_label(org_name.strip())
+        if ol and ol != hl and (label_from_words(cand, ol) or label_begins(cand, ol) or label_of_whole_words(cand, ol)):
             return True
-    elif ct & ot:  # one side has only generic words (e.g. "Health Authority"): fall back to any shared token
-        return True
-    if h and any(t in h for t in (cd or ct) if len(t) >= 4):
-        return True
     return bool(hl) and label_from_words(cand, hl)  # "ctaontario.ca" = Construction Training & Apprenticeship ONTARIO
 LEGAL_FORMISH = re.compile(r"\b(inc|ltd|limited|lt[ée]e|llc|llp|corp|corporation|company|co\.|society|association|foundation|fondation|university|universit[ée]|college|coll[èe]ge|c[ée]gep|city|town|village|municipality|municipalit[ée]|ville|county|district|township|school|scolaire|hospital|h[ôo]pital|health|sant[ée]|authority|board|commission|agency|office|ministry|minist[èe]re|department|government|gouvernement|library|biblioth[èe]que|church|trust|group|groupe|holdings|cooperative|coop[ée]rative|credit union|caisse|soci[ée]t[ée]|centre|center|institute|institut|canada|r[ée]gie|f[ée]d[ée]ration)\b", re.I)
 PORTAL_INVOICING = re.compile(r"e-invoicing|supplier payments|supplier onboarding", re.I)
@@ -2255,23 +2368,114 @@ def v2_fill(x, d, side):
                     n_ox[col + "_mention_rejected"] += 1
                     continue
                 x[col] = "%s (mentioned on %s)" % (m["text"][:160], m.get("url") or "the buyer's site"); n_ox[col + "_mention"] += 1
+# counted on the names of every organisation whose site was read (the same list whatever part of the table this process ranks), not on the rows
+_wdf, _wn = collections.Counter(), {norm(_d.get("name") or "") for _d in OX.values()} - {""}
+for _nm in _wn:
+    _wdf.update(set(_t for _t in _nm.split() if len(_t) >= 3))
+WORD_COMMON = {w for w, c in _wdf.items() if c > max(40, len(_wn) // 2000)}
+del _wdf
+# a name that the readers found on three or more different sites is a programme, an association, a franchisor, a trademark owner — not the
+# legal name of each of those sites (counted on every site read, not only on the rows)
+_NAME_SITES, _cl = collections.defaultdict(set), {}
+for _d in OX.values():
+    _dm = registrable(host_of(_d.get("website") or "")) or _d.get("domain") or ""
+    for _k in ("legal_name_stated", "jsonld_legal_name", "jsonld_name", "legal_name"):
+        _raw = _d.get(_k) or ""
+        if _raw:
+            if _raw not in _cl:
+                _cl[_raw] = norm(clean_legal(_raw))
+            if _cl[_raw]:
+                _NAME_SITES[_cl[_raw]].add(_dm)
+NAME_ON_MANY = {n for n, ds in _NAME_SITES.items() if len(ds) >= 3}
+del _NAME_SITES, _cl
+_OPERATOR_BEFORE = re.compile(r"(?:(?:(?:owned and )?operated|owned)\s+by|a (?:division|subsidiary) of|exploit[ée]e?s?\s+par|d[ée]tenue?s?\s+par|(?:la |est )propri[ée]t[ée]\s+(?:exclusive\s+)?de|"
+                              r"une (?:division|filiale) de)\s*:?\s*(?:the\s+|la\s+|le\s+|l['’]\s*)?[\"“«]?\s*$", re.I)
+_WE_AFTER = re.compile(r"\s*[.,]?\s*\((?:hereinafter\s+|ci-apr[èe]s\s+)?[\"“«'‘]?\s*(?:we|us|our|nous|notre|the company|la soci[ée]t[ée]|l['’]entreprise)\b", re.I)
+_LEGAL_PERSON = re.compile(r"\b(?:inc|incorporated|incorpor[ée]e|ltd|limited|lt[ée]e|limit[ée]e|llc|llp|l\.?p|corp|corporation|s\.?\s?a|s\.?a\.?r\.?l|s\.?e\.?n\.?c(?:\.?r\.?l)?|enr|ulc|plc|gmbh|"
+                           r"society|soci[ée]t[ée]|association|foundation|fondation|coop[ée]rative|co-operative|organization|organisation|university|universit[ée]|college|coll[èe]ge|"
+                           r"council|conseil|authority|commission|institute|institut|centre|center|church|[ée]glise|club|federation|f[ée]d[ée]ration|trust|board|bureau|office)\b\.?", re.I)
+_PLATFORM_CO = re.compile(r"\b(?:odoo|shopify|wix|squarespace|godaddy|weebly|webflow|lightspeed|bigcommerce|automattic|wordpress|jimdo|duda|square|stripe|paypal|google|meta platforms|facebook|"
+                          r"mailchimp|intuit|hubspot|cloudflare|amazon|microsoft|apple|ecwid|wordfence|mindbody|vagaro|jane software|growthzone|chambermaster|wild apricot|personify|"
+                          r"civicplus|granicus|esolutions|blackbaud|eventbrite|ticketmaster|vimeo|youtube|linkedin|instagram|tiktok|twitter|yelp|tripadvisor|opentable|doordash|uber)\b", re.I)
+def stated_as_operator(raw, quote, page="", site=""):
+    """the page says in so many words that this name runs the site: "This website is operated by 9123-4567 Québec inc.", "Acme Holdings Ltd. («we»)".
+    Such a statement ties the name to the site by itself — a numbered company shares no word with the name it trades under — when it is made on
+    the row's own site, names a legal person (a company, an association: "owned and operated by Darren and his family" names nobody we print)
+    and is not a web platform's own terms ("operated by Odoo S.A")."""
+    q, r = re.sub(r"\s+", " ", quote or ""), re.sub(r"\s+", " ", raw or "").strip()
+    i = q.lower().find(r.lower()) if len(r) >= 4 else -1
+    if i < 0 or not (_LEGAL_PERSON.search(r) or _NUMBERED_CO.search(r)) or _PLATFORM_CO.search(r):
+        return False
+    if page and site and registrable(host_of(page) or "") != registrable(host_of(site) or ""):
+        return False  # "Coast Hotels Limited", stated on coasthotels.com, for the hotel it manages
+    return bool(_OPERATOR_BEFORE.search(q[max(0, i - 70):i]) or _WE_AFTER.match(q[i + len(r):i + len(r) + 60]))
+_DBA = re.compile(r"\s*,?\s+(?:doing business as|operating as|carrying on business as|trading as|faisant affaires? sous(?: le nom(?: de)?)?|o/a|d\.?b\.?a\.?)\s+", re.I)
+_DIV_OF = re.compile(r"\s*,?\s+(?:is\s+|est\s+)?(?:a|an|une)\s+(?:division|subsidiary|filiale|initiative|program(?:me)?|service)\s+(?:of|de|du|de la|d['’])\s*(?:the\s+|la\s+|le\s+)?", re.I)
+_PUBLIC_BODY_WORD = re.compile(r"\b(?:municipality|municipalit[ée]|ville|city|town|township|county|district|village|government|gouvernement|minist[èe]re|ministry|hospital|h[ôo]pital|"
+                               r"school|[ée]cole|library|biblioth[èe]que|nation|band)\b", re.I)
+def legal_and_trade(cand):
+    """(legal person, name traded under) when a stated name holds both: "X Ltd doing business as Y", "Y, a division of X"; else None"""
+    m = _DBA.search(cand)
+    if m:
+        legal, trade = cand[:m.start()].strip(" ,"), cand[m.end():].strip(" ,")
+    else:
+        m = _DIV_OF.search(cand)
+        if not m:
+            return None
+        trade, legal = cand[:m.start()].strip(" ,"), cand[m.end():].strip(" ,")
+    if len(legal) >= 4 and len(trade) >= 3 and (_LEGAL_PERSON.search(legal) or _NUMBERED_CO.search(legal) or _PUBLIC_BODY_WORD.search(legal)):
+        return legal, trade
+    return None
+def others_name(cand, x):
+    """the candidate is printed on three or more sites, and nothing but common words ties it to this organisation: it is not its own name, nor
+    the start of it, nor what its address spells, and the two share no word that few names carry"""
+    nc = norm(cand)
+    if nc not in NAME_ON_MANY:
+        return False
+    nb = norm(x.get("buyer") or "")
+    if nb == nc or nb.startswith(nc + " ") and not re.match(r"(?:for|of|pour|de|des|du|in|and|et)\b", nb[len(nc) + 1:]):
+        return False
+    if any(len(t) >= 3 and t not in WORD_COMMON and t not in NAME_STOP and t not in GENERIC_ORG and t not in _NATIONAL for t in set(nc.split()) & set(nb.split())):
+        return False
+    hl = _host_label(x.get("buyer_website") or "")
+    return not (hl and label_from_words(cand, hl))
+print("words too common to prove a name (in more than 1 in 2,000 of the %d names of organisations whose site was read): %d; names printed on 3+ sites: %d" % (len(_wn), len(WORD_COMMON), len(NAME_ON_MANY)))
+del _wn
 n_ox = collections.Counter()
 for x in rows:
     for col in ("buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status",
                 "vendor_trading_name", "vendor_neq", "vendor_qst_as_published", "vendor_logo_url", "vendor_website_status", "payment_terms_as_published", "po_required_as_published"):
         x.setdefault(col, "")
-    b, bo = ox_of(x.get("buyer_website")), oc_of(x.get("buyer_website"))
+    b, bo = ox_of(x.get("buyer_website"), x.get("buyer") or ""), oc_of(x.get("buyer_website"), x.get("buyer") or "")
     if b:
         ln = clean_legal(b.get("legal_name"), x.get("buyer") or "")
         if ln and credit_of_a_government(ln, x.get("buyer") or ""):
             ln = ""; n_ox["buyer_legal_name_government_template_credit"] += 1
+        if ln and re.search(r"independently owned|ind[ée]pendamment d[ée]tenu|propri[ée]t[ée] ind[ée]pendante|franchis[ée]e? ind[ée]pendant", b.get("legal_name_quote") or "", re.I) and not name_overlap(ln, x.get("buyer") or "", x.get("buyer_website") or ""):
+            ln = ""; n_ox["buyer_legal_name_franchisor_copyright_not_taken"] += 1  # "Each Best Western® branded hotel is independently owned and operated. © Best Western International, Inc."
         basis = "the site's copyright / footer line"
         if not ln:  # v2 (2026-11-08): the name the organisation states itself — schema.org JSON-LD legalName, then its Terms / Privacy / Legal page
             for k, lab in (("jsonld_legal_name", "schema.org JSON-LD legalName on %s" % (b.get("jsonld_page") or "the site")), ("legal_name_stated", "stated on %s" % (b.get("legal_name_stated_url") or "the site's legal page")),
                            ("jsonld_name", "schema.org JSON-LD Organization name on %s" % (b.get("jsonld_page") or "the site"))):
                 cand = clean_legal(b.get(k) or "", x.get("buyer") or "")
+                if cand and others_name(cand, x):
+                    n_ox["buyer_legal_name_v2_printed_on_many_sites"] += 1  # "Canadian Dental Care", "Ontario Dental Association", "Canadian Real Estate Association"
+                    continue
+                _two = legal_and_trade(cand) if cand else None
+                if _two and name_overlap(_two[1], x.get("buyer") or "", x.get("buyer_website") or ""):
+                    # "Hiwachka Enterprises LTD doing business as Steady Effort Yoga", "MOPC Network, a division of the Municipality of Pictou County":
+                    # one of the two names is the site's, the other is its legal person
+                    ln, basis = _two[0], lab + ", as the legal person doing business under the site's name"; n_ox["buyer_legal_name_v2_doing_business_as"] += 1
+                    break
                 if cand and (k != "jsonld_name" or LEGAL_FORMISH.search(cand)) and name_overlap(cand, x.get("buyer") or "", x.get("buyer_website") or ""):
                     ln, basis = tight_name(cand, x.get("buyer_website") or ""), lab; n_ox["buyer_legal_name_v2_" + k] += 1
+                    break
+                if cand and k.startswith("jsonld") and (k != "jsonld_name" or LEGAL_FORMISH.search(cand)) and b.get("jsonld_url") and host_of(b["jsonld_url"]) == host_of(x.get("buyer_website") or ""):
+                    # the site's own structured statement about itself: the node gives this very site as the organisation's address
+                    ln, basis = cand, lab + ", which gives this site as the organisation's own"; n_ox["buyer_legal_name_v2_" + k + "_own_site_node"] += 1
+                    break
+                if cand and k == "legal_name_stated" and stated_as_operator(b.get(k), b.get("legal_name_stated_quote"), b.get("legal_name_stated_url") or "", x.get("buyer_website") or ""):
+                    ln, basis = cand, lab + ", as the site's operator"; n_ox["buyer_legal_name_v2_stated_as_operator"] += 1
                     break
                 elif cand:
                     n_ox["buyer_legal_name_v2_rejected_no_overlap"] += 1  # reviewer 2026-11-08: "Internet Protocol", "Ville de Granby" on another body's site
@@ -2291,7 +2495,7 @@ for x in rows:
         x["buyer_website_status"] = SITE_STATUS.get(bo["status"], bo["status"])
     if x.get("tier") == "I" and GENERIC_NAME.match(x.get("buyer") or ""):  # "Contactez-nous", "Home": the mailbox's domain names the body better
         x["buyer"] = (x.get("email") or "").split("@")[-1] or x["buyer"]; n_ox["p13_name_from_domain"] += 1
-    v, vo = ox_of(x.get("vendor_website")), oc_of(x.get("vendor_website"))
+    v, vo = ox_of(x.get("vendor_website"), x.get("vendor") or ""), oc_of(x.get("vendor_website"), x.get("vendor") or "")
     _foreign_site = bool(v) and site_not_the_vendors_own(x.get("vendor_website"))
     if _foreign_site:
         n_ox["vendor site is a foreign organisation's: its legal / trading name not taken for the Canada-located vendor"] += 1
@@ -2314,6 +2518,11 @@ for x in rows:
                 cand = clean_legal(v.get(k) or "", x.get("vendor") or "")
                 if cand and name_overlap(cand, x.get("vendor") or "", x.get("vendor_website") or ""):
                     x["vendor_legal_name"] = "%s (%s: %s)" % (tight_name(cand, x.get("vendor_website") or ""), lab, v.get("jsonld_page") if k.startswith("jsonld") else v.get("legal_name_stated_url") or ""); n_ox["vendor_legal_name_v2"] += 1
+                    break
+                if cand and ((k == "jsonld_legal_name" and v.get("jsonld_url") and host_of(v["jsonld_url"]) == host_of(x.get("vendor_website") or "")) or
+                             (k == "legal_name_stated" and stated_as_operator(v.get(k), v.get("legal_name_stated_quote"), v.get("legal_name_stated_url") or "", x.get("vendor_website") or ""))):
+                    # the vendor's own site says it in so many words: its structured data gives the site as the organisation's own, or a page says who operates it
+                    x["vendor_legal_name"] = "%s (%s: %s)" % (cand, lab + (", which gives this site as the organisation's own" if k.startswith("jsonld") else ", as the site's operator"), v.get("jsonld_page") if k.startswith("jsonld") else v.get("legal_name_stated_url") or ""); n_ox["vendor_legal_name_v2_site_says"] += 1
                     break
         v2_fill(x, v, "vendor")
         if not x.get("vendor_trading_name") and not _foreign_site:  # 2026-11-08: the name the vendor trades under on its own site when it differs from its legal name (schema.org alternateName / Organization name)
@@ -2396,8 +2605,12 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_mx_check.tsv"):
     for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_mx_check.tsv", encoding="utf-8"), delimiter="\t"):
         MXH[r["domain"]] = r.get("mail_hosts") or ""
 DM = {}
+_dm_need = None
+if _PN > 1:  # ranking in parts: only the domains of this part's mailboxes (the rows' own, and every mailbox one of its organisations may still take)
+    _dm_need = {b.split("@")[-1] for b in _PART_BOXES if "@" in b} | {(x.get("email") or "").lower().split("@")[-1] for x in rows if x.get("email")}
 for r in _PCSV.rows(ROOT + "/data/incoming/claude/claude_dmarc_check.tsv", delimiter="\t"):  # written in parts (tools/dmarc_check.py)
-    DM[r["domain"]] = r
+    if _dm_need is None or r["domain"] in _dm_need:
+        DM[r["domain"]] = r
 PROVIDER = (("outlook.com|protection.outlook|mail.protection", "Microsoft 365"), ("google.com|googlemail|aspmx", "Google Workspace"), ("pphosted|proofpoint", "Proofpoint"),
             ("mimecast", "Mimecast"), ("barracuda", "Barracuda"), ("messagelabs|symantec|broadcom", "Symantec / Broadcom"), ("fortimail|fortinet", "Fortinet"),
             ("cisco|iphmx|ironport", "Cisco"), ("trendmicro", "Trend Micro"), ("mxlogic|mcafee", "McAfee"), ("secureserver|godaddy", "GoDaddy"), ("zoho", "Zoho"),
@@ -2510,7 +2723,7 @@ n_oc = collections.Counter()
 for x in rows:
     for col in ("buyer_phone", "buyer_contact_evidence_url", "vendor_phone", "vendor_contact_evidence_url"):
         x.setdefault(col, "")
-    b = oc_of(x.get("buyer_website"))
+    b = oc_of(x.get("buyer_website"), x.get("buyer") or "")
     if (x.get("buyer_address") or "").strip() in ("CA", "US", "Canada", "CA, CA"):
         x["buyer_address"] = ""  # the release's buyer table had only the country: that is no bill-to address (2026-11-09)
     if b:
@@ -2519,7 +2732,7 @@ for x in rows:
         if b.get("phone") and phone_fits(b["phone"], x.get("buyer_address")):
             x["buyer_phone"] = b["phone"]; n_oc["buyer_phone"] += 1
         x["buyer_contact_evidence_url"] = b.get("address_url") or b.get("phone_url") or ""
-    v = oc_of(x.get("vendor_website"))
+    v = oc_of(x.get("vendor_website"), x.get("vendor") or "")
     if v:
         _vab = site_country(v) == "abroad"
         if _vab:
@@ -2532,14 +2745,16 @@ for x in rows:
             x["vendor_emails"] = v["emails"]; n_oc["vendor_emails"] += 1
         x["vendor_contact_evidence_url"] = v.get("address_url") or v.get("emails_url") or v.get("phone_url") or ""
 print("org_contacts: %d organisations read; filled %s" % (len(OC), dict(n_oc)))
+print("site-reader records read on another host of the row's domain (look-ups):", dict(N_OTHER_HOST))
 # 9. owner 2026-11-04 10:50: every row states the nature of the relationship, how it was found, and where every fact comes from
 LANE_META = {}  # (key, mailbox) -> (lane, file, retrieved_date, task_id)
+_lm_need = {(x.get("email") or "").lower() for x in rows if x.get("email")} if _PN > 1 else None  # ranking in parts: only the mailboxes of this part's rows
 for path in _glob.glob(ROOT + "/data/incoming/*/*buyer_ap*results*.csv"):
     lane = os.path.basename(os.path.dirname(path))
     try:
         for r in csv.DictReader(io.StringIO(open(path, encoding="utf-8", errors="replace").read().replace("\0", ""))):
             e = (r.get("ap_email") or "").strip().lower()
-            if e:
+            if e and (_lm_need is None or e in _lm_need):
                 for k in (r.get("buyer_key") or "").split("|"):
                     LANE_META.setdefault((k.strip(), e), (lane, os.path.basename(path), r.get("retrieved_date") or "", r.get("task_id") or ""))
                 LANE_META.setdefault(("", e), (lane, os.path.basename(path), r.get("retrieved_date") or "", r.get("task_id") or ""))
@@ -2732,14 +2947,30 @@ def _dom_of(u):
     except Exception:
         return ""
 # D11 / C1 / C2 / H1: provincial municipal directories (tools/municipal_directory.py) — legal name, address, phone, website, tier, population
-MD_DOM, MD_NAME = {}, {}
+# 2026-11-10 (row audit, round 3): the directories were looked up by the registrable domain of the row's site, and the first entry of a domain
+# won — "Municipalité de Authier" (authier.ao.ca) was the legal name, address and telephone of the sixteen other municipalities hosted on
+# ao.ca, "Village de Godbout" of every municipality with a page on municipalites-du-quebec.com. An entry is now a row's own only when the row's
+# site is the entry's site: the same host and, when the entry's address goes below the host ("…/godbout"), the same first folder. A site that
+# two entries of different names give is a portal and names neither.
+_MD_TRIVIAL = re.compile(r"^(?:fr|en|fr-ca|en-ca|fr_ca|en_ca|accueil|home|index\.(?:php|html?|aspx?)|default\.aspx?)?$", re.I)
+def _md_site(u):
+    """(host, first folder) of a site address; the folder is "" for the root and for a language or home-page folder"""
+    try:
+        pu = urllib.parse.urlparse(u if "//" in (u or "") else "https://" + (u or ""))
+    except Exception:
+        return "", ""
+    h = (pu.hostname or "").lower()
+    h = h[4:] if h.startswith("www.") else h
+    seg = (pu.path or "").strip("/").split("/")[0]
+    return h, ("" if _MD_TRIVIAL.match(seg) else seg.lower())
+MD_DOM, MD_NAME, _md_names = {}, {}, collections.defaultdict(set)
 for _mdp in (ROOT + "/data/incoming/claude/claude_municipal_directory.csv", ROOT + "/data/incoming/claude/claude_org_directories.csv"):
     if not os.path.exists(_mdp):
         continue
     for _r in csv.DictReader(open(_mdp, encoding="utf-8", errors="replace")):
-        _d = _dom_of(_r.get("website") or "") if _r.get("website") else ""
-        if _d and not SHARED_GOV.match(_d):
-            MD_DOM.setdefault(_d, _r)
+        _d = _md_site(_r.get("website") or "") if _r.get("website") else ("", "")
+        if _d[0] and not SHARED_GOV.match(registrable(_d[0]) or _d[0]):
+            MD_DOM.setdefault(_d, _r); _md_names[_d].add(norm(_r.get("legal_name") or ""))
         for nm in (_r.get("legal_name"), (_r.get("source_quote") or "").split(";")[0]):
             if nm and len(norm(nm)) >= 5:
                 MD_NAME.setdefault((_r["province"], norm(nm)), _r)
@@ -2748,6 +2979,11 @@ DESIG_RX = re.compile(r"^(?:la |le |les |l['’])?(?:ville|municipalit[ée](?: r
 def md_core(nm):
     c = norm(DESIG_RX.sub("", (nm or "").strip()))
     return c if len(c) >= 4 else ""
+for _d, _ns in _md_names.items():
+    if len(_ns) > 1:
+        MD_DOM.pop(_d, None)
+print("directories: %d entries reachable by their own site; %d sites given by entries of different names, left out" % (len(MD_DOM), sum(len(v) > 1 for v in _md_names.values())))
+del _md_names
 MD_CORE, _md_amb = {}, set()
 for (_pv, _nm), _r in list(MD_NAME.items()):
     _c = md_core(_nm)
@@ -2764,9 +3000,9 @@ for x in rows:
         x.setdefault(c, "")
     if not MD_DOM:
         continue
-    _d = _dom_of(x.get("buyer_website") or "") if x.get("buyer_website") else ""
+    _d = _md_site(x.get("buyer_website") or "") if x.get("buyer_website") else ("", "")
     prov = x.get("jurisdiction") or ""
-    hit = (MD_DOM.get(_d) if _d else None) or MD_NAME.get((prov, norm(x.get("buyer") or ""))) or MD_NAME.get((prov, norm((x.get("buyer_legal_name_as_published") or "").split(" (")[0])))
+    hit = (MD_DOM.get(_d) if _d[0] else None) or MD_NAME.get((prov, norm(x.get("buyer") or ""))) or MD_NAME.get((prov, norm((x.get("buyer_legal_name_as_published") or "").split(" (")[0])))
     if not hit and prov and prov not in ("CA",) and re.search(r"\b(ville|municipalit|mrc|canton|paroisse|village|township|town|city|county|district|municipality)\b", x.get("buyer") or "", re.I):
         hit = MD_CORE.get((prov, md_core(x.get("buyer") or "")))  # "Ville de X" ↔ directory "X" (designation separate); ambiguous cores were dropped
         if hit:
@@ -2779,7 +3015,8 @@ for x in rows:
     n_md["matched"] += 1
     if not x.get("buyer_legal_name_as_published") and hit.get("legal_name"):
         x["buyer_legal_name_as_published"] = hit["legal_name"] + src; n_md["legal_name"] += 1
-    if not x.get("buyer_address") and hit.get("address"):
+    if not x.get("buyer_address") and hit.get("address") and re.search(r"\d", hit["address"]) and re.search(r"[A-Za-zÀ-ÿ]{3}", hit["address"]):
+        # an address has a number and a word: one directory's address column holds mail codes ("CP3-1-130") and body names ("Department of Defence")
         x["buyer_address"] = ", ".join(v for v in (hit["address"], hit.get("postal_code")) if v) + src; n_md["address"] += 1
     if not x.get("buyer_phone") and hit.get("phone"):
         x["buyer_phone"] = hit["phone"] + src; n_md["phone"] += 1
@@ -2966,6 +3203,40 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_registry_bulk.csv"):  # t
                 # 2026-11-09 made the REQ row primary for "Dassault Systèmes (Canada)" and 64 rows lost their BN9. Keep the BN with its own source.
                 CBR[_r["kind"]][_k]["_bn9_other"] = _r["bn9"].strip(); CBR[_r["kind"]][_k]["_bn9_other_src"] = "%s, %s, %s" % (_r.get("registry_source") or "registry open data", _r.get("juri_id") or "", _r.get("retrieved_date") or "")
 print("registry bulk rows added (no API row for the key):", n_bulk, "| registry rows left out, the registered name is only legal-form and place words:", n_reg_generic)
+# 2026-11-10 (row audit, round 3): a buyer's registry record is kept under the row's key, and the row's name changes — a lead first named
+# "Ville de Québec" (a name read off a page of ymcaquebec.org) is "LES YMCA DU QUÉBEC" today, and still carried the City's registered name and
+# NEQ; "UNIVERSITÉ DU QUÉBEC" sat on calculquebec.ca the same way (14 rows with those two names alone). A record is left out when the name it
+# was looked up under is no longer one of the row's names AND the registered name is of a sort that has to agree with the row and does not:
+# it is made of a kind of body, a place and everyday words only ("VILLE DE QUÉBEC", "The Canadian Real Estate Association"), or it names a
+# kind of institution (a town, a university, a hospital) that neither the row's names nor its address carry — and it fails the test a name
+# read off a page has to pass (name_overlap). "HERITAGE DENTAL CENTRE LTD." stays on heritagedentaledmonton.ca, "CENTRAL LANGLEY PET HOSPITAL
+# LTD." on centrallangleyvet.ca. A company's registered name with a word of its own stays — most are numbered companies, matched through
+# the name the company trades under, and nothing shows them wrong. The registry tools look a row up again when its name has changed.
+_REG_KIND = {"ville", "city", "town", "municipalite", "municipality", "village", "canton", "township", "county", "paroisse", "universite", "university", "college", "cegep", "gouvernement",
+             "government", "province", "ministere", "ministry", "association", "societe", "society", "fondation", "foundation", "club", "centre", "center", "groupe", "group", "services",
+             "service", "gestion", "holdings", "entreprises", "enterprises"}
+_NAME_SRC_CUT = re.compile(r"\s*\((?:as registered|stated on|schema\.org|provincial municipal directory|recipient legal name|as printed|carried from|CRA |registered charity).*$")
+_SITE_SAYS = re.compile(r"as the site's operator\)\s*$|under the site's name\)\s*$|JSON-LD legalName on [^()]*, which gives this site as the organisation's own\)\s*$")
+def reg_record_is_rows(b, x):
+    names = [x.get("buyer") or "", _NAME_SRC_CUT.sub("", x.get("buyer_legal_name_as_published") or "")]
+    q = _reg_toks(b.get("name") or "")
+    if q and any(q == _reg_toks(nm) for nm in names):
+        return True  # looked up under a name the row still carries
+    matched = b.get("matched_name") or ""
+    m_all = _reg_toks(matched)
+    if m_all and any(m_all == _reg_toks(nm) for nm in names):
+        return True
+    site = x.get("buyer_website") or ""
+    agrees = lambda: any(nm and name_overlap(matched, nm, site) for nm in names)  # the test a name read off a page has to pass
+    if not [t for t in m_all if t not in _REG_PLACE and t not in _REG_KIND and t not in WORD_COMMON]:
+        return agrees()  # "VILLE DE QUÉBEC", "The Canadian Real Estate Association": a kind of body, a place, everyday words — it has to be the row's
+    mk = {k for k, rx in _KIND.items() if rx.search(unicodedata.normalize("NFKD", matched).encode("ascii", "ignore").decode().lower())}
+    if mk:  # a town, a university, a hospital … on a row that says it is none
+        own = unicodedata.normalize("NFKD", " ".join(names)).encode("ascii", "ignore").decode().lower()
+        h = re.sub(r"[^a-z0-9.]", "", host_of(site) or "")
+        if not mk <= ({k for k, rx in _KIND.items() if rx.search(own)} | {k for k, rx in _KIND_HOST.items() if rx.search(h)}):
+            return agrees()
+    return True  # a company's registered name (often a numbered company's): it stays with the row it was matched to
 n_cbr = collections.Counter()
 for x in rows:
     vn = x.get("vendor") or ""
@@ -3004,6 +3275,12 @@ for x in rows:
         x["vendor_registry_url"] = x.get("vendor_registry_url") or c.get("ui_url") or ""
     k = next((_k for _k in (x.get("keys") or "").split("|") if _k in CBR["buyer"]), (x.get("keys") or "").split("|")[0])
     b = CBR["buyer"].get(k) if k else None
+    if b and not reg_record_is_rows(b, x):
+        n_cbr["buyer record looked up under a name the row no longer carries, not taken"] += 1; b = None
+    if b and _SITE_SAYS.search(x.get("buyer_legal_name_as_published") or "") and _reg_toks(_NAME_SRC_CUT.sub("", x["buyer_legal_name_as_published"])) != _reg_toks(b.get("matched_name") or ""):
+        # the site names its legal person in so many words ("operated by 1688150 Alberta Ltd"); a registry record found under the trading name
+        # ("Pegasus Paper") and carrying another name is somebody else's. The registry tools look the stated name up (tools/registry_names.py).
+        n_cbr["buyer record of another name than the legal person the site itself states, not taken"] += 1; b = None
     if b:
         src = "%s, %s" % (b["_label"], b["retrieved_date"])
         if re.search(r"\((?:stated on|schema\.org|recipient legal name)", x.get("buyer_legal_name_as_published") or ""):
@@ -3258,7 +3535,7 @@ for x in rows:
 n_late = collections.Counter()
 for x in rows:
     for side in ("buyer", "vendor"):
-        o = oc_of(x.get(side + "_website"))
+        o = oc_of(x.get(side + "_website"), x.get(side) or "")
         if o:
             _ab = side == "vendor" and site_country(o) == "abroad"  # see "where an address is" above
             if not x.get(side + "_address") and o.get("address") and not _ab:
@@ -3269,7 +3546,7 @@ for x in rows:
                 x["vendor_emails"] = o["emails"]; n_late["vendor_emails"] += 1
             if not x.get(side + "_contact_evidence_url"):
                 x[side + "_contact_evidence_url"] = o.get("address_url") or o.get("phone_url") or o.get("emails_url") or ""
-        e = ox_of(x.get(side + "_website"))
+        e = ox_of(x.get(side + "_website"), x.get(side) or "")
         if e and e.get("logo_url") and not x.get(side + "_logo_url"):
             x[side + "_logo_url"] = e["logo_url"]; n_late[side + "_logo"] += 1
 print("site readers, second pass (websites found late):", dict(n_late))
@@ -3503,7 +3780,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
 # half of a row's memory — held for every row at once just to be written a minute later. The row count is meant to grow tenfold on a 16 GB runner.
 n9, npk = collections.Counter(), collections.Counter()
 cnt, _n_rows, _n_mail, _n_contract = collections.Counter(), len(rows), 0, 0
-# 2026-11-10 (disk): the plain CSV is 15 KB a row — 2.6 GB at 170,000 rows, 15 GB at a million, and a runner has ~14 GB free for everything.
+# 2026-11-10 (disk): the plain CSV is 15 KB a row — 2.6 GB at 170,000 rows, 15 GB at a million; nothing reads it (a runner has 85 GB free).
 # Only the compressed table is written now (batches.py and contracts_export.py read it); RANK_PLAIN_CSV=1 still writes the plain file for a local look.
 _PLAIN = os.environ.get("RANK_PLAIN_CSV") == "1"
 for _old in ("ranked_buyers.csv", "ranked_buyers.csv.gz", "ranked_buyers.jsonl.gz"):
