@@ -125,6 +125,15 @@ yield leads (the Canadian businesses on .com / .net / .org; coord/DECISIONS.md 1
 org_facts run of 18:11Z reads each host for itself; check the "not taken" look-ups fall. (3) Ranking in parts: one run on GitHub against a
 normal build, then the slim partition pass before ~500k rows. (4) More Canada-based platforms with public tenants, vetted one by one.
 
+**The ranker's memory, measured 18:00Z (for whoever does step 3).** Peak 2.4 GB at 77k rows, 3.6 GB at 172k. Where it is: ~1.4 GB is the
+contract dataset pass (fixed); a row is 8.5 KB (its dict alone 6.6 KB at 223 columns — a table of 512 slots; the strings are mostly shared
+already: interning would save little); the side tables (DNS posture, mailbox meta, site facts) ~4 KB a row. One process therefore ends near
+800k–1M rows on a 16 GB runner. Ranking in parts already keeps each organisation's joins in one part, but every part loads every lead and
+mailbox first. The step that is missing: `prep` computes the partition from a slim read (lead key, site domain, mailbox — the union-find of
+rank.py on those three fields only) and writes key → part; each part then filters while it reads the lead store, the referee's log and the
+facts, so it never holds another part's leads. With four parts at 1M rows a part is ~1.4 + 2.1 + 1 GB. Do it against the two-part
+reference of the harness (`scratchpad/ab/Rbase` in the 2026-11-10 session; rebuild it with `runpart.py` if the scratchpad is gone).
+
 ## 2026-11-10 15:10Z — build 14:29Z: 169,768 rows; why no build landed between 10:54Z and 14:29Z; the build path measured and rebuilt
 **Published and committed (14:29Z, first build with every audit fix of 12:45Z):** 169,768 rows, 165,320 with a mailbox.
 | Line | Rows with a mailbox |
