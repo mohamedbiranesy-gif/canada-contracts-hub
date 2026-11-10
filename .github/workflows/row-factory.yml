@@ -168,56 +168,10 @@ jobs:
         run: |
           ls -la shards | head -40 || true
           git config user.name "row-factory"; git config user.email "row-factory@users.noreply.github.com"
-          OUT=data/incoming/claude/claude_buyer_ap_results_cccrawl01.csv
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
-            python3 - <<'EOF' | tee /tmp/crawl.txt
-          import csv, glob, os, sys
-          sys.path.insert(0, "tools")
-          from validate_returns import EMAIL, PERSONAL, ROLE_HINT  # the validator's own mailbox rules: a row it would reject is never appended
-          csv.field_size_limit(1 << 30)
-          OUT = "data/incoming/claude/claude_buyer_ap_results_cccrawl01.csv"
-          DONE = "data/incoming/claude/claude_lead_crawl_done.tsv"
-          cols, have, rows = None, set(), []
-          if os.path.exists(OUT):
-              with open(OUT, encoding="utf-8", newline="") as f:
-                  rd = csv.DictReader(f); cols = rd.fieldnames
-                  for r in rd:
-                      have.add((r["buyer_key"], (r.get("ap_email") or "").lower(), r.get("evidence_url") or ""))
-          new = 0
-          for p in sorted(glob.glob("shards/lead_rows_*.csv")):
-              with open(p, encoding="utf-8", newline="") as f:
-                  rd = csv.DictReader(f); cols = cols or rd.fieldnames
-                  for r in rd:
-                      k = (r.get("buyer_key"), (r.get("ap_email") or "").lower(), r.get("evidence_url") or "")
-                      e = r.get("ap_email") or ""
-                      if not EMAIL.match(e) or (PERSONAL.match(e.split("@")[0]) and not ROLE_HINT.search(e.split("@")[0])):
-                          continue
-                      if r.get("buyer_key") and r.get("buyer_key") != "buyer_key" and k not in have:
-                          have.add(k); rows.append(r); new += 1
-          if rows:
-              first = not os.path.exists(OUT)
-              with open(OUT, "a", encoding="utf-8", newline="") as f:
-                  w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
-                  if first:
-                      w.writeheader()
-                  w.writerows(rows)
-          seen = {}
-          for p in [DONE] + sorted(glob.glob("shards/lead_done_*.tsv")):
-              if os.path.exists(p):
-                  for l in open(p, encoding="utf-8"):
-                      q = l.rstrip("\n").split("\t")
-                      if q and q[0]:
-                          seen[q[0]] = l.rstrip("\n")
-          with open(DONE, "w", encoding="utf-8") as f:
-              for k in sorted(seen):
-                  f.write(seen[k] + "\n")
-          res = {}
-          for l in seen.values():
-              q = l.split("\t"); res[q[2] if len(q) > 2 else "?"] = res.get(q[2] if len(q) > 2 else "?", 0) + 1
-          print("lead sites read so far: %d (%s); mailbox rows added this run: %d; buyers with a mailbox row: %d" % (len(seen), ", ".join("%s %d" % kv for kv in sorted(res.items(), key=lambda kv: -kv[1])[:5]), new, len({k[0] for k in have})))
-          EOF
-            for f in "$OUT" data/incoming/claude/claude_lead_crawl_done.tsv; do [ -e "$f" ] && git add "$f"; done
+            python3 tools/lead_crawl.py --merge shards | tee /tmp/crawl.txt
+            for f in claude_buyer_ap_results_cccrawl01.csv claude_lead_crawl_done.tsv claude_lead_site_facts.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "[claude] row-factory: role mailboxes of new lead buyers ($(tail -1 /tmp/crawl.txt | cut -c1-110))"
             git push -q origin HEAD:main && break

@@ -670,7 +670,18 @@ for _ldp in ("claude_lead_details.jsonl.gz", "claude_lead_details_cc.jsonl.gz"):
     if os.path.exists(ROOT + "/data/incoming/claude/" + _ldp):
         for _d in jl(ROOT + "/data/incoming/claude/" + _ldp):
             LDET.setdefault(_d.get("key"), _d)
+LFACTS = {}  # 2026-11-10: what the cloud mailbox crawl read on the buyer's OWN pages (tools/lead_crawl.py): its name and its postal address, quoted
+for _d in jl(ROOT + "/data/incoming/claude/claude_lead_site_facts.jsonl.gz"):
+    if _d.get("key"):
+        LFACTS[_d["key"]] = _d
+n_lf = collections.Counter()
 def apply_details(x, k):
+    f = LFACTS.get(k)
+    if f:
+        if f.get("site_name") and re.fullmatch(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", (x.get("buyer") or "").lower()):
+            x["buyer"] = f["site_name"]; n_lf["buyer_name_from_own_home_page"] += 1  # the lead only carried the domain; the organisation's own home page names it
+        if f.get("address") and not x.get("buyer_address"):
+            x["buyer_address"] = "%s (as printed on %s, read %s)" % (f["address"], f.get("address_url") or x.get("buyer_website") or "", f.get("date") or ""); n_lf["buyer_address_from_own_page"] += 1
     d = LDET.get(k)
     if not d:
         return
@@ -803,7 +814,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
     apply_details(x, k)
-    x["source"] = ("the Canadian body's own current member / participant list" if member else "the buyer's own website (service of a Canada-HQ vendor in use)" if tech else
+    x["source"] = ("the Canadian body's own current member / participant list" if member else "the buyer's own website or its customer portal on the vendor's platform (service of a Canada-HQ vendor in use)" if tech else
                    "the Canada-located vendor's own website" if client else src or "relationship record")
 for x in rows:
     x.setdefault("_jur", "")

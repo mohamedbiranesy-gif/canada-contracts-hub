@@ -1,0 +1,184 @@
+name: tenant-factory
+# New delivered rows from the customer lists of Canada-headquartered software vendors (owner 2026-11-09 20:42 / 20:48 EST: "a Canadian entity gets
+# paid … establish that relationship, get the other party's contact … cloud only").
+#   index : Common Crawl's URL index -> every customer portal of the vetted vendors (<clinic>.janeapp.com, pub-<city>.escribemeetings.com, …)
+#           and every <store>.myshopify.com address that redirects to the store's own domain             (tools/cc_tenants.py index)
+#   cycle : read each portal page from the archive -> organisation name + its own website (candidates)     (cc_tenants.py extract / merge)
+#           then read each candidate's OWN site: role mailbox + postal address in the vendor's contracting scope (+ Shopify still in use)
+#           -> accepted leads + mailbox rows                                                               (tools/lead_crawl.py --candidates)
+#           then the referee (verify-and-merge) re-fetches every evidence page; the next rank build delivers the rows (tier T).
+# No AI, no search engine, no Mac. Vendor table and its HQ evidence: tools/tech_relationships.py VENDORS (free-plan vendors excluded).
+on:
+  schedule:
+    - cron: "47 2,5,8,11,14,17,20,23 * * *"
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "index (scan the newest Common Crawl index) | cycle (portal pages -> candidates -> their own sites)"
+        default: "cycle"
+      shards:
+        description: "parallel runners per step (1-10)"
+        default: "8"
+      minutes:
+        description: "minutes per step and runner"
+        default: "150"
+      vendors:
+        description: "cycle: only these vendor keys in the site-reading step (comma separated; empty = all)"
+        default: ""
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: tenant-factory-${{ inputs.stage || 'cycle' }}
+  cancel-in-progress: false
+env:
+  STAGE: ${{ inputs.stage || 'cycle' }}
+  SHARDS: ${{ inputs.shards || '8' }}
+  MINUTES: ${{ inputs.minutes || '150' }}
+  VENDORS: ${{ inputs.vendors || '' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      has_index: ${{ steps.m.outputs.has_index }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - id: m
+        run: |
+          python3 -c "import os; n=max(1,min(10,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+          if [ -s data/incoming/claude/claude_cc_tenant_pages.csv.gz ] || [ -s data/incoming/claude/claude_cc_shopify_redirects.csv.gz ]; then echo "has_index=yes" >> "$GITHUB_OUTPUT"; else echo "has_index=no" >> "$GITHUB_OUTPUT"; fi
+
+  index:
+    needs: plan
+    if: ${{ (inputs.stage || 'cycle') == 'index' || needs.plan.outputs.has_index == 'no' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix: { k: [0, 1, 2, 3, 4, 5] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: pip install -q duckdb
+      - name: Scan the Common Crawl URL index for customer portals and store redirects
+        run: python3 tools/cc_tenants.py index --shard ${{ matrix.k }}/6
+      - uses: actions/upload-artifact@v4
+        with: { name: "tf-index-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_index:
+    needs: index
+    if: ${{ always() && needs.index.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "tf-index-*", path: shards, merge-multiple: true }
+      - name: Union the index shards and commit
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ls -la shards || true
+          git config user.name "tenant-factory"; git config user.email "tenant-factory@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/cc_tenants.py merge-index shards | tee -a "$GITHUB_STEP_SUMMARY"
+            for f in claude_cc_tenant_pages.csv.gz claude_cc_shopify_redirects.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "tenant-factory: Common Crawl index of customer portals and store redirects [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          if [ "$STAGE" = "index" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/tenant-factory.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" || true; fi
+
+  extract:
+    needs: [plan, merge_index]
+    if: ${{ always() && (inputs.stage || 'cycle') == 'cycle' && (needs.plan.outputs.has_index == 'yes' || needs.merge_index.result == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Read the customer-portal pages from the archive (organisation name + its own website)
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/cc_tenants.py extract --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 4
+      - uses: actions/upload-artifact@v4
+        with: { name: "tf-extract-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_extract:
+    needs: extract
+    if: ${{ always() && needs.extract.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "tf-extract-*", path: shards, merge-multiple: true }
+      - name: Union the candidates with main and commit
+        run: |
+          ls -la shards | head -40 || true
+          git config user.name "tenant-factory"; git config user.email "tenant-factory@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/cc_tenants.py merge shards | tee /tmp/merge.txt
+            for f in claude_tenant_candidates.csv.gz claude_cc_tenant_extract_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "tenant-factory: candidates ($(tail -1 /tmp/merge.txt | cut -c1-120)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/merge.txt >> "$GITHUB_STEP_SUMMARY"
+
+  crawl:
+    needs: [plan, merge_extract]
+    if: ${{ always() && (inputs.stage || 'cycle') == 'cycle' && needs.merge_extract.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: sudo apt-get install -y -q poppler-utils >/dev/null 2>&1 || true
+      - name: Read each candidate's own site (role mailbox, postal address in scope, service still in use)
+        run: |
+          [ -s data/incoming/claude/claude_tenant_candidates.csv.gz ] || { echo "no candidates yet"; mkdir -p out; exit 0; }
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/lead_crawl.py --candidates data/incoming/claude/claude_tenant_candidates.csv.gz --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --max-pages 12 ${VENDORS:+--vendors "$VENDORS"}
+      - uses: actions/upload-artifact@v4
+        with: { name: "tf-crawl-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_crawl:
+    needs: crawl
+    if: ${{ always() && needs.crawl.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "tf-crawl-*", path: shards, merge-multiple: true }
+      - name: Accepted leads + mailbox rows -> main, then the referee
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ls -la shards | head -40 || true
+          git config user.name "tenant-factory"; git config user.email "tenant-factory@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/cc_tenants.py merge-accepted shards | tee /tmp/acc.txt
+            python3 tools/lead_crawl.py --merge shards --tenants | tee -a /tmp/acc.txt
+            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_buyer_ap_results_cccrawl01.csv claude_tenant_crawl_done.tsv claude_lead_site_facts.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "[claude] tenant-factory: customers of Canada-HQ software vendors ($(head -1 /tmp/acc.txt | cut -c1-110))"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/acc.txt >> "$GITHUB_STEP_SUMMARY"
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true
