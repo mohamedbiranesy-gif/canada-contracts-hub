@@ -1,4 +1,4 @@
-# Cloud lanes — status from the files on main (2026-11-10 10:17 UTC)
+# Cloud lanes — status from the files on main (2026-11-10 10:55 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
@@ -24,7 +24,7 @@
 - cloud D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **82995**
 - cloud M accredited business (BBB) [bbb]: **816**
 - cloud M licence holder (the licensing body's own list of active licences) [lic]: **1664**
-- cloud M licence holder (the licensing body's own list of active licences) [rbq]: **10748**
+- cloud M licence holder (the licensing body's own list of active licences) [rbq]: **11027**
 - cloud M membership stated by the member: **937**
 - cloud T credit line on the buyer's site: **40247**
 - cloud T provider in the buyer's DNS: **47277**
@@ -48,5 +48,5 @@
 - mailbox rows written by the cloud crawls (before the referee): **32737**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **89049** — by tier: A 1227, B 1654, C 312, D 22127, E 3417, F 7, I 10552, L 417, M 4301, R 25308, T 19727
-- named-vendor relationships (A B T M C D L E): **53182** · registry contract R: **25308** · weaker / inferred (F I): **10559**
+- rows with a confirmed mailbox: **89051** — by tier: A 1227, B 1653, C 312, D 20683, E 3462, F 8, I 10515, L 418, M 4448, R 26614, T 19711
+- named-vendor relationships (A B T M C D L): **48452** · registry contract R: **26614** · link only (E): **3462** · older / inferred (F I): **10523**
