@@ -269,12 +269,37 @@ def candidates_mode(a, k, n):
     _tfetch, _gap = T.fetch, max(1.0, n / 2.0)
     T.fetch = lambda url, gap=1.0, limit=2_000_000, _hops=0: _tfetch(url, max(gap, _gap), limit, _hops)
 
-    def jane_ok(purl):
+    def portal_owned(vkey, slug, purl, site_host, name):
+        """(True, why) when the portal a site links to is the site's OWN account. An author links to a library's catalogue, a newspaper to a
+        council's meeting portal, a practitioner's personal page to the clinic's booking page: none of them is the vendor's customer.
+        Proof, in this order: the portal address carries the organisation's name (headwayphysio.janeapp.com on headwayphysio.com); the portal
+        page links back to the site; the portal page names the same organisation. Jane: the portal must also list 2+ practitioners (free plan)."""
+        import unicodedata
+        flat = lambda x: re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKD", x or "").encode("ascii", "ignore").decode().lower())
+        lab = flat(C.registrable(site_host).split(".")[0])
+        core = flat(re.sub(r"^pub-", "", (slug or "").split(".")[0]))
+        slug_ok = vkey != "jobber" and len(core) >= 4 and len(lab) >= 4 and (core == lab or (len(core) >= 5 and core in lab) or (len(lab) >= 5 and lab in core))
+        if vkey == "jobber":  # a client-hub login or a work-request form is a business's own customer tool; its address is an id, not a name
+            return True, "the site links its own Jobber client hub / request form"
+        if slug_ok and vkey != "jane":
+            return True, "the portal address carries the organisation's name"
         try:
-            info, _ = T.portal_info("jane", purl)
-            return bool(info)
-        except Exception:
-            return False
+            info, why = T.portal_info(vkey, purl)
+        except Exception as e:
+            info, why = None, "error:" + type(e).__name__
+        if not info:
+            return (slug_ok and vkey != "jane"), why  # Jane: unreadable or fewer than 2 practitioners -> not accepted
+        if slug_ok:
+            return True, "the portal address carries the organisation's name"
+        w = info.get("website") or ""
+        if w and C.registrable(host_of(w)) == C.registrable(site_host):
+            return True, "the portal page links back to the organisation's site"
+        ptoks = [t for t in re.findall(r"[a-z0-9]{5,}", unicodedata.normalize("NFKD", info.get("name") or "").encode("ascii", "ignore").decode().lower())
+                 if t not in GENERIC_SITE_WORDS and t not in ("clinic", "clinique", "centre", "center", "health", "sante", "wellness", "physio", "physiotherapy", "massage", "therapy",
+                                                               "library", "bibliotheque", "public", "county", "district", "school", "college", "university")]
+        if any(t in lab or t in flat(name) for t in ptoks):
+            return True, "the portal page names the same organisation"
+        return False, "portal_of_another_organisation"
     done = set()
     if os.path.exists(TDONE):  # candidates that gave "nothing_found" before the front-office role rule (no "r2" mark) are read once more
         for l in open(TDONE, encoding="utf-8"):
@@ -339,10 +364,14 @@ def candidates_mode(a, k, n):
             res = "service_not_seen"
         elif not name:
             res = "no_name"
-        elif vkey == "jane" and ex.get("portal_check") and not jane_ok(ex.get("portal") or "https://%s/" % (c.get("slug") or "")):
-            res = "free_plan_or_portal_unreadable"
         else:
             res = "accepted"
+        own_why = ""
+        if res == "accepted" and ex.get("seen_on") and T.VENDORS.get(vkey, {}).get("kind") == "portal":
+            # seen live by tools/credit_scan.py as a link on the site: is it the site's OWN portal? (checked last: one request to the vendor's platform)
+            own, own_why = portal_owned(vkey, c.get("slug") or "", ex.get("portal") or "https://%s/" % (c.get("slug") or ""), st.get("host") or "", name)
+            if not own:
+                res = "portal_not_its_own:" + (own_why or "")[:40]
         rec = None
         if res == "accepted":
             site = t["known_website"]
@@ -350,7 +379,8 @@ def candidates_mode(a, k, n):
             row = {"portal_slug": c.get("slug") or "", "capture": c.get("capture") or "", "tenant_url": c.get("evidence_url") or "", "name_basis": c.get("name_basis") or ("og:site_name / title of the organisation's own home page" if not c.get("name") else ""),
                    "website_basis": c.get("website_basis") or "", "buyer_country": st["addr"][0], "buyer_address_quote": st["addr"][1], "buyer_address_url": st["addr"][2],
                    "service_seen": ("%s (in the page source of %s, %s)" % (st.get("shopify"), seen_url, TODAY)) if vkey == "shopify" else
-                                   ("%s: %s — on the organisation's own page %s (read %s)" % (T.VENDORS[vkey]["name"], ex.get("portal") or ex.get("via") or "", ex.get("seen_on"), c.get("capture"))) if ex.get("seen_on") else
+                                   ("%s: %s — on the organisation's own page %s (read %s)%s" % (T.VENDORS[vkey]["name"], ex.get("portal") or ex.get("via") or "", ex.get("seen_on"), c.get("capture"),
+                                                                                                    ("; " + own_why) if own_why else "")) if ex.get("seen_on") else
                                    "customer portal %s captured %s (Common Crawl)" % (c.get("evidence_url"), c.get("capture"))}
             rec = T.lead(vkey, name, site, seen_url if vkey == "shopify" else (c.get("evidence_url") or site), row)
             if vkey != "shopify" and c.get("capture"):  # a customer portal: the day the archive saw it; a store: today, on its own pages
