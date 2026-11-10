@@ -280,7 +280,7 @@ def lookup(a):
     tl = threading.local()
     gate, nxt = threading.Lock(), [0.0]
     local = None
-    steady = SteadyResolver() if a.resolver == "steady" else None  # the public resolvers over one socket per worker (see SteadyResolver)
+    steady, steady_text = public_transport(a.resolver)  # the public resolvers over one socket per worker (see SteadyResolver)
     if a.resolver and not steady:
         host, _, port = a.resolver.partition(":")
         probe = dns.resolver.Resolver(configure=False)
@@ -294,7 +294,7 @@ def lookup(a):
                 print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
                 time.sleep(5)
     qps = a.qps if (local or steady) else min(a.qps, 60)  # without either: the public ones with a new socket per question, slowly
-    print("resolver: %s, %d queries/s" % ("public resolvers, one socket per worker" if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
+    print("resolver: %s, %d queries/s" % (steady_text if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
 
     lock, stats, fails = threading.Lock(), collections.Counter(), []
 
@@ -569,6 +569,8 @@ class DohResolver:
         import httpx
         self.dns, self.httpx = dns, httpx
         ua = {"user-agent": C.UA if hasattr(C, "UA") else "canada-contracts-hub-crawler/1.0", "content-type": "application/dns-message", "accept": "application/dns-message"}
+        if verify is True and os.environ.get("SSL_CERT_FILE"):
+            verify = os.environ["SSL_CERT_FILE"]  # a machine whose HTTPS leaves through its own certificate authority (this tool's test bench)
         self.clients = {u: httpx.Client(http2=True, timeout=timeout, verify=verify, headers=ua, limits=httpx.Limits(max_connections=connections, max_keepalive_connections=connections))
                         for u, _ in servers}
         self.pool = [u for u, w in servers for _ in range(max(1, int(w)))]
@@ -624,6 +626,15 @@ class DohResolver:
         if isinstance(last, dns.exception.DNSException):
             raise last
         raise dns.exception.Timeout()
+
+
+def public_transport(name):
+    """(resolver, what it is) for --resolver steady | doh; (None, "") for the runner's own resolver or the plain public ones"""
+    if name == "steady":
+        return SteadyResolver(), "public resolvers, one socket per worker"
+    if name == "doh":
+        return DohResolver(), "public resolvers over HTTPS, a few long-lived connections"
+    return None, ""
 
 
 def _public_asker(dns, tl):
@@ -720,7 +731,7 @@ def sweep(a):
         ("catching up the name-server question from place %d to %d" % (ns_pos, ns_from)) if catch_up else ("starting after place %d" % start), len(watch)), flush=True)
     deadline = time.time() + a.minutes * 60
     local = None
-    if a.resolver and a.resolver != "steady":
+    if a.resolver and a.resolver not in ("steady", "doh"):
         host, _, port = a.resolver.partition(":")
         probe = dns.resolver.Resolver(configure=False)
         probe.nameservers, probe.port, probe.timeout, probe.lifetime = [host], int(port or 53), 5, 10
@@ -732,11 +743,11 @@ def sweep(a):
             except Exception as e:
                 print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
                 time.sleep(5)
-    steady = SteadyResolver() if a.resolver == "steady" else None  # the public resolvers over one socket per worker (see SteadyResolver)
+    steady, steady_text = public_transport(a.resolver)  # the public resolvers over one socket per worker (see SteadyResolver)
     qps = a.qps if (local or steady) else min(a.qps, 60)  # domains per second
     per = 1 if (catch_up or not watch) else 2  # questions per domain: its address, and who serves its zone
     rate = qps * per
-    print("resolver: %s, %d domains/s, %d questions/s" % ("public resolvers, one socket per worker" if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps, rate), flush=True)
+    print("resolver: %s, %d domains/s, %d questions/s" % (steady_text if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps, rate), flush=True)
     tl = threading.local()
     gate, nxt = threading.Lock(), [0.0]
 
@@ -960,7 +971,7 @@ def hosts_sweep(a):
     print("host sweep shard %d/%d of graph %s: starting after place %d; stores already known: %d" % (k, n, rel, start, len(known)), flush=True)
     deadline = time.time() + a.minutes * 60
     local = None
-    if a.resolver and a.resolver != "steady":
+    if a.resolver and a.resolver not in ("steady", "doh"):
         host, _, port = a.resolver.partition(":")
         probe = dns.resolver.Resolver(configure=False)
         probe.nameservers, probe.port, probe.timeout, probe.lifetime = [host], int(port or 53), 5, 10
@@ -972,9 +983,9 @@ def hosts_sweep(a):
             except Exception as e:
                 print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
                 time.sleep(5)
-    steady = SteadyResolver() if a.resolver == "steady" else None  # the public resolvers over one socket per worker (see SteadyResolver)
+    steady, steady_text = public_transport(a.resolver)  # the public resolvers over one socket per worker (see SteadyResolver)
     qps = a.qps if (local or steady) else min(a.qps, 60)
-    print("resolver: %s, %d hosts/s" % ("public resolvers, one socket per worker" if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
+    print("resolver: %s, %d hosts/s" % (steady_text if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
     tl = threading.local()
     gate, nxt = threading.Lock(), [0.0]
 
