@@ -34,6 +34,7 @@ def main():
     a.add_argument("--max-pages", type=int, default=15)
     a.add_argument("--workers", type=int, default=40)
     a.add_argument("--limit", type=int, default=0)
+    a.add_argument("--straggler-seconds", type=float, default=240, help="when only slow sites are left and nothing finished for this long, stop")
     a = a.parse_args()
     k, n = int(a.shard.split("/")[0]), max(1, int(a.shard.split("/")[1]))
     os.makedirs(C.STATE, exist_ok=True)
@@ -86,10 +87,29 @@ def main():
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), stats, flush=True)
-    with ThreadPoolExecutor(a.workers) as ex:
-        list(ex.map(one, tasks))
-    fr.close(); fd.close()
-    print("finished", stats, flush=True)
+    # a few sites answer so slowly that one thread can hold a runner for an hour (first cycle, 2026-11-10: two of eight shards were still
+    # running 20 minutes after the others). When only stragglers are left and nothing finished for 4 minutes, they are recorded as "timeout"
+    # (not read again) and the run ends; sites not started by the deadline stay in the queue for the next cycle.
+    from concurrent.futures import wait
+    ex = ThreadPoolExecutor(a.workers)
+    futs = {ex.submit(one, t): t for t in tasks}
+    pending, last = set(futs), time.time()
+    while pending:
+        fin, pending = wait(pending, timeout=min(30, max(1, a.straggler_seconds / 3)))
+        if fin:
+            last = time.time()
+        if (len(pending) <= a.workers and time.time() - last > a.straggler_seconds) or time.time() > deadline + 300:
+            with lock:
+                for f in pending:
+                    if f.running():
+                        fd.write("%s\t%s\ttimeout\t0\t0\n" % (futs[f]["buyer_key"], TODAY))
+                        stats["errors"] += 1
+            break
+    with lock:
+        fr.close(); fd.close()
+    print("finished", stats, "(stragglers left: %d)" % len(pending), flush=True)
+    sys.stdout.flush()
+    os._exit(0)  # do not wait for the straggler threads
 
 
 if __name__ == "__main__":
