@@ -937,12 +937,13 @@ addresses. Of the answered records without an address, 87 % have one; of those w
 | public resolvers, a new socket per question, 100 a second (run 1) / 250 a second (run 2) | 97 % / 13 % |
 | public resolvers over HTTPS (HTTP/2, a few connections), 600 asked, 399 a second done (run 4) | 98 % |
 | the runner's resolver forwarding over TLS to the public resolvers, 300 asked, 254 a second done (run 4) | 98 % |
+| the same, 500 asked / 900 asked (run 5: 434 and 750 a second done) | 96 % / 97-98 % |
 Every way that makes a new packet flow per question loses most of them above 50-90 a second; more sockets make it worse; a few long-lived
 connections carry everything. The limit is on the runner's side of the network. (Run 3, one UDP socket per worker, did not finish in its
 40 minutes: counted as not working.)
 **Decided.**
 1. dns-services.yml starts the runner's resolver as a forwarder over TLS (port 853, certificates checked) to Cloudflare, Google and
-   Quad9, at about 300 questions a second per runner — the measured rate. Nothing else in the tool had to change for it.
+   Quad9, at about 600 questions a second per runner (run 5: 97-98 % answered at 750). Nothing else in the tool had to change for it.
 2. Both sweeps begin their lists again (`SWEEP_REV` 2). The stores and name-server hits found so far stay; the places do not.
 3. A "no answer" is no longer a fact by itself: a sweep batch with more than 12 % unanswered is asked once more after 30 seconds, and
    at more than 24 % the run stops and the list keeps its place (a run that got nothing does not start the next one); a lookup run
@@ -950,8 +951,9 @@ connections carry everything. The limit is on the runner's side of the network. 
 4. Every lookup record written before today is asked again — "no answer" first, store candidates before the rest, then the answered
    ones (their later questions were dropped too) — and the new record replaces the old. About 12.5 M questions: one run of six runners.
 5. One concurrency group per mode: the sweep's own next run used to push a waiting lookup out of the shared group.
-**The public resolvers' side.** Six runners at 300 questions a second are 1,800 a second in all, shared between three operators, for the
-hours a run lasts; each runner has its own address. That is the traffic of one mid-sized office network. If one of them starts refusing,
+**The public resolvers' side.** Six runners at 600 questions a second are 3,600 a second in all, shared between three operators, for the
+hours a run lasts; each runner has its own address and stays under the per-address limit the one operator that publishes one states
+(Google Public DNS: 1,500 a second). If one of them starts refusing,
 the health check stops the run in place.
 **What it should give.** About 580,000 stores from the records on file; the sweep at two to three times its former yield; the DNS leads
 of the ~1 M domains that were never really asked.

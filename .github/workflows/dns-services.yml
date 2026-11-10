@@ -86,12 +86,13 @@ jobs:
           # 2026-11-10, four measurements (dns-diag.yml; coord/DECISIONS.md 23:00Z). A runner that sends each question as its own packet
           # flow — through its own recursive resolver, or straight to the public resolvers — gets 50-90 answers a second and loses the
           # rest (the day's lookups: 43 % "no answer"; the sweep: 55-61 %). The same questions inside a few long-lived TLS connections:
-          # 98 % answered at 254 a second. So the runner's resolver no longer asks the zones itself: it forwards every question over TLS
-          # (port 853, certificates checked) to Cloudflare, Google and Quad9 and keeps those connections open.
+          # 98 % answered at 254 a second, 97-98 % at 750 a second (fifth measurement). So the runner's resolver no longer asks the zones
+          # itself: it forwards every question over TLS (port 853, certificates checked) to Cloudflare, Google and Quad9 and keeps
+          # those connections open.
           sudo apt-get install -y -q unbound >/dev/null 2>&1 || true
           sudo systemctl stop unbound 2>/dev/null || true
           printf '%s\n' 'server:' '  interface: 127.0.0.1' '  port: 5353' '  access-control: 127.0.0.0/8 allow' '  do-ip6: no' '  num-threads: 4' \
-            '  msg-cache-size: 256m' '  rrset-cache-size: 512m' '  num-queries-per-thread: 4096' '  outgoing-num-tcp: 64' '  module-config: "iterator"' \
+            '  msg-cache-size: 256m' '  rrset-cache-size: 512m' '  num-queries-per-thread: 4096' '  outgoing-num-tcp: 256' '  module-config: "iterator"' \
             '  tls-cert-bundle: "/etc/ssl/certs/ca-certificates.crt"' '  hide-identity: yes' '  hide-version: yes' '  verbosity: 0' \
             'forward-zone:' '  name: "."' '  forward-tls-upstream: yes' '  forward-addr: 1.1.1.1@853#cloudflare-dns.com' '  forward-addr: 1.0.0.1@853#cloudflare-dns.com' \
             '  forward-addr: 8.8.8.8@853#dns.google' '  forward-addr: 8.8.4.4@853#dns.google' '  forward-addr: 9.9.9.9@853#dns.quad9.net' | sudo tee /etc/unbound/unbound.conf >/dev/null
@@ -102,14 +103,14 @@ jobs:
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
           if [ "$MODE" = "sweep" ]; then
-            # 170 domains a second per runner: about 300 questions a second (the address of each, the name servers of those that answer) —
-            # the rate measured to be answered at 98 % through the forwarding resolver. tools/dns_services.py stops the run in place when
-            # a batch goes unanswered.
-            python3 tools/dns_services.py sweep --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 170
+            # 340 domains a second per runner: about 600 questions a second (the address of each, the name servers of those that answer).
+            # Measured through the forwarding resolver: 97-98 % answered at 750 a second. tools/dns_services.py stops the run in place
+            # when a batch goes unanswered.
+            python3 tools/dns_services.py sweep --shard ${{ matrix.k }}/8 --minutes $M --workers 400 --resolver 127.0.0.1:5353 --qps 340
           elif [ "$MODE" = "hosts" ]; then
-            python3 tools/dns_services.py hosts --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 300
+            python3 tools/dns_services.py hosts --shard ${{ matrix.k }}/8 --minutes $M --workers 400 --resolver 127.0.0.1:5353 --qps 600
           else
-            python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 300 --limit "$LIMIT" --resolver 127.0.0.1:5353 --qps 300
+            python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 400 --limit "$LIMIT" --resolver 127.0.0.1:5353 --qps 600
           fi
           ls -la out | head; head -c 600 out/dns_${{ matrix.k }}.jsonl || true
       - uses: actions/upload-artifact@v4
