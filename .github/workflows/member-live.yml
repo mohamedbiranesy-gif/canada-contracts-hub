@@ -1,0 +1,112 @@
+name: member-live
+# Members of Canadian chambers of commerce, boards of trade and trade associations, read from the bodies' own live directories (the members
+# pay dues; the directory prints each member's name, address, telephone and website). The row factory reads the member pages the Common Crawl
+# archive happens to hold; this reads the directories themselves, complete and current (tools/member_live.py).
+#   crawl    : /list/searchalpha/<letter> of every known directory host -> each member page not read before -> leads (same files and same
+#              merge as the row factory: tools/cc_clients.py merge); the row factory's mailbox crawl then reads each member's own site
+#   discover : probe the .ca domains named like a chamber / association for a directory of the same family -> claude_member_hosts.csv
+# One request queue per runner towards the directory platform (2 requests per second), robots.txt respected. No AI, no search engine.
+on:
+  schedule:
+    - cron: "53 4 * * *"
+    - cron: "53 16 * * *"
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "crawl | discover"
+        default: "crawl"
+      minutes:
+        description: "minutes per runner"
+        default: "150"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: member-live-${{ inputs.stage || 'crawl' }}
+  cancel-in-progress: false
+env:
+  STAGE: ${{ inputs.stage || 'crawl' }}
+  MINUTES: ${{ inputs.minutes || '150' }}
+jobs:
+  crawl:
+    if: ${{ (inputs.stage || 'crawl') == 'crawl' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix: { k: [0, 1] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Read the live member directories
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/member_live.py crawl --shard ${{ matrix.k }}/2 --minutes $M --workers 8
+      - uses: actions/upload-artifact@v4
+        with: { name: "ml-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge:
+    needs: crawl
+    if: ${{ always() && needs.crawl.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "ml-*", path: shards, merge-multiple: true }
+      - name: Union the leads with main and commit (the row factory's own merge)
+        run: |
+          ls -la shards | head -20 || true
+          git config user.name "member-live"; git config user.email "member-live@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/cc_clients.py merge shards | tee /tmp/merge.txt
+            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_cc_extract_done.tsv claude_cc_leads_noaddr.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "member-live: members named in the live directories of Canadian chambers and associations ($(tail -1 /tmp/merge.txt | cut -c1-110)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/merge.txt >> "$GITHUB_STEP_SUMMARY"
+
+  discover:
+    if: ${{ (inputs.stage || 'crawl') == 'discover' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix: { k: [0, 1] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Probe chamber / association domains for a directory
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/member_live.py discover --shard ${{ matrix.k }}/2 --minutes $M --workers 30
+      - uses: actions/upload-artifact@v4
+        with: { name: "mh-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_hosts:
+    needs: discover
+    if: ${{ always() && needs.discover.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "mh-*", path: shards, merge-multiple: true }
+      - name: Directory hosts -> main
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          git config user.name "member-live"; git config user.email "member-live@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/member_live.py merge-hosts shards | tee /tmp/h.txt
+            git add data/incoming/claude/claude_member_hosts.csv data/incoming/claude/claude_member_hosts.csv.probed 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "member-live: directory hosts ($(tail -1 /tmp/h.txt | cut -c1-110)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/h.txt >> "$GITHUB_STEP_SUMMARY"
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/member-live.yml/dispatches" -f ref=main -f "inputs[stage]=crawl" || true

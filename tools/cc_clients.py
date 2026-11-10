@@ -41,6 +41,14 @@ ADONE = os.path.join(INC, "claude_cc_addr_done.tsv")          # vendor domain, c
 APAGES = os.path.join(INC, "claude_cc_addr_pages.csv.gz")      # home / contact pages (index rows) of non-.ca organisations located in Canada (universe index)
 APAGE_COLS = ["dom", "url", "host", "path", "fetch_time", "warc_filename", "warc_record_offset", "warc_record_length", "crawl"]
 CF_CA = "vendor located in Canada (cc: .ca domain + Canadian postal address on its own page)"
+# domains whose subdomains belong to different organisations (site builders, association platforms): a page on one of them says nothing about
+# the others, so such a domain is never one "vendor" — no address found on one tenant's page may promote the links of another (2026-11-10: 539
+# member pages of US chambers sat under the key cc:chambermaster.com, waiting for any page of that domain to print a Canadian address)
+MULTI_TENANT = re.compile(r"(^|\.)(chambermaster\.com|growthzoneapp\.com|growthzonesites\.com|micronetonline\.com|wildapricot\.(org|com)|memberclicks\.net|site-ym\.com|yourmembership\.com|"
+                          r"wixsite\.com|squarespace\.com|weebly\.com|wordpress\.com|blogspot\.[a-z.]{2,6}|godaddysites\.com|webflow\.io|myshopify\.com|business\.site|github\.io|netlify\.app|"
+                          r"herokuapp\.com|azurewebsites\.net|square\.site|bigcartel\.com|substack\.com|medium\.com|tumblr\.com|strikingly\.com|mystrikingly\.com|jimdofree\.com|jimdosite\.com|"
+                          r"webnode\.[a-z.]{2,6}|ueniweb\.com|carrd\.co|notion\.site|wpengine\.com|kinsta\.cloud|pantheonsite\.io|webador\.[a-z.]{2,6}|site123\.me|yolasite\.com|"
+                          r"clubexpress\.com|clubrunner\.ca|sportsengine\.com|teamsnap\.com|rampinteractive\.com|goalline\.ca|esportsdesk\.com)$", re.I)
 
 
 def canada_field(dom, basis="", how=""):
@@ -915,7 +923,7 @@ def merge(a):
             row = dict(o.get("row") or {})
             vd_ = (row.get("vendor_key") or "")[3:]
             va = vaddr.get(vd_)
-            if not va or not o.get("domain") or not o.get("dataset_url"):
+            if not va or not o.get("domain") or not o.get("dataset_url") or MULTI_TENANT.search(vd_):
                 continue
             if len(pages_of[vd_]) >= 3 and len(link_pages[(vd_, o["domain"])]) >= max(3, 0.6 * len(pages_of[vd_])):
                 n_boiler += 1
