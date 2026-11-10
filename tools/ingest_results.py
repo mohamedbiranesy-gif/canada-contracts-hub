@@ -5,7 +5,10 @@ Reads   data/incoming/**/*.csv   (formats: docs/RETURN_FORMATS.md; file name say
 Writes  coord/results/team_buyers.jsonl.gz (gzipped since 2026-11-09), coord/results/team_vendors.jsonl, coord/results/qa_results.jsonl,
         coord/tasks/<other lane>/<other>_verify_buyer_ap_batch01.csv (pages we could not fetch), coord/source_registry.csv, coord/INGEST_REPORT.md
 Usage   python3 tools/ingest_results.py [--no-fetch]      (run from the repo root; idempotent)
-Verification: each cited page is fetched once (cached in work/evidence_cache/) and the e-mail/portal must appear in it.
+Verification: each cited page is fetched and the e-mail/portal must appear in it. The verdict is kept in coord/results/verified_ledger.csv
+  (with the day and the way the value was seen) and stands for a while without reading the page again: 45-59 days for a value seen on its
+  page, 7 days for a value not on it, 3 days for a page that could not be opened (see RECHECK_DAYS / NEG_DAYS). So a run reads the pages of
+  the new rows and of the rows whose term has come; work/evidence_cache/ is only that run's working copy.
   verified        the value is literally on the fetched page.
   verified        also when the page refuses this verifier but the Internet Archive's copy (at most 180 days old) shows the
                   value; the snapshot is kept in the evidence as verified_via
@@ -90,30 +93,108 @@ for _r in PC.rows(LEDGER_PATH):
     LEDGER[(_r["value"], _r["url"])] = _r
 
 
+# 2026-11-10: the ledger is also what spares a page a second request. Until now a page was asked for again whenever its copy was missing from
+# the fetch cache — and the cache (300,000 files, 5.6 GB) has not been saved since 11:26Z ("Maximum call stack size exceeded" in the cache action):
+# every run since then fetched every page newer than that, 80,953 pages at the 13:59Z run for 4,200 new rows, each buyer's page again every
+# 90 minutes. Now a verdict stands for a while without reading the page again:
+#   seen on its page                      -> not asked again for RECHECK_DAYS (then read once more: the mailbox may have changed)
+#   read, value not on it / hidden        -> not asked again for 7 days          page could not be opened -> not asked again for 3 days
+# so a run reads the pages of the new rows, plus the rows whose term has come. The fetch cache is only this run's working copy.
+# The ledger says how a value was seen, so that a verdict taken from it says the same as on the day it was made:
+#   via          the Internet Archive copy it was seen on (empty: on the page itself)
+#   last_checked the day of the last attempt to read the page     last_attempt  why that attempt failed (empty: it did not fail)
+RECHECK_DAYS = 45
+NEG_DAYS = {"not_found_on_page": 7, "not_found_on_page_hidden": 7, "unverified_page_unavailable": 3}
+LEDGER_COLS = ["value", "url", "first_verified", "last_verified", "last_status", "last_checked", "last_attempt", "via"]
+
+
+def ledger_backfill():
+    """entries written before the ledger said how a value was seen (before 2026-11-10 16:30Z): the last run's evidence file says it —
+    1,005 values seen on an archive copy, 4,922 seen earlier on a page that could not be read at the last run"""
+    if not any("via" not in e for e in LEDGER.values()):
+        return
+    import gzip
+    path, n = "coord/results/team_buyers.jsonl.gz", collections.Counter()
+    try:
+        if not NOFETCH:
+            import state_io
+            state_io.ensure(path)  # a release asset since 2026-11-10: the checkout holds its manifest line only
+        with gzip.open(path, "rt", encoding="utf-8") as f:
+            for line in f:
+                d = json.loads(line)
+                for ev in (d.get("ap_contact_team") or {}).get("evidence") or []:
+                    via = ev.get("verified_via") or ""
+                    e = LEDGER.get(((ev.get("email") or ev.get("invoice_portal") or "").lower().strip(), ev.get("page_url") or ""))
+                    if not via or e is None or "via" in e:
+                        continue
+                    if via.startswith("https://web.archive.org/"):
+                        e["via"] = via; n["seen on an archive copy"] += 1
+                    elif via.startswith("referee saw it"):
+                        m = re.search(r"\((\w+)\)\s*$", via)
+                        e["last_attempt"], e["last_checked"] = (m.group(1) if m else "unverified_page_unavailable"), (d.get("ingested_at") or "")[:10]
+                        n["seen earlier, page not readable at the last run"] += 1
+    except Exception as ex:  # the file is not at hand: the verdicts stand all the same, without the note
+        print("ledger: how the earlier values were seen could not be read back (%s)" % str(ex)[:120], file=sys.stderr)
+    for e in LEDGER.values():
+        e.setdefault("via", ""); e.setdefault("last_attempt", ""); e.setdefault("last_checked", e.get("last_verified") or "")
+    print("ledger: entries of the earlier format completed from the last run's evidence: %s" % dict(n), file=sys.stderr)
+
+
+def _age(d):
+    try:
+        return (datetime.date.today() - datetime.date.fromisoformat((d or "")[:10])).days
+    except ValueError:
+        return 10 ** 6
+
+
+def settled(value, url):
+    """the ledger's verdict for (value, page) when it is recent enough to stand without reading the page again, else None"""
+    if not value or not url:
+        return None
+    e = LEDGER.get((value.lower().strip(), url))
+    if not e:
+        return None
+    st = e.get("last_status")
+    # the term is spread over two weeks by the page's address, so that the rows verified on one day do not all come due on one day
+    term = RECHECK_DAYS + int(hashlib.sha1(url.encode()).hexdigest()[:4], 16) % 15
+    if st == "verified" and _age(e.get("last_verified")) <= term:
+        return "verified"
+    if st == "verified" and e.get("last_attempt") and _age(e.get("last_verified")) <= LEDGER_DAYS and _age(e.get("last_checked")) <= NEG_DAYS["unverified_page_unavailable"]:
+        return "verified"  # its term has come and the page refused the attempt a day or two ago: the sighting stands, the page is left alone
+    if st in NEG_DAYS and _age(e.get("last_checked")) <= NEG_DAYS[st]:
+        return st
+    return None
+
+
 def ledger_note(value, url, status):
     """record this run's verdict; return the earlier verified date that still stands when today's page could not be read, else None"""
     k = (value.lower().strip(), url or "")
     e = LEDGER.get(k)
     if status == "verified":
-        LEDGER[k] = {"value": k[0], "url": k[1], "first_verified": (e or {}).get("first_verified") or LEDGER_TODAY, "last_verified": LEDGER_TODAY, "last_status": "verified"}
+        LEDGER[k] = {"value": k[0], "url": k[1], "first_verified": (e or {}).get("first_verified") or LEDGER_TODAY, "last_verified": LEDGER_TODAY, "last_status": "verified",
+                     "last_checked": LEDGER_TODAY, "last_attempt": "", "via": VIA.get((value, url)) or ""}
         return None
+    blank = {"value": k[0], "url": k[1], "first_verified": "", "last_verified": "", "last_status": status, "last_checked": LEDGER_TODAY, "last_attempt": "", "via": ""}
     if status in ("not_found_on_page", "rejected_personal_or_invalid"):
         if e:
-            e["last_status"] = status  # the page was read and the value is gone: the earlier sighting no longer stands
+            e["last_status"], e["last_checked"], e["last_attempt"] = status, LEDGER_TODAY, ""  # the page was read and the value is gone: the earlier sighting no longer stands
+        elif status == "not_found_on_page":
+            LEDGER[k] = blank
         return None
-    if e and e.get("last_verified") and e.get("last_status") == "verified":
-        try:
-            age = (datetime.date.today() - datetime.date.fromisoformat(e["last_verified"])).days
-        except ValueError:
-            age = LEDGER_DAYS + 1
-        if age <= LEDGER_DAYS:
-            return e["last_verified"]
+    if e and e.get("last_verified") and e.get("last_status") == "verified" and _age(e["last_verified"]) <= LEDGER_DAYS:
+        if status in NEG_DAYS:
+            e["last_checked"], e["last_attempt"] = LEDGER_TODAY, status  # the attempt is noted: the sighting stands, the page is left alone for a few days
+        return e["last_verified"]
+    if status in NEG_DAYS:  # the page could not be opened, or hides its e-mails: noted, so that the next runs leave it alone for a few days
+        if e:
+            e["last_status"], e["last_checked"], e["last_attempt"] = status, LEDGER_TODAY, ""
+        else:
+            LEDGER[k] = blank
     return None
 
 
 def ledger_write():
-    cols = ["value", "url", "first_verified", "last_verified", "last_status"]
-    PC.write(LEDGER_PATH, cols, ([LEDGER[k].get(c, "") for c in cols] for k in sorted(LEDGER)))
+    PC.write(LEDGER_PATH, LEDGER_COLS, ([LEDGER[k].get(c, "") or "" for c in LEDGER_COLS] for k in sorted(LEDGER)))
 
 
 def archive_text(url, fetch=True):
@@ -171,7 +252,20 @@ def bad_email(e):
     return bool(e) and ("@" in e) and (not EMAIL.match(e) or (PERSONAL.match(e.split("@")[0]) and not ROLE_HINT.search(e.split("@")[0])))
 
 
+N_SETTLED = collections.Counter()
+
+
 def verify(value, url):
+    if value and not bad_email(value) and url and not os.path.exists(os.path.join(CACHE, hashlib.sha1(url.encode()).hexdigest())):
+        st0 = settled(value, url)  # the page is not in this run's working copy: the ledger's recent verdict stands, the page is not asked for
+        if st0:
+            N_SETTLED[st0] += 1
+            e = LEDGER[(value.lower().strip(), url)]
+            if st0 == "verified" and e.get("last_attempt"):
+                VIA[(value, url)] = "referee saw it on this page on %s; the page could not be read at the last attempt, %s (%s)" % (e.get("last_verified"), e.get("last_checked"), e["last_attempt"])
+            elif st0 == "verified" and e.get("via"):
+                VIA[(value, url)] = e["via"]  # seen on the Internet Archive's copy of the page: said again as it was
+            return st0
     st = verify_now(value, url)
     if st is None:
         return None
@@ -235,13 +329,19 @@ def prefetch():
     """Fetch every cited page not cached yet, many hosts in parallel, at most 2 requests per second per host."""
     import threading, urllib.parse
     from concurrent.futures import ThreadPoolExecutor
-    urls, cited_all = [], []
+    urls, cited_all, n_spared = [], [], [0]
     for path in sorted(glob.glob("data/incoming/**/*.csv", recursive=True)):
         for r in csv.DictReader(open(path, encoding="utf-8-sig", newline="")):
             u = (r.get("evidence_url") or "").strip()
             if u.startswith("http") and (r.get("ap_email") or "").strip() and (r.get("buyer_key") or "").split(":")[0] in ("b", "lead"):
                 cited_all.append(u)  # contract / relationship buyers' pages: archive copies are looked up for these only
             if u.startswith("http") and ((r.get("ap_email") or r.get("invoice_portal_url") or r.get("general_email") or r.get("billing_or_ar_email") or "").strip()):
+                # the values the main loop will check on this page: a buyer row's mailbox (else its portal), a vendor row's two mailboxes
+                vals = [(r.get("ap_email") or r.get("invoice_portal_url") or "").strip()] if (r.get("ap_email") or r.get("invoice_portal_url") or "").strip() else \
+                       [v.strip() for v in (r.get("general_email") or "", r.get("billing_or_ar_email") or "") if v.strip()]
+                if vals and all(bad_email(v) or settled(v, u) for v in vals):
+                    n_spared[0] += 1
+                    continue  # the ledger's recent verdict stands for every value cited from this page: the page is not asked for again
                 h = os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest())
                 if not os.path.exists(h) and not (os.path.exists(h + ".fail") and time.time() - os.path.getmtime(h + ".fail") < 3 * 86400):
                     k = (r.get("buyer_key") or r.get("vendor_key") or "").split(":")[0]
@@ -261,9 +361,9 @@ def prefetch():
                     break
             time.sleep(min(w, 0.5))
         page_text(u)
-    with ThreadPoolExecutor(32) as ex:
+    with ThreadPoolExecutor(64) as ex:  # 64 since 2026-11-10 (was 32): the pages are on as many hosts as there are rows; the per-host pace is unchanged
         list(ex.map(one, urls))
-    print("prefetched %d new pages" % len(urls), file=sys.stderr)
+    print("prefetched %d new pages; rows whose page was not asked for again (the ledger's recent verdict stands): %d" % (len(urls), n_spared[0]), file=sys.stderr)
     uses = collections.Counter(cited)  # pages cited by the most rows first (one federal table backs 200+ rows)
     failed = [u for u, _ in uses.most_common() if os.path.exists(os.path.join(CACHE, hashlib.sha1(u.encode()).hexdigest()) + ".fail")]
     asked = 0
@@ -279,6 +379,7 @@ def prefetch():
     print("archive copies looked up for %d refused pages: %d copies held; errors %s" % (len(failed), hits, ARCHIVE_ERRORS.most_common(3)), "samples", ARCHIVE_SAMPLES, file=sys.stderr)
 
 
+ledger_backfill()
 if not NOFETCH:
     prefetch()
 
@@ -350,6 +451,8 @@ for k, b in buyers.items():
             e["verification"] = "cross_verified"
             report["buyer_findings_cross_verified"] += 1
 
+for _k, _v in sorted(N_SETTLED.items()):
+    report["ledger_verdict_stands_page_not_read_again_" + _k] = _v
 now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 import gzip as _gzip  # 2026-11-09 04:35Z: team_buyers.jsonl passed GitHub's 100 MB file limit (101.4 MB) and every verifier push was rejected by the pre-receive hook since 22:16Z
 if os.path.exists("coord/results/team_buyers.jsonl"):

@@ -3,7 +3,7 @@ csv.field_size_limit(1 << 30)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 SRC = os.environ.get("BATCHES_SRC") or ROOT + "/out/ranked/ranked_buyers.csv"
 DST = os.environ.get("BATCHES_DST") or ROOT + "/out/ranked/batches"
-# 2026-11-10 (disk): the table is 15 KB a row as plain CSV — 2.6 GB at 170,000 rows, 15 GB at a million, on a runner with ~14 GB free. The ranker
+# 2026-11-10 (disk): the table is 15 KB a row as plain CSV — 2.6 GB at 170,000 rows, 15 GB at a million (a runner has 85 GB free). The ranker
 # no longer writes the plain file; the table is read from ranked_buyers.csv.gz (same text, same line-end handling).
 def src_open():
     """the ranked table as text: the plain CSV when it is there (local runs), otherwise the compressed copy"""
@@ -95,7 +95,7 @@ del order
 parts = {pi: max(1, int(size[pi] // PART_BYTES) + 1) for pi in count}
 step = {pi: -(-count[pi] // parts[pi]) for pi in count}
 # 2026-11-10 (disk): the package files are written compressed (<package>.csv.gz — tools/batch_files.py reads them; the release's zip still holds
-# plain .csv members). As plain text the packages are 15 KB a row: 2.6 GB at 170,000 rows, 15 GB at a million, on a runner with ~14 GB free —
+# plain .csv members). As plain text the packages are 15 KB a row: 2.6 GB at 170,000 rows, 15 GB at a million (a runner has 85 GB free) —
 # and a second, unsorted copy of them was on disk while they were written. A package whose rows already stand in the table in the package's own
 # order (every package but Z, as the table is sorted today) is now written straight into its files; only the others take the unsorted working copy.
 seen_n = collections.Counter()

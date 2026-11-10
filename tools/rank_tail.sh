@@ -4,7 +4,7 @@
 # (one process) and rank-buyers-parts.yml (the table put together from parts by tools/rank_merge.py). Needs GH_TOKEN. Run from the repository root.
 #
 # Disk (2026-11-10, measured): a row is 15 KB as plain CSV. A build used to hold the previous table as plain text, the new table as plain
-# text, the packages and a working copy of the packages — ~65 KB a row, 11 GB at 170,000 rows on a runner with ~14 GB free. Now: tables
+# text, the packages and a working copy of the packages — ~65 KB a row, 11 GB at 170,000 rows (a runner has 85 GB free: build 15:47Z). Now: tables
 # compressed only, package working parts removed as they are written — the packages (15 KB a row) are the only plain text left.
 set -e
 df -h / | tail -1 | sed 's/^/disk after ranking: /'

@@ -7,9 +7,11 @@ python3 tools/ranked_io.py assemble || true
 PREV=coord/results/ranked/ranked_buyers.csv.gz   # read compressed: as plain text it is 15 KB a row (2.6 GB at 170,000 rows) — see docs in rank_tail.sh
 [ -s "$PREV" ] || PREV=""
 # DNS posture (DMARC / SPF / MTA-STS / TLS-RPT / BIMI) for mailbox domains not yet checked: new mailboxes arrive every build. The tool stops by
-# itself after 18 minutes and writes what it checked (it also writes every 5,000 domains); `timeout` is only the backstop.
+# itself after 18 minutes and writes what it checked (it also writes every 5,000 domains); `timeout` is only the backstop. 64 workers: with
+# 128 the 15:04Z build checked 22,000 domains in its 18 minutes, with 64 the build before it checked 50,000 in 20 (why is not established:
+# 64 is simply the setting that measured better).
 # shellcheck disable=SC2046
-timeout 22m python3 tools/dmarc_check.py --repo "$PWD" --recheck-days 30 --workers 128 --minutes 18 $PREV \
+timeout 22m python3 tools/dmarc_check.py --repo "$PWD" --recheck-days 30 --workers 64 --minutes 18 $PREV \
   $(ls data/incoming/*/*results*.csv data/incoming/claude/claude_buyer_leads.csv 2>/dev/null | head -400) > dmarc_check.log 2>&1 || true
 tail -2 dmarc_check.log
 # whose site a client listing is on (tools/site_owner_wd.py): Wikidata's official-website statements for the sites not asked yet.

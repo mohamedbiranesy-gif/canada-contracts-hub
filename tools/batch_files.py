@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """The package files of a rank build (out/ranked/batches/): <package>.csv.gz, or <package>_partK_of_N.csv.gz for a big package.
 
-Written compressed since 2026-11-10: a row is 15 KB of plain text, so the packages of a million rows would be 15 GB on a runner with ~14 GB
-free. The release's ranked_batches.zip still holds plain .csv members under the same names (tools/ranked_publish.py streams each file into it).
+Written compressed since 2026-11-10: a row is 15 KB of plain text, so the packages of a million rows would be 15 GB (a runner has 85 GB
+free: they would fit, and need not be there). The release's ranked_batches.zip still holds plain .csv members under the same names (tools/ranked_publish.py streams each file into it).
 Builds made before that day and local runs may hold plain .csv files: both are read.
 
     import batch_files as BF

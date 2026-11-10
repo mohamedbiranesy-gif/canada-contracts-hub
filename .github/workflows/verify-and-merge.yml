@@ -66,13 +66,11 @@ jobs:
     concurrency: { group: main-writer, cancel-in-progress: false }
     steps:
       - uses: actions/checkout@v4
-      # restore + save as separate steps: the cache of fetched pages is kept even when a run is cut short,
-      # so every run makes progress (one cache entry per run; GitHub evicts the oldest).
-      - uses: actions/cache/restore@v4
-        with:
-          path: work/evidence_cache
-          key: evidence-${{ github.run_id }}
-          restore-keys: evidence-
+      # 2026-11-10: no cache of fetched pages any more. The cache had grown to 300,000 files / 5.6 GB and its save step had failed since 11:26Z
+      # ("Maximum call stack size exceeded"), so every run fetched every page newer than that again (80,953 pages for 4,200 new rows at 13:59Z,
+      # 65-105 minutes a run). What a run needs from the earlier ones is the verdict, and that is in git: coord/results/verified_ledger.csv
+      # (tools/ingest_results.py: a verdict stands for 45-59 days, 7 for "not on the page", 3 for "page could not be opened"). A run reads the
+      # pages of the new rows and of the rows whose term has come.
       - name: Verify evidence, refresh queues and board, commit (regenerated on the latest main until the push wins)
         env:
           GH_TOKEN: ${{ github.token }}
@@ -113,11 +111,6 @@ jobs:
             echo "push attempt $i lost the race; retrying on the new head"
             sleep $((RANDOM % 10 + 3))
           done
-      - uses: actions/cache/save@v4
-        if: always()
-        with:
-          path: work/evidence_cache
-          key: evidence-${{ github.run_id }}
       - name: Start overdue workflows (GitHub's timer is best-effort)
         if: always()
         env:
