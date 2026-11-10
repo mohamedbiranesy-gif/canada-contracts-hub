@@ -328,7 +328,7 @@ def get_page(url, check_robots=True, cache=None):
         ok, _ = robots_ok("%s://%s/" % (fp.scheme, fp.netloc), final, cache)
         if not ok:
             return "robots", final, ""
-    return "ok", final, html.unescape(decode(data, ctype))
+    return "ok", final, C.quote_attrs(html.unescape(decode(data, ctype)))
 
 
 def host_of(site):
