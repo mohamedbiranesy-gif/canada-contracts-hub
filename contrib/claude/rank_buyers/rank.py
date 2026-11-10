@@ -1365,19 +1365,20 @@ cols = [c for c in rows[0].keys() if not c.startswith("_")]
 rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
 # one row per body: two spellings of one name ("MRC Charlevoix" / "MRC  de Charlevoix") that share a buyer key within the
 # same government are one buyer; the best-ranked row stands for it and carries all its keys
-seen, merged = {}, []
-for x in rows:
+seen, seen_any, merged = {}, {}, []  # seen_any: the first row registered under a key in ANY jurisdiction (2026-11-10: the scan of `seen` for every
+for x in rows:                      # row without a jurisdiction was quadratic — 5 minutes at 80,000 rows, hours at a million; same result by a lookup)
     ks = [k for k in (x.get("keys") or "").split("|") if k]
     j = x.get("jurisdiction") or ""
     hit = next((seen.get((k, j)) or seen.get((k, "")) for k in ks if (k, j) in seen or (k, "") in seen), None)
     if hit is None and not x.get("jurisdiction"):
-        hit = next((v for k in ks for (k2, j), v in seen.items() if k2 == k), None)
+        hit = next((seen_any[k] for k in ks if k in seen_any), None)
     if hit is not None:
         allk = sorted(set((hit.get("keys") or "").split("|")) | set(ks) - {""})
         hit["keys"], hit["buyer_keys"] = "|".join(allk), len(allk)
         continue
     for k in ks:
         seen[(k, x.get("jurisdiction") or "")] = x
+        seen_any.setdefault(k, x)
     merged.append(x)
 rows = merged
 # owner 2026-11-04 ("each row as populated as possible"): what the lanes read on the SAME page as the verified mailbox —
