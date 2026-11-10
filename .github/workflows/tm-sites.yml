@@ -5,6 +5,10 @@ name: tm-sites
 # and the site is kept ONLY when its own pages tie it to the owner: the same name and the same postal code, the owner's legal person stated
 # with its legal form, or the owner's name as both the domain name and the site's own name on a site in Canada. Measured on 300 owners:
 # 85 % have a name that resolves, 11 % end tied. Then the daily match and the leads (tm-register.yml).
+# abroad=true (2026-11-10): the owners outside Canada — a foreign company that pays a Canadian agent of record to hold its marks here. Same
+# tests with the owner's own country in the place of Canada: the same name and the register's ZIP code / postcode printed in an address on
+# the site; or the legal person stated with its legal form, or the name as the domain name, on a site that prints an address of the
+# owner's state. Measured on 117 owners: 8 tied (Concept2, DuBois Chemicals, Tracksmith …).
 on:
   workflow_dispatch:
     inputs:
@@ -17,6 +21,9 @@ on:
       limit:
         description: "at most this many owners per runner (0 = no limit)"
         default: "0"
+      abroad:
+        description: "true = the owners outside Canada (United States, United Kingdom, Australia): 109,538 owners abroad have a Canadian agent of record"
+        default: "false"
 permissions:
   contents: write
   actions: write
@@ -50,7 +57,7 @@ jobs:
       - name: Look for each owner's own site under its own name
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
-          python3 tools/tm_register.py sites --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --limit "$LIMIT"
+          python3 tools/tm_register.py sites --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --limit "$LIMIT" ${{ inputs.abroad == 'true' && '--abroad' || '' }}
       - uses: actions/upload-artifact@v4
         with: { name: "tms-${{ matrix.k }}", path: out/, retention-days: 3 }
 

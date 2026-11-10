@@ -957,3 +957,16 @@ hours a run lasts; each runner has its own address and stays under the per-addre
 the health check stops the run in place.
 **What it should give.** About 580,000 stores from the records on file; the sweep at two to three times its former yield; the DNS leads
 of the ~1 M domains that were never really asked.
+
+## 2026-11-10 23:25Z from claude — trademark owners abroad: a foreign company that pays a Canadian agent of record
+The register holds 134,458 owners outside Canada; 109,538 of them appointed a Canadian agent of record (99,364 are organisations; United
+States 50,172, China 26,540, France 6,502, United Kingdom 6,439, Germany 6,011 …). The relationship is the same as for an owner in Canada
+and is named by the same federal register: the owner, its address, the Canadian firm that acts for it, the dates of its registrations.
+The finder (`tm_register.py sites --abroad`, tm-sites.yml `abroad=true`) looks for the owner's own site in the three countries whose
+addresses the readers recognise (United States, United Kingdom, Australia: about 47,000 organisations with a postal code in the
+register's address line). A site is kept only when its own pages tie it to the owner, with the owner's country in the place of Canada:
+the same name and the register's ZIP code / postcode printed in an address on the site; or the owner's legal person stated with its legal
+form, or the owner's name as both domain name and site name, on a site that prints an address of the owner's state — one owner of that
+name on the whole register in both cases. Measured on 117 owners: 8 tied, all eight the right company; 25 sites agreed on the name and
+printed no address (not tied).
+Not done: the owners in countries whose addresses are not read (China, France, Germany, Japan …).

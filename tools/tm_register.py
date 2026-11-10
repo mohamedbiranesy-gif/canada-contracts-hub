@@ -343,6 +343,61 @@ _STOPW = {"and", "et", "of", "de", "du", "des", "the", "la", "le", "les", "for",
 _CONTACT = re.compile(r"contact|nous-joindre|joindre|coordonn|about|a-propos|propos", re.I)
 
 
+# ---- owners abroad (2026-11-10): 134,458 owners outside Canada, 109,538 of them with a Canadian agent of record — a foreign company that
+# pays a Canadian firm to hold its marks here. The register prints their address in one line ("767 Fifth Avenue, New York, NY 10153"); the
+# postal code is its last token. Looked for in the three countries whose addresses the readers recognise.
+ABROAD = {"US": ("United States", (".com", ".us")), "GB": ("United Kingdom", (".co.uk", ".com")), "AU": ("Australia", (".com.au", ".com"))}
+_US_STATES = dict(zip("alabama alaska arizona arkansas california colorado connecticut delaware florida georgia hawaii idaho illinois indiana iowa kansas kentucky louisiana maine maryland "
+                      "massachusetts michigan minnesota mississippi missouri montana nebraska nevada newhampshire newjersey newmexico newyork northcarolina northdakota ohio oklahoma oregon "
+                      "pennsylvania rhodeisland southcarolina southdakota tennessee texas utah vermont virginia washington westvirginia wisconsin wyoming districtofcolumbia".split(),
+                      "AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC".split()))
+
+
+def place_abroad(address, country):
+    """(postal code, state) the register's one-line address ends with: ('10153', 'NY'), ('SW1A1AA', ''), ('2000', 'NSW'); ('', '') when unclear"""
+    a = re.sub(r"\s+", " ", (address or "").strip(" ,.")).strip()
+    a = re.sub(r",?\s*(?:U\.?S\.?A\.?|United States(?: of America)?|United Kingdom|U\.?K\.?|England|Scotland|Wales|Australia)$", "", a, flags=re.I).strip(" ,.")
+    if country == "US":
+        m = re.search(r"(?:,|\s)\s*([A-Za-z][A-Za-z. ]{1,20}?)\.?,?\s+(\d{5})(?:-\d{4})?$", a)
+        if not m:
+            return "", ""
+        st = re.sub(r"[^a-z]", "", m.group(1).lower())
+        st = st.upper() if len(st) == 2 and st.upper() in _US_STATES.values() else _US_STATES.get(st, "")
+        if not st:  # "New York, NEW YORK 10003": the state is the last one or two words before the code
+            w = re.sub(r"[^a-z ]", "", m.group(1).lower()).split()
+            st = _US_STATES.get("".join(w[-2:]), "") or _US_STATES.get("".join(w[-1:]), "")
+        return m.group(2), st
+    if country == "GB":
+        m = re.search(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s?(\d[A-Z]{2})$", a.upper())
+        return (m.group(1) + m.group(2), "") if m else ("", "")
+    if country == "AU":
+        m = re.search(r"\b(NSW|VIC|QLD|TAS|ACT|WA|SA|NT|New South Wales|Victoria|Queensland|Tasmania|Western Australia|South Australia)\.?,?\s+(\d{4})$", a, re.I)
+        if not m:
+            return "", ""
+        st = {"new south wales": "NSW", "victoria": "VIC", "queensland": "QLD", "tasmania": "TAS", "western australia": "WA", "south australia": "SA"}.get(m.group(1).lower(), m.group(1).upper())
+        return m.group(2), st
+    return "", ""
+
+
+def printed_abroad(text, country, code, state):
+    """(the register's postal code printed in an address of that country, the same state / country printed in an address) on a page's text"""
+    import lead_crawl as LC
+    same_code = same_state = False
+    if country == "US":
+        for m in LC.US_ADDR.finditer(text):
+            same_state = same_state or (bool(state) and m.group(2) == state)
+            same_code = same_code or (bool(code) and m.group(3) == code)
+    elif country == "GB":
+        for m in LC.GB_ADDR.finditer(text):
+            same_state = True
+            same_code = same_code or (bool(code) and re.sub(r"\s", "", m.group(2)) == code)
+    elif country == "AU":
+        for m in re.finditer(r"(?<![A-Za-z0-9])(NSW|VIC|QLD|TAS|ACT|WA|SA|NT)\s+(\d{4})(?!\d)", text):
+            same_state = same_state or (bool(state) and m.group(1) == state)
+            same_code = same_code or (bool(code) and m.group(2) == code and (not state or m.group(1) == state))
+    return same_code, same_state
+
+
 def labels_of(name, marks):
     """[(label, kind)] — the few domain labels an organisation would plausibly hold: its own name written in one word, with and without its
     everyday words (kind "name"), its first two words ("short"), then its marks ("mark"). A label is only where to LOOK: a site counts when
@@ -394,17 +449,25 @@ def sites(a):
             done = {l.split("\t", 1)[0] for l in f}
     by_name = collections.Counter()
     owners = []
-    with gzip.open(OWN_CA, "rt", encoding="utf-8", newline="") as f:
-        for r in csv.DictReader(f):
-            if not is_org(r["owner_name"]):
-                continue
-            by_name[nkey(r["owner_name"])] += 1
-            if r["postal_code"] and r["owner_key"] not in tied and r["owner_key"] not in done and int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n == k:
-                owners.append(r)
+    abroad = bool(getattr(a, "abroad", False))
+    for path, here in ((OWN_CA, True), (OWN_XX, False)):  # "one owner of that name on the register" counts both files
+        with gzip.open(path, "rt", encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                if not is_org(r["owner_name"]):
+                    continue
+                by_name[nkey(r["owner_name"])] += 1
+                if r["owner_key"] in tied or r["owner_key"] in done or int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n != k:
+                    continue
+                if here and not abroad and r["postal_code"]:
+                    owners.append(r)
+                elif not here and abroad and r["country"] in ABROAD and (int(r["marks_in_force"] or 0) or (r["agent_name"] and int(r["marks_with_this_agent"] or 0))):
+                    r["_code"], r["_state"] = place_abroad(r["address"], r["country"])
+                    if r["_code"]:
+                        owners.append(r)
     owners.sort(key=lambda r: (-int(r["marks_in_force"] or 0), r["owner_key"]))
     if a.limit:
         owners = owners[:a.limit]
-    print("shard %d/%d: %d owners in Canada without a site on file (%d looked for before)" % (k, n, len(owners), len(done)), flush=True)
+    print("shard %d/%d: %d owners %s without a site on file (%d looked for before)" % (k, n, len(owners), "abroad (United States, United Kingdom, Australia)" if abroad else "in Canada", len(done)), flush=True)
     deadline = time.time() + a.minutes * 60
     lock, stats, notes = threading.Lock(), collections.Counter(), []
     ff = open("out/tm_sites_%d.csv" % k, "a", encoding="utf-8", newline="")
@@ -433,7 +496,8 @@ def sites(a):
             return
         ok_ = nkey(o["owner_name"])
         marks = [x.split(";")[2] for x in (o["examples"] or "").split(" | ") if x.count(";") == 4 and x.split(";")[2]]
-        kind_of = {lab + tld: kind for lab, kind in labels_of(o["owner_name"], marks) for tld in (".ca", ".com")}
+        cc = o["country"] if abroad else "CA"
+        kind_of = {lab + tld: kind for lab, kind in labels_of(o["owner_name"], marks) for tld in (ABROAD[cc][1] if abroad else (".ca", ".com"))}
         cands = list(kind_of)
         live = [h for h in cands if resolves(h)][:4]
         hit, n_read = None, 0
@@ -448,6 +512,54 @@ def sites(a):
                 continue
             fdom = C.registrable((CS.host_of(final) or h).lower())
             names, pc = facts(raw, final)
+            if abroad:
+                # An owner abroad: the same tests with the owner's own country in the place of Canada. (1) the same name and the register's
+                # postal code printed in an address on the site; (2) the owner's legal person stated with its legal form, one owner of that
+                # name, an address of the owner's state (or country) on the site; (3) the domain name is the owner's name written out, the
+                # site names itself so, one owner of that name, an address of the owner's state on the site.
+                where, text = final, CCL.visible(raw)
+                code_ok, state_ok = printed_abroad(text, cc, o["_code"], o["_state"])
+                if not code_ok:
+                    link = next((u for u, lab, *_ in T.anchors_of(raw, final) if _CONTACT.search(u.rsplit("/", 2)[-1] + " " + (lab or "")) and C.registrable((CS.host_of(u) or "").lower()) == fdom), "")
+                    if link:
+                        time.sleep(0.6)
+                        try:
+                            r2, f2, raw2 = CS.get_page(link.split("#")[0], True, cache)
+                        except Exception:
+                            r2 = ""
+                        n_read += 1
+                        if r2 == "ok":
+                            c2, s2 = printed_abroad(CCL.visible(raw2), cc, o["_code"], o["_state"])
+                            if c2:
+                                code_ok, where = True, f2
+                            state_ok = state_ok or s2
+                sn = same_name(ok_, names, "M5V2T6")
+                what = {"US": "ZIP code", "GB": "postcode", "AU": "postcode"}[cc]
+                how = ""
+                if sn and code_ok:
+                    how = sn.replace("the same postal code", "the same %s (%s, printed in an address on the site)" % (what, o["_code"]))
+                if not how and state_ok:
+                    for kind in ("legalName", "copyright line"):
+                        raw_n = names.get(kind) or ""
+                        if (raw_n and nkey(raw_n) == ok_ and by_name[ok_] == 1 and len(ok_.split()) >= 2 and any(t not in GENERIC and len(t) >= 4 for t in ok_.split())
+                                and forms(raw_n) and forms(raw_n) == forms(o["owner_name"])):
+                            how = "the same legal name, which the site itself states with its legal form (%s) and one owner on the register bears; a site in the owner's %s (%s)" % (
+                                kind, "state" if o["_state"] else "country", o["_state"] or ABROAD[cc][0])
+                            break
+                if (not how and state_ok and o["_state"] and kind_of.get(h) == "name" and by_name[ok_] == 1 and sn.startswith("the same name") and len(ok_.split()) >= 2
+                        and any(t not in GENERIC and len(t) >= 4 for t in ok_.split())
+                        and fdom.split(".")[0].replace("-", "") in {lab.replace("-", "") for lab, kd in labels_of(o["owner_name"], marks) if kd == "name"}):
+                    how = "the same name (%s), on a domain name that is the owner's name written out; a site in the owner's state (%s, %s); one owner of that name on the register" % (
+                        "site name" if nkey(names.get("site name") or "") == ok_ else "its own statement", o["_state"], ABROAD[cc][0])
+                if not how:
+                    with lock:
+                        stats["read, not tied: " + ("name agrees, " + ("the owner's state, another postal code" if state_ok else "no address of the owner's state on its pages") if sn else "its name is another")] += 1
+                else:
+                    hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["_code"], "tied_by": how,
+                           "site_facts_from": "its own pages (%s), found under a domain name made of the owner's name or mark" % where,
+                           "site_states": "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:200], "read": TODAY}
+                    break
+                continue
             how = same_name(ok_, names, pc) if pc == o["postal_code"] else ""
             where = final
             if not how and not pc:  # the home page prints no postal code: its contact page, when the home page links one
@@ -544,9 +656,12 @@ def merge_sites(a):
 def leads(a):
     import lead_store as LS
     owners = {}
-    with gzip.open(OWN_CA, "rt", encoding="utf-8", newline="") as f:
-        for r in csv.DictReader(f):
-            owners[r["owner_key"]] = r
+    want = {m["owner_key"] for m in csv.DictReader(open(MATCHES, encoding="utf-8", newline=""))}
+    for path in (OWN_CA, OWN_XX):  # an owner abroad is delivered the same way: the register names it, its address, and the Canadian agent it appointed
+        with gzip.open(path, "rt", encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                if r["owner_key"] in want:
+                    owners[r["owner_key"]] = r
     prev, pdet = LS.load(exclude=("tm", a.stamp))
     snap = LS.snapshot(prev, pdet)
     mine = {k for k, d in pdet.items() if d.get("platform") == "tm_register"}
@@ -574,14 +689,14 @@ def leads(a):
                      "reference": ref[1] or ("application %s" % ref[0] if ref[0] else ""), "title": "Trademark %s%s — %d in force, %d pending on the Canadian register (extract of %s)" % (
                          ("“%s” " % ref[2]) if ref[2] else "", ("registration %s" % ref[1]) if ref[1] else "", int(o["marks_in_force"] or 0), int(o["marks_pending"] or 0), SNAP_DATE),
                      "vendor_address": "%s (the register's own entry for the %s, %s)" % (vaddr, "agent of record" if with_agent else "Office", BASE + FILES["party"] if with_agent else OFFICE["site"]),
-                     "vendor_site": "" if with_agent else OFFICE["site"], "member_address_quote": "%s %s" % (o["address"], o["postal_code"]),
+                     "vendor_site": "" if with_agent else OFFICE["site"], "member_address_quote": ("%s %s" % (o["address"], o["postal_code"])).strip(),
                      "register_label": "the Canadian trademarks register of the Canadian Intellectual Property Office, which names as agent of record" if with_agent else "the Canadian trademarks register published by",
                      "tm_relationship": "agent of record" if with_agent else "registration",
                      "tm_agent_of_record": o["agent_name"], "tm_agent_number": o["agent_number"], "tm_agent_address": o["agent_address"], "tm_marks_in_force": int(o["marks_in_force"] or 0),
                      "tm_marks_pending": int(o["marks_pending"] or 0), "tm_marks_with_this_agent": int(o["marks_with_this_agent"] or 0), "tm_examples": o["examples"],
                      "tm_first_registered": o["first_registered"], "tm_latest_renewal_due": o["latest_renewal_due"], "tm_extract": SNAP_DATE,
                      "buyer_register": {"legal_name": o["owner_name"], "trade_names": [], "registry_id": "", "legal_form": "", "phone": "",
-                                        "address": "%s %s" % (o["address"], o["postal_code"]),
+                                        "address": ("%s %s" % (o["address"], o["postal_code"])).strip(),
                                         "label": "the Canadian trademarks register (owner of record), extract of %s, %s" % (SNAP_DATE, PAGE)},
                      "dataset_basis": "Canadian Intellectual Property Office, trademarks researcher datasets (%s; data dictionary %s): table TM_interested_party, party type 10 current owner%s" % (
                          PAGE, DICT, ", party type 11 agent" if with_agent else ""),
@@ -609,6 +724,7 @@ def main():
     ap.add_argument("--main", default="", help="build: a local copy of the application-main zip (tests)")
     ap.add_argument("--party", default="", help="build: a local copy of the interested-party zip (tests)")
     ap.add_argument("--stamp", default=time.strftime("%Y%m%dT%H%M%S", time.gmtime()))
+    ap.add_argument("--abroad", action="store_true", help="sites: the owners outside Canada (United States, United Kingdom, Australia) instead of the owners in Canada")
     a = ap.parse_args()
     {"build": build, "match": match, "leads": leads, "sites": sites, "merge-sites": merge_sites}[a.cmd](a)
 
