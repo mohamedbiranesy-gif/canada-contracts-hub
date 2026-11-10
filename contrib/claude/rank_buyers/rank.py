@@ -715,7 +715,8 @@ for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.g
 LFACTS = {}  # 2026-11-10: what the cloud mailbox crawl read on the buyer's OWN pages (tools/lead_crawl.py): its name and its postal address, quoted
 LFACTS_DOM = {}  # the same facts by website domain: a row made under another key of the same site (a registry lead, a credit lead) uses them too
 from ap_crawler import address_from as _addr_from
-for _d in jl(ROOT + "/data/incoming/claude/claude_lead_site_facts.jsonl.gz"):
+import lead_crawl as _LCF  # the facts: the single file of before 2026-11-10 plus the append-only shards (site_facts/)
+for _d in _LCF.facts_records():
     if _d.get("key"):
         if _d.get("address_quote"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
             _d["address"] = _addr_from(_d["address_quote"]) or _d.get("address") or ""

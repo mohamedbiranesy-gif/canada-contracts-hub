@@ -466,16 +466,13 @@ def merge(a):
     import biz_licences as BL
     import ap_crawler as C
     by_digits = {re.sub(r"\D", "", h["licence"]): h for h in H.values()}
-    fp = os.path.join(INC, "claude_lead_site_facts.jsonl.gz")
+    import lead_crawl as LCF
     n_seen = n_untied = 0
-    if os.path.exists(fp):
-        for l in gzip.open(fp, "rt", encoding="utf-8"):
-            if '"rbq"' not in l:
-                continue
+    if True:
+        for o in LCF.facts_records():  # the single facts file of before 2026-11-10 and the shards of site_facts/
             try:
-                o = json.loads(l)
                 x = o["ids"]["rbq"]
-            except (ValueError, KeyError, TypeError):
+            except (KeyError, TypeError):
                 continue
             h = by_digits.get(x.get("v") or "")
             if not h:

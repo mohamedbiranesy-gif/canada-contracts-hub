@@ -352,13 +352,9 @@ def match(a):
         names = [n for n in (r.get("buyer") or "", (r.get("buyer_legal_name_as_published") or "").split(" (")[0], (r.get("buyer_trade_name_as_published") or "").split(" (")[0]) if n and "." not in n[-5:]]
         orgs[host] = dict(names=names, addr=(r.get("buyer_address") or "").split(" (as printed")[0], phone=re.sub(r"\D", "", (r.get("buyer_phone") or "").split(" (")[0])[-10:], tier=r.get("tier") or "",
                           mail=bool((r.get("email") or "").strip()))
-    fp = os.path.join(INC, "claude_lead_site_facts.jsonl.gz")
-    if os.path.exists(fp):
-        for l in gzip.open(fp, "rt", encoding="utf-8"):
-            try:
-                o = json.loads(l)
-            except ValueError:
-                continue
+    import lead_crawl as LCF
+    if True:
+        for o in LCF.facts_records():  # the single facts file of before 2026-11-10 and the shards of site_facts/
             host = (urllib.parse.urlparse(o.get("site") or "").hostname or "").lower()
             if host and host not in orgs and o.get("site_name") and o.get("address_quote"):
                 orgs[host] = dict(names=[o["site_name"]], addr=o.get("address") or o["address_quote"], phone="", tier="", mail=False)

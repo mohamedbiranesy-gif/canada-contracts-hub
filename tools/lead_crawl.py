@@ -136,6 +136,23 @@ def install_hooks():
 
 
 FACTS = os.path.join(INC, "claude_lead_site_facts.jsonl.gz")
+# 2026-11-10: the facts file grew with every site read and was rewritten whole (compressed: git kept every version). New lines now go to append-only
+# shards, site_facts/facts_<stamp>.gz; the single file is no longer rewritten. Readers take both through facts_records() (the latest line of a key wins).
+FACTS_DIR = os.path.join(INC, "site_facts")
+
+
+def facts_records():
+    for p in ([FACTS] if os.path.exists(FACTS) else []) + sorted(glob.glob(os.path.join(FACTS_DIR, "facts_*.gz"))):
+        with gzip.open(p, "rt", encoding="utf-8") as f:
+            for l in f:
+                try:
+                    o = json.loads(l)
+                except ValueError:
+                    continue
+                if o.get("key"):
+                    yield o
+
+
 RBQ_ID = re.compile(r"(?<![A-Za-z])(?:R\.?\s?B\.?\s?Q\.?|R[ée]gie du b[âa]timent(?: du Qu[ée]bec)?)(?![A-Za-z])[^0-9]{0,30}?(\d{4})[\s\-.\u00a0\u2010-\u2014]{0,3}(\d{4})[\s\-.\u00a0\u2010-\u2014]{0,3}(\d{2})(?!\d)", re.I)
 
 
@@ -411,6 +428,8 @@ def candidates_mode(a, k, n):
                 continue
             if a.vendors and r["vendor_key"] not in a.vendors.split(","):
                 continue
+            if a.skip_vendors and r["vendor_key"] in a.skip_vendors.split(","):
+                continue
             hosts.add(h)
             tasks.append({"task_id": "TN-" + hashlib.sha1(r["cand_key"].encode()).hexdigest()[:10], "buyer_key": r["cand_key"], "buyer_name": r.get("name") or h,
                           "known_website": "https://%s/" % h, "_c": r,
@@ -422,7 +441,7 @@ def candidates_mode(a, k, n):
     # stores the DNS lookups found on Shopify's storefront addresses (tools/dns_services.py): candidates made here, never written to the
     # candidates file (they number in the hundreds of thousands); their done lines go to the shards like every other candidate's
     n_dns = 0
-    if a.dns_stores and (not a.vendors or "shopify" in a.vendors.split(",")):
+    if a.dns_stores and (not a.vendors or "shopify" in a.vendors.split(",")) and "shopify" not in (a.skip_vendors or "").split(","):
         try:
             import dns_services as DNS
             for o in DNS.records():
@@ -573,13 +592,7 @@ def facts_mode(a, k, n):
     better mailbox (invoicing / AP / finance / purchasing) when the row only has a general one. rank.py turns that into the bill-to block."""
     install_hooks()
     done = {l.split("\t")[0] for l in open(SFDONE, encoding="utf-8")} if os.path.exists(SFDONE) else set()
-    have = set()
-    if os.path.exists(FACTS):
-        for l in gzip.open(FACTS, "rt", encoding="utf-8"):
-            try:
-                have.add(json.loads(l)["key"])
-            except (ValueError, KeyError):
-                pass
+    have = {o["key"] for o in facts_records()}
     tasks, hosts = [], set()
     import ranked_io  # the ranked table is committed in parts (GitHub's 100 MB limit)
     if True:
@@ -721,27 +734,40 @@ def merge(a):
         with open(done_path, "w", encoding="utf-8") as f:
             for key in sorted(seen):
                 f.write(seen[key] + "\n")
-    facts = {}
-    if os.path.exists(FACTS):
-        for l in gzip.open(FACTS, "rt", encoding="utf-8"):
-            try:
-                o = json.loads(l)
-                facts[o["key"]] = o
-            except (ValueError, KeyError):
-                pass
-    nf = len(facts)
+    new_facts = {}
     for p in sorted(glob.glob(os.path.join(a.merge, "lead_facts_*.jsonl"))):
         for l in open(p, encoding="utf-8"):
             try:
                 o = json.loads(l)
-                facts[o["key"]] = o
+                new_facts[o["key"]] = o
             except (ValueError, KeyError):
                 pass
-    if facts:
-        with gzip.open(FACTS, "wt", encoding="utf-8") as f:
-            for key in sorted(facts):
-                f.write(json.dumps(facts[key], ensure_ascii=False) + "\n")
-    print("site facts (buyer's own name / address): %d (+%d)" % (len(facts), len(facts) - nf))
+    if a.stamp:  # this run's lines as one new shard (the kind of run in the name: two merges of one workflow run share a stamp)
+        kind = "t" if a.tenants else "s" if a.site_facts else "l"
+        n_before = len({o["key"] for o in facts_records()})
+        if new_facts:
+            os.makedirs(FACTS_DIR, exist_ok=True)
+            with gzip.open(os.path.join(FACTS_DIR, "facts_%s%s.gz" % (a.stamp, kind)), "wt", encoding="utf-8") as f:
+                for key in sorted(new_facts):
+                    f.write(json.dumps(new_facts[key], ensure_ascii=False) + "\n")
+        n_after = len({o["key"] for o in facts_records()})
+        print("site facts (buyer's own name / address): %d (+%d)" % (n_after, n_after - n_before))
+    else:  # a run queued before 2026-11-10 08:15Z (no --stamp): the single file, as before
+        facts = {}
+        if os.path.exists(FACTS):
+            for l in gzip.open(FACTS, "rt", encoding="utf-8"):
+                try:
+                    o = json.loads(l)
+                    facts[o["key"]] = o
+                except (ValueError, KeyError):
+                    pass
+        nf = len(facts)
+        facts.update(new_facts)
+        if facts:
+            with gzip.open(FACTS, "wt", encoding="utf-8") as f:
+                for key in sorted(facts):
+                    f.write(json.dumps(facts[key], ensure_ascii=False) + "\n")
+        print("site facts (buyer's own name / address): %d (+%d)" % (len(facts), len(facts) - nf))
     res = collections.Counter((l.split("\t") + ["?", "?", "?"])[2].split(":")[0] for l in seen.values())
     print("%s sites read so far: %d (%s); mailbox rows added this run: %d; buyers with a mailbox row: %d" % (
         "candidate" if a.tenants else "delivered-row" if a.site_facts else "lead", len(seen), ", ".join("%s %d" % kv for kv in res.most_common(7)), len(rows), len({x[0] for x in have})))
@@ -752,6 +778,7 @@ def main():
     a.add_argument("--leads", default=os.path.join(INC, "claude_buyer_leads_cc.csv"))
     a.add_argument("--candidates", default="", help="claude_tenant_candidates.csv.gz (tools/cc_tenants.py): accept-or-reject mode")
     a.add_argument("--vendors", default="", help="candidates mode: only these vendor keys (comma separated)")
+    a.add_argument("--skip-vendors", default="", help="candidates mode: not these vendor keys (the stores are read by a process that rides along the mailbox crawl)")
     a.add_argument("--merge", default="", help="directory of shard outputs to append to the files on main")
     a.add_argument("--tenants", action="store_true", help="with --merge: the shard outputs come from candidates mode")
     a.add_argument("--site-facts", action="store_true", help="with --merge: the shard outputs come from --facts-ranked mode")
