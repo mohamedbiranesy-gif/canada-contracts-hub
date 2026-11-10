@@ -228,7 +228,7 @@ def repair_mailbox(m, page_url):
     return ""
 def mail_entry(r):
     """(accepted, grade) of one referee mailbox row, or None when rank.py never uses it"""
-    r["mailbox"] = re.sub(r"^(?:u003e|u003c|>|<)+", "", (r.get("mailbox") or "").strip(), flags=re.I)  # JSON escape debris glued to the address
+    r["mailbox"] = re.sub(r"^(?:u003e|u003c|u00a0|u0026|u0022|u0027|%[0-9a-f]{2}|>|<|[-._])+", "", (r.get("mailbox") or "").strip(), flags=re.I)  # JSON / URL escape debris glued to the address ("%20payments@", "u003ebilling@")
     acc = r["check_status"] in ("verified", "cross_verified")
     if _TLDS and r["mailbox"].rsplit(".", 1)[-1].lower() not in _TLDS:
         _fixed = repair_mailbox(r["mailbox"], r.get("evidence_url") or "")
@@ -277,9 +277,9 @@ for path in _glob.glob(ROOT + "/data/incoming/*/*buyer_ap*results*.csv"):
         print("lane rows skipped:", path, type(ex).__name__)
 TYPE_MAP = {"invoicing": "invoice_submission", "finance": "finance", "procurement": "procurement", "general": "general"}
 n_vl = 0
-_vl = ROOT + "/coord/results/verification_log.csv"
-if os.path.exists(_vl):
-    for r in csv.DictReader(io.StringIO(open(_vl, encoding="utf-8", errors="replace").read().replace("\0", ""))):
+import parted_csv as _PCSV  # the log: the team lanes' file, then the claude lane's file and its parts (tools/ingest_results.py, 2026-11-10)
+for _vl in (ROOT + "/coord/results/verification_log.csv", ROOT + "/coord/results/verification_log_claude.csv"):
+    for r in _PCSV.rows(_vl):
         if r.get("outcome") not in ("verified", "cross_verified") or "@" not in (r.get("value") or ""):
             continue
         e = r["value"].strip().lower()

@@ -196,7 +196,8 @@ def page_emails(src):
     """the addresses in a page's source: lower case, a top-level domain that exists, and never an address plus the word that follows it.
     2026-11-10: descriptions and search indexes made by stripping tags without spaces print "info@site.caPhone", "ap@town.caDevelopment" next to
     the real address; 125 such strings had been taken for mailboxes (the last label is no TLD) — and "info@site.ca" + "re" would even be one."""
-    es = {x.lower().rstrip(".") for x in EMAIL_RX.findall(src)}
+    es = {re.sub(r"^(?:u003e|u003c|u00a0|u0026|u0022|u0027|%[0-9a-f]{2})+", "", x.lower().rstrip(".")) for x in EMAIL_RX.findall(src)}  # "\u003ebilling@", "%20payments@": escape debris in front
+    es = {e for e in es if "@" in e and not e.startswith("@")}
     if TLDS:
         es = {e for e in es if e.rsplit(".", 1)[-1] in TLDS}
     glued = {e for e in es if e.rsplit(".", 1)[-1] not in _COMMON_TLD

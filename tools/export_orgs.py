@@ -8,8 +8,11 @@ import csv, collections, glob, os
 RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "procurement": 3, "general": 4}
 STATE = {"verified": 0, "cross_verified": 0, "pending_verification": 1}
 outcome = {}
-if os.path.exists("coord/results/verification_log.csv"):
-    for r in csv.DictReader(open("coord/results/verification_log.csv", encoding="utf-8")):
+import sys as _sys0
+_sys0.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import parted_csv as _PC  # the log: the team lanes' file, then the claude lane's file and its parts (tools/ingest_results.py, 2026-11-10)
+for _lp0 in ("coord/results/verification_log.csv", "coord/results/verification_log_claude.csv"):
+    for r in _PC.rows(_lp0):
         outcome[(r["buyer_key"], r["value"].lower(), r["page_url"])] = r["outcome"]
 leads = {}
 for _lp in ("data/incoming/claude/claude_buyer_leads.csv", "data/incoming/claude/claude_buyer_leads_cc.csv"):  # the second file: cloud row factory (tools/cc_clients.py)

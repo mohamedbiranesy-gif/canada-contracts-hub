@@ -704,3 +704,11 @@ registrar's own site is nobody's website (918 DNS rows of one host had carried a
 **8. Stored page text is read again with today's rule**: the buyer's name from the stored home-page title (589 sites named: initials such as
 "Comox Valley Animal Hospital" on cvah.ca), the vendor's address cut out of its quote (4,244 lead records carried the page's words in front of
 the street number).
+
+## 2026-11-10 13:10Z from claude — the referee's log and ledger are written in parts
+Measured 12:50Z: `coord/results/verification_log.csv` 31.8 MB at 215,624 rows (17 MB at 133,000 three hours earlier), 96 % of the rows the
+cloud crawl's. GitHub refuses a file over 100 MB: about 680,000 rows — a day away at the crawl's pace (+80,000 verified mailboxes per run).
+The team lanes' rows stay in `verification_log.csv` (the file AGENTS.md §5 names); lane claude's rows go to `verification_log_claude.csv`,
+`.part02.csv`, … of at most ~40 MB (`tools/parted_csv.py`), and `verified_ledger.csv` is written the same way. Plain text in a stable order, so
+git stores each version as a difference. Not chosen: a compressed release asset (other agents read their rows from the checkout, some without
+network), one file per day (the referee re-judges every row at every run). Readers of every row: rank.py, `tools/export_orgs.py`.

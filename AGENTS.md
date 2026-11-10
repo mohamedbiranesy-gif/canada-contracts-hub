@@ -126,7 +126,8 @@ Rules:
    - re-fetches every evidence page;
    - keeps only verified values in `coord/results/`. A value it cannot see (bot-protected page, or e-mails shown only
      in a browser) counts when two different lanes quote it from the same page (`cross_verified`);
-   - logs every row's outcome in `coord/results/verification_log.csv`. Check your own rows there;
+   - logs every row's outcome in `coord/results/verification_log.csv`. Check your own rows there (lane `claude`'s rows are in
+     `verification_log_claude.csv` and its `.partNN.csv` files);
    - updates `coord/STATUS_BOARD.md` and `coord/NEXT.md`;
    - creates `verify_*` tasks for the other lane when a page could not be fetched.
 6. Small, frequent PRs. A PR with 30 solid rows beats a promise of 300.

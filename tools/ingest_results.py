@@ -85,9 +85,9 @@ VIA = {}  # (value, url) -> archive snapshot used to verify it
 # It is only overridden when the page is fetched successfully and the value is no longer on it. Entries older than LEDGER_DAYS expire.
 LEDGER_PATH, LEDGER_DAYS = "coord/results/verified_ledger.csv", 120
 LEDGER, LEDGER_TODAY = {}, datetime.date.today().isoformat()
-if os.path.exists(LEDGER_PATH):
-    for _r in csv.DictReader(open(LEDGER_PATH, encoding="utf-8")):
-        LEDGER[(_r["value"], _r["url"])] = _r
+import parted_csv as PC  # 2026-11-10: the ledger and the claude lane's log are written in parts of at most ~40 MB (GitHub refuses 100 MB)
+for _r in PC.rows(LEDGER_PATH):
+    LEDGER[(_r["value"], _r["url"])] = _r
 
 
 def ledger_note(value, url, status):
@@ -112,12 +112,8 @@ def ledger_note(value, url, status):
 
 
 def ledger_write():
-    os.makedirs(os.path.dirname(LEDGER_PATH), exist_ok=True)
-    with open(LEDGER_PATH, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["value", "url", "first_verified", "last_verified", "last_status"])
-        w.writeheader()
-        for k in sorted(LEDGER):
-            w.writerow({c: LEDGER[k].get(c, "") for c in w.fieldnames})
+    cols = ["value", "url", "first_verified", "last_verified", "last_status"]
+    PC.write(LEDGER_PATH, cols, ([LEDGER[k].get(c, "") for c in cols] for k in sorted(LEDGER)))
 
 
 def archive_text(url, fetch=True):
@@ -416,14 +412,22 @@ for lane, items in verify.items():
     report["verify_tasks_" + lane] += len(items)
 per_lane = collections.defaultdict(collections.Counter)
 ledger_write()
-with open("coord/results/verification_log.csv", "w", newline="", encoding="utf-8") as f:
-    w = csv.writer(f)
-    w.writerow(["found_by", "source_file", "task_id", "buyer_key", "value", "page_url", "outcome"])
+# 2026-11-10: one log file was 32 MB at 215,000 rows — 96 % of them the cloud crawl's (lane claude) — and GitHub refuses a file over 100 MB
+# (about 680,000 rows at this row size). The team lanes' rows stay in coord/results/verification_log.csv, the file AGENTS.md §5 tells every
+# agent to check; the claude lane's rows go to coord/results/verification_log_claude.csv, .part02.csv, … (tools/parted_csv.py). A reader that
+# wants every row reads both (rank.py, tools/export_orgs.py).
+_LOG_COLS = ["found_by", "source_file", "task_id", "buyer_key", "value", "page_url", "outcome"]
+def _log_rows(claude):
     for k, b in sorted(buyers.items()):
         for e in b["evidence"]:
-            per_lane[e["found_by"]][e["verification"]] += 1
-            w.writerow([e["found_by"], e["source_file"], e.get("task_id") or "", k, e["email"] or e["invoice_portal"] or "",
-                        e["page_url"] or "", e["verification"]])
+            if (e["found_by"] == "claude") == claude:
+                per_lane[e["found_by"]][e["verification"]] += 1
+                yield [e["found_by"], e["source_file"], e.get("task_id") or "", k, e["email"] or e["invoice_portal"] or "", e["page_url"] or "", e["verification"]]
+with open("coord/results/verification_log.csv", "w", newline="", encoding="utf-8") as f:
+    w = csv.writer(f)
+    w.writerow(_LOG_COLS)
+    w.writerows(_log_rows(False))
+PC.write("coord/results/verification_log_claude.csv", _LOG_COLS, _log_rows(True))
 qa = collections.Counter()
 for r in qa_rows:
     for c in ("buyer_match", "vendor_match", "title_match", "value_match", "dates_match", "status_supported"):
@@ -433,7 +437,7 @@ with open("coord/INGEST_REPORT.md", "w", encoding="utf-8") as f:
     f.write("- buyers with team findings: %d (with at least one verified e-mail/portal: %d)\n" % (len(buyers), sum(1 for b in buyers.values() if any(e["verification"] == "verified" for e in b["evidence"]))))
     f.write("- vendors with team findings: %d\n- QA rows: %d\n- counters: %s\n- QA tallies: %s\n" % (len(vendors), len(qa_rows), dict(report), dict(qa)))
     f.write("\n## Outcome of each lane's buyer findings\n")
-    f.write("Every row's outcome is in `coord/results/verification_log.csv`. Look up your own rows there.\n\n")
+    f.write("Every row's outcome is in `coord/results/verification_log.csv` (lane claude: `verification_log_claude.csv` and its parts). Look up your own rows there.\n\n")
     f.write("| lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |\n|---|---|---|---|---|---|---|---|\n")
     for lane, c in sorted(per_lane.items()):
         f.write("| %s | %d | %d | %d | %d | %d | %d | %d |\n" % (lane, c["verified"], c["cross_verified"], c["pending_verification"], c["unverified_page_unavailable"],
