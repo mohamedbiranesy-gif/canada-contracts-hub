@@ -303,6 +303,26 @@ def candidates_mode(a, k, n):
     # under 2 requests per second on the vendor's platform.
     _tfetch, _gap = T.fetch, max(1.0, n / 2.0)
     T.fetch = lambda url, gap=1.0, limit=2_000_000, _hops=0: _tfetch(url, max(gap, _gap), limit, _hops)
+    # Shopify stores (2026-11-10): 9,024 of the first 23,437 stores read answered 403 / 429. Every store sits on Shopify's own network, which counts
+    # requests per reader, not per store: one request per second per store was still a burst for the platform. Now every request to a store waits
+    # its turn in ONE queue per runner (2 requests per second towards Shopify's network), and the stores that refused are read once more ("b2").
+    shop_gate, shop_next = threading.Lock(), [0.0]
+
+    def shop_turn():
+        with shop_gate:
+            t0 = max(time.time(), shop_next[0])
+            shop_next[0] = t0 + 0.5
+        w0 = t0 - time.time()
+        if w0 > 0:
+            time.sleep(w0)
+    _cfetch = C.fetch
+
+    def fetch_gated(url, *aa, **kw):
+        st0 = getattr(_tl, "st", None)
+        if st0 is not None and st0.get("_shop"):
+            shop_turn()
+        return _cfetch(url, *aa, **kw)
+    C.fetch = fetch_gated
 
     def portal_owned(vkey, slug, purl, site_host, name):
         """(True, why) when the portal a site links to is the site's OWN account. An author links to a library's catalogue, a newspaper to a
@@ -340,7 +360,8 @@ def candidates_mode(a, k, n):
         for l in open(TDONE, encoding="utf-8"):
             q = l.rstrip("\n").split("\t")
             if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and ("r2" not in q[6:] or (len(q) > 5 and q[5] == "shopify" and "p2" not in q[6:]))) \
-                    and not (len(q) > 5 and q[2].startswith("out_of_scope") and q[5] in ("jane", "jobber") and "s2" not in q[6:]):
+                    and not (len(q) > 5 and q[2].startswith("out_of_scope") and q[5] in ("jane", "jobber") and "s2" not in q[6:]) \
+                    and not (len(q) > 5 and q[5] == "shopify" and q[2] in ("blocked", "no_address", "service_not_seen", "no_name") and "b2" not in q[6:]):
                 done.add(q[0])  # Jane / Jobber candidates refused as "out of scope" before their terms were read (one contracting entity for every country) are read once more
     tasks, hosts = [], set()
     with gzip.open(a.candidates, "rt", encoding="utf-8", newline="") as fh:
@@ -373,8 +394,33 @@ def candidates_mode(a, k, n):
     def one(t):
         if time.time() > deadline:
             return
-        c, st = t["_c"], {"host": host_of(t["known_website"])}
+        c = t["_c"]
+        vkey = c["vendor_key"]
+        scope = CT.SCOPE.get(vkey, ("CA",))
+        st = {"host": host_of(t["known_website"]), "_shop": vkey == "shopify"}
         _tl.st = st
+        meta, mu = None, "https://%s/meta.json" % st["host"]
+        if vkey == "shopify":
+            # every Shopify store answers /meta.json with what the merchant entered: the store's name, city, province, country, and its
+            # myshopify.com address — the store's own statement of where it is (many stores print no postal address) and proof of the service
+            try:
+                if C.allowed(mu):
+                    s_, _, d_, _ = C.fetch(mu, 200_000)
+                    if s_ == 200 and d_[:1] == b"{":
+                        mj = json.loads(d_.decode("utf-8", "replace"))
+                        if isinstance(mj, dict) and str(mj.get("myshopify_domain") or "").endswith(".myshopify.com"):
+                            meta = mj
+            except Exception:
+                meta = None
+            mcc = str((meta or {}).get("country") or "").upper()
+            if meta and mcc and mcc not in scope:  # a store abroad contracts with Shopify's Irish or Singapore company: no further page is read
+                _tl.st = None
+                with lock:
+                    stats["sites"] += 1
+                    stats["out_of_scope"] += 1
+                    stats["shopify_meta_json"] += 1
+                    fd.write("%s\t%s\tout_of_scope:%s\t1\t0\t%s\tr2\ts2\tp2\tb2\n" % (t["buyer_key"], TODAY, mcc, vkey))
+                return
         try:
             result, pages, rows = C.crawl(t, a.max_pages, general="any")
         except Exception as e:
@@ -382,9 +428,14 @@ def candidates_mode(a, k, n):
         _tl.st = None
         C.AP_PAGES.pop(t["buyer_key"], None)
         rows = [r for r in rows if ok_mailbox(r.get("ap_email"))]
-        vkey = c["vendor_key"]
-        scope = CT.SCOPE.get(vkey, ("CA",))
         name = (c.get("name") or st.get("name") or "").strip()
+        if meta:
+            where = ", ".join(str(meta.get(x)) for x in ("city", "province", "country") if meta.get(x))
+            st.setdefault("shopify", '"myshopify_domain":"%s" in the store\'s own %s' % (meta["myshopify_domain"], mu))
+            st.setdefault("shopify_url", mu)
+            if "addr" not in st and mcc in scope:
+                st["addr"] = (mcc, "%s (city, province and country the store states in %s)" % (where, mu), mu)
+            name = name or str(meta.get("name") or "").strip()[:120]
         try:
             ex = json.loads(c.get("extra") or "{}")
         except ValueError:
@@ -427,11 +478,13 @@ def candidates_mode(a, k, n):
             stats["sites"] += 1
             stats[res.split(":")[0]] += 1
             stats["rows"] += len(rows) if rec else 0
+            stats["shopify_meta_json"] += bool(meta)
+            stats["accepted_on_meta_json_location"] += bool(rec and meta and st.get("addr", ("", "", ""))[2] == mu)
             if rec:
                 w.writerows(rows)
                 fl.write(json.dumps(rec, ensure_ascii=False) + "\n")
                 ff.write(facts_line(key, t["known_website"], dict(st, name=name)))
-            fd.write("%s\t%s\t%s\t%d\t%d\t%s\tr2\ts2\tp2\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
+            fd.write("%s\t%s\t%s\t%d\t%d\t%s\tr2\ts2\tp2\tb2\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush(); fl.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
