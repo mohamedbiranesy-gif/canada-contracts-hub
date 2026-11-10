@@ -634,3 +634,27 @@ code / e-mail domain).
 shorter name must be in the longer one and what agrees must identify (three words, or one word that is not a generic trade / place word); several
 different licensees fitting one organisation = dropped. The portals' catalogues are probed on a runner first; only datasets whose fields were seen
 in the probe log are configured.
+
+## 2026-11-10 09:50Z from claude — leads as shards; an engine's withdrawal rules reach its own leads only; a published tariff may fill the amount; registry candidates without a home-page mailbox
+**1. The cloud leads are a frozen base plus append-only shards** (`tools/lead_store.py`, `data/incoming/claude/lead_shards/`). Measured: the leads
+file 59.9 MB for 174,000 leads (GitHub refuses 100 MB), the details file 32 MB stored again in full at every merge, three writer workflows. A writer
+loads base + shards, works as before, and saves only rows / details that are new or changed and the keys it withdraws
+(`leads_` / `details_` / `gone_<engine>_<stamp>.gz`, applied in the order of their stamps; the newest record of a key wins). Opt-in per workflow step
+(`--stamp` + `--engine`, `--lead-shards`), so a run queued with an earlier workflow file keeps writing the old files without harm. Every reader of
+the leads file reads through the store. Not chosen: release assets (no compare-and-swap between three writers), splitting the CSV in parts (every
+merge would still rewrite all of it).
+**2. A merge's withdrawal rules apply to that engine's own leads.** The client-pages merge (`cc_clients.merge`) judged every record of the shared
+file with rules written for links on a vendor's page (spam words, "three spam links = hacked page", page class). In the test of the store that
+withdrew 10,748 licence leads (one shared record_url). Each engine now tests `platform` before it withdraws; the spam word list no longer matches
+inside ordinary words ("specialist") or a surname (Kumar).
+**3. A licence's amount may come from the payee's own published tariff, labelled as such.** RBQ: "Maintien d'une licence – 2026 … Général (annexe I)
+884,54 $ 105,27 $ 989,81 $ … Spécialisé (annexes II et III) 442,26 $ 105,27 $ 547,53 $" and "Prenez note que les montants ne sont pas taxables"
+(rbq.gouv.qc.ca, tarification pour l'entrepreneur de construction, read 2026-11-10; the same table is on the owner-builder page). The kind of licence
+is read from the holder's categories in the register. The cell says "a tariff, not a payment record". Only RBQ-administered licences: the CMEQ and
+the CMMTQ bill their own dues on top and their fee pages were not opened.
+**4. Registry candidates, second class.** A .ca site whose home page prints no role mailbox is read up to 4 pages (contact page) after every lead
+and every first-class candidate. Measured yield 10 % (200 sites). Same relationship as tier R; always reported as its own line.
+**5. rank.py stays one process for now.** Measured after the memory work: 1.9 GB fixed + ≈ 12 KB per row (2.8 GB at 76,930 rows) → about one
+million rows on a 16 GB runner. The sharded design (a core part holding the contract organisations and every site domain touched by a non-lead key;
+other parts by hash of the lead's site domain; the core exports its column list, the names it covers and the vendor carry-over table; parts merged
+by the sort key with a cross-part check for inferred rows) is written down here and not built.

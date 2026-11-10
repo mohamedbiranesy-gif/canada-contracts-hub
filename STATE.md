@@ -97,6 +97,36 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
 
+## 2026-11-10 09:50Z — the two scale walls found by measuring: rank memory (5.8 GB → 2.8 GB) and the leads file (60 MB of GitHub's 100 MB) → shards; crawl three times wider
+**Build 09:29Z** (`2026-11-10T09:29:09Z-16ba0e7`): 77,055 rows, 73,672 with a mailbox. A 1,279 · B 1,622 · C 331 · D 11,534 · E 2,563 · F 7 · I 10,644 ·
+L 378 · M 4,221 · R 26,037 · T 15,056. Named-vendor rows (A B C D E L M T) **36,984** (32,231 at 08:20Z); tier R 26,037; inferred 10,651. The crawl that
+ended 09:10Z read 74,000 more sites (27,608 with a mailbox so far, 103,662 sites read): those rows are with the referee and are not in this build yet.
+**rank.py memory, measured (RANK_MEMSTAT=1 prints it).** A row costs 8 KB; the tables around the rows were 4.2 GB of the 5.8 GB (the local 7 GB machine
+killed the build twice). Done, each step checked byte for byte against the output before it: (1) the last two passes and the three output files are one
+pass — a row is completed, written, released; (2) every table is dropped after its last use; the vendor table's 58,302 registry records stay compressed;
+(3) the tables of the fold steps kept a reference to every row, so nothing was released: dropped. **Full local build, 76,930 rows: peak 2.80 GB, 450 s.**
+Fixed part ≈ 1.9 GB, ≈ 12 KB per row → one process holds about one million rows on a 16 GB runner. The runner's build is 15 minutes end to end
+(rank.py 6 minutes, of which 3.5 read the contract dataset). Not measured: memory per row after the downstream pack in the old layout (the process was
+killed there) — the commit message of 09:05Z says "~20 KB", which was an estimate, not a measurement.
+**Leads file → shards (`tools/lead_store.py`).** `claude_buyer_leads_cc.csv` was 59.9 MB for 174,000 leads and three workflows rewrote it and the 32 MB
+details file whole at every merge; GitHub refuses a file at 100 MB (≈ 290,000 leads — one or two days away). Now a frozen base + append-only shards in
+`lead_shards/` (rows, details, withdrawals; applied in stamp order); each writer saves only what it changed; every reader goes through the store. Runs
+queued with the earlier workflow files still write the old way (harmless). **Bug found by the test, before it shipped:** the client-pages merge applied its
+"hacked page" rule to every lead of the file; through the store that included the licence leads, which share one record_url — 10,748 RBQ leads were
+withdrawn in the test. The rules are now limited to that engine's own leads; "specialist" no longer matches the spam word "cialis".
+**Crawl.** One runner read 12,494 sites in 130 minutes with 40 sites open at once and was nearly idle (a site is asked at most once a second): now 120 at
+once (the account's limit is 20 jobs, not threads). Registry candidates 12,000 per runner. **Second class of registry candidates:** 375,000 .ca sites whose
+home page prints no mailbox; measured on 200, 4 pages each: 10 % give a role mailbox → queued last, 8,000 per runner and run (≈ 37,000 rows for ≈ 1.5 M requests).
+**RBQ fee.** The Régie's 2026 tariff for keeping a licence (989.81 $ general, 547.53 $ specialised, not taxable; page opened and quoted) is on 43,328 of the
+49,913 holders by their categories in the register; 8,887 licence leads got the amount (labelled as a tariff, not a payment record). CMEQ / CMMTQ
+licences: no amount (their own dues; pages not opened).
+**Names.** A slogan placed before the name in a page title was taken for the organisation's name on tier-R rows: the best fit with the domain wins now.
+**Next:** (1) the referee's run on the 20,000 new mailbox rows, then a build — first build expected above 90,000 rows; (2) watch the first runs under
+the new workflow files: crawl at 120 (errors, blocked share), shard-mode merges (row-factory, member-live, credit-scan); (3) RBQ holders without an own
+e-mail domain (28,000 on webmail) tied to sites by postal code + name, like the business licences; (4) the vendors' client pages read live (the archive
+holds a fraction of them) — the lane with a named Canadian vendor and a named buyer; (5) sharded ranking is designed (core part + parts by site domain,
+merged by sort key) but not needed before ~800,000 rows: not built.
+
 ## 2026-11-10 08:10Z — scan of 1.31 M home pages done; repository growth stopped (release assets); two licence lanes; stores ride along the crawl
 **Measured.** Scan cycle 42761724176 (detector 4): 1,308,798 home pages read, 781,441 readable; **185,798 print a role mailbox of the organisation
 (23.8 %)**; **133,597 are .ca sites = registry candidates (tier R)**; printed address CA 209,333 / US 23,512. Credit-line leads on file 39,124 (were 24,356).
