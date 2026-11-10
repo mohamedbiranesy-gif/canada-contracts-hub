@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 04:40Z — rows 65,759 (+2,118), 58 % complete; credit scan + web graph: 53k portal-linking sites, 216k sites linking to proven vendors, 1.05 M .ca domains queued)
+# STATE.md — Claude lane (updated 2026-11-10 08:10Z — scan read 1.31 M home pages: 185,798 print a role mailbox, 133,597 of them .ca; bulky outputs moved to release assets; licence lanes live)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,32 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 08:10Z — scan of 1.31 M home pages done; repository growth stopped (release assets); two licence lanes; stores ride along the crawl
+**Measured.** Scan cycle 42761724176 (detector 4): 1,308,798 home pages read, 781,441 readable; **185,798 print a role mailbox of the organisation
+(23.8 %)**; **133,597 are .ca sites = registry candidates (tier R)**; printed address CA 209,333 / US 23,512. Credit-line leads on file 39,124 (were 24,356).
+The mailbox crawl (16.5k sites per runner per run) is reading them; then the referee; then rank.
+**The repository wall (found 07:05Z).** 5.45 GB of new git objects in 24 hours; GitHub reports 8.9 GB. Now: each rank build is published to the release
+`ranked-latest` (`tools/ranked_publish.py`; git keeps reports, BUILD.json, WHERE.md, 10 rows per package); `team_buyers`, `claude_org_extras`,
+`claude_org_contacts`, `claude_ap_terms_pages` are state assets (`tools/state_io.py`, `coord/STATE_ASSETS.json`). First build with the new route: run
+42774165877 (started 07:50Z). Still in git and rewritten whole: `claude_lead_details_cc.jsonl.gz`, `claude_buyer_leads_cc.csv` (three writer
+workflows → to become append-only shards, not release assets). Local clone shrunk to depth 20 (15 GB → 0.7 GB).
+**This container reaches the web now** (it did not before 07:40Z): crawlers can be tried live on a few hundred sites before a workflow run. Used for:
+RBQ list and site check, licence lists and matching, 94 Shopify stores through the queue. Volume work stays on the runners.
+**Licence lanes (tier M, DECISIONS 07:25Z).** RBQ: 50,078 organisations hold an active Québec construction licence (paid yearly); 17,185 have a domain of
+their own; live test 300 domains → 181 tied to the holder; 60 tied sites → role mailbox on 38. Business licences / permits: 147,571 in force in five
+lists; 1,664 tied to organisations we hold (843 tier-R rows, 325 inferred rows get a named, dated relationship). The first run's name rule matched
+food-service operators to their host institution (Aramark ↔ University of Calgary): replaced within 15 minutes; the build of 07:50Z may still carry
+those leads until the build after it.
+**Stores.** With one queue of 2 requests/s per runner: 0 refusals in 94 stores (38 % before), 19 % accepted. The store reader now runs as a second
+process on every mailbox-crawl runner (mailbox-crawl.yml); tenant-factory keeps the customer portals. DNS lane: Hover (Tucows' retail registrar)
+is no longer excluded.
+**Runner pool.** 20 concurrent jobs; the ranker waited 34 minutes for a slot. Defaults now 6 runners × 90–100 minutes (mailbox crawl, scan, stores).
+**Evaluated and not built:** ad-exchange seller lists (sellers.json of a Toronto exchange): the exchange pays the publisher — "you do not need to send an
+invoice to Index" — the Canadian party is the payer, and no fee to the publisher is published.
+**Next:** (1) confirm the release route on the 07:50Z build, tell the owner where the files are; (2) rank.py at 200k+ rows — a local profile is
+running (time per step, peak memory): the build is single-process and holds every row; (3) leads / details files to shards; (4) more licence lists
+(payee address + fee sentence each); (5) the graph run for multi-tenant platforms (queued 07:22Z).
 
 ## 2026-11-10 06:35Z — build 06:19Z: 70,567 rows; named-vendor rows 24,765 (+28 % in two hours), tier R 30,880, inferred 13,610; five more engines
 - **Build 42761927713 (06:19Z)**: rows 70,567. Confirmed-mailbox rows by relationship: **named Canada-located vendor 24,765** (was 19,314 at 04:44Z:
