@@ -4,39 +4,39 @@ The baseline is what could have been shipped on 2026-11-09. Waiting pays only if
 
 | metric | baseline | now | change |
 |---|---|---|---|
-| rows | 63641 | 65759 | +2118 |
-| buyers_total | 63641 | 65759 | +2118 |
-| buyers_ap_confirmed | 1364 | 1376 | +12 |
-| buyers_fin_confirmed | 1715 | 1759 | +44 |
-| buyers_any_confirmed | 63163 | 65164 | +2001 |
+| rows | 63641 | 68910 | +5269 |
+| buyers_total | 63641 | 68910 | +5269 |
+| buyers_ap_confirmed | 1364 | 1399 | +35 |
+| buyers_fin_confirmed | 1715 | 1848 | +133 |
+| buyers_any_confirmed | 63163 | 68300 | +5137 |
 | pay_on_sight_yes | 833 | 874 | +41 |
-| pay_on_sight_ref | 841 | 1145 | +304 |
-| pay_on_sight_routed | 22341 | 36124 | +13783 |
-| gold_rows | 624 | 624 | +0 |
-| gold_pay_on_sight | 395 | 408 | +13 |
-| grade_A | 306 | 311 | +5 |
-| gold_A | 225 | 230 | +5 |
+| pay_on_sight_ref | 841 | 1152 | +311 |
+| pay_on_sight_routed | 22341 | 36280 | +13939 |
+| gold_rows | 624 | 625 | +1 |
+| gold_pay_on_sight | 395 | 409 | +14 |
+| grade_A | 306 | 312 | +6 |
+| gold_A | 225 | 231 | +6 |
 | grade_A_or_B | 867 | 880 | +13 |
-| public_rows | 12835 | 16892 | +4057 |
-| terms_published_public | 1877 | 1925 | +48 |
-| po_rule_published_public | 1396 | 1422 | +26 |
-| billto_legal_name_published | 33765 | 33807 | +42 |
-| vendor_bn9_known | 53138 | 51560 | -1578 |
+| public_rows | 12835 | 19942 | +7107 |
+| terms_published_public | 1877 | 1931 | +54 |
+| po_rule_published_public | 1396 | 1425 | +29 |
+| billto_legal_name_published | 33765 | 33775 | +10 |
+| vendor_bn9_known | 53138 | 51844 | -1294 |
 | inferred_policy_cells_p80 | 0 | 0 | +0 |
-| benchmarks_met | 100 | 98 | -2 |
+| benchmarks_met | 100 | 102 | +2 |
 
 New source keys since the baseline: none
 
 | package tier | baseline rows | now | change |
 |---|---|---|---|
-| A | 1278 | 1276 | -2 |
-| B | 1619 | 1620 | +1 |
-| C | 402 | 402 | +0 |
-| D | 3623 | 7731 | +4108 |
-| E | 2763 | 2537 | -226 |
+| A | 1278 | 1279 | +1 |
+| B | 1619 | 1622 | +3 |
+| C | 402 | 404 | +2 |
+| D | 3623 | 9902 | +6279 |
+| E | 2763 | 3040 | +277 |
 | F | 19 | 18 | -1 |
-| I | 50806 | 48867 | -1939 |
-| L | 397 | 397 | +0 |
+| I | 50806 | 48968 | -1838 |
+| L | 397 | 399 | +2 |
 | M | 189 | 189 | +0 |
-| T | 2545 | 2722 | +177 |
+| T | 2545 | 3089 | +544 |
 
