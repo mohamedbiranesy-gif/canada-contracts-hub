@@ -163,6 +163,20 @@ def newest_crawl(want=""):
     sys.exit("no Common Crawl columnar index reachable")
 
 
+def crawl_ids(spec):
+    """'auto' -> [newest]; 'last:N' -> the newest N crawls (older captures hold pages the newest crawl missed); otherwise the id given"""
+    spec = (spec or "auto").strip()
+    if spec.startswith("last:"):
+        try:
+            ids = [c["id"] for c in json.loads(http_get("https://index.commoncrawl.org/collinfo.json", tries=4))][:max(1, int(spec.split(":")[1]))]
+            if ids:
+                return ids
+        except Exception as e:
+            print("collinfo not reachable (%s): only the newest crawl is read" % type(e).__name__, flush=True)
+        return ["auto"]
+    return [spec]
+
+
 def shard_of(a):
     k, n = (a.shard.split("/") + ["1"])[:2] if a.shard else ("0", "1")
     return int(k), max(1, int(n))
@@ -171,11 +185,6 @@ def shard_of(a):
 def index(a):
     import duckdb
     k, n = shard_of(a)
-    cid, paths = newest_crawl(a.crawl)
-    mine = paths[k::n]
-    if a.limit_parts:
-        mine = mine[:a.limit_parts]
-    print("crawl %s: %d index parts, shard %d/%d reads %d" % (cid, len(paths), k, n, len(mine)), flush=True)
     con = duckdb.connect()
     ver = tuple(int(x) for x in re.findall(r"\d+", duckdb.__version__)[:2])
     for st in ("INSTALL httpfs", "LOAD httpfs", "SET threads=4", "SET http_retries=8", "SET http_retry_wait_ms=2000",
@@ -186,7 +195,19 @@ def index(a):
             print("duckdb setting skipped: %s (%s)" % (st, str(e)[:80]), flush=True)
     os.makedirs("out", exist_ok=True)
     rows, t0, shown = [], time.time(), False
-    for i, p in enumerate(mine):
+    todo = []
+    for spec in crawl_ids(a.crawl):
+        try:
+            cid, paths = newest_crawl(spec)
+        except SystemExit as e:
+            print("crawl %s skipped: %s" % (spec, e), flush=True)
+            continue
+        mine = paths[k::n]
+        if a.limit_parts:
+            mine = mine[:a.limit_parts]
+        print("crawl %s: %d index parts, shard %d/%d reads %d" % (cid, len(paths), k, n, len(mine)), flush=True)
+        todo += [(cid, i, len(mine), p) for i, p in enumerate(mine)]
+    for cid, i, n_mine, p in todo:
         url = CC + p
         if not shown:
             try:
@@ -205,9 +226,9 @@ def index(a):
         for attempt in range(3):
             try:
                 got = con.execute(q).fetchall()
-                rows += got
+                rows += [tuple(r) + (cid,) for r in got]
                 if got or i % 25 == 0:
-                    print("%s part %d/%d: %d pages (total %d, %.0f s)" % (time.strftime("%H:%M:%S"), i + 1, len(mine), len(got), len(rows), time.time() - t0), flush=True)
+                    print("%s %s part %d/%d: %d pages (total %d, %.0f s)" % (time.strftime("%H:%M:%S"), cid, i + 1, n_mine, len(got), len(rows), time.time() - t0), flush=True)
                 break
             except Exception as e:
                 print("part %d attempt %d failed: %s" % (i, attempt + 1, str(e)[:200]), flush=True)
@@ -222,13 +243,15 @@ def index(a):
         kept = 0
         for dom, rs in by.items():
             per = collections.Counter()
-            for r in sorted(rs, key=lambda r: (len(r[3] or ""), r[0])):
+            seen_u = set()
+            for r in sorted(rs, key=lambda r: (len(r[3] or ""), r[0], r[8])):
                 c = page_class(r[3])
                 c2 = "member1" if c == "member" and _M1_RX.search((r[3] or "").lower()) else c
-                if not c or per[c2] >= (PER_DOMAIN_MEMBER_PAGES if c2 == "member1" else a.per_domain):
+                if not c or r[0] in seen_u or per[c2] >= (PER_DOMAIN_MEMBER_PAGES if c2 == "member1" else a.per_domain):
                     continue
+                seen_u.add(r[0])
                 per[c2] += 1
-                w.writerow(list(r) + [cid, c])
+                w.writerow(list(r) + [c])  # r ends with its crawl id
                 kept += 1
     print("shard %d: %d matching pages on %d .ca domains; kept %d (at most %d per domain)" % (k, len(rows), len(by), kept, a.per_domain), flush=True)
 
@@ -455,7 +478,20 @@ def addr(a):
     """address pass: the vendors whose client page printed no postal address (two thirds of the client links found). Their home / contact /
     about page is looked up in the same crawl's index and read from the archive; a Canadian postal address printed there is the proof."""
     k, n = shard_of(a)
-    cid, paths = newest_crawl(a.crawl)
+    os.makedirs("out", exist_ok=True)
+    found_now = set()  # domains this shard already read a page of in a newer crawl (address found or not): older crawls are for the others
+    deadline = time.time() + a.minutes * 60
+    for spec in crawl_ids(a.crawl):
+        try:
+            cid, paths = newest_crawl(spec)
+        except SystemExit as e:
+            print("crawl %s skipped: %s" % (spec, e), flush=True)
+            continue
+        if time.time() < deadline:
+            _addr_one_crawl(a, k, n, cid, paths, found_now, deadline)
+
+
+def _addr_one_crawl(a, k, n, cid, paths, found_now, deadline):
     have = _vendor_addrs()
     tried = set()
     if os.path.exists(ADONE):
@@ -466,13 +502,13 @@ def addr(a):
     want = set()
     for o in _side_records():
         d = ((o.get("row") or {}).get("vendor_key") or "")[3:]
-        if d and d not in have and d not in tried:
+        if d and d not in have and d not in tried and d not in found_now:
             want.add(d)
-    os.makedirs("out", exist_ok=True)
     fa = open("out/cc_vendor_addr_%d.jsonl" % k, "a", encoding="utf-8")
     fd = open("out/cc_addr_done_%d.tsv" % k, "a", encoding="utf-8")
     print("crawl %s, shard %d/%d: %d vendor domains need an address" % (cid, k, n, len(want)), flush=True)
     if not want:
+        fa.close(); fd.close()
         return
     con = _duck()
     con.execute("CREATE TEMP TABLE doms(d VARCHAR)")
@@ -507,7 +543,6 @@ def addr(a):
     def order(r):
         path = (r[3] or "/").lower()
         return (0 if re.search(r"contact|joindre|coordonn", path) else 1 if re.fullmatch(r"/((en|fr|en-ca|fr-ca)/)?", path) else 2, len(path), (r[1] or "").startswith("www.") is False)
-    deadline = time.time() + a.minutes * 60
     stats = collections.Counter()
     import threading
     lock = threading.Lock()
@@ -536,6 +571,8 @@ def addr(a):
             stats["unreadable"] += n_read == 0
             if found:
                 fa.write(json.dumps(found, ensure_ascii=False) + "\n")
+            if n_read:
+                found_now.add(dom)
             # an unreadable domain stays in the queue for the next run (merge-addr does not record that status)
             fd.write("%s\t%s\t%s\t%s\t%d\n" % (dom, cid, TODAY, "found" if found else "no_address" if n_read else "unreadable", n_read))
             if stats["domains"] % 500 == 0:
@@ -544,7 +581,7 @@ def addr(a):
         list(ex.map(one, sorted(pages)))
     if not unread:  # every index part of this shard was read. A wanted domain is settled as "no page in this crawl" by merge-addr only when
         # ALL shards say so (a domain's pages sit in one index part, which may belong to any shard)
-        open("out/cc_addr_complete_%d.txt" % k, "w").write("%d/%d %s\n" % (k, n, cid))
+        open("out/cc_addr_complete_%d_%s.txt" % (k, cid), "w").write("%d/%d %s\n" % (k, n, cid))
         for d in sorted(d for d in want if d not in pages and int(hashlib.sha1(d.encode()).hexdigest(), 16) % n == k):
             fd.write("%s\t%s\t%s\tno_page_in_shard\t0\n" % (d, cid, TODAY))
     fa.close(); fd.close()
@@ -572,8 +609,14 @@ def merge_addr(a):
             q = l.rstrip("\n").split("\t")
             if len(q) >= 4:
                 done[(q[0], q[1])] = l.rstrip("\n")
-    marks = [open(f).read().split() for f in sorted(glob.glob(os.path.join(a.dir, "cc_addr_complete_*.txt")))]
-    all_read = bool(marks) and all(m for m in marks) and len(marks) == int(marks[0][0].split("/")[1])
+    marks = collections.defaultdict(set)  # crawl id -> shards that read every index part
+    n_sh = 0
+    for f in sorted(glob.glob(os.path.join(a.dir, "cc_addr_complete_*.txt"))):
+        m = open(f).read().split()
+        if len(m) >= 2:
+            marks[m[1]].add(m[0])
+            n_sh = int(m[0].split("/")[1])
+    all_read_of = lambda cid: n_sh > 0 and len(marks.get(cid, ())) == n_sh
     seen_page, maybe_none = set(), []
     for f in sorted(glob.glob(os.path.join(a.dir, "cc_addr_done_*.tsv"))):
         for l in open(f, encoding="utf-8"):
@@ -586,9 +629,15 @@ def merge_addr(a):
             seen_page.add(q[0])
             if q[3] != "unreadable":
                 done[(q[0], q[1])] = l.rstrip("\n")
-    if all_read:
+    seen_page_c = set()
+    for f in sorted(glob.glob(os.path.join(a.dir, "cc_addr_done_*.tsv"))):
+        for l in open(f, encoding="utf-8"):
+            q = l.rstrip("\n").split("\t")
+            if len(q) >= 4 and q[3] != "no_page_in_shard":
+                seen_page_c.add((q[0], q[1]))
+    if True:
         for q in maybe_none:
-            if q[0] not in seen_page and (q[0], q[1]) not in done:
+            if all_read_of(q[1]) and (q[0], q[1]) not in seen_page_c and (q[0], q[1]) not in done:
                 done[(q[0], q[1])] = "\t".join([q[0], q[1], q[2], "no_page", "0"])
     with open(ADONE, "w", encoding="utf-8") as f:
         for key in sorted(done):
@@ -747,7 +796,7 @@ def main():
     p = sub.add_parser("merge-index"); p.add_argument("dir"); p.add_argument("--per-domain", type=int, default=6)
     p = sub.add_parser("extract"); p.add_argument("--shard", default="0/1"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=10); p.add_argument("--limit", type=int, default=0)
     p = sub.add_parser("merge"); p.add_argument("dir")
-    p = sub.add_parser("addr"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="auto"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=4)
+    p = sub.add_parser("addr"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="last:3"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=4)
     p = sub.add_parser("merge-addr"); p.add_argument("dir")
     a = ap.parse_args()
     {"index": index, "merge-index": merge_index, "extract": extract, "merge": merge, "addr": addr, "merge-addr": merge_addr}[a.cmd](a)

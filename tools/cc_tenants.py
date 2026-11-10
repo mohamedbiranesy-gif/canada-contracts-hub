@@ -80,8 +80,18 @@ def file_range(con, url, col):
 
 
 def index(a):
+    """one or several crawls ('last:N'): the shard files are appended to, and merge-index unions them"""
+    for spec in CCL.crawl_ids(a.crawl):
+        try:
+            cid, wpaths = CCL.newest_crawl(spec)
+        except SystemExit as e:
+            print("crawl %s skipped: %s" % (spec, e), flush=True)
+            continue
+        _index_one(a, cid, wpaths)
+
+
+def _index_one(a, cid, wpaths):
     k, n = CCL.shard_of(a)
-    cid, wpaths = CCL.newest_crawl(a.crawl)
     raw = CCL.http_get(CCL.CC + "crawl-data/%s/cc-index-table.paths.gz" % cid, tries=3)
     dpaths = sorted(l.strip() for l in gzip.decompress(raw).decode().split("\n") if "subset=crawldiagnostics/" in l and l.strip().endswith(".parquet"))
     con = duck()
@@ -138,9 +148,11 @@ def index(a):
     unread = ["%d:%s" % (i, ",".join(todo) if todo else "all") for i, p, todo in queue]
     if unread:
         print("UNREAD after 6 rounds (run the index again for these): %s" % "; ".join(unread), flush=True)
-    with open("out/tenant_pages_%d.csv" % k, "w", newline="", encoding="utf-8") as f:
+    first = not os.path.exists("out/tenant_pages_%d.csv" % k)
+    with open("out/tenant_pages_%d.csv" % k, "a", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["vendor_key", "slug", "portal_url", "url", "host", "path", "fetch_time", "warc_filename", "warc_record_offset", "warc_record_length", "crawl"])
+        if first:
+            w.writerow(["vendor_key", "slug", "portal_url", "url", "host", "path", "fetch_time", "warc_filename", "warc_record_offset", "warc_record_length", "crawl"])
         for _, row in best.values():
             w.writerow(row)
     print("shard %d: %d portal pages read from the index, %d distinct customer portals: %s" % (k, nrows, len(best), dict(collections.Counter(v[1][0] for v in best.values()))), flush=True)
@@ -181,9 +193,11 @@ def index(a):
         queue = nxt
     if queue:
         print("UNREAD diagnostics parts after 6 rounds: %s" % ", ".join(str(i) for i, p in queue), flush=True)
-    with open("out/shopify_redirects_%d.csv" % k, "w", newline="", encoding="utf-8") as f:
+    first = not os.path.exists("out/shopify_redirects_%d.csv" % k)
+    with open("out/shopify_redirects_%d.csv" % k, "a", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["store_host", "redirect", "own_host", "fetch_time", "status", "crawl"])
+        if first:
+            w.writerow(["store_host", "redirect", "own_host", "fetch_time", "status", "crawl"])
         w.writerows(red.values())
     print("shard %d: %d Shopify stores redirecting to their own domain" % (k, len(red)), flush=True)
 
