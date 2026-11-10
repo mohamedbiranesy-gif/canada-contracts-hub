@@ -226,52 +226,88 @@ def decode(data, ctype):
 
 
 FAST_TIMEOUT = 10
+_PLAIN = {}  # host -> the address prefix that answered when https://host/ did not ("http://host", "https://www.host", "http://www.host"): asked directly from then on
 
 
-def fast_fetch(url, limit=1_500_000, _hops=0):
-    """(status, content type, bytes, final url) for the scan: each site is met once, so no per-host waiting list; a 10-second timeout, because
-    a list of a million domains holds many that no longer answer (ap_crawler.fetch waits 20 s and keeps a growing table of hosts)"""
+def _fast_one(url, limit, tried):
+    """(status, content type, bytes, final url, the address that was asked last)"""
     req = urllib.request.Request(url, headers={"User-Agent": C.UA, "Accept-Language": "fr-CA,fr;q=0.9,en;q=0.8"})
     try:
         with urllib.request.urlopen(req, timeout=FAST_TIMEOUT) as r:
-            return r.status, r.headers.get("content-type", ""), r.read(limit), r.geturl()
+            return r.status, r.headers.get("content-type", ""), r.read(limit), r.geturl(), url
     except urllib.error.HTTPError as e:
-        return e.code, "", b"", url
+        return e.code, "", b"", url, url
     except Exception as ex:
         msg, p = str(ex).lower(), urllib.parse.urlparse(url)
-        if _hops == 0 and p.scheme == "https" and ("ssl" in msg or "certificate" in msg or "handshake" in msg or "eof" in msg):
-            return fast_fetch("http://" + url[8:], limit, 1)  # broken TLS on a small site: the plain-http copy is the same public page
-        if _hops == 0 and ("nodename" in msg or "name or service" in msg or "getaddrinfo" in msg or "no address" in msg) and p.hostname and not p.hostname.startswith("www."):
-            return fast_fetch(url.replace("://" + p.hostname, "://www." + p.hostname, 1), limit, 1)  # bare host without a DNS record, www. has one
-        return 0, "", b"", url
+        host = p.hostname or ""
+        if "temporary failure" in msg and "again" not in tried:
+            time.sleep(1.5)
+            return _fast_one(url, limit, tried + ("again",))
+        if any(k in msg for k in ("nodename", "name or service", "getaddrinfo", "no address", "temporary failure")):
+            if "www" not in tried and host and not host.startswith("www."):
+                return _fast_one(url.replace("://" + host, "://www." + host, 1), limit, tried + ("www",))  # bare host without a DNS record, www. has one
+            return 0, "", b"", url, url
+        if p.scheme == "https" and "http" not in tried:
+            return _fast_one("http://" + url[8:], limit, tried + ("http",))  # closed or silent port 443, broken TLS: the plain-http copy is the same public page
+        return 0, "", b"", url, url
+
+
+def fast_fetch(url, limit=1_500_000):
+    """(status, content type, bytes, final url) for the scan: each site is met once, so no per-host waiting list; a 10-second timeout, because
+    a list of a million domains holds many that no longer answer (ap_crawler.fetch waits 20 s and keeps a growing table of hosts).
+    When https://host/ does not answer (2026-11-10, measured on 5,000 domains the scan had called unreachable: 1,005 answered, 691 of them on
+    plain http only — port 443 silent 299, reset 130, refused 105, broken TLS 157): the plain-http copy is asked once, whatever the failure;
+    a name without an address is asked once as www.; a resolver's "try again" is asked again once. The address that answered is remembered
+    for the host, so its next page (robots.txt first, then the home page) does not wait for the dead port again."""
+    p0 = urllib.parse.urlparse(url)
+    if p0.scheme == "https" and p0.hostname in _PLAIN:
+        return _fast_one(_PLAIN[p0.hostname] + url[8 + len(p0.netloc):], limit, ("http", "www"))[:4]
+    st, ctype, data, final, asked = _fast_one(url, limit, ())
+    if st and asked != url and p0.scheme == "https" and p0.hostname and len(_PLAIN) < 2_000_000:
+        pa = urllib.parse.urlparse(asked)
+        _PLAIN[p0.hostname] = "%s://%s" % (pa.scheme, pa.netloc)
+    return st, ctype, data, final
 
 
 _fetch = C.fetch  # the vendor step reads several pages of one site: ap_crawler's polite fetch (one request per second per host); the scan switches to fast_fetch
 
 
-def robots_ok(root, url):
-    """(allowed, reachable). No shared cache: a scan meets each host once."""
-    st, _, data, _ = _fetch(root + "robots.txt", 300_000)
-    if st in (401, 403):
-        return False, True
-    if st == 0:
+def robots_ok(root, url, cache=None):
+    """(allowed, reachable). No shared cache: a scan meets each host once — a caller that reads several pages of one site passes its own
+    `cache` dict, and the site's robots file is read once for all of them."""
+    if cache is not None and root in cache:
+        rp = cache[root]
+    else:
+        st, _, data, _ = _fetch(root + "robots.txt", 300_000)
+        rp = True
+        if st in (401, 403):
+            rp = False
+        elif st == 0:
+            rp = None
+        elif st == 200 and data:
+            rp = urllib.robotparser.RobotFileParser()
+            try:
+                rp.parse(data.decode("utf-8", "replace").splitlines())
+            except Exception:
+                rp = True
+        if cache is not None:
+            cache[root] = rp
+    if rp is None:
         return True, False
-    if st == 200 and data:
-        rp = urllib.robotparser.RobotFileParser()
-        try:
-            rp.parse(data.decode("utf-8", "replace").splitlines())
-            return rp.can_fetch(C.UA, url), True
-        except Exception:
-            return True, True
-    return True, True
+    if rp is True or rp is False:
+        return rp, True
+    try:
+        return rp.can_fetch(C.UA, url), True
+    except Exception:
+        return True, True
 
 
-def get_page(url, check_robots=True):
+def get_page(url, check_robots=True, cache=None):
     """(status word, final url, html) — status: ok | robots | unreachable | blocked | http_<code> | not_html"""
     p = urllib.parse.urlparse(url)
     root = "%s://%s/" % (p.scheme, p.netloc)
     if check_robots:
-        ok, reach = robots_ok(root, url)
+        ok, reach = robots_ok(root, url, cache)
         if not reach:
             return "unreachable", url, ""
         if not ok:
@@ -289,7 +325,7 @@ def get_page(url, check_robots=True):
     fh = (urllib.parse.urlparse(final).hostname or "").lower()
     if C.registrable(fh) != C.registrable(p.hostname or "") and check_robots:  # redirected to another organisation's domain: its robots.txt decides
         fp = urllib.parse.urlparse(final)
-        ok, _ = robots_ok("%s://%s/" % (fp.scheme, fp.netloc), final)
+        ok, _ = robots_ok("%s://%s/" % (fp.scheme, fp.netloc), final, cache)
         if not ok:
             return "robots", final, ""
     return "ok", final, html.unescape(decode(data, ctype))
