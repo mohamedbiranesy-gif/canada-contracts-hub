@@ -1,0 +1,23 @@
+{
+ "asked": 7120000,
+ "complete": {},
+ "pos": {
+  "0": 12806190,
+  "1": 14398450,
+  "2": 14377399,
+  "3": 15385413
+ },
+ "release": "cc-main-2026-aug-sep-oct",
+ "shards": 8,
+ "stores_found": 17349,
+ "tlds": [
+  "com",
+  "net",
+  "org",
+  "co",
+  "us",
+  "shop",
+  "store"
+ ],
+ "updated": "2026-11-10T18:23Z"
+}
