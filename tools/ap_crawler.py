@@ -432,7 +432,8 @@ def crawl(task, max_pages, general=False):
             if (urllib.parse.urlparse(u).hostname or "").lower().endswith(base):
                 heap.append((-98 + i, 1, u))
     heapq.heapify(heap)
-    while heap and pages < max_pages:
+    t_end = task.get("_deadline") or 0  # optional wall-clock budget for one site (tools/lead_crawl.py: a slow site must not hold a cloud runner)
+    while heap and pages < max_pages and not (t_end and time.time() > t_end):
         neg, depth, url = heapq.heappop(heap)
         url = url.split("#")[0]
         if url in seen:

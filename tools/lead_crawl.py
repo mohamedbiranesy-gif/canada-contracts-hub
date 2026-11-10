@@ -131,13 +131,18 @@ def run_pool(tasks, one, a, deadline, on_timeout):
     """a few sites answer so slowly that one thread can hold a runner for an hour (first cycle, 2026-11-10). When only stragglers are left and
     nothing finished for --straggler-seconds, they are recorded as "timeout" and the run ends; sites not started by the deadline stay queued."""
     ex = ThreadPoolExecutor(a.workers)
-    futs = {ex.submit(one, t): t for t in tasks}
-    pending, last = set(futs), time.time()
+    def timed(t):
+        t["_deadline"] = time.time() + a.site_seconds  # ap_crawler.crawl stops opening pages of this site after that
+        return one(t)
+    futs = {ex.submit(timed, t): t for t in tasks}
+    pending, last, tail = set(futs), time.time(), 0
     while pending:
         fin, pending = wait(pending, timeout=min(30, max(1, a.straggler_seconds / 3)))
         if fin:
             last = time.time()
-        if (len(pending) <= a.workers and time.time() - last > a.straggler_seconds) or time.time() > deadline + 300:
+        if len(pending) <= a.workers and not tail:
+            tail = time.time()  # only sites already being read are left
+        if (len(pending) <= a.workers and (time.time() - last > a.straggler_seconds or time.time() - tail > a.site_seconds + a.straggler_seconds)) or time.time() > deadline + 300:
             for f in pending:
                 if f.running():
                     on_timeout(futs[f])
@@ -461,6 +466,7 @@ def main():
     a.add_argument("--workers", type=int, default=40)
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--straggler-seconds", type=float, default=240, help="when only slow sites are left and nothing finished for this long, stop")
+    a.add_argument("--site-seconds", type=float, default=420, help="wall-clock budget for one site: no new page is opened after that (what was read so far counts)")
     a = a.parse_args()
     if a.merge:
         merge(a)

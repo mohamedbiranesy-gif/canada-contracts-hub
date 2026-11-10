@@ -88,33 +88,56 @@ def index(a):
     doms = portal_domains()
     os.makedirs("out", exist_ok=True)
     print("crawl %s: %d warc parts, %d diagnostics parts; shard %d/%d; portal domains: %s" % (cid, len(wpaths), len(dpaths), k, n, ", ".join(sorted(doms))), flush=True)
-    # 1. portal pages
+    # 1. portal pages. Every registered domain sits in one index part; the footer statistics of a part say whether a domain can be in it.
+    # The archive refuses requests for minutes at a time (first run 2026-11-10: 5 of 300 parts unread, eScribe and Absorb missing), so a part
+    # that fails is put back in the queue and read again after a pause, up to 6 rounds.
+    want = {v.strip() for v in (a.vendors or "").split(",") if v.strip()}
+    if want:
+        doms = {d: v for d, v in doms.items() if v in want}
     best, t0, nrows = {}, time.time(), 0
-    for i, p in enumerate(wpaths[k::n]):
-        url = CCL.CC + p
-        lo, hi = file_range(con, url, "url_host_registered_domain")
-        todo = [d for d in doms if lo is None or (lo <= d <= hi)]
-        for d in todo:
-            q = ("SELECT url, url_host_name, url_path, CAST(fetch_time AS VARCHAR), warc_filename, warc_record_offset, warc_record_length FROM read_parquet('%s') "
-                 "WHERE url_host_registered_domain = '%s' AND fetch_status = 200 AND content_mime_detected = 'text/html' AND length(url_path) <= 80") % (url, d)
-            for attempt in range(3):
+    queue, unread = [(i, p, None) for i, p in enumerate(wpaths[k::n])], []
+    for rnd in range(6):
+        if not queue:
+            break
+        if rnd:
+            print("round %d: %d parts to read again after a pause" % (rnd + 1, len(queue)), flush=True)
+            time.sleep(60 * rnd + random.uniform(0, 30))
+        nxt = []
+        for i, p, todo in queue:
+            url = CCL.CC + p
+            if todo is None:
+                lo, hi = file_range(con, url, "url_host_registered_domain")
+                if lo is None:
+                    nxt.append((i, p, None))
+                    continue
+                todo = [d for d in doms if lo <= d <= hi]
+            left = []
+            for d in todo:
+                q = ("SELECT url, url_host_name, url_path, CAST(fetch_time AS VARCHAR), warc_filename, warc_record_offset, warc_record_length FROM read_parquet('%s') "
+                     "WHERE url_host_registered_domain = '%s' AND fetch_status = 200 AND content_mime_detected = 'text/html' AND length(url_path) <= 80") % (url, d)
                 try:
                     got = con.execute(q).fetchall()
-                    break
                 except Exception as e:
-                    got = []
-                    print("part %d %s attempt %d failed: %s" % (i, d, attempt + 1, str(e)[:160]), flush=True)
-                    time.sleep(15 * (attempt + 1))
-            nrows += len(got)
-            for r in got:
-                for vkey, slug, purl in T.portal_hits(r[0]):
-                    key = (vkey, slug)
-                    path = r[2] or "/"
-                    rank = (0 if path in ("/", "") else 1 if (vkey == "d2l" and path.startswith("/d2l/login")) else 2, len(path))
-                    if key not in best or rank < best[key][0]:
-                        best[key] = (rank, [vkey, slug, purl] + list(r) + [cid])
-            if got:
-                print("%s part %d: %s %d pages (portals so far %d, %.0f s)" % (time.strftime("%H:%M:%S"), i, d, len(got), len(best), time.time() - t0), flush=True)
+                    print("part %d %s failed (round %d): %s" % (i, d, rnd + 1, str(e)[:140]), flush=True)
+                    left.append(d)
+                    time.sleep(10)
+                    continue
+                nrows += len(got)
+                for r in got:
+                    for vkey, slug, purl in T.portal_hits(r[0]):
+                        key = (vkey, slug)
+                        path = r[2] or "/"
+                        rank = (0 if path in ("/", "") else 1 if (vkey == "d2l" and path.startswith("/d2l/login")) else 2, len(path))
+                        if key not in best or rank < best[key][0]:
+                            best[key] = (rank, [vkey, slug, purl] + list(r) + [cid])
+                if got:
+                    print("%s part %d: %s %d pages (portals so far %d, %.0f s)" % (time.strftime("%H:%M:%S"), i, d, len(got), len(best), time.time() - t0), flush=True)
+            if left:
+                nxt.append((i, p, left))
+        queue = nxt
+    unread = ["%d:%s" % (i, ",".join(todo) if todo else "all") for i, p, todo in queue]
+    if unread:
+        print("UNREAD after 6 rounds (run the index again for these): %s" % "; ".join(unread), flush=True)
     with open("out/tenant_pages_%d.csv" % k, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["vendor_key", "slug", "portal_url", "url", "host", "path", "fetch_time", "warc_filename", "warc_record_offset", "warc_record_length", "crawl"])
@@ -123,28 +146,41 @@ def index(a):
     print("shard %d: %d portal pages read from the index, %d distinct customer portals: %s" % (k, nrows, len(best), dict(collections.Counter(v[1][0] for v in best.values()))), flush=True)
     # 2. Shopify: <store>.myshopify.com answering with a redirect to the store's own domain
     red, t0 = {}, time.time()
-    for i, p in enumerate(dpaths[k::n]):
-        url = CCL.CC + p
-        lo, hi = file_range(con, url, "url_host_registered_domain")
-        if lo is not None and not (lo <= "myshopify.com" <= hi):
-            continue
-        q = ("SELECT url_host_name, fetch_redirect, CAST(fetch_time AS VARCHAR), fetch_status FROM read_parquet('%s') "
-             "WHERE url_host_registered_domain = 'myshopify.com' AND fetch_status IN (301, 302, 307, 308) AND length(url_path) <= 1 AND fetch_redirect IS NOT NULL") % url
-        for attempt in range(3):
+    queue = [(i, p) for i, p in enumerate(dpaths[k::n])] if (not want or "shopify" in want) else []
+    for rnd in range(6):
+        if not queue:
+            break
+        if rnd:
+            print("round %d: %d diagnostics parts to read again after a pause" % (rnd + 1, len(queue)), flush=True)
+            time.sleep(60 * rnd + random.uniform(0, 30))
+        nxt = []
+        for i, p in queue:
+            url = CCL.CC + p
+            lo, hi = file_range(con, url, "url_host_registered_domain")
+            if lo is None:
+                nxt.append((i, p))
+                continue
+            if not (lo <= "myshopify.com" <= hi):
+                continue
+            q = ("SELECT url_host_name, fetch_redirect, CAST(fetch_time AS VARCHAR), fetch_status FROM read_parquet('%s') "
+                 "WHERE url_host_registered_domain = 'myshopify.com' AND fetch_status IN (301, 302, 307, 308) AND length(url_path) <= 1 AND fetch_redirect IS NOT NULL") % url
             try:
                 got = con.execute(q).fetchall()
-                break
             except Exception as e:
-                got = []
-                print("diagnostics part %d attempt %d failed: %s" % (i, attempt + 1, str(e)[:200]), flush=True)
-                time.sleep(15 * (attempt + 1))
-        for h, target, ft, st in got:
-            th = CCL.base((urllib.parse.urlparse(target or "").hostname or "").lower())
-            if not th or "." not in th or th.endswith("myshopify.com") or th.endswith("shopify.com") or th.endswith("shopifypreview.com"):
+                print("diagnostics part %d failed (round %d): %s" % (i, rnd + 1, str(e)[:160]), flush=True)
+                nxt.append((i, p))
+                time.sleep(10)
                 continue
-            red.setdefault(h, (h, target, th, ft, st, cid))
-        if got:
-            print("%s diagnostics part %d: %d redirect rows (stores with their own domain so far %d, %.0f s)" % (time.strftime("%H:%M:%S"), i, len(got), len(red), time.time() - t0), flush=True)
+            for h, target, ft, st in got:
+                th = CCL.base((urllib.parse.urlparse(target or "").hostname or "").lower())
+                if not th or "." not in th or th.endswith("myshopify.com") or th.endswith("shopify.com") or th.endswith("shopifypreview.com"):
+                    continue
+                red.setdefault(h, (h, target, th, ft, st, cid))
+            if got:
+                print("%s diagnostics part %d: %d redirect rows (stores with their own domain so far %d, %.0f s)" % (time.strftime("%H:%M:%S"), i, len(got), len(red), time.time() - t0), flush=True)
+        queue = nxt
+    if queue:
+        print("UNREAD diagnostics parts after 6 rounds: %s" % ", ".join(str(i) for i, p in queue), flush=True)
     with open("out/shopify_redirects_%d.csv" % k, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["store_host", "redirect", "own_host", "fetch_time", "status", "crawl"])
@@ -154,6 +190,14 @@ def index(a):
 
 def merge_index(a):
     rows, red = {}, {}
+    if os.path.exists(TPAGES):  # union with the pages already on main: a re-run for a few vendors or parts adds, never replaces
+        with gzip.open(TPAGES, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                rows[(r["vendor_key"], r["slug"])] = r
+    if os.path.exists(SHOPR):
+        with gzip.open(SHOPR, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                red[r["own_host"]] = r
     for f in sorted(glob.glob(os.path.join(a.dir, "tenant_pages_*.csv"))):
         for r in csv.DictReader(open(f, encoding="utf-8")):
             key = (r["vendor_key"], r["slug"])
@@ -383,7 +427,7 @@ def merge_accepted(a):
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
-    p = sub.add_parser("index"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="auto")
+    p = sub.add_parser("index"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="auto"); p.add_argument("--vendors", default="", help="comma-separated vendor keys (default: every vetted portal vendor + Shopify redirects)")
     p = sub.add_parser("merge-index"); p.add_argument("dir")
     p = sub.add_parser("extract"); p.add_argument("--shard", default="0/1"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=4); p.add_argument("--limit", type=int, default=0)
     p = sub.add_parser("merge"); p.add_argument("dir")

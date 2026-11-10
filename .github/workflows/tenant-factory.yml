@@ -23,8 +23,11 @@ on:
         description: "minutes per step and runner"
         default: "150"
       vendors:
-        description: "cycle: only these vendor keys in the site-reading step (comma separated; empty = all)"
+        description: "only these vendor keys (comma separated; empty = all): index stage and the site-reading step"
         default: ""
+      crawl:
+        description: "Common Crawl id for the index stage (auto = newest with a published index); older ids add portals the newest crawl missed"
+        default: "auto"
 permissions:
   contents: write
   actions: write
@@ -36,6 +39,7 @@ env:
   SHARDS: ${{ inputs.shards || '8' }}
   MINUTES: ${{ inputs.minutes || '150' }}
   VENDORS: ${{ inputs.vendors || '' }}
+  CRAWL: ${{ inputs.crawl || 'auto' }}
 jobs:
   plan:
     runs-on: ubuntu-latest
@@ -63,7 +67,7 @@ jobs:
         with: { ref: main }
       - run: pip install -q duckdb
       - name: Scan the Common Crawl URL index for customer portals and store redirects
-        run: python3 tools/cc_tenants.py index --shard ${{ matrix.k }}/6
+        run: python3 tools/cc_tenants.py index --shard ${{ matrix.k }}/6 --crawl "$CRAWL" ${VENDORS:+--vendors "$VENDORS"}
       - uses: actions/upload-artifact@v4
         with: { name: "tf-index-${{ matrix.k }}", path: out/, retention-days: 3 }
 
