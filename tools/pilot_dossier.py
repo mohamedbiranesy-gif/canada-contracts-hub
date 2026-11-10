@@ -135,6 +135,11 @@ def main():
     vkeys = {vkey({"vendor": {"name": s["vendor"]}}) for s in sample}
     # engine outputs
     ap_terms = [r for r in read_csv(os.path.join(INC, "claude_ap_terms.csv")) if (r.get("email") or "").lower() in emails or dom(r.get("evidence_url")) in bdoms]
+    try:
+        import state_io
+        state_io.ensure(os.path.join(INC, "claude_org_extras.jsonl.gz")); state_io.ensure(os.path.join(INC, "claude_org_contacts.jsonl.gz"))
+    except Exception:
+        pass
     extras = {d.get("domain"): d for d in read_jsonl(os.path.join(INC, "claude_org_extras.jsonl.gz")) if d.get("domain") in bdoms | vdoms}
     contacts = {d.get("domain"): d for d in read_jsonl(os.path.join(INC, "claude_org_contacts.jsonl.gz")) if d.get("domain") in bdoms | vdoms}
     reg = [r for r in read_csv(os.path.join(INC, "claude_registry_lookup.csv")) if r.get("key") in skeys | vkeys]

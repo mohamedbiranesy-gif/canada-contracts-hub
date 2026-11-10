@@ -78,7 +78,9 @@ jobs:
       - name: Resume state from the harvest-state release
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
-          python3 tools/ranked_io.py assemble || true   # the ranked table is committed in parts (GitHub's 100 MB limit)
+          python3 tools/ranked_io.py assemble || true   # the ranked table: a release asset since 2026-11-10 (parts in git before); this fetches / assembles it
+          # the engines' big rewritten files are release assets too (tools/state_io.py, coord/STATE_ASSETS.json): fetch the current versions
+          python3 tools/state_io.py ensure data/incoming/claude/claude_org_extras.jsonl.gz data/incoming/claude/claude_org_contacts.jsonl.gz data/incoming/claude/claude_ap_terms_pages.csv.gz || true
           gh release download harvest-state -p 'claude_ap_walk_done.tsv' -D /tmp/prevrel 2>/dev/null || true
           python3 tools/merge_engine_outputs.py tsv_done ~/cch-crawler-state/ap_walk_done.tsv /tmp/prevrel/claude_ap_walk_done.tsv data/incoming/claude/claude_ap_walk_done.tsv data/incoming/claude/claude_ap_walk_done_mac.tsv 2>/dev/null || true
           gh release download harvest-state -p 'claude_registry_lookup.jsonl.gz' -D ~/cch-crawler-state 2>/dev/null && gunzip -f ~/cch-crawler-state/claude_registry_lookup.jsonl.gz && mv ~/cch-crawler-state/claude_registry_lookup.jsonl ~/cch-crawler-state/registry_lookup.jsonl || true
@@ -163,6 +165,10 @@ jobs:
           git config user.name "claude-engines"; git config user.email "claude-engines@users.noreply.github.com"
           for i in $(seq 1 15); do   # main moves every minute or two (verifier, lanes, the Mac): 15 attempts, short random waits (the registry merge lost 5 races on 2026-11-08)
             git fetch -q origin main && git reset -q --hard origin/main   # clean start each attempt: the merge below is redone from the shard files
+            # 2026-11-10: three files that are rewritten whole on every merge (already compressed, so git kept every version whole: 0.5 GB of objects a
+            # day) are assets of the state release; the merge starts from the current asset and uploads the result (tools/state_io.py)
+            BIG="data/incoming/claude/claude_org_extras.jsonl.gz data/incoming/claude/claude_org_contacts.jsonl.gz data/incoming/claude/claude_ap_terms_pages.csv.gz"
+            python3 tools/state_io.py ensure $BIG || true
             if [ "$ENGINE" = "terms_refresh" ]; then
               python3 tools/merge_engine_outputs.py ap_terms data/incoming/claude/claude_ap_terms.csv data/incoming/claude/claude_ap_terms.csv data/incoming/claude/claude_ap_terms_pages.csv.gz shards/ap_terms_*.csv shards/ap_terms_pages_*.csv.gz
             elif [ "$ENGINE" = "walk_terms" ]; then
@@ -183,6 +189,15 @@ jobs:
               [ -f shards/registry_resume_1.jsonl ] && gzip -c shards/registry_resume_1.jsonl > /tmp/claude_registry_lookup.jsonl.gz && gh release upload harvest-state /tmp/claude_registry_lookup.jsonl.gz --clobber || true
             fi
             git add data/incoming/claude/
+            PUB=""
+            case "$ENGINE" in
+              org_facts) PUB="data/incoming/claude/claude_org_extras.jsonl.gz data/incoming/claude/claude_org_contacts.jsonl.gz" ;;
+              walk_terms|terms_refresh) PUB="data/incoming/claude/claude_ap_terms_pages.csv.gz" ;;
+            esac
+            if [ -n "$PUB" ] && python3 tools/state_io.py publish $PUB; then   # uploaded: the manifest line is committed, the files themselves leave the index
+              git add coord/STATE_ASSETS.json
+              git rm -q --cached --ignore-unmatch $PUB
+            fi
             git diff --cached --quiet && { echo "nothing new"; exit 0; }
             git commit -q -m "claude-engines: $ENGINE merged ($SHARDS runner(s), $MINUTES min) [skip ci]" || true
             git push -q origin HEAD:main && break

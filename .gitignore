@@ -27,5 +27,8 @@ out/ranked_pub/
 
 # big state files are release assets (tools/state_io.py, coord/STATE_ASSETS.json): the file, its download and its version mark are never committed
 coord/results/team_buyers.jsonl.gz
+data/incoming/claude/claude_org_extras.jsonl.gz
+data/incoming/claude/claude_org_contacts.jsonl.gz
+data/incoming/claude/claude_ap_terms_pages.csv.gz
 *.asset
 *.dl

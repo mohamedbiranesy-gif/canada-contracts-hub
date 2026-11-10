@@ -27,6 +27,16 @@ ROOT = __import__("os").path.abspath(__import__("os").path.join(__import__("os")
 sys.path.insert(0, ROOT + "/tools"); sys.argv = sys.argv[:1]
 import urllib.parse
 from ap_crawler import same_org, registrable  # the buyer's own mailbox, not a contractor's or partner's named on its pages
+# 2026-11-10: the big files that engines rewrite whole are release assets, not git blobs (tools/state_io.py, coord/STATE_ASSETS.json):
+# a fresh checkout fetches the current version of each before it is read
+try:
+    import state_io as _state_io
+    for _sp in ("coord/results/team_buyers.jsonl.gz", "data/incoming/claude/claude_org_extras.jsonl.gz", "data/incoming/claude/claude_org_contacts.jsonl.gz",
+                "data/incoming/claude/claude_ap_terms_pages.csv.gz"):
+        if not _state_io.ensure(os.path.join(ROOT, _sp), quiet=False):
+            print("state asset not available:", _sp)
+except Exception as _e:
+    print("state assets not checked:", _e)
 today = datetime.date.today().isoformat()
 norm = lambda s: re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()).strip()
 LEGAL_END = re.compile(r"\s+(corporation|corp|incorporated|inc|limited|ltd|llc|co|company|ltee|ltée)$")
