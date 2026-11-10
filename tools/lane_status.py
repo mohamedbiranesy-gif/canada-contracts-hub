@@ -179,8 +179,9 @@ def main():
                 n += 1
         P("\n## 6. Delivered (last rank build on main)")
         P("- rows with a confirmed mailbox: **%d** — by tier: %s" % (n, ", ".join("%s %d" % kv for kv in sorted(tiers.items()))))
-        P("- named-vendor relationships (A B T M C D L E): **%d** · registry contract R: **%d** · weaker / inferred (F I): **%d**"
-          % (sum(c for t, c in tiers.items() if t in "ABTMCDLE"), tiers["R"], tiers["F"] + tiers["I"]))
+        # 2026-11-10: tier E (a link on a Canadian vendor's page, not shown to be a client) is not counted as a relationship with a named vendor
+        P("- named-vendor relationships (A B T M C D L): **%d** · registry contract R: **%d** · link only (E): **%d** · older / inferred (F I): **%d**"
+          % (sum(c for t, c in tiers.items() if t in "ABTMCDL"), tiers["R"], tiers["E"], tiers["F"] + tiers["I"]))
     except Exception as e:
         P("\n(ranked table not read: %s)" % e)
     text = "\n".join(out) + "\n"
