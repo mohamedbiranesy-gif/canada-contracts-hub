@@ -94,6 +94,7 @@ NS_WATCH = os.path.join(DIR, "sweep_ns_watch.txt")
 # the questions dropped; 55-61 % of the sweep's names got no answer, while the public resolvers answer 97 % of the same names). A place
 # reached before this number says nothing about the names behind it.
 SWEEP_REV = 2
+MAX_FAIL = 0.12  # the largest share of names without an answer a run may have and still be believed (the public resolvers: 3-4 % of a list's names)
 PUBLIC_QPS = 60  # a name the runner's resolver gives no answer for is asked once of the public resolvers, at most this many a second
 SHOPIFY_A = re.compile(r"^23\.227\.38\.(?:3[2-9]|[4-9]\d|1[01]\d|12[0-7])$")  # Shopify's storefront addresses (23.227.38.32/27, .64/26): the apex A record of a store on its own domain
 VERIF_KEY = re.compile(r"^([a-z0-9][a-z0-9._-]{2,48}?)[=:]")
@@ -279,7 +280,8 @@ def lookup(a):
     tl = threading.local()
     gate, nxt = threading.Lock(), [0.0]
     local = None
-    if a.resolver:
+    steady = SteadyResolver() if a.resolver == "steady" else None  # the public resolvers over one socket per worker (see SteadyResolver)
+    if a.resolver and not steady:
         host, _, port = a.resolver.partition(":")
         probe = dns.resolver.Resolver(configure=False)
         probe.nameservers, probe.port, probe.timeout, probe.lifetime = [host], int(port or 53), 5, 10
@@ -291,10 +293,10 @@ def lookup(a):
             except Exception as e:
                 print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
                 time.sleep(5)
-    qps = a.qps if local else min(a.qps, 60)  # without the local resolver: the public ones, slowly
-    print("resolver: %s, %d queries/s" % ("%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
+    qps = a.qps if (local or steady) else min(a.qps, 60)  # without either: the public ones with a new socket per question, slowly
+    print("resolver: %s, %d queries/s" % ("public resolvers, one socket per worker" if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
 
-    lock, stats = threading.Lock(), collections.Counter()
+    lock, stats, fails = threading.Lock(), collections.Counter(), []
 
     def turn():
         with gate:
@@ -305,6 +307,8 @@ def lookup(a):
             time.sleep(w)
 
     def resolver():
+        if steady:
+            return steady
         r = getattr(tl, "r", None)
         if r is None:
             r = dns.resolver.Resolver(configure=False)
@@ -368,8 +372,8 @@ def lookup(a):
                 stats["domains"] += 1
                 stats["store_candidates"] += 1
                 stats["shopify_address"] += "shop" in o
-                if st != "fail" or local:
-                    f.write(json.dumps(o, ensure_ascii=False, separators=(",", ": ")) + "\n")
+                stats["fail"] += st == "fail"
+                (fails.append if st == "fail" else f.write)(json.dumps(o, ensure_ascii=False, separators=(",", ": ")) + "\n")
                 if stats["domains"] % 20000 == 0:
                     f.flush()
                     print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
@@ -413,15 +417,27 @@ def lookup(a):
             stats["with_spf"] += "inc" in o or "spf" in o
             stats["with_mx"] += "mx" in o
             stats["shopify_address"] += "shop" in o
-            if st != "fail" or local:  # through the local resolver a failure is the zone's own (dead name servers): kept, not asked again
-                f.write(json.dumps(o, ensure_ascii=False, separators=(",", ": ")) + "\n")
+            (fails.append if st == "fail" else f.write)(json.dumps(o, ensure_ascii=False, separators=(",", ": ")) + "\n")
             if stats["domains"] % 20000 == 0:
                 f.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
     from concurrent.futures import ThreadPoolExecutor
     with ThreadPoolExecutor(a.workers) as ex:
         list(ex.map(one, doms))
+    # A name without an answer is a fact about the name only when the run answered nearly everything else. 2026-11-10: 43 % of the records
+    # on file said "no answer" because the questions never left the runner, and were never asked again. Above MAX_FAIL the names stay unasked.
+    share = len(fails) / max(1, stats["domains"])
+    if share <= MAX_FAIL:
+        f.write("".join(fails))
+    else:
+        print("::warning::%.0f %% of the names got no answer (limit %.0f %%): this run's resolver is not trusted for them — %d names are left for the next run" % (
+            100 * share, 100 * MAX_FAIL, len(fails)), flush=True)
     f.close()
+    if steady:
+        per = collections.defaultdict(dict)
+        for (ip, what), c in steady.stats.items():
+            per[ip][what] = c
+        print("by resolver: " + "; ".join("%s %s" % (ip, dict(sorted(v.items()))) for ip, v in sorted(per.items())), flush=True)
     print("finished", dict(stats), flush=True)
 
 
@@ -571,9 +587,21 @@ def sweep_left(cur):
                   key=lambda k: (bool(done.get(str(k))), int(pos.get(str(k), 0)), k))
 
 
+def stalled(d, pattern):
+    """True when the run whose shard files are in `d` stopped because its questions got no answers and moved its list nowhere: the next run
+    is then left to the daily schedule instead of being started at once (a broken transport would otherwise restart itself every minute)"""
+    objs = []
+    for cf in glob.glob(os.path.join(d, pattern)):
+        try:
+            objs.append(json.load(open(cf, encoding="utf-8")))
+        except Exception:
+            pass
+    return bool(objs) and any(o.get("stopped_unanswered") for o in objs) and not any(int(o.get("asked") or 0) for o in objs)
+
+
 def sweep_plan(a):
     """the sweep shards that still have work, least advanced first (for the workflow's matrix)"""
-    left = sweep_left(sweep_cursor())
+    left = [] if (a.after and stalled(a.after, "sweep_cursor_*.json")) else sweep_left(sweep_cursor())
     print(json.dumps(left[:max(1, a.limit or SWEEP_SHARDS)]))
 
 
@@ -622,7 +650,7 @@ def sweep(a):
         ("catching up the name-server question from place %d to %d" % (ns_pos, ns_from)) if catch_up else ("starting after place %d" % start), len(watch)), flush=True)
     deadline = time.time() + a.minutes * 60
     local = None
-    if a.resolver:
+    if a.resolver and a.resolver != "steady":
         host, _, port = a.resolver.partition(":")
         probe = dns.resolver.Resolver(configure=False)
         probe.nameservers, probe.port, probe.timeout, probe.lifetime = [host], int(port or 53), 5, 10
@@ -634,10 +662,11 @@ def sweep(a):
             except Exception as e:
                 print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
                 time.sleep(5)
-    qps = a.qps if local else min(a.qps, 60)  # domains per second; without the runner's own resolver: the public ones, slowly
-    per = 1 if (catch_up or not watch) else 2  # questions per domain. The second one (who serves the zone) goes to the zone's own servers:
-    rate = qps * per                           # the ending's servers (.com) are asked once per domain either way, so they see `qps` a second
-    print("resolver: %s, %d domains/s, %d questions/s" % ("%s:%d (local, recursive)" % local if local else "public resolvers", qps, rate), flush=True)
+    steady = SteadyResolver() if a.resolver == "steady" else None  # the public resolvers over one socket per worker (see SteadyResolver)
+    qps = a.qps if (local or steady) else min(a.qps, 60)  # domains per second
+    per = 1 if (catch_up or not watch) else 2  # questions per domain: its address, and who serves its zone
+    rate = qps * per
+    print("resolver: %s, %d domains/s, %d questions/s" % ("public resolvers, one socket per worker" if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps, rate), flush=True)
     tl = threading.local()
     gate, nxt = threading.Lock(), [0.0]
 
@@ -648,6 +677,8 @@ def sweep(a):
         w = t - time.time()
         if w > 0:
             time.sleep(w)
+        if steady:
+            return steady
         r = getattr(tl, "r", None)
         if r is None:
             r = dns.resolver.Resolver(configure=False)
@@ -736,17 +767,37 @@ def sweep(a):
                 break
             if deadline - time.time() < 1.3 * len(batch) / qps + 20:
                 break  # not enough time left for this batch: the next run starts with it
-            st = collections.Counter()
-            for d, ip, how, ns in ex.map(ask, batch):
-                st[how] += 1
-                shop = bool(ip and SHOPIFY_A.match(ip))
-                if shop or ns:
-                    o = {"d": d, "t": TODAY, "st": "ok", "l": 1, "sw": 1, "rv": SWEEP_REV}
-                    if shop:
-                        o.update(shop=1, a=ip); state["stores"] += 1
-                    if ns:
-                        o["ns"] = ns; state["ns_hits"] += 1
-                    fo.write(json.dumps(o, ensure_ascii=False, separators=(",", ": ")) + "\n")
+            st, todo, hits = collections.Counter(), batch, {}
+            for attempt in (1, 2):
+                st["fail"] = 0
+                again = []
+                for d, ip, how, ns in ex.map(ask, todo):
+                    st[how] += 1
+                    if how == "fail":
+                        again.append(d)
+                    shop = bool(ip and SHOPIFY_A.match(ip))
+                    if shop or ns:
+                        o = {"d": d, "t": TODAY, "st": "ok", "l": 1, "sw": 1, "rv": SWEEP_REV}
+                        if shop:
+                            o.update(shop=1, a=ip)
+                        if ns:
+                            o["ns"] = ns
+                        hits[d] = o
+                if len(again) <= MAX_FAIL * len(batch) or attempt == 2:
+                    break
+                print("%s place %d: %d of %d names without an answer — asked once more in 30 s" % (time.strftime("%H:%M:%S"), pos, len(again), len(batch)), flush=True)
+                time.sleep(30)
+                todo = again
+            if st["fail"] > 2 * MAX_FAIL * len(batch):
+                # the questions are not getting through (2026-11-10: a run that went on like this left 60 % of its names unasked for good):
+                # the list is not moved on, the next run starts at this place
+                print("::warning::place %d: %d of %d names still without an answer — the run stops here and the list stays at this place" % (pos, st["fail"], len(batch)), flush=True)
+                state["stopped_unanswered"] = True
+                break
+            for o in hits.values():
+                state["stores"] += 1 if o.get("shop") else 0
+                state["ns_hits"] += 1 if o.get("ns") else 0
+                fo.write(json.dumps(o, ensure_ascii=False, separators=(",", ": ")) + "\n")
             fo.flush()
             if catch_up:
                 state["ns_asked"] += len(batch); state["ns_pos"] = pos
@@ -839,7 +890,7 @@ def hosts_sweep(a):
     print("host sweep shard %d/%d of graph %s: starting after place %d; stores already known: %d" % (k, n, rel, start, len(known)), flush=True)
     deadline = time.time() + a.minutes * 60
     local = None
-    if a.resolver:
+    if a.resolver and a.resolver != "steady":
         host, _, port = a.resolver.partition(":")
         probe = dns.resolver.Resolver(configure=False)
         probe.nameservers, probe.port, probe.timeout, probe.lifetime = [host], int(port or 53), 5, 10
@@ -851,8 +902,9 @@ def hosts_sweep(a):
             except Exception as e:
                 print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
                 time.sleep(5)
-    qps = a.qps if local else min(a.qps, 60)
-    print("resolver: %s, %d hosts/s" % ("%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
+    steady = SteadyResolver() if a.resolver == "steady" else None  # the public resolvers over one socket per worker (see SteadyResolver)
+    qps = a.qps if (local or steady) else min(a.qps, 60)
+    print("resolver: %s, %d hosts/s" % ("public resolvers, one socket per worker" if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
     tl = threading.local()
     gate, nxt = threading.Lock(), [0.0]
 
@@ -863,6 +915,8 @@ def hosts_sweep(a):
         w = t - time.time()
         if w > 0:
             time.sleep(w)
+        if steady:
+            return steady
         r = getattr(tl, "r", None)
         if r is None:
             r = dns.resolver.Resolver(configure=False)
@@ -949,12 +1003,28 @@ def hosts_sweep(a):
                 break
             if deadline - time.time() < 1.3 * len(batch) / qps + 20:
                 break  # not enough time left for this batch: the next run starts with it
-            st = collections.Counter()
-            for h, ip, how in ex.map(ask, batch):
-                st[how] += 1
-                if ip and SHOPIFY_A.match(ip):
-                    fo.write(json.dumps({"d": h, "t": TODAY, "st": "ok", "l": 1, "sw": 2, "shop": 1, "a": ip, "rv": SWEEP_REV}, ensure_ascii=False, separators=(",", ": ")) + "\n")
-                    state["stores"] += 1
+            st, todo, hits = collections.Counter(), batch, {}
+            for attempt in (1, 2):
+                st["fail"] = 0
+                again = []
+                for h, ip, how in ex.map(ask, todo):
+                    st[how] += 1
+                    if how == "fail":
+                        again.append(h)
+                    if ip and SHOPIFY_A.match(ip):
+                        hits[h] = ip
+                if len(again) <= MAX_FAIL * len(batch) or attempt == 2:
+                    break
+                print("%s place %d: %d of %d hosts without an answer — asked once more in 30 s" % (time.strftime("%H:%M:%S"), pos, len(again), len(batch)), flush=True)
+                time.sleep(30)
+                todo = again
+            if st["fail"] > 2 * MAX_FAIL * len(batch):  # the questions are not getting through: the list is not moved on (see sweep)
+                print("::warning::place %d: %d of %d hosts still without an answer — the run stops here and the list stays at this place" % (pos, st["fail"], len(batch)), flush=True)
+                state["stopped_unanswered"] = True
+                break
+            for h, ip in hits.items():
+                fo.write(json.dumps({"d": h, "t": TODAY, "st": "ok", "l": 1, "sw": 2, "shop": 1, "a": ip, "rv": SWEEP_REV}, ensure_ascii=False, separators=(",", ": ")) + "\n")
+                state["stores"] += 1
             fo.flush()
             state["asked"] += len(batch); state["no_answer"] += st["fail"]; state["pos"] = pos
             state["by_public"] += st["ok_public"] + st["nx_public"] + st["none_public"]
@@ -1192,16 +1262,17 @@ def main():
     ap.add_argument("--workers", type=int, default=120)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--stamp", default="")
-    ap.add_argument("--resolver", default="", help="lookup: host:port of a recursive resolver on this machine (the workflow starts unbound); empty = public resolvers, slowly")
+    ap.add_argument("--resolver", default="", help="'steady' = the public resolvers over one socket per worker (the workflow's choice); host:port = a recursive resolver on this machine; empty = public resolvers with a new socket per question, slowly")
     ap.add_argument("--qps", type=int, default=480, help="lookup: queries per second of this runner")
     ap.add_argument("--batch", type=int, default=20000, help="sweep: domains asked between two saves of the shard's place")
     ap.add_argument("--release", default="auto", help="sweep: the web graph release (default: the one the sweep started with, else the newest)")
     ap.add_argument("--base", default="", help="sweep: URL or local path of the vertices file (tests)")
+    ap.add_argument("--after", default="", help="sweep-plan / hosts-plan: the directory of the run that just ended — no shard is planned when that run got no answers at all")
     a = ap.parse_args()
     if a.cmd == "hosts":
         return hosts_sweep(a)
     if a.cmd == "hosts-plan":
-        print(json.dumps(hosts_left(sweep_cursor())[:max(1, a.limit or HOSTS_SHARDS)]))
+        print(json.dumps(([] if (a.after and stalled(a.after, "hosts_cursor_*.json")) else hosts_left(sweep_cursor()))[:max(1, a.limit or HOSTS_SHARDS)]))
         return
     if a.cmd == "sweep":
         sweep(a)

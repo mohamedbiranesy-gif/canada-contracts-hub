@@ -85,14 +85,15 @@ jobs:
         run: |
           sudo apt-get install -y -q unbound >/dev/null 2>&1 || true
           sudo systemctl stop unbound 2>/dev/null || true
-          # 2026-11-10 (measured, dns-diag.yml): started from a shell that allows 1,024 open files the resolver shrinks its tables to ~165
-          # questions at a time and drops the rest — 25-49 % of the questions, 55-61 % of the sweep's names without an answer. It is
-          # started with room for its tables; tools/dns_services.py asks the public resolvers once for a name that still gets no answer.
+          # 2026-11-10 (measured three times, dns-diag.yml): through this resolver a runner gets 30-55 % of its questions answered at best
+          # (8 % when the resolver is given more open files: more flows, more loss). The limit is on the runner's side of the network and
+          # is not understood yet. Until a transport is measured to work, tools/dns_services.py stops a sweep whose batch goes unanswered
+          # (the list keeps its place) and keeps a lookup's unanswered names for a later run.
           printf '%s\n' 'server:' '  interface: 127.0.0.1' '  port: 5353' '  access-control: 127.0.0.0/8 allow' '  do-ip6: no' '  num-threads: 4' \
             '  msg-cache-size: 256m' '  rrset-cache-size: 512m' '  outgoing-range: 8192' '  num-queries-per-thread: 4096' '  so-rcvbuf: 4m' '  so-sndbuf: 4m' \
             '  module-config: "iterator"' '  ratelimit: 1000' '  hide-identity: yes' '  hide-version: yes' '  verbosity: 0' | sudo tee /etc/unbound/unbound.conf >/dev/null
           sudo unbound-checkconf /etc/unbound/unbound.conf || true
-          sudo sh -c 'ulimit -n 200000; unbound -c /etc/unbound/unbound.conf' || sudo systemctl start unbound || true
+          sudo unbound -c /etc/unbound/unbound.conf || sudo systemctl start unbound || true
           sleep 3; (ss -lun | grep 5353) || echo "unbound is not listening"
           echo "open files allowed to the resolver: $(sudo grep 'open files' /proc/$(pgrep -x unbound | head -1)/limits | tr -s ' ')" || true
       - name: Look up the public DNS records of each domain
@@ -141,11 +142,11 @@ jobs:
           head -60 data/incoming/claude/credit_scan/dns_providers_seen.csv >> "$GITHUB_STEP_SUMMARY" || true
           if [ "$MODE" = "sweep" ]; then
             # the list is long (63 M domains): the next run starts by itself until every shard has reached the end
-            left=$(python3 tools/dns_services.py sweep-plan | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
+            left=$(python3 tools/dns_services.py sweep-plan --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "sweep shards with work left: $left"
             if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=sweep" -f "inputs[shards]=4" -f "inputs[minutes]=$MINUTES" || true; fi
           elif [ "$MODE" = "hosts" ]; then
-            left=$(python3 tools/dns_services.py hosts-plan | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
+            left=$(python3 tools/dns_services.py hosts-plan --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "host sweep shards with work left: $left"
             # two runners at a time: the list is short (7 M hosts) and the mailbox crawl needs the runners more
             if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=hosts" -f "inputs[shards]=2" -f "inputs[minutes]=$MINUTES" || true; fi
