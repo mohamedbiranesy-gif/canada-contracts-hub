@@ -28,9 +28,10 @@ fi
 
 # ---- the cloud engines (2026-11-10). Their own cron lines fire rarely: in the 4.5 hours after mailbox-crawl.yml was created its hourly schedule
 # never fired once, tenant-factory and site-facts each missed two slots. The tick keeps them moving instead. The account runs 20 jobs at a time and
-# the referee and the ranker need slots, so engines are started in priority order only while fewer than MAX_ENGINES engine runs are active; the
+# the referee and the ranker need slots (at 10:35Z the ranker waited behind three engines with 19 jobs), so engines are started in priority order only
+# while fewer than MAX_ENGINES engine runs are active (the mailbox crawl counts as one); the
 # mailbox crawl (leads -> rows) and the ranker are always started when due.
-MAX_ENGINES=4
+MAX_ENGINES=3
 active() { gh run list --limit 60 --json status,workflowName --jq '[.[] | select(.status != "completed") | select(.workflowName | test("^(mailbox-crawl|row-factory|tenant-factory|credit-scan|site-facts|bbb-accredited|member-live|biz-licences|dns-services|rbq-licences)$"))] | length' 2>/dev/null || echo 0; }
 check mailbox-crawl.yml 0
 check rank-buyers.yml 2
