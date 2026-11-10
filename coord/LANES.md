@@ -1,10 +1,11 @@
-# Cloud lanes — status from the files on main (2026-11-10 06:00 UTC)
+# Cloud lanes — status from the files on main (2026-11-10 08:20 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
-- `.ca` domains of the web graph + public list: **1045795**
-- domains linking to a proven Canadian vendor / vetted portal: **216481**
+- `.ca` domains of the web graph + public list: **2485064**
+- domains linking to a proven Canadian vendor / vetted portal: **421156**
 - OpenStreetMap Canada sites: **73684**
+- domains linking to Shopify (store candidates): **1323818**
 - home pages read by the scan: **435316** (ok 364948, blocked 26332, unreachable 25200, robots 11913, http_error 6763, not_html 156); by detector: {'t1': 435316}
 
 ## 2. Vendors and providers checked live (their own site's address)
@@ -18,15 +19,16 @@
 - Mac era D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **52386**
 - Mac era M member / regulated payer list: **2290**
 - Mac era T vetted software service (store / portal): **5511**
-- cloud D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **69535**
+- cloud D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **76418**
+- cloud M licence holder (the licensing body's own list of active licences) [lic]: **2226**
 - cloud T credit line on the buyer's site: **24356**
 - cloud T provider in the buyer's DNS: **1319**
 - cloud T vetted software service (store / portal): **2900**
 
 ## 5. Mailbox crawl
 - lead sites read: **29375** (nothing_found 18793, found 7923, blocked 2651, error 6, timeout 2)
-  - D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): 24689 read, mailbox on 6823 (28 %), blocked 2258
-  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 4686 read, mailbox on 1100 (23 %), blocked 393
+  - D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): 24781 read, mailbox on 6846 (28 %), blocked 2268
+  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 4594 read, mailbox on 1077 (23 %), blocked 383
 - candidate sites (stores / portals) read: **24445**
   - amilia: 178 read — nothing_found 81, accepted 49, out_of_scope 20, no_address 20, blocked 8
   - bibliocommons: 30 read — nothing_found 21, out_of_scope 7, no_address 2
@@ -36,5 +38,5 @@
 - mailbox rows written by the cloud crawls (before the referee): **11886**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **68300** — by tier: A 1227, B 1580, C 383, D 9602, E 2874, F 18, I 48968, L 386, M 186, T 3076
-- named-vendor relationships (A B T M C D L E): **19314** · registry contract R: **0** · weaker / inferred (F I): **48986**
+- rows with a confirmed mailbox: **69663** — by tier: A 1227, B 1582, C 349, D 12163, E 2631, F 8, I 12223, L 378, M 1821, R 27809, T 9472
+- named-vendor relationships (A B T M C D L E): **29623** · registry contract R: **27809** · weaker / inferred (F I): **12231**
