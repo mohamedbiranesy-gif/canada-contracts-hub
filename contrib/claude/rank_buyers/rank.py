@@ -11,8 +11,69 @@ def print(*a, **k):
     shows which step stops scaling (2026-11-10: a build took 30+ minutes at 69,000 rows)"""
     global _TL
     _now = _tm.time()
-    _bi.print("[%5.0fs +%4.0fs]" % (_now - _T0, _now - _TL), *a, **k)
+    try:  # the process's memory right now (GB): the row count is meant to grow tenfold and the runner has 16 GB
+        with open("/proc/self/statm") as _f:
+            _rss = int(_f.read().split()[1]) * 4096 / 1073741824
+    except Exception:
+        _rss = 0.0
+    _bi.print("[%5.0fs +%4.0fs %4.1fG]" % (_now - _T0, _now - _TL, _rss), *a, **k)
     _TL = _now
+
+
+def _memstat(label, rows, g=None):
+    """RANK_MEMSTAT=1: what a row costs in memory right now, by tier and by column (1 row in 25; a string object shared by several rows counts once)"""
+    import os as _os, sys as _s, json as _j, collections as _c
+    if not _os.environ.get("RANK_MEMSTAT"):
+        return
+    seen, by_col, by_tier = set(), _c.Counter(), _c.defaultdict(lambda: [0, 0, 0])
+    smp = rows[::25]
+    for x in smp:
+        b = _s.getsizeof(x)
+        for c, v in x.items():
+            if c == "_org" or v == "" or id(v) in seen:
+                continue
+            seen.add(id(v))
+            sz = _s.getsizeof(v) if isinstance(v, (str, int, float, bool)) else len(_j.dumps(v, default=str))
+            by_col[c] += sz; b += sz
+        t = by_tier[x.get("tier") or "?"]
+        t[0] += 1; t[1] += b; t[2] += len(x)
+    tot = sum(t[1] for t in by_tier.values())
+    _bi.print("    memstat %s: %d rows sampled, %.1f KB a row (dict + its own strings); all rows ~%.2f GB" % (label, len(smp), tot / 1024 / max(1, len(smp)), tot * 25 / 1073741824))
+    _bi.print("    by tier (rows, KB a row, columns a row):", "; ".join("%s %d %.1f %d" % (k, v[0], v[1] / 1024 / max(1, v[0]), v[2] / max(1, v[0])) for k, v in sorted(by_tier.items())))
+    _bi.print("    heaviest columns (KB a row):", "; ".join("%s %.2f" % (c, n / 1024 / max(1, len(smp))) for c, n in by_col.most_common(28)))
+    if g is None:
+        return
+    # every big table the script holds at this point (dict / list / set of the module): estimated from 1 entry in 40. An object shared by several
+    # entries counts once; another table of the module, or a row, reached from an entry is not followed (it is counted where it lives).
+    stop = {id(o) for o in g.values() if isinstance(o, (dict, list, set, tuple))} | {id(x) for x in rows}
+    seen2, budget = set(), [0]
+    def deep(o, d=0):
+        if id(o) in seen2 or id(o) in stop or budget[0] > 3000000:
+            return 0
+        seen2.add(id(o)); budget[0] += 1
+        n = _s.getsizeof(o)
+        if d > 5:
+            return n
+        if isinstance(o, dict):
+            for k, v in o.items():
+                n += deep(k, d + 1) + deep(v, d + 1)
+        elif isinstance(o, (list, tuple, set, frozenset)):
+            for v in o:
+                n += deep(v, d + 1)
+        return n
+    out = []
+    for name, o in list(g.items()):
+        if name == "rows" or not isinstance(o, (dict, list, set, tuple)) or len(o) < 2000:
+            continue
+        step = 40 if len(o) >= 4000 else 1
+        n = _s.getsizeof(o)
+        for i, e in enumerate(o.items() if isinstance(o, dict) else o):
+            if i % step == 0:
+                n += (deep(e[0]) + deep(e[1]) if isinstance(o, dict) else deep(e)) * step
+        out.append((n, name, len(o)))
+    out.sort(reverse=True)
+    _bi.print("    tables held (name entries ~MB):", "; ".join("%s %d %.0f" % (nm, ln, n / 1048576) for n, nm, ln in out[:40] if n > 8 * 1048576))
+    _bi.print("    all tables ~%.2f GB (objects visited: %d)" % (sum(n for n, _, _ in out) / 1073741824, budget[0]))
 
 
 def _money(v):
@@ -709,7 +770,8 @@ for _ldp in ("claude_lead_details.jsonl.gz", "claude_lead_details_cc.jsonl.gz"):
     if os.path.exists(ROOT + "/data/incoming/claude/" + _ldp):
         for _d in jl(ROOT + "/data/incoming/claude/" + _ldp):
             LDET.setdefault(_d.get("key"), _d)
-for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.gz")) + sorted(_g0.glob(ROOT + "/data/incoming/claude/lead_shards/details_*.gz")):
+# newest shard first: an engine that reads its register again writes a fresh details record for a lead it already has (licence fee, next payment date)
+for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.gz"), reverse=True) + sorted(_g0.glob(ROOT + "/data/incoming/claude/lead_shards/details_*.gz"), reverse=True):
     for _d in jl(_p):
         LDET.setdefault(_d.get("key"), _d)
 LFACTS = {}  # 2026-11-10: what the cloud mailbox crawl read on the buyer's OWN pages (tools/lead_crawl.py): its name and its postal address, quoted
@@ -728,8 +790,10 @@ n_lf = collections.Counter()
 def apply_details(x, k):
     f = LFACTS.get(k) or LFACTS_DOM.get(registrable(host_of(x.get("buyer_website") or "")))
     if f:
-        if f.get("site_name") and re.fullmatch(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", (x.get("buyer") or "").lower()):
-            x["buyer"] = f["site_name"]; n_lf["buyer_name_from_own_home_page"] += 1  # the lead only carried the domain; the organisation's own home page names it
+        if f.get("site_name") and (re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/?", (x.get("buyer") or "").lower()) or x.get("tier") == "R"):
+            # the lead only carried the domain (or its address) — or the row is about the site itself (tier R) and its name so far is what a third party
+            # wrote next to a link ("Product categories that we currently provide"): the organisation's own home page names it
+            x["buyer"] = f["site_name"]; n_lf["buyer_name_from_own_home_page"] += 1
         if f.get("address") and not x.get("buyer_address"):
             x["buyer_address"] = "%s (as printed on %s, read %s)" % (f["address"], f.get("address_url") or x.get("buyer_website") or "", f.get("date") or ""); n_lf["buyer_address_from_own_page"] += 1
     d = LDET.get(k)
@@ -767,7 +831,9 @@ def apply_details(x, k):
     for col, key in (("contract_value", "value"), ("currency", "currency"), ("contract_reference", "reference"), ("start_date", "start"),
                      ("end_date", "end"), ("vendor_address", "vendor_address"), ("contract_title", "title")):
         if not x.get(col) and d.get(key):
-            x[col] = d[key] if col != "contract_value" or not d.get("value_field") else "%s (source field: %s)" % (d[key], d["value_field"])
+            # value_basis: the amount is the payee's published tariff for this kind of licence, not a payment record (said in the cell)
+            x[col] = d[key] if col != "contract_value" or not (d.get("value_field") or d.get("value_basis")) else \
+                ("%s (%s)" % (d[key], d["value_basis"])) if d.get("value_basis") else "%s (source field: %s)" % (d[key], d["value_field"])
     if d.get("reference") and not x.get("all_identifiers"):
         try:
             _ids = json.loads(d["reference"]) if str(d["reference"]).startswith("{") else {"reference": d["reference"]}
@@ -868,7 +934,10 @@ try:
         _k = "lead:" + _hl.sha1(("%s|reg:ca" % _md).encode()).hexdigest()[:16]
         if _k in leads:
             continue
-        leads[_k] = {"buyer_key": _k, "buyer_name": (_mr.get("org_name") or "").strip() or _md, "website": "https://%s/" % _md, "canadian_vendor_rows": "1",
+        _nm = (_mr.get("org_name") or "").strip()
+        if not _nm or re.match(r"(?i)^(https?://|www\.)", _nm):
+            _nm = _md  # a row whose "name" is the site's address: the domain, until the site's own name is read
+        leads[_k] = {"buyer_key": _k, "buyer_name": _nm, "website": "https://%s/" % _md, "canadian_vendor_rows": "1",
                      "example_vendor": "Canadian Internet Registration Authority (CIRA)", "canada_field_value": CF_REG,
                      "evidence_dataset": "https://dns.google/resolve?name=%s&type=NS" % _md, "latest_record_date": today}
         LDET.setdefault(_k, {"key": _k, "platform": "ca_registry", "title": ".ca domain name registration: %s" % _md, "reference": _md,
@@ -877,6 +946,13 @@ try:
 except Exception as _e:
     print("registry leads skipped: %s" % _e)
 print("registry leads (.ca domains carrying a confirmed mailbox of their own organisation): %d" % n_reg)
+_SN = int(os.environ.get("RANK_SAMPLE") or 0)  # debug only: a fixed 1-in-N sample of the leads and of the inferred rows, to compare two versions of this script on a small machine
+def _in_sample(k):
+    import hashlib as _hs
+    return not _SN or int(_hs.sha1((k or "").encode()).hexdigest()[:8], 16) % _SN == 0
+if _SN:
+    leads = {k: v for k, v in leads.items() if _in_sample(k)}
+    print("RANK_SAMPLE: 1 lead in %d kept: %d" % (_SN, len(leads)))
 def lead_strength(kl):
     """dated records first, then services seen on the buyer's site, 12-36 month records, client listings, other links:
     the strongest relationship of an organisation claims its website domain (one row per organisation)"""
@@ -1287,7 +1363,7 @@ def infer(name, email, site, prov, fed, place=""):
 cands = []
 skipped13 = collections.Counter()
 for k, ((acc, g), m) in mail.items():
-    if not acc or g < 1 or k in covered_keys:
+    if not acc or g < 1 or k in covered_keys or (_SN and not _in_sample(k)):
         continue
     e = (m.get("mailbox") or "").strip()
     local, _, md = e.lower().partition("@")
@@ -2425,20 +2501,39 @@ POD = collections.defaultdict(list)
 _pop = ROOT + "/data/incoming/claude/claude_po_records.csv.gz"
 if not os.path.exists(_pop) and os.path.exists(_pop[:-3]):
     _pop = _pop[:-3]
+# 2026-11-10: only the records of a (buyer, vendor) pair that some row can ask for are kept, and only the six cells the join prints (the file's
+# 555,539 records as whole dicts were ~2 GB of memory for a dozen matching pairs)
+def _po_keys(x):
+    bkeys = {parent(x.get("buyer") or ""), parent((x.get("buyer_legal_name_as_published") or "").split(" (")[0]), (x.get("org_group_key") or "").split(" | ")[0]} - {""}
+    vkeys = {norm(x.get("vendor") or ""), parent(x.get("vendor") or ""), norm((x.get("vendor_legal_name") or "").split(" (")[0]), parent((x.get("vendor_legal_name") or "").split(" (")[0])} - {""}
+    return bkeys, vkeys
+_need_p = set()
+for x in rows:
+    if not (x.get("vendor") or "").startswith("inferred"):
+        _bk, _vk = _po_keys(x)
+        _need_p |= {(b, v) for b in _bk for v in _vk}
+_need_b = {b for b, _ in _need_p}
+_n_po_read = 0
 if os.path.exists(_pop):
     for _r in csv.DictReader((gzip.open(_pop, "rt", encoding="utf-8", errors="replace") if _pop.endswith(".gz") else open(_pop, encoding="utf-8", errors="replace"))):
-        POD[(parent(_r["buyer"]), norm(_r["vendor_name"]))].append(_r)
+        _n_po_read += 1
+        _pb = parent(_r["buyer"])
+        if _pb not in _need_b:
+            continue
+        _t = {"po_number": _r["po_number"], "date": _r["date"], "amount": _r["amount"], "kind": _r["kind"], "source_url": _r["source_url"], "id_label": _r["id_label"]}
+        _nv = norm(_r["vendor_name"])
+        if (_pb, _nv) in _need_p:
+            POD[(_pb, _nv)].append(_t)
         pv = parent(_r["vendor_name"])
-        if pv and pv != norm(_r["vendor_name"]):
-            POD[(parent(_r["buyer"]), pv)].append(_r)
+        if pv and pv != _nv and (_pb, pv) in _need_p:
+            POD[(_pb, pv)].append(_t)
 n_po = collections.Counter()
 for x in rows:
     for c in ("po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"):
         x.setdefault(c, "")
     if not POD or (x.get("vendor") or "").startswith("inferred"):
         continue
-    bkeys = {parent(x.get("buyer") or ""), parent((x.get("buyer_legal_name_as_published") or "").split(" (")[0]), (x.get("org_group_key") or "").split(" | ")[0]} - {""}
-    vkeys = {norm(x.get("vendor") or ""), parent(x.get("vendor") or ""), norm((x.get("vendor_legal_name") or "").split(" (")[0]), parent((x.get("vendor_legal_name") or "").split(" (")[0])} - {""}
+    bkeys, vkeys = _po_keys(x)
     hits = []
     for b in bkeys:
         for v in vkeys:
@@ -2459,7 +2554,8 @@ for x in rows:
         x["contract_numbers_this_pair_open_data"] = "; ".join("%s (%s%s)" % (h[0], h[1] or "undated", (", " + h[2]) if h[2] else "") for h in cons[:8])[:400] + " — %s" % cons[0][5]
         if not x.get("contract_or_agreement_number"):
             x["contract_or_agreement_number"] = "%s (%s; the buyer's own open data %s; dated %s)" % (cons[0][0], cons[0][5], cons[0][4], cons[0][1] or "n/a"); n_po["contract_filled"] += 1
-print("buyers' PO / contract open data joined:", dict(n_po), "| records:", sum(len(v) for v in POD.values()))
+print("buyers' PO / contract open data joined:", dict(n_po), "| records read:", _n_po_read, "| kept (a row's own buyer-vendor pair):", sum(len(v) for v in POD.values()))
+del POD, _need_b, _need_p
 # D2 / D12: back-reference between the contract dataset and the lead relationships (same organisation by website domain or exact name)
 AGG_DOM, AGG_NAME = {}, {}
 for _p, _o in orgs.items():
@@ -2611,8 +2707,108 @@ for x in rows:
     if not (x.get("vendor_address") or x.get("vendor_registered_address")) and _vn in _vad:
         x["vendor_registered_address"] = _vad[_vn][0] + " (carried from this vendor's row with %s)" % _vad[_vn][1][:60]; n_carry["address"] += 1
 print("same-vendor carry-over (BN9 / address from the vendor's other rows):", dict(n_carry))
-n9 = collections.Counter()
-for x in rows:
+_memstat("before the narrative columns", rows, globals())
+# ---- downstream pack (owner 2026-11-06 22:00, the downstream agent's 150 questions: prompts/downstream_150_questions.md). Guarded: a failure here never stops the build.
+# construction-work detector for the statutory prompt-payment default (contract text, NAICS 23, UNSPSC 72): conservative word list, contract fields only (never the vendor's name)
+CONSTR_RX = re.compile(r"travaux de construction|\bconstruction\b(?! equipment| materials? supply)|general contractor|entrepreneur g[ée]n[ée]ral|\bpaving\b|\bpavage\b|\broofing\b|\btoiture\b|\bdemolition\b|\bexcavation\b|watermain|\bsewer\b|[ée]gout|aqueduc|\bHVAC\b|road (?:work|reconstruction|rehabilitation)|r[ée]fection|bridge (?:rehabilitation|replacement|repair)|building (?:renovation|retrofit|envelope|addition)|\brenovation\b|r[ée]novation|site (?:servicing|works)|civil works|mechanical and electrical|electrical (?:work|contractor|upgrade)|plumbing", re.I)
+# statutes read 2026-11-08 (primary pages; quotes ≤ 300 chars); only Acts whose text was read are here — SK / MB / NS / NB / QC / BC prompt-payment rules were not verified today and are not applied
+PROMPT_PAY = {
+    "FED": "statutory default for construction work (buyer published no terms): the Crown must pay a proper invoice no later than the 28th day after receiving it — Federal Prompt Payment for Construction Work Act, S.C. 2019, c. 29, s. 387, s. 9(2), in force 2023-12-09 (https://laws-lois.justice.gc.ca/eng/acts/F-7.7/FullText.html, read 2026-11-08: \"no later than the 28th day after the day on which the proper invoice is received\"); applies only to construction work for a federal project under that Act",
+    "ON": "statutory default for construction work (buyer published no terms): the owner must pay a proper invoice no later than 28 days after receiving it — Construction Act, R.S.O. 1990, c. C.30, s. 6.4(1), in force 2019-10-01; s. 3(1) binds the Crown (https://www.ontario.ca/laws/statute/90c30, read 2026-11-08: \"an owner shall pay the amount payable under a proper invoice no later than 28 days after receiving the proper invoice from the contractor\"); applies only if this contract is an improvement under the Act",
+    "AB": "statutory default for construction work (buyer published no terms): the owner must pay a proper invoice no later than 28 days after receiving it — Prompt Payment and Construction Lien Act, R.S.A. 2000, c. P-26.4, s. 32.2(1) (current to 2025-04-01) (https://kings-printer.alberta.ca/documents/Acts/P26P4.pdf, read 2026-11-08: \"an owner who owes money under a proper invoice must pay the amount payable under a proper invoice no later than 28 days after receiving the proper invoice\"); s. 1.1(1.1): does not apply to Crown public works; applies only if this contract is an improvement under the Act",
+}
+
+# GST/HST status of public buyers, derived from CRA GST/HST Memorandum 18-2 "Provincial Governments" (canada.ca, read 2026-11-08 on the Mac engine; quotes ≤ 300 chars).
+# Derived = a rule the buyer is subject to by type and province, never a value the buyer published; labelled, in its own column; the invoice card uses it only when nothing is published.
+CRA_18_2 = "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/18-2/provincial-governments.html"
+TAX_PAY_REBATE = "pays GST/HST on purchases (pay-and-rebate model): charge GST/HST on the invoice — GST/HST Memorandum 18-2 para. 23 (%s, read 2026-11-08: \"The governments of all the participating provinces, as well as Quebec, British Columbia and Nunavut, have agreed to use the pay and rebate model. Therefore, their government departments and all of their Crown agents will pay the GST/HST on their purchases\"); derived from buyer type and province, not published by the buyer" % CRA_18_2
+TAX_POINT_RELIEF = "provincial government entity in %s: a LISTED entity does not pay GST/HST at the point of purchase when an authorized official certifies the purchase — ask for the exemption certificate or certification clause before invoicing without tax — GST/HST Memorandum 18-2 para. 24 (" + CRA_18_2 + ", read 2026-11-08: \"Listed entities in Manitoba, Saskatchewan, Alberta, the Northwest Territories and Yukon do not pay the GST/HST on purchases of taxable property and services, provided that an authorized official of the listed entity provides sufficient evidence\"); derived from buyer type and province, not published by the buyer; whether this body is a listed entity is not verified"
+TAX_MUNICIPAL = "municipality: GST/HST applies to supplies to it — a municipality is not a government for GST/HST purposes (GST/HST Memorandum 18-2 para. 2 note, %s, read 2026-11-08: \"Note: A municipality is not a government for purposes of the GST/HST\"); charge GST/HST; derived from buyer type, not published by the buyer" % CRA_18_2
+TAX_RATE = {"ON": "HST 13% (Ontario)", "NB": "HST 15% (New Brunswick)", "NL": "HST 15% (Newfoundland and Labrador)", "NS": "HST 15% (Nova Scotia)", "PE": "HST 15% (Prince Edward Island)"}
+TAX_RATE_NOTE = " — indicative rate for a supply made in the buyer's province (GST/HST Memorandum 18-2 'GST/HST rates', %s, read 2026-11-08: \"The HST applies in the participating provinces at the following rates: 13%% in Ontario and 15%% in New Brunswick, Newfoundland and Labrador, Nova Scotia, and Prince Edward Island. The GST applies in the rest of Canada at the rate of 5%%\"); the place-of-supply rules decide (Memorandum 3-3-2); provincial sales taxes (QST, PST) are not covered here" % CRA_18_2
+
+CITY_TO_PROV = {"toronto": "ON", "ottawa": "ON", "mississauga": "ON", "brampton": "ON", "hamilton": "ON", "london": "ON", "markham": "ON", "vaughan": "ON", "kitchener": "ON", "windsor": "ON", "richmond hill": "ON", "oakville": "ON", "burlington": "ON", "sudbury": "ON", "oshawa": "ON", "barrie": "ON", "st. catharines": "ON", "guelph": "ON", "cambridge": "ON", "whitby": "ON", "kingston": "ON", "thunder bay": "ON", "waterloo": "ON", "brantford": "ON", "pickering": "ON", "niagara falls": "ON", "peterborough": "ON", "sault ste. marie": "ON", "sarnia": "ON", "north bay": "ON", "belleville": "ON", "cornwall": "ON", "timmins": "ON", "orillia": "ON", "stratford": "ON", "owen sound": "ON",
+                "montreal": "QC", "quebec": "QC", "laval": "QC", "gatineau": "QC", "longueuil": "QC", "sherbrooke": "QC", "levis": "QC", "saguenay": "QC", "trois-rivieres": "QC", "terrebonne": "QC", "saint-jean-sur-richelieu": "QC", "repentigny": "QC", "brossard": "QC", "drummondville": "QC", "saint-jerome": "QC", "granby": "QC", "blainville": "QC", "saint-hyacinthe": "QC", "shawinigan": "QC", "dollard-des-ormeaux": "QC", "rimouski": "QC", "victoriaville": "QC", "rouyn-noranda": "QC", "boucherville": "QC", "sept-iles": "QC", "val-d'or": "QC", "alma": "QC", "baie-comeau": "QC", "thetford mines": "QC", "joliette": "QC", "sorel-tracy": "QC", "magog": "QC",
+                "vancouver": "BC", "surrey": "BC", "burnaby": "BC", "richmond": "BC", "abbotsford": "BC", "coquitlam": "BC", "kelowna": "BC", "langley": "BC", "saanich": "BC", "delta": "BC", "kamloops": "BC", "nanaimo": "BC", "victoria": "BC", "chilliwack": "BC", "prince george": "BC", "vernon": "BC", "courtenay": "BC", "campbell river": "BC", "penticton": "BC", "north vancouver": "BC", "new westminster": "BC", "port coquitlam": "BC", "maple ridge": "BC", "cranbrook": "BC", "fort st. john": "BC",
+                "calgary": "AB", "edmonton": "AB", "red deer": "AB", "lethbridge": "AB", "st. albert": "AB", "medicine hat": "AB", "grande prairie": "AB", "airdrie": "AB", "spruce grove": "AB", "leduc": "AB", "fort mcmurray": "AB", "lloydminster": "AB", "okotoks": "AB", "cochrane": "AB", "camrose": "AB", "brooks": "AB",
+                "winnipeg": "MB", "brandon": "MB", "steinbach": "MB", "thompson": "MB", "portage la prairie": "MB", "regina": "SK", "saskatoon": "SK", "prince albert": "SK", "moose jaw": "SK", "swift current": "SK", "yorkton": "SK", "north battleford": "SK",
+                "halifax": "NS", "dartmouth": "NS", "sydney": "NS", "truro": "NS", "new glasgow": "NS", "kentville": "NS", "moncton": "NB", "saint john": "NB", "fredericton": "NB", "dieppe": "NB", "miramichi": "NB", "bathurst": "NB", "edmundston": "NB", "st. john's": "NL", "mount pearl": "NL", "corner brook": "NL", "gander": "NL", "grand falls-windsor": "NL", "charlottetown": "PE", "summerside": "PE", "whitehorse": "YT", "yellowknife": "NT", "iqaluit": "NU"}
+CITY_PROV = re.compile(r"\b(" + "|".join(sorted((re.escape(c) for c in CITY_TO_PROV), key=len, reverse=True)) + r")\b")
+PROV_NAMES = {"newfoundland": "NL", "labrador": "NL", "terre-neuve": "NL", "nova scotia": "NS", "nouvelle-ecosse": "NS", "new brunswick": "NB", "nouveau-brunswick": "NB", "prince edward island": "PE", "ile-du-prince-edouard": "PE",
+              "quebec": "QC", "ontario": "ON", "manitoba": "MB", "saskatchewan": "SK", "alberta": "AB", "british columbia": "BC", "colombie-britannique": "BC", "yukon": "YT", "northwest territories": "NT", "territoires du nord-ouest": "NT", "nunavut": "NU"}
+PROV_NAME = re.compile(r"\b(" + "|".join(sorted((re.escape(c) for c in PROV_NAMES), key=len, reverse=True)) + r")\b")
+PACK_COLS = ["pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url", "buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
+             "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "vendor_registry_note", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
+             "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
+             "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
+EXTRA_SENS = [("law enforcement (incl. transit / parks)", re.compile(r"transit (?:police|enforcement|safety)|special constable|conservation officer|by-?law enforcement|peace officer", re.I)),
+              ("financial regulator / oversight office", re.compile(r"\bOSFI\b|superintendent of financial institutions|\bFINTRAC\b|\bCANAFE\b|competition bureau|bureau de la concurrence|privacy commissioner|protection de la vie priv[ée]e|auditor general|v[ée]rificat(?:eur|rice) g[ée]n[ée]ral|ombuds|integrity commissioner|elections? (?:canada|ontario|bc|alberta|qu[ée]bec)|[ée]lections qu[ée]bec|securities commission|autorit[ée] des march[ée]s financiers|\bAMF\b", re.I)),
+              ("justice / prosecution / law society", re.compile(r"public prosecution|poursuites p[ée]nales|courts administration|judicial council|attorney general|procureur g[ée]n[ée]ral|crown (?:attorney|counsel|prosecut)|law society|barreau du|directeur des poursuites|ministry of (?:the )?attorney|justice (?:canada|qu[ée]bec)|minist[èe]re de la justice|department of justice", re.I)),
+              ("major bank", re.compile(r"\bTD\b|toronto-dominion|\bBMO\b|bank of montreal|banque de montr[ée]al|scotiabank|bank of nova scotia|banque scotia|\bRBC\b|royal bank|banque royale|\bCIBC\b|canadian imperial bank|national bank of canada|banque nationale|desjardins", re.I)),
+              ("cybersecurity vendor", re.compile(r"crowdstrike|fortinet|palo alto|sentinelone|esentire|\bcisco\b|check ?point software|trend micro|mcafee|sophos|rapid7|tenable|\bokta\b|zscaler|proofpoint|mimecast|bell canada cyber|telus (?:security|cyber)", re.I)),
+              ("political party", re.compile(r"conservative party|parti conservateur|liberal party|parti lib[ée]ral|new democratic party|\bNDP\b|\bNPD\b|bloc qu[ée]b[ée]cois|green party|parti vert|parti qu[ée]b[ée]cois|coalition avenir|qu[ée]bec solidaire|people's party|united conservative|saskatchewan party|\bPC party\b", re.I)),
+              ("major media organisation", re.compile(r"\bCBC\b|radio-canada|\bCTV\b|global news|corus entertainment|postmedia|torstar|toronto star|globe and mail|qu[ée]becor|\bTVA\b|la presse\b|rogers (?:media|sports)|bell media|cogeco media|le devoir", re.I)),
+              ("named exclusion (owner)", re.compile(r"university of toronto|universit[ée] de toronto|\bUofT\b|utoronto\.ca", re.I))]
+# 2026-11-09 14:20Z: a portal counts as an INVOICE channel (pay-on-sight tier 1) only when it is an e-invoicing / supplier-invoice network; tender portals
+# (SEAO, MERX, bids&tenders, Bonfire …) and generic "supplier portal" mentions never are — 466 "yes" rows had leaned on them (SEAO alone 190).
+TENDER_PORTAL = re.compile(r"seao|merx|bids ?& ?tenders|bidsandtenders|bonfire|biddingo|bidnet|demandstar|publicpurchase|ungm|sam\.gov|bcbid|purchasingconnection|canadabuys|buyandsell|achatsetventes|ontariotenders|tenders?\b|appels? d'offres|e-?tender|find-tender|contractsfinder|ted\.europa|marches?-?publics|soumission", re.I)
+EINVOICE_PORTAL = re.compile(r"ariba|coupa|jaggaer|sciquest|tungsten|kofax|basware|esker|taulia|tradeshift|transcepta|openinvoice|isupplier|oracle|workday|ghx|pagero|opentext|medius|yooz|zycus|ivalua|gep ?smart|paymentworks|tipalti|avidxchange|bill\.com|e-?invoic|einvoic|invoice|factur", re.I)
+PORTAL_ACTIONABLE = re.compile(r"ariba|coupa|jaggaer|sciquest|tungsten|basware|sap business|esker|taulia|tradeshift|isupplier|oracle|workday|bonfire|bidsandtenders|bids ?& ?tenders|merx|seao|transcepta|openinvoice|paymentworks|zycus|ivalua|gep ?smart|medius|yooz|procurify|supplier|vendor|fourniss|portal|portail|invoice|factur", re.I)
+AP_SYS = re.compile(r"\b(SAP Ariba|Ariba|Coupa|Jaggaer|Workday|Oracle (?:E-Business|ERP|Fusion|iSupplier)|Oracle|SAP S/4HANA|SAP|PeopleSoft|Esker|Kofax|Tipalti|Bill\.com|AvidXchange|Basware|Tungsten|Taulia|Tradeshift|Unit4|Dynamics 365|Sage Intacct|Sage 300|Munis|Tyler|Yardi|JD Edwards|Infor|Netsuite)\b", re.I)
+INSTR = [("standing offer", r"standing offer|offre [àa] commandes|\bSO\b"), ("supply arrangement", r"supply arrangement|arrangement en mati[èe]re"), ("purchase order", r"purchase order|bon de commande|\bPO\b|delivery order|call-?up"),
+         ("blanket order", r"blanket"), ("grant or contribution", r"\bgrant|contribution|subvention"), ("lease", r"\blease\b|\bbail\b"), ("amendment", r"amendment|modification|avenant"), ("contract", r"contract|contrat|agreement|entente|award|march[ée]")]
+SECTOR = [("government: municipal", r"municipal"), ("government: provincial / federal", r"ministry|agency|government"), ("government: US", r"US government"), ("education: post-secondary", r"university|college"),
+          ("education: K-12", r"school"), ("healthcare", r"hospital|health"), ("utility", r"utility"), ("transport / transit", r"transport|transit"), ("Indigenous government", r"First Nation|Indigenous"), ("non-profit", r"non-profit"), ("private sector", r"company")]
+TYPE_RULES = [("university / college", r"universit|college|coll[èe]ge|c[ée]gep|polytechni|\.edu\b|\.ac\."), ("hospital / health authority", r"hospital|h[ôo]pital|health (?:authority|services|centre|network)|cisss|ciusss|\bchu\b|clinic|sant[ée]"),
+              ("school board / school district", r"school (?:board|district|division)|centre de services scolaire|commission scolaire|\bcsd\b|\bk12\b"), ("municipality / local government", r"city of|town of|village of|township|county|municipalit|ville de|\bmrc\b|borough|district of|regional district|rural municipality"),
+              ("government ministry / agency", r"ministry|minist[èe]re|department of|government of|gouvernement|agency|agence|commission|office of|secr[ée]tariat|\.gov\b|gc\.ca|gouv\.qc"), ("utility / public corporation", r"hydro|power|energy|utilit|water (?:district|authority)|\bgas\b"),
+              ("transport / transit authority", r"transit|transport|airport|a[ée]roport|port authority|railway"), ("First Nation / Indigenous government", r"first nation|nation\b|band council|tribal|m[ée]tis|inuit|conseil des"), ("religious organisation", r"church|diocese|parish|paroisse|synagogue|mosque|temple|[ée]glise"),
+              ("library", r"librar|biblioth"), ("non-profit / association / cultural body", r"foundation|fondation|society|soci[ée]t[ée]|association|club|centre|center|council|museum|mus[ée]e|theatre|festival|charity|coalition|institute|institut"),
+              ("company (private sector)", r"\binc\b|\bltd|limited|corp|\bllc\b|lt[ée]e|\bco\b|group|groupe|holdings|enterprises|industries|technologies|services")]
+KEY_FIELDS = ["buyer_website", "buyer_address", "buyer_phone", "buyer_legal_name_as_published", "email_evidence_url", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "payment_terms_as_published",
+              "po_required_as_published", "contract_title", "contract_value", "award_date", "contract_link", "vendor_address", "vendor_bn9", "vendor_website", "vendor_emails", "vendor_phone", "vendor_legal_name", "invoice_reference_hint", "commodity_codes"]
+_today = datetime.date.today()
+for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"]),
+                   ("email_evidence_quote", ["mailbox_provenance", "email_deliverability", "email_security_posture", "dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "dns_checked_date",
+                                             "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
+                   ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found"]),
+                   ("contract_reference", ["invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id",
+                                           "buyer_vendor_id", "vendor_ids_in_record", "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count",
+                                           "records_with_this_vendor", "all_references_with_this_vendor"]),
+                   ("contract_title", ["contract_description", "instrument_type", "procurement_method", "commodity", "number_of_bids"]),
+                   ("buyer_contact_evidence_url", ["buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status"]),
+                   ("vendor_legal_name", ["vendor_trading_name", "vendor_registry_id", "vendor_registry_url", "vendor_registered_address", "vendor_neq", "vendor_qst_as_published", "vendor_legal_form", "vendor_activity_code", "vendor_employees_quebec", "vendor_establishments_quebec", "vendor_directors_range", "vendor_last_annual_filing"]),
+                   ("vendor_contact_evidence_url", ["vendor_logo_url", "vendor_website_status"]),
+                   ("invoicing_requirements", ["payment_terms_as_published", "po_required_as_published"]),
+                   ("buyer_website_status", ["buyer_type", "buyer_facts_provenance", "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources"]),
+                   ("vendor_website_status", ["vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source", "vendor_billing_ar_email", "vendor_contacts_found_by", "vendor_peppol_id", "vendor_facts_provenance", "method_notes"]),
+                   ("language_hint", ["template_language"]),
+                   ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
+                   ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
+                   ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
+                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
+                   ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program", "buyer_trade_name_as_published"]), ("vendor_registry_status", ["vendor_registry_warning", "vendor_registry_note"]),
+                   ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
+                   ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
+                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id", "buyer_bn_note"]),
+                   ("all_references_with_this_vendor", ["contract_value_from_pair", "start_date_from_pair", "end_date_from_pair", "contract_title_from_pair", "contract_description_from_pair", "instrument_type_from_pair", "procurement_method_from_pair", "number_of_bids_from_pair", "po_number_as_published_from_pair", "contract_or_agreement_number_from_pair", "solicitation_or_tender_number_from_pair", "award_or_notice_id_from_pair", "buyer_vendor_id_from_pair", "commodity_codes_from_pair", "buyer_org_codes_from_pair"]), ("vendor_website_status", ["vendor_website_basis", "vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
+                   ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
+                   ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"]),
+                   ("buyer_tax_exempt_status", ["buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived"]), ("end_date", ["contract_term_as_published"])):
+    if after in cols:
+        i = cols.index(after) + 1
+        cols[i:i] = [c for c in new if c not in cols]
+# 2026-11-10: the last two passes (narrative columns, downstream pack) and the three output files are one pass over the rows: each row is completed,
+# written and released. Both passes only read the row itself, and their long texts (provenance, invoice text, the invoice card as JSON …) were about
+# half of a row's memory — held for every row at once just to be written a minute later. The row count is meant to grow tenfold on a 16 GB runner.
+n9, npk = collections.Counter(), collections.Counter()
+cnt, _n_rows, _n_mail, _n_contract = collections.Counter(), len(rows), 0, 0
+_f1 = open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf-8")
+_f2 = gzip.open(ROOT + "/out/ranked/ranked_buyers.csv.gz", "wt", newline="", encoding="utf-8", compresslevel=6)  # the published copy
+_f3 = gzip.open(ROOT + "/out/ranked/ranked_buyers.jsonl.gz", "wt", encoding="utf-8", compresslevel=6)  # S1.1: the same rows as JSON lines
+_w1 = csv.DictWriter(_f1, fieldnames=cols, extrasaction="ignore"); _w1.writeheader()
+_w2 = csv.DictWriter(_f2, fieldnames=cols, extrasaction="ignore"); _w2.writeheader()
+for _ri, x in enumerate(rows):
     for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
                 "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count", "records_with_this_vendor", "all_references_with_this_vendor",
                 "relationship_kind", "relationship_detail", "how_relationship_was_found", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
@@ -2702,70 +2898,7 @@ for x in rows:
     if x.get("vendor_neq"): vp.append("NEQ: %s" % x["vendor_neq"])
     x["vendor_facts_provenance"] = "; ".join(vp) if vp else "no vendor facts beyond the record"
     x["method_notes"] = "no AI-written values; every fact carries its page in the matching *_evidence_url / *_provenance column; blank = not_published; method and rules: contrib/claude/rank_buyers/README.md, AGENTS.md §2"
-print("narrative columns:", dict(n9))
-# ---- downstream pack (owner 2026-11-06 22:00, the downstream agent's 150 questions: prompts/downstream_150_questions.md). Guarded: a failure here never stops the build.
-# construction-work detector for the statutory prompt-payment default (contract text, NAICS 23, UNSPSC 72): conservative word list, contract fields only (never the vendor's name)
-CONSTR_RX = re.compile(r"travaux de construction|\bconstruction\b(?! equipment| materials? supply)|general contractor|entrepreneur g[ée]n[ée]ral|\bpaving\b|\bpavage\b|\broofing\b|\btoiture\b|\bdemolition\b|\bexcavation\b|watermain|\bsewer\b|[ée]gout|aqueduc|\bHVAC\b|road (?:work|reconstruction|rehabilitation)|r[ée]fection|bridge (?:rehabilitation|replacement|repair)|building (?:renovation|retrofit|envelope|addition)|\brenovation\b|r[ée]novation|site (?:servicing|works)|civil works|mechanical and electrical|electrical (?:work|contractor|upgrade)|plumbing", re.I)
-# statutes read 2026-11-08 (primary pages; quotes ≤ 300 chars); only Acts whose text was read are here — SK / MB / NS / NB / QC / BC prompt-payment rules were not verified today and are not applied
-PROMPT_PAY = {
-    "FED": "statutory default for construction work (buyer published no terms): the Crown must pay a proper invoice no later than the 28th day after receiving it — Federal Prompt Payment for Construction Work Act, S.C. 2019, c. 29, s. 387, s. 9(2), in force 2023-12-09 (https://laws-lois.justice.gc.ca/eng/acts/F-7.7/FullText.html, read 2026-11-08: \"no later than the 28th day after the day on which the proper invoice is received\"); applies only to construction work for a federal project under that Act",
-    "ON": "statutory default for construction work (buyer published no terms): the owner must pay a proper invoice no later than 28 days after receiving it — Construction Act, R.S.O. 1990, c. C.30, s. 6.4(1), in force 2019-10-01; s. 3(1) binds the Crown (https://www.ontario.ca/laws/statute/90c30, read 2026-11-08: \"an owner shall pay the amount payable under a proper invoice no later than 28 days after receiving the proper invoice from the contractor\"); applies only if this contract is an improvement under the Act",
-    "AB": "statutory default for construction work (buyer published no terms): the owner must pay a proper invoice no later than 28 days after receiving it — Prompt Payment and Construction Lien Act, R.S.A. 2000, c. P-26.4, s. 32.2(1) (current to 2025-04-01) (https://kings-printer.alberta.ca/documents/Acts/P26P4.pdf, read 2026-11-08: \"an owner who owes money under a proper invoice must pay the amount payable under a proper invoice no later than 28 days after receiving the proper invoice\"); s. 1.1(1.1): does not apply to Crown public works; applies only if this contract is an improvement under the Act",
-}
-
-# GST/HST status of public buyers, derived from CRA GST/HST Memorandum 18-2 "Provincial Governments" (canada.ca, read 2026-11-08 on the Mac engine; quotes ≤ 300 chars).
-# Derived = a rule the buyer is subject to by type and province, never a value the buyer published; labelled, in its own column; the invoice card uses it only when nothing is published.
-CRA_18_2 = "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/18-2/provincial-governments.html"
-TAX_PAY_REBATE = "pays GST/HST on purchases (pay-and-rebate model): charge GST/HST on the invoice — GST/HST Memorandum 18-2 para. 23 (%s, read 2026-11-08: \"The governments of all the participating provinces, as well as Quebec, British Columbia and Nunavut, have agreed to use the pay and rebate model. Therefore, their government departments and all of their Crown agents will pay the GST/HST on their purchases\"); derived from buyer type and province, not published by the buyer" % CRA_18_2
-TAX_POINT_RELIEF = "provincial government entity in %s: a LISTED entity does not pay GST/HST at the point of purchase when an authorized official certifies the purchase — ask for the exemption certificate or certification clause before invoicing without tax — GST/HST Memorandum 18-2 para. 24 (" + CRA_18_2 + ", read 2026-11-08: \"Listed entities in Manitoba, Saskatchewan, Alberta, the Northwest Territories and Yukon do not pay the GST/HST on purchases of taxable property and services, provided that an authorized official of the listed entity provides sufficient evidence\"); derived from buyer type and province, not published by the buyer; whether this body is a listed entity is not verified"
-TAX_MUNICIPAL = "municipality: GST/HST applies to supplies to it — a municipality is not a government for GST/HST purposes (GST/HST Memorandum 18-2 para. 2 note, %s, read 2026-11-08: \"Note: A municipality is not a government for purposes of the GST/HST\"); charge GST/HST; derived from buyer type, not published by the buyer" % CRA_18_2
-TAX_RATE = {"ON": "HST 13% (Ontario)", "NB": "HST 15% (New Brunswick)", "NL": "HST 15% (Newfoundland and Labrador)", "NS": "HST 15% (Nova Scotia)", "PE": "HST 15% (Prince Edward Island)"}
-TAX_RATE_NOTE = " — indicative rate for a supply made in the buyer's province (GST/HST Memorandum 18-2 'GST/HST rates', %s, read 2026-11-08: \"The HST applies in the participating provinces at the following rates: 13%% in Ontario and 15%% in New Brunswick, Newfoundland and Labrador, Nova Scotia, and Prince Edward Island. The GST applies in the rest of Canada at the rate of 5%%\"); the place-of-supply rules decide (Memorandum 3-3-2); provincial sales taxes (QST, PST) are not covered here" % CRA_18_2
-
-CITY_TO_PROV = {"toronto": "ON", "ottawa": "ON", "mississauga": "ON", "brampton": "ON", "hamilton": "ON", "london": "ON", "markham": "ON", "vaughan": "ON", "kitchener": "ON", "windsor": "ON", "richmond hill": "ON", "oakville": "ON", "burlington": "ON", "sudbury": "ON", "oshawa": "ON", "barrie": "ON", "st. catharines": "ON", "guelph": "ON", "cambridge": "ON", "whitby": "ON", "kingston": "ON", "thunder bay": "ON", "waterloo": "ON", "brantford": "ON", "pickering": "ON", "niagara falls": "ON", "peterborough": "ON", "sault ste. marie": "ON", "sarnia": "ON", "north bay": "ON", "belleville": "ON", "cornwall": "ON", "timmins": "ON", "orillia": "ON", "stratford": "ON", "owen sound": "ON",
-                "montreal": "QC", "quebec": "QC", "laval": "QC", "gatineau": "QC", "longueuil": "QC", "sherbrooke": "QC", "levis": "QC", "saguenay": "QC", "trois-rivieres": "QC", "terrebonne": "QC", "saint-jean-sur-richelieu": "QC", "repentigny": "QC", "brossard": "QC", "drummondville": "QC", "saint-jerome": "QC", "granby": "QC", "blainville": "QC", "saint-hyacinthe": "QC", "shawinigan": "QC", "dollard-des-ormeaux": "QC", "rimouski": "QC", "victoriaville": "QC", "rouyn-noranda": "QC", "boucherville": "QC", "sept-iles": "QC", "val-d'or": "QC", "alma": "QC", "baie-comeau": "QC", "thetford mines": "QC", "joliette": "QC", "sorel-tracy": "QC", "magog": "QC",
-                "vancouver": "BC", "surrey": "BC", "burnaby": "BC", "richmond": "BC", "abbotsford": "BC", "coquitlam": "BC", "kelowna": "BC", "langley": "BC", "saanich": "BC", "delta": "BC", "kamloops": "BC", "nanaimo": "BC", "victoria": "BC", "chilliwack": "BC", "prince george": "BC", "vernon": "BC", "courtenay": "BC", "campbell river": "BC", "penticton": "BC", "north vancouver": "BC", "new westminster": "BC", "port coquitlam": "BC", "maple ridge": "BC", "cranbrook": "BC", "fort st. john": "BC",
-                "calgary": "AB", "edmonton": "AB", "red deer": "AB", "lethbridge": "AB", "st. albert": "AB", "medicine hat": "AB", "grande prairie": "AB", "airdrie": "AB", "spruce grove": "AB", "leduc": "AB", "fort mcmurray": "AB", "lloydminster": "AB", "okotoks": "AB", "cochrane": "AB", "camrose": "AB", "brooks": "AB",
-                "winnipeg": "MB", "brandon": "MB", "steinbach": "MB", "thompson": "MB", "portage la prairie": "MB", "regina": "SK", "saskatoon": "SK", "prince albert": "SK", "moose jaw": "SK", "swift current": "SK", "yorkton": "SK", "north battleford": "SK",
-                "halifax": "NS", "dartmouth": "NS", "sydney": "NS", "truro": "NS", "new glasgow": "NS", "kentville": "NS", "moncton": "NB", "saint john": "NB", "fredericton": "NB", "dieppe": "NB", "miramichi": "NB", "bathurst": "NB", "edmundston": "NB", "st. john's": "NL", "mount pearl": "NL", "corner brook": "NL", "gander": "NL", "grand falls-windsor": "NL", "charlottetown": "PE", "summerside": "PE", "whitehorse": "YT", "yellowknife": "NT", "iqaluit": "NU"}
-CITY_PROV = re.compile(r"\b(" + "|".join(sorted((re.escape(c) for c in CITY_TO_PROV), key=len, reverse=True)) + r")\b")
-PROV_NAMES = {"newfoundland": "NL", "labrador": "NL", "terre-neuve": "NL", "nova scotia": "NS", "nouvelle-ecosse": "NS", "new brunswick": "NB", "nouveau-brunswick": "NB", "prince edward island": "PE", "ile-du-prince-edouard": "PE",
-              "quebec": "QC", "ontario": "ON", "manitoba": "MB", "saskatchewan": "SK", "alberta": "AB", "british columbia": "BC", "colombie-britannique": "BC", "yukon": "YT", "northwest territories": "NT", "territoires du nord-ouest": "NT", "nunavut": "NU"}
-PROV_NAME = re.compile(r"\b(" + "|".join(sorted((re.escape(c) for c in PROV_NAMES), key=len, reverse=True)) + r")\b")
-PACK_COLS = ["pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url", "buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived", "contract_term_as_published", "statutory_payees_inferred", "vendor_years_in_business", "mta_sts", "tls_rpt", "bimi", "buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference", "inference_confidence", "mailbox_confidence", "data_quality_score", "ship_ready", "invoice_portal_kind", "invoice_portal_note", "payment_terms_default_policy",
-             "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "vendor_registry_note", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
-             "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
-             "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
-EXTRA_SENS = [("law enforcement (incl. transit / parks)", re.compile(r"transit (?:police|enforcement|safety)|special constable|conservation officer|by-?law enforcement|peace officer", re.I)),
-              ("financial regulator / oversight office", re.compile(r"\bOSFI\b|superintendent of financial institutions|\bFINTRAC\b|\bCANAFE\b|competition bureau|bureau de la concurrence|privacy commissioner|protection de la vie priv[ée]e|auditor general|v[ée]rificat(?:eur|rice) g[ée]n[ée]ral|ombuds|integrity commissioner|elections? (?:canada|ontario|bc|alberta|qu[ée]bec)|[ée]lections qu[ée]bec|securities commission|autorit[ée] des march[ée]s financiers|\bAMF\b", re.I)),
-              ("justice / prosecution / law society", re.compile(r"public prosecution|poursuites p[ée]nales|courts administration|judicial council|attorney general|procureur g[ée]n[ée]ral|crown (?:attorney|counsel|prosecut)|law society|barreau du|directeur des poursuites|ministry of (?:the )?attorney|justice (?:canada|qu[ée]bec)|minist[èe]re de la justice|department of justice", re.I)),
-              ("major bank", re.compile(r"\bTD\b|toronto-dominion|\bBMO\b|bank of montreal|banque de montr[ée]al|scotiabank|bank of nova scotia|banque scotia|\bRBC\b|royal bank|banque royale|\bCIBC\b|canadian imperial bank|national bank of canada|banque nationale|desjardins", re.I)),
-              ("cybersecurity vendor", re.compile(r"crowdstrike|fortinet|palo alto|sentinelone|esentire|\bcisco\b|check ?point software|trend micro|mcafee|sophos|rapid7|tenable|\bokta\b|zscaler|proofpoint|mimecast|bell canada cyber|telus (?:security|cyber)", re.I)),
-              ("political party", re.compile(r"conservative party|parti conservateur|liberal party|parti lib[ée]ral|new democratic party|\bNDP\b|\bNPD\b|bloc qu[ée]b[ée]cois|green party|parti vert|parti qu[ée]b[ée]cois|coalition avenir|qu[ée]bec solidaire|people's party|united conservative|saskatchewan party|\bPC party\b", re.I)),
-              ("major media organisation", re.compile(r"\bCBC\b|radio-canada|\bCTV\b|global news|corus entertainment|postmedia|torstar|toronto star|globe and mail|qu[ée]becor|\bTVA\b|la presse\b|rogers (?:media|sports)|bell media|cogeco media|le devoir", re.I)),
-              ("named exclusion (owner)", re.compile(r"university of toronto|universit[ée] de toronto|\bUofT\b|utoronto\.ca", re.I))]
-# 2026-11-09 14:20Z: a portal counts as an INVOICE channel (pay-on-sight tier 1) only when it is an e-invoicing / supplier-invoice network; tender portals
-# (SEAO, MERX, bids&tenders, Bonfire …) and generic "supplier portal" mentions never are — 466 "yes" rows had leaned on them (SEAO alone 190).
-TENDER_PORTAL = re.compile(r"seao|merx|bids ?& ?tenders|bidsandtenders|bonfire|biddingo|bidnet|demandstar|publicpurchase|ungm|sam\.gov|bcbid|purchasingconnection|canadabuys|buyandsell|achatsetventes|ontariotenders|tenders?\b|appels? d'offres|e-?tender|find-tender|contractsfinder|ted\.europa|marches?-?publics|soumission", re.I)
-EINVOICE_PORTAL = re.compile(r"ariba|coupa|jaggaer|sciquest|tungsten|kofax|basware|esker|taulia|tradeshift|transcepta|openinvoice|isupplier|oracle|workday|ghx|pagero|opentext|medius|yooz|zycus|ivalua|gep ?smart|paymentworks|tipalti|avidxchange|bill\.com|e-?invoic|einvoic|invoice|factur", re.I)
-PORTAL_ACTIONABLE = re.compile(r"ariba|coupa|jaggaer|sciquest|tungsten|basware|sap business|esker|taulia|tradeshift|isupplier|oracle|workday|bonfire|bidsandtenders|bids ?& ?tenders|merx|seao|transcepta|openinvoice|paymentworks|zycus|ivalua|gep ?smart|medius|yooz|procurify|supplier|vendor|fourniss|portal|portail|invoice|factur", re.I)
-AP_SYS = re.compile(r"\b(SAP Ariba|Ariba|Coupa|Jaggaer|Workday|Oracle (?:E-Business|ERP|Fusion|iSupplier)|Oracle|SAP S/4HANA|SAP|PeopleSoft|Esker|Kofax|Tipalti|Bill\.com|AvidXchange|Basware|Tungsten|Taulia|Tradeshift|Unit4|Dynamics 365|Sage Intacct|Sage 300|Munis|Tyler|Yardi|JD Edwards|Infor|Netsuite)\b", re.I)
-INSTR = [("standing offer", r"standing offer|offre [àa] commandes|\bSO\b"), ("supply arrangement", r"supply arrangement|arrangement en mati[èe]re"), ("purchase order", r"purchase order|bon de commande|\bPO\b|delivery order|call-?up"),
-         ("blanket order", r"blanket"), ("grant or contribution", r"\bgrant|contribution|subvention"), ("lease", r"\blease\b|\bbail\b"), ("amendment", r"amendment|modification|avenant"), ("contract", r"contract|contrat|agreement|entente|award|march[ée]")]
-SECTOR = [("government: municipal", r"municipal"), ("government: provincial / federal", r"ministry|agency|government"), ("government: US", r"US government"), ("education: post-secondary", r"university|college"),
-          ("education: K-12", r"school"), ("healthcare", r"hospital|health"), ("utility", r"utility"), ("transport / transit", r"transport|transit"), ("Indigenous government", r"First Nation|Indigenous"), ("non-profit", r"non-profit"), ("private sector", r"company")]
-TYPE_RULES = [("university / college", r"universit|college|coll[èe]ge|c[ée]gep|polytechni|\.edu\b|\.ac\."), ("hospital / health authority", r"hospital|h[ôo]pital|health (?:authority|services|centre|network)|cisss|ciusss|\bchu\b|clinic|sant[ée]"),
-              ("school board / school district", r"school (?:board|district|division)|centre de services scolaire|commission scolaire|\bcsd\b|\bk12\b"), ("municipality / local government", r"city of|town of|village of|township|county|municipalit|ville de|\bmrc\b|borough|district of|regional district|rural municipality"),
-              ("government ministry / agency", r"ministry|minist[èe]re|department of|government of|gouvernement|agency|agence|commission|office of|secr[ée]tariat|\.gov\b|gc\.ca|gouv\.qc"), ("utility / public corporation", r"hydro|power|energy|utilit|water (?:district|authority)|\bgas\b"),
-              ("transport / transit authority", r"transit|transport|airport|a[ée]roport|port authority|railway"), ("First Nation / Indigenous government", r"first nation|nation\b|band council|tribal|m[ée]tis|inuit|conseil des"), ("religious organisation", r"church|diocese|parish|paroisse|synagogue|mosque|temple|[ée]glise"),
-              ("library", r"librar|biblioth"), ("non-profit / association / cultural body", r"foundation|fondation|society|soci[ée]t[ée]|association|club|centre|center|council|museum|mus[ée]e|theatre|festival|charity|coalition|institute|institut"),
-              ("company (private sector)", r"\binc\b|\bltd|limited|corp|\bllc\b|lt[ée]e|\bco\b|group|groupe|holdings|enterprises|industries|technologies|services")]
-KEY_FIELDS = ["buyer_website", "buyer_address", "buyer_phone", "buyer_legal_name_as_published", "email_evidence_url", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "payment_terms_as_published",
-              "po_required_as_published", "contract_title", "contract_value", "award_date", "contract_link", "vendor_address", "vendor_bn9", "vendor_website", "vendor_emails", "vendor_phone", "vendor_legal_name", "invoice_reference_hint", "commodity_codes"]
-_today = datetime.date.today()
-try:
-    npk = collections.Counter()
-    for x in rows:
+    try:  # the downstream pack is guarded: a failure never stops the build (the row is written with what it has)
         for c in PACK_COLS:
             x.setdefault(c, "")
         # 2026-11-10: what the buyer's OWN pages say (tools/lead_crawl.py site facts): its postal address when the row has none, and the name it
@@ -3126,51 +3259,23 @@ try:
             for k, lab in (("mta_sts", "MTA-STS"), ("tls_rpt", "TLS-RPT"), ("bimi", "BIMI")):
                 v = dd.get(k) or ""
                 x[k] = "not checked yet" if not v else ("no %s record" % lab if v == "none" else "yes (%s)" % v[:80])
-    print("downstream pack:", dict(npk))
-except Exception as _e:
-    import traceback; traceback.print_exc(); print("downstream pack skipped:", type(_e).__name__, _e)
-for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"]),
-                   ("email_evidence_quote", ["mailbox_provenance", "email_deliverability", "email_security_posture", "dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "dns_checked_date",
-                                             "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
-                   ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found"]),
-                   ("contract_reference", ["invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id",
-                                           "buyer_vendor_id", "vendor_ids_in_record", "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count",
-                                           "records_with_this_vendor", "all_references_with_this_vendor"]),
-                   ("contract_title", ["contract_description", "instrument_type", "procurement_method", "commodity", "number_of_bids"]),
-                   ("buyer_contact_evidence_url", ["buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status"]),
-                   ("vendor_legal_name", ["vendor_trading_name", "vendor_registry_id", "vendor_registry_url", "vendor_registered_address", "vendor_neq", "vendor_qst_as_published", "vendor_legal_form", "vendor_activity_code", "vendor_employees_quebec", "vendor_establishments_quebec", "vendor_directors_range", "vendor_last_annual_filing"]),
-                   ("vendor_contact_evidence_url", ["vendor_logo_url", "vendor_website_status"]),
-                   ("invoicing_requirements", ["payment_terms_as_published", "po_required_as_published"]),
-                   ("buyer_website_status", ["buyer_type", "buyer_facts_provenance", "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources"]),
-                   ("vendor_website_status", ["vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source", "vendor_billing_ar_email", "vendor_contacts_found_by", "vendor_peppol_id", "vendor_facts_provenance", "method_notes"]),
-                   ("language_hint", ["template_language"]),
-                   ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
-                   ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
-                   ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
-                   ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
-                   ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program", "buyer_trade_name_as_published"]), ("vendor_registry_status", ["vendor_registry_warning", "vendor_registry_note"]),
-                   ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
-                   ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
-                   ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id", "buyer_bn_note"]),
-                   ("all_references_with_this_vendor", ["contract_value_from_pair", "start_date_from_pair", "end_date_from_pair", "contract_title_from_pair", "contract_description_from_pair", "instrument_type_from_pair", "procurement_method_from_pair", "number_of_bids_from_pair", "po_number_as_published_from_pair", "contract_or_agreement_number_from_pair", "solicitation_or_tender_number_from_pair", "award_or_notice_id_from_pair", "buyer_vendor_id_from_pair", "commodity_codes_from_pair", "buyer_org_codes_from_pair"]), ("vendor_website_status", ["vendor_website_basis", "vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
-                   ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
-                   ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"]),
-                   ("buyer_tax_exempt_status", ["buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived"]), ("end_date", ["contract_term_as_published"])):
-    if after in cols:
-        i = cols.index(after) + 1
-        cols[i:i] = [c for c in new if c not in cols]
-with open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf-8") as f:
-    w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
-with gzip.open(ROOT + "/out/ranked/ranked_buyers.csv.gz", "wt", newline="", encoding="utf-8", compresslevel=6) as f:  # the committed copy (GitHub's 100 MB limit)
-    w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
-with gzip.open(ROOT + "/out/ranked/ranked_buyers.jsonl.gz", "wt", encoding="utf-8", compresslevel=6) as f:  # S1.1: the same rows as JSON lines
-    for x in rows:
-        f.write(json.dumps({c: x.get(c, "") for c in cols}, ensure_ascii=False) + "\n")
+    except Exception as _e:
+        npk["rows where the pack failed"] += 1
+        if npk["rows where the pack failed"] <= 3:
+            import traceback; traceback.print_exc(); print("downstream pack failed on row %d:" % _ri, type(_e).__name__, _e)
+    _w1.writerow(x); _w2.writerow(x)
+    _f3.write(json.dumps({c: x.get(c, "") for c in cols}, ensure_ascii=False) + "\n")
+    cnt[x["rank_group"]] += 1; _n_mail += 1 if x["email"] else 0; _n_contract += 1 if x["contract_status"] in TIER else 0
+    rows[_ri] = None  # written: the row's memory is free for the next one
+    if _ri and _ri % 100000 == 0:
+        print("rows written: %d of %d" % (_ri, _n_rows))
+_f1.close(); _f2.close(); _f3.close()
+print("narrative columns:", dict(n9))
+print("downstream pack:", dict(npk))
 try:
     import subprocess
     subprocess.run([sys.executable, ROOT + "/tools/release_diff.py", ROOT + "/coord/results/ranked/ranked_buyers.csv.gz", ROOT + "/out/ranked/ranked_buyers.csv.gz", ROOT + "/out/ranked"], timeout=1500)
 except Exception as _e:
     print("release_diff skipped:", _e)
-cnt = collections.Counter(x["rank_group"] for x in rows)
-print("rows", len(rows)); print(sorted(cnt.items(), key=lambda kv: (kv[0] != "GOLD", kv[0])))
-print("with any email:", sum(1 for x in rows if x["email"]), "| contract buyers:", sum(1 for x in rows if x["contract_status"] in TIER))
+print("rows", _n_rows); print(sorted(cnt.items(), key=lambda kv: (kv[0] != "GOLD", kv[0])))
+print("with any email:", _n_mail, "| contract buyers:", _n_contract)
