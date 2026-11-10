@@ -68,7 +68,20 @@ ALIAS = {"web-dns1.com": _WHC, "wpdns.ca": _WHC, "mywhc.ca": _WHC}
 SHOPIFY_A = re.compile(r"^23\.227\.38\.(?:3[2-9]|[4-9]\d|1[01]\d|12[0-7])$")  # Shopify's storefront addresses (23.227.38.32/27, .64/26): the apex A record of a store on its own domain
 VERIF_KEY = re.compile(r"^([a-z0-9][a-z0-9._-]{2,48}?)[=:]")
 # TXT verification keys of vetted Canada-HQ vendors -> vendor domain (each needs a business account with that vendor; quotes in tools/tech_relationships.py or DECISIONS.md)
-TXT_VENDOR = {}
+TXT_VENDOR = {"1password-site-verification": "1password.com"}
+# vendors read by hand once (terms opened, quoted): the DNS record is theirs by name, their contracting company and its address are stated in
+# their own agreement. They need no client count and no live address check.
+VETTED = {
+    "1password.com": dict(name="AgileBits Inc. dba 1Password", address="4711 Yonge Street, 10th Floor, Toronto, Ontario, M2N 6K8, Canada",
+                          url="https://1password.com/legal/terms-of-service", read="2026-11-10",
+                          quote="This Subscription Agreement is entered into by and between AgileBits Inc. dba 1Password",
+                          what="password manager for the organisation's staff (business subscription)",
+                          basis="the vendor's subscription agreement names one contracting company for every customer, AgileBits Inc. dba 1Password, Toronto; the "
+                                "domain's 1password-site-verification record was added by the owner of a 1Password Teams or Business account (support page, read "
+                                "2026-11-10, https://support.1password.com/breach-report/: “With 1Password Teams and 1Password Business, you can create a report” … “add "
+                                "a DNS text (TXT) record containing the verification string to the domain you want to verify”); both are paid subscriptions (a "
+                                "trial account could add the record too)"),
+}
 
 
 def state_files(prefix):
@@ -406,6 +419,13 @@ def leads(prev, pdet, proof, main_keys, vstate, stats, names=None, in_canada=Non
         best = None
         for kind, h, pd in ps:
             vend = vendor_of(pd)
+            if vend in VETTED:  # a vendor read by hand: its own agreement is the proof
+                v = VETTED[vend]
+                pr = ("%s (%s: “%s”, read %s)" % (v["address"], v["url"], v["quote"], v["read"]), v["url"], v["name"], True, v["basis"])
+                cand = (rank[kind], -10 ** 9, kind, h, pd, vend, pr)
+                if best is None or cand[:2] < best[:2]:
+                    best = cand
+                continue
             if tot[vend] < MIN_CLIENTS or NOT_CA.search(pd) or FREE.search(pd) or NOT_CA.search(vend) or FREE.search(vend) or vend == C.registrable(d):
                 continue
             if kind == "spf" and len(kinds[vend]) < 2 and len(outside_senders) > 1:
@@ -435,8 +455,10 @@ def leads(prev, pdet, proof, main_keys, vstate, stats, names=None, in_canada=Non
         if key in main_keys:
             continue
         what, how = KIND_TEXT[kind]
+        if vend in VETTED:
+            what = VETTED[vend]["what"]
         date = (o.get("t_mx") if kind == "mx" and o.get("t_mx") else o.get("t")) or TODAY
-        quote = (o.get("spf") or "")[:260] if kind == "spf" else "%s %s %s" % (d, kind.upper(), h)
+        quote = (o.get("spf") or "")[:260] if kind == "spf" else "%s TXT %s=…" % (d, h) if kind == "txt" else "%s %s %s" % (d, kind.upper(), h)
         vname = pr[2] or vend
         also = sorted(kinds[vend] - {kind})
         alias = ""
