@@ -21,6 +21,9 @@ on:
       limit:
         description: "at most this many profiles (0 = no limit)"
         default: "0"
+      crawls:
+        description: "cc-index: which Common Crawl crawls (last:N = the newest N; each crawl holds other profiles and other local BBB pages)"
+        default: "last:4"
 permissions:
   contents: write
   actions: write
@@ -36,14 +39,14 @@ jobs:
         with: { ref: main }
       - run: pip install -q duckdb
       - name: Sitemap (stage=index), archive index (stage=cc-index or first run), then the archived profiles
-        env: { STAGE: "${{ inputs.stage || 'cc-read' }}", MINUTES: "${{ inputs.minutes || '150' }}", LIMIT: "${{ inputs.limit || '0' }}" }
+        env: { STAGE: "${{ inputs.stage || 'cc-read' }}", MINUTES: "${{ inputs.minutes || '150' }}", LIMIT: "${{ inputs.limit || '0' }}", CRAWLS: "${{ inputs.crawls || 'last:4' }}" }
         run: |
           mkdir -p shards
           if [ "$STAGE" = "index" ] || [ ! -s data/incoming/claude/bbb/profiles_ca.csv.gz ]; then
             python3 tools/bbb_accredited.py index && cp out/bbb_profiles_ca.csv shards/ || echo "sitemap not read this time"
           fi
           if [ "$STAGE" = "cc-index" ] || [ ! -s data/incoming/claude/bbb/cc_pages.csv.gz ]; then
-            python3 tools/bbb_accredited.py cc-index --crawl last:4 && cp out/bbb_cc_pages.csv shards/
+            python3 tools/bbb_accredited.py cc-index --crawl "$CRAWLS" && cp out/bbb_cc_pages.csv shards/
           fi
           python3 tools/bbb_accredited.py merge shards --stamp "$(date -u +%Y%m%dT%H%M%S)i" | tee /tmp/b.txt
           if [ "$STAGE" = "cc-read" ] && [ -s data/incoming/claude/bbb/cc_pages.csv.gz ]; then

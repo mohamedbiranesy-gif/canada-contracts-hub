@@ -75,14 +75,25 @@ def index(a):
     print("accredited business profiles under /ca/: %d" % len(urls), flush=True)
 
 
-def done_keys():
-    out = set()
+def done_keys(locals_=None):
+    """profiles read and judged. Not done: a profile that could not be read, and — 2026-11-10 — a profile left out because its local BBB was not
+    proven in Canada when that BBB's own page has been read since and prints a Canadian address (2,298 of the first 3,172 profiles named a
+    Canadian BBB whose page was not among the archived copies yet). The last line about a profile decides."""
+    last = {}
     for p in sorted(glob.glob(os.path.join(DIR, "done_*.gz"))):
         with gzip.open(p, "rt", encoding="utf-8") as fh:
             for l in fh:
                 q = l.rstrip("\n").split("\t")
-                if q and q[0] and (len(q) < 3 or not q[2].startswith(("http_5", "unreachable", "blocked"))):
-                    out.add(q[0])
+                if q and q[0]:
+                    last[q[0]] = (q[2] if len(q) > 2 else "", q[3] if len(q) > 3 else "")
+    proven = {s for s, o in (locals_ or {}).items() if o.get("status") == "CA"}
+    out = set()
+    for u, (st, slug) in last.items():
+        if st.startswith(("http_5", "unreachable", "blocked")):
+            continue
+        if st == "local_bbb_not_proven_in_canada" and locals_ is not None and ((slug and slug in proven) or (not slug and len(proven) > 1)):
+            continue  # its BBB is proven now (or the line is from before the BBB's name was kept and more BBBs are proven than then): read again
+        out.add(u)
     return out
 
 
@@ -301,7 +312,6 @@ def cc_read(a):
     if os.path.exists(PROFILES):
         with gzip.open(PROFILES, "rt", encoding="utf-8", newline="") as fh:
             current = {r["url"].split("?")[0].rstrip("/") for r in csv.DictReader(fh)}
-    done = done_keys()
     locals_ = local_bbbs()
     lock = threading.Lock()
     fo = open("out/bbb_local.jsonl", "a", encoding="utf-8")
@@ -327,7 +337,8 @@ def cc_read(a):
         if o["status"] == "CA" or slug not in locals_:
             locals_[slug] = o
             fo.write(json.dumps(o, ensure_ascii=False) + "\n")
-    print("local BBB pages: %s" % ", ".join("%s=%s" % (s, o.get("status")) for s, o in sorted(locals_.items()))[:600], flush=True)
+    print("local BBB pages: %d read, in Canada: %s" % (len(locals_), ", ".join(s for s, o in sorted(locals_.items()) if o.get("status") == "CA")), flush=True)
+    done = done_keys(locals_)
     todo = [r for r in pages if "/profile/" in r["url"] and r["url"] not in done and (not current or r["url"] in current)]
     if a.limit:
         todo = todo[:a.limit]
@@ -341,7 +352,7 @@ def cc_read(a):
         if time.time() > deadline:
             return
         u, cap = r["url"], (r["fetch_time"] or "")[:10]
-        res, out = "", None
+        res, out, slug = "", None, ""
         try:
             page, why = CCL.warc_html(r["warc_filename"], int(r["warc_record_offset"]), int(r["warc_record_length"]))
             if not page:
@@ -349,6 +360,7 @@ def cc_read(a):
             else:
                 p, res = parse_profile(page, u)
                 if p:
+                    slug = p["slug"] or ""
                     lb = locals_.get(p["slug"]) if p["slug"] else None
                     if not p["slug"]:
                         res = "no_local_bbb"
@@ -378,7 +390,7 @@ def cc_read(a):
                        "in_accredited_sitemap_today": "yes" if u in current else "not checked"}
                 fl.write(json.dumps({"lead": row, "details": det}, ensure_ascii=False) + "\n")
                 stats["with_website"] += bool(p["site"])
-            fd.write("%s\t%s\t%s\n" % (u, TODAY, res))
+            fd.write("%s\t%s\t%s\t%s\n" % (u, TODAY, res, slug))  # the local BBB's name: the profile is read again when that BBB is proven
             if stats["profiles"] % 1000 == 0:
                 fl.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
