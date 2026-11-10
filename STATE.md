@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 04:15Z — rows 65,759 (+2,118), 58 % complete; credit scan engine live: 17.5 % of sites name their web vendor)
+# STATE.md — Claude lane (updated 2026-11-10 04:40Z — rows 65,759 (+2,118), 58 % complete; credit scan + web graph: 53k portal-linking sites, 216k sites linking to proven vendors, 1.05 M .ca domains queued)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,25 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 04:40Z — web graph read: 53,124 sites link to a vetted customer portal, 216,481 link to a proven Canadian vendor, 1,045,795 .ca domains
+- `credit_scan.py graph` (run 42753844151, 12 minutes on one runner; release cc-main-2026-aug-sep-oct): **216,481 domains link to a vendor proven in
+  Canada**; **53,124 of them link to a vetted customer portal** — Jane 26,323 · Jobber 9,212 · BiblioCommons 7,381 · eScribe 2,268 · Benevity 2,267 ·
+  Amilia 2,020 · D2L 1,555 · Docebo 1,158 · KEV 844 · Absorb 767 · Edsby 219 · Coconut 204 · Mobius 24; **1,045,795 .ca / .quebec domains** (the index had
+  354,248). Files: `credit_scan/graph_inlinks.csv.gz`, `graph_ca_domains.csv.gz`. The graph stage now runs daily (03:37Z) with the vendors proven since.
+- Scan order of the NEXT cycle (starts by itself when the running one ends, ≈ 06:30Z; schedule 00/06/12/18:07Z): portal-linking sites → other linking
+  sites + OpenStreetMap sites (stage `osm` dispatched 04:27Z, run 42755983645) → rest of the .ca index → the graph's .ca domains → re-read of the
+  470k sites read by detector 1 (detector 3 adds membership statements and Jobber links). 160 readers per runner, 10-second timeout.
+- Vendor table: **Jobber added, Jane's scope = every country** (terms read 04:15Z, quotes in tools/tech_relationships.py). Benevity read: "Benevity, Inc.
+  or its Affiliate as applicable" → stays Canada-only. Shopify candidates now get /policies/contact-information read first (54 % gave no mailbox).
+- Row factory: the 11,096 vendors whose client page printed no address (39,313 buyer domains wait) are in the credit scan's vendor queue (live
+  home / contact / legal page); `cc_clients.py merge` promotes on proof. New precision rules withdraw ≈ 1,700 leads at the next merge (dry run:
+  216 investor portfolios, 1,339 country selectors / sister sites / badge links, 196 article slugs; 6,569 menu / footer links never promoted).
+- Measured mailbox find rates before rule r2 (29,375 lead sites): member 32 % · sponsor 29 % · dealer 26 % · client 22-25 % · Mac-era 20 %.
+- Waiting on: rank build 42755132469 (validates credit rows; started 04:27Z), credit-scan cycle 42753586829 (scan since 04:06Z), row-factory cycle
+  42753268934 (queued: runners full), tenant-factory 42753426095 (crawl running). Session wake-up 07:20Z (`CCH credit-scan follow-up`).
+- Honest projection (rates measured today, not yet end to end): portal links ≈ 10-13k rows; credit lines over ≈ 1.3 M sites ≈ 40-60k rows over the
+  next cycles; row-factory promotions ≈ 6-9k; tier I rows turned into evidenced rows ≈ 4-5k (no new row, better row).
 
 ## 2026-11-10 04:15Z — build 03:25Z: rows 65,759 (+2,118), complete rows 38,143 (58 %, was 38 %); NEW ENGINE: credit scan (first test: 17.5 % of sites)
 - **Build 03:25Z (GROWTH_VS_BASELINE):** rows 63,641 → **65,759 (+2,118)**; pay on sight 874 / 1,145 / **36,124 routed** (baseline 833 / 841 / 22,341):
