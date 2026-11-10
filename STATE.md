@@ -115,6 +115,11 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - **Mailbox rule r2** (DECISIONS 04:10Z): front-office role mailboxes (sales@, service@, orders@ …) as the last resort; the 6,300 "nothing found"
   lead sites are read once more in the next row-factory cycle (queued 04:02Z behind the running one).
 - State files of the credit scan are append-only (`data/incoming/claude/credit_scan/{done,seen,vendors,ext}_<stamp>.gz`): no big file is rewritten.
+- 04:25Z additions: detector 3 (membership statements, class M → member leads); vendor table: Jobber added, Jane's scope widened (terms read today, quoted in
+  tools/tech_relationships.py); web-graph targets include the vetted portals; row audit of 28 delivered cloud rows → 5 precision fixes (footer credits on
+  client pages were taken as clients — reversed direction; investor portfolios; article slugs with 'membres'; deep 'our-work' paths; address tails in
+  names): the next row-factory merge withdraws ≈ 1,270 leads. Rank build 42755132469 (04:19Z) validates the credit rows end to end (77 leads).
+  Not built: IRS 990 older years (two filing years gave 283 buyers on the Mac: ≈ 150 / year, weak tier) — skipped for now.
 - NEXT: (1) read the full cycle's numbers (sites read, credit rate on .ca universe, vendors proven, leads) and the first r2 mailbox yields;
   (2) dispatch rank after the referee lands the rows; check GROWTH (tier I should fall, tier T rise); (3) `ext_*.gz` = outside services the
   scanned sites load: vet the frequent Canada-based platforms (HQ quote + paid-only) into tools/tech_relationships.py VENDORS;
