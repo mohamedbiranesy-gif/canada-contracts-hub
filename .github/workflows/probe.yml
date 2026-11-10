@@ -1,0 +1,39 @@
+name: probe
+# A look at a few public pages from a runner (nothing is written): robots.txt verdict, status, the start of each page (tools/probe.py).
+# For the planning session, which cannot open arbitrary sites itself: what a source looks like before an engine is built for it.
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "addresses, separated by spaces"
+        required: true
+      chars:
+        description: "characters of each page to print"
+        default: "3000"
+      raw:
+        description: "print the raw start instead of the page's text (yes / no)"
+        default: "no"
+      grep:
+        description: "also list the links and passages that match this expression"
+        default: ""
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Read the pages
+        env:
+          URLS: ${{ inputs.urls }}
+          GREP: ${{ inputs.grep }}
+          CHARS: ${{ inputs.chars || '3000' }}
+          RAW: ${{ inputs.raw || 'no' }}
+        run: |
+          set -f
+          args="--chars $CHARS"
+          [ "$RAW" = "yes" ] && args="$args --raw"
+          if [ -n "$GREP" ]; then python3 tools/probe.py $args --grep "$GREP" $URLS | tee /tmp/probe.txt; else python3 tools/probe.py $args $URLS | tee /tmp/probe.txt; fi
+          { echo '```'; head -c 60000 /tmp/probe.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
