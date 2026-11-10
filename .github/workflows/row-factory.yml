@@ -172,7 +172,9 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 - <<'EOF' | tee /tmp/crawl.txt
-          import csv, glob, os
+          import csv, glob, os, sys
+          sys.path.insert(0, "tools")
+          from validate_returns import EMAIL, PERSONAL, ROLE_HINT  # the validator's own mailbox rules: a row it would reject is never appended
           csv.field_size_limit(1 << 30)
           OUT = "data/incoming/claude/claude_buyer_ap_results_cccrawl01.csv"
           DONE = "data/incoming/claude/claude_lead_crawl_done.tsv"
@@ -188,6 +190,9 @@ jobs:
                   rd = csv.DictReader(f); cols = cols or rd.fieldnames
                   for r in rd:
                       k = (r.get("buyer_key"), (r.get("ap_email") or "").lower(), r.get("evidence_url") or "")
+                      e = r.get("ap_email") or ""
+                      if not EMAIL.match(e) or (PERSONAL.match(e.split("@")[0]) and not ROLE_HINT.search(e.split("@")[0])):
+                          continue
                       if r.get("buyer_key") and r.get("buyer_key") != "buyer_key" and k not in have:
                           have.add(k); rows.append(r); new += 1
           if rows:
