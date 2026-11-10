@@ -721,7 +721,9 @@ REL_PATH = re.compile(r"client|customer|case-stud|casestud|case_stud|temoignage|
 NOT_REL_PATH = re.compile(r"terms|reference|support|service|product|letter|lettre|news|nouvelle|blog|article|press|media|document|conditions|bill|/loi|career|emploi|job|event|evenement|contact|about|a-propos|partner|partenaire")
 # 2026-11-10 (owner: "a Canadian entity gets paid … establish that relationship"): pages where a Canada-located organisation lists the parties
 # that PAY it — sponsors / exhibitors of an organiser, dealers / retailers / distributors of a supplier (same tests as tools/cc_clients.py)
-SPONSOR_PATH = re.compile(r"/[^/]*(sponsors|commanditaires|exhibitors?|exposants)([-_.][^/]*)?/?$")
+SPONSOR_PATH = re.compile(r"/[^/]*(sponsors|commanditaires|exhibitors?|exposants|advertisers|annonceurs)([-_.][^/]*)?/?$")
+TENANT_PATH = re.compile(r"/[^/]*(our-tenants|tenant-directory|tenant-list|nos-locataires|liste-des-locataires|repertoire-des-locataires|merchants|marchands|commer(c|%c3%a7)ants|store-directory|shop-directory"
+                         r"|repertoire-des-(magasins|boutiques|commerces|marchands))([-_.][^/]*)?/?$")
 DEALER_PATH = re.compile(r"/[^/]*(dealers?|where-to-buy|ou-acheter|o%c3%b9-acheter|retailers|stockists|d(e|%c3%a9)taillants|distributors|distributeurs|revendeurs|points-de-vente)([-_.][^/]*)?/?$")
 NOT_PAYER_PATH = re.compile(r"become|devenir|devenez|opportunit|package|forfait|prospectus|application|apply|form|kit|levels|niveaux|sponsorship|commandite|login|log-in|signin|sign-in|account|compte|portal|portail|supplier|fournisseur|brand|marque|manufactur|fabricant|career|emploi|job")
 # member directories of a Canada-located body (same tests as tools/cc_clients.py): a one-member page of a GrowthZone / ChamberMaster directory, or a member-list page
@@ -734,6 +736,7 @@ NOT_MEMBER_PATH = re.compile(r"board|council|committee|comit|conseil|team|equipe
 # the text starts with "client listing": contrib/claude/rank_buyers/batches.py files the row with the client listings (P06-P08) by that prefix
 PAYER_TEXT = {"sponsor": "client listing on the vendor's own site (undated): sponsor / exhibitor named by the Canada-located organiser — the listed party pays the organiser",
               "dealer": "client listing on the vendor's own site (undated): dealer / retailer named by the Canada-located supplier — the listed party buys from the supplier",
+              "tenant": "client listing on the vendor's own site (undated): tenant / merchant named by the Canada-located landlord, market or business association — the listed party pays it rent, fees or a levy",
               "member": "client listing on the vendor's own site (undated): member named in the member directory of the Canada-located body (chamber of commerce, board of trade, association) — members pay it dues"}
 # a lead whose own key has no mailbox yet borrows the confirmed mailbox found for the same organisation under another key
 # (same registrable website domain, held by ONE organisation only: shared government domains never lend)
@@ -810,8 +813,8 @@ for k, L in sorted(leads.items(), key=lead_strength):
         path = urllib.parse.urlparse(L.get("evidence_dataset") or "").path.lower()
         if MEMBER_ONE_PATH.search(path) or (MEMBER_PATH.search(path) and not NOT_MEMBER_PATH.search(path) and not (REL_PATH.search(path) and not NOT_REL_PATH.search(path))):
             payer = "member"  # a member directory: the listed party pays dues to the Canada-located body
-        elif not NOT_PAYER_PATH.search(path) and (DEALER_PATH.search(path) or SPONSOR_PATH.search(path)) and not (REL_PATH.search(path) and not NOT_REL_PATH.search(path)):
-            payer = "dealer" if DEALER_PATH.search(path) else "sponsor"  # a customer listing by construction: the listed party pays the Canada-located organisation
+        elif not NOT_PAYER_PATH.search(path) and (DEALER_PATH.search(path) or SPONSOR_PATH.search(path) or TENANT_PATH.search(path)) and not (REL_PATH.search(path) and not NOT_REL_PATH.search(path)):
+            payer = "dealer" if DEALER_PATH.search(path) else "sponsor" if SPONSOR_PATH.search(path) else "tenant"  # a customer listing by construction: the listed party pays the Canada-located organisation
         elif not REL_PATH.search(path) or NOT_REL_PATH.search(path):
             client = "other"  # owner's rule (2026-11-01): kept as the weakest relationship package, never mixed with client listings
         vh = (urllib.parse.urlparse(L.get("evidence_dataset") or "").hostname or "").lower().removeprefix("www.")

@@ -49,7 +49,11 @@ NOT_SQL = (r"terms|reference|support|service|product|letter|lettre|news|nouvelle
 # 2026-11-10 (owner: "a Canadian entity gets paid … establish that relationship"): two more kinds of page where a Canada-located organisation
 # lists the parties that PAY it — its sponsors / exhibitors (they pay the organiser) and its dealers / retailers / distributors (they buy
 # from the supplier). "sponsorship", "become a sponsor", "dealership", supplier / brand pages are not that and are left out.
-SPONSOR_SQL = r"/[^/]*(sponsors|commanditaires|exhibitors?|exposants)([-_.][^/]*)?/?$"
+SPONSOR_SQL = r"/[^/]*(sponsors|commanditaires|exhibitors?|exposants|advertisers|annonceurs)([-_.][^/]*)?/?$"  # advertisers pay the outlet that lists them
+# tenants of a landlord and merchants of a mall, market or business association (rent, stall fees, levy): only list forms ("our tenants",
+# "tenant directory", "merchants"); pages written FOR tenants link to utilities and agencies and are not lists
+TENANT_SQL = (r"/[^/]*(our-tenants|tenant-directory|tenant-list|nos-locataires|liste-des-locataires|repertoire-des-locataires|merchants|marchands|commer(c|%c3%a7)ants|store-directory|shop-directory"
+              r"|repertoire-des-(magasins|boutiques|commerces|marchands))([-_.][^/]*)?/?$")
 DEALER_SQL = r"/[^/]*(dealers?|where-to-buy|ou-acheter|o%c3%b9-acheter|retailers|stockists|d(e|%c3%a9)taillants|distributors|distributeurs|revendeurs|points-de-vente)([-_.][^/]*)?/?$"
 NOT2_SQL = (r"become|devenir|devenez|opportunit|package|forfait|prospectus|application|apply|form|kit|levels|niveaux|sponsorship|commandite|login|log-in|signin|sign-in|account|compte|portal|portail"
             r"|/tag/|/tags/|/category/|/categorie/|/author/|/page/[0-9]|/feed|wp-json|wp-content|wp-admin|/cart|/panier|/checkout|privacy|/search|/recherche|register|inscription"
@@ -65,7 +69,7 @@ NOT3_SQL = (r"board|council|committee|comit|conseil|team|equipe|%c3%a9quipe|staf
             r"|blog|event|evenement|honorary|honoraire|founding|fondateur|past|ancien|crew|band|cast|choir|chorale|caucus|mla|mpp|legislat|parliament|parlement|senat|assembl|elected|elus|%c3%a9lus"
             r"|student|etudiant|%c3%a9tudiant|alumni|lab|research|recherche|group|groupe|profile|profil|user|forum|/tag/|/tags/|/category/|/categorie/|/author/|/page/[0-9]|/feed|wp-json|wp-content"
             r"|wp-admin|/cart|/panier|/checkout|privacy|/search|/recherche|\.(pdf|jpe?g|png|gif|xml|json|css|js)$")
-_REL_RX, _NOT_RX, _SP_RX, _DL_RX, _NOT2_RX, _M1_RX, _MB_RX, _NOT3_RX = (re.compile(x) for x in (REL_SQL, NOT_SQL, SPONSOR_SQL, DEALER_SQL, NOT2_SQL, MEMBER_ONE_SQL, MEMBER_SQL, NOT3_SQL))
+_REL_RX, _NOT_RX, _SP_RX, _DL_RX, _NOT2_RX, _M1_RX, _MB_RX, _NOT3_RX, _TN_RX = (re.compile(x) for x in (REL_SQL, NOT_SQL, SPONSOR_SQL, DEALER_SQL, NOT2_SQL, MEMBER_ONE_SQL, MEMBER_SQL, NOT3_SQL, TENANT_SQL))
 PER_DOMAIN_MEMBER_PAGES = 3000  # a chamber's directory has one page per member
 
 
@@ -81,6 +85,8 @@ def page_class(path):
             return "dealer"
         if _SP_RX.search(p):
             return "sponsor"
+        if _TN_RX.search(p):
+            return "tenant"
     if _MB_RX.search(p) and not _NOT3_RX.search(p):
         return "member"
     return ""
@@ -89,6 +95,7 @@ def page_class(path):
 CLASS_TEXT = {"client": "client page of a Canada-located vendor (Common Crawl capture)",
               "sponsor": "sponsor / exhibitor page of a Canada-located organiser: the parties listed pay it (Common Crawl capture)",
               "dealer": "dealer / retailer page of a Canada-located supplier: the parties listed buy from it (Common Crawl capture)",
+              "tenant": "tenant / merchant list of a Canada-located landlord, market or business association: the parties listed pay it rent, fees or a levy (Common Crawl capture)",
               "member": "member directory of a Canada-located body (chamber, board of trade, association): the members listed pay it dues (Common Crawl capture)"}
 VENDOR_SKIP = re.compile(r"(^|\.)(gc|canada)\.ca$|\.gouv\.qc\.ca$|(^|\.)gov\.[a-z]{2}\.ca$|\.gov\.ca$|kijiji|yellowpages|pagesjaunes|canada411|indeed|eventbrite|amazon|ebay|walmart|bestbuy|costco|"
                          r"canadiantire|homedepot|(^|\.)cbc\.ca$|ctvnews|globalnews|radio-canada|lapresse|ledevoir|thestar|nationalpost|theglobeandmail|wikipedia|reddit|craigslist|linkedin|facebook|"
@@ -221,7 +228,7 @@ def index(a):
              "AND length(url_path) BETWEEN 2 AND 90 AND ((regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')) "
              "OR (regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')) "
              "OR regexp_matches(lower(url_path), '%s') OR (regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')))") % (
-                 url, REL_SQL.replace("'", "''"), NOT_SQL.replace("'", "''"), (SPONSOR_SQL + "|" + DEALER_SQL).replace("'", "''"), NOT2_SQL.replace("'", "''"),
+                 url, REL_SQL.replace("'", "''"), NOT_SQL.replace("'", "''"), (SPONSOR_SQL + "|" + DEALER_SQL + "|" + TENANT_SQL).replace("'", "''"), NOT2_SQL.replace("'", "''"),
                  MEMBER_ONE_SQL.replace("'", "''"), MEMBER_SQL.replace("'", "''"), NOT3_SQL.replace("'", "''"))
         for attempt in range(3):
             try:
