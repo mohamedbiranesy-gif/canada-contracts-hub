@@ -1,6 +1,11 @@
-import csv, collections, os
+import array, csv, collections, os, shutil, sys
+csv.field_size_limit(1 << 30)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
-rows = list(csv.DictReader(open(ROOT + "/out/ranked/ranked_buyers.csv", encoding="utf-8")))
+SRC = os.environ.get("BATCHES_SRC") or ROOT + "/out/ranked/ranked_buyers.csv"
+DST = os.environ.get("BATCHES_DST") or ROOT + "/out/ranked/batches"
+# 2026-11-10: streaming. The table was loaded whole (list of dicts: ~6 times its size in memory — fine at 70,000 rows, impossible at a million).
+# Now: pass 1 reads each row once and notes its package and score (two small integers per row); pass 2 writes each row to its package part,
+# unsorted; pass 3 sorts one part at a time (a part is ~45 MB). Same packages, same order inside a package, same cells.
 OK = ("confirmed",)  # owner 2026-11-04 ("ironclad"): referee-confirmed only; dataset-enrichment mailboxes wait in P11 until the referee has seen them
 def rel(r):
     st, t = r["contract_status"], r.get("tier", "")
@@ -50,27 +55,87 @@ def filled(r, package):
         if v in ("", "{}", "[]", "null", "None"):
             r[c] = "not_found_yet" if (package.startswith("Z") and c in EMAIL_COLS) else "not_published"
     return r
-os.makedirs(ROOT + "/out/ranked/batches", exist_ok=True)
-used, summary, blank = set(), [], collections.Counter()
-for name, f in B.items():
-    sel = [r for i, r in enumerate(rows) if i not in used and f(r)]
-    for i, r in enumerate(rows):
-        if i not in used and f(r): used.add(i)
-    sel.sort(key=lambda r: -int(float(r["completeness_score"] or 0)))
-    blank[name] = sum(1 for r in sel for c in r if (r[c] or "").strip() in ("", "{}"))
-    out_rows = [filled(r, name) for r in sel]
-    approx = sum(len(v or "") + 1 for r in out_rows[:2000] for v in r.values()) / max(1, min(2000, len(out_rows))) * len(out_rows) if out_rows else 0
-    parts = max(1, int(approx // (45 * 1024 * 1024)) + 1)  # GitHub refuses files over 100 MB: a big package is delivered in numbered parts
-    if parts == 1:
-        with open(ROOT + "/out/ranked/batches/%s.csv" % name, "w", newline="", encoding="utf-8") as fh:
-            w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(out_rows)
-    else:
-        step = -(-len(out_rows) // parts)
-        for pi in range(parts):
-            with open(ROOT + "/out/ranked/batches/%s_part%d_of_%d.csv" % (name, pi + 1, parts), "w", newline="", encoding="utf-8") as fh:
-                w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(out_rows[pi * step:(pi + 1) * step])
-    summary.append((name + ("" if parts == 1 else " (%d part files)" % parts), len(sel)))
-left = [r for i, r in enumerate(rows) if i not in used]
+PART_BYTES = 45 * 1024 * 1024
+names = list(B.keys())
+preds = list(B.values())
+pk = array.array("H")       # package index of each row
+score = array.array("i")    # -completeness score of each row
+size = collections.Counter()  # bytes of each package as it will be written
+count = collections.Counter()
+blank = collections.Counter()
+groups_left = collections.Counter()
+with open(SRC, encoding="utf-8") as f:  # as the earlier code read it (line ends inside a cell become \n)
+    rd = csv.DictReader(f)
+    cols = rd.fieldnames
+    for r in rd:
+        pi = next(i for i, fn in enumerate(preds) if fn(r))
+        pk.append(pi)
+        score.append(-int(float(r["completeness_score"] or 0)))
+        count[pi] += 1
+        nb = sum(1 for c in r if (r[c] or "").strip() in ("", "{}"))
+        blank[pi] += nb
+        size[pi] += sum(len(v or "") + 1 for v in r.values()) + nb * 13
+# rank of each row inside its package: by score (best first), then by its place in the table (the sort the old code did, stable)
+order = sorted(range(len(pk)), key=lambda i: (pk[i], score[i], i))
+rank = array.array("l", [0]) * len(pk)
+pos = collections.Counter()
+for i in order:
+    rank[i] = pos[pk[i]]
+    pos[pk[i]] += 1
+del order
+parts = {pi: max(1, int(size[pi] // PART_BYTES) + 1) for pi in count}
+step = {pi: -(-count[pi] // parts[pi]) for pi in count}
+shutil.rmtree(DST, ignore_errors=True)
+os.makedirs(DST, exist_ok=True)
+tmp = DST + ".tmp"
+shutil.rmtree(tmp, ignore_errors=True)
+os.makedirs(tmp)
+handles = collections.OrderedDict()  # at most 200 part files open at a time
+
+
+def out(pi, part):
+    key = (pi, part)
+    h = handles.pop(key, None)
+    if h is None:
+        if len(handles) >= 200:
+            _, (fh0, _w0) = handles.popitem(last=False)
+            fh0.close()
+        fh = open(os.path.join(tmp, "%d_%d.csv" % key), "a", newline="", encoding="utf-8")
+        h = (fh, csv.writer(fh))
+    handles[key] = h
+    return h[1]
+
+
+with open(SRC, encoding="utf-8") as f:  # as the earlier code read it (line ends inside a cell become \n)
+    rd = csv.DictReader(f)
+    for i, r in enumerate(rd):
+        pi = pk[i]
+        fr = filled(r, names[pi])
+        out(pi, rank[i] // step[pi]).writerow([rank[i]] + [fr[c] for c in cols])
+for fh, _w in handles.values():
+    fh.close()
+summary = []
+for pi, name in enumerate(names):
+    if not count[pi]:
+        with open(os.path.join(DST, name + ".csv"), "w", newline="", encoding="utf-8") as fh:  # an empty package still has its file (header only), as before
+            csv.writer(fh).writerow(cols)
+        summary.append((name, 0))
+        continue
+    for part in range(parts[pi]):
+        p = os.path.join(tmp, "%d_%d.csv" % (pi, part))
+        rows_ = []
+        if os.path.exists(p):
+            with open(p, encoding="utf-8", newline="") as fh:
+                rows_ = list(csv.reader(fh))
+        rows_.sort(key=lambda x: int(x[0]))
+        dst = os.path.join(DST, name + ".csv") if parts[pi] == 1 else os.path.join(DST, "%s_part%d_of_%d.csv" % (name, part + 1, parts[pi]))
+        with open(dst, "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(cols)
+            for x in rows_:
+                w.writerow(x[1:])
+    summary.append((name + ("" if parts[pi] == 1 else " (%d part files)" % parts[pi]), count[pi]))
+shutil.rmtree(tmp, ignore_errors=True)
 for n, c in summary: print("%-55s %6d" % (n, c))
-print("unassigned", len(left), collections.Counter(r["rank_group"] for r in left).most_common(5))
-print("blank cells filled with not_published (delivered P01-P13):", sum(v for k, v in blank.items() if not k.startswith("Z")))
+print("unassigned", 0, [])
+print("blank cells filled with not_published (delivered P01-P13):", sum(v for pi, v in blank.items() if not names[pi].startswith("Z")))
