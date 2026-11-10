@@ -15,10 +15,13 @@ inferred relationship have a live, named, Canada-located service provider in the
                                      was not looked up yet; public resolvers, a few queries per domain -> out/dns_<K>.jsonl
   merge DIR --stamp S                -> data/incoming/claude/credit_scan/dns_<S>_<k>.gz (append-only), and the table of providers by number of
                                      client domains (dns_providers_seen.csv)
-  sweep --shard K/8 [--minutes M]    every domain of Common Crawl's domain graph (118 M) on the endings most stores use (SWEEP_TLDS): ONE question
-                                     each — is its address record on Shopify's storefront network? Only the stores found are kept (they join the
-                                     records above, so the store crawl reads them), with the place in the list where the shard stopped
-                                     (sweep_cursor.json): the next run goes on from there. `sweep-plan` prints the shards that still have work.
+  sweep --shard K/8 [--minutes M]    every domain of Common Crawl's domain graph (118 M) on the endings most stores use (SWEEP_TLDS): TWO questions
+                                     each — is its address record on Shopify's storefront network, and do its name servers belong to a provider
+                                     that already yields leads (sweep_ns_watch.txt: the Canadian hosts, registrars and DNS services proven so
+                                     far)? Only the hits are kept (they join the records above: the store crawl reads the stores, leads() makes
+                                     the DNS leads), with the place in the list where the shard stopped (sweep_cursor.json): the next run goes
+                                     on from there; the part swept before the second question existed is caught up at the end. `sweep-plan`
+                                     prints the shards that still have work.
 The provider's location is proven the same way as for a credited web agency (tools/credit_scan.py `vendors`: its own site prints a Canadian
 postal address, or schema.org address, or location line + Canadian telephone number), and the leads are made by tools/credit_scan.py `merge`
 (leads() below). Nothing here contacts the organisations' own servers: only DNS resolvers are asked.
@@ -77,6 +80,11 @@ ALIAS = {"web-dns1.com": _WHC, "wpdns.ca": _WHC, "mywhc.ca": _WHC}
 SWEEP_TLDS = ("com", "net", "org", "co", "us", "shop", "store")
 SWEEP_SHARDS = 8   # fixed: a shard's place in the list is only meaningful for one way of cutting the list
 CURSOR = os.path.join(DIR, "sweep_cursor.json")
+# 2026-11-10: the sweep asks a second question of every domain — who serves its zone. Kept only when a name server belongs to a provider that
+# already yields leads (its own site proves it in Canada: whc.ca, webnames.ca, easydns.com, hover.com … — 330 provider domains, 88,604 leads from
+# the 4.1 M domains looked up so far, most of them .ca). The graph's 63 M domains hold the same providers' clients on .com / .net / .org: the
+# Canadian businesses that are not on .ca. The list is written by the merge (single writer) from the leads on file.
+NS_WATCH = os.path.join(DIR, "sweep_ns_watch.txt")
 SHOPIFY_A = re.compile(r"^23\.227\.38\.(?:3[2-9]|[4-9]\d|1[01]\d|12[0-7])$")  # Shopify's storefront addresses (23.227.38.32/27, .64/26): the apex A record of a store on its own domain
 VERIF_KEY = re.compile(r"^([a-z0-9][a-z0-9._-]{2,48}?)[=:]")
 # TXT verification keys of vetted Canada-HQ vendors -> vendor domain (each needs a business account with that vendor; quotes in tools/tech_relationships.py or DECISIONS.md)
@@ -381,11 +389,38 @@ def sweep_cursor():
         return {}
 
 
+def ns_watch():
+    try:
+        return {l.strip() for l in open(NS_WATCH, encoding="utf-8") if l.strip() and not l.startswith("#")}
+    except OSError:
+        return set()
+
+
+def write_ns_watch():
+    """the name-server domains of the providers that yield leads today (lead details: platform dns_service_cc, record kind ns), plus the
+    technical domains of ALIAS. Returns how many."""
+    import lead_store as LS
+    _, det = LS.load(details=True)
+    doms = {d.get("dns_provider_domain") for d in det.values() if d.get("platform") == "dns_service_cc" and d.get("dns_record_kind") == "ns" and d.get("dns_provider_domain")}
+    doms |= set(ALIAS) | {v for v in (a[0] for a in ALIAS.values())}
+    doms = sorted(d for d in doms if re.fullmatch(r"[a-z0-9.-]+\.[a-z]{2,}", d) and not NOT_CA.search(d) and not FREE.search(d))
+    if len(doms) >= 50:  # never replace the list by a stub (a run without the lead files)
+        with open(NS_WATCH, "w", encoding="utf-8") as f:
+            f.write("# name-server domains of providers that yield leads (tools/dns_services.py write_ns_watch); the sweep keeps a domain served by one of them\n" + "\n".join(doms) + "\n")
+    return len(doms)
+
+
+def sweep_left(cur):
+    """shards with work: the list not finished, or the name-server question still owed for the part of the list swept before it was asked"""
+    pos, done = cur.get("pos") or {}, cur.get("complete") or {}
+    ns_from, ns_done = cur.get("ns_from") or {}, cur.get("ns_complete") or {}
+    return sorted((k for k in range(SWEEP_SHARDS) if not done.get(str(k)) or (int(ns_from.get(str(k), 0)) > 0 and not ns_done.get(str(k)))),
+                  key=lambda k: (bool(done.get(str(k))), int(pos.get(str(k), 0)), k))
+
+
 def sweep_plan(a):
     """the sweep shards that still have work, least advanced first (for the workflow's matrix)"""
-    cur = sweep_cursor()
-    pos, done = cur.get("pos") or {}, cur.get("complete") or {}
-    left = sorted((k for k in range(SWEEP_SHARDS) if not done.get(str(k))), key=lambda k: (int(pos.get(str(k), 0)), k))
+    left = sweep_left(sweep_cursor())
     print(json.dumps(left[:max(1, a.limit or SWEEP_SHARDS)]))
 
 
@@ -402,13 +437,20 @@ def sweep(a):
     rel = cur.get("release") or (a.release if a.release and a.release != "auto" else CS.newest_graph())
     tlds = tuple(cur.get("tlds") or SWEEP_TLDS)
     start = int((cur.get("pos") or {}).get(str(k), 0))
-    state = {"release": rel, "tlds": list(tlds), "shard": k, "pos": start, "complete": bool((cur.get("complete") or {}).get(str(k))), "asked": 0, "stores": 0, "no_answer": 0}
+    watch = ns_watch()
+    # where the name-server question began for this shard: everything before that place was swept with the address question only and is
+    # caught up once the list is done (ns_pos / ns_complete)
+    ns_from = int((cur.get("ns_from") or {})[str(k)]) if str(k) in (cur.get("ns_from") or {}) else (start if watch else 0)
+    ns_pos = int((cur.get("ns_pos") or {}).get(str(k), 0))
+    state = {"release": rel, "tlds": list(tlds), "shard": k, "pos": start, "complete": bool((cur.get("complete") or {}).get(str(k))), "asked": 0, "stores": 0, "no_answer": 0,
+             "ns_from": ns_from, "ns_pos": ns_pos, "ns_complete": bool((cur.get("ns_complete") or {}).get(str(k))) or ns_from == 0, "ns_asked": 0, "ns_hits": 0, "watch": len(watch)}
 
     def save():
         with open("out/sweep_cursor_%d.json" % k, "w", encoding="utf-8") as fo:
             json.dump(state, fo)
     save()
-    if k >= n or state["complete"]:
+    catch_up = state["complete"] and not state["ns_complete"] and bool(watch)
+    if k >= n or (state["complete"] and not catch_up):
         print("sweep shard %d/%d: nothing left" % (k, n), flush=True)
         return
     work = next((d for d in (os.environ.get("RUNNER_TEMP") or "", ".") if d and os.access(d, os.W_OK)), ".")
@@ -419,7 +461,9 @@ def sweep(a):
         subprocess.run(["curl", "-sS", "-L", "--fail", "--retry", "10", "--retry-delay", "10", "--retry-all-errors", "-C", "-", "-A", CCL.UA, "-o", vfile, url], check=True)
     else:
         vfile = url  # a local file (tests)
-    print("sweep shard %d/%d of graph %s, endings %s: the list is %.0f MiB (%.0f s); starting after place %d" % (k, n, rel, ",".join(tlds), os.path.getsize(vfile) / 2 ** 20, time.time() - t0, start), flush=True)
+    print("sweep shard %d/%d of graph %s, endings %s: the list is %.0f MiB (%.0f s); %s; name-server providers watched: %d" % (
+        k, n, rel, ",".join(tlds), os.path.getsize(vfile) / 2 ** 20, time.time() - t0,
+        ("catching up the name-server question from place %d to %d" % (ns_pos, ns_from)) if catch_up else ("starting after place %d" % start), len(watch)), flush=True)
     deadline = time.time() + a.minutes * 60
     local = None
     if a.resolver:
@@ -434,15 +478,17 @@ def sweep(a):
             except Exception as e:
                 print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
                 time.sleep(5)
-    qps = a.qps if local else min(a.qps, 60)  # without the runner's own resolver: the public ones, slowly
-    print("resolver: %s, %d queries/s" % ("%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
+    qps = a.qps if local else min(a.qps, 60)  # domains per second; without the runner's own resolver: the public ones, slowly
+    per = 1 if (catch_up or not watch) else 2  # questions per domain. The second one (who serves the zone) goes to the zone's own servers:
+    rate = qps * per                           # the ending's servers (.com) are asked once per domain either way, so they see `qps` a second
+    print("resolver: %s, %d domains/s, %d questions/s" % ("%s:%d (local, recursive)" % local if local else "public resolvers", qps, rate), flush=True)
     tl = threading.local()
     gate, nxt = threading.Lock(), [0.0]
 
-    def ask_a(d):
+    def turn():
         with gate:
             t = max(time.time(), nxt[0])
-            nxt[0] = t + 1.0 / qps
+            nxt[0] = t + 1.0 / rate
         w = t - time.time()
         if w > 0:
             time.sleep(w)
@@ -454,18 +500,35 @@ def sweep(a):
             else:
                 r.nameservers, r.timeout, r.lifetime = random.sample(RESOLVERS, 3), 2.5, 5.0
             tl.r = r
+        return r
+
+    def ask_ns(d):
+        """the name servers of the zone that belong to a watched provider (lower case, no final dot), or []"""
         try:
-            ans = r.resolve(d, "A", raise_on_no_answer=False)
-        except dns.resolver.NXDOMAIN:
-            return d, "", "nx"
+            ans = turn().resolve(d, "NS", raise_on_no_answer=False)
         except dns.exception.DNSException:
-            return d, "", "fail"
+            return []
+        hosts = [str(x.target).strip(".").lower() for x in (ans.rrset or [])][:8]
+        return hosts if any(C.registrable(h) in watch for h in hosts) else []
+
+    def ask(d):
+        if catch_up:
+            return d, "", "ns_only", ask_ns(d)
+        try:
+            ans = turn().resolve(d, "A", raise_on_no_answer=False)
+        except dns.resolver.NXDOMAIN:
+            return d, "", "nx", []
+        except dns.exception.DNSException:
+            return d, "", "fail", []
+        # the zone answers: who serves it (the delegation is already with the resolver; this question goes to the zone's own servers)
+        ns = ask_ns(d) if watch else []
         if ans.rrset is None:
-            return d, "", "none"
-        return d, ans[0].address, "ok"
+            return d, "", "none", ns
+        return d, ans[0].address, "ok", ns
 
     pref = tuple(t + "." for t in tlds)
     ok_name = re.compile(r"[a-z0-9-]+(?:\.[a-z0-9-]+)+")
+    first, last = (ns_pos, ns_from) if catch_up else (start, 0)
 
     def batches():
         pos, batch = 0, []
@@ -475,8 +538,10 @@ def sweep(a):
                 if len(q) < 2 or not q[1].startswith(pref):
                     continue
                 pos += 1
-                if pos <= start:
+                if pos <= first:
                     continue
+                if last and pos > last:
+                    break
                 d = ".".join(reversed(q[1].strip().split(".")))
                 if zlib.crc32(d.encode()) % n != k or len(d) > 80 or not ok_name.fullmatch(d) or CS.PLATFORM.search(d):
                     continue
@@ -485,7 +550,7 @@ def sweep(a):
                     yield pos, batch
                     batch = []
         if batch:
-            yield pos, batch
+            yield (last or pos), batch
         yield -1, []
 
     from concurrent.futures import ThreadPoolExecutor
@@ -493,27 +558,37 @@ def sweep(a):
     with ThreadPoolExecutor(a.workers) as ex:
         for pos, batch in batches():
             if pos == -1:
-                state["complete"] = True
+                state["ns_complete" if catch_up else "complete"] = True
                 break
             if deadline - time.time() < 1.3 * len(batch) / qps + 20:
                 break  # not enough time left for this batch: the next run starts with it
             st = collections.Counter()
-            for d, ip, how in ex.map(ask_a, batch):
+            for d, ip, how, ns in ex.map(ask, batch):
                 st[how] += 1
-                if ip and SHOPIFY_A.match(ip):
-                    fo.write(json.dumps({"d": d, "t": TODAY, "st": "ok", "l": 1, "shop": 1, "a": ip, "sw": 1}, ensure_ascii=False, separators=(",", ": ")) + "\n")
-                    state["stores"] += 1
+                shop = bool(ip and SHOPIFY_A.match(ip))
+                if shop or ns:
+                    o = {"d": d, "t": TODAY, "st": "ok", "l": 1, "sw": 1}
+                    if shop:
+                        o.update(shop=1, a=ip); state["stores"] += 1
+                    if ns:
+                        o["ns"] = ns; state["ns_hits"] += 1
+                    fo.write(json.dumps(o, ensure_ascii=False, separators=(",", ": ")) + "\n")
             fo.flush()
-            state["asked"] += len(batch)
-            state["no_answer"] += st["fail"]
-            state["pos"] = pos
+            if catch_up:
+                state["ns_asked"] += len(batch); state["ns_pos"] = pos
+            else:
+                state["asked"] += len(batch); state["no_answer"] += st["fail"]; state["pos"] = pos
+                state["ns_asked"] += (st["ok"] + st["none"]) if watch else 0
             save()
-            if state["asked"] % (10 * a.batch) == 0:
-                print(time.strftime("%H:%M:%S"), "place %d: asked %d, stores %d, no answer %d (last batch: %s)" % (pos, state["asked"], state["stores"], state["no_answer"], dict(st)), flush=True)
+            if (state["ns_asked"] if catch_up else state["asked"]) % (10 * a.batch) == 0:
+                print(time.strftime("%H:%M:%S"), "place %d: asked %d, stores %d, served by a watched provider %d, no answer %d (last batch: %s)" % (
+                    pos, state["asked"] or state["ns_asked"], state["stores"], state["ns_hits"], state["no_answer"], dict(st)), flush=True)
     fo.close()
+    if not catch_up and state["complete"] and state["ns_from"] == 0:
+        state["ns_complete"] = True
     save()
-    print("finished: place %d%s; asked %d domains, %d on Shopify's storefront addresses, %d without an answer" % (
-        state["pos"], " (end of the list)" if state["complete"] else "", state["asked"], state["stores"], state["no_answer"]), flush=True)
+    print("finished: place %d%s; asked %d domains, %d on Shopify's storefront addresses, %d served by a watched provider (%d name-server questions), %d without an answer" % (
+        state["ns_pos"] if catch_up else state["pos"], " (end)" if state["ns_complete" if catch_up else "complete"] else "", state["asked"], state["stores"], state["ns_hits"], state["ns_asked"], state["no_answer"]), flush=True)
 
 
 def merge(a):
@@ -556,14 +631,24 @@ def merge(a):
             cur["pos"][ks] = max(int(cur["pos"].get(ks, 0)), int(o.get("pos") or 0))
             if o.get("complete"):
                 cur["complete"][ks] = True
+            if o.get("watch"):  # the shard asked the name-server question: from which place on, how far the catch-up of the earlier part got
+                cur.setdefault("ns_from", {}).setdefault(ks, int(o.get("ns_from") or 0))
+                cur.setdefault("ns_pos", {})[ks] = max(int((cur.get("ns_pos") or {}).get(ks, 0)), int(o.get("ns_pos") or 0))
+                if o.get("ns_complete"):
+                    cur.setdefault("ns_complete", {})[ks] = True
+                cur["ns_hits"] = int(cur.get("ns_hits") or 0) + int(o.get("ns_hits") or 0)
             asked += int(o.get("asked") or 0); stores += int(o.get("stores") or 0)
         cur["asked"] = int(cur.get("asked") or 0) + asked
         cur["stores_found"] = int(cur.get("stores_found") or 0) + stores
         cur["updated"] = time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())
         with open(CURSOR, "w", encoding="utf-8") as f:
             json.dump(cur, f, indent=1, sort_keys=True)
-        print("sweep of graph %s (%s): +%d domains asked, +%d stores this run; %d asked and %d stores so far; shards finished: %d of %d" % (
-            cur.get("release"), ",".join(cur.get("tlds") or []), asked, stores, cur["asked"], cur["stores_found"], len(cur["complete"]), SWEEP_SHARDS))
+        print("sweep of graph %s (%s): +%d domains asked, +%d stores this run; %d asked, %d stores and %d domains served by a watched provider so far; shards finished: %d of %d" % (
+            cur.get("release"), ",".join(cur.get("tlds") or []), asked, stores, cur["asked"], cur["stores_found"], int(cur.get("ns_hits") or 0), len(cur["complete"]), SWEEP_SHARDS))
+    try:
+        print("name-server providers watched by the sweep: %d" % write_ns_watch())
+    except Exception as e:
+        print("watch list not rewritten (%s): the one on file stays" % str(e)[:100])
     tot, by = provider_counts()
     with open(SEEN_TABLE, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)

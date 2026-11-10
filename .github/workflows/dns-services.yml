@@ -9,9 +9,11 @@ name: dns-services
 # merge  : records -> main (append-only, data/incoming/claude/credit_scan/dns_*.gz) + the table of providers by number of client domains;
 #          then a credit-scan cycle: its vendor step proves where each provider is (its own site prints a Canadian address) and its merge
 #          makes the leads (tools/credit_scan.py merge -> dns_services.leads)
-# sweep  : (mode=sweep) every domain of Common Crawl's domain graph on the endings most stores use — one address-record question each: is it on
-#          Shopify's storefront network? Only the stores found are kept; each shard notes its place in the list and the run after it goes on
-#          from there, until the list is done (the merge starts the next run).                                 (tools/dns_services.py sweep)
+# sweep  : (mode=sweep) every domain of Common Crawl's domain graph on the endings most stores use (63 M) — two questions each: is it on
+#          Shopify's storefront network (address record), and is its zone served by a provider that already yields leads (name servers:
+#          whc.ca, webnames.ca, easydns.com, hover.com … — data/incoming/claude/credit_scan/sweep_ns_watch.txt, rewritten by the merge)? Only
+#          the hits are kept; each shard notes its place in the list and the run after it goes on from there, until the list is done and
+#          the part swept before the second question existed is caught up (the merge starts the next run).   (tools/dns_services.py sweep)
 # Nothing here contacts the organisations' own servers. No AI, no search engine, no Mac.
 on:
   schedule:
@@ -86,7 +88,8 @@ jobs:
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
           if [ "$MODE" = "sweep" ]; then
-            # 250 questions a second per runner: under the 300 a second this runner's resolver allows itself towards any one zone (the .com servers)
+            # 250 domains a second per runner: under the 300 questions a second this runner's resolver allows itself towards any one zone (the
+            # .com servers are asked once per domain; the second question goes to the domain's own name servers)
             python3 tools/dns_services.py sweep --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 250
           else
             python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 300 --limit "$LIMIT" --resolver 127.0.0.1:5353 --qps 480
