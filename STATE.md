@@ -114,8 +114,12 @@ number. On the local build: legal names 550 gone / 295 new / 668 replaced, 1,343
 
 **Supply started this afternoon.** Member directories from the archive index: 1,926 directory hosts, 1,860 judged, 20 new Canadian bodies
 (most of the platform's tenants are American chambers; 258 print no address on their home page — the contact page is the next look); the
-crawl of the 22 ran 15:41–17:14Z. DNS sweep of the web graph's domains for Shopify storefront addresses: four shards running since 15:40Z,
-self-continuing.
+crawl of the 22 ran 15:41–17:14Z. DNS sweep of the web graph's 63 M domains: four shards running since 15:40Z, self-continuing; from the
+next run on it asks two questions per domain — Shopify's storefront addresses, and name servers of the 330 Canadian providers that already
+yield leads (the Canadian businesses on .com / .net / .org; coord/DECISIONS.md 17:45Z).
+
+**17:38Z.** The referee run on the old code landed: 262,766 findings verified (+51,000), 235,250 buyers with a verified mailbox (+46,000),
+6,966 rows still waiting. A rank build started at 17:38Z on the new ranker; the first referee run on the new code started 17:42Z.
 
 **Next, in order.** (1) Watch the first referee run on the new code and the rank build after it (expect ~215–220k rows). (2) Readers: the
 org_facts run of 18:11Z reads each host for itself; check the "not taken" look-ups fall. (3) Ranking in parts: one run on GitHub against a

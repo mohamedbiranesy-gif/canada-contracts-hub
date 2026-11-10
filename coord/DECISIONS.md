@@ -818,3 +818,18 @@ it now stands for 45–59 days for a value seen on its page, 7 for a value not o
 says how the value was seen. Checked offline on today's inputs with no page at hand: 205,325 values verified on their page, 4,906 seen
 earlier and 997 on an archive copy come out as in the last real run. The cache steps are gone from the workflow.
 
+## 2026-11-10 17:45Z from claude — the DNS sweep asks who serves the zone
+The sweep of the web graph's 63 M domains asked one question (is the address record on Shopify's storefront network). It now asks a second:
+do the zone's name servers belong to a provider that already yields leads? 330 provider domains do today (whc.ca 21,798 leads, webnames.ca
+11,992, easydns.com 6,347, namespro.ca 5,574, hover.com 5,557 …) — 88,604 leads from the 4.1 M domains looked up so far, nearly all of them
+.ca. The same providers serve .com / .net / .org domains: the Canadian businesses that are not on .ca, which no engine had looked for.
+- Only a watched provider's clients are kept (the list is the providers the lead rules have already accepted: proven in Canada by their own
+  site, a hosting / domain / IT service, no free plan). A provider seen for the first time in the sweep is not kept: new providers come from
+  the full lookups of the .ca lists, where every record of a domain is on file.
+- The lead rules are unchanged (tools/dns_services.py leads): a provider that also prints addresses abroad counts only for a buyer shown to
+  be in Canada.
+- Cost: one more question per domain, sent to the domain's own name servers; the ending's servers see 250 questions a second per runner as
+  before. The part of the list swept before today is asked the second question once the list is done.
+- Not chosen: the zone files of .com / .net / .org (they list every delegation, but access is by application to each registry).
+What it will yield is not known yet — the first run with the second question starts when the current one merges (~18:20Z).
+
