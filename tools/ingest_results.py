@@ -166,8 +166,12 @@ def settled(value, url):
     return None
 
 
+ABSENT = "read earlier without the value"
+
+
 def ledger_note(value, url, status):
-    """record this run's verdict; return the earlier verified date that still stands when today's page could not be read, else None"""
+    """record this run's verdict; return the earlier verified date that still stands when today's page could not be read, ABSENT when the page
+    was read earlier without the value and cannot be opened today (the earlier reading stands), else None"""
     k = (value.lower().strip(), url or "")
     e = LEDGER.get(k)
     if status == "verified":
@@ -186,6 +190,11 @@ def ledger_note(value, url, status):
             e["last_checked"], e["last_attempt"] = LEDGER_TODAY, status  # the attempt is noted: the sighting stands, the page is left alone for a few days
         return e["last_verified"]
     if status in NEG_DAYS:  # the page could not be opened, or hides its e-mails: noted, so that the next runs leave it alone for a few days
+        if e and e.get("last_status") == "not_found_on_page" and status == "unverified_page_unavailable":
+            # 2026-11-10: the page was read earlier and the value was not on it; today it cannot be opened. That does not make the value unseen
+            # (two lanes quoting it would then count as proof): the earlier reading stands until a page that opens shows the value.
+            e["last_checked"], e["last_attempt"] = LEDGER_TODAY, status
+            return ABSENT
         if e:
             e["last_status"], e["last_checked"], e["last_attempt"] = status, LEDGER_TODAY, ""
         else:
@@ -270,6 +279,8 @@ def verify(value, url):
     if st is None:
         return None
     seen = ledger_note(value, url, st)
+    if seen is ABSENT:
+        return "not_found_on_page"
     if seen and st in ("pending_verification", "unverified_page_unavailable", "not_found_on_page_hidden"):
         VIA[(value, url)] = "referee saw it on this page on %s; the page could not be read today (%s)" % (seen, st)
         return "verified"
@@ -380,6 +391,21 @@ def prefetch():
 
 
 ledger_backfill()
+# 2026-11-10: readings the page cache held and the ledger did not. Until that day a page read without the value was remembered only by its
+# cached copy; when the cache was dropped, 62 such values came back as "page unavailable" (their pages no longer open to this verifier) and 15
+# of them counted as cross-verified. The list names them; each keeps its "not on the page" verdict until a page that opens shows the value.
+_abs = "coord/ledger_read_absent_20261110.csv"
+if os.path.exists(_abs):
+    _n = 0
+    for _r in csv.DictReader(open(_abs, encoding="utf-8", newline="")):
+        _k = ((_r.get("value") or "").lower().strip(), _r.get("url") or "")
+        _e = LEDGER.get(_k)
+        if _e is None or _e.get("last_status") in ("unverified_page_unavailable", "not_found_on_page_hidden"):
+            LEDGER[_k] = {"value": _k[0], "url": _k[1], "first_verified": (_e or {}).get("first_verified") or "", "last_verified": (_e or {}).get("last_verified") or "",
+                          "last_status": "not_found_on_page", "last_checked": (_e or {}).get("last_checked") or _r.get("read_absent_on") or LEDGER_TODAY,
+                          "last_attempt": "unverified_page_unavailable", "via": ""}
+            _n += 1
+    print("ledger: readings without the value restored from %s: %d" % (_abs, _n), file=sys.stderr)
 if not NOFETCH:
     prefetch()
 
