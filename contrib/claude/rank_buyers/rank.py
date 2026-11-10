@@ -656,10 +656,20 @@ for p, o in orgs.items():
 print("same-pair fill (facts from another record of the same buyer-vendor pair):", dict(n_pair))
 # 4. buyers proven by payment / subaward records or client listings (no contract in the dataset)
 leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8", errors="replace"))}
+# 2026-11-10: the cloud row factory (tools/cc_clients.py: client pages of .ca vendors read from the Common Crawl archive, vendor's Canadian postal
+# address quoted) writes its own file, so the Mac's bridge (which rewrites claude_buyer_leads.csv whole) can never drop a cloud lead
+_n_cc = 0
+if os.path.exists(ROOT + "/data/incoming/claude/claude_buyer_leads_cc.csv"):
+    for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads_cc.csv", encoding="utf-8", errors="replace")):
+        if r.get("buyer_key") and r["buyer_key"] not in leads:
+            leads[r["buyer_key"]] = r
+            _n_cc += 1
+print("leads: %d (%d from the cloud row factory)" % (len(leads), _n_cc))
 LDET = {}  # owner 2026-11-03 ("every field"): the lead's own record details (amount, currency, identifiers, dates, vendor address, title)
-if os.path.exists(ROOT + "/data/incoming/claude/claude_lead_details.jsonl.gz"):
-    for _d in jl(ROOT + "/data/incoming/claude/claude_lead_details.jsonl.gz"):
-        LDET[_d.get("key")] = _d
+for _ldp in ("claude_lead_details.jsonl.gz", "claude_lead_details_cc.jsonl.gz"):
+    if os.path.exists(ROOT + "/data/incoming/claude/" + _ldp):
+        for _d in jl(ROOT + "/data/incoming/claude/" + _ldp):
+            LDET.setdefault(_d.get("key"), _d)
 def apply_details(x, k):
     d = LDET.get(k)
     if not d:
@@ -683,7 +693,7 @@ seen_dom = {registrable((urllib.parse.urlparse(x["buyer_website"]).hostname or "
 seen_dom.discard("")
 import urllib.parse
 REL_PATH = re.compile(r"client|customer|case-stud|casestud|case_stud|temoignage|t%C3%A9moignage|testimonial|success-stor|"
-                      r"portfolio|our-work|realisations?\b|r%C3%A9alisations?|nos-realisations|clientele")
+                      r"portfolio|our-work|realisations?\b|r%C3%A9alisations?|nos-realisations|clientele", re.I)  # re.I: the path is lower-cased below, so the %C3%A9 forms never matched before 2026-11-10
 NOT_REL_PATH = re.compile(r"terms|reference|support|service|product|letter|lettre|news|nouvelle|blog|article|press|media|document|conditions|bill|/loi|career|emploi|job|event|evenement|contact|about|a-propos|partner|partenaire")
 # a lead whose own key has no mailbox yet borrows the confirmed mailbox found for the same organisation under another key
 # (same registrable website domain, held by ONE organisation only: shared government domains never lend)

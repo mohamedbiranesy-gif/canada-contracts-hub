@@ -12,9 +12,10 @@ if os.path.exists("coord/results/verification_log.csv"):
     for r in csv.DictReader(open("coord/results/verification_log.csv", encoding="utf-8")):
         outcome[(r["buyer_key"], r["value"].lower(), r["page_url"])] = r["outcome"]
 leads = {}
-if os.path.exists("data/incoming/claude/claude_buyer_leads.csv"):
-    for r in csv.DictReader(open("data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8")):
-        leads[r["buyer_key"]] = r
+for _lp in ("data/incoming/claude/claude_buyer_leads.csv", "data/incoming/claude/claude_buyer_leads_cc.csv"):  # the second file: cloud row factory (tools/cc_clients.py)
+    if os.path.exists(_lp):
+        for r in csv.DictReader(open(_lp, encoding="utf-8", errors="replace")):
+            leads.setdefault(r["buyer_key"], r)
 best = {}
 for path in glob.glob("data/incoming/*/*buyer_ap_results*.csv"):
     for r in csv.DictReader(open(path, encoding="utf-8-sig")):

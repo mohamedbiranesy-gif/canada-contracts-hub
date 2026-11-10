@@ -1,0 +1,223 @@
+name: row-factory
+# New delivered rows, produced entirely in the cloud (owner 2026-11-09 19:18 EST: "the 63,000 rows have not moved … 200,000"; his Mac is off).
+#   index : Common Crawl's URL index -> every client / case-study / portfolio page of every .ca host        (tools/cc_clients.py index)
+#   cycle : read those pages from the archive -> new buyers named by Canada-located vendors (address proof kept)  (cc_clients.py extract / merge)
+#           then read each new buyer's own site for its role mailbox                                         (tools/lead_crawl.py)
+#           then hand the rows to the referee (verify-and-merge re-fetches every evidence page) — the next rank build delivers them.
+# Nothing here uses AI, a search engine or the owner's computer. Sites are read politely (robots.txt, 1 request / second / site).
+on:
+  schedule:
+    - cron: "17 1,4,7,10,13,16,19,22 * * *"   # a cycle every 3 hours until the index is exhausted
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "index (scan the newest Common Crawl index) | cycle (extract pages, then crawl the new buyers' sites)"
+        default: "cycle"
+      shards:
+        description: "parallel runners per step (1-10)"
+        default: "8"
+      minutes:
+        description: "minutes per step and runner"
+        default: "150"
+      crawl:
+        description: "Common Crawl id for the index stage (auto = newest with a published index)"
+        default: "auto"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: row-factory-${{ inputs.stage || 'cycle' }}
+  cancel-in-progress: false
+env:
+  STAGE: ${{ inputs.stage || 'cycle' }}
+  SHARDS: ${{ inputs.shards || '8' }}
+  MINUTES: ${{ inputs.minutes || '150' }}
+  CRAWL: ${{ inputs.crawl || 'auto' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      has_pages: ${{ steps.m.outputs.has_pages }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - id: m
+        run: |
+          python3 -c "import os; n=max(1,min(10,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+          if [ -s data/incoming/claude/claude_cc_rel_pages.csv.gz ]; then echo "has_pages=yes" >> "$GITHUB_OUTPUT"; else echo "has_pages=no" >> "$GITHUB_OUTPUT"; fi
+
+  index:
+    needs: plan
+    if: ${{ (inputs.stage || 'cycle') == 'index' || needs.plan.outputs.has_pages == 'no' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix: { k: [0, 1, 2, 3] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: pip install -q duckdb
+      - name: Scan the Common Crawl URL index for .ca client pages
+        run: python3 tools/cc_clients.py index --shard ${{ matrix.k }}/4 --crawl "$CRAWL"
+      - uses: actions/upload-artifact@v4
+        with: { name: "rf-index-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_index:
+    needs: index
+    if: ${{ always() && needs.index.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "rf-index-*", path: shards, merge-multiple: true }
+      - name: Union the index shards and commit
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ls -la shards || true
+          git config user.name "row-factory"; git config user.email "row-factory@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/cc_clients.py merge-index shards | tee -a "$GITHUB_STEP_SUMMARY"
+            git add data/incoming/claude/claude_cc_rel_pages.csv.gz
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "row-factory: Common Crawl index of .ca client pages [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          # the pages exist now: start the first cycle straight away (the schedule continues every 3 hours)
+          if [ "$STAGE" = "index" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/row-factory.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" || true; fi
+
+  extract:
+    needs: [plan, merge_index]
+    if: ${{ always() && (inputs.stage || 'cycle') == 'cycle' && (needs.plan.outputs.has_pages == 'yes' || needs.merge_index.result == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Read the client pages from the archive (address proof + client links)
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/cc_clients.py extract --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 10
+      - uses: actions/upload-artifact@v4
+        with: { name: "rf-extract-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_extract:
+    needs: extract
+    if: ${{ always() && needs.extract.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "rf-extract-*", path: shards, merge-multiple: true }
+      - name: Union the leads with main and commit
+        run: |
+          ls -la shards | head -40 || true
+          git config user.name "row-factory"; git config user.email "row-factory@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/cc_clients.py merge shards | tee /tmp/merge.txt
+            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_cc_extract_done.tsv claude_cc_leads_noaddr.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "row-factory: new buyers from .ca vendors' client pages ($(tail -1 /tmp/merge.txt | cut -c1-120)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/merge.txt >> "$GITHUB_STEP_SUMMARY"
+
+  crawl:
+    needs: [plan, merge_extract]
+    if: ${{ always() && (inputs.stage || 'cycle') == 'cycle' && needs.merge_extract.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: sudo apt-get install -y -q poppler-utils >/dev/null 2>&1 || true
+      - name: Read each new buyer's own site for its role mailbox
+        run: |
+          [ -s data/incoming/claude/claude_buyer_leads_cc.csv ] || { echo "no leads yet"; mkdir -p out; exit 0; }
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/lead_crawl.py --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --max-pages 15
+      - uses: actions/upload-artifact@v4
+        with: { name: "rf-crawl-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_crawl:
+    needs: crawl
+    if: ${{ always() && needs.crawl.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "rf-crawl-*", path: shards, merge-multiple: true }
+      - name: Append the mailbox rows, commit, and call the referee
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ls -la shards | head -40 || true
+          git config user.name "row-factory"; git config user.email "row-factory@users.noreply.github.com"
+          OUT=data/incoming/claude/claude_buyer_ap_results_cccrawl01.csv
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 - <<'EOF' | tee /tmp/crawl.txt
+          import csv, glob, os
+          csv.field_size_limit(1 << 30)
+          OUT = "data/incoming/claude/claude_buyer_ap_results_cccrawl01.csv"
+          DONE = "data/incoming/claude/claude_lead_crawl_done.tsv"
+          cols, have, rows = None, set(), []
+          if os.path.exists(OUT):
+              with open(OUT, encoding="utf-8", newline="") as f:
+                  rd = csv.DictReader(f); cols = rd.fieldnames
+                  for r in rd:
+                      have.add((r["buyer_key"], (r.get("ap_email") or "").lower(), r.get("evidence_url") or ""))
+          new = 0
+          for p in sorted(glob.glob("shards/lead_rows_*.csv")):
+              with open(p, encoding="utf-8", newline="") as f:
+                  rd = csv.DictReader(f); cols = cols or rd.fieldnames
+                  for r in rd:
+                      k = (r.get("buyer_key"), (r.get("ap_email") or "").lower(), r.get("evidence_url") or "")
+                      if r.get("buyer_key") and r.get("buyer_key") != "buyer_key" and k not in have:
+                          have.add(k); rows.append(r); new += 1
+          if rows:
+              first = not os.path.exists(OUT)
+              with open(OUT, "a", encoding="utf-8", newline="") as f:
+                  w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
+                  if first:
+                      w.writeheader()
+                  w.writerows(rows)
+          seen = {}
+          for p in [DONE] + sorted(glob.glob("shards/lead_done_*.tsv")):
+              if os.path.exists(p):
+                  for l in open(p, encoding="utf-8"):
+                      q = l.rstrip("\n").split("\t")
+                      if q and q[0]:
+                          seen[q[0]] = l.rstrip("\n")
+          with open(DONE, "w", encoding="utf-8") as f:
+              for k in sorted(seen):
+                  f.write(seen[k] + "\n")
+          res = {}
+          for l in seen.values():
+              q = l.split("\t"); res[q[2] if len(q) > 2 else "?"] = res.get(q[2] if len(q) > 2 else "?", 0) + 1
+          print("lead sites read so far: %d (%s); mailbox rows added this run: %d; buyers with a mailbox row: %d" % (len(seen), ", ".join("%s %d" % kv for kv in sorted(res.items(), key=lambda kv: -kv[1])[:5]), new, len({k[0] for k in have})))
+          EOF
+            for f in "$OUT" data/incoming/claude/claude_lead_crawl_done.tsv; do [ -e "$f" ] && git add "$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "[claude] row-factory: role mailboxes of new lead buyers ($(tail -1 /tmp/crawl.txt | cut -c1-110))"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/crawl.txt >> "$GITHUB_STEP_SUMMARY"
+          # pushes made with the workflow token do not start other workflows: call the referee, which re-fetches every evidence page
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true

@@ -32,12 +32,12 @@ for r in sorted(rows, key=lambda r: (0 if not r["vendor_emails"] else 1, 0 if no
     h = host(r["vendor_website"]) if r["vendor_website"] else ""
     if h and "." in h and not r["vendor"].startswith("inferred") and registrable(h) not in seen:
         seen.add(registrable(h)); out.append(("vd:" + registrable(h), r["vendor"], "https://" + h, "vendor"))
-lf = ROOT + "/data/incoming/claude/claude_buyer_leads.csv"
-if os.path.exists(lf):
-    for r in csv.DictReader(open(lf, encoding="utf-8", errors="replace")):
-        h = host(r.get("website") or "") if r.get("website") else ""
-        if h and "." in h and registrable(h) not in seen:
-            seen.add(registrable(h)); out.append((r["buyer_key"], r["buyer_name"], "https://" + h, "buyer"))
+for lf in (ROOT + "/data/incoming/claude/claude_buyer_leads.csv", ROOT + "/data/incoming/claude/claude_buyer_leads_cc.csv"):  # the second file: cloud row factory
+    if os.path.exists(lf):
+        for r in csv.DictReader(open(lf, encoding="utf-8", errors="replace")):
+            h = host(r.get("website") or "") if r.get("website") else ""
+            if h and "." in h and registrable(h) not in seen:
+                seen.add(registrable(h)); out.append((r["buyer_key"], r["buyer_name"], "https://" + h, "buyer"))
 with gzip.open(a.out, "wt", newline="", encoding="utf-8") as f:
     w = csv.writer(f); w.writerow(["key", "name", "website", "kind"]); w.writerows(out)
 print(a.out, len(out), "new domains (%d done before)" % len(done))
