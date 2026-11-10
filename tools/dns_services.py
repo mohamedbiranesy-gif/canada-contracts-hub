@@ -165,14 +165,14 @@ def queue(k, n, limit=0):
                     done.add(l[i + 6:l.find('"', i + 6)])
     seen, tasks = set(), []
 
-    def add(host, pri):
+    def add(host, pri, light=False):
         if not host or "." not in host:
             return
         d = C.registrable(host)
         if d in seen or d in done or CS.PLATFORM.search(d) or not re.fullmatch(r"[a-z0-9.-]+", d) or int(hashlib.sha1(d.encode()).hexdigest(), 16) % n != k:
             return
         seen.add(d)
-        tasks.append((pri, d))
+        tasks.append((pri, d, light))
     import ranked_io
     for r in ranked_io.rows():
         add(CS.host_of(r.get("buyer_website")), 0)
@@ -180,15 +180,21 @@ def queue(k, n, limit=0):
         if os.path.exists(p):
             for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
                 add(CS.host_of(r.get("website")), 1)
-    for path, pri in ((CS.GRAPH_IN, 2), (CS.OSM_SITES, 2), (CS.GRAPH_SHOP, 2), (CS.UNIVERSE, 3), (CS.GRAPH_CA, 4)):
+    for path, pri in ((CS.GRAPH_IN, 2), (CS.OSM_SITES, 2), (CS.UNIVERSE, 3), (CS.GRAPH_CA, 4)):
         if os.path.exists(path):
             with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
                 for r in csv.DictReader(fh):
                     add(r["dom"], pri)
+    # store candidates (1.3 M domains that link to Shopify, most of them abroad): only the question that matters for them — is the domain on
+    # Shopify's storefront addresses? (A record + the www alias: 2 queries, a 40-byte record). Asked before the .ca lists of pri 3-4.
+    if os.path.exists(CS.GRAPH_SHOP):
+        with gzip.open(CS.GRAPH_SHOP, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                add(r["dom"], 2, light=True)
     tasks.sort()
     if limit:
         tasks = tasks[:limit]
-    return [d for _, d in tasks], len(done)
+    return [(d, light) for _, d, light in tasks], len(done)
 
 
 # First cloud test (2026-11-10, 3,000 domains through the public resolvers at 500 queries/s): 45 % of the lookups timed out — public resolvers
@@ -264,8 +270,29 @@ def lookup(a):
     lock, stats = threading.Lock(), collections.Counter()
     f = open("out/dns_%d.jsonl" % k, "a", encoding="utf-8")
 
-    def one(d):
+    def one(task):
+        d, light = task
         if time.time() > deadline:
+            return
+        if light:  # a store candidate: only its address record and its www alias
+            ip, st = ask(d, "A")
+            o = {"d": d, "t": TODAY, "st": st, "l": 1}
+            if ip:
+                if SHOPIFY_A.match(ip[0]):
+                    o["shop"], o["a"] = 1, ip[0]
+            if st != "nx" and "shop" not in o:
+                cn = ask("www." + d, "CNAME")[0]
+                if cn and cn[0].endswith("myshopify.com"):
+                    o["shop"], o["cn"] = 1, cn[0]
+            with lock:
+                stats["domains"] += 1
+                stats["store_candidates"] += 1
+                stats["shopify_address"] += "shop" in o
+                if st != "fail" or local:
+                    f.write(json.dumps(o, ensure_ascii=False, separators=(",", ": ")) + "\n")
+                if stats["domains"] % 20000 == 0:
+                    f.flush()
+                    print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
             return
         ns, st = ask(d, "NS")
         o = {"d": d, "t": TODAY, "st": st}
