@@ -173,12 +173,17 @@ def leads_mode(a, k, n):
                         known.add(r["buyer_key"])
         except Exception:
             pass
+    sites = {}  # websites found later for leads that had none (tools/lead_sites.py: Wikidata official website, exact name match)
+    lw = os.path.join(INC, "claude_lead_websites.csv")
+    if os.path.exists(lw):
+        for r in csv.DictReader(open(lw, encoding="utf-8")):
+            sites[r["buyer_key"]] = r["website"]
     tasks, hosts, skipped = [], set(), 0
     for fi, path in enumerate(x.strip() for x in a.leads.split(",") if x.strip()):
         if not os.path.exists(path):
             continue
         for r in csv.DictReader(open(path, encoding="utf-8", errors="replace")):
-            h = host_of(r.get("website"))
+            h = host_of(r.get("website") or sites.get(r["buyer_key"]))
             if not h or "." not in h or r["buyer_key"] in done or h in hosts or not shard_ok(h, k, n):
                 continue
             if r["buyer_key"] in known:

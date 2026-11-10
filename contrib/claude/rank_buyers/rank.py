@@ -664,7 +664,14 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_buyer_leads_cc.csv"):
         if r.get("buyer_key") and r["buyer_key"] not in leads:
             leads[r["buyer_key"]] = r
             _n_cc += 1
-print("leads: %d (%d from the cloud row factory)" % (len(leads), _n_cc))
+# websites found later for leads that had none (tools/lead_sites.py: Wikidata official website of an item whose label equals the buyer's name)
+_n_lw = 0
+if os.path.exists(ROOT + "/data/incoming/claude/claude_lead_websites.csv"):
+    for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_lead_websites.csv", encoding="utf-8", errors="replace")):
+        _L = leads.get(r.get("buyer_key"))
+        if _L is not None and not (_L.get("website") or "").strip() and (r.get("website") or "").startswith("http"):
+            _L["website"] = r["website"]; _n_lw += 1
+print("leads: %d (%d from the cloud row factory; %d websites from the lead site finder)" % (len(leads), _n_cc, _n_lw))
 LDET = {}  # owner 2026-11-03 ("every field"): the lead's own record details (amount, currency, identifiers, dates, vendor address, title)
 for _ldp in ("claude_lead_details.jsonl.gz", "claude_lead_details_cc.jsonl.gz"):
     if os.path.exists(ROOT + "/data/incoming/claude/" + _ldp):

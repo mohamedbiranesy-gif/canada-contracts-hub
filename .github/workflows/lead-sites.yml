@@ -1,0 +1,59 @@
+name: lead-sites
+# Official websites for lead buyers that have none (23,851 on 2026-11-10): Wikidata's "official website" claim of an item whose label equals
+# the buyer's name, in the country the lead's source implies (tools/lead_sites.py). No AI, no search engine, nothing built from a name.
+# The row factory's mailbox crawl reads the websites found here in its next cycle; rank.py takes them for leads that had no website.
+on:
+  schedule:
+    - cron: "53 0,6,12,18 * * *"
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "minutes per runner"
+        default: "150"
+permissions:
+  contents: write
+concurrency:
+  group: lead-sites
+  cancel-in-progress: false
+env:
+  MINUTES: ${{ inputs.minutes || '150' }}
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix: { k: [0, 1] }   # one request per second per runner: two runners stay within 2 requests / second for the one host
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Look the names up (exact label match, official website, country of the lead's source)
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/lead_sites.py --shard ${{ matrix.k }}/2 --minutes $M
+      - uses: actions/upload-artifact@v4
+        with: { name: "ls-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge:
+    needs: find
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "ls-*", path: shards, merge-multiple: true }
+      - name: Union with main and commit
+        run: |
+          mkdir -p shards; ls -la shards | head
+          git config user.name "lead-sites"; git config user.email "lead-sites@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/lead_sites.py --merge shards | tee /tmp/ls.txt
+            for f in claude_lead_websites.csv claude_lead_sites_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "lead-sites: $(tail -1 /tmp/ls.txt | cut -c1-110) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/ls.txt >> "$GITHUB_STEP_SUMMARY"
