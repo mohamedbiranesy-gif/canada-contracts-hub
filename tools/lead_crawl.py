@@ -171,13 +171,19 @@ def leads_mode(a, k, n):
                 done.add(q[0])
     # 2026-11-10: the leads found from the owner's Mac (claude_buyer_leads.csv) can be read here too: 33,600 of them have a website and no
     # mailbox row yet, and the Mac's own crawler is off. A lead that already has a mailbox row in any lane's results file is not read again.
-    known = set()
+    # … and a lead whose website domain already carries a mailbox row under another key (the same organisation delivered through a contract, a
+    # registry or another lead — e.g. a delivered row whose own home page credits a Canadian vendor, tools/credit_scan.py) is not read either:
+    # rank.py lends that organisation's confirmed mailbox to the lead (same registrable domain, one organisation)
+    known, known_dom = set(), set()
     for p in glob.glob(os.path.join(ROOT, "data/incoming/*/*buyer_ap_results*.csv")):
         try:
             with open(p, encoding="utf-8", errors="replace", newline="") as f:
                 for r in csv.DictReader(f):
                     if r.get("buyer_key") and (r.get("ap_email") or "").strip():
                         known.add(r["buyer_key"])
+                        eh = host_of(r.get("evidence_url"))
+                        if eh and "." in eh:
+                            known_dom.add(C.registrable(eh))
         except Exception:
             pass
     sites = {}  # websites found later for leads that had none (tools/lead_sites.py: Wikidata official website, exact name match)
@@ -193,7 +199,7 @@ def leads_mode(a, k, n):
             h = host_of(r.get("website") or sites.get(r["buyer_key"]))
             if not h or "." not in h or r["buyer_key"] in done or h in hosts or not shard_ok(h, k, n):
                 continue
-            if r["buyer_key"] in known:
+            if r["buyer_key"] in known or C.registrable(h) in known_dom:
                 skipped += 1
                 continue
             hosts.add(h)
@@ -204,7 +210,7 @@ def leads_mode(a, k, n):
             tasks.append({"task_id": "CC-" + r["buyer_key"].split(":")[-1][:10], "buyer_key": r["buyer_key"], "buyer_name": r.get("buyer_name") or h, "known_website": "https://%s/" % h,
                           "_n": nv, "_f": fi})
     tasks.sort(key=lambda t: (t["_f"], -t["_n"]))  # the first leads file first; within a file, buyers named by several Canadian vendors first
-    print("leads with a mailbox row already (not read again): %d" % skipped, flush=True)
+    print("leads with a mailbox row already, under their own key or their website domain (not read again): %d" % skipped, flush=True)
     if a.limit:
         tasks = tasks[:a.limit]
     print("shard %d/%d: %d new lead sites to read (%d done before)" % (k, n, len(tasks), len(done)), flush=True)
