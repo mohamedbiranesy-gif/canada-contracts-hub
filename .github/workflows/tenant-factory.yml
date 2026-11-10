@@ -39,8 +39,8 @@ concurrency:
   cancel-in-progress: false
 env:
   STAGE: ${{ inputs.stage || 'cycle' }}
-  SHARDS: ${{ inputs.shards || '8' }}
-  MINUTES: ${{ inputs.minutes || '150' }}
+  SHARDS: ${{ inputs.shards || '6' }}
+  MINUTES: ${{ inputs.minutes || '100' }}
   VENDORS: ${{ inputs.vendors || '' }}
   CRAWL: ${{ inputs.crawl || 'auto' }}
 jobs:

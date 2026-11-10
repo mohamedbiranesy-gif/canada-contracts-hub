@@ -22,7 +22,7 @@ on:
         default: "cycle"
       shards:
         description: "parallel runners for the scan (1-10)"
-        default: "8"
+        default: "6"
       minutes:
         description: "minutes per scan runner"
         default: "150"
@@ -40,8 +40,8 @@ concurrency:
   cancel-in-progress: false
 env:
   STAGE: ${{ inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle' }}
-  SHARDS: ${{ inputs.shards || '8' }}
-  MINUTES: ${{ inputs.minutes || '150' }}
+  SHARDS: ${{ inputs.shards || '6' }}
+  MINUTES: ${{ inputs.minutes || '100' }}
   LIMIT: ${{ inputs.limit || '0' }}
   CRAWL: ${{ inputs.crawl || 'auto' }}
 jobs:

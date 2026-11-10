@@ -22,7 +22,7 @@ concurrency:
   group: site-facts
   cancel-in-progress: false
 env:
-  SHARDS: ${{ inputs.shards || '8' }}
+  SHARDS: ${{ inputs.shards || '4' }}
   MINUTES: ${{ inputs.minutes || '120' }}
 jobs:
   plan:
