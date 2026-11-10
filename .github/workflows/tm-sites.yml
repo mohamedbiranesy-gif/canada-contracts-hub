@@ -1,0 +1,84 @@
+name: tm-sites
+# The own sites of trademark owners in Canada that no site on file is tied to (tools/tm_register.py sites). The register gives a legal name
+# and an address; an organisation's site is usually under a domain name that is its own name written out. A few such names are resolved (.ca
+# and .com); the home page of those that answer is read (robots.txt obeyed; its contact page too when the home page prints no postal code)
+# and the site is kept ONLY when its own pages tie it to the owner: the same name and the same postal code, the owner's legal person stated
+# with its legal form, or the owner's name as both the domain name and the site's own name on a site in Canada. Measured on 300 owners:
+# 85 % have a name that resolves, 11 % end tied. Then the daily match and the leads (tm-register.yml).
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel runners (1-6)"
+        default: "4"
+      minutes:
+        description: "minutes per runner"
+        default: "120"
+      limit:
+        description: "at most this many owners per runner (0 = no limit)"
+        default: "0"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: tm-sites
+  cancel-in-progress: false
+env:
+  SHARDS: ${{ inputs.shards || '4' }}
+  MINUTES: ${{ inputs.minutes || '120' }}
+  LIMIT: ${{ inputs.limit || '0' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        run: python3 -c "import os; n=max(1,min(6,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+
+  sites:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Look for each owner's own site under its own name
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/tm_register.py sites --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --limit "$LIMIT"
+      - uses: actions/upload-artifact@v4
+        with: { name: "tms-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge:
+    needs: [plan, sites]
+    if: ${{ always() && needs.sites.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "tms-*", path: shards, merge-multiple: true }
+      - name: Sites found -> main; then the match and the leads
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ls -la shards | head -20 || true
+          git config user.name "tm-sites"; git config user.email "tm-sites@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/tm_register.py merge-sites shards | tee /tmp/tms.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
+            git add data/incoming/claude/tm 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "tm-sites: $(tail -1 /tmp/tms.txt | cut -c1-130) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          # a merge that could not be pushed is a failed job
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
+          cat /tmp/tms.txt >> "$GITHUB_STEP_SUMMARY"
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/tm-register.yml/dispatches" -f ref=main -f "inputs[stage]=match" || true

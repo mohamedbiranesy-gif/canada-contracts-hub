@@ -20,6 +20,9 @@ comes from that site, like every other lead's. Nothing is inferred from a mark o
   match                   owners in Canada x the sites on file (scan detector 5 name facts, the lead readers' site facts, the ranked table)
                           -> data/incoming/claude/tm/tm_matches.csv
   leads --stamp S         matches -> lead shards (tools/lead_store.py, engine tm)
+  sites --shard K/N       owners in Canada without a site on file: a few domain names made of the owner's own name (and marks) are resolved,
+                          the home page of those that answer is read, and the site is kept only when its own pages tie it to the owner
+                          -> out/tm_sites_<K>.csv, out/tm_sites_done_<K>.tsv; `merge-sites DIR` -> tm_sites_found.csv, tm_sites_done.tsv.gz
 The Office's server sends its certificate without the intermediate that signed it; tools/certs/ holds that intermediate (public, from the
 address the certificate itself names) and the download verifies the chain with it. TLS verification is never switched off.
 """
@@ -316,13 +319,225 @@ def match(a):
             out[dom] = (best[2], best[3], where, names)
             why[best[3].split(" (")[0]] += 1
     os.makedirs(DIR, exist_ok=True)
+    n_found = 0
     with open(MATCHES, "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
         w.writerow(["site", "owner_key", "owner_name", "postal_code", "tied_by", "site_facts_from", "site_states"])
         for dom in sorted(out):
             o, how, where, names = out[dom]
             w.writerow([dom, o["owner_key"], o["owner_name"], o["postal_code"], how, where, "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:200]])
+        if os.path.exists(FOUND):  # the owners' own sites found under their name (tm_register.py sites): tied when they were read, by the same tests
+            for r in csv.DictReader(open(FOUND, encoding="utf-8", newline="")):
+                if r["site"] not in out:
+                    w.writerow([r["site"], r["owner_key"], r["owner_name"], r["postal_code"], r["tied_by"], r["site_facts_from"], r["site_states"]])
+                    n_found += 1
+    if n_found:
+        print("plus %d owner sites found under their own name" % n_found)
     print("sites on file that state a Canadian postal code: %d; tied to a trademark owner: %d %s" % (n_sites, len(out), dict(why)))
+
+
+# ------------------------------------------------------------------------------------------------------------------- sites of owners not on file
+FOUND, SDONE = os.path.join(DIR, "tm_sites_found.csv"), os.path.join(DIR, "tm_sites_done.tsv.gz")
+FOUND_COLS = ["site", "owner_key", "owner_name", "postal_code", "tied_by", "site_facts_from", "site_states", "read"]
+_STOPW = {"and", "et", "of", "de", "du", "des", "the", "la", "le", "les", "for", "pour"}
+_CONTACT = re.compile(r"contact|nous-joindre|joindre|coordonn|about|a-propos|propos", re.I)
+
+
+def labels_of(name, marks):
+    """[(label, kind)] — the few domain labels an organisation would plausibly hold: its own name written in one word, with and without its
+    everyday words (kind "name"), its first two words ("short"), then its marks ("mark"). A label is only where to LOOK: a site counts when
+    its own pages state the owner's name (and, for a "short" or "mark" label, its postal code)."""
+    toks = nkey(name).split()
+    out = []
+
+    def add(x, kind):
+        x = re.sub(r"[^a-z0-9-]", "", x).strip("-")
+        if 4 <= len(x) <= 32 and x not in [o[0] for o in out]:
+            out.append((x, kind))
+    core = [t for t in toks if t not in _STOPW]
+    if core and re.fullmatch(r"\d{5,}", core[0]):
+        core = []  # a numbered company is not found under its number: its marks only
+    add("".join(core), "name")
+    spec = [t for t in core if t not in GENERIC]
+    if len(spec) >= 2 or (len(spec) == 1 and len(spec[0]) >= 8):
+        add("".join(spec), "name")
+    if 2 <= len(core) <= 3:
+        add("-".join(core), "name")
+    if len(core) >= 3:
+        add("".join(core[:2]), "short")
+    for m in marks[:3]:
+        mk = nkey(m).split()
+        if 1 <= len(mk) <= 4:
+            add("".join(t for t in mk if t not in _STOPW), "mark")
+    return out[:5]
+
+
+def sites(a):
+    """look for the own site of owners in Canada that no site on file is tied to: resolve the few labels of labels_of() on .ca and .com, read
+    the home page of those that answer (robots.txt obeyed, one more page when the home page links its contact page and prints no postal
+    code), keep the site only when same_name() ties it — the same tests as for the sites on file. -> out/tm_sites_<k>.csv, out/tm_sites_done_<k>.tsv"""
+    import socket
+    import threading
+    from concurrent.futures import ThreadPoolExecutor
+    import ap_crawler as C
+    import cc_clients as CCL
+    import credit_scan as CS
+    import lead_crawl as LC
+    import tech_relationships as T
+    CS._fetch = CS.fast_fetch
+    k, n = (int(x) for x in (a.shard.split("/") + ["1"])[:2])
+    os.makedirs("out", exist_ok=True)
+    tied = {r["owner_key"] for r in csv.DictReader(open(MATCHES, encoding="utf-8", newline=""))} if os.path.exists(MATCHES) else set()
+    done = set()
+    if os.path.exists(SDONE):
+        with gzip.open(SDONE, "rt", encoding="utf-8") as f:
+            done = {l.split("\t", 1)[0] for l in f}
+    by_name = collections.Counter()
+    owners = []
+    with gzip.open(OWN_CA, "rt", encoding="utf-8", newline="") as f:
+        for r in csv.DictReader(f):
+            if not is_org(r["owner_name"]):
+                continue
+            by_name[nkey(r["owner_name"])] += 1
+            if r["postal_code"] and r["owner_key"] not in tied and r["owner_key"] not in done and int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n == k:
+                owners.append(r)
+    owners.sort(key=lambda r: (-int(r["marks_in_force"] or 0), r["owner_key"]))
+    if a.limit:
+        owners = owners[:a.limit]
+    print("shard %d/%d: %d owners in Canada without a site on file (%d looked for before)" % (k, n, len(owners), len(done)), flush=True)
+    deadline = time.time() + a.minutes * 60
+    lock, stats, notes = threading.Lock(), collections.Counter(), []
+    ff = open("out/tm_sites_%d.csv" % k, "a", encoding="utf-8", newline="")
+    w = csv.DictWriter(ff, fieldnames=FOUND_COLS)
+    w.writeheader()
+    fd = open("out/tm_sites_done_%d.tsv" % k, "a", encoding="utf-8")
+
+    def resolves(h):
+        try:
+            socket.getaddrinfo(h, 443, type=socket.SOCK_STREAM)
+            return True
+        except Exception:
+            return False
+
+    def facts(raw, final):
+        fhost = (CS.host_of(final) or "").lower()
+        title, meta = T.page_meta(raw)
+        name = LC.site_name_for(fhost, meta.get("og:site_name"), title, T)
+        text = CCL.visible(raw)
+        m = CCL.ADDR.search(text)
+        nf = CS.name_facts(raw, name, text[max(0, m.start() - 60):m.end()] if m else "").split("|")
+        return {"site name": nf[0], "copyright line": nf[1], "legalName": nf[2]}, nf[3]
+
+    def one(o):
+        if time.time() > deadline:
+            return
+        ok_ = nkey(o["owner_name"])
+        marks = [x.split(";")[2] for x in (o["examples"] or "").split(" | ") if x.count(";") == 4 and x.split(";")[2]]
+        kind_of = {lab + tld: kind for lab, kind in labels_of(o["owner_name"], marks) for tld in (".ca", ".com")}
+        cands = list(kind_of)
+        live = [h for h in cands if resolves(h)][:4]
+        hit, n_read = None, 0
+        for h in live:
+            cache = {}
+            try:
+                res, final, raw = CS.get_page("https://%s/" % h, True, cache)
+            except Exception:
+                continue
+            n_read += 1
+            if res != "ok":
+                continue
+            fdom = C.registrable((CS.host_of(final) or h).lower())
+            names, pc = facts(raw, final)
+            how = same_name(ok_, names, pc) if pc == o["postal_code"] else ""
+            where = final
+            if not how and not pc:  # the home page prints no postal code: its contact page, when the home page links one
+                link = next((u for u, lab, *_ in T.anchors_of(raw, final) if _CONTACT.search(u.rsplit("/", 2)[-1] + " " + (lab or "")) and C.registrable((CS.host_of(u) or "").lower()) == fdom), "")
+                if link:
+                    time.sleep(0.6)
+                    try:
+                        r2, f2, raw2 = CS.get_page(link.split("#")[0], True, cache)
+                    except Exception:
+                        r2 = ""
+                    n_read += 1
+                    if r2 == "ok":
+                        n2, pc2 = facts(raw2, f2)
+                        if pc2 == o["postal_code"]:
+                            how, where, pc = same_name(ok_, names, pc2), f2, pc2
+            if not how:  # no postal code in common: the site states the owner's legal person with its legal form (one owner of that name)
+                for kind in ("legalName", "copyright line"):
+                    raw_n = names.get(kind) or ""
+                    if (raw_n and nkey(raw_n) == ok_ and by_name[ok_] == 1 and len(ok_.split()) >= 2 and any(t not in GENERIC and len(t) >= 4 for t in ok_.split())
+                            and (fdom.endswith(".ca") or pc) and forms(raw_n) and "foreign" not in forms(raw_n) and forms(raw_n) == forms(o["owner_name"])):
+                        how = "the same legal name, which the site itself states with its legal form (%s) and one owner on the register bears; no postal code in common" % kind
+                        break
+            if (not how and kind_of.get(h) == "name" and by_name[ok_] == 1 and (fdom.endswith(".ca") or pc) and same_name(ok_, names, "M5V2T6").startswith("the same name")
+                    and len(ok_.split()) >= 2 and fdom.split(".")[0].replace("-", "") in {lab.replace("-", "") for lab, kd in labels_of(o["owner_name"], marks) if kd == "name"}):
+                # three things agree: the domain name is the owner's own name written out, the site names itself by that name, and the site is in
+                # Canada (a .ca name, or a Canadian postal code on its pages — another one than the register's: an office moved, a second address).
+                # One owner of that name on the register.
+                how = "the same name (%s), on a domain name that is the owner's name written out; a site in Canada (%s); one owner of that name on the register" % (
+                    "site name" if nkey(names.get("site name") or "") == ok_ else "its own statement", ("it prints the postal code %s, the register has %s" % (pc, o["postal_code"])) if pc else "a .ca name, no postal code on the pages read")
+            if not how:
+                # what stood between this site and a tie (counted, for the rule's next look)
+                nm_ok = bool(same_name(ok_, names, "M5V2T6"))  # the name test alone (an urban code)
+                with lock:
+                    stats["read, not tied: " + ("name agrees, " + ("another postal code" if pc else "no postal code on its pages") if nm_ok else "its name is another")] += 1
+                    if nm_ok and len(notes) < 60:
+                        notes.append((o["owner_name"], o["postal_code"], fdom, pc, "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:90]))
+            if how:
+                hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["postal_code"], "tied_by": how,
+                       "site_facts_from": "its own pages (%s), found under a domain name made of the owner's name or mark" % where,
+                       "site_states": "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:200], "read": TODAY}
+                break
+        with lock:
+            stats["owners"] += 1
+            stats["with_a_name_that_resolves"] += bool(live)
+            stats["pages_read"] += n_read
+            stats["site_found"] += bool(hit)
+            if hit:
+                w.writerow(hit)
+                stats[hit["tied_by"].split(" (")[0]] += 1
+            fd.write("%s\t%s\t%d\t%d\t%s\n" % (o["owner_key"], TODAY, len(cands), len(live), hit["site"] if hit else ""))
+            if stats["owners"] % 500 == 0:
+                ff.flush(); fd.flush()
+                print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
+
+    with ThreadPoolExecutor(a.workers) as ex:
+        list(ex.map(one, owners))
+    ff.close(); fd.close()
+    print("finished", dict(stats), flush=True)
+    for x in notes:
+        print("  name agrees, not tied: %-40s %s | %-28s %-7s | %s" % (x[0][:40], x[1], x[2], x[3], x[4]))
+
+
+def merge_sites(a):
+    """shard files -> tm_sites_found.csv (one line per site, the newest wins) and tm_sites_done.tsv.gz"""
+    found = {}
+    if os.path.exists(FOUND):
+        for r in csv.DictReader(open(FOUND, encoding="utf-8", newline="")):
+            found[r["site"]] = r
+    n0 = len(found)
+    for p in sorted(glob.glob(os.path.join(a.dir, "tm_sites_[0-9]*.csv"))):
+        for r in csv.DictReader(open(p, encoding="utf-8", newline="")):
+            if r.get("site") and r["site"] != "site":
+                found[r["site"]] = r
+    with open(FOUND, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=FOUND_COLS)
+        w.writeheader()
+        for k in sorted(found):
+            w.writerow({c: found[k].get(c, "") for c in FOUND_COLS})
+    lines = {}
+    if os.path.exists(SDONE):
+        with gzip.open(SDONE, "rt", encoding="utf-8") as f:
+            for l in f:
+                lines[l.split("\t", 1)[0]] = l.rstrip("\n")
+    for p in sorted(glob.glob(os.path.join(a.dir, "tm_sites_done_*.tsv"))):
+        for l in open(p, encoding="utf-8"):
+            if l.strip():
+                lines[l.split("\t", 1)[0]] = l.rstrip("\n")
+    with gzip.open(SDONE, "wt", encoding="utf-8") as f:
+        f.write("\n".join(lines[k] for k in sorted(lines)) + "\n")
+    print("owner sites found under their own name: %d (+%d this run); owners looked for so far: %d" % (len(found), len(found) - n0, len(lines)))
 
 
 # ------------------------------------------------------------------------------------------------------------------- leads
@@ -384,13 +599,18 @@ def leads(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["build", "match", "leads"])
+    ap.add_argument("cmd", choices=["build", "match", "leads", "sites", "merge-sites"])
+    ap.add_argument("dir", nargs="?", default="shards")
+    ap.add_argument("--shard", default="0/1")
+    ap.add_argument("--minutes", type=float, default=100)
+    ap.add_argument("--workers", type=int, default=40)
+    ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--work", default=os.path.join(os.environ.get("RUNNER_TEMP") or "/tmp", "tm_work"))
     ap.add_argument("--main", default="", help="build: a local copy of the application-main zip (tests)")
     ap.add_argument("--party", default="", help="build: a local copy of the interested-party zip (tests)")
     ap.add_argument("--stamp", default=time.strftime("%Y%m%dT%H%M%S", time.gmtime()))
     a = ap.parse_args()
-    {"build": build, "match": match, "leads": leads}[a.cmd](a)
+    {"build": build, "match": match, "leads": leads, "sites": sites, "merge-sites": merge_sites}[a.cmd](a)
 
 
 if __name__ == "__main__":
