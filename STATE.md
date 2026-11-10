@@ -97,6 +97,32 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
 
+## 2026-11-10 06:35Z — build 06:19Z: 70,567 rows; named-vendor rows 24,765 (+28 % in two hours), tier R 30,880, inferred 13,610; five more engines
+- **Build 42761927713 (06:19Z)**: rows 70,567. Confirmed-mailbox rows by relationship: **named Canada-located vendor 24,765** (was 19,314 at 04:44Z:
+  credit lines 4,724, DNS providers 1,194 …) · **registry contract (tier R) 30,880** · **inferred / weak 13,610** (was 48,986). Tier T 8,947.
+  `coord/GROWTH_VS_BASELINE.md` now shows these three lines under `rows`; `coord/LANES.md` shows every lane's funnel (rewritten at each build).
+- **Web graph, second read (run 42763465847)**: **1,323,818 domains link to shopify.com / myshopify.com**; 410,538 link to a vendor proven in
+  Canada (421,156 in-link sites on file); the "proven vendors" list had two false entries (cPanel: a Vancouver affiliate on its legal page;
+  a French theme author whose privacy page names its Laval host) → rule: an address introduced by "Hosting:" / "hébergé par" is the host's.
+- **Mailbox crawl measured** (`crawl-diag.yml`, 800 lead sites that gave nothing, read again): address on another domain 16 % · unreachable 15 % ·
+  no address at all 15 % · a name that is no role word 13 % · form only 7 % · Cloudflare-obfuscated 7 % · **would be found now 7 %** · refused 7 % ·
+  mailbox named after the organisation 6 % · text-obfuscated 6 %. So the find rate (28 % on listed-organisation leads) will not double: rows have
+  to come from more sites, not from a better reader. The 7 % are re-read by rule r2.
+- **Engines added since 05:35Z**: `mailbox-crawl.yml` (the crawl back to back in its own workflow — it was the last stage of the row factory and
+  waited two hours per cycle); `member-live.yml` (live chamber / association directories: first run +2,516 buyers); `bbb-accredited.yml` (53,088
+  accredited profiles; bbb.org refused the runner → read from the archive); store lane rebuilt (meta.json, one queue per runner, DNS light lookup);
+  multi-tenant platform discovery; `tools/lane_status.py`.
+- **Scale walls removed** (GitHub refuses files over 100 MB): ranked table committed in parts (`tools/ranked_io.py`; it was 70 MB), org mailboxes
+  in parts, results file rotates at 30 MB, tenant / lead-crawl / lead state in append-only shards (`tenant_state/`, `crawl_state/`, `lead_shards/`),
+  rank job timeout 45 → 240 minutes (the 06:19Z build needed 43), rank.py prints elapsed seconds per step.
+- **Bill-to addresses**: a telephone number or a copyright year in front of an address was taken for its street number — 4,100 of 38,341 stored
+  addresses are cut correctly now; tier-R and credit rows take the organisation's own name from the site facts of the same domain (16,416 tier-R
+  rows carried only the domain).
+- **Runner pool is the limit right now** (20 concurrent jobs): scan cycle 42761724176 (8 runners since 05:23Z), DNS run 42761831500 (6 runners,
+  public resolvers at 60 queries/s — the unbound version is queued as 42768807140), then mailbox-crawl, member-live, bbb, lists.
+- Waiting for: detector-4 scan results (`em=` rate → size of the registry candidate pool), first `mailbox-crawl` run, first store run with meta.json
+  (tenant-factory 08:47Z), BBB archive index.
+
 ## 2026-11-10 05:35Z — target is now 1,000,000 rows (owner 23:41 EST); build 04:44Z = 68,910 rows; three new pathways live (DNS, .ca registration, scan facts)
 - **Build 42755132469 (04:44Z): rows 68,910 (+5,269 vs baseline)**; pay on sight 874 / 1,152 / 36,280 routed; tiers D 9,902 · E 3,040 · I 48,968 · M 189 ·
   T 3,089; the first 71 credit rows delivered with the right text and the vendor's printed address.
