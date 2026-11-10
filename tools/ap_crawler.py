@@ -437,6 +437,8 @@ def crawl(task, max_pages, general=False):
     heap, seen, pages, found = [(-100, 0, start), (-90, 0, "https://%s/" % host0)], set(), 0, {}
     for i, path in enumerate(("contact", "contact-us", "nous-joindre", "suppliers", "fournisseurs")):  # common pages, often unlinked from home
         heap.append((-60 + i, 1, "https://%s/%s" % (host0, path)))
+    for i, path in enumerate(task.get("_extra_paths") or ()):  # pages a caller knows this kind of site has (a Shopify store's /policies/contact-information)
+        heap.append((-95 + i, 1, "https://%s/%s" % (host0, path.lstrip("/"))))
     root = "%s://%s/" % (urllib.parse.urlparse(start).scheme, urllib.parse.urlparse(start).netloc)
     if allowed(root):  # the sitemap reveals deep invoicing / supplier pages
         for i, u in enumerate(sitemap_urls(root)):

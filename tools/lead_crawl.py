@@ -279,7 +279,7 @@ def candidates_mode(a, k, n):
     if os.path.exists(TDONE):  # candidates that gave "nothing_found" before the front-office role rule (no "r2" mark) are read once more
         for l in open(TDONE, encoding="utf-8"):
             q = l.rstrip("\n").split("\t")
-            if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and "r2" not in q[6:]) \
+            if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and ("r2" not in q[6:] or (len(q) > 5 and q[5] == "shopify" and "p2" not in q[6:]))) \
                     and not (len(q) > 5 and q[2].startswith("out_of_scope") and q[5] in ("jane", "jobber") and "s2" not in q[6:]):
                 done.add(q[0])  # Jane / Jobber candidates refused as "out of scope" before their terms were read (one contracting entity for every country) are read once more
     tasks, hosts = [], set()
@@ -292,7 +292,10 @@ def candidates_mode(a, k, n):
                 continue
             hosts.add(h)
             tasks.append({"task_id": "TN-" + hashlib.sha1(r["cand_key"].encode()).hexdigest()[:10], "buyer_key": r["cand_key"], "buyer_name": r.get("name") or h,
-                          "known_website": "https://%s/" % h, "_c": r})
+                          "known_website": "https://%s/" % h, "_c": r,
+                          # every Shopify store has these generated pages; "contact information" prints the trade name, e-mail and address the merchant entered
+                          # (first candidate crawls: 54 % of stores gave no mailbox from the linked pages alone)
+                          "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy") if r["vendor_key"] == "shopify" else ()})
     tasks.sort(key=lambda t: (t["_c"]["vendor_key"] == "shopify", t["buyer_key"]))  # customer portals (organisation named by the portal) before stores
     if a.limit:
         tasks = tasks[:a.limit]
@@ -363,7 +366,7 @@ def candidates_mode(a, k, n):
                 w.writerows(rows)
                 fl.write(json.dumps(rec, ensure_ascii=False) + "\n")
                 ff.write(facts_line(key, t["known_website"], dict(st, name=name)))
-            fd.write("%s\t%s\t%s\t%d\t%d\t%s\tr2\ts2\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
+            fd.write("%s\t%s\t%s\t%d\t%d\t%s\tr2\ts2\tp2\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush(); fl.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
