@@ -359,6 +359,13 @@ def graph(a):
 
     targets = set(proven_elsewhere()) | {d for d, o in vendor_state().items() if o.get("status") in ("CA", "CA-loc")}
     targets = {d for d in targets if d and not PLATFORM.search(d)}
+    tech_t = set()
+    try:  # the customer-portal domains of the vetted Canada-HQ software vendors (<clinic>.janeapp.com …): a site that links to its portal is a customer
+        import cc_tenants as CT
+        tech_t = set(CT.portal_domains())
+    except Exception as e:
+        print("portal domains not loaded: %s" % e, flush=True)
+    targets |= tech_t
     rev = lambda d: ".".join(reversed(d.split(".")))
     with open(W("targets.txt"), "w") as f:
         f.write("\n".join(sorted(rev(d) for d in targets)) + "\n")
@@ -414,7 +421,7 @@ def graph(a):
         q = l.split()
         if len(q) == 2:
             indeg[q[1]] += 1
-    ok_t = {t for t, c in indeg.items() if c <= a.max_indegree}
+    ok_t = {t for t, c in indeg.items() if c <= a.max_indegree or tid.get(t) in tech_t}  # no cap for the vetted portals: their in-links ARE customers
     print("links into targets: %d; targets linked: %d; targets with more than %d linking domains (platform-like, left out): %d — %s"
           % (sum(indeg.values()), len(indeg), a.max_indegree, len(indeg) - len(ok_t), ", ".join("%s %d" % (tid.get(t, t), c) for t, c in indeg.most_common(12))), flush=True)
     src = collections.Counter()
