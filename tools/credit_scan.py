@@ -715,7 +715,7 @@ def merge_graph(a):
 # 1: credit lines + the vendor table of 2026-11-02; 2 ("t2"): + Jobber; 3 ("t3"): + membership statements (class M);
 # 4 ("t4"): + two facts about every readable home page, kept on its done line: em=<kind> when the page itself prints a role mailbox of the
 #    organisation (the mailbox crawl reads those sites first: near-certain rows), cc=<CA|US|GB|AU> the country of the postal address it prints
-DETECTOR = 5  # 5 (2026-11-10): the home page's outside links, embedded services and "sponsors / clients / members" sections are kept (links_*.gz, sections_*.gz); the plain-http copy is asked when https does not answer
+DETECTOR = 5  # 5 (2026-11-10): the home page's outside links, embedded services, own name facts (site name, copyright-line name, legalName, postal code) and "sponsors / clients / members" sections are kept (links_*.gz, sections_*.gz); the plain-http copy is asked when https does not answer
 MARK = "t%d" % DETECTOR
 
 
@@ -877,6 +877,28 @@ def home_sections(raw, final, site_dom, skip=()):
         if len(out) >= 4:
             break
     return out
+
+
+# the name a site states for itself, kept for every readable home page (detector 5): the key that ties a register entry (a licence holder, a
+# trademark owner, a corporation: legal name + postal code) to the organisation's own site. Same two expressions as tools/org_extras.py.
+_COPY = re.compile(r"(?:©|&copy;|\(c\)|copyright|tous droits r[ée]serv[ée]s|all rights reserved)[\s,.]*(?:copyright\s*)?(?:(?:19|20)\d\d(?:\s*[-–]\s*(?:19|20)?\d\d)?)?[\s,.]*"
+                   r"(?:by\s+|par\s+)?([A-Z0-9][^|•\n©]{2,90}?)(?=\s*(?:\.|\||•|all rights|tous droits|\s[-–—]\s|$|\n|privacy|confidentialit|terms|conditions|site|powered|design|web|\d{4}))", re.I)
+_COPY2 = re.compile(r"([A-Z0-9][^|•\n©]{2,90}?)\s*(?:©|&copy;)\s*(?:19|20)\d\d", re.I)
+_LEGALNAME = re.compile(r'"legalName"\s*:\s*"([^"\\]{2,120})"')
+_PC_ONLY = re.compile(r"(?<![A-Za-z0-9])([ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z])[ \u00a0-]?(\d[ABCEGHJ-NPRSTV-Z]\d)(?![A-Za-z0-9])")
+
+
+def name_facts(raw, name, addr):
+    """"site name|name in the copyright line|schema.org legalName|first Canadian postal code" of a home page (pipes and tabs removed)"""
+    foot = C.visible(raw[-30000:])[-1500:]
+    m = _COPY.search(foot) or _COPY2.search(foot)
+    cp = re.sub(r"\s+", " ", m.group(1)).strip(" .,-–|") if m else ""
+    if len(cp) < 3 or re.fullmatch(r"[\d\s.,-]+", cp):
+        cp = ""
+    ml = _LEGALNAME.search(raw[:800_000])
+    pc = _PC_ONLY.search(addr or "") or _PC_ONLY.search(foot)
+    cl = lambda x: re.sub(r"[|\t\r\n]+", " ", html.unescape(x or "")).strip()[:100]
+    return "%s|%s|%s|%s" % (cl(name), cl(cp), cl(ml.group(1) if ml else ""), (pc.group(1) + pc.group(2)).upper() if pc else "")
 
 
 def refused_sites():
@@ -1056,8 +1078,9 @@ def scan(a):
                 if C.registrable(fhost) == C.registrable(dom) or not PLATFORM.search(fhost):
                     try:
                         e_l, l_l = site_links(raw, final, C.registrable(fhost), T)
-                        if e_l or l_l:
-                            lk_line = "%s\t%s\t%s\n" % (dom, " ".join(e_l), " ".join(l_l))
+                        nf = name_facts(raw, name, addr)
+                        if e_l or l_l or nf.strip("|"):
+                            lk_line = "%s\t%s\t%s\t%s\n" % (dom, " ".join(e_l), " ".join(l_l), nf)
                         secs = home_sections(raw, final, C.registrable(fhost), {C.registrable(c_["vh"]) for c_ in credits} | {c_["v"] for c_ in credits})
                         if secs:
                             sec_line = json.dumps({"dom": dom, "page": final, "date": TODAY, "name": name, "cc": cc, "addr": addr, "s": secs}, ensure_ascii=False) + "\n"
@@ -1396,7 +1419,7 @@ def merge(a):
     for f in sorted(glob.glob(os.path.join(d, "site_links_*.tsv"))):
         for l in open(f, encoding="utf-8"):
             q = l.rstrip("\n").split("\t")
-            if len(q) == 3 and q[0]:
+            if len(q) in (3, 4) and q[0]:
                 new_lk[q[0]] = l.rstrip("\n")
     for f in sorted(glob.glob(os.path.join(d, "site_sections_*.jsonl"))):
         for l in open(f, encoding="utf-8"):
