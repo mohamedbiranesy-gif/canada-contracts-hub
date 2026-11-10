@@ -189,7 +189,9 @@ def queue(k, n, limit=0):
     return [d for _, d in tasks], len(done)
 
 
-QPS = 500  # queries per second of one runner, spread over six public resolver addresses (Google's published limit alone is 1,500 per client address)
+# First cloud test (2026-11-10, 3,000 domains through the public resolvers at 500 queries/s): 45 % of the lookups timed out — public resolvers
+# throttle a data-centre address. The lookups now go through a recursive resolver that the workflow starts on the runner itself (unbound, no
+# forwarding): it asks each zone's own name servers, as every resolver does, and --qps caps the runner's total (default 480 = 120 domains/s).
 
 
 def lookup(a):
@@ -202,11 +204,26 @@ def lookup(a):
     deadline = time.time() + a.minutes * 60
     tl = threading.local()
     gate, nxt = threading.Lock(), [0.0]
+    local = None
+    if a.resolver:
+        host, _, port = a.resolver.partition(":")
+        probe = dns.resolver.Resolver(configure=False)
+        probe.nameservers, probe.port, probe.timeout, probe.lifetime = [host], int(port or 53), 5, 10
+        for _ in range(6):  # the runner's own resolver needs a few seconds to start
+            try:
+                probe.resolve("cira.ca", "NS")
+                local = (host, int(port or 53))
+                break
+            except Exception as e:
+                print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
+                time.sleep(5)
+    qps = a.qps if local else min(a.qps, 60)  # without the local resolver: the public ones, slowly
+    print("resolver: %s, %d queries/s" % ("%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
 
     def turn():
         with gate:
             t = max(time.time(), nxt[0])
-            nxt[0] = t + 1.0 / QPS
+            nxt[0] = t + 1.0 / qps
         w = t - time.time()
         if w > 0:
             time.sleep(w)
@@ -215,8 +232,12 @@ def lookup(a):
         r = getattr(tl, "r", None)
         if r is None:
             r = dns.resolver.Resolver(configure=False)
-            r.nameservers = random.sample(RESOLVERS, 3)
-            r.timeout, r.lifetime = 2.5, 5.0
+            if local:
+                r.nameservers, r.port = [local[0]], local[1]
+                r.timeout, r.lifetime = 8.0, 8.0
+            else:
+                r.nameservers = random.sample(RESOLVERS, 3)
+                r.timeout, r.lifetime = 2.5, 5.0
             tl.r = r
         return r
 
@@ -278,7 +299,7 @@ def lookup(a):
             stats["with_spf"] += "inc" in o or "spf" in o
             stats["with_mx"] += "mx" in o
             stats["shopify_address"] += "shop" in o
-            if st != "fail":  # a failed lookup is asked again next time
+            if st != "fail" or local:  # through the local resolver a failure is the zone's own (dead name servers): kept, not asked again
                 f.write(json.dumps(o, ensure_ascii=False, separators=(",", ": ")) + "\n")
             if stats["domains"] % 20000 == 0:
                 f.flush()
@@ -406,6 +427,8 @@ def main():
     ap.add_argument("--workers", type=int, default=120)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--stamp", default="")
+    ap.add_argument("--resolver", default="", help="lookup: host:port of a recursive resolver on this machine (the workflow starts unbound); empty = public resolvers, slowly")
+    ap.add_argument("--qps", type=int, default=480, help="lookup: queries per second of this runner")
     a = ap.parse_args()
     if a.cmd == "lookup":
         lookup(a)

@@ -368,7 +368,7 @@ def rec_extra(c):
             "number_of_bids": str(c.get("number_of_bids") or "")}
 # 2. contracts: best proof record per parent organisation
 TIER = {"ongoing": "A", "ongoing_inferred": "B", "end_date_unknown": "C"}
-TS = {"A": 3, "B": 2, "T": 1.8, "L": 1.5, "M": 1.2, "C": 1, "D": 1, "E": 0.5}
+TS = {"A": 3, "B": 2, "T": 1.8, "L": 1.5, "M": 1.2, "C": 1, "D": 1, "R": 0.7, "E": 0.5}
 CUTOFF = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
 CUR = {"FED": "CAD", "AB": "CAD", "NT": "CAD", "NL": "CAD", "SK": "CAD", "QC": "CAD", "NS": "CAD", "NB": "CAD", "MB": "CAD", "ON": "CAD", "BC": "CAD",
        "YT": "CAD", "NU": "CAD", "PE": "CAD", "US": "USD", "AU": "AUD", "UK": "GBP"}
@@ -787,10 +787,48 @@ def borrow(L):
     ms, mr = max(owners, key=lambda x: x[0])
     return (ms, mr) if name_fits(L.get("buyer_name") or "", mr.get("org_name") or "") else None  # e.g. a person named in a customer story is not the university
 borrowed = 0
+# 4a. tier R (2026-11-10, owner 2026-11-09 23:41 EST: "some Canadian entity receives money for a service they provided, and that relationship is
+# established online"): the holder of a .ca domain name has an agreement in force with the Canadian Internet Registration Authority and pays
+# for the registration through a CIRA-certified registrar, which CIRA's rules require to be a Canadian person or corporation. A recorded,
+# current relationship for every organisation whose own .ca site publishes its mailbox — until now most of them were delivered with an
+# INFERRED relationship only (P13). The domain is proven live by the referee itself: it re-fetched the mailbox page on that domain.
+# Weakest lead class: any other relationship of the organisation claims the row first (lead_strength 6).
+REG_AGREEMENT = "https://stg-saas.cira.ca/uploads/2023/06/Registrant-Agreement-Version-2.2_0.pdf"
+REG_REGISTRARS = "https://stg.cira.ca/uploads/2023/05/cprregistrar_-_en.pdf"
+CF_REG = ("registry contract (.ca domain name registration)=cira.ca; CIRA's Registrant Agreement, version 2.2 (%s, read 2026-11-10): “This agreement (the \"Agreement\") is between you "
+          "(the \"Registrant\") and the Canadian Internet Registration Authority (\"CIRA\")” … “\"Fees\" means the fees payable to CIRA in connection with this Agreement, including an "
+          "application for a Domain Name and/or any renewal” … notice address “CIRA, 979 Bank Street, Suite 400, Ottawa, Ontario K1S 5K5”. Registrar of record: CIRA's Canadian "
+          "Presence Requirements For Registrars, version 1.1 (%s): “Only the following persons will be permitted to be certified and to act as a Registrar … A corporation: (i) under "
+          "the laws of Canada or any province or territory of Canada; and (ii) which has a place of business in Canada”" % (REG_AGREEMENT, REG_REGISTRARS))
+n_reg = 0
+try:
+    import hashlib as _hl
+    from ap_crawler import GENERIC_MAIL as _GEN_MAIL
+    for _md, _owners in list(mail_dom.items()):
+        if not _md.endswith(".ca") or _md.count(".") > 2 or _GEN_MAIL.search(_md) or _GEN_MAIL.search("x." + _md) or re.search(r"(^|\.)(gc|canada|gouv\.qc|gov\.[a-z]{2})\.ca$", _md):
+            continue  # shared mail hosts, and names under a government's own domain (a department is not the registrant of gc.ca)
+        _own = [(ms, mr) for ms, mr in _owners.values() if registrable(host_of(mr.get("evidence_url") or "")) == _md]  # the mailbox is printed on a page of that very domain
+        if not _own:
+            continue
+        _ms, _mr = max(_own, key=lambda x: x[0])
+        _k = "lead:" + _hl.sha1(("%s|reg:ca" % _md).encode()).hexdigest()[:16]
+        if _k in leads:
+            continue
+        leads[_k] = {"buyer_key": _k, "buyer_name": (_mr.get("org_name") or "").strip() or _md, "website": "https://%s/" % _md, "canadian_vendor_rows": "1",
+                     "example_vendor": "Canadian Internet Registration Authority (CIRA)", "canada_field_value": CF_REG,
+                     "evidence_dataset": "https://dns.google/resolve?name=%s&type=NS" % _md, "latest_record_date": today}
+        LDET.setdefault(_k, {"key": _k, "platform": "ca_registry", "title": ".ca domain name registration: %s" % _md, "reference": _md,
+                             "vendor_address": "979 Bank Street, Suite 400, Ottawa, Ontario K1S 5K5 (CIRA's notice address in its Registrant Agreement, version 2.2: %s)" % REG_AGREEMENT})
+        n_reg += 1
+except Exception as _e:
+    print("registry leads skipped: %s" % _e)
+print("registry leads (.ca domains carrying a confirmed mailbox of their own organisation): %d" % n_reg)
 def lead_strength(kl):
     """dated records first, then services seen on the buyer's site, 12-36 month records, client listings, other links:
     the strongest relationship of an organisation claims its website domain (one row per organisation)"""
     cfv, ld = kl[1].get("canada_field_value") or "", (kl[1].get("latest_record_date") or "")[:10]
+    if cfv.startswith("registry contract"):
+        return 6
     if "vendor located in Canada" in cfv:
         return 4 if re.search(r"\((wall|stories)\)", cfv) else 5
     if "(tech)" in cfv:
@@ -864,11 +902,15 @@ for k, L in sorted(leads.items(), key=lead_strength):
     irs = "IRS Form" in L.get("canada_field_value", "")
     tech = "(tech)" in L.get("canada_field_value", "")  # buyer's own site shows it uses a Canada-HQ vendor's paid service today
     member = "membership / statutory fee relationship" in L.get("canada_field_value", "")  # current member / regulated payer list of a Canadian body (own package)
-    tier = "M" if member else "T" if tech else "E" if client == "other" else "D" if client else "B" if recent else "L" if likely else "C"
+    registry = (L.get("canada_field_value") or "").startswith("registry contract")
+    tier = "R" if registry else "M" if member else "T" if tech else "E" if client == "other" else "D" if client else "B" if recent else "L" if likely else "C"
     rows.append({"rank_group": ("GOLD" if tier == "B" and g == 4 and acc else "GOLD-T" if tier == "T" and g == 4 and acc else "GOLD-M" if tier == "M" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": TS.get(tier, 0) * 10 + g * 6 + (3 if acc else 0),
         "buyer": L["buyer_name"], "buyer_website": L["website"], "award_date": L.get("latest_record_date") or "",
         "email": m["mailbox"], "email_type": LABEL_G.get(g, m["mailbox_type"]), "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
-        "contract_status": ("member of a Canadian body (stated on the buyer's own site, read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "member badge on the buyer's own site" in L.get("canada_field_value", "") else
+        "contract_status": ("registration contract in force for the organisation's own .ca domain name %s (live on %s): every .ca name is held under the Registrant Agreement of the Canadian Internet "
+                            "Registration Authority and paid for through a CIRA-certified registrar (a Canadian person or corporation under CIRA's rules); the registrant of record is not read here "
+                            "(normally the organisation itself, sometimes its web agency)" % (registrable(host_of(L.get("website") or "")), today)) if registry else
+                           ("member of a Canadian body (stated on the buyer's own site, read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "member badge on the buyer's own site" in L.get("canada_field_value", "") else
                            ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
                            tech_status(k, L) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
@@ -888,7 +930,10 @@ for k, L in sorted(leads.items(), key=lead_strength):
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
     apply_details(x, k)
-    x["source"] = ("the buyer's own website (it states its membership of the Canada-located body, linked)" if member and "member badge on the buyer's own site" in cfv else
+    if registry and not x.get("vendor_website"):
+        x["vendor_website"] = "https://www.cira.ca/"
+    x["source"] = ("the .ca registry's public delegation of the buyer's domain (DNS) and CIRA's Registrant Agreement" if registry else
+                   "the buyer's own website (it states its membership of the Canada-located body, linked)" if member and "member badge on the buyer's own site" in cfv else
                    "the Canadian body's own current member / participant list" if member else
                    "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if tech and "credited on the buyer's own site" in cfv else
                    "the buyer's own public DNS records (they name the Canada-located provider of its e-mail, hosting or DNS service)" if tech and "seen in the buyer's public DNS" in cfv else
@@ -908,8 +953,8 @@ for k, L in leads.items():
     if "(tech)" in cfv and d and CUTOFF <= ld <= today:
         up_t[d].append((ld, k, L))  # an active service seen on the buyer's own site: upgrades a client-listing / link / old row to T
         continue
-    if "vendor located in Canada" in cfv or "membership / statutory fee relationship" in cfv or not (CUTOFF <= ld <= today) or UNNAMED_VENDOR.search(L.get("example_vendor") or ""):
-        continue  # client listings and member lists are not dated purchase records; the vendor must be named
+    if cfv.startswith("registry contract") or "vendor located in Canada" in cfv or "membership / statutory fee relationship" in cfv or not (CUTOFF <= ld <= today) or UNNAMED_VENDOR.search(L.get("example_vendor") or ""):
+        continue  # client listings, member lists and registry contracts are not dated purchase records; the vendor must be named
     if d:
         up[d].append((ld, k, L))
 dom_rows = collections.defaultdict(list)
@@ -1720,7 +1765,7 @@ STOP_W = {"the", "of", "de", "du", "des", "la", "le", "les", "and", "et", "for",
 def _fam(x):
     toks = [t for t in re.split(r"[^a-z0-9]+", norm(x.get("buyer") or "")) if t and t not in STOP_W]
     return " ".join(toks[:2])
-TIER_RANK = {"A": 0, "B": 1, "T": 2, "M": 3, "C": 4, "D": 5, "L": 6, "E": 7, "F": 8, "I": 9}
+TIER_RANK = {"A": 0, "B": 1, "T": 2, "M": 3, "C": 4, "D": 5, "L": 6, "E": 7, "R": 7.5, "F": 8, "I": 9}
 groups = collections.defaultdict(list)
 for x in rows:
     e = (x.get("email") or "").lower(); sd = _site_dom(x)
@@ -1818,6 +1863,7 @@ KIND = {"A": "public contract / purchase award with a published end date (dated 
         "T": "active paid service of a Canada-HQ vendor seen on the buyer's own site", "M": "member or regulated payer of a Canadian body (current list)",
         "C": "named as a client by the Canada-located vendor (client list / customer story / case study)", "D": "named as a client by the Canada-located vendor (client list / customer story), dated",
         "L": "dated deal or payment 12 to 36 months ago", "E": "linked from the Canada-located vendor's site (weakest listed relationship)", "F": "older contract or payment (more than 36 months, or ended)",
+        "R": ".ca domain name registration in force: agreement with the Canadian Internet Registration Authority, fee paid through a CIRA-certified (Canadian) registrar",
         "I": "inferred: no record; the organisation's type and province make a Canadian supplier relationship near-certain", "N": "no relationship record"}
 HOW_FOUND = {"A": "the award record was harvested from the public procurement source named in `source` (scripts/<source> pipeline), matched to the buyer by its canonical name/key, and the vendor's Canada location read from the source's own vendor address/country field (`vendor_country_basis`)",
              "B": "same as above: a dated award record from the public source in `source`, vendor located in Canada per the source's own field",
@@ -1828,6 +1874,7 @@ HOW_FOUND = {"A": "the award record was harvested from the public procurement so
              "L": "a dated public record (payment register, subaward, vendor news release or EDC transaction) 12 to 36 months old, harvested by the lead scanners",
              "E": "tools/provider_mentions.py / news_match.py found the buyer linked from the vendor's own site or release",
              "F": "an older or ended record in the contract dataset (release tables)",
+             "R": "the organisation's own site on its .ca domain publishes the mailbox (re-fetched by the referee, so the domain is registered and live); every .ca registrant is a party to CIRA's Registrant Agreement (quoted in `vendor_country_basis`)",
              "I": "no record; tools/org_lists.py / osm_orgs.py / the crawlers placed the organisation in Canada by type and province; the vendor named is the Canada-located supplier such bodies almost always pay (see `vendor_country_basis`)",
              "N": "no relationship record"}
 LANE_WORDS = {"claude": "the claude lane's no-AI tools", "chatgpt": "the ChatGPT/Codex agent (lane chatgpt)", "codex": "the Codex agent (lane codex)", "gemini": "the Gemini agent (lane gemini)", "jules": "the Jules agent (lane jules)"}
@@ -2419,7 +2466,7 @@ for x in rows:
         except Exception as _e2:
             x["pair_value_trend"] = x.get("pair_value_trend") or ""
     _ls = (LEAD_DOM.get(_d) if _d else None) or LEAD_NAME.get(_n) or []
-    if _ls and x.get("tier") in ("A", "B", "L", "C", "D", "F", "E", "M", "I"):
+    if _ls and x.get("tier") in ("A", "B", "L", "C", "D", "F", "E", "M", "I", "R"):
         x["other_relationship_sources"] = "also seen in the lead files: " + "; ".join(sorted(set(_ls))[:6])[:600]; n_x2["dataset rows with lead relationships"] += 1
     x.pop("_org", None)
 print("back-references:", dict(n_x2))
@@ -2958,7 +3005,7 @@ try:
                                                  "vendor_facts": [p.strip() for p in (x.get("vendor_facts_provenance") or "").split("; ") if p.strip()], "relationship": x.get("how_relationship_was_found") or ""}, ensure_ascii=False)[:4000]
         # quality score / ship_ready (S2)
         mq = {4: 40, 3: 30, 2: 20, 1: 12}.get(g, 0) if ec.startswith(("confirmed", "cross")) else (5 if x.get("email") else 0)
-        rq = {"A": 30, "B": 30, "T": 26, "M": 22, "L": 18, "C": 14, "D": 14, "F": 12, "E": 10, "I": 6}.get(t, 0)
+        rq = {"A": 30, "B": 30, "T": 26, "M": 22, "L": 18, "C": 14, "D": 14, "F": 12, "R": 11, "E": 10, "I": 6}.get(t, 0)
         fq = 30 * sum(1 for c in KEY_FIELDS if x.get(c)) / len(KEY_FIELDS)
         x["data_quality_score"] = str(int(round(mq + rq + fq)))
         x["ship_ready"] = ("yes" if (g == 4 and ec.startswith(("confirmed", "cross")) and t in ("A", "B", "T", "M") and x["sensitivity_flag"] == "no" and not x.get("vendor_registry_warning"))

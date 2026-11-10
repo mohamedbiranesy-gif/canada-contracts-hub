@@ -4,7 +4,7 @@ rows = list(csv.DictReader(open(ROOT + "/out/ranked/ranked_buyers.csv", encoding
 OK = ("confirmed",)  # owner 2026-11-04 ("ironclad"): referee-confirmed only; dataset-enrichment mailboxes wait in P11 until the referee has seen them
 def rel(r):
     st, t = r["contract_status"], r.get("tier", "")
-    return ("weak" if t == "F" else "inferred" if t == "I" else "member" if t == "M" else
+    return ("weak" if t == "F" else "inferred" if t == "I" else "member" if t == "M" else "registry" if t == "R" else
             "tech" if st.startswith("active service seen") else "client" if st.startswith("client listing") else "other_link" if st.startswith("linked from") else
             "older" if st.startswith(("end date unknown", "payment / subaward")) else "likely" if st.startswith("likely active (awarded 12-36") else "active")
 # One row per buyer, in the best package it qualifies for (owner's layout, 2026-11-01): every package row has an email.
@@ -21,6 +21,10 @@ B = collections.OrderedDict([
  ("P08_client_listing_general_email", lambda r: rel(r) == "client" and r["grade"] == "1" and r["email_check"] in OK),
  ("P09_older_contract_or_payment_any_email", lambda r: rel(r) == "older" and r["email"] and r["email_check"] in OK),
  ("P10_linked_from_vendor_site_any_email", lambda r: rel(r) == "other_link" and r["email"] and r["email_check"] in OK),
+ # claude 2026-11-10 (owner 2026-11-09: "some Canadian entity receives money for a service … established online"): the organisation's own .ca domain
+ # name is registered — an agreement in force with the Canadian Internet Registration Authority, paid for through a CIRA-certified (Canadian)
+ # registrar. A recorded current relationship, generic by nature: its own package, below every named-vendor relationship, above the inferred ones
+ ("P10R_ca_domain_registration_contract_own_email", lambda r: rel(r) == "registry" and r["email"] and r["email_check"] in OK),
  ("P11_any_relationship_email_not_yet_confirmed", lambda r: bool(r["email"]) and rel(r) not in ("weak", "inferred", "member")),
  # owner 2026-11-03: P12 weaker relationship within 5 years (ended contract, or vendor in Canada only by registry match),
  # P13 inferred relationship (no record) from the buyer's type and province; both need the buyer's own confirmed mailbox

@@ -215,6 +215,27 @@ def leads_mode(a, k, n):
                 nv = 1
             tasks.append({"task_id": "CC-" + r["buyer_key"].split(":")[-1][:10], "buyer_key": r["buyer_key"], "buyer_name": r.get("buyer_name") or h, "known_website": "https://%s/" % h,
                           "_n": nv, "_f": fi, "_em": 0 if (hints.get(h[4:] if h.startswith("www.") else h) or ("", ""))[0] else 1})
+    # registry candidates (2026-11-10, tier R of rank.py): a .ca site whose home page prints a role mailbox of its own and that no lead names yet.
+    # Its relationship is the registration of its .ca domain name (agreement with the Canadian Internet Registration Authority, paid for through a
+    # CIRA-certified Canadian registrar); what is missing is the mailbox row with its page and quote. A light read: at most 8 pages.
+    n_reg = 0
+    if a.registry:
+        lead_doms = {C.registrable(h[4:] if h.startswith("www.") else h) for h in hosts}
+        rank_em = {"invoice_submission": 0, "accounts_payable": 0, "supplier_payment": 0, "finance": 1, "procurement": 1, "general": 2, "role": 3}
+        cand = []
+        for dom, (em, cc) in hints.items():
+            if not em or not dom.endswith(".ca") or cc not in ("", "CA") or not shard_ok(dom, k, n):
+                continue
+            rd = C.registrable(dom)
+            key = "lead:" + hashlib.sha1(("%s|reg:ca" % rd).encode()).hexdigest()[:16]
+            if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known:
+                continue
+            cand.append((rank_em.get(em, 3), dom, key))
+        cand.sort()
+        for _, dom, key in cand[:a.registry]:
+            tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": "https://%s/" % dom, "_n": 0, "_f": 9, "_em": 0, "_max_pages": 8})
+            n_reg += 1
+        print("registry candidates (.ca sites whose home page prints a role mailbox, no lead yet): %d queued of %d" % (n_reg, len(cand)), flush=True)
     # sites whose home page prints a role mailbox first; then the first leads file first; within a file, buyers named by several Canadian vendors first
     tasks.sort(key=lambda t: (t["_em"], t["_f"], -t["_n"]))
     print("lead sites whose home page prints a role mailbox (read first): %d of %d" % (sum(1 for t in tasks if not t["_em"]), len(tasks)), flush=True)
@@ -237,7 +258,7 @@ def leads_mode(a, k, n):
         st = {"host": host_of(t["known_website"])}
         _tl.st = st
         try:
-            result, pages, rows = C.crawl(t, a.max_pages, general="any")
+            result, pages, rows = C.crawl(t, t.get("_max_pages") or a.max_pages, general="any")
         except Exception as e:
             result, pages, rows = "error:%s" % type(e).__name__, 0, []
         _tl.st = None
@@ -246,6 +267,12 @@ def leads_mode(a, k, n):
         with lock:
             stats["sites"] += 1
             stats["with_mailbox"] += bool(rows)
+            if t.get("_f") == 9:
+                stats["registry_sites"] = stats.get("registry_sites", 0) + 1
+                stats["registry_with_mailbox"] = stats.get("registry_with_mailbox", 0) + bool(rows)
+            if not t.get("_em"):
+                stats["hinted_sites"] = stats.get("hinted_sites", 0) + 1
+                stats["hinted_with_mailbox"] = stats.get("hinted_with_mailbox", 0) + bool(rows)
             stats["rows"] += len(rows)
             stats["blocked"] += result == "blocked"
             stats["errors"] += str(result).startswith("error")
@@ -573,6 +600,7 @@ def main():
     a.add_argument("--max-pages", type=int, default=25)
     a.add_argument("--workers", type=int, default=40)
     a.add_argument("--limit", type=int, default=0)
+    a.add_argument("--registry", type=int, default=0, help="leads mode: also read up to this many registry candidates per shard (.ca sites whose home page prints a role mailbox)")
     a.add_argument("--straggler-seconds", type=float, default=240, help="when only slow sites are left and nothing finished for this long, stop")
     a.add_argument("--site-seconds", type=float, default=420, help="wall-clock budget for one site: no new page is opened after that (what was read so far counts)")
     a = a.parse_args()
