@@ -2,8 +2,8 @@
  "coord/results/team_buyers.jsonl.gz": {
   "tag": "harvest-state",
   "asset": "team_buyers.jsonl.gz",
-  "bytes": 19087333,
-  "sha256": "3e6cfce5d70b7440b6159e733c3d0d184601cfc42fff540545c42dbf2fce4095",
-  "updated": "2026-11-10T08:35:17Z"
+  "bytes": 19087464,
+  "sha256": "48a09959f0f858295602708e2d6c940e5a62c5bc48749b8ec9c289a384a6d259",
+  "updated": "2026-11-10T09:20:21Z"
  }
 }
