@@ -4,31 +4,31 @@ DNS TXT lookup at `_dmarc.<mail domain>` (organizational domain when the mailbox
 
 | posture | delivered rows | of which invoicing/AP mailboxes |
 |---|---|---|
-| no DMARC record | 30731 | 111 |
-| v=DMARC1; p=none (monitor only) | 38285 | 455 |
-| p=quarantine | 15181 | 495 |
-| p=reject | 8041 | 534 |
+| no DMARC record | 30735 | 111 |
+| v=DMARC1; p=none (monitor only) | 38300 | 456 |
+| p=quarantine | 15189 | 495 |
+| p=reject | 8045 | 534 |
 | invalid DMARC record | 79 | 0 |
-| lookup error | 44 | 0 |
+| lookup error | 14 | 0 |
 
-Rows without enforcement (no record / p=none / invalid): **69095**
+Rows without enforcement (no record / p=none / invalid): **69114**
 
 ## By package (no record / p=none / quarantine / reject)
-- P01: 25 / 179 / 207 / 215
+- P01: 25 / 179 / 206 / 215
 - P01M: 12 / 8 / 17 / 16
 - P01T: 20 / 55 / 75 / 53
-- P02: 49 / 148 / 121 / 86
-- P03: 0 / 48 / 72 / 92
-- P04: 255 / 577 / 508 / 296
-- P05: 57 / 141 / 128 / 91
-- P06: 18 / 99 / 96 / 129
-- P06M: 1748 / 1439 / 704 / 353
-- P06T: 6780 / 8224 / 3088 / 1401
-- P07: 129 / 272 / 184 / 150
-- P08: 6144 / 8763 / 3915 / 2183
+- P02: 50 / 160 / 127 / 92
+- P03: 0 / 49 / 76 / 93
+- P04: 492 / 1018 / 668 / 406
+- P05: 57 / 141 / 129 / 91
+- P06: 17 / 96 / 91 / 125
+- P06M: 1809 / 1487 / 732 / 363
+- P06T: 6780 / 8217 / 3088 / 1402
+- P07: 128 / 264 / 174 / 143
+- P08: 5777 / 8130 / 3676 / 2037
 - P09: 58 / 104 / 105 / 43
-- P10: 805 / 1358 / 759 / 490
-- P10R: 9749 / 11085 / 3070 / 1377
-- P11: 671 / 1836 / 513 / 292
-- P12: 2 / 4 / 0 / 1
-- P13: 4209 / 3945 / 1619 / 773
+- P10: 574 / 938 / 558 / 401
+- P10R: 10091 / 11672 / 3322 / 1499
+- P11: 671 / 1838 / 516 / 296
+- P12: 2 / 5 / 0 / 1
+- P13: 4172 / 3939 / 1629 / 769
