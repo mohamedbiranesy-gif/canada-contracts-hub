@@ -110,6 +110,13 @@ def main():
             for r in csv.DictReader(fh):
                 kinds["cloud T vetted software service (store / portal) [shards]"] += 1
                 lead_kind_of[r["buyer_key"]] = "T vetted software service (store / portal)"
+    for p in sorted(glob.glob(os.path.join(INC, "lead_shards/leads_*.gz"))):
+        eng = os.path.basename(p).split("_")[1]
+        with gzip.open(p, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                k = lead_kind(r.get("canada_field_value") or "") + " [%s]" % eng
+                kinds["cloud " + k] += 1
+                lead_kind_of[r["buyer_key"]] = k
     P("\n## 4. Relationship leads on file")
     for k, c in sorted(kinds.items()):
         P("- %s: **%d**" % (k, c))

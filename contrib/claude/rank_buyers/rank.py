@@ -679,7 +679,7 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_buyer_leads_cc.csv"):
             _n_cc += 1
 # 2026-11-10: tenant leads accepted by the candidate crawl (stores on Shopify, customer portals) arrive in append-only shards (tenant_state/)
 _n_ts = 0
-for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/leads_*.gz")):
+for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/leads_*.gz")) + sorted(_g0.glob(ROOT + "/data/incoming/claude/lead_shards/leads_*.gz")):  # lead_shards/: any engine's leads (BBB accredited businesses …)
     with gzip.open(_p, "rt", encoding="utf-8", newline="") as _fh:
         for r in csv.DictReader(_fh):
             if r.get("buyer_key") and r["buyer_key"] not in leads:
@@ -699,7 +699,7 @@ for _ldp in ("claude_lead_details.jsonl.gz", "claude_lead_details_cc.jsonl.gz"):
     if os.path.exists(ROOT + "/data/incoming/claude/" + _ldp):
         for _d in jl(ROOT + "/data/incoming/claude/" + _ldp):
             LDET.setdefault(_d.get("key"), _d)
-for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.gz")):
+for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.gz")) + sorted(_g0.glob(ROOT + "/data/incoming/claude/lead_shards/details_*.gz")):
     for _d in jl(_p):
         LDET.setdefault(_d.get("key"), _d)
 LFACTS = {}  # 2026-11-10: what the cloud mailbox crawl read on the buyer's OWN pages (tools/lead_crawl.py): its name and its postal address, quoted
@@ -934,6 +934,8 @@ for k, L in sorted(leads.items(), key=lead_strength):
                             "Registration Authority and paid for through a CIRA-certified registrar (a Canadian person or corporation under CIRA's rules); the registrant of record is not read here "
                             "(normally the organisation itself, sometimes its web agency)" % (registrable(host_of(L.get("website") or "")), today)) if registry else
                            ("member of a Canadian body (stated on the buyer's own site, read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "member badge on the buyer's own site" in L.get("canada_field_value", "") else
+                           ("accredited business of a Canadian Better Business Bureau since %s (its BBB profile read %s): %s — accredited businesses pay the BBB dues"
+                            % ((LDET.get(k) or {}).get("accredited_since") or "an unstated date", (L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "accredited business of the Canadian body" in L.get("canada_field_value", "") else
                            ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
                            tech_status(k, L) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else

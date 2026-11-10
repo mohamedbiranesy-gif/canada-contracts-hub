@@ -1,0 +1,63 @@
+name: bbb-accredited
+# Accredited businesses of the Canadian Better Business Bureaus: a business accredited by its local BBB pays it dues (BBB's FAQ: "Dues paid by
+# Accredited Businesses fund our work"). The public profile gives the business's name, address, telephone and website, the date it has been
+# accredited since and the local BBB — a dated, current relationship with a Canadian body, published by that body (tools/bbb_accredited.py).
+# bbb.org's robots.txt lists the sitemap of accredited profiles and allows the profile pages. ONE runner, 2 requests per second.
+#   index : the sitemap -> profile URLs under /ca/        read : each profile not read before -> leads (lead_shards/), then the mailbox crawl
+on:
+  schedule:
+    - cron: "29 1,7,13,19 * * *"
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "index | read"
+        default: "read"
+      minutes:
+        description: "minutes of reading"
+        default: "150"
+      limit:
+        description: "at most this many profiles (0 = no limit)"
+        default: "0"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: bbb-accredited
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Read the sitemap (first run or stage=index), then the profiles
+        env: { STAGE: "${{ inputs.stage || 'read' }}", MINUTES: "${{ inputs.minutes || '150' }}", LIMIT: "${{ inputs.limit || '0' }}" }
+        run: |
+          mkdir -p shards
+          if [ "$STAGE" = "index" ] || [ ! -s data/incoming/claude/bbb/profiles_ca.csv.gz ]; then
+            python3 tools/bbb_accredited.py index
+            cp out/bbb_profiles_ca.csv shards/ 2>/dev/null || true
+            python3 tools/bbb_accredited.py merge shards --stamp "$(date -u +%Y%m%dT%H%M%S)i" | tee /tmp/b.txt
+          fi
+          if [ "$STAGE" != "index" ] && [ -s data/incoming/claude/bbb/profiles_ca.csv.gz ]; then
+            M=$(( MINUTES > 170 ? 170 : MINUTES ))
+            python3 tools/bbb_accredited.py read --minutes $M --limit "$LIMIT"
+            cp out/bbb_leads.jsonl out/bbb_done.tsv out/bbb_local.jsonl shards/ 2>/dev/null || true
+          fi
+      - name: Commit
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          cp -r data/incoming/claude/bbb /tmp/bbb_local_copy 2>/dev/null || true
+          git config user.name "bbb-accredited"; git config user.email "bbb-accredited@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/bbb data/incoming/claude/lead_shards
+            python3 tools/bbb_accredited.py merge shards --stamp "$STAMP" | tee /tmp/b.txt
+            git add data/incoming/claude/bbb data/incoming/claude/lead_shards 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "bbb-accredited: $(tail -1 /tmp/b.txt | cut -c38-150) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/b.txt >> "$GITHUB_STEP_SUMMARY"

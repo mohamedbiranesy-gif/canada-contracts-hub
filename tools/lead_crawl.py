@@ -221,10 +221,13 @@ def leads_mode(a, k, n):
     except Exception as e:
         print("no home-page hints: %s" % e, flush=True)
         hints = {}
-    for fi, path in enumerate(x.strip() for x in a.leads.split(",") if x.strip()):
+    # lead_shards/: leads of the engines that write append-only shards (BBB accredited businesses …), read as one more leads file
+    shard_files = sorted(glob.glob(os.path.join(INC, "lead_shards", "leads_*.gz")))
+    for fi, path in enumerate([x.strip() for x in a.leads.split(",") if x.strip()] + shard_files):
         if not os.path.exists(path):
             continue
-        for r in csv.DictReader(open(path, encoding="utf-8", errors="replace")):
+        fi = min(fi, 2)
+        for r in csv.DictReader(gzip.open(path, "rt", encoding="utf-8", newline="") if path.endswith(".gz") else open(path, encoding="utf-8", errors="replace")):
             h = host_of(r.get("website") or sites.get(r["buyer_key"]))
             if not h or "." not in h or r["buyer_key"] in done or h in hosts or not shard_ok(h, k, n):
                 continue
