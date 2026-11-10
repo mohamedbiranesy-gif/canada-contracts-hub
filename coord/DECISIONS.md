@@ -604,3 +604,33 @@ the domain its address redirects to when that is a rename (shared name, or the n
 abroad is kept only for buyers shown to be in Canada (.ca / .quebec domain or a Canadian postal address on their own home page) — a Minnesota city
 crediting Catalis deals with the US company; a university's own web service credited by its units is internal. 1,141 leads withdrawn.
 Cloudflare-obfuscated e-mail addresses stay undecoded (the referee's rule): that obfuscation exists to keep readers like ours out.
+
+## 2026-11-10 07:25Z — bulky outputs leave git for release assets; two new statutory-fee lanes (claude)
+**1. The deliverable and the big rewritten state files are release assets, not git blobs.** Measured: 5.45 GB of new git objects in 24 hours —
+package CSVs 1.47 GB, `team_buyers.jsonl.gz` 1.04 GB (61 rewritten versions), `ranked_buyers.csv.gz` 1.03 GB, contracts export 0.55 GB,
+`claude_org_extras.jsonl.gz` 0.32 GB, `org_mailboxes.csv` 0.23 GB, `claude_org_contacts.jsonl.gz` 0.15 GB … — and GitHub reports the repository at 8.9 GB
+after ten days; the row count is meant to grow more than tenfold. A compressed file that is rewritten whole cannot be stored as a difference, so git
+keeps every version. From now on: (a) each rank build is published to the release `ranked-latest` (whole table, every package in `ranked_batches.zip`,
+contracts export, audit / DMARC / change lists, `BUILD.json`); git keeps the reports, `BUILD.json`, `WHERE.md` and the first 10 rows of each package
+(`tools/ranked_publish.py`; if the upload fails the build is committed in parts as before); (b) `team_buyers.jsonl.gz`, `claude_org_extras.jsonl.gz`,
+`claude_org_contacts.jsonl.gz`, `claude_ap_terms_pages.csv.gz` are assets of the state release `harvest-state`, with one line each in
+`coord/STATE_ASSETS.json` (asset, size, SHA-256); readers call `tools/state_io.py ensure`, which downloads the current version when a checkout does
+not hold it. Only files with ONE writer workflow were moved (a release asset has no compare-and-swap); files with several writers
+(`claude_buyer_leads_cc.csv`, `claude_lead_details_cc.jsonl.gz`) are to become append-only shards like `lead_shards/`. History already pushed is
+not rewritten.
+**2. Licence held from a Canadian licensing body = a dated, paid relationship (tier M).** First source: the Régie du bâtiment du Québec's daily
+open-data list of active licences (Données Québec, CC-BY 4.0: "Le jeu de donnée présente l'ensemble des détenteurs de licences actives de la RBQ").
+The Régie's own page: "Chaque année, vous devez payer votre licence pour la maintenir." … "Si vous n'avez pas acquitté les droits et frais de
+maintien de votre licence à son échéance, elle cessera d'avoir effet." The list gives the holder's legal name, other names, NEQ, address, telephone,
+e-mail, the first issue date and "Date du paiement annuel" = "date du prochain paiement des droits d'exercice" (the dataset's field description).
+Payee per the list's "Mandataire": the Régie (address printed on rbq.gouv.qc.ca/nous-joindre), the Corporation des maîtres électriciens du Québec or
+the Corporation des maîtres mécaniciens en tuyauterie du Québec (each one's address and fee statement quoted from its own document). Rules:
+natural persons ("Personne physique") are left out entirely; the register's e-mail is NEVER delivered or stored (only its domain is kept, to find
+the holder's site); the site is kept only when it shows the holder's licence number, telephone, postal code or name; a domain used by more than three
+holders is a provider's or an accountant's and ties nobody; the mailbox comes from the holder's own site through the ordinary crawl and the referee.
+A licence number printed on a site the crawl reads is a second way to the same join (number looked up in the list, holder tied by name / postal
+code / e-mail domain).
+**3. Municipal business licences (open data) are joined to organisations by postal code + name** (`tools/biz_licences.py`): every word of the
+shorter name must be in the longer one and what agrees must identify (three words, or one word that is not a generic trade / place word); several
+different licensees fitting one organisation = dropped. The portals' catalogues are probed on a runner first; only datasets whose fields were seen
+in the probe log are configured.
