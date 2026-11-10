@@ -685,6 +685,19 @@ def apply_details(x, k):
     d = LDET.get(k)
     if not d:
         return
+    if d.get("client_label") and re.fullmatch(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", (x.get("buyer") or "").lower()):
+        # the lead only carried the domain: the name the Canadian vendor wrote next to its link, kept only when it agrees with that domain
+        _lab = re.sub(r"\s+", " ", d["client_label"]).strip(" -–—|:·•")
+        _flat = unicodedata.normalize("NFKD", _lab).encode("ascii", "ignore").decode().lower()
+        _n, _dl = re.sub(r"[^a-z0-9]", "", _flat), re.sub(r"[^a-z0-9]", "", registrable(host_of(x.get("buyer_website") or x.get("buyer") or "")).split(".")[0])
+        _tk = [t for t in re.findall(r"[a-z0-9]{4,}", _flat) if t not in ("home", "accueil", "welcome", "bienvenue", "website", "site", "official", "page", "visit", "www", "http", "https")]
+        if 3 <= len(_lab) <= 80 and not re.search(r"https?:|www\.|\.(?:ca|com|org|net)\b|@", _lab, re.I) and _dl and ((len(_dl) >= 4 and _dl in _n) or (len(_n) >= 4 and _n in _dl) or any(t in _dl for t in _tk)):
+            x["buyer"] = _lab; n_lf["buyer_name_from_vendor_link_label"] += 1
+    if d.get("member_address_quote") and not x.get("buyer_address"):
+        # a member page of a chamber / association directory prints the member's own address (a third party's page: labelled as such)
+        _m = re.search(r"(?<![\w-])\d{1,6}[A-Za-z]?,?\s+(?:[a-zà-ÿ]+\.?\s+){0,2}[A-ZÀ-Ý0-9]", d["member_address_quote"])
+        x["buyer_address"] = "%s (as printed in the member directory of %s, %s)" % ((d["member_address_quote"][_m.start():] if _m else d["member_address_quote"]).strip()[:160], d.get("vendor") or "the body", d.get("record_url") or "")
+        n_lf["buyer_address_from_member_directory"] += 1
     for col, key in (("contract_value", "value"), ("currency", "currency"), ("contract_reference", "reference"), ("start_date", "start"),
                      ("end_date", "end"), ("vendor_address", "vendor_address"), ("contract_title", "title")):
         if not x.get(col) and d.get(key):
@@ -711,9 +724,17 @@ NOT_REL_PATH = re.compile(r"terms|reference|support|service|product|letter|lettr
 SPONSOR_PATH = re.compile(r"/[^/]*(sponsors|commanditaires|exhibitors?|exposants)([-_.][^/]*)?/?$")
 DEALER_PATH = re.compile(r"/[^/]*(dealers?|where-to-buy|ou-acheter|o%c3%b9-acheter|retailers|stockists|d(e|%c3%a9)taillants|distributors|distributeurs|revendeurs|points-de-vente)([-_.][^/]*)?/?$")
 NOT_PAYER_PATH = re.compile(r"become|devenir|devenez|opportunit|package|forfait|prospectus|application|apply|form|kit|levels|niveaux|sponsorship|commandite|login|log-in|signin|sign-in|account|compte|portal|portail|supplier|fournisseur|brand|marque|manufactur|fabricant|career|emploi|job")
+# member directories of a Canada-located body (same tests as tools/cc_clients.py): a one-member page of a GrowthZone / ChamberMaster directory, or a member-list page
+MEMBER_ONE_PATH = re.compile(r"^/list/member/[^/]+/?$")
+MEMBER_PATH = re.compile(r"/[^/]*(members|membres|member-directory|membership-directory|member-list|directory-of-members|repertoire-des-membres|liste-des-membres)([-_.][^/]*)?/?$")
+NOT_MEMBER_PATH = re.compile(r"board|council|committee|comit|conseil|team|equipe|%c3%a9quipe|staff|personnel|faculty|executive|ex%c3%a9cutif|directors|administrat|family|famil|only|area|zone|login|log-in|signin|sign-in"
+                             r"|account|compte|portal|portail|become|devenir|devenez|join|adh%c3%a9|adhesion|benefit|avantage|application|apply|form|renew|register|inscription|fees|dues|cotisation|tarif|news|nouvelle"
+                             r"|blog|event|evenement|honorary|honoraire|founding|fondateur|past|ancien|crew|band|cast|choir|chorale|caucus|mla|mpp|legislat|parliament|parlement|senat|assembl|elected|elus|%c3%a9lus"
+                             r"|student|etudiant|%c3%a9tudiant|alumni|lab|research|recherche|group|groupe|profile|profil|user|forum")
 # the text starts with "client listing": contrib/claude/rank_buyers/batches.py files the row with the client listings (P06-P08) by that prefix
 PAYER_TEXT = {"sponsor": "client listing on the vendor's own site (undated): sponsor / exhibitor named by the Canada-located organiser — the listed party pays the organiser",
-              "dealer": "client listing on the vendor's own site (undated): dealer / retailer named by the Canada-located supplier — the listed party buys from the supplier"}
+              "dealer": "client listing on the vendor's own site (undated): dealer / retailer named by the Canada-located supplier — the listed party buys from the supplier",
+              "member": "client listing on the vendor's own site (undated): member named in the member directory of the Canada-located body (chamber of commerce, board of trade, association) — members pay it dues"}
 # a lead whose own key has no mailbox yet borrows the confirmed mailbox found for the same organisation under another key
 # (same registrable website domain, held by ONE organisation only: shared government domains never lend)
 mail_dom = collections.defaultdict(dict)
@@ -787,7 +808,9 @@ for k, L in sorted(leads.items(), key=lead_strength):
         pass  # a client logo wall on the vendor's home page, or one of its (undated) customer stories: a client listing by construction
     elif client:  # a link on a Canadian vendor's page: a client listing only on a real client / case-study / references page
         path = urllib.parse.urlparse(L.get("evidence_dataset") or "").path.lower()
-        if not NOT_PAYER_PATH.search(path) and (DEALER_PATH.search(path) or SPONSOR_PATH.search(path)) and not (REL_PATH.search(path) and not NOT_REL_PATH.search(path)):
+        if MEMBER_ONE_PATH.search(path) or (MEMBER_PATH.search(path) and not NOT_MEMBER_PATH.search(path) and not (REL_PATH.search(path) and not NOT_REL_PATH.search(path))):
+            payer = "member"  # a member directory: the listed party pays dues to the Canada-located body
+        elif not NOT_PAYER_PATH.search(path) and (DEALER_PATH.search(path) or SPONSOR_PATH.search(path)) and not (REL_PATH.search(path) and not NOT_REL_PATH.search(path)):
             payer = "dealer" if DEALER_PATH.search(path) else "sponsor"  # a customer listing by construction: the listed party pays the Canada-located organisation
         elif not REL_PATH.search(path) or NOT_REL_PATH.search(path):
             client = "other"  # owner's rule (2026-11-01): kept as the weakest relationship package, never mixed with client listings
@@ -827,6 +850,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
     apply_details(x, k)
     x["source"] = ("the Canadian body's own current member / participant list" if member else "the buyer's own website or its customer portal on the vendor's platform (service of a Canada-HQ vendor in use)" if tech else
                    "the Canada-located vendor's own website" if client else src or "relationship record")
+print("lead rows: facts from the buyer's own pages / the vendor's link label:", dict(n_lf))
 for x in rows:
     x.setdefault("_jur", "")
 # 4b. a dated record from the last 12 months (lead: payment, auditor's report, filing, release ...) for an organisation
@@ -1137,8 +1161,27 @@ for k, ((acc, g), m) in mail.items():
     cands.append(({"high": 3, "medium": 2, "low": 1}[conf], g, k, e, name, site, dom, prov, how, vid, conf, what, why, m))
 cands.sort(key=lambda c: (-c[0], -c[1], c[2]))
 n13 = 0
+# 2026-11-10: an organisation the org universe already knew (registry / OSM / Wikidata / places key) that now has a relationship row from a
+# lead (cloud row factory: 451 such rows in the first build) keeps the lead's relationship AND takes the organisation's key, so every fact
+# held under that key (registered name, BN, postal address, phone …) still attaches to the row. Same registrable website domain, names fit.
+lead_row_by_dom = {}
+for x in rows:
+    if (x.get("keys") or "").startswith("lead:") and "|" not in (x.get("keys") or "") and x.get("buyer_website"):
+        _d = registrable(host_of(x["buyer_website"]))
+        if _d:
+            lead_row_by_dom[_d] = None if _d in lead_row_by_dom else x  # two lead rows on one domain: never guess
+n_keyjoin = collections.Counter()
 for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     if e.lower() in covered_mail or (dom and dom in covered_dom) or norm(name) in covered_name:
+        _lr = lead_row_by_dom.get(dom) if dom else None
+        if _lr is not None and not k.startswith("lead:") and k not in _lr["keys"].split("|") and name_fits(_lr.get("buyer") or "", name):
+            _lr["keys"] += "|" + k; _lr["buyer_keys"] = int(_lr.get("buyer_keys") or 1) + 1; n_keyjoin["rows"] += 1
+            _ba = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or \
+                  ", ".join(v for v in ((PLACES.get(k) or {}).get(f) for f in ("address", "city", "province", "postal_code")) if v)
+            if _ba and not _lr.get("buyer_address"):
+                _lr["buyer_address"] = _ba; n_keyjoin["buyer_address"] += 1
+            if name and re.fullmatch(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", (_lr.get("buyer") or "").lower()) and not re.fullmatch(r"(https?://)?[\w.-]+\.[a-z]{2,}/?", name.strip(), re.I):
+                _lr["buyer"] = name; n_keyjoin["buyer_name"] += 1  # the lead only carried the domain
         skipped13["same organisation already in a row (domain / mailbox / name)"] += 1; continue
     covered_mail.add(e.lower()); covered_name.add(norm(name)); covered_keys.add(k)
     if dom:
@@ -1157,6 +1200,7 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True})
     n13 += 1
 print("P12 organisations:", len(orgs12), "added:", n12, dict(skipped12), "| P13 added:", n13, "| P13 skipped:", dict(skipped13))
+print("lead rows that took the organisation's own key (registry facts attach):", dict(n_keyjoin))
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
 rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
@@ -2129,7 +2173,7 @@ for x in rows:
             x["vendor_trading_name"] = c["alternate_names"] + " (alternate names in the registry)"; n_cbr["vendor_trading_name"] += 1
         x["vendor_registry_id"] = ((x.get("vendor_registry_id") + "; ") if x.get("vendor_registry_id") else "") + "%s (%s)" % (c["juri_id"], c["registry_source"])
         x["vendor_registry_url"] = x.get("vendor_registry_url") or c.get("ui_url") or ""
-    k = (x.get("keys") or "").split("|")[0]
+    k = next((_k for _k in (x.get("keys") or "").split("|") if _k in CBR["buyer"]), (x.get("keys") or "").split("|")[0])
     b = CBR["buyer"].get(k) if k else None
     if b:
         src = "%s, %s" % (b["_label"], b["retrieved_date"])
@@ -2194,7 +2238,7 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_gc_recipients.csv"):
         GCR[_r["kind"]][_r["key"] if _r["kind"] == "buyer" else norm(_r["key"])] = _r
 n_gcr = collections.Counter()
 for x in rows:
-    k = (x.get("keys") or "").split("|")[0]
+    k = next((_k for _k in (x.get("keys") or "").split("|") if _k in GCR["buyer"]), (x.get("keys") or "").split("|")[0])
     g = GCR["buyer"].get(k) if k else None
     if g and x.get("buyer_bn_as_published") and g["bn9"] not in x["buyer_bn_as_published"]:
         # 46 of 873 buyers carry a different BN in the federal G&C disclosure than in the CRA charities list (a related entity, e.g. a library board vs the
@@ -2552,7 +2596,7 @@ try:
         # 2026-11-10: what the buyer's OWN pages say (tools/lead_crawl.py site facts): its postal address when the row has none, and the name it
         # trades under. An invoice may name the recipient by "the name under which the recipient does business" (Input Tax Credit Information
         # (GST/HST) Regulations, SOR/91-45 s. 3(c)(i)), so a self-published trade name with an address completes the bill-to block.
-        _lf = LFACTS.get((x.get("keys") or "").split("|")[0])
+        _lf = next((LFACTS[_k] for _k in (x.get("keys") or "").split("|") if _k in LFACTS), None)
         x.setdefault("buyer_trade_name_as_published", "")
         if _lf:
             if _lf.get("address") and not (x.get("buyer_address") or "").strip() and not (x.get("invoice_mailing_address") or "").strip():

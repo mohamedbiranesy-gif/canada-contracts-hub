@@ -2,6 +2,7 @@ name: row-factory
 # New delivered rows, produced entirely in the cloud (owner 2026-11-09 19:18 EST: "the 63,000 rows have not moved … 200,000"; his Mac is off).
 #   index : Common Crawl's URL index -> every client / case-study / portfolio page of every .ca host        (tools/cc_clients.py index)
 #   cycle : read those pages from the archive -> new buyers named by Canada-located vendors (address proof kept)  (cc_clients.py extract / merge)
+#           address pass: vendors whose client page prints no address -> their home / contact page from the archive (cc_clients.py addr / merge-addr)
 #           then read each new buyer's own site for its role mailbox                                         (tools/lead_crawl.py)
 #           then hand the rows to the referee (verify-and-merge re-fetches every evidence page) — the next rank build delivers them.
 # Nothing here uses AI, a search engine or the owner's computer. Sites are read politely (robots.txt, 1 request / second / site).
@@ -26,7 +27,7 @@ permissions:
   contents: write
   actions: write
 concurrency:
-  group: row-factory-${{ inputs.stage || 'cycle' }}
+  group: row-factory-b-${{ inputs.stage || 'cycle' }}   # "-b": a run of the first version hung on a slow site (2026-11-10) and would have held the queue for hours
   cancel-in-progress: false
 env:
   STAGE: ${{ inputs.stage || 'cycle' }}
@@ -133,9 +134,56 @@ jobs:
           done
           cat /tmp/merge.txt >> "$GITHUB_STEP_SUMMARY"
 
-  crawl:
+  # address pass: two thirds of the client links sit on pages that print no postal address. The vendor's home / contact / about page is looked
+  # up in the same crawl's index and read from the archive; a Canadian postal address printed there turns those links into leads.
+  addr:
     needs: [plan, merge_extract]
     if: ${{ always() && (inputs.stage || 'cycle') == 'cycle' && needs.merge_extract.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix: { k: [0, 1, 2, 3] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: pip install -q duckdb
+      - name: Read the vendors' home / contact pages for their postal address
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/cc_clients.py addr --shard ${{ matrix.k }}/4 --minutes $M --workers 4
+      - uses: actions/upload-artifact@v4
+        with: { name: "rf-addr-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_addr:
+    needs: addr
+    if: ${{ always() && needs.addr.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "rf-addr-*", path: shards, merge-multiple: true }
+      - name: Union the addresses, promote the client links of those vendors to leads, commit
+        run: |
+          ls -la shards 2>/dev/null | head -20 || true
+          mkdir -p shards
+          git config user.name "row-factory"; git config user.email "row-factory@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/cc_clients.py merge-addr shards | tee /tmp/addr.txt
+            python3 tools/cc_clients.py merge shards | tee -a /tmp/addr.txt
+            for f in claude_cc_vendor_addr.jsonl.gz claude_cc_addr_done.tsv claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_cc_extract_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "row-factory: address pass ($(head -1 /tmp/addr.txt | cut -c1-110)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/addr.txt >> "$GITHUB_STEP_SUMMARY"
+
+  crawl:
+    needs: [plan, merge_addr]
+    if: ${{ always() && (inputs.stage || 'cycle') == 'cycle' && needs.merge_addr.result == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 200
     strategy:
