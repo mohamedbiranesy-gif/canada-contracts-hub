@@ -12,6 +12,7 @@ Classes (first that applies):
   obfuscated_text                "info [at] domain", "info (at) domain", HTML-entity or script-built addresses: not decoded
   mailbox_other_domain           addresses printed, none on the organisation's own domain or name (webmail, a parent's domain)
   mailbox_person_like            addresses on its own domain, all shaped like a person's (first.last, initials)
+  mailbox_named_after_the_organisation   an address on its own domain whose name is the organisation's own name (acme@acme.ca)
   mailbox_unknown_word           addresses on its own domain whose name is not a known role word  -> candidates for the word lists
   would_be_found_now             a role mailbox IS on these pages (the earlier crawl missed it: time budget, page order, a rule added since)
   form_only                      no address anywhere on the pages read; a contact form
@@ -90,6 +91,10 @@ def classify_site(site, name):
     if found:
         return "would_be_found_now", []
     if own_unknown:
+        lab = re.sub(r"[^a-z0-9]", "", C.registrable(host).split(".")[0])
+        flat = [re.sub(r"[^a-z0-9]", "", w) for w in own_unknown]
+        if any(len(f) >= 4 and (f == lab or (len(f) >= 5 and (f in lab or lab in f))) for f in flat):
+            return "mailbox_named_after_the_organisation", []  # acme@acme.ca, boulangerielafournee@…: the organisation's name as the mailbox name
         return "mailbox_unknown_word", own_unknown
     if own_person:
         return "mailbox_person_like", []
@@ -151,7 +156,9 @@ def main():
         for cls, c in res[grp].most_common():
             print("  %-26s %5d  %4.1f %%" % (cls, c, 100.0 * c / tot))
     print("\n== mailbox names (before the @) turned down as 'unknown word' on 5+ different sites of the sample")
-    print("  " + ", ".join("%s %d" % kv for kv in words.most_common(80) if kv[1] >= 5))
+    print("  " + ", ".join("%s %d" % kv for kv in words.most_common(120) if kv[1] >= 2))
+    one = [w for w, c in words.items() if c == 1]
+    print("  seen on one site only: %d names (%d of them a single run of letters up to 9 long — the shape of a first name)" % (len(one), sum(1 for w in one if re.fullmatch(r"[a-z]{2,9}", w))))
     sys.stdout.flush()
     os._exit(0)
 
