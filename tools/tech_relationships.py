@@ -92,6 +92,64 @@ VENDORS = {
                    link_re=r"^clienthub\.getjobber\.com/(?:client_hubs|booking)/([0-9a-f][0-9a-f-]{15,})", cc=["clienthub.getjobber.com/client_hubs/"],
                    portal_fmt="https://clienthub.getjobber.com/client_hubs/%s/login/new", excl=set(),
                    scope="\"GOVERNED BY AND MADE UNDER CANADIAN LAW BETWEEN YOU AND JOBBER\" — Octopusapp Inc. dba Jobber is the contracting entity in every country (https://getjobber.com/terms-of-service/, read 2026-11-10)"),
+    # ---- vetted 2026-11-10 from each vendor's own pages (opened that day from the cloud session, robots.txt obeyed): who the customer contracts
+    # with, where that company is, and that there is no free plan. `scope` quotes the pages; tools/cc_tenants.py SCOPE lists the countries.
+    "checkfront": dict(name="Checkfront", legal="Checkfront Inc.", kind="portal",
+                       hq_url="https://www.checkfront.com/company/contact/",
+                       hq="Billing accounts@checkfront.com 777 Broughton Street, 3rd floor Victoria, BC, Canada, V8W 1E3",
+                       host_re=r"^([a-z0-9-]+)\.checkfront\.com$", cc=["*.checkfront.com"],
+                       excl={"www", "support", "help", "status", "blog", "app", "api", "cdn", "static", "assets", "demo", "developers", "docs", "partners", "mobile", "my", "secure",
+                             "login", "accounts", "ideas", "community", "sandbox", "test", "staging", "dev", "marketing", "go", "info", "email", "mail", "links", "learn", "media",
+                             "images", "img", "files", "get", "try", "start", "checkfront", "booking", "bookings", "reserve"},
+                       scope="\"you will be in a legal agreement with Checkfront Inc. and/or its Affiliates\" … \"governed by and construed in accordance with the laws of the Province of "
+                             "British Columbia\", lawsuits \"in Victoria, British Columbia, Canada\" (https://www.checkfront.com/terms/master/, read 2026-11-10); billing office in Victoria; "
+                             "\"$99 per month + 3% online booking fee\", no free plan (https://www.checkfront.com/pricing/). Kept for customers in Canada and the United States: the affiliates "
+                             "(Rezdy, Regiondo) serve other regions under their own names"),
+    "touchbistro": dict(name="TouchBistro (reservations / online ordering)", legal="TouchBistro Inc.", kind="portal",
+                        hq_url="https://www.touchbistro.com/privacy-notice/",
+                        hq="TouchBistro Inc., 1100 – 85 Richmond St W, Toronto, ON M5H 2C9 Canada",
+                        link_re=r"^(?:www\.)?tbdine\.com/(?:book/)?restaurant/([a-z0-9][a-z0-9-]{2,})", cc=["www.tbdine.com/restaurant/"],
+                        portal_fmt="https://www.tbdine.com/restaurant/%s", excl=set(),
+                        scope="\"TouchBistro Inc. and its affiliates (collectively, “TouchBistro”) provide the TouchBistro restaurant point of sale software\" … \"exclusively governed by the "
+                              "laws of the Province of Ontario … and the courts sitting at Toronto\" (https://www.touchbistro.com/terms-of-service/, effective March 31, 2026, read 2026-11-10); "
+                              "\"our Essentials Bundle starts at $99 per month\" (https://www.touchbistro.com/): a restaurant bookable on TouchBistro's guest site is a subscriber"),
+    "wellnessliving": dict(name="WellnessLiving", legal="WellnessLiving Inc.", kind="portal",
+                           hq_url="https://www.wellnessliving.com/privacy-policy/",
+                           hq="WellnessLiving Inc., 175 Commerce Valley Drive West, Suite 320, Thornhill, Ontario, L3T 7P6, Canada",
+                           link_re=r"^(?:www\.)?wellnessliving\.com/(?:rs/)?(?:login|schedule|catalog|event|appointment|book|store|review|explore/locations)/([a-z0-9][a-z0-9_-]{2,})(?:[/?#]|$)",
+                           cc=["www.wellnessliving.com/schedule/", "www.wellnessliving.com/login/"],
+                           portal_fmt="https://www.wellnessliving.com/schedule/%s", excl={"index", "home", "default"},
+                           scope="\"the terms on which WellnessLiving Inc. (“WellnessLiving,” “we,” or “us”) provides the WellnessLiving website\" — one company for every customer "
+                                 "(https://www.wellnessliving.com/terms-of-use/, read 2026-11-10); plans Starter $69, Business $199, BusinessPro $349 a month, no free plan "
+                                 "(https://www.wellnessliving.com/pricing/)"),
+    "wellnessliving_widget": dict(name="WellnessLiving", legal="WellnessLiving Inc.", kind="asset",
+                                  hq_url="https://www.wellnessliving.com/privacy-policy/",
+                                  hq="WellnessLiving Inc., 175 Commerce Valley Drive West, Suite 320, Thornhill, Ontario, L3T 7P6, Canada",
+                                  asset_re=r"wellnessliving\.com/rs/(?:skin-widget|widget|skin)",
+                                  scope="\"the terms on which WellnessLiving Inc. (“WellnessLiving,” “we,” or “us”) provides the WellnessLiving website\" — one company for every customer "
+                                        "(https://www.wellnessliving.com/terms-of-use/, read 2026-11-10); plans from $69 a month, no free plan (https://www.wellnessliving.com/pricing/)"),
+    "clubrunner": dict(name="ClubRunner", legal="Infotech Business Centre Inc. dba ClubRunner", kind="asset",
+                       hq_url="https://site.clubrunner.ca/Page/terms-and-conditions",
+                       hq="Infotech Business Centre Inc. doing business as ClubRunner, headquartered at 2010 Winston Park Drive, Suite 200, Oakville, Ontario, L6H 5R7",
+                       graph=["clubrunner.ca"], asset_re=r"clubrunner\.blob\.core\.windows\.net/\d{8,}/|globalassets\.clubrunner\.ca/",
+                       scope="\"ClubRunner Subscription Agreement represents the complete Agreement and understanding between Infotech Business Centre Inc. doing business as ClubRunner … "
+                             "and the customer requesting a subscription\" … \"governed by the laws of the Province of Ontario\" (https://site.clubrunner.ca/Page/terms-and-conditions, "
+                             "read 2026-11-10); priced in US dollars \"for customers outside of Canada and Canadian Dollars (CAD) for customers in Canada\" "
+                             "(https://site.clubrunner.ca/page/pricing): one company for every country; the site's own pages are served from its ClubRunner account"),
+    "crowdriff": dict(name="CrowdRiff", legal="CrowdRiff Inc.", kind="asset",
+                      hq_url="https://crowdriff.com/contact/",
+                      hq="hello@crowdriff.com 240 Richmond St. W. 5th floor, Unit 5-101 Toronto, ON M5V 1V6",
+                      graph=["crowdriff.com"], asset_re=r"starling\.crowdriff\.com/js/|embed\.crowdriff\.com/",
+                      scope="\"the services made available by CrowdRiff Inc. (“CrowdRiff”, “we”, “us”) to subscribers (“Customer”, “you”) who have entered into one or more "
+                            "software-as-a-service order forms\" … \"governed by and construed in accordance with the laws of Ontario, Canada\" whatever \"Customer’s current state or "
+                            "country of residence\" (https://crowdriff.com/terms-of-service/, read 2026-11-10): one company for every country, subscribers only"),
+    "nicejob": dict(name="NiceJob", legal="Paystone Inc. (NiceJob)", kind="asset",
+                    hq_url="https://get.nicejob.com/terms",
+                    hq="NiceJob (Paystone Inc.) 509 Commissioners Rd. W., Unit 434 London, ON, N6J 1Y5",
+                    graph=["nicejob.com", "nicejob.co"], asset_re=r"cdn\.nicejob\.(?:co|com)/",
+                    scope="\"NiceJob is a tradename owned and operated by Paystone Inc.\" … \"the laws of the Province of British Columbia, Canada … will govern these Terms of Service\" "
+                          "(https://get.nicejob.com/terms, last updated August 27, 2023, read 2026-11-10): one company for every country; Starter $95, Pro $135 a month, no free plan "
+                          "(https://get.nicejob.com/pricing)"),
     "docebo": dict(name="Docebo", legal="Docebo Inc.", kind="portal",
                    hq_url="https://www.docebo.com/contact/",
                    hq="Our offices Docebo Inc. 55 York Street – 12th floor, Toronto, ON M5J 1R7, Canada",
@@ -152,7 +210,7 @@ for _k, _v in VENDORS.items():
     for _f in ("host_re", "link_re", "path_re", "asset_re"):
         if _v.get(_f):
             _v[_f + "_c"] = re.compile(_v[_f], re.I)
-VENDOR_BASES = {"getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
+VENDOR_BASES = {"checkfront.com", "tbdine.com", "touchbistro.com", "wellnessliving.com", "clubrunner.ca", "crowdriff.com", "nicejob.co", "nicejob.com", "paystone.com", "getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
                 "escribemeetings.com", "bibliocommons.com", "bibliocms.com", "brightspace.com", "desire2learn.com",
                 "d2l.com", "edsby.com", "amilia.com", "janeapp.com", "jane.app", "docebosaas.com", "docebo.com",
                 "myabsorb.com", "myabsorb.ca", "myabsorb.eu", "absorbai.com", "absorblms.com", "shopify.com",
@@ -675,6 +733,10 @@ def portal_info(vkey, purl):
     if vkey == "amilia":
         m = re.search(r"/store/(?:en|fr|es)/([a-z0-9-]+)", fu, re.I)
         slug = m.group(1) if m else slug
+    elif VENDORS.get(vkey, {}).get("link_re_c"):  # a portal named by its path (tbdine.com/restaurant/<slug>): the slug is in the path, not the host
+        pu = urllib.parse.urlparse(fu)
+        m = VENDORS[vkey]["link_re_c"].match((pu.hostname or "").lower() + pu.path) or VENDORS[vkey]["link_re_c"].match(urllib.parse.urlparse(purl).hostname.lower() + urllib.parse.urlparse(purl).path)
+        slug = m.group(1).lower() if m else slug
     website, wbasis = pick_website(anchors, host_of(fu), name_tokens(name, slug))
     if website and not name:  # the portal names no organisation: read the organisation's own home page title
         if allowed(website):

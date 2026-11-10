@@ -65,7 +65,11 @@ def tenant_done_lines(legacy):
 # countries whose customers contract with the vendor's Canadian company; default: Canada only (until the vendor's terms are read).
 # Jane and Jobber (terms read 2026-11-10, quoted in tools/tech_relationships.py VENDORS[...]["scope"]): one Canadian contracting entity for every
 # country — every country whose postal addresses tools/lead_crawl.py can read
-SCOPE = {"shopify": ("CA", "US"), "jane": ("CA", "US", "GB", "AU"), "jobber": ("CA", "US", "GB", "AU")}
+SCOPE = {"shopify": ("CA", "US"), "jane": ("CA", "US", "GB", "AU"), "jobber": ("CA", "US", "GB", "AU"),
+         # read 2026-11-10 (quotes in the vendor table): Checkfront and TouchBistro name the company "and its affiliates" -> North America only;
+         # WellnessLiving, ClubRunner, CrowdRiff and NiceJob name one company for every customer
+         "checkfront": ("CA", "US"), "touchbistro": ("CA", "US"), "wellnessliving": ("CA", "US", "GB", "AU"), "wellnessliving_widget": ("CA", "US", "GB", "AU"),
+         "clubrunner": ("CA", "US", "GB", "AU"), "crowdriff": ("CA", "US", "GB", "AU"), "nicejob": ("CA", "US", "GB", "AU")}
 # registered domains of the vetted customer portals (from the vendor table) + the extra TLD forms its host patterns accept
 EXTRA = {"jane": ["janeapp.co.uk", "janeapp.com.au"], "absorb": ["myabsorb.com.au"], "d2l": ["desire2learn.com"]}
 

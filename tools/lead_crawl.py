@@ -665,7 +665,7 @@ def candidates_mode(a, k, n):
         else:
             res = "accepted"
         own_why = ""
-        if res == "accepted" and ex.get("seen_on") and T.VENDORS.get(vkey, {}).get("kind") == "portal":
+        if res == "accepted" and ex.get("seen_on") and T.VENDORS.get(vkey, {}).get("kind") == "portal" and (c.get("slug") or "") != "asset":
             # seen live by tools/credit_scan.py as a link on the site: is it the site's OWN portal? (checked last: one request to the vendor's platform)
             own, own_why = portal_owned(vkey, c.get("slug") or "", ex.get("portal") or "https://%s/" % (c.get("slug") or ""), st.get("host") or "", name)
             if not own:

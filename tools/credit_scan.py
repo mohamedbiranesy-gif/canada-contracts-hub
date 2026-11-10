@@ -458,6 +458,8 @@ def graph(a):
     try:  # the customer-portal domains of the vetted Canada-HQ software vendors (<clinic>.janeapp.com …): a site that links to its portal is a customer
         import cc_tenants as CT
         tech_t = set(CT.portal_domains())
+        import tech_relationships as _TR
+        tech_t |= {d for v in _TR.VENDORS.values() for d in v.get("graph") or ()}  # vendors seen as a loaded widget: the sites that link to them ("Powered by …") are read too
     except Exception as e:
         print("portal domains not loaded: %s" % e, flush=True)
     targets |= tech_t
