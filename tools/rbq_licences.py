@@ -80,59 +80,125 @@ def http(url, timeout=120):
     return urllib.request.urlopen(req, timeout=timeout)
 
 
+def read_table(path):
+    """rows of a CSV (encoding and delimiter found from the file) or of a JSON file (the first list of objects in it; nested objects are
+    flattened one level), each row a dict with normalised keys (keyname)"""
+    head = open(path, "rb").read(200000)
+    if head.lstrip()[:1] in (b"[", b"{"):
+        data = json.load(open(path, encoding="utf-8-sig"))
+
+        def find(x, depth=0):
+            if isinstance(x, list) and x and isinstance(x[0], dict):
+                return x
+            if isinstance(x, dict) and depth < 3:
+                for v in x.values():
+                    r = find(v, depth + 1)
+                    if r:
+                        return r
+            return None
+        rows = find(data) or []
+        print("JSON: top %s; %d records; keys of the first: %s" % (type(data).__name__ if not isinstance(data, dict) else "object with keys %s" % list(data)[:12], len(rows), list(rows[0])[:40] if rows else []), flush=True)
+        for r in rows:
+            o = {}
+            for k, v in r.items():
+                if isinstance(v, dict):
+                    for k2, v2 in v.items():
+                        o[keyname(k2)] = v2
+                        o[keyname(k + " " + k2)] = v2
+                else:
+                    o[keyname(k)] = v
+            yield o
+        return
+    enc = "utf-8-sig"
+    try:
+        head.decode("utf-8-sig")
+    except UnicodeDecodeError as e:
+        if e.start < len(head) - 8:  # not just a multi-byte character cut at the end of the sample
+            enc = "cp1252"
+    first = head.split(b"\n", 1)[0].decode(enc, "replace")
+    delim = max(",;\t|", key=first.count)
+    print("CSV: encoding %s, delimiter %r, header: %s" % (enc, delim, first[:600]), flush=True)
+    with open(path, encoding=enc, errors="replace", newline="") as f:
+        for r in csv.DictReader(f, delimiter=delim):
+            yield {keyname(k): v for k, v in r.items() if k}
+
+
+FIELDS = dict(licence=("numero de licence", "no licence", "numero licence", "licence"), status=("statut de la licence", "statut licence", "statut"),
+              type=("type de licence", "type licence"), issued=("date de delivrance", "date delivrance"), next_payment=("date du paiement annuel", "date paiement annuel", "date de paiement annuel"),
+              body=("mandataire",), legal_status=("statut juridique",), name=("nom de l intervenant", "nom intervenant", "nom"), other=("autre nom", "autres noms"),
+              neq=("neq", "numero d entreprise du quebec"), address=("adresse",), city=("municipalite",), phone=("numero de telephone", "telephone"), email=("courriel", "adresse courriel"),
+              cat=("categorie", "categories et sous categories", "categories", "categories sous categories"), sub=("sous categories", "sous categorie"), restriction=("restriction",))
+
+
+def text_of(v):
+    if v is None:
+        return ""
+    if isinstance(v, (list, tuple)):
+        return " | ".join(text_of(x) for x in v if x not in (None, ""))
+    if isinstance(v, dict):
+        return " ".join(text_of(x) for x in v.values() if x not in (None, ""))
+    return str(v).strip()
+
+
 def pull(a):
     os.makedirs("out", exist_ok=True)
-    src = a.csv
-    if not src:
+    srcs = [a.csv] if a.csv else []
+    if not srcs:
         meta = json.loads(http(API).read().decode("utf-8", "replace"))["result"]
-        res = [r for r in meta.get("resources") or [] if (r.get("format") or "").upper() == "CSV"]
         print("dataset: %s | modified %s | licence %s | resources: %s" % (meta.get("title"), meta.get("metadata_modified"), meta.get("license_title"),
                                                                           "; ".join("%s %s %s" % (r.get("format"), r.get("size"), r.get("url")) for r in meta.get("resources") or [])), flush=True)
-        if not res:
-            raise SystemExit("no CSV resource in the dataset")
-        src = "out/rbq_raw.csv"
-        t0 = time.time()
-        with http(res[0]["url"], timeout=600) as r, open(src, "wb") as f:
-            while True:
-                b = r.read(1 << 20)
-                if not b:
+        # the JSON resource first (the complete record of each licence); the CSV when the JSON cannot be read
+        for fmt in ("JSON", "CSV"):
+            for r in meta.get("resources") or []:
+                if (r.get("format") or "").upper() == fmt:
+                    dst = "out/rbq_raw.%s" % fmt.lower()
+                    t0 = time.time()
+                    try:
+                        with http(r["url"], timeout=900) as resp, open(dst, "wb") as f:
+                            while True:
+                                b = resp.read(1 << 20)
+                                if not b:
+                                    break
+                                f.write(b)
+                        print("downloaded %s: %.0f MB in %.0f s" % (fmt, os.path.getsize(dst) / 1e6, time.time() - t0), flush=True)
+                        srcs.append(dst)
+                    except Exception as e:
+                        print("%s not downloaded: %s" % (fmt, str(e)[:200]), flush=True)
                     break
-                f.write(b)
-        print("downloaded %.0f MB in %.0f s" % (os.path.getsize(src) / 1e6, time.time() - t0), flush=True)
+        if not srcs:
+            raise SystemExit("no resource downloaded")
     lic, n = {}, 0
-    with open(src, encoding="utf-8-sig", newline="") as f:
-        rd = csv.DictReader(f)
-        names = {keyname(c): c for c in rd.fieldnames or []}
-        print("columns: %s" % rd.fieldnames, flush=True)
-
-        def col(*cands):
-            for c in cands:
-                if c in names:
-                    return names[c]
-            return None
-        C_ = dict(licence=col("numero de licence"), status=col("statut de la licence"), type=col("type de licence"), issued=col("date de delivrance"),
-                  next_payment=col("date du paiement annuel"), body=col("mandataire"), legal_status=col("statut juridique"), name=col("nom de l intervenant"),
-                  other=col("autre nom"), neq=col("neq"), address=col("adresse"), city=col("municipalite"), phone=col("numero de telephone"), email=col("courriel"),
-                  cat=col("categorie", "categories et sous categories", "categories"), sub=col("sous categories", "sous categorie"), restriction=col("restriction"))
-        missing = [k for k, v in C_.items() if v is None and k not in ("sub", "cat")]
-        if missing:
-            print("columns not found: %s" % missing, flush=True)
-        g = lambda row, k: (row.get(C_[k]) or "").strip() if C_.get(k) else ""
-        for row in rd:
-            n += 1
-            num = g(row, "licence")
-            if not num:
-                continue
-            L = lic.get(num)
-            if L is None:
-                L = lic[num] = {k: g(row, k) for k in ("licence", "status", "type", "issued", "next_payment", "body", "legal_status", "name", "other", "neq", "address", "city", "phone", "email", "restriction")}
-                L["cats"] = []
-                if n <= 2:
-                    print("sample row: %s" % json.dumps({k: (v if k not in (C_.get("email"), C_.get("phone")) else "…") for k, v in row.items()}, ensure_ascii=False)[:900], flush=True)
-            for k in ("cat", "sub"):
-                v = g(row, k)
-                if v and v not in L["cats"] and len(L["cats"]) < 12:
-                    L["cats"].append(v)
+    for src in srcs:
+        lic, n, shown = {}, 0, 0
+        try:
+            for row in read_table(src):
+                n += 1
+                g = lambda k: next((text_of(row[c]) for c in FIELDS[k] if c in row and row[c] not in (None, "")), "")
+                num = g("licence")
+                if not num:
+                    continue
+                L = lic.get(num)
+                if L is None:
+                    L = lic[num] = {k: g(k) for k in ("licence", "status", "type", "issued", "next_payment", "body", "legal_status", "name", "other", "neq", "address", "city", "phone", "email", "restriction")}
+                    L["cats"] = []
+                    if shown < 2:
+                        shown += 1
+                        print("sample record: %s" % json.dumps({k: ("…" if re.search(r"courriel|telephone", k) else text_of(v)[:120]) for k, v in row.items()}, ensure_ascii=False)[:1500], flush=True)
+                for k in ("cat", "sub"):
+                    v = g(k)
+                    if v and v not in L["cats"] and len(L["cats"]) < 12:
+                        L["cats"].append(v[:160])
+        except Exception as e:
+            print("%s not read: %s: %s" % (src, type(e).__name__, str(e)[:200]), flush=True)
+            lic = {}
+        have = collections.Counter(k for L in lic.values() for k, v in L.items() if v)
+        print("%s: rows %d; licences %d; fields filled: %s" % (src, n, len(lic), dict(have)), flush=True)
+        if lic and have["name"] > 0.9 * len(lic) and have["legal_status"] > 0.5 * len(lic):
+            break
+        print("%s: the fields needed (holder's name, legal status) are not there — next resource" % src, flush=True)
+        lic = {}
+    if not lic:
+        raise SystemExit("the list could not be read (see the lines above for its columns)")
     st = collections.Counter(keyname(L["legal_status"]) or "(none)" for L in lic.values())
     print("rows %d; licences %d; legal status: %s; issuing body: %s; licence status: %s" % (
         n, len(lic), dict(st.most_common(8)), dict(collections.Counter(body_of(L["body"]) for L in lic.values())), dict(collections.Counter(L["status"] for L in lic.values()).most_common(5))), flush=True)

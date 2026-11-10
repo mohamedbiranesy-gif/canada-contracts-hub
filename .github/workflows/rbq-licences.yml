@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir -p out keep
           python3 tools/rbq_licences.py pull 2>&1 | tee /tmp/r.txt
-          rm -f out/rbq_raw.csv
+          rm -f out/rbq_raw.csv out/rbq_raw.json
           cp out/rbq_holders.csv.gz keep/
           python3 tools/rbq_licences.py sites --minutes "$MINUTES" --limit "$LIMIT" --workers 60 2>&1 | tail -40 | tee -a /tmp/r.txt
           cp out/rbq_sites.jsonl keep/ 2>/dev/null || true
