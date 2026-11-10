@@ -98,14 +98,17 @@ jobs:
               python3 tools/lead_crawl.py --merge stores --tenants --stamp "$STAMP" --facts-shards | tee -a /tmp/stores.txt
               git add data/incoming/claude/tenant_state 2>/dev/null || true
             fi
+            python3 tools/secret_guard.py | tee -a /tmp/crawl.txt || true   # no pre-signed storage address, no key-shaped token in what is committed (2026-11-10: GitHub refused a whole merge for one)
             git add data/incoming/claude/crawl_state 2>/dev/null || true
             git add data/incoming/claude/site_facts 2>/dev/null || true   # the sites' own name / address / licence number: append-only shards since 2026-11-10
             git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)
-            git diff --cached --quiet && { echo "nothing new"; break; }
-            git commit -q -m "[claude] mailbox-crawl: role mailboxes of lead buyers ($(tail -1 /tmp/crawl.txt | cut -c1-110))"
-            git push -q origin HEAD:main && break
+            git diff --cached --quiet && { echo "nothing new"; pushed=1; break; }
+            git commit -q -m "[claude] mailbox-crawl: role mailboxes of lead buyers ($(grep -m1 '^lead sites read so far' /tmp/crawl.txt | cut -c1-110))"
+            git push -q origin HEAD:main && { pushed=1; break; }
             sleep $((RANDOM % 12 + 3))
           done
+          # 2026-11-10: twelve refused pushes ended this job green and a run's work was not saved. A merge that could not be pushed is a failed job.
+          [ "${pushed:-0}" = "1" ] || { echo "::error::the crawl's rows could not be pushed to main (see the push errors above): nothing of this run was saved"; exit 1; }
           cat /tmp/crawl.txt /tmp/stores.txt >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
           # pushes made with the workflow token do not start other workflows: call the referee, which re-fetches every evidence page
           gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true

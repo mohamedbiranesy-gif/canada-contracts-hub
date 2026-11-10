@@ -69,6 +69,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             python3 tools/cc_clients.py merge shards --stamp "$STAMP" --engine ml | tee /tmp/merge.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/lead_shards 2>/dev/null || true
             for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_cc_extract_done.tsv claude_cc_leads_noaddr.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
@@ -76,6 +77,8 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/merge.txt >> "$GITHUB_STEP_SUMMARY"
 
   discover:
@@ -112,12 +115,15 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             cp /tmp/index_hosts.csv data/incoming/claude/claude_member_index_hosts.csv   # single writer: this job
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/claude_member_index_hosts.csv
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "member-live: index hosts ($(tail -1 /tmp/i.txt | cut -c1-110)) [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/i.txt >> "$GITHUB_STEP_SUMMARY"
           gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/member-live.yml/dispatches" -f ref=main -f "inputs[stage]=discover-index" || true
 
@@ -156,6 +162,7 @@ jobs:
             python3 tools/member_live.py merge-hosts shards | tee /tmp/h.txt
             # the bodies' own postal addresses read by discover-index (the Canada proof of each new directory) join the address store
             if ls shards/cc_vendor_addr_*.jsonl > /dev/null 2>&1; then python3 tools/cc_clients.py merge-addr shards | tail -1; git add data/incoming/claude/claude_cc_vendor_addr.jsonl.gz data/incoming/claude/claude_cc_addr_done.tsv 2>/dev/null || true; fi
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/claude_member_hosts_judged.tsv 2>/dev/null || true
             git add data/incoming/claude/claude_member_hosts.csv data/incoming/claude/claude_member_hosts.csv.probed 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
@@ -163,5 +170,7 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/h.txt >> "$GITHUB_STEP_SUMMARY"
           gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/member-live.yml/dispatches" -f ref=main -f "inputs[stage]=crawl" || true

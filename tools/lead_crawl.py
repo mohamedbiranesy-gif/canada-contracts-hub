@@ -784,6 +784,7 @@ def facts_mode(a, k, n):
 def merge(a):
     """append the shard rows to the results file (never a row the validator would reject, never a duplicate) and union the done files"""
     cols, have, rows = None, set(), []
+    n_signed = 0
     # the results file grows by ~700 bytes a row and GitHub refuses files over 100 MB: cccrawl01, 02 … each closed at 30 MB (every reader globs
     # data/incoming/*/*buyer_ap_results*.csv)
     outs = sorted(glob.glob(OUT.replace("cccrawl01", "cccrawl[0-9][0-9]")))
@@ -803,6 +804,9 @@ def merge(a):
             for r in rd:
                 key = (r.get("buyer_key"), (r.get("ap_email") or "").lower(), r.get("evidence_url") or "")
                 if not r.get("buyer_key") or r["buyer_key"] == "buyer_key" or key in have or not ok_mailbox(r.get("ap_email")):
+                    continue
+                if C.SIGNED_URL.search(r.get("evidence_url") or ""):
+                    n_signed += 1  # a pre-signed storage address (valid a few minutes): not evidence — a runner on the earlier crawler code wrote it
                     continue
                 if a.tenants and not r["buyer_key"].startswith("lead:"):
                     continue  # a candidate that was not accepted never reaches the results file
@@ -826,6 +830,8 @@ def merge(a):
                     w.writeheader()
             w.writerow(r)
         f.close()
+    if n_signed:
+        print("rows left out, their evidence address is a pre-signed storage address that cannot be opened again: %d" % n_signed)
     done_path, pat = (TDONE, "tenant_done_*.tsv") if a.tenants else (SFDONE, "site_facts_done_*.tsv") if a.site_facts else (DONE, "lead_done_*.tsv")
     seen = {}
     # --stamp (the workflows since 2026-11-10) = shard mode. A run that was queued with the earlier workflow file calls --merge without --stamp

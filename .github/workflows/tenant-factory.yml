@@ -94,12 +94,15 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/cc_tenants.py merge-index shards | tee -a "$GITHUB_STEP_SUMMARY"
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             for f in claude_cc_tenant_pages.csv.gz claude_cc_shopify_redirects.csv.gz claude_cc_shopify_shapes.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "tenant-factory: Common Crawl index of customer portals and store redirects [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           if [ "$STAGE" = "index" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/tenant-factory.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" || true; fi
 
   extract:
@@ -137,12 +140,15 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/cc_tenants.py merge shards | tee /tmp/merge.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             for f in claude_tenant_candidates.csv.gz claude_cc_tenant_extract_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "tenant-factory: candidates ($(tail -1 /tmp/merge.txt | cut -c1-120)) [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/merge.txt >> "$GITHUB_STEP_SUMMARY"
 
   crawl:
@@ -187,6 +193,7 @@ jobs:
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/tenant_state data/incoming/claude/site_facts
             python3 tools/cc_tenants.py merge-accepted shards --stamp "$STAMP" | tee /tmp/acc.txt
             python3 tools/lead_crawl.py --merge shards --tenants --stamp "$STAMP" --facts-shards | tee -a /tmp/acc.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/tenant_state 2>/dev/null || true
             git add data/incoming/claude/site_facts 2>/dev/null || true   # append-only shards since 2026-11-10
             git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)
@@ -195,5 +202,7 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/acc.txt >> "$GITHUB_STEP_SUMMARY"
           gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true

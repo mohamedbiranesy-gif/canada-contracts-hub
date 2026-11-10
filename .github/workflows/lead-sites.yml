@@ -50,10 +50,13 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/lead_sites.py --merge shards | tee /tmp/ls.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             for f in claude_lead_websites.csv claude_lead_sites_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "lead-sites: $(tail -1 /tmp/ls.txt | cut -c1-110) [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/ls.txt >> "$GITHUB_STEP_SUMMARY"

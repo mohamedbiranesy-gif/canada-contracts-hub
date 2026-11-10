@@ -151,6 +151,16 @@ def fetch(url, limit=6_000_000, _hops=0):
         return 0, "", b"", url
 
 
+# A document behind a storage redirect (a link on the site answers with a pre-signed S3 / Azure / Google Storage address: access-key id, signature,
+# valid a few minutes) — 2026-11-10: a row carried such an address as its evidence; it cannot be opened again, and GitHub's push protection
+# refused the whole merge of a crawl run because of the key id in it. The address that was ASKED is the stable one: it is the evidence.
+SIGNED_URL = re.compile(r"[?&](?:X-Amz-Signature|X-Amz-Credential|X-Amz-Security-Token|AWSAccessKeyId|Signature|X-Goog-Signature|X-Goog-Credential|GoogleAccessId|sig|Key-Pair-Id|Policy)=", re.I)
+
+
+def stable_url(asked, final):
+    return asked if (final and SIGNED_URL.search(final) and not SIGNED_URL.search(asked or "")) else (final or asked)
+
+
 def allowed(url):
     p = urllib.parse.urlparse(url)
     if p.scheme not in ("http", "https") or not p.netloc:
@@ -539,6 +549,7 @@ def crawl(task, max_pages, general=False):
         if not allowed(url):
             continue
         status, ctype, data, final = fetch(url)
+        page = stable_url(url, final)  # what a row and the page memory name; `final` still resolves the page's own links
         pages += 1
         stats["pages"] += 1
         head = data[:20000].decode("utf-8", "replace")
@@ -553,7 +564,7 @@ def crawl(task, max_pages, general=False):
         raw = pdf_text(data) if is_pdf else office_text(data) if is_office else html.unescape(data.decode("utf-8", "replace"))
         is_pdf = is_pdf or is_office  # documents: no links to follow
         text = re.sub(r"\s+", " ", raw) if is_pdf else visible(raw)
-        note_ap_page(task.get("buyer_key", ""), task.get("buyer_name", ""), task["known_website"], final, text, is_pdf)
+        note_ap_page(task.get("buyer_key", ""), task.get("buyer_name", ""), task["known_website"], page, text, is_pdf)
         vis = page_emails(text)
         for e in page_emails(raw):
             if e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp") or e in found:
@@ -566,7 +577,7 @@ def crawl(task, max_pages, general=False):
             i = find_tok(text, e)
             kind = classify(e, text[max(0, i - 400):i + 400] if i >= 0 else q, general)
             if kind and q:
-                found[e] = (RANK[kind] * 100 + neg, kind, final, q)
+                found[e] = (RANK[kind] * 100 + neg, kind, page, q)
         if is_pdf or depth >= (4 if max_pages > 30 else 3):  # the deeper pass (max_pages > 30) follows one more level: policies and bylaws sit behind an index page
             continue
         for link, label in links(raw, final):

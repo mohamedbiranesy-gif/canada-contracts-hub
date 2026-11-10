@@ -100,6 +100,7 @@ jobs:
             [ -f /tmp/gen/source_registry.csv ] && cp /tmp/gen/source_registry.csv coord/ || true
             python3 tools/next_batch.py > /dev/null
             python3 tools/status_board.py > /dev/null
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add coord/results coord/NEXT.md coord/STATUS_BOARD.md coord/INGEST_REPORT.md coord/tasks coord/source_registry.csv
             if [ -s /tmp/state_entries.json ]; then  # the file is a release asset now: the manifest line is committed, the file is not
               python3 tools/state_io.py restore /tmp/state_entries.json && git add coord/STATE_ASSETS.json
@@ -111,6 +112,8 @@ jobs:
             echo "push attempt $i lost the race; retrying on the new head"
             sleep $((RANDOM % 10 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
       - name: Start overdue workflows (GitHub's timer is best-effort)
         if: always()
         env:

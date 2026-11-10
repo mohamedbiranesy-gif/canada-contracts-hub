@@ -68,6 +68,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/site_facts
             python3 tools/lead_crawl.py --merge shards --site-facts --stamp "$STAMP" --facts-shards | tee /tmp/sf.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             for f in claude_site_facts_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git add data/incoming/claude/site_facts 2>/dev/null || true   # append-only shards since 2026-11-10
             git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)
@@ -76,5 +77,7 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/sf.txt >> "$GITHUB_STEP_SUMMARY"
           gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true

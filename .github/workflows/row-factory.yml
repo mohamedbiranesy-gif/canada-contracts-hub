@@ -90,12 +90,15 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/cc_clients.py merge-index shards | tee -a "$GITHUB_STEP_SUMMARY"
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             for f in claude_cc_rel_pages.csv.gz claude_cc_addr_pages.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "row-factory: Common Crawl index of relationship pages of Canada-located organisations [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           # the pages exist now: start the first cycle straight away (the schedule continues every 3 hours)
           if [ "$STAGE" = "index" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/row-factory.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" || true; fi
 
@@ -137,6 +140,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             python3 tools/cc_clients.py merge shards --stamp "$STAMP" --engine rf | tee /tmp/merge.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/lead_shards 2>/dev/null || true
             for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_cc_extract_done.tsv claude_cc_leads_noaddr.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
@@ -144,6 +148,8 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/merge.txt >> "$GITHUB_STEP_SUMMARY"
 
   # address pass: two thirds of the client links sit on pages that print no postal address. The vendor's home / contact / about page is looked
@@ -186,6 +192,7 @@ jobs:
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             python3 tools/cc_clients.py merge-addr shards | tee /tmp/addr.txt
             python3 tools/cc_clients.py merge shards --stamp "$STAMP" --engine rfa | tee -a /tmp/addr.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/lead_shards 2>/dev/null || true
             for f in claude_cc_vendor_addr.jsonl.gz claude_cc_addr_done.tsv claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_cc_extract_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
@@ -193,6 +200,8 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/addr.txt >> "$GITHUB_STEP_SUMMARY"
 
   # 2026-11-10: the mailbox crawl has its own workflow (mailbox-crawl.yml, back to back): it is the step that makes rows, and here it only
@@ -237,6 +246,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/lead_crawl.py --merge shards | tee /tmp/crawl.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             for f in claude_lead_crawl_done.tsv claude_lead_site_facts.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)
             git diff --cached --quiet && { echo "nothing new"; break; }
@@ -244,6 +254,8 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/crawl.txt >> "$GITHUB_STEP_SUMMARY"
           # pushes made with the workflow token do not start other workflows: call the referee, which re-fetches every evidence page
           gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true

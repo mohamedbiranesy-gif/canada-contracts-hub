@@ -93,12 +93,15 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/credit_scan.py merge-universe shards | tee /tmp/u.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/credit_scan/ca_domains.csv.gz 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "credit-scan: .ca universe ($(tail -1 /tmp/u.txt | cut -c1-110)) [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/u.txt >> "$GITHUB_STEP_SUMMARY"
 
   osm:
@@ -167,12 +170,15 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/credit_scan.py merge-graph shards | tee /tmp/g.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             for f in graph_ca_domains.csv.gz graph_inlinks.csv.gz osm_sites.csv.gz graph_shopify.csv.gz graph_multitenant.csv.gz; do [ -e "data/incoming/claude/credit_scan/$f" ] && git add "data/incoming/claude/credit_scan/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "credit-scan: more sites to read ($(grep -v ': 0 domains' /tmp/g.txt | tr '\n' ';' | cut -c1-120)) [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/g.txt >> "$GITHUB_STEP_SUMMARY"
 
   scan:
@@ -211,6 +217,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/credit_scan data/incoming/claude/lead_shards
             python3 tools/credit_scan.py merge shards --stamp "${STAMP}s" --lead-shards | tee /tmp/m.txt   # --lead-shards: lead changes as shards (tools/lead_store.py), not a rewrite of the two big files
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/credit_scan data/incoming/claude/lead_shards 2>/dev/null || true
             for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_candidates.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
@@ -218,6 +225,8 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
 
   vendors:
@@ -253,6 +262,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/credit_scan data/incoming/claude/lead_shards
             python3 tools/credit_scan.py merge shards --stamp "${STAMP}v" --lead-shards | tee /tmp/m.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/credit_scan data/incoming/claude/lead_shards 2>/dev/null || true
             for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_candidates.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
@@ -260,6 +270,8 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
+          # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
           # the new leads need their role mailbox: start a row-factory cycle (its mailbox crawl reads every lead that has no mailbox row) — it queues behind a running one
           gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/row-factory.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" || true
