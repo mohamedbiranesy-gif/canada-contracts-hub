@@ -89,10 +89,10 @@ jobs:
           git config user.name "mailbox-crawl"; git config user.email "mailbox-crawl@users.noreply.github.com"
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/crawl_state data/incoming/claude/tenant_state data/incoming/claude/site_facts
-            python3 tools/lead_crawl.py --merge shards --stamp "$STAMP" | tee /tmp/crawl.txt
+            python3 tools/lead_crawl.py --merge shards --stamp "$STAMP" --facts-shards | tee /tmp/crawl.txt
             if ls stores/tenant_done_*.tsv > /dev/null 2>&1; then   # the stores read alongside: accepted leads + their mailbox rows + done lines (tenant_state/)
               python3 tools/cc_tenants.py merge-accepted stores --stamp "$STAMP" | tee /tmp/stores.txt
-              python3 tools/lead_crawl.py --merge stores --tenants --stamp "$STAMP" | tee -a /tmp/stores.txt
+              python3 tools/lead_crawl.py --merge stores --tenants --stamp "$STAMP" --facts-shards | tee -a /tmp/stores.txt
               git add data/incoming/claude/tenant_state 2>/dev/null || true
             fi
             git add data/incoming/claude/crawl_state 2>/dev/null || true

@@ -67,7 +67,7 @@ jobs:
           STAMP=$(date -u +%Y%m%dT%H%M%S)
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/site_facts
-            python3 tools/lead_crawl.py --merge shards --site-facts --stamp "$STAMP" | tee /tmp/sf.txt
+            python3 tools/lead_crawl.py --merge shards --site-facts --stamp "$STAMP" --facts-shards | tee /tmp/sf.txt
             for f in claude_site_facts_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git add data/incoming/claude/site_facts 2>/dev/null || true   # append-only shards since 2026-11-10
             git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)

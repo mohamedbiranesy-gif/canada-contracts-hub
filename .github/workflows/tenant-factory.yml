@@ -186,7 +186,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/tenant_state data/incoming/claude/site_facts
             python3 tools/cc_tenants.py merge-accepted shards --stamp "$STAMP" | tee /tmp/acc.txt
-            python3 tools/lead_crawl.py --merge shards --tenants --stamp "$STAMP" | tee -a /tmp/acc.txt
+            python3 tools/lead_crawl.py --merge shards --tenants --stamp "$STAMP" --facts-shards | tee -a /tmp/acc.txt
             git add data/incoming/claude/tenant_state 2>/dev/null || true
             git add data/incoming/claude/site_facts 2>/dev/null || true   # append-only shards since 2026-11-10
             git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)

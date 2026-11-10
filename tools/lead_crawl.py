@@ -742,7 +742,7 @@ def merge(a):
                 new_facts[o["key"]] = o
             except (ValueError, KeyError):
                 pass
-    if a.stamp:  # this run's lines as one new shard (the kind of run in the name: two merges of one workflow run share a stamp)
+    if a.stamp and a.facts_shards:  # this run's lines as one new shard (the kind of run in the name: two merges of one workflow run share a stamp)
         kind = "t" if a.tenants else "s" if a.site_facts else "l"
         n_before = len({o["key"] for o in facts_records()})
         if new_facts:
@@ -752,7 +752,7 @@ def merge(a):
                     f.write(json.dumps(new_facts[key], ensure_ascii=False) + "\n")
         n_after = len({o["key"] for o in facts_records()})
         print("site facts (buyer's own name / address): %d (+%d)" % (n_after, n_after - n_before))
-    else:  # a run queued before 2026-11-10 08:15Z (no --stamp): the single file, as before
+    else:  # a run queued before 2026-11-10 08:15Z (its workflow file does not pass --facts-shards and commits only the single file): as before
         facts = {}
         if os.path.exists(FACTS):
             for l in gzip.open(FACTS, "rt", encoding="utf-8"):
@@ -789,6 +789,7 @@ def main():
     a.add_argument("--workers", type=int, default=40)
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--stamp", default="", help="with --merge: the name of this run's shard files")
+    a.add_argument("--facts-shards", action="store_true", help="with --merge --stamp: the site facts go to site_facts/facts_<stamp>.gz (the workflow commits that folder)")
     a.add_argument("--dns-stores", type=int, default=0, help="candidates mode: also read up to this many stores per shard that the DNS lookups found on Shopify's storefront addresses")
     a.add_argument("--registry", type=int, default=0, help="leads mode: also read up to this many registry candidates per shard (.ca sites whose home page prints a role mailbox)")
     a.add_argument("--straggler-seconds", type=float, default=240, help="when only slow sites are left and nothing finished for this long, stop")
