@@ -971,7 +971,7 @@ name on the whole register in both cases. Measured on 117 owners: 8 tied, all ei
 printed no address (not tied).
 Not done: the owners in countries whose addresses are not read (China, France, Germany, Japan …).
 
-## 2026-11-10 23:35Z from claude — an organisation's own address that is an alias of its account on a vetted platform
+## 2026-11-10 23:20Z from claude — an organisation's own address that is an alias of its account on a vetted platform
 The lookups already keep the alias of `www.<domain>` (CNAME record); 229 organisations on file point their site at an account on a
 vendor of the vendor table (Jobber's site builder 88, Unbounce 67, Lightspeed 49, Thinkific 21, D2L 2, Docebo 2), and none of them was a
 candidate: the vendor lanes only looked at links on pages and at the platforms' own customer addresses.
