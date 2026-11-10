@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 03:00Z — rows moved: 64,539 (+898); six cloud engines live; 35,500 lead sites queued for the mailbox crawl)
+# STATE.md — Claude lane (updated 2026-11-10 03:35Z — rows 64,539 (+898) and rising; index 268k pages, 26.8k leads, 2,578 new buyers with a mailbox at the referee)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,16 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 03:35Z — measured yields after the multi-crawl / .com-universe index and the first completeness pass
+- Index now 268,494 relationship pages (client 179,170 · member 61,371 · dealer 14,655 · sponsor 12,866 · tenant 432) — was 66,321 at 01:25Z.
+- Leads (`claude_buyer_leads_cc.csv`) 26,781 (was 9,487); 110,934 link records wait in the no-address side file; address pass, first run: 1,938
+  vendor domains now have their Canadian address from their own home / contact page (promotes their links at the next merge).
+- Mailbox crawl: 9,487 lead sites read → 2,355 with a role mailbox (2,578 buyers, 2,817 rows at the referee). ~17,300 cloud leads + 33,600 Mac-era
+  leads still to read (cycle 42749605088 queued 03:27Z, then every 3 h).
+- Site facts (completeness, first pass over delivered rows): 30,220 sites read → own name 28,453, postal address 18,919 (CA 18,103 · US 654 · GB 144 · AU 22).
+- Rank build 42749316069 (03:25Z) in progress: carries the organisation-key fix and the first site facts. READ `coord/GROWTH_VS_BASELINE.md` after it.
+- Running: tenant-factory 42745654373 (+1 queued), lead-sites 42747032693 (websites for 23,851 leads without one), referee 42746318520 (+1 queued).
 
 ## 2026-11-10 03:00Z — ROWS MOVED (+898 in the first cloud build); six engines running; what was fixed and what is queued
 - Build 01:55Z (GROWTH_VS_BASELINE): rows 63,641 → **64,539 (+898)**. Side effects found and fixed in rank.py (next build): 451 tier-I rows became
