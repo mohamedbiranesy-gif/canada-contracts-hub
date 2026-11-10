@@ -15,6 +15,10 @@ inferred relationship have a live, named, Canada-located service provider in the
                                      was not looked up yet; public resolvers, a few queries per domain -> out/dns_<K>.jsonl
   merge DIR --stamp S                -> data/incoming/claude/credit_scan/dns_<S>_<k>.gz (append-only), and the table of providers by number of
                                      client domains (dns_providers_seen.csv)
+  sweep --shard K/8 [--minutes M]    every domain of Common Crawl's domain graph (118 M) on the endings most stores use (SWEEP_TLDS): ONE question
+                                     each — is its address record on Shopify's storefront network? Only the stores found are kept (they join the
+                                     records above, so the store crawl reads them), with the place in the list where the shard stopped
+                                     (sweep_cursor.json): the next run goes on from there. `sweep-plan` prints the shards that still have work.
 The provider's location is proven the same way as for a credited web agency (tools/credit_scan.py `vendors`: its own site prints a Canadian
 postal address, or schema.org address, or location line + Canadian telephone number), and the leads are made by tools/credit_scan.py `merge`
 (leads() below). Nothing here contacts the organisations' own servers: only DNS resolvers are asked.
@@ -67,6 +71,12 @@ SERVICE_RX = re.compile(r"h[ée]berg|hosting|\bhost\b|domain|domaine|e-?mail|cou
 _WHC = ("whc.ca", "https://help.whc.ca/en/articles/618475-how-to-update-the-dns-records-a-aaaa-cname-mx-txt-srv-for-my-domain",
         "Your DNS is hosted with us if your nameservers end in whc.ca, wpdns.ca, web-dns1.com or mywhc.ca.", "2026-11-10")
 ALIAS = {"web-dns1.com": _WHC, "wpdns.ca": _WHC, "mywhc.ca": _WHC}
+# the sweep (2026-11-10): the store crawl accepts ~24 % of the stores it reads, and the stores on file (542,022: the domains that LINK to Shopify
+# and whose address record confirmed it) last about two days of crawling. A store that removed the "Powered by Shopify" link is in no such list;
+# its address record still says where it is hosted. Endings: where Shopify Inc. (Ottawa) is the contracting party — Canada and the United States.
+SWEEP_TLDS = ("com", "net", "org", "co", "us", "shop", "store")
+SWEEP_SHARDS = 8   # fixed: a shard's place in the list is only meaningful for one way of cutting the list
+CURSOR = os.path.join(DIR, "sweep_cursor.json")
 SHOPIFY_A = re.compile(r"^23\.227\.38\.(?:3[2-9]|[4-9]\d|1[01]\d|12[0-7])$")  # Shopify's storefront addresses (23.227.38.32/27, .64/26): the apex A record of a store on its own domain
 VERIF_KEY = re.compile(r"^([a-z0-9][a-z0-9._-]{2,48}?)[=:]")
 # TXT verification keys of vetted Canada-HQ vendors -> vendor domain (each needs a business account with that vendor; quotes in tools/tech_relationships.py or DECISIONS.md)
@@ -364,6 +374,148 @@ def lookup(a):
     print("finished", dict(stats), flush=True)
 
 
+def sweep_cursor():
+    try:
+        return json.load(open(CURSOR, encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def sweep_plan(a):
+    """the sweep shards that still have work, least advanced first (for the workflow's matrix)"""
+    cur = sweep_cursor()
+    pos, done = cur.get("pos") or {}, cur.get("complete") or {}
+    left = sorted((k for k in range(SWEEP_SHARDS) if not done.get(str(k))), key=lambda k: (int(pos.get(str(k), 0)), k))
+    print(json.dumps(left[:max(1, a.limit or SWEEP_SHARDS)]))
+
+
+def sweep(a):
+    import subprocess
+    import zlib
+    import dns.exception
+    import dns.resolver
+    import credit_scan as CS
+    import cc_clients as CCL
+    k, n = int(a.shard.split("/")[0]), SWEEP_SHARDS
+    os.makedirs("out", exist_ok=True)
+    cur = sweep_cursor()
+    rel = cur.get("release") or (a.release if a.release and a.release != "auto" else CS.newest_graph())
+    tlds = tuple(cur.get("tlds") or SWEEP_TLDS)
+    start = int((cur.get("pos") or {}).get(str(k), 0))
+    state = {"release": rel, "tlds": list(tlds), "shard": k, "pos": start, "complete": bool((cur.get("complete") or {}).get(str(k))), "asked": 0, "stores": 0, "no_answer": 0}
+
+    def save():
+        with open("out/sweep_cursor_%d.json" % k, "w", encoding="utf-8") as fo:
+            json.dump(state, fo)
+    save()
+    if k >= n or state["complete"]:
+        print("sweep shard %d/%d: nothing left" % (k, n), flush=True)
+        return
+    work = next((d for d in (os.environ.get("RUNNER_TEMP") or "", ".") if d and os.access(d, os.W_OK)), ".")
+    vfile = os.path.join(work, "vertices.txt.gz")
+    url = a.base or "%sprojects/hyperlinkgraph/%s/domain/%s-domain-vertices.txt.gz" % (CCL.CC, rel, rel)
+    t0 = time.time()
+    if url.startswith("http"):
+        subprocess.run(["curl", "-sS", "-L", "--fail", "--retry", "10", "--retry-delay", "10", "--retry-all-errors", "-C", "-", "-A", CCL.UA, "-o", vfile, url], check=True)
+    else:
+        vfile = url  # a local file (tests)
+    print("sweep shard %d/%d of graph %s, endings %s: the list is %.0f MiB (%.0f s); starting after place %d" % (k, n, rel, ",".join(tlds), os.path.getsize(vfile) / 2 ** 20, time.time() - t0, start), flush=True)
+    deadline = time.time() + a.minutes * 60
+    local = None
+    if a.resolver:
+        host, _, port = a.resolver.partition(":")
+        probe = dns.resolver.Resolver(configure=False)
+        probe.nameservers, probe.port, probe.timeout, probe.lifetime = [host], int(port or 53), 5, 10
+        for _ in range(6):
+            try:
+                probe.resolve("cira.ca", "NS")
+                local = (host, int(port or 53))
+                break
+            except Exception as e:
+                print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
+                time.sleep(5)
+    qps = a.qps if local else min(a.qps, 60)  # without the runner's own resolver: the public ones, slowly
+    print("resolver: %s, %d queries/s" % ("%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
+    tl = threading.local()
+    gate, nxt = threading.Lock(), [0.0]
+
+    def ask_a(d):
+        with gate:
+            t = max(time.time(), nxt[0])
+            nxt[0] = t + 1.0 / qps
+        w = t - time.time()
+        if w > 0:
+            time.sleep(w)
+        r = getattr(tl, "r", None)
+        if r is None:
+            r = dns.resolver.Resolver(configure=False)
+            if local:
+                r.nameservers, r.port, r.timeout, r.lifetime = [local[0]], local[1], 6.0, 6.0
+            else:
+                r.nameservers, r.timeout, r.lifetime = random.sample(RESOLVERS, 3), 2.5, 5.0
+            tl.r = r
+        try:
+            ans = r.resolve(d, "A", raise_on_no_answer=False)
+        except dns.resolver.NXDOMAIN:
+            return d, "", "nx"
+        except dns.exception.DNSException:
+            return d, "", "fail"
+        if ans.rrset is None:
+            return d, "", "none"
+        return d, ans[0].address, "ok"
+
+    pref = tuple(t + "." for t in tlds)
+    ok_name = re.compile(r"[a-z0-9-]+(?:\.[a-z0-9-]+)+")
+
+    def batches():
+        pos, batch = 0, []
+        with gzip.open(vfile, "rt", encoding="utf-8", errors="replace") as fh:
+            for l in fh:
+                q = l.split("\t")
+                if len(q) < 2 or not q[1].startswith(pref):
+                    continue
+                pos += 1
+                if pos <= start:
+                    continue
+                d = ".".join(reversed(q[1].strip().split(".")))
+                if zlib.crc32(d.encode()) % n != k or len(d) > 80 or not ok_name.fullmatch(d) or CS.PLATFORM.search(d):
+                    continue
+                batch.append(d)
+                if len(batch) >= a.batch:
+                    yield pos, batch
+                    batch = []
+        if batch:
+            yield pos, batch
+        yield -1, []
+
+    from concurrent.futures import ThreadPoolExecutor
+    fo = open("out/dns_%d.jsonl" % k, "a", encoding="utf-8")
+    with ThreadPoolExecutor(a.workers) as ex:
+        for pos, batch in batches():
+            if pos == -1:
+                state["complete"] = True
+                break
+            if deadline - time.time() < 1.3 * len(batch) / qps + 20:
+                break  # not enough time left for this batch: the next run starts with it
+            st = collections.Counter()
+            for d, ip, how in ex.map(ask_a, batch):
+                st[how] += 1
+                if ip and SHOPIFY_A.match(ip):
+                    fo.write(json.dumps({"d": d, "t": TODAY, "st": "ok", "l": 1, "shop": 1, "a": ip, "sw": 1}, ensure_ascii=False, separators=(",", ": ")) + "\n")
+                    state["stores"] += 1
+            fo.flush()
+            state["asked"] += len(batch)
+            state["no_answer"] += st["fail"]
+            state["pos"] = pos
+            save()
+            if state["asked"] % (10 * a.batch) == 0:
+                print(time.strftime("%H:%M:%S"), "place %d: asked %d, stores %d, no answer %d (last batch: %s)" % (pos, state["asked"], state["stores"], state["no_answer"], dict(st)), flush=True)
+    fo.close()
+    save()
+    print("finished: place %d%s; asked %d domains, %d on Shopify's storefront addresses, %d without an answer" % (
+        state["pos"], " (end of the list)" if state["complete"] else "", state["asked"], state["stores"], state["no_answer"]), flush=True)
+
+
 def merge(a):
     os.makedirs(DIR, exist_ok=True)
     stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
@@ -387,6 +539,31 @@ def merge(a):
             with gzip.open(os.path.join(DIR, "dns_%s_%s.gz" % (stamp, k)), "wt", encoding="utf-8") as g:
                 g.write("\n".join(lines) + "\n")
             n += len(lines)
+    cfiles = sorted(glob.glob(os.path.join(a.dir, "sweep_cursor_*.json")))
+    if cfiles:  # the sweep: where each shard stopped (single writer: this merge)
+        cur = sweep_cursor()
+        cur.setdefault("pos", {}); cur.setdefault("complete", {})
+        asked = stores = 0
+        for cf in cfiles:
+            try:
+                o = json.load(open(cf, encoding="utf-8"))
+            except Exception:
+                continue
+            if cur.get("release") and cur["release"] != o.get("release"):
+                continue  # a shard that read another release of the list: its place means nothing here
+            cur["release"], cur["tlds"], cur["shards"] = o["release"], o["tlds"], SWEEP_SHARDS
+            ks = str(o["shard"])
+            cur["pos"][ks] = max(int(cur["pos"].get(ks, 0)), int(o.get("pos") or 0))
+            if o.get("complete"):
+                cur["complete"][ks] = True
+            asked += int(o.get("asked") or 0); stores += int(o.get("stores") or 0)
+        cur["asked"] = int(cur.get("asked") or 0) + asked
+        cur["stores_found"] = int(cur.get("stores_found") or 0) + stores
+        cur["updated"] = time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())
+        with open(CURSOR, "w", encoding="utf-8") as f:
+            json.dump(cur, f, indent=1, sort_keys=True)
+        print("sweep of graph %s (%s): +%d domains asked, +%d stores this run; %d asked and %d stores so far; shards finished: %d of %d" % (
+            cur.get("release"), ",".join(cur.get("tlds") or []), asked, stores, cur["asked"], cur["stores_found"], len(cur["complete"]), SWEEP_SHARDS))
     tot, by = provider_counts()
     with open(SEEN_TABLE, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
@@ -489,7 +666,7 @@ def leads(prev, pdet, proof, main_keys, vstate, stats, names=None, in_canada=Non
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["lookup", "merge", "table"])
+    ap.add_argument("cmd", choices=["lookup", "merge", "table", "sweep", "sweep-plan"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--minutes", type=float, default=100)
@@ -498,8 +675,15 @@ def main():
     ap.add_argument("--stamp", default="")
     ap.add_argument("--resolver", default="", help="lookup: host:port of a recursive resolver on this machine (the workflow starts unbound); empty = public resolvers, slowly")
     ap.add_argument("--qps", type=int, default=480, help="lookup: queries per second of this runner")
+    ap.add_argument("--batch", type=int, default=20000, help="sweep: domains asked between two saves of the shard's place")
+    ap.add_argument("--release", default="auto", help="sweep: the web graph release (default: the one the sweep started with, else the newest)")
+    ap.add_argument("--base", default="", help="sweep: URL or local path of the vertices file (tests)")
     a = ap.parse_args()
-    if a.cmd == "lookup":
+    if a.cmd == "sweep":
+        sweep(a)
+    elif a.cmd == "sweep-plan":
+        sweep_plan(a)
+    elif a.cmd == "lookup":
         lookup(a)
     elif a.cmd == "merge":
         merge(a)

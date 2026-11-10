@@ -9,6 +9,9 @@ name: dns-services
 # merge  : records -> main (append-only, data/incoming/claude/credit_scan/dns_*.gz) + the table of providers by number of client domains;
 #          then a credit-scan cycle: its vendor step proves where each provider is (its own site prints a Canadian address) and its merge
 #          makes the leads (tools/credit_scan.py merge -> dns_services.leads)
+# sweep  : (mode=sweep) every domain of Common Crawl's domain graph on the endings most stores use — one address-record question each: is it on
+#          Shopify's storefront network? Only the stores found are kept; each shard notes its place in the list and the run after it goes on
+#          from there, until the list is done (the merge starts the next run).                                 (tools/dns_services.py sweep)
 # Nothing here contacts the organisations' own servers. No AI, no search engine, no Mac.
 on:
   schedule:
@@ -24,6 +27,9 @@ on:
       limit:
         description: "at most this many domains per runner (0 = no limit)"
         default: "0"
+      mode:
+        description: "lookup | sweep"
+        default: "lookup"
 permissions:
   contents: write
   actions: write
@@ -34,6 +40,7 @@ env:
   SHARDS: ${{ inputs.shards || '4' }}
   MINUTES: ${{ inputs.minutes || '150' }}
   LIMIT: ${{ inputs.limit || '0' }}
+  MODE: ${{ inputs.mode || 'lookup' }}
 jobs:
   plan:
     runs-on: ubuntu-latest
@@ -41,10 +48,17 @@ jobs:
       matrix: ${{ steps.m.outputs.matrix }}
       stamp: ${{ steps.m.outputs.stamp }}
     steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
       - id: m
         run: |
-          python3 -c "import os; n=max(1,min(8,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+          if [ "$MODE" = "sweep" ]; then   # the sweep shards that still have work, least advanced first
+            echo "matrix=$(python3 tools/dns_services.py sweep-plan --limit "$(python3 -c "import os; print(max(1,min(8,int(os.environ['SHARDS']))))")")" >> "$GITHUB_OUTPUT"
+          else
+            python3 -c "import os; n=max(1,min(8,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+          fi
           echo "stamp=$(date -u +%Y%m%dT%H%M%S)" >> "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
 
   lookup:
     needs: plan
@@ -71,7 +85,12 @@ jobs:
       - name: Look up the public DNS records of each domain
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
-          python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 300 --limit "$LIMIT" --resolver 127.0.0.1:5353 --qps 480
+          if [ "$MODE" = "sweep" ]; then
+            # 250 questions a second per runner: under the 300 a second this runner's resolver allows itself towards any one zone (the .com servers)
+            python3 tools/dns_services.py sweep --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 250
+          else
+            python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 300 --limit "$LIMIT" --resolver 127.0.0.1:5353 --qps 480
+          fi
           ls -la out | head; head -c 600 out/dns_${{ matrix.k }}.jsonl || true
       - uses: actions/upload-artifact@v4
         with: { name: "dns-${{ matrix.k }}", path: out/, retention-days: 3 }
@@ -101,4 +120,11 @@ jobs:
           done
           cat /tmp/d.txt >> "$GITHUB_STEP_SUMMARY"
           head -60 data/incoming/claude/credit_scan/dns_providers_seen.csv >> "$GITHUB_STEP_SUMMARY" || true
-          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/credit-scan.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" || true
+          if [ "$MODE" = "sweep" ]; then
+            # the list is long (63 M domains): the next run starts by itself until every shard has reached the end
+            left=$(python3 tools/dns_services.py sweep-plan | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
+            echo "sweep shards with work left: $left"
+            if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=sweep" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" || true; fi
+          else
+            gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/credit-scan.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" || true
+          fi
