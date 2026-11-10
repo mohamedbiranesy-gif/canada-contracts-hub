@@ -9,8 +9,8 @@
  "data/incoming/claude/claude_ap_terms_pages.csv.gz": {
   "tag": "harvest-state",
   "asset": "claude_ap_terms_pages.csv.gz",
-  "bytes": 5354462,
-  "sha256": "ea586cb4012095a2bfa29ca81d7ad59ecd10b51d46d0584798b529d1501ffde5",
-  "updated": "2026-11-10T13:38:19Z"
+  "bytes": 5922354,
+  "sha256": "fdc18bdba0806a8f9b8d0ec4c6b98927bdd011f14c3c58fcdfa18960603cc47f",
+  "updated": "2026-11-10T14:45:06Z"
  }
 }
