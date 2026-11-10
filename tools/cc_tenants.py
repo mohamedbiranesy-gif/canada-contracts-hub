@@ -397,10 +397,11 @@ def known_domains():
                 h = CCL.base((urllib.parse.urlparse(r.get("website") or "").hostname or "").lower())
                 if h:
                     known.add(h)
+    import ranked_io  # the ranked table is committed in parts (GitHub's 100 MB limit)
     rp = os.path.join(CCL.ROOT, "coord/results/ranked/ranked_buyers.csv.gz")
-    if os.path.exists(rp):
-        with gzip.open(rp, "rt", encoding="utf-8", newline="") as fh:
-            rd = csv.reader(fh)
+    if ranked_io.parts_of(rp) or os.path.exists(rp):
+        if True:
+            rd = csv.reader(ranked_io.lines(rp))
             head = next(rd)
             i = head.index("buyer_website") if "buyer_website" in head else -1
             for row in rd:

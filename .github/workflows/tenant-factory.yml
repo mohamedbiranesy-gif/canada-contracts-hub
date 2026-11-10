@@ -184,7 +184,8 @@ jobs:
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/cc_tenants.py merge-accepted shards | tee /tmp/acc.txt
             python3 tools/lead_crawl.py --merge shards --tenants | tee -a /tmp/acc.txt
-            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_buyer_ap_results_cccrawl01.csv claude_tenant_crawl_done.tsv claude_lead_site_facts.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_crawl_done.tsv claude_lead_site_facts.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "[claude] tenant-factory: customers of Canada-HQ software vendors ($(head -1 /tmp/acc.txt | cut -c1-110))"
             git push -q origin HEAD:main && break

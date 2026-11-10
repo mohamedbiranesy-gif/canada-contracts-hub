@@ -117,7 +117,8 @@ def mail_entry(r):
                                                                                      ((r.get("evidence_url") or "") + " " + (r.get("evidence_quote") or "")).lower()):
         g = 1  # a mailbox published on the page where residents / customers pay the organisation
     return (acc, g)
-raw = open(ROOT + "/coord/results/org_mailboxes.csv", encoding="utf-8", errors="replace").read().replace("\0", "")
+import glob as _g0
+raw = "".join(open(_p, encoding="utf-8", errors="replace").read() for _p in [ROOT + "/coord/results/org_mailboxes.csv"] + sorted(_g0.glob(ROOT + "/coord/results/org_mailboxes.part*.csv"))).replace("\0", "")  # written in parts under 45 MB (tools/export_orgs.py)
 for r in csv.DictReader(io.StringIO(raw)):
     s = mail_entry(r)
     if not s:

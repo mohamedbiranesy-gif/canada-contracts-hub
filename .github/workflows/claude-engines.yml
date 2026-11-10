@@ -78,6 +78,7 @@ jobs:
       - name: Resume state from the harvest-state release
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
+          python3 tools/ranked_io.py assemble || true   # the ranked table is committed in parts (GitHub's 100 MB limit)
           gh release download harvest-state -p 'claude_ap_walk_done.tsv' -D /tmp/prevrel 2>/dev/null || true
           python3 tools/merge_engine_outputs.py tsv_done ~/cch-crawler-state/ap_walk_done.tsv /tmp/prevrel/claude_ap_walk_done.tsv data/incoming/claude/claude_ap_walk_done.tsv data/incoming/claude/claude_ap_walk_done_mac.tsv 2>/dev/null || true
           gh release download harvest-state -p 'claude_registry_lookup.jsonl.gz' -D ~/cch-crawler-state 2>/dev/null && gunzip -f ~/cch-crawler-state/claude_registry_lookup.jsonl.gz && mv ~/cch-crawler-state/claude_registry_lookup.jsonl ~/cch-crawler-state/registry_lookup.jsonl || true

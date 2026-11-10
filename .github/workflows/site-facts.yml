@@ -67,7 +67,8 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/lead_crawl.py --merge shards --site-facts | tee /tmp/sf.txt
-            for f in claude_lead_site_facts.jsonl.gz claude_site_facts_done.tsv claude_buyer_ap_results_cccrawl01.csv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            for f in claude_lead_site_facts.jsonl.gz claude_site_facts_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "[claude] site-facts: bill-to name / address from the buyers' own pages ($(head -1 /tmp/sf.txt | cut -c1-100))"
             git push -q origin HEAD:main && break

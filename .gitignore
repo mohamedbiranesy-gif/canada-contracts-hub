@@ -17,3 +17,6 @@ PRIVATE/
 !data/incoming/**/*.jsonl
 !data/incoming/**/*.jsonl.gz
 out/
+
+# the ranked table is committed in parts (tools/ranked_io.py); the assembled copy is never committed
+coord/results/ranked/ranked_buyers.csv.gz

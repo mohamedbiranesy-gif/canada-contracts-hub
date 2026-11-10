@@ -169,11 +169,9 @@ def queue(k, n, limit=0):
             return
         seen.add(d)
         tasks.append((pri, d))
-    rp = os.path.join(ROOT, "coord/results/ranked/ranked_buyers.csv.gz")
-    if os.path.exists(rp):
-        with gzip.open(rp, "rt", encoding="utf-8", newline="") as fh:
-            for r in csv.DictReader(fh):
-                add(CS.host_of(r.get("buyer_website")), 0)
+    import ranked_io
+    for r in ranked_io.rows():
+        add(CS.host_of(r.get("buyer_website")), 0)
     for p in (os.path.join(INC, "claude_buyer_leads_cc.csv"), os.path.join(INC, "claude_buyer_leads.csv")):
         if os.path.exists(p):
             for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):

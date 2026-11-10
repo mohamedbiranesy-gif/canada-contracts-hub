@@ -514,8 +514,9 @@ def facts_mode(a, k, n):
             except (ValueError, KeyError):
                 pass
     tasks, hosts = [], set()
-    with gzip.open(a.facts_ranked, "rt", encoding="utf-8", newline="") as fh:
-        for r in csv.DictReader(fh):
+    import ranked_io  # the ranked table is committed in parts (GitHub's 100 MB limit)
+    if True:
+        for r in ranked_io.rows(a.facts_ranked):
             key = (r.get("keys") or "").split("|")[0]
             h = host_of(r.get("buyer_website"))
             if not r.get("email") or not key or key in done or key in have or not h or "." not in h or h in hosts or not shard_ok(h, k, n):
@@ -577,12 +578,18 @@ def facts_mode(a, k, n):
 def merge(a):
     """append the shard rows to the results file (never a row the validator would reject, never a duplicate) and union the done files"""
     cols, have, rows = None, set(), []
-    if os.path.exists(OUT):
-        with open(OUT, encoding="utf-8", newline="") as f:
+    # the results file grows by ~700 bytes a row and GitHub refuses files over 100 MB: cccrawl01, 02 … each closed at 30 MB (every reader globs
+    # data/incoming/*/*buyer_ap_results*.csv)
+    outs = sorted(glob.glob(OUT.replace("cccrawl01", "cccrawl[0-9][0-9]")))
+    for op in outs:
+        with open(op, encoding="utf-8", newline="") as f:
             rd = csv.DictReader(f)
-            cols = rd.fieldnames
+            cols = cols or rd.fieldnames
             for r in rd:
                 have.add((r["buyer_key"], (r.get("ap_email") or "").lower(), r.get("evidence_url") or ""))
+    out_path = outs[-1] if outs else OUT
+    if os.path.exists(out_path) and os.path.getsize(out_path) > 30 * 1024 * 1024:
+        out_path = OUT.replace("cccrawl01", "cccrawl%02d" % (len(outs) + 1))
     for p in sorted(glob.glob(os.path.join(a.merge, "lead_rows_*.csv"))):
         with open(p, encoding="utf-8", newline="") as f:
             rd = csv.DictReader(f)
@@ -596,8 +603,8 @@ def merge(a):
                 have.add(key)
                 rows.append(r)
     if rows:
-        first = not os.path.exists(OUT)
-        with open(OUT, "a", encoding="utf-8", newline="") as f:
+        first = not os.path.exists(out_path)
+        with open(out_path, "a", encoding="utf-8", newline="") as f:
             w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
             if first:
                 w.writeheader()

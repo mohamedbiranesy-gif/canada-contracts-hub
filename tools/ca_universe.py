@@ -34,8 +34,10 @@ def main():
     ap.add_argument("--out", default="out/ca_universe.csv")
     a = ap.parse_args()
     uni, n = {}, collections.Counter()
-    with gzip.open(a.ranked, "rt", encoding="utf-8", newline="") as fh:
-        for r in csv.DictReader(fh):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import ranked_io  # the ranked table is committed in parts (GitHub's 100 MB limit)
+    if True:
+        for r in ranked_io.rows(a.ranked):
             h = host_of(r.get("vendor_website"))
             d = registrable(h) if h and "." in h else ""
             if d and not d.endswith(".ca") and not SKIP.search(d + ".") and d not in uni and (r.get("vendor_country_basis") or "").strip():

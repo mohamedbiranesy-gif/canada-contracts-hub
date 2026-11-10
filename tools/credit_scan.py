@@ -641,11 +641,9 @@ def scan_queue(k, n, limit=0):
             pri = pri if again else pri + 10
         seen.add(host)
         tasks.append((pri, -extra, host))
-    rp = os.path.join(ROOT, "coord/results/ranked/ranked_buyers.csv.gz")
-    if os.path.exists(rp):  # 1. delivered rows: the inferred-relationship rows first (a credit gives them a relationship with evidence)
-        with gzip.open(rp, "rt", encoding="utf-8", newline="") as fh:
-            for r in csv.DictReader(fh):
-                add(host_of(r.get("buyer_website")), 0 if r.get("tier") == "I" else 1)
+    import ranked_io  # the ranked table is committed in parts (GitHub's 100 MB limit): read them wherever they are
+    for r in ranked_io.rows():  # 1. delivered rows: the inferred-relationship rows first (a credit gives them a relationship with evidence)
+        add(host_of(r.get("buyer_website")), 0 if r.get("tier") == "I" else 1)
     for p in (CCL.LEADS_CC, os.path.join(INC, "claude_buyer_leads.csv")):  # 2. leads (a credit is a second, first-party relationship)
         if os.path.exists(p):
             for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
