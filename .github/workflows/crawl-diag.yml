@@ -1,0 +1,22 @@
+name: crawl-diag
+# A measurement (nothing is written): why the mailbox crawl finds nothing on most lead sites. A sample of sites that gave "nothing_found"
+# is read again (home page + up to 3 contact pages, robots.txt respected) and each site is put in one class (tools/crawl_diag.py).
+on:
+  workflow_dispatch:
+    inputs:
+      n:
+        description: "sites in the sample"
+        default: "600"
+permissions:
+  contents: read
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Classify a sample of lead sites
+        run: |
+          python3 tools/crawl_diag.py --n "${{ inputs.n || '600' }}" --minutes 30 --workers 60 | tee /tmp/diag.txt
+          { echo '```'; cat /tmp/diag.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
