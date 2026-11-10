@@ -380,7 +380,9 @@ def candidates_mode(a, k, n):
                           "known_website": "https://%s/" % h, "_c": r,
                           # every Shopify store has these generated pages; "contact information" prints the trade name, e-mail and address the merchant entered
                           # (first candidate crawls: 54 % of stores gave no mailbox from the linked pages alone)
-                          "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy") if r["vendor_key"] == "shopify" else ()})
+                          "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy") if r["vendor_key"] == "shopify" else (),
+                          # a store: its sitemap lists products, and every request goes through the one queue towards Shopify's network — home page + four policy / contact pages
+                          **({"_no_sitemap": True, "_max_pages": 6} if r["vendor_key"] == "shopify" else {})})
     # stores the DNS lookups found on Shopify's storefront addresses (tools/dns_services.py): candidates made here, never written to the
     # candidates file (they number in the hundreds of thousands); their done lines go to the shards like every other candidate's
     n_dns = 0
@@ -401,7 +403,7 @@ def candidates_mode(a, k, n):
                      "name_basis": "", "website_basis": "the domain's address record points to Shopify's storefront network (A %s, looked up %s)" % (o.get("a") or "", o.get("t") or ""),
                      "slug": "asset", "extra": "{}"}
                 tasks.append({"task_id": "TN-" + hashlib.sha1(ck.encode()).hexdigest()[:10], "buyer_key": ck, "buyer_name": h, "known_website": "https://%s/" % h, "_c": r,
-                              "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy")})
+                              "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy"), "_no_sitemap": True, "_max_pages": 6})
                 n_dns += 1
         except Exception as e:
             print("DNS store candidates not loaded: %s" % e, flush=True)
@@ -451,7 +453,7 @@ def candidates_mode(a, k, n):
                     fd.write("%s\t%s\tout_of_scope:%s\t1\t0\t%s\tr2\ts2\tp2\tb2\n" % (t["buyer_key"], TODAY, mcc, vkey))
                 return
         try:
-            result, pages, rows = C.crawl(t, a.max_pages, general="any")
+            result, pages, rows = C.crawl(t, t.get("_max_pages") or a.max_pages, general="any")
         except Exception as e:
             result, pages, rows = "error:%s" % type(e).__name__, 0, []
         _tl.st = None

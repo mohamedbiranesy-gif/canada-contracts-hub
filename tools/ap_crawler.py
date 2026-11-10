@@ -440,7 +440,7 @@ def crawl(task, max_pages, general=False):
     for i, path in enumerate(task.get("_extra_paths") or ()):  # pages a caller knows this kind of site has (a Shopify store's /policies/contact-information)
         heap.append((-95 + i, 1, "https://%s/%s" % (host0, path.lstrip("/"))))
     root = "%s://%s/" % (urllib.parse.urlparse(start).scheme, urllib.parse.urlparse(start).netloc)
-    if allowed(root):  # the sitemap reveals deep invoicing / supplier pages
+    if allowed(root) and not task.get("_no_sitemap"):  # the sitemap reveals deep invoicing / supplier pages (a store's sitemap lists products: a caller may skip it)
         for i, u in enumerate(sitemap_urls(root)):
             if (urllib.parse.urlparse(u).hostname or "").lower().endswith(base):
                 heap.append((-98 + i, 1, u))
