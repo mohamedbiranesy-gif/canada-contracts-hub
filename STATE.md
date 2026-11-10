@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 20:00Z — published build 18:18Z = 218,446 rows, 213,093 with a mailbox; supply measured, two store lists added)
+# STATE.md — Claude lane (updated 2026-11-10 22:55Z — published build 22:38Z = 233,316 rows, 227,586 with a mailbox; the DNS lookups lost half their answers: found, being repaired)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,62 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 22:55Z — build 22:38Z: 233,316 rows (227,586 with a mailbox); half of the DNS answers were never received
+**Table.** Build 22:38Z (code 2f581a8): A 1,276 · B 1,720 · C 323 · D 24,900 · E 4,749 · F 8 · I 17,822 · L 440 · M 9,524 · R 99,372 ·
+T 67,452. Audit and gates pass. The build took 32 minutes.
+
+**The largest finding of the day: the DNS engine has been losing about half of its answers.** A sample asked from outside showed it: of
+1,500 two-label .com names of the web graph, a public resolver answers 81 % with an address and 14 % with "no such domain"; the sweep's
+own logs say 55-61 % of its names got no answer. Measured on what is on file (coord/DECISIONS.md 23:00Z):
+- of the 4.13 M lookup records, 1,796,196 say "no answer" (43 %); a public resolver answers 88 % of a sample of them today;
+- 677,485 of those are store candidates (domains that link to Shopify): of the candidates that did answer, 97 % are on Shopify's
+  addresses — about 580,000 stores are sitting in records that say "no answer";
+- 87 % of the answered records that carry no address do have one, and 31 % of those without an SPF record have one: later questions
+  about the same domain were dropped too (DNS leads lost);
+- the sweep of the 63 M domains had asked 13.7 M and found 29,620 stores with 45 % of its names answered.
+**Cause, as far as measured** (four runs of dns-diag.yml, the fourth in progress): it is not the resolver's settings. Whatever the
+runner's own resolver is given, and also when the public resolvers are asked directly, a runner gets 50-90 answers a second and the rest
+time out; with more open files the resolver answered less (8 %). The limit sits between the runner and the network and counts flows or
+packets — which of the two is what the fourth run measures (the same questions inside a few long-lived HTTPS connections, tools/dns_services.py
+DohResolver, and forwarded over TLS).
+**What is already in place** (pushed 22:48Z): both sweeps begin their lists again (SWEEP_REV 2; the hits found so far are kept); a sweep
+batch with more than 12 % unanswered is asked once more, and at more than 24 % the run stops and the list keeps its place; a lookup run
+keeps its unanswered names for a later run instead of writing them as facts; records written before today are asked again, "no answer"
+first and store candidates before the rest, and the new record replaces the old; one concurrency group per mode.
+**What it should give once a transport works**: about 580,000 more stores from the records on file (one lookup run of four runners), the
+sweep at two to three times its yield, and the DNS leads of ~1 M .ca / .com domains that were never really asked.
+
+**Other work since 20:00Z.**
+- **Store reader**: the privacy-policy page joined the list (measured on 120 stores that had given no mailbox: 22 print one of their own
+  domain there, two thirds of them a role mailbox); the reading stops once two pages are read and a mailbox is on file; the 35,000 stores
+  that gave nothing get that one page (done lines carry p3). Live check: 4 of 6 accepted with one request each.
+- **Client pages read live** (first full run, 300,208 sites): 29,123 sites have a client-type page, 77,557 links, **32,561 new buyers**
+  as leads (the estimate had been 10,000 link records). The mailbox crawl reads them next.
+- **Vendor table**: Checkfront, TouchBistro, WellnessLiving, ClubRunner, CrowdRiff, NiceJob added, each from its own pages (who
+  contracts, where, no free plan — quoted in tools/tech_relationships.py). Read and left out: SharpSchool (now PowerSchool, United
+  States), WildApricot (nothing on its pages says what became of the free accounts), Showpass / Rezgo (no fee without a paid booking).
+- **Scan detector 5**, before its first cycle: links and embedded services per host; the register numbers a home page prints (2.5 % of
+  2,020 sampled pages: RBQ 1.0 %, charity number 0.8 %, ECRA/ESA, FSRA, Consumer Protection BC, TICO); the affiliations it states
+  ("membre de l'APCHQ", "independently owned and operated", "authorized distributor of …"). A capture; lead rules come after the data.
+- **Trademarks register**: 2,633 leads in the 22:38Z build (tier M 6,426 → 9,524); the owner-site finder ran (tm-sites, 3 shards) and
+  the match ran again at 22:26Z.
+- **A crawl's merge refused by GitHub's push protection** (a pre-signed storage address as evidence URL): fixed 19:5xZ, the next merge
+  landed with the guard ("rows left out …: 1").
+- **Rank build 19:45Z failed after its upload**: it had waited 70 minutes, built the commit it was dispatched on and could not commit on
+  top of the build before it. The checkout now takes main when the job starts; the build after it took 32 minutes.
+
+**Honest projection, revised.** If the DNS repair holds, the stores on file double (556,000 → about 1.1 M) and the sweep adds 200,000-
+400,000 more: at the measured 24-28 % of stores accepted, tier T goes from 67,000 to 350,000-400,000 rows over one to two weeks of
+reading (the store reader's pace is the limit: two requests a second per runner towards Shopify, unchanged). With the registry class
+(~145,000), client listings and the rest, the table reaches roughly 600,000-700,000 rows by early January. One million still needs a
+class not known today.
+
+**Watch.** (1) dns-diag run 4 (HTTPS / TLS transports): pick the transport, switch dns-services.yml to it, dispatch `mode=lookup` with
+6 shards (it starts a credit-scan cycle when it lands: that is also the first detector-5 cycle); (2) host sweep 42917864560 (8 shards,
+started 22:48Z on the new tool with the old resolver start: it should crawl at ~60 names a second through the second chance, or stop in
+place); domain sweep 42900501721 (old code, ends ~23:45Z: its places will be ignored, its hits kept); (3) the mailbox crawl of 21:15Z is
+the first with the new store reading: `accepted` share and pages per store in the merge line; (4) tm-register after tm-sites.
 
 ## 2026-11-10 20:00Z — build 18:18Z: 218,446 rows (213,093 with a mailbox); where the next rows come from, measured
 **Table.** Build 18:18Z: A 1,276 · B 1,704 · C 323 · D 22,024 · E 4,527 · F 8 · I 17,855 · L 426 · M 6,124 · R 100,325 · T 58,501. Named
