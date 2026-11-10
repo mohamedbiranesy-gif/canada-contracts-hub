@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 17:25Z — published build 15:47Z = 172,770 rows, 168,245 with a mailbox; row audit round 3; the referee reads a page once)
+# STATE.md — Claude lane (updated 2026-11-10 20:00Z — published build 18:18Z = 218,446 rows, 213,093 with a mailbox; supply measured, two store lists added)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,38 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 20:00Z — build 18:18Z: 218,446 rows (213,093 with a mailbox); where the next rows come from, measured
+**Table.** Build 18:18Z: A 1,276 · B 1,704 · C 323 · D 22,024 · E 4,527 · F 8 · I 17,855 · L 426 · M 6,124 · R 100,325 · T 58,501. Named
+vendor 90,386 · registry R 100,325 · link only E 4,527 · inferred I 17,855. Audit PASS with no hard failure, 7 gates PASS. The referee
+reads new pages only (8–33 minutes a run); cross-verified is back to 13.
+
+**Supply is the work now** (coord/DECISIONS.md 20:00Z has the numbers). The crawl of 17:59Z found 5,066 mailboxes in 67,753 sites: the easy
+sites are used up. Per lane, what is on file and what it should still give:
+| Lane | On file / known | Still to come (estimate, with its basis) |
+|---|---|---|
+| Stores (T) | 550,370 domains on Shopify's addresses, 41,506 read, 8,235 accepted | ~24,000 read a run; .ca / .us first from now on (43 % / 38 % accepted against 26 % on .com) → ~100,000 rows over the next 20 runs |
+| Stores on a subdomain | 7.2 M hosts to ask (host sweep dispatched 19:46Z, 8 shards) | unknown until the first run: 165,000 shop. / store. hosts alone |
+| Stores by myshopify.com name | 206,386 names | 300 per runner per run first, to measure |
+| Domain sweep (stores + name servers of 330 Canadian providers) | 7.1 M of 63 M domains asked, 17,349 stores | ~150,000 stores; name-server hits unknown (first run with the question is in progress) |
+| .ca sites, mailbox on a contact page (R) | 428,000 candidates, 10 % measured | ~40,000 rows, 64,000 sites a run |
+| Linking domains of the refreshed web graph | +196,195 domains to scan | next credit-scan cycle |
+| Client / sponsor / member pages read live | never run before 19:35Z | ~10,000 link records |
+| Unreachable .ca domains with the http fallback | 1.25 M, 5.7 % are sites | 5,000–10,000 rows, with the next detector |
+| Vendor table (software seen on the buyer's site) | 17 vendors | 30 candidates being vetted (probe vet); mostly upgrades of registry rows to a named vendor |
+
+**Honest projection.** These lanes carry the table to roughly 450,000–600,000 rows by early January. One million is not in sight with the
+lanes known today: the two largest classes are bounded (.ca sites that print an organisational mailbox: about 220,000–250,000; Shopify
+stores in the United States and Canada that print one: about 22 % of the stores we can name, and we can name under a million). The
+Sunday report says this with the numbers of the week; every new lane found before then changes it.
+
+**Closed today.** Shopify's directory shop.app (its merchant pages refuse the crawler; the sitemap's handles are not addresses); member
+directories of the GrowthZone family from the archive index (20 Canadian of 1,860 hosts).
+
+**Watch.** (1) host sweep run 42888650540: `hosts` key of sweep_cursor.json after its merge, stores found, and that it chains; (2) the
+store reader's log line "stores from the DNS lookups not read yet … by ending" and the myshopify counters (myshopify_own_domain_found /
+no_store / known_store) in the next mailbox-crawl run (the one after 19:41Z); (3) live-clients run 42886786420 merge (first CI run of that
+workflow); (4) bbb-accredited 42868640128 (index of twelve crawls) then its cc-read; (5) credit-scan cycle for the +196,195 linking domains.
 
 ## 2026-11-10 17:25Z — build 15:47Z: 172,770 rows (168,245 with a mailbox); audit round 3; referee fixed; two supply lanes started
 **Where the table is.** Build 15:47Z, the first on the rebuilt path: 172,770 rows, 42 minutes, ranker peak 3.6 GB, runner disk 85 GB free

@@ -833,3 +833,36 @@ do the zone's name servers belong to a provider that already yields leads? 330 p
 - Not chosen: the zone files of .com / .net / .org (they list every delegation, but access is by application to each registry).
 What it will yield is not known yet — the first run with the second question starts when the current one merges (~18:20Z).
 
+## 2026-11-10 20:00Z from claude — supply: three measurements, two new store lists, one source closed
+**Why now.** The 17:59Z mailbox crawl read 67,753 sites and found 5,066 mailboxes: the sites whose home page prints a role mailbox are used
+up. What follows is what was measured this evening and what was built or closed on the numbers.
+
+1. **The scan's verdict "unreachable" (1,252,393 .ca domains) hides few sites.** A random 5,000 read again (crawl-diag what=unreachable): no
+   DNS record 64.3 % (+4.1 % the resolver could not say), no port answers 11.6 %, a forward to another domain 4.9 %, robots refusal 4.0 %,
+   parked 2.4 %, a site of its own 5.7 % (283) — and only 19 of those 283 print a role mailbox on the home page. Of the 1,005 that answered,
+   691 answered on plain http only. Decision: the scan's reader asks the plain-http copy after ANY failure of https (it did so after a TLS
+   error only), and remembers which address answered; the domains are read again with the next detector, not before. Expected: about
+   70,000 more readable sites, 5,000–10,000 rows. Not a large lane; the fix is cheap and stays.
+2. **Shopify's own directory (shop.app) is not a source.** Its robots file publishes a storefront sitemap (26 files of 50,000: about 1.3 M
+   merchant pages, shop.app/m/<handle>). The handle is not the store's address, the merchant pages answer 429 to this crawler (asked twice,
+   once alone: left alone from now on), and the archive holds none. Nothing was taken.
+3. **Stores on a subdomain and stores named only by their myshopify.com address** (both from Common Crawl's HOST-level graph, 243 M host
+   names, read once in this session): 7.2 M three-label hosts of ordinary domains (shop. 120k, store. 45k, account. 42k, order., us., ca.,
+   tienda. …) are asked one question each by `dns_services.py hosts` (mode=hosts of dns-services.yml); 206,386 <store>.myshopify.com names
+   are on file and the store reader asks a bounded number per run (300 per runner) — the store's own meta.json names the domain it calls
+   its own, which is then read like any other store. Same proof as before for a row: the service seen on the store's own pages, the
+   store's own statement of where it is, a role mailbox on its own domain.
+4. **The store queue is ordered by ending.** Measured on the first 32,989 stores read: accepted 43 % on .ca, 38 % on .us, 26 % on .com,
+   0–2 % on another country's ending (out of scope by Shopify's terms). A run reads about 24,000 stores (one queue of 2 requests a second
+   per runner towards Shopify's network — unchanged): .ca / .us first, then .com / .co / .net / .org / .shop / .store, other countries last.
+5. **Relationship pages read live** (`tools/live_clients.py`, built this morning, measured on 220 sites: 0.06 link records per site, never
+   run at scale and not written up at the time): dispatched 19:35Z on the vendors proven in Canada and the .ca sites whose home page prints
+   a Canadian postal address. Expected: about 10,000 link records.
+6. **Two small tools for the planning session**, which cannot open arbitrary sites itself: `probe.yml` (a look at a few public pages from a
+   runner: robots verdict, status, start of the page) and its `vet` mode (a vendor's own pages: who contracts, where, governing law, free
+   plan) — the vendor table of tools/tech_relationships.py quotes those pages, one entry at a time.
+
+**Not chosen.** Guessing store addresses from the directory's handles (asking a platform for names it did not give us); more runners to
+raise the store rate (Shopify counts requests per reader: 9,024 of the first 23,437 stores refused before the single queue); older releases
+of the domain graph for the sweep (each adds about 10 % new domains, mostly gone).
+
