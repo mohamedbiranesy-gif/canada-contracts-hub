@@ -3,6 +3,8 @@ name: credit-scan
 # establish that relationship, get the other party's contact"): the credit line on an organisation's own home page — "Website by <agency>",
 # "Site web réalisé par …", "Hébergé par …", "Powered by …" — linking to a vendor whose own site prints a Canadian postal address.
 #   universe : every .ca registered domain with a captured page (Common Crawl columnar index)          (tools/credit_scan.py universe)
+#   graph    : Common Crawl's domain-level web graph -> every .ca domain it knows + every domain that links to a vendor already proven in Canada
+#              (most footer credits are such links): more home pages worth one read                     (credit_scan.py graph)
 #   cycle    : scan    — one polite read of each site's home page: delivered rows first (78 % of them carry only an INFERRED relationship),
 #                        then leads, then the .ca universe                                              (credit_scan.py scan)
 #              vendors — each credited vendor's own home / contact page: postal address = the Canada proof (credit_scan.py vendors)
@@ -15,7 +17,7 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: "universe (list the .ca domains of the newest Common Crawl index) | cycle (scan home pages, check vendors, make leads)"
+        description: "universe (list the .ca domains of the newest Common Crawl index) | graph (web graph: .ca domains + domains linking to proven vendors) | cycle (scan home pages, check vendors, make leads)"
         default: "cycle"
       shards:
         description: "parallel runners for the scan (1-10)"
@@ -97,6 +99,47 @@ jobs:
             sleep $((RANDOM % 12 + 3))
           done
           cat /tmp/u.txt >> "$GITHUB_STEP_SUMMARY"
+
+  graph:
+    needs: plan
+    if: ${{ (inputs.stage || 'cycle') == 'graph' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Web graph -> every .ca domain it knows, and the domains that link to a vendor proven in Canada
+        run: |
+          sudo mkdir -p /mnt/cs && sudo chown "$USER" /mnt/cs || true
+          df -h / /mnt 2>/dev/null || true
+          sudo apt-get install -y -q pigz mawk >/dev/null 2>&1 || true
+          python3 tools/credit_scan.py graph --work /mnt/cs
+      - uses: actions/upload-artifact@v4
+        with: { name: "cs-graph", path: out/, retention-days: 3 }
+
+  merge_graph:
+    needs: graph
+    if: ${{ always() && needs.graph.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { name: "cs-graph", path: shards }
+      - name: Commit the two domain lists (the next scan cycle reads them)
+        run: |
+          ls -la shards || true
+          git config user.name "credit-scan"; git config user.email "credit-scan@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/credit_scan.py merge-graph shards | tee /tmp/g.txt
+            git add data/incoming/claude/credit_scan/graph_ca_domains.csv.gz data/incoming/claude/credit_scan/graph_inlinks.csv.gz 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "credit-scan: web graph ($(tr '\n' ';' < /tmp/g.txt | cut -c1-120)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/g.txt >> "$GITHUB_STEP_SUMMARY"
 
   scan:
     needs: [plan, merge_universe]

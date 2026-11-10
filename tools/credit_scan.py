@@ -317,6 +317,156 @@ def merge_universe(a):
     print(".ca universe: %d registered domains with a captured page (+%d this run)" % (len(doms), len(doms) - n0))
 
 
+# ------------------------------------------------------------------------------------------------------------------- web graph
+GRAPH_CA = os.path.join(DIR, "graph_ca_domains.csv.gz")      # .ca / .quebec domains the web graph knows (linked from somewhere), beyond the crawled ones
+GRAPH_IN = os.path.join(DIR, "graph_inlinks.csv.gz")         # domains that link to a vendor proven in Canada (most footer credits are such links)
+
+
+def newest_graph():
+    try:
+        for g in json.loads(CCL.http_get("https://index.commoncrawl.org/graphinfo.json", tries=3)):
+            if g.get("id"):
+                return g["id"]
+    except Exception as e:
+        print("graphinfo not reachable (%s): falling back to the last release we read" % type(e).__name__, flush=True)
+    return "cc-main-2026-may-jun-jul"
+
+
+def graph(a):
+    """Common Crawl's domain-level web graph (one vertices file, one edges file; 118 M domains, 2.8 G links):
+    (1) every .ca / .quebec domain it knows; (2) every domain that links to a vendor already proven in Canada. Both only say which home pages
+    are worth one read — a lead still needs the credit line seen live on the site and the vendor's own address."""
+    import shutil, subprocess
+    rel = a.release if a.release and a.release != "auto" else newest_graph()
+    base = a.base or "%sprojects/hyperlinkgraph/%s/domain/%s-domain-" % (CCL.CC, rel, rel)
+    cands = [d for d in (a.work, "/mnt/cs", os.environ.get("RUNNER_TEMP") or "", ".") if d]
+    work, free = ".", 0
+    for d in cands:
+        try:
+            os.makedirs(d, exist_ok=True)
+            st = os.statvfs(d)
+            if os.access(d, os.W_OK) and st.f_bavail * st.f_frsize > free:
+                work, free = d, st.f_bavail * st.f_frsize
+        except OSError:
+            pass
+    print("web graph %s; work dir %s (%.1f GiB free)" % (rel, work, free / 2 ** 30), flush=True)
+    os.makedirs("out", exist_ok=True)
+    awk = shutil.which("mawk") or "awk"
+    unz = (shutil.which("pigz") or "gzip") + " -dc"
+    W = lambda name: os.path.join(work, name)
+    sh = lambda cmd: subprocess.run(["bash", "-o", "pipefail", "-c", cmd], check=True)
+    curl = "curl -sS -L --fail --retry 10 --retry-delay 10 --retry-all-errors -C - -A '%s'" % CCL.UA
+
+    targets = set(proven_elsewhere()) | {d for d, o in vendor_state().items() if o.get("status") in ("CA", "CA-loc")}
+    targets = {d for d in targets if d and not PLATFORM.search(d)}
+    rev = lambda d: ".".join(reversed(d.split(".")))
+    with open(W("targets.txt"), "w") as f:
+        f.write("\n".join(sorted(rev(d) for d in targets)) + "\n")
+    print("targets: %d vendor domains proven in Canada" % len(targets), flush=True)
+    t0 = time.time()
+    sh("%s -o %s %svertices.txt.gz" % (curl, W("v.gz"), base))
+    print("vertices downloaded: %.0f MiB in %.0f s" % (os.path.getsize(W("v.gz")) / 2 ** 20, time.time() - t0), flush=True)
+    # one pass over the vertices: ids of the targets; every .ca / .quebec domain
+    sh("%s %s | %s 'BEGIN{while((getline l < \"%s\") > 0) t[l]=1} {if ($2 in t) print $1\"\\t\"$2 > \"%s\"; if (substr($2,1,3)==\"ca.\" || substr($2,1,7)==\"quebec.\") print $2\"\\t\"$3 > \"%s\"}'"
+       % (unz, W("v.gz"), awk, W("targets.txt"), W("tv.txt"), W("ca.txt")))
+    tid = {}
+    if os.path.exists(W("tv.txt")):
+        for l in open(W("tv.txt")):
+            q = l.split()
+            if len(q) >= 2:
+                tid[q[0]] = rev(q[1])
+    n_ca = 0
+    with open("out/graph_ca_domains.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "hosts"])
+        if os.path.exists(W("ca.txt")):
+            for l in open(W("ca.txt"), encoding="utf-8", errors="replace"):
+                q = l.split()
+                if q and re.fullmatch(r"[a-z0-9.-]+", q[0]) and q[0].count(".") <= 3:
+                    d = rev(q[0])
+                    if not PLATFORM.search(d):
+                        w.writerow([d, q[1] if len(q) > 1 else ""])
+                        n_ca += 1
+    print("vertices read in %.0f s: %d of %d targets are in the graph; %d .ca / .quebec domains" % (time.time() - t0, len(tid), len(targets), n_ca), flush=True)
+    with open(W("tid.txt"), "w") as f:
+        f.write("\n".join(sorted(tid)) + "\n")
+    # the edges: links INTO a target
+    t0 = time.time()
+    flt = "%s 'BEGIN{while((getline l < \"%s\") > 0) t[l]=1} ($2 in t)' > %s" % (awk, W("tid.txt"), W("hits.txt"))
+    if free > 14 * 2 ** 30:
+        sh("%s -o %s %sedges.txt.gz" % (curl, W("e.gz"), base))
+        print("edges downloaded: %.1f GiB in %.0f s" % (os.path.getsize(W("e.gz")) / 2 ** 30, time.time() - t0), flush=True)
+        sh("%s %s | %s" % (unz, W("e.gz"), flt))
+        os.remove(W("e.gz"))
+    else:  # not enough disk for the 10 GiB file: stream it (a broken stream is started again, at most 3 times)
+        for attempt in range(3):
+            try:
+                sh("curl -sS -L --fail -A '%s' %sedges.txt.gz | %s | %s" % (CCL.UA, base, unz, flt))
+                break
+            except subprocess.CalledProcessError as e:
+                print("edge stream attempt %d failed (%s)" % (attempt + 1, e.returncode), flush=True)
+                if attempt == 2:
+                    raise
+                time.sleep(60)
+    print("edges read in %.0f s" % (time.time() - t0), flush=True)
+    indeg = collections.Counter()
+    for l in open(W("hits.txt")):
+        q = l.split()
+        if len(q) == 2:
+            indeg[q[1]] += 1
+    ok_t = {t for t, c in indeg.items() if c <= a.max_indegree}
+    print("links into targets: %d; targets linked: %d; targets with more than %d linking domains (platform-like, left out): %d — %s"
+          % (sum(indeg.values()), len(indeg), a.max_indegree, len(indeg) - len(ok_t), ", ".join("%s %d" % (tid.get(t, t), c) for t, c in indeg.most_common(12))), flush=True)
+    src = collections.Counter()
+    for l in open(W("hits.txt")):
+        q = l.split()
+        if len(q) == 2 and q[1] in ok_t and q[0] not in tid:
+            src[q[0]] += 1
+    src = {f: c for f, c in src.items() if c <= 5}  # a domain linking to many vendors is a directory, not a client
+    with open(W("fid.txt"), "w") as f:
+        f.write("\n".join(src) + "\n")
+    sh("%s %s | %s 'BEGIN{while((getline l < \"%s\") > 0) t[l]=1} ($1 in t){print $1\"\\t\"$2\"\\t\"$3}' > %s" % (unz, W("v.gz"), awk, W("fid.txt"), W("fv.txt")))
+    n_in = 0
+    with open("out/graph_inlinks.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "targets", "hosts"])
+        for l in open(W("fv.txt"), encoding="utf-8", errors="replace"):
+            q = l.split()
+            if len(q) < 2 or not re.fullmatch(r"[a-z0-9.-]+", q[1]) or q[1].count(".") > 3:
+                continue
+            d = rev(q[1])
+            try:
+                hosts = int(q[2]) if len(q) > 2 else 1
+            except ValueError:
+                hosts = 1
+            if hosts > 30 or PLATFORM.search(d):
+                continue
+            w.writerow([d, src.get(q[0], 1), hosts])
+            n_in += 1
+    print("graph %s: %d domains link to a vendor proven in Canada (1-5 such vendors each)" % (rel, n_in), flush=True)
+
+
+def merge_graph(a):
+    os.makedirs(DIR, exist_ok=True)
+    for name, path, cols in (("graph_ca_domains.csv", GRAPH_CA, ["dom", "hosts"]), ("graph_inlinks.csv", GRAPH_IN, ["dom", "targets", "hosts"])):
+        rows = {}
+        if os.path.exists(path):
+            with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
+                rows = {r["dom"]: r for r in csv.DictReader(fh)}
+        n0 = len(rows)
+        for f in sorted(glob.glob(os.path.join(a.dir, name))):
+            for r in csv.DictReader(open(f, encoding="utf-8")):
+                if r.get("dom"):
+                    rows[r["dom"]] = r
+        if rows:
+            with gzip.open(path, "wt", encoding="utf-8", newline="") as fh:
+                w = csv.DictWriter(fh, fieldnames=cols, extrasaction="ignore")
+                w.writeheader()
+                for d in sorted(rows):
+                    w.writerow(rows[d])
+        print("%s: %d domains (+%d this run)" % (os.path.basename(path), len(rows), len(rows) - n0))
+
+
 # ------------------------------------------------------------------------------------------------------------------- scan
 def scan_queue(k, n, limit=0):
     done = {l.split("\t")[0] for l in state_lines("done")}
@@ -336,10 +486,18 @@ def scan_queue(k, n, limit=0):
         if os.path.exists(p):
             for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
                 add(host_of(r.get("website")), 2)
-    if os.path.exists(UNIVERSE):  # 3. every .ca site of the archive, the sites with the most captured pages first
+    if os.path.exists(GRAPH_IN):  # 3. sites that link to a vendor proven in Canada (web graph): most footer credits are such links
+        with gzip.open(GRAPH_IN, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                add(r["dom"], 3, int(r.get("targets") or 1))
+    if os.path.exists(UNIVERSE):  # 4. every .ca site of the archive, the sites with the most captured pages first
         with gzip.open(UNIVERSE, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
-                add(r["dom"], 3, min(int(r.get("pages") or 0), 500))
+                add(r["dom"], 4, min(int(r.get("pages") or 0), 500))
+    if os.path.exists(GRAPH_CA):  # 5. .ca domains the web graph knows only as link targets (many are gone: one failed request each)
+        with gzip.open(GRAPH_CA, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                add(r["dom"], 5)
     tasks.sort()
     if limit:
         tasks = tasks[:limit]
@@ -776,7 +934,7 @@ def merge(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["universe", "merge-universe", "scan", "vendors", "merge"])
+    ap.add_argument("cmd", choices=["universe", "merge-universe", "graph", "merge-graph", "scan", "vendors", "merge"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--crawl", default="auto")
@@ -784,6 +942,10 @@ def main():
     ap.add_argument("--workers", type=int, default=120)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--stamp", default="")
+    ap.add_argument("--release", default="auto", help="graph: web-graph release id (auto = newest)")
+    ap.add_argument("--work", default="", help="graph: directory for the downloaded files")
+    ap.add_argument("--base", default="", help="graph: URL prefix of the vertices / edges files (tests)")
+    ap.add_argument("--max-indegree", type=int, default=5000, help="graph: a vendor linked from more domains than this is platform-like (its links are not credits)")
     ap.add_argument("--max-shopify", type=int, default=15000, help="merge: at most this many new Shopify-store candidates per run (owner 2026-11-09: no lane may crowd out the others)")
     ap.add_argument("--straggler-seconds", type=float, default=180)
     ap.add_argument("--site-seconds", type=float, default=150)
@@ -793,7 +955,7 @@ def main():
         {"scan": scan, "vendors": vendors}[a.cmd](a)
         sys.stdout.flush()
         os._exit(0)  # do not wait for straggler threads
-    {"universe": universe, "merge-universe": merge_universe, "merge": merge}[a.cmd](a)
+    {"universe": universe, "merge-universe": merge_universe, "graph": graph, "merge-graph": merge_graph, "merge": merge}[a.cmd](a)
 
 
 if __name__ == "__main__":
