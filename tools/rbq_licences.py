@@ -47,6 +47,28 @@ BODIES = {
                   fee_quote="Les frais d'admission et la cotisation annuelle à la CMMTQ doivent faire l'objet d'un paiement distinct",
                   fee_url="https://www.cmmtq.org/client_file/upload/Devenir%20entrepreneur/Formulaires/Admission_personne_morale.pdf", read="2026-11-10"),
 }
+# what keeping a licence costs a year: the Régie's own tariff page (opened 2026-11-10; the same table is on the owner-builder page). The amount depends
+# only on the kind of licence — general (annexe I) or specialised (annexes II, III) — which the register's categories state for every holder.
+# Licences administered by the CMEQ / CMMTQ are billed by those corporations (their own dues on top): no amount is given for them.
+RBQ_FEES = dict(url="https://www.rbq.gouv.qc.ca/licence/tarification-et-amendes/tarification-pour-lentrepreneur-de-construction/", read="2026-11-10", year="2026",
+                quote="Maintien d’une licence – 2026 Type de licence Droits Frais Total Général (annexe I) 884,54 $ 105,27 $ 989,81 $ Général et spécialisé (annexes I, II et III) "
+                      "884,54 $ 105,27 $ 989,81 $ Spécialisé (annexes II et III) 442,26 $ 105,27 $ 547,53 $",
+                tax="Prenez note que les montants ne sont pas taxables")
+
+
+def annual_fee(h):
+    """(amount, kind of licence) from the Régie's tariff, or None: RBQ-administered licences only, kind read from the register's categories"""
+    if h.get("body") != "rbq":
+        return None
+    cats = keyname(h.get("categories") or "")
+    gen, spe = "generale" in cats, "specialisee" in cats
+    if gen:
+        return "989.81", "Général et spécialisé (annexes I, II et III)" if spe else "Général (annexe I)"
+    if spe:
+        return "547.53", "Spécialisé (annexes II et III)"
+    return None
+
+
 HCOLS = ["licence", "status", "type", "issued", "next_payment", "body", "legal_status", "name", "other_names", "neq", "address", "city", "postal", "phone", "email", "domain",
          "categories", "restriction"]
 # webmail and internet-provider domains (the holder's own site cannot be read off such an address)
@@ -418,6 +440,12 @@ def lead_of(h, hit, site):
            "licence_first_issued": h["issued"], "licence_fees_paid_until": h["next_payment"], "licence_issued_by": B["name"], "licence_type": h["type"], "licence_restriction": h["restriction"],
            "fee_basis": "%s (%s)" % (B["fee_quote"], B["fee_url"]), "dataset_basis": "%s (%s); field “Date du paiement annuel”: “date du prochain paiement des droits d'exercice” (%s)" % (DATASET_QUOTE, DATASET, FIELD_DOC),
            "site_tied_to_holder_by": hit["by"], "site_page": hit["url"], "site_quote": hit["quote"]}
+    fee = annual_fee(h)
+    if fee:
+        det.update(value=fee[0], currency="CAD",
+                   value_basis="the Régie's published %s tariff for keeping a licence of the kind “%s” — the holder's categories in the register: %s; %s, read %s: “%s”; "
+                               "“%s”; a tariff, not a payment record" % (RBQ_FEES["year"], fee[1], (h.get("categories") or "")[:120], RBQ_FEES["url"], RBQ_FEES["read"],
+                                                                          RBQ_FEES["quote"], RBQ_FEES["tax"]))
     return row, det
 
 
@@ -448,7 +476,19 @@ def merge(a):
     for p in glob.glob(os.path.join(SHARDS, "leads_rbq_*.gz")):
         with gzip.open(p, "rt", encoding="utf-8", newline="") as fh:
             have |= {r["buyer_key"] for r in csv.DictReader(fh)}
-    rows, dets, by = [], [], collections.Counter()
+    # the details on file per lead (the newest shard wins): a holder whose register facts changed — date of the next annual payment, categories,
+    # the tariff — gets a fresh details record in this run's shard (the lead row itself stays where it is)
+    old_det = {}
+    for p in sorted(glob.glob(os.path.join(SHARDS, "details_rbq_*.gz"))):
+        with gzip.open(p, "rt", encoding="utf-8") as fh:
+            for l in fh:
+                try:
+                    d = json.loads(l)
+                    old_det[d["key"]] = d
+                except (ValueError, KeyError):
+                    pass
+    SUBST = ("value", "value_basis", "start", "end", "title", "reference", "member_address_quote", "vendor", "vendor_address")
+    rows, dets, by, n_fresh, fresh_done = [], [], collections.Counter(), 0, set()
     for dom, o in sorted(allrec.items()):
         for hit in o.get("hits") or []:
             h = H.get(hit["licence"])
@@ -457,6 +497,10 @@ def merge(a):
             site = "https://%s/" % (urllib.parse.urlparse(o.get("final") or "").hostname or dom)
             row, det = lead_of(h, hit, site)
             if row["buyer_key"] in have:
+                od = old_det.get(row["buyer_key"])
+                if od is not None and row["buyer_key"] not in fresh_done and any((od.get(k) or "") != (det.get(k) or "") for k in SUBST):
+                    fresh_done.add(row["buyer_key"])
+                    dets.append(det); n_fresh += 1
                 continue
             have.add(row["buyer_key"])
             rows.append(row); dets.append(det); by[hit["by"]] += 1
@@ -498,6 +542,8 @@ def merge(a):
             w = csv.DictWriter(fh, fieldnames=LEAD_COLS)
             w.writeheader()
             w.writerows(rows)
+    if dets:
+        msg.append("details refreshed for leads already on file: %d" % n_fresh)
         with gzip.open(os.path.join(SHARDS, "details_rbq_%s.gz" % stamp), "wt", encoding="utf-8") as fh:
             for d in dets:
                 fh.write(json.dumps(d, ensure_ascii=False) + "\n")
