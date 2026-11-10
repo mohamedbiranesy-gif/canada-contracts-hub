@@ -1,4 +1,4 @@
-# Deep audit — 63638 delivered rows in 17 packages (34 files), 2026-11-09
+# Deep audit — 64536 delivered rows in 17 packages (35 files), 2026-11-10
 
 Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every flagged row is listed in `audit_flags.csv` with its reasons.
 
@@ -8,24 +8,24 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 | 2 | mailbox syntax | hard | 0 | PASS |
 | 3 | mailbox referee-confirmed (all but P11) | hard | 0 | PASS |
 | 4 | mail server (MX or A) on the mailbox domain | hard | 0 | PASS |
-| 4b | mail server not yet checked (row newer than the last DNS pass) | soft | 107 | REVIEW |
+| 4b | mail server not yet checked (row newer than the last DNS pass) | soft | 963 | REVIEW |
 | 5 | no webmail domain | hard | 0 | PASS |
 | 6 | no person-like local part | hard | 0 | PASS |
-| 7 | role word in the local part | soft | 3532 | REVIEW |
+| 7 | role word in the local part | soft | 3636 | REVIEW |
 | 8 | receivables-looking local part graded invoicing/AP | soft | 37 | REVIEW |
 | 9 | shared government domain: page or quote names the body | soft | 3 | REVIEW |
 | 10 | regional token of a multinational on a differently-located body | soft | 0 | PASS |
 | 11 | quote contains the address | hard | 0 | PASS |
 | 11b | quote shows the label next to the address (referee saw the address on the page) | soft | 0 | PASS |
-| 12 | evidence page on the organisation's domain (or its site) | soft | 3732 | REVIEW |
+| 12 | evidence page on the organisation's domain (or its site) | soft | 3753 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
 | 14 | DMARC / SPF / provider columns filled | soft | 0 | PASS |
 | 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 0 | PASS |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
-| 19 | buyer name is a name (not a domain or a page title) | soft | 22946 | REVIEW |
-| 20 | legal name is not a fragment or a platform copyright | soft | 66 | REVIEW |
+| 19 | buyer name is a name (not a domain or a page title) | soft | 23959 | REVIEW |
+| 20 | legal name is not a fragment or a platform copyright | soft | 65 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
 | 22 | one row per organisation name (same name twice) | soft | 7 | REVIEW |
 | 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 60 | REVIEW |
@@ -40,8 +40,8 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:224 BRITISH COUNCIL(THE) | sutton.gov.uk
     - P01_GOLD_active_relationship_invoicing_AP_email:237 BANK OF ENGLAND | bankofengland.co.uk
     - P01_GOLD_active_relationship_invoicing_AP_email:248 Utilities Kingston | kingston.gov.uk
-    - P01_GOLD_active_relationship_invoicing_AP_email:370 NATO Joint Warfare Centre (Stavanger) | jwc.nato.int
-    - P01_GOLD_active_relationship_invoicing_AP_email:404 Debiopharm International SA | debiopharm.com
+    - P01_GOLD_active_relationship_invoicing_AP_email:369 NATO Joint Warfare Centre (Stavanger) | jwc.nato.int
+    - P01_GOLD_active_relationship_invoicing_AP_email:403 Debiopharm International SA | debiopharm.com
     - P01_GOLD_active_relationship_invoicing_AP_email:425 Max-Planck-Gesellschaft zur Förderung de | gv.mpg.de
     - P01_GOLD_active_relationship_invoicing_AP_email:456 The Clorox Company of Canada Ltd. | uberfreight.com
     - P01_GOLD_active_relationship_invoicing_AP_email:495 New York State Energy Research and Devel | nyserda.ny.gov
@@ -52,7 +52,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:43 New Relic | ap_ireland@newrelic.com
     - P01_GOLD_active_relationship_invoicing_AP_email:276 Town of Oakville | ap_inquiries@oakville.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:302 Miami-Dade County (business unit CU05010 | invsubp@miamidade.gov
-    - P01_GOLD_active_relationship_invoicing_AP_email:391 BELL TEXTRON INC | APBell@textron.com
+    - P01_GOLD_active_relationship_invoicing_AP_email:390 BELL TEXTRON INC | APBell@textron.com
     - P02_active_relationship_finance_accounting_email:7 Agriculture and Agri-Food Canada | directdeposit.depotdirect@canada.ca
     - P02_active_relationship_finance_accounting_email:13 Crown-Indigenous Relations and Northern  | depotdirect-directdeposit@sac-isc.gc.ca
     - P02_active_relationship_finance_accounting_email:14 Department of Justice Canada | mdv_dpf@justice.gc.ca
@@ -69,14 +69,14 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P06_client_listing_invoicing_AP_email:28 University of Bath | payments@bath.ac.uk
     - P06_client_listing_invoicing_AP_email:70 teamviewer.com | payments@teamviewer.com
     - P06_client_listing_invoicing_AP_email:148 Blomidon Nurseries (1970) Limited | payments@blomidonnurseries.com
+    - P06_client_listing_invoicing_AP_email:180 fergusfallfair.ca | payment@fergusfallfair.ca
     - P10_linked_from_vendor_site_any_email:13 gov.scot | online_payments@gov.scot
     - P10_linked_from_vendor_site_any_email:31 WeirFoulds LLP | payments@weirfoulds.com
     - P10_linked_from_vendor_site_any_email:39 bcica.org | payments@bcica.org
-    - P11_any_relationship_email_not_yet_confirmed:23 His Majesty's Revenue and Customs (HMRC) | payments.team@hmrc.gov.uk
 - **9 shared government domain: page or quote names the body**
     - P01_GOLD_active_relationship_invoicing_AP_email:43 Canadian Space Agency | invoicing.csa-asc.facturation@canada.ca ← https://www.canada.ca/en/public-services-procurement/services/payments-to-from-g
     - P07_client_listing_finance_or_purchasing_email:25 transportation.ky.gov | finance.crcgroup@ky.gov ← https://finance.ky.gov/eProcurement/Pages/doing-business-with-the-commonwealth.a
-    - P13_inferred_relationship_no_record_own_email_part1_of_18:544 Landlord and Tenant Board | ltbpayments@ontario.ca ← https://tribunalsontario.ca/ltb/contact/
+    - P13_inferred_relationship_no_record_own_email_part1_of_18:534 Landlord and Tenant Board | ltbpayments@ontario.ca ← https://tribunalsontario.ca/ltb/contact/
 - **12 evidence page on the organisation's domain (or its site)**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:18 Motorola Solutions, Inc | recepcionfacturas@motorolasolutions.com on web.archive.org (site motorolasolutions.com)
     - P01_GOLD_active_relationship_invoicing_AP_email:2 Department of Defence | invoices@defence.gov.au on web.archive.org (site defence.gov.au)
@@ -112,10 +112,10 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P06T_active_service_seen_on_buyer_site_other_email:1243 do+dare undie co. | do+dare undie co. (label per Wikidata Q141143888, official website on 
     - P06T_active_service_seen_on_buyer_site_other_email:1406 de Montigny Contemporain | de Montigny Contemporain (label per Wikidata Q139820434, official webs
     - P07_client_listing_finance_or_purchasing_email:82 lepointdevente.com | lepointdevente.com (recipient legal name in the federal grants & contr
-    - P08_client_listing_general_email:2051 Christian Life Community | Christian Life Community (stated on https://www.christianlifecommunity
-    - P10_linked_from_vendor_site_any_email:1502 Digify SEO Company | digify seo company Incorporated (as registered: Corporations Canada (o
-    - P13_inferred_relationship_no_record_own_email_part10_of_18:111 Freshever Produce Inc | freshever produce Inc. (as registered: Corporations Canada (open data)
-    - P13_inferred_relationship_no_record_own_email_part11_of_18:2125 MENAGER.CA INC | menager.ca inc. (as registered: Canada's Business Registries, QC 11702
+    - P08_client_listing_general_email_part1_of_2:2058 Christian Life Community | Christian Life Community (stated on https://www.christianlifecommunity
+    - P10_linked_from_vendor_site_any_email:1500 Digify SEO Company | digify seo company Incorporated (as registered: Corporations Canada (o
+    - P13_inferred_relationship_no_record_own_email_part10_of_18:126 Freshever Produce Inc | freshever produce Inc. (as registered: Corporations Canada (open data)
+    - P13_inferred_relationship_no_record_own_email_part11_of_18:2129 MENAGER.CA INC | menager.ca inc. (as registered: Canada's Business Registries, QC 11702
 - **22 one row per organisation name (same name twice)**
     - P01_GOLD_active_relationship_invoicing_AP_email:155 MRC de Manicouagan | 2 rows, same mail domain: mrcmanicouagan.qc.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:438 City of Kamloops | 2 rows, same mail domain: kamloops.ca
@@ -139,17 +139,17 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:354 Virginia State Police | virginia.gov: 5 rows, ap@vsp.virginia.gov; accountspayable@energy.virginia.gov; support@dhrm.virginia.gov
 - **25 jurisdiction vs mailbox top-level domain**
     - P01_GOLD_active_relationship_invoicing_AP_email:248 Utilities Kingston | CA / kingston.gov.uk
-    - P13_inferred_relationship_no_record_own_email_part11_of_18:11 AO Kaspersky Lab | CA / kaspersky.de
-    - P13_inferred_relationship_no_record_own_email_part11_of_18:1057 lifelyhome.ca | CA / lifely.com.au
-    - P13_inferred_relationship_no_record_own_email_part12_of_18:198 nakie.ca | CA / nakie.com.au
-    - P13_inferred_relationship_no_record_own_email_part12_of_18:1218 opal-canada.ca | CA / opal.fr
-    - P13_inferred_relationship_no_record_own_email_part12_of_18:1767 pccarx.ca | CA / pccarx.com.au
-    - P13_inferred_relationship_no_record_own_email_part12_of_18:2434 practs.ca | CA / practs.de
-    - P13_inferred_relationship_no_record_own_email_part13_of_18:805 Roka Harness Pty Ltd | CA / rokaharness.com.au
-    - P13_inferred_relationship_no_record_own_email_part13_of_18:1973 Skin Cupid | CA / skincupid.co.uk
-    - P13_inferred_relationship_no_record_own_email_part13_of_18:2170 Snowdonia Cheese Ltd | CA / snowdonia-cheese.co.uk
-    - P13_inferred_relationship_no_record_own_email_part16_of_18:2641 Beckhoff Automation Ltd. | CA / beckhoff.de
-    - P13_inferred_relationship_no_record_own_email_part17_of_18:871 Bernafon Canada | ON / bernafon.com.au
+    - P13_inferred_relationship_no_record_own_email_part11_of_18:29 AO Kaspersky Lab | CA / kaspersky.de
+    - P13_inferred_relationship_no_record_own_email_part11_of_18:1067 lifelyhome.ca | CA / lifely.com.au
+    - P13_inferred_relationship_no_record_own_email_part12_of_18:219 nakie.ca | CA / nakie.com.au
+    - P13_inferred_relationship_no_record_own_email_part12_of_18:1233 opal-canada.ca | CA / opal.fr
+    - P13_inferred_relationship_no_record_own_email_part12_of_18:1776 pccarx.ca | CA / pccarx.com.au
+    - P13_inferred_relationship_no_record_own_email_part12_of_18:2439 practs.ca | CA / practs.de
+    - P13_inferred_relationship_no_record_own_email_part13_of_18:824 Roka Harness Pty Ltd | CA / rokaharness.com.au
+    - P13_inferred_relationship_no_record_own_email_part13_of_18:1986 Skin Cupid | CA / skincupid.co.uk
+    - P13_inferred_relationship_no_record_own_email_part13_of_18:2181 Snowdonia Cheese Ltd | CA / snowdonia-cheese.co.uk
+    - P13_inferred_relationship_no_record_own_email_part16_of_18:2653 Beckhoff Automation Ltd. | CA / beckhoff.de
+    - P13_inferred_relationship_no_record_own_email_part17_of_18:904 Bernafon Canada | ON / bernafon.com.au
 - **26 currency filled when a value is filled**
     - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:23 RENTON SCHOOL DISTRICT #403 | 332345.13 (source field: amount)
     - P01_GOLD_active_relationship_invoicing_AP_email:442 Rectorado de la Universitat de València | 12698.25 (source field: PayableAmount)
@@ -184,68 +184,68 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - P05_likely_active_awarded_12_36_months_any_email: 384
 - P06M_member_or_regulated_payer_of_canadian_body_other_email: 168
 - P06T_active_service_seen_on_buyer_site_other_email: 2440
-- P06_client_listing_invoicing_AP_email: 166
-- P07_client_listing_finance_or_purchasing_email: 252
-- P08_client_listing_general_email: 3039
+- P06_client_listing_invoicing_AP_email: 180
+- P07_client_listing_finance_or_purchasing_email: 286
+- P08_client_listing_general_email: 4314
 - P09_older_contract_or_payment_any_email: 381
-- P10_linked_from_vendor_site_any_email: 2596
-- P11_any_relationship_email_not_yet_confirmed: 474
-- P12_weaker_relationship_within_5_years_own_email: 19
-- P13_inferred_relationship_no_record_own_email: 50807
+- P10_linked_from_vendor_site_any_email: 2590
+- P11_any_relationship_email_not_yet_confirmed: 508
+- P12_weaker_relationship_within_5_years_own_email: 18
+- P13_inferred_relationship_no_record_own_email: 50355
 
 ## Field fill across all delivered rows (value present, not `not_published`)
-- buyer_website: 63638 (100.0%)
-- vendor_website: 62163 (97.7%)
-- vendor_address: 61180 (96.1%)
-- vendor_phone: 57138 (89.8%)
-- buyer_logo_url: 53976 (84.8%)
-- vendor_bn9: 53071 (83.4%)
-- vendor_logo_url: 52373 (82.3%)
-- buyer_phone: 49818 (78.3%)
-- buyer_address: 48279 (75.9%)
-- buyer_legal_name_as_published: 33724 (53.0%)
-- buyer_bn_as_published: 15535 (24.4%)
-- contract_link: 12831 (20.2%)
-- vendor_legal_name: 9679 (15.2%)
-- vendor_registry_id: 8263 (13.0%)
-- vendor_incorporation_date: 8252 (13.0%)
-- award_date: 6499 (10.2%)
-- vendor_neq: 5117 (8.0%)
-- vendor_emails: 4883 (7.7%)
-- ap_phone: 2670 (4.2%)
-- contract_value: 2375 (3.7%)
-- invoice_mailing_address: 2198 (3.5%)
-- invoicing_requirements: 2135 (3.4%)
-- payment_terms_as_published: 2032 (3.2%)
-- end_date: 1769 (2.8%)
-- invoice_portal_url: 1766 (2.8%)
-- po_required_as_published: 1492 (2.3%)
-- ap_contact_name_as_published: 930 (1.5%)
+- buyer_website: 64536 (100.0%)
+- vendor_website: 63062 (97.7%)
+- vendor_address: 62077 (96.2%)
+- vendor_phone: 56997 (88.3%)
+- buyer_logo_url: 53986 (83.7%)
+- vendor_bn9: 52685 (81.6%)
+- vendor_logo_url: 52331 (81.1%)
+- buyer_phone: 49824 (77.2%)
+- buyer_address: 48256 (74.8%)
+- buyer_legal_name_as_published: 33640 (52.1%)
+- buyer_bn_as_published: 15429 (23.9%)
+- contract_link: 14181 (22.0%)
+- vendor_legal_name: 9848 (15.3%)
+- vendor_registry_id: 8274 (12.8%)
+- vendor_incorporation_date: 8261 (12.8%)
+- award_date: 6498 (10.1%)
+- vendor_emails: 5166 (8.0%)
+- vendor_neq: 5126 (7.9%)
+- ap_phone: 2676 (4.1%)
+- contract_value: 2374 (3.7%)
+- invoice_mailing_address: 2204 (3.4%)
+- invoicing_requirements: 2138 (3.3%)
+- payment_terms_as_published: 2037 (3.2%)
+- end_date: 1768 (2.7%)
+- invoice_portal_url: 1766 (2.7%)
+- po_required_as_published: 1491 (2.3%)
+- ap_contact_name_as_published: 930 (1.4%)
 
 ## Canada-proof families
-- other: 47269; source field: 16369
+- other: 46852; source field: 17684
 
 ## Buyer types
-- organisation (type not stated in the record): 32865
-- company (private sector): 10818
-- non-profit / association / cultural body: 7187
-- company (private sector) (from the organisation's name / web domain): 4356
-- municipality / local government: 1337
-- government ministry / agency: 1216
-- municipality / local government (from the organisation's name / web domain): 1059
-- hospital / health authority: 929
-- non-profit / association / cultural body (from the organisation's name / web domain): 902
-- university / college: 579
-- utility / public corporation: 485
-- university / college (from the organisation's name / web domain): 443
-- hospital / health authority (from the organisation's name / web domain): 342
-- transport / transit authority: 207
-- school board / school district: 176
-- First Nation / Indigenous government: 166
-- government ministry / agency (from the organisation's name / web domain): 150
-- religious organisation (from the organisation's name / web domain): 142
-- utility / public corporation (from the organisation's name / web domain): 97
-- transport / transit authority (from the organisation's name / web domain): 61
+- organisation (type not stated in the record): 33754
+- company (private sector): 10827
+- non-profit / association / cultural body: 7169
+- company (private sector) (from the organisation's name / web domain): 4351
+- municipality / local government: 1343
+- government ministry / agency: 1211
+- municipality / local government (from the organisation's name / web domain): 1052
+- hospital / health authority: 927
+- non-profit / association / cultural body (from the organisation's name / web domain): 917
+- university / college: 578
+- utility / public corporation: 483
+- university / college (from the organisation's name / web domain): 445
+- hospital / health authority (from the organisation's name / web domain): 345
+- transport / transit authority: 206
+- school board / school district: 175
+- First Nation / Indigenous government: 163
+- government ministry / agency (from the organisation's name / web domain): 161
+- religious organisation (from the organisation's name / web domain): 144
+- utility / public corporation (from the organisation's name / web domain): 102
+- transport / transit authority (from the organisation's name / web domain): 62
 - First Nation / Indigenous government (from the organisation's name / web domain): 46
 - US government body (federal, state or local): 29
 - school board / school district (from the organisation's name / web domain): 20
@@ -253,9 +253,9 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - US city / county / local government: 11
 
 ## DMARC posture of the delivered mailboxes
-- v=DMARC1; p=none (monitor only, no enforcement): 26441
-- no DMARC record: 21275
-- p=quarantine: 10439
-- p=reject: 5417
+- v=DMARC1; p=none (monitor only, no enforcement): 26807
+- no DMARC record: 21519
+- p=quarantine: 10588
+- p=reject: 5487
+- DNS lookup failed: 76
 - invalid DMARC record: 59
-- DNS lookup failed: 7
