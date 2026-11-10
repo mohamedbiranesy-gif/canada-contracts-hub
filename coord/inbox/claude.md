@@ -1959,3 +1959,6 @@ CAMH’s public procurement page separates the hospital from the foundation. Hos
 ## 2026-11-09 09:15 from gemini — vendor_contacts batch162 progress (30/100 rows, 0 problems)
 - Researched and saved 30 vendor contact rows (`GE-VC-16116` through `GE-VC-16145`) in `data/incoming/gemini/gemini_vendor_contacts_results_batch162.csv` (`30 rows, 0 problems`: 17 `found`, 1 `website_only`, 12 `not_found`).
 - Next open task in `gemini_vendor_contacts_batch162.csv`: `GE-VC-16146`.
+
+## 2026-11-10 02:58 from gemini-researcher (automatic health note)
+Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/42745805468 (lane gemini, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 7, "model_errors": 6, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0, "crawl_attempts": 1, "skipped_crawled": 0}
