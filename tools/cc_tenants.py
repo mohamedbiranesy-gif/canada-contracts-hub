@@ -32,6 +32,7 @@ import tech_relationships as T  # noqa: E402  (vetted vendor table, portal reade
 INC = CCL.INC
 TPAGES = os.path.join(INC, "claude_cc_tenant_pages.csv.gz")
 SHOPR = os.path.join(INC, "claude_cc_shopify_redirects.csv.gz")
+SHAPES = os.path.join(INC, "claude_cc_shopify_shapes.csv.gz")  # domains whose archived URLs have the shape of a Shopify store (/collections/…, /products/…)
 CANDS = os.path.join(INC, "claude_tenant_candidates.csv.gz")
 TDONE = os.path.join(INC, "claude_cc_tenant_extract_done.tsv")
 CAND_COLS = ["cand_key", "vendor_key", "name", "website", "evidence_url", "capture", "name_basis", "website_basis", "slug", "extra"]
@@ -202,7 +203,83 @@ def _index_one(a, cid, wpaths):
     print("shard %d: %d Shopify stores redirecting to their own domain" % (k, len(red)), flush=True)
 
 
+SHAPE_TLDS = ("ca", "com", "co", "shop", "store", "us", "net")
+
+
+def shapes(a):
+    """Shopify stores at scale: a domain whose archived pages include /collections/<x> AND /products/<y> has the URL shape of a Shopify store.
+    That is only a way to find candidates: a store becomes a lead only after tools/lead_crawl.py --candidates sees Shopify's own assets on
+    its live pages, a role mailbox on its domain and a postal address in the United States or Canada (the countries where Shopify Inc.,
+    Ottawa, is the contracting entity)."""
+    k, n = CCL.shard_of(a)
+    con = duck()
+    os.makedirs("out", exist_ok=True)
+    out, t0 = {}, time.time()
+    for spec in CCL.crawl_ids(a.crawl):
+        try:
+            cid, wpaths = CCL.newest_crawl(spec)
+        except SystemExit as e:
+            print("crawl %s skipped: %s" % (spec, e), flush=True)
+            continue
+        queue = list(enumerate(wpaths[k::n]))
+        if a.limit_parts:
+            queue = queue[:a.limit_parts]
+        print("crawl %s: shard %d/%d reads %d index parts" % (cid, k, n, len(queue)), flush=True)
+        for rnd in range(5):
+            if not queue:
+                break
+            if rnd:
+                print("round %d: %d index parts to read again after a pause" % (rnd + 1, len(queue)), flush=True)
+                time.sleep(60 * rnd + random.uniform(0, 30))
+            nxt = []
+            for i, p in queue:
+                q = ("SELECT url_host_registered_domain, min(url_host_name), count(*) FILTER (WHERE url_path LIKE '/collections/%%'), count(*) FILTER (WHERE url_path LIKE '/products/%%'), "
+                     "min(url) FILTER (WHERE url_path LIKE '/collections/%%') FROM read_parquet('%s') WHERE url_host_tld IN (%s) AND fetch_status = 200 AND content_mime_detected = 'text/html' "
+                     "AND (url_path LIKE '/collections/%%' OR url_path LIKE '/products/%%') GROUP BY 1 "
+                     "HAVING count(*) FILTER (WHERE url_path LIKE '/collections/%%') >= 1 AND count(*) FILTER (WHERE url_path LIKE '/products/%%') >= 2") % (
+                         CCL.CC + p, ", ".join("'%s'" % t for t in SHAPE_TLDS))
+                try:
+                    got = con.execute(q).fetchall()
+                except Exception as e:
+                    print("part %d failed (round %d): %s" % (i, rnd + 1, str(e)[:160]), flush=True)
+                    nxt.append((i, p))
+                    time.sleep(10)
+                    continue
+                for d, h, c, pr, u in got:
+                    if not d or CCL.VENDOR_SKIP.search(d) or CCL.SKIP.search(d):
+                        continue
+                    o = out.setdefault(d, [d, h, 0, 0, u, cid])
+                    o[2] += c
+                    o[3] += pr
+                if i % 10 == 0 or len(got) > 2000:
+                    print("%s %s part %d: %d store-shaped domains (total %d, %.0f s)" % (time.strftime("%H:%M:%S"), cid, i, len(got), len(out), time.time() - t0), flush=True)
+            queue = nxt
+        if queue:
+            print("UNREAD index parts of %s after 5 rounds: %s" % (cid, ", ".join(str(i) for i, p in queue)), flush=True)
+    with open("out/shopify_shapes_%d.csv" % k, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "host", "collections", "products", "sample_url", "crawl"])
+        w.writerows(out.values())
+    print("shard %d: %d store-shaped domains" % (k, len(out)), flush=True)
+
+
 def merge_index(a):
+    sh = {}
+    if os.path.exists(SHAPES):
+        with gzip.open(SHAPES, "rt", encoding="utf-8", newline="") as fh:
+            sh = {r["dom"]: r for r in csv.DictReader(fh)}
+    n_sh0 = len(sh)
+    for f in sorted(glob.glob(os.path.join(a.dir, "shopify_shapes_*.csv"))):
+        for r in csv.DictReader(open(f, encoding="utf-8")):
+            if r.get("dom") and r["dom"] not in sh:
+                sh[r["dom"]] = r
+    if sh:
+        with gzip.open(SHAPES, "wt", encoding="utf-8", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=["dom", "host", "collections", "products", "sample_url", "crawl"], extrasaction="ignore")
+            w.writeheader()
+            for d in sorted(sh):
+                w.writerow(sh[d])
+        print("store-shaped domains: %d (+%d this run)" % (len(sh), len(sh) - n_sh0))
     rows, red = {}, {}
     if os.path.exists(TPAGES):  # union with the pages already on main: a re-run for a few vendors or parts adds, never replaces
         with gzip.open(TPAGES, "rt", encoding="utf-8", newline="") as fh:
@@ -376,6 +453,24 @@ def merge(a):
                              "slug": store, "extra": json.dumps({"redirect": r.get("redirect"), "crawl": r.get("crawl")}, ensure_ascii=False)}
                 by_host[h] = ck
                 add["shopify"] += 1
+    # store-shaped domains: a bounded number per run (owner 2026-11-09: this lane must not crowd out the others), .ca hosts and the stores
+    # with the most archived pages first
+    if os.path.exists(SHAPES) and getattr(a, "max_shapes", 0):
+        with gzip.open(SHAPES, "rt", encoding="utf-8", newline="") as fh:
+            shp = list(csv.DictReader(fh))
+        shp.sort(key=lambda r: (not r["dom"].endswith(".ca"), -(int(r.get("collections") or 0) + int(r.get("products") or 0)), r["dom"]))
+        for r in shp:
+            if add["shopify (store shape)"] >= a.max_shapes:
+                break
+            h = CCL.base((r.get("host") or r["dom"]).lower())
+            ck = "t:shopify:" + r["dom"]
+            if not h or h in known or r["dom"] in known or h in by_host or r["dom"] in by_host or ck in cands or CCL.VENDOR_SKIP.search(h) or CCL.SKIP.search(h):
+                continue
+            cands[ck] = {"cand_key": ck, "vendor_key": "shopify", "name": "", "website": "https://%s/" % h, "evidence_url": r.get("sample_url") or "https://%s/" % h,
+                         "capture": "", "name_basis": "", "website_basis": "store URL shapes in the archive (/collections/, /products/); Shopify's assets must be seen on its live pages",
+                         "slug": r["dom"], "extra": json.dumps({"collections": r.get("collections"), "products": r.get("products"), "crawl": r.get("crawl")}, ensure_ascii=False)}
+            by_host[h] = ck
+            add["shopify (store shape)"] += 1
     with gzip.open(CANDS, "wt", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=CAND_COLS)
         w.writeheader()
@@ -444,10 +539,11 @@ def main():
     p = sub.add_parser("index"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="auto"); p.add_argument("--vendors", default="", help="comma-separated vendor keys (default: every vetted portal vendor + Shopify redirects)")
     p = sub.add_parser("merge-index"); p.add_argument("dir")
     p = sub.add_parser("extract"); p.add_argument("--shard", default="0/1"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=4); p.add_argument("--limit", type=int, default=0)
-    p = sub.add_parser("merge"); p.add_argument("dir")
+    p = sub.add_parser("merge"); p.add_argument("dir"); p.add_argument("--max-shapes", type=int, default=20000, help="store-shaped domains added as candidates per run")
+    p = sub.add_parser("shapes"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="auto"); p.add_argument("--limit-parts", type=int, default=0)
     p = sub.add_parser("merge-accepted"); p.add_argument("dir")
     a = ap.parse_args()
-    {"index": index, "merge-index": merge_index, "extract": extract, "merge": merge, "merge-accepted": merge_accepted}[a.cmd](a)
+    {"index": index, "shapes": shapes, "merge-index": merge_index, "extract": extract, "merge": merge, "merge-accepted": merge_accepted}[a.cmd](a)
 
 
 if __name__ == "__main__":

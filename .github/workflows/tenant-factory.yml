@@ -28,6 +28,9 @@ on:
       crawl:
         description: "Common Crawl id for the index stage (auto = newest with a published index); older ids add portals the newest crawl missed"
         default: "auto"
+      shapes:
+        description: "index stage: also scan for store-shaped domains (Shopify at scale): yes | no"
+        default: "no"
 permissions:
   contents: write
   actions: write
@@ -68,6 +71,9 @@ jobs:
       - run: pip install -q duckdb
       - name: Scan the Common Crawl URL index for customer portals and store redirects
         run: python3 tools/cc_tenants.py index --shard ${{ matrix.k }}/6 --crawl "$CRAWL" ${VENDORS:+--vendors "$VENDORS"}
+      - name: Store-shaped domains (Shopify at scale; candidates only, a bounded number per cycle)
+        if: ${{ inputs.shapes == 'yes' }}
+        run: python3 tools/cc_tenants.py shapes --shard ${{ matrix.k }}/6 --crawl auto || echo "shape scan failed (the portal index is kept)"
       - uses: actions/upload-artifact@v4
         with: { name: "tf-index-${{ matrix.k }}", path: out/, retention-days: 3 }
 
@@ -88,7 +94,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/cc_tenants.py merge-index shards | tee -a "$GITHUB_STEP_SUMMARY"
-            for f in claude_cc_tenant_pages.csv.gz claude_cc_shopify_redirects.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            for f in claude_cc_tenant_pages.csv.gz claude_cc_shopify_redirects.csv.gz claude_cc_shopify_shapes.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "tenant-factory: Common Crawl index of customer portals and store redirects [skip ci]"
             git push -q origin HEAD:main && break
