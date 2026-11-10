@@ -43,6 +43,33 @@ REL_SQL = r"client|customer|case-stud|casestud|case_stud|temoignage|t%c3%a9moign
 NOT_SQL = (r"terms|reference|support|service|product|letter|lettre|news|nouvelle|blog|article|press|media|document|conditions|bill|/loi|career|emploi|job|event|evenement|contact|about|a-propos|partner|partenaire"
            r"|login|log-in|signin|sign-in|account|compte|portal|portail|espace-client|zone-client|acces-client|clientarea|client-area|client-access|client-cent|client-zone|customer-care|customer-cent|customer/"
            r"|/tag/|/tags/|/category/|/categorie/|/author/|/page/[0-9]|/feed|wp-json|wp-content|wp-admin|/cart|/panier|/checkout|privacy|/search|/recherche|\.(pdf|jpe?g|png|gif|xml|json|css|js)$")
+# 2026-11-10 (owner: "a Canadian entity gets paid … establish that relationship"): two more kinds of page where a Canada-located organisation
+# lists the parties that PAY it — its sponsors / exhibitors (they pay the organiser) and its dealers / retailers / distributors (they buy
+# from the supplier). "sponsorship", "become a sponsor", "dealership", supplier / brand pages are not that and are left out.
+SPONSOR_SQL = r"/[^/]*(sponsors|commanditaires|exhibitors?|exposants)([-_.][^/]*)?/?$"
+DEALER_SQL = r"/[^/]*(dealers?|where-to-buy|ou-acheter|o%c3%b9-acheter|retailers|stockists|d(e|%c3%a9)taillants|distributors|distributeurs|revendeurs|points-de-vente)([-_.][^/]*)?/?$"
+NOT2_SQL = (r"become|devenir|devenez|opportunit|package|forfait|prospectus|application|apply|form|kit|levels|niveaux|sponsorship|commandite|login|log-in|signin|sign-in|account|compte|portal|portail"
+            r"|/tag/|/tags/|/category/|/categorie/|/author/|/page/[0-9]|/feed|wp-json|wp-content|wp-admin|/cart|/panier|/checkout|privacy|/search|/recherche|register|inscription"
+            r"|supplier|fournisseur|brand|marque|manufactur|fabricant|career|emploi|job|\.(pdf|jpe?g|png|gif|xml|json|css|js)$")
+_REL_RX, _NOT_RX, _SP_RX, _DL_RX, _NOT2_RX = (re.compile(x) for x in (REL_SQL, NOT_SQL, SPONSOR_SQL, DEALER_SQL, NOT2_SQL))
+
+
+def page_class(path):
+    """client | sponsor | dealer | '' for a URL path (the same tests the index query applies)"""
+    p = (path or "").lower()
+    if _REL_RX.search(p) and not _NOT_RX.search(p):
+        return "client"
+    if not _NOT2_RX.search(p):
+        if _DL_RX.search(p):
+            return "dealer"
+        if _SP_RX.search(p):
+            return "sponsor"
+    return ""
+
+
+CLASS_TEXT = {"client": "client page of a Canada-located vendor (Common Crawl capture)",
+              "sponsor": "sponsor / exhibitor page of a Canada-located organiser: the parties listed pay it (Common Crawl capture)",
+              "dealer": "dealer / retailer page of a Canada-located supplier: the parties listed buy from it (Common Crawl capture)"}
 VENDOR_SKIP = re.compile(r"(^|\.)(gc|canada)\.ca$|\.gouv\.qc\.ca$|(^|\.)gov\.[a-z]{2}\.ca$|\.gov\.ca$|kijiji|yellowpages|pagesjaunes|canada411|indeed|eventbrite|amazon|ebay|walmart|bestbuy|costco|"
                          r"canadiantire|homedepot|(^|\.)cbc\.ca$|ctvnews|globalnews|radio-canada|lapresse|ledevoir|thestar|nationalpost|theglobeandmail|wikipedia|reddit|craigslist|linkedin|facebook|"
                          r"google|youtube|yelp|tripadvisor|booking|expedia|airbnb|realtor\.ca|centris|duproprio|autotrader|workopolis|glassdoor|monster|jobbank|canadapost|purolator|(^|\.)bell\.ca$|"
@@ -149,7 +176,9 @@ def index(a):
             shown = True
         q = ("SELECT url, url_host_name, url_host_registered_domain, url_path, CAST(fetch_time AS VARCHAR), warc_filename, warc_record_offset, warc_record_length "
              "FROM read_parquet('%s') WHERE url_host_tld = 'ca' AND fetch_status = 200 AND content_mime_detected = 'text/html' AND url_query IS NULL "
-             "AND length(url_path) BETWEEN 2 AND 90 AND regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')") % (url, REL_SQL.replace("'", "''"), NOT_SQL.replace("'", "''"))
+             "AND length(url_path) BETWEEN 2 AND 90 AND ((regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')) "
+             "OR (regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')))") % (
+                 url, REL_SQL.replace("'", "''"), NOT_SQL.replace("'", "''"), (SPONSOR_SQL + "|" + DEALER_SQL).replace("'", "''"), NOT2_SQL.replace("'", "''"))
         for attempt in range(3):
             try:
                 got = con.execute(q).fetchall()
@@ -166,11 +195,16 @@ def index(a):
             by[r[2]].append(r)
     with open("out/cc_rel_pages_%d.csv" % k, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(PAGE_COLS + ["crawl"])
+        w.writerow(PAGE_COLS + ["crawl", "cls"])
         kept = 0
         for dom, rs in by.items():
-            for r in sorted(rs, key=lambda r: (len(r[3] or ""), r[0]))[:a.per_domain]:
-                w.writerow(list(r) + [cid])
+            per = collections.Counter()
+            for r in sorted(rs, key=lambda r: (len(r[3] or ""), r[0])):
+                c = page_class(r[3])
+                if not c or per[c] >= a.per_domain:
+                    continue
+                per[c] += 1
+                w.writerow(list(r) + [cid, c])
                 kept += 1
     print("shard %d: %d matching pages on %d .ca domains; kept %d (at most %d per domain)" % (k, len(rows), len(by), kept, a.per_domain), flush=True)
 
@@ -233,11 +267,11 @@ def leads_of(page, row):
                 or SKIP.search(h) or PLATFORMS.search(h) or VENDOR_SKIP.search(h)
                 or not label or len(label) > 120 or GENERIC_LABEL.match(label) or LABEL_SKIP.search(label)):
             continue
-        hits.setdefault(h, {"platform": "vendor_site", "domain": h, "dataset_id": url, "dataset": "client page of a Canada-located vendor (Common Crawl capture)",
+        hits.setdefault(h, {"platform": "vendor_site", "domain": h, "dataset_id": url, "dataset": CLASS_TEXT.get(row.get("cls") or page_class(row.get("path")) or "client", CLASS_TEXT["client"]),
                             "dataset_url": url, "publisher": h, "buyer_unit": "", "website": "https://%s/" % h, "vendor": (site.group(1).strip() if site else "") or vhost,
                             "canada_field": "vendor located in Canada (cc: .ca domain + Canadian postal address on its own page)", "canada_value": vhost,
                             "row": {"relationship_page": url, "page_title": title, "client_label": label[:120], "vendor_key": "cc:" + dom, "vendor_site": "https://%s/" % vhost,
-                                    "pass": "cc_index", "capture": (row.get("fetch_time") or "")[:19], "vendor_address_quote": quote,
+                                    "pass": "cc_index", "page_class": row.get("cls") or page_class(row.get("path")) or "client", "capture": (row.get("fetch_time") or "")[:19], "vendor_address_quote": quote,
                                     "warc": "%s:%s:%s" % (row["warc_filename"], row["warc_record_offset"], row["warc_record_length"])}})
     return (list(hits.values()) if 0 < len(hits) <= 150 else []), quote
 
@@ -406,14 +440,27 @@ def merge_index(a):
     for r in rows.values():
         by[r["dom"]].append(r)
     n = 0
+    cls_n = collections.Counter()
+    if os.path.exists(PAGES):  # pages of an earlier scan (another crawl, or before a page class was added) stay: the archive still holds them
+        with gzip.open(PAGES, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                if r["url"] not in rows:
+                    by[r["dom"]].append(r)
     with gzip.open(PAGES, "wt", encoding="utf-8", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=PAGE_COLS + ["crawl"])
+        w = csv.DictWriter(fh, fieldnames=PAGE_COLS + ["crawl", "cls"], extrasaction="ignore")
         w.writeheader()
         for dom in sorted(by):
-            for r in sorted(by[dom], key=lambda r: (len(r["path"] or ""), r["url"]))[:a.per_domain]:
+            per = collections.Counter()
+            for r in sorted(by[dom], key=lambda r: (len(r["path"] or ""), r["url"])):
+                c = r.get("cls") or page_class(r.get("path")) or "client"
+                if per[c] >= a.per_domain:
+                    continue
+                per[c] += 1
+                r["cls"] = c
                 w.writerow(r)
                 n += 1
-    print("index %s: %d client pages on %d .ca domains -> %s" % (crawl, n, len(by), os.path.basename(PAGES)))
+                cls_n[c] += 1
+    print("index %s: %d pages on %d .ca domains (%s) -> %s" % (crawl, n, len(by), dict(cls_n), os.path.basename(PAGES)))
 
 
 def main():
