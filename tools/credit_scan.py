@@ -43,7 +43,8 @@ PLATFORM = re.compile(r"(^|\.)(blogspot|wordpress|wixsite|weebly|squarespace|mys
                       r"instagram|twitter|linkedin|youtube|pinterest|tiktok|apple|microsoft|amazon|cloudflare|shopify|w3|gravatar|automattic|woocommerce|elementor|bootstrap|jquery|"
                       r"mailchimp|hubspot|paypal|stripe|yelp|tripadvisor|eventbrite|vimeo|flickr|whatsapp|adobe|bit|goo|t|x|canada|gc)\.[a-z.]{2,8}$", re.I)
 # Canada-based services with a free plan or no charge to the organisation: a "powered by" line is not proof of a payment
-FREE_PLAN = re.compile(r"(^|\.)(webself\.net|zeffy\.com|thinkific\.com|vidyard\.com|wattpad\.com|fundrazr\.com|hootsuite\.com|wealthsimple\.com|canva\.com|linktr\.ee|carrd\.co)$", re.I)
+FREE_PLAN = re.compile(r"(^|\.)(webself\.net|zeffy\.com|thinkific\.com|vidyard\.com|wattpad\.com|fundrazr\.com|hootsuite\.com|wealthsimple\.com|canva\.com|linktr\.ee|carrd\.co|"
+                       r"wildapricot\.(com|org)|cyberimpact\.com|canadahelps\.org|gofundme\.com|tithe\.ly)$", re.I)
 
 # ------------------------------------------------------------------------------------------------------------------- credit phrases
 _WEBN = (r"(?:web\s?sites?|web\s?pages?|sites?\s?web|sites?\s+internet|pages?\s+web|web\s?design|web\s?development|web\s?hosting|web\s?marketing|design\s+web|"
@@ -62,7 +63,7 @@ _PH_COLON = (r"(?:web\s?design|design|conception|r[ée]alisation|cr[ée]ation|d[
 _PH_DE = r"(?:une\s+)?(?:r[ée]alisation|cr[ée]ation|conception)(?:\s+web)?\s+(?:de\s+l['’][ée]quipe(?:\s+de)?|de|d['’]|sign[ée]e(?:\s+par)?)(?![A-Za-zÀ-ÿ])"
 _PHRASE = "(?:" + _PH_BY + "|" + _PH_COLON + "|" + _PH_DE + ")"
 BEFORE_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])(" + _PHRASE + r")[\s:\-–—|»›>]{0,6}(?:(?:the\s+(?:team|folks)\s+at|l['’][ée]quipe\s+(?:de|chez)|our\s+friends\s+at)[\s|]*)?$", re.I)
-INNER_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])(" + _PHRASE + r")\s*\S", re.I)
+INNER_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])(" + _PHRASE + r")\s*(?!e-?mail|courriel|courrier|email|sms|t[ée]l[ée]phone)\S", re.I)  # not "marketing par e-mail" (a newsletter badge)
 WEBN_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])" + _WEBN + r"(?![A-Za-zÀ-ÿ])", re.I)
 DESN_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])" + _DESN + r"(?![A-Za-zÀ-ÿ])", re.I)
 POW_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])" + _POW + r"(?![A-Za-zÀ-ÿ])", re.I)
