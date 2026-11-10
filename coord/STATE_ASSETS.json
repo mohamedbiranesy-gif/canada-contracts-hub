@@ -5,5 +5,12 @@
   "bytes": 38396747,
   "sha256": "a341f50637edc5ca3279f9588b560ecbe61e3c61a1ab45efc4fae5c09048b76a",
   "updated": "2026-11-10T12:45:48Z"
+ },
+ "data/incoming/claude/claude_ap_terms_pages.csv.gz": {
+  "tag": "harvest-state",
+  "asset": "claude_ap_terms_pages.csv.gz",
+  "bytes": 5354462,
+  "sha256": "ea586cb4012095a2bfa29ca81d7ad59ecd10b51d46d0584798b529d1501ffde5",
+  "updated": "2026-11-10T13:38:19Z"
  }
 }
