@@ -57109,8 +57109,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01317,lead:1d2dfd82e319092d,inf
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-1d2e3fb99c,lead:1d2e3fb99ceb4fff,accounting@accessola.com,https://accessola.com/about-ola/contact-us/how-to-submit-an-expense/,unverified_page_unavailable
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-1d2e3fb99c,lead:1d2e3fb99ceb4fff,info@accessola.com,https://accessola.com/,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-1d2e3fb99c,lead:1d2e3fb99ceb4fff,info@accessola.combusiness,https://accessola.com/about-ola/contact-us/,verified
-claude,claude_buyer_ap_results_cccrawl01.csv,TN-1d3145e9e8,lead:1d3145e9e8c82836,invoicescustomerservice@infinitecables.com,https://us.infinitecables.com/pages/contact-us,unverified_page_unavailable
-claude,claude_buyer_ap_results_cccrawl01.csv,TN-1d3145e9e8,lead:1d3145e9e8c82836,info@infinitecables.com,https://us.infinitecables.com/pages/contact-us,unverified_page_unavailable
+claude,claude_buyer_ap_results_cccrawl01.csv,TN-1d3145e9e8,lead:1d3145e9e8c82836,invoicescustomerservice@infinitecables.com,https://us.infinitecables.com/pages/contact-us,verified
+claude,claude_buyer_ap_results_cccrawl01.csv,TN-1d3145e9e8,lead:1d3145e9e8c82836,info@infinitecables.com,https://us.infinitecables.com/pages/contact-us,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-1d317dc497,lead:1d317dc497a8112e,office-admin@collegestudentalliance.ca,https://www.collegestudentalliance.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-28236,lead:1d337702900caa3f,info@gifs.ca,https://gifs.ca/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-10828,lead:1d358d6f99eac2c7,info@ihsts.ca,https://www.ihsts.org/,verified
@@ -66268,8 +66268,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01287,lead:6316d21f55335cdd,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-22598,lead:63206d79a133a3aa,contact@thefootclinicgroup.com,https://www.thefootclinicgroup.com/,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00304,lead:63206d79a133a3aa,contact@thefootclinicgroup.com,https://www.thefootclinicgroup.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-35927,lead:63215c6046e35f7e,info@movementroompr.ca,https://movementroompr.ca/,verified
-claude,claude_buyer_ap_results_cccrawl01.csv,TN-6326d81ccd,lead:6326d81ccd6f453c,info@shophorne.com,https://shophorne.com/,unverified_page_unavailable
-claude,claude_buyer_ap_results_cccrawl01.csv,TN-6326d81ccd,lead:6326d81ccd6f453c,hello@shophorne.com,https://shophorne.com/,unverified_page_unavailable
+claude,claude_buyer_ap_results_cccrawl01.csv,TN-6326d81ccd,lead:6326d81ccd6f453c,info@shophorne.com,https://shophorne.com/,verified
+claude,claude_buyer_ap_results_cccrawl01.csv,TN-6326d81ccd,lead:6326d81ccd6f453c,hello@shophorne.com,https://shophorne.com/,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-6326fb3f14,lead:6326fb3f14bc21bd,info@sphereco.ca,https://sphereco.ca/nous-joindre/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-EX-HAM,lead:632da86a3ca243e7,info@highwoodmgmt.com,https://highwoodmgmt.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19792,lead:632e92fc24bb60ec,info@paradise-alley.com,https://www.paradise-alley.com/contact,verified
@@ -79244,7 +79244,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19821,lead:c96b3facb5a0484f,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-SN-03223,lead:c96dd318d88c1986,info@lime.tech,https://www.lime-technologies.com/en/,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-c96fdcbd45,lead:c96fdcbd459d1c80,info@raeinstitute.ca,https://www.raeinstitute.ca/,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,TN-c9711ee89b,lead:c9711ee89bbf00d0,info@betterstaytogether.com,https://www.betterstaytogether.com/,unverified_page_unavailable
-claude,claude_buyer_ap_results_cccrawl01.csv,TN-c9711ee89b,lead:c9711ee89bbf00d0,info@betterstaytogether.cocm,https://www.betterstaytogether.com/,unverified_page_unavailable
+claude,claude_buyer_ap_results_cccrawl01.csv,TN-c9711ee89b,lead:c9711ee89bbf00d0,info@betterstaytogether.cocm,https://www.betterstaytogether.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-01501,lead:c97213ed8cbad0f8,info@octantis.ca,https://octantis.ca/,verified
 claude,claude_buyer_ap_results_ccmine01.csv,CL-LD-09584,lead:c972cafb707497ce,vendors@harbourfrontcentre.com,https://harbourfrontcentre.com/vendors/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-03073,lead:c972cafb707497ce,vendors@harbourfrontcentre.com,https://harbourfrontcentre.com/vendors/,verified
@@ -82115,8 +82115,8 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-SM-00088,lead:e13a6a069799d168,inf
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-54968,lead:e13c48942318b606,invoices@lpzoo.org,https://www.lpzoo.org/wp-content/uploads/2023/08/Vendor-Form-8.18.23.-1.pdf,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-e13f9a5e09,lead:e13f9a5e09eea45f,office@ansdpad.ca,https://ansdpad.ca/contact/,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-e1414d3002,lead:e1414d3002766b4c,admin@mjjadegarden.com,https://mjjadegarden.com/,verified
-claude,claude_buyer_ap_results_cccrawl01.csv,TN-e141aa5323,lead:e141aa53238c42e6,info@snackboxusa.com,https://snackboxusa.com/,unverified_page_unavailable
-claude,claude_buyer_ap_results_cccrawl01.csv,TN-e141aa5323,lead:e141aa53238c42e6,hello@snackbox.com,https://snackboxusa.com/,unverified_page_unavailable
+claude,claude_buyer_ap_results_cccrawl01.csv,TN-e141aa5323,lead:e141aa53238c42e6,info@snackboxusa.com,https://snackboxusa.com/,verified
+claude,claude_buyer_ap_results_cccrawl01.csv,TN-e141aa5323,lead:e141aa53238c42e6,hello@snackbox.com,https://snackboxusa.com/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-18849,lead:e14c8dcb5006c82b,secretariat_tdj@ecolecatholique.ca,https://terre-des-jeunes.ecolecatholique.ca/,rejected_personal_or_invalid
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-e150a6e312,lead:e150a6e312f02857,hello@dialogue.co,https://www.dialogue.co/en/privacy,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-e15153598f,lead:e15153598f28447b,info@dodgeink.com,https://dodgeink.com/,verified
@@ -83534,7 +83534,7 @@ claude,claude_buyer_ap_results_crawl01.csv,CL-LD-13020,lead:ed6cbf686e403c90,inf
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-ed74841291,lead:ed74841291bf37a9,info@thenobleoak.care,https://thenobleoak.care/contacts-us/,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-ed75d792a1,lead:ed75d792a18ebfe8,info@boatingbc.ca,https://www.boatingbc.ca:443/cpages/home2,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,TN-ed75ee9e86,lead:ed75ee9e86b582b5,hello@tinyhealth.com,https://store.tinyhealth.com/policies/contact-information,verified
-claude,claude_buyer_ap_results_cccrawl01.csv,CC-ed77f56194,lead:ed77f561940d81c0,info@cdhal.org,https://www.cdhal.org/,unverified_page_unavailable
+claude,claude_buyer_ap_results_cccrawl01.csv,CC-ed77f56194,lead:ed77f561940d81c0,info@cdhal.org,https://www.cdhal.org/,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-ed77f56194,lead:ed77f561940d81c0,admin@cdhal.org,https://www.cdhal.org/politique-confidentialite/,unverified_page_unavailable
 claude,claude_buyer_ap_results_crawl01.csv,CL-LD-19817,lead:ed79d2ce01d19515,info@nouwee.com,https://nouwee.com/pages/contact-us,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-ed7a548de8,lead:ed7a548de874e660,info@locobc.com,https://www.locobc.com:443/home,verified
