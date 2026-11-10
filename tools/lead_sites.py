@@ -96,7 +96,8 @@ def leads_without_site():
         p = os.path.join(INC, name)
         if not os.path.exists(p):
             continue
-        for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
+        import lead_store as LS
+        for r in LS.reader(p):
             if (r.get("website") or "").strip() or r["buyer_key"] in have:
                 continue
             nm = (r.get("buyer_name") or "").strip()

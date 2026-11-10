@@ -14,10 +14,13 @@ if os.path.exists("coord/results/verification_log.csv"):
 leads = {}
 for _lp in ("data/incoming/claude/claude_buyer_leads.csv", "data/incoming/claude/claude_buyer_leads_cc.csv"):  # the second file: cloud row factory (tools/cc_clients.py)
     if os.path.exists(_lp):
-        for r in csv.DictReader(open(_lp, encoding="utf-8", errors="replace")):
+        import sys as _sys
+        _sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__))))
+        import lead_store as _LS  # the cloud leads file is read with its shards (lead_shards/: rows added, changed or withdrawn since the base file)
+        for r in _LS.reader(_lp):
             leads.setdefault(r["buyer_key"], r)
 import gzip
-for _lp in sorted(glob.glob("data/incoming/claude/tenant_state/leads_*.gz")) + sorted(glob.glob("data/incoming/claude/lead_shards/leads_*.gz")):  # append-only shards of the cloud engines
+for _lp in sorted(glob.glob("data/incoming/claude/tenant_state/leads_*.gz")):  # tenant leads accepted by the candidate crawl (append-only shards)
     with gzip.open(_lp, "rt", encoding="utf-8", newline="") as _fh:
         for r in csv.DictReader(_fh):
             leads.setdefault(r["buyer_key"], r)

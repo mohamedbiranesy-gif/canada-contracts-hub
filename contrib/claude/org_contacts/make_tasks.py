@@ -34,7 +34,8 @@ for r in sorted(rows, key=lambda r: (0 if not r["vendor_emails"] else 1, 0 if no
         seen.add(registrable(h)); out.append(("vd:" + registrable(h), r["vendor"], "https://" + h, "vendor"))
 for lf in (ROOT + "/data/incoming/claude/claude_buyer_leads.csv", ROOT + "/data/incoming/claude/claude_buyer_leads_cc.csv"):  # the second file: cloud row factory
     if os.path.exists(lf):
-        for r in csv.DictReader(open(lf, encoding="utf-8", errors="replace")):
+        import lead_store as _LS  # the cloud leads file is read with its shards
+        for r in _LS.reader(lf):
             h = host(r.get("website") or "") if r.get("website") else ""
             if h and "." in h and registrable(h) not in seen:
                 seen.add(registrable(h)); out.append((r["buyer_key"], r["buyer_name"], "https://" + h, "buyer"))

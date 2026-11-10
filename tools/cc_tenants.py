@@ -417,9 +417,10 @@ def extract(a):
 def known_domains():
     """registrable-ish hosts we already hold as a lead or a delivered buyer: not worth a second crawl"""
     known = set()
+    import lead_store as LS
     for p in (os.path.join(INC, "claude_buyer_leads.csv"), CCL.LEADS_CC):
         if os.path.exists(p):
-            for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
+            for r in LS.reader(p):
                 h = CCL.base((urllib.parse.urlparse(r.get("website") or "").hostname or "").lower())
                 if h:
                     known.add(h)
@@ -531,9 +532,10 @@ def merge_accepted(a):
             except ValueError:
                 pass
     have = set()
+    import lead_store as LS
     for p in (os.path.join(INC, "claude_buyer_leads.csv"), CCL.LEADS_CC):
         if os.path.exists(p):
-            have |= {r["buyer_key"] for r in csv.DictReader(open(p, encoding="utf-8", errors="replace"))}
+            have |= {r["buyer_key"] for r in LS.reader(p)}
     n_before = len(have)
     for r in tenant_leads():
         have.add(r["buyer_key"])

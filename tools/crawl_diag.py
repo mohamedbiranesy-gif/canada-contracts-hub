@@ -119,7 +119,8 @@ def main():
     leads = {}
     for p in (os.path.join(LC.INC, "claude_buyer_leads_cc.csv"), os.path.join(LC.INC, "claude_buyer_leads.csv")):
         if os.path.exists(p):
-            for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
+            import lead_store as LS
+            for r in LS.reader(p):
                 if (r.get("website") or "").startswith("http"):
                     leads.setdefault(r["buyer_key"], (r["website"], r.get("buyer_name") or "", (r.get("canada_field_value") or "")[:40]))
     groups = collections.defaultdict(list)

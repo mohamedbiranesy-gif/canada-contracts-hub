@@ -131,9 +131,13 @@ jobs:
         run: |
           ls -la shards | head -40 || true
           git config user.name "row-factory"; git config user.email "row-factory@users.noreply.github.com"
+          # 2026-11-10: the leads file and its details are a frozen base; this merge writes only what it changes, as shards of lead_shards/
+          # (tools/lead_store.py: the file was 58 MB, GitHub refuses 100 MB; the details file was stored whole again at every merge)
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
           for i in $(seq 1 12); do
-            git fetch -q origin main && git reset -q --hard origin/main
-            python3 tools/cc_clients.py merge shards | tee /tmp/merge.txt
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            python3 tools/cc_clients.py merge shards --stamp "$STAMP" --engine rf | tee /tmp/merge.txt
+            git add data/incoming/claude/lead_shards 2>/dev/null || true
             for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_cc_extract_done.tsv claude_cc_leads_noaddr.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "row-factory: new buyers from .ca vendors' client pages ($(tail -1 /tmp/merge.txt | cut -c1-120)) [skip ci]"
@@ -177,10 +181,12 @@ jobs:
           ls -la shards 2>/dev/null | head -20 || true
           mkdir -p shards
           git config user.name "row-factory"; git config user.email "row-factory@users.noreply.github.com"
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
           for i in $(seq 1 12); do
-            git fetch -q origin main && git reset -q --hard origin/main
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             python3 tools/cc_clients.py merge-addr shards | tee /tmp/addr.txt
-            python3 tools/cc_clients.py merge shards | tee -a /tmp/addr.txt
+            python3 tools/cc_clients.py merge shards --stamp "$STAMP" --engine rfa | tee -a /tmp/addr.txt
+            git add data/incoming/claude/lead_shards 2>/dev/null || true
             for f in claude_cc_vendor_addr.jsonl.gz claude_cc_addr_done.tsv claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_cc_extract_done.tsv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "row-factory: address pass ($(head -1 /tmp/addr.txt | cut -c1-110)) [skip ci]"

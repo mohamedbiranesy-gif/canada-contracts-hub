@@ -711,6 +711,18 @@ def site_hints():
     return out
 
 
+def ca_sites_without_mailbox():
+    """{site: country of the postal address it prints or ""} — .ca sites whose home page the scan read (detector 4+) and that print NO role mailbox
+    there (the latest read of each site counts). The mailbox, if the organisation publishes one, is on its contact page."""
+    latest = {}
+    for l in state_lines("done"):
+        q = l.split("\t")
+        if len(q) > 5 and q[0].endswith(".ca"):
+            latest[q[0]] = (q[2] == "ok" and any(re.fullmatch(r"t[4-9]", x) for x in q[5:]),
+                            next((x[3:] for x in q[6:] if x.startswith("em=")), ""), next((x[3:] for x in q[6:] if x.startswith("cc=")), ""))
+    return {d: cc for d, (ok, em, cc) in latest.items() if ok and not em}
+
+
 def scan_queue(k, n, limit=0):
     ver = done_versions()
     seen, tasks = set(), []
@@ -730,9 +742,10 @@ def scan_queue(k, n, limit=0):
     import ranked_io  # the ranked table is committed in parts (GitHub's 100 MB limit): read them wherever they are
     for r in ranked_io.rows():  # 1. delivered rows: the inferred-relationship rows first (a credit gives them a relationship with evidence)
         add(host_of(r.get("buyer_website")), 0 if r.get("tier") == "I" else 1)
+    import lead_store as LS
     for p in (CCL.LEADS_CC, os.path.join(INC, "claude_buyer_leads.csv")):  # 2. leads (a credit is a second, first-party relationship)
         if os.path.exists(p):
-            for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
+            for r in LS.reader(p):
                 add(host_of(r.get("website")), 2)
     if os.path.exists(GRAPH_IN):  # 3. sites that link to a vendor proven in Canada (web graph): most footer credits are such links
         with gzip.open(GRAPH_IN, "rt", encoding="utf-8", newline="") as fh:
@@ -922,12 +935,9 @@ SERVICE_RX = re.compile(r"web|site|design|digital|num[ée]rique|marketing|agenc[
 def proven_elsewhere():
     """vendor domains whose Canadian postal address the row factory already read on the vendor's own page: {domain: (address text, url, name)}"""
     out = {}
-    if os.path.exists(CCL.DETAILS_CC):
-        for l in gzip.open(CCL.DETAILS_CC, "rt", encoding="utf-8"):
-            try:
-                d = json.loads(l)
-            except ValueError:
-                continue
+    if True:
+        import lead_store as LS
+        for d in LS.load()[1].values():  # details of the cloud leads: base file + shards
             if d.get("platform") == "vendor_site_cc" and d.get("vendor_address") and d.get("vendor_site"):
                 dom = C.registrable(host_of(d["vendor_site"]))
                 nm = d.get("vendor") or ""
@@ -1224,15 +1234,23 @@ def merge(a):
     if os.path.exists(mp):
         main_keys = {r["buyer_key"] for r in csv.DictReader(open(mp, encoding="utf-8", errors="replace"))}
     prev, pdet = {}, {}
-    if os.path.exists(CCL.LEADS_CC):
-        prev = {r["buyer_key"]: r for r in csv.DictReader(open(CCL.LEADS_CC, encoding="utf-8"))}
-    if os.path.exists(CCL.DETAILS_CC):
-        for l in gzip.open(CCL.DETAILS_CC, "rt", encoding="utf-8"):
-            try:
-                o = json.loads(l)
-                pdet[o["key"]] = o
-            except (ValueError, KeyError):
-                pass
+    _lead_shards = bool(getattr(a, "lead_shards", False))
+    if _lead_shards:
+        # 2026-11-10 (tools/lead_store.py): base files frozen; this run's changes go to lead_shards/ (see cc_clients.merge)
+        import lead_store as _LS
+        _lstamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
+        prev, pdet = _LS.load(exclude=("cs", _lstamp))
+        _snap = _LS.snapshot(prev, pdet)
+    else:
+        if os.path.exists(CCL.LEADS_CC):
+            prev = {r["buyer_key"]: r for r in csv.DictReader(open(CCL.LEADS_CC, encoding="utf-8"))}
+        if os.path.exists(CCL.DETAILS_CC):
+            for l in gzip.open(CCL.DETAILS_CC, "rt", encoding="utf-8"):
+                try:
+                    o = json.loads(l)
+                    pdet[o["key"]] = o
+                except (ValueError, KeyError):
+                    pass
     stats, kept = collections.Counter(), set()
     try:
         import tech_relationships as T
@@ -1324,14 +1342,18 @@ def merge(a):
         pdet.pop(k, None)
     if gone:
         stats["leads of earlier runs withdrawn (no longer pass the rules)"] = len(gone)
-    with open(CCL.LEADS_CC, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=CCL.LEAD_COLS)
-        w.writeheader()
-        for k in sorted(prev):
-            w.writerow({c: prev[k].get(c, "") for c in CCL.LEAD_COLS})
-    with gzip.open(CCL.DETAILS_CC, "wt", encoding="utf-8") as f:
-        for k in sorted(pdet):
-            f.write(json.dumps(pdet[k], ensure_ascii=False) + "\n")
+    if _lead_shards:
+        _nu, _nd, _ng = _LS.save("cs", _lstamp, prev, pdet, _snap)
+        stats["lead shards of this run: rows"] = _nu; stats["lead shards of this run: details"] = _nd; stats["lead shards of this run: withdrawn"] = _ng
+    else:
+        with open(CCL.LEADS_CC, "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=CCL.LEAD_COLS)
+            w.writeheader()
+            for k in sorted(prev):
+                w.writerow({c: prev[k].get(c, "") for c in CCL.LEAD_COLS})
+        with gzip.open(CCL.DETAILS_CC, "wt", encoding="utf-8") as f:
+            for k in sorted(pdet):
+                f.write(json.dumps(pdet[k], ensure_ascii=False) + "\n")
     # ---- vetted Canada-HQ software services seen on the site -> candidates (accepted only with a role mailbox + an address in the vendor's scope)
     n_c = 0
     try:
@@ -1415,6 +1437,7 @@ def main():
     ap.add_argument("--base", default="", help="graph: URL prefix of the vertices / edges files (tests)")
     ap.add_argument("--max-indegree", type=int, default=5000, help="graph: a vendor linked from more domains than this is platform-like (its links are not credits)")
     ap.add_argument("--max-shopify", type=int, default=15000, help="merge: at most this many new Shopify-store candidates per run (owner 2026-11-09: no lane may crowd out the others)")
+    ap.add_argument("--lead-shards", action="store_true", help="merge: write this run's lead changes as shards of lead_shards/ (tools/lead_store.py) instead of rewriting the two big files")
     ap.add_argument("--straggler-seconds", type=float, default=180)
     ap.add_argument("--site-seconds", type=float, default=150)
     a = ap.parse_args()

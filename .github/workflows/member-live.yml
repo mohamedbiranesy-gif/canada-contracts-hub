@@ -58,9 +58,11 @@ jobs:
         run: |
           ls -la shards | head -20 || true
           git config user.name "member-live"; git config user.email "member-live@users.noreply.github.com"
+          STAMP=$(date -u +%Y%m%dT%H%M%S)   # this merge writes its changes as shards of lead_shards/ (tools/lead_store.py)
           for i in $(seq 1 12); do
-            git fetch -q origin main && git reset -q --hard origin/main
-            python3 tools/cc_clients.py merge shards | tee /tmp/merge.txt
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            python3 tools/cc_clients.py merge shards --stamp "$STAMP" --engine ml | tee /tmp/merge.txt
+            git add data/incoming/claude/lead_shards 2>/dev/null || true
             for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_cc_extract_done.tsv claude_cc_leads_noaddr.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "member-live: members named in the live directories of Canadian chambers and associations ($(tail -1 /tmp/merge.txt | cut -c1-110)) [skip ci]"

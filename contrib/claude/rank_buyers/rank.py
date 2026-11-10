@@ -61,6 +61,19 @@ def _memstat(label, rows, g=None):
             for v in o:
                 n += deep(v, d + 1)
         return n
+    hold, rid = [], {id(x) for x in rows}
+    for name, o in list(g.items()):  # a table that still refers to rows keeps them alive after they are written
+        if name == "rows" or not isinstance(o, (dict, list, set, tuple)):
+            continue
+        n = 0
+        for v in (o.values() if isinstance(o, dict) else o):
+            if id(v) in rid:
+                n += 1
+            elif isinstance(v, (list, tuple)):
+                n += sum(1 for w in v if id(w) in rid)
+        if n > 1:
+            hold.append("%s %d" % (name, n))
+    _bi.print("    tables that still refer to rows:", "; ".join(hold) or "none")
     out = []
     for name, o in list(g.items()):
         if name == "rows" or not isinstance(o, (dict, list, set, tuple)) or len(o) < 2000:
@@ -757,14 +770,17 @@ leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/c
 # 2026-11-10: the cloud row factory (tools/cc_clients.py: client pages of .ca vendors read from the Common Crawl archive, vendor's Canadian postal
 # address quoted) writes its own file, so the Mac's bridge (which rewrites claude_buyer_leads.csv whole) can never drop a cloud lead
 _n_cc = 0
-if os.path.exists(ROOT + "/data/incoming/claude/claude_buyer_leads_cc.csv"):
-    for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads_cc.csv", encoding="utf-8", errors="replace")):
-        if r.get("buyer_key") and r["buyer_key"] not in leads:
-            leads[r["buyer_key"]] = r
-            _n_cc += 1
-# 2026-11-10: tenant leads accepted by the candidate crawl (stores on Shopify, customer portals) arrive in append-only shards (tenant_state/)
+# 2026-11-10 (tools/lead_store.py): the cloud leads are a frozen base file plus append-only shards (lead_shards/: rows added, changed or withdrawn
+# by the engines since); the store gives the current state of both the rows and their details
+import lead_store as _LS
+_cl, _cd = _LS.load()
+for _k, r in _cl.items():
+    if _k not in leads:
+        leads[_k] = r
+        _n_cc += 1
+# tenant leads accepted by the candidate crawl (stores on Shopify, customer portals) arrive in their own append-only shards (tenant_state/)
 _n_ts = 0
-for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/leads_*.gz")) + sorted(_g0.glob(ROOT + "/data/incoming/claude/lead_shards/leads_*.gz")):  # lead_shards/: any engine's leads (BBB accredited businesses …)
+for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/leads_*.gz")):
     with gzip.open(_p, "rt", encoding="utf-8", newline="") as _fh:
         for r in csv.DictReader(_fh):
             if r.get("buyer_key") and r["buyer_key"] not in leads:
@@ -780,12 +796,14 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_lead_websites.csv"):
             _L["website"] = r["website"]; _n_lw += 1
 print("leads: %d (%d from the cloud row factory; %d websites from the lead site finder)" % (len(leads), _n_cc, _n_lw))
 LDET = {}  # owner 2026-11-03 ("every field"): the lead's own record details (amount, currency, identifiers, dates, vendor address, title)
-for _ldp in ("claude_lead_details.jsonl.gz", "claude_lead_details_cc.jsonl.gz"):
+for _ldp in ("claude_lead_details.jsonl.gz",):
     if os.path.exists(ROOT + "/data/incoming/claude/" + _ldp):
         for _d in jl(ROOT + "/data/incoming/claude/" + _ldp):
             LDET.setdefault(_d.get("key"), _d)
-# newest shard first: an engine that reads its register again writes a fresh details record for a lead it already has (licence fee, next payment date)
-for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.gz"), reverse=True) + sorted(_g0.glob(ROOT + "/data/incoming/claude/lead_shards/details_*.gz"), reverse=True):
+for _k, _d in _cd.items():  # the cloud leads' details: base file, then the shards (the newest record of a key wins: an engine may refresh a licence fee or a date)
+    LDET.setdefault(_k, _d)
+del _cl, _cd
+for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.gz"), reverse=True):
     for _d in jl(_p):
         LDET.setdefault(_d.get("key"), _d)
 LFACTS = {}  # 2026-11-10: what the cloud mailbox crawl read on the buyer's OWN pages (tools/lead_crawl.py): its name and its postal address, quoted
@@ -1473,6 +1491,7 @@ for x in rows:                      # row without a jurisdiction was quadratic �
         seen_any.setdefault(k, x)
     merged.append(x)
 rows = merged
+_free(globals(), "seen", "seen_any", "merged")  # they hold every row: a row written at the end could not be released (2026-11-10: +0.9 GB during the last pass)
 # owner 2026-11-04 ("each row as populated as possible"): what the lanes read on the SAME page as the verified mailbox —
 # AP phone, invoice mailing address, invoicing requirements / payment terms, invoice portal (an extra channel, never the contact)
 EXTRA = {}
@@ -1939,6 +1958,7 @@ for (sd, fam), lst in groups.items():
         drop2.add(id(x)); n_fold2 += 1
 rows = [x for x in rows if id(x) not in drop2]
 print("second mailbox of the same organisation (same site and mail domain, same name family) folded:", n_fold2)
+_free(globals(), "used_mail", "groups", "drop", "drop2", "lst", "keep", "holder")
 for x in rows:  # owner 2026-11-03: fill what can be derived (after the merge, which keys on jurisdiction and website)
     if not x.get("jurisdiction"):
         x["jurisdiction"] = x.get("_jur") or ""

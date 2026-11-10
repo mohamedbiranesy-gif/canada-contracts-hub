@@ -101,8 +101,8 @@ PER_DOMAIN_MEMBER_PAGES = 3000  # a chamber's directory has one page per member
 MIN_MEMBER_LINKS = 5            # a member-list page counts as a directory only when it names at least this many organisations
 MIN_LIST_LINKS = 3              # sponsor / dealer / tenant pages: a list names several parties (one or two stray links are not a list)
 # links injected into hacked pages (betting, pills …): the link is dropped, and a page with three of them is dropped whole
-SPAM = re.compile(r"casino|blackjack|poker|roulette|\bslots?\b|betting|bahis|kumar|casibom|\b\w*(?:pasha|jojo|holigan|ultra|mat|mars|saha|tipo|meri|most|rest|bets)\w*bet\w*\b|\bbets?\d|\b1xbet|"
-                  r"porn|escort|viagra|cialis|payday loan|forex|replica watch", re.I)
+SPAM = re.compile(r"casino|blackjack|poker|roulette|\bslots?\b|betting|bahis|kumarhane|kumar site|canl[ıi] kumar|casibom|\b\w*(?:pasha|jojo|holigan|ultra|mat|mars|saha|tipo|meri|most|rest|bets)\w*bet\w*\b|\bbets?\d|\b1xbet|"
+                  r"porn|escort|viagra|(?<!spe)(?<!so)(?<!offi)cialis|payday loan|forex|replica watch", re.I)  # 2026-11-10: "specialist" contains "cialis", Kumar is a surname
 
 
 def page_class(path):
@@ -893,15 +893,25 @@ def merge(a):
             if h:
                 known.add(h)
     prev, pdet = {}, {}
-    if os.path.exists(LEADS_CC):
-        prev = {r["buyer_key"]: r for r in csv.DictReader(open(LEADS_CC, encoding="utf-8"))}
-    if os.path.exists(DETAILS_CC):
-        for l in gzip.open(DETAILS_CC, "rt", encoding="utf-8"):
-            try:
-                o = json.loads(l)
-                pdet[o["key"]] = o
-            except (ValueError, KeyError):
-                pass
+    _stamp = getattr(a, "stamp", "") or ""
+    if _stamp:
+        # 2026-11-10 (tools/lead_store.py): the two files are a frozen base; the current state is base + shards, and this run writes only what it
+        # changes as shards of lead_shards/ (the leads file was 58 MB and growing towards GitHub's 100 MB limit; the details file was stored whole
+        # again at every merge). A run queued with the earlier workflow file passes no --stamp and writes the old files, as before.
+        import lead_store as _LS
+        _engine = getattr(a, "engine", "") or "cc"
+        prev, pdet = _LS.load(exclude=(_engine, _stamp))
+        _snap = _LS.snapshot(prev, pdet)
+    else:
+        if os.path.exists(LEADS_CC):
+            prev = {r["buyer_key"]: r for r in csv.DictReader(open(LEADS_CC, encoding="utf-8"))}
+        if os.path.exists(DETAILS_CC):
+            for l in gzip.open(DETAILS_CC, "rt", encoding="utf-8"):
+                try:
+                    o = json.loads(l)
+                    pdet[o["key"]] = o
+                except (ValueError, KeyError):
+                    pass
     # address pass: a client link whose vendor page printed no address becomes a lead once the vendor's own home / contact page gave one
     vaddr, promoted = _vendor_addrs(), 0
     try:  # 2026-11-10: the vendor's own LIVE home / contact / legal page read by tools/credit_scan.py (postal address, schema.org address, or its
@@ -967,12 +977,16 @@ def merge(a):
     # member-list pages (not the one-member pages) that produced fewer than MIN_MEMBER_LINKS leads were pages FOR members, not directories
     # (first extraction 2026-11-10: a church's "members" page linking a facility-request form): their leads are withdrawn
     per_page = collections.Counter(d.get("record_url") for d in pdet.values() if d.get("page_class") in ("member", "sponsor", "dealer", "tenant"))
-    is_spam = {k for k, d in pdet.items() if SPAM.search(d.get("client_label") or "") or SPAM.search(urllib.parse.urlparse((prev.get(k) or {}).get("website") or "").hostname or "")}
+    # the rules below judge links read on a vendor's page: only this engine's own leads (platform vendor_site_cc). The file also holds the leads of
+    # the credit / DNS scan and, read through the lead store, of every other engine — 2026-11-10: a test merge withdrew 10,748 licence leads because
+    # they share one record_url (the register's address) and three holders' site names contained a "spam" word
+    OWN = lambda d: (d.get("platform") or "vendor_site_cc") == "vendor_site_cc"
+    is_spam = {k for k, d in pdet.items() if OWN(d) and (SPAM.search(d.get("client_label") or "") or SPAM.search(urllib.parse.urlparse((prev.get(k) or {}).get("website") or "").hostname or ""))}
     spam_page = collections.Counter(pdet[k].get("record_url") for k in is_spam)
-    drop = [k for k, d in pdet.items() if k in is_spam or spam_page[d.get("record_url")] >= 3]  # injected links, and every link of a hacked page (any class)
+    drop = [k for k, d in pdet.items() if OWN(d) and (k in is_spam or spam_page[d.get("record_url")] >= 3)]  # injected links, and every link of a hacked page (any class)
     for k, d in pdet.items():
         pc = d.get("page_class")
-        if pc not in ("member", "sponsor", "dealer", "tenant") or k in is_spam or spam_page[d.get("record_url")] >= 3:
+        if pc not in ("member", "sponsor", "dealer", "tenant") or not OWN(d) or k in is_spam or spam_page[d.get("record_url")] >= 3:
             continue
         path = urllib.parse.urlparse(d.get("record_url") or "").path.lower()
         n_links = max(int(d.get("page_links") or 0), per_page[d.get("record_url")])  # page_links counts the organisations already known too
@@ -1013,14 +1027,18 @@ def merge(a):
         pdet.pop(k, None)
     if drop:
         print("withdrawn: %d leads from pages that are not lists of paying parties (rule tightened), or spam links" % len(drop))
-    with open(LEADS_CC, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=LEAD_COLS)
-        w.writeheader()
-        for k in sorted(prev):
-            w.writerow({c: prev[k].get(c, "") for c in LEAD_COLS})
-    with gzip.open(DETAILS_CC, "wt", encoding="utf-8") as f:
-        for k in sorted(pdet):
-            f.write(json.dumps(pdet[k], ensure_ascii=False) + "\n")
+    if _stamp:
+        _nu, _nd, _ng = _LS.save(_engine, _stamp, prev, pdet, _snap)
+        print("lead shards of this run: %d rows, %d details, %d withdrawn" % (_nu, _nd, _ng))
+    else:
+        with open(LEADS_CC, "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=LEAD_COLS)
+            w.writeheader()
+            for k in sorted(prev):
+                w.writerow({c: prev[k].get(c, "") for c in LEAD_COLS})
+        with gzip.open(DETAILS_CC, "wt", encoding="utf-8") as f:
+            for k in sorted(pdet):
+                f.write(json.dumps(pdet[k], ensure_ascii=False) + "\n")
     print("cc leads: %d link records read (%d of them through the address pass), %d new buyers, %d buyers in %s; pages read so far %d" % (len(recs), promoted, new, len(prev), os.path.basename(LEADS_CC), len(seen)))
 
 
@@ -1087,7 +1105,8 @@ def main():
     p.add_argument("--per-domain", type=int, default=6); p.add_argument("--universe", default="out/ca_universe.csv")
     p = sub.add_parser("merge-index"); p.add_argument("dir"); p.add_argument("--per-domain", type=int, default=6)
     p = sub.add_parser("extract"); p.add_argument("--shard", default="0/1"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=10); p.add_argument("--limit", type=int, default=0)
-    p = sub.add_parser("merge"); p.add_argument("dir")
+    p = sub.add_parser("merge"); p.add_argument("dir"); p.add_argument("--stamp", default="", help="write this run's changes as shards of lead_shards/ under this stamp (UTC YYYYMMDDTHHMMSS + a letter)")
+    p.add_argument("--engine", default="cc", help="letters naming the workflow step that merges (rf, rfa, ml …): two steps never write the same shard file")
     p = sub.add_parser("addr"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="last:3"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=4)
     p = sub.add_parser("merge-addr"); p.add_argument("dir")
     a = ap.parse_args()

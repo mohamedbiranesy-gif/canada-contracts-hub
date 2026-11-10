@@ -103,10 +103,16 @@ def main():
     # ---- 4. leads
     kinds = collections.Counter()
     lead_site, lead_kind_of = {}, {}
+    import lead_store as LS  # the cloud leads: base file + shards (tools/lead_store.py)
+    _eng = {}
+    for _st, _kind, _p in LS.shard_files(("leads",)):
+        with gzip.open(_p, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                _eng[r["buyer_key"]] = os.path.basename(_p).split("_")[1]
     for p in (os.path.join(INC, "claude_buyer_leads_cc.csv"), os.path.join(INC, "claude_buyer_leads.csv")):
         if os.path.exists(p):
-            for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
-                k = lead_kind(r.get("canada_field_value") or "")
+            for r in LS.reader(p):
+                k = lead_kind(r.get("canada_field_value") or "") + ((" [%s]" % _eng[r["buyer_key"]]) if p.endswith("_cc.csv") and _eng.get(r["buyer_key"]) in ("bbb", "rbq", "lic") else "")
                 kinds[("cloud " if p.endswith("_cc.csv") else "Mac era ") + k] += 1
                 lead_kind_of[r["buyer_key"]] = k
     for p in sorted(glob.glob(os.path.join(INC, "tenant_state/leads_*.gz"))):
@@ -114,13 +120,6 @@ def main():
             for r in csv.DictReader(fh):
                 kinds["cloud T vetted software service (store / portal) [shards]"] += 1
                 lead_kind_of[r["buyer_key"]] = "T vetted software service (store / portal)"
-    for p in sorted(glob.glob(os.path.join(INC, "lead_shards/leads_*.gz"))):
-        eng = os.path.basename(p).split("_")[1]
-        with gzip.open(p, "rt", encoding="utf-8", newline="") as fh:
-            for r in csv.DictReader(fh):
-                k = lead_kind(r.get("canada_field_value") or "") + " [%s]" % eng
-                kinds["cloud " + k] += 1
-                lead_kind_of[r["buyer_key"]] = k
     P("\n## 4. Relationship leads on file")
     for k, c in sorted(kinds.items()):
         P("- %s: **%d**" % (k, c))

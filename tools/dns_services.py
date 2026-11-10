@@ -193,9 +193,10 @@ def queue(k, n, limit=0):
     import ranked_io
     for r in ranked_io.rows():
         add(CS.host_of(r.get("buyer_website")), 0)
+    import lead_store as LS
     for p in (os.path.join(INC, "claude_buyer_leads_cc.csv"), os.path.join(INC, "claude_buyer_leads.csv")):
         if os.path.exists(p):
-            for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
+            for r in LS.reader(p):
                 add(CS.host_of(r.get("website")), 1)
     for path, pri in ((CS.GRAPH_IN, 2), (CS.OSM_SITES, 2), (CS.UNIVERSE, 3), (CS.GRAPH_CA, 4)):
         if os.path.exists(path):
