@@ -63,7 +63,7 @@ def index(a):
             except Exception:
                 continue
         locs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", data.decode("utf-8", "replace"))
-        ca = [html.unescape(u) for u in locs if "/ca/" in u and "/profile/" in u]
+        ca = [html.unescape(u).split("?")[0].rstrip("/") for u in locs if "/ca/" in u and "/profile/" in u]
         urls.update(ca)
         if i % 10 == 0 or ca:
             print("  %s: %d profiles, %d under /ca/ (total %d)" % (m.rsplit("/", 1)[-1], len(locs), len(ca), len(urls)), flush=True)
@@ -244,6 +244,151 @@ def read(a):
     print("finished", dict(stats), "(stopped: 25 refusals in a row)" if blocked_run >= 25 else "", flush=True)
 
 
+# ------------------------------------------------------------------------------------------------------------------- through the archive
+# 2026-11-10: bbb.org refused all 25 profile requests of the first run from a GitHub runner (its bot filter; the sitemap itself was served:
+# 53,088 accredited profiles under /ca/). Refused means refused — the profiles are not asked for again. bbb.org's robots.txt names CCBot in
+# its allowed group, so Common Crawl holds copies of the profile pages: they are read from the archive (data.commoncrawl.org), never from bbb.org.
+# A lead needs both: the archived profile ("… is BBB Accredited", "BBB Accredited Since …") and the profile's URL in the accredited sitemap
+# read live (still accredited now). The local BBB's own page (its Canadian address) is read from the archive too.
+CC_PAGES = os.path.join(DIR, "cc_pages.csv.gz")
+CC_COLS = ["url", "fetch_time", "warc_filename", "warc_record_offset", "warc_record_length", "crawl"]
+
+
+def cc_index(a):
+    os.makedirs("out", exist_ok=True)
+    con = CCL._duck()
+    best, t0 = {}, time.time()
+    for spec in CCL.crawl_ids(a.crawl):
+        try:
+            cid, paths = CCL.newest_crawl(spec)
+        except SystemExit as e:
+            print("crawl %s skipped: %s" % (spec, e), flush=True)
+            continue
+        print("crawl %s: %d index parts" % (cid, len(paths)), flush=True)
+        for i, p in enumerate(paths):
+            q = ("SELECT url, CAST(fetch_time AS VARCHAR), warc_filename, warc_record_offset, warc_record_length FROM read_parquet('%s') "
+                 "WHERE url_host_registered_domain = 'bbb.org' AND fetch_status = 200 AND content_mime_detected = 'text/html' "
+                 "AND (url_path LIKE '/ca/%%/profile/%%' OR url_path LIKE '/local-bbb/%%')") % (CCL.CC + p)
+            for attempt in range(3):
+                try:
+                    got = con.execute(q).fetchall()
+                    for u, ft, fn, off, ln in got:
+                        u0 = u.split("?")[0].rstrip("/")
+                        if u0 not in best or ft > best[u0][1]:
+                            best[u0] = (u0, ft, fn, off, ln, cid)
+                    if got or i % 50 == 0:
+                        print("%s %s part %d/%d: %d pages (total %d, %.0f s)" % (time.strftime("%H:%M:%S"), cid, i + 1, len(paths), len(got), len(best), time.time() - t0), flush=True)
+                    break
+                except Exception as e:
+                    print("part %d attempt %d failed: %s" % (i, attempt + 1, str(e)[:160]), flush=True)
+                    time.sleep(15 * (attempt + 1))
+    with open("out/bbb_cc_pages.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(CC_COLS)
+        for u in sorted(best):
+            w.writerow(best[u])
+    print("archived bbb.org pages: %d (%d profiles under /ca/, %d local BBB pages)" % (len(best), sum(1 for u in best if "/profile/" in u), sum(1 for u in best if "/local-bbb/" in u)), flush=True)
+
+
+def cc_read(a):
+    from concurrent.futures import ThreadPoolExecutor
+    os.makedirs("out", exist_ok=True)
+    if not os.path.exists(CC_PAGES):
+        sys.exit("no archive index of bbb.org yet (stage cc-index)")
+    with gzip.open(CC_PAGES, "rt", encoding="utf-8", newline="") as fh:
+        pages = list(csv.DictReader(fh))
+    current = set()
+    if os.path.exists(PROFILES):
+        with gzip.open(PROFILES, "rt", encoding="utf-8", newline="") as fh:
+            current = {r["url"].split("?")[0].rstrip("/") for r in csv.DictReader(fh)}
+    done = done_keys()
+    locals_ = local_bbbs()
+    lock = threading.Lock()
+    fo = open("out/bbb_local.jsonl", "a", encoding="utf-8")
+    # 1. the local BBBs' own pages (the body's postal address): the newest archived copy of /local-bbb/<slug>
+    for r in pages:
+        m = re.search(r"/local-bbb/([a-z0-9-]+)$", r["url"])
+        if not m or m.group(1) in locals_:
+            continue
+        slug = m.group(1)
+        page, why = CCL.warc_html(r["warc_filename"], int(r["warc_record_offset"]), int(r["warc_record_length"]))
+        o = {"slug": slug, "url": r["url"], "date": (r["fetch_time"] or "")[:10], "status": "", "address": "", "name": "", "via": "archive copy (Common Crawl %s)" % r["crawl"]}
+        if page:
+            text = C.visible(page)
+            ma = CCL.ADDR.search(text)
+            h1 = re.search(r"(?is)<h1[^>]*>(.*?)</h1>", page)
+            o["name"] = re.sub(r"\s+", " ", re.sub(r"(?s)<[^>]+>", " ", h1.group(1))).strip()[:120] if h1 else ""
+            if ma:
+                o["status"], o["address"] = "CA", CCL.address_from(re.sub(r"\s+", " ", text[max(0, ma.start() - 110):ma.end()]).strip()) or ""
+            else:
+                o["status"] = "no_canadian_address"
+        else:
+            o["status"] = "unreadable:" + why
+        if o["status"] == "CA" or slug not in locals_:
+            locals_[slug] = o
+            fo.write(json.dumps(o, ensure_ascii=False) + "\n")
+    print("local BBB pages: %s" % ", ".join("%s=%s" % (s, o.get("status")) for s, o in sorted(locals_.items()))[:600], flush=True)
+    todo = [r for r in pages if "/profile/" in r["url"] and r["url"] not in done and (not current or r["url"] in current)]
+    if a.limit:
+        todo = todo[:a.limit]
+    print("archived profiles to read: %d (%d read before; %d archived in all; %d URLs in today's accredited sitemap)" % (len(todo), len(done), sum(1 for r in pages if "/profile/" in r["url"]), len(current)), flush=True)
+    deadline = time.time() + a.minutes * 60
+    stats = collections.Counter()
+    fl = open("out/bbb_leads.jsonl", "a", encoding="utf-8")
+    fd = open("out/bbb_done.tsv", "a", encoding="utf-8")
+
+    def one(r):
+        if time.time() > deadline:
+            return
+        u, cap = r["url"], (r["fetch_time"] or "")[:10]
+        res, out = "", None
+        try:
+            page, why = CCL.warc_html(r["warc_filename"], int(r["warc_record_offset"]), int(r["warc_record_length"]))
+            if not page:
+                res = "unreadable:" + why
+            else:
+                p, res = parse_profile(page, u)
+                if p:
+                    lb = locals_.get(p["slug"]) if p["slug"] else None
+                    if not p["slug"]:
+                        res = "no_local_bbb"
+                    elif not lb or lb.get("status") != "CA":
+                        res = "local_bbb_not_proven_in_canada"
+                    else:
+                        out = (p, lb)
+        except Exception as e:
+            res = "error:" + type(e).__name__
+        with lock:
+            stats["profiles"] += 1
+            stats[res.split(":")[0]] += 1
+            if out:
+                p, lb = out
+                key = "lead:" + hashlib.sha1(("bbb|%s" % (p["id"] or u)).encode()).hexdigest()[:16]
+                vend = p["bbb_name"] or lb.get("name") or "Better Business Bureau (%s)" % p["slug"]
+                live = "; the profile is in bbb.org's sitemap of accredited businesses read %s" % TODAY if u in current else ""
+                row = {"buyer_key": key, "buyer_name": p["name"], "website": p["site"], "canadian_vendor_rows": 1, "example_vendor": vend,
+                       "canada_field_value": "membership / statutory fee relationship: accredited business of the Canadian body (%s)=%s (as printed on %s, %s); BBB: “%s” (%s)"
+                                             % (vend, lb["address"], lb["url"], lb.get("via") or "read %s" % lb.get("date"), DUES_QUOTE, FAQ),
+                       "evidence_dataset": u, "latest_record_date": TODAY if u in current else cap}
+                det = {"key": key, "platform": "bbb_accredited", "record_url": u, "vendor": vend, "record_date": cap, "start": p["since"], "reference": p["id"],
+                       "title": "BBB accreditation of %s — “%s” (profile as archived by Common Crawl on %s%s)" % (p["name"], p["quote"], cap, live),
+                       "vendor_address": "%s (as printed on %s)" % (lb["address"], lb["url"]), "vendor_site": lb["url"], "member_address_quote": p["addr"], "buyer_phone_as_printed": p["tel"],
+                       "buyer_entity_type": p["entity"], "buyer_business_started": p["started"], "buyer_incorporated": p["incorporated"], "accredited_since": p["since"],
+                       "dues_basis": "%s (%s)" % (DUES_QUOTE, FAQ), "archive": "%s:%s:%s" % (r["warc_filename"], r["warc_record_offset"], r["warc_record_length"]),
+                       "in_accredited_sitemap_today": "yes" if u in current else "not checked"}
+                fl.write(json.dumps({"lead": row, "details": det}, ensure_ascii=False) + "\n")
+                stats["with_website"] += bool(p["site"])
+            fd.write("%s\t%s\t%s\n" % (u, TODAY, res))
+            if stats["profiles"] % 1000 == 0:
+                fl.flush(); fd.flush()
+                print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
+    with ThreadPoolExecutor(a.workers) as ex:
+        list(ex.map(one, todo))
+    for f in (fl, fd, fo):
+        f.close()
+    print("finished", dict(stats), flush=True)
+
+
 def merge(a):
     os.makedirs(DIR, exist_ok=True)
     os.makedirs(SHARDS, exist_ok=True)
@@ -260,6 +405,20 @@ def merge(a):
             for u in sorted(urls):
                 w.writerow([u])
         msg.append("accredited profiles under /ca/: %d" % len(urls))
+    for f in sorted(glob.glob(os.path.join(a.dir, "bbb_cc_pages.csv"))):
+        rows_ = {}
+        if os.path.exists(CC_PAGES):
+            with gzip.open(CC_PAGES, "rt", encoding="utf-8", newline="") as fh:
+                rows_ = {r["url"]: r for r in csv.DictReader(fh)}
+        for r in csv.DictReader(open(f, encoding="utf-8")):
+            if r["url"] not in rows_ or r["fetch_time"] > rows_[r["url"]]["fetch_time"]:
+                rows_[r["url"]] = r
+        with gzip.open(CC_PAGES, "wt", encoding="utf-8", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=CC_COLS)
+            w.writeheader()
+            for u in sorted(rows_):
+                w.writerow(rows_[u])
+        msg.append("archived bbb.org pages indexed: %d" % len(rows_))
     loc = local_bbbs()
     for f in sorted(glob.glob(os.path.join(a.dir, "bbb_local.jsonl"))):
         for l in open(f, encoding="utf-8"):
@@ -311,13 +470,15 @@ def merge(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["index", "read", "merge"])
+    ap.add_argument("cmd", choices=["index", "read", "cc-index", "cc-read", "merge"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--minutes", type=float, default=150)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--stamp", default="")
+    ap.add_argument("--crawl", default="last:4", help="cc-index: Common Crawl ids (auto = newest; last:N = the newest N)")
+    ap.add_argument("--workers", type=int, default=4, help="cc-read: readers of the archive (it throttles busy clients)")
     a = ap.parse_args()
-    {"index": index, "read": read, "merge": merge}[a.cmd](a)
+    {"index": index, "read": read, "cc-index": cc_index, "cc-read": cc_read, "merge": merge}[a.cmd](a)
 
 
 if __name__ == "__main__":

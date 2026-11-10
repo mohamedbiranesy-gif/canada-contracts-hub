@@ -2,16 +2,19 @@ name: bbb-accredited
 # Accredited businesses of the Canadian Better Business Bureaus: a business accredited by its local BBB pays it dues (BBB's FAQ: "Dues paid by
 # Accredited Businesses fund our work"). The public profile gives the business's name, address, telephone and website, the date it has been
 # accredited since and the local BBB — a dated, current relationship with a Canadian body, published by that body (tools/bbb_accredited.py).
-# bbb.org's robots.txt lists the sitemap of accredited profiles and allows the profile pages. ONE runner, 2 requests per second.
-#   index : the sitemap -> profile URLs under /ca/        read : each profile not read before -> leads (lead_shards/), then the mailbox crawl
+# bbb.org served its sitemap of accredited profiles (53,088 under /ca/) but refused the profile pages to a runner (2026-11-10): the profiles
+# are read from Common Crawl's copies instead (bbb.org's robots.txt names CCBot in its allowed group); bbb.org itself is not asked again.
+#   index    : bbb.org's sitemap of accredited profiles -> the URLs under /ca/ (who is accredited today)
+#   cc-index : Common Crawl's index -> archived copies of those profiles and of the local BBBs' pages
+#   cc-read  : each archived profile -> leads (lead_shards/), then the mailbox crawl reads each business's own site
 on:
   schedule:
     - cron: "29 1,7,13,19 * * *"
   workflow_dispatch:
     inputs:
       stage:
-        description: "index | read"
-        default: "read"
+        description: "index | cc-index | cc-read"
+        default: "cc-read"
       minutes:
         description: "minutes of reading"
         default: "150"
@@ -27,29 +30,31 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 200
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
-      - name: Read the sitemap (first run or stage=index), then the profiles
-        env: { STAGE: "${{ inputs.stage || 'read' }}", MINUTES: "${{ inputs.minutes || '150' }}", LIMIT: "${{ inputs.limit || '0' }}" }
+      - run: pip install -q duckdb
+      - name: Sitemap (stage=index), archive index (stage=cc-index or first run), then the archived profiles
+        env: { STAGE: "${{ inputs.stage || 'cc-read' }}", MINUTES: "${{ inputs.minutes || '150' }}", LIMIT: "${{ inputs.limit || '0' }}" }
         run: |
           mkdir -p shards
           if [ "$STAGE" = "index" ] || [ ! -s data/incoming/claude/bbb/profiles_ca.csv.gz ]; then
-            python3 tools/bbb_accredited.py index
-            cp out/bbb_profiles_ca.csv shards/ 2>/dev/null || true
-            python3 tools/bbb_accredited.py merge shards --stamp "$(date -u +%Y%m%dT%H%M%S)i" | tee /tmp/b.txt
+            python3 tools/bbb_accredited.py index && cp out/bbb_profiles_ca.csv shards/ || echo "sitemap not read this time"
           fi
-          if [ "$STAGE" != "index" ] && [ -s data/incoming/claude/bbb/profiles_ca.csv.gz ]; then
-            M=$(( MINUTES > 170 ? 170 : MINUTES ))
-            python3 tools/bbb_accredited.py read --minutes $M --limit "$LIMIT"
+          if [ "$STAGE" = "cc-index" ] || [ ! -s data/incoming/claude/bbb/cc_pages.csv.gz ]; then
+            python3 tools/bbb_accredited.py cc-index --crawl last:4 && cp out/bbb_cc_pages.csv shards/
+          fi
+          python3 tools/bbb_accredited.py merge shards --stamp "$(date -u +%Y%m%dT%H%M%S)i" | tee /tmp/b.txt
+          if [ "$STAGE" = "cc-read" ] && [ -s data/incoming/claude/bbb/cc_pages.csv.gz ]; then
+            M=$(( MINUTES > 150 ? 150 : MINUTES ))
+            python3 tools/bbb_accredited.py cc-read --minutes $M --limit "$LIMIT" --workers 4
             cp out/bbb_leads.jsonl out/bbb_done.tsv out/bbb_local.jsonl shards/ 2>/dev/null || true
           fi
       - name: Commit
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
           STAMP=$(date -u +%Y%m%dT%H%M%S)
-          cp -r data/incoming/claude/bbb /tmp/bbb_local_copy 2>/dev/null || true
           git config user.name "bbb-accredited"; git config user.email "bbb-accredited@users.noreply.github.com"
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/bbb data/incoming/claude/lead_shards
