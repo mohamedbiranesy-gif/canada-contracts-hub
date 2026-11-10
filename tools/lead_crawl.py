@@ -279,8 +279,9 @@ def candidates_mode(a, k, n):
     if os.path.exists(TDONE):  # candidates that gave "nothing_found" before the front-office role rule (no "r2" mark) are read once more
         for l in open(TDONE, encoding="utf-8"):
             q = l.rstrip("\n").split("\t")
-            if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and "r2" not in q[6:]):
-                done.add(q[0])
+            if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and "r2" not in q[6:]) \
+                    and not (len(q) > 5 and q[2].startswith("out_of_scope") and q[5] in ("jane", "jobber") and "s2" not in q[6:]):
+                done.add(q[0])  # Jane / Jobber candidates refused as "out of scope" before their terms were read (one contracting entity for every country) are read once more
     tasks, hosts = [], set()
     with gzip.open(a.candidates, "rt", encoding="utf-8", newline="") as fh:
         for r in csv.DictReader(fh):
@@ -362,7 +363,7 @@ def candidates_mode(a, k, n):
                 w.writerows(rows)
                 fl.write(json.dumps(rec, ensure_ascii=False) + "\n")
                 ff.write(facts_line(key, t["known_website"], dict(st, name=name)))
-            fd.write("%s\t%s\t%s\t%d\t%d\t%s\tr2\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
+            fd.write("%s\t%s\t%s\t%d\t%d\t%s\tr2\ts2\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush(); fl.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
