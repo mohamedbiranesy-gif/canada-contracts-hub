@@ -840,9 +840,10 @@ def merge_addr(a):
 
 
 def address_from(quote):
-    """the address part of the quote: from the street number to the postal code (the whole quote when no street number is seen)"""
-    m = re.search(r"(?<![\w-])\d{1,6}[A-Za-z]?,?\s+(?:[a-zà-ÿ]+\.?\s+){0,2}[A-ZÀ-Ý0-9]", quote or "")
-    return (quote[m.start():] if m else (quote or "")).strip()
+    """the address part of the quote: from the street number to the postal code (the whole quote when no street number is seen) — one
+    implementation for every engine and for rank.py: tools/ap_crawler.py address_from"""
+    import ap_crawler as _C
+    return _C.address_from(quote)
 
 
 def lead_key(domain):

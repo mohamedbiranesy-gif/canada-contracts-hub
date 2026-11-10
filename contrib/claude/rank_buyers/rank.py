@@ -703,12 +703,19 @@ for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.g
     for _d in jl(_p):
         LDET.setdefault(_d.get("key"), _d)
 LFACTS = {}  # 2026-11-10: what the cloud mailbox crawl read on the buyer's OWN pages (tools/lead_crawl.py): its name and its postal address, quoted
+LFACTS_DOM = {}  # the same facts by website domain: a row made under another key of the same site (a registry lead, a credit lead) uses them too
+from ap_crawler import address_from as _addr_from
 for _d in jl(ROOT + "/data/incoming/claude/claude_lead_site_facts.jsonl.gz"):
     if _d.get("key"):
+        if _d.get("address_quote"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
+            _d["address"] = _addr_from(_d["address_quote"]) or _d.get("address") or ""
         LFACTS[_d["key"]] = _d
+        _fd = registrable(host_of(_d.get("site") or ""))
+        if _fd and (_fd not in LFACTS_DOM or (_d.get("site_name") and not LFACTS_DOM[_fd].get("site_name")) or (_d.get("address") and not LFACTS_DOM[_fd].get("address"))):
+            LFACTS_DOM[_fd] = dict(LFACTS_DOM.get(_fd) or {}, **{k_: v_ for k_, v_ in _d.items() if v_})
 n_lf = collections.Counter()
 def apply_details(x, k):
-    f = LFACTS.get(k)
+    f = LFACTS.get(k) or LFACTS_DOM.get(registrable(host_of(x.get("buyer_website") or "")))
     if f:
         if f.get("site_name") and re.fullmatch(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", (x.get("buyer") or "").lower()):
             x["buyer"] = f["site_name"]; n_lf["buyer_name_from_own_home_page"] += 1  # the lead only carried the domain; the organisation's own home page names it
@@ -955,8 +962,9 @@ for k, L in sorted(leads.items(), key=lead_strength):
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
     apply_details(x, k)
-    if registry and not x.get("vendor_website"):
-        x["vendor_website"] = "https://www.cira.ca/"
+    if registry:
+        x["vendor_website"] = x.get("vendor_website") or "https://www.cira.ca/"
+        x["vendor_address"] = (LDET.get(k) or {}).get("vendor_address") or x.get("vendor_address") or ""  # CIRA's address as its own agreement prints it (a dataset record of CIRA said only "Ottawa, ON")
     x["source"] = ("the .ca registry's public delegation of the buyer's domain (DNS) and CIRA's Registrant Agreement" if registry else
                    "the buyer's own website (it states its membership of the Canada-located body, linked)" if member and "member badge on the buyer's own site" in cfv else
                    "the Canadian body's own current member / participant list" if member else

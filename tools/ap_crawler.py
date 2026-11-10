@@ -195,6 +195,30 @@ def visible(raw):
     return re.sub(r"\s+", " ", t)
 
 
+_A_PHONE = re.compile(r"(?:\+?1[\s.\-]?)?\(?\b\d{3}\)?[\s.\-]{1,2}\d{3}[\s.\-]\d{4}\b(?:\s*(?:ext|poste|x)\.?\s*\d{1,5})?", re.I)
+_A_YEAR = re.compile(r"(?:©|\(c\)|copyright)\s*(?:19|20)\d{2}(?:\s*[-–]\s*(?:19|20)\d{2})?|\b(?:19|20)\d{2}\b(?=\s+(?:by|par|all rights|tous droits)\b|\s*[©|])", re.I)
+_A_RIGHTS = re.compile(r"all rights reserved\.?|tous droits r[ée]serv[ée]s\.?", re.I)
+_A_START = re.compile(r"(?<![\w-])(?:\d{1,5}[A-Za-z]?\s?[-–]\s?)?\d{1,6}[A-Za-z]?,?\s+(?:[–-]\s+)?(?:[a-zà-ÿ]+\.?\s+){0,2}[A-ZÀ-Ý0-9]")
+_A_BOX = re.compile(r"(?:P\.?\s?O\.?\s*Box|C\.?\s?P\.?|Case postale|B\.?\s?P\.?|Box|Suite|Unit|Unité|Bureau)\s*#?\s*$", re.I)
+
+
+def address_from(quote):
+    """the address part of a quote that ends at the postal code: from the street number on. 2026-11-10: a telephone number or a copyright year in
+    front of the address was taken for the street number ("403.686.6444 1677 – 93 Street SW" gave "6444 1677 – 93 Street SW"; "© 2025 by … 12140
+    103 St NW" gave "2025 by …"): the address now starts after the last telephone number / copyright year of the quote, and a "P.O. Box" stays."""
+    q = quote or ""
+    cut = max([m.end() for m in _A_PHONE.finditer(q)] + [m.end() for m in _A_YEAR.finditer(q)] + [m.end() for m in _A_RIGHTS.finditer(q)] + [0])
+    tail = q[cut:]
+    m = _A_START.search(tail)
+    if not m:
+        return (tail if cut else q).strip(" ,.-–|:")
+    start = m.start()
+    b = _A_BOX.search(tail[:start])
+    if b:
+        start = b.start()
+    return tail[start:].strip(" ,.-–|:")
+
+
 def find_tok(src, email):
     """Position of the address as a whole token (not the tail of a longer address such as rap@x for ap@x), else -1."""
     m = re.search(r"(?<![A-Za-z0-9._%+-])" + re.escape(email) + r"(?![A-Za-z0-9-]|\.[A-Za-z0-9])", src, re.I)
