@@ -13,6 +13,13 @@ queued = set()
 for p in glob.glob("coord/tasks/*/*.csv"):
     for r in csv.DictReader(open(p, encoding="utf-8-sig", newline="")):
         queued.add(r.get("buyer_key") or r.get("vendor_key") or "")
+try:  # 2026-11-10: team_buyers.jsonl.gz is a release asset (tools/state_io.py)
+    import sys as _sys, os as _os
+    _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+    import state_io as _state_io
+    _state_io.ensure("coord/results/team_buyers.jsonl.gz")
+except Exception:
+    pass
 for p in ("coord/results/team_buyers.jsonl.gz", "coord/results/team_buyers.jsonl", "coord/results/team_vendors.jsonl.gz", "coord/results/team_vendors.jsonl"):
     if os.path.exists(p):
         for l in (gzip.open(p, "rt", encoding="utf-8") if p.endswith(".gz") else open(p, encoding="utf-8")):

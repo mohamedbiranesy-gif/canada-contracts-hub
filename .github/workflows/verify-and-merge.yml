@@ -88,6 +88,10 @@ jobs:
           git fetch -q origin main && git reset -q --hard origin/main
           python3 tools/ingest_results.py > /dev/null
           python3 tools/export_orgs.py > /dev/null || true
+          # 2026-11-10: team_buyers.jsonl.gz is rewritten whole on every run and cannot be stored as a difference (61 versions = 1.0 GB of git objects
+          # in 24 hours). It is uploaded as an asset of the state release; git keeps one manifest line (coord/STATE_ASSETS.json, tools/state_io.py)
+          rm -f /tmp/state_entries.json
+          python3 tools/state_io.py publish coord/results/team_buyers.jsonl.gz --save /tmp/state_entries.json || echo "::warning::team_buyers.jsonl.gz was not published as a release asset this run"
           rm -rf /tmp/gen && mkdir -p /tmp/gen && cp -r coord/results /tmp/gen/results && cp coord/INGEST_REPORT.md /tmp/gen/ 2>/dev/null || true
           [ -f coord/source_registry.csv ] && cp coord/source_registry.csv /tmp/gen/ || true
           for i in $(seq 1 12); do
@@ -99,6 +103,10 @@ jobs:
             python3 tools/next_batch.py > /dev/null
             python3 tools/status_board.py > /dev/null
             git add coord/results coord/NEXT.md coord/STATUS_BOARD.md coord/INGEST_REPORT.md coord/tasks coord/source_registry.csv
+            if [ -s /tmp/state_entries.json ]; then  # the file is a release asset now: the manifest line is committed, the file is not
+              python3 tools/state_io.py restore /tmp/state_entries.json && git add coord/STATE_ASSETS.json
+              git rm -q --cached --ignore-unmatch coord/results/team_buyers.jsonl.gz
+            fi
             git diff --cached --quiet && break
             git commit -q -m "verifier: evidence re-checked, board refreshed [skip ci]"
             git push -q origin HEAD:main && break

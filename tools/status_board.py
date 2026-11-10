@@ -28,6 +28,13 @@ for p in sorted(glob.glob("data/incoming/*/*.csv")):
     st = collections.Counter((r.get("status") or "").strip() for r in csv.DictReader(open(p, encoding="utf-8-sig", newline="")))
     L.append("| %s | %s | %d | %d | %d | %d | %d |" % (lane, os.path.basename(p), sum(st.values()), st["found"] + st["portal_only"] + st["website_only"],
                                                     st["not_published"] + st["not_found"], st["blocked"], sum(st.values()) - st["found"] - st["portal_only"] - st["website_only"] - st["not_published"] - st["not_found"] - st["blocked"]))
+try:  # 2026-11-10: team_buyers.jsonl.gz is a release asset (tools/state_io.py)
+    import sys as _sys, os as _os
+    _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+    import state_io as _state_io
+    _state_io.ensure("coord/results/team_buyers.jsonl.gz")
+except Exception:
+    pass
 for name in ("team_buyers", "team_vendors"):
     p = next((q for q in ("coord/results/%s.jsonl.gz" % name, "coord/results/%s.jsonl" % name) if os.path.exists(q)), "")
     if p:

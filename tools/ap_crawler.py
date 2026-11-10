@@ -550,6 +550,11 @@ def load_tasks():
             if (r.get("known_website") or "").strip() and r.get("buyer_key") and r["buyer_key"] not in tasks:
                 tasks[r["buyer_key"]] = r
     verified = set()  # buyers that already have a verified invoicing / AP mailbox (a general or purchasing one is not enough)
+    try:  # 2026-11-10: team_buyers.jsonl.gz is a release asset (tools/state_io.py); a fresh checkout fetches the current version
+        import state_io
+        state_io.ensure("coord/results/team_buyers.jsonl.gz")
+    except Exception:
+        pass
     _tb = next((q for q in ("coord/results/team_buyers.jsonl.gz", "coord/results/team_buyers.jsonl") if os.path.exists(q)), None)
     if _tb:
         for line in (gzip.open(_tb, "rt", encoding="utf-8") if _tb.endswith(".gz") else open(_tb, encoding="utf-8")):

@@ -140,6 +140,11 @@ def main():
     reg = [r for r in read_csv(os.path.join(INC, "claude_registry_lookup.csv")) if r.get("key") in skeys | vkeys]
     regb = [r for r in read_csv(os.path.join(INC, "claude_registry_bulk.csv")) if r.get("key") in skeys | vkeys]
     wd = [r for r in read_csv(os.path.join(INC, "claude_wikidata_orgs.csv")) if r.get("key") in skeys | vkeys or r.get("domain") in bdoms | vdoms]
+    try:
+        import state_io
+        state_io.ensure(os.path.join(ROOT, "coord/results/team_buyers.jsonl.gz"))
+    except Exception:
+        pass
     team = {d.get("buyer_key"): d for d in read_jsonl(os.path.join(ROOT, "coord/results/team_buyers.jsonl.gz")) if d.get("buyer_key") in skeys}
     bstems = {stem(s["buyer"]) for s in sample}
     po = [r for r in read_csv(os.path.join(INC, "claude_po_records.csv.gz")) if stem(r.get("buyer")) in bstems]

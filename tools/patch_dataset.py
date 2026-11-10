@@ -39,6 +39,12 @@ def jl(p):
 
 
 # ---------- update sources ----------
+try:  # 2026-11-10: team_buyers.jsonl.gz is a release asset (tools/state_io.py); a fresh checkout fetches the current version
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import state_io
+    state_io.ensure("coord/results/team_buyers.jsonl.gz", quiet=False)
+except Exception as _e:
+    print("team_buyers not fetched: %s" % _e)
 tb = {r["buyer_key"]: r["ap_contact_team"] for r in jl("coord/results/team_buyers.jsonl.gz" if os.path.exists("coord/results/team_buyers.jsonl.gz") else "coord/results/team_buyers.jsonl")
       if (r.get("ap_contact_team") or {}).get("emails") or (r.get("ap_contact_team") or {}).get("invoice_portal")}
 tv = {r["vendor_key"]: r for r in jl("coord/results/team_vendors.jsonl")}
