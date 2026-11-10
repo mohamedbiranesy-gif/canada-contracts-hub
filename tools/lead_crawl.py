@@ -162,15 +162,37 @@ def host_of(site):
 def leads_mode(a, k, n):
     install_hooks()
     done = {l.split("\t")[0] for l in open(DONE, encoding="utf-8")} if os.path.exists(DONE) else set()
-    tasks, hosts = [], set()
-    for r in csv.DictReader(open(a.leads, encoding="utf-8")):
-        h = host_of(r.get("website"))
-        if not h or "." not in h or r["buyer_key"] in done or h in hosts or not shard_ok(h, k, n):
+    # 2026-11-10: the leads found from the owner's Mac (claude_buyer_leads.csv) can be read here too: 33,600 of them have a website and no
+    # mailbox row yet, and the Mac's own crawler is off. A lead that already has a mailbox row in any lane's results file is not read again.
+    known = set()
+    for p in glob.glob(os.path.join(ROOT, "data/incoming/*/*buyer_ap_results*.csv")):
+        try:
+            with open(p, encoding="utf-8", errors="replace", newline="") as f:
+                for r in csv.DictReader(f):
+                    if r.get("buyer_key") and (r.get("ap_email") or "").strip():
+                        known.add(r["buyer_key"])
+        except Exception:
+            pass
+    tasks, hosts, skipped = [], set(), 0
+    for fi, path in enumerate(x.strip() for x in a.leads.split(",") if x.strip()):
+        if not os.path.exists(path):
             continue
-        hosts.add(h)
-        tasks.append({"task_id": "CC-" + r["buyer_key"].split(":")[-1][:10], "buyer_key": r["buyer_key"], "buyer_name": r.get("buyer_name") or h, "known_website": "https://%s/" % h,
-                      "_n": int(r.get("canadian_vendor_rows") or 1)})
-    tasks.sort(key=lambda t: -t["_n"])  # buyers named by several Canadian vendors first
+        for r in csv.DictReader(open(path, encoding="utf-8", errors="replace")):
+            h = host_of(r.get("website"))
+            if not h or "." not in h or r["buyer_key"] in done or h in hosts or not shard_ok(h, k, n):
+                continue
+            if r["buyer_key"] in known:
+                skipped += 1
+                continue
+            hosts.add(h)
+            try:
+                nv = int(float(r.get("canadian_vendor_rows") or 1))
+            except ValueError:
+                nv = 1
+            tasks.append({"task_id": "CC-" + r["buyer_key"].split(":")[-1][:10], "buyer_key": r["buyer_key"], "buyer_name": r.get("buyer_name") or h, "known_website": "https://%s/" % h,
+                          "_n": nv, "_f": fi})
+    tasks.sort(key=lambda t: (t["_f"], -t["_n"]))  # the first leads file first; within a file, buyers named by several Canadian vendors first
+    print("leads with a mailbox row already (not read again): %d" % skipped, flush=True)
     if a.limit:
         tasks = tasks[:a.limit]
     print("shard %d/%d: %d new lead sites to read (%d done before)" % (k, n, len(tasks), len(done)), flush=True)
