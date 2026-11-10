@@ -274,13 +274,14 @@ def leads_mode(a, k, n):
     except Exception as e:
         print("no home-page hints: %s" % e, flush=True)
         hints = {}
-    # lead_shards/: leads of the engines that write append-only shards (BBB accredited businesses …), read as one more leads file
-    shard_files = sorted(glob.glob(os.path.join(INC, "lead_shards", "leads_*.gz")))
-    for fi, path in enumerate([x.strip() for x in a.leads.split(",") if x.strip()] + shard_files):
+    # the cloud leads file is read with its shards (tools/lead_store.py: lead_shards/ holds the rows added, changed or withdrawn since the base file —
+    # the engines that always wrote shards, BBB / RBQ / business licences, and since 2026-11-10 every engine)
+    import lead_store as LS
+    for fi, path in enumerate([x.strip() for x in a.leads.split(",") if x.strip()]):
         if not os.path.exists(path):
             continue
         fi = min(fi, 2)
-        for r in csv.DictReader(gzip.open(path, "rt", encoding="utf-8", newline="") if path.endswith(".gz") else open(path, encoding="utf-8", errors="replace")):
+        for r in (csv.DictReader(gzip.open(path, "rt", encoding="utf-8", newline="")) if path.endswith(".gz") else LS.reader(path)):
             h = host_of(r.get("website") or sites.get(r["buyer_key"]))
             if not h or "." not in h or r["buyer_key"] in done or h in hosts or not shard_ok(h, k, n):
                 continue
@@ -315,6 +316,28 @@ def leads_mode(a, k, n):
             tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": "https://%s/" % dom, "_n": 0, "_f": 9, "_em": 0, "_max_pages": 8})
             n_reg += 1
         print("registry candidates (.ca sites whose home page prints a role mailbox, no lead yet): %d queued of %d" % (n_reg, len(cand)), flush=True)
+    # second class of registry candidates (2026-11-10): .ca sites whose home page was read and prints NO role mailbox — 428,464 of them; the
+    # organisation's mailbox, when it publishes one, is on its contact page. Measured on 200 such sites, 4 pages each: 10 % give a role mailbox.
+    # Read last (after every lead and every first-class candidate), 4 pages at most, sites that print a Canadian postal address first.
+    if getattr(a, "registry2", 0):
+        try:
+            lead_doms = {C.registrable(h[4:] if h.startswith("www.") else h) for h in hosts}
+            taken = {t["known_website"] for t in tasks}
+            cand2 = []
+            for dom, cc in CS.ca_sites_without_mailbox().items():
+                if cc not in ("", "CA") or not shard_ok(dom, k, n):
+                    continue
+                rd = C.registrable(dom)
+                key = "lead:" + hashlib.sha1(("%s|reg:ca" % rd).encode()).hexdigest()[:16]
+                if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known or "https://%s/" % dom in taken:
+                    continue
+                cand2.append((0 if cc == "CA" else 1, dom, key))
+            cand2.sort()
+            for _, dom, key in cand2[:a.registry2]:
+                tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": "https://%s/" % dom, "_n": 0, "_f": 10, "_em": 2, "_max_pages": 4})
+            print("registry candidates, second class (.ca sites, no mailbox on the home page): %d queued of %d" % (min(len(cand2), a.registry2), len(cand2)), flush=True)
+        except Exception as e:
+            print("second-class registry candidates not queued: %s" % e, flush=True)
     # sites whose home page prints a role mailbox first; then the first leads file first; within a file, buyers named by several Canadian vendors first
     tasks.sort(key=lambda t: (t["_em"], t["_f"], -t["_n"]))
     print("lead sites whose home page prints a role mailbox (read first): %d of %d" % (sum(1 for t in tasks if not t["_em"]), len(tasks)), flush=True)
@@ -349,6 +372,9 @@ def leads_mode(a, k, n):
             if t.get("_f") == 9:
                 stats["registry_sites"] = stats.get("registry_sites", 0) + 1
                 stats["registry_with_mailbox"] = stats.get("registry_with_mailbox", 0) + bool(rows)
+            if t.get("_f") == 10:
+                stats["registry2_sites"] = stats.get("registry2_sites", 0) + 1
+                stats["registry2_with_mailbox"] = stats.get("registry2_with_mailbox", 0) + bool(rows)
             if not t.get("_em"):
                 stats["hinted_sites"] = stats.get("hinted_sites", 0) + 1
                 stats["hinted_with_mailbox"] = stats.get("hinted_with_mailbox", 0) + bool(rows)
@@ -818,6 +844,7 @@ def main():
     a.add_argument("--facts-shards", action="store_true", help="with --merge --stamp: the site facts go to site_facts/facts_<stamp>.gz (the workflow commits that folder)")
     a.add_argument("--dns-stores", type=int, default=0, help="candidates mode: also read up to this many stores per shard that the DNS lookups found on Shopify's storefront addresses")
     a.add_argument("--registry", type=int, default=0, help="leads mode: also read up to this many registry candidates per shard (.ca sites whose home page prints a role mailbox)")
+    a.add_argument("--registry2", type=int, default=0, help="leads mode: then up to this many second-class registry candidates per shard (.ca sites whose home page prints no mailbox; 4 pages each)")
     a.add_argument("--straggler-seconds", type=float, default=240, help="when only slow sites are left and nothing finished for this long, stop")
     a.add_argument("--site-seconds", type=float, default=420, help="wall-clock budget for one site: no new page is opened after that (what was read so far counts)")
     a = a.parse_args()
