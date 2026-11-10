@@ -479,9 +479,65 @@ def graph(a):
           % (rel, n_in, len(src_tech), dict(collections.Counter(v for vs in src_tech.values() for v in vs))), flush=True)
 
 
+OSM_SITES = os.path.join(DIR, "osm_sites.csv.gz")  # websites of OpenStreetMap objects in Canada (shops, offices, clinics, restaurants …), any TLD
+
+
+def osm(a):
+    """OpenStreetMap, Canada extract (Geofabrik): every object with a website tag -> its host, name and place. Organisations located in
+    Canada whose site is on .com / .org as well as .ca: more home pages worth one read (the credit line and the mailbox come from the site)."""
+    import shutil, subprocess
+    work = a.work or os.environ.get("RUNNER_TEMP") or "."
+    for d in (a.work, "/mnt/cs"):
+        if d and os.path.isdir(d) and os.access(d, os.W_OK):
+            work = d
+            break
+    os.makedirs("out", exist_ok=True)
+    if not shutil.which("osmium"):
+        sys.exit("osmium-tool is not installed (apt-get install osmium-tool)")
+    W = lambda name: os.path.join(work, name)
+    sh = lambda cmd: subprocess.run(["bash", "-o", "pipefail", "-c", cmd], check=True)
+    url = a.base or "https://download.geofabrik.de/north-america/canada-latest.osm.pbf"
+    t0 = time.time()
+    sh("curl -sS -L --fail --retry 8 --retry-delay 10 --retry-all-errors -C - -A '%s' -o %s %s" % (CCL.UA, W("canada.osm.pbf"), url))
+    print("extract downloaded: %.1f GiB in %.0f s" % (os.path.getsize(W("canada.osm.pbf")) / 2 ** 30, time.time() - t0), flush=True)
+    sh("osmium tags-filter %s nwr/website nwr/contact:website nwr/url -o %s --overwrite" % (W("canada.osm.pbf"), W("sites.osm.pbf")))
+    sh("osmium cat %s -f opl -o %s --overwrite" % (W("sites.osm.pbf"), W("sites.opl")))
+    print("objects with a website tag extracted in %.0f s" % (time.time() - t0), flush=True)
+    unq = lambda v: re.sub(r"%([0-9a-fA-F]+)%", lambda m: chr(int(m.group(1), 16)), v)
+    KIND = ("shop", "amenity", "office", "craft", "tourism", "healthcare", "leisure", "club", "industrial", "man_made", "emergency", "landuse", "building")
+    sites, n_obj = {}, 0
+    for l in open(W("sites.opl"), encoding="utf-8", errors="replace"):
+        m = re.search(r" T(\S*)", l)
+        if not m:
+            continue
+        tags = {}
+        for kv in m.group(1).split(","):
+            k, _, v = kv.partition("=")
+            tags[unq(k)] = unq(v)
+        w = tags.get("website") or tags.get("contact:website") or tags.get("url") or ""
+        h = host_of(w.split(";")[0].strip())
+        if not h or "." not in h or PLATFORM.search(h) or not re.fullmatch(r"[a-z0-9.-]+", h):
+            continue
+        n_obj += 1
+        kind = next(("%s=%s" % (k, tags[k]) for k in KIND if tags.get(k) and tags[k] != "yes"), "")
+        o = sites.get(h)
+        if o is None:
+            sites[h] = [h, (tags.get("name") or tags.get("operator") or "")[:100], tags.get("addr:city") or "", tags.get("addr:province") or tags.get("addr:state") or "", tags.get("addr:postcode") or "", kind, 1]
+        else:
+            o[6] += 1
+    with open("out/osm_sites.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "name", "city", "province", "postcode", "kind", "objects"])
+        for h in sorted(sites):
+            w.writerow(sites[h])
+    tl = collections.Counter(h.rsplit(".", 1)[-1] for h in sites)
+    print("OpenStreetMap Canada: %d objects with a website, %d distinct hosts (%s)" % (n_obj, len(sites), ", ".join("%s %d" % kv for kv in tl.most_common(6))), flush=True)
+
+
 def merge_graph(a):
     os.makedirs(DIR, exist_ok=True)
-    for name, path, cols in (("graph_ca_domains.csv", GRAPH_CA, ["dom", "hosts"]), ("graph_inlinks.csv", GRAPH_IN, ["dom", "targets", "hosts", "tech"])):
+    for name, path, cols in (("graph_ca_domains.csv", GRAPH_CA, ["dom", "hosts"]), ("graph_inlinks.csv", GRAPH_IN, ["dom", "targets", "hosts", "tech"]),
+                             ("osm_sites.csv", OSM_SITES, ["dom", "name", "city", "province", "postcode", "kind", "objects"])):
         rows = {}
         if os.path.exists(path):
             with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
@@ -544,6 +600,10 @@ def scan_queue(k, n, limit=0):
         with gzip.open(GRAPH_IN, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
                 add(r["dom"], 2 if r.get("tech") else 3, int(r.get("targets") or 1), again=bool(r.get("tech")))
+    if os.path.exists(OSM_SITES):  # 3. organisations OpenStreetMap places in Canada (any TLD); chains with hundreds of branches last
+        with gzip.open(OSM_SITES, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                add(r["dom"], 3, -min(int(r.get("objects") or 1), 400))
     if os.path.exists(UNIVERSE):  # 4. every .ca site of the archive, the sites with the most captured pages first
         with gzip.open(UNIVERSE, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
@@ -1063,7 +1123,7 @@ def merge(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["universe", "merge-universe", "graph", "merge-graph", "scan", "vendors", "merge"])
+    ap.add_argument("cmd", choices=["universe", "merge-universe", "graph", "osm", "merge-graph", "scan", "vendors", "merge"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--crawl", default="auto")
@@ -1084,7 +1144,7 @@ def main():
         {"scan": scan, "vendors": vendors}[a.cmd](a)
         sys.stdout.flush()
         os._exit(0)  # do not wait for straggler threads
-    {"universe": universe, "merge-universe": merge_universe, "graph": graph, "merge-graph": merge_graph, "merge": merge}[a.cmd](a)
+    {"universe": universe, "merge-universe": merge_universe, "graph": graph, "osm": osm, "merge-graph": merge_graph, "merge": merge}[a.cmd](a)
 
 
 if __name__ == "__main__":

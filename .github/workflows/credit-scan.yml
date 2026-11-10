@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: "universe (list the .ca domains of the newest Common Crawl index) | graph (web graph: .ca domains + domains linking to proven vendors) | cycle (scan home pages, check vendors, make leads)"
+        description: "universe (.ca domains of the newest Common Crawl index) | graph (web graph: .ca domains + domains linking to proven vendors) | osm (OpenStreetMap Canada objects with a website) | cycle (scan home pages, check vendors, make leads)"
         default: "cycle"
       shards:
         description: "parallel runners for the scan (1-10)"
@@ -100,6 +100,23 @@ jobs:
           done
           cat /tmp/u.txt >> "$GITHUB_STEP_SUMMARY"
 
+  osm:
+    needs: plan
+    if: ${{ (inputs.stage || 'cycle') == 'osm' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: OpenStreetMap Canada -> every object with a website tag (organisations located in Canada, any TLD)
+        run: |
+          sudo mkdir -p /mnt/cs && sudo chown "$USER" /mnt/cs || true
+          sudo apt-get update -q >/dev/null 2>&1 || true
+          sudo apt-get install -y -q osmium-tool >/dev/null 2>&1
+          python3 tools/credit_scan.py osm --work /mnt/cs
+      - uses: actions/upload-artifact@v4
+        with: { name: "cs-graph", path: out/, retention-days: 3 }
+
   graph:
     needs: plan
     if: ${{ (inputs.stage || 'cycle') == 'graph' }}
@@ -118,8 +135,8 @@ jobs:
         with: { name: "cs-graph", path: out/, retention-days: 3 }
 
   merge_graph:
-    needs: graph
-    if: ${{ always() && needs.graph.result == 'success' }}
+    needs: [graph, osm]
+    if: ${{ always() && (needs.graph.result == 'success' || needs.osm.result == 'success') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -133,9 +150,9 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/credit_scan.py merge-graph shards | tee /tmp/g.txt
-            git add data/incoming/claude/credit_scan/graph_ca_domains.csv.gz data/incoming/claude/credit_scan/graph_inlinks.csv.gz 2>/dev/null || true
+            for f in graph_ca_domains.csv.gz graph_inlinks.csv.gz osm_sites.csv.gz; do [ -e "data/incoming/claude/credit_scan/$f" ] && git add "data/incoming/claude/credit_scan/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
-            git commit -q -m "credit-scan: web graph ($(tr '\n' ';' < /tmp/g.txt | cut -c1-120)) [skip ci]"
+            git commit -q -m "credit-scan: more sites to read ($(grep -v ': 0 domains' /tmp/g.txt | tr '\n' ';' | cut -c1-120)) [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
