@@ -4,6 +4,15 @@
     python3 contrib/claude/rank_buyers/rank.py && python3 contrib/claude/rank_buyers/batches.py
 """
 import csv, gzip, json, re, io, collections, unicodedata, datetime, sys, os
+import builtins as _bi, time as _tm
+_T0 = _TL = _tm.time()
+def print(*a, **k):
+    """every progress line carries the seconds since the start and since the line before: the row count is meant to grow tenfold, and this
+    shows which step stops scaling (2026-11-10: a build took 30+ minutes at 69,000 rows)"""
+    global _TL
+    _now = _tm.time()
+    _bi.print("[%5.0fs +%4.0fs]" % (_now - _T0, _now - _TL), *a, **k)
+    _TL = _now
 
 
 def _money(v):
