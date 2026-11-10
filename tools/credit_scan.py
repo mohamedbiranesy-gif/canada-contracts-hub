@@ -58,7 +58,7 @@ _JOIN = r"(?:\s*(?:and|&|\+|et|,|/|-|–)\s*|\s+)"
 _FILL = r"(?:graphique|internet|num[ée]rique|digital|du\s+site|de\s+site|de\s+ce\s+site|of\s+this\s+site|this\s+site|ce\s+site|is|was|est|a\s+[ée]t[ée])"
 _WITH = (r"(?:(?:with|avec)\s+[^\s<>]{1,14}(?:\s+(?:and|&|et)\s+[^\s<>]{1,14})?\s+|proudly\s+|lovingly\s+|fi[èe]rement\s+|in\s+[A-Z][A-Za-zÀ-ÿ.\-]{2,20}(?:,?\s+[A-Z][A-Za-zÀ-ÿ.\-]{1,20})?\s+)")
 _PH_BY = _HEAD + "(?:" + _JOIN + "(?:" + _HEAD + "|" + _FILL + "))*" + r"\s*(?:" + _WITH + r"){0,2}(?:by|par)(?![A-Za-zÀ-ÿ])"
-_PH_COLON = (r"(?:web\s?design|design|conception|r[ée]alisation|cr[ée]ation|d[ée]veloppement|development|h[ée]bergement|hosting|programmation|webmaster|webmestre|site\s?web|web\s?site)"
+_PH_COLON = (r"(?:web\s?design|design|conception|r[ée]alisation|cr[ée]ation|d[ée]veloppement|development|h[ée]bergement|hosting|programmation|webmaster|webmestre)"
              + "(?:" + _JOIN + "(?:" + _HEAD + "|" + _FILL + "))*" + r"\s*:")
 _PH_DE = r"(?:une\s+)?(?:r[ée]alisation|cr[ée]ation|conception)(?:\s+web)?\s+(?:de\s+l['’][ée]quipe(?:\s+de)?|de|d['’]|sign[ée]e(?:\s+par)?)(?![A-Za-zÀ-ÿ])"
 _PHRASE = "(?:" + _PH_BY + "|" + _PH_COLON + "|" + _PH_DE + ")"
@@ -164,6 +164,8 @@ def find_credits(raw, page_url):
                         break
         if not cls:
             continue
+        if ph.rstrip().endswith(":") and re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)+/?\S*", label.strip().lower()):
+            continue  # "Design: https://…" in a list of resources is an address, not a credit
         label = label or "[link to %s]" % host  # a logo without alt text: the link target names the vendor
         if cls in ("D", "P") and m.start() < zone:
             continue  # a bare "designed by" / "powered by" outside the footer zone is usually about a product, not about the site
@@ -415,7 +417,39 @@ def scan(a):
 
 
 # ------------------------------------------------------------------------------------------------------------------- vendors
-CONTACT_RX = re.compile(r"contact|joindre|coordonn|about|propos|qui-sommes|nous-trouver|find-us|location|bureaux|offices?|impressum|legal|mentions", re.I)
+CONTACT_RX = re.compile(r"contact|joindre|coordonn|about|propos|qui-sommes|nous-trouver|find-us|location|bureaux|offices?|impressum|legal|mentions|privacy|confidentialit|terms|conditions|politique", re.I)
+_PROVN = (r"Qu[ée]bec|Ontario|British Columbia|Colombie-Britannique|Alberta|Manitoba|Saskatchewan|Nova Scotia|Nouvelle-[ÉE]cosse|New Brunswick|Nouveau-Brunswick|"
+          r"Newfoundland(?: and Labrador)?|Terre-Neuve(?:-et-Labrador)?|Prince Edward Island|[ÎI]le-du-Prince-[ÉE]douard|Yukon|Nunavut|Northwest Territories")
+# "Halifax, Nova Scotia" · "Montréal (Québec)" · "Toronto, ON" · "Saskatchewan, Canada": the vendor's own statement of where it is (no postal code)
+LOC_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])([A-ZÀ-Ý][A-Za-zÀ-ÿ.'’\-]+(?:[ \-][A-ZÀ-Ý][A-Za-zÀ-ÿ.'’\-]+){0,3})\s*(?:,\s*|\(\s*)(?:(" + _PROVN + r")|(QC|Qc|ON|BC|AB|MB|SK|NS|NB|NL|PE|PEI|YT|NT|NU))\)?"
+                    r"(?:,?\s*Canada)?(?![A-Za-zÀ-ÿ])(?!,?\s*(?:CA|California|USA?)\b)(?!\s+\d{5})")
+CANADA_LINE_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])(" + _PROVN + r"),?\s+Canada(?![A-Za-zÀ-ÿ])")
+CA_PHONE_RX = re.compile(r"(?<![\d.])(?:\+?1[\s.\-]?)?\(?(204|226|236|249|250|263|289|306|343|354|365|367|368|382|403|416|418|428|431|437|438|450|468|474|506|514|519|548|579|581|584|587|604|613|639|"
+                         r"647|672|683|705|709|742|753|778|780|782|807|819|825|867|873|879|902|905)\)?[\s.\-]{0,2}\d{3}[\s.\-]?\d{4}(?![\d.])")
+LD_PC_RX = re.compile(r'"postalCode"\s*:\s*"\s*([ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ \-]?\d[ABCEGHJ-NPRSTV-Z]\d)\s*"', re.I)
+LD_FIELD_RX = re.compile(r'"(streetAddress|addressLocality|addressRegion|postalCode|addressCountry)"\s*:\s*"([^"]{1,90})"')
+
+
+def jsonld_address(raw):
+    """a schema.org PostalAddress with a Canadian postal code in the page source: 'streetAddress: …, addressLocality: …, postalCode: …'"""
+    m = LD_PC_RX.search(raw)
+    if not m:
+        return ""
+    seg, got = raw[max(0, m.start() - 500):m.end() + 300], {}
+    for k, v in LD_FIELD_RX.findall(seg):
+        got.setdefault(k, v.strip())
+    return ", ".join("%s: %s" % (k, got[k]) for k in ("streetAddress", "addressLocality", "addressRegion", "postalCode", "addressCountry") if got.get(k))[:220]
+
+
+def location_line(text):
+    """(quote, phone) when the page states a Canadian province next to a place name AND prints a telephone number with a Canadian area code"""
+    ph = CA_PHONE_RX.search(text)
+    if not ph:
+        return "", ""
+    m = CANADA_LINE_RX.search(text) or LOC_RX.search(text)
+    if not m:
+        return "", ""
+    return re.sub(r"\s+", " ", text[max(0, m.start() - 40):m.end()]).strip(), ph.group(0).strip()
 SERVICE_RX = re.compile(r"web|site|design|digital|num[ée]rique|marketing|agenc[ey]|studio|cr[ée]ati|d[ée]velop|software|logiciel|h[ée]berg|hosting|seo|r[ée]f[ée]rencement|branding|"
                         r"graphi|communication|m[ée]dia|informati|\bIT\b|\bTI\b|technolog|app|cloud|e-?commerce|consult", re.I)
 
@@ -467,7 +501,8 @@ def vendors(a):
     import tech_relationships as T
     k, n = CCL.shard_of(a)
     os.makedirs("out", exist_ok=True)
-    have, known = vendor_state(), proven_elsewhere()
+    # rule 2 (2026-11-10): schema.org address data, privacy / terms pages, the location line. Vendors that gave "no_address" under rule 1 are read again
+    have, known = {d: o for d, o in vendor_state().items() if not (o.get("status") == "no_address" and (o.get("rule") or 1) < 2)}, proven_elsewhere()
     cnt = collections.Counter()
     for o in sightings().values():
         for c in o.get("credits") or []:
@@ -481,18 +516,27 @@ def vendors(a):
     fv = open("out/credit_vendors_%d.jsonl" % k, "a", encoding="utf-8")
     ADDRS = (("CA", CCL.ADDR), ("US", LC.US_ADDR), ("GB", LC.GB_ADDR), ("AU", LC.AU_ADDR))
 
-    def address_in(text):
+    def addresses_in(raw):
+        """{country: quote} for every postal address form found on one page (visible text, then schema.org data in the source), + the location line"""
+        text, out = C.visible(raw), {}
         for cc, rx in ADDRS:
             m = rx.search(text)
             if m:
-                return cc, re.sub(r"^\S*\s", "", text[max(0, m.start() - 110):m.end()].strip())[-200:]
-        return "", ""
+                out[cc] = re.sub(r"^\S*\s", "", text[max(0, m.start() - 110):m.end()].strip())[-200:]
+        if "CA" not in out:
+            j = jsonld_address(raw)
+            if j:
+                out["CA"] = "%s (schema.org PostalAddress in the page source)" % j
+        loc, phone = location_line(text)
+        if loc:
+            out["loc"] = "%s … tel. %s" % (loc, phone)
+        return out
 
     def one(t):
         if time.time() > deadline:
             return
         dom = t["dom"]
-        rec = {"dom": dom, "date": TODAY, "seen_on": t["n"], "status": "", "quote": "", "url": "", "name": "", "title": "", "desc": "", "service_words": ""}
+        rec = {"dom": dom, "date": TODAY, "seen_on": t["n"], "status": "", "quote": "", "url": "", "name": "", "title": "", "desc": "", "service_words": "", "also_prints": "", "rule": 2}
         try:
             res, final, raw = get_page("https://%s/" % dom)
             if res != "ok":
@@ -504,9 +548,8 @@ def vendors(a):
                 rec["title"], rec["desc"] = (title or "")[:160], (meta.get("description") or meta.get("og:description") or "")[:240]
                 sw = SERVICE_RX.search(rec["title"] + " " + rec["desc"])
                 rec["service_words"] = sw.group(0) if sw else ""
-                found = {}  # country -> (quote, url); a Canadian address anywhere on the pages read wins
-                cc, q = address_in(C.visible(raw))
-                if cc:
+                found = {}  # country (or "loc") -> (quote, url); a Canadian postal address anywhere on the pages read wins
+                for cc, q in addresses_in(raw).items():
                     found[cc] = (q, final)
                 if "CA" not in found:
                     links, seen_l = [], set()
@@ -516,21 +559,25 @@ def vendors(a):
                                 and CONTACT_RX.search(p.path + " " + label) and link.split("#")[0] not in seen_l and link.split("#")[0].rstrip("/") != final.rstrip("/"):
                             seen_l.add(link.split("#")[0])
                             links.append((0 if re.search(r"contact|joindre|coordonn", p.path + " " + label, re.I) else 1, len(p.path), link.split("#")[0]))
-                    todo = [u for _, _, u in sorted(links)[:3]] or ["https://%s/contact" % fhost, "https://%s/contact-us" % fhost, "https://%s/nous-joindre" % fhost]
+                    todo = [u for _, _, u in sorted(links)[:4]] or ["https://%s/contact" % fhost, "https://%s/contact-us" % fhost, "https://%s/nous-joindre" % fhost]
                     for u in todo:
                         if time.time() > deadline + 120:
                             break
                         r2, f2, raw2 = get_page(u, check_robots=False) if C.allowed(u) else ("robots", u, "")
                         if r2 != "ok":
                             continue
-                        cc, q = address_in(C.visible(raw2))
-                        if cc and cc not in found:
-                            found[cc] = (q, f2)
+                        for cc, q in addresses_in(raw2).items():
+                            found.setdefault(cc, (q, f2))
                         if "CA" in found:
                             break
-                if found:
-                    cc = "CA" if "CA" in found else sorted(found)[0]
-                    rec["status"], rec["quote"], rec["url"] = cc, found[cc][0], found[cc][1]
+                other = sorted(c for c in found if c not in ("CA", "loc"))
+                rec["also_prints"] = ",".join(other)
+                if "CA" in found:
+                    rec["status"], rec["quote"], rec["url"] = "CA", found["CA"][0], found["CA"][1]
+                elif other:  # a postal address elsewhere and none in Canada: located there
+                    rec["status"], rec["quote"], rec["url"] = other[0], found[other[0]][0], found[other[0]][1]
+                elif "loc" in found:  # no postal code anywhere: the site's own location line (a Canadian province) + a Canadian telephone number
+                    rec["status"], rec["quote"], rec["url"] = "CA-loc", found["loc"][0], found["loc"][1]
                 else:
                     rec["status"] = "no_address"
         except Exception as e:
@@ -594,7 +641,8 @@ def merge(a):
         for l in open(f, encoding="utf-8"):
             try:
                 o = json.loads(l)
-                if o["dom"] not in vstate:
+                old = vstate.get(o["dom"])
+                if old is None or (old.get("status") == "no_address" and (old.get("rule") or 1) < 2 and (o.get("rule") or 1) >= 2):
                     new_v[o["dom"]] = json.dumps(o, ensure_ascii=False)
             except (ValueError, KeyError):
                 pass
@@ -606,9 +654,13 @@ def merge(a):
     def proof(v):
         o = vstate.get(v)
         if o and o.get("status") == "CA" and o.get("quote"):
-            return ("%s (as printed on %s, read %s)" % (CCL.address_from(o["quote"]), o.get("url") or "", o.get("date") or ""), o.get("url") or "", o.get("name") or "", bool(o.get("service_words")))
+            return ("%s (as printed on %s, read %s)" % (CCL.address_from(o["quote"]) if "schema.org" not in o["quote"] else o["quote"], o.get("url") or "", o.get("date") or ""), o.get("url") or "", o.get("name") or "",
+                    bool(o.get("service_words")), "the vendor's own site prints its Canadian postal address")
+        if o and o.get("status") == "CA-loc" and o.get("quote"):
+            return ("“%s” (as printed on %s, read %s)" % (o["quote"], o.get("url") or "", o.get("date") or ""), o.get("url") or "", o.get("name") or "",
+                    bool(o.get("service_words")), "the vendor's own site gives its location in Canada and a Canadian telephone number (no postal code printed)")
         if v in known_v:
-            return known_v[v] + (True,)  # the row factory read its client / portfolio page: a firm that sells services
+            return known_v[v] + (True, "the vendor's own site prints its Canadian postal address")  # the row factory read its client / portfolio page: a firm that sells services
         return None
     main_keys = set()
     mp = os.path.join(INC, "claude_buyer_leads.csv")
@@ -625,6 +677,11 @@ def merge(a):
             except (ValueError, KeyError):
                 pass
     stats = collections.Counter()
+    try:
+        import tech_relationships as T
+        VETTED = set(T.VENDOR_BASES)
+    except Exception:
+        VETTED = set()
     vend_n = collections.Counter(c["v"] for o in seen.values() for c in (o.get("credits") or []))
     for dom in sorted(seen):
         o = seen[dom]
@@ -633,8 +690,8 @@ def merge(a):
         for c in o.get("credits") or []:
             stats["credit links seen"] += 1
             v = c["v"]
-            if v == C.registrable(site) or (c["k"] == "P" and FREE_PLAN.search(v)) or vend_n[v] > 20000:
-                continue
+            if v == C.registrable(site) or (c["k"] == "P" and FREE_PLAN.search(v)) or vend_n[v] > 20000 or v in VETTED:
+                continue  # the vetted software vendors have their own acceptance rules (tools/tech_relationships.py): never through a credit line
             pr = proof(v)
             if not pr:
                 stats["vendor not proven in Canada (yet)"] += 1
@@ -656,12 +713,13 @@ def merge(a):
             stats["new leads"] += 1
         stats["leads (%s)" % what] += 1
         prev[key] = {"buyer_key": key, "buyer_name": o.get("name") or site, "website": "https://%s/" % site, "canadian_vendor_rows": 1, "example_vendor": vname,
-                     "canada_field_value": "%s=%s; the vendor's own site prints its Canadian postal address: %s" % (CF_CREDIT, c["v"], pr[0][:260]),
+                     "canada_field_value": "%s=%s; %s: %s" % (CF_CREDIT, c["v"], pr[4], pr[0][:260]),
                      "evidence_dataset": o.get("page") or "https://%s/" % site, "latest_record_date": o.get("date") or TODAY}
         pdet[key] = {"key": key, "platform": "site_credit_cc", "record_url": o.get("page") or "", "vendor": vname, "record_date": o.get("date") or "",
                      "title": "%s by %s — credit printed on the buyer's own site: “%s”" % (what, vname, c["q"][-180:]),
                      "vendor_address": pr[0], "vendor_address_url": pr[1], "vendor_site": "https://%s/" % c["v"], "credit_quote": c["q"], "credit_class": c["k"], "credit_phrase": c.get("p") or "",
-                     "credit_link_text": c.get("t") or "", "credit_link_host": c.get("vh") or c["v"], "vendor_seen_on_sites": vend_n[c["v"]], "page_title": o.get("title") or ""}
+                     "credit_link_text": c.get("t") or "", "credit_link_host": c.get("vh") or c["v"], "vendor_seen_on_sites": vend_n[c["v"]], "page_title": o.get("title") or "",
+                     "vendor_location_basis": pr[4], "vendor_also_prints_addresses_in": (vstate.get(c["v"]) or {}).get("also_prints") or ""}
     with open(CCL.LEADS_CC, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=CCL.LEAD_COLS)
         w.writeheader()
