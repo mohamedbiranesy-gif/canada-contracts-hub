@@ -167,7 +167,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/credit_scan.py merge-graph shards | tee /tmp/g.txt
-            for f in graph_ca_domains.csv.gz graph_inlinks.csv.gz osm_sites.csv.gz graph_shopify.csv.gz; do [ -e "data/incoming/claude/credit_scan/$f" ] && git add "data/incoming/claude/credit_scan/$f"; done
+            for f in graph_ca_domains.csv.gz graph_inlinks.csv.gz osm_sites.csv.gz graph_shopify.csv.gz graph_multitenant.csv.gz; do [ -e "data/incoming/claude/credit_scan/$f" ] && git add "data/incoming/claude/credit_scan/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "credit-scan: more sites to read ($(grep -v ': 0 domains' /tmp/g.txt | tr '\n' ';' | cut -c1-120)) [skip ci]"
             git push -q origin HEAD:main && break

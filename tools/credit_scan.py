@@ -430,8 +430,23 @@ def graph(a):
     sh("%s -o %s %svertices.txt.gz" % (curl, W("v.gz"), base))
     print("vertices downloaded: %.0f MiB in %.0f s" % (os.path.getsize(W("v.gz")) / 2 ** 20, time.time() - t0), flush=True)
     # one pass over the vertices: ids of the targets; every .ca / .quebec domain
-    sh("%s %s | %s 'BEGIN{while((getline l < \"%s\") > 0) t[l]=1} {if ($2 in t) print $1\"\\t\"$2 > \"%s\"; if (substr($2,1,3)==\"ca.\" || substr($2,1,7)==\"quebec.\") print $2\"\\t\"$3 > \"%s\"}'"
-       % (unz, W("v.gz"), awk, W("targets.txt"), W("tv.txt"), W("ca.txt")))
+    sh("%s %s | %s 'BEGIN{while((getline l < \"%s\") > 0) t[l]=1} {if ($2 in t) print $1\"\\t\"$2 > \"%s\"; if (substr($2,1,3)==\"ca.\" || substr($2,1,7)==\"quebec.\") print $2\"\\t\"$3 > \"%s\"; "
+       "if ($3+0 >= 150) print $2\"\\t\"$3 > \"%s\"}'"
+       % (unz, W("v.gz"), awk, W("targets.txt"), W("tv.txt"), W("ca.txt"), W("mt.txt")))
+    # domains with 150+ host names of their own in the graph: multi-tenant platforms (<customer>.janeapp.com, <shop>.myshopify.com …) and large
+    # organisations. The vendor step reads each one's own site: those that print a Canadian address are the Canada-based platforms whose
+    # customer portals can be enumerated — candidates for the vetted vendor table (free plan? contracting company per country? read by hand once)
+    n_mt = 0
+    with open("out/graph_multitenant.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "hosts"])
+        if os.path.exists(W("mt.txt")):
+            for l in open(W("mt.txt"), encoding="utf-8", errors="replace"):
+                q = l.split()
+                if len(q) == 2 and re.fullmatch(r"[a-z0-9.-]+", q[0]) and q[0].count(".") <= 2 and q[1].isdigit():
+                    w.writerow([rev(q[0]), q[1]])
+                    n_mt += 1
+    print("domains with 150+ host names (multi-tenant platforms and large organisations): %d" % n_mt, flush=True)
     tid = {}
     if os.path.exists(W("tv.txt")):
         for l in open(W("tv.txt")):
@@ -530,6 +545,8 @@ def graph(a):
 
 OSM_SITES = os.path.join(DIR, "osm_sites.csv.gz")  # websites of OpenStreetMap objects in Canada (shops, offices, clinics, restaurants …), any TLD
 GRAPH_SHOP = os.path.join(DIR, "graph_shopify.csv.gz")  # domains that link to shopify.com / myshopify.com (web graph): store candidates
+GRAPH_MT = os.path.join(DIR, "graph_multitenant.csv.gz")  # domains with 150+ host names of their own (multi-tenant platforms, large organisations)
+PLATFORM_CANDS = os.path.join(DIR, "platform_candidates.csv")  # those of them whose own site prints a Canadian address: to vet for the vendor table
 
 
 def osm(a):
@@ -631,7 +648,8 @@ def lists(a):
 def merge_graph(a):
     os.makedirs(DIR, exist_ok=True)
     for name, path, cols in (("graph_ca_domains.csv", GRAPH_CA, ["dom", "hosts"]), ("graph_inlinks.csv", GRAPH_IN, ["dom", "targets", "hosts", "tech"]),
-                             ("osm_sites.csv", OSM_SITES, ["dom", "name", "city", "province", "postcode", "kind", "objects"]), ("graph_shopify.csv", GRAPH_SHOP, ["dom", "hosts"])):
+                             ("osm_sites.csv", OSM_SITES, ["dom", "name", "city", "province", "postcode", "kind", "objects"]), ("graph_shopify.csv", GRAPH_SHOP, ["dom", "hosts"]),
+                             ("graph_multitenant.csv", GRAPH_MT, ["dom", "hosts"])):
         rows = {}
         if os.path.exists(path):
             with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
@@ -975,6 +993,11 @@ def vendors(a):
         tasks += [{"dom": v, "n": c} for v, c in DNS.candidates() if v not in have and v not in queued and shard_ok(v, k, n)]
     except Exception as e:
         print("DNS providers not queued: %s" % e, flush=True)
+    if os.path.exists(GRAPH_MT):  # multi-tenant platforms of the web graph: which of them are in Canada? (the most host names first)
+        queued = {t["dom"] for t in tasks}
+        with gzip.open(GRAPH_MT, "rt", encoding="utf-8", newline="") as fh:
+            mt = sorted(((int(r["hosts"] or 0), r["dom"]) for r in csv.DictReader(fh)), reverse=True)
+        tasks += [{"dom": d, "n": h} for h, d in mt if d not in have and d not in queued and shard_ok(d, k, n)]
     # the row factory's vendors whose client page (and archived contact page) printed no address: 11,096 domains, 39,313 buyer domains wait on them.
     # Their live home / contact / legal page is read the same way; tools/cc_clients.py merge promotes their client links when the proof is found.
     rf = collections.Counter()
@@ -1337,6 +1360,27 @@ def merge(a):
                     w.writerow({c: cands[k].get(c, "") for c in CT.CAND_COLS})
     except Exception as e:  # the credit leads must land even when the candidates file cannot be read
         print("vetted-service candidates skipped: %s" % e)
+    try:
+        if os.path.exists(GRAPH_MT):
+            with gzip.open(GRAPH_MT, "rt", encoding="utf-8", newline="") as fh:
+                mt = {r["dom"]: int(r["hosts"] or 0) for r in csv.DictReader(fh)}
+            vetted_dom = set()
+            try:
+                import tech_relationships as _T
+                vetted_dom = set(_T.VENDOR_BASES)
+            except Exception:
+                pass
+            pc = [(h, d, vstate[d]) for d, h in mt.items() if d in vstate and vstate[d].get("status") in ("CA", "CA-loc")]
+            with open(PLATFORM_CANDS, "w", newline="", encoding="utf-8") as f:
+                w = csv.writer(f)
+                w.writerow(["domain", "host_names_in_web_graph", "in_vendor_table", "name", "title", "description", "address_quote", "address_url", "also_prints_addresses_in", "free_plan_signal", "checked"])
+                for h, d, o in sorted(pc, reverse=True):
+                    w.writerow([d, h, "yes" if d in vetted_dom or C.registrable(o.get("final") or d) in vetted_dom else "", o.get("name") or "", o.get("title") or "", o.get("desc") or "",
+                                (o.get("quote") or "")[:200], o.get("url") or "", o.get("also_prints") or "", (o.get("free_signal") or "")[:80], o.get("date") or ""])
+            print("multi-tenant domains of the web graph: %d; checked live %d; printing a Canadian address %d (platform_candidates.csv — to vet for the vendor table)"
+                  % (len(mt), sum(1 for d in mt if d in vstate), len(pc)))
+    except Exception as e:
+        print("platform candidates skipped: %s" % e)
     vs = collections.Counter((o.get("status") or "?").split(":")[0] for o in vstate.values())
     todo_v = sum(1 for v in vend_n if v not in vstate and v not in known_v)
     print("credit leads: %s" % dict(stats))
