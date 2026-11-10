@@ -877,16 +877,21 @@ _ALT = re.compile(r"""(?is)\b(?:alt|title|aria-label)\s*=\s*["']([^"']{6,160})["
 
 
 def site_numbers(text):
-    """["rbq:1234567801", "charity:123456789RR0001", …] — the register numbers a page prints, digits as printed (separators removed)"""
-    out = []
+    """[[kind, number, as printed] …] — the register numbers a page prints: ["rbq", "5760390401", "RBQ : 5760-3904-01"]. The number without its
+    separators is the key of the join; the words as printed are the quote."""
+    out, seen = [], set()
     for kind, rx in _NUM:
+        n_kind = 0
         for m in rx.finditer(text):
-            v = kind + ":" + "".join(m.groups())
+            v = "".join(m.groups())
             if kind in ("charity", "gst"):
-                v = "%s:%s%s%s%s" % (kind, m.group(1), m.group(2), "RR" if kind == "charity" else "RT", m.group(3))
-            if v not in out:
-                out.append(v)
-            if len([x for x in out if x.startswith(kind + ":")]) >= 3:
+                v = "%s%s%s%s" % (m.group(1), m.group(2), "RR" if kind == "charity" else "RT", m.group(3))
+            if (kind, v) in seen:
+                continue
+            seen.add((kind, v))
+            out.append([kind, v, re.sub(r"\s+", " ", text[max(0, m.start() - 12):m.end()]).strip()[-70:]])
+            n_kind += 1
+            if n_kind >= 3:
                 break
     return out[:8]
 
