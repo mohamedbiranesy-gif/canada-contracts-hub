@@ -516,6 +516,22 @@ def scan(a):
     fs = open("out/credit_seen_%d.jsonl" % k, "a", encoding="utf-8")
     fd = open("out/credit_done_%d.tsv" % k, "a", encoding="utf-8")
     assets_of = lambda b: " ".join(T.SRC_RE.findall(b) + T.LINKTAG_RE.findall(b) + T.INLINE_RE.findall(b)[:40])
+    # which outside services do these sites load or post to? (script / iframe / form targets, counted per registrable domain) — the frequency
+    # table shows which Canada-based platforms are worth vetting for the vendor table of tools/tech_relationships.py
+    ext = collections.Counter()
+
+    def embedded(raw, final, site_dom):
+        out = set()
+        for rx in (T.SRC_RE, T.FORM_RE):
+            for x in rx.findall(raw)[:400]:
+                try:
+                    h = (urllib.parse.urlparse(urllib.parse.urljoin(final, html.unescape(x).strip())).hostname or "").lower()
+                except ValueError:
+                    continue
+                d = C.registrable(h) if h and "." in h else ""
+                if d and d != site_dom:
+                    out.add(d)
+        return out
 
     def one(t):
         if time.time() > deadline:
@@ -546,6 +562,9 @@ def scan(a):
                                     mc = re.search(r'Shopify\.country\s*=\s*"([A-Z]{2})"', raw)
                                     x["country"] = mc.group(1) if mc else ""
                                 tech.append(x)
+                emb = embedded(raw, final, C.registrable(fhost))
+                with lock:
+                    ext.update(emb)
                 if credits or tech:
                     title, meta = T.page_meta(raw)
                     rec = {"dom": dom, "site": fhost, "page": final, "date": TODAY, "name": LC.site_name_for(fhost, meta.get("og:site_name"), title, T), "title": (title or "")[:160],
@@ -571,6 +590,10 @@ def scan(a):
     left = LC.run_pool(tasks, one, a, deadline, on_timeout)
     with lock:
         fs.close(); fd.close()
+        with open("out/credit_ext_%d.tsv" % k, "w", encoding="utf-8") as f:
+            for d, c in ext.most_common(30000):
+                if c >= 2:
+                    f.write("%s\t%d\n" % (d, c))
     print("finished", dict(stats), "(stragglers left: %d)" % left, flush=True)
 
 
@@ -805,6 +828,14 @@ def merge(a):
             except (ValueError, KeyError):
                 pass
     n_v = _append_state("vendors", stamp, [new_v[k] for k in sorted(new_v)])
+    extc = collections.Counter()
+    for f in sorted(glob.glob(os.path.join(d, "credit_ext_*.tsv"))):
+        for l in open(f, encoding="utf-8"):
+            q = l.rstrip("\n").split("\t")
+            if len(q) == 2 and q[1].isdigit():
+                extc[q[0]] += int(q[1])
+    if extc:  # outside services loaded by the sites read in this run (top 20,000): a table to vet new Canada-based platforms from
+        _append_state("ext", stamp, ["%s\t%d" % kv for kv in extc.most_common(20000)])
     if n_done or n_seen:
         print("credit scan: %d sites read this run (%s); %d with a credit or a vetted service" % (n_done, ", ".join("%s %d" % kv for kv in st_count.most_common(8)), n_seen))
     # ---- leads: sightings whose vendor is proven in Canada
