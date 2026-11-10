@@ -68,6 +68,7 @@ TENANT_SQL = (r"/[^/]*(our-tenants|tenant-directory|tenant-list|nos-locataires|l
               r"|repertoire-des-(magasins|boutiques|commerces|marchands))([-_.][^/]*)?/?$")
 # "distributors" is left out: a distributor's own page of that name lists the brands it carries (the wrong direction)
 DEALER_SQL = r"/[^/]*(dealers?|where-to-buy|ou-acheter|o%c3%b9-acheter|retailers|stockists|d(e|%c3%a9)taillants|revendeurs|points-de-vente)([-_.][^/]*)?/?$"
+INVESTOR = re.compile(r"ventures?\b|venture capital|capital\b|invest|private equity|\bequity\b|\bfunds?\b|\bfonds\b|holdings?\b|incubat|accelerat|\bangels?\b|placements", re.I)
 MAX_LIST_SEGMENT = 36  # "our-dealers", "2026-golf-tournament-sponsors": a list page has a short last path part; an article slug that merely contains the word does not
 NOT2_SQL = (r"become|devenir|devenez|opportunit|package|forfait|prospectus|application|apply|form|kit|levels|niveaux|sponsorship|commandite|login|log-in|signin|sign-in|account|compte|portal|portail"
             r"|blog|news|nouvelle|article|actualit|press|communiqu|regist|casino|blackjack|poker|betting|roulette|slots"
@@ -98,7 +99,7 @@ def page_class(path):
     p = (path or "").lower()
     if _M1_RX.search(p):
         return "member"
-    if _REL_RX.search(p) and not _NOT_RX.search(p):
+    if rel_path(p) and not _NOT_RX.search(p):
         return "client"
     if not _NOT2_RX.search(p) and len(p.rstrip("/").rsplit("/", 1)[-1]) <= MAX_LIST_SEGMENT:
         if _DL_RX.search(p):
@@ -107,9 +108,18 @@ def page_class(path):
             return "sponsor"
         if _TN_RX.search(p):
             return "tenant"
-    if _MB_RX.search(p) and not _NOT3_RX.search(p):
-        return "member"
+    if _MB_RX.search(p) and not _NOT3_RX.search(p) and len(p.rstrip("/").rsplit("/", 1)[-1]) <= MAX_LIST_SEGMENT:
+        return "member"  # the length rule: ".../david-girouard-et-gilbert-emond-membres-du-temple-de-la-renommee" is a news article, not a directory
     return ""
+
+
+_OURWORK_TOP = re.compile(r"^/(?:(?:en|fr|en-ca|fr-ca)/)?[^/]*our-work")
+
+
+def rel_path(p):
+    """the client-page words of REL_SQL; "our-work" only as the first path part (/our-work/…: a firm's portfolio) — deeper
+    (/advocacy/our-work/policy-areas/…) it is an organisation describing its programmes, and the links there are partners"""
+    return _REL_RX.search(p if _OURWORK_TOP.match(p) else p.replace("our-work", "our-w0rk"))
 
 
 CLASS_TEXT = {"client": "client page of a Canada-located vendor (Common Crawl capture)",
@@ -475,10 +485,17 @@ def leads_of(page, row):
     title = re.sub(r"\s+", " ", re.sub(r"(?s)<[^>]+>", " ", title.group(1))).strip()[:120] if title else ""
     site = re.search(r"(?is)<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=[\"']([^\"']{2,80})[\"']", page[:200_000])
     hits, n_spam = {}, 0
+    try:  # "Website by X" in the footer of a testimonials page: X is the page owner's web vendor (tools/credit_scan.py finds those the right way round)
+        import credit_scan as _CS
+        credited = {c["vh"] for c in _CS.find_credits(page, url)} | {c["v"] for c in _CS.find_credits(page, url)}
+    except Exception:
+        credited = set()
     for href, label in anchors(page, url):
         try:
             h = base(urllib.parse.urlparse(href).hostname)
         except ValueError:
+            continue
+        if h in credited:
             continue
         label = (label or "").strip()
         n_spam += bool(h and h != vhost and (SPAM.search(h) or SPAM.search(label)))
@@ -909,6 +926,26 @@ def merge(a):
                 or (pc == "member" and not _M1_RX.search(path) and n_links < MIN_MEMBER_LINKS)
                 or (pc != "member" and n_links < MIN_LIST_LINKS)):
             drop.append(k)
+    # 2026-11-10 (row audit): (1) a "portfolio" page of an investor lists the companies it invested in, not clients; (2) a web agency named on
+    # a vendor's client page is almost always that vendor's footer credit ("Website by …") — the agencies are known from the credit scan
+    # (credited on the home pages of two or more other sites)
+    try:
+        import credit_scan as _CS
+        _vn = collections.Counter(c["v"] for o in _CS.sightings().values() for c in (o.get("credits") or []))
+    except Exception:
+        _vn = collections.Counter()
+    n_inv = n_cred = 0
+    for k, d in pdet.items():
+        if d.get("platform") != "vendor_site_cc" or (d.get("page_class") or "client") != "client" or k in drop:
+            continue
+        path = urllib.parse.urlparse(d.get("record_url") or "").path.lower()
+        bdom = base(urllib.parse.urlparse((prev.get(k) or {}).get("website") or "").hostname or "")
+        if "portfolio" in path and INVESTOR.search((d.get("page_title") or "") + " " + (d.get("vendor") or "")):
+            drop.append(k); n_inv += 1
+        elif bdom and _vn.get(bdom, 0) >= 2:
+            drop.append(k); n_cred += 1
+    if n_inv or n_cred:
+        print("withdrawn: %d companies listed in an investor's portfolio; %d web agencies named on a client page (footer credits of the page owner)" % (n_inv, n_cred))
     for k in drop:
         prev.pop(k, None)
         pdet.pop(k, None)

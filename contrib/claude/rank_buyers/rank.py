@@ -698,6 +698,8 @@ def apply_details(x, k):
     if d.get("client_label") and re.fullmatch(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", (x.get("buyer") or "").lower()):
         # the lead only carried the domain: the name the Canadian vendor wrote next to its link, kept only when it agrees with that domain
         _lab = re.sub(r"\s+", " ", d["client_label"]).strip(" -–—|:·•")
+        _lab = re.sub(r"\s+\d{1,6}[A-Za-z]?,?\s+(?:[A-Za-zÀ-ÿ0-9.'’-]+\s+){0,2}(?:Chem\.?|Chemin|Rue|Boul\.?|Boulevard|Av\.?|Avenue|Ave\.?|Route|Rte\.?|Rang|Mont[ée]e|Street|St\.?|Road|Rd\.?|Drive|Dr\.?|Blvd\.?|Highway|Hwy\.?|"
+                      r"Way|Lane|Ln\.?|Court|Ct\.?|Crescent|Cres\.?|Place|Pl\.?|C[ôo]te|Principale|Main)(?![A-Za-zÀ-ÿ]).*$", "", _lab).strip(" -–—|:·•,")  # a dealer list prints "Name 1015 Chem. de …": the name only
         _flat = unicodedata.normalize("NFKD", _lab).encode("ascii", "ignore").decode().lower()
         _n, _dl = re.sub(r"[^a-z0-9]", "", _flat), re.sub(r"[^a-z0-9]", "", registrable(host_of(x.get("buyer_website") or x.get("buyer") or "")).split(".")[0])
         _tk = [t for t in re.findall(r"[a-z0-9]{4,}", _flat) if t not in ("home", "accueil", "welcome", "bienvenue", "website", "site", "official", "page", "visit", "www", "http", "https")]
@@ -739,6 +741,11 @@ NOT_PAYER_PATH = re.compile(r"become|devenir|devenez|opportunit|package|forfait|
                             r"|blog|news|nouvelle|article|actualit|press|communiqu|regist|casino|blackjack|poker|betting|roulette|slots|/[^/]{37,}/?$")  # the last alternative: an article slug, not a list page
 # member directories of a Canada-located body (same tests as tools/cc_clients.py): a one-member page of a GrowthZone / ChamberMaster directory, or a member-list page
 MEMBER_ONE_PATH = re.compile(r"^/list/member/[^/]+/?$")
+_OURWORK_TOP = re.compile(r"^/(?:(?:en|fr|en-ca|fr-ca)/)?[^/]*our-work")
+def rel_path(p):
+    """REL_PATH with "our-work" only as the first path part (2026-11-10 row audit: /advocacy/our-work/policy-areas/… is an organisation's programme page; its links are partners)"""
+    return REL_PATH.search(p if _OURWORK_TOP.match(p) else p.replace("our-work", "our-w0rk"))
+INVESTOR = re.compile(r"ventures?\b|venture capital|capital\b|invest|private equity|\bequity\b|\bfunds?\b|\bfonds\b|holdings?\b|incubat|accelerat|\bangels?\b|placements", re.I)
 MEMBER_PATH = re.compile(r"/[^/]*(members|membres|member-directory|membership-directory|member-list|directory-of-members|repertoire-des-membres|liste-des-membres)([-_.][^/]*)?/?$")
 NOT_MEMBER_PATH = re.compile(r"board|council|committee|comit|conseil|team|equipe|%c3%a9quipe|staff|personnel|faculty|executive|ex%c3%a9cutif|directors|administrat|family|famil|only|area|zone|login|log-in|signin|sign-in"
                              r"|account|compte|portal|portail|become|devenir|devenez|join|adh%c3%a9|adhesion|benefit|avantage|application|apply|form|renew|register|inscription|fees|dues|cotisation|tarif|news|nouvelle"
@@ -830,12 +837,14 @@ for k, L in sorted(leads.items(), key=lead_strength):
         pass  # a client logo wall on the vendor's home page, or one of its (undated) customer stories: a client listing by construction
     elif client:  # a link on a Canadian vendor's page: a client listing only on a real client / case-study / references page
         path = urllib.parse.urlparse(L.get("evidence_dataset") or "").path.lower()
-        if MEMBER_ONE_PATH.search(path) or (MEMBER_PATH.search(path) and not NOT_MEMBER_PATH.search(path) and not (REL_PATH.search(path) and not NOT_REL_PATH.search(path))):
-            payer = "member"  # a member directory: the listed party pays dues to the Canada-located body
-        elif not NOT_PAYER_PATH.search(path) and (DEALER_PATH.search(path) or SPONSOR_PATH.search(path) or TENANT_PATH.search(path)) and not (REL_PATH.search(path) and not NOT_REL_PATH.search(path)):
+        if MEMBER_ONE_PATH.search(path) or (MEMBER_PATH.search(path) and not NOT_MEMBER_PATH.search(path) and len(path.rstrip("/").rsplit("/", 1)[-1]) <= 36 and not (rel_path(path) and not NOT_REL_PATH.search(path))):
+            payer = "member"  # a member directory: the listed party pays dues to the Canada-located body (a long slug that merely contains "membres" is an article)
+        elif not NOT_PAYER_PATH.search(path) and (DEALER_PATH.search(path) or SPONSOR_PATH.search(path) or TENANT_PATH.search(path)) and not (rel_path(path) and not NOT_REL_PATH.search(path)):
             payer = "dealer" if DEALER_PATH.search(path) else "sponsor" if SPONSOR_PATH.search(path) else "tenant"  # a customer listing by construction: the listed party pays the Canada-located organisation
-        elif not REL_PATH.search(path) or NOT_REL_PATH.search(path):
+        elif not rel_path(path) or NOT_REL_PATH.search(path):
             client = "other"  # owner's rule (2026-11-01): kept as the weakest relationship package, never mixed with client listings
+        elif "portfolio" in path and INVESTOR.search(((LDET.get(k) or {}).get("page_title") or "") + " " + (L.get("example_vendor") or "")):
+            client = "other"  # an investor's portfolio lists the companies it invested in: a link, not a client relationship
         vh = (urllib.parse.urlparse(L.get("evidence_dataset") or "").hostname or "").lower().removeprefix("www.")
         bh = (urllib.parse.urlparse(L.get("website") or "").hostname or L.get("buyer_name") or "").lower().removeprefix("www.")
         if vh and bh and registrable(vh) == registrable(bh):  # the same organisation linking to itself (sister schools, own departments)
