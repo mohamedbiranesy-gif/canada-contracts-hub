@@ -176,7 +176,7 @@ def queue(k, n, limit=0):
         if os.path.exists(p):
             for r in csv.DictReader(open(p, encoding="utf-8", errors="replace")):
                 add(CS.host_of(r.get("website")), 1)
-    for path, pri in ((CS.GRAPH_IN, 2), (CS.OSM_SITES, 2), (CS.UNIVERSE, 3), (CS.GRAPH_CA, 4)):
+    for path, pri in ((CS.GRAPH_IN, 2), (CS.OSM_SITES, 2), (CS.GRAPH_SHOP, 2), (CS.UNIVERSE, 3), (CS.GRAPH_CA, 4)):
         if os.path.exists(path):
             with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
                 for r in csv.DictReader(fh):

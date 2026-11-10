@@ -418,9 +418,13 @@ def graph(a):
     except Exception as e:
         print("portal domains not loaded: %s" % e, flush=True)
     targets |= tech_t
+    # stores: a domain that links to shopify.com / myshopify.com ("Powered by Shopify" in the footer of the default themes, links to the
+    # shop's own myshopify.com address) is very probably a store on Shopify. They are listed apart (graph_shopify.csv): the DNS lookups confirm
+    # the storefront address, the candidate crawl reads the store's own /meta.json. Not credits, not capped.
+    SHOP_T = {"shopify.com", "myshopify.com"}
     rev = lambda d: ".".join(reversed(d.split(".")))
     with open(W("targets.txt"), "w") as f:
-        f.write("\n".join(sorted(rev(d) for d in targets)) + "\n")
+        f.write("\n".join(sorted(rev(d) for d in targets | SHOP_T)) + "\n")
     print("targets: %d vendor domains proven in Canada" % len(targets), flush=True)
     t0 = time.time()
     sh("%s -o %s %svertices.txt.gz" % (curl, W("v.gz"), base))
@@ -473,7 +477,7 @@ def graph(a):
         q = l.split()
         if len(q) == 2:
             indeg[q[1]] += 1
-    ok_t = {t for t, c in indeg.items() if c <= a.max_indegree or tid.get(t) in tech_t}  # no cap for the vetted portals: their in-links ARE customers
+    ok_t = {t for t, c in indeg.items() if (c <= a.max_indegree or tid.get(t) in tech_t) and tid.get(t) not in SHOP_T}  # no cap for the vetted portals: their in-links ARE customers
     print("links into targets: %d; targets linked: %d; targets with more than %d linking domains (platform-like, left out): %d — %s"
           % (sum(indeg.values()), len(indeg), a.max_indegree, len(indeg) - len(ok_t), ", ".join("%s %d" % (tid.get(t, t), c) for t, c in indeg.most_common(12))), flush=True)
     src, src_tech = collections.Counter(), collections.defaultdict(set)
@@ -488,13 +492,20 @@ def graph(a):
             if tid.get(q[1]) in tech_t:
                 src_tech[q[0]].add(vkey_of.get(tid[q[1]], tid[q[1]]))
     src = {f: c for f, c in src.items() if c <= 5 or f in src_tech}  # a domain linking to many vendors is a directory, not a client
+    shop_ids = {i for i, d in tid.items() if d in SHOP_T}
+    shop_src = set()
+    for l in open(W("hits.txt")):
+        q = l.split()
+        if len(q) == 2 and q[1] in shop_ids and q[0] not in tid:
+            shop_src.add(q[0])
     with open(W("fid.txt"), "w") as f:
-        f.write("\n".join(src) + "\n")
+        f.write("\n".join(set(src) | shop_src) + "\n")
     sh("%s %s | %s 'BEGIN{while((getline l < \"%s\") > 0) t[l]=1} ($1 in t){print $1\"\\t\"$2\"\\t\"$3}' > %s" % (unz, W("v.gz"), awk, W("fid.txt"), W("fv.txt")))
-    n_in = 0
-    with open("out/graph_inlinks.csv", "w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
+    n_in = n_shop = 0
+    with open("out/graph_inlinks.csv", "w", newline="", encoding="utf-8") as f, open("out/graph_shopify.csv", "w", newline="", encoding="utf-8") as fsh:
+        w, wsh = csv.writer(f), csv.writer(fsh)
         w.writerow(["dom", "targets", "hosts", "tech"])
+        wsh.writerow(["dom", "hosts"])
         for l in open(W("fv.txt"), encoding="utf-8", errors="replace"):
             q = l.split()
             if len(q) < 2 or not re.fullmatch(r"[a-z0-9.-]+", q[1]) or q[1].count(".") > 3:
@@ -506,13 +517,19 @@ def graph(a):
                 hosts = 1
             if hosts > 30 or PLATFORM.search(d):
                 continue
-            w.writerow([d, src.get(q[0], 1), hosts, ",".join(sorted(src_tech.get(q[0], ())))])
-            n_in += 1
+            if q[0] in shop_src:
+                wsh.writerow([d, hosts])
+                n_shop += 1
+            if q[0] in src:
+                w.writerow([d, src.get(q[0], 1), hosts, ",".join(sorted(src_tech.get(q[0], ())))])
+                n_in += 1
+    print("graph %s: %d domains link to shopify.com / myshopify.com (store candidates for the DNS lookups)" % (rel, n_shop), flush=True)
     print("graph %s: %d domains link to a vendor proven in Canada (1-5 such vendors each); %d of them link to a vetted customer portal: %s"
           % (rel, n_in, len(src_tech), dict(collections.Counter(v for vs in src_tech.values() for v in vs))), flush=True)
 
 
 OSM_SITES = os.path.join(DIR, "osm_sites.csv.gz")  # websites of OpenStreetMap objects in Canada (shops, offices, clinics, restaurants …), any TLD
+GRAPH_SHOP = os.path.join(DIR, "graph_shopify.csv.gz")  # domains that link to shopify.com / myshopify.com (web graph): store candidates
 
 
 def osm(a):
@@ -570,7 +587,7 @@ def osm(a):
 def merge_graph(a):
     os.makedirs(DIR, exist_ok=True)
     for name, path, cols in (("graph_ca_domains.csv", GRAPH_CA, ["dom", "hosts"]), ("graph_inlinks.csv", GRAPH_IN, ["dom", "targets", "hosts", "tech"]),
-                             ("osm_sites.csv", OSM_SITES, ["dom", "name", "city", "province", "postcode", "kind", "objects"])):
+                             ("osm_sites.csv", OSM_SITES, ["dom", "name", "city", "province", "postcode", "kind", "objects"]), ("graph_shopify.csv", GRAPH_SHOP, ["dom", "hosts"])):
         rows = {}
         if os.path.exists(path):
             with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
