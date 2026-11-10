@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-10 00:49 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-10 01:02 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-10)
 | metric | value |
@@ -59,6 +59,7 @@
 | claude | claude_buyer_ap_results_xverify02.csv | 9 | 9 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_xverify03.csv | 17 | 17 | 0 | 0 | 0 |
 | claude | claude_buyer_leads.csv | 70990 | 0 | 0 | 0 | 70990 |
+| claude | claude_buyer_leads_cc.csv | 4437 | 0 | 0 | 0 | 4437 |
 | claude | claude_charity_buyers.csv | 7454 | 0 | 0 | 0 | 7454 |
 | claude | claude_crown_bn.csv | 4 | 0 | 0 | 0 | 4 |
 | claude | claude_gc_recipients.csv | 3668 | 0 | 0 | 0 | 3668 |
@@ -307,7 +308,7 @@
 - buyers with team findings: 77299 (with at least one verified e-mail/portal: 74992)
 - vendors with team findings: 15607
 - QA rows: 200
-- counters: {'files': 272, 'buyer_findings_verified': 95524, 'buyer_findings_verified_on_archive_copy': 5841, 'buyer_findings_not_found_on_page': 2778, 'buyer_findings_unverified_page_unavailable': 1090, 'buyer_findings_not_found_on_page_hidden': 470, 'buyer_findings_rejected_personal_or_invalid': 70, 'vendor_emails_not_found_on_page': 418, 'vendor_emails_not_found_on_page_hidden': 426, 'vendor_emails_verified': 4433, 'vendor_emails_unverified_page_unavailable': 352, 'buyer_findings_cross_verified': 13, 'verify_tasks_chatgpt': 111, 'verify_tasks_gemini': 424, 'verify_tasks_jules': 9}
+- counters: {'files': 273, 'buyer_findings_verified': 95524, 'buyer_findings_verified_on_archive_copy': 5841, 'buyer_findings_not_found_on_page': 2778, 'buyer_findings_unverified_page_unavailable': 1090, 'buyer_findings_not_found_on_page_hidden': 470, 'buyer_findings_rejected_personal_or_invalid': 70, 'vendor_emails_not_found_on_page': 418, 'vendor_emails_not_found_on_page_hidden': 426, 'vendor_emails_verified': 4433, 'vendor_emails_unverified_page_unavailable': 352, 'buyer_findings_cross_verified': 13, 'verify_tasks_chatgpt': 111, 'verify_tasks_gemini': 424, 'verify_tasks_jules': 9}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
