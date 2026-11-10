@@ -45,7 +45,16 @@ CONTEXT_AP = re.compile(r"(?<!manu)factur|invoice|payable|comptes? (à|a) payer|
 BLOCK_RX = re.compile(r"captcha|cf-challenge|challenge-platform|attention required|access denied|are you a robot", re.I)
 FIN_NOT = re.compile(r"aid|bourse|scholar|tuition|student|etudiant|soutien|financement|funding|grant|subvention|invest|sustainab|"
                      r"bank|loan|pret|credit|donat|fondation|foundation|japan|china|europe|client", re.I)  # not the buyer's payables
-RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "finance": 3, "procurement": 4, "general": 5}
+RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "finance": 3, "procurement": 4, "general": 5, "role": 6}
+# owner rule 2026-10-28: "not_published only when the organisation publishes no role mailbox at all". 2026-11-10: two thirds of the lead sites read in
+# the cloud gave "nothing found" because small organisations publish sales@ / service@ / orders@ / team@ instead of info@. Those front-office role
+# mailboxes count as the last resort (opt-in: general="any"; kept only when the site has no invoicing, AP, purchasing, finance or general mailbox;
+# written as ap_email_type=general with a note). An explicit list: a single first name (john@) is never a role.
+OTHER_ROLE = re.compile(r"^(sales|ventes?|service|services|serviceclient|service-client|service\.client|serviceclientele|sac|customerservice|customer-service|customer\.service|customercare|"
+                        r"customer|clients?|clientele|support|soutien|help|aide|team|equipe|mail|email|e-mail|courriel|courrier|hi|bonjour|allo|salut|welcome|bienvenue|connect|enquiry|inquiry|"
+                        r"inquire|ask|questions?|demandes?|requests?|orders?|commandes?|bookings?|reservations?|reserve|frontdesk|front-desk|front\.desk|main|mainoffice|headoffice|head-office|"
+                        r"head\.office|siege|corporate|management|direction|dg|gm|operations|ops|shop|store|boutique|magasin|estimates?|quotes?|soumissions?|devis|rentals?|parts|pieces)"
+                        r"(\d{0,2})([._-](info|general|office|team|ca|canada|qc|on|bc|ab|mtl|montreal|toronto|ottawa|quebec|vancouver|calgary|edmonton|winnipeg|halifax))?$", re.I)
 GENERAL = re.compile(r"^(info|contact|contactus|reception|admin|administration|general|greffe|mairie|municipalite|townhall|cityhall|clerk|office|bureau|secretariat|accueil|hello|inquiries|enquiries|renseignements)([._-]|$)", re.I)
 TODAY = datetime.date.today().isoformat()
 
@@ -219,7 +228,9 @@ def classify(email, context, general=False):
     if NOT_AP.search(local):
         return None
     if not AP_LOCAL.search(local):  # owner rule (2026-10-28): a general role mailbox only when no AP/procurement one
-        return "general" if general and GENERAL.search(local) and EMAIL.match(email) else None
+        if general and GENERAL.search(local) and EMAIL.match(email):
+            return "general"
+        return "role" if general == "any" and OTHER_ROLE.search(local) and EMAIL.match(email) else None
     if not EMAIL.match(email) or (PERSONAL.match(local) and not ROLE_HINT.search(local)):
         return None
     if re.search(r"(?<!manu)factur|invoice", local, re.I):
@@ -481,13 +492,18 @@ def crawl(task, max_pages, general=False):
                 continue
             if score > 0:
                 heapq.heappush(heap, (-score * 10 + depth, depth + 1, link))
+    if any(v[1] != "role" for v in found.values()):  # a front-office role mailbox only when the site publishes nothing better
+        found = {e: v for e, v in found.items() if v[1] != "role"}
     best = sorted(found.items(), key=lambda kv: kv[1][0])[:3]
+    if best and best[0][1][1] == "role":
+        best = best[:1]
     rows = [{"task_id": task["task_id"], "buyer_key": task["buyer_key"], "org_name_as_found": task["buyer_name"],
-             "ap_email": e, "ap_email_type": "general" if kind == "finance" else kind, "invoice_portal_url": "", "ap_phone": "", "invoice_mailing_address": "",
+             "ap_email": e, "ap_email_type": "general" if kind in ("finance", "role") else kind, "invoice_portal_url": "", "ap_phone": "", "invoice_mailing_address": "",
              "invoicing_requirements_summary": "", "applies_to": "whole_organisation", "evidence_url": url,
              "evidence_quote": q, "retrieved_date": TODAY, "status": "found",
              "queries_tried": "site crawl of %s (%d pages, robots.txt respected), no AI, no search engine" % (host0, pages),
              "notes": "found on the buyer's own site by tools/ap_crawler.py" + ("; general role mailbox: no invoicing, AP or purchasing mailbox found on the site" if kind == "general" else
+                                                                                "; front-office role mailbox (sales / service / orders / team): the site publishes no invoicing, AP, purchasing or general mailbox" if kind == "role" else
                                                                                 "; finance / accounting department mailbox: no invoicing or AP mailbox published on the site" if kind == "finance" else "")} for e, (_, kind, url, q) in best]
     return ("found" if rows else "nothing_found"), pages, rows
 

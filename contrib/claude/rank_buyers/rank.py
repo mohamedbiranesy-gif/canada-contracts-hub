@@ -47,7 +47,10 @@ ROLEISH = re.compile(r"(?<!manu)factur|invoic|bill|payable|compt|account|financ|
                      r"police|fire|incendie|securite|safety|sante|health|hr$|rh$|paie|payroll|legal|juridique|planning|permis|permit|"
                      r"water|eau|aqueduc|egout|sewer|waste|dechet|matieres|council|conseil|board|commission|municipalit|village|canton|"
                      r"paroisse|county|comte|regie|corporation|society|societe|association|federation|institut|universit|college|cegep|ecole|school|"
-                     r"customer|care|client|rfp|rfq|procserv|^proc|invsub|inv[._-]sub|guichet|adjoint|^fin$|^acc$|^accts?$|^acct$|^pay$|^inv$|^fact$|^ar$|^cp$|^cap$|^finance$|^payables?$", re.I)
+                     r"customer|care|client|rfp|rfq|procserv|^proc|invsub|inv[._-]sub|guichet|adjoint|^fin$|^acc$|^accts?$|^acct$|^pay$|^inv$|^fact$|^ar$|^cp$|^cap$|^finance$|^payables?$|"
+                     # 2026-11-10: the front-office role mailboxes tools/ap_crawler.py keeps as the last resort (OTHER_ROLE: sales@, bookings@, bonjour@ …)
+                     r"sales|vente|bonjour|^allo$|^salut$|welcome|bienvenue|connect|^ask$|question|demande|request|booking|reserv|siege|corporate|management|^gm$|^ops$|^shop|^store|"
+                     r"boutique|magasin|estimat|^quotes?$|^devis$|rental|^parts$|^pieces$|courriel|^sac$|^hi$|^main$", re.I)
 STRONG_ANY = re.compile(r"(?<!manu)factur|invoic|payable|comptesapayer|accountspayable|comptespayables|apinvoice|invsub", re.I)
 try:
     from buyer_pages import FIRST_NAMES as _FIRST

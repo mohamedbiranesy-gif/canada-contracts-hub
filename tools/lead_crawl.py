@@ -161,7 +161,14 @@ def host_of(site):
 
 def leads_mode(a, k, n):
     install_hooks()
-    done = {l.split("\t")[0] for l in open(DONE, encoding="utf-8")} if os.path.exists(DONE) else set()
+    # 2026-11-10 (rule "r2"): front-office role mailboxes (sales@, service@, orders@ …) count when a site publishes nothing better; the sites that
+    # gave "nothing_found" under the first rule are read once more (their done line has no "r2" mark)
+    done = set()
+    if os.path.exists(DONE):
+        for l in open(DONE, encoding="utf-8"):
+            q = l.rstrip("\n").split("\t")
+            if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and "r2" not in q[5:]):
+                done.add(q[0])
     # 2026-11-10: the leads found from the owner's Mac (claude_buyer_leads.csv) can be read here too: 33,600 of them have a website and no
     # mailbox row yet, and the Mac's own crawler is off. A lead that already has a mailbox row in any lane's results file is not read again.
     known = set()
@@ -216,7 +223,7 @@ def leads_mode(a, k, n):
         st = {"host": host_of(t["known_website"])}
         _tl.st = st
         try:
-            result, pages, rows = C.crawl(t, a.max_pages, general=True)
+            result, pages, rows = C.crawl(t, a.max_pages, general="any")
         except Exception as e:
             result, pages, rows = "error:%s" % type(e).__name__, 0, []
         _tl.st = None
@@ -231,14 +238,15 @@ def leads_mode(a, k, n):
             w.writerows(rows)
             if rows and (st.get("name") or st.get("addr")):
                 ff.write(facts_line(t["buyer_key"], t["known_website"], st))
-            fd.write("%s\t%s\t%s\t%d\t%d\n" % (t["buyer_key"], TODAY, result, pages, len(rows)))
+            stats["front_office_role_only"] = stats.get("front_office_role_only", 0) + bool(rows and "front-office role mailbox" in (rows[0].get("notes") or ""))
+            fd.write("%s\t%s\t%s\t%d\t%d\tr2\n" % (t["buyer_key"], TODAY, result, pages, len(rows)))
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), stats, flush=True)
 
     def on_timeout(t):
         with lock:
-            fd.write("%s\t%s\ttimeout\t0\t0\n" % (t["buyer_key"], TODAY))
+            fd.write("%s\t%s\ttimeout\t0\t0\tr2\n" % (t["buyer_key"], TODAY))
             stats["errors"] += 1
     left = run_pool(tasks, one, a, deadline, on_timeout)
     with lock:
@@ -261,7 +269,12 @@ def candidates_mode(a, k, n):
             return bool(info)
         except Exception:
             return False
-    done = {l.split("\t")[0] for l in open(TDONE, encoding="utf-8")} if os.path.exists(TDONE) else set()
+    done = set()
+    if os.path.exists(TDONE):  # candidates that gave "nothing_found" before the front-office role rule (no "r2" mark) are read once more
+        for l in open(TDONE, encoding="utf-8"):
+            q = l.rstrip("\n").split("\t")
+            if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and "r2" not in q[6:]):
+                done.add(q[0])
     tasks, hosts = [], set()
     with gzip.open(a.candidates, "rt", encoding="utf-8", newline="") as fh:
         for r in csv.DictReader(fh):
@@ -293,7 +306,7 @@ def candidates_mode(a, k, n):
         c, st = t["_c"], {"host": host_of(t["known_website"])}
         _tl.st = st
         try:
-            result, pages, rows = C.crawl(t, a.max_pages, general=True)
+            result, pages, rows = C.crawl(t, a.max_pages, general="any")
         except Exception as e:
             result, pages, rows = "error:%s" % type(e).__name__, 0, []
         _tl.st = None
@@ -343,14 +356,14 @@ def candidates_mode(a, k, n):
                 w.writerows(rows)
                 fl.write(json.dumps(rec, ensure_ascii=False) + "\n")
                 ff.write(facts_line(key, t["known_website"], dict(st, name=name)))
-            fd.write("%s\t%s\t%s\t%d\t%d\t%s\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
+            fd.write("%s\t%s\t%s\t%d\t%d\t%s\tr2\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush(); fl.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
 
     def on_timeout(t):
         with lock:
-            fd.write("%s\t%s\ttimeout\t0\t0\t%s\n" % (t["buyer_key"], TODAY, t["_c"]["vendor_key"]))
+            fd.write("%s\t%s\ttimeout\t0\t0\t%s\tr2\n" % (t["buyer_key"], TODAY, t["_c"]["vendor_key"]))
             stats["timeout"] += 1
     left = run_pool(tasks, one, a, deadline, on_timeout)
     with lock:
