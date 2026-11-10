@@ -174,7 +174,7 @@ jobs:
       - name: Read each site's home page for its credit line and the vetted Canada-HQ services
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
-          python3 tools/credit_scan.py scan --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 120 --limit "$LIMIT"
+          python3 tools/credit_scan.py scan --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 160 --limit "$LIMIT"
       - uses: actions/upload-artifact@v4
         with: { name: "cs-scan-${{ matrix.k }}", path: out/, retention-days: 3 }
 

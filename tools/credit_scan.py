@@ -26,7 +26,7 @@ the page; D: a design verb alone ("designed by", "conception :", "une réalisati
 "propulsé par": only in the footer zone, vendors with a free plan excluded. Sponsors, donors, hosts of events, themes, photo credits,
 "developed by" / "built by" without a web noun (real-estate developers, builders) are not credits.
 """
-import argparse, collections, csv, glob, gzip, hashlib, html, json, os, random, re, sys, threading, time, urllib.parse, urllib.robotparser
+import argparse, collections, csv, glob, gzip, hashlib, html, json, os, random, re, sys, threading, time, urllib.error, urllib.parse, urllib.request, urllib.robotparser
 
 csv.field_size_limit(1 << 30)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -209,9 +209,33 @@ def decode(data, ctype):
         return data.decode("utf-8", "replace")
 
 
+FAST_TIMEOUT = 10
+
+
+def fast_fetch(url, limit=1_500_000, _hops=0):
+    """(status, content type, bytes, final url) for the scan: each site is met once, so no per-host waiting list; a 10-second timeout, because
+    a list of a million domains holds many that no longer answer (ap_crawler.fetch waits 20 s and keeps a growing table of hosts)"""
+    req = urllib.request.Request(url, headers={"User-Agent": C.UA, "Accept-Language": "fr-CA,fr;q=0.9,en;q=0.8"})
+    try:
+        with urllib.request.urlopen(req, timeout=FAST_TIMEOUT) as r:
+            return r.status, r.headers.get("content-type", ""), r.read(limit), r.geturl()
+    except urllib.error.HTTPError as e:
+        return e.code, "", b"", url
+    except Exception as ex:
+        msg, p = str(ex).lower(), urllib.parse.urlparse(url)
+        if _hops == 0 and p.scheme == "https" and ("ssl" in msg or "certificate" in msg or "handshake" in msg or "eof" in msg):
+            return fast_fetch("http://" + url[8:], limit, 1)  # broken TLS on a small site: the plain-http copy is the same public page
+        if _hops == 0 and ("nodename" in msg or "name or service" in msg or "getaddrinfo" in msg or "no address" in msg) and p.hostname and not p.hostname.startswith("www."):
+            return fast_fetch(url.replace("://" + p.hostname, "://www." + p.hostname, 1), limit, 1)  # bare host without a DNS record, www. has one
+        return 0, "", b"", url
+
+
+_fetch = C.fetch  # the vendor step reads several pages of one site: ap_crawler's polite fetch (one request per second per host); the scan switches to fast_fetch
+
+
 def robots_ok(root, url):
     """(allowed, reachable). No shared cache: a scan meets each host once."""
-    st, _, data, _ = C.fetch(root + "robots.txt", 300_000)
+    st, _, data, _ = _fetch(root + "robots.txt", 300_000)
     if st in (401, 403):
         return False, True
     if st == 0:
@@ -236,7 +260,7 @@ def get_page(url, check_robots=True):
             return "unreachable", url, ""
         if not ok:
             return "robots", url, ""
-    st, ctype, data, final = C.fetch(url, 1_500_000)
+    st, ctype, data, final = _fetch(url, 1_500_000)
     if st == 0:
         return "unreachable", final, ""
     head = data[:20000].decode("utf-8", "replace") if data else ""
@@ -621,6 +645,8 @@ def scan_queue(k, n, limit=0):
 def scan(a):
     import lead_crawl as LC
     import tech_relationships as T
+    global _fetch
+    _fetch = fast_fetch
     k, n = CCL.shard_of(a)
     os.makedirs("out", exist_ok=True)
     tasks, n_done = scan_queue(k, n, a.limit)
