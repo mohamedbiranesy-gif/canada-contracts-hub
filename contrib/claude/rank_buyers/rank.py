@@ -2066,6 +2066,10 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_registry_bulk.csv"):  # t
                 CBR[_r["kind"]][_k] = _r; n_bulk += 1
             elif _r["juri_id"].startswith("NEQ") and not (CBR[_r["kind"]][_k].get("juri_id") or "").startswith("NEQ"):
                 CBR[_r["kind"]][_k]["_neq"] = _r["juri_id"]; CBR[_r["kind"]][_k]["_neq_src"] = _r.get("registry_source") or ""  # the API row has the BN, the REQ row the NEQ: keep both
+            elif (_r.get("bn9") or "").strip() and not (CBR[_r["kind"]][_k].get("bn9") or "").strip():
+                # 2026-11-10: the reverse case — the API row is the REQ record (no BN), the open-data row is Corporations Canada (BN). An API run on
+                # 2026-11-09 made the REQ row primary for "Dassault Systèmes (Canada)" and 64 rows lost their BN9. Keep the BN with its own source.
+                CBR[_r["kind"]][_k]["_bn9_other"] = _r["bn9"].strip(); CBR[_r["kind"]][_k]["_bn9_other_src"] = "%s, %s, %s" % (_r.get("registry_source") or "registry open data", _r.get("juri_id") or "", _r.get("retrieved_date") or "")
 print("registry bulk rows added (no API row for the key):", n_bulk)
 n_cbr = collections.Counter()
 for x in rows:
@@ -2081,6 +2085,10 @@ for x in rows:
             x["vendor_bn9"] = "%s (%s)" % (c["bn9"], src); x["vendor_bn_source"] = x.get("vendor_bn_source") or "registry: " + src; n_cbr["vendor_bn9"] += 1
             if not x.get("vendor_gst_hst_derived"):
                 x["vendor_gst_hst_derived"] = c["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
+        elif c.get("_bn9_other") and not x.get("vendor_bn9"):  # the BN from the other registry record of the same name (see the loader above)
+            x["vendor_bn9"] = "%s (%s)" % (c["_bn9_other"], c["_bn9_other_src"]); x["vendor_bn_source"] = x.get("vendor_bn_source") or "registry: " + c["_bn9_other_src"]; n_cbr["vendor_bn9_other_registry"] += 1
+            if not x.get("vendor_gst_hst_derived"):
+                x["vendor_gst_hst_derived"] = c["_bn9_other"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
         if not x.get("vendor_legal_name") and c.get("matched_name"):
             x["vendor_legal_name"] = "%s (as registered: %s)" % (c["matched_name"], src); n_cbr["vendor_legal_name"] += 1
         if not x.get("vendor_registered_address") and (c.get("reg_office_address") or c.get("reg_office_city") or c.get("reg_office_province")):
