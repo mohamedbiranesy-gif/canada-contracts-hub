@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-09 22:45Z — PLAN_2027-01 week 1; first growth delta measured)
+# STATE.md — Claude lane (updated 2026-11-10 00:45Z — PLAN_2027-01 week 1; cloud ROW FACTORY live)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,20 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 00:45Z — rows were flat because the row factories were off; cloud factory live (owner 19:18 EST, Fable 5.2 session)
+- Diagnosis: ranked universe 66,693 buyers, 63,641 with a mailbox → no head-room without NEW buyers. Lead scanners only ran on the Mac (last output
+  Nov 8 16:34Z); 34 lane PRs open since Nov 2–7 (no source merged since Nov 7).
+- Built + launched `row-factory.yml` (tools/cc_clients.py, tools/lead_crawl.py; rank.py reads claude_buyer_leads_cc.csv). Index scan done 00:38Z:
+  66,321 client pages on 28,538 .ca vendor domains (Common Crawl CC-MAIN-2026-43). First cycle (extract → leads → mailbox crawl → referee) started
+  00:40Z, run 42730092295; schedule: every 3 h at :17. Expect the first new rows in the build after the first referee pass.
+- PR review (34 open): salvaged to main the rule-compliant stranded records — PSPC standing offers 7,099 ongoing (was 178), Vermont payments 2,574
+  (68 agencies), Baton Rouge 203, Chicago 13 (buyer = City of Chicago - department), UNOPS 14; rebuild dispatched 00:38Z. Held with reasons in the
+  commit message (rule 1 violations: Québec cities 28,899, Manitoba, Edmonton; duplicates; Socrata sweep to be re-cut per portal — next gear a).
+- Fixed: vendor BN9 −64 (REQ row had replaced the Corporations Canada row for one vendor; BN now carried with its own source).
+- RISK found: my wake-ups (send_later) are bound to the owner's Mac ("bound_device"); the 18:57Z one was consumed without a turn while the Mac was
+  off. The cloud engines do not need me, but my integration turns may not fire with the Mac off — tell the owner; fall-back = his message from the phone.
+- Pilot sample: ready (230 rows, layer-1 dossiers for all, layer 2 for the 30 Gold); S2/S5 targeted reads optional.
 
 ## 22:45Z — first growth measurement; Gold dossiers complete
 - Build 19:39Z (b1ca4b3) vs baseline: pay on sight 835 (+2) / 835 (−6) / routed 22,267 (−74); Gold A 227 (+2); 101/438 (+1). The −74 routed is the
