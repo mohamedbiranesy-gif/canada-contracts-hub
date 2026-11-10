@@ -226,6 +226,21 @@ def run_pool(tasks, one, a, deadline, on_timeout):
     return len(pending)
 
 
+# Every Shopify store has these generated pages. "Contact information" prints the trade name, e-mail and address the merchant entered (first
+# candidate crawls: 54 % of stores gave no mailbox from the linked pages alone). The privacy policy names the address to write to: measured
+# 2026-11-10 on 120 stores that had given no mailbox, 22 print one of their own domain there, about two thirds of them a role mailbox.
+STORE_PAGES = ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy", "policies/privacy-policy")
+
+
+def store_task(second_look):
+    """reading limits of a store (every request goes through the one queue towards Shopify's network): the home page, then the generated
+    pages, and the reading stops once two pages are read and a mailbox is on file. A store that gave no mailbox before the privacy-policy
+    page was part of the list gets that one page, nothing else."""
+    if second_look:
+        return {"_no_sitemap": True, "_max_pages": 1, "_only_paths": ("policies/privacy-policy",)}
+    return {"_no_sitemap": True, "_max_pages": 7, "_stop_found": 2}
+
+
 def shard_ok(h, k, n):
     return int(hashlib.sha1(h.encode()).hexdigest(), 16) % n == k
 
@@ -474,7 +489,7 @@ def candidates_mode(a, k, n):
         if any(t in lab or t in flat(name) for t in ptoks):
             return True, "the portal page names the same organisation"
         return False, "portal_of_another_organisation"
-    done = set()
+    done, second_look = set(), set()
     if True:  # candidates that gave "nothing_found" before the front-office role rule (no "r2" mark) are read once more
         latest = {}
         for l in CT.tenant_done_lines(TDONE):  # the old single file, then the shards of tenant_state/ (the latest line of a candidate decides)
@@ -482,7 +497,9 @@ def candidates_mode(a, k, n):
             if q and q[0]:
                 latest[q[0]] = q
         for q in latest.values():
-            if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and ("r2" not in q[6:] or (len(q) > 5 and q[5] == "shopify" and "p2" not in q[6:]))) \
+            if len(q) > 5 and q[5] == "shopify" and q[2] == "nothing_found" and "p2" in q[6:] and "p3" not in q[6:]:
+                second_look.add(q[0])  # a store read before the privacy-policy page was part of the reading: that one page is read, nothing else
+            if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and ("r2" not in q[6:] or (len(q) > 5 and q[5] == "shopify" and "p3" not in q[6:]))) \
                     and not (len(q) > 5 and q[2].startswith("out_of_scope") and q[5] in ("jane", "jobber") and "s2" not in q[6:]) \
                     and not (len(q) > 5 and q[5] == "shopify" and q[2] in ("blocked", "no_address", "service_not_seen", "no_name") and "b2" not in q[6:]):
                 done.add(q[0])  # Jane / Jobber candidates refused as "out of scope" before their terms were read (one contracting entity for every country) are read once more
@@ -501,9 +518,9 @@ def candidates_mode(a, k, n):
                           "known_website": "https://%s/" % h, "_c": r,
                           # every Shopify store has these generated pages; "contact information" prints the trade name, e-mail and address the merchant entered
                           # (first candidate crawls: 54 % of stores gave no mailbox from the linked pages alone)
-                          "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy") if r["vendor_key"] == "shopify" else (),
-                          # a store: its sitemap lists products, and every request goes through the one queue towards Shopify's network — home page + four policy / contact pages
-                          **({"_no_sitemap": True, "_max_pages": 6} if r["vendor_key"] == "shopify" else {})})
+                          "_extra_paths": STORE_PAGES if r["vendor_key"] == "shopify" else (),
+                          # a store: its sitemap lists products, and every request goes through the one queue towards Shopify's network (store_task)
+                          **(store_task(r["cand_key"] in second_look) if r["vendor_key"] == "shopify" else {})})
     # stores the DNS lookups found on Shopify's storefront addresses (tools/dns_services.py): candidates made here, never written to the
     # candidates file (they number in the hundreds of thousands); their done lines go to the shards like every other candidate's
     n_dns = n_my = 0
@@ -537,7 +554,7 @@ def candidates_mode(a, k, n):
                      "name_basis": "", "website_basis": "the domain's address record points to Shopify's storefront network (A %s, looked up %s)" % (o.get("a") or "", o.get("t") or ""),
                      "slug": "asset", "extra": "{}"}
                 dns_tasks.append({"task_id": "TN-" + hashlib.sha1(ck.encode()).hexdigest()[:10], "buyer_key": ck, "buyer_name": h, "known_website": "https://%s/" % h, "_c": r,
-                                  "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy"), "_no_sitemap": True, "_max_pages": 6})
+                                  "_extra_paths": STORE_PAGES, **store_task(ck in second_look)})
                 n_dns += 1
         except Exception as e:
             dns_tasks = []
@@ -562,7 +579,7 @@ def candidates_mode(a, k, n):
                     r = {"cand_key": ck, "vendor_key": "shopify", "name": "", "website": "https://%s/" % h, "evidence_url": "https://%s/meta.json" % h, "capture": TODAY,
                          "name_basis": "", "website_basis": "the store's own myshopify.com address (%s, a host name of the web graph) answers with this domain as its own" % h, "slug": "asset", "extra": "{}"}
                     tasks.append({"task_id": "TN-" + hashlib.sha1(ck.encode()).hexdigest()[:10], "buyer_key": ck, "buyer_name": h, "known_website": "https://%s/" % h, "_c": r,
-                                  "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy"), "_no_sitemap": True, "_max_pages": 6})
+                                  "_extra_paths": STORE_PAGES, **store_task(False)})
                     n_my += 1
             except Exception as e:
                 print("myshopify.com addresses not loaded: %s" % e, flush=True)
@@ -618,7 +635,7 @@ def candidates_mode(a, k, n):
                     with lock:
                         stats["sites"] += 1
                         stats["myshopify_" + why] += 1
-                        fd.write("%s\t%s\t%s\t1\t0\t%s\tr2\ts2\tp2\tb2\n" % (t["buyer_key"], TODAY, why + (":" + own if own and why == "known_store" else ""), vkey))
+                        fd.write("%s\t%s\t%s\t1\t0\t%s\tr2\ts2\tp2\tb2\tp3\n" % (t["buyer_key"], TODAY, why + (":" + own if own and why == "known_store" else ""), vkey))
                     return
                 t["known_website"] = "https://%s/" % own
                 st["host"], mu = own, "https://%s/meta.json" % own
@@ -631,7 +648,7 @@ def candidates_mode(a, k, n):
                     stats["sites"] += 1
                     stats["out_of_scope"] += 1
                     stats["shopify_meta_json"] += 1
-                    fd.write("%s\t%s\tout_of_scope:%s\t1\t0\t%s\tr2\ts2\tp2\tb2\n" % (t["buyer_key"], TODAY, mcc, vkey))
+                    fd.write("%s\t%s\tout_of_scope:%s\t1\t0\t%s\tr2\ts2\tp2\tb2\tp3\n" % (t["buyer_key"], TODAY, mcc, vkey))
                 return
         try:
             result, pages, rows = C.crawl(t, t.get("_max_pages") or a.max_pages, general="any")
@@ -696,7 +713,7 @@ def candidates_mode(a, k, n):
                 w.writerows(rows)
                 fl.write(json.dumps(rec, ensure_ascii=False) + "\n")
                 ff.write(facts_line(key, t["known_website"], dict(st, name=name)))
-            fd.write("%s\t%s\t%s\t%d\t%d\t%s\tr2\ts2\tp2\tb2\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
+            fd.write("%s\t%s\t%s\t%d\t%d\t%s\tr2\ts2\tp2\tb2\tp3\n" % (t["buyer_key"], TODAY, res, pages, len(rows), vkey))
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush(); fl.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)

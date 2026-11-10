@@ -533,14 +533,19 @@ def crawl(task, max_pages, general=False):
         heap.append((-60 + i, 1, "https://%s/%s" % (host0, path)))
     for i, path in enumerate(task.get("_extra_paths") or ()):  # pages a caller knows this kind of site has (a Shopify store's /policies/contact-information)
         heap.append((-95 + i, 1, "https://%s/%s" % (host0, path.lstrip("/"))))
+    if task.get("_only_paths"):  # a second look at a site already read: these pages and nothing else (depth 9: their links are not followed)
+        heap = [(-95 + i, 9, "https://%s/%s" % (host0, path.lstrip("/"))) for i, path in enumerate(task["_only_paths"])]
+    stop_found = task.get("_stop_found") or 0  # a caller that pays for every request: stop once this many pages are read and a mailbox better than a front-office role is on file
     root = "%s://%s/" % (urllib.parse.urlparse(start).scheme, urllib.parse.urlparse(start).netloc)
-    if allowed(root) and not task.get("_no_sitemap"):  # the sitemap reveals deep invoicing / supplier pages (a store's sitemap lists products: a caller may skip it)
+    if allowed(root) and not task.get("_no_sitemap") and not task.get("_only_paths"):  # the sitemap reveals deep invoicing / supplier pages (a store's sitemap lists products: a caller may skip it)
         for i, u in enumerate(sitemap_urls(root)):
             if (urllib.parse.urlparse(u).hostname or "").lower().endswith(base):
                 heap.append((-98 + i, 1, u))
     heapq.heapify(heap)
     t_end = task.get("_deadline") or 0  # optional wall-clock budget for one site (tools/lead_crawl.py: a slow site must not hold a cloud runner)
     while heap and pages < max_pages and not (t_end and time.time() > t_end):
+        if stop_found and pages >= stop_found and any(v[1] != "role" for v in found.values()):
+            break
         neg, depth, url = heapq.heappop(heap)
         url = url.split("#")[0]
         if url in seen:

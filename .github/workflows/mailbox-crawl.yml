@@ -64,7 +64,7 @@ jobs:
           # contracting party of stores in Canada and the United States; stores elsewhere end after one request (/meta.json gives the country).
           mkdir -p stores
           if [ -s data/incoming/claude/claude_tenant_candidates.csv.gz ]; then
-            ( cd stores && python3 ../tools/lead_crawl.py --candidates ../data/incoming/claude/claude_tenant_candidates.csv.gz --vendors shopify --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 8 --max-pages 12 --dns-stores 4000 --myshopify 300 > store.log 2>&1 ) &
+            ( cd stores && python3 ../tools/lead_crawl.py --candidates ../data/incoming/claude/claude_tenant_candidates.csv.gz --vendors shopify --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 8 --max-pages 12 --dns-stores 6000 --myshopify 300 > store.log 2>&1 ) &
           fi
           python3 tools/lead_crawl.py --leads data/incoming/claude/claude_buyer_leads_cc.csv,data/incoming/claude/claude_buyer_leads.csv --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 120 --max-pages 25 --registry "$REGISTRY" --registry2 8000
           wait || true
