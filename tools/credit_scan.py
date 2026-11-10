@@ -47,7 +47,14 @@ PLATFORM = re.compile(r"(^|\.)(blogspot|wordpress|wixsite|weebly|squarespace|mys
 # rate widget is free for the site; the DirectAdmin licence is paid by the server operator, not by the site that shows its default page)
 FREE_PLAN = re.compile(r"(^|\.)(webself\.net|zeffy\.com|thinkific\.com|vidyard\.com|wattpad\.com|fundrazr\.com|hootsuite\.com|wealthsimple\.com|canva\.com|linktr\.ee|carrd\.co|"
                        r"wildapricot\.(com|org)|cyberimpact\.com|canadahelps\.org|gofundme\.com|tithe\.ly|webador\.[a-z.]{2,6}|jouwweb\.[a-z]{2,3}|ratehub\.ca|directadmin\.com|"
-                       r"elasticemail\.com|medimap\.ca|eventbrite\.ca|kijiji\.ca)$", re.I)
+                       r"elasticemail\.com|medimap\.ca|eventbrite\.ca|kijiji\.ca|"
+                       # server software whose licence the hosting company pays, not the site that shows its default page ("Powered by cPanel"):
+                       # cPanel's legal page lists a Vancouver affiliate, which made it a "Canadian vendor" linked from 91,892 domains
+                       r"cpanel\.net|cpanel\.com|plesk\.com|webpros\.com|whmcs\.com|softaculous\.com|cloudlinux\.com|litespeedtech\.com|directadmin\.com|"
+                       r"presscustomizr\.com)$", re.I)
+# "Hosting: PlanetHoster, 4416 Louis B Mayer, Laval, Quebec" in a legal notice is the HOST's address, not the site owner's (legal notices in the
+# French tradition must name the host): an address introduced by such a label is never the vendor's own
+HOST_LABEL = re.compile(r"(?:(?:h[ée]bergeur|h[ée]bergement|hosting(?:\s+provider)?|web\s?host|\bhost)\s*(?::|[-–])|h[ée]berg[ée]e?s?\s+(?:par|chez)\b|hosted\s+(?:by|at|with|on)\b)[^.;]{0,90}$", re.I)
 # a university's or school board's own web service credited by one of its units ("This website is powered by MacSites"): an internal service, no vendor
 INTERNAL_RX = re.compile(r"\buniversit|\bcoll[èe]ges?\b|c[ée]gep|polytechni|school (?:board|district|division)|commission scolaire|centre de services scolaire|conseil scolaire", re.I)
 # hosts of a vendor's own domain that are the vendor's pages; any other subdomain may be a customer's site (free-4409244.webador.ca printed a customer's address)
@@ -410,7 +417,7 @@ def graph(a):
     curl = "curl -sS -L --fail --retry 10 --retry-delay 10 --retry-all-errors -C - -A '%s'" % CCL.UA
 
     targets = set(proven_elsewhere()) | {d for d, o in vendor_state().items() if o.get("status") in ("CA", "CA-loc")}
-    targets = {d for d in targets if d and not PLATFORM.search(d)}
+    targets = {d for d in targets if d and not PLATFORM.search(d) and not FREE_PLAN.search(d)}
     tech_t = set()
     try:  # the customer-portal domains of the vetted Canada-HQ software vendors (<clinic>.janeapp.com …): a site that links to its portal is a customer
         import cc_tenants as CT
@@ -1020,9 +1027,11 @@ def vendors(a):
         """{country: quote} for every postal address form found on one page (visible text, then schema.org data in the source), + the location line"""
         text, out = C.visible(raw), {}
         for cc, rx in ADDRS:
-            m = rx.search(text)
-            if m:
+            for m in rx.finditer(text):
+                if HOST_LABEL.search(text[max(0, m.start() - 130):m.start()]):
+                    continue  # the address of the site's hosting provider, named in its legal notice
                 out[cc] = re.sub(r"^\S*\s", "", text[max(0, m.start() - 110):m.end()].strip())[-200:]
+                break
         if "CA" not in out:
             j = jsonld_address(raw)
             if j:
@@ -1195,7 +1204,9 @@ def merge(a):
 
     def proof(v):
         o = vstate.get(v)
-        if o and o.get("status") in ("CA", "CA-loc") and not proof_page_ok(v, o):
+        if FREE_PLAN.search(v) and re.search(r"cpanel|plesk|webpros|whmcs|softaculous|cloudlinux|litespeed|directadmin|presscustomizr", v):
+            return None  # server software paid by the hosting company; a theme author whose legal notice printed its host's address
+        if o and o.get("status") in ("CA", "CA-loc") and (not proof_page_ok(v, o) or HOST_LABEL.search((o.get("quote") or "")[:-12])):
             return None
         if o and INTERNAL_RX.search("%s %s" % (o.get("name") or "", o.get("title") or "")) and not o.get("service_words"):
             return None
