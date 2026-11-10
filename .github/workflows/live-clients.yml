@@ -1,0 +1,86 @@
+name: live-clients
+# Client / dealer / sponsor / tenant / member pages of Canada-located organisations read LIVE on their own sites (tools/live_clients.py).
+# The row factory reads such pages from the Common Crawl archive; the archive holds a few pages of a small site and often not the one that names
+# its clients. Sites: vendors whose address in Canada was checked live, then sites whose home page prints a Canadian postal address (.ca sites;
+# sites on another ending only when the home page prints no postal address abroad). One home page per site, then at most four pages whose PATH is
+# a client-type page (the archive engine's own path rule and extractor). robots.txt obeyed, one request per second per site, identified user agent.
+# Measured on 220 sites (2026-11-10): 7 % have such a page that the archive engine had not read; 0.06 link records per site.
+# The records have the archive engine's format: its merge (tools/cc_clients.py merge) takes them with all its rules.
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel runners (1-8)"
+        default: "4"
+      minutes:
+        description: "minutes per runner"
+        default: "80"
+      limit:
+        description: "at most this many sites per runner (0 = no limit)"
+        default: "0"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: live-clients
+  cancel-in-progress: false
+env:
+  SHARDS: ${{ inputs.shards || '4' }}
+  MINUTES: ${{ inputs.minutes || '80' }}
+  LIMIT: ${{ inputs.limit || '0' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      stamp: ${{ steps.m.outputs.stamp }}
+    steps:
+      - id: m
+        run: |
+          python3 -c "import os; n=max(1,min(8,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+          echo "stamp=$(date -u +%Y%m%dT%H%M%S)" >> "$GITHUB_OUTPUT"
+
+  scan:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Read the sites' client-type pages
+        run: |
+          M=$(( MINUTES > 130 ? 130 : MINUTES ))
+          python3 tools/live_clients.py scan --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 100 --limit "$LIMIT"
+      - uses: actions/upload-artifact@v4
+        with: { name: "lc-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge:
+    needs: [plan, scan]
+    if: ${{ always() && needs.scan.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "lc-*", path: shards, merge-multiple: true }
+      - name: State and leads -> main (the row factory's own merge, as shards)
+        env: { STAMP: "${{ needs.plan.outputs.stamp }}" }
+        run: |
+          ls -la shards | head -30 || true
+          git config user.name "live-clients"; git config user.email "live-clients@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards data/incoming/claude/client_live
+            python3 tools/live_clients.py merge shards --stamp "$STAMP" | tee /tmp/l.txt
+            python3 tools/cc_clients.py merge shards --stamp "$STAMP" --engine lc | tee -a /tmp/l.txt
+            git add data/incoming/claude/lead_shards data/incoming/claude/client_live 2>/dev/null || true
+            for f in claude_cc_extract_done.tsv claude_cc_leads_noaddr.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "live-clients: $(head -1 /tmp/l.txt | cut -c1-150) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          { echo '```'; cat /tmp/l.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

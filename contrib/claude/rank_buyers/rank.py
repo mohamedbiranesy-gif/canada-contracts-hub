@@ -1015,6 +1015,75 @@ def tech_status(k, L):
                "txt": "its DNS carries the vendor's domain-verification record %s (a business account)"}.get(det.get("dns_record_kind") or "", "its DNS records name %s")
         return "active service seen in the buyer's public DNS records (%s): %s — Canada-located provider %s" % (d, how % (det.get("dns_provider_host") or L["example_vendor"]), L["example_vendor"])
     return "active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % (d, L["example_vendor"])
+# 2026-11-10 (row audit of 45 random client-page leads of the cloud row factory: about half were not clients — a "Send a File" link on a
+# testimonials page, a cookie notice on a portfolio page, a blog post whose address contains "case-study", a funder's logo on "our work").
+# A link on a client-type page of a Canada-located vendor is a CLIENT LISTING only when
+#   (a) the page is a list or an item page, not an article: no date in its address, the path part that carries the client word has at most three
+#       words (a longer slug only when the link's own label names the linked site), no "become a client / client resources / login" words;
+#   (b) the link names the organisation it leads to: its label fits the linked site's domain (or is that address), or the page's own last path part
+#       does ("/portfolio/acme-plumbing/"), or the label is a plain "visit website" on such a page;
+#   (c) an "our work" page counts as a portfolio only as a list page whose labels name the sites, or through (b)'s item address / "visit website"
+#       (a charity's "our work / public policy" pages list partners and funders).
+# Everything else stays in the file as the weakest package (tier E: a link, not shown to be a client). Applies to the cloud row factory's leads,
+# which carry the link's label; the Mac-era leads carry only the page title and are judged by the path as before.
+ARTICLE_DATE = re.compile(r"/(?:19|20)\d\d/\d{1,2}(?:/|$)")
+NOT_CLIENT_PAGE = re.compile(r"become|devenir|devenez|new-client|nouveaux?-clients?|intake|formulaire|[-/]forms?(?:[-/.]|$)|resource|ressource|login|log-in|signin|sign-in|portal|portail|"
+                             r"our-work(?:force|place|shop|out)|workout|workshop|workplace|workforce|client-card|customer-service|service-client|service-a-la-clientele")
+WEB_LABEL = re.compile(r"^(?:(?:visit|view|voir|visiter|visitez|launch|see|go to|open|consulter|consultez)\s+(?:the\s+|this\s+|our\s+|their\s+|le\s+|ce\s+)?(?:new\s+|live\s+)?(?:web ?site|site(?: web| internet)?|project|projet)|"
+                       r"web ?site|site web|site internet|live (?:site|preview|project))\W*(?:\(.*\))?\W*$", re.I)
+URL_LABEL = re.compile(r"^(?:https?://)?(?:www\.)?([a-z0-9-]+(?:\.[a-z0-9-]+)+)(?:/\S*)?$", re.I)
+_FILE_EXT = re.compile(r"\.(?:png|jpe?g|gif|svg|webp|pdf|ico|bmp)$", re.I)
+def label_names_site(label, dl):
+    """does a link's label name the site it leads to? dl = the linked domain's own label, letters and digits only"""
+    lab = (label or "").strip()
+    if not lab or not dl:
+        return False
+    m = URL_LABEL.match(lab)
+    if m and not _FILE_EXT.search(lab):
+        return re.sub(r"[^a-z0-9]", "", registrable(m.group(1).lower()).split(".")[0]) == dl  # an address as the label: it must be the linked site's
+    flat = re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKD", lab).encode("ascii", "ignore").decode().lower())
+    if len(dl) >= 4 and dl in flat:
+        return True
+    if _LCF.name_fit(lab, dl) >= 20:
+        return True
+    toks = [t for t in re.findall(r"[a-z0-9]{3,}", unicodedata.normalize("NFKD", lab).encode("ascii", "ignore").decode().lower())]
+    cover = sum(len(t) if t in dl else 6 if len(t) >= 7 and t[:6] in dl else 0 for t in dict.fromkeys(toks))
+    return len(dl) >= 5 and cover >= 0.6 * len(dl)  # "AB Architectural Glazing" -> abglazing, "ZS Metal Fabrication" -> zsmetalfabricating
+def client_listing(path, label, bhost, vhost):
+    """(True, how) when the link is a client listing by the three tests above, else (False, why not)"""
+    dl = re.sub(r"[^a-z0-9]", "", registrable(bhost or "").split(".")[0])
+    vl = re.sub(r"[^a-z0-9]", "", registrable(vhost or "").split(".")[0])
+    if len(os.path.commonprefix([dl, vl])) >= 10:
+        return False, "sister site of the page's owner"
+    if ARTICLE_DATE.search(path):
+        return False, "dated article"
+    if NOT_CLIENT_PAGE.search(path):
+        return False, "a page for clients (forms, resources, login), not a list of them"
+    q = path if _OURWORK_TOP.match(path) else path.replace("our-work", "our-w0rk")
+    segs = [sg for sg in q.split("/") if sg]
+    kws = [sg for sg in segs if len(sg) <= 30 and REL_PATH.search(sg)]
+    if not kws:
+        return False, "no client word in a short path part"
+    kw = kws[0]
+    n_words = len([w for w in re.split(r"[-_.+%\s]+", re.sub(r"\.(?:html?|php|aspx?)$", "", kw)) if w])
+    slug = segs[-1] if segs[-1] != kw else ""
+    slug_fit = bool(slug) and label_names_site(urllib.parse.unquote(re.sub(r"\.(?:html?|php|aspx?)$", "", slug)).replace("-", " ").replace("_", " "), dl)
+    fit, web = label_names_site(label, dl), bool(WEB_LABEL.match((label or "").strip()))
+    if n_words > 3:
+        return (True, "label names the site") if fit else (True, "page address names the site") if slug_fit else (False, "article: the client word sits in a slug of %d words" % n_words)
+    if "our-work" in kw:
+        if slug_fit or web or (fit and not slug):
+            return True, "portfolio page"
+        return False, "an organisation's 'our work' programme page"
+    if fit:
+        return True, "label names the site"
+    if slug_fit:
+        return True, "page address names the site"
+    if web:
+        return True, "'visit website' on a client page"
+    return False, "the link's label does not name the linked site"
+n_cl = collections.Counter()
+REG_DOMS = {registrable(host_of(_l.get("website") or "")) for _l in leads.values() if (_l.get("canada_field_value") or "").startswith("registry contract")} - {""}
 for k, L in sorted(leads.items(), key=lead_strength):
     if norm(L["buyer_name"]) in seen or UNNAMED_VENDOR.search(L.get("example_vendor") or "") or not (L.get("example_vendor") or "").strip(): continue  # a relationship needs a named vendor
     if k in mail:
@@ -1057,6 +1126,19 @@ for k, L in sorted(leads.items(), key=lead_strength):
         vh = (urllib.parse.urlparse(L.get("evidence_dataset") or "").hostname or "").lower().removeprefix("www.")
         bh = (urllib.parse.urlparse(L.get("website") or "").hostname or L.get("buyer_name") or "").lower().removeprefix("www.")
         if vh and bh and registrable(vh) == registrable(bh):  # the same organisation linking to itself (sister schools, own departments)
+            seen_dom.discard(ldom)  # no row from this lead: the domain stays free for another relationship of the organisation
+            continue
+        other_why = ""
+        _ld0 = LDET.get(k) or {}
+        if client is True and not payer and _ld0.get("platform") == "vendor_site_cc" and "client_label" in _ld0:
+            _ok, _how = client_listing(path, _ld0.get("client_label") or "", bh, vh)
+            n_cl[("client listing: " if _ok else "not shown to be a client: ") + _how] += 1
+            if not _ok:
+                client, other_why = "other", _how
+        if client == "other" and ldom in REG_DOMS:
+            # a link that is not shown to be a client relationship, on a site that holds a .ca registration: the registration (a paid relationship
+            # with a named Canadian body) claims the row; the link stays listed among the row's other relationship sources
+            seen_dom.discard(ldom); n_cl["link only, and the site has a .ca registration: the registration takes the row"] += 1
             continue
     recent = (L.get("latest_record_date") or "") >= CUTOFF and not client  # paid / subcontracted in the last 12 months
     announced = bool(re.search(r"release dateline|EDC|own news release|customer story published by the vendor", L.get("canada_field_value", "")))
@@ -1085,7 +1167,8 @@ for k, L in sorted(leads.items(), key=lead_strength):
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
                             "likely active (awarded 12-36 months ago; paid in a fiscal year ending 12-36 months ago: IRS Form 990 contractor located in Canada)" if irs else
                             "likely active (awarded 12-36 months ago; record dated 12-36 months ago: %s)" % src) if likely else
-                           "linked from a page of the Canada-located vendor's site (not a client page)" if client == "other" else
+                           (("link on a client-type page of the Canada-located vendor's site, not shown to be a client relationship (%s)" % other_why) if other_why else
+                            "linked from a page of the Canada-located vendor's site (not a client page)") if client == "other" else
                            (PAYER_TEXT[payer] if payer else "client listing on the vendor's own site (undated)") if client else
                            ("likely active (customer story published by the Canada-located vendor in the last 12 months)" if story_dated else
                             "likely active (contract announced by the Canada-based vendor in the last 12 months: press release / EDC transaction)"
@@ -1111,6 +1194,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
                    "the buyer's own website or its customer portal on the vendor's platform (service of a Canada-HQ vendor in use)" if tech else
                    "the Canada-located vendor's own website" if client else src or "relationship record")
 print("lead rows: facts from the buyer's own pages / the vendor's link label:", dict(n_lf))
+print("client-page links judged (cloud row factory):", dict(sorted(n_cl.items(), key=lambda kv: -kv[1])))
 for x in rows:
     x.setdefault("_jur", "")
 # 4b. a dated record from the last 12 months (lead: payment, auditor's report, filing, release ...) for an organisation
