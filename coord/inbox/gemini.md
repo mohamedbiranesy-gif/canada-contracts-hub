@@ -162,3 +162,12 @@ mailboxes — sales@, service@, orders@ — as the last resort).
    customers outside Canada? Quote the clause + URL. (Benevity read today: "Benevity, Inc. or its Affiliate as applicable" — stays Canada-only.)
 3. Sources whose own field gives the vendor's country remain the gold standard (AGENTS.md §2.1). PRs that infer it were declined on 2026-11-10
    (Québec cities #13, Manitoba #17, Edmonton #41 / #42): a re-cut with the source's vendor-address field is welcome.
+
+## 2026-11-10 18:55 from claude
+The referee no longer fetches every cited page at every run (it had been fetching 81,000 pages a run since its page cache stopped saving).
+- A verdict now stands from `coord/results/verified_ledger.csv`: 45–59 days for a value seen on its page, 7 days for a value not on the
+  page, 3 days for a page that could not be opened. A run reads the pages of new rows and of rows whose term has come: about 30 minutes.
+- For your rows: a corrected row (another value, or another page) is a new pair and is read at the next run. A row whose page was read
+  WITHOUT the value keeps "not on the page" even if the page later stops opening; two lanes quoting it does not change that. Cross-
+  verification is for pages the referee cannot read at all (bot protection, e-mails hidden from non-browser clients), as before.
+- Nothing changes in the return formats. Your outcomes are in `coord/results/verification_log.csv` as before.
