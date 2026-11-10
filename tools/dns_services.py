@@ -556,6 +556,76 @@ class SteadyResolver:
         raise dns.exception.Timeout()
 
 
+DOH_SERVERS = (("https://cloudflare-dns.com/dns-query", 3), ("https://dns.google/dns-query", 3), ("https://dns.quad9.net/dns-query", 1))  # (RFC 8484 endpoint, share of the questions)
+
+
+class DohResolver:
+    """resolve(name, type) like SteadyResolver, over HTTPS (RFC 8484, DNS wire format): every question travels inside a few long-lived
+    HTTP/2 connections to the public resolvers — a handful of flows for a whole run, whatever sits between the runner and the network.
+    Needs httpx with HTTP/2 (pip install "httpx[http2]")."""
+
+    def __init__(self, servers=DOH_SERVERS, timeout=6.0, tries=3, connections=4, verify=True):
+        import dns.exception, dns.message, dns.rcode, dns.resolver  # noqa: E401
+        import httpx
+        self.dns, self.httpx = dns, httpx
+        ua = {"user-agent": C.UA if hasattr(C, "UA") else "canada-contracts-hub-crawler/1.0", "content-type": "application/dns-message", "accept": "application/dns-message"}
+        self.clients = {u: httpx.Client(http2=True, timeout=timeout, verify=verify, headers=ua, limits=httpx.Limits(max_connections=connections, max_keepalive_connections=connections))
+                        for u, _ in servers}
+        self.pool = [u for u, w in servers for _ in range(max(1, int(w)))]
+        self.tries = tries
+        self.stats = collections.Counter()
+
+    def resolve(self, name, typ, raise_on_no_answer=False):
+        dns = self.dns
+        q = dns.message.make_query(name, typ)
+        q.id = 0  # RFC 8484: the same question gives the same bytes
+        wire = q.to_wire()
+        order = []
+        for u in random.sample(self.pool, len(self.pool)):
+            if u not in order:
+                order.append(u)
+        last = None
+        for u in order[:self.tries]:
+            host = u.split("/")[2]
+            try:
+                r = self.clients[u].post(u, content=wire)
+            except self.httpx.TimeoutException:
+                last = dns.exception.Timeout()
+                self.stats[(host, "timeout")] += 1
+                continue
+            except self.httpx.HTTPError as e:
+                last = dns.exception.Timeout()
+                self.stats[(host, "error:" + type(e).__name__)] += 1
+                continue
+            if r.status_code != 200:
+                last = dns.resolver.NoNameservers()
+                self.stats[(host, "http_%d" % r.status_code)] += 1
+                continue
+            try:
+                m = dns.message.from_wire(r.content)
+            except Exception:
+                last = dns.resolver.NoNameservers()
+                self.stats[(host, "error:wire")] += 1
+                continue
+            rc = m.rcode()
+            self.stats[(host, "answer" if rc in (dns.rcode.NOERROR, dns.rcode.NXDOMAIN) else "servfail")] += 1
+            if rc == dns.rcode.NXDOMAIN:
+                raise dns.resolver.NXDOMAIN()
+            if rc != dns.rcode.NOERROR:
+                last = dns.resolver.NoNameservers()
+                continue
+            try:
+                return _Ans(m.resolve_chaining().answer)
+            except dns.message.AnswerForNXDOMAIN:
+                raise dns.resolver.NXDOMAIN()
+            except Exception as e:
+                last = e
+                continue
+        if isinstance(last, dns.exception.DNSException):
+            raise last
+        raise dns.exception.Timeout()
+
+
 def _public_asker(dns, tl):
     """ask(name, type) of the public resolvers, all threads together at most PUBLIC_QPS a second: the second chance of a name the runner's
     own resolver gave no answer for (raises what dnspython raises)"""

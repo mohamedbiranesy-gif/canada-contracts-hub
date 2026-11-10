@@ -11,7 +11,7 @@ permissions:
 jobs:
   diag:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
@@ -21,18 +21,27 @@ jobs:
           python3 tools/dns_diag.py slice --place "${{ inputs.place }}" --n 90000 --out /tmp/slice.txt
       - name: Phases
         run: |
-          # 2026-11-10, two measurements: whatever the resolver's settings, and also when the public resolvers were asked directly with a
-          # new socket per question, a runner got ~52 answers a second and the rest timed out. This run: the public resolvers over ONE
-          # socket per worker thread (tools/dns_services.py SteadyResolver) — a few hundred flows for the whole run.
-          echo "--- 1. one socket per worker, 250 questions a second"
-          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 0 --n 15000 --qps 250 --label "1. steady, 250/s"
-          echo "--- 2. one socket per worker, 500 questions a second"
-          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 15000 --n 25000 --qps 500 --label "2. steady, 500/s"
-          echo "--- 3. one socket per worker, 900 questions a second"
-          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 40000 --n 30000 --qps 900 --label "3. steady, 900/s"
-          echo "--- 4. the lookup's questions (name servers, TXT, MX, address), 500 questions a second"
-          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 70000 --n 5000 --qps 500 --types NS,TXT,MX,A --label "4. steady, NS+TXT+MX+A, 500/s"
-          echo "--- 5. as before: a new socket for every question, public resolvers, 250 a second"
-          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 75000 --n 8000 --qps 250 --label "5. new socket per question, 250/s"
-          echo "--- 6. one socket per worker again, 500 questions a second (after the flood of new sockets)"
-          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 83000 --n 7000 --qps 500 --label "6. steady again, 500/s"
+          # 2026-11-10, three measurements so far: through the runner's own resolver, through the public resolvers with a new socket per
+          # question, and (third) with one socket per worker, most questions of a runner go unanswered above ~50-90 a second. This run:
+          # the questions inside a few long-lived HTTPS connections (DNS over HTTPS, HTTP/2), then inside a few TLS connections kept by
+          # the runner's resolver (DNS over TLS, forwarded).
+          pip install -q "httpx[http2]"
+          echo "--- 1. over HTTPS, 250 questions a second"
+          timeout 600 python3 tools/dns_diag.py steady --doh --names /tmp/slice.txt --skip 0 --n 15000 --qps 250 --label "1. HTTPS, 250/s" || echo "phase 1 did not finish"
+          echo "--- 2. over HTTPS, 600 questions a second"
+          timeout 600 python3 tools/dns_diag.py steady --doh --names /tmp/slice.txt --skip 15000 --n 24000 --qps 600 --connections 8 --label "2. HTTPS, 600/s" || echo "phase 2 did not finish"
+          echo "--- 3. over HTTPS, the lookup's questions (name servers, TXT, MX, address), 500 a second"
+          timeout 600 python3 tools/dns_diag.py steady --doh --names /tmp/slice.txt --skip 39000 --n 5000 --qps 500 --connections 8 --types NS,TXT,MX,A --label "3. HTTPS, NS+TXT+MX+A, 500/s" || echo "phase 3 did not finish"
+          echo "--- 4. over HTTPS, 1,200 questions a second"
+          timeout 600 python3 tools/dns_diag.py steady --doh --names /tmp/slice.txt --skip 44000 --n 30000 --qps 1200 --connections 12 --workers 500 --label "4. HTTPS, 1200/s" || echo "phase 4 did not finish"
+          echo "--- 5. the runner's resolver forwarding over TLS to the public resolvers, 300 questions a second"
+          sudo apt-get install -y -q unbound >/dev/null 2>&1 || true
+          sudo systemctl stop unbound 2>/dev/null || true
+          printf '%s\n' 'server:' '  interface: 127.0.0.1' '  port: 5353' '  access-control: 127.0.0.0/8 allow' '  do-ip6: no' '  num-threads: 4' \
+            '  msg-cache-size: 256m' '  rrset-cache-size: 512m' '  num-queries-per-thread: 4096' '  outgoing-num-tcp: 64' '  module-config: "iterator"' \
+            '  tls-cert-bundle: "/etc/ssl/certs/ca-certificates.crt"' '  hide-identity: yes' '  hide-version: yes' '  verbosity: 0' \
+            'forward-zone:' '  name: "."' '  forward-tls-upstream: yes' '  forward-addr: 1.1.1.1@853#cloudflare-dns.com' '  forward-addr: 1.0.0.1@853#cloudflare-dns.com' \
+            '  forward-addr: 8.8.8.8@853#dns.google' '  forward-addr: 8.8.4.4@853#dns.google' '  forward-addr: 9.9.9.9@853#dns.quad9.net' | sudo tee /etc/unbound/unbound.conf >/dev/null
+          sudo unbound-checkconf /etc/unbound/unbound.conf || true
+          sudo unbound -c /etc/unbound/unbound.conf || true; sleep 3
+          timeout 600 python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 74000 --n 10000 --qps 300 --resolver 127.0.0.1:5353 --label "5. forwarded over TLS, 300/s" || echo "phase 5 did not finish"

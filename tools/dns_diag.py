@@ -108,8 +108,12 @@ def steady(a):
     import dns.resolver
     import dns_services as D
     names = [l.strip() for l in open(a.names, encoding="utf-8") if l.strip()][a.skip:a.skip + a.n]
-    servers = D.PUBLIC_SERVERS if not a.servers else tuple((x, 1) for x in a.servers.split(","))
-    R = D.SteadyResolver(servers=servers, timeout=a.timeout, tries=a.tries)
+    if a.doh:
+        servers = D.DOH_SERVERS if not a.servers else tuple((x, 1) for x in a.servers.split(","))
+        R = D.DohResolver(servers=servers, tries=a.tries, connections=a.connections, verify=os.environ.get("SSL_CERT_FILE") or True)
+    else:
+        servers = D.PUBLIC_SERVERS if not a.servers else tuple((x, 1) for x in a.servers.split(","))
+        R = D.SteadyResolver(servers=servers, timeout=a.timeout, tries=a.tries)
     types = a.types.split(",")
     gate, nxt = threading.Lock(), [0.0]
 
@@ -172,6 +176,7 @@ def main():
     s = sub.add_parser("steady"); s.add_argument("--names", required=True); s.add_argument("--skip", type=int, default=0); s.add_argument("--n", type=int, default=12000)
     s.add_argument("--qps", type=float, default=250); s.add_argument("--workers", type=int, default=300); s.add_argument("--types", default="A")
     s.add_argument("--servers", default=""); s.add_argument("--timeout", type=float, default=2.0); s.add_argument("--tries", type=int, default=3); s.add_argument("--label", default="")
+    s.add_argument("--doh", action="store_true", help="over HTTPS (tools/dns_services.py DohResolver)"); s.add_argument("--connections", type=int, default=4)
     s.set_defaults(fn=steady)
     a = ap.parse_args()
     a.fn(a)
