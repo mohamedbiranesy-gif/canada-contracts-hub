@@ -53,7 +53,8 @@ def award_date(c):
 
 def main():
     key2row = {}
-    with open(os.path.join(ROOT, "out/ranked/ranked_buyers.csv"), encoding="utf-8") as f:
+    _plain = os.path.join(ROOT, "out/ranked/ranked_buyers.csv")  # 2026-11-10: the ranker writes only the compressed table (disk); a local run may still have the plain one
+    with (open(_plain, encoding="utf-8") if os.path.exists(_plain) else gzip.open(_plain + ".gz", "rt", encoding="utf-8")) as f:
         for r in csv.DictReader(f):
             if (r.get("tier") or "") not in ("A", "B", "L", "C", "D", "F") or not (r.get("email") or ""):
                 continue

@@ -743,12 +743,23 @@ def merge(a):
                 have.add(key)
                 rows.append(r)
     if rows:
-        first = not os.path.exists(out_path)
-        with open(out_path, "a", encoding="utf-8", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
-            if first:
-                w.writeheader()
-            w.writerows(rows)
+        # the file is changed while the rows are written, not only before: one merge brought 52,000 rows (35 MB) on 2026-11-10 and cccrawl01 closed
+        # at 71 MB; a merge of 100,000 rows would have passed GitHub's 100 MB limit in one step
+        k = int(re.search(r"cccrawl(\d+)", os.path.basename(out_path)).group(1))
+        f = w = None
+        for r in rows:
+            if f is None or f.tell() > 30 * 1024 * 1024:
+                if f is not None:
+                    f.close()
+                    k += 1
+                    out_path = OUT.replace("cccrawl01", "cccrawl%02d" % k)
+                first = not os.path.exists(out_path)
+                f = open(out_path, "a", encoding="utf-8", newline="")
+                w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
+                if first:
+                    w.writeheader()
+            w.writerow(r)
+        f.close()
     done_path, pat = (TDONE, "tenant_done_*.tsv") if a.tenants else (SFDONE, "site_facts_done_*.tsv") if a.site_facts else (DONE, "lead_done_*.tsv")
     seen = {}
     # --stamp (the workflows since 2026-11-10) = shard mode. A run that was queued with the earlier workflow file calls --merge without --stamp

@@ -1,8 +1,17 @@
-import array, csv, collections, os, shutil, sys
+import array, csv, collections, gzip, io, os, shutil, sys
 csv.field_size_limit(1 << 30)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 SRC = os.environ.get("BATCHES_SRC") or ROOT + "/out/ranked/ranked_buyers.csv"
 DST = os.environ.get("BATCHES_DST") or ROOT + "/out/ranked/batches"
+# 2026-11-10 (disk): the table is 15 KB a row as plain CSV — 2.6 GB at 170,000 rows, 15 GB at a million, on a runner with ~14 GB free. The ranker
+# no longer writes the plain file; the table is read from ranked_buyers.csv.gz (same text, same line-end handling).
+def src_open():
+    """the ranked table as text: the plain CSV when it is there (local runs), otherwise the compressed copy"""
+    if SRC.endswith(".gz"):
+        return gzip.open(SRC, "rt", encoding="utf-8")
+    if os.path.exists(SRC):
+        return open(SRC, encoding="utf-8")
+    return gzip.open(SRC + ".gz", "rt", encoding="utf-8")
 # 2026-11-10: streaming. The table was loaded whole (list of dicts: ~6 times its size in memory — fine at 70,000 rows, impossible at a million).
 # Now: pass 1 reads each row once and notes its package and score (two small integers per row); pass 2 writes each row to its package part,
 # unsorted; pass 3 sorts one part at a time (a part is ~45 MB). Same packages, same order inside a package, same cells.
@@ -64,7 +73,7 @@ size = collections.Counter()  # bytes of each package as it will be written
 count = collections.Counter()
 blank = collections.Counter()
 groups_left = collections.Counter()
-with open(SRC, encoding="utf-8") as f:  # as the earlier code read it (line ends inside a cell become \n)
+with src_open() as f:  # as the earlier code read it (line ends inside a cell become \n)
     rd = csv.DictReader(f)
     cols = rd.fieldnames
     for r in rd:
@@ -85,12 +94,43 @@ for i in order:
 del order
 parts = {pi: max(1, int(size[pi] // PART_BYTES) + 1) for pi in count}
 step = {pi: -(-count[pi] // parts[pi]) for pi in count}
+# 2026-11-10 (disk): the package files are written compressed (<package>.csv.gz — tools/batch_files.py reads them; the release's zip still holds
+# plain .csv members). As plain text the packages are 15 KB a row: 2.6 GB at 170,000 rows, 15 GB at a million, on a runner with ~14 GB free —
+# and a second, unsorted copy of them was on disk while they were written. A package whose rows already stand in the table in the package's own
+# order (every package but Z, as the table is sorted today) is now written straight into its files; only the others take the unsorted working copy.
+seen_n = collections.Counter()
+in_order = {pi: True for pi in count}
+for i in range(len(pk)):
+    if rank[i] != seen_n[pk[i]]:
+        in_order[pk[i]] = False
+    seen_n[pk[i]] += 1
+del seen_n
+
+
+def final_path(pi, part):
+    name = names[pi]
+    return os.path.join(DST, name + ".csv.gz") if parts.get(pi, 1) == 1 else os.path.join(DST, "%s_part%d_of_%d.csv.gz" % (name, part + 1, parts[pi]))
+
+
+def gz_writer(path):
+    """a compressed text file whose bytes depend only on its content (no time stamp in the header)"""
+    raw = open(path, "wb")
+    gz = gzip.GzipFile(filename="", mode="wb", fileobj=raw, compresslevel=6, mtime=0)
+    return raw, gz, io.TextIOWrapper(gz, encoding="utf-8", newline="")
+
+
+def gz_close(h):
+    raw, gz, tx = h
+    tx.flush(); tx.detach(); gz.close(); raw.close()
+
+
 shutil.rmtree(DST, ignore_errors=True)
 os.makedirs(DST, exist_ok=True)
 tmp = DST + ".tmp"
 shutil.rmtree(tmp, ignore_errors=True)
 os.makedirs(tmp)
-handles = collections.OrderedDict()  # at most 200 part files open at a time
+handles = collections.OrderedDict()  # working copies (packages not in order): at most 200 part files open at a time
+direct = {}  # package -> (part, handle, csv writer): the one file of the package that is being written
 
 
 def out(pi, part):
@@ -106,36 +146,56 @@ def out(pi, part):
     return h[1]
 
 
-with open(SRC, encoding="utf-8") as f:  # as the earlier code read it (line ends inside a cell become \n)
+with src_open() as f:  # as the earlier code read it (line ends inside a cell become \n)
     rd = csv.DictReader(f)
     for i, r in enumerate(rd):
         pi = pk[i]
         fr = filled(r, names[pi])
-        out(pi, rank[i] // step[pi]).writerow([rank[i]] + [fr[c] for c in cols])
+        part = rank[i] // step[pi]
+        if in_order[pi]:
+            cur = direct.get(pi)
+            if cur is None or cur[0] != part:
+                if cur is not None:
+                    gz_close(cur[1])
+                h = gz_writer(final_path(pi, part))
+                cur = direct[pi] = (part, h, csv.writer(h[2]))
+                cur[2].writerow(cols)
+            cur[2].writerow([fr[c] for c in cols])
+        else:
+            out(pi, part).writerow([rank[i]] + [fr[c] for c in cols])
 for fh, _w in handles.values():
     fh.close()
+for _part, h, _w in direct.values():
+    gz_close(h)
 summary = []
 for pi, name in enumerate(names):
     if not count[pi]:
-        with open(os.path.join(DST, name + ".csv"), "w", newline="", encoding="utf-8") as fh:  # an empty package still has its file (header only), as before
-            csv.writer(fh).writerow(cols)
+        h = gz_writer(os.path.join(DST, name + ".csv.gz"))  # an empty package still has its file (header only), as before
+        csv.writer(h[2]).writerow(cols)
+        gz_close(h)
         summary.append((name, 0))
         continue
     for part in range(parts[pi]):
+        if in_order[pi]:
+            continue  # written above
         p = os.path.join(tmp, "%d_%d.csv" % (pi, part))
         rows_ = []
         if os.path.exists(p):
             with open(p, encoding="utf-8", newline="") as fh:
                 rows_ = list(csv.reader(fh))
+            os.remove(p)  # the working copy of this part is not needed again
         rows_.sort(key=lambda x: int(x[0]))
-        dst = os.path.join(DST, name + ".csv") if parts[pi] == 1 else os.path.join(DST, "%s_part%d_of_%d.csv" % (name, part + 1, parts[pi]))
-        with open(dst, "w", newline="", encoding="utf-8") as fh:
-            w = csv.writer(fh)
-            w.writerow(cols)
-            for x in rows_:
-                w.writerow(x[1:])
+        h = gz_writer(final_path(pi, part))
+        w = csv.writer(h[2])
+        w.writerow(cols)
+        for x in rows_:
+            w.writerow(x[1:])
+        gz_close(h)
     summary.append((name + ("" if parts[pi] == 1 else " (%d part files)" % parts[pi]), count[pi]))
 shutil.rmtree(tmp, ignore_errors=True)
 for n, c in summary: print("%-55s %6d" % (n, c))
 print("unassigned", 0, [])
 print("blank cells filled with not_published (delivered P01-P13):", sum(v for pi, v in blank.items() if not names[pi].startswith("Z")))
+print("package files: compressed (.csv.gz); packages written straight from the table (already in order): %d of %d%s" % (
+    sum(1 for pi in count if in_order[pi]), len(count),
+    "".join("; sorted from a working copy: %s (%d rows)" % (names[pi].split("_")[0], count[pi]) for pi in sorted(count) if not in_order[pi])))

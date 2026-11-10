@@ -19,9 +19,15 @@ TODAY = datetime.date.today().isoformat()
 
 
 def load(path):
+    """the delivered rows, each kept as the cells this tool reads (every column named in an r.get("…") of this file, plus the *_inferred
+    columns), each string stored once. 2026-11-10, measured: whole rows cost 30 KB each in memory — 2.3 GB at 73,600 delivered rows."""
+    src = open(os.path.abspath(__file__), encoding="utf-8").read()
+    need = set(re.findall(r"""\br\.get\("([A-Za-z0-9_]+)"\)""", src))
     op = gzip.open if path.endswith(".gz") else open
     with op(path, "rt", encoding="utf-8", newline="") as fh:
-        return [r for r in csv.DictReader(fh) if r.get("email")]
+        rd = csv.DictReader(fh)
+        keep = [k for k in (rd.fieldnames or []) if k in need or k.endswith("_inferred")]
+        return [{k: sys.intern(r[k] or "") for k in keep} for r in rd if r.get("email")]
 
 
 def source_of(r):

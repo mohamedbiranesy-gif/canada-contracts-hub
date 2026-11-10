@@ -7,12 +7,15 @@ being written as `no_record`. Reads the e-mail column of the CSVs given (default
 writes <repo>/data/incoming/claude/claude_dmarc_check.tsv:
   domain, policy (none | quarantine | reject | no_record | invalid | error), record_domain (where the record was found),
   record (the raw TXT, first 300 chars), pct, rua_present, spf_policy (hard_fail | soft_fail | neutral | pass_all | no_all | no_record), spf_record, checked_date
-  python3 tools/dmarc_check.py [--repo ~/cch-crawler] [--workers 32] [--recheck-days 30] [file.csv ...]
+  python3 tools/dmarc_check.py [--repo ~/cch-crawler] [--workers 32] [--recheck-days 30] [--minutes M] [file.csv | file.csv.gz ...]
+The file is written in parts under 40 MB (claude_dmarc_check.tsv, claude_dmarc_check.part02.tsv … — tools/parted_csv.py): 143 bytes a domain,
+21 MB at 150,000 domains, over GitHub's 100 MB limit at ~700,000. Readers: parted_csv.rows(path, delimiter="\t").
 """
-import argparse, csv, glob, io, os, re, sys, threading, time
+import argparse, csv, glob, gzip, io, os, re, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import parted_csv as PC  # noqa: E402
 try:
     from ap_crawler import registrable
 except Exception:
@@ -139,20 +142,21 @@ def main():
     a.add_argument("--workers", type=int, default=96)
     a.add_argument("--recheck-days", type=int, default=30)
     a.add_argument("--force", action="store_true", help="re-check every domain (new columns)")
+    a.add_argument("--minutes", type=float, default=0, help="stop asking after this many minutes and write what was checked (0 = no limit); the rest is checked by the next run")
     a = a.parse_args()
     out = os.path.join(a.repo, "data/incoming/claude/claude_dmarc_check.tsv")
     prev = {}
-    if os.path.exists(out):
-        for r in csv.DictReader(open(out, encoding="utf-8"), delimiter="\t"):
-            prev[r["domain"]] = r
+    for r in PC.rows(out, delimiter="\t"):
+        prev[r["domain"]] = r
     files = a.files or sorted(glob.glob(os.path.join(a.repo, "coord/results/ranked/batches/*.csv")))
     domains = set()
     csv.field_size_limit(1 << 30)
     for f in files:
         # read as a stream (2026-11-10: the whole file was read into memory, three copies of it — the ranked table of 169,769 rows is 2 GB of
         # text and the runner was shut down twice at this step)
-        with open(f, encoding="utf-8", errors="replace", newline="") as fh:
-            for r in csv.DictReader((l.replace("\0", "") for l in fh), delimiter="\t" if f.endswith(".tsv") else ","):
+        # a .gz file is read as it is (2026-11-10: the previous table was first written out as 2.6 GB of plain text for this step alone)
+        with (gzip.open(f, "rt", encoding="utf-8", errors="replace", newline="") if f.endswith(".gz") else open(f, encoding="utf-8", errors="replace", newline="")) as fh:
+            for r in csv.DictReader((l.replace("\0", "") for l in fh), delimiter="\t" if f.endswith((".tsv", ".tsv.gz")) else ","):
                 for col in ("email", "ap_email", "mailbox"):
                     e = (r.get(col) or "").strip().lower()
                     if "@" in e:
@@ -161,7 +165,10 @@ def main():
     todo = sorted(d for d in domains if a.force or d not in prev or prev[d]["checked_date"] < cutoff or prev[d]["policy"] == "error" or "spf_policy" not in prev[d] or "mta_sts" not in prev[d])
     print("domains: %d, to check: %d" % (len(domains), len(todo)), flush=True)
     stats = {}
+    deadline = time.time() + a.minutes * 60 if a.minutes else 0
     def one(d):
+        if deadline and time.time() > deadline:
+            return  # out of time: this domain stays "to check" for the next run
         try:
             r = check(d)
         except Exception as e:
@@ -177,17 +184,15 @@ def main():
     with ThreadPoolExecutor(a.workers) as ex:
         list(ex.map(one, todo))
     write(out, prev)
-    print("wrote", out, len(prev), "domains", stats, flush=True)
+    left = len(todo) - sum(stats.values())
+    print("wrote", out, len(prev), "domains", stats, ("| not reached in %g minutes, left for the next run: %d" % (a.minutes, left)) if left else "", flush=True)
+
+
+COLS = ["domain", "policy", "record_domain", "record", "pct", "rua_present", "spf_policy", "spf_record", "checked_date", "mta_sts", "tls_rpt", "bimi"]
 
 
 def write(out, prev):
-    os.makedirs(os.path.dirname(out), exist_ok=True)
-    with open(out + ".tmp", "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["domain", "policy", "record_domain", "record", "pct", "rua_present", "spf_policy", "spf_record", "checked_date", "mta_sts", "tls_rpt", "bimi"], delimiter="\t")
-        w.writeheader()
-        for d in sorted(prev):
-            w.writerow({k: prev[d].get(k, "") for k in w.fieldnames})
-    os.replace(out + ".tmp", out)
+    PC.write(out, COLS, ([prev[d].get(k, "") for k in COLS] for d in sorted(prev)), delimiter="\t")
 
 
 if __name__ == "__main__":

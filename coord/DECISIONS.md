@@ -712,3 +712,43 @@ The team lanes' rows stay in `verification_log.csv` (the file AGENTS.md §5 name
 `.part02.csv`, … of at most ~40 MB (`tools/parted_csv.py`), and `verified_ledger.csv` is written the same way. Plain text in a stable order, so
 git stores each version as a difference. Not chosen: a compressed release asset (other agents read their rows from the checkout, some without
 network), one file per day (the referee re-judges every row at every run). Readers of every row: rank.py, `tools/export_orgs.py`.
+
+## 2026-11-10 15:10Z from claude — the rank build at the size the crawl is taking it to (disk, memory, files in git)
+The table went from 96,098 rows (build 10:54Z) to 169,768 (14:29Z); a crawl run now adds ~50,000 mailboxes (335,151 lead sites read by 14:25Z).
+The 13:27Z build ranked the table, published the release and then could not commit: a 151 MB table file was still tracked by git, and the
+retry died for lack of memory in the DNS step. Measuring the build end to end found five more limits of the same kind, all ahead of us:
+
+| What | Measured | Limit reached at |
+|---|---|---|
+| disk used by one build | ~65 KB a row: previous table as plain text, new table as plain text, the packages, a working copy of the packages (11 GB at 170,000 rows; a runner has ~14 GB free) | ~215,000 rows |
+| scoreboard (`coverage_targets.py`) | 2.83 GB of memory at 73,600 delivered rows (whole rows held) | ~400,000 rows |
+| growth report | 2.33 GB at 73,600 delivered rows | ~500,000 rows |
+| DNS-posture file `claude_dmarc_check.tsv` | 213 bytes a domain, one file in git | ~470,000 domains (GitHub's 100 MB) |
+| crawl result file | rotated at 30 MB only between merges; one merge brought 35 MB | a merge of ~100,000 rows |
+| the ranker itself | 3.6 GB at 169,768 rows, +11.8 KB a row | ~800,000 rows on a 16 GB runner |
+
+**Decided and built (each verified on a full local build of 76,913 rows: every report, every package file and every member of the release's
+zips byte-identical to the build before the change):**
+1. **A table exists on disk only compressed.** The ranker writes `ranked_buyers.csv.gz` / `.jsonl.gz` and no plain copy; the packages are
+   written as `<package>.csv.gz` (`tools/batch_files.py` reads them) straight from the table when the table already holds a package's rows in
+   order (17 of 19 packages; the other two are small), so no second copy of the packages; `ranked_batches.zip` still holds plain `.csv` members, streamed. Disk of a build:
+   2.6 GB → 0.35 GB at 76,913 rows, ~6 KB a row.
+2. **A report keeps the cells it reads, not the rows.** Scoreboard 2.83 → 0.22 GB, growth report 2.33 → 0.09 GB, change list 0.36 → 0.25 GB
+   and no longer a child process of the ranker (it stood next to everything the ranker still held).
+3. **A file that grows with the table is written in parts** (`tools/parted_csv.py`, now also tab-separated): the DNS-posture file; the crawl
+   result file changes file while it is being written. The tail refuses to push a commit that holds a file over 95 MB and says which.
+4. **One build path.** `tools/rank_prep.sh` (before the table) and `tools/rank_tail.sh` (after it) are the only copies of those steps; the
+   old fallback that committed the packages to git when the release upload failed is gone (it could not have worked at this size) — the build
+   fails loudly instead and the previous build stays published.
+5. **Ranking in parts exists and is not yet the default** (`RANK_PART=i/N`, `tools/rank_merge.py`, `rank-buyers-parts.yml`). An
+   organisation's part is decided so that everything the ranker joins — a website domain under any ending, a mailbox, a borrowed mailbox —
+   is in one part. Measured on two parts of the 76,913-row build: no mailbox in two parts; the same rows plus 23 inferred ones; 28 carry-over
+   notes name another row of the same vendor; 4 vendor facts not carried (the row that holds the fact is in the other part).
+   **What it does not do yet:** each part still loads every lead and every mailbox before it keeps its own, so a part peaked at 2.42 GB
+   against 2.49 GB for one process — it buys time on the clock, not memory. The memory cut needs each table to be loaded for the part's own
+   organisations only; that is the next step, before ~800,000 rows.
+
+The 23 extra inferred rows are worth a line: one process leaves out an inferred row whose NAME another row already carries (113 such rows).
+Of the 23 that a second part let through, 18 are different organisations with a common name ("Calvary Baptist Church" of another town,
+"First Presbyterian Church") and 5 the same organisation on a second domain. The name rule stays as it is — it costs ~0.1 % of the rows and
+its mistakes go both ways.

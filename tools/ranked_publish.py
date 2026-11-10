@@ -17,6 +17,9 @@ Exit code 0 only when every asset was uploaded; the caller then commits --git-di
 """
 import argparse, collections, csv, glob, gzip, hashlib, json, os, re, shutil, subprocess, sys, time, zipfile
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import batch_files as BF  # noqa: E402 — the package files are compressed on disk since 2026-11-10; the zip still holds plain .csv members
+
 csv.field_size_limit(1 << 30)
 REPO = os.environ.get("GITHUB_REPOSITORY") or "mohamedbiranesy-gif/canada-contracts-hub"
 ZIP_LIMIT = 1_800_000_000
@@ -38,25 +41,44 @@ def run(*cmd, check=True):
     return r
 
 
-def zips(files, base, out):
-    """files -> base.zip (or base.zip, base_2.zip … so that no archive passes ZIP_LIMIT of raw input / 5, a safe bound for CSV text)"""
-    made, cur, size, k = [], None, 0, 1
+def place(src, dst):
+    """src at dst without a second copy on disk when both are on one file system (the table is ~1 GB compressed at a million rows)"""
+    if os.path.exists(dst):
+        os.remove(dst)
+    try:
+        os.link(src, dst)
+    except OSError:
+        shutil.copy(src, dst)
+
+
+def zips(files, base, out, plain_members=False):
+    """files -> base.zip (or base.zip, base_2.zip … so that no archive passes ZIP_LIMIT: a new archive is started when the one being written,
+    plus the next file at a fifth of its plain size — a safe bound for CSV text — would pass it).
+    plain_members: a file that is compressed on disk (X.csv.gz) goes into the archive as the plain member X.csv, streamed — the archive's content
+    is what it was when the package files were plain text, and the plain text never touches the disk."""
+    made, cur, k = [], None, 1
 
     def start():
-        nonlocal cur, size
+        nonlocal cur
         name = "%s%s.zip" % (base, "" if k == 1 else "_%d" % k)
         cur = zipfile.ZipFile(os.path.join(out, name), "w", zipfile.ZIP_DEFLATED, compresslevel=6)
         made.append(os.path.join(out, name))
-        size = 0
     for f in files:
+        gz = plain_members and f.endswith(".gz")
+        est = os.path.getsize(f) * (1.3 if gz else 0.2)  # what the file will take in the archive
         if cur is None:
             start()
-        elif size and size + os.path.getsize(f) > ZIP_LIMIT * 5:
+        elif cur.fp.tell() and cur.fp.tell() + est > ZIP_LIMIT:
             cur.close()
             k += 1
             start()
-        cur.write(f, os.path.basename(f))
-        size += os.path.getsize(f)
+        if gz:
+            zi = zipfile.ZipInfo(BF.member(f), date_time=time.localtime(os.path.getmtime(f))[:6])
+            zi.compress_type, zi.external_attr = zipfile.ZIP_DEFLATED, 0o644 << 16
+            with gzip.open(f, "rb") as src, cur.open(zi, "w") as dst:
+                shutil.copyfileobj(src, dst, 1 << 22)
+        else:
+            cur.write(f, os.path.basename(f))
     if cur is not None:
         cur.close()
     return made
@@ -77,13 +99,13 @@ def main():
     if not os.path.exists(table) or os.path.getsize(table) < 1000:
         raise SystemExit("no ranked table in %s" % src)
     assets = []
-    shutil.copy(table, os.path.join(pub, "ranked_buyers.csv.gz"))
+    place(table, os.path.join(pub, "ranked_buyers.csv.gz"))
     assets.append(os.path.join(pub, "ranked_buyers.csv.gz"))
     if os.path.exists(os.path.join(src, "ranked_buyers.jsonl.gz")):
-        shutil.copy(os.path.join(src, "ranked_buyers.jsonl.gz"), os.path.join(pub, "ranked_buyers.jsonl.gz"))
+        place(os.path.join(src, "ranked_buyers.jsonl.gz"), os.path.join(pub, "ranked_buyers.jsonl.gz"))
         assets.append(os.path.join(pub, "ranked_buyers.jsonl.gz"))
-    batch_files = sorted(glob.glob(os.path.join(src, "batches", "*.csv")))
-    assets += zips(batch_files, "ranked_batches", pub)
+    batch_files = BF.files(os.path.join(src, "batches"))
+    assets += zips(batch_files, "ranked_batches", pub, plain_members=True)
     contract_files = sorted(glob.glob(os.path.join(src, "contracts", "*")))
     if contract_files:
         assets += zips(contract_files, "ranked_contracts", pub)
@@ -100,8 +122,8 @@ def main():
                 tiers[r.get("tier") or "?"] += 1
     packages = collections.OrderedDict()
     for p in batch_files:
-        name = re.sub(r"_part\d+_of_\d+$", "", os.path.basename(p)[:-4])
-        with open(p, encoding="utf-8", newline="") as f:
+        name = BF.package(p)
+        with BF.open_text(p, newline="") as f:
             packages[name] = packages.get(name, 0) + sum(1 for _ in csv.reader(f)) - 1
     stamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     sha = (run("git", "rev-parse", "--short", "HEAD", check=False).stdout or "").strip()
@@ -146,11 +168,11 @@ def main():
     shutil.copy(os.path.join(pub, "BUILD.json"), os.path.join(g, "BUILD.json"))
     done = set()
     for p in batch_files:
-        name = re.sub(r"_part\d+_of_\d+$", "", os.path.basename(p)[:-4])
+        name = BF.package(p)
         if name in done:
             continue
         done.add(name)
-        with open(p, encoding="utf-8", newline="") as f, open(os.path.join(g, "batches_head", name + ".csv"), "w", encoding="utf-8", newline="") as o:
+        with BF.open_text(p, newline="") as f, open(os.path.join(g, "batches_head", name + ".csv"), "w", encoding="utf-8", newline="") as o:
             w = csv.writer(o)
             for i, row in enumerate(csv.reader(f)):
                 if i > HEAD_ROWS:
@@ -172,7 +194,7 @@ def main():
     with open(os.path.join(g, "WHERE.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
     # the working copy of the NEW table for the readers that run later in this job (untracked: .gitignore)
-    shutil.copy(table, os.path.join(g, "ranked_buyers.csv.gz"))
+    place(table, os.path.join(g, "ranked_buyers.csv.gz"))
     with open(os.path.join(g, "ranked_buyers.csv.gz.build"), "w", encoding="utf-8") as f:
         f.write(build["id"])
     print("git folder %s: %s" % (g, ", ".join(sorted(os.listdir(g)))), flush=True)

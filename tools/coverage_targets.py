@@ -129,15 +129,31 @@ def filled(v, field=""):
     return not LABEL_ONLY.match(v)
 
 
+def needed_columns():
+    """every column this tool reads: the measured fields plus each column named in an r.get("…") / r["…"] of this file. A row is kept as these
+    cells only, each string stored once (2026-11-10, measured: whole rows cost 38 KB each in memory — 2.8 GB at 73,600 delivered rows, more
+    than a 16 GB runner holds at ~400,000; the cells this tool reads are a fifth of the columns and most of their values repeat)"""
+    src = open(os.path.abspath(__file__), encoding="utf-8").read()
+    named = {a or b for a, b in re.findall(r"""\br\.get\("([A-Za-z0-9_]+)"|\br\["([A-Za-z0-9_]+)"\]""", src)}
+    return set(T) | {f for fs in GROUP.values() for f in fs} | set(SUBSET) | named
+
+
 def load_batches(d):
-    pk = collections.OrderedDict()
-    for f in sorted(glob.glob(os.path.join(d, "*.csv"))):
-        c = code_of(os.path.basename(f))
+    """-> ({package code: [row, …]}, the columns of the files). The package files are compressed since 2026-11-10 (tools/batch_files.py)."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import batch_files as BF
+    need = needed_columns()
+    pk, cols = collections.OrderedDict(), set()
+    for f in BF.files(d):
+        c = code_of(BF.member(f))
         if c.startswith("Z"):
             continue
-        with open(f, encoding="utf-8", newline="") as fh:
-            pk.setdefault(c, []).extend(csv.DictReader(fh))
-    return pk
+        with BF.open_text(f, newline="") as fh:
+            rd = csv.DictReader(fh)
+            cols |= set(rd.fieldnames or [])
+            keep = [k for k in (rd.fieldnames or []) if k in need]
+            pk.setdefault(c, []).extend({k: sys.intern(r[k] or "") for k in keep} for r in rd)
+    return pk, cols
 
 
 def load_ranked(path):
@@ -167,13 +183,16 @@ def main():
     a.add_argument("--history", default=os.path.join(ROOT, "coord/results/coverage_history.csv"))
     a.add_argument("--date", default=TODAY)
     a = a.parse_args()
-    pk = load_ranked(a.ranked) if a.ranked else load_batches(a.batches_dir)
+    cols = set()
+    if a.ranked:
+        pk = load_ranked(a.ranked)
+        for rows in pk.values():
+            if rows:
+                cols |= set(rows[0].keys())
+    else:
+        pk, cols = load_batches(a.batches_dir)
     if not pk:
         sys.exit("no package rows found")
-    cols = set()
-    for rows in pk.values():
-        if rows:
-            cols |= set(rows[0].keys())
     # measure
     res = {}  # (field, pkg) -> dict
     for field, tg in T.items():

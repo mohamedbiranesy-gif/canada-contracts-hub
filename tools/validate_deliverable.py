@@ -29,15 +29,18 @@ def main():
     if os.path.exists(a.mx):
         for r in csv.DictReader(open(a.mx, encoding="utf-8"), delimiter="\t"):
             mx[r["domain"]] = r["status"]
-    files = sorted(f for f in glob.glob(os.path.join(a.dir, "batches", "*.csv")) if not os.path.basename(f).startswith("Z_"))
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import batch_files as BF  # the package files are compressed since 2026-11-10 (plain ones are still read)
+    files = [f for f in BF.files(os.path.join(a.dir, "batches")) if not BF.member(f).startswith("Z_")]
     gates = collections.OrderedDict((k, []) for k in (
         "1 mailbox present, valid, domain with a mail server", "2 role mailbox (no person-like local part, no freemail)",
         "3 mailbox evidence url + quote containing the address, referee-confirmed (all packages but P11)", "4 relationship evidence (contract_status + vendor_country_basis + vendor)",
         "5 one row per mailbox across packages", "6 no blank cell", "7 receivables mailbox graded as invoicing (heuristic, review)"))
     seen_mail, total, per_pkg, quote_misses = {}, 0, collections.OrderedDict(), []
     for f in files:
-        name = re.sub(r"_part\d+_of_\d+$", "", os.path.basename(f)[:-4])  # a big package is delivered in numbered part files
-        rows = list(csv.DictReader(open(f, encoding="utf-8")))
+        name = BF.package(f)  # a big package is delivered in numbered part files
+        with BF.open_text(f) as _fh:
+            rows = list(csv.DictReader(_fh))
         per_pkg[name] = per_pkg.get(name, 0) + len(rows); total += len(rows)
         for i, r in enumerate(rows, 2):
             where = "%s:%d %s" % (name, i, (r.get("buyer") or "")[:40])

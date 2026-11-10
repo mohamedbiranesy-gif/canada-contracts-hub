@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 12:45Z — row audit round 2: eight classes of cells that were true of another organisation removed; published build 10:54Z = 96,098 rows)
+# STATE.md — Claude lane (updated 2026-11-10 15:10Z — published build 14:29Z = 169,768 rows, 165,320 with a mailbox; the build path rebuilt for a table five times larger)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,36 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 15:10Z — build 14:29Z: 169,768 rows; why no build landed between 10:54Z and 14:29Z; the build path measured and rebuilt
+**Published and committed (14:29Z, first build with every audit fix of 12:45Z):** 169,768 rows, 165,320 with a mailbox.
+| Line | Rows with a mailbox |
+|---|---|
+| named Canada-located vendor (A 1,279 · B 1,704 · C 324 · D 20,837 · L 426 · M 5,146 · T 41,173) | 70,889 |
+| tier R — the organisation's own .ca domain registration (CIRA), its own line | 75,733 |
+| tier E — link only, not shown to be a relationship with the Canada-located entity, its own line | 4,453 |
+| inferred or weak (I 14,237 · F 8) | 14,245 |
+Tier E grew by 691 against the 13:27Z table (3,762): the own-site rules of the audit at work on the new rows.
+
+**What broke (12:46Z–13:43Z) and is fixed:** the 13:27Z build ranked 169,769 rows and published the release, then its commit was refused —
+`coord/results/ranked/ranked_buyers.csv.gz` (151 MB) had stayed tracked by git although .gitignore named it; the retry loop rebuilt and was
+shut down by the runner in the DNS step, which read the 2 GB table three times into memory. Both fixed 13:45Z; build 14:29Z is the result.
+
+**Then measured, because the next ones were visible from there** (table in coord/DECISIONS.md 15:10Z): disk ~65 KB a row (limit ~215,000
+rows — the very next build), scoreboard and growth report holding whole rows (limit ~400,000), the DNS file in git (limit ~470,000 domains),
+the ranker's own memory (3.6 GB at 169,768 rows, +11.8 KB a row: limit ~800,000). Built and verified byte-identical on a full local build:
+tables compressed only (disk of a build 2.6 → 0.35 GB at 76,913 rows), reports that keep cells instead of rows (2.83 → 0.22 GB, 2.33 → 0.09 GB),
+the DNS file and the crawl results in parts, one prep script and one tail script for both workflows.
+
+**Ranking in parts:** built, measured on two parts, not the default. It keeps every joined thing in one part (0 mailboxes in two parts) but
+each part still loads all leads and mailboxes (2.42 GB a part against 2.49 GB): the next step is loading each table for the part's own
+organisations only. Until then one process is good to ~800,000 rows.
+
+**Supply, read from coord/LANES.md 14:30Z:** 3,010,354 home pages read (1,310,325 readable), 280,623 print a role mailbox, 176,238 of them on
+.ca (tier R candidates); 335,151 lead sites read by the mailbox crawl, 156,328 with a mailbox. What is on file will carry the table to about
+300,000 rows. Beyond that the supply has to come from: .ca sites whose home page prints no mailbox but whose contact page may (~1,000,000
+readable sites not yet asked), Shopify storefronts (542,022 domains on Shopify's addresses; 20 % accepted so far), member directories of
+chambers of commerce and associations, more Canada-based platforms with a public tenant footprint. Next entries report each as it is built.
 
 ## 2026-11-10 12:45Z — row audit, round 2: cells that were true of ANOTHER organisation (eight fixes, each measured on a full local build)
 **Published build 10:54Z** (`2026-11-10T10:54:43Z-7d767f6`): 96,098 rows, 92,432 with a mailbox — A 1,279 · B 1,695 · C 332 · D 21,169 · E 3,592 ·

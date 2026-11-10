@@ -107,7 +107,8 @@ def records():
     legacy = {}
     p = os.path.join(INC, "claude_dmarc_check.tsv")
     if os.path.exists(p):
-        for r in csv.DictReader(open(p, encoding="utf-8", errors="replace"), delimiter="\t"):
+        import parted_csv as _PC  # the file is written in parts (tools/dmarc_check.py)
+        for r in _PC.rows(p, delimiter="\t"):
             rec = (r.get("spf_record") or "").strip()
             if rec.lower().startswith("v=spf1") and r.get("domain") and r["domain"] not in seen:
                 legacy[r["domain"]] = {"d": r["domain"], "t": r.get("checked_date") or "", "mx": [], "ns": [], "txt": [], "spf": rec[:600],

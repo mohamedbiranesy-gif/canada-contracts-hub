@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """CHANGELOG.md + rows_changed.csv between two ranked files (downstream questions O2.1 / O2.2 / S3.1 / S3.2): rows added, removed,
-mailbox changed, package moved — keyed by the organisation's first key. Run by rank.py at the end of every build.
+mailbox changed, package moved — keyed by the organisation's first key. Run by tools/rank_tail.sh right after the table is written (until
+2026-11-10 by rank.py itself, as a child process next to the ranker's own memory).
   python3 tools/release_diff.py <previous ranked_buyers.csv.gz> <new ranked_buyers.csv.gz> <out dir>
 """
 import csv, datetime, gzip, os, subprocess, sys
@@ -22,7 +23,7 @@ def load(path):
         for r in csv.DictReader(f):
             k = (r.get("keys") or "").split("|")[0] or r.get("buyer", "")
             if k not in out:
-                out[k] = {c: (r.get(c) or "") for c in keep}
+                out[k] = {c: sys.intern(r.get(c) or "") for c in keep}  # most cells repeat ("", a DMARC policy, a package): each string is stored once
     return out
 
 

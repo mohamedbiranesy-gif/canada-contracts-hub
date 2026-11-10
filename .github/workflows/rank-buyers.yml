@@ -4,6 +4,9 @@ name: rank-buyers
 # Rebuilt from the latest dataset release and the referee's confirmed mailboxes, so the batches stay current without
 # anyone running them by hand. Output: the release "ranked-latest" (ranked_buyers.csv.gz, ranked_batches.zip, ranked_contracts.zip, ranked_extras.zip,
 # BUILD.json) and coord/results/ranked/ (SUMMARY.md, VALIDATION.md, AUDIT.md …, WHERE.md, BUILD.json, batches_head/).
+#
+# One process ranks the whole table here. rank-buyers-parts.yml ranks it on several runners and puts the parts together; both use
+# tools/rank_prep.sh (before the table) and tools/rank_tail.sh (after it), and share one concurrency group, so they never run at the same time.
 on:
   schedule:
     - cron: "17 */6 * * *"
@@ -13,66 +16,20 @@ permissions:
 jobs:
   rank:
     runs-on: ubuntu-latest
-    timeout-minutes: 240   # 20-27 minutes at 69,000 rows (2026-11-10); the row count is meant to grow tenfold
+    timeout-minutes: 240   # 40 minutes at 170,000 rows (2026-11-10), 18 of them the DNS-posture step; the row count is meant to grow sixfold
     concurrency: { group: ranker, cancel-in-progress: false }  # own group: a queued referee run must not cancel it
     steps:
       - uses: actions/checkout@v4
-      - name: Rank, split into batches, commit
+      - name: Rank, split into batches, publish, commit
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           pip install -q dnspython
+          df -h / /mnt 2>/dev/null | sed 's/^/disk at start:      /' || true
           mkdir -p data/release
           gh release download dataset-latest -p canadian_vendor_contracts.jsonl.gz -p vendors_enriched.jsonl.gz -p buyers_enriched.jsonl.gz \
             -p vendor_country_unverified_contracts.jsonl.gz -p 'ended_2*.jsonl.gz' -D data/release --clobber
-          git config user.name "ranker-bot"; git config user.email "ranker-bot@users.noreply.github.com"
-          for i in 1 2 3 4 5; do
-            git fetch -q origin main && git reset -q --hard origin/main
-            # DNS posture (DMARC / SPF / MTA-STS / TLS-RPT / BIMI) for mailbox domains not yet checked: new mailboxes arrive every build, the Mac's daily
-            # loop would leave them "not checked yet" for up to a day (12 DNS benchmarks fell from 100 % to 99.8 % on 2026-11-08 for that reason)
-            # the ranked table is committed in parts under 45 MB (GitHub refuses files over 100 MB: the single file was 70 MB at 68,910 rows);
-            # tools/ranked_io.py assemble puts the parts back together as coord/results/ranked/ranked_buyers.csv.gz (untracked) for every reader
-            python3 tools/ranked_io.py assemble || true
-            python3 tools/ranked_io.py cat > /tmp/prev_ranked.csv 2>/dev/null || true
-            timeout 20m python3 tools/dmarc_check.py --repo "$PWD" --recheck-days 30 --workers 64 /tmp/prev_ranked.csv $(ls data/incoming/*/*results*.csv data/incoming/claude/claude_buyer_leads.csv 2>/dev/null | head -400) > dmarc_check.log 2>&1 || true
-            tail -2 dmarc_check.log
-            # whose site a client listing is on (tools/site_owner_wd.py): Wikidata's official-website statements for the sites not asked yet.
-            # The query service allows one query a minute (100 sites each): at most 4 minutes a build, the rest at the next build.
-            timeout 6m python3 tools/site_owner_wd.py --ranked /tmp/prev_ranked.csv --minutes 4 > site_owner.log 2>&1 || true
-            tail -1 site_owner.log
-            python3 contrib/claude/rank_buyers/rank.py > rank.log
-            if grep -q "downstream pack skipped" rank.log; then echo "::error::downstream pack skipped — build not published (the previous build stays)"; grep -A3 -B3 "downstream pack skipped" rank.log; exit 1; fi
-            rm -rf out/ranked/batches && python3 contrib/claude/rank_buyers/batches.py > batches.log
-            python3 tools/validate_deliverable.py out/ranked --mx data/incoming/claude/claude_mx_check.tsv --write out/ranked/VALIDATION.md > validate.log || true
-            python3 tools/dmarc_report.py out/ranked > dmarc.log || true
-            python3 contrib/claude/rank_buyers/contracts_export.py > contracts.log || true
-            python3 tools/audit_deliverable.py out/ranked --write out/ranked > audit.log || true
-            python3 tools/coverage_targets.py --write out/ranked --history coord/results/coverage_history.csv > coverage.log 2>&1 || true
-            [ -s out/ranked/COVERAGE_VS_TARGETS.md ] || { echo "::warning::scoreboard not written (see coverage.log) — previous scoreboard kept"; cp coord/results/ranked/COVERAGE_VS_TARGETS.md out/ranked/ 2>/dev/null || true; }
-            # owner 2026-11-09 10:45 EST ("show me that I should wait"): every build diffed against the pack he could have shipped on Nov 9
-            python3 tools/growth_report.py --ranked out/ranked/ranked_buyers.csv.gz --coverage-json out/ranked/coverage_vs_targets.json --baseline coord/BASELINE_SHIP_NOW_2026-11-09.json --write coord/GROWTH_VS_BASELINE.md --history coord/growth_history.csv --label "$(git rev-parse --short HEAD)" > growth.log 2>&1 || echo "::warning::growth report failed (see growth.log)"
-            # 2026-11-10: the bulky outputs (whole table, package CSVs, contracts export, audit / DMARC / change lists) are published as assets of the
-            # release "ranked-latest"; git keeps the reports, BUILD.json, WHERE.md and the first rows of each package (tools/ranked_publish.py).
-            # Measured before: 5.4 GB of new git objects in 24 hours, a repository of 8.9 GB after ten days.
-            if python3 tools/ranked_publish.py out/ranked --tag ranked-latest --git-dir coord/results/ranked > publish.log 2>&1; then
-              tail -3 publish.log
-            else
-              echo "::warning::release publish failed — this build is committed in parts as before"; tail -20 publish.log
-              rm -rf coord/results/ranked && mkdir -p coord/results/ranked && cp -r out/ranked/* coord/results/ranked/ && rm -f coord/results/ranked/ranked_buyers.csv coord/results/ranked/ranked_buyers.jsonl.gz
-              python3 tools/ranked_io.py split coord/results/ranked/ranked_buyers.csv.gz 40
-              ls -la coord/results/ranked/batches | awk '$5 > 95000000 {print "::error::file over 95 MB: " $9; bad=1} END {exit bad}'
-            fi
-            { echo "# Ranked buyers — $(date -u +%Y-%m-%dT%H:%MZ)"; echo; echo '```'; cat rank.log batches.log; echo; echo "# coverage vs the downstream targets (COVERAGE_VS_TARGETS.md)"; cat coverage.log; echo '```'; echo; echo "Integrity gates: see VALIDATION.md in this folder; columns and rules: contrib/claude/rank_buyers/README.md"; } > coord/results/ranked/SUMMARY.md
-            python3 tools/lane_status.py --write coord/LANES.md > /dev/null 2>&1 || true   # one page: every cloud lane's funnel, from the files on main
-            git add coord/results/ranked coord/results/coverage_history.csv data/incoming/claude/claude_dmarc_check.tsv coord/GROWTH_VS_BASELINE.md coord/growth_history.csv coord/LANES.md
-            [ -e data/incoming/claude/claude_site_owner_wd.csv ] && git add data/incoming/claude/claude_site_owner_wd.csv || true
-            git diff --cached --quiet && break
-            git commit -q -m "ranker: buyers re-ranked into quality batches [skip ci]"
-            pushed=0
-            for j in 1 2 3 4 5 6 7 8; do  # the ranker's commit touches only coord/results/ranked: rebase onto whatever landed meanwhile and push again
-              git push -q origin HEAD:main && { pushed=1; break; }
-              sleep $((j * 5)); git fetch -q origin main && git rebase -q origin/main || { git rebase --abort; break; }
-            done
-            [ "$pushed" = "1" ] && break
-            sleep $((i * 7))
-          done
+          bash tools/rank_prep.sh
+          python3 contrib/claude/rank_buyers/rank.py > rank.log || { tail -40 rank.log; exit 1; }
+          grep -E "^\[ *[0-9]+s .*\] (same-vendor carry-over|rows [0-9]+)" rank.log | cut -c1-60 || true   # time and memory at the end of the ranking
+          bash tools/rank_tail.sh

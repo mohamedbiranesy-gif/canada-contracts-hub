@@ -50,8 +50,11 @@ def main():
     a.add_argument("--write", default="")
     a = a.parse_args()
     mx = {r["domain"]: r for r in csv.DictReader(open(a.mx, encoding="utf-8"), delimiter="\t")} if os.path.exists(a.mx) else {}
-    dm = {r["domain"]: r for r in csv.DictReader(open(a.dmarc, encoding="utf-8"), delimiter="\t")} if os.path.exists(a.dmarc) else {}
-    files = sorted(f for f in glob.glob(os.path.join(a.dir, "batches", "*.csv")) if not os.path.basename(f).startswith("Z_"))
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import parted_csv as _PC  # the DNS-posture file is written in parts (tools/dmarc_check.py)
+    dm = {r["domain"]: r for r in _PC.rows(a.dmarc, delimiter="\t")}
+    import batch_files as BF  # the package files are compressed since 2026-11-10 (plain ones are still read)
+    files = [f for f in BF.files(os.path.join(a.dir, "batches")) if not BF.member(f).startswith("Z_")]
     checks = collections.OrderedDict()  # name -> dict(kind=hard|soft|info, hits=[...], n=int)
     def hit(name, kind, where, detail=""):
         c = checks.setdefault(name, {"kind": kind, "hits": [], "n": 0})
@@ -74,15 +77,16 @@ def main():
                  "24 no blank cell", "25 jurisdiction vs mailbox top-level domain", "26 currency filled when a value is filled"):
         ok(name, "hard" if name.split()[0] in ("1", "2", "3", "4", "5", "6", "11", "13", "16", "21", "24") else "soft")
     for f in files:
-        pkg = re.sub(r"_part\d+_of_\d+$", "", os.path.basename(f)[:-4])
+        pkg = BF.package(f)
         short = pkg.split("_")[0] + ("_" if pkg.startswith("P01_") else "")
         short = pkg[:4]
-        rows = list(csv.DictReader(open(f, encoding="utf-8")))
+        with BF.open_text(f) as _fh:
+            rows = list(csv.DictReader(_fh))
         hdr = tuple(rows[0].keys()) if rows else ()
-        headers[os.path.basename(f)] = hdr
+        headers[BF.member(f)] = hdr
         per_pkg[pkg] = per_pkg.get(pkg, 0) + len(rows); total += len(rows)
         for i, r in enumerate(rows, 2):
-            where = "%s:%d %s" % (os.path.basename(f)[:-4], i, (r.get("buyer") or "")[:40])
+            where = "%s:%d %s" % (BF.member(f)[:-4], i, (r.get("buyer") or "")[:40])
             e = (r.get("email") or "").strip(); el = e.lower(); dom = el.split("@")[-1] if "@" in el else ""; local = el.split("@")[0]
             g = r.get("grade") or ""; et = r.get("email_type") or ""; q = r.get("email_evidence_quote") or ""; u = r.get("email_evidence_url") or ""
             site = r.get("buyer_website") or ""; sh = (urllib.parse.urlparse(site if "://" in site else "https://" + site).hostname or "").lower().removeprefix("www.") if site else ""
@@ -135,7 +139,7 @@ def main():
             if ln and ln != "not_published" and (BAD_LEGAL.search(ln) or re.match(r"^(?:'?s\b|[a-z])", ln) or re.search(r"\bno\.?$", ln, re.I)): hit("20 legal name is not a fragment or a platform copyright", "soft", where, ln[:70]); reasons.append("legal-name fragment")
             if el:
                 if el in seen_mail: hit("21 one row per mailbox", "hard", where, e + " also in " + seen_mail[el]); reasons.append("duplicate mailbox")
-                else: seen_mail[el] = os.path.basename(f)[:-4]
+                else: seen_mail[el] = BF.member(f)[:-4]
             nk = re.sub(r"[^a-z0-9]+", " ", bn.lower()).strip()
             by_name[nk].append((where, e)); by_name_mail[(nk, dom)] += 1
             if sh: by_site[registrable(sh)].append((where, e))
@@ -154,7 +158,7 @@ def main():
                 if (r.get(col) or "") not in ("", "not_published"): fill[col] += 1
             btype[r.get("buyer_type") or "?"] += 1; posture[r.get("dmarc_policy") or "?"] += 1
             if reasons:
-                flags.append({"file": os.path.basename(f)[:-4], "row": i, "package": pkg, "buyer": bn, "email": e, "reasons": "; ".join(reasons)})
+                flags.append({"file": BF.member(f)[:-4], "row": i, "package": pkg, "buyer": bn, "email": e, "reasons": "; ".join(reasons)})
     # header check
     hs = set(headers.values())
     if len(hs) != 1 or len(next(iter(hs))) < 92:

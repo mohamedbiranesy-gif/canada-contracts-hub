@@ -1135,6 +1135,106 @@ try:
 except Exception as _e:
     print("registry leads skipped: %s" % _e)
 print("registry leads (.ca domains carrying a confirmed mailbox of their own organisation): %d" % n_reg)
+# ---- ranking in parts (2026-11-10) -------------------------------------------------------------------------------------------------------
+# RANK_PART="i/N": this process ranks part i of N. Measured: 1.9 GB fixed + ~12 KB a row — a million rows do not fit one 16 GB runner. The
+# rows that grow are the leads' and the inferred rows of organisations with a mailbox; the contract rows and P12 are small and stay whole in
+# part 0. What the ranker joins must be in one part:
+#   - leads of one website domain (one row per site: seen_dom, the upgrades by domain, a borrowed mailbox, the second-mailbox fold);
+#   - organisations that hold the same mailbox (one row per mailbox), and an organisation with the site its mailbox was read on: the mailbox's
+#     domain joins them (a freemail / access-provider domain joins nobody: there only the same box does);
+#   - whoever shares a domain or a mailbox with a row that exists before the leads, or with a buyer of the contract dataset: part 0.
+# A group of joined organisations is named by its smallest member and placed by the hash of that name, so it keeps its part from build to
+# build. Parts > 0 build the contract rows as every run does (the leads are judged against them) and write only their own rows.
+# tools/rank_merge.py puts the parts together. Measured on 76,706 rows in two parts: the same rows but one, the same cells but a provider
+# name in 13 carry-over notes. Without RANK_PART nothing here runs.
+_PART = (os.environ.get("RANK_PART") or "").strip()
+_PI, _PN = (int(_PART.split("/")[0]), int(_PART.split("/")[1])) if _PART else (0, 1)
+_part_of, _XLEAD = {}, None
+def _lead_label(_l):
+    return "%s — %s%s" % (re.sub(r"=.*$", "", _l.get("canada_field_value") or "lead") if "stories" not in (_l.get("canada_field_value") or "") else "customer story published by the vendor",
+                          _l.get("example_vendor") or "", (" (%s)" % _l["latest_record_date"][:10]) if _l.get("latest_record_date") else "")
+def _lead_tables(_leads):
+    """the lead relationships by website domain and by exact name, for the back-reference "also seen in the lead files" """
+    _ld, _ln = collections.defaultdict(list), collections.defaultdict(list)
+    for _k, _l in _leads.items():
+        _d = registrable(host_of(_l.get("website") or "")) if _l.get("website") else ""
+        _lab = _lead_label(_l)
+        if _d and not SHARED_GOV.match(_d):
+            _ld[_d].append(_lab)
+        _ln[norm(_l.get("buyer_name") or "")].append(_lab)
+    return _ld, _ln
+if _PN > 1:
+    import hashlib as _hp
+    _XLEAD = _lead_tables(leads)  # the back-reference reads every lead, whatever its part
+    for x in rows:
+        x["_pre"] = "1"  # a row that exists before the leads: written by part 0 only
+    def _pdom(u):
+        return registrable(host_of(u)) if u else ""
+    def _box_node(mr):
+        e = (mr.get("mailbox") or "").strip().lower()
+        d = registrable(e.split("@")[-1]) if "@" in e else ""
+        return ("box:" + e) if (d and FREEMAIL.match(d)) else d
+    _up = {}
+    def _find(a):
+        r = a
+        while _up.setdefault(r, r) != r:
+            r = _up[r]
+        while _up[a] != r:
+            _up[a], a = r, _up[a]
+        return r
+    def _union(a, b):
+        ra, rb = _find(a), _find(b)
+        if ra != rb:
+            _up[max(ra, rb)] = min(ra, rb)  # the smallest name stands for the group
+    _core = set()
+    for x in rows:
+        _core.add(_pdom(x.get("buyer_website") or ""))
+        if x.get("email"):
+            _core.add(_box_node({"mailbox": x["email"]}))
+    _node = {}
+    for _mk, (_ms, _mr) in mail.items():  # every organisation with a mailbox: a lead, or a candidate of the inferred rows
+        _site = (VEN.get(_mk) or {}).get("website") or (BUY.get(_mk) or {}).get("official_website") or (leads[_mk].get("website") if _mk in leads else "") or ""
+        _bn = _box_node(_mr)
+        # its site; an organisation without a known site stands under its mailbox's domain — or, with a freemail box, under the host of the page
+        # the box was read on (the inferred rows keep one row per such host)
+        _sd = _pdom(_site) if _site else (registrable(host_of(_mr.get("evidence_url") or "")) if _bn.startswith("box:") else "")
+        _ns = [d for d in (_sd, _bn) if d] or ["key:" + _mk]
+        for _d in _ns[1:]:
+            _union(_ns[0], _d)
+        _find(_ns[0])
+        _node[_mk] = _ns[0]
+        if _mk in BUY:  # a buyer of the contract dataset: P12 and the contract rows are ranked in part 0
+            _core.update(_ns)
+    for _k, _L in leads.items():
+        _d0 = _pdom(_L.get("website") or "")
+        if _k not in _node:
+            _node[_k] = _d0 or ("key:" + _k)
+            _find(_node[_k])
+        elif _d0:
+            _union(_node[_k], _d0)
+        for _ok, (_os, _or) in (mail_dom.get(_d0) or {}).items() if _d0 else ():
+            _union(_node[_k], _node.get(_ok) or _box_node(_or))  # a lead may borrow the mailbox of the organisation that owns its site's domain
+    # the same site name under two endings (ventilationgr.ca / ventilationgr.com, thingsengraved.ca / .com) is one organisation more often than
+    # not, and the ranker delivers one inferred row per organisation name: such domains stay together (measured: 15 of the 30 rows that two
+    # parts delivered beyond a single run were this case)
+    for _d in [d for d in list(_up) if "." in d and not d.startswith(("box:", "key:", "sld:"))]:
+        _lab = _d.split(".")[0]
+        if len(_lab) >= 6:
+            _union(_d, "sld:" + _lab)
+    _core.discard("")
+    _core_roots = {_find(d) for d in _core if d in _up}
+    _n_core = 0
+    for _k, _n in _node.items():
+        _r = _find(_n)
+        if _r in _core_roots:
+            _part_of[_k] = 0; _n_core += 1
+        else:
+            _part_of[_k] = int(_hp.sha1(_r.encode()).hexdigest()[:8], 16) % _PN
+    _sizes, _nl = collections.Counter(_part_of[k] for k in leads), len(leads)
+    leads = {k: v for k, v in leads.items() if _part_of[k] == _PI}
+    print("RANK_PART %d/%d: %d of %d leads in this part (leads per part: %s); organisations placed: %d, of which %d stand with a row that exists before the leads or a buyer of the contract dataset (part 0)" % (
+        _PI, _PN, len(leads), _nl, dict(sorted(_sizes.items())), len(_part_of), _n_core))
+    _free(globals(), "_up", "_node", "_core", "_core_roots")
 _SN = int(os.environ.get("RANK_SAMPLE") or 0)  # debug only: a fixed 1-in-N sample of the leads and of the inferred rows, to compare two versions of this script on a small machine
 def _in_sample(k):
     import hashlib as _hs
@@ -1477,7 +1577,7 @@ def reg_canada(ve):
         addr_text(ra), (m.get("source_url") or "")[:120])
 import glob as _glob
 orgs12, seen_rec = {}, set()
-for kind, paths in (("ended", sorted(_glob.glob(REL + "ended_*.jsonl.gz"))), ("registry", [REL + "vendor_country_unverified_contracts.jsonl.gz"])):
+for kind, paths in ((("ended", sorted(_glob.glob(REL + "ended_*.jsonl.gz"))), ("registry", [REL + "vendor_country_unverified_contracts.jsonl.gz"])) if _PI == 0 else ()):  # ranking in parts: P12 in part 0
     for r in jl(*paths):
         if r.get("record_id") in seen_rec:
             continue
@@ -1654,6 +1754,8 @@ skipped13 = collections.Counter()
 for k, ((acc, g), m) in mail.items():
     if not acc or g < 1 or k in covered_keys or (_SN and not _in_sample(k)):
         continue
+    if _PN > 1 and _part_of.get(k, 0) != _PI:
+        continue  # ranking in parts: an inferred row is made in the part of its organisation
     e = (m.get("mailbox") or "").strip()
     local, _, md = e.lower().partition("@")
     if not md or BAD_LOCAL.search(local):
@@ -1706,7 +1808,10 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
                 _lr["buyer_address"] = _ba; n_keyjoin["buyer_address"] += 1
             if name and re.fullmatch(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", (_lr.get("buyer") or "").lower()) and not re.fullmatch(r"(https?://)?[\w.-]+\.[a-z]{2,}/?", name.strip(), re.I):
                 _lr["buyer"] = name; n_keyjoin["buyer_name"] += 1  # the lead only carried the domain
-        skipped13["same organisation already in a row (domain / mailbox / name)"] += 1; continue
+        skipped13["same organisation already in a row (domain / mailbox / name)"] += 1
+        if not (e.lower() in covered_mail or (dom and dom in covered_dom)):
+            skipped13["… of which by the NAME alone (its own mailbox and domain are in no row)"] += 1
+        continue
     covered_mail.add(e.lower()); covered_name.add(norm(name)); covered_keys.add(k)
     if dom:
         covered_dom.add(dom)
@@ -2291,9 +2396,8 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_mx_check.tsv"):
     for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_mx_check.tsv", encoding="utf-8"), delimiter="\t"):
         MXH[r["domain"]] = r.get("mail_hosts") or ""
 DM = {}
-if os.path.exists(ROOT + "/data/incoming/claude/claude_dmarc_check.tsv"):
-    for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_dmarc_check.tsv", encoding="utf-8"), delimiter="\t"):
-        DM[r["domain"]] = r
+for r in _PCSV.rows(ROOT + "/data/incoming/claude/claude_dmarc_check.tsv", delimiter="\t"):  # written in parts (tools/dmarc_check.py)
+    DM[r["domain"]] = r
 PROVIDER = (("outlook.com|protection.outlook|mail.protection", "Microsoft 365"), ("google.com|googlemail|aspmx", "Google Workspace"), ("pphosted|proofpoint", "Proofpoint"),
             ("mimecast", "Mimecast"), ("barracuda", "Barracuda"), ("messagelabs|symantec|broadcom", "Symantec / Broadcom"), ("fortimail|fortinet", "Fortinet"),
             ("cisco|iphmx|ironport", "Cisco"), ("trendmicro", "Trend Micro"), ("mxlogic|mcafee", "McAfee"), ("secureserver|godaddy", "GoDaddy"), ("zoho", "Zoho"),
@@ -3050,13 +3154,7 @@ for _p, _o in orgs.items():
     if _d and not SHARED_GOV.match(_d):
         AGG_DOM.setdefault(_d, _o)
     AGG_NAME.setdefault(norm(_o.get("name") or ""), _o)
-LEAD_DOM, LEAD_NAME = collections.defaultdict(list), collections.defaultdict(list)
-for _k, _l in leads.items():
-    _d = _dom_of(_l.get("website") or "")
-    _lab = "%s — %s%s" % (re.sub(r"=.*$", "", _l.get("canada_field_value") or "lead") if "stories" not in (_l.get("canada_field_value") or "") else "customer story published by the vendor", _l.get("example_vendor") or "", (" (%s)" % _l["latest_record_date"][:10]) if _l.get("latest_record_date") else "")
-    if _d and not SHARED_GOV.match(_d):
-        LEAD_DOM[_d].append(_lab)
-    LEAD_NAME[norm(_l.get("buyer_name") or "")].append(_lab)
+LEAD_DOM, LEAD_NAME = _XLEAD if _XLEAD is not None else _lead_tables(leads)  # ranking in parts: the tables of every lead, built before the leads were split
 n_x2 = collections.Counter()
 for x in rows:
     x.setdefault("most_recent_record_reference_any_vendor", ""); x["records_in_contract_dataset"] = ""; x["other_relationship_sources"] = ""
@@ -3117,7 +3215,7 @@ for x in rows:
         x["other_relationship_sources"] = "also seen in the lead files: " + "; ".join(sorted(set(_ls))[:6])[:600]; n_x2["dataset rows with lead relationships"] += 1
     x.pop("_org", None)
 print("back-references:", dict(n_x2))
-_free(globals(), "leads", "LEAD_DOM", "LEAD_NAME", "orgs", "AGG_DOM", "AGG_NAME")
+_free(globals(), "leads", "LEAD_DOM", "LEAD_NAME", "_XLEAD", "orgs", "AGG_DOM", "AGG_NAME")
 # D13: high-sensitivity buyers (downstream suppression), by the organisation's published name / type — a tag, never a removal
 SENSITIVE = [("police oversight body", re.compile(r"serious incident response team|special investigations unit|bureau des enqu[êe]tes ind[ée]pendantes|independent investigations? (?:office|unit)|police (?:complaint|review|oversight)|civilian review and complaints|law enforcement review|commissaire [àa] la d[ée]ontologie polici[èe]re|office of the independent police review", re.I)),
              ("police service / police board", re.compile(r"\bpolice\b|\bpolici[èe]re?\b|s[ûu]ret[ée] du qu[ée]bec|\bRCMP\b|\bGRC\b|gendarmerie|\bOPP\b|constabulary|sheriff|law enforcement", re.I)),
@@ -3405,12 +3503,25 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
 # half of a row's memory — held for every row at once just to be written a minute later. The row count is meant to grow tenfold on a 16 GB runner.
 n9, npk = collections.Counter(), collections.Counter()
 cnt, _n_rows, _n_mail, _n_contract = collections.Counter(), len(rows), 0, 0
-_f1 = open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf-8")
+# 2026-11-10 (disk): the plain CSV is 15 KB a row — 2.6 GB at 170,000 rows, 15 GB at a million, and a runner has ~14 GB free for everything.
+# Only the compressed table is written now (batches.py and contracts_export.py read it); RANK_PLAIN_CSV=1 still writes the plain file for a local look.
+_PLAIN = os.environ.get("RANK_PLAIN_CSV") == "1"
+for _old in ("ranked_buyers.csv", "ranked_buyers.csv.gz", "ranked_buyers.jsonl.gz"):
+    # removed, not overwritten: a plain table left by an earlier run would be read instead of this build's, and the publisher hard-links the
+    # compressed table into coord/results/ranked/ (the "previous build" of the next run) — writing through the old name would empty that copy too
+    if os.path.exists(ROOT + "/out/ranked/" + _old):
+        os.remove(ROOT + "/out/ranked/" + _old)
+_f1 = open(ROOT + "/out/ranked/ranked_buyers.csv", "w", newline="", encoding="utf-8") if _PLAIN else None
 _f2 = gzip.open(ROOT + "/out/ranked/ranked_buyers.csv.gz", "wt", newline="", encoding="utf-8", compresslevel=6)  # the published copy
 _f3 = gzip.open(ROOT + "/out/ranked/ranked_buyers.jsonl.gz", "wt", encoding="utf-8", compresslevel=6)  # S1.1: the same rows as JSON lines
-_w1 = csv.DictWriter(_f1, fieldnames=cols, extrasaction="ignore"); _w1.writeheader()
+_w1 = csv.DictWriter(_f1, fieldnames=cols, extrasaction="ignore") if _PLAIN else None
+if _PLAIN:
+    _w1.writeheader()
 _w2 = csv.DictWriter(_f2, fieldnames=cols, extrasaction="ignore"); _w2.writeheader()
 for _ri, x in enumerate(rows):
+    if _PI and x.get("_pre"):
+        rows[_ri] = None  # ranking in parts: the rows that exist before the leads are written by part 0
+        continue
     for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
                 "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count", "records_with_this_vendor", "all_references_with_this_vendor",
                 "relationship_kind", "relationship_detail", "how_relationship_was_found", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
@@ -3865,19 +3976,20 @@ for _ri, x in enumerate(rows):
         npk["rows where the pack failed"] += 1
         if npk["rows where the pack failed"] <= 3:
             import traceback; traceback.print_exc(); print("downstream pack failed on row %d:" % _ri, type(_e).__name__, _e)
-    _w1.writerow(x); _w2.writerow(x)
+    _w2.writerow(x)
+    if _PLAIN:
+        _w1.writerow(x)
     _f3.write(json.dumps({c: x.get(c, "") for c in cols}, ensure_ascii=False) + "\n")
     cnt[x["rank_group"]] += 1; _n_mail += 1 if x["email"] else 0; _n_contract += 1 if x["contract_status"] in TIER else 0
     rows[_ri] = None  # written: the row's memory is free for the next one
     if _ri and _ri % 100000 == 0:
         print("rows written: %d of %d" % (_ri, _n_rows))
-_f1.close(); _f2.close(); _f3.close()
+_f2.close(); _f3.close()
+if _PLAIN:
+    _f1.close()
 print("narrative columns:", dict(n9))
 print("downstream pack:", dict(npk))
-try:
-    import subprocess
-    subprocess.run([sys.executable, ROOT + "/tools/release_diff.py", ROOT + "/coord/results/ranked/ranked_buyers.csv.gz", ROOT + "/out/ranked/ranked_buyers.csv.gz", ROOT + "/out/ranked"], timeout=1500)
-except Exception as _e:
-    print("release_diff skipped:", _e)
+# the change list against the previous build (tools/release_diff.py) is made by tools/rank_tail.sh once this process has ended: it holds two
+# tables' compared cells in memory, and as a child process here it stood next to everything the ranker still holds
 print("rows", _n_rows); print(sorted(cnt.items(), key=lambda kv: (kv[0] != "GOLD", kv[0])))
 print("with any email:", _n_mail, "| contract buyers:", _n_contract)

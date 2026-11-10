@@ -1,0 +1,105 @@
+name: rank-buyers-parts
+# The ranker in parts (2026-11-10). One process holds every row in memory: 1.9 GB fixed + ~12 KB a row, so a million rows do not fit a 16 GB
+# runner (169,769 rows on 2026-11-10 13:27Z, +75,000 per crawl run). Here the table is ranked by N parallel runners (rank.py RANK_PART=i/N:
+# an organisation's part is decided so that everything the ranker joins — a website domain, a mailbox — is in one part) and put together by
+# tools/rank_merge.py; everything after the table (batches, gates, reports, release, commit) is tools/rank_tail.sh.
+# Measured on 76,706 rows in two parts: the same rows as one process plus 23 inferred rows (one process leaves out an inferred row whose NAME
+# another row already carries — "Calvary Baptist Church" of another town; a part cannot see the other parts' names), the same cells except 28
+# carry-over notes that name another row of the same vendor and 4 vendor facts not carried (the row holding the fact is in the other part);
+# no mailbox in two parts.
+# Same concurrency group as rank-buyers.yml: the two never run at the same time.
+on:
+  workflow_dispatch:
+    inputs:
+      parts:
+        description: "parts (2-8)"
+        default: "3"
+permissions:
+  contents: write
+concurrency: { group: ranker, cancel-in-progress: false }
+env:
+  PARTS: ${{ inputs.parts || '3' }}
+jobs:
+  prep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      sha: ${{ steps.p.outputs.sha }}
+      matrix: ${{ steps.p.outputs.matrix }}
+      n: ${{ steps.p.outputs.n }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - id: p
+        name: Tables every part reads (DNS posture of new mailbox domains, whose site a listing is on)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pip install -q dnspython
+          df -h / /mnt 2>/dev/null | sed 's/^/disk at start:      /' || true
+          bash tools/rank_prep.sh
+          mkdir -p prep && cp data/incoming/claude/claude_dmarc_check*.tsv data/incoming/claude/claude_site_owner_wd.csv prep/ 2>/dev/null || true
+          N=$(python3 -c "import os; print(max(2, min(8, int(os.environ['PARTS']))))")
+          echo "n=$N" >> "$GITHUB_OUTPUT"
+          echo "matrix=$(python3 -c "print(list(range($N)))")" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with: { name: prep, path: prep/, retention-days: 2 }
+
+  part:
+    needs: prep
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: true
+      matrix:
+        i: ${{ fromJson(needs.prep.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ needs.prep.outputs.sha }}" }
+      - uses: actions/download-artifact@v4
+        with: { name: prep, path: prep }
+      - name: Rank part ${{ matrix.i }} of ${{ needs.prep.outputs.n }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RANK_PART: "${{ matrix.i }}/${{ needs.prep.outputs.n }}"
+        run: |
+          cp prep/* data/incoming/claude/ 2>/dev/null || true
+          mkdir -p data/release
+          gh release download dataset-latest -p canadian_vendor_contracts.jsonl.gz -p vendors_enriched.jsonl.gz -p buyers_enriched.jsonl.gz \
+            -p vendor_country_unverified_contracts.jsonl.gz -p 'ended_2*.jsonl.gz' -D data/release --clobber
+          python3 contrib/claude/rank_buyers/rank.py > rank.log || { tail -40 rank.log; exit 1; }
+          grep -m1 "RANK_PART" rank.log | cut -c1-400 || true
+          grep -E "^\[ *[0-9]+s .*\] (same-vendor carry-over|rows [0-9]+)" rank.log | cut -c1-60 || true   # time and memory at the end of the ranking
+          df -h / | tail -1 | sed 's/^/disk after ranking: /'
+          if grep -q "downstream pack skipped" rank.log; then echo "::error::downstream pack skipped in part ${{ matrix.i }}"; exit 1; fi
+          mkdir -p part && mv out/ranked/ranked_buyers.csv.gz out/ranked/ranked_buyers.jsonl.gz part/ && cp rank.log part/rank.log
+      - uses: actions/upload-artifact@v4
+        with: { name: "part-${{ matrix.i }}", path: part/, retention-days: 2, compression-level: 0 }
+
+  finish:
+    needs: [prep, part]
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ needs.prep.outputs.sha }}" }
+      - uses: actions/download-artifact@v4
+        with: { path: art }
+      - name: Put the parts together, split into batches, publish, commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          N: ${{ needs.prep.outputs.n }}
+        run: |
+          pip install -q dnspython
+          cp art/prep/* data/incoming/claude/ 2>/dev/null || true
+          mkdir -p data/release
+          gh release download dataset-latest -p canadian_vendor_contracts.jsonl.gz -p vendors_enriched.jsonl.gz -p buyers_enriched.jsonl.gz \
+            -p vendor_country_unverified_contracts.jsonl.gz -p 'ended_2*.jsonl.gz' -D data/release --clobber
+          python3 tools/ranked_io.py assemble || true   # the previous build: the change list of this one is made against it
+          dirs=""; for i in $(seq 0 $((N - 1))); do dirs="$dirs art/part-$i"; done
+          mkdir -p out/ranked
+          python3 tools/rank_merge.py --out out/ranked $dirs | tee merge.log
+          { cat art/part-0/rank.log; for i in $(seq 1 $((N - 1))); do echo; echo "# part $i of $N (its own rows)"; grep -E "RANK_PART|^\[.*\] rows |with any email" art/part-$i/rank.log || true; done; echo; cat merge.log; } > rank.log
+          rm -rf art   # the parts are in the table now: their disk is free for the packages
+          bash tools/rank_tail.sh
