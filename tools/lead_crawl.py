@@ -63,24 +63,50 @@ def lead_done_lines():
                 yield l.rstrip("\n")
 
 
+def name_fit(c, label):
+    """how well a candidate name agrees with a site's own domain label (0 = not at all). The whole name being the label scores highest;
+    a slogan that merely contains one word of the label ("Hearing Aids in Surrey, White Rock & Vancouver" on puretonehearing.ca) scores low."""
+    import unicodedata
+    flat = unicodedata.normalize("NFKD", c or "").encode("ascii", "ignore").decode().lower()
+    n = re.sub(r"[^a-z0-9]", "", flat)
+    if not n or not label:
+        return 0.0
+    if n == label:
+        return 100.0
+    if len(label) >= 4 and label in n:
+        return max(30.0, 80.0 - (len(n) - len(label)) / 2.0)
+    if len(n) >= 4 and n in label:
+        return 60.0 + 20.0 * len(n) / len(label)
+    words = re.findall(r"[a-z0-9]+", flat)
+    toks = [t for t in words if len(t) >= 4 and t not in GENERIC_SITE_WORDS]
+    hit = [t for t in toks if t in label]
+    if not hit:
+        ini = "".join(w[0] for w in words if w not in ("of", "the", "and", "de", "du", "des", "la", "le", "les", "et", "for"))
+        return 45.0 if len(ini) >= 3 and (ini == label or label.startswith(ini) and len(ini) >= 4) else 0.0  # "Feline Rescue Foundation of Alberta" on frfa.ca
+    cover = min(1.0, sum(len(t) for t in hit) / float(len(label)))
+    extra = sum(1 for w in words if len(w) >= 3 and w not in label)
+    if extra and cover < 0.8:
+        return 0.0  # other words around a part of the label: a description ("Marquage de stationnement" on marquage247.ca), not the name
+    return max(0.0, 50.0 * cover - 3.0 * extra)
+
+
 def site_name_for(host, og, title, T):
     """the name an organisation gives itself on its own home page, kept only when it agrees with its own domain (a slogan such as
-    "Best Plumber in Toronto | 24/7 Service" is not a name): og:site_name first, then the parts of <title>"""
-    import unicodedata
+    "Best Plumber in Toronto | 24/7 Service" is not a name): og:site_name and the parts of <title>, the best fit wins (2026-11-10: the first
+    part that shared one word with the domain used to win — a slogan before the name in the title was taken for the name)"""
     label = re.sub(r"[^a-z0-9]", "", (T.base_domain(T.nowww(host or "")) or "").split(".")[0].lower())
     cands = []
     for s in (og, title):
         if s:
             cands += [q.strip(" -–—|:·•") for q in re.split(r"\s+[|–—:·•]\s+|\s+-\s+|\s*\|\s*", s)]
-    for c in cands:
+    best, best_s = "", 0.0
+    for i, c in enumerate(cands):
         if not (2 <= len(c) <= 80) or T.BAD_TITLE.search(c):
             continue
-        flat = unicodedata.normalize("NFKD", c).encode("ascii", "ignore").decode().lower()
-        n = re.sub(r"[^a-z0-9]", "", flat)
-        toks = [t for t in re.findall(r"[a-z0-9]{4,}", flat) if t not in GENERIC_SITE_WORDS]
-        if (len(label) >= 4 and label in n) or (len(n) >= 4 and n in label) or any(t in label for t in toks):
-            return re.sub(r"\s+", " ", c).strip()
-    return ""
+        sc = name_fit(c, label) - 0.01 * i  # equal fits: the earlier candidate (og:site_name first)
+        if sc > best_s:
+            best, best_s = re.sub(r"\s+", " ", c).strip(), sc
+    return best if best_s >= 20.0 else ""
 
 
 def install_hooks():
