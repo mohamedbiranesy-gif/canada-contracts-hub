@@ -63,7 +63,7 @@ def related(d1, d2):
     return x == y or (len(x) >= 5 and x in y) or (len(y) >= 5 and y in x)
 
 
-LEGAL_OK = re.compile(r"morale|societe|compagnie|coop|corporation|association|syndicat|organisme|fiducie|municipal")
+LEGAL_OK = re.compile(r"morale|societe|compagnie|coop|corporation|association|syndicat|organisme|fiducie|municipal|autorite publique|publique")
 
 
 def keyname(s):

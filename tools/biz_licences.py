@@ -270,6 +270,34 @@ def names_agree(a, b):
     return len(short) >= 3 or any(t not in GENERIC and len(t) >= 3 and not t.isdigit() for t in short)
 
 
+FORMAL = set("applied governing council board governors trustees regents institution learning advancement incorporated operating division branch location head office "
+             "high elementary secondary middle junior senior campus main".split())
+
+
+def agree_asym(org, lic):
+    """The organisation's name against a name in a licence list. The licence name may be part of the organisation's name; when the licence name
+    has MORE words, they must all be generic or formal ones — 'ARAMARK CANADA (UNIVERSITY OF CALGARY)', 'SODEXO - BOW VALLEY COLLEGE' and
+    'BUCO EPCOR TOWER' are other parties at the organisation's address (first real run, 2026-11-10)."""
+    to, tl = toks(org), toks(lic)
+    if not to or not tl:
+        return False
+    ident = lambda ts: len(ts) >= 3 or any(t not in GENERIC and t not in FORMAL and len(t) >= 3 and not t.isdigit() for t in ts)
+    if tl <= to:
+        return ident(tl)
+    if to <= tl:
+        return all(t in GENERIC or t in FORMAL for t in tl - to) and ident(to)
+    return False
+
+
+def lic_agrees(org_names, r):
+    """a licence with a named legal licensee belongs to that licensee: the organisation must be it (a cafeteria licensed to Compass Group under
+    the hospital's name is Compass Group's). A numbered company, or no legal name in the list: the trade name decides."""
+    legal = r["name"]
+    trades = [t for t in r["trade"].split(" | ") if t.strip()]
+    cands = [legal] if legal and not re.match(r"\d[\d\s-]{5,}", legal) else (trades or ([legal] if legal else []))
+    return any(agree_asym(n, x) for n in org_names for x in cands)
+
+
 STREET_TYPE = set("st street av ave avenue rd road dr drive blvd boulevard boul way wy trail tr crescent cres cr place pl court ct lane ln gate ga highway hwy rue chemin ch rang route rte "
                   "terrace close cl square sq circle ci green gr hill hl mews link li parade pr rise ri view vw bay ba common cm cove cv heights ht manor mr landing ld passage pa "
                   "point pt villas vi walk wk garden gardens grove gv park pk row plaza pz".split())
@@ -360,7 +388,7 @@ def match(a):
         if not cands:
             continue
         stats["organisations with a licence at their postal code / telephone / street address"] += 1
-        hits = [r for r in cands if any(names_agree(n, x) for n in O["names"] for x in [r["name"]] + r["trade"].split(" | ") if x)]
+        hits = [r for r in cands if lic_agrees(O["names"], r)]
         if not hits:
             continue
         if len({norm(r["name"]) or norm(r["trade"]) for r in hits}) > 1:
