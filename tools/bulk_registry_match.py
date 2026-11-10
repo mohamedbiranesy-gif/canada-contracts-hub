@@ -19,6 +19,7 @@ import argparse, collections, csv, datetime, glob, gzip, io, os, re, sys, unicod
 csv.field_size_limit(1 << 30)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from registry_lookup import COLS, LEGAL, norm, pcode, prov_of, form_class, GOV_RX  # noqa: E402
+import registry_names as RN  # noqa: E402
 
 TODAY = datetime.date.today().isoformat()
 REQ_URL = "https://www.donneesquebec.ca/recherche/dataset/registre-des-entreprises"
@@ -71,7 +72,7 @@ def wanted_orgs(ranked):
             if not r.get("email"):
                 continue
             k = (r.get("keys") or "").split("|")[0]
-            b = (r.get("buyer") or "").strip()
+            b = RN.lookup_name(r)[0]  # the legal person the buyer's own site states, when it does; else the name it trades under
             if k and b and ("buyer", k) not in seen:
                 seen.add(("buyer", k))
                 out.append(("buyer", k, b, prov_of(r.get("jurisdiction") or "", r.get("buyer_address") or ""), r.get("buyer_website") or "", r.get("buyer_address") or ""))

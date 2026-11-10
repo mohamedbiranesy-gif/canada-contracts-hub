@@ -14,6 +14,9 @@ document as the quote; rank.py fills vendor_bn9 / legal name / registered office
 """
 import argparse, hashlib, csv, datetime, gzip, json, os, re, sys, time, unicodedata, urllib.parse, urllib.request
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import registry_names as RN  # noqa: E402  (the name a buyer is looked up under)
+
 csv.field_size_limit(1 << 30)
 UA = "canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)"
 API = "https://ised-isde.canada.ca/cbr/srch/api/v3/search"
@@ -162,17 +165,23 @@ def main():
                     seen.add(v.lower())
                     tasks.append((pr, "vendor", v, v, prov_of(r.get("vendor_address"), r.get("vendor_registered_address"), r.get("vendor_country_basis"))))
             if a.kind in ("buyer", "both"):
-                b = (r.get("buyer") or "").strip()
-                k = (r.get("keys") or "").split("|")[0] or b
+                b, stated = RN.lookup_name(r)  # the legal person the buyer's own site states, when it does; else the name it trades under
+                k = (r.get("keys") or "").split("|")[0] or (r.get("buyer") or "").strip()
                 corp_like = re.search(r"\b(inc|corp|corporation|ltd|limited|lt[ée]e|hospital|h[ôo]pital|foundation|fondation|association|society|soci[ée]t[ée]|centre|center|institute|institut|coop|co-op|credit union|caisse|college|coll[èe]ge|c[ée]gep|health|sant[ée]|housing|transit|authority|commission)\b", b, re.I)
                 # owner 2026-11-08 11:46 EST (every row needs its bill-to legal name): organisations whose name carries no legal form — a company or association
                 # printed as "Acme Plumbing" on a vendor's client page — are looked up too, unless the name says it is a government body (not in the registries)
                 org_like = (r.get("tier") or "") == "I" and not GOV_RX.search(b) and re.search(r"company|organisation \(type not stated|non-profit|association|religious|utility|hospital", r.get("buyer_type") or "", re.I)
-                if b and ("buyer:" + k) not in seen and (corp_like or org_like):
+                if b and ("buyer:" + k) not in seen and (corp_like or org_like or stated):
                     seen.add("buyer:" + k)
                     tasks.append((pr + (0.5 if corp_like else 0.8), "buyer", k, b, prov_of(r.get("jurisdiction") or "", r.get("buyer_address"))))
     tasks.sort(key=lambda t: t[0])
-    tasks = [t for t in tasks if (t[1], t[2]) not in done]
+    # a buyer's record is kept under the row's key, and a row's name changes (a lead first named after a line of its page, later after its own
+    # home page): 2026-11-10, "VILLE DE QUÉBEC" was still the registered name of a row named "LES YMCA DU QUÉBEC" by then. A key is done only
+    # for the name it was looked up under; under a new name it is looked up again and the new answer replaces the old one.
+    _nm = lambda t: re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", t or "").encode("ascii", "ignore").decode().lower()).strip()
+    n_renamed = sum(1 for t in tasks if (t[1], t[2]) in done and _nm(done[(t[1], t[2])].get("name")) != _nm(t[3]))
+    tasks = [t for t in tasks if (t[1], t[2]) not in done or _nm(done[(t[1], t[2])].get("name")) != _nm(t[3])]
+    print("looked up before under another name, to look up again: %d" % n_renamed, flush=True)
     if a.shard:
         k_, n_ = int(a.shard.split("/")[0]), int(a.shard.split("/")[1])
         tasks = [t for t in tasks if int(hashlib.md5(t[2].encode()).hexdigest(), 16) % n_ == k_]

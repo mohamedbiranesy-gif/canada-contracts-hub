@@ -428,13 +428,36 @@ RETRY_STATUS = ("http_308", "http_307", "http_301", "http_302", "http_0", "error
 
 
 def task_key(h, w):
-    """registrable domain, or domain + path for shared hosts (canada.ca/en/environment-climate-change → one record per organisation)"""
+    """the site's host (www. dropped), or domain + path on shared hosts (canada.ca/en/environment-climate-change → one record per organisation).
+    Until 2026-11-10 the key was the registrable domain, so one record served every host of a domain: the record read on tdi.texas.gov was
+    handed to five other Texas agencies, one municipality's to the sixteen others on ao.ca, one church's to another on churchcenter.com. Each
+    host is read for itself now; a record made before that day stays the record of the host it was read on (done_for)."""
     dom = C.registrable(h)
     if SHARED_HOSTS.search(h) or SHARED_HOSTS.search(dom):
         p = urllib.parse.urlparse(w if "//" in w else "https://" + w).path.rstrip("/")
         seg = "/".join(p.split("/")[:3]) if p else ""
         return (dom + seg) if seg else (h if h != dom else dom), h + seg
-    return dom, ""
+    return h, ""
+
+
+def _host_of_site(w):
+    w = w or ""
+    return (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
+
+
+def done_for(done, key, h):
+    """the record of this site, if this very host was read: under its own key, or — read before 2026-11-10 — under its registrable domain.
+    A record kept under the host's name but read on another host of the domain (the domain's record, read on bookstore.upei.ca, is not
+    upei.ca's) does not count: the host is read for itself and its record takes the key."""
+    old = done.get(key)
+    if key == h:
+        if old is not None and _host_of_site(old.get("website")) not in ("", h):
+            old = None
+        if old is None:
+            o2 = done.get(C.registrable(h))
+            if o2 is not None and _host_of_site(o2.get("website")) == h:
+                return o2
+    return old
 
 
 def main():
@@ -483,10 +506,10 @@ def main():
         dom, start_path = task_key(h, w)
         if dom in seen:
             continue
-        old = done.get(dom)
+        old = done_for(done, dom, h)
         if old is not None and not (a.refresh and (int(old.get("v") or 1) < V or old.get("status") in RETRY_STATUS)):
             continue
-        if shard_n > 1 and int(hashlib.md5(dom.encode()).hexdigest(), 16) % shard_n != shard_k:
+        if shard_n > 1 and int(hashlib.md5((C.registrable(h) or h).encode()).hexdigest(), 16) % shard_n != shard_k:  # every host of a domain on one runner
             continue
         seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", ""), ("https://%s/" % start_path) if start_path else ""))
     if a.limit:
@@ -518,6 +541,8 @@ def main():
         res.update({"domain": dom, "key": key, "name": name, "website": start or site, "kind": kind, "date": TODAY})
         with lock:
             old = done.get(dom)
+            if old and _host_of_site(old.get("website")) not in ("", _host_of_site(res.get("website"))):
+                old = None  # the record under this key was read on another host of the domain: this host's own record replaces it, facts are not mixed
             if old and old.get("status") == "ok" and res.get("status") != "ok":
                 res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"))  # keep yesterday's facts when today's read fails
             elif old and old.get("status") == "ok":

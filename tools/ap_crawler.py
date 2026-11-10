@@ -59,6 +59,8 @@ GENERAL = re.compile(r"^(info|contact|contactus|reception|admin|administration|g
 TODAY = datetime.date.today().isoformat()
 
 host_lock, host_next, robots = threading.Lock(), {}, {}
+dom_next, _dom_of_host = {}, {}
+DOMAIN_INTERVAL = 0.5  # seconds between two requests to the hosts of one registrable domain in this process (see fetch)
 HOST_INTERVAL = 1.0  # seconds between two requests to one host in this process (other engines may read the same host: ap_walk uses 2.0)
 out_lock, state_lock = threading.Lock(), threading.Lock()
 stats = {"sites": 0, "pages": 0, "found_sites": 0, "rows": 0, "blocked": 0}
@@ -108,13 +110,20 @@ def log(*a):
 
 
 def fetch(url, limit=6_000_000, _hops=0):
-    """(status, content_type, bytes, final_url); one request per second per host across all threads."""
+    """(status, content_type, bytes, final_url); one request per second per host across all threads, two per registrable domain."""
     host = urllib.parse.urlparse(url).hostname or ""
+    # 2026-11-10: the hosts of one registrable domain are often one platform's servers (500 congregations on churchcenter.com, the municipalities
+    # hosted on ao.ca) and each is read for itself now: together they get at most two requests a second, whatever the number of threads.
+    dom = _dom_of_host.get(host)
+    if dom is None:
+        dom = _dom_of_host[host] = (registrable(host) if host else "") or host
     while True:
         with host_lock:
-            wait = host_next.get(host, 0) - time.time()
+            now = time.time()
+            wait = max(host_next.get(host, 0), dom_next.get(dom, 0)) - now
             if wait <= 0:
-                host_next[host] = time.time() + HOST_INTERVAL
+                host_next[host] = now + HOST_INTERVAL
+                dom_next[dom] = now + DOMAIN_INTERVAL
                 break
         time.sleep(min(wait, 1.0))
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "fr-CA,fr;q=0.9,en;q=0.8"})
@@ -214,22 +223,57 @@ def visible(raw):
 _A_PHONE = re.compile(r"(?:\+?1[\s.\-]?)?\(?\b\d{3}\)?[\s.\-]{1,2}\d{3}[\s.\-]\d{4}\b(?:\s*(?:ext|poste|x)\.?\s*\d{1,5})?", re.I)
 _A_YEAR = re.compile(r"(?:©|\(c\)|copyright)\s*(?:19|20)\d{2}(?:\s*[-–]\s*(?:19|20)\d{2})?|\b(?:19|20)\d{2}\b(?=\s+(?:by|par|all rights|tous droits)\b|\s*[©|])", re.I)
 _A_RIGHTS = re.compile(r"all rights reserved\.?|tous droits r[ée]serv[ée]s\.?", re.I)
-_A_START = re.compile(r"(?<![\w-])(?:\d{1,5}[A-Za-z]?\s?[-–]\s?)?\d{1,6}[A-Za-z]?,?\s+(?:[–-]\s+)?(?:[a-zà-ÿ]+\.?\s+){0,2}[A-ZÀ-Ý0-9]")
+_A_START = re.compile(r"(?<![\w-])(?:[A-Za-z]?\d{1,5}[A-Za-z]?\s?[-–]\s?)?\d{1,6}(?:[A-Za-z]|-[A-Za-z](?![A-Za-z]))?,?\s+(?:[–-]\s+)?(?:[a-zà-ÿ]+\.?\s+){0,2}[A-ZÀ-Ý0-9]")
+# a floor or a unit written out in front of the street number belongs to the address: "3rd Floor, 1250 Dewdney Avenue", "Unit E5, 487 Cornwall Rd"
+_A_UNIT = re.compile(r"(?:\b\d{1,3}(?:st|nd|rd|th|e|er|i[èe]me)\s+(?:floor|[ée]tage)|\b(?:suite|unit|unit[ée]|bureau|local|apt\.?|apartment|app\.?)\s*#?\s*[A-Za-z]?\d{1,5}[A-Za-z]?)\s*[,–-]?\s*$", re.I)
 _A_BOX = re.compile(r"(?:P\.?\s?O\.?\s*Box|C\.?\s?P\.?|Case postale|B\.?\s?P\.?|Box|Suite|Unit|Unité|Bureau)\s*#?\s*$", re.I)
+_A_TIME = re.compile(r"\b\d{1,2}\s?[:h]\s?\d{2}\b(?:\s*[ap]\.?\s?m\b\.?)?|\b\d{1,2}\s*[ap]\.?\s?m\b\.?", re.I)
+# words of a page, not of an address: when they stand between a number and the street, the number is not the street number
+_A_LABEL = re.compile(r"(?i)\b(?:address|adresse|location|located|hours|heures|contact|contactez|phone|t[ée]l[ée]phone|tel|email|e-mail|courriel|menu|cart|panier|shop|store|boutique|magasin|visit|find us|"
+                      r"get in touch|subscribe|follow|copyright|rights|search|login|log in|account|accueil|about|services|products|produits|quantity|details|share|closed|ferm[ée]|"
+                      r"monday|tuesday|wednesday|thursday|friday|saturday|sunday|lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche|welcome|bienvenue|head office|si[èe]ge social|"
+                      r"mailing|showroom|warehouse|sponsors?|coordonn[ée]es|message|guarantee|training|courses|navigation|gallery|items?|usd|cad|information|info|comments?|download|map|browse|brands?)\b")
+_A_STREET = re.compile(r"(?i)\b(?:street|st|avenue|ave|av|road|rd|drive|dr|boulevard|blvd|boul|rue|chemin|ch|chem|route|rte|highway|hwy|way|court|crt|ct|crescent|cres|lane|ln|place|pl|square|sq|trail|tr|terrace|"
+                       r"parkway|pkwy|circle|cir|close|gate|grove|line|sideroad|concession|rang|mont[ée]e|c[ôo]te|all[ée]e|promenade|quai|plaza|centre|center|park|crossing|row|wharf|esplanade|po box|"
+                       r"p\.o\. box|box|c\.p\.|case postale|rr|r\.r\.)\b\.?")
+_A_DATE = re.compile(r"\d{1,2},\s+(?:19|20)\d{2}\b")
 
 
 def address_from(quote):
-    """the address part of a quote that ends at the postal code: from the street number on. 2026-11-10: a telephone number or a copyright year in
-    front of the address was taken for the street number ("403.686.6444 1677 – 93 Street SW" gave "6444 1677 – 93 Street SW"; "© 2025 by … 12140
-    103 St NW" gave "2025 by …"): the address now starts after the last telephone number / copyright year of the quote, and a "P.O. Box" stays."""
+    """the address part of a quote that ends at the postal code: from the street number on.
+    2026-11-10 (first rule): a telephone number or a copyright year in front of the address was taken for the street number ("403.686.6444 1677 –
+    93 Street SW" gave "6444 1677 – 93 Street SW"): the address starts after the last telephone number / copyright year of the quote, and a
+    "P.O. Box" stays.
+    2026-11-10 (second rule, measured on 82,492 printed buyer addresses: 3,792 carried words of the page in front — "00 Shop Made in KY Location &
+    Hours Store Address 318 Monument Square …", "00 pm Friday 8:00 am - 3:00 pm Contact us Laird Orthodontics 62 Laird Dr. …"): opening hours are
+    skipped like telephone numbers; of the numbers left, the street number is the first one that is followed by its street within a few words
+    with no word of the page in between (Address, Hours, Contact, Shop …) — a price, a date, a count is not; "1585-M De Coulomb" starts at 1585."""
     q = quote or ""
-    cut = max([m.end() for m in _A_PHONE.finditer(q)] + [m.end() for m in _A_YEAR.finditer(q)] + [m.end() for m in _A_RIGHTS.finditer(q)] + [0])
+    cut = max([m.end() for m in _A_PHONE.finditer(q)] + [m.end() for m in _A_YEAR.finditer(q)] + [m.end() for m in _A_RIGHTS.finditer(q)] + [m.end() for m in _A_TIME.finditer(q)] + [0])
     tail = q[cut:]
-    m = _A_START.search(tail)
-    if not m:
+    ms = list(_A_START.finditer(tail))
+    if not ms:
         return (tail if cut else q).strip(" ,.-–|:")
-    start = m.start()
-    b = _A_BOX.search(tail[:start])
+    start = ms[-1].start()
+    for i, m in enumerate(ms):
+        nxt = ms[i + 1].start() if i + 1 < len(ms) else len(tail)
+        rest = tail[m.start():]
+        sw = _A_STREET.search(rest)
+        near = bool(sw) and sw.start() <= 45
+        if _A_DATE.match(rest) or (re.match(r"(?:19|20)\d{2}\b", rest) and not (sw and sw.start() <= 30)):
+            continue  # "15, 2026 …", "2027 Sponsors …": a date or a year, unless a street follows it at once ("2026 Main Street")
+        if near:
+            between = rest[m.end() - m.start() - 1:sw.start()]  # the words between the number and the street word
+            lab = _A_LABEL.search(between)
+            # a page word standing right in front of the street word, with nothing after it, is the street's name: "450 N BRAND BLVD", "12 Park Lane"
+            if not lab or (not between[lab.end():].strip(" .") and len(between.split()) <= 3 and not re.search(r"\d", between)):
+                start = m.start()
+                break
+            continue
+        if not _A_LABEL.search(tail[m.start():nxt]):
+            start = m.start()
+            break
+    b = _A_BOX.search(tail[:start]) or _A_UNIT.search(tail[:start])
     if b:
         start = b.start()
     return tail[start:].strip(" ,.-–|:")
