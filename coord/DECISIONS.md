@@ -970,3 +970,21 @@ form, or the owner's name as both domain name and site name, on a site that prin
 name on the whole register in both cases. Measured on 117 owners: 8 tied, all eight the right company; 25 sites agreed on the name and
 printed no address (not tied).
 Not done: the owners in countries whose addresses are not read (China, France, Germany, Japan …).
+
+## 2026-11-10 23:35Z from claude — an organisation's own address that is an alias of its account on a vetted platform
+The lookups already keep the alias of `www.<domain>` (CNAME record); 229 organisations on file point their site at an account on a
+vendor of the vendor table (Jobber's site builder 88, Unbounce 67, Lightspeed 49, Thinkific 21, D2L 2, Docebo 2), and none of them was a
+candidate: the vendor lanes only looked at links on pages and at the platforms' own customer addresses.
+- The host sweep (7 M three-label hosts, restarted today) keeps a host whose answer names an account on one of those platforms
+  (`learn.example.org` → `example.docebosaas.com`; tools/tech_relationships.py `ALIAS_DOMAINS`) — no extra question, the alias is in the
+  answer it already receives.
+- tools/lead_crawl.py (candidates mode) makes a candidate of the organisation's own domain for that vendor: the organisation's own DNS
+  names the vendor's platform, which is stronger than a link on a page. The site is then read like every candidate (role mailbox, an
+  address in the countries the vendor's Canadian company contracts with, the organisation's name). Evidence address: the public DNS
+  answer. Checked live on 13 such organisations: 1 accepted (Le Suroît, www.lesuroit.qc.ca → 609230.shoplightspeed.com), 10 print no
+  role mailbox, 1 prints no address, 1 refused the reader.
+- **Thinkific** enters the vendor table for this proof only. Its own pages: "Your contract and Account is with Thinkific Labs Inc. (if you
+  register from within Canada and the rest of the world), or with its subsidiary, Thinkific.com Inc. (if you register from within the
+  United States)"; "As part of any of our paid plans, you can set up a custom domain". So: a school on its thinkific.com address or a
+  link to one proves nothing (old free plan) and is not counted; an organisation whose own address is an alias of its school is a paying
+  customer, and is kept when it is outside the United States.

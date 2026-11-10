@@ -907,7 +907,7 @@ HOST_TLDS = SWEEP_TLDS + ("ca",)
 HOST_SKIP = frozenset("www www1 www2 www3 ww ww1 ww2 wwww m mail webmail email smtp pop pop3 imap mx mx1 mx2 ftp sftp cpanel whm webdisk autodiscover autoconfig ns ns1 ns2 ns3 ns4 dns "
                       "vpn remote rdp ssh git svn cdn cdn1 cdn2 static assets img images media files api dev staging stage test beta demo sandbox preview old legacy "
                       "admin secure login sso auth status analytics stats tracking track click links link email-links blog blogs help support docs doc kb wiki forum forums "
-                      "community news careers career jobs pagead2 app apps portal dashboard intranet".split())
+                      "community news careers career jobs pagead2 app apps dashboard intranet".split())
 HOST_DOMAIN_MAX = 30  # a domain with more host names than this in the graph is a platform or a large organisation: its hosts are not asked
 
 
@@ -984,6 +984,12 @@ def hosts_sweep(a):
                 print("local resolver not answering yet: %s" % type(e).__name__, flush=True)
                 time.sleep(5)
     steady, steady_text = public_transport(a.resolver)  # the public resolvers over one socket per worker (see SteadyResolver)
+    try:
+        import tech_relationships as _T
+        alias_watch = set(_T.ALIAS_DOMAINS)
+    except Exception:
+        alias_watch = set()
+    aliases = {}
     qps = a.qps if (local or steady) else min(a.qps, 60)
     print("resolver: %s, %d hosts/s" % (steady_text if steady else "%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
     tl = threading.local()
@@ -1015,20 +1021,22 @@ def hosts_sweep(a):
         try:
             ans = turn().resolve(h, "A", raise_on_no_answer=False)
         except dns.resolver.NXDOMAIN:
-            return h, "", "nx"
+            return h, "", "nx", ""
         except dns.exception.DNSException:
             if not ask_public:
-                return h, "", "fail"
+                return h, "", "fail", ""
             try:  # no answer from the runner's resolver: asked once of the public resolvers before it counts as no answer
                 ans = ask_public(h, "A")
                 how = "ok_public"
             except dns.resolver.NXDOMAIN:
-                return h, "", "nx_public"
+                return h, "", "nx_public", ""
             except dns.exception.DNSException:
-                return h, "", "fail"
+                return h, "", "fail", ""
         if ans.rrset is None:
-            return h, "", "none" if how == "ok" else "none_public"
-        return h, ans[0].address, how
+            return h, "", "none" if how == "ok" else "none_public", ""
+        # the name the host is an alias of, when that is an account on a vetted platform (learn.example.org -> example.docebosaas.com)
+        canon = str(getattr(ans, "canonical_name", "") or "").rstrip(".").lower()
+        return h, ans[0].address, how, canon if (canon and canon != h and C.registrable(canon) in alias_watch and C.registrable(canon) != C.registrable(h)) else ""
 
     work = next((d for d in (os.environ.get("RUNNER_TEMP") or "", ".") if d and os.access(d, os.W_OK)), ".")
     unz = shutil.which("pigz") or "gzip"
@@ -1088,12 +1096,14 @@ def hosts_sweep(a):
             for attempt in (1, 2):
                 st["fail"] = 0
                 again = []
-                for h, ip, how in ex.map(ask, todo):
+                for h, ip, how, canon in ex.map(ask, todo):
                     st[how] += 1
                     if how == "fail":
                         again.append(h)
                     if ip and SHOPIFY_A.match(ip):
                         hits[h] = ip
+                    elif canon:
+                        aliases[h] = canon
                 if len(again) <= MAX_FAIL * len(batch) or attempt == 2:
                     break
                 print("%s place %d: %d of %d hosts without an answer — asked once more in 30 s" % (time.strftime("%H:%M:%S"), pos, len(again), len(batch)), flush=True)
@@ -1106,6 +1116,10 @@ def hosts_sweep(a):
             for h, ip in hits.items():
                 fo.write(json.dumps({"d": h, "t": TODAY, "st": "ok", "l": 1, "sw": 2, "shop": 1, "a": ip, "rv": SWEEP_REV}, ensure_ascii=False, separators=(",", ": ")) + "\n")
                 state["stores"] += 1
+            for h, canon in aliases.items():
+                fo.write(json.dumps({"d": h, "t": TODAY, "st": "ok", "l": 1, "sw": 2, "cn": canon, "rv": SWEEP_REV}, ensure_ascii=False, separators=(",", ": ")) + "\n")
+                state["aliases"] = state.get("aliases", 0) + 1
+            aliases.clear()
             fo.flush()
             state["asked"] += len(batch); state["no_answer"] += st["fail"]; state["pos"] = pos
             state["by_public"] += st["ok_public"] + st["nx_public"] + st["none_public"]

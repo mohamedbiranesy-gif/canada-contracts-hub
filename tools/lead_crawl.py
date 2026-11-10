@@ -521,6 +521,36 @@ def candidates_mode(a, k, n):
                           "_extra_paths": STORE_PAGES if r["vendor_key"] == "shopify" else (),
                           # a store: its sitemap lists products, and every request goes through the one queue towards Shopify's network (store_task)
                           **(store_task(r["cand_key"] in second_look) if r["vendor_key"] == "shopify" else {})})
+    # organisations whose own address is an alias (CNAME record) of their account on a vetted platform — learn.example.org ->
+    # example.docebosaas.com (tools/dns_services.py: the host sweep, and the www alias of the lookups; tools/tech_relationships.py
+    # ALIAS_DOMAINS). The organisation's own DNS names the vendor; its site is read like any other candidate of that vendor.
+    n_alias = 0
+    try:
+        import dns_services as DNS
+        want_v = set(a.vendors.split(",")) if a.vendors else None
+        skip_v = set((a.skip_vendors or "").split(","))
+        if not (want_v and want_v <= {"shopify"}):
+            for o in DNS.records():
+                cn = (o.get("cn") or "").strip(".").lower()
+                vk = T.ALIAS_DOMAINS.get(C.registrable(cn)) if cn else None
+                if not vk or vk in skip_v or (want_v and vk not in want_v) or vk not in T.VENDORS:
+                    continue
+                h = C.registrable(o["d"])
+                ck = "t:%s:%s" % (vk, h)
+                if not h or h == C.registrable(cn) or ck in done or h in hosts or ("www." + h) in hosts or not shard_ok(h, k, n):
+                    continue
+                hosts.add(h)
+                host_asked = o["d"] if o.get("sw") else "www." + o["d"]
+                site = h if o.get("sw") else "www." + h  # the www alias IS the site's address (the bare name often does not answer)
+                r = {"cand_key": ck, "vendor_key": vk, "name": "", "website": "https://%s/" % site, "evidence_url": "https://dns.google/resolve?name=%s&type=CNAME" % host_asked, "capture": o.get("t") or "",
+                     "name_basis": "", "website_basis": "the organisation's own address %s is an alias (CNAME record) of %s, looked up %s" % (host_asked, cn, o.get("t") or ""),
+                     "slug": "asset", "extra": json.dumps({"dns_alias": "%s is an alias (CNAME record) of %s, looked up %s" % (host_asked, cn, o.get("t") or "")})}
+                tasks.append({"task_id": "TN-" + hashlib.sha1(ck.encode()).hexdigest()[:10], "buyer_key": ck, "buyer_name": h, "known_website": "https://%s/" % site, "_c": r, "_extra_paths": ()})
+                n_alias += 1
+    except Exception as e:
+        print("DNS alias candidates not loaded: %s" % e, flush=True)
+    if n_alias:
+        print("organisations whose own address is an alias of a vetted platform account queued: %d" % n_alias, flush=True)
     # stores the DNS lookups found on Shopify's storefront addresses (tools/dns_services.py): candidates made here, never written to the
     # candidates file (they number in the hundreds of thousands); their done lines go to the shards like every other candidate's
     n_dns = n_my = 0
@@ -694,6 +724,7 @@ def candidates_mode(a, k, n):
             row = {"portal_slug": c.get("slug") or "", "capture": c.get("capture") or "", "tenant_url": c.get("evidence_url") or "", "name_basis": c.get("name_basis") or ("og:site_name / title of the organisation's own home page" if not c.get("name") else ""),
                    "website_basis": c.get("website_basis") or "", "buyer_country": st["addr"][0], "buyer_address_quote": st["addr"][1], "buyer_address_url": st["addr"][2],
                    "service_seen": ("%s (in the page source of %s, %s)" % (st.get("shopify"), seen_url, TODAY)) if vkey == "shopify" else
+                                   ("%s: the organisation's own address %s (public DNS)" % (T.VENDORS[vkey]["name"], ex["dns_alias"])) if ex.get("dns_alias") else
                                    ("%s: %s — on the organisation's own page %s (read %s)%s" % (T.VENDORS[vkey]["name"], ex.get("portal") or ex.get("via") or "", ex.get("seen_on"), c.get("capture"),
                                                                                                     ("; " + own_why) if own_why else "")) if ex.get("seen_on") else
                                    "customer portal %s captured %s (Common Crawl)" % (c.get("evidence_url"), c.get("capture"))}

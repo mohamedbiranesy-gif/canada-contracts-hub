@@ -150,6 +150,18 @@ VENDORS = {
                     scope="\"NiceJob is a tradename owned and operated by Paystone Inc.\" … \"the laws of the Province of British Columbia, Canada … will govern these Terms of Service\" "
                           "(https://get.nicejob.com/terms, last updated August 27, 2023, read 2026-11-10): one company for every country; Starter $95, Pro $135 a month, no free plan "
                           "(https://get.nicejob.com/pricing)"),
+    # Thinkific (read 2026-11-10). A school on its thinkific.com address may be a school of the old free plan, and a link to it proves nothing:
+    # counted ONLY when the organisation's own address is an alias (CNAME) of its school — "As part of any of our paid plans, you can set up
+    # a custom domain for your Thinkific site" … "Your CNAME record will need to point to your current Thinkific URL"
+    # (https://support.thinkific.com/hc/en-us/articles/360030360074). The contract is with the Vancouver company everywhere except the
+    # United States. alias_only: tools/tech_relationships.py portal_hits() ignores it; tools/lead_crawl.py makes the candidates from DNS.
+    "thinkific": dict(name="Thinkific", legal="Thinkific Labs Inc.", kind="portal", alias_only=True,
+                      hq_url="https://www.thinkific.com/terms-of-service/",
+                      hq="Business Name Canada : Thinkific Labs Inc. US : Thinkific.com Inc. Address 400-369 Terminal Ave, Vancouver, BC V6A 4C4",
+                      host_re=r"^([a-z0-9-]+)\.thinkific\.com$", cc=[], excl={"www", "support", "help", "status", "app", "api", "cdn", "blog", "community", "developers", "partners"},
+                      scope="\"Your contract and Account is with Thinkific Labs Inc. (if you register from within Canada and the rest of the world), or with its subsidiary, "
+                            "Thinkific.com Inc. (if you register from within the United States)\" (https://www.thinkific.com/terms-of-service/, read 2026-11-10): customers in "
+                            "the United States are left out; a custom domain comes with paid plans only (https://support.thinkific.com/hc/en-us/articles/360030360074)"),
     "docebo": dict(name="Docebo", legal="Docebo Inc.", kind="portal",
                    hq_url="https://www.docebo.com/contact/",
                    hq="Our offices Docebo Inc. 55 York Street – 12th floor, Toronto, ON M5J 1R7, Canada",
@@ -210,7 +222,14 @@ for _k, _v in VENDORS.items():
     for _f in ("host_re", "link_re", "path_re", "asset_re"):
         if _v.get(_f):
             _v[_f + "_c"] = re.compile(_v[_f], re.I)
-VENDOR_BASES = {"checkfront.com", "tbdine.com", "touchbistro.com", "wellnessliving.com", "clubrunner.ca", "crowdriff.com", "nicejob.co", "nicejob.com", "paystone.com", "getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
+# The platform domains an organisation's own address may be an alias (CNAME) of -> vendor key. An organisation that points
+# learn.example.org at its account on one of these platforms names the vendor in its own DNS: the host sweep keeps such hosts
+# (tools/dns_services.py) and tools/lead_crawl.py reads the organisation's site as a candidate of that vendor.
+ALIAS_DOMAINS = {"thinkific.com": "thinkific", "docebosaas.com": "docebo", "brightspace.com": "d2l", "desire2learn.com": "d2l", "myabsorb.com": "absorb", "myabsorb.ca": "absorb",
+                 "myabsorb.eu": "absorb", "checkfront.com": "checkfront", "edsby.com": "edsby", "escribemeetings.com": "escribe", "bibliocommons.com": "bibliocommons",
+                 "coconutcalendar.com": "coconut", "benevity.org": "benevity", "mobius.cloud": "mobius", "unbouncepages.com": "unbounce", "jobbersites.com": "jobber",
+                 "shoplightspeed.com": "lightspeed", "janeapp.com": "jane"}
+VENDOR_BASES = {"thinkific.com", "checkfront.com", "tbdine.com", "touchbistro.com", "wellnessliving.com", "clubrunner.ca", "crowdriff.com", "nicejob.co", "nicejob.com", "paystone.com", "getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
                 "escribemeetings.com", "bibliocommons.com", "bibliocms.com", "brightspace.com", "desire2learn.com",
                 "d2l.com", "edsby.com", "amilia.com", "janeapp.com", "jane.app", "docebosaas.com", "docebo.com",
                 "myabsorb.com", "myabsorb.ca", "myabsorb.eu", "absorbai.com", "absorblms.com", "shopify.com",
@@ -405,7 +424,7 @@ def portal_hits(u):
     h = (p.hostname or "").lower()
     res = []
     for k, v in VENDORS.items():
-        if v["kind"] != "portal":
+        if v["kind"] != "portal" or v.get("alias_only"):
             continue
         if v.get("link_re_c"):
             m = v["link_re_c"].match(h + p.path)
