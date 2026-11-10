@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 00:45Z — PLAN_2027-01 week 1; cloud ROW FACTORY live)
+# STATE.md — Claude lane (updated 2026-11-10 01:25Z — PLAN_2027-01 week 1; cloud ROW FACTORY live, first 988 new buyers at the referee)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,32 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 01:25Z — row factory: first measured yields; NEXT STEPS for whichever session runs next
+- Index (crawl CC-MAIN-2026-43): 66,321 client pages on 28,538 .ca vendor domains. Extraction, first pass: the archive refused ~68 % of the range
+  requests (8 runners × 10 connections); from the readable third: 10,952 client links with the vendor's Canadian postal address → **4,437 new
+  buyers** (`claude_buyer_leads_cc.csv`), ~17k more links in the no-address side file. Fixed: retries with back-off, 4 connections per runner,
+  unreadable pages retried on later cycles (≤ 4 attempts), failure reasons counted.
+- Mailbox crawl of those 4,437 sites (7 of 8 shards merged by hand at 01:18Z; shard 7 hung on a slow site — fixed: stragglers stop after 4 quiet
+  minutes): 3,847 sites read → **988 buyers with a published role mailbox** (1,073 rows in `claude_buyer_ap_results_cccrawl01.csv`: info@ 771,
+  hello@ 97, contact@ 61, a few accounting / AP / procurement), nothing found 2,562, blocked 297. Yield 26 % at 15 pages; budget now 25 pages.
+- Referee dispatched 01:18Z (runs 42734833754 / 42734885351). Rebuild done 00:38Z with the salvaged records (PSPC standing offers 7,099, Vermont
+  2,574, Baton Rouge, Chicago, UNOPS).
+- Run 42730092295 (first cycle) still has `crawl (7)` hanging (job timeout 200 min); the next cycle is queued behind it (same concurrency group).
+**NEXT STEPS, in order:**
+ 1. When the referee has finished the cccrawl01 rows (coord/results/verification_log.csv gains ~1,000 lines for keys of claude_buyer_leads_cc.csv),
+    dispatch `rank-buyers.yml` and read `coord/GROWTH_VS_BASELINE.md`: `rows` should rise by several hundred (first movement since the baseline).
+    If it does not, find where rank.py drops the cc leads (mail dict key, same_org, seen_dom, REL_PATH) and fix.
+ 2. Check the next cycle's extract logs: `fail:http403` / `fail:http503` counts tell whether the back-off works; tune workers / shards.
+ 3. Gear (a) of PLAN §4e is CLOSED as low value: the Socrata portals are already leads from the Mac scanner, and departments of one government
+    collapse into one row per website domain. Gear (b) next: Canadian vendors on .com / .org hosts — host universe with a location proof from
+    ISED's Canadian Company Capabilities open data (address + website per company), OSM Canada POIs with a website tag, Wikidata, the dataset's
+    vendor table → index semi-join → same extract chain (the list's own address is the Canada proof; page address kept when present).
+ 4. Address pass for `claude_cc_leads_noaddr.jsonl.gz` (read the vendor's contact page from the archive).
+ 5. Mailbox yield: second, deeper pass (60 pages) over "nothing_found" lead sites; consider contact pages from the archive for sites that block.
+- Honest projection (to firm up in Sunday's report): this engine on .ca hosts ≈ 6–8k rows per crawl; with .com hosts (gear b) and older crawls
+  ≈ 40–60k rows → ~105–125k total. 200k needs one more layer (tenant sub-domains of Canadian SaaS vendors, or department-level rows) — both are
+  weaker on payability and must be put to the owner before being counted.
 
 ## 2026-11-10 00:45Z — rows were flat because the row factories were off; cloud factory live (owner 19:18 EST, Fable 5.2 session)
 - Diagnosis: ranked universe 66,693 buyers, 63,641 with a mailbox → no head-room without NEW buyers. Lead scanners only ran on the Mac (last output
