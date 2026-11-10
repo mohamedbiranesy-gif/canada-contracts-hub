@@ -192,6 +192,12 @@ def leads_mode(a, k, n):
         for r in csv.DictReader(open(lw, encoding="utf-8")):
             sites[r["buyer_key"]] = r["website"]
     tasks, hosts, skipped = [], set(), 0
+    try:  # tools/credit_scan.py (detector 4) notes which home pages print a role mailbox of their own: those sites are read first (near-certain rows)
+        import credit_scan as CS
+        hints = CS.site_hints()
+    except Exception as e:
+        print("no home-page hints: %s" % e, flush=True)
+        hints = {}
     for fi, path in enumerate(x.strip() for x in a.leads.split(",") if x.strip()):
         if not os.path.exists(path):
             continue
@@ -208,8 +214,10 @@ def leads_mode(a, k, n):
             except ValueError:
                 nv = 1
             tasks.append({"task_id": "CC-" + r["buyer_key"].split(":")[-1][:10], "buyer_key": r["buyer_key"], "buyer_name": r.get("buyer_name") or h, "known_website": "https://%s/" % h,
-                          "_n": nv, "_f": fi})
-    tasks.sort(key=lambda t: (t["_f"], -t["_n"]))  # the first leads file first; within a file, buyers named by several Canadian vendors first
+                          "_n": nv, "_f": fi, "_em": 0 if (hints.get(h[4:] if h.startswith("www.") else h) or ("", ""))[0] else 1})
+    # sites whose home page prints a role mailbox first; then the first leads file first; within a file, buyers named by several Canadian vendors first
+    tasks.sort(key=lambda t: (t["_em"], t["_f"], -t["_n"]))
+    print("lead sites whose home page prints a role mailbox (read first): %d of %d" % (sum(1 for t in tasks if not t["_em"]), len(tasks)), flush=True)
     print("leads with a mailbox row already, under their own key or their website domain (not read again): %d" % skipped, flush=True)
     if a.limit:
         tasks = tasks[:a.limit]

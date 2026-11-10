@@ -1,0 +1,94 @@
+name: dns-services
+# The paid services an organisation's own public DNS records show (owner 2026-11-09 23:41 EST: "some Canadian entity receives money for a
+# service they provided, and that relationship is established online … think like that"):
+#   MX  -> who receives its mail          NS  -> who serves its zone (web host, registrar, managed DNS)
+#   SPF -> whose servers may send its mail (the host of its site / mail)          TXT -> verification records of business accounts
+#   A   -> a store on Shopify's storefront addresses (Shopify Inc., Ottawa)
+# lookup : NS / TXT / MX / A of every domain the scans know (delivered rows, leads, linking sites, OpenStreetMap, .ca) that was not looked up
+#          yet, through public resolvers, 500 queries per second per runner                                   (tools/dns_services.py lookup)
+# merge  : records -> main (append-only, data/incoming/claude/credit_scan/dns_*.gz) + the table of providers by number of client domains;
+#          then a credit-scan cycle: its vendor step proves where each provider is (its own site prints a Canadian address) and its merge
+#          makes the leads (tools/credit_scan.py merge -> dns_services.leads)
+# Nothing here contacts the organisations' own servers. No AI, no search engine, no Mac.
+on:
+  schedule:
+    - cron: "23 2 * * *"
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel runners (1-8)"
+        default: "4"
+      minutes:
+        description: "minutes per runner"
+        default: "150"
+      limit:
+        description: "at most this many domains per runner (0 = no limit)"
+        default: "0"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: dns-services
+  cancel-in-progress: false
+env:
+  SHARDS: ${{ inputs.shards || '4' }}
+  MINUTES: ${{ inputs.minutes || '150' }}
+  LIMIT: ${{ inputs.limit || '0' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      stamp: ${{ steps.m.outputs.stamp }}
+    steps:
+      - id: m
+        run: |
+          python3 -c "import os; n=max(1,min(8,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+          echo "stamp=$(date -u +%Y%m%dT%H%M%S)" >> "$GITHUB_OUTPUT"
+
+  lookup:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: pip install -q dnspython
+      - name: Look up the public DNS records of each domain
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 150 --limit "$LIMIT"
+          ls -la out | head; head -c 600 out/dns_${{ matrix.k }}.jsonl || true
+      - uses: actions/upload-artifact@v4
+        with: { name: "dns-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge:
+    needs: [plan, lookup]
+    if: ${{ always() && needs.lookup.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "dns-*", path: shards, merge-multiple: true }
+      - name: Records -> main; the provider table; start a credit-scan cycle (provider proofs + leads)
+        env: { GH_TOKEN: "${{ github.token }}", STAMP: "${{ needs.plan.outputs.stamp }}" }
+        run: |
+          ls -la shards | head -20 || true
+          git config user.name "dns-services"; git config user.email "dns-services@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/credit_scan
+            python3 tools/dns_services.py merge shards --stamp "${STAMP}" | tee /tmp/d.txt
+            git add data/incoming/claude/credit_scan 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "dns-services: public DNS records ($(tail -1 /tmp/d.txt | cut -c1-110)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/d.txt >> "$GITHUB_STEP_SUMMARY"
+          head -60 data/incoming/claude/credit_scan/dns_providers_seen.csv >> "$GITHUB_STEP_SUMMARY" || true
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/credit-scan.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" || true

@@ -806,6 +806,13 @@ def tech_status(k, L):
     if "credited on the buyer's own site" in (L.get("canada_field_value") or ""):
         q = re.sub(r"\s+", " ", (LDET.get(k) or {}).get("credit_quote") or "").strip()
         return "active service seen on the buyer's own site (%s): the site credits the Canada-located vendor %s%s" % (d, L["example_vendor"], (" — “%s”" % q[-140:]) if q else "")
+    if "seen in the buyer's public DNS" in (L.get("canada_field_value") or ""):
+        # 2026-11-10 (tools/dns_services.py): the buyer's own DNS records name the provider that receives its mail (MX), serves its zone (NS)
+        # or is authorised to send its mail (SPF); the provider's own site prints its Canadian postal address
+        det = LDET.get(k) or {}
+        how = {"mx": "its mail is received by %s (MX record)", "ns": "its DNS zone is served by %s (NS record)", "spf": "its SPF record authorises %s to send its mail",
+               "txt": "its DNS carries the vendor's verification record %s"}.get(det.get("dns_record_kind") or "", "its DNS records name %s")
+        return "active service seen in the buyer's public DNS records (%s): %s — Canada-located provider %s" % (d, how % (det.get("dns_provider_host") or L["example_vendor"]), L["example_vendor"])
     return "active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % (d, L["example_vendor"])
 for k, L in sorted(leads.items(), key=lead_strength):
     if norm(L["buyer_name"]) in seen or UNNAMED_VENDOR.search(L.get("example_vendor") or "") or not (L.get("example_vendor") or "").strip(): continue  # a relationship needs a named vendor
@@ -884,6 +891,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
     x["source"] = ("the buyer's own website (it states its membership of the Canada-located body, linked)" if member and "member badge on the buyer's own site" in cfv else
                    "the Canadian body's own current member / participant list" if member else
                    "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if tech and "credited on the buyer's own site" in cfv else
+                   "the buyer's own public DNS records (they name the Canada-located provider of its e-mail, hosting or DNS service)" if tech and "seen in the buyer's public DNS" in cfv else
                    "the buyer's own website or its customer portal on the vendor's platform (service of a Canada-HQ vendor in use)" if tech else
                    "the Canada-located vendor's own website" if client else src or "relationship record")
 print("lead rows: facts from the buyer's own pages / the vendor's link label:", dict(n_lf))
@@ -960,13 +968,15 @@ for d, cands in up_t.items():
               "award_date": L["latest_record_date"][:10], "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"],
               "vendor_country_basis": L.get("canada_field_value") or "", "contracts_with_canadian_suppliers": L["canadian_vendor_rows"],
               "contract_status": tech_status(k, L),
-              "source": "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if "credited on the buyer's own site" in (L.get("canada_field_value") or "") else "the buyer's own website (service of a Canada-HQ vendor in use)",
+              "source": "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if "credited on the buyer's own site" in (L.get("canada_field_value") or "") else
+                        "the buyer's own public DNS records (they name the Canada-located provider of its e-mail, hosting or DNS service)" if "seen in the buyer's public DNS" in (L.get("canada_field_value") or "") else
+                        "the buyer's own website (service of a Canada-HQ vendor in use)",
               "keys": "|".join(sorted(set((x.get("keys") or "").split("|") + [k]) - {""})), "buyer_keys": int(x.get("buyer_keys") or 1) + 1})
     for col in ("contract_reference", "contract_title", "contract_value", "currency", "start_date", "end_date", "vendor_legal_name",
                 "vendor_address", "vendor_bn9", "vendor_gst_hst_derived", "vendor_website", "vendor_emails"):
         x[col] = ""
     ev = (L.get("example_vendor") or "").strip()
-    if "credited on the buyer's own site" in (L.get("canada_field_value") or ""):
+    if "credited on the buyer's own site" in (L.get("canada_field_value") or "") or "seen in the buyer's public DNS" in (L.get("canada_field_value") or ""):
         _dm = re.search(r"=\s*([a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,})(?:[;/\s]|$)", (L.get("canada_field_value") or "").lower())
         x.update(vend_fill("", "" if _dm and _dm.group(1) == ev.lower() else ev, _dm.group(1) if _dm else ""))
         apply_details(x, k)  # the vendor's address as its own site prints it, the credit line as the service description

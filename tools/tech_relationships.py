@@ -369,9 +369,9 @@ def page_meta(body):
     for m in META_RE.finditer(body[:200_000]):
         tag = m.group(0)
         pm = re.search(r"""(?:property|name)\s*=\s*["']([^"']+)["']""", tag, re.I)
-        cm = re.search(r"""content\s*=\s*["']([^"']*)["']""", tag, re.I)
+        cm = re.search(r"""content\s*=\s*(?:"([^"]*)"|'([^']*)')""", tag, re.I)  # the value ends at ITS quote: content="Uncle Bob's Self Storage"
         if pm and cm:
-            meta.setdefault(pm.group(1).lower(), html.unescape(cm.group(1)).strip())
+            meta.setdefault(pm.group(1).lower(), html.unescape(cm.group(1) if cm.group(1) is not None else cm.group(2)).strip())
     return title, meta
 
 

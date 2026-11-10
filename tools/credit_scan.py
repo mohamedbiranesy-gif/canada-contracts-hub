@@ -43,8 +43,17 @@ PLATFORM = re.compile(r"(^|\.)(blogspot|wordpress|wixsite|weebly|squarespace|mys
                       r"instagram|twitter|linkedin|youtube|pinterest|tiktok|apple|microsoft|amazon|cloudflare|shopify|w3|gravatar|automattic|woocommerce|elementor|bootstrap|jquery|"
                       r"mailchimp|hubspot|paypal|stripe|yelp|tripadvisor|eventbrite|vimeo|flickr|whatsapp|adobe|bit|goo|t|x|canada|gc)\.[a-z.]{2,8}$", re.I)
 # Canada-based services with a free plan or no charge to the organisation: a "powered by" line is not proof of a payment
+# (2026-11-10 review of the first 25,510 credit leads: Webador is a Dutch site builder with a free plan whose badge sits on 438 sites; Ratehub's
+# rate widget is free for the site; the DirectAdmin licence is paid by the server operator, not by the site that shows its default page)
 FREE_PLAN = re.compile(r"(^|\.)(webself\.net|zeffy\.com|thinkific\.com|vidyard\.com|wattpad\.com|fundrazr\.com|hootsuite\.com|wealthsimple\.com|canva\.com|linktr\.ee|carrd\.co|"
-                       r"wildapricot\.(com|org)|cyberimpact\.com|canadahelps\.org|gofundme\.com|tithe\.ly)$", re.I)
+                       r"wildapricot\.(com|org)|cyberimpact\.com|canadahelps\.org|gofundme\.com|tithe\.ly|webador\.[a-z.]{2,6}|jouwweb\.[a-z]{2,3}|ratehub\.ca|directadmin\.com|"
+                       r"elasticemail\.com|medimap\.ca|eventbrite\.ca|kijiji\.ca)$", re.I)
+# a university's or school board's own web service credited by one of its units ("This website is powered by MacSites"): an internal service, no vendor
+INTERNAL_RX = re.compile(r"\buniversit|\bcoll[èe]ges?\b|c[ée]gep|polytechni|school (?:board|district|division)|commission scolaire|centre de services scolaire|conseil scolaire", re.I)
+# hosts of a vendor's own domain that are the vendor's pages; any other subdomain may be a customer's site (free-4409244.webador.ca printed a customer's address)
+OWN_SUB = re.compile(r"^(www\d?|support|help|aide|site|get|go|terms|legal|about|contact|info|docs|corp|corporate|company|home|web|en|fr|ca|global|group|groupe)$", re.I)
+FREE_SIGNAL = re.compile(r"free plan|free forever|forever free|always free|create (?:a|your) free (?:web)?site|free website builder|build (?:a|your) free website|forfait gratuit|plan gratuit|"
+                         r"site (?:web |internet )?gratuit|cr[ée]ez? (?:votre|un) site (?:web )?gratuit|\$\s?0\s*/\s*(?:mo|month)|0\s?\$\s*/\s*mois", re.I)
 
 # ------------------------------------------------------------------------------------------------------------------- credit phrases
 _WEBN = (r"(?:web\s?sites?|web\s?pages?|sites?\s?web|sites?\s+internet|pages?\s+web|web\s?design|web\s?development|web\s?hosting|web\s?marketing|design\s+web|"
@@ -77,7 +86,7 @@ NEG_RX = re.compile(r"donat|sponsor|courtesy|gracieuset|offert|commandit|pro\s?b
 # Class M. Not: team / board / staff members of …, "a member of the X group of companies" (the body must be a chamber, association, federation …).
 MEM_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])((?:(?:proud(?:ly)?|fi[èe]re?s?|active|actif|accredited|accr[ée]dit[ée]e?|certified|registered|corporate|business)\s+){0,2}(?:members?|membres?)\s+"
                     r"(?:of|de|du|des|de\s+la|de\s+l['’]|d['’])\s*(?:(?:the|la|le|les|l['’]|your|our|votre|notre)\s*)?)", re.I)
-MEM_NEG = re.compile(r"team|board|staff|family|famil|crew|band|cast|faculty|committee|comit[ée]|council\s+member|conseil\s+d|founding|honorary|community\s+member|"
+MEM_NEG = re.compile(r"team|board(?!\s+of\s+trade)|staff|family|famil|crew|band|cast|faculty|committee|comit[ée]|council\s+member|conseil\s+d|founding|honorary|community\s+member|"
                      r"parliament|parlement|legislat|assembl[ée]e\s+nationale|\bMPP?\b|\bMLA\b|\bMNA\b|d[ée]put[ée]|[ée]quipe|personnel|group\s+of\s+companies|groupe\s+d['’]entreprises", re.I)
 BODY_RX = re.compile(r"chamber|chambre|board\s+of\s+trade|association|alliance|federation|f[ée]d[ée]ration|institute|institut\b|guild|\bordre\b|corporation\s+des|regroupement|r[ée]seau|"
                      r"society\s+of|soci[ée]t[ée]\s+(?:de|des|canadienne|qu[ée]b[ée]coise)|business\s+improvement|\bBIA\b|\bSDC\b|tourism|tourisme|\bCHBA\b|\bAPCHQ\b|\bACQ\b|\bCFIB\b|\bFCEI\b|"
@@ -581,7 +590,11 @@ def merge_graph(a):
 
 
 # ------------------------------------------------------------------------------------------------------------------- scan
-DETECTOR = 3  # 1: credit lines + the vendor table of 2026-11-02; 2 ("t2"): + Jobber; 3 ("t3"): + membership statements (class M)
+# 1: credit lines + the vendor table of 2026-11-02; 2 ("t2"): + Jobber; 3 ("t3"): + membership statements (class M);
+# 4 ("t4"): + two facts about every readable home page, kept on its done line: em=<kind> when the page itself prints a role mailbox of the
+#    organisation (the mailbox crawl reads those sites first: near-certain rows), cc=<CA|US|GB|AU> the country of the postal address it prints
+DETECTOR = 4
+MARK = "t%d" % DETECTOR
 
 
 def done_versions():
@@ -589,10 +602,27 @@ def done_versions():
     ver = {}
     for l in state_lines("done"):
         q = l.split("\t")
-        v = 3 if "t3" in q[5:] else 2 if "t2" in q[5:] else 1
+        v = line_version(q)
         if v > ver.get(q[0], 0):
             ver[q[0]] = v
     return ver
+
+
+def line_version(q):
+    return next((int(x[1:]) for x in q[5:] if re.fullmatch(r"t\d", x)), 1)
+
+
+def site_hints():
+    """{site: (role-mailbox kind printed on its home page or "", country of the postal address it prints or "")} from the done lines (detector 4+)"""
+    out = {}
+    for l in state_lines("done"):
+        q = l.split("\t")
+        if len(q) > 6:
+            em = next((x[3:] for x in q[6:] if x.startswith("em=")), "")
+            cc = next((x[3:] for x in q[6:] if x.startswith("cc=")), "")
+            if em or cc:
+                out[q[0]] = (em, cc)
+    return out
 
 
 def scan_queue(k, n, limit=0):
@@ -673,6 +703,30 @@ def scan(a):
                     out.add(d)
         return out
 
+    COUNTRY = (("CA", CCL.ADDR), ("US", LC.US_ADDR), ("GB", LC.GB_ADDR), ("AU", LC.AU_ADDR))
+
+    def home_facts(raw, fhost, name):
+        """(kind of the best role mailbox the home page prints for this organisation, country of the postal address it prints, that address)"""
+        text = C.visible(raw)
+        best = ""
+        for e in set(x.lower().rstrip(".") for x in C.EMAIL_RX.findall(raw[:600_000])):
+            if e.rsplit(".", 1)[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp") or not LC.ok_mailbox(e):
+                continue
+            try:
+                if not C.same_org(e, "https://%s/" % fhost, name or ""):
+                    continue
+                i = C.find_tok(text, e)
+                kind = C.classify(e, text[max(0, i - 400):i + 400] if i >= 0 else "", "any")
+            except Exception:
+                continue
+            if kind and (not best or C.RANK[kind] < C.RANK[best]):
+                best = kind
+        for cc, rx in COUNTRY:
+            m = rx.search(text)
+            if m:
+                return best, cc, re.sub(r"\s+", " ", text[max(0, m.start() - 90):m.end()]).strip()[-170:]
+        return best, "", ""
+
     def one(t):
         if time.time() > deadline:
             return
@@ -681,10 +735,16 @@ def scan(a):
             res, final, raw = get_page("https://%s/" % dom)
         except Exception as e:
             res, final, raw = "error:" + type(e).__name__, "", ""
-        rec = None
+        rec, em, cc = None, "", ""
         if res == "ok":
             try:
                 fhost = host_of(final) or dom
+                title, meta = T.page_meta(raw)
+                name = LC.site_name_for(fhost, meta.get("og:site_name"), title, T)
+                try:
+                    em, cc, addr = home_facts(raw, fhost, name)
+                except Exception:
+                    em, cc, addr = "", "", ""
                 credits = find_credits(raw, final)
                 tech = []
                 for u in T.all_urls(raw, final)[:3000]:
@@ -706,9 +766,7 @@ def scan(a):
                 with lock:
                     ext.update(emb)
                 if credits or tech:
-                    title, meta = T.page_meta(raw)
-                    rec = {"dom": dom, "site": fhost, "page": final, "date": TODAY, "name": LC.site_name_for(fhost, meta.get("og:site_name"), title, T), "title": (title or "")[:160],
-                           "credits": credits, "tech": tech}
+                    rec = {"dom": dom, "site": fhost, "page": final, "date": TODAY, "name": name, "title": (title or "")[:160], "credits": credits, "tech": tech, "em": em, "cc": cc, "addr": addr}
             except Exception as e:
                 res = "error:" + type(e).__name__
         with lock:
@@ -718,14 +776,16 @@ def scan(a):
                 stats["with_credit"] += bool(rec["credits"])
                 stats["with_vetted_service"] += bool(rec["tech"])
                 fs.write(json.dumps(rec, ensure_ascii=False) + "\n")
-            fd.write("%s\t%s\t%s\t%d\t%d\tt3\n" % (dom, TODAY, res, len(rec["credits"]) if rec else 0, len(rec["tech"]) if rec else 0))
+            fd.write("%s\t%s\t%s\t%d\t%d\t%s%s%s\n" % (dom, TODAY, res, len(rec["credits"]) if rec else 0, len(rec["tech"]) if rec else 0, MARK,
+                                                     "\tem=" + em if em else "", "\tcc=" + cc if cc else ""))
+            stats["home_page_prints_role_mailbox"] += bool(em)
             if stats["sites"] % 2000 == 0:
                 fs.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
 
     def on_timeout(t):
         with lock:
-            fd.write("%s\t%s\ttimeout\t0\t0\tt3\n" % (t["dom"], TODAY))
+            fd.write("%s\t%s\ttimeout\t0\t0\t%s\n" % (t["dom"], TODAY, MARK))
             stats["timeout"] += 1
     left = LC.run_pool(tasks, one, a, deadline, on_timeout)
     with lock:
@@ -831,12 +891,31 @@ def vendors(a):
     k, n = CCL.shard_of(a)
     os.makedirs("out", exist_ok=True)
     # rule 2 (2026-11-10): schema.org address data, privacy / terms pages, the location line. Vendors that gave "no_address" under rule 1 are read again
-    have, known = {d: o for d, o in vendor_state().items() if not (o.get("status") == "no_address" and (o.get("rule") or 1) < 2)}, proven_elsewhere()
-    cnt = collections.Counter()
+    # rule 3 (2026-11-10, after reading the first 25,510 leads): the record also says where the vendor's domain redirects ("final") and whether
+    # that site names the old one ("renamed": a rebrand, not a dropped domain bought by somebody else), and whether a "powered by" platform
+    # advertises a free plan ("free_signal"); contact pages are read on the vendor's own hosts only. Read again under rule 3: proofs found on
+    # another domain, and platforms credited with "powered by" on 3+ sites.
+    cnt, pcnt = collections.Counter(), collections.Counter()
     for o in sightings().values():
         for c in o.get("credits") or []:
             cnt[c["v"]] += 1
+            pcnt[c["v"]] += c.get("k") == "P"
+
+    def settled(d, o):
+        r = o.get("rule") or 1
+        if o.get("status") == "no_address" and r < 2:
+            return False
+        if r < 3 and o.get("status") in ("CA", "CA-loc") and (C.registrable(host_of(o.get("url") or "") or d) != d or pcnt[d] >= 3):
+            return False
+        return True
+    have, known = {d: o for d, o in vendor_state().items() if settled(d, o)}, proven_elsewhere()
     tasks = [{"dom": v, "n": c} for v, c in cnt.most_common() if v not in have and v not in known and shard_ok(v, k, n) and not PLATFORM.search(v)]
+    try:  # providers named by many organisations' DNS records (tools/dns_services.py): the same live proof of location decides
+        import dns_services as DNS
+        queued = {t["dom"] for t in tasks}
+        tasks += [{"dom": v, "n": c} for v, c in DNS.candidates() if v not in have and v not in queued and shard_ok(v, k, n)]
+    except Exception as e:
+        print("DNS providers not queued: %s" % e, flush=True)
     # the row factory's vendors whose client page (and archived contact page) printed no address: 11,096 domains, 39,313 buyer domains wait on them.
     # Their live home / contact / legal page is read the same way; tools/cc_clients.py merge promotes their client links when the proof is found.
     rf = collections.Counter()
@@ -875,7 +954,7 @@ def vendors(a):
         if time.time() > deadline:
             return
         dom = t["dom"]
-        rec = {"dom": dom, "date": TODAY, "seen_on": t["n"], "status": "", "quote": "", "url": "", "name": "", "title": "", "desc": "", "service_words": "", "also_prints": "", "rule": 2}
+        rec = {"dom": dom, "date": TODAY, "seen_on": t["n"], "status": "", "quote": "", "url": "", "name": "", "title": "", "desc": "", "service_words": "", "also_prints": "", "rule": 3}
         try:
             res, final, raw = get_page("https://%s/" % dom)
             if res != "ok":
@@ -883,6 +962,15 @@ def vendors(a):
             else:
                 fhost = host_of(final) or dom
                 title, meta = T.page_meta(raw)
+                home_text = C.visible(raw)
+                if C.registrable(fhost) != dom:  # the credited domain now leads to another one: a rebrand when that site still names the old one
+                    lab = re.sub(r"[^a-z0-9]", "", dom.split(".")[0])
+                    flat = re.sub(r"[^a-z0-9]", "", home_text.lower())
+                    rec["final"] = C.registrable(fhost)
+                    rec["renamed"] = bool(dom in raw.lower() or (len(lab) >= 5 and lab in flat))
+                fs_ = FREE_SIGNAL.search(home_text)
+                if fs_:
+                    rec["free_signal"] = re.sub(r"\s+", " ", home_text[max(0, fs_.start() - 40):fs_.end() + 40]).strip()
                 rec["name"] = LC.site_name_for(fhost, meta.get("og:site_name"), title, T)
                 rec["title"], rec["desc"] = (title or "")[:160], (meta.get("description") or meta.get("og:description") or "")[:240]
                 sw = SERVICE_RX.search(rec["title"] + " " + rec["desc"])
@@ -894,7 +982,9 @@ def vendors(a):
                     links, seen_l = [], set()
                     for link, label in C.links(raw, final):
                         p = urllib.parse.urlparse(link)
-                        if p.scheme in ("http", "https") and C.registrable((p.hostname or "").lower()) == C.registrable(fhost) and not C.SKIP_EXT.search(p.path) \
+                        lh = (p.hostname or "").lower()
+                        own = lh == fhost or lh == "www." + fhost or (C.registrable(lh) == C.registrable(fhost) and OWN_SUB.match(lh[:-len(C.registrable(fhost))].rstrip(".") or "www"))
+                        if p.scheme in ("http", "https") and own and not C.SKIP_EXT.search(p.path) \
                                 and CONTACT_RX.search(p.path + " " + label) and link.split("#")[0] not in seen_l and link.split("#")[0].rstrip("/") != final.rstrip("/"):
                             seen_l.add(link.split("#")[0])
                             links.append((0 if re.search(r"contact|joindre|coordonn", p.path + " " + label, re.I) else 1, len(p.path), link.split("#")[0]))
@@ -963,7 +1053,7 @@ def merge(a):
     for f in sorted(glob.glob(os.path.join(d, "credit_done_*.tsv"))):
         for l in open(f, encoding="utf-8"):
             q = l.rstrip("\n").split("\t")
-            if q and q[0] and len(q) >= 3 and (3 if "t3" in q[5:] else 2 if "t2" in q[5:] else 1) > ver_before.get(q[0], 0):
+            if q and q[0] and len(q) >= 3 and line_version(q) > ver_before.get(q[0], 0):
                 new_done[q[0]] = l.rstrip("\n")
                 st_count[q[2].split(":")[0] if not q[2].startswith("http_") else "http_error"] += 1
     n_done = _append_state("done", stamp, [new_done[k] for k in sorted(new_done)])
@@ -982,7 +1072,7 @@ def merge(a):
             try:
                 o = json.loads(l)
                 old = vstate.get(o["dom"])
-                if old is None or (old.get("status") == "no_address" and (old.get("rule") or 1) < 2 and (o.get("rule") or 1) >= 2):
+                if old is None or ((o.get("rule") or 1) > (old.get("rule") or 1) and o.get("status") in ("CA", "CA-loc", "US", "GB", "AU", "no_address")):
                     new_v[o["dom"]] = json.dumps(o, ensure_ascii=False)
             except (ValueError, KeyError):
                 pass
@@ -999,8 +1089,34 @@ def merge(a):
         print("credit scan: %d sites read this run (%s); %d with a credit or a vetted service" % (n_done, ", ".join("%s %d" % kv for kv in st_count.most_common(8)), n_seen))
     # ---- leads: sightings whose vendor is proven in Canada
     vstate, known_v, seen = vendor_state(), proven_elsewhere(), sightings()
+    hints = site_hints()
+
+    def proof_page_ok(v, o):
+        """the page that carries the address must be the vendor's own: on its domain (not a customer's subdomain), or on the domain its own
+        address redirects to when that is a rename (shared name, or the new site names the old one)"""
+        ph = host_of(o.get("url") or "")
+        pd = C.registrable(ph) if ph else v
+        if pd == v:
+            sub = ph[:-len(v)].rstrip(".") if ph.endswith(v) else ""
+            return not sub or bool(OWN_SUB.match(sub))
+        if o.get("renamed"):
+            return True
+        a_, b_ = re.sub(r"[^a-z0-9]", "", v.split(".")[0]), re.sub(r"[^a-z0-9]", "", pd.split(".")[0])
+        if (len(a_) >= 3 and a_ in b_) or (len(b_) >= 3 and b_ in a_):
+            return True
+        return any(a_[i:i + 5] in b_ for i in range(max(0, len(a_) - 4)))  # five letters in a row in common: intrigueme.ca -> intriguemedia.com
+
+    def in_canada(site, o=None):
+        """is the organisation behind this site in Canada? Asked only for vendors that also print addresses abroad (the buyer abroad may deal with the
+        vendor's foreign company): a .ca / .quebec domain, or a Canadian postal address on its own home page"""
+        return site.endswith((".ca", ".quebec")) or (o or {}).get("cc") == "CA" or (hints.get(site) or ("", ""))[1] == "CA"
+
     def proof(v):
         o = vstate.get(v)
+        if o and o.get("status") in ("CA", "CA-loc") and not proof_page_ok(v, o):
+            return None
+        if o and INTERNAL_RX.search("%s %s" % (o.get("name") or "", o.get("title") or "")) and not o.get("service_words"):
+            return None
         if o and o.get("status") == "CA" and o.get("quote"):
             return ("%s (as printed on %s, read %s)" % (CCL.address_from(o["quote"]) if "schema.org" not in o["quote"] else o["quote"], o.get("url") or "", o.get("date") or ""), o.get("url") or "", o.get("name") or "",
                     bool(o.get("service_words")), "the vendor's own site prints its Canadian postal address")
@@ -1024,7 +1140,7 @@ def merge(a):
                 pdet[o["key"]] = o
             except (ValueError, KeyError):
                 pass
-    stats = collections.Counter()
+    stats, kept = collections.Counter(), set()
     try:
         import tech_relationships as T
         VETTED = set(T.VENDOR_BASES)
@@ -1047,6 +1163,13 @@ def merge(a):
             if not pr:
                 stats["vendor not proven in Canada (yet)"] += 1
                 continue
+            vo = vstate.get(v) or {}
+            if c["k"] == "P" and vo.get("free_signal"):
+                stats["'powered by' platform that advertises a free plan (kept out)"] += 1
+                continue
+            if vo.get("also_prints") and not in_canada(site, o):
+                stats["vendor also prints addresses abroad and the buyer is not shown to be in Canada (kept out)"] += 1
+                continue
             if c["k"] in ("D", "P") and vend_n[v] < 2 and not pr[3]:
                 stats["design / powered-by credit of a vendor seen once whose own site names no web / design / software service (kept out)"] += 1
                 continue
@@ -1057,7 +1180,7 @@ def merge(a):
             if c["k"] != "M" or c["v"] == C.registrable(site) or c["v"] in VETTED:
                 continue
             pr = proof(c["v"])
-            if not pr:
+            if not pr or ((vstate.get(c["v"]) or {}).get("also_prints") and not in_canada(site, o)):
                 continue
             bname = pr[2] or re.sub(r"^.*?(?:members?|membres?)\s+(?:of|de|du|des|de\s+la|de\s+l['’]|d['’])\s*(?:(?:the|la|le|les|l['’])\s*)?", "", c.get("t") or "", flags=re.I).strip()[:90] or c["v"]
             if not BODY_RX.search(bname + " " + (c.get("t") or "")):
@@ -1066,6 +1189,7 @@ def merge(a):
             if mkey in main_keys:
                 continue
             stats["new member leads" if mkey not in prev else "member leads kept"] += 1
+            kept.add(mkey)
             prev[mkey] = {"buyer_key": mkey, "buyer_name": o.get("name") or site, "website": "https://%s/" % site, "canadian_vendor_rows": 1, "example_vendor": bname,
                           "canada_field_value": "membership / statutory fee relationship (member badge on the buyer's own site)=%s; %s: %s" % (c["v"], pr[4], pr[0][:240]),
                           "evidence_dataset": o.get("page") or "https://%s/" % site, "latest_record_date": o.get("date") or TODAY}
@@ -1085,6 +1209,7 @@ def merge(a):
         if key not in prev:
             stats["new leads"] += 1
         stats["leads (%s)" % what] += 1
+        kept.add(key)
         prev[key] = {"buyer_key": key, "buyer_name": o.get("name") or site, "website": "https://%s/" % site, "canadian_vendor_rows": 1, "example_vendor": vname,
                      "canada_field_value": "%s=%s; %s: %s" % (CF_CREDIT, c["v"], pr[4], pr[0][:260]),
                      "evidence_dataset": o.get("page") or "https://%s/" % site, "latest_record_date": o.get("date") or TODAY}
@@ -1093,6 +1218,19 @@ def merge(a):
                      "vendor_address": pr[0], "vendor_address_url": pr[1], "vendor_site": "https://%s/" % c["v"], "credit_quote": c["q"], "credit_class": c["k"], "credit_phrase": c.get("p") or "",
                      "credit_link_text": c.get("t") or "", "credit_link_host": c.get("vh") or c["v"], "vendor_seen_on_sites": vend_n[c["v"]], "page_title": o.get("title") or "",
                      "vendor_location_basis": pr[4], "vendor_also_prints_addresses_in": (vstate.get(c["v"]) or {}).get("also_prints") or ""}
+    # ---- services the organisations' own DNS records show (tools/dns_services.py), same proof of the provider's location
+    try:
+        import dns_services as DNS
+        DNS.leads(prev, pdet, proof, main_keys, vstate, stats, {d: (o.get("name") or "") for d, o in seen.items()}, in_canada, kept)
+    except Exception as e:
+        print("DNS leads skipped: %s" % e)
+    # a credit / member-badge / DNS lead of an earlier run that the rules of this run no longer make is withdrawn (rules get stricter as leads are read)
+    gone = [k for k, r in prev.items() if k not in kept and (pdet.get(k) or {}).get("platform") in ("site_credit_cc", "site_member_cc", "dns_service_cc")]
+    for k in gone:
+        prev.pop(k, None)
+        pdet.pop(k, None)
+    if gone:
+        stats["leads of earlier runs withdrawn (no longer pass the rules)"] = len(gone)
     with open(CCL.LEADS_CC, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=CCL.LEAD_COLS)
         w.writeheader()
