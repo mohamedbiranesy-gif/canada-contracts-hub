@@ -1,0 +1,53 @@
+name: tm-register
+# The Canadian trademarks register as a relationship source (tools/tm_register.py). The Canadian Intellectual Property Office publishes the
+# register as open data: every mark with its owner of record (legal name, address) and, when the owner appointed one, its agent of record — a
+# Canadian trademark agent firm with its address. A lead is made only for an owner whose own site is on file and states the owner's name and
+# postal code; the mailbox comes from that site like every other lead's.
+#   match (default) : owners in Canada x the sites on file (scan name facts, lead readers' facts, the ranked table) -> tm_matches.csv -> leads
+#   build           : download the register's two tables again and rebuild the owner / agent tables first (the Office's extract changes rarely)
+# The sites on file grow with every scan cycle: the match runs every day. No request to any organisation's site is made here.
+on:
+  schedule:
+    - cron: "41 7 * * *"
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "match | build"
+        default: "match"
+permissions:
+  contents: write
+concurrency:
+  group: tm-register
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Owners of record, their agents, the sites tied to them, the leads
+        env: { GH_TOKEN: "${{ github.token }}", STAGE: "${{ inputs.stage || 'match' }}" }
+        run: |
+          git config user.name "tm-register"; git config user.email "tm-register@users.noreply.github.com"
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          : > /tmp/tm.txt
+          if [ "$STAGE" = "build" ] || [ ! -s data/incoming/claude/tm/tm_owners_ca.csv.gz ]; then
+            python3 tools/tm_register.py build | tee -a /tmp/tm.txt
+            mkdir -p /tmp/tm && cp data/incoming/claude/tm/tm_owners_ca.csv.gz data/incoming/claude/tm/tm_owners_abroad.csv.gz data/incoming/claude/tm/tm_agents.csv /tmp/tm/
+          fi
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            if [ -d /tmp/tm ]; then mkdir -p data/incoming/claude/tm && cp /tmp/tm/* data/incoming/claude/tm/; fi
+            python3 tools/tm_register.py match | tee -a /tmp/tm.txt
+            python3 tools/tm_register.py leads --stamp "$STAMP" | tee -a /tmp/tm.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
+            git add data/incoming/claude/tm data/incoming/claude/lead_shards 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "tm-register: $(grep -m1 '^trademark leads' /tmp/tm.txt | cut -c1-130) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          # a merge that could not be pushed is a failed job
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
+          { echo '```'; cat /tmp/tm.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

@@ -881,3 +881,25 @@ without a new pass over 1.3 million sites.
 Sites that refused the reader (robots.txt, a block: 313,649) are not read again. The pass runs at the scan's usual pace (one cycle when
 the dispatcher has a slot); the 196,195 linking domains never read come first.
 
+## 2026-11-10 20:55Z from claude — the Canadian trademarks register as a relationship source
+**What it is.** The Canadian Intellectual Property Office publishes its whole trademarks register as open data (researcher datasets, CSV;
+latest extract 2025-01-28). Each mark names its owner of record (legal name, full address) and, when the owner appointed one, its agent of
+record: a Canadian trademark agent firm, with the firm's address. In force or pending on the extract and still inside their renewal date
+today: 806,031 marks; 242,041 owners (107,583 in Canada, 134,458 abroad); 170,479 owners represented by one of 901 Canadian agent offices.
+**Why it counts.** Both sides and the tie between them are named by a federal register: the owner pays its agent for acting before the
+Office, and pays the Office to register and renew. Vendor in Canada = the register's own address field of the agent (rule 1). Start = the
+first registration date, end = the latest renewal date (rule 3). Evidence = the dataset's own page and tables, quoted (rule 4).
+**What is delivered.** The register has no websites. A lead exists only for an owner whose own site is on file and is tied to it, in this
+order: the same name and the same postal code; every word of the shorter name in the longer one, the added words being everyday ones, and
+the same postal code (never on a rural code, never when the longer name is a foundation, a friends' society, a union … of the shorter); or
+the site itself states a legal person, with its legal form, that is word for word the name of one owner on the register — a site in
+Canada, the same kind of legal person, and no other site stating that name. Natural persons who hold a mark are left out, as on every
+register. Official marks of public authorities (section 9: published once, never renewed) are left out. An owner with an agent of record
+is delivered as that firm's client; an owner without one, only when a registration is in force, as a registration holder of the Office.
+**Measured** (local build on the frozen inputs, gates and audit passing): 2,633 sites tied; 946 rows; 14 new, 318 were registry rows, 264
+inferred, 39 link-only, 309 client listings; every one of them now carries the owner's legal name and address from the register.
+**What it will grow with.** The scan's detector 5 keeps each home page's own name facts for 1.3 million sites (158,724 sites state a
+postal code today). The owners abroad (134,458) and the owners in Canada whose site is not on file need their site found: not built yet.
+**The Office's server** sends its certificate without the intermediate that signed it. `tools/certs/` holds that intermediate (public;
+fetched from the address the certificate itself names) and the download verifies the chain with it. Verification is never switched off.
+

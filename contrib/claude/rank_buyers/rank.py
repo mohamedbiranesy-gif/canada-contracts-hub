@@ -968,6 +968,7 @@ def tidy_vendor_address(va):
     return va
 _CA_PC0 = re.compile(r"\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s?\d[ABCEGHJ-NPRSTV-Z]\d\b")
 n_lf = collections.Counter()
+REG_NAMED = set()  # lead keys whose legal name is the owner of record on a federal register (tools/tm_register.py)
 def apply_details(x, k):
     f = LFACTS.get(k) or LFACTS_DOM.get(registrable(host_of(x.get("buyer_website") or "")))
     if f and not LFACTS.get(k) and host_of(f.get("site") or "") != host_of(x.get("buyer_website") or ""):
@@ -1007,6 +1008,10 @@ def apply_details(x, k):
         _src = " (%s)" % br.get("label", "the body's public register")
         if br.get("legal_name"):
             x["buyer_legal_name_as_published"] = br["legal_name"] + _src; n_lf["buyer_legal_name_from_register"] += 1
+            if d.get("platform") == "tm_register":
+                # the owner of record on the federal trademarks register IS the legal person (and the site was tied to it by that very name):
+                # a name read off the site later does not replace it
+                REG_NAMED.add(k)
         if br.get("trade_names") and not x.get("buyer_trade_name_as_published"):
             x["buyer_trade_name_as_published"] = "; ".join(br["trade_names"]) + _src
         if br.get("registry_id") and not x.get("buyer_registry_id"):
@@ -1441,6 +1446,16 @@ for k, L in sorted(leads.items(), key=lead_strength):
                             % ((LDET.get(k) or {}).get("reference") or "?", L["example_vendor"], (LDET.get(k) or {}).get("start") or "on an unstated date",
                                ("in force / fees paid up to %s" % (LDET.get(k) or {})["end"]) if (LDET.get(k) or {}).get("end") else "no end or cancellation date in the list",
                                (L.get("latest_record_date") or "")[:10])) if member and "licence holder of the Canadian body" in L.get("canada_field_value", "") else
+                           ("client of a Canadian trademark agent of record: %s acts for the owner before the Canadian Intellectual Property Office on %s of its trademarks in force or pending "
+                            "(e.g. %s; first registered %s, latest renewal due %s) — the Office's public register, extract of %s; an owner's agent fees are sometimes billed through its own counsel"
+                            % (L["example_vendor"], (LDET.get(k) or {}).get("tm_marks_with_this_agent") or "one or more", (LDET.get(k) or {}).get("reference") or "see the register",
+                               (LDET.get(k) or {}).get("tm_first_registered") or "not yet", (LDET.get(k) or {}).get("tm_latest_renewal_due") or "not set",
+                               (LDET.get(k) or {}).get("tm_extract") or (L.get("latest_record_date") or "")[:10])) if member and "trademark agent of record" in L.get("canada_field_value", "") else
+                           ("owner of %s trademark registration(s) in force on the Canadian register (e.g. %s; first registered %s, latest renewal due %s): the owner pays the Canadian Intellectual "
+                            "Property Office to register a mark and to renew it every ten years — the Office's public register, extract of %s"
+                            % ((LDET.get(k) or {}).get("tm_marks_in_force") or "one or more", (LDET.get(k) or {}).get("reference") or "see the register",
+                               (LDET.get(k) or {}).get("tm_first_registered") or "not yet", (LDET.get(k) or {}).get("tm_latest_renewal_due") or "not set",
+                               (LDET.get(k) or {}).get("tm_extract") or (L.get("latest_record_date") or "")[:10])) if member and "trademark registration holder of the Canadian body" in L.get("canada_field_value", "") else
                            ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
                            tech_status(k, L) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
@@ -1467,6 +1482,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
     x["source"] = ("the .ca registry's public delegation of the buyer's domain (DNS) and CIRA's Registrant Agreement" if registry else
                    "the buyer's own website (it states its membership of the Canada-located body, linked)" if member and "member badge on the buyer's own site" in cfv else
                    "the Canadian licensing body's own public list of active licences (open data, updated daily)" if member and "licence holder of the Canadian body" in cfv else
+                   "the Canadian trademarks register published by the Canadian Intellectual Property Office (open data; owner of record and agent of record)" if member and "trademark" in cfv and "Canadian Intellectual Property Office" in cfv else
                    "the Canadian body's own current member / participant list" if member else
                    "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if tech and "credited on the buyer's own site" in cfv else
                    "the buyer's own public DNS records (they name the Canada-located provider of its e-mail, hosting or DNS service)" if tech and "seen in the buyer's public DNS" in cfv else
@@ -2488,6 +2504,8 @@ for x in rows:
                     break
                 elif cand:
                     n_ox["buyer_legal_name_v2_rejected_no_overlap"] += 1  # reviewer 2026-11-08: "Internet Protocol", "Ville de Granby" on another body's site
+        if ln and (x.get("keys") or "").split("|")[0] in REG_NAMED and x.get("buyer_legal_name_as_published"):
+            ln = ""; n_ox["buyer_legal_name_kept_from_the_trademarks_register"] += 1
         if ln:
             x["buyer_legal_name_as_published"] = ln if basis.startswith("the site's copyright") else "%s (%s)" % (ln, basis); n_ox["buyer_legal_name"] += 1
             if GENERIC_NAME.match(x.get("buyer") or "") or DOMAIN_NAME.match(x.get("buyer") or ""):
@@ -3844,6 +3862,14 @@ for _ri, x in enumerate(rows):
                                                 "holder's licence number, telephone, postal code or name (%s); the mailbox comes from that site") if _ld.get("platform") == "rbq_licence" else
                                                ("tools/biz_licences.py read the body's open-data list of licences in force and tied a licence to this organisation only on %s; several different licensees "
                                                 "fitting one organisation are dropped")) % (_ld.get("site_tied_to_holder_by") or "the tests of the tool")
+        elif _cs.startswith(("client of a Canadian trademark agent of record", "owner of ")) and "Canadian Intellectual Property Office" in _cs:
+            _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+            x["relationship_kind"] = ("professional representation before a Canadian public body: the owner's trademark agent of record, a Canada-located firm named by the register"
+                                      if _cs.startswith("client") else
+                                      "registration in force with a Canadian public body: the owner pays the Canadian Intellectual Property Office to register and renew its trademarks")
+            x["how_relationship_was_found"] = ("tools/tm_register.py read the Canadian Intellectual Property Office's open-data trademarks register (owner of record with its address; agent of record "
+                                               "with its address); the owner's own site was kept only on %s (%s); the mailbox comes from that site"
+                                               % (_ld.get("site_tied_to_holder_by") or "the tests of the tool", (_ld.get("site_facts_from") or "")[:120]))
         elif _cs.startswith("accredited business"):
             x["how_relationship_was_found"] = "tools/bbb_accredited.py read the business's public BBB profile (an archived copy; bbb.org's sitemap of accredited businesses says who is accredited today); the profile gives the business's own website"
         elif _cs.startswith("member of a Canadian body (stated on the buyer's own site"):
