@@ -731,8 +731,9 @@ NOT_REL_PATH = re.compile(r"terms|reference|support|service|product|letter|lettr
 SPONSOR_PATH = re.compile(r"/[^/]*(sponsors|commanditaires|exhibitors?|exposants|advertisers|annonceurs)([-_.][^/]*)?/?$")
 TENANT_PATH = re.compile(r"/[^/]*(our-tenants|tenant-directory|tenant-list|nos-locataires|liste-des-locataires|repertoire-des-locataires|merchants|marchands|commer(c|%c3%a7)ants|store-directory|shop-directory"
                          r"|repertoire-des-(magasins|boutiques|commerces|marchands))([-_.][^/]*)?/?$")
-DEALER_PATH = re.compile(r"/[^/]*(dealers?|where-to-buy|ou-acheter|o%c3%b9-acheter|retailers|stockists|d(e|%c3%a9)taillants|distributors|distributeurs|revendeurs|points-de-vente)([-_.][^/]*)?/?$")
-NOT_PAYER_PATH = re.compile(r"become|devenir|devenez|opportunit|package|forfait|prospectus|application|apply|form|kit|levels|niveaux|sponsorship|commandite|login|log-in|signin|sign-in|account|compte|portal|portail|supplier|fournisseur|brand|marque|manufactur|fabricant|career|emploi|job")
+DEALER_PATH = re.compile(r"/[^/]*(dealers?|where-to-buy|ou-acheter|o%c3%b9-acheter|retailers|stockists|d(e|%c3%a9)taillants|revendeurs|points-de-vente)([-_.][^/]*)?/?$")  # not "distributors": wrong direction on a distributor's own site
+NOT_PAYER_PATH = re.compile(r"become|devenir|devenez|opportunit|package|forfait|prospectus|application|apply|form|kit|levels|niveaux|sponsorship|commandite|login|log-in|signin|sign-in|account|compte|portal|portail|supplier|fournisseur|brand|marque|manufactur|fabricant|career|emploi|job"
+                            r"|blog|news|nouvelle|article|actualit|press|communiqu|regist|casino|blackjack|poker|betting|roulette|slots|/[^/]{37,}/?$")  # the last alternative: an article slug, not a list page
 # member directories of a Canada-located body (same tests as tools/cc_clients.py): a one-member page of a GrowthZone / ChamberMaster directory, or a member-list page
 MEMBER_ONE_PATH = re.compile(r"^/list/member/[^/]+/?$")
 MEMBER_PATH = re.compile(r"/[^/]*(members|membres|member-directory|membership-directory|member-list|directory-of-members|repertoire-des-membres|liste-des-membres)([-_.][^/]*)?/?$")

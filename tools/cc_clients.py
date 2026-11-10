@@ -66,8 +66,11 @@ SPONSOR_SQL = r"/[^/]*(sponsors|commanditaires|exhibitors?|exposants|advertisers
 # "tenant directory", "merchants"); pages written FOR tenants link to utilities and agencies and are not lists
 TENANT_SQL = (r"/[^/]*(our-tenants|tenant-directory|tenant-list|nos-locataires|liste-des-locataires|repertoire-des-locataires|merchants|marchands|commer(c|%c3%a7)ants|store-directory|shop-directory"
               r"|repertoire-des-(magasins|boutiques|commerces|marchands))([-_.][^/]*)?/?$")
-DEALER_SQL = r"/[^/]*(dealers?|where-to-buy|ou-acheter|o%c3%b9-acheter|retailers|stockists|d(e|%c3%a9)taillants|distributors|distributeurs|revendeurs|points-de-vente)([-_.][^/]*)?/?$"
+# "distributors" is left out: a distributor's own page of that name lists the brands it carries (the wrong direction)
+DEALER_SQL = r"/[^/]*(dealers?|where-to-buy|ou-acheter|o%c3%b9-acheter|retailers|stockists|d(e|%c3%a9)taillants|revendeurs|points-de-vente)([-_.][^/]*)?/?$"
+MAX_LIST_SEGMENT = 36  # "our-dealers", "2026-golf-tournament-sponsors": a list page has a short last path part; an article slug that merely contains the word does not
 NOT2_SQL = (r"become|devenir|devenez|opportunit|package|forfait|prospectus|application|apply|form|kit|levels|niveaux|sponsorship|commandite|login|log-in|signin|sign-in|account|compte|portal|portail"
+            r"|blog|news|nouvelle|article|actualit|press|communiqu|regist|casino|blackjack|poker|betting|roulette|slots"
             r"|/tag/|/tags/|/category/|/categorie/|/author/|/page/[0-9]|/feed|wp-json|wp-content|wp-admin|/cart|/panier|/checkout|privacy|/search|/recherche|register|inscription"
             r"|supplier|fournisseur|brand|marque|manufactur|fabricant|career|emploi|job|\.(pdf|jpe?g|png|gif|xml|json|css|js)$")
 # 2026-11-10: member directories of a Canada-located body (chamber of commerce, board of trade, association): the members pay it dues.
@@ -84,6 +87,10 @@ NOT3_SQL = (r"board|council|committee|comit|conseil|team|equipe|%c3%a9quipe|staf
 _REL_RX, _NOT_RX, _SP_RX, _DL_RX, _NOT2_RX, _M1_RX, _MB_RX, _NOT3_RX, _TN_RX = (re.compile(x) for x in (REL_SQL, NOT_SQL, SPONSOR_SQL, DEALER_SQL, NOT2_SQL, MEMBER_ONE_SQL, MEMBER_SQL, NOT3_SQL, TENANT_SQL))
 PER_DOMAIN_MEMBER_PAGES = 3000  # a chamber's directory has one page per member
 MIN_MEMBER_LINKS = 5            # a member-list page counts as a directory only when it names at least this many organisations
+MIN_LIST_LINKS = 3              # sponsor / dealer / tenant pages: a list names several parties (one or two stray links are not a list)
+# links injected into hacked pages (betting, pills …): the link is dropped, and a page with three of them is dropped whole
+SPAM = re.compile(r"casino|blackjack|poker|roulette|\bslots?\b|betting|bahis|kumar|casibom|\b\w*(?:pasha|jojo|holigan|ultra|mat|mars|saha|tipo|meri|most|rest|bets)\w*bet\w*\b|\bbets?\d|\b1xbet|"
+                  r"porn|escort|viagra|cialis|payday loan|forex|replica watch", re.I)
 
 
 def page_class(path):
@@ -93,7 +100,7 @@ def page_class(path):
         return "member"
     if _REL_RX.search(p) and not _NOT_RX.search(p):
         return "client"
-    if not _NOT2_RX.search(p):
+    if not _NOT2_RX.search(p) and len(p.rstrip("/").rsplit("/", 1)[-1]) <= MAX_LIST_SEGMENT:
         if _DL_RX.search(p):
             return "dealer"
         if _SP_RX.search(p):
@@ -239,7 +246,7 @@ def index(a):
         q = ("SELECT url, url_host_name, url_host_registered_domain, url_path, CAST(fetch_time AS VARCHAR), warc_filename, warc_record_offset, warc_record_length "
              "FROM read_parquet('%s') WHERE url_host_tld = 'ca' AND fetch_status = 200 AND content_mime_detected = 'text/html' AND url_query IS NULL "
              "AND length(url_path) BETWEEN 2 AND 90 AND ((regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')) "
-             "OR (regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')) "
+             "OR (regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s') AND length(regexp_extract(url_path, '[^/]+/?$')) <= 37) "
              "OR regexp_matches(lower(url_path), '%s') OR (regexp_matches(lower(url_path), '%s') AND NOT regexp_matches(lower(url_path), '%s')))") % (
                  url, REL_SQL.replace("'", "''"), NOT_SQL.replace("'", "''"), (SPONSOR_SQL + "|" + DEALER_SQL + "|" + TENANT_SQL).replace("'", "''"), NOT2_SQL.replace("'", "''"),
                  MEMBER_ONE_SQL.replace("'", "''"), MEMBER_SQL.replace("'", "''"), NOT3_SQL.replace("'", "''"))
@@ -467,16 +474,17 @@ def leads_of(page, row):
     title = re.search(r"(?is)<title[^>]*>(.*?)</title>", page[:200_000])
     title = re.sub(r"\s+", " ", re.sub(r"(?s)<[^>]+>", " ", title.group(1))).strip()[:120] if title else ""
     site = re.search(r"(?is)<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=[\"']([^\"']{2,80})[\"']", page[:200_000])
-    hits = {}
+    hits, n_spam = {}, 0
     for href, label in anchors(page, url):
         try:
             h = base(urllib.parse.urlparse(href).hostname)
         except ValueError:
             continue
         label = (label or "").strip()
+        n_spam += bool(h and h != vhost and (SPAM.search(h) or SPAM.search(label)))
         if (not h or "." not in h or len(h) > 60 or h == vhost or h == dom or h.endswith("." + dom) or re.fullmatch(r"[\d.]+", h)
                 or SKIP.search(h) or PLATFORMS.search(h) or VENDOR_SKIP.search(h)
-                or not label or len(label) > 120 or GENERIC_LABEL.match(label) or LABEL_SKIP.search(label)):
+                or not label or len(label) > 120 or GENERIC_LABEL.match(label) or LABEL_SKIP.search(label) or SPAM.search(h) or SPAM.search(label)):
             continue
         hits.setdefault(h, {"platform": "vendor_site", "domain": h, "dataset_id": url, "dataset": CLASS_TEXT.get(row.get("cls") or page_class(row.get("path")) or "client", CLASS_TEXT["client"]),
                             "dataset_url": url, "publisher": h, "buyer_unit": "", "website": "https://%s/" % h, "vendor": (site.group(1).strip() if site else "") or vhost,
@@ -484,8 +492,12 @@ def leads_of(page, row):
                             "row": {"relationship_page": url, "page_title": title, "client_label": label[:120], "vendor_key": "cc:" + dom, "vendor_site": "https://%s/" % vhost,
                                     "pass": "cc_index", "basis": row.get("basis") or "", "page_class": row.get("cls") or page_class(row.get("path")) or "client", "capture": (row.get("fetch_time") or "")[:19], "vendor_address_quote": quote,
                                     "warc": "%s:%s:%s" % (row["warc_filename"], row["warc_record_offset"], row["warc_record_length"])}})
+    if n_spam >= 3:
+        return [], quote  # a hacked page: none of its links is taken
     if cls0 == "member" and len(hits) < MIN_MEMBER_LINKS:
         return [], quote  # a "members" page with a few stray links is a page FOR members (a church, a club), not a directory of member organisations
+    if cls0 in ("sponsor", "dealer", "tenant") and len(hits) < MIN_LIST_LINKS:
+        return [], quote
     return (list(hits.values()) if 0 < len(hits) <= (600 if cls0 == "member" else 150) else []), quote
 
 
@@ -860,6 +872,7 @@ def merge(a):
     vendors_of = collections.defaultdict(set)
     for r in recs:
         vendors_of[r["domain"]].add(r["canada_value"])
+    links_of_page = collections.Counter(r["dataset_url"] for r in recs)  # every organisation the page names, known or new
     new = 0
     cls_rank = lambda r: 0 if page_class(urllib.parse.urlparse(r["dataset_url"]).path) == "client" else 1  # a client page first, then member / dealer / sponsor pages
     for r in sorted(recs, key=lambda r: (cls_rank(r), len(r["dataset_url"]), r["dataset_url"])):
@@ -877,18 +890,30 @@ def merge(a):
                                                                                            row.get("vendor_address_capture") or (row.get("capture") or "")[:10])) if row.get("vendor_address_quote") else "",
                          "vendor_address_quote": row.get("vendor_address_quote") or "", "vendor_address_url": row.get("vendor_address_url") or r["dataset_url"],
                          "page_class": row.get("page_class") or page_class(urllib.parse.urlparse(r["dataset_url"]).path) or "client", "member_address_quote": row.get("member_address_quote") or "",
+                         "page_links": links_of_page[r["dataset_url"]],
                          "vendor_site": row.get("vendor_site") or "", "client_label": row.get("client_label") or "", "page_title": row.get("page_title") or "", "capture": row.get("capture") or "", "warc": row.get("warc") or ""}
         prev[key]["canadian_vendor_rows"] = max(int(prev[key].get("canadian_vendor_rows") or 0), len(vendors_of[dom]))
     # member-list pages (not the one-member pages) that produced fewer than MIN_MEMBER_LINKS leads were pages FOR members, not directories
     # (first extraction 2026-11-10: a church's "members" page linking a facility-request form): their leads are withdrawn
-    per_page = collections.Counter(d.get("record_url") for d in pdet.values() if d.get("page_class") == "member")
-    drop = [k for k, d in pdet.items() if d.get("page_class") == "member" and not _M1_RX.search(urllib.parse.urlparse(d.get("record_url") or "").path.lower())
-            and per_page[d.get("record_url")] < MIN_MEMBER_LINKS]
+    per_page = collections.Counter(d.get("record_url") for d in pdet.values() if d.get("page_class") in ("member", "sponsor", "dealer", "tenant"))
+    is_spam = {k for k, d in pdet.items() if SPAM.search(d.get("client_label") or "") or SPAM.search(urllib.parse.urlparse((prev.get(k) or {}).get("website") or "").hostname or "")}
+    spam_page = collections.Counter(pdet[k].get("record_url") for k in is_spam)
+    drop = [k for k, d in pdet.items() if k in is_spam or spam_page[d.get("record_url")] >= 3]  # injected links, and every link of a hacked page (any class)
+    for k, d in pdet.items():
+        pc = d.get("page_class")
+        if pc not in ("member", "sponsor", "dealer", "tenant") or k in is_spam or spam_page[d.get("record_url")] >= 3:
+            continue
+        path = urllib.parse.urlparse(d.get("record_url") or "").path.lower()
+        n_links = max(int(d.get("page_links") or 0), per_page[d.get("record_url")])  # page_links counts the organisations already known too
+        if (page_class(path) != pc  # the page no longer passes the path rule (article slugs, registration pages, distributor pages: rule tightened 2026-11-10)
+                or (pc == "member" and not _M1_RX.search(path) and n_links < MIN_MEMBER_LINKS)
+                or (pc != "member" and n_links < MIN_LIST_LINKS)):
+            drop.append(k)
     for k in drop:
         prev.pop(k, None)
         pdet.pop(k, None)
     if drop:
-        print("withdrawn: %d leads from member pages that are not directories" % len(drop))
+        print("withdrawn: %d leads from pages that are not lists of paying parties (rule tightened), or spam links" % len(drop))
     with open(LEADS_CC, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=LEAD_COLS)
         w.writeheader()
