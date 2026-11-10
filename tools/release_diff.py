@@ -5,6 +5,8 @@ mailbox changed, package moved — keyed by the organisation's first key. Run by
 """
 import csv, datetime, gzip, os, subprocess, sys
 
+csv.field_size_limit(1 << 30)
+
 
 TRACKED = ["buyer_legal_name_as_published", "buyer_address", "buyer_phone", "buyer_website", "buyer_bn_as_published", "payment_terms_as_published", "po_required_as_published",
            "invoice_portal_url", "ap_phone", "invoice_mailing_address", "ap_contact_name_as_published", "vendor_legal_name", "vendor_bn9", "vendor_neq", "vendor_address",
@@ -15,10 +17,12 @@ def load(path):
     if not path or not os.path.exists(path):
         return {}
     out = {}
+    keep = ["buyer", "rank_group", "email"] + TRACKED  # 2026-11-10: only the compared cells are kept (two whole tables in memory was 5 GB at 86,000 rows, next to rank.py's own)
     with gzip.open(path, "rt", encoding="utf-8") as f:
         for r in csv.DictReader(f):
             k = (r.get("keys") or "").split("|")[0] or r.get("buyer", "")
-            out.setdefault(k, r)
+            if k not in out:
+                out[k] = {c: (r.get(c) or "") for c in keep}
     return out
 
 
