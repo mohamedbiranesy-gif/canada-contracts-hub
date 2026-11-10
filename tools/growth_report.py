@@ -30,6 +30,13 @@ def source_of(r):
     return m.group(1) if m else (k.split(":")[0] if ":" in k else "")
 
 
+def split_rows(by_tier):
+    """the headline, split by what the relationship is (2026-11-10: tier R — the .ca registration contract — is recorded and certain but generic,
+    so it is never added to the named-vendor count): a named Canada-located vendor / a registry contract / no record (inferred) or weak"""
+    named = sum(c for t, c in by_tier.items() if t in ("A", "B", "T", "M", "C", "D", "L", "E"))
+    return {"rows_named_vendor_relationship": named, "rows_registry_contract_R": by_tier.get("R", 0), "rows_inferred_or_weak": by_tier.get("I", 0) + by_tier.get("F", 0)}
+
+
 def metrics(rows, cov_json=None):
     m = collections.OrderedDict()
     m["rows"] = len(rows)
@@ -56,6 +63,7 @@ def metrics(rows, cov_json=None):
     m["vendor_bn9_known"] = sum(1 for r in rows if (r.get("vendor_bn9") or "").strip())
     m["benchmarks_met"] = (cov_json or {}).get("met")
     m["rows_by_package"] = dict(sorted(collections.Counter(r.get("tier") or "?" for r in rows).items()))
+    m.update(split_rows(m["rows_by_package"]))
     m["sources"] = dict(sorted(collections.Counter(source_of(r) for r in rows if source_of(r)).items()))
     return m
 
@@ -88,7 +96,9 @@ def main():
     if not os.path.exists(a.baseline):
         sys.exit("no baseline at %s" % a.baseline)
     base = json.load(open(a.baseline, encoding="utf-8"))
-    keys = ["rows", "buyers_total", "buyers_ap_confirmed", "buyers_fin_confirmed", "buyers_any_confirmed", "pay_on_sight_yes", "pay_on_sight_ref",
+    for _k, _v in split_rows(base.get("rows_by_package", {})).items():
+        base.setdefault(_k, _v)
+    keys = ["rows", "rows_named_vendor_relationship", "rows_registry_contract_R", "rows_inferred_or_weak", "buyers_total", "buyers_ap_confirmed", "buyers_fin_confirmed", "buyers_any_confirmed", "pay_on_sight_yes", "pay_on_sight_ref",
             "pay_on_sight_routed", "gold_rows", "gold_pay_on_sight", "grade_A", "gold_A", "grade_A_or_B", "public_rows", "terms_published_public", "po_rule_published_public",
             "billto_legal_name_published", "vendor_bn9_known", "inferred_policy_cells_p80", "benchmarks_met"]
     L = ["# Growth vs the ship-now baseline (%s, build %s) — measured %s" % (base.get("date"), base.get("label") or "?", TODAY), "",
@@ -108,12 +118,22 @@ def main():
         L.append("| %s | %d | %d | %+d |" % (t, bp.get(t, 0), cp.get(t, 0), cp.get(t, 0) - bp.get(t, 0)))
     L.append("")
     if a.history:
-        new = not os.path.exists(a.history)
-        with open(a.history, "a", newline="", encoding="utf-8") as fh:
-            w = csv.writer(fh)
-            if new:
-                w.writerow(["date", "label"] + keys)
-            w.writerow([TODAY, a.label] + [cur.get(k) for k in keys])
+        # the list of metrics has grown since the first builds: the file is rewritten with one header that holds every column ever used, so a
+        # value always sits under its own name (rows written before a metric existed leave it blank)
+        old_rows, head = [], ["date", "label"]
+        if os.path.exists(a.history):
+            with open(a.history, encoding="utf-8", newline="") as fh:
+                rd = csv.reader(fh)
+                h0 = next(rd, None) or []
+                for row in rd:
+                    old_rows.append({h0[i]: v for i, v in enumerate(row) if i < len(h0)})
+                head = h0 or head
+        head = head + [k for k in keys if k not in head]
+        old_rows.append(dict({"date": TODAY, "label": a.label}, **{k: cur.get(k) for k in keys}))
+        with open(a.history, "w", newline="", encoding="utf-8") as fh:
+            w = csv.DictWriter(fh, fieldnames=head, extrasaction="ignore")
+            w.writeheader()
+            w.writerows(old_rows)
     out = "\n".join(L) + "\n"
     if a.write:
         open(a.write, "w", encoding="utf-8").write(out)
