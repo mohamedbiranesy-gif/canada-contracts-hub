@@ -412,7 +412,8 @@ def lead_of(o):
     trade = [t for t in b["trade"].split(" | ") if t.strip()]
     legal = b["name"] if b["name"] and LEGAL_FORM.search(norm(b["name"])) else ""
     numbered = bool(re.match(r"\d[\d\s-]{5,}", legal))  # a numbered company is known by its other name
-    row = {"buyer_key": key, "buyer_name": (trade[0] if trade and (not legal or numbered) else legal or b["name"] or o["org_names"][0]), "website": "https://%s/" % o["host"],
+    # the row keeps the organisation's own name (its site, the delivered row); the licence's legal and trade names go to the register facts below
+    row = {"buyer_key": key, "buyer_name": (o.get("org_names") or [""])[0] or (trade[0] if trade and (not legal or numbered) else legal or b["name"]), "website": "https://%s/" % o["host"],
            "canadian_vendor_rows": 1, "example_vendor": S["payee"],
            "canada_field_value": "membership / statutory fee relationship: licence holder of the Canadian body (%s)=%s (as printed on %s, read 2026-11-10); %s: “%s” (%s)"
                                  % (S["payee"], S["payee_address"], S["payee_url"], S["payee"], S["fee_quote"], S["payee_url"]),
