@@ -36,6 +36,32 @@ SHAPES = os.path.join(INC, "claude_cc_shopify_shapes.csv.gz")  # domains whose a
 CANDS = os.path.join(INC, "claude_tenant_candidates.csv.gz")
 TDONE = os.path.join(INC, "claude_cc_tenant_extract_done.tsv")
 CAND_COLS = ["cand_key", "vendor_key", "name", "website", "evidence_url", "capture", "name_basis", "website_basis", "slug", "extra"]
+# 2026-11-10: accepted tenant leads, their details and the candidate done lines live in append-only shards (one small file per run) —
+# the leads file was rewritten whole at every run and would pass GitHub's 100 MB limit with the stores now arriving by the thousand
+TSTATE = os.path.join(INC, "tenant_state")
+
+
+def state_files(prefix):
+    return sorted(glob.glob(os.path.join(TSTATE, prefix + "_*.gz")))
+
+
+def tenant_leads():
+    """lead rows (LEAD_COLS) accepted by the candidate crawl, from the shards"""
+    for p in state_files("leads"):
+        with gzip.open(p, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                yield r
+
+
+def tenant_done_lines(legacy):
+    """done lines of the candidate crawl: the old single file, then the shards (later lines win)"""
+    if os.path.exists(legacy):
+        for l in open(legacy, encoding="utf-8"):
+            yield l.rstrip("\n")
+    for p in state_files("done"):
+        with gzip.open(p, "rt", encoding="utf-8") as fh:
+            for l in fh:
+                yield l.rstrip("\n")
 # countries whose customers contract with the vendor's Canadian company; default: Canada only (until the vendor's terms are read).
 # Jane and Jobber (terms read 2026-11-10, quoted in tools/tech_relationships.py VENDORS[...]["scope"]): one Canadian contracting entity for every
 # country — every country whose postal addresses tools/lead_crawl.py can read
@@ -397,6 +423,10 @@ def known_domains():
                 h = CCL.base((urllib.parse.urlparse(r.get("website") or "").hostname or "").lower())
                 if h:
                     known.add(h)
+    for r in tenant_leads():
+        h = CCL.base((urllib.parse.urlparse(r.get("website") or "").hostname or "").lower())
+        if h:
+            known.add(h)
     import ranked_io  # the ranked table is committed in parts (GitHub's 100 MB limit)
     rp = os.path.join(CCL.ROOT, "coord/results/ranked/ranked_buyers.csv.gz")
     if ranked_io.parts_of(rp) or os.path.exists(rp):
@@ -500,41 +530,39 @@ def merge_accepted(a):
                 recs.append(json.loads(l))
             except ValueError:
                 pass
-    prev, pdet = {}, {}
-    if os.path.exists(CCL.LEADS_CC):
-        prev = {r["buyer_key"]: r for r in csv.DictReader(open(CCL.LEADS_CC, encoding="utf-8"))}
-    if os.path.exists(CCL.DETAILS_CC):
-        for l in gzip.open(CCL.DETAILS_CC, "rt", encoding="utf-8"):
-            try:
-                o = json.loads(l)
-                pdet[o["key"]] = o
-            except (ValueError, KeyError):
-                pass
-    main = set()
-    mp = os.path.join(INC, "claude_buyer_leads.csv")
-    if os.path.exists(mp):
-        main = {r["buyer_key"] for r in csv.DictReader(open(mp, encoding="utf-8", errors="replace"))}
-    new = collections.Counter()
+    have = set()
+    for p in (os.path.join(INC, "claude_buyer_leads.csv"), CCL.LEADS_CC):
+        if os.path.exists(p):
+            have |= {r["buyer_key"] for r in csv.DictReader(open(p, encoding="utf-8", errors="replace"))}
+    n_before = len(have)
+    for r in tenant_leads():
+        have.add(r["buyer_key"])
+    n_shard = len(have) - n_before
+    new, rows, dets = collections.Counter(), [], []
     for rec in recs:
         key, row = lead_row(rec)
-        if key in main or key in prev:
+        if key in have:
             continue
-        prev[key] = row
+        have.add(key)
+        rows.append(row)
         rr = rec.get("row") or {}
-        pdet[key] = {"key": key, "platform": "tech_tenant_cc", "record_url": rec["dataset_url"], "vendor": rec["vendor"], "record_date": rr.get("record_date") or "", "title": "",
+        dets.append({"key": key, "platform": "tech_tenant_cc", "record_url": rec["dataset_url"], "vendor": rec["vendor"], "record_date": rr.get("record_date") or "", "title": "",
                      "vendor_address": "%s (as printed on %s)" % (rr.get("vendor_hq_quote") or "", rr.get("vendor_hq_url") or ""), "vendor_trade_name": rr.get("vendor_trade_name") or "",
                      "buyer_address_evidence": rr.get("buyer_address_quote") or "", "buyer_address_evidence_url": rr.get("buyer_address_url") or "", "buyer_country_evidence": rr.get("buyer_country") or "",
-                     "contracting_scope": rr.get("contracting_scope") or "", "service_seen": rr.get("service_seen") or "", "portal_slug": rr.get("portal_slug") or "", "capture": rr.get("capture") or ""}
+                     "contracting_scope": rr.get("contracting_scope") or "", "service_seen": rr.get("service_seen") or "", "portal_slug": rr.get("portal_slug") or "", "capture": rr.get("capture") or ""})
         new[rr.get("vendor_key") or "?"] += 1
-    with open(CCL.LEADS_CC, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=CCL.LEAD_COLS)
-        w.writeheader()
-        for k in sorted(prev):
-            w.writerow({c: prev[k].get(c, "") for c in CCL.LEAD_COLS})
-    with gzip.open(CCL.DETAILS_CC, "wt", encoding="utf-8") as f:
-        for k in sorted(pdet):
-            f.write(json.dumps(pdet[k], ensure_ascii=False) + "\n")
-    print("tenant leads accepted this run: %d (%s); %d buyers in %s" % (sum(new.values()), dict(new), len(prev), os.path.basename(CCL.LEADS_CC)))
+    if rows:
+        os.makedirs(TSTATE, exist_ok=True)
+        stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
+        with gzip.open(os.path.join(TSTATE, "leads_%s.gz" % stamp), "wt", encoding="utf-8", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=CCL.LEAD_COLS)
+            w.writeheader()
+            for row in rows:
+                w.writerow({c: row.get(c, "") for c in CCL.LEAD_COLS})
+        with gzip.open(os.path.join(TSTATE, "details_%s.gz" % stamp), "wt", encoding="utf-8") as f:
+            for d in dets:
+                f.write(json.dumps(d, ensure_ascii=False) + "\n")
+    print("tenant leads accepted this run: %d (%s); %d tenant leads in the shards of tenant_state/ (older ones stay in %s)" % (sum(new.values()), dict(new), n_shard + len(rows), os.path.basename(CCL.LEADS_CC)))
 
 
 def main():
@@ -545,7 +573,7 @@ def main():
     p = sub.add_parser("extract"); p.add_argument("--shard", default="0/1"); p.add_argument("--minutes", type=float, default=120); p.add_argument("--workers", type=int, default=4); p.add_argument("--limit", type=int, default=0)
     p = sub.add_parser("merge"); p.add_argument("dir"); p.add_argument("--max-shapes", type=int, default=20000, help="store-shaped domains added as candidates per run")
     p = sub.add_parser("shapes"); p.add_argument("--shard", default="0/1"); p.add_argument("--crawl", default="auto"); p.add_argument("--limit-parts", type=int, default=0)
-    p = sub.add_parser("merge-accepted"); p.add_argument("dir")
+    p = sub.add_parser("merge-accepted"); p.add_argument("dir"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"index": index, "shapes": shapes, "merge-index": merge_index, "extract": extract, "merge": merge, "merge-accepted": merge_accepted}[a.cmd](a)
 

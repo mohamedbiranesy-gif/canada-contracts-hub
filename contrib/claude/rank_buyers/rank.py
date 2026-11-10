@@ -668,6 +668,15 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_buyer_leads_cc.csv"):
         if r.get("buyer_key") and r["buyer_key"] not in leads:
             leads[r["buyer_key"]] = r
             _n_cc += 1
+# 2026-11-10: tenant leads accepted by the candidate crawl (stores on Shopify, customer portals) arrive in append-only shards (tenant_state/)
+_n_ts = 0
+for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/leads_*.gz")):
+    with gzip.open(_p, "rt", encoding="utf-8", newline="") as _fh:
+        for r in csv.DictReader(_fh):
+            if r.get("buyer_key") and r["buyer_key"] not in leads:
+                leads[r["buyer_key"]] = r
+                _n_ts += 1
+print("tenant leads from the shards: %d" % _n_ts)
 # websites found later for leads that had none (tools/lead_sites.py: Wikidata official website of an item whose label equals the buyer's name)
 _n_lw = 0
 if os.path.exists(ROOT + "/data/incoming/claude/claude_lead_websites.csv"):
@@ -681,6 +690,9 @@ for _ldp in ("claude_lead_details.jsonl.gz", "claude_lead_details_cc.jsonl.gz"):
     if os.path.exists(ROOT + "/data/incoming/claude/" + _ldp):
         for _d in jl(ROOT + "/data/incoming/claude/" + _ldp):
             LDET.setdefault(_d.get("key"), _d)
+for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.gz")):
+    for _d in jl(_p):
+        LDET.setdefault(_d.get("key"), _d)
 LFACTS = {}  # 2026-11-10: what the cloud mailbox crawl read on the buyer's OWN pages (tools/lead_crawl.py): its name and its postal address, quoted
 for _d in jl(ROOT + "/data/incoming/claude/claude_lead_site_facts.jsonl.gz"):
     if _d.get("key"):

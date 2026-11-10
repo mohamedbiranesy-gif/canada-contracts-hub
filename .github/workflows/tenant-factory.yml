@@ -162,7 +162,7 @@ jobs:
         run: |
           [ -s data/incoming/claude/claude_tenant_candidates.csv.gz ] || { echo "no candidates yet"; mkdir -p out; exit 0; }
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
-          python3 tools/lead_crawl.py --candidates data/incoming/claude/claude_tenant_candidates.csv.gz --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --max-pages 12 ${VENDORS:+--vendors "$VENDORS"}
+          python3 tools/lead_crawl.py --candidates data/incoming/claude/claude_tenant_candidates.csv.gz --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --max-pages 12 --dns-stores 6000 ${VENDORS:+--vendors "$VENDORS"}
       - uses: actions/upload-artifact@v4
         with: { name: "tf-crawl-${{ matrix.k }}", path: out/, retention-days: 3 }
 
@@ -180,11 +180,13 @@ jobs:
         run: |
           ls -la shards | head -40 || true
           git config user.name "tenant-factory"; git config user.email "tenant-factory@users.noreply.github.com"
+          STAMP=$(date -u +%Y%m%dT%H%M%S)   # this run's shard files (accepted leads, details, done lines) in data/incoming/claude/tenant_state/
           for i in $(seq 1 12); do
-            git fetch -q origin main && git reset -q --hard origin/main
-            python3 tools/cc_tenants.py merge-accepted shards | tee /tmp/acc.txt
-            python3 tools/lead_crawl.py --merge shards --tenants | tee -a /tmp/acc.txt
-            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_crawl_done.tsv claude_lead_site_facts.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/tenant_state
+            python3 tools/cc_tenants.py merge-accepted shards --stamp "$STAMP" | tee /tmp/acc.txt
+            python3 tools/lead_crawl.py --merge shards --tenants --stamp "$STAMP" | tee -a /tmp/acc.txt
+            git add data/incoming/claude/tenant_state 2>/dev/null || true
+            for f in claude_lead_site_facts.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
             git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "[claude] tenant-factory: customers of Canada-HQ software vendors ($(head -1 /tmp/acc.txt | cut -c1-110))"

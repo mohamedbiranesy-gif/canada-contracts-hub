@@ -1265,6 +1265,7 @@ def merge(a):
         by_host = {CCL.base((urllib.parse.urlparse(r["website"]).hostname or "").lower()) for r in cands.values()}
         n_shop = 0
         lead_hosts = {host_of(r.get("website")) for r in prev.values() if "(tech)" in (r.get("canada_field_value") or "") and "credited" not in (r.get("canada_field_value") or "")}
+        lead_hosts |= {host_of(r.get("website")) for r in CT.tenant_leads()}  # accepted since 2026-11-10: in the shards of tenant_state/
         for dom in sorted(seen):
             o = seen[dom]
             site = o.get("site") or dom
@@ -1284,27 +1285,6 @@ def merge(a):
                 by_host.add(site)
                 n_c += 1
                 stats["vetted service candidates: " + vk] += 1
-        # stores the DNS lookups found on Shopify's storefront addresses (tools/dns_services.py: apex A record 23.227.38.x): candidates too. The
-        # candidate crawl proves the rest on the store itself (its /meta.json names the myshopify.com shop, the city and the country; a role mailbox)
-        try:
-            import dns_services as DNS
-            for o in DNS.records():
-                if not o.get("shop") or n_shop >= a.max_shopify:
-                    continue
-                site = o["d"]
-                ck = "t:shopify:%s" % site
-                if ck in cands or site in by_host or site in lead_hosts:
-                    continue
-                n_shop += 1
-                cands[ck] = {"cand_key": ck, "vendor_key": "shopify", "name": "", "website": "https://%s/" % site, "evidence_url": "https://dns.google/resolve?name=%s&type=A" % site,
-                             "capture": o.get("t") or "", "name_basis": "",
-                             "website_basis": "the domain's address record points to Shopify's storefront network (A %s, looked up %s)" % (o.get("a") or "", o.get("t") or ""),
-                             "slug": "asset", "extra": json.dumps({"seen_on": "", "via": "dns A record", "portal": "", "portal_check": 0, "shopify_country": ""}, ensure_ascii=False)}
-                by_host.add(site)
-                n_c += 1
-                stats["vetted service candidates: shopify (DNS address)"] += 1
-        except Exception as e:
-            print("DNS store candidates skipped: %s" % e)
         if n_c:
             with gzip.open(CT.CANDS, "wt", encoding="utf-8", newline="") as fh:
                 w = csv.DictWriter(fh, fieldnames=CT.CAND_COLS)

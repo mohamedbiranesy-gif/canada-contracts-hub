@@ -356,9 +356,13 @@ def candidates_mode(a, k, n):
             return True, "the portal page names the same organisation"
         return False, "portal_of_another_organisation"
     done = set()
-    if os.path.exists(TDONE):  # candidates that gave "nothing_found" before the front-office role rule (no "r2" mark) are read once more
-        for l in open(TDONE, encoding="utf-8"):
-            q = l.rstrip("\n").split("\t")
+    if True:  # candidates that gave "nothing_found" before the front-office role rule (no "r2" mark) are read once more
+        latest = {}
+        for l in CT.tenant_done_lines(TDONE):  # the old single file, then the shards of tenant_state/ (the latest line of a candidate decides)
+            q = l.split("\t")
+            if q and q[0]:
+                latest[q[0]] = q
+        for q in latest.values():
             if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and ("r2" not in q[6:] or (len(q) > 5 and q[5] == "shopify" and "p2" not in q[6:]))) \
                     and not (len(q) > 5 and q[2].startswith("out_of_scope") and q[5] in ("jane", "jobber") and "s2" not in q[6:]) \
                     and not (len(q) > 5 and q[5] == "shopify" and q[2] in ("blocked", "no_address", "service_not_seen", "no_name") and "b2" not in q[6:]):
@@ -377,6 +381,31 @@ def candidates_mode(a, k, n):
                           # every Shopify store has these generated pages; "contact information" prints the trade name, e-mail and address the merchant entered
                           # (first candidate crawls: 54 % of stores gave no mailbox from the linked pages alone)
                           "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy") if r["vendor_key"] == "shopify" else ()})
+    # stores the DNS lookups found on Shopify's storefront addresses (tools/dns_services.py): candidates made here, never written to the
+    # candidates file (they number in the hundreds of thousands); their done lines go to the shards like every other candidate's
+    n_dns = 0
+    if a.dns_stores and (not a.vendors or "shopify" in a.vendors.split(",")):
+        try:
+            import dns_services as DNS
+            for o in DNS.records():
+                if n_dns >= a.dns_stores:
+                    break
+                if not o.get("shop"):
+                    continue
+                h = o["d"]
+                ck = "t:shopify:%s" % h
+                if ck in done or h in hosts or ("www." + h) in hosts or not shard_ok(h, k, n):
+                    continue
+                hosts.add(h)
+                r = {"cand_key": ck, "vendor_key": "shopify", "name": "", "website": "https://%s/" % h, "evidence_url": "https://dns.google/resolve?name=%s&type=A" % h, "capture": o.get("t") or "",
+                     "name_basis": "", "website_basis": "the domain's address record points to Shopify's storefront network (A %s, looked up %s)" % (o.get("a") or "", o.get("t") or ""),
+                     "slug": "asset", "extra": "{}"}
+                tasks.append({"task_id": "TN-" + hashlib.sha1(ck.encode()).hexdigest()[:10], "buyer_key": ck, "buyer_name": h, "known_website": "https://%s/" % h, "_c": r,
+                              "_extra_paths": ("policies/contact-information", "pages/contact", "pages/contact-us", "policies/refund-policy")})
+                n_dns += 1
+        except Exception as e:
+            print("DNS store candidates not loaded: %s" % e, flush=True)
+        print("stores from the DNS lookups queued: %d" % n_dns, flush=True)
     tasks.sort(key=lambda t: (t["_c"]["vendor_key"] == "shopify", t["buyer_key"]))  # customer portals (organisation named by the portal) before stores
     if a.limit:
         tasks = tasks[:a.limit]
@@ -611,15 +640,32 @@ def merge(a):
             w.writerows(rows)
     done_path, pat = (TDONE, "tenant_done_*.tsv") if a.tenants else (SFDONE, "site_facts_done_*.tsv") if a.site_facts else (DONE, "lead_done_*.tsv")
     seen = {}
-    for p in [done_path] + sorted(glob.glob(os.path.join(a.merge, pat))):
-        if os.path.exists(p):
+    if a.tenants:  # 2026-11-10: the candidates' done lines go to an append-only shard (tenant_state/done_<stamp>.gz); the old single file is no longer rewritten
+        import cc_tenants as CT
+        new_lines = {}
+        for p in sorted(glob.glob(os.path.join(a.merge, pat))):
             for l in open(p, encoding="utf-8"):
                 q = l.rstrip("\n").split("\t")
                 if q and q[0]:
-                    seen[q[0]] = l.rstrip("\n")
-    with open(done_path, "w", encoding="utf-8") as f:
-        for key in sorted(seen):
-            f.write(seen[key] + "\n")
+                    new_lines[q[0]] = l.rstrip("\n")
+        if new_lines:
+            os.makedirs(CT.TSTATE, exist_ok=True)
+            with gzip.open(os.path.join(CT.TSTATE, "done_%s.gz" % (a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime()))), "wt", encoding="utf-8") as f:
+                f.write("\n".join(new_lines[k] for k in sorted(new_lines)) + "\n")
+        for l in CT.tenant_done_lines(TDONE):
+            q = l.split("\t")
+            if q and q[0]:
+                seen[q[0]] = l
+    else:
+        for p in [done_path] + sorted(glob.glob(os.path.join(a.merge, pat))):
+            if os.path.exists(p):
+                for l in open(p, encoding="utf-8"):
+                    q = l.rstrip("\n").split("\t")
+                    if q and q[0]:
+                        seen[q[0]] = l.rstrip("\n")
+        with open(done_path, "w", encoding="utf-8") as f:
+            for key in sorted(seen):
+                f.write(seen[key] + "\n")
     facts = {}
     if os.path.exists(FACTS):
         for l in gzip.open(FACTS, "rt", encoding="utf-8"):
@@ -660,6 +706,8 @@ def main():
     a.add_argument("--max-pages", type=int, default=25)
     a.add_argument("--workers", type=int, default=40)
     a.add_argument("--limit", type=int, default=0)
+    a.add_argument("--stamp", default="", help="with --merge --tenants: the name of this run's shard files")
+    a.add_argument("--dns-stores", type=int, default=0, help="candidates mode: also read up to this many stores per shard that the DNS lookups found on Shopify's storefront addresses")
     a.add_argument("--registry", type=int, default=0, help="leads mode: also read up to this many registry candidates per shard (.ca sites whose home page prints a role mailbox)")
     a.add_argument("--straggler-seconds", type=float, default=240, help="when only slow sites are left and nothing finished for this long, stop")
     a.add_argument("--site-seconds", type=float, default=420, help="wall-clock budget for one site: no new page is opened after that (what was read so far counts)")
