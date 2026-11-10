@@ -967,8 +967,9 @@ for k, L in sorted(leads.items(), key=lead_strength):
                            ("member of a Canadian body (stated on the buyer's own site, read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "member badge on the buyer's own site" in L.get("canada_field_value", "") else
                            ("accredited business of a Canadian Better Business Bureau since %s (its BBB profile read %s): %s — accredited businesses pay the BBB dues"
                             % ((LDET.get(k) or {}).get("accredited_since") or "an unstated date", (L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "accredited business of the Canadian body" in L.get("canada_field_value", "") else
-                           ("holder of licence no. %s issued by a Québec body: %s — first issued %s, licence fees paid up to %s (the body's daily list of active licences, read %s); a holder pays the body every year to keep the licence"
-                            % ((LDET.get(k) or {}).get("reference") or "?", L["example_vendor"], (LDET.get(k) or {}).get("start") or "an unstated date", (LDET.get(k) or {}).get("end") or "an unstated date",
+                           ("holder of licence no. %s issued by a Canadian public body: %s — first issued %s, %s (the body's own public list of licences in force, read %s); the holder pays the body to keep the licence"
+                            % ((LDET.get(k) or {}).get("reference") or "?", L["example_vendor"], (LDET.get(k) or {}).get("start") or "on an unstated date",
+                               ("in force / fees paid up to %s" % (LDET.get(k) or {})["end"]) if (LDET.get(k) or {}).get("end") else "no end or cancellation date in the list",
                                (L.get("latest_record_date") or "")[:10])) if member and "licence holder of the Canadian body" in L.get("canada_field_value", "") else
                            ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
                            tech_status(k, L) if tech else
@@ -2638,9 +2639,12 @@ for x in rows:
     if t == "M":  # tier M has several engines: say which one found this row
         _cs = x.get("contract_status") or ""
         if _cs.startswith("holder of licence"):
-            x["relationship_kind"] = "licence in force with a Canadian licensing body: the holder pays the body every year (the body's own daily list of active licences)"
-            x["how_relationship_was_found"] = ("tools/rbq_licences.py read the Régie du bâtiment du Québec's daily open-data list of active licences; the holder's own site (the domain of the e-mail the register "
-                                               "publishes) was kept only because it shows the holder's licence number, telephone, postal code or name; the mailbox comes from that site")
+            _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+            x["relationship_kind"] = "licence in force with a Canadian public body: the holder pays the body to keep it (the body's own public list of licences)"
+            x["how_relationship_was_found"] = (("tools/rbq_licences.py read the Régie du bâtiment du Québec's daily open-data list of active licences; the holder's own site was kept only because it shows the "
+                                                "holder's licence number, telephone, postal code or name (%s); the mailbox comes from that site") if _ld.get("platform") == "rbq_licence" else
+                                               ("tools/biz_licences.py read the body's open-data list of licences in force and tied a licence to this organisation only on %s; several different licensees "
+                                                "fitting one organisation are dropped")) % (_ld.get("site_tied_to_holder_by") or "the tests of the tool")
         elif _cs.startswith("accredited business"):
             x["how_relationship_was_found"] = "tools/bbb_accredited.py read the business's public BBB profile (an archived copy; bbb.org's sitemap of accredited businesses says who is accredited today); the profile gives the business's own website"
         elif _cs.startswith("member of a Canadian body (stated on the buyer's own site"):

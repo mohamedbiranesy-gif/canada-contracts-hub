@@ -1,19 +1,19 @@
 name: biz-licences
-# Municipal business licences (cities' open data) joined to the organisations we already hold (tools/biz_licences.py).
-# A business licence is a dated payment to a Canadian municipality: licence number, legal and trade name, address, issue and expiry dates.
-# Only the open-data portals' catalogue / bulk endpoints are asked (a few requests per city); no site is crawled.
+# Business licences and merchant permits (open data of Canadian cities and regulators) joined to the organisations we already hold
+# (tools/biz_licences.py). A licence in force is a dated payment to a Canadian public body: licence number, legal / trade name, address, issue and
+# expiry dates, sometimes the fee paid. Only the open-data portals' API / bulk endpoints are asked (a few requests per source); no site is crawled.
 #   probe : search each portal's catalogue; print dataset ids, fields, row counts and two sample rows (nothing is written)
-#   pull  : download the configured datasets -> match by postal code + name -> data/incoming/claude/claude_licence_matches.csv
+#   pull  : download the configured lists -> tie licences to organisations (postal code / telephone / street address + name) -> lead_shards/
 on:
   schedule:
-    - cron: "41 4 * * 2"
+    - cron: "41 4,16 * * *"
   workflow_dispatch:
     inputs:
       stage:
         description: "probe | pull"
         default: "pull"
       only:
-        description: "cities (comma separated; empty = all configured)"
+        description: "sources / portals (comma separated; empty = all configured)"
         default: ""
 permissions:
   contents: write
@@ -31,20 +31,22 @@ jobs:
       - name: Probe the catalogues (stage=probe)
         if: ${{ inputs.stage == 'probe' }}
         run: |
-          python3 tools/biz_licences.py probe 2>&1 | tee /tmp/probe.txt
+          python3 tools/biz_licences.py probe --only "${{ inputs.only || '' }}" 2>&1 | tee /tmp/probe.txt
           { echo '```'; head -c 900000 /tmp/probe.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - name: Download, match, commit (stage=pull)
         if: ${{ inputs.stage != 'probe' }}
         env: { GH_TOKEN: "${{ github.token }}", ONLY: "${{ inputs.only || '' }}" }
         run: |
+          python3 tools/ranked_io.py assemble || true
           python3 tools/biz_licences.py pull --only "$ONLY" 2>&1 | tee /tmp/l.txt
           python3 tools/biz_licences.py match out 2>&1 | tee -a /tmp/l.txt
-          mkdir -p keep && cp out/licence_matches.csv keep/ 2>/dev/null || true
+          mkdir -p keep && cp out/licence_leads.jsonl keep/ 2>/dev/null || true
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
           git config user.name "biz-licences"; git config user.email "biz-licences@users.noreply.github.com"
           for i in $(seq 1 10); do
-            git fetch -q origin main && git reset -q --hard origin/main
-            python3 tools/biz_licences.py merge keep | tee /tmp/m.txt
-            git add data/incoming/claude/claude_licence_matches.csv 2>/dev/null || true
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            python3 tools/biz_licences.py merge keep --stamp "$STAMP" | tee /tmp/m.txt
+            git add data/incoming/claude/lead_shards 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "biz-licences: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
             git push -q origin HEAD:main && break
