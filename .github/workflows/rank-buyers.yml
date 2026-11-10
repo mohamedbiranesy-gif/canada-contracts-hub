@@ -19,7 +19,10 @@ jobs:
     timeout-minutes: 240   # 40 minutes at 170,000 rows (2026-11-10), 18 of them the DNS-posture step; the row count is meant to grow sixfold
     concurrency: { group: ranker, cancel-in-progress: false }  # own group: a queued referee run must not cancel it
     steps:
+      # main as it is when the job STARTS: a run that waited behind another build (2026-11-10: 70 minutes in the queue) used to build the
+      # commit it was dispatched on — the same inputs again — and then could not put its folder on top of the build that had landed meanwhile
       - uses: actions/checkout@v4
+        with: { ref: main }
       - name: Rank, split into batches, publish, commit
         env:
           GH_TOKEN: ${{ github.token }}
