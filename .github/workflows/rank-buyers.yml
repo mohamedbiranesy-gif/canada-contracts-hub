@@ -2,7 +2,8 @@ name: rank-buyers
 # The deliverable: one row per distinct buyer, ranked by proof of an active relationship with a Canada-located supplier
 # and by the quality of its invoicing contact, split into quality batches (contrib/claude/rank_buyers/README.md).
 # Rebuilt from the latest dataset release and the referee's confirmed mailboxes, so the batches stay current without
-# anyone running them by hand. Output: coord/results/ranked/ (batches/*.csv, big packages in numbered parts; ranked_buyers.csv.gz; SUMMARY.md; VALIDATION.md).
+# anyone running them by hand. Output: the release "ranked-latest" (ranked_buyers.csv.gz, ranked_batches.zip, ranked_contracts.zip, ranked_extras.zip,
+# BUILD.json) and coord/results/ranked/ (SUMMARY.md, VALIDATION.md, AUDIT.md …, WHERE.md, BUILD.json, batches_head/).
 on:
   schedule:
     - cron: "17 */6 * * *"
@@ -46,9 +47,17 @@ jobs:
             [ -s out/ranked/COVERAGE_VS_TARGETS.md ] || { echo "::warning::scoreboard not written (see coverage.log) — previous scoreboard kept"; cp coord/results/ranked/COVERAGE_VS_TARGETS.md out/ranked/ 2>/dev/null || true; }
             # owner 2026-11-09 10:45 EST ("show me that I should wait"): every build diffed against the pack he could have shipped on Nov 9
             python3 tools/growth_report.py --ranked out/ranked/ranked_buyers.csv.gz --coverage-json out/ranked/coverage_vs_targets.json --baseline coord/BASELINE_SHIP_NOW_2026-11-09.json --write coord/GROWTH_VS_BASELINE.md --history coord/growth_history.csv --label "$(git rev-parse --short HEAD)" > growth.log 2>&1 || echo "::warning::growth report failed (see growth.log)"
-            rm -rf coord/results/ranked && mkdir -p coord/results/ranked && cp -r out/ranked/* coord/results/ranked/ && rm -f coord/results/ranked/ranked_buyers.csv coord/results/ranked/ranked_buyers.jsonl.gz
-            python3 tools/ranked_io.py split coord/results/ranked/ranked_buyers.csv.gz 40
-            ls -la coord/results/ranked/batches | awk '$5 > 95000000 {print "::error::file over 95 MB: " $9; bad=1} END {exit bad}'
+            # 2026-11-10: the bulky outputs (whole table, package CSVs, contracts export, audit / DMARC / change lists) are published as assets of the
+            # release "ranked-latest"; git keeps the reports, BUILD.json, WHERE.md and the first rows of each package (tools/ranked_publish.py).
+            # Measured before: 5.4 GB of new git objects in 24 hours, a repository of 8.9 GB after ten days.
+            if python3 tools/ranked_publish.py out/ranked --tag ranked-latest --git-dir coord/results/ranked > publish.log 2>&1; then
+              tail -3 publish.log
+            else
+              echo "::warning::release publish failed — this build is committed in parts as before"; tail -20 publish.log
+              rm -rf coord/results/ranked && mkdir -p coord/results/ranked && cp -r out/ranked/* coord/results/ranked/ && rm -f coord/results/ranked/ranked_buyers.csv coord/results/ranked/ranked_buyers.jsonl.gz
+              python3 tools/ranked_io.py split coord/results/ranked/ranked_buyers.csv.gz 40
+              ls -la coord/results/ranked/batches | awk '$5 > 95000000 {print "::error::file over 95 MB: " $9; bad=1} END {exit bad}'
+            fi
             { echo "# Ranked buyers — $(date -u +%Y-%m-%dT%H:%MZ)"; echo; echo '```'; cat rank.log batches.log; echo; echo "# coverage vs the downstream targets (COVERAGE_VS_TARGETS.md)"; cat coverage.log; echo '```'; echo; echo "Integrity gates: see VALIDATION.md in this folder; columns and rules: contrib/claude/rank_buyers/README.md"; } > coord/results/ranked/SUMMARY.md
             python3 tools/lane_status.py --write coord/LANES.md > /dev/null 2>&1 || true   # one page: every cloud lane's funnel, from the files on main
             git add coord/results/ranked coord/results/coverage_history.csv data/incoming/claude/claude_dmarc_check.tsv coord/GROWTH_VS_BASELINE.md coord/growth_history.csv coord/LANES.md

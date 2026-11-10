@@ -20,3 +20,8 @@ out/
 
 # the ranked table is committed in parts (tools/ranked_io.py); the assembled copy is never committed
 coord/results/ranked/ranked_buyers.csv.gz
+
+# the ranked table is a release asset since 2026-11-10 (tools/ranked_publish.py); the working copy and its build mark are never committed
+coord/results/ranked/ranked_buyers.csv.gz.build
+coord/results/ranked/ranked_buyers.csv.gz.dl
+out/ranked_pub/

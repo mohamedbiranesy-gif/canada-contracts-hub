@@ -21,4 +21,10 @@ Or click **Releases → dataset-latest** on GitHub.
 - `vendors_web_progress.jsonl.gz`
 - compact todo lists to continue from
 
+`ranked-latest` holds the current build of the deliverable (one row per buyer; written by the `rank-buyers` workflow, replaced in place):
+- `ranked_buyers.csv.gz` — the whole table; `ranked_buyers.jsonl.gz` — the same rows as JSON lines
+- `ranked_batches.zip` — every package as CSV; `ranked_contracts.zip` — contracts of the delivered buyers
+- `ranked_extras.zip` — audit flags, DMARC list, rows changed since the last build; `BUILD.json` — build id, counts, SHA-256 of each file
+- `coord/results/ranked/WHERE.md` and `BUILD.json` in the repository say which build the release holds
+
 Put downloads in `data/release/`. It is git-ignored.

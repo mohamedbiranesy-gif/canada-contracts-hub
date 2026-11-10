@@ -125,10 +125,14 @@ disclosure (tools/gc_recipients.py): `buyer_bn_as_published` / `vendor_bn9` from
 inferred vendors' own published phone and address (Canada Post Credit Management Group, NB Power, Qulliq Energy) on P13 rows.
 
 ## Files
-`coord/results/ranked/batches/<package>.csv` — one CSV per package; a package over ~45 MB is delivered in numbered part files
-(`P13_…_part1_of_4.csv` …, same columns, split only by size). `coord/results/ranked/ranked_buyers.csv.gz` — every row incl. Z, gzipped
-(GitHub refuses files over 100 MB). `SUMMARY.md`, `VALIDATION.md`, `AUDIT.md` + `audit_flags.csv`, `DMARC.md` + `dmarc_no_enforcement.csv` next to them;
-`contracts/` holds every contract record of the delivered buyers with all identifiers (gzipped part files).
+Since 2026-11-10 the build's bulky files are **assets of the release `ranked-latest`** (https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/tag/ranked-latest),
+replaced in place by every build — committing them grew the repository by gigabytes a day:
+`ranked_batches.zip` — one CSV per package (a package over ~95 MB in numbered part files, `P13_…_part1_of_4.csv` …, same columns, split only by
+size); `ranked_buyers.csv.gz` — every row incl. Z; `ranked_contracts.zip` — every contract record of the delivered buyers with all identifiers;
+`ranked_extras.zip` — `audit_flags.csv`, `dmarc_no_enforcement.csv`, `rows_changed.csv`; `BUILD.json` — build id, counts, size and SHA-256 of each file.
+In git, `coord/results/ranked/`: `WHERE.md` (links and package counts), `BUILD.json`, `SUMMARY.md`, `VALIDATION.md`, `AUDIT.md`, `DMARC.md`,
+`CHANGELOG.md`, `COVERAGE_VS_TARGETS.md`, `CONTRACTS.md`, and `batches_head/<package>.csv` (the first 10 rows of each package).
+Tools read the table through `tools/ranked_io.py` (it downloads `ranked_buyers.csv.gz` when a checkout does not hold the current build).
 
 ## Mailbox rules
 Webmail addresses (gmail, hotmail, outlook, yahoo, icloud, proton…) are never delivered, whoever publishes them: a webmail account is
