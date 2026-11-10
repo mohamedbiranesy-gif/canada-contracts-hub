@@ -55,8 +55,10 @@ NOT_CA = re.compile(r"(^|\.)(wixdns\.net|wix\.com|squarespace\.com|github\.io|ne
                     r"megamailservers\.com|registeredsite\.com|networksolutions\.com|web\.com|wordpress\.com|automattic\.com|hostgator\.com|inmotionhosting\.com|liquidweb\.com|rackspace\.com|"
                     r"serverdata\.net|intermedia\.net|arsmtp\.com|appriver\.com|fortimailcloud\.com|forwardemail\.net|mxroute\.com|mxrouting\.net|zohobooks\.com|freshdesk\.com|freshemail\.io|"
                     r"klaviyomail\.com|activecampaign\.com|acems\d\.com|emsd1\.com|md02\.com|informz\.net|cvent\.com|ultipro\.com|adp\.com|paubox\.com|schoolmessenger\.com|autotask\.net|myconnectwise\.net)$", re.I)
-# Canada-based services with a free plan, or sold only through resellers: their records are not proof of a payment by the organisation
-FREE = re.compile(r"(^|\.)(cyberimpact\.com|wildapricot\.(org|com)|zeffy\.com|thinkific\.com|vidyard\.com|hostedemail\.com|opensrs\.(com|net)|tucows\.com|hover\.com|elasticemail\.com|"
+# Canada-based services with a free plan, or sold only through resellers: their records are not proof of a payment by the organisation.
+# (2026-11-10: hover.com taken off this list — Hover is Tucows' RETAIL registrar, its customers pay it directly; the automatic provider test decides.
+# Tucows' wholesale platforms — OpenSRS, hostedemail.com under a reseller's name — stay out: the organisation pays the reseller.)
+FREE = re.compile(r"(^|\.)(cyberimpact\.com|wildapricot\.(org|com)|zeffy\.com|thinkific\.com|vidyard\.com|hostedemail\.com|opensrs\.(com|net)|tucows\.com|elasticemail\.com|"
                   r"canadahelps\.org|hootsuite\.com)$", re.I)
 SERVICE_RX = re.compile(r"h[ée]berg|hosting|\bhost\b|domain|domaine|e-?mail|courriel|internet|t[ée]l[ée]com|managed|infog[ée]rance|\bIT\b|\bTI\b|informati|cloud|data ?cent|web|logiciel|software|"
                         r"s[ée]curit|marketing|\bcrm\b|platform|plateforme|solution|technolog|digital|num[ée]rique|network|r[ée]seau|server|serveur|saas|app\b", re.I)
@@ -132,6 +134,8 @@ def providers_of(o):
             if not h or "." not in h or not re.fullmatch(r"[a-z0-9._-]+", h):
                 continue
             pd = C.registrable(h)
+            if h.endswith(".hover.com.cust.hostedemail.com"):
+                pd = "hover.com"  # Hover's own mail service on Tucows' platform (mx.hover.com.cust.hostedemail.com); other names on that platform belong to resellers
             if pd == own or (len(lab) >= 5 and lab in pd) or (kind, pd) in seen:
                 continue
             seen.add((kind, pd))
