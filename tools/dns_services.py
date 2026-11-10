@@ -89,6 +89,12 @@ CURSOR = os.path.join(DIR, "sweep_cursor.json")
 # the 4.1 M domains looked up so far, most of them .ca). The graph's 63 M domains hold the same providers' clients on .com / .net / .org: the
 # Canadian businesses that are not on .ca. The list is written by the merge (single writer) from the leads on file.
 NS_WATCH = os.path.join(DIR, "sweep_ns_watch.txt")
+# 2 (2026-11-10): both sweeps start again from the first place of their lists. Until then the runner's resolver had been started from a shell
+# that allows 1,024 open files: it shrank its tables to ~165 questions at a time and dropped the rest (measured, dns-diag.yml: 25-49 % of
+# the questions dropped; 55-61 % of the sweep's names got no answer, while the public resolvers answer 97 % of the same names). A place
+# reached before this number says nothing about the names behind it.
+SWEEP_REV = 2
+PUBLIC_QPS = 60  # a name the runner's resolver gives no answer for is asked once of the public resolvers, at most this many a second
 SHOPIFY_A = re.compile(r"^23\.227\.38\.(?:3[2-9]|[4-9]\d|1[01]\d|12[0-7])$")  # Shopify's storefront addresses (23.227.38.32/27, .64/26): the apex A record of a store on its own domain
 VERIF_KEY = re.compile(r"^([a-z0-9][a-z0-9._-]{2,48}?)[=:]")
 # TXT verification keys of vetted Canada-HQ vendors -> vendor domain (each needs a business account with that vendor; quotes in tools/tech_relationships.py or DECISIONS.md)
@@ -116,7 +122,7 @@ def records():
     """every DNS record set on file, one dict per domain: {"d", "t", "mx": [hosts], "ns": [hosts], "inc": [SPF include hosts], "txt": [keys]}.
     The cloud lookups first; then the MX / SPF checks the Mac ran on the dataset's buyers (2026-11-04 … 2026-11-08) for domains not looked up since."""
     seen = set()
-    for p in state_files("dns"):
+    for p in reversed(state_files("dns")):  # newest file first: a domain asked again (SWEEP_REV) is read from its newest record
         with gzip.open(p, "rt", encoding="utf-8", errors="replace") as f:
             for l in f:
                 try:
@@ -194,15 +200,31 @@ def candidates(limit=2500):
 
 
 # ------------------------------------------------------------------------------------------------------------------- lookup
-def queue(k, n, limit=0):
-    import credit_scan as CS
-    done = set()
-    for p in state_files("dns"):
+def record_states():
+    """(done, again): domains whose newest record stands (asked through the repaired resolver, or "no such domain", or a sweep hit), and
+    domains whose record was written before SWEEP_REV — {domain: 0 no answer | 1 answered} — which are asked once more. Measured
+    2026-11-10 on samples of the 4.13 M records: 1,796,196 say "no answer" (43 %) and a public resolver answers 88 % of them; 87 % of the
+    answered records without an address do have one; 31 % of those without an SPF record have one."""
+    st = {}
+    for p in state_files("dns"):  # oldest first: the newest line of a domain decides
         with gzip.open(p, "rt", encoding="utf-8", errors="replace") as f:
             for l in f:
                 i = l.find('"d": "')
-                if i >= 0:
-                    done.add(l[i + 6:l.find('"', i + 6)])
+                if i < 0:
+                    continue
+                d = l[i + 6:l.find('"', i + 6)]
+                fail = '"st": "fail"' in l
+                if '"rv": ' in l or '"st": "nx"' in l or '"sw": ' in l or ('"l": 1' in l and not fail):
+                    st[d] = 2  # (a store candidate that did answer was asked one question: nothing of it was dropped — 0 of 500 re-asked were stores)
+                else:
+                    st[d] = 0 if fail else 1
+    done = {d for d, v in st.items() if v == 2}
+    return done, {d: v for d, v in st.items() if v != 2}
+
+
+def queue(k, n, limit=0):
+    import credit_scan as CS
+    done, again = record_states()
     seen, tasks = set(), []
 
     def add(host, pri, light=False):
@@ -212,7 +234,10 @@ def queue(k, n, limit=0):
         if d in seen or d in done or CS.PLATFORM.search(d) or not re.fullmatch(r"[a-z0-9.-]+", d) or int(hashlib.sha1(d.encode()).hexdigest(), 16) % n != k:
             return
         seen.add(d)
-        tasks.append((pri, d, light))
+        ag = again.get(d)
+        # asked before the resolver was repaired (SWEEP_REV): a record that says "no answer" first (stores before the rest: -3, -2), then the
+        # never-asked domains in their usual order, then the records that did answer (a later question of theirs may have been dropped: +10)
+        tasks.append(((-3 if light else -2) if ag == 0 else pri + 10 if ag == 1 else pri, d, light))
     import ranked_io
     for r in ranked_io.rows():
         add(CS.host_of(r.get("buyer_website")), 0)
@@ -235,7 +260,7 @@ def queue(k, n, limit=0):
     tasks.sort()
     if limit:
         tasks = tasks[:limit]
-    return [(d, light) for _, d, light in tasks], len(done)
+    return [(d, light) for _, d, light in tasks], len(done) + len(again)
 
 
 # First cloud test (2026-11-10, 3,000 domains through the public resolvers at 500 queries/s): 45 % of the lookups timed out — public resolvers
@@ -269,6 +294,8 @@ def lookup(a):
     qps = a.qps if local else min(a.qps, 60)  # without the local resolver: the public ones, slowly
     print("resolver: %s, %d queries/s" % ("%s:%d (local, recursive)" % local if local else "public resolvers", qps), flush=True)
 
+    lock, stats = threading.Lock(), collections.Counter()
+
     def turn():
         with gate:
             t = max(time.time(), nxt[0])
@@ -290,6 +317,8 @@ def lookup(a):
             tl.r = r
         return r
 
+    ask_public = _public_asker(dns, tl) if local else None
+
     def ask(d, typ):
         """(strings, status): status ok | none (no such record) | nx (no such domain) | fail"""
         turn()
@@ -298,7 +327,18 @@ def lookup(a):
         except dns.resolver.NXDOMAIN:
             return [], "nx"
         except dns.exception.DNSException:
-            return [], "fail"
+            if not ask_public:
+                return [], "fail"
+            try:  # no answer from the runner's resolver: asked once of the public resolvers before it counts as no answer
+                ans = ask_public(d, typ)
+                with lock:
+                    stats["answered_by_the_public_resolvers"] += 1
+            except dns.resolver.NXDOMAIN:
+                return [], "nx"
+            except dns.exception.DNSException:
+                with lock:
+                    stats["question_without_an_answer"] += 1
+                return [], "fail"
         if ans.rrset is None:
             return [], "none"
         if typ == "TXT":
@@ -308,7 +348,6 @@ def lookup(a):
         if typ == "A":
             return [x.address for x in ans], "ok"
         return [str(x.target).rstrip(".").lower() for x in ans], "ok"
-    lock, stats = threading.Lock(), collections.Counter()
     f = open("out/dns_%d.jsonl" % k, "a", encoding="utf-8")
 
     def one(task):
@@ -317,7 +356,7 @@ def lookup(a):
             return
         if light:  # a store candidate: only its address record and its www alias
             ip, st = ask(d, "A")
-            o = {"d": d, "t": TODAY, "st": st, "l": 1}
+            o = {"d": d, "t": TODAY, "st": st, "l": 1, "rv": SWEEP_REV}
             if ip:
                 if SHOPIFY_A.match(ip[0]):
                     o["shop"], o["a"] = 1, ip[0]
@@ -336,7 +375,7 @@ def lookup(a):
                     print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
             return
         ns, st = ask(d, "NS")
-        o = {"d": d, "t": TODAY, "st": st}
+        o = {"d": d, "t": TODAY, "st": st, "rv": SWEEP_REV}
         if st in ("ok", "none"):
             if ns:
                 o["ns"] = ns[:4]
@@ -414,8 +453,118 @@ def write_ns_watch():
     return len(doms)
 
 
+# ---- questions over a handful of long-lived flows -------------------------------------------------------------------------------------
+# 2026-11-10, two measurements on runners (dns-diag.yml): however the runner's own resolver was set, and also when the public resolvers
+# were asked directly, a runner got about 52 answers a second and the rest timed out — the limit is on NEW flows leaving the runner (every
+# question was a new socket: a new source port, to a new server). The questions now go to the public resolvers over ONE socket per worker
+# thread, kept for the thread's life: a few hundred flows for a whole run instead of a new one per question.
+PUBLIC_SERVERS = (("1.1.1.1", 3), ("1.0.0.1", 3), ("8.8.8.8", 3), ("8.8.4.4", 3), ("9.9.9.9", 1), ("149.112.112.112", 1))  # (address, share of the questions)
+
+
+class _Ans:
+    """the part of dnspython's Answer the lookups use: .rrset (None when the name has no such record), iteration, [i]"""
+    __slots__ = ("rrset",)
+
+    def __init__(self, rrset):
+        self.rrset = rrset
+
+    def __iter__(self):
+        return iter(self.rrset or ())
+
+    def __getitem__(self, i):
+        return self.rrset[i]
+
+
+class SteadyResolver:
+    """resolve(name, type) like dnspython's Resolver (raises NXDOMAIN, Timeout, NoNameservers), over one UDP socket per thread kept open.
+    A question goes to one public resolver; no answer in `timeout` seconds or a SERVFAIL -> the next one, `tries` in all."""
+
+    def __init__(self, servers=PUBLIC_SERVERS, timeout=2.0, tries=3):
+        import dns.exception, dns.message, dns.query, dns.rcode, dns.resolver  # noqa: E401
+        self.dns = dns
+        self.pool = [ip for ip, w in servers for _ in range(max(1, int(w)))]
+        self.timeout, self.tries = timeout, tries
+        self.tl = threading.local()
+        self.stats = collections.Counter()  # (server, "answer" | "timeout" | "servfail" | "error"): which resolver carries the load, which one lets go
+
+    def resolve(self, name, typ, raise_on_no_answer=False):
+        import socket
+        dns = self.dns
+        sock = getattr(self.tl, "s", None)
+        if sock is None:
+            sock = self.tl.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        q = dns.message.make_query(name, typ)
+        order = []
+        for ip in random.sample(self.pool, len(self.pool)):
+            if ip not in order:
+                order.append(ip)
+        last = None
+        for ip in order[:self.tries]:
+            try:
+                r = dns.query.udp(q, ip, timeout=self.timeout, sock=sock, ignore_unexpected=True, raise_on_truncation=True)
+            except dns.message.Truncated:
+                try:  # a record set too large for one datagram (a long TXT set): this one question over TCP
+                    r = dns.query.tcp(q, ip, timeout=self.timeout + 2)
+                except Exception as e:
+                    last = e
+                    continue
+            except dns.exception.Timeout as e:
+                last = e
+                self.stats[(ip, "timeout")] += 1
+                continue
+            except (OSError, dns.exception.DNSException) as e:
+                last = e
+                self.stats[(ip, "error")] += 1
+                try:
+                    sock.close()
+                except OSError:
+                    pass
+                sock = self.tl.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                continue
+            rc = r.rcode()
+            self.stats[(ip, "answer" if rc in (dns.rcode.NOERROR, dns.rcode.NXDOMAIN) else "servfail")] += 1
+            if rc == dns.rcode.NXDOMAIN:
+                raise dns.resolver.NXDOMAIN()
+            if rc != dns.rcode.NOERROR:
+                last = dns.resolver.NoNameservers()  # SERVFAIL / REFUSED from this resolver: another one may answer
+                continue
+            try:
+                return _Ans(r.resolve_chaining().answer)
+            except dns.message.AnswerForNXDOMAIN:
+                raise dns.resolver.NXDOMAIN()
+            except Exception as e:
+                last = e
+                continue
+        if isinstance(last, dns.exception.DNSException):
+            raise last
+        raise dns.exception.Timeout()
+
+
+def _public_asker(dns, tl):
+    """ask(name, type) of the public resolvers, all threads together at most PUBLIC_QPS a second: the second chance of a name the runner's
+    own resolver gave no answer for (raises what dnspython raises)"""
+    gate, nxt = threading.Lock(), [0.0]
+
+    def ask(name, typ):
+        with gate:
+            t = max(time.time(), nxt[0])
+            nxt[0] = t + 1.0 / PUBLIC_QPS
+        w = t - time.time()
+        if w > 0:
+            time.sleep(w)
+        r = getattr(tl, "rp", None)
+        if r is None:
+            r = dns.resolver.Resolver(configure=False)
+            r.nameservers, r.timeout, r.lifetime = random.sample(RESOLVERS, 3), 2.5, 5.0
+            tl.rp = r
+        return r.resolve(name, typ, raise_on_no_answer=False)
+    return ask
+
+
 def sweep_left(cur):
     """shards with work: the list not finished, or the name-server question still owed for the part of the list swept before it was asked"""
+    if int(cur.get("rev") or 1) < SWEEP_REV:
+        return list(range(SWEEP_SHARDS))  # the whole list is swept again (SWEEP_REV)
     pos, done = cur.get("pos") or {}, cur.get("complete") or {}
     ns_from, ns_done = cur.get("ns_from") or {}, cur.get("ns_complete") or {}
     return sorted((k for k in range(SWEEP_SHARDS) if not done.get(str(k)) or (int(ns_from.get(str(k), 0)) > 0 and not ns_done.get(str(k)))),
@@ -438,6 +587,8 @@ def sweep(a):
     k, n = int(a.shard.split("/")[0]), SWEEP_SHARDS
     os.makedirs("out", exist_ok=True)
     cur = sweep_cursor()
+    if int(cur.get("rev") or 1) < SWEEP_REV:  # places reached with the resolver that dropped half its questions: the list starts again
+        cur = {x: cur[x] for x in ("release", "tlds") if x in cur}
     rel = cur.get("release") or (a.release if a.release and a.release != "auto" else CS.newest_graph())
     tlds = tuple(cur.get("tlds") or SWEEP_TLDS)
     start = int((cur.get("pos") or {}).get(str(k), 0))
@@ -447,7 +598,8 @@ def sweep(a):
     ns_from = int((cur.get("ns_from") or {})[str(k)]) if str(k) in (cur.get("ns_from") or {}) else (start if watch else 0)
     ns_pos = int((cur.get("ns_pos") or {}).get(str(k), 0))
     state = {"release": rel, "tlds": list(tlds), "shard": k, "pos": start, "complete": bool((cur.get("complete") or {}).get(str(k))), "asked": 0, "stores": 0, "no_answer": 0,
-             "ns_from": ns_from, "ns_pos": ns_pos, "ns_complete": bool((cur.get("ns_complete") or {}).get(str(k))) or ns_from == 0, "ns_asked": 0, "ns_hits": 0, "watch": len(watch)}
+             "ns_from": ns_from, "ns_pos": ns_pos, "ns_complete": bool((cur.get("ns_complete") or {}).get(str(k))) or ns_from == 0, "ns_asked": 0, "ns_hits": 0, "watch": len(watch),
+             "rev": SWEEP_REV, "by_public": 0}
 
     def save():
         with open("out/sweep_cursor_%d.json" % k, "w", encoding="utf-8") as fo:
@@ -506,29 +658,47 @@ def sweep(a):
             tl.r = r
         return r
 
+    ask_public = _public_asker(dns, tl) if local else None
+
     def ask_ns(d):
         """the name servers of the zone that belong to a watched provider (lower case, no final dot), or []"""
         try:
             ans = turn().resolve(d, "NS", raise_on_no_answer=False)
-        except dns.exception.DNSException:
+        except dns.resolver.NXDOMAIN:
             return []
+        except dns.exception.DNSException:
+            try:
+                ans = ask_public(d, "NS") if ask_public else None
+            except dns.exception.DNSException:
+                ans = None
+            if ans is None:
+                return []
         hosts = [str(x.target).strip(".").lower() for x in (ans.rrset or [])][:8]
         return hosts if any(C.registrable(h) in watch for h in hosts) else []
 
     def ask(d):
         if catch_up:
             return d, "", "ns_only", ask_ns(d)
+        how = "ok"
         try:
             ans = turn().resolve(d, "A", raise_on_no_answer=False)
         except dns.resolver.NXDOMAIN:
             return d, "", "nx", []
         except dns.exception.DNSException:
-            return d, "", "fail", []
+            if not ask_public:
+                return d, "", "fail", []
+            try:  # no answer from the runner's resolver: asked once of the public resolvers before it counts as no answer
+                ans = ask_public(d, "A")
+                how = "ok_public"
+            except dns.resolver.NXDOMAIN:
+                return d, "", "nx_public", []
+            except dns.exception.DNSException:
+                return d, "", "fail", []
         # the zone answers: who serves it (the delegation is already with the resolver; this question goes to the zone's own servers)
         ns = ask_ns(d) if watch else []
         if ans.rrset is None:
-            return d, "", "none", ns
-        return d, ans[0].address, "ok", ns
+            return d, "", "none" if how == "ok" else "none_public", ns
+        return d, ans[0].address, how, ns
 
     pref = tuple(t + "." for t in tlds)
     ok_name = re.compile(r"[a-z0-9-]+(?:\.[a-z0-9-]+)+")
@@ -571,7 +741,7 @@ def sweep(a):
                 st[how] += 1
                 shop = bool(ip and SHOPIFY_A.match(ip))
                 if shop or ns:
-                    o = {"d": d, "t": TODAY, "st": "ok", "l": 1, "sw": 1}
+                    o = {"d": d, "t": TODAY, "st": "ok", "l": 1, "sw": 1, "rv": SWEEP_REV}
                     if shop:
                         o.update(shop=1, a=ip); state["stores"] += 1
                     if ns:
@@ -582,7 +752,8 @@ def sweep(a):
                 state["ns_asked"] += len(batch); state["ns_pos"] = pos
             else:
                 state["asked"] += len(batch); state["no_answer"] += st["fail"]; state["pos"] = pos
-                state["ns_asked"] += (st["ok"] + st["none"]) if watch else 0
+                state["by_public"] += st["ok_public"] + st["nx_public"] + st["none_public"]
+                state["ns_asked"] += (st["ok"] + st["none"] + st["ok_public"] + st["none_public"]) if watch else 0
             save()
             if (state["ns_asked"] if catch_up else state["asked"]) % (10 * a.batch) == 0:
                 print(time.strftime("%H:%M:%S"), "place %d: asked %d, stores %d, served by a watched provider %d, no answer %d (last batch: %s)" % (
@@ -591,8 +762,10 @@ def sweep(a):
     if not catch_up and state["complete"] and state["ns_from"] == 0:
         state["ns_complete"] = True
     save()
-    print("finished: place %d%s; asked %d domains, %d on Shopify's storefront addresses, %d served by a watched provider (%d name-server questions), %d without an answer" % (
-        state["ns_pos"] if catch_up else state["pos"], " (end)" if state["ns_complete" if catch_up else "complete"] else "", state["asked"], state["stores"], state["ns_hits"], state["ns_asked"], state["no_answer"]), flush=True)
+    print("finished: place %d%s; asked %d domains, %d on Shopify's storefront addresses, %d served by a watched provider (%d name-server questions), %d without an answer "
+          "(%d answered by the public resolvers after the runner's own gave none)" % (
+              state["ns_pos"] if catch_up else state["pos"], " (end)" if state["ns_complete" if catch_up else "complete"] else "", state["asked"], state["stores"], state["ns_hits"], state["ns_asked"],
+              state["no_answer"], state["by_public"]), flush=True)
 
 
 # ------------------------------------------------------------------------------------------------------------------- stores on a subdomain
@@ -608,6 +781,8 @@ HOST_DOMAIN_MAX = 30  # a domain with more host names than this in the graph is 
 
 def hosts_left(cur):
     h = cur.get("hosts") or {}
+    if int(h.get("rev") or 1) < SWEEP_REV:
+        return list(range(HOSTS_SHARDS))  # the whole list is swept again (SWEEP_REV)
     done, pos = h.get("complete") or {}, h.get("pos") or {}
     return sorted((k for k in range(HOSTS_SHARDS) if not done.get(str(k))), key=lambda k: (int(pos.get(str(k), 0)), k))
 
@@ -646,9 +821,12 @@ def hosts_sweep(a):
     os.makedirs("out", exist_ok=True)
     cur = sweep_cursor()
     hc = cur.get("hosts") or {}
+    if int(hc.get("rev") or 1) < SWEEP_REV:  # places reached with the resolver that dropped half its questions: the list starts again
+        hc = {x: hc[x] for x in ("release",) if x in hc}
     rel = hc.get("release") or cur.get("release") or (a.release if a.release and a.release != "auto" else CS.newest_graph())
     start = int((hc.get("pos") or {}).get(str(k), 0))
-    state = {"release": rel, "shard": k, "pos": start, "complete": bool((hc.get("complete") or {}).get(str(k))), "asked": 0, "stores": 0, "no_answer": 0, "skipped_known_store": 0}
+    state = {"release": rel, "shard": k, "pos": start, "complete": bool((hc.get("complete") or {}).get(str(k))), "asked": 0, "stores": 0, "no_answer": 0, "skipped_known_store": 0,
+             "rev": SWEEP_REV, "by_public": 0}
 
     def save():
         with open("out/hosts_cursor_%d.json" % k, "w", encoding="utf-8") as fo:
@@ -695,16 +873,27 @@ def hosts_sweep(a):
             tl.r = r
         return r
 
+    ask_public = _public_asker(dns, tl) if local else None
+
     def ask(h):
+        how = "ok"
         try:
             ans = turn().resolve(h, "A", raise_on_no_answer=False)
         except dns.resolver.NXDOMAIN:
             return h, "", "nx"
         except dns.exception.DNSException:
-            return h, "", "fail"
+            if not ask_public:
+                return h, "", "fail"
+            try:  # no answer from the runner's resolver: asked once of the public resolvers before it counts as no answer
+                ans = ask_public(h, "A")
+                how = "ok_public"
+            except dns.resolver.NXDOMAIN:
+                return h, "", "nx_public"
+            except dns.exception.DNSException:
+                return h, "", "fail"
         if ans.rrset is None:
-            return h, "", "none"
-        return h, ans[0].address, "ok"
+            return h, "", "none" if how == "ok" else "none_public"
+        return h, ans[0].address, how
 
     work = next((d for d in (os.environ.get("RUNNER_TEMP") or "", ".") if d and os.access(d, os.W_OK)), ".")
     unz = shutil.which("pigz") or "gzip"
@@ -764,10 +953,11 @@ def hosts_sweep(a):
             for h, ip, how in ex.map(ask, batch):
                 st[how] += 1
                 if ip and SHOPIFY_A.match(ip):
-                    fo.write(json.dumps({"d": h, "t": TODAY, "st": "ok", "l": 1, "sw": 2, "shop": 1, "a": ip}, ensure_ascii=False, separators=(",", ": ")) + "\n")
+                    fo.write(json.dumps({"d": h, "t": TODAY, "st": "ok", "l": 1, "sw": 2, "shop": 1, "a": ip, "rv": SWEEP_REV}, ensure_ascii=False, separators=(",", ": ")) + "\n")
                     state["stores"] += 1
             fo.flush()
             state["asked"] += len(batch); state["no_answer"] += st["fail"]; state["pos"] = pos
+            state["by_public"] += st["ok_public"] + st["nx_public"] + st["none_public"]
             save()
             print(time.strftime("%H:%M:%S"), "place %d: asked %d hosts, %d on Shopify's storefront addresses, no answer %d (last batch: %s)" % (
                 pos, state["asked"], state["stores"], state["no_answer"], dict(st)), flush=True)
@@ -780,38 +970,56 @@ def hosts_sweep(a):
 def merge(a):
     os.makedirs(DIR, exist_ok=True)
     stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
-    have = set()  # domains with a cloud record (the MX / SPF checks made from the Mac are older and poorer: a cloud record replaces them)
-    for pth in state_files("dns"):
-        with gzip.open(pth, "rt", encoding="utf-8", errors="replace") as fh:
-            for l in fh:
-                i = l.find('"d": "')
-                if i >= 0:
-                    have.add(l[i + 6:l.find('"', i + 6)])
-    n = 0
+    # domains with a cloud record (the MX / SPF checks made from the Mac are older and poorer: a cloud record replaces them). A lookup made
+    # through the repaired resolver ("rv") replaces a record of before; a sweep hit never replaces a record (it holds one fact only).
+    done, again = record_states()
+    have = set(done) | set(again)
+    n = n_again = 0
     for f in sorted(glob.glob(os.path.join(a.dir, "dns_*.jsonl"))):
         lines = []
         for l in open(f, encoding="utf-8"):
             i = l.find('"d": "')
             d = l[i + 6:l.find('"', i + 6)] if i >= 0 else ""
-            if d and d not in have and l.strip():
+            if not d or not l.strip():
+                continue
+            if d not in have:
                 lines.append(l.rstrip("\n"))
+                have.add(d); done.add(d)
+            elif d in again and '"rv": ' in l and '"sw": ' not in l:
+                lines.append(l.rstrip("\n"))
+                again.pop(d, None); done.add(d)
+                n_again += 1
         if lines:
             k = re.search(r"dns_(\d+)\.jsonl$", f).group(1)
             with gzip.open(os.path.join(DIR, "dns_%s_%s.gz" % (stamp, k)), "wt", encoding="utf-8") as g:
                 g.write("\n".join(lines) + "\n")
             n += len(lines)
+    if n_again:
+        print("domains asked again through the repaired resolver: %d records replace the ones of before; still to ask again: %d" % (n_again, len(again)))
+    n -= n_again
     cfiles = sorted(glob.glob(os.path.join(a.dir, "sweep_cursor_*.json")))
     if cfiles:  # the sweep: where each shard stopped (single writer: this merge)
         cur = sweep_cursor()
-        cur.setdefault("pos", {}); cur.setdefault("complete", {})
-        asked = stores = 0
+        objs = []
         for cf in cfiles:
             try:
-                o = json.load(open(cf, encoding="utf-8"))
+                objs.append(json.load(open(cf, encoding="utf-8")))
             except Exception:
                 continue
+        old_rev = [o for o in objs if int(o.get("rev") or 1) < SWEEP_REV]
+        objs = [o for o in objs if int(o.get("rev") or 1) >= SWEEP_REV]
+        if old_rev:  # shards of a run started before SWEEP_REV: their hits are kept (above), their places are not
+            print("sweep shards of a run started before the list was begun again: %d (hits kept, places not)" % len(old_rev))
+        if objs and int(cur.get("rev") or 1) < SWEEP_REV:  # the first shards of the list begun again: the old places and counts are set aside
+            cur = {"release": cur.get("release"), "tlds": cur.get("tlds"), "rev": SWEEP_REV, **({"hosts": cur["hosts"]} if cur.get("hosts") else {}),
+                   "before_rev_%d" % SWEEP_REV: {x: cur.get(x) for x in ("asked", "stores_found", "ns_hits", "pos", "updated") if cur.get(x) is not None}}
+            cur = {x: v for x, v in cur.items() if v is not None}
+        cur.setdefault("pos", {}); cur.setdefault("complete", {})
+        asked = stores = by_public = no_answer = 0
+        for o in objs:
             if cur.get("release") and cur["release"] != o.get("release"):
                 continue  # a shard that read another release of the list: its place means nothing here
+            by_public += int(o.get("by_public") or 0); no_answer += int(o.get("no_answer") or 0)
             cur["release"], cur["tlds"], cur["shards"] = o["release"], o["tlds"], SWEEP_SHARDS
             ks = str(o["shard"])
             cur["pos"][ks] = max(int(cur["pos"].get(ks, 0)), int(o.get("pos") or 0))
@@ -824,24 +1032,37 @@ def merge(a):
                     cur.setdefault("ns_complete", {})[ks] = True
                 cur["ns_hits"] = int(cur.get("ns_hits") or 0) + int(o.get("ns_hits") or 0)
             asked += int(o.get("asked") or 0); stores += int(o.get("stores") or 0)
-        cur["asked"] = int(cur.get("asked") or 0) + asked
-        cur["stores_found"] = int(cur.get("stores_found") or 0) + stores
-        cur["updated"] = time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())
-        with open(CURSOR, "w", encoding="utf-8") as f:
-            json.dump(cur, f, indent=1, sort_keys=True)
-        print("sweep of graph %s (%s): +%d domains asked, +%d stores this run; %d asked, %d stores and %d domains served by a watched provider so far; shards finished: %d of %d" % (
-            cur.get("release"), ",".join(cur.get("tlds") or []), asked, stores, cur["asked"], cur["stores_found"], int(cur.get("ns_hits") or 0), len(cur["complete"]), SWEEP_SHARDS))
+        if objs:
+            cur["asked"] = int(cur.get("asked") or 0) + asked
+            cur["stores_found"] = int(cur.get("stores_found") or 0) + stores
+            cur["no_answer"] = int(cur.get("no_answer") or 0) + no_answer
+            cur["updated"] = time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())
+            with open(CURSOR, "w", encoding="utf-8") as f:
+                json.dump(cur, f, indent=1, sort_keys=True)
+            print("sweep of graph %s (%s): +%d domains asked, +%d stores this run (%d without an answer, %d answered by the public resolvers); %d asked, %d stores and %d domains served by a "
+                  "watched provider so far; shards finished: %d of %d" % (cur.get("release"), ",".join(cur.get("tlds") or []), asked, stores, no_answer, by_public, cur["asked"], cur["stores_found"],
+                                                                         int(cur.get("ns_hits") or 0), len(cur["complete"]), SWEEP_SHARDS))
     hfiles = sorted(glob.glob(os.path.join(a.dir, "hosts_cursor_*.json")))
     if hfiles:  # the host sweep: where each shard stopped (single writer: this merge; its own key of the cursor file)
         cur = sweep_cursor()
-        hc = cur.setdefault("hosts", {})
-        hc.setdefault("pos", {}); hc.setdefault("complete", {})
-        asked = stores = 0
+        objs = []
         for cf in hfiles:
             try:
-                o = json.load(open(cf, encoding="utf-8"))
+                objs.append(json.load(open(cf, encoding="utf-8")))
             except Exception:
                 continue
+        old_rev = [o for o in objs if int(o.get("rev") or 1) < SWEEP_REV]
+        objs = [o for o in objs if int(o.get("rev") or 1) >= SWEEP_REV]
+        if old_rev:
+            print("host sweep shards of a run started before the list was begun again: %d (hits kept, places not)" % len(old_rev))
+        hc = cur.get("hosts") or {}
+        if objs and int(hc.get("rev") or 1) < SWEEP_REV:  # the first shards of the list begun again: the old places and counts are set aside
+            hc = {"release": hc.get("release"), "rev": SWEEP_REV, "before_rev_%d" % SWEEP_REV: {x: hc.get(x) for x in ("asked", "stores_found", "pos", "updated") if hc.get(x) is not None}}
+            hc = {x: v for x, v in hc.items() if v is not None}
+        cur["hosts"] = hc
+        hc.setdefault("pos", {}); hc.setdefault("complete", {})
+        asked = stores = 0
+        for o in objs:
             if hc.get("release") and hc["release"] != o.get("release"):
                 continue
             hc["release"], hc["shards"] = o["release"], HOSTS_SHARDS
@@ -850,13 +1071,14 @@ def merge(a):
             if o.get("complete"):
                 hc["complete"][ks] = True
             asked += int(o.get("asked") or 0); stores += int(o.get("stores") or 0)
-        hc["asked"] = int(hc.get("asked") or 0) + asked
-        hc["stores_found"] = int(hc.get("stores_found") or 0) + stores
-        hc["updated"] = time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())
-        with open(CURSOR, "w", encoding="utf-8") as f:
-            json.dump(cur, f, indent=1, sort_keys=True)
-        print("host sweep of graph %s: +%d hosts asked, +%d stores on a subdomain this run; %d asked and %d stores so far; shards finished: %d of %d" % (
-            hc.get("release"), asked, stores, hc["asked"], hc["stores_found"], len(hc["complete"]), HOSTS_SHARDS))
+        if objs:
+            hc["asked"] = int(hc.get("asked") or 0) + asked
+            hc["stores_found"] = int(hc.get("stores_found") or 0) + stores
+            hc["updated"] = time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())
+            with open(CURSOR, "w", encoding="utf-8") as f:
+                json.dump(cur, f, indent=1, sort_keys=True)
+            print("host sweep of graph %s: +%d hosts asked, +%d stores on a subdomain this run; %d asked and %d stores so far; shards finished: %d of %d" % (
+                hc.get("release"), asked, stores, hc["asked"], hc["stores_found"], len(hc["complete"]), HOSTS_SHARDS))
     try:
         print("name-server providers watched by the sweep: %d" % write_ns_watch())
     except Exception as e:
@@ -873,7 +1095,7 @@ def merge(a):
         keys.update(o.get("txt") or [])
     shops = sum(1 for o in records() if o.get("shop"))
     print("DNS records from the cloud lookups: %d domains (+%d this run); stores on Shopify's addresses: %d; providers named by %d+ domains and not a known foreign giant: %d; "
-          "most frequent TXT keys: %s" % (len(have) + n, n, shops, MIN_CLIENTS, len(candidates(100000)), ", ".join("%s %d" % kv for kv in keys.most_common(25))))
+          "most frequent TXT keys: %s" % (len(have), n, shops, MIN_CLIENTS, len(candidates(100000)), ", ".join("%s %d" % kv for kv in keys.most_common(25))))
 
 
 # ------------------------------------------------------------------------------------------------------------------- leads (called by credit_scan.merge)

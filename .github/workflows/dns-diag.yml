@@ -18,39 +18,21 @@ jobs:
       - run: pip install -q dnspython duckdb
       - name: Names
         run: |
-          sudo apt-get install -y -q unbound >/dev/null 2>&1 || true
-          sudo systemctl stop unbound 2>/dev/null || true
           python3 tools/dns_diag.py slice --place "${{ inputs.place }}" --n 90000 --out /tmp/slice.txt
       - name: Phases
         run: |
-          # 2026-11-10, first measurement: the resolver's request list never held more than ~165 questions (requestlist.max) and it dropped
-          # 25-49 % of the questions (requestlist.exceeded): started from a shell that allows 1,024 open files, it shrinks its tables to fit.
-          # The public resolvers asked directly answered 96.6 % of the same names. This run: the resolver started with room for its tables.
-          base() {
-            printf '%s\n' 'server:' '  interface: 127.0.0.1' '  port: 5353' '  access-control: 127.0.0.0/8 allow' '  do-ip6: no' '  num-threads: 4' \
-              '  msg-cache-size: 256m' '  rrset-cache-size: 512m' '  outgoing-range: 8192' '  num-queries-per-thread: 4096' '  so-rcvbuf: 4m' '  so-sndbuf: 4m' \
-              '  module-config: "iterator"' '  hide-identity: yes' '  hide-version: yes' '  verbosity: 1' '  use-syslog: no' '  logfile: "/tmp/unbound.log"' '  chroot: ""' \
-              '  extended-statistics: yes' "$@" \
-              'remote-control:' '  control-enable: yes' '  control-interface: 127.0.0.1' '  control-port: 8953' '  control-use-cert: no' | sudo tee /etc/unbound/unbound.conf >/dev/null
-          }
-          up() {
-            sudo pkill -x unbound 2>/dev/null || true; sleep 2; sudo rm -f /tmp/unbound.log; sudo touch /tmp/unbound.log; sudo chmod 666 /tmp/unbound.log
-            sudo unbound-checkconf /etc/unbound/unbound.conf >/dev/null || true
-            sudo sh -c "ulimit -n $1 2>/dev/null; unbound -c /etc/unbound/unbound.conf"; sleep 3
-            echo "open files allowed: $(sudo grep 'open files' /proc/$(pgrep -x unbound | head -1)/limits | tr -s ' ')"; grep -i -E "warning|reduc|less|limit" /tmp/unbound.log | head -5 || true
-          }
-          stats() { sudo unbound-control -c /etc/unbound/unbound.conf stats_noreset 2>/dev/null | grep -E "^total\.(num\.queries|num\.recursivereplies|requestlist\.(avg|max|exceeded)|recursion\.time\.(avg|median))=|^num\.(answer\.rcode\.(NOERROR|SERVFAIL|NXDOMAIN)|query\.ratelimited)=" | tr '\n' ' '; echo; }
-          echo "--- 1. as before (1,024 open files), 250 names a second"
-          base; up 1024
-          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 0 --n 10000 --qps 250 --resolver 127.0.0.1:5353 --label "1. 1,024 open files, 250/s"; stats
-          echo "--- 2. 200,000 open files, 250 names a second"
-          base; up 200000
-          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 10000 --n 15000 --qps 250 --resolver 127.0.0.1:5353 --label "2. 200,000 open files, 250/s"; stats
-          echo "--- 3. 200,000 open files, 400 names a second"
-          base; up 200000
-          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 25000 --n 20000 --qps 400 --resolver 127.0.0.1:5353 --label "3. 200,000 open files, 400/s"; stats
-          echo "--- 4. 200,000 open files, 400 names a second, 1,000 questions a second allowed towards one zone"
-          base '  ratelimit: 1000'; up 200000
-          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 45000 --n 20000 --qps 400 --resolver 127.0.0.1:5353 --label "4. 200,000 open files, ratelimit 1000, 400/s"; stats
-          echo "--- 5. the public resolvers asked directly, 250 names a second"
-          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 65000 --n 15000 --qps 250 --label "5. public resolvers directly, 250/s"
+          # 2026-11-10, two measurements: whatever the resolver's settings, and also when the public resolvers were asked directly with a
+          # new socket per question, a runner got ~52 answers a second and the rest timed out. This run: the public resolvers over ONE
+          # socket per worker thread (tools/dns_services.py SteadyResolver) — a few hundred flows for the whole run.
+          echo "--- 1. one socket per worker, 250 questions a second"
+          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 0 --n 15000 --qps 250 --label "1. steady, 250/s"
+          echo "--- 2. one socket per worker, 500 questions a second"
+          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 15000 --n 25000 --qps 500 --label "2. steady, 500/s"
+          echo "--- 3. one socket per worker, 900 questions a second"
+          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 40000 --n 30000 --qps 900 --label "3. steady, 900/s"
+          echo "--- 4. the lookup's questions (name servers, TXT, MX, address), 500 questions a second"
+          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 70000 --n 5000 --qps 500 --types NS,TXT,MX,A --label "4. steady, NS+TXT+MX+A, 500/s"
+          echo "--- 5. as before: a new socket for every question, public resolvers, 250 a second"
+          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 75000 --n 8000 --qps 250 --label "5. new socket per question, 250/s"
+          echo "--- 6. one socket per worker again, 500 questions a second (after the flood of new sockets)"
+          python3 tools/dns_diag.py steady --names /tmp/slice.txt --skip 83000 --n 7000 --qps 500 --label "6. steady again, 500/s"

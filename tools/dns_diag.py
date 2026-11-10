@@ -102,6 +102,64 @@ def ask(a):
         a.label, len(names), el, len(names) / el, a.qps, ", ".join("%s %.1f %% (median %.2f s)" % (k, 100 * v / n, med(lat[k])) for k, v in st.most_common())), flush=True)
 
 
+def steady(a):
+    """the same names through tools/dns_services.py SteadyResolver: the public resolvers over one socket per worker thread"""
+    import dns.exception
+    import dns.resolver
+    import dns_services as D
+    names = [l.strip() for l in open(a.names, encoding="utf-8") if l.strip()][a.skip:a.skip + a.n]
+    servers = D.PUBLIC_SERVERS if not a.servers else tuple((x, 1) for x in a.servers.split(","))
+    R = D.SteadyResolver(servers=servers, timeout=a.timeout, tries=a.tries)
+    types = a.types.split(",")
+    gate, nxt = threading.Lock(), [0.0]
+
+    def one(d):
+        out = []
+        for typ in types:
+            with gate:
+                t = max(time.time(), nxt[0])
+                nxt[0] = t + 1.0 / a.qps
+            w = t - time.time()
+            if w > 0:
+                time.sleep(w)
+            t0 = time.time()
+            try:
+                ans = R.resolve(d, typ)
+                how = "ok" if ans.rrset is not None else "none"
+            except dns.resolver.NXDOMAIN:
+                how = "nx"
+            except dns.exception.Timeout:
+                how = "timeout"
+            except dns.exception.DNSException as e:
+                how = "fail:" + type(e).__name__
+            out.append((typ, how, time.time() - t0))
+            if how == "nx":
+                break
+        return out
+
+    from concurrent.futures import ThreadPoolExecutor
+    st, lat = collections.defaultdict(collections.Counter), collections.defaultdict(list)
+    t0 = time.time()
+    nq = 0
+    with ThreadPoolExecutor(a.workers) as ex:
+        for out in ex.map(one, names):
+            for typ, how, dt in out:
+                st[typ][how] += 1
+                lat[how].append(dt)
+                nq += 1
+    el = time.time() - t0
+    med = lambda v: sorted(v)[len(v) // 2] if v else 0
+    for typ in types:
+        n = max(1, sum(st[typ].values()))
+        print("== %s [%s]: %d questions: %s" % (a.label, typ, n, ", ".join("%s %.1f %%" % (k, 100 * v / n) for k, v in st[typ].most_common())), flush=True)
+    print("   %d names, %d questions in %.0f s (%.0f questions a second, asked for %d); median seconds: %s" % (
+        len(names), nq, el, nq / el, a.qps, ", ".join("%s %.2f" % (k, med(v)) for k, v in lat.items())), flush=True)
+    per = collections.defaultdict(dict)
+    for (ip, what), c in R.stats.items():
+        per[ip][what] = c
+    print("   by resolver: " + "; ".join("%s %s" % (ip, dict(sorted(v.items()))) for ip, v in sorted(per.items())), flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -111,6 +169,10 @@ def main():
     s.add_argument("--qps", type=float, default=250); s.add_argument("--workers", type=int, default=300); s.add_argument("--resolver", default="")
     s.add_argument("--lifetime", type=float, default=6.0); s.add_argument("--label", default="")
     s.set_defaults(fn=ask)
+    s = sub.add_parser("steady"); s.add_argument("--names", required=True); s.add_argument("--skip", type=int, default=0); s.add_argument("--n", type=int, default=12000)
+    s.add_argument("--qps", type=float, default=250); s.add_argument("--workers", type=int, default=300); s.add_argument("--types", default="A")
+    s.add_argument("--servers", default=""); s.add_argument("--timeout", type=float, default=2.0); s.add_argument("--tries", type=int, default=3); s.add_argument("--label", default="")
+    s.set_defaults(fn=steady)
     a = ap.parse_args()
     a.fn(a)
 
