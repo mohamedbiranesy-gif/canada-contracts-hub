@@ -71,7 +71,9 @@ SCOPE = {"shopify": ("CA", "US"), "jane": ("CA", "US", "GB", "AU"), "jobber": ("
          "checkfront": ("CA", "US"), "touchbistro": ("CA", "US"), "wellnessliving": ("CA", "US", "GB", "AU"), "wellnessliving_widget": ("CA", "US", "GB", "AU"),
          "clubrunner": ("CA", "US", "GB", "AU"), "crowdriff": ("CA", "US", "GB", "AU"), "nicejob": ("CA", "US", "GB", "AU"),
          # Thinkific's terms: the Vancouver company "if you register from within Canada and the rest of the world", its US subsidiary in the United States
-         "thinkific": ("CA", "GB", "AU")}
+         "thinkific": ("CA", "GB", "AU"),
+         # Unbounce: one company for every customer. Lightspeed (eCom C-Series, Golf): Lightspeed Commerce Inc. outside Europe (its own table, section III)
+         "unbounce": ("CA", "US", "GB", "AU"), "lightspeed": ("CA", "US", "AU"), "lightspeed_golf": ("CA", "US", "AU")}
 # registered domains of the vetted customer portals (from the vendor table) + the extra TLD forms its host patterns accept
 EXTRA = {"jane": ["janeapp.co.uk", "janeapp.com.au"], "absorb": ["myabsorb.com.au"], "d2l": ["desire2learn.com"]}
 

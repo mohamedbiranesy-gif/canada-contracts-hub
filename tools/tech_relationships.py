@@ -208,14 +208,27 @@ VENDORS = {
                   hq_url="https://ir.coveo.com/en",
                   hq="Coveo Solutions Inc. 1100 Av. Des Canadiens-de-Montréal Suite 401 Montréal, Québec H3B 2S2 Canada",
                   asset_re=r"static\.cloud\.coveo\.com|platform(?:-[a-z]+)?\.cloud\.coveo\.com|coveo-search-ui|CoveoSearch|atomic-search-interface"),
-    "unbounce": dict(name="Unbounce", legal="Unbounce Inc.", kind="asset",
+    "unbounce": dict(name="Unbounce", legal="Unbounce Marketing Solutions Inc.", kind="asset",
                      hq_url="https://unbounce.com/contact-us/",
                      hq="drop into our headquarters to say hi in person. Vancouver 603-401 West Georgia St. Vancouver, BC, Canada, V6B 5A1",
-                     asset_re=r"assets\.ubembed\.com|//[a-z0-9-]+\.ubembed\.com"),
+                     asset_re=r"assets\.ubembed\.com|//[a-z0-9-]+\.ubembed\.com",
+                     scope="\"a legally binding contract between the Customer (“you” or “your”) and Unbounce Marketing Solutions Incorporated\" — one company for every customer "
+                           "(https://unbounce.com/terms-of-service/, read 2026-11-10)"),
     "lightspeed": dict(name="Lightspeed", legal="Lightspeed Commerce Inc.", kind="asset",
                        hq_url="https://www.lightspeedhq.com/about/",
                        hq="Proudly headquartered in Montreal, Canada (700 St-Antoine Est, Montreal, Quebec, Canada, H2Y 1A6)",
-                       asset_re=r"cdn\.shoplightspeed\.com|cdn\.webshopapp\.com"),
+                       asset_re=r"cdn\.shoplightspeed\.com|cdn\.webshopapp\.com",
+                       scope="Lightspeed's own table of contracting entities: \"Lightspeed eCom (C-Series) Europe Lightspeed Netherlands B.V. … Rest of World Lightspeed Commerce Inc. "
+                             "Quebec, Canada\" (https://www.lightspeedhq.com/legal/lightspeed-service-agreement/, section III, read 2026-11-10): customers in Europe are left out"),
+    # Lightspeed Golf (Chronogolf): a club's own booking page on chronogolf.com. Same table: "Lightspeed Golf Europe Lightspeed Netherlands B.V. … Rest of World
+    # Lightspeed Commerce Inc. Quebec, Canada". A golf-course management subscription; the club links its tee-time booking page from its own site.
+    "lightspeed_golf": dict(name="Lightspeed Golf (Chronogolf)", legal="Lightspeed Commerce Inc.", kind="portal",
+                            hq_url="https://www.lightspeedhq.com/legal/lightspeed-service-agreement/",
+                            hq="If you’re located elsewhere in the world: Lightspeed Commerce Inc. 700 Saint-Antoine Street East, Suite 300 Montréal (Quebec) H2Y 1A6, Canada",
+                            link_re=r"^(?:www\.)?chronogolf\.(?:com|ca)/(?:[a-z]{2}/)?club/([a-z0-9][a-z0-9-]{2,})", cc=["www.chronogolf.com/club/", "www.chronogolf.ca/club/"],
+                            portal_fmt="https://www.chronogolf.com/club/%s", excl=set(),
+                            scope="Lightspeed's own table of contracting entities: \"Lightspeed Golf Europe Lightspeed Netherlands B.V. … Rest of World Lightspeed Commerce Inc. "
+                                  "Quebec, Canada\" (https://www.lightspeedhq.com/legal/lightspeed-service-agreement/, section III, read 2026-11-10): clubs in Europe are left out"),
 }
 for _k, _v in VENDORS.items():
     _v["key"] = _k
@@ -229,7 +242,7 @@ ALIAS_DOMAINS = {"thinkific.com": "thinkific", "docebosaas.com": "docebo", "brig
                  "myabsorb.eu": "absorb", "checkfront.com": "checkfront", "edsby.com": "edsby", "escribemeetings.com": "escribe", "bibliocommons.com": "bibliocommons",
                  "coconutcalendar.com": "coconut", "benevity.org": "benevity", "mobius.cloud": "mobius", "unbouncepages.com": "unbounce", "jobbersites.com": "jobber",
                  "shoplightspeed.com": "lightspeed", "janeapp.com": "jane"}
-VENDOR_BASES = {"thinkific.com", "checkfront.com", "tbdine.com", "touchbistro.com", "wellnessliving.com", "clubrunner.ca", "crowdriff.com", "nicejob.co", "nicejob.com", "paystone.com", "getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
+VENDOR_BASES = {"thinkific.com", "chronogolf.com", "chronogolf.ca", "checkfront.com", "tbdine.com", "touchbistro.com", "wellnessliving.com", "clubrunner.ca", "crowdriff.com", "nicejob.co", "nicejob.com", "paystone.com", "getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
                 "escribemeetings.com", "bibliocommons.com", "bibliocms.com", "brightspace.com", "desire2learn.com",
                 "d2l.com", "edsby.com", "amilia.com", "janeapp.com", "jane.app", "docebosaas.com", "docebo.com",
                 "myabsorb.com", "myabsorb.ca", "myabsorb.eu", "absorbai.com", "absorblms.com", "shopify.com",
