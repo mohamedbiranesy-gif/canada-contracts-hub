@@ -77,7 +77,7 @@ except Exception:  # pragma: no cover
     GENERIC_LABEL = re.compile(r"^(read more|learn more|more|visit|website|site web|click here|here|cliquez ici|en savoir plus|voir|view|link|lien|home|accueil|\W*)$", re.I)
 
 
-def http_get(url, headers=None, timeout=90, tries=6):
+def http_get(url, headers=None, timeout=90, tries=6, retry_http=()):
     h = {"User-Agent": UA}
     h.update(headers or {})
     err = None
@@ -87,7 +87,7 @@ def http_get(url, headers=None, timeout=90, tries=6):
                 return r.read()
         except urllib.error.HTTPError as e:
             err = e
-            if e.code in (400, 401, 403, 404, 416):
+            if e.code in (400, 401, 403, 404, 416) and e.code not in retry_http:
                 raise
         except Exception as e:
             err = e
@@ -176,19 +176,25 @@ def index(a):
 
 
 def warc_html(fn, off, ln):
-    """the captured page (decoded text, capture's HTTP status line) from one range request; None when the record cannot be read"""
+    """(decoded page, "") from one range request, or (None, reason). The archive throttles busy clients (403 / 503 "SlowDown": two thirds of the
+    first run's requests, 2026-11-10 00:47Z): those answers are retried with back-off, and an unreadable page is retried on a later cycle."""
     try:
-        raw = http_get(CC + fn, headers={"Range": "bytes=%d-%d" % (off, off + ln - 1)}, timeout=60, tries=5)
+        raw = http_get(CC + fn, headers={"Range": "bytes=%d-%d" % (off, off + ln - 1)}, timeout=60, tries=6, retry_http=(403, 429, 500, 502, 503, 504))
+    except urllib.error.HTTPError as e:
+        return None, "http%d" % e.code
+    except Exception as e:
+        return None, type(e).__name__
+    try:
         rec = gzip.decompress(raw)
     except Exception:
-        return None
+        return None, "gzip"
     i = rec.find(b"\r\n\r\n")
     if i < 0:
-        return None
+        return None, "nowarc"
     resp = rec[i + 4:]
     j = resp.find(b"\r\n\r\n")
     if j < 0:
-        return None
+        return None, "nohttp"
     head, body = resp[:j].decode("latin-1", "replace"), resp[j + 4:]
     m = re.search(r"(?i)content-type:[^\r\n]*charset=[\"']?([\w-]+)", head)
     cs = m.group(1) if m else None
@@ -199,7 +205,7 @@ def warc_html(fn, off, ln):
         text = body[:3_000_000].decode(cs, "replace")
     except LookupError:
         text = body[:3_000_000].decode("utf-8", "replace")
-    return html.unescape(text)
+    return html.unescape(text), ""
 
 
 def visible(page):
@@ -238,9 +244,15 @@ def leads_of(page, row):
 
 def extract(a):
     k, n = shard_of(a)
-    done = set()
-    if os.path.exists(EXDONE):
-        done = {l.split("\t")[0] for l in open(EXDONE, encoding="utf-8")}
+    done, tries = set(), {}
+    if os.path.exists(EXDONE):  # url, date, links, address(0/1), status, attempts — lines of the first run have 4 columns and no status
+        for l in open(EXDONE, encoding="utf-8"):
+            q = l.rstrip("\n").split("\t")
+            nh = int(q[2]) if len(q) > 2 and q[2].isdigit() else 0
+            st = q[4] if len(q) > 4 else ("ok" if nh else "unknown")  # first-run lines with no link may have been unreadable: read them again once
+            tries[q[0]] = int(q[5]) if len(q) > 5 and q[5].isdigit() else 1
+            if st == "ok" or tries[q[0]] >= 4:
+                done.add(q[0])
     pages = []
     with gzip.open(PAGES, "rt", encoding="utf-8", newline="") as fh:
         for r in csv.DictReader(fh):
@@ -264,15 +276,15 @@ def extract(a):
         if time.time() > deadline:
             return
         try:
-            page = warc_html(r["warc_filename"], int(r["warc_record_offset"]), int(r["warc_record_length"]))
+            page, why = warc_html(r["warc_filename"], int(r["warc_record_offset"]), int(r["warc_record_length"]))
             hits, quote = leads_of(page, r) if page else ([], "")
         except Exception as e:
-            page, hits, quote = None, [], ""
-            with lock:
-                stats["error:" + type(e).__name__] += 1
+            page, why, hits, quote = None, "error:" + type(e).__name__, [], ""
         with lock:
             stats["pages"] += 1
             stats["unreadable"] += page is None
+            if page is None:
+                stats["fail:" + why] += 1
             stats["with_links"] += bool(hits)
             stats["with_address"] += bool(hits and quote)
             stats["leads"] += len(hits) if quote else 0
@@ -280,7 +292,7 @@ def extract(a):
             out = fl if quote else fn
             for h in hits:
                 out.write(json.dumps(h, ensure_ascii=False) + "\n")
-            fd.write("%s\t%s\t%d\t%d\n" % (r["url"], TODAY, len(hits), 1 if quote else 0))
+            fd.write("%s\t%s\t%d\t%d\t%s\t%d\n" % (r["url"], TODAY, len(hits), 1 if quote else 0, "ok" if page is not None else "unreadable:" + why, tries.get(r["url"], 0) + 1))
             if stats["pages"] % 500 == 0:
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
     with ThreadPoolExecutor(a.workers) as ex:

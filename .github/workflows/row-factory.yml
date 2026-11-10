@@ -105,7 +105,7 @@ jobs:
       - name: Read the client pages from the archive (address proof + client links)
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
-          python3 tools/cc_clients.py extract --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 10
+          python3 tools/cc_clients.py extract --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 4   # the archive throttles busy clients: few connections per runner, back-off on 403 / 503
       - uses: actions/upload-artifact@v4
         with: { name: "rf-extract-${{ matrix.k }}", path: out/, retention-days: 3 }
 
