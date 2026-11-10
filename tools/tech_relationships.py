@@ -168,7 +168,7 @@ BAD_TITLE = re.compile(
     r"escribe|published meetings|meeting portal|board manager|meeting manager|^meetings?$|agendas? (?:and|&) minutes|"
     r"^council meetings?$|^public portal$|bibliocommons|biblio ?cms|brightspace|desire2learn|\bd2l\b|edsby|"
     r"amilia|\bjane\b|book online|online booking|booking|select a location|docebo|absorb|^lms$|learning portal|"
-    r"^home$|^accueil$|^welcome$|^bienvenue$|log ?in|sign ?in|connexion|se connecter|recent activity|catalog(ue)?|"
+    r"^home$|^accueil$|^welcome$|^bienvenue$|\blog ?in\b|\bsign ?in\b|connexion|se connecter|recent activity|catalog(ue)?|"
     r"^search|recherche|^shop$|^store$|^boutique$|page not found|not found|error|erreur|access denied|just a moment|"
     r"trial expired|maintenance|^index$|^untitled|^default$|^portal$|^portail$|^online store$|^my account",
     re.I)

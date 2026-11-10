@@ -1,0 +1,77 @@
+name: site-facts
+# Completeness pass over rows that are ALREADY delivered (owner 2026-11-09 20:48 EST: "complete data … all the details that go within an invoice").
+# For every delivered row with a website but no bill-to name / address: read the organisation's home and contact pages (robots.txt, 1 request /
+# second / site) and keep what it prints about itself — the name it does business under and its postal address, quoted — plus an invoicing / AP /
+# finance / purchasing mailbox when the row only has a general one. rank.py builds the bill-to block from it (SOR/91-45 s. 3(c)(i): a recipient
+# may be named by the name under which it does business). No AI, no search engine, no Mac.
+on:
+  schedule:
+    - cron: "33 3,9,15,21 * * *"
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel runners (1-10)"
+        default: "8"
+      minutes:
+        description: "minutes per runner"
+        default: "120"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: site-facts
+  cancel-in-progress: false
+env:
+  SHARDS: ${{ inputs.shards || '8' }}
+  MINUTES: ${{ inputs.minutes || '120' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        run: python3 -c "import os; n=max(1,min(10,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+  facts:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: sudo apt-get install -y -q poppler-utils >/dev/null 2>&1 || true
+      - name: Read the home / contact pages of delivered rows without a bill-to block
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/lead_crawl.py --facts-ranked coord/results/ranked/ranked_buyers.csv.gz --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --max-pages 6
+      - uses: actions/upload-artifact@v4
+        with: { name: "sf-${{ matrix.k }}", path: out/, retention-days: 3 }
+  merge:
+    needs: facts
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "sf-*", path: shards, merge-multiple: true }
+      - name: Union with main, commit, and call the referee for the better mailboxes
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ls -la shards | head -30 || true
+          git config user.name "site-facts"; git config user.email "site-facts@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/lead_crawl.py --merge shards --site-facts | tee /tmp/sf.txt
+            for f in claude_lead_site_facts.jsonl.gz claude_site_facts_done.tsv claude_buyer_ap_results_cccrawl01.csv; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "[claude] site-facts: bill-to name / address from the buyers' own pages ($(head -1 /tmp/sf.txt | cut -c1-100))"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/sf.txt >> "$GITHUB_STEP_SUMMARY"
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true

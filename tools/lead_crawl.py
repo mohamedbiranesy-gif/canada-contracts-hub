@@ -34,12 +34,39 @@ OUT = os.path.join(INC, "claude_buyer_ap_results_cccrawl01.csv")
 TODAY = time.strftime("%Y-%m-%d")
 US_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)"
                      r"\.?,?\s+(\d{5})(?:-\d{4})?(?![A-Za-z0-9])")
+GB_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})(?![A-Za-z0-9])")
+AU_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(NSW|VIC|QLD|TAS|ACT)\s+(\d{4})(?!\d)")
+SFDONE = os.path.join(INC, "claude_site_facts_done.tsv")
 _tl = threading.local()
 
 
 def ok_mailbox(e):
     """the validator's own rule (tools/validate_returns.py): a first.last-shaped local part without a role word is treated as a person"""
     return bool(C.EMAIL.match(e or "")) and not (C.PERSONAL.match(e.split("@")[0]) and not C.ROLE_HINT.search(e.split("@")[0]))
+
+
+GENERIC_SITE_WORDS = {"home", "accueil", "welcome", "bienvenue", "services", "service", "canada", "canadian", "online", "group", "groupe", "company", "solutions", "official", "site", "website",
+                      "shop", "store", "boutique", "contact", "about", "page", "best", "quality", "professional", "toronto", "montreal", "vancouver", "calgary", "ottawa", "edmonton", "quebec"}
+
+
+def site_name_for(host, og, title, T):
+    """the name an organisation gives itself on its own home page, kept only when it agrees with its own domain (a slogan such as
+    "Best Plumber in Toronto | 24/7 Service" is not a name): og:site_name first, then the parts of <title>"""
+    import unicodedata
+    label = re.sub(r"[^a-z0-9]", "", (T.base_domain(T.nowww(host or "")) or "").split(".")[0].lower())
+    cands = []
+    for s in (og, title):
+        if s:
+            cands += [q.strip(" -–—|:·•") for q in re.split(r"\s+[|–—:·•]\s+|\s+-\s+|\s*\|\s*", s)]
+    for c in cands:
+        if not (2 <= len(c) <= 80) or T.BAD_TITLE.search(c):
+            continue
+        flat = unicodedata.normalize("NFKD", c).encode("ascii", "ignore").decode().lower()
+        n = re.sub(r"[^a-z0-9]", "", flat)
+        toks = [t for t in re.findall(r"[a-z0-9]{4,}", flat) if t not in GENERIC_SITE_WORDS]
+        if (len(label) >= 4 and label in n) or (len(n) >= 4 and n in label) or any(t in label for t in toks):
+            return re.sub(r"\s+", " ", c).strip()
+    return ""
 
 
 def install_hooks():
@@ -53,10 +80,11 @@ def install_hooks():
         st = getattr(_tl, "st", None)
         if st is not None:
             try:
-                if "name" not in st:
+                if not st.get("name") and st.get("name_tries", 0) < 3:  # the home page first; two more pages when it names nothing usable
+                    st["name_tries"] = st.get("name_tries", 0) + 1
                     title, meta = T.page_meta(raw)
-                    st["name"] = T.clean_name(meta.get("og:site_name")) or T.clean_name(title) or ""
-                    st["title"] = (title or "")[:200]
+                    st["name"] = site_name_for(st.get("host") or "", meta.get("og:site_name"), title, T)
+                    st.setdefault("title", (title or "")[:200])
                 if "shopify" not in st:
                     m = shop_rx.search(raw)
                     if m:
@@ -69,11 +97,12 @@ def install_hooks():
         st = getattr(_tl, "st", None)
         if st is not None and "addr" not in st and not is_pdf:
             try:
-                m = CCL.ADDR.search(text)
-                cc = "CA" if m else ""
-                if not m:
-                    m = US_ADDR.search(text)
-                    cc = "US" if m else ""
+                m, cc = None, ""
+                for cc_, rx in (("CA", CCL.ADDR), ("US", US_ADDR), ("GB", GB_ADDR), ("AU", AU_ADDR)):
+                    m = rx.search(text)
+                    if m:
+                        cc = cc_
+                        break
                 if m:
                     st["addr"] = (cc, re.sub(r"^\S*\s", "", text[max(0, m.start() - 110):m.end()].strip())[-200:], final)
                 if st.get("shopify") and "shopify_url" not in st:
@@ -152,7 +181,7 @@ def leads_mode(a, k, n):
     def one(t):
         if time.time() > deadline:
             return
-        st = {}
+        st = {"host": host_of(t["known_website"])}
         _tl.st = st
         try:
             result, pages, rows = C.crawl(t, a.max_pages, general=True)
@@ -217,7 +246,7 @@ def candidates_mode(a, k, n):
     def one(t):
         if time.time() > deadline:
             return
-        c, st = t["_c"], {}
+        c, st = t["_c"], {"host": host_of(t["known_website"])}
         _tl.st = st
         try:
             result, pages, rows = C.crawl(t, a.max_pages, general=True)
@@ -277,6 +306,81 @@ def candidates_mode(a, k, n):
     print("finished", dict(stats), "(stragglers left: %d)" % left, flush=True)
 
 
+def facts_mode(a, k, n):
+    """Completeness pass over rows ALREADY delivered (owner 2026-11-09 20:48 EST: "complete data … all the details that go within an invoice"):
+    33,136 delivered rows lacked a bill-to name and / or address. For every delivered row with a website and no address, read the home and
+    contact pages (same polite reader) and keep what the organisation prints about itself: its name and its postal address, quoted, plus a
+    better mailbox (invoicing / AP / finance / purchasing) when the row only has a general one. rank.py turns that into the bill-to block."""
+    install_hooks()
+    done = {l.split("\t")[0] for l in open(SFDONE, encoding="utf-8")} if os.path.exists(SFDONE) else set()
+    have = set()
+    if os.path.exists(FACTS):
+        for l in gzip.open(FACTS, "rt", encoding="utf-8"):
+            try:
+                have.add(json.loads(l)["key"])
+            except (ValueError, KeyError):
+                pass
+    tasks, hosts = [], set()
+    with gzip.open(a.facts_ranked, "rt", encoding="utf-8", newline="") as fh:
+        for r in csv.DictReader(fh):
+            key = (r.get("keys") or "").split("|")[0]
+            h = host_of(r.get("buyer_website"))
+            if not r.get("email") or not key or key in done or key in have or not h or "." not in h or h in hosts or not shard_ok(h, k, n):
+                continue
+            if (r.get("buyer_address") or "").strip() and ((r.get("buyer_legal_name_as_published") or "").strip() or (r.get("buyer_trade_name_as_published") or "").strip()):
+                continue  # bill-to already complete
+            hosts.add(h)
+            tasks.append({"task_id": "SF-" + hashlib.sha1(key.encode()).hexdigest()[:10], "buyer_key": key, "buyer_name": r.get("buyer") or h, "known_website": "https://%s/" % h,
+                          "_general": (r.get("email_type") or "").startswith("general"), "_tier": r.get("tier") or ""})
+    tasks.sort(key=lambda t: (t["_tier"] == "I", t["buyer_key"]))  # rows with a relationship record before the inferred ones
+    if a.limit:
+        tasks = tasks[:a.limit]
+    print("shard %d/%d: %d delivered rows without a complete bill-to block to read (%d done before)" % (k, n, len(tasks), len(done)), flush=True)
+    deadline = time.time() + a.minutes * 60
+    lock = threading.Lock()
+    stats = collections.Counter()
+    fr = open("out/lead_rows_%d.csv" % k, "a", newline="", encoding="utf-8")
+    w = csv.DictWriter(fr, fieldnames=C.COLS, extrasaction="ignore")
+    w.writeheader()
+    ff = open("out/lead_facts_%d.jsonl" % k, "a", encoding="utf-8")
+    fd = open("out/site_facts_done_%d.tsv" % k, "a", encoding="utf-8")
+
+    def one(t):
+        if time.time() > deadline:
+            return
+        st = {"host": host_of(t["known_website"])}
+        _tl.st = st
+        try:
+            result, pages, rows = C.crawl(t, a.max_pages, general=False)
+        except Exception as e:
+            result, pages, rows = "error:%s" % type(e).__name__, 0, []
+        _tl.st = None
+        C.AP_PAGES.pop(t["buyer_key"], None)
+        better = [r for r in rows if ok_mailbox(r.get("ap_email")) and r.get("ap_email_type") != "general"] if t["_general"] else []
+        with lock:
+            stats["sites"] += 1
+            stats["with_address"] += "addr" in st
+            stats["with_name"] += bool(st.get("name"))
+            stats["better_mailbox"] += bool(better)
+            stats["blocked"] += result == "blocked"
+            if st.get("name") or st.get("addr"):
+                ff.write(facts_line(t["buyer_key"], t["known_website"], st))
+            w.writerows(better)
+            fd.write("%s\t%s\t%s\t%d\t%d\n" % (t["buyer_key"], TODAY, result if result != "found" else "read", pages, 1 if "addr" in st else 0))
+            if stats["sites"] % 500 == 0:
+                fr.flush(); ff.flush(); fd.flush()
+                print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
+
+    def on_timeout(t):
+        with lock:
+            fd.write("%s\t%s\ttimeout\t0\t0\n" % (t["buyer_key"], TODAY))
+            stats["timeout"] += 1
+    left = run_pool(tasks, one, a, deadline, on_timeout)
+    with lock:
+        fr.close(); ff.close(); fd.close()
+    print("finished", dict(stats), "(stragglers left: %d)" % left, flush=True)
+
+
 def merge(a):
     """append the shard rows to the results file (never a row the validator would reject, never a duplicate) and union the done files"""
     cols, have, rows = None, set(), []
@@ -305,7 +409,7 @@ def merge(a):
             if first:
                 w.writeheader()
             w.writerows(rows)
-    done_path, pat = (TDONE, "tenant_done_*.tsv") if a.tenants else (DONE, "lead_done_*.tsv")
+    done_path, pat = (TDONE, "tenant_done_*.tsv") if a.tenants else (SFDONE, "site_facts_done_*.tsv") if a.site_facts else (DONE, "lead_done_*.tsv")
     seen = {}
     for p in [done_path] + sorted(glob.glob(os.path.join(a.merge, pat))):
         if os.path.exists(p):
@@ -339,7 +443,7 @@ def merge(a):
     print("site facts (buyer's own name / address): %d (+%d)" % (len(facts), len(facts) - nf))
     res = collections.Counter((l.split("\t") + ["?", "?", "?"])[2].split(":")[0] for l in seen.values())
     print("%s sites read so far: %d (%s); mailbox rows added this run: %d; buyers with a mailbox row: %d" % (
-        "candidate" if a.tenants else "lead", len(seen), ", ".join("%s %d" % kv for kv in res.most_common(7)), len(rows), len({x[0] for x in have})))
+        "candidate" if a.tenants else "delivered-row" if a.site_facts else "lead", len(seen), ", ".join("%s %d" % kv for kv in res.most_common(7)), len(rows), len({x[0] for x in have})))
 
 
 def main():
@@ -349,6 +453,8 @@ def main():
     a.add_argument("--vendors", default="", help="candidates mode: only these vendor keys (comma separated)")
     a.add_argument("--merge", default="", help="directory of shard outputs to append to the files on main")
     a.add_argument("--tenants", action="store_true", help="with --merge: the shard outputs come from candidates mode")
+    a.add_argument("--site-facts", action="store_true", help="with --merge: the shard outputs come from --facts-ranked mode")
+    a.add_argument("--facts-ranked", default="", help="ranked_buyers.csv.gz: completeness pass over delivered rows without a bill-to name / address")
     a.add_argument("--shard", default="0/1")
     a.add_argument("--minutes", type=float, default=150)
     a.add_argument("--max-pages", type=int, default=25)
@@ -362,7 +468,7 @@ def main():
     k, n = int(a.shard.split("/")[0]), max(1, int(a.shard.split("/")[1]))
     os.makedirs(C.STATE, exist_ok=True)
     os.makedirs("out", exist_ok=True)
-    (candidates_mode if a.candidates else leads_mode)(a, k, n)
+    (candidates_mode if a.candidates else facts_mode if a.facts_ranked else leads_mode)(a, k, n)
     sys.stdout.flush()
     os._exit(0)  # do not wait for straggler threads
 

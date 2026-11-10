@@ -2549,6 +2549,16 @@ try:
     for x in rows:
         for c in PACK_COLS:
             x.setdefault(c, "")
+        # 2026-11-10: what the buyer's OWN pages say (tools/lead_crawl.py site facts): its postal address when the row has none, and the name it
+        # trades under. An invoice may name the recipient by "the name under which the recipient does business" (Input Tax Credit Information
+        # (GST/HST) Regulations, SOR/91-45 s. 3(c)(i)), so a self-published trade name with an address completes the bill-to block.
+        _lf = LFACTS.get((x.get("keys") or "").split("|")[0])
+        x.setdefault("buyer_trade_name_as_published", "")
+        if _lf:
+            if _lf.get("address") and not (x.get("buyer_address") or "").strip() and not (x.get("invoice_mailing_address") or "").strip():
+                x["buyer_address"] = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or "", _lf.get("date") or ""); npk["buyer_address_from_own_page"] += 1
+            if _lf.get("site_name") and not x["buyer_trade_name_as_published"]:
+                x["buyer_trade_name_as_published"] = "%s (the name on the organisation's own home page, %s, read %s)" % (_lf["site_name"], _lf.get("site") or "", _lf.get("date") or ""); npk["buyer_trade_name_as_published"] += 1
         t, g, ec = x.get("tier") or "", int(x.get("grade") or 0), x.get("email_check") or ""
         name_site = " ".join((x.get(c) or "") for c in ("buyer", "buyer_legal_name_as_published", "buyer_website"))
         # buyer_type fallback (C4.1) and sector (S4.1)
@@ -2672,6 +2682,8 @@ try:
         _site0 = (x.get("buyer_website") or "").lower().rstrip("/"); _jur0 = (x.get("jurisdiction") or "").upper()
         _cc0 = ({"US": "US", "UK": "GB", "GB": "GB", "AU": "AU", "NZ": "AU", "EU": "EU", "DE": "EU", "FR": "EU", "NL": "EU", "BE": "EU", "IE": "EU", "IT": "EU", "ES": "EU", "AT": "EU", "SE": "EU", "DK": "EU", "FI": "EU", "PL": "EU", "PT": "EU", "CH": "EU", "NO": "EU"}.get(_jur0) or
                 ("US" if re.search(r"\.(gov|edu|mil|us)$|\.gov\b", _site0) else "GB" if re.search(r"\.uk$", _site0) else "AU" if re.search(r"\.(au|nz)$", _site0) else "EU" if re.search(r"\.(eu|de|fr|nl|be|ie|it|es|at|se|dk|fi|pl|pt|ch|no)$", _site0) else ""))
+        if not _cc0 and _lf and _lf.get("address_country") in ("US", "GB", "AU") and (_lf.get("address") or "") and (_lf["address"][:40] in (x.get("buyer_address") or "")):
+            _cc0 = _lf["address_country"]  # the address printed on the buyer's own page is in that country (.com sites carry no country)
         if not _cc0:
             pc2 = re.search(r"\b([A-Z])\d[A-Z]\s?\d[A-Z]\d\b", x.get("buyer_address") or "")
             prov2 = {"QC": "QC", "ON": "ON", "BC": "BC", "AB": "AB", "SK": "SK", "MB": "MB", "NS": "NS", "NB": "NB", "NL": "NL", "PE": "PE", "YT": "YT", "NT": "NT", "NU": "NU"}.get(x.get("jurisdiction") or "", "")
@@ -2727,7 +2739,7 @@ try:
                     npk["invoice_currency_derived"] += 1
                 npk["tax_derived_foreign"] += 1
         card = {
-            "bill_to": {"legal_name": _val("buyer_legal_name_as_published") or _val("buyer"), "legal_name_is_published": bool(_val("buyer_legal_name_as_published")), "address": _val("invoice_mailing_address") or _val("buyer_address"),
+            "bill_to": {"legal_name": _val("buyer_legal_name_as_published") or _val("buyer"), "legal_name_is_published": bool(_val("buyer_legal_name_as_published")), "trade_name": _val("buyer_trade_name_as_published"), "address": _val("invoice_mailing_address") or _val("buyer_address"),
                         "address_is_the_invoice_address": bool(_val("invoice_mailing_address")), "tax_number": _val("buyer_bn_as_published"), "language": _val("template_language") or _val("language_hint")},
             "submit_to": {"email": _val("email"), "email_type": _val("email_type"), "supplier_setup_url": (x.get("supplier_setup_url") or "").split(" (")[0], "portal_url": _val("invoice_portal_url"), "portal_kind": _val("invoice_portal_kind"), "mailing_address": _val("invoice_mailing_address"),
                           "format": (fmt.group(1).strip() if fmt else ""), "system": _val("ap_system_hint"), "e_invoicing_peppol": _val("peppol_participant_id")},
@@ -2823,7 +2835,7 @@ try:
             tax_any = bool(card["tax"]["buyer_tax_status"]) or bool(x.get("tax_rate_indicative_derived")) or bool(x.get("buyer_tax_status_derived"))
             cur_any = bool(card["tax"]["currency"]) or bool(x.get("invoice_currency_derived"))
             _public = bool(re.search(r"municipal|government|ministry|agency|utility|public corporat|crown|school|scolaire|health|hospital|universit|college|c[ée]gep|transit|library|police|first nation|band council", (x.get("buyer_type") or "").lower()))
-            billto_pos = bool(card["bill_to"]["address"]) and (card["bill_to"]["legal_name_is_published"] or (_public and bool(_val("buyer")) and not DOMAIN_NAME.match(_val("buyer")) and not GENERIC_NAME.match(_val("buyer"))))  # a public body bills under the name it publishes itself (Ville de Laval, City of Kelowna)
+            billto_pos = bool(card["bill_to"]["address"]) and (card["bill_to"]["legal_name_is_published"] or bool(card["bill_to"]["trade_name"]) or (_public and bool(_val("buyer")) and not DOMAIN_NAME.match(_val("buyer")) and not GENERIC_NAME.match(_val("buyer"))))  # a public body bills under the name it publishes itself (Ville de Laval, City of Kelowna); any organisation may be billed under the name it does business under (SOR/91-45 s. 3(c)(i))
             pos_need = [n_ for ok_, n_ in ((tier in (1, 2), "a confirmed invoicing / AP or finance channel" if tier != 3 else "an invoicing / AP or finance mailbox (only a purchasing / general inbox is confirmed: the invoice is routed, not addressed)"),
                                            (billto_pos, "bill-to legal name and address" if not card["bill_to"]["address"] else "bill-to legal name"), (bool(v_legal), "the vendor's legal name"), (bool(v_gst), "the vendor's GST/HST number (BN9)"), (bool(v_addr), "the vendor's remit-to address"),
                                            (tax_any, "tax treatment"), (cur_any, "currency")) if not ok_]
@@ -2838,7 +2850,8 @@ try:
             _terms = _val("payment_terms_as_published") or (x.get("payment_terms_default_policy") or "").split(" (")[0] or "vendor's standard terms (buyer publishes none)"
             _ref = "; ".join(t_ for t_ in (("PO " + _val("po_number_as_published")) if _val("po_number_as_published") else "", ("contract " + _val("contract_or_agreement_number").split(";")[0]) if _val("contract_or_agreement_number") else "", ("tender " + _val("solicitation_or_tender_number").split(";")[0]) if _val("solicitation_or_tender_number") else "") if t_)
             _lines = ["DRAFT INVOICE HEADER — built only from the row's sourced and labelled-derived columns (provenance in facts_provenance_json)",
-                      "BILL TO: %s%s" % (card["bill_to"]["legal_name"] or "(legal name not published)", (" — " + card["bill_to"]["address"]) if card["bill_to"]["address"] else " — (address not published)") + ((" — buyer tax no. " + card["bill_to"]["tax_number"]) if card["bill_to"]["tax_number"] else ""),
+                      "BILL TO: %s%s" % ((card["bill_to"]["legal_name"] if card["bill_to"]["legal_name_is_published"] or not card["bill_to"]["trade_name"] else card["bill_to"]["trade_name"].split(" (the name on")[0] + " (name it does business under, from its own site)") or "(legal name not published)",
+                                         (" — " + card["bill_to"]["address"]) if card["bill_to"]["address"] else " — (address not published)") + ((" — buyer tax no. " + card["bill_to"]["tax_number"]) if card["bill_to"]["tax_number"] else ""),
                       "SUBMIT TO: %s%s%s%s" % (_val("email") or "(no mailbox)", " (%s mailbox, %s)" % (_val("email_type") or "type unknown", "confirmed by the referee" if confirmed else "not yet confirmed"), ((" | invoice portal: " if _portal_ok else " | " + card["submit_to"]["portal_class"] + ": ") + card["submit_to"]["portal_url"]) if card["submit_to"]["portal_url"] else "", (" | format: " + card["submit_to"]["format"]) if card["submit_to"]["format"] else ""),
                       "REFERENCE: %s%s" % (_ref or "none in the record", (" | PO rule: " + card["references_required"]["po_required"].split(" (as printed")[0][:120]) if card["references_required"]["po_required"] else " | PO rule: not published"),
                       "FROM / REMIT TO: %s%s%s%s" % (v_legal or "(vendor legal name not confirmed)", (" — " + v_addr) if v_addr else " — (remit-to address not published)", (" | GST/HST %sRT0001 (account derived from the BN9)" % v_gst) if v_gst else " | GST/HST number not public", (" | NEQ " + _val("vendor_neq").split(" ")[0]) if _val("vendor_neq") else ""),
@@ -2916,7 +2929,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
                    ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
                    ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
-                   ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program"]), ("vendor_registry_status", ["vendor_registry_warning", "vendor_registry_note"]),
+                   ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program", "buyer_trade_name_as_published"]), ("vendor_registry_status", ["vendor_registry_warning", "vendor_registry_note"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
                    ("method_notes", ["facts_provenance_json", "org_group_key"]), ("po_number_as_published", ["po_numbers_this_pair_open_data", "po_count_this_pair_open_data", "contract_numbers_this_pair_open_data"]), ("vendor_incorporation_date", ["vendor_years_in_business"]), ("dns_checked_date", ["mta_sts", "tls_rpt", "bimi"]),
                    ("invoicing_requirements_structured", ["buyer_payment_method_preference", "buyer_ap_cycle_published", "buyer_tax_exempt_status", "buyer_esignature_preference"]), ("buyer_website_status", ["buyer_linkedin_url", "buyer_supplier_portals_linked", "buyer_registry_id", "buyer_bn_note"]),
