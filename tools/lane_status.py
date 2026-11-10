@@ -115,21 +115,25 @@ def main():
         P("- %s: **%d**" % (k, c))
     # ---- 5. mailbox crawl
     P("\n## 5. Mailbox crawl")
-    p = os.path.join(INC, "claude_lead_crawl_done.tsv")
-    if os.path.exists(p):
-        res = collections.Counter()
+    try:
+        import lead_crawl as LC
+        res, latest_l = collections.Counter(), {}
         by_kind = collections.defaultdict(collections.Counter)
-        for l in open(p, encoding="utf-8"):
-            q = l.rstrip("\n").split("\t")
+        for l in LC.lead_done_lines():
+            q = l.split("\t")
             if len(q) > 2:
-                s = q[2].split(":")[0]
-                res[s] += 1
-                by_kind[lead_kind_of.get(q[0], "leads no longer on file (withdrawn by a stricter rule) and registry candidates")][s] += 1
+                latest_l[q[0]] = q
+        for q in latest_l.values():
+            s_ = q[2].split(":")[0]
+            res[s_] += 1
+            by_kind[lead_kind_of.get(q[0], "leads no longer on file (withdrawn by a stricter rule) and registry candidates")][s_] += 1
         P("- lead sites read: **%d** (%s)" % (sum(res.values()), ", ".join("%s %d" % kv for kv in res.most_common(6))))
         for k, c in sorted(by_kind.items(), key=lambda kv: -sum(kv[1].values())):
             tot = sum(c.values())
             if tot >= 50:
                 P("  - %s: %d read, mailbox on %d (%.0f %%), blocked %d" % (k, tot, c["found"], 100.0 * c["found"] / tot, c["blocked"]))
+    except Exception as e:
+        P("- (lead crawl state not read: %s)" % e)
     td = collections.Counter()
     tl = {}
     lp = os.path.join(INC, "claude_tenant_crawl_done.tsv")

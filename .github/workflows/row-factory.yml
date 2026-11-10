@@ -189,9 +189,11 @@ jobs:
           done
           cat /tmp/addr.txt >> "$GITHUB_STEP_SUMMARY"
 
+  # 2026-11-10: the mailbox crawl has its own workflow (mailbox-crawl.yml, back to back): it is the step that makes rows, and here it only
+  # got its turn after the extraction and address passes of each cycle. Kept for a manual run: stage=crawl.
   crawl:
     needs: [plan, merge_addr]
-    if: ${{ always() && (inputs.stage || 'cycle') == 'cycle' && needs.merge_addr.result == 'success' }}
+    if: ${{ always() && (inputs.stage || 'cycle') == 'crawl' }}
     runs-on: ubuntu-latest
     timeout-minutes: 200
     strategy:

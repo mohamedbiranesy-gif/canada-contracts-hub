@@ -1,0 +1,89 @@
+name: mailbox-crawl
+# The step that turns a relationship into a delivered row: each lead's own site is read for its role mailbox (tools/lead_crawl.py), the rows go
+# to the referee, the next rank build delivers them. Until 2026-11-10 this ran as the last stage of the row factory and waited for the
+# extraction and address passes of each cycle; it now runs back to back on its own runners.
+# Queue order: sites whose home page prints a role mailbox (scan detector 4) first — leads of every kind, then registry candidates (.ca sites,
+# tier R) — then the other leads. robots.txt respected, 1 request per second per site, identified user agent. No AI, no search engine.
+on:
+  schedule:
+    - cron: "9 * * * *"      # a new run is queued every hour and starts when the one before it ends (one run at a time)
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel runners (1-10)"
+        default: "8"
+      minutes:
+        description: "minutes per runner"
+        default: "150"
+      registry:
+        description: "registry candidates per runner (.ca sites whose home page prints a role mailbox)"
+        default: "8000"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: mailbox-crawl
+  cancel-in-progress: false
+env:
+  SHARDS: ${{ inputs.shards || '8' }}
+  MINUTES: ${{ inputs.minutes || '150' }}
+  REGISTRY: ${{ inputs.registry || '8000' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      stamp: ${{ steps.m.outputs.stamp }}
+    steps:
+      - id: m
+        run: |
+          python3 -c "import os; n=max(1,min(10,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+          echo "stamp=$(date -u +%Y%m%dT%H%M%S)" >> "$GITHUB_OUTPUT"
+
+  crawl:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: sudo apt-get install -y -q poppler-utils >/dev/null 2>&1 || true
+      - name: Read each lead's own site for its role mailbox
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/lead_crawl.py --leads data/incoming/claude/claude_buyer_leads_cc.csv,data/incoming/claude/claude_buyer_leads.csv --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --max-pages 25 --registry "$REGISTRY"
+      - uses: actions/upload-artifact@v4
+        with: { name: "mc-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge:
+    needs: [plan, crawl]
+    if: ${{ always() && needs.crawl.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "mc-*", path: shards, merge-multiple: true }
+      - name: Append the mailbox rows, commit, and call the referee
+        env: { GH_TOKEN: "${{ github.token }}", STAMP: "${{ needs.plan.outputs.stamp }}" }
+        run: |
+          ls -la shards | head -40 || true
+          git config user.name "mailbox-crawl"; git config user.email "mailbox-crawl@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/crawl_state
+            python3 tools/lead_crawl.py --merge shards --stamp "$STAMP" | tee /tmp/crawl.txt
+            git add data/incoming/claude/crawl_state 2>/dev/null || true
+            for f in claude_lead_site_facts.jsonl.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "[claude] mailbox-crawl: role mailboxes of lead buyers ($(tail -1 /tmp/crawl.txt | cut -c1-110))"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/crawl.txt >> "$GITHUB_STEP_SUMMARY"
+          # pushes made with the workflow token do not start other workflows: call the referee, which re-fetches every evidence page
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true

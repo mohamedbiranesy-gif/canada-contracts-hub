@@ -551,9 +551,31 @@ def merge_accepted(a):
                      "buyer_address_evidence": rr.get("buyer_address_quote") or "", "buyer_address_evidence_url": rr.get("buyer_address_url") or "", "buyer_country_evidence": rr.get("buyer_country") or "",
                      "contracting_scope": rr.get("contracting_scope") or "", "service_seen": rr.get("service_seen") or "", "portal_slug": rr.get("portal_slug") or "", "capture": rr.get("capture") or ""})
         new[rr.get("vendor_key") or "?"] += 1
-    if rows:
+    if rows and not a.stamp:
+        # a run queued with the earlier workflow file (no --stamp) commits only the old files: its leads go there, as before
+        prev = {r["buyer_key"]: r for r in csv.DictReader(open(CCL.LEADS_CC, encoding="utf-8"))} if os.path.exists(CCL.LEADS_CC) else {}
+        pdet = {}
+        if os.path.exists(CCL.DETAILS_CC):
+            for l in gzip.open(CCL.DETAILS_CC, "rt", encoding="utf-8"):
+                try:
+                    o = json.loads(l)
+                    pdet[o["key"]] = o
+                except (ValueError, KeyError):
+                    pass
+        for row, d in zip(rows, dets):
+            prev[row["buyer_key"]] = row
+            pdet[d["key"]] = d
+        with open(CCL.LEADS_CC, "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=CCL.LEAD_COLS)
+            w.writeheader()
+            for k in sorted(prev):
+                w.writerow({c: prev[k].get(c, "") for c in CCL.LEAD_COLS})
+        with gzip.open(CCL.DETAILS_CC, "wt", encoding="utf-8") as f:
+            for k in sorted(pdet):
+                f.write(json.dumps(pdet[k], ensure_ascii=False) + "\n")
+    elif rows:
         os.makedirs(TSTATE, exist_ok=True)
-        stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
+        stamp = a.stamp
         with gzip.open(os.path.join(TSTATE, "leads_%s.gz" % stamp), "wt", encoding="utf-8", newline="") as f:
             w = csv.DictWriter(f, fieldnames=CCL.LEAD_COLS)
             w.writeheader()

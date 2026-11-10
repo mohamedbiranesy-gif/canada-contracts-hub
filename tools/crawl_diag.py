@@ -118,8 +118,8 @@ def main():
                 if (r.get("website") or "").startswith("http"):
                     leads.setdefault(r["buyer_key"], (r["website"], r.get("buyer_name") or "", (r.get("canada_field_value") or "")[:40]))
     groups = collections.defaultdict(list)
-    for l in open(LC.DONE, encoding="utf-8"):
-        q = l.rstrip("\n").split("\t")
+    for l in LC.lead_done_lines():
+        q = l.split("\t")
         if len(q) > 2 and q[0] in leads and q[2] in ("nothing_found", "found"):
             groups[q[2]].append(q[0])
     rnd = random.Random(11)

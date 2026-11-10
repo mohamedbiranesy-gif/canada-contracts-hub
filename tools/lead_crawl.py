@@ -49,6 +49,20 @@ GENERIC_SITE_WORDS = {"home", "accueil", "welcome", "bienvenue", "services", "se
                       "shop", "store", "boutique", "contact", "about", "page", "best", "quality", "professional", "toronto", "montreal", "vancouver", "calgary", "ottawa", "edmonton", "quebec"}
 
 
+LSTATE = os.path.join(INC, "crawl_state")  # 2026-11-10: the lead crawl's done lines as append-only shards (lead_done_<stamp>.gz); the old single file is no longer rewritten
+
+
+def lead_done_lines():
+    """done lines of the lead crawl: the old single file, then the shards (a later line of the same key wins)"""
+    if os.path.exists(DONE):
+        for l in open(DONE, encoding="utf-8"):
+            yield l.rstrip("\n")
+    for p in sorted(glob.glob(os.path.join(LSTATE, "lead_done_*.gz"))):
+        with gzip.open(p, "rt", encoding="utf-8") as fh:
+            for l in fh:
+                yield l.rstrip("\n")
+
+
 def site_name_for(host, og, title, T):
     """the name an organisation gives itself on its own home page, kept only when it agrees with its own domain (a slogan such as
     "Best Plumber in Toronto | 24/7 Service" is not a name): og:site_name first, then the parts of <title>"""
@@ -160,13 +174,22 @@ def host_of(site):
 
 
 def leads_mode(a, k, n):
+    if os.environ.get("GITHUB_WORKFLOW") == "row-factory" and not a.registry:
+        # a row-factory run queued before 2026-11-10 05:24Z still has the mailbox crawl as its last stage; mailbox-crawl.yml reads the same queue
+        # back to back, and two readers on one queue would open every site twice
+        print("the mailbox crawl runs in mailbox-crawl.yml now: nothing is read here", flush=True)
+        return
     install_hooks()
     # 2026-11-10 (rule "r2"): front-office role mailboxes (sales@, service@, orders@ …) count when a site publishes nothing better; the sites that
     # gave "nothing_found" under the first rule are read once more (their done line has no "r2" mark)
     done = set()
-    if os.path.exists(DONE):
-        for l in open(DONE, encoding="utf-8"):
-            q = l.rstrip("\n").split("\t")
+    if True:
+        latest = {}
+        for l in lead_done_lines():
+            q = l.split("\t")
+            if q and q[0]:
+                latest[q[0]] = q
+        for q in latest.values():
             if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and "r2" not in q[5:]):
                 done.add(q[0])
     # 2026-11-10: the leads found from the owner's Mac (claude_buyer_leads.csv) can be read here too: 33,600 of them have a website and no
@@ -642,7 +665,9 @@ def merge(a):
             w.writerows(rows)
     done_path, pat = (TDONE, "tenant_done_*.tsv") if a.tenants else (SFDONE, "site_facts_done_*.tsv") if a.site_facts else (DONE, "lead_done_*.tsv")
     seen = {}
-    if a.tenants:  # 2026-11-10: the candidates' done lines go to an append-only shard (tenant_state/done_<stamp>.gz); the old single file is no longer rewritten
+    # --stamp (the workflows since 2026-11-10) = shard mode. A run that was queued with the earlier workflow file calls --merge without --stamp
+    # and only commits the old single files: for it the old behaviour is kept, so nothing it found is lost.
+    if a.tenants and a.stamp:  # the candidates' done lines go to an append-only shard (tenant_state/done_<stamp>.gz); the old single file is no longer rewritten
         import cc_tenants as CT
         new_lines = {}
         for p in sorted(glob.glob(os.path.join(a.merge, pat))):
@@ -655,6 +680,21 @@ def merge(a):
             with gzip.open(os.path.join(CT.TSTATE, "done_%s.gz" % (a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime()))), "wt", encoding="utf-8") as f:
                 f.write("\n".join(new_lines[k] for k in sorted(new_lines)) + "\n")
         for l in CT.tenant_done_lines(TDONE):
+            q = l.split("\t")
+            if q and q[0]:
+                seen[q[0]] = l
+    elif not a.site_facts and not a.tenants and a.stamp:  # the lead crawl: this run's done lines go to a new shard (crawl_state/lead_done_<stamp>.gz)
+        new_lines = {}
+        for p in sorted(glob.glob(os.path.join(a.merge, pat))):
+            for l in open(p, encoding="utf-8"):
+                q = l.rstrip("\n").split("\t")
+                if q and q[0]:
+                    new_lines[q[0]] = l.rstrip("\n")
+        if new_lines:
+            os.makedirs(LSTATE, exist_ok=True)
+            with gzip.open(os.path.join(LSTATE, "lead_done_%s.gz" % (a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime()))), "wt", encoding="utf-8") as f:
+                f.write("\n".join(new_lines[k] for k in sorted(new_lines)) + "\n")
+        for l in lead_done_lines():
             q = l.split("\t")
             if q and q[0]:
                 seen[q[0]] = l
@@ -708,7 +748,7 @@ def main():
     a.add_argument("--max-pages", type=int, default=25)
     a.add_argument("--workers", type=int, default=40)
     a.add_argument("--limit", type=int, default=0)
-    a.add_argument("--stamp", default="", help="with --merge --tenants: the name of this run's shard files")
+    a.add_argument("--stamp", default="", help="with --merge: the name of this run's shard files")
     a.add_argument("--dns-stores", type=int, default=0, help="candidates mode: also read up to this many stores per shard that the DNS lookups found on Shopify's storefront addresses")
     a.add_argument("--registry", type=int, default=0, help="leads mode: also read up to this many registry candidates per shard (.ca sites whose home page prints a role mailbox)")
     a.add_argument("--straggler-seconds", type=float, default=240, help="when only slow sites are left and nothing finished for this long, stop")
