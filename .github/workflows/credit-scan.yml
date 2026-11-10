@@ -1,0 +1,188 @@
+name: credit-scan
+# Relationships printed by the paying party itself (owner 2026-11-09 20:48 EST: "a Canadian entity gets paid because it provided a service …
+# establish that relationship, get the other party's contact"): the credit line on an organisation's own home page — "Website by <agency>",
+# "Site web réalisé par …", "Hébergé par …", "Powered by …" — linking to a vendor whose own site prints a Canadian postal address.
+#   universe : every .ca registered domain with a captured page (Common Crawl columnar index)          (tools/credit_scan.py universe)
+#   cycle    : scan    — one polite read of each site's home page: delivered rows first (78 % of them carry only an INFERRED relationship),
+#                        then leads, then the .ca universe                                              (credit_scan.py scan)
+#              vendors — each credited vendor's own home / contact page: postal address = the Canada proof (credit_scan.py vendors)
+#              merge   — sightings with a vendor proven in Canada become leads; tools/lead_crawl.py (row-factory) reads the buyer's site for
+#                        its role mailbox, the referee re-fetches that page, the next rank build delivers the row (tier T)
+# No AI, no search engine, no Mac. robots.txt respected, identified user agent, one home-page request per site.
+on:
+  schedule:
+    - cron: "7 0,6,12,18 * * *"
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "universe (list the .ca domains of the newest Common Crawl index) | cycle (scan home pages, check vendors, make leads)"
+        default: "cycle"
+      shards:
+        description: "parallel runners for the scan (1-10)"
+        default: "8"
+      minutes:
+        description: "minutes per scan runner"
+        default: "150"
+      limit:
+        description: "at most this many sites per scan runner (0 = no limit)"
+        default: "0"
+      crawl:
+        description: "Common Crawl id for the universe stage (auto = newest; last:N = the newest N crawls)"
+        default: "auto"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: credit-scan-${{ inputs.stage || 'cycle' }}
+  cancel-in-progress: false
+env:
+  STAGE: ${{ inputs.stage || 'cycle' }}
+  SHARDS: ${{ inputs.shards || '8' }}
+  MINUTES: ${{ inputs.minutes || '150' }}
+  LIMIT: ${{ inputs.limit || '0' }}
+  CRAWL: ${{ inputs.crawl || 'auto' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      has_universe: ${{ steps.m.outputs.has_universe }}
+      stamp: ${{ steps.m.outputs.stamp }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - id: m
+        run: |
+          python3 -c "import os; n=max(1,min(10,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+          if [ -s data/incoming/claude/credit_scan/ca_domains.csv.gz ]; then echo "has_universe=yes" >> "$GITHUB_OUTPUT"; else echo "has_universe=no" >> "$GITHUB_OUTPUT"; fi
+          echo "stamp=$(date -u +%Y%m%dT%H%M%S)" >> "$GITHUB_OUTPUT"
+
+  universe:
+    needs: plan
+    if: ${{ (inputs.stage || 'cycle') == 'universe' || needs.plan.outputs.has_universe == 'no' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: { k: [0, 1, 2, 3] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: pip install -q duckdb
+      - name: List the .ca registered domains of the Common Crawl index
+        run: python3 tools/credit_scan.py universe --shard ${{ matrix.k }}/4 --crawl "$CRAWL"
+      - uses: actions/upload-artifact@v4
+        with: { name: "cs-universe-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_universe:
+    needs: universe
+    if: ${{ always() && needs.universe.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "cs-universe-*", path: shards, merge-multiple: true }
+      - name: Union the shards and commit
+        run: |
+          ls -la shards || true
+          git config user.name "credit-scan"; git config user.email "credit-scan@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/credit_scan.py merge-universe shards | tee /tmp/u.txt
+            git add data/incoming/claude/credit_scan/ca_domains.csv.gz 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "credit-scan: .ca universe ($(tail -1 /tmp/u.txt | cut -c1-110)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/u.txt >> "$GITHUB_STEP_SUMMARY"
+
+  scan:
+    needs: [plan, merge_universe]
+    if: ${{ always() && needs.plan.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Read each site's home page for its credit line and the vetted Canada-HQ services
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/credit_scan.py scan --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 120 --limit "$LIMIT"
+      - uses: actions/upload-artifact@v4
+        with: { name: "cs-scan-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_scan:
+    needs: [plan, scan]
+    if: ${{ always() && needs.scan.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "cs-scan-*", path: shards, merge-multiple: true }
+      - name: Sightings -> main (append-only state files); leads for vendors already proven in Canada
+        env: { STAMP: "${{ needs.plan.outputs.stamp }}" }
+        run: |
+          ls -la shards | head -40 || true
+          git config user.name "credit-scan"; git config user.email "credit-scan@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/credit_scan
+            python3 tools/credit_scan.py merge shards --stamp "${STAMP}s" | tee /tmp/m.txt
+            git add data/incoming/claude/credit_scan 2>/dev/null || true
+            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_candidates.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "credit-scan: home pages read ($(grep -m1 '^credit scan:' /tmp/m.txt | cut -c14-120)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
+
+  vendors:
+    needs: [plan, merge_scan]
+    if: ${{ always() && needs.merge_scan.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix: { k: [0, 1, 2, 3] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Read each credited vendor's own home / contact page for its postal address
+        run: python3 tools/credit_scan.py vendors --shard ${{ matrix.k }}/4 --minutes 110 --workers 60
+      - uses: actions/upload-artifact@v4
+        with: { name: "cs-vendors-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge_vendors:
+    needs: [plan, vendors]
+    if: ${{ always() && needs.vendors.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "cs-vendors-*", path: shards, merge-multiple: true }
+      - name: Vendor proofs -> main; sightings whose vendor is proven in Canada become leads; start the mailbox crawl
+        env: { GH_TOKEN: "${{ github.token }}", STAMP: "${{ needs.plan.outputs.stamp }}" }
+        run: |
+          ls -la shards | head -40 || true
+          git config user.name "credit-scan"; git config user.email "credit-scan@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/credit_scan
+            python3 tools/credit_scan.py merge shards --stamp "${STAMP}v" | tee /tmp/m.txt
+            git add data/incoming/claude/credit_scan 2>/dev/null || true
+            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_candidates.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "credit-scan: leads from credit lines on the buyers' own sites ($(grep -m1 '^credit leads:' /tmp/m.txt | cut -c15-120)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
+          # the new leads need their role mailbox: start a row-factory cycle (its mailbox crawl reads every lead that has no mailbox row) — it queues behind a running one
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/row-factory.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" || true

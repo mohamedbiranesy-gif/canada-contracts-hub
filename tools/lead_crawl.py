@@ -249,6 +249,18 @@ def leads_mode(a, k, n):
 def candidates_mode(a, k, n):
     import cc_tenants as CT
     T = install_hooks()
+    # candidates seen live by tools/credit_scan.py (a link to the organisation's Jane portal on its own page): the free single-practitioner
+    # plan is ruled out on the portal itself, read at the end and only for candidates that passed everything else. All runners together stay
+    # under 2 requests per second on the vendor's platform.
+    _tfetch, _gap = T.fetch, max(1.0, n / 2.0)
+    T.fetch = lambda url, gap=1.0, limit=2_000_000, _hops=0: _tfetch(url, max(gap, _gap), limit, _hops)
+
+    def jane_ok(purl):
+        try:
+            info, _ = T.portal_info("jane", purl)
+            return bool(info)
+        except Exception:
+            return False
     done = {l.split("\t")[0] for l in open(TDONE, encoding="utf-8")} if os.path.exists(TDONE) else set()
     tasks, hosts = [], set()
     with gzip.open(a.candidates, "rt", encoding="utf-8", newline="") as fh:
@@ -290,6 +302,10 @@ def candidates_mode(a, k, n):
         vkey = c["vendor_key"]
         scope = CT.SCOPE.get(vkey, ("CA",))
         name = (c.get("name") or st.get("name") or "").strip()
+        try:
+            ex = json.loads(c.get("extra") or "{}")
+        except ValueError:
+            ex = {}
         if not rows:
             res = result if result != "found" else "no_role_mailbox"
         elif "addr" not in st:
@@ -300,6 +316,8 @@ def candidates_mode(a, k, n):
             res = "service_not_seen"
         elif not name:
             res = "no_name"
+        elif vkey == "jane" and ex.get("portal_check") and not jane_ok(ex.get("portal") or "https://%s/" % (c.get("slug") or "")):
+            res = "free_plan_or_portal_unreadable"
         else:
             res = "accepted"
         rec = None
@@ -308,7 +326,9 @@ def candidates_mode(a, k, n):
             seen_url = st.get("shopify_url") or site
             row = {"portal_slug": c.get("slug") or "", "capture": c.get("capture") or "", "tenant_url": c.get("evidence_url") or "", "name_basis": c.get("name_basis") or ("og:site_name / title of the organisation's own home page" if not c.get("name") else ""),
                    "website_basis": c.get("website_basis") or "", "buyer_country": st["addr"][0], "buyer_address_quote": st["addr"][1], "buyer_address_url": st["addr"][2],
-                   "service_seen": ("%s (in the page source of %s, %s)" % (st.get("shopify"), seen_url, TODAY)) if vkey == "shopify" else "customer portal %s captured %s (Common Crawl)" % (c.get("evidence_url"), c.get("capture"))}
+                   "service_seen": ("%s (in the page source of %s, %s)" % (st.get("shopify"), seen_url, TODAY)) if vkey == "shopify" else
+                                   ("%s: %s — on the organisation's own page %s (read %s)" % (T.VENDORS[vkey]["name"], ex.get("portal") or ex.get("via") or "", ex.get("seen_on"), c.get("capture"))) if ex.get("seen_on") else
+                                   "customer portal %s captured %s (Common Crawl)" % (c.get("evidence_url"), c.get("capture"))}
             rec = T.lead(vkey, name, site, seen_url if vkey == "shopify" else (c.get("evidence_url") or site), row)
             if vkey != "shopify" and c.get("capture"):  # a customer portal: the day the archive saw it; a store: today, on its own pages
                 rec["row"]["observed_date"] = rec["row"]["record_date"] = c["capture"]

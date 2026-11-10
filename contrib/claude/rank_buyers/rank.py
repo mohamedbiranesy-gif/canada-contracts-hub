@@ -788,6 +788,14 @@ def lead_strength(kl):
         return 3.5
     return 0 if CUTOFF <= ld <= today else 2 if CUTOFF3 <= ld else 3
 UNNAMED_VENDOR = re.compile(r"redact|withheld|\bPII\b|confidential|not disclosed|undisclosed|anonymi", re.I)
+def tech_status(k, L):
+    """the service seen on the buyer's own site. 2026-11-10 (tools/credit_scan.py): a credit line on the buyer's own home page ("Website by …",
+    "Site web réalisé par …", "Hébergé par …") that links to a vendor whose own site prints its Canadian postal address"""
+    d = (L.get("latest_record_date") or "")[:10]
+    if "credited on the buyer's own site" in (L.get("canada_field_value") or ""):
+        q = re.sub(r"\s+", " ", (LDET.get(k) or {}).get("credit_quote") or "").strip()
+        return "active service seen on the buyer's own site (%s): the site credits the Canada-located vendor %s%s" % (d, L["example_vendor"], (" — “%s”" % q[-140:]) if q else "")
+    return "active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % (d, L["example_vendor"])
 for k, L in sorted(leads.items(), key=lead_strength):
     if norm(L["buyer_name"]) in seen or UNNAMED_VENDOR.search(L.get("example_vendor") or "") or not (L.get("example_vendor") or "").strip(): continue  # a relationship needs a named vendor
     if k in mail:
@@ -841,7 +849,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
         "buyer": L["buyer_name"], "buyer_website": L["website"], "award_date": L.get("latest_record_date") or "",
         "email": m["mailbox"], "email_type": LABEL_G.get(g, m["mailbox_type"]), "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
         "contract_status": ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
-                           ("active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if tech else
+                           tech_status(k, L) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
                             "likely active (awarded 12-36 months ago; paid in a fiscal year ending 12-36 months ago: IRS Form 990 contractor located in Canada)" if irs else
                             "likely active (awarded 12-36 months ago; record dated 12-36 months ago: %s)" % src) if likely else
@@ -859,7 +867,9 @@ for k, L in sorted(leads.items(), key=lead_strength):
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
     apply_details(x, k)
-    x["source"] = ("the Canadian body's own current member / participant list" if member else "the buyer's own website or its customer portal on the vendor's platform (service of a Canada-HQ vendor in use)" if tech else
+    x["source"] = ("the Canadian body's own current member / participant list" if member else
+                   "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if tech and "credited on the buyer's own site" in cfv else
+                   "the buyer's own website or its customer portal on the vendor's platform (service of a Canada-HQ vendor in use)" if tech else
                    "the Canada-located vendor's own website" if client else src or "relationship record")
 print("lead rows: facts from the buyer's own pages / the vendor's link label:", dict(n_lf))
 for x in rows:
@@ -934,14 +944,19 @@ for d, cands in up_t.items():
     x.update({"tier": "T", "rank_group": "GOLD-T" if g == 4 and acc else "T%d" % g, "completeness_score": TS["T"] * 10 + g * 6 + (3 if acc else 0),
               "award_date": L["latest_record_date"][:10], "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"],
               "vendor_country_basis": L.get("canada_field_value") or "", "contracts_with_canadian_suppliers": L["canadian_vendor_rows"],
-              "contract_status": "active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % (L["latest_record_date"][:10], L["example_vendor"]),
-              "source": "the buyer's own website (service of a Canada-HQ vendor in use)",
+              "contract_status": tech_status(k, L),
+              "source": "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if "credited on the buyer's own site" in (L.get("canada_field_value") or "") else "the buyer's own website (service of a Canada-HQ vendor in use)",
               "keys": "|".join(sorted(set((x.get("keys") or "").split("|") + [k]) - {""})), "buyer_keys": int(x.get("buyer_keys") or 1) + 1})
     for col in ("contract_reference", "contract_title", "contract_value", "currency", "start_date", "end_date", "vendor_legal_name",
                 "vendor_address", "vendor_bn9", "vendor_gst_hst_derived", "vendor_website", "vendor_emails"):
         x[col] = ""
     ev = (L.get("example_vendor") or "").strip()
-    x.update(vend_fill("", ev, ""))
+    if "credited on the buyer's own site" in (L.get("canada_field_value") or ""):
+        _dm = re.search(r"=\s*([a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,})(?:[;/\s]|$)", (L.get("canada_field_value") or "").lower())
+        x.update(vend_fill("", "" if _dm and _dm.group(1) == ev.lower() else ev, _dm.group(1) if _dm else ""))
+        apply_details(x, k)  # the vendor's address as its own site prints it, the credit line as the service description
+    else:
+        x.update(vend_fill("", ev, ""))
     upgraded_t += 1
 print("leads with a borrowed mailbox: %d | rows upgraded by a newer dated record: %d | rows upgraded to an active service seen on the buyer's site: %d" % (borrowed, upgraded, upgraded_t))
 # 5. P12 (owner 2026-11-03, "lowest quality but still AP"): organisations not ranked above, with their own confirmed
