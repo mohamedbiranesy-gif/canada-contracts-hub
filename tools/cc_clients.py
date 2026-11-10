@@ -83,6 +83,7 @@ NOT3_SQL = (r"board|council|committee|comit|conseil|team|equipe|%c3%a9quipe|staf
             r"|wp-admin|/cart|/panier|/checkout|privacy|/search|/recherche|\.(pdf|jpe?g|png|gif|xml|json|css|js)$")
 _REL_RX, _NOT_RX, _SP_RX, _DL_RX, _NOT2_RX, _M1_RX, _MB_RX, _NOT3_RX, _TN_RX = (re.compile(x) for x in (REL_SQL, NOT_SQL, SPONSOR_SQL, DEALER_SQL, NOT2_SQL, MEMBER_ONE_SQL, MEMBER_SQL, NOT3_SQL, TENANT_SQL))
 PER_DOMAIN_MEMBER_PAGES = 3000  # a chamber's directory has one page per member
+MIN_MEMBER_LINKS = 5            # a member-list page counts as a directory only when it names at least this many organisations
 
 
 def page_class(path):
@@ -483,6 +484,8 @@ def leads_of(page, row):
                             "row": {"relationship_page": url, "page_title": title, "client_label": label[:120], "vendor_key": "cc:" + dom, "vendor_site": "https://%s/" % vhost,
                                     "pass": "cc_index", "basis": row.get("basis") or "", "page_class": row.get("cls") or page_class(row.get("path")) or "client", "capture": (row.get("fetch_time") or "")[:19], "vendor_address_quote": quote,
                                     "warc": "%s:%s:%s" % (row["warc_filename"], row["warc_record_offset"], row["warc_record_length"])}})
+    if cls0 == "member" and len(hits) < MIN_MEMBER_LINKS:
+        return [], quote  # a "members" page with a few stray links is a page FOR members (a church, a club), not a directory of member organisations
     return (list(hits.values()) if 0 < len(hits) <= (600 if cls0 == "member" else 150) else []), quote
 
 
@@ -876,6 +879,16 @@ def merge(a):
                          "page_class": row.get("page_class") or page_class(urllib.parse.urlparse(r["dataset_url"]).path) or "client", "member_address_quote": row.get("member_address_quote") or "",
                          "vendor_site": row.get("vendor_site") or "", "client_label": row.get("client_label") or "", "page_title": row.get("page_title") or "", "capture": row.get("capture") or "", "warc": row.get("warc") or ""}
         prev[key]["canadian_vendor_rows"] = max(int(prev[key].get("canadian_vendor_rows") or 0), len(vendors_of[dom]))
+    # member-list pages (not the one-member pages) that produced fewer than MIN_MEMBER_LINKS leads were pages FOR members, not directories
+    # (first extraction 2026-11-10: a church's "members" page linking a facility-request form): their leads are withdrawn
+    per_page = collections.Counter(d.get("record_url") for d in pdet.values() if d.get("page_class") == "member")
+    drop = [k for k, d in pdet.items() if d.get("page_class") == "member" and not _M1_RX.search(urllib.parse.urlparse(d.get("record_url") or "").path.lower())
+            and per_page[d.get("record_url")] < MIN_MEMBER_LINKS]
+    for k in drop:
+        prev.pop(k, None)
+        pdet.pop(k, None)
+    if drop:
+        print("withdrawn: %d leads from member pages that are not directories" % len(drop))
     with open(LEADS_CC, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=LEAD_COLS)
         w.writeheader()
