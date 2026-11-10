@@ -80,7 +80,18 @@ VENDORS = {
                  hq="Jane Software Inc. 500 - 138 13th St E. North Vancouver, BC V7L 0E5 Canada",
                  host_re=r"^([a-z0-9-]+)\.janeapp\.(?:com|co\.uk|com\.au)$", cc=["*.janeapp.com"],
                  excl={"www", "help", "status", "community", "api", "app", "secure", "cdn", "assets", "jane", "blog",
-                       "developers", "demo", "test", "staging", "sandbox", "support", "practitioner", "my"}),
+                       "developers", "demo", "test", "staging", "sandbox", "support", "practitioner", "my"},
+                 # read 2026-11-10 (https://jane.app/terms, "Updated: July 2026"): one contracting entity for every country
+                 scope="\"These Terms are a legal contract between Jane Software Inc.\" — one entity for customers in every country; governed by the laws of British Columbia (https://jane.app/terms, read 2026-11-10)"),
+    # vetted 2026-11-10 (https://getjobber.com/terms-of-service/, "Last Updated Date: September 22, 2026"): the customer's contract is with Octopusapp Inc.
+    # dba Jobber, Edmonton, in every country (Alberta law outside the United States, New York law inside; the notice address names Octopusapp Inc. in
+    # both). Subscription service: "we may offer a free trial" — no free plan. A site that links or embeds its own Client Hub is a subscriber.
+    "jobber": dict(name="Jobber", legal="Octopusapp Inc. dba Jobber", kind="portal",
+                   hq_url="https://getjobber.com/terms-of-service/",
+                   hq="Octopusapp Inc. dba Jobber at Suite 300, 10130 103 Street NW, Edmonton, AB, Canada, T5J 3N9",
+                   link_re=r"^clienthub\.getjobber\.com/(?:client_hubs|booking)/([0-9a-f][0-9a-f-]{15,})", cc=["clienthub.getjobber.com/client_hubs/"],
+                   portal_fmt="https://clienthub.getjobber.com/client_hubs/%s/login/new", excl=set(),
+                   scope="\"GOVERNED BY AND MADE UNDER CANADIAN LAW BETWEEN YOU AND JOBBER\" — Octopusapp Inc. dba Jobber is the contracting entity in every country (https://getjobber.com/terms-of-service/, read 2026-11-10)"),
     "docebo": dict(name="Docebo", legal="Docebo Inc.", kind="portal",
                    hq_url="https://www.docebo.com/contact/",
                    hq="Our offices Docebo Inc. 55 York Street – 12th floor, Toronto, ON M5J 1R7, Canada",
@@ -141,7 +152,7 @@ for _k, _v in VENDORS.items():
     for _f in ("host_re", "link_re", "path_re", "asset_re"):
         if _v.get(_f):
             _v[_f + "_c"] = re.compile(_v[_f], re.I)
-VENDOR_BASES = {"schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
+VENDOR_BASES = {"getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
                 "escribemeetings.com", "bibliocommons.com", "bibliocms.com", "brightspace.com", "desire2learn.com",
                 "d2l.com", "edsby.com", "amilia.com", "janeapp.com", "jane.app", "docebosaas.com", "docebo.com",
                 "myabsorb.com", "myabsorb.ca", "myabsorb.eu", "absorbai.com", "absorblms.com", "shopify.com",
@@ -341,7 +352,7 @@ def portal_hits(u):
         if v.get("link_re_c"):
             m = v["link_re_c"].match(h + p.path)
             if m and m.group(1).lower() not in v["excl"]:
-                res.append((k, m.group(1).lower(), "https://app.amilia.com/store/en/%s/shop" % m.group(1).lower()))
+                res.append((k, m.group(1).lower(), v.get("portal_fmt", "https://app.amilia.com/store/en/%s/shop") % m.group(1).lower()))
         if v.get("host_re_c"):
             m = v["host_re_c"].match(h)
             if m and m.group(1).lower() not in v["excl"]:

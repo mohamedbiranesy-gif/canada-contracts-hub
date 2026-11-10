@@ -424,19 +424,25 @@ def graph(a):
     ok_t = {t for t, c in indeg.items() if c <= a.max_indegree or tid.get(t) in tech_t}  # no cap for the vetted portals: their in-links ARE customers
     print("links into targets: %d; targets linked: %d; targets with more than %d linking domains (platform-like, left out): %d — %s"
           % (sum(indeg.values()), len(indeg), a.max_indegree, len(indeg) - len(ok_t), ", ".join("%s %d" % (tid.get(t, t), c) for t, c in indeg.most_common(12))), flush=True)
-    src = collections.Counter()
+    src, src_tech = collections.Counter(), collections.defaultdict(set)
+    try:
+        vkey_of = CT.portal_domains()
+    except Exception:
+        vkey_of = {}
     for l in open(W("hits.txt")):
         q = l.split()
         if len(q) == 2 and q[1] in ok_t and q[0] not in tid:
             src[q[0]] += 1
-    src = {f: c for f, c in src.items() if c <= 5}  # a domain linking to many vendors is a directory, not a client
+            if tid.get(q[1]) in tech_t:
+                src_tech[q[0]].add(vkey_of.get(tid[q[1]], tid[q[1]]))
+    src = {f: c for f, c in src.items() if c <= 5 or f in src_tech}  # a domain linking to many vendors is a directory, not a client
     with open(W("fid.txt"), "w") as f:
         f.write("\n".join(src) + "\n")
     sh("%s %s | %s 'BEGIN{while((getline l < \"%s\") > 0) t[l]=1} ($1 in t){print $1\"\\t\"$2\"\\t\"$3}' > %s" % (unz, W("v.gz"), awk, W("fid.txt"), W("fv.txt")))
     n_in = 0
     with open("out/graph_inlinks.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["dom", "targets", "hosts"])
+        w.writerow(["dom", "targets", "hosts", "tech"])
         for l in open(W("fv.txt"), encoding="utf-8", errors="replace"):
             q = l.split()
             if len(q) < 2 or not re.fullmatch(r"[a-z0-9.-]+", q[1]) or q[1].count(".") > 3:
@@ -448,14 +454,15 @@ def graph(a):
                 hosts = 1
             if hosts > 30 or PLATFORM.search(d):
                 continue
-            w.writerow([d, src.get(q[0], 1), hosts])
+            w.writerow([d, src.get(q[0], 1), hosts, ",".join(sorted(src_tech.get(q[0], ())))])
             n_in += 1
-    print("graph %s: %d domains link to a vendor proven in Canada (1-5 such vendors each)" % (rel, n_in), flush=True)
+    print("graph %s: %d domains link to a vendor proven in Canada (1-5 such vendors each); %d of them link to a vetted customer portal: %s"
+          % (rel, n_in, len(src_tech), dict(collections.Counter(v for vs in src_tech.values() for v in vs))), flush=True)
 
 
 def merge_graph(a):
     os.makedirs(DIR, exist_ok=True)
-    for name, path, cols in (("graph_ca_domains.csv", GRAPH_CA, ["dom", "hosts"]), ("graph_inlinks.csv", GRAPH_IN, ["dom", "targets", "hosts"])):
+    for name, path, cols in (("graph_ca_domains.csv", GRAPH_CA, ["dom", "hosts"]), ("graph_inlinks.csv", GRAPH_IN, ["dom", "targets", "hosts", "tech"])):
         rows = {}
         if os.path.exists(path):
             with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
@@ -476,11 +483,17 @@ def merge_graph(a):
 
 # ------------------------------------------------------------------------------------------------------------------- scan
 def scan_queue(k, n, limit=0):
-    done = {l.split("\t")[0] for l in state_lines("done")}
+    done, done_t2 = set(), set()
+    for l in state_lines("done"):
+        q = l.split("\t")
+        done.add(q[0])
+        if "t2" in q[5:]:
+            done_t2.add(q[0])
     seen, tasks = set(), []
 
-    def add(host, pri, extra=0):
-        if not host or "." not in host or host in seen or host in done or PLATFORM.search(host) or not shard_ok(host, k, n):
+    def add(host, pri, extra=0, again=False):
+        """again: read once more a site read before 2026-11-10 04:20Z (vendor table without Jobber; done line without the "t2" mark)"""
+        if not host or "." not in host or host in seen or PLATFORM.search(host) or not shard_ok(host, k, n) or (host in done and not (again and host not in done_t2)):
             return
         seen.add(host)
         tasks.append((pri, -extra, host))
@@ -496,7 +509,7 @@ def scan_queue(k, n, limit=0):
     if os.path.exists(GRAPH_IN):  # 3. sites that link to a vendor proven in Canada (web graph): most footer credits are such links
         with gzip.open(GRAPH_IN, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
-                add(r["dom"], 3, int(r.get("targets") or 1))
+                add(r["dom"], 2 if r.get("tech") else 3, int(r.get("targets") or 1), again=bool(r.get("tech")))
     if os.path.exists(UNIVERSE):  # 4. every .ca site of the archive, the sites with the most captured pages first
         with gzip.open(UNIVERSE, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
@@ -585,14 +598,14 @@ def scan(a):
                 stats["with_credit"] += bool(rec["credits"])
                 stats["with_vetted_service"] += bool(rec["tech"])
                 fs.write(json.dumps(rec, ensure_ascii=False) + "\n")
-            fd.write("%s\t%s\t%s\t%d\t%d\n" % (dom, TODAY, res, len(rec["credits"]) if rec else 0, len(rec["tech"]) if rec else 0))
+            fd.write("%s\t%s\t%s\t%d\t%d\tt2\n" % (dom, TODAY, res, len(rec["credits"]) if rec else 0, len(rec["tech"]) if rec else 0))
             if stats["sites"] % 2000 == 0:
                 fs.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
 
     def on_timeout(t):
         with lock:
-            fd.write("%s\t%s\ttimeout\t0\t0\n" % (t["dom"], TODAY))
+            fd.write("%s\t%s\ttimeout\t0\t0\tt2\n" % (t["dom"], TODAY))
             stats["timeout"] += 1
     left = LC.run_pool(tasks, one, a, deadline, on_timeout)
     with lock:
@@ -806,12 +819,17 @@ def _append_state(prefix, stamp, lines):
 
 def merge(a):
     d, stamp = a.dir, a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
-    done_before = {l.split("\t")[0] for l in state_lines("done")}
+    done_before, t2_before = set(), set()
+    for l in state_lines("done"):
+        q = l.split("\t")
+        done_before.add(q[0])
+        if "t2" in q[5:]:
+            t2_before.add(q[0])
     new_done, st_count = {}, collections.Counter()
     for f in sorted(glob.glob(os.path.join(d, "credit_done_*.tsv"))):
         for l in open(f, encoding="utf-8"):
             q = l.rstrip("\n").split("\t")
-            if q and q[0] and q[0] not in done_before and len(q) >= 3:
+            if q and q[0] and len(q) >= 3 and (q[0] not in done_before or ("t2" in q[5:] and q[0] not in t2_before)):
                 new_done[q[0]] = l.rstrip("\n")
                 st_count[q[2].split(":")[0] if not q[2].startswith("http_") else "http_error"] += 1
     n_done = _append_state("done", stamp, [new_done[k] for k in sorted(new_done)])

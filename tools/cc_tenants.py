@@ -36,7 +36,10 @@ SHAPES = os.path.join(INC, "claude_cc_shopify_shapes.csv.gz")  # domains whose a
 CANDS = os.path.join(INC, "claude_tenant_candidates.csv.gz")
 TDONE = os.path.join(INC, "claude_cc_tenant_extract_done.tsv")
 CAND_COLS = ["cand_key", "vendor_key", "name", "website", "evidence_url", "capture", "name_basis", "website_basis", "slug", "extra"]
-SCOPE = {"shopify": ("CA", "US")}  # countries whose customers contract with the vendor's Canadian company; default: Canada only (until the vendor's terms are read)
+# countries whose customers contract with the vendor's Canadian company; default: Canada only (until the vendor's terms are read).
+# Jane and Jobber (terms read 2026-11-10, quoted in tools/tech_relationships.py VENDORS[...]["scope"]): one Canadian contracting entity for every
+# country — every country whose postal addresses tools/lead_crawl.py can read
+SCOPE = {"shopify": ("CA", "US"), "jane": ("CA", "US", "GB", "AU"), "jobber": ("CA", "US", "GB", "AU")}
 # registered domains of the vetted customer portals (from the vendor table) + the extra TLD forms its host patterns accept
 EXTRA = {"jane": ["janeapp.co.uk", "janeapp.com.au"], "absorb": ["myabsorb.com.au"], "d2l": ["desire2learn.com"]}
 
