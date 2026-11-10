@@ -1,0 +1,62 @@
+name: dns-diag
+# One measurement, no result kept: the answer mix of the sweep's questions through differently set resolvers (tools/dns_diag.py).
+on:
+  workflow_dispatch:
+    inputs:
+      place:
+        description: "place in the list to take the names from"
+        default: "30000000"
+permissions:
+  contents: read
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: pip install -q dnspython duckdb
+      - name: Names
+        run: |
+          sudo apt-get install -y -q unbound >/dev/null 2>&1 || true
+          sudo systemctl stop unbound 2>/dev/null || true
+          python3 tools/dns_diag.py slice --place "${{ inputs.place }}" --n 90000 --out /tmp/slice.txt
+      - name: Phases
+        run: |
+          base() {  # the sweep's resolver, with the lines given as arguments added
+            printf '%s\n' 'server:' '  interface: 127.0.0.1' '  port: 5353' '  access-control: 127.0.0.0/8 allow' '  do-ip6: no' '  num-threads: 4' \
+              '  msg-cache-size: 256m' '  rrset-cache-size: 512m' '  outgoing-range: 8192' '  num-queries-per-thread: 4096' '  so-rcvbuf: 4m' \
+              '  module-config: "iterator"' '  hide-identity: yes' '  hide-version: yes' '  verbosity: 0' '  extended-statistics: yes' "$@" \
+              'remote-control:' '  control-enable: yes' '  control-interface: 127.0.0.1' '  control-port: 8953' '  control-use-cert: no' | sudo tee /etc/unbound/unbound.conf >/dev/null
+          }
+          up() { sudo pkill -x unbound 2>/dev/null || true; sleep 2; sudo unbound-checkconf /etc/unbound/unbound.conf >/dev/null || true; sudo unbound -c /etc/unbound/unbound.conf; sleep 3; }
+          stats() { sudo unbound-control -c /etc/unbound/unbound.conf stats_noreset 2>/dev/null | grep -E "^total\.(num\.queries|num\.cachemiss|num\.recursivereplies|requestlist\.(avg|max|overwritten|exceeded|current\.all)|recursion\.time\.(avg|median))=|^num\.(answer\.rcode\.(NOERROR|SERVFAIL|NXDOMAIN)|query\.ratelimited)=|^mem\.|^unwanted" | tr '\n' ' '; echo; }
+          echo "--- 1. as the sweep runs today (300 questions a second allowed towards one zone), 250 names a second"
+          base '  ratelimit: 300'; up
+          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 0 --n 12000 --qps 250 --resolver 127.0.0.1:5353 --label "1. ratelimit 300, 250/s"; stats
+          echo "--- 2. no limit per zone, 250 names a second"
+          base; up
+          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 12000 --n 12000 --qps 250 --resolver 127.0.0.1:5353 --label "2. no ratelimit, 250/s"; stats
+          echo "--- 3. no limit per zone, 120 names a second"
+          base; up
+          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 24000 --n 8000 --qps 120 --resolver 127.0.0.1:5353 --label "3. no ratelimit, 120/s"; stats
+          echo "--- 4. no limit per zone, no query-name minimisation, larger tables, 250 names a second"
+          base '  qname-minimisation: no' '  infra-cache-numhosts: 200000' '  so-sndbuf: 4m' '  edns-buffer-size: 1232' '  jostle-timeout: 1000'; up
+          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 32000 --n 12000 --qps 250 --resolver 127.0.0.1:5353 --label "4. no ratelimit, no minimisation, 250/s"; stats
+          echo "--- 5. the runner's resolver passes every question to the public resolvers, 250 names a second"
+          base 'forward-zone:' '  name: "."' '  forward-addr: 1.1.1.1' '  forward-addr: 8.8.8.8' '  forward-addr: 9.9.9.9' '  forward-addr: 1.0.0.1' '  forward-addr: 8.8.4.4' '  forward-addr: 149.112.112.112'
+          # (the forward-zone lines must come after the server section and before remote-control: rewrite in that order)
+          sudo python3 - <<'PY'
+          p = "/etc/unbound/unbound.conf"
+          L = open(p).read().split("\n")
+          i, j = L.index("forward-zone:"), L.index("remote-control:")
+          fz, rc = L[i:j], L[j:]
+          open(p, "w").write("\n".join(L[:i] + [x for x in rc if x] + fz) + "\n")
+          PY
+          up
+          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 44000 --n 12000 --qps 250 --resolver 127.0.0.1:5353 --label "5. forwarded to public resolvers, 250/s"; stats
+          echo "--- 6. the public resolvers asked directly, 100 names a second"
+          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 56000 --n 6000 --qps 100 --label "6. public resolvers directly, 100/s"
+          echo "--- 7. no limit per zone, 250 names a second, 12 s for an answer"
+          base; up
+          python3 tools/dns_diag.py ask --names /tmp/slice.txt --skip 62000 --n 12000 --qps 250 --lifetime 12 --resolver 127.0.0.1:5353 --label "7. no ratelimit, 250/s, 12 s"; stats
