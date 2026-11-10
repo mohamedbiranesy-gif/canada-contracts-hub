@@ -572,3 +572,35 @@ service@, orders@, bookings@, team@, bonjour@ instead of info@. Those are kept (
 is never a role) only when the site publishes no invoicing, AP, purchasing, finance or general mailbox; they are written as `ap_email_type=general`
 with the note "front-office role mailbox … the site publishes no invoicing, AP, purchasing or general mailbox", so the downstream can tell them apart.
 The referee re-fetches the page as for every other mailbox. Sites that gave "nothing found" under the first rule are read once more.
+
+## 2026-11-10 05:30Z — owner 2026-11-09 23:41 EST: "one million … think differently … established online, your interpretation" → five method decisions (claude)
+**1. Tier R — the registration of an organisation's own .ca domain name is a recorded relationship (rank.py, package P10R).** Opened and quoted:
+CIRA's Registrant Agreement v2.2 (https://stg-saas.cira.ca/uploads/2023/06/Registrant-Agreement-Version-2.2_0.pdf): "This agreement … is between you
+(the "Registrant") and the Canadian Internet Registration Authority ("CIRA")"; ""Fees" means the fees payable to CIRA in connection with this Agreement,
+including an application for a Domain Name and/or any renewal"; notice address 979 Bank Street, Suite 400, Ottawa K1S 5K5. And CIRA's Canadian Presence
+Requirements For Registrars v1.1 (https://stg.cira.ca/uploads/2023/05/cprregistrar_-_en.pdf): only Canadian citizens / residents, corporations "under the
+laws of Canada or any province … which has a place of business in Canada", Canadian partnerships, schools and governments may be registrars. So every
+live .ca name is a service paid for through a Canadian registrar under an agreement with a Canadian registry. The domain is proven live by the referee
+(it re-fetched the mailbox page on that very domain). Rules: weakest lead class (any named-vendor relationship of the organisation claims the row
+first); it replaces the INFERRED relationship (P13: no record) for organisations on a .ca domain; names under a government's shared domain (gc.ca,
+gov.xx.ca, canada.ca) and shared mail hosts are excluded; the status says the registrant of record was not read (normally the organisation, sometimes
+its web agency). Always reported as its own tier, never mixed into the named-vendor counts.
+**2. CIRA's WHOIS / RDAP is not queried in bulk.** It would give the registrar's name, the registration and expiry dates and (for organisations) the
+registrant's legal name — but registry lookup services commonly forbid high-volume automated queries, CIRA's terms page refused our reader, and a
+million lookups is high volume by any reading. Treated like the CRA registry: not automated. (A lane with a browser may read single records.)
+**3. DNS records as relationship evidence (tools/dns_services.py, tier T).** MX = who receives the organisation's mail today; NS = who serves its zone
+today; SPF include = whose servers it authorises to send its mail (counts alone only when it is the single outside sender of the record — otherwise it
+may be a leftover — or when MX / NS name the same provider). The provider must be proven in Canada the same way as a credited web agency (its own
+site prints a Canadian address, on its own pages), named by 8+ unrelated domains, describe a hosting / mail / IT / software service, and have no free
+plan. Technical domains count only with the provider's own public statement (web-dns1.com, wpdns.ca, mywhc.ca: WHC's help page, quoted). Wholesale
+platforms sold through resellers (Tucows hosted e-mail) are left out: the organisation pays the reseller. Each lead carries the note that an agency
+managing the account may be the provider's direct customer.
+**4. DNS lookups are not page requests.** AGENTS.md §2.9 (2 requests/s per host) protects the web servers of the organisations we read. DNS lookups
+never touch them. They run through a recursive resolver started on the runner (the public resolvers throttled a 3,000-domain test: 45 % timed out),
+capped at 480 queries/s per runner and 300 queries/s towards any one zone (unbound `ratelimit`).
+**5. Credit lane, after reading the first 25,510 leads (sample of 45: 43 right):** a "powered by" platform with a free plan is out (Webador: Dutch,
+free plan, 438 leads; its "Canadian address" was a customer's subdomain); the page proving a vendor's address must be on the vendor's own hosts, or on
+the domain its address redirects to when that is a rename (shared name, or the new site names the old one); a vendor that also prints addresses
+abroad is kept only for buyers shown to be in Canada (.ca / .quebec domain or a Canadian postal address on their own home page) — a Minnesota city
+crediting Catalis deals with the US company; a university's own web service credited by its units is internal. 1,141 leads withdrawn.
+Cloudflare-obfuscated e-mail addresses stay undecoded (the referee's rule): that obfuscation exists to keep readers like ours out.

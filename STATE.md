@@ -97,6 +97,32 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
 
+## 2026-11-10 05:35Z — target is now 1,000,000 rows (owner 23:41 EST); build 04:44Z = 68,910 rows; three new pathways live (DNS, .ca registration, scan facts)
+- **Build 42755132469 (04:44Z): rows 68,910 (+5,269 vs baseline)**; pay on sight 874 / 1,152 / 36,280 routed; tiers D 9,902 · E 3,040 · I 48,968 · M 189 ·
+  T 3,089; the first 71 credit rows delivered with the right text and the vendor's printed address.
+- **Credit scan, first full cycle (run 42753586829, 30 minutes of 8 runners): 434,116 home pages read** (ok 363,809 · blocked 26,313 · unreachable 25,166 ·
+  robots 11,909); 73,778 carry a credit line or a vetted service; 26,112 credited vendors checked live → **CA 6,977 · CA-loc 2,307** · no address 10,946;
+  **25,510 credit leads** (W 14,752 · D 5,690 · P 5,068) and 17,909 vetted-service candidates (Shopify 12,904, Jane 4,465 …).
+- **Precision pass on those leads** (top 100 vendors read, random 45: 43 right): Webador (Dutch, free plan; its "address" was a customer's subdomain),
+  Ratehub's free widget, DirectAdmin, vendors proven on somebody else's page, foreign companies with a Canadian branch credited by buyers abroad,
+  universities' internal web services → **1,141 leads withdrawn**; "Board of Trade" was rejected by the membership rule; names were cut at an apostrophe
+  (`Uncle Bob's` → `Uncle Bob`: tools/tech_relationships.py page_meta). Vendor check rule 3 and scan detector 4 (DECISIONS 05:30Z).
+- **NEW — DNS lane** (`tools/dns_services.py`, `dns-services.yml`, daily 02:23Z): the buyer's own MX / NS / SPF records name its mail host, DNS host, web
+  host. From the records already on file: **1,321 leads** (Web Hosting Canada 1,009 · Webnames 152 · Doteasy 47 · Vianet 27 · BlackSun 16 …). Cloud
+  lookup of 1.3 M domains: run 42761831500 (06 runners; this first run still uses public resolvers at 60 queries/s — the unbound step applies from the
+  next run). 451 provider domains named by 8+ buyers are queued for the live location check (credit-scan `vendors` step).
+- **NEW — tier R, package P10R** (rank.py / batches.py): the registration of the organisation's own .ca domain name — agreement with CIRA, paid through a
+  CIRA-certified (Canadian) registrar; both CIRA documents quoted. Replaces the INFERRED relationship (P13) for organisations on a .ca domain; new
+  buyers come from `lead_crawl.py --registry 6000` (.ca sites whose home page prints a role mailbox). Rank build 42761927713 validates it.
+  **Report it separately, always**: R is recorded and certain but generic (one vendor: CIRA); the named-vendor tiers are the stronger product.
+- **NEW — scan facts**: every done line of the scan now says `em=<kind>` (the home page prints a role mailbox of the organisation) and `cc=<country>`;
+  the mailbox crawl reads the `em` sites first. Credit-scan cycle 42761724176 (05:22Z) is the first with detector 4.
+- Tenant factory with rule p2 (store policy pages read first): **2,389 Shopify stores accepted in one run** (was 267 in all runs before); 55,015 buyers
+  hold a cloud mailbox row.
+- CIRA's WHOIS / RDAP is NOT automated (DECISIONS 05:30Z §2). Cloudflare-obfuscated addresses stay undecoded.
+- Next (PLAN §4e): #16 stores on Shopify's addresses (flagged by the DNS lookups) · #17 paid job ads (schema.org JobPosting, boards with a rate card) ·
+  #18 exhibitors of Canadian shows · referee throughput (≈ 50 rows/min today: the limiting step for a million rows).
+
 ## 2026-11-10 04:40Z — web graph read: 53,124 sites link to a vetted customer portal, 216,481 link to a proven Canadian vendor, 1,045,795 .ca domains
 - `credit_scan.py graph` (run 42753844151, 12 minutes on one runner; release cc-main-2026-aug-sep-oct): **216,481 domains link to a vendor proven in
   Canada**; **53,124 of them link to a vetted customer portal** — Jane 26,323 · Jobber 9,212 · BiblioCommons 7,381 · eScribe 2,268 · Benevity 2,267 ·
