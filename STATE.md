@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 02:15Z — four cloud engines live: row factory, tenant factory, site facts, referee; 1,119 new buyers verified)
+# STATE.md — Claude lane (updated 2026-11-10 03:00Z — rows moved: 64,539 (+898); six cloud engines live; 35,500 lead sites queued for the mailbox crawl)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,20 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 03:00Z — ROWS MOVED (+898 in the first cloud build); six engines running; what was fixed and what is queued
+- Build 01:55Z (GROWTH_VS_BASELINE): rows 63,641 → **64,539 (+898)**. Side effects found and fixed in rank.py (next build): 451 tier-I rows became
+  client-listing rows and lost the facts held under their organisation key (legal names −122, routed pay-on-sight −172) → lead rows now take the
+  organisation's own key (local run: 3,839 rows joined, 639 addresses, 1,323 names); first-key lookups read every key.
+- Row factory: dealer / sponsor pages read → cc leads 9,664 → **16,253**; member pages indexed (15,099) and being read; ADDRESS PASS added to the
+  cycle (11,617 vendor domains whose client page printed no address; 18,733 buyer domains wait on it); six-crawl index dispatched (02:52Z).
+- THE BIG POOL nobody was reading: 33,600 Mac-era leads with a website and no mailbox row. The cloud crawl takes them after the cloud leads.
+- Tenant factory first full cycle: 2,282 candidates → 177 accepted (150 Shopify / 26 Amilia / 1 Jane), 636 refused the reader, 292 no address,
+  70 outside the vendor's scope. eScribe and Absorb portals are absent from the archive (index read completely, no pages).
+- Crawl hygiene: per-site time budget (420 s) — a first-version shard hung 60 min on slow sites; new concurrency group `row-factory-b-*`.
+- Local full rank builds no longer fit this container's memory (7 GB): test rank changes with `python3 -c "import ast…"` + the cloud build.
+- NEXT (in order): read the address-pass / member / Mac-leads yields; dispatch a rank build after the referee lands them; PLAN §4e #5 (.com
+  universe), #10 (tenant / advertiser classes), #7 (site finders in the cloud), #6 (Shopify scale, bounded), #14 (vendor legal names).
 
 ## 2026-11-10 02:15Z — referee verified the first 1,119 new buyers; three more engines launched (owner 20:42 / 20:48 EST: "do that … no maximum")
 - Referee (01:23Z run): 1,216 of 1,230 cloud mailbox rows verified → **1,119 new buyers verified**. Rank build dispatched 01:55Z to deliver them.
