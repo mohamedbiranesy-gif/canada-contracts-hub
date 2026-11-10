@@ -537,6 +537,51 @@ def merge(a):
             have.add(row["buyer_key"])
             rows.append(row); dets.append(det); by["licence number on a site already read"] += 1
         msg.append("sites already read that print a licence number of the list: %d (holder not tied to the site: %d)" % (n_seen, n_untied))
+    # third way (2026-11-10): 28,000 holders give the register a webmail address and 4,500 none, so their own site cannot be read off the register.
+    # An organisation we already hold (a delivered row, or a site the crawl read) whose OWN site prints the holder's postal code or telephone, and
+    # whose name agrees with the holder's legal or other name by the strict rule of the business licences, is that holder. Several holders fitting
+    # one organisation tie nobody.
+    try:
+        n3 = collections.Counter()
+        by_pc, by_ph = collections.defaultdict(list), collections.defaultdict(list)
+        for h in H.values():
+            _pc = re.sub(r"\s", "", h.get("postal") or "").upper()
+            if len(_pc) == 6:
+                by_pc[_pc].append(h)
+            if len(h.get("phone") or "") == 10:
+                by_ph[h["phone"]].append(h)
+        for host, O in BL.org_universe().items():
+            if not O["names"]:
+                continue
+            m = BL.PC.search((O["addr"] or "").upper())
+            _pc = (m.group(1) + m.group(2)) if m else ""
+            cands = {}
+            for h in by_pc.get(_pc, []) if _pc else []:
+                cands[h["licence"]] = (h, "postal code %s %s" % (_pc[:3], _pc[3:]))
+            for h in by_ph.get(O["phone"], []) if len(O["phone"]) == 10 else []:
+                cands[h["licence"]] = (h, (cands[h["licence"]][1] + " and telephone number") if h["licence"] in cands else "telephone number")
+            if not cands:
+                continue
+            n3["organisations with a holder at their postal code / telephone"] += 1
+            hits = [(h, how) for h, how in cands.values()
+                    if BL.lic_agrees(O["names"], {"name": h["name"], "trade": " | ".join(t.strip() for t in re.split(r"\s*[;|]\s*", h.get("other_names") or "") if t.strip())})]
+            if not hits:
+                continue
+            if len({keyname(h["name"]) for h, _ in hits}) > 1:
+                n3["several holders fit one organisation (dropped)"] += 1
+                continue
+            h, how = sorted(hits, key=lambda x: x[0].get("next_payment") or "", reverse=True)[0]
+            row, det = lead_of(h, dict(by="the organisation's own site prints the holder's %s and its name agrees with the register's (%s ~ %s)" % (how, O["names"][0][:60], h["name"][:60]),
+                                       url=O.get("addr_url") or "https://%s/" % host, quote=(O["addr"] or "")[:300]), "https://%s/" % host)
+            if row["buyer_key"] in have:
+                n3["already a lead"] += 1
+                continue
+            have.add(row["buyer_key"])
+            rows.append(row); dets.append(det); by["postal code / telephone + name"] += 1
+            n3["tied (row tier %s)" % (O["tier"] or "not delivered yet")] += 1
+        msg.append("holders tied to an organisation we hold by postal code / telephone + name: %s" % dict(sorted(n3.items())))
+    except Exception as e:
+        msg.append("postal code / telephone join skipped: %s: %s" % (type(e).__name__, str(e)[:160]))
     if rows:
         with gzip.open(os.path.join(SHARDS, "leads_rbq_%s.gz" % stamp), "wt", encoding="utf-8", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=LEAD_COLS)

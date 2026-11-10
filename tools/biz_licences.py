@@ -327,6 +327,27 @@ def street_key(addr):
     return (house, w) if w and w not in STREET_TYPE and w not in PARTICLES else None
 
 
+def org_universe():
+    """the organisations we hold that print an address or a telephone of their own: {host: names, addr, addr_url, phone, tier, mail} — the delivered
+    rows (name, legal name, address, telephone, site), then the site facts of leads not delivered yet (tools/lead_crawl.py)"""
+    import ranked_io
+    orgs = {}
+    for r in ranked_io.rows():
+        host = (urllib.parse.urlparse(r.get("buyer_website") or "").hostname or "").lower()
+        if not host or not (r.get("buyer_address") or r.get("buyer_phone")):
+            continue
+        names = [n for n in (r.get("buyer") or "", (r.get("buyer_legal_name_as_published") or "").split(" (")[0], (r.get("buyer_trade_name_as_published") or "").split(" (")[0]) if n and "." not in n[-5:]]
+        _u = re.search(r"\(as printed on (https?://[^\s,)]+)", r.get("buyer_address") or "")
+        orgs[host] = dict(names=names, addr=(r.get("buyer_address") or "").split(" (as printed")[0], addr_url=_u.group(1) if _u else "",
+                          phone=re.sub(r"\D", "", (r.get("buyer_phone") or "").split(" (")[0])[-10:], tier=r.get("tier") or "", mail=bool((r.get("email") or "").strip()))
+    import lead_crawl as LCF
+    for o in LCF.facts_records():  # the single facts file of before 2026-11-10 and the shards of site_facts/
+        host = (urllib.parse.urlparse(o.get("site") or "").hostname or "").lower()
+        if host and host not in orgs and o.get("site_name") and o.get("address_quote"):
+            orgs[host] = dict(names=[o["site_name"]], addr=o.get("address") or o["address_quote"], addr_url=o.get("address_url") or "", phone="", tier="", mail=False)
+    return orgs
+
+
 def match(a):
     import ranked_io
     os.makedirs("out", exist_ok=True)
@@ -343,21 +364,7 @@ def match(a):
                 sk = street_key(r["address"])
                 if sk and r["city"]:
                     by_st[(norm(r["city"]),) + sk].append(r)
-    # organisations: the delivered rows (name, legal name, address, telephone, site), then the site facts of leads not delivered yet
-    orgs = {}
-    for r in ranked_io.rows():
-        host = (urllib.parse.urlparse(r.get("buyer_website") or "").hostname or "").lower()
-        if not host or not (r.get("buyer_address") or r.get("buyer_phone")):
-            continue
-        names = [n for n in (r.get("buyer") or "", (r.get("buyer_legal_name_as_published") or "").split(" (")[0], (r.get("buyer_trade_name_as_published") or "").split(" (")[0]) if n and "." not in n[-5:]]
-        orgs[host] = dict(names=names, addr=(r.get("buyer_address") or "").split(" (as printed")[0], phone=re.sub(r"\D", "", (r.get("buyer_phone") or "").split(" (")[0])[-10:], tier=r.get("tier") or "",
-                          mail=bool((r.get("email") or "").strip()))
-    import lead_crawl as LCF
-    if True:
-        for o in LCF.facts_records():  # the single facts file of before 2026-11-10 and the shards of site_facts/
-            host = (urllib.parse.urlparse(o.get("site") or "").hostname or "").lower()
-            if host and host not in orgs and o.get("site_name") and o.get("address_quote"):
-                orgs[host] = dict(names=[o["site_name"]], addr=o.get("address") or o["address_quote"], phone="", tier="", mail=False)
+    orgs = org_universe()
     all_cities = {c for S in SOURCES.values() for c in S["cities"]}
     out, stats = [], collections.Counter()
     for host, O in orgs.items():
