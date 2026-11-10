@@ -715,7 +715,7 @@ def merge_graph(a):
 # 1: credit lines + the vendor table of 2026-11-02; 2 ("t2"): + Jobber; 3 ("t3"): + membership statements (class M);
 # 4 ("t4"): + two facts about every readable home page, kept on its done line: em=<kind> when the page itself prints a role mailbox of the
 #    organisation (the mailbox crawl reads those sites first: near-certain rows), cc=<CA|US|GB|AU> the country of the postal address it prints
-DETECTOR = 5  # 5 (2026-11-10): the home page's outside links, embedded services, own name facts (site name, copyright-line name, legalName, postal code) and "sponsors / clients / members" sections are kept (links_*.gz, sections_*.gz); the plain-http copy is asked when https does not answer
+DETECTOR = 5  # 5 (2026-11-10): the home page's outside links and embedded services (per host), own name facts (site name, copyright-line name, legalName, postal code), "sponsors / clients / members" sections, the register numbers it prints (RBQ, charity, TICO, ECRA/ESA, FSRA …) and the affiliations it states are kept (links_*.gz, sections_*.gz); the plain-http copy is asked when https does not answer
 MARK = "t%d" % DETECTOR
 
 
@@ -792,21 +792,32 @@ def _multi_tenant_doms():
     return _MT_DOMS
 
 
-def site_links(raw, final, site_dom, T, cap=25):
-    """(embedded, linked): the outside registrable domains a home page loads (script / iframe / form targets) and links to (<a href>), common
-    networks left out. A link into a multi-tenant platform keeps its full host (clinic.janeapp.com), a link into a watched service its path
-    start too (bbb.org/ca/ab/calgary/profile/…): that is where the site's own account is named."""
-    mt = _multi_tenant_doms()
-    emb, lnk = set(), {}
+def _link_key(h, path, d):
+    """how one outside address is kept: host + start of the path for a watched service (the path names the account), otherwise the host as
+    written without "www." (clinic.janeapp.com, careers.example.org: a host of its own is where a customer's account or a unit lives)"""
+    h = h[4:] if h.startswith("www.") else h
+    if LINK_PATH.search(d):
+        return h + re.sub(r"[\s\t]+", "", (path or "/"))[:70]
+    return h
+
+
+def site_links(raw, final, site_dom, T, cap=40):
+    """(embedded, linked): the outside addresses a home page loads (script / iframe / form targets) and links to (<a href>), common networks
+    left out. Kept per host (clinic.janeapp.com); a link into a watched service keeps the start of its path too
+    (bbb.org/ca/ab/calgary/profile/…): that is where the site's own account is named."""
+    emb, lnk = {}, {}
     for rx in (T.SRC_RE, T.FORM_RE):
         for x in rx.findall(raw)[:400]:
             try:
-                h = (urllib.parse.urlparse(urllib.parse.urljoin(final, html.unescape(x).strip())).hostname or "").lower()
+                p = urllib.parse.urlparse(urllib.parse.urljoin(final, html.unescape(x).strip()))
+                h = (p.hostname or "").lower()
             except ValueError:
                 continue
             d = C.registrable(h) if h and "." in h else ""
-            if d and d != site_dom and not LINK_STOP.search(d) and re.fullmatch(r"[a-z0-9.-]{4,60}", d):
-                emb.add(d)
+            if d and d != site_dom and not LINK_STOP.search(d) and re.fullmatch(r"[a-z0-9.-]{4,80}", h):
+                emb.setdefault(_link_key(h, p.path, d), 1)
+                if len(emb) >= cap:
+                    break
     for a_ in T.anchors_of(raw, final)[:1500]:
         try:
             p = urllib.parse.urlparse(a_[0])
@@ -818,16 +829,131 @@ def site_links(raw, final, site_dom, T, cap=25):
         d = C.registrable(h)
         if not d or d == site_dom or LINK_STOP.search(d) or not re.fullmatch(r"[a-z0-9.-]{4,80}", h):
             continue
-        if LINK_PATH.search(d):
-            key = (h[4:] if h.startswith("www.") else h) + re.sub(r"[\s\t]+", "", (p.path or "/"))[:70]
-        elif d in mt:
-            key = h[4:] if h.startswith("www.") else h
-        else:
-            key = d
-        lnk.setdefault(key, 1)
+        lnk.setdefault(_link_key(h, p.path, d), 1)
         if len(lnk) >= cap:
             break
-    return sorted(emb)[:cap], sorted(lnk)
+    return sorted(emb), sorted(lnk)
+
+
+# ---- what a home page states about itself: register numbers and affiliations (detector 5) -------------------------------------------
+# A licence holder must print its number (Québec contractors: RBQ; Ontario travel agencies: TICO; Ontario electrical contractors: ECRA/ESA;
+# mortgage brokerages: FSRA; Québec travel agents: the permit of the Office de la protection du consommateur), a charity prints its
+# registration number for receipts. The number ties the site to the register's own entry exactly — no name matching. Kept as printed.
+_NUM = (
+    ("charity", re.compile(r"(?<![\d-])(\d{5})[\s\u00a0-]?(\d{4})[\s\u00a0-]?RR[\s\u00a0-]?(\d{4})(?!\d)", re.I)),
+    ("gst", re.compile(r"(?<![\d-])(\d{5})[\s\u00a0-]?(\d{4})[\s\u00a0-]?RT[\s\u00a0-]?(\d{4})(?!\d)", re.I)),
+    ("neq", re.compile(r"\bN\.?E\.?Q\.?(?![A-Za-z])[\s:#.]*(?:n[o°]\.?\s*)?((?:11|22|33|88)\d{8})(?!\d)", re.I)),
+    ("rbq", re.compile(r"\bR\.?B\.?Q\.?(?![A-Za-z])[^0-9]{0,25}(\d{4})[\s\u00a0-]?(\d{4})[\s\u00a0-]?(\d{2})(?!\d)", re.I)),
+    ("tico", re.compile(r"\bTICO\b[^0-9]{0,30}(\d{7,8})(?!\d)", re.I)),
+    ("esa", re.compile(r"\b(?:ECRA\s*/\s*ESA|ESA\s*/\s*ECRA|ECRA|ESA)\b[^0-9]{0,25}(7\d{6})(?!\d)")),
+    ("fsra", re.compile(r"\b(?:FSRA|FSCO)\b[^0-9]{0,30}(\d{5})(?!\d)")),
+    ("opc", re.compile(r"(?:permis du Qu[ée]bec|Qu[ée]bec (?:permit|licen[cs]e)(?: holder)?)[^0-9]{0,25}(\d{6})(?!\d)", re.I)),
+    ("cpbc", re.compile(r"(?:Consumer Protection B\.?C\.?|\bCPBC)\b[^0-9]{0,40}(\d{4,6})(?!\d)", re.I)),
+    ("dealer", re.compile(r"\b(?:Dealer|DL|D)\s?(?:Lic(?:en[cs]e)?\.?\s?|No\.?\s?|Number\s?)?#\s?:?\s?(D?\d{4,5})(?![\d-])")),
+)
+# what the site says of itself, in its own words: "Proud member of …", "Accredited by …", "Authorized dealer of …", "independently owned and
+# operated" (a franchise). Kept with the outside address the words link to, when they are a link. No lead is made from them here.
+_CAP = r"[A-ZÀ-Ý][\w'’&.-]+"
+_STATED = (
+    ("member", re.compile(r"\b(?i:members?|membres?)\s+(?i:of|de|du|des|de\s+la|de\s+l['’])\s*(?i:the\s+)?" + _CAP)),
+    ("accredited", re.compile(r"\b(?i:accredited|accr[ée]dit[ée]e?s?|certified|certifi[ée]e?s?|licen[cs]ed|agr[ée][ée]e?s?)\s+(?i:by|with|par|aupr[eè]s\s+d[eu])\s+(?i:the\s+|l[ae]\s+|l['’])?" + _CAP)),
+    ("dealer", re.compile(r"\b(?i:authori[sz]ed|official|exclusive)\s+(?:" + _CAP + r"\s+){1,3}(?i:dealer|distributor|retailer|reseller|installer|applicator|service\s+(?:centre|center))s?\b|"
+                          r"\b(?i:authori[sz]ed|official|exclusive)\s+(?i:dealer|distributor|retailer|reseller|installer|applicator|service\s+(?:centre|center))s?\s+(?i:of|for)\s+(?i:the\s+)?" + _CAP + "|"
+                          r"\b(?i:d[ée]positaire|d[ée]taillant|distributeur|concessionnaire|installateur|revendeur|marchand)s?\s+(?i:autoris[ée]s?|agr[ée][ée]s?|officiels?|exclusifs?)\s+(?i:de|des|du|d['’])\s*"
+                          r"(?i:la\s+|les\s+)?" + _CAP)),
+    ("franchise", re.compile(r"(?i:independently\s+owned\s+and\s+operated|d[ée]tenue?s?\s+et\s+exploit[ée]e?s?\s+de\s+fa[cç]on\s+ind[ée]pendante|\ba\s+franchise\s+of\b|\bfranchis[ée]e?s?\s+(?:of|de|du)\s)")),
+)
+_STATED_NOT = re.compile(r"\b(?:become|devenir|devenez|join|login|log in|sign in|connexion|portal|portail|only|seulement|benefits?|avantages?|directory|r[ée]pertoire|our members|nos membres|"
+                         r"team|[ée]quipe|staff|board|conseil|parliament|parlement|legislat\w*|council|congress|family|famille|community|communaut[ée]|public|church|[ée]glise|band|groupe|"
+                         r"not affiliated|n['’]est pas affili)\b", re.I)
+# a line such as "Members of:" / "Proud member of" / "Affiliations" / "Accreditations" standing alone above a row of badges
+_BLOCK = re.compile(r"(?i)>\s*((?:we\s+are\s+)?(?:proud(?:ly)?\s+)?members?\s+of|(?:our\s+)?(?:affiliations|accreditations)|(?:nous\s+sommes\s+)?(?:fiers?\s+)?membres?\s+(?:de|du|des)|"
+                    r"nos\s+(?:affiliations|accr[ée]ditations))\s*:?\s*<")
+_A_LABEL = re.compile(r"(?is)<a\b([^>]*)>(.*?)</a>")
+T_HREF = re.compile(r"""(?is)\bhref\s*=\s*["']([^"'>]+)["']""")
+_ALT = re.compile(r"""(?is)\b(?:alt|title|aria-label)\s*=\s*["']([^"']{6,160})["']""")
+
+
+def site_numbers(text):
+    """["rbq:1234567801", "charity:123456789RR0001", …] — the register numbers a page prints, digits as printed (separators removed)"""
+    out = []
+    for kind, rx in _NUM:
+        for m in rx.finditer(text):
+            v = kind + ":" + "".join(m.groups())
+            if kind in ("charity", "gst"):
+                v = "%s:%s%s%s%s" % (kind, m.group(1), m.group(2), "RR" if kind == "charity" else "RT", m.group(3))
+            if v not in out:
+                out.append(v)
+            if len([x for x in out if x.startswith(kind + ":")]) >= 3:
+                break
+    return out[:8]
+
+
+def site_stated(raw, final, site_dom, text, cap=6):
+    """[[class, the words, the outside address they link to or ""] …] — affiliations a home page states: links whose own label says it
+    (text, or the alt text of the badge), then sentences of the page."""
+    out, seen = [], set()
+    for m in _A_LABEL.finditer(raw[:1_500_000]):
+        attrs, inner = m.group(1), m.group(2)
+        hm = T_HREF.search(attrs)
+        if not hm:
+            continue
+        label = re.sub(r"\s+", " ", html.unescape(re.sub(r"(?s)<[^>]+>", " ", inner))).strip()
+        alts = " ".join(html.unescape(x) for x in _ALT.findall(attrs + " " + inner))
+        words = (label + " " + alts).strip()
+        if len(words) < 8:
+            continue
+        cls = next((c for c, rx in _STATED if rx.search(words)), "")
+        if not cls or _STATED_NOT.search(words):
+            continue
+        try:
+            h = (urllib.parse.urlparse(urllib.parse.urljoin(final, html.unescape(hm.group(1)).strip())).hostname or "").lower()
+        except ValueError:
+            continue
+        d = C.registrable(h) if h and "." in h else ""
+        if not d or d == site_dom or LINK_STOP.search(d):
+            continue
+        h = h[4:] if h.startswith("www.") else h
+        if (cls, h) not in seen:
+            seen.add((cls, h))
+            out.append([cls, re.sub(r"[\t\r\n]+", " ", words)[:160], h])
+        if len(out) >= cap:
+            return out
+    for m in _BLOCK.finditer(raw[:1_500_000]):  # the badges under a line "Members of:"
+        seg = raw[m.end() - 1:m.end() + 5000]
+        ft = re.search(r"(?i)<footer\b|<h[1-6]\b", seg[1:])
+        if ft:
+            seg = seg[:ft.start() + 1]
+        for href, label in CCL.anchors(seg, final):
+            try:
+                h = (urllib.parse.urlparse(href).hostname or "").lower()
+            except ValueError:
+                continue
+            d = C.registrable(h) if h and "." in h else ""
+            if not d or d == site_dom or LINK_STOP.search(d) or CCL.SKIP.search(h) or CCL.PLATFORMS.search(h):
+                continue
+            h = h[4:] if h.startswith("www.") else h
+            if ("member", h) not in seen and ("affil", h) not in seen:
+                seen.add(("affil", h))
+                out.append(["affil", (re.sub(r"\s+", " ", m.group(1)).strip() + ": " + re.sub(r"[\t\r\n]+", " ", label or "").strip())[:160], h])
+            if len(out) >= cap + 4:
+                return out
+    for cls, rx in _STATED:
+        for m in rx.finditer(text):
+            a0 = max(text.rfind(". ", 0, m.start()) + 2, text.rfind(" | ", 0, m.start()) + 3, m.start() - 90, 0)
+            snip = text[a0:m.end() + 110]
+            cut = re.search(r"[.!?|•]\s", snip[m.end() - a0:])
+            if cut:
+                snip = snip[:m.end() - a0 + cut.start() + 1]
+            snip = snip.strip()
+            if _STATED_NOT.search(snip) or any(snip[:60] in o[1] or o[1][:60] in snip for o in out if o[0] == cls):
+                continue
+            out.append([cls, snip[:200], ""])
+            if len(out) >= cap or len([o for o in out if o[0] == cls and not o[2]]) >= 2:
+                break
+        if len(out) >= cap:
+            break
+    return out
 
 
 _SEC = {
@@ -991,7 +1117,7 @@ def scan(a):
     fs = open("out/credit_seen_%d.jsonl" % k, "a", encoding="utf-8")
     fd = open("out/credit_done_%d.tsv" % k, "a", encoding="utf-8")
     flk = open("out/site_links_%d.tsv" % k, "a", encoding="utf-8")       # detector 5: what each home page loads and links to
-    fsec = open("out/site_sections_%d.jsonl" % k, "a", encoding="utf-8")  # detector 5: its "sponsors / clients / members" sections
+    fsec = open("out/site_sections_%d.jsonl" % k, "a", encoding="utf-8")  # detector 5: its "sponsors / clients / members" sections ("s"), printed register numbers ("n"), stated affiliations ("st")
     assets_of = lambda b: " ".join(T.SRC_RE.findall(b) + T.LINKTAG_RE.findall(b) + T.INLINE_RE.findall(b)[:40])
     # which outside services do these sites load or post to? (script / iframe / form targets, counted per registrable domain) — the frequency
     # table shows which Canada-based platforms are worth vetting for the vendor table of tools/tech_relationships.py
@@ -1043,7 +1169,7 @@ def scan(a):
         except Exception as e:
             res, final, raw = "error:" + type(e).__name__, "", ""
         rec, em, cc = None, "", ""
-        via, lk_line, sec_line = "", "", ""
+        via, lk_line, sec_line, sec_kinds = "", "", "", (False, False, False)
         if res == "ok":
             try:
                 fhost = host_of(final) or dom
@@ -1082,8 +1208,19 @@ def scan(a):
                         if e_l or l_l or nf.strip("|"):
                             lk_line = "%s\t%s\t%s\t%s\n" % (dom, " ".join(e_l), " ".join(l_l), nf)
                         secs = home_sections(raw, final, C.registrable(fhost), {C.registrable(c_["vh"]) for c_ in credits} | {c_["v"] for c_ in credits})
-                        if secs:
-                            sec_line = json.dumps({"dom": dom, "page": final, "date": TODAY, "name": name, "cc": cc, "addr": addr, "s": secs}, ensure_ascii=False) + "\n"
+                        vis = C.visible(raw[:1_500_000])
+                        nums = site_numbers(vis)
+                        said = site_stated(raw, final, C.registrable(fhost), vis)
+                        if secs or nums or said:
+                            o_ = {"dom": dom, "page": final, "date": TODAY, "name": name, "cc": cc, "addr": addr}
+                            if secs:
+                                o_["s"] = secs
+                            if nums:
+                                o_["n"] = nums
+                            if said:
+                                o_["st"] = said
+                            sec_line = json.dumps(o_, ensure_ascii=False) + "\n"
+                            sec_kinds = (bool(secs), bool(nums), bool(said))
                     except Exception:
                         pass
                 if credits or tech:
@@ -1103,7 +1240,9 @@ def scan(a):
                 flk.write(lk_line)
             if sec_line:
                 fsec.write(sec_line)
-                stats["with_a_sponsors_clients_members_section"] += 1
+                stats["with_a_sponsors_clients_members_section"] += sec_kinds[0]
+                stats["prints_a_register_number"] += sec_kinds[1]
+                stats["states_an_affiliation"] += sec_kinds[2]
             stats["home_page_prints_role_mailbox"] += bool(em)
             if stats["sites"] % 2000 == 0:
                 fs.flush(); fd.flush()
@@ -1432,7 +1571,10 @@ def merge(a):
     if n_done or n_seen:
         print("credit scan: %d sites read this run (%s); %d with a credit or a vetted service" % (n_done, ", ".join("%s %d" % kv for kv in st_count.most_common(8)), n_seen))
     if n_lk or n_sec:
-        print("home pages whose outside links / embedded services were kept: %d; with a sponsors / clients / members section: %d" % (n_lk, n_sec))
+        n_num = sum('"n": [' in v for v in new_sec.values())
+        n_st = sum('"st": [' in v for v in new_sec.values())
+        print("home pages whose outside links / embedded services were kept: %d; with a sponsors / clients / members section, a printed register number or a stated affiliation: %d "
+              "(register number %d, stated affiliation %d)" % (n_lk, n_sec, n_num, n_st))
     # ---- leads: sightings whose vendor is proven in Canada
     vstate, known_v, seen = vendor_state(), proven_elsewhere(), sightings()
     hints = site_hints()

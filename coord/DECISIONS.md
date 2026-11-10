@@ -903,3 +903,20 @@ postal code today). The owners abroad (134,458) and the owners in Canada whose s
 **The Office's server** sends its certificate without the intermediate that signed it. `tools/certs/` holds that intermediate (public;
 fetched from the address the certificate itself names) and the download verifies the chain with it. Verification is never switched off.
 
+
+## 2026-11-10 21:50Z from claude — detector 5 also keeps what a home page prints of itself: register numbers, stated affiliations; links per host
+Decided before the first cycle of the pass ran (no page was read twice for it). Measured on 2,020 home pages read once each from the cloud
+session (random sites of the "ok" list; one request per site):
+- **Register numbers** — 2.5 % of the sites print one: an RBQ licence (1.0 %), a charity registration number (0.8 %), an ECRA/ESA licence,
+  an FSRA licence, a Consumer Protection BC licence, a TICO registration, a Québec travel permit. A licence holder must print its number;
+  the number ties the site to the register's own entry exactly, without any matching of names. Kept as printed (`"n": ["rbq:5760390401"]`).
+  About 30,000 sites of the 1.3 million.
+- **Stated affiliations** — 3.7 % of the sites: "membre de l'APCHQ", "Each Mortgage Centre office is independently owned and operated",
+  "authorized distributor of Parker", "Accredited by …", and the badges under a line "Members of:". Kept as the site's own words with the
+  outside address they link to, when they are a link (`"st": [[class, words, address]]`). Prose is part of it (a person's biography says
+  "member of" too): this is a capture, not a lead. A lead rule comes after the data, as for the sections — it will need the payee named
+  by a link or by an exact name, and the payee's own Canadian address.
+- **Links and embedded services are kept per host**, not per registrable domain (`copperwell.janeapp.com`, `careers.example.org`): a
+  host of its own is where a customer's account lives, on small platforms as on the 150-host ones the first version singled out. A watched
+  service keeps the start of the path as before. Median line: 100 bytes a site.
+Cost: 7 ms a page. No lead is made from any of this here.
