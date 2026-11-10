@@ -889,7 +889,29 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_lead_websites.csv"):
         if _L is not None and not (_L.get("website") or "").strip() and (r.get("website") or "").startswith("http"):
             _L["website"] = r["website"]; _n_lw += 1
 print("leads: %d (%d from the cloud row factory; %d websites from the lead site finder)" % (len(leads), _n_cc, _n_lw))
-LDET = {}  # owner 2026-11-03 ("every field"): the lead's own record details (amount, currency, identifiers, dates, vendor address, title)
+class PackedRecords:
+    """a table of JSON records kept compressed (2026-11-10): 238,266 lead details were 477 MB as dicts — 2 KB each — and the table grows with
+    the leads, not with the rows that use them. A record is unpacked when asked for; the last one asked stays unpacked, because the lead loop
+    asks for the same key several times. What get() returns is a copy for reading: nothing written to it is kept."""
+    __slots__ = ("d", "_k", "_v")
+    def __init__(self):
+        self.d, self._k, self._v = {}, None, None
+    def setdefault(self, k, v):
+        if k not in self.d:
+            self.d[k] = zlib.compress(json.dumps(v, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), 1)
+    def get(self, k, default=None):
+        if k is not None and k == self._k:
+            return self._v
+        b = self.d.get(k)
+        if b is None:
+            return default
+        self._k, self._v = k, json.loads(zlib.decompress(b))
+        return self._v
+    def __contains__(self, k):
+        return k in self.d
+    def __len__(self):
+        return len(self.d)
+LDET = PackedRecords()  # owner 2026-11-03 ("every field"): the lead's own record details (amount, currency, identifiers, dates, vendor address, title)
 for _ldp in ("claude_lead_details.jsonl.gz",):
     if os.path.exists(ROOT + "/data/incoming/claude/" + _ldp):
         for _d in jl(ROOT + "/data/incoming/claude/" + _ldp):
@@ -915,10 +937,15 @@ for _d in _LCF.facts_records():
             n_name_again += bool(_d["site_name"])
         if _d.get("address_quote"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
             _d["address"] = _addr_from(_d["address_quote"]) or _d.get("address") or ""
+        # only what the rows use is kept (the title and the address quote have been read above): the table grows with the sites, 1.2 KB a site
+        # twice over when every field of the record was kept in both tables
+        _d = {k_: _d[k_] for k_ in ("key", "site", "date", "site_name", "address", "address_url", "address_country") if _d.get(k_)}
         LFACTS[_d["key"]] = _d
         _fd = registrable(host_of(_d.get("site") or ""))
-        if _fd and (_fd not in LFACTS_DOM or (_d.get("site_name") and not LFACTS_DOM[_fd].get("site_name")) or (_d.get("address") and not LFACTS_DOM[_fd].get("address"))):
-            LFACTS_DOM[_fd] = dict(LFACTS_DOM.get(_fd) or {}, **{k_: v_ for k_, v_ in _d.items() if v_})
+        if _fd and _fd not in LFACTS_DOM:
+            LFACTS_DOM[_fd] = _d  # the same record under its site's domain (no copy)
+        elif _fd and ((_d.get("site_name") and not LFACTS_DOM[_fd].get("site_name")) or (_d.get("address") and not LFACTS_DOM[_fd].get("address"))):
+            LFACTS_DOM[_fd] = dict(LFACTS_DOM[_fd], **_d)
 # 2026-11-10 (row audit): the vendor's address of a crawled lead is the quote that ends at its postal code — with the page's words in front
 # ("OUR WORK Donate No results found CONNECT BC ALLIANCE FOR ARTS + CULTURE 100-938 Howe Street Vancouver BC V6Z 1N9"), or the labels of the
 # page's schema.org block ("streetAddress: …, addressLocality: …"). The address is cut out with the crawler's own rule; the cut is used only
