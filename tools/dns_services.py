@@ -38,7 +38,11 @@ RESOLVERS = ["1.1.1.1", "8.8.8.8", "9.9.9.9", "1.0.0.1", "8.8.4.4", "149.112.112
 MIN_CLIENTS = 8
 CF_DNS = "service of a Canada-located vendor seen in the buyer's public DNS (tech)"
 # the giants and other providers that are certainly not Canada-located: never checked, never a lead (saves the live check)
-NOT_CA = re.compile(r"(^|\.)(outlook\.com|google\.com|googlemail\.com|secureserver\.net|mcsv\.net|sendgrid\.net|mailgun\.org|amazonses\.com|amazonaws\.com|hubspotemail\.net|mandrillapp\.com|"
+NOT_CA = re.compile(r"(^|\.)(wixdns\.net|wix\.com|squarespace\.com|github\.io|netlify\.app|vercel\.app|vercel-dns\.com|azurewebsites\.net|cloudfront\.net|herokuapp\.com|herokudns\.com|"
+                    r"wpengine\.com|wpenginepowered\.com|pantheonsite\.io|kinsta\.cloud|webflow\.io|webflow\.com|weebly\.com|wordpress\.com|ghs\.googlehosted\.com|googlehosted\.com|"
+                    r"hubspot\.net|hs-sites\.com|bigcommerce\.com|godaddysites\.com|strikingly\.com|duda\.co|multiscreensite\.com|cargo\.site|framer\.app|fastly\.net|akamaiedge\.net|"
+                    r"edgekey\.net|edgesuite\.net|azureedge\.net|trafficmanager\.net|elasticbeanstalk\.com|elb\.amazonaws\.com|incapdns\.net|sucuri\.net|cdn\.cloudflare\.net|"
+                    r"outlook\.com|google\.com|googlemail\.com|secureserver\.net|mcsv\.net|sendgrid\.net|mailgun\.org|amazonses\.com|amazonaws\.com|hubspotemail\.net|mandrillapp\.com|"
                     r"zoho\.(com|eu|in)|zohocloud\.ca|zcsend\.(net|ca)|zohomail\.com|zeptomail\.net|transmail\.net|hostinger\.com|mlsend\.com|salesforce\.com|pardot\.com|ppe-hosted\.com|pphosted\.com|"
                     r"hornetsecurity\.com|barracudanetworks\.com|mimecast\.com|zendesk\.com|knowbe4\.com|smtp2go\.com|constantcontact\.com|createsend\.com|sendinblue\.com|brevo\.com|mailjet\.com|"
                     r"ionos\.com|1and1\.com|kundenserver\.de|perfora\.net|websitewelcome\.com|bluehost\.com|dreamhost\.com|a2hosting\.com|greengeeks\.net|web-hosting\.com|registrar-servers\.com|"
@@ -109,7 +113,7 @@ def providers_of(o):
     own = C.registrable(o["d"])
     lab = own.split(".")[0]
     out, seen = [], set()
-    for kind, hosts in (("spf", o.get("inc") or []), ("mx", o.get("mx") or []), ("ns", o.get("ns") or [])):
+    for kind, hosts in (("spf", o.get("inc") or []), ("mx", o.get("mx") or []), ("ns", o.get("ns") or []), ("cname", [o["cn"]] if o.get("cn") else [])):
         for h in hosts:
             h = (h or "").strip(".").lower()
             if not h or "." not in h or not re.fullmatch(r"[a-z0-9._-]+", h):
@@ -291,6 +295,11 @@ def lookup(a):
                 o["a"] = ip[0]
                 if SHOPIFY_A.match(ip[0]):
                     o["shop"] = 1
+            cn = ask("www." + d, "CNAME")[0]  # the platform that serves the site: www.<domain> is an alias of <shop>.myshopify.com, <site>.thinkific.com, a web host's server …
+            if cn and C.registrable(cn[0]) != d:
+                o["cn"] = cn[0]
+                if cn[0].endswith("myshopify.com"):
+                    o["shop"] = 1
         with lock:
             stats["domains"] += 1
             stats[st] += 1
@@ -348,7 +357,8 @@ def merge(a):
 
 
 # ------------------------------------------------------------------------------------------------------------------- leads (called by credit_scan.merge)
-KIND_TEXT = {"spf": ("e-mail / web hosting", "its SPF record authorises %s to send its e-mail"), "mx": ("e-mail service", "its mail is received by %s (MX record)"),
+KIND_TEXT = {"cname": ("website platform / hosting", "its website address (www) is an alias of %s (CNAME record)"),
+             "spf": ("e-mail / web hosting", "its SPF record authorises %s to send its e-mail"), "mx": ("e-mail service", "its mail is received by %s (MX record)"),
              "ns": ("DNS / web hosting", "its DNS zone is served by %s (NS record)"), "txt": ("business account", "its DNS carries the vendor's domain-verification record “%s=…”")}
 
 
@@ -358,7 +368,7 @@ def leads(prev, pdet, proof, main_keys, vstate, stats, names=None, in_canada=Non
     the strongest record kind (MX and NS say where mail and the zone ARE today; an SPF include alone may be a leftover, so it counts only when
     another record agrees or the provider is the only outside sender the record names), then the provider most domains name."""
     tot, _ = provider_counts()
-    rank = {"mx": 0, "ns": 1, "spf": 2, "txt": 3}
+    rank = {"mx": 0, "cname": 0, "ns": 1, "spf": 2, "txt": 3}
     for o in records():
         d = o["d"]
         ps = providers_of(o)
@@ -412,7 +422,8 @@ def leads(prev, pdet, proof, main_keys, vstate, stats, names=None, in_canada=Non
             kept.add(key)
         prev[key] = {"buyer_key": key, "buyer_name": (names or {}).get(d) or d, "website": "https://%s/" % d, "canadian_vendor_rows": 1, "example_vendor": vname,
                      "canada_field_value": "%s=%s; %s: %s" % (CF_DNS, vend, pr[4], pr[0][:240]),
-                     "evidence_dataset": "https://dns.google/resolve?name=%s&type=%s" % (d, {"spf": "TXT", "txt": "TXT", "mx": "MX", "ns": "NS"}[kind]), "latest_record_date": date}
+                     "evidence_dataset": "https://dns.google/resolve?name=%s&type=%s" % ("www." + d if kind == "cname" else d, {"spf": "TXT", "txt": "TXT", "mx": "MX", "ns": "NS", "cname": "CNAME"}[kind]),
+                     "latest_record_date": date}
         pdet[key] = {"key": key, "platform": "dns_service_cc", "record_url": prev[key]["evidence_dataset"], "vendor": vname, "record_date": date,
                      "title": "%s by %s — %s: “%s”" % (what, vname, how % h, quote[:200]),
                      "vendor_address": pr[0], "vendor_address_url": pr[1], "vendor_site": "https://%s/" % vend, "dns_record_kind": kind, "dns_record": quote, "dns_provider_host": h,

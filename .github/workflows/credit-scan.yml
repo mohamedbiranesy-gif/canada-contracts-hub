@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: "universe (.ca domains of the newest Common Crawl index) | graph (web graph: .ca domains + domains linking to proven vendors) | osm (OpenStreetMap Canada objects with a website) | cycle (scan home pages, check vendors, make leads)"
+        description: "universe (.ca domains of the newest Common Crawl index) | graph (web graph: .ca domains + domains linking to proven vendors) | osm (OpenStreetMap Canada objects with a website) | lists (more .ca names from a public domain list) | cycle (scan home pages, check vendors, make leads)"
         default: "cycle"
       shards:
         description: "parallel runners for the scan (1-10)"
@@ -118,6 +118,22 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: { name: "cs-graph", path: out/, retention-days: 3 }
 
+  lists:
+    needs: plan
+    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'lists' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: More .ca names from a public list of domain names (names only; the scan reads each site once)
+        run: |
+          sudo mkdir -p /mnt/cs && sudo chown "$USER" /mnt/cs || true
+          git lfs version || sudo apt-get install -y -q git-lfs >/dev/null 2>&1 || true
+          python3 tools/credit_scan.py lists --work /mnt/cs
+      - uses: actions/upload-artifact@v4
+        with: { name: "cs-graph", path: out/, retention-days: 3 }
+
   graph:
     needs: plan
     if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'graph' }}
@@ -136,8 +152,8 @@ jobs:
         with: { name: "cs-graph", path: out/, retention-days: 3 }
 
   merge_graph:
-    needs: [graph, osm]
-    if: ${{ always() && (needs.graph.result == 'success' || needs.osm.result == 'success') }}
+    needs: [graph, osm, lists]
+    if: ${{ always() && (needs.graph.result == 'success' || needs.osm.result == 'success' || needs.lists.result == 'success') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

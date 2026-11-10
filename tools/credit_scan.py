@@ -584,6 +584,50 @@ def osm(a):
     print("OpenStreetMap Canada: %d objects with a website, %d distinct hosts (%s)" % (n_obj, len(sites), ", ".join("%s %d" % kv for kv in tl.most_common(6))), flush=True)
 
 
+def lists(a):
+    """more .ca names than the web graph knows (1.05 M of the ~3.4 M registered): a public list of domain names collected by other crawlers
+    (github.com/tb0hdan/domains, folder data/canada, Git LFS). Names only — each is read once by the scan like any other; most dead ones cost
+    one failed request. Written as extra rows of the graph's .ca list (out/graph_ca_domains.csv)."""
+    import shutil, subprocess
+    work = next((d for d in (a.work, "/mnt/cs", os.environ.get("RUNNER_TEMP") or "", ".") if d and os.path.isdir(d) and os.access(d, os.W_OK)), ".")
+    os.makedirs("out", exist_ok=True)
+    repo = os.path.join(work, "domains-list")
+    sh = lambda cmd: subprocess.run(["bash", "-o", "pipefail", "-c", cmd], check=True)
+    known = set()
+    for path in (UNIVERSE, GRAPH_CA):
+        if os.path.exists(path):
+            with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
+                known |= {r["dom"] for r in csv.DictReader(fh)}
+    try:
+        if not os.path.isdir(repo):
+            sh("GIT_LFS_SKIP_SMUDGE=1 git clone -q --depth 1 --filter=blob:none --sparse %s %s" % (a.base or "https://github.com/tb0hdan/domains.git", repo))
+        sh("cd %s && git sparse-checkout set data/canada && git lfs pull --include 'data/canada/*' && ls -la data/canada | head -20" % repo)
+    except subprocess.CalledProcessError as e:
+        print("the public list could not be fetched (%s): nothing added" % e, flush=True)
+        return
+    n_seen = n_new = 0
+    with open("out/graph_ca_domains.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "hosts"])
+        seen = set()
+        for path in sorted(glob.glob(os.path.join(repo, "data/canada/*"))):
+            opener = "xz -dc" if path.endswith(".xz") else "cat"
+            proc = subprocess.Popen(["bash", "-c", "%s '%s'" % (opener, path)], stdout=subprocess.PIPE, text=True, errors="replace")
+            for l in proc.stdout:
+                h = l.strip().lower().rstrip(".")
+                if not h.endswith(".ca") or not re.fullmatch(r"[a-z0-9.-]+", h) or h.count(".") > 3:
+                    continue
+                n_seen += 1
+                d = C.registrable(h[4:] if h.startswith("www.") else h)
+                if d in seen or d in known or not d.endswith(".ca") or PLATFORM.search(d):
+                    continue
+                seen.add(d)
+                w.writerow([d, ""])
+                n_new += 1
+            proc.wait()
+    print("public list: %d .ca host names read, %d registrable .ca domains that neither the index nor the web graph had" % (n_seen, n_new), flush=True)
+
+
 def merge_graph(a):
     os.makedirs(DIR, exist_ok=True)
     for name, path, cols in (("graph_ca_domains.csv", GRAPH_CA, ["dom", "hosts"]), ("graph_inlinks.csv", GRAPH_IN, ["dom", "targets", "hosts", "tech"]),
@@ -1303,7 +1347,7 @@ def merge(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["universe", "merge-universe", "graph", "osm", "merge-graph", "scan", "vendors", "merge"])
+    ap.add_argument("cmd", choices=["universe", "merge-universe", "graph", "osm", "lists", "merge-graph", "scan", "vendors", "merge"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--crawl", default="auto")
@@ -1324,7 +1368,7 @@ def main():
         {"scan": scan, "vendors": vendors}[a.cmd](a)
         sys.stdout.flush()
         os._exit(0)  # do not wait for straggler threads
-    {"universe": universe, "merge-universe": merge_universe, "graph": graph, "osm": osm, "merge-graph": merge_graph, "merge": merge}[a.cmd](a)
+    {"universe": universe, "merge-universe": merge_universe, "graph": graph, "osm": osm, "lists": lists, "merge-graph": merge_graph, "merge": merge}[a.cmd](a)
 
 
 if __name__ == "__main__":

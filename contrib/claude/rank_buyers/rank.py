@@ -862,6 +862,7 @@ def tech_status(k, L):
         # or is authorised to send its mail (SPF); the provider's own site prints its Canadian postal address
         det = LDET.get(k) or {}
         how = {"mx": "its mail is received by %s (MX record)", "ns": "its DNS zone is served by %s (NS record)", "spf": "its SPF record authorises %s to send its mail",
+               "cname": "its website address (www) is an alias of %s (CNAME record)",
                "txt": "its DNS carries the vendor's verification record %s"}.get(det.get("dns_record_kind") or "", "its DNS records name %s")
         return "active service seen in the buyer's public DNS records (%s): %s — Canada-located provider %s" % (d, how % (det.get("dns_provider_host") or L["example_vendor"]), L["example_vendor"])
     return "active service seen on the buyer's own site (%s): Canada-HQ vendor %s" % (d, L["example_vendor"])
