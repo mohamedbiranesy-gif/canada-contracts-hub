@@ -270,7 +270,7 @@ def universe(a):
                 time.sleep(60 * rnd + random.uniform(0, 30))
             nxt = []
             for i, p in queue:
-                q = ("SELECT url_host_registered_domain, count(*) FROM read_parquet('%s') WHERE url_host_tld = 'ca' AND fetch_status = 200 "
+                q = ("SELECT url_host_registered_domain, count(*) FROM read_parquet('%s') WHERE url_host_tld IN ('ca', 'quebec') AND fetch_status = 200 "
                      "AND content_mime_detected = 'text/html' GROUP BY 1") % (CCL.CC + p)
                 try:
                     got = con.execute(q).fetchall()

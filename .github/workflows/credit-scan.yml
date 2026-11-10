@@ -100,7 +100,7 @@ jobs:
 
   scan:
     needs: [plan, merge_universe]
-    if: ${{ always() && needs.plan.result == 'success' }}
+    if: ${{ always() && needs.plan.result == 'success' && (inputs.stage || 'cycle') == 'cycle' }}
     runs-on: ubuntu-latest
     timeout-minutes: 200
     strategy:
