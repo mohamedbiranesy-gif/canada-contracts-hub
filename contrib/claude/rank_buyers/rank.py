@@ -305,9 +305,35 @@ FREEMAIL = re.compile(r"^(gmail|hotmail|outlook|live|yahoo|ymail|msn|aol|icloud|
                       r"globetrotter|qc\.aira|aira|tlb|xplornet|nbnet\.nb|nb\.aibn|mts|sasktel|protonmail|proton|gmx|mail|bellnet|cgocable|"
                       r"derytele|axion|tbaytel|execulink|personainternet|primus|distributel|teksavvy|ciril|netrevolution|b2b2c|live\.ca|outlook\.fr)\.", re.I)
 VEN, VEN_NAME, VEN_DOM = {}, {}, {}
+# 2026-11-10: a partnership and a corporation are different legal persons even when the rest of the name is the same. The registry match of the
+# dataset build ignores the legal form, so "KPMG LLP" carried the identity of KPMG INC., "Deloitte LLP" of DELOITTE INC., "MNP LLP" of MNP LTD.,
+# "BDO Canada LLP" of BDO Canada Limited — their corporation number, BN and derived GST/HST number on every row of the audit firms. Such a
+# match is not used (the vendor's registry cells stay empty until a registry names the partnership itself).
+_PARTNERSHIP = {"llp", "lp", "gp", "sencrl", "senc", "srl"}
+_CORPORATION = {"inc", "incorporated", "incorporee", "ltd", "limited", "ltee", "limitee", "corp", "corporation", "ulc", "llc", "co", "company", "compagnie", "cie"}
+def form_conflict(name, legal):
+    _abbr = lambda t: re.sub(r"\b((?:[A-Za-z]\.){2,})", lambda m: m.group(1).replace(".", "") + " ", t or "")  # "L.P." -> "LP", "S.E.N.C.R.L." -> "SENCRL"
+    a, b = set(norm(_abbr(name)).split()[-2:]), set(norm(_abbr(legal)).split()[-2:])
+    return bool((a & _PARTNERSHIP and b & _CORPORATION and not b & _PARTNERSHIP) or (b & _PARTNERSHIP and a & _CORPORATION and not a & _PARTNERSHIP))
+_VE_REG_KEYS = ("legal_name", "registry_status", "registry_match_level", "corporation_number_federal", "neq_quebec", "bc_registration_number", "business_number_bn9",
+                "business_number_source", "gst_hst_account_derived", "registered_address", "incorporation_or_registration_date", "governing_legislation_or_regime",
+                "legal_form_quebec", "employees_in_quebec", "main_activity", "matches", "full_detail")
+n_ve_form = 0
+def clean_ve(r):
+    """a contract record whose vendor enrichment pairs a partnership with a corporation of the same name: the registry cells are dropped"""
+    global n_ve_form
+    ve = r.get("vendor_enrichment")
+    if ve and ve.get("legal_name") and form_conflict((r.get("vendor") or {}).get("name") or "", ve["legal_name"]):
+        for k in _VE_REG_KEYS:
+            ve.pop(k, None)
+        n_ve_form += 1
+    return r
+n_form = 0
 for v in jl(REL + "vendors_enriched.jsonl.gz"):
     s = v.get("summary") or {}
     reg = s.get("registry_match_level") in ("exact", "strong")  # registry facts only from a confident match
+    if reg and form_conflict(v.get("name") or "", s.get("legal_name") or ""):
+        reg = False; n_form += 1
     ra = (s.get("registered_address") or {}) if reg else {}
     ca = next((x["value"] for x in v.get("addresses_in_contract_data") or [] if (x.get("value") or {}).get("line1") or (x.get("value") or {}).get("city")), {})
     bn = s.get("business_number_bn9") if reg else None
@@ -345,6 +371,7 @@ if os.path.exists(ROOT + "/coord/results/team_vendors.jsonl"):
             (bill if e.get("kind") == "billing_or_ar_email" else gen).append(e["email"].lower()); pages.append(e.get("page_url") or ""); by.add(e.get("found_by") or "team")
         if gen or bill or d.get("website"):
             TEAMV[d.get("vendor_key")] = {"emails": sorted(set(gen)), "billing": sorted(set(bill)), "pages": [p for p in pages if p][:3], "website": d.get("website") or "", "by": ",".join(sorted(by))}
+print("vendor table: registry matches not used because the legal form differs (partnership vs corporation):", n_form)
 print("team vendor contacts (referee-verified):", len(TEAMV), "vendors;", sum(1 for v in TEAMV.values() if v["billing"]), "with a billing / AR mailbox")
 BUY = {b["buyer_key"]: b for b in jl(REL + "buyers_enriched.jsonl.gz") if b.get("buyer_key")}
 def vend_fill(key="", name="", domain=""):
@@ -526,7 +553,7 @@ def jur_of_mail(email):
     return next((j for rx, j in JUR_DOM if re.search(rx, d)), "")
 orgs = {}
 for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "rt", encoding="utf-8"):
-    r = json.loads(l); be = r.get("buyer_enrichment") or {}
+    r = clean_ve(json.loads(l)); be = r.get("buyer_enrichment") or {}
     key = be.get("buyer_key"); name = be.get("canonical_name") or (r.get("buyer") or {}).get("name") or ""
     p = parent(name)
     if not p: continue
@@ -763,6 +790,7 @@ for p, o in orgs.items():
     x["vendor_incorporation_date"] = x.get("vendor_incorporation_date") or (ve.get("incorporation_or_registration_date") or "")[:10]
     x["vendor_bn_source"] = ve.get("business_number_source") or ""
 print("same-pair fill (facts from another record of the same buyer-vendor pair):", dict(n_pair))
+print("contract records whose vendor's registry match pairs a partnership with a corporation (registry cells not used):", n_ve_form)
 for _o in orgs.values():  # used only while the organisation's row was built
     _o.pop("pairbest", None); _o.pop("vrefs", None); _o["best"] = None
 # 4. buyers proven by payment / subaward records or client listings (no contract in the dataset)
@@ -1310,6 +1338,7 @@ for kind, paths in (("ended", sorted(_glob.glob(REL + "ended_*.jsonl.gz"))), ("r
         if r.get("record_id") in seen_rec:
             continue
         seen_rec.add(r.get("record_id"))
+        clean_ve(r)
         d = r["contract"].get("dates") or {}
         end, ad = str(d.get("end") or "")[:10], award_date(r)
         if ad > today:
@@ -2810,13 +2839,19 @@ for x in rows:
 print("site readers, second pass (websites found late):", dict(n_late))
 _free(globals(), "OX", "OC")
 # the same vendor's BN9 / remit-to address read for one row applies to every row of that vendor (same legal entity); carried with its source
-_vbn, _vad = {}, {}
+# 2026-11-10: the vendor's other identity facts travel with the BN, from the same row (26,082 registry rows carried CIRA's BN and no legal name, no
+# registry id and no derived GST/HST number — "vendor GST/HST number" was the most-missing invoice element of the whole package)
+CARRY_ID = ("vendor_legal_name", "vendor_registry_id", "vendor_registry_url", "vendor_registered_address", "vendor_legal_form", "vendor_registry_status",
+            "vendor_registry_match_level", "vendor_incorporation_date", "vendor_trading_name", "vendor_neq", "vendor_qst_as_published", "vendor_phone", "vendor_emails", "vendor_logo_url")
+_vbn, _vad, _vid = {}, {}, {}
 for x in rows:
     _vn = norm(re.sub(r"^inferred:\s*", "", x.get("vendor") or ""))
     if not _vn:
         continue
     if re.match(r"^\d{9}", x.get("vendor_bn9") or "") and _vn not in _vbn:
         _vbn[_vn] = (x["vendor_bn9"], x.get("vendor_bn_source") or "", x.get("buyer") or "")
+        _vid[_vn] = {c: x[c] for c in CARRY_ID if x.get(c) and x[c] != "not_published"}
+        _vid[_vn]["vendor_gst_hst_derived"] = x.get("vendor_gst_hst_derived") or ""
     _ad = x.get("vendor_address") or x.get("vendor_registered_address") or ""
     if _ad and _ad not in ("not_published",) and _vn not in _vad:
         _vad[_vn] = (_ad, x.get("buyer") or "")
@@ -2827,9 +2862,19 @@ for x in rows:
         continue
     if not re.match(r"^\d{9}", x.get("vendor_bn9") or "") and _vn in _vbn:
         x["vendor_bn9"] = _vbn[_vn][0]; x["vendor_bn_source"] = (_vbn[_vn][1] or "see the same vendor's other rows") + " — carried from this vendor's row with %s" % _vbn[_vn][2][:60]; n_carry["bn9"] += 1
+        _from = " (carried from this vendor's row with %s)" % _vbn[_vn][2][:60]
+        for _c, _v in _vid.get(_vn, {}).items():
+            if _c == "vendor_gst_hst_derived" or x.get(_c):
+                continue
+            x[_c] = _v if _c in ("vendor_phone", "vendor_emails", "vendor_logo_url", "vendor_registry_url", "vendor_incorporation_date", "vendor_registry_match_level") else _v + _from
+            n_carry[_c[7:]] += 1
+    if re.match(r"^\d{9}", x.get("vendor_bn9") or "") and not x.get("vendor_gst_hst_derived") and _vn in _vbn and x["vendor_bn9"][:9] == _vbn[_vn][0][:9]:
+        x["vendor_gst_hst_derived"] = (_vid.get(_vn) or {}).get("vendor_gst_hst_derived") or (x["vendor_bn9"][:9] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)")
+        n_carry["gst_hst_derived"] += 1
     if not (x.get("vendor_address") or x.get("vendor_registered_address")) and _vn in _vad:
         x["vendor_registered_address"] = _vad[_vn][0] + " (carried from this vendor's row with %s)" % _vad[_vn][1][:60]; n_carry["address"] += 1
-print("same-vendor carry-over (BN9 / address from the vendor's other rows):", dict(n_carry))
+print("same-vendor carry-over (BN9, identity facts and address from the vendor's other rows):", dict(n_carry))
+_free(globals(), "_vbn", "_vad", "_vid")
 _memstat("before the narrative columns", rows, globals())
 # ---- downstream pack (owner 2026-11-06 22:00, the downstream agent's 150 questions: prompts/downstream_150_questions.md). Guarded: a failure here never stops the build.
 # construction-work detector for the statutory prompt-payment default (contract text, NAICS 23, UNSPSC 72): conservative word list, contract fields only (never the vendor's name)
