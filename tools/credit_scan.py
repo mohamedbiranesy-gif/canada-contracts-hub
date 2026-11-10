@@ -715,7 +715,7 @@ def merge_graph(a):
 # 1: credit lines + the vendor table of 2026-11-02; 2 ("t2"): + Jobber; 3 ("t3"): + membership statements (class M);
 # 4 ("t4"): + two facts about every readable home page, kept on its done line: em=<kind> when the page itself prints a role mailbox of the
 #    organisation (the mailbox crawl reads those sites first: near-certain rows), cc=<CA|US|GB|AU> the country of the postal address it prints
-DETECTOR = 4
+DETECTOR = 5  # 5 (2026-11-10): the home page's outside links, embedded services and "sponsors / clients / members" sections are kept (links_*.gz, sections_*.gz); the plain-http copy is asked when https does not answer
 MARK = "t%d" % DETECTOR
 
 
@@ -759,8 +759,158 @@ def ca_sites_without_mailbox():
     return {d: cc for d, (ok, em, cc) in latest.items() if ok and not em}
 
 
+# ---- what a home page links to and loads (detector 5) --------------------------------------------------------------------------------
+# Kept once per site so that a new lane does not need 1.3 million home pages read again: a vendor added to tools/tech_relationships.py is
+# found by a join (which sites link or load its domain), a badge that links to a register (bbb.org profile) names the site's own entry.
+# Not kept: the networks and tools nearly every site carries (they say nothing about a paid relationship and are four fifths of the volume).
+LINK_STOP = re.compile(r"(^|\.)(google|googleapis|gstatic|googletagmanager|google-analytics|googleusercontent|googlesyndication|googleadservices|doubleclick|ggpht|goo|youtube|youtu|ytimg|"
+                       r"facebook|fb|fbcdn|facebook|instagram|cdninstagram|twitter|x|twimg|t|linkedin|licdn|pinterest|pinimg|tiktok|snapchat|whatsapp|wa|telegram|threads|reddit|tumblr|flickr|vimeo|"
+                       r"vimeocdn|apple|microsoft|bing|live|office|amazon|amazonaws|cloudfront|cloudflare|cloudflareinsights|jsdelivr|unpkg|cdnjs|jquery|bootstrapcdn|fontawesome|typekit|"
+                       r"fonts|w3|wp|wordpress|w|gravatar|wixstatic|parastorage|wix|squarespace|squarespace-cdn|sqspcdn|weebly|editmysite|godaddy|wsimg|secureserver|sentry-cdn|sentry|"
+                       r"addtoany|sharethis|addthis|hs-scripts|hsforms|hubspot|list-manage|mailchimp|recaptcha|hcaptcha|cookielaw|cookiebot|cdn-cookieyes|onetrust|osano|schema|ogp|"
+                       r"creativecommons|wikipedia|wikimedia|archive|adobe|adobedtm|mapbox|openstreetmap|gmpg|rawgit|github|githubusercontent|bit|tinyurl|linktr|youtube-nocookie|"
+                       r"paypal|paypalobjects|stripe|yelp|tripadvisor|trustpilot|spotify|soundcloud|canva|zoom|eventbrite|issuu|dropbox|statcounter|hotjar|clarity|newrelic|nr-data)"
+                       r"\.[a-z.]{2,7}$", re.I)
+LINK_PATH = re.compile(r"(^|\.)(bbb\.org|canadahelps\.org|getjobber\.com|amilia\.com|showpass\.com|raceroster\.com|webrez\.com|clio\.com|checkfront\.com|rezgo\.com|tbdine\.com|libroreserve\.com|"
+                       r"gorendezvous\.com|lepointdevente\.com|skipthedishes\.com|chronogolf\.com|qidigo\.com|cognisantmd\.com|medeohealth\.com|wellnessliving\.com|membee\.com|keela\.co|e2rm\.com|"
+                       r"akaraisin\.com|trellis\.org|myhelcim\.com|moneris\.com|bambora\.com|pheedloop\.com|eventmobi\.com|universe\.com|ticketpro\.ca|trackie\.com|zone4\.ca|uplifterinc\.com|"
+                       r"powerupsports\.com|rampinteractive\.com|booxi\.com|petalmd\.com|carfax\.ca|autotrader\.ca|kijiji\.ca|homestars\.com|houzz\.com|indeed\.com|jobillico\.com|charityvillage\.com)$", re.I)
+_MT_DOMS = None
+
+
+def _multi_tenant_doms():
+    """domains with 150+ host names of their own in the web graph (graph_multitenant.csv.gz): for those the full host is the customer's own address"""
+    global _MT_DOMS
+    if _MT_DOMS is None:
+        _MT_DOMS = set()
+        try:
+            with gzip.open(GRAPH_MT, "rt", encoding="utf-8", newline="") as fh:
+                for r in csv.DictReader(fh):
+                    _MT_DOMS.add(r["dom"])
+        except Exception:
+            pass
+    return _MT_DOMS
+
+
+def site_links(raw, final, site_dom, T, cap=25):
+    """(embedded, linked): the outside registrable domains a home page loads (script / iframe / form targets) and links to (<a href>), common
+    networks left out. A link into a multi-tenant platform keeps its full host (clinic.janeapp.com), a link into a watched service its path
+    start too (bbb.org/ca/ab/calgary/profile/…): that is where the site's own account is named."""
+    mt = _multi_tenant_doms()
+    emb, lnk = set(), {}
+    for rx in (T.SRC_RE, T.FORM_RE):
+        for x in rx.findall(raw)[:400]:
+            try:
+                h = (urllib.parse.urlparse(urllib.parse.urljoin(final, html.unescape(x).strip())).hostname or "").lower()
+            except ValueError:
+                continue
+            d = C.registrable(h) if h and "." in h else ""
+            if d and d != site_dom and not LINK_STOP.search(d) and re.fullmatch(r"[a-z0-9.-]{4,60}", d):
+                emb.add(d)
+    for a_ in T.anchors_of(raw, final)[:1500]:
+        try:
+            p = urllib.parse.urlparse(a_[0])
+        except ValueError:
+            continue
+        h = (p.hostname or "").lower()
+        if p.scheme not in ("http", "https") or not h or "." not in h:
+            continue
+        d = C.registrable(h)
+        if not d or d == site_dom or LINK_STOP.search(d) or not re.fullmatch(r"[a-z0-9.-]{4,80}", h):
+            continue
+        if LINK_PATH.search(d):
+            key = (h[4:] if h.startswith("www.") else h) + re.sub(r"[\s\t]+", "", (p.path or "/"))[:70]
+        elif d in mt:
+            key = h[4:] if h.startswith("www.") else h
+        else:
+            key = d
+        lnk.setdefault(key, 1)
+        if len(lnk) >= cap:
+            break
+    return sorted(emb)[:cap], sorted(lnk)
+
+
+_SEC = {
+    "sponsor": re.compile(r"^(?:(?:our|nos|les|merci (?:à|a) nos|thank you to our|thanks to our|proud(?:ly)?|presenting|title|platinum|gold|silver|bronze|major|event|corporate|community|official|20\d\d|"
+                          r"principaux)\s+)*(?:sponsors?|commanditaires?|exhibitors?|exposants?|advertisers?|annonceurs?)\b[^.?!]{0,30}$", re.I),
+    "client": re.compile(r"^(?:(?:some of |a few of |quelques-uns de )?(?:our|nos)\s+(?:valued\s+|happy\s+|satisfied\s+)?(?:clients?|customers?)|clients?|trusted by|they trust us|"
+                         r"ils nous font confiance|elles nous font confiance|who we work with|clients? we(?:'ve| have) worked with)\b[^.?!]{0,30}$", re.I),
+    "member": re.compile(r"^(?:(?:our|nos|les)\s+(?:members?|membres?)\b[^.?!]{0,25}|(?:member|membership) directory|r[ée]pertoire des membres)$", re.I),
+}
+_SEC_NOT = re.compile(r"become|devenir|devenez|opportunit|package|forfait|sponsorship|commandite\b|why|pourquoi|how to|comment|login|log in|connexion|area|zone|espace|portal|portail|only|seulement|"
+                      r"benefit|avantage|testimonial|t[ée]moignage|say|disent|review|avis|service|support|care", re.I)
+_HEAD = re.compile(r"(?is)<h([1-6])\b[^>]*>(.*?)</h\1\s*>")
+
+
+def home_sections(raw, final, site_dom, skip=()):
+    """[{"c": class, "h": heading, "l": [[outside domain, label] …]}] — the parts of a home page under a heading such as "Our Sponsors",
+    "Nos clients", "Our Members": the outside organisations linked there (logo or text links with a label), until the next heading of the same
+    or a higher level. Kept as read (detector 5); a lead is made from them only by a rule of its own, later."""
+    heads = [(m.start(), m.end(), int(m.group(1)), re.sub(r"\s+", " ", html.unescape(re.sub(r"(?s)<[^>]+>", " ", m.group(2)))).strip()) for m in _HEAD.finditer(raw[:1_500_000])]
+    out = []
+    for i, (st, en, lvl, text) in enumerate(heads):
+        if not (3 <= len(text) <= 60) or _SEC_NOT.search(text):
+            continue
+        cls = next((c for c, rx in _SEC.items() if rx.match(text)), "")
+        if not cls:
+            continue
+        end = next((s2 for s2, _, l2, _ in heads[i + 1:] if l2 <= lvl), len(raw))
+        seg = raw[en:min(end, en + 60_000)]
+        ft = re.search(r"(?i)<footer\b|<(?:div|section)[^>]+(?:id|class)=[\"'][^\"']*\bfooter\b", seg)
+        if ft:
+            seg = seg[:ft.start()]  # the page's footer (credits, networks) is not part of the list
+        got = {}
+        for href, label in CCL.anchors(seg, final):
+            try:
+                h = CCL.base(urllib.parse.urlparse(href).hostname)
+            except ValueError:
+                continue
+            label = re.sub(r"\s+", " ", label or "").strip()
+            if (not h or "." not in h or len(h) > 60 or C.registrable(h) == site_dom or C.registrable(h) in skip or CCL.SKIP.search(h) or CCL.PLATFORMS.search(h) or CCL.VENDOR_SKIP.search(h)
+                    or not label or len(label) > 100 or CCL.GENERIC_LABEL.match(label) or CCL.LABEL_SKIP.search(label) or CCL.SPAM.search(h) or CCL.SPAM.search(label)):
+                continue
+            got.setdefault(C.registrable(h), label[:80])
+            if len(got) >= 60:
+                break
+        if len(got) >= 3:
+            out.append({"c": cls, "h": text[:60], "l": [[d, lab] for d, lab in got.items()]})
+        if len(out) >= 4:
+            break
+    return out
+
+
+def refused_sites():
+    """sites whose latest verdict is a refusal (robots.txt or a block): they are not read again when the detector changes"""
+    latest = {}
+    for l in state_lines("done"):
+        q = l.split("\t")
+        if len(q) > 2:
+            latest[q[0]] = q[2]
+    return {d for d, st in latest.items() if st in ("blocked", "robots")}
+
+
+def site_via():
+    """{site: "http" | "www" | "httpwww"} — the address that answered when https://site/ did not (done lines of detector 5+)"""
+    out = {}
+    for l in state_lines("done"):
+        q = l.split("\t")
+        if len(q) > 6:
+            v = next((x[4:] for x in q[6:] if x.startswith("via=")), "")
+            if v:
+                out[q[0]] = v
+            else:
+                out.pop(q[0], None)
+    return out
+
+
+def site_url(dom, via=None):
+    v = (via if via is not None else {}).get(dom, "")
+    return "%s://%s%s/" % ("http" if "http" in v else "https", "www." if "www" in v else "", dom)
+
+
 def scan_queue(k, n, limit=0):
     ver = done_versions()
+    refused = refused_sites()
     seen, tasks = set(), []
 
     def add(host, pri, extra=0, again=False):
@@ -770,7 +920,7 @@ def scan_queue(k, n, limit=0):
             return
         v = ver.get(host)
         if v is not None:
-            if v >= DETECTOR:
+            if v >= DETECTOR or host in refused:  # a site that refused the reader (robots.txt, a block) is left alone
                 return
             pri = pri if again else pri + 10
         seen.add(host)
@@ -818,6 +968,8 @@ def scan(a):
     lock, stats = threading.Lock(), collections.Counter()
     fs = open("out/credit_seen_%d.jsonl" % k, "a", encoding="utf-8")
     fd = open("out/credit_done_%d.tsv" % k, "a", encoding="utf-8")
+    flk = open("out/site_links_%d.tsv" % k, "a", encoding="utf-8")       # detector 5: what each home page loads and links to
+    fsec = open("out/site_sections_%d.jsonl" % k, "a", encoding="utf-8")  # detector 5: its "sponsors / clients / members" sections
     assets_of = lambda b: " ".join(T.SRC_RE.findall(b) + T.LINKTAG_RE.findall(b) + T.INLINE_RE.findall(b)[:40])
     # which outside services do these sites load or post to? (script / iframe / form targets, counted per registrable domain) — the frequency
     # table shows which Canada-based platforms are worth vetting for the vendor table of tools/tech_relationships.py
@@ -869,9 +1021,12 @@ def scan(a):
         except Exception as e:
             res, final, raw = "error:" + type(e).__name__, "", ""
         rec, em, cc = None, "", ""
+        via, lk_line, sec_line = "", "", ""
         if res == "ok":
             try:
                 fhost = host_of(final) or dom
+                if C.registrable(fhost) == C.registrable(dom):  # which address answered: plain http, the www. host (lead readers start there)
+                    via = ("http" if final.startswith("http://") else "") + ("www" if (urllib.parse.urlparse(final).hostname or "").lower() == "www." + dom else "")
                 title, meta = T.page_meta(raw)
                 name = LC.site_name_for(fhost, meta.get("og:site_name"), title, T)
                 try:
@@ -898,6 +1053,16 @@ def scan(a):
                 emb = embedded(raw, final, C.registrable(fhost))
                 with lock:
                     ext.update(emb)
+                if C.registrable(fhost) == C.registrable(dom) or not PLATFORM.search(fhost):
+                    try:
+                        e_l, l_l = site_links(raw, final, C.registrable(fhost), T)
+                        if e_l or l_l:
+                            lk_line = "%s\t%s\t%s\n" % (dom, " ".join(e_l), " ".join(l_l))
+                        secs = home_sections(raw, final, C.registrable(fhost), {C.registrable(c_["vh"]) for c_ in credits} | {c_["v"] for c_ in credits})
+                        if secs:
+                            sec_line = json.dumps({"dom": dom, "page": final, "date": TODAY, "name": name, "cc": cc, "addr": addr, "s": secs}, ensure_ascii=False) + "\n"
+                    except Exception:
+                        pass
                 if credits or tech:
                     rec = {"dom": dom, "site": fhost, "page": final, "date": TODAY, "name": name, "title": (title or "")[:160], "credits": credits, "tech": tech, "em": em, "cc": cc, "addr": addr}
             except Exception as e:
@@ -909,8 +1074,13 @@ def scan(a):
                 stats["with_credit"] += bool(rec["credits"])
                 stats["with_vetted_service"] += bool(rec["tech"])
                 fs.write(json.dumps(rec, ensure_ascii=False) + "\n")
-            fd.write("%s\t%s\t%s\t%d\t%d\t%s%s%s\n" % (dom, TODAY, res, len(rec["credits"]) if rec else 0, len(rec["tech"]) if rec else 0, MARK,
-                                                     "\tem=" + em if em else "", "\tcc=" + cc if cc else ""))
+            fd.write("%s\t%s\t%s\t%d\t%d\t%s%s%s%s\n" % (dom, TODAY, res, len(rec["credits"]) if rec else 0, len(rec["tech"]) if rec else 0, MARK,
+                                                       "\tem=" + em if em else "", "\tcc=" + cc if cc else "", "\tvia=" + via if via else ""))
+            if lk_line:
+                flk.write(lk_line)
+            if sec_line:
+                fsec.write(sec_line)
+                stats["with_a_sponsors_clients_members_section"] += 1
             stats["home_page_prints_role_mailbox"] += bool(em)
             if stats["sites"] % 2000 == 0:
                 fs.flush(); fd.flush()
@@ -922,7 +1092,7 @@ def scan(a):
             stats["timeout"] += 1
     left = LC.run_pool(tasks, one, a, deadline, on_timeout)
     with lock:
-        fs.close(); fd.close()
+        fs.close(); fd.close(); flk.close(); fsec.close()
         with open("out/credit_ext_%d.tsv" % k, "w", encoding="utf-8") as f:
             for d, c in ext.most_common(30000):
                 if c >= 2:
@@ -1222,8 +1392,24 @@ def merge(a):
                 extc[q[0]] += int(q[1])
     if extc:  # outside services loaded by the sites read in this run (top 20,000): a table to vet new Canada-based platforms from
         _append_state("ext", stamp, ["%s\t%d" % kv for kv in extc.most_common(20000)])
+    new_lk, new_sec = {}, {}
+    for f in sorted(glob.glob(os.path.join(d, "site_links_*.tsv"))):
+        for l in open(f, encoding="utf-8"):
+            q = l.rstrip("\n").split("\t")
+            if len(q) == 3 and q[0]:
+                new_lk[q[0]] = l.rstrip("\n")
+    for f in sorted(glob.glob(os.path.join(d, "site_sections_*.jsonl"))):
+        for l in open(f, encoding="utf-8"):
+            try:
+                new_sec[json.loads(l)["dom"]] = l.rstrip("\n")
+            except (ValueError, KeyError):
+                pass
+    n_lk = _append_state("links", stamp, [new_lk[k] for k in sorted(new_lk)])
+    n_sec = _append_state("sections", stamp, [new_sec[k] for k in sorted(new_sec)])
     if n_done or n_seen:
         print("credit scan: %d sites read this run (%s); %d with a credit or a vetted service" % (n_done, ", ".join("%s %d" % kv for kv in st_count.most_common(8)), n_seen))
+    if n_lk or n_sec:
+        print("home pages whose outside links / embedded services were kept: %d; with a sponsors / clients / members section: %d" % (n_lk, n_sec))
     # ---- leads: sightings whose vendor is proven in Canada
     vstate, known_v, seen = vendor_state(), proven_elsewhere(), sightings()
     hints = site_hints()

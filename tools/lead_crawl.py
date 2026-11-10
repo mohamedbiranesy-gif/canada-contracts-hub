@@ -321,8 +321,12 @@ def leads_mode(a, k, n):
                 continue
             cand.append((rank_em.get(em, 3), dom, key))
         cand.sort()
+        try:
+            _via = CS.site_via()  # sites that answer on plain http or on www. only (scan detector 5): the reader starts where the scan read them
+        except Exception:
+            _via = {}
         for _, dom, key in cand[:a.registry]:
-            tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": "https://%s/" % dom, "_n": 0, "_f": 9, "_em": 0, "_max_pages": 8})
+            tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via), "_n": 0, "_f": 9, "_em": 0, "_max_pages": 8})
             n_reg += 1
         print("registry candidates (.ca sites whose home page prints a role mailbox, no lead yet): %d queued of %d" % (n_reg, len(cand)), flush=True)
     # second class of registry candidates (2026-11-10): .ca sites whose home page was read and prints NO role mailbox — 428,464 of them; the
@@ -331,19 +335,20 @@ def leads_mode(a, k, n):
     if getattr(a, "registry2", 0):
         try:
             lead_doms = {C.registrable(h[4:] if h.startswith("www.") else h) for h in hosts}
-            taken = {t["known_website"] for t in tasks}
+            taken = {host_of(t["known_website"])[4:] if host_of(t["known_website"]).startswith("www.") else host_of(t["known_website"]) for t in tasks}
             cand2 = []
             for dom, cc in CS.ca_sites_without_mailbox().items():
                 if cc not in ("", "CA") or not shard_ok(dom, k, n):
                     continue
                 rd = C.registrable(dom)
                 key = "lead:" + hashlib.sha1(("%s|reg:ca" % rd).encode()).hexdigest()[:16]
-                if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known or "https://%s/" % dom in taken:
+                if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known or dom in taken:
                     continue
                 cand2.append((0 if cc == "CA" else 1, dom, key))
             cand2.sort()
+            _via2 = CS.site_via()
             for _, dom, key in cand2[:a.registry2]:
-                tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": "https://%s/" % dom, "_n": 0, "_f": 10, "_em": 2, "_max_pages": 4})
+                tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via2), "_n": 0, "_f": 10, "_em": 2, "_max_pages": 4})
             print("registry candidates, second class (.ca sites, no mailbox on the home page): %d queued of %d" % (min(len(cand2), a.registry2), len(cand2)), flush=True)
         except Exception as e:
             print("second-class registry candidates not queued: %s" % e, flush=True)

@@ -866,3 +866,18 @@ up. What follows is what was measured this evening and what was built or closed 
 raise the store rate (Shopify counts requests per reader: 9,024 of the first 23,437 stores refused before the single queue); older releases
 of the domain graph for the sweep (each adds about 10 % new domains, mostly gone).
 
+## 2026-11-10 20:25Z from claude — scan detector 5: a home page is read once more, and what it links to is kept
+Every lane found since yesterday that needed "which sites link to X" or "which sites load X" needed the home pages read again (the scan
+keeps what its detectors recognise, not the page). Detector 5 keeps, for every readable home page:
+- the outside domains it loads (script / iframe / form targets) and links to, without the networks nearly every site carries; a link into
+  a multi-tenant platform keeps its host, a link into a watched service (bbb.org profile, canadahelps.org form, a booking or ticketing
+  page) its path start — `credit_scan/links_<stamp>.gz`, one line per site;
+- the organisations linked under a heading such as "Our Sponsors", "Nos clients", "Our Members", with their labels, the page's own postal
+  address beside them — `credit_scan/sections_<stamp>.gz`. Kept as read. A lead is made from them only by a rule of its own, once the
+  volume and a sample have been looked at (a sponsor pays the organiser; a "partner" or a "funder" does not, and is not collected);
+- which address answered when https://site/ did not (`via=http|www` on the done line): the lead readers start there.
+With that on file, a vendor added to the vendor table is found by a join, and a badge that links to a register names the site's own entry,
+without a new pass over 1.3 million sites.
+Sites that refused the reader (robots.txt, a block: 313,649) are not read again. The pass runs at the scan's usual pace (one cycle when
+the dispatcher has a slot); the 196,195 linking domains never read come first.
+
