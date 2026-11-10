@@ -25,3 +25,18 @@ check rebuild.yml 24
 if git ls-remote --heads "https://github.com/${GITHUB_REPOSITORY}.git" 2>/dev/null | grep -qE 'refs/heads/(gemini|chatgpt|jules|codex|claude)/'; then
   echo "dispatching agent-branch.yml (agent branches waiting)"; gh workflow run agent-branch.yml --ref main || true
 fi
+
+# ---- the cloud engines (2026-11-10). Their own cron lines fire rarely: in the 4.5 hours after mailbox-crawl.yml was created its hourly schedule
+# never fired once, tenant-factory and site-facts each missed two slots. The tick keeps them moving instead. The account runs 20 jobs at a time and
+# the referee and the ranker need slots, so engines are started in priority order only while fewer than MAX_ENGINES engine runs are active; the
+# mailbox crawl (leads -> rows) and the ranker are always started when due.
+MAX_ENGINES=4
+active() { gh run list --limit 60 --json status,workflowName --jq '[.[] | select(.status != "completed") | select(.workflowName | test("^(mailbox-crawl|row-factory|tenant-factory|credit-scan|site-facts|bbb-accredited|member-live|biz-licences|dns-services|rbq-licences)$"))] | length' 2>/dev/null || echo 0; }
+check mailbox-crawl.yml 0
+check rank-buyers.yml 2
+for spec in "row-factory.yml 3" "tenant-factory.yml 3" "credit-scan.yml 6" "site-facts.yml 6" "bbb-accredited.yml 6" "member-live.yml 12" "biz-licences.yml 12" "dns-services.yml 24" "rbq-licences.yml 168"; do
+  n=$(active)
+  if [ "${n:-0}" -ge "$MAX_ENGINES" ]; then echo "engines active: $n (limit $MAX_ENGINES) — the rest waits for the next tick"; break; fi
+  # shellcheck disable=SC2086
+  check $spec
+done
