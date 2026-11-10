@@ -28,6 +28,10 @@ def lead_kind(cfv, platform=""):
         return "M membership stated by the member"
     if "(tech)" in cfv:
         return "T vetted software service (store / portal)"
+    if "licence holder of the Canadian body" in cfv:
+        return "M licence holder (the licensing body's own list of active licences)"
+    if "accredited business of the Canadian body" in cfv:
+        return "M accredited business (BBB)"
     if "membership / statutory fee relationship" in cfv:
         return "M member / regulated payer list"
     if "vendor located in Canada" in cfv:

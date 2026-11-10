@@ -1,0 +1,55 @@
+name: rbq-licences
+# Québec construction licence holders (tools/rbq_licences.py). The Régie du bâtiment du Québec publishes, every day, the list of all holders of
+# an active licence (Données Québec, CC-BY 4.0) — legal name, NEQ, address, telephone, e-mail, first issue date, date of the next annual payment —
+# and states: "Chaque année, vous devez payer votre licence pour la maintenir." A licence on the list is a current, dated, paid relationship
+# between a named holder and a Québec body. The holder's own site is found from the domain of the e-mail the register publishes, read once and
+# kept only when it shows the holder's licence number, telephone, postal code or name; the ordinary mailbox crawl then reads that site.
+# Natural persons are left out. One bulk download from donneesquebec.ca, then one to three pages per holder's own site.
+on:
+  schedule:
+    - cron: "17 9 * * 3"
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "minutes of reading holders' own sites"
+        default: "100"
+      limit:
+        description: "at most this many domains (0 = no limit)"
+        default: "0"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: rbq-licences
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: The daily list, then the holders' own sites
+        env: { MINUTES: "${{ inputs.minutes || '100' }}", LIMIT: "${{ inputs.limit || '0' }}" }
+        run: |
+          mkdir -p out keep
+          python3 tools/rbq_licences.py pull 2>&1 | tee /tmp/r.txt
+          rm -f out/rbq_raw.csv
+          cp out/rbq_holders.csv.gz keep/
+          python3 tools/rbq_licences.py sites --minutes "$MINUTES" --limit "$LIMIT" --workers 60 2>&1 | tail -40 | tee -a /tmp/r.txt
+          cp out/rbq_sites.jsonl keep/ 2>/dev/null || true
+      - name: Commit
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          git config user.name "rbq-licences"; git config user.email "rbq-licences@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/rbq data/incoming/claude/lead_shards
+            python3 tools/rbq_licences.py merge keep --stamp "$STAMP" | tee /tmp/m.txt
+            git add data/incoming/claude/rbq data/incoming/claude/lead_shards 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "rbq-licences: $(tail -1 /tmp/m.txt | cut -c22-170) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          { echo '```'; cat /tmp/r.txt /tmp/m.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

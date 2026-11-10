@@ -737,8 +737,22 @@ def apply_details(x, k):
     if d.get("member_address_quote") and not x.get("buyer_address"):
         # a member page of a chamber / association directory prints the member's own address (a third party's page: labelled as such)
         _m = re.search(r"(?<![\w-])\d{1,6}[A-Za-z]?,?\s+(?:[a-zà-ÿ]+\.?\s+){0,2}[A-ZÀ-Ý0-9]", d["member_address_quote"])
-        x["buyer_address"] = "%s (as printed in the member directory of %s, %s)" % ((d["member_address_quote"][_m.start():] if _m else d["member_address_quote"]).strip()[:160], d.get("vendor") or "the body", d.get("record_url") or "")
+        x["buyer_address"] = "%s (as printed in %s %s, %s)" % ((d["member_address_quote"][_m.start():] if _m else d["member_address_quote"]).strip()[:160], d.get("register_label") or "the member directory of", d.get("vendor") or "the body", d.get("record_url") or "")
         n_lf["buyer_address_from_member_directory"] += 1
+    br = d.get("buyer_register")
+    if isinstance(br, dict):
+        # a public register kept by the body that is paid (2026-11-10: the Régie du bâtiment du Québec's list of active licences) states the payer's legal identity
+        _src = " (%s)" % br.get("label", "the body's public register")
+        if br.get("legal_name"):
+            x["buyer_legal_name_as_published"] = br["legal_name"] + _src; n_lf["buyer_legal_name_from_register"] += 1
+        if br.get("trade_names") and not x.get("buyer_trade_name_as_published"):
+            x["buyer_trade_name_as_published"] = "; ".join(br["trade_names"]) + _src
+        if br.get("registry_id") and not x.get("buyer_registry_id"):
+            x["buyer_registry_id"] = br["registry_id"] + _src
+        if br.get("legal_form") and not x.get("buyer_legal_form"):
+            x["buyer_legal_form"] = br["legal_form"] + _src
+        if br.get("phone") and not x.get("buyer_phone"):
+            x["buyer_phone"] = br["phone"] + _src
     for col, key in (("contract_value", "value"), ("currency", "currency"), ("contract_reference", "reference"), ("start_date", "start"),
                      ("end_date", "end"), ("vendor_address", "vendor_address"), ("contract_title", "title")):
         if not x.get(col) and d.get(key):
@@ -943,6 +957,9 @@ for k, L in sorted(leads.items(), key=lead_strength):
                            ("member of a Canadian body (stated on the buyer's own site, read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "member badge on the buyer's own site" in L.get("canada_field_value", "") else
                            ("accredited business of a Canadian Better Business Bureau since %s (its BBB profile read %s): %s — accredited businesses pay the BBB dues"
                             % ((LDET.get(k) or {}).get("accredited_since") or "an unstated date", (L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "accredited business of the Canadian body" in L.get("canada_field_value", "") else
+                           ("holder of licence no. %s issued by a Québec body: %s — first issued %s, licence fees paid up to %s (the body's daily list of active licences, read %s); a holder pays the body every year to keep the licence"
+                            % ((LDET.get(k) or {}).get("reference") or "?", L["example_vendor"], (LDET.get(k) or {}).get("start") or "an unstated date", (LDET.get(k) or {}).get("end") or "an unstated date",
+                               (L.get("latest_record_date") or "")[:10])) if member and "licence holder of the Canadian body" in L.get("canada_field_value", "") else
                            ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
                            tech_status(k, L) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
@@ -967,6 +984,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
         x["vendor_address"] = (LDET.get(k) or {}).get("vendor_address") or x.get("vendor_address") or ""  # CIRA's address as its own agreement prints it (a dataset record of CIRA said only "Ottawa, ON")
     x["source"] = ("the .ca registry's public delegation of the buyer's domain (DNS) and CIRA's Registrant Agreement" if registry else
                    "the buyer's own website (it states its membership of the Canada-located body, linked)" if member and "member badge on the buyer's own site" in cfv else
+                   "the Canadian licensing body's own public list of active licences (open data, updated daily)" if member and "licence holder of the Canadian body" in cfv else
                    "the Canadian body's own current member / participant list" if member else
                    "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if tech and "credited on the buyer's own site" in cfv else
                    "the buyer's own public DNS records (they name the Canada-located provider of its e-mail, hosting or DNS service)" if tech and "seen in the buyer's public DNS" in cfv else
@@ -2607,6 +2625,16 @@ for x in rows:
     x["buyer_type"] = buyer_type(x.get("buyer"), x.get("jurisdiction") or x.get("_jur") or "")
     x["relationship_kind"] = KIND.get(t, KIND["N"])
     x["how_relationship_was_found"] = HOW_FOUND.get(t, HOW_FOUND["N"])
+    if t == "M":  # tier M has several engines: say which one found this row
+        _cs = x.get("contract_status") or ""
+        if _cs.startswith("holder of licence"):
+            x["relationship_kind"] = "licence in force with a Canadian licensing body: the holder pays the body every year (the body's own daily list of active licences)"
+            x["how_relationship_was_found"] = ("tools/rbq_licences.py read the Régie du bâtiment du Québec's daily open-data list of active licences; the holder's own site (the domain of the e-mail the register "
+                                               "publishes) was kept only because it shows the holder's licence number, telephone, postal code or name; the mailbox comes from that site")
+        elif _cs.startswith("accredited business"):
+            x["how_relationship_was_found"] = "tools/bbb_accredited.py read the business's public BBB profile (an archived copy; bbb.org's sitemap of accredited businesses says who is accredited today); the profile gives the business's own website"
+        elif _cs.startswith("member of a Canadian body (stated on the buyer's own site"):
+            x["how_relationship_was_found"] = "tools/credit_scan.py read the organisation's own home page, which states its membership of the Canada-located body and links to it"
     parts = ["%s (%s, %s) — %s: %s" % (x.get("buyer") or "", x["buyer_type"], x.get("jurisdiction") or x.get("_jur") or "jurisdiction not stated", x["relationship_kind"], x.get("vendor") or "vendor not named")]
     if x.get("contract_title"): parts.append("subject: %s" % x["contract_title"][:200])
     if x.get("instrument_type"): parts.append("instrument: %s" % x["instrument_type"])
