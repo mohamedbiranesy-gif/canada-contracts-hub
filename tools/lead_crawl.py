@@ -76,6 +76,8 @@ def main():
             C.AP_PAGES.pop(t["buyer_key"], None)  # the walker's page memory is not needed here
         except Exception:
             pass
+        # the validator's own rule (tools/validate_returns.py): a first.last-shaped local part without a role word is treated as a person and dropped
+        rows = [r for r in rows if C.EMAIL.match(r.get("ap_email") or "") and not (C.PERSONAL.match(r["ap_email"].split("@")[0]) and not C.ROLE_HINT.search(r["ap_email"].split("@")[0]))]
         with lock:
             stats["sites"] += 1
             stats["with_mailbox"] += bool(rows)
