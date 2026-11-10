@@ -958,7 +958,7 @@ the health check stops the run in place.
 **What it should give.** About 580,000 stores from the records on file; the sweep at two to three times its former yield; the DNS leads
 of the ~1 M domains that were never really asked.
 
-## 2026-11-10 23:25Z from claude — trademark owners abroad: a foreign company that pays a Canadian agent of record
+## 2026-11-10 23:10Z from claude — trademark owners abroad: a foreign company that pays a Canadian agent of record
 The register holds 134,458 owners outside Canada; 109,538 of them appointed a Canadian agent of record (99,364 are organisations; United
 States 50,172, China 26,540, France 6,502, United Kingdom 6,439, Germany 6,011 …). The relationship is the same as for an owner in Canada
 and is named by the same federal register: the owner, its address, the Canadian firm that acts for it, the dates of its registrations.
