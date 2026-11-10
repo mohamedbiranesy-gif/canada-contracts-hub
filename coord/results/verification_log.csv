@@ -7650,7 +7650,7 @@ chatgpt,chatgpt_buyer_ap_results_batch50.csv,CH-AP-50079,lead:9898b2fe07d2c573,i
 chatgpt,chatgpt_buyer_ap_results_batch50.csv,CH-AP-50079,lead:9898b2fe07d2c573,takedaap@takeda.com,https://www.takeda.com/en-be/siteassets/system/what-we-do/suppliers/shire-supplier-information/north-america/ssca-payments-guide-north-america-en.pdf,unverified_page_unavailable
 chatgpt,chatgpt_buyer_ap_results_batch50.csv,CH-AP-50046,lead:99fc02249ee6e09a,finance@catca.ca,https://catca.ca/en/executive-board,verified
 chatgpt,chatgpt_buyer_ap_results_batch50.csv,CH-AP-50100,lead:9a1dfb1892372b8f,procurement@accela.com,https://www.accela.com/about/contact-us/,verified
-chatgpt,chatgpt_buyer_ap_results_batch52.csv,CH-AP-52025,lead:9a299c40539088af,info@tweed.ca,https://tweed.ca/photos/custom/Tweed%20InfoPak%20%282%29%20%281%29.pdf,pending_verification
+chatgpt,chatgpt_buyer_ap_results_batch52.csv,CH-AP-52025,lead:9a299c40539088af,info@tweed.ca,https://tweed.ca/photos/custom/Tweed%20InfoPak%20%282%29%20%281%29.pdf,unverified_page_unavailable
 chatgpt,chatgpt_buyer_ap_results_batch52.csv,CH-AP-52026,lead:9b029a36e5966817,info@northamrealty.com,https://northamrealty.com/nral-contact-us,verified
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00680,lead:9cac888b02bc4233,hello@monogramcomms.ca,https://monogramcomms.ca/,not_found_on_page
 gemini,gemini_verify_buyer_ap_results_batch01.csv,GE-VF-00680,lead:9cac888b02bc4233,hello@monogramcomms.ca,https://monogramcomms.ca/,not_found_on_page
