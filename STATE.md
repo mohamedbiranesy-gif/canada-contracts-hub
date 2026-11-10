@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 08:10Z — scan read 1.31 M home pages: 185,798 print a role mailbox, 133,597 of them .ca; bulky outputs moved to release assets; licence lanes live)
+# STATE.md — Claude lane (updated 2026-11-10 12:45Z — row audit round 2: eight classes of cells that were true of another organisation removed; published build 10:54Z = 96,098 rows)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,44 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 12:45Z — row audit, round 2: cells that were true of ANOTHER organisation (eight fixes, each measured on a full local build)
+**Published build 10:54Z** (`2026-11-10T10:54:43Z-7d767f6`): 96,098 rows, 92,432 with a mailbox — A 1,279 · B 1,695 · C 332 · D 21,169 · E 3,592 ·
+F 8 · I 10,515 · L 431 · M 4,518 · R 27,207 · T 21,686. Named-vendor relationships (A B C D L M T) 51,110 · registry contract R 27,207 · link
+only E 3,592 · older / inferred F+I 10,523. The fixes below are in the next build.
+
+**Why:** the first audit round fixed the relationship (is it a client?). This round read the identity cells of each side and asked "is this
+true of the organisation on the row, or of another one?". Method: a frozen copy of the inputs (76,704 rows), the ranker run before and after
+each change, every changed cell compared by row key, samples read by eye. Rules: `coord/DECISIONS.md` 2026-11-10 12:40Z.
+
+| what was wrong | how many (of 76,704 rows) | what happens now |
+|---|---|---|
+| listing on a multinational's worldwide site delivered as a relationship with its Canadian arm (3ds.com, ibm.com, okta.com, granicus.com …) | 414 rows, 104 vendor/site pairs | tier E with the reason; Wikidata's official-website owner first (326), then the site's own address (66), then national-arm names (22) |
+| shopify.com case studies of merchants outside the United States and Canada (Shopify's own terms: other entities contract there) | 49 | tier E |
+| legal name "CANADA INC." + its NEQ on organisations labelled "X (Canada)" | 77 cells, 57 registry rows | registry rows deleted; a bracketed place is no alias; generic registered names refused |
+| vendor address / telephone read on a foreign organisation's site (Cupertino for a Markham vendor) | 537 joins, 139 address cells, 296 telephones | not taken; 80 JSON-LD addresses likewise |
+| vendor legal / trading name stated by a foreign group's site ("KPMG International Limited" for KPMG LLP) | 787 joins | not taken (a page of the site's Canadian section may still state it) |
+| footer "legal names" that are menu words, an agency credit, an address, a sentence; names of another body stated on an "about" page | with the line above: 621 vendor and 750 buyer legal-name cells emptied | refused; 355 buyer and 96 vendor cells gained a real name from the next candidate |
+| mailboxes ending in a non-existent top-level domain (".cadevelopment", ".comphone": text glued in the page source) | 560 referee rows | 454 cut back to the address the page prints (domain = the page's domain), 106 left out; the shared e-mail pattern now needs a real TLD |
+| buyer named by its web address although its home-page title names it | 507 rows | named (589 sites re-read from stored titles with today's rule); 328 wrong or junk names went back to the address |
+| vendor address cell = the page's words in front of the address | 1,583 cells | the address alone, the page still cited |
+
+Totals of the comparison: tier D 11,862 → 11,410, tier E 2,405 → 2,862, every other tier unchanged within the mailbox repairs (+72 rows with a
+mailbox). No row was deleted by a quality rule.
+
+**New files:** `tools/site_owner_wd.py` + `data/incoming/claude/claude_site_owner_wd.csv` (whose site: 3,930 sites asked —
+200 a foreign organisation's, 597 a Canadian one's, 166 undecided, 2,967 unknown to Wikidata; the ranker's workflow asks the new sites of each
+build, at most 400 — the query service allows one query a minute), `tools/data/iana_tlds.txt`.
+**Changed:** `rank.py`, `validate_returns.py` (EMAIL), `ap_crawler.py` (`page_emails`), `credit_scan.py`, `cc_mine.py`, `org_contacts.py`,
+`lead_crawl.py` (site name: initials, "Welcome to", spelled-out name before acronym), `bulk_registry_match.py`, `tech_relationships.py`
+(`scope_countries`), `rank-buyers.yml`.
+
+**Known limits, measured:** (1) about 8 of the 463 demoted rows are Canadian companies whose site prints only a foreign office and that
+Wikidata does not know (ADLIB, Mad Barn, Forest Technology Systems …): they come back when the site is read again or Wikidata learns them.
+(2) 6,618 rows still carry a web address as the buyer's name: for 4,000 of them the site's own pages were never read for its name (the
+site-facts workflow is on them), the others print no usable name. (3) Buyer address missing on 15,053 of 73,592 mailbox rows: 5,044 sites not
+read yet, 10,009 print no postal address on the pages read. (4) A disk-full on the work machine cut one comparison run; nothing in the
+repository was touched by it (every edited file re-parsed, the lookup table re-read).
 
 ## 2026-11-10 09:50Z — the two scale walls found by measuring: rank memory (5.8 GB → 2.8 GB) and the leads file (60 MB of GitHub's 100 MB) → shards; crawl three times wider
 **Build 09:29Z** (`2026-11-10T09:29:09Z-16ba0e7`): 77,055 rows, 73,672 with a mailbox. A 1,279 · B 1,622 · C 331 · D 11,534 · E 2,563 · F 7 · I 10,644 ·

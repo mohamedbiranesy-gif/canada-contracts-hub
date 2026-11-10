@@ -27,6 +27,18 @@ STAT_IMMAT = {"AI": "avis d'intention de constitution", "IM": "immatriculée", "
 OUT_COLS = COLS + ["reg_office_address"]
 FORME = {"CIE": "société par actions (compagnie)", "APE": "personne morale sans but lucratif / de droit public", "SENC": "société en nom collectif", "SEC": "société en commandite", "COP": "coopérative",
          "PP": "personne physique (entreprise individuelle)", "SOC": "société", "SEP": "société en participation", "FID": "fiducie", "SYN": "syndicat de copropriété"}
+_PLACE = {"canada", "quebec", "ontario", "alberta", "manitoba", "saskatchewan", "british", "columbia", "colombie", "britannique", "nova", "scotia", "nouvelle", "ecosse", "new", "brunswick",
+          "nouveau", "newfoundland", "labrador", "terre", "neuve", "yukon", "nunavut", "prince", "edward", "island", "montreal", "toronto", "vancouver", "ottawa", "calgary", "edmonton",
+          "winnipeg", "halifax", "laval", "gatineau", "sherbrooke", "usa", "us", "united", "states", "america", "amerique", "nord", "north", "international", "global", "mondial", "world",
+          "france", "europe", "uk", "kingdom", "est", "ouest", "sud", "east", "west", "south", "region", "division", "head", "office", "siege", "social"}
+
+
+def PLACE_ONLY(s):
+    """a bracketed part that names only a place or a scope ("Canada", "Québec", "North America", "International") — not a name"""
+    toks = norm(s).split()
+    return not toks or all(t in _PLACE for t in toks)
+
+
 QC_WORDS = re.compile(r"\b(ville|municipalit[ée]|canton|paroisse|village|cisss|ciusss|centre de services scolaire|commission scolaire|c[ée]gep|universit[ée] du qu[ée]bec|soci[ée]t[ée] de transport|mrc|r[ée]gie|office municipal|soci[ée]t[ée] qu[ée]b[ée]coise|minist[èe]re|qu[ée]bec)\b", re.I)
 
 
@@ -80,7 +92,9 @@ def match_req(orgs, zpath, done):
         if len(n) >= 4:
             wanted[n].append(o)
         m = re.search(r"\(([^()]{3,80})\)", o[2])
-        if m and len(norm(m.group(1))) >= 4:
+        # the name in brackets is often the registered name ("Thermofin (3075109 Canada Inc)") — never when it is a place: Wikidata's batch items
+        # are all labelled "X (Canada)", and 53 organisations were given the registry identity of a company named "CANADA INC." (2026-11-10)
+        if m and len(norm(m.group(1))) >= 4 and not PLACE_ONLY(m.group(1)):
             wanted[norm(m.group(1))].append(o)
     print("REQ: %d names wanted" % len(wanted), flush=True)
     legal, other = collections.defaultdict(set), collections.defaultdict(set)  # normalised name -> NEQs

@@ -227,8 +227,8 @@ def phones(raw, text):
 
 def role_emails(raw, text, site, name):
     out = []
-    vis = {x.lower().rstrip(".") for x in C.EMAIL_RX.findall(text)}
-    for e in sorted({x.lower().rstrip(".") for x in C.EMAIL_RX.findall(raw)} | vis):
+    vis = C.page_emails(text)
+    for e in sorted(C.page_emails(raw) | vis):
         local = e.split("@")[0]
         if e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp", "js", "css"):
             continue

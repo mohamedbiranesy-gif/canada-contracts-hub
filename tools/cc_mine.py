@@ -270,7 +270,7 @@ def read_page(item):
         raw = re.sub(r"\\u00[0-9a-fA-F]{2}", " ", html.unescape(page_html))  # JSON escapes such as \u003e glued to an address
         text = AP.visible(raw)
     res["ok"] = True
-    for e in set(x.lower().rstrip(".") for x in AP.EMAIL_RX.findall(raw)):
+    for e in AP.page_emails(raw):
         if e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp") or not AP.same_org(e, site, oname):
             continue
         q = AP.quote_for(e, text, raw)

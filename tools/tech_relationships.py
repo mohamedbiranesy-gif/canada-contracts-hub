@@ -133,7 +133,7 @@ VENDORS = {
                     hq_url="https://www.shopify.com/legal/terms",
                     hq="United States or Canada Shopify Inc., a Canadian corporation 151 O'Connor Street, Ground floor, Ottawa, Ontario, K2P 2L8, Canada",
                     asset_re=r"cdn\.shopify\.com/s/files/|//[a-z0-9-]+\.myshopify\.com|Shopify\.theme\s*=",
-                    scope="Shopify Inc. contracts only with merchants whose billing address is in the United States or Canada"),
+                    scope="Shopify Inc. contracts only with merchants whose billing address is in the United States or Canada", scope_countries=("US", "CA")),
     "coveo": dict(name="Coveo", legal="Coveo Solutions Inc.", kind="asset",
                   hq_url="https://ir.coveo.com/en",
                   hq="Coveo Solutions Inc. 1100 Av. Des Canadiens-de-Montréal Suite 401 Montréal, Québec H3B 2S2 Canada",

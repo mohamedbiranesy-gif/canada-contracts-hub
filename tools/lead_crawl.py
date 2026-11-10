@@ -78,6 +78,8 @@ def name_fit(c, label):
     if len(n) >= 4 and n in label:
         return 60.0 + 20.0 * len(n) / len(label)
     words = re.findall(r"[a-z0-9]+", flat)
+    if len(label) == 3 and label in words and len(words) <= 4:
+        return 40.0  # a three-letter domain that is one whole word of a short name: "CSV Architects" on csv.ca, "TSS Football Club" on tss.ca
     toks = [t for t in words if len(t) >= 4 and t not in GENERIC_SITE_WORDS]
     hit = [t for t in toks if t in label]
     if not hit:
@@ -98,14 +100,20 @@ def site_name_for(host, og, title, T):
     cands = []
     for s in (og, title):
         if s:
-            cands += [q.strip(" -–—|:·•") for q in re.split(r"\s+[|–—:·•]\s+|\s+-\s+|\s*\|\s*", s)]
-    best, best_s = "", 0.0
+            cands += [q.strip(" -–—|:·•") for q in re.split(r"\s+[|–—:·•]\s+|\s+-\s+|\s*\|\s*|(?<=\w):\s+", s)]
+    best, best_s, spelled = "", 0.0, ""
     for i, c in enumerate(cands):
+        c = re.sub(r"^(?:welcome to|bienvenue (?:[àa]|au|aux|chez|sur)(?: le| la| l['’])?)\s+", "", c, flags=re.I)  # "Welcome to ABC"
         if not (2 <= len(c) <= 80) or T.BAD_TITLE.search(c):
             continue
-        sc = name_fit(c, label) - 0.01 * i  # equal fits: the earlier candidate (og:site_name first)
+        f = name_fit(c, label)
+        sc = f - 0.01 * i  # equal fits: the earlier candidate (og:site_name first)
+        if f == 45.0 and " " in c and not spelled:
+            spelled = re.sub(r"\s+", " ", c).strip()  # a name whose initials are the domain ("Amalgamated Dairies Limited" on adl.ca)
         if sc > best_s:
             best, best_s = re.sub(r"\s+", " ", c).strip(), sc
+    if spelled and best and " " not in best and len(best) <= 6 and re.sub(r"[^a-z0-9]", "", best.lower()) == label:
+        best = spelled  # "ADL | Amalgamated Dairies Limited": the name spelled out, not the bare acronym
     return best if best_s >= 20.0 else ""
 
 

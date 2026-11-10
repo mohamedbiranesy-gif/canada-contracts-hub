@@ -19,7 +19,7 @@ import urllib.error, urllib.parse, urllib.request, urllib.robotparser
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from validate_returns import EMAIL, PERSONAL, ROLE_HINT  # same mailbox rules as the referee
+from validate_returns import EMAIL, PERSONAL, ROLE_HINT, TLDS  # same mailbox rules as the referee
 
 STATE = os.path.expanduser("~/cch-crawler-state")
 OUT = "data/incoming/claude/claude_buyer_ap_results_crawl01.csv"
@@ -187,6 +187,21 @@ def office_text(data):
         return " ".join(re.sub(r"<[^>]+>", " ", z.read(n).decode("utf-8", "replace")) for n in parts)
     except Exception:
         return ""
+
+
+_COMMON_TLD = {"ca", "com", "org", "net", "edu", "gov", "info", "biz", "coop", "quebec", "us", "uk", "io", "co", "fr", "de", "au", "nz", "ie", "eu", "int", "mil"}
+
+
+def page_emails(src):
+    """the addresses in a page's source: lower case, a top-level domain that exists, and never an address plus the word that follows it.
+    2026-11-10: descriptions and search indexes made by stripping tags without spaces print "info@site.caPhone", "ap@town.caDevelopment" next to
+    the real address; 125 such strings had been taken for mailboxes (the last label is no TLD) — and "info@site.ca" + "re" would even be one."""
+    es = {x.lower().rstrip(".") for x in EMAIL_RX.findall(src)}
+    if TLDS:
+        es = {e for e in es if e.rsplit(".", 1)[-1] in TLDS}
+    glued = {e for e in es if e.rsplit(".", 1)[-1] not in _COMMON_TLD
+             and any(o != e and e.startswith(o) and o.rsplit(".", 1)[-1] in _COMMON_TLD for o in es)}
+    return es - glued
 
 
 def visible(raw):
@@ -494,8 +509,8 @@ def crawl(task, max_pages, general=False):
         is_pdf = is_pdf or is_office  # documents: no links to follow
         text = re.sub(r"\s+", " ", raw) if is_pdf else visible(raw)
         note_ap_page(task.get("buyer_key", ""), task.get("buyer_name", ""), task["known_website"], final, text, is_pdf)
-        vis = set(x.lower().rstrip(".") for x in EMAIL_RX.findall(text))
-        for e in set(x.lower().rstrip(".") for x in EMAIL_RX.findall(raw)):
+        vis = page_emails(text)
+        for e in page_emails(raw):
             if e.split(".")[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp") or e in found:
                 continue
             if e not in vis and any(v != e and v.endswith(e) for v in vis):

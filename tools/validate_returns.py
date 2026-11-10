@@ -3,7 +3,7 @@
 Usage: python validate_returns.py <result.csv> [<task_file.csv>]
 Prints problems; exit code 0 when clean.
 """
-import csv, re, sys
+import csv, os, re, sys
 
 FORMATS = {
     "buyer_ap": "task_id,buyer_key,org_name_as_found,ap_email,ap_email_type,invoice_portal_url,ap_phone,invoice_mailing_address,invoicing_requirements_summary,applies_to,evidence_url,evidence_quote,retrieved_date,status,queries_tried,notes",
@@ -13,7 +13,30 @@ FORMATS = {
 }
 STATUS = {"buyer_ap": {"found", "portal_only", "not_published", "blocked", "unclear"},
           "vendor_contact": {"found", "website_only", "not_found", "blocked", "ambiguous"}}
-EMAIL = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
+# 2026-11-10: the last label of an address must be a real top-level domain (IANA's list, tools/data/iana_tlds.txt). Text glued behind an address
+# on a page ("info@site.comPhone: …", "accounting@site.ca.Include …") passed the shape test and the page re-fetch — the glued string IS on the
+# page — and 16 such mailboxes sat in the ranked table (.comphone, .cahours, .comcareers, .include …). Without the list file every TLD passes.
+TLDS = set()
+try:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "iana_tlds.txt"), encoding="utf-8") as _fh:
+        TLDS = {l.strip().lower() for l in _fh if l.strip() and not l.startswith("#")}
+except OSError:
+    pass
+
+
+class _Email:
+    """one syntactically valid e-mail address whose last label is a top-level domain that exists; .match() as the compiled pattern it replaces"""
+    rx = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
+    pattern = rx.pattern
+
+    def match(self, e):
+        m = self.rx.match(e or "")
+        if m and TLDS and e.rsplit(".", 1)[-1].lower() not in TLDS:
+            return None
+        return m
+
+
+EMAIL = _Email()
 # firstname.lastname style only; single-word locals (e.g. "dgfi", "approvisionnement") are often role mailboxes
 # first.last style local parts look personal, except two short acronyms (mdv_dpf, ap.cdc are roles)
 PERSONAL = re.compile(r"^(?![a-z]{2,3}[._-][a-z]{2,3}$)[a-z]{2,}[._-][a-z]{2,}$", re.I)

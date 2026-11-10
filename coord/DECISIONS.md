@@ -658,3 +658,49 @@ and every first-class candidate. Measured yield 10 % (200 sites). Same relations
 million rows on a 16 GB runner. The sharded design (a core part holding the contract organisations and every site domain touched by a non-lead key;
 other parts by hash of the lead's site domain; the core exports its column list, the names it covers and the vendor carry-over table; parts merged
 by the sort key with a cross-part check for inferred rows) is written down here and not built.
+
+## 2026-11-10 12:40Z from claude — row audit, round 2: whose site, whose name, whose address (eight rules; all measured on a full local build)
+Owner 2026-11-09 23:41 EST: "keep checking … this is working, this is not working". A second pass over the delivered table looked for cells that
+are true of ANOTHER organisation than the one on the row. Each rule below removed a class of such cells; none removes a row (a row whose
+relationship is no longer shown becomes tier E, reported on its own line).
+**1. A listing proves a relationship with the organisation whose site it is.** The Mac-era lanes tied a vendor "located in Canada" (Wikidata,
+OpenStreetMap, a contract record) to a website; for a multinational's Canadian arm that website is the group's worldwide site (3ds.com for
+"Dassault Systèmes (Canada)", ibm.com for "IBM Canada", okta.com for the OpenStreetMap office "Okta - Toronto"), and its customers all over
+the world were delivered as customers of a Canada-located vendor. Order of the evidence, non-.ca sites only: (0) a listing inside the site's
+Canadian section (/ca/, /en-ca/, ca.…) is the Canadian arm's page; (1) Wikidata — `tools/site_owner_wd.py` asks which organisations give the
+site as their official website (P856) and where their headquarters are; the organisation whose name is the site's name, without a region in
+its name, decides, and it sits where its same-name parent (P749) sits; headquarters abroad → the group's site; headquarters in Canada → the
+vendor's own site whatever office the site reader picked; (2) Wikidata silent → the address the site prints: abroad → not shown to be the
+Canadian entity's, unless a Canadian registry holds a corporation of the site's own name with its registered office in Canada; (3) no address
+in Canada on file and the vendor named as a national arm ("IBM Canada", "DMG EVENTS (CANADA) INC.") → not shown. Not chosen: the share of
+Canadian buyers on the site (Canadian exporters such as Genetec or D2L list few Canadian customers), the reader's single address alone (17 of
+the 76 sites that print a foreign address are Canadian companies with an office abroad), Wikidata's "(Canada)" label suffix (its batch items
+all carry it). The query service allowed one query a minute on 2026-11-10 ("rate-limiting to 1 req / min … during active wdqs outage"): the
+tool asks 100 sites per query, one query a minute, at most four minutes a build.
+**2. A vendor's own published terms can exclude the buyer.** `tools/tech_relationships.py` already quotes Shopify's terms ("United States or
+Canada: Shopify Inc., a Canadian corporation"); a customer story about a merchant not shown to be in those countries is a link (tier E).
+`scope_countries` on a vendor entry carries the rule; only Shopify has one today.
+**3. A registered name made only of legal-form and place words is nobody else's identity.** `tools/bulk_registry_match.py` took the bracketed
+part of a name for an alias ("Thermofin (3075109 Canada Inc)") — and "(Canada)", "(Québec)" too: 53 organisations carried the legal name
+"CANADA INC." and its NEQ, 4 "Co-Québec inc.". The tool no longer takes a bracketed place for a name; rank.py refuses such a registry row from
+any file.
+**4. What a foreign organisation's site says about itself is not the Canada-located vendor's.** Its address, its telephone, its legal name and
+its trading name are not taken when the site is a foreign organisation's by rule 1 ("KPMG International Limited" from kpmg.com's legal page
+for KPMG LLP, Cupertino for "CoreFour Inc. (Edsby)"). A legal name stated inside the site's Canadian section stays.
+**5. A footer line is a legal name only when it reads as a name.** Refused: a run of menu words, the web agency's credit ("Made by …",
+"Site créé par …"), an address or opening hours, a cookie / consent sentence, a mailbox, a fragment cut inside brackets, the credit of a
+government template on the site of a body that is a legal person itself ("© Gouvernement du Québec" on a centre de services scolaire). A name
+stated on a page must still agree with the organisation: its site's label has to be written with the name's own words in their order (whole
+words, beginnings, initials — "usask" = U. of SASKatchewan, "austincc" = AUSTIN C. C.); "Town of Cochrane" on the Cochrane chamber's site is
+another body.
+**6. The last label of a mailbox must be a top-level domain that exists** (IANA list, `tools/data/iana_tlds.txt`). Descriptions and search
+indexes made by stripping tags without spaces print "ap@town.caDevelopment"; the glued string is on the page, so the referee verified it (125
+rows of the referee's table, 560 with the verification log). The shared pattern (`validate_returns.EMAIL`) now requires a real TLD — validator,
+referee, every crawler — and the crawlers drop an address that is another address plus a word. rank.py cuts a glued one back to the address
+the page prints only when its domain is then the domain of the page it was read on (454 of the 560); the rest is left out.
+**7. A row that takes a newer relationship drops every cell of the old one** (the old contract's identifiers, text, amounts, dates, vendor
+cells), and a vendor is looked up by a site's domain only when its name fits that domain or the website finder verified it; a web host's or
+registrar's own site is nobody's website (918 DNS rows of one host had carried a festival's legal name and street address).
+**8. Stored page text is read again with today's rule**: the buyer's name from the stored home-page title (589 sites named: initials such as
+"Comox Valley Animal Hospital" on cvah.ca), the vendor's address cut out of its quote (4,244 lead records carried the page's words in front of
+the street number).

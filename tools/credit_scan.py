@@ -806,7 +806,7 @@ def scan(a):
         """(kind of the best role mailbox the home page prints for this organisation, country of the postal address it prints, that address)"""
         text = C.visible(raw)
         best = ""
-        for e in set(x.lower().rstrip(".") for x in C.EMAIL_RX.findall(raw[:600_000])):
+        for e in C.page_emails(raw[:600_000]):
             if e.rsplit(".", 1)[-1] in ("png", "jpg", "jpeg", "gif", "svg", "webp") or not LC.ok_mailbox(e):
                 continue
             try:
