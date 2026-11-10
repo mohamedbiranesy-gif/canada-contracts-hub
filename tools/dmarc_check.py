@@ -147,13 +147,16 @@ def main():
             prev[r["domain"]] = r
     files = a.files or sorted(glob.glob(os.path.join(a.repo, "coord/results/ranked/batches/*.csv")))
     domains = set()
+    csv.field_size_limit(1 << 30)
     for f in files:
-        text = open(f, encoding="utf-8", errors="replace").read().replace("\0", "")
-        for r in csv.DictReader(io.StringIO(text), delimiter="\t" if f.endswith(".tsv") else ","):
-            for col in ("email", "ap_email", "mailbox"):
-                e = (r.get(col) or "").strip().lower()
-                if "@" in e:
-                    domains.add(e.split("@")[-1])
+        # read as a stream (2026-11-10: the whole file was read into memory, three copies of it — the ranked table of 169,769 rows is 2 GB of
+        # text and the runner was shut down twice at this step)
+        with open(f, encoding="utf-8", errors="replace", newline="") as fh:
+            for r in csv.DictReader((l.replace("\0", "") for l in fh), delimiter="\t" if f.endswith(".tsv") else ","):
+                for col in ("email", "ap_email", "mailbox"):
+                    e = (r.get(col) or "").strip().lower()
+                    if "@" in e:
+                        domains.add(e.split("@")[-1])
     cutoff = time.strftime("%Y-%m-%d", time.localtime(time.time() - a.recheck_days * 86400))
     todo = sorted(d for d in domains if a.force or d not in prev or prev[d]["checked_date"] < cutoff or prev[d]["policy"] == "error" or "spf_policy" not in prev[d] or "mta_sts" not in prev[d])
     print("domains: %d, to check: %d" % (len(domains), len(todo)), flush=True)
