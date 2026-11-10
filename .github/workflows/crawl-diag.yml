@@ -1,9 +1,15 @@
 name: crawl-diag
-# A measurement (nothing is written): why the mailbox crawl finds nothing on most lead sites. A sample of sites that gave "nothing_found"
-# is read again (home page + up to 3 contact pages, robots.txt respected) and each site is put in one class (tools/crawl_diag.py).
+# Measurements (nothing is written).
+#   what=nothing_found  why the mailbox crawl finds nothing on most lead sites: a sample of sites that gave "nothing_found" is read again
+#                       (home page + up to 3 contact pages, robots.txt respected) and each site is put in one class (tools/crawl_diag.py)
+#   what=unreachable    what is behind the home-page scan's verdict "unreachable" (1.25 million .ca domains): no DNS record, a silent https
+#                       port with a working http or www. copy, a forward, a parked page, a site of its own (tools/unreach_diag.py)
 on:
   workflow_dispatch:
     inputs:
+      what:
+        description: "nothing_found | unreachable"
+        default: "nothing_found"
       n:
         description: "sites in the sample"
         default: "600"
@@ -16,7 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
-      - name: Classify a sample of lead sites
+      - name: Classify a sample of sites
         run: |
-          python3 tools/crawl_diag.py --n "${{ inputs.n || '600' }}" --minutes 30 --workers 60 | tee /tmp/diag.txt
+          if [ "${{ inputs.what }}" = "unreachable" ]; then
+            python3 tools/unreach_diag.py --n "${{ inputs.n || '5000' }}" --minutes 35 --workers 60 | tee /tmp/diag.txt
+          else
+            python3 tools/crawl_diag.py --n "${{ inputs.n || '600' }}" --minutes 30 --workers 60 | tee /tmp/diag.txt
+          fi
           { echo '```'; cat /tmp/diag.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
