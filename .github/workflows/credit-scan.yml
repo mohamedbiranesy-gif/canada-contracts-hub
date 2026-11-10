@@ -13,7 +13,8 @@ name: credit-scan
 # No AI, no search engine, no Mac. robots.txt respected, identified user agent, one home-page request per site.
 on:
   schedule:
-    - cron: "7 0,6,12,18 * * *"
+    - cron: "7 0,6,12,18 * * *"   # a scan cycle every 6 hours
+    - cron: "37 3 * * *"          # once a day: the web graph again, with the vendors proven since (more sites that link to them)
   workflow_dispatch:
     inputs:
       stage:
@@ -35,10 +36,10 @@ permissions:
   contents: write
   actions: write
 concurrency:
-  group: credit-scan-${{ inputs.stage || 'cycle' }}
+  group: credit-scan-${{ inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle' }}
   cancel-in-progress: false
 env:
-  STAGE: ${{ inputs.stage || 'cycle' }}
+  STAGE: ${{ inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle' }}
   SHARDS: ${{ inputs.shards || '8' }}
   MINUTES: ${{ inputs.minutes || '150' }}
   LIMIT: ${{ inputs.limit || '0' }}
@@ -61,7 +62,7 @@ jobs:
 
   universe:
     needs: plan
-    if: ${{ (inputs.stage || 'cycle') == 'universe' || needs.plan.outputs.has_universe == 'no' }}
+    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'universe' || needs.plan.outputs.has_universe == 'no' }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
@@ -102,7 +103,7 @@ jobs:
 
   osm:
     needs: plan
-    if: ${{ (inputs.stage || 'cycle') == 'osm' }}
+    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'osm' }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -119,7 +120,7 @@ jobs:
 
   graph:
     needs: plan
-    if: ${{ (inputs.stage || 'cycle') == 'graph' }}
+    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'graph' }}
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
@@ -160,7 +161,7 @@ jobs:
 
   scan:
     needs: [plan, merge_universe]
-    if: ${{ always() && needs.plan.result == 'success' && (inputs.stage || 'cycle') == 'cycle' }}
+    if: ${{ always() && needs.plan.result == 'success' && (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'cycle' }}
     runs-on: ubuntu-latest
     timeout-minutes: 200
     strategy:
