@@ -5,6 +5,10 @@ name: member-live
 #   crawl    : /list/searchalpha/<letter> of every known directory host -> each member page not read before -> leads (same files and same
 #              merge as the row factory: tools/cc_clients.py merge); the row factory's mailbox crawl then reads each member's own site
 #   discover : probe the .ca domains named like a chamber / association for a directory of the same family -> claude_member_hosts.csv
+#   index-hosts    : every host with /list/member/ pages in the Common Crawl index, on any domain (2026-11-10: 1,926 hosts, 401,055 member pages
+#                    in one crawl; 42 on .ca) -> claude_member_index_hosts.csv
+#   discover-index : each of those hosts is read once (its /list/ page, then the body's home page when the directory prints no address); a body
+#                    whose own page prints a Canadian postal address joins claude_member_hosts.csv, a directory abroad is noted and not asked again
 # One request queue per runner towards the directory platform (2 requests per second), robots.txt respected. No AI, no search engine.
 on:
   schedule:
@@ -13,8 +17,11 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: "crawl | discover"
+        description: "crawl | discover | index-hosts | discover-index"
         default: "crawl"
+      crawl:
+        description: "index-hosts: Common Crawl id (auto = the newest)"
+        default: "auto"
       minutes:
         description: "minutes per runner"
         default: "150"
@@ -34,14 +41,14 @@ jobs:
     timeout-minutes: 200
     strategy:
       fail-fast: false
-      matrix: { k: [0, 1] }
+      matrix: { k: [0, 1, 2, 3] }   # 2026-11-10: 4 runners (was 2) — the index scan trebles the directories; each runner keeps its own queue of 2 requests a second
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
       - name: Read the live member directories
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
-          python3 tools/member_live.py crawl --shard ${{ matrix.k }}/2 --minutes $M --workers 8
+          python3 tools/member_live.py crawl --shard ${{ matrix.k }}/4 --minutes $M --workers 8
       - uses: actions/upload-artifact@v4
         with: { name: "ml-${{ matrix.k }}", path: out/, retention-days: 3 }
 
@@ -88,9 +95,52 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: { name: "mh-${{ matrix.k }}", path: out/, retention-days: 3 }
 
+  index_hosts:
+    if: ${{ inputs.stage == 'index-hosts' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Hosts with member pages in the archive index (any domain)
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          pip install -q duckdb
+          git config user.name "member-live"; git config user.email "member-live@users.noreply.github.com"
+          python3 tools/member_live.py index-hosts --crawl "${{ inputs.crawl || 'auto' }}" | tee /tmp/i.txt
+          cp data/incoming/claude/claude_member_index_hosts.csv /tmp/index_hosts.csv
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            cp /tmp/index_hosts.csv data/incoming/claude/claude_member_index_hosts.csv   # single writer: this job
+            git add data/incoming/claude/claude_member_index_hosts.csv
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "member-live: index hosts ($(tail -1 /tmp/i.txt | cut -c1-110)) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          cat /tmp/i.txt >> "$GITHUB_STEP_SUMMARY"
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/member-live.yml/dispatches" -f ref=main -f "inputs[stage]=discover-index" || true
+
+  discover_index:
+    if: ${{ inputs.stage == 'discover-index' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix: { k: [0, 1] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Whose directory is each index host, and is the body in Canada
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/member_live.py discover-index --shard ${{ matrix.k }}/2 --minutes $M --workers 8
+      - uses: actions/upload-artifact@v4
+        with: { name: "mh-${{ matrix.k }}", path: out/, retention-days: 3 }
+
   merge_hosts:
-    needs: discover
-    if: ${{ always() && needs.discover.result != 'skipped' }}
+    needs: [discover, discover_index]
+    if: ${{ always() && (needs.discover.result == 'success' || needs.discover.result == 'failure' || needs.discover_index.result == 'success' || needs.discover_index.result == 'failure') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -104,6 +154,9 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/member_live.py merge-hosts shards | tee /tmp/h.txt
+            # the bodies' own postal addresses read by discover-index (the Canada proof of each new directory) join the address store
+            if ls shards/cc_vendor_addr_*.jsonl > /dev/null 2>&1; then python3 tools/cc_clients.py merge-addr shards | tail -1; git add data/incoming/claude/claude_cc_vendor_addr.jsonl.gz data/incoming/claude/claude_cc_addr_done.tsv 2>/dev/null || true; fi
+            git add data/incoming/claude/claude_member_hosts_judged.tsv 2>/dev/null || true
             git add data/incoming/claude/claude_member_hosts.csv data/incoming/claude/claude_member_hosts.csv.probed 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "member-live: directory hosts ($(tail -1 /tmp/h.txt | cut -c1-110)) [skip ci]"
