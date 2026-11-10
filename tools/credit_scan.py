@@ -73,6 +73,15 @@ MAKE_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])(?:made|built|created|fait|cr[ée][ée]
 NEG_RX = re.compile(r"donat|sponsor|courtesy|gracieuset|offert|commandit|pro\s?bono|volunteer|b[ée]n[ée]vol|themes?\b|th[èe]mes?\b|templates?|gabarit|plugin|ic[oô]n|fonts?\b|polices?\b|photo|image|"
                     r"illustrat|vid[ée]o|map\b|carte\b|musi[cq]|recipe|recette|article|post\b|billet|written|[ée]crit|review|produit|product|collection|furniture|meuble|homes?\b|maisons?\b|condos?|"
                     r"project|projet|communit|communaut|building|immeuble|tower|tour\b|event|[ée]v[èé]nement|festival|concert|show|spectacle|tournament|tournoi|award|prix|study|[ée]tude|report|rapport", re.I)
+# membership stated by the member itself: "Proud member of the Calgary Chamber of Commerce" (text or the alt text of a badge) linked to the body.
+# Class M. Not: team / board / staff members of …, "a member of the X group of companies" (the body must be a chamber, association, federation …).
+MEM_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])((?:(?:proud(?:ly)?|fi[èe]re?s?|active|actif|accredited|accr[ée]dit[ée]e?|certified|registered|corporate|business)\s+){0,2}(?:members?|membres?)\s+"
+                    r"(?:of|de|du|des|de\s+la|de\s+l['’]|d['’])\s*(?:(?:the|la|le|les|l['’]|your|our|votre|notre)\s*)?)", re.I)
+MEM_NEG = re.compile(r"team|board|staff|family|famil|crew|band|cast|faculty|committee|comit[ée]|council\s+member|conseil\s+d|founding|honorary|community\s+member|"
+                     r"parliament|parlement|legislat|assembl[ée]e\s+nationale|\bMPP?\b|\bMLA\b|\bMNA\b|d[ée]put[ée]|[ée]quipe|personnel|group\s+of\s+companies|groupe\s+d['’]entreprises", re.I)
+BODY_RX = re.compile(r"chamber|chambre|board\s+of\s+trade|association|alliance|federation|f[ée]d[ée]ration|institute|institut\b|guild|\bordre\b|corporation\s+des|regroupement|r[ée]seau|"
+                     r"society\s+of|soci[ée]t[ée]\s+(?:de|des|canadienne|qu[ée]b[ée]coise)|business\s+improvement|\bBIA\b|\bSDC\b|tourism|tourisme|\bCHBA\b|\bAPCHQ\b|\bACQ\b|\bCFIB\b|\bFCEI\b|"
+                     r"home\s+builders|landscape\s+(?:ontario|alberta|nova)|destination\s+\w+|\bcouncil\s+of\b|conseil\s+(?:du|de\s+la|des|canadien|qu[ée]b[ée]cois)|coalition|consortium|co-?op[ée]rative\s+de|union\s+des", re.I)
 A_RX = re.compile(r"<a\b([^>]*)>(.*?)</a\s*>", re.I | re.S)
 HREF_RX = re.compile(r"""\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))""", re.I)
 ATTR_RX = re.compile(r"""\b(?:alt|title|aria-label)\s*=\s*(?:"([^"]*)"|'([^']*)')""", re.I)
@@ -162,6 +171,16 @@ def find_credits(raw, page_url):
                     if cls:
                         label = (cand or "").strip()[:120]
                         break
+        if not cls:  # no service credit: a membership statement?
+            mm = re.search(MEM_RX.pattern + r"[\s|]*$", before, re.I)
+            if mm and not MEM_NEG.search(before[max(0, mm.start() - 30):] + " " + label) and BODY_RX.search(label):
+                ph, cls, where = mm.group(1), "M", "before"
+            else:
+                for cand in (attrs, itxt):
+                    mi = MEM_RX.search(cand or "")
+                    if mi and not MEM_NEG.search(cand) and BODY_RX.search(cand[mi.end():]):
+                        ph, cls, where, label = mi.group(1), "M", "inner", cand.strip()[:160]
+                        break
         if not cls:
             continue
         if ph.rstrip().endswith(":") and re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)+/?\S*", label.strip().lower()):
@@ -172,7 +191,7 @@ def find_credits(raw, page_url):
         q = (before[-150:] + " " + label) if where == "before" else label
         q = re.sub(r"\s+", " ", re.sub(r"(?:\s*\|\s*)+", " | ", q)).strip(" |")[-300:]
         cur = out.get(v)
-        if cur is None or "WDP".index(cls) < "WDP".index(cur["k"]):
+        if cur is None or "WDPM".index(cls) < "WDPM".index(cur["k"]):
             out[v] = {"v": v, "vh": host, "k": cls, "q": q, "t": label, "p": re.sub(r"\s+", " ", ph).strip()[:80]}
     return list(out.values())
 
@@ -482,19 +501,34 @@ def merge_graph(a):
 
 
 # ------------------------------------------------------------------------------------------------------------------- scan
-def scan_queue(k, n, limit=0):
-    done, done_t2 = set(), set()
+DETECTOR = 3  # 1: credit lines + the vendor table of 2026-11-02; 2 ("t2"): + Jobber; 3 ("t3"): + membership statements (class M)
+
+
+def done_versions():
+    """{site: detector version of its latest read} from the append-only done files"""
+    ver = {}
     for l in state_lines("done"):
         q = l.split("\t")
-        done.add(q[0])
-        if "t2" in q[5:]:
-            done_t2.add(q[0])
+        v = 3 if "t3" in q[5:] else 2 if "t2" in q[5:] else 1
+        if v > ver.get(q[0], 0):
+            ver[q[0]] = v
+    return ver
+
+
+def scan_queue(k, n, limit=0):
+    ver = done_versions()
     seen, tasks = set(), []
 
     def add(host, pri, extra=0, again=False):
-        """again: read once more a site read before 2026-11-10 04:20Z (vendor table without Jobber; done line without the "t2" mark)"""
-        if not host or "." not in host or host in seen or PLATFORM.search(host) or not shard_ok(host, k, n) or (host in done and not (again and host not in done_t2)):
+        """a site read by an older detector (done line without the current mark) is read once more: right away when the web graph says it
+        links to a vetted portal (again), otherwise after every site that was never read"""
+        if not host or "." not in host or host in seen or PLATFORM.search(host) or not shard_ok(host, k, n):
             return
+        v = ver.get(host)
+        if v is not None:
+            if v >= DETECTOR:
+                return
+            pri = pri if again else pri + 10
         seen.add(host)
         tasks.append((pri, -extra, host))
     rp = os.path.join(ROOT, "coord/results/ranked/ranked_buyers.csv.gz")
@@ -521,7 +555,7 @@ def scan_queue(k, n, limit=0):
     tasks.sort()
     if limit:
         tasks = tasks[:limit]
-    return [{"dom": h, "pri": pri} for pri, _, h in tasks], len(done)
+    return [{"dom": h, "pri": pri} for pri, _, h in tasks], len(ver)
 
 
 def scan(a):
@@ -598,14 +632,14 @@ def scan(a):
                 stats["with_credit"] += bool(rec["credits"])
                 stats["with_vetted_service"] += bool(rec["tech"])
                 fs.write(json.dumps(rec, ensure_ascii=False) + "\n")
-            fd.write("%s\t%s\t%s\t%d\t%d\tt2\n" % (dom, TODAY, res, len(rec["credits"]) if rec else 0, len(rec["tech"]) if rec else 0))
+            fd.write("%s\t%s\t%s\t%d\t%d\tt3\n" % (dom, TODAY, res, len(rec["credits"]) if rec else 0, len(rec["tech"]) if rec else 0))
             if stats["sites"] % 2000 == 0:
                 fs.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
 
     def on_timeout(t):
         with lock:
-            fd.write("%s\t%s\ttimeout\t0\t0\tt2\n" % (t["dom"], TODAY))
+            fd.write("%s\t%s\ttimeout\t0\t0\tt3\n" % (t["dom"], TODAY))
             stats["timeout"] += 1
     left = LC.run_pool(tasks, one, a, deadline, on_timeout)
     with lock:
@@ -686,14 +720,22 @@ def vendor_state():
 
 
 def sightings():
-    """latest sighting record per site"""
+    """one record per site: the latest read, plus what an earlier read saw and the latest did not (a site read again by a newer detector)"""
     out = {}
     for l in state_lines("seen"):
         try:
             o = json.loads(l)
-            out[o["dom"]] = o
-        except (ValueError, KeyError):
-            pass
+        except ValueError:
+            continue
+        if not o.get("dom"):
+            continue
+        old = out.get(o["dom"])
+        if old:
+            have = {c["v"] for c in o.get("credits") or []}
+            o["credits"] = (o.get("credits") or []) + [c for c in old.get("credits") or [] if c["v"] not in have]
+            havet = {(t["v"], t["slug"]) for t in o.get("tech") or []}
+            o["tech"] = (o.get("tech") or []) + [t for t in old.get("tech") or [] if (t["v"], t["slug"]) not in havet]
+        out[o["dom"]] = o
     return out
 
 
@@ -819,17 +861,13 @@ def _append_state(prefix, stamp, lines):
 
 def merge(a):
     d, stamp = a.dir, a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
-    done_before, t2_before = set(), set()
-    for l in state_lines("done"):
-        q = l.split("\t")
-        done_before.add(q[0])
-        if "t2" in q[5:]:
-            t2_before.add(q[0])
+    ver_before = done_versions()
+    done_before = set(ver_before)
     new_done, st_count = {}, collections.Counter()
     for f in sorted(glob.glob(os.path.join(d, "credit_done_*.tsv"))):
         for l in open(f, encoding="utf-8"):
             q = l.rstrip("\n").split("\t")
-            if q and q[0] and len(q) >= 3 and (q[0] not in done_before or ("t2" in q[5:] and q[0] not in t2_before)):
+            if q and q[0] and len(q) >= 3 and (3 if "t3" in q[5:] else 2 if "t2" in q[5:] else 1) > ver_before.get(q[0], 0):
                 new_done[q[0]] = l.rstrip("\n")
                 st_count[q[2].split(":")[0] if not q[2].startswith("http_") else "http_error"] += 1
     n_done = _append_state("done", stamp, [new_done[k] for k in sorted(new_done)])
@@ -902,6 +940,9 @@ def merge(a):
         site = o.get("site") or dom
         best = None
         for c in o.get("credits") or []:
+            if c["k"] == "M":
+                stats["membership statements seen"] += 1
+                continue
             stats["credit links seen"] += 1
             v = c["v"]
             if v == C.registrable(site) or (c["k"] == "P" and FREE_PLAN.search(v)) or vend_n[v] > 20000 or v in VETTED:
@@ -915,6 +956,28 @@ def merge(a):
                 continue
             if best is None or "WDP".index(c["k"]) < "WDP".index(best[0]["k"]):
                 best = (c, pr)
+        # membership stated on the member's own site -> its own lead (dues: the member pays the body), when the body is proven in Canada
+        for c in o.get("credits") or []:
+            if c["k"] != "M" or c["v"] == C.registrable(site) or c["v"] in VETTED:
+                continue
+            pr = proof(c["v"])
+            if not pr:
+                continue
+            bname = pr[2] or re.sub(r"^.*?(?:members?|membres?)\s+(?:of|de|du|des|de\s+la|de\s+l['’]|d['’])\s*(?:(?:the|la|le|les|l['’])\s*)?", "", c.get("t") or "", flags=re.I).strip()[:90] or c["v"]
+            if not BODY_RX.search(bname + " " + (c.get("t") or "")):
+                continue
+            mkey = "lead:" + hashlib.sha1(("%s|member:%s" % (site, c["v"])).encode()).hexdigest()[:16]
+            if mkey in main_keys:
+                continue
+            stats["new member leads" if mkey not in prev else "member leads kept"] += 1
+            prev[mkey] = {"buyer_key": mkey, "buyer_name": o.get("name") or site, "website": "https://%s/" % site, "canadian_vendor_rows": 1, "example_vendor": bname,
+                          "canada_field_value": "membership / statutory fee relationship (member badge on the buyer's own site)=%s; %s: %s" % (c["v"], pr[4], pr[0][:240]),
+                          "evidence_dataset": o.get("page") or "https://%s/" % site, "latest_record_date": o.get("date") or TODAY}
+            pdet[mkey] = {"key": mkey, "platform": "site_member_cc", "record_url": o.get("page") or "", "vendor": bname, "record_date": o.get("date") or "",
+                          "title": "membership of %s — stated on the member's own site: “%s”" % (bname, c["q"][-180:]),
+                          "vendor_address": pr[0], "vendor_address_url": pr[1], "vendor_site": "https://%s/" % c["v"], "credit_quote": c["q"], "credit_class": "M",
+                          "credit_link_text": c.get("t") or "", "vendor_location_basis": pr[4], "page_title": o.get("title") or ""}
+            break
         if not best:
             continue
         c, pr = best
