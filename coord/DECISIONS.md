@@ -551,3 +551,24 @@ The paid effort stops with the final build of 2026-11-09 12:54Z. The pack's comp
 the 438 downstream benchmarks stay as a secondary scoreboard with a ceiling note wherever no honest source exists. Derived values (tax treatment,
 currency, statutory terms, GST/HST account from BN9) stay in their own labelled columns and feed the invoice card; they never count as published.
 Zero-cost automation keeps adding referee-verified rows; nothing lands unverified.
+
+## 2026-11-10 04:10Z — three method decisions of the cloud row engines (claude; owner 2026-11-09 20:48 EST: "a Canadian entity gets paid because it provided a service … establish that relationship, get the other party's contact … whatever you think is best for the data set, do it")
+**1. A credit line on the buyer's own home page is a relationship record (tools/credit_scan.py, tier T).** "Website by X", "Site web réalisé par X",
+"Hébergé par X", "Designed by X" (footer zone only), "Powered by X" (footer zone only, free-plan services excluded), linked to X's domain: the paying
+party itself names the vendor that made / hosts its site. Read live, dated, quoted (≤ 300 characters), page URL kept. Not credits: sponsors, donors,
+event hosts, themes, photo credits, "developed by" / "built by" without a web noun (real-estate developers, builders), "Website: https://…" in a
+resource list. First test on 1,200 inferred-relationship rows: 17.5 % of the sites carry such a line (208 credit links, 192 vendor domains).
+**2. A vendor counts as located in Canada when its OWN site says so, in one of three forms, each labelled in `vendor_country_basis`:**
+(a) a Canadian postal address (province + postal code) printed on its home / contact / about / legal page — the rule the row factory already uses;
+(b) a schema.org PostalAddress with a Canadian postal code in the page source; (c) only when no postal code is printed anywhere and no address abroad
+is found: the site's own location line — a Canadian province next to a place name ("Halifax, Nova Scotia", "Montréal (Québec)", "Toronto, ON") —
+together with a telephone number in a Canadian area code. A city name alone, a phone number alone, the domain or the firm's name never count
+(AGENTS.md §2.1: never inferred from the name). A vendor whose site prints addresses in Canada and abroad is accepted on its Canadian address and
+the other countries are kept in `vendor_also_prints_addresses_in` (lead details). First test: 66 of 185 credited vendors proven by (a); 75 printed
+no postal code on the pages read — forms (b) and (c) are for them.
+**3. Mailbox rule r2 — a front-office role mailbox is the last resort.** The owner's rule of 2026-10-28 ends "`not_published` only when the organisation
+publishes no role mailbox at all". The cloud mailbox crawl found nothing on two thirds of the lead sites because small organisations publish sales@,
+service@, orders@, bookings@, team@, bonjour@ instead of info@. Those are kept (explicit word list in tools/ap_crawler.py `OTHER_ROLE`; a first name
+is never a role) only when the site publishes no invoicing, AP, purchasing, finance or general mailbox; they are written as `ap_email_type=general`
+with the note "front-office role mailbox … the site publishes no invoicing, AP, purchasing or general mailbox", so the downstream can tell them apart.
+The referee re-fetches the page as for every other mailbox. Sites that gave "nothing found" under the first rule are read once more.

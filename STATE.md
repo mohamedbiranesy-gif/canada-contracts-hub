@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 03:35Z — rows 64,539 (+898) and rising; index 268k pages, 26.8k leads, 2,578 new buyers with a mailbox at the referee)
+# STATE.md — Claude lane (updated 2026-11-10 04:15Z — rows 65,759 (+2,118), 58 % complete; credit scan engine live: 17.5 % of sites name their web vendor)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,29 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-10 04:15Z — build 03:25Z: rows 65,759 (+2,118), complete rows 38,143 (58 %, was 38 %); NEW ENGINE: credit scan (first test: 17.5 % of sites)
+- **Build 03:25Z (GROWTH_VS_BASELINE):** rows 63,641 → **65,759 (+2,118)**; pay on sight 874 / 1,145 / **36,124 routed** (baseline 833 / 841 / 22,341):
+  the site-facts pass (bill-to name + address from the buyers' own pages) moved 13,800 rows to complete. Tier I (inferred) 50,806 → 48,867;
+  tier D (client / member / sponsor listings) 3,623 → 7,731. vendor_bn9_known −1,578 and benchmarks 98 (−2): rows that left the inferred
+  package traded a Crown-corporation vendor with a known BN for a real, named vendor without one yet (PLAN §4e #14: vendor legal name + BN).
+- **Credit scan (`tools/credit_scan.py`, `.github/workflows/credit-scan.yml`, every 6 h):** the credit line on the buyer's own home page
+  ("Website by …", "Site web réalisé par …", "Hébergé par …") + the vendor's own Canadian address = a relationship stated by the paying party.
+  Test on 1,200 tier-I sites (2 runners, 1 minute): 1,139 readable, **208 credit links on 17.5 % of sites**, 192 vendor domains → 66 proven in
+  Canada by a postal address (75 printed none: proof rule 2 added — schema.org address, privacy / terms pages, location line + Canadian phone),
+  **77 leads (6.4 %)**, plus 59 Shopify / 31 Jane sightings → tenant candidates. Full cycle dispatched 04:05Z (run 42753586829: 117k delivered
+  rows and leads, then the 354,248 .ca domains of the Common Crawl index); web-graph stage dispatched 04:07Z (run 42753844151: every .ca domain
+  of the domain graph + every domain linking to the 6,329 vendors already proven in Canada) — feeds the NEXT scan cycle.
+  Flow: scan → vendors (address proof) → leads in `claude_buyer_leads_cc.csv` (cfv "… credited on the buyer's own site (tech) …", details
+  platform `site_credit_cc`) → row-factory mailbox crawl → referee → rank (tier T, text "the site credits the Canada-located vendor …").
+  A delivered row whose site carries a credit borrows its own confirmed mailbox: inferred rows become evidenced rows without a new crawl.
+- **Mailbox rule r2** (DECISIONS 04:10Z): front-office role mailboxes (sales@, service@, orders@ …) as the last resort; the 6,300 "nothing found"
+  lead sites are read once more in the next row-factory cycle (queued 04:02Z behind the running one).
+- State files of the credit scan are append-only (`data/incoming/claude/credit_scan/{done,seen,vendors,ext}_<stamp>.gz`): no big file is rewritten.
+- NEXT: (1) read the full cycle's numbers (sites read, credit rate on .ca universe, vendors proven, leads) and the first r2 mailbox yields;
+  (2) dispatch rank after the referee lands the rows; check GROWTH (tier I should fall, tier T rise); (3) `ext_*.gz` = outside services the
+  scanned sites load: vet the frequent Canada-based platforms (HQ quote + paid-only) into tools/tech_relationships.py VENDORS;
+  (4) PLAN §4e #14 vendor legal name + BN for the new vendors (their own site names them → `bulk_registry_match.py`).
 
 ## 2026-11-10 03:35Z — measured yields after the multi-crawl / .com-universe index and the first completeness pass
 - Index now 268,494 relationship pages (client 179,170 · member 61,371 · dealer 14,655 · sponsor 12,866 · tenant 432) — was 66,321 at 01:25Z.
