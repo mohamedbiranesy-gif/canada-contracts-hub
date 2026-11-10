@@ -394,6 +394,42 @@ def merge(a):
                 continue
             have.add(row["buyer_key"])
             rows.append(row); dets.append(det); by[hit["by"]] += 1
+    # second way to a holder's site: a site the mailbox crawl read prints an RBQ licence number (tools/lead_crawl.py notes it in the site facts).
+    # The number is looked up in the list; the holder must also be tied to that site by its name, its postal code or the domain of its register e-mail
+    # (a directory or a supplier's page that lists other firms' licence numbers ties nobody).
+    import biz_licences as BL
+    import ap_crawler as C
+    by_digits = {re.sub(r"\D", "", h["licence"]): h for h in H.values()}
+    fp = os.path.join(INC, "claude_lead_site_facts.jsonl.gz")
+    n_seen = n_untied = 0
+    if os.path.exists(fp):
+        for l in gzip.open(fp, "rt", encoding="utf-8"):
+            if '"rbq"' not in l:
+                continue
+            try:
+                o = json.loads(l)
+                x = o["ids"]["rbq"]
+            except (ValueError, KeyError, TypeError):
+                continue
+            h = by_digits.get(x.get("v") or "")
+            if not h:
+                continue
+            n_seen += 1
+            host = (urllib.parse.urlparse(o.get("site") or "").hostname or "").lower()
+            names = [h["name"]] + [t for t in re.split(r"\s*[;|]\s*", h.get("other_names") or "") if t.strip()]
+            pc = (h.get("postal") or "").replace(" ", "")
+            tied = ("the domain of the holder's e-mail in the register" if h.get("domain") and host and C.registrable(h["domain"]) == C.registrable(host) else
+                    "name" if o.get("site_name") and any(BL.names_agree(o["site_name"], nm) for nm in names) else
+                    "postal code" if pc and re.search(r"(?<![A-Za-z0-9])%s\s?%s(?![A-Za-z0-9])" % (pc[:3], pc[3:]), o.get("address_quote") or "", re.I) else "")
+            if not tied or not host:
+                n_untied += 1
+                continue
+            row, det = lead_of(h, dict(by="licence number printed on the site (%s also agrees)" % tied, url=x.get("url") or o.get("site"), quote=x.get("q") or ""), "https://%s/" % host)
+            if row["buyer_key"] in have:
+                continue
+            have.add(row["buyer_key"])
+            rows.append(row); dets.append(det); by["licence number on a site already read"] += 1
+        msg.append("sites already read that print a licence number of the list: %d (holder not tied to the site: %d)" % (n_seen, n_untied))
     if rows:
         with gzip.open(os.path.join(SHARDS, "leads_rbq_%s.gz" % stamp), "wt", encoding="utf-8", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=LEAD_COLS)

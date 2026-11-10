@@ -123,12 +123,20 @@ def install_hooks():
                     st["shopify_url"] = final
             except Exception:
                 pass
+        if st is not None and "rbq" not in st and not is_pdf:
+            try:  # a Québec contractor prints its RBQ licence number on its own site (tools/rbq_licences.py joins it to the Régie's list of active licences)
+                m = RBQ_ID.search(text)
+                if m:
+                    st["rbq"] = (m.group(1) + m.group(2) + m.group(3), final, re.sub(r"\s+", " ", text[max(0, m.start() - 80):m.end() + 40]).strip()[:220])
+            except Exception:
+                pass
         return orig_note(key, name, site, final, text, is_pdf)
     C.visible, C.note_ap_page = visible2, note2
     return T
 
 
 FACTS = os.path.join(INC, "claude_lead_site_facts.jsonl.gz")
+RBQ_ID = re.compile(r"(?<![A-Za-z])(?:R\.?\s?B\.?\s?Q\.?|R[ée]gie du b[âa]timent(?: du Qu[ée]bec)?)(?![A-Za-z])[^0-9]{0,30}?(\d{4})[\s\-.\u00a0\u2010-\u2014]{0,3}(\d{4})[\s\-.\u00a0\u2010-\u2014]{0,3}(\d{2})(?!\d)", re.I)
 
 
 def facts_line(key, site, st):
@@ -138,6 +146,8 @@ def facts_line(key, site, st):
     o = {"key": key, "site": site, "date": TODAY, "site_name": st.get("name") or "", "title": st.get("title") or ""}
     if st.get("addr"):
         o.update(address_country=st["addr"][0], address_quote=st["addr"][1], address_url=st["addr"][2], address=CCL.address_from(st["addr"][1]))
+    if st.get("rbq"):
+        o["ids"] = {"rbq": {"v": st["rbq"][0], "url": st["rbq"][1], "q": st["rbq"][2]}}
     return json.dumps(o, ensure_ascii=False) + "\n"
 
 
