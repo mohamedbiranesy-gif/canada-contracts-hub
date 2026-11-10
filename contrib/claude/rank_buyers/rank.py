@@ -1997,8 +1997,9 @@ def own_host_record(rec, h, table, name=""):
         return None
     rh = host_of(rec.get("website") or "")
     if rh and h and rh != h:
-        rn = norm(rec.get("name") or "").replace(" ", "")  # "University of King's College" = "University of Kings College"
-        if name and rn and rn == norm(name).replace(" ", "") and not DOMAIN_NAME.match((rec.get("name") or "").strip()):
+        _sq = lambda t: re.sub(r"^(?:the|la|le|les) ", "", norm(t)).replace(" ", "")  # "University of King's College" = "University of Kings College", "The City of Winnipeg" = "City of Winnipeg"
+        rn = _sq(rec.get("name") or "")
+        if name and rn and rn == _sq(name) and not DOMAIN_NAME.match((rec.get("name") or "").strip()):
             N_OTHER_HOST[table + ": taken, read on another host for the same organisation (same name)"] += 1
             return rec
         if BODY_DOM.get(h) and rh == BODY_DOM[h]:
@@ -2303,6 +2304,14 @@ def name_overlap(cand, org_name, website=""):
     # (WORD_COMMON, counted on the names of the organisations whose site was read) proves nothing by itself: the names must then be one inside
     # the other. The site's address written with the candidate's own words still proves it ("dentalcorp.ca" = DENTAL CORPoration of Canada).
     shared = (cd & od) if (cd and od) else (ct & ot)  # one side has only generic words (e.g. "Health Authority"): any shared token
+    # the candidate, word for word, as a whole part of the organisation's name — between its start or a separator and a separator or its end:
+    # "City of Richmond" in "City of Richmond, California — GF-POLI". A piece that stops inside the name is a cut name, not a name: "Town of New"
+    # (Tecumseth), "BC Society" (for the Museum of Original Costume), "University of Canada" (First Nations …).
+    _cw = re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", re.sub(r"\s*\([^()]{1,12}\)\s*$", "", cand or "")).encode("ascii", "ignore").decode().lower())
+    if len(_cw) >= 2:
+        _on = unicodedata.normalize("NFKD", re.sub(r"[\u2013\u2014]", "-", org_name or "")).encode("ascii", "ignore").decode().lower()
+        if re.search(r"(?:^|[,;:|(/]|\s-)\s*(?:the\s+)?" + r"[\s'.&]+".join(map(re.escape, _cw)) + r"\s*(?:$|[,;:|()/]|-\s)", _on):
+            return True
     if shared and (any(t not in WORD_COMMON for t in shared) or ot <= ct or (ct <= ot and len(ct) >= 2)):
         return True  # a word few names carry — or the organisation's whole name inside the candidate ("Desjardins" in "Fédération des caisses
                      # Desjardins du Québec", "Toronto Dental Clinic Inc"), or the candidate a part of it of two words and more
@@ -3015,8 +3024,10 @@ for x in rows:
     n_md["matched"] += 1
     if not x.get("buyer_legal_name_as_published") and hit.get("legal_name"):
         x["buyer_legal_name_as_published"] = hit["legal_name"] + src; n_md["legal_name"] += 1
-    if not x.get("buyer_address") and hit.get("address") and re.search(r"\d", hit["address"]) and re.search(r"[A-Za-zÀ-ÿ]{3}", hit["address"]):
-        # an address has a number and a word: one directory's address column holds mail codes ("CP3-1-130") and body names ("Department of Defence")
+    if not x.get("buyer_address") and hit.get("address") and re.search(r"[A-Za-zÀ-ÿ]{3}", hit["address"]) and (
+            re.search(r"\d", hit["address"]) or re.search(r"(?i)\b(?:building|tower|house|centre|center|street|avenue|road|crescent|place|square|drive|boulevard|rue|chemin|[ée]difice|complexe)\b", hit["address"])):
+        # an address has a word and a number, or names a building or a street ("R.G. Casey Building, John McEwen Crescent"): one directory's address
+        # column holds mail codes ("CP3-1-130") and body names ("Department of Defence")
         x["buyer_address"] = ", ".join(v for v in (hit["address"], hit.get("postal_code")) if v) + src; n_md["address"] += 1
     if not x.get("buyer_phone") and hit.get("phone"):
         x["buyer_phone"] = hit["phone"] + src; n_md["phone"] += 1
