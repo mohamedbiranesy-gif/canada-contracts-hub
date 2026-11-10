@@ -111,6 +111,9 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   home / contact / legal page); `cc_clients.py merge` promotes on proof. New precision rules withdraw ≈ 1,700 leads at the next merge (dry run:
   216 investor portfolios, 1,339 country selectors / sister sites / badge links, 196 article slugs; 6,569 menu / footer links never promoted).
 - Measured mailbox find rates before rule r2 (29,375 lead sites): member 32 % · sponsor 29 % · dealer 26 % · client 22-25 % · Mac-era 20 %.
+- Health check 04:37Z (the 04:20Z check-in): no failed run in the last 6 hours. Lead sites read 29,375 → mailbox on 7,923 (27 %, before rule r2);
+  **8,469 buyers hold a cloud mailbox row** (9,334 rows; the referee is on them — the build after 42755132469 delivers most). Tenant crawl 4,355 sites →
+  474 accepted; 175,896 store-shaped domains indexed (20,000 candidates per cycle). The old check-in is not rescheduled: the 07:20Z follow-up replaces it.
 - Waiting on: rank build 42755132469 (validates credit rows; started 04:27Z), credit-scan cycle 42753586829 (scan since 04:06Z), row-factory cycle
   42753268934 (queued: runners full), tenant-factory 42753426095 (crawl running). Session wake-up 07:20Z (`CCH credit-scan follow-up`).
 - Honest projection (rates measured today, not yet end to end): portal links ≈ 10-13k rows; credit lines over ≈ 1.3 M sites ≈ 40-60k rows over the
