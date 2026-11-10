@@ -595,7 +595,7 @@ class DohResolver:
                 last = dns.exception.Timeout()
                 self.stats[(host, "timeout")] += 1
                 continue
-            except self.httpx.HTTPError as e:
+            except Exception as e:  # httpx.HTTPError, and what the HTTP/2 layer raises when many threads share one connection (KeyError, measured 2026-11-10)
                 last = dns.exception.Timeout()
                 self.stats[(host, "error:" + type(e).__name__)] += 1
                 continue

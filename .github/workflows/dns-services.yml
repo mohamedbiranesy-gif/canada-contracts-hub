@@ -81,32 +81,35 @@ jobs:
       - uses: actions/checkout@v4
         with: { ref: main }
       - run: pip install -q dnspython
-      - name: A recursive resolver on this runner (public resolvers throttle bulk lookups from a data centre)
+      - name: A resolver on this runner that forwards over TLS to the public resolvers
         run: |
+          # 2026-11-10, four measurements (dns-diag.yml; coord/DECISIONS.md 23:00Z). A runner that sends each question as its own packet
+          # flow — through its own recursive resolver, or straight to the public resolvers — gets 50-90 answers a second and loses the
+          # rest (the day's lookups: 43 % "no answer"; the sweep: 55-61 %). The same questions inside a few long-lived TLS connections:
+          # 98 % answered at 254 a second. So the runner's resolver no longer asks the zones itself: it forwards every question over TLS
+          # (port 853, certificates checked) to Cloudflare, Google and Quad9 and keeps those connections open.
           sudo apt-get install -y -q unbound >/dev/null 2>&1 || true
           sudo systemctl stop unbound 2>/dev/null || true
-          # 2026-11-10 (measured three times, dns-diag.yml): through this resolver a runner gets 30-55 % of its questions answered at best
-          # (8 % when the resolver is given more open files: more flows, more loss). The limit is on the runner's side of the network and
-          # is not understood yet. Until a transport is measured to work, tools/dns_services.py stops a sweep whose batch goes unanswered
-          # (the list keeps its place) and keeps a lookup's unanswered names for a later run.
           printf '%s\n' 'server:' '  interface: 127.0.0.1' '  port: 5353' '  access-control: 127.0.0.0/8 allow' '  do-ip6: no' '  num-threads: 4' \
-            '  msg-cache-size: 256m' '  rrset-cache-size: 512m' '  outgoing-range: 8192' '  num-queries-per-thread: 4096' '  so-rcvbuf: 4m' '  so-sndbuf: 4m' \
-            '  module-config: "iterator"' '  ratelimit: 1000' '  hide-identity: yes' '  hide-version: yes' '  verbosity: 0' | sudo tee /etc/unbound/unbound.conf >/dev/null
+            '  msg-cache-size: 256m' '  rrset-cache-size: 512m' '  num-queries-per-thread: 4096' '  outgoing-num-tcp: 64' '  module-config: "iterator"' \
+            '  tls-cert-bundle: "/etc/ssl/certs/ca-certificates.crt"' '  hide-identity: yes' '  hide-version: yes' '  verbosity: 0' \
+            'forward-zone:' '  name: "."' '  forward-tls-upstream: yes' '  forward-addr: 1.1.1.1@853#cloudflare-dns.com' '  forward-addr: 1.0.0.1@853#cloudflare-dns.com' \
+            '  forward-addr: 8.8.8.8@853#dns.google' '  forward-addr: 8.8.4.4@853#dns.google' '  forward-addr: 9.9.9.9@853#dns.quad9.net' | sudo tee /etc/unbound/unbound.conf >/dev/null
           sudo unbound-checkconf /etc/unbound/unbound.conf || true
           sudo unbound -c /etc/unbound/unbound.conf || sudo systemctl start unbound || true
           sleep 3; (ss -lun | grep 5353) || echo "unbound is not listening"
-          echo "open files allowed to the resolver: $(sudo grep 'open files' /proc/$(pgrep -x unbound | head -1)/limits | tr -s ' ')" || true
       - name: Look up the public DNS records of each domain
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
           if [ "$MODE" = "sweep" ]; then
-            # 250 domains a second per runner: under the 300 questions a second this runner's resolver allows itself towards any one zone (the
-            # .com servers are asked once per domain; the second question goes to the domain's own name servers)
-            python3 tools/dns_services.py sweep --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 250
+            # 170 domains a second per runner: about 300 questions a second (the address of each, the name servers of those that answer) —
+            # the rate measured to be answered at 98 % through the forwarding resolver. tools/dns_services.py stops the run in place when
+            # a batch goes unanswered.
+            python3 tools/dns_services.py sweep --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 170
           elif [ "$MODE" = "hosts" ]; then
-            python3 tools/dns_services.py hosts --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 250
+            python3 tools/dns_services.py hosts --shard ${{ matrix.k }}/8 --minutes $M --workers 300 --resolver 127.0.0.1:5353 --qps 300
           else
-            python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 300 --limit "$LIMIT" --resolver 127.0.0.1:5353 --qps 480
+            python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 300 --limit "$LIMIT" --resolver 127.0.0.1:5353 --qps 300
           fi
           ls -la out | head; head -c 600 out/dns_${{ matrix.k }}.jsonl || true
       - uses: actions/upload-artifact@v4

@@ -920,3 +920,38 @@ session (random sites of the "ok" list; one request per site):
   host of its own is where a customer's account lives, on small platforms as on the 150-host ones the first version singled out. A watched
   service keeps the start of the path as before. Median line: 100 bytes a site.
 Cost: 7 ms a page. No lead is made from any of this here.
+
+## 2026-11-10 23:00Z from claude — the DNS engine lost half of its answers; questions now travel inside long-lived TLS connections
+**How it was seen.** The sweep's own log: 600,235 of 1,100,000 names "without an answer" in one shard-run (55 %; 61 % the run before).
+1,500 two-label .com names of the same web graph asked of a public resolver from outside: 81 % have an address, 14 % do not exist, 1 % fail.
+**What it had cost** (measured on the records on file): 1,796,196 of 4,129,026 lookup records say "no answer" (43 %); a public resolver
+answers 88 % of a sample of 500 of them. 677,485 are store candidates — and 97 % of the candidates that did answer are on Shopify's
+addresses. Of the answered records without an address, 87 % have one; of those without an SPF record, 31 % have one. The tool wrote a
+"no answer" as a fact about the domain ("its name servers are dead") and never asked again.
+**Four measurements on runners** (tools/dns_diag.py, dns-diag.yml; 12,000-30,000 names a phase from one place of the sweep's list):
+| How the questions leave the runner | Answered |
+|---|---|
+| the runner's own recursive resolver, 250 names a second, as the sweep ran (run 1) | 42 % |
+| the same, no rate limit towards a zone / no query-name minimisation / 12 s for an answer (run 1) | 51 % / 64 % / 75 % |
+| the same resolver given 200,000 open files (run 2) | 8 % |
+| public resolvers, a new socket per question, 100 a second (run 1) / 250 a second (run 2) | 97 % / 13 % |
+| public resolvers over HTTPS (HTTP/2, a few connections), 600 asked, 399 a second done (run 4) | 98 % |
+| the runner's resolver forwarding over TLS to the public resolvers, 300 asked, 254 a second done (run 4) | 98 % |
+Every way that makes a new packet flow per question loses most of them above 50-90 a second; more sockets make it worse; a few long-lived
+connections carry everything. The limit is on the runner's side of the network. (Run 3, one UDP socket per worker, did not finish in its
+40 minutes: counted as not working.)
+**Decided.**
+1. dns-services.yml starts the runner's resolver as a forwarder over TLS (port 853, certificates checked) to Cloudflare, Google and
+   Quad9, at about 300 questions a second per runner — the measured rate. Nothing else in the tool had to change for it.
+2. Both sweeps begin their lists again (`SWEEP_REV` 2). The stores and name-server hits found so far stay; the places do not.
+3. A "no answer" is no longer a fact by itself: a sweep batch with more than 12 % unanswered is asked once more after 30 seconds, and
+   at more than 24 % the run stops and the list keeps its place (a run that got nothing does not start the next one); a lookup run
+   writes its unanswered names only when they are at most 12 % of the run.
+4. Every lookup record written before today is asked again — "no answer" first, store candidates before the rest, then the answered
+   ones (their later questions were dropped too) — and the new record replaces the old. About 12.5 M questions: one run of six runners.
+5. One concurrency group per mode: the sweep's own next run used to push a waiting lookup out of the shared group.
+**The public resolvers' side.** Six runners at 300 questions a second are 1,800 a second in all, shared between three operators, for the
+hours a run lasts; each runner has its own address. That is the traffic of one mid-sized office network. If one of them starts refusing,
+the health check stops the run in place.
+**What it should give.** About 580,000 stores from the records on file; the sweep at two to three times its former yield; the DNS leads
+of the ~1 M domains that were never really asked.
