@@ -537,6 +537,64 @@ def merge(a):
             have.add(row["buyer_key"])
             rows.append(row); dets.append(det); by["licence number on a site already read"] += 1
         msg.append("sites already read that print a licence number of the list: %d (holder not tied to the site: %d)" % (n_seen, n_untied))
+    # fourth way (2026-11-10, scan detector 5): the scan keeps the register numbers every home page prints. A holder must print its licence
+    # number, and on a home page that prints exactly ONE number it is the site operator's own. Measured on 19 such home pages: 17 numbers
+    # are on the list, 9 of them holders the register's e-mail domain had not led to. A second fact must agree, as above: the site's own
+    # name (site name, copyright line or stated legal name) with the holder's legal or other name, the holder's postal code on the home
+    # page, or the domain of the holder's e-mail in the register.
+    try:
+        import credit_scan as CS
+        n4 = collections.Counter()
+        own = {}
+        for l in CS.state_lines("links"):
+            q = l.split("\t")
+            if len(q) >= 4:
+                own[q[0]] = (q[3].split("|") + ["", "", "", ""])[:4]
+        for l in CS.state_lines("sections"):
+            if '"n": ' not in l:
+                continue
+            try:
+                o = json.loads(l)
+            except ValueError:
+                continue
+            nums = {}
+            for x in o.get("n") or []:  # ["rbq", "5760390401", "RBQ : 5760-3904-01"]; the first shards of the pass wrote "rbq:5760390401"
+                kind, num, printed = (x + [""])[:3] if isinstance(x, list) else (x.split(":", 1) + [""])[:3]
+                if kind == "rbq":
+                    nums[num] = printed
+            if not nums:
+                continue
+            n4["home pages that print an RBQ licence number"] += 1
+            if len(nums) != 1:
+                n4["several numbers on one home page (tied to nobody)"] += 1
+                continue
+            num, printed = next(iter(nums.items()))
+            h = by_digits.get(num)
+            if not h:
+                n4["number not on the list of active licences of legal persons"] += 1
+                continue
+            host = o["dom"]
+            f = own.get(host) or ["", "", "", ""]
+            names = [h["name"]] + [t for t in re.split(r"\s*[;|]\s*", h.get("other_names") or "") if t.strip()]
+            pc = (h.get("postal") or "").replace(" ", "").upper()
+            tied = ("the domain of the holder's e-mail in the register" if h.get("domain") and C.registrable(h["domain"]) == C.registrable(host) else
+                    "the site's own name" if any(f[i] and any(BL.names_agree(f[i], nm) for nm in names) for i in (0, 1, 2)) else
+                    "the holder's postal code on the home page" if pc and f[3] == pc else "")
+            if not tied:
+                n4["holder not tied to the site by a second fact"] += 1
+                continue
+            row, det = lead_of(h, dict(by="its home page prints the holder's licence number (%s also agrees)" % tied, url=o.get("page") or "https://%s/" % host,
+                                       quote=printed or "licence number %s-%s-%s (digits as read on the home page, %s)" % (num[:4], num[4:8], num[8:], o.get("date") or "")), "https://%s/" % host)
+            if row["buyer_key"] in have:
+                n4["already a lead"] += 1
+                continue
+            have.add(row["buyer_key"])
+            rows.append(row); dets.append(det); by["licence number on the home page (scan)"] += 1
+            n4["tied"] += 1
+        if n4:
+            msg.append("home pages read by the scan that print a licence number: %s" % dict(sorted(n4.items())))
+    except Exception as e:
+        msg.append("licence numbers on home pages (scan) skipped: %s: %s" % (type(e).__name__, str(e)[:160]))
     # third way (2026-11-10): 28,000 holders give the register a webmail address and 4,500 none, so their own site cannot be read off the register.
     # An organisation we already hold (a delivered row, or a site the crawl read) whose OWN site prints the holder's postal code or telephone, and
     # whose name agrees with the holder's legal or other name by the strict rule of the business licences, is that holder. Several holders fitting
