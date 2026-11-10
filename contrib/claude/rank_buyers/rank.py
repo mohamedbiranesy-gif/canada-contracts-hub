@@ -3,7 +3,7 @@
                                                           # vendor_country_unverified_contracts and ended_* are optional: P12 + field fill)
     python3 contrib/claude/rank_buyers/rank.py && python3 contrib/claude/rank_buyers/batches.py
 """
-import csv, gzip, json, re, io, collections, unicodedata, datetime, sys, os
+import csv, gzip, json, re, io, collections, unicodedata, datetime, sys, os, zlib
 import builtins as _bi, time as _tm
 _T0 = _TL = _tm.time()
 def print(*a, **k):
@@ -74,6 +74,14 @@ def _memstat(label, rows, g=None):
     out.sort(reverse=True)
     _bi.print("    tables held (name entries ~MB):", "; ".join("%s %d %.0f" % (nm, ln, n / 1048576) for n, nm, ln in out[:40] if n > 8 * 1048576))
     _bi.print("    all tables ~%.2f GB (objects visited: %d)" % (sum(n for n, _, _ in out) / 1073741824, budget[0]))
+
+
+def _free(g, *names):
+    """a table is dropped right after its last use: the tables around the rows are most of the memory (2026-11-10: 4.2 GB of 5.8 GB)"""
+    import gc
+    for n in names:
+        g.pop(n, None)
+    gc.collect()
 
 
 def _money(v):
@@ -242,6 +250,7 @@ if os.path.exists(_vl):
             if s and (k not in mail or s > mail[k][0]):
                 mail[k] = (s, ent); n_vl += 1
 print("mailboxes taken from the verification log (better than org_mailboxes' single pick):", n_vl)
+_free(globals(), "LANE_ROWS", "raw")
 # 1b. optional release tables (each skipped when absent): vendor registry facts / websites / addresses (field fill),
 # buyer websites / addresses, and the weaker-relationship inputs of P12 (registry-match contracts, ended contracts)
 REL = ROOT + "/data/release/"
@@ -295,11 +304,14 @@ for v in jl(REL + "vendors_enriched.jsonl.gz"):
            "emails": "; ".join(e if isinstance(e, str) else (e.get("email") or "") for e in s.get("contact_emails_published") or []),
            "registry": next(({"registry": m.get("registry"), "id": m.get("id"), "legal_name": m.get("legal_name"), "url": m.get("source_url")}
                              for m in s.get("matches") or [] if m.get("match_confidence") in ("exact", "strong")), None) if reg else None,
-           "reg_address": addr_text(ra), "reg_region": region_code(ra), "full": {}}
+           "reg_address": addr_text(ra), "reg_region": region_code(ra), "full": b""}
     if reg:  # the full registry records behind the confident matches (REQ: NEQ, trade names, legal form, CAE activity, employees; Corporations Canada: BN, act, directors range; OrgBook: entity type)
+        _full = {}
         for m in v.get("registry_matches_full") or []:
-            if m.get("match_confidence") in ("exact", "strong") and m.get("registry") not in rec["full"]:
-                rec["full"][m["registry"]] = m
+            if m.get("match_confidence") in ("exact", "strong") and m.get("registry") not in _full:
+                _full[m["registry"]] = m
+        if _full:  # kept compressed (58,000 vendors x ~3.5 KB of JSON were ~0.7 GB as objects); vend_fill opens the one it needs
+            rec["full"] = zlib.compress(json.dumps(_full, ensure_ascii=False).encode("utf-8"), 1)
     VEN[v["vendor_key"]] = rec
     for n in {norm(v.get("name")), norm(rec["legal_name"])} - {""}:
         VEN_NAME[n] = v["vendor_key"] if VEN_NAME.get(n, v["vendor_key"]) == v["vendor_key"] else None  # ambiguous name: no lookup
@@ -331,7 +343,7 @@ def vend_fill(key="", name="", domain=""):
     rg = v.get("registry") or {}
     REGN = {"quebec_req": "Québec REQ (NEQ)", "corporations_canada": "Corporations Canada (corporation number)", "bc_orgbook": "BC OrgBook (BC registration)",
             "rbq": "RBQ licence", "cra_charities": "CRA charities (BN)", "alberta": "Alberta corporate registry", "ontario": "Ontario business registry"}
-    full = v.get("full") or {}
+    full = json.loads(zlib.decompress(v["full"]).decode("utf-8")) if v.get("full") else {}
     req, cc, ob = full.get("quebec_req") or {}, full.get("corporations_canada") or {}, full.get("bc_orgbook") or {}
     def _names(x):
         x = x.get("other_names") or []
@@ -738,6 +750,8 @@ for p, o in orgs.items():
     x["vendor_incorporation_date"] = x.get("vendor_incorporation_date") or (ve.get("incorporation_or_registration_date") or "")[:10]
     x["vendor_bn_source"] = ve.get("business_number_source") or ""
 print("same-pair fill (facts from another record of the same buyer-vendor pair):", dict(n_pair))
+for _o in orgs.values():  # used only while the organisation's row was built
+    _o.pop("pairbest", None); _o.pop("vrefs", None); _o["best"] = None
 # 4. buyers proven by payment / subaward records or client listings (no contract in the dataset)
 leads = {r["buyer_key"]: r for r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_buyer_leads.csv", encoding="utf-8", errors="replace"))}
 # 2026-11-10: the cloud row factory (tools/cc_clients.py: client pages of .ca vendors read from the Common Crawl archive, vendor's Canadian postal
@@ -1436,6 +1450,8 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     n13 += 1
 print("P12 organisations:", len(orgs12), "added:", n12, dict(skipped12), "| P13 added:", n13, "| P13 skipped:", dict(skipped13))
 print("lead rows that took the organisation's own key (registry facts attach):", dict(n_keyjoin))
+_free(globals(), "VEN", "VEN_NAME", "VEN_DOM", "BUY", "TEAMV", "mail", "mail_dom", "cands", "orgs12", "up_t", "dom_rows", "lead_row_by_dom",
+      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom")  # last used by the row builders above
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
 rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
@@ -2126,6 +2142,7 @@ for x in rows:
     elif own:
         x["mailbox_recheck_note"] = "mailbox seen again on the page when re-read %s" % own[0].get("retrieved_date")
 print("ap_terms (evidence pages re-read): %d keys read, %d pages used across rows; filled %s" % (len(AT), n_at_pages, dict(n_at)))
+_free(globals(), "AT", "EXTRA")
 # Peppol Directory (D8): every Canadian participant, matched by key / exact name
 PEP = []
 if os.path.exists(ROOT + "/data/incoming/claude/claude_peppol_participants.csv"):
@@ -2630,6 +2647,7 @@ for x in rows:
         x["other_relationship_sources"] = "also seen in the lead files: " + "; ".join(sorted(set(_ls))[:6])[:600]; n_x2["dataset rows with lead relationships"] += 1
     x.pop("_org", None)
 print("back-references:", dict(n_x2))
+_free(globals(), "leads", "LEAD_DOM", "LEAD_NAME", "orgs", "AGG_DOM", "AGG_NAME")
 # D13: high-sensitivity buyers (downstream suppression), by the organisation's published name / type — a tag, never a removal
 SENSITIVE = [("police oversight body", re.compile(r"serious incident response team|special investigations unit|bureau des enqu[êe]tes ind[ée]pendantes|independent investigations? (?:office|unit)|police (?:complaint|review|oversight)|civilian review and complaints|law enforcement review|commissaire [àa] la d[ée]ontologie polici[èe]re|office of the independent police review", re.I)),
              ("police service / police board", re.compile(r"\bpolice\b|\bpolici[èe]re?\b|s[ûu]ret[ée] du qu[ée]bec|\bRCMP\b|\bGRC\b|gendarmerie|\bOPP\b|constabulary|sheriff|law enforcement", re.I)),
@@ -2686,6 +2704,7 @@ for x in rows:
         if e and e.get("logo_url") and not x.get(side + "_logo_url"):
             x[side + "_logo_url"] = e["logo_url"]; n_late[side + "_logo"] += 1
 print("site readers, second pass (websites found late):", dict(n_late))
+_free(globals(), "OX", "OC")
 # the same vendor's BN9 / remit-to address read for one row applies to every row of that vendor (same legal entity); carried with its source
 _vbn, _vad = {}, {}
 for x in rows:
