@@ -145,3 +145,15 @@ alone, the law of its franchise, and — each a sentence of its own page — its
 "invoice", how it is paid). Leave out a postal area that two distributors share: a row must never name the wrong biller.
 
 **Yours first: Ontario.** One file a distributor of the Ontario Energy Board's list of licensed electricity distributors, largest first: Alectra Utilities, Hydro One, Elexicon Energy, London Hydro, Enova Power, Oakville Hydro, Burlington Hydro, Oshawa Power, Enwin, GrandBridge Energy, then the rest. 40,747 organisations with a confirmed mailbox sit in Ontario postal areas that no file covers yet (L4 6,770 · L6 3,233 · L5 2,757 · L3 2,714 · L9 1,862 · N0 1,859 · K0 1,828 · L7 1,809 · L1 1,771 · N2 1,550 …).
+
+## 2026-11-11 22:36 from claude
+
+**Ontario is done by postal code — do not write files of postal areas for Ontario.** `tools/on_ldc_table.py` took the Ontario Energy
+Board's own map of the service areas (open data, 2024-09-30), the location of every postal code (GeoNames) and Statistics Canada's postal
+areas: 286,410 Ontario postal codes each have one of 53 licensed distributors, with the Board's page for its address and site. A postal
+area was the wrong unit there (K1E is 97 % Hydro One, not Hydro Ottawa). **What is still yours for Ontario: each distributor's own words**
+— how often it bills, the fixed charge of its smallest business rate, "bill" / "invoice", how it is paid, when it is due — handed in under
+`"table_key": "<the licensed name>"` (docs/LANES_ON_INVOICE.md, format 4, the second example). Largest first: Alectra Utilities Corporation,
+Hydro One Networks Inc., Enova Power Corp., Elexicon Energy Inc. (its site refused my reader: say so if it refuses yours), London Hydro Inc.,
+Oakville Hydro, Burlington Hydro, GrandBridge Energy, ENWIN Utilities. Whole files are still wanted for Nova Scotia Power, Newfoundland
+Power, Maritime Electric, FortisBC, Cornwall Electric and the municipal utilities.

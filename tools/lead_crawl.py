@@ -433,25 +433,46 @@ def leads_mode(a, k, n):
     if a.registry:
         lead_doms = {C.registrable(h[4:] if h.startswith("www.") else h) for h in hosts}
         rank_em = {"invoice_submission": 0, "accounts_payable": 0, "supplier_payment": 0, "finance": 1, "procurement": 1, "general": 2, "role": 3}
+        # 2026-11-11 (owner 16:01 EST; tools/by_location.py): an organisation whose own site prints a Canadian postal code has, by where it is, one
+        # biller by law — the electricity distributor of its address — so every such site is a row as soon as its mailbox is read, whatever the
+        # ending of its name. The candidates are no longer the .ca sites alone: a .com / .org site whose home page prints a Canadian postal address
+        # and a role mailbox is one too (39,393 of them had never been queued). Read first: the sites in a distributor's territory on file, then
+        # the other sites with a Canadian address (their distributor is added to the table lane by lane), then the .ca sites with no address
+        # on the home page (the contact page gives it).
+        try:
+            import by_location as BL
+            _pcs = BL.scan_postal_codes()
+        except Exception as e:
+            print("no postal codes from the scan (%s): the candidates keep the old order" % e, flush=True)
+            BL, _pcs = None, {}
+        def _loc_rank(dom, cc):
+            pc = (_pcs.get(dom) or ("",))[0]
+            if pc and BL and BL.biller_for(pc[:3] + " " + pc[3:]):
+                return 0
+            return 1 if (pc or cc == "CA") else 2
         cand = []
         for dom, (em, cc) in hints.items():
-            if not em or not dom.endswith(".ca") or cc not in ("", "CA") or not shard_ok(dom, k, n):
+            ca = dom.endswith(".ca")
+            if not em or not ((ca and cc in ("", "CA")) or cc == "CA") or not shard_ok(dom, k, n):
                 continue
             rd = C.registrable(dom)
-            key = "lead:" + hashlib.sha1(("%s|reg:ca" % rd).encode()).hexdigest()[:16]
+            key = "lead:" + hashlib.sha1((("%s|reg:ca" if ca else "%s|site:ca-address") % rd).encode()).hexdigest()[:16]
             if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known:
                 continue
-            cand.append((rank_em.get(em, 3) + (10 if key in reread else 0), dom, key))
+            cand.append((_loc_rank(dom, cc), rank_em.get(em, 3) + (10 if key in reread else 0), dom, key))
         cand.sort()
         try:
             _via = CS.site_via()  # sites that answer on plain http or on www. only (scan detector 5): the reader starts where the scan read them
         except Exception:
             _via = {}
-        for _, dom, key in cand[:a.registry]:
-            tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via), "_n": 0, "_f": 9, "_em": 0, "_max_pages": 8,
-                          "_rr": int(key in reread)})
-            n_reg += 1
-        print("registry candidates (.ca sites whose home page prints a role mailbox, no lead yet): %d queued of %d" % (n_reg, len(cand)), flush=True)
+        n_loc = collections.Counter()
+        for lr, _, dom, key in cand[:a.registry]:
+            # _ln 0: read with the leads of the invoice lanes, before every site whose home page prints no mailbox (measured 2026-11-11: 85 % of
+            # the candidates read gave a mailbox row, against 10 to 15 % of the other sites)
+            tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via), "_n": 0, "_f": 9 + lr, "_em": 0, "_max_pages": 8,
+                          "_rr": int(key in reread), "_ln": 0})
+            n_reg += 1; n_loc[("in a distributor's territory on file", "a Canadian address, no distributor on file yet", "a .ca site, no address on its home page")[lr]] += 1
+        print("site candidates (home page prints a role mailbox; .ca, or any name with a Canadian postal address; no lead yet): %d queued of %d — %s" % (n_reg, len(cand), dict(n_loc)), flush=True)
     # second class of registry candidates (2026-11-10): .ca sites whose home page was read and prints NO role mailbox — 428,464 of them; the
     # organisation's mailbox, when it publishes one, is on its contact page. Measured on 200 such sites, 4 pages each: 10 % give a role mailbox.
     # Read last (after every lead and every first-class candidate), 4 pages at most, sites that print a Canadian postal address first.
@@ -471,7 +492,7 @@ def leads_mode(a, k, n):
             cand2.sort()
             _via2 = CS.site_via()
             for _, dom, key in cand2[:a.registry2]:
-                tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via2), "_n": 0, "_f": 10, "_em": 2, "_max_pages": 4,
+                tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via2), "_n": 0, "_f": 12, "_em": 2, "_max_pages": 4,
                               "_rr": int(key in reread)})
             print("registry candidates, second class (.ca sites, no mailbox on the home page): %d queued of %d" % (min(len(cand2), a.registry2), len(cand2)), flush=True)
         except Exception as e:
@@ -520,10 +541,10 @@ def leads_mode(a, k, n):
         with lock:
             stats["sites"] += 1
             stats["with_mailbox"] += bool(rows)
-            if t.get("_f") == 9:
+            if t.get("_f") in (9, 10, 11):
                 stats["registry_sites"] = stats.get("registry_sites", 0) + 1
                 stats["registry_with_mailbox"] = stats.get("registry_with_mailbox", 0) + bool(rows)
-            if t.get("_f") == 10:
+            if t.get("_f") == 12:
                 stats["registry2_sites"] = stats.get("registry2_sites", 0) + 1
                 stats["registry2_with_mailbox"] = stats.get("registry2_with_mailbox", 0) + bool(rows)
             if not t.get("_em"):

@@ -1,0 +1,41 @@
+name: on-ldc-table
+# Ontario: which licensed electricity distributor serves a postal code (tools/on_ldc_table.py). Built from the Ontario Energy Board's map of
+# service areas (open data of the Government of Ontario), the location of every postal code (GeoNames) and Statistics Canada's postal areas;
+# the Board's page on each distributor gives its address and site. Three files are downloaded and some sixty pages of oeb.ca read, once.
+# The Board refreshes its map about once a year: run by hand then (the 1st of each quarter is a reminder that costs four minutes).
+on:
+  schedule:
+    - cron: "23 7 1 1,4,7,10 *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: on-ldc-table
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Build the table, commit when it changed
+        run: |
+          pip install -q pyshp shapely pyproj
+          python3 -W ignore tools/on_ldc_table.py build 2>&1 | tee /tmp/t.txt
+          python3 tools/on_ldc_table.py check 2>&1 | tee -a /tmp/t.txt
+          { echo '```'; cat /tmp/t.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          # a table that lost a tenth of its postal codes is a source that changed its format, not news: it is not committed
+          python3 - <<'EOF'
+          import gzip, subprocess, sys
+          new = sum(1 for l in gzip.open("tools/data/on_postal_ldc.tsv.gz", "rt", encoding="utf-8") if l[:1] not in "#=")
+          old = subprocess.run("git show HEAD:tools/data/on_postal_ldc.tsv.gz | gzip -dc | grep -vc '^[#=]'", shell=True, capture_output=True, text=True).stdout.strip()
+          old = int(old) if old.isdigit() else 0
+          print("lines: %d now, %d on main" % (new, old))
+          sys.exit(1 if old and new < 0.9 * old else 0)
+          EOF
+          git config user.name "on-ldc-table"; git config user.email "on-ldc-table@users.noreply.github.com"
+          git add tools/data/on_postal_ldc.tsv.gz tools/data/billers_by_location_on.json
+          git diff --cached --quiet && { echo "nothing new"; exit 0; }
+          git commit -q -m "on-ldc-table: Ontario postal codes by licensed distributor ($(grep -m1 '^Ontario postal codes' /tmp/t.txt | cut -c1-150)) [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --no-rebase origin main && git push -q origin HEAD:main && break; sleep $((RANDOM % 10 + 3)); done

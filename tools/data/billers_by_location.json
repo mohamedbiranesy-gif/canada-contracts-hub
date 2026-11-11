@@ -99,18 +99,16 @@
   "address_url": "https://www.torontohydro.com/contact-us",
   "address_quote": "Head office 14 Carlton Street Toronto, ON M5B 1K5",
   "address_read": "2026-11-11",
-  "prefixes": [
-   "M"
-  ],
+  "prefixes": [],
   "except_fsas": [],
-  "territory": "Toronto Hydro-Electric System Limited is the licensed electricity distributor of the City of Toronto (Ontario Energy Board distribution licence; Electricity Act, 1998): a customer in its area is billed by it, also one that buys its energy from a retailer; the postal areas beginning with M are the City of Toronto",
   "what": "electricity delivered to the premises at the organisation's address",
   "period": "1 monthly",
   "period_basis": "the distributor's own business rates are stated by 30 days: “Customer $43.70 per 30 days” (https://www.torontohydro.com/for-business/rates)",
   "amount": "from $43.70 a month",
   "amount_basis": "the fixed customer charge of the first business rate class on the distributor's rates page: “Customer $43.70 per 30 days” (https://www.torontohydro.com/for-business/rates); delivery and energy by the kilowatt-hour come on top — the organisation's own consumption is not published",
   "delivery": "a bill: “Pay your bill in person at your bank, by telephone or using the online bill payment options offered by most financial institutions.” (https://www.torontohydro.com/for-business/ways-to-pay)",
-  "payment": "through a financial institution, by pre-authorized debit or by cheque; a credit card with a fee: “Pay your bill in person at your bank, by telephone or using the online bill payment options offered by most financial institutions.” … “Pay your bill by mailing a cheque payable to Toronto Hydro-Electric System Ltd.” (https://www.torontohydro.com/for-business/ways-to-pay)"
+  "payment": "through a financial institution, by pre-authorized debit or by cheque; a credit card with a fee: “Pay your bill in person at your bank, by telephone or using the online bill payment options offered by most financial institutions.” … “Pay your bill by mailing a cheque payable to Toronto Hydro-Electric System Ltd.” (https://www.torontohydro.com/for-business/ways-to-pay)",
+  "table_key": "Toronto Hydro-Electric System Limited"
  },
  {
   "key": "manitoba_hydro",
@@ -144,16 +142,13 @@
   "address_url": "https://hydroottawa.com/en",
   "address_quote": "2711 Hunt Club Road, PO Box 8700 Ottawa, ON K1G 3S4",
   "address_read": "2026-11-11",
-  "prefixes": [
-   "K1",
-   "K2"
-  ],
+  "prefixes": [],
   "except_fsas": [],
-  "territory": "Hydro Ottawa Limited is the licensed electricity distributor of the urban area of the City of Ottawa (Ontario Energy Board distribution licence; Electricity Act, 1998): a customer in its area is billed by it; the postal areas beginning with K1 and K2 are that area (the rural parts of the city, served by Hydro One, have other postal areas and are left out)",
   "what": "electricity delivered to the premises at the organisation's address",
   "delivery": "a bill, paid with its account number: “write your 20-digit account number on the front of your cheque.” (https://hydroottawa.com/en/residential/rates-billing/view-and-pay-your-bill)",
   "payment": "by cheque by mail, among the ways of its page: “Mail your payments to: Hydro Ottawa P.O. Box 8700 Ottawa, ON K1G 3S4” (https://hydroottawa.com/en/residential/rates-billing/view-and-pay-your-bill)",
-  "remit_to": "“Hydro Ottawa P.O. Box 8700 Ottawa, ON K1G 3S4” (https://hydroottawa.com/en/residential/rates-billing/view-and-pay-your-bill)"
+  "remit_to": "“Hydro Ottawa P.O. Box 8700 Ottawa, ON K1G 3S4” (https://hydroottawa.com/en/residential/rates-billing/view-and-pay-your-bill)",
+  "table_key": "Hydro Ottawa Limited"
  },
  {
   "key": "saskpower",

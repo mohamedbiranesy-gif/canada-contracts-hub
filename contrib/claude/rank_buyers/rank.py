@@ -1952,6 +1952,86 @@ def infer(name, email, site, prov, fed, place=""):
     if inst:
         return "CPC", "medium", what, FACT["CPC"] + "; such institutions mail letters and notices"
     return "CPC", "low", what, "generic: " + FACT["CPC"] + "; most organisations mail some letters, but not every one does"
+# the postal code an organisation's own home page prints (the scan, detector 5: data/incoming/claude/credit_scan/links_<stamp>.gz, 4th column
+# "site name|copyright name|legalName|postal code"): the address of an organisation whose lead reader kept none. 377,262 home pages on 2026-11-11.
+SCAN_PC = _BYLOC.scan_postal_codes()
+print("home pages that print a Canadian postal code (the scan's name facts):", len(SCAN_PC))
+def scan_address(md, *sites):
+    """'' or the postal code the organisation's own home page prints, as an address cell that says where it was read. The site must be the
+    one the organisation's mailbox is on (same registrable domain): a directory page that printed its mailbox is not its home page."""
+    if not md or FREEMAIL.match(md):
+        return ""
+    for h in [re.sub(r"^www\.", "", host_of(u) or "") for u in sites if u] + [md]:
+        if h and registrable(h) == registrable(md) and h in SCAN_PC:
+            pc, day = SCAN_PC[h]
+            return "postal code %s %s (as printed on the organisation's home page https://%s/, read by the home-page scan%s)" % (pc[:3], pc[3:], h, (" of " + day) if day else "")
+    return ""
+_PROV_OF_PC = {"A": "NL", "B": "NS", "C": "PE", "E": "NB", "G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON", "R": "MB", "S": "SK", "T": "AB", "V": "BC", "Y": "YT"}
+# owner 2026-11-11 16:01 EST, second step. A row whose own relationship cannot meet the rule gives way to the one biller its address has by
+# law, when its own printed address names one: a service whose vendor's way of being paid is not published (hosting and software are commonly
+# charged to a card, so nothing is said "by the kind" there: 13,203 such rows in the sample build of 21:45Z, none of them ship ready), a
+# client listing or a link (the vendor's statement, never established), a trademark owner billed by the Office (its page names no notice or
+# invoice). The other relationship stays on the row as a note (other_relationship_sources). Decided here, before the row is enriched, so
+# that every cell of the row is the distributor's from the start; a service whose vendor publishes a bank payment keeps its row.
+GAVE_WAY = {}
+n_gw = collections.Counter()
+_ROSTER13 = ("member named in the member directory", "tenant / merchant named by", "dealer / retailer named by", "sponsor / exhibitor named by")
+def _svc_pay_text(x, k):
+    d_ = LDET.get(k) or {}
+    vd_ = registrable(host_of(d_.get("vendor_site") or x.get("vendor_website") or "") or "")
+    cur_ = _BILL_CUR.get(norm(x.get("vendor") or "")) or _BILL_CUR_DOM.get(vd_)
+    txt = str(((cur_ or {}).get("bill") or {}).get("payment") or "")
+    if not txt and vd_ in VBILL:
+        txt = str((_VB.extra_of(VBILL.get(vd_), "paymethod") or {}).get("q") or "")
+    return txt
+for x in rows:
+    t = x.get("tier")
+    if t not in ("T", "D", "E", "M") or not x.get("acc") or int(x.get("grade") or 0) < 1 or "|" in (x.get("keys") or "") or not (x.get("keys") or "").startswith("lead:"):
+        continue
+    k, cs = x["keys"], x.get("contract_status") or ""
+    if t == "T":
+        if _RR.payment_route({"bill_payment_method_as_published": _svc_pay_text(x, k), "vendor": x.get("vendor") or ""}, "service seen on the buyer's side")[0] in _RR.ROUTE_OK:
+            continue
+        why = "how that vendor is paid is not published, and a service of this kind is commonly charged to a card"
+    elif t == "M":
+        if "canadian intellectual property office" not in (x.get("vendor") or "").lower():
+            continue
+        why = "the Office's own page names the ways of paying and no notice or invoice"
+    elif t == "D" and any(p_ in cs for p_ in _ROSTER13):
+        continue
+    else:
+        why = "a client listing is the vendor's own statement" if t == "D" else "a link on the vendor's site is not shown to be a client relationship"
+    n_gw["rows that cannot meet the rule (%s)" % {"T": "service, payment not published", "M": "trademark owner billed by the Office", "D": "client listing", "E": "link only"}[t]] += 1
+    e = (x.get("email") or "").strip()
+    local, _, md = e.lower().partition("@")
+    if not md or BAD_LOCAL.search(local) or jur_of_mail(e) == "FED":
+        n_gw["… not given: mailbox of a federal body, or not one to write to"] += 1; continue
+    _lf = LFACTS.get(k) or {}
+    site = x.get("buyer_website") or ""
+    _sa = scan_address(md, site, _lf.get("site"))
+    loc = _BYLOC.biller_for_all(" ".join([x.get("buyer_address") or "", _lf.get("address") or "", x.get("email_evidence_quote") or "", _sa.split(" (as printed")[0]]))
+    if not loc:
+        n_gw["… no distributor can be named for where it is (no postal code read, Alberta, or an area another utility serves)"] += 1; continue
+    if registrable(host_of(loc["site"])) in (registrable(md), registrable(host_of(site))):
+        continue
+    b_addr = x.get("buyer_address") or (("%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")) if _lf.get("address") else "") or _sa
+    if not _BYLOC.fsa_of(b_addr):
+        b_addr = (b_addr + "; " if b_addr else "") + (_sa or "")
+    g = int(x["grade"])
+    prov, how = province_of(k, e, site, x.get("email_evidence_quote") or "")
+    GAVE_WAY[k] = "%s — %s — is on file for this organisation and is not what the row stands on: %s" % ((x.get("vendor") or "").strip(), re.sub(r"\s+", " ", cs)[:260].rstrip(" .,;:"), why)
+    new = {"jurisdiction": "", "_jur": prov or _PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) or "CA", "rank_group": "I%d" % g, "completeness_score": 3 * 10 + g * 6 + 3,
+           "buyer": x.get("buyer") or "", "buyer_website": site, "buyer_address": b_addr,
+           "email": e, "email_type": x.get("email_type") or "", "email_check": "confirmed", "email_evidence_url": x.get("email_evidence_url") or "", "email_evidence_quote": x.get("email_evidence_quote") or "",
+           "contract_status": _BYLOC.status(loc, _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(x.get("email_evidence_quote") or "")),
+           "source": "the distributor's exclusive territory and the organisation's own printed address (no contract, payment or listing record)",
+           "vendor": "inferred: " + loc["name"], "vendor_address": loc["address"], "vendor_website": loc["site"],
+           "vendor_country_basis": "%s, %s: '%s'" % (loc.get("address_source") or "the vendor's own site", loc["address_url"], loc["address_quote"]),
+           "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True}
+    x.clear(); x.update(new)
+    n_gw["… given to the distributor of the organisation's address: %s" % loc["name"]] += 1
+print("rows that give way to the biller their address has by law:", dict(sorted(n_gw.items(), key=lambda kv: -kv[1])))
+SPC13 = {}
 cands = []
 skipped13 = collections.Counter()
 for k, ((acc, g), m) in mail.items():
@@ -1962,7 +2042,12 @@ for k, ((acc, g), m) in mail.items():
     # owner 2026-11-11 16:01 EST ("think differently … invoice, bank EFT, email, Canadian vendor … populate those fields as best as you can"):
     # where the organisation is, as its own site prints it, names the one body that bills electricity there (tools/by_location.py)
     _lf13 = LFACTS.get(k) or {}
-    _loc13 = _BYLOC.biller_for_all(" ".join([_lf13.get("address") or "", addr_text((BUY.get(k) or {}).get("address")), (VEN.get(k) or {}).get("address") or "", m.get("evidence_quote") or ""]))
+    _sa13 = scan_address((m.get("mailbox") or "").strip().lower().partition("@")[2], (VEN.get(k) or {}).get("website"), (BUY.get(k) or {}).get("official_website"),
+                         leads[k].get("website") if k in leads else "", _lf13.get("site"), m.get("evidence_url"))
+    _loc13 = _BYLOC.biller_for_all(" ".join([_lf13.get("address") or "", addr_text((BUY.get(k) or {}).get("address")), (VEN.get(k) or {}).get("address") or "", m.get("evidence_quote") or "",
+                                             _sa13.split(" (as printed")[0]]))
+    if _sa13 and _loc13:
+        SPC13[k] = _sa13
     if k.startswith("lead:") and not REGISTRY_ROWS and not _loc13:
         # 2026-11-11: an organisation that came through a lane (its key was minted by a lead engine) and whose lead is withdrawn, or removed by
         # the owner's rule of that day (a .ca registration, a store, a card-billed service), gets no inferred row in its place. Without this
@@ -1985,7 +2070,7 @@ for k, ((acc, g), m) in mail.items():
     fed = jur_of_mail(e) == "FED" and not k.startswith("v:")
     prov, how = province_of(k, e, site, m.get("evidence_quote") or "")
     country = "CA" if (k.split(":")[0] in ("osm", "wd", "v") or k in PLACES or prov or fed or md.endswith(".ca") or host_of(site).endswith(".ca")
-                       or (BUY.get(k) or {}).get("country") == "CA") else ""
+                       or (BUY.get(k) or {}).get("country") == "CA" or _loc13) else ""  # _loc13: its own page prints a Canadian postal code
     if not country:
         skipped13["not located in Canada (no honest inference)"] += 1; continue
     if site and not (VEN.get(k) or {}).get("website") and not (BUY.get(k) or {}).get("official_website") and not (k in leads and leads[k].get("website")) \
@@ -2041,23 +2126,25 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     _lf = LFACTS.get(k) or {}
     if not b_addr and _lf.get("address"):
         b_addr = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")
+    if vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and SPC13.get(k):
+        b_addr = (b_addr + "; " if b_addr else "") + SPC13[k]  # no postal code in what was read of its address: the one its home page prints
     if _lf.get("site_name") and re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/?", (name or "").strip().lower()):
         name = _lf["site_name"]  # the lead only carried the domain: the organisation's own home page names it (as apply_details does for a lead's row)
-    rows.append({"jurisdiction": "", "_jur": prov or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
+    rows.append({"jurisdiction": "", "_jur": prov or (_PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) if vid.startswith("LOC:") else "") or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
         "buyer": name, "buyer_website": site, "buyer_address": b_addr,
         "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",
-        "contract_status": (_BYLOC.status(_BYLOC.BILLERS[[b_["key"] for b_ in _BYLOC.BILLERS].index(vid[4:])], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "")) if vid.startswith("LOC:") else
+        "contract_status": (_BYLOC.status(_BYLOC.BY_KEY[vid[4:]], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "")) if vid.startswith("LOC:") else
                             "inferred relationship (no record): %s confidence; the buyer is %s%s; %s" % (conf, what, (" (province from %s)" % how) if how else "", why)),
         "source": ("the distributor's exclusive territory and the organisation's own printed address (no contract, payment or listing record)" if vid.startswith("LOC:") else
                    "inference from the buyer's type and province (no contract, payment or listing record)"),
         "vendor": "inferred: " + vname, "vendor_address": vaddr, "vendor_website": vsite,
-        "vendor_country_basis": "the vendor's own site, %s: '%s'" % (vurl, vquote),
+        "vendor_country_basis": "%s, %s: '%s'" % ((_BYLOC.BY_KEY[vid[4:]].get("address_source") if vid.startswith("LOC:") else "") or "the vendor's own site", vurl, vquote),
         "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True})
     n13 += 1
 print("P12 organisations:", len(orgs12), "added:", n12, dict(skipped12), "| P13 added:", n13, "| P13 skipped:", dict(skipped13))
 print("lead rows that took the organisation's own key (registry facts attach):", dict(n_keyjoin))
 _free(globals(), "VEN", "VEN_NAME", "VEN_DOM", "BUY", "TEAMV", "mail", "mail_dom", "cands", "orgs12", "up_t", "dom_rows", "lead_row_by_dom",
-      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom")  # last used by the row builders above
+      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13")  # last used by the row builders above
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
 rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
@@ -3689,6 +3776,15 @@ for x in rows:
     # vendor is: its register entry is looked up under its name, also where the register tool met it as a buyer (18,053 tier-I rows had no vendor legal name)
     _vq = re.sub(r"^inferred:\s*", "", vn)
     c = (CBR["vendor"].get(norm(_vq)) or (_CBR_BUYER_NAME.get(norm(_vq)) if vn.startswith("inferred") else None)) if _vq else None
+    if not c and _vq and x.get("vendor_legal_name"):
+        # 2026-11-11: a vendor the lead names by its site ("Webnames.ca") whose own site prints its legal name ("Webnames.ca Inc"): the register tool
+        # looked that printed name up and found the corporation of exactly that name — the build of 22:11Z left 3,763 such rows without the vendor's
+        # number (2,890 of them on one vendor), because the row takes the printed name as its vendor name only later
+        _vl = re.sub(r"\s*\((?:as printed|stated on|schema\.org|printed with its legal form|the copyright line|as registered).*$", "", x["vendor_legal_name"]).strip()
+        if _vl and norm(_vl) != norm(_vq):
+            c = CBR["vendor"].get(norm(_vl))
+            if c:
+                n_cbr["vendor found under the legal name its own site prints"] += 1
     if c and form_class(vn) and form_class(c.get("matched_name") or "") and form_class(vn) != form_class(c.get("matched_name") or ""):
         n_cbr["vendor_skipped_legal_form"] += 1; c = None  # reviewer 2026-11-08: Smythe LLP is not Smythe Inc.
     if c:
@@ -4222,6 +4318,9 @@ for x in rows:
     _ls = (LEAD_DOM.get(_d) if _d else None) or LEAD_NAME.get(_n) or []
     if _ls and x.get("tier") in ("A", "B", "L", "C", "D", "F", "E", "M", "I", "R"):
         x["other_relationship_sources"] = "also seen in the lead files: " + "; ".join(sorted(set(_ls))[:6])[:600]; n_x2["dataset rows with lead relationships"] += 1
+    _gw = next((GAVE_WAY[k_] for k_ in (x.get("keys") or "").split("|") if k_ in GAVE_WAY), "") if x.get("tier") == "I" else ""
+    if _gw:  # the relationship that gave way to the distributor of the organisation's address (decided before P13): kept in sight, in words
+        x["other_relationship_sources"] = (_gw + ((" | " + x["other_relationship_sources"]) if x.get("other_relationship_sources") else ""))[:1000]; n_x2["rows that carry the relationship that gave way"] += 1
     x.pop("_org", None)
 print("back-references:", dict(n_x2))
 _free(globals(), "leads", "LEAD_DOM", "LEAD_NAME", "_XLEAD", "orgs", "AGG_DOM", "AGG_NAME")

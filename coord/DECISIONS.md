@@ -1517,3 +1517,37 @@ His message in full is in AGENTS.md §1 (rule 13). He was not asked again: "this
 - What did not change: no invented value, no calculated value presented as published, §2 of AGENTS.md whole. A distributor's file from
   another lane is used only after its sentences were found on their pages (`by_location.py verify`).
 
+
+## 2026-11-11 22:44Z — the first build on rule 13 gave 79,860, not the 105,000 a sample promised. Three changes that follow from reading it (claude)
+
+**The number.** Build 22:11Z (code c6cd6fe): 158,912 rows, 79,860 ship ready — by where the organisation is 38,467 · best effort 33,095 ·
+every field in the biller's or the record's own words 8,298. I had told the owner "about 105,000" from a build on one lead in four. The
+sample over-counted the by-location rows: an organisation's service lead and its mailbox key are sampled apart, so in a sample three
+organisations in four have lost the service row that, in the full table, stands in front of the row by location. A sample build tests
+the code; it is not multiplied by four again for a count that depends on which row an organisation gets.
+
+**1. A row whose own relationship cannot meet the rule gives way to the distributor of its address.** 55,690 rows of the build are a
+hosting / DNS / web-agency service whose vendor's way of being paid is not published — never ship ready, and nothing may be said "by the
+kind" there (a card on file is the common way). 15,843 are a client listing or a link (the vendor's statement). The organisation behind
+each still has the one biller its address has by law. Decided before the row is enriched (so every cell is the distributor's), exact for
+services (the same function that judges the route at the end judges it here; measured on a sample: 0 rows of 12,945 predicted "not
+published" ended otherwise). The other relationship stays on the row, in words, in `other_relationship_sources`. A service whose vendor
+publishes a bank payment keeps its row: a record or a fact seen on the buyer's side that MEETS the rule still comes first.
+
+**2. Ontario by postal code, from the regulator's own map.** A rule "postal area -> distributor" is wrong in Ontario: sixty licensed
+distributors, Hydro One's lines between the towns that kept a utility; my own rule of the afternoon had K1E (97 % Hydro One) and part of
+K2S as Hydro Ottawa. `tools/on_ldc_table.py` overlays three public files — the Ontario Energy Board's map of service areas (open data,
+2024-09-30), the location of every postal code (GeoNames), Statistics Canada's postal areas — and gives a postal code a distributor only
+when its location is inside that distributor's area and no other, 300 m from the edge (5 km for a rural code), or its whole postal area
+is. 286,410 of 295,544 Ontario codes; 9,134 get none. The address and site of each distributor are the Board's own page on it (the
+source's own vendor address, §2.1). 44,015 organisations with a mailbox on file are in those areas (14,993 were Toronto and Ottawa).
+The same method is the way for any province where two distributors share postal areas (FortisBC, the municipal networks of Québec)
+once a public map of their areas is found.
+
+**3. The mailbox reader reads first what is nearly certain to be a row.** Its queue put the .ca sites that print a role mailbox on their
+home page last (after 900,000 lead sites), because a .ca registration stopped being a row. By location they are rows: about 63,000 such
+sites are unread, 85 % of those read gave a mailbox. They are read first now, and a .com / .org site whose home page prints a Canadian
+postal address and a mailbox is a candidate too (39,393 never queued).
+
+Also: the organisation's postal code from the home-page scan is an address when the reader kept none (377,262 home pages), said as such
+on the row; a vendor is looked up in the register under the legal name its own site prints (3,763 rows had lost the vendor's number).

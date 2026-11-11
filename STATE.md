@@ -1,6 +1,6 @@
-# STATE.md — Claude lane (updated 2026-11-11 21:50Z — a row is one buyer billed ON INVOICE by a Canadian entity, payable BY BANK, with the organisation's own mailbox; since 16:01 EST every other field is populated as well as it can be and no longer takes a row out (AGENTS.md §1 rules 6-13). Read the first two sections below before anything else; everything under them is history.)
+# STATE.md — Claude lane (updated 2026-11-11 21:46Z — a row is one buyer billed ON INVOICE by a Canadian entity, payable BY BANK, with the organisation's own mailbox; since 16:01 EST every other field is populated as well as it can be and no longer takes a row out (AGENTS.md §1 rules 6-13). Read the first two sections below before anything else; everything under them is history.)
 
-## 2026-11-11 21:50Z — the owner at 16:01 EST: "1 million … think differently … populate those fields as best as you can". Rows by where the organisation is; a field nothing published fills no longer takes a row out
+## 2026-11-11 21:46Z — the owner at 16:01 EST: "1 million … think differently … populate those fields as best as you can". Rows by where the organisation is; a field nothing published fills no longer takes a row out
 
 **His words, in full:** "1 million goals think differently if need be this your project take all liberty as long as under what we laid down
 invoice bank eft email Canadian vendor in simple terms and just populate those field as best as you can don’t just go empty there’s clear
@@ -39,7 +39,7 @@ record's own words 3,704. A full table: about 105,000. The published table (20:2
 - most of those 377,262 sites have no mailbox read yet: the mailbox reader takes sites that print a mailbox on the home page.
 
 **Next, in this order:**
-1. Cloud build with this code (dispatched after the push of 21:50Z): read `coord/results/ranked/SUMMARY.md` — the lines "SHIP READY" and
+1. Cloud build with this code (dispatched after the push of 21:46Z): read `coord/results/ranked/SUMMARY.md` — the lines "SHIP READY" and
    "of which" — against the sample (about 105,000). If it differs by more than a tenth, find why before anything else.
 2. P13: the postal code of the organisation's home page (scan, `data/incoming/claude/credit_scan/links_*.gz`, 4th column, last field) as
    an address when the lead reader kept none; then the give-way of a failing service / client-listing row to the distributor. A sample
@@ -1370,7 +1370,7 @@ Gemini batch 51 rows 1–30 (23:01 EST). Codex: 30 usage-limit refusals so far; 
 - rank.py: vendor_trading_name from the vendor site's schema.org alternateName / Organization name when it differs from the legal name (not yet built).
 - Mac: API worker 4,571 tasks, $95.69 of the $120 cap (84 % with a page); Gemini batch 49 rows 1–30 (21:47Z); Codex resumes 23:34Z; push loop 22:20Z.
 
-## 21:50Z — build 21:39Z **93 of 438** (72 → 93, nothing lost); Gold A 128 / B 253; ChatGPT account at its usage limit until 23:34Z
+## 21:46Z — build 21:39Z **93 of 438** (72 → 93, nothing lost); Gold A 128 / B 253; ChatGPT account at its usage limit until 23:34Z
 - The first main build with the 20:30–20:45Z rank.py rules: +21 benchmarks — records_with_this_vendor met in 9 packages (relationship record = 1 record),
   solicitation_or_tender_number P02 / P04 / P09 (SEAO numero), ap_system_hint P01_GOLD / P02 / P03 / P04 (portal names feed the hint), invoice_reference_hint
   P01T / P06 (PO rule), contract_description P05 (title text), buyer_tax_exempt_status P01_GOLD, po_required P01T. 67 cells moved ≥ 3 points, none down.

@@ -205,3 +205,15 @@ alone, the law of its franchise, and — each a sentence of its own page — its
 "invoice", how it is paid). Leave out a postal area that two distributors share: a row must never name the wrong biller.
 
 **Yours first: the Atlantic provinces, the municipal utilities and Alberta.** Nova Scotia Power, Newfoundland Power, Maritime Electric; FortisBC; Hydro-Sherbrooke, Saskatoon Light & Power, Saint John Energy, New Westminster, Nelson, Penticton; the payment pages and smallest business rate of SaskPower, NB Power, Qulliq and BC Hydro (their files in `tools/data/billers_by_location.json` have an address and a territory only). Alberta has 18,057 organisations and no distributor that bills everyone (the retailer is the customer's choice): find the body that does bill every business in a place — Edmonton's business licence by-law covers every business in the city; say what covers Calgary, Red Deer, Lethbridge — and hand it in the same format.
+
+## 2026-11-11 22:36 from claude
+
+**Ontario is done by postal code — do not write files of postal areas for Ontario.** `tools/on_ldc_table.py` took the Ontario Energy
+Board's own map of the service areas (open data, 2024-09-30), the location of every postal code (GeoNames) and Statistics Canada's postal
+areas: 286,410 Ontario postal codes each have one of 53 licensed distributors, with the Board's page for its address and site. A postal
+area was the wrong unit there (K1E is 97 % Hydro One, not Hydro Ottawa). **What is still yours for Ontario: each distributor's own words**
+— how often it bills, the fixed charge of its smallest business rate, "bill" / "invoice", how it is paid, when it is due — handed in under
+`"table_key": "<the licensed name>"` (docs/LANES_ON_INVOICE.md, format 4, the second example). Largest first: Alectra Utilities Corporation,
+Hydro One Networks Inc., Enova Power Corp., Elexicon Energy Inc. (its site refused my reader: say so if it refuses yours), London Hydro Inc.,
+Oakville Hydro, Burlington Hydro, GrandBridge Energy, ENWIN Utilities. Whole files are still wanted for Nova Scotia Power, Newfoundland
+Power, Maritime Electric, FortisBC, Cornwall Electric and the municipal utilities.

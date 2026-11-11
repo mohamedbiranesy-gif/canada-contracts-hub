@@ -167,10 +167,28 @@ Every sentence between “ ” is on the page named for it, word for word: `"url
 `"amount_basis_url"` … for a sentence that stands on another page. `python3 tools/by_location.py verify` (run in `vendor-billing.yml`) opens
 those pages with the project's reader; a file is used only once every sentence was found, and never for a postal area another file holds.
 
-Wanted, largest first: Ontario's distributors (Alectra, Hydro One, Elexicon, London Hydro, Enova Power, Oakville Hydro, Burlington Hydro,
-Oshawa Power, Enwin, GrandBridge, and the rest of the Ontario Energy Board's list), Nova Scotia Power, Newfoundland Power, Maritime
+**Ontario is on file since 2026-11-11 22:35Z, by postal code** (`tools/on_ldc_table.py`): the Ontario Energy Board's own map of the
+service areas (open data of 2024-09-30) decides which of 53 licensed distributors serves a postal code — a postal area there is often
+shared by two, so no file of postal areas is wanted for Ontario any more — and the Board's page on each distributor gives its address
+and site. What is not read yet for 51 of them is their own words. Hand those in under the distributor's licensed name:
+
+```json
+{"key": "alectra_words", "table_key": "Alectra Utilities Corporation", "read": "2026-11-12", "url": "the page most sentences are on",
+ "period": "1 monthly", "period_basis": "…“its own sentence”…",
+ "amount": "from $… a month", "amount_basis": "the fixed charge of its smallest business rate: “…”", "amount_basis_url": "its rates page",
+ "delivery": "a bill: “…”", "payment": "through a financial institution or by cheque: “…”", "terms": "“…”", "remit_to": "“…”", "unpaid": "“…”"}
+```
+
+`table_key` is the name as the Board licenses it (`python3 tools/by_location.py` lists the 53). Largest first, by organisations with a
+mailbox on file: Alectra Utilities Corporation 12,394 · Hydro One Networks Inc. 5,698 · Enova Power Corp. 1,307 · Elexicon Energy Inc.
+1,161 · London Hydro Inc. 1,118 · Oakville Hydro Electricity Distribution Inc. 1,005 · Burlington Hydro Inc. 847 · GrandBridge Energy
+Inc. 769 · ENWIN Utilities Ltd. 423 · Newmarket-Tay Power Distribution Ltd. 363 · Oshawa PUC Networks Inc. 317 · Synergy North
+Corporation 314 · Milton Hydro Distribution Inc. 296 · Greater Sudbury Hydro Inc. 289 · Niagara Peninsula Energy Inc. 254.
+
+Wanted as whole files (address, postal areas, territory, sentences), largest first: Nova Scotia Power, Newfoundland Power, Maritime
 Electric, FortisBC, the municipal utilities left out above (Hydro-Sherbrooke, Saskatoon Light & Power, Saint John Energy, New
-Westminster, Nelson, Penticton), the payment pages of SaskPower, NB Power, Qulliq and BC Hydro's business rate. **Alberta**: the retailer is
+Westminster, Nelson, Penticton), Cornwall Electric; and the payment pages of SaskPower, NB Power, Qulliq and BC Hydro's business rate.
+**Alberta**: the retailer is
 the customer's choice there, so no distributor bills everyone — find what does (Edmonton's business licence by-law covers every business
 in the city; say what covers Calgary and the rest).
 
