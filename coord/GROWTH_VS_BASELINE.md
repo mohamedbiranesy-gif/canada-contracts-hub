@@ -4,29 +4,29 @@ The baseline is what could have been shipped on 2026-11-09. Waiting pays only if
 
 | metric | baseline | now | change |
 |---|---|---|---|
-| rows | 63641 | 153407 | +89766 |
-| rows_named_vendor_relationship | 12816 | 114428 | +101612 |
+| rows | 63641 | 178428 | +114787 |
+| rows_named_vendor_relationship | 12816 | 84456 | +71640 |
 | rows_registry_contract_R | 0 | 0 | +0 |
-| rows_inferred_or_weak | 50825 | 38979 | -11846 |
-| buyers_total | 63641 | 153407 | +89766 |
-| buyers_ap_confirmed | 1364 | 1687 | +323 |
-| buyers_fin_confirmed | 1715 | 2822 | +1107 |
-| buyers_any_confirmed | 63163 | 151824 | +88661 |
-| pay_on_sight_yes | 833 | 1205 | +372 |
-| pay_on_sight_ref | 841 | 555 | -286 |
-| pay_on_sight_routed | 22341 | 35860 | +13519 |
+| rows_inferred_or_weak | 50825 | 93972 | +43147 |
+| buyers_total | 63641 | 178428 | +114787 |
+| buyers_ap_confirmed | 1364 | 1751 | +387 |
+| buyers_fin_confirmed | 1715 | 3171 | +1456 |
+| buyers_any_confirmed | 63163 | 176836 | +113673 |
+| pay_on_sight_yes | 833 | 1110 | +277 |
+| pay_on_sight_ref | 841 | 834 | -7 |
+| pay_on_sight_routed | 22341 | 42173 | +19832 |
 | gold_rows | 624 | 626 | +2 |
-| gold_pay_on_sight | 395 | 408 | +13 |
-| grade_A | 306 | 309 | +3 |
+| gold_pay_on_sight | 395 | 409 | +14 |
+| grade_A | 306 | 312 | +6 |
 | gold_A | 225 | 226 | +1 |
-| grade_A_or_B | 867 | 998 | +131 |
-| public_rows | 12835 | 114443 | +101608 |
-| terms_published_public | 1877 | 3766 | +1889 |
-| po_rule_published_public | 1396 | 2314 | +918 |
-| billto_legal_name_published | 33765 | 79400 | +45635 |
-| vendor_bn9_known | 53138 | 51885 | -1253 |
+| grade_A_or_B | 867 | 1006 | +139 |
+| public_rows | 12835 | 84471 | +71636 |
+| terms_published_public | 1877 | 3195 | +1318 |
+| po_rule_published_public | 1396 | 2109 | +713 |
+| billto_legal_name_published | 33765 | 90394 | +56629 |
+| vendor_bn9_known | 53138 | 58931 | +5793 |
 | inferred_policy_cells_p80 | 0 | 0 | +0 |
-| benchmarks_met | 100 | 92 | -8 |
+| benchmarks_met | 100 | 91 | -9 |
 
 New source keys since the baseline: none
 
@@ -34,12 +34,12 @@ New source keys since the baseline: none
 |---|---|---|---|
 | A | 1278 | 1274 | -4 |
 | B | 1619 | 1727 | +108 |
-| C | 402 | 320 | -82 |
-| D | 3623 | 26584 | +22961 |
-| E | 2763 | 7082 | +4319 |
+| C | 402 | 329 | -73 |
+| D | 3623 | 23489 | +19866 |
+| E | 2763 | 4832 | +2069 |
 | F | 19 | 15 | -4 |
-| I | 50806 | 38964 | -11842 |
+| I | 50806 | 93957 | +43151 |
 | L | 397 | 435 | +38 |
-| M | 189 | 15463 | +15274 |
-| T | 2545 | 61543 | +58998 |
+| M | 189 | 14973 | +14784 |
+| T | 2545 | 37397 | +34852 |
 
