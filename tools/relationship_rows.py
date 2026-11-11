@@ -191,6 +191,10 @@ def payment_route(x, kind):
         if _has(x, "payment_terms_default_policy"):
             return "bank", "invoice paid by the buyer's accounts payable; its government's payment policy: %s" % x["payment_terms_default_policy"].strip()[:220]
         return "bank", "invoice under a public contract award, paid by the buyer's accounts payable (by the kind of relationship: the buyer publishes no payment method)"
+    if kind in INVOICE_SAID and _BANK.search(v) and not _INVOICE.search(d + " " + v):
+        # a licence, a membership, a dealership …: how it can be paid is published, that the body sends an invoice, a bill or a notice for it is not
+        # (owner: "on invoice"). The Canadian Intellectual Property Office's payment page is the example: cheques and wire transfers, no word of a notice.
+        return "nobill", "bank payment is accepted (%s), but nothing read says the body sends an invoice, a bill or a notice" % v[:200]
     if (x.get("vendor") or "").startswith("Shopify") or (_CARD.search(v) and not _BANK.search(v)):
         return "card", "card or other method on file, charged by the vendor: %s" % v[:220]
     if "registrar of record" in v:
@@ -206,7 +210,10 @@ def payment_route(x, kind):
 
 ROUTE_LABEL = {"bank": "on invoice, by bank transfer / cheque", "card": "card on file, charged by the vendor", "registrar": "through the registrar of record",
                "either": "on invoice; bank payment or card (the biller takes both)", "unknown": "not published",
-               "noinvoice": "no invoice is sent (the payer remits on its own, in the body's own words)"}
+               "noinvoice": "no invoice is sent (the payer remits on its own, in the body's own words)",
+               "nobill": "payable by bank, but no invoice or notice is published"}
+INVOICE_SAID = ("licence or registration", "membership", "dealership", "tenancy", "sponsorship", "agent of record")
+_INVOICE = re.compile(r"invoices?|factur|\bbills?\b|\bbilled\b|notices?\b|avis de (?:cotisation|renouvellement|paiement)|statements?\b|relev[ée]s?\b", re.I)
 ROUTE_OK = ("bank", "either")  # owner 2026-11-11 14:20 EST: an invoice that can be paid by bank transfer is in, also when the biller would take a card
 
 

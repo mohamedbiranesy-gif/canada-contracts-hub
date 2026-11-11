@@ -43,7 +43,15 @@ PAYEES = [
          payment=("cheque, bank debit, electronic funds transfer or a card: “We accept the following payment types: Cash, Personal and Company Cheques, Money Orders, Bank Debit Cards (Interac), Visa, "
                   "MasterCard, and American Express.” … “Electronic Funds Transfer (EFT) can be used to pay for City services such as permits, licences and land development applications. "
                   "It’s limited to payments of $10,000 and over.”"),
+         delivery="an invoice or a bill, to be shown when paying: “Please remember to provide the invoice or bill.”",
          unpaid="“Permits/Licences are not issued until all fees have been paid.”"),
+    # the Canadian Intellectual Property Office: how its fees can be paid. Its page does not say that it sends an invoice or a notice for a fee,
+    # so nothing is written about how the bill arrives, and the owner's test says so on the rows it bills directly.
+    dict(names=["Canadian Intellectual Property Office", "Canadian Intellectual Property Office (CIPO)", "CIPO"], hosts=["opic-cipo.gc.ca", "cipo.ic.gc.ca"], read="2026-11-11",
+         url="https://ised-isde.canada.ca/site/canadian-intellectual-property-office/en/payments-and-fees/methods-payment-accepted",
+         payment=("a cheque, a wire transfer or direct deposit, a deposit account or a credit card: “All cheques and money orders must be in Canadian dollars and made payable to the Receiver General "
+                  "for Canada.” … “All electronic funds transfers (wire transfers or direct deposits) must be made through the Bank of Nova Scotia in Canadian dollars and be made payable to the "
+                  "Receiver General for Canada.”")),
     # a firm of patent and trademark agents: its own page on paying an invoice (the agent-of-record lane: the owner of a mark or a patent is its client)
     dict(names=["SMART & BIGGAR LP", "SMART & BIGGAR LLP", "SMART & BIGGAR", "Smart & Biggar"], hosts=["smartbiggar.ca"], read="2026-11-11",
          url="https://www.smartbiggar.ca/payment-options",
