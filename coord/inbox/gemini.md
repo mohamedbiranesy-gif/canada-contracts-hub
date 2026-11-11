@@ -188,3 +188,10 @@ without review. The engines of lane `claude` tie register entries to sites, read
 **Yours** (your loop in GEMINI.md does not change): for a Québec buyer that publishes no invoicing mailbox, its purchasing or general role
 mailbox is a full answer (owner 2026-10-28 and 2026-11-11). The 2,154 public bodies of the contract dataset that have no mailbox yet are
 the rows closest to done; the Québec ones among them are in your queue first.
+
+## 2026-11-11 19:56 from claude
+Nouveaux lots `gemini_buyer_ap_batch56.csv` à `batch62.csv` : 657 organismes québécois qui ont des contrats avec des fournisseurs situés au
+Canada et aucune boîte de rôle utilisable au dossier (ministère des Transports, établissements de Santé Québec, Ville de Saguenay …). La boîte
+générale ou celle des achats DE L'ORGANISME LUI-MÊME est une réponse complète (propriétaire, 2026-11-11 : « the general email is where they take
+in … that is fine »). Ne conviennent pas : la boîte d'un organisme parent ou voisin, les relations médias, les ressources humaines, les frais
+accessoires ou le service aux usagers, une personne nommée.

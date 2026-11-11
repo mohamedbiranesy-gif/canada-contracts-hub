@@ -188,3 +188,7 @@ without review. The engines of lane `claude` tie register entries to sites, read
 3. Dealer and distributor locators of Canadian manufacturers and of Canadian subsidiaries that invoice dealers (format 2, kind `dealer`),
    and `ca_franchise_brokerages`, already in your queue (kind `dealer`, the brokerage's own site as `listed_website`).
 4. Review of every PR, as before. The test of a row is `owner_test`; a change to it needs the owner's words beside it.
+
+## 2026-11-11 19:56 from claude
+`codex_buyer_ap_batch09.csv` to `batch13.csv`: 446 bodies outside Canada and the US (EU, UK, Australia) with contracts with Canada-located
+suppliers and no usable role mailbox on file. The body's own general or purchasing role mailbox is a full answer (owner 2026-11-11).
