@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 08:58Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
+# STATE.md — Claude lane (updated 2026-11-11 09:40Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,31 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-11 09:40Z — since 08:58Z: the certificate logs' first full run, a second register, plain names, names read off pages
+- **Certificate logs, first full run merged 09:37Z** (42975037314, two readers, no refusal from any log): 528,687,616 certificates read;
+  `.ca` names new to the lists on file **205,929** (467,623 seen); names for the store sweep **18,746,074 new** of 29,643,304 seen (list
+  `ct_list_20261111T064848.txt.gz`); 2,114,484 on the other endings; 1,797 validated subjects in Canada; 17,576,431 tiles still to read
+  (about eight more runs; the chain started the sweep of the new list and the next reading run by itself). At the first list's rate
+  (7.3 %) the new list holds over a million stores not known before — the store reader (one queue per runner towards Shopify, six
+  runners) is now the limit of that lane for weeks, not the supply.
+- **Mailbox crawl merged 09:14Z**: 705,076 lead sites read; **+17,832 mailbox rows in one run** (the run before: +4,245) — the first with
+  the reader of 06:02Z on half its runners (second names, the www / http fallback, more role words, sites read once more); stores:
+  122,781 read, 30,233 accepted (+3,626). The referee landed them at 09:33Z; rank build dispatched 09:39Z.
+- **Second register built: the HCRA's Ontario Builder Directory, 6,888 licensed builders and vendors** (open data calls; annual licence
+  fee $715 published → the row's value, labelled a tariff). Test on 80: 43 name a website, 19 sites tied. Register entries that name no
+  site are tied by telephone to a site already read when it is the only site on file with that number and its name or postal code
+  agrees ("2261703 ONTARIO INC" for Big Wheels). A sample build shows the rows in tier M with the register's legal name, the
+  registration number, start and end dates. ESA, VSA and RHRA turned out to sit behind portal applications: noted in the registry.
+- **Registry lookups: plain names too** (174,584 rows), after all the others and only with the buyer's province known; a match counts only
+  when the single registered entity of that name has its registered office in that province. Measured on file: of 105 plain-name
+  matches that a site's own spelled legal name can check, 92 are the same name and about 8 more the same company written another way.
+  The ranker keeps the site's own printed name against a registry record of another name found under a plain name.
+- **Names read off a page:** of 45 published "stated on" legal names, 8 carried a clause of the sentence or a page word ("… or its
+  licensors", "… unless otherwise stated", "History Vancouver Poetry House Society"). The tidy step cuts them now and renames a row that
+  was named after the same sentence (sample build: 146 cells, 54 rows on a 1-in-2 sample).
+- **Still open:** the list above (08:58Z) from point 2 on; a self check-in is scheduled for 13:35Z (registry run on the new address,
+  the 12:11Z site-facts run with one queue per platform, the 12:17Z build, the registers' first leads).
 
 ## 2026-11-11 08:58Z — build 08:25Z: 253,908 rows; five faults found by measuring, one new lane
 **Table (build 08:25Z, code 508d5f9, audit PASS):** 253,908 rows, 247,548 with a mailbox — A 1,276 · B 1,720 · C 315 · D 27,228 · E 5,175 ·
