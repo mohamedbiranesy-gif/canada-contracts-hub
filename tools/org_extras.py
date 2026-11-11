@@ -471,7 +471,7 @@ def spelled_name(text, host):
     best = sorted(found.values(), key=lambda v: (0 if v[1].startswith("its words spell") else 1 if v[1].startswith("its words begin") else 2, -v[2], v[3]))[0]
     full = _opening3(text, best[0])
     if full != best[0]:
-        best = [full, best[1] + " (after the opening “%s” it is always printed with)" % full[:len(full) - len(best[0])].strip(), best[2], max(0, text.find(full))]
+        best = [full, best[1] + ", after the opening “%s” it is always printed with" % full[:len(full) - len(best[0])].strip(), best[2], max(0, text.find(full))]
     return best
 
 
