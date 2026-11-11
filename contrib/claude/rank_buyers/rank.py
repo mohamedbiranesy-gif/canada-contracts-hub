@@ -2577,6 +2577,12 @@ for x in rows:
     _foreign_site = bool(v) and site_not_the_vendors_own(x.get("vendor_website"))
     if _foreign_site:
         n_ox["vendor site is a foreign organisation's: its legal / trading name not taken for the Canada-located vendor"] += 1
+    if v and not _foreign_site and DOMAIN_NAME.match((x.get("vendor") or "").strip()) and (v.get("og_site_name") or v.get("title")):
+        # 2026-11-11: a vendor known by its domain only ("whc.ca", 7,333 rows of the build of 01:51Z; "business.nvchamber.ca") is printed under the name
+        # its own home page gives it, when that name agrees with the domain ("Web Hosting Canada"); the domain stays in vendor_website
+        _vsn = _LCF.site_name_for(host_of(x.get("vendor_website") or "") or x["vendor"].strip().lower(), v.get("og_site_name"), v.get("title"), _TR)
+        if _vsn and not DOMAIN_NAME.match(_vsn) and not GENERIC_NAME.match(_vsn):
+            x["vendor"] = _vsn; n_ox["vendor named by its own site's name instead of its domain"] += 1
     if v and not (x.get("vendor") or "").startswith("inferred"):
         if not x.get("vendor_legal_name") and not (_foreign_site and not in_ca_section(v.get("legal_name_url") or "")) and clean_legal(v.get("legal_name"), x.get("vendor") or ""):
             x["vendor_legal_name"] = clean_legal(v["legal_name"], x.get("vendor") or "") + " (as printed on the vendor's site: %s)" % (v.get("legal_name_url") or ""); n_ox["vendor_legal_name"] += 1
