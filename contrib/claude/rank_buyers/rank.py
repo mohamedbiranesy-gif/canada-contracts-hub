@@ -4497,6 +4497,8 @@ def bill_profile(x, ld, cls):
                 out[col] = b.get(k) or ""
         if rec and not (credit and not hosted and not cur):
             low = _VB.lowest(rec)
+            if cls.startswith("3"):
+                low.pop("month", None)  # a vendor that bills by the year: its yearly price, never a monthly figure it only shows for comparison (Hover)
             if not out.get("bill_amount_indicative") and (low.get("month") or low.get("year")):
                 per = "month" if low.get("month") else "year"
                 v, c_, st_ = low[per]
@@ -4513,9 +4515,10 @@ def bill_profile(x, ld, cls):
         if credit and not hosted and not cur:
             out["relationship_fact_basis"] = "stated by the buyer: its own site names the vendor as the maker of the site (“%s”): work done and paid for at least once; nothing published shows a bill today" % re.sub(r"\s+", " ", ld.get("credit_phrase") or "credit").strip()
         elif dns:
-            out["relationship_fact_basis"] = ("fact, seen on the buyer's side: the buyer's own DNS records name the vendor's servers (%s, read %s): the service is running.%s "
+            out["relationship_fact_basis"] = ("fact, seen on the buyer's side: the buyer's own DNS %s (%s, read %s): the service is running.%s "
                                               "The account at the provider is normally the organisation's own; sometimes its web agency holds it and is the one billed."
-                                              % ((ld.get("dns_record") or "")[:120], day, unpaid))
+                                              % ("carries the vendor's account-verification record" if ld.get("dns_record_kind") == "txt" else "records name the vendor's servers",
+                                                 (ld.get("dns_record") or "")[:120], day, unpaid))
         elif credit:
             out["relationship_fact_basis"] = "fact, seen on the buyer's side: the buyer's own site says “%s” the vendor (read %s): the site runs on the vendor's service.%s" % (re.sub(r"\s+", " ", ld.get("credit_phrase") or "powered by").strip(), day, unpaid)
         else:
@@ -4595,7 +4598,8 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                                              "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
                    ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found", "relationship_fact_basis", "recurring_billing", "recurring_billing_basis",
                                        "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published",
-                                       "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated"]),
+                                       "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated",
+                                       "invoice_fields_present", "invoice_fields_missing"]),
                    ("contract_reference", ["invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id",
                                            "buyer_vendor_id", "vendor_ids_in_record", "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count",
                                            "records_with_this_vendor", "all_references_with_this_vendor"]),
@@ -4649,7 +4653,7 @@ for _ri, x in enumerate(rows):
     for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
                 "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count", "records_with_this_vendor", "all_references_with_this_vendor",
                 "relationship_kind", "relationship_detail", "how_relationship_was_found", "recurring_billing", "recurring_billing_basis", "relationship_fact_basis", "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published",
-                "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
+                "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated", "invoice_fields_present", "invoice_fields_missing", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
                 "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
                 "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
         x.setdefault(col, "")
@@ -4750,6 +4754,8 @@ for _ri, x in enumerate(rows):
                 "billing period": x["recurring_billing"][:1] in "1234", "reference": _has("contract_reference") or _has("invoice_reference_hint")}
         for _c, _v in _inv.items():
             n_inv[_c] += _v
+        x["invoice_fields_present"] = "%d/9" % sum(_inv.values())
+        x["invoice_fields_missing"] = "; ".join(c_ for c_, v_ in _inv.items() if not v_) or "none of the nine"
         n_inv["all nine"] += all(_inv.values())
         n_inv["all but the amount"] += all(v_ for c_, v_ in _inv.items() if c_ != "amount")
         n_inv_t[(t, sum(_inv.values()))] += 1

@@ -38,7 +38,7 @@ SHOW = ["buyer", "buyer_legal_name_as_published", "buyer_address", "buyer_phone"
         "contract_value", "currency", "award_date", "start_date", "end_date",
         "recurring_billing", "recurring_billing_basis", "billing_period_calculated", "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published",
         "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid",
-        "invoice_readiness", "invoice_missing", "ap_grade", "payment_terms_as_published", "po_required_as_published", "invoice_portal_url", "invoicing_requirements",
+        "invoice_fields_present", "invoice_fields_missing", "invoice_readiness", "invoice_missing", "ap_grade", "payment_terms_as_published", "po_required_as_published", "invoice_portal_url", "invoicing_requirements",
         "invoice_reference_hint", "keys"]
 
 
@@ -57,6 +57,7 @@ def main():
     a.add_argument("--seed", type=int, default=20261111)
     a.add_argument("--out", default="coord/pilot")
     a.add_argument("--day", default="")
+    a.add_argument("--built", default="", help="the build the table comes from (coord/results/ranked/BUILD.json: built), shown on the review page")
     a = a.parse_args()
     opener = gzip.open if a.table.endswith(".gz") else open
     kind_of = lambda x: next((kind for kind, n, test in KINDS if test(x)), "")
@@ -98,7 +99,7 @@ def main():
         w.writerows(rows)
     clean = lambda v: "" if (v or "").strip() in ("", "not_published") else v.strip()
     with open(os.path.join(a.out, "TEST_SAMPLE_%s.json" % day), "w", encoding="utf-8") as f:
-        json.dump({"seed": a.seed, "day": day, "pools": {k: len(v) for k, v in pools.items()},
+        json.dump({"seed": a.seed, "day": day, "built": a.built, "pools": {k: len(v) for k, v in pools.items()},
                    "rows": [dict({"sample_id": x["sample_id"], "kind": x["kind"]}, **{c: clean(x.get(c)) for c in SHOW if clean(x.get(c))}) for x in rows]}, f, ensure_ascii=False)
     print("%d rows -> %s (seed %d)" % (len(rows), p, a.seed))
 

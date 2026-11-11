@@ -190,6 +190,9 @@ subscription, transaction and additional fees; a `.ca` registration and its rene
 (a running service, a `.ca` name) · "fact, public record" (an award, a register) · "stated by the buyer" (a credit line, a membership
 badge) · "stated by the vendor" (a client list) · "link only" · "inferred, not a fact".
 
+`invoice_fields_present` ("7/9") and `invoice_fields_missing` count nine fields on the row: buyer legal name, buyer address, vendor legal
+name, vendor address, vendor tax number, what is billed, amount, billing period, reference. The build log prints the fill of each.
+
 `billing_period_calculated` holds a period that is not published for the relationship but follows from two published things, and always
 opens with the word "calculated": a client the vendor names + the vendor's price list by the month; construction work for an Ontario owner
 + the Construction Act's default ("Proper invoices shall be given to an owner on a monthly basis, unless the contract provides otherwise").

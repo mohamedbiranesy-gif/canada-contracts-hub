@@ -260,9 +260,14 @@ def cycle_of(rec):
     found = [(cls, next(by[k] for k in keys if k in by)) for cls, keys in ORDER if any(k in by for k in keys)]
     if not found:
         return "", None, []
-    if found[0][0] == "yearly" and found[0][1]["c"] == "billed_year" and _OPTION.search(found[0][1]["q"]):
+    if found[0][0] == "yearly" and found[0][1]["c"] == "billed_year":
         mp = next(((c, s2) for c, s2 in found[1:] if c == "monthly_price"), None)
-        if mp:  # "Pay Yearly and Save!" beside "$129/month": the price is by the month, the year is an offer
+        yearly_pages = {s["u"] for s in (rec or {}).get("stmts") or [] if s["c"] == "billed_year"}
+        monthly_pages = {s["u"] for s in (rec or {}).get("stmts") or [] if s["c"] in ("price_month", "plan_month")}
+        # "Pay Yearly and Save!" beside "$129/month" is an offer; and a "billed yearly" on one product's page (easyDNS's stand-alone e-mail) does not
+        # make a yearly biller of a vendor whose other pages price by the month. Only when every monthly price sits on a page that says "billed
+        # yearly" (Hover: "$3/month … billed at $36 per year") is the month a way of showing a yearly bill.
+        if mp and (_OPTION.search(found[0][1]["q"]) or not monthly_pages <= yearly_pages):
             found = [mp] + [f for f in found if f is not mp]
     more = []
     for c, s2 in found[1:]:
