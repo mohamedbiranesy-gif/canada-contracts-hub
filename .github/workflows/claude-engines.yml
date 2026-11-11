@@ -43,7 +43,11 @@ permissions:
   actions: write
 env:
   ENGINE: ${{ inputs.engine || (github.event.schedule == '11 */6 * * *' && 'org_facts') || (github.event.schedule == '31 2 * * *' && 'walk_terms') || 'bulk_registry' }}
-  SHARDS: ${{ inputs.shards || (github.event.schedule == '11 */6 * * *' && '8') || (github.event.schedule == '31 2 * * *' && '6') || '1' }}
+  # 2026-11-11: org_facts on schedule 8 -> 4 runners, 40 -> 100 sites at a time on each. A reader of sites spends its time waiting (measured on
+  # the mailbox reader: 23 ms of CPU a page, a third of one core at 120 sites at a time), so the width of a runner is free and the number of
+  # runners is not: the account runs 20 jobs at a time, and on 2026-11-11 06:00-08:00Z two org_facts runs held 16 of them while the
+  # merges of three other engines and the rank build waited.
+  SHARDS: ${{ inputs.shards || (github.event.schedule == '11 */6 * * *' && '4') || (github.event.schedule == '31 2 * * *' && '6') || '1' }}
   MINUTES: ${{ inputs.minutes || (github.event.schedule == '11 */6 * * *' && '120') || (github.event.schedule == '31 2 * * *' && '240') || '300' }}
   TIERS: ${{ inputs.tiers || (github.event.schedule == '31 2 * * *' && 'A,B,T,M,L,C,D,E,F') || 'I' }}
   MAXP: ${{ inputs.max_pages || '15' }}
@@ -125,8 +129,8 @@ jobs:
           WE="$W"; RF="--refresh"   # every run: the sites never read first, then the ones an older version of the reader read (tools/org_extras.py V), as far as the time box goes
           if [ "$REFRESH" = "true" ]; then RF="--refresh --older-only"; WE=$(( M - 35 )); [ "$WE" -lt 10 ] && WE=10; W=15; fi   # a refresh pass: the time goes to the reader of legal names; new sites' contacts get 15 minutes
           python3 tools/site_tasks.py --ranked coord/results/ranked/ranked_buyers.csv.gz --out /tmp/site_tasks.csv --kind both 2>&1 | tail -2 || true
-          timeout "${WE}m" python3 tools/org_extras.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_extras.jsonl.gz --workers 40 --repo "$PWD" $RF 2>&1 | tee extras.log | grep -E "^tasks|^finished" | tail -2 || true
-          timeout "${W}m" python3 tools/org_contacts.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_contacts.jsonl.gz --workers 40 --repo "$PWD" 2>&1 | tee contacts.log | grep -E "^tasks|^finished" | tail -2 || true
+          timeout "${WE}m" python3 tools/org_extras.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_extras.jsonl.gz --workers 100 --repo "$PWD" $RF 2>&1 | tee extras.log | grep -E "^tasks|^finished" | tail -2 || true
+          timeout "${W}m" python3 tools/org_contacts.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_contacts.jsonl.gz --workers 100 --repo "$PWD" 2>&1 | tee contacts.log | grep -E "^tasks|^finished" | tail -2 || true
           mkdir -p out
           if [ "$REFRESH" = "true" ] && grep -q "^tasks" extras.log && ! grep -q "^finished" extras.log; then grep -m1 "^tasks" extras.log > out/refresh_cut_$K.txt; fi   # cut by the time box: the merge starts the next run
           cp data/incoming/claude/claude_org_extras.jsonl.gz out/org_extras_$K.jsonl.gz 2>/dev/null || true
@@ -232,7 +236,7 @@ jobs:
             cut=$(ls shards/refresh_cut_*.txt 2>/dev/null | wc -l)
             echo "refresh: shards cut by their time box: $cut of $SHARDS" >> "$GITHUB_STEP_SUMMARY"
             if [ "$cut" -gt 0 ]; then
-              gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=org_facts" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" -f "inputs[refresh]=true" && echo "next refresh run dispatched" >> "$GITHUB_STEP_SUMMARY" || true
+              gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=org_facts" -f "inputs[shards]=4" -f "inputs[minutes]=$MINUTES" -f "inputs[refresh]=true" && echo "next refresh run dispatched" >> "$GITHUB_STEP_SUMMARY" || true
             fi
           fi
           if [ "$ENGINE" = "walk_terms" ]; then

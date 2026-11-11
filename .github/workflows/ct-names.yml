@@ -16,7 +16,7 @@ on:
     inputs:
       shards:
         description: "parallel runners (1-6); the requests a second per operator are divided among them"
-        default: "3"
+        default: "2"
       minutes:
         description: "minutes per runner"
         default: "150"
@@ -30,7 +30,7 @@ concurrency:
   group: ct-names
   cancel-in-progress: false
 env:
-  SHARDS: ${{ inputs.shards || '3' }}
+  SHARDS: ${{ inputs.shards || '2' }}
   MINUTES: ${{ inputs.minutes || '150' }}
   MAX_TILES: ${{ inputs.max_tiles || '0' }}
 jobs:
