@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-11 17:57 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-11 19:51 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-11)
 | metric | value |
@@ -77,7 +77,7 @@
 | claude | claude_peppol_participants.csv | 77 | 0 | 0 | 0 | 77 |
 | claude | claude_registry_bulk.csv | 41690 | 36008 | 2783 | 0 | 2899 |
 | claude | claude_registry_lookup.csv | 82833 | 11626 | 41742 | 0 | 29465 |
-| claude | claude_site_owner_wd.csv | 7543 | 0 | 0 | 0 | 7543 |
+| claude | claude_site_owner_wd.csv | 7545 | 0 | 0 | 0 | 7545 |
 | claude | claude_vendor_names_read.csv | 6 | 0 | 0 | 0 | 6 |
 | claude | claude_vendor_sites.csv | 842 | 0 | 0 | 0 | 842 |
 | claude | claude_wikidata_orgs.csv | 42229 | 0 | 0 | 0 | 42229 |
@@ -311,9 +311,10 @@
 ## Source registry (`coord/source_registry.csv`)
 | lane | todo | in_progress | done | blocked |
 |---|---|---|---|---|
+| chatgpt | 2 | 0 | 0 | 0 |
 | claude | 0 | 0 | 2 | 0 |
-| codex | 35 | 0 | 0 | 0 |
-| jules | 9 | 0 | 12 | 9 |
+| codex | 38 | 0 | 0 | 0 |
+| jules | 12 | 0 | 12 | 9 |
 
 ## Last ingest
 - buyers with team findings: 355475 (with at least one verified e-mail/portal: 328966)
