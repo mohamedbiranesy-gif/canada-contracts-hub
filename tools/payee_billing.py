@@ -52,6 +52,23 @@ PAYEES = [
                   "Interac e-Transfer: Send funds to remittance@smartbiggar.ca .” … “Electronic Fund Transfer: Send requests for banking details to ar@smartbiggar.ca . By cheque: Send to "
                   "PO Box 2999 Station D Ottawa, ON, K1P 5Y6 Canada.”"),
          remit_to="“By cheque: Send to PO Box 2999 Station D Ottawa, ON, K1P 5Y6 Canada.”"),
+    # the Québec liquor regulator: an invoice with an 11-digit reference number, paid through a financial institution or by cheque; yearly fees by permit
+    dict(names=["Régie des alcools, des courses et des jeux", "Regie des alcools, des courses et des jeux (RACJ)", "RACJ"], hosts=["racj.gouv.qc.ca"], read="2026-11-11",
+         url="https://www.racj.gouv.qc.ca/alcool/vendre-ou-servir-des-boissons-alcooliques-pour-consommation-sur-place/boite-a-outils-consommation-sur-place/modes-de-paiement-pour-le-secteur-de-lalcool-detaillants",
+         period=("yearly: “Ce mode de paiement est offert seulement pour le paiement des frais et droits payables annuels liés à certains permis d’alcool (bar, restaurant, accessoire, épicerie, "
+                 "vendeur de cidre, centre de vinification et de brassage).”"),
+         delivery="an invoice with its due date: “Le montant indiqué sur toute facture doit être acquitté avant la date d’échéance qui y est indiquée.”",
+         payment=("cheque, postal money order or bank draft by mail, or through a participating financial institution with the invoice's reference number: “Le chèque, le mandat-poste ou la traite "
+                  "bancaire, à transmettre par la poste, doivent être libellés à l’ordre du ministre des Finances et le numéro du permis ou de l’établissement doit y être inscrit.” … “Une fois le bon "
+                  "fournisseur sélectionné, le numéro de référence de 11 chiffres se trouvant en haut à droite de la facture doit être utilisé.”"),
+         unpaid=("“Le défaut d’avoir payé une facture à la date d’échéance qui y est indiquée pourrait entraîner un refus de la délivrance de permis et de licences et autorisations ou leur "
+                 "révocation sans autre avis ni délai.”"),
+         # the yearly fee by kind of permit, from the Régie's fee table (the second amount of each line is the column “Droits annuels exigés”)
+         amounts_url="https://www.racj.gouv.qc.ca/alcool/boite-a-outils/frais-et-droits-payables-se-rattachant-au-secteur-de-lalcool",
+         amounts=[(r"\brestaurant\b", "688 $ a year", "“Permis de restaurant Frais d'étude et droits à payer au moment de la transmission de la demande Droits annuels exigés* Nouvel établissement (où aucun permis n'est en vigueur) ou nouvelle demande 289 $** 688 $”"),
+                  (r"\bbar\b", "688 $ a year", "“Permis de bar Frais d'étude et droits à payer au moment de la transmission de la demande Droits annuels exigés* Nouvel établissement (où aucun permis n'est en vigueur) ou nouvelle demande 289 $** 688 $”"),
+                  (r"\baccessoire\b", "403 $ a year", "“Permis accessoire Frais d'étude et droits à payer au moment de la transmission de la demande Droits annuels exigés* Nouvel établissement (où aucun permis n'est en vigueur) ou nouvelle demande 289 $** 403 $”"),
+                  (r"[ée]picerie", "202 $ a year", "“Permis d'épicerie Frais d'étude et droits à payer au moment de la transmission de la demande Droits annuels exigés Nouvel établissement (où aucun permis n'est en vigueur) ou nouvelle demande 169 $ 202 $”")]),
     # a body that says it sends no invoice: its registrants are not billed "on invoice" (owner 2026-11-11) and the row says so in the body's words
     dict(names=["Ontario Motor Vehicle Industry Council (OMVIC)", "Ontario Motor Vehicle Industry Council", "OMVIC"], hosts=["omvic.ca"], read="2026-11-11",
          url="https://www.omvic.ca/selling/fees/transaction-fees/",
@@ -162,6 +179,13 @@ def fill(out, x, name, site):
             out[col] = "%s (%s, read %s)" % (p[k], p["url"], p["read"])
     if p.get("no_invoice"):
         out["bill_delivery_as_published"] = "no invoice is sent: %s (%s, read %s)" % (p["no_invoice"], p["url"], p["read"])
+    if p.get("amounts") and not out.get("bill_amount_indicative") and not str(x.get("bill_amount_indicative") or "").strip() and not str(x.get("contract_value") or "").strip():
+        title = " ".join(str(x.get(c) or "") for c in ("contract_title", "contract_description", "instrument_type"))
+        for rx, amount, quote in p["amounts"]:
+            if re.search(rx, title, re.I):
+                out["bill_amount_indicative"] = amount
+                out["bill_amount_basis"] = "the body's own fee table, for this kind of licence: %s (%s, read %s)" % (quote, p.get("amounts_url") or p["url"], p["read"])
+                break
     return p
 
 
@@ -173,4 +197,6 @@ elif __name__ == "__main__":
             if p.get(k):
                 for q in re.findall(r"“([^”]+)”", p[k]):
                     assert len(q) <= 300, (p["names"][0], k, len(q))
+        for rx, amount, quote in p.get("amounts") or ():
+            assert len(quote) <= 302, (p["names"][0], rx, len(quote))
         print("%-34s %s" % (p["names"][0], ", ".join(k for k in ("period", "delivery", "payment", "terms", "unpaid", "remit_to") if p.get(k))))

@@ -1,0 +1,28 @@
+{
+ "key": "qc_racj_alcool",
+ "kind": "ckan",
+ "base": "https://www.donneesquebec.ca/recherche",
+ "dataset": "6b69360c-af8d-4c57-b5bf-1c38d5461de3",
+ "f": {
+  "number": "NoPermis",
+  "name": "Titulaire",
+  "trade": "RaisonSociale",
+  "kind": "Categorie",
+  "addr": "Adresse",
+  "city": "Ville",
+  "postal": "CodePostal",
+  "neq": "Neq"
+ },
+ "persons_mixed": true,
+ "cities": [],
+ "record_word": "Permis d'alcool",
+ "payee": "Régie des alcools, des courses et des jeux",
+ "payee_address": "200, chemin Sainte-Foy, bureau 400, Québec (Québec) G1R 1T3",
+ "payee_site": "https://www.racj.gouv.qc.ca/",
+ "payee_url": "https://www.racj.gouv.qc.ca/alcool/vendre-ou-servir-des-boissons-alcooliques-pour-consommation-sur-place/boite-a-outils-consommation-sur-place/modes-de-paiement-pour-le-secteur-de-lalcool-detaillants",
+ "payee_read": "2026-11-11",
+ "fee_quote": "Ce mode de paiement est offert seulement pour le paiement des frais et droits payables annuels liés à certains permis d’alcool (bar, restaurant, accessoire, épicerie, vendeur de cidre, centre de vinification et de brassage).",
+ "page": "https://www.donneesquebec.ca/recherche/dataset/racj-alcool-detaillant",
+ "list_name": "the Régie des alcools, des courses et des jeux's public register of retail liquor permits in force",
+ "_note": "payee address as printed on https://www.racj.gouv.qc.ca/nous-joindre (read 2026-11-11): “200, chemin Sainte-Foy, bureau 400 Québec , (Québec) G1R 1T3”. 32,167 permits on 2026-11-11."
+}

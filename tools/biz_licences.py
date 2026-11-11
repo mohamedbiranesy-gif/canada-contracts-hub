@@ -348,6 +348,11 @@ FORMAL = set("applied governing council board governors trustees regents institu
              "high elementary secondary middle junior senior campus main".split())
 
 
+PUBLIC_BODY = set("ville city town township municipalite municipality village canton paroisse parish county comte district region regional mrc universite university "
+                  "college cegep ecole school commission hopital hospital eglise church fabrique diocese ministere ministry gouvernement government bibliotheque library "
+                  "chambre chamber".split())
+
+
 def agree_asym(org, lic):
     """The organisation's name against a name in a licence list. The licence name may be part of the organisation's name; when the licence name
     has MORE words, they must all be generic or formal ones — 'ARAMARK CANADA (UNIVERSITY OF CALGARY)', 'SODEXO - BOW VALLEY COLLEGE' and
@@ -357,6 +362,10 @@ def agree_asym(org, lic):
         return False
     ident = lambda ts: len(ts) >= 3 or any(t not in GENERIC and t not in FORMAL and len(t) >= 3 and not t.isdigit() for t in ts)
     if tl <= to:
+        # 2026-11-11, first match of the Québec liquor register: the Ville d'Estérel was tied to the permit of "Estérel Inc." (a resort at the same
+        # postal code). A public body, a school or a parish that carries a place's name is not the company named after the place.
+        if (to - tl) & PUBLIC_BODY:
+            return False
         return ident(tl)
     if to <= tl:
         return all(t in GENERIC or t in FORMAL for t in tl - to) and ident(to)
@@ -491,6 +500,11 @@ def match(a):
         stats["matched"] += 1
         stats["matched: %s" % best["src"]] += 1
         stats["matched, row tier %s" % (O["tier"] or "(not delivered yet)")] += 1
+        # the name of the organisation that agreed with the licence comes first: it names the lead (first RACJ match, 2026-11-11: a site whose first
+        # stated "name" was its copyright line's "TOUS DROITS RÉSERVÉS" was tied by its second name, and would have been delivered under the first)
+        _lc = [best["name"]] if best["name"] and not re.match(r"\d[\d\s-]{5,}", best["name"]) else ([t for t in best["trade"].split(" | ") if t.strip()] or [best["name"]])
+        _ag = [n for n in O["names"] if any(agree_asym(n, x) for x in _lc if x)]
+        O = dict(O, names=_ag + [n for n in O["names"] if n not in _ag])
         out.append(dict(host=host, org_names=O["names"][:3], org_address=O["addr"][:200], basis="%s; names agree (%s ~ %s)" % (how[id(best)], O["names"][0][:60], (best["trade"] or best["name"])[:60]),
                         licences_of_this_licensee=len(hits), lic=best))
     with open("out/licence_leads.jsonl", "w", encoding="utf-8") as f:
