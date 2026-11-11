@@ -1407,3 +1407,54 @@ amount, none in a mailbox. Each fault became a rule, measured before it was writ
   from the draw. When the corrected table is published and he has not marked a row yet, a second draw replaces the first; otherwise
   the first stays and the second is a new page.
 
+## 2026-11-11 19:24Z — "on invoice, by bank transfer": the owner's requirement, what it takes out of the table, what is built in its place
+
+**What happened.** The QA lane read the column `ship_ready` on the owner's 100 test rows and told him most were not ready. That column was
+the first goal's label (an invoicing / AP mailbox, on four tiers); it said "no" on 97 rows, 87 because the mailbox is a general one. Over
+five messages (12:31 to 14:20 EST) and three sets of questions he gave the rule that replaces it — AGENTS.md §1, rules 6 to 12:
+on invoice and payable by bank transfer or it is not a row; any Canadian entity may be the biller; one row per buyer, no buyer twice; the
+general mailbox is fine; the invoice fields tailored to each kind of relationship; all lanes, "and more".
+
+**What it does to the table of 15:57Z (282,207 rows), measured with the new test on every row:**
+card on file 33,278 (Shopify 30,202 and other self-serve software) · through a registrar 103,829 (`.ca` names) · paid on invoice by bank
+transfer or cheque 7,833 (5,461 with a mailbox, 1,343 passing the whole test) · the vendor takes both 2,743 · not published 134,524
+(hosting and DNS 69,645, licences and memberships 13,467, relationship not established 51,412). The day and a half spent on stores
+produced no row that meets the requirement. I had not asked how a store pays before building the lane; the terms said it on their first
+page ("Shopify will charge applicable Fees to any valid payment method that you authorize").
+
+**Decisions.**
+- **Card-on-file and registrar rows are not written** ("Remove them"). `rank.py`: registry leads are dropped before the lead pass; a
+  software lead whose vendor is Shopify, or whose published payment methods name cards and no bank payment, makes no row and does not
+  claim its organisation's site (another relationship of that organisation can); a last check in the writing loop drops any row whose
+  route is a card or a registrar. `RANK_CARD_ROWS=1` / `RANK_REGISTRY_ROWS=1` rebuild the old table for a comparison.
+- **One test, one function**: `tools/relationship_rows.py: owner_test`, called by `rank.py` on every row. `ship_ready`,
+  `ship_ready_missing`, `payment_route`, `payment_route_basis`, `invoice_fields_for_kind`, `invoice_fields_missing_for_kind`,
+  `vendor_tax_or_registration_number`. The old label is `ap_mailbox_ready` (no column is deleted).
+- **Fields by kind** (`FIELDS`): a public contract has a reference and no billing period in its record; a licence has a number, a
+  yearly fee from a public tariff and no tax number on its fee notice; a membership has dues by the year and no contract number; what a
+  dealer buys and what a tenant pays are not public, so no amount is asked there. The buyer's legal name is not asked (the name it trades
+  under and its address are what an invoice carries); a calculated amount, labelled, counts.
+- **The biller's own roster establishes the relationship; a client list does not.** A member directory, a dealer list, a tenant directory,
+  a sponsor / exhibitor list is the list of who pays, kept by the body that is paid and current by construction. The owner chose those
+  lanes knowing what they are. A logo wall or a case study stays "stated by the vendor" (his rule of 07:15 EST). 16,000 rows of the
+  27,000 that stood as client listings are member, dealer, tenant or sponsor listings by the address of their page.
+- **How each biller is paid is read, not assumed.** `tools/payee_billing.py`: the bodies that carry thousands of rows, read by hand and
+  quoted — the Régie du bâtiment du Québec (a notice of assessment by mail, paid through a financial institution or by cheque), the City
+  of Calgary (invoice due in 30 days, through a bank or by cheque), the City of Edmonton (cheque, Interac, EFT from $10,000, cards). The
+  vendor reader, version 5, reads the same from every other body's site. A public contract is on invoice by its kind; the buyer's own
+  published payment terms are quoted when it has them.
+- **A body that says it sends no invoice is not on invoice.** The Ontario Motor Vehicle Industry Council: "OMVIC does not issue invoices.
+  Dealers are expected to self-report and remit payment with their renewal application." Its rows fail the test and say why.
+- **One row per (buyer, vendor) pair was built, measured and not kept.** 316,284 pairs stand behind the 5,391 buyers of the contract
+  dataset, 220,814 of them with a mailbox on file. Asked, the owner answered "only 1 buyer so no buyer should be repeated". The pair
+  table stays an analysis (`relationship_rows.py`, main).
+- **Engines.** The store reader is out of `mailbox-crawl.yml`; the timers of `tenant-factory`, `dns-services` and `ct-names` are off
+  (they fed card-billed lanes; they can be started by hand); the keeper starts the member, accreditation, licence and register engines
+  first. The `.ca` sites keep being read: with their names, addresses and mailboxes they are the pool the register lanes are matched
+  against, not rows.
+- **The reader that stops** (two mailbox runs lost a runner in six): a watchdog outside Python ends a frozen reader after ten minutes
+  without a finished site and prints every thread's stack; the workflow starts it again; uploads happen whatever the step's end.
+
+**What I told the owner, and stand by.** Under these rules the registers name over a million organisations; a row also needs each one's
+own site and mailbox, which registers do not give. With what is free I see 100,000 to 150,000 rows; with a search budget, 300,000 or
+more; I do not yet see a million.

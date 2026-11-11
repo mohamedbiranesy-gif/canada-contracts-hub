@@ -33,12 +33,41 @@ invoicing e-mail from the website.
 3. **Published first; a calculated value only when several signals agree, and labelled as calculated** ("inference of inference …
    becomes a calculated guess"). Never an invented value, never a calculated one presented as published.
 4. **Monthly or quarterly billing by the vendor is the strongest relationship** ("billed for something monthly … or every 3 months
-   … systematically by the vendor"), and a store on Shopify is the agreed example of it. It is one kind among others: "it is a
+   … systematically by the vendor"), and a store on Shopify was the agreed example of it (until 13:09 EST the same day: rule 6). It is one kind among others: "it is a
    subcategory of what I'm asking". Contracts, construction awards, services rendered stay in scope ("which company is doing it,
    which vendor, by the city").
 5. **Do not lean on one lane, and do not inflate.** "Whatever can give us the most populated fields … and the most amount, but
    populated." Rank a source by the fact-level rows it brings times the invoice fields it fills. The target stays 1,000,000 rows, and
    the way a row is made keeps changing: "don't accept one state of things".
+
+**Owner rules (2026-11-11 afternoon, binding; 12:31, 13:00, 13:09, 13:40, 13:58 and 14:20 EST). Where they differ from the five rules above,
+these win.** He was shown where each kind of row is billed and paid, and was asked; the words in quotes are his.
+6. **On invoice, by bank transfer — or it is not a row.** "It needs to be bank transfers relationship not credit card … Shopify is over
+   saturated in this way … if it's not on invoice, by bank transfer then it's no." A relationship whose bill is charged to a card on file
+   (a Shopify store, self-serve software, most hosting plans) or is paid through a go-between (a `.ca` name through its registrar) makes
+   no row; those rows were taken out of the table ("Remove them": 137,000 of 282,000). An invoice that can be paid by bank transfer or
+   cheque is in, also when the biller would take a card ("In"). Rule 4's example — a store on Shopify — no longer stands.
+7. **Any Canadian entity may be the one that sends the invoice**: a company, a regulator, a public body, an association ("Any Canadian
+   entity … some type of entity that would be like … whatever month, year thing, okay, now you owe us so and so amount of money").
+   "The buyer does not matter at all": any organisation, anywhere.
+8. **One row per buyer. No buyer twice** ("only 1 buyer so no buyer should be repeated") — a city that pays forty Canadian vendors is one row.
+9. **The general mailbox is fine** when the organisation publishes no invoicing mailbox: "the general email is where they take in, they do
+   their intake. So that is fine." A label that called such a row not ready was "moronic"; it survives only as `ap_mailbox_ready`.
+10. **Every row ship ready, its invoice fields tailored to its kind of relationship**: "as populated as that relationship could expect it
+    to be … Shopify … won't have a purchase order … maybe some other thing will"; "obviously can't be strict layout we have followed thus
+    far, that was more so for contract, but tailor to each". One function decides (`tools/relationship_rows.py: owner_test`) and every row
+    says it: `ship_ready`, `ship_ready_missing`, `payment_route`, `payment_route_basis`, `invoice_fields_for_kind`,
+    `invoice_fields_missing_for_kind`. A row is ready when the relationship is established and current, the organisation's role mailbox was
+    re-read by the referee, the bill comes on invoice and bank transfer is a published or inherent way to pay it, the fields of its kind
+    are filled, and nothing flags it.
+11. A contract awarded more than three years ago with no published end date is not a current relationship. When a vendor's GST/HST number
+    is not public, its number in its home register (NEQ, corporation number) fills the vendor's number, labelled as such.
+12. **Lanes — all of them, "and more, don't limit yourself, don't forget all invoice details"**: owners of Canadian patents billed every year
+    by their Canadian patent agent; trademark owners and their Canadian agent; firms licensed by a Canadian regulator; members of Canadian
+    chambers and associations; dealers, franchisees and commercial tenants of Canadian companies; importers abroad buying from Canadian
+    exporters; US firms with a registered lien to a Canadian lender, lessor or supplier; more public bodies under contract. Rank a new
+    source by the distinct NEW buyers it brings whose bill comes on invoice. The target stays 1,000,000 rows; on 2026-11-11 19Z the rows
+    that meet rule 6 were 7,833 (5,461 with a mailbox, 1,343 ship ready) — nearly all public bodies under contract.
 
 **Owner rule (2026-10-28): when a buyer publishes no invoicing/AP mailbox, save its purchasing/procurement role mailbox
   (`ap_email_type=procurement`) or, failing that, its general role mailbox such as info@ / reception@ / greffe@

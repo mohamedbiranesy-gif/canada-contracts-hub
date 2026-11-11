@@ -10,8 +10,11 @@ name: ct-names
 #           ctsweep), and this workflow's next run while tiles are left to read.
 # No organisation's server is contacted. No AI, no search engine, no Mac.
 on:
-  schedule:
-    - cron: "49 */4 * * *"   # once the backwards reading is done: the tiles written since the last run
+  # 2026-11-11 19Z — the timer is off. Owner, 13:09 and 13:58 EST: "it needs to be bank transfers relationship not credit card … if it's not on
+  # invoice, by bank transfer then it's no". This engine fed lanes that do not meet that: certificate names were swept to find domains for the DNS lookups, which fed the store and hosting lanes.
+  # It can still be started by hand (workflow_dispatch); its results on file stay where they are.
+  # schedule:
+  #   - cron: "49 */4 * * *"   # once the backwards reading is done: the tiles written since the last run
   workflow_dispatch:
     inputs:
       shards:

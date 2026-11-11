@@ -253,19 +253,38 @@ def facts_line(key, site, st):
     return json.dumps(o, ensure_ascii=False) + "\n"
 
 
+FREEZE_SECONDS = 600
+
+
 def run_pool(tasks, one, a, deadline, on_timeout):
     """a few sites answer so slowly that one thread can hold a runner for an hour (first cycle, 2026-11-10). When only stragglers are left and
-    nothing finished for --straggler-seconds, they are recorded as "timeout" and the run ends; sites not started by the deadline stay queued."""
+    nothing finished for --straggler-seconds, they are recorded as "timeout" and the run ends; sites not started by the deadline stay queued.
+
+    2026-11-11 — a reader that stops altogether. Two runs in a row lost one runner in six: its log stops in the middle of the run (13:42Z start,
+    last line 14:58Z, 200 sites took 17 minutes just before) and the process is still alive when the job is cancelled 200 minutes in — nothing
+    of that runner is uploaded, and the run ends 50 minutes late. A Python thread that never gives the interpreter back (one regular expression
+    on one page is enough) stops all 200 workers and this loop with them, so no deadline written in Python can end it. The watchdog below is
+    not Python: faulthandler's timer thread prints every thread's stack — the log then names the line that never returned — and ends the
+    process when no site has finished for FREEZE_SECONDS. Every site finished before that is already on disk (the output files are written
+    line by line), the sites that were open are in out/inflight.txt, and the workflow starts the reader again for the minutes that are left:
+    resume() below gives those open sites a "timeout" line and leaves them out, so the page that froze the reader is not opened twice."""
+    import faulthandler
+    tasks = resume(tasks, on_timeout)
     ex = ThreadPoolExecutor(a.workers)
+    fin_log = open("out/inflight.txt", "a", encoding="utf-8", buffering=1)
     def timed(t):
+        if time.time() <= deadline:
+            fin_log.write("%s\n" % t.get("buyer_key", ""))
         t["_deadline"] = time.time() + a.site_seconds  # ap_crawler.crawl stops opening pages of this site after that
         return one(t)
     futs = {ex.submit(timed, t): t for t in tasks}
     pending, last, tail = set(futs), time.time(), 0
+    faulthandler.dump_traceback_later(FREEZE_SECONDS, exit=True)
     while pending:
         fin, pending = wait(pending, timeout=min(30, max(1, a.straggler_seconds / 3)))
         if fin:
             last = time.time()
+            faulthandler.dump_traceback_later(FREEZE_SECONDS, exit=True)  # armed again by every site that finishes
         if len(pending) <= a.workers and not tail:
             tail = time.time()  # only sites already being read are left
         if (len(pending) <= a.workers and (time.time() - last > a.straggler_seconds or time.time() - tail > a.site_seconds + a.straggler_seconds)) or time.time() > deadline + 300:
@@ -273,7 +292,31 @@ def run_pool(tasks, one, a, deadline, on_timeout):
                 if f.running():
                     on_timeout(futs[f])
             break
+    faulthandler.cancel_dump_traceback_later()  # the reading is over: what follows (closing the files, the caller's last lines) is not watched
     return len(pending)
+
+
+def resume(tasks, on_timeout):
+    """a second start inside the same job (the watchdog of run_pool ended the first): the sites this job already finished are in its own done
+    file, the sites that were open when the reader stopped are in out/inflight.txt. The first are left out; the others get a "timeout" line
+    (the caller's own, with its columns) and are left out too."""
+    seen, open_ = set(), set()
+    for f in glob.glob("out/*_done_*.tsv"):
+        for l in open(f, encoding="utf-8", errors="replace"):
+            seen.add(l.split("\t")[0])
+    if os.path.exists("out/inflight.txt"):
+        open_ = {l.strip() for l in open("out/inflight.txt", encoding="utf-8", errors="replace") if l.strip()} - seen
+    if not seen and not open_:
+        return tasks
+    left = []
+    for t in tasks:
+        key = t.get("buyer_key", "")
+        if key in open_:
+            on_timeout(t)
+        elif key not in seen:
+            left.append(t)
+    print("second start in this job: %d sites already finished here, %d were open when the reader stopped (recorded as timeout), %d left to read" % (len(seen), len(open_), len(left)), flush=True)
+    return left
 
 
 # Every Shopify store has these generated pages. "Contact information" prints the trade name, e-mail and address the merchant entered (first
@@ -443,11 +486,12 @@ def leads_mode(a, k, n):
     deadline = time.time() + a.minutes * 60
     lock = threading.Lock()
     stats = {"sites": 0, "with_mailbox": 0, "rows": 0, "blocked": 0, "errors": 0}
-    fr = open("out/lead_rows_%d.csv" % k, "a", newline="", encoding="utf-8")
+    fr = open("out/lead_rows_%d.csv" % k, "a", newline="", encoding="utf-8", buffering=1)
     w = csv.DictWriter(fr, fieldnames=C.COLS, extrasaction="ignore")
-    w.writeheader()
-    fd = open("out/lead_done_%d.tsv" % k, "a", encoding="utf-8")
-    ff = open("out/lead_facts_%d.jsonl" % k, "a", encoding="utf-8")
+    if os.path.getsize("out/lead_rows_%d.csv" % k) == 0:  # a second start in the same job appends to the first start's file
+        w.writeheader()
+    fd = open("out/lead_done_%d.tsv" % k, "a", encoding="utf-8", buffering=1)
+    ff = open("out/lead_facts_%d.jsonl" % k, "a", encoding="utf-8", buffering=1)
 
     def one(t):
         if time.time() > deadline:
@@ -703,12 +747,13 @@ def candidates_mode(a, k, n):
     deadline = time.time() + a.minutes * 60
     lock = threading.Lock()
     stats = collections.Counter()
-    fr = open("out/lead_rows_%d.csv" % k, "a", newline="", encoding="utf-8")
+    fr = open("out/lead_rows_%d.csv" % k, "a", newline="", encoding="utf-8", buffering=1)
     w = csv.DictWriter(fr, fieldnames=C.COLS, extrasaction="ignore")
-    w.writeheader()
-    fl = open("out/tenant_leads_%d.jsonl" % k, "a", encoding="utf-8")
-    fd = open("out/tenant_done_%d.tsv" % k, "a", encoding="utf-8")
-    ff = open("out/lead_facts_%d.jsonl" % k, "a", encoding="utf-8")
+    if os.path.getsize("out/lead_rows_%d.csv" % k) == 0:  # a second start in the same job appends to the first start's file
+        w.writeheader()
+    fl = open("out/tenant_leads_%d.jsonl" % k, "a", encoding="utf-8", buffering=1)
+    fd = open("out/tenant_done_%d.tsv" % k, "a", encoding="utf-8", buffering=1)
+    ff = open("out/lead_facts_%d.jsonl" % k, "a", encoding="utf-8", buffering=1)
 
     def one(t):
         if time.time() > deadline:
@@ -866,11 +911,12 @@ def facts_mode(a, k, n):
     deadline = time.time() + a.minutes * 60
     lock = threading.Lock()
     stats = collections.Counter()
-    fr = open("out/lead_rows_%d.csv" % k, "a", newline="", encoding="utf-8")
+    fr = open("out/lead_rows_%d.csv" % k, "a", newline="", encoding="utf-8", buffering=1)
     w = csv.DictWriter(fr, fieldnames=C.COLS, extrasaction="ignore")
-    w.writeheader()
-    ff = open("out/lead_facts_%d.jsonl" % k, "a", encoding="utf-8")
-    fd = open("out/site_facts_done_%d.tsv" % k, "a", encoding="utf-8")
+    if os.path.getsize("out/lead_rows_%d.csv" % k) == 0:  # a second start in the same job appends to the first start's file
+        w.writeheader()
+    ff = open("out/lead_facts_%d.jsonl" % k, "a", encoding="utf-8", buffering=1)
+    fd = open("out/site_facts_done_%d.tsv" % k, "a", encoding="utf-8", buffering=1)
 
     def one(t):
         if time.time() > deadline:

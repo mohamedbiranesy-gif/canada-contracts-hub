@@ -25,10 +25,8 @@ concurrency:
   group: mailbox-crawl
   cancel-in-progress: false
 env:
-  # 2026-11-11 13:24Z: 8 runners (was 6). The DNS sweeps have found 1,633,424 domains on Shopify's storefront addresses and a runner reads
-  # 6,000 of them a run at its 2 requests a second: 36,000 a run, about 290,000 a day — six days of backlog, growing. A store row arrives with
-  # the billing period, the amount, the vendor's legal name, address and tax number already on it (owner 2026-11-11: "the most populated
-  # fields … and the most amount"), so reading stores is worth two more runners than finding them: the certificate-name sweep gives one up.
+  # 8 runners (2026-11-11 13:24Z; was 6). They were raised for the store reader, which is gone since 19Z (see the crawl step); they stay for the
+  # sites of the register, roster, dealer and contract lanes.
   SHARDS: ${{ inputs.shards || '8' }}
   # 2026-11-11: 150 minutes a run (was 90). The store reader rides on these runners at a fixed rate per runner, and the certificate logs are
   # bringing stores by the hundred thousand: what counts for it is the share of the day the runners are up. A cycle of 90 minutes lost 20 to 60
@@ -62,25 +60,29 @@ jobs:
       - name: Read each lead's own site for its role mailbox
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
-          # 120 sites at a time per runner (2026-11-10; was 40): a site is asked at most once a second and takes ~25 seconds, so the number of sites read
-          # is the number of sites open at once — measured at 40: 1.6 sites a second per runner (12,494 in 130 minutes, 21 % with a mailbox), the
-          # runner nearly idle. The account runs 20 jobs at a time, so the width of a runner is the cheapest capacity there is.
-          # Shopify stores ride along (2026-11-10). Every store sits on Shopify's network, which counts requests per reader: a runner sends it 2 requests
-          # a second through one queue, whatever else the runner does. That queue is idle capacity on every runner of this crawl, so the stores are
-          # read here by a second process (its own folder, its own outputs) instead of holding runners of their own. Shopify Inc. (Ottawa) is the
-          # contracting party of stores in Canada and the United States; stores elsewhere end after one request (/meta.json gives the country).
-          mkdir -p stores
-          if [ -s data/incoming/claude/claude_tenant_candidates.csv.gz ]; then
-            ( cd stores && python3 ../tools/lead_crawl.py --candidates ../data/incoming/claude/claude_tenant_candidates.csv.gz --vendors shopify --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 8 --max-pages 12 --dns-stores 6000 --myshopify 300 > store.log 2>&1 ) &
-          fi
-          # 200 sites at a time (2026-11-11; was 120): measured, a page costs 23 ms of CPU and a runner at 120 used a third of one core.
-          python3 tools/lead_crawl.py --leads data/incoming/claude/claude_buyer_leads_cc.csv,data/incoming/claude/claude_buyer_leads.csv --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 200 --max-pages 25 --registry "$REGISTRY" --registry2 20000
-          wait || true
-          echo "--- stores"; grep -E "queued|candidate sites to read|finished" stores/store.log | tail -4 || true
+          # 200 sites at a time per runner (2026-11-11; 40, then 120 on 2026-11-10): a site is asked at most once a second and takes ~25 seconds, so the
+          # number of sites read is the number of sites open at once; measured, a page costs 23 ms of CPU and a runner at 120 used a third of one core.
+          #
+          # 2026-11-11 19Z — no store reader here any more. The owner's requirement (13:09 and 13:58 EST): "it needs to be bank transfers relationship
+          # not credit card … if it's not on invoice, by bank transfer then it's no … Shopify is over saturated in this way". Shopify charges the card
+          # on file (its own terms), so a store is not a row; the second process that read stores on these runners is gone, and with it the 2 requests
+          # a second each runner sent to Shopify's network. What these runners read now: the sites of organisations named by a register, a member
+          # roster, a dealer list or a contract record — relationships billed on invoice — and the .ca sites that print a role mailbox (the pool of
+          # organisations with a name, an address and a mailbox on file, which the register lanes are matched against).
+          #
+          # A reader that stops altogether (two runs on 2026-11-11 lost one runner in six, 200 minutes each): tools/lead_crawl.py now ends itself
+          # when no site has finished for ten minutes and prints every thread's stack; it is started again here for the minutes that are left and
+          # leaves out the sites that were open when it stopped. What was read before is on disk and is uploaded whatever happens (if: always()).
+          END=$(( $(date +%s) + M * 60 ))
+          while :; do
+            LEFT=$(( (END - $(date +%s)) / 60 ))
+            [ "$LEFT" -lt 8 ] && break
+            python3 tools/lead_crawl.py --leads data/incoming/claude/claude_buyer_leads_cc.csv,data/incoming/claude/claude_buyer_leads.csv --shard ${{ matrix.k }}/$SHARDS --minutes "$LEFT" --workers 200 --max-pages 25 --registry "$REGISTRY" --registry2 20000 && break
+            echo "::warning::the site reader stopped before its time (the thread stacks are above): started again for the $LEFT minutes that were left"
+          done
       - uses: actions/upload-artifact@v4
-        with: { name: "mc-${{ matrix.k }}", path: out/, retention-days: 3 }
-      - uses: actions/upload-artifact@v4
-        with: { name: "mcs-${{ matrix.k }}", path: stores/out/, retention-days: 3, if-no-files-found: ignore }
+        if: always()
+        with: { name: "mc-${{ matrix.k }}", path: out/, retention-days: 3, if-no-files-found: ignore }
 
   merge:
     needs: [plan, crawl]
@@ -91,8 +93,6 @@ jobs:
         with: { ref: main }
       - uses: actions/download-artifact@v4
         with: { pattern: "mc-*", path: shards, merge-multiple: true }
-      - uses: actions/download-artifact@v4
-        with: { pattern: "mcs-*", path: stores, merge-multiple: true }
       - name: Append the mailbox rows, commit, and call the referee
         env: { GH_TOKEN: "${{ github.token }}", STAMP: "${{ needs.plan.outputs.stamp }}" }
         run: |
@@ -110,7 +110,7 @@ jobs:
             git add data/incoming/claude/crawl_state 2>/dev/null || true
             git add data/incoming/claude/site_facts 2>/dev/null || true   # the sites' own name / address / licence number: append-only shards since 2026-11-10
             git add data/incoming/claude/claude_buyer_ap_results_cccrawl*.csv 2>/dev/null || true   # the results file rotates at 30 MB (cccrawl01, 02 …)
-            git diff --cached --quiet && { echo "nothing new"; pushed=1; break; }
+            git diff --cached --quiet && { echo "nothing new"; pushed=1; nothing=1; break; }
             git commit -q -m "[claude] mailbox-crawl: role mailboxes of lead buyers ($(grep -m1 '^lead sites read so far' /tmp/crawl.txt | cut -c1-110))"
             git push -q origin HEAD:main && { pushed=1; break; }
             sleep $((RANDOM % 12 + 3))
@@ -120,3 +120,7 @@ jobs:
           cat /tmp/crawl.txt /tmp/stores.txt >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
           # pushes made with the workflow token do not start other workflows: call the referee, which re-fetches every evidence page
           gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true
+          # back to back: the next run is queued here (GitHub's own timer fired four times in 36 hours for this workflow, and the keeper only looks
+          # after a referee run). One run at a time is the concurrency group's job: this one waits until the present run has ended.
+          # (not after a run that read nothing new: an empty queue must not turn into a chain of empty runs — the hourly timer and the keeper start the next)
+          [ "${nothing:-0}" = "1" ] || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/mailbox-crawl.yml/dispatches" -f ref=main || true

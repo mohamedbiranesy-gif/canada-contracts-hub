@@ -35,7 +35,11 @@ MAX_ENGINES=3
 active() { gh run list --limit 60 --json status,workflowName --jq '[.[] | select(.status != "completed") | select(.workflowName | test("^(mailbox-crawl|row-factory|tenant-factory|credit-scan|site-facts|bbb-accredited|member-live|biz-licences|dns-services|rbq-licences)$"))] | length' 2>/dev/null || echo 0; }
 check mailbox-crawl.yml 0
 check rank-buyers.yml 2
-for spec in "row-factory.yml 3" "tenant-factory.yml 3" "credit-scan.yml 6" "site-facts.yml 6" "bbb-accredited.yml 6" "member-live.yml 6" "biz-licences.yml 12" "tm-register.yml 24" "dns-services.yml 24" "rbq-licences.yml 24"; do
+# 2026-11-11 19Z — order by the owner's requirement of that day ("on invoice, by bank transfer": a card on file is not a row). First the engines
+# whose relationships are billed on invoice: member rosters, accreditation dues, licences and registrations, the registers of intellectual
+# property; then the readers that feed every lane (lists on Canadian vendors' pages, the sites' own facts, the home-page scan). No longer started
+# from here: tenant-factory (software subscriptions: a card on file) and dns-services (hosting and DNS plans: a card on file for nearly all).
+for spec in "member-live.yml 3" "bbb-accredited.yml 3" "biz-licences.yml 6" "ip-register.yml 12" "tm-register.yml 12" "rbq-licences.yml 24" "row-factory.yml 3" "site-facts.yml 6" "credit-scan.yml 12"; do
   n=$(active)
   if [ "${n:-0}" -ge "$MAX_ENGINES" ]; then echo "engines active: $n (limit $MAX_ENGINES) — the rest waits for the next tick"; break; fi
   # shellcheck disable=SC2086

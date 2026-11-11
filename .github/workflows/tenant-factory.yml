@@ -9,8 +9,11 @@ name: tenant-factory
 #           then the referee (verify-and-merge) re-fetches every evidence page; the next rank build delivers the rows (tier T).
 # No AI, no search engine, no Mac. Vendor table and its HQ evidence: tools/tech_relationships.py VENDORS (free-plan vendors excluded).
 on:
-  schedule:
-    - cron: "47 2,5,8,11,14,17,20,23 * * *"
+  # 2026-11-11 19Z — the timer is off. Owner, 13:09 and 13:58 EST: "it needs to be bank transfers relationship not credit card … if it's not on
+  # invoice, by bank transfer then it's no". This engine fed lanes that do not meet that: software subscriptions (stores, booking portals) are charged to a card on file.
+  # It can still be started by hand (workflow_dispatch); its results on file stay where they are.
+  # schedule:
+  #   - cron: "47 2,5,8,11,14,17,20,23 * * *"
   workflow_dispatch:
     inputs:
       stage:

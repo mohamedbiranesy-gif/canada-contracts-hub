@@ -22,8 +22,11 @@ name: dns-services
 #          them unknown to the web graph (tools/ct_names.py publishes the lists as release assets; each list is swept once, oldest first).
 # Nothing here contacts the organisations' own servers. No AI, no search engine, no Mac.
 on:
-  schedule:
-    - cron: "23 2 * * *"
+  # 2026-11-11 19Z — the timer is off. Owner, 13:09 and 13:58 EST: "it needs to be bank transfers relationship not credit card … if it's not on
+  # invoice, by bank transfer then it's no". This engine fed lanes that do not meet that: hosting, DNS and mail plans of Canadian providers are charged to a card on file for nearly all of them.
+  # It can still be started by hand (workflow_dispatch); its results on file stay where they are.
+  # schedule:
+  #   - cron: "23 2 * * *"
   workflow_dispatch:
     inputs:
       shards:
