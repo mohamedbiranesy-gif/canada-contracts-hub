@@ -1,4 +1,4 @@
-# Cloud lanes — status from the files on main (2026-11-11 19:37 UTC)
+# Cloud lanes — status from the files on main (2026-11-11 20:22 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
@@ -14,7 +14,7 @@
 - 101371 domains: no_address 46276, unreachable 15397, CA 12374, US 6879, blocked 5519, robots 4931, CA-loc 4365, GB 2134
 
 ## 3. DNS lookups
-- domains looked up in the cloud: **8836686**; on Shopify's storefront addresses: **2106725**; with a www alias: 762479
+- domains looked up in the cloud: **8965012**; on Shopify's storefront addresses: **2225192**; with a www alias: 762479
 
 ## 4. Relationship leads on file
 - Mac era B/L dated record (payment, subaward, release): **10803**
@@ -83,5 +83,5 @@
 - mailbox rows written by the cloud crawls (before the referee): **290688**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **267934** — by tier: A 1224, B 1687, C 294, D 26527, E 5312, F 7, I 17451, L 420, M 13363, R 105619, T 96030
-- named-vendor relationships (A B T M C D L): **139545** · registry contract R: **105619** · link only (E): **5312** · older / inferred (F I): **17458**
+- rows with a confirmed mailbox: **145911** — by tier: A 1224, B 1685, C 298, D 26206, E 6895, F 15, I 33504, L 422, M 14659, T 61003
+- named-vendor relationships (A B T M C D L): **105497** · registry contract R: **0** · link only (E): **6895** · older / inferred (F I): **33519**

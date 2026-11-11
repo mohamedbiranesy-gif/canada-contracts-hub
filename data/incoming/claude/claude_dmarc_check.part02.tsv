@@ -14774,7 +14774,7 @@ pkvans.com	none	pkvans.com	v=DMARC1; p=none; rua=mailto:Alerts@sisc.ca; fo=1	100
 pkw.com.sg	no_record		no DMARC record at _dmarc.pkw.com.sg; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 pl.cpa	no_record		no DMARC record at _dmarc.pl.cpa; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 pl5.ca	no_record		no DMARC record at _dmarc.pl5.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:54.39.101.30 include:spf.web-dns1.com +a +mx +ip4:149.56.24.139 ~all	2026-11-10	none	none	none
-plabonte.net	error		no nameservers			error		2026-11-11	none	none	none
+plabonte.net	none	plabonte.net	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spf.serverdata.net ~all	2026-11-11	none	none	none
 plabranche.ca	none	plabranche.ca	v=DMARC1;p=none; sp=none	100	no	soft_fail	v=spf1 a mx ip4:51.222.173.49 ip4:158.85.89.116 ip4:158.85.77.121 ~all	2026-11-10	none	none	none
 placageauchrome.com	no_record		no DMARC record at _dmarc.placageauchrome.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-04			
 placagecrd.ca	quarantine	placagecrd.ca	v=DMARC1;p=quarantine;sp=quarantine;pct=100;adkim=s;aspf=s;rua=mailto:dmarcalerts@placagecrd.ca;ruf=mailto:dmarcalerts@placagecrd.ca;fo=1	100	yes	hard_fail	v=spf1 +a +mx +ip4:184.107.171.15 +ip4:72.55.179.218 +include:spf.hdce.ca +include:spf.protection.outlook.com +include:spf.hornetsecurity.com -all	2026-11-10	none	none	none
@@ -63869,7 +63869,7 @@ terredesbisons.com	no_record		no DMARC record at _dmarc.terredesbisons.com; conf
 terrefruitiere.ca	none	terrefruitiere.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:15.235.55.224 include:spf.web-dns1.com +a +mx +ip4:54.39.100.84 ~all	2026-11-06	none	none	none
 terrellslawnandlandscape.com	none	terrellslawnandlandscape.com	v=DMARC1;p=none;sp=none;pct=100;rua=mailto:reports@dmarc.lnm-projects.com;ruf=mailto:reports@dmarc.lnm-projects.com;ri=86400;aspf=r;adkim=r;fo=1	100	yes	hard_fail	v=spf1 include:relayhost1.linknowmedia.cloud include:relayhost2.linknowmedia.cloud +a +mx +ip4:208.94.107.6 +ip4:208.94.107.15 +ip4:208.94.107.63 +ip4:208.94.107.64 -all	2026-11-10	none	none	none
 terrenatale.ca	no_record		no DMARC record at _dmarc.terrenatale.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:54.39.100.235 include:spf.web-dns1.com ip4:192.99.62.14 +a +mx ~all	2026-11-10	none	none	none
-terrene.com	error		no nameservers			error		2026-11-11	none	none	none
+terrene.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
 terreneenvironmental.ca	no_record		no DMARC record at _dmarc.terreneenvironmental.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:spfc0.megamailservers.com ~all	2026-11-10	none	none	none
 terrenodevelopments.ca	none	terrenodevelopments.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +mx +a +ip4:199.193.116.6 ~all	2026-11-10	none	none	none
 terrenswellnesscentre.ca	none	terrenswellnesscentre.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:secureserver.net -all	2026-11-06	none	none	none
