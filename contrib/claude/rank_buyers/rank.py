@@ -1533,7 +1533,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
         "contracts_with_canadian_suppliers": L["canadian_vendor_rows"], "keys": k, "buyer_keys": 1, "tier": tier, "grade": g, "acc": acc})
     x, ev, cfv = rows[-1], (L.get("example_vendor") or "").strip(), (L.get("canada_field_value") or "")
     if L.get("_alias") and not registry:  # the record is about the organisation's other domain name: said in the row
-        x["contract_status"] = "%s — the record is about the organisation's domain name %s, whose home page answers at its site %s (redirect followed %s)" % ((x.get("contract_status") or "").rstrip(". "),) + tuple(L["_alias"])
+        x["contract_status"] = "%s — the record is about the organisation's domain name %s, whose home page answers at its site %s (redirect followed %s)" % (((x.get("contract_status") or "").rstrip(". "),) + tuple(L["_alias"]))
     dm = re.search(r"=\s*([a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,})(?:[;/\s]|$)", cfv.lower())
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
