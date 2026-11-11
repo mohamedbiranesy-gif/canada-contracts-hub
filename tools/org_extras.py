@@ -849,6 +849,29 @@ def read_site(site, kind, name="", start_url=""):
 RETRY_STATUS = ("http_308", "http_307", "http_301", "http_302", "http_0", "error")
 
 
+def read_store_contact(site):
+    """one page of a store already read: its contact-information policy — the legal name the merchant entered there, when it carries a legal form"""
+    u = site.rstrip("/") + "/policies/contact-information"
+    res = {"status": "no_page"}
+    if not C.allowed(u):
+        res["status"] = "robots"; return res
+    st, ct, data, final = C.fetch(u, 1_000_000)
+    if st in (401, 403, 429):
+        res["status"] = "blocked"; res["http"] = st; return res
+    if st == 404:
+        return {"status": "ok", "store_rule": 1}  # the store publishes no such page: nothing to add, and it is not asked again
+    if st != 200 or not data or "html" not in (ct or "").lower():
+        res["status"] = "http_%s" % st; return res
+    raw = strip_long(data.decode("utf-8", "replace"))
+    ft = re.sub(r"\s*[®™℠]", "", re.sub(r"\s+", " ", visible_keep_lines(raw)))
+    host = (urllib.parse.urlparse(final).hostname or "").lower().removeprefix("www.")
+    res = {"status": "ok", "store_rule": 1}
+    r = party_name(ft, host)
+    if r:
+        res.update({"legal_name_party": r[0], "legal_name_party_trade": r[1], "legal_name_party_how": r[2], "legal_name_party_url": final, "legal_name_party_quote": quote_pos(ft, r[3], r[0])})
+    return res
+
+
 def task_key(h, w):
     """the site's host (www. dropped), or domain + path on shared hosts (canada.ca/en/environment-climate-change → one record per organisation).
     Until 2026-11-10 the key was the registrable domain, so one record served every host of a domain: the record read on tdi.texas.gov was
@@ -997,7 +1020,9 @@ def main():
             continue
         if shard_n > 1 and int(hashlib.md5((C.registrable(h) or h).encode()).hexdigest(), 16) % shard_n != shard_k:  # every host of a domain on one runner
             continue
-        seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", ""), ("https://%s/" % start_path) if start_path else ""))
+        # a store read by this version that only lacks the name its contact-information page may give: that one page is read, nothing else
+        only_store = bool(old is not None and int(old.get("v") or 1) >= V and old.get("status") == "ok" and stale_store(old))
+        seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", ""), ("https://%s/" % start_path) if start_path else "", only_store))
         if old is not None:
             again.add(dom)
     tasks.sort(key=lambda t: t[0] in again)  # the sites never read come first; the ones read by an older reader fill what is left of the time box
@@ -1031,9 +1056,9 @@ def main():
     box = run_box.Box(a.minutes)
 
     def one(t):
-        dom, key, name, site, kind, start = t
+        dom, key, name, site, kind, start = t[:6]
         try:
-            res = read_site(site, kind, name=name, start_url=start)
+            res = read_store_contact(site) if len(t) > 6 and t[6] else read_site(site, kind, name=name, start_url=start)
         except Exception as e:
             res = {"status": "error", "error": str(e)[:100]}
         res.update({"domain": dom, "key": key, "name": name, "website": start or site, "kind": kind, "date": TODAY})
