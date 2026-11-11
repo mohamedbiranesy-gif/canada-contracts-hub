@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 10:15Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
+# STATE.md — Claude lane (updated 2026-11-11 13:22Z — published build 12:35Z = 265,999 rows, 258,757 with a mailbox; the owner set a new bar three times this morning (a relationship that is a fact; around it every field of an invoice: billing period, amount, parties, tax numbers; no lane leaned on); every row now says why its relationship is a fact, when and how much the vendor bills and what the bill carries; a reader of vendors' own price and terms pages (8,500 vendors read); the 100-row test set is a tool; build with the new columns dispatched 13:19Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,63 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-11 13:22Z — the owner's bar changed three times in an hour; what a row must now carry; what was built and what is waiting
+**Owner (06:24, 07:15, 07:48 EST), in order.** (1) "billed for something monthly … or every 3 months … systematically by the vendor";
+(2) that is "a subcategory": the gate is a relationship known "for a fact … something being where it is means that there's a relationship",
+and around it "the data that would go within the invoice … billing cadence … the fields that the Shopify invoice would have … how much
+does it cost"; calculated guesses allowed when "so many inferences [point] to one thing"; the 100 testers are owed; (3) "every single
+aspect within an invoice matters … the amount … the correct address, the vendor … don't over rely on one thing … the most populated
+fields … and the most amount, but populated". AGENTS.md §1 has the five rules; coord/DECISIONS.md 12:03Z and 13:18Z the reasoning.
+
+**Published table (build 12:35Z, code f6f7052):** 265,999 rows, 258,757 with a mailbox — A 1,276 · B 1,721 · C 315 · D 27,139 · E 5,128 ·
+F 7 · I 17,697 · L 435 · M 13,305 · R 101,433 · T 90,301. Second names of organisations: 9,984. It does not have the new columns yet.
+
+**Invoice fields on that table (measured):** vendor address 99.5 %, vendor legal name 82 %, dates 80 %, buyer address 73 %, reference 68 %,
+vendor tax number 61 %, buyer legal name 45 %, both parties complete 30 %, an amount 3 %. The amount and the buyer's legal name are the gaps.
+
+**Built since 11:20Z (commit 838b926, pushed 13:19Z):**
+- `tools/vendor_billing.py` + `.github/workflows/vendor-billing.yml` (daily 05:43Z): opens each vendor's own site (home + up to five
+  pages its menu names as prices / plans / hosting / membership / terms) and keeps every statement of a billing period, the lowest price,
+  the currency, the ways of paying and what happens to an unpaid service, each with its sentence, page and date. First 8,500 vendors (every
+  DNS provider, every credited vendor, the vetted ones, the first member bodies), read from here: 1,304 price by the month, 349 say they
+  bill monthly, 540 yearly, 20 quarterly, 7 per transaction, 6,113 publish nothing, 167 not readable; 303 say an unpaid service is cut off.
+  Precision read by eye: 45 "bills monthly" statements — 42 right, 1 wrong, 2 with a yearly option missed; 22 "unpaid" statements — 20
+  sentences, 2 section titles. State: `data/incoming/claude/vendor_billing/billing_*.gz` (append-only).
+- `tools/tech_relationships.py` BILLING: the 35 vetted vendors' terms read by hand — 21 state a period (Shopify, Jane, Rezgo, myRealPage,
+  NiceJob, Checkfront, WebRezPro monthly; Lightspeed, Unbounce, Thinkific, GOrendezvous, Owl Practice, Juvonno, TouchBistro, Amilia,
+  Commerce7 monthly or yearly; ClubRunner, CrowdRiff, Edsby, Jumptools yearly), 14 publish nothing, Jobber's site refuses the reader.
+  Shopify's bill, from its own pages: three kinds of fee, U.S. dollars, sent to the store owner's e-mail and shown in the admin, charged
+  to the card on file every 30 days, tax by billing address, nine-digit bill number ("SHOPIFY* 123456789"), store suspended 28 days after
+  a failed payment; plans $29 / $79 / $299 / from $2,300 a month. help.shopify.com answers 403 to the reader: not read.
+- **Shopify corrected**: section 13 of its terms names two contracting parties for stores in the United States or Canada (Shopify Inc.,
+  Ottawa; Shopify Technology (USA) Inc.) and lets Shopify Inc. act as billing agent for the other. Rows stay; the note on every row carries
+  the wording; stores are counted by country (sample: US 2 : CA 1).
+- Ranker, new columns: `relationship_fact_basis`, `recurring_billing` (1 monthly · 1 quarterly · 2 monthly or yearly · 3 yearly or
+  longer · 4 per transaction · 5 not published), `recurring_billing_basis`, `bill_amount_indicative`, `bill_amount_basis`,
+  `bill_items_as_published`, `bill_currency_as_published`, `bill_delivery_as_published`, `bill_payment_method_as_published`,
+  `bill_tax_rule_as_published`, `bill_identifier_format`, `service_stops_if_unpaid`. The log prints rows by billing period and the fill
+  of nine invoice fields, tier by tier. Among the services an organisation is seen to use, the one whose vendor bills by the month
+  claims the row. Local 1-in-4 build on today's data (91,372 rows with a mailbox): 1 monthly 7,814 · 2 monthly or yearly 7,398 ·
+  3 yearly or longer 41,297 · 4 per transaction 63 · 5 not published 34,800; an amount on 21 % of rows (was 3 %); all nine fields on 404.
+- Faults the first test draw showed, fixed in the ranker: 579 buyers named "About" (BBB profiles), "Welcome to …" names, 530 dates
+  written day-month, CIRA's legal name under a carry-over note (101,433 rows), Shopify's Montréal office in place of the registered
+  office its terms give, a law firm that is its own trademark agent; a caution where buyer and vendor print the same street address (1,200).
+- `tools/registry_lookup.py`: vendors asked by the rows they carry and under the legal name their own site states; the cloud engine
+  looks vendors up again (`--kind both`; it had been buyers only since the move to the cloud). 36,487 of 130,745 T/D/M rows have a
+  vendor business number; Web Hosting Canada alone is 10,007 rows without one.
+- `tools/test_sample.py`: 100 rows, 13 kinds, seed 20261111, two passes over the table (the first version held it in memory and was killed).
+- `coord/source_registry.csv`: US UCC filings with a Canadian secured party; tenant directories of Canadian landlords; council award
+  resolutions; franchised brokerages.
+
+**Running / waiting (13:22Z):** rank build 43028063029 (new columns) and vendor-billing 43028074612 queued behind the long engines;
+registry engine due 13:23Z (first run on the new address, vendors included); ct-names, two certificate-name sweeps, credit-scan, tenant
+factory, walk_terms in progress. The 100-row test set goes to the owner from the build with the new columns.
+
+**Next, in this order:** (1) the test set, delivered; (2) calculated cadence with its published basis and its label (construction under a
+prompt-payment act, rent, electricity, dues); (3) vendor names that are still a domain (11,308 T rows) and buyer names that are a domain
+(28,800 rows); (4) member dues from the bodies' own pages (the reader has only read the first of them); (5) the lanes registered today.
+
 
 ## 2026-11-11 10:15Z — the build of 09:39Z failed on my own code; fixed, tested on today's data, dispatched again
 - **Build 42997010689 failed at 10:00Z** in the second-names sentence written at 06:02Z (`"…" % (a,) + tuple(b)`: the format was applied

@@ -103,3 +103,11 @@ plain read from a runner on 2026-11-11 (robots.txt allows, HTTP 200, no CAPTCHA 
   and a quote; the authority's own address and its fee sentence, quoted from its own site; never the register's e-mail, never a person.
 - Take any of the eight (say which in my inbox). The same pattern holds in every province (motor dealers, home builders, electrical / gas
   contractors, travel agencies, funeral homes, retirement homes, real-estate brokerages): add what you find to the registry.
+
+## 2026-11-11 13:22 from claude
+The owner set a new bar this morning (AGENTS.md §1, "Owner rules (2026-11-11)"): a row needs a relationship that is a FACT, and around it
+every field an invoice carries — billing period, amount, what is billed, both parties' legal names, addresses, tax numbers. Rank what you
+build by fact-level rows × invoice fields filled. Four source families fit and are yours in `coord/source_registry.csv` (status todo):
+`ca_landlord_tenant_directories`, `ca_council_award_resolutions` (jules); `us_ucc_bulk_canadian_secured_parties`,
+`ca_franchise_brokerages` (codex). For every new source keep the amount and the period when the source prints them (a contract value, a
+fee, "monthly", "annual"), verbatim in `raw`. `tools/vendor_billing.py` reads vendors' own price pages; do not duplicate it.
