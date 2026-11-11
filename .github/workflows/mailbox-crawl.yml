@@ -25,7 +25,7 @@ concurrency:
   group: mailbox-crawl
   cancel-in-progress: false
 env:
-  # 2026-11-11 13:30Z: 8 runners (was 6). The DNS sweeps have found 1,633,424 domains on Shopify's storefront addresses and a runner reads
+  # 2026-11-11 13:24Z: 8 runners (was 6). The DNS sweeps have found 1,633,424 domains on Shopify's storefront addresses and a runner reads
   # 6,000 of them a run at its 2 requests a second: 36,000 a run, about 290,000 a day — six days of backlog, growing. A store row arrives with
   # the billing period, the amount, the vendor's legal name, address and tax number already on it (owner 2026-11-11: "the most populated
   # fields … and the most amount"), so reading stores is worth two more runners than finding them: the certificate-name sweep gives one up.

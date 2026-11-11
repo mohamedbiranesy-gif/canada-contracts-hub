@@ -32,7 +32,7 @@ import ap_crawler as C
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIR = os.path.join(ROOT, "data/incoming/claude/vendor_billing")
 TODAY = datetime.date.today().isoformat()
-V = 2  # 2 (2026-11-11): what happens when a bill is not paid, the currency of the prices, the ways of paying; amounts parsed
+V = 3  # 2 (2026-11-11): what happens when a bill is not paid, the currency of the prices, the ways of paying; amounts parsed. 3: the site's own title and description of what the vendor sells
 
 NUM = r"\d{1,3}(?:[ ,. ]\d{3})*(?:[.,]\d{1,2})?"
 MONEY = r"(?:(?:CA|US|CAD|USD|C)?\s?\$\s?%s|%s\s?\$(?:\s?(?:CAD|USD|CA|US)\b)?|%s\s?(?:CAD|USD)\b)" % (NUM, NUM, NUM)
@@ -204,6 +204,13 @@ def read_vendor(dom, start="", extra=()):
         return rec
     fhost = (urllib.parse.urlparse(final).hostname or dom).lower()
     rec["final"] = final
+    # what the vendor says it sells, in its own words (its home page's title and description): the subject of a bill when the relationship
+    # itself names none (a client listing, a credit line)
+    mt = re.search(r"(?is)<title[^>]*>(.*?)</title>", raw[:200000])
+    md = re.search(r"""(?is)<meta[^>]+(?:name|property)\s*=\s*["'](?:description|og:description)["'][^>]*content\s*=\s*["']([^"']{10,600})["']""", raw[:300000]) or \
+        re.search(r"""(?is)<meta[^>]+content\s*=\s*["']([^"']{10,600})["'][^>]*(?:name|property)\s*=\s*["'](?:description|og:description)["']""", raw[:300000])
+    rec["title"] = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", mt.group(1)))).strip()[:160] if mt else ""
+    rec["desc"] = re.sub(r"\s+", " ", html.unescape(md.group(1))).strip()[:300] if md else ""
     rec["pages"].append(final)
     rec["stmts"] += statements(text_of(raw), final)
     cand, seen = [], {final.split("#")[0].rstrip("/")}

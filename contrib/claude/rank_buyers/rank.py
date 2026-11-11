@@ -1010,6 +1010,16 @@ def apply_details(x, k):
         # a hosting / DNS / e-mail service is sold for a domain name, a website is built for one: the domain is the identifier both parties share
         # (no account or order number is published). Same rule as the registry rows, whose reference is the registered name.
         d = dict(d, reference=registrable(host_of(x["buyer_website"])))
+    if not d.get("reference") and d.get("platform") == "tech_tenant_cc" and x.get("buyer_website"):
+        # 2026-11-11 (owner: every field of an invoice; the store and clinic rows had no reference at all): a platform bills an account, and the
+        # account is the store, the clinic or the portal itself. Its address on the vendor's platform (the myshopify.com name the store's own
+        # meta.json gives, the portal's host) and its own domain are the identifiers both parties share; no account number is published.
+        _own = registrable(host_of(x["buyer_website"]) or "")
+        _ms = re.search(r"([a-z0-9][a-z0-9-]*\.myshopify\.com)", d.get("service_seen") or "")
+        _ph = host_of(d.get("record_url") or "")
+        _acct = _ms.group(1) if _ms else _ph if (_ph and registrable(_ph) != _own) else ""
+        d = dict(d, reference=" / ".join(v_ for v_ in (_acct, _own) if v_))
+        n_lf["reference: the account's own address on the vendor's platform"] += 1
     if d.get("client_label") and re.fullmatch(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", (x.get("buyer") or "").lower()):
         # the lead only carried the domain: the name the Canadian vendor wrote next to its link, kept only when it agrees with that domain
         _lab = re.sub(r"\s+", " ", d["client_label"]).strip(" -–—|:·•")
@@ -4431,6 +4441,8 @@ def billing_of(x, ld):
 BILL_COLS = ["bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published",
              "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "relationship_fact_basis"]
 CIRA_LEGAL = "Canadian Internet Registration Authority (as it names itself in its Registrant Agreement, version 2.2: “the Canadian Internet Registration Authority (\"CIRA\")”)"
+_DOMAIN_NAME = re.compile(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}")
+_LEGAL_NOTE = re.compile(r"\s+\((?:stated on|as printed|printed with|schema\.org|the vendor's name|the name on|carried from|as registered|as it names|official name|as the |its words|the copyright)")
 _JUNK_NAME = re.compile(r"^(?:about(?: us)?|home|contact(?: us)?|welcome|accueil|services?|index|untitled|page d'accueil|homepage|menu|blog|shop|store|news|introduction|[àa] propos)$", re.I)
 _TITLE_PREFIX = re.compile(r"^(?:welcome to|bienvenue (?:chez|à|au|aux|sur le site d[eu])|introduction)\s+(?:the\s+)?", re.I)
 def _premises(a):
@@ -4521,6 +4533,12 @@ def bill_profile(x, ld, cls):
                                           "stated by the vendor: its own page names the organisation %s (%s); not seen from the buyer's side" % (what, (x.get("contract_link") or "")[:160]))
     else:
         out["relationship_fact_basis"] = "fact, public record: %s names the vendor and the contract (%s)" % ((x.get("source") or "the public source")[:120], (x.get("contract_link") or "")[:160])
+    if t in ("T", "C", "D", "E", "M") and not out.get("bill_items_as_published") and not (x.get("contract_title") or "").strip():
+        rec = VBILL.get(vd) if vd else None
+        if rec and (rec.get("desc") or rec.get("title")):
+            # the relationship names no subject (a client listing, a link, a membership): what the vendor says it sells, in its own words
+            out["bill_items_as_published"] = "what the vendor says it sells, on its own home page: “%s” (%s, read %s); what it sells to this organisation is not published" % (
+                (rec.get("desc") or rec.get("title"))[:260], rec.get("final") or "https://%s/" % vd, rec.get("date"))
     if t not in ("R", "I"):
         (sa, pa), (sv, pv) = _premises(x.get("buyer_address")), _premises(x.get("vendor_address"))
         if sa and sa == sv and (pa == pv or not pa or not pv):
@@ -4625,6 +4643,16 @@ for _ri, x in enumerate(rows):
             x[_dc] = "%s-%s-%s" % (_m.group(1), _m.group(3), _m.group(2)); n9["date written day-month: put in order"] += 1
     if t == "R":
         x["vendor_legal_name"] = CIRA_LEGAL
+    # a party still shown under its domain name ("linknow.com", "business.nvchamber.ca": 11,308 vendor cells and 28,800 buyer cells on 2026-11-11) takes
+    # the legal name the row already carries for it; the domain stays as the trading name
+    for _side, _lcol, _tcol in (("vendor", "vendor_legal_name", "vendor_trading_name"), ("buyer", "buyer_legal_name_as_published", "buyer_trade_name_as_published")):
+        _nm0 = (x.get(_side) or "").strip()
+        if _DOMAIN_NAME.fullmatch(_nm0.lower()):
+            _ln = _LEGAL_NOTE.split((x.get(_lcol) or "").strip())[0].strip(" -")
+            if _ln and _ln != "not_published" and "(" not in _ln and 3 <= len(_ln) <= 90 and not _DOMAIN_NAME.fullmatch(_ln.lower()):
+                if not (x.get(_tcol) or "").strip():
+                    x[_tcol] = "%s (the %s's domain name, under which the relationship was found)" % (_nm0, _side)
+                x[_side] = _ln; n9["%s shown under its legal name instead of its domain name" % _side] += 1
     _cvb = _BILL_CUR.get(norm(x.get("vendor") or "")) if t == "T" else None
     if _cvb and _cvb.get("addr"):
         x["vendor_address"] = _cvb["addr"]
