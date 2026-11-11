@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-11 08:59 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-11 09:14 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-10)
 | metric | value |
@@ -48,7 +48,8 @@
 | claude | claude_buyer_ap_results_apfirst01.csv | 5352 | 5352 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl01.csv | 112363 | 112363 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl02.csv | 62425 | 62425 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl03.csv | 41914 | 41914 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl03.csv | 46182 | 46182 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl04.csv | 17245 | 17245 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
@@ -309,9 +310,9 @@
 ## Source registry (`coord/source_registry.csv`)
 | lane | todo | in_progress | done | blocked |
 |---|---|---|---|---|
-| claude | 0 | 0 | 1 | 0 |
+| claude | 0 | 0 | 2 | 0 |
 | codex | 33 | 0 | 0 | 0 |
-| jules | 8 | 0 | 12 | 9 |
+| jules | 7 | 0 | 12 | 9 |
 
 ## Last ingest
 - buyers with team findings: 284701 (with at least one verified e-mail/portal: 268324)
