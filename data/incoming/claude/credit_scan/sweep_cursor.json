@@ -18,19 +18,21 @@
  },
  "complete": {},
  "hosts": {
-  "asked": 4993784,
+  "asked": 5572405,
   "before_rev_2": {},
   "complete": {
    "0": true,
+   "1": true,
    "2": true,
+   "3": true,
    "4": true,
    "6": true
   },
   "pos": {
    "0": 769631,
-   "1": 480000,
+   "1": 767298,
    "2": 766896,
-   "3": 480000,
+   "3": 771323,
    "4": 767380,
    "5": 480000,
    "6": 769877,
@@ -39,8 +41,8 @@
   "release": "cc-main-2026-aug-sep-oct",
   "rev": 2,
   "shards": 8,
-  "stores_found": 56652,
-  "updated": "2026-11-11T03:52Z"
+  "stores_found": 60677,
+  "updated": "2026-11-11T04:26Z"
  },
  "no_answer": 196721,
  "ns_complete": {
