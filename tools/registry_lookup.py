@@ -177,6 +177,17 @@ def main():
                 if b and ("buyer:" + k) not in seen and (corp_like or org_like or stated):
                     seen.add("buyer:" + k)
                     tasks.append((pr + (0.5 if corp_like else 0.8), "buyer", k, b, prov_of(r.get("jurisdiction") or "", r.get("buyer_address"))))
+                elif b and ("buyer:" + k) not in seen and not GOV_RX.search(b):
+                    # 2026-11-11: a PLAIN name (the name a business trades under, no legal form in it: 174,584 delivered rows) is looked up too, last, and
+                    # only when the buyer's own province is known. Measured on the lookups on file against the legal name the buyer's own site spells:
+                    # of 105 plain-name matches, 92 are the same name and about 8 more the same company written another way; the rest are a
+                    # namesake or a parent. So a plain name is accepted only when the single registered entity of that name has its registered office
+                    # in the buyer's own province (see below), and the ranker lets the site's own statement stand when the two disagree.
+                    pv = prov_of(r.get("jurisdiction") or "", r.get("buyer_address"))
+                    words = [w for w in re.findall(r"[A-Za-zÀ-ÿ0-9]{2,}", b)]
+                    if pv and (len(words) >= 2 or (words and len(words[0]) >= 7)) and len(b) <= 70 and not re.search(r"\.(?:ca|com|org|net)\b", b, re.I):
+                        seen.add("buyer:" + k)
+                        tasks.append((pr + 10.9, "buyer", k, b, pv))
     tasks.sort(key=lambda t: t[0])
     # a buyer's record is kept under the row's key, and a row's name changes (a lead first named after a line of its page, later after its own
     # home page): 2026-11-10, "VILLE DE QUÉBEC" was still the registered name of a row named "LES YMCA DU QUÉBEC" by then. A key is done only
@@ -238,6 +249,8 @@ def main():
                     d, basis, cands = pick(name, docs, prov)
                     if d:
                         row["api_url"] = url2
+            if d and pr >= 10 and "province agrees" not in basis:  # a plain name (priority 10+): only a match in the buyer's own province counts
+                d, basis = None, "plain name: the registered entity of this name is not shown to be in the buyer's province (%s)" % basis[:120]
             row["candidates"] = "; ".join("%s [%s %s, %s]" % (c.get("Company_Name"), c.get("Registry_Source"), c.get("Juri_ID"), c.get("Reg_office_province") or "") for c in cands[:5])[:400]
             if d:
                 row.update({"status": "found", "matched_name": d.get("Company_Name") or "", "bn9": re.sub(r"\D", "", d.get("BN") or "")[:9], "juri_id": d.get("Juri_ID") or "", "registry_source": d.get("Registry_Source") or "",

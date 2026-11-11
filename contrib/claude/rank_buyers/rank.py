@@ -3538,6 +3538,12 @@ for x in rows:
         # the site names its legal person in so many words ("operated by 1688150 Alberta Ltd"); a registry record found under the trading name
         # ("Pegasus Paper") and carrying another name is somebody else's. The registry tools look the stated name up (tools/registry_names.py).
         n_cbr["buyer record of another name than the legal person the site itself states, not taken"] += 1; b = None
+    if (b and not re.search(r"\b(?:inc|incorporated|ltd|limited|lt[ée]e|corp|corporation|llc|llp|lp|co|company|cie|enr|senc|ulc)\b\.?", b.get("name") or "", re.I)
+            and re.search(r"\(printed with its legal form", x.get("buyer_legal_name_as_published") or "")
+            and _reg_toks(_NAME_SRC_CUT.sub("", x["buyer_legal_name_as_published"])) != _reg_toks(b.get("matched_name") or "")):
+        # 2026-11-11: plain names are looked up too (tools/registry_lookup.py). A record found under the PLAIN name that carries another name than
+        # the one the buyer's own site prints with its legal form is a namesake or a parent (measured: 13 of 105): the site's own words stand.
+        n_cbr["buyer record found under a plain name, another name than the site prints with its legal form: not taken"] += 1; b = None
     if b:
         src = "%s, %s" % (b["_label"], b["retrieved_date"])
         if re.search(r"\((?:stated on|printed with its legal form|schema\.org|recipient legal name)", x.get("buyer_legal_name_as_published") or ""):
