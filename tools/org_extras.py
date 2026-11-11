@@ -6,6 +6,10 @@
   - logo image URL (og:image or an <img> whose src / alt says logo);
   - language of the site (fr / en / fr-en from the html lang attribute and stopwords);
   - whether the site answers (status).
+  v4 (2026-11-11 01:40Z): the rules of v3 as they stand after the second run on 1,950 sites — a name the domain spells must be a whole name where it
+    is printed. Records marked v3 were made in the three hours before, by versions that let through the tail of a longer name ("Crumpler Plastic Pipe
+    Inc.") and words of the page before a name ("Data Protection Director Mirego inc."): the ranker does not print their spelled names, and every
+    run re-reads them after the sites never read.
   v3 (2026-11-10, the bill-to legal name of 160,000 rows): the name printed WITH its legal form anywhere on the organisation's pages that its
     own domain name spells ("Credit Lift Inc." on creditlift.ca); the legal person a page puts behind the site's name ("Majid Enterprises Inc.,
     operating as Lawn Lovers", "Solaris (1457570 Alberta Ltd.)", "Legal Entity : …"); the operator a page names; the home page's title and
@@ -23,7 +27,7 @@ and a ≤300-char quote per fact.
   python3 tools/org_extras.py --tasks tasks.csv [--workers 48] [--repo ~/cch-crawler] [--refresh] [--test URL ...]
   --refresh re-reads domains whose record predates v2 or failed on a redirect / network error (old facts are kept when the new read fails).
 """
-V = 3
+V = 4
 import argparse, csv, gzip, html, json, os, re, sys, threading, time, unicodedata, urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 

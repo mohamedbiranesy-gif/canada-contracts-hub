@@ -2500,7 +2500,7 @@ for x in rows:
         # (15 times), it was right 14 times — so it goes first, except before a copyright line that itself carries a company form.
         _site = x.get("buyer_website") or ""
         _own = lambda u: bool(u) and registrable(host_of(u) or "") == registrable(host_of(_site) or "")
-        _sp = re.sub(r"\s+", " ", b.get("legal_name_spelled") or "").strip()
+        _sp = re.sub(r"\s+", " ", b.get("legal_name_spelled") or "").strip() if int(b.get("v") or 0) >= 4 else ""  # records of the reader's v3 (three hours of 2026-11-11) held 7 % names cut short or run into the page's words
         _reg_cell = bool(x.get("buyer_legal_name_as_published"))  # a public register has named the legal person already (apply_details): what the site prints does not replace it
         if _sp and not _reg_cell and not (ln and (_CORP_FORM_END.search(ln) or _LEGAL_PERSON.search(ln))) and not _PLATFORM_CO.search(_sp) and name_overlap(_sp, x.get("buyer") or "", _site):
             ln = _sp
@@ -3470,8 +3470,10 @@ for x in rows:
         x["buyer_bn_as_published"] = "%s (recipient_business_number in the federal grants & contributions disclosure, %s agreement(s), last %s; %s)" % (g["bn_as_published"], g.get("agreements") or "?", g.get("last_agreement_date") or "n/a", g["source_url"]); n_gcr["buyer_bn"] += 1
         if not x.get("buyer_gst_hst_derived"):
             x["buyer_gst_hst_derived"] = g["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
-        if not x.get("buyer_legal_name_as_published") and g.get("matched_name"):
-            x["buyer_legal_name_as_published"] = "%s (recipient legal name in the federal grants & contributions disclosure)" % g["matched_name"]; n_gcr["buyer_legal_name"] += 1
+    if g and g.get("matched_name") and g["bn9"] in (x.get("buyer_bn_as_published") or "") and register_name_takes(x.get("buyer_legal_name_as_published") or "", g["matched_name"]):
+        # 2026-11-10: the recipient's legal name goes with its number — also on a row that had the number from another source and no name (until
+        # this day the name was written only together with the number), and in the place of the same name read off a page
+        x["buyer_legal_name_as_published"] = "%s (recipient legal name in the federal grants & contributions disclosure)" % g["matched_name"]; n_gcr["buyer_legal_name"] += 1
     vn = x.get("vendor") or ""
     g = GCR["vendor"].get(norm(vn)) if vn and not vn.startswith("inferred") else None
     if g and not x.get("vendor_bn9"):
