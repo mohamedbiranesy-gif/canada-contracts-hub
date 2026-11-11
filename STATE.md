@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 10:16Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
+# STATE.md — Claude lane (updated 2026-11-11 10:15Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -97,7 +97,7 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
 
-## 2026-11-11 10:16Z — the build of 09:39Z failed on my own code; fixed, tested on today's data, dispatched again
+## 2026-11-11 10:15Z — the build of 09:39Z failed on my own code; fixed, tested on today's data, dispatched again
 - **Build 42997010689 failed at 10:00Z** in the second-names sentence written at 06:02Z (`"…" % (a,) + tuple(b)`: the format was applied
   before the tuples were joined). It had only ever met rows of the registry lane; the crawl of 09:14Z brought the first lead of another
   lane whose site answers under a second name. Fixed (10:02Z). **The published table is still the 08:25Z build**; the crawl's +21,500
