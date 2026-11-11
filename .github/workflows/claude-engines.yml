@@ -138,11 +138,11 @@ jobs:
           # records the run made or changed (--delta): the merge joins them with the file on main.
           P=3; mkdir -p out
           for J in $(seq 0 $((P - 1))); do
-            timeout -k 3m "$((WE + 12))m" python3 tools/org_extras.py --tasks /tmp/site_tasks.csv --shard "$((K * P + J))/$((N * P))" --seed-resume data/incoming/claude/claude_org_extras.jsonl.gz --workers 40 --minutes "$WE" --delta --out "out/org_extras_${K}_$J.jsonl.gz" --repo "$PWD" $RF > "extras_$J.log" 2>&1 &
+            timeout -k 3m "$((WE + 12))m" python3 tools/org_extras.py --tasks /tmp/site_tasks.csv --shard "$((K * P + J))/$((N * P))" --seed-resume data/incoming/claude/claude_org_extras.jsonl.gz --workers 40 --minutes "$WE" --delta --out "out/org_extras_${K}_$J.jsonl.gz" --tried data/incoming/claude/crawl_state --tried-out "out/org_tried_e_${K}_$J.tsv" --repo "$PWD" $RF > "extras_$J.log" 2>&1 &
           done
           wait
           for J in $(seq 0 $((P - 1))); do
-            timeout -k 3m "$((W + 12))m" python3 tools/org_contacts.py --tasks /tmp/site_tasks.csv --shard "$((K * P + J))/$((N * P))" --seed-resume data/incoming/claude/claude_org_contacts.jsonl.gz --workers 40 --minutes "$W" --delta --out "out/org_contacts_${K}_$J.jsonl.gz" --repo "$PWD" > "contacts_$J.log" 2>&1 &
+            timeout -k 3m "$((W + 12))m" python3 tools/org_contacts.py --tasks /tmp/site_tasks.csv --shard "$((K * P + J))/$((N * P))" --seed-resume data/incoming/claude/claude_org_contacts.jsonl.gz --workers 40 --minutes "$W" --delta --out "out/org_contacts_${K}_$J.jsonl.gz" --tried data/incoming/claude/crawl_state --tried-out "out/org_tried_c_${K}_$J.tsv" --repo "$PWD" > "contacts_$J.log" 2>&1 &
           done
           wait
           rm -f out/*.resume.jsonl
@@ -207,6 +207,7 @@ jobs:
         run: |
           ls -la shards || true
           git config user.name "claude-engines"; git config user.email "claude-engines@users.noreply.github.com"
+          TRIED_STAMP=$(date -u +%Y%m%dT%H%M%S)
           for i in $(seq 1 15); do   # main moves every minute or two (verifier, lanes, the Mac): 15 attempts, short random waits (the registry merge lost 5 races on 2026-11-08)
             git fetch -q origin main && git reset -q --hard origin/main   # clean start each attempt: the merge below is redone from the shard files
             # 2026-11-10: three files that are rewritten whole on every merge (already compressed, so git kept every version whole: 0.5 GB of objects a
@@ -226,6 +227,8 @@ jobs:
             elif [ "$ENGINE" = "org_facts" ]; then
               python3 tools/merge_engine_outputs.py jsonl data/incoming/claude/claude_org_extras.jsonl.gz data/incoming/claude/claude_org_extras.jsonl.gz shards/org_extras_*.jsonl.gz
               python3 tools/merge_engine_outputs.py jsonl data/incoming/claude/claude_org_contacts.jsonl.gz data/incoming/claude/claude_org_contacts.jsonl.gz shards/org_contacts_*.jsonl.gz
+              # the sites the readers could not read this run (tools/run_box.py Tried): one shard a run, append-only; the readers wait before they ask again
+              if ls shards/org_tried_*.tsv >/dev/null 2>&1; then mkdir -p data/incoming/claude/crawl_state && cat shards/org_tried_*.tsv | sort -u | gzip -9 > "data/incoming/claude/crawl_state/org_tried_${TRIED_STAMP}.gz"; fi
             elif [ "$ENGINE" = "bulk_registry" ]; then
               [ -f shards/registry_bulk.csv ] && cp shards/registry_bulk.csv data/incoming/claude/claude_registry_bulk.csv
               [ -s shards/charity_buyers.csv ] && cp shards/charity_buyers.csv data/incoming/claude/claude_charity_buyers.csv

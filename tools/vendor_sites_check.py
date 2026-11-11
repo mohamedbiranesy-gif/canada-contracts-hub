@@ -35,7 +35,7 @@ def read(url):
     if st != 200 or not data or "html" not in (ct or "").lower():
         return "http_%s" % st, "", final
     raw = strip_long(data.decode("utf-8", "replace"))
-    if C.BLOCK_RX.search(raw[:5000]):
+    if len(raw) < 30000 and C.BLOCK_RX.search(raw[:5000]):  # a block page is a short page (a Wix page carries "captcha" in its settings)
         return "blocked", "", final
     return "ok", re.sub(r"\s+", " ", visible_keep_lines(raw) + " " + " ".join(re.findall(r'(?i)<(?:title|meta[^>]+content)="?([^"<>]{3,200})', raw))), final
 

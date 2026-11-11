@@ -263,7 +263,7 @@ def site_pages(site, host, cap):
     if st != 200 or not data:
         return "http_%s" % st, []
     raw = strip_long(data.decode("utf-8", "replace"))
-    if C.BLOCK_RX.search(raw[:5000]):
+    if len(raw) < 30000 and C.BLOCK_RX.search(raw[:5000]):  # a block page is a short page (a Wix page carries "captcha" in its settings)
         return "blocked", []
     listings, portals = [], []
     def add_listing(u, label=""):

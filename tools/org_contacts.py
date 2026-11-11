@@ -282,7 +282,10 @@ def read_site(site, name, start_url=""):
             res["status"] = "http_%s" % st; return res
         raw0 = strip_long(data.decode("utf-8", "replace"))
     host = (urllib.parse.urlparse(final).hostname or "").lower().removeprefix("www.")
-    if C.BLOCK_RX.search(raw0[:5000]) or (len(raw0) < 2500 and re.search(r"_Incapsula_Resource|incapsula|imperva|distil_r|perimeterx|datadome|akamai|bot ?detect", raw0, re.I)):
+    # 2026-11-11: a block page is a SHORT page. The words were looked for in the first 5,000 characters of any page: every Wix site carries
+    # "captcha" in the settings at the top of its page, and any site that loads reCAPTCHA early — 40 of 60 sites this reader had never
+    # managed to read were ordinary pages called "blocked" (about 24,000 delivered rows without their own address and telephone).
+    if (len(raw0) < 30000 and C.BLOCK_RX.search(raw0[:5000])) or (len(raw0) < 2500 and re.search(r"_Incapsula_Resource|incapsula|imperva|distil_r|perimeterx|datadome|akamai|bot ?detect", raw0, re.I)):
         res["status"] = "blocked"; return res
     pages = [(final, raw0)]
     stage(dom, "links")
@@ -381,6 +384,8 @@ def main():
     a.add_argument("--minutes", type=float, default=0, help="time box: at its end no new site is started, the state file is written once more and the reader leaves (0 = none)")
     a.add_argument("--out", default="", help="write the state file here, not to <repo>/data/incoming/claude/claude_org_contacts.jsonl.gz (several readers on one runner, each with a file and a resume file of its own)")
     a.add_argument("--delta", action="store_true", help="write only the records this run made or changed (the merge joins them with the file on main)")
+    a.add_argument("--tried", default="", help="folder of org_tried_*.gz shards: the sites this reader could not read before are not asked again until their wait is over (run_box.Tried)")
+    a.add_argument("--tried-out", default="", help="this run's failed tries go here (the workflow adds them to the folder)")
     a = a.parse_args()
     os.makedirs(STATE, exist_ok=True)
     resume = (a.out + ".resume.jsonl") if a.out else RESUME
@@ -404,6 +409,8 @@ def main():
     import hashlib
     shard_k, shard_n = (int(a.shard.split("/")[0]), int(a.shard.split("/")[1])) if a.shard else (0, 1)
     tasks, seen = [], set()
+    import run_box
+    tried, waiting = run_box.Tried("contacts", a.tried), 0
     for r in csv.DictReader(open(a.tasks, encoding="utf-8", errors="replace")):
         w = (r.get("website") or "").strip()
         h = (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
@@ -415,12 +422,15 @@ def main():
         old = done_for(done, dom, h)
         if old is not None and not (a.refresh and (old.get("status") in RETRY_STATUS or old.get("status") == "no_contact" and start_path)):
             continue
+        if old is None and tried.wait(dom):
+            waiting += 1
+            continue
         if shard_n > 1 and int(hashlib.md5((C.registrable(h) or h).encode()).hexdigest(), 16) % shard_n != shard_k:  # every host of a domain on one runner
             continue
         seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", ""), ("https://%s/" % start_path) if start_path else ""))
     if a.limit:
         tasks = tasks[:a.limit]
-    print("tasks: %d domains to read (%d in resume file; refresh=%s)" % (len(tasks), len(done), a.refresh), flush=True)
+    print("tasks: %d domains to read (%d in resume file; refresh=%s); %d that could not be read before wait for their turn" % (len(tasks), len(done), a.refresh, waiting), flush=True)
     out_gz = a.out or os.path.join(a.repo, "data/incoming/claude/claude_org_contacts.jsonl.gz")
     touched = set()
     stats = {}
@@ -447,6 +457,8 @@ def main():
                 old = None  # the record under this key was read on another host of the domain: this host's own record replaces it, facts are not mixed
             if old and old.get("status") == "ok" and res.get("status") != "ok":
                 res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"))
+            if res.get("status") != "ok":
+                tried.note(dom, res.get("status"))  # no record comes of this try: remembered, so that the next runs do not ask at once
             done[dom] = res
             touched.add(dom)
             stats[res["status"]] = stats.get(res["status"], 0) + 1
@@ -457,6 +469,7 @@ def main():
     threading.Thread(target=watchdog, daemon=True).start()
     whole = box.run(one, tasks, a.workers)
     state.final(str(dict(stats)))
+    tried.save(a.tried_out)
     if whole:
         print("finished", dict(stats), flush=True)
     else:

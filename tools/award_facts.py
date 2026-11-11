@@ -84,7 +84,7 @@ def read(url):
         text = re.sub(r"\s+", " ", C.pdf_text(data) or "")
         return ("ok" if text.strip() else "pdf_no_text"), text, final or url
     raw = strip_long(data.decode("utf-8", "replace"))
-    if C.BLOCK_RX.search(raw[:5000]):
+    if len(raw) < 30000 and C.BLOCK_RX.search(raw[:5000]):  # a block page is a short page (a Wix page carries "captcha" in its settings)
         return "blocked", "", final or url
     return "ok", re.sub(r"\s+", " ", visible_keep_lines(raw)), final or url
 

@@ -8,10 +8,13 @@ under the published name. `timeout` stopped the reader in that state on two of t
 files, a merge that crashed on them, a refresh pass of 16 runner-hours left unmerged.
 
   StateFile  one write at a time, each to a path of its own; the next one no sooner than `every` seconds after the last one ENDED.
+  Tried      the sites a reader could not read, remembered between runs (the state file holds only what was read): a runner starts from
+             nothing, so every run asked every failing site again — 48,000 sites a run on 2026-11-11, among them the sites that refuse
+             the reader ("refused sites are not asked again", coord/DECISIONS.md). One line per try, in append-only shards in git.
   Box        the reader stops by itself at its deadline (or on SIGTERM): no new site is started, the sites being read get `grace`
              seconds, then the main thread writes the state once more, alone, and leaves.
 """
-import gzip, json, os, signal, sys, threading, time
+import datetime, glob, gzip, json, os, re, signal, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 
 
@@ -114,3 +117,46 @@ class Box:
         """end the process now: worker threads still inside a slow site are not waited for (the state was written without them)"""
         sys.stdout.flush(); sys.stderr.flush()
         os._exit(code)
+
+
+class Tried:
+    """reader \t site key \t date \t status — one line per try that did not end in a record."""
+    REFUSED = re.compile(r"^(?:robots|blocked|http_40[13]|http_429)$")          # the site says no: asked again after 30 days
+    NOTHING = re.compile(r"^(?:no_contact|no_page|not_html|http_40[4-9]|http_410)$")  # it answers and has nothing for this reader: 21 days
+    # anything else (no answer, a server error, a redirect that leads nowhere): 2 days after the first two tries, then 14
+
+    def __init__(self, reader, folder=""):
+        self.reader, self.last, self.new = reader, {}, []
+        self.today = time.strftime("%Y-%m-%d")
+        for p in sorted(glob.glob(os.path.join(folder, "org_tried_*.gz"))) if folder else []:
+            try:
+                with gzip.open(p, "rt", encoding="utf-8", errors="replace") as fh:
+                    for l in fh:
+                        f = l.rstrip("\n").split("\t")
+                        if len(f) >= 4 and f[0] == reader:
+                            o = self.last.get(f[1])
+                            self.last[f[1]] = (max(f[2], o[0]) if o else f[2], f[3] if not o or f[2] >= o[0] else o[1], (o[2] if o else 0) + 1)
+            except (OSError, EOFError):
+                continue
+
+    def wait(self, key):
+        """True while a site that failed before is not to be asked again yet"""
+        o = self.last.get(key)
+        if not o:
+            return False
+        try:
+            age = (datetime.date.fromisoformat(self.today) - datetime.date.fromisoformat(o[0])).days
+        except ValueError:
+            return False
+        days = 30 if self.REFUSED.match(o[1]) else 21 if self.NOTHING.match(o[1]) else 2 if o[2] <= 2 else 14
+        return age < days
+
+    def note(self, key, status):
+        self.new.append("%s\t%s\t%s\t%s\n" % (self.reader, key, self.today, (status or "?")[:40]))
+
+    def save(self, path):
+        if path and self.new:
+            os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+            with open(path, "w", encoding="utf-8") as f:
+                f.writelines(self.new)
+        return len(self.new)

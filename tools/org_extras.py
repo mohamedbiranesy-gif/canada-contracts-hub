@@ -697,7 +697,8 @@ def read_site(site, kind, name="", start_url=""):
     if st != 200 or not data or "html" not in (ct or "").lower():
         res["status"] = "http_%s" % st; return res
     raw0 = strip_long(data.decode("utf-8", "replace"))
-    if C.BLOCK_RX.search(raw0[:5000]) or (len(raw0) < 2500 and re.search(r"incapsula|imperva|datadome|perimeterx", raw0, re.I)):
+    # a block page is a short page (2026-11-11: "captcha" in the first 5,000 characters of ANY page called every Wix site blocked; see org_contacts.read_site)
+    if (len(raw0) < 30000 and C.BLOCK_RX.search(raw0[:5000])) or (len(raw0) < 2500 and re.search(r"incapsula|imperva|datadome|perimeterx", raw0, re.I)):
         res["status"] = "blocked"; return res
     host = (urllib.parse.urlparse(final).hostname or "").lower().removeprefix("www.")
     pages = [(final, raw0)]
@@ -921,6 +922,8 @@ def main():
     a.add_argument("--minutes", type=float, default=0, help="time box: at its end no new site is started, the state file is written once more and the reader leaves (0 = none)")
     a.add_argument("--out", default="", help="write the state file here, not to <repo>/data/incoming/claude/claude_org_extras.jsonl.gz (several readers on one runner, each with a file and a resume file of its own)")
     a.add_argument("--delta", action="store_true", help="write only the records this run made or changed (the merge joins them with the file on main)")
+    a.add_argument("--tried", default="", help="folder of org_tried_*.gz shards: the sites this reader could not read before are not asked again until their wait is over (run_box.Tried)")
+    a.add_argument("--tried-out", default="", help="this run's failed tries go here (the workflow adds them to the folder)")
     a = a.parse_args()
     if a.test is not None:
         for u in a.test:
@@ -950,6 +953,8 @@ def main():
     import hashlib
     shard_k, shard_n = (int(a.shard.split("/")[0]), int(a.shard.split("/")[1])) if a.shard else (0, 1)
     tasks, seen, again = [], set(), set()
+    import run_box
+    tried, waiting = run_box.Tried("extras", a.tried), 0
     for r in csv.DictReader(open(a.tasks, encoding="utf-8", errors="replace")):
         w = (r.get("website") or "").strip()
         h = (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
@@ -963,6 +968,9 @@ def main():
             continue
         if old is None and a.older_only:
             continue
+        if old is None and tried.wait(dom):
+            waiting += 1
+            continue
         if shard_n > 1 and int(hashlib.md5((C.registrable(h) or h).encode()).hexdigest(), 16) % shard_n != shard_k:  # every host of a domain on one runner
             continue
         seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", ""), ("https://%s/" % start_path) if start_path else ""))
@@ -971,7 +979,7 @@ def main():
     tasks.sort(key=lambda t: t[0] in again)  # the sites never read come first; the ones read by an older reader fill what is left of the time box
     if a.limit:
         tasks = tasks[:a.limit]
-    print("tasks: %d domains to read, %d of them read before by an older reader (%d in resume file; refresh=%s)" % (len(tasks), len(again), len(done), a.refresh), flush=True)
+    print("tasks: %d domains to read, %d of them read before by an older reader (%d in resume file; refresh=%s); %d that could not be read before wait for their turn" % (len(tasks), len(again), len(done), a.refresh, waiting), flush=True)
     out_gz = a.out or os.path.join(a.repo, "data/incoming/claude/claude_org_extras.jsonl.gz")
     touched = set()
     stats = {}
@@ -1000,6 +1008,8 @@ def main():
                 res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"), v_tried=V)  # keep yesterday's facts when today's read fails; this version of the reader has had its try
             elif old and old.get("status") == "ok":
                 res = join_reads(old, res)
+            if res.get("status") != "ok":
+                tried.note(dom, res.get("status"))  # no record comes of this try: remembered, so that the next runs do not ask at once
             done[dom] = res
             touched.add(dom)
             stats[res["status"]] = stats.get(res["status"], 0) + 1
@@ -1009,6 +1019,7 @@ def main():
 
     whole = box.run(one, tasks, a.workers)
     state.final(str(dict(stats)))
+    tried.save(a.tried_out)
     if whole:
         print("finished", dict(stats), flush=True)
     else:  # no line "finished": the workflow reads that as "cut by the time box" and the merge starts the next run
