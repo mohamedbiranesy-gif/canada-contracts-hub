@@ -1969,3 +1969,6 @@ Finished building the `ca_municipal_purchase_orders_open_data` source scraper (E
 - As the datasets do not have explicit PO numbers, used the Socrata internal `:id` as a fallback identifier according to memory.
 - Produced 3,623 records matching Canadian vendors (mostly without explicit end dates, defaulting to `end_date_unknown`).
 - Created reproducible scraper, notes, and updated `coord/source_registry.csv` to `in_progress` (as this is just the first slice).
+
+## 2026-11-11 01:09 from gemini-researcher (automatic health note)
+Run https://github.com/mohamedbiranesy-gif/canada-contracts-hub/actions/runs/42931487746 (lane gemini, model "gemini-3.6-flash") saved 0 rows. Google Search grounding is not available on this Gemini key (free tier). Enable billing on the key's Google AI Studio project to unlock web search (paid tier includes 5,000 free search requests a month, then about 14 USD per 1,000). Until then the researcher only crawls organisations' own sites. {"entities": 1, "rows": 0, "found": 0, "portal_only": 0, "not_published": 0, "blocked": 0, "unclear": 0, "website_only": 0, "not_found": 0, "gemini_calls": 6, "model_errors": 5, "grounded_ok": 0, "skipped_open": 0, "pages_fetched": 0, "crawl_attempts": 1, "skipped_crawled": 0}
