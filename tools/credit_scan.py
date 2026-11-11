@@ -1125,6 +1125,12 @@ def scan_queue(k, n, limit=0):
         with gzip.open(UNIVERSE, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
                 add(r["dom"], 4, min(int(r.get("pages") or 0), 500))
+    try:  # 4. .ca names of the certificate logs (tools/ct_names.py): sites that hold a web certificate today and that no list above has
+        import ct_names as _CT
+        for d in _CT.ct_ca_names():
+            add(d, 4)
+    except Exception as e:
+        print("certificate-log .ca names not read: %s" % e, flush=True)
     if os.path.exists(GRAPH_CA):  # 5. .ca domains the web graph knows only as link targets (many are gone: one failed request each)
         with gzip.open(GRAPH_CA, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):

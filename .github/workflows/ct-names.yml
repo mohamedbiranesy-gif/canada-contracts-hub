@@ -1,0 +1,122 @@
+name: ct-names
+# Names of sites from the Certificate Transparency logs (tools/ct_names.py): every site that holds a web certificate is in them, whether or
+# not anybody links to it — the web graph the other lanes read knows 63 M domains on the endings shops use and 1 M of the 3.4 M .ca names.
+#   read  : the names tiles of the static logs that publish them (Let's Encrypt Sycamore / Willow, Geomys Tuscolo / Trastevere, IPng Gouda):
+#           one 6.5 KB file per 256 certificates; newest first, then backwards. A fixed total of requests a second per operator.
+#   merge : .ca names the lists on file do not have -> data/incoming/claude/credit_scan/ctca_<stamp>.gz (read by the home-page scan and the
+#           DNS lookups); names on the store sweep's endings -> release `harvest-state`, ct_list_<stamp>.txt.gz, each name listed once
+#           (Bloom filter ct_seen.bloom.zst in the same release, started with the web graph's names); validated subjects of organisations
+#           in Canada -> data/incoming/claude/ct_names/ov_ca_<stamp>.jsonl.gz. Then: the sweep of the new list (dns-services, mode
+#           ctsweep), and this workflow's next run while tiles are left to read.
+# No organisation's server is contacted. No AI, no search engine, no Mac.
+on:
+  schedule:
+    - cron: "49 */4 * * *"   # once the backwards reading is done: the tiles written since the last run
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel runners (1-6); the requests a second per operator are divided among them"
+        default: "3"
+      minutes:
+        description: "minutes per runner"
+        default: "150"
+      max_tiles:
+        description: "test: at most this many tiles per log and runner (0 = no limit; a test run publishes names but does not move the places in the logs)"
+        default: "0"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: ct-names
+  cancel-in-progress: false
+env:
+  SHARDS: ${{ inputs.shards || '3' }}
+  MINUTES: ${{ inputs.minutes || '150' }}
+  MAX_TILES: ${{ inputs.max_tiles || '0' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      stamp: ${{ steps.m.outputs.stamp }}
+      n: ${{ steps.m.outputs.n }}
+    steps:
+      - id: m
+        run: |
+          python3 -c "import os; n=max(1,min(6,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n)))); print('n=%d' % n)" >> "$GITHUB_OUTPUT"
+          echo "stamp=$(date -u +%Y%m%dT%H%M%S)" >> "$GITHUB_OUTPUT"
+
+  read:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: pip install -q requests
+      - name: Read the names tiles
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/ct_names.py read --shard ${{ matrix.k }}/${{ needs.plan.outputs.n }} --minutes $M --max-tiles "$MAX_TILES"
+          ls -la out
+      - uses: actions/upload-artifact@v4
+        with: { name: "ct-${{ matrix.k }}", path: out/, retention-days: 3, compression-level: 0 }
+
+  merge:
+    needs: [plan, read]
+    if: ${{ always() && needs.read.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "ct-*", path: shards, merge-multiple: true }
+      - name: Names -> lists (release), .ca names and the places in the logs -> main; start the sweep of the new list
+        env: { GH_TOKEN: "${{ github.token }}", STAMP: "${{ needs.plan.outputs.stamp }}" }
+        run: |
+          ls -la shards | head -40 || true
+          sudo mkdir -p /mnt/ct && sudo chown "$(id -u):$(id -g)" /mnt/ct
+          mkdir -p /mnt/ct/lists /mnt/ct/tmp
+          gh release download harvest-state -p 'ct_seen.bloom.*' -D /mnt/ct 2>/dev/null || echo "no Bloom filter in the release yet (first run)"
+          ls -la /mnt/ct
+          REL=$(python3 -c "import json; print(json.load(open('data/incoming/claude/credit_scan/sweep_cursor.json')).get('release') or '')" 2>/dev/null || true)
+          python3 tools/ct_names.py merge shards --stamp "$STAMP" --lists /mnt/ct/lists --bloom /mnt/ct/ct_seen.bloom --seed-release "$REL" --tmp /mnt/ct/tmp | tee /tmp/ct.txt
+          grep -q "^certificate logs:" /tmp/ct.txt || { echo "::error::the merge did not finish (see above): nothing is published"; exit 1; }
+          ls -la /mnt/ct/lists
+          # 1. the new lists to the release (the cursor that names them is pushed after: a list the cursor does not name is simply never asked)
+          for f in /mnt/ct/lists/ct_list_*.txt.gz /mnt/ct/lists/ct_xlist_*.txt.gz; do
+            [ -e "$f" ] && gh release upload harvest-state "$f" --clobber
+          done
+          # 2. the places in the logs, the .ca names and the validated subjects to main (this workflow is their only writer)
+          mkdir -p /tmp/ct_out/ct_names /tmp/ct_out/credit_scan
+          cp -r data/incoming/claude/ct_names/. /tmp/ct_out/ct_names/
+          cp "data/incoming/claude/credit_scan/ctca_${STAMP}.gz" /tmp/ct_out/credit_scan/ 2>/dev/null || true
+          git config user.name "ct-names"; git config user.email "ct-names@users.noreply.github.com"
+          pushed=0
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            mkdir -p data/incoming/claude/ct_names
+            cp -r /tmp/ct_out/ct_names/. data/incoming/claude/ct_names/
+            cp /tmp/ct_out/credit_scan/* data/incoming/claude/credit_scan/ 2>/dev/null || true
+            git add data/incoming/claude/ct_names data/incoming/claude/credit_scan/ctca_*.gz 2>/dev/null || git add data/incoming/claude/ct_names
+            git diff --cached --quiet && { echo "nothing new"; pushed=1; break; }
+            git commit -q -m "ct-names: $(grep -m1 '^certificate logs:' /tmp/ct.txt | cut -c18-150) [skip ci]"
+            git push -q origin HEAD:main && { pushed=1; break; }
+            sleep $((RANDOM % 12 + 3))
+          done
+          [ "$pushed" = "1" ] || { echo "::error::the places in the logs could not be pushed to main: the Bloom filter is not published, the next run lists these names again"; exit 1; }
+          # 3. only now the Bloom filter (had the push failed, the names of this run would be listed again by the next one, not lost)
+          gh release upload harvest-state /mnt/ct/lists/ct_seen.bloom.* --clobber
+          cat /tmp/ct.txt >> "$GITHUB_STEP_SUMMARY"
+          # the sweep of the lists not asked yet, and the next reading run while tiles are left
+          todo=$(python3 tools/dns_services.py sweep-plan --list auto | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
+          echo "sweep shards with work on a certificate-log list: $todo"
+          if [ "${todo:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=ctsweep" -f "inputs[shards]=4" -f "inputs[minutes]=150" || true; fi
+          left=$(python3 tools/ct_names.py left)
+          echo "tiles still to read: $left"
+          if [ "${left:-0}" -gt 2000 ] && [ "$MAX_TILES" = "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/ct-names.yml/dispatches" -f ref=main -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" || true; fi

@@ -18,6 +18,8 @@ name: dns-services
 #          host-level web graph holds for ordinary domains on the same endings and .ca, one question each (the address record); a host on
 #          Shopify's storefront network whose domain is not a known store is kept. Its own concurrency group: it runs beside the sweep and
 #          starts its next run until its eight shards are done.                                             (tools/dns_services.py hosts)
+# ctsweep: (mode=ctsweep) the sweep's two questions for the names of the certificate logs — every site that holds a web certificate, most of
+#          them unknown to the web graph (tools/ct_names.py publishes the lists as release assets; each list is swept once, oldest first).
 # Nothing here contacts the organisations' own servers. No AI, no search engine, no Mac.
 on:
   schedule:
@@ -34,7 +36,7 @@ on:
         description: "at most this many domains per runner (0 = no limit)"
         default: "0"
       mode:
-        description: "lookup | sweep | hosts"
+        description: "lookup | sweep | hosts | ctsweep"
         default: "lookup"
 permissions:
   contents: write
@@ -63,6 +65,8 @@ jobs:
             echo "matrix=$(python3 tools/dns_services.py sweep-plan --limit "$(python3 -c "import os; print(max(1,min(8,int(os.environ['SHARDS']))))")")" >> "$GITHUB_OUTPUT"
           elif [ "$MODE" = "hosts" ]; then
             echo "matrix=$(python3 tools/dns_services.py hosts-plan --limit "$(python3 -c "import os; print(max(1,min(8,int(os.environ['SHARDS']))))")")" >> "$GITHUB_OUTPUT"
+          elif [ "$MODE" = "ctsweep" ]; then   # the oldest list of certificate-log names with a shard left (tools/ct_names.py publishes the lists)
+            echo "matrix=$(python3 tools/dns_services.py sweep-plan --list auto --limit "$(python3 -c "import os; print(max(1,min(8,int(os.environ['SHARDS']))))")")" >> "$GITHUB_OUTPUT"
           else
             python3 -c "import os; n=max(1,min(8,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
           fi
@@ -109,6 +113,9 @@ jobs:
             python3 tools/dns_services.py sweep --shard ${{ matrix.k }}/8 --minutes $M --workers 400 --resolver 127.0.0.1:5353 --qps 340
           elif [ "$MODE" = "hosts" ]; then
             python3 tools/dns_services.py hosts --shard ${{ matrix.k }}/8 --minutes $M --workers 400 --resolver 127.0.0.1:5353 --qps 600
+          elif [ "$MODE" = "ctsweep" ]; then
+            # the same two questions as the sweep, asked of the names the certificate logs brought (sites the web graph does not know)
+            python3 tools/dns_services.py sweep --list auto --shard ${{ matrix.k }}/8 --minutes $M --workers 400 --resolver 127.0.0.1:5353 --qps 340
           else
             python3 tools/dns_services.py lookup --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 400 --limit "$LIMIT" --resolver 127.0.0.1:5353 --qps 600
           fi
@@ -149,6 +156,10 @@ jobs:
             left=$(python3 tools/dns_services.py sweep-plan --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "sweep shards with work left: $left"
             if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=sweep" -f "inputs[shards]=4" -f "inputs[minutes]=$MINUTES" || true; fi
+          elif [ "$MODE" = "ctsweep" ]; then
+            left=$(python3 tools/dns_services.py sweep-plan --list auto --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
+            echo "shards with work left on a certificate-log list: $left"
+            if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=ctsweep" -f "inputs[shards]=4" -f "inputs[minutes]=$MINUTES" || true; fi
           elif [ "$MODE" = "hosts" ]; then
             left=$(python3 tools/dns_services.py hosts-plan --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "host sweep shards with work left: $left"

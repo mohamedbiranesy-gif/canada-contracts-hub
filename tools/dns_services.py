@@ -252,6 +252,12 @@ def queue(k, n, limit=0):
             with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
                 for r in csv.DictReader(fh):
                     add(r["dom"], pri)
+    try:  # .ca names of the certificate logs (tools/ct_names.py): live sites the lists above do not have
+        import ct_names as _CT
+        for d in _CT.ct_ca_names():
+            add(d, 3)
+    except Exception as e:
+        print("certificate-log .ca names not read: %s" % e, flush=True)
     # store candidates (1.3 M domains that link to Shopify, most of them abroad): only the question that matters for them — is the domain on
     # Shopify's storefront addresses? (A record + the www alias: 2 queries, a 40-byte record). Asked before the .ca lists of pri 3-4.
     if os.path.exists(CS.GRAPH_SHOP):
@@ -680,8 +686,39 @@ def stalled(d, pattern):
     return bool(objs) and any(o.get("stopped_unanswered") for o in objs) and not any(int(o.get("asked") or 0) for o in objs)
 
 
+# 2026-11-11: a second kind of list for the same two questions — the names of the certificate logs (tools/ct_names.py: every site that holds a
+# web certificate, 100 M+ names the web graph does not have; published as assets ct_list_<stamp>.txt.gz of the release `harvest-state`, in
+# the web graph's own line format). `sweep --list auto` takes the oldest list whose eight shards are not all done; its places are kept apart
+# under "ct" in the cursor file, one entry per list (a list is never rewritten, so a place in it stays meaningful).
+CT_RELEASE = "harvest-state"
+
+
+def ct_lists():
+    """the published lists of certificate-log names for the store sweep, oldest first (the certificate engine's own cursor names them)"""
+    try:
+        import ct_names as CT
+        return [x["name"] for x in (CT.cursor().get("lists") or []) if x.get("group") == "sw" and x.get("name")]
+    except Exception:
+        return []
+
+
+def ct_current(cur, name="auto"):
+    """(list, its places) — the list asked for, or the oldest one with a shard left; (None, {}) when every list is done"""
+    st = (cur.get("ct") or {}).get("lists") or {}
+    for x in ([name] if name and name != "auto" else ct_lists()):
+        c = st.get(x) or {}
+        if any(not (c.get("complete") or {}).get(str(k)) for k in range(SWEEP_SHARDS)):
+            return x, c
+    return None, {}
+
+
 def sweep_plan(a):
     """the sweep shards that still have work, least advanced first (for the workflow's matrix)"""
+    if getattr(a, "list", ""):
+        name, c = (None, {}) if (a.after and stalled(a.after, "ctsweep_cursor_*.json")) else ct_current(sweep_cursor(), a.list)
+        left = sorted((k for k in range(SWEEP_SHARDS) if not (c.get("complete") or {}).get(str(k))), key=lambda k: (int((c.get("pos") or {}).get(str(k), 0)), k)) if name else []
+        print(json.dumps(left[:max(1, a.limit or SWEEP_SHARDS)]))
+        return
     left = [] if (a.after and stalled(a.after, "sweep_cursor_*.json")) else sweep_left(sweep_cursor())
     print(json.dumps(left[:max(1, a.limit or SWEEP_SHARDS)]))
 
@@ -696,6 +733,14 @@ def sweep(a):
     k, n = int(a.shard.split("/")[0]), SWEEP_SHARDS
     os.makedirs("out", exist_ok=True)
     cur = sweep_cursor()
+    ct_list = ""
+    if getattr(a, "list", ""):  # a list of certificate-log names: its own places, both questions from its first name on
+        ct_list, c = ct_current(cur, a.list)
+        if not ct_list:
+            print("certificate-log lists: nothing left to sweep", flush=True)
+            return
+        cur = {"release": ct_list, "tlds": list(SWEEP_TLDS), "rev": SWEEP_REV, "pos": c.get("pos") or {}, "complete": c.get("complete") or {},
+               "ns_from": {str(x): 0 for x in range(SWEEP_SHARDS)}, "ns_complete": {str(x): True for x in range(SWEEP_SHARDS)}}
     if int(cur.get("rev") or 1) < SWEEP_REV:  # places reached with the resolver that dropped half its questions: the list starts again
         cur = {x: cur[x] for x in ("release", "tlds") if x in cur}
     rel = cur.get("release") or (a.release if a.release and a.release != "auto" else CS.newest_graph())
@@ -710,8 +755,11 @@ def sweep(a):
              "ns_from": ns_from, "ns_pos": ns_pos, "ns_complete": bool((cur.get("ns_complete") or {}).get(str(k))) or ns_from == 0, "ns_asked": 0, "ns_hits": 0, "watch": len(watch),
              "rev": SWEEP_REV, "by_public": 0}
 
+    if ct_list:
+        state["list"] = ct_list
+
     def save():
-        with open("out/sweep_cursor_%d.json" % k, "w", encoding="utf-8") as fo:
+        with open("out/%s_cursor_%d.json" % ("ctsweep" if ct_list else "sweep", k), "w", encoding="utf-8") as fo:
             json.dump(state, fo)
     save()
     catch_up = state["complete"] and not state["ns_complete"] and bool(watch)
@@ -720,7 +768,8 @@ def sweep(a):
         return
     work = next((d for d in (os.environ.get("RUNNER_TEMP") or "", ".") if d and os.access(d, os.W_OK)), ".")
     vfile = os.path.join(work, "vertices.txt.gz")
-    url = a.base or "%sprojects/hyperlinkgraph/%s/domain/%s-domain-vertices.txt.gz" % (CCL.CC, rel, rel)
+    url = a.base or ("https://github.com/%s/releases/download/%s/%s" % (os.environ.get("GITHUB_REPOSITORY") or "mohamedbiranesy-gif/canada-contracts-hub", CT_RELEASE, ct_list) if ct_list
+                     else "%sprojects/hyperlinkgraph/%s/domain/%s-domain-vertices.txt.gz" % (CCL.CC, rel, rel))
     t0 = time.time()
     if url.startswith("http"):
         subprocess.run(["curl", "-sS", "-L", "--fail", "--retry", "10", "--retry-delay", "10", "--retry-all-errors", "-C", "-", "-A", CCL.UA, "-o", vfile, url], check=True)
@@ -1207,6 +1256,38 @@ def merge(a):
             print("sweep of graph %s (%s): +%d domains asked, +%d stores this run (%d without an answer, %d answered by the public resolvers); %d asked, %d stores and %d domains served by a "
                   "watched provider so far; shards finished: %d of %d" % (cur.get("release"), ",".join(cur.get("tlds") or []), asked, stores, no_answer, by_public, cur["asked"], cur["stores_found"],
                                                                          int(cur.get("ns_hits") or 0), len(cur["complete"]), SWEEP_SHARDS))
+    tfiles = sorted(glob.glob(os.path.join(a.dir, "ctsweep_cursor_*.json")))
+    if tfiles:  # the sweep of a certificate-log list: where each shard stopped (single writer: this merge; key "ct" of the cursor file)
+        cur = sweep_cursor()
+        ct = cur.setdefault("ct", {})
+        lists = ct.setdefault("lists", {})
+        asked = stores = hits = no_answer = 0
+        names = set()
+        for cf in tfiles:
+            try:
+                o = json.load(open(cf, encoding="utf-8"))
+            except Exception:
+                continue
+            if int(o.get("rev") or 1) < SWEEP_REV or not o.get("list"):
+                continue
+            c = lists.setdefault(o["list"], {"pos": {}, "complete": {}})
+            ks = str(o["shard"])
+            c["pos"][ks] = max(int(c["pos"].get(ks, 0)), int(o.get("pos") or 0))
+            if o.get("complete"):
+                c["complete"][ks] = True
+            for x, y in (("asked", "asked"), ("stores_found", "stores"), ("ns_hits", "ns_hits"), ("no_answer", "no_answer")):
+                c[x] = int(c.get(x) or 0) + int(o.get(y) or 0)
+            asked += int(o.get("asked") or 0); stores += int(o.get("stores") or 0); hits += int(o.get("ns_hits") or 0); no_answer += int(o.get("no_answer") or 0)
+            names.add(o["list"])
+        if names:
+            for x, v in (("asked", asked), ("stores_found", stores), ("ns_hits", hits), ("no_answer", no_answer)):
+                ct[x] = int(ct.get(x) or 0) + v
+            ct["updated"] = time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())
+            with open(CURSOR, "w", encoding="utf-8") as f:
+                json.dump(cur, f, indent=1, sort_keys=True)
+            print("sweep of the certificate-log names (%s): +%d domains asked, +%d stores, +%d served by a watched provider this run (%d without an answer); %d asked, %d stores and %d "
+                  "provider hits so far; lists done: %d of %d" % (", ".join(sorted(names)), asked, stores, hits, no_answer, ct["asked"], ct["stores_found"], ct["ns_hits"],
+                                                                 sum(1 for x in ct_lists() if all((lists.get(x, {}).get("complete") or {}).get(str(k)) for k in range(SWEEP_SHARDS))), len(ct_lists())))
     hfiles = sorted(glob.glob(os.path.join(a.dir, "hosts_cursor_*.json")))
     if hfiles:  # the host sweep: where each shard stopped (single writer: this merge; its own key of the cursor file)
         cur = sweep_cursor()
@@ -1363,6 +1444,7 @@ def main():
     ap.add_argument("--release", default="auto", help="sweep: the web graph release (default: the one the sweep started with, else the newest)")
     ap.add_argument("--base", default="", help="sweep: URL or local path of the vertices file (tests)")
     ap.add_argument("--after", default="", help="sweep-plan / hosts-plan: the directory of the run that just ended — no shard is planned when that run got no answers at all")
+    ap.add_argument("--list", default="", help="sweep / sweep-plan: a list of certificate-log names instead of the web graph ('auto' = the oldest list not finished; tools/ct_names.py)")
     a = ap.parse_args()
     if a.cmd == "hosts":
         return hosts_sweep(a)

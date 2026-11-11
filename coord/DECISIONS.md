@@ -1163,3 +1163,35 @@ three names were read on a page today, URL and quote kept: Canada Post Corporati
 called the Canada Post Corporation", Canada Post Corporation Act, s. 4), The Manitoba Hydro-Electric Board ("continued by this Act and
 otherwise referred to as Manitoba Hydro"), Municipal Property Assessment Corporation (its own About page). BC Hydro, NB Power, SaskPower
 and Qulliq stay without one: their statutes' sites keep the reader out or were not found; nothing is written from memory.
+
+## 2026-11-11 05:35Z — site names from the Certificate Transparency logs (a new source of names for three lanes)
+**Why.** The lanes that grow the table are limited by the NAMES they can ask: the registry class reads `.ca` sites, the store sweep asks
+which domains sit on Shopify's storefront network, the DNS lane asks whose zone a Canadian provider serves. The names came from Common
+Crawl's web graph — domains somebody links to: 63 M on the endings shops use, 1.05 M of the ~3.4 M registered `.ca` names — plus one
+public list. A site nobody links to is in neither, and most small shops are such sites. Every HTTPS site is in the Certificate
+Transparency logs: browsers only trust a certificate that was published there. Measured today on 1.9 M certificates of the newest tiles:
+6,233 distinct `.ca` names, **2,833 of them (45 %) on no list we hold**; 385,000 distinct names on the store sweep's endings.
+**What is read.** Only the *names tiles* of the static logs that publish them (Let's Encrypt Sycamore and Willow, Geomys Tuscolo and
+Trastevere, IPng Gouda): one gzip file of JSON lines per 256 certificates, 6.5 KB, made by the logs' author for readers that want the
+names and nothing else (ct-policy list, "The names tiles Static CT API extension"). Full tiles (170–440 KB) are not read. Which logs a
+certificate is in was measured on final certificates found in four logs: Let's Encrypt, Google Trust Services, ZeroSSL and Sectigo give
+each certificate one SCT of an RFC 6962 log and one of a static log chosen among Sycamore, Willow, Tuscolo, Halloumi and Gouda — a site
+that renews twice is in one of the four read here with about 96 %. **Not seen:** certificates of GoDaddy, DigiCert, Amazon and Microsoft
+(RFC 6962 logs only), and whatever sits only in IPng Halloumi or Google's static logs (no names tiles).
+**Rule 9 (at most 2 requests a second per host) and these hosts.** The rule protects the web servers of the organisations we read. A
+certificate log is a public archive whose files are immutable, served through a CDN and meant to be mirrored whole by monitors — the same
+kind of host as Common Crawl's bucket and the public resolvers, which the engines already read at the rate their operators publish them
+for. It still gets a fixed budget, small against what such a host serves: **Let's Encrypt 90 requests a second per log service, Geomys
+30, IPng 20 — for all runners of a run together** (about 0.6 MB, 0.2 MB and 0.13 MB a second), an identified user agent that says what
+is read, half the rate for the rest of the run after any 429 / 503, and a direction that stops where a tile cannot be had. Newest tiles
+first; of the shard whose certificates are about to expire only the newest 40 %. About 21 M tiles: one to two days.
+**What is kept.** Names, cut to the registrable domain. (1) `.ca` names no list has → `credit_scan/ctca_<stamp>.gz`, read by the
+home-page scan and the DNS lookups like every other `.ca` name: such a site is delivered only when its own pages print a role mailbox,
+as before. (2) Names on the store sweep's endings → lists published as release assets, each name once (a Bloom filter, started with the
+web graph's names so the two sweeps do not ask a domain twice); `dns-services` mode `ctsweep` asks them the sweep's two questions.
+Names on 27 other endings shops use are listed apart and not asked yet. (3) The subject of a certificate whose organisation a
+certificate authority validated, country CA (O=, L=, ST=) → `ct_names/ov_ca_<stamp>.jsonl.gz`. **Not used yet:** a certificate's subject
+is its subscriber, which can be a host or a CDN that covers its customers' names; a rule of its own will take it as a legal name only
+when it carries the organisation's own name (the rule already applied to trademark notices).
+**What a name is not.** A name in a log is not a relationship and not a fact about any organisation: it is a place to look. Nothing
+is delivered from it alone.
