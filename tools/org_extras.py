@@ -313,6 +313,8 @@ PROV3 = re.compile(r"(?i)(?:qu[ée]bec|canada|ontario|alberta|manitoba|saskatche
 DBA3 = re.compile(r"\s*[,(]?\s*(?:operating as|doing business as|carrying on business as|trading as|o/a|d/b/a|d\.b\.a\.?|dba|faisant affaires? sous(?: le nom| la raison sociale| la d[ée]nomination(?: sociale)?)?(?: de)?|"
                   r"op[ée]rant sous le nom(?: de)?|exploitant l['’]entreprise)\s*[:\-–]?\s*[\"“«‘']?\s*", re.I)
 ALIAS3 = re.compile(r"\s*,?\s*\(\s*(?:hereinafter|hereafter|ci-apr[èe]s|collectively|together|referred to as|d[ée]sign[ée]e? (?:comme|par)|the|la|le|l['’]|,|\s)*[\"“«‘']\s*([^\"”»’'()]{2,40}?)\s*,?\s*[\"”»’'](?=[^()]{0,70}\b(?:we|us|our|nous|notre|nos)\b)", re.I)
+STORE_LABEL3 = re.compile(r"(?:Trade name|Business name|Company name|Nom commercial|Nom de l['’]entreprise|Nom de la soci[ée]t[ée])\s*[:：]\s*", re.I)
+STORE_NEXT3 = re.compile(r"\s+(?:Phone number|Phone|Email|E-mail|Courriel|Physical address|Address|Adresse(?: physique)?|VAT number|Num[ée]ro|Trade register|Business number|T[ée]l[ée]phone)\b", re.I)
 LABELLED3 = re.compile(r"(?:Legal (?:Entity|Name)|Registered (?:Company |Business )?Name|Company Legal Name|Raison sociale|D[ée]nomination sociale|Nom l[ée]gal(?: de l['’]entreprise)?)\s*[:：]\s*", re.I)
 OPER3 = re.compile(r"(?:(?:owned and )?operated|published|(?:d[ée]tenue?s? et )?exploit[ée]e?s?|[ée]dit[ée]e?s?)\s+(?:by|par)\s*:?\s*(?:the\s+|la\s+|le\s+|l['’]\s*)?[\"“«]?\s*", re.I)
 SHOPIFY3 = re.compile(r"cdn\.shopify\.com|Shopify\.(?:shop|theme|routes)\b|\.myshopify\.com", re.I)
@@ -608,6 +610,19 @@ def party_name(text, host):
         ws = cand.split(" ")
         if 2 <= len(ws) <= 9 and all(_W3.match(w.rstrip(",")) or w.lower() in _J3 or SUF3.fullmatch(w) for w in ws) and not THIRD3.search(cand):
             return _trim_form3(cand), "", "labelled as the legal entity", m.end()
+    # 2026-11-11: the "Contact information" page every Shopify store can publish prints what the merchant entered under fixed labels — "Trade
+    # name: Infinite Polymer Solutions Inc. Phone number: … Email: … Physical address: …". A value that carries a legal form is the legal
+    # person's name (a value without one is the name the store trades under: not taken here). The reader took nothing from that page.
+    for m in STORE_LABEL3.finditer(text):
+        seg = text[m.end():m.end() + 110]
+        seg = STORE_NEXT3.split(seg, 1)[0]
+        mm = SUF3.search(seg)
+        if not mm:
+            continue
+        cand = seg[:mm.end()].strip()
+        ws = cand.split(" ")
+        if 2 <= len(ws) <= 9 and all(_W3.match(w.rstrip(",")) or w.lower() in _J3 or SUF3.fullmatch(w) or NUMBERED3.match(w) for w in ws) and not THIRD3.search(cand):
+            return _trim_form3(cand), "", "named with its legal form under the label “%s” of the store's own contact information" % re.sub(r"\s*[:：]\s*$", "", m.group(0)).strip(), m.end()
     return None
 
 
@@ -714,6 +729,7 @@ def read_site(site, kind, name="", start_url=""):
                 break
     picked = sorted(seen, key=lambda u: (not LEGAL_PAGE.search(u), len(u)))[:5]
     if SHOPIFY3.search(raw0):
+        res["store_rule"] = 1  # read with the store template's labels (party_name, 2026-11-11): main() reads again the stores read before that
         # v3: a store on Shopify keeps its policies at fixed addresses, linked from the home page or not; the legal notice and the contact
         # information policy print the legal entity, its address and its business number (the store's robots.txt opens its policy pages)
         base = "%s://%s" % (urllib.parse.urlparse(final).scheme, urllib.parse.urlparse(final).netloc)
@@ -893,6 +909,13 @@ def settle(d):
     return "removed"
 
 
+def stale_store(old):
+    """a store whose policy pages were read before the reader knew the labels of the store's contact-information page, and that has no legal
+    name of any kind: read once more (the new record carries store_rule, so once only)"""
+    return bool(old and old.get("status") == "ok" and "/policies/" in (old.get("pages_read") or "") and not old.get("store_rule")
+                and not any(old.get(k) for k in ("legal_name_party", "legal_name_stated", "legal_name_spelled", "legal_name_operator", "jsonld_legal_name")))
+
+
 def done_for(done, key, h):
     """the record of this site, if this very host was read: under its own key, or — read before 2026-11-10 — under its registrable domain.
     A record kept under the host's name but read on another host of the domain (the domain's record, read on bookstore.upei.ca, is not
@@ -965,7 +988,7 @@ def main():
         if dom in seen:
             continue
         old = done_for(done, dom, h)
-        if old is not None and not (a.refresh and ((int(old.get("v") or 1) < V and int(old.get("v_tried") or 0) < V) or (old.get("status") in RETRY_STATUS and not a.older_only))):
+        if old is not None and not (a.refresh and ((int(old.get("v") or 1) < V and int(old.get("v_tried") or 0) < V) or (old.get("status") in RETRY_STATUS and not a.older_only) or stale_store(old))):
             continue
         if old is None and a.older_only:
             continue
@@ -1019,7 +1042,7 @@ def main():
             if old and _host_of_site(old.get("website")) not in ("", _host_of_site(res.get("website"))):
                 old = None  # the record under this key was read on another host of the domain: this host's own record replaces it, facts are not mixed
             if old and old.get("status") == "ok" and res.get("status") != "ok":
-                res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"), v_tried=V)  # keep yesterday's facts when today's read fails; this version of the reader has had its try
+                res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"), v_tried=V, **({"store_rule": 1} if stale_store(old) else {}))  # keep yesterday's facts when today's read fails; this version of the reader has had its try
             elif old and old.get("status") == "ok":
                 res = join_reads(old, res)
             if res.get("status") != "ok":

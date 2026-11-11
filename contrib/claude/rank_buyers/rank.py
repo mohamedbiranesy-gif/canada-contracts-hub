@@ -2584,9 +2584,11 @@ for x in rows:
             # dealers' sites, a platform's terms), unless it is this organisation's own
             _pn, _pt, _ph = re.sub(r"\s+", " ", b.get("legal_name_party") or "").strip(), (b.get("legal_name_party_trade") or "").strip(), b.get("legal_name_party_how") or ""
             if _pn and not generic_only_name(_pn) and not _PLATFORM_CO.search(_pn) and _own(b.get("legal_name_party_url")) and (not (norm(_pn) in NAME_ON_MANY or _AGENCY_CO.search(_pn)) or name_overlap(_pn, x.get("buyer") or "", _site)) and (
-                    name_overlap(_pt, x.get("buyer") or "", _site) if _pt else _ph.startswith("labelled")):
+                    name_overlap(_pt, x.get("buyer") or "", _site) if _pt else _ph.startswith(("labelled", "named with its legal form under the label"))):
                 ln = _pn
-                basis = ("stated on %s: %s “%s”, as the legal person doing business under the site's name" % (b.get("legal_name_party_url"), _ph, _pt)) if _pt else ("stated on %s: labelled there as the legal entity, as the site's operator" % b.get("legal_name_party_url"))
+                basis = (("stated on %s: %s “%s”, as the legal person doing business under the site's name" % (b.get("legal_name_party_url"), _ph, _pt)) if _pt else
+                         ("stated on %s: %s, as the site's operator" % (b.get("legal_name_party_url"), _ph)) if _ph.startswith("named with its legal form") else
+                         ("stated on %s: labelled there as the legal entity, as the site's operator" % b.get("legal_name_party_url")))
                 n_ox["buyer_legal_name_v3_legal_person_behind_the_site_name"] += 1
         if not ln and not _reg_cell:
             _on = re.sub(r"\s+", " ", b.get("legal_name_operator") or "").strip()
