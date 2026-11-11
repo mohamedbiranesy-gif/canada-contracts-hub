@@ -798,7 +798,7 @@ LINK_STOP = re.compile(r"(^|\.)(google|googleapis|gstatic|googletagmanager|googl
                        r"creativecommons|wikipedia|wikimedia|archive|adobe|adobedtm|mapbox|openstreetmap|gmpg|rawgit|github|githubusercontent|bit|tinyurl|linktr|youtube-nocookie|"
                        r"paypal|paypalobjects|stripe|yelp|tripadvisor|trustpilot|spotify|soundcloud|canva|zoom|eventbrite|issuu|dropbox|statcounter|hotjar|clarity|newrelic|nr-data)"
                        r"\.[a-z.]{2,7}$", re.I)
-LINK_PATH = re.compile(r"(^|\.)(bbb\.org|canadahelps\.org|getjobber\.com|amilia\.com|showpass\.com|raceroster\.com|webrez\.com|clio\.com|checkfront\.com|rezgo\.com|tbdine\.com|libroreserve\.com|"
+LINK_PATH = re.compile(r"(^|\.)(owlpractice\.ca|bbb\.org|canadahelps\.org|getjobber\.com|amilia\.com|showpass\.com|raceroster\.com|webrez\.com|clio\.com|checkfront\.com|rezgo\.com|tbdine\.com|libroreserve\.com|"
                        r"gorendezvous\.com|lepointdevente\.com|skipthedishes\.com|chronogolf\.com|qidigo\.com|cognisantmd\.com|medeohealth\.com|wellnessliving\.com|membee\.com|keela\.co|e2rm\.com|"
                        r"akaraisin\.com|trellis\.org|myhelcim\.com|moneris\.com|bambora\.com|pheedloop\.com|eventmobi\.com|universe\.com|ticketpro\.ca|trackie\.com|zone4\.ca|uplifterinc\.com|"
                        r"powerupsports\.com|rampinteractive\.com|booxi\.com|petalmd\.com|carfax\.ca|autotrader\.ca|kijiji\.ca|homestars\.com|houzz\.com|indeed\.com|jobillico\.com|charityvillage\.com)$", re.I)
@@ -1847,6 +1847,41 @@ def merge(a):
                 by_host.add(site)
                 n_c += 1
                 stats["vetted service candidates: " + vk] += 1
+        # 2026-11-11: the outside links the scan keeps for every home page (detector 5: links_<stamp>.gz) name the site's account at a vetted service
+        # too. A vendor vetted after a page was read gets its candidates from the links on file — no new read of the page; the candidate reader
+        # then reads the site (role mailbox, address in the vendor's scope) and checks that the account is the site's own.
+        try:
+            import tech_relationships as _T
+            for lf in sorted(glob.glob(os.path.join(DIR, "links_*.gz"))):
+                _day = re.sub(r"^(\d{4})(\d\d)(\d\d).*$", r"\1-\2-\3", os.path.basename(lf)[6:])
+                with gzip.open(lf, "rt", encoding="utf-8", errors="replace") as fh:
+                    for l in fh:
+                        q = l.rstrip("\n").split("\t")
+                        if len(q) < 3 or not q[0] or q[0] in by_host or q[0] in lead_hosts:
+                            continue
+                        site = q[0]
+                        for key in q[1].split() + q[2].split():
+                            hits = [h for h in _T.portal_hits("https://" + key) if h[0] != "shopify"]
+                            if not hits:
+                                continue
+                            vk, slug, purl = hits[0]
+                            ck = "t:%s:%s" % (vk, slug)
+                            if ck in cands:  # the same account linked from another site, or a portal host shared by every customer: one candidate per site
+                                ck = "t:%s:%s" % (vk, site)
+                            if ck in cands:
+                                break
+                            nm = (q[3].split("|")[0] if len(q) > 3 else "").strip()
+                            cands[ck] = {"cand_key": ck, "vendor_key": vk, "name": nm, "website": "https://%s/" % site, "evidence_url": "https://%s/" % site, "capture": _day,
+                                         "name_basis": "og:site_name / title of the organisation's own home page" if nm else "",
+                                         "website_basis": "the organisation's own home page links its account at the service: %s (https://%s/, read %s)" % (key[:120], site, _day),
+                                         "slug": slug, "extra": json.dumps({"seen_on": "https://%s/" % site, "via": "link on the home page (%s)" % key[:120], "portal": purl,
+                                                                            "portal_check": 1 if vk == "jane" else 0}, ensure_ascii=False)}
+                            by_host.add(site)
+                            n_c += 1
+                            stats["vetted service candidates (links on file): " + vk] += 1
+                            break
+        except Exception as e:
+            print("candidates from the links on file skipped: %s" % e)
         if n_c:
             with gzip.open(CT.CANDS, "wt", encoding="utf-8", newline="") as fh:
                 w = csv.DictWriter(fh, fieldnames=CT.CAND_COLS)

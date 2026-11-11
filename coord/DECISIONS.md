@@ -1141,3 +1141,25 @@ Read in the published build of 01:51Z (242,292 rows) while checking the legal-na
   list of active licences …)" flagged every register name — 5,266 cells flagged, of which 241 for the name itself, most of them names
   that begin with a small letter by design — while the furniture above passed. It now reads the name only (the source is the bracket
   that ends the cell) and looks for furniture: 372 cells on the same build, all of them faults.
+
+## 2026-11-11 04:13Z — five more services vetted from the scan's own counts; candidates from the links on file; the inferred vendors' names
+**Found, not guessed.** The scan's link detector (first cycle, 445,303 home pages) counts the sites that link their own account at a
+service. The services with the most such sites whose own pages could be read were read today (terms, pricing, contact — each quote is in
+tools/tech_relationships.py): **Owl Practice** (Owl Practice Inc., Toronto; subscription; 353 sites), **GOrendezvous** (Montréal; 59 $ and
+69 $ a month; 472), **Rezgo** (Sentias Software Corp. dba Rezgo, British Columbia; no monthly fee, a fee on every booking; 367),
+**WebRezPro** (World Web Technologies Inc., Calgary; property-management subscription; 200), **Juvonno** (Global Office Software Inc.,
+Winnipeg; from 55 $ a month; 137). Read and not taken, each for its reason: RAMP InterActive, Clio and Spordle refuse the reader;
+SkipTheDishes, CARFAX Canada, Moneris and Libro keep it out by robots.txt; Noterro's and Medeo's terms sit behind scripts; Keela's pages
+print no address; Ocean's referrals are free to send and the price of its patient forms was not read; CanadaHelps keeps its fee from
+the gift before passing it on (the charity is never billed). Scope by country in tools/cc_tenants.py SCOPE.
+**Candidates from the links on file.** The links the scan keeps per home page name the account at a vetted service whether or not the
+vendor was vetted when the page was read: the credit-scan merge now makes candidates from them (run in a copy: 3,950 new candidates from
+one cycle's links — Jane 1,599, Checkfront 540, GOrendezvous 277, Owl Practice 273, Jobber 227, BiblioCommons 221, Rezgo 137, KEV 127,
+Juvonno 101, WebRezPro 83 …). The candidate reader does the rest as for every candidate: role mailbox, address in the vendor's scope,
+and the account must be the site's own (a practitioner's page that links the clinic's booking page is not the vendor's customer).
+**The inferred vendors' names** (tier I, 18,053 rows, vendor legal name 0 %). An inferred vendor is that organisation — the inference is
+about the relationship: its register entry is looked up under its name (Hydro-Québec: REQ, NEQ 8811141181, registered office), and
+three names were read on a page today, URL and quote kept: Canada Post Corporation ("There is hereby established a corporation to be
+called the Canada Post Corporation", Canada Post Corporation Act, s. 4), The Manitoba Hydro-Electric Board ("continued by this Act and
+otherwise referred to as Manitoba Hydro"), Municipal Property Assessment Corporation (its own About page). BC Hydro, NB Power, SaskPower
+and Qulliq stay without one: their statutes' sites keep the reader out or were not found; nothing is written from memory.

@@ -3421,9 +3421,15 @@ def reg_record_is_rows(b, x):
             return agrees()
     return True  # a company's registered name (often a numbered company's): it stays with the row it was matched to
 n_cbr = collections.Counter()
+_CBR_BUYER_NAME = {}
+for _r in CBR["buyer"].values():  # the register's records of buyers, by the name they were looked up under (for a vendor that is also a buyer on file)
+    _CBR_BUYER_NAME.setdefault(norm(_r.get("name") or ""), _r)
 for x in rows:
     vn = x.get("vendor") or ""
-    c = CBR["vendor"].get(norm(vn)) if vn and not vn.startswith("inferred") else None
+    # 2026-11-11: an inferred vendor ("inferred: Hydro-Québec") is that organisation — the inference is about the relationship, not about who the
+    # vendor is: its register entry is looked up under its name, also where the register tool met it as a buyer (18,053 tier-I rows had no vendor legal name)
+    _vq = re.sub(r"^inferred:\s*", "", vn)
+    c = (CBR["vendor"].get(norm(_vq)) or (_CBR_BUYER_NAME.get(norm(_vq)) if vn.startswith("inferred") else None)) if _vq else None
     if c and form_class(vn) and form_class(c.get("matched_name") or "") and form_class(vn) != form_class(c.get("matched_name") or ""):
         n_cbr["vendor_skipped_legal_form"] += 1; c = None  # reviewer 2026-11-08: Smythe LLP is not Smythe Inc.
     if c:
@@ -3674,10 +3680,13 @@ if os.path.exists(_vnr):
             VNR[_r["domain"].strip().lower()] = _r
 n_vln = collections.Counter()
 for x in rows:
-    if x.get("vendor_legal_name") or (x.get("vendor") or "").startswith("inferred"):
+    if x.get("vendor_legal_name"):
         continue
+    _inf = (x.get("vendor") or "").startswith("inferred")
     _vd = registrable(host_of(x.get("vendor_website") or "") or "")
-    _r = VNR.get(_vd) or VNR.get(re.sub(r"\s+", "", (x.get("vendor") or "").lower()))
+    _r = VNR.get(_vd) or VNR.get(re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKD", re.sub(r"\s*\([^()]*\)\s*$", "", re.sub(r"^inferred:\s*", "", x.get("vendor") or ""))).encode("ascii", "ignore").decode().lower()))
+    if not _r and _inf:
+        continue  # an inferred vendor's name is ours, not a source's: only a name read on a page (the table above) or a register (below) is printed
     if _r:
         x["vendor_legal_name"] = "%s (stated on %s: “%s”; %s, read %s)" % (_r["legal_name"], _r["url"], re.sub(r"\s+", " ", _r["quote"]).replace("(", "[").replace(")", "]")[:220], _r.get("how") or "read on the vendor's own page", _r.get("read_date") or "")
         if _r.get("trading_name") and not x.get("vendor_trading_name"):

@@ -229,6 +229,56 @@ VENDORS = {
                             portal_fmt="https://www.chronogolf.com/club/%s", excl=set(),
                             scope="Lightspeed's own table of contracting entities: \"Lightspeed Golf Europe Lightspeed Netherlands B.V. … Rest of World Lightspeed Commerce Inc. "
                                   "Quebec, Canada\" (https://www.lightspeedhq.com/legal/lightspeed-service-agreement/, section III, read 2026-11-10): clubs in Europe are left out"),
+    # ---- vetted 2026-11-11 from each vendor's own pages (opened that day from the cloud session, robots.txt obeyed). Found, not guessed: the scan's
+    # link detector (tools/credit_scan.py, detector 5) counted the home pages that link their own account at each service (445,303 pages in its
+    # first cycle: Rezgo 367, Owl Practice 353, GOrendezvous 472, WebRezPro 200, Juvonno 137). Read and NOT taken: RAMP InterActive, Clio, Spordle
+    # (their sites refuse the reader), SkipTheDishes, CARFAX Canada, Moneris, Libro (robots.txt), Noterro, Medeo (terms behind scripts), Keela (its
+    # pages print no address), Ocean (sending referrals "is always free"; the price of the patient forms not read yet).
+    "owlpractice": dict(name="Owl Practice", legal="Owl Practice Inc.", kind="portal",
+                        hq_url="https://owlpractice.ca/privacy-policy/",
+                        hq="by mail at: Owl Practice Inc 345-150 King Street West Toronto, ON M5H 1J9 Canada",
+                        link_re=r"^((?:aws-portal|portal|oab)\.owlpractice\.ca(?:/(?:portal/|booking/)?[a-z0-9][a-z0-9_-]{2,})?)", cc=[],
+                        portal_fmt="https://%s", excl=set(),
+                        scope="\"Owl Practice Inc. Subscriber Terms of Use\" … \"If you are located in Canada or any other jurisdiction, you agree that the laws of the Province of Ontario … "
+                              "will govern these Terms\" (in the United States the laws of Delaware; the same company) (https://owlpractice.ca/terms-and-conditions/, read 2026-11-11); "
+                              "\"a fourteen (14) day free trial\", then a subscription — no free plan. A practice that links its client portal or its online booking page is a subscriber"),
+    "juvonno": dict(name="Juvonno", legal="Global Office Software Inc.", kind="portal",
+                    hq_url="https://www.juvonno.com/legal/privacy-policy",
+                    hq="Global Office Software Inc. Mailing Address: 200-135 Innovation Dr, Winnipeg, Manitoba, R3T 6A8, Canada",
+                    host_re=r"^([a-z0-9-]+)(?:\.[a-z]{2}\d)?\.juvonno\.com$", cc=["*.juvonno.com"],
+                    excl={"www", "app", "help", "support", "status", "api", "cdn", "blog", "demo", "sandbox", "test", "staging", "dev", "docs", "learn", "go", "info", "get", "login",
+                          "secure", "accounts", "mail", "email", "my", "portal", "static", "assets", "training", "university", "partners"},
+                    scope="\"these Terms of Service will serve as a legal and written agreement between you, the Subscriber, and Global Office Software\" … \"interpreted and governed by the "
+                          "laws of the Province of Manitoba\" (https://www.juvonno.com/legal/terms-of-service, read 2026-11-11); \"flexible subscription plans starting at $55 per month\" "
+                          "(https://www.juvonno.com/) — no free plan. A clinic that links its own booking site <clinic>.juvonno.com is a subscriber"),
+    "gorendezvous": dict(name="GOrendezvous", legal="GOrendezvous", kind="portal",
+                         hq_url="https://www.gorendezvous.com/conditions-utilisation",
+                         hq="GOrendezvous est une entreprise enregistrée, avec un siège social situé au 500-1275 Av. des Canadiens-de-Montréal, Montréal, QC CANADA H3B 0G4",
+                         link_re=r"^(?:www\.)?gorendezvous\.com/(?:(?:fr|en)/)?((?:homepage/)?(?!(?:homepage|conditions-utilisation|terms|tarifs|pricing|apropos|about|avis-de-confidentialite|privacy|"
+                                 r"blog|blogue|aide|help|login|connexion|signup|inscription|recherche|search|partenaires|partners|temoignages|decouvrir|discover|professionnels|fonctionnalites|"
+                                 r"features|contact|cms|bookingwidget|demo|fr|en)(?:[/?#]|$))[a-z0-9À-ÿ][a-z0-9À-ÿ_.%-]{2,})",
+                         cc=[], portal_fmt="https://www.gorendezvous.com/%s", excl=set(),
+                         scope="\"le présent contrat soit régi et interprété conformément aux lois de la Province du Québec, au Canada\" (https://www.gorendezvous.com/conditions-utilisation, "
+                               "read 2026-11-11); \"ESSENTIEL 59$ par mois … PREMIUM 69$ par mois\", a free trial and no free plan (https://www.gorendezvous.com/tarifs). A practice that "
+                               "links its own booking page gorendezvous.com/<name> is a subscriber"),
+    "rezgo": dict(name="Rezgo", legal="Sentias Software Corp. dba Rezgo", kind="portal",
+                  hq_url="https://www.rezgo.com/privacy-policy/",
+                  hq="owned and provided by Sentias Software Corp. DBA Rezgo, a company incorporated in the province of British Columbia, Canada",
+                  host_re=r"^([a-z0-9-]+)\.rezgo\.com$", cc=["*.rezgo.com"],
+                  excl={"www", "support", "help", "status", "api", "cdn", "blog", "demo", "sandbox", "test", "staging", "dev", "docs", "app", "secure", "login", "accounts", "my", "go",
+                        "info", "get", "mail", "email", "static", "assets", "white", "whitelabel", "partners", "developers", "activityhub", "marketplace"},
+                  scope="\"This Agreement between Rezgo (A Division of Sentias Software Corp), a British Columbia Corporation (hereinafter “Rezgo”) and You\" … \"governed by and construed in "
+                        "accordance with the laws of the British Columbia\" (https://www.rezgo.com/rezgo-terms-of-service/, read 2026-11-11); \"You pay a consistent transaction rate per "
+                        "booking\" (https://www.rezgo.com/pricing/): no monthly fee, a fee to Rezgo on every booking taken on the operator's own Rezgo site"),
+    "webrezpro": dict(name="WebRezPro", legal="World Web Technologies Inc.", kind="portal",
+                      hq_url="https://webrezpro.com/about-us/",
+                      hq="SAAS (software as a service) property management system created by World Web Technologies Inc. … a privately held company headquartered in Calgary, Alberta",
+                      link_re=r"^secure\.webrez\.com/+hotel/(\d{2,6})(?:[/?#]|$)", cc=["secure.webrez.com/hotel/"],
+                      portal_fmt="https://secure.webrez.com/hotel/%s", excl=set(),
+                      scope="\"created by World Web Technologies Inc.\" … \"Incorporated in 1994, World Web Technologies is a privately held company headquartered in Calgary, Alberta\" "
+                            "(https://webrezpro.com/about-us/, read 2026-11-11); a property management subscription (\"WebRezPro doesn’t charge any commission or transaction fees for "
+                            "reservations generated from its website booking engine\", https://webrezpro.com/price/). The master services agreement is a PDF its robots.txt keeps from "
+                            "the reader: kept for properties in Canada and the United States. A property that links its own booking engine secure.webrez.com/hotel/<id> is a subscriber"),
 }
 for _k, _v in VENDORS.items():
     _v["key"] = _k
@@ -242,7 +292,7 @@ ALIAS_DOMAINS = {"thinkific.com": "thinkific", "docebosaas.com": "docebo", "brig
                  "myabsorb.eu": "absorb", "checkfront.com": "checkfront", "edsby.com": "edsby", "escribemeetings.com": "escribe", "bibliocommons.com": "bibliocommons",
                  "coconutcalendar.com": "coconut", "benevity.org": "benevity", "mobius.cloud": "mobius", "unbouncepages.com": "unbounce", "jobbersites.com": "jobber",
                  "shoplightspeed.com": "lightspeed", "janeapp.com": "jane"}
-VENDOR_BASES = {"thinkific.com", "chronogolf.com", "chronogolf.ca", "checkfront.com", "tbdine.com", "touchbistro.com", "wellnessliving.com", "clubrunner.ca", "crowdriff.com", "nicejob.co", "nicejob.com", "paystone.com", "getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
+VENDOR_BASES = {"owlpractice.ca", "juvonno.com", "gorendezvous.com", "rezgo.com", "webrez.com", "webrezpro.com", "thinkific.com", "chronogolf.com", "chronogolf.ca", "checkfront.com", "tbdine.com", "touchbistro.com", "wellnessliving.com", "clubrunner.ca", "crowdriff.com", "nicejob.co", "nicejob.com", "paystone.com", "getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
                 "escribemeetings.com", "bibliocommons.com", "bibliocms.com", "brightspace.com", "desire2learn.com",
                 "d2l.com", "edsby.com", "amilia.com", "janeapp.com", "jane.app", "docebosaas.com", "docebo.com",
                 "myabsorb.com", "myabsorb.ca", "myabsorb.eu", "absorbai.com", "absorblms.com", "shopify.com",
