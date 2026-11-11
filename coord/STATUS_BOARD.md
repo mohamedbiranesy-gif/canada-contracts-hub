@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-11 06:46 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-11 08:24 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-10)
 | metric | value |
@@ -75,7 +75,7 @@
 | claude | claude_peppol_participants.csv | 77 | 0 | 0 | 0 | 77 |
 | claude | claude_registry_bulk.csv | 27618 | 23997 | 1657 | 0 | 1964 |
 | claude | claude_registry_lookup.csv | 46801 | 9676 | 35900 | 0 | 1225 |
-| claude | claude_site_owner_wd.csv | 6330 | 0 | 0 | 0 | 6330 |
+| claude | claude_site_owner_wd.csv | 6630 | 0 | 0 | 0 | 6630 |
 | claude | claude_vendor_names_read.csv | 6 | 0 | 0 | 0 | 6 |
 | claude | claude_vendor_sites.csv | 842 | 0 | 0 | 0 | 842 |
 | claude | claude_wikidata_orgs.csv | 42229 | 0 | 0 | 0 | 42229 |
@@ -310,7 +310,7 @@
 | lane | todo | in_progress | done | blocked |
 |---|---|---|---|---|
 | codex | 33 | 0 | 0 | 0 |
-| jules | 1 | 0 | 12 | 9 |
+| jules | 9 | 0 | 12 | 9 |
 
 ## Last ingest
 - buyers with team findings: 284701 (with at least one verified e-mail/portal: 268324)
