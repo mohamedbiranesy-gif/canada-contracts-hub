@@ -6,12 +6,15 @@ A row's buyer name is the name the organisation trades under ("Pegasus Paper", "
 to look up — the ranker (contrib/claude/rank_buyers/rank.py) marks such a name by how it was read:
     "… (stated on <page>, as the site's operator)"                       "This website is operated by X Inc.", "X Ltd. («we»)"
     "… (schema.org JSON-LD legalName on <page>, which gives this site as the organisation's own)"
+    "… (stated on <page>: doing business as “Y”, as the legal person doing business under the site's name)"   (site facts v3, 2026-11-10)
+    "… (printed with its legal form on <page>; its words spell the site's own domain name)"                    (site facts v3: "Credit Lift Inc.")
     a copyright-line name that is a company's ("© 2026 8218536 Canada Inc.": the cell holds the bare name)
 Otherwise the buyer name is looked up, as before 2026-11-10.
 """
 import re
 
-_SITE_SAYS = re.compile(r"\s*\((?:stated on [^()]*, as the site's operator|schema\.org JSON-LD legalName on [^()]*, which gives this site as the organisation's own)\)\s*$")
+_SITE_SAYS = re.compile(r"\s*\((?:stated on [^()]*, as the site's operator|stated on [^()]*, as the legal person doing business under the site's name|"
+                        r"schema\.org JSON-LD legalName on [^()]*, which gives this site as the organisation's own|printed with its legal form on [^()]*)\)\s*$")
 _COMPANY = re.compile(r"\b(?:inc|incorporated|incorpor[ée]e|ltd|limited|lt[ée]e|limit[ée]e|llc|llp|corp|corporation|ulc|enr|s\.?e\.?n\.?c(?:\.?r\.?l)?)\b\.?", re.I)
 
 

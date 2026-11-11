@@ -242,7 +242,7 @@ def site_index():
             m = re.search(r"[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][  -]?\d[ABCEGHJ-NPRSTV-Z]\d", ((r.get("buyer_address") or "") + " " + (r.get("invoice_mailing_address") or "")).upper())
             lp = r.get("buyer_legal_name_as_published") or ""
             # a legal name the row took from the site itself (its structured data, its legal page, its copyright line) — not one a register gave it
-            ln = re.sub(r"\s*\([^()]*(?:\([^()]*\)[^()]*)*\)\s*$", "", lp) if (re.search(r"\((?:schema\.org|stated on)", lp) or (lp and "(" not in lp)) else ""
+            ln = re.sub(r"\s*\([^()]*(?:\([^()]*\)[^()]*)*\)\s*$", "", lp) if (re.search(r"\((?:schema\.org|stated on|printed with its legal form)", lp) or (lp and "(" not in lp)) else ""
             if d and d not in seen and (m or ln):
                 seen.add(d)
                 yield d, {"site name": r.get("buyer") or "", "legalName": ln}, pc6(m.group(0)) if m else "", "the delivered row (its name, legal-name and address cells)"

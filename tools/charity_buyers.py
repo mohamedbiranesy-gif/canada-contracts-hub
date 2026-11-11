@@ -19,6 +19,7 @@ import argparse, csv, datetime, glob, gzip, io, json, os, re, sys, unicodedata, 
 csv.field_size_limit(1 << 30)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ranked_io as RIO  # noqa: E402
+import registry_names as RN  # noqa: E402
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 LIST_COLS = ["bn", "legal_name", "account_name", "address", "city", "province", "postal_code", "country", "designation", "category", "website", "source_url", "retrieved_date"]
 
@@ -32,6 +33,20 @@ ORG_WORDS = {"the", "city", "town", "village", "township", "municipality", "muni
              "university", "universite", "college", "cegep", "school", "board", "hospital", "hopital", "health", "centre", "center", "services", "service", "society", "association", "foundation", "fondation",
              "public", "general", "canada", "canadian", "corporation", "corp", "inc", "ltd", "limited", "ltee", "of", "de", "du", "des", "la", "le", "les", "and", "et"}
 SUB_RX = re.compile(r"\b(foundation|fondation|alumni|association|club|society|societe|auxiliary|friends|amis|parents|students|etudiants|union|trust|fund|fonds|endowment|booster|band|choir|team|league|church)\b")
+COMMON_NAME = set("""church eglise chapel chapelle baptist united unie pentecostal presbyterian anglican lutheran catholic catholique gospel bible assembly assemblee tabernacle
+fellowship christian chretienne first grace calvary trinity faith hope st saint sainte ste holy our lady notre dame redeemer emmanuel immanuel bethel zion parish paroisse mission temple
+mosque masjid synagogue congregation legion branch lions rotary kiwanis club optimist optimiste chevaliers knights""".split())
+INSTITUTION = set("hospital hopital school ecole college centre center community communautaire society association foundation fondation home maison care services service canada canadian".split())
+
+
+def needs_place(name):
+    """a name of the kind many bodies carry (a saint's, a denomination's, a service club's) with fewer than two words of its own"""
+    toks = norm(name).split()
+    return any(t in COMMON_NAME for t in toks) and len([t for t in toks if t not in COMMON_NAME and t not in INSTITUTION and len(t) > 2]) < 2
+
+
+BODY_KIND = re.compile(r"\b(county|comt[ée]|city|ville|town|township|canton|village|municipality|municipalit[ée]|district|region|r[ée]gion|mrc|parish|paroisse)\b", re.I)
+CA_PC = re.compile(r"(?<![A-Z0-9])[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s?\d[ABCEGHJ-NPRSTV-Z]\d(?![A-Z0-9])")
 PROV = {"ON": "ON", "QC": "QC", "BC": "BC", "AB": "AB", "SK": "SK", "MB": "MB", "NS": "NS", "NB": "NB", "NL": "NL", "PE": "PE", "YT": "YT", "NT": "NT", "NU": "NU"}
 
 
@@ -116,8 +131,10 @@ def main():
         for col in ("Legal Name", "Account Name"):
             k = norm(r.get(col))
             if len(k) >= 6:
-                by_name.setdefault((k, (r.get("Province") or "").strip().upper()), r)
-                by_name.setdefault((k, ""), r)
+                # every charity of that name is kept (2026-11-10: the first one found used to stand for all — "Grace Presbyterian Church" of Millerton, N.B.,
+                # for a church of that name anywhere)
+                by_name.setdefault((k, (r.get("Province") or "").strip().upper()), {})[bn] = r
+                by_name.setdefault((k, ""), {})[bn] = r
         if r["_web"]:
             by_dom.setdefault(host(r["_web"]), r)
     print("charities indexed:", len(by_dom), "with website;", len(by_name), "name keys", flush=True)
@@ -163,15 +180,44 @@ def main():
             if core and core <= set(cn.split()) and not (SUB_RX.search(raw) and not SUB_RX.search(bname.lower())):
                 hit, basis = cand, "website domain (%s) + name" % d
         if not hit:
-            for nm in (x.get("buyer"), (x.get("buyer_legal_name_as_published") or "").split(" (")[0]):
+            # 2026-11-10: a name alone names a charity when ONE charity carries it (several: the city of the organisation's address decides, or
+            # nothing does — the first one found used to stand for all), and when the organisation is in Canada by its record, its .ca address or a
+            # Canadian postal code: "City of Richmond" (California), "Victoria University" (Melbourne), "Trinity College" (Hartford) had been given
+            # the numbers of their Canadian namesakes. The names tried: the organisation's own; the legal person its site states in so many words
+            # (tools/registry_names.py); and the name in its legal-name cell — but a name read off a page that names another KIND of body than the
+            # organisation's own name does is not tried ("County of Middlesex", on the about page of the Municipality of Middlesex Centre).
+            addr_l = (x.get("buyer_address") or "").lower()
+            in_canada = bool(prov) or (x.get("jurisdiction") or "") in ("CA", "FED") or d.endswith(".ca") or bool(CA_PC.search((x.get("buyer_address") or "").upper()))
+            cell = (x.get("buyer_legal_name_as_published") or "").split(" (")[0].strip()
+            kb = {w.lower() for w in BODY_KIND.findall(bname)}
+            if cell and kb and BODY_KIND.search(cell) and not (kb & {w.lower() for w in BODY_KIND.findall(cell)}):
+                cell = ""
+            for nm in dict.fromkeys(n for n in (x.get("buyer"), RN.lookup_name(x)[0], cell) if n):
                 k = norm(nm)
-                if len(k) >= 6 and (k, prov) in by_name:
-                    cand = by_name[(k, prov)]
-                    raw = ((cand.get("Legal Name") or "") + " " + (cand.get("Account Name") or "")).lower()
-                    if SUB_RX.search(raw) and not SUB_RX.search((nm or "").lower()):
+                cands = list((by_name.get((k, prov)) or {}).values()) if len(k) >= 6 else []
+                # a foundation / club / association of that name is not the organisation, unless the organisation's name says it is one
+                _raw = lambda c: ((c.get("Legal Name") or "") + " " + (c.get("Account Name") or "")).lower()
+                _sub = {w.lower() for w in SUB_RX.findall((nm or "").lower())}
+                cands = [c for c in cands if not (SUB_RX.search(_raw(c)) and not _sub)]
+                if _sub and any(_sub & {w.lower() for w in SUB_RX.findall(_raw(c))} for c in cands):
+                    # "Fondation du Cégep de La Pocatière" is the foundation, not the cégep (norm() leaves the word out of the key of both)
+                    cands = [c for c in cands if _sub & {w.lower() for w in SUB_RX.findall(_raw(c))}]
+                if not cands:
+                    continue
+                city_fits = lambda c: bool((c.get("City") or "").strip()) and bool(re.search(r"(?<![a-z])" + re.escape(c["City"].strip().lower()) + r"(?![a-z])", addr_l))
+                how = ""
+                if len({(c.get("BN") or c.get("BN/NE") or "")[:9] for c in cands}) > 1:
+                    cands = [c for c in cands if city_fits(c)]
+                    if len({(c.get("BN") or c.get("BN/NE") or "")[:9] for c in cands}) != 1:
                         continue
-                    hit, basis = cand, "exact name%s" % (" + province" if prov else "")
-                    break
+                    how = " + city of the organisation's address"
+                elif (not in_canada or needs_place(nm)) and city_fits(cands[0]):
+                    how = " + city of the organisation's address"
+                elif not in_canada or needs_place(nm):
+                    continue  # no sign of Canada on the row — or a name that many congregations and clubs carry ("Grace Community Church", "St. Joseph's
+                              # Hospital"): one charity of that name in the list does not make it this one; the city of the address must agree
+                hit, basis = sorted(cands, key=lambda c: (c.get("BN") or c.get("BN/NE") or ""))[0], "exact name%s%s" % (" + province" if prov else "", how)
+                break
         if not hit:
             continue
         seen.add(key)

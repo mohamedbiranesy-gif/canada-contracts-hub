@@ -2404,7 +2404,7 @@ del _wdf
 _NAME_SITES, _cl = collections.defaultdict(set), {}
 for _d in OX.values():
     _dm = registrable(host_of(_d.get("website") or "")) or _d.get("domain") or ""
-    for _k in ("legal_name_stated", "jsonld_legal_name", "jsonld_name", "legal_name"):
+    for _k in ("legal_name_stated", "jsonld_legal_name", "jsonld_name", "legal_name", "legal_name_party", "legal_name_operator"):
         _raw = _d.get(_k) or ""
         if _raw:
             if _raw not in _cl:
@@ -2413,7 +2413,7 @@ for _d in OX.values():
                 _NAME_SITES[_cl[_raw]].add(_dm)
 NAME_ON_MANY = {n for n, ds in _NAME_SITES.items() if len(ds) >= 3}
 del _NAME_SITES, _cl
-_OPERATOR_BEFORE = re.compile(r"(?:(?:(?:owned and )?operated|owned)\s+by|a (?:division|subsidiary) of|exploit[ée]e?s?\s+par|d[ée]tenue?s?\s+par|(?:la |est )propri[ée]t[ée]\s+(?:exclusive\s+)?de|"
+_OPERATOR_BEFORE = re.compile(r"(?:(?:(?:owned and )?operated|owned|published)\s+by|a (?:division|subsidiary) of|exploit[ée]e?s?\s+par|d[ée]tenue?s?\s+par|[ée]dit[ée]e?s?\s+par|(?:la |est )propri[ée]t[ée]\s+(?:exclusive\s+)?de|"
                               r"une (?:division|filiale) de)\s*:?\s*(?:the\s+|la\s+|le\s+|l['’]\s*)?[\"“«]?\s*$", re.I)
 _WE_AFTER = re.compile(r"\s*[.,]?\s*\((?:hereinafter\s+|ci-apr[èe]s\s+)?[\"“«'‘]?\s*(?:we|us|our|nous|notre|the company|la soci[ée]t[ée]|l['’]entreprise)\b", re.I)
 _LEGAL_PERSON = re.compile(r"\b(?:inc|incorporated|incorpor[ée]e|ltd|limited|lt[ée]e|limit[ée]e|llc|llp|l\.?p|corp|corporation|s\.?\s?a|s\.?a\.?r\.?l|s\.?e\.?n\.?c(?:\.?r\.?l)?|enr|ulc|plc|gmbh|"
@@ -2422,6 +2422,22 @@ _LEGAL_PERSON = re.compile(r"\b(?:inc|incorporated|incorpor[ée]e|ltd|limited|lt
 _PLATFORM_CO = re.compile(r"\b(?:odoo|shopify|wix|squarespace|godaddy|weebly|webflow|lightspeed|bigcommerce|automattic|wordpress|jimdo|duda|square|stripe|paypal|google|meta platforms|facebook|"
                           r"mailchimp|intuit|hubspot|cloudflare|amazon|microsoft|apple|ecwid|wordfence|mindbody|vagaro|jane software|growthzone|chambermaster|wild apricot|personify|"
                           r"civicplus|granicus|esolutions|blackbaud|eventbrite|ticketmaster|vimeo|youtube|linkedin|instagram|tiktok|twitter|yelp|tripadvisor|opentable|doordash|uber)\b", re.I)
+_CORP_FORM_END = re.compile(r"(?:\b(?:inc|incorporated|incorpor[ée]e|ltd|limited|lt[ée]e|limit[ée]e|corp|corporation|llp|llc|ulc|plc|gmbh|senc|sencrl)\b\.?|\bL\.L\.P\.?|\bS\.E\.N\.C\.(?:R\.L\.)?)\s*$", re.I)
+_LF_WORDS = {"inc", "incorporated", "incorporee", "ltd", "limited", "ltee", "limitee", "corp", "corporation", "llp", "llc", "ulc", "the", "la", "le", "les", "l", "of", "de", "du", "des", "d", "and", "et"}
+def same_legal_name(a, b):
+    """two printings of one legal name: the same words, legal-form words and articles aside; a register's two-language name ("X / Y") agrees by either half"""
+    ta = [t for t in norm(a).split() if t not in _LF_WORDS]
+    if not ta:
+        return False
+    return any(ta == [t for t in norm(part).split() if t not in _LF_WORDS] for part in [b] + re.split(r"\s*/\s*", b or ""))
+_PAGE_NAME = re.compile(r"\((?:stated on|printed with its legal form|schema\.org)")
+def register_name_takes(cell, reg_name):
+    """a register's name takes an empty cell, and the cell of a name read off the organisation's pages when it is the same name (the register's
+    printing, with its source, replaces the page's)"""
+    return not cell or bool(_PAGE_NAME.search(cell) and same_legal_name(re.sub(r"\s*\([^()]*(?:\([^()]*\)[^()]*)*\)\s*$", "", cell), reg_name))
+# a web agency that runs its clients' sites ("This website is operated by Dr. Marketing Inc." on a dental practice's terms page) is not the practice
+_AGENCY_CO = re.compile(r"\b(?:marketing|media|m[ée]dias?|web|design|digital|num[ée]rique|agency|agence|studios?|creative|cr[ée]ati(?:f|ve|on)s?|communications?|hosting|h[ée]bergement|interactive|interactif|seo|"
+                        r"advertising|publicit[ée]|branding|graphi\w+|internet|online|software|logiciels?|technolog\w+|consult\w+|solutions?|it)\b", re.I)
 def stated_as_operator(raw, quote, page="", site=""):
     """the page says in so many words that this name runs the site: "This website is operated by 9123-4567 Québec inc.", "Acme Holdings Ltd. («we»)".
     Such a statement ties the name to the site by itself — a numbered company shares no word with the name it trades under — when it is made on
@@ -2479,6 +2495,32 @@ for x in rows:
         if ln and re.search(r"independently owned|ind[ée]pendamment d[ée]tenu|propri[ée]t[ée] ind[ée]pendante|franchis[ée]e? ind[ée]pendant", b.get("legal_name_quote") or "", re.I) and not name_overlap(ln, x.get("buyer") or "", x.get("buyer_website") or ""):
             ln = ""; n_ox["buyer_legal_name_franchisor_copyright_not_taken"] += 1  # "Each Best Western® branded hotel is independently owned and operated. © Best Western International, Inc."
         basis = "the site's copyright / footer line"
+        # v3 (2026-11-10, tools/org_extras.py): the name the site prints WITH its legal form and that its own domain name spells ("Credit Lift Inc." on
+        # creditlift.ca, "Autoénergie Canada inc." on autoenergie.com). Measured on 324 sites: where it differed from the name the older readers held
+        # (15 times), it was right 14 times — so it goes first, except before a copyright line that itself carries a company form.
+        _site = x.get("buyer_website") or ""
+        _own = lambda u: bool(u) and registrable(host_of(u) or "") == registrable(host_of(_site) or "")
+        _sp = re.sub(r"\s+", " ", b.get("legal_name_spelled") or "").strip()
+        _reg_cell = bool(x.get("buyer_legal_name_as_published"))  # a public register has named the legal person already (apply_details): what the site prints does not replace it
+        if _sp and not _reg_cell and not (ln and (_CORP_FORM_END.search(ln) or _LEGAL_PERSON.search(ln))) and not _PLATFORM_CO.search(_sp) and name_overlap(_sp, x.get("buyer") or "", _site):
+            ln = _sp
+            basis = "printed with its legal form on %s; %s" % (b.get("legal_name_spelled_url") or "the organisation's site", re.sub(r"\s*\(([^()]*)\)", r", \1", b.get("legal_name_spelled_basis") or "its words spell the site's own domain name"))
+            n_ox["buyer_legal_name_v3_spelled_by_the_domain"] += 1
+        if not ln and not _reg_cell:
+            # the legal person a page of the site puts behind the site's own name: "Majid Enterprises Inc., operating as Lawn Lovers", "Solaris (1457570
+            # Alberta Ltd.)", "Legal Entity : Sleepera Mattress Wholesale Ltd." — not a name printed on three sites and more (a maker's notice on its
+            # dealers' sites, a platform's terms), unless it is this organisation's own
+            _pn, _pt, _ph = re.sub(r"\s+", " ", b.get("legal_name_party") or "").strip(), (b.get("legal_name_party_trade") or "").strip(), b.get("legal_name_party_how") or ""
+            if _pn and not _PLATFORM_CO.search(_pn) and _own(b.get("legal_name_party_url")) and (not (norm(_pn) in NAME_ON_MANY or _AGENCY_CO.search(_pn)) or name_overlap(_pn, x.get("buyer") or "", _site)) and (
+                    name_overlap(_pt, x.get("buyer") or "", _site) if _pt else _ph.startswith("labelled")):
+                ln = _pn
+                basis = ("stated on %s: %s “%s”, as the legal person doing business under the site's name" % (b.get("legal_name_party_url"), _ph, _pt)) if _pt else ("stated on %s: labelled there as the legal entity, as the site's operator" % b.get("legal_name_party_url"))
+                n_ox["buyer_legal_name_v3_legal_person_behind_the_site_name"] += 1
+        if not ln and not _reg_cell:
+            _on = re.sub(r"\s+", " ", b.get("legal_name_operator") or "").strip()
+            if _on and (not (norm(_on) in NAME_ON_MANY or _AGENCY_CO.search(_on)) or name_overlap(_on, x.get("buyer") or "", _site)) and stated_as_operator(_on, b.get("legal_name_operator_quote"), b.get("legal_name_operator_url") or "", _site):
+                ln, basis = _on, "stated on %s, as the site's operator" % (b.get("legal_name_operator_url") or "the site's legal page")
+                n_ox["buyer_legal_name_v3_stated_as_operator"] += 1
         if not ln:  # v2 (2026-11-08): the name the organisation states itself — schema.org JSON-LD legalName, then its Terms / Privacy / Legal page
             for k, lab in (("jsonld_legal_name", "schema.org JSON-LD legalName on %s" % (b.get("jsonld_page") or "the site")), ("legal_name_stated", "stated on %s" % (b.get("legal_name_stated_url") or "the site's legal page")),
                            ("jsonld_name", "schema.org JSON-LD Organization name on %s" % (b.get("jsonld_page") or "the site"))):
@@ -3080,7 +3122,7 @@ for x in rows:
         x["buyer_bn_as_published"] = h["bn"] + " — charity registration number (RR program account)" + src; n_ch["bn"] += 1
         if not x.get("buyer_gst_hst_derived") and h.get("bn9"):
             x["buyer_gst_hst_derived"] = h["bn9"] + "RT0001 (derived from the charity's BN9; an RT account is not confirmed by the CRA list)"
-    if not x.get("buyer_legal_name_as_published") and h.get("legal_name"):
+    if h.get("legal_name") and register_name_takes(x.get("buyer_legal_name_as_published") or "", h["legal_name"]):
         x["buyer_legal_name_as_published"] = h["legal_name"] + src; n_ch["legal_name"] += 1
     if not x.get("buyer_address") and (h.get("address") or h.get("city")):
         x["buyer_address"] = ", ".join(v for v in (h.get("address"), h.get("city"), h.get("province"), h.get("postal_code")) if v) + src; n_ch["address"] += 1
@@ -3091,6 +3133,50 @@ for x in rows:
     x["buyer_charity_status"] = (h.get("charity_status") or "registered") + src
     x["buyer_charity_designation"] = "; ".join(v for v in (h.get("designation"), h.get("category")) if v)
 print("charity buyers:", dict(n_ch))
+# 2026-11-10: the registration number itself joins a row to the CRA list (tools/charity_buyers.py writes the list in a compact form). 1,167 rows of the
+# build of 22:38Z carried a charity registration number — printed on the organisation's own site, or in a federal grants record — that the list holds,
+# without the list's name and address: the match above works by name and by web address only, and the number says more than either ("Ronald McDonald
+# House Toronto" is TORONTO CHILDREN'S CARE INC., "Charlotte Street Arts Centre" is FREDERICTON ARTS AND LEARNING INCORPORATED). A holder that is a
+# foundation or a trust, where the organisation's own name is not one, may be its fundraising body: its name is reported, not taken as the legal name.
+CRA, CRA9 = {}, collections.defaultdict(list)
+_crp = ROOT + "/data/incoming/claude/claude_cra_charities.csv.gz"
+if os.path.exists(_crp):
+    with gzip.open(_crp, "rt", encoding="utf-8", newline="") as _f:
+        for _r in csv.DictReader(_f):
+            CRA[_r["bn"]] = _r; CRA9[_r["bn"][:9]].append(_r)
+_FUND_BODY = re.compile(r"\b(?:foundation|fondation|trust|fiducie|fund|fonds|endowment|dotation|friends|amis|auxiliary|auxiliaire|alumni)\b", re.I)
+n_cr = collections.Counter()
+for x in rows:
+    if not CRA or x.get("buyer_charity_status"):
+        continue
+    _b = x.get("buyer_bn_as_published") or ""
+    _m = re.match(r"\s*(\d{9})\s?RR\s?(\d{4})", _b)
+    h = CRA.get(_m.group(1) + "RR" + _m.group(2)) if _m else None
+    if not h:
+        _m9 = re.match(r"\s*(\d{9})\b(?!\s?R[TPCMZ])", _b)
+        if _m9 and re.search(r"charit|bienfaisance|registration|enregistrement", _b, re.I) and len(CRA9.get(_m9.group(1), ())) == 1:
+            h = CRA9[_m9.group(1)][0]  # the nine digits printed as a charity's registration number, and one registered account under them
+    if not h:
+        continue
+    n_cr["matched"] += 1
+    src = " (CRA list of registered charities, %s, %s; found by the registration number %s)" % (h.get("source_url") or "", h.get("retrieved_date") or "", h["bn"])
+    _bn = x.get("buyer") or ""
+    _same = name_overlap(h.get("legal_name") or "", _bn, x.get("buyer_website") or "") or (h.get("account_name") and name_overlap(h["account_name"], _bn, x.get("buyer_website") or ""))
+    _fund = bool(_FUND_BODY.search(h.get("legal_name") or "")) and not _FUND_BODY.search(_bn) and not _same
+    x["buyer_charity_status"] = "registered: %s holds the registration %s%s%s" % (h.get("legal_name") or "", h["bn"],
+        " — a foundation / trust under another name than the organisation's: it may be its fundraising body, so its name is not taken as the legal name" if _fund else "", src)
+    x["buyer_charity_designation"] = "; ".join(v for v in (h.get("designation"), h.get("category")) if v)
+    if _fund:
+        n_cr["holder is a foundation / trust under another name: reported only"] += 1
+        continue
+    if h.get("legal_name") and (register_name_takes(x.get("buyer_legal_name_as_published") or "", h["legal_name"]) or "JSON-LD Organization name on" in x["buyer_legal_name_as_published"]):
+        # an empty cell, or the name the site's structured data shows (a display name, not a statement of the legal person)
+        x["buyer_legal_name_as_published"] = "%s (holder of the charity registration number in buyer_bn_as_published; %s)" % (h["legal_name"], src[2:-1]); n_cr["legal_name"] += 1
+    if not x.get("buyer_address") and (h.get("address") or h.get("city")):
+        x["buyer_address"] = ", ".join(v for v in (h.get("address"), h.get("city"), h.get("province"), h.get("postal_code")) if v) + src; n_cr["address"] += 1
+    if (GENERIC_NAME.match(_bn) or DOMAIN_NAME.match(_bn)) and (h.get("account_name") or h.get("legal_name")):
+        x["buyer"] = h.get("account_name") or h["legal_name"]; n_cr["name_from_the_register"] += 1  # the row was known by its domain only
+print("charity registration numbers found in the CRA list:", dict(n_cr), "| list:", len(CRA))
 # Wikidata, one organisation at a time (tools/wikidata_orgs.py): official names, type, HQ, inception, budget, employees — blank cells only
 WDB, WDV = {}, {}
 _wdp = ROOT + "/data/incoming/claude/claude_wikidata_orgs.csv"
@@ -3244,7 +3330,8 @@ print("registry bulk rows added (no API row for the key):", n_bulk, "| registry 
 _REG_KIND = {"ville", "city", "town", "municipalite", "municipality", "village", "canton", "township", "county", "paroisse", "universite", "university", "college", "cegep", "gouvernement",
              "government", "province", "ministere", "ministry", "association", "societe", "society", "fondation", "foundation", "club", "centre", "center", "groupe", "group", "services",
              "service", "gestion", "holdings", "entreprises", "enterprises"}
-_NAME_SRC_CUT = re.compile(r"\s*\((?:as registered|stated on|schema\.org|provincial municipal directory|recipient legal name|as printed|carried from|CRA |registered charity).*$")
+_NAME_SRC_CUT = re.compile(r"\s*\((?:as registered|stated on|printed with its legal form|holder of the charity registration|the name on the organisation's own home page|the organisation's name as the source|"
+                           r"schema\.org|provincial municipal directory|recipient legal name|as printed|carried from|CRA |registered charity).*$")
 _SITE_SAYS = re.compile(r"as the site's operator\)\s*$|under the site's name\)\s*$|JSON-LD legalName on [^()]*, which gives this site as the organisation's own\)\s*$")
 def reg_record_is_rows(b, x):
     names = [x.get("buyer") or "", _NAME_SRC_CUT.sub("", x.get("buyer_legal_name_as_published") or "")]
@@ -3312,7 +3399,7 @@ for x in rows:
         n_cbr["buyer record of another name than the legal person the site itself states, not taken"] += 1; b = None
     if b:
         src = "%s, %s" % (b["_label"], b["retrieved_date"])
-        if re.search(r"\((?:stated on|schema\.org|recipient legal name)", x.get("buyer_legal_name_as_published") or ""):
+        if re.search(r"\((?:stated on|printed with its legal form|schema\.org|recipient legal name)", x.get("buyer_legal_name_as_published") or ""):
             x["buyer_legal_name_as_published"] = ""  # the registered name beats a name read off a page or another dataset
         if b.get("bn9") and not x.get("buyer_bn_as_published"):
             x["buyer_bn_as_published"] = "%s (%s)" % (b["bn9"], src); n_cbr["buyer_bn"] += 1
@@ -3392,6 +3479,24 @@ for x in rows:
         x["vendor_bn_source"] = x.get("vendor_bn_source") or "federal grants & contributions disclosure (recipient_business_number)"
         if not x.get("vendor_gst_hst_derived"):
             x["vendor_gst_hst_derived"] = g["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
+# 2026-11-10: a name that carries its company form ("Kobes Welding Ltd.", "Plumblink Plumbing Inc.") is the legal name as published — by the organisation
+# itself when it is the name on its own home page, else by the source of the row's record. Last in the chain: every register and every statement of the
+# site goes first, and the registry tools look the name up as before (a register's name then takes the cell). 6,228 rows of the build of 2026-11-10
+# 22:38Z had such a name and an empty legal-name cell.
+n_lform = 0
+for x in rows:
+    if x.get("buyer_legal_name_as_published"):
+        continue
+    _bn = re.sub(r"\s+", " ", x.get("buyer") or "").strip()
+    if _CORP_FORM_END.search(_bn) and 5 <= len(_bn) <= 90 and not DOMAIN_NAME.match(_bn) and not _PLATFORM_CO.search(_bn) and not re.search(r"[|/()]| - | – |\. ", _bn):
+        _lf = next((LFACTS[_k] for _k in (x.get("keys") or "").split("|") if _k in LFACTS), None)
+        if _lf and norm(_lf.get("site_name") or "") == norm(_bn):
+            _wh = "the name on the organisation's own home page, %s, read %s" % (_lf.get("site") or x.get("buyer_website") or "", _lf.get("date") or "")
+        else:
+            _wh = "the organisation's name as the source of this row's record gives it"
+        x["buyer_legal_name_as_published"] = "%s (%s; it carries its legal form; not checked against a company register)" % (_bn, _wh)
+        n_lform += 1
+print("legal name: the organisation's own name carries its legal form (cells still empty after every register and site statement): %d" % n_lform)
 print("grants & contributions recipient BNs: %d buyers, %d vendors in file; filled %s" % (len(GCR["buyer"]), len(GCR["vendor"]), dict(n_gcr)))
 # the buyers' own purchase-order / contract open data joined to existing pairs (tools/po_opendata.py → claude_po_records.csv; downstream §1.1)
 POD = collections.defaultdict(list)
@@ -3907,7 +4012,7 @@ for _ri, x in enumerate(rows):
     bp = []
     if x.get("buyer_address") and x.get("buyer_contact_evidence_url"): bp.append("address and phone: the buyer's own site, %s (tools/org_contacts.py: JSON-LD / contact page; no AI)" % x["buyer_contact_evidence_url"])
     elif x.get("buyer_address"): bp.append("address: the buyer's record / buyer table")
-    if x.get("buyer_legal_name_as_published"): bp.append("legal name: the site's copyright / footer line (tools/org_extras.py)")
+    if x.get("buyer_legal_name_as_published"): bp.append("legal name: " + ("the source named in brackets in buyer_legal_name_as_published" if x["buyer_legal_name_as_published"].rstrip().endswith(")") else "the copyright / footer line of the organisation's own site (tools/org_extras.py)"))
     if x.get("buyer_bn_as_published"): bp.append("BN: as printed on the buyer's site (see buyer_bn_as_published for the page); GST/HST derived as BN9 + RT0001, not confirmed")
     if x.get("buyer_logo_url"): bp.append("logo: og:image / logo image of the buyer's site")
     if x.get("buyer_website_status"): bp.append("website: %s" % x["buyer_website_status"])

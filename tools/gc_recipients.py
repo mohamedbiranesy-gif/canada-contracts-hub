@@ -116,7 +116,7 @@ def main():
             cands = []
             if not (x.get("buyer_bn_as_published") or "").strip() and key and ("buyer", key) not in seen:
                 bl = x.get("buyer_legal_name_as_published") or ""
-                bl = bl.split(" (")[0] if bl and not re.search(r"\((?:stated on|schema\.org|recipient legal name|as registered)", bl) else ""  # never match on a name that was itself inferred from a page or another dataset
+                bl = bl.split(" (")[0] if bl and not re.search(r"\((?:stated on|printed with its legal form|the name on the organisation's own home page|the organisation's name as the source|schema\.org|recipient legal name|as registered)", bl) else ""  # never match on a name that was itself inferred from a page or another dataset
                 cands.append(("buyer", key, [x.get("buyer"), bl], prov_of(x.get("jurisdiction") or "", x.get("buyer_address") or "")))
             v = (x.get("vendor") or "").strip()
             if v and not v.startswith("inferred") and not (x.get("vendor_bn9") or "").strip() and ("vendor", v) not in seen:
