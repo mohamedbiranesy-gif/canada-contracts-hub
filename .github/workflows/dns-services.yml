@@ -159,7 +159,7 @@ jobs:
           elif [ "$MODE" = "ctsweep" ]; then
             left=$(python3 tools/dns_services.py sweep-plan --list auto --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "shards with work left on a certificate-log list: $left"
-            if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=ctsweep" -f "inputs[shards]=3" -f "inputs[minutes]=$MINUTES" || true; fi
+            if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=ctsweep" -f "inputs[shards]=2" -f "inputs[minutes]=$MINUTES" || true; fi
           elif [ "$MODE" = "hosts" ]; then
             left=$(python3 tools/dns_services.py hosts-plan --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "host sweep shards with work left: $left"

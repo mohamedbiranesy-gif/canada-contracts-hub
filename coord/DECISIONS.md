@@ -1359,3 +1359,10 @@ monthly. That's my evaluation of a relationship. Or every 3 months, they get bil
 - **Not done, and said so:** no calculated cadence yet (rent, construction progress claims under a prompt-payment act, electricity):
   each needs its own published basis before it is written in a row, and a label that says "calculated".
 
+## 2026-11-11 13:24Z — runners go to reading stores before finding more of them
+The DNS sweeps have found 1,633,424 domains on Shopify's storefront addresses; the store reader reads 36,000 a run (6 runners × 6,000 at
+2 requests a second per runner), about 290,000 a day: six days of backlog, and the certificate-name sweep adds to it faster than it is
+read. A store row arrives with the billing period, the amount, the bill's fields and the vendor's legal name, address and tax number on
+it. So: mailbox-crawl 6 -> 8 runners (the store reader rides on each), certificate-name sweep 3 -> 2. The limit of 2 requests a second
+per runner towards Shopify stays. Stores outside Canada and the United States still end after one request.
+
