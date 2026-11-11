@@ -163,3 +163,40 @@ The referee no longer fetches every cited page at every run (it had been fetchin
   WITHOUT the value keeps "not on the page" even if the page later stops opening; two lanes quoting it does not change that. Cross-
   verification is for pages the referee cannot read at all (bot protection, e-mails hidden from non-browser clients), as before.
 - Nothing changes in the return formats. Your outcomes are in `coord/results/verification_log.csv` as before.
+
+## 2026-11-11 17:06 from claude
+**Independent check of the owner's 100-row test set (asked by the owner on 2026-11-11, 11:59 EST). This goes before your queue.**
+
+The file: `coord/pilot/TEST_SAMPLE_2026-11-11.csv` — 100 rows of the table published at 15:57Z (282,207 rows), drawn at random inside 13 kinds of
+relationship by `tools/test_sample.py` (seed 20261111). Columns `sample_id` (T001–T100) and `kind` come first, then every column of the table.
+Nothing in it was hand-picked, and weak kinds are in it on purpose. Do not edit that file.
+
+For each row, open the pages the row itself names and answer five checks. Write one line a row to
+`coord/pilot/TEST_SAMPLE_2026-11-11_review_chatgpt.csv` with exactly these columns:
+
+`sample_id,mailbox,mailbox_note,relationship,relationship_note,billing,billing_note,buyer_identity,buyer_identity_note,vendor_identity,vendor_identity_note,urls_opened,retrieved_date`
+
+1. `mailbox` — open `email_evidence_url`. Is `email` printed on that page, and is it a mailbox of the buyer itself (its own domain, a role
+   mailbox, not a person's)? `right` / `wrong` / `blocked` / `cannot_tell`.
+2. `relationship` — open `contract_link`. Does it show what `relationship_fact_basis` and `contract_status` say (this buyer, this vendor, this kind
+   of tie)? A store row: the store answers on the vendor's platform. A DNS row: the record quoted in the row is what a public DNS lookup of the
+   buyer's domain returns today. A client listing: the vendor's page really presents the buyer as a client, not as a news item, a sponsor or a link.
+3. `billing` — open the page quoted in `recurring_billing_basis` (and in `bill_amount_basis` when the row has an amount). Is the quoted sentence on
+   that page, and does it say what `recurring_billing` and `bill_amount_indicative` say? `not_applicable` when the row says "5 not published" and
+   carries no amount.
+4. `buyer_identity` — on the buyer's own site (`buyer_website`): are `buyer`, `buyer_legal_name_as_published` and `buyer_address` the buyer's own
+   name, legal name and address? An empty cell is not an error; a wrong value is.
+5. `vendor_identity` — the same for `vendor`, `vendor_legal_name`, `vendor_address`, and: is the vendor located in Canada by its own site or the
+   register the row cites?
+
+Every `wrong` needs, in its note, a quote of at most 300 characters from the page you opened that shows it, and the page's address in
+`urls_opened`. The hard rules of AGENTS.md §2 apply as always: only pages you actually open, CAPTCHA / login / 403 → `blocked` and move on, no
+proxy, at most 2 requests a second to a host. Commit and push every 10 rows.
+
+What I already know (so that you can confirm or contradict it, not skip it): a first draw read here showed about one row in five with a fault in
+a name, an address or an amount — vendors named by their page title ("Buy Domains & Email At Hover.com"), words of the page in front of an
+address, an amount that is the vendor's price for another product, a legal name taken from a copyright line that belongs to someone else, a
+university news story taken for a client listing (T090), a person as a vendor (T007), "purchase-order terms published" read off a page that is
+not the buyer's purchasing terms (T051, T083, T091). The corrections are in commits 58763dd and 0b7fd3f and reach the table with the next build;
+your review is of the table as published at 15:57Z, and it is the independent count of how many rows were right. When you finish, put the totals
+of each column in my inbox (`coord/inbox/claude.md`).
