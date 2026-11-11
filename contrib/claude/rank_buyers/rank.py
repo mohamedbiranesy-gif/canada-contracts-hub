@@ -1082,6 +1082,7 @@ seen_dom.discard("")
 import urllib.parse
 REL_PATH = re.compile(r"client|customer|case-stud|casestud|case_stud|temoignage|t%C3%A9moignage|testimonial|success-stor|"
                       r"portfolio|our-work|realisations?\b|r%C3%A9alisations?|nos-realisations|clientele", re.I)  # re.I: the path is lower-cased below, so the %C3%A9 forms never matched before 2026-11-10
+_STORY_REL = re.compile(r"client|customer|case-?stud|case_stud|temoignage|t%c3%a9moignage|testimonial|success|etudes?-de-cas|cas-clients?|histoires?-de-succes|reussites?|r%c3%a9ussites?|references?/|projets?/|projects?/|portfolio|realisations?", re.I)
 NOT_REL_PATH = re.compile(r"terms|reference|support|service|product|letter|lettre|news|nouvelle|blog|article|press|media|document|conditions|bill|/loi|career|emploi|job|event|evenement|contact|about|a-propos|partner|partenaire")
 # 2026-11-10 (owner: "a Canadian entity gets paid … establish that relationship"): pages where a Canada-located organisation lists the parties
 # that PAY it — sponsors / exhibitors of an organiser, dealers / retailers / distributors of a supplier (same tests as tools/cc_clients.py)
@@ -1484,6 +1485,11 @@ for k, L in sorted(leads.items(), key=lead_strength):
         ph = (urllib.parse.urlparse(m.get("evidence_url") or "").hostname or "").lower().removeprefix("www.")
         if not (ph and same_org(m["mailbox"], "https://" + ph, L["buyer_name"])):
             continue
+    if "consultant without a firm" in (L.get("canada_field_value") or ""):
+        # test row of 2026-11-11: a lobbyists' register names a consultant who files without a firm — a natural person as the vendor (15 rows). A person is
+        # not a vendor of this table (the register lanes leave natural persons out since 2026-11-10); the consultant's firm, when the register names one, is.
+        n_cl["left out: the vendor is a person (a consultant lobbyist registered without a firm)"] += 1
+        continue
     ldom = registrable((urllib.parse.urlparse(lsite).hostname or m["mailbox"].split("@")[-1]).lower().removeprefix("www."))
     if ldom in seen_dom:
         continue  # the same organisation already delivered (contract buyer or another lead with the same website)
@@ -1495,7 +1501,14 @@ for k, L in sorted(leads.items(), key=lead_strength):
     if story_dated:
         client = False  # a customer story the vendor published in the last 12 months, vendor proven in Canada: a dated record (B)
     elif client and re.search(r"\((wall|stories)", L.get("canada_field_value", "")):
-        pass  # a client logo wall on the vendor's home page, or one of its (undated) customer stories: a client listing by construction
+        # a client logo wall on the vendor's home page, or one of its (undated) customer stories: a client listing by construction — when the story's own
+        # address says it is one. Test row of 2026-11-11: "And the honorary doctorate goes to" (a university's news story of 2010) stood as a client of the
+        # university; United Way, alumni and sustainability "stories" did the same. A story that is not filed under clients, customers, case studies,
+        # success stories or testimonials is a link (tier E), with its reason written on the row.
+        other_why = ""
+        if "(stories" in cfv0 and not _STORY_REL.search(urllib.parse.urlparse(L.get("evidence_dataset") or "").path.lower()):
+            client, other_why = "other", "a news or community story on the vendor's site, not filed as a customer story"
+            n_cl["not shown to be a client: a news or community story on the vendor's site (not filed as a customer story)"] += 1
     elif client:  # a link on a Canadian vendor's page: a client listing only on a real client / case-study / references page
         path = urllib.parse.urlparse(L.get("evidence_dataset") or "").path.lower()
         if MEMBER_ONE_PATH.search(path) or (MEMBER_PATH.search(path) and not NOT_MEMBER_PATH.search(path) and len(path.rstrip("/").rsplit("/", 1)[-1]) <= 36 and not (rel_path(path) and not NOT_REL_PATH.search(path))):
@@ -2253,6 +2266,9 @@ def clean_legal(name, buyer=""):
     (org_extras ≤ 2026-11-04 stopped at the first dash: 'Municipalité de Saint' for Saint-Jean-sur-Richelieu)"""
     n = re.sub(r"[\uf000-\uf8ff\u2000-\u206f\ue000-\uf8ff]", " ", name or "")  # icon-font glyphs glued to footer text
     n = re.sub(r"\s+", " ", n).strip(" .,-–—|:")
+    n = re.split(r"\s*(?:-->|<!--)", n)[0].strip(" .,-–—|:")  # "Synergy Foundation --> This": the end of a comment in the page's markup
+    # "AND DISCLOSURE Menno S. Martin Contractor Limited": the end of the page's heading ("PRIVACY AND DISCLOSURE") run into the name that follows it
+    n = re.sub(r"^(?:(?:AND|OF|&|ET|DE)\s+)?(?:(?:PRIVACY|TERMS|CONDITIONS|DISCLOSURE|DISCLAIMER|POLICY|POLICIES|NOTICE|LEGAL|USE|COOKIES?|CONFIDENTIALIT[ÉE]|POLITIQUE|MENTIONS|L[ÉE]GALES)\s+(?:(?:AND|OF|&|ET|DE)\s+)?)+(?=[A-Z0-9][a-zà-ÿ0-9.])", "", n)
     n = re.sub(r"^(?:tous droits r[ée]serv[ée]s|all rights reserved|copyright|©|\(c\))\s*(?:(?:19|20)\d\d\s*)?", "", n, flags=re.I).strip(" .,-–—|:")
     n = re.sub(r"^(?:19|20)\d\d\s*[/|–—-]*\s*", "", n).strip(" .,-–—|:/")  # "2026 // Coop Audiovisuelle GTS"
     n = re.sub(r"^(?:(?:january|february|march|april|may|june|july|august|september|october|november|december|janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[ûu]t|septembre|octobre|novembre|"
@@ -2269,6 +2285,8 @@ def clean_legal(name, buyer=""):
     n = re.sub(r"\s+copyright$", "", n, flags=re.I).strip(" .,-–—|:")  # "Canadian Nurses Association Copyright"
     n = re.sub(r"^(?:[àa] la|au|aux|[àa] l'|the|la|le|les|l')\s+", "", n, flags=re.I).strip() if re.match(r"^(?:[àa] la|au|aux|[àa] l')\s", n, re.I) else n  # "à la Commission scolaire …" (pilot dossier S1-12)
     n = re.sub(r"^à\s+", "", n)  # "à Devimco Immobilier Inc"
+    n = re.sub(r"^(?:reserved\s+(?:to|by)|r[ée]serv[ée]s?\s+[àa])\s+", "", n, flags=re.I)  # "(All rights) Reserved to Brooks Building Maintenance inc"
+    n = re.sub(r"\s+o/a$", "", n, flags=re.I)  # "… Professional Corporation o/a": the trade name that followed was cut off
     if BAD_LEGAL.search(n) or CUT_PREFIX.search(n) or (re.match(r"^(?:'?s\b|[a-z])", n) and not re.match(r"^[a-z]{1,6}[A-Z0-9][A-Za-z0-9]*\s+\S", n)) or re.search(r"\bno\.?$", n, re.I):
         return ""  # a fragment cut at the front ("s Union Partners"), lowercase start, or ending in "No" (a registration number followed);
         # 2026-11-11: "easyDNS Technologies Inc", "eGrr Services Inc.", "iTrack Fitness Inc" begin with a small letter by design
@@ -2605,6 +2623,31 @@ def others_name(cand, x):
     return not (hl and label_from_words(cand, hl))
 print("words too common to prove a name (in more than 1 in 2,000 of the %d names of organisations whose site was read): %d; names printed on 3+ sites: %d" % (len(_wn), len(WORD_COMMON), len(NAME_ON_MANY)))
 del _wn
+_GOV_SITE = re.compile(r"(?:^|\.)(?:gov\.[a-z]{2}\.ca|gc\.ca|canada\.ca|alberta\.ca|ontario\.ca|gouv\.qc\.ca|quebec\.ca|gnb\.ca|novascotia\.ca|saskatchewan\.ca|manitoba\.ca|yukon\.ca|princeedwardisland\.ca|"
+                       r"gov\.nl\.ca|gov\.nt\.ca|gov\.nu\.ca|[a-z]{2}\.gov|gov\.[a-z]{2,3}|gov)$")
+def own_name_plainly(ln, org, site):
+    """a copyright-line name that needs no shared distinctive word: it is the organisation's name itself (name_overlap refuses "Salt Spring Cookie
+    Co" for the word cookie), its initials are the organisation's name or its address ("Canadian Association of Farm Advisors" for CAFA), or it
+    is the government whose own site this office is on ("Government of British Columbia" for a ministry on www2.gov.bc.ca)"""
+    a, b_ = norm(ln), norm(org)
+    if a and (a == b_ or (len(a) >= 8 and b_.startswith(a + " ")) or (len(b_) >= 8 and a.startswith(b_ + " "))):
+        return True
+    words = [w for w in re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", ln or "").encode("ascii", "ignore").decode().lower()) if w not in _INI_STOP]
+    ini = "".join(w[0] for w in words)
+    if len(ini) >= 3 and ini in (re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKD", org or "").encode("ascii", "ignore").decode().lower()), _host_label(site) or "-"):
+        return True
+    return bool(re.match(r"(?:government|gouvernement)\s+(?:of|du|de)\b", ln or "", re.I) and _GOV_SITE.search(host_of(site or "") or "") and not _OWN_PERSON.search(org or ""))
+_DBG_NAMES = open(os.environ["RANK_DEBUG_NAMES"], "w", encoding="utf-8") if os.environ.get("RANK_DEBUG_NAMES") else None  # debug only: the names the copyright rule takes and leaves
+def _dbg_name(what, org, name, site):
+    if _DBG_NAMES:
+        _DBG_NAMES.write("%s\t%s\t%s\t%s\n" % (what, (org or "")[:60], (name or "")[:80], (site or "")[:60]))
+def copyright_company(n):
+    """a copyright line's name that may stand although it shares no word with the site's name: a short company name that ends with its legal
+    form, not an agency's, not a platform's, not a name printed on three sites and more, with no sign of the page's own words around it"""
+    return bool(n and (_CORP_FORM_END.search(n) or _NUMBERED_CO.search(n)) and len(n.split()) <= 7 and re.match(r"[A-ZÀ-Ý0-9]", n) and not _AGENCY_CO.search(n) and not _PLATFORM_CO.search(n)
+                and norm(n) not in NAME_ON_MANY and not re.match(r"[A-Z][A-Za-z .'-]{2,30}, [A-Z]{2} ", n)
+                and not re.search(r"[®™:;!?]|\b(?:subsidiary|division|member|part|affiliate|trademark|marque|filiale) (?:of|de|du)\b|\bwebmaster\b|\b(?:home|about|contact|menu|browse|links|disclaimer)\b", n, re.I))
+_LEAD_DATE = re.compile(r"^\d{1,2}[./-]\d{1,2}[./-](?:19|20)?\d\d\s+(?=[A-Za-zÀ-ÿ0-9])")
 n_ox = collections.Counter()
 for x in rows:
     for col in ("buyer_legal_name_as_published", "buyer_bn_as_published", "buyer_gst_hst_derived", "buyer_logo_url", "buyer_website_status",
@@ -2617,6 +2660,20 @@ for x in rows:
             ln = ""; n_ox["buyer_legal_name_government_template_credit"] += 1
         if ln and re.search(r"independently owned|ind[ée]pendamment d[ée]tenu|propri[ée]t[ée] ind[ée]pendante|franchis[ée]e? ind[ée]pendant", b.get("legal_name_quote") or "", re.I) and not name_overlap(ln, x.get("buyer") or "", x.get("buyer_website") or ""):
             ln = ""; n_ox["buyer_legal_name_franchisor_copyright_not_taken"] += 1  # "Each Best Western® branded hotel is independently owned and operated. © Best Western International, Inc."
+        # 2026-11-11 (rows read before the owner's test set went out; 37,221 names came from a copyright line, 2,701 of them shared nothing with
+        # the organisation's name or address): such a line named the legal person about one time in two ("Soccer World" © HamOnt Sports Limited)
+        # — otherwise the site's maker ("Jumptools® Inc", "Ta Gueule Communications inc"), a picture's owner ("Peanuts Worldwide LLC"), a parent,
+        # or a run of the page's own words ("Disclaimer Browse Home Municipal Office Services Dep"). That name now waits: what the site states in
+        # so many words goes first, and it is taken last, only as a short company name with its legal form, and the cell says what it rests on.
+        _cp_last = ""
+        if ln and not name_overlap(ln, x.get("buyer") or "", x.get("buyer_website") or "") and not own_name_plainly(ln, x.get("buyer") or "", x.get("buyer_website") or ""):
+            if copyright_company(ln) and norm(ln) != norm(x.get("vendor") or "") and registrable(host_of(b.get("legal_name_url") or "") or "") == registrable(host_of(x.get("buyer_website") or "") or "-"):
+                _cp_last = ln  # printed on the organisation's own domain: a donation or booking page on a platform's host carries the platform's line
+                _dbg_name("buyer kept", x.get("buyer"), ln, x.get("buyer_website"))
+            else:
+                n_ox["buyer_legal_name_copyright_line_shares_nothing_with_the_name_not_taken"] += 1
+                _dbg_name("buyer left", x.get("buyer"), ln, x.get("buyer_website"))
+            ln = ""
         basis = "the site's copyright / footer line"
         # v3 (2026-11-10, tools/org_extras.py): the name the site prints WITH its legal form and that its own domain name spells ("Credit Lift Inc." on
         # creditlift.ca, "Autoénergie Canada inc." on autoenergie.com). Measured on 324 sites: where it differed from the name the older readers held
@@ -2633,7 +2690,7 @@ for x in rows:
             # the legal person a page of the site puts behind the site's own name: "Majid Enterprises Inc., operating as Lawn Lovers", "Solaris (1457570
             # Alberta Ltd.)", "Legal Entity : Sleepera Mattress Wholesale Ltd." — not a name printed on three sites and more (a maker's notice on its
             # dealers' sites, a platform's terms), unless it is this organisation's own
-            _pn, _pt, _ph = re.sub(r"\s+", " ", b.get("legal_name_party") or "").strip(), (b.get("legal_name_party_trade") or "").strip(), b.get("legal_name_party_how") or ""
+            _pn, _pt, _ph = _LEAD_DATE.sub("", re.sub(r"\s+", " ", b.get("legal_name_party") or "").strip()), (b.get("legal_name_party_trade") or "").strip(), b.get("legal_name_party_how") or ""
             if _pn and not generic_only_name(_pn) and not _PLATFORM_CO.search(_pn) and _own(b.get("legal_name_party_url")) and (not (norm(_pn) in NAME_ON_MANY or _AGENCY_CO.search(_pn)) or name_overlap(_pn, x.get("buyer") or "", _site)) and (
                     name_overlap(_pt, x.get("buyer") or "", _site) if _pt else _ph.startswith(("labelled", "named with its legal form under the label"))):
                 ln = _pn
@@ -2642,7 +2699,7 @@ for x in rows:
                          ("stated on %s: labelled there as the legal entity, as the site's operator" % b.get("legal_name_party_url")))
                 n_ox["buyer_legal_name_v3_legal_person_behind_the_site_name"] += 1
         if not ln and not _reg_cell:
-            _on = re.sub(r"\s+", " ", b.get("legal_name_operator") or "").strip()
+            _on = _LEAD_DATE.sub("", re.sub(r"\s+", " ", b.get("legal_name_operator") or "").strip())
             if _on and not generic_only_name(_on) and (not (norm(_on) in NAME_ON_MANY or _AGENCY_CO.search(_on)) or name_overlap(_on, x.get("buyer") or "", _site)) and stated_as_operator(_on, b.get("legal_name_operator_quote"), b.get("legal_name_operator_url") or "", _site):
                 ln, basis = _on, "stated on %s, as the site's operator" % (b.get("legal_name_operator_url") or "the site's legal page")
                 n_ox["buyer_legal_name_v3_stated_as_operator"] += 1
@@ -2662,7 +2719,10 @@ for x in rows:
                 if cand and (k != "jsonld_name" or LEGAL_FORMISH.search(cand)) and name_overlap(cand, x.get("buyer") or "", x.get("buyer_website") or ""):
                     ln, basis = tight_name(cand, x.get("buyer_website") or ""), lab; n_ox["buyer_legal_name_v2_" + k] += 1
                     break
-                if cand and k.startswith("jsonld") and (k != "jsonld_name" or LEGAL_FORMISH.search(cand)) and b.get("jsonld_url") and host_of(b["jsonld_url"]) == host_of(x.get("buyer_website") or ""):
+                if cand and k.startswith("jsonld") and (_LEGAL_PERSON.search(cand) or _NUMBERED_CO.search(cand)) and b.get("jsonld_url") and host_of(b["jsonld_url"]) == host_of(x.get("buyer_website") or ""):
+                    # 2026-11-11: a legal person's name only. Without a word shared with the site's name, the node's own address was all that tied it to
+                    # the organisation, and a node of an events page ("Kennetcook District Fire Hall" on a municipality's site) or a person's first
+                    # name ("Daryl", "Direction") passed: 373 of 852 such names shared nothing with the row's name.
                     # the site's own structured statement about itself: the node gives this very site as the organisation's address
                     ln, basis = cand, lab + ", which gives this site as the organisation's own"; n_ox["buyer_legal_name_v2_" + k + "_own_site_node"] += 1
                     break
@@ -2671,11 +2731,14 @@ for x in rows:
                     break
                 elif cand:
                     n_ox["buyer_legal_name_v2_rejected_no_overlap"] += 1  # reviewer 2026-11-08: "Internet Protocol", "Ville de Granby" on another body's site
+        if not ln and _cp_last and not _reg_cell:
+            ln, basis = _cp_last, "the copyright line of %s names this company; it shares no word with the site's name: taken as the company behind it on that line alone" % (b.get("legal_name_url") or "the organisation's site")
+            n_ox["buyer_legal_name_copyright_line_company_behind_the_site_name"] += 1
         if ln and (x.get("keys") or "").split("|")[0] in REG_NAMED and x.get("buyer_legal_name_as_published"):
             ln = ""; n_ox["buyer_legal_name_kept_from_the_trademarks_register"] += 1
         if ln:
             x["buyer_legal_name_as_published"] = ln if basis.startswith("the site's copyright") else "%s (%s)" % (ln, basis); n_ox["buyer_legal_name"] += 1
-            if GENERIC_NAME.match(x.get("buyer") or "") or DOMAIN_NAME.match(x.get("buyer") or ""):
+            if (GENERIC_NAME.match(x.get("buyer") or "") or DOMAIN_NAME.match(x.get("buyer") or "")) and not basis.startswith("the copyright line of"):
                 x["buyer"] = ln; n_ox["p13_name_from_legal_name"] += 1  # the crawler only had the site's domain or a page title
         v2_fill(x, b, "buyer")
         if b.get("bn") and bn_ok(b):
@@ -2700,8 +2763,18 @@ for x in rows:
         if _vsn and not DOMAIN_NAME.match(_vsn) and not GENERIC_NAME.match(_vsn):
             x["vendor"] = _vsn; n_ox["vendor named by its own site's name instead of its domain"] += 1
     if v and not (x.get("vendor") or "").startswith("inferred"):
-        if not x.get("vendor_legal_name") and not (_foreign_site and not in_ca_section(v.get("legal_name_url") or "")) and clean_legal(v.get("legal_name"), x.get("vendor") or ""):
-            x["vendor_legal_name"] = clean_legal(v["legal_name"], x.get("vendor") or "") + " (as printed on the vendor's site: %s)" % (v.get("legal_name_url") or ""); n_ox["vendor_legal_name"] += 1
+        _vcp = "" if x.get("vendor_legal_name") or (_foreign_site and not in_ca_section(v.get("legal_name_url") or "")) else clean_legal(v.get("legal_name"), x.get("vendor") or "")
+        _vcp_last = ""
+        if _vcp and not name_overlap(_vcp, x.get("vendor") or "", x.get("vendor_website") or "") and not own_name_plainly(_vcp, x.get("vendor") or "", x.get("vendor_website") or ""):  # 2026-11-11: as for the buyer's copyright line above
+            if copyright_company(_vcp) and norm(_vcp) != norm(x.get("buyer") or "") and registrable(host_of(v.get("legal_name_url") or "") or "") == registrable(host_of(x.get("vendor_website") or "") or "-"):
+                _vcp_last = _vcp  # "SofterWare, Inc" on a charity's donation page hosted by that company is not the charity's legal name
+                _dbg_name("vendor kept", x.get("vendor"), _vcp, x.get("vendor_website"))
+            else:
+                n_ox["vendor_legal_name_copyright_line_shares_nothing_with_the_name_not_taken"] += 1
+                _dbg_name("vendor left", x.get("vendor"), _vcp, x.get("vendor_website"))
+            _vcp = ""
+        if _vcp:
+            x["vendor_legal_name"] = _vcp + " (as printed on the vendor's site: %s)" % (v.get("legal_name_url") or ""); n_ox["vendor_legal_name"] += 1
         if v.get("neq"):
             x["vendor_neq"] = "%s (as printed: %s)" % (v["neq"], v.get("neq_url") or ""); n_ox["vendor_neq"] += 1
         if v.get("qst"):
@@ -2743,6 +2816,9 @@ for x in rows:
             elif _von and not generic_only_name(_von) and (not (norm(_von) in NAME_ON_MANY or _AGENCY_CO.search(_von)) or name_overlap(_von, _vn, _vsite)) and stated_as_operator(_von, v.get("legal_name_operator_quote"), v.get("legal_name_operator_url") or "", _vsite):
                 x["vendor_legal_name"] = "%s (stated on %s, as the site's operator)" % (_von, v.get("legal_name_operator_url") or "the site's legal page")
                 n_ox["vendor_legal_name_v3_stated_as_operator"] += 1
+        if not x.get("vendor_legal_name") and _vcp_last:
+            x["vendor_legal_name"] = "%s (the copyright line of %s names this company; it shares no word with the vendor's name: taken as the company behind it on that line alone)" % (_vcp_last, v.get("legal_name_url") or "the vendor's site")
+            n_ox["vendor_legal_name_copyright_line_company_behind_the_site_name"] += 1
         v2_fill(x, v, "vendor")
         if not x.get("vendor_trading_name") and not _foreign_site:  # 2026-11-08: the name the vendor trades under on its own site when it differs from its legal name (schema.org alternateName / Organization name)
             vl0 = (x.get("vendor_legal_name") or "").split(" (")[0].strip()
@@ -3519,7 +3595,7 @@ print("registry bulk rows added (no API row for the key):", n_bulk, "| registry 
 _REG_KIND = {"ville", "city", "town", "municipalite", "municipality", "village", "canton", "township", "county", "paroisse", "universite", "university", "college", "cegep", "gouvernement",
              "government", "province", "ministere", "ministry", "association", "societe", "society", "fondation", "foundation", "club", "centre", "center", "groupe", "group", "services",
              "service", "gestion", "holdings", "entreprises", "enterprises"}
-_NAME_SRC_CUT = re.compile(r"\s*\((?:as registered|stated on|printed with its legal form|holder of the charity registration|the name on the organisation's own home page|the organisation's name as the source|"
+_NAME_SRC_CUT = re.compile(r"\s*\((?:as registered|stated on|the copyright line of|printed with its legal form|holder of the charity registration|the name on the organisation's own home page|the organisation's name as the source|"
                            r"schema\.org|provincial municipal directory|recipient legal name|as printed|carried from|CRA |registered charity).*$")
 _SITE_SAYS = re.compile(r"as the site's operator\)\s*$|under the site's name\)\s*$|JSON-LD legalName on [^()]*, which gives this site as the organisation's own\)\s*$")
 def reg_record_is_rows(b, x):
@@ -4454,7 +4530,7 @@ def billing_of(x, ld):
 # fact? When … something being where it is means that there's a relationship". Each cell quotes the vendor's (or the body's) own page; a cell
 # with no published source stays empty.
 BILL_COLS = ["bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published",
-             "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "relationship_fact_basis", "billing_period_calculated"]
+             "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "relationship_fact_basis", "billing_period_calculated", "bill_amount_calculated"]
 # owner 2026-11-11 07:15 EST: "inference of inference … becomes a calculated guess … if there's so many inferences pointing to one thing". A billing
 # period that is NOT published for this relationship but follows from two published things goes in its own column, always opening with the word
 # "calculated", never into recurring_billing: (1) a client the vendor names + the vendor's own price list by the month; (2) construction work for
@@ -4464,6 +4540,63 @@ ON_MONTHLY = ("calculated — monthly: construction work for an owner in Ontario
 CIRA_LEGAL = "Canadian Internet Registration Authority (as it names itself in its Registrant Agreement, version 2.2: “the Canadian Internet Registration Authority (\"CIRA\")”)"
 _DOMAIN_NAME = re.compile(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}")
 _LEGAL_NOTE = re.compile(r"\s+\((?:stated on|as printed|printed with|schema\.org|the vendor's name|the name on|carried from|as registered|as it names|official name|as the |its words|the copyright)")
+# 2026-11-11, second reading of test rows (a draft of 100 drawn from the whole table): 14 rows had a defect in a name, an address or an amount.
+#   a vendor named by its page title ("Buy Domains & Email At Hover.com", "Dedicated Server Web Hosting PCI Compliant Canada » Zenutech");
+#   a buyer named by a title with bars ("YYC Detail | Car Auto Detailing | Paint Protection | Ceramic") or by its address with a slash ("cwmc.ca/");
+#   an address that begins with the page's words ("today. Call us Message us Contact Info Cameron, MO 64429-2112"), a charity number, a written "\n";
+#   a subject that is the word "null".
+_ADDR_MARK = re.compile(r"(?:contact\s+info(?:rmation)?|call\s+us(?:\s+now)?|message\s+us|learn\s+more|read\s+more|get\s+directions|(?:mailing\s+|office\s+|our\s+|physical\s+|postal\s+|civic\s+)?add?ress(?:e)?|adresse(?:\s+postale)?|"
+                        r"head\s+office|corporate\s+office|main\s+office|headquarters|si[èe]ge\s+social|visit\s+us|find\s+us(?:\s+here)?|our\s+(?:office|location)s?|locations?|coordonn[ée]es|(?:pour\s+)?nous\s+joindre|"
+                        r"contact(?:ez)?[- ](?:us|nous)|get\s+in\s+touch|talk\s+to\s+us|reach\s+us|come\s+visit(?:\s+us)?|where\s+to\s+find\s+us|o[ùu]\s+nous\s+trouver)(?:\s+(?:is|est))?\s*:?\s+", re.I)
+_ADDR_NOTE = re.compile(r"\s\((?:as printed|CRA |city, province|the |read |per |from |headquarters|official|registered|its |label|schema|stated|printed|provincial|recipient|carried|archive)")
+_CIVIC = re.compile(r"(?<![\w#-])(?:\d{1,6}[A-Za-z]?(?:\s?[-–]\s?\d{1,6})?\s*,?\s+(?:[A-Za-zÀ-ÿ0-9'’.-]+\s+){0,4}?(?:rue|street|st\.?|avenue|ave?\.?|road|rd\.?|boul\S*|blvd\.?|drive|dr\.?|chemin|ch\.|route|rang|way|lane|"
+                    r"ln\.?|court|ct\.?|crescent|cres\.?|place|pl\.?|highway|hwy\.?|parkway|pkwy\.?|trail|terrace|square|circle|line|sideroad|concession|mont[ée]e|c[ôo]te|all[ée]e|impasse|croissant|promenade|quai)(?![A-Za-zÀ-ÿ])"
+                    r"|(?:P\.?\s?O\.?\s?Box|C\.\s?P\.|Case\s+postale|Bo[iî]te\s+postale)\s?\d)", re.I)
+def addr_clean(a):
+    """the printed address without the page's words in front of it; the note in brackets that follows it stays"""
+    a = a or ""
+    m = _ADDR_NOTE.search(a)
+    body, note = (a[:m.start()], a[m.start():]) if m else (a, "")
+    b = re.sub(r"\s*\\[nrt]\s*", " ", body)  # a line break written out as two characters
+    b = re.sub(r";\s*vendor_address_missing:\s*(?:False|True)\s*$", "", b)  # a field name of the source left in the cell
+    b = re.sub(r"^FIRM_ADDRESS:\s*(?:null\b)?\s*", "", b)
+    b = re.split(r"\s*(?:-->|<!--)\s*", b)[-1]  # the end of a comment in the page's markup
+    b = re.sub(r"^\d{5}\s?\d{4}\s?RR\s?\d{4}\s+", "", b)  # a charity registration number printed before the address
+    last = None
+    for mk in _ADDR_MARK.finditer(b):
+        if mk.end() < len(b) - 8:
+            last = mk
+    if last and re.search(r"\d", b[last.end():]):
+        head = b[:last.start()]
+        if not re.search(r"\d{2,}", head) or re.search(r"[.!?]\s", head):  # what stands before the mark is prose, not the first line of the address
+            b = b[last.end():]
+    b = re.sub(r"^[a-zà-ÿ][^.!?]{0,60}[.!?]\s+(?=[A-Z0-9])", "", b)  # "today. 123 Main St": the end of a sentence
+    cv = _CIVIC.search(b)
+    if cv and cv.start() > 0:
+        head = b[:cv.start()]
+        if len(head.split()) >= 3 and not head.rstrip().endswith(",") and not re.search(r"\d{3,}", head) and not re.search(r"\b(?:suite|unit|bureau|floor|[ée]tage|local|app?t?\.?|c/o|a/s)\b", head, re.I):
+            b = b[cv.start():]  # three words or more run into the civic number, none of them a unit or a floor: the page's words or a name; a first line that ends
+                                # with a comma ("Licence and Permit Issuing Office, 850 Coxwell Avenue", "Commerce Court North, 25 King Street West") is part of the address
+    b = re.sub(r"\s{2,}", " ", b).strip(" ,;:-•·")
+    if body.lstrip().startswith("“") and b.endswith("”") and not b.startswith("“"):
+        b = "“… " + b  # a quoted line of the page: the cut is shown
+    return (b + note) if len(b) >= 6 else (a if not body.startswith("FIRM_ADDRESS") else "")
+def name_from_title(name, website):
+    """the organisation's name inside a page title used as its name: the part that fits its own address, or the address's own word"""
+    lab = re.sub(r"[^a-z0-9]", "", (registrable(host_of(website or "") or "") or "").split(".")[0].lower())
+    if len(lab) < 3:
+        return ""
+    segs = [q.strip(" -–—|:·•»>") for q in re.split(r"\s+[|–—:·•»>]\s+|\s+-\s+|\s*[|»]\s*|(?<=\w):\s+", name) if q.strip(" -–—|:·•»>")]
+    if len(segs) > 1:
+        fit = sorted(((_LCF.name_fit(q, lab), -i, q) for i, q in enumerate(segs)), reverse=True)
+        # the first part of a title when it fits the address at all; a later part only when it nearly spells the address ("… » Zenutech" on zenutech.com, not
+        # "Calgary" on calgarybusinesscoach.ca after "Rodina Ventures", nor "Traffic Tickets" after "Criminal Lawyer Toronto")
+        if fit[0][0] >= (20 if fit[0][1] == 0 else 75) and 2 <= len(fit[0][2]) <= 60:
+            return fit[0][2]
+    m = re.search(r"(?<![A-Za-z0-9])(%s)\.[a-z]{2,6}(?![A-Za-z0-9])" % re.escape(lab), name, re.I)
+    if m and len(name.split()) >= 3:
+        return m.group(1)  # the title carries the site's own address ("Buy Domains & Email At Hover.com"): the word in front of the dot
+    return ""
 _JUNK_NAME = re.compile(r"^(?:about(?: us)?|home|contact(?: us)?|welcome|accueil|services?|index|untitled|page d'accueil|homepage|menu|blog|shop|store|news|introduction|[àa] propos)$", re.I)
 _TITLE_PREFIX = re.compile(r"^(?:welcome to|bienvenue (?:chez|à|au|aux|sur le site d[eu])|introduction)\s+(?:the\s+)?", re.I)
 def _premises(a):
@@ -4475,6 +4608,30 @@ CIRA_KEEP = ("CIRA's General Registration Rules, version 3.22, s. 7.1: “In ord
              "(https://stg.cira.ca/uploads/2023/05/general-registration-rules.pdf, read 2026-11-11)")
 CIRA_PAY = ("through the registrar of record — CIRA's General Registration Rules, s. 7.2: “To renew the Registration Period of a Registration prior to its expiry, a Registrant must request its "
             "Registrar of Record to submit a renewal request to CIRA.”")
+# CIRA's Registrar Agreement, version 1.15 (July 7, 2016), Article 7, opened with the project's reader on 2026-11-11: who CIRA charges for a .ca name, when, and
+# that the amounts are on its website (cira.ca answers 403 to the reader, so the amount stays unread; stg.cira.ca serves the agreement itself)
+CIRA_REG = "CIRA's Registrar Agreement, version 1.15 (https://stg.cira.ca/uploads/2023/05/registrar-agreement.pdf, read 2026-11-11)"
+CIRA_BILL = ("CIRA charges the registrar of record, and the registrar bills the registrant under its own terms — %s, s. 7.1(f): “a fee for each registration of a Domain Name and a fee for the renewal of "
+             "a Domain Name Registration”; s. 7.2(b): “Fees arising from Transaction Requests will be charged and are payable at the time the Transaction Request is made.”" % CIRA_REG)
+CIRA_TAX = "%s, s. 7.1: “The amount of such fees (collectively the “Fees”) are set forth at CIRA’s website and do not include any applicable taxes.”" % CIRA_REG
+CIRA_AMOUNT = ("not read: CIRA's fee for a year of registration is “set forth at CIRA’s website” (%s, s. 7.1), and that website refuses this project's reader (403 on 2026-11-11); "
+               "the registrar's own price to the registrant depends on the registrar, which is not looked up (no bulk WHOIS query)" % CIRA_REG)
+# A .ca row's amount (owner 2026-11-11: "the amount that would be billed within that billing cadence"; "a calculated value only when several signals
+# agree, and labelled as calculated"): what the registrant pays its registrar is not published for any one name. What Canada-located vendors print
+# for a .ca name by the year is (tools/vendor_billing.py reads their price pages every day): with five such prices and more, the row carries
+# their range in its own column, opening with the word "calculated" — never in bill_amount_indicative.
+_CA_PRICES = _VB.ca_name_prices(VBILL)
+def _ca_amount_calculated():
+    if len(_CA_PRICES) < 5:
+        return ""
+    _f = lambda v: ("%.2f" % v).rstrip("0").rstrip(".")
+    _mid = _CA_PRICES[len(_CA_PRICES) // 2] if len(_CA_PRICES) % 2 else None
+    _midv = _mid[0] if _mid else (_CA_PRICES[len(_CA_PRICES) // 2 - 1][0] + _CA_PRICES[len(_CA_PRICES) // 2][0]) / 2
+    _ex = "; ".join("“%s” (%s, read %s)" % (re.sub(r"\s+", " ", q).strip()[:150], u, d) for v, dom, q, u, d in (_CA_PRICES[0], _CA_PRICES[len(_CA_PRICES) // 2], _CA_PRICES[-1]))
+    return ("calculated — $%s to $%s a year, middle value $%s: the prices that %d Canada-located vendors print for a .ca name by the year (lowest, middle, highest: %s). "
+            "The organisation's own registrar and the price it pays are not published" % (_f(_CA_PRICES[0][0]), _f(_CA_PRICES[-1][0]), _f(_midv), len(_CA_PRICES), _ex))
+CA_AMOUNT_CALC = _ca_amount_calculated()
+print("a .ca name by the year, as printed by the vendors on file: %d prices%s" % (len(_CA_PRICES), (" — " + CA_AMOUNT_CALC[:140]) if CA_AMOUNT_CALC else " (fewer than five: no calculated amount)"))
 def _money_words(v, cur, per):
     return "from %s%s a %s" % ({"CAD": "C$", "USD": "US$"}.get(cur, "$"), ("%.2f" % v).rstrip("0").rstrip("."), per)
 def bill_profile(x, ld, cls):
@@ -4496,7 +4653,8 @@ def bill_profile(x, ld, cls):
                            ("bill_payment_method_as_published", "payment"), ("bill_tax_rule_as_published", "tax"), ("bill_identifier_format", "identifier"), ("service_stops_if_unpaid", "unpaid")):
                 out[col] = b.get(k) or ""
         if rec and not (credit and not hosted and not cur):
-            low = _VB.lowest(rec)
+            _svc = ("mail" if re.search(r"\b(?:MX|SPF|spf1|DKIM|DMARC)\b|v=spf1|authorises|send its mail|mail is handled", (ld.get("dns_record") or "") + " " + cs, re.I) else "dns") if dns else ""
+            low = _VB.lowest(rec, _svc)
             if cls.startswith("3"):
                 low.pop("month", None)  # a vendor that bills by the year: its yearly price, never a monthly figure it only shows for comparison (Hover)
             if not out.get("bill_amount_indicative") and (low.get("month") or low.get("year")):
@@ -4507,10 +4665,19 @@ def bill_profile(x, ld, cls):
                                             % (per, st_["q"][:260], st_["u"], rec.get("date")))
                 if c_ and not out.get("bill_currency_as_published"):
                     out["bill_currency_as_published"] = "%s: the vendor's prices are quoted in %s (“%s”, %s)" % (c_, {"CAD": "Canadian dollars", "USD": "U.S. dollars"}[c_], st_["m"].strip()[:60], st_["u"])
+            elif not out.get("bill_amount_indicative") and dns and _VB.lowest(rec):
+                out["bill_amount_basis"] = ("not taken: the prices read on the vendor's site (%s) are for another of its products than the one seen in the organisation's DNS records "
+                                            "(a mailbox price for a zone on its name servers, or a telephone, television or Internet-access price)" % vd)
             for col, k in (("bill_currency_as_published", "currency"), ("bill_payment_method_as_published", "paymethod"), ("service_stops_if_unpaid", "unpaid")):
                 st_ = _VB.extra_of(rec, k)
                 if st_ and not out.get(col):
                     out[col] = "“%s” (%s, read %s)" % (st_["q"][:280], st_["u"], rec.get("date"))
+        if cur and not out.get("bill_items_as_published"):
+            out["bill_items_as_published"] = "the subscription to the vendor's service, in the words of its own terms: “%s” (%s)" % (cur["quote"][:240], cur["url"])
+        if re.search(r"/password/?$", x.get("contract_link") or "") and (x.get("vendor") or "").startswith("Shopify"):
+            out["bill_amount_basis"] = ((out.get("bill_amount_basis") or "") + "; this store shows its password page (%s): it is on the platform, and it may be closed for a time or not yet open, "
+                                        "in which case its fee can differ from an open store's" % x["contract_link"]).lstrip("; ")
+            n_billcol["Shopify store behind its password page (noted beside the amount)"] += 1
         unpaid = (" The vendor cuts an unpaid service off: %s" % out["service_stops_if_unpaid"][:240]) if out.get("service_stops_if_unpaid") else ""
         if credit and not hosted and not cur:
             out["relationship_fact_basis"] = "stated by the buyer: its own site names the vendor as the maker of the site (“%s”): work done and paid for at least once; nothing published shows a bill today" % re.sub(r"\s+", " ", ld.get("credit_phrase") or "credit").strip()
@@ -4527,6 +4694,8 @@ def bill_profile(x, ld, cls):
         out["bill_items_as_published"] = ".ca domain name registration and its renewals, 1 to 10 years at a time (CIRA's General Registration Rules, s. 2.4 and 7.1)"
         out["bill_payment_method_as_published"] = CIRA_PAY
         out["service_stops_if_unpaid"] = CIRA_KEEP
+        out["bill_delivery_as_published"], out["bill_tax_rule_as_published"], out["bill_amount_basis"] = CIRA_BILL, CIRA_TAX, CIRA_AMOUNT
+        out["bill_amount_calculated"] = CA_AMOUNT_CALC
         out["relationship_fact_basis"] = "fact, seen on the buyer's side: the organisation's own .ca name answers (read %s), and a .ca name that is not renewed lapses: %s" % (day, CIRA_KEEP)
     elif t == "M":
         m = _FEE_QUOTE.search(cfv) or _FEE_QUOTE.search(cs)
@@ -4599,7 +4768,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found", "relationship_fact_basis", "recurring_billing", "recurring_billing_basis",
                                        "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published",
                                        "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated",
-                                       "invoice_fields_present", "invoice_fields_missing"]),
+                                       "bill_amount_calculated", "invoice_fields_present", "invoice_fields_missing"]),
                    ("contract_reference", ["invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id",
                                            "buyer_vendor_id", "vendor_ids_in_record", "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count",
                                            "records_with_this_vendor", "all_references_with_this_vendor"]),
@@ -4653,7 +4822,7 @@ for _ri, x in enumerate(rows):
     for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
                 "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count", "records_with_this_vendor", "all_references_with_this_vendor",
                 "relationship_kind", "relationship_detail", "how_relationship_was_found", "recurring_billing", "recurring_billing_basis", "relationship_fact_basis", "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published",
-                "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated", "invoice_fields_present", "invoice_fields_missing", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
+                "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated", "bill_amount_calculated", "invoice_fields_present", "invoice_fields_missing", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
                 "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
                 "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
         x.setdefault(col, "")
@@ -4682,6 +4851,35 @@ for _ri, x in enumerate(rows):
         _b2 = _TITLE_PREFIX.sub("", _b)
         if _b2 != _b and len(_b2) >= 3:
             x["buyer"] = _b2; n9["buyer name: the page-title opening (Welcome to …) removed"] += 1
+    _b = (x.get("buyer") or "").strip()
+    if _b.endswith("/") and _DOMAIN_NAME.fullmatch(_b.rstrip("/").lower()):
+        x["buyer"] = _b = _b.rstrip("/"); n9["buyer name: the slash after its domain name removed"] += 1
+    if (" | " in _b or "|" in _b) and x.get("buyer_website"):
+        _b3 = name_from_title(_b, x["buyer_website"]) or _b.split("|")[0].strip(" -–—:")
+        if 3 <= len(_b3) < len(_b):
+            x["buyer"] = _b3; n9["buyer name: the part of a page title that names it"] += 1
+    if "(stories" in (x.get("vendor_country_basis") or "") and x.get("buyer_website") and len(_b.split()) >= 4 and norm(x.get("contract_title") or "").startswith(norm(_b)[:40]) and not _LEGAL_PERSON.search(_b):
+        x["buyer"] = _b = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by the title of the vendor's story: its domain name instead"] += 1
+    _v0 = (x.get("vendor") or "").strip()
+    if not _v0.startswith("inferred") and x.get("vendor_website") and ("»" in _v0 or "|" in _v0 or " > " in _v0 or len(_v0.split()) >= 5):
+        _v1 = name_from_title(_v0, x["vendor_website"]) if ("»" in _v0 or "|" in _v0 or " > " in _v0 or not _LEGAL_PERSON.search(_v0)) else ""
+        if _v1 and _v1 != _v0 and len(_v1) < len(_v0):
+            if _v1.islower():
+                _v1 = _v1.capitalize()
+            for _tc in ("contract_status", "relationship_detail", "relationship_fact_basis", "recurring_billing_basis", "contract_description", "bill_amount_basis", "vendor_country_basis"):
+                if _v0 in (x.get(_tc) or ""):
+                    x[_tc] = x[_tc].replace(_v0, _v1)
+            if not (x.get("vendor_trading_name") or "").strip():
+                x["vendor_trading_name"] = "%s (the title of the vendor's own home page)" % _v0[:120]
+            x["vendor"] = _v1; n9["vendor named by its page title: the part that names it"] += 1
+    for _ac in ("buyer_address", "vendor_address"):
+        _a0 = x.get(_ac) or ""
+        if _a0 and (_ADDR_MARK.search(_a0) or "\\n" in _a0 or "-->" in _a0 or "vendor_address_missing" in _a0 or re.match(r"\d{5}\s?\d{4}\s?RR|[a-zà-ÿ]|FIRM_ADDRESS", _a0) or (_CIVIC.search(_a0) and _CIVIC.search(_a0).start() > 20)):
+            _a1 = addr_clean(_a0)
+            if _a1 != _a0:
+                x[_ac] = _a1; n9["%s: the page's words in front of it removed" % _ac] += 1
+    if (x.get("contract_title") or "").strip().lower() in ("null", "none", "n/a", "nan", "undefined"):
+        x["contract_title"] = ""; n9["subject that was the word null: emptied"] += 1
     for _dc in ("start_date", "end_date", "award_date"):
         _m = re.match(r"^(\d{4})-(\d\d)-(\d\d)$", x.get(_dc) or "")
         if _m and int(_m.group(2)) > 12 >= int(_m.group(3)):
@@ -4748,7 +4946,8 @@ for _ri, x in enumerate(rows):
         # owner 2026-11-11 07:48 EST: "every single aspect within an invoice matters … the amount … the correct address, the vendor": the invoice's
         # fields on this row, one by one (a cell that says not_published is empty)
         _has = lambda c_: str(x.get(c_) or "").strip() not in ("", "not_published")  # contract_value is a number on dataset rows
-        _inv = {"buyer legal name": _has("buyer_legal_name_as_published"), "buyer address": _has("buyer_address"), "vendor legal name": _has("vendor_legal_name"),
+        _sure = lambda c_: _has(c_) and "on that line alone" not in str(x.get(c_) or "")  # a legal name that rests on a copyright line alone is shown with its note, and not counted
+        _inv = {"buyer legal name": _sure("buyer_legal_name_as_published"), "buyer address": _has("buyer_address"), "vendor legal name": _sure("vendor_legal_name"),
                 "vendor address": _has("vendor_address") or _has("vendor_registered_address"), "vendor tax number": _has("vendor_bn9"),
                 "what is billed": _has("contract_title") or _has("bill_items_as_published"), "amount": _has("contract_value") or _has("bill_amount_indicative"),
                 "billing period": x["recurring_billing"][:1] in "1234", "reference": _has("contract_reference") or _has("invoice_reference_hint")}
@@ -4758,6 +4957,10 @@ for _ri, x in enumerate(rows):
         x["invoice_fields_missing"] = "; ".join(c_ for c_, v_ in _inv.items() if not v_) or "none of the nine"
         n_inv["all nine"] += all(_inv.values())
         n_inv["all but the amount"] += all(v_ for c_, v_ in _inv.items() if c_ != "amount")
+        if not _inv["amount"] and _has("bill_amount_calculated"):  # a calculated amount is not a published one: counted on its own line, never among the nine
+            n_inv["amount, calculated only"] += 1
+            n_inv["all nine with the amount calculated"] += all(v_ for c_, v_ in _inv.items() if c_ != "amount")
+            x["invoice_fields_missing"] = x["invoice_fields_missing"].replace("amount", "amount (a calculated one is given)", 1)
         n_inv_t[(t, sum(_inv.values()))] += 1
         if (x.get("vendor") or "").startswith("Shopify"):
             n_bill_shop[(_ldb.get("buyer_country_evidence") or "")[:2].upper() or buyer_country(x) or "country not read"] += 1
@@ -5202,9 +5405,10 @@ for _c in sorted(_bt):
 print("  rows that meet the bar as published (1 monthly + 1 quarterly): %d of %d rows with a mailbox | Shopify rows by the store's country: %s"
       % (_bt.get("1 monthly", 0) + _bt.get("1 quarterly", 0), sum(_bt.values()), ", ".join("%s %d" % kv for kv in n_bill_shop.most_common())))
 print("  the bill's fields, rows with a mailbox that carry each: %s" % ", ".join("%s %d" % (c_, n_billcol[c_]) for c_ in BILL_COLS))
+print("  beside them:", {k_: v_ for k_, v_ in n_billcol.items() if k_ not in BILL_COLS})
 _nm_ = max(1, sum(_bt.values()))
 print("invoice fields (owner 2026-11-11: every aspect within an invoice) — rows with a mailbox that carry each, of %d: %s" % (_nm_, " · ".join("%s %d (%.0f%%)" % (c_, n_inv[c_], 100.0 * n_inv[c_] / _nm_) for c_ in
-      ("buyer legal name", "buyer address", "vendor legal name", "vendor address", "vendor tax number", "what is billed", "amount", "billing period", "reference", "all but the amount", "all nine"))))
+      ("buyer legal name", "buyer address", "vendor legal name", "vendor address", "vendor tax number", "what is billed", "amount", "billing period", "reference", "all but the amount", "all nine", "amount, calculated only", "all nine with the amount calculated"))))
 print("  rows by number of the nine fields, tier by tier: %s" % " | ".join("%s: %s" % (t_, " ".join("%d×%d" % (k_, n_inv_t[(t_, k_)]) for k_ in range(9, 2, -1) if n_inv_t[(t_, k_)])) for t_ in sorted({t2 for (t2, _k) in n_inv_t})))
 print("downstream pack:", dict(npk))
 # the change list against the previous build (tools/release_diff.py) is made by tools/rank_tail.sh once this process has ended: it holds two

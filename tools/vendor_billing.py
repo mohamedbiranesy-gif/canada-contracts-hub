@@ -305,21 +305,103 @@ def parse_money(m):
     return v, cur
 
 
-def lowest(rec):
+# 2026-11-11 (the owner's test rows read before they went out: 36,201 rows carried an amount from these records, 439 vendors). What was wrong:
+# a sentence that is not a price list ("If I offered you another $2,000 a month, would you…", "a 2% late fee or $25.00, whichever is greater",
+# "solde minimum payable de $100 par mois", "Most of our clients spend … $500 to $5,000+ per month"), a first-purchase offer ("$8.88/yr only for
+# new dot-CA domains!"), the top of a printed range ("$3,000 - $6,500/Yr"), a price printed "39, 95 $" read as 95, and — for a relationship seen
+# in DNS — the price of another product of the same company: a mailbox for a zone served by its name servers ("per mailbox, billed at $36 per
+# year", 5,078 rows), a television receiver or a telephone line of an Internet provider that also hosts mail.
+_NOT_A_PRICE = re.compile(r"\?|late\s+fee|whichever\s+is\s+greater|minimum\s+(?:payable|payment|balance)|solde\s+minimum|\bspend\b|d[ée]pens|\bcharges?\s+\$|\bcosts?\s+(?:around|about|between)|"
+                          r"typically|on\s+average|en\s+moyenne|agencies\s+charge|\bbudget\b|another\s+\$|\bsave\s+\$|[ée]conomisez|\bdeposit\b|d[ée]p[ôo]t\b|\bpenalt|\bsurvey\b|\bsalar(?:y|ies)\b|salaire|"
+                          r"\brevenue\b|chiffre\s+d['’]affaires|\bworth\b|\bvalued?\s+at\b", re.I)
+_PROMO = re.compile(r"first|premier|premi[èe]re|trial|essai|intro|promo|then\s|puis\s|for\s+\d+\s+months|pendant|only\s+for\s+new|new\s+(?:customers|clients|domains|dot)|nouveaux?\s+clients|"
+                    r"limited[- ]time|dur[ée]e\s+limit[ée]e", re.I)
+_MAIL_PRICE = re.compile(r"mailbox|bo[iî]tes?\s+(?:aux\s+lettres|courriel|de\s+courriel)|\be-?mail\b|courriels?\b|\binbox\b|/\s?user\b|per\s+user\b|par\s+utilisateur", re.I)
+_MAIL_PATH = re.compile(r"/(?:[a-z-]*e-?mail[a-z-]*|[a-z-]*courriels?[a-z-]*|webmail|inbound-filtering|spam[a-z-]*)(?:[/.?]|$)", re.I)
+_TELECOM = re.compile(r"set-?top|receiver|\brental\b|\bONU\b|\bmodem\b|\brouter\b|phone\s+number|home\s+phone|long\s+distance|\bchannels?\b|\bTiVo\b|\bTV\b|t[ée]l[ée]vision|internet\s+plans?|"
+                      r"high[- ]speed|haute\s+vitesse|\bfibre\b|\bfiber\b|\bDSL\b|wireless|sans[- ]fil|\bmobile\b|cellular|cellulaire|\bMbps\b|\bGbps\b|unlimited\s+(?:data|internet|calling)", re.I)
+_TELECOM_PATH = re.compile(r"/(?:tv|television|phone|telephone|telephonie|mobile|mobilite|internet|fibre|fibreinternet|fiber|cable|wireless|residential|residentiel|home|packages|rural|voip)(?:[/.?-]|$)", re.I)
+
+
+def lowest(rec, service=""):
     """{'month': (value, currency, statement), 'year': (…)} — the lowest published price of each period, 1 or more (a "$0" plan and a
-    "$1 for the first month" offer are not prices of the service)"""
+    "$1 for the first month" offer are not prices of the service). service: what the relationship was seen as — "dns" (the organisation's zone is
+    on the vendor's name servers), "mail" (its mail goes through the vendor), "web" (its site is on the vendor's servers), "" (not known). A price
+    of another product is then left out: a mailbox price for "dns" and "web", and an Internet provider's line or equipment for all three."""
     out = {}
     for s in (rec or {}).get("stmts") or []:
         per = {"price_month": "month", "price_year": "year", "price_quarter": "quarter"}.get(s["c"])
         if not per:
             continue
-        v, cur = parse_money(s.get("m") or s.get("q") or "")
-        if v is None or v < 1 or v > 100000 or re.search(r"first|premier|trial|essai|intro|promo|then\s|puis\s|for\s+\d+\s+months|pendant", s.get("q") or "", re.I):
+        q, u = s.get("q") or "", s.get("u") or ""
+        v, cur = parse_money(s.get("m") or q)
+        if v is None or _PROMO.search(q) or _NOT_A_PRICE.search(q):
             continue
-        if _ADDON.search(s.get("q") or ""):
+        if _ADDON.search(q):
             continue  # "$5 / month per license", "+$15 per additional mailbox", "domain privacy $9.99/yr": the price of an extra, not of the service
+        if service and (_TELECOM.search(q) or _TELECOM_PATH.search(u)):
+            continue
+        if service in ("dns", "web") and (_MAIL_PRICE.search(q) or _MAIL_PATH.search(u)):
+            continue
+        mm = re.search(r"(?<![\d.,])(\d{1,4}),\s(\d\d)\s?\$", q)
+        if mm and abs(v - float(mm.group(2))) < 1e-9:
+            v = float(mm.group(1) + "." + mm.group(2))  # "39, 95 $/mois"
+        num = re.search(r"\d[\d,]*(?:\.\d\d)?", s.get("m") or "")
+        if num:  # the matched amount closes a printed range: its first amount is the lowest ("$3,000 - $6,500/Yr", "$500 to $5,000+ per month")
+            rg = re.search(r"(\d[\d,]*(?:\.\d\d)?)\s?\$?\s*(?:-|–|—|\bto\b|\bà\b)\s*\$?\s?" + re.escape(num.group(0)), q)
+            if rg:
+                try:
+                    v0 = float(rg.group(1).replace(",", ""))
+                    if 0 < v0 < v:
+                        v = v0
+                except ValueError:
+                    pass
+        if v < 1 or v > 100000:
+            continue
         if per not in out or v < out[per][0]:
             out[per] = (v, cur, s)
+    return out
+
+
+# what a .ca domain name costs by the year, as the vendors on file print it (2026-11-11: CIRA's own fee is on a site that refuses the reader, and a
+# row for a .ca name does not know the registrant's registrar; several vendors' printed prices give a range, which the ranker labels as calculated)
+_CA_AFTER = re.compile(r"(?<![\w.-])\.ca\b(?P<gap>[^$|\d]{0,48}?)(?:(?:CA|C)?\$\s?(?P<a>\d{1,3}(?:[.,]\d\d)?)(?![\d.,])|(?P<b>\d{1,3}(?:[.,]\d\d)?)\s?\$)", re.I)
+_CA_BEFORE = re.compile(r"\$\s?(?P<a>\d{1,3}(?:[.,]\d\d)?)\s+(?:for|pour)\s+(?:an?|une?)\s+\.ca\b", re.I)
+_CA_SKIP = re.compile(r"first\s+year|1st\s+year|premi[èe]re\s+ann[ée]e|1re\s+ann[ée]e|\btransfer|\babout\s+(?:C|CA)?\$|typically|around|environ|USD|US\$|\bfree\b|gratuit", re.I)
+_OTHER_TLD = re.compile(r"\.(?:com|net|org|info|biz|co|io|quebec|qc)\b", re.I)
+
+
+def ca_name_prices(recs):
+    """[(price, vendor domain, quote, url, date read)], lowest first — one price a vendor: the one its own sentence puts on the .ca name by the year
+    (".ca $29/yr", "a .ca is $38.95 a year", ".ca 24,95 $ / an", "$34.99 for a .ca domain"). Left out: a first-year offer, a US-dollar price, a
+    price given for several endings in one breath (".com, .ca, .net … $19.95/year"), a sentence that only says "about"."""
+    best = {}
+    for dom, rec in (recs or {}).items():
+        if (rec or {}).get("status") != "ok":
+            continue
+        for st in rec.get("stmts") or []:
+            q = st.get("q") or ""
+            if st.get("c") not in ("price_year", "billed_year", "plan_year") or ".ca" not in q.lower() or _CA_SKIP.search(q):
+                continue
+            m = _CA_BEFORE.search(q)
+            if not m:
+                m = _CA_AFTER.search(q)
+                if not m or _OTHER_TLD.search(m.group("gap")):
+                    continue
+            try:
+                v = float((m.groupdict().get("a") or m.groupdict().get("b") or "").replace(",", "."))
+            except ValueError:
+                continue
+            if not 5 <= v <= 100:
+                continue
+            if dom not in best or v < best[dom][0]:
+                best[dom] = (v, dom, q, st.get("u") or "", rec.get("date") or "")
+    out, seen = [], set()
+    for t in sorted(best.values()):
+        key = re.sub(r"\W+", "", t[2].lower())[:80]  # one firm under two domain names prints the same sentence
+        if key not in seen:
+            seen.add(key)
+            out.append(t)
     return out
 
 

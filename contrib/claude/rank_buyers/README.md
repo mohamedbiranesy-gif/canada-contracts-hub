@@ -198,6 +198,18 @@ opens with the word "calculated": a client the vendor names + the vendor's price
 + the Construction Act's default ("Proper invoices shall be given to an owner on a monthly basis, unless the contract provides otherwise").
 It never feeds `recurring_billing`.
 
+`bill_amount_calculated` is the same idea for the amount, and also always opens with the word "calculated". Today it is filled on `.ca`
+registration rows: the registrant's own registrar and price are not published for any one name (CIRA's fee is on a site that refuses the
+reader, and WHOIS is not queried in bulk), but Canada-located vendors print what they charge for a `.ca` name by the year, and
+`tools/vendor_billing.py` reads those pages daily. With five such prices or more the cell gives their range, the middle value and three
+quoted examples. It never feeds `bill_amount_indicative`, and the nine-field count treats the amount as missing: the log has its own lines
+("amount, calculated only", "all nine with the amount calculated").
+
+A legal name taken from a site's copyright line must share a word with the organisation's own name or address. One that shares nothing is
+taken last, only when it is a short company name ending with its legal form and not an agency's or a name printed on many sites, and the
+cell then says "the copyright line of … names this company; it shares no word with the site's name". A schema.org node that only gives
+the site as its own address counts when it names a legal person (Inc., Ltd., LLC, a numbered company), not otherwise.
+
 Only the first line of the table meets the owner's bar of 06:24 as stated. The build log (SUMMARY.md) gives the rows of each value, tier by tier, and the Shopify
 rows by the store's country (section 13 of Shopify's terms names two contracting parties for stores in the United States or Canada).
 Among the services an organisation is seen to use, the one whose vendor bills by the month claims the row (`lead_strength`).

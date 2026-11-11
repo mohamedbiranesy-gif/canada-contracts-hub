@@ -101,7 +101,7 @@ def site_name_for(host, og, title, T):
     cands = []
     for s in (og, title):
         if s:
-            cands += [q.strip(" -–—|:·•") for q in re.split(r"\s+[|–—:·•]\s+|\s+-\s+|\s*\|\s*|(?<=\w):\s+", s)]
+            cands += [q.strip(" -–—|:·•»>") for q in re.split(r"\s+[|–—:·•»>]\s+|\s+-\s+|\s*[|»]\s*|(?<=\w):\s+", s)]  # 2026-11-11: » and > cut a title too
     best, best_s, spelled = "", 0.0, ""
     for i, c in enumerate(cands):
         c = re.sub(r"^(?:welcome to|bienvenue (?:[àa]|au|aux|chez|sur)(?: le| la| l['’])?)\s+", "", c, flags=re.I)  # "Welcome to ABC"
@@ -115,6 +115,12 @@ def site_name_for(host, og, title, T):
             best, best_s = re.sub(r"\s+", " ", c).strip(), sc
     if spelled and best and " " not in best and len(best) <= 6 and re.sub(r"[^a-z0-9]", "", best.lower()) == label:
         best = spelled  # "ADL | Amalgamated Dairies Limited": the name spelled out, not the bare acronym
+    if best_s >= 20.0 and label and len(best.split()) >= 3:
+        # 2026-11-11: "Buy Domains & Email At Hover.com" was the name of 5,078 rows' vendor — a slogan that carries the site's own address is not
+        # a name; the word in front of the dot is
+        m = re.search(r"(?<![A-Za-z0-9])(%s)\.[a-z]{2,6}(?![A-Za-z0-9])" % re.escape(label), best, re.I)
+        if m:
+            best = m.group(1).capitalize() if m.group(1).islower() else m.group(1)
     return best if best_s >= 20.0 else ""
 
 

@@ -36,7 +36,7 @@ SHOW = ["buyer", "buyer_legal_name_as_published", "buyer_address", "buyer_phone"
         "vendor", "vendor_legal_name", "vendor_address", "vendor_registered_address", "vendor_bn9", "vendor_gst_hst_derived", "vendor_website", "vendor_country_basis",
         "tier", "rank_group", "relationship_kind", "relationship_fact_basis", "contract_status", "contract_link", "source", "contract_title", "contract_reference",
         "contract_value", "currency", "award_date", "start_date", "end_date",
-        "recurring_billing", "recurring_billing_basis", "billing_period_calculated", "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published",
+        "recurring_billing", "recurring_billing_basis", "billing_period_calculated", "bill_amount_indicative", "bill_amount_basis", "bill_amount_calculated", "bill_items_as_published", "bill_currency_as_published",
         "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid",
         "invoice_fields_present", "invoice_fields_missing", "invoice_readiness", "invoice_missing", "ap_grade", "payment_terms_as_published", "po_required_as_published", "invoice_portal_url", "invoicing_requirements",
         "invoice_reference_hint", "keys"]

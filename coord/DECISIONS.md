@@ -1366,3 +1366,44 @@ read. A store row arrives with the billing period, the amount, the bill's fields
 it. So: mailbox-crawl 6 -> 8 runners (the store reader rides on each), certificate-name sweep 3 -> 2. The limit of 2 requests a second
 per runner towards Shopify stays. Stores outside Canada and the United States still end after one request.
 
+## 2026-11-11 16:14Z — the owner's 100 test rows went out; what reading two draws before him changed in the rules
+The set (`coord/pilot/TEST_SAMPLE_2026-11-11.csv`, review page with his marks saved on it) is drawn from the table published at 15:57Z
+(282,207 rows). I read a draw of 100 from a local build first, then his: about one row in five had a fault in a name, an address or an
+amount, none in a mailbox. Each fault became a rule, measured before it was written:
+- **A legal name from a copyright line must be the organisation's own.** 37,221 buyer names came from that line; the ranker's own test
+  finds about 5,000 that share no distinctive word with the organisation's name or address. Read by eye (70, then 44): about half were
+  the site's maker, a picture's owner ("Peanuts Worldwide LLC"), a parent, or the page's menu ("Disclaimer Browse Home Municipal Office
+  Services Dep"). Now: kept when it is plainly the organisation's (the same name, its initials, its government on a government site);
+  otherwise taken last, only a short company name with its legal form, printed on the organisation's own domain, not an agency's, not on
+  three sites; the cell says "on that line alone" and such a name is **not counted** among the nine invoice fields (read by eye: about
+  three in four right). The same rule on the vendor side ("SofterWare, Inc" on a charity's donation page was the charity's legal name).
+- **A schema.org node that only gives the site as its own address counts when it names a legal person.** "Kennetcook District Fire
+  Hall" was a municipality's legal name, "Daryl" a cabinet maker's.
+- **An amount is a price-list line for the service seen.** 36,201 rows took their amount from the vendor reader, 439 vendors. Not a
+  price: a blog sentence ("another $2,000 a month"), a late fee, a minimum payment on a balance, a first-purchase offer ("$8.88/yr only
+  for new dot-CA domains!", 1,313 rows), the top of a printed range. Not the service: a mailbox price for a zone on the vendor's name
+  servers (Hover, 5,078 rows: its domain prices are drawn by a script the reader does not run, so those rows now carry no amount and
+  say why), an Internet provider's television box or telephone line. `vendor_billing.lowest(rec, service)` does both.
+- **The largest vendor seen in DNS gets its terms read by hand**: Web Hosting Canada, 11,551 rows — how its invoice arrives, how it is
+  paid, in which currency, what happens when it is not paid, its hosting price (`tech_relationships.BILLING_BY_DOMAIN["whc.ca"]`).
+- **`.ca` rows (103,559): what CIRA's Registrar Agreement says, and a calculated amount.** CIRA charges the registrar "a fee for each
+  registration … and a fee for the renewal", "at the time the Transaction Request is made", taxes not included; the amounts are "set
+  forth at CIRA's website", which refuses the reader (403, not asked again). The registrant's own price is not published for any one
+  name. So `bill_amount_calculated` (new column, always opening with "calculated") gives the range of what Canada-located vendors print
+  for a `.ca` name by the year — today 8 prices, $14.57 to $45 — and never feeds `bill_amount_indicative` nor the nine-field count; the
+  log counts it on its own lines.
+- **A name is not a page title.** Vendors: "Buy Domains & Email At Hover.com" -> Hover, "… » Zenutech" -> Zenutech (1,756 rows on a
+  1-in-4 sample); `lead_crawl.site_name_for` fixed at the source. Buyers: a title with bars, a domain with a slash, the title of the
+  vendor's story. Addresses: the page's words in front ("today. Call us Message us Contact Info Cameron, MO"), a charity number, a
+  written "\n". A subject that was the word "null".
+- **A story is a client listing only when it is filed as one.** "And the honorary doctorate goes to" (a university's news story of
+  2010) stood as a client; United Way, alumni and sustainability stories did the same. A story whose address is not under clients,
+  customers, case studies, success stories or testimonials is now a link (tier E), with the reason on the row.
+- **A person is not a vendor.** 15 rows named a consultant lobbyist registered without a firm. Left out.
+- **A whole build does not fit this container (killed at 5.8 GB); two parts do** (`RANK_PART=i/2`, 15 minutes a part, 5.4 GB,
+  `tools/rank_merge.py`): 282,149 rows locally against 282,207 in the cloud an hour later. That is how a full table is read here
+  before a cloud build when the runners are all taken.
+- **The test page shows what is already known.** 19 of his 100 rows carry a note where a rule can see the fault. Nothing was removed
+  from the draw. When the corrected table is published and he has not marked a row yet, a second draw replaces the first; otherwise
+  the first stays and the second is a new page.
+

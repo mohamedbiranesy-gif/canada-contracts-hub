@@ -406,6 +406,24 @@ BILLING_BY_DOMAIN = {
     "1password.com": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://1password.com/legal/terms-of-service",
                           quote="You will be billed in advance on a recurring and periodic basis (“Billing Cycle”). Billing cycles are set on a regular basis, typically monthly or yearly.",
                           bill=dict(payment="“A valid payment method, including credit card, is required to process the payment for your Subscription.” (terms of service)")),
+    # Web Hosting Canada: 11,551 rows on 2026-11-11 (the organisation's zone on ns1 / ns2.whc.ca), the largest vendor seen in DNS. Its terms and its hosting page
+    # were opened with the project's reader on 2026-11-11; the daily reader had kept an e-mail plan's price for every row.
+    "whc.ca": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://whc.ca/legal/terms-of-service",
+                   quote="WHC will generate renewal invoices automatically for all your active services at least 15 days prior to their expiration date.",
+                   more=("its price list is by the month — “As low as C$2.79 /mo” — and a plan can be “prepaid for a minimum of 1 year” (https://whc.ca/canadian-web-hosting): "
+                         "which term this organisation chose is not published"),
+                   amount="from C$2.79 a month",
+                   amount_basis=("Web Hosting Canada's hosting page: “Affordable plan, great for personal projects. As low as C$2.79 /mo C$9.99 Save 72%” (https://whc.ca/canadian-web-hosting, "
+                                 "read 2026-11-11): C$2.79 is the reduced price of its smallest plan and C$9.99 the price printed beside it; the organisation's own plan is not published"),
+                   bill=dict(
+                       items="the services active on the account, each renewed at the end of its term: “renewal invoices … for all your active services” (terms of service)",
+                       currency="“All payments must be made in Canadian dollars, unless stated otherwise.” (terms of service)",
+                       delivery=("“When we generate a new invoice, we'll send you an email with a copy of the invoice and will also make the invoice available in your Client Area” "
+                                 "(terms of service)"),
+                       payment=("“WHC accepts payments by Visa, Mastercard and Paypal (which includes American Express).” … “Unless otherwise requested, WHC will attempt to charge the "
+                                "payment method on file 5 days prior to your invoice's due date.” (terms of service)"),
+                       unpaid=("“Services not paid on their due date risk being suspended, and may be terminated permanently shortly after, at WHC’s sole discretion.” "
+                               "(https://whc.ca/legal/terms-of-service, read 2026-11-11)"))),
 }
 BILLING["lightspeed_golf"] = BILLING["lightspeed"]
 BILLING["wellnessliving_widget"] = BILLING.get("wellnessliving")
