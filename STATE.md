@@ -157,6 +157,19 @@ leads on file → 25,000-35,000; .ca registrations and the member / licence lane
 The DNS-provider class is the one that can still grow by a multiple: its leads come from 4.5 million domains looked up, and the domain
 sweep is walking a list of 118 million.
 
+**Addendum 04:20Z.**
+- **The refresh pass of the night gained nothing and is running again.** claude-engines checked out the commit of the minute a run was
+  dispatched; the pass dispatched at 00:19Z waited for runners and then read 147,995 sites with the reader as it was at 00:19Z (v3). The
+  merged file holds v1 22,077 · v2 60,503 · v3 147,995 · **v4 0**. Nothing wrong was delivered (the ranker prints a spelled name only from
+  a v4 record). The workflow now checks out main; the pass was dispatched again at 04:15Z (8 runners, chained until every record is v4:
+  two runs, about 10:00Z).
+- **Five services vetted** from the scan's own counts (DECISIONS 04:13Z): Owl Practice, GOrendezvous, Rezgo, WebRezPro, Juvonno; and the
+  credit-scan merge now makes candidates from the links on file for every vetted service — 3,950 new candidates from one cycle's links in
+  a copy of the merge (Jane 1,599, Checkfront 540, GOrendezvous 277, Owl Practice 273, Jobber 227 …). First real numbers at the next
+  credit-scan merge; accepted leads after the tenant factory has read the sites.
+- **Inferred vendors (tier I)**: Hydro-Québec gets its register entry (REQ), Canada Post Corporation, The Manitoba Hydro-Electric Board
+  and MPAC a name read on a page; BC Hydro, NB Power, SaskPower, Qulliq stay without (their pages were not readable or not found).
+
 ## 2026-11-11 01:20Z — the DNS repair holds; the bill-to legal name (160,000 empty cells) is the work of this night
 **The DNS repair is confirmed on the real run.** The fifth measurement had picked the transport (the runner's resolver forwards over TLS:
 96-98 % answered at 434-751 questions a second). The re-lookup of the records on file (6 runners, 23:02Z → 01:09Z) finished: one runner
