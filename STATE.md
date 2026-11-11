@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-10 22:55Z — published build 22:38Z = 233,316 rows, 227,586 with a mailbox; the DNS lookups lost half their answers: found, being repaired)
+# STATE.md — Claude lane (updated 2026-11-11 01:20Z — published build 22:38Z = 233,316 rows, 227,586 with a mailbox; the DNS repair holds (98 % answered, ~470,000 more stores at the merge); the legal name of a row: new reader, registers first, one pass over 173,000 sites queued)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,67 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-11 01:20Z — the DNS repair holds; the bill-to legal name (160,000 empty cells) is the work of this night
+**The DNS repair is confirmed on the real run.** The fifth measurement had picked the transport (the runner's resolver forwards over TLS:
+96-98 % answered at 434-751 questions a second). The re-lookup of the records on file (6 runners, 23:02Z → 01:09Z) finished: one runner
+of the six asked 518,885 domains and 1.8 % stayed without an answer (it was 43 %); of its 92,064 store candidates 78,586 are on Shopify's
+addresses. Six such runners: **about 470,000 stores more** than the 582,715 on file, once the merge lands (queued 01:09Z behind the
+account's 20 jobs; it also starts a credit-scan cycle). DNS leads of the same domains: SPF on 199,606 and MX on 277,814 of 380,410
+answered in that one runner — the lead rules read them at the merge.
+The host sweep started at 22:48Z on the old resolver start behaved as designed: four runners stopped at their first batch (79 % without
+an answer) and kept their place, four ran their box; its successor starts on the new resolver. The domain sweep's next run is queued
+(4 runners, list begun again).
+
+**The largest gap of an invoice row is its first line.** Build 22:38Z: 159,482 of 233,316 rows have no legal name (R 75 %, T 74 %, D and
+I 62 %); 30,768 rows are known by their domain only. Measured before anything was built (coord/DECISIONS.md 00:55Z):
+- more pages per site would give 3 % (the sites were read; two thirds of them link no legal page);
+- **the name is already on the pages read**, outside the three places the reader looked: 11-13 % of the sites without a legal name
+  print their name with a company form that their own domain name spells ("Credit Lift Inc." on creditlift.ca), or name the legal
+  person behind the site's name ("Majid Enterprises Inc., operating as Lawn Lovers"), or their operator;
+- 6,228 rows carry a name that itself has a company form ("Kobes Welding Ltd.") and an empty legal-name cell;
+- 1,167 rows carry a charity registration number that the CRA list holds, and nothing of the list;
+- the match against the CRA list was a file made on the owner's Mac on 2026-11-08 (table of 65,000 rows) that no workflow ran.
+**Built, tested on 2,584 sites and on a sample build, pushed 00:20Z-01:15Z:**
+- tools/org_extras.py v3 (the three readings above, with page and quote; a Shopify store's fixed policy pages; the five pages chosen
+  among all links). Precision on a control of 324 sites with a known name: agreed 76 times, right 11 of the 12 times it differed, one
+  name cut short — which gave the rule that a name keeps the opening words it is always printed with.
+- rank.py: which name a row prints, registers first (trademarks / RBQ › business registry › CRA list › copyright line naming a legal
+  person › the name the domain spells › the legal person behind the site's name › operator › structured data / stated › Wikidata ›
+  the organisation's own name with its company form); the CRA list joined by registration number.
+- tools/charity_buyers.py runs daily in the cloud, and three faults of its name match are corrected (the first charity of a name stood
+  for all of that name; names matched organisations outside Canada; a foundation's name matched the body it supports): 9,749 buyers.
+- **One pass over the 173,000 sites already read** is queued (claude-engines `refresh=true`, 8 runners, 150 minutes, chains itself); every
+  scheduled run now re-reads older records after the new sites.
+Sample build (55,147 rows of an older state, 1 site in 40 re-read): legal name B 64 → 69 %, D 30 → 34 %, R 35 → 38 %, T 35 → 38 %; the
+full pass should add about 12,000 names from the pages, 6,000 from the names themselves, 1,100 from the CRA numbers. The registry tools
+then look the new names up (federal and Québec companies get their number and registered office the day after).
+
+**Other results since 22:55Z.**
+- Mailbox crawl of 21:15Z (merged 23:34Z): lead sites read so far 533,210 (173,738 with a mailbox), +7,383 rows; candidate sites
+  98,380 (21,454 accepted, 20,937 out of scope, 9,209 refused the reader), +3,068 rows; buyers with a mailbox row 195,183.
+- Trademark owners abroad (first run, 51,382 owners in the United States, United Kingdom and Australia): 3,022 own sites tied
+  (5.9 %; the sample had said 6.8 %); 11,382 more agree on the name and print no address of the owner's state on the pages read — a
+  contact page would settle many of them. Leads follow at the next tm-register run (queued).
+- RBQ licences, first run with the printed licence numbers: 558 new leads (401 by a licence number printed on a site already read),
+  11,585 licence leads on file. The lane runs daily now.
+- Vendor table: Thinkific (only by an organisation's own address being an alias of its school), Lightspeed Golf, Unbounce and
+  Lightspeed scopes from their own terms; an organisation's address that is a DNS alias of its account on a vetted platform is a
+  candidate of that vendor (decisions 23:20Z).
+- Readers: a page that writes its link attributes without quotes is read like the others.
+
+**Honest state of the target.** Nothing here adds rows by itself except the stores (two to four days of reading for ~1 M stores at the
+crawl's pace, 24-28 % accepted) — the projection of 22:55Z stands (600,000-700,000 rows by early January; one million needs a class not
+known today). What this night changes is what a row is worth: the legal name is the first line of the invoice.
+
+**Watch.** (1) the merge of the re-lookup (stores on Shopify's addresses: 582,715 → ~1.05 M; "domains asked again through the repaired
+resolver"); (2) the refresh pass: per runner "tasks: N domains to read, M of them read before by an older reader", and after its merge
+the counters `buyer_legal_name_v3_*` and "legal name: the organisation's own name carries its legal form" in the next build; (3) the
+build that started after 01:06Z is the first with the new chain of names: audit check 20 (legal name is not a fragment) and the fill
+by tier; (4) tm-register after tm-sites abroad; (5) the first detector-5 cycle (scan shards in progress since 23:29Z).
+**Found and not done:** tools/gc_recipients.py matches a grants recipient to a row by name alone — the same namesake fault the charity
+match had ("Holy Trinity Armenian Church", Pennsylvania, given the Scarborough church's record); the trademark owners abroad whose
+site prints no address on its home page (11,382).
 
 ## 2026-11-10 22:55Z — build 22:38Z: 233,316 rows (227,586 with a mailbox); half of the DNS answers were never received
 **Table.** Build 22:38Z (code 2f581a8): A 1,276 · B 1,720 · C 323 · D 24,900 · E 4,749 · F 8 · I 17,822 · L 440 · M 9,524 · R 99,372 ·
