@@ -334,8 +334,10 @@ def _name_runs(text, loose=False):
     are read backwards from the form while they look like the words of a name; `cut` says the reading stopped at its limit, not at the name's start.
     loose: words written small are read too ("Centre dentaire Ahuntsic inc."); the caller then takes only what the site's own address spells."""
     for m in SUF3.finditer(text):
-        if re.match(r"(?i)\s+(?:of|de|du|des|d['’]|to|by|in|for|time|edition|liability|warrant(?:y|ies)|use|access|licen[cs]es?|purposes?|rights?|number|quantit(?:y|ies)|partnership)\b", text[m.end():m.end() + 14]):
-            continue  # "The Corporation of the Town of …", "Limited edition", "INCLUDING, BUT NOT LIMITED TO, …"
+        if re.match(r"\s+(?:of|de|du|des|d['’])\s", text[m.end():m.end() + 6]):
+            continue  # "The Corporation of the Town of …"
+        if re.fullmatch(r"(?i)limited|limit[ée]e", m.group(1)) and re.match(r"(?i),?\s+(?:to|by|in|for|time|edition|liability|warrant(?:y|ies)|use|access|licen[cs]es?|purposes?|rights?|number|quantit(?:y|ies)|partnership)\b", text[m.end():m.end() + 16]):
+            continue  # "Limited edition", "INCLUDING, BUT NOT LIMITED TO, …", "Limited Liability Partnership": the word, not the form of a name
         if m.group(1).islower() and m.group(1) not in ("inc", "ltée", "ltee", "senc", "ltd", "limitée", "limitee"):
             continue  # "a limited number", "the corporation": the French forms are written small ("Autoénergie Canada inc."), the English ones are not
         j = m.start()
