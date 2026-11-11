@@ -190,6 +190,11 @@ subscription, transaction and additional fees; a `.ca` registration and its rene
 (a running service, a `.ca` name) · "fact, public record" (an award, a register) · "stated by the buyer" (a credit line, a membership
 badge) · "stated by the vendor" (a client list) · "link only" · "inferred, not a fact".
 
+`billing_period_calculated` holds a period that is not published for the relationship but follows from two published things, and always
+opens with the word "calculated": a client the vendor names + the vendor's price list by the month; construction work for an Ontario owner
++ the Construction Act's default ("Proper invoices shall be given to an owner on a monthly basis, unless the contract provides otherwise").
+It never feeds `recurring_billing`.
+
 Only the first line of the table meets the owner's bar of 06:24 as stated. The build log (SUMMARY.md) gives the rows of each value, tier by tier, and the Shopify
 rows by the store's country (section 13 of Shopify's terms names two contracting parties for stores in the United States or Canada).
 Among the services an organisation is seen to use, the one whose vendor bills by the month claims the row (`lead_strength`).

@@ -1456,6 +1456,12 @@ def client_listing(path, label, bhost, vhost):
     if web:
         return True, "'visit website' on a client page"
     return False, "the link's label does not name the linked site"
+def _same_family(a, b):
+    wa, wb = re.findall(r"[a-zà-ÿ0-9]+", (a or "").lower()), re.findall(r"[a-zà-ÿ0-9]+", (b or "").lower())
+    # a first word that only names a kind of institution proves nothing ("Chambre de commerce de X" and "… de Y" are two chambers, "Bank of …" two banks)
+    return (len(wa) >= 3 and len(wb) >= 3 and wa[:2] == wb[:2] and wa != wb and max(len(wa[0]), len(wa[1])) >= 4
+            and not re.fullmatch(r"ville|city|town|municipalit[ée]|village|township|county|bank|banque|universit[yé]|coll[eè]ge|church|[ée]glise|[ée]cole|school|h[oô]tel|restaurant|"
+                                 r"clini(?:c|que)|centre|center|club|association|chambre|chamber|the|le|la|les", wa[0]))
 n_cl = collections.Counter()
 REG_DOMS = {registrable(host_of(_l.get("website") or "")) for _l in leads.values() if (_l.get("canada_field_value") or "").startswith("registry contract")} - {""}
 for k, L in sorted(leads.items(), key=lead_strength):
@@ -1512,6 +1518,11 @@ for k, L in sorted(leads.items(), key=lead_strength):
             n_cl[("client listing: " if _ok else "not shown to be a client: ") + _how] += 1
             if not _ok:
                 client, other_why = "other", _how
+        if client is True and not payer and _same_family(L["buyer_name"], L.get("example_vendor") or ""):
+            # test row of 2026-11-11: "Parkinson Society British Columbia" as a client of "Parkinson Society Newfoundland & Labrador" (a link among sister
+            # societies on a testimonial page). Two organisations whose names open with the same two words are bodies of one family, not buyer and vendor.
+            client, other_why = "other", "the two organisations carry the same name (bodies of one federation or chain)"
+            n_cl["not shown to be a client: sister bodies (names open with the same two words)"] += 1
         if client == "other" and ldom in REG_DOMS:
             # a link that is not shown to be a client relationship, on a site that holds a .ca registration: the registration (a paid relationship
             # with a named Canadian body) claims the row; the link stays listed among the row's other relationship sources
@@ -4401,6 +4412,8 @@ def billing_of(x, ld):
     if t == "R":
         return "3 yearly or longer", CIRA_TERM
     if t == "M":
+        if cs.startswith("client of a Canadian trademark agent of record"):
+            return "5 not published", "an agent of record bills its professional fees for each filing, step and renewal it handles for the owner; no schedule of bills is published"
         m = _FEE_QUOTE.search(cfv) or _FEE_QUOTE.search(cs)
         if m:
             for lab, rx in _REC_TEXT:
@@ -4441,7 +4454,13 @@ def billing_of(x, ld):
 # fact? When … something being where it is means that there's a relationship". Each cell quotes the vendor's (or the body's) own page; a cell
 # with no published source stays empty.
 BILL_COLS = ["bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published",
-             "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "relationship_fact_basis"]
+             "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "relationship_fact_basis", "billing_period_calculated"]
+# owner 2026-11-11 07:15 EST: "inference of inference … becomes a calculated guess … if there's so many inferences pointing to one thing". A billing
+# period that is NOT published for this relationship but follows from two published things goes in its own column, always opening with the word
+# "calculated", never into recurring_billing: (1) a client the vendor names + the vendor's own price list by the month; (2) construction work for
+# an Ontario owner + the Construction Act's default of monthly proper invoices (statute read 2026-11-11).
+ON_MONTHLY = ("calculated — monthly: construction work for an owner in Ontario, and the Construction Act, R.S.O. 1990, c. C.30, s. 6.3(1): “Proper invoices shall be given to an owner on a "
+              "monthly basis, unless the contract provides otherwise.” (https://www.ontario.ca/laws/statute/90c30, read 2026-11-11); this contract's own terms are not published")
 CIRA_LEGAL = "Canadian Internet Registration Authority (as it names itself in its Registrant Agreement, version 2.2: “the Canadian Internet Registration Authority (\"CIRA\")”)"
 _DOMAIN_NAME = re.compile(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}")
 _LEGAL_NOTE = re.compile(r"\s+\((?:stated on|as printed|printed with|schema\.org|the vendor's name|the name on|carried from|as registered|as it names|official name|as the |its words|the copyright)")
@@ -4531,7 +4550,10 @@ def bill_profile(x, ld, cls):
                 per = "year" if low.get("year") else "month"
                 out["bill_amount_indicative"] = _money_words(low[per][0], low[per][1], per)
                 out["bill_amount_basis"] = "the body's lowest published fee by the %s: “%s” (%s, read %s); the organisation's own fee is not published" % (per, st_["q"][:260], st_["u"], rec.get("date"))
-        if cs.startswith(("holder of licence", "registered with a Canadian regulatory authority", "owner of ", "accredited business")):
+        if cs.startswith("client of a Canadian trademark agent of record"):
+            out["relationship_fact_basis"] = ("fact, public record: the Canadian Intellectual Property Office's trademarks register names this firm as the agent of record for the organisation's "
+                                              "trademarks (%s)" % (x.get("contract_link") or x.get("source") or "")[:160])
+        elif cs.startswith(("holder of licence", "registered with a Canadian regulatory authority", "owner of ", "accredited business")):
             out["relationship_fact_basis"] = "fact, public record: the body's own public register lists the organisation as licensed / registered / accredited today (%s)" % (x.get("contract_link") or x.get("source") or "")[:160]
         elif cs.startswith("member of a Canadian body (stated on the buyer's own site"):
             out["relationship_fact_basis"] = "stated by the buyer: its own site states its membership of the body and links to it"
@@ -4546,6 +4568,12 @@ def bill_profile(x, ld, cls):
                                           "stated by the vendor: its own page names the organisation %s (%s); not seen from the buyer's side" % (what, (x.get("contract_link") or "")[:160]))
     else:
         out["relationship_fact_basis"] = "fact, public record: %s names the vendor and the contract (%s)" % ((x.get("source") or "the public source")[:120], (x.get("contract_link") or "")[:160])
+    if cls.startswith("5") and t in ("C", "D") and "vendor located in Canada" in cfv and "member named in the member directory" not in cs:
+        c_, q_, longer_, why_ = _vendor_cycle(vd)
+        if c_ in ("monthly", "monthly_price", "quarterly"):
+            out["billing_period_calculated"] = ("calculated — by the %s%s: the vendor names the organisation as a client, and the vendor's own price list is by the %s: %s; "
+                                               "what this client buys and how it is billed are not published"
+                                               % ("quarter" if c_ == "quarterly" else "month", " or the year" if longer_ else "", "quarter" if c_ == "quarterly" else "month", q_))
     if t in ("T", "C", "D", "E", "M") and not out.get("bill_items_as_published") and not (x.get("contract_title") or "").strip():
         rec = VBILL.get(vd) if vd else None
         if rec and (rec.get("desc") or rec.get("title")):
@@ -4567,7 +4595,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                                              "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
                    ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found", "relationship_fact_basis", "recurring_billing", "recurring_billing_basis",
                                        "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published",
-                                       "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid"]),
+                                       "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated"]),
                    ("contract_reference", ["invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id",
                                            "buyer_vendor_id", "vendor_ids_in_record", "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count",
                                            "records_with_this_vendor", "all_references_with_this_vendor"]),
@@ -4621,7 +4649,7 @@ for _ri, x in enumerate(rows):
     for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
                 "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count", "records_with_this_vendor", "all_references_with_this_vendor",
                 "relationship_kind", "relationship_detail", "how_relationship_was_found", "recurring_billing", "recurring_billing_basis", "relationship_fact_basis", "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published",
-                "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
+                "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
                 "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
                 "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
         x.setdefault(col, "")
@@ -4699,6 +4727,12 @@ for _ri, x in enumerate(rows):
         elif _cs.startswith("member of a Canadian body (stated on the buyer's own site"):
             x["how_relationship_was_found"] = "tools/credit_scan.py read the organisation's own home page, which states its membership of the Canada-located body and links to it"
     _ldb = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+    _vn0 = (x.get("vendor") or "").strip()
+    if re.search(r"\s(?:d|l|qu|n|s|j|c)$", _vn0, re.I) and _ldb.get("page_title"):
+        # 1,089 leads carry a vendor name cut at its apostrophe ("Chambre de Commerce et d", "Réseau d"): the page title the lead kept has the rest
+        _mt = re.search(re.escape(_vn0) + r"['’]\s?([^|–—:·•]{2,80}?)(?=\s+[|–—:·•]|\s+-\s|$)", _ldb["page_title"])
+        if _mt:
+            x["vendor"] = "%s’%s" % (_vn0, _mt.group(1).strip()); n9["vendor name cut at an apostrophe: completed from the page title"] += 1
     x["recurring_billing"], x["recurring_billing_basis"] = billing_of(x, _ldb)
     for _c, _v in bill_profile(x, _ldb, x["recurring_billing"]).items():
         if _v:
@@ -4850,6 +4884,8 @@ for _ri, x in enumerate(rows):
                     x["payment_terms_default_policy"] = PROMPT_PAY["FED"]
                 elif prov == "ON":
                     x["payment_terms_default_policy"] = PROMPT_PAY["ON"]
+                    if (x.get("recurring_billing") or "").startswith("5") and not x.get("billing_period_calculated"):
+                        x["billing_period_calculated"] = ON_MONTHLY; n_billcol["billing_period_calculated (Ontario construction)"] += 1
                 elif prov == "AB" and not crown_ab:
                     x["payment_terms_default_policy"] = PROMPT_PAY["AB"]
                 if x.get("payment_terms_default_policy", "").startswith("statutory"):

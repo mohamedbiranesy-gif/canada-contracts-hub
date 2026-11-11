@@ -248,6 +248,9 @@ ORDER = (("monthly", ("billed_month",)), ("quarterly", ("billed_quarter",)), ("y
          ("per_transaction", ("price_txn",)))
 
 
+_OPTION = re.compile(r"\bsave\b|[ée]conomi[sz]|\bor\b|\bou\b|option|discount|rabais|%\s?off|free|gratuit|prefer|pr[ée]f[èe]r", re.I)
+
+
 def cycle_of(rec):
     """(class, statement, other classes present). class: 'monthly' — the vendor says it bills by the month (or every 30 days); 'quarterly';
     'monthly_price' — its prices or plans are by the month (the customer may be offered a longer period); 'yearly'; 'per_transaction'; ''."""
@@ -257,6 +260,10 @@ def cycle_of(rec):
     found = [(cls, next(by[k] for k in keys if k in by)) for cls, keys in ORDER if any(k in by for k in keys)]
     if not found:
         return "", None, []
+    if found[0][0] == "yearly" and found[0][1]["c"] == "billed_year" and _OPTION.search(found[0][1]["q"]):
+        mp = next(((c, s2) for c, s2 in found[1:] if c == "monthly_price"), None)
+        if mp:  # "Pay Yearly and Save!" beside "$129/month": the price is by the month, the year is an offer
+            found = [mp] + [f for f in found if f is not mp]
     more = []
     for c, s2 in found[1:]:
         if c == found[0][0] or c in more:
@@ -267,6 +274,8 @@ def cycle_of(rec):
     return found[0][0], found[0][1], more
 
 
+_ADDON = re.compile(r"add-?ons?\b|additional|\bextra\b|suppl[ée]mentaires?|\beach\b|per\s+licen[cs]e|privacy|whois|\bssl\b|backups?\b|sauvegardes?|per\s+(?:gb|go|tb)\b|overage|d[ée]passement|"
+                    r"\+\s?\$|\bper\s+(?:sms|text|lead|click|hour|heure)\b|/\s?(?:hr|hour|h)\b|setup|set-up|installation|one[- ]time|unique", re.I)
 _MNUM = re.compile(r"\d[\d ,.\u00a0]*\d|\d")
 
 
@@ -302,6 +311,8 @@ def lowest(rec):
         v, cur = parse_money(s.get("m") or s.get("q") or "")
         if v is None or v < 1 or v > 100000 or re.search(r"first|premier|trial|essai|intro|promo|then\s|puis\s|for\s+\d+\s+months|pendant", s.get("q") or "", re.I):
             continue
+        if _ADDON.search(s.get("q") or ""):
+            continue  # "$5 / month per license", "+$15 per additional mailbox", "domain privacy $9.99/yr": the price of an extra, not of the service
         if per not in out or v < out[per][0]:
             out[per] = (v, cur, s)
     return out
