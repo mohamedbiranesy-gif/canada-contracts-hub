@@ -264,5 +264,79 @@
   "period_basis": "the distributor's own words on its billing options: “Want balanced monthly electricity billing?” (https://www.hydroone.com/rates-and-billing/billing-and-payments)",
   "delivery": "a bill, which its page for business customers also calls an invoice: “Eliminate clutter with a PDF bill, get payment reminders and access to your account, 24/7.” (https://www.hydroone.com/rates-and-billing/billing-and-payments) … “listed below the HST section on your electricity invoice” (https://www.hydroone.com/business-services/commercial-industrial-generators-and-ldcs/commercial-industrial-customers/your-bill-explained)",
   "payment": "through a financial institution (online banking, at the bank with the bill's payment slip) or by automatic withdrawal; a card or PayPal as well: “You can also pay your bill in-person at your local bank using the payment slip that's found at the bottom of Page 1 of your bill.” … “Set up AutoPay and never forget a bill payment.” … “Credit/Debit, Paypal, Apple/Google Pay” (https://www.hydroone.com/rates-and-billing/billing-and-payments)"
+ },
+ {
+  "key": "ns_power",
+  "name": "Nova Scotia Power",
+  "legal_name_as_printed": "Nova Scotia Power Inc.",
+  "site": "https://www.nspower.ca/",
+  "read": "2026-11-11",
+  "address": "1223 Lower Water Street, Halifax, NS B3J 3S8",
+  "address_url": "https://nspower.ca/customer-service",
+  "address_quote": "Civic Address Nova Scotia Power Inc. 1223 Lower Water Street Halifax, NS B3J 3S8",
+  "address_read": "2026-11-11",
+  "prefixes": [
+   "B"
+  ],
+  "except_fsas": [
+   "B2G",
+   "B0P",
+   "B0J",
+   "B0H"
+  ],
+  "territory": "Nova Scotia Power Inc. is the electricity utility of Nova Scotia outside the towns that run a municipal electric utility — Antigonish, Berwick, Lunenburg, Mahone Bay, Riverport, and Canso's former utility area (Public Utilities Act; Electricity Act); the postal areas those towns lie in (B2G, B0P, B0J, B0H) are left out whole",
+  "what": "electricity for the premises at the organisation's address",
+  "delivery": "a bill: “We offer a number of secure and convenient ways to pay your bill.” (https://nspower.ca/ways-to-pay)",
+  "payment": "through a bank, by pre-authorized payment or by cheque; a credit card through a third party, for a fee: “Visit your bank's website and select \"Nova Scotia Power Inc.\" as a payee.” … “Cheque To pay by mail, send your cheque to: PO Box 848, Halifax, Nova Scotia B3J 2V7” … “Credit Card Use Visa or Mastercard to make a quick, one-time payment or automatic payment through EZ Pay 1 , our third-party payment provider.” (https://nspower.ca/ways-to-pay)",
+  "remit_to": "“Billing & Payments Only Nova Scotia Power Inc. P.O. Box 848 Halifax, NS B3J 2V7” (https://nspower.ca/customer-service)"
+ },
+ {
+  "key": "nl_power",
+  "name": "Newfoundland Power",
+  "legal_name_as_printed": "Newfoundland Power Inc.",
+  "site": "https://www.newfoundlandpower.com/",
+  "read": "2026-11-11",
+  "address": "PO Box 8910, St. John's, NL A1B 3P6",
+  "address_url": "https://newfoundlandpower.com/Contact/Contact-Us",
+  "address_quote": "Mail Newfoundland Power PO Box 8910 St. John's, NL A1B 3P6",
+  "address_read": "2026-11-11",
+  "prefixes": [
+   "A1",
+   "A2A",
+   "A2B",
+   "A2H",
+   "A2N",
+   "A5A"
+  ],
+  "except_fsas": [],
+  "territory": "Newfoundland Power Inc. distributes electricity to most customers on the island of Newfoundland (Public Utilities Act; Electrical Power Control Act, 1994); Newfoundland and Labrador Hydro serves Labrador and the rural districts of the island. Only the postal areas of the towns Newfoundland Power serves whole are taken — the Avalon (A1), Grand Falls-Windsor (A2A, A2B), Corner Brook (A2H), Stephenville (A2N), Clarenville (A5A); the rural postal areas, which the two utilities share, and Labrador are left out",
+  "what": "electricity for the premises at the organisation's address",
+  "period": "1 monthly",
+  "period_basis": "the distributor's own words on its automatic payments: “Payments are taken directly from your bank account every month.” (https://newfoundlandpower.com/My-Account/Payments/Payment-Options)",
+  "delivery": "a bill: “At the Bank: Bring your bill to the bank and pay in person.” (https://newfoundlandpower.com/My-Account/Payments/Payment-Options)",
+  "payment": "through a bank, by automatic payment from a bank account or by cheque; a credit card through a third party, for a fee: “Automatic Payment : Payments are taken directly from your bank account every month.” … “Mail: Send a cheque, money order or MoneyGram to Newfoundland Power at PO Box 8910, St. John’s, NL A1B 3P6 .” … “Credit Card: Pay online using PaySimply . You’ll be charged a small fee.” (https://newfoundlandpower.com/My-Account/Payments/Payment-Options)",
+  "terms": "“Did you know by paying within 10 business days of your billing date you can receive a 1.5% discount?” (https://newfoundlandpower.com/My-Account/Payments/Payment-Options)",
+  "remit_to": "“Payments by cheque or money order can be sent to Newfoundland Power PO Box 12069 St. John's, NL A1B 4B6” (https://newfoundlandpower.com/Contact/Contact-Us)"
+ },
+ {
+  "key": "maritime_electric",
+  "name": "Maritime Electric",
+  "site": "https://www.maritimeelectric.com/",
+  "read": "2026-11-11",
+  "address": "PO Box 1328, 180 Kent Street, Charlottetown, PE C1A 7N2",
+  "address_url": "https://maritimeelectric.com/accounts-billing/your-bill/paying-your-bill",
+  "address_quote": "Maritime Electric PO Box 1328 180 Kent Street Charlottetown, PE C1A 7N2",
+  "address_read": "2026-11-11",
+  "prefixes": [
+   "C"
+  ],
+  "except_fsas": [
+   "C1N"
+  ],
+  "territory": "Maritime Electric Company, Limited distributes electricity across Prince Edward Island outside the City of Summerside, which runs its own utility (Electric Power Act); Summerside's postal area (C1N) is left out",
+  "what": "electricity for the premises at the organisation's address",
+  "delivery": "a bill: “Major banks and credit unions accept payments for Maritime Electric electricity bills.” (https://maritimeelectric.com/accounts-billing/your-bill/paying-your-bill)",
+  "payment": "through a bank or credit union, by pre-authorized payment or by cheque; a credit card through a third party, for a fee: “Major banks and credit unions accept payments for Maritime Electric electricity bills. Add Maritime Electric as a payee on your bank account.” … “The Pre-Authorized Payment Plan assures your payment arrives on time, every time.” … “You can make a payment with your Visa or MasterCard online or by phone through Paymentus .” (https://maritimeelectric.com/accounts-billing/your-bill/paying-your-bill)",
+  "remit_to": "“mail a cheque to Maritime Electric at the following mailing address: Maritime Electric PO Box 1328 180 Kent Street Charlottetown, PE C1A 7N2” (https://maritimeelectric.com/accounts-billing/your-bill/paying-your-bill)"
  }
 ]
