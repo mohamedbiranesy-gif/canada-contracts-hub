@@ -6,6 +6,7 @@ retrieval wins. Nothing is dropped: a row absent from one copy is kept from the 
   python3 tools/merge_engine_outputs.py pages      OUT.csv  IN1.csv …             key = (buyer_key, url)   (ap_pages_seen.csv)
   python3 tools/merge_engine_outputs.py tsv_done   OUT.tsv  IN1.tsv …             key = column 1          (ap_walk_done.tsv)
   python3 tools/merge_engine_outputs.py jsonl      OUT.jsonl.gz IN1.jsonl.gz …     key = domain            (org_extras / org_contacts)
+  python3 tools/merge_engine_outputs.py registry_answers OUT.jsonl.gz IN1.jsonl …  key = (kind, key)       (registry_lookup's answers on file)
 """
 import csv, gzip, io, os, sys
 
@@ -39,6 +40,26 @@ def main():
             for k in sorted(best):
                 f.write(best[k] + "\n")
         print("tsv_done:", len(best), "keys from", len(ins), "files")
+        return
+    if kind == "registry_answers":  # tools/registry_lookup.py's resume file from several runners: the last answer per organisation
+        import json
+        best = {}
+        for p in ins:
+            if not os.path.exists(p):
+                continue
+            for l in open(p, encoding="utf-8", errors="replace"):
+                try:
+                    d = json.loads(l)
+                    k = (d["kind"], d["key"])
+                except Exception:
+                    continue  # a line cut short by the time box
+                if k not in best or (d.get("retrieved_date") or "") >= (best[k].get("retrieved_date") or ""):
+                    best[k] = d
+        with gzip.open(out + ".tmp", "wt", encoding="utf-8") as f:
+            for k in sorted(best):
+                f.write(json.dumps(best[k], ensure_ascii=False) + "\n")
+        os.replace(out + ".tmp", out)
+        print("registry answers on file:", len(best), "from", len(ins), "files")
         return
     if kind == "jsonl":  # org_extras / org_contacts: one JSON object per domain; a successful read beats a failed one, then the newest date
         import json, urllib.parse, zlib

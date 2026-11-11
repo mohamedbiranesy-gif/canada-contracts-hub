@@ -6,12 +6,15 @@ name: claude-engines
 #   walk_terms : tools/ap_walk.py (AP / supplier / purchasing pages and PDFs of every delivered buyer site) → tools/ap_terms.py
 #                (payment terms, PO rule, portal, AP phone, invoice address, AP contact, format, GST number)
 #   registry   : tools/registry_lookup.py --kind buyer (Canada's Business Registries: legal name, BN, registered office)
-#                — shard 1/2 only, the Mac runs shard 0/2, so the registry sees at most 2 requests / second in total
+#                — two runners, one request a second each: the registry sees at most 2 requests / second in total. On a schedule since
+#                2026-11-11: it had last run on 2026-11-09 (by hand), and 57,170 buyers whose name carries a legal form, or whose own site
+#                states their legal person, were waiting — 8,872 looked up of 66,042.
 on:
   schedule:
     - cron: "41 9 * * *"    # daily bulk-registry match (REQ + Corporations Canada open data)
     - cron: "11 */6 * * *"  # org_facts: legal name / address / phone / portals from buyer and vendor sites not read yet (8 shards, 2 h) — cloud-only since 2026-11-09 (owner's Mac is off)
     - cron: "31 2 * * *"    # walk_terms over the stronger packages (AP pages → payment terms, PO rule, invoice address), 6 shards, 4 h
+    - cron: "23 1,7,13,19 * * *"  # registry: Canada's Business Registries, the buyers not looked up yet (2 runners, 1 request a second each, 5 h 20)
   workflow_dispatch:
     inputs:
       engine:
@@ -42,13 +45,13 @@ permissions:
   contents: write
   actions: write
 env:
-  ENGINE: ${{ inputs.engine || (github.event.schedule == '11 */6 * * *' && 'org_facts') || (github.event.schedule == '31 2 * * *' && 'walk_terms') || 'bulk_registry' }}
+  ENGINE: ${{ inputs.engine || (github.event.schedule == '11 */6 * * *' && 'org_facts') || (github.event.schedule == '31 2 * * *' && 'walk_terms') || (github.event.schedule == '23 1,7,13,19 * * *' && 'registry') || 'bulk_registry' }}
   # 2026-11-11: org_facts on schedule 8 -> 4 runners: the account runs 20 jobs at a time, and on 2026-11-11 06:00-08:00Z two org_facts runs
   # held 16 of them while the merges of three other engines and the rank build waited. A runner now carries three readers (see the shard
   # step): the reader of facts costs 250 ms of CPU a site — unlike the mailbox reader (23 ms a page) it does not spend its time waiting,
   # so more sites at a time bought nothing (100 at a time, tried for two hours, is back to 40 per reader).
   SHARDS: ${{ inputs.shards || (github.event.schedule == '11 */6 * * *' && '4') || (github.event.schedule == '31 2 * * *' && '6') || '1' }}
-  MINUTES: ${{ inputs.minutes || (github.event.schedule == '11 */6 * * *' && '120') || (github.event.schedule == '31 2 * * *' && '240') || '300' }}
+  MINUTES: ${{ inputs.minutes || (github.event.schedule == '11 */6 * * *' && '120') || (github.event.schedule == '31 2 * * *' && '240') || (github.event.schedule == '23 1,7,13,19 * * *' && '320') || '300' }}
   TIERS: ${{ inputs.tiers || (github.event.schedule == '31 2 * * *' && 'A,B,T,M,L,C,D,E,F') || 'I' }}
   MAXP: ${{ inputs.max_pages || '15' }}
   REDO: ${{ inputs.redo_days || '60' }}
@@ -65,7 +68,7 @@ jobs:
     steps:
       - id: m
         run: |
-          n="$SHARDS"; if [ "$ENGINE" = "registry" ] || [ "$ENGINE" = "bulk_registry" ]; then n=1; fi
+          n="$SHARDS"; if [ "$ENGINE" = "bulk_registry" ]; then n=1; fi; if [ "$ENGINE" = "registry" ]; then n=2; fi   # registry: always two runners, one request a second each
           python3 -c "import json; print('matrix=' + json.dumps(list(range($n))))" >> "$GITHUB_OUTPUT"
   shard:
     needs: plan
@@ -155,10 +158,11 @@ jobs:
       - name: registry shard
         if: env.ENGINE == 'registry'
         run: |
-          timeout "${MINUTES}m" python3 tools/registry_lookup.py --ranked coord/results/ranked/ranked_buyers.csv.gz --kind buyer --shard 1/2 --repo "$PWD" || true
-          mkdir -p out && cp data/incoming/claude/claude_registry_lookup.csv out/registry_1.csv 2>/dev/null || true
-          cp ~/cch-crawler-state/registry_lookup.jsonl out/registry_resume_1.jsonl 2>/dev/null || true
-          echo "registry shard: $(wc -l < out/registry_1.csv 2>/dev/null || echo 0) rows" >> "$GITHUB_STEP_SUMMARY"
+          K=${{ matrix.k }}
+          timeout "${MINUTES}m" python3 tools/registry_lookup.py --ranked coord/results/ranked/ranked_buyers.csv.gz --kind buyer --shard "$K/2" --repo "$PWD" 2>&1 | tee registry.log | grep -E "^to look up|^looked up|wrote" | tail -4 || true
+          mkdir -p out && cp data/incoming/claude/claude_registry_lookup.csv "out/registry_$K.csv" 2>/dev/null || true
+          cp ~/cch-crawler-state/registry_lookup.jsonl "out/registry_resume_$K.jsonl" 2>/dev/null || true
+          echo "registry shard $K/2: $(grep -m1 '^to look up' registry.log); $(wc -l < out/registry_$K.csv 2>/dev/null || echo 0) rows in its file" >> "$GITHUB_STEP_SUMMARY"
       - name: bulk_registry (REQ open data + Corporations Canada open data, offline exact-name match)
         if: env.ENGINE == 'bulk_registry'
         run: |
@@ -229,7 +233,11 @@ jobs:
               [ -s shards/gc_recipients.csv ] && [ "$(wc -l < shards/gc_recipients.csv)" -gt 2000 ] && cp shards/gc_recipients.csv data/incoming/claude/claude_gc_recipients.csv   # a run that could not read the disclosure writes a short file: the one on main stays
             else
               python3 tools/merge_engine_outputs.py registry data/incoming/claude/claude_registry_lookup.csv data/incoming/claude/claude_registry_lookup.csv shards/registry_*.csv
-              [ -f shards/registry_resume_1.jsonl ] && gzip -c shards/registry_resume_1.jsonl > /tmp/claude_registry_lookup.jsonl.gz && gh release upload harvest-state /tmp/claude_registry_lookup.jsonl.gz --clobber || true
+              # the answers on file (every lookup with the registry's own document): each runner's file holds the state it started from plus its own
+              # lookups; the union keeps the last answer per organisation
+              if ls shards/registry_resume_*.jsonl >/dev/null 2>&1; then
+                python3 tools/merge_engine_outputs.py registry_answers /tmp/claude_registry_lookup.jsonl.gz shards/registry_resume_*.jsonl && gh release upload harvest-state /tmp/claude_registry_lookup.jsonl.gz --clobber || true
+              fi
             fi
             git add data/incoming/claude/
             PUB=""
