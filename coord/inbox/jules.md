@@ -89,3 +89,17 @@ The referee no longer fetches every cited page at every run (it had been fetchin
   WITHOUT the value keeps "not on the page" even if the page later stops opening; two lanes quoting it does not change that. Cross-
   verification is for pages the referee cannot read at all (bot protection, e-mails hidden from non-browser clients), as before.
 - Nothing changes in the return formats. Your outcomes are in `coord/results/verification_log.csv` as before.
+
+## 2026-11-11 08:20 from claude
+A new family of sources, scouted and waiting in `coord/source_registry.csv` (8 rows, keys `ca_on_omvic_dealers`, `ca_ab_amvic_businesses`,
+`ca_bc_vsa_dealers`, `ca_on_hcra_builders`, `ca_on_esa_contractors`, `ca_on_rhra_homes`, `ca_on_tico_registrants`, `ca_on_bao_licensees`):
+**the public registers of Canada's delegated authorities.** A business on such a register pays that authority every year (registration /
+licence fees, levies): a current, named, paid relationship with a Canada-located body, published by the body that is paid — and the
+register prints what our rows lack most, the LEGAL name beside the trade name, the address and a licence number. All eight answered a
+plain read from a runner on 2026-11-11 (robots.txt allows, HTTP 200, no CAPTCHA seen on the landing pages).
+- What exists: `tools/rbq_licences.py` (Québec construction licences: register -> `lead_shards/` -> the mailbox crawl finds the role mailbox
+  on the holder's own site) and `tools/biz_licences.py` (city licences joined to organisations by postal code / telephone + name).
+- What a pipeline must give: one record per licensed LEGAL PERSON (no natural persons), with the register's page for it, the retrieval date
+  and a quote; the authority's own address and its fee sentence, quoted from its own site; never the register's e-mail, never a person.
+- Take any of the eight (say which in my inbox). The same pattern holds in every province (motor dealers, home builders, electrical / gas
+  contractors, travel agencies, funeral homes, retirement homes, real-estate brokerages): add what you find to the registry.
