@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 13:21Z — published build 12:35Z = 265,999 rows, 258,757 with a mailbox; the owner set a new bar three times this morning (a relationship that is a fact; around it every field of an invoice: billing period, amount, parties, tax numbers; no lane leaned on); every row now says why its relationship is a fact, when and how much the vendor bills and what the bill carries; a reader of vendors' own price and terms pages (8,500 vendors read); the 100-row test set is a tool; build with the new columns dispatched 13:19Z)
+# STATE.md — Claude lane (updated 2026-11-11 16:42Z — published build 15:57Z = 282,207 rows, 274,632 with a mailbox; the owner's 100-row test set is with him (https://claude.ai/artifact/AKuRT9NPpMX3Jwfqj1ZERt, his marks in its database, collection `verdicts`); two draws read before him showed a fault in one row in five (names, addresses, amounts): corrected in commit 58763dd, pushed 16:41Z, build 43060865356 dispatched; next: the vendor reader's version 4, then the second draw)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,56 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-11 16:42Z — the test set is with the owner; what reading it first changed; what is waiting
+**Published table (build 2026-11-11T15:57:44Z, code 4994cd6 = d55caf9 and the merges up to 15:02Z):** 282,207 rows, 274,632 with a mailbox —
+A 1,275 · B 1,727 · C 315 · D 27,237 · E 5,154 · F 7 · I 17,390 · L 434 · M 13,416 · R 103,559 · T 104,118.
+- Fact level (`relationship_fact_basis`): seen on the buyer's side 190,907 (R 103,559, T 87,348) · public record 16,623 · stated by the buyer
+  17,154 · stated by the vendor 27,404 · link only 5,154 · inferred 17,390. Facts: 207,530 = 76 %.
+- Billing period: 1 monthly 35,478 · 2 monthly or yearly 34,446 · 3 yearly or longer 123,451 · 4 per transaction 161 · 5 not published 81,092.
+  Shopify rows by store country: US 19,985 · CA 9,926 · not read 288.
+- Nine invoice fields (of 274,632): buyer legal name 46 % · buyer address 73 % · vendor legal name 84 % · vendor address 100 % · vendor tax number
+  60 % · what is billed 82 % · amount 29 % · billing period 70 % · reference 80 % · all but the amount 45,548 (17 %) · all nine 15,704 (6 %; 1,649 at 14:02Z).
+- Mailboxes by kind: general 267,733 · finance / supplier payment 3,927 · invoicing / AP 2,007 · purchasing 965.
+
+**The owner's test set (owed since 07:15 EST, delivered 16:13Z).** `tools/test_sample.py` on the published table, seed 20261111: 100 rows in 13 kinds
+(`coord/pilot/TEST_SAMPLE_2026-11-11.csv` / `.json`). Review page: https://claude.ai/artifact/AKuRT9NPpMX3Jwfqj1ZERt — three checks a row (mailbox,
+relationship, billing), Right / Wrong, a note; his marks are documents `verdicts/<sample_id>` in the page's database (read them with the ArtifactData
+tool, action list, collection verdicts). 19 rows carry a "known before you read" note written by `scratchpad/testset/annotate.py` (rules only; no row
+removed). When the corrected table is published: if `verdicts` is still empty, draw again and publish to the same page; if he has started, leave
+the page alone and make a second page.
+
+**What two draws read before him showed (one row in five with a fault; none seen in a mailbox), and the rule each became** — coord/DECISIONS.md 16:14Z
+has the measurements. In commit 58763dd: copyright-line legal names (own name / initials / government kept; otherwise a labelled last resort, not
+counted among the nine); schema.org own-site names only for a legal person; amounts = a price-list line for the service seen
+(`vendor_billing.lowest(rec, service)`; Hover's 5,078 rows lose a mailbox price and say why); Web Hosting Canada curated (11,551 rows); `.ca` rows
+carry CIRA's Registrar Agreement facts and `bill_amount_calculated` (8 printed prices, $14.57 to $45 a year; its own column, its own log lines);
+vendor and buyer names that were page titles; addresses without the page's words (`addr_clean`); news stories demoted to links; consultant
+lobbyists without a firm left out; `lead_crawl.site_name_for` fixed at the source. Five local 1-in-4 builds (LEGAL1–5); LEGAL2 failed on my own
+edit (an `elif` put inside a block) and was caught here, not in the cloud.
+
+**A full table can be built in this container in two parts** (`scratchpad/ab/runparts.py <label> 2`: `RANK_PART=i/2`, 15 minutes a part, 5.4 GB,
+then `tools/rank_merge.py`): 282,149 rows locally at 15:31Z against 282,207 in the cloud at 15:57Z. One process is killed at 5.8 GB.
+
+**Runner slots.** The build dispatched at 14:01Z waited 60 minutes for a runner (20 jobs at a time: mailbox-crawl 6–8, credit-scan 6, two DNS
+lookups of 4, certificate names 2, registry 2…). A build now takes 55 minutes once started. Not changed today; if it recurs, credit-scan goes from 6
+runners to 4 (its rows are the weakest of tier T: a design credit carries no billing period).
+
+**Running / waiting (2026-11-11 16:42Z):** rank build 43054878655 (started 16:05Z on the OLD code, lands about 17:00Z); rank build 43060865356 (the corrected code,
+queued behind it, lands about 17:50Z); registry engine (vendors first), two DNS lookups, certificate names, credit-scan in progress.
+
+**Not solved, said to the owner or to be said:** the amount on `.ca` rows is a calculated range, not a published figure; the buyer's legal name
+stays at 46 % (the registry engine and the site reader are the two ways up); 267,733 of 274,632 mailboxes are general role mailboxes; rows whose
+buyer is one person's own site (a test row: a named professional's site) are not flagged yet; tier D ("named as a client") is the weakest kind
+that still counts as a relationship.
+
+**Next, in this order:** (1) vendor reader version 4 (drafted in `scratchpad/vb5/vendor_billing.py`, tested on 18 hosts: the terms page always
+read, one link deeper from a "legal" index, how the invoice arrives, the tax rule, the vendor's own GST/HST number; a price inside a long sentence
+needs "from / starting at" before it) → into `tools/`, wired into the ranker (`bill_delivery_as_published`, `bill_tax_rule_as_published`,
+`vendor_bn9` as printed), a 1-in-4 build, push, dispatch `vendor-billing.yml`; (2) when build 43060865356 lands: read its log (the new counters),
+the second draw as above, tell the owner; (3) buyers that are a person's own site: flag, count; (4) city licence fees and member dues as amounts
+(the body's own fee table); (5) the registers still to read (AMVIC, ESA, VSA, RHRA, TICO, BAO) and the Alberta pool participants list (monthly
+settlement by a public body); (6) the four source families registered this morning.
 
 ## 2026-11-11 13:21Z — the owner's bar changed three times in an hour; what a row must now carry; what was built and what is waiting
 **Owner (06:24, 07:15, 07:48 EST), in order.** (1) "billed for something monthly … or every 3 months … systematically by the vendor";
