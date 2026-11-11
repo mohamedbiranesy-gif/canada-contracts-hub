@@ -1283,7 +1283,7 @@ second whatever its number of threads; "100 sites at a time" (set at 06:30Z on t
 A runner has four cores: **three readers a runner**, each with a third of the runner's sites, a file of its own and only the records
 it made or changed (`--out`, `--delta`). Three times the sites per runner-hour, and the files to merge are small.
 
-## 2026-11-11 09:06Z — one queue per platform for the site-facts readers; a block page is a short page; the registers lane
+## 2026-11-11 09:05Z — one queue per platform for the site-facts readers; a block page is a short page; the registers lane
 - **A block page is a short page** (under 30,000 characters). The site-facts readers called any home page "blocked" that held "captcha"
   in its first 5,000 characters: every Wix site (the word is in the page's settings), every page that loads reCAPTCHA early. 40 of 60
   never-read sites. The mailbox reader already had the size test; all readers now share it.
