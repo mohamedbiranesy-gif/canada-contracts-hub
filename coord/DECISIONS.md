@@ -1110,3 +1110,34 @@ Rightly lost with them, until their own site is read: associations whose only ad
 citizenlab.ca 58) — the address pass and the live vendor check now read the holder's own hosts only and take these domains again.
 Not solved: a sub-site named after a function on a platform's domain would pass (none seen); the units of a university on their own
 sub-sites lose the university's address as proof (about 500 leads) — the same legal person, but nothing on file says so.
+
+## 2026-11-11 03:44Z — the vendor side of a row: its website, its legal name; page furniture in legal-name cells; the audit's check 20
+Read in the published build of 01:51Z (242,292 rows) while checking the legal-name pass:
+- **17,691 rows carried a third party's page as the vendor's website** — every Shopify row (16,993) "https://finance.yahoo.com/quote/SHOP/profile/",
+  TMX Group another quote page, 30 vendors a page of leadiq.com, others a directory, a tender portal, an obituary. The search check of
+  2026-11-08 (tools/vendor_sites_check.py, Mac era) had "confirmed" any page that prints the vendor's name. Now: a vetted software vendor's
+  website is the site of its own terms page (tools/tech_relationships.py hq_url); a site proposed by search is taken only when its host
+  carries the vendor's name (a distinctive word, the host inside the name, the name's initials: ey.com, mhs.com) and is not a directory,
+  a quote page, an app store or a register. On the sample build: 2,768 rows get the vendor's own site, 299 lose a wrong one.
+- **63,216 named-vendor rows had no vendor legal name** (tier T 48 %, D 66 %); one host, whc.ca, 7,333 rows — and 48,596 leads at the DNS
+  merge of 03:11Z. The site reader had read the big providers before its v4 and does not reach terms two links below the home page.
+  (1) The reader's v4 names (spelled by the domain, the legal person behind the site's name, the stated operator) are now taken for the
+  vendor's site as for the buyer's. (2) data/incoming/claude/claude_vendor_names_read.csv: the vendor's own terms read by hand, URL and
+  quote kept — WHC Online Solutions Inc ("Web Hosting Canada and https://whc.ca … are operated by WHC Online Solutions Inc"), Tucows.com
+  Co. for Hover ("This is an Agreement between You and Tucows.com Co."), World Host Group Ca Corp for Doteasy. A hand table only for
+  vendors with thousands of rows; the reader's next version gets the two patterns (the party named by the site's own agreement; terms
+  linked from a legal hub page) and replaces it. (3) A vendor name that itself carries the company form is the legal name as the
+  source gives it ("Octopusapp Inc. dba Jobber" → Octopusapp Inc.; "Teledyne Geospatial, a business unit of Teledyne Digital
+  Imaging, Inc." → the latter). On the sample build 1,697 of 55,127 rows get a vendor legal name from (2) and (3).
+- **455 of 82,018 buyer legal-name cells held page furniture** ("Lambton College Your Cart Check Out Continue Shopping", "Town of
+  Kapuskasing Freedom of Information", "Perfected Coffee and protected by intellectual property laws", "· Temagami First Nation ·").
+  A last pass (rank.py tidy_page_name) removes it from names read off a page — never from a register's name — and takes the legal
+  person a sentence names behind the name: "DIV7 is a Division of Naro Building Systems Inc", "HR Property Maintenance · Operated by
+  Haryana Enterprises Ltd". A trademark notice names the mark's owner, who may be a parent or Apple: taken only when it carries the
+  organisation's own name. A name that begins with a small letter by design ("easyDNS Technologies Inc", "eGrr Services Inc.") is no
+  longer refused as a fragment cut at the front; the reader takes such a first word (it had read "Technologies Inc."), and the ranker
+  refuses a name made of generic words only.
+- **The audit's check 20 measured the wrong thing**: it searched the whole cell, so "licence" in "(the Régie du bâtiment du Québec's
+  list of active licences …)" flagged every register name — 5,266 cells flagged, of which 241 for the name itself, most of them names
+  that begin with a small letter by design — while the furniture above passed. It now reads the name only (the source is the bracket
+  that ends the cell) and looks for furniture: 372 cells on the same build, all of them faults.

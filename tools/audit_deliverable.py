@@ -31,6 +31,28 @@ PERSONISH = re.compile(r"^[a-z]+[._-][a-z]+$")
 GENERIC_NAME = re.compile(r"^(?:contactez[- ]nous|contact(?:ez)?(?:[- ]us)?|nous joindre|accueil|home(?: page)?|bienvenue|welcome|about(?: us)?|[àa] propos|coordonn[ée]es|page d.accueil|untitled|index|services|joindre|login|connexion)\W*$", re.I)
 DOMAIN_NAME = re.compile(r"^(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}$", re.I)
 BAD_LEGAL = re.compile(r"copyright act|subject to|proprietary|affiliated|licen[cs]e|rights reserved|droits r[ée]serv|\btheme\b|posted by|schoolmessenger|sportsengine|civicplus|granicus|wordpress|squarespace|\bwix\b|shopify|cricos|connect with us|follow us", re.I)
+# check 20 looks at the NAME, not at the cell's source text: until 2026-11-11 "licence" in "(the Régie du bâtiment du Québec's list of active
+# licences …)" flagged every register name (5,266 cells flagged, 241 of them for the name itself, most of those names that begin with a small
+# letter by design: "eGrr Services Inc."), while page furniture around a name went through ("… Your Cart Check Out", "X and protected by …")
+def legal_cell_name(cell):
+    """the name of a cell "NAME (source text)": the source is the bracket that ends the cell and begins with a small letter (or "CRA …")"""
+    c = cell or ""
+    if c.endswith(")"):
+        depth = 0
+        for i in range(len(c) - 1, -1, -1):
+            if c[i] == ")":
+                depth += 1
+            elif c[i] == "(":
+                depth -= 1
+                if depth == 0:
+                    if i > 0 and c[i - 1] == " " and re.match(r"[a-z]|CRA ", c[i + 1:]):
+                        return c[:i - 1].strip()
+                    break
+    return c.strip()
+LEGAL_FURNITURE = re.compile(r"^(?:inc|ltd|llc|corp|limited|incorporated)\b\.?(?:\s|$|,)|\bno\.?$|-->| · |^[·•┃|+»>]|"
+                             r"\b(?:and (?:is |are )?protected|or its (?:content )?suppliers|your cart|we value|freedom of information|is an? (?:registered )?(?:trade ?mark|division|product)|"
+                             r"are (?:registered )?trade ?marks|privacy policy|terms (?:and|&) conditions|welcome to|bienvenue chez|official (?:web)?site of|get in touch|loading)\b", re.I)
+LEGAL_CUT_FRONT = re.compile(r"^(?:'?s|of|and|the|to|for|by|with|at|in|on|or|et|du|des|au|aux|par|pour)\s")  # a name cut at the front: begins with a small function word
 NAME_BASIS = re.compile(r"\b(?:name|nom)\b.*\b(?:suggests|looks|sounds|implies|indicates|canadian-sounding)|inferred from (?:the )?name|vendor name", re.I)
 GOLD = ("P01_", "P01T", "P01M")
 
@@ -136,7 +158,8 @@ def main():
             bn = (r.get("buyer") or "").strip()
             if GENERIC_NAME.match(bn) or DOMAIN_NAME.match(bn): hit("19 buyer name is a name (not a domain or a page title)", "soft", where, bn); reasons.append("name is a domain/title")
             ln = r.get("buyer_legal_name_as_published") or ""
-            if ln and ln != "not_published" and (BAD_LEGAL.search(ln) or re.match(r"^(?:'?s\b|[a-z])", ln) or re.search(r"\bno\.?$", ln, re.I)): hit("20 legal name is not a fragment or a platform copyright", "soft", where, ln[:70]); reasons.append("legal-name fragment")
+            lname = legal_cell_name(ln)
+            if ln and ln != "not_published" and (BAD_LEGAL.search(lname) or LEGAL_FURNITURE.search(lname) or LEGAL_CUT_FRONT.search(lname)): hit("20 legal name is not a fragment or a platform copyright", "soft", where, ln[:70]); reasons.append("legal-name fragment")
             if el:
                 if el in seen_mail: hit("21 one row per mailbox", "hard", where, e + " also in " + seen_mail[el]); reasons.append("duplicate mailbox")
                 else: seen_mail[el] = BF.member(f)[:-4]

@@ -286,7 +286,9 @@ def legal_name_text(text, host, name):
 # differed it was right 14 times ("Liberty Security Systems Inc." where the record held "Canadian Security Association", "Spurrell Professional
 # Corporation" where it held "Secure Sockets Layer").
 SUF3 = re.compile(r"(?<![\w.\-/])(Inc|Incorporated|Incorpor[ée]e|Ltd|Limited|Limit[ée]e|Lt[ée]e|Corp|Corporation|LLP|L\.L\.P|LLC|L\.L\.C|PLC|GmbH|S\.E\.N\.C\.R\.L|S\.E\.N\.C|SENCRL|SENC|ULC|U\.L\.C)(?![\w\-])\.?", re.I)
-_W3 = re.compile(r"^(?:[A-Z0-9À-Ý][\w'’.+\-À-ÿ&]*|[a-z]{1,3}[A-Z][\w'’.+\-À-ÿ]*|[dDlL]['’][A-ZÀ-Ý][\w'’\-À-ÿ]*|&|\+)$")  # a capitalised word, a number, "eBay", "d'Amour", & or +
+_W3 = re.compile(r"^(?:[A-Z0-9À-Ý][\w'’.+\-À-ÿ&]*|[a-z]{1,6}[A-Z][\w'’.+\-À-ÿ]*|[dDlL]['’][A-ZÀ-Ý][\w'’\-À-ÿ]*|&|\+)$")  # a capitalised word, a number, "eBay", "easyDNS", "d'Amour", & or +
+# (2026-11-11: up to six small letters before the capital — "easyDNS Technologies Inc." was read as "Technologies Inc."; no new reader version: the ranker
+#  refuses a name made of generic words only, and the sites read again from now on give the whole name)
 _J3 = {"and", "et", "of", "de", "du", "des", "la", "le", "les", "the", "for", "pour", "à", "au", "aux", "en", "sur", "&", "+"}
 CHROME3 = set("""privacy policy policies politique politiques confidentialité confidentialite terms conditions modalités modalites copyright rights reserved droits réservés reserves
 home accueil contact contactez about menu search recherche login connexion cart panier skip content contenu welcome bienvenue notice statement agreement disclaimer legal

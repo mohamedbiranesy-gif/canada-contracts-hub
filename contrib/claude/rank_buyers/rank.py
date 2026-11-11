@@ -2155,8 +2155,9 @@ def clean_legal(name, buyer=""):
     n = re.sub(r"\s+copyright$", "", n, flags=re.I).strip(" .,-–—|:")  # "Canadian Nurses Association Copyright"
     n = re.sub(r"^(?:[àa] la|au|aux|[àa] l'|the|la|le|les|l')\s+", "", n, flags=re.I).strip() if re.match(r"^(?:[àa] la|au|aux|[àa] l')\s", n, re.I) else n  # "à la Commission scolaire …" (pilot dossier S1-12)
     n = re.sub(r"^à\s+", "", n)  # "à Devimco Immobilier Inc"
-    if BAD_LEGAL.search(n) or CUT_PREFIX.search(n) or re.match(r"^(?:'?s\b|[a-z])", n) or re.search(r"\bno\.?$", n, re.I):
-        return ""  # a fragment cut at the front ("s Union Partners"), lowercase start, or ending in "No" (a registration number followed)
+    if BAD_LEGAL.search(n) or CUT_PREFIX.search(n) or (re.match(r"^(?:'?s\b|[a-z])", n) and not re.match(r"^[a-z]{1,6}[A-Z0-9][A-Za-z0-9]*\s+\S", n)) or re.search(r"\bno\.?$", n, re.I):
+        return ""  # a fragment cut at the front ("s Union Partners"), lowercase start, or ending in "No" (a registration number followed);
+        # 2026-11-11: "easyDNS Technologies Inc", "eGrr Services Inc.", "iTrack Fitness Inc" begin with a small letter by design
     if buyer and re.sub(r"\s+", " ", buyer).strip().lower().startswith(n.lower() + "-"):
         return ""
     _ns, _nw = len(_NAV_STRONG.findall(n)), len(_NAV_WEAK.findall(n))
@@ -2451,9 +2452,17 @@ def stated_as_operator(raw, quote, page="", site=""):
         return False  # "Coast Hotels Limited", stated on coasthotels.com, for the hotel it manages
     return bool(_OPERATOR_BEFORE.search(q[max(0, i - 70):i]) or _WE_AFTER.match(q[i + len(r):i + len(r) + 60]))
 _DBA = re.compile(r"\s*,?\s+(?:doing business as|operating as|carrying on business as|trading as|faisant affaires? sous(?: le nom(?: de)?)?|o/a|d\.?b\.?a\.?)\s+", re.I)
-_DIV_OF = re.compile(r"\s*,?\s+(?:is\s+|est\s+)?(?:a|an|une)\s+(?:division|subsidiary|filiale|initiative|program(?:me)?|service)\s+(?:of|de|du|de la|d['’])\s*(?:the\s+|la\s+|le\s+)?", re.I)
+_DIV_OF = re.compile(r"\s*,?\s+(?:is\s+|est\s+)?(?:a|an|une)\s+(?:division|business unit|subsidiary|filiale|initiative|program(?:me)?|service)\s+(?:of|de|du|de la|d['’])\s*(?:the\s+|la\s+|le\s+)?", re.I)
 _PUBLIC_BODY_WORD = re.compile(r"\b(?:municipality|municipalit[ée]|ville|city|town|township|county|district|village|government|gouvernement|minist[èe]re|ministry|hospital|h[ôo]pital|"
                                r"school|[ée]cole|library|biblioth[èe]que|nation|band)\b", re.I)
+_GENERIC_CO_WORD = set("technologies technology solutions services service systems enterprises entreprises holdings group groupe consulting management gestion industries international canada global "
+                       "media digital communications ventures partners associates properties investments capital company compagnie software networks labs studio studios design marketing "
+                       "construction logistics trading development developments resources realty the les and et of de".split())
+def generic_only_name(n):
+    """ "Technologies Inc.", "Services Ltd.": the tail of a name whose first word the reader did not take ("easyDNS Technologies Inc." — a word that
+    begins with a small letter), not a name"""
+    w = [t for t in re.findall(r"[a-zà-ÿ0-9]+", _CORP_FORM_END.sub("", n or "").lower())]
+    return bool(w) and len(w) <= 3 and all(t in _GENERIC_CO_WORD for t in w)
 def legal_and_trade(cand):
     """(legal person, name traded under) when a stated name holds both: "X Ltd doing business as Y", "Y, a division of X"; else None"""
     m = _DBA.search(cand)
@@ -2511,14 +2520,14 @@ for x in rows:
             # Alberta Ltd.)", "Legal Entity : Sleepera Mattress Wholesale Ltd." — not a name printed on three sites and more (a maker's notice on its
             # dealers' sites, a platform's terms), unless it is this organisation's own
             _pn, _pt, _ph = re.sub(r"\s+", " ", b.get("legal_name_party") or "").strip(), (b.get("legal_name_party_trade") or "").strip(), b.get("legal_name_party_how") or ""
-            if _pn and not _PLATFORM_CO.search(_pn) and _own(b.get("legal_name_party_url")) and (not (norm(_pn) in NAME_ON_MANY or _AGENCY_CO.search(_pn)) or name_overlap(_pn, x.get("buyer") or "", _site)) and (
+            if _pn and not generic_only_name(_pn) and not _PLATFORM_CO.search(_pn) and _own(b.get("legal_name_party_url")) and (not (norm(_pn) in NAME_ON_MANY or _AGENCY_CO.search(_pn)) or name_overlap(_pn, x.get("buyer") or "", _site)) and (
                     name_overlap(_pt, x.get("buyer") or "", _site) if _pt else _ph.startswith("labelled")):
                 ln = _pn
                 basis = ("stated on %s: %s “%s”, as the legal person doing business under the site's name" % (b.get("legal_name_party_url"), _ph, _pt)) if _pt else ("stated on %s: labelled there as the legal entity, as the site's operator" % b.get("legal_name_party_url"))
                 n_ox["buyer_legal_name_v3_legal_person_behind_the_site_name"] += 1
         if not ln and not _reg_cell:
             _on = re.sub(r"\s+", " ", b.get("legal_name_operator") or "").strip()
-            if _on and (not (norm(_on) in NAME_ON_MANY or _AGENCY_CO.search(_on)) or name_overlap(_on, x.get("buyer") or "", _site)) and stated_as_operator(_on, b.get("legal_name_operator_quote"), b.get("legal_name_operator_url") or "", _site):
+            if _on and not generic_only_name(_on) and (not (norm(_on) in NAME_ON_MANY or _AGENCY_CO.search(_on)) or name_overlap(_on, x.get("buyer") or "", _site)) and stated_as_operator(_on, b.get("legal_name_operator_quote"), b.get("legal_name_operator_url") or "", _site):
                 ln, basis = _on, "stated on %s, as the site's operator" % (b.get("legal_name_operator_url") or "the site's legal page")
                 n_ox["buyer_legal_name_v3_stated_as_operator"] += 1
         if not ln:  # v2 (2026-11-08): the name the organisation states itself — schema.org JSON-LD legalName, then its Terms / Privacy / Legal page
@@ -2593,6 +2602,25 @@ for x in rows:
                     # the vendor's own site says it in so many words: its structured data gives the site as the organisation's own, or a page says who operates it
                     x["vendor_legal_name"] = "%s (%s: %s)" % (cand, lab + (", which gives this site as the organisation's own" if k.startswith("jsonld") else ", as the site's operator"), v.get("jsonld_page") if k.startswith("jsonld") else v.get("legal_name_stated_url") or ""); n_ox["vendor_legal_name_v2_site_says"] += 1
                     break
+        if not x.get("vendor_legal_name") and not _foreign_site:
+            # 2026-11-11: the reader's v4 names (see the buyer block above), for the vendor's own site — tier T rows of the build of 01:51Z: 52 % with
+            # a vendor legal name (7,333 rows of one host, "whc.ca", without one)
+            _vsite, _vn = x.get("vendor_website") or "", x.get("vendor") or ""
+            _vown = lambda u: bool(u) and registrable(host_of(u) or "") == registrable(host_of(_vsite) or "")
+            _vsp = re.sub(r"\s+", " ", v.get("legal_name_spelled") or "").strip() if int(v.get("v") or 0) >= 4 else ""
+            _vpn, _vpt, _vph = re.sub(r"\s+", " ", v.get("legal_name_party") or "").strip(), (v.get("legal_name_party_trade") or "").strip(), v.get("legal_name_party_how") or ""
+            _von = re.sub(r"\s+", " ", v.get("legal_name_operator") or "").strip()
+            if _vsp and not _PLATFORM_CO.search(_vsp) and name_overlap(_vsp, _vn, _vsite):
+                x["vendor_legal_name"] = "%s (printed with its legal form on %s; %s)" % (_vsp, v.get("legal_name_spelled_url") or "the vendor's site", re.sub(r"\s*\(([^()]*)\)", r", \1", v.get("legal_name_spelled_basis") or "its words spell the site's own domain name"))
+                n_ox["vendor_legal_name_v3_spelled_by_the_domain"] += 1
+            elif _vpn and not generic_only_name(_vpn) and not _PLATFORM_CO.search(_vpn) and _vown(v.get("legal_name_party_url")) and (not (norm(_vpn) in NAME_ON_MANY or _AGENCY_CO.search(_vpn)) or name_overlap(_vpn, _vn, _vsite)) and (
+                    name_overlap(_vpt, _vn, _vsite) if _vpt else _vph.startswith("labelled")):
+                x["vendor_legal_name"] = ("%s (stated on %s: %s “%s”, as the legal person doing business under the site's name)" % (_vpn, v.get("legal_name_party_url"), _vph, _vpt)) if _vpt else (
+                    "%s (stated on %s: labelled there as the legal entity, as the site's operator)" % (_vpn, v.get("legal_name_party_url")))
+                n_ox["vendor_legal_name_v3_legal_person_behind_the_site_name"] += 1
+            elif _von and not generic_only_name(_von) and (not (norm(_von) in NAME_ON_MANY or _AGENCY_CO.search(_von)) or name_overlap(_von, _vn, _vsite)) and stated_as_operator(_von, v.get("legal_name_operator_quote"), v.get("legal_name_operator_url") or "", _vsite):
+                x["vendor_legal_name"] = "%s (stated on %s, as the site's operator)" % (_von, v.get("legal_name_operator_url") or "the site's legal page")
+                n_ox["vendor_legal_name_v3_stated_as_operator"] += 1
         v2_fill(x, v, "vendor")
         if not x.get("vendor_trading_name") and not _foreign_site:  # 2026-11-08: the name the vendor trades under on its own site when it differs from its legal name (schema.org alternateName / Organization name)
             vl0 = (x.get("vendor_legal_name") or "").split(" (")[0].strip()
@@ -3245,14 +3273,53 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_vendor_sites.csv"):
     for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_vendor_sites.csv", encoding="utf-8")):
         if _r.get("check_status") == "confirmed" and _r.get("website"):
             VSITE[norm(_r["vendor_key"])] = _r
-n_vs = 0
+# 2026-11-11 (build of 01:51Z): 16,993 Shopify rows carried "https://finance.yahoo.com/quote/SHOP/profile/" as the vendor's website, TMX Group
+# another quote page, 30 vendors a page of leadiq.com — the search check had "confirmed" any page that prints the vendor's name. (1) A vetted
+# software vendor's website is the site of its own terms page (tools/tech_relationships.py hq_url). (2) A site proposed by search is taken only
+# when its host carries the vendor's name and is not a directory, a quote page, an app store or a register.
+_VETTED_SITE = {}
+for _v in _TR.VENDORS.values():
+    _h = registrable(host_of(_v.get("hq_url") or "") or "")
+    if _h:
+        for _n in (_v.get("legal"), _v.get("name"), "%s dba %s" % (_v.get("legal") or "", _v.get("name") or "")):
+            if _n:
+                _VETTED_SITE.setdefault(norm(_n), ("https://%s/" % _h, _v.get("hq_url")))
+_VETTED_SITE.setdefault(norm("TMX Group Limited"), ("https://www.tmx.com/", "https://www.tmx.com/privacy-policy"))  # the exchange-listing lane's vendor (tools/exchange_listing.py TMX_HQ_URL, read 2026-11-03)
+_THIRD_PARTY_SITE = re.compile(r"(?:^|\.)(?:yahoo\.com|bloomberg\.com|linkedin\.com|facebook\.com|wikipedia\.org|crunchbase\.com|zoominfo\.com|leadiq\.com|rocketreach\.co|dnb\.com|opencorporates\.com|"
+                               r"yellowpages\.ca|pagesjaunes\.ca|canada411\.ca|411\.ca|glassdoor\.[a-z.]+|indeed\.com|twitter\.com|x\.com|instagram\.com|youtube\.com|google\.com|apple\.com|amazon\.[a-z.]+|"
+                               r"reuters\.com|marketwatch\.com|sedarplus\.ca|sedar\.com|sec\.gov|canada\.ca|gc\.ca|bbb\.org|yelp\.[a-z.]+|tripadvisor\.[a-z.]+|kijiji\.ca|manta\.com|mapquest\.com|waze\.com|"
+                               r"github\.com|medium\.com|linktr\.ee|eventbrite\.[a-z.]+|houzz\.[a-z.]+|homestars\.com|constructconnect\.com|portailconstructo\.com|construction411\.com|highergov\.com|"
+                               r"govtribe\.com|merx\.com|biddingo\.com|bidsandtenders\.ca|seao\.ca|buyandsell\.gc\.ca|canadabuys\.canada\.ca|ic\.gc\.ca|ised-isde\.canada\.ca)$", re.I)
+_SF_STOP = set("the and inc ltd corp corporation limited llp llc co company group groupe canada canadian services service solutions systems international consulting associates of de du des la le les et".split())
+_SF_FORM = set("inc ltd corp corporation limited llp llc co ltee incorporated the of de du des la le les and et".split())
+def site_fits_name(name, website):
+    """does the site's host carry the vendor's name: a distinctive word of the name ("calgary" in ucalgary.ca), the host's label inside the name,
+    or the name's initials (ey.com, mhs.com)?"""
+    lab = re.sub(r"[^a-z0-9]", "", (registrable(host_of(website) or "") or "").split(".")[0])
+    words = re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().lower())
+    sig = [w for w in words if w not in _SF_STOP]
+    if not lab or not words or lab in _SF_STOP:
+        return False
+    if any(len(w) >= 4 and w in lab for w in sig) or (len(lab) >= 4 and lab in "".join(words)) or (len(lab) >= 2 and lab in sig) or any(len(w) >= 3 and lab.startswith(w) for w in sig):
+        return True  # … or the host is a word of the name ("WSP Canada Inc." on wsp.com), or begins with one ("RBR Ltd." on rbr-global.com)
+    ini = "".join(w[0] for w in words if w not in _SF_FORM)
+    ini_sig = "".join(w[0] for w in sig)
+    return (len(lab) >= 2 and lab in (ini, ini_sig)) or (len(ini_sig) >= 3 and lab.startswith(ini_sig))
+n_vs, n_vs_no = 0, collections.Counter()
 for x in rows:
     vn = x.get("vendor") or ""
+    if vn and not x.get("vendor_website") and norm(vn) in _VETTED_SITE:
+        x["vendor_website"], x["vendor_website_basis"] = _VETTED_SITE[norm(vn)][0], "the site of the vendor's own terms page (%s)" % _VETTED_SITE[norm(vn)][1]
+        n_vs_no["vetted vendor: the site of its own terms page"] += 1
+        continue
     v_ = VSITE.get(norm(vn)) if vn and not vn.startswith("inferred") and not x.get("vendor_website") else None
+    if v_ and (_THIRD_PARTY_SITE.search(host_of(v_["website"]) or "") or not (name_overlap(vn, "", v_["website"]) or site_fits_name(vn, v_["website"]))):
+        n_vs_no["search proposal not taken: a directory / quote page / register, or a host that does not carry the vendor's name"] += 1
+        v_ = None
     if v_:
         x["vendor_website"] = v_["website"]
         x["vendor_website_basis"] = "found by a web search, confirmed by reading the site on %s: %s (%s)" % (v_["retrieved_date"], v_["evidence_url"], (v_.get("evidence_quote") or "")[:160]); n_vs += 1
-print("vendor websites confirmed from search proposals:", len(VSITE), "applied:", n_vs)
+print("vendor websites confirmed from search proposals:", len(VSITE), "applied:", n_vs, dict(n_vs_no))
 # inferred vendors' own published phone / address (claude_inferred_vendor_facts.csv: pages opened on the Crown corporation's site, quoted) → P13 rows
 IVF = {}
 if os.path.exists(ROOT + "/data/incoming/claude/claude_inferred_vendor_facts.csv"):
@@ -3481,6 +3548,100 @@ for x in rows:
         x["vendor_bn_source"] = x.get("vendor_bn_source") or "federal grants & contributions disclosure (recipient_business_number)"
         if not x.get("vendor_gst_hst_derived"):
             x["vendor_gst_hst_derived"] = g["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
+# 2026-11-11: page furniture around a name read off a page (build of 01:51Z: 455 of 82,018 legal-name cells — "Lambton College Your Cart Check Out
+# Continue Shopping", "· Temagami First Nation ·", "Town of Kapuskasing Freedom of Information", "Perfected Coffee and protected by intellectual
+# property laws", "Privacy Policy The Redeemed Christian Church of God"); and the legal person a sentence names as the owner ("DIV7 is a Division
+# of Naro Building Systems Inc", "HR Property Maintenance · Operated by Haryana Enterprises Ltd"). Names that come from a register are not touched.
+_TP_PAGE = re.compile(r"(?:stated on|printed with its legal form|schema\.org|the name on the organisation's own home page|the organisation's name as the source)")
+def cell_split(cell):
+    """a cell "NAME (source text)" -> (NAME, " (source text)"); the source is the bracket that ends the cell and begins with a small letter (or
+    "CRA …"); a name's own brackets stay in the name ("CHICKPEA FOOD (MAIN STREET) INC. (the City of Vancouver's open data list …)")"""
+    c = cell or ""
+    if c.endswith(")"):
+        depth = 0
+        for i in range(len(c) - 1, -1, -1):
+            if c[i] == ")":
+                depth += 1
+            elif c[i] == "(":
+                depth -= 1
+                if depth == 0:
+                    if i > 0 and c[i - 1] == " " and re.match(r"[a-z]|CRA ", c[i + 1:]):
+                        return c[:i - 1], c[i - 1:]
+                    break
+    return c, ""
+_TP_LEAD = re.compile(r"^(?:[\s·•┃|+»>*–—-]+|\d{1,4}\s*[·•|]\s*|(?:copyright|©|\(c\))\s*(?:(?:19|20)\d\d)?\s*|(?:privacy (?:policy|notice)(?: (?:for|of))?|privacy office of|terms (?:and|&) conditions(?: introduction in)?|"
+                      r"agreement to terms|terms of (?:use|service)|conditions g[ée]n[ée]rales(?: de vente)?|politique de confidentialit[ée]|welcome to|bienvenue (?:chez|[àa]|au|sur le site de)|"
+                      r"official (?:web)?site of|site (?:web )?officiel (?:de la|du|de|des)|facebook|instagram|twitter|youtube|linkedin|tiktok|pinterest)\s+)+", re.I)
+_TP_TAIL = re.compile(r"\s+(?:and (?:is |are )?protected\b|or its (?:content )?suppliers\b|and will\b|will (?:take|be|not)\b|[Ww]e value\b|[Yy]our [Cc]art\b|[Pp]lease (?:select|note|contact)\b|Non-discrimination Policy\b|"
+                      r"(?:Accessibility\s+)?Freedom of Information\b|at such time\b|[Gg]et in touch\b|Scroll to Top\b|Loading\b|Translate\b|Log in\b|E-commerce$|Discover$|and/or its (?:affiliates|subsidiaries)\b|×).*$")
+_TP_OWNER = re.compile(r"^(.{0,70}?)(?:\s|^)(?:((?:is )?(?:an?|the) (?:registered trade ?name|trade ?name|registered business name|business name|operating name) of)|"
+                       r"(is (?:an?|the) (?:division|subsidiary|product|service|brand) of|(?:is |are )?(?:owned and )?operated by:?|o/o by:?)|"
+                       r"((?:is|are) (?:an? |the )?(?:registered )?trade ?marks? (?:of|owned by)))\s+(.{3,80})$", re.I)
+_TP_IS = re.compile(r"\s+(?:(is|are|was|were)\s+(?:an?|the|registered|members?|owned|operated|located|committed|proud)\b|(?:IS|is) (?:A|a) (?:registered )?501).*$")
+_TP_SEP = re.compile(r"\s*(?:-->|·|»|\s\|\s)\s*")
+_TP_FORM = re.compile(r"\b(?:inc|ltd|llc|corp|corporation|limited|incorporated|lt[ée]e|limit[ée]e|llp|plc|gmbh|s\.?e\.?n\.?c\.?(?:r\.?l\.?)?)\b\.?", re.I)
+_TP_BARE = re.compile(r"^(?:inc|ltd|llc|corp|limited|incorporated|lt[ée]e|s\.?e\.?n\.?c)\b\.?(?:\s|$|\.|,)", re.I)
+_TP_CAMEL = re.compile(r"^[a-z]{1,6}[A-Z0-9][\w&.'’ -]{2,70}$")
+def _tp_clean(cand, buyer):
+    """clean_legal, plus a name that begins with a small letter by design ("pureBalance Wellness Centre Inc", "eGrr Services Inc.")"""
+    cand = cand.strip(" ,-–—|:·•┃»>;")
+    out = clean_legal(cand, buyer)
+    if not out and _TP_CAMEL.match(cand) and _TP_FORM.search(cand[-14:]) and not BAD_LEGAL.search(cand):
+        out = cand
+    if not out or _TP_BARE.match(out):
+        return ""
+    if cand.endswith(".") and _TP_FORM.search(cand[-8:]) and out == cand[:-1]:
+        out = cand  # the full stop of "Inc." stays
+    return out
+def tidy_page_name(cell, buyer="", site=""):
+    """-> (cell, what): what = "" (unchanged), "tidied", "owner" (the legal person the text names behind the name) or "fragment" (cell "")"""
+    name, src = cell_split(cell)
+    if src and not _TP_PAGE.match(src[2:]):
+        return cell, ""  # a register's or a list's name
+    n0 = re.sub(r"[⠀ \s]+", " ", name).strip()
+    d = _TP_OWNER.match(n0)
+    if d:
+        head, y = d.group(1).strip(" ·;,"), d.group(5).strip()
+        if d.group(2) or (d.group(3) and _TP_FORM.search(y)):
+            out = _tp_clean(y, buyer)  # "X is the operating name of Y", "X is a division of Y Inc", "X · Operated by Y Ltd": Y is the legal person behind X
+            return (out + src, "owner") if out else ("", "fragment")
+        if d.group(4) and _TP_FORM.search(y) and name_overlap(y, buyer, site):
+            out = _tp_clean(y, buyer)  # a trademark notice names the mark's owner — a parent, a licensor, Apple: taken only when it carries the organisation's own name
+            return (out + src, "owner") if out else ("", "fragment")
+        return "", "fragment"
+    parts = [q for q in _TP_SEP.split(n0) if q.strip()]
+    order = ([q for q in parts if _TP_FORM.search(q)] + [parts[0]]) if len(parts) > 1 else [n0]
+    for cand in order:
+        cand = _TP_LEAD.sub("", cand)
+        if cand.startswith("[") and "]" not in cand:
+            cand = cand[1:]
+        cand = _TP_TAIL.sub("", cand)
+        mm = _TP_IS.search(cand)
+        if mm:
+            head = cand[:mm.start()].strip()
+            if (mm.group(1) or "").lower() in ("are", "were") or (len(head.split()) < 2 and not _TP_FORM.search(head)):
+                continue  # a sentence about a group or a person ("Kinesiologists are members of …", "Stephen is a board certified …")
+            cand = head
+        cand = cand.strip(" ,-–—|:·•┃»>;")
+        if cand == n0:
+            return cell, ""
+        w = cand.split()
+        if len(w) >= 3 and w[-1].lower() == w[0].lower():
+            cand = " ".join(w[:-1])  # "Capita plc Capita (is an …)"
+        out = _tp_clean(cand, buyer)
+        if out:
+            return out + src, "tidied"
+    return "", "fragment"
+n_tp = collections.Counter()
+for x in rows:
+    _c = x.get("buyer_legal_name_as_published") or ""
+    if _c:
+        _new, _what = tidy_page_name(_c, x.get("buyer") or "", x.get("buyer_website") or "")
+        if _what:
+            n_tp[_what] += 1
+            x["buyer_legal_name_as_published"] = _new
+print("legal names read off a page, tidied:", dict(n_tp))
+_WELCOME = re.compile(r"^(?:welcome to|bienvenue (?:chez|[àa]|au|sur le site de)|official (?:web)?site of)\s+(?=\S+\s+\S)", re.I)
 # 2026-11-10: a name that carries its company form ("Kobes Welding Ltd.", "Plumblink Plumbing Inc.") is the legal name as published — by the organisation
 # itself when it is the name on its own home page, else by the source of the row's record. Last in the chain: every register and every statement of the
 # site goes first, and the registry tools look the name up as before (a register's name then takes the cell). 6,228 rows of the build of 2026-11-10
@@ -3489,10 +3650,11 @@ n_lform = 0
 for x in rows:
     if x.get("buyer_legal_name_as_published"):
         continue
-    _bn = re.sub(r"\s+", " ", x.get("buyer") or "").strip()
+    _bn0 = re.sub(r"\s+", " ", x.get("buyer") or "").strip()
+    _bn = _WELCOME.sub("", _bn0)  # "Welcome to Quantum Internet Solutions Ltd." is the page's title: the name is what follows
     if _CORP_FORM_END.search(_bn) and 5 <= len(_bn) <= 90 and not DOMAIN_NAME.match(_bn) and not _PLATFORM_CO.search(_bn) and not re.search(r"[|/()]| - | – |\. ", _bn):
         _lf = next((LFACTS[_k] for _k in (x.get("keys") or "").split("|") if _k in LFACTS), None)
-        if _lf and norm(_lf.get("site_name") or "") == norm(_bn):
+        if _lf and norm(_lf.get("site_name") or "") in (norm(_bn), norm(_bn0)):
             _wh = "the name on the organisation's own home page, %s, read %s" % (_lf.get("site") or x.get("buyer_website") or "", _lf.get("date") or "")
         else:
             _wh = "the organisation's name as the source of this row's record gives it"
@@ -3500,6 +3662,37 @@ for x in rows:
         n_lform += 1
 print("legal name: the organisation's own name carries its legal form (cells still empty after every register and site statement): %d" % n_lform)
 print("grants & contributions recipient BNs: %d buyers, %d vendors in file; filled %s" % (len(GCR["buyer"]), len(GCR["vendor"]), dict(n_gcr)))
+# 2026-11-11: the vendor's legal name, last links of the chain (build of 01:51Z: 63,216 named-vendor rows without one; one host's 7,333 rows).
+# (1) data/incoming/claude/claude_vendor_names_read.csv — the vendor's own terms of service read by hand for the vendors with the most rows whose
+#     legal pages the site reader does not reach ("… are operated by WHC Online Solutions Inc", two links below the home page); URL + quote kept.
+# (2) a vendor name that itself carries the company form ("Octopusapp Inc. dba Jobber", "TMX Group Limited"), as the buyer side does.
+VNR = {}
+_vnr = ROOT + "/data/incoming/claude/claude_vendor_names_read.csv"
+if os.path.exists(_vnr):
+    for _r in csv.DictReader(open(_vnr, encoding="utf-8")):
+        if _r.get("domain") and _r.get("legal_name") and _r.get("url") and _r.get("quote"):
+            VNR[_r["domain"].strip().lower()] = _r
+n_vln = collections.Counter()
+for x in rows:
+    if x.get("vendor_legal_name") or (x.get("vendor") or "").startswith("inferred"):
+        continue
+    _vd = registrable(host_of(x.get("vendor_website") or "") or "")
+    _r = VNR.get(_vd) or VNR.get(re.sub(r"\s+", "", (x.get("vendor") or "").lower()))
+    if _r:
+        x["vendor_legal_name"] = "%s (stated on %s: “%s”; %s, read %s)" % (_r["legal_name"], _r["url"], re.sub(r"\s+", " ", _r["quote"]).replace("(", "[").replace(")", "]")[:220], _r.get("how") or "read on the vendor's own page", _r.get("read_date") or "")
+        if _r.get("trading_name") and not x.get("vendor_trading_name"):
+            x["vendor_trading_name"] = "%s (the name the vendor trades under on %s)" % (_r["trading_name"], "https://%s/" % _r["domain"])
+        n_vln["the vendor's own terms, read by hand"] += 1
+        continue
+    _vn = re.sub(r"\s+", " ", x.get("vendor") or "").strip()
+    _two = legal_and_trade(_vn)
+    _cand = _two[0] if _two else _vn
+    if _CORP_FORM_END.search(_cand) and 5 <= len(_cand) <= 90 and not DOMAIN_NAME.match(_cand) and not re.search(r"[|/]| - | – |\. \S", _cand):
+        x["vendor_legal_name"] = "%s (the vendor's name as the source of this row's record gives it; it carries its legal form; not checked against a company register)" % _cand
+        if _two and not x.get("vendor_trading_name"):
+            x["vendor_trading_name"] = "%s (the name it does business as, in the same record)" % _two[1]
+        n_vln["the vendor's own name carries its legal form"] += 1
+print("vendor legal name, last links of the chain:", dict(n_vln))
 # the buyers' own purchase-order / contract open data joined to existing pairs (tools/po_opendata.py → claude_po_records.csv; downstream §1.1)
 POD = collections.defaultdict(list)
 _pop = ROOT + "/data/incoming/claude/claude_po_records.csv.gz"
