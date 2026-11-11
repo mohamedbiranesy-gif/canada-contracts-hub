@@ -2,13 +2,16 @@
  "asked": 13660000,
  "complete": {},
  "hosts": {
-  "asked": 1920000,
+  "asked": 3456527,
   "before_rev_2": {},
-  "complete": {},
+  "complete": {
+   "0": true,
+   "2": true
+  },
   "pos": {
-   "0": 0,
+   "0": 769631,
    "1": 480000,
-   "2": 0,
+   "2": 766896,
    "3": 480000,
    "4": 0,
    "5": 480000,
@@ -18,8 +21,8 @@
   "release": "cc-main-2026-aug-sep-oct",
   "rev": 2,
   "shards": 8,
-  "stores_found": 29046,
-  "updated": "2026-11-11T01:40Z"
+  "stores_found": 42649,
+  "updated": "2026-11-11T03:12Z"
  },
  "ns_complete": {
   "4": true,
