@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 01:20Z — published build 22:38Z = 233,316 rows, 227,586 with a mailbox; the DNS repair holds (98 % answered, ~470,000 more stores at the merge); the legal name of a row: new reader, registers first, one pass over 173,000 sites queued)
+# STATE.md — Claude lane (updated 2026-11-11 04:00Z — published build 03:29Z = 242,317 rows, 236,341 with a mailbox; 228,000 DNS-provider leads landed (109,000 new); an audit of the vendor side: whose address, whose website, whose name — three defects found on rows already delivered, fixed in code)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,66 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-11 04:00Z — build 03:29Z: 242,317 rows; 228,000 DNS-provider leads; the vendor side audited (whose address, whose website, whose name)
+**Builds.** 01:51Z: 242,292 rows (236,315 with a mailbox). 03:29Z: **242,317 (236,341)** — A 1,276 · B 1,719 · C 323 · D 28,316 · E 5,275 · F 7 ·
+I 18,053 · L 440 · M 10,814 · R 99,842 · T 70,276. Audit PASS on both (0 hard failures). Buyer legal-name cells: 82,018 = 33.9 % (31.6 % at
+22:38Z): the name that carries its form 6,110, the CRA list by number 491, grants recipients 316. The reader's v4 names are not in yet: the
+refresh pass (8 runners, started 01:18Z) is still reading; its merge chains the next one.
+
+**DNS.** Records for 4,510,029 domains; stores on Shopify's addresses 1,063,361. The credit-scan merge of 03:11Z applied the lead rules to the
+repaired records: **228,322 DNS-provider leads (108,956 new) from 461 providers located in Canada** — WHC 48,596 · Webnames 27,028 · Namespro
+26,000 · Hover 20,933 · easyDNS 18,021 · Internic.ca 6,772 · Rapidenet 4,923 · Canadian Web Hosting 4,277 · Doteasy 4,151 · LinkNow 4,029
+(87 % of its customers are not on .ca: American small businesses paying a Montréal firm) … the first five are 61 %. 2,964 new credit leads,
+141 member leads. They now wait for the mailbox crawl: 579,122 lead sites read so far, 177,090 with a role mailbox; its last runs read the
+second class of .ca candidates and found a mailbox on 8-11 % of them. Stores: 104,073 read, 23,414 accepted (22.5 %), ~10,000 read per run.
+
+**Row audit of the vendor side — three defects on rows already delivered** (coord/DECISIONS.md 02:45Z and 03:44Z; all in code, pushed):
+1. **Whose address.** "Vendor located in Canada" was proven by an address read on any host under the vendor's registrable domain. A customer
+   of Odoo in Sherbrooke stood for odoo.com (Belgian; 358 leads), the Canadian Hockey League's office for three teams in Washington State
+   (214), a realtor's address for AvenueHQ of Bend, Oregon (753), a platform's Vancouver address for American associations on its sub-sites.
+   Cloudflare, Zoho and Mimecast passed on one Canadian office among several countries. Rule now: the address must be printed on the
+   vendor's own site (own_host / proof_fits / path_tenants); two or more other countries and no .ca domain = multinational, kept out; an
+   office abroad seen in the address quote counts as another country. Withdrawn at the merges of 02:5xZ-03:11Z: 1,649 row-factory leads,
+   2,922 credit / DNS / member leads; 1,418 waiting links not promoted. The build of 03:29Z still carries the credit / DNS ones (its
+   checkout was 02:49Z); the next build does not.
+2. **Whose website.** 17,691 rows carried a third party's page as the vendor's website — every Shopify row a Yahoo Finance quote page —
+   from the Mac-era search check that "confirmed" any page printing the vendor's name. Vetted vendors now get the site of their own terms
+   page; a search-proposed site must carry the vendor's name.
+3. **Whose name.** 63,216 named-vendor rows had no vendor legal name. The reader's v4 names now serve the vendor's site too; the terms of
+   the three largest providers the reader does not reach were read by hand (WHC Online Solutions Inc, Tucows.com Co., World Host Group Ca
+   Corp: data/incoming/claude/claude_vendor_names_read.csv); a vendor name that carries its form is taken as the buyer side does.
+Also: 455 buyer legal-name cells held page furniture ("Lambton College Your Cart Check Out Continue Shopping") — a last pass tidies names
+read off a page and takes the legal person a sentence names ("DIV7 is a Division of Naro Building Systems Inc"); the audit's check 20 had
+flagged 5,266 cells for words in their source text and missed the furniture — it reads the name now (372 real faults on the same build).
+All of it ran on the sample build (55,127 rows; tiers unchanged; 1,697 vendor legal names, 2,768 vendor sites corrected, 130 names tidied).
+**Not yet measured on a full build** — the first build after 03:45Z carries these; read its counters and the audit's check 20.
+
+**Detector 5, first cycle** (445,303 home pages): outside links per site are on file (links_*.gz 20 MB, sections_*.gz 3.4 MB). Sites that
+link their own account at a watched service: Jane 16,502 · Jobber 4,334 · BBB profile 3,940 · CanadaHelps 2,189 · HomeStars 750 ·
+Checkfront 559 · Amilia 463 · Showpass 431 · GOrendezvous 418 · SkipTheDishes 296 · Keela 295 · Libro 278 · Ocean 198 · Moneris 168 ·
+lepointdevente 164 · CARFAX Canada 151 · RAMP 151 · WellnessLiving 144 · Rezgo 142 · TouchBistro 131 · Bambora 131 · WebRezPro 123 ·
+AutoTrader.ca 114 · Race Roster 106 · Jobillico widget 71 · Medeo 53 · Clio 45. Jane, Jobber, Checkfront, Amilia, WellnessLiving,
+TouchBistro are vetted and flow to the tenant factory. **Next: vet the others** (terms page naming the contracting company and its
+Canadian address; pricing — no free plan; what the link proves): subscription services first (GOrendezvous, Keela, Libro, Ocean, CARFAX
+Canada, RAMP, Rezgo, WebRezPro, Medeo, Clio, Noterro 484, Owl Practice 324, Jonas Club 332, Juvonno 125). CanadaHelps read (terms +
+pricing, 04:00Z): gifts are made to CanadaHelps CanaDon (BN 896568417RR0001), which passes them on "minus its payment processing fee"
+(3.75 %) — the charity is never invoiced; a fee kept at source. Kept aside until the clearer ones are in.
+**Job boards (plan item 17)**, read 02:00Z: CharityVillage prints prices (a posting CA$ 298, for-profit CA$ 398) and each job page prints
+"Published" and "Expires" dates and the employer's own website; volunteer listings on the same addresses are free and must be told apart;
+1,293 job pages and 12,608 organisation pages in its sitemap. Jobboom, Jobillico, Municipal World, CivicJobs and CareerBeacon refuse the
+reader (blocked, not pursued) — but 71 employers' own sites embed Jobillico's widget (detector 5), which needs no page of Jobillico.
+
+**Open, in this order.** (1) Read the first build after 03:45Z (counters above, vendor legal-name fill, check 20). (2) Vet the watched
+services. (3) Reader v5 once the v4 refresh has run through: the party named by the site's own agreement ("This is an Agreement between
+You and X"), terms linked from a legal hub page, standard legal paths when the home page links none — then the hand table goes.
+(4) Vendor names that are host names (whc.ca, business.nvchamber.ca) → the site's own name. (5) Tier M and I vendors (cities, CIPO, the
+Crown corporations: 30,000 rows, a few dozen vendors) have no legal name / website / phone: carry them from the buyer table where the same
+body is a buyer, read the rest once. (6) CharityVillage reader. (7) Sunday's report.
+**Projection, unchanged in total, restated by source:** stores ~960,000 left to read at 22 % → about 210,000 rows over two weeks; DNS-provider
+leads on file → 25,000-35,000; .ca registrations and the member / licence lanes → 100,000-150,000: **600,000-700,000 by early January.**
+The DNS-provider class is the one that can still grow by a multiple: its leads come from 4.5 million domains looked up, and the domain
+sweep is walking a list of 118 million.
 
 ## 2026-11-11 01:20Z — the DNS repair holds; the bill-to legal name (160,000 empty cells) is the work of this night
 **The DNS repair is confirmed on the real run.** The fifth measurement had picked the transport (the runner's resolver forwards over TLS:
