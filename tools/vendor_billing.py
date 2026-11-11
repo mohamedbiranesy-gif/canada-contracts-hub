@@ -362,7 +362,12 @@ def parse_money(m):
 # year", 5,078 rows), a television receiver or a telephone line of an Internet provider that also hosts mail.
 _NOT_A_PRICE = re.compile(r"\?|late\s+fee|whichever\s+is\s+greater|minimum\s+(?:payable|payment|balance)|solde\s+minimum|\bspend\b|d[ée]pens|\bcharges?\s+\$|\bcosts?\s+(?:around|about|between)|"
                           r"typically|on\s+average|en\s+moyenne|agencies\s+charge|\bbudget\b|another\s+\$|\bsave\s+\$|[ée]conomisez|\bdeposit\b|d[ée]p[ôo]t\b|\bpenalt|\bsurvey\b|\bsalar(?:y|ies)\b|salaire|"
-                          r"\brevenue\b|chiffre\s+d['’]affaires|\bworth\b|\bvalued?\s+at\b", re.I)
+                          r"\brevenue\b|chiffre\s+d['’]affaires|\bworth\b|\bvalued?\s+at\b|"
+                          # a change of price is not a price ("Tarif de base : +5,00 $ par mois", "34,99 $ → 39,99 $ par mois (+5,00 $, soit +14,3 %)": 2026-11-11,
+                          # eleven rows of the owner's second test set carried "from $5 a month" for a host whose plans start at 34,99 $)
+                          r"(?<![\w.])\+\s?\$?\s?\d|→|->|\bincreas|\bhausse\b|\baugment|\bajust[ée]|\bajustement|"
+                          # nor is a discount ("$2.00/mo Discount for annual subscriptions": two rows of the same test set carried "from $2 a month")
+                          r"\bdiscount|\brabais\b|\br[ée]duction\s+de\b|\boff\b\s+(?:your|the|each|every|per)\b", re.I)
 _PROMO = re.compile(r"first|premier|premi[èe]re|trial|essai|intro|promo|then\s|puis\s|for\s+\d+\s+months|pendant|only\s+for\s+new|new\s+(?:customers|clients|domains|dot)|nouveaux?\s+clients|"
                     r"limited[- ]time|dur[ée]e\s+limit[ée]e", re.I)
 _MAIL_PRICE = re.compile(r"mailbox|bo[iî]tes?\s+(?:aux\s+lettres|courriel|de\s+courriel)|\be-?mail\b|courriels?\b|\binbox\b|/\s?user\b|per\s+user\b|par\s+utilisateur", re.I)

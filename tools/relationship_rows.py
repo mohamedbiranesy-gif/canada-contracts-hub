@@ -139,6 +139,7 @@ FIELDS = {
     "sponsorship": ["buyer address", "vendor address", "vendor tax or registration number"],
     "agent of record": ["buyer address", "vendor address", "vendor tax or registration number", "what is billed", "reference"],
     "service seen on the buyer's side": ["buyer address", "vendor legal name", "vendor address", "vendor tax or registration number", "what is billed", "amount", "billing period"],
+    "utility account by location": ["buyer address", "vendor address", "what is billed", "amount", "billing period"],
     ".ca registration": ["buyer address", "vendor legal name", "vendor address", "vendor tax or registration number", "what is billed", "amount", "billing period"],
     "not established": ["buyer address", "vendor legal name", "vendor address", "vendor tax or registration number", "what is billed", "amount", "billing period"],
 }
@@ -150,6 +151,8 @@ def kind_of(x):
     t, fb, cs = x.get("tier") or "", x.get("relationship_fact_basis") or "", x.get("contract_status") or ""
     if "names the vendor and the contract" in fb or (t in ("A", "B", "L", "F") and fb.startswith("fact, public record")):
         return "public contract"
+    if fb.startswith("by where it is"):
+        return "utility account by location"  # tools/by_location.py: the exclusive electricity distributor of the organisation's own address
     if not (fb.startswith("fact") or fb.startswith("stated by the buyer")):
         return "not established"
     if "member named in the member directory" in cs or cs.startswith(("member of a Canadian body", "member / regulated payer", "accredited business")):
@@ -177,8 +180,23 @@ def tax_or_registration(x):
     return ""
 
 
+# A sentence about money going the other way says nothing of how the bill is paid: a refund clause ("refunds will be made by cheque"), or a
+# body that pays its own suppliers ("will be processed via e-Transfer by … to the service provider"). Read on the owner's second test set,
+# 2026-11-11: a college's refund policy, a host's refund clause and a charity's rule for paying its providers had each made a row "payable by bank".
+_NOT_HOW_PAID = re.compile(r"\brefunds?\b|\brefunded\b|rembours|reimburs|\bpayouts?\b|to the service provider|to (?:our|its) (?:suppliers|vendors|providers)|we pay (?:you|our)|paid (?:out )?to you\b|vers[ée]s? (?:au|aux) fournisseur", re.I)
+
+
+# a biller that says it refuses cards does not "take a card" because the word is in its sentence (Hydro-Québec: “Modes de paiement refusés* :
+# Carte de crédit”; Manitoba Hydro: “we don’t accept e-transfers, credit card, cash”)
+_CARD_REFUSED = re.compile(r"refus[ée]s?\*?\s*:?[^.]{0,40}carte de cr[ée]dit|credit cards? (?:is|are) (?:not accepted|refused)|(?:don.t|do not|doesn.t|does not|n.accepte pas)\s+accept[^.]{0,60}credit card|"
+                           r"(?:don.t|do not|doesn.t|does not) accept[^.]{0,60}credit card|no credit card|credit card is refused|n.accepte(?:nt)? pas[^.]{0,40}carte", re.I)
+_takes_card = lambda v: bool(_CARD.search(v)) and not _CARD_REFUSED.search(v)
+
+
 def payment_route(x, kind):
     v = (x.get("bill_payment_method_as_published") or "").strip()
+    if v and _NOT_HOW_PAID.search(v) and not re.search(r"we accept|nous acceptons|payment (?:methods|options) include|modes? de paiement accept|pay (?:your|the|an) invoice|payer (?:votre|la|une) facture", v, re.I):
+        v = ""  # the sentence read is a refund or a payout clause: how the bill is paid is not published
     b = " ".join((x.get(c) or "") for c in ("buyer_payment_method_preference", "payment_terms_as_published")).strip()
     d = (x.get("bill_delivery_as_published") or "").strip()
     if d.startswith("no invoice is sent"):
@@ -191,24 +209,47 @@ def payment_route(x, kind):
         if _has(x, "payment_terms_default_policy"):
             return "bank", "invoice paid by the buyer's accounts payable; its government's payment policy: %s" % x["payment_terms_default_policy"].strip()[:220]
         return "bank", "invoice under a public contract award, paid by the buyer's accounts payable (by the kind of relationship: the buyer publishes no payment method)"
+    by_kind = BY_KIND.get(kind) if not any(n in (x.get("vendor") or "").lower() for n in NOT_BY_KIND) else None
     if kind in INVOICE_SAID and _BANK.search(v) and not _INVOICE.search(d + " " + v):
-        # a licence, a membership, a dealership …: how it can be paid is published, that the body sends an invoice, a bill or a notice for it is not
-        # (owner: "on invoice"). The Canadian Intellectual Property Office's payment page is the example: cheques and wire transfers, no word of a notice.
+        # a licence, a membership, a dealership …: how it can be paid is published, that the body sends an invoice, a bill or a notice for it is not.
+        # The bank payment is in the biller's words; that the bill comes on an invoice is by the kind — except where a body's page was read for
+        # it and names none (the Canadian Intellectual Property Office: cheques and wire transfers, no word of a notice).
+        if by_kind and not _takes_card(v):
+            return "kind", "bank payment in the biller's own words (%s); that the bill comes on an invoice or a notice is by the kind of relationship: %s" % (v[:160], by_kind)
+        if by_kind:
+            return "kind", "bank payment or card in the biller's own words (%s); that the bill comes on an invoice or a notice is by the kind of relationship: %s" % (v[:160], by_kind)
         return "nobill", "bank payment is accepted (%s), but nothing read says the body sends an invoice, a bill or a notice" % v[:200]
-    if (x.get("vendor") or "").startswith("Shopify") or (_CARD.search(v) and not _BANK.search(v)):
+    if (x.get("vendor") or "").startswith("Shopify") or (_takes_card(v) and not _BANK.search(v)):
         return "card", "card or other method on file, charged by the vendor: %s" % v[:220]
     if "registrar of record" in v:
         return "registrar", "paid to the registrar of record, by the registrar's own methods; the Canadian registry bills the registrar: %s" % v[:160]
-    if _BANK.search(v) and _CARD.search(v):
+    if _BANK.search(v) and _takes_card(v):
         return "either", "the biller takes a bank payment or a card: %s" % v[:220]
     if _BANK.search(v):
         return "bank", "bank payment as the vendor publishes: %s" % v[:220]
+    if by_kind:
+        return "kind", "by the kind of relationship, not in this biller's own words: %s" % by_kind
     if _BANK.search(b) and kind != "not established":
         return "unknown", "the buyer pays its suppliers by bank payment (%s); how this vendor is paid is not published" % b[:160]
     return "unknown", "not published%s" % ((": " + v[:160]) if v else "")
 
 
-ROUTE_LABEL = {"bank": "on invoice, by bank transfer / cheque", "card": "card on file, charged by the vendor", "registrar": "through the registrar of record",
+# Owner, 2026-11-11 16:01 EST: "just populate those fields as best as you can, don't just go empty". When a biller's own sentence on how its bill
+# is sent and paid has not been found, the row says how a bill of that kind is sent and paid — and says that it is by the kind, not in the
+# biller's words. A sentence of the biller always wins: a card-only page still takes the row out, "we send no invoice" still fails it. Not for
+# a service seen on the buyer's side (hosting, software): the common way there is a card on file.
+BY_KIND = {
+    "licence or registration": "a public body's fee for a licence or a registration: a notice or an invoice by mail, paid by cheque or through a financial institution",
+    "membership": "an association's dues: an invoice for each membership year, paid by cheque or bank transfer",
+    "dealership": "a supplier's sales to its dealer: an invoice with each delivery, on terms, paid by cheque or bank transfer",
+    "tenancy": "rent under a commercial lease: due each month, paid by cheque or pre-authorised debit",
+    "sponsorship": "a sponsorship or an exhibitor's fee: an invoice from the organiser, paid by cheque or bank transfer",
+    "agent of record": "an agent's professional fees and the official fees it advances: an invoice for each step, paid by cheque or wire transfer",
+    "utility account by location": "an electricity bill: issued every month or every two months, paid through a financial institution, by pre-authorised debit or by cheque",
+}
+NOT_BY_KIND = ("canadian intellectual property office",)  # its page names the ways of paying and no notice or invoice: nothing is said in its place
+ROUTE_LABEL = {"kind": "on invoice, by bank transfer / cheque — by the kind of relationship (the biller's own words were not found)",
+               "bank": "on invoice, by bank transfer / cheque", "card": "card on file, charged by the vendor", "registrar": "through the registrar of record",
                "either": "on invoice; bank payment or card (the biller takes both)", "unknown": "not published",
                "noinvoice": "no invoice is sent (the payer remits on its own, in the body's own words)",
                "nobill": "payable by bank, but no invoice or notice is published"}
@@ -217,7 +258,7 @@ _INVOICE = re.compile(r"invoices?|factur|\bbills?\b|\bbilled\b|notices?\b|avis d
 # a buyer's purchase-order rule is about what it orders from a supplier: a regulator's fee notice, a chamber's dues, a landlord's rent, an agent's
 # account and a sponsorship are not ordered with a purchase order (owner 13:00 EST: "Shopify … won't have a purchase order … maybe some other thing will")
 PO_KINDS = ("public contract", "service seen on the buyer's side", "dealership", ".ca registration", "not established")
-ROUTE_OK = ("bank", "either")  # owner 2026-11-11 14:20 EST: an invoice that can be paid by bank transfer is in, also when the biller would take a card
+ROUTE_OK = ("bank", "either", "kind")  # owner 2026-11-11 14:20 EST: an invoice that can be paid by bank transfer is in, also when the biller would take a card
 
 
 def owner_test(x):
@@ -251,14 +292,30 @@ def owner_test(x):
         out.append("mailbox not re-read by the referee (%s)" % (ec or "not checked")[:40])
     if route not in ROUTE_OK:
         out.append("payment: %s" % ROUTE_LABEL[route])
-    out += ["field: " + f for f in miss]
+    # Owner, 2026-11-11 16:01 EST: "populate those fields as best as you can, don't just go empty … there's clear goal and it is 1 million". A row
+    # stands on four things — a Canadian biller with a relationship, a bill on invoice, a bank payment, the organisation's mailbox. A field of
+    # its kind that nothing published fills does not take the row out any more: it is said on the row (invoice_fields_missing_for_kind, and in
+    # ship_ready itself), and the row sorts below the complete ones. Two things still must be there: the biller's own printed address (it is
+    # what puts the biller in Canada), and, for a row that stands on where the organisation is, the organisation's own address.
+    must = [f for f in miss if f == "vendor address" or (kind == "utility account by location" and f == "buyer address")]
+    out += ["field: " + f for f in must]
     if (x.get("sensitivity_flag") or "") == "yes":
         out.append("flag: " + ((x.get("sensitivity_tag") or "sensitive buyer").split(":")[0][:70]))
     if _has(x, "vendor_registry_warning"):
         out.append("flag: vendor registry warning")
     if kind in PO_KINDS and (x.get("po_required_as_published") or "").startswith("yes") and not (_has(x, "po_number_as_published") or _has(x, "po_number_as_published_from_pair")):
         out.append("flag: the buyer requires a purchase-order number on invoices and none is published for this vendor")
-    x["ship_ready"] = "no" if out else ("yes (the amount is calculated and labelled so)" if not (_has(x, "contract_value") or _has(x, "bill_amount_indicative")) else "yes")
+    soft = [f for f in miss if f not in must]
+    said = []
+    if kind == "utility account by location":
+        said.append("by where the organisation is: the biller is certain for the address, the account holder is not published")
+    if route == "kind":
+        said.append("how it is billed and paid is by the kind of relationship, not yet in the biller's own words")
+    if soft:
+        said.append("not published: " + ", ".join(soft))
+    elif "amount" in fields and not (_has(x, "contract_value") or _has(x, "bill_amount_indicative")):
+        said.append("the amount is calculated and labelled so")
+    x["ship_ready"] = "no" if out else ("yes (%s)" % "; ".join(said) if said else "yes")
     x["ship_ready_missing"] = "; ".join(out)
     return kind, route, out
 

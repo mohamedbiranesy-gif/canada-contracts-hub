@@ -613,7 +613,8 @@ PLACE = re.compile(r"canada|quebec|alberta|ontario|saskatchewan|manitoba|scotia|
 BAD_LOCAL = re.compile(r"recrut|recruit|emploi|career|carriere|job|plainte|complaint|frais|accessoire|patient|usager|media|presse|press|"
                        r"privacy|confidential|aiprp|atip|benevol|volunteer|fondation|foundation|donat|webmaster|^rh$|^hr$|recevable|receivable|revenue|revenu|"
                        r"billing|taxation|^taxe|vie-?privee|accessibilit|billetterie|boxoffice|box-office|tickets?$|^tickets|admission|registrar|newsletter|abonnement|"
-                       r"unsubscribe|no-?reply|donotreply|^events?$|^news$|alumni|scholarship|bourse|^social$|^marketing$|^comms?$|^communications?$", re.I)
+                       r"unsubscribe|no-?reply|donotreply|^events?$|^news$|alumni|scholarship|bourse|^social$|^marketing$|^comms?$|^communications?$|"
+                       r"(?:^|[._-])ati(?:office)?(?:$|[._-])|foip|(?:^|[._-])foi(?:$|[._-])|acces-?(?:a-?l-?)?info", re.I)
 def jur_of_record(r):
     s = (r.get("source") or {}).get("name", "")
     return next((j for rx, j in JUR_SRC if re.search(rx, s)), "")
@@ -933,7 +934,8 @@ import tech_relationships as _TR
 # how vendors bill, in their own words (tools/vendor_billing.py; the vetted vendors' terms read by hand): owner's bar of 2026-11-11, used by lead_strength
 # and by the recurring_billing columns
 import vendor_billing as _VB
-import payee_billing as _PAYEE  # how the bodies behind the register / roster / licence lanes send their bill and take the money (hand-read, quoted)
+import payee_billing as _PAYEE
+import by_location as _BYLOC  # how the bodies behind the register / roster / licence lanes send their bill and take the money (hand-read, quoted)
 import relationship_rows as _RR  # the owner's test of a row (how the bill is paid, the fields of its kind, ship ready): one function for this table and for tools/relationship_rows.py
 try:
     VBILL = _VB.load()
@@ -1957,7 +1959,11 @@ for k, ((acc, g), m) in mail.items():
         continue
     if _PN > 1 and _part_of.get(k, 0) != _PI:
         continue  # ranking in parts: an inferred row is made in the part of its organisation
-    if k.startswith("lead:") and not REGISTRY_ROWS:
+    # owner 2026-11-11 16:01 EST ("think differently … invoice, bank EFT, email, Canadian vendor … populate those fields as best as you can"):
+    # where the organisation is, as its own site prints it, names the one body that bills electricity there (tools/by_location.py)
+    _lf13 = LFACTS.get(k) or {}
+    _loc13 = _BYLOC.biller_for_all(" ".join([_lf13.get("address") or "", addr_text((BUY.get(k) or {}).get("address")), (VEN.get(k) or {}).get("address") or "", m.get("evidence_quote") or ""]))
+    if k.startswith("lead:") and not REGISTRY_ROWS and not _loc13:
         # 2026-11-11: an organisation that came through a lane (its key was minted by a lead engine) and whose lead is withdrawn, or removed by
         # the owner's rule of that day (a .ca registration, a store, a card-billed service), gets no inferred row in its place. Without this
         # the 100,000 organisations of the .ca pool came back as "inferred: Canada Post Corporation" (sample build of 19:15Z: 41,634 inferred
@@ -1988,6 +1994,12 @@ for k, ((acc, g), m) in mail.items():
     place = " ".join([(m.get("evidence_quote") or ""), addr_text((BUY.get(k) or {}).get("address")), (VEN.get(k) or {}).get("address") or "",
                       (PLACES.get(k) or {}).get("city") or ""])
     vid, conf, what, why = infer(name, e, site, prov, fed, place)
+    if _loc13 and not fed:
+        vid, conf, what, why = "LOC:" + _loc13["key"], "high", "an organisation whose own printed address lies in the distributor's territory", _loc13["territory"]
+        INFV.setdefault(vid, (_loc13["name"], _loc13["site"], _loc13["address"], _loc13["address_url"], _loc13["address_quote"]))
+    elif vid == "CPC" and not fed:
+        # a letter carrier is not a body that sends this organisation an invoice: no row is made on it any more (25,785 such rows on 2026-11-11)
+        skipped13["no biller can be named for where it is (no postal code on its own page, Alberta, or an area another utility serves)"] += 1; continue
     if registrable(host_of(INFV[vid][1])) in (registrable(md), registrable(host_of(site))):
         skipped13["is the inferred vendor itself"] += 1; continue
     dom = registrable(host_of(site)) if site else ("" if FREEMAIL.match(md) else registrable(md))
@@ -2026,11 +2038,18 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     LABEL = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}
     b_addr = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or \
              ", ".join(x for x in ((PLACES.get(k) or {}).get(f) for f in ("address", "city", "province", "postal_code")) if x)
+    _lf = LFACTS.get(k) or {}
+    if not b_addr and _lf.get("address"):
+        b_addr = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")
+    if _lf.get("site_name") and re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/?", (name or "").strip().lower()):
+        name = _lf["site_name"]  # the lead only carried the domain: the organisation's own home page names it (as apply_details does for a lead's row)
     rows.append({"jurisdiction": "", "_jur": prov or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
         "buyer": name, "buyer_website": site, "buyer_address": b_addr,
         "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",
-        "contract_status": "inferred relationship (no record): %s confidence; the buyer is %s%s; %s" % (conf, what, (" (province from %s)" % how) if how else "", why),
-        "source": "inference from the buyer's type and province (no contract, payment or listing record)",
+        "contract_status": (_BYLOC.status(_BYLOC.BILLERS[[b_["key"] for b_ in _BYLOC.BILLERS].index(vid[4:])], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "")) if vid.startswith("LOC:") else
+                            "inferred relationship (no record): %s confidence; the buyer is %s%s; %s" % (conf, what, (" (province from %s)" % how) if how else "", why)),
+        "source": ("the distributor's exclusive territory and the organisation's own printed address (no contract, payment or listing record)" if vid.startswith("LOC:") else
+                   "inference from the buyer's type and province (no contract, payment or listing record)"),
         "vendor": "inferred: " + vname, "vendor_address": vaddr, "vendor_website": vsite,
         "vendor_country_basis": "the vendor's own site, %s: '%s'" % (vurl, vquote),
         "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True})
@@ -4749,7 +4768,8 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_indicative"] = "%s%s%s" % ({"CAD": "C$", "USD": "US$"}.get(c_, "$"), ("%.2f" % v).rstrip("0").rstrip("."),
                                                              " per vehicle" if re.search(r"per vehicle", m.group(1), re.I) else " a year" if re.search(r"annual|year|ann[ée]e", m.group(1), re.I) else "")
                 out["bill_amount_basis"] = "the body's own statement of its fee: “%s” (%s)" % (m.group(1)[:280], m.group(2))
-        if ld.get("platform") == "rbq_licence" and not out.get("bill_amount_indicative"):
+        if ld.get("platform") == "rbq_licence" and not out.get("bill_amount_indicative") and not re.search(r"constructeur-propri", (ld.get("title") or "") + " " + (x.get("contract_title") or ""), re.I):
+            # (an owner-builder's licence — "constructeur-propriétaire" — has its own fee table, not read yet: no amount is written for it)
             # the Régie's own fee table, read 2026-11-11: what a licence costs to keep for a year, by type of licence (the row's licence names its categories)
             _gen = bool(re.search(r"g[ée]n[ée]ral", (ld.get("title") or "") + " " + (x.get("contract_title") or ""), re.I))
             out["bill_amount_indicative"] = "%s $ a year" % ("989.81" if _gen else "547.53")
@@ -4835,7 +4855,7 @@ def bill_profile(x, ld, cls):
             n_billcol["same street address on both sides (caution written)"] += 1
     return out
 n_bill, n_bill_shop, n_billcol, n_inv, n_inv_t = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
-n_ship, n_ship_miss, n_ship_one = collections.Counter(), collections.Counter(), collections.Counter()
+n_ship, n_ship_miss, n_ship_one, n_ship_level = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
 KEY_FIELDS = ["buyer_website", "buyer_address", "buyer_phone", "buyer_legal_name_as_published", "email_evidence_url", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "payment_terms_as_published",
               "po_required_as_published", "contract_title", "contract_value", "award_date", "contract_link", "vendor_address", "vendor_bn9", "vendor_website", "vendor_emails", "vendor_phone", "vendor_legal_name", "invoice_reference_hint", "commodity_codes"]
 _today = datetime.date.today()
@@ -5016,6 +5036,14 @@ for _ri, x in enumerate(rows):
     for _c, _v in bill_profile(x, _ldb, x["recurring_billing"]).items():
         if _v:
             x[_c] = _v
+    if x.get("tier") == "I":
+        # a row that stands on where the organisation is: what its distributor bills, how often, the least amount, how the bill arrives and is paid
+        _bl = _BYLOC.of_row(x)
+        if _bl:
+            for _c, _v in _BYLOC.row_cells(_bl, x).items():
+                if _v:
+                    x[_c] = _v
+            n_billcol["rows that stand on where the organisation is (its electricity distributor)"] += 1
     if not CARD_ROWS:
         # the last check of the owner's rule (2026-11-11: "Remove them"): a row whose bill, as published, goes to a card on file or through a
         # registrar is not written — whatever lane it came from, and before it is counted anywhere below
@@ -5459,8 +5487,15 @@ for _ri, x in enumerate(rows):
                            else "yes (finance mailbox, not AP)" if (g == 3 and ec.startswith(("confirmed", "cross")) and t in ("A", "B", "T", "M") and x["sensitivity_flag"] == "no")
                            else "no (%s)" % ("sensitive buyer" if x["sensitivity_flag"] == "yes" else "vendor registry warning" if x.get("vendor_registry_warning") else "mailbox not referee-confirmed" if not ec.startswith(("confirmed", "cross")) else "mailbox below finance grade" if g < 3 else "relationship not dated / active"))
         npk["ap_mailbox_ready_yes"] += x["ap_mailbox_ready"] == "yes"
+        if (x.get("relationship_fact_basis") or "").startswith("by where it is"):
+            x["vendor"] = re.sub(r"^inferred:\s*", "", x.get("vendor") or "")  # the distributor of the address is certain: only the account holder is not published
         _k9, _r9, _o9 = _RR.owner_test(x)
         n_ship[(_k9, x["payment_route"], "yes" if not _o9 else "no")] += 1
+        if not _o9:
+            _sr9 = x["ship_ready"]
+            n_ship_level["by where the organisation is (its electricity distributor)" if "by where the organisation is" in _sr9 else
+                         "every field of its kind, in the biller's or the record's own words" if _sr9 in ("yes", "yes (the amount is calculated and labelled so)") else
+                         "best effort: by the kind of relationship, or a field of its kind not published"] += 1
         for _p9 in _o9:
             n_ship_miss[_p9.split(" (")[0]] += 1
         if len(_o9) == 1:
@@ -5534,7 +5569,9 @@ print("invoice fields (owner 2026-11-11: every aspect within an invoice) — row
       ("buyer legal name", "buyer address", "vendor legal name", "vendor address", "vendor tax number", "what is billed", "amount", "billing period", "reference", "all but the amount", "all nine", "amount, calculated only", "all nine with the amount calculated"))))
 # the owner's test (2026-11-11), row by row — one row per buyer, no buyer twice
 _sy = sum(n_ for (k_, r_, v_), n_ in n_ship.items() if v_ == "yes")
-print("SHIP READY (established and current + role mailbox re-read by the referee + on invoice, payable by bank transfer — never a card on file + the fields of its kind + no flag): %d of %d rows" % (_sy, sum(n_ship.values())))
+print("SHIP READY (a Canadian biller with a relationship that is current + the organisation's role mailbox re-read by the referee + a bill on invoice, payable by bank transfer — never a card on file + no flag; "
+      "owner 2026-11-11 16:01 EST: the fields are populated as well as they can be): %d of %d rows" % (_sy, sum(n_ship.values())))
+print("  of which: %s" % " · ".join("%s %d" % kv for kv in n_ship_level.most_common()))
 print("  by kind and by how the bill is paid (ready / all): %s" % " · ".join("%s — %s: %d / %d" % (k_, r_, n_ship[(k_, r_, "yes")], n_ship[(k_, r_, "yes")] + n_ship[(k_, r_, "no")]) for (k_, r_) in sorted({(k2, r2) for (k2, r2, _v) in n_ship}, key=lambda kr: -(n_ship[(kr[0], kr[1], "yes")] + n_ship[(kr[0], kr[1], "no")]))))
 print("  what is missing, over the rows that fail: %s" % " · ".join("%s %d" % kv for kv in n_ship_miss.most_common(20)))
 print("  one thing away (kind: what is missing): %s" % " · ".join("%s: %s %d" % (k_, m_, n_) for (k_, m_), n_ in n_ship_one.most_common(16)))

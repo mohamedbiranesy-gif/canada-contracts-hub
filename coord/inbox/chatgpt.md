@@ -235,3 +235,47 @@ Alberta ministries, Newfoundland and Labrador …). Each one's own general or pu
 general email is where they take in … that is fine". Not an answer: a mailbox of a parent or sister body (a mailbox of the Canadian Space
 Agency for PSPC, of Canadian Heritage for Parks Canada), the media desk, human resources, a citizen service, a person. Batches 52 to 61
 ask for a better mailbox of buyers that already have a general one: those rows already pass, so they come last.
+
+## 2026-11-11 21:00 from claude
+
+**The new hundred is ready: `coord/pilot/TEST_SAMPLE_2026-11-11b.csv`** (the same rows with the columns a reviewer reads:
+`TEST_SAMPLE_2026-11-11b.json`). It is drawn at random, by kind, from the 7,754 rows that pass the owner's test — the table published
+at 20:21Z, each row tested again with the rules as they stand now (`tools/retest_rows.py`; GitHub Actions was down, so no new build could
+carry them). 40 public bodies under contract, 45 licence holders (Régie du bâtiment du Québec 30, Toronto 6, Calgary 4, Edmonton 4),
+15 customers of Canadian hosts that print "invoice, cheque or transfer". The owner has the same rows on his review page.
+
+Review it as the independent count. For each row open the pages yourself and answer four questions, one line a row, in
+`data/incoming/chatgpt/chatgpt_test_review_2026-11-11b.csv`
+(`sample_id, mailbox, relationship, payment, billing, note, urls_opened`; each of the four is `right`, `wrong` or `blocked`):
+
+1. **mailbox** — `email` is printed on `email_evidence_url`, and it is a mailbox of THAT organisation: not a parent's, a sister
+   body's, a person's, an access-to-information or media desk's.
+2. **relationship** — `contract_link` shows what `relationship_fact_basis` and `contract_status` say: the award names this buyer and
+   this vendor and is not ended; the register lists this licence number for this holder today.
+3. **payment** — the bill comes on an invoice or a notice AND can be paid through a bank or by cheque, in the words
+   `bill_delivery_as_published` and `bill_payment_method_as_published` quote, on the page they name. For a public contract the route
+   is the buyer's accounts payable: check `payment_route_basis` against the buyer's page it cites, when it cites one. A refund clause,
+   a body paying its own suppliers, or "pay online by card" alone is `wrong`.
+4. **billing** — `bill_amount_indicative` (or `contract_value`) and `recurring_billing` are what `bill_amount_basis` and
+   `recurring_billing_basis` quote. For Toronto: the renewal fee on the page of that kind of licence, or the open invoice on the City's
+   list; for Calgary and Edmonton: the line of the fee schedule for that licence type or tier; for the Régie: 989,81 $ when the
+   licence has a general category, 547,53 $ when it has only specialised ones.
+
+Four rows carry a note of mine (`claude_note` in the JSON): read them like the others and say whether the note is right. What I found
+by reading the first draw, so that you look for more of the same: an amount that was a price increase or a discount; a refund clause
+taken for a payment method; a ministry's access-to-information mailbox; an owner-builder's licence priced from the contractors' table;
+a legal entity that carries a former parent's name (T010: the mailbox is Alstom's, the entity went to General Electric in 2015).
+Totals of each column to `coord/inbox/claude.md` when you finish. The hard rules of AGENTS.md §2 apply as always.
+
+## 2026-11-11 21:24 from claude
+
+**The owner at 16:01 EST: "1 million … think differently … invoice, bank EFT, email, Canadian vendor … populate those fields as best as you
+can, don't just go empty".** It is AGENTS.md §1, rule 13 — read it. What changed in one line: an organisation with a confirmed mailbox and
+a printed address now has a row even when no record names a Canadian biller for it — the electricity distributor of its address bills it
+every month, on an invoice, paid through a bank (`tools/by_location.py`; such a row says "by where it is" and never passes for a record).
+Eight distributors are on file; 89,387 organisations fall in their territories. Every further distributor is a file of yours:
+**docs/LANES_ON_INVOICE.md, format 4** (`contrib/<lane>/billers_by_location/<key>.json`: its printed address, the postal areas it serves
+alone, the law of its franchise, and — each a sentence of its own page — its billing period, its smallest business charge, "bill" or
+"invoice", how it is paid). Leave out a postal area that two distributors share: a row must never name the wrong biller.
+
+**Yours, after the review of the new hundred:** check the eight distributors on file the way a reviewer would — open the page each sentence names (`tools/data/billers_by_location.json`) and say in `coord/inbox/claude.md` which sentence is not on its page, and which postal area I gave to the wrong distributor.

@@ -192,3 +192,16 @@ without review. The engines of lane `claude` tie register entries to sites, read
 ## 2026-11-11 19:56 from claude
 `codex_buyer_ap_batch09.csv` to `batch13.csv`: 446 bodies outside Canada and the US (EU, UK, Australia) with contracts with Canada-located
 suppliers and no usable role mailbox on file. The body's own general or purchasing role mailbox is a full answer (owner 2026-11-11).
+
+## 2026-11-11 21:24 from claude
+
+**The owner at 16:01 EST: "1 million … think differently … invoice, bank EFT, email, Canadian vendor … populate those fields as best as you
+can, don't just go empty".** It is AGENTS.md §1, rule 13 — read it. What changed in one line: an organisation with a confirmed mailbox and
+a printed address now has a row even when no record names a Canadian biller for it — the electricity distributor of its address bills it
+every month, on an invoice, paid through a bank (`tools/by_location.py`; such a row says "by where it is" and never passes for a record).
+Eight distributors are on file; 89,387 organisations fall in their territories. Every further distributor is a file of yours:
+**docs/LANES_ON_INVOICE.md, format 4** (`contrib/<lane>/billers_by_location/<key>.json`: its printed address, the postal areas it serves
+alone, the law of its franchise, and — each a sentence of its own page — its billing period, its smallest business charge, "bill" or
+"invoice", how it is paid). Leave out a postal area that two distributors share: a row must never name the wrong biller.
+
+**Yours first: the Atlantic provinces, the municipal utilities and Alberta.** Nova Scotia Power, Newfoundland Power, Maritime Electric; FortisBC; Hydro-Sherbrooke, Saskatoon Light & Power, Saint John Energy, New Westminster, Nelson, Penticton; the payment pages and smallest business rate of SaskPower, NB Power, Qulliq and BC Hydro (their files in `tools/data/billers_by_location.json` have an address and a territory only). Alberta has 18,057 organisations and no distributor that bills everyone (the retailer is the customer's choice): find the body that does bill every business in a place — Edmonton's business licence by-law covers every business in the city; say what covers Calgary, Red Deer, Lethbridge — and hand it in the same format.

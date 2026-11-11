@@ -42,7 +42,9 @@ jobs:
             # how a biller bills and is paid, handed in by any lane as a file (contrib/<lane>/payees/*.json): each quoted sentence is looked for on
             # the page it names, with the project's reader; only then does the ranker use the entry (tools/payee_billing.py)
             python3 tools/payee_billing.py verify 2>&1 | tail -6 | tee -a /tmp/m.txt || true
-            git add data/incoming/claude/vendor_billing data/incoming/claude/payee_verified.json 2>/dev/null || true
+            # the biller an organisation has by where it is, handed in by any lane (contrib/<lane>/billers_by_location/*.json): checked the same way
+            python3 tools/by_location.py verify 2>&1 | tail -6 | tee -a /tmp/m.txt || true
+            git add data/incoming/claude/vendor_billing data/incoming/claude/payee_verified.json data/incoming/claude/billers_verified.json 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "vendor-billing: $(tail -1 /tmp/m.txt | cut -c17-170) [skip ci]"
             git push -q origin HEAD:main && break

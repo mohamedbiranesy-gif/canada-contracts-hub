@@ -200,6 +200,16 @@ buyer's own words); `invoice_fields_for_kind` (the fields a relationship of that
 register, said to be that); `ship_ready` ("yes", "yes (the amount is calculated and labelled so)" or "no") and `ship_ready_missing`
 (everything that keeps the row from "yes"). A row whose bill is charged to a card on file, or goes through a registrar, is not written
 at all. The earlier label that looked only at the kind of mailbox is kept as `ap_mailbox_ready`.
+
+**Since 2026-11-11 16:01 EST (AGENTS.md §1, rule 13).** Four things make a row: a Canadian biller with a relationship, a bill on invoice,
+a bank payment, the organisation's mailbox. `ship_ready` reads "yes" when every field of the row's kind is filled in the biller's or the
+record's own words; "yes (…)" when something is said by the kind of relationship (`payment_route` then ends "by the kind of
+relationship"), when a field is not published (named after "not published:"), or when the row stands on where the organisation is; "no"
+with the reason in `ship_ready_missing`. A row that stands on where the organisation is (`tools/by_location.py`): `relationship_fact_basis`
+begins "by where it is:", the vendor is the electricity distributor of the organisation's own printed address, `recurring_billing`,
+`bill_amount_indicative` (the least the distributor bills a business in a month), `bill_delivery_as_published`,
+`bill_payment_method_as_published`, `bill_due_terms_as_published` and `bill_remit_to_as_published` are the distributor's own sentences.
+The distributor is certain for the address; whose name is on the account is not published, and the row says so.
 `relationship_fact_basis` says in one sentence why the relationship is a fact, or that it is not one: "fact, seen on the buyer's side"
 (a running service, a `.ca` name) · "fact, public record" (an award, a register) · "stated by the buyer" (a credit line, a membership
 badge) · "stated by the vendor" (a client list) · "link only" · "inferred, not a fact".

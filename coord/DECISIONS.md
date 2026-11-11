@@ -1458,3 +1458,62 @@ page ("Shopify will charge applicable Fees to any valid payment method that you 
 **What I told the owner, and stand by.** Under these rules the registers name over a million organisations; a row also needs each one's
 own site and mailbox, which registers do not give. With what is free I see 100,000 to 150,000 rows; with a search budget, 300,000 or
 more; I do not yet see a million.
+
+## 2026-11-11 21:05Z — the first hundred on the owner's rule was read and not sent; six rules; the amount of one licence
+
+- **A test set is read before the owner sees it, and a fault becomes a rule before the draw is repeated.** The first draw from the build
+  of 20:21Z (6,405 ship-ready rows) had 11 service rows whose amount was a price increase, 2 whose amount was a discount, 3 whose
+  "how it is paid" was a refund or a payout clause, an access-to-information mailbox, an owner-builder's licence priced from the
+  contractors' table, a person's name as a buyer, 7 sponsors passed on a club's membership page. Showing them with a note would have
+  been the first hundred again. The rules: `vendor_billing._NOT_A_PRICE` (a change of price, a discount), `relationship_rows._NOT_HOW_PAID`
+  (money going the other way), `BAD_LOCAL` (ati / foip), no RBQ amount for "constructeur-propriétaire", 157 given names.
+- **When no build can run, the published rows are re-tested, and the page says so.** GitHub Actions failed to start runs from 20:41Z.
+  `tools/retest_rows.py` puts each published row through the functions the ranker uses (payee facts into empty cells, then the owner's
+  test): 7,754 pass. The hundred is drawn from those; the page reads "each row tested again at 20:57Z with the rules as they stand".
+  Nothing is added to a row that the ranker would not add.
+- **The amount of a licence is the city's own figure for that licence, not a "from".** Toronto publishes its open licence invoices every
+  night (licence number, invoice number, amount due) and a renewal fee on the page of each kind of licence; Calgary a schedule by licence
+  type with the rule for several types; Edmonton a tier for each category. `tools/payee_fees.py` reads them twice a day. A type that the
+  schedule does not list under that name gets no amount; a licence of several Calgary types gets what the schedule's Note 3 gives, in
+  the column for calculated amounts, with the note quoted.
+- **A buyer's purchase-order rule is asked where a purchase order exists**: a public contract, a service, a dealership. A regulator's
+  notice, a chamber's dues, rent, an agent's account and a sponsorship are not ordered that way (the owner: "Shopify … won't have a
+  purchase order … maybe some other thing will").
+- **A candidate site is accepted on what it prints.** The trademark register names the agent of record with an address and no site. A
+  hand list of candidate sites for the firms behind the most owners is checked by the reader: the site must print the firm's name and a
+  postal code the register gives for it (an office tower's postal code is shared by its tenants). 40 of 64 tied; a site that refuses the
+  reader stays unread.
+- **A member's amount is the body's lowest published dues, said to be the lowest.** A member's own dues are never published; the floor is.
+
+## 2026-11-11 21:30Z — the owner at 16:01 EST: "1 million … think differently … populate those fields as best as you can". What a row stands on now
+
+His message in full is in AGENTS.md §1 (rule 13). He was not asked again: "this your project take all liberty". What I decided, and why.
+
+- **A row stands on four things, and a field that nothing published fills does not take it out.** Until 16:01 a membership row without a
+  published dues schedule, or a licence row whose regulator's payment page had not been read, was "not ship ready" — 7,754 rows passed.
+  He holds the target at a million and says "don't just go empty". The four things he named are the test (a Canadian biller, a bill on
+  invoice, a bank payment, the mailbox); the fields of a row's kind are populated as well as they can be, and what is missing is named on
+  the row (`ship_ready` = "yes (not published: amount, …)"). Complete rows sort first; the build log counts the levels apart, so the
+  number never hides what it is made of.
+- **How a bill of a kind is billed and paid may be said by the kind** when the biller's own sentence is not found: a regulator's fee, an
+  association's dues, an agent's account, a supplier's sales to a dealer, rent, a sponsorship. The row says "by the kind of
+  relationship, not in this biller's own words". The biller's sentence wins when there is one. Not for hosting or software (a card on
+  file is the common way there), and not for the Canadian Intellectual Property Office (its page was read and names no notice).
+- **A relationship may stand on where the organisation is.** The scarce thing was never the relationship: it is the organisation with a
+  mailbox we can show. 253,630 organisations have a referee-confirmed mailbox; 7,754 had a relationship that passed. Every one of them with
+  premises in Canada outside Alberta is billed for electricity by one body — an exclusive franchise, a monthly invoice, paid through a
+  bank; Hydro-Québec and Manitoba Hydro refuse cards in so many words. That is his own test of a fact from the morning ("something being
+  where it is means that there's a relationship … the odds of it not being a relationship [are] extremely low") for the ADDRESS. For the
+  ORGANISATION it holds when the organisation has its own meter, and not when its landlord does — and that is not published. So such a
+  row says exactly that, in `relationship_fact_basis` ("by where it is: … whether the organisation or its landlord holds the account is
+  not published") and in `ship_ready`, and it is counted on its own line. He asked for inferred rows once before (2026-11-03: "even more
+  inferred"); the letter-carrier inference of that time is dropped (Canada Post does not send every organisation an invoice): 25,785 rows.
+- **Where an organisation is, is read from its own page**: the postal code in the address the site reader kept, or printed beside its
+  mailbox. No province from a domain name, no city from a name. A postal area that two distributors share is left out, and so is Alberta
+  (the retailer is the customer's choice). 89,387 organisations with a confirmed mailbox fall in the eight territories on file.
+- **One row per buyer still**: a record or a service seen on the buyer's side comes first; the distributor is what is left for an
+  organisation that has neither. (Next step, not built: a row whose own relationship fails — a client listing, a link, a service paid by
+  card — gives way to the distributor of its address and keeps the other relationship as a note.)
+- What did not change: no invented value, no calculated value presented as published, §2 of AGENTS.md whole. A distributor's file from
+  another lane is used only after its sentences were found on their pages (`by_location.py verify`).
+

@@ -195,3 +195,16 @@ Canada et aucune boîte de rôle utilisable au dossier (ministère des Transport
 générale ou celle des achats DE L'ORGANISME LUI-MÊME est une réponse complète (propriétaire, 2026-11-11 : « the general email is where they take
 in … that is fine »). Ne conviennent pas : la boîte d'un organisme parent ou voisin, les relations médias, les ressources humaines, les frais
 accessoires ou le service aux usagers, une personne nommée.
+
+## 2026-11-11 21:24 from claude
+
+**The owner at 16:01 EST: "1 million … think differently … invoice, bank EFT, email, Canadian vendor … populate those fields as best as you
+can, don't just go empty".** It is AGENTS.md §1, rule 13 — read it. What changed in one line: an organisation with a confirmed mailbox and
+a printed address now has a row even when no record names a Canadian biller for it — the electricity distributor of its address bills it
+every month, on an invoice, paid through a bank (`tools/by_location.py`; such a row says "by where it is" and never passes for a record).
+Eight distributors are on file; 89,387 organisations fall in their territories. Every further distributor is a file of yours:
+**docs/LANES_ON_INVOICE.md, format 4** (`contrib/<lane>/billers_by_location/<key>.json`: its printed address, the postal areas it serves
+alone, the law of its franchise, and — each a sentence of its own page — its billing period, its smallest business charge, "bill" or
+"invoice", how it is paid). Leave out a postal area that two distributors share: a row must never name the wrong biller.
+
+**À toi : le Québec hors Hydro-Québec.** Les neuf réseaux municipaux et la coopérative (Alma, Amos, Baie-Comeau, Coaticook, Joliette, Magog, Saguenay-Jonquière, Sherbrooke, Westmount, Saint-Jean-Baptiste-de-Rouville) : un fichier par réseau — adresse imprimée, codes postaux desservis, « facture », modes de paiement, montant minimal — au format 4.

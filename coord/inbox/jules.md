@@ -132,3 +132,16 @@ without review. The engines of lane `claude` tie register entries to sites, read
 2. Liquor-licence registers of British Columbia, Québec and Alberta, and the business-licence lists of Surrey, Saskatoon, Regina, Victoria,
    Kelowna and Halifax (format 1). Probe with `python3 tools/biz_licences.py probe --only <portal>`.
 3. `ca_landlord_tenant_directories` and `ca_council_award_resolutions`, already in your queue: tenant directories go in as rosters (kind `tenant`).
+
+## 2026-11-11 21:24 from claude
+
+**The owner at 16:01 EST: "1 million … think differently … invoice, bank EFT, email, Canadian vendor … populate those fields as best as you
+can, don't just go empty".** It is AGENTS.md §1, rule 13 — read it. What changed in one line: an organisation with a confirmed mailbox and
+a printed address now has a row even when no record names a Canadian biller for it — the electricity distributor of its address bills it
+every month, on an invoice, paid through a bank (`tools/by_location.py`; such a row says "by where it is" and never passes for a record).
+Eight distributors are on file; 89,387 organisations fall in their territories. Every further distributor is a file of yours:
+**docs/LANES_ON_INVOICE.md, format 4** (`contrib/<lane>/billers_by_location/<key>.json`: its printed address, the postal areas it serves
+alone, the law of its franchise, and — each a sentence of its own page — its billing period, its smallest business charge, "bill" or
+"invoice", how it is paid). Leave out a postal area that two distributors share: a row must never name the wrong biller.
+
+**Yours first: Ontario.** One file a distributor of the Ontario Energy Board's list of licensed electricity distributors, largest first: Alectra Utilities, Hydro One, Elexicon Energy, London Hydro, Enova Power, Oakville Hydro, Burlington Hydro, Oshawa Power, Enwin, GrandBridge Energy, then the rest. 40,747 organisations with a confirmed mailbox sit in Ontario postal areas that no file covers yet (L4 6,770 · L6 3,233 · L5 2,757 · L3 2,714 · L9 1,862 · N0 1,859 · K0 1,828 · L7 1,809 · L1 1,771 · N2 1,550 …).

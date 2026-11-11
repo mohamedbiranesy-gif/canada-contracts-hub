@@ -25,6 +25,7 @@ invoicing e-mail from the website.
    a relationship … the odds of it not being a relationship [are] extremely low." A store that runs on Shopify, a DNS zone on a
    provider's servers, a `.ca` name that answers, an entry on a public register, an award record: facts. A vendor's client list is the
    vendor's statement; a link is a link; an inference is not a fact. Every row says which it is (`relationship_fact_basis`).
+   (Since 16:01 EST the same day a row may also stand on where the organisation is, said to be that: rule 13.)
 2. **Around that fact the row carries what an invoice carries, every field of it**: "the amount that would be billed within that
    billing cadence, the correct address, the vendor, all the stuff that would be within an invoice". Billing period
    (`recurring_billing` + its quoted source), amount (`bill_amount_indicative` from the vendor's own price list, or the contract value),
@@ -68,6 +69,28 @@ these win.** He was shown where each kind of row is billed and paid, and was ask
     exporters; US firms with a registered lien to a Canadian lender, lessor or supplier; more public bodies under contract. Rank a new
     source by the distinct NEW buyers it brings whose bill comes on invoice. The target stays 1,000,000 rows; on 2026-11-11 19Z the rows
     that meet rule 6 were 7,833 (5,461 with a mailbox, 1,343 ship ready) — nearly all public bodies under contract.
+
+**Owner rule (2026-11-11 16:01 EST, binding).** He was told the count stood at 7,754 and answered, in full: "1 million goals think
+differently if need be this your project take all liberty as long as under what we laid down invoice bank eft email Canadian vendor in
+simple terms and just populate those field as best as you can don't just go empty there's clear goal and it is 1 million get there max".
+13. **Four things make a row: a Canadian biller, a bill on invoice, a bank payment, the organisation's mailbox. Everything else is
+    populated as well as it can be, and says how it was populated.** How lane `claude` reads it (coord/DECISIONS.md, 2026-11-11 21:30Z):
+    - A field of a row's kind that nothing published fills no longer takes the row out. It is named on the row
+      (`invoice_fields_missing_for_kind`, and inside `ship_ready`) and the row sorts below the complete ones. Two fields must be there: the
+      biller's own printed address (it is what puts the biller in Canada, §2.1) and, for a row that stands on where the organisation is,
+      the organisation's own address.
+    - When a biller's own sentence on how it bills and is paid has not been found, the row says how a bill of that kind is billed and
+      paid — an association's dues, a regulator's fee, an agent's account, a supplier's sales to its dealer, rent, a sponsorship — and says
+      that it is "by the kind of relationship". A sentence of the biller always wins: card only takes the row out, "we send no invoice"
+      fails it. Never for hosting or software, where the common way is a card on file.
+    - **A relationship may stand on where the organisation is** (his own words that morning: "something being where it is means that
+      there's a relationship"): electricity at an address is distributed and billed by one body, by law, every month, on an invoice, paid
+      through a bank (`tools/by_location.py`). The biller is certain for the address; whose name is on the account is not published, and
+      every such row says both. One row per buyer still: a record (a contract, a licence, a roster) or a service seen on the buyer's side
+      comes first; the distributor of its address is what an organisation with a mailbox and an address has when it has nothing else.
+    - Unchanged: never an invented value; never a calculated value presented as published; every hard rule of §2.
+    `ship_ready` is "yes" (every field of its kind, in the biller's own words), "yes (…)" with what is by the kind, by where the
+    organisation is, or not published, or "no". The log of each build counts the three apart.
 
 **Owner rule (2026-10-28): when a buyer publishes no invoicing/AP mailbox, save its purchasing/procurement role mailbox
   (`ap_email_type=procurement`) or, failing that, its general role mailbox such as info@ / reception@ / greffe@

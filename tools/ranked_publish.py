@@ -123,7 +123,7 @@ def main():
                 tiers[r.get("tier") or "?"] += 1
             sr = (r.get("ship_ready") or "").strip()
             if sr.startswith("yes"):
-                ship["amount_published" if sr == "yes" else "amount_calculated"] += 1
+                ship["by_location" if "by where the organisation is" in sr else "complete" if sr in ("yes", "yes (the amount is calculated and labelled so)") else "best_effort"] += 1
                 ship_t[(r.get("invoice_fields_for_kind") or "").split(":")[0] or (r.get("tier") or "?")] += 1
     packages = collections.OrderedDict()
     for p in batch_files:
@@ -133,8 +133,9 @@ def main():
     stamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     sha = (run("git", "rev-parse", "--short", "HEAD", check=False).stdout or "").strip()
     build = {"id": "%s-%s" % (stamp, sha), "built": stamp, "code": sha, "release": a.tag, "rows": n_rows, "rows_with_mailbox": n_mail, "by_tier": dict(sorted(tiers.items())),
-             "ship_ready": {"rows": sum(ship.values()), "amount_published": ship["amount_published"], "amount_calculated": ship["amount_calculated"], "by_kind": dict(sorted(ship_t.items())),
-                            "test": "established and current + the organisation's role mailbox re-read by the referee + on invoice, payable by bank transfer (never a card on file) + the fields of its kind + no flag (owner 2026-11-11; tools/relationship_rows.py owner_test)"},
+             "ship_ready": {"rows": sum(ship.values()), "complete_in_the_billers_or_the_records_own_words": ship["complete"], "best_effort_by_kind_or_a_field_not_published": ship["best_effort"],
+                            "by_where_the_organisation_is": ship["by_location"], "by_kind": dict(sorted(ship_t.items())),
+                            "test": "a Canadian biller with a relationship that is current + the organisation's role mailbox re-read by the referee + a bill on invoice, payable by bank transfer (never a card on file) + no flag; the fields of its kind are populated as well as they can be and what is not published is said on the row (owner 2026-11-11 13:00 to 16:01 EST; tools/relationship_rows.py owner_test)"},
              "packages": packages, "assets": [{"name": os.path.basename(p), "bytes": os.path.getsize(p), "sha256": sha256(p),
                                                "url": "https://github.com/%s/releases/download/%s/%s" % (REPO, a.tag, os.path.basename(p))} for p in assets]}
     with open(os.path.join(pub, "BUILD.json"), "w", encoding="utf-8") as f:

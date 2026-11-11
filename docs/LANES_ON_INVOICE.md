@@ -139,6 +139,41 @@ Gowling WLG, Borden Ladner Gervais, ROBIC, Marks & Clerk, Norton Rose Fulbright,
 `data/incoming/claude/tm/tm_agent_sites.csv` has the sites tied so far); and every chamber of commerce with more than 100 member rows
 (dues schedule, "an invoice is sent", "cheque or e-transfer").
 
+## Format 4 — the biller an organisation has by where it is (one distributor a file)
+
+Owner, 2026-11-11 16:01 EST (AGENTS.md §1, rule 13): four things make a row — a Canadian biller, a bill on invoice, a bank payment, the
+organisation's mailbox. An organisation with a mailbox and a printed address that has no record-backed relationship still has one biller
+by law: the electricity distributor of its address (`tools/by_location.py`). On 2026-11-11, 89,387 organisations with a confirmed mailbox
+had an address in the territory of the eight distributors on file; 40,747 in Ontario, 18,057 in Alberta and 7,390 in the areas of
+municipal utilities had none.
+
+Hand in `contrib/<lane>/billers_by_location/<key>.json`:
+
+```json
+{"key": "alectra", "name": "Alectra Utilities", "site": "https://alectrautilities.com/", "read": "2026-11-12",
+ "address": "its own printed postal address, with the postal code", "address_url": "the page", "address_quote": "the sentence that prints it",
+ "prefixes": ["L4T", "L4V", "L5A"], "except_fsas": [],
+ "territory": "the law or licence of its franchise and the places it serves, in one sentence; say which postal areas you left out and why",
+ "what": "electricity delivered to the premises at the organisation's address",
+ "period": "1 monthly", "period_basis": "…“its own sentence”… (page)",
+ "amount": "from $… a month", "amount_basis": "the fixed charge of its smallest business rate: “…” (page)",
+ "delivery": "a bill: “…” (page)", "payment": "through a financial institution or by cheque: “…” (page)",
+ "terms": "“…”", "remit_to": "“…”", "unpaid": "“…”"}
+```
+
+`prefixes` are the first one, two or three characters of the postal codes it serves ALONE. Where two distributors share a postal area
+(a city served by its own utility and, at its edges, by Hydro One), leave the area out: a row must never name the wrong biller.
+Every sentence between “ ” is on the page named for it, word for word: `"url"` for the whole file, or `"delivery_url"`, `"payment_url"`,
+`"amount_basis_url"` … for a sentence that stands on another page. `python3 tools/by_location.py verify` (run in `vendor-billing.yml`) opens
+those pages with the project's reader; a file is used only once every sentence was found, and never for a postal area another file holds.
+
+Wanted, largest first: Ontario's distributors (Alectra, Hydro One, Elexicon, London Hydro, Enova Power, Oakville Hydro, Burlington Hydro,
+Oshawa Power, Enwin, GrandBridge, and the rest of the Ontario Energy Board's list), Nova Scotia Power, Newfoundland Power, Maritime
+Electric, FortisBC, the municipal utilities left out above (Hydro-Sherbrooke, Saskatoon Light & Power, Saint John Energy, New
+Westminster, Nelson, Penticton), the payment pages of SaskPower, NB Power, Qulliq and BC Hydro's business rate. **Alberta**: the retailer is
+the customer's choice there, so no distributor bills everyone — find what does (Edmonton's business licence by-law covers every business
+in the city; say what covers Calgary and the rest).
+
 ## Records that are already in the dataset's own format
 
 Contract awards and payments by public bodies to Canada-located vendors keep going in as before (`records_<source_key>.jsonl.gz`,

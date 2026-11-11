@@ -21,14 +21,17 @@ csv.field_size_limit(1 << 30)
 # hand-picked. A kind with fewer ready rows than its share gives what it has; the rest of the hundred is drawn among all the other ready rows.
 _K = lambda x: (x.get("invoice_fields_for_kind") or "").split(":")[0]
 _AP = lambda x: (x.get("email_type") or "").startswith(("invoicing", "finance"))
+# 2026-11-11 16:01 EST (AGENTS.md §1, rule 13): a row may also stand on where the organisation is — its own share of the draw, so that the
+# kind that carries the most rows is the kind that is tested most.
 KINDS = [
-    ("public contract — invoicing, AP or finance mailbox", 20, lambda x: _K(x) == "public contract" and _AP(x)),
-    ("public contract — purchasing or general mailbox", 20, lambda x: _K(x) == "public contract"),
-    ("licence or registration with a Canadian public body", 25, lambda x: _K(x) == "licence or registration"),
-    ("service of a Canadian vendor that takes a bank payment", 15, lambda x: _K(x) == "service seen on the buyer's side"),
-    ("membership of a Canadian body", 8, lambda x: _K(x) == "membership"),
-    ("dealer, tenant, sponsor or exhibitor of a Canadian body", 7, lambda x: _K(x) in ("dealership", "tenancy", "sponsorship")),
-    ("client of a Canadian agent of record", 5, lambda x: _K(x) == "agent of record"),
+    ("public contract — invoicing, AP or finance mailbox", 12, lambda x: _K(x) == "public contract" and _AP(x)),
+    ("public contract — purchasing or general mailbox", 12, lambda x: _K(x) == "public contract"),
+    ("licence or registration with a Canadian public body", 18, lambda x: _K(x) == "licence or registration"),
+    ("electricity account by where the organisation is", 26, lambda x: _K(x) == "utility account by location"),
+    ("service of a Canadian vendor that takes a bank payment", 8, lambda x: _K(x) == "service seen on the buyer's side"),
+    ("membership of a Canadian body", 10, lambda x: _K(x) == "membership"),
+    ("dealer, tenant, sponsor or exhibitor of a Canadian body", 8, lambda x: _K(x) in ("dealership", "tenancy", "sponsorship")),
+    ("client of a Canadian agent of record", 6, lambda x: _K(x) == "agent of record"),
 ]
 SHOW = ["ship_ready", "payment_route", "payment_route_basis", "invoice_fields_for_kind", "invoice_fields_missing_for_kind", "vendor_tax_or_registration_number",
         "buyer", "buyer_legal_name_as_published", "buyer_address", "buyer_phone", "buyer_website", "jurisdiction", "buyer_type",
