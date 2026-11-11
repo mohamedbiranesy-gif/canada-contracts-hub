@@ -922,6 +922,7 @@ def main():
     a.add_argument("--minutes", type=float, default=0, help="time box: at its end no new site is started, the state file is written once more and the reader leaves (0 = none)")
     a.add_argument("--out", default="", help="write the state file here, not to <repo>/data/incoming/claude/claude_org_extras.jsonl.gz (several readers on one runner, each with a file and a resume file of its own)")
     a.add_argument("--delta", action="store_true", help="write only the records this run made or changed (the merge joins them with the file on main)")
+    a.add_argument("--net-gap", type=float, default=0.0, help="seconds between two requests to one /24 of addresses, whatever the site names (ap_crawler.NET_INTERVAL): 1.5 with three readers on a runner = two requests a second per runner towards one platform")
     a.add_argument("--tried", default="", help="folder of org_tried_*.gz shards: the sites this reader could not read before are not asked again until their wait is over (run_box.Tried)")
     a.add_argument("--tried-out", default="", help="this run's failed tries go here (the workflow adds them to the folder)")
     a = a.parse_args()
@@ -979,6 +980,19 @@ def main():
     tasks.sort(key=lambda t: t[0] in again)  # the sites never read come first; the ones read by an older reader fill what is left of the time box
     if a.limit:
         tasks = tasks[:a.limit]
+    if a.net_gap and tasks:
+        # the sites that share their addresses with many others of this list (one platform's servers) go last: their requests queue up behind
+        # one another, and read first they would hold every thread while the other sites wait
+        C.NET_INTERVAL = a.net_gap
+        import collections as _co
+        _hosts = [urllib.parse.urlparse(t[3]).hostname or "" for t in tasks]
+        with ThreadPoolExecutor(40) as _ex:
+            _nets = list(_ex.map(C.net_of, _hosts))
+        _cnt = _co.Counter(n for n in _nets if n)
+        _order = sorted(range(len(tasks)), key=lambda i: (_cnt.get(_nets[i], 0) > 20, i))
+        tasks = [tasks[i] for i in _order]
+        print("sites on addresses shared with more than 20 others of this list (read last, one queue per /24): %d of %d; the largest: %s"
+              % (sum(1 for n in _nets if _cnt.get(n, 0) > 20), len(tasks), ", ".join("%s.x %d" % kv for kv in _cnt.most_common(4))), flush=True)
     print("tasks: %d domains to read, %d of them read before by an older reader (%d in resume file; refresh=%s); %d that could not be read before wait for their turn" % (len(tasks), len(again), len(done), a.refresh, waiting), flush=True)
     out_gz = a.out or os.path.join(a.repo, "data/incoming/claude/claude_org_extras.jsonl.gz")
     touched = set()

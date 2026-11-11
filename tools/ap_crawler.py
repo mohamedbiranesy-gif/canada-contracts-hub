@@ -120,9 +120,32 @@ def log(*a):
     print(time.strftime("%Y-%m-%d %H:%M:%S"), *a, flush=True)
 
 
+# 2026-11-11: sites of different organisations that live on one platform's servers (Wix: 185.230.60-63.x, Shopify: 23.227.38.x, a web
+# host's shared machines) are one "host" for that platform. The site-facts readers, given a task list that was half Wix and Shopify sites,
+# were refused (403 / 429) by 28 to 45 % of the sites — sites that answer a single reader without trouble. A reader that sets NET_INTERVAL
+# waits that long between two requests to the same /24 of addresses, whatever the site names (0 = off: the mailbox crawl and the scan,
+# whose lists are a few per cent platform sites, are not refused). Resolving a name is not a page request.
+NET_INTERVAL = 0.0
+_net_of_host, net_next = {}, {}
+
+
+def net_of(host):
+    """the /24 of the address a host name resolves to ("" when it does not resolve)"""
+    n = _net_of_host.get(host)
+    if n is None:
+        try:
+            import socket
+            n = ".".join(socket.gethostbyname(host).split(".")[:3])
+        except Exception:
+            n = ""
+        _net_of_host[host] = n
+    return n
+
+
 def fetch(url, limit=6_000_000, _hops=0):
     """(status, content_type, bytes, final_url); one request per second per host across all threads, two per registrable domain."""
     host = urllib.parse.urlparse(url).hostname or ""
+    net = net_of(host) if NET_INTERVAL and host else ""
     # 2026-11-10: the hosts of one registrable domain are often one platform's servers (500 congregations on churchcenter.com, the municipalities
     # hosted on ao.ca) and each is read for itself now: together they get at most two requests a second, whatever the number of threads.
     dom = _dom_of_host.get(host)
@@ -131,10 +154,12 @@ def fetch(url, limit=6_000_000, _hops=0):
     while True:
         with host_lock:
             now = time.time()
-            wait = max(host_next.get(host, 0), dom_next.get(dom, 0)) - now
+            wait = max(host_next.get(host, 0), dom_next.get(dom, 0), net_next.get(net, 0) if net else 0) - now
             if wait <= 0:
                 host_next[host] = now + HOST_INTERVAL
                 dom_next[dom] = now + DOMAIN_INTERVAL
+                if net:
+                    net_next[net] = now + NET_INTERVAL
                 break
         time.sleep(min(wait, 1.0))
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "fr-CA,fr;q=0.9,en;q=0.8"})
