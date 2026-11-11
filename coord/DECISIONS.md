@@ -1001,9 +1001,11 @@ sentence, structured data).
    (initials). Anywhere on the home page and the legal pages. A company form only (Inc., Ltd., Ltée, Corp., LLP, S.E.N.C., LLC, GmbH
    …): "Society", "Association" and the like are left to the older rules. Never on a host many organisations share, never a platform's
    or a payment service's name. An opening word the name is printed with every time is kept ("Services Mobile Mediq inc.").
-   Measured: 34 of 317 sites without a legal name; on 324 sites that had one, the rule agreed with it 76 times and in the 12 cases it
-   differed it was right every time ("Liberty Security Systems Inc." where the record held "Canadian Security Association", "Spurrell
-   Professional Corporation" where it held "Secure Sockets Layer"); on 1,943 further sites: 216 (11 %).
+   Measured: 34 of 317 sites without a legal name; on 324 sites that had one, the rule agreed with it 76 times; of the 12 cases it
+   differed, it was right 11 times ("Liberty Security Systems Inc." where the record held "Canadian Security Association", "Spurrell
+   Professional Corporation" where it held "Secure Sockets Layer") and cut one name short ("End Plastic Waste Inc." for the Alliance to
+   End Plastic Waste, Inc. — the words a name is printed with every time, in two different surroundings, are kept since); on 1,943
+   further sites: 216 (11 %).
 2. **The legal person a page puts behind the site's own name**: "Majid Enterprises Inc., operating as Lawn Lovers", "1234567 Ontario Inc.
    ("Acme", "we")", "Solaris (1457570 Alberta Ltd.)", "Legal Entity : Sleepera Mattress Wholesale Ltd." — the trade name must be the
    site's own. And **the operator a page names** ("exploité par Société Groupe Panican inc.", "édité par", "published by"): the ranker
