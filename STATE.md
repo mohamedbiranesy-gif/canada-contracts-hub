@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 03:50Z — published build 03:29Z = 242,317 rows, 236,341 with a mailbox; 228,000 DNS-provider leads landed (109,000 new); an audit of the vendor side: whose address, whose website, whose name — three defects found on rows already delivered, fixed in code)
+# STATE.md — Claude lane (updated 2026-11-11 06:50Z — published build 04:47Z = 246,898 rows, 240,626 with a mailbox; NEW: site names from the Certificate Transparency logs (first cloud run: 42 % of the .ca names and 60 % of the shop-ending names are on no list we held); the mailbox reader follows a site to the domain it lives on; runner slots rebalanced)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,75 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-11 06:50Z — build 04:47Z: 246,898 rows; names from the certificate logs; why sites give no mailbox, measured; runner slots
+**Build 04:47Z (code 1df5f97): 246,898 rows, 240,626 with a mailbox.** A 1,276 · B 1,718 · C 315 · D 27,217 · E 5,125 · F 7 · I 17,816 ·
+L 436 · M 11,320 · R 98,049 · T 77,347. Audit PASS (0 hard failures); check 20 (legal-name furniture) 56 cells (was 372). The vendor-side
+fixes of the night, measured on the full table: vendor legal name T 52 → 74 %, B 67 → 86 %, C 74 → 86 %, D 34 → 40 %, A 93 → 97 %;
+vendor website T 93 → 99.9 %. Still empty: tier I (the inferred vendors' names, fixed after this build's code), tier M 55 % (cities and
+the Trademarks Office as vendors: the vendor-as-buyer join lands with the next build), the hosts that keep the reader out (namespro.ca
+983 rows, vianet 188, domainpeople 150) and those whose terms name nobody (rapidenet.ca 1,410, linknowmedia.com 807, likuid.com 491).
+Buyer side on rows with a mailbox: legal name 42 %, address 73 %, telephone 60 %, registry number 11 % — the legal name is still the
+largest empty invoice field (reader v5 after the v4 refresh, below).
+
+**1. A new source of NAMES: the Certificate Transparency logs** (`tools/ct_names.py`, workflow `ct-names`, notes/ct_names.md, decision
+05:35Z). The lanes that grow the table can only ask the sites whose names they hold, and the names came from the web graph (sites
+somebody links to) and one public list. Every HTTPS site is in the certificate logs. The static logs run with Sunlight publish *names
+tiles* (6.5 KB per 256 certificates, made for readers that want names only): Let's Encrypt Sycamore + Willow, Geomys Tuscolo +
+Trastevere, IPng Gouda. Budget per operator for all runners together: 90 / 30 / 20 requests a second; newest tiles first.
+First cloud run (test, 45,000 tiles = 11.5 M certificates, 11 minutes of reading, no error, no 429):
+- `.ca` names seen 19,534 — **8,123 (42 %) on no list we hold** → `credit_scan/ctca_<stamp>.gz`, read by the home-page scan (priority 4)
+  and the DNS lookups. The lists on file hold 2.49 M `.ca` names of ~3.4 M registered; half of ours do not answer.
+- names on the store sweep's endings 1,095,327 — **657,286 (60 %) not among the web graph's 78.7 M** → release `harvest-state`
+  `ct_list_20261111T060239.txt.gz`; `dns-services` mode `ctsweep` asks them the sweep's two questions (run 42974942196 started 06:48Z).
+- 175 validated subjects of organisations in Canada (Central 1 Credit Union, Open Text Corporation, William Osler Health System …) →
+  `ct_names/ov_ca_<stamp>.jsonl.gz`; not used yet (a rule of its own: the subject is the subscriber, which can be a host).
+The real run was dispatched 06:48Z (2 runners, 150 minutes, chains itself while tiles are left: 19.6 M tiles ≈ 5 G certificates, one to
+two days at the budget). **Watch:** rate lines in the read logs (a halved rate means an operator said 429 / 503); the share of new names
+per run (falls as the logs repeat themselves); stores per million names in the ctsweep; `.ca` names → scan → registry class.
+Not seen by this source: certificates of GoDaddy, DigiCert, Amazon, Microsoft (RFC 6962 logs only), and what sits only in IPng
+Halloumi or Google's static logs (no names tiles).
+
+**2. Why two thirds of the lead sites give no mailbox — measured, and the part that was ours** (decision 06:02Z). 260 sites read again
+with every address and verdict kept: a third print no address at all; 15–20 % only a webmail address; 12 % only people; 5–6 % hide it
+behind Cloudflare's script. Ours: (a) 1 `.ca` candidate in 7 is a **second name** of an organisation whose site lives under another
+domain (osfs.ca → flyos.ca): the reader now follows a name to the HOME page of the domain that answers (never a page inside another
+site, a platform, a network, a parking service, a provider's own domain, a hub of 30+ names) — the row is about the site that
+answers and says which name the relationship is about; (b) a bare name that does not answer is asked once at `www.`, a dead site ends
+as `unreachable` after one or two requests (was eight, 20 s each), the pages are asked of the address that answered, leads start where
+the scan found the site; (c) role words that were not on the list (gestion@, leasing@, membership@, information@, info<city>@ …); the
+ranker reads the reader's lists. Second sample with the new reader: 2.3 % of the leads and 6.9 % of the registry candidates that had
+given nothing now give a mailbox → about 15,000 rows from sites already read (re-read once, mark `r3`, after every site never
+read), and the same share more of every site from now on. On a 1-in-2 sample build: +21 rows from mailboxes the referee had already
+confirmed, 1 synthetic second-name row correct; one row moved from tier B to T (a second owner of purdue.edu makes the borrow
+ambiguous — the conservative rule, left).
+Not taken, on purpose: an address named after the organisation (ace@aceplumbing.ca — no list of given names is complete enough to
+tell it from a person's); same-telephone sister sites without a redirect (no proof without a second read); webmail; Cloudflare.
+
+**3. Runner slots.** The account runs 20 jobs at a time. 06:00–08:00Z: two org_facts runs held 16 of them; the certificate merge
+waited 26 minutes, the rank build, a credit-scan merge and a probe are still waiting. A site reader waits on the network (23 ms of
+CPU a page, a third of one core at 120 sites at a time), so runners are made wider, not more numerous: org_facts 8 → 4 runners at 100
+sites each (its refresh chain too), mailbox crawl 120 → 200 sites a runner (6 runners kept: the store queue is per runner), ct-names
+2 runners. Nothing running was touched (cancelling runs is not permitted to this session).
+
+**4. Projection, restated with the new source (honest ranges; the certificate numbers are one test run old).**
+| lane | now | what is left | by early January |
+|---|---|---|---|
+| stores (Shopify Inc.) | 23,414 accepted of 104,073 read (22.5 %) | ~960,000 known + the web-graph sweep's rest (~290,000) + the certificate names (unknown; 60 % of them are new names) | +250,000 to +400,000 |
+| `.ca` registry class | tier R 98,049 | the detector-5 pass (37 % of the "unreachable" answer on www / http: ~460,000 more home pages), class 2 (~1 M sites at 10–17 %), the certificate `.ca` names (42 % new, and alive) | +200,000 to +300,000 |
+| DNS-provider, credits, listings, licences, tenants | T 77,347 · D 27,217 · M 11,320 | 109,000 DNS leads not read yet; watched name servers on every swept name; vetted services | +60,000 to +100,000 |
+| sites already read, read once more (r3) | — | 368,000 | +15,000 |
+**750,000 to 1,050,000 by early January**, against 600,000–700,000 said at 03:50Z. What decides where in the range: stores per million
+certificate names (first figures today), how many certificate `.ca` names answer and print a mailbox, and the two queues with a fixed
+rate (the store reader: ~96,000 stores a day; the referee). The ranker needs its parts mode above ~700,000 rows (14 GB at a million).
+
+**Open, in order:** (1) first ctsweep figures → the owner's update; (2) the build with the 04:14Z–06:02Z ranker changes (queued behind
+the slots): inferred vendors' names, vendor-as-buyer join, vendor display names, second names, role words; (3) probe 06:27Z: vetting
+sheets of 19 services counted in the link file (Commerce7 1,597 sites, myRealPage 1,946, centiva.io 996, SharpSchool 396, Showpass 343,
+GovStack 274, MyEvent 272, CCH iFirm portals 191, Rafflebox 141, CivicWeb 116 …); (4) v4 refresh (two runs in progress) → reader v5
+(agreement party, legal hub, standard legal paths) → drop the hand table of vendor names; (5) validated subjects as legal names (rule:
+the subject must carry the organisation's own name); (6) CharityVillage reader; (7) Sunday's report.
+
 
 ## 2026-11-11 03:50Z — build 03:29Z: 242,317 rows; 228,000 DNS-provider leads; the vendor side audited (whose address, whose website, whose name)
 **Builds.** 01:51Z: 242,292 rows (236,315 with a mailbox). 03:29Z: **242,317 (236,341)** — A 1,276 · B 1,719 · C 323 · D 28,316 · E 5,275 · F 7 ·
