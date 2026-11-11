@@ -214,6 +214,9 @@ ROUTE_LABEL = {"bank": "on invoice, by bank transfer / cheque", "card": "card on
                "nobill": "payable by bank, but no invoice or notice is published"}
 INVOICE_SAID = ("licence or registration", "membership", "dealership", "tenancy", "sponsorship", "agent of record")
 _INVOICE = re.compile(r"invoices?|factur|\bbills?\b|\bbilled\b|notices?\b|avis de (?:cotisation|renouvellement|paiement)|statements?\b|relev[ée]s?\b", re.I)
+# a buyer's purchase-order rule is about what it orders from a supplier: a regulator's fee notice, a chamber's dues, a landlord's rent, an agent's
+# account and a sponsorship are not ordered with a purchase order (owner 13:00 EST: "Shopify … won't have a purchase order … maybe some other thing will")
+PO_KINDS = ("public contract", "service seen on the buyer's side", "dealership", ".ca registration", "not established")
 ROUTE_OK = ("bank", "either")  # owner 2026-11-11 14:20 EST: an invoice that can be paid by bank transfer is in, also when the biller would take a card
 
 
@@ -253,7 +256,7 @@ def owner_test(x):
         out.append("flag: " + ((x.get("sensitivity_tag") or "sensitive buyer").split(":")[0][:70]))
     if _has(x, "vendor_registry_warning"):
         out.append("flag: vendor registry warning")
-    if (x.get("po_required_as_published") or "").startswith("yes") and not (_has(x, "po_number_as_published") or _has(x, "po_number_as_published_from_pair")):
+    if kind in PO_KINDS and (x.get("po_required_as_published") or "").startswith("yes") and not (_has(x, "po_number_as_published") or _has(x, "po_number_as_published_from_pair")):
         out.append("flag: the buyer requires a purchase-order number on invoices and none is published for this vendor")
     x["ship_ready"] = "no" if out else ("yes (the amount is calculated and labelled so)" if not (_has(x, "contract_value") or _has(x, "bill_amount_indicative")) else "yes")
     x["ship_ready_missing"] = "; ".join(out)

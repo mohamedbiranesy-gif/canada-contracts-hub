@@ -36,9 +36,14 @@ jobs:
             python3 tools/tm_register.py build | tee -a /tmp/tm.txt
             mkdir -p /tmp/tm && cp data/incoming/claude/tm/tm_owners_ca.csv.gz data/incoming/claude/tm/tm_owners_abroad.csv.gz data/incoming/claude/tm/tm_agents.csv /tmp/tm/
           fi
+          # the agent firms' own sites (tools/data/tm_agent_site_candidates.csv): a candidate is kept only when the site prints the firm's name and a
+          # postal code the register gives for it. The vendor reader then reads how the firm's invoices are paid. Pairs tied before are not read again.
+          python3 tools/tm_register.py agent-sites 2>&1 | tail -40 | tee -a /tmp/tm.txt || true
+          mkdir -p /tmp/tm_ag && cp data/incoming/claude/tm/tm_agent_sites.csv /tmp/tm_ag/ 2>/dev/null || true
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             if [ -d /tmp/tm ]; then mkdir -p data/incoming/claude/tm && cp /tmp/tm/* data/incoming/claude/tm/; fi
+            cp /tmp/tm_ag/tm_agent_sites.csv data/incoming/claude/tm/ 2>/dev/null || true
             python3 tools/tm_register.py match | tee -a /tmp/tm.txt
             python3 tools/tm_register.py leads --stamp "$STAMP" | tee -a /tmp/tm.txt
             python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed

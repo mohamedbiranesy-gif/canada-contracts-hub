@@ -41,6 +41,10 @@ jobs:
           python3 tools/biz_licences.py pull --only "$ONLY" 2>&1 | tee /tmp/l.txt
           python3 tools/biz_licences.py match out 2>&1 | tee -a /tmp/l.txt
           mkdir -p keep && cp out/licence_leads.jsonl keep/ 2>/dev/null || true
+          # what one licence is billed (tools/payee_fees.py): Toronto's nightly list of outstanding licence invoices (licence number, invoice number,
+          # amount due), the fee of each kind of Toronto licence, Calgary's and Edmonton's fee schedules. A source that fails keeps its last reading.
+          python3 tools/payee_fees.py harvest 2>&1 | tee -a /tmp/l.txt || true
+          cp data/incoming/claude/payee_fees.json data/incoming/claude/payee_open_invoices.csv.gz keep/ 2>/dev/null || true
           STAMP=$(date -u +%Y%m%dT%H%M%S)
           git config user.name "biz-licences"; git config user.email "biz-licences@users.noreply.github.com"
           for i in $(seq 1 10); do
@@ -49,8 +53,9 @@ jobs:
             # rosters another lane harvested (members, dealers, tenants, exhibitors, sponsors of a Canadian body: contrib/<lane>/rosters/<key>.json +
             # data/incoming/<lane>/roster_<key>.csv): the same commit carries their leads (tools/roster_ingest.py checks each roster's proof itself)
             python3 tools/roster_ingest.py merge --stamp "$STAMP" 2>&1 | tee -a /tmp/m.txt || true
+            cp keep/payee_fees.json keep/payee_open_invoices.csv.gz data/incoming/claude/ 2>/dev/null || true
             python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
-            git add data/incoming/claude/lead_shards 2>/dev/null || true
+            git add data/incoming/claude/lead_shards data/incoming/claude/payee_fees.json data/incoming/claude/payee_open_invoices.csv.gz 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "biz-licences: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
             git push -q origin HEAD:main && break

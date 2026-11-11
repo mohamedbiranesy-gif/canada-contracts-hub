@@ -652,6 +652,106 @@ def merge_sites(a):
     print("owner sites found under their own name: %d (+%d this run); owners looked for so far: %d" % (len(found), len(found) - n0, len(lines)))
 
 
+# ------------------------------------------------------------------------------------------------------------------- the agent firms' own sites
+AGENT_CAND = os.path.join(ROOT, "tools/data/tm_agent_site_candidates.csv")
+AGENT_SITES = os.path.join(DIR, "tm_agent_sites.csv")
+AGENT_SITE_COLS = ["agent_name", "postal_code", "site", "evidence_url", "quote", "read"]
+_OFFICE_LINK = re.compile(r"contact|office|bureau|location|emplacement|nous-joindre|joindre|coordonn|about|a-propos|propos|where|trouver|payment|paiement|invoice|facture", re.I)
+
+
+def agent_sites(a):
+    """The register names the agent of record with its address and no website. A firm's site is where it says how its invoices are paid (the
+    owner's rule: on invoice, by bank transfer), so the vendor reader needs it. A candidate site (tools/data/tm_agent_site_candidates.csv:
+    the register's own spelling of the firm, a site) is accepted only when a page of that site prints a postal code the register gives for
+    that firm; the page and the words around the postal code are kept. A candidate that prints none of them is not used."""
+    import ap_crawler as C
+    import html as _html
+    import urllib.parse
+    cand = {}
+    for r in csv.DictReader(open(AGENT_CAND, encoding="utf-8", newline="")):
+        cand[nkey(r["agent_name"])] = (r["agent_name"], r["site"].strip())
+    pcs, cities = collections.defaultdict(set), collections.defaultdict(set)
+    for r in csv.DictReader(open(AGENTS, encoding="utf-8", newline="")):
+        if nkey(r["agent_name"]) in cand and pc6(r["postal_code"]):
+            pcs[nkey(r["agent_name"])].add(pc6(r["postal_code"]))
+            city = nkey((r["address"] or "").rstrip(", ").rsplit(",", 1)[-1])
+            if len(city) >= 4:
+                cities[nkey(r["agent_name"])].add(city.replace(" ", "-"))
+    have = {}
+    if os.path.exists(AGENT_SITES):
+        for r in csv.DictReader(open(AGENT_SITES, encoding="utf-8", newline="")):
+            have[(nkey(r["agent_name"]), r["postal_code"])] = r
+    n = collections.Counter()
+    for k, (name, site) in sorted(cand.items()):
+        want = {p for p in pcs.get(k, ()) if (k, p) not in have}
+        if not pcs.get(k):
+            n["the register has no such agent name with a postal code"] += 1
+            continue
+        if not want:
+            n["already tied"] += 1
+            continue
+        host = (urllib.parse.urlparse(site).hostname or "").lower()
+        dom = C.registrable(host)
+        queue, seen, found, alltext = [site], set(), {}, ""
+        toks = [t for t in nkey(name).split() if len(t) >= 3 and t not in GENERIC and t not in ("and", "agence", "agency", "intellectual", "property", "services", "law", "group", "trademark",
+                                                                                              "lawyers", "avocats", "avocat", "legal")]
+        cap = 14 + 4 * min(4, len(want))
+        while queue and len(seen) < cap and len(found) < len(want):
+            # the page of an office in a city the register names comes first (a firm with twenty offices has one page for each)
+            queue.sort(key=lambda q: not any(c in q.lower() or c.replace("-", "") in q.lower() for c in cities.get(k, ())))
+            u = queue.pop(0)
+            if u in seen or not C.allowed(u):
+                continue
+            seen.add(u)
+            st, ct, data, final = C.fetch(u)
+            time.sleep(1.0)
+            if st != 200 or not data or data[:5] == b"%PDF-":
+                continue
+            raw = _html.unescape(data.decode("utf-8", "replace"))
+            text = re.sub(r"\s+", " ", C.visible(C.quote_attrs(raw)))
+            tm_ = re.search(r"<title[^>]*>(.*?)</title>", raw, re.S | re.I)
+            alltext += " " + nkey((tm_.group(1) if tm_ else "") + " " + text[:200000])
+            if len(seen) == 1 and final:
+                fh = (urllib.parse.urlparse(final).hostname or "").lower()
+                if fh and C.registrable(fh) != dom:
+                    dom, host = C.registrable(fh), fh  # the firm's site moved to another name of its own: the pages are read there
+            for p in want - set(found):
+                m = re.search(r"(?<![A-Za-z0-9])%s[ \u00a0-]?%s(?![A-Za-z0-9])" % (p[:3], p[3:]), text, re.I)
+                if m:
+                    found[p] = (final or u, text[max(0, m.start() - 150): m.end() + 20].strip()[:290])
+            base = final or u
+            for m in re.finditer(r'href="([^"#]+)"[^>]*>(.*?)</a>', raw, re.S | re.I):
+                link = urllib.parse.urljoin(base, m.group(1).strip())
+                h2 = (urllib.parse.urlparse(link).hostname or "").lower()
+                if link.startswith("http") and C.registrable(h2) == dom and _OFFICE_LINK.search(m.group(1) + " " + re.sub(r"<[^>]+>", " ", m.group(2))) and link not in seen and link not in queue and len(queue) < 40:
+                    queue.append(link)
+        # the postal code of an office tower is shared by its tenants: the site must print the firm's own name as well (every word of it that is a name)
+        named = bool(toks) and all((" " + t + " ") in (alltext + " ") for t in toks)
+        if found and not named:
+            n["the site prints the postal code but not the firm's name: not tied"] += 1
+            print("  %-52s %-28s NOT tied: the postal code is on the site, the name (%s) is not" % (name[:52], host, " ".join(toks)), flush=True)
+            continue
+        for p, (url, quote) in found.items():
+            have[(k, p)] = {"agent_name": name, "postal_code": p, "site": "https://%s/" % host, "evidence_url": url, "quote": quote, "read": TODAY}
+        n["tied now" if found else "the candidate site prints none of the register's postal codes for the firm"] += 1
+        print("  %-52s %-28s %s" % (name[:52], host, ("%d of %d postal codes on its pages" % (len(found), len(want))) if found else "NOT tied (%d pages read)" % len(seen)), flush=True)
+    with open(AGENT_SITES, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=AGENT_SITE_COLS, lineterminator="\n")
+        w.writeheader()
+        for key in sorted(have):
+            w.writerow({c: have[key].get(c, "") for c in AGENT_SITE_COLS})
+    print("agent firms' own sites: %d (firm, postal code) pairs tied to a site, %d firms; this run: %s" % (len(have), len({k for k, _ in have}), dict(n)))
+
+
+def agent_site_table():
+    """{name key: (site, evidence)} — a firm whose site prints one of its register addresses is that firm at all of them (the register's spelling of the firm is the key)"""
+    out = {}
+    if os.path.exists(AGENT_SITES):
+        for r in csv.DictReader(open(AGENT_SITES, encoding="utf-8", newline="")):
+            out.setdefault(nkey(r["agent_name"]), (r["site"], "the firm's own site prints the register's address for it: “%s” (%s, read %s)" % (r["quote"][:200], r["evidence_url"], r["read"])))
+    return out
+
+
 # ------------------------------------------------------------------------------------------------------------------- leads
 def leads(a):
     import lead_store as LS
@@ -666,6 +766,7 @@ def leads(a):
     snap = LS.snapshot(prev, pdet)
     mine = {k for k, d in pdet.items() if d.get("platform") == "tm_register"}
     kept, n_agent, n_office = set(), 0, 0
+    agsite = agent_site_table()
     for m in csv.DictReader(open(MATCHES, encoding="utf-8", newline="")):
         o = owners.get(m["owner_key"])
         if not o or not (int(o["marks_in_force"] or 0) or int(o["marks_pending"] or 0)):
@@ -689,7 +790,9 @@ def leads(a):
                      "reference": ref[1] or ("application %s" % ref[0] if ref[0] else ""), "title": "Trademark %s%s — %d in force, %d pending on the Canadian register (extract of %s)" % (
                          ("“%s” " % ref[2]) if ref[2] else "", ("registration %s" % ref[1]) if ref[1] else "", int(o["marks_in_force"] or 0), int(o["marks_pending"] or 0), SNAP_DATE),
                      "vendor_address": "%s (the register's own entry for the %s, %s)" % (vaddr, "agent of record" if with_agent else "Office", BASE + FILES["party"] if with_agent else OFFICE["site"]),
-                     "vendor_site": "" if with_agent else OFFICE["site"], "member_address_quote": ("%s %s" % (o["address"], o["postal_code"])).strip(),
+                     "vendor_site": agsite.get(nkey(o["agent_name"]), ("", ""))[0] if with_agent else OFFICE["site"],
+                     "vendor_site_basis": agsite.get(nkey(o["agent_name"]), ("", ""))[1] if with_agent else "",
+                     "member_address_quote": ("%s %s" % (o["address"], o["postal_code"])).strip(),
                      "register_label": "the Canadian trademarks register of the Canadian Intellectual Property Office, which names as agent of record" if with_agent else "the Canadian trademarks register published by",
                      "tm_relationship": "agent of record" if with_agent else "registration",
                      "tm_agent_of_record": o["agent_name"], "tm_agent_number": o["agent_number"], "tm_agent_address": o["agent_address"], "tm_marks_in_force": int(o["marks_in_force"] or 0),
@@ -714,7 +817,7 @@ def leads(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["build", "match", "leads", "sites", "merge-sites"])
+    ap.add_argument("cmd", choices=["build", "match", "leads", "sites", "merge-sites", "agent-sites"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--minutes", type=float, default=100)
@@ -726,7 +829,7 @@ def main():
     ap.add_argument("--stamp", default=time.strftime("%Y%m%dT%H%M%S", time.gmtime()))
     ap.add_argument("--abroad", action="store_true", help="sites: the owners outside Canada (United States, United Kingdom, Australia) instead of the owners in Canada")
     a = ap.parse_args()
-    {"build": build, "match": match, "leads": leads, "sites": sites, "merge-sites": merge_sites}[a.cmd](a)
+    {"build": build, "match": match, "leads": leads, "sites": sites, "merge-sites": merge_sites, "agent-sites": agent_sites}[a.cmd](a)
 
 
 if __name__ == "__main__":

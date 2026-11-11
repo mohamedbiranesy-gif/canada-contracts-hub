@@ -185,7 +185,21 @@ published; a body's fee: HCRA $715 a year, OMVIC $22 per vehicle), `bill_items_a
 subscription, transaction and additional fees; a `.ca` registration and its renewals), `bill_currency_as_published`,
 `bill_delivery_as_published` (how the bill reaches the customer), `bill_payment_method_as_published`, `bill_tax_rule_as_published`,
 `bill_identifier_format` (Shopify: a nine-digit bill number, "SHOPIFY* 123456789" on a bank statement), `service_stops_if_unpaid`
-(the vendor's own rule that an unpaid service is cut off — the reason a service seen running is a service being paid for).
+(the vendor's own rule that an unpaid service is cut off — the reason a service seen running is a service being paid for),
+`bill_due_terms_as_published` (when the bill is due: "Payment is due 30 days from the date of the invoice") and
+`bill_remit_to_as_published` (where a payment by mail goes, the biller's own printed address). For a licence of Toronto, Calgary or
+Edmonton the amount is the city's own (`tools/payee_fees.py`): the open invoice the City of Toronto lists for that licence number
+(`bill_identifier_format` then carries its invoice number), the renewal fee of that kind of licence, the line of the fee schedule; a
+licence of several types gets the amount the schedule's own rule gives, in `bill_amount_calculated`.
+
+**The owner's test of a row (2026-11-11 afternoon; AGENTS.md §1, rules 6 to 12).** One function decides, `tools/relationship_rows.py:
+owner_test`, and every row says what it found: `payment_route` (on invoice, by bank transfer / cheque · on invoice; bank payment or card ·
+not published · payable by bank, but no invoice or notice is published · no invoice is sent) with `payment_route_basis` (the biller's or the
+buyer's own words); `invoice_fields_for_kind` (the fields a relationship of that kind can carry) and `invoice_fields_missing_for_kind`;
+`vendor_tax_or_registration_number` (the GST/HST number derived from a published Business Number, else the number in the vendor's home
+register, said to be that); `ship_ready` ("yes", "yes (the amount is calculated and labelled so)" or "no") and `ship_ready_missing`
+(everything that keeps the row from "yes"). A row whose bill is charged to a card on file, or goes through a registrar, is not written
+at all. The earlier label that looked only at the kind of mailbox is kept as `ap_mailbox_ready`.
 `relationship_fact_basis` says in one sentence why the relationship is a fact, or that it is not one: "fact, seen on the buyer's side"
 (a running service, a `.ca` name) · "fact, public record" (an award, a register) · "stated by the buyer" (a credit line, a membership
 badge) · "stated by the vendor" (a client list) · "link only" · "inferred, not a fact".

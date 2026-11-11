@@ -4572,7 +4572,8 @@ def billing_of(x, ld):
 # fact? When … something being where it is means that there's a relationship". Each cell quotes the vendor's (or the body's) own page; a cell
 # with no published source stays empty.
 BILL_COLS = ["bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published",
-             "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "relationship_fact_basis", "billing_period_calculated", "bill_amount_calculated"]
+             "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "bill_due_terms_as_published", "bill_remit_to_as_published", "relationship_fact_basis",
+             "billing_period_calculated", "bill_amount_calculated"]
 # owner 2026-11-11 07:15 EST: "inference of inference … becomes a calculated guess … if there's so many inferences pointing to one thing". A billing
 # period that is NOT published for this relationship but follows from two published things goes in its own column, always opening with the word
 # "calculated", never into recurring_billing: (1) a client the vendor names + the vendor's own price list by the month; (2) construction work for
@@ -4788,6 +4789,17 @@ def bill_profile(x, ld, cls):
         out["relationship_fact_basis"] = ("link only: the organisation is linked from the vendor's site, not shown to be a client" if t == "E" else
                                           "fact, the biller's own roster: the Canadian body's own page names the organisation %s (%s)" % (what, (x.get("contract_link") or "")[:160]) if _roster else
                                           "stated by the vendor: its own page names the organisation %s (%s); not seen from the buyer's side" % (what, (x.get("contract_link") or "")[:160]))
+        if what == "as a member in its member directory" and not out.get("bill_amount_indicative"):
+            # a member named in the body's own directory pays its dues: the amount is the body's lowest published membership fee, said to be the
+            # lowest (a member's own dues are never published; they are that or more) — the same reading as for a register's fee (tier M above)
+            rec = VBILL.get(vd) if vd else None
+            low = _VB.lowest(rec) if rec else {}
+            st_ = (low.get("year") or low.get("month") or (None, None, None))[2]
+            if st_ and _MEMBER_WORDS.search(st_["q"]):
+                per = "year" if low.get("year") else "month"
+                out["bill_amount_indicative"] = _money_words(low[per][0], low[per][1], per)
+                out["bill_amount_basis"] = "the body's lowest published fee by the %s: “%s” (%s, read %s); the member's own dues are not published" % (per, st_["q"][:260], st_["u"], rec.get("date"))
+                n_billcol["member rows that carry the body's lowest published dues"] += 1
     else:
         out["relationship_fact_basis"] = "fact, public record: %s names the vendor and the contract (%s)" % ((x.get("source") or "the public source")[:120], (x.get("contract_link") or "")[:160])
     if cls.startswith("5") and t in ("C", "D") and "vendor located in Canada" in cfv and "member named in the member directory" not in cs:
@@ -4832,8 +4844,8 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                                              "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
                    ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found", "relationship_fact_basis", "recurring_billing", "recurring_billing_basis",
                                        "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published",
-                                       "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated",
-                                       "bill_amount_calculated", "invoice_fields_present", "invoice_fields_missing"]),
+                                       "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "bill_due_terms_as_published",
+                                       "bill_remit_to_as_published", "billing_period_calculated", "bill_amount_calculated", "invoice_fields_present", "invoice_fields_missing"]),
                    ("contract_reference", ["invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id",
                                            "buyer_vendor_id", "vendor_ids_in_record", "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count",
                                            "records_with_this_vendor", "all_references_with_this_vendor"]),
@@ -4887,7 +4899,7 @@ for _ri, x in enumerate(rows):
     for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
                 "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count", "records_with_this_vendor", "all_references_with_this_vendor",
                 "relationship_kind", "relationship_detail", "how_relationship_was_found", "recurring_billing", "recurring_billing_basis", "relationship_fact_basis", "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published",
-                "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "billing_period_calculated", "bill_amount_calculated", "invoice_fields_present", "invoice_fields_missing", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
+                "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "bill_due_terms_as_published", "bill_remit_to_as_published", "billing_period_calculated", "bill_amount_calculated", "invoice_fields_present", "invoice_fields_missing", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
                 "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
                 "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
         x.setdefault(col, "")

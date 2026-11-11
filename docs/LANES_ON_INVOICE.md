@@ -112,13 +112,32 @@ The test of a row asks how the bill is paid. For a body behind many rows, read i
 ```
 
 Every sentence between “ ” must be on the page, word for word, at most 300 characters each. `tools/payee_billing.py verify` opens the page
-with the project's reader; an entry is used only after every quote was found (`data/incoming/claude/payee_verified.json`).
+with the project's reader (a PDF is read as its text); an entry is used only after every quote was found
+(`data/incoming/claude/payee_verified.json`). A fact that stands on another page of the body carries that page beside it
+(`"delivery_url": "…"`, `"remit_to_url": "…"`). The yearly fee by kind of licence goes in as a table:
+`"amounts_url": "the fee page", "amounts": [["a pattern of the kind as the register spells it", "688 $ a year", "“the line of the fee table”"], …]`.
 
-The billers behind the most rows that still lack this (2026-11-11): the Canadian Intellectual Property Office, the City of Toronto, the
-City of Vancouver (its page refuses robots: leave it), the Better Business Bureaus of Canada, the Corporation des maîtres électriciens
-du Québec, the Corporation des maîtres mécaniciens en tuyauterie du Québec, the Office de la protection du consommateur, the firms of
-patent and trademark agents (Gowling WLG, Borden Ladner Gervais, ROBIC, Oyen Wiggs, Moffat & Co., Marks & Clerk, Fasken, Osler, Norton
-Rose Fulbright, Lavery), and every chamber of commerce with more than 100 member rows.
+The test asks two things of a fee-based bill and both must be quoted: that the body **sends an invoice, a bill or a notice** (`delivery`), and
+that it can be **paid through a bank or by cheque** (`payment`). A page that only says "pay online by credit card" does not make a row; a
+body that says it sends no invoice (`no_invoice`) takes its rows out.
+
+Three cities are read by code instead (`tools/payee_fees.py`, run twice a day inside `biz-licences.yml`): Toronto's nightly list of its
+outstanding licence invoices (licence number, invoice number, amount due — 4,379 lines on 2026-11-11) and the renewal fee of each kind of
+Toronto licence; Calgary's fee schedule by licence type with its rule for several types; Edmonton's tier for each business category. A
+city or regulator that publishes its open invoices, or a fee schedule keyed by what its register prints, belongs in that tool: say which
+in the lane's inbox.
+
+The billers behind the most rows that still lack this (2026-11-11 21Z; Toronto, Calgary and Edmonton are done): the City of Vancouver
+(vancouver.ca answers the project's reader with a refusal: a lane with a browser can read its "renew your business licence" page, and the
+referee then needs the same sentences from two lanes); the Corporation des maîtres électriciens du Québec and the Corporation des maîtres
+mécaniciens en tuyauterie du Québec (their notice of assessment is an invoice with a number — what is missing is a sentence that it can be
+paid by cheque or through a financial institution; the page read so far only names the card); the Office de la protection du consommateur
+(its forms say the fee goes in with the application: find whether it sends a renewal notice); the Canadian Intellectual Property Office
+(does it send a notice before a trademark renewal or a patent maintenance fee is due?); the Better Business Bureaus of Canada (accreditation
+fees: invoice, payment methods, amounts by number of employees); the firms of patent and trademark agents (their "pay your invoice" page:
+Gowling WLG, Borden Ladner Gervais, ROBIC, Marks & Clerk, Norton Rose Fulbright, Osler, Lavery, Fasken, Oyen Wiggs, Moffat & Co. —
+`data/incoming/claude/tm/tm_agent_sites.csv` has the sites tied so far); and every chamber of commerce with more than 100 member rows
+(dues schedule, "an invoice is sent", "cheque or e-transfer").
 
 ## Records that are already in the dataset's own format
 

@@ -14,7 +14,9 @@ vendor site that ends with one of them), url + read (the page and the day), and 
   payment   how it can be paid (the words the owner's test reads: a bank payment, a cheque, a card)
   terms     when it is due                               unpaid    what happens when it is not paid
   remit_to  where a payment by mail goes (the body's own printed address)
-rank.py (bill_profile) writes them to the row's bill_* columns when the lane's own reading left them empty.
+A fact read on another page of the body carries that page beside it (delivery_url, remit_to_url, …). rank.py (bill_profile) writes them to the
+row's bill_* columns when the lane's own reading left them empty; the amount of one licence comes from tools/payee_fees.py (the body's own list
+of open invoices, or its fee schedule).
 """
 import collections, re, unicodedata
 
@@ -43,8 +45,24 @@ PAYEES = [
          payment=("cheque, bank debit, electronic funds transfer or a card: “We accept the following payment types: Cash, Personal and Company Cheques, Money Orders, Bank Debit Cards (Interac), Visa, "
                   "MasterCard, and American Express.” … “Electronic Funds Transfer (EFT) can be used to pay for City services such as permits, licences and land development applications. "
                   "It’s limited to payments of $10,000 and over.”"),
-         delivery="an invoice or a bill, to be shown when paying: “Please remember to provide the invoice or bill.”",
+         delivery=("a renewal notice by mail, which states the fee: “A renewal notice will be sent to the mailing address on file approximately 45 days before your licence expires.” … "
+                   "“Your new licensing fees will be displayed on your renewal notice that you receive by mail.”"),
+         delivery_url="https://www.edmonton.ca/business_economy/licences_permits/renew-your-business-licence",
+         remit_to=("“Urban Planning and Economy City of Edmonton PO Box 2670 Edmonton, Alberta T5J 2G4” — “Include the top portion of your renewal notice, and write your account number on your "
+                   "cheque or money order.”"),
+         remit_to_url="https://www.edmonton.ca/business_economy/licences_permits/renew-your-business-licence",
          unpaid="“Permits/Licences are not issued until all fees have been paid.”"),
+    # the City of Toronto: every kind of licence has its own page with the same four sentences (the page read here is the one for building renovators);
+    # the City also publishes, every night, its list of outstanding licence invoices (tools/payee_fees.py reads it and the fee of each kind of licence)
+    dict(names=["City of Toronto", "The City of Toronto"], hosts=["toronto.ca"], read="2026-11-11",
+         url="https://www.toronto.ca/services-payments/permits-licences-bylaws/building-renovators/",
+         period="“Your licence will expire annually on the anniversary of the date that the licence was first issued.”",
+         delivery=("a renewal notice by mail and a renewal invoice: “A courtesy notice will be mailed to your mailing address on file identifying any documents required to renew the licence.” … "
+                   "“Find your outstanding business licence or permit renewal invoice”"),
+         payment=("in person, online (by credit card, with the invoice number) or by cheque: “Licence renewal fees can be made in-person, paid online or by sending a cheque.” … "
+                  "“Once you have your invoice number, you can pay online using a credit card.” (the second sentence is on the City's list of outstanding invoices, "
+                  "https://www.toronto.ca/data/mls/invoices/index.html)"),
+         unpaid="“If you fail to renew your licence according to the bylaw, your licence will be cancelled and you will have to reapply.”"),
     # the Canadian Intellectual Property Office: how its fees can be paid. Its page does not say that it sends an invoice or a notice for a fee,
     # so nothing is written about how the bill arrives, and the owner's test says so on the rows it bills directly.
     dict(names=["Canadian Intellectual Property Office", "Canadian Intellectual Property Office (CIPO)", "CIPO"], hosts=["opic-cipo.gc.ca", "cipo.ic.gc.ca"], read="2026-11-11",
@@ -95,7 +113,8 @@ FACTS = ("period", "delivery", "payment", "terms", "unpaid", "remit_to", "no_inv
 
 
 def _sig(p):
-    return _hashlib.sha1(_json.dumps({k: p.get(k) for k in ("url",) + FACTS}, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
+    keys = ("url",) + FACTS + tuple(k + "_url" for k in FACTS if p.get(k + "_url")) + tuple(k for k in ("amounts", "amounts_url") if p.get(k))
+    return _hashlib.sha1(_json.dumps({k: p.get(k) for k in keys}, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
 
 
 def file_entries():
@@ -137,7 +156,8 @@ def payee_for(name="", site=""):
     return None
 
 
-COLS = (("bill_delivery_as_published", "delivery"), ("bill_payment_method_as_published", "payment"), ("service_stops_if_unpaid", "unpaid"))
+COLS = (("bill_delivery_as_published", "delivery"), ("bill_payment_method_as_published", "payment"), ("service_stops_if_unpaid", "unpaid"),
+        ("bill_due_terms_as_published", "terms"), ("bill_remit_to_as_published", "remit_to"))
 
 
 def verify():
@@ -152,20 +172,38 @@ def verify():
         if ok.get(f, {}).get("sig") == _sig(p):
             n["verified before"] += 1
             continue
-        quotes = [q for k in FACTS for q in re.findall(r"“([^”]+)”", p.get(k) or "")]
+        by_url = collections.defaultdict(list)
+        for k in FACTS:
+            by_url[p.get(k + "_url") or p["url"]] += re.findall(r"“([^”]+)”", p.get(k) or "")
+        try:  # a fee table: [[a pattern of the licence kind, the amount in words, the “line of the table”], …] on the page amounts_url
+            for rx, amount, quote in p.get("amounts") or ():
+                re.compile(rx)
+                by_url[p.get("amounts_url") or p["url"]] += re.findall(r"“([^”]+)”", quote)
+        except (ValueError, TypeError, re.error):
+            n["a fee table that is not [pattern, amount, quoted line] lines"] += 1
+            continue
+        quotes = [q for qs in by_url.values() for q in qs]
         if not quotes or any(len(q) > 300 for q in quotes):
             n["no quote, or a quote over 300 characters"] += 1
             continue
-        if not C.allowed(p["url"]):
-            n["the page's robots.txt does not allow the reader"] += 1
+        miss, why = [], ""
+        for url, qs in by_url.items():
+            if not qs:
+                continue
+            if not C.allowed(url):
+                why = "the page's robots.txt does not allow the reader"
+                break
+            st, ct, data, final = C.fetch(url)
+            time.sleep(1.0)
+            if st != 200 or not data:
+                why = "page not read (%s)" % st
+                break
+            pdf = data[:5] == b"%PDF-" or "pdf" in (ct or "").lower()
+            text = flat(C.pdf_text(data) or "") if pdf else flat(C.visible(C.quote_attrs(html.unescape(data.decode("utf-8", "replace")))))
+            miss += [q for q in qs if flat(q) not in text]
+        if why:
+            n[why] += 1
             continue
-        st, ct, data, final = C.fetch(p["url"])
-        time.sleep(1.0)
-        if st != 200 or not data:
-            n["page not read (%s)" % st] += 1
-            continue
-        text = flat(C.visible(C.quote_attrs(html.unescape(data.decode("utf-8", "replace")))))
-        miss = [q for q in quotes if flat(q) not in text]
         if miss:
             n["a quoted sentence is not on the page"] += 1
             print("not verified: %s — “%s”" % (f, miss[0][:120]))
@@ -184,7 +222,7 @@ def fill(out, x, name, site):
         return None
     for col, k in COLS:
         if p.get(k) and not out.get(col) and not str(x.get(col) or "").strip():
-            out[col] = "%s (%s, read %s)" % (p[k], p["url"], p["read"])
+            out[col] = "%s (%s, read %s)" % (p[k], p.get(k + "_url") or p["url"], p["read"])
     if p.get("no_invoice"):
         out["bill_delivery_as_published"] = "no invoice is sent: %s (%s, read %s)" % (p["no_invoice"], p["url"], p["read"])
     if p.get("amounts") and not out.get("bill_amount_indicative") and not str(x.get("bill_amount_indicative") or "").strip() and not str(x.get("contract_value") or "").strip():
@@ -194,6 +232,18 @@ def fill(out, x, name, site):
                 out["bill_amount_indicative"] = amount
                 out["bill_amount_basis"] = "the body's own fee table, for this kind of licence: %s (%s, read %s)" % (quote, p.get("amounts_url") or p["url"], p["read"])
                 break
+    if (str(x.get("contract_status") or "").startswith("holder of licence") and not out.get("bill_amount_indicative") and not out.get("bill_amount_calculated")
+            and not str(x.get("bill_amount_indicative") or "").strip() and not str(x.get("contract_value") or "").strip()):
+        import payee_fees
+        r = payee_fees.amount(p["names"][0], x)
+        if r and r["calculated"]:
+            out["bill_amount_calculated"] = "calculated — %s: %s" % (r["amount"], r["basis"].split("calculated — ", 1)[-1])
+        elif r:
+            out["bill_amount_indicative"], out["bill_amount_basis"] = r["amount"], r["basis"]
+        if r and r.get("bill_number") and not out.get("bill_identifier_format") and not str(x.get("bill_identifier_format") or "").strip():
+            out["bill_identifier_format"] = "%s, as the body's own list of open invoices gives it for this licence" % r["bill_number"]
+        if r and r.get("delivery"):
+            out["bill_delivery_as_published"] = r["delivery"] + ("; " + out["bill_delivery_as_published"] if out.get("bill_delivery_as_published") else "")
     return p
 
 

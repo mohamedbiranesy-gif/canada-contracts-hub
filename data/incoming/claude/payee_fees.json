@@ -1,0 +1,1406 @@
+{
+ "calgary": {
+  "read": "2026-11-11",
+  "rule": "Note 3: Multiple licence types: when applying for multiple licence types at the same time, the fee will be calculated based on all approvals required, using the highest fee in the sched- ule. All fees will only by charged once.",
+  "title": "2026 Business Licence Fee Schedule R2026-01",
+  "types": {
+   "ADULT MINI THEATRE": {
+    "base": 131,
+    "fire": 72,
+    "line": "Adult Mini-Theatre $172 $131 $72 $72 $41 -- -- -- $285 $203",
+    "name": "Adult Mini-Theatre",
+    "other": 0,
+    "total": 203
+   },
+   "ADVERTISING CANVASSER OF DISTRIBUTOR": {
+    "base": 131,
+    "fire": 69,
+    "line": "Advertising Canvasser of Distributor $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Advertising Canvasser of Distributor",
+    "other": 0,
+    "total": 200
+   },
+   "ALARM AGENCY": {
+    "base": 131,
+    "fire": 69,
+    "line": "Alarm Agency $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Alarm Agency",
+    "other": 0,
+    "total": 200
+   },
+   "ALARM AGENT": {
+    "base": 131,
+    "fire": 0,
+    "line": "Alarm Agent $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Alarm Agent",
+    "other": 0,
+    "total": 131
+   },
+   "ALCOHOL BEVERAGE MANUFACTURER": {
+    "base": 131,
+    "fire": 117,
+    "line": "Alcohol Beverage Manufacturer $172 $131 $227 $117 $41 -- -- -- $440 $248",
+    "name": "Alcohol Beverage Manufacturer",
+    "other": 0,
+    "total": 248
+   },
+   "ALCOHOL BEVERAGE SALES": {
+    "base": 131,
+    "fire": 117,
+    "line": "Alcohol Beverage Sales $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Alcohol Beverage Sales",
+    "other": 0,
+    "total": 248
+   },
+   "AMUSEMENT ARCADE": {
+    "base": 131,
+    "fire": 117,
+    "line": "Amusement Arcade $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Amusement Arcade",
+    "other": 0,
+    "total": 248
+   },
+   "APARTMENT BUILDING OPERATOR 1 TO 3 STOREYS": {
+    "base": 131,
+    "fire": 117,
+    "line": "Apartment Building Operator, 1 to 3 storeys $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Apartment Building Operator, 1 to 3 storeys",
+    "other": 0,
+    "total": 248
+   },
+   "APARTMENT BUILDING OPERATOR 4 OR MORE STOREYS": {
+    "base": 131,
+    "fire": 117,
+    "line": "Apartment Building Operator, 4 or more storeys $172 $131 $227 $117 $41 -- -- -- $440 $248",
+    "name": "Apartment Building Operator, 4 or more storeys",
+    "other": 0,
+    "total": 248
+   },
+   "AUTO BODY SHOP": {
+    "base": 131,
+    "fire": 117,
+    "line": "Auto Body Shop $172 $131 $227 $117 $41 -- -- -- $440 $248",
+    "name": "Auto Body Shop",
+    "other": 0,
+    "total": 248
+   },
+   "BICYCLE COURIER AGENCY": {
+    "base": 131,
+    "fire": 69,
+    "line": "Bicycle Courier Agency $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Bicycle Courier Agency",
+    "other": 0,
+    "total": 200
+   },
+   "BODY RUB CENTRE": {
+    "base": 131,
+    "fire": 69,
+    "line": "Body Rub Centre $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Body Rub Centre",
+    "other": 0,
+    "total": 200
+   },
+   "BODY RUB OFFICE": {
+    "base": 131,
+    "fire": 69,
+    "line": "Body Rub Office $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Body Rub Office",
+    "other": 0,
+    "total": 200
+   },
+   "BODY RUB PRACTITIONER": {
+    "base": 131,
+    "fire": 0,
+    "line": "Body Rub Practitioner $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Body Rub Practitioner",
+    "other": 0,
+    "total": 131
+   },
+   "CANNABIS FACILITY": {
+    "base": 131,
+    "fire": 117,
+    "line": "Cannabis Facility $172 $131 $227 $117 $41 -- -- -- $440 $248",
+    "name": "Cannabis Facility",
+    "other": 0,
+    "total": 248
+   },
+   "CANNABIS STORE": {
+    "base": 131,
+    "fire": 117,
+    "line": "Cannabis Store $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Cannabis Store",
+    "other": 0,
+    "total": 248
+   },
+   "CARNIVAL OR CIRCUS": {
+    "base": 131,
+    "fire": 117,
+    "line": "Carnival or Circus $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Carnival or Circus",
+    "other": 0,
+    "total": 248
+   },
+   "CINEMA": {
+    "base": 131,
+    "fire": 117,
+    "line": "Cinema $172 $131 $227 $117 $41 -- -- -- $440 $248",
+    "name": "Cinema",
+    "other": 0,
+    "total": 248
+   },
+   "CLEANING SERVICE": {
+    "base": 131,
+    "fire": 117,
+    "line": "Cleaning Service $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Cleaning Service",
+    "other": 0,
+    "total": 248
+   },
+   "COMBATIVE SPORTS CONTESTANT": {
+    "base": 131,
+    "fire": 0,
+    "line": "Combative Sports - Contestant (Annual) $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Combative Sports - Contestant (Annual)",
+    "other": 0,
+    "total": 131
+   },
+   "COMBATIVE SPORTS EVENT": {
+    "base": 131,
+    "fire": 0,
+    "line": "Combative Sports - Event $172 $131 -- -- $41 -- -- -- $213 $131",
+    "name": "Combative Sports - Event",
+    "other": 0,
+    "total": 131
+   },
+   "COMBATIVE SPORTS JUDGE OR REFEREE": {
+    "base": 131,
+    "fire": 0,
+    "line": "Combative Sports - Judge or Referee (Annual) $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Combative Sports - Judge or Referee (Annual)",
+    "other": 0,
+    "total": 131
+   },
+   "COMBATIVE SPORTS PROMOTER": {
+    "base": 131,
+    "fire": 0,
+    "line": "Combative Sports - Promoter $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Combative Sports - Promoter",
+    "other": 0,
+    "total": 131
+   },
+   "CONCERT": {
+    "base": 0,
+    "fire": 72,
+    "line": "Concert (per day) $1,179 -- $72 $72 $41 -- -- -- $1,292 $72",
+    "name": "Concert (per day)",
+    "other": 0,
+    "total": 72
+   },
+   "CONCERT FACILITY": {
+    "base": 117,
+    "fire": 227,
+    "line": "Concert Facility $236 $117 $227 $227 $41 -- -- -- $504 $344",
+    "name": "Concert Facility",
+    "other": 0,
+    "total": 344
+   },
+   "CONTAINER DEPOT": {
+    "base": 131,
+    "fire": 117,
+    "line": "Container Depot $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Container Depot",
+    "other": 0,
+    "total": 248
+   },
+   "CONTRACTOR": {
+    "base": 131,
+    "fire": 117,
+    "line": "Contractor $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Contractor",
+    "other": 0,
+    "total": 248
+   },
+   "DATE OR ESCORT": {
+    "base": 131,
+    "fire": 0,
+    "line": "Date or Escort $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Date or Escort",
+    "other": 0,
+    "total": 131
+   },
+   "DATING OR ESCORT SERVICE": {
+    "base": 131,
+    "fire": 69,
+    "line": "Dating or Escort Service $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Dating or Escort Service",
+    "other": 0,
+    "total": 200
+   },
+   "DISTRIBUTION MANAGER": {
+    "base": 131,
+    "fire": 69,
+    "line": "Distribution Manager $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Distribution Manager",
+    "other": 0,
+    "total": 200
+   },
+   "ENTERTAINMENT ESTABLISHMENT": {
+    "base": 131,
+    "fire": 117,
+    "line": "Entertainment Establishment $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Entertainment Establishment",
+    "other": 0,
+    "total": 248
+   },
+   "EXOTIC ENTERTAINER": {
+    "base": 131,
+    "fire": 0,
+    "line": "Exotic Entertainer $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Exotic Entertainer",
+    "other": 0,
+    "total": 131
+   },
+   "EXOTIC ENTERTAINMENT AGENCY": {
+    "base": 131,
+    "fire": 69,
+    "line": "Exotic Entertainment Agency $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Exotic Entertainment Agency",
+    "other": 0,
+    "total": 200
+   },
+   "EXTENDED DANCE EVENT": {
+    "base": 0,
+    "fire": 117,
+    "line": "Extended Dance Event (per event) $327 -- $227 $117 $41 -- -- -- $595 $117",
+    "name": "Extended Dance Event (per event)",
+    "other": 0,
+    "total": 117
+   },
+   "FABRIC CLEANING": {
+    "base": 131,
+    "fire": 117,
+    "line": "Fabric Cleaning $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Fabric Cleaning",
+    "other": 0,
+    "total": 248
+   },
+   "FOOD SERVICE NO PREMISES": {
+    "base": 721,
+    "fire": 0,
+    "line": "Food Service - No Premises $761 $721 -- -- -- -- -- -- $761 $721",
+    "name": "Food Service - No Premises",
+    "other": 0,
+    "total": 721
+   },
+   "FOOD SERVICE PREMISES": {
+    "base": 131,
+    "fire": 117,
+    "line": "Food Service - Premises $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Food Service - Premises",
+    "other": 0,
+    "total": 248
+   },
+   "FUEL SALES STORAGE": {
+    "base": 131,
+    "fire": 117,
+    "line": "Fuel Sales / Storage $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Fuel Sales / Storage",
+    "other": 0,
+    "total": 248
+   },
+   "FULL SERVICE FOOD VEHICLE": {
+    "base": 721,
+    "fire": 69,
+    "line": "Full Service Food Vehicle $761 $721 $117 $69 -- -- $75 -- $953 $790",
+    "name": "Full Service Food Vehicle",
+    "other": 0,
+    "total": 790
+   },
+   "FURNITURE REFINISHING": {
+    "base": 131,
+    "fire": 117,
+    "line": "Furniture Refinishing $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Furniture Refinishing",
+    "other": 0,
+    "total": 248
+   },
+   "HOTEL MOTEL": {
+    "base": 131,
+    "fire": 117,
+    "line": "Hotel/Motel $172 $131 $227 $117 $41 -- -- -- $440 $248",
+    "name": "Hotel/Motel",
+    "other": 0,
+    "total": 248
+   },
+   "KENNEL SERVICE PET DEALER": {
+    "base": 131,
+    "fire": 69,
+    "line": "Kennel Service / Pet Dealer $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Kennel Service / Pet Dealer",
+    "other": 0,
+    "total": 200
+   },
+   "LIQUOR STORE": {
+    "base": 131,
+    "fire": 72,
+    "line": "Liquor Store $172 $131 $117 $72 $41 -- -- -- $330 $203",
+    "name": "Liquor Store",
+    "other": 0,
+    "total": 203
+   },
+   "LODGING HOUSE": {
+    "base": 131,
+    "fire": 117,
+    "line": "Lodging House $172 $131 $117 $117 -- -- -- -- $289 $248",
+    "name": "Lodging House",
+    "other": 0,
+    "total": 248
+   },
+   "MANUFACTURER": {
+    "base": 131,
+    "fire": 117,
+    "line": "Manufacturer $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Manufacturer",
+    "other": 0,
+    "total": 248
+   },
+   "MARKET": {
+    "base": 131,
+    "fire": 72,
+    "line": "Market $172 $131 $117 $72 $41 -- -- -- $330 $203",
+    "name": "Market",
+    "other": 0,
+    "total": 203
+   },
+   "MASSAGE CENTRE": {
+    "base": 131,
+    "fire": 69,
+    "line": "Massage Centre $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Massage Centre",
+    "other": 0,
+    "total": 200
+   },
+   "MASSAGE OFFICE": {
+    "base": 131,
+    "fire": 0,
+    "line": "Massage Office $172 $131 -- -- $41 -- -- -- $213 $131",
+    "name": "Massage Office",
+    "other": 0,
+    "total": 131
+   },
+   "MASSAGE PRACTITIONER": {
+    "base": 131,
+    "fire": 0,
+    "line": "Massage Practitioner $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Massage Practitioner",
+    "other": 0,
+    "total": 131
+   },
+   "MODEL": {
+    "base": 131,
+    "fire": 0,
+    "line": "Model $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Model",
+    "other": 0,
+    "total": 131
+   },
+   "MODEL STUDIO": {
+    "base": 131,
+    "fire": 69,
+    "line": "Model Studio $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Model Studio",
+    "other": 0,
+    "total": 200
+   },
+   "MOTOR VEHICLE DEALER NO PREMISES": {
+    "base": 131,
+    "fire": 117,
+    "line": "Motor Vehicle Dealer - No Premises $172 $131 $117 $117 -- -- -- -- $289 $248",
+    "name": "Motor Vehicle Dealer - No Premises",
+    "other": 0,
+    "total": 248
+   },
+   "MOTOR VEHICLE DEALER PREMISES": {
+    "base": 131,
+    "fire": 117,
+    "line": "Motor Vehicle Dealer - Premises $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Motor Vehicle Dealer - Premises",
+    "other": 0,
+    "total": 248
+   },
+   "MOTOR VEHICLE REPAIR SERVICE": {
+    "base": 131,
+    "fire": 117,
+    "line": "Motor Vehicle Repair & Service $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Motor Vehicle Repair & Service",
+    "other": 0,
+    "total": 248
+   },
+   "OUTDOOR PATIO": {
+    "base": 131,
+    "fire": 0,
+    "line": "Outdoor Patio $172 $131 -- -- $41 -- -- -- $213 $131",
+    "name": "Outdoor Patio",
+    "other": 0,
+    "total": 131
+   },
+   "PAWNBROKER": {
+    "base": 131,
+    "fire": 69,
+    "line": "Pawnbroker $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Pawnbroker",
+    "other": 0,
+    "total": 200
+   },
+   "PAYDAY LENDER": {
+    "base": 131,
+    "fire": 69,
+    "line": "Payday Lender $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Payday Lender",
+    "other": 0,
+    "total": 200
+   },
+   "PERSONAL SERVICE": {
+    "base": 131,
+    "fire": 69,
+    "line": "Personal Service (tattoo) $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Personal Service (tattoo)",
+    "other": 0,
+    "total": 200
+   },
+   "PHOTOGRAPHER": {
+    "base": 131,
+    "fire": 72,
+    "line": "Photographer $172 $131 $117 $72 $41 -- -- -- $330 $203",
+    "name": "Photographer",
+    "other": 0,
+    "total": 203
+   },
+   "PSYCHIC PRACTITIONER": {
+    "base": 131,
+    "fire": 0,
+    "line": "Psychic Practitioner $172 $131 -- -- $41 -- -- -- $213 $131",
+    "name": "Psychic Practitioner",
+    "other": 0,
+    "total": 131
+   },
+   "PUSHCART VENDOR": {
+    "base": 131,
+    "fire": 0,
+    "line": "Pushcart Vendor $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Pushcart Vendor",
+    "other": 0,
+    "total": 131
+   },
+   "RETAIL DEALER NO PREMISES": {
+    "base": 721,
+    "fire": 0,
+    "line": "Retail Dealer - No Premises (overnight storage) $761 $721 -- -- $41 -- -- -- $802 $721",
+    "name": "Retail Dealer - No Premises (overnight storage)",
+    "other": 0,
+    "total": 721
+   },
+   "RETAIL DEALER PREMISES": {
+    "base": 131,
+    "fire": 72,
+    "line": "Retail Dealer - Premises $172 $131 $117 $72 $41 -- -- -- $330 $203",
+    "name": "Retail Dealer - Premises",
+    "other": 0,
+    "total": 203
+   },
+   "SALVAGE COLLECTOR": {
+    "base": 131,
+    "fire": 0,
+    "line": "Salvage Collector $172 $131 -- -- $41 -- -- -- $213 $131",
+    "name": "Salvage Collector",
+    "other": 0,
+    "total": 131
+   },
+   "SALVAGE YARD AUTO WRECKER": {
+    "base": 131,
+    "fire": 117,
+    "line": "Salvage Yard / Auto Wrecker $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Salvage Yard / Auto Wrecker",
+    "other": 0,
+    "total": 248
+   },
+   "SCHOOL DRIVERS EDUCATION": {
+    "base": 131,
+    "fire": 69,
+    "line": "School - Driver’s Education $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "School - Driver’s Education",
+    "other": 0,
+    "total": 200
+   },
+   "SCHOOL VOCATIONAL COMMERCIAL": {
+    "base": 131,
+    "fire": 117,
+    "line": "School - Vocational, Commercial $172 $131 $227 $117 $41 -- -- -- $440 $248",
+    "name": "School - Vocational, Commercial",
+    "other": 0,
+    "total": 248
+   },
+   "SECONDHAND DEALER": {
+    "base": 131,
+    "fire": 69,
+    "line": "Secondhand Dealer $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Secondhand Dealer",
+    "other": 0,
+    "total": 200
+   },
+   "SECURITY CONSULTANT": {
+    "base": 131,
+    "fire": 0,
+    "line": "Security Consultant $172 $131 -- -- -- -- -- -- $172 $131",
+    "name": "Security Consultant",
+    "other": 0,
+    "total": 131
+   },
+   "SECURITY CONSULTING AGENCY": {
+    "base": 131,
+    "fire": 69,
+    "line": "Security Consulting Agency $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Security Consulting Agency",
+    "other": 0,
+    "total": 200
+   },
+   "SHORT TERM RENTAL COMPANY LICENCE": {
+    "base": 3000,
+    "fire": 0,
+    "line": "Short term rental Company licence $3000 $3000 -- -- -- -- -- -- $3000 $3000",
+    "name": "Short term rental Company licence",
+    "other": 0,
+    "total": 3000
+   },
+   "SHORT TERM RENTAL NON PRIMARY RESIDENCE": {
+    "base": 260,
+    "fire": 117,
+    "line": "Short Term Rental - Non-Primary Residence $510 $260 $117 $117 -- -- -- -- $627 $377",
+    "name": "Short Term Rental - Non-Primary Residence",
+    "other": 0,
+    "total": 377
+   },
+   "SHORT TERM RENTAL PRIMARY RESIDENCE": {
+    "base": 131,
+    "fire": 117,
+    "line": "Short Term Rental - Primary Residence $172 $131 $117 $117 -- -- -- -- $289 $248",
+    "name": "Short Term Rental - Primary Residence",
+    "other": 0,
+    "total": 248
+   },
+   "TOBACCO RETAILER": {
+    "base": 131,
+    "fire": 69,
+    "line": "Tobacco Retailer $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Tobacco Retailer",
+    "other": 0,
+    "total": 200
+   },
+   "TRADE SHOW": {
+    "base": 131,
+    "fire": 227,
+    "line": "Trade Show (facility) $172 $131 $227 $227 $41 -- -- -- $440 $358",
+    "name": "Trade Show (facility)",
+    "other": 0,
+    "total": 358
+   },
+   "VAPING RETAILER": {
+    "base": 131,
+    "fire": 69,
+    "line": "Vaping Retailer $172 $131 $72 $69 $41 -- -- -- $285 $200",
+    "name": "Vaping Retailer",
+    "other": 0,
+    "total": 200
+   },
+   "WAREHOUSING": {
+    "base": 131,
+    "fire": 117,
+    "line": "Warehousing $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Warehousing",
+    "other": 0,
+    "total": 248
+   },
+   "WHOLESALER": {
+    "base": 131,
+    "fire": 117,
+    "line": "Wholesaler $172 $131 $117 $117 $41 -- -- -- $330 $248",
+    "name": "Wholesaler",
+    "other": 0,
+    "total": 248
+   }
+  },
+  "url": "https://www.calgary.ca/content/dam/www/pda/pd/documents/fees/business-licence-fee-schedule.pdf"
+ },
+ "edmonton": {
+  "categories": {
+   "ADMINISTRATION OFFICE PROFESSIONAL SERVICE": {
+    "name": "Administration Office / Professional Service",
+    "tier": "3"
+   },
+   "ADULT SERVICE": {
+    "name": "Adult Service",
+    "tier": "4"
+   },
+   "AFTER HOURS DANCE CLUB": {
+    "name": "After Hours Dance Club",
+    "tier": "5"
+   },
+   "ALCOHOL SALES CONSUMPTION OFF PREMISES": {
+    "name": "Alcohol Sales (Consumption Off-Premises)",
+    "tier": "3"
+   },
+   "ALCOHOL SALES CONSUMPTION ON PREMISES MINORS ALLOWED": {
+    "name": "Alcohol Sales (Consumption On-Premises / Minors Allowed)",
+    "tier": "3"
+   },
+   "ALCOHOL SALES CONSUMPTION ON PREMISES MINORS PROHIBITED": {
+    "name": "Alcohol Sales (Consumption On-Premises / Minors Prohibited)",
+    "tier": "5"
+   },
+   "AMUSEMENT ESTABLISHMENT": {
+    "name": "Amusement Establishment",
+    "tier": "3"
+   },
+   "ANIMAL BREEDING AND BOARDING FACILITY": {
+    "name": "Animal Breeding and Boarding Facility",
+    "tier": "3"
+   },
+   "AUCTION": {
+    "name": "Auction",
+    "tier": "3"
+   },
+   "BINGO CASINO": {
+    "name": "Bingo / Casino",
+    "tier": "3"
+   },
+   "BODY RUB CENTRE": {
+    "name": "Body Rub Centre",
+    "tier": "5"
+   },
+   "CANNABIS CULTIVATION FACILITY": {
+    "name": "Cannabis Cultivation Facility",
+    "tier": "4"
+   },
+   "CANNABIS PROCESSING FACILITY": {
+    "name": "Cannabis Processing Facility",
+    "tier": "4"
+   },
+   "CANNABIS RETAIL SALES": {
+    "name": "Cannabis Retail Sales",
+    "tier": "3"
+   },
+   "CARNIVAL AMUSEMENT PARK": {
+    "name": "Carnival / Amusement Park",
+    "tier": "3"
+   },
+   "COMMERCIAL SCHOOL": {
+    "name": "Commercial School",
+    "tier": "3"
+   },
+   "CONSTRUCTION CONTRACTING AND LABOUR SERVICE": {
+    "name": "Construction, Contracting, and Labour Service",
+    "tier": "3"
+   },
+   "DELIVERY AND LOGISTIC SERVICE": {
+    "name": "Delivery and Logistic Service",
+    "tier": "3"
+   },
+   "DESIGNATED DRIVER SERVICE": {
+    "name": "Designated Driver Service",
+    "tier": "3"
+   },
+   "EROTIC ENTERTAINMENT AGENCY": {
+    "name": "Erotic Entertainment Agency",
+    "tier": "4"
+   },
+   "EROTIC ENTERTAINMENT VENUE": {
+    "name": "Erotic Entertainment Venue",
+    "tier": "4"
+   },
+   "ESCORT AGENCY": {
+    "name": "Escort Agency",
+    "tier": "4"
+   },
+   "EVENT PRODUCTION": {
+    "name": "Event Production",
+    "tier": "3"
+   },
+   "EXHIBITION HALL": {
+    "name": "Exhibition Hall",
+    "tier": "3"
+   },
+   "FARMERS MARKET": {
+    "name": "Farmers’ Market",
+    "tier": "2"
+   },
+   "FINANCIAL SERVICE": {
+    "name": "Financial Service",
+    "tier": "3"
+   },
+   "FIREARM AND AMMUNITION SALES SERVICE AND MANUFACTURING": {
+    "name": "Firearm and Ammunition Sales, Service, and Manufacturing",
+    "tier": "3"
+   },
+   "FOOD PROCESSING CATERING SERVICE": {
+    "name": "Food Processing / Catering Service",
+    "tier": "3"
+   },
+   "FOOD TRUCK FOOD CART": {
+    "name": "Food Truck / Food Cart",
+    "tier": "2"
+   },
+   "FUNERAL CREMATION AND CEMETERY SERVICE": {
+    "name": "Funeral, Cremation, and Cemetery Service",
+    "tier": "3"
+   },
+   "GENERAL BUSINESS": {
+    "name": "General Business",
+    "tier": "3"
+   },
+   "HEALTH ENHANCEMENT CENTRE ACCREDITED": {
+    "name": "Health Enhancement Centre (Accredited)",
+    "tier": "3"
+   },
+   "HEALTH ENHANCEMENT CENTRE ACCREDITED INDEPENDENT": {
+    "name": "Health Enhancement Centre (Accredited / Independent)",
+    "tier": "3"
+   },
+   "HEALTH ENHANCEMENT PRACTITIONER ACCREDITED": {
+    "name": "Health Enhancement Practitioner (Accredited)",
+    "tier": "2"
+   },
+   "HOTEL MOTEL": {
+    "name": "Hotel / Motel",
+    "tier": "3"
+   },
+   "INDEPENDENT LABORATORY": {
+    "name": "Independent Laboratory",
+    "tier": "3"
+   },
+   "INDUSTRIAL EQUIPMENT SALES RENTAL AND REPAIR": {
+    "name": "Industrial Equipment Sales, Rental, and Repair",
+    "tier": "3"
+   },
+   "LIGHT DUTY REPAIR SERVICE": {
+    "name": "Light Duty Repair Service",
+    "tier": "3"
+   },
+   "MANUFACTURER": {
+    "name": "Manufacturer",
+    "tier": "3"
+   },
+   "OLEORESIN CAPSICUM OC SPRAY SALES": {
+    "name": "Oleoresin Capsicum (OC) Spray Sales",
+    "tier": "3"
+   },
+   "PARTICIPANT RECREATION SERVICE": {
+    "name": "Participant Recreation Service",
+    "tier": "3"
+   },
+   "PAWNBROKER": {
+    "name": "Pawnbroker",
+    "tier": "4"
+   },
+   "PERSONAL SERVICE": {
+    "name": "Personal Service",
+    "tier": "3"
+   },
+   "PUBLIC MARKET ORGANIZER": {
+    "name": "Public Market Organizer",
+    "tier": "2"
+   },
+   "PUBLIC MARKET VENDOR": {
+    "name": "Public Market Vendor",
+    "tier": "1"
+   },
+   "RESIDENTIAL RENTAL ACCOMMODATION LONG TERM": {
+    "name": "Residential Rental Accommodation (Long-Term)",
+    "tier": "3"
+   },
+   "RESIDENTIAL RENTAL ACCOMMODATION SHORT TERM": {
+    "name": "Residential Rental Accommodation (Short-Term)",
+    "tier": "2"
+   },
+   "RESTAURANT OR FOOD SERVICE": {
+    "name": "Restaurant or Food Service",
+    "tier": "3"
+   },
+   "RETAIL SALES CONVENIENCE STORE": {
+    "name": "Retail Sales (Convenience Store)",
+    "tier": "3"
+   },
+   "RETAIL SALES MAJOR": {
+    "name": "Retail Sales (Major)",
+    "tier": "3"
+   },
+   "RETAIL SALES MINOR": {
+    "name": "Retail Sales (Minor)",
+    "tier": "3"
+   },
+   "SCRAP METAL DEALER AND RECYCLER": {
+    "name": "Scrap Metal Dealer and Recycler",
+    "tier": "3"
+   },
+   "SECOND HAND DEALER": {
+    "name": "Second Hand Dealer",
+    "tier": "4"
+   },
+   "SPECTATOR ENTERTAINMENT": {
+    "name": "Spectator Entertainment",
+    "tier": "3"
+   },
+   "TOBACCO AND VAPING PRODUCT SALES": {
+    "name": "Tobacco and Vaping Product Sales",
+    "tier": "3"
+   },
+   "TRAVELLING OR TEMPORARY SALES NON RENEWABLE 10 DAY LICENCE": {
+    "name": "Travelling or Temporary Sales - Non-renewable 10 day licence",
+    "tier": "1"
+   },
+   "TRAVELLING OR TEMPORARY SALES RENEWABLE 1 OR 2 YEAR LICENCE": {
+    "name": "Travelling or Temporary Sales - Renewable 1 or 2-year licence",
+    "tier": "2"
+   },
+   "VEHICLE REPAIR MAINTENANCE AND MODIFICATION": {
+    "name": "Vehicle Repair, Maintenance, and Modification",
+    "tier": "3"
+   },
+   "VEHICLE SALES AND RENTAL": {
+    "name": "Vehicle Sales and Rental",
+    "tier": "3"
+   },
+   "VEHICLE WASH FUELING STATION": {
+    "name": "Vehicle Wash / Fueling Station",
+    "tier": "3"
+   },
+   "WHOLESALE WAREHOUSE AND STORAGE": {
+    "name": "Wholesale, Warehouse, and Storage",
+    "tier": "3"
+   }
+  },
+  "head": "Category 1 Year Licence Fee 1 Year Renewal Fee* 2 Year Licence Fee 2 Year Renewal Fee*",
+  "read": "2026-11-11",
+  "rule": "If multiple Business Categories apply, the Business Category with the highest tier determines the Licence Fee or Renewal Fee in accordance with section 13 of the Bylaw.",
+  "tiers": {
+   "1": {
+    "fee1": 63,
+    "fee2": 116,
+    "line": "Tier 1 $63 $53 $116 $106",
+    "renew1": 53,
+    "renew2": 106
+   },
+   "2": {
+    "fee1": 101,
+    "fee2": 191,
+    "line": "Tier 2 $101 $91 $191 $176",
+    "renew1": 91,
+    "renew2": 176
+   },
+   "3": {
+    "fee1": 271,
+    "fee2": 520,
+    "line": "Tier 3 $271 $244 $520 $467",
+    "renew1": 244,
+    "renew2": 467
+   },
+   "4": {
+    "fee1": 574,
+    "fee2": 1083,
+    "line": "Tier 4 $574 $515 $1,083 $977",
+    "renew1": 515,
+    "renew2": 977
+   },
+   "5": {
+    "fee1": 728,
+    "fee2": 1387,
+    "line": "Tier 5 $728 $659 $1,387 $1,248",
+    "renew1": 659,
+    "renew2": 1248
+   }
+  },
+  "url": "https://www.edmonton.ca/sites/default/files/public-files/business-licence-fee-schedule-bylaw-20002.pdf"
+ },
+ "toronto": {
+  "index": "https://www.toronto.ca/services-payments/permits-licences-bylaws/find-licence-permit-types/",
+  "pages": [
+   {
+    "name": "Vapour Product Retailers",
+    "quote": "The renewal fee is $377.33",
+    "renewal": [
+     "$377.33"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/vapour-product-retailers/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Smoke Shops and Stores Which Sell Cigars and Cigarettes",
+    "quote": "The renewal fee is $384.88",
+    "renewal": [
+     "$384.88"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/smoke-shops-stores-that-sell-cigarscigarettes/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Amusement Establishment",
+    "quote": "The renewal fee is $275.60",
+    "renewal": [
+     "$275.60"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/amusement-establishment/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Car Rental Business",
+    "quote": "The renewal fee is $350.51",
+    "renewal": [
+     "$350.51"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/car-rental-business/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Body Piercing, Electrolysis, Hair Salon, Nail Shop, Tattoo, Waxing and Other Personal Services",
+    "quote": "The renewal fee is $296.45",
+    "renewal": [
+     "$296.45"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/body-piercing-electrolysis-hair-salon-nail-shop-tattoo-and-waxing/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Body Rub Parlour",
+    "quote": "The renewal fee is $16,065.51",
+    "renewal": [
+     "$16,065.51"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/body-rub-parlour-and-body-rubber/body-rub-parlour/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Body Rubber",
+    "quote": "The renewal fee is $352.12",
+    "renewal": [
+     "$352.12"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/body-rub-parlour-and-body-rubber/body-rubber/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Building Renovators",
+    "quote": "The renewal fee is $293.14",
+    "renewal": [
+     "$293.14"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/building-renovators/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Buskers & Sidewalk Performers",
+    "quote": "The renewal fee is $55.91",
+    "renewal": [
+     "$55.91"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/buskers-sidewalk-performers/",
+    "yearly": ""
+   },
+   {
+    "name": "Carwash, Gas Station or Public Garage",
+    "quote": "The renewal fee is $350.51",
+    "renewal": [
+     "$350.51"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/body-shop-car-wash-gas-station-car-dealership-or-public-garage/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Commercial Parking Lot",
+    "quote": "The renewal fee is $350.51",
+    "renewal": [
+     "$350.51"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/commercial-parking-lot/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Driveway Paving Contractor",
+    "quote": "The renewal fee is $293.14",
+    "renewal": [
+     "$293.14"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/driveway-paving-contractor/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Driving School Instructors (Who Do Not Own Vehicle)",
+    "quote": "The renewal fee is $365.21",
+    "renewal": [
+     "$365.21"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/driving-school-operators-instructors/driving-school-instructors-who-do-not-own-vehicle/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Driving School Instructors (Who Own Vehicle)",
+    "quote": "The renewal fee is $389.32",
+    "renewal": [
+     "$389.32"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/driving-school-operators-instructors/driving-school-instructors-who-own-vehicle/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Driving School Operators (In-Class Training Only)",
+    "quote": "The renewal fee is $350.51",
+    "renewal": [
+     "$350.51"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/driving-school-operators-instructors/driving-school-operators-in-class-training-only/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Driving School Operators (In-Vehicle Training)",
+    "quote": "The renewal fee is $389.32",
+    "renewal": [
+     "$389.32"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/driving-school-operators-instructors/driving-school-operators-in-vehicle-training/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Food Trucks",
+    "quote": "The renewal fee is $973.91",
+    "renewal": [
+     "$973.91"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/food-trucks-food-carts-ice-cream-trucks/food-trucks/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Vending Carts (Food & Non-Food)",
+    "quote": "The renewal fee is $350.51",
+    "renewal": [
+     "$350.51"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/food-trucks-food-carts-ice-cream-trucks/food-carts/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Refreshment Vehicle Driver",
+    "quote": "The renewal fee is $365.21",
+    "renewal": [
+     "$365.21"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/refreshment-vehicle-driver/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Ice Cream Trucks",
+    "quote": "The renewal fee is $973.91",
+    "renewal": [
+     "$973.91"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/food-trucks-food-carts-ice-cream-trucks/ice-cream-trucks/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Eating or Drinking Establishment",
+    "quote": "The renewal fee is $362.96",
+    "renewal": [
+     "$362.96"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/restaurants-cafes-grocery-variety-and-retail-stores-selling-food/eating-or-drinking-establishment/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Expanded Activity Eating or Drinking Establishment",
+    "quote": "The renewal fee is $546.00",
+    "renewal": [
+     "$546.00"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/expanded-activity-eating-or-drinking-establishment/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Take-out or Retail Food Establishment",
+    "quote": "The renewal fee is $261.04",
+    "renewal": [
+     "$261.04"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/restaurants-cafes-grocery-variety-and-retail-stores-selling-food/take-out-or-retail-food-establishment/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Sales Using a Push Cart",
+    "quote": "The renewal fee is $994.16",
+    "renewal": [
+     "$994.16"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/street-vending-non-food-hawkerpedlar-assistants/sales-using-a-push-cart/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Sales On Foot",
+    "quote": "The renewal fee is $384.88",
+    "renewal": [
+     "$384.88"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/street-vending-non-food-hawkerpedlar-assistants/sales-on-foot/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Sales With Motor Vehicle",
+    "quote": "The renewal fee is $994.16",
+    "renewal": [
+     "$994.16"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/street-vending-non-food-hawkerpedlar-assistants/sales-with-motor-vehicle/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Pedlar Assistant",
+    "quote": "The renewal fee is $365.21",
+    "renewal": [
+     "$365.21"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/street-vending-non-food-hawkerpedlar-assistants/pedlar-assistant/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Heating Contractor",
+    "quote": "The renewal fee is $293.14",
+    "renewal": [
+     "$293.14"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/plumbing-heating/heating-contractor/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Holistic Centre",
+    "quote": "The renewal fee is $188.34",
+    "renewal": [
+     "$188.34"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/holistic-centre-and-practitioner-reikki-aromatherapy-or-massage-therapy/holistic-centre/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Holistic Practitioner",
+    "quote": "The renewal fee is $244.03",
+    "renewal": [
+     "$244.03"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/holistic-centre-and-practitioner-reikki-aromatherapy-or-massage-therapy/holistic-practitioner/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Insulation Installer",
+    "quote": "The renewal fee is $293.14",
+    "renewal": [
+     "$293.14"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/insulation-installer/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Jewellery Buyers and Precious Metal Shops",
+    "quote": "The renewal fee is $384.88",
+    "renewal": [
+     "$384.88"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/jewellery-buyers-precious-metal-shops/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Laundromats, Laundry Depots & Dry Cleaning",
+    "quote": "The renewal fee is $296.45",
+    "renewal": [
+     "$296.45"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/laundromats-laundry-depots-dry-cleaning/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Entertainment Establishment/Nightclub",
+    "quote": "The renewal fee is $738.40",
+    "renewal": [
+     "$738.40"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/entertainment-establishment-nightclub/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Pawn Shops",
+    "quote": "The renewal fee is $384.88",
+    "renewal": [
+     "$384.88"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/pawn-shops/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Pet Shops",
+    "quote": "The renewal fee is $384.88",
+    "renewal": [
+     "$384.88"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/pet-shops/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Pedicab Owner",
+    "quote": "The renewal fee is $350.51",
+    "renewal": [
+     "$350.51"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/pedicab-owner/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Pedicab Driver",
+    "quote": "The renewal fee is $365.21",
+    "renewal": [
+     "$365.21"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/pedicab-driver/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Master Heating Installer",
+    "quote": "The renewal fee is $293.14",
+    "renewal": [
+     "$293.14"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/plumbing-heating/master-heating-installer/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Plumbing & Heating Contractor",
+    "quote": "The renewal fee is $499.51",
+    "renewal": [
+     "$499.51"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/plumbing-heating/plumbing-heating-contractor/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Plumbing Contractor",
+    "quote": "The renewal fee is $293.14",
+    "renewal": [
+     "$293.14"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/plumbing-heating/plumbing-contractor/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Private Parking Enforcement Agency",
+    "quote": "The renewal fee is $350.51",
+    "renewal": [
+     "$350.51"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/private-parking-enforcement-agency/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Second Hand Shop Licence",
+    "quote": "The renewal fee is $384.88",
+    "renewal": [
+     "$384.88"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/second-hand-salvage-yards-shops/second-hand-shop/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Second Hand Salvage Shop",
+    "quote": "The renewal fee is $384.88",
+    "renewal": [
+     "$384.88"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/second-hand-salvage-yards-shops/second-hand-salvage-shop/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Master Plumber",
+    "quote": "The renewal fee is $293.14",
+    "renewal": [
+     "$293.14"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/plumbing-heating/master-plumber/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Second Hand Salvage Yard",
+    "quote": "The renewal fee is $384.88",
+    "renewal": [
+     "$384.88"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/second-hand-salvage-yards-shops/second-hand-salvage-yard/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Auctioneer",
+    "quote": "The renewal fee is $293.14",
+    "renewal": [
+     "$293.14"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/auctioneer/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Adult Entertainment Club Owner/Operator",
+    "quote": "The renewal fee is $16,173.61",
+    "renewal": [
+     "$16,173.61"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/adult-entertainment-club-manager-entertainer-dancer/adult-entertainment-club-owneroperator/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Adult Entertainment Club Designated Manager",
+    "quote": "The renewal fee is $352.12",
+    "renewal": [
+     "$352.12"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/adult-entertainment-club-manager-entertainer-dancer/adult-entertainment-club-designated-manager/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Adult Entertainer (Dancer)",
+    "quote": "The renewal fee is $352.12",
+    "renewal": [
+     "$352.12"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/adult-entertainment-club-manager-entertainer-dancer/adult-entertainment-club-entertainer-dancer/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Entertainment Places of Assembly",
+    "quote": "The renewal fee is $261.04",
+    "renewal": [
+     "$261.04"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/entertainment-place-of-assembly/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Expanded Activity Entertainment Places of Assembly",
+    "quote": "The renewal fee is $393.12",
+    "renewal": [
+     "$393.12"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licences-bylaws/expanded-activity-entertainment-place-of-assembly/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   },
+   {
+    "name": "Payday Loan Establishments",
+    "quote": "The renewal fee is $384.88",
+    "renewal": [
+     "$384.88"
+    ],
+    "url": "https://www.toronto.ca/services-payments/permits-licenses-bylaws/payday-loan-establishments/",
+    "yearly": "Your licence will expire annually on the anniversary of the date that the licence was first issued."
+   }
+  ],
+  "read": "2026-11-11"
+ }
+}
