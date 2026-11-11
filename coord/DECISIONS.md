@@ -1249,3 +1249,36 @@ that covers more than twelve domains. Three sample builds: the first version gav
 sasktel.net and Vidéotron ltée to a municipality — fixed before anything was built in the cloud; the third gives 6 names on a 1-in-2
 sample, all the row's own (Royal Bank of Canada, The Toronto-Dominion Bank, Insurance Corporation of British Columbia, eHealth
 Saskatchewan, The University of British Columbia, L'Arche Association of Calgary). The cell names the log's tile it was read in.
+
+## 2026-11-11 07:46Z — a refresh pass that merged nothing: what went wrong three times over, and the rules that come out of it
+**What happened.** The v4 refresh of the site-facts reader (run 42958065125: 8 runners, 2 hours) ended with a crashed merge: two runners
+delivered a `.gz` that stops in the middle. Nothing of the run was merged and the chain did not go on. Three separate faults, each
+repaired at its root (commits 480179e, 3085e1b):
+1. **The half-written state file.** The reader wrote its whole state every five minutes from whichever worker thread had just finished
+   a site, always to the same temporary path. With 230,000 records and 40 threads on one interpreter a write came to last longer than
+   five minutes; the next write then opened the same path, and the first one's rename published the second one's unfinished file.
+   `timeout` stopped the reader in that state. Now (`tools/run_box.py`, used by `org_extras.py` and `org_contacts.py`): one write at a
+   time, a path of its own each, the next no sooner than 15 minutes after the last ended; the reader stops by itself at its deadline
+   (or on SIGTERM), writes once more, and leaves. The merger reads a cut `.gz` for the records it holds instead of crashing.
+2. **A v3 name inside a v4 record.** Two reads of one site were joined field by field: what today's read lacks stayed from the read
+   before. Right for a page that does not answer today; wrong for a rule that changed — the names v3 took by the rule v4 no longer
+   accepts stayed in the record, which now said v4, and the ranker prints spelled names "only from v4 records". Measured by reading 160
+   sites with a v3 name again: v4 gives the same name on 149, **none on 9** (5.6 %: "CLC inc." for Les Cheminées CLC inc., "TST inc."
+   for Systèmes Énergie TST inc., "Joyce Law Corporation" for David A. Joyce Law Corporation), 2 did not answer. **Rule:** a group of
+   fields a version computes as a whole says which version made it (`legal_name_spelled_v`); a successful read replaces the group, with
+   nothing when it finds nothing, unless the group on file was made by a version whose rule still stands (`org_extras.GROUP_MIN`). The
+   ranker prints a spelled name only when the name itself is v4's. The 34,397 names in records the faulty runs had already made were
+   put to the present rule on their own quote (`org_extras.settle`): 31,396 kept (in the sample, 140 of 141 kept names are the name v4
+   reads), 3,001 removed and their sites queued for a new read.
+3. **Two merges of one file at once.** A state file was one release asset replaced in place. Merge B, started from the version before
+   merge A's, would upload over A's, lose the push, fetch "the current asset" — its own — and publish a state without A's records. It
+   had not happened yet; the dispatched refresh and the scheduled run were about to merge within minutes of each other. **Rule:** every
+   version of a state file has its own asset name (`claude_org_extras.<12 hex of its SHA-256>.jsonl.gz`); the push of the manifest line
+   (`coord/STATE_ASSETS.json`) decides, and the merge that loses the push starts again from the version the manifest on main names.
+   The writer deletes old versions: never the one its manifest names, none younger than three hours, never the three newest.
+**Recovered:** the failed merge job was run again on the eight artifacts with the repaired merger (07:44Z): 164,025 of 230,582 site
+records are v4, 31,396 spelled names stand; the two cut files cost about 30,000 sites, which the next refresh run reads.
+**Found on the way — the reader of facts is one busy core.** 250 ms of CPU a site (12 sites, 3.0 s), so one reader does 3.4 sites a
+second whatever its number of threads; "100 sites at a time" (set at 06:30Z on the mailbox reader's 23 ms a page) bought nothing here.
+A runner has four cores: **three readers a runner**, each with a third of the runner's sites, a file of its own and only the records
+it made or changed (`--out`, `--delta`). Three times the sites per runner-hour, and the files to merge are small.
