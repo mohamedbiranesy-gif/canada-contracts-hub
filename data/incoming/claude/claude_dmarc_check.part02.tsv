@@ -1,3 +1,10 @@
+nuraseal.com	none	nuraseal.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:sendgrid.net ip4:72.14.165.204 ip4:72.14.165.203 -all	2026-11-10	none	none	none
+nurau.com	reject	nurau.com	v=DMARC1;p=reject;pct=100; rua=mailto:a7f962b1a6e24681a90fdebc8a041741@dmarc-reports.cloudflare.net;	100	yes	soft_fail	v=spf1 include:em3047.nurau.com include:_spf.perfora.net include:_spf.kundenserver.de include:spf.protection.outlook.com include:sendgrid.net include:21478082.spf05.hubspotemail.net ~all	2026-11-10	none	none	v=BIMI1; l=https://app.nurau.com/nurau-logo-symbol.svg
+nure.ca	none	nure.ca	v=DMARC1; p=none; rua=mailto:info@nure.ca	100	yes	soft_fail	v=spf1 include:zohocloud.ca ~all	2026-11-10	none	none	none
+nureflections.com	no_record		no DMARC record at _dmarc.nureflections.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
+nurexone.com	none	nurexone.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 +a +mx include:_spf.google.com ~all	2026-11-06	none	none	none
+nurica.ca	none	nurica.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spf.privateemail.com ~all	2026-11-10	none	none	none
+nurish.ca	none	nurish.ca	v=DMARC1; p=none; rua=mailto:56abbaee2fd049289e6c9f9543b78781@dmarc-reports.cloudflare.net;	100	yes	hard_fail	v=spf1 include:_spf.google.com -all	2026-11-10	none	none	none
 nurpoexcavation.ca	none	nurpoexcavation.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 nurse-iq.com	no_record		no DMARC record at _dmarc.nurse-iq.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 nurseachieve.com	quarantine	nurseachieve.com	v=DMARC1; p=quarantine; rua=mailto:dmarc@gn1r0xcs.uriports.com; ruf=mailto:dmarc@gn1r0xcs.uriports.com; fo=1:d:s	100	yes	soft_fail	v=spf1 include:_spf.google.com include:amazonses.com include:shops.shopify.com ~all	2026-11-10	v=STSv1; id=20240203131852Z;	v=TLSRPTv1; rua=mailto:tlsrpt@gn1r0xcs.uriports.com	none
@@ -63862,7 +63869,7 @@ terredesbisons.com	no_record		no DMARC record at _dmarc.terredesbisons.com; conf
 terrefruitiere.ca	none	terrefruitiere.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:15.235.55.224 include:spf.web-dns1.com +a +mx +ip4:54.39.100.84 ~all	2026-11-06	none	none	none
 terrellslawnandlandscape.com	none	terrellslawnandlandscape.com	v=DMARC1;p=none;sp=none;pct=100;rua=mailto:reports@dmarc.lnm-projects.com;ruf=mailto:reports@dmarc.lnm-projects.com;ri=86400;aspf=r;adkim=r;fo=1	100	yes	hard_fail	v=spf1 include:relayhost1.linknowmedia.cloud include:relayhost2.linknowmedia.cloud +a +mx +ip4:208.94.107.6 +ip4:208.94.107.15 +ip4:208.94.107.63 +ip4:208.94.107.64 -all	2026-11-10	none	none	none
 terrenatale.ca	no_record		no DMARC record at _dmarc.terrenatale.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:54.39.100.235 include:spf.web-dns1.com ip4:192.99.62.14 +a +mx ~all	2026-11-10	none	none	none
-terrene.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+terrene.com	error		no nameservers			error		2026-11-11	none	none	none
 terreneenvironmental.ca	no_record		no DMARC record at _dmarc.terreneenvironmental.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:spfc0.megamailservers.com ~all	2026-11-10	none	none	none
 terrenodevelopments.ca	none	terrenodevelopments.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +mx +a +ip4:199.193.116.6 ~all	2026-11-10	none	none	none
 terrenswellnesscentre.ca	none	terrenswellnesscentre.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:secureserver.net -all	2026-11-06	none	none	none
@@ -75723,7 +75730,7 @@ tronconedental.ca	no_record		no DMARC record at _dmarc.tronconedental.ca; confir
 trondek.ca	quarantine	trondek.ca	v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc-Reports@trondek.ca; adkim=r; aspf=r	100	yes	hard_fail	v=spf1 include:_spf-us.ppe-hosted.com include:spf.protection.outlook.com  include:_spf.psm.knowbe4.com -all	2026-11-06	none	none	none
 tronia.com	quarantine	tronia.com	v=DMARC1; p=quarantine; rua=mailto:dmarc@tronia.com;	100	yes	soft_fail	v=spf1 mx a ip4:64.141.17.235/32 ip4:159.183.30.168/32 include:spf.protection.outlook.com ~all	2026-11-10	none	none	none
 tronict.ca	none	tronict.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
-tronict.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+tronict.com	error		no nameservers			error		2026-11-11	none	none	none
 tronmotors.ca	none	tronmotors.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
 tronnes.ca	no_record		no DMARC record at _dmarc.tronnes.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:70.38.97.25 a:dispatch-us.ppe-hosted.com include:spf.websitehostserver.net ip4:70.38.9.116 ip4:67.215.15.226 +a +mx +ip4:198.178.117.198 +include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 tronosjet.com	no_record		no DMARC record at _dmarc.tronosjet.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
@@ -91051,7 +91058,7 @@ wildbody.ca	none	wildbody.ca	v=DMARC1; p=none; rua=mailto:dmarc_kjb@kajabi.com; 
 wildbrain.com	reject	wildbrain.com	v=DMARC1; p=reject; rua=mailto:yzwkkfxo@ag.ca.dmarcian.com; ruf=mailto:yzwkkfxo@fr.ca.dmarcian.com; pct=100;	100	yes	error		2026-11-06	none	none	none
 wildbros.ca	no_record		no DMARC record at _dmarc.wildbros.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-06	none	none	none
 wildcardfitness.ca	no_record		no DMARC record at _dmarc.wildcardfitness.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
-wildcardstables.com	error		no nameservers			error		2026-11-11	none	none	none
+wildcardstables.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
 wildcatheli.com	no_record		no DMARC record at _dmarc.wildcatheli.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 wildcatlandscaping.com	none	wildcatlandscaping.com	v=DMARC1;p=none;sp=none;pct=100;rua=mailto:reports@dmarc.lnm-projects.com;ruf=mailto:reports@dmarc.lnm-projects.com;ri=86400;aspf=r;adkim=r;fo=1	100	yes	soft_fail	v=spf1 include:relayhost1.linknowmedia.cloud include:relayhost2.linknowmedia.cloud +a +mx +ip4:208.94.107.114 ~all	2026-11-10	none	none	none
 wildcatsbaseball.ca	none	wildcatsbaseball.ca	v=DMARC1; p=none	100	no	no_record		2026-11-06	none	none	none
