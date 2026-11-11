@@ -1,9 +1,9 @@
 {
- "reference_date": "2026-11-10",
- "verified_ca_records": 817858,
+ "reference_date": "2026-11-11",
+ "verified_ca_records": 817724,
  "unverified_records": 51346,
  "status_verified_ca": {
-  "ongoing": 90987,
+  "ongoing": 90853,
   "end_date_unknown": 405306,
   "ongoing_inferred": 321565
  },
@@ -157,13 +157,13 @@
   "record_enrichment_coverage": {
    "ca_records": 513143,
    "ca_buyer_enriched": 511684,
-   "ca_buyer_website": 757547,
-   "ca_vendor_website": 269063,
-   "ca_vendor_contact_any": 276142,
-   "ca_vendor_registry_match": 416681,
-   "ca_vendor_bn9": 130651,
-   "ca_buyer_invoice_portal": 76126,
-   "ca_buyer_ap_email": 791575,
+   "ca_buyer_website": 757419,
+   "ca_vendor_website": 268985,
+   "ca_vendor_contact_any": 276058,
+   "ca_vendor_registry_match": 416566,
+   "ca_vendor_bn9": 130632,
+   "ca_buyer_invoice_portal": 76110,
+   "ca_buyer_ap_email": 791448,
    "unverified_records": 51346,
    "unverified_vendor_registry_match": 13573,
    "unverified_vendor_bn9": 7443,
@@ -191,24 +191,25 @@
    "not_enriched": 104
   }
  },
- "last_rebuild": "2026-11-10T15:12:55Z",
+ "last_rebuild": "2026-11-11T14:46:37Z",
  "last_rebuild_report": {
-  "team_buyers_verified": 185680,
+  "team_buyers_verified": 307557,
   "team_vendors": 15607,
   "seao_api_end_dates": 63,
   "web_vendors_with_site": 18806,
   "orgbook_xp_matches": 2345,
   "raw_full_files_entries": 58311,
-  "records_ap_extended": 795634,
+  "records_ap_extended": 795821,
   "records_vendor_patched": 182833,
-  "new_records_duplicate": 272123,
-  "new_records_vendor_matched": 123,
-  "new_records_buyer_matched": 3695,
-  "new_records_added": 3695,
-  "moved_to_ended": 72,
+  "records_ap_added": 4,
+  "moved_to_ended": 206,
+  "new_records_duplicate": 275746,
+  "new_records_vendor_matched": 58,
+  "new_records_buyer_matched": 72,
+  "new_records_added": 72,
   "records_orgbook_added": 4,
   "records_web_added": 1,
-  "built_at": "2026-11-10T15:12:55Z",
-  "reference_date": "2026-11-10"
+  "built_at": "2026-11-11T14:46:37Z",
+  "reference_date": "2026-11-11"
  }
 }
