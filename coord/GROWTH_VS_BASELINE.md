@@ -4,43 +4,43 @@ The baseline is what could have been shipped on 2026-11-09. Waiting pays only if
 
 | metric | baseline | now | change |
 |---|---|---|---|
-| rows | 63641 | 236341 | +172700 |
-| rows_named_vendor_relationship | 12816 | 118439 | +105623 |
-| rows_registry_contract_R | 0 | 99842 | +99842 |
-| rows_inferred_or_weak | 50825 | 18060 | -32765 |
-| buyers_total | 63641 | 236341 | +172700 |
-| buyers_ap_confirmed | 1364 | 1848 | +484 |
-| buyers_fin_confirmed | 1715 | 3486 | +1771 |
-| buyers_any_confirmed | 63163 | 224736 | +161573 |
-| pay_on_sight_yes | 833 | 1776 | +943 |
-| pay_on_sight_ref | 841 | 576 | -265 |
-| pay_on_sight_routed | 22341 | 79091 | +56750 |
+| rows | 63641 | 240626 | +176985 |
+| rows_named_vendor_relationship | 12816 | 124754 | +111938 |
+| rows_registry_contract_R | 0 | 98049 | +98049 |
+| rows_inferred_or_weak | 50825 | 17823 | -33002 |
+| buyers_total | 63641 | 240626 | +176985 |
+| buyers_ap_confirmed | 1364 | 1858 | +494 |
+| buyers_fin_confirmed | 1715 | 3526 | +1811 |
+| buyers_any_confirmed | 63163 | 227774 | +164611 |
+| pay_on_sight_yes | 833 | 1764 | +931 |
+| pay_on_sight_ref | 841 | 569 | -272 |
+| pay_on_sight_routed | 22341 | 78589 | +56248 |
 | gold_rows | 624 | 625 | +1 |
 | gold_pay_on_sight | 395 | 396 | +1 |
-| grade_A | 306 | 312 | +6 |
+| grade_A | 306 | 314 | +8 |
 | gold_A | 225 | 226 | +1 |
-| grade_A_or_B | 867 | 960 | +93 |
-| public_rows | 12835 | 218288 | +205453 |
-| terms_published_public | 1877 | 4328 | +2451 |
-| po_rule_published_public | 1396 | 2077 | +681 |
-| billto_legal_name_published | 33765 | 96444 | +62679 |
-| vendor_bn9_known | 53138 | 146504 | +93366 |
+| grade_A_or_B | 867 | 970 | +103 |
+| public_rows | 12835 | 222810 | +209975 |
+| terms_published_public | 1877 | 4293 | +2416 |
+| po_rule_published_public | 1396 | 2047 | +651 |
+| billto_legal_name_published | 33765 | 101112 | +67347 |
+| vendor_bn9_known | 53138 | 146633 | +93495 |
 | inferred_policy_cells_p80 | 0 | 0 | +0 |
-| benchmarks_met | 100 | 93 | -7 |
+| benchmarks_met | 100 | 58 | -42 |
 
 New source keys since the baseline: none
 
 | package tier | baseline rows | now | change |
 |---|---|---|---|
 | A | 1278 | 1276 | -2 |
-| B | 1619 | 1719 | +100 |
-| C | 402 | 323 | -79 |
-| D | 3623 | 28316 | +24693 |
-| E | 2763 | 5275 | +2512 |
+| B | 1619 | 1718 | +99 |
+| C | 402 | 315 | -87 |
+| D | 3623 | 27217 | +23594 |
+| E | 2763 | 5125 | +2362 |
 | F | 19 | 7 | -12 |
-| I | 50806 | 18053 | -32753 |
-| L | 397 | 440 | +43 |
-| M | 189 | 10814 | +10625 |
-| R | 0 | 99842 | +99842 |
-| T | 2545 | 70276 | +67731 |
+| I | 50806 | 17816 | -32990 |
+| L | 397 | 436 | +39 |
+| M | 189 | 11320 | +11131 |
+| R | 0 | 98049 | +98049 |
+| T | 2545 | 77347 | +74802 |
 
