@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 04:00Z — published build 03:29Z = 242,317 rows, 236,341 with a mailbox; 228,000 DNS-provider leads landed (109,000 new); an audit of the vendor side: whose address, whose website, whose name — three defects found on rows already delivered, fixed in code)
+# STATE.md — Claude lane (updated 2026-11-11 03:50Z — published build 03:29Z = 242,317 rows, 236,341 with a mailbox; 228,000 DNS-provider leads landed (109,000 new); an audit of the vendor side: whose address, whose website, whose name — three defects found on rows already delivered, fixed in code)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -97,7 +97,7 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
 
-## 2026-11-11 04:00Z — build 03:29Z: 242,317 rows; 228,000 DNS-provider leads; the vendor side audited (whose address, whose website, whose name)
+## 2026-11-11 03:50Z — build 03:29Z: 242,317 rows; 228,000 DNS-provider leads; the vendor side audited (whose address, whose website, whose name)
 **Builds.** 01:51Z: 242,292 rows (236,315 with a mailbox). 03:29Z: **242,317 (236,341)** — A 1,276 · B 1,719 · C 323 · D 28,316 · E 5,275 · F 7 ·
 I 18,053 · L 440 · M 10,814 · R 99,842 · T 70,276. Audit PASS on both (0 hard failures). Buyer legal-name cells: 82,018 = 33.9 % (31.6 % at
 22:38Z): the name that carries its form 6,110, the CRA list by number 491, grants recipients 316. The reader's v4 names are not in yet: the
@@ -139,7 +139,7 @@ AutoTrader.ca 114 · Race Roster 106 · Jobillico widget 71 · Medeo 53 · Clio 
 TouchBistro are vetted and flow to the tenant factory. **Next: vet the others** (terms page naming the contracting company and its
 Canadian address; pricing — no free plan; what the link proves): subscription services first (GOrendezvous, Keela, Libro, Ocean, CARFAX
 Canada, RAMP, Rezgo, WebRezPro, Medeo, Clio, Noterro 484, Owl Practice 324, Jonas Club 332, Juvonno 125). CanadaHelps read (terms +
-pricing, 04:00Z): gifts are made to CanadaHelps CanaDon (BN 896568417RR0001), which passes them on "minus its payment processing fee"
+pricing, 03:45Z): gifts are made to CanadaHelps CanaDon (BN 896568417RR0001), which passes them on "minus its payment processing fee"
 (3.75 %) — the charity is never invoiced; a fee kept at source. Kept aside until the clearer ones are in.
 **Job boards (plan item 17)**, read 02:00Z: CharityVillage prints prices (a posting CA$ 298, for-profit CA$ 398) and each job page prints
 "Published" and "Expires" dates and the employer's own website; volunteer listings on the same addresses are free and must be told apart;
