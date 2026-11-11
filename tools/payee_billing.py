@@ -16,7 +16,7 @@ vendor site that ends with one of them), url + read (the page and the day), and 
   remit_to  where a payment by mail goes (the body's own printed address)
 rank.py (bill_profile) writes them to the row's bill_* columns when the lane's own reading left them empty.
 """
-import re, unicodedata
+import collections, re, unicodedata
 
 norm = lambda s: re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()).strip()
 
@@ -44,8 +44,57 @@ PAYEES = [
                   "MasterCard, and American Express.” … “Electronic Funds Transfer (EFT) can be used to pay for City services such as permits, licences and land development applications. "
                   "It’s limited to payments of $10,000 and over.”"),
          unpaid="“Permits/Licences are not issued until all fees have been paid.”"),
+    # a firm of patent and trademark agents: its own page on paying an invoice (the agent-of-record lane: the owner of a mark or a patent is its client)
+    dict(names=["SMART & BIGGAR LP", "SMART & BIGGAR LLP", "SMART & BIGGAR", "Smart & Biggar"], hosts=["smartbiggar.ca"], read="2026-11-11",
+         url="https://www.smartbiggar.ca/payment-options",
+         delivery="the firm's invoice, quoted by its number when it is paid: “Please ensure to provide the invoice number(s), or the payment is subject to return.”",
+         payment=("Interac e-Transfer, electronic funds transfer or cheque (a card through the firm's payment page as well): “You can pay your invoice using one of the following methods: "
+                  "Interac e-Transfer: Send funds to remittance@smartbiggar.ca .” … “Electronic Fund Transfer: Send requests for banking details to ar@smartbiggar.ca . By cheque: Send to "
+                  "PO Box 2999 Station D Ottawa, ON, K1P 5Y6 Canada.”"),
+         remit_to="“By cheque: Send to PO Box 2999 Station D Ottawa, ON, K1P 5Y6 Canada.”"),
+    # a body that says it sends no invoice: its registrants are not billed "on invoice" (owner 2026-11-11) and the row says so in the body's words
+    dict(names=["Ontario Motor Vehicle Industry Council (OMVIC)", "Ontario Motor Vehicle Industry Council", "OMVIC"], hosts=["omvic.ca"], read="2026-11-11",
+         url="https://www.omvic.ca/selling/fees/transaction-fees/",
+         no_invoice="“OMVIC does not issue invoices. Dealers are expected to self-report and remit payment with their renewal application.”"),
 ]
 
+# ---- entries added by any lane (2026-11-11): contrib/<lane>/payees/<key>.json, one body a file, the same keys as an entry above ------------------
+# {"names": [...], "hosts": [...], "url": "...", "read": "YYYY-MM-DD", "payment": "…“quote”…", "delivery": "…", "period": "…", "terms": "…", "unpaid": "…",
+#  "remit_to": "…", "no_invoice": "…“the body's own sentence that it sends no invoice”…"}
+# An entry from a file is used only once `payee_billing.py verify` has opened its page with the project's reader and found every quoted sentence on
+# it (data/incoming/claude/payee_verified.json); an entry whose page refuses the reader, or whose quote is not on the page, is not used.
+import glob as _glob, hashlib as _hashlib, json as _json, os as _os
+_ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(__file__), ".."))
+VERIFIED = _os.path.join(_ROOT, "data/incoming/claude/payee_verified.json")
+FACTS = ("period", "delivery", "payment", "terms", "unpaid", "remit_to", "no_invoice")
+
+
+def _sig(p):
+    return _hashlib.sha1(_json.dumps({k: p.get(k) for k in ("url",) + FACTS}, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
+
+
+def file_entries():
+    out = []
+    for f in sorted(_glob.glob(_os.path.join(_ROOT, "contrib/*/payees/*.json")) + _glob.glob(_os.path.join(_ROOT, "tools/data/payees/*.json"))):
+        try:
+            p = _json.load(open(f, encoding="utf-8"))
+        except ValueError:
+            continue
+        if isinstance(p, dict) and p.get("names") and p.get("url") and p.get("read") and any(p.get(k) for k in FACTS):
+            p.setdefault("hosts", []); p["_file"] = _os.path.relpath(f, _ROOT)
+            out.append(p)
+    return out
+
+
+def _load_verified():
+    try:
+        return _json.load(open(VERIFIED, encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+_ok = _load_verified()
+PAYEES += [p for p in file_entries() if _ok.get(p["_file"], {}).get("sig") == _sig(p)]
 _BY_NAME = {norm(n): p for p in PAYEES for n in p["names"]}
 
 
@@ -66,6 +115,43 @@ def payee_for(name="", site=""):
 COLS = (("bill_delivery_as_published", "delivery"), ("bill_payment_method_as_published", "payment"), ("service_stops_if_unpaid", "unpaid"))
 
 
+def verify():
+    """open each file entry's page with the project's reader and look for every quoted sentence on it; write what holds to VERIFIED"""
+    import html, sys, time
+    sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+    import ap_crawler as C
+    flat = lambda t: re.sub(r"\s+", " ", t).strip()
+    ok, n = _load_verified(), collections.Counter()
+    for p in file_entries():
+        f = p["_file"]
+        if ok.get(f, {}).get("sig") == _sig(p):
+            n["verified before"] += 1
+            continue
+        quotes = [q for k in FACTS for q in re.findall(r"“([^”]+)”", p.get(k) or "")]
+        if not quotes or any(len(q) > 300 for q in quotes):
+            n["no quote, or a quote over 300 characters"] += 1
+            continue
+        if not C.allowed(p["url"]):
+            n["the page's robots.txt does not allow the reader"] += 1
+            continue
+        st, ct, data, final = C.fetch(p["url"])
+        time.sleep(1.0)
+        if st != 200 or not data:
+            n["page not read (%s)" % st] += 1
+            continue
+        text = flat(C.visible(C.quote_attrs(html.unescape(data.decode("utf-8", "replace")))))
+        miss = [q for q in quotes if flat(q) not in text]
+        if miss:
+            n["a quoted sentence is not on the page"] += 1
+            print("not verified: %s — “%s”" % (f, miss[0][:120]))
+            continue
+        ok[f] = {"sig": _sig(p), "verified": time.strftime("%Y-%m-%d"), "url": p["url"], "quotes": len(quotes)}
+        n["verified now"] += 1
+    _os.makedirs(_os.path.dirname(VERIFIED), exist_ok=True)
+    _json.dump(ok, open(VERIFIED, "w", encoding="utf-8"), indent=1, sort_keys=True)
+    print("payee entries from files: %s" % dict(n))
+
+
 def fill(out, x, name, site):
     """write the body's published facts to the row's empty bill_* cells; returns the entry used (or None)"""
     p = payee_for(name, site)
@@ -74,10 +160,14 @@ def fill(out, x, name, site):
     for col, k in COLS:
         if p.get(k) and not out.get(col) and not str(x.get(col) or "").strip():
             out[col] = "%s (%s, read %s)" % (p[k], p["url"], p["read"])
+    if p.get("no_invoice"):
+        out["bill_delivery_as_published"] = "no invoice is sent: %s (%s, read %s)" % (p["no_invoice"], p["url"], p["read"])
     return p
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and len(__import__("sys").argv) > 1 and __import__("sys").argv[1] == "verify":
+    verify()
+elif __name__ == "__main__":
     for p in PAYEES:
         for k in ("period", "delivery", "payment", "terms", "unpaid", "remit_to"):
             if p.get(k):

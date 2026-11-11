@@ -180,6 +180,9 @@ def tax_or_registration(x):
 def payment_route(x, kind):
     v = (x.get("bill_payment_method_as_published") or "").strip()
     b = " ".join((x.get(c) or "") for c in ("buyer_payment_method_preference", "payment_terms_as_published")).strip()
+    d = (x.get("bill_delivery_as_published") or "").strip()
+    if d.startswith("no invoice is sent"):
+        return "noinvoice", d[:300]
     if kind == "public contract":
         if _has(x, "buyer_payment_method_preference"):
             return "bank", "invoice paid by the buyer's accounts payable — as the buyer publishes: %s" % x["buyer_payment_method_preference"].strip()[:220]
@@ -202,7 +205,8 @@ def payment_route(x, kind):
 
 
 ROUTE_LABEL = {"bank": "on invoice, by bank transfer / cheque", "card": "card on file, charged by the vendor", "registrar": "through the registrar of record",
-               "either": "on invoice; bank payment or card (the biller takes both)", "unknown": "not published"}
+               "either": "on invoice; bank payment or card (the biller takes both)", "unknown": "not published",
+               "noinvoice": "no invoice is sent (the payer remits on its own, in the body's own words)"}
 ROUTE_OK = ("bank", "either")  # owner 2026-11-11 14:20 EST: an invoice that can be paid by bank transfer is in, also when the biller would take a card
 
 

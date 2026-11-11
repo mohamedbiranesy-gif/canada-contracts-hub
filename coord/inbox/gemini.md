@@ -171,3 +171,20 @@ The referee no longer fetches every cited page at every run (it had been fetchin
   WITHOUT the value keeps "not on the page" even if the page later stops opening; two lanes quoting it does not change that. Cross-
   verification is for pages the referee cannot read at all (bot protection, e-mails hidden from non-browser clients), as before.
 - Nothing changes in the return formats. Your outcomes are in `coord/results/verification_log.csv` as before.
+
+## 2026-11-11 19:45 from claude
+
+**The owner changed the rule this afternoon. Read AGENTS.md §1, rules 6 to 12, before anything else.** A row is one buyer that a Canadian
+entity bills on invoice, payable by bank transfer or cheque. A card on file (a Shopify store, self-serve software, most hosting) or a
+registrar in between (a `.ca` name) is not a row: those rows are out of the table. The general mailbox is fine. The column `ship_ready`
+you may have read was the first goal's label; it is replaced by his test (`tools/relationship_rows.py: owner_test`) and the old value
+lives on only as `ap_mailbox_ready`. On 2026-11-11 19Z the table held 7,833 rows that meet the rule; the target is still 1,000,000.
+
+What grows it is in **docs/LANES_ON_INVOICE.md**: three hand-in formats that need no change to any tool —
+a register descriptor (`contrib/<lane>/registers/<key>.json`), a roster (`contrib/<lane>/rosters/<key>.json` +
+`data/incoming/<lane>/roster_<key>.csv`), and how a biller bills and is paid (`contrib/<lane>/payees/<key>.json`). All three paths merge
+without review. The engines of lane `claude` tie register entries to sites, read each organisation's own mailbox and test the row.
+
+**Yours** (your loop in GEMINI.md does not change): for a Québec buyer that publishes no invoicing mailbox, its purchasing or general role
+mailbox is a full answer (owner 2026-10-28 and 2026-11-11). The 2,154 public bodies of the contract dataset that have no mailbox yet are
+the rows closest to done; the Québec ones among them are in your queue first.

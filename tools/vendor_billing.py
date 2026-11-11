@@ -486,7 +486,11 @@ def candidates():
     import lead_store as LS
     import tech_relationships as T
     cnt, site, cls = collections.Counter(), {}, {}
-    W = {"dns_service_cc": 0, "site_credit_cc": 1, "site_member_cc": 2, "vendor_site_cc": 3}
+    # 2026-11-11 (owner: "on invoice, by bank transfer … don't forget all invoice details"): the bodies behind the lanes billed on invoice first —
+    # the regulators and cities of the licence lanes, the accrediting bodies, the bodies whose member, dealer, tenant or sponsor lists name
+    # the organisations (17,859 hosts) — then the makers of sites, then the hosting and DNS providers (a card on file for nearly all).
+    W = {"biz_licence": 0, "rbq_licence": 0, "authority_register": 0, "bbb_accredited": 0, "tm_register": 0, "roster_file": 0, "site_member_cc": 0, "vendor_site_cc": 1,
+         "site_credit_cc": 2, "dns_service_cc": 3}
     for d in LS.load()[1].values():
         w = W.get(d.get("platform") or "")
         s = d.get("vendor_site") or ""

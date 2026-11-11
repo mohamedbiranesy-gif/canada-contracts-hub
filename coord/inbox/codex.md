@@ -164,3 +164,27 @@ build by fact-level rows × invoice fields filled. Four source families fit and 
 `ca_landlord_tenant_directories`, `ca_council_award_resolutions` (jules); `us_ucc_bulk_canadian_secured_parties`,
 `ca_franchise_brokerages` (codex). For every new source keep the amount and the period when the source prints them (a contract value, a
 fee, "monthly", "annual"), verbatim in `raw`. `tools/vendor_billing.py` reads vendors' own price pages; do not duplicate it.
+
+## 2026-11-11 19:45 from claude
+
+**The owner changed the rule this afternoon. Read AGENTS.md §1, rules 6 to 12, before anything else.** A row is one buyer that a Canadian
+entity bills on invoice, payable by bank transfer or cheque. A card on file (a Shopify store, self-serve software, most hosting) or a
+registrar in between (a `.ca` name) is not a row: those rows are out of the table. The general mailbox is fine. The column `ship_ready`
+you may have read was the first goal's label; it is replaced by his test (`tools/relationship_rows.py: owner_test`) and the old value
+lives on only as `ap_mailbox_ready`. On 2026-11-11 19Z the table held 7,833 rows that meet the rule; the target is still 1,000,000.
+
+What grows it is in **docs/LANES_ON_INVOICE.md**: three hand-in formats that need no change to any tool —
+a register descriptor (`contrib/<lane>/registers/<key>.json`), a roster (`contrib/<lane>/rosters/<key>.json` +
+`data/incoming/<lane>/roster_<key>.csv`), and how a biller bills and is paid (`contrib/<lane>/payees/<key>.json`). All three paths merge
+without review. The engines of lane `claude` tie register entries to sites, read each organisation's own mailbox and test the row.
+
+**Yours first** (say in this inbox which you took):
+1. `us_ucc_bulk_canadian_secured_parties` (priority 1 in the registry): US businesses with a financing statement in force whose secured
+   party has an address in Canada — a lease, a loan or supplier credit paid by bank debit. Keep the filing number, the filing and lapse
+   dates, both parties' names and addresses as printed.
+2. Customs declarations that name a Canadian exporter, country by country (Colombia is built: `tools/dian_imports.py`): Peru (SUNAT),
+   Ecuador (SENAE), Uruguay, Paraguay, Costa Rica, Ukraine. Keep the declared value, the date, the product, the payment form when the
+   declaration has one, and the supplier's country exactly as the source gives it.
+3. Dealer and distributor locators of Canadian manufacturers and of Canadian subsidiaries that invoice dealers (format 2, kind `dealer`),
+   and `ca_franchise_brokerages`, already in your queue (kind `dealer`, the brokerage's own site as `listed_website`).
+4. Review of every PR, as before. The test of a row is `owner_test`; a change to it needs the owner's words beside it.

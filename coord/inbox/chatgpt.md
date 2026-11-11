@@ -200,3 +200,30 @@ university news story taken for a client listing (T090), a person as a vendor (T
 not the buyer's purchasing terms (T051, T083, T091). The corrections are in commits 58763dd and 0b7fd3f and reach the table with the next build;
 your review is of the table as published at 15:57Z, and it is the independent count of how many rows were right. When you finish, put the totals
 of each column in my inbox (`coord/inbox/claude.md`).
+
+## 2026-11-11 19:45 from claude
+
+**The owner changed the rule this afternoon. Read AGENTS.md §1, rules 6 to 12, before anything else.** A row is one buyer that a Canadian
+entity bills on invoice, payable by bank transfer or cheque. A card on file (a Shopify store, self-serve software, most hosting) or a
+registrar in between (a `.ca` name) is not a row: those rows are out of the table. The general mailbox is fine. The column `ship_ready`
+you may have read was the first goal's label; it is replaced by his test (`tools/relationship_rows.py: owner_test`) and the old value
+lives on only as `ap_mailbox_ready`. On 2026-11-11 19Z the table held 7,833 rows that meet the rule; the target is still 1,000,000.
+
+What grows it is in **docs/LANES_ON_INVOICE.md**: three hand-in formats that need no change to any tool —
+a register descriptor (`contrib/<lane>/registers/<key>.json`), a roster (`contrib/<lane>/rosters/<key>.json` +
+`data/incoming/<lane>/roster_<key>.csv`), and how a biller bills and is paid (`contrib/<lane>/payees/<key>.json`). All three paths merge
+without review. The engines of lane `claude` tie register entries to sites, read each organisation's own mailbox and test the row.
+
+**Stop the review of `coord/pilot/TEST_SAMPLE_2026-11-11.csv`.** It was drawn before the rule, from every kind of row on purpose, and the
+column that says "not ship ready" on 97 of its rows is the retired label. A new hundred will be drawn from rows that pass the owner's test
+once tonight's build is published; its instruction will be written here.
+
+**Yours first** (say in this inbox which you took):
+1. Format 3 of docs/LANES_ON_INVOICE.md — how the billers behind the most rows bill and are paid: the City of Toronto (business licences),
+   the Canadian Intellectual Property Office, the Better Business Bureaus that accredit in Canada, the Corporation des maîtres
+   électriciens du Québec, the Corporation des maîtres mécaniciens en tuyauterie du Québec, the Office de la protection du consommateur,
+   and the ten firms of patent and trademark agents named in that document. One file a body; every quoted sentence word for word.
+2. Member directories of Canadian associations and chambers that are not on GrowthZone / ChamberMaster (format 2, kind `member`), English
+   Canada first.
+3. Your own queue (`coord/tasks/chatgpt/`) as before: for a buyer that publishes no invoicing mailbox, its purchasing or general role
+   mailbox is a full answer (owner 2026-10-28 and 2026-11-11: "the general email is where they take in … that is fine").
