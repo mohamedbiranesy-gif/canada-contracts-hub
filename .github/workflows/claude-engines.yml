@@ -74,6 +74,7 @@ jobs:
         k: ${{ fromJson(needs.plan.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v4
+        with: { ref: main }   # 2026-11-11: a run waits up to an hour for a runner; without this its jobs ran the code of the minute it was dispatched (a whole refresh pass read 148,000 sites with the reader of before its correction)
       - name: Tools
         run: |
           sudo apt-get install -y -q poppler-utils >/dev/null 2>&1 || true
@@ -171,6 +172,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with: { ref: main }
       - uses: actions/download-artifact@v4
         with:
           pattern: engine-${{ env.ENGINE }}-*
