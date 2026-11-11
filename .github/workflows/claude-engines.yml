@@ -50,7 +50,9 @@ env:
   # held 16 of them while the merges of three other engines and the rank build waited. A runner now carries three readers (see the shard
   # step): the reader of facts costs 250 ms of CPU a site — unlike the mailbox reader (23 ms a page) it does not spend its time waiting,
   # so more sites at a time bought nothing (100 at a time, tried for two hours, is back to 40 per reader).
-  SHARDS: ${{ inputs.shards || (github.event.schedule == '11 */6 * * *' && '4') || (github.event.schedule == '31 2 * * *' && '6') || '1' }}
+  # 2026-11-11 11:20Z: 4 -> 3 (site facts) and 6 -> 3 (walk_terms). The account runs 20 jobs at a time and nothing ranks them: a rank build waited
+  # 70 minutes behind 20 long-running engine jobs, so the published table was three hours old. The long engines together stay under 16.
+  SHARDS: ${{ inputs.shards || (github.event.schedule == '11 */6 * * *' && '3') || (github.event.schedule == '31 2 * * *' && '3') || '1' }}
   MINUTES: ${{ inputs.minutes || (github.event.schedule == '11 */6 * * *' && '120') || (github.event.schedule == '31 2 * * *' && '240') || (github.event.schedule == '23 1,7,13,19 * * *' && '320') || '300' }}
   TIERS: ${{ inputs.tiers || (github.event.schedule == '31 2 * * *' && 'A,B,T,M,L,C,D,E,F') || 'I' }}
   MAXP: ${{ inputs.max_pages || '15' }}

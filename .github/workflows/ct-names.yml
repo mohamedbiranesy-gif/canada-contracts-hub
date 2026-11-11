@@ -116,7 +116,7 @@ jobs:
           # the sweep of the lists not asked yet, and the next reading run while tiles are left
           todo=$(python3 tools/dns_services.py sweep-plan --list auto | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
           echo "sweep shards with work on a certificate-log list: $todo"
-          if [ "${todo:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=ctsweep" -f "inputs[shards]=4" -f "inputs[minutes]=150" || true; fi
+          if [ "${todo:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=ctsweep" -f "inputs[shards]=3" -f "inputs[minutes]=150" || true; fi
           left=$(python3 tools/ct_names.py left)
           echo "tiles still to read: $left"
           if [ "${left:-0}" -gt 2000 ] && [ "$MAX_TILES" = "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/ct-names.yml/dispatches" -f ref=main -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" || true; fi
