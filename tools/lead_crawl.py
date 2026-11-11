@@ -191,11 +191,55 @@ def facts_records():
 RBQ_ID = re.compile(r"(?<![A-Za-z])(?:R\.?\s?B\.?\s?Q\.?|R[ée]gie du b[âa]timent(?: du Qu[ée]bec)?)(?![A-Za-z])[^0-9]{0,30}?(\d{4})[\s\-.\u00a0\u2010-\u2014]{0,3}(\d{4})[\s\-.\u00a0\u2010-\u2014]{0,3}(\d{2})(?!\d)", re.I)
 
 
+# 2026-11-11: a home page asked for at one domain name that answers at the HOME page of another domain is the organisation's own other
+# site — a second name it registered (osfs.ca -> flyos.ca, feuer.ca -> valenciarisk.com, mathusee.ca -> mathcanada.ca). Measured on 130
+# .ca sites that had given no mailbox: 18 are such names and the site they answer at prints a role mailbox of its own domain. Not such a
+# case: a page INSIDE another site (an agent's profile on the brokerage's site, a dealer's page on the maker's), a platform or a network,
+# a parking or for-sale service, the own domain of a registrar or host (a suspended or expired account), a site with 150+ host names.
+MOVED_HOME = re.compile(r"/?(?:(?:en|fr|en-ca|fr-ca|en-us|ca|home|accueil|index\.(?:html?|php|aspx?)|default\.aspx?)/?)?", re.I)
+# registrable domains that are never an organisation's own second site: parking and for-sale services, registrars and hosts, networks,
+# marketplaces and directories (the whole name is compared: "canada.ca" is not found inside "mathcanada.ca")
+NOT_A_SITE = re.compile(r"^(sedo|sedoparking|dan|afternic|hugedomains|bodis|parkingcrew|above|domainmarket|buydomains|uniregistry|squadhelp|atom|brandbucket|domainnamesales|efty|"
+                        r"undeveloped|namecheap|name|dynadot|porkbun|gandi|ovh|ovhcloud|ionos|hostinger|bluehost|hostgator|dreamhost|siteground|registrar-servers|parklogic|domainsponsor|"
+                        r"voodoo|skenzo|linktr|linktree|bitly|carrd|beacons|taplink|doubleclick|webnames|rebel|hover|tucows|opensrs|enom|networksolutions|register|web|domain|domains|"
+                        r"canva|notion|medium|etsy|ebay|kijiji|booking|airbnb|expedia|opentable|doordash|ubereats|skipthedishes|yelp|houzz|homestars|facebook|instagram|linkedin|"
+                        r"twitter|x|youtube|tiktok|pinterest|google|apple|microsoft|amazon|wordpress|wix|wixsite|squarespace|shopify|myshopify|godaddy|godaddysites|weebly|webflow|"
+                        r"blogspot|tumblr|substack|github|yellowpages|pagesjaunes|canada411|indeed|eventbrite|walmart|bestbuy|costco|realtor|centris|autotrader|tripadvisor|"
+                        r"canada|gc)\.[a-z]{2,6}(?:\.[a-z]{2})?$", re.I)
+GOV_SHARED = re.compile(r"(^|\.)(gc|canada)\.ca$|\.gouv\.qc\.ca$|(^|\.)gov\.[a-z]{2}\.ca$|\.gov$|\.gov\.[a-z]{2}$", re.I)
+_MOVED = {}
+
+
+def moved_site_ok(start, final):
+    """is `final` (where the home page asked for at `start` answered) the home page of the organisation's own other site?"""
+    try:
+        pf = urllib.parse.urlparse(final or "")
+        h = (pf.hostname or "").lower()
+        h = h[4:] if h.startswith("www.") else h
+        if not h or "." not in h or pf.query or not MOVED_HOME.fullmatch(pf.path or "/"):
+            return False
+        d = C.registrable(h)
+        if "tools" not in _MOVED:
+            import cc_clients as CCL
+            import credit_scan as CS
+            _MOVED["tools"] = (CCL, CS, CCL.many_hosts(), CS.big_providers())
+        CCL, CS, many, big = _MOVED["tools"]
+        if (CS.PLATFORM.search(h) or NOT_A_SITE.match(d) or GOV_SHARED.search(h) or CCL.MULTI_TENANT.search(h) or CCL.SPAM.search(h)  # SPAM: a lapsed name bought to feed a betting site
+                or d in many or big.get(d, 0) >= 200 or not CCL.own_host(h, d)):
+            return False
+        return True
+    except Exception:
+        return False
+
+
 def facts_line(key, site, st):
     """what the buyer's own pages say about the buyer: its name (og:site_name / title of the home page) and its postal address (quote + page).
     contrib/claude/rank_buyers/rank.py uses it for the bill-to name and address of a lead that only carried a domain."""
     import cc_clients as CCL
     o = {"key": key, "site": site, "date": TODAY, "site_name": st.get("name") or "", "title": st.get("title") or ""}
+    if st.get("moved"):  # the site on file is a second name of the organisation: the site that answers, and the name that was asked
+        pf = urllib.parse.urlparse(st["moved"])
+        o.update(site="%s://%s/" % (pf.scheme, pf.netloc), asked=site, moved=st["moved"])
     if st.get("addr"):
         o.update(address_country=st["addr"][0], address_quote=st["addr"][1], address_url=st["addr"][2], address=CCL.address_from(st["addr"][1]))
     if st.get("rbq"):
@@ -266,8 +310,14 @@ def leads_mode(a, k, n):
             q = l.split("\t")
             if q and q[0]:
                 latest[q[0]] = q
+        # 2026-11-11 (rule "r3"): the reader now follows a site to the domain its home page lives on, asks the www. twin of a bare name that
+        # does not answer, starts where the home-page scan found the site, and knows more role words (gestion@, leasing@, membership@ …).
+        # Sites that gave "nothing_found" before (no "r3" mark) are read once more — after every site that was never read.
+        reread = set()
         for q in latest.values():
-            if q and q[0] and not (len(q) > 2 and q[2] == "nothing_found" and "r2" not in q[5:]):
+            if q and q[0] and len(q) > 2 and q[2] == "nothing_found" and "r3" not in q[5:]:
+                reread.add(q[0])
+            elif q and q[0]:
                 done.add(q[0])
     # 2026-11-10: the leads found from the owner's Mac (claude_buyer_leads.csv) can be read here too: 33,600 of them have a website and no
     # mailbox row yet, and the Mac's own crawler is off. A lead that already has a mailbox row in any lane's results file is not read again.
@@ -286,6 +336,11 @@ def leads_mode(a, k, n):
                             known_dom.add(C.registrable(eh))
         except Exception:
             pass
+    try:
+        import credit_scan as _CSV
+        via = _CSV.site_via()  # sites that answer on plain http or on www. only (scan detector 5): the reader starts where the scan read them
+    except Exception:
+        via = {}
     sites = {}  # websites found later for leads that had none (tools/lead_sites.py: Wikidata official website, exact name match)
     lw = os.path.join(INC, "claude_lead_websites.csv")
     if os.path.exists(lw):
@@ -317,8 +372,10 @@ def leads_mode(a, k, n):
                 nv = int(float(r.get("canadian_vendor_rows") or 1))
             except ValueError:
                 nv = 1
-            tasks.append({"task_id": "CC-" + r["buyer_key"].split(":")[-1][:10], "buyer_key": r["buyer_key"], "buyer_name": r.get("buyer_name") or h, "known_website": "https://%s/" % h,
-                          "_n": nv, "_f": fi, "_em": 0 if (hints.get(h[4:] if h.startswith("www.") else h) or ("", ""))[0] else 1})
+            hb = h[4:] if h.startswith("www.") else h
+            tasks.append({"task_id": "CC-" + r["buyer_key"].split(":")[-1][:10], "buyer_key": r["buyer_key"], "buyer_name": r.get("buyer_name") or h,
+                          "known_website": _CSV.site_url(hb, via) if (via.get(hb) and h == hb) else "https://%s/" % h,
+                          "_n": nv, "_f": fi, "_em": 0 if (hints.get(hb) or ("", ""))[0] else 1, "_rr": int(r["buyer_key"] in reread)})
     # registry candidates (2026-11-10, tier R of rank.py): a .ca site whose home page prints a role mailbox of its own and that no lead names yet.
     # Its relationship is the registration of its .ca domain name (agreement with the Canadian Internet Registration Authority, paid for through a
     # CIRA-certified Canadian registrar); what is missing is the mailbox row with its page and quote. A light read: at most 8 pages.
@@ -334,14 +391,15 @@ def leads_mode(a, k, n):
             key = "lead:" + hashlib.sha1(("%s|reg:ca" % rd).encode()).hexdigest()[:16]
             if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known:
                 continue
-            cand.append((rank_em.get(em, 3), dom, key))
+            cand.append((rank_em.get(em, 3) + (10 if key in reread else 0), dom, key))
         cand.sort()
         try:
             _via = CS.site_via()  # sites that answer on plain http or on www. only (scan detector 5): the reader starts where the scan read them
         except Exception:
             _via = {}
         for _, dom, key in cand[:a.registry]:
-            tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via), "_n": 0, "_f": 9, "_em": 0, "_max_pages": 8})
+            tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via), "_n": 0, "_f": 9, "_em": 0, "_max_pages": 8,
+                          "_rr": int(key in reread)})
             n_reg += 1
         print("registry candidates (.ca sites whose home page prints a role mailbox, no lead yet): %d queued of %d" % (n_reg, len(cand)), flush=True)
     # second class of registry candidates (2026-11-10): .ca sites whose home page was read and prints NO role mailbox — 428,464 of them; the
@@ -359,17 +417,19 @@ def leads_mode(a, k, n):
                 key = "lead:" + hashlib.sha1(("%s|reg:ca" % rd).encode()).hexdigest()[:16]
                 if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known or dom in taken:
                     continue
-                cand2.append((0 if cc == "CA" else 1, dom, key))
+                cand2.append(((0 if cc == "CA" else 1) + (10 if key in reread else 0), dom, key))
             cand2.sort()
             _via2 = CS.site_via()
             for _, dom, key in cand2[:a.registry2]:
-                tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via2), "_n": 0, "_f": 10, "_em": 2, "_max_pages": 4})
+                tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via2), "_n": 0, "_f": 10, "_em": 2, "_max_pages": 4,
+                              "_rr": int(key in reread)})
             print("registry candidates, second class (.ca sites, no mailbox on the home page): %d queued of %d" % (min(len(cand2), a.registry2), len(cand2)), flush=True)
         except Exception as e:
             print("second-class registry candidates not queued: %s" % e, flush=True)
     # sites whose home page prints a role mailbox first; then the first leads file first; within a file, buyers named by several Canadian vendors first
-    tasks.sort(key=lambda t: (t["_em"], t["_f"], -t["_n"]))
-    print("lead sites whose home page prints a role mailbox (read first): %d of %d" % (sum(1 for t in tasks if not t["_em"]), len(tasks)), flush=True)
+    tasks.sort(key=lambda t: (t["_em"], t.get("_rr", 0), t["_f"], -t["_n"]))
+    print("lead sites whose home page prints a role mailbox (read first): %d of %d; sites read before that gave nothing, read once more under the rules of 2026-11-11: %d" % (
+        sum(1 for t in tasks if not t["_em"]), len(tasks), sum(1 for t in tasks if t.get("_rr"))), flush=True)
     print("leads with a mailbox row already, under their own key or their website domain (not read again): %d" % skipped, flush=True)
     if a.limit:
         tasks = tasks[:a.limit]
@@ -388,6 +448,13 @@ def leads_mode(a, k, n):
             return
         st = {"host": host_of(t["known_website"])}
         _tl.st = st
+
+        def moved(start, final, st=st):
+            ok = moved_site_ok(start, final)
+            if ok:  # the name of the site is read against the domain that answers
+                st["host"], st["moved"] = host_of(final), final
+            return ok
+        t["_moved_ok"] = moved
         try:
             result, pages, rows = C.crawl(t, t.get("_max_pages") or a.max_pages, general="any")
         except Exception as e:
@@ -411,17 +478,23 @@ def leads_mode(a, k, n):
             stats["blocked"] += result == "blocked"
             stats["errors"] += str(result).startswith("error")
             w.writerows(rows)
-            if rows and (st.get("name") or st.get("addr")):
+            if rows and (st.get("name") or st.get("addr") or st.get("moved")):
                 ff.write(facts_line(t["buyer_key"], t["known_website"], st))
             stats["front_office_role_only"] = stats.get("front_office_role_only", 0) + bool(rows and "front-office role mailbox" in (rows[0].get("notes") or ""))
-            fd.write("%s\t%s\t%s\t%d\t%d\tr2\n" % (t["buyer_key"], TODAY, result, pages, len(rows)))
+            if st.get("moved"):
+                stats["site_lives_at_another_domain"] = stats.get("site_lives_at_another_domain", 0) + 1
+                stats["site_lives_at_another_domain_with_mailbox"] = stats.get("site_lives_at_another_domain_with_mailbox", 0) + bool(rows)
+            if t.get("_rr"):
+                stats["read_once_more"] = stats.get("read_once_more", 0) + 1
+                stats["read_once_more_with_mailbox"] = stats.get("read_once_more_with_mailbox", 0) + bool(rows)
+            fd.write("%s\t%s\t%s\t%d\t%d\tr2\tr3%s\n" % (t["buyer_key"], TODAY, result, pages, len(rows), ("\tmoved=" + host_of(st["moved"])) if st.get("moved") else ""))
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), stats, flush=True)
 
     def on_timeout(t):
         with lock:
-            fd.write("%s\t%s\ttimeout\t0\t0\tr2\n" % (t["buyer_key"], TODAY))
+            fd.write("%s\t%s\ttimeout\t0\t0\tr2\tr3\n" % (t["buyer_key"], TODAY))
             stats["errors"] += 1
     left = run_pool(tasks, one, a, deadline, on_timeout)
     with lock:

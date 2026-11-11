@@ -1195,3 +1195,32 @@ is its subscriber, which can be a host or a CDN that covers its customers' names
 when it carries the organisation's own name (the rule already applied to trademark notices).
 **What a name is not.** A name in a log is not a relationship and not a fact about any organisation: it is a place to look. Nothing
 is delivered from it alone.
+
+## 2026-11-11 06:02Z — why two thirds of the lead sites give no mailbox, measured; what the reader does about the part that is ours to fix
+**Measured** (260 sites that had given "nothing_found" — 130 leads, 130 `.ca` registry candidates — read again with every address seen
+and every verdict kept): a third print no address at all (contact form only, or nothing); 15–20 % print only a webmail address (not an
+organisational mailbox: owner 2026-11-04, not revisited); 12 % only people's addresses; 5–6 % hide the address behind Cloudflare's
+script (left undecoded, decision of 2026-11-10). What was ours:
+- **A second name of the organisation** (1 `.ca` candidate in 7): the home page asked for at `osfs.ca` answers at `flyos.ca`, `feuer.ca`
+  at `valenciarisk.com` — the same organisation's site under its other domain. The mailbox printed there is of that domain, and the
+  reader judged it against the name on file and dropped it. The reader now follows a name to the site its home page lives on **when the
+  home page answers at the HOME page of the other domain** (never a page inside another site — an agent's profile on a brokerage's site;
+  never a platform, a network, a marketplace, a parking or for-sale service, a registrar's or host's own domain, a government's shared
+  site, a site with 150+ host names, a betting site fed by lapsed names). The row is then about the site that answers (website, name,
+  mailbox, its page and quote); the relationship stays the one of the name on file and says so: "registration contract in force for
+  the organisation's .ca domain name osfs.ca — a second name of the organisation: its home page answers at the organisation's site
+  flyos.ca, redirect followed <day>". One row per organisation: such a lead is keyed by the site that answers; a `.ca` name that answers
+  at another `.ca` site gives nothing new (that site has its own registry lead); a site that more than 30 names answer at is a hub and
+  gives nobody a second name. Same-telephone sister sites without a redirect (1 in 20) are not taken: no proof without a second read.
+- **A bare name that does not answer** (1 lead in 9 never answered at the address on file): `fetch()` turned to `www.` only when the
+  bare name had no DNS record. The `www.` twin is now asked once; the pages that follow are asked of the address that answered (scheme
+  and host of the home page's final URL), and leads start where the home-page scan found the site (as registry candidates already did).
+  A site with no answer at all ends as `unreachable` after one or two requests instead of eight, and is no longer counted as "nothing found".
+- **Role words that were not on the list** (1 site in 30): `gestion@`, `leasing@`, `membership@`, `admissions@`, `dispatch@`,
+  `information@`, `info<city>@` … — the desk a small organisation answers from. Words only; a first name is never a role, and an address
+  named after the organisation (`ace@aceplumbing.ca`) is NOT taken: no list of given names is complete enough to tell it from a person's.
+  The ranker reads the reader's own list (one list, one place): 21 mailboxes the referee had already confirmed and the ranker refused
+  come back on a 1-in-2 sample.
+**What it is worth** (a second sample of 260, read with the new reader): 2.3 % of the leads and 6.9 % of the registry candidates that
+had given nothing now give a confirmed-quality mailbox — about 15,000 rows from sites already read, and the same share more of every
+site read from now on. Sites that gave nothing before are read once more (mark `r3`), after every site never read.

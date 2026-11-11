@@ -109,6 +109,7 @@ ROOT = __import__("os").path.abspath(__import__("os").path.join(__import__("os")
 sys.path.insert(0, ROOT + "/tools"); sys.argv = sys.argv[:1]
 import urllib.parse
 from ap_crawler import same_org, registrable  # the buyer's own mailbox, not a contractor's or partner's named on its pages
+from ap_crawler import OTHER_ROLE as _CRAWL_ROLE, GENERAL as _CRAWL_GENERAL
 # 2026-11-10: the big files that engines rewrite whole are release assets, not git blobs (tools/state_io.py, coord/STATE_ASSETS.json):
 # a fresh checkout fetches the current version of each before it is read
 try:
@@ -164,6 +165,8 @@ def roleish(local, org=""):
         return False  # first.last: a person (Marie Paiement, Jean Comptois) even when the surname looks like a role word
     if STRONG_ANY.search(local) or any(ROLEISH.match(t) or ROLEISH.match(t[1:] if len(t) > 3 and t[0].isdigit() else t) for t in toks):
         return True
+    if _CRAWL_ROLE.search(local.lower()) or _CRAWL_GENERAL.search(local.lower()):
+        return True  # the mailbox reader's own lists of role words (tools/ap_crawler.py OTHER_ROLE / GENERAL): one list, kept there (2026-11-11: gestion@, leasing@, membership@ …)
     words = [w for w in re.split(r"[^a-z0-9]+", norm(org)) if w]
     acr = "".join(w[0] for w in words if w not in ("de", "du", "des", "la", "le", "les", "of", "the", "and", "et", "d", "l"))
     flat = re.sub(r"[^a-z0-9]", "", local.lower())
@@ -928,8 +931,11 @@ from ap_crawler import address_from as _addr_from
 import lead_crawl as _LCF  # the facts: the single file of before 2026-11-10 plus the append-only shards (site_facts/)
 import tech_relationships as _TR
 n_name_again = 0
+MOVED = {}  # lead key -> (domain name on file, site that answers, final URL, day read): a second name of the organisation (tools/lead_crawl.py moved_site_ok)
 for _d in _LCF.facts_records():
     if _d.get("key"):
+        if _d.get("moved") and _d.get("asked"):
+            MOVED[_d["key"]] = (_d["asked"], _d.get("site") or "", _d["moved"], _d.get("date") or "")
         if not _d.get("site_name") and _d.get("title"):
             # the name is read out of the stored home-page title again with today's rule (2026-11-10: 3,495 sites had a title and no name — the
             # rule of the day they were read did not know initials: "Comox Valley Animal Hospital" on cvah.ca, "Ordre des Géologues du Québec" on ogq.qc.ca)
@@ -1142,6 +1148,52 @@ try:
 except Exception as _e:
     print("registry leads skipped: %s" % _e)
 print("registry leads (.ca domains carrying a confirmed mailbox of their own organisation): %d" % n_reg)
+# 4a-bis (2026-11-11). A domain name whose home page answers at the home page of ANOTHER domain is a second name of the organisation that
+# runs that site (osfs.ca -> flyos.ca, feuer.ca -> valenciarisk.com): 1 in 7 of the .ca sites that had given no mailbox. The mailbox reader
+# now follows such a name (tools/lead_crawl.py moved_site_ok: home page to home page, never a platform, a network, a parking service or a
+# provider's own domain) and reads the site that answers; its facts record names both. Here the lead is told where its organisation's
+# site is — the row's website, mailbox and name are those of the site that answers; the relationship stays the one of the name on file:
+#   - a lead of any lane (a DNS service, a credit, a listing) keeps its record and takes the site that answers as its website;
+#   - a .ca name with no lead of its own gets the registry lead (tier R) when the site that answers is not itself a .ca site (that one
+#     gets its own registry lead above): the organisation holds a .ca registration, its site lives elsewhere.
+# One row per organisation: the lead is keyed by the site that answers like every other lead (seen_dom). A site that more than 30
+# different names answer at is a hub (a broker, a franchise network, a domain dealer): nobody's second name is read from it.
+n_moved = collections.Counter()
+try:
+    _hub = collections.Counter(registrable(host_of(_v[1])) for _v in MOVED.values())
+    for _k, (_asked, _site, _murl, _mdate) in sorted(MOVED.items()):
+        _a, _b, _bh = registrable(host_of(_asked)), registrable(host_of(_site)), host_of(_site)
+        if not _a or not _b or _a == _b:
+            continue
+        if _hub[_b] > 30:
+            n_moved["the site answers for more than 30 names (a hub): left out"] += 1
+            continue
+        _m = mail.get(_k)
+        if not _m or registrable(host_of(_m[1].get("evidence_url") or "")) != _b:
+            n_moved["no confirmed mailbox on the site that answers (yet)"] += 1
+            continue
+        if _k in leads:
+            if registrable(host_of(leads[_k].get("website") or "")) == _a:
+                leads[_k] = dict(leads[_k], website="https://%s/" % _bh, _alias=(_a, _b, _mdate))
+                n_moved["lead of another lane: its site is the one that answers"] += 1
+            continue
+        if not _a.endswith(".ca") or _a.count(".") > 2 or re.search(r"(^|\.)(gc|canada|gouv\.qc|gov\.[a-z]{2})\.ca$", _a):
+            continue
+        if _b.endswith(".ca"):
+            n_moved[".ca name answering at another .ca site (that site has its own registry lead)"] += 1
+            continue
+        _nm = (_m[1].get("org_name") or "").strip()
+        if not _nm or re.match(r"(?i)^(https?://|www\.)", _nm) or registrable(_nm.lower()) == _a:
+            _nm = _b  # the name so far is the domain that was asked: the site that answers, until its own name is read
+        leads[_k] = {"buyer_key": _k, "buyer_name": _nm, "website": "https://%s/" % _bh, "canadian_vendor_rows": "1",
+                     "example_vendor": "Canadian Internet Registration Authority (CIRA)", "canada_field_value": CF_REG,
+                     "evidence_dataset": "https://dns.google/resolve?name=%s&type=NS" % _a, "latest_record_date": today, "_alias": (_a, _b, _mdate)}
+        LDET.setdefault(_k, {"key": _k, "platform": "ca_registry", "title": ".ca domain name registration: %s (answers at %s)" % (_a, _b), "reference": _a,
+                             "vendor_address": "979 Bank Street, Suite 400, Ottawa, Ontario K1S 5K5 (CIRA's notice address in its Registrant Agreement, version 2.2: %s)" % REG_AGREEMENT})
+        n_moved["registry lead for a .ca name whose site lives under another ending"] += 1
+except Exception as _e:
+    print("second names skipped: %s" % _e)
+print("organisations' second domain names (the name on file answers at their site under another domain):", len(MOVED), dict(n_moved))
 # ---- ranking in parts (2026-11-10) -------------------------------------------------------------------------------------------------------
 # RANK_PART="i/N": this process ranks part i of N. Measured: 1.9 GB fixed + ~12 KB a row — a million rows do not fit one 16 GB runner. The
 # rows that grow are the leads' and the inferred rows of organisations with a mailbox; the contract rows and P12 are small and stay whole in
@@ -1438,7 +1490,9 @@ for k, L in sorted(leads.items(), key=lead_strength):
         "email": m["mailbox"], "email_type": LABEL_G.get(g, m["mailbox_type"]), "email_check": "confirmed" if acc else m["check_status"], "email_evidence_url": m["evidence_url"], "email_evidence_quote": m["evidence_quote"],
         "contract_status": ("registration contract in force for the organisation's own .ca domain name %s (live on %s): every .ca name is held under the Registrant Agreement of the Canadian Internet "
                             "Registration Authority and paid for through a CIRA-certified registrar (a Canadian person or corporation under CIRA's rules); the registrant of record is not read here "
-                            "(normally the organisation itself, sometimes its web agency)" % (registrable(host_of(L.get("website") or "")), today)) if registry else
+                            "(normally the organisation itself, sometimes its web agency)" % (
+                                ("%s — a second name of the organisation: its home page answers at the organisation's site %s, redirect followed %s" % L["_alias"]) if L.get("_alias")
+                                else registrable(host_of(L.get("website") or "")), today)) if registry else
                            ("member of a Canadian body (stated on the buyer's own site, read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "member badge on the buyer's own site" in L.get("canada_field_value", "") else
                            ("accredited business of a Canadian Better Business Bureau since %s (its BBB profile read %s): %s — accredited businesses pay the BBB dues"
                             % ((LDET.get(k) or {}).get("accredited_since") or "an unstated date", (L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "accredited business of the Canadian body" in L.get("canada_field_value", "") else
@@ -1472,6 +1526,8 @@ for k, L in sorted(leads.items(), key=lead_strength):
         "contract_link": L["evidence_dataset"], "vendor": L["example_vendor"], "vendor_country_basis": L["canada_field_value"],
         "contracts_with_canadian_suppliers": L["canadian_vendor_rows"], "keys": k, "buyer_keys": 1, "tier": tier, "grade": g, "acc": acc})
     x, ev, cfv = rows[-1], (L.get("example_vendor") or "").strip(), (L.get("canada_field_value") or "")
+    if L.get("_alias") and not registry:  # the record is about the organisation's other domain name: said in the row
+        x["contract_status"] = "%s — the record is about the organisation's domain name %s, whose home page answers at its site %s (redirect followed %s)" % ((x.get("contract_status") or "").rstrip(". "),) + tuple(L["_alias"])
     dm = re.search(r"=\s*([a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,})(?:[;/\s]|$)", cfv.lower())
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))

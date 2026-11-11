@@ -53,9 +53,20 @@ RANK = {"invoice_submission": 0, "accounts_payable": 1, "supplier_payment": 2, "
 OTHER_ROLE = re.compile(r"^(sales|ventes?|service|services|serviceclient|service-client|service\.client|serviceclientele|sac|customerservice|customer-service|customer\.service|customercare|"
                         r"customer|clients?|clientele|support|soutien|help|aide|team|equipe|mail|email|e-mail|courriel|courrier|hi|bonjour|allo|salut|welcome|bienvenue|connect|enquiry|inquiry|"
                         r"inquire|ask|questions?|demandes?|requests?|orders?|commandes?|bookings?|reservations?|reserve|frontdesk|front-desk|front\.desk|main|mainoffice|headoffice|head-office|"
-                        r"head\.office|siege|corporate|management|direction|dg|gm|operations|ops|shop|store|boutique|magasin|estimates?|quotes?|soumissions?|devis|rentals?|parts|pieces)"
+                        r"head\.office|siege|corporate|management|direction|dg|gm|operations|ops|shop|store|boutique|magasin|estimates?|quotes?|soumissions?|devis|rentals?|parts|pieces|"
+                        # 2026-11-11 (240 sites that had given nothing were read again; 1 in 30 prints only a role word that was not on this list):
+                        # the desk a small organisation answers from, named after what it does. Words only — a first name is never a role.
+                        r"gestion|gerance|manager|leasing|locations?|admissions?|registrar|registraire|registration|inscriptions?|membership|members|membres|adhesion|adhesions|"
+                        r"events?|evenements?|claims?|reclamations?|dispatch|repartition|shipping|expedition|livraison|delivery|warehouse|entrepot|intake|referrals?|appointments?|"
+                        r"rendezvous|rdv|tickets?|billetterie|boxoffice|guestservices?|concierge|clinic|clinique|pharmacy|pharmacie|garage|atelier|studio|hotel|motel|camping|"
+                        r"ecole|school|eglise|church|paroisse|parish|quoteme|getaquote|getquote|requestaquote|catering|traiteur|groups?|groupes?|tours?|voyages?|travel|production|"
+                        r"projects?|projets?|communications?|marketing|bookstore|librairie|cityclerk|townclerk|townoffice|cityoffice|villageoffice|municipaloffice)"
                         r"(\d{0,2})([._-](info|general|office|team|ca|canada|qc|on|bc|ab|mtl|montreal|toronto|ottawa|quebec|vancouver|calgary|edmonton|winnipeg|halifax))?$", re.I)
-GENERAL = re.compile(r"^(info|contact|contactus|reception|admin|administration|general|greffe|mairie|municipalite|townhall|cityhall|clerk|office|bureau|secretariat|accueil|hello|inquiries|enquiries|renseignements)([._-]|$)", re.I)
+_PLACE = (r"canada|ca|qc|on|bc|ab|mb|sk|ns|nb|nl|pei|mtl|montreal|toronto|ottawa|quebec|vancouver|calgary|edmonton|winnipeg|halifax|saskatoon|regina|victoria|laval|gatineau|"
+          r"sherbrooke|kelowna|london|hamilton|kitchener|waterloo|mississauga|brampton|surrey|burnaby|moncton|fredericton|stjohns|charlottetown|sudbury|barrie|kingston|windsor|"
+          r"oshawa|guelph|niagara|trois-?rivieres|saguenay|levis|longueuil|rimouski|drummondville|granby|whitehorse|yellowknife")
+GENERAL = re.compile(r"^(?:(?:info|contact|contactus|reception|admin|administration|general|greffe|mairie|municipalite|townhall|cityhall|clerk|office|bureau|secretariat|accueil|hello|inquiries|"
+                     r"enquiries|renseignements|information|informations|infos)(?:[._-]|$)|(?:info|contact|office|bureau)(?:%s)$)" % _PLACE, re.I)
 TODAY = datetime.date.today().isoformat()
 
 host_lock, host_next, robots = threading.Lock(), {}, {}
@@ -544,16 +555,52 @@ def crawl(task, max_pages, general=False):
     if not host0:
         return "no_website", 0, []
     base = host0[4:] if host0.startswith("www.") else host0
+    site = task["known_website"]  # the address a mailbox is judged against (same_org): the site as on file, or the site the organisation's home page lives on
+    origin, pre, moved = "%s://%s" % (urllib.parse.urlparse(start).scheme, urllib.parse.urlparse(start).netloc), {}, ""
+    if not task.get("_only_paths"):
+        # 2026-11-11 — where the site answers, asked once before anything else (240 sites that had given "nothing_found" were read again):
+        #  - 1 lead site in 9 never answered at the address on file and the seeded pages were asked of the same dead address one by one. fetch()
+        #    turns to www. only when the bare name has no DNS record, and to plain http only after a TLS error: a bare name that resolves and
+        #    refuses the connection (rbcbank.com) was never read. Its www. twin is asked once; a site with no answer at all ends here as
+        #    "unreachable" (one or two requests instead of eight).
+        #  - the pages that follow are asked of the address that answered (scheme and host of the home page's final URL), not of the one on file.
+        #  - 1 site in 7 of the .ca registry class is a second name of an organisation whose site lives under another domain (osfs.ca ->
+        #    flyos.ca, feuer.ca -> valenciarisk.com): the home page answers there, the mailbox printed there is that domain's, and same_org()
+        #    refused it against the name on file. A caller that can tell an organisation's own second site from a platform or a parking page
+        #    passes task["_moved_ok"](asked, final): when it says yes the site read is the one that answers, and task["_moved"] names it.
+        res = fetch(start) if allowed(start) else None
+        if res is not None and res[0] == 0 and not host0.startswith("www."):
+            alt = "https://www.%s/" % base
+            r2 = fetch(alt) if allowed(alt) else None
+            if r2 is not None and r2[0] == 200:
+                res, start = r2, alt
+        if res is not None and res[0] == 0:
+            root0 = origin + "/"
+            r3 = fetch(root0) if (root0 != start and allowed(root0)) else None  # the address on file was a page inside the site: its home page
+            if r3 is None or r3[0] == 0:
+                return "unreachable", 1, []
+            res, start = r3, root0
+        if res is not None:
+            pre[start.split("#")[0]] = res
+            pf = urllib.parse.urlparse(res[3] or start)
+            fb = (pf.hostname or "").lower()
+            fb = fb[4:] if fb.startswith("www.") else fb
+            if res[0] == 200 and fb and pf.scheme in ("http", "https"):
+                if registrable(fb) == registrable(base):
+                    origin = "%s://%s" % (pf.scheme, pf.netloc)
+                elif task.get("_moved_ok") and task["_moved_ok"](start, res[3]):
+                    origin, base, site, moved = "%s://%s" % (pf.scheme, pf.netloc), fb, "%s://%s/" % (pf.scheme, pf.netloc), res[3]
+                    task["_moved"] = moved
     same = lambda h: bool(h) and (h.lower() == base or h.lower().endswith("." + base))
-    heap, seen, pages, found = [(-100, 0, start), (-90, 0, "https://%s/" % host0)], set(), 0, {}
+    heap, seen, pages, found = [(-100, 0, start), (-90, 0, origin + "/")], set(), 0, {}
     for i, path in enumerate(("contact", "contact-us", "nous-joindre", "suppliers", "fournisseurs")):  # common pages, often unlinked from home
-        heap.append((-60 + i, 1, "https://%s/%s" % (host0, path)))
+        heap.append((-60 + i, 1, "%s/%s" % (origin, path)))
     for i, path in enumerate(task.get("_extra_paths") or ()):  # pages a caller knows this kind of site has (a Shopify store's /policies/contact-information)
-        heap.append((-95 + i, 1, "https://%s/%s" % (host0, path.lstrip("/"))))
+        heap.append((-95 + i, 1, "%s/%s" % (origin, path.lstrip("/"))))
     if task.get("_only_paths"):  # a second look at a site already read: these pages and nothing else (depth 9: their links are not followed)
         heap = [(-95 + i, 9, "https://%s/%s" % (host0, path.lstrip("/"))) for i, path in enumerate(task["_only_paths"])]
     stop_found = task.get("_stop_found") or 0  # a caller that pays for every request: stop once this many pages are read and a mailbox better than a front-office role is on file
-    root = "%s://%s/" % (urllib.parse.urlparse(start).scheme, urllib.parse.urlparse(start).netloc)
+    root = origin + "/"
     if allowed(root) and not task.get("_no_sitemap") and not task.get("_only_paths"):  # the sitemap reveals deep invoicing / supplier pages (a store's sitemap lists products: a caller may skip it)
         for i, u in enumerate(sitemap_urls(root)):
             if (urllib.parse.urlparse(u).hostname or "").lower().endswith(base):
@@ -570,7 +617,7 @@ def crawl(task, max_pages, general=False):
         seen.add(url)
         if not allowed(url):
             continue
-        status, ctype, data, final = fetch(url)
+        status, ctype, data, final = pre.pop(url, None) or fetch(url)
         page = stable_url(url, final)  # what a row and the page memory name; `final` still resolves the page's own links
         pages += 1
         stats["pages"] += 1
@@ -593,7 +640,7 @@ def crawl(task, max_pages, general=False):
                 continue
             if e not in vis and any(v != e and v.endswith(e) for v in vis):
                 continue  # only in a link target while the page shows a longer address (typo'd mailto: ccountspayable@ for accountspayable@)
-            if not same_org(e, task["known_website"], task.get("buyer_name", "")):
+            if not same_org(e, site, task.get("buyer_name", "")):
                 continue
             q = quote_for(e, text, raw)
             i = find_tok(text, e)
@@ -620,8 +667,8 @@ def crawl(task, max_pages, general=False):
              "ap_email": e, "ap_email_type": "general" if kind in ("finance", "role") else kind, "invoice_portal_url": "", "ap_phone": "", "invoice_mailing_address": "",
              "invoicing_requirements_summary": "", "applies_to": "whole_organisation", "evidence_url": url,
              "evidence_quote": q, "retrieved_date": TODAY, "status": "found",
-             "queries_tried": "site crawl of %s (%d pages, robots.txt respected), no AI, no search engine" % (host0, pages),
-             "notes": "found on the buyer's own site by tools/ap_crawler.py" + ("; general role mailbox: no invoicing, AP or purchasing mailbox found on the site" if kind == "general" else
+             "queries_tried": "site crawl of %s (%d pages, robots.txt respected), no AI, no search engine" % (urllib.parse.urlparse(origin).hostname or host0, pages),
+             "notes": "found on the buyer's own site by tools/ap_crawler.py" + (("; the organisation's site: https://%s/ answers at %s (redirect followed %s)" % (host0, moved, TODAY)) if moved else "") + ("; general role mailbox: no invoicing, AP or purchasing mailbox found on the site" if kind == "general" else
                                                                                 "; front-office role mailbox (sales / service / orders / team): the site publishes no invoicing, AP, purchasing or general mailbox" if kind == "role" else
                                                                                 "; finance / accounting department mailbox: no invoicing or AP mailbox published on the site" if kind == "finance" else "")} for e, (_, kind, url, q) in best]
     return ("found" if rows else "nothing_found"), pages, rows
