@@ -120,7 +120,11 @@ NEW_COLS = ["row_unit", "relationship_id", "payment_route", "payment_route_basis
 _has = lambda x, c: str(x.get(c) or "").strip() not in ("", "not_published", "{}")
 _CARD = re.compile(r"credit card|carte de cr[ée]dit|\bvisa\b|mastercard|\bamex\b|american express|card on file|payment method (?:on file|that you authorize)|\bpaypal\b|\bstripe\b|debit card|charged? (?:to )?(?:your|the) (?:card|payment method)", re.I)
 _BANK = re.compile(r"bank transfer|wire transfer|\bwire\b|virement|e-?transfer|interac|\beft\b|electronic funds|direct deposit|d[ée]p[oô]t direct|\bcheques?\b|\bchecks?\b|ch[èe]ques?|pre-?authori[sz]ed (?:debit|payment)|"
-                   r"pr[ée]l[èe]vement|\bACH\b|bill payment|money order|mandat|at (?:a|your) (?:bank|financial institution)|institution financi", re.I)
+                   r"pr[ée]l[èe]vement|\bACH\b|bill payment|money order|mandat|at (?:a|your) (?:bank|financial institution)|institution financi|"
+                   # 2026-11-11: the words of a bank's own bill-payment service, as utilities and public bodies print them ("Add NB Power as a payee",
+                   # "through your bank", "automatic payments from your bank account") — NB Power's page read as card only without them
+                   r"through (?:a|your|the|most) (?:banks?|financial institutions?|credit unions?)|from (?:a|your) bank account|online banking|telephone banking|as a payee|"
+                   r"automatic(?:ally)? (?:withdraw\w*|payments?) from|withdrawn from your bank", re.I)
 _DEAD = re.compile(r"dissol|inactive|radi[ée]|cancel|revoked|struck|annul|liquidat|discontinued|amalgamated|historical", re.I)
 _LIVE = re.compile(r"\bactive\b|immatricul|en vigueur|in good standing|registered\b|existing|current", re.I)
 

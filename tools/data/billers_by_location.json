@@ -148,13 +148,15 @@
   "delivery": "a bill, paid with its account number: “write your 20-digit account number on the front of your cheque.” (https://hydroottawa.com/en/residential/rates-billing/view-and-pay-your-bill)",
   "payment": "by cheque by mail, among the ways of its page: “Mail your payments to: Hydro Ottawa P.O. Box 8700 Ottawa, ON K1G 3S4” (https://hydroottawa.com/en/residential/rates-billing/view-and-pay-your-bill)",
   "remit_to": "“Hydro Ottawa P.O. Box 8700 Ottawa, ON K1G 3S4” (https://hydroottawa.com/en/residential/rates-billing/view-and-pay-your-bill)",
-  "table_key": "Hydro Ottawa Limited"
+  "table_key": "Hydro Ottawa Limited",
+  "amount": "from $0.8601 a day (about $25.80 for 30 days, calculated from the daily charge)",
+  "amount_basis": "the fixed service charge of its small-business class (under 50 kW), by the day: “Most small businesses are in the General Service rate class.” … “Hydro Ottawa service charge: $0.8601/day” (https://hydroottawa.com/en/business/rates-billing/your-bill-and-rates-explained); delivery and energy by the kilowatt-hour come on top — the organisation's own consumption is not published"
  },
  {
   "key": "saskpower",
   "name": "SaskPower",
   "site": "https://www.saskpower.com/",
-  "read": "2026-11-03",
+  "read": "2026-11-11",
   "address": "2025 Victoria Avenue, Regina, SK S4P 0S1",
   "address_url": "https://saskpower.com/contact",
   "address_quote": "Send us a letter: SaskPower Corporate Relations and Communications 9th Floor, 2025 Victoria Ave Regina, SK S4P 0S1",
@@ -178,13 +180,19 @@
    "S9H"
   ],
   "territory": "SaskPower holds the electricity franchise in Saskatchewan outside the municipal utilities of Saskatoon and Swift Current (The Power Corporation Act); the postal areas of those two cities are left out",
-  "what": "electricity for the premises at the organisation's address"
+  "what": "electricity for the premises at the organisation's address",
+  "period": "1 monthly",
+  "period_basis": "the distributor's own words on its automatic payments: “Exact payments will come out of your account each month .” (https://saskpower.com/accounts/payments/preauthorized-payments)",
+  "delivery": "a bill, on paper or as an eBill: “Please include your bill or a printed copy of your eBill.” (https://saskpower.com/accounts/payments/paying-your-bill)",
+  "payment": "through a bank, by pre-authorized payment or by cheque; a credit card with a fee: “Through Your Bank Pay online, over the phone or in person. Check your bank's app or website for their online banking and bill payment services.” … “By Mail Send your cheques to our payment address. Make your cheque payable to SaskPower.” … “A 1.75% fee is charged to all credit card payments.” (https://saskpower.com/accounts/payments/paying-your-bill)",
+  "terms": "“To avoid late fees make sure we receive your payment by the due date.” (https://saskpower.com/accounts/payments/paying-your-bill)",
+  "remit_to": "“Cheques under $10,000 PO Box 6300, STN Main Regina, SK S4P 4J5” (https://saskpower.com/accounts/payments/paying-your-bill)"
  },
  {
   "key": "nb_power",
   "name": "NB Power",
   "site": "https://www.nbpower.com/",
-  "read": "2026-11-03",
+  "read": "2026-11-11",
   "address": "515 King Street, Fredericton, NB E3B 4X1",
   "address_url": "https://www.nbpower.com/en/contact-us/",
   "address_quote": "For correspondence NB Power 515 King Street PO Box 2000, STN A Fredericton, NB E3B 4X1",
@@ -206,7 +214,14 @@
    "E7H"
   ],
   "territory": "NB Power distributes electricity across New Brunswick outside the municipal utilities of Saint John, Edmundston and Perth-Andover (Electricity Act); the postal areas of those three are left out",
-  "what": "electricity for the premises at the organisation's address"
+  "what": "electricity for the premises at the organisation's address",
+  "period": "1 monthly",
+  "period_basis": "the distributor's own words on its bills: “Enjoy predictable monthly bills by spreading out your electricity costs with 12 equal payments.” (https://www.nbpower.com/en/accounts-billing/billing-and-payment)",
+  "amount": "from $30.87 a billing period",
+  "amount_basis": "the service charge of its standard business rate, effective April 14, 2026: “General Service 1 (standard) Service Charge: $30.87” (https://www.nbpower.com/en/products-services/business/rates); demand and energy come on top — the organisation's own consumption is not published",
+  "delivery": "a bill: “All bills for service are due when rendered and are subject to a late payment charge when payments are received after the date specified on the bill.” (https://www.nbpower.com/en/accounts-billing/understanding-your-bill/rate-schedules-and-policies/f-billing-and-payments)",
+  "payment": "through a bank or by automatic withdrawal from a bank account; a credit card with a fee: “Add NB Power as a payee for options to pay your bill in person, online or over the phone .” … “Never miss your bill due date with automatic payments from your bank account.” … “Easily make a secure, one-time payment using your credit card. (A convenience fee will be applied).” (https://www.nbpower.com/en/accounts-billing/billing-and-payment)",
+  "terms": "“All bills for service are due when rendered and are subject to a late payment charge when payments are received after the date specified on the bill.” (https://www.nbpower.com/en/accounts-billing/understanding-your-bill/rate-schedules-and-policies/f-billing-and-payments)"
  },
  {
   "key": "qulliq",
