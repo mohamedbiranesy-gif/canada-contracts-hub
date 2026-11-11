@@ -389,22 +389,22 @@ entrepreneur entrepreneurs assurances assurance courtage transport location loca
 
 def _opening3(text, nm):
     """the name with the opening word(s) the site prints before it EVERY time ("Services Mobile Mediq inc.", "Les Entreprises Tremblay inc.",
-    "Alliance to End Plastic Waste, Inc." on endplasticwaste.org), or the name as it is. Words that stand before the name only now and then are a
-    menu item or a heading next to it, not a part of it. Before a name printed once, only the usual opening words of company names count, and only
-    inside a sentence (a word written small comes before them: "… par Les Entreprises Tremblay inc.")."""
+    "Alliance to End Plastic Waste, Inc." on endplasticwaste.org), or the name as it is. Only words written with a capital, right before the name,
+    with no comma between. They are part of the name when they stand inside a sentence (a word written small comes before them: "… the policies
+    of ALLIANCE TO END PLASTIC WASTE, INC."), or — for the usual opening words of company names — whenever every printing has them. A word that
+    stands before the name only now and then, or the same word after the same word every time ("Shop Now" above a footer), is the page's furniture."""
+    small = re.compile(r"[a-zà-ÿ'’]{1,14}$")
     chains = []
-    for m in re.finditer(re.escape(nm), text):
+    for m in re.finditer(r",?[ \u00a0]+".join(map(re.escape, nm.split(" "))), text):  # "… PLASTIC WASTE, INC.": the comma before the form is not in the name as kept
         head = text[max(0, m.start() - 90):m.start()]
         ws = head[:-1].split(" ") if head.endswith(" ") else []
         ch = []
         while ws and len(ch) < 4:
-            w = ws[-1].rstrip(",")
-            if not w or w.lower().strip(".:") in CHROME3 or not (_W3.match(w) or w.lower() in _J3) or (w[-1] in ".:;!?)|" and not ABBR3.fullmatch(w)):
-                break
+            w = ws[-1]
+            if not w or w.lower().strip(".:") in CHROME3 or not _W3.match(w) or w in ("&", "+") or not w[0].isalpha() or (w[-1] in ".,:;!?)|" and not ABBR3.fullmatch(w)):
+                break  # a year, a number: "© 2026 Sécurité Métalgard Inc."
             ch.insert(0, w)
             ws.pop()
-        while ch and ch[0].lower() in _J3 and not (ch[0][:1].isupper() and ch[0].lower() in ("les", "le", "la", "the")):
-            ch.pop(0)  # a connector left at the front; an article written with a capital opens a name ("Les Entreprises …", "The …")
         chains.append((ch, ws[-1] if ws else ""))
     if not chains:
         return nm
@@ -414,17 +414,17 @@ def _opening3(text, nm):
         while k < len(tail) and k < len(ch) and tail[-1 - k] == ch[-1 - k]:
             k += 1
         tail = tail[len(tail) - k:]
-    while tail and tail[0].lower() in _J3 and not (tail[0][:1].isupper() and tail[0].lower() in ("les", "le", "la", "the")):
-        tail.pop(0)
     if not tail:
         return nm
-    usual = all(w.lower() in OPENING3 or w.lower() in _J3 for w in tail)
-    if len(chains) == 1 and not (usual and re.fullmatch(r"[a-zà-ÿ'’]{1,12}", chains[0][1] or "")):
-        return nm
-    if not usual and len({b for _, b in chains}) < 2:
-        return nm  # other words than the usual openings must come in two different surroundings: the same word before the name every time is the
-                   # page's furniture ("Shop Now" above a footer), printed as often as the name
-    return " ".join(tail) + " " + nm
+    if {letters3(w) for w in tail} & {letters3(w) for w in nm.split(" ")}:
+        return nm  # the site's short name printed right before its legal name ("Selkirk Security Selkirk Security Services Ltd."): not an opening
+    usual = all(w.lower() in OPENING3 for w in tail)
+    in_sentence = all(len(ch) == len(tail) and small.match(b or "") for ch, b in chains)  # every printing: a small word, then exactly these words, then the name
+    if len(chains) == 1:
+        ok = in_sentence
+    else:
+        ok = usual or in_sentence or len({b for ch, b in chains if len(ch) == len(tail)}) >= 2 and all(len(ch) == len(tail) for ch, b in chains)
+    return (" ".join(tail) + " " + nm) if ok else nm
 
 
 def spelled_name(text, host):
