@@ -1,4 +1,4 @@
-# Cloud lanes — status from the files on main (2026-11-11 01:52 UTC)
+# Cloud lanes — status from the files on main (2026-11-11 03:30 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
@@ -14,7 +14,7 @@
 - 87879 domains: no_address 39305, unreachable 14242, CA 11717, US 4856, blocked 4844, robots 4332, CA-loc 4055, GB 1498
 
 ## 3. DNS lookups
-- domains looked up in the cloud: **4183990**; on Shopify's storefront addresses: **593319**; with a www alias: 161652
+- domains looked up in the cloud: **7528460**; on Shopify's storefront addresses: **1166817**; with a www alias: 698898
 
 ## 4. Relationship leads on file
 - Mac era B/L dated record (payment, subaward, release): **10803**
@@ -22,10 +22,10 @@
 - Mac era M member / regulated payer list: **2290**
 - Mac era T vetted software service (store / portal): **5511**
 - cloud D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **118232**
-- cloud M accredited business (BBB) [bbb]: **816**
+- cloud M accredited business (BBB) [bbb]: **3106**
 - cloud M licence holder (the licensing body's own list of active licences) [lic]: **3806**
 - cloud M licence holder (the licensing body's own list of active licences) [rbq]: **11585**
-- cloud M member / regulated payer list: **7106**
+- cloud M member / regulated payer list: **10126**
 - cloud M membership stated by the member: **1404**
 - cloud T credit line on the buyer's site: **66899**
 - cloud T provider in the buyer's DNS: **120571**
@@ -34,7 +34,7 @@
 
 ## 5. Mailbox crawl
 - lead sites read: **533210** (nothing_found 330385, found 173738, blocked 28514, timeout 506, error 67)
-  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 228229 read, mailbox on 105942 (46 %), blocked 8295
+  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 228259 read, mailbox on 105972 (46 %), blocked 8295
   - D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): 126690 read, mailbox on 29892 (24 %), blocked 12850
   - T provider in the buyer's DNS: 108319 read, mailbox on 14509 (13 %), blocked 4769
   - T credit line on the buyer's site: 58935 read, mailbox on 19521 (33 %), blocked 1966
@@ -42,7 +42,7 @@
   - B/L dated record (payment, subaward, release): 1462 read, mailbox on 165 (11 %), blocked 192
   - T vetted software service (store / portal): 1080 read, mailbox on 140 (13 %), blocked 129
   - M membership stated by the member: 1018 read, mailbox on 299 (29 %), blocked 15
-  - M member / regulated payer list: 792 read, mailbox on 349 (44 %), blocked 60
+  - M member / regulated payer list: 762 read, mailbox on 319 (42 %), blocked 60
   - M accredited business (BBB) [bbb]: 633 read, mailbox on 188 (30 %), blocked 72
   - M licence holder (the licensing body's own list of active licences) [lic]: 60 read, mailbox on 43 (72 %), blocked 0
 - candidate sites (stores / portals) read: **98380**
@@ -60,8 +60,8 @@
   - jobber: 3586 read — nothing_found 2082, no_address 727, accepted 656, no_name 63, blocked 57, error 1
   - kev: 153 read — nothing_found 110, blocked 11, accepted 8, out_of_scope 8, no_name 6, no_address 5, portal_not_its_own 5
   - shopify: 73810 read — nothing_found 24538, out_of_scope 20756, accepted 16438, blocked 8601, no_address 3035, service_not_seen 387, no_name 45, no_role_mailbox 5, timeout 5
-- mailbox rows written by the cloud crawls (before the referee): **203765**
+- mailbox rows written by the cloud crawls (before the referee): **203766**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **224710** — by tier: A 1225, B 1678, C 303, D 28002, E 5095, F 7, I 18051, L 427, M 10375, R 99167, T 60380
-- named-vendor relationships (A B T M C D L): **102390** · registry contract R: **99167** · link only (E): **5095** · older / inferred (F I): **18058**
+- rows with a confirmed mailbox: **224736** — by tier: A 1225, B 1678, C 303, D 27802, E 5134, F 7, I 18053, L 427, M 10735, R 98993, T 60379
+- named-vendor relationships (A B T M C D L): **102549** · registry contract R: **98993** · link only (E): **5134** · older / inferred (F I): **18060**
