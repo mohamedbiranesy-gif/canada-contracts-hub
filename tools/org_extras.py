@@ -334,8 +334,8 @@ def _name_runs(text, loose=False):
     are read backwards from the form while they look like the words of a name; `cut` says the reading stopped at its limit, not at the name's start.
     loose: words written small are read too ("Centre dentaire Ahuntsic inc."); the caller then takes only what the site's own address spells."""
     for m in SUF3.finditer(text):
-        if re.match(r"\s+(?:of|de|du|des|d['’])\s", text[m.end():m.end() + 6]):
-            continue  # "The Corporation of the Town of …", "Limited edition"
+        if re.match(r"(?i)\s+(?:of|de|du|des|d['’]|to|by|in|for|time|edition|liability|warrant(?:y|ies)|use|access|licen[cs]es?|purposes?|rights?|number|quantit(?:y|ies)|partnership)\b", text[m.end():m.end() + 14]):
+            continue  # "The Corporation of the Town of …", "Limited edition", "INCLUDING, BUT NOT LIMITED TO, …"
         if m.group(1).islower() and m.group(1) not in ("inc", "ltée", "ltee", "senc", "ltd", "limitée", "limitee"):
             continue  # "a limited number", "the corporation": the French forms are written small ("Autoénergie Canada inc."), the English ones are not
         j = m.start()
@@ -384,47 +384,67 @@ def _variants3(words):
 OPENING3 = set("""les le la the services service entreprises entreprise groupe group gestion société societe compagnie clinique centre constructions construction distributions
 distribution transports transport industries équipements equipements aliments produits placements investissements immeubles productions éditions editions consultants solutions technologies
 laboratoires pharmacie restaurant boutique atelier garage ferme excavation excavations plomberie toitures toiture rénovations renovations rénovation renovation électrique electrique
-entrepreneur entrepreneurs assurances assurance courtage transport location locations ventes importations exportations meubles pavage paysagement paysagiste""".split())
+entrepreneur entrepreneurs assurances assurance courtage transport location locations ventes importations exportations meubles pavage paysagement paysagiste
+mobilier club golf tourisme tourism internet carrefour marché marche hôtel hotel auberge motel camping épicerie epicerie boulangerie pâtisserie patisserie boucherie fromagerie bijouterie
+librairie imprimerie quincaillerie pépinière pepiniere serres vignoble domaine château chateau studio galerie académie academie école ecole garderie résidence residence coopérative
+cooperative caisse fondation association institut cliniques dentaire électricité electricite équipement equipement machinerie fabrication produits aliments fermes immobilier
+maçonnerie maconnerie menuiserie ébénisterie ebenisterie peinture soudure usinage climatisation chauffage réfrigération refrigeration isolation portes fenêtres fenetres cuisines
+armoires planchers vitrerie béton beton asphalte déneigement deneigement entretien nettoyage sécurité securite alarme autobus taxi déménagement demenagement voyages agence
+laboratoire informatique communications consultation conseils comptabilité comptabilite notaires avocats ingénierie ingenierie architecture design""".split())
+
+
+BEFORE3 = CHROME3 | set("""us send submit quote free get toggle back now here more learn read view click call visit join book order buy sign log register apply download share print next
+previous close open yes no ok envoyer soumettre voir lire cliquez appelez réserver reserver commander acheter fermer ouvrir suivant précédent precedent plus chez between entre history
+historique purpose mission vision at for in on to of as if when since depuis pour sur dans selon chaque each every where why how who what que qui comment pourquoi and et or ou
+manager director directeur directrice president président presidente présidente officer coordinator coordonnateur coordonnatrice responsable owner propriétaire proprietaire
+founder fondateur fondatrice ceo cfo coo cto chairman treasurer secretary trésorier secrétaire thank thanks merci please veuillez note notice attention important new nouveau nouvelle
+coordonnées coordonnees registration inscription impressum commitment engagement see voir also aussi both either neither while whereas although because parce donc thus therefore however cependant toutefois ainsi alors then puis ensuite finally enfin""".split())
 
 
 def _opening3(text, nm):
-    """the name with the opening word(s) the site prints before it EVERY time ("Services Mobile Mediq inc.", "Les Entreprises Tremblay inc.",
-    "Alliance to End Plastic Waste, Inc." on endplasticwaste.org), or the name as it is. Only words written with a capital, right before the name,
-    with no comma between. They are part of the name when they stand inside a sentence (a word written small comes before them: "… the policies
-    of ALLIANCE TO END PLASTIC WASTE, INC."), or — for the usual opening words of company names — whenever every printing has them. A word that
-    stands before the name only now and then, or the same word after the same word every time ("Shop Now" above a footer), is the page's furniture."""
+    """(name, kept) for a name the site's address spells: is it a whole name where it is printed, or the tail of a longer one?
+    - printed at least once with nothing of a name before it (a small word, a number, a sign, a menu word): the name as it is;
+    - printed every time after the same usual opening word(s) of company names ("Services Mobile Mediq inc.", "Les Entreprises Tremblay inc.",
+      "Construction Valrive Inc."): the name with them — two printings at least, or one inside a sentence (a small word before the opening);
+    - printed every time after other words written with a capital: not kept. It is the tail of another body's name ("Crumpler Plastic Pipe Inc." in
+      the member list of plasticpipe.org) or the site's furniture runs into it ("Data Protection Director Mirego inc.", "Carrière Total Fabrication
+      Inc."), and the page does not say which (seen on 1,950 sites, 2026-11-11: 9 of 21 such names were wrong)."""
     small = re.compile(r"[a-zà-ÿ'’]{1,14}$")
     chains = []
     for m in re.finditer(r",?[ \u00a0]+".join(map(re.escape, nm.split(" "))), text):  # "… PLASTIC WASTE, INC.": the comma before the form is not in the name as kept
         head = text[max(0, m.start() - 90):m.start()]
         ws = head[:-1].split(" ") if head.endswith(" ") else []
         ch = []
+        own = {letters3(w) for w in nm.split(" ")}
         while ws and len(ch) < 4:
             w = ws[-1]
-            if not w or w.lower().strip(".:") in CHROME3 or not _W3.match(w) or w in ("&", "+") or not w[0].isalpha() or (w[-1] in ".,:;!?)|" and not ABBR3.fullmatch(w)):
-                break  # a year, a number: "© 2026 Sécurité Métalgard Inc."
+            if (not w or re.split(r"[-–'’]", w.lower().strip(".:"))[0] in BEFORE3 or w.lower().strip(".:") in BEFORE3 or not _W3.match(w) or w in ("&", "+") or not w[0].isalpha()
+                    or (w[-1] in ".,:;!?)|" and not ABBR3.fullmatch(w)) or (len(w) == 1) or letters3(w) in own):
+                break  # nothing of a name: a year, a number, a sign, a menu or button word, a word that opens a sentence, a title, a bare letter — or
+                       # the site's own short name printed before its legal name ("Selkirk Security Selkirk Security Services Ltd.")
             ch.insert(0, w)
             ws.pop()
         chains.append((ch, ws[-1] if ws else ""))
-    if not chains:
-        return nm
+    if chains and all(len(ch) == 1 and _ART3.match(ch[0]) for ch, _ in chains) and len({ch[0] for ch, _ in chains}) == 1:
+        return chains[0][0][0] + " " + nm, True  # "The Burton Corporation", every time: the article is printed as part of the name
+    chains = [([] if len(ch) == 1 and _ART3.match(ch[0]) else ch, b) for ch, b in chains]  # an article before the name now and then: the name stands without it
+    if not chains or any(not ch for ch, _ in chains):
+        return nm, True
+    if not all(_ART3.match(ch[0]) for ch, _ in chains):  # an article is part of the name only when every printing writes it with a capital ("les Entreprises …" in a sentence)
+        chains = [(ch[1:] if _ART3.match(ch[0]) and len(ch) > 1 else ch, b) for ch, b in chains]
     tail = list(chains[0][0])  # the words every printing shares, counted from the name backwards ("Les Entreprises" and "les Entreprises": "Entreprises")
     for ch, _ in chains[1:]:
         k = 0
         while k < len(tail) and k < len(ch) and tail[-1 - k] == ch[-1 - k]:
             k += 1
         tail = tail[len(tail) - k:]
-    if not tail:
-        return nm
-    if {letters3(w) for w in tail} & {letters3(w) for w in nm.split(" ")}:
-        return nm  # the site's short name printed right before its legal name ("Selkirk Security Selkirk Security Services Ltd."): not an opening
-    usual = all(w.lower() in OPENING3 for w in tail)
-    in_sentence = all(len(ch) == len(tail) and small.match(b or "") for ch, b in chains)  # every printing: a small word, then exactly these words, then the name
-    if len(chains) == 1:
-        ok = in_sentence
-    else:
-        ok = usual or in_sentence or len({b for ch, b in chains if len(ch) == len(tail)}) >= 2 and all(len(ch) == len(tail) for ch, b in chains)
-    return (" ".join(tail) + " " + nm) if ok else nm
+    if not tail and len(chains) >= 2:
+        return nm, True  # other words before the name each time: words of the sentences and headings around it, not of the name
+    if not tail or not all(w.lower() in OPENING3 or w.lower() in ("de", "du", "des", "of", "et", "and") for w in tail) or tail[0].lower() not in OPENING3 or any(len(ch) != len(tail) for ch, _ in chains):
+        return nm, False
+    if len(chains) == 1 and not small.match((chains[0][1] or "").lstrip("(«\"“")):
+        return nm, False
+    return " ".join(tail) + " " + nm, True
 
 
 def spelled_name(text, host):
@@ -446,6 +466,12 @@ def spelled_name(text, host):
             if lab in vs or any(v + sl == lab for v in vs):
                 best = (run, "its words spell the site's own domain name"); break
             if len(lab) >= 6 and any(v.startswith(lab) for v in vs):
+                # the words that spell the domain, then more words: one name ("AZON Bookkeeping Services Inc.") — not the site's name printed right before
+                # a numbered company ("L'Animatout 9037-6229 QUEBEC INC": the company is the legal person, party_name reads it)
+                j = next((i for i in range(1, len(run) + 1) if any(v.startswith(lab) or lab.startswith(v) and v == lab for v in _variants3(run[:i]))), len(run))
+                head_w, rest_w = run[:j], run[j:]
+                if any(re.fullmatch(r"\d[\d\-]{3,9}", w) for w in rest_w):
+                    break
                 best = (run, "its words begin with the site's own domain name"); break
             sig = [w for w in run if w.lower() not in _J3]
             if len(sig) >= 3:
@@ -482,11 +508,14 @@ def spelled_name(text, host):
                     break
         if not found:
             return None
-    best = sorted(found.values(), key=lambda v: (0 if v[1].startswith("its words spell") else 1 if v[1].startswith("its words begin") else 2, -v[2], v[3]))[0]
-    full = _opening3(text, best[0])
-    if full != best[0]:
-        best = [full, best[1] + ", after the opening “%s” it is always printed with" % full[:len(full) - len(best[0])].strip(), best[2], max(0, text.find(full))]
-    return best
+    for best in sorted(found.values(), key=lambda v: (0 if v[1].startswith("its words spell") else 1 if v[1].startswith("its words begin") else 2, -v[2], v[3])):
+        full, kept = _opening3(text, best[0])
+        if not kept:
+            continue
+        if full != best[0]:
+            best = [full, best[1] + ", after the opening “%s” it is always printed with" % full[:len(full) - len(best[0])].strip(), best[2], max(0, text.find(full))]
+        return best
+    return None
 
 
 def _trim_form3(cand):
@@ -534,6 +563,10 @@ def party_name(text, host):
         while len(words) > 2 and words[0].lower() in ("web", "site", "website") and words[1].lower() in _J3:
             s = text.find(words[2], text.find(words[1], s) + len(words[1]))  # "… le site Web de Auto-Chem inc."
             words = words[2:]
+        # the site's name printed right before a numbered company ("L'Animatout 9037-6229 QUEBEC INC 2244 rue King Ouest"): the company is the legal person
+        _i = next((i for i in range(1, len(words) - 0) if re.fullmatch(r"\d{4}-\d{4}|\d{6,8}", words[i]) and i + 1 < len(words) + 1), 0)
+        if _i and len(words) > _i + 1 and PROV3.match(words[_i + 1]) and _fits3(" ".join(words[:_i]), lab):
+            return " ".join(words[_i:]) + " " + suf, " ".join(words[:_i]), "printed right after the site's name", text.find(words[_i], s)
         name = " ".join(words) + " " + suf
         if THIRD3.search(name) or len(name) > 90 or (len(words) == 1 and NUMBERED3.match(words[0])):
             continue
