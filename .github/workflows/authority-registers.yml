@@ -1,0 +1,56 @@
+name: authority-registers
+# Public registers of Canada's delegated authorities (tools/authority_registers.py). First one: the Ontario Motor Vehicle Industry Council —
+# every motor vehicle dealer in Ontario is registered with it and pays it a registration fee and a fee on every vehicle sold; the Council's
+# public register names each registrant (legal name, business name, registration number, class, first registration and expiry dates,
+# address, telephone and, for three in ten, its website). The site the register names is read once and kept only when its home page shows
+# the registrant's telephone number or postal code; the ordinary mailbox crawl then reads that site. Sole proprietors are left out; the
+# register's e-mail is never read. One queue of 1.6 requests a second towards the authority.
+on:
+  schedule:
+    - cron: "37 4 * * *"   # the list every day (a new registrant, a renewal), the profiles not read yet, the sites not checked yet
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "minutes of reading registrants' profiles"
+        default: "150"
+      limit:
+        description: "at most this many profiles (0 = no limit)"
+        default: "0"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: authority-registers
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: The register's list, the registrants' profiles, the sites the register names
+        env: { MINUTES: "${{ inputs.minutes || '150' }}", LIMIT: "${{ inputs.limit || '0' }}" }
+        run: |
+          mkdir -p out
+          python3 tools/authority_registers.py pull --only omvic 2>&1 | tail -3 | tee /tmp/r.txt
+          python3 tools/authority_registers.py profiles --only omvic --minutes "$MINUTES" --limit "$LIMIT" 2>&1 | tail -3 | tee -a /tmp/r.txt
+          python3 tools/authority_registers.py sites --minutes 45 --workers 30 2>&1 | tail -3 | tee -a /tmp/r.txt
+          ls -la out
+      - name: Commit
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          git config user.name "authority-registers"; git config user.email "authority-registers@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/registers data/incoming/claude/lead_shards
+            python3 tools/authority_registers.py merge out --stamp "$STAMP" | tee /tmp/m.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
+            git add data/incoming/claude/registers data/incoming/claude/lead_shards 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "authority-registers: $(tail -1 /tmp/m.txt | cut -c22-170) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
+          { echo '```'; cat /tmp/r.txt /tmp/m.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

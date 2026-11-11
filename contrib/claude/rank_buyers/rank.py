@@ -1496,6 +1496,11 @@ for k, L in sorted(leads.items(), key=lead_strength):
                            ("member of a Canadian body (stated on the buyer's own site, read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "member badge on the buyer's own site" in L.get("canada_field_value", "") else
                            ("accredited business of a Canadian Better Business Bureau since %s (its BBB profile read %s): %s — accredited businesses pay the BBB dues"
                             % ((LDET.get(k) or {}).get("accredited_since") or "an unstated date", (L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member and "accredited business of the Canadian body" in L.get("canada_field_value", "") else
+                           ("registered with a Canadian regulatory authority, registration no. %s: %s — first registered %s, %s (the authority's own public register, the registrant's entry read %s); "
+                            "registrants pay the authority its registration and transaction fees"
+                            % ((LDET.get(k) or {}).get("reference") or "?", L["example_vendor"], (LDET.get(k) or {}).get("start") or "on an unstated date",
+                               ("registration in force up to %s" % (LDET.get(k) or {})["end"]) if (LDET.get(k) or {}).get("end") else "no expiry date on the entry",
+                               (L.get("latest_record_date") or "")[:10])) if member and "registrant of the Canadian body" in L.get("canada_field_value", "") else
                            ("holder of licence no. %s issued by a Canadian public body: %s — first issued %s, %s (the body's own public list of licences in force, read %s); the holder pays the body to keep the licence"
                             % ((LDET.get(k) or {}).get("reference") or "?", L["example_vendor"], (LDET.get(k) or {}).get("start") or "on an unstated date",
                                ("in force / fees paid up to %s" % (LDET.get(k) or {})["end"]) if (LDET.get(k) or {}).get("end") else "no end or cancellation date in the list",
@@ -1537,6 +1542,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
         x["vendor_address"] = (LDET.get(k) or {}).get("vendor_address") or x.get("vendor_address") or ""  # CIRA's address as its own agreement prints it (a dataset record of CIRA said only "Ottawa, ON")
     x["source"] = ("the .ca registry's public delegation of the buyer's domain (DNS) and CIRA's Registrant Agreement" if registry else
                    "the buyer's own website (it states its membership of the Canada-located body, linked)" if member and "member badge on the buyer's own site" in cfv else
+                   "the Canadian regulatory authority's own public register (the registrant's own entry)" if member and "registrant of the Canadian body" in cfv else
                    "the Canadian licensing body's own public list of active licences (open data, updated daily)" if member and "licence holder of the Canadian body" in cfv else
                    "the Canadian trademarks register published by the Canadian Intellectual Property Office (open data; owner of record and agent of record)" if member and "trademark" in cfv and "Canadian Intellectual Property Office" in cfv else
                    "the Canadian body's own current member / participant list" if member else
@@ -4342,6 +4348,11 @@ for _ri, x in enumerate(rows):
                                                 "holder's licence number, telephone, postal code or name (%s); the mailbox comes from that site") if _ld.get("platform") == "rbq_licence" else
                                                ("tools/biz_licences.py read the body's open-data list of licences in force and tied a licence to this organisation only on %s; several different licensees "
                                                 "fitting one organisation are dropped")) % (_ld.get("site_tied_to_holder_by") or "the tests of the tool")
+        elif _cs.startswith("registered with a Canadian regulatory authority"):
+            _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+            x["relationship_kind"] = "registration in force with a Canadian regulatory authority: the registrant pays the authority to be and to stay registered (the authority's own public register)"
+            x["how_relationship_was_found"] = ("tools/authority_registers.py read the authority's public register entry by entry; the registrant's site is the one its entry names, kept only because its "
+                                               "home page shows %s as the register has it; the mailbox comes from that site") % (_ld.get("site_tied_to_holder_by") or "the registrant's telephone number or postal code")
         elif _cs.startswith(("client of a Canadian trademark agent of record", "owner of ")) and "Canadian Intellectual Property Office" in _cs:
             _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
             x["relationship_kind"] = ("professional representation before a Canadian public body: the owner's trademark agent of record, a Canada-located firm named by the register"
