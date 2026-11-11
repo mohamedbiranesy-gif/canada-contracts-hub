@@ -1858,6 +1858,9 @@ def merge(a):
         # then reads the site (role mailbox, address in the vendor's scope) and checks that the account is the site's own.
         try:
             import tech_relationships as _T
+            # asset vendors whose pattern can be told from an embedded host alone (the links file keeps the host of what a page loads, and the path
+            # only for the watched services); Shopify has its own, larger path
+            _assets = [(k_, v_["asset_re_c"]) for k_, v_ in _T.VENDORS.items() if v_.get("kind") == "asset" and v_.get("asset_re_c") and k_ != "shopify"]
             for lf in sorted(glob.glob(os.path.join(DIR, "links_*.gz"))):
                 _day = re.sub(r"^(\d{4})(\d\d)(\d\d).*$", r"\1-\2-\3", os.path.basename(lf)[6:])
                 with gzip.open(lf, "rt", encoding="utf-8", errors="replace") as fh:
@@ -1885,6 +1888,26 @@ def merge(a):
                             by_host.add(site)
                             n_c += 1
                             stats["vetted service candidates (links on file): " + vk] += 1
+                            break
+                        # … and the services whose scripts or images the page loads (asset vendors vetted after the page was read: Commerce7's
+                        # cdn.commerce7.com, myRealPage's iss-cdn.myrealpage.com …): the embedded hosts are on file too
+                        if site in by_host or not q[1]:
+                            continue
+                        for key in q[1].split():
+                            vk = next((k_ for k_, v_ in _assets if v_.search("//" + key)), "")
+                            if not vk:
+                                continue
+                            ck = "t:%s:%s" % (vk, site)
+                            if ck in cands:
+                                break
+                            nm = (q[3].split("|")[0] if len(q) > 3 else "").strip()
+                            cands[ck] = {"cand_key": ck, "vendor_key": vk, "name": nm, "website": "https://%s/" % site, "evidence_url": "https://%s/" % site, "capture": _day,
+                                         "name_basis": "og:site_name / title of the organisation's own home page" if nm else "",
+                                         "website_basis": "asset loaded by the organisation's own home page: %s (https://%s/, read %s)" % (key[:120], site, _day),
+                                         "slug": "asset", "extra": json.dumps({"seen_on": "https://%s/" % site, "via": "loaded by the home page (%s)" % key[:120]}, ensure_ascii=False)}
+                            by_host.add(site)
+                            n_c += 1
+                            stats["vetted service candidates (assets on file): " + vk] += 1
                             break
         except Exception as e:
             print("candidates from the links on file skipped: %s" % e)

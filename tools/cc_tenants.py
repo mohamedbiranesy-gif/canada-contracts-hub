@@ -76,7 +76,10 @@ SCOPE = {"shopify": ("CA", "US"), "jane": ("CA", "US", "GB", "AU"), "jobber": ("
          "unbounce": ("CA", "US", "GB", "AU"), "lightspeed": ("CA", "US", "AU"), "lightspeed_golf": ("CA", "US", "AU"),
          # vetted 2026-11-11 (quotes in the vendor table): Owl Practice, Juvonno and Rezgo name one company for every customer; GOrendezvous one company under
          # Québec law (its practices are in Canada; kept for Canada and the United States); WebRezPro's agreement was not readable: Canada and the United States
-         "owlpractice": ("CA", "US", "GB", "AU"), "juvonno": ("CA", "US", "GB", "AU"), "rezgo": ("CA", "US", "GB", "AU"), "gorendezvous": ("CA", "US"), "webrezpro": ("CA", "US")}
+         "owlpractice": ("CA", "US", "GB", "AU"), "juvonno": ("CA", "US", "GB", "AU"), "rezgo": ("CA", "US", "GB", "AU"), "gorendezvous": ("CA", "US"), "webrezpro": ("CA", "US"),
+         # vetted 2026-11-11 07:20Z: Commerce7's Canadian company contracts with clients OUTSIDE the United States (its US company inside); myRealPage, SoCast and
+         # Jumptools name one company (their clients are in Canada and the United States)
+         "commerce7": ("CA", "GB", "AU"), "myrealpage": ("CA", "US"), "socast": ("CA", "US"), "jumptools": ("CA", "US")}
 # registered domains of the vetted customer portals (from the vendor table) + the extra TLD forms its host patterns accept
 EXTRA = {"jane": ["janeapp.co.uk", "janeapp.com.au"], "absorb": ["myabsorb.com.au"], "d2l": ["desire2learn.com"]}
 

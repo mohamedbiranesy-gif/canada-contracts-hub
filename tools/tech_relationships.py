@@ -279,6 +279,37 @@ VENDORS = {
                             "(https://webrezpro.com/about-us/, read 2026-11-11); a property management subscription (\"WebRezPro doesn’t charge any commission or transaction fees for "
                             "reservations generated from its website booking engine\", https://webrezpro.com/price/). The master services agreement is a PDF its robots.txt keeps from "
                             "the reader: kept for properties in Canada and the United States. A property that links its own booking engine secure.webrez.com/hotel/<id> is a subscriber"),
+    # vetted 2026-11-11 07:20Z from the scan's own counts of EMBEDDED services (445,303 home pages; vetting sheets of the probe workflow, run 42972522675).
+    # Each is seen as a script or image the organisation's own page loads from the vendor's servers.
+    "commerce7": dict(name="Commerce7", legal="FS Operations Canada Ltd. (DBA Commerce7)", kind="asset",
+                      hq_url="https://www.commerce7.com/contact-us/",
+                      hq="Mailing Address: Commerce7 Platform Inc 199 Bay Street, Suite 4000 Toronto, ON M5L 1A9 CA",
+                      graph=["commerce7.com"], asset_re=r"cdn\.commerce7\.com",
+                      scope="\"“Company” means Fullsteam Software Holdings LLC (DBA Commerce 7, a subsidiary of Fullsteam Operations LLC, if Client is located in the United States), and FS "
+                            "Operations Canada Ltd. (DBA Commerce 7, if Client is located outside the Unit[ed States]\" … \"a legal agreement between you (“Client”) and Company … to purchase "
+                            "access to the Company Platforms … and the related subscription services\" (https://www.commerce7.com/terms-of-service/, read 2026-11-11): the Canadian company "
+                            "contracts with wineries OUTSIDE the United States only; a subscription"),
+    "myrealpage": dict(name="myRealPage", legal="MRP Ventures Inc.", kind="asset",
+                       hq_url="https://myrealpage.com/terms-and-conditions/",
+                       hq="© Copyright 2026 MRP Ventures Inc. All rights reserved. 1899 St Matthews Ave Unit 1, Winnipeg, MB Canada R3H 0J1",
+                       graph=["myrealpage.com"], asset_re=r"(?:iss-cdn|res|idx|common-static)\.myrealpage\.com",
+                       scope="\"The agreement between myRealPage.com (“MRP”) and the client named in this order form and Contract Agreement (the “Client”) is comprised of these terms and the "
+                             "selected products and features for the length of the term\" (https://myrealpage.com/terms-and-conditions/, read 2026-11-11): an order form and a term, one "
+                             "company; its clients are real-estate agents and brokerages (\"trusted by over 15,000 REALTORS\")"),
+    "socast": dict(name="SoCast", legal="SoCast Inc.", kind="asset",
+                   hq_url="https://www.socastdigital.com/terms/",
+                   hq="SoCast Inc. (“SoCast”), an Ontario corporation with offices at 292 Sheppard Ave West, 2nd Floor, North York, Ontario M2N 1N5, Canada",
+                   graph=["socastsrm.com", "socastdigital.com"], asset_re=r"(?:cdn-js|media-cdn|media)\.socastsrm\.com",
+                   scope="\"License Agreement entered into between SoCast Inc. (“SoCast”), an Ontario corporation with offices at 292 Sheppard Ave West … and the Licensee\" … \"In "
+                         "consideration for us providing the Services, you must pay all fees, charges and costs set out in the SOW\" … \"governed by and construed in accordance with the "
+                         "laws of the Province of Ontario\" (https://www.socastdigital.com/terms/, read 2026-11-11): one company; licence fees. Its licensees are radio stations"),
+    "jumptools": dict(name="Jumptools", legal="Jumptools Inc.", kind="asset",
+                      hq_url="https://app.jumptools.com/termsAndConditions.faces",
+                      hq="Manager, Customer Care, Jumptools Inc., 171 East Liberty Street, Suite 250, Toronto, Ontario, M6K 3P6",
+                      graph=["jumptools.com"], asset_re=r"ws\.jumptools\.com",
+                      scope="\"This Agreement is governed exclusively by the laws of the province of Ontario\" … \"Jumptools® is a registered trademark of Jumptools Inc.\" "
+                            "(https://app.jumptools.com/termsAndConditions.faces, read 2026-11-11): one company; a pricing page and no free plan on it (https://jumptools.com/pricing/). "
+                            "A real-estate marketing platform: its clients are agents and brokerages"),
 }
 for _k, _v in VENDORS.items():
     _v["key"] = _k
@@ -292,7 +323,7 @@ ALIAS_DOMAINS = {"thinkific.com": "thinkific", "docebosaas.com": "docebo", "brig
                  "myabsorb.eu": "absorb", "checkfront.com": "checkfront", "edsby.com": "edsby", "escribemeetings.com": "escribe", "bibliocommons.com": "bibliocommons",
                  "coconutcalendar.com": "coconut", "benevity.org": "benevity", "mobius.cloud": "mobius", "unbouncepages.com": "unbounce", "jobbersites.com": "jobber",
                  "shoplightspeed.com": "lightspeed", "janeapp.com": "jane"}
-VENDOR_BASES = {"owlpractice.ca", "juvonno.com", "gorendezvous.com", "rezgo.com", "webrez.com", "webrezpro.com", "thinkific.com", "chronogolf.com", "chronogolf.ca", "checkfront.com", "tbdine.com", "touchbistro.com", "wellnessliving.com", "clubrunner.ca", "crowdriff.com", "nicejob.co", "nicejob.com", "paystone.com", "getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
+VENDOR_BASES = {"commerce7.com", "myrealpage.com", "socastsrm.com", "socastdigital.com", "jumptools.com", "owlpractice.ca", "juvonno.com", "gorendezvous.com", "rezgo.com", "webrez.com", "webrezpro.com", "thinkific.com", "chronogolf.com", "chronogolf.ca", "checkfront.com", "tbdine.com", "touchbistro.com", "wellnessliving.com", "clubrunner.ca", "crowdriff.com", "nicejob.co", "nicejob.com", "paystone.com", "getjobber.com", "schoolcashonline.com", "kevgroup.com", "benevity.org", "benevity.com", "coconutcalendar.com", "coconutsoftware.com", "mobius.cloud", "digitaled.com",
                 "escribemeetings.com", "bibliocommons.com", "bibliocms.com", "brightspace.com", "desire2learn.com",
                 "d2l.com", "edsby.com", "amilia.com", "janeapp.com", "jane.app", "docebosaas.com", "docebo.com",
                 "myabsorb.com", "myabsorb.ca", "myabsorb.eu", "absorbai.com", "absorblms.com", "shopify.com",

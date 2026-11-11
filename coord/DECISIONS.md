@@ -1224,3 +1224,28 @@ script (left undecoded, decision of 2026-11-10). What was ours:
 **What it is worth** (a second sample of 260, read with the new reader): 2.3 % of the leads and 6.9 % of the registry candidates that
 had given nothing now give a confirmed-quality mailbox — about 15,000 rows from sites already read, and the same share more of every
 site read from now on. Sites that gave nothing before are read once more (mark `r3`), after every site never read.
+
+## 2026-11-11 07:25Z — four more services vetted (embedded ones this time); what was read and left out; certificate subjects as legal names
+**Vetted from the scan's counts of what home pages LOAD** (445,303 home pages; vetting sheets of probe run 42972522675, each quote in
+tools/tech_relationships.py): **Commerce7** (cdn.commerce7.com on 1,569 sites — its terms name two companies: the Canadian one, FS
+Operations Canada Ltd., "if Client is located outside the United States"; mailing address Toronto; kept for wineries in Canada, the
+United Kingdom and Australia, never the United States), **myRealPage** (MRP Ventures Inc., Winnipeg; an order form and a term; 1,804
+sites), **Jumptools** (Jumptools Inc., Toronto; 324), **SoCast** (SoCast Inc., North York; licence fees; radio stations; 139). A vendor
+vetted after a page was read gets its candidates from the embedded hosts on file, as the linked accounts already did (no new read).
+**Read and not taken, each for its reason:** Showpass (Up In Code Inc., Calgary) — a fee on every ticket, which its pricing lets the
+organiser pass to the ticket buyer: the same case as CanadaHelps (decision 03:44Z g), kept aside; GovStack — its site prints addresses
+in three countries and the page that names the contracting company was not found; SharpSchool — now a page of PowerSchool (United
+States); SportsPlus — "owned and operated by Thapos, a California corporation"; Yapla — "100 % gratuit"; My Music Staff (Port 443 Inc.,
+Burlington) — its terms speak of free accounts and a free plan: a vendor with a free plan stays out; StackAdapt (Toronto) — the pixel on
+an advertiser's page does not say whether the advertiser or its agency is the client; Renoworks (Calgary) — the visualisers that sites
+link are its manufacturers' (the linking contractor is not the client); Rafflebox (Halifax), MyEvent (Montréal), Centiva, HockeyTech —
+no terms or price page read yet; cchifirm.ca, civicweb.net, tuxedobillet.com — the bare name does not answer (the www. name is to be read).
+**Certificate subjects as legal names** (the validated subjects the certificate reader keeps, decision 05:35Z). Used for a legal-name
+cell still empty after every other source, when the row's site is one of the certificate's domains and the subject is the organisation
+of that row: a row with a name of its own must share a distinctive word with the subject and must not be another body beside it (a
+foundation, a student union) nor a company with its own legal form (TELUS Health (Canada) Ltd. is not TELUS Corporation); a row known
+by its domain only needs a subject that fits the site's own name; never on a government's shared domain; never from a certificate
+that covers more than twelve domains. Three sample builds: the first version gave SaskTel to a village whose page sits under
+sasktel.net and Vidéotron ltée to a municipality — fixed before anything was built in the cloud; the third gives 6 names on a 1-in-2
+sample, all the row's own (Royal Bank of Canada, The Toronto-Dominion Bank, Insurance Corporation of British Columbia, eHealth
+Saskatchewan, The University of British Columbia, L'Arche Association of Calgary). The cell names the log's tile it was read in.

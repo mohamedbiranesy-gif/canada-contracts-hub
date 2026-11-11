@@ -3729,6 +3729,76 @@ for x in rows:
         x["buyer_legal_name_as_published"] = "%s (%s; it carries its legal form; not checked against a company register)" % (_bn, _wh)
         n_lform += 1
 print("legal name: the organisation's own name carries its legal form (cells still empty after every register and site statement): %d" % n_lform)
+# 2026-11-11: the organisation a certificate authority validated. The Certificate Transparency logs (tools/ct_names.py reads their names tiles)
+# carry the subject of every certificate; for an organisation-validated certificate the authority checked that the organisation exists under
+# that name at that place (O=, L=, ST=, C=). Kept by the reader: subjects with country CA and the domains the certificate covers. Used here for
+# a legal-name cell still EMPTY after every other source (the row's own name with its legal form included), when the row's site is one of
+# those domains and the subject carries the organisation's own name — a
+# certificate's subject is its subscriber, which can be the host or the CDN that covers its customers' names ("Fastly, Inc." on a
+# thousand sites), and a certificate that covers more than a dozen domains is such a one. The cell says where the name was read: the
+# names tile (a public, immutable file) and the certificate's own name.
+OVC, n_ovc = {}, collections.Counter()
+_OV_OTHER = re.compile(r"(?i)\b(?:foundation|fondation|auxiliary|auxiliaire|alumni|dipl[ôo]m[ée]s|students?['’]? (?:union|association|society|council)|association [ée]tudiante|faculty association|"
+                       r"staff association|union|syndicat|club|friends of|amis d[eu]|retirees|retrait[ée]s)\b")
+try:
+    import glob as _gov
+    _ov_logs = {}
+    try:
+        _ov_logs = {k_: (v_.get("url") or "") for k_, v_ in (json.load(open(ROOT + "/data/incoming/claude/ct_names/cursor.json", encoding="utf-8")).get("logs") or {}).items()}
+    except Exception:
+        pass
+    def _ov_tile(n):
+        t = "%03d" % n
+        while len(t) % 3:
+            t = "0" + t
+        q = [t[i:i + 3] for i in range(0, len(t), 3)]
+        return "/".join(["x" + z for z in q[:-1]] + [q[-1]])
+    for _p in sorted(_gov.glob(ROOT + "/data/incoming/claude/ct_names/ov_ca_*.jsonl.gz")):
+        with gzip.open(_p, "rt", encoding="utf-8") as _f:
+            for _l in _f:
+                try:
+                    _o = json.loads(_l)
+                except ValueError:
+                    continue
+                _org = "; ".join((_o.get("s") or {}).get("Organization") or []).strip()
+                if not _org or not (1 <= len(_o.get("d") or []) <= 12):
+                    continue
+                for _d in _o["d"]:
+                    OVC.setdefault(_d, []).append(_o)
+    for x in rows:
+        if x.get("buyer_legal_name_as_published") or not x.get("buyer_website"):
+            continue
+        _d = registrable(host_of(x["buyer_website"]) or "")
+        if not _d or SHARED_GOV.match(_d) or not OVC.get(_d):
+            continue  # a government's shared domain: the certificate is the government's, the row may be a board or an office of its own
+        _bn = re.sub(r"\s+", " ", x.get("buyer") or "").strip()
+        for _o in OVC.get(_d) or ():
+            _s = _o["s"]
+            _org = re.sub(r"\s+", " ", "; ".join(_s.get("Organization") or [])).strip()
+            # the subject must be the organisation of THIS row. A row with a name of its own: the two names share a distinctive word ("SaskTel"
+            # on a village's page under sasktel.net fits the site and not the village), the row is not another body beside it (a hospital's
+            # foundation, a university's student union) and not a company with its own legal form (TELUS Health (Canada) Ltd. is not TELUS
+            # Corporation). A row known by its domain only: the subject must fit the site's own name.
+            _core = re.sub(r"\s*\([^()]*\)\s*$", "", _bn)
+            if DOMAIN_NAME.match(_bn) or not re.search(r"[A-Za-zÀ-ÿ]{4}", _bn):
+                _ok = site_fits_name(_org, x["buyer_website"])
+            else:
+                _ok = (name_fits(_bn, _org) and name_overlap(_org, _bn, x["buyer_website"])
+                       and not (_OV_OTHER.search(_bn) and not _OV_OTHER.search(_org))
+                       and not ((_CORP_FORM_END.search(_bn) or _CORP_FORM_END.search(_core)) and not (same_legal_name(_bn, _org) or same_legal_name(_core, _org))))
+            if generic_only_name(_org) or not _ok:
+                n_ovc["subject does not carry the organisation's own name: not taken"] += 1
+                continue
+            _where = ", ".join(z for z in ("; ".join(_s.get("Locality") or []), "; ".join(_s.get("Province") or []), "CA") if z)
+            _url = (_ov_logs.get(_o.get("log") or "") + "tile/names/" + _ov_tile(int(_o["tile"]))) if _ov_logs.get(_o.get("log") or "") and _o.get("tile") is not None else ""
+            _day = _tm.strftime("%Y-%m-%d", _tm.gmtime(int(_o["ts"]) / 1000)) if _o.get("ts") else ""
+            x["buyer_legal_name_as_published"] = "%s (organisation validated by a certificate authority: subject O=%s, %s of the certificate for %s; Certificate Transparency log %s%s%s)" % (
+                _org, _org, _where, _s.get("CommonName") or _d, _o.get("log") or "", (", names tile %s" % _url) if _url else "", (", logged %s" % _day) if _day else "")
+            n_ovc["buyer_legal_name"] += 1
+            break
+except Exception as _e:
+    print("validated certificate subjects skipped: %s" % _e)
+print("legal names from validated certificate subjects (Certificate Transparency): domains on file %d;" % len(OVC), dict(n_ovc))
 print("grants & contributions recipient BNs: %d buyers, %d vendors in file; filled %s" % (len(GCR["buyer"]), len(GCR["vendor"]), dict(n_gcr)))
 # 2026-11-11: the vendor's legal name, last links of the chain (build of 01:51Z: 63,216 named-vendor rows without one; one host's 7,333 rows).
 # (1) data/incoming/claude/claude_vendor_names_read.csv — the vendor's own terms of service read by hand for the vendors with the most rows whose
