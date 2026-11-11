@@ -401,6 +401,12 @@ BILLING["myrealpage"].update(amount="$69.99 a month", amount_basis="“Only $69.
 BILLING["thinkific"].update(amount="from $109 a month", amount_basis="“Our Start plan ($109/month) includes our core feature set” (https://www.thinkific.com/faq/, read 2026-11-11)")
 BILLING["amilia"].update(amount="from $99 a month", amount_basis="“$99 /mo” (https://www.amilia.com/pricing, read 2026-11-11)")
 BILLING["jumptools"].update(amount="from $35 a month, paid by the year", amount_basis="“Get online for as little as $35/month (paid annually).” (https://jumptools.com/, read 2026-11-11)")
+# vendors found through DNS records or credits, not in VENDORS: their terms read by hand, keyed by the vendor's own domain
+BILLING_BY_DOMAIN = {
+    "1password.com": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://1password.com/legal/terms-of-service",
+                          quote="You will be billed in advance on a recurring and periodic basis (“Billing Cycle”). Billing cycles are set on a regular basis, typically monthly or yearly.",
+                          bill=dict(payment="“A valid payment method, including credit card, is required to process the payment for your Subscription.” (terms of service)")),
+}
 BILLING["lightspeed_golf"] = BILLING["lightspeed"]
 BILLING["wellnessliving_widget"] = BILLING.get("wellnessliving")
 for _k, _b in BILLING.items():

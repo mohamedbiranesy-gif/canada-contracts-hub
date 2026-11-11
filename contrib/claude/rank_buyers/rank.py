@@ -947,6 +947,8 @@ for _v in _TR.VENDORS.values():
         _h = registrable(host_of(_v.get("hq_url") or "") or "")
         if _h:
             _BILL_CUR_DOM.setdefault(_h, _v["billing"])
+for _h, _b in getattr(_TR, "BILLING_BY_DOMAIN", {}).items():
+    _BILL_CUR_DOM.setdefault(_h, _b)
 n_name_again = 0
 MOVED = {}  # lead key -> (domain name on file, site that answers, final URL, day read): a second name of the organisation (tools/lead_crawl.py moved_site_ok)
 for _d in _LCF.facts_records():
@@ -4492,7 +4494,9 @@ def bill_profile(x, ld, cls):
         if credit and not hosted and not cur:
             out["relationship_fact_basis"] = "stated by the buyer: its own site names the vendor as the maker of the site (“%s”): work done and paid for at least once; nothing published shows a bill today" % re.sub(r"\s+", " ", ld.get("credit_phrase") or "credit").strip()
         elif dns:
-            out["relationship_fact_basis"] = "fact, seen on the buyer's side: the buyer's own DNS records name the vendor's servers (%s, read %s): the service is running.%s" % ((ld.get("dns_record") or "")[:120], day, unpaid)
+            out["relationship_fact_basis"] = ("fact, seen on the buyer's side: the buyer's own DNS records name the vendor's servers (%s, read %s): the service is running.%s "
+                                              "The account at the provider is normally the organisation's own; sometimes its web agency holds it and is the one billed."
+                                              % ((ld.get("dns_record") or "")[:120], day, unpaid))
         elif credit:
             out["relationship_fact_basis"] = "fact, seen on the buyer's side: the buyer's own site says “%s” the vendor (read %s): the site runs on the vendor's service.%s" % (re.sub(r"\s+", " ", ld.get("credit_phrase") or "powered by").strip(), day, unpaid)
         else:
@@ -4510,6 +4514,15 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_indicative"] = "%s%s%s" % ({"CAD": "C$", "USD": "US$"}.get(c_, "$"), ("%.2f" % v).rstrip("0").rstrip("."),
                                                              " per vehicle" if re.search(r"per vehicle", m.group(1), re.I) else " a year" if re.search(r"annual|year|ann[ée]e", m.group(1), re.I) else "")
                 out["bill_amount_basis"] = "the body's own statement of its fee: “%s” (%s)" % (m.group(1)[:280], m.group(2))
+        if ld.get("platform") == "rbq_licence" and not out.get("bill_amount_indicative"):
+            # the Régie's own fee table, read 2026-11-11: what a licence costs to keep for a year, by type of licence (the row's licence names its categories)
+            _gen = bool(re.search(r"g[ée]n[ée]ral", (ld.get("title") or "") + " " + (x.get("contract_title") or ""), re.I))
+            out["bill_amount_indicative"] = "%s $ a year" % ("989.81" if _gen else "547.53")
+            out["bill_amount_basis"] = ("the Régie du bâtiment du Québec's fee table “Maintien d’une licence – 2026” (droits + frais = total): “Général (annexe I) 884,54 $ 105,27 $ 989,81 $”, "
+                                        "“Général et spécialisé (annexes I, II et III) 884,54 $ 105,27 $ 989,81 $”, “Spécialisé (annexes II et III) 442,26 $ 105,27 $ 547,53 $” "
+                                        "(https://www.rbq.gouv.qc.ca/licence/tarification-et-amendes/tarification-pour-lentrepreneur-de-construction/, read 2026-11-11); this licence is %s"
+                                        % ("general or general and specialised" if _gen else "specialised only, as far as its categories on the register say"))
+            out["bill_items_as_published"] = "the yearly fee to keep a construction contractor's licence (“Maintien d’une licence”): droits + frais"
         rec = VBILL.get(vd) if vd else None
         if rec and not out.get("bill_amount_indicative"):
             low = _VB.lowest(rec)
