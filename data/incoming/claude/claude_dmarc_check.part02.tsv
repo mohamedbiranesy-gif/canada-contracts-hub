@@ -13115,7 +13115,7 @@ phoenixpropertysolutions.ca	no_record		no DMARC record at _dmarc.phoenixproperty
 phoenixprotection.ca	no_record		no DMARC record at _dmarc.phoenixprotection.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 phoenixpsychotherapy.ca	no_record		no DMARC record at _dmarc.phoenixpsychotherapy.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com include:_spf.unitens.com ~all	2026-11-10	none	none	none
 phoenixq.ca	none	phoenixq.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
-phoenixrange.ca	error		LifetimeTimeout			error		2026-11-11	none	none	none
+phoenixrange.ca	error		no nameservers			error		2026-11-11	none	none	none
 phoenixrangeyeg.ca	no_record		no DMARC record at _dmarc.phoenixrangeyeg.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-06	none	none	none
 phoenixrehab.ca	reject	phoenixrehab.ca	v=DMARC1; p=reject; pct=100;	100	no	soft_fail	v=spf1 include:zohocloud.ca include:_spf.mlsend.com include:amazonses.com include:sendersrv.com ~all	2026-11-06	none	none	none
 phoenixresearch.ca	no_record		no DMARC record at _dmarc.phoenixresearch.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:199.58.176.201 include:relay.mailchannels.net +a +mx +ip4:208.76.80.45 ~all	2026-11-10	none	none	none
@@ -59667,7 +59667,7 @@ swimco.com	none	swimco.com	v=DMARC1; p=none;	100	no	neutral	v=spf1 mx a ip4:72.2
 swimfins.ca	none	swimfins.ca	v=DMARC1; p=none; rua=mailto:dmarc-reports@swimfins.ca; adkim=r; aspf=r; pct=1; sp=none	1	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 swimforce.ca	no_record		no DMARC record at _dmarc.swimforce.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:icloud.com include:_spf.google.com ~all	2026-11-10	none	none	none
 swimfresh.ca	no_record		no DMARC record at _dmarc.swimfresh.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
-swimfresh.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+swimfresh.com	error		no nameservers			error		2026-11-11	none	none	none
 swimingo.com	none	swimingo.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-06	none	none	none
 swimiq.ca	none	swimiq.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:amazonses.com include:_spf.porkbun.com ~all	2026-11-11	none	none	none
 swimkingston.ca	quarantine	swimkingston.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net,mailto:rua@dmarc.brevo.com	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
@@ -65523,7 +65523,7 @@ theconstructionsourcequebec.ca	no_record		no DMARC record at _dmarc.theconstruct
 theconsultinghub.ca	none	theconsultinghub.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 a mx include:emailfwd.whc.ca ~all	2026-11-11	none	none	none
 thecontainerguy.ca	none	thecontainerguy.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:162.241.244.85 a mx include:websitewelcome.com ~all	2026-11-11	none	none	none
 thecontainmentanswer.com	quarantine	thecontainmentanswer.com	v=DMARC1; p=quarantine; pct=100; rua=mailto:admin@thecontainmentanswer.com	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
-thecontractingbrothers.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+thecontractingbrothers.com	error		no nameservers			error		2026-11-11	none	none	none
 thecontractorcanopycompany.ca	no_record		no DMARC record at _dmarc.thecontractorcanopycompany.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 thecontractorinc.ca	no_record		no DMARC record at _dmarc.thecontractorinc.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:216.194.165.98 +a +mx +ip4:23.235.222.84 +ip4:70.39.251.101 ~all	2026-11-10	none	none	none
 thecontractorinc.com	none	thecontractorinc.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
@@ -68636,7 +68636,7 @@ thesparoom.ca	no_record		no DMARC record at _dmarc.thesparoom.ca; confirmed by 8
 thespecialtravel.ca	no_record		no DMARC record at _dmarc.thespecialtravel.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf-usg2.ppe-hosted.com include:secureserver.net ~all	2026-11-10	none	none	none
 thespectrumcabinetgallery.ca	no_record		no DMARC record at _dmarc.thespectrumcabinetgallery.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
 thespeechandlanguagegarden.com	none	thespeechandlanguagegarden.com	v=DMARC1; p=none; pct=100; rua=mailto:re+wqdqlqqama6@dmarc.postmarkapp.com; sp=none; aspf=r;	100	yes	error		2026-11-11	none	none	none
-thespeechassociates.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+thespeechassociates.com	error		no nameservers			error		2026-11-11	none	none	none
 thespeechpeople.ca	no_record		no DMARC record at _dmarc.thespeechpeople.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.cloudus.oxcs.net ~all	2026-11-10	none	none	none
 thespiceage.ca	none	thespiceage.ca	v=DMARC1; p=none; pct=100; rua=mailto:hello@thespiceage.ca	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
 thespicecentre.com	no_record		no DMARC record at _dmarc.thespicecentre.com; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
