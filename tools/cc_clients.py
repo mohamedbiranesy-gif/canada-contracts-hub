@@ -600,16 +600,16 @@ def leads_of(page, row):
         name, h, mq = hit
         title = re.search(r"(?is)<title[^>]*>(.*?)</title>", page[:200_000])
         title = re.sub(r"\s+", " ", re.sub(r"(?s)<[^>]+>", " ", title.group(1))).strip()[:120] if title else ""
-        site = re.search(r"(?is)<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=[\"']([^\"']{2,80})[\"']", page[:200_000])
+        site = re.search(r"(?is)<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=(?:\"([^\"]{2,80})\"|'([^']{2,80})')", page[:200_000])
         return [{"platform": "vendor_site", "domain": h, "dataset_id": url, "dataset": CLASS_TEXT["member"], "dataset_url": url, "publisher": h, "buyer_unit": "", "website": "https://%s/" % h,
-                 "vendor": (site.group(1).strip() if site else "") or vhost,
+                 "vendor": (html.unescape(site.group(1) or site.group(2)).strip() if site else "") or vhost,
                  "canada_field": canada_field(dom, row.get("basis")), "canada_value": vhost,
                  "row": {"relationship_page": url, "page_title": title, "client_label": name[:120], "vendor_key": "cc:" + dom, "vendor_site": "https://%s/" % vhost, "pass": "cc_index", "basis": row.get("basis") or "",
                          "page_class": "member", "capture": (row.get("fetch_time") or "")[:19], "vendor_address_quote": quote, "member_address_quote": mq,
                          "warc": "%s:%s:%s" % (row["warc_filename"], row["warc_record_offset"], row["warc_record_length"])}}], quote
     title = re.search(r"(?is)<title[^>]*>(.*?)</title>", page[:200_000])
     title = re.sub(r"\s+", " ", re.sub(r"(?s)<[^>]+>", " ", title.group(1))).strip()[:120] if title else ""
-    site = re.search(r"(?is)<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=[\"']([^\"']{2,80})[\"']", page[:200_000])
+    site = re.search(r"(?is)<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=(?:\"([^\"]{2,80})\"|'([^']{2,80})')", page[:200_000])
     hits, n_spam = {}, 0
     vlabel = dom.split(".")[0]
     try:  # "Website by X" in the footer of a testimonials page: X is the page owner's web vendor (tools/credit_scan.py finds those the right way round)
@@ -633,7 +633,7 @@ def leads_of(page, row):
                 or not label or len(label) > 120 or GENERIC_LABEL.match(label) or LABEL_SKIP.search(label) or SPAM.search(h) or SPAM.search(label)):
             continue
         hits.setdefault(h, {"platform": "vendor_site", "domain": h, "dataset_id": url, "dataset": CLASS_TEXT.get(row.get("cls") or page_class(row.get("path")) or "client", CLASS_TEXT["client"]),
-                            "dataset_url": url, "publisher": h, "buyer_unit": "", "website": "https://%s/" % h, "vendor": (site.group(1).strip() if site else "") or vhost,
+                            "dataset_url": url, "publisher": h, "buyer_unit": "", "website": "https://%s/" % h, "vendor": (html.unescape(site.group(1) or site.group(2)).strip() if site else "") or vhost,
                             "canada_field": canada_field(dom, row.get("basis")), "canada_value": vhost,
                             "row": {"relationship_page": url, "page_title": title, "client_label": label[:120], "vendor_key": "cc:" + dom, "vendor_site": "https://%s/" % vhost,
                                     "pass": "cc_index", "basis": row.get("basis") or "", "page_class": row.get("cls") or page_class(row.get("path")) or "client", "capture": (row.get("fetch_time") or "")[:19], "vendor_address_quote": quote,

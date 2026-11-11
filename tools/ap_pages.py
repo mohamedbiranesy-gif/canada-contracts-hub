@@ -34,8 +34,8 @@ lock = threading.Lock()
 
 def org_name(raw, host):
     """the organisation's name as the page shows it: og:site_name, else the title's last / first segment"""
-    m = re.search(r"(?is)<meta[^>]+property\s*=\s*[\"']og:site_name[\"'][^>]+content\s*=\s*[\"']([^\"']{2,120})", raw)
-    cands = [html.unescape(m.group(1)).strip()] if m else []
+    m = re.search(r"(?is)<meta[^>]+property\s*=\s*[\"']og:site_name[\"'][^>]+content\s*=\s*(?:\"([^\"]{2,120})|'([^']{2,120}))", raw)  # the value ends at the quote that opened it
+    cands = [html.unescape(m.group(1) or m.group(2)).strip()] if m else []
     t = re.search(r"(?is)<title[^>]*>(.*?)</title>", raw)
     if t:
         title = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", t.group(1)))).strip()

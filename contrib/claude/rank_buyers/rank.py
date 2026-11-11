@@ -3,7 +3,7 @@
                                                           # vendor_country_unverified_contracts and ended_* are optional: P12 + field fill)
     python3 contrib/claude/rank_buyers/rank.py && python3 contrib/claude/rank_buyers/batches.py
 """
-import csv, gzip, json, re, io, collections, unicodedata, datetime, sys, os, zlib
+import csv, gzip, json, re, io, collections, unicodedata, datetime, sys, os, zlib, html
 import builtins as _bi, time as _tm
 _T0 = _TL = _tm.time()
 def print(*a, **k):
@@ -966,6 +966,9 @@ for _d in _LCF.facts_records():
             n_name_again += bool(_d["site_name"])
         if _d.get("address_quote"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
             _d["address"] = _addr_from(_d["address_quote"]) or _d.get("address") or ""
+        if "?" in (_d.get("address_url") or ""):
+            # a visitor or campaign identifier a site adds to its own links (?shpxid=…, utm_…, fbclid) is not part of the page's address
+            _d["address_url"] = re.sub(r"[?&]$", "", re.sub(r"(?<=[?&])(?:shpxid|utm_[a-z]+|fbclid|gclid|srsltid|_gl|mc_[a-z]+|ref)=[^&#]*&?", "", _d["address_url"]))
         # only what the rows use is kept (the title and the address quote have been read above): the table grows with the sites, 1.2 KB a site
         # twice over when every field of the record was kept in both tables
         _d = {k_: _d[k_] for k_ in ("key", "site", "date", "site_name", "address", "address_url", "address_country") if _d.get(k_)}
@@ -1966,6 +1969,18 @@ def scan_address(md, *sites):
             pc, day = SCAN_PC[h]
             return "postal code %s %s (as printed on the organisation's home page https://%s/, read by the home-page scan%s)" % (pc[:3], pc[3:], h, (" of " + day) if day else "")
     return ""
+def address_beside_mailbox(pc_text, quote, url):
+    """a fuller address than the home page's postal code alone, when the page that prints the organisation's mailbox prints its address with that
+    very postal code (test set of 2026-11-11: "postal code V9N 1H3" on a row whose mailbox quote reads "103 – 555 4th Street Courtenay, BC V9N 1H3")"""
+    m = _BYLOC.PC.search((pc_text or "").upper())
+    if not m or not quote:
+        return ""
+    pc = re.sub(r"[^A-Z0-9]", "", m.group(0))
+    mq = next((q_ for q_ in _BYLOC.PC.finditer(quote.upper()) if re.sub(r"[^A-Z0-9]", "", q_.group(0)) == pc), None)
+    if not mq or "<" in quote[:mq.end()][-160:]:
+        return ""  # (a quote that is page source, tags and all, is not cut into an address)
+    a_ = _addr_from(quote[:mq.end()]) or ""
+    return ("%s (as printed beside the organisation's mailbox on %s)" % (a_, url or "its own page")) if (len(a_) >= 18 and _STREET_WORD.search(a_) and re.match(r"\d", a_)) else ""
 _PROV_OF_PC = {"A": "NL", "B": "NS", "C": "PE", "E": "NB", "G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON", "R": "MB", "S": "SK", "T": "AB", "V": "BC", "Y": "YT"}
 # owner 2026-11-11 16:01 EST, second step. A row whose own relationship cannot meet the rule gives way to the one biller its address has by
 # law, when its own printed address names one: a service whose vendor's way of being paid is not published (hosting and software are commonly
@@ -2017,6 +2032,8 @@ for x in rows:
     b_addr = x.get("buyer_address") or (("%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")) if _lf.get("address") else "") or _sa
     if not _BYLOC.fsa_of(b_addr):
         b_addr = (b_addr + "; " if b_addr else "") + (_sa or "")
+    if b_addr.startswith("postal code "):
+        b_addr = address_beside_mailbox(b_addr, x.get("email_evidence_quote") or "", x.get("email_evidence_url") or "") or b_addr
     g = int(x["grade"])
     prov, how = province_of(k, e, site, x.get("email_evidence_quote") or "")
     GAVE_WAY[k] = "%s — %s — is on file for this organisation and is not what the row stands on: %s" % ((x.get("vendor") or "").strip(), re.sub(r"\s+", " ", cs)[:260].rstrip(" .,;:"), why)
@@ -2128,6 +2145,8 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         b_addr = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")
     if vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and SPC13.get(k):
         b_addr = (b_addr + "; " if b_addr else "") + SPC13[k]  # no postal code in what was read of its address: the one its home page prints
+    if b_addr.startswith("postal code "):
+        b_addr = address_beside_mailbox(b_addr, m.get("evidence_quote") or "", m.get("evidence_url") or "") or b_addr
     if _lf.get("site_name") and re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/?", (name or "").strip().lower()):
         name = _lf["site_name"]  # the lead only carried the domain: the organisation's own home page names it (as apply_details does for a lead's row)
     rows.append({"jurisdiction": "", "_jur": prov or (_PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) if vid.startswith("LOC:") else "") or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
@@ -2910,6 +2929,15 @@ for x in rows:
         _vsn = _LCF.site_name_for(host_of(x.get("vendor_website") or "") or x["vendor"].strip().lower(), v.get("og_site_name"), v.get("title"), _TR)
         if _vsn and not DOMAIN_NAME.match(_vsn) and not GENERIC_NAME.match(_vsn):
             x["vendor"] = _vsn; n_ox["vendor named by its own site's name instead of its domain"] += 1
+    elif v and re.search(r"\s(?:l|d|qu|n|s|j|c)$", (x.get("vendor") or "").strip(), re.I):
+        # 2026-11-11 (test set: "Chambre de Commerce de l"): a name the lead engine cut at an apostrophe — the value of the site's og:site_name was
+        # read up to the first quote of either kind (63 names, 900 leads; the engines are corrected) — is completed from the vendor's own home
+        # page when a name there begins with the same words
+        _cut = (x.get("vendor") or "").strip()
+        for _full in (html.unescape(str(v.get("og_site_name") or "")).strip(), html.unescape(str(v.get("title") or "")).split("|")[0].strip()):
+            if len(_full) > len(_cut) + 1 and norm(_full).startswith(norm(_cut)) and _full[len(_cut):len(_cut) + 1] in "'’":
+                x["vendor"] = re.split(r"\s+[|–—-]\s+", _full)[0].strip()[:90]; n_ox["vendor name cut at an apostrophe, completed from its own home page"] += 1
+                break
     if v and not (x.get("vendor") or "").startswith("inferred"):
         _vcp = "" if x.get("vendor_legal_name") or (_foreign_site and not in_ca_section(v.get("legal_name_url") or "")) else clean_legal(v.get("legal_name"), x.get("vendor") or "")
         _vcp_last = ""
@@ -3787,6 +3815,10 @@ for x in rows:
                 n_cbr["vendor found under the legal name its own site prints"] += 1
     if c and form_class(vn) and form_class(c.get("matched_name") or "") and form_class(vn) != form_class(c.get("matched_name") or ""):
         n_cbr["vendor_skipped_legal_form"] += 1; c = None  # reviewer 2026-11-08: Smythe LLP is not Smythe Inc.
+    if c and vn.startswith("inferred") and _RR._DEAD.search(c.get("status_state") or "") and not _RR._LIVE.search(c.get("status_state") or ""):
+        # 2026-11-11: a distributor the regulator licenses today is not the register entry of the same name that is inactive (Orangeville Hydro
+        # Limited, ON 1438531: an earlier corporation of that name) — the record is not put on the row, and no warning with it (136 rows failed on it)
+        n_cbr["inactive register entry of the same name not taken for a biller a regulator names today"] += 1; c = None
     if c:
         src = "%s, %s" % (c["_label"], c["retrieved_date"])
         if re.search(r"\((?:stated on|schema\.org|as printed on the vendor's site)", x.get("vendor_legal_name") or ""):
@@ -4549,12 +4581,17 @@ PACK_COLS = ["pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_te
              "instrument_type_normalized", "buyer_bn_program", "vendor_registry_warning", "vendor_registry_note", "sensitivity_flag", "buyer_sector", "evidence_age_days", "reverify_due",
              "facts_provenance_json", "invoicing_requirements_structured", "ap_system_hint", "typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days",
              "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]
+_PERSON_DESIG = re.compile(r"(?i)\b(?:(?:the )?(?:official )?web ?site of|site (?:web )?(?:officiel )?de|personal real estate corporation|prec\b\*?|realtor|real estate (?:agent|broker|professional)|"
+                           r"courti[eè]re? immobili[eè]re?|sales representative|broker of record|cpa|cga|cma|m\.d\.|dds|dmd|ph\.?d\.?|dr\.|esq\.?|notaire|avocate?)(?![A-Za-zÀ-ÿ])|[®™*]")
 EXTRA_SENS = [("law enforcement (incl. transit / parks)", re.compile(r"transit (?:police|enforcement|safety)|special constable|conservation officer|by-?law enforcement|peace officer", re.I)),
               ("financial regulator / oversight office", re.compile(r"\bOSFI\b|superintendent of financial institutions|\bFINTRAC\b|\bCANAFE\b|competition bureau|bureau de la concurrence|privacy commissioner|protection de la vie priv[ée]e|auditor general|v[ée]rificat(?:eur|rice) g[ée]n[ée]ral|ombuds|integrity commissioner|elections? (?:canada|ontario|bc|alberta|qu[ée]bec)|[ée]lections qu[ée]bec|securities commission|autorit[ée] des march[ée]s financiers|\bAMF\b", re.I)),
               ("justice / prosecution / law society", re.compile(r"public prosecution|poursuites p[ée]nales|courts administration|judicial council|attorney general|procureur g[ée]n[ée]ral|crown (?:attorney|counsel|prosecut)|law society|barreau du|directeur des poursuites|ministry of (?:the )?attorney|justice (?:canada|qu[ée]bec)|minist[èe]re de la justice|department of justice", re.I)),
               ("major bank", re.compile(r"\bTD\b|toronto-dominion|\bBMO\b|bank of montreal|banque de montr[ée]al|scotiabank|bank of nova scotia|banque scotia|\bRBC\b|royal bank|banque royale|\bCIBC\b|canadian imperial bank|national bank of canada|banque nationale|desjardins", re.I)),
               ("cybersecurity vendor", re.compile(r"crowdstrike|fortinet|palo alto|sentinelone|esentire|\bcisco\b|check ?point software|trend micro|mcafee|sophos|rapid7|tenable|\bokta\b|zscaler|proofpoint|mimecast|bell canada cyber|telus (?:security|cyber)", re.I)),
-              ("political party", re.compile(r"conservative party|parti conservateur|liberal party|parti lib[ée]ral|new democratic party|\bNDP\b|\bNPD\b|bloc qu[ée]b[ée]cois|green party|parti vert|parti qu[ée]b[ée]cois|coalition avenir|qu[ée]bec solidaire|people's party|united conservative|saskatchewan party|\bPC party\b", re.I)),
+              ("political party", re.compile(r"conservative party|parti conservateur|liberal party|parti lib[ée]ral|new democratic party|\bNDP\b|\bNPD\b|bloc qu[ée]b[ée]cois|green party|parti vert|parti qu[ée]b[ée]cois|coalition avenir|qu[ée]bec solidaire|people's party|united conservative|saskatchewan party|\bPC party\b|"
+                                             # 2026-11-11 (test set, a party shown under its domain name): the parties' own domains
+                                             r"//(?:www\.)?(?:plq\.org|pq\.org|liberal\.ca|conservative\.ca|conservateur\.ca|ndp\.ca|npd\.ca|blocquebecois\.org|greenparty\.ca|partivert\.ca|coalitionavenirquebec\.org|"
+                                             r"quebecsolidaire\.net|peoplespartyofcanada\.ca|unitedconservative\.ca|saskparty\.com|albertandp\.ca|ontariondp\.ca|ontarioliberal\.ca|ontariopc\.ca|bcndp\.ca)\b", re.I)),
               ("major media organisation", re.compile(r"\bCBC\b|radio-canada|\bCTV\b|global news|corus entertainment|postmedia|torstar|toronto star|globe and mail|qu[ée]becor|\bTVA\b|la presse\b|rogers (?:media|sports)|bell media|cogeco media|le devoir", re.I)),
               ("named exclusion (owner)", re.compile(r"university of toronto|universit[ée] de toronto|\bUofT\b|utoronto\.ca", re.I))]
 # 2026-11-09 14:20Z: a portal counts as an INVOICE channel (pay-on-sight tier 1) only when it is an e-invoicing / supplier-invoice network; tender portals
@@ -5254,7 +5291,7 @@ for _ri, x in enumerate(rows):
             if _lf.get("site_name") and not x["buyer_trade_name_as_published"]:
                 x["buyer_trade_name_as_published"] = "%s (the name on the organisation's own home page, %s, read %s)" % (_lf["site_name"], _lf.get("site") or "", _lf.get("date") or ""); npk["buyer_trade_name_as_published"] += 1
         t, g, ec = x.get("tier") or "", int(x.get("grade") or 0), x.get("email_check") or ""
-        name_site = " ".join((x.get(c) or "") for c in ("buyer", "buyer_legal_name_as_published", "buyer_website"))
+        name_site = " ".join((x.get(c) or "") for c in ("buyer", "buyer_legal_name_as_published", "buyer_trade_name_as_published", "buyer_website"))
         # buyer_type fallback (C4.1) and sector (S4.1)
         if (x.get("buyer_type") or "").startswith("organisation (type not stated"):
             for lab, rx in TYPE_RULES:
@@ -5272,6 +5309,11 @@ for _ri, x in enumerate(rows):
         # row stays. Contract records are left alone: their buyers are organisations by the record itself.
         if (x.get("sensitivity_tag") or "").startswith("none") and t not in ("A", "B", "C", "L", "F"):
             _pb = (x.get("buyer") or "").strip()
+            # 2026-11-11 (test set: "Michelle Harrison PREC*", "Website of Quimper-Swiderski, Hannah"): the name is read without the designation a
+            # professional adds to it, and "Surname, Given" is turned round
+            _pb = re.sub(r"\s+", " ", _PERSON_DESIG.sub(" ", _pb)).strip(" ,.-–|")
+            if _pb.count(",") == 1 and all(len(re.findall(r"[A-Za-zÀ-ÿ'’.-]+", h_)) == 1 for h_ in _pb.split(",")):
+                _pb = " ".join(h_.strip() for h_ in reversed(_pb.split(",")))
             _pt = re.findall(r"[A-Za-zÀ-ÿ'’.-]+", _pb)
             if len(_pt) == 2 and len(_pb) <= 34 and not re.search(r"\d|[|/@&]", _pb) and _pt[0][:1].isupper() and _pt[1][:1].isupper():
                 _f0 = re.split(r"[-.]", unicodedata.normalize("NFKD", _pt[0]).encode("ascii", "ignore").decode().lower())[0]

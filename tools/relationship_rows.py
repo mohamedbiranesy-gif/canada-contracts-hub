@@ -262,6 +262,57 @@ _INVOICE = re.compile(r"invoices?|factur|\bbills?\b|\bbilled\b|notices?\b|avis d
 # a buyer's purchase-order rule is about what it orders from a supplier: a regulator's fee notice, a chamber's dues, a landlord's rent, an agent's
 # account and a sponsorship are not ordered with a purchase order (owner 13:00 EST: "Shopify … won't have a purchase order … maybe some other thing will")
 PO_KINDS = ("public contract", "service seen on the buyer's side", "dealership", ".ca registration", "not established")
+# What reading the hundred of 2026-11-11 23:14Z found, each made a rule here so that a build and a re-test of a published table judge alike:
+# - a mailbox that is only the hidden recipient of a web form (<input type="hidden" … value="info@…">) is in the page's source and not printed
+#   on the page: the organisation does not publish it (§2.5), and a reader who opens the page does not find it;
+_HIDDEN_FIELD = re.compile(r"<input\b[^<>]*\btype\s*=\s*[\"']?hidden\b[^<>]*$", re.I)
+def mailbox_only_in_a_hidden_field(x):
+    e, q = (x.get("email") or "").strip().lower(), x.get("email_evidence_quote") or ""
+    if not e or not q:
+        return False
+    ql = q.lower()
+    hits = [m.start() for m in re.finditer(re.escape(e[:12]), ql)]  # the quote is cut to 300 characters: the address may be cut too
+    return bool(hits) and all(_HIDDEN_FIELD.search(q[max(0, i - 400):i]) for i in hits)
+# - a sponsor or exhibitor list of a past year is not a current relationship (an exhibitor of a 2021 convention), a list of in-kind sponsors or
+#   donors names nobody who is billed, and an event's own site prints the address of the hall it is held in, not the organiser's;
+_IN_KIND = re.compile(r"in[-_ ]?kind|en[-_ ]nature|donor|donat(?:eur|ion|e)|media[-_ ]partner|partenaires?[-_ ]m[ée]dia", re.I)
+_VENUE = re.compile(r"palais des congr|centre des congr|convention cent|congress cent|conference cent|exhibition (?:place|park|cent)|enercare|place jean-paul-riopelle|255 front st(?:reet|\.)? w|"
+                    r"1055 canada pl|55 colonel by|375 york ave|1650 argyle|9797 jasper|20 roundup way|6900 airport r|650 dixon r|800,? (?:rue )?de la gaucheti|\bh[oô]tel\b|\bresort\b|fairmont|"
+                    r"sheraton|marriott|hilton|hyatt|westin|delta hotels", re.I)
+def sponsorship_faults(x, year=None):
+    year = year or __import__("datetime").date.today().year
+    out, link = [], (x.get("contract_link") or "") + " " + (x.get("vendor") or "")
+    ys = [int(y) for y in re.findall(r"(?<!\d)(20[0-3]\d)(?!\d)", link)]
+    if (ys and max(ys) < year - 1) or re.search(r"\bpast[-_ ]?(?:convention|conference|event|sponsors|exhibitors)", link, re.I):
+        out.append("relationship not shown to be current (the sponsor or exhibitor list is of %s)" % (max(ys) if ys else "a past event"))
+    if _IN_KIND.search(x.get("contract_link") or ""):
+        out.append("relationship not established (a list of in-kind sponsors or donors: nobody on it is billed)")
+    if _VENUE.search((x.get("vendor_address") or "").split(" (as printed")[0]):
+        out.append("field: vendor address (the address printed is the hall or hotel of the event, not the organiser's)")
+    return out
+# - an agent of record that is a named person: the register names the agent, the firm that sends the account stands in brackets in its address,
+#   and a natural person is not a row's biller (natural persons are left out of the register lanes).
+_FIRM = re.compile(r"\b(?:llp|l\.l\.p|lp|inc|corp|corporation|ltd|limited|lt[ée]e|s\.?e\.?n\.?c|s\.?r\.?l|s\.?e\.?c|pllc|p\.?c\.?|plc|gmbh|ip|law|legal|avocats?|agents?|agency|agence|associates|associ[ée]s|"
+                   r"partners|group|groupe|services?|office|bureau|trademarks?|marques|patents?|brevets|intellectual|propri[ée]t[ée]|consult\w*|company|cie|firm|cabinet|solicitors|barristers|&|and|et)\b|&", re.I)
+_GIVEN = None
+def agent_is_a_person(x):
+    """two to four words, no word of a firm, and either an initial ("LLOYD W. AMENT") or a given name in front — "ANDREWS ROBICHAUD" and
+    "Fasken Martineau DuMoulin" are firms named after their founders"""
+    global _GIVEN
+    v = (x.get("vendor") or "").strip()
+    w = re.findall(r"[A-Za-zÀ-ÿ'’.-]+", v)
+    if not (2 <= len(w) <= 4) or _FIRM.search(v) or re.search(r"\d", v):
+        return False
+    if any(re.fullmatch(r"[A-Za-z]\.?", t) for t in w[1:-1]):
+        return True
+    if _GIVEN is None:
+        try:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            from buyer_pages import FIRST_NAMES as _fn
+            _GIVEN = set(_fn)
+        except Exception:
+            _GIVEN = set()
+    return re.sub(r"[^a-z]", "", w[0].lower()) in _GIVEN
 ROUTE_OK = ("bank", "either", "kind")  # owner 2026-11-11 14:20 EST: an invoice that can be paid by bank transfer is in, also when the biller would take a card
 
 
@@ -303,6 +354,12 @@ def owner_test(x):
     # what puts the biller in Canada), and, for a row that stands on where the organisation is, the organisation's own address.
     must = [f for f in miss if f == "vendor address" or (kind == "utility account by location" and f == "buyer address")]
     out += ["field: " + f for f in must]
+    if mailbox_only_in_a_hidden_field(x):
+        out.append("mailbox not printed on the page (it is the hidden recipient of a web form in the page's source)")
+    if kind == "sponsorship":
+        out += sponsorship_faults(x)
+    if kind == "agent of record" and agent_is_a_person(x):
+        out.append("relationship: the agent of record is a named person, not a firm")
     if (x.get("sensitivity_flag") or "") == "yes":
         out.append("flag: " + ((x.get("sensitivity_tag") or "sensitive buyer").split(":")[0][:70]))
     if _has(x, "vendor_registry_warning"):
