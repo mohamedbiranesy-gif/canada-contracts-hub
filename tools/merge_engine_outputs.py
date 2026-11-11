@@ -41,34 +41,62 @@ def main():
         print("tsv_done:", len(best), "keys from", len(ins), "files")
         return
     if kind == "jsonl":  # org_extras / org_contacts: one JSON object per domain; a successful read beats a failed one, then the newest date
-        import json
-        best = {}
-        for p in ins:
+        import json, urllib.parse, zlib
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import org_extras as X  # join_reads, settle: the reader's own rules for two reads of one site (standard library only)
+
+        def host(d):
+            w = d.get("website") or ""
+            return (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
+
+        cut = []
+
+        def lines(p):
+            """the lines of a file, also of a .gz that ends before its end marker (2026-11-11: two runners of run 42958065125 delivered a
+            state file their reader was still writing; the merge crashed on them and nothing of eight runners was merged). The lines such a
+            file holds are whole records; the ones it lacks stay as the other copies have them."""
+            n = 0
+            try:
+                with (gzip.open if p.endswith(".gz") else open)(p, "rt", encoding="utf-8", errors="replace") as fh:
+                    for l in fh:
+                        n += 1
+                        yield l
+            except (EOFError, OSError, zlib.error) as e:
+                cut.append(p)
+                print("::warning::%s is cut after %d lines (%s): the records it holds are used" % (p, n, str(e)[:80]), flush=True)
+
+        best, st = {}, {"kept": 0, "removed": 0}
+        for n_in, p in enumerate(ins):
             if not p or not os.path.exists(p) or os.path.getsize(p) == 0:
                 continue
-            with (gzip.open if p.endswith(".gz") else open)(p, "rt", encoding="utf-8", errors="replace") as fh:
-                for l in fh:
-                    try:
-                        d = json.loads(l)
-                    except Exception:
-                        continue
-                    k = d.get("domain")
-                    if not k:
-                        continue
-                    o = best.get(k)
-                    # 2026-11-10: on one date the record of the newer reader wins (every shard's file holds the whole state it started from: the copy
-                    # another shard carried of a site, made by the older reader on the same day, used to come after the fresh record and put its
-                    # version number and page list back)
-                    rank = lambda r: (r.get("status") == "ok", r.get("date") or "", int(r.get("v") or 0))
-                    if o is None or rank(d) >= rank(o):
-                        if o and o.get("status") == "ok" and d.get("status") == "ok":
-                            m = dict(o); m.update({kk: vv for kk, vv in d.items() if vv not in ("", None, [], {})}); d = m  # facts read earlier stay when the newer read has fewer
-                        best[k] = d
+            for l in lines(p):
+                try:
+                    d = json.loads(l)
+                except Exception:
+                    continue
+                k = d.get("domain")
+                if not k:
+                    continue
+                w = X.settle(d)  # a v4 record made before the reader said which version took its spelled name (see org_extras.settle)
+                if w:
+                    st[w] += 1
+                o = best.get(k)
+                # 2026-11-10: on one date the record of the newer reader wins (every shard's file holds the whole state it started from: the copy
+                # another shard carried of a site, made by the older reader on the same day, used to come after the fresh record and put its
+                # version number and page list back)
+                rank = lambda r: (r.get("status") == "ok", r.get("date") or "", int(r.get("v") or 0))
+                if o is None or rank(d) >= rank(o):
+                    if o and o.get("status") == "ok" and d.get("status") == "ok" and host(o) in ("", host(d)):
+                        d = X.join_reads(o, d)  # facts read earlier stay when the newer read has fewer; a record read on another host of the domain is replaced, not mixed in
+                    best[k] = d
+            if n_in == 0 and p in cut and os.path.abspath(p) == os.path.abspath(out):
+                sys.exit("the state file on main itself is cut (%s): nothing is written" % p)
         with (gzip.open if out.endswith(".gz") else open)(out + ".tmp", "wt", encoding="utf-8") as f:
             for k in sorted(best):
                 f.write(json.dumps(best[k], ensure_ascii=False) + "\n")
         os.replace(out + ".tmp", out)
-        print("jsonl:", len(best), "domains from", len(ins), "files")
+        print("jsonl:", len(best), "domains from", len(ins), "files;", len(cut), "cut file(s);",
+              "spelled names of unmarked v4 records: %d kept, %d removed (those sites are read again)" % (st["kept"], st["removed"]))
         return
     kcols, dcol = KEYS[kind], DATE[kind]
     split = kind == "ap_terms" and out.endswith("claude_ap_terms.csv")  # mailbox rows stay in the CSV, buyer-key (walker / search) rows go to claude_ap_terms_pages.csv.gz

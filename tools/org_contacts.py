@@ -378,11 +378,15 @@ def main():
     a.add_argument("--refresh", action="store_true", help="re-read domains that failed on a redirect / network error, and shared-host organisations keyed by path")
     a.add_argument("--shard", default="", help="K/N: only domains that hash to shard K of N (parallel runners never share a host)")
     a.add_argument("--seed-resume", default="", help="a jsonl(.gz) of organisations already read (the repo copy): skipped as if in the resume file")
+    a.add_argument("--minutes", type=float, default=0, help="time box: at its end no new site is started, the state file is written once more and the reader leaves (0 = none)")
+    a.add_argument("--out", default="", help="write the state file here, not to <repo>/data/incoming/claude/claude_org_contacts.jsonl.gz (several readers on one runner, each with a file and a resume file of its own)")
+    a.add_argument("--delta", action="store_true", help="write only the records this run made or changed (the merge joins them with the file on main)")
     a = a.parse_args()
     os.makedirs(STATE, exist_ok=True)
+    resume = (a.out + ".resume.jsonl") if a.out else RESUME
     done = {}
-    if os.path.exists(RESUME):
-        for l in open(RESUME, encoding="utf-8"):
+    if os.path.exists(resume):
+        for l in open(resume, encoding="utf-8"):
             try:
                 d = json.loads(l); done[d["domain"]] = d
             except Exception:
@@ -417,25 +421,18 @@ def main():
     if a.limit:
         tasks = tasks[:a.limit]
     print("tasks: %d domains to read (%d in resume file; refresh=%s)" % (len(tasks), len(done), a.refresh), flush=True)
-    out_gz = os.path.join(a.repo, "data/incoming/claude/claude_org_contacts.jsonl.gz")
-    stats, last_dump = {}, [time.time()]
+    out_gz = a.out or os.path.join(a.repo, "data/incoming/claude/claude_org_contacts.jsonl.gz")
+    touched = set()
+    stats = {}
 
-    def dump():
+    def rows():
         with lock:
-            rows = [d for d in done.values() if d.get("status") == "ok"]
-        for attempt in range(3):  # push_loop's rebase may be rewriting the clone's working tree at this moment
-            try:
-                os.makedirs(os.path.dirname(out_gz), exist_ok=True)
-                tmp = out_gz + ".%d.tmp" % os.getpid()
-                with gzip.open(tmp, "wt", encoding="utf-8") as f:
-                    for d in sorted(rows, key=lambda d: d["domain"]):
-                        f.write(json.dumps(d, ensure_ascii=False) + "\n")
-                os.replace(tmp, out_gz)
-                break
-            except Exception as e:
-                print(time.strftime("%H:%M"), "dump failed (%s), retrying" % e, flush=True)
-                time.sleep(20)
-        print(time.strftime("%H:%M"), "wrote", out_gz, len(rows), "organisations", dict(stats), flush=True)
+            r = [d for d in ([done[k] for k in touched if k in done] if a.delta else done.values()) if d.get("status") == "ok"]
+        return sorted(r, key=lambda d: d["domain"])
+
+    import run_box
+    state = run_box.StateFile(out_gz, rows)   # one write at a time, a path of its own each (run_box.py says what the five-minute writes did)
+    box = run_box.Box(a.minutes)
 
     def one(t):
         dom, key, name, site, kind, start = t
@@ -451,23 +448,20 @@ def main():
             if old and old.get("status") == "ok" and res.get("status") != "ok":
                 res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"))
             done[dom] = res
+            touched.add(dom)
             stats[res["status"]] = stats.get(res["status"], 0) + 1
-            with open(RESUME, "a", encoding="utf-8") as f:
+            with open(resume, "a", encoding="utf-8") as f:
                 f.write(json.dumps(res, ensure_ascii=False) + "\n")
-            due = time.time() - last_dump[0] > 300
-            if due:
-                last_dump[0] = time.time()
-        if due:
-            try:
-                dump()
-            except Exception as e:
-                print(time.strftime("%H:%M"), "dump error", e, flush=True)
+        state.maybe(str(dict(stats)))
 
     threading.Thread(target=watchdog, daemon=True).start()
-    with ThreadPoolExecutor(a.workers) as ex:
-        list(ex.map(one, tasks))
-    dump()
-    print("finished", dict(stats), flush=True)
+    whole = box.run(one, tasks, a.workers)
+    state.final(str(dict(stats)))
+    if whole:
+        print("finished", dict(stats), flush=True)
+    else:
+        print("stopped by the time box: %d of %d sites read" % (sum(stats.values()), len(tasks)), dict(stats), flush=True)
+        box.leave(0)
 
 
 if __name__ == "__main__":

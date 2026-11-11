@@ -2565,7 +2565,7 @@ for x in rows:
         # (15 times), it was right 14 times — so it goes first, except before a copyright line that itself carries a company form.
         _site = x.get("buyer_website") or ""
         _own = lambda u: bool(u) and registrable(host_of(u) or "") == registrable(host_of(_site) or "")
-        _sp = re.sub(r"\s+", " ", b.get("legal_name_spelled") or "").strip() if int(b.get("v") or 0) >= 4 else ""  # records of the reader's v3 (three hours of 2026-11-11) held 7 % names cut short or run into the page's words
+        _sp = re.sub(r"\s+", " ", b.get("legal_name_spelled") or "").strip() if int(b.get("legal_name_spelled_v") or 0) >= 4 else ""  # the reader's v3 (three hours of 2026-11-11) took 7 % names cut short or run into the page's words; the name says which version took it (a v3 name used to stay in a record v4 had re-read)
         _reg_cell = bool(x.get("buyer_legal_name_as_published"))  # a public register has named the legal person already (apply_details): what the site prints does not replace it
         if _sp and not _reg_cell and not (ln and (_CORP_FORM_END.search(ln) or _LEGAL_PERSON.search(ln))) and not _PLATFORM_CO.search(_sp) and name_overlap(_sp, x.get("buyer") or "", _site):
             ln = _sp
@@ -2669,7 +2669,7 @@ for x in rows:
             # a vendor legal name (7,333 rows of one host, "whc.ca", without one)
             _vsite, _vn = x.get("vendor_website") or "", x.get("vendor") or ""
             _vown = lambda u: bool(u) and registrable(host_of(u) or "") == registrable(host_of(_vsite) or "")
-            _vsp = re.sub(r"\s+", " ", v.get("legal_name_spelled") or "").strip() if int(v.get("v") or 0) >= 4 else ""
+            _vsp = re.sub(r"\s+", " ", v.get("legal_name_spelled") or "").strip() if int(v.get("legal_name_spelled_v") or 0) >= 4 else ""
             _vpn, _vpt, _vph = re.sub(r"\s+", " ", v.get("legal_name_party") or "").strip(), (v.get("legal_name_party_trade") or "").strip(), v.get("legal_name_party_how") or ""
             _von = re.sub(r"\s+", " ", v.get("legal_name_operator") or "").strip()
             if _vsp and not _PLATFORM_CO.search(_vsp) and name_overlap(_vsp, _vn, _vsite):

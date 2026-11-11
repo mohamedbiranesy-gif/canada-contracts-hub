@@ -43,10 +43,10 @@ permissions:
   actions: write
 env:
   ENGINE: ${{ inputs.engine || (github.event.schedule == '11 */6 * * *' && 'org_facts') || (github.event.schedule == '31 2 * * *' && 'walk_terms') || 'bulk_registry' }}
-  # 2026-11-11: org_facts on schedule 8 -> 4 runners, 40 -> 100 sites at a time on each. A reader of sites spends its time waiting (measured on
-  # the mailbox reader: 23 ms of CPU a page, a third of one core at 120 sites at a time), so the width of a runner is free and the number of
-  # runners is not: the account runs 20 jobs at a time, and on 2026-11-11 06:00-08:00Z two org_facts runs held 16 of them while the
-  # merges of three other engines and the rank build waited.
+  # 2026-11-11: org_facts on schedule 8 -> 4 runners: the account runs 20 jobs at a time, and on 2026-11-11 06:00-08:00Z two org_facts runs
+  # held 16 of them while the merges of three other engines and the rank build waited. A runner now carries three readers (see the shard
+  # step): the reader of facts costs 250 ms of CPU a site — unlike the mailbox reader (23 ms a page) it does not spend its time waiting,
+  # so more sites at a time bought nothing (100 at a time, tried for two hours, is back to 40 per reader).
   SHARDS: ${{ inputs.shards || (github.event.schedule == '11 */6 * * *' && '4') || (github.event.schedule == '31 2 * * *' && '6') || '1' }}
   MINUTES: ${{ inputs.minutes || (github.event.schedule == '11 */6 * * *' && '120') || (github.event.schedule == '31 2 * * *' && '240') || '300' }}
   TIERS: ${{ inputs.tiers || (github.event.schedule == '31 2 * * *' && 'A,B,T,M,L,C,D,E,F') || 'I' }}
@@ -129,13 +129,29 @@ jobs:
           WE="$W"; RF="--refresh"   # every run: the sites never read first, then the ones an older version of the reader read (tools/org_extras.py V), as far as the time box goes
           if [ "$REFRESH" = "true" ]; then RF="--refresh --older-only"; WE=$(( M - 35 )); [ "$WE" -lt 10 ] && WE=10; W=15; fi   # a refresh pass: the time goes to the reader of legal names; new sites' contacts get 15 minutes
           python3 tools/site_tasks.py --ranked coord/results/ranked/ranked_buyers.csv.gz --out /tmp/site_tasks.csv --kind both 2>&1 | tail -2 || true
-          timeout "${WE}m" python3 tools/org_extras.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_extras.jsonl.gz --workers 100 --repo "$PWD" $RF 2>&1 | tee extras.log | grep -E "^tasks|^finished" | tail -2 || true
-          timeout "${W}m" python3 tools/org_contacts.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_contacts.jsonl.gz --workers 100 --repo "$PWD" 2>&1 | tee contacts.log | grep -E "^tasks|^finished" | tail -2 || true
-          mkdir -p out
-          if [ "$REFRESH" = "true" ] && grep -q "^tasks" extras.log && ! grep -q "^finished" extras.log; then grep -m1 "^tasks" extras.log > out/refresh_cut_$K.txt; fi   # cut by the time box: the merge starts the next run
-          cp data/incoming/claude/claude_org_extras.jsonl.gz out/org_extras_$K.jsonl.gz 2>/dev/null || true
-          cp data/incoming/claude/claude_org_contacts.jsonl.gz out/org_contacts_$K.jsonl.gz 2>/dev/null || true
-          { echo "shard $K/$N: extras $(grep -E '^tasks' extras.log | head -1) → $(grep -E '^finished' extras.log | tail -1); contacts $(grep -E '^tasks' contacts.log | head -1) → $(grep -E '^finished' contacts.log | tail -1)"; } >> "$GITHUB_STEP_SUMMARY"
+          # 2026-11-11: three readers on each runner, each with a third of the runner's sites and a file of its own. The reader of facts is one busy core
+          # (250 ms of CPU a site: 3.4 sites a second however many it reads at a time), a runner has four cores. Each reader stops by itself at
+          # the end of its time box and writes its file once more (tools/run_box.py); `timeout` is only the guard behind it. A file holds the
+          # records the run made or changed (--delta): the merge joins them with the file on main.
+          P=3; mkdir -p out
+          for J in $(seq 0 $((P - 1))); do
+            timeout -k 3m "$((WE + 12))m" python3 tools/org_extras.py --tasks /tmp/site_tasks.csv --shard "$((K * P + J))/$((N * P))" --seed-resume data/incoming/claude/claude_org_extras.jsonl.gz --workers 40 --minutes "$WE" --delta --out "out/org_extras_${K}_$J.jsonl.gz" --repo "$PWD" $RF > "extras_$J.log" 2>&1 &
+          done
+          wait
+          for J in $(seq 0 $((P - 1))); do
+            timeout -k 3m "$((W + 12))m" python3 tools/org_contacts.py --tasks /tmp/site_tasks.csv --shard "$((K * P + J))/$((N * P))" --seed-resume data/incoming/claude/claude_org_contacts.jsonl.gz --workers 40 --minutes "$W" --delta --out "out/org_contacts_${K}_$J.jsonl.gz" --repo "$PWD" > "contacts_$J.log" 2>&1 &
+          done
+          wait
+          rm -f out/*.resume.jsonl
+          for f in out/*.jsonl.gz; do [ -e "$f" ] && { gzip -t "$f" 2>/dev/null || echo "::warning::$f does not read to its end (the merge uses the records it holds)"; }; done
+          for J in $(seq 0 $((P - 1))); do
+            grep -E "^tasks|^finished|^stopped|wrote|not written|Traceback|Error" "extras_$J.log" | tail -5 | cut -c1-400 || true
+            grep -E "^tasks|^finished|^stopped|wrote|not written|Traceback|Error" "contacts_$J.log" | tail -4 | cut -c1-400 || true
+            # a reader that printed its tasks and not "finished" was cut by the time box: the merge of a refresh pass starts the next run
+            if [ "$REFRESH" = "true" ] && grep -q "^tasks" "extras_$J.log" && ! grep -q "^finished" "extras_$J.log"; then grep -m1 "^tasks" "extras_$J.log" >> out/refresh_cut_$K.txt; fi
+            { echo "shard $K/$N reader $J: extras $(grep -E '^tasks' extras_$J.log | head -1) → $(grep -E '^finished|^stopped' extras_$J.log | tail -1 | cut -c1-300); contacts $(grep -E '^tasks' contacts_$J.log | head -1) → $(grep -E '^finished|^stopped' contacts_$J.log | tail -1 | cut -c1-300)"; } >> "$GITHUB_STEP_SUMMARY"
+          done
+          ls -la out
       - name: registry shard
         if: env.ENGINE == 'registry'
         run: |

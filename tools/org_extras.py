@@ -761,7 +761,7 @@ def read_site(site, kind, name="", start_url=""):
                 oper = (r, url, quote_pos(ft, r[1], r[0]))
     if sp:
         b = sorted(sp.values(), key=lambda v: (not v[1].startswith("its words spell"), -v[2]))[0]
-        res.update({"legal_name_spelled": b[0], "legal_name_spelled_basis": b[1], "legal_name_spelled_times": b[2], "legal_name_spelled_url": b[3], "legal_name_spelled_quote": b[4]})
+        res.update({"legal_name_spelled": b[0], "legal_name_spelled_basis": b[1], "legal_name_spelled_times": b[2], "legal_name_spelled_url": b[3], "legal_name_spelled_quote": b[4], "legal_name_spelled_v": V})
     if party:
         res.update({"legal_name_party": party[0][0], "legal_name_party_trade": party[0][1], "legal_name_party_how": party[0][2], "legal_name_party_url": party[1], "legal_name_party_quote": party[2]})
     if oper:
@@ -850,6 +850,48 @@ def _host_of_site(w):
     return (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
 
 
+# Fields the reader computes as a whole, by a rule that has changed between versions: "<group>_v" says which version made the group on file.
+# A successful read replaces the group; when it finds none, the group on file stays only if a version whose rule still stands made it
+# (GROUP_MIN). Until 2026-11-11 08:00Z a name the v3 reader had taken stayed in the record when v4 read the site and found none, and the
+# record said v4 (seen in run 42958065125: of 1,132 sites with a v3 name that v4 read again, not one had lost it).
+GROUP_MIN = {"legal_name_spelled": 4}
+
+
+def join_reads(old, new):
+    """the record of a site after the successful read `new`, when `old` (status ok, read on the same host) is on file: facts read earlier
+    stay when today's read has fewer (a page that did not answer today) — except the groups of GROUP_MIN, see above."""
+    m = dict(old)
+    for g, minv in GROUP_MIN.items():
+        if new.get(g) or int(old.get(g + "_v") or 0) < minv:
+            for k in [k for k in m if k == g or k.startswith(g + "_")]:
+                del m[k]
+    m.update({k: v for k, v in new.items() if v not in ("", None, [], {})})
+    return m
+
+
+def settle(d):
+    """for the merger (tools/merge_engine_outputs.py): a record the v4 reader made before 2026-11-11 08:00Z has a spelled name without
+    `legal_name_spelled_v` — v4's own, or v3's left in the record. It counts as v4's when the present rule accepts the name on its own quote
+    (measured on 658 names known to be v4's: 94 % pass, the others lack the second place the rule wants); otherwise the group is removed
+    and the record goes back to v3, so that the next refresh run reads the site again. Returns "" | "kept" | "removed"."""
+    if int(d.get("v") or 0) < 4 or not d.get("legal_name_spelled") or d.get("legal_name_spelled_v"):
+        return ""
+    ok = False
+    try:
+        r = spelled_name(d.get("legal_name_spelled_quote") or "", _host_of_site(d.get("website")))
+        ok = bool(r) and letters3(r[0]) == letters3(d["legal_name_spelled"])
+    except Exception:
+        ok = False
+    if ok:
+        d["legal_name_spelled_v"] = 4
+        return "kept"
+    for k in [k for k in d if k == "legal_name_spelled" or k.startswith("legal_name_spelled_")]:
+        del d[k]
+    d["v"] = 3
+    d.pop("v_tried", None)
+    return "removed"
+
+
 def done_for(done, key, h):
     """the record of this site, if this very host was read: under its own key, or — read before 2026-11-10 — under its registrable domain.
     A record kept under the host's name but read on another host of the domain (the domain's record, read on bookstore.upei.ca, is not
@@ -876,6 +918,9 @@ def main():
     a.add_argument("--test", nargs="*", default=None, help="read these sites once and print the facts (no files written)")
     a.add_argument("--shard", default="", help="K/N: only domains that hash to shard K of N (parallel runners never share a host)")
     a.add_argument("--seed-resume", default="", help="a jsonl(.gz) of organisations already read (the repo copy): skipped as if in the resume file")
+    a.add_argument("--minutes", type=float, default=0, help="time box: at its end no new site is started, the state file is written once more and the reader leaves (0 = none)")
+    a.add_argument("--out", default="", help="write the state file here, not to <repo>/data/incoming/claude/claude_org_extras.jsonl.gz (several readers on one runner, each with a file and a resume file of its own)")
+    a.add_argument("--delta", action="store_true", help="write only the records this run made or changed (the merge joins them with the file on main)")
     a = a.parse_args()
     if a.test is not None:
         for u in a.test:
@@ -884,9 +929,10 @@ def main():
             print(json.dumps(res, ensure_ascii=False, indent=1)[:4000], flush=True)
         return
     os.makedirs(STATE, exist_ok=True)
+    resume = (a.out + ".resume.jsonl") if a.out else RESUME
     done = {}
-    if os.path.exists(RESUME):
-        for l in open(RESUME, encoding="utf-8"):
+    if os.path.exists(resume):
+        for l in open(resume, encoding="utf-8"):
             try:
                 d = json.loads(l); done[d["domain"]] = d
             except Exception:
@@ -926,22 +972,18 @@ def main():
     if a.limit:
         tasks = tasks[:a.limit]
     print("tasks: %d domains to read, %d of them read before by an older reader (%d in resume file; refresh=%s)" % (len(tasks), len(again), len(done), a.refresh), flush=True)
-    out_gz = os.path.join(a.repo, "data/incoming/claude/claude_org_extras.jsonl.gz")
-    stats, last = {}, [time.time()]
+    out_gz = a.out or os.path.join(a.repo, "data/incoming/claude/claude_org_extras.jsonl.gz")
+    touched = set()
+    stats = {}
 
-    def dump():
+    def rows():
         with lock:
-            rows = [d for d in done.values() if d.get("status") == "ok" and any(d.get(k) for k in ("legal_name", "legal_name_stated", "legal_name_spelled", "legal_name_party", "legal_name_operator", "title", "jsonld_legal_name", "jsonld_name", "bn", "neq", "qst", "logo_url", "language", "portals", "mentions", "tel_links", "jsonld_address", "jsonld_phone", "linkedin_url"))]
-        for attempt in range(3):
-            try:
-                tmp = out_gz + ".%d.tmp" % os.getpid()
-                with gzip.open(tmp, "wt", encoding="utf-8") as f:
-                    for d in sorted(rows, key=lambda d: d["domain"]):
-                        f.write(json.dumps(d, ensure_ascii=False) + "\n")
-                os.replace(tmp, out_gz); break
-            except Exception as e:
-                print(time.strftime("%H:%M"), "dump failed (%s), retrying" % e, flush=True); time.sleep(20)
-        print(time.strftime("%H:%M"), "wrote", out_gz, len(rows), "organisations", dict(stats), flush=True)
+            r = [d for d in ([done[k] for k in touched if k in done] if a.delta else done.values()) if d.get("status") == "ok" and any(d.get(k) for k in ("legal_name", "legal_name_stated", "legal_name_spelled", "legal_name_party", "legal_name_operator", "title", "jsonld_legal_name", "jsonld_name", "bn", "neq", "qst", "logo_url", "language", "portals", "mentions", "tel_links", "jsonld_address", "jsonld_phone", "linkedin_url"))]
+        return sorted(r, key=lambda d: d["domain"])
+
+    import run_box
+    state = run_box.StateFile(out_gz, rows)   # one write at a time, a path of its own each (run_box.py says what the five-minute writes did)
+    box = run_box.Box(a.minutes)
 
     def one(t):
         dom, key, name, site, kind, start = t
@@ -957,24 +999,21 @@ def main():
             if old and old.get("status") == "ok" and res.get("status") != "ok":
                 res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"), v_tried=V)  # keep yesterday's facts when today's read fails; this version of the reader has had its try
             elif old and old.get("status") == "ok":
-                merged = dict(old); merged.update({k: v for k, v in res.items() if v not in ("", None, [], {})}); res = merged
+                res = join_reads(old, res)
             done[dom] = res
+            touched.add(dom)
             stats[res["status"]] = stats.get(res["status"], 0) + 1
-            with open(RESUME, "a", encoding="utf-8") as f:
+            with open(resume, "a", encoding="utf-8") as f:
                 f.write(json.dumps(res, ensure_ascii=False) + "\n")
-            due = time.time() - last[0] > 300
-            if due:
-                last[0] = time.time()
-        if due:
-            try:
-                dump()
-            except Exception as e:
-                print("dump error", e, flush=True)
+        state.maybe(str(dict(stats)))
 
-    with ThreadPoolExecutor(a.workers) as ex:
-        list(ex.map(one, tasks))
-    dump()
-    print("finished", dict(stats), flush=True)
+    whole = box.run(one, tasks, a.workers)
+    state.final(str(dict(stats)))
+    if whole:
+        print("finished", dict(stats), flush=True)
+    else:  # no line "finished": the workflow reads that as "cut by the time box" and the merge starts the next run
+        print("stopped by the time box: %d of %d sites read" % (sum(stats.values()), len(tasks)), dict(stats), flush=True)
+        box.leave(0)
 
 
 if __name__ == "__main__":
