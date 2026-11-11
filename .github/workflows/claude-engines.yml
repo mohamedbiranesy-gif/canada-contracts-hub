@@ -121,7 +121,7 @@ jobs:
         run: |
           N="$SHARDS"; K=${{ matrix.k }}
           M="$MINUTES"; W=$(( (M - 15) / 2 )); [ "$W" -lt 5 ] && W=5
-          WE="$W"; RF=""
+          WE="$W"; RF="--refresh"   # every run: the sites never read first, then the ones an older version of the reader read (tools/org_extras.py V), as far as the time box goes
           if [ "$REFRESH" = "true" ]; then RF="--refresh --older-only"; WE=$(( M - 35 )); [ "$WE" -lt 10 ] && WE=10; W=15; fi   # a refresh pass: the time goes to the reader of legal names; new sites' contacts get 15 minutes
           python3 tools/site_tasks.py --ranked coord/results/ranked/ranked_buyers.csv.gz --out /tmp/site_tasks.csv --kind both 2>&1 | tail -2 || true
           timeout "${WE}m" python3 tools/org_extras.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_extras.jsonl.gz --workers 40 --repo "$PWD" $RF 2>&1 | tee extras.log | grep -E "^tasks|^finished" | tail -2 || true

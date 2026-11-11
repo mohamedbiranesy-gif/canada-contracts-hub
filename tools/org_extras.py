@@ -300,6 +300,7 @@ THIRD3 = re.compile(r"\b(?:shopify|google|alphabet|meta platforms|facebook|insta
                     r"wordfence|growthzone|civicplus|granicus|esolutions|blackbaud|global payments|elavon|chase|clover|toast|opentable|resy|yext|trustpilot|birdeye|podium|klaviyo|"
                     r"cookiebot|onetrust|termly|iubenda|termsfeed|freeprivacypolicy|privacypolicies|getterms|cookieyes|complianz|osano|usercentrics|web\.com|bluehost|hostgator|ionos|ovh)\b", re.I)
 NUMBERED3 = re.compile(r"^\d[\d\-]{3,9}$")
+_ART3 = re.compile(r"^(?:The|Les|Le|La|THE|LES|LE|LA)$")
 ABBR3 = re.compile(r"(?:[A-Za-zÀ-ÿ]\.)+|(?:St|Ste|Mt|Dr|Jr|Sr|Bros|Mfg|Intl|Assoc|Wm|Geo|Co|No|Pvt|Pty)\.")
 ENDINGS3 = set("canada ca inc ltd corp co online store shop boutique group groupe qc quebec web site services service solutions official usa us na".split())
 PROV3 = re.compile(r"(?i)(?:qu[ée]bec|canada|ontario|alberta|manitoba|saskatchewan|b\.?c\.?|british|nova|n\.?[bs]\.?|new|yukon|newfoundland|nunavut|p\.?e\.?i\.?)\b")
@@ -359,8 +360,8 @@ def _name_runs(text, loose=False):
             words.insert(0, core)
             if paren:
                 break
-        while words and (words[0].lower() in _J3 or not _W3.match(words[0])):
-            words.pop(0)
+        while words and ((words[0].lower() in _J3 and not _ART3.match(words[0])) or not (_W3.match(words[0]) or _ART3.match(words[0]))):
+            words.pop(0)  # a connector or a small word left at the front; an article written with a capital opens a name ("The Brick Ltd.")
         if not words:
             continue
         w0 = max(0, j - 150)
@@ -387,29 +388,42 @@ entrepreneur entrepreneurs assurances assurance courtage transport location loca
 
 
 def _opening3(text, nm):
-    """the name with the opening word(s) the site prints before it EVERY time ("Services Mobile Mediq inc.", "Les Entreprises Tremblay inc."), or the
-    name as it is. A word that stands before the name only now and then is a menu item or a heading next to it, not a part of it; before a name
-    printed once, the opening words count only inside a sentence (a word written small comes before them: "… par Les Entreprises Tremblay inc.")."""
+    """the name with the opening word(s) the site prints before it EVERY time ("Services Mobile Mediq inc.", "Les Entreprises Tremblay inc.",
+    "Alliance to End Plastic Waste, Inc." on endplasticwaste.org), or the name as it is. Words that stand before the name only now and then are a
+    menu item or a heading next to it, not a part of it. Before a name printed once, only the usual opening words of company names count, and only
+    inside a sentence (a word written small comes before them: "… par Les Entreprises Tremblay inc.")."""
     chains = []
     for m in re.finditer(re.escape(nm), text):
-        head = text[max(0, m.start() - 80):m.start()]
+        head = text[max(0, m.start() - 90):m.start()]
         ws = head[:-1].split(" ") if head.endswith(" ") else []
         ch = []
-        while ws and len(ch) < 3 and ws[-1][:1].isupper() and ws[-1].lower() in OPENING3:
-            ch.insert(0, ws.pop())
+        while ws and len(ch) < 4:
+            w = ws[-1].rstrip(",")
+            if not w or w.lower().strip(".:") in CHROME3 or not (_W3.match(w) or w.lower() in _J3) or (w[-1] in ".:;!?)|" and not ABBR3.fullmatch(w)):
+                break
+            ch.insert(0, w)
+            ws.pop()
+        while ch and ch[0].lower() in _J3 and not (ch[0][:1].isupper() and ch[0].lower() in ("les", "le", "la", "the")):
+            ch.pop(0)  # a connector left at the front; an article written with a capital opens a name ("Les Entreprises …", "The …")
         chains.append((ch, ws[-1] if ws else ""))
     if not chains:
         return nm
-    tail = list(chains[0][0])  # the opening words every printing shares, counted from the name backwards ("Les Entreprises" and "les Entreprises": "Entreprises")
+    tail = list(chains[0][0])  # the words every printing shares, counted from the name backwards ("Les Entreprises" and "les Entreprises": "Entreprises")
     for ch, _ in chains[1:]:
         k = 0
         while k < len(tail) and k < len(ch) and tail[-1 - k] == ch[-1 - k]:
             k += 1
         tail = tail[len(tail) - k:]
+    while tail and tail[0].lower() in _J3 and not (tail[0][:1].isupper() and tail[0].lower() in ("les", "le", "la", "the")):
+        tail.pop(0)
     if not tail:
         return nm
-    if len(chains) == 1 and not re.fullmatch(r"[a-zà-ÿ'’]{1,12}", chains[0][1] or ""):
+    usual = all(w.lower() in OPENING3 or w.lower() in _J3 for w in tail)
+    if len(chains) == 1 and not (usual and re.fullmatch(r"[a-zà-ÿ'’]{1,12}", chains[0][1] or "")):
         return nm
+    if not usual and len({b for _, b in chains}) < 2:
+        return nm  # other words than the usual openings must come in two different surroundings: the same word before the name every time is the
+                   # page's furniture ("Shop Now" above a footer), printed as often as the name
     return " ".join(tail) + " " + nm
 
 
@@ -426,7 +440,7 @@ def spelled_name(text, host):
         best = None
         for k in range(1, len(words) + 1):
             run = words[-k:]
-            if run[0].lower() in _J3:
+            if run[0].lower() in _J3 and not _ART3.match(run[0]):
                 continue
             vs = _variants3(run)
             if lab in vs or any(v + sl == lab for v in vs):
@@ -848,7 +862,7 @@ def main():
                     pass
     import hashlib
     shard_k, shard_n = (int(a.shard.split("/")[0]), int(a.shard.split("/")[1])) if a.shard else (0, 1)
-    tasks, seen = [], set()
+    tasks, seen, again = [], set(), set()
     for r in csv.DictReader(open(a.tasks, encoding="utf-8", errors="replace")):
         w = (r.get("website") or "").strip()
         h = (urllib.parse.urlparse(w if "//" in w else "https://" + w).hostname or "").lower().removeprefix("www.")
@@ -865,9 +879,12 @@ def main():
         if shard_n > 1 and int(hashlib.md5((C.registrable(h) or h).encode()).hexdigest(), 16) % shard_n != shard_k:  # every host of a domain on one runner
             continue
         seen.add(dom); tasks.append((dom, r.get("key", ""), r.get("name", ""), "https://%s/" % h, r.get("kind", ""), ("https://%s/" % start_path) if start_path else ""))
+        if old is not None:
+            again.add(dom)
+    tasks.sort(key=lambda t: t[0] in again)  # the sites never read come first; the ones read by an older reader fill what is left of the time box
     if a.limit:
         tasks = tasks[:a.limit]
-    print("tasks: %d domains to read (%d in resume file; refresh=%s)" % (len(tasks), len(done), a.refresh), flush=True)
+    print("tasks: %d domains to read, %d of them read before by an older reader (%d in resume file; refresh=%s)" % (len(tasks), len(again), len(done), a.refresh), flush=True)
     out_gz = os.path.join(a.repo, "data/incoming/claude/claude_org_extras.jsonl.gz")
     stats, last = {}, [time.time()]
 

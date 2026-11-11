@@ -988,3 +988,51 @@ candidate: the vendor lanes only looked at links on pages and at the platforms' 
   United States)"; "As part of any of our paid plans, you can set up a custom domain". So: a school on its thinkific.com address or a
   link to one proves nothing (old free plan) and is not counted; an organisation whose own address is an alias of its school is a paying
   customer, and is kept when it is outside the United States.
+
+## 2026-11-11 00:55Z from claude — the bill-to legal name: what a site prints with its legal form; registers first; the CRA list by number
+**Where the table stood** (build 22:38Z): 159,482 of 233,316 rows carry no legal name (R 75 %, T 74 %, D 62 %, I 62 %); 30,768 are known by
+their domain only. The site reader had read 141,000 of the sites. Measured on 317 of them that had given no legal name: reading more
+pages gives 3 % (two thirds of these sites link no privacy or terms page at all; the fifth-link limit lost 11 sites). What was missing
+is recognition: the name is on the pages already read, outside the three places the reader looked (copyright line, "operated by"
+sentence, structured data).
+1. **A name printed with a company form that the site's own domain name spells** (tools/org_extras.py v3): "Credit Lift Inc." on
+   creditlift.ca, "Autoénergie Canada inc." on autoenergie.com (the name begins with the domain; six letters at least), "Case Grypma
+   Mechanical Ltd." on cgmechanical.ca (first words by their initials), "Global Institute of Forensic Research Inc." on gifrinc.com
+   (initials). Anywhere on the home page and the legal pages. A company form only (Inc., Ltd., Ltée, Corp., LLP, S.E.N.C., LLC, GmbH
+   …): "Society", "Association" and the like are left to the older rules. Never on a host many organisations share, never a platform's
+   or a payment service's name. An opening word the name is printed with every time is kept ("Services Mobile Mediq inc.").
+   Measured: 34 of 317 sites without a legal name; on 324 sites that had one, the rule agreed with it 76 times and in the 12 cases it
+   differed it was right every time ("Liberty Security Systems Inc." where the record held "Canadian Security Association", "Spurrell
+   Professional Corporation" where it held "Secure Sockets Layer"); on 1,943 further sites: 216 (11 %).
+2. **The legal person a page puts behind the site's own name**: "Majid Enterprises Inc., operating as Lawn Lovers", "1234567 Ontario Inc.
+   ("Acme", "we")", "Solaris (1457570 Alberta Ltd.)", "Legal Entity : Sleepera Mattress Wholesale Ltd." — the trade name must be the
+   site's own. And **the operator a page names** ("exploité par Société Groupe Panican inc.", "édité par", "published by"): the ranker
+   reads the sentence again in the quote. Neither is taken when the name is printed on three sites and more, or is a web agency's
+   ("This website is operated by Dr. Marketing Inc." on a dental practice's terms page), unless it is the organisation's own name.
+3. **Which name a row prints** (contrib/claude/rank_buyers/rank.py), in this order: a public register that named the row (trademarks,
+   RBQ) › a business registry's record ("as registered": it replaces a name read off a page; it is not taken when the site states
+   another legal person) › the CRA list of charities › a copyright line that names a legal person › the name the domain spells › the
+   legal person behind the site's name › the operator › structured data and stated names › a Wikidata label › **the organisation's own
+   name when it carries a company form** ("Kobes Welding Ltd.": 6,228 rows had such a name and an empty cell; the cell says where the
+   name comes from and that no register was checked). The registry tools look up the names of 1 and 2 (tools/registry_names.py).
+4. **The CRA list by registration number**: 1,167 rows carried a charity number printed on their own site (or from a federal grants
+   record) that the list holds, and none of the list's facts: the match was by name and web address only. The number says more than
+   either: "Ronald McDonald House Toronto" is TORONTO CHILDREN'S CARE INC., "Charlotte Street Arts Centre" is FREDERICTON ARTS AND
+   LEARNING INCORPORATED. tools/charity_buyers.py writes the list in a compact form (83,761 accounts); rank.py joins on the number. A
+   holder that is a foundation or a trust under another name than the organisation's is reported and not taken as the legal name (it
+   may be the fundraising body).
+5. **The name match against the CRA list was a file made on the owner's Mac on 2026-11-08** for a table of 65,000 rows; no workflow ran
+   it. It runs daily now (claude-engines.yml, bulk_registry). Three faults found in it on the way and corrected: the first charity
+   found under a name stood for every charity of that name ("Calvary Baptist Church" of Drayton Valley for the one in Chemainus: the
+   city of the row's address decides now, or nothing does); a name alone matched organisations outside Canada ("City of Richmond",
+   California; "Victoria University", Melbourne) — the row must be in Canada by its record, its .ca address or a Canadian postal
+   code; a name of the kind many congregations carry needs the city to agree. 9,749 buyers matched on today's table (7,454 before).
+6. **One pass over the 173,000 sites already read** (claude-engines.yml `refresh=true`, 8 runners; it chains itself while a runner is
+   cut by its time box). Every scheduled run then re-reads, after the new sites, what an older reader read.
+**Expected**, from the samples: 11-13 % of the ~100,000 buyer sites without a legal name get one from rule 1 or 2 (≈ 12,000 rows), the
+older rules find one on 9 % more of them now that the legal pages are chosen among all links; 6,000 from the name itself; 1,100 from
+the CRA number. On a sample build (55,000 rows of an older state, 1,943 sites re-read): legal name filled T 35 → 38 %, R 35 → 38 %,
+D 30 → 34 %, B 64 → 69 % — with 1 site in 40 re-read.
+**Not done.** Names whose form sits in the middle ("Die Autobahn GmbH des Bundes"); a dealer's or franchisee's site that carries the
+maker's notice is guarded only by the three-sites rule and the name tie; Ontario, British Columbia and Alberta companies have no open
+register to confirm a printed name against (federal and Québec companies do).
