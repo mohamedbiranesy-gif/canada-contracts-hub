@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 09:00Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
+# STATE.md — Claude lane (updated 2026-11-11 08:58Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -97,7 +97,7 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
 
-## 2026-11-11 09:00Z — build 08:25Z: 253,908 rows; five faults found by measuring, one new lane
+## 2026-11-11 08:58Z — build 08:25Z: 253,908 rows; five faults found by measuring, one new lane
 **Table (build 08:25Z, code 508d5f9, audit PASS):** 253,908 rows, 247,548 with a mailbox — A 1,276 · B 1,720 · C 315 · D 27,228 · E 5,175 ·
 F 7 · I 18,028 · L 437 · M 13,220 · R 99,426 · T 80,716. No new mailbox rows since 07:17Z (one runner of the mailbox crawl hung; its run
 ends at 09:22Z by its own limit). What moved is the bill-to side, on rows with a mailbox:
