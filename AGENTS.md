@@ -20,6 +20,26 @@ school districts/transit agencies, prime contractors in subaward data, other cou
 those first. Keep each buyer's website when the source has it: the no-AI crawler (tools/ap_crawler.py) finds the
 invoicing e-mail from the website.
 
+**Owner rules (2026-11-11, binding; three messages, 06:24, 07:15 and 07:48 EST).**
+1. **A row needs a relationship that is a fact.** "When do we know for a fact? When … something being where it is means that there's
+   a relationship … the odds of it not being a relationship [are] extremely low." A store that runs on Shopify, a DNS zone on a
+   provider's servers, a `.ca` name that answers, an entry on a public register, an award record: facts. A vendor's client list is the
+   vendor's statement; a link is a link; an inference is not a fact. Every row says which it is (`relationship_fact_basis`).
+2. **Around that fact the row carries what an invoice carries, every field of it**: "the amount that would be billed within that
+   billing cadence, the correct address, the vendor, all the stuff that would be within an invoice". Billing period
+   (`recurring_billing` + its quoted source), amount (`bill_amount_indicative` from the vendor's own price list, or the contract value),
+   what is billed, currency, how the bill arrives and is paid, tax rule, bill number, both parties' legal names, addresses and tax
+   numbers. `tools/vendor_billing.py` reads the vendors' own price and terms pages; the ranker's log gives the fill of each field.
+3. **Published first; a calculated value only when several signals agree, and labelled as calculated** ("inference of inference …
+   becomes a calculated guess"). Never an invented value, never a calculated one presented as published.
+4. **Monthly or quarterly billing by the vendor is the strongest relationship** ("billed for something monthly … or every 3 months
+   … systematically by the vendor"), and a store on Shopify is the agreed example of it. It is one kind among others: "it is a
+   subcategory of what I'm asking". Contracts, construction awards, services rendered stay in scope ("which company is doing it,
+   which vendor, by the city").
+5. **Do not lean on one lane, and do not inflate.** "Whatever can give us the most populated fields … and the most amount, but
+   populated." Rank a source by the fact-level rows it brings times the invoice fields it fills. The target stays 1,000,000 rows, and
+   the way a row is made keeps changing: "don't accept one state of things".
+
 **Owner rule (2026-10-28): when a buyer publishes no invoicing/AP mailbox, save its purchasing/procurement role mailbox
   (`ap_email_type=procurement`) or, failing that, its general role mailbox such as info@ / reception@ / greffe@
   (`ap_email_type=general`), with status `found` and a note saying no invoicing mailbox is published.** Still never

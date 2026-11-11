@@ -1301,3 +1301,61 @@ it made or changed (`--out`, `--delta`). Three times the sites per runner-hour, 
   Built: OMVIC (Ontario motor dealers, 7,865). Scouted and open: AMVIC, VSA, HCRA, ESA, RHRA, TICO, BAO (`coord/source_registry.csv`).
 - **Before an engine that has not run for a day is dispatched, one request to its source is made from here.** The registry lookup was
   started at 07:56Z on an address that had been retired; a run cannot be stopped from here, so it asks a dead address until 13:20Z.
+
+## 2026-11-11 12:03Z — the owner's bar: a relationship is one the vendor bills for every month or every quarter; what a row may claim
+Owner, 06:24 EST: "I want to know for a fact that there's a relationship to a point where they would be getting billed for something
+monthly. That's my evaluation of a relationship. Or every 3 months, they get billed for something systematically by the vendor."
+- **A billing period is a published fact or it is "not published".** Two columns on every row: `recurring_billing` (1 monthly ·
+  1 quarterly · 2 monthly or yearly · 3 yearly or longer · 4 per transaction · 5 not published) and `recurring_billing_basis` (the quote,
+  the page, the date). No period is ever inferred from the kind of vendor.
+- **Where the period comes from.** (a) The 35 vetted software vendors: their terms and price pages read with the project's reader and
+  then by hand (`tools/tech_relationships.py` BILLING, 21 with a statement; the 14 that publish no price are "not published").
+  (b) Every other vendor of a live service, a credit, a membership or a client listing: `tools/vendor_billing.py` opens the vendor's own
+  site (home page + up to five pages its menu names as prices / plans / hosting / membership / terms) and keeps each statement of a
+  period with its sentence. Measured on the first 1,495 vendors: 233 price by the month, 137 by the month and the year, 75 by the year,
+  84 say they bill monthly, 12 quarterly, 917 publish nothing, 37 could not be read. 45 "bills monthly" statements read by eye: 42 right, 1 wrong ("paid ads, email, and
+  monthly reporting": "paid" now counts only right before the period), 2 right but with a yearly option the reader missed (one pattern
+  added). (c) `.ca` names: CIRA's General Registration Rules, s. 2.4 and 7.3 (1 to 10 years). (d) Licences and registrations: their
+  published start and expiry dates. (e) Contract records: only what the record's own text says.
+- **"1 monthly" needs both halves**: the vendor's own statement that it bills by the month (or every 30 days) with no longer period on
+  the pages read, AND the service seen in use by the buyer (platform under its site, its DNS records, a "powered by / hosted by" line).
+  A price "per month" beside a yearly plan is "2 monthly or yearly": which one the buyer took is not published.
+- **A design credit is not a bill.** "Website by X" says who made the site; 48,000 of the 66,888 credit leads are of that kind. They stay
+  rows (a Canadian vendor was paid) with `5 not published`; "powered by / hosted by / maintained by" credits (18,329) follow the
+  vendor's price list.
+- **Shopify, corrected against the source** (terms last updated October 20, 2026, read 2026-11-11): "You will be billed for your
+  Subscription Fees every 30 days." Section 13 names two contracting parties for stores whose billing address is in the United States
+  or Canada — "Shopify Inc., a Canadian corporation" and "Shopify Technology (USA) Inc., a Nevada corporation" — and says "Shopify Inc.
+  may act as the billing agent for Shopify Technology (USA) Inc."; it does not say which party serves which store. The vendor note on
+  every Shopify row now carries that wording (the old note said Shopify Inc. alone), the rows stay (Shopify Inc. is a named party and
+  the billing agent), and every report gives Canadian and US stores on separate lines.
+- **Which relationship represents an organisation**: among the services it is seen to use, the one whose vendor bills by the month
+  claims the row, then one priced by the month, a design credit last (`lead_strength`).
+- **What this does to the plan.** Lanes are ranked by rows of class 1: stores and other subscriptions seen in use, monthly-billed
+  hosting, leases, retainers. `.ca` rows (yearly), members and registrants (yearly or per transaction), client listings and links keep
+  being built only where they cost nothing extra, and never count towards the bar.
+
+## 2026-11-11 13:18Z — the owner's bar, as he clarified it twice the same morning (07:15 and 07:48 EST); what was built on it
+- **The gate is the fact of the relationship, not the monthly bill.** My 12:03Z reading ("yearly fees … do not count") was too narrow:
+  "it is a subcategory of what I'm asking … as long as … we know for a fact it is a relationship". AGENTS.md §1 now carries the five
+  rules in his words. Monthly billing is the strongest kind, not the only one.
+- **Every field of an invoice, and the amount first.** Measured on the table of 12:35Z (258,757 rows with a mailbox): vendor address
+  100 %, vendor legal name 82 %, buyer address 73 %, vendor tax number 61 %, buyer legal name 45 %, an amount 3 %. So the amount and the
+  buyer's legal name are the weak fields. Built today: `bill_amount_indicative` (the vendor's own price list: the lowest price of the
+  period, as a floor — the buyer's own plan is never published; Shopify "from US$29 a month" with its four plan prices; a body's fee),
+  `bill_items_as_published`, `bill_currency_as_published`, `bill_delivery_as_published`, `bill_payment_method_as_published`,
+  `bill_tax_rule_as_published`, `bill_identifier_format`, `service_stops_if_unpaid`, `relationship_fact_basis`. On a 1-in-4 sample
+  build the amount goes from 3 % to 21 % of rows and the ranker's log now prints the fill of nine invoice fields, tier by tier.
+- **`service_stops_if_unpaid` is what turns "seen running" into "being paid for"**: Shopify suspends a store 28 days after a failed
+  payment (terms, s. 5); CIRA's rules delete a name that is not renewed (s. 7.1); 303 of the first 8,500 vendors publish the same rule.
+- **Vendors are looked up in the business registry by the rows they carry and under the legal name their own site states**
+  (`tools/registry_lookup.py`, cloud engine now `--kind both`): Web Hosting Canada has 10,007 rows and no business number; its site
+  states "WHC Online Solutions Inc". One answer fills every row of the vendor.
+- **The 100-row test set is a tool, not a hand pick** (`tools/test_sample.py`): 13 kinds of relationship, a fixed number of rows of each,
+  drawn with a seed; weak kinds are in it on purpose. Reading the first draw by eye found six faults that are now fixed in the ranker
+  (579 buyers named "About" from BBB profiles; "Welcome to …" names; day-month dates; CIRA's legal name under a carry-over note on
+  101,433 rows; Shopify's Montréal office instead of the registered office its terms give; a firm that is its own trademark agent) and
+  three that are lanes to build (`coord/source_registry.csv`: tenant directories, council award resolutions, member dues).
+- **Not done, and said so:** no calculated cadence yet (rent, construction progress claims under a prompt-payment act, electricity):
+  each needs its own published basis before it is written in a row, and a label that says "calculated".
+

@@ -203,7 +203,13 @@ VENDORS = {
                     hq_url="https://www.shopify.com/legal/terms",
                     hq="United States or Canada Shopify Inc., a Canadian corporation 151 O'Connor Street, Ground floor, Ottawa, Ontario, K2P 2L8, Canada",
                     asset_re=r"cdn\.shopify\.com/s/files/|//[a-z0-9-]+\.myshopify\.com|Shopify\.theme\s*=",
-                    scope="Shopify Inc. contracts only with merchants whose billing address is in the United States or Canada", scope_countries=("US", "CA")),
+                    # 2026-11-11, terms last updated October 20, 2026, read with the project's reader: section 13 names TWO contracting parties for the
+                    # region (Shopify Inc., a Canadian corporation; Shopify Technology (USA) Inc., a Nevada corporation) and does not say which
+                    # of them provides which service; Shopify Payment Activities Inc. (Canadian) only for regulated payment services.
+                    scope=("Shopify's terms, section 13: “You are contracting with the Shopify Contracting Party or Parties below, based on the billing address of your Store.” — for "
+                           "“United States or Canada” the parties listed are “Shopify Inc., a Canadian corporation” (Ottawa) and “Shopify Technology (USA) Inc., a Nevada corporation”; "
+                           "“Shopify Inc. may act as the billing agent for Shopify Technology (USA) Inc.” The terms do not say which of the two provides which service to a store. "
+                           "Stores with a billing address elsewhere contract with Shopify's Irish or Singaporean company and are left out"), scope_countries=("US", "CA")),
     "coveo": dict(name="Coveo", legal="Coveo Solutions Inc.", kind="asset",
                   hq_url="https://ir.coveo.com/en",
                   hq="Coveo Solutions Inc. 1100 Av. Des Canadiens-de-Montréal Suite 401 Montréal, Québec H3B 2S2 Canada",
@@ -311,6 +317,94 @@ VENDORS = {
                             "(https://app.jumptools.com/termsAndConditions.faces, read 2026-11-11): one company; a pricing page and no free plan on it (https://jumptools.com/pricing/). "
                             "A real-estate marketing platform: its clients are agents and brokerages"),
 }
+
+# ---- how each vetted vendor bills, in its own words (owner's bar of 2026-11-11: "billed for something monthly … or every 3 months …
+# systematically by the vendor"). Every quote is from the vendor's own page, opened with the project's reader on the date given, and read by
+# hand afterwards. cls: monthly — the vendor's terms say it bills by the month (every 30 days); monthly_or_yearly — its terms / price list are by
+# the month and it also sells a yearly period (or does not say which period is billed); yearly; per_transaction. Vendors that publish no
+# price and no billing period (enterprise contracts: D2L, Docebo, Absorb, Benevity, Coveo, eScribe, BiblioCommons, Coconut, KEV, SoCast,
+# DigitalEd, WellnessLiving) have no entry: "not published" is the answer. getjobber.com answered 403 to the reader on 2026-11-11: not read.
+BILLING = {
+    "shopify": dict(cls="monthly", read="2026-11-11", url="https://www.shopify.com/legal/terms",
+                    quote="You will be billed for your Subscription Fees every 30 days. Any Transaction Fees or Additional Fees will be charged to your payment method.",
+                    more="“Subscription Fees are paid in advance and will be billed in 30 day intervals” … “Fees will appear on an invoice, which will be sent to the Store Owner via the Primary Email Address provided.”"),
+    "jane": dict(cls="monthly", read="2026-11-11", url="https://jane.app/ca/legal/terms-of-use",
+                 quote="Subscriptions run on a monthly basis. Fees are charged monthly in advance in accordance with the billing information provided by you to us"),
+    "rezgo": dict(cls="monthly", read="2026-11-11", url="https://www.rezgo.com/rezgo-terms-of-service/",
+                  quote="The service will be billed on a monthly basis. On the first business day of the calendar month you will be sent a payment notice via email."),
+    "myrealpage": dict(cls="monthly", read="2026-11-11", url="https://myrealpage.com/terms-and-conditions/",
+                       quote="Billing for services provided are billed monthly in advance."),
+    "nicejob": dict(cls="monthly", read="2026-11-11", url="https://get.nicejob.com/terms",
+                    quote="By requesting NiceJob Services or Sites Services through your User Account, you agree to pay the following fees as invoiced on a monthly basis:"),
+    "checkfront": dict(cls="monthly", read="2026-11-11", url="https://www.checkfront.com/pricing/",
+                       quote="a monthly subscription fee*, plus a 3% online booking fee charged at the time of booking."),
+    "webrezpro": dict(cls="monthly", read="2026-11-11", url="https://webrezpro.com/price/",
+                      quote="WebRezPro is a feature-packed property management system that is available for a monthly subscription fee and with no system setup costs",
+                      more="“While WebRezPro signs and renews contracts on a yearly basis, properties can cancel with 30-days written notice (without penalty).”"),
+    "lightspeed": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://www.lightspeedhq.com/legal/lightspeed-service-agreement/",
+                       quote="Fees attributable to recurring subscription services are paid in advance on a monthly basis",
+                       more="the same agreement speaks of “Customers with an annual subscription”"),
+    "unbounce": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://unbounce.com/terms-of-service/",
+                     quote="5.1. Your paid Subscription is valid for either a monthly or an annual Subscription Period.",
+                     more="“4.2. Unless otherwise specified in a Subscription, such fees will be billed in advance for each month and are strictly non-refundable.”"),
+    "thinkific": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://www.thinkific.com/terms-of-service/",
+                      quote="8.2. For our paid plans, Services will be billed in advance on a monthly, annual or such other agreed-upon periodic basis."),
+    "gorendezvous": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://www.gorendezvous.com/conditions-utilisation",
+                         quote="Pour les professionnels abonnés aux plans payants, GOrendezvous facture un frais mensuel ou annuel en fonction du forfait que vous aurez choisi."),
+    "owlpractice": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://owlpractice.ca/terms-and-conditions/",
+                        quote="In the case of Monthly Subscriptions and Annual Subscriptions, your Initial Term shall automatically renew for additional thirty (30) day or 365 day terms"),
+    "juvonno": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://www.juvonno.com/",
+                    quote="We offer flexible subscription plans starting at $55 per month, with scalable options for multi-location practices.",
+                    more="its price page: “per month, billed yearly” (https://www.juvonno.com/pricing)"),
+    "touchbistro": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://www.touchbistro.com/",
+                        quote="TouchBistro’s POS software starts at $69 per month for all our restaurant POS features"),
+    "amilia": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://www.amilia.com/pricing",
+                   quote="$99 /mo", more="the plan “Best for small and growing recreation businesses and nonprofits.”"),
+    "commerce7": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://www.commerce7.com/pricing/", quote="USD $59/month"),
+    "clubrunner": dict(cls="yearly", read="2026-11-11", url="https://site.clubrunner.ca/page/pricing",
+                       quote="*Subscriptions are payable annually in advance and are subject to the setup fee and the Terms and Conditions in the ClubRunner Subscription Agreement."),
+    "crowdriff": dict(cls="yearly", read="2026-11-11", url="https://crowdriff.com/terms-of-service/",
+                      quote="Fees for the Services will be invoiced annually in advance unless otherwise provided on the applicable Order Form."),
+    "edsby": dict(cls="yearly", read="2026-11-11", url="https://www.edsby.com/faqs/",
+                  quote="Certain other features and advanced functionality are also charged for annually and at per student per year rates."),
+    "jumptools": dict(cls="yearly", read="2026-11-11", url="https://jumptools.com/", quote="Get online for as little as $35/month (paid annually)."),
+}
+# what the vendor's bill carries and how much it is, in the vendor's own words (owner 2026-11-11 07:15 EST: "there's some Shopify invoice
+# somewhere online, so we can know the fields that the Shopify invoice would have … How much does it cost?"). Pages opened with the project's
+# reader on 2026-11-11: https://www.shopify.com/legal/terms (section 5), https://www.shopify.com/charge, https://www.shopify.com/pricing.
+# help.shopify.com answered 403 to the reader: not read, not quoted.
+BILLING["shopify"].update(
+    addr="151 O'Connor Street, Ground floor, Ottawa, Ontario, K2P 2L8, Canada (the registered office Shopify's terms give for Shopify Inc., section 13: https://www.shopify.com/legal/terms, read 2026-11-11)",
+    amount="from US$29 a month",
+    amount_basis=("Shopify's price page: “Basic $29 /mo”, “Grow $79 /mo”, “Advanced $299 /mo”, “Plus from $2,300 /mo” (https://www.shopify.com/pricing, read 2026-11-11; "
+                  "the page offers a “Pay yearly” choice); the store's own plan is not published, so US$29 is the least a store with an online storefront is billed for its subscription"),
+    bill=dict(
+        items=("“Subscription Fees” (the plan), “Transaction Fees” (“fees relating to the value of sales made through your Store when using all payment providers other than Shopify "
+               "Payments”) and “Additional Fees” (“Shopify Payments, POS Equipment, shipping, apps, Themes, domain names, Shopify App Store, or Third Party Services”) — terms, section 5"),
+        currency="“Unless otherwise indicated, all Fees and other charges are in U.S. dollars, and all payments will be in U.S. currency.” (terms, section 5)",
+        delivery=("“Fees will appear on an invoice, which will be sent to the Store Owner via the Primary Email Address provided. As well, an invoice will appear on the Account page of "
+                  "your Store's administrative console.” (terms, section 5); “You can also download PDF versions of the bills” (https://www.shopify.com/charge)"),
+        payment=("card or other method on file, charged by Shopify: “Shopify will charge applicable Fees to any valid payment method that you authorize” … “You will be charged on each "
+                 "Billing Date for all outstanding Fees that have not previously been charged.” (terms, section 5)"),
+        tax=("“All Fees are exclusive of applicable federal, provincial, state, local or other governmental sales, goods and services … harmonized or other taxes” … “To the extent that "
+             "Shopify charges these Taxes, they are calculated using the tax rates that apply based on the billing address you provide to us.” (terms, section 5)"),
+        identifier=("a nine-digit bill number: “Shopify billing charges show up on bank statements as SHOPIFY* 123456789 and the nine digit bill number is different for each bill.” "
+                    "(https://www.shopify.com/charge)"),
+        unpaid=("“If we are unable to successfully process payment of Fees using an Authorized Payment Method within 28 days of our initial attempt, we may suspend and revoke access to "
+                "your Account and the Services.” … “You may not be able to access your Account or your storefront during any period of suspension.” (terms, section 5)")))
+BILLING["checkfront"].update(amount="$99 a month + 3 % of online bookings", amount_basis="“$99 monthly subscription fee to the operator, plus a 3% online booking fee” (https://www.checkfront.com/support/faq/, read 2026-11-11)")
+BILLING["touchbistro"].update(amount="from $69 a month", amount_basis="“TouchBistro’s POS software starts at $69 per month” (https://www.touchbistro.com/, read 2026-11-11)")
+BILLING["commerce7"].update(amount="from US$59 a month", amount_basis="“USD $59/month” (https://www.commerce7.com/pricing/, read 2026-11-11)")
+BILLING["juvonno"].update(amount="from $55 a month", amount_basis="“Plans Start at $55/month” (https://www.juvonno.com/pricing, read 2026-11-11)")
+BILLING["myrealpage"].update(amount="$69.99 a month", amount_basis="“Only $69.99 a month” (https://myrealpage.com/real-estate-website-pricing/, read 2026-11-11)")
+BILLING["thinkific"].update(amount="from $109 a month", amount_basis="“Our Start plan ($109/month) includes our core feature set” (https://www.thinkific.com/faq/, read 2026-11-11)")
+BILLING["amilia"].update(amount="from $99 a month", amount_basis="“$99 /mo” (https://www.amilia.com/pricing, read 2026-11-11)")
+BILLING["jumptools"].update(amount="from $35 a month, paid by the year", amount_basis="“Get online for as little as $35/month (paid annually).” (https://jumptools.com/, read 2026-11-11)")
+BILLING["lightspeed_golf"] = BILLING["lightspeed"]
+BILLING["wellnessliving_widget"] = BILLING.get("wellnessliving")
+for _k, _b in BILLING.items():
+    if _b and _k in VENDORS:
+        VENDORS[_k]["billing"] = _b
 for _k, _v in VENDORS.items():
     _v["key"] = _k
     for _f in ("host_re", "link_re", "path_re", "asset_re"):

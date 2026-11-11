@@ -5,7 +5,7 @@ name: claude-engines
 # (tools/merge_engine_outputs.py) and committed to data/incoming/claude/, where rank.py reads them.
 #   walk_terms : tools/ap_walk.py (AP / supplier / purchasing pages and PDFs of every delivered buyer site) → tools/ap_terms.py
 #                (payment terms, PO rule, portal, AP phone, invoice address, AP contact, format, GST number)
-#   registry   : tools/registry_lookup.py --kind buyer (Canada's Business Registries: legal name, BN, registered office)
+#   registry   : tools/registry_lookup.py --kind both (Canada's Business Registries: legal name, BN, registered office; vendors first, by the rows they carry)
 #                — two runners, one request a second each: the registry sees at most 2 requests / second in total. On a schedule since
 #                2026-11-11: it had last run on 2026-11-09 (by hand), and 57,170 buyers whose name carries a legal form, or whose own site
 #                states their legal person, were waiting — 8,872 looked up of 66,042.
@@ -161,7 +161,7 @@ jobs:
         if: env.ENGINE == 'registry'
         run: |
           K=${{ matrix.k }}
-          timeout "${MINUTES}m" python3 tools/registry_lookup.py --ranked coord/results/ranked/ranked_buyers.csv.gz --kind buyer --shard "$K/2" --repo "$PWD" 2>&1 | tee registry.log | grep -E "^to look up|^looked up|wrote" | tail -4 || true
+          timeout "${MINUTES}m" python3 tools/registry_lookup.py --ranked coord/results/ranked/ranked_buyers.csv.gz --kind both --shard "$K/2" --repo "$PWD" 2>&1 | tee registry.log | grep -E "^to look up|^looked up|wrote" | tail -4 || true
           mkdir -p out && cp data/incoming/claude/claude_registry_lookup.csv "out/registry_$K.csv" 2>/dev/null || true
           cp ~/cch-crawler-state/registry_lookup.jsonl "out/registry_resume_$K.jsonl" 2>/dev/null || true
           echo "registry shard $K/2: $(grep -m1 '^to look up' registry.log); $(wc -l < out/registry_$K.csv 2>/dev/null || echo 0) rows in its file" >> "$GITHUB_STEP_SUMMARY"

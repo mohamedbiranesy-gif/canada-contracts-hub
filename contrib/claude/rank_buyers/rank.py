@@ -930,6 +930,23 @@ LFACTS_DOM = {}  # the same facts by website domain: a row made under another ke
 from ap_crawler import address_from as _addr_from
 import lead_crawl as _LCF  # the facts: the single file of before 2026-11-10 plus the append-only shards (site_facts/)
 import tech_relationships as _TR
+# how vendors bill, in their own words (tools/vendor_billing.py; the vetted vendors' terms read by hand): owner's bar of 2026-11-11, used by lead_strength
+# and by the recurring_billing columns
+import vendor_billing as _VB
+try:
+    VBILL = _VB.load()
+except Exception as _e:
+    VBILL = {}
+    print("vendor billing facts not loaded: %s" % _e)
+_BILL_CUR, _BILL_CUR_DOM = {}, {}
+for _v in _TR.VENDORS.values():
+    if _v.get("billing"):
+        for _n in (_v.get("legal"), _v.get("name"), "%s dba %s" % (_v.get("legal") or "", _v.get("name") or "")):
+            if _n:
+                _BILL_CUR.setdefault(norm(_n), _v["billing"])
+        _h = registrable(host_of(_v.get("hq_url") or "") or "")
+        if _h:
+            _BILL_CUR_DOM.setdefault(_h, _v["billing"])
 n_name_again = 0
 MOVED = {}  # lead key -> (domain name on file, site that answers, final URL, day read): a second name of the organisation (tools/lead_crawl.py moved_site_ok)
 for _d in _LCF.facts_records():
@@ -1331,7 +1348,15 @@ def lead_strength(kl):
     if "vendor located in Canada" in cfv:
         return 4 if re.search(r"\((wall|stories)\)", cfv) else 5
     if "(tech)" in cfv:
-        return 1
+        # owner's bar of 2026-11-11 ("billed for something monthly … systematically by the vendor"): of the services an organisation is seen to use,
+        # the one whose vendor says it bills by the month claims the row; then a platform or DNS service priced by the month; a design credit last
+        d_ = LDET.get(kl[0]) or {}
+        vd_ = registrable(host_of(d_.get("vendor_site") or "") or "")
+        cur_ = _BILL_CUR.get(norm(kl[1].get("example_vendor") or "")) or _BILL_CUR_DOM.get(vd_)
+        if "credited on the buyer's own site" in cfv and not cur_ and not (d_.get("credit_class") == "P" or re.search(r"host|h[ée]berg|maint|powered|propuls|g[ée]r[ée]|managed", d_.get("credit_phrase") or "", re.I)):
+            return 1.9
+        c_ = {"monthly": "monthly", "monthly_or_yearly": "monthly_price", "yearly": "yearly"}.get(cur_["cls"], "") if cur_ else (_VB.cycle_of(VBILL.get(vd_))[0] if vd_ in VBILL else "")
+        return 1 + {"monthly": 0.0, "quarterly": 0.1, "monthly_price": 0.2, "per_transaction": 0.4, "yearly": 0.5}.get(c_, 0.7)
     if "membership / statutory fee relationship" in cfv:
         return 3.5
     return 0 if CUTOFF <= ld <= today else 2 if CUTOFF3 <= ld else 3
@@ -1423,6 +1448,9 @@ n_cl = collections.Counter()
 REG_DOMS = {registrable(host_of(_l.get("website") or "")) for _l in leads.values() if (_l.get("canada_field_value") or "").startswith("registry contract")} - {""}
 for k, L in sorted(leads.items(), key=lead_strength):
     if norm(L["buyer_name"]) in seen or UNNAMED_VENDOR.search(L.get("example_vendor") or "") or not (L.get("example_vendor") or "").strip(): continue  # a relationship needs a named vendor
+    if norm(L["buyer_name"]) == norm(L.get("example_vendor") or ""):
+        n_cl["the same organisation on both sides (a firm that is its own agent of record): no row"] += 1
+        continue
     if k in mail:
         (acc, g), m = mail[k]
     else:
@@ -4286,13 +4314,229 @@ TYPE_RULES = [("university / college", r"universit|college|coll[èe]ge|c[ée]gep
               ("transport / transit authority", r"transit|transport|airport|a[ée]roport|port authority|railway"), ("First Nation / Indigenous government", r"first nation|nation\b|band council|tribal|m[ée]tis|inuit|conseil des"), ("religious organisation", r"church|diocese|parish|paroisse|synagogue|mosque|temple|[ée]glise"),
               ("library", r"librar|biblioth"), ("non-profit / association / cultural body", r"foundation|fondation|society|soci[ée]t[ée]|association|club|centre|center|council|museum|mus[ée]e|theatre|festival|charity|coalition|institute|institut"),
               ("company (private sector)", r"\binc\b|\bltd|limited|corp|\bllc\b|lt[ée]e|\bco\b|group|groupe|holdings|enterprises|industries|technologies|services")]
+# ---- owner's bar of 2026-11-11 (06:24 EST): "I want to know for a fact that there's a relationship to a point where they would be getting billed
+# for something monthly … Or every 3 months, they get billed for something systematically by the vendor." A row says what is PUBLISHED about
+# when the vendor bills (recurring_billing) and where that is published (recurring_billing_basis). Nothing is assumed:
+#   1 monthly / 1 quarterly   the vendor's own terms say it bills by the month (every 30 days) or the quarter, and its service is seen in use by
+#                             the buyer (its platform under the buyer's site, the buyer's DNS records, a "powered by / hosted by" line)
+#   2 monthly or yearly       the vendor's own price list is by the month and it also sells a year paid in advance (or does not say which is
+#                             billed): which period this buyer pays for is not published
+#   3 yearly or longer        a fee for a year or more at a time (a .ca name: 1 to 10 years; a licence, a registration, a membership, an audit)
+#   4 per transaction         a fee on each sale / booking / vehicle
+#   5 not published           a contract record, a client listing, a design credit, a link, an inference: nothing published says when the vendor bills
+BILL_WORDS = {"monthly": "1 monthly", "quarterly": "1 quarterly", "monthly_or_yearly": "2 monthly or yearly", "yearly": "3 yearly or longer", "per_transaction": "4 per transaction"}
+_HOSTED_CREDIT = re.compile(r"host|h[ée]berg|maint|powered|propuls|g[ée]r[ée]|managed", re.I)
+_REC_TEXT = [("1 monthly", re.compile(r"\b(?:monthly|per month|each month|mensuel(?:le)?s?|par mois|mensuellement)\b", re.I)),
+             ("1 quarterly", re.compile(r"\b(?:quarterly|per quarter|trimestriel(?:le)?s?|par trimestre)\b", re.I)),
+             ("4 per transaction", re.compile(r"\bper (?:vehicle|transaction|sale|unit)\b|\bpar (?:v[ée]hicule|transaction|vente)\b", re.I)),
+             ("3 yearly or longer", re.compile(r"\b(?:annual(?:ly)?|yearly|per year|each year|annuel(?:le)?s?|par an(?:n[ée]e)?|chaque ann[ée]e)\b", re.I))]
+_FEE_QUOTE = re.compile(r"“([^”]{10,320})”\s*\((https?://[^)\s]+)\)")
+CIRA_TERM = ("CIRA's General Registration Rules, version 3.22 (https://stg.cira.ca/uploads/2023/05/general-registration-rules.pdf, read 2026-11-11), s. 2.4: “An Applicant may select a "
+             "registration period of 1 to 10 years for the registration of the Domain Name” and s. 7.3: “upon the expiry of its Registration Period, each Domain Name Registration is automatically "
+             "renewed by CIRA for one year”: the fee is paid for one to ten years at a time, through the registrar")
+def _vendor_cycle(vd):
+    """what tools/vendor_billing.py read on the vendor's own site: (class, quoted statement, longer periods it also sells, sentence when nothing was found)"""
+    o = VBILL.get(vd) if vd else None
+    if not o:
+        return "", "", [], "the vendor's own site has not been read for its billing period yet"
+    c, st_, more = _VB.cycle_of(o)
+    if not c:
+        return "", "", [], (("the vendor's own site (%s) was read on %s, %d pages: no price with its period and no billing statement on them" % (vd, o.get("date"), len(o.get("pages") or [])))
+                            if o.get("status") == "ok" else "the vendor's own site (%s) could not be read on %s (%s)" % (vd, o.get("date"), o.get("status")))
+    longer = [m for m in more if m in ("yearly", "quarterly")] if c in ("monthly", "monthly_price") else ["yearly"] if c == "quarterly" and "yearly" in more else []
+    return c, "“%s” (%s, read %s)" % (st_["q"][:300], st_["u"], o.get("date")), longer, ""
+_MEMBER_WORDS = re.compile(r"member|dues|cotis|adh[ée]s|licen[cs]|registr|permit|permis|droits|inscri", re.I)
+_BILL_NOUN = r"(?:fees?|payments?|billing|invoic\w+|subscriptions?|rentals?|leases?|maintenance|licen[cs]es?|support|charges?|retainers?|abonnements?|frais|loyers?|location|entretien|versements?|redevances?)"
+_REC_PERIOD = [("1 monthly", r"(?:monthly|per month|each month|mensuel(?:le)?s?|par mois|mensuellement)"), ("1 quarterly", r"(?:quarterly|per quarter|trimestriel(?:le)?s?|par trimestre)"),
+               ("3 yearly or longer", r"(?:annual(?:ly)?|yearly|per year|annuel(?:le)?s?|par an(?:n[ée]e)?)")]
+_REC_RX = [(lab, re.compile(r"\b" + per + r"\W+(?:\w+\W+){0,2}" + _BILL_NOUN + r"\b|\b" + _BILL_NOUN + r"\W+(?:\w+\W+){0,2}" + per + r"\b", re.I)) for lab, per in _REC_PERIOD]
+def billing_of(x, ld):
+    """(recurring_billing, recurring_billing_basis): what is published about when the vendor bills this buyer"""
+    t = x.get("tier") or "N"
+    cfv, cs = x.get("vendor_country_basis") or "", x.get("contract_status") or ""
+    vd = registrable(host_of(ld.get("vendor_site") or x.get("vendor_website") or "") or "")
+    vname = x.get("vendor") or "the vendor"
+    if t == "T":
+        credit, dns = "credited on the buyer's own site" in cfv, "seen in the buyer's public DNS" in cfv
+        hosted = credit and (ld.get("credit_class") == "P" or bool(_HOSTED_CREDIT.search(ld.get("credit_phrase") or "")))
+        seen = ("the service answers in the buyer's own DNS records" if dns else
+                ("the buyer's own site says “%s” this vendor" % re.sub(r"\s+", " ", ld.get("credit_phrase") or "powered by").strip()) if credit else
+                "the vendor's platform runs under the buyer's own site")
+        cur = _BILL_CUR.get(norm(x.get("vendor") or "")) or _BILL_CUR_DOM.get(vd)
+        if credit and not hosted and not cur:
+            c, q, longer, why = _vendor_cycle(vd)
+            return "5 not published", ("a credit line says who made the site (“%s”): whether the vendor still bills the organisation, and how often, is not published%s"
+                                       % (re.sub(r"\s+", " ", ld.get("credit_phrase") or "").strip() or "credit", ("; for reference, the vendor's own price list: " + q) if q else ""))
+        if cur:
+            return BILL_WORDS[cur["cls"]], "%s's own terms: “%s” (%s, read %s)%s; %s" % (vname, cur["quote"], cur["url"], cur["read"], ("; " + cur["more"]) if cur.get("more") else "", seen)
+        c, q, longer, why = _vendor_cycle(vd)
+        if c == "monthly" and not longer:
+            return "1 monthly", "the vendor's own statement: %s; %s" % (q, seen)
+        if c == "quarterly" and not longer:
+            return "1 quarterly", "the vendor's own statement: %s; %s" % (q, seen)
+        if c in ("monthly", "monthly_price", "quarterly"):
+            return "2 monthly or yearly", ("the vendor's own price list is by the %s%s: %s; %s; which period this buyer pays for is not published"
+                                           % ("quarter" if c == "quarterly" else "month", (" and it also sells by the " + " and the ".join("year" if m == "yearly" else "quarter" for m in longer)) if longer else "", q, seen))
+        if c == "yearly":
+            return "3 yearly or longer", "the vendor's own price list is by the year: %s; %s" % (q, seen)
+        if c == "per_transaction":
+            return "4 per transaction", "the vendor's own price list is per transaction: %s; %s" % (q, seen)
+        for lab, rx in _REC_RX:  # the row's own subject names the period of what is paid ("annual sustaining listing fee")
+            m = rx.search(x.get("contract_title") or "")
+            if m:
+                return lab, "the subject of the relationship names its period: “%s”; %s" % ((x.get("contract_title") or "")[:200], seen)
+        return "5 not published", "%s; %s" % (seen, why)
+    if t == "R":
+        return "3 yearly or longer", CIRA_TERM
+    if t == "M":
+        m = _FEE_QUOTE.search(cfv) or _FEE_QUOTE.search(cs)
+        if m:
+            for lab, rx in _REC_TEXT:
+                if rx.search(m.group(1)):
+                    return lab, "the body's own statement of its fee: “%s” (%s)" % (m.group(1)[:300], m.group(2))
+        if x.get("end_date") and (x.get("start_date") or x.get("award_date")):
+            return "3 yearly or longer", ("a fee for each licence / registration period: in force since %s, paid up to %s as the public register gives it; not a monthly bill"
+                                          % (x.get("start_date") or x.get("award_date"), x["end_date"]))
+        c, q, longer, why = _vendor_cycle(vd)
+        if c and _MEMBER_WORDS.search(q):  # a statement about the body's own dues or fees, not about a benefit plan it sells
+            return ({"monthly": "1 monthly" if not longer else "2 monthly or yearly", "monthly_price": "2 monthly or yearly", "quarterly": "1 quarterly" if not longer else "2 monthly or yearly",
+                     "yearly": "3 yearly or longer", "per_transaction": "4 per transaction"}[c],
+                    "the body's own site on its fees: %s; the organisation is on the body's current list" % q)
+        return "5 not published", "a membership, licence or registration with the body: its fee and the period of the fee were not found (%s)" % why
+    if t == "I":
+        return "5 not published", "no record of this relationship: the vendor is inferred from the organisation's type and province"
+    if "member named in the member directory" in cs:
+        c, q, longer, why = _vendor_cycle(vd)
+        if c and _MEMBER_WORDS.search(q):
+            return ({"monthly": "1 monthly" if not longer else "2 monthly or yearly", "monthly_price": "2 monthly or yearly", "quarterly": "1 quarterly" if not longer else "2 monthly or yearly",
+                     "yearly": "3 yearly or longer", "per_transaction": "4 per transaction"}[c], "the body's own site on its dues: %s; the organisation is in the body's member directory" % q)
+        return "5 not published", "membership dues: the body's own pages do not give the fee and its period (%s)" % why
+    if "vendor located in Canada" in cfv or t in ("D", "E") or (t == "C" and not x.get("records_in_contract_dataset")):
+        c, q, longer, why = _vendor_cycle(vd)
+        return "5 not published", ("the vendor names the organisation %s: what it bills, and how often, is not published%s"
+                                   % ("as a client" if t != "E" else "on its site (a link, not shown to be a client)", ("; for reference, the vendor's own price list: " + q) if q else ""))
+    if (x.get("source") or "").startswith("auditor of record"):
+        return "3 yearly or longer", "the audit of each fiscal year: the organisation's own audited financial statements name the auditor (one engagement a year)"
+    txt = " ".join(x.get(c_) or "" for c_ in ("contract_title", "contract_description", "contract_term_as_published", "commodity"))
+    txt = re.sub(r"\((?:the record's title|first sentence of the record's description)[^)]*\)", " ", txt)
+    for lab, rx in _REC_RX:  # the period next to what is paid ("annual maintenance", "monthly rental", "abonnement annuel"), never a schedule of visits or a yearly output
+        m = rx.search(txt)
+        if m:
+            return lab, "the public record's own text: “%s”" % re.sub(r"\s+", " ", txt[max(0, m.start() - 120):m.end() + 120]).strip()
+    return "5 not published", "the public record gives the parties, the subject, the value and the dates of the contract, not when the vendor bills"
+# ---- owner 2026-11-11 07:15 EST: "the data that would go within the invoice … billing cadence, other things like that around that billing and
+# invoicing nature of the relationship … know the fields that the Shopify invoice would have … How much does it cost?" and "when do we know for a
+# fact? When … something being where it is means that there's a relationship". Each cell quotes the vendor's (or the body's) own page; a cell
+# with no published source stays empty.
+BILL_COLS = ["bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published",
+             "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "relationship_fact_basis"]
+CIRA_LEGAL = "Canadian Internet Registration Authority (as it names itself in its Registrant Agreement, version 2.2: “the Canadian Internet Registration Authority (\"CIRA\")”)"
+_JUNK_NAME = re.compile(r"^(?:about(?: us)?|home|contact(?: us)?|welcome|accueil|services?|index|untitled|page d'accueil|homepage|menu|blog|shop|store|news|introduction|[àa] propos)$", re.I)
+_TITLE_PREFIX = re.compile(r"^(?:welcome to|bienvenue (?:chez|à|au|aux|sur le site d[eu])|introduction)\s+(?:the\s+)?", re.I)
+def _premises(a):
+    """(civic number, first word of the street) and postal code of a printed address"""
+    m = re.search(r"(?<![\w#-])(\d{2,6})[ ,]+(?:(?:rue|boul\S*|av\S*|ch\S*|route|rang)\s+)?([A-Za-zÀ-ÿ'\-]{4,})", a or "", re.I)
+    pc = re.search(r"\b([ABCEGHJ-NPRSTVXY]\d[A-Z]) ?(\d[A-Z]\d)\b", (a or "").upper())
+    return ((m.group(1), norm(m.group(2))) if m else None), ((pc.group(1) + pc.group(2)) if pc else None)
+CIRA_KEEP = ("CIRA's General Registration Rules, version 3.22, s. 7.1: “In order to maintain a Domain Name Registration, the Registration Period must be renewed prior to its expiry.” "
+             "(https://stg.cira.ca/uploads/2023/05/general-registration-rules.pdf, read 2026-11-11)")
+CIRA_PAY = ("through the registrar of record — CIRA's General Registration Rules, s. 7.2: “To renew the Registration Period of a Registration prior to its expiry, a Registrant must request its "
+            "Registrar of Record to submit a renewal request to CIRA.”")
+def _money_words(v, cur, per):
+    return "from %s%s a %s" % ({"CAD": "C$", "USD": "US$"}.get(cur, "$"), ("%.2f" % v).rstrip("0").rstrip("."), per)
+def bill_profile(x, ld, cls):
+    """the other fields of the vendor's bill and the reason the relationship is a fact, each from a published page"""
+    t = x.get("tier") or "N"
+    cfv, cs = x.get("vendor_country_basis") or "", x.get("contract_status") or ""
+    vd = registrable(host_of(ld.get("vendor_site") or x.get("vendor_website") or "") or "")
+    o, out = {}, {}
+    day = (x.get("award_date") or "")[:10] or "the day it was read"
+    if t == "T":
+        credit, dns = "credited on the buyer's own site" in cfv, "seen in the buyer's public DNS" in cfv
+        hosted = credit and (ld.get("credit_class") == "P" or bool(_HOSTED_CREDIT.search(ld.get("credit_phrase") or "")))
+        cur = _BILL_CUR.get(norm(x.get("vendor") or "")) or _BILL_CUR_DOM.get(vd)
+        rec = VBILL.get(vd) if vd else None
+        if cur:
+            out["bill_amount_indicative"], out["bill_amount_basis"] = cur.get("amount") or "", cur.get("amount_basis") or ""
+            b = cur.get("bill") or {}
+            for col, k in (("bill_items_as_published", "items"), ("bill_currency_as_published", "currency"), ("bill_delivery_as_published", "delivery"),
+                           ("bill_payment_method_as_published", "payment"), ("bill_tax_rule_as_published", "tax"), ("bill_identifier_format", "identifier"), ("service_stops_if_unpaid", "unpaid")):
+                out[col] = b.get(k) or ""
+        if rec and not (credit and not hosted and not cur):
+            low = _VB.lowest(rec)
+            if not out.get("bill_amount_indicative") and (low.get("month") or low.get("year")):
+                per = "month" if low.get("month") else "year"
+                v, c_, st_ = low[per]
+                out["bill_amount_indicative"] = _money_words(v, c_, per)
+                out["bill_amount_basis"] = ("the vendor's lowest published price by the %s: “%s” (%s, read %s); the buyer's own plan and amount are not published"
+                                            % (per, st_["q"][:260], st_["u"], rec.get("date")))
+                if c_ and not out.get("bill_currency_as_published"):
+                    out["bill_currency_as_published"] = "%s: the vendor's prices are quoted in %s (“%s”, %s)" % (c_, {"CAD": "Canadian dollars", "USD": "U.S. dollars"}[c_], st_["m"].strip()[:60], st_["u"])
+            for col, k in (("bill_currency_as_published", "currency"), ("bill_payment_method_as_published", "paymethod"), ("service_stops_if_unpaid", "unpaid")):
+                st_ = _VB.extra_of(rec, k)
+                if st_ and not out.get(col):
+                    out[col] = "“%s” (%s, read %s)" % (st_["q"][:280], st_["u"], rec.get("date"))
+        unpaid = (" The vendor cuts an unpaid service off: %s" % out["service_stops_if_unpaid"][:240]) if out.get("service_stops_if_unpaid") else ""
+        if credit and not hosted and not cur:
+            out["relationship_fact_basis"] = "stated by the buyer: its own site names the vendor as the maker of the site (“%s”): work done and paid for at least once; nothing published shows a bill today" % re.sub(r"\s+", " ", ld.get("credit_phrase") or "credit").strip()
+        elif dns:
+            out["relationship_fact_basis"] = "fact, seen on the buyer's side: the buyer's own DNS records name the vendor's servers (%s, read %s): the service is running.%s" % ((ld.get("dns_record") or "")[:120], day, unpaid)
+        elif credit:
+            out["relationship_fact_basis"] = "fact, seen on the buyer's side: the buyer's own site says “%s” the vendor (read %s): the site runs on the vendor's service.%s" % (re.sub(r"\s+", " ", ld.get("credit_phrase") or "powered by").strip(), day, unpaid)
+        else:
+            out["relationship_fact_basis"] = "fact, seen on the buyer's side: the vendor's platform answers under the buyer's own site (%s, read %s): the service is running.%s" % ((x.get("contract_link") or "")[:120], day, unpaid)
+    elif t == "R":
+        out["bill_items_as_published"] = ".ca domain name registration and its renewals, 1 to 10 years at a time (CIRA's General Registration Rules, s. 2.4 and 7.1)"
+        out["bill_payment_method_as_published"] = CIRA_PAY
+        out["service_stops_if_unpaid"] = CIRA_KEEP
+        out["relationship_fact_basis"] = "fact, seen on the buyer's side: the organisation's own .ca name answers (read %s), and a .ca name that is not renewed lapses: %s" % (day, CIRA_KEEP)
+    elif t == "M":
+        m = _FEE_QUOTE.search(cfv) or _FEE_QUOTE.search(cs)
+        if m and re.search(r"\$\s?\d|\d\s?\$", m.group(1)):
+            v, c_ = _VB.parse_money(m.group(1))
+            if v:
+                out["bill_amount_indicative"] = "%s%s%s" % ({"CAD": "C$", "USD": "US$"}.get(c_, "$"), ("%.2f" % v).rstrip("0").rstrip("."),
+                                                             " per vehicle" if re.search(r"per vehicle", m.group(1), re.I) else " a year" if re.search(r"annual|year|ann[ée]e", m.group(1), re.I) else "")
+                out["bill_amount_basis"] = "the body's own statement of its fee: “%s” (%s)" % (m.group(1)[:280], m.group(2))
+        rec = VBILL.get(vd) if vd else None
+        if rec and not out.get("bill_amount_indicative"):
+            low = _VB.lowest(rec)
+            st_ = (low.get("year") or low.get("month") or (None, None, None))[2]
+            if st_ and _MEMBER_WORDS.search(st_["q"]):
+                per = "year" if low.get("year") else "month"
+                out["bill_amount_indicative"] = _money_words(low[per][0], low[per][1], per)
+                out["bill_amount_basis"] = "the body's lowest published fee by the %s: “%s” (%s, read %s); the organisation's own fee is not published" % (per, st_["q"][:260], st_["u"], rec.get("date"))
+        if cs.startswith(("holder of licence", "registered with a Canadian regulatory authority", "owner of ", "accredited business")):
+            out["relationship_fact_basis"] = "fact, public record: the body's own public register lists the organisation as licensed / registered / accredited today (%s)" % (x.get("contract_link") or x.get("source") or "")[:160]
+        elif cs.startswith("member of a Canadian body (stated on the buyer's own site"):
+            out["relationship_fact_basis"] = "stated by the buyer: its own site states its membership of the body and links to it"
+        else:
+            out["relationship_fact_basis"] = "stated by the vendor: the body's own current member list names the organisation (%s)" % (x.get("contract_link") or "")[:160]
+    elif t == "I":
+        out["relationship_fact_basis"] = "inferred, not a fact: no record of this relationship; the vendor is the one organisations of this type and province normally pay"
+    elif "vendor located in Canada" in cfv or t in ("D", "E") or (t == "C" and not x.get("records_in_contract_dataset")):
+        what = ("as a member in its member directory" if "member named in the member directory" in cs else "as its tenant or merchant" if "tenant / merchant named by" in cs else
+                "as a dealer of its products" if "dealer / retailer named by" in cs else "as a sponsor or exhibitor" if "sponsor / exhibitor named by" in cs else "as a client")
+        out["relationship_fact_basis"] = ("link only: the organisation is linked from the vendor's site, not shown to be a client" if t == "E" else
+                                          "stated by the vendor: its own page names the organisation %s (%s); not seen from the buyer's side" % (what, (x.get("contract_link") or "")[:160]))
+    else:
+        out["relationship_fact_basis"] = "fact, public record: %s names the vendor and the contract (%s)" % ((x.get("source") or "the public source")[:120], (x.get("contract_link") or "")[:160])
+    if t not in ("R", "I"):
+        (sa, pa), (sv, pv) = _premises(x.get("buyer_address")), _premises(x.get("vendor_address"))
+        if sa and sa == sv and (pa == pv or not pa or not pv):
+            out["relationship_fact_basis"] += " Caution: the buyer and the vendor print the same street address: they may be one organisation, or one may be housed by the other."
+            n_billcol["same street address on both sides (caution written)"] += 1
+    return out
+n_bill, n_bill_shop, n_billcol, n_inv, n_inv_t = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
 KEY_FIELDS = ["buyer_website", "buyer_address", "buyer_phone", "buyer_legal_name_as_published", "email_evidence_url", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "payment_terms_as_published",
               "po_required_as_published", "contract_title", "contract_value", "award_date", "contract_link", "vendor_address", "vendor_bn9", "vendor_website", "vendor_emails", "vendor_phone", "vendor_legal_name", "invoice_reference_hint", "commodity_codes"]
 _today = datetime.date.today()
 for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url"]), ("vendor_emails", ["vendor_phone", "vendor_contact_evidence_url"]),
                    ("email_evidence_quote", ["mailbox_provenance", "email_deliverability", "email_security_posture", "dmarc_policy", "dmarc_record", "dmarc_record_domain", "spf_policy", "spf_record", "mail_provider", "dns_checked_date",
                                              "ap_contact_name_as_published", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "invoice_portal_url", "language_hint"]),
-                   ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found"]),
+                   ("contract_status", ["relationship_kind", "relationship_detail", "how_relationship_was_found", "relationship_fact_basis", "recurring_billing", "recurring_billing_basis",
+                                       "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published", "bill_currency_as_published", "bill_delivery_as_published",
+                                       "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid"]),
                    ("contract_reference", ["invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id",
                                            "buyer_vendor_id", "vendor_ids_in_record", "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count",
                                            "records_with_this_vendor", "all_references_with_this_vendor"]),
@@ -4345,7 +4589,8 @@ for _ri, x in enumerate(rows):
         continue
     for col in ("vendor_billing_ar_email", "vendor_contacts_found_by", "invoice_reference_hint", "po_number_as_published", "contract_or_agreement_number", "solicitation_or_tender_number", "award_or_notice_id", "buyer_vendor_id", "vendor_ids_in_record",
                 "commodity_codes", "buyer_org_codes", "amendment_or_modification", "all_identifiers", "identifier_count", "records_with_this_vendor", "all_references_with_this_vendor",
-                "relationship_kind", "relationship_detail", "how_relationship_was_found", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
+                "relationship_kind", "relationship_detail", "how_relationship_was_found", "recurring_billing", "recurring_billing_basis", "relationship_fact_basis", "bill_amount_indicative", "bill_amount_basis", "bill_items_as_published",
+                "bill_currency_as_published", "bill_delivery_as_published", "bill_payment_method_as_published", "bill_tax_rule_as_published", "bill_identifier_format", "service_stops_if_unpaid", "buyer_type", "mailbox_provenance", "buyer_facts_provenance", "vendor_facts_provenance", "method_notes",
                 "distinct_canadian_vendors", "records_last_12_months", "latest_award_date_any_vendor", "total_known_value_canadian_suppliers", "other_canadian_vendors_sample", "record_sources",
                 "vendor_registry_status", "vendor_registry_match_level", "vendor_incorporation_date", "vendor_bn_source"):
         x.setdefault(col, "")
@@ -4365,6 +4610,24 @@ for _ri, x in enumerate(rows):
         x["records_with_this_vendor"] = "1 (relationship record: %s; 0 in the contract dataset)" % ((x.get("how_relationship_was_found") or x.get("source") or "see contract_link")[:160])
         n9["records_with_this_vendor_lead"] += 1
     t = x.get("tier") or "N"
+    # seen in the owner's test rows of 2026-11-11: a menu word as the buyer's name (579 "About" from BBB profiles), "Welcome to …" page titles, dates
+    # written day-month by a Canadian BBB, the registry's legal name under an odd note, Shopify's Montréal office instead of the office its terms give
+    _b = (x.get("buyer") or "").strip()
+    if _JUNK_NAME.match(_b) and x.get("buyer_website"):
+        x["buyer"] = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by a menu word (About, Home …): its domain name instead"] += 1
+    else:
+        _b2 = _TITLE_PREFIX.sub("", _b)
+        if _b2 != _b and len(_b2) >= 3:
+            x["buyer"] = _b2; n9["buyer name: the page-title opening (Welcome to …) removed"] += 1
+    for _dc in ("start_date", "end_date", "award_date"):
+        _m = re.match(r"^(\d{4})-(\d\d)-(\d\d)$", x.get(_dc) or "")
+        if _m and int(_m.group(2)) > 12 >= int(_m.group(3)):
+            x[_dc] = "%s-%s-%s" % (_m.group(1), _m.group(3), _m.group(2)); n9["date written day-month: put in order"] += 1
+    if t == "R":
+        x["vendor_legal_name"] = CIRA_LEGAL
+    _cvb = _BILL_CUR.get(norm(x.get("vendor") or "")) if t == "T" else None
+    if _cvb and _cvb.get("addr"):
+        x["vendor_address"] = _cvb["addr"]
     x["buyer_type"] = buyer_type(x.get("buyer"), x.get("jurisdiction") or x.get("_jur") or "")
     x["relationship_kind"] = KIND.get(t, KIND["N"])
     x["how_relationship_was_found"] = HOW_FOUND.get(t, HOW_FOUND["N"])
@@ -4394,6 +4657,29 @@ for _ri, x in enumerate(rows):
             x["how_relationship_was_found"] = "tools/bbb_accredited.py read the business's public BBB profile (an archived copy; bbb.org's sitemap of accredited businesses says who is accredited today); the profile gives the business's own website"
         elif _cs.startswith("member of a Canadian body (stated on the buyer's own site"):
             x["how_relationship_was_found"] = "tools/credit_scan.py read the organisation's own home page, which states its membership of the Canada-located body and links to it"
+    _ldb = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+    x["recurring_billing"], x["recurring_billing_basis"] = billing_of(x, _ldb)
+    for _c, _v in bill_profile(x, _ldb, x["recurring_billing"]).items():
+        if _v:
+            x[_c] = _v
+    if x.get("email"):
+        n_bill[(x["recurring_billing"], t)] += 1
+        for _c in BILL_COLS:
+            n_billcol[_c] += bool(x.get(_c))
+        # owner 2026-11-11 07:48 EST: "every single aspect within an invoice matters … the amount … the correct address, the vendor": the invoice's
+        # fields on this row, one by one (a cell that says not_published is empty)
+        _has = lambda c_: str(x.get(c_) or "").strip() not in ("", "not_published")  # contract_value is a number on dataset rows
+        _inv = {"buyer legal name": _has("buyer_legal_name_as_published"), "buyer address": _has("buyer_address"), "vendor legal name": _has("vendor_legal_name"),
+                "vendor address": _has("vendor_address") or _has("vendor_registered_address"), "vendor tax number": _has("vendor_bn9"),
+                "what is billed": _has("contract_title") or _has("bill_items_as_published"), "amount": _has("contract_value") or _has("bill_amount_indicative"),
+                "billing period": x["recurring_billing"][:1] in "1234", "reference": _has("contract_reference") or _has("invoice_reference_hint")}
+        for _c, _v in _inv.items():
+            n_inv[_c] += _v
+        n_inv["all nine"] += all(_inv.values())
+        n_inv["all but the amount"] += all(v_ for c_, v_ in _inv.items() if c_ != "amount")
+        n_inv_t[(t, sum(_inv.values()))] += 1
+        if (x.get("vendor") or "").startswith("Shopify"):
+            n_bill_shop[(_ldb.get("buyer_country_evidence") or "")[:2].upper() or buyer_country(x) or "country not read"] += 1
     parts = ["%s (%s, %s) — %s: %s" % (x.get("buyer") or "", x["buyer_type"], x.get("jurisdiction") or x.get("_jur") or "jurisdiction not stated", x["relationship_kind"], x.get("vendor") or "vendor not named")]
     if x.get("contract_title"): parts.append("subject: %s" % x["contract_title"][:200])
     if x.get("instrument_type"): parts.append("instrument: %s" % x["instrument_type"])
@@ -4408,6 +4694,7 @@ for _ri, x in enumerate(rows):
     if x.get("contract_link"): parts.append("record: %s" % x["contract_link"])
     if x.get("vendor_country_basis"): parts.append("vendor in Canada because: %s" % x["vendor_country_basis"][:220])
     if x.get("contract_status"): parts.append("status rule: %s" % x["contract_status"][:220])
+    parts.append("billing period: %s — %s" % (x["recurring_billing"], x["recurring_billing_basis"][:260]))
     if x.get("distinct_canadian_vendors"): parts.append("this buyer has %s records with Canada-located vendors (%s distinct vendors; %s in the last 12 months; latest %s)" % (x.get("contracts_with_canadian_suppliers"), x["distinct_canadian_vendors"], x.get("records_last_12_months") or "0", x.get("latest_award_date_any_vendor") or "n/a"))
     x["relationship_detail"] = " | ".join(parts)
     e = (x.get("email") or "").lower()
@@ -4822,6 +5109,20 @@ _f2.close(); _f3.close()
 if _PLAIN:
     _f1.close()
 print("narrative columns:", dict(n9))
+# owner's bar of 2026-11-11: rows with a mailbox by what is published about the billing period, each tier on its own
+_bt = collections.Counter()
+for (_c, _t), _n in n_bill.items():
+    _bt[_c] += _n
+print("recurring billing (owner's bar of 2026-11-11: billed monthly or every three months, systematically, by the vendor) — rows with a mailbox:")
+for _c in sorted(_bt):
+    print("  %-22s %7d   %s" % (_c, _bt[_c], " · ".join("%s %d" % (_t, n_bill[(_c, _t)]) for _t in sorted({t_ for (c_, t_) in n_bill if c_ == _c}))))
+print("  rows that meet the bar as published (1 monthly + 1 quarterly): %d of %d rows with a mailbox | Shopify rows by the store's country: %s"
+      % (_bt.get("1 monthly", 0) + _bt.get("1 quarterly", 0), sum(_bt.values()), ", ".join("%s %d" % kv for kv in n_bill_shop.most_common())))
+print("  the bill's fields, rows with a mailbox that carry each: %s" % ", ".join("%s %d" % (c_, n_billcol[c_]) for c_ in BILL_COLS))
+_nm_ = max(1, sum(_bt.values()))
+print("invoice fields (owner 2026-11-11: every aspect within an invoice) — rows with a mailbox that carry each, of %d: %s" % (_nm_, " · ".join("%s %d (%.0f%%)" % (c_, n_inv[c_], 100.0 * n_inv[c_] / _nm_) for c_ in
+      ("buyer legal name", "buyer address", "vendor legal name", "vendor address", "vendor tax number", "what is billed", "amount", "billing period", "reference", "all but the amount", "all nine"))))
+print("  rows by number of the nine fields, tier by tier: %s" % " | ".join("%s: %s" % (t_, " ".join("%d×%d" % (k_, n_inv_t[(t_, k_)]) for k_ in range(9, 2, -1) if n_inv_t[(t_, k_)])) for t_ in sorted({t2 for (t2, _k) in n_inv_t})))
 print("downstream pack:", dict(npk))
 # the change list against the previous build (tools/release_diff.py) is made by tools/rank_tail.sh once this process has ended: it holds two
 # tables' compared cells in memory, and as a child process here it stood next to everything the ranker still holds

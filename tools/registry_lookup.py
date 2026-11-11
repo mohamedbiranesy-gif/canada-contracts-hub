@@ -154,7 +154,7 @@ def main():
             except Exception:
                 pass
     op = gzip.open if a.ranked.endswith(".gz") else open
-    tasks, seen = [], set()
+    tasks, seen, vend = [], set(), {}
     PR = {"GOLD": 0, "GOLD-T": 2, "GOLD-M": 2}
     with op(a.ranked, "rt", encoding="utf-8", newline="") as fh:
         for r in csv.DictReader(fh):
@@ -164,9 +164,18 @@ def main():
             pr = PR.get(r.get("rank_group") or "", 1 if t in ("A", "B") and g in ("2", "3") else 3 if t in ("A", "B", "L") else 4 if t in ("C", "D", "E", "T", "M") else 6 if t == "I" else 5)
             if a.kind in ("vendor", "both"):
                 v = (r.get("vendor") or "").strip()
-                if v and not v.startswith("inferred") and v.lower() not in seen and not (r.get("vendor_bn9") or "").strip():
-                    seen.add(v.lower())
-                    tasks.append((pr, "vendor", v, v, prov_of(r.get("vendor_address"), r.get("vendor_registered_address"), r.get("vendor_country_basis"))))
+                if v and not v.startswith("inferred") and not (r.get("vendor_bn9") or "").strip():
+                    # 2026-11-11 (owner: "every single aspect within an invoice matters … the vendor"): one vendor's business number fills every row
+                    # of that vendor (Web Hosting Canada: 10,007 rows, no number), so vendors are asked by the number of rows they carry, and under
+                    # the legal name their own site states ("WHC Online Solutions Inc") when it states one — the registry does not know trade names.
+                    o = vend.get(v.lower())
+                    if o is None:
+                        o = vend[v.lower()] = [pr, 0, v, "", prov_of(r.get("vendor_address"), r.get("vendor_registered_address"), r.get("vendor_country_basis"))]
+                    o[0], o[1] = min(o[0], pr), o[1] + 1
+                    if not o[3]:
+                        ln = re.split(r"\s+\((?:stated on|as printed|printed with|schema\.org|the vendor's name|carried from|as it names|official name|as the )", (r.get("vendor_legal_name") or "").strip())[0].strip(" -")
+                        if ln and ln != "not_published" and "(" not in ln and 3 <= len(ln) <= 90 and re.search(r"\b(?:inc|corp|corporation|ltd|limited|lt[ée]e|co|company|cie|llp|lp|ulc|s\.e\.n\.c|senc)\b\.?", ln, re.I):
+                            o[3] = ln
             if a.kind in ("buyer", "both"):
                 b, stated = RN.lookup_name(r)  # the legal person the buyer's own site states, when it does; else the name it trades under
                 k = (r.get("keys") or "").split("|")[0] or (r.get("buyer") or "").strip()
@@ -188,6 +197,8 @@ def main():
                     if pv and (len(words) >= 2 or (words and len(words[0]) >= 7)) and len(b) <= 70 and not re.search(r"\.(?:ca|com|org|net)\b", b, re.I):
                         seen.add("buyer:" + k)
                         tasks.append((pr + 10.9, "buyer", k, b, pv))
+    for pr, n_rows, v, legal, pv in vend.values():
+        tasks.append(((pr if n_rows < 20 else 0.5) - min(0.49, n_rows / 100000.0), "vendor", v, legal or v, pv))
     tasks.sort(key=lambda t: t[0])
     # a buyer's record is kept under the row's key, and a row's name changes (a lead first named after a line of its page, later after its own
     # home page): 2026-11-10, "VILLE DE QUÉBEC" was still the registered name of a row named "LES YMCA DU QUÉBEC" by then. A key is done only

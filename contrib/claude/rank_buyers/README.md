@@ -166,6 +166,34 @@ fact), `distinct_canadian_vendors`, `records_last_12_months`, `latest_award_date
 `vendor_contacts_found_by` (the team's referee-verified vendor contacts — lane gemini researched 15,427 vendors, 8,670 with a verified role
 mailbox or website, 171 with a billing / AR mailbox — merged into `vendor_emails`), `method_notes`.
 
+## Billing period (owner 2026-11-11: "billed for something monthly … or every 3 months … systematically by the vendor")
+`recurring_billing` says what is published about when the vendor bills this buyer; `recurring_billing_basis` quotes the source.
+
+| value | what it means | where it comes from |
+|---|---|---|
+| `1 monthly`, `1 quarterly` | the vendor's own terms or price page say it bills by the month (every 30 days) or the quarter, and its service is seen in use by the buyer | the vetted vendors' terms read by hand (`tools/tech_relationships.py` BILLING: Shopify "billed … every 30 days", Jane "charged monthly in advance" …); for every other vendor a billing statement found by `tools/vendor_billing.py` on the vendor's own site, with no longer period on the pages read; a public record whose own text says "monthly" |
+| `2 monthly or yearly` | the vendor's price list is by the month and it also sells a year paid in advance, or does not say which is billed: the buyer's own period is not published | the same reader (a price with its period, "$4.99/mo") |
+| `3 yearly or longer` | a fee for a year or more at a time | `.ca` names (CIRA's rules: 1 to 10 years), licences and registrations with their published expiry date, annual membership dues, the audit of each fiscal year |
+| `4 per transaction` | a fee on each sale / booking / vehicle | the vendor's or the body's own statement |
+| `5 not published` | nothing published says when the vendor bills | contract records without an invoicing schedule, client listings, design credits ("Website by …"), links, inferred rows |
+
+**The bill's other fields** (owner 2026-11-11 07:15: "the data that would go within the invoice … the fields that the Shopify invoice would
+have … how much does it cost?"). Each cell quotes the vendor's or the body's own page; nothing is filled without one.
+`bill_amount_indicative` + `bill_amount_basis` (the vendor's price: Shopify "from US$29 a month" with its four plan prices; for other
+vendors the lowest price by the month or the year that `tools/vendor_billing.py` found, as a floor — the buyer's own plan is never
+published; a body's fee: HCRA $715 a year, OMVIC $22 per vehicle), `bill_items_as_published` (what the bill is made of: Shopify's
+subscription, transaction and additional fees; a `.ca` registration and its renewals), `bill_currency_as_published`,
+`bill_delivery_as_published` (how the bill reaches the customer), `bill_payment_method_as_published`, `bill_tax_rule_as_published`,
+`bill_identifier_format` (Shopify: a nine-digit bill number, "SHOPIFY* 123456789" on a bank statement), `service_stops_if_unpaid`
+(the vendor's own rule that an unpaid service is cut off — the reason a service seen running is a service being paid for).
+`relationship_fact_basis` says in one sentence why the relationship is a fact, or that it is not one: "fact, seen on the buyer's side"
+(a running service, a `.ca` name) · "fact, public record" (an award, a register) · "stated by the buyer" (a credit line, a membership
+badge) · "stated by the vendor" (a client list) · "link only" · "inferred, not a fact".
+
+Only the first line of the table meets the owner's bar of 06:24 as stated. The build log (SUMMARY.md) gives the rows of each value, tier by tier, and the Shopify
+rows by the store's country (section 13 of Shopify's terms names two contracting parties for stores in the United States or Canada).
+Among the services an organisation is seen to use, the one whose vendor bills by the month claims the row (`lead_strength`).
+
 ## Key columns
 `buyer`, `buyer_website`, `email`, `email_type` (invoicing/AP, finance, purchasing, general), `email_check` (confirmed =
 the referee re-opened the page and saw the address; since 2026-11-04 every package except P11 contains only `confirmed`

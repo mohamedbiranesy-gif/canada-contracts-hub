@@ -1,0 +1,49 @@
+name: vendor-billing
+# How each vendor bills, in its own words (tools/vendor_billing.py). Owner's bar of 2026-11-11: a relationship counts when the buyer is billed
+# by the vendor every month, or every three months, systematically. The reader opens the vendor's own site — its home page and up to five pages
+# its menu names as prices / plans / hosting / membership / terms — and keeps every statement of a billing period with the sentence around it,
+# the page and the date. The ranker (recurring_billing, recurring_billing_basis) uses nothing else. Vendors of live services first (DNS, hosting,
+# credits), then member bodies, then the vendors of client listings; a vendor is read again after 45 days.
+on:
+  schedule:
+    - cron: "43 5 * * *"
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "minutes of reading"
+        default: "100"
+      limit:
+        description: "at most this many vendors (0 = every vendor that is due)"
+        default: "0"
+permissions:
+  contents: write
+concurrency:
+  group: vendor-billing
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: The vendors' own price and terms pages
+        env: { MINUTES: "${{ inputs.minutes || '100' }}", LIMIT: "${{ inputs.limit || '0' }}" }
+        run: |
+          python3 tools/vendor_billing.py read --minutes "$MINUTES" --workers 40 --limit "$LIMIT" 2>&1 | tail -12 | cut -c1-600 | tee /tmp/r.txt
+          ls -la out
+      - name: Commit
+        run: |
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          git config user.name "vendor-billing"; git config user.email "vendor-billing@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/vendor_billing
+            python3 tools/vendor_billing.py merge out --stamp "$STAMP" | tee /tmp/m.txt
+            git add data/incoming/claude/vendor_billing 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "vendor-billing: $(tail -1 /tmp/m.txt | cut -c17-170) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
+          { echo '```'; cat /tmp/r.txt /tmp/m.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
