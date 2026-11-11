@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 09:40Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
+# STATE.md — Claude lane (updated 2026-11-11 10:16Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,22 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-11 10:16Z — the build of 09:39Z failed on my own code; fixed, tested on today's data, dispatched again
+- **Build 42997010689 failed at 10:00Z** in the second-names sentence written at 06:02Z (`"…" % (a,) + tuple(b)`: the format was applied
+  before the tuples were joined). It had only ever met rows of the registry lane; the crawl of 09:14Z brought the first lead of another
+  lane whose site answers under a second name. Fixed (10:02Z). **The published table is still the 08:25Z build**; the crawl's +21,500
+  mailbox rows wait for build 10:15Z.
+- Before dispatching again the local sample build was run on TODAY's data (the snapshot was refreshed from the repo): exit 0, 165,185
+  rows on a 1-in-2 lead sample, 5.1 GB. **Second names: 9,985 leads** — 3,584 `.ca` names whose site lives under another ending (new
+  registry leads), 3,495 `.ca` names answering at another `.ca` site, 2,902 leads of other lanes re-pointed to the site that answers; in
+  the sample table 1,274 tier-R rows and 963 rows of other tiers carry one. Twelve read by eye: the two names are the same organisation
+  in each (bubblestick.ca → bubblestix.com, goinflatable.ca → grandriverinflatables.com, publicbeach.ca → publicbeachswim.com …).
+  **Rule for me: a sample build on the day's data before every cloud build that carries ranker changes** (`scratchpad/ab/run.py`).
+- **Stores' legal names:** the reader took nothing from the "Contact information" page every Shopify store can publish ("Trade name: X
+  Inc. Phone number: …"). A value with a legal form under "Trade name / Business name / Nom commercial" is now the legal person's name;
+  stores read before that have no legal name get that ONE page read (no version bump: 200,000 other sites are left alone).
+- Self check-ins scheduled: 11:20Z (this build), 13:35Z (registry run, site-facts run, registers' first leads).
 
 ## 2026-11-11 09:40Z — since 08:58Z: the certificate logs' first full run, a second register, plain names, names read off pages
 - **Certificate logs, first full run merged 09:37Z** (42975037314, two readers, no refusal from any log): 528,687,616 certificates read;
