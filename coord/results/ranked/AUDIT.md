@@ -1,129 +1,128 @@
-# Deep audit — 292449 delivered rows in 18 packages (129 files), 2026-11-11
+# Deep audit — 147302 delivered rows in 18 packages (68 files), 2026-11-11
 
-Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every flagged row is listed in `audit_flags.csv` with its reasons.
+Result: **FAIL** — 11 hard checks, 17 soft checks; hard failures: 1. Every flagged row is listed in `audit_flags.csv` with its reasons.
 
 | # | check | kind | rows flagged | verdict |
 |---|---|---|---|---|
-| 1 | header: identical columns in every file (106 since 2026-11-06) | hard | 0 | PASS |
+| 1 | header: identical columns in every file (106 since 2026-11-06) | hard | 1 | FAIL |
 | 2 | mailbox syntax | hard | 0 | PASS |
 | 3 | mailbox referee-confirmed (all but P11) | hard | 0 | PASS |
 | 4 | mail server (MX or A) on the mailbox domain | hard | 0 | PASS |
-| 4b | mail server not yet checked (row newer than the last DNS pass) | soft | 226246 | REVIEW |
+| 4b | mail server not yet checked (row newer than the last DNS pass) | soft | 83066 | REVIEW |
 | 5 | no webmail domain | hard | 0 | PASS |
 | 6 | no person-like local part | hard | 0 | PASS |
-| 7 | role word in the local part | soft | 27585 | REVIEW |
-| 8 | receivables-looking local part graded invoicing/AP | soft | 71 | REVIEW |
+| 7 | role word in the local part | soft | 10378 | REVIEW |
+| 8 | receivables-looking local part graded invoicing/AP | soft | 51 | REVIEW |
 | 9 | shared government domain: page or quote names the body | soft | 4 | REVIEW |
 | 10 | regional token of a multinational on a differently-located body | soft | 0 | PASS |
 | 11 | quote contains the address | hard | 0 | PASS |
-| 11b | quote shows the label next to the address (referee saw the address on the page) | soft | 1 | REVIEW |
-| 12 | evidence page on the organisation's domain (or its site) | soft | 12831 | REVIEW |
+| 11b | quote shows the label next to the address (referee saw the address on the page) | soft | 0 | PASS |
+| 12 | evidence page on the organisation's domain (or its site) | soft | 5302 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
 | 14 | DMARC / SPF / provider columns filled | soft | 0 | PASS |
 | 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 0 | PASS |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
 | 18 | record link present for dated-record tiers | soft | 0 | PASS |
-| 19 | buyer name is a name (not a domain or a page title) | soft | 33677 | REVIEW |
-| 20 | legal name is not a fragment or a platform copyright | soft | 63 | REVIEW |
+| 19 | buyer name is a name (not a domain or a page title) | soft | 22002 | REVIEW |
+| 20 | legal name is not a fragment or a platform copyright | soft | 32 | REVIEW |
 | 21 | one row per mailbox | hard | 0 | PASS |
-| 22 | one row per organisation name (same name twice) | soft | 87 | REVIEW |
-| 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 67 | REVIEW |
+| 22 | one row per organisation name (same name twice) | soft | 51 | REVIEW |
+| 23 | one row per site domain (two rows, different mailboxes, same domain) | soft | 64 | REVIEW |
 | 24 | no blank cell | hard | 0 | PASS |
-| 25 | jurisdiction vs mailbox top-level domain | soft | 80 | REVIEW |
+| 25 | jurisdiction vs mailbox top-level domain | soft | 38 | REVIEW |
 | 26 | currency filled when a value is filled | soft | 50 | REVIEW |
 
 ## Examples of flagged rows (first 12 per check)
+- **1 header: identical columns in every file (106 since 2026-11-06)**
+    - files | 2 distinct headers; widths [0, 246]
 - **4b mail server not yet checked (row newer than the last DNS pass)**
     - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:2 Algonquin College | algonquincollege.co
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:18 ATTIS LEBLANC | attis-leblanc.com
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:22 Cologix Canada inc. | cologix.com
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:24 Edmond Nolin Ltée | constructionenl.com
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:26 Daikin Applied Canada inc. | daikinapplied.com
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:27 Deblois réfrigération inc. | debloisrefrigeration.com
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:29 Construction D.M. Turcotte J.M. inc. | dmturcotte.com
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:30 Dyno Nobel Canada inc. | dynonobel.com
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:32 Constructions Fabmec inc. | fabmec.ca
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:33 Filspec inc. | filspec.com
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:35 Électricité de la Capitale Inc. | groleaudev.com
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:36 Groupe Lalonde inc. | groupelalonde.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:19 ATTIS LEBLANC | attis-leblanc.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:23 Cologix Canada inc. | cologix.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:25 Edmond Nolin Ltée | constructionenl.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:28 Daikin Applied Canada inc. | daikinapplied.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:29 Deblois réfrigération inc. | debloisrefrigeration.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:31 Construction D.M. Turcotte J.M. inc. | dmturcotte.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:32 Dyno Nobel Canada inc. | dynonobel.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:34 Constructions Fabmec inc. | fabmec.ca
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:35 Filspec inc. | filspec.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:37 Électricité de la Capitale Inc. | groleaudev.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:38 Groupe Lalonde inc. | groupelalonde.com
 - **7 role word in the local part**
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:118 Taylor-Listug, Inc. | ap_group@taylorguitars.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:55 Scouts de Dieppe | paiement@scoutsdedieppe.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:71 Keyera | ap_inquiries@keyera.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:129 cvqvintage.ca | paiements@cvqvintage.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:203 Clic-Informatique | paiements@clic-informatique.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:245 Cameco Corporation | ap_cameco@cameco.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:269 New Relic | ap_ireland@newrelic.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:401 Ecce Terra | paiement@ecceterra.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:125 Taylor-Listug, Inc. | ap_group@taylorguitars.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:137 Cameco Corporation | ap_cameco@cameco.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:282 Ecce Terra | paiement@ecceterra.com
     - P01_GOLD_active_relationship_invoicing_AP_email:276 Town of Oakville | ap_inquiries@oakville.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:300 University of Saskatchewan | connectionpoint@usask.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:302 Miami-Dade County (business unit CU05010 | invsubp@miamidade.gov
     - P01_GOLD_active_relationship_invoicing_AP_email:392 BELL TEXTRON INC | APBell@textron.com
+    - P02_active_relationship_finance_accounting_email:7 Agriculture and Agri-Food Canada | directdeposit.depotdirect@canada.ca
+    - P02_active_relationship_finance_accounting_email:13 Crown-Indigenous Relations and Northern  | depotdirect-directdeposit@sac-isc.gc.ca
+    - P02_active_relationship_finance_accounting_email:14 Department of Justice Canada | mdv_dpf@justice.gc.ca
+    - P02_active_relationship_finance_accounting_email:18 Health Canada | hc.direct.deposit.requests-demande.de.depot.direct.sc@canada.ca
+    - P02_active_relationship_finance_accounting_email:19 Innovation, Science and Economic Develop | ifmscustomer-clientsifm@ised-isde.gc.ca
 - **8 receivables-looking local part graded invoicing/AP**
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:65 birchfumigators.ca | payment@birchfumigators.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:8 Texas Tech University | payment.strategies@ttu.edu
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:18 Calgary Coin Gallery | payment@calgarycoin.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:45 Gardenzilla | payments@gardenzilla.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:46 Awninginabox.ca | payment@awninginabox.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:60 Lerners Lawyers | payments@lerners.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:77 WeirFoulds LLP | payments@weirfoulds.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:82 Whitefish River First Nation | payments@whitefishriver.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:98 Kajabi | payments.support@kajabi.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:110 Flashing Canines Agility Club | payments@flashingcanines.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:115 ck-ca.com | payments@ck-ca.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:126 Penner Auctions | morden.payments@pennerauctions.com
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:68 birchfumigators.ca | payment@birchfumigators.ca
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:86 Calgary Coin Gallery | payment@calgarycoin.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:5 Texas Tech University | payment.strategies@ttu.edu
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:18 Awninginabox.ca | payment@awninginabox.ca
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:22 Lerners Lawyers | payments@lerners.ca
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:30 WeirFoulds LLP | payments@weirfoulds.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:34 Whitefish River First Nation | payments@whitefishriver.ca
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:57 ck-ca.com | payments@ck-ca.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:64 Penner Auctions | morden.payments@pennerauctions.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:127 Vocal Euphoria | payments@vocaleuphoria.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:235 Facility Solutions Canada Limited | payments@facilitysolutionscanada.ca
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:238 Furbaby Pet Care Saskatoon | payments@furbabysk.ca
 - **9 shared government domain: page or quote names the body**
     - P01_GOLD_active_relationship_invoicing_AP_email:43 Canadian Space Agency | invoicing.csa-asc.facturation@canada.ca ← https://www.canada.ca/en/public-services-procurement/services/payments-to-from-g
     - P01_GOLD_active_relationship_invoicing_AP_email:513 Tennessee Department of Transportation | pln.invoices@tn.gov ← https://www.tn.gov/tdot/long-range-planning-home/longrange-administration/longra
-    - P07_client_listing_finance_or_purchasing_email:23 transportation.ky.gov | finance.crcgroup@ky.gov ← https://finance.ky.gov/eProcurement/Pages/doing-business-with-the-commonwealth.a
-    - P13_inferred_relationship_no_record_own_email_part1_of_7:178 Landlord and Tenant Board | ltbpayments@ontario.ca ← https://tribunalsontario.ca/ltb/contact/
-- **11b quote shows the label next to the address (referee saw the address on the page)**
-    - P10R_ca_domain_registration_contract_own_email_part19_of_48:2005 Vancouvery Vintages | LET’S STAY IN TOUCH Keep updated with the latest and greates
+    - P07_client_listing_finance_or_purchasing_email:22 transportation.ky.gov | finance.crcgroup@ky.gov ← https://finance.ky.gov/eProcurement/Pages/doing-business-with-the-commonwealth.a
+    - P13_inferred_relationship_no_record_own_email_part1_of_13:298 Landlord and Tenant Board | ltbpayments@ontario.ca ← https://tribunalsontario.ca/ltb/contact/
 - **12 evidence page on the organisation's domain (or its site)**
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:18 ATTIS LEBLANC | payable@attis-leblanc.com on attis-leblanc.ca (site attis-leblanc.com)
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:76 PROVINCIAL HEALTH SERVICES AUTHORITY | phsainventory_apinvoices@hssbc.ca on phsa.ca (site hssbc.ca)
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:80 COCA-COLA LTD./ COCA-COLA LTEE | krinvoice@coca-cola.com on coca-colacompany.com (site coca-cola.com)
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:85 Oil City Drywall North | accounting@oilcitydrywall.ca on oilcitydrywallnorth.ca (site oilcitydrywall.ca)
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:122 Birth Supplies Canada | ap@birthsuppliescanada.ca on midwiferysupplies.ca (site birthsuppliescanada.ca)
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:27 transbec.ca | payables@transbec.ca on transbec.com (site transbec.ca)
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:38 Anna's Garden, Home & Wellness | accountspayable@annasflowers.ca on shopannas.ca (site annasflowers.ca)
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:77 WeirFoulds LLP | payments@weirfoulds.com on weirfoulds.ca (site weirfoulds.com)
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:121 KSAN Society | accountspayable@ksansociety.ca on ksansociety.com (site ksansociety.ca)
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:129 cvqvintage.ca | paiements@cvqvintage.ca on coursesvintagequebec.ca (site cvqvintage.ca)
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:133 Capital Regional District | accountspayable@crd.bc.ca on crd.ca (site crd.bc.ca)
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:136 regieincendiekam-ouest.ca | payables@regieincendiekam-ouest.ca on regieincendiekam-ouest.com (site regieincendiekam-ouest.ca)
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:19 ATTIS LEBLANC | payable@attis-leblanc.com on attis-leblanc.ca (site attis-leblanc.com)
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:81 PROVINCIAL HEALTH SERVICES AUTHORITY | phsainventory_apinvoices@hssbc.ca on phsa.ca (site hssbc.ca)
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:85 COCA-COLA LTD./ COCA-COLA LTEE | krinvoice@coca-cola.com on coca-colacompany.com (site coca-cola.com)
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:91 Oil City Drywall North | accounting@oilcitydrywall.ca on oilcitydrywallnorth.ca (site oilcitydrywall.ca)
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:130 Birth Supplies Canada | ap@birthsuppliescanada.ca on midwiferysupplies.ca (site birthsuppliescanada.ca)
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:30 WeirFoulds LLP | payments@weirfoulds.com on weirfoulds.ca (site weirfoulds.com)
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:68 Capital Regional District | accountspayable@crd.bc.ca on crd.ca (site crd.bc.ca)
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:82 ibiosolutions.com | payables@ibiosolutions.com on immunebiosolutions.com (site ibiosolutions.com)
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:124 dabc.ca | ap@dabc.ca on disabilityalliancebc.org (site dabc.ca)
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:139 Motorola Solutions | recepcionfacturas@motorolasolutions.com on web.archive.org (site motorolasolutions.com)
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:223 mainlandfloral.ca | accountspayable@mainlandfloral.ca on mainlandfloral.com (site mainlandfloral.ca)
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:331 bimbc.ca | finance@bimbc.ca on bowenislandmunicipality.ca (site bimbc.ca)
 - **19 buyer name is a name (not a domain or a page title)**
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:65 birchfumigators.ca | birchfumigators.ca
-    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:66 dfcdiesel.com | dfcdiesel.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:11 ovs.com | ovs.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:26 fs.ca | fs.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:27 transbec.ca | transbec.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:34 airweld.com | airweld.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:35 btfsi.com | btfsi.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:46 Awninginabox.ca | Awninginabox.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:54 cstx.gov | cstx.gov
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:68 efifoodequip.com | efifoodequip.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:84 gatech.edu | gatech.edu
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:96 tbdssab.ca | tbdssab.ca
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:68 birchfumigators.ca | birchfumigators.ca
+    - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email:69 dfcdiesel.com | dfcdiesel.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:10 fs.ca | fs.ca
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:16 airweld.com | airweld.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:18 Awninginabox.ca | Awninginabox.ca
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:25 efifoodequip.com | efifoodequip.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:57 ck-ca.com | ck-ca.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:59 lpsg.ca | lpsg.ca
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:66 apsurveys.ca | apsurveys.ca
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:72 ep.com | ep.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:74 ctwater.com | ctwater.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:82 ibiosolutions.com | ibiosolutions.com
 - **20 legal name is not a fragment or a platform copyright**
     - P05_likely_active_awarded_12_36_months_any_email:58 Ameren Illinois Company | Ameren Corporation and/or its suppliers
     - P05_likely_active_awarded_12_36_months_any_email:339 LOVE WORTH FINDING MINISTRIES INC | LLC. 800-274-5683 2941 Kate Bond Rd, Memphis, TN 38133 CONNECT WITH LW
-    - P06M_member_or_regulated_payer_of_canadian_body_other_email_part5_of_6:258 +ARTHRI-PLUS INC. | +ARTHRI-PLUS INC. (the Canadian trademarks register (owner of record),
-    - P06T_active_service_seen_on_buyer_site_other_email_part13_of_36:2231 Affiliated Services for Children and You | AFFILIATED SERVICES FOR CHILDREN AND YOUTH INC. (CRA list of registere
-    - P06T_active_service_seen_on_buyer_site_other_email_part15_of_36:1517 Landscaping | LTD Landscaping Inc. (as registered: Corporations Canada (open data), 
-    - P06T_active_service_seen_on_buyer_site_other_email_part16_of_36:1107 Project TEMBO | Introduction Welcome to TEMBO Canada (stated on https://www.projectemb
-    - P06T_active_service_seen_on_buyer_site_other_email_part19_of_36:1969 Landscaping | LTD Landscaping Inc. (as registered: Corporations Canada (open data), 
-    - P06T_active_service_seen_on_buyer_site_other_email_part30_of_36:1138 Landscaping | LTD Landscaping Inc. (as registered: Corporations Canada (open data), 
-    - P06T_active_service_seen_on_buyer_site_other_email_part32_of_36:47 Punta Cana Spa | Introduction Welcome to Punta Cana Spa (stated on https://puntacanaspa
-    - P06T_active_service_seen_on_buyer_site_other_email_part32_of_36:1536 Caleb Creations | Introduction Welcome to Caleb Creations (stated on https://calebcreati
-    - P06T_active_service_seen_on_buyer_site_other_email_part33_of_36:551 The Flag Shop | September 28th, 2025 Welcome to The Flag Shop (stated on https://flag-
-    - P06T_active_service_seen_on_buyer_site_other_email_part34_of_36:1549 Toronto Comedy Festival | Introduction Welcome to the Toronto Comedy Festival (stated on https:/
+    - P06M_member_or_regulated_payer_of_canadian_body_other_email_part5_of_7:1670 +ARTHRI-PLUS INC. | +ARTHRI-PLUS INC. (the Canadian trademarks register (owner of record),
+    - P06T_active_service_seen_on_buyer_site_other_email_part16_of_23:1914 Landscaping | LTD Landscaping Inc. (as registered: Corporations Canada (open data), 
+    - P06T_active_service_seen_on_buyer_site_other_email_part18_of_23:1063 Punta Cana Spa | Introduction Welcome to Punta Cana Spa (stated on https://puntacanaspa
+    - P06T_active_service_seen_on_buyer_site_other_email_part18_of_23:2639 Caleb Creations | Introduction Welcome to Caleb Creations (stated on https://calebcreati
+    - P06T_active_service_seen_on_buyer_site_other_email_part19_of_23:1783 The Flag Shop | September 28th, 2025 Welcome to The Flag Shop (stated on https://flag-
+    - P06T_active_service_seen_on_buyer_site_other_email_part21_of_23:411 Toronto Comedy Festival | Introduction Welcome to the Toronto Comedy Festival (stated on https:/
+    - P06T_active_service_seen_on_buyer_site_other_email_part22_of_23:1241 Prime Aesthetics | Inc. 2. Aesthetic Surgery Education and Research Foundation (stated on
+    - P06T_active_service_seen_on_buyer_site_other_email_part22_of_23:1514 The Barkshire Club | Introduction Welcome to The Barkshire Club (stated on https://thebarks
+    - P06T_active_service_seen_on_buyer_site_other_email_part22_of_23:2526 We Will Walk You | Introduction Welcome to We Will Walk You (stated on https://www.wewill
+    - P06T_active_service_seen_on_buyer_site_other_email_part23_of_23:2458 Feb 2th, 2024 Acceptance of Terms Welcom | Feb 2th, 2024 Acceptance of Terms Welcome to NTWIST (stated on https:/
 - **22 one row per organisation name (same name twice)**
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:79 Niagara Children Centre | 2 rows, same mail domain: niagarachildrenscentre.com
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:286 City of Pitt Meadows | 2 rows, same mail domain: pittmeadows.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:374 Collings Insurance | 2 rows, same mail domain: collingsinsurance.ca
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:446 Cascades | 2 rows, same mail domain: cascades.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:32 Niagara Children Centre | 2 rows, same mail domain: niagarachildrenscentre.com
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:255 Collings Insurance | 2 rows, same mail domain: collingsinsurance.ca
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:333 Cascades | 2 rows, same mail domain: cascades.com
     - P01_GOLD_active_relationship_invoicing_AP_email:16 Rocky View County | 2 rows, same mail domain: rockyview.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:26 University of Lethbridge | 2 rows, same mail domain: uleth.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:234 Metrolinx | 2 rows, same mail domain: metrolinx.com
@@ -132,6 +131,7 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:498 City of Edmonton | 2 rows, same mail domain: edmonton.ca
     - P01_GOLD_active_relationship_invoicing_AP_email:617 Nicola Valley Institute of Technology | 2 rows, same mail domain: nvit.ca
     - P02_active_relationship_finance_accounting_email:137 Ville de Princeville | 2 rows, same mail domain: princeville.quebec
+    - P02_active_relationship_finance_accounting_email:334 Regional District of North Okanagan | 2 rows, same mail domain: rdno.ca
 - **23 one row per site domain (two rows, different mailboxes, same domain)**
     - P01_GOLD_active_relationship_invoicing_AP_email:2 Department of Defence | defence.gov.au: 2 rows, invoices@defence.gov.au; peppol.einvoices@defence.gov.au
     - P01_GOLD_active_relationship_invoicing_AP_email:27 University of Toronto | utoronto.ca: 2 rows, ap.fsd@utoronto.ca; fmdinvoice.utsc@utoronto.ca
@@ -147,19 +147,19 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
     - P01_GOLD_active_relationship_invoicing_AP_email:259 Niagara Region | niagararegion.ca: 2 rows, constructioninvoices@niagararegion.ca; NRHCapitalWorks@niagararegion.ca
 - **25 jurisdiction vs mailbox top-level domain**
     - P01_GOLD_active_relationship_invoicing_AP_email:248 Utilities Kingston | CA / kingston.gov.uk
-    - P13_inferred_relationship_no_record_own_email_part1_of_7:154 Rheinmetall AG | CA / rheinmetall.com.au
-    - P13_inferred_relationship_no_record_own_email_part1_of_7:163 Westpac | CA / westpac.com.au
-    - P13_inferred_relationship_no_record_own_email_part1_of_7:180 United States Postal Service | CA / usps.gov
-    - P13_inferred_relationship_no_record_own_email_part1_of_7:378 Randstad Deutschland | CA / randstad.de
-    - P13_inferred_relationship_no_record_own_email_part1_of_7:573 LA MAISON DES JEUNES DE PLESSISVILLE INC | QC / lycos.fr
-    - P13_inferred_relationship_no_record_own_email_part1_of_7:760 The Redeemed Christian Church of God Lov | SK / loveassembly.co.uk
-    - P13_inferred_relationship_no_record_own_email_part1_of_7:1233 mgmarketing.fr | QC / mgmarketing.fr
-    - P13_inferred_relationship_no_record_own_email_part2_of_7:1263 KNDS | CA / knds.de
-    - P13_inferred_relationship_no_record_own_email_part2_of_7:1273 The Warehouse Group | CA / thewarehousegroup.co.nz
-    - P13_inferred_relationship_no_record_own_email_part3_of_7:268 Akelius Real Estate Management LLC | CA / akelius.fr
-    - P13_inferred_relationship_no_record_own_email_part3_of_7:276 Apex Auctions Limited | CA / apexauctions.co.uk
+    - P13_inferred_relationship_no_record_own_email_part10_of_13:61 Snowdonia Cheese Ltd | CA / snowdonia-cheese.co.uk
+    - P13_inferred_relationship_no_record_own_email_part12_of_13:1602 Beckhoff Automation Ltd. | CA / beckhoff.de
+    - P13_inferred_relationship_no_record_own_email_part12_of_13:2311 Bernafon Canada | ON / bernafon.com.au
+    - P13_inferred_relationship_no_record_own_email_part13_of_13:949 Déontologie : approche comparée FR / QC | CA / univ-droit.fr
+    - P13_inferred_relationship_no_record_own_email_part13_of_13:1242 Shah's Halal Food | CA / shahshalalfood.co.uk
+    - P13_inferred_relationship_no_record_own_email_part13_of_13:1283 Hochtief | CA / hochtief.de
+    - P13_inferred_relationship_no_record_own_email_part13_of_13:1657 Canada at the 2013 World Aquatics Champi | CA / dsv.de
+    - P13_inferred_relationship_no_record_own_email_part13_of_13:1674 Pro Seniore | CA / pro-seniore.de
+    - P13_inferred_relationship_no_record_own_email_part13_of_13:1769 Marienhaus | CA / marienhaus.de
+    - P13_inferred_relationship_no_record_own_email_part13_of_13:1785 SRH Holding | CA / srh.de
+    - P13_inferred_relationship_no_record_own_email_part13_of_13:1791 Sparkassen-Finanzgruppe | CA / dsgv.de
 - **26 currency filled when a value is filled**
-    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:252 RENTON SCHOOL DISTRICT #403 | 332345.13 (source field: amount)
+    - P01T_active_service_seen_on_buyer_site_invoicing_AP_email:143 RENTON SCHOOL DISTRICT #403 | 332345.13 (source field: amount)
     - P01_GOLD_active_relationship_invoicing_AP_email:444 Rectorado de la Universitat de València | 12698.25 (source field: PayableAmount)
     - P01_GOLD_active_relationship_invoicing_AP_email:456 BRINKS DE COLOMBIA S.A. | 0 (source field: TOTAL_LIQUIDADO_ARANCEL)
     - P01_GOLD_active_relationship_invoicing_AP_email:475 University of North Dakota | 145.850 (source field: Amount)
@@ -183,88 +183,88 @@ Result: **PASS** — 11 hard checks, 17 soft checks; hard failures: 0. Every fla
 - reading: a `no` on buyer_match in the sample was a ministry renamed since the award (same body); `status_supported = unclear / no` concentrates in SEAO records marked ongoing_inferred, which the packages rank as B/C, never as A.
 
 ## Rows per package
-- P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 123
-- P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 446
-- P01_GOLD_active_relationship_invoicing_AP_email: 625
-- P02_active_relationship_finance_accounting_email: 486
+- P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 132
+- P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 334
+- P01_GOLD_active_relationship_invoicing_AP_email: 626
+- P02_active_relationship_finance_accounting_email: 488
 - P03_active_relationship_purchasing_email: 264
-- P04_active_relationship_general_email: 4132
-- P05_likely_active_awarded_12_36_months_any_email: 420
-- P06M_member_or_regulated_payer_of_canadian_body_other_email: 13240
-- P06T_active_service_seen_on_buyer_site_other_email: 95584
-- P06_client_listing_invoicing_AP_email: 297
-- P07_client_listing_finance_or_purchasing_email: 788
-- P08_client_listing_general_email: 25442
-- P09_older_contract_or_payment_any_email: 294
-- P10R_ca_domain_registration_contract_own_email: 105619
-- P10_linked_from_vendor_site_any_email: 2652
-- P11_any_relationship_email_not_yet_confirmed: 24579
-- P12_weaker_relationship_within_5_years_own_email: 7
-- P13_inferred_relationship_no_record_own_email: 17451
+- P04_active_relationship_general_email: 4694
+- P05_likely_active_awarded_12_36_months_any_email: 422
+- P06M_member_or_regulated_payer_of_canadian_body_other_email: 14527
+- P06T_active_service_seen_on_buyer_site_other_email: 60669
+- P06_client_listing_invoicing_AP_email: 295
+- P07_client_listing_finance_or_purchasing_email: 774
+- P08_client_listing_general_email: 25137
+- P09_older_contract_or_payment_any_email: 298
+- P10R_ca_domain_registration_contract_own_email: 0
+- P10_linked_from_vendor_site_any_email: 3662
+- P11_any_relationship_email_not_yet_confirmed: 1461
+- P12_weaker_relationship_within_5_years_own_email: 15
+- P13_inferred_relationship_no_record_own_email: 33504
 
 ## Field fill across all delivered rows (value present, not `not_published`)
-- buyer_website: 292449 (100.0%)
-- vendor_address: 290239 (99.2%)
-- vendor_website: 283573 (97.0%)
-- contract_link: 274998 (94.0%)
-- vendor_legal_name: 252090 (86.2%)
-- award_date: 242558 (82.9%)
-- buyer_logo_url: 232409 (79.5%)
-- vendor_registry_id: 215624 (73.7%)
-- vendor_incorporation_date: 215599 (73.7%)
-- buyer_address: 214282 (73.3%)
-- vendor_bn9: 206162 (70.5%)
-- vendor_logo_url: 169076 (57.8%)
-- buyer_phone: 168595 (57.6%)
-- buyer_legal_name_as_published: 133487 (45.6%)
-- vendor_phone: 112022 (38.3%)
-- vendor_neq: 67031 (22.9%)
-- vendor_emails: 57434 (19.6%)
-- buyer_bn_as_published: 32371 (11.1%)
-- end_date: 12600 (4.3%)
-- payment_terms_as_published: 8049 (2.8%)
-- contract_value: 7129 (2.4%)
-- ap_phone: 3503 (1.2%)
-- po_required_as_published: 2837 (1.0%)
-- invoice_mailing_address: 2655 (0.9%)
-- invoicing_requirements: 2437 (0.8%)
-- invoice_portal_url: 2348 (0.8%)
-- ap_contact_name_as_published: 1145 (0.4%)
+- buyer_website: 147302 (100.0%)
+- vendor_address: 144904 (98.4%)
+- vendor_website: 137661 (93.5%)
+- vendor_logo_url: 127613 (86.6%)
+- buyer_logo_url: 126425 (85.8%)
+- buyer_address: 116040 (78.8%)
+- vendor_phone: 114189 (77.5%)
+- contract_link: 113798 (77.3%)
+- buyer_phone: 104145 (70.7%)
+- vendor_legal_name: 104129 (70.7%)
+- award_date: 80030 (54.3%)
+- buyer_legal_name_as_published: 78737 (53.5%)
+- vendor_bn9: 66195 (44.9%)
+- vendor_emails: 57527 (39.1%)
+- vendor_registry_id: 55508 (37.7%)
+- vendor_incorporation_date: 55474 (37.7%)
+- vendor_neq: 20913 (14.2%)
+- buyer_bn_as_published: 19551 (13.3%)
+- end_date: 13663 (9.3%)
+- contract_value: 7568 (5.1%)
+- payment_terms_as_published: 3859 (2.6%)
+- ap_phone: 3194 (2.2%)
+- invoice_mailing_address: 2427 (1.6%)
+- po_required_as_published: 2367 (1.6%)
+- invoicing_requirements: 2350 (1.6%)
+- invoice_portal_url: 2100 (1.4%)
+- ap_contact_name_as_published: 1049 (0.7%)
 
 ## Canada-proof families
-- source field: 268085; other: 24364
+- source field: 107137; other: 40165
 
 ## Buyer types
-- organisation (type not stated in the record): 161778
-- company (private sector) (from the organisation's name / web domain): 45198
-- company (private sector): 44491
-- non-profit / association / cultural body: 15560
-- government ministry / agency: 6657
-- non-profit / association / cultural body (from the organisation's name / web domain): 3475
-- utility / public corporation: 2831
-- hospital / health authority: 2815
-- municipality / local government: 1722
-- municipality / local government (from the organisation's name / web domain): 1708
-- university / college: 1482
-- transport / transit authority: 840
-- hospital / health authority (from the organisation's name / web domain): 765
-- utility / public corporation (from the organisation's name / web domain): 614
-- university / college (from the organisation's name / web domain): 553
-- government ministry / agency (from the organisation's name / web domain): 465
-- religious organisation (from the organisation's name / web domain): 366
-- First Nation / Indigenous government: 312
-- transport / transit authority (from the organisation's name / web domain): 283
-- First Nation / Indigenous government (from the organisation's name / web domain): 230
-- school board / school district: 189
-- library (from the organisation's name / web domain): 42
-- school board / school district (from the organisation's name / web domain): 33
+- organisation (type not stated in the record): 69952
+- company (private sector): 29183
+- company (private sector) (from the organisation's name / web domain): 20667
+- non-profit / association / cultural body: 11122
+- government ministry / agency: 3501
+- non-profit / association / cultural body (from the organisation's name / web domain): 2409
+- hospital / health authority: 1902
+- utility / public corporation: 1577
+- municipality / local government (from the organisation's name / web domain): 1571
+- municipality / local government: 1468
+- university / college: 885
+- hospital / health authority (from the organisation's name / web domain): 550
+- transport / transit authority: 498
+- university / college (from the organisation's name / web domain): 476
+- utility / public corporation (from the organisation's name / web domain): 291
+- government ministry / agency (from the organisation's name / web domain): 269
+- First Nation / Indigenous government: 216
+- religious organisation (from the organisation's name / web domain): 196
+- school board / school district: 185
+- transport / transit authority (from the organisation's name / web domain): 150
+- First Nation / Indigenous government (from the organisation's name / web domain): 135
+- library (from the organisation's name / web domain): 30
+- school board / school district (from the organisation's name / web domain): 29
 - US government body (federal, state or local): 29
 - US city / county / local government: 11
 
 ## DMARC posture of the delivered mailboxes
-- no DMARC record: 120520
-- v=DMARC1; p=none (monitor only, no enforcement): 116477
-- p=quarantine: 36763
-- p=reject: 18372
-- invalid DMARC record: 230
-- DNS lookup failed: 87
+- v=DMARC1; p=none (monitor only, no enforcement): 60203
+- no DMARC record: 53028
+- p=quarantine: 22437
+- p=reject: 11496
+- invalid DMARC record: 111
+- DNS lookup failed: 27

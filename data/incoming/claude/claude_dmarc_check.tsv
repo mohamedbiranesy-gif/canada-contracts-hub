@@ -66313,7 +66313,7 @@ cfan.org.za	none	cfan.org.za	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 mx includ
 cfapx.ca	none	cfapx.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.mlsend.com include:_spf.google.com ~all	2026-11-11	none	none	none
 cfaq.net	no_record		no DMARC record at _dmarc.cfaq.net; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 cfare.ca	no_record		no DMARC record at _dmarc.cfare.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.cfare.ca ~all	2026-11-10	none	none	none
-cfarley.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+cfarley.com	error		no nameservers			error		2026-11-11	none	none	none
 cfas.ca	no_record		no DMARC record at _dmarc.cfas.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:servers.mcsv.net include:spf.exwaresolutions.com include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 cfat.ca	none	cfat.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 cfatready.ca	no_record		no DMARC record at _dmarc.cfatready.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
@@ -86456,7 +86456,7 @@ culturecatalyst.ca	none	culturecatalyst.ca	v=DMARC1; p=none; rua=mailto:jeff@cul
 culturecdq.ca	none	culturecdq.ca	v=DMARC1; p=none; rua=mailto:rapportdmarc@culturecdq.ca	100	yes	hard_fail	v=spf1 ip4:81.91.77.3 ip4:199.115.125.99 +a +mx +include:spf.protection.outlook.com +include:spf.mandrillapp.com -all	2026-11-06	none	none	none
 culturecollectivebrands.com	quarantine	culturecollectivebrands.com	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	soft_fail	v=spf1 include:dc-aa8e722993._spfm.culturecollectivebrands.com ~all	2026-11-11	none	none	none
 culturecollectiveco.com	none	culturecollectiveco.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-11	none	none	none
-culturecon.org	error		LifetimeTimeout			error		2026-11-11	none	none	none
+culturecon.org	error		no nameservers			error		2026-11-11	none	none	none
 cultureconnectint.com	no_record		no DMARC record at _dmarc.cultureconnectint.com; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 cultureconusa.org	none	cultureconusa.org	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
 culturecreates.com	none	culturecreates.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
@@ -125958,7 +125958,7 @@ freshpark.com	none	freshpark.com	v=DMARC1; p=none; 	100	no	soft_fail	v=spf1 incl
 freshparkcanada.ca	no_record		no DMARC record at _dmarc.freshparkcanada.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx ip4:66.11.79.1 ip4:66.11.79.61 include:spf.mandrillapp.com include:spf.ess.barracudanetworks.com ~all	2026-11-11	none	none	none
 freshpatch.com	quarantine	freshpatch.com	v=DMARC1; p=quarantine; rua=mailto:postmaster@freshpatch.com,mailto:dmarc@freshpatch.com; pct=100; adkim=s; aspf=s	100	yes	soft_fail	v=spf1 include:mailgun.org include:_spf.google.com ip4:74.220.207.183 ~all	2026-11-11	none	none	none
 freshpet.com	none	freshpet.com	v=DMARC1;  p=none; rua=mailto:ce7340eb08004ae9bd8949e56be52f94@dmarc-reports.cloudflare.net	100	yes	soft_fail	v=spf1 mx a ip4:128.92.59.173 include:_spf.q4press.com include:confero.co.uk include:spf.protection.outlook.com include:_spf.salesforce.com ~all	2026-11-11	none	none	none
-freshpizza.ca	error		no nameservers			error		2026-11-11	none	none	none
+freshpizza.ca	error		LifetimeTimeout			error		2026-11-11	none	none	none
 freshplate.ca	no_record		no DMARC record at _dmarc.freshplate.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 freshpluscleaning.ca	no_record		no DMARC record at _dmarc.freshpluscleaning.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
 freshpondtea.com	no_record		no DMARC record at _dmarc.freshpondtea.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
