@@ -1282,3 +1282,22 @@ records are v4, 31,396 spelled names stand; the two cut files cost about 30,000 
 second whatever its number of threads; "100 sites at a time" (set at 06:30Z on the mailbox reader's 23 ms a page) bought nothing here.
 A runner has four cores: **three readers a runner**, each with a third of the runner's sites, a file of its own and only the records
 it made or changed (`--out`, `--delta`). Three times the sites per runner-hour, and the files to merge are small.
+
+## 2026-11-11 09:06Z — one queue per platform for the site-facts readers; a block page is a short page; the registers lane
+- **A block page is a short page** (under 30,000 characters). The site-facts readers called any home page "blocked" that held "captcha"
+  in its first 5,000 characters: every Wix site (the word is in the page's settings), every page that loads reCAPTCHA early. 40 of 60
+  never-read sites. The mailbox reader already had the size test; all readers now share it.
+- **One queue per /24 of addresses for the site-facts readers** (`ap_crawler.NET_INTERVAL`, 1.5 s per reader, three readers a runner = two
+  requests a second per runner towards one platform — the rule the store reader has had for Shopify since 2026-11-10). Measured: of 70
+  sites the runners were refused by (403 / 429), 51 answer one machine; 18 sit on Wix's addresses, 12 on Shopify's. Rule 9 names the host;
+  for a platform the host is the platform. The mailbox crawl and the scan keep their per-site limit: their lists are a few per cent
+  platform sites and they are not refused (4.9 % blocked over 633,000 sites).
+- **Failed tries are remembered** (`crawl_state/org_tried_*.gz`): a site that refuses (403, robots) is not asked again for 30 days, one that
+  has nothing for 21, one that did not answer or answered 429 after 2 days, then 14. Before, every run asked every failing site again.
+- **Registers of delegated authorities are a lane** (tier M, own line in every report). A registrant = a business the authority's own
+  public register names as currently registered / licensed; legal persons only; the authority's address and fee sentence quoted from its
+  own pages; the registrant's site is the one its entry names, kept only when its home page shows the registrant's telephone number or
+  postal code; the register's e-mail is never read, never delivered. Start and end of the row = first registration and expiry date.
+  Built: OMVIC (Ontario motor dealers, 7,865). Scouted and open: AMVIC, VSA, HCRA, ESA, RHRA, TICO, BAO (`coord/source_registry.csv`).
+- **Before an engine that has not run for a day is dispatched, one request to its source is made from here.** The registry lookup was
+  started at 07:56Z on an address that had been retired; a run cannot be stopped from here, so it asks a dead address until 13:20Z.
