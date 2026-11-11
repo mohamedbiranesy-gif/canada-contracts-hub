@@ -438,6 +438,44 @@ def cmd_merge(a):
                     pass
     rows, dets, by, n_fresh, hosts = [], [], collections.Counter(), 0, collections.Counter()
     tied = {k: s for k, s in sites.items() if s.get("by")}
+    # Second way to a registrant's site, for the entries that name none (two in three): a site whose own page the contact reader has read
+    # prints the registrant's telephone number — the only site on file that does — and is the registrant's by its name or its postal code.
+    try:
+        import biz_licences as BL
+        import state_io
+        cpath = os.path.join(INC, "claude_org_contacts.jsonl.gz")
+        state_io.ensure(cpath)
+        by_phone = collections.defaultdict(list)
+        with gzip.open(cpath, "rt", encoding="utf-8", errors="replace") as fh:
+            for l in fh:
+                try:
+                    d = json.loads(l)
+                except ValueError:
+                    continue
+                dg = re.sub(r"\D", "", d.get("phone") or "")[-10:]
+                if len(dg) == 10 and d.get("website"):
+                    by_phone[dg].append(d)
+        for auth in AUTH:
+            for rid, p in profiles_on_file(auth).items():
+                key = "%s:%s" % (auth, rid)
+                if key in tied or p.get("status_http") != 200 or len(p.get("phone") or "") != 10 or not re.search(r"corporation|partnership|limited|inc", p.get("legal_type") or "", re.I):
+                    continue
+                cands = by_phone.get(p["phone"]) or []
+                doms = {C.registrable(site_host(d["website"]) or "") for d in cands} - {""}
+                if len(doms) != 1:
+                    by["telephone on several sites on file: not tied"] += len(doms) > 1
+                    continue
+                d = cands[0]
+                same_pc = postal_of(p.get("address")) is not None and postal_of(p.get("address")) == postal_of(d.get("address"))
+                same_name = any(nm and BL.names_agree(nm, d.get("name") or "") for nm in (p.get("business_name"), p.get("legal_name")))
+                if not (same_pc or same_name):
+                    by["telephone on one site on file, neither the name nor the postal code agrees: not tied"] += 1
+                    continue
+                tied[key] = {"key": key, "host": site_host(d["website"]), "final": d.get("phone_url") or d["website"], "date": d.get("date") or "",
+                             "by": "its telephone number, which that site alone prints among the sites on file (%s), and its %s" % (d.get("phone"), "postal code" if same_pc else "name"),
+                             "quote": ("%s %s" % (d.get("phone") or "", (d.get("address_quote") or "")[:220])).strip(), "_phone_join": True}
+    except Exception as e:
+        msg.append("telephone join not done (%s)" % str(e)[:80])
     for s in tied.values():
         hosts[s["host"]] += 1
     for auth in AUTH:
@@ -455,7 +493,10 @@ def cmd_merge(a):
                 if od is not None and any((od.get(k) or "") != (det.get(k) or "") for k in ("start", "end", "title", "reference", "member_address_quote")):
                     dets.append(det); n_fresh += 1  # the register changed (a renewal moved the expiry date): a fresh details record, the lead row stays
                 continue
-            have.add(row["buyer_key"]); rows.append(row); dets.append(det); by["new lead, site tied by " + s["by"]] += 1
+            if s.get("_phone_join"):
+                det["site_named_by"] = "the telephone number: the register's entry and the site's own page %s (read %s) print the same one" % (s.get("final") or "", s.get("date") or "")
+            have.add(row["buyer_key"]); rows.append(row); dets.append(det)
+            by["new lead, site tied by " + ("the telephone join" if s.get("_phone_join") else s["by"])] += 1
     if rows:
         with gzip.open(os.path.join(SHARDS, "leads_reg_%s.gz" % stamp), "wt", encoding="utf-8", newline="") as f:
             w = csv.DictWriter(f, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
