@@ -1,3 +1,12 @@
+soundimpressions.ca	none	soundimpressions.ca	v=DMARC1; p=none; sp=none	100	no	hard_fail	v=spf1 +include:_spf.google.com -all	2026-11-10	none	none	none
+soundingstone.com	reject	soundingstone.com	v=DMARC1; p=reject; rua=mailto:postmaster@soundingstone.com, mailto:dmarc@soundingstone.com; pct=100; adkim=s; aspf=s	100	yes	soft_fail	v=spf1 include:zohomail.com ip4:23.227.61.129 ip4:23.227.61.130 include:zoho.com include:shops.shopify.com ~all	2026-11-10	none	none	none
+soundinsurance.ca	quarantine	soundinsurance.ca	v=DMARC1; p=quarantine; rua=mailto:aaron@soundinsurance.ca; fo=1; adkim=r; aspf=r	100	yes	hard_fail	v=spf1 ip4:167.89.105.212 ip4:192.254.119.187 include:spf.protection.outlook.com include:mail.triggre.com -all	2026-11-06	none	none	none
+soundmindpsych.com	quarantine	soundmindpsych.com	v=DMARC1; p=quarantine; pct=100	100	no	hard_fail	v=spf1 include:_spf.hushmail.com -all	2026-11-10	none	none	none
+soundofharmony.ca	no_record		no DMARC record at _dmarc.soundofharmony.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
+soundofhealing.ca	no_record		no DMARC record at _dmarc.soundofhealing.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
+soundofmusic.ca	no_record		no DMARC record at _dmarc.soundofmusic.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.easywp.com ~all	2026-11-06	none	none	none
+soundofmusicacademy.com	none	soundofmusicacademy.com	v=DMARC1; p=none; rua=mailto:4a98516b4d0742349beaf593ff82438f@dmarc-reports.cloudflare.net	100	yes	soft_fail	v=spf1 include:zohocloud.ca ~all	2026-11-10	none	none	none
+soundpark.ca	no_record		no DMARC record at _dmarc.soundpark.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.hostedemail.com include:hover.com ~all	2026-11-10	none	none	none
 soundpartnermarketing.com	no_record		no DMARC record at _dmarc.soundpartnermarketing.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 soundplumbing.ca	no_record		no DMARC record at _dmarc.soundplumbing.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 soundreaders.ca	no_record		no DMARC record at _dmarc.soundreaders.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
@@ -6985,7 +6994,7 @@ sunwire.ca	none	sunwire.ca	v=DMARC1; p=none; rua=mailto:dmarc@sunwire.ca	100	yes
 sunworks.ca	none	sunworks.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 sunworksfarm.com	none	sunworksfarm.com	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 suny.edu	none	suny.edu	v=DMARC1; p=none; rua=mailto:dmarcmaster@suny.edu;	100	yes	hard_fail	v=spf1 ip4:54.158.20.225 ip4:136.223.204.96/31 include:spf.protection.outlook.com ip4:129.33.243.30 ip4:3.133.112.82 ip4:142.0.187.42 include:spf.amazonses.suny.edu include:spf.blackboard.suny.edu include:spf.mailgun1.suny.edu include:spf.mailgun2.suny.edu include:spf.onbmc1.suny.edu include:spf.onb	2026-11-06	none	none	none
-sunyacircle.com	error		LifetimeTimeout			soft_fail	v=spf1 ip4:70.38.97.25 include:spf.websitehostserver.net ip4:184.107.11.4 ip4:184.107.11.4 +a +mx ~all	2026-11-11	none	none	none
+sunyacircle.com	no_record		no DMARC record at _dmarc.sunyacircle.com; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:70.38.97.25 include:spf.websitehostserver.net ip4:184.107.11.4 ip4:184.107.11.4 +a +mx ~all	2026-11-11	none	none	none
 sunypoly.edu	quarantine	sunypoly.edu	v=DMARC1;p=quarantine;rua=mailto:dmarc-reports@sunypoly.edu;fo=1;	100	yes	error		2026-11-06	none	none	none
 sunzapper.ca	reject	sunzapper.ca	v=DMARC1; p=reject; rua=mailto:dmarc_rua@onsecureserver.net; adkim=r; aspf=r;	100	yes	soft_fail	v=spf1 include:dc-aa8e722993._spfm.sunzapper.ca ~all	2026-11-10	none	none	none
 suomikoti.ca	quarantine	suomikoti.ca	v=DMARC1; pct=100; p=quarantine	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com ip4:108.174.24.2 ip4:203.31.36.152 -all	2026-11-06	none	none	none
@@ -36034,7 +36043,7 @@ wildbody.ca	none	wildbody.ca	v=DMARC1; p=none; rua=mailto:dmarc_kjb@kajabi.com; 
 wildbrain.com	reject	wildbrain.com	v=DMARC1; p=reject; rua=mailto:yzwkkfxo@ag.ca.dmarcian.com; ruf=mailto:yzwkkfxo@fr.ca.dmarcian.com; pct=100;	100	yes	error		2026-11-06	none	none	none
 wildbros.ca	no_record		no DMARC record at _dmarc.wildbros.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-06	none	none	none
 wildcardfitness.ca	no_record		no DMARC record at _dmarc.wildcardfitness.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
-wildcardstables.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+wildcardstables.com	error		no nameservers			error		2026-11-11	none	none	none
 wildcatheli.com	no_record		no DMARC record at _dmarc.wildcatheli.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 wildcatlandscaping.com	none	wildcatlandscaping.com	v=DMARC1;p=none;sp=none;pct=100;rua=mailto:reports@dmarc.lnm-projects.com;ruf=mailto:reports@dmarc.lnm-projects.com;ri=86400;aspf=r;adkim=r;fo=1	100	yes	soft_fail	v=spf1 include:relayhost1.linknowmedia.cloud include:relayhost2.linknowmedia.cloud +a +mx +ip4:208.94.107.114 ~all	2026-11-10	none	none	none
 wildcatsbaseball.ca	none	wildcatsbaseball.ca	v=DMARC1; p=none	100	no	no_record		2026-11-06	none	none	none
