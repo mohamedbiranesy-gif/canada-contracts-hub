@@ -2,8 +2,12 @@
 """Canada's Business Registries (ISED's multi-jurisdictional registry search, https://ised-isde.canada.ca/cbr-rec/en/search) → the
 registry facts of each vendor (and corporation-type buyer): Business Number, legal name as registered, registry id, jurisdiction,
 entity type, status, incorporation date, registered-office city / province, alternate names. The service is a public federal search
-with no login or CAPTCHA; its own front end calls GET https://ised-isde.canada.ca/cbr/srch/api/v3/search?fq=keyword:{name}&lang=en&
-queryaction=fieldquery&sortfield=score&sortorder=desc. One request per second, identified user agent, every answer cached.
+with no login or CAPTCHA; its own front end calls GET https://ised-isde.canada.ca/cbr/srch/api/v1/search?q={name}&lang=en. One
+request per second, identified user agent, every answer cached.
+2026-11-11: the service was rebuilt between 2026-11-09 and 2026-11-11 — /api/v3/search (fq=keyword:{name}) answers 404, the new front end
+(config.js: SEARCH_API_URL) calls /api/v1/search?q=. Same documents (Company_Name, BN, Juri_ID, Registry_Source, Reg_office_*, XP_TYPE,
+hierarchy). The new front end carries the code of a Cloudflare Turnstile check with an empty site key: no check is shown and the search
+answers a plain request. The day a key is set the search will refuse us, the lookup records `blocked` and stops (rule 6).
 
 Match rule (evidence or nothing): the registered name (or an alternate name) must equal the vendor's name after normalisation
 (accents, punctuation, legal-form words); when several registries return the same name, the one whose registered-office province
@@ -19,7 +23,7 @@ import registry_names as RN  # noqa: E402  (the name a buyer is looked up under)
 
 csv.field_size_limit(1 << 30)
 UA = "canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)"
-API = "https://ised-isde.canada.ca/cbr/srch/api/v3/search"
+API = "https://ised-isde.canada.ca/cbr/srch/api/v1/search"
 UI = "https://ised-isde.canada.ca/cbr-rec/en/search?q="
 STATE = os.path.expanduser("~/cch-crawler-state")
 RESUME = os.path.join(STATE, "registry_lookup.jsonl")
@@ -70,8 +74,7 @@ def prov_of(*texts):
 
 
 def search(name):
-    q = "keyword:%7B" + urllib.parse.quote(name, safe="") + "%7D"
-    url = "%s?fq=%s&lang=en&queryaction=fieldquery&sortfield=score&sortorder=desc" % (API, q)
+    url = "%s?q=%s&lang=en" % (API, urllib.parse.quote(name, safe=""))
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -180,7 +183,12 @@ def main():
     # for the name it was looked up under; under a new name it is looked up again and the new answer replaces the old one.
     _nm = lambda t: re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", t or "").encode("ascii", "ignore").decode().lower()).strip()
     n_renamed = sum(1 for t in tasks if (t[1], t[2]) in done and _nm(done[(t[1], t[2])].get("name")) != _nm(t[3]))
-    tasks = [t for t in tasks if (t[1], t[2]) not in done or _nm(done[(t[1], t[2])].get("name")) != _nm(t[3])]
+    # an answer that was no answer (the service did not reply, or replied with an error) is asked again: 2026-11-11, a run started before the
+    # service's new address was known recorded "error_http_404" for every name it tried
+    _failed = lambda d: (d.get("status") or "").startswith(("error_http", "blocked"))
+    n_failed = sum(1 for t in tasks if (t[1], t[2]) in done and _failed(done[(t[1], t[2])]))
+    tasks = [t for t in tasks if (t[1], t[2]) not in done or _nm(done[(t[1], t[2])].get("name")) != _nm(t[3]) or _failed(done[(t[1], t[2])])]
+    print("asked before without an answer (service error), to ask again: %d" % n_failed, flush=True)
     print("looked up before under another name, to look up again: %d" % n_renamed, flush=True)
     if a.shard:
         k_, n_ = int(a.shard.split("/")[0]), int(a.shard.split("/")[1])
@@ -206,9 +214,14 @@ def main():
             w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore"); w.writeheader(); w.writerows(sorted(rows, key=lambda d: (d["kind"], d["key"])))
         os.replace(tmp, out)
         print(time.strftime("%H:%M"), "wrote", out, len(rows), dict(stats), flush=True)
+    errs = 0
     for i, (pr, kind, key, name, prov) in enumerate(tasks):
         t0 = time.time()
         st, data, url = search(name[:170])
+        errs = errs + 1 if (st != 200 or data is None) and st not in (401, 403, 429) else 0
+        if errs >= 25:  # the service is down or has moved: 25 names in a row without an answer. Nothing more is asked (and nothing recorded for this name)
+            print("no answer from the service for 25 names in a row (last: HTTP %s): stopping" % st, flush=True)
+            break
         row = {"kind": kind, "key": key, "name": name, "api_url": url, "ui_url": UI + urllib.parse.quote(name[:170], safe=""), "retrieved_date": TODAY, "status": "", "candidates": ""}
         if st in (401, 403, 429):
             row["status"] = "blocked"
