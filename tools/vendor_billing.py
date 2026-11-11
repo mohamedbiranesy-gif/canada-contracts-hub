@@ -32,7 +32,7 @@ import ap_crawler as C
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIR = os.path.join(ROOT, "data/incoming/claude/vendor_billing")
 TODAY = datetime.date.today().isoformat()
-V = 3  # 2 (2026-11-11): what happens when a bill is not paid, the currency of the prices, the ways of paying; amounts parsed. 3: the site's own title and description of what the vendor sells
+V = 4  # 2 (2026-11-11): what happens when a bill is not paid, the currency of the prices, the ways of paying; amounts parsed. 3: the site's own title and description of what the vendor sells 4 (2026-11-11): the terms page is always among the pages read; how the invoice arrives, the tax rule and the vendor's own tax number are kept
 
 NUM = r"\d{1,3}(?:[ ,. ]\d{3})*(?:[.,]\d{1,2})?"
 MONEY = r"(?:(?:CA|US|CAD|USD|C)?\s?\$\s?%s|%s\s?\$(?:\s?(?:CAD|USD|CA|US)\b)?|%s\s?(?:CAD|USD)\b)" % (NUM, NUM, NUM)
@@ -84,6 +84,26 @@ EXTRA = [
     ("paymethod", re.compile(r"\b(?:we\s+accept|accepted\s+(?:payment\s+)?methods?|payment\s+(?:methods?|options?)|modes?\s+de\s+paiement|payable\s+by|pay(?:ments?)?\s+(?:can\s+be\s+made\s+)?by|nous\s+acceptons)\b[^.!?|•]{0,90}?"
                              r"\b(?:credit\s+cards?|visa|mastercard|interac|e-?transfers?|cheques?|checks?|pre-?authori[sz]ed|paypal|cartes?\s+de\s+cr[ée]dit|virements?|ch[èe]ques?|pr[ée]l[èe]vements?)\b", re.I)),
 ]
+# version 4: three more lines of a bill, each in the vendor's own words
+#   delivery — how the invoice reaches the customer ("we'll send you an email with a copy of the invoice", "votre facture vous sera envoyée par courriel"); kept only
+#              from a terms / billing / help page: on a product page the same words describe what an invoicing product does for its users
+#   tax      — whether the printed prices carry tax ("prices do not include applicable taxes", "taxes en sus")
+#   taxno    — the vendor's own GST/HST or QST registration number as it prints it
+_INV = r"(?:invoices?|bills?|billing\s+statements?|statements?|receipts?|factures?|relev[ée]s?|re[çc]us?)"
+_SENT = r"(?:sent|e-?mailed|mailed|delivered|issued|generated|available|posted|envoy[ée]e?s?|transmise?s?|disponibles?|[ée]mise?s?|achemin[ée]e?s?)"
+EXTRA += [
+    ("delivery", re.compile(r"\b(?:your|renewal|monthly|annual|all|our|an|the|les|vos|votre|une|la)\s+(?:\w+\s+)?" + _INV + r"\b[^.!?|•]{0,70}?\b(?:will\s+be|are|is|sont|seront|est|sera|vous\s+sera|vous\s+seront)\s+(?:automatically\s+)?" + _SENT + r"\b"
+                            r"|\b(?:we|nous)(?:\s+will|['’]ll|\s+vous)?\s+(?:automatically\s+)?(?:send|e-?mail|issue|generate|envoyons|transmettons|[ée]mettons|ferons\s+parvenir)\s+(?:you\s+)?(?:an?\s+|your\s+|the\s+|une\s+|votre\s+|la\s+)?(?:\w+\s+){0,3}?" + _INV + r"\b"
+                            r"|\b[A-Z][A-Za-z0-9&.-]{1,24}\s+will\s+(?:automatically\s+)?(?:send|e-?mail|issue|generate)\s+(?:you\s+)?(?:an?\s+|your\s+|the\s+)?(?:\w+\s+){0,3}?" + _INV + r"\b"
+                            r"|\byou\s+will\s+receive\s+(?:an?|your|the)\s+(?:\w+\s+){0,3}?" + _INV + r"\b|\bvous\s+recevrez\s+(?:une|votre|la)\s+(?:\w+\s+){0,3}?factures?\b", re.I)),
+    ("tax", re.compile(r"\b(?:prices?|pricing|rates?|fees?|amounts?|charges?|tarifs?|prix|montants?|frais|payments?|paiements?)\b[^.!?|•]{0,80}?\b(?:(?:do(?:es)?\s+not|don['’]t)\s+include|exclud\w+|exclusive\s+of|are\s+subject\s+to|"
+                       r"ne\s+comprennent\s+pas|n['’]incluent\s+pas|excluant|hors|avant|plus)\s+(?:all\s+|any\s+)?(?:applicable\s+|les\s+)?(?:sales\s+)?(?:tax(?:es)?|GST|HST|PST|QST|TPS|TVQ|TVH)\b"
+                       r"|\b(?:applicable\s+)?(?:tax(?:es)?|GST(?:\s?/\s?HST)?|HST|TPS(?:\s?/\s?TVQ)?|TVQ)\b[^.!?|•]{0,40}?\b(?:(?:are|is|will\s+be)\s+(?:extra|additional|added|not\s+included|charged\s+in\s+addition)|en\s+sus|s['’]ajoutent|seront\s+ajout[ée]es|"
+                       r"(?:are|is)\s+included|sont\s+incluses?|non\s+incluses?)\b", re.I)),
+    ("taxno", re.compile(r"\b(?:GST\s?/\s?HST|TPS\s?/\s?TVH|GST|HST|TPS|TVH|QST|TVQ)\b\s*(?:registration\s*)?(?:#|no\.?|n[o°]\.?|number|num[ée]ro)?\s*:?\s*#?\s*(\d{9}\s?(?:RT|TQ)\s?\d{4}|\d{10}\s?TQ\s?\d{4}|\d{9}(?!\d))", re.I)),
+]
+_TERMS_URL = re.compile(r"terms|conditions|modalit|faq|legal|agreement|entente|contrat|polic|politique|support|help|aide|tos\b|cgv|cgu|fine-print|billing-polic", re.I)
+_PRODUCT_URL = re.compile(r"feature|fonctionnalit|product|produit|solution|logiciel|software|/billing/?$|/facturation/?$", re.I)  # a product page about invoicing: what the product does for its users
 NO_RX = re.compile(r"(?:\bno|\bnot|\bnever|\bwithout|\bzero|\bsans|\baucune?|\bpas\s+de|\bni)\s+(?:\w+\s+)?$", re.I)  # "no monthly fees", "sans frais mensuels"
 RESIDUE = re.compile(r"[<>{}=]|onmouse|javascript:|\bfunction\s*\(|&[a-z]{2,6};")  # markup or script left in the text: not a sentence a reader saw
 PAGE_RX = [re.compile(p, re.I) for p in (
@@ -91,6 +111,7 @@ PAGE_RX = [re.compile(p, re.I) for p in (
     r"hosting|h[ée]bergement|membership|adh[ée]sion|devenir[-_ ]membre|become[-_ ]a[-_ ]member|\bjoin|\bfees?\b|\bfrais\b|cotisation|\bdues\b|\brates?\b|maintenance|care[-_ ]?plan|\bdomains?\b|\bdomaines?\b|e-?mail|courriel",
     r"\bterms|conditions|modalit|billing|facturation|\bfaq|\blegal|agreement|entente|contrat")]
 NOT_PAGE = re.compile(r"login|log-in|signin|sign-in|connexion|cart|panier|checkout|blog|news|nouvelles|actualit|career|carri[èe]re|emploi|privacy|confidentialit|cookie|accessib|\.pdf(?:$|\?)|/tag/|/category/|/author/", re.I)
+_SIDE_PRODUCT = re.compile(r"privacy|protection|whois|ssl|certificat|backup|sauvegarde|marketing|auction|ench[èe]re|transfer|transfert|club|affiliat|resell|revend|partner|partenaire|green|vert", re.I)
 OWN_SUB = re.compile(r"^(?:www\d?|shop|store|boutique|billing|my|mon|portal|portail|clients?|secure|account|compte|hosting|support|help|aide|docs?|kb|info|site)$")
 
 
@@ -174,6 +195,8 @@ def statements(text, url, cap=2):
             if seen[cls] >= 1:
                 break
             q = quote_of(text, m.start(), m.end())
+            if cls == "delivery" and (not _TERMS_URL.search(urllib.parse.urlparse(url).path) or _PRODUCT_URL.search(urllib.parse.urlparse(url).path)):
+                break
             if len(q) >= 20 and not RESIDUE.search(q):
                 seen[cls] += 1
                 out.append({"c": cls, "q": q, "m": re.sub(r"\s+", " ", m.group(0))[:120], "u": url})
@@ -222,20 +245,37 @@ def read_vendor(dom, start="", extra=()):
         for pr, rx in enumerate(PAGE_RX):
             if rx.search(hay):
                 seen.add(u.rstrip("/"))
-                cand.append((pr, len(u), u))
+                cand.append((pr, 1 if _SIDE_PRODUCT.search(urllib.parse.urlparse(u).path) else 0, len(u), u))
                 break
-    todo = list(extra) + [u for _, _, u in sorted(cand)[:5]]
-    for u in todo[:6]:
+    # version 4: four pages of prices and plans (a side product last), then two pages of terms — the terms carry how the bill arrives, how it is
+    # paid and what happens when it is not (version 3 took the five shortest addresses, and a host's terms page was never among them)
+    todo = list(extra) + [t[-1] for t in sorted(c for c in cand if c[0] < 2)[:4]] + [t[-1] for t in sorted(c for c in cand if c[0] == 2)[:2]]
+    terms_urls, deeper = {t[-1] for t in cand if t[0] == 2}, []
+    for u in todo[:7]:
         st2, raw2, f2 = page(u)
         if st2 != "ok":
             continue
         rec["pages"].append(f2)
         have = {(s["c"], s["q"]) for s in rec["stmts"]}
         rec["stmts"] += [s for s in statements(text_of(raw2), f2) if (s["c"], s["q"]) not in have]
-    # at most three statements a class: the pages named as prices come first after the home page
+        if u in terms_urls:  # a page called "legal" is often a list of documents: the terms themselves are one link further ("/legal" -> "/legal/terms-of-service")
+            for link, label in C.links(raw2, f2):
+                v = link.split("#")[0]
+                if v.rstrip("/") not in seen and own_link(v, fhost) and not C.SKIP_EXT.search(urllib.parse.urlparse(v).path) and not NOT_PAGE.search(v) and \
+                        re.search(r"terms|conditions|service[-_ ]agreement|\btos\b|cgv|cgu|modalit|billing|facturation", urllib.parse.urlparse(v).path + " " + (label or ""), re.I):
+                    seen.add(v.rstrip("/"))
+                    deeper.append((len(v), v))
+    if deeper and not any(s["c"] in ("unpaid", "delivery", "paymethod") for s in rec["stmts"]):
+        st2, raw2, f2 = page(sorted(deeper)[0][1])
+        if st2 == "ok":
+            rec["pages"].append(f2)
+            have = {(s["c"], s["q"]) for s in rec["stmts"]}
+            rec["stmts"] += [s for s in statements(text_of(raw2), f2) if (s["c"], s["q"]) not in have]
+    # at most eight statements a class, two a page (statements() keeps two a class a page): version 3 kept the first three, which on a host with an e-mail
+    # page read first were all prices of mailboxes, and its hosting prices were never on file
     kept, n = [], collections.Counter()
     for s in rec["stmts"]:
-        if n[s["c"]] < 3:
+        if n[s["c"]] < 8:
             n[s["c"]] += 1
             kept.append(s)
     rec["stmts"] = kept
@@ -320,6 +360,8 @@ _MAIL_PRICE = re.compile(r"mailbox|bo[iî]tes?\s+(?:aux\s+lettres|courriel|de\s+
 _MAIL_PATH = re.compile(r"/(?:[a-z-]*e-?mail[a-z-]*|[a-z-]*courriels?[a-z-]*|webmail|inbound-filtering|spam[a-z-]*)(?:[/.?]|$)", re.I)
 _TELECOM = re.compile(r"set-?top|receiver|\brental\b|\bONU\b|\bmodem\b|\brouter\b|phone\s+number|home\s+phone|long\s+distance|\bchannels?\b|\bTiVo\b|\bTV\b|t[ée]l[ée]vision|internet\s+plans?|"
                       r"high[- ]speed|haute\s+vitesse|\bfibre\b|\bfiber\b|\bDSL\b|wireless|sans[- ]fil|\bmobile\b|cellular|cellulaire|\bMbps\b|\bGbps\b|unlimited\s+(?:data|internet|calling)", re.I)
+_PRICE_CUE = re.compile(r"\b(?:start(?:s|ing)?\s+(?:at|from)|from|as\s+low\s+as|as\s+little\s+as|for\s+(?:only|just)|only|just|for|à\s+partir\s+de|d[èe]s|pour\s+seulement|seulement|[àa]\s+compter\s+de|fee\s+of|price\s+of|rate\s+of|"
+                        r"tarif\s+de|prix\s+de|au\s+co[ûu]t\s+de)\s+(?:only\s+|just\s+)?(?:(?:C|CA|US|CAD|USD)\s?)?\$?\s?\d", re.I)
 _TELECOM_PATH = re.compile(r"/(?:tv|television|phone|telephone|telephonie|mobile|mobilite|internet|fibre|fibreinternet|fiber|cable|wireless|residential|residentiel|home|packages|rural|voip)(?:[/.?-]|$)", re.I)
 
 
@@ -339,6 +381,8 @@ def lowest(rec, service=""):
             continue
         if _ADDON.search(q):
             continue  # "$5 / month per license", "+$15 per additional mailbox", "domain privacy $9.99/yr": the price of an extra, not of the service
+        if len(q.split()) > 14 and not _PRICE_CUE.search(q):
+            continue  # a price inside a long sentence (a FAQ answer, a clause of the terms, an article) with no "from", "starting at", "for only" before it
         if service and (_TELECOM.search(q) or _TELECOM_PATH.search(u)):
             continue
         if service in ("dns", "web") and (_MAIL_PRICE.search(q) or _MAIL_PATH.search(u)):

@@ -4668,7 +4668,8 @@ def bill_profile(x, ld, cls):
             elif not out.get("bill_amount_indicative") and dns and _VB.lowest(rec):
                 out["bill_amount_basis"] = ("not taken: the prices read on the vendor's site (%s) are for another of its products than the one seen in the organisation's DNS records "
                                             "(a mailbox price for a zone on its name servers, or a telephone, television or Internet-access price)" % vd)
-            for col, k in (("bill_currency_as_published", "currency"), ("bill_payment_method_as_published", "paymethod"), ("service_stops_if_unpaid", "unpaid")):
+            for col, k in (("bill_currency_as_published", "currency"), ("bill_payment_method_as_published", "paymethod"), ("service_stops_if_unpaid", "unpaid"),
+                           ("bill_delivery_as_published", "delivery"), ("bill_tax_rule_as_published", "tax")):  # the last two: reader version 4 (2026-11-11)
                 st_ = _VB.extra_of(rec, k)
                 if st_ and not out.get(col):
                     out[col] = "“%s” (%s, read %s)" % (st_["q"][:280], st_["u"], rec.get("date"))
@@ -4939,6 +4940,17 @@ for _ri, x in enumerate(rows):
     for _c, _v in bill_profile(x, _ldb, x["recurring_billing"]).items():
         if _v:
             x[_c] = _v
+    if not str(x.get("vendor_bn9") or "").strip() and not (x.get("vendor") or "").startswith("inferred"):
+        # the vendor's own GST/HST registration number as its site prints it (vendor reader, version 4): the first nine digits are its Business Number.
+        # A number the vendor prints is published, and the cell says where; a QST number (ten digits) is not a Business Number and is left alone.
+        _vd9 = registrable(host_of(x.get("vendor_website") or "") or "")
+        _st9 = _VB.extra_of(VBILL.get(_vd9), "taxno") if _vd9 else None
+        _m9 = re.search(r"\b(?:GST|HST|TPS|TVH)\b[^0-9]{0,40}(\d{9})(?!\d)(\s?RT\s?\d{4})?", (_st9 or {}).get("m") or "", re.I)
+        if _m9 and len(set(_m9.group(1))) > 2 and _m9.group(1) not in ("123456789", "987654321"):
+            x["vendor_bn9"] = "%s (the vendor's GST/HST number as its own site prints it: “%s”, %s, read %s)" % (_m9.group(1), _st9["q"][:140], _st9["u"], (VBILL.get(_vd9) or {}).get("date"))
+            x["vendor_gst_hst_derived"] = ("%sRT0001 (as printed by the vendor)" % _m9.group(1)) if _m9.group(2) and re.sub(r"\s", "", _m9.group(2)).upper() == "RT0001" else \
+                ("%sRT0001 (derived: BN9 + RT0001; the vendor prints its GST/HST number without the account suffix)" % _m9.group(1))
+            n_billcol["vendor tax number from the GST/HST number the vendor's own site prints"] += 1
     if x.get("email"):
         n_bill[(x["recurring_billing"], t)] += 1
         for _c in BILL_COLS:
@@ -5042,6 +5054,19 @@ for _ri, x in enumerate(rows):
             for lab, rx in EXTRA_SENS:
                 if rx.search(name_site):
                     x["sensitivity_tag"] = "high-sensitivity buyer (%s): suppress from outreach unless reviewed (tag from the organisation's published name / domain)" % lab; npk["sensitivity_extra"] += 1; break
+        # 2026-11-11 (a row of the owner's test set: a named professional's own site as the buyer): a buyer that carries one person's name and nothing
+        # else — a given name, then one word that few organisations' names carry, no legal form anywhere on the row — may be a person, not an
+        # organisation. It is tagged for review like the other sensitive kinds (so it is not "ship ready" and is not drawn into test sets); the
+        # row stays. Contract records are left alone: their buyers are organisations by the record itself.
+        if (x.get("sensitivity_tag") or "").startswith("none") and t not in ("A", "B", "C", "L", "F"):
+            _pb = (x.get("buyer") or "").strip()
+            _pt = re.findall(r"[A-Za-zÀ-ÿ'’.-]+", _pb)
+            if len(_pt) == 2 and len(_pb) <= 34 and not re.search(r"\d|[|/@&]", _pb) and _pt[0][:1].isupper() and _pt[1][:1].isupper():
+                _f0 = re.split(r"[-.]", unicodedata.normalize("NFKD", _pt[0]).encode("ascii", "ignore").decode().lower())[0]
+                _l0 = norm(_pt[1])
+                if _f0 in _FIRST and _l0 and _l0 not in WORD_COMMON and _l0 not in GENERIC_ORG and not _LEGAL_PERSON.search(_pb + " " + (x.get("buyer_legal_name_as_published") or "").split(" (")[0]):
+                    x["sensitivity_tag"] = "high-sensitivity buyer (one person's name: the site may be a person's own and not an organisation's): suppress from outreach unless reviewed (tag from the buyer's name)"
+                    npk["sensitivity_one_persons_name"] += 1
         x["sensitivity_flag"] = "yes" if (x.get("sensitivity_tag") or "").startswith("high") else "no"
         # confidence columns (H4.2 / T4)
         m = re.search(r"\b(high|medium|low) confidence\b", (x.get("contract_status") or "") + " " + (x.get("relationship_detail") or ""), re.I)

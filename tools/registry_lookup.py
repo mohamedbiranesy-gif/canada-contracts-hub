@@ -206,7 +206,9 @@ def main():
             if not pv:
                 continue
             name = dm.group(1).replace("-", " ")
-        tasks.append(((pr if n_rows < 20 else 0.5) - min(0.49, n_rows / 100000.0), "vendor", v, name, pv))
+        # 2026-11-11: a vendor that carries 20 rows and more goes before everything else, the most rows first (it stood at 0.5, behind every
+        # Gold row's vendor and buyer: a run of 80 lookups from the head of the queue asked none of the twenty vendors that carry 37,000 rows)
+        tasks.append(((pr if n_rows < 20 else -1.0) - min(0.49, n_rows / 100000.0), "vendor", v, name, pv))
     tasks.sort(key=lambda t: t[0])
     # a buyer's record is kept under the row's key, and a row's name changes (a lead first named after a line of its page, later after its own
     # home page): 2026-11-10, "VILLE DE QUÉBEC" was still the registered name of a row named "LES YMCA DU QUÉBEC" by then. A key is done only
