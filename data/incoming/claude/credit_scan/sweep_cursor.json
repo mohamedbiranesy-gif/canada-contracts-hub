@@ -18,7 +18,7 @@
  },
  "complete": {},
  "ct": {
-  "asked": 19403344,
+  "asked": 23716747,
   "lists": {
    "ct_list_20261111T060239.txt.gz": {
     "asked": 657286,
@@ -71,12 +71,26 @@
      "7": 18746074
     },
     "stores_found": 509535
+   },
+   "ct_list_20261111T094422.txt.gz": {
+    "asked": 4313403,
+    "complete": {
+     "0": true,
+     "1": true
+    },
+    "no_answer": 10655,
+    "ns_hits": 10041,
+    "pos": {
+     "0": 17261003,
+     "1": 17261003
+    },
+    "stores_found": 118470
    }
   },
-  "no_answer": 18961,
-  "ns_hits": 47783,
-  "stores_found": 557286,
-  "updated": "2026-11-11T16:18Z"
+  "no_answer": 29616,
+  "ns_hits": 57824,
+  "stores_found": 675756,
+  "updated": "2026-11-11T19:07Z"
  },
  "hosts": {
   "asked": 6151836,
