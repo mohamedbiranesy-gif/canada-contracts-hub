@@ -279,7 +279,7 @@ VENDORS = {
                             "(https://webrezpro.com/about-us/, read 2026-11-11); a property management subscription (\"WebRezPro doesn’t charge any commission or transaction fees for "
                             "reservations generated from its website booking engine\", https://webrezpro.com/price/). The master services agreement is a PDF its robots.txt keeps from "
                             "the reader: kept for properties in Canada and the United States. A property that links its own booking engine secure.webrez.com/hotel/<id> is a subscriber"),
-    # vetted 2026-11-11 07:20Z from the scan's own counts of EMBEDDED services (445,303 home pages; vetting sheets of the probe workflow, run 42972522675).
+    # vetted 2026-11-11 07:15Z from the scan's own counts of EMBEDDED services (445,303 home pages; vetting sheets of the probe workflow, run 42972522675).
     # Each is seen as a script or image the organisation's own page loads from the vendor's servers.
     "commerce7": dict(name="Commerce7", legal="FS Operations Canada Ltd. (DBA Commerce7)", kind="asset",
                       hq_url="https://www.commerce7.com/contact-us/",

@@ -1225,7 +1225,7 @@ script (left undecoded, decision of 2026-11-10). What was ours:
 had given nothing now give a confirmed-quality mailbox — about 15,000 rows from sites already read, and the same share more of every
 site read from now on. Sites that gave nothing before are read once more (mark `r3`), after every site never read.
 
-## 2026-11-11 07:25Z — four more services vetted (embedded ones this time); what was read and left out; certificate subjects as legal names
+## 2026-11-11 07:15Z — four more services vetted (embedded ones this time); what was read and left out; certificate subjects as legal names
 **Vetted from the scan's counts of what home pages LOAD** (445,303 home pages; vetting sheets of probe run 42972522675, each quote in
 tools/tech_relationships.py): **Commerce7** (cdn.commerce7.com on 1,569 sites — its terms name two companies: the Canadian one, FS
 Operations Canada Ltd., "if Client is located outside the United States"; mailing address Toronto; kept for wineries in Canada, the
