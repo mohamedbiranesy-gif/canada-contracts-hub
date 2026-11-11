@@ -392,6 +392,7 @@ BILLING["shopify"].update(
                     "(https://www.shopify.com/charge)"),
         unpaid=("“If we are unable to successfully process payment of Fees using an Authorized Payment Method within 28 days of our initial attempt, we may suspend and revoke access to "
                 "your Account and the Services.” … “You may not be able to access your Account or your storefront during any period of suspension.” (terms, section 5)")))
+BILLING["jane"].update(amount="from US$59 a month", amount_basis="Jane's price page, plan “Balance”: “USD $59 / month”; plan “Practice”: “USD $79 / month”; plan “Thrive”: “USD $99 / month” (https://jane.app/pricing, read 2026-11-11, prices as shown to the reader); the clinic's own plan is not published")
 BILLING["checkfront"].update(amount="$99 a month + 3 % of online bookings", amount_basis="“$99 monthly subscription fee to the operator, plus a 3% online booking fee” (https://www.checkfront.com/support/faq/, read 2026-11-11)")
 BILLING["touchbistro"].update(amount="from $69 a month", amount_basis="“TouchBistro’s POS software starts at $69 per month” (https://www.touchbistro.com/, read 2026-11-11)")
 BILLING["commerce7"].update(amount="from US$59 a month", amount_basis="“USD $59/month” (https://www.commerce7.com/pricing/, read 2026-11-11)")

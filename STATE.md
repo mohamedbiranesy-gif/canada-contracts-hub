@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 13:22Z — published build 12:35Z = 265,999 rows, 258,757 with a mailbox; the owner set a new bar three times this morning (a relationship that is a fact; around it every field of an invoice: billing period, amount, parties, tax numbers; no lane leaned on); every row now says why its relationship is a fact, when and how much the vendor bills and what the bill carries; a reader of vendors' own price and terms pages (8,500 vendors read); the 100-row test set is a tool; build with the new columns dispatched 13:19Z)
+# STATE.md — Claude lane (updated 2026-11-11 13:21Z — published build 12:35Z = 265,999 rows, 258,757 with a mailbox; the owner set a new bar three times this morning (a relationship that is a fact; around it every field of an invoice: billing period, amount, parties, tax numbers; no lane leaned on); every row now says why its relationship is a fact, when and how much the vendor bills and what the bill carries; a reader of vendors' own price and terms pages (8,500 vendors read); the 100-row test set is a tool; build with the new columns dispatched 13:19Z)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -97,7 +97,7 @@ prints what blocks A per package and the next engine goes at the biggest blocker
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
 
-## 2026-11-11 13:22Z — the owner's bar changed three times in an hour; what a row must now carry; what was built and what is waiting
+## 2026-11-11 13:21Z — the owner's bar changed three times in an hour; what a row must now carry; what was built and what is waiting
 **Owner (06:24, 07:15, 07:48 EST), in order.** (1) "billed for something monthly … or every 3 months … systematically by the vendor";
 (2) that is "a subcategory": the gate is a relationship known "for a fact … something being where it is means that there's a relationship",
 and around it "the data that would go within the invoice … billing cadence … the fields that the Shopify invoice would have … how much

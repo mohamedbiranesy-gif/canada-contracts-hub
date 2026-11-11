@@ -117,7 +117,7 @@ def text_of(raw):
     t = re.sub(r"(?i)</?(?:p|div|li|ul|ol|td|tr|th|table|section|footer|header|nav|aside|h[1-6]|br|hr|form|button|option|label|dt|dd)\b[^>]*>", " | ", t)
     t = re.sub(r"(?s)<[^>]+>", " ", t)
     t = html.unescape(t)
-    t = re.sub(r"[ \t\r\f\v ]+", " ", t)
+    t = re.sub(r"\s+", " ", t)  # a line break inside a block is white space of the markup ("$59 / month" printed on three lines is one price)
     return re.sub(r"(?:\s*\|\s*)+", " | ", t)
 
 

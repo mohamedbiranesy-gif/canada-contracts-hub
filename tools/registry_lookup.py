@@ -198,7 +198,15 @@ def main():
                         seen.add("buyer:" + k)
                         tasks.append((pr + 10.9, "buyer", k, b, pv))
     for pr, n_rows, v, legal, pv in vend.values():
-        tasks.append(((pr if n_rows < 20 else 0.5) - min(0.49, n_rows / 100000.0), "vendor", v, legal or v, pv))
+        name = legal or v
+        dm = re.fullmatch(r"(?:www\.)?([a-z0-9-]{5,})\.(?:ca|com|net|org|qc\.ca|co|io|biz|info)", name.lower())
+        if dm and not legal:
+            # a vendor known only by its domain ("rapidenet.ca", 1,584 rows): the registry is asked for the name the domain spells; the match rule
+            # stays an exact name once legal-form words are set aside, in the vendor's own province
+            if not pv:
+                continue
+            name = dm.group(1).replace("-", " ")
+        tasks.append(((pr if n_rows < 20 else 0.5) - min(0.49, n_rows / 100000.0), "vendor", v, name, pv))
     tasks.sort(key=lambda t: t[0])
     # a buyer's record is kept under the row's key, and a row's name changes (a lead first named after a line of its page, later after its own
     # home page): 2026-11-10, "VILLE DE QUÉBEC" was still the registered name of a row named "LES YMCA DU QUÉBEC" by then. A key is done only
