@@ -1074,7 +1074,7 @@ also on a row that had the number from another source. On the sample build the s
 old file gave — some rightly (one number on three school service centres, a US tax number on a US university), some not (a provincial
 agency whose row carries another office's city): hence the two relaxations above.
 
-## 2026-11-11 03:40Z — whose address is it? A vendor's Canadian address must be printed on that vendor's own site (row audit of the leads on file)
+## 2026-11-11 02:45Z — whose address is it? A vendor's Canadian address must be printed on that vendor's own site (row audit of the leads on file)
 Found while reading the vendors of the DNS and credit leads before the next merge (which adds about 109,000 DNS leads): **the address that
 proves "vendor located in Canada" was taken from any host under the vendor's registrable domain.** On file because of it:
 - "Just Pure Health", Sherbrooke — a customer of Odoo on acie1.odoo.com — standing for **odoo.com** (Odoo is Belgian): 358 leads;
