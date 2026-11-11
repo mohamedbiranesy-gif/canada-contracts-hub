@@ -117,6 +117,7 @@ ex2.com
 exacthosting.com
 extremesurf.com
 ezp.net
+fairfld.com
 farouthost.com
 firmecreative.com
 flamingsoftinc.com
@@ -182,6 +183,7 @@ kpi-tech.ca
 kwic.com
 lapsmedia.com
 largnet.ca
+layer7.hosting
 lexi.net
 libeo.com
 liberatednetworks.com
@@ -203,6 +205,7 @@ marketingblendz.com
 mediashaker.com
 mediasuite.ca
 mediaweb.ca
+meprogweb.com
 microcom.cc
 microfix.ca
 mississauga.ca
