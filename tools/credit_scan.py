@@ -58,6 +58,31 @@ HOST_LABEL = re.compile(r"(?:(?:h[ée]bergeur|h[ée]bergement|hosting(?:\s+provi
 # a university's or school board's own web service credited by one of its units ("This website is powered by MacSites"): an internal service, no vendor
 INTERNAL_RX = re.compile(r"\buniversit|\bcoll[èe]ges?\b|c[ée]gep|polytechni|school (?:board|district|division)|commission scolaire|centre de services scolaire|conseil scolaire", re.I)
 # hosts of a vendor's own domain that are the vendor's pages; any other subdomain may be a customer's site (free-4409244.webador.ca printed a customer's address)
+_COUNTRY_WORD = (r"(?:France|Germany|Deutschland|India|M[ée]xico|Netherlands|Nederland|Belgium|Belgique|Spain|Espa[ñn]a|Italy|Italia|Switzerland|Suisse|Schweiz|Ireland|Sweden|Singapore|"
+                 r"Japan|China|Hong Kong|Brazil|Brasil|Israel|Dubai|UAE|United Arab Emirates|Saudi Arabia|Kuwait|Qatar|South Africa|Poland|Denmark|Norway|Finland|Austria|Portugal|"
+                 r"New Zealand|Philippines|Pakistan|Bangladesh|Sri Lanka|Malaysia|Indonesia|Vietnam|Thailand|Nigeria|Kenya|Egypt|T[üu]rkiye|Colombia|Argentina|Chile|Peru|Ukraine|"
+                 r"Romania|Bulgaria|Greece|Cyprus|Malta|Luxembourg|Estonia|Latvia|Lithuania|Czech(?:ia| Republic)|Hungary)")
+_US_STATE = (r"(?:Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|"
+             r"Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|"
+             r"Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming)")
+_NANP_PLUS = re.compile(r"\+\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}\b")  # a North American number written "+604-600-2377": not a country code
+_INTL_PHONE = re.compile(r"\(?\+(?:2\d|3\d|4\d|5\d|6\d|7|8\d|9\d)\d?\)?[ \d(.)\-]{6,}")
+_OFFICE_ABROAD = re.compile(r"\b%s\b(?=[\s,:;–—\-]{0,3}\d|.{0,60}?\b(?:office|branch|bureau|headquarters|HQ)\b)|\b\d{4,6},?\s+%s\b" % (_COUNTRY_WORD, _COUNTRY_WORD), re.I)
+_US_IN_QUOTE = re.compile(r"\b%s,?\s+\d{5}(?:-\d{4})?\b|\b\d{5}(?:-\d{4})?,?\s+(?:USA|U\.S\.A\.?|United States)\b" % _US_STATE)
+
+
+def offices_abroad(quote):
+    """country codes of the offices outside Canada that an address quote itself shows — "Pakistan … BRANCH OFFICE CANADA", "France 50 rue
+    Breteuil 13006 Marseille +33…", "Fountain Hills, Arizona 85268, USA Vancouver 580 Hornby Street" (US = a state name with a ZIP code; XX =
+    another country named next to an address, a telephone number with a country code other than +1). Service-area sentences ("serving Canada
+    and the United States") and neighbourhood names ("Little Italy, Toronto") are not offices."""
+    q = quote or ""
+    out = set()
+    if _US_IN_QUOTE.search(q):
+        out.add("US")
+    if _INTL_PHONE.search(_NANP_PLUS.sub(" ", q)) or _OFFICE_ABROAD.search(q):
+        out.add("XX")
+    return out
 OWN_SUB = re.compile(r"^(www\d?|support|help|aide|site|get|go|terms|legal|about|contact|info|docs|corp|corporate|company|home|web|en|fr|ca|global|group|groupe)$", re.I)
 FREE_SIGNAL = re.compile(r"free plan|free forever|forever free|always free|create (?:a|your) free (?:web)?site|free website builder|build (?:a|your) free website|forfait gratuit|plan gratuit|"
                          r"site (?:web |internet )?gratuit|cr[ée]ez? (?:votre|un) site (?:web )?gratuit|\$\s?0\s*/\s*(?:mo|month)|0\s?\$\s*/\s*mois", re.I)
@@ -1307,6 +1332,44 @@ SERVICE_RX = re.compile(r"web|site|design|digital|num[ée]rique|marketing|agenc[
                         r"graphi|communication|m[ée]dia|informati|\bIT\b|\bTI\b|technolog|app|cloud|e-?commerce|consult", re.I)
 
 
+_PROVIDERS = None
+
+
+def big_providers():
+    """{domain: client domains} of the domains that other domains' DNS records name (tools/dns_services.py table). A vendor whose address
+    leads to one that serves 200+ domains is on a parking page of its registrar or host ("cag2025.ca is registered at …"), not under a new
+    name — unless the vendor's domain is itself such a technical domain (easymail.ca -> easydns.com: one company's second domain)"""
+    global _PROVIDERS
+    if _PROVIDERS is None:
+        _PROVIDERS = {}
+        p = os.path.join(DIR, "dns_providers_seen.csv")
+        if os.path.exists(p):
+            for r in csv.DictReader(open(p, encoding="utf-8")):
+                try:
+                    _PROVIDERS[r["provider_domain"]] = int(r.get("client_domains") or 0)
+                except (KeyError, ValueError):
+                    pass
+    return _PROVIDERS
+
+
+def proof_page_ok(v, o):
+    """the page that carries the address must be the vendor's own: on its domain's own hosts (the bare domain, www, a sub-site named after a
+    function or after the domain — never a customer's, a team's or a unit's sub-site: tools/cc_clients.py own_host), or on the domain its own
+    address redirects to when that is a rename (shared name, or the new site names the old one) and not a registrar's or host's parking page"""
+    ph = host_of(o.get("url") or "")
+    pd = C.registrable(ph) if ph else v
+    if pd == v:
+        return not ph or CCL.own_host(ph, v)
+    if big_providers().get(pd, 0) >= 200 and v not in big_providers():
+        return False
+    if o.get("renamed"):
+        return True
+    a_, b_ = re.sub(r"[^a-z0-9]", "", v.split(".")[0]), re.sub(r"[^a-z0-9]", "", pd.split(".")[0])
+    if (len(a_) >= 3 and a_ in b_) or (len(b_) >= 3 and b_ in a_):
+        return True
+    return any(a_[i:i + 5] in b_ for i in range(max(0, len(a_) - 4)))  # five letters in a row in common: intrigueme.ca -> intriguemedia.com
+
+
 def proven_elsewhere():
     """vendor domains whose Canadian postal address the row factory already read on the vendor's own page: {domain: (address text, url, name)}"""
     out = {}
@@ -1314,7 +1377,11 @@ def proven_elsewhere():
         import lead_store as LS
         for d in LS.load()[1].values():  # details of the cloud leads: base file + shards
             if d.get("platform") == "vendor_site_cc" and d.get("vendor_address") and d.get("vendor_site"):
-                dom = C.registrable(host_of(d["vendor_site"]))
+                vh = host_of(d["vendor_site"])
+                dom = C.registrable(vh)
+                ah = host_of(d.get("vendor_address_url") or d.get("record_url") or "")
+                if not CCL.own_host(vh, dom) or (ah and C.registrable(ah) == dom and not CCL.own_host(ah, dom)):
+                    continue  # 2026-11-11: the address of a body on a sub-site (a platform's customer, a team, a unit) is not the domain holder's
                 nm = d.get("vendor") or ""
                 out.setdefault(dom, (d["vendor_address"], d.get("vendor_address_url") or d.get("record_url") or "", "" if re.fullmatch(r"[a-z0-9.-]+\.[a-z]{2,}", nm.lower()) else nm))
     for dom, o in CCL._vendor_addrs().items():
@@ -1584,22 +1651,15 @@ def merge(a):
               "(register number %d, stated affiliation %d)" % (n_lk, n_sec, n_num, n_st))
     # ---- leads: sightings whose vendor is proven in Canada
     vstate, known_v, seen = vendor_state(), proven_elsewhere(), sightings()
+    # 2026-11-11 (row audit): "also_prints" knew only American, British and Australian postal addresses. A vendor whose address quote itself shows
+    # an office elsewhere ("Pakistan … BRANCH OFFICE CANADA", "France 50 rue Breteuil 13006 Marseille +33…  Montreal, Canada …") prints addresses
+    # abroad too (offices_abroad): the same condition applies — its Canadian address counts only for a buyer shown to be in Canada
+    for _o in vstate.values():
+        if _o.get("status") in ("CA", "CA-loc"):
+            _codes = {x for x in (_o.get("also_prints") or "").split(",") if x} | offices_abroad(_o.get("quote"))
+            _o["also_prints"] = ",".join(sorted(_codes))
+    n_multi = collections.Counter()
     hints = site_hints()
-
-    def proof_page_ok(v, o):
-        """the page that carries the address must be the vendor's own: on its domain (not a customer's subdomain), or on the domain its own
-        address redirects to when that is a rename (shared name, or the new site names the old one)"""
-        ph = host_of(o.get("url") or "")
-        pd = C.registrable(ph) if ph else v
-        if pd == v:
-            sub = ph[:-len(v)].rstrip(".") if ph.endswith(v) else ""
-            return not sub or bool(OWN_SUB.match(sub))
-        if o.get("renamed"):
-            return True
-        a_, b_ = re.sub(r"[^a-z0-9]", "", v.split(".")[0]), re.sub(r"[^a-z0-9]", "", pd.split(".")[0])
-        if (len(a_) >= 3 and a_ in b_) or (len(b_) >= 3 and b_ in a_):
-            return True
-        return any(a_[i:i + 5] in b_ for i in range(max(0, len(a_) - 4)))  # five letters in a row in common: intrigueme.ca -> intriguemedia.com
 
     def in_canada(site, o=None):
         """is the organisation behind this site in Canada? Asked only for vendors that also print addresses abroad (the buyer abroad may deal with the
@@ -1611,6 +1671,12 @@ def merge(a):
         if FREE_PLAN.search(v) and re.search(r"cpanel|plesk|webpros|whmcs|softaculous|cloudlinux|litespeed|directadmin|presscustomizr", v):
             return None  # server software paid by the hosting company; a theme author whose legal notice printed its host's address
         if o and o.get("status") in ("CA", "CA-loc") and (not proof_page_ok(v, o) or HOST_LABEL.search((o.get("quote") or "")[:-12])):
+            return None
+        if o and o.get("status") in ("CA", "CA-loc") and len([x for x in (o.get("also_prints") or "").split(",") if x]) >= 2 and not v.endswith((".ca", ".quebec")):
+            # addresses in two or more other countries and no .ca domain: a multinational whose Canadian address is one office among others
+            # (Cloudflare's representative in Vancouver, Zoho's office in Cornwall, Mimecast's in Mississauga) — which of its companies a customer
+            # deals with is not shown. Vendors read by hand (their own agreement names the contracting company) do not come through here.
+            n_multi[v] += 1
             return None
         if o and INTERNAL_RX.search("%s %s" % (o.get("name") or "", o.get("title") or "")) and not o.get("service_words"):
             return None
@@ -1729,6 +1795,8 @@ def merge(a):
         DNS.leads(prev, pdet, proof, main_keys, vstate, stats, {d: (o.get("name") or "") for d, o in seen.items()}, in_canada, kept)
     except Exception as e:
         print("DNS leads skipped: %s" % e)
+    if n_multi:
+        stats["vendors that print addresses in two or more other countries and have no .ca domain (multinational: its Canadian office is not shown to be the contracting company; kept out)"] = len(n_multi)
     # a credit / member-badge / DNS lead of an earlier run that the rules of this run no longer make is withdrawn (rules get stricter as leads are read)
     gone = [k for k, r in prev.items() if k not in kept and (pdet.get(k) or {}).get("platform") in ("site_credit_cc", "site_member_cc", "dns_service_cc")]
     for k in gone:

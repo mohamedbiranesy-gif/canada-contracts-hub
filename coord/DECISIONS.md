@@ -1073,3 +1073,40 @@ after the sites never read. The lesson is the usual one: the first two samples (
 also on a row that had the number from another source. On the sample build the strict first version had lost 568 buyer numbers the
 old file gave — some rightly (one number on three school service centres, a US tax number on a US university), some not (a provincial
 agency whose row carries another office's city): hence the two relaxations above.
+
+## 2026-11-11 03:40Z — whose address is it? A vendor's Canadian address must be printed on that vendor's own site (row audit of the leads on file)
+Found while reading the vendors of the DNS and credit leads before the next merge (which adds about 109,000 DNS leads): **the address that
+proves "vendor located in Canada" was taken from any host under the vendor's registrable domain.** On file because of it:
+- "Just Pure Health", Sherbrooke — a customer of Odoo on acie1.odoo.com — standing for **odoo.com** (Odoo is Belgian): 358 leads;
+- the Canadian Hockey League's office in Etobicoke standing for the Everett Silvertips, the Spokane Chiefs and the Tri-City Americans
+  (Washington State), whose sponsor pages sit under chl.ca/whl-…/: 214 leads of sponsors of American teams delivered as paying a
+  Canada-located vendor;
+- a realtor's Vancouver address on a sub-site of avenuehq.com standing for AvenueHQ, whose own page says "Curious Three, Inc. (dba
+  AvenueHQ) … Bend, OR": 753 leads; American associations on sub-sites of silkstart.com with the platform's Vancouver address; a client's
+  site staged on a web agency's test host with the agency's address; expired domains parked at their registrar with the registrar's address;
+- Cloudflare (pages.dev, 61 leads), Zoho (36), Mimecast (3): the Canadian address their pages print is one office — for Cloudflare a
+  privacy representative — among offices in three other countries.
+**Rules now (tools/cc_clients.py own_host / proof_fits / path_tenants; tools/credit_scan.py proof_page_ok / offices_abroad):**
+1. The address must be printed on the vendor's own site: the host of the page that names its clients, or a site of the same holder. A
+   sub-site is the holder's own when it is named after a function (business., members., events., shop., fr. …) or after the domain
+   itself (infostiq.stiq.com); any other sub-site may be another body's — a platform's customer, a league's team, a university's unit, an
+   agency's client. A page on such a sub-site is proven only by an address on that same sub-site, or, when the domain is small (fewer
+   than three named sub-sites with vendor pages, fewer than 150 host names in the web graph, no test-host name), by the holder's.
+2. Three or more unrelated site names, each under its own first path segment of one host, are several bodies on one site (chl.ca): each
+   needs the address on its own pages. Language versions (/fr/, /zh/) are the same body.
+3. For a provider or agency named by a credit line or a DNS record the vendor is the domain's holder: only its own hosts count. An
+   address reached through a redirect to a registrar's or host's site (200+ client domains) is a parking page, unless the vendor's
+   domain is itself a technical domain of that provider (easymail.ca → easydns.com).
+4. A vendor that prints addresses in two or more other countries and has no .ca domain is a multinational: its Canadian office is not
+   shown to be the company a customer deals with — kept out unless its agreement has been read (the vetted vendor table). With one
+   other country the rule of 2026-11-10 stays (its Canadian address counts for a buyer shown to be in Canada), and "other country" now
+   also means an office the address quote itself shows ("Pakistan … BRANCH OFFICE CANADA", "France 50 rue Breteuil 13006 Marseille
+   +33…"): until now only American, British and Australian postal addresses were recognised, so a French or Indian firm with a Canadian
+   branch was taken as Canadian for buyers anywhere.
+**Measured on the leads on file (both merges run in a copy):** row factory 1,649 of 118,232 leads withdrawn (address on another body's
+sub-site 709, on a sibling sub-site 575, page on a sub-site of a domain with several bodies 245, address on another domain not shown
+to be the vendor's 118, path tenants 2) and 1,270 waiting links not promoted; credit / DNS / member 2,917 of 188,874 withdrawn.
+Rightly lost with them, until their own site is read: associations whose only address on file was on a sub-site (caut.ca 82,
+citizenlab.ca 58) — the address pass and the live vendor check now read the holder's own hosts only and take these domains again.
+Not solved: a sub-site named after a function on a platform's domain would pass (none seen); the units of a university on their own
+sub-sites lose the university's address as proof (about 500 leads) — the same legal person, but nothing on file says so.

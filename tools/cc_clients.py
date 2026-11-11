@@ -50,6 +50,108 @@ MULTI_TENANT = re.compile(r"(^|\.)(chambermaster\.com|growthzoneapp\.com|growthz
                           r"webnode\.[a-z.]{2,6}|ueniweb\.com|carrd\.co|notion\.site|wpengine\.com|kinsta\.cloud|pantheonsite\.io|webador\.[a-z.]{2,6}|site123\.me|yolasite\.com|"
                           r"clubexpress\.com|clubrunner\.ca|sportsengine\.com|teamsnap\.com|rampinteractive\.com|goalline\.ca|esportsdesk\.com)$", re.I)
 
+# ---- whose address is it? (2026-11-11, row audit of the leads on file)
+# A vendor is keyed by its registrable domain, and its Canadian address was taken from ANY host under that domain. Found on file: the address of
+# a customer of Odoo (acie1.odoo.com, Sherbrooke) standing for odoo.com — Odoo is Belgian — on 358 leads; the Canadian Hockey League's office
+# standing for three teams in Washington State whose sponsor pages sit under chl.ca/whl-…/ (214 leads); a platform's Vancouver address standing
+# for American associations on its sub-sites (silkstart.com); a web agency's address standing for the client whose site it stages (new.webici.ca).
+# Rule: the address that proves where a vendor is must be printed on that vendor's OWN site — the host of the page that names its clients, or a
+# site of the same holder. A sub-site is the holder's own when it is named after a function (business., members., events., shop., fr. …) or
+# after the domain itself; any other sub-site may be another body's.
+OWN_LABEL = re.compile(r"^(?:www\d?|web|site|home|go|get|my|mon|app|apps|portal|portail|online|secure|support|help|aide|docs|terms|legal|about|contact|info|corp|corporate|"
+                       r"company|global|group|groupe|business|members?|membres?|directory|annuaire|repertoire|extranet|intranet|events?|evenements?|conference|convention|congres|"
+                       r"summit|sommet|forum|expo|gala|shop|store|boutique|blogs?|news|nouvelles|media|press|careers?|jobs|emplois|carrieres|community|connect|learn|training|"
+                       r"formation|academy|register|inscription|tickets|billetterie|donate|dons|foundation|fondation|library|hub|archives?|past|old|[a-z]{2}|(?:19|20)\d\d)$", re.I)
+STAGING_LABEL = re.compile(r"(?:^|[.\-])(?:new|dev|staging|stage|test|demo|preview|beta|sandbox|temp|wp\d+|clients?)(?:$|[.\-])", re.I)
+GRAPH_MT = os.path.join(INC, "credit_scan", "graph_multitenant.csv.gz")  # domains with 150+ host names of their own in the web graph
+
+
+def _reg(host):
+    import ap_crawler as _C
+    return _C.registrable((host or "").lower().strip("."))
+
+
+def own_host(host, dom):
+    """is `host` a site of the holder of the registrable domain `dom` itself (the bare domain, www, a sub-site named after a function or after
+    the domain)? False for any other sub-site: a platform's customer, a league's team, a university's unit, an agency's client on a test host."""
+    host = (host or "").lower().strip(".")
+    if host == dom:
+        return True
+    if not dom or not host.endswith("." + dom):
+        return False
+    lab = re.sub(r"[^a-z0-9]", "", dom.split(".")[0])
+    for part in re.split(r"[.\-]", host[:-len(dom) - 1]):
+        if not part or not (OWN_LABEL.match(part) or (len(lab) >= 4 and lab in re.sub(r"[^a-z0-9]", "", part))):
+            return False
+    return True
+
+
+_MANY = None
+
+
+def many_hosts():
+    """{domain: host names} of the domains with 150+ host names in the web graph: platforms, universities, governments, leagues"""
+    global _MANY
+    if _MANY is None:
+        _MANY = {}
+        if os.path.exists(GRAPH_MT):
+            with gzip.open(GRAPH_MT, "rt", encoding="utf-8", newline="") as fh:
+                for r in csv.DictReader(fh):
+                    try:
+                        _MANY[r["dom"]] = int(r["hosts"] or 0)
+                    except (KeyError, ValueError):
+                        pass
+    return _MANY
+
+
+def proof_fits(dom, page_url, proof_url, several_bodies=()):
+    """does the address printed on `proof_url` belong to the vendor whose page `page_url` (under the registrable domain `dom`) names the clients?
+    -> (True | False | None, reason). None: the proof sits on another domain — a rename is the caller's to judge (credit_scan.proof_page_ok).
+    several_bodies: domains known to carry the sites of several bodies (three or more named sub-sites with vendor pages)."""
+    vh = (urllib.parse.urlparse(page_url or "").hostname or "").lower()
+    ph = (urllib.parse.urlparse(proof_url or "").hostname or "").lower()
+    if not ph or not vh or base(ph) == base(vh):
+        return True, ""  # printed on the page itself, or on the same host
+    if _reg(ph) != dom:
+        return None, "address read on another domain"
+    if own_host(vh, dom):
+        return (True, "") if own_host(ph, dom) else (False, "address read on a sub-site that may be another body's")
+    if not own_host(ph, dom):
+        return False, "address read on another sub-site of the domain"
+    sub = vh[:-len(dom) - 1] if vh.endswith("." + dom) else vh
+    if dom in many_hosts() or dom in several_bodies or MULTI_TENANT.search(dom) or STAGING_LABEL.search(sub):
+        return False, "page on a sub-site of a domain that carries the sites of several bodies; the address is the domain holder's"
+    return True, ""
+
+
+def path_tenants(pages):
+    """{domain: {first path segment: site name}} for the domains whose own host carries the pages of several bodies under path prefixes
+    (chl.ca/whl-silvertips/, chl.ca/whl-chiefs/ …): three or more site names, each under its own first path segment, no word in common.
+    pages: iterable of (domain, page url, site name)."""
+    by = collections.defaultdict(lambda: collections.defaultdict(set))
+    for dom, url, name in pages:
+        u = urllib.parse.urlparse(url or "")
+        seg = (u.path or "/").strip("/").split("/")[0].lower()
+        name = (name or "").strip()
+        if not dom or not seg or not name or not own_host((u.hostname or "").lower(), dom) or re.fullmatch(r"[a-z0-9.-]+\.[a-z]{2,}", name.lower()):
+            continue
+        if re.fullmatch(r"[a-z]{2}(?:[-_][a-z]{2})?", seg):
+            continue  # a language version of the site (/fr/, /zh/, /en-ca/): the same body under a translated name
+        by[dom][name].add(seg)
+    toks = lambda s: {w[:5] for w in re.findall(r"[a-zà-ÿ0-9]+", s.lower()) if len(w) >= 4}
+    out = {}
+    for dom, names in by.items():
+        if len(names) < 3:
+            continue
+        segs = collections.Counter(s for ss in names.values() for s in ss)
+        if any(len(ss) != 1 for ss in names.values()) or any(n != 1 for n in segs.values()):
+            continue  # a name on several prefixes, or a prefix with several names: page titles of one site, not tenants
+        ns = sorted(names)
+        if any(toks(a) & toks(b) for i, a in enumerate(ns) for b in ns[i + 1:]):
+            continue
+        out[dom] = {next(iter(ss)): n for n, ss in names.items()}
+    return out
+
 
 def canada_field(dom, basis="", how=""):
     """the lead's Canada field: for a .ca host its domain + its own address; for another host the dataset's location basis + its own address.
@@ -633,12 +735,15 @@ def _side_records():
 
 
 def _vendor_addrs():
+    """the address pass's results: {vendor domain: record}. A record read on a sub-site that is not the domain holder's own (see own_host) is
+    left out — the address is that sub-site's body's; the domain then counts as still without an address and is read again on its own hosts."""
     out = {}
     if os.path.exists(VADDR):
         for l in gzip.open(VADDR, "rt", encoding="utf-8"):
             try:
                 o = json.loads(l)
-                out[o["dom"]] = o
+                if own_host((urllib.parse.urlparse(o.get("url") or "").hostname or o.get("host") or o["dom"]).lower(), o["dom"]):
+                    out[o["dom"]] = o
             except (ValueError, KeyError):
                 pass
     return out
@@ -683,7 +788,7 @@ def _addr_want(cid, found_now):
     if os.path.exists(ADONE):
         for l in open(ADONE, encoding="utf-8"):
             q = l.rstrip("\n").split("\t")
-            if len(q) > 1 and q[1] == cid:
+            if len(q) > 1 and q[1] == cid and not (len(q) > 3 and q[3] == "found" and q[0] not in have):
                 tried.add(q[0])
     want = set()
     for o in _side_records():
@@ -706,7 +811,14 @@ def _addr_read(a, pages, cid, found_now, deadline, fa, fd):
         if time.time() > deadline:
             return
         found, n_read = None, 0
-        for r in sorted(pages[dom], key=order)[:4]:
+        own = [r for r in pages[dom] if own_host((r[1] or "").lower(), dom)]  # the holder's own hosts only (see own_host)
+        if not own:  # pages on sub-sites only: nothing of the holder's own to read in this crawl
+            with lock:
+                stats["domains"] += 1
+                stats["no page on the holder's own hosts"] += 1
+                fd.write("%s\t%s\t%s\tno_own_page\t0\n" % (dom, cid, TODAY))
+            return
+        for r in sorted(own, key=order)[:4]:
             try:
                 page, why = warc_html(r[5], int(r[6]), int(r[7]))
             except Exception as e:
@@ -788,7 +900,8 @@ def merge_addr(a):
         for l in open(f, encoding="utf-8"):
             try:
                 o = json.loads(l)
-                have.setdefault(o["dom"], o)
+                if own_host((urllib.parse.urlparse(o.get("url") or "").hostname or o["dom"]).lower(), o["dom"]):  # a shard started before the rule
+                    have.setdefault(o["dom"], o)
             except (ValueError, KeyError):
                 pass
     if have:
@@ -914,16 +1027,45 @@ def merge(a):
                     pass
     # address pass: a client link whose vendor page printed no address becomes a lead once the vendor's own home / contact page gave one
     vaddr, promoted = _vendor_addrs(), 0
+    _vlive, _page_ok = {}, None
     try:  # 2026-11-10: the vendor's own LIVE home / contact / legal page read by tools/credit_scan.py (postal address, schema.org address, or its
         # location line with a Canadian telephone number) — the archive had no contact page for 2,660 vendors and no postal code for 6,994
         import credit_scan as _CS
-        for vd_, o_ in _CS.vendor_state().items():
-            if vd_ not in vaddr and o_.get("status") in ("CA", "CA-loc") and o_.get("quote"):
+        _vlive, _page_ok = _CS.vendor_state(), _CS.proof_page_ok
+        for vd_, o_ in _vlive.items():
+            if vd_ not in vaddr and o_.get("status") in ("CA", "CA-loc") and o_.get("quote") and _page_ok(vd_, o_):
                 vaddr[vd_] = {"dom": vd_, "quote": o_["quote"], "url": o_.get("url") or "", "capture": o_.get("date") or "", "live": o_["status"]}
     except Exception as e:
         print("live vendor proofs not loaded: %s" % e)
+    side = list(_side_records())
+    # whose address is it? (2026-11-11; see own_host / proof_fits) — the pages that name clients, per vendor domain: which sub-sites they sit on
+    # (three or more named sub-sites = a domain that carries several bodies) and which path prefixes carry a body of their own
+    _pages = [(((o.get("row") or {}).get("vendor_key") or "")[3:], o.get("dataset_url") or "", o.get("vendor") or "") for o in side]
+    _pages += [(((r.get("row") or {}).get("vendor_key") or "")[3:], r.get("dataset_url") or "", r.get("vendor") or "") for r in recs]
+    _pages += [(_reg(urllib.parse.urlparse(d.get("record_url") or "").hostname or ""), d.get("record_url") or "", d.get("vendor") or "")
+               for d in pdet.values() if (d.get("platform") or "vendor_site_cc") == "vendor_site_cc"]
+    _named = collections.defaultdict(set)
+    for vd_, u_, _ in _pages:
+        h_ = (urllib.parse.urlparse(u_).hostname or "").lower()
+        if vd_ and h_ and not own_host(h_, vd_):
+            _named[vd_].add(base(h_))
+    several = {vd_ for vd_, hs in _named.items() if len(hs) >= 3}
+    tenants = path_tenants(_pages)
+    _seg = lambda u: (urllib.parse.urlparse(u or "").path or "/").strip("/").split("/")[0].lower()
+
+    def whose(vd_, page_url, proof_url):
+        """(ok, reason): is the address on proof_url this vendor's own? (the vendor's page page_url sits under the domain vd_)"""
+        ok, why = proof_fits(vd_, page_url, proof_url, several)
+        if ok is None:  # another domain: only a rename seen by the live check (the new site names the old one)
+            o_ = _vlive.get(vd_) or {}
+            ok = bool(_page_ok and o_.get("url") == proof_url and _page_ok(vd_, o_))
+            why = "" if ok else "address read on another domain that is not shown to be the vendor's own"
+        if ok and vd_ in tenants and _seg(page_url) in tenants[vd_] and proof_url and not (
+                base(urllib.parse.urlparse(proof_url).hostname or "") == base(urllib.parse.urlparse(page_url).hostname or "") and _seg(proof_url) == _seg(page_url)):
+            ok, why = False, "page of one of several bodies under path prefixes of one domain; the address is the domain holder's"
+        return ok, why
+    n_whose = collections.Counter()
     if vaddr:
-        side = list(_side_records())
         pages_of, link_pages = collections.defaultdict(set), collections.defaultdict(set)
         for o in side:
             vd_ = ((o.get("row") or {}).get("vendor_key") or "")[3:]
@@ -942,6 +1084,10 @@ def merge(a):
             lab = (row.get("client_label") or "").strip()
             if COUNTRY_LABEL.match(lab) or LABEL_SKIP.search(lab) or (len(vd_.split(".")[0]) >= 4 and o["domain"].split(".")[0] == vd_.split(".")[0]):
                 continue
+            _ok, _why = whose(vd_, o["dataset_url"], va.get("url") or "")
+            if not _ok:
+                n_whose[_why] += 1
+                continue
             row["vendor_address_quote"], row["vendor_address_url"], row["vendor_address_capture"] = va["quote"], va["url"], (va.get("capture") or "")[:10]
             row["vendor_address_how"] = va.get("live") or ""
             recs.append({"domain": o["domain"], "dataset_url": o["dataset_url"], "website": "https://%s/" % o["domain"], "vendor": o.get("vendor") or o.get("canada_value") or "",
@@ -949,6 +1095,8 @@ def merge(a):
             promoted += 1
         if n_boiler:
             print("not promoted: %d links that sit on most pages of the vendor's site (menu / footer links)" % n_boiler)
+        if n_whose:
+            print("not promoted: %d links of vendors whose address on file is not shown to be their own (%s)" % (sum(n_whose.values()), "; ".join("%s: %d" % kv for kv in n_whose.most_common())))
     vendors_of = collections.defaultdict(set)
     for r in recs:
         vendors_of[r["domain"]].add(r["canada_value"])
@@ -1022,6 +1170,18 @@ def merge(a):
             drop.append(k); n_cred += 1
     if n_inv or n_cred or n_sis:
         print("withdrawn: %d companies listed in an investor's portfolio; %d web agencies named on a client page (footer credits of the page owner); %d country selectors, sister sites and badge links" % (n_inv, n_cred, n_sis))
+    # whose address is it? (2026-11-11) — leads made before the rule: the address was read on a sub-site of another body, or the page is one of
+    # several bodies' under one domain (see own_host / proof_fits / path_tenants)
+    _dropped, n_w = set(drop), collections.Counter()
+    for k, d in pdet.items():
+        if d.get("platform") != "vendor_site_cc" or k in _dropped or not d.get("vendor_address_url") or not d.get("record_url"):
+            continue
+        vd_ = _reg(urllib.parse.urlparse(d["record_url"]).hostname or "")
+        _ok, _why = whose(vd_, d["record_url"], d["vendor_address_url"]) if vd_ else (True, "")
+        if not _ok:
+            drop.append(k); n_w[_why] += 1
+    if n_w:
+        print("withdrawn: %d leads whose vendor address is not shown to be the vendor's own (%s)" % (sum(n_w.values()), "; ".join("%s: %d" % kv for kv in n_w.most_common())))
     for k in drop:
         prev.pop(k, None)
         pdet.pop(k, None)
