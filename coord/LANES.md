@@ -1,4 +1,4 @@
-# Cloud lanes — status from the files on main (2026-11-11 15:58 UTC)
+# Cloud lanes — status from the files on main (2026-11-11 16:54 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
@@ -83,5 +83,5 @@
 - mailbox rows written by the cloud crawls (before the referee): **267504**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **253630** — by tier: A 1224, B 1685, C 295, D 26730, E 5011, F 7, I 17390, L 421, M 13318, R 102647, T 84902
-- named-vendor relationships (A B T M C D L): **128575** · registry contract R: **102647** · link only (E): **5011** · older / inferred (F I): **17397**
+- rows with a confirmed mailbox: **255262** — by tier: A 1224, B 1685, C 295, D 26730, E 5011, F 7, I 17375, L 421, M 13317, R 102637, T 86560
+- named-vendor relationships (A B T M C D L): **130232** · registry contract R: **102637** · link only (E): **5011** · older / inferred (F I): **17382**
