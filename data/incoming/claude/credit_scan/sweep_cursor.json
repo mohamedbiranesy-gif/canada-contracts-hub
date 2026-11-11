@@ -17,6 +17,33 @@
   "updated": "2026-11-10T20:57Z"
  },
  "complete": {},
+ "ct": {
+  "asked": 329113,
+  "lists": {
+   "ct_list_20261111T060239.txt.gz": {
+    "asked": 329113,
+    "complete": {
+     "0": true,
+     "1": true,
+     "2": true,
+     "3": true
+    },
+    "no_answer": 85,
+    "ns_hits": 544,
+    "pos": {
+     "0": 657286,
+     "1": 657286,
+     "2": 657286,
+     "3": 657286
+    },
+    "stores_found": 23823
+   }
+  },
+  "no_answer": 85,
+  "ns_hits": 544,
+  "stores_found": 23823,
+  "updated": "2026-11-11T06:55Z"
+ },
  "hosts": {
   "asked": 6151836,
   "before_rev_2": {},
