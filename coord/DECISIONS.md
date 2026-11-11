@@ -1038,3 +1038,38 @@ D 30 → 34 %, B 64 → 69 % — with 1 site in 40 re-read.
 **Not done.** Names whose form sits in the middle ("Die Autobahn GmbH des Bundes"); a dealer's or franchisee's site that carries the
 maker's notice is guarded only by the three-sites rule and the name tie; Ontario, British Columbia and Alberta companies have no open
 register to confirm a printed name against (federal and Québec companies do).
+
+## 2026-11-11 01:45Z from claude — a spelled name must be a whole name (reader v4); the federal grants disclosure, daily and with a place check
+**Reader v4.** A second run of the reader on 1,950 other sites without a legal name gave 239 names, and reading them one by one showed
+17 wrong or cut short (7 %), from two causes the first samples had not shown: (a) the rule that kept the opening words of a name took
+menu and heading words for them ("Data Protection Director Mirego inc.", "Carrière Total Fabrication Inc.", "Failing Properties Trinity
+Development Group Inc."); (b) the words that spell the domain can be the tail of a longer name — another body's ("Crumpler Plastic Pipe
+Inc." in the member list of plasticpipe.org) or the organisation's own, cut ("Pat Noble Lumber & Building Supplies Ltd.", "JPF Télébloc
+Inc", "Les Disques Passeport Inc."). The rule now: the name is kept when at least one printing on the page has nothing of a name before
+it (a small word, a number, a sign, a menu / button / sentence word, a title, the site's own short name), or when its printings have
+different words before them; when every printing follows the same usual opening words of company names ("Services", "Construction",
+"Les Entreprises" — a closed list) the name is kept with them; when every printing follows other capitalised words it is not kept. On
+the three sets: 34 of 317 (unchanged), 89 of 324 (two fewer, both cut names), and of the 239 names 209 stand by their stored quote
+alone (the 17 faulty ones are among those that do not).
+Two runners of the refresh pass had started (01:20Z, 01:23Z) on the reader as it was before that rule. So the reader is **v4**; records
+marked v3 keep what they hold, **the ranker prints a spelled name only from a v4 record**, and every scheduled run re-reads v3 records
+after the sites never read. The lesson is the usual one: the first two samples (641 sites) said 100 % and the third (1,950) said 93 %.
+**Federal grants and contributions** (tools/gc_recipients.py). Like the charity match, a file made on the owner's Mac on 2026-11-08
+(3,668 organisations) that no workflow ran, matched by name with the province checked "when both are known". It runs daily now
+(claude-engines.yml, bulk_registry) and:
+- matches every organisation, whatever number its row carries (a run that skipped the rows it had itself numbered would drop them from
+  its own file the next day);
+- compares places: the recipient's postal code area or city against the organisation's address — 809 buyers of the same name are in
+  another place and are not taken ("Holy Trinity Armenian Church", Pennsylvania, had the record of the church in Scarborough); the
+  same legal name in another city of the same province is taken (an organisation with several offices: 666 buyers), unless the name
+  is one that many congregations and clubs carry;
+- takes a recipient's operating name with the postal code area when the recipient is a business (a trade name is shared by a chain's
+  franchisees: "Paramount Fine Foods" is SKIES ENTERPRISE INC. for one restaurant), with the city when it is a public body, a First
+  Nation, a school or a non-profit — 1,350 buyers get the legal person behind the name they trade under ("Biograde" is 8421005 Canada
+  Inc., "Lux Voyages" is 9455-2304 Québec inc.); 524 are left because nothing settles them;
+- leaves out recipients named by natural persons ("Janis Smith, Mark James Harris" for a farm: 3,083 agreements) and numbers that are
+  not a program account of a Business Number ("900086828XX9999").
+9,285 organisations matched on today's table (8,183 buyers, 1,102 vendors). In rank.py the recipient's legal name goes with its number
+also on a row that had the number from another source. On the sample build the strict first version had lost 568 buyer numbers the
+old file gave — some rightly (one number on three school service centres, a US tax number on a US university), some not (a provincial
+agency whose row carries another office's city): hence the two relaxations above.

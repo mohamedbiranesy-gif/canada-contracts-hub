@@ -154,6 +154,11 @@ jobs:
           python3 tools/charity_buyers.py --repo "$PWD" 2>&1 | tail -4 | tee -a "$GITHUB_STEP_SUMMARY" || true
           cp data/incoming/claude/claude_charity_buyers.csv out/charity_buyers.csv 2>/dev/null || true
           cp data/incoming/claude/claude_cra_charities.csv.gz out/cra_charities.csv.gz 2>/dev/null || true
+          # 2026-11-11: the federal grants & contributions disclosure (2.4 GB, 1.4 M agreements): the recipient's Business Number and legal name for the
+          # organisations of today's table — also a Mac file of 2026-11-08 until now (3,668 organisations; 8,400 on the table of 2026-11-10)
+          timeout 60m python3 tools/gc_recipients.py --repo "$PWD" --workdir /tmp/gc 2>&1 | grep -E "^rows:|^matches:|^wrote" | cut -c1-900 | tee -a "$GITHUB_STEP_SUMMARY" || true
+          rm -rf /tmp/gc
+          cp data/incoming/claude/claude_gc_recipients.csv out/gc_recipients.csv 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
           name: engine-${{ env.ENGINE }}-${{ matrix.k }}
@@ -199,6 +204,7 @@ jobs:
               [ -f shards/registry_bulk.csv ] && cp shards/registry_bulk.csv data/incoming/claude/claude_registry_bulk.csv
               [ -s shards/charity_buyers.csv ] && cp shards/charity_buyers.csv data/incoming/claude/claude_charity_buyers.csv
               [ -s shards/cra_charities.csv.gz ] && cp shards/cra_charities.csv.gz data/incoming/claude/claude_cra_charities.csv.gz
+              [ -s shards/gc_recipients.csv ] && [ "$(wc -l < shards/gc_recipients.csv)" -gt 2000 ] && cp shards/gc_recipients.csv data/incoming/claude/claude_gc_recipients.csv   # a run that could not read the disclosure writes a short file: the one on main stays
             else
               python3 tools/merge_engine_outputs.py registry data/incoming/claude/claude_registry_lookup.csv data/incoming/claude/claude_registry_lookup.csv shards/registry_*.csv
               [ -f shards/registry_resume_1.jsonl ] && gzip -c shards/registry_resume_1.jsonl > /tmp/claude_registry_lookup.jsonl.gz && gh release upload harvest-state /tmp/claude_registry_lookup.jsonl.gz --clobber || true
