@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 06:50Z — published build 04:47Z = 246,898 rows, 240,626 with a mailbox; NEW: site names from the Certificate Transparency logs (first cloud run: 42 % of the .ca names and 60 % of the shop-ending names are on no list we held); the mailbox reader follows a site to the domain it lives on; runner slots rebalanced)
+# STATE.md — Claude lane (updated 2026-11-11 09:00Z — published build 08:25Z = 253,908 rows, 247,548 with a mailbox; a refresh pass that merged nothing was taken apart (three faults, all repaired, 164,000 site records recovered); every Wix site had been called "blocked" by the site readers (fixed: ~24,000 rows get their own address / telephone / legal name); registry lookups back on a schedule on the service's new address; NEW LANE: public registers of delegated authorities — OMVIC's 7,865 motor dealers built, seven more scouted)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,66 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-11 09:00Z — build 08:25Z: 253,908 rows; five faults found by measuring, one new lane
+**Table (build 08:25Z, code 508d5f9, audit PASS):** 253,908 rows, 247,548 with a mailbox — A 1,276 · B 1,720 · C 315 · D 27,228 · E 5,175 ·
+F 7 · I 18,028 · L 437 · M 13,220 · R 99,426 · T 80,716. No new mailbox rows since 07:17Z (one runner of the mailbox crawl hung; its run
+ends at 09:22Z by its own limit). What moved is the bill-to side, on rows with a mailbox:
+
+| field | all | A | B | C | D | E | I | L | M | R | T |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| buyer legal name | **44.8 %** (42.0) | 91.9 | 78.3 | 75.2 | 46.2 | 45.7 | 46.7 | 77.8 | 89.6 | 37.0 | 44.3 |
+| buyer address | 73.1 % | 97.5 | 88.5 | 94.0 | 78.9 | 63.3 | 76.8 | 87.6 | 99.2 | 60.3 | 81.5 |
+| buyer telephone | 59.6 % | 81.2 | 77.0 | 83.2 | 62.0 | 56.0 | 58.0 | 70.5 | 69.6 | 56.6 | 60.6 |
+| buyer registry id | 10.6 % | 54.5 | 19.7 | 43.5 | 9.4 | 7.3 | 16.4 | 14.6 | 43.6 | 7.2 | 7.7 |
+| vendor legal name | 82.3 % | 98.2 | 86.9 | 95.6 | 43.4 | 55.0 | 90.3 | 76.9 | 57.7 | 100 | 77.4 |
+
+**What was found, each by measuring a stage that looked fine** (details and rules: coord/DECISIONS.md 07:46Z, the commits of 07:39Z–08:58Z):
+1. *A refresh pass of 16 runner-hours merged nothing* (run 42958065125). (a) The site-facts readers wrote their whole state every five
+   minutes from any worker thread to one temporary path; once a write took longer than five minutes two writes overlapped and a rename
+   published an unfinished file. Now: one writer at a time, the reader stops by itself at its deadline (`tools/run_box.py`); the merger
+   reads a cut file for what it holds. (b) A name the v3 reader had taken stayed inside a record v4 re-read: of 160 such sites read again,
+   v4 gives none on 9. A spelled name now says which version took it; 31,396 names kept after a check on their own quote, 3,001 sites
+   queued again. (c) Two merges of one state file could lose one run's records: every version of a state file now has its own asset name
+   and the push of the manifest line decides. **Recovered** by running the failed merge again on the eight artifacts: 164,025 → 238,794
+   site records on file after the two runs that followed, none cut.
+2. *The site-facts reader is one busy core* (250 ms of CPU a site → 3.4 sites a second whatever its threads). Three readers a runner now,
+   each with its own file of changed records only: a refresh of 40,000 sites took 45 minutes on 8 runners instead of hours.
+3. *Every Wix site was "blocked".* Both site-facts readers looked for the word "captcha" in the first 5,000 characters of any home page;
+   Wix prints it in every page's settings, and so does any page that loads reCAPTCHA early. Of 60 delivered rows' sites never read, 40
+   were such pages; with the size test the mailbox reader already used, 41 of the 60 are read. About 24,000 rows' sites. First cloud run
+   after the fix: 2,100 of 3,500 never-read sites per reader now give a record — and 28 % still answer 403 / 429 **to the runners** (none
+   did from here): the next thing to look at (the tries are now kept between runs, `crawl_state/org_tried_*.gz`, with the answer's code).
+4. *Registry lookups had not run since 2026-11-09* (dispatched by hand only): 57,170 buyers whose name carries a legal form or whose site
+   states their legal person were waiting (8,872 looked up of 66,042). On a schedule now, two runners at one request a second. And the
+   service had moved: `/api/v3/search?fq=keyword:{…}` answers 404, the new front end calls `/api/v1/search?q=`. Fixed at 08:10Z — ten
+   minutes after a run had been started on the old address; that run records an error for every name until 13:20Z (a run cannot be
+   stopped from here), the 13:23Z run asks them again. **Lesson recorded: try one request from here before dispatching an engine that
+   has not run for a day.**
+5. *Why half the sites give no legal name:* 215 sites that v4 read without finding one, read again here with every legal / policy page
+   they link and eight standard paths: **193 print no name with a legal form anywhere** (90 %). The site route is at its ceiling there;
+   the rest must come from registers. Hence 4 above and the new lane below.
+
+**New lane — public registers of Canada's delegated authorities** (`tools/authority_registers.py`, `authority-registers.yml`, daily).
+A business on such a register pays the authority every year; the register names it with its LEGAL name beside its business name, a
+registration number, first-registration and expiry dates, address, telephone and often its website. First one built today: **OMVIC, 7,865
+registered motor dealers in Ontario** (the search returns 5,000 names at most per answer: limited letters are asked again in pairs and
+threes; letters alone gave 6,888). A third of the entries name a website; it is kept only when its home page shows the registrant's
+telephone number or postal code. First cloud run 42991045828 (profiles: 82 minutes at 1.6 requests a second). Seven more registers
+answered a plain read today and wait in `coord/source_registry.csv` with a note to the pipeline lanes: AMVIC (Alberta, ~7,000 automotive
+businesses), VSA (BC dealers), HCRA's Ontario Builder Directory (~6,000 builders), ESA (Ontario electrical contractors, ~8,000), RHRA
+(retirement homes), TICO (travel agencies), BAO (funeral homes). Rows of this lane are in tier M, on their own line.
+
+**Certificate logs:** the sweep of the first list is complete — 657,286 names asked, **47,751 on Shopify's storefront addresses (7.3 %)**,
+1,087 on a watched Canadian provider's name servers. The first full reading run (42975037314) merges about 09:25Z.
+
+**Open, in order:** (1) the 403 / 429 answers the runners get from 28 % of never-read sites — which hosts, and whether one queue per
+address (not per site name) is the cure, as it was for Shopify; (2) read the mailbox crawl's merge of 09:25Z: second names
+(`site_lives_at_another_domain`), `read_once_more`, the first stores from the certificate logs; (3) the registry run of 13:23Z: answers
+for the 57,170, then a precision test of looking up PLAIN names (174,584 rows have one) against names the sites state; (4) OMVIC's first
+leads through the mailbox crawl; the next registers (HCRA, AMVIC, ESA); the dealers whose entry names no site, tied by telephone / postal
+code to the site facts on file; (5) one reader instead of three for every site (the mailbox crawl could emit the site facts from the pages
+it reads anyway); (6) vetting: www.cchifirm.ca, www.civicweb.net, Rafflebox, MyEvent; (7) Sunday's report (`coord/WEEKLY_REPORT.md`).
 
 ## 2026-11-11 06:50Z — build 04:47Z: 246,898 rows; names from the certificate logs; why sites give no mailbox, measured; runner slots
 **Build 04:47Z (code 1df5f97): 246,898 rows, 240,626 with a mailbox.** A 1,276 · B 1,718 · C 315 · D 27,217 · E 5,125 · F 7 · I 17,816 ·

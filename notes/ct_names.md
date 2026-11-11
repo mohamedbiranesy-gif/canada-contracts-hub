@@ -49,4 +49,9 @@ Measured from one runner-like machine: the limits bind (2,704 tiles per Let's En
   `tiles_left`.
 
 ## Counts
-(first runs: see the workflow summaries and `cursor.json`; this section is filled as they land)
+| run | tiles / certificates | `.ca` names | names on the sweep's endings | other endings | validated subjects (C=CA) |
+|---|---|---|---|---|---|
+| 42966486771 (test, 2026-11-11 05:40Z) | 45,000 / 11.52 M | 19,534 seen, **8,123 new (42 %)** | 1,095,327 seen, **657,286 new (60 %)** | 76,216 new | 175 |
+
+Sweep of the list `ct_list_20261111T060239.txt.gz` (runs 42974942196 and 42976120689, complete 07:26Z): 657,286 names asked,
+**47,751 on Shopify's storefront addresses (7.3 %)**, 1,087 with the name servers of a watched Canadian provider, 166 without an answer.
