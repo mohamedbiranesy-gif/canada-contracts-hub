@@ -1,6 +1,6 @@
 # Where the deliverable is
 
-Build **2026-11-11T07:17:12Z-a0b1dc6** — 253908 rows, 247548 with a mailbox. Tiers (rows with a mailbox): A 1276, B 1720, C 315, D 27248, E 5155, F 7, I 18028, L 437, M 13220, R 99426, T 80716.
+Build **2026-11-11T08:25:53Z-508d5f9** — 253908 rows, 247548 with a mailbox. Tiers (rows with a mailbox): A 1276, B 1720, C 315, D 27228, E 5175, F 7, I 18028, L 437, M 13220, R 99426, T 80716.
 
 The files are **release assets**, not files of this folder (a build is several hundred MB; committing each one grew the repository by gigabytes a day):
 
@@ -8,11 +8,11 @@ The files are **release assets**, not files of this folder (a build is several h
 
 | File | Size | What |
 |---|---|---|
-| [ranked_buyers.csv.gz](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.csv.gz) | 255.2 MB | the whole table, one row per buyer |
-| [ranked_buyers.jsonl.gz](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.jsonl.gz) | 321.8 MB | the same rows as JSON lines |
-| [ranked_batches.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_batches.zip) | 272.7 MB | every package as CSV (99 files) |
+| [ranked_buyers.csv.gz](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.csv.gz) | 256.7 MB | the whole table, one row per buyer |
+| [ranked_buyers.jsonl.gz](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.jsonl.gz) | 323.4 MB | the same rows as JSON lines |
+| [ranked_batches.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_batches.zip) | 274.2 MB | every package as CSV (99 files) |
 | [ranked_contracts.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_contracts.zip) | 44.5 MB | contracts of the delivered buyers |
-| [ranked_extras.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_extras.zip) | 12.8 MB | audit flags, DMARC list, rows changed since the last build |
+| [ranked_extras.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_extras.zip) | 13.3 MB | audit flags, DMARC list, rows changed since the last build |
 
 ## Packages in `ranked_batches.zip`
 
@@ -21,19 +21,19 @@ The files are **release assets**, not files of this folder (a build is several h
 | P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email | 126 |
 | P01T_active_service_seen_on_buyer_site_invoicing_AP_email | 370 |
 | P01_GOLD_active_relationship_invoicing_AP_email | 625 |
-| P02_active_relationship_finance_accounting_email | 470 |
+| P02_active_relationship_finance_accounting_email | 471 |
 | P03_active_relationship_purchasing_email | 257 |
-| P04_active_relationship_general_email | 3821 |
+| P04_active_relationship_general_email | 3839 |
 | P05_likely_active_awarded_12_36_months_any_email | 424 |
 | P06M_member_or_regulated_payer_of_canadian_body_other_email | 13001 |
 | P06T_active_service_seen_on_buyer_site_other_email | 67038 |
-| P06_client_listing_invoicing_AP_email | 298 |
-| P07_client_listing_finance_or_purchasing_email | 801 |
-| P08_client_listing_general_email | 25648 |
+| P06_client_listing_invoicing_AP_email | 297 |
+| P07_client_listing_finance_or_purchasing_email | 800 |
+| P08_client_listing_general_email | 25630 |
 | P09_older_contract_or_payment_any_email | 295 |
 | P10R_ca_domain_registration_contract_own_email | 98583 |
 | P10_linked_from_vendor_site_any_email | 2685 |
-| P11_any_relationship_email_not_yet_confirmed | 14978 |
+| P11_any_relationship_email_not_yet_confirmed | 14979 |
 | P12_weaker_relationship_within_5_years_own_email | 7 |
 | P13_inferred_relationship_no_record_own_email | 18028 |
 | Z_no_email_yet_not_delivered | 6453 |

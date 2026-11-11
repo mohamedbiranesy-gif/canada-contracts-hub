@@ -12,19 +12,19 @@ The baseline is what could have been shipped on 2026-11-09. Waiting pays only if
 | buyers_ap_confirmed | 1364 | 1885 | +521 |
 | buyers_fin_confirmed | 1715 | 3583 | +1868 |
 | buyers_any_confirmed | 63163 | 232536 | +169373 |
-| pay_on_sight_yes | 833 | 1782 | +949 |
-| pay_on_sight_ref | 841 | 573 | -268 |
-| pay_on_sight_routed | 22341 | 80182 | +57841 |
+| pay_on_sight_yes | 833 | 1784 | +951 |
+| pay_on_sight_ref | 841 | 580 | -261 |
+| pay_on_sight_routed | 22341 | 80720 | +58379 |
 | gold_rows | 624 | 625 | +1 |
 | gold_pay_on_sight | 395 | 396 | +1 |
 | grade_A | 306 | 314 | +8 |
 | gold_A | 225 | 226 | +1 |
-| grade_A_or_B | 867 | 974 | +107 |
+| grade_A_or_B | 867 | 983 | +116 |
 | public_rows | 12835 | 229520 | +216685 |
 | terms_published_public | 1877 | 4350 | +2473 |
 | po_rule_published_public | 1396 | 2051 | +655 |
-| billto_legal_name_published | 33765 | 102883 | +69118 |
-| vendor_bn9_known | 53138 | 151447 | +98309 |
+| billto_legal_name_published | 33765 | 110899 | +77134 |
+| vendor_bn9_known | 53138 | 151715 | +98577 |
 | inferred_policy_cells_p80 | 0 | 0 | +0 |
 | benchmarks_met | 100 | 94 | -6 |
 
@@ -35,8 +35,8 @@ New source keys since the baseline: none
 | A | 1278 | 1276 | -2 |
 | B | 1619 | 1720 | +101 |
 | C | 402 | 315 | -87 |
-| D | 3623 | 27248 | +23625 |
-| E | 2763 | 5155 | +2392 |
+| D | 3623 | 27228 | +23605 |
+| E | 2763 | 5175 | +2412 |
 | F | 19 | 7 | -12 |
 | I | 50806 | 18028 | -32778 |
 | L | 397 | 437 | +40 |

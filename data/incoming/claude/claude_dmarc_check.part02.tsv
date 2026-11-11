@@ -1,3 +1,14 @@
+scott-tkd.ca	none	scott-tkd.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spf.cloudus.oxcs.net ~all	2026-11-10	none	none	none
+scott.dimond.com	no_record		no DMARC record at _dmarc.scott.dimond.com or _dmarc.dimond.com; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
+scottadams.ca	no_record		no DMARC record at _dmarc.scottadams.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
+scottalan.ca	no_record		no DMARC record at _dmarc.scottalan.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
+scottandderrydental.com	quarantine	scottandderrydental.com	v=DMARC1; p=quarantine;	100	no	soft_fail	v=spf1 include:emailsrvr.com ~all	2026-11-06	none	none	none
+scottandscott.ca	no_record		no DMARC record at _dmarc.scottandscott.ca; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
+scottandstewart.com	none	scottandstewart.com	v=DMARC1; p=none; pct=100; rua=mailto:re+z4wyt7hxwym@dmarc.postmarkapp.com;	100	yes	soft_fail	v=spf1 include:_spf.elasticemail.com include:_spf.google.com ~all	2026-11-10	none	none	none
+scottasbestos.com	no_record		no DMARC record at _dmarc.scottasbestos.com; confirmed by 8.8.8.8			soft_fail	v=spf1 a:mail.emediait.io mx include:spf.elasticemail.com ~all	2026-11-10	none	none	none
+scottbensonteam.ca	none	scottbensonteam.ca	v=DMARC1; p=none;	100	no	no_record		2026-11-10	none	none	none
+scottblock.ca	none	scottblock.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1  a  mx  ip4:23.111.64.180  include:spf.idig.net ~all	2026-11-10	none	none	none
+scottcameroncounselling.ca	no_record		no DMARC record at _dmarc.scottcameroncounselling.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 scottclarke.net	no_record		no DMARC record at _dmarc.scottclarke.net; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 scottconstructiongroup.com	none	scottconstructiongroup.com	v=DMARC1; p=none; pct=100	100	no	hard_fail	v=spf1 include:scott_spf.ictgrp.net include:_spf.smtp.com include:spf.protection.outlook.com  include:spf.exclaimer.net ip4:207.102.108.106 ip4:163.116.141.109 -all	2026-11-06	none	none	none
 scottcooner.com	no_record		no DMARC record at _dmarc.scottcooner.com; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:216.201.216.34 include:spf.protection.outlook.com include:sendgrid.net -all	2026-11-11	none	none	none
