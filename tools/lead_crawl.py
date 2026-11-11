@@ -489,6 +489,18 @@ def leads_mode(a, k, n):
                 if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known or dom in taken:
                     continue
                 cand2.append(((0 if cc == "CA" else 1) + (10 if key in reread else 0), dom, key))
+            # 2026-11-11: and the sites of any other ending whose home page prints a Canadian postal address and no mailbox (56,485 of them): an
+            # organisation in Canada by its own address, a row by where it is once its contact page gives a mailbox
+            n_other = 0
+            for dom, (em, cc) in hints.items():
+                if em or cc != "CA" or dom.endswith(".ca") or not shard_ok(dom, k, n):
+                    continue
+                rd = C.registrable(dom)
+                key = "lead:" + hashlib.sha1(("%s|site:ca-address" % rd).encode()).hexdigest()[:16]
+                if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known or dom in taken:
+                    continue
+                cand2.append((0 + (10 if key in reread else 0), dom, key)); n_other += 1
+            print("second-class candidates of another ending than .ca (a Canadian postal address on the home page): %d" % n_other, flush=True)
             cand2.sort()
             _via2 = CS.site_via()
             for _, dom, key in cand2[:a.registry2]:

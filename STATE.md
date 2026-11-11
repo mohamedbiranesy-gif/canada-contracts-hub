@@ -1,65 +1,70 @@
-# STATE.md — Claude lane (updated 2026-11-11 21:46Z — a row is one buyer billed ON INVOICE by a Canadian entity, payable BY BANK, with the organisation's own mailbox; since 16:01 EST every other field is populated as well as it can be and no longer takes a row out (AGENTS.md §1 rules 6-13). Read the first two sections below before anything else; everything under them is history.)
+# STATE.md — Claude lane (updated 2026-11-11 22:47Z — a row is one buyer billed ON INVOICE by a Canadian entity, payable BY BANK, with the organisation's own mailbox; since 16:01 EST every other field is populated as well as it can be and no longer takes a row out (AGENTS.md §1 rules 6-13). Read the first section below before anything else; everything under it is history.)
 
-## 2026-11-11 21:46Z — the owner at 16:01 EST: "1 million … think differently … populate those fields as best as you can". Rows by where the organisation is; a field nothing published fills no longer takes a row out
+## 2026-11-11 22:47Z — rule 13 in the table: 79,860 ship ready (build 22:11Z); second step pushed (give-way, Ontario by postal code, reader's queue), its build is running
 
-**His words, in full:** "1 million goals think differently if need be this your project take all liberty as long as under what we laid down
-invoice bank eft email Canadian vendor in simple terms and just populate those field as best as you can don’t just go empty there’s clear
-goal and it is 1 million get there max". He was answering "7,754 ship ready … nowhere near 280,000". I did not ask again ("this your
-project take all liberty"); the reading is AGENTS.md §1 rule 13 and coord/DECISIONS.md (21:05Z and 21:30Z):
-- **Four things make a row**: a Canadian biller with a relationship, a bill on invoice, a bank payment, the organisation's own mailbox
-  re-read by the referee. A field of the row's kind that nothing published fills is named on the row and no longer fails it. Two fields
-  still must be there: the biller's printed address; for a row by location, the organisation's own address (or postal code).
-- **How a bill is paid, by the kind of relationship** when the biller's own sentence was not found (dues, a regulator's fee, an agent's
-  account, a supplier's sales to its dealer, rent, a sponsorship): route `kind`, said on the row. Never for hosting or software. A sentence
-  of the biller always wins (card only: no row; "we send no invoice": fails).
-- **A relationship may stand on where the organisation is** (`tools/by_location.py`, `tools/data/billers_by_location.json`): the
-  exclusive electricity distributor of the organisation's own printed postal code bills that address every month, on an invoice, paid
-  through a bank. Eight distributors on file, each with its own printed address and the law of its franchise: Hydro-Québec (G H J, pockets
-  of the municipal networks left out; monthly, least bill $15.43, cards refused in its words, 21 days), BC Hydro (V, FortisBC and five
-  municipal utilities left out), Toronto Hydro (M; $43.70 per 30 days), Manitoba Hydro (R; $21.57), Hydro Ottawa (K1 K2), SaskPower (S,
-  Saskatoon Light & Power and Swift Current left out), NB Power (E, Saint John / Edmundston / Perth-Andover left out), Qulliq (X0A-C).
-  The row says what is certain (the biller of the address) and what is not published (whether the organisation or its landlord holds
-  the account). `ship_ready` reads "yes (by where the organisation is: …)"; the build log counts the three levels apart.
-- Unchanged: never an invented value, never a calculated value shown as published, every hard rule of §2.
+**The owner at 16:01 EST, in full:** "1 million goals think differently if need be this your project take all liberty as long as under
+what we laid down invoice bank eft email Canadian vendor in simple terms and just populate those field as best as you can don’t just go
+empty there’s clear goal and it is 1 million get there max". Not asked again; my reading is AGENTS.md §1 rule 13 and coord/DECISIONS.md
+(21:05Z, 21:30Z, 22:44Z). In four lines:
+- four things make a row (a Canadian biller with a relationship, a bill on invoice, a bank payment, the organisation's own mailbox
+  re-read by the referee); a field nothing published fills is named on the row and no longer fails it (only the biller's printed
+  address, and for a row by location the organisation's own address or postal code, still must be there);
+- how a bill is paid may be said "by the kind of relationship" when the biller's sentence was not found — never for hosting or software;
+- a relationship may stand on where the organisation is: the electricity distributor of its own printed postal code
+  (`tools/by_location.py`); the row says what is certain (the biller of the address) and what is not published (who holds the account);
+- a row whose own relationship cannot meet the rule (a service whose vendor's payment is not published, a client listing, a link, a
+  trademark owner billed by the Office) gives way to that distributor and keeps the other relationship as a note.
 
-**Measured (sample builds OWNER7 and OWNER8, 1 lead in 4, today's data, final code):** 26,768 ship ready of 49,498 rows — by where the
-organisation is 13,072 · best effort (by the kind, or a field of its kind not published) 9,992 · every field in the biller's or the
-record's own words 3,704. A full table: about 105,000. The published table (20:21Z, old rules) says 6,405.
+**Told to the owner (21:51Z and 22:47Z):** the three decisions; 79,860 and what it is made of; that my "about 105,000" came from a
+quarter-size build and was wrong; that a second build is running, estimate 120,000 to 135,000; that Alberta cannot be done by location;
+"if rows that rest on location are not what you want, say so and I'll pull them". He has not answered. If he rejects them: they are one
+kind (`relationship_fact_basis` starts "by where it is"; give-way rows too), removed by not making tier-I rows from `LOC:` in rank.py.
 
-**What limits the by-location rows, measured:**
-- the home-page scan asked 3.82 million sites, read 1.96 million, and **377,262 home pages print a Canadian postal code**
-  (V 62,321 · L 60,670 · T 45,301 · M 37,663 · J 31,975 · H 28,124 · N 24,688 · K 23,416 · G 18,726 · R 10,282 · S 8,753 · B 7,803 ·
-  P 7,002 · E 5,196 · A 2,552 · C 1,600 · Y 601 · X 589). P13 does not use that postal code yet (28,896 organisations with a mailbox were
-  skipped in the sample for want of an address at that point: about 115,000 in a full table);
-- no distributor on file for Ontario outside Toronto and Ottawa (L N P and the rest of K: about 110,000 of those sites), Nova Scotia,
-  Newfoundland, Prince Edward Island, the pockets left out; Alberta (45,000) has no biller by location at all (the retailer is the
-  customer's choice);
-- a service row whose vendor's way of being paid is not published fails (4,790 in the sample have a distributor: 19,000 in a full table)
-  and so does a client listing (1,771): they should give way to the distributor, the other relationship kept as a note;
-- most of those 377,262 sites have no mailbox read yet: the mailbox reader takes sites that print a mailbox on the home page.
+**Numbers.**
+- Build 20:21Z (old rules) 6,405 · build 22:11Z (code c6cd6fe) **79,860 of 158,912**: by location 38,467 · best effort 33,095 · complete
+  8,298. By kind: membership 12,388 · licence 8,943 · service 7,279 · sponsorship 4,746 · agent of record 3,566 · public contract 2,547 ·
+  dealership 1,825 · tenancy 99. Failing: service, payment not published 55,690 · not established 15,843 · no mailbox 5,505 ·
+  vendor registry warning 3,110.
+- Build dispatched 22:45Z (code 3574581): sample build OWNER11 gave 44,432 of 60,384 (by location 30,490, best effort 9,957, complete
+  3,985). **A sample is not multiplied by four** (DECISIONS 22:44Z): it tests the code. Read the build's own lines.
+- The pool by location (scan: 377,262 home pages with a Canadian postal code; 115,996 of those sites have a mailbox row): with a mailbox
+  and a distributor on file after Ontario about 91,000; with a mailbox and no distributor: Alberta 13,867 · Nova Scotia 2,208 ·
+  Newfoundland 737 · PEI 398 · pockets about 4,600 · Ontario codes near an edge 2,787.
+- The mailbox reader: 902,604 sites read, 236,200 with a mailbox. Unread: about 63,000 sites that print a role mailbox on their home
+  page (read first from the run that starts after 23:35Z; 85 % give a row), then 750,000 .ca sites with none on the home page (10 %).
+
+**What was built today after 21:46Z (all pushed, b94a500 / 3574581):** `rank.py` — the give-way loop before P13 (`GAVE_WAY`, note in
+`other_relationship_sources`), `SCAN_PC` / `scan_address()` (the home-page postal code as an address, said as such), the register
+look-up under the legal name a vendor's own site prints, `address_source`; `tools/on_ldc_table.py` + `on-ldc-table.yml` +
+`tools/data/on_postal_ldc.tsv.gz` + `tools/data/billers_by_location_on.json` (Ontario: the regulator's map x postal-code locations x
+postal areas; address and site from the Board's page on each distributor); `tools/by_location.py` (Ontario by the table,
+`scan_postal_codes()`, a lane's sentences under `table_key`); `tools/lead_crawl.py` (site candidates first, any ending with a Canadian
+address). Geodata is cached under `out/geo/` (not in git; the tool fetches it again).
 
 **Next, in this order:**
-1. Cloud build with this code (dispatched after the push of 21:46Z): read `coord/results/ranked/SUMMARY.md` — the lines "SHIP READY" and
-   "of which" — against the sample (about 105,000). If it differs by more than a tenth, find why before anything else.
-2. P13: the postal code of the organisation's home page (scan, `data/incoming/claude/credit_scan/links_*.gz`, 4th column, last field) as
-   an address when the lead reader kept none; then the give-way of a failing service / client-listing row to the distributor. A sample
-   build before each push.
-3. The mailbox reader's queue: every scan site with a postal code in a distributor's territory and no mailbox on file
-   (`tools/lead_crawl.py --registry`), the largest pool there is.
-4. Distributors: Ontario by municipality (Alectra, Hydro One, Elexicon, London Hydro, Enova, Oakville, Burlington …: the printed city
-   and the licence's service area, not the postal area alone), Nova Scotia Power, Newfoundland Power, Maritime Electric, the pockets; the
-   amounts and payment sentences of BC Hydro, Hydro Ottawa, SaskPower, NB Power, Qulliq. Other lanes hand theirs in as
-   `contrib/<lane>/billers_by_location/<key>.json` (docs/LANES_ON_INVOICE.md, format 4); `by_location.py verify` runs in vendor-billing.yml.
-5. A new hundred from the new table (`tools/test_sample.py`: a quarter of it by-location rows), read row by row before the owner sees it.
-   His marks on the present page first (`ArtifactData list verdicts`, https://claude.ai/artifact/AKuRT9NPpMX3Jwfqj1ZERt).
-6. Everything of the 21:05Z list below that still stands: the site of a register entry (item 3 there), the billers' own sentences (4),
-   vendor numbers (5), registers by descriptor (6), members (7), patents and owners abroad (8), the Sunday report (9).
+1. Read the build dispatched 22:45Z (`coord/results/ranked/SUMMARY.md`: "SHIP READY", "of which", "rows that give way", "P13 added";
+   `BUILD.json`). Tell the owner the count itself, in two sentences. If it is under 110,000, find why before anything else.
+2. A new hundred from that table: `python3 tools/test_sample.py <table> --day 2026-11-11c --built <stamp>`; read every row; what
+   reading finds becomes a rule first. Publish to the same page only if `ArtifactData list verdicts` is still empty
+   (https://claude.ai/artifact/AKuRT9NPpMX3Jwfqj1ZERt), else a new page; QA instruction in `coord/inbox/chatgpt.md`.
+3. The mailbox reader's run that starts after 23:35Z: its log line "site candidates (home page prints a role mailbox …): N queued" and,
+   at the merge, how many gave a mailbox. Then the referee, then a build: about +40,000 rows expected over two runs.
+4. The distributors' own words for Ontario (amount, bill, payment: 51 of 53 have only address and territory — every such row says
+   "not published: amount" and "by the kind"): Alectra, Hydro One, Enova, London Hydro first (their contact pages are read:
+   scratch `ldc_pages/`); Elexicon's site refuses the reader. Then Nova Scotia Power, Newfoundland Power, Maritime Electric (3,343
+   organisations with a mailbox), the amounts of BC Hydro, Hydro Ottawa, SaskPower, NB Power, Qulliq.
+5. Second-class candidates of other endings (.com / .org with a Canadian address, no mailbox on the home page: 56,485) into
+   `lead_crawl.py --registry2`. Tracking parameters (`shpxid=…`) out of stored page addresses.
+6. Member rosters: the chambers behind the 12,388 member rows are 71; the provincial federations list several hundred
+   (`tools/roster_ingest.py`, GrowthZone / ChamberMaster hosts) — rows on a record, stronger than by location.
+7. Everything of the 21:05Z list below that still stands: the site of a register entry (item 3 there), the billers' own sentences (4),
+   vendor numbers (5), registers by descriptor (6), patents and owners abroad (8), the Sunday report 2026-11-15 (9).
 
-**What a million needs, as I see it today (to be said to the owner without rounding up):** one row is one organisation with its own
-published mailbox. By-location makes a row of every organisation in Canada outside Alberta whose site prints a postal code and a
-mailbox. The scan knows 377,000 such sites with a postal code on the home page; a contact page adds more; a mailbox is found on about
-half. That is several hundred thousand rows, not a million; the rest must come from organisations outside the scan (the other half of
-the .ca names, Canadian organisations on .com, organisations abroad billed by a Canadian body through a register).
+**What a million needs, as I see it (said to the owner at 21:51Z, to be said again with numbers on Sunday):** one row is one
+organisation with its own published mailbox. By location, every organisation in Canada outside Alberta whose site prints a postal code
+and a mailbox is a row: the scan knows 377,000 such sites with a postal code on the home page, a contact page adds more, a mailbox is
+found on a third to a half. That is 150,000 to 250,000 rows from what is on file, not a million; the rest needs organisations the scan
+has not met (Canadian organisations on .com, rosters, registers, organisations abroad billed by a Canadian body).
 
 ## 2026-11-11 21:05Z — first build on the rule: 6,405 ready; read before it went out, re-tested: 7,754; GitHub Actions is down
 
@@ -1355,7 +1360,7 @@ Gemini batch 51 rows 1–30 (23:01 EST). Codex: 30 usage-limit refusals so far; 
 
 ## 22:55Z — build 22:49Z **99/438** (+5): ap_system_hint P01T / P09, buyer_tax_exempt_status P12, vendor_trading_name P03 / P04; Gold A 134, payable 805; payment terms +5–6 pts in P02 / P03 / P05 and PO rule +4–5 from the deep walk (27 cells up ≥3, none down)
 
-## 22:50Z — build 22:23Z (scheduled) 94/438; deep A–F walk merged (+24k page keys); terms_refresh running; org_facts merged
+## 22:47Z — build 22:23Z (scheduled) 94/438; deep A–F walk merged (+24k page keys); terms_refresh running; org_facts merged
 - Build 22:23Z: 94 of 438 (+1: vendor_website P01_GOLD); award_or_notice_id +10–19 pts in Gold / P02 / P03 (notice-id rule), vendor_website P04 +16.7
   (API vendor-site searches + vendor_sites_check), payment terms P03 +7.5. Gold A 129 / B 255; payable today 789.
 - Deep A–F walk (only buyers still lacking a term or PO rule, 60 pages, one more link level): 10 shards × ~1,290 sites, ~28k pages per shard;
