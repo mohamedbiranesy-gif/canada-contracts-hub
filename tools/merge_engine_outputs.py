@@ -56,7 +56,11 @@ def main():
                     if not k:
                         continue
                     o = best.get(k)
-                    if o is None or (d.get("status") == "ok", d.get("date") or "") >= (o.get("status") == "ok", o.get("date") or ""):
+                    # 2026-11-10: on one date the record of the newer reader wins (every shard's file holds the whole state it started from: the copy
+                    # another shard carried of a site, made by the older reader on the same day, used to come after the fresh record and put its
+                    # version number and page list back)
+                    rank = lambda r: (r.get("status") == "ok", r.get("date") or "", int(r.get("v") or 0))
+                    if o is None or rank(d) >= rank(o):
                         if o and o.get("status") == "ok" and d.get("status") == "ok":
                             m = dict(o); m.update({kk: vv for kk, vv in d.items() if vv not in ("", None, [], {})}); d = m  # facts read earlier stay when the newer read has fewer
                         best[k] = d

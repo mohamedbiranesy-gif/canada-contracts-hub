@@ -35,6 +35,9 @@ on:
       only_missing:
         description: "walk_terms: only buyers still lacking a published payment term or PO rule (true/false)"
         default: "false"
+      refresh:
+        description: "org_facts: true = re-read every site whose record was made by an older version of tools/org_extras.py (its time box goes to that reader)"
+        default: "false"
 permissions:
   contents: write
   actions: write
@@ -46,6 +49,7 @@ env:
   MAXP: ${{ inputs.max_pages || '15' }}
   REDO: ${{ inputs.redo_days || '60' }}
   ONLYMISS: ${{ inputs.only_missing || 'false' }}
+  REFRESH: ${{ inputs.refresh || 'false' }}
 concurrency:
   group: claude-engines-${{ inputs.engine || github.event.schedule || 'bulk_registry' }}-${{ inputs.tiers || 'all' }}
   cancel-in-progress: false
@@ -117,10 +121,13 @@ jobs:
         run: |
           N="$SHARDS"; K=${{ matrix.k }}
           M="$MINUTES"; W=$(( (M - 15) / 2 )); [ "$W" -lt 5 ] && W=5
+          WE="$W"; RF=""
+          if [ "$REFRESH" = "true" ]; then RF="--refresh --older-only"; WE=$(( M - 35 )); [ "$WE" -lt 10 ] && WE=10; W=15; fi   # a refresh pass: the time goes to the reader of legal names; new sites' contacts get 15 minutes
           python3 tools/site_tasks.py --ranked coord/results/ranked/ranked_buyers.csv.gz --out /tmp/site_tasks.csv --kind both 2>&1 | tail -2 || true
-          timeout "${W}m" python3 tools/org_extras.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_extras.jsonl.gz --workers 40 --repo "$PWD" 2>&1 | tee extras.log | grep -E "^tasks|^finished" | tail -2 || true
+          timeout "${WE}m" python3 tools/org_extras.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_extras.jsonl.gz --workers 40 --repo "$PWD" $RF 2>&1 | tee extras.log | grep -E "^tasks|^finished" | tail -2 || true
           timeout "${W}m" python3 tools/org_contacts.py --tasks /tmp/site_tasks.csv --shard "$K/$N" --seed-resume data/incoming/claude/claude_org_contacts.jsonl.gz --workers 40 --repo "$PWD" 2>&1 | tee contacts.log | grep -E "^tasks|^finished" | tail -2 || true
           mkdir -p out
+          if [ "$REFRESH" = "true" ] && grep -q "^tasks" extras.log && ! grep -q "^finished" extras.log; then grep -m1 "^tasks" extras.log > out/refresh_cut_$K.txt; fi   # cut by the time box: the merge starts the next run
           cp data/incoming/claude/claude_org_extras.jsonl.gz out/org_extras_$K.jsonl.gz 2>/dev/null || true
           cp data/incoming/claude/claude_org_contacts.jsonl.gz out/org_contacts_$K.jsonl.gz 2>/dev/null || true
           { echo "shard $K/$N: extras $(grep -E '^tasks' extras.log | head -1) → $(grep -E '^finished' extras.log | tail -1); contacts $(grep -E '^tasks' contacts.log | head -1) → $(grep -E '^finished' contacts.log | tail -1)"; } >> "$GITHUB_STEP_SUMMARY"
@@ -141,6 +148,12 @@ jobs:
           ls -la; cd ..
           python3 tools/bulk_registry_match.py --ranked coord/results/ranked/ranked_buyers.csv.gz --req reg/JeuDonnees.zip --cc "reg/corporations-*.csv" --repo "$PWD" | tee -a "$GITHUB_STEP_SUMMARY"
           mkdir -p out && cp data/incoming/claude/claude_registry_bulk.csv out/registry_bulk.csv
+          # 2026-11-10: the CRA list of registered charities, matched to the table as it is today (by name and by web address) and written in a compact
+          # form for the join by registration number in rank.py. Until this day the match was a file made on the owner's Mac on 2026-11-08, for a
+          # table of 65,000 rows.
+          python3 tools/charity_buyers.py --repo "$PWD" 2>&1 | tail -4 | tee -a "$GITHUB_STEP_SUMMARY" || true
+          cp data/incoming/claude/claude_charity_buyers.csv out/charity_buyers.csv 2>/dev/null || true
+          cp data/incoming/claude/claude_cra_charities.csv.gz out/cra_charities.csv.gz 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
           name: engine-${{ env.ENGINE }}-${{ matrix.k }}
@@ -184,6 +197,8 @@ jobs:
               python3 tools/merge_engine_outputs.py jsonl data/incoming/claude/claude_org_contacts.jsonl.gz data/incoming/claude/claude_org_contacts.jsonl.gz shards/org_contacts_*.jsonl.gz
             elif [ "$ENGINE" = "bulk_registry" ]; then
               [ -f shards/registry_bulk.csv ] && cp shards/registry_bulk.csv data/incoming/claude/claude_registry_bulk.csv
+              [ -s shards/charity_buyers.csv ] && cp shards/charity_buyers.csv data/incoming/claude/claude_charity_buyers.csv
+              [ -s shards/cra_charities.csv.gz ] && cp shards/cra_charities.csv.gz data/incoming/claude/claude_cra_charities.csv.gz
             else
               python3 tools/merge_engine_outputs.py registry data/incoming/claude/claude_registry_lookup.csv data/incoming/claude/claude_registry_lookup.csv shards/registry_*.csv
               [ -f shards/registry_resume_1.jsonl ] && gzip -c shards/registry_resume_1.jsonl > /tmp/claude_registry_lookup.jsonl.gz && gh release upload harvest-state /tmp/claude_registry_lookup.jsonl.gz --clobber || true
@@ -204,6 +219,14 @@ jobs:
             echo "push attempt $i failed (main moved); redoing the merge on the new head"
             sleep $((RANDOM % 12 + 3))
           done
+          if [ "$ENGINE" = "org_facts" ] && [ "$REFRESH" = "true" ]; then
+            # a refresh pass that its time box cut short goes on in a next run (a shard whose reader did not print its last line was cut)
+            cut=$(ls shards/refresh_cut_*.txt 2>/dev/null | wc -l)
+            echo "refresh: shards cut by their time box: $cut of $SHARDS" >> "$GITHUB_STEP_SUMMARY"
+            if [ "$cut" -gt 0 ]; then
+              gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=org_facts" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" -f "inputs[refresh]=true" && echo "next refresh run dispatched" >> "$GITHUB_STEP_SUMMARY" || true
+            fi
+          fi
           if [ "$ENGINE" = "walk_terms" ]; then
             left=$(cat shards/sites_left_*.txt 2>/dev/null | awk '{s+=$1} END {print s+0}')
             walked=$(wc -l < /tmp/done.tsv 2>/dev/null || echo 0)

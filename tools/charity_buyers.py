@@ -7,9 +7,20 @@ Downloads the latest "ident" (identification) and "weburl" files through the ope
 exact normalised legal / account name (province must agree when known) or by website domain. Writes
 <repo>/data/incoming/claude/claude_charity_buyers.csv with the file URL as evidence and the matched line as quote. rank.py fills
 buyer_bn_as_published (labelled RR), buyer_legal_name_as_published, buyer_address, buyer_fiscal_year_end, buyer_charity_status.
-  python3 tools/charity_buyers.py [--repo ~/cch-crawler] [--ranked ranked_buyers.csv.gz] [--workdir ~/cch-tasks/cra]
+2026-11-10: also writes the list itself in a compact form, <repo>/data/incoming/claude/claude_cra_charities.csv.gz (one line per registered
+account: number, legal and account name, address, designation, category, web address), so that rank.py can join a row to the list by the
+registration number the organisation prints on its own site — a tie neither the name nor the web address gives ("Ronald McDonald House Toronto"
+is TORONTO CHILDREN'S CARE INC.). The file is written with the same bytes while the CRA's files do not change. Runs daily in the cloud
+(claude-engines.yml, bulk_registry step); the ranked table is read through tools/ranked_io.py (a release asset since 2026-11-10).
+  python3 tools/charity_buyers.py [--repo .] [--ranked ranked_buyers.csv.gz] [--workdir ~/cch-tasks/cra]
 """
 import argparse, csv, datetime, glob, gzip, io, json, os, re, sys, unicodedata, urllib.parse, urllib.request, zipfile
+
+csv.field_size_limit(1 << 30)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ranked_io as RIO  # noqa: E402
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+LIST_COLS = ["bn", "legal_name", "account_name", "address", "city", "province", "postal_code", "country", "designation", "category", "website", "source_url", "retrieved_date"]
 
 UA = "canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)"
 PKG = "https://open.canada.ca/data/api/3/action/package_show?id=80c00cdb-1358-415c-bb8b-0de7f12675b8"
@@ -50,7 +61,7 @@ def fetch(url, dest):
 
 def main():
     a = argparse.ArgumentParser()
-    a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
+    a.add_argument("--repo", default=ROOT)
     a.add_argument("--ranked", default="")
     a.add_argument("--workdir", default=os.path.expanduser("~/cch-tasks/cra"))
     a = a.parse_args()
@@ -86,7 +97,16 @@ def main():
                 web.setdefault(bn, u)
     by_name, by_dom = {}, {}
     cols = None
+    src_url = pick["ident"][1]
+    listed = []
     for r in csv.DictReader(open(files["ident"], encoding="utf-8-sig", errors="replace", newline="")):
+        _bn = (r.get("BN") or r.get("BN/NE") or "").strip().upper().replace(" ", "")
+        if re.fullmatch(r"\d{9}RR\d{4}", _bn):
+            listed.append({"bn": _bn, "legal_name": re.sub(r"\s+", " ", r.get("Legal Name") or "").strip(), "account_name": re.sub(r"\s+", " ", r.get("Account Name") or "").strip(),
+                           "address": ", ".join(v.strip() for v in (r.get("Address Line 1"), r.get("Address Line 2")) if v and v.strip()), "city": (r.get("City") or "").strip(),
+                           "province": (r.get("Province") or "").strip(), "postal_code": (r.get("Postal Code") or "").strip(), "country": (r.get("Country") or "").strip(),
+                           "designation": (r.get("Designation") or "").strip(), "category": (r.get("Category") or "").strip(), "website": web.get((r.get("BN") or r.get("BN/NE") or "").strip(), ""),
+                           "source_url": src_url, "retrieved_date": ""})
         if cols is None:
             cols = list(r.keys()); print("ident columns:", cols[:30], flush=True)
         bn = (r.get("BN") or r.get("BN/NE") or "").strip()
@@ -101,11 +121,32 @@ def main():
         if r["_web"]:
             by_dom.setdefault(host(r["_web"]), r)
     print("charities indexed:", len(by_dom), "with website;", len(by_name), "name keys", flush=True)
+    # the list itself, for the join by registration number in rank.py. The retrieval date changes only when the list's content does (the date of
+    # the copy already in the repo is kept while the lines are the same), so that an unchanged list is an unchanged file in git.
+    lp = os.path.join(a.repo, "data/incoming/claude/claude_cra_charities.csv.gz")
+    listed.sort(key=lambda d: d["bn"])
+    old_date, old_lines = "", None
+    if os.path.exists(lp):
+        try:
+            with gzip.open(lp, "rt", encoding="utf-8", newline="") as f:
+                old = list(csv.DictReader(f))
+            old_date = old[0]["retrieved_date"] if old else ""
+            old_lines = [{c: o.get(c, "") for c in LIST_COLS if c != "retrieved_date"} for o in old]
+        except Exception as e:
+            print("the list in the repo could not be read (%s): written anew" % e, flush=True)
+    same = old_lines is not None and old_lines == [{c: d[c] for c in LIST_COLS if c != "retrieved_date"} for d in listed]
+    for d in listed:
+        d["retrieved_date"] = old_date if (same and old_date) else TODAY
+    if not same:
+        os.makedirs(os.path.dirname(lp), exist_ok=True)
+        buf = io.StringIO()
+        w = csv.DictWriter(buf, fieldnames=LIST_COLS, lineterminator="\n"); w.writeheader(); w.writerows(listed)
+        with open(lp, "wb") as f, gzip.GzipFile(filename="", mode="wb", fileobj=f, mtime=0) as g:
+            g.write(buf.getvalue().encode("utf-8"))
+    print("CRA list:", len(listed), "registered accounts;", "unchanged, file kept" if same else "written to " + lp, flush=True)
     ranked = a.ranked or os.path.join(a.repo, "coord/results/ranked/ranked_buyers.csv.gz")
-    opener = gzip.open if ranked.endswith(".gz") else open
     out_rows, seen = [], set()
-    src_url = pick["ident"][1]
-    for x in csv.DictReader(opener(ranked, "rt", encoding="utf-8")):
+    for x in RIO.rows(ranked):
         key = (x.get("keys") or "").split("|")[0]
         if key in seen:
             continue
@@ -144,6 +185,16 @@ def main():
                          "match_basis": basis, "source_url": src_url, "retrieved_date": TODAY,
                          "source_quote": ("%s; %s; %s; %s %s; FPE %s" % (bn, hit.get("Legal Name") or "", hit.get("Account Name") or "", hit.get("City") or "", hit.get("Province") or "", fpe))[:300]})
     out = os.path.join(a.repo, "data/incoming/claude/claude_charity_buyers.csv")
+    # a match that stands as it stood keeps the date it was first written with: the file changes in git by its new and changed lines only
+    if os.path.exists(out):
+        try:
+            prev = {r["buyer_key"]: r for r in csv.DictReader(open(out, encoding="utf-8", errors="replace", newline=""))}
+            for r in out_rows:
+                o = prev.get(r["buyer_key"])
+                if o and all((o.get(c) or "") == (r.get(c) or "") for c in COLS if c != "retrieved_date") and o.get("retrieved_date"):
+                    r["retrieved_date"] = o["retrieved_date"]
+        except Exception as e:
+            print("the matches in the repo could not be read (%s): dates of today" % e, flush=True)
     with open(out, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=COLS); w.writeheader(); w.writerows(out_rows)
     print("wrote", out, len(out_rows), "buyers matched to registered charities", flush=True)

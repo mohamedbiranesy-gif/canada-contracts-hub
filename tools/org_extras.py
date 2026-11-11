@@ -6,6 +6,10 @@
   - logo image URL (og:image or an <img> whose src / alt says logo);
   - language of the site (fr / en / fr-en from the html lang attribute and stopwords);
   - whether the site answers (status).
+  v3 (2026-11-10, the bill-to legal name of 160,000 rows): the name printed WITH its legal form anywhere on the organisation's pages that its
+    own domain name spells ("Credit Lift Inc." on creditlift.ca); the legal person a page puts behind the site's name ("Majid Enterprises Inc.,
+    operating as Lawn Lovers", "Solaris (1457570 Alberta Ltd.)", "Legal Entity : …"); the operator a page names; the home page's title and
+    og:site_name; a Shopify store's fixed policy pages; the five pages are chosen among ALL the links of the home page.
   v2 (2026-11-08, downstream coverage targets): schema.org JSON-LD Organization facts (legalName, address, telephone, logo, taxID,
     foundingDate, numberOfEmployees, sameAs); the legal name stated on Terms / Privacy / Legal pages ("operated by X Inc.",
     "X Inc. ("we")", "The Corporation of the City of X", "Centre de services scolaire de X"); logo from the header or the
@@ -19,7 +23,7 @@ and a ≤300-char quote per fact.
   python3 tools/org_extras.py --tasks tasks.csv [--workers 48] [--repo ~/cch-crawler] [--refresh] [--test URL ...]
   --refresh re-reads domains whose record predates v2 or failed on a redirect / network error (old facts are kept when the new read fails).
 """
-V = 2
+V = 3
 import argparse, csv, gzip, html, json, os, re, sys, threading, time, unicodedata, urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 
@@ -271,6 +275,251 @@ def legal_name_text(text, host, name):
     return out[0][3]
 
 
+# ---- v3 (2026-11-10): the name an organisation prints WITH its legal form, tied to the site by what its own address spells ----
+# Measured on 317 sites whose record held no legal name: 31 print a name with a legal form whose words spell their domain name ("Credit Lift Inc."
+# on creditlift.ca, "Autoénergie Canada inc." on autoenergie.com, "M.A.C. Trucking Ltd" on mactrucking.ca), 17 of them on the home page itself,
+# outside any copyright line or "operated by" sentence. On 324 sites that had a legal name the rule agreed with it 81 times, and of the 15 times it
+# differed it was right 14 times ("Liberty Security Systems Inc." where the record held "Canadian Security Association", "Spurrell Professional
+# Corporation" where it held "Secure Sockets Layer").
+SUF3 = re.compile(r"(?<![\w.\-/])(Inc|Incorporated|Incorpor[ée]e|Ltd|Limited|Limit[ée]e|Lt[ée]e|Corp|Corporation|LLP|L\.L\.P|LLC|L\.L\.C|PLC|GmbH|S\.E\.N\.C\.R\.L|S\.E\.N\.C|SENCRL|SENC|ULC|U\.L\.C)(?![\w\-])\.?", re.I)
+_W3 = re.compile(r"^(?:[A-Z0-9À-Ý][\w'’.+\-À-ÿ&]*|[a-z]{1,3}[A-Z][\w'’.+\-À-ÿ]*|[dDlL]['’][A-ZÀ-Ý][\w'’\-À-ÿ]*|&|\+)$")  # a capitalised word, a number, "eBay", "d'Amour", & or +
+_J3 = {"and", "et", "of", "de", "du", "des", "la", "le", "les", "the", "for", "pour", "à", "au", "aux", "en", "sur", "&", "+"}
+CHROME3 = set("""privacy policy policies politique politiques confidentialité confidentialite terms conditions modalités modalites copyright rights reserved droits réservés reserves
+home accueil contact contactez about menu search recherche login connexion cart panier skip content contenu welcome bienvenue notice statement agreement disclaimer legal
+mentions légales legales introduction overview website site page section article effective date updated last version english français francais follow suivez subscribe
+january february march april may june july august september october november december janvier février mars avril mai juin juillet août septembre octobre novembre décembre
+monday tuesday wednesday thursday friday saturday sunday lundi mardi mercredi jeudi vendredi samedi dimanche phone tel téléphone email courriel fax address adresse hours heures
+facebook instagram twitter linkedin youtube tiktok pinterest shop boutique checkout account compte cookies cookie sitemap careers carrières faq blog news nouvelles
+by par with avec from our notre nos your votre vos this these that those ce cette ces all tous toutes and/or""".split())
+# companies a site names because it uses them, never because it is them (platforms, payment and advertising services, franchisors, carriers)
+THIRD3 = re.compile(r"\b(?:shopify|google|alphabet|meta platforms|facebook|instagram|whatsapp|stripe|paypal|houzz|wix|squarespace|godaddy|weebly|webflow|interac|apple|microsoft|amazon|mailchimp|"
+                    r"intuit|hubspot|cloudflare|automattic|wordpress|lightspeed|block|square|moneris|visa|mastercard|american express|amex|klarna|afterpay|affirm|sezzle|paybright|re/?max|"
+                    r"royal lepage|century 21|sotheby|keller williams|coldwell|canada post|postes canada|united parcel|ups|fedex|federal express|purolator|dhl|youtube|linkedin|twitter|"
+                    r"tiktok|pinterest|yelp|tripadvisor|adobe|oracle|salesforce|zoom video|calendly|eventbrite|ticketmaster|booking|expedia|airbnb|uber|doordash|skipthedishes|jane software|"
+                    r"mindbody|vagaro|constant contact|sendgrid|twilio|zendesk|atlassian|slack|dropbox|vimeo|network advertising|digital advertising|odoo|bigcommerce|ecwid|jimdo|duda|"
+                    r"wordfence|growthzone|civicplus|granicus|esolutions|blackbaud|global payments|elavon|chase|clover|toast|opentable|resy|yext|trustpilot|birdeye|podium|klaviyo|"
+                    r"cookiebot|onetrust|termly|iubenda|termsfeed|freeprivacypolicy|privacypolicies|getterms|cookieyes|complianz|osano|usercentrics|web\.com|bluehost|hostgator|ionos|ovh)\b", re.I)
+NUMBERED3 = re.compile(r"^\d[\d\-]{3,9}$")
+ABBR3 = re.compile(r"(?:[A-Za-zÀ-ÿ]\.)+|(?:St|Ste|Mt|Dr|Jr|Sr|Bros|Mfg|Intl|Assoc|Wm|Geo|Co|No|Pvt|Pty)\.")
+ENDINGS3 = set("canada ca inc ltd corp co online store shop boutique group groupe qc quebec web site services service solutions official usa us na".split())
+PROV3 = re.compile(r"(?i)(?:qu[ée]bec|canada|ontario|alberta|manitoba|saskatchewan|b\.?c\.?|british|nova|n\.?[bs]\.?|new|yukon|newfoundland|nunavut|p\.?e\.?i\.?)\b")
+DBA3 = re.compile(r"\s*[,(]?\s*(?:operating as|doing business as|carrying on business as|trading as|o/a|d/b/a|d\.b\.a\.?|dba|faisant affaires? sous(?: le nom| la raison sociale| la d[ée]nomination(?: sociale)?)?(?: de)?|"
+                  r"op[ée]rant sous le nom(?: de)?|exploitant l['’]entreprise)\s*[:\-–]?\s*[\"“«‘']?\s*", re.I)
+ALIAS3 = re.compile(r"\s*,?\s*\(\s*(?:hereinafter|hereafter|ci-apr[èe]s|collectively|together|referred to as|d[ée]sign[ée]e? (?:comme|par)|the|la|le|l['’]|,|\s)*[\"“«‘']\s*([^\"”»’'()]{2,40}?)\s*,?\s*[\"”»’'](?=[^()]{0,70}\b(?:we|us|our|nous|notre|nos)\b)", re.I)
+LABELLED3 = re.compile(r"(?:Legal (?:Entity|Name)|Registered (?:Company |Business )?Name|Company Legal Name|Raison sociale|D[ée]nomination sociale|Nom l[ée]gal(?: de l['’]entreprise)?)\s*[:：]\s*", re.I)
+OPER3 = re.compile(r"(?:(?:owned and )?operated|published|(?:d[ée]tenue?s? et )?exploit[ée]e?s?|[ée]dit[ée]e?s?)\s+(?:by|par)\s*:?\s*(?:the\s+|la\s+|le\s+|l['’]\s*)?[\"“«]?\s*", re.I)
+SHOPIFY3 = re.compile(r"cdn\.shopify\.com|Shopify\.(?:shop|theme|routes)\b|\.myshopify\.com", re.I)
+STORE_POLICIES = ("/policies/legal-notice", "/policies/contact-information", "/policies/terms-of-service", "/policies/privacy-policy")
+TITLE3 = re.compile(r"(?is)<title[^>]*>(.*?)</title>")
+OGSN3 = re.compile(r"(?is)<meta[^>]+property\s*=\s*[\"']og:site_name[\"'][^>]+content\s*=\s*[\"']([^\"']{2,120})|<meta[^>]+content\s*=\s*[\"']([^\"']{2,120})[\"'][^>]+property\s*=\s*[\"']og:site_name[\"']")
+
+
+def letters3(s):
+    return re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower())
+
+
+def host_label(host):
+    """the first label of the site's registrable domain, letters and digits only ("" on a host many organisations share)"""
+    h = (host or "").lower().removeprefix("www.")
+    dom = C.registrable(h) or h
+    if not dom or SHARED_HOSTS.search(h) or SHARED_HOSTS.search(dom) or re.search(r"(?:^|\.)(?:myshopify\.com|wixsite\.com|webflow\.io|github\.io|netlify\.app|square\.site|business\.site|"
+                                                                                 r"blogspot\.com|strikingly\.com|carrd\.co|facebook\.com|linktr\.ee|jimdofree\.com|webnode\.\w+|site123\.me)$", dom):
+        return ""
+    return re.sub(r"[^a-z0-9]", "", dom.split(".")[0])
+
+
+def _name_runs(text):
+    """every name printed with a legal form: (words before the form, the form as printed, start of the first word, end of the form, cut) — the words
+    are read backwards from the form while they look like the words of a name; `cut` says the reading stopped at its limit, not at the name's start"""
+    for m in SUF3.finditer(text):
+        if re.match(r"\s+(?:of|de|du|des|d['’])\s", text[m.end():m.end() + 6]):
+            continue  # "The Corporation of the Town of …", "Limited edition"
+        if m.group(1).islower() and m.group(1) not in ("inc", "ltée", "ltee", "senc", "ltd", "limitée", "limitee"):
+            continue  # "a limited number", "the corporation": the French forms are written small ("Autoénergie Canada inc."), the English ones are not
+        j = m.start()
+        if j == 0 or text[j - 1] not in "  ":
+            continue
+        head = text[max(0, j - 140):j].rstrip("  ")
+        if head.endswith(","):
+            head = head[:-1]
+        toks = head.split(" ")
+        words, cut = [], False
+        for t in reversed(toks):
+            t0 = t.rstrip(",")
+            if not t0 or len(words) >= 8:
+                cut = len(words) >= 8
+                break
+            paren = t0.startswith("(") and len(t0) > 1  # "Solaris (1457570 Alberta Ltd.)": the bracket opens the name
+            core = t0[1:] if paren else t0
+            if core.lower().strip(".:") in CHROME3 or not (_W3.match(core) or core.lower() in _J3):
+                break
+            if core[-1] in ".:;!?)|" and not ABBR3.fullmatch(core):
+                break  # the end of the sentence before the name ("… in our store. Acme Inc.", "Yes. Felicita Holdings Ltd."); "J.", "M.A.C.", "St." are parts of names
+            words.insert(0, core)
+            if paren:
+                break
+        while words and words[0].lower() in _J3:
+            words.pop(0)
+        if not words:
+            continue
+        w0 = max(0, j - 150)
+        mm = re.search(r"[ ,\u00a0]+".join(map(re.escape, words)) + r",?[ \u00a0]+$", text[w0:j])
+        if not mm:
+            continue
+        form = text[m.start():m.end()]
+        if form.endswith(".") and re.fullmatch(r"(?i)limited|limit[ée]e|corporation|incorporated|incorpor[ée]e|llp|llc|ulc|plc|gmbh|senc|sencrl", form[:-1]):
+            form = form[:-1]
+        yield words, form, w0 + mm.start(), m.start() + len(form), cut
+
+
+def _variants3(words):
+    out = set()
+    for amp in ("", "and", "et", "n"):
+        out.add(letters3(" ".join(amp if w in ("&", "+") else w for w in words)))
+    return out
+
+
+def spelled_name(text, host):
+    """(name with its legal form, basis, times printed, position) for the name whose words spell the site's own domain name — the whole of it
+    ("Credit Lift Inc." on creditlift.ca, "Strato Inc." on stratoinc.com), its beginning ("AZON Bookkeeping Services Inc." on azonbookkeeping.ca; the
+    domain must have six letters), or the whole of it with the first words by their initials ("Case Grypma Mechanical Ltd." on cgmechanical.ca)."""
+    lab = host_label(host)
+    if len(lab) < 4:
+        return None
+    found = {}
+    for words, suf, s, e, cut in _name_runs(text):
+        sl = letters3(suf)
+        best = None
+        for k in range(1, len(words) + 1):
+            run = words[-k:]
+            if run[0].lower() in _J3:
+                continue
+            vs = _variants3(run)
+            if lab in vs or any(v + sl == lab for v in vs):
+                best = (run, "its words spell the site's own domain name"); break
+            if len(lab) >= 6 and any(v.startswith(lab) for v in vs):
+                best = (run, "its words begin with the site's own domain name"); break
+            sig = [w for w in run if w.lower() not in _J3]
+            if len(sig) >= 3:
+                for j in range(2, len(sig)):
+                    if "".join(letters3(w)[:1] for w in sig[:j]) + letters3(" ".join(sig[j:])) == lab:
+                        best = (run, "its words spell the site's own domain name, the first ones by their initials"); break
+                if best:
+                    break
+                ini = "".join(letters3(w)[:1] for w in sig)
+                if (len(ini) >= 4 and ini == lab) or (len(ini) >= 3 and ini + sl == lab):
+                    best = (run, "its initials are the site's own domain name"); break  # "Global Institute of Forensic Research Inc." on gifrinc.com
+        if not best:
+            continue
+        nm = " ".join(best[0]) + " " + suf
+        if THIRD3.search(nm) or len(nm) > 90:
+            continue
+        key = letters3(nm)
+        if key not in found:
+            found[key] = [nm, best[1], 0, e - len(nm)]
+        found[key][2] += 1
+    if not found:
+        return None
+    return sorted(found.values(), key=lambda v: (0 if v[1].startswith("its words spell") else 1 if v[1].startswith("its words begin") else 2, -v[2], v[3]))[0]
+
+
+def _trim_form3(cand):
+    """a full stop after a whole word or an acronym ends the sentence, not the name ("… operated by Adaria Vending Services Limited.")"""
+    return cand[:-1] if re.search(r"(?i)\b(?:limited|limit[ée]e|corporation|incorporated|incorpor[ée]e|llp|llc|ulc|plc|gmbh|senc|sencrl)\.$", cand) else cand
+
+
+def _fits3(trade, lab):
+    t = letters3(trade)
+    # "Genesis" is not the name of genesiskw.ca (a dealer's site carrying the maker's privacy notice: "… a division of Hyundai Auto Canada Corp. (“Genesis”)")
+    return bool(t) and bool(lab) and (t == lab or (len(lab) >= 5 and t.startswith(lab)) or (len(t) >= 5 and lab.startswith(t) and lab[len(t):] in ENDINGS3))
+
+
+def _lead_words3(s, n=6):
+    """the capitalised words a text starts with (a trade name after "operating as")"""
+    out = []
+    for t in s.split(" ")[:n + 2]:
+        if out and t[:1] in "(\"“«‘[":
+            break  # "… sous la dénomination sociale StreamScan (“StreamScan”)": the bracket after the name opens something else
+        t0 = t.strip("\"“”«»‘’'(),")
+        if not t0 or not (_W3.match(t0) or (out and t0.lower() in _J3)) or t0.lower() in CHROME3:
+            break
+        out.append(t0)
+        if t and t[-1] in ".,;:)\"”»" or len(out) >= n:
+            break
+    while out and out[-1].lower() in _J3:
+        out.pop()
+    return " ".join(out).rstrip(".")
+
+
+def party_name(text, host):
+    """(legal person, the site's name it stands behind, how the page puts it, position) — "Majid Enterprises Inc., operating as Lawn Lovers",
+    "1234567 Ontario Inc. ("Acme", "we", "us")", "Solaris (1457570 Alberta Ltd.)", "Legal Entity : Sleepera Mattress Wholesale Ltd.". The name the
+    legal person stands behind must be the site's own (it spells its domain name); a labelled legal entity needs no such name."""
+    lab = host_label(host)
+    if not lab:
+        return None
+    for words, suf, s, e, cut in _name_runs(text):
+        if cut:
+            continue
+        # the day and year of a date before the name ("January 13, 2026 Majid Enterprises Inc."); a numbered company keeps its number ("1457570 Alberta Ltd.")
+        while len(words) > 1 and re.fullmatch(r"\d{1,4}(?:st|nd|rd|th|e|er)?", words[0]) and not PROV3.match(words[1]):
+            s = text.find(words[1], text.find(words[0], s) + len(words[0]))
+            words = words[1:]
+        name = " ".join(words) + " " + suf
+        if THIRD3.search(name) or len(name) > 90 or (len(words) == 1 and NUMBERED3.match(words[0])):
+            continue
+        tail = text[e:e + 160]
+        m = DBA3.match(tail)
+        if m and m.end() > 2:
+            trade = _lead_words3(tail[m.end():])
+            if _fits3(trade, lab):
+                return name, trade, "doing business as", s
+        m = ALIAS3.match(tail)
+        if m and _fits3(m.group(1), lab):
+            return name, m.group(1).strip(), "defined on the page as", s
+        if s >= 2 and text[s - 1] == "(" and tail[:1] == ")":
+            before = text[max(0, s - 90):s - 1].rstrip().split(" ")
+            tw = []
+            for t in reversed(before):
+                if not t or not _W3.match(t.rstrip(",")) or t.lower().strip(".:,") in CHROME3 or len(tw) >= 5:
+                    break
+                tw.insert(0, t.rstrip(","))
+            if tw and SUF3.fullmatch(tw[-1]):
+                continue
+            for k in range(1, len(tw) + 1):
+                if _fits3(" ".join(tw[-k:]), lab):
+                    return name, " ".join(tw[-k:]), "in brackets after the site's name", s
+    for m in LABELLED3.finditer(text):
+        seg = text[m.end():m.end() + 120]
+        mm = SUF3.search(seg)
+        if not mm:
+            continue
+        cand = seg[:mm.end()].strip()
+        ws = cand.split(" ")
+        if 2 <= len(ws) <= 9 and all(_W3.match(w.rstrip(",")) or w.lower() in _J3 or SUF3.fullmatch(w) for w in ws) and not THIRD3.search(cand):
+            return _trim_form3(cand), "", "labelled as the legal entity", m.end()
+    return None
+
+
+def operator_name(text):
+    """(legal person, position) a page names as the one that operates / owns / publishes the site, whatever its name ("exploité par Société Groupe
+    Panican inc."): a name with a legal form right after the words; the ranker checks the sentence again in the quote before it prints the name"""
+    for m in OPER3.finditer(text):
+        seg = text[m.end():m.end() + 120]
+        mm = SUF3.search(seg)
+        if not mm:
+            continue
+        cand = seg[:mm.end()].strip()
+        ws = cand.split(" ")
+        if 2 <= len(ws) <= 9 and all(_W3.match(w.rstrip(",")) or w.lower() in _J3 or SUF3.fullmatch(w) for w in ws) and not THIRD3.search(cand) and not any(w.lower().strip(".,") in CHROME3 for w in ws):
+            return _trim_form3(cand), m.end()
+    return None
+
+
+def quote_pos(text, pos, name, n=300):
+    return flat(text[max(0, pos - 110):pos + len(name) + 110])[:n]
+
+
 def logo_from(raw, url):
     """logo: header <img> whose src / alt / class says logo, else og:image, else the site icon (apple-touch-icon / icon)"""
     for hm in HEADER_IMG.finditer(raw[:200_000]):
@@ -342,16 +591,24 @@ def read_site(site, kind, name="", start_url=""):
         res["status"] = "blocked"; return res
     host = (urllib.parse.urlparse(final).hostname or "").lower().removeprefix("www.")
     pages = [(final, raw0)]
-    seen = set()
+    seen = []
     for u, label in C.links(raw0, final):
         p = urllib.parse.urlparse(u)
-        if (p.hostname or "").lower().removeprefix("www.") != host or C.SKIP_EXT.search(p.path or "") or u.split("#")[0] in seen:
+        u0 = u.split("#")[0]
+        if (p.hostname or "").lower().removeprefix("www.") != host or C.SKIP_EXT.search(p.path or "") or u0 in seen or u0.rstrip("/") == final.rstrip("/"):
             continue
         if PAGE_LINK.search(p.path or "") or PAGE_LINK.search(label or ""):
-            seen.add(u.split("#")[0])
-            if len(seen) >= 5:
+            seen.append(u0)  # v3: every such link is seen before five are chosen (a menu's five "about" pages came before the footer's Privacy / Terms links)
+            if len(seen) >= 60:
                 break
-    for u in sorted(seen, key=lambda u: (not LEGAL_PAGE.search(u), len(u)))[:5]:
+    picked = sorted(seen, key=lambda u: (not LEGAL_PAGE.search(u), len(u)))[:5]
+    if SHOPIFY3.search(raw0):
+        # v3: a store on Shopify keeps its policies at fixed addresses, linked from the home page or not; the legal notice and the contact
+        # information policy print the legal entity, its address and its business number (the store's robots.txt opens its policy pages)
+        base = "%s://%s" % (urllib.parse.urlparse(final).scheme, urllib.parse.urlparse(final).netloc)
+        have = {urllib.parse.urlparse(u).path.rstrip("/") for u in picked}
+        picked += [base + pth for pth in STORE_POLICIES if pth not in have][:max(0, 8 - len(picked))]
+    for u in picked:
         if not C.allowed(u):
             continue
         st, ct, data, fin = C.fetch(u, 3_000_000)
@@ -361,6 +618,44 @@ def read_site(site, kind, name="", start_url=""):
     res["pages"] = len(pages)
     res["v"] = V
     res["pages_read"] = "; ".join(u for u, _ in pages)[:600]
+    # v3: the name printed with its legal form that the site's own address spells; the legal person a page puts behind the site's name; the
+    # operator a page names. Every one with its page and its words; the ranker decides which one a row prints.
+    m = TITLE3.search(raw0)
+    title0 = html.unescape(re.sub(r"\s+", " ", m.group(1))).strip() if m else ""
+    if title0:
+        res["title"] = title0[:150]
+    m = OGSN3.search(raw0)
+    if m:
+        res["og_site_name"] = html.unescape(m.group(1) or m.group(2) or "").strip()[:100]
+    sp, party, oper = {}, None, None
+    for url, raw in pages:
+        m = TITLE3.search(raw)
+        ft = (html.unescape(re.sub(r"\s+", " ", m.group(1))).strip() + " \n " if m else "") + re.sub(r"\s+", " ", visible_keep_lines(raw))
+        ft = re.sub(r"\s*[®™℠]", "", ft)  # "Pangaea® Natural Stone Inc."
+        phost = (urllib.parse.urlparse(url).hostname or "").lower().removeprefix("www.")
+        if C.registrable(phost) != C.registrable(host):
+            continue  # a page that left the site says nothing about the site
+        r = spelled_name(ft, host)
+        if r:
+            k = letters3(r[0])
+            if k not in sp:
+                sp[k] = [r[0], r[1], 0, url, quote_pos(ft, r[3], r[0])]
+            sp[k][2] += r[2]
+        if not party:
+            r = party_name(ft, host)
+            if r:
+                party = (r, url, quote_pos(ft, r[3], r[0]))
+        if not oper:
+            r = operator_name(ft)
+            if r:
+                oper = (r, url, quote_pos(ft, r[1], r[0]))
+    if sp:
+        b = sorted(sp.values(), key=lambda v: (not v[1].startswith("its words spell"), -v[2]))[0]
+        res.update({"legal_name_spelled": b[0], "legal_name_spelled_basis": b[1], "legal_name_spelled_times": b[2], "legal_name_spelled_url": b[3], "legal_name_spelled_quote": b[4]})
+    if party:
+        res.update({"legal_name_party": party[0][0], "legal_name_party_trade": party[0][1], "legal_name_party_how": party[0][2], "legal_name_party_url": party[1], "legal_name_party_quote": party[2]})
+    if oper:
+        res.update({"legal_name_operator": oper[0][0], "legal_name_operator_url": oper[1], "legal_name_operator_quote": oper[2]})
     # v2: structured and stated facts first (JSON-LD Organization, Terms / Privacy / Legal page statements), then the copyright line
     for url, raw in pages:
         jl_ = jsonld_org(raw, host, name)
@@ -465,7 +760,8 @@ def main():
     a.add_argument("--tasks", default="")
     a.add_argument("--workers", type=int, default=48)
     a.add_argument("--repo", default=os.path.expanduser("~/cch-crawler"))
-    a.add_argument("--refresh", action="store_true", help="re-read domains read before v2 or that failed on a redirect / network error")
+    a.add_argument("--refresh", action="store_true", help="re-read domains read by an older version of this reader (v < V) or that failed on a redirect / network error")
+    a.add_argument("--older-only", action="store_true", help="with --refresh: only the sites that have a record of an older version (the sites never read are another run's)")
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--test", nargs="*", default=None, help="read these sites once and print the facts (no files written)")
     a.add_argument("--shard", default="", help="K/N: only domains that hash to shard K of N (parallel runners never share a host)")
@@ -507,7 +803,9 @@ def main():
         if dom in seen:
             continue
         old = done_for(done, dom, h)
-        if old is not None and not (a.refresh and (int(old.get("v") or 1) < V or old.get("status") in RETRY_STATUS)):
+        if old is not None and not (a.refresh and ((int(old.get("v") or 1) < V and int(old.get("v_tried") or 0) < V) or (old.get("status") in RETRY_STATUS and not a.older_only))):
+            continue
+        if old is None and a.older_only:
             continue
         if shard_n > 1 and int(hashlib.md5((C.registrable(h) or h).encode()).hexdigest(), 16) % shard_n != shard_k:  # every host of a domain on one runner
             continue
@@ -520,7 +818,7 @@ def main():
 
     def dump():
         with lock:
-            rows = [d for d in done.values() if d.get("status") == "ok" and any(d.get(k) for k in ("legal_name", "legal_name_stated", "jsonld_legal_name", "jsonld_name", "bn", "neq", "qst", "logo_url", "language", "portals", "mentions", "tel_links", "jsonld_address", "jsonld_phone", "linkedin_url"))]
+            rows = [d for d in done.values() if d.get("status") == "ok" and any(d.get(k) for k in ("legal_name", "legal_name_stated", "legal_name_spelled", "legal_name_party", "legal_name_operator", "title", "jsonld_legal_name", "jsonld_name", "bn", "neq", "qst", "logo_url", "language", "portals", "mentions", "tel_links", "jsonld_address", "jsonld_phone", "linkedin_url"))]
         for attempt in range(3):
             try:
                 tmp = out_gz + ".%d.tmp" % os.getpid()
@@ -544,7 +842,7 @@ def main():
             if old and _host_of_site(old.get("website")) not in ("", _host_of_site(res.get("website"))):
                 old = None  # the record under this key was read on another host of the domain: this host's own record replaces it, facts are not mixed
             if old and old.get("status") == "ok" and res.get("status") != "ok":
-                res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"))  # keep yesterday's facts when today's read fails
+                res = dict(old, last_recheck=TODAY, last_recheck_status=res.get("status"), v_tried=V)  # keep yesterday's facts when today's read fails; this version of the reader has had its try
             elif old and old.get("status") == "ok":
                 merged = dict(old); merged.update({k: v for k, v in res.items() if v not in ("", None, [], {})}); res = merged
             done[dom] = res
