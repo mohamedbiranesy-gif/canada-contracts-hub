@@ -1,5 +1,7 @@
 name: authority-registers
-# Public registers of Canada's delegated authorities (tools/authority_registers.py). First one: the Ontario Motor Vehicle Industry Council —
+# Public registers of Canada's delegated authorities (tools/authority_registers.py): OMVIC (Ontario motor dealers, 7,865) and the HCRA's
+# Ontario Builder Directory (6,888 licensed builders and vendors of new homes; annual licence fee $715). The first one built, as the pattern:
+# the Ontario Motor Vehicle Industry Council —
 # every motor vehicle dealer in Ontario is registered with it and pays it a registration fee and a fee on every vehicle sold; the Council's
 # public register names each registrant (legal name, business name, registration number, class, first registration and expiry dates,
 # address, telephone and, for three in ten, its website). The site the register names is read once and kept only when its home page shows
@@ -33,8 +35,12 @@ jobs:
         env: { MINUTES: "${{ inputs.minutes || '150' }}", LIMIT: "${{ inputs.limit || '0' }}" }
         run: |
           mkdir -p out
-          python3 tools/authority_registers.py pull --only omvic 2>&1 | tail -3 | tee /tmp/r.txt
-          python3 tools/authority_registers.py profiles --only omvic --minutes "$MINUTES" --limit "$LIMIT" 2>&1 | tail -3 | tee -a /tmp/r.txt
+          # each authority is its own site: its list and its profiles are read by a process of its own (one queue each), side by side
+          for A in omvic hcra; do
+            ( python3 tools/authority_registers.py pull --only "$A" && python3 tools/authority_registers.py profiles --only "$A" --minutes "$MINUTES" --limit "$LIMIT" ) > "/tmp/r_$A.txt" 2>&1 &
+          done
+          wait
+          for A in omvic hcra; do grep -E "^$A|registrants in the list|profiles:" "/tmp/r_$A.txt" | tail -4 | cut -c1-600; done | tee /tmp/r.txt
           python3 tools/authority_registers.py sites --minutes 45 --workers 30 2>&1 | tail -3 | tee -a /tmp/r.txt
           ls -la out
       - name: Commit

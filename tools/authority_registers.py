@@ -46,7 +46,21 @@ AUTH = {
         register_label="the public register of registered motor vehicle dealers published by",
         search="https://www.omvic.ca/wp-admin/admin-ajax.php?action=searchDealerListAjax&dealershipName=%s&dealershipCity=&dealershipRegNumber=&activeRegistrationsOnly=true&disciplinaryActionOnly=false",
         profile="https://www.omvic.ca/dealer-search/dealership-profile/?entry-id=%s"),
+    # Ontario's regulator of new-home builders and vendors. Its directory is an application whose own data calls are open (robots.txt:
+    # "Disallow:" with nothing after it): /api/builders?builderName=<letters> returns every builder whose name holds them (no limit seen:
+    # 10,363 for "homes", every licence status), /api/buildersummary?id=<licence number> one builder's entry — legal name, operating name,
+    # city, street address, telephone, website, the date first licensed and the expiry date. The entry also carries an e-mail: never kept.
+    "hcra": dict(
+        name="Home Construction Regulatory Authority (HCRA)", short="HCRA", site="https://www.hcraontario.ca/",
+        address="40 Sheppard Ave. W, Suite 400 Toronto, ON M2N 6K9", address_url="https://www.hcraontario.ca/licensing-fees/", read="2026-11-11",
+        fee_quote="Renewal $715 This is the annual fee every licensee must pay to maintain their licence. The renewal fee is paid each year through the licence renewal process.",
+        fee_url="https://www.hcraontario.ca/licensing-fees/", annual_fee=715,
+        register="https://obd.hcraontario.ca/", what="licensed builder / vendor of new homes",
+        register_label="the Ontario Builder Directory published by",
+        search="https://obd.hcraontario.ca/api/builders?builderName=%s&page=1",
+        profile="https://obd.hcraontario.ca/api/buildersummary?id=%s"),
 }
+LEGAL_FORM = re.compile(r"\b(?:inc|incorporated|ltd|limited|lt[ée]e|corp|corporation|company|co|lp|llp|ulc|limited partnership|partnership|trust|association|society|cooperative|co-operative)\b\.?", re.I)
 # sites that are not a registrant's own: marketplaces, social pages, manufacturers' national sites named by their dealers
 NOT_OWN = re.compile(r"(^|\.)(facebook|fb|instagram|twitter|x|linkedin|youtube|tiktok|kijiji|autotrader|carpages|cargurus|carfax|google|goo|yelp|yellowpages|canada411|"
                      r"craigslist|ebay|amazon|wixsite|weebly|wordpress|blogspot|godaddysites|square|linktr|bit|business)\.[a-z.]{2,7}$", re.I)
@@ -141,8 +155,46 @@ def omvic_profile(rid):
             "first_registered": iso_date(f.get("original registration date")), "expires": iso_date(f.get("registration expiry date"))}
 
 
-LISTS = {"omvic": omvic_list}
-PROFILES = {"omvic": omvic_profile}
+# ------------------------------------------------------------------------------------------------------------------ HCRA
+def hcra_list():
+    A, out, n = AUTH["hcra"], {}, collections.Counter()
+    for q in "abcdefghijklmnopqrstuvwxyz0123456789":
+        st, ct, data, final = polite_get(A["search"] % q)
+        try:
+            ds = json.loads(data.decode("utf-8", "replace"))
+        except Exception:
+            ds = []
+        n["questions"] += 1
+        n["answers"] += len(ds) if isinstance(ds, list) else 0
+        for d in ds if isinstance(ds, list) else []:
+            if d.get("ACCOUNTNUMBER") and (d.get("LICENSESTATUS") or "").lower() == "licensed":
+                out[d["ACCOUNTNUMBER"]] = {"auth": "hcra", "id": d["ACCOUNTNUMBER"], "legal_name": clean(d.get("NAME")), "business_name": clean(d.get("OPERATINGNAME")),
+                                           "reg_number": d["ACCOUNTNUMBER"], "city": clean(d.get("ADDRESS_2_CITY")), "status": "Licensed", "listed": TODAY}
+    print("hcra: %d licensed builders / vendors in the directory's answers; %s" % (len(out), dict(n)), flush=True)
+    return out
+
+
+def hcra_profile(rid):
+    A = AUTH["hcra"]
+    url = A["profile"] % urllib.parse.quote(rid)
+    st, ct, data, final = polite_get(url, 500_000)
+    try:
+        d = json.loads(data.decode("utf-8", "replace"))[0] if st == 200 else None
+    except Exception:
+        d = None
+    if not d:
+        return {"auth": "hcra", "id": rid, "status_http": st if st != 200 else 0, "date": TODAY, "url": url}
+    legal = clean(d.get("VB_Name"))
+    street, city = clean(d.get("ADDRESS")), clean(d.get("CITY"))
+    web = clean(d.get("WEBSITEURL"))
+    return {"auth": "hcra", "id": rid, "status_http": 200, "date": TODAY, "url": url, "legal_name": legal, "legal_type": "Corporation" if LEGAL_FORM.search(legal) else "",
+            "phone": re.sub(r"\D", "", d.get("TELEPHONE") or "")[-10:], "website": "" if web.upper() in ("", "N/A", "NA", "NONE") else web,
+            "address": (", ".join(x for x in (street, city) if x) + (", ON" if city else "")) if street else "", "street": street, "class": "", "sub_class": "",
+            "reg_status": clean(d.get("LICENCE_STATUS")), "location_type": "", "first_registered": (d.get("HCRA_INITIALLICENSEDATE") or "")[:10], "expires": (d.get("Expiry_Date") or "")[:10]}
+
+
+LISTS = {"omvic": omvic_list, "hcra": hcra_list}
+PROFILES = {"omvic": omvic_profile, "hcra": hcra_profile}
 
 
 # ------------------------------------------------------------------------------------------------------------------ state
@@ -202,6 +254,11 @@ def tie(rec, text, raw=""):
         m = re.search(r"\b%s\s?%s\b" % pc, text, re.I)
         if m:
             return "its postal code", re.sub(r"\s+", " ", text[max(0, m.start() - 130):m.end() + 40]).strip()
+    ms = re.match(r"\s*(?:(?:unit|suite)\s*\S+\s*[-,]\s*)?(\d{1,6})[A-Za-z]?\s+([A-Za-zÀ-ÿ'’.]{3,})", rec.get("street") or "")
+    if ms and ms.group(2).lower() not in ("rue", "boul", "avenue", "chemin", "the", "highway", "county", "regional", "concession", "line", "sideroad"):
+        m = re.search(r"(?<![\d-])%s[A-Za-z]?\s+%s\b" % (ms.group(1), re.escape(ms.group(2))), text, re.I)
+        if m:
+            return "its street address", re.sub(r"\s+", " ", text[max(0, m.start() - 110):m.end() + 70]).strip()
     return "", ""
 
 
@@ -321,7 +378,7 @@ def lead_of(p, s):
     ph = p.get("phone") or ""
     det = {"key": key, "platform": "authority_register", "record_url": p["url"], "vendor": A["name"], "record_date": p.get("date") or TODAY,
            "start": p.get("first_registered") or "", "end": p.get("expires") or "", "reference": p.get("reg_number") or "",
-           "title": "%s registration no. %s (%s%s) — %s" % (A["short"], p.get("reg_number") or "?", p.get("class") or A["what"], ("; " + p["sub_class"]) if p.get("sub_class") else "",
+           "title": "%s %s no. %s (%s%s) — %s" % (A["short"], "licence" if "licen" in A["what"] else "registration", p.get("reg_number") or "?", p.get("class") or A["what"], ("; " + p["sub_class"]) if p.get("sub_class") else "",
                                                            p.get("reg_status") or "Registered"),
            "vendor_address": "%s (as printed on %s)" % (A["address"], A["address_url"]), "vendor_site": A["site"],
            "member_address_quote": p.get("address") or "", "register_label": A["register_label"], "buyer_phone_as_printed": ph,
@@ -331,6 +388,9 @@ def lead_of(p, s):
            "registration_first": p.get("first_registered") or "", "registration_expires": p.get("expires") or "", "registered_with": A["name"], "registration_class": p.get("class") or "",
            "fee_basis": "%s (%s)" % (A["fee_quote"], A["fee_url"]), "site_named_by": "the register (field Website: %s)" % (p.get("website") or ""),
            "site_tied_to_holder_by": s.get("by") or "", "site_page": s.get("final") or "", "site_quote": s.get("quote") or ""}
+    if A.get("annual_fee"):
+        det.update(value=A["annual_fee"], currency="CAD",
+                   value_basis="the authority's published annual fee to keep the licence: “%s” (%s, read %s); a tariff, not a payment record" % (A["fee_quote"], A["fee_url"], A["read"]))
     return row, det
 
 
@@ -411,8 +471,8 @@ def cmd_merge(a):
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
-    p = sub.add_parser("pull"); p.add_argument("--only", default="omvic")
-    p = sub.add_parser("profiles"); p.add_argument("--only", default="omvic"); p.add_argument("--minutes", type=float, default=150); p.add_argument("--limit", type=int, default=0)
+    p = sub.add_parser("pull"); p.add_argument("--only", default="omvic,hcra")
+    p = sub.add_parser("profiles"); p.add_argument("--only", default="omvic,hcra"); p.add_argument("--minutes", type=float, default=150); p.add_argument("--limit", type=int, default=0)
     p.add_argument("--redo-days", type=int, default=45, help="a profile older than this is read again (renewals move the expiry date)")
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=40); p.add_argument("--workers", type=int, default=30); p.add_argument("--limit", type=int, default=0)
     p = sub.add_parser("merge"); p.add_argument("dir"); p.add_argument("--stamp", default="")
