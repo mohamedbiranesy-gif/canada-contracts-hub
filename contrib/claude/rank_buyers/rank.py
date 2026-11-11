@@ -1014,9 +1014,10 @@ def apply_details(x, k):
         _src = " (%s)" % br.get("label", "the body's public register")
         if br.get("legal_name"):
             x["buyer_legal_name_as_published"] = br["legal_name"] + _src; n_lf["buyer_legal_name_from_register"] += 1
-            if d.get("platform") == "tm_register":
+            if d.get("platform") in ("tm_register", "authority_register"):
                 # the owner of record on the federal trademarks register IS the legal person (and the site was tied to it by that very name):
-                # a name read off the site later does not replace it
+                # a name read off the site later does not replace it. The same for a registrant of a regulatory authority: the row is the
+                # registrant's relationship, and a site shared with sister companies ("LH (Wasaga) Ltd." on Lancaster Homes' site) states another name
                 REG_NAMED.add(k)
         if br.get("trade_names") and not x.get("buyer_trade_name_as_published"):
             x["buyer_trade_name_as_published"] = "; ".join(br["trade_names"]) + _src
@@ -3652,7 +3653,8 @@ def cell_split(cell):
 _TP_LEAD = re.compile(r"^(?:[\s·•┃|+»>*–—-]+|\d{1,4}\s*[·•|]\s*|(?:copyright|©|\(c\))\s*(?:(?:19|20)\d\d)?\s*|(?:privacy (?:policy|notice)(?: (?:for|of))?|privacy office of|terms (?:and|&) conditions(?: introduction in)?|"
                       r"agreement to terms|terms of (?:use|service)|conditions g[ée]n[ée]rales(?: de vente)?|politique de confidentialit[ée]|welcome to|bienvenue (?:chez|[àa]|au|sur le site de)|"
                       r"official (?:web)?site of|site (?:web )?officiel (?:de la|du|de|des)|facebook|instagram|twitter|youtube|linkedin|tiktok|pinterest)\s+)+", re.I)
-_TP_TAIL = re.compile(r"\s+(?:and (?:is |are )?protected\b|or its (?:content )?suppliers\b|and will\b|will (?:take|be|not)\b|[Ww]e value\b|[Yy]our [Cc]art\b|[Pp]lease (?:select|note|contact)\b|Non-discrimination Policy\b|"
+_TP_TAIL = re.compile(r"\s+(?:and (?:is |are )?protected\b|or its (?:content )?suppliers\b|(?:or|and|and/or) (?:its|their) (?:respective )?(?:owners?|licensors?|licensees?|information providers?|affiliates?|partners?|agents?|subsidiaries|third[- ]party \w+)\b|"
+                      r"unless otherwise (?:stated|noted|indicated|specified)\b|for use (?:within|on|in|by)\b|[Tt]hroughout$|[Hh]ereinafter$|[Hh]erein$|[Cc]ollectively$|and will\b|will (?:take|be|not)\b|[Ww]e value\b|[Yy]our [Cc]art\b|[Pp]lease (?:select|note|contact)\b|Non-discrimination Policy\b|"
                       r"(?:Accessibility\s+)?Freedom of Information\b|at such time\b|[Gg]et in touch\b|Scroll to Top\b|Loading\b|Translate\b|Log in\b|E-commerce$|Discover$|and/or its (?:affiliates|subsidiaries)\b|×).*$")
 _TP_OWNER = re.compile(r"^(.{0,70}?)(?:\s|^)(?:((?:is )?(?:an?|the) (?:registered trade ?name|trade ?name|registered business name|business name|operating name) of)|"
                        r"(is (?:an?|the) (?:division|subsidiary|product|service|brand) of|(?:is |are )?(?:owned and )?operated by:?|o/o by:?)|"
@@ -3693,6 +3695,13 @@ def tidy_page_name(cell, buyer="", site=""):
     order = ([q for q in parts if _TP_FORM.search(q)] + [parts[0]]) if len(parts) > 1 else [n0]
     for cand in order:
         cand = _TP_LEAD.sub("", cand)
+        # 2026-11-11: a page word run into the name ("History Vancouver Poetry House Society" on the About page of Vancouver Poetry House): dropped
+        # when what follows begins like the organisation's own name (in a sample of 45 published names "stated on" a page, 8 carried such a word
+        # or a clause of the sentence — "… or its licensors", "… unless otherwise stated", "… for use within")
+        _w = cand.split()
+        if len(_w) >= 3 and _w[0].lower() in ("history", "home", "about", "contact", "menu", "welcome", "overview", "mission", "team", "accueil", "historique") \
+                and buyer and re.sub(r"^(?:the|la|le|les)\s+", "", buyer.strip(), flags=re.I).lower().startswith(_w[1].lower()):
+            cand = " ".join(_w[1:])
         if cand.startswith("[") and "]" not in cand:
             cand = cand[1:]
         cand = _TP_TAIL.sub("", cand)
@@ -3712,6 +3721,8 @@ def tidy_page_name(cell, buyer="", site=""):
         if out:
             return out + src, "tidied"
     return "", "fragment"
+_TP_CLAUSE = re.compile(r"\s+(?:(?:or|and|and/or) (?:its|their) (?:respective )?(?:owners?|licensors?|licensees?|information providers?|affiliates?|partners?|agents?|subsidiaries|(?:content )?suppliers)\b|"
+                        r"unless otherwise (?:stated|noted|indicated|specified)\b|for use within\b).*$")
 n_tp = collections.Counter()
 for x in rows:
     _c = x.get("buyer_legal_name_as_published") or ""
@@ -3720,6 +3731,16 @@ for x in rows:
         if _what:
             n_tp[_what] += 1
             x["buyer_legal_name_as_published"] = _new
+            # a row named after that very statement ("ProVision Coaching Network or its information providers") takes the tidied name too
+            _old = cell_split(_c)[0].strip()
+            if _what == "tidied" and _new and (x.get("buyer") or "").strip() == _old:
+                x["buyer"] = cell_split(_new)[0].strip() or x["buyer"]; n_tp["row's own name tidied with it"] += 1
+    # the same clauses at the end of a row's own name when no legal-name cell carries it (the name came from the same sentence)
+    _b = x.get("buyer") or ""
+    if _b and _TP_CLAUSE.search(_b):
+        _nb = _TP_CLAUSE.sub("", _b).strip(" ,-–—|:·")
+        if len(_nb) >= 3 and _nb != _b:
+            x["buyer"] = _nb; n_tp["row's own name: a clause of the sentence cut off"] += 1
 print("legal names read off a page, tidied:", dict(n_tp))
 _WELCOME = re.compile(r"^(?:welcome to|bienvenue (?:chez|[àa]|au|sur le site de)|official (?:web)?site of)\s+(?=\S+\s+\S)", re.I)
 # 2026-11-10: a name that carries its company form ("Kobes Welding Ltd.", "Plumblink Plumbing Inc.") is the legal name as published — by the organisation
