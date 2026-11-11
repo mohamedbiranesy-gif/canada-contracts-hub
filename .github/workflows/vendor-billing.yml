@@ -39,7 +39,10 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/vendor_billing
             python3 tools/vendor_billing.py merge out --stamp "$STAMP" | tee /tmp/m.txt
-            git add data/incoming/claude/vendor_billing 2>/dev/null || true
+            # how a biller bills and is paid, handed in by any lane as a file (contrib/<lane>/payees/*.json): each quoted sentence is looked for on
+            # the page it names, with the project's reader; only then does the ranker use the entry (tools/payee_billing.py)
+            python3 tools/payee_billing.py verify 2>&1 | tail -6 | tee -a /tmp/m.txt || true
+            git add data/incoming/claude/vendor_billing data/incoming/claude/payee_verified.json 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "vendor-billing: $(tail -1 /tmp/m.txt | cut -c17-170) [skip ci]"
             git push -q origin HEAD:main && break

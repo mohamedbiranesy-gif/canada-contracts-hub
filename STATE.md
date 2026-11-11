@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-11 16:42Z — published build 15:57Z = 282,207 rows, 274,632 with a mailbox; the owner's 100-row test set is with him (https://claude.ai/artifact/AKuRT9NPpMX3Jwfqj1ZERt, his marks in its database, collection `verdicts`); two draws read before him showed a fault in one row in five (names, addresses, amounts): corrected in commit 58763dd, pushed 16:41Z, build 43060865356 dispatched; next: the vendor reader's version 4, then the second draw)
+# STATE.md — Claude lane (updated 2026-11-11 19:54Z — THE RULE CHANGED on 2026-11-11 afternoon: a row is one buyer billed ON INVOICE by a Canadian entity and payable BY BANK TRANSFER; card-on-file and registrar rows are out of the table (AGENTS.md §1 rules 6-12). Read the first section below before anything else; the sections under it describe the table as it was until 19Z and are history.)
 
 ## Reading of the mission (unattended run; nobody answers questions)
 Every delivered row, in every package (owner 11:46 EST: "not just Gold"), must carry every detail an accounts-payable invoice to that buyer needs —
@@ -96,6 +96,77 @@ prints what blocks A per package and the next engine goes at the biggest blocker
   run is checking the pack line in parallel.
 - Walker-terms pass (Mac, 9,400 of 11,162 pages): payment terms 310 → 688, PO rule 555 → 1,142, portals 718 → 2,043, AP contacts 211 → 379;
   p59 (161 Gold buyers' PO T&C / supplier pages from the search waves) read: deep_pages + ap_terms done 17:20Z.
+
+## 2026-11-11 19:54Z — the owner's requirement: on invoice, by bank transfer. What it removed, what is built, what is next
+
+**His words are in AGENTS.md §1, rules 6 to 12; the reasoning and the numbers in coord/DECISIONS.md (entry 2026-11-11 19:24Z); what the other
+lanes build and how they hand it in, in docs/LANES_ON_INVOICE.md.** In one paragraph: the QA lane read the old column `ship_ready` on his 100
+test rows ("no" on 97); he rejected that label, then my too-strict reading of his answer, then — once he saw how Shopify bills — the whole
+card-billed side: "it needs to be bank transfers relationship not credit card … if it's not on invoice, by bank transfer then it's no".
+Asked, he answered: one row per buyer, no buyer twice; remove the card and registrar rows; a contract awarded over three years ago with
+no end date is not current; a vendor's registration number fills its number when its GST number is not public; an invoice payable by
+bank transfer is in even when the biller also takes a card; any Canadian entity may be the biller; build every lane, "and more".
+
+**Where the table stood by that rule (15:57Z build, 282,207 rows):** on invoice by bank transfer 7,833 (5,461 with a mailbox, 1,343 passing
+the whole test), nearly all public bodies under contract; card on file 33,278; through a registrar 103,829; not published 134,524.
+The Shopify day and a half produced no row that counts.
+
+**Done since (all pushed):**
+- `rank.py`: no row from a `.ca` registration or a card-on-file vendor; no inferred row takes their place; `ship_ready` & co. from ONE
+  function (`tools/relationship_rows.py: owner_test`); the old label is `ap_mailbox_ready`; the biller's own roster (member directory,
+  dealer list, tenant directory, sponsor / exhibitor list) establishes the relationship, a client list does not; fields by kind (`FIELDS`).
+  Two local sample builds (1 lead in 4): 48,561 rows, 3,165 ship ready (about 8,700 in a full table): public contracts 1,303, licences
+  1,357 of 1,623 in the sample (the Régie du bâtiment's payment page made them complete), services whose vendor takes a bank payment 503.
+- `tools/payee_billing.py`: how a biller bills and is paid, hand-read and quoted — RBQ, Calgary, Edmonton, RACJ (with the yearly fee by
+  kind of permit), Smart & Biggar (invoice paid by e-Transfer, EFT or cheque), OMVIC ("does not issue invoices": its rows fail, in its
+  words). Entries from other lanes' files are used only after `payee_billing.py verify` found every quote on the page.
+- `tools/vendor_billing.py` version 5: payment wording of regulators, cities, associations, firms; the bodies of the invoice lanes first.
+  Every vendor on file was read today with version 4, so the version-5 read happens with the 05:43Z run of 2026-11-12.
+- `tools/biz_licences.py`: a register is a descriptor file (`tools/data/registers/`, `contrib/<lane>/registers/`); matched against every
+  site that states a Canadian postal code (491,058, was 263,687). First one: Québec's retail liquor permits, 32,167 in force, 1,602 tied.
+- `tools/roster_ingest.py` (run inside biz-licences.yml): rosters other lanes harvest become listing leads.
+- Engines: the store reader is out of mailbox-crawl; timers of tenant-factory, dns-services, ct-names are off; the keeper starts member /
+  accreditation / licence / register engines first; the site reader reads the invoice lanes first and cannot hang any more (watchdog +
+  restart + uploads whatever the end; two runs had lost one runner in six).
+- Analysis, not kept: one row per (buyer, vendor) pair — 316,284 pairs behind 5,391 contract buyers, 220,814 with a mailbox. The owner:
+  "only 1 buyer so no buyer should be repeated".
+
+**Cloud at 2026-11-11 19:54Z:** rank build 43089522278 (dispatched 19:41Z, queued for a runner) is the first with the rule; mailbox-crawl 43087983412
+(new workflow file) waits for the run of 17:25Z to end; biz-licences dispatched 19:53Z (RACJ leads); vendor-billing dispatched 19:41Z
+(466 vendors never read); the registry engine (vendors by rows) merges about 20:10Z.
+
+**What I told the owner and stand by:** registers name over a million organisations, but a row needs each one's own site and mailbox. A
+register turns about 5 % of its names into rows (measured: RACJ 1,602 of 29,645; trademark owners 8 %); a roster that links each
+organisation's site turns 30 to 40 %. With what is free: 100,000 to 150,000 rows; with a search budget 300,000 or more; a million is
+not in sight yet. He holds the target at 1,000,000.
+
+**Next, in this order:**
+1. Read the build that carries the rule (`coord/results/ranked/SUMMARY.md`: the lines "SHIP READY", "by kind and by how the bill is paid",
+   "one thing away"; `BUILD.json: ship_ready`). If it failed, the failure first. The one-thing-away list is the work list.
+2. The owner's new hundred: `python3 tools/test_sample.py <table> --day 2026-11-11b --built <stamp>` (draws only ship-ready rows, by
+   kind), read every row before he does, publish to the SAME page (https://claude.ai/artifact/AKuRT9NPpMX3Jwfqj1ZERt; `verdicts` was empty
+   at 16:10Z — check again first: if he marked rows, a new page instead), tell him in three sentences, write the QA instruction in
+   `coord/inbox/chatgpt.md` (five checks a row + "is the bill on invoice and payable by bank transfer as `payment_route_basis` quotes").
+3. Payment pages of the billers behind the most rows (the test's top blocker, "payment: not published"): the Canadian Intellectual
+   Property Office (read it only when no registry lookup is running: same host), City of Toronto, the BBBs, CMEQ, CMMTQ, OPC, the agent
+   firms, the largest chambers. Put `python3 tools/payee_billing.py verify` into vendor-billing.yml (commit
+   `data/incoming/claude/payee_verified.json`) so the other lanes' files count.
+4. Registers by descriptor: Nova Scotia's liquor licences (data.novascotia.ca `en23-iwca`) and its other licence lists, British Columbia's
+   licensed establishments (find the data file behind the page), more cities; then the federal ones (radio licences; the aircraft register
+   with NAV CANADA's yearly charge; medical-device licences).
+5. The 2,154 public bodies of the contract dataset without a mailbox (663 are one mailbox away from ready): a queue for the site reader
+   and the mailbox lanes (the list is made by `tools/relationship_rows.py`: relationship_buyers_without_mailbox.csv).
+6. Members: more Canadian GrowthZone / ChamberMaster hosts (`member-live.yml`, stage discover); dues and payment pages come with the
+   version-5 vendor read. Exhibitor lists: the lanes have them as their first task; check `python3 tools/roster_ingest.py check`.
+7. Patents (`ip-register`): owners of Canadian patents and their Canadian agents, the yearly maintenance fee from the tariff — on the model
+   of `tools/tm_register.py`.
+8. Sunday 2026-11-15, `coord/WEEKLY_REPORT.md`: wait or ship, with these numbers and no rounding up.
+
+**Rules I gave myself today:** how a relationship is paid is read BEFORE its lane is built (the Shopify lane was built first and asked
+after); a body's payment page is read before its register is added (OMVIC); no registry lookup from this container while the cloud
+registry engine runs (17:02Z: 80 lookups beside two runners put about 3 requests a second on ised-isde.canada.ca for 80 seconds); an
+edit that replaces text between two markers checks that the first marker is the one meant (19:10Z: 674 lines of rank.py deleted by a
+marker that also stood in a comment; restored from git before anything was built on it).
 
 ## 2026-11-11 16:42Z — the test set is with the owner; what reading it first changed; what is waiting
 **Published table (build 2026-11-11T15:57:44Z, code 4994cd6 = d55caf9 and the merges up to 15:02Z):** 282,207 rows, 274,632 with a mailbox —
