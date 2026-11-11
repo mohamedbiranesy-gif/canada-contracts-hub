@@ -1,6 +1,26 @@
 {
  "asked": 13660000,
  "complete": {},
+ "hosts": {
+  "asked": 1920000,
+  "before_rev_2": {},
+  "complete": {},
+  "pos": {
+   "0": 0,
+   "1": 480000,
+   "2": 0,
+   "3": 480000,
+   "4": 0,
+   "5": 480000,
+   "6": 0,
+   "7": 480000
+  },
+  "release": "cc-main-2026-aug-sep-oct",
+  "rev": 2,
+  "shards": 8,
+  "stores_found": 29046,
+  "updated": "2026-11-11T01:40Z"
+ },
  "ns_complete": {
   "4": true,
   "5": true,
