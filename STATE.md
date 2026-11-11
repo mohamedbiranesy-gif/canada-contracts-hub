@@ -157,7 +157,7 @@ leads on file → 25,000-35,000; .ca registrations and the member / licence lane
 The DNS-provider class is the one that can still grow by a multiple: its leads come from 4.5 million domains looked up, and the domain
 sweep is walking a list of 118 million.
 
-**Addendum 04:20Z.**
+**Addendum 04:16Z.**
 - **The refresh pass of the night gained nothing and is running again.** claude-engines checked out the commit of the minute a run was
   dispatched; the pass dispatched at 00:19Z waited for runners and then read 147,995 sites with the reader as it was at 00:19Z (v3). The
   merged file holds v1 22,077 · v2 60,503 · v3 147,995 · **v4 0**. Nothing wrong was delivered (the ranker prints a spelled name only from

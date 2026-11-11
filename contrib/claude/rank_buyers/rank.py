@@ -3702,6 +3702,45 @@ for x in rows:
             x["vendor_trading_name"] = "%s (the name it does business as, in the same record)" % _two[1]
         n_vln["the vendor's own name carries its legal form"] += 1
 print("vendor legal name, last links of the chain:", dict(n_vln))
+# 2026-11-11: the vendor of a row is itself an organisation of this table — the city that issues the business licence, a board of trade, a
+# Crown corporation (tier M of the build of 01:51Z: vendor website 6.5 %, telephone 3.4 %, number 1.9 %; "The City of Calgary", 625 rows, with
+# none of them while the row "City of Calgary" carries calgary.ca). What that organisation's own row publishes is the same organisation's:
+# its website, telephone, legal name and number are carried to the vendor side, each still with its own source. Same name (a leading "The"
+# apart) and the same province — "City of Richmond" in British Columbia is not the one in Virginia.
+_CA_PROVS = {"AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"}
+def _prov_in(text):
+    m = _CA_PROV.findall(text or "")
+    return m[-1] if m else ""
+_AS_BUYER = {}
+for y in rows:
+    _j = (y.get("jurisdiction") or "").upper()[:2]
+    if _j in _CA_PROVS and (y.get("buyer_website") or y.get("buyer_phone")):
+        _k = (norm(re.sub(r"^the\s+", "", y.get("buyer") or "", flags=re.I)), _j)
+        if len(_k[0]) >= 6 and (_k not in _AS_BUYER or len(y.get("buyer_legal_name_as_published") or "") > len(_AS_BUYER[_k].get("buyer_legal_name_as_published") or "")):
+            _AS_BUYER[_k] = y
+n_vb = collections.Counter()
+for x in rows:
+    _vn = re.sub(r"\s*\([^()]*\)\s*$", "", re.sub(r"^inferred:\s*", "", x.get("vendor") or ""))
+    _pv = _prov_in((x.get("vendor_address") or "").split(" (")[0]) or _prov_in((x.get("vendor_country_basis") or "")[:260])
+    y = _AS_BUYER.get((norm(re.sub(r"^the\s+", "", _vn, flags=re.I)), _pv)) if _vn and _pv else None
+    if not y or y is x:
+        continue
+    _row = "this table's own row “%s”" % (y.get("buyer") or "")
+    if not x.get("vendor_website") and y.get("buyer_website"):
+        x["vendor_website"], x["vendor_website_basis"] = y["buyer_website"], "the vendor is itself an organisation of this table: its website as %s gives it" % _row
+        n_vb["vendor_website"] += 1
+    if not x.get("vendor_phone") and y.get("buyer_phone"):
+        x["vendor_phone"] = y["buyer_phone"]; n_vb["vendor_phone"] += 1
+    if not x.get("vendor_legal_name") and y.get("buyer_legal_name_as_published"):
+        x["vendor_legal_name"] = y["buyer_legal_name_as_published"]; n_vb["vendor_legal_name"] += 1
+    _bn = re.match(r"\s*(\d{9})\b", y.get("buyer_bn_as_published") or "")
+    if not x.get("vendor_bn9") and _bn:
+        x["vendor_bn9"] = "%s (the number %s carries: %s)" % (_bn.group(1), _row, re.sub(r"\s+", " ", (y.get("buyer_bn_as_published") or ""))[:160].replace("(", "[").replace(")", "]"))
+        x["vendor_bn_source"] = x.get("vendor_bn_source") or "the vendor's own row in this table"
+        if not x.get("vendor_gst_hst_derived"):
+            x["vendor_gst_hst_derived"] = _bn.group(1) + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
+        n_vb["vendor_bn9"] += 1
+print("vendors that are organisations of this table (same name, same province): facts carried from their own row:", dict(n_vb))
 # the buyers' own purchase-order / contract open data joined to existing pairs (tools/po_opendata.py → claude_po_records.csv; downstream §1.1)
 POD = collections.defaultdict(list)
 _pop = ROOT + "/data/incoming/claude/claude_po_records.csv.gz"
