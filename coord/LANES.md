@@ -1,11 +1,11 @@
-# Cloud lanes — status from the files on main (2026-11-11 14:02 UTC)
+# Cloud lanes — status from the files on main (2026-11-11 15:58 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
 - `.ca` domains of the web graph + public list: **2485064**
-- domains linking to a proven Canadian vendor / vetted portal: **717414**
+- domains linking to a proven Canadian vendor / vetted portal: **766792**
 - OpenStreetMap Canada sites: **73684**
-- domains linking to Shopify (store candidates): **1323839**
+- domains linking to Shopify (store candidates): **1323854**
 - home pages read by the scan: **3311464** (ok 1621610, unreachable 1199828, robots 231686, blocked 145099, http_error 112349, not_html 892); by detector: {'t1': 23, 't4': 1004123, 't5': 2307318}
 - detector 4 (readable pages: 1621595): **354338 print a role mailbox of the organisation (21.9 %)** — general 301347, role 50924, finance 1353, accounts_payable 269, supplier_payment 231, procurement 159, invoice_submission 55; printed address: none 1196911, CA 324426, US 87812, GB 10122, AU 2324
 - `.ca` sites whose home page prints a role mailbox (registry candidates, tier R): **191283**
@@ -14,7 +14,7 @@
 - 97241 domains: no_address 44125, unreachable 15019, CA 12080, US 6389, blocked 5330, robots 4749, CA-loc 4136, GB 2033
 
 ## 3. DNS lookups
-- domains looked up in the cloud: **8410207**; on Shopify's storefront addresses: **1746487**; with a www alias: 762479
+- domains looked up in the cloud: **8559557**; on Shopify's storefront addresses: **1852236**; with a www alias: 762479
 
 ## 4. Relationship leads on file
 - Mac era B/L dated record (payment, subaward, release): **10803**
@@ -30,7 +30,7 @@
 - cloud T credit line on the buyer's site: **66961**
 - cloud T provider in the buyer's DNS: **377866**
 - cloud T vetted software service (store / portal): **2900**
-- cloud T vetted software service (store / portal) [shards]: **31735**
+- cloud T vetted software service (store / portal) [shards]: **34561**
 
 ## 5. Mailbox crawl
 - lead sites read: **785719** (nothing_found 473398, found 218263, unreachable 54344, blocked 38871, timeout 756, error 87)
@@ -45,26 +45,43 @@
   - T vetted software service (store / portal): 1143 read, mailbox on 148 (13 %), blocked 143
   - M membership stated by the member: 1123 read, mailbox on 341 (30 %), blocked 17
   - M licence holder (the licensing body's own list of active licences) [lic]: 224 read, mailbox on 174 (78 %), blocked 1
-- candidate sites (stores / portals) read: **135205**
-  - absorb: 130 read — nothing_found 72, out_of_scope 29, no_address 18, accepted 8, blocked 1, portal_not_its_own 1, no_name 1
-  - amilia: 521 read — nothing_found 219, accepted 151, no_address 64, out_of_scope 42, portal_not_its_own 23, blocked 13, no_name 9
-  - benevity: 21 read — nothing_found 15, portal_not_its_own 2, out_of_scope 2, blocked 1, no_address 1
-  - bibliocommons: 264 read — nothing_found 203, out_of_scope 30, accepted 18, no_address 4, no_name 4, blocked 3, portal_not_its_own 1, error 1
-  - coconut: 82 read — nothing_found 61, out_of_scope 9, accepted 7, no_address 3, portal_not_its_own 1, no_name 1
-  - coveo: 190 read — nothing_found 170, no_address 9, out_of_scope 5, accepted 4, no_name 1, timeout 1
-  - d2l: 278 read — nothing_found 160, out_of_scope 34, blocked 33, accepted 19, no_address 17, portal_not_its_own 11, no_name 4
-  - docebo: 84 read — nothing_found 52, out_of_scope 16, no_address 13, accepted 2, blocked 1
-  - edsby: 69 read — nothing_found 37, accepted 14, portal_not_its_own 9, no_name 4, blocked 3, no_address 2
-  - escribe: 74 read — nothing_found 58, no_address 8, accepted 4, out_of_scope 2, portal_not_its_own 1, blocked 1
-  - jane: 19116 read — nothing_found 10374, accepted 4120, no_address 1982, portal_not_its_own 1852, blocked 490, no_name 294, error 2, no_role_mailbox 2
-  - jobber: 4617 read — nothing_found 2985, no_address 830, accepted 676, no_name 68, blocked 57, error 1
-  - kev: 153 read — nothing_found 110, blocked 11, accepted 8, out_of_scope 8, no_name 6, no_address 5, portal_not_its_own 5
-  - lightspeed: 565 read — nothing_found 466, accepted 51, no_address 29, blocked 10, no_name 8, out_of_scope 1
+- candidate sites (stores / portals) read: **156606**
+  - absorb: 314 read — nothing_found 172, out_of_scope 65, no_address 42, accepted 14, unreachable 7, blocked 6, portal_not_its_own 4, no_name 4
+  - amilia: 608 read — nothing_found 264, accepted 170, no_address 68, out_of_scope 47, portal_not_its_own 27, blocked 13, no_name 11, unreachable 8
+  - benevity: 67 read — nothing_found 45, portal_not_its_own 7, out_of_scope 7, no_address 7, blocked 1
+  - bibliocommons: 514 read — nothing_found 410, out_of_scope 43, accepted 20, no_address 17, unreachable 8, blocked 7, no_name 4, portal_not_its_own 3, error 2
+  - checkfront: 649 read — nothing_found 338, no_address 154, accepted 65, portal_not_its_own 32, out_of_scope 31, blocked 12, no_name 10, unreachable 7
+  - clubrunner: 207 read — blocked 203, nothing_found 3, accepted 1
+  - coconut: 156 read — nothing_found 107, out_of_scope 19, accepted 12, no_address 10, unreachable 3, no_name 2, blocked 2, portal_not_its_own 1
+  - commerce7: 1464 read — out_of_scope 580, nothing_found 571, no_address 219, accepted 79, unreachable 7, no_name 6, blocked 2
+  - coveo: 299 read — nothing_found 257, unreachable 15, no_address 10, out_of_scope 8, accepted 6, no_name 1, timeout 1, blocked 1
+  - crowdriff: 130 read — nothing_found 74, accepted 42, no_address 9, no_name 3, unreachable 1, blocked 1
+  - d2l: 446 read — nothing_found 260, out_of_scope 53, blocked 39, accepted 34, no_address 23, unreachable 15, portal_not_its_own 11, no_name 11
+  - docebo: 108 read — nothing_found 72, out_of_scope 18, no_address 14, accepted 2, blocked 1, portal_not_its_own 1
+  - edsby: 196 read — nothing_found 144, accepted 16, blocked 13, portal_not_its_own 12, no_name 5, no_address 3, unreachable 3
+  - escribe: 126 read — nothing_found 95, no_address 13, accepted 5, unreachable 4, out_of_scope 3, portal_not_its_own 3, blocked 3
+  - gorendezvous: 777 read — nothing_found 461, accepted 139, no_address 82, portal_not_its_own 50, no_name 22, unreachable 14, blocked 9
+  - jane: 21711 read — nothing_found 11756, accepted 4539, no_address 2238, portal_not_its_own 2049, blocked 516, no_name 393, unreachable 215, error 3, no_role_mailbox 2
+  - jobber: 4883 read — nothing_found 3116, no_address 874, accepted 726, no_name 77, blocked 61, unreachable 28, error 1
+  - jumptools: 368 read — nothing_found 346, unreachable 13, accepted 7, no_name 2
+  - juvonno: 185 read — nothing_found 71, accepted 47, portal_not_its_own 32, no_name 15, no_address 14, unreachable 5, blocked 1
+  - kev: 699 read — nothing_found 605, blocked 28, no_name 19, no_address 14, out_of_scope 11, accepted 8, unreachable 8, portal_not_its_own 6
+  - lightspeed: 796 read — nothing_found 600, accepted 96, no_address 40, unreachable 24, blocked 20, no_name 15, out_of_scope 1
+  - lightspeed_golf: 91 read — nothing_found 46, accepted 32, portal_not_its_own 6, no_name 3, unreachable 2, out_of_scope 1, blocked 1
+  - myrealpage: 2666 read — nothing_found 2076, accepted 341, unreachable 122, no_name 83, no_address 38, blocked 5, no_role_mailbox 1
+  - nicejob: 1250 read — nothing_found 695, accepted 309, no_address 175, no_name 57, blocked 11, unreachable 3
+  - owlpractice: 518 read — nothing_found 274, portal_not_its_own 112, no_address 84, unreachable 29, no_name 16, blocked 3
+  - rezgo: 148 read — nothing_found 66, no_address 56, accepted 18, portal_not_its_own 4, unreachable 3, no_name 1
   - shopify: 108590 read — nothing_found 36528, out_of_scope 31337, accepted 30002, blocked 6955, no_address 3047, service_not_seen 461, unreachable 201, no_name 41, no_role_mailbox 13, timeout 5
-  - thinkific: 126 read — nothing_found 126
-  - unbounce: 324 read — nothing_found 204, blocked 108, accepted 6, out_of_scope 4, no_address 1, no_name 1
-- mailbox rows written by the cloud crawls (before the referee): **264505**
+  - socast: 267 read — nothing_found 135, unreachable 123, accepted 6, no_address 3
+  - thinkific: 2998 read — nothing_found 1568, no_address 522, out_of_scope 366, blocked 240, unreachable 145, accepted 136, no_name 21
+  - touchbistro: 162 read — nothing_found 80, accepted 34, no_address 21, portal_not_its_own 13, unreachable 9, no_name 3, blocked 2
+  - unbounce: 3966 read — nothing_found 2142, accepted 717, no_address 421, blocked 420, unreachable 167, no_name 95, out_of_scope 4
+  - webrezpro: 277 read — portal_not_its_own 115, nothing_found 98, no_address 35, unreachable 15, accepted 7, no_name 6, blocked 1
+  - wellnessliving: 886 read — nothing_found 380, accepted 290, no_address 96, unreachable 47, no_name 37, portal_not_its_own 29, blocked 7
+  - wellnessliving_widget: 83 read — nothing_found 39, accepted 25, unreachable 10, no_address 7, no_name 1, blocked 1
+- mailbox rows written by the cloud crawls (before the referee): **267504**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **241338** — by tier: A 1225, B 1679, C 295, D 26391, E 4965, F 7, I 17623, L 422, M 13327, R 99941, T 75463
-- named-vendor relationships (A B T M C D L): **118802** · registry contract R: **99941** · link only (E): **4965** · older / inferred (F I): **17630**
+- rows with a confirmed mailbox: **253630** — by tier: A 1224, B 1685, C 295, D 26730, E 5011, F 7, I 17390, L 421, M 13318, R 102647, T 84902
+- named-vendor relationships (A B T M C D L): **128575** · registry contract R: **102647** · link only (E): **5011** · older / inferred (F I): **17397**

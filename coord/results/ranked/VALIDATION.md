@@ -1,4 +1,4 @@
-# Integrity gates — 258733 delivered rows in 18 packages (110 files)
+# Integrity gates — 274534 delivered rows in 18 packages (117 files)
 
 - **1 mailbox present, valid, domain with a mail server**: PASS (0)
 - **2 role mailbox (no person-like local part, no freemail)**: PASS (0)
@@ -12,20 +12,20 @@ Informational: 3 rows whose quote shows the label next to the address rather tha
 
 ## Rows per package
 - P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 126
-- P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 398
+- P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 427
 - P01_GOLD_active_relationship_invoicing_AP_email: 625
 - P02_active_relationship_finance_accounting_email: 471
 - P03_active_relationship_purchasing_email: 257
-- P04_active_relationship_general_email: 3823
-- P05_likely_active_awarded_12_36_months_any_email: 422
-- P06M_member_or_regulated_payer_of_canadian_body_other_email: 13201
-- P06T_active_service_seen_on_buyer_site_other_email: 75065
-- P06_client_listing_invoicing_AP_email: 295
-- P07_client_listing_finance_or_purchasing_email: 793
-- P08_client_listing_general_email: 25303
+- P04_active_relationship_general_email: 3859
+- P05_likely_active_awarded_12_36_months_any_email: 421
+- P06M_member_or_regulated_payer_of_canadian_body_other_email: 13192
+- P06T_active_service_seen_on_buyer_site_other_email: 84475
+- P06_client_listing_invoicing_AP_email: 298
+- P07_client_listing_finance_or_purchasing_email: 803
+- P08_client_listing_general_email: 25629
 - P09_older_contract_or_payment_any_email: 295
-- P10R_ca_domain_registration_contract_own_email: 99941
-- P10_linked_from_vendor_site_any_email: 2633
-- P11_any_relationship_email_not_yet_confirmed: 17455
+- P10R_ca_domain_registration_contract_own_email: 102647
+- P10_linked_from_vendor_site_any_email: 2648
+- P11_any_relationship_email_not_yet_confirmed: 20964
 - P12_weaker_relationship_within_5_years_own_email: 7
-- P13_inferred_relationship_no_record_own_email: 17623
+- P13_inferred_relationship_no_record_own_email: 17390
