@@ -693,7 +693,7 @@ def read_site(site, kind, name="", start_url=""):
         res["status"] = "robots"; return res
     st, ct, data, final = C.fetch(start_url or site, 3_000_000)
     if st in (401, 403, 429):
-        res["status"] = "blocked"; return res
+        res["status"] = "blocked"; res["http"] = st; return res
     if st != 200 or not data or "html" not in (ct or "").lower():
         res["status"] = "http_%s" % st; return res
     raw0 = strip_long(data.decode("utf-8", "replace"))
@@ -1009,7 +1009,8 @@ def main():
             elif old and old.get("status") == "ok":
                 res = join_reads(old, res)
             if res.get("status") != "ok":
-                tried.note(dom, res.get("status"))  # no record comes of this try: remembered, so that the next runs do not ask at once
+                # no record comes of this try: remembered, so that the next runs do not ask at once ("blocked_429" is a rate limit, asked again sooner than a refusal)
+                tried.note(dom, "%s%s" % (res.get("status"), ("_%s" % res["http"]) if res.get("status") == "blocked" and res.get("http") else ""))
             done[dom] = res
             touched.add(dom)
             stats[res["status"]] = stats.get(res["status"], 0) + 1

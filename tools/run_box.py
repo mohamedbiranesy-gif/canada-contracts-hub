@@ -121,7 +121,7 @@ class Box:
 
 class Tried:
     """reader \t site key \t date \t status — one line per try that did not end in a record."""
-    REFUSED = re.compile(r"^(?:robots|blocked|http_40[13]|http_429)$")          # the site says no: asked again after 30 days
+    REFUSED = re.compile(r"^(?:robots|blocked|blocked_40[13]|http_40[13])$")    # the site says no: asked again after 30 days (a 429 is a rate limit: "anything else")
     NOTHING = re.compile(r"^(?:no_contact|no_page|not_html|http_40[4-9]|http_410)$")  # it answers and has nothing for this reader: 21 days
     # anything else (no answer, a server error, a redirect that leads nowhere): 2 days after the first two tries, then 14
 
