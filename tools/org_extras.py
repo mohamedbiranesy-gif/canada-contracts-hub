@@ -328,9 +328,10 @@ def host_label(host):
     return re.sub(r"[^a-z0-9]", "", dom.split(".")[0])
 
 
-def _name_runs(text):
+def _name_runs(text, loose=False):
     """every name printed with a legal form: (words before the form, the form as printed, start of the first word, end of the form, cut) — the words
-    are read backwards from the form while they look like the words of a name; `cut` says the reading stopped at its limit, not at the name's start"""
+    are read backwards from the form while they look like the words of a name; `cut` says the reading stopped at its limit, not at the name's start.
+    loose: words written small are read too ("Centre dentaire Ahuntsic inc."); the caller then takes only what the site's own address spells."""
     for m in SUF3.finditer(text):
         if re.match(r"\s+(?:of|de|du|des|d['’])\s", text[m.end():m.end() + 6]):
             continue  # "The Corporation of the Town of …", "Limited edition"
@@ -351,14 +352,14 @@ def _name_runs(text):
                 break
             paren = t0.startswith("(") and len(t0) > 1  # "Solaris (1457570 Alberta Ltd.)": the bracket opens the name
             core = t0[1:] if paren else t0
-            if core.lower().strip(".:") in CHROME3 or not (_W3.match(core) or core.lower() in _J3):
+            if core.lower().strip(".:") in CHROME3 or not (_W3.match(core) or core.lower() in _J3 or (loose and re.fullmatch(r"[a-zà-ÿ][a-zà-ÿ'’\-]{1,20}", core))):
                 break
             if core[-1] in ".:;!?)|" and not ABBR3.fullmatch(core):
                 break  # the end of the sentence before the name ("… in our store. Acme Inc.", "Yes. Felicita Holdings Ltd."); "J.", "M.A.C.", "St." are parts of names
             words.insert(0, core)
             if paren:
                 break
-        while words and words[0].lower() in _J3:
+        while words and (words[0].lower() in _J3 or not _W3.match(words[0])):
             words.pop(0)
         if not words:
             continue
@@ -377,6 +378,39 @@ def _variants3(words):
     for amp in ("", "and", "et", "n"):
         out.add(letters3(" ".join(amp if w in ("&", "+") else w for w in words)))
     return out
+
+
+OPENING3 = set("""les le la the services service entreprises entreprise groupe group gestion société societe compagnie clinique centre constructions construction distributions
+distribution transports transport industries équipements equipements aliments produits placements investissements immeubles productions éditions editions consultants solutions technologies
+laboratoires pharmacie restaurant boutique atelier garage ferme excavation excavations plomberie toitures toiture rénovations renovations rénovation renovation électrique electrique
+entrepreneur entrepreneurs assurances assurance courtage transport location locations ventes importations exportations meubles pavage paysagement paysagiste""".split())
+
+
+def _opening3(text, nm):
+    """the name with the opening word(s) the site prints before it EVERY time ("Services Mobile Mediq inc.", "Les Entreprises Tremblay inc."), or the
+    name as it is. A word that stands before the name only now and then is a menu item or a heading next to it, not a part of it; before a name
+    printed once, the opening words count only inside a sentence (a word written small comes before them: "… par Les Entreprises Tremblay inc.")."""
+    chains = []
+    for m in re.finditer(re.escape(nm), text):
+        head = text[max(0, m.start() - 80):m.start()]
+        ws = head[:-1].split(" ") if head.endswith(" ") else []
+        ch = []
+        while ws and len(ch) < 3 and ws[-1][:1].isupper() and ws[-1].lower() in OPENING3:
+            ch.insert(0, ws.pop())
+        chains.append((ch, ws[-1] if ws else ""))
+    if not chains:
+        return nm
+    tail = list(chains[0][0])  # the opening words every printing shares, counted from the name backwards ("Les Entreprises" and "les Entreprises": "Entreprises")
+    for ch, _ in chains[1:]:
+        k = 0
+        while k < len(tail) and k < len(ch) and tail[-1 - k] == ch[-1 - k]:
+            k += 1
+        tail = tail[len(tail) - k:]
+    if not tail:
+        return nm
+    if len(chains) == 1 and not re.fullmatch(r"[a-zà-ÿ'’]{1,12}", chains[0][1] or ""):
+        return nm
+    return " ".join(tail) + " " + nm
 
 
 def spelled_name(text, host):
@@ -419,8 +453,26 @@ def spelled_name(text, host):
             found[key] = [nm, best[1], 0, e - len(nm)]
         found[key][2] += 1
     if not found:
-        return None
-    return sorted(found.values(), key=lambda v: (0 if v[1].startswith("its words spell") else 1 if v[1].startswith("its words begin") else 2, -v[2], v[3]))[0]
+        # names with words written small inside them ("Centre dentaire Ahuntsic inc."): only the name that spells the whole domain name
+        for words, suf, s, e, cut in _name_runs(text, loose=True):
+            for k in range(2, len(words) + 1):
+                run = words[-k:]
+                if not _W3.match(run[0]) or run[0].lower() in _J3:
+                    continue
+                if lab in _variants3(run):
+                    nm = " ".join(run) + " " + suf
+                    if not THIRD3.search(nm) and len(nm) <= 90:
+                        key = letters3(nm)
+                        found.setdefault(key, [nm, "its words spell the site's own domain name", 0, text.rfind(nm, 0, e + 1)])
+                        found[key][2] += 1
+                    break
+        if not found:
+            return None
+    best = sorted(found.values(), key=lambda v: (0 if v[1].startswith("its words spell") else 1 if v[1].startswith("its words begin") else 2, -v[2], v[3]))[0]
+    full = _opening3(text, best[0])
+    if full != best[0]:
+        best = [full, best[1] + " (after the opening “%s” it is always printed with)" % full[:len(full) - len(best[0])].strip(), best[2], max(0, text.find(full))]
+    return best
 
 
 def _trim_form3(cand):
@@ -465,6 +517,9 @@ def party_name(text, host):
         while len(words) > 1 and re.fullmatch(r"\d{1,4}(?:st|nd|rd|th|e|er)?", words[0]) and not PROV3.match(words[1]):
             s = text.find(words[1], text.find(words[0], s) + len(words[0]))
             words = words[1:]
+        while len(words) > 2 and words[0].lower() in ("web", "site", "website") and words[1].lower() in _J3:
+            s = text.find(words[2], text.find(words[1], s) + len(words[1]))  # "… le site Web de Auto-Chem inc."
+            words = words[2:]
         name = " ".join(words) + " " + suf
         if THIRD3.search(name) or len(name) > 90 or (len(words) == 1 and NUMBERED3.match(words[0])):
             continue
