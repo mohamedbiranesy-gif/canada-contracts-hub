@@ -70,8 +70,9 @@ def _load():
     for b in out:
         g = gen.pop(b.get("table_key") or "", None)
         if g:
+            own_address = bool(b.get("address"))  # read on the distributor's own site by hand: its page, its quote and where it was read stay together
             for k, v in g.items():
-                if k == "territory" or not b.get(k):
+                if k == "territory" or (not b.get(k) and not (own_address and k.startswith("address"))):
                     b[k] = v
             b["key"] = g["key"] if not b.get("key") else b["key"]
     out += list(gen.values())

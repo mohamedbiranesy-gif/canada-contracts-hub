@@ -225,5 +225,29 @@
   "except_fsas": [],
   "territory": "Qulliq Energy Corporation is the only electricity utility in Nunavut, serving all 25 communities (Qulliq Energy Corporation Act)",
   "what": "electricity for the premises at the organisation's address"
+ },
+ {
+  "key": "on_alectra_utilities_corporation",
+  "table_key": "Alectra Utilities Corporation",
+  "name": "Alectra Utilities Corporation",
+  "read": "2026-11-11",
+  "period": "1 monthly",
+  "period_basis": "the distributor's own words on its automatic payments: “Sign up for pre-authorized automatic payments in My Alectra and your monthly payment will automatically be withdrawn from your bank account.” (https://alectrautilities.com/paymybill); its tariff states its charges by the month: “MONTHLY RATES AND CHARGES - Delivery Component Service Charge $ 20.89” (https://alectrautilities.com/sites/default/files/assets/pdf/rates_2026/2026-tariff-of-rates-and-charges_guelph-rz.pdf)",
+  "amount": "from $20.89 a month",
+  "amount_basis": "the monthly service charge of its smallest business class, by rate zone, in its tariffs effective 2026-01-01 — the class: “GENERAL SERVICE LESS THAN 50 KW SERVICE CLASSIFICATION”; Guelph zone “MONTHLY RATES AND CHARGES - Delivery Component Service Charge $ 20.89” (https://alectrautilities.com/sites/default/files/assets/pdf/rates_2026/2026-tariff-of-rates-and-charges_guelph-rz.pdf), Brampton zone “MONTHLY RATES AND CHARGES - Delivery Component Service Charge $ 31.61” (https://alectrautilities.com/sites/default/files/assets/pdf/rates_2026/2026-tariff-of-rates-and-charges_brampton-rz.pdf), Horizon zone (Hamilton, St. Catharines) “MONTHLY RATES AND CHARGES – Delivery Component Service Charge $ 52.09” (https://alectrautilities.com/sites/default/files/assets/pdf/rates_2026/2026-tariff-of-rates-and-charges_horizon-rz.pdf), Enersource zone (Mississauga) “MONTHLY RATES AND CHARGES - Delivery Component Service Charge $ 54.84” (https://alectrautilities.com/sites/default/files/assets/pdf/rates_2026/2026-tariff-of-rates-and-charges_enersource-rz.pdf); the PowerStream zone's tariff is not read; which zone an address is in follows its municipality; delivery and energy by the kilowatt-hour come on top — the organisation's own consumption is not published",
+  "delivery": "a bill: “You can pay your Alectra Utilities bill directly through your online banking website, by telephone or in person.” (https://alectrautilities.com/paymybill)",
+  "payment": "through a bank or financial institution, by pre-authorized withdrawal or by cheque; a credit card through a third party, for a fee: “You can pay your Alectra Utilities bill directly through your online banking website, by telephone or in person.” … “Sign up for pre-authorized automatic payments in My Alectra and your monthly payment will automatically be withdrawn from your bank account.” … “Your Alectra Utilities bill may be paid using Visa, MasterCard or American Express through our third-party payment processor.” (https://alectrautilities.com/paymybill)",
+  "terms": "“For payments not received by the due date, a late payment charge of 1.5% per month (compounded to 19.56% annually) will be applied to the past due balance.” (https://alectrautilities.com/late-payment-disconnections)",
+  "remit_to": "“Alectra Utilities PO Box 3700, Concord, ON L4K 5N2” (https://alectrautilities.com/contact-us)"
+ },
+ {
+  "key": "on_hydro_one_networks_inc",
+  "table_key": "Hydro One Networks Inc.",
+  "name": "Hydro One Networks Inc.",
+  "read": "2026-11-11",
+  "period": "1 monthly",
+  "period_basis": "the distributor's own words on its billing options: “Want balanced monthly electricity billing?” (https://www.hydroone.com/rates-and-billing/billing-and-payments)",
+  "delivery": "a bill, which its page for business customers also calls an invoice: “Eliminate clutter with a PDF bill, get payment reminders and access to your account, 24/7.” (https://www.hydroone.com/rates-and-billing/billing-and-payments) … “listed below the HST section on your electricity invoice” (https://www.hydroone.com/business-services/commercial-industrial-generators-and-ldcs/commercial-industrial-customers/your-bill-explained)",
+  "payment": "through a financial institution (online banking, at the bank with the bill's payment slip) or by automatic withdrawal; a card or PayPal as well: “You can also pay your bill in-person at your local bank using the payment slip that's found at the bottom of Page 1 of your bill.” … “Set up AutoPay and never forget a bill payment.” … “Credit/Debit, Paypal, Apple/Google Pay” (https://www.hydroone.com/rates-and-billing/billing-and-payments)"
  }
 ]
