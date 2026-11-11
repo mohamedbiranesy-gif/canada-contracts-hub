@@ -424,7 +424,8 @@ def leads_mode(a, k, n):
             hb = h[4:] if h.startswith("www.") else h
             tasks.append({"task_id": "CC-" + r["buyer_key"].split(":")[-1][:10], "buyer_key": r["buyer_key"], "buyer_name": r.get("buyer_name") or h,
                           "known_website": _CSV.site_url(hb, via) if (via.get(hb) and h == hb) else "https://%s/" % h,
-                          "_n": nv, "_f": fi, "_em": 0 if (hints.get(hb) or ("", ""))[0] else 1, "_rr": int(r["buyer_key"] in reread)})
+                          "_n": nv, "_f": fi, "_em": 0 if (hints.get(hb) or ("", ""))[0] else 1, "_rr": int(r["buyer_key"] in reread),
+                          "_ln": 1 if "(tech)" in (r.get("canada_field_value") or "") else 0})
     # registry candidates (2026-11-10, tier R of rank.py): a .ca site whose home page prints a role mailbox of its own and that no lead names yet.
     # Its relationship is the registration of its .ca domain name (agreement with the Canadian Internet Registration Authority, paid for through a
     # CIRA-certified Canadian registrar); what is missing is the mailbox row with its page and quote. A light read: at most 8 pages.
@@ -475,8 +476,12 @@ def leads_mode(a, k, n):
             print("registry candidates, second class (.ca sites, no mailbox on the home page): %d queued of %d" % (min(len(cand2), a.registry2), len(cand2)), flush=True)
         except Exception as e:
             print("second-class registry candidates not queued: %s" % e, flush=True)
-    # sites whose home page prints a role mailbox first; then the first leads file first; within a file, buyers named by several Canadian vendors first
-    tasks.sort(key=lambda t: (t["_em"], t.get("_rr", 0), t["_f"], -t["_n"]))
+    # 2026-11-11 (owner: "on invoice, by bank transfer"): first the leads of the lanes billed on invoice — a register, a roster, a dealer or member
+    # list, a dated record (_ln 0) — then the services seen on a site or in its DNS, most of them charged to a card (_ln 1), then the .ca sites no
+    # lead names (_ln 2: the pool the register lanes are matched against; their names and postal codes come from the scan, a mailbox is only
+    # needed once a register names them). Within a class: sites whose home page prints a role mailbox first; then the first leads file; within a
+    # file, buyers named by several Canadian vendors first.
+    tasks.sort(key=lambda t: (t.get("_ln", 2), t["_em"], t.get("_rr", 0), t["_f"], -t["_n"]))
     print("lead sites whose home page prints a role mailbox (read first): %d of %d; sites read before that gave nothing, read once more under the rules of 2026-11-11: %d" % (
         sum(1 for t in tasks if not t["_em"]), len(tasks), sum(1 for t in tasks if t.get("_rr"))), flush=True)
     print("leads with a mailbox row already, under their own key or their website domain (not read again): %d" % skipped, flush=True)

@@ -114,12 +114,17 @@ def main():
         assets += zips(extras, "ranked_extras", pub)
     # counts: rows, tiers, packages
     tiers, n_rows, n_mail = collections.Counter(), 0, 0
+    ship, ship_t = collections.Counter(), collections.Counter()  # the owner's ship-ready test (2026-11-11): the count the table is held to
     with gzip.open(table, "rt", encoding="utf-8", newline="") as f:
         for r in csv.DictReader(f):
             n_rows += 1
             if (r.get("email") or "").strip():
                 n_mail += 1
                 tiers[r.get("tier") or "?"] += 1
+            sr = (r.get("ship_ready") or "").strip()
+            if sr.startswith("yes"):
+                ship["amount_published" if sr == "yes" else "amount_calculated"] += 1
+                ship_t[(r.get("invoice_fields_for_kind") or "").split(":")[0] or (r.get("tier") or "?")] += 1
     packages = collections.OrderedDict()
     for p in batch_files:
         name = BF.package(p)
@@ -128,6 +133,8 @@ def main():
     stamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     sha = (run("git", "rev-parse", "--short", "HEAD", check=False).stdout or "").strip()
     build = {"id": "%s-%s" % (stamp, sha), "built": stamp, "code": sha, "release": a.tag, "rows": n_rows, "rows_with_mailbox": n_mail, "by_tier": dict(sorted(tiers.items())),
+             "ship_ready": {"rows": sum(ship.values()), "amount_published": ship["amount_published"], "amount_calculated": ship["amount_calculated"], "by_kind": dict(sorted(ship_t.items())),
+                            "test": "established and current + the organisation's role mailbox re-read by the referee + on invoice, payable by bank transfer (never a card on file) + the fields of its kind + no flag (owner 2026-11-11; tools/relationship_rows.py owner_test)"},
              "packages": packages, "assets": [{"name": os.path.basename(p), "bytes": os.path.getsize(p), "sha256": sha256(p),
                                                "url": "https://github.com/%s/releases/download/%s/%s" % (REPO, a.tag, os.path.basename(p))} for p in assets]}
     with open(os.path.join(pub, "BUILD.json"), "w", encoding="utf-8") as f:

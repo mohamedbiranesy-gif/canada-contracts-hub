@@ -933,6 +933,8 @@ import tech_relationships as _TR
 # how vendors bill, in their own words (tools/vendor_billing.py; the vetted vendors' terms read by hand): owner's bar of 2026-11-11, used by lead_strength
 # and by the recurring_billing columns
 import vendor_billing as _VB
+import payee_billing as _PAYEE  # how the bodies behind the register / roster / licence lanes send their bill and take the money (hand-read, quoted)
+import relationship_rows as _RR  # the owner's test of a row (how the bill is paid, the fields of its kind, ship ready): one function for this table and for tools/relationship_rows.py
 try:
     VBILL = _VB.load()
 except Exception as _e:
@@ -1352,6 +1354,26 @@ def _in_sample(k):
 if _SN:
     leads = {k: v for k, v in leads.items() if _in_sample(k)}
     print("RANK_SAMPLE: 1 lead in %d kept: %d" % (_SN, len(leads)))
+# Owner, 2026-11-11 13:09 and 13:58 EST: "it needs to be bank transfers relationship not credit card … Shopify is over saturated in this way … if
+# it's not on invoice, by bank transfer then it's no"; asked what to do with the rows billed to a card on file or through a registrar: "Remove
+# them". A lead whose vendor charges a card on file — Shopify by its own terms, any other vendor whose published way of being paid names cards
+# and no bank payment — makes no row and does not claim its organisation's site: another relationship of that organisation can. A vendor that
+# takes a bank payment as well as a card stays (owner, 14:20 EST: an invoice that can be paid by bank transfer is in).
+CARD_ROWS = os.environ.get("RANK_CARD_ROWS") == "1"      # 1 = the table as it was before the rule (for a comparison build)
+REGISTRY_ROWS = os.environ.get("RANK_REGISTRY_ROWS") == "1"
+def _lead_card_only(k, L):
+    cfv = L.get("canada_field_value") or ""
+    if CARD_ROWS or "(tech)" not in cfv:
+        return False
+    if (L.get("example_vendor") or "").startswith("Shopify"):
+        return True
+    d_ = LDET.get(k) or {}
+    vd_ = registrable(host_of(d_.get("vendor_site") or "") or "")
+    cur_ = _BILL_CUR.get(norm(L.get("example_vendor") or "")) or _BILL_CUR_DOM.get(vd_)
+    txt = str(((cur_ or {}).get("bill") or {}).get("payment") or "")
+    if not txt and vd_ in VBILL:
+        txt = str((_VB.extra_of(VBILL.get(vd_), "paymethod") or {}).get("q") or "")
+    return bool(txt) and bool(_RR._CARD.search(txt)) and not _RR._BANK.search(txt)
 def lead_strength(kl):
     """dated records first, then services seen on the buyer's site, 12-36 month records, client listings, other links:
     the strongest relationship of an organisation claims its website domain (one row per organisation)"""
@@ -1464,11 +1486,22 @@ def _same_family(a, b):
             and not re.fullmatch(r"ville|city|town|municipalit[ée]|village|township|county|bank|banque|universit[yé]|coll[eè]ge|church|[ée]glise|[ée]cole|school|h[oô]tel|restaurant|"
                                  r"clini(?:c|que)|centre|center|club|association|chambre|chamber|the|le|la|les", wa[0]))
 n_cl = collections.Counter()
+if not REGISTRY_ROWS:
+    # the holder of a .ca name pays its registrar, by the registrar's own methods (a card for nearly all), and the Canadian registry bills the
+    # registrar, not the holder: not "on invoice, by bank transfer". Owner 2026-11-11: "Remove them". The organisations stay on file — their
+    # sites, names, addresses and mailboxes are what the register lanes (licences, memberships, agents of record …) are matched against.
+    _reg_keys = [_k for _k, _l in leads.items() if (_l.get("canada_field_value") or "").startswith("registry contract")]
+    for _k in _reg_keys:
+        del leads[_k]
+    print("registry leads (.ca registrations) left out by the owner's rule of 2026-11-11 (paid through a registrar, not on invoice by bank transfer): %d" % len(_reg_keys))
 REG_DOMS = {registrable(host_of(_l.get("website") or "")) for _l in leads.values() if (_l.get("canada_field_value") or "").startswith("registry contract")} - {""}
 for k, L in sorted(leads.items(), key=lead_strength):
     if norm(L["buyer_name"]) in seen or UNNAMED_VENDOR.search(L.get("example_vendor") or "") or not (L.get("example_vendor") or "").strip(): continue  # a relationship needs a named vendor
     if norm(L["buyer_name"]) == norm(L.get("example_vendor") or ""):
         n_cl["the same organisation on both sides (a firm that is its own agent of record): no row"] += 1
+        continue
+    if _lead_card_only(k, L):
+        n_cl["charged to a card on file — Shopify, or a vendor whose published payment methods are cards only (owner 2026-11-11: on invoice, by bank transfer): no row"] += 1
         continue
     if k in mail:
         (acc, g), m = mail[k]
@@ -1511,7 +1544,10 @@ for k, L in sorted(leads.items(), key=lead_strength):
             n_cl["not shown to be a client: a news or community story on the vendor's site (not filed as a customer story)"] += 1
     elif client:  # a link on a Canadian vendor's page: a client listing only on a real client / case-study / references page
         path = urllib.parse.urlparse(L.get("evidence_dataset") or "").path.lower()
-        if MEMBER_ONE_PATH.search(path) or (MEMBER_PATH.search(path) and not NOT_MEMBER_PATH.search(path) and len(path.rstrip("/").rsplit("/", 1)[-1]) <= 36 and not (rel_path(path) and not NOT_REL_PATH.search(path))):
+        _rost = (LDET.get(k) or {}).get("roster") or ""
+        if _rost in ("member", "dealer", "tenant", "sponsor", "exhibitor"):
+            payer = "sponsor" if _rost == "exhibitor" else _rost  # a roster another lane harvested (tools/roster_ingest.py): its descriptor says what kind of list it is
+        elif MEMBER_ONE_PATH.search(path) or (MEMBER_PATH.search(path) and not NOT_MEMBER_PATH.search(path) and len(path.rstrip("/").rsplit("/", 1)[-1]) <= 36 and not (rel_path(path) and not NOT_REL_PATH.search(path))):
             payer = "member"  # a member directory: the listed party pays dues to the Canada-located body (a long slug that merely contains "membres" is an article)
         elif not NOT_PAYER_PATH.search(path) and (DEALER_PATH.search(path) or SPONSOR_PATH.search(path) or TENANT_PATH.search(path)) and not (rel_path(path) and not NOT_REL_PATH.search(path)):
             payer = "dealer" if DEALER_PATH.search(path) else "sponsor" if SPONSOR_PATH.search(path) else "tenant"  # a customer listing by construction: the listed party pays the Canada-located organisation
@@ -1921,6 +1957,12 @@ for k, ((acc, g), m) in mail.items():
         continue
     if _PN > 1 and _part_of.get(k, 0) != _PI:
         continue  # ranking in parts: an inferred row is made in the part of its organisation
+    if k.startswith("lead:") and not REGISTRY_ROWS:
+        # 2026-11-11: an organisation that came through a lane (its key was minted by a lead engine) and whose lead is withdrawn, or removed by
+        # the owner's rule of that day (a .ca registration, a store, a card-billed service), gets no inferred row in its place. Without this
+        # the 100,000 organisations of the .ca pool came back as "inferred: Canada Post Corporation" (sample build of 19:15Z: 41,634 inferred
+        # rows of 77,953). They stay on file as the pool the register lanes are matched against.
+        skipped13["known only through a lead that is withdrawn or removed (owner 2026-11-11: no inferred row in its place)"] += 1; continue
     e = (m.get("mailbox") or "").strip()
     local, _, md = e.lower().partition("@")
     if not md or BAD_LOCAL.search(local):
@@ -4731,13 +4773,20 @@ def bill_profile(x, ld, cls):
         elif cs.startswith("member of a Canadian body (stated on the buyer's own site"):
             out["relationship_fact_basis"] = "stated by the buyer: its own site states its membership of the body and links to it"
         else:
-            out["relationship_fact_basis"] = "stated by the vendor: the body's own current member list names the organisation (%s)" % (x.get("contract_link") or "")[:160]
+            out["relationship_fact_basis"] = "fact, the biller's own roster: the body's current member list names the organisation (%s)" % (x.get("contract_link") or "")[:160]
     elif t == "I":
         out["relationship_fact_basis"] = "inferred, not a fact: no record of this relationship; the vendor is the one organisations of this type and province normally pay"
     elif "vendor located in Canada" in cfv or t in ("D", "E") or (t == "C" and not x.get("records_in_contract_dataset")):
         what = ("as a member in its member directory" if "member named in the member directory" in cs else "as its tenant or merchant" if "tenant / merchant named by" in cs else
                 "as a dealer of its products" if "dealer / retailer named by" in cs else "as a sponsor or exhibitor" if "sponsor / exhibitor named by" in cs else "as a client")
+        # 2026-11-11, the owner chose the lanes "members of Canadian chambers and associations" and "dealers, franchisees and commercial tenants of
+        # Canadian companies". A member directory, a dealer list, a tenant directory or a sponsor / exhibitor list is the list of who pays, kept
+        # and published by the body that is paid, and current by construction (a lapsed member leaves the directory, a closed dealer the
+        # locator): the biller's own roster. A client list, a logo wall or a case study is what a vendor says about itself — his rule of
+        # 07:15 EST the same day: "a vendor's client list is the vendor's statement" — and stays that.
+        _roster = what != "as a client" and t != "E"
         out["relationship_fact_basis"] = ("link only: the organisation is linked from the vendor's site, not shown to be a client" if t == "E" else
+                                          "fact, the biller's own roster: the Canadian body's own page names the organisation %s (%s)" % (what, (x.get("contract_link") or "")[:160]) if _roster else
                                           "stated by the vendor: its own page names the organisation %s (%s); not seen from the buyer's side" % (what, (x.get("contract_link") or "")[:160]))
     else:
         out["relationship_fact_basis"] = "fact, public record: %s names the vendor and the contract (%s)" % ((x.get("source") or "the public source")[:120], (x.get("contract_link") or "")[:160])
@@ -4753,6 +4802,20 @@ def bill_profile(x, ld, cls):
             # the relationship names no subject (a client listing, a link, a membership): what the vendor says it sells, in its own words
             out["bill_items_as_published"] = "what the vendor says it sells, on its own home page: “%s” (%s, read %s); what it sells to this organisation is not published" % (
                 (rec.get("desc") or rec.get("title"))[:260], rec.get("final") or "https://%s/" % vd, rec.get("date"))
+    if t != "T":
+        # owner 2026-11-11 ("on invoice, by bank transfer … don't forget all invoice details … tailor to each"): how the body behind a licence, a
+        # registration, a membership, a dealership or a contract sends its bill and takes the money. First the bodies read by hand
+        # (tools/payee_billing.py: a few regulators and cities carry thousands of rows each), then what the vendor reader found on the body's own
+        # site (reader version 4: payment methods, how the invoice arrives, what happens when it is not paid).
+        if _PAYEE.fill(out, x, x.get("vendor") or "", ld.get("vendor_site") or x.get("vendor_website") or ""):
+            n_billcol["bill details from the body's own payment page, read by hand (tools/payee_billing.py)"] += 1
+        _rec9 = VBILL.get(vd) if vd else None
+        if _rec9:
+            for col, k in (("bill_payment_method_as_published", "paymethod"), ("bill_delivery_as_published", "delivery"), ("service_stops_if_unpaid", "unpaid"),
+                           ("bill_currency_as_published", "currency"), ("bill_tax_rule_as_published", "tax")):
+                st_ = _VB.extra_of(_rec9, k)
+                if st_ and not out.get(col) and not str(x.get(col) or "").strip():
+                    out[col] = "“%s” (%s, read %s)" % (st_["q"][:280], st_["u"], _rec9.get("date"))
     if t not in ("R", "I"):
         (sa, pa), (sv, pv) = _premises(x.get("buyer_address")), _premises(x.get("vendor_address"))
         if sa and sa == sv and (pa == pv or not pa or not pv):
@@ -4760,6 +4823,7 @@ def bill_profile(x, ld, cls):
             n_billcol["same street address on both sides (caution written)"] += 1
     return out
 n_bill, n_bill_shop, n_billcol, n_inv, n_inv_t = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
+n_ship, n_ship_miss, n_ship_one = collections.Counter(), collections.Counter(), collections.Counter()
 KEY_FIELDS = ["buyer_website", "buyer_address", "buyer_phone", "buyer_legal_name_as_published", "email_evidence_url", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "payment_terms_as_published",
               "po_required_as_published", "contract_title", "contract_value", "award_date", "contract_link", "vendor_address", "vendor_bn9", "vendor_website", "vendor_emails", "vendor_phone", "vendor_legal_name", "invoice_reference_hint", "commodity_codes"]
 _today = datetime.date.today()
@@ -4783,7 +4847,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("language_hint", ["template_language"]),
                    ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
-                   ("completeness_score", ["data_quality_score", "ship_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
+                   ("completeness_score", ["data_quality_score", "ship_ready", "ship_ready_missing", "payment_route", "payment_route_basis", "invoice_fields_for_kind", "invoice_fields_missing_for_kind", "vendor_tax_or_registration_number", "ap_mailbox_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
                    ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program", "buyer_trade_name_as_published"]), ("vendor_registry_status", ["vendor_registry_warning", "vendor_registry_note"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
@@ -4940,6 +5004,15 @@ for _ri, x in enumerate(rows):
     for _c, _v in bill_profile(x, _ldb, x["recurring_billing"]).items():
         if _v:
             x[_c] = _v
+    if not CARD_ROWS:
+        # the last check of the owner's rule (2026-11-11: "Remove them"): a row whose bill, as published, goes to a card on file or through a
+        # registrar is not written — whatever lane it came from, and before it is counted anywhere below
+        _rt0 = _RR.payment_route(x, _RR.kind_of(x))[0]
+        if _rt0 in ("card", "registrar"):
+            n9["rows not written — %s (owner 2026-11-11: on invoice, by bank transfer)" % _RR.ROUTE_LABEL[_rt0]] += 1
+            _n_rows -= 1
+            rows[_ri] = None
+            continue
     if not str(x.get("vendor_bn9") or "").strip() and not (x.get("vendor") or "").startswith("inferred"):
         # the vendor's own GST/HST registration number as its site prints it (vendor reader, version 4): the first nine digits are its Business Number.
         # A number the vendor prints is published, and the cell says where; a QST number (ten digits) is not a Business Number and is left alone.
@@ -5363,10 +5436,23 @@ for _ri, x in enumerate(rows):
         rq = {"A": 30, "B": 30, "T": 26, "M": 22, "L": 18, "C": 14, "D": 14, "F": 12, "R": 11, "E": 10, "I": 6}.get(t, 0)
         fq = 30 * sum(1 for c in KEY_FIELDS if x.get(c)) / len(KEY_FIELDS)
         x["data_quality_score"] = str(int(round(mq + rq + fq)))
-        x["ship_ready"] = ("yes" if (g == 4 and ec.startswith(("confirmed", "cross")) and t in ("A", "B", "T", "M") and x["sensitivity_flag"] == "no" and not x.get("vendor_registry_warning"))
+        # The owner's test of a row (2026-11-11: 12:31, 13:00, 13:09, 13:58 and 14:20 EST). Until then this column answered the first goal's question —
+        # is the mailbox an invoicing / AP one, re-read by the referee, on one of four tiers — and said "no" on 97 of his 100 test rows, 87 of them
+        # because the mailbox is a general one ("the old thing is moronic": the general mailbox is where they take things in, and that is fine).
+        # That answer is kept under its own name (ap_mailbox_ready: no column is deleted). ship_ready is his test, made by ONE function for this
+        # table and for tools/relationship_rows.py (owner_test): the relationship is established and current; the organisation's role mailbox
+        # was re-read by the referee; the bill is paid on invoice and bank transfer is a published or inherent way to pay it — never a card on
+        # file; the fields of its KIND of relationship are filled ("as populated as that relationship could expect it to be"); nothing flags it.
+        x["ap_mailbox_ready"] = ("yes" if (g == 4 and ec.startswith(("confirmed", "cross")) and t in ("A", "B", "T", "M") and x["sensitivity_flag"] == "no" and not x.get("vendor_registry_warning"))
                            else "yes (finance mailbox, not AP)" if (g == 3 and ec.startswith(("confirmed", "cross")) and t in ("A", "B", "T", "M") and x["sensitivity_flag"] == "no")
                            else "no (%s)" % ("sensitive buyer" if x["sensitivity_flag"] == "yes" else "vendor registry warning" if x.get("vendor_registry_warning") else "mailbox not referee-confirmed" if not ec.startswith(("confirmed", "cross")) else "mailbox below finance grade" if g < 3 else "relationship not dated / active"))
-        npk["ship_ready_yes"] += x["ship_ready"] == "yes"
+        npk["ap_mailbox_ready_yes"] += x["ap_mailbox_ready"] == "yes"
+        _k9, _r9, _o9 = _RR.owner_test(x)
+        n_ship[(_k9, x["payment_route"], "yes" if not _o9 else "no")] += 1
+        for _p9 in _o9:
+            n_ship_miss[_p9.split(" (")[0]] += 1
+        if len(_o9) == 1:
+            n_ship_one[(_k9, _o9[0].split(" (")[0])] += 1
         # statutory payees (downstream list 2 §10): legally mandated payers, one labelled column, never a row or a mailbox
         pc = re.search(r"\b([A-Z])\d[A-Z]\s?\d[A-Z]\d\b", x.get("buyer_address") or "")
         prov = {"QC": "QC", "ON": "ON", "BC": "BC", "AB": "AB", "SK": "SK", "MB": "MB", "NS": "NS", "NB": "NB", "NL": "NL", "PE": "PE", "YT": "YT", "NT": "NT", "NU": "NU"}.get(x.get("jurisdiction") or "", "")
@@ -5434,6 +5520,12 @@ print("  beside them:", {k_: v_ for k_, v_ in n_billcol.items() if k_ not in BIL
 _nm_ = max(1, sum(_bt.values()))
 print("invoice fields (owner 2026-11-11: every aspect within an invoice) — rows with a mailbox that carry each, of %d: %s" % (_nm_, " · ".join("%s %d (%.0f%%)" % (c_, n_inv[c_], 100.0 * n_inv[c_] / _nm_) for c_ in
       ("buyer legal name", "buyer address", "vendor legal name", "vendor address", "vendor tax number", "what is billed", "amount", "billing period", "reference", "all but the amount", "all nine", "amount, calculated only", "all nine with the amount calculated"))))
+# the owner's test (2026-11-11), row by row — one row per buyer, no buyer twice
+_sy = sum(n_ for (k_, r_, v_), n_ in n_ship.items() if v_ == "yes")
+print("SHIP READY (established and current + role mailbox re-read by the referee + on invoice, payable by bank transfer — never a card on file + the fields of its kind + no flag): %d of %d rows" % (_sy, sum(n_ship.values())))
+print("  by kind and by how the bill is paid (ready / all): %s" % " · ".join("%s — %s: %d / %d" % (k_, r_, n_ship[(k_, r_, "yes")], n_ship[(k_, r_, "yes")] + n_ship[(k_, r_, "no")]) for (k_, r_) in sorted({(k2, r2) for (k2, r2, _v) in n_ship}, key=lambda kr: -(n_ship[(kr[0], kr[1], "yes")] + n_ship[(kr[0], kr[1], "no")]))))
+print("  what is missing, over the rows that fail: %s" % " · ".join("%s %d" % kv for kv in n_ship_miss.most_common(20)))
+print("  one thing away (kind: what is missing): %s" % " · ".join("%s: %s %d" % (k_, m_, n_) for (k_, m_), n_ in n_ship_one.most_common(16)))
 print("  rows by number of the nine fields, tier by tier: %s" % " | ".join("%s: %s" % (t_, " ".join("%d×%d" % (k_, n_inv_t[(t_, k_)]) for k_ in range(9, 2, -1) if n_inv_t[(t_, k_)])) for t_ in sorted({t2 for (t2, _k) in n_inv_t})))
 print("downstream pack:", dict(npk))
 # the change list against the previous build (tools/release_diff.py) is made by tools/rank_tail.sh once this process has ended: it holds two

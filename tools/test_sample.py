@@ -15,23 +15,23 @@ import argparse, collections, csv, gzip, json, os, random, re, sys
 
 csv.field_size_limit(1 << 30)
 
-# kind -> (rows wanted, test on a row). First match wins, in this order.
+# 2026-11-11 13:00-14:20 EST, the owner: "a 100 pool definitely needs to be ship ready … a row that isn't ship ready isn't a row"; a row is a
+# relationship billed on invoice and payable by bank transfer, its invoice fields tailored to its kind. The draw is made among the rows whose
+# ship_ready says yes (tools/relationship_rows.py: owner_test), inside each kind of relationship so that every kind is tested and none is
+# hand-picked. A kind with fewer ready rows than its share gives what it has; the rest of the hundred is drawn among all the other ready rows.
+_K = lambda x: (x.get("invoice_fields_for_kind") or "").split(":")[0]
+_AP = lambda x: (x.get("email_type") or "").startswith(("invoicing", "finance"))
 KINDS = [
-    ("public contract record", 10, lambda x: x["tier"] in ("A", "B") and "auditor of record" not in x["source"] and "customer story" not in x["source"]),
-    ("Shopify store in Canada", 8, lambda x: x["tier"] == "T" and x["vendor"].startswith("Shopify") and _country(x) == "CA"),
-    ("Shopify store in the United States", 7, lambda x: x["tier"] == "T" and x["vendor"].startswith("Shopify") and _country(x) == "US"),
-    ("other subscription platform under the buyer's site", 10, lambda x: x["tier"] == "T" and "customer portal on the vendor's platform" in x["source"] and not x["vendor"].startswith("Shopify")),
-    ("hosting / DNS / e-mail service in the buyer's DNS", 15, lambda x: x["tier"] == "T" and "public DNS records" in x["source"]),
-    ("“powered by / hosted by” line on the buyer's site", 5, lambda x: x["tier"] == "T" and "credit line" in x["source"] and re.search(r"powered|propuls|host|h[ée]berg|maint", x["contract_status"] + " " + x.get("relationship_fact_basis", ""), re.I)),
-    ("“website by” credit on the buyer's site", 5, lambda x: x["tier"] == "T" and "credit line" in x["source"]),
-    (".ca domain name registration", 15, lambda x: x["tier"] == "R"),
-    ("public register: licence, registration, accreditation", 6, lambda x: x["tier"] == "M" and re.match(r"holder of licence|registered with a Canadian regulatory|owner of |accredited business|client of a Canadian trademark agent", x["contract_status"])),
-    ("member list of a Canadian body", 4, lambda x: x["tier"] == "M"),
-    ("named as a client by the vendor", 10, lambda x: x["tier"] in ("C", "D")),
-    ("link on the vendor's site", 3, lambda x: x["tier"] == "E"),
-    ("inferred, no record", 2, lambda x: x["tier"] == "I"),
+    ("public contract — invoicing, AP or finance mailbox", 20, lambda x: _K(x) == "public contract" and _AP(x)),
+    ("public contract — purchasing or general mailbox", 20, lambda x: _K(x) == "public contract"),
+    ("licence or registration with a Canadian public body", 25, lambda x: _K(x) == "licence or registration"),
+    ("service of a Canadian vendor that takes a bank payment", 15, lambda x: _K(x) == "service seen on the buyer's side"),
+    ("membership of a Canadian body", 8, lambda x: _K(x) == "membership"),
+    ("dealer, tenant, sponsor or exhibitor of a Canadian body", 7, lambda x: _K(x) in ("dealership", "tenancy", "sponsorship")),
+    ("client of a Canadian agent of record", 5, lambda x: _K(x) == "agent of record"),
 ]
-SHOW = ["buyer", "buyer_legal_name_as_published", "buyer_address", "buyer_phone", "buyer_website", "jurisdiction", "buyer_type",
+SHOW = ["ship_ready", "payment_route", "payment_route_basis", "invoice_fields_for_kind", "invoice_fields_missing_for_kind", "vendor_tax_or_registration_number",
+        "buyer", "buyer_legal_name_as_published", "buyer_address", "buyer_phone", "buyer_website", "jurisdiction", "buyer_type",
         "email", "email_type", "email_check", "email_evidence_url", "email_evidence_quote",
         "vendor", "vendor_legal_name", "vendor_address", "vendor_registered_address", "vendor_bn9", "vendor_gst_hst_derived", "vendor_website", "vendor_country_basis",
         "tier", "rank_group", "relationship_kind", "relationship_fact_basis", "contract_status", "contract_link", "source", "contract_title", "contract_reference",
@@ -57,20 +57,22 @@ def main():
     a.add_argument("--seed", type=int, default=20261111)
     a.add_argument("--out", default="coord/pilot")
     a.add_argument("--day", default="")
+    a.add_argument("--rows", type=int, default=100)
     a.add_argument("--built", default="", help="the build the table comes from (coord/results/ranked/BUILD.json: built), shown on the review page")
     a = a.parse_args()
     opener = gzip.open if a.table.endswith(".gz") else open
     kind_of = lambda x: next((kind for kind, n, test in KINDS if test(x)), "")
     ident = lambda x: (x.get("keys") or "", x.get("email") or "")
-    pools, cols = collections.defaultdict(list), None
+    pools, cols, n_ready = collections.defaultdict(list), None, 0
     with opener(a.table, "rt", encoding="utf-8", errors="replace", newline="") as f:  # first pass: who is in which kind (the table does not fit in memory)
         r = csv.DictReader(f)
         cols = r.fieldnames
         for x in r:
-            if x.get("email") and (x.get("sensitivity_flag") or "") != "yes":
+            if x.get("email") and (x.get("ship_ready") or "").startswith("yes"):
                 k = kind_of(x)
                 if k:
                     pools[k].append(ident(x))
+                n_ready += 1
     rng, chosen = random.Random(a.seed), {}
     for kind, n, _ in KINDS:
         pool = sorted(pools[kind])
@@ -78,6 +80,12 @@ def main():
         print("%-58s %7d rows in the table, %2d drawn" % (kind, len(pool), len(take)))
         for i, t in enumerate(take):
             chosen[t] = (kind, i)
+    short = a.rows - len(chosen)
+    if short > 0:  # a kind with fewer ready rows than its share: the rest of the hundred among all the other ready rows, each under its own kind
+        rest = sorted((t, kind) for kind, _, _ in KINDS for t in pools[kind] if t not in chosen)
+        for j, (t, kind) in enumerate(rng.sample(rest, min(short, len(rest)))):
+            chosen[t] = (kind, 1000 + j)
+    print("ship-ready rows in the table: %d; drawn: %d" % (n_ready, len(chosen)))
     got = {}
     with opener(a.table, "rt", encoding="utf-8", errors="replace", newline="") as f:  # second pass: the drawn rows
         for x in csv.DictReader(f):

@@ -46,6 +46,9 @@ jobs:
           for i in $(seq 1 10); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             python3 tools/biz_licences.py merge keep --stamp "$STAMP" | tee /tmp/m.txt
+            # rosters another lane harvested (members, dealers, tenants, exhibitors, sponsors of a Canadian body: contrib/<lane>/rosters/<key>.json +
+            # data/incoming/<lane>/roster_<key>.csv): the same commit carries their leads (tools/roster_ingest.py checks each roster's proof itself)
+            python3 tools/roster_ingest.py merge --stamp "$STAMP" 2>&1 | tee -a /tmp/m.txt || true
             python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/lead_shards 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }

@@ -87,6 +87,71 @@ SOURCES = {
 }
 NCOLS = ["src", "number", "name", "trade", "status", "issued", "expires", "kind", "address", "city", "postal", "phone", "fee", "neq"]
 
+# ---- registers described in files (2026-11-11) -------------------------------------------------------------------------------------------
+# Owner, 2026-11-11: the lanes are "firms licensed by a Canadian regulator" and every other body that bills on invoice — "and more, don't limit
+# yourself". A register is added by a descriptor file, not by an edit here: tools/data/registers/<key>.json (this lane) or
+# contrib/<lane>/registers/<key>.json (any lane; contrib/** merges without review). The same keys as the entries of SOURCES above, plus:
+#   kind      ods | socrata | ckan (as above) | csv (one file at "url"; "delimiter", "encoding" optional) | arcgis (a FeatureServer / MapServer
+#             layer at "url": .../FeatureServer/0) | file (rows a lane harvested itself: "path", a glob under the repository, CSV or CSV.gz
+#             whose columns are named in "f")
+#   f         the register's column for each of: number, name (legal name), trade (trade / establishment name), status, issued, expires, kind,
+#             addr (one-line street address) or unit / house / street, city, prov, postal, phone, fee, neq, cancel
+#   payee, payee_address, payee_site, payee_url, payee_read, fee_quote   the body that is paid, its own printed address, the page that says
+#             the holder pays it (a sentence of that page, at most 300 characters), the day that page was read
+#   page, list_name       the register's own page and how to name it in a sentence ("the City of X's open data list of business licences")
+#   cities                lower-case city names for the street-address match (empty: postal code and telephone only)
+#   record_word           "Business licence" (default), "Liquor licence", "Permit", "Registration" …
+#   persons_mixed         true when the register also lists natural persons: a record without a legal form in its legal name is left out
+#   keep                  optional {column: [values]}: only records whose column has one of the values (e.g. {"status": ["Active"]})
+# Natural persons are never delivered; a register's own e-mail column is never read (do not map it).
+REG_DIRS = (os.path.join(ROOT, "tools/data/registers"), os.path.join(ROOT, "contrib/*/registers"))
+NEED = ("kind", "f", "payee", "payee_address", "payee_url", "fee_quote", "page", "list_name")
+
+
+def load_descriptors():
+    n = 0
+    for d in REG_DIRS:
+        for f in sorted(glob.glob(os.path.join(d, "*.json"))):
+            try:
+                S = json.load(open(f, encoding="utf-8"))
+            except ValueError as e:
+                print("register descriptor not read (%s): %s" % (e, f), flush=True)
+                continue
+            key = S.get("key") or os.path.basename(f)[:-5]
+            miss = [k for k in NEED if not S.get(k)]
+            if miss or key in SOURCES or len(S.get("fee_quote") or "") > 300 or "email" in " ".join(str(v).lower() for v in (S.get("f") or {}).keys()):
+                print("register descriptor left out (%s): %s" % ("missing " + ", ".join(miss) if miss else "key taken, a quote over 300 characters, or an e-mail column mapped", f), flush=True)
+                continue
+            S.setdefault("cities", []); S.setdefault("payee_site", ""); S["cities"] = tuple(c.lower() for c in S["cities"])
+            if S.get("where"):
+                S["where"] = S["where"].replace("{today}", TODAY)
+            SOURCES[key] = S
+            n += 1
+    return n
+
+
+def arcgis_rows(url):
+    out, off = [], 0
+    while True:
+        res = jget("%s/query?where=1%%3D1&outFields=*&returnGeometry=false&f=json&resultOffset=%d&resultRecordCount=2000" % (url.rstrip("/"), off), timeout=300)
+        feats = res.get("features") or []
+        out += [f.get("attributes") or {} for f in feats]
+        if len(feats) < 2000 and not res.get("exceededTransferLimit"):
+            break
+        off += len(feats) or 2000
+        if off > 2_000_000:
+            break
+    return out
+
+
+def file_rows(S):
+    out = []
+    for f in sorted(glob.glob(os.path.join(ROOT, S["path"]))):
+        op = gzip.open if f.endswith(".gz") else open
+        with op(f, "rt", encoding=S.get("encoding") or "utf-8-sig", errors="replace", newline="") as fh:
+            out += list(csv.DictReader(fh, delimiter=S.get("delimiter") or ","))
+    return out
+
 
 def get(url, tries=4, timeout=180):
     err = None
@@ -206,6 +271,12 @@ def pull(a):
                     if len(res.get("records") or []) < 32000:
                         break
                     off += 32000
+            elif S["kind"] == "csv":
+                rows = list(csv.DictReader(io.StringIO(get(S["url"], timeout=900).decode(S.get("encoding") or "utf-8-sig", "replace")), delimiter=S.get("delimiter") or ","))
+            elif S["kind"] == "arcgis":
+                rows = arcgis_rows(S["url"])
+            elif S["kind"] == "file":
+                rows = file_rows(S)
         except Exception as e:
             print("%s: download failed: %s" % (src, str(e)[:200]), flush=True)
             continue
@@ -219,7 +290,10 @@ def pull(a):
             if "exemption" in norm(g(r, "kind")):
                 stats["exemption, not a permit (left out)"] += 1
                 continue
-            if name.startswith("(") or (name and src in ("toronto",) and not LEGAL_FORM.search(norm(name))):
+            if any(str(r.get(c) or "").strip() not in vals for c, vals in (S.get("keep") or {}).items()):
+                stats["not in force by the register's own status column (left out)"] += 1
+                continue
+            if name.startswith("(") or (name and (src in ("toronto",) or S.get("persons_mixed")) and not LEGAL_FORM.search(norm(name))):
                 stats["licensee is a natural person or has no legal form in its name (left out)"] += 1
                 continue
             addr = g(r, "addr") or " ".join(x for x in ((g(r, "unit") + "-") if g(r, "unit") else "", g(r, "house"), g(r, "street")) if x).replace("- ", "-")
@@ -365,6 +439,22 @@ def match(a):
                 if sk and r["city"]:
                     by_st[(norm(r["city"]),) + sk].append(r)
     orgs = org_universe()
+    n_univ = len(orgs)
+    try:
+        # 2026-11-11: the delivered table no longer carries the .ca organisations as rows (owner: a registrar in between is not a row); they are
+        # the pool a register is matched against. Every site on file that states a Canadian postal code — the home-page scan's name facts, the
+        # lead readers' facts — joins the universe with the names it states for itself; the tie stays the same (same postal code AND names agree).
+        import tm_register as TM
+        for dom, names, pc, where in TM.site_index():
+            host = dom.lower()
+            if not pc or host in orgs or ("www." + host) in orgs:
+                continue
+            nm = [n for n in (names.get("legalName") or "", names.get("copyright line") or "", names.get("site name") or "") if n and "." not in n[-5:]]
+            if nm:
+                orgs[host] = dict(names=nm, addr="%s %s" % (pc[:3], pc[3:]), addr_url="", phone="", tier="", mail=False)
+    except Exception as e:
+        print("the scan's name facts were not read (%s): the universe is the delivered rows and the lead readers' facts" % e, flush=True)
+    print("organisations a register can be tied to: %d (delivered rows and lead readers' facts: %d)" % (len(orgs), n_univ), flush=True)
     all_cities = {c for S in SOURCES.values() for c in S["cities"]}
     out, stats = [], collections.Counter()
     for host, O in orgs.items():
@@ -422,13 +512,13 @@ def lead_of(o):
     # the row keeps the organisation's own name (its site, the delivered row); the licence's legal and trade names go to the register facts below
     row = {"buyer_key": key, "buyer_name": (o.get("org_names") or [""])[0] or (trade[0] if trade and (not legal or numbered) else legal or b["name"]), "website": "https://%s/" % o["host"],
            "canadian_vendor_rows": 1, "example_vendor": S["payee"],
-           "canada_field_value": "membership / statutory fee relationship: licence holder of the Canadian body (%s)=%s (as printed on %s, read 2026-11-10); %s: “%s” (%s)"
-                                 % (S["payee"], S["payee_address"], S["payee_url"], S["payee"], S["fee_quote"], S["payee_url"]),
+           "canada_field_value": "membership / statutory fee relationship: licence holder of the Canadian body (%s)=%s (as printed on %s, read %s); %s: “%s” (%s)"
+                                 % (S["payee"], S["payee_address"], S["payee_url"], S.get("payee_read") or "2026-11-10", S["payee"], S["fee_quote"], S["payee_url"]),
            "evidence_dataset": S["page"], "latest_record_date": TODAY}
     addr = ", ".join(x for x in (b["address"], b["city"], (b["postal"][:3] + " " + b["postal"][3:]) if len(b["postal"]) == 6 else "") if x)
     det = {"key": key, "platform": "biz_licence", "record_url": S["page"], "vendor": S["payee"], "record_date": TODAY, "start": b["issued"], "end": b["expires"], "reference": b["number"],
-           "title": "%s %s — %s%s" % ("Permit" if b["src"] == "opc" else "Business licence", b["number"], b["kind"] or "category not stated", (" (%s)" % b["status"]) if b["status"] else ""),
-           "vendor_address": "%s (as printed on %s)" % (S["payee_address"], S["payee_url"]), "vendor_site": S["payee_site"],
+           "title": "%s %s — %s%s" % (S.get("record_word") or ("Permit" if b["src"] == "opc" else "Business licence"), b["number"], b["kind"] or "category not stated", (" (%s)" % b["status"]) if b["status"] else ""),
+           "vendor_address": "%s (as printed on %s)" % (S["payee_address"], S["payee_url"]), "vendor_site": S.get("payee_site") or "",
            "member_address_quote": addr, "register_label": "the public list of licences published by",
            "buyer_register": {"legal_name": legal, "trade_names": trade[:4], "registry_id": ("NEQ %s" % b["neq"]) if len(b.get("neq") or "") == 10 else "",
                               "phone": ("%s-%s-%s" % (b["phone"][:3], b["phone"][3:6], b["phone"][6:])) if len(b["phone"]) == 10 else "",
@@ -480,6 +570,9 @@ def main():
     ap.add_argument("--only", default="")
     ap.add_argument("--stamp", default="")
     a = ap.parse_args()
+    n = load_descriptors()
+    if n:
+        print("registers described in files: %d (%s)" % (n, ", ".join(k for k, S in SOURCES.items() if S.get("payee_read") or S["kind"] in ("csv", "arcgis", "file"))), flush=True)
     {"probe": probe, "pull": pull, "match": match, "merge": merge}[a.cmd](a)
 
 
