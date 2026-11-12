@@ -485,14 +485,26 @@ def sites(a):
     k, n = (int(x) for x in (a.shard.split("/") + ["1"])[:2])
     os.makedirs("out", exist_ok=True)
     tied = {r["owner_key"] for r in csv.DictReader(open(MATCHES, encoding="utf-8", newline=""))} if os.path.exists(MATCHES) else set()
-    done, done_ovt = set(), set()
+    done, done_ovt, done_cb, marks_of = set(), set(), set(), {}
     if os.path.exists(SDONE):
         with gzip.open(SDONE, "rt", encoding="utf-8") as f:
             for l in f:
                 q = l.rstrip("\n").split("\t")
                 done.add(q[0])
-                if len(q) > 5 and q[5] == "overture":
+                mk = set(q[5].split(",")) if len(q) > 5 and q[5] else set()
+                marks_of[q[0]] = mk
+                if "overture" in mk:
                     done_ovt.add(q[0])
+                if "clearbit" in mk:
+                    done_cb.add(q[0])
+    # 2026-11-12: with --clearbit (owners abroad), the domains the company-name autocomplete gives under the owner's very name are read too —
+    # also for an owner looked for before under domain names made of its name. A domain is kept by the same tests as any other: the register's
+    # postal code printed in an address on the site under the same name, or the legal person stated with its legal form on a site of the owner's
+    # state. The autocomplete alone ties nothing.
+    use_cb = bool(getattr(a, "clearbit", False)) and bool(getattr(a, "abroad", False))
+    if use_cb:
+        import hc_registers as HR
+        cb_lock = threading.Lock()
     by_name, by_name_x = collections.Counter(), collections.Counter()
     owners = []
     abroad = bool(getattr(a, "abroad", False))
@@ -512,7 +524,7 @@ def sites(a):
                 by_name_x[nkey_x(r["owner_name"])] += 1
                 if r["owner_key"] in tied or int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n != k:
                     continue
-                if (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done):
+                if (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done_cb) if use_cb else (r["owner_key"] in done):
                     continue
                 if use_ovt and r["owner_key"] not in ovt:
                     continue
@@ -564,7 +576,19 @@ def sites(a):
             listed[r_["site"]] = r_
             kind_of.setdefault(r_["site"], "listed")
         cands = list(listed) + [h for h in cands if h not in listed]
-        live = [h for h in cands if resolves(h)][:4 + len(listed)]
+        cbs = []
+        if use_cb:
+            core_ = HR.core(o["owner_name"])
+            if len(core_) >= 4 and not (len(core_.split()) == 1 and len(core_) < 6):
+                with cb_lock:  # one request a second for the whole runner
+                    sug = HR.suggest(core_) or []
+                cbs = [d for d, sn in (((x_.get("domain") or "").lower().strip(), HR.core(x_.get("name") or "")) for x_ in sug[:5])
+                       if d and sn == core_ and not HR.BAD.search(d) and HR.domain_fits(d, core_, cc)]
+            for d in cbs:
+                kind_of.setdefault(d, "clearbit")
+            # an owner looked for before under its own name: only the autocomplete's domains are new
+            cands = cbs + [h for h in cands if h not in cbs and o["owner_key"] not in done]
+        live = [h for h in cands if resolves(h)][:4 + len(listed) + len(cbs)]
         hit, n_read = None, 0
         for h in live:
             cache = {}
@@ -634,6 +658,8 @@ def sites(a):
                     hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["_code"], "tied_by": how,
                            "site_facts_from": ("its own pages (%s), found as the website an Overture Maps place lists for the owner's name (“%s”, %s; %s, release %s)" % (
                                where, _lst["place_name"], _lst["place_postcode"], _lst["how"], _lst["release"]) if _lst else
+                                               "its own pages (%s), found as the domain the company-name autocomplete (Clearbit) gives under the owner's very name" % where
+                                               if kind_of.get(h) == "clearbit" else
                                                "its own pages (%s), found under a domain name made of the owner's name or mark" % where),
                            "site_states": "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:200], "read": TODAY}
                     break
@@ -687,7 +713,9 @@ def sites(a):
             if hit:
                 w.writerow(hit)
                 stats[hit["tied_by"].split(" (")[0]] += 1
-            fd.write("%s\t%s\t%d\t%d\t%s%s\n" % (o["owner_key"], TODAY, len(cands), len(live), hit["site"] if hit else "", "\toverture" if listed else ""))
+            mk = set(marks_of.get(o["owner_key"], set())) | ({"overture"} if listed else set()) | ({"clearbit"} if use_cb else set())
+            fd.write("%s\t%s\t%d\t%d\t%s%s\n" % (o["owner_key"], TODAY, len(cands), len(live), hit["site"] if hit else "", ("\t" + ",".join(sorted(mk))) if mk else ""))
+            stats["autocomplete domains read"] += len(cbs)
             stats["owners with a listed website"] += bool(listed)
             if stats["owners"] % 500 == 0:
                 ff.flush(); fd.flush()
@@ -990,6 +1018,7 @@ def main():
     ap.add_argument("--abroad", action="store_true", help="sites: the owners outside Canada (the United States, the United Kingdom, Australia and ten European countries: ABROAD) instead of the owners in Canada")
     ap.add_argument("--release", default="", help="overture-sites with local parquet files: the Overture release they were taken from")
     ap.add_argument("--overture", action="store_true", help="sites --abroad: the owners for whom an Overture Maps place lists a website (tm_overture_sites.csv), that site read first")
+    ap.add_argument("--clearbit", action="store_true", help="sites --abroad: also the domains the company-name autocomplete gives under the owner's very name (owners looked for before included)")
     a = ap.parse_args()
     {"build": build, "match": match, "leads": leads, "sites": sites, "merge-sites": merge_sites, "agent-sites": agent_sites, "overture-sites": overture_sites}[a.cmd](a)
 
