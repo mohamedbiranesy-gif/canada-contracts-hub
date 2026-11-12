@@ -1,0 +1,17 @@
+{
+ "key": "ex_meet",
+ "kind": "exhibitor",
+ "biller": "Marketplace Events (MEET Show, Moncton)",
+ "biller_site": "https://www.marketplaceevents.com/",
+ "biller_address": "PO Box 70060 Rimrock Plaza PO, Toronto, ON M3J 0H3",
+ "biller_address_url": "https://www.marketplaceevents.com/contact-us",
+ "biller_address_quote": "Canada TORONTO, ONTARIO PO Box 70060 Rimrock Plaza PO Toronto, ON M3J 0H3",
+ "read": "2026-11-12",
+ "pays_quote": "Early Bird Pricing ( until January 1st, 2028 ) : $23.00 per sq. ft. Pricing starting January 1st, 2028 : $24.00 per sq. ft.",
+ "pays_url": "https://www.meetshow.ca/looking-to-exhibit/booth-rates",
+ "list_hosts": [
+  "meetshow.ca"
+ ],
+ "list_host_link_url": "https://www.marketplaceevents.com/our-shows",
+ "list_name": "the MEET (Mechanical Electrical Electronic Technology) Show 2026 exhibitor list"
+}

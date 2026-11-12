@@ -1,0 +1,13 @@
+{
+ "key": "ca_con_oca",
+ "kind": "member",
+ "biller": "Ottawa Construction Association",
+ "biller_site": "https://oca.ca/",
+ "biller_address": "9 Antares Drive, Ottawa, ON K2E 7V5",
+ "biller_address_url": "https://oca.ca/membership/membership-information-pricing/",
+ "biller_address_quote": "9 Antares Drive Ottawa, ON K2E 7V5",
+ "read": "2026-11-12",
+ "pays_quote": "$1050.00 for 12 months membership plus a one-time *initiation fee (for new members) of $150.00 = $1200.00 + $156.00 HST = $1356.00",
+ "pays_url": "https://oca.ca/membership/membership-information-pricing/",
+ "list_name": "the Ottawa Construction Association's member directory"
+}

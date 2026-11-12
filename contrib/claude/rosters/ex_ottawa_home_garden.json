@@ -1,0 +1,17 @@
+{
+ "key": "ex_ottawa_home_garden",
+ "kind": "exhibitor",
+ "biller": "Marketplace Events (Ottawa Home + Garden Show)",
+ "biller_site": "https://www.marketplaceevents.com/",
+ "biller_address": "PO Box 70060 Rimrock Plaza PO, Toronto, ON M3J 0H3",
+ "biller_address_url": "https://www.marketplaceevents.com/contact-us/office-locations",
+ "biller_address_quote": "Canada TORONTO, ONTARIO PO Box 70060 Rimrock Plaza PO Toronto, ON M3J 0H3",
+ "read": "2026-11-12",
+ "pays_quote": "EXHIBITOR SPACE RATES Regular Booth Space $26.00 per square foot Main Aisle Booth Space $28.00 per square foot Open Corner Premium $250.00 per corner Interactive Exhibitor Listing $149.00 (mandatory)",
+ "pays_url": "https://www.ottawahomeshow.com/looking-to-exhibit/booth-rates",
+ "list_hosts": [
+  "ottawahomeshow.com"
+ ],
+ "list_host_link_url": "https://www.marketplaceevents.com/our-shows",
+ "list_name": "the exhibitor list of the Ottawa Home + Garden Show (show of March 18-21, 2027)"
+}

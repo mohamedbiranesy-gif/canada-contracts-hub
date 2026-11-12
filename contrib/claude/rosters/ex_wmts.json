@@ -1,0 +1,17 @@
+{
+ "key": "ex_wmts",
+ "kind": "exhibitor",
+ "biller": "SME (Society of Manufacturing Engineers), Canadian office",
+ "biller_site": "https://www.wmts.ca/",
+ "biller_address": "7100 Woodbine Avenue, Suite 312, Markham, ON L3R 5J2",
+ "biller_address_url": "https://www.wmts.ca/contact-us/",
+ "biller_address_quote": "7100 Woodbine Avenue, Suite 312 Markham, ON L3R 5J2",
+ "read": "2026-11-12",
+ "pays_quote": "1) PAYMENT OF SPACE SME Show Management reserves the right to refuse move-in and use of space to any exhibitor who has not made full and final payment.",
+ "pays_url": "https://www.wmts.ca/globalassets/wmts/exhibit/exhibitor-resources/exhibition-rules-and-regulations.pdf",
+ "list_name": "the exhibitor list of the Western Manufacturing Technology Show 2027 (Edmonton EXPO Centre, April 28-30, 2027), kept on a2z",
+ "list_hosts": [
+  "a2zinc.net"
+ ],
+ "list_host_link_url": "https://www.wmts.ca/"
+}
