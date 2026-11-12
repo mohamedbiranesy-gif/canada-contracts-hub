@@ -1,0 +1,13 @@
+{
+ "kind": "member",
+ "biller": "Fédération des établissements d'enseignement privés (FEEP)",
+ "biller_site": "https://www.feep.qc.ca/",
+ "biller_address": "1940, boul. Henri-Bourassa Est, Montréal (Québec) H2B 1S2",
+ "biller_address_url": "https://www.feep.qc.ca/federation/nous-joindre",
+ "biller_address_quote": "Nos coordonnées 1940, boul. Henri-Bourassa Est Montréal (Québec) H2B 1S2",
+ "read": "2026-11-12",
+ "pays_quote": "Coût de la cotisation Consultez le document pour connaître le coût de la cotisation annuelle.",
+ "pays_url": "https://www.feep.qc.ca/federation/devenir-membre",
+ "list_name": "the directory of the member schools of the Fédération des établissements d'enseignement privés (Trouver une école)",
+ "key": "sc_feep"
+}
