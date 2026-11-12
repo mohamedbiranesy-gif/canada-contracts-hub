@@ -22,7 +22,7 @@ on:
         description: "at most this many owners per runner (0 = no limit)"
         default: "0"
       abroad:
-        description: "true = the owners outside Canada (United States, United Kingdom, Australia): 109,538 owners abroad have a Canadian agent of record"
+        description: "true = the owners outside Canada (United States, United Kingdom, Australia, and since 2026-11-12 ten European countries): 109,538 owners abroad have a Canadian agent of record"
         default: "false"
       overture:
         description: "true (with abroad=true) = only the owners abroad for whom an Overture Maps place lists a website under their name at their postal code / in their state: that published site is read first (tools/tm_register.py overture-sites runs first)"

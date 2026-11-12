@@ -1704,3 +1704,10 @@ excerpt of the register's record and its URL (`tools/data/billers_by_location.js
 `vendor_tax_or_registration_number` says "this register entry carries no Business Number"). Due terms, each verified on the page: Nova
 Scotia Power's Regulations, s. 5.4 ("Bills are due on the billing date." … not paid within twenty days after the billing date: an interest
 charge; thirty days: disconnection), and Manitoba Hydro's billing glossary (due date; late payment charge of 1.25 % a month after it).
+
+**Added at 05:24Z — owners in ten European countries too.** France, Germany, Italy, Spain, Switzerland, Austria, Belgium, Denmark, the
+Netherlands, Sweden (`tm_register.py: EU_CODE`): the register's postal code is the last one of its one-line address; on a site it counts
+when it is printed before a place name ("80331 München"), as a legal notice prints it; their legal forms (AG, GmbH, S.p.A., SARL, AB, N.V.
+…) are left out of both names (`nkey_x`, the same pattern in Python and in DuckDB). 18,076 owners abroad now have a listed website (US
+12,876 · DE 1,808 · GB 809 · IT 603 · AU 438 · CH 363 …). On 40 owners in Germany, Switzerland, Austria and Italy: 9 tied, four of them by
+the postal code their own legal notice prints (Bosch, Osram, Kulzer, Prysmian …).

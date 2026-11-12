@@ -76,6 +76,21 @@ def nkey(s):
     return re.sub(r"\s+", " ", FORM.sub(" ", s)).strip()
 
 
+# the legal forms of the European countries of ABROAD, for owners there ("SIEMENS AKTIENGESELLSCHAFT" is "Siemens AG" on its site and in a
+# places dataset): one more pass over a key nkey() made — the same pattern in Python and in DuckDB (RE2)
+EU_FORMS = (r"\b(aktiengesellschaft|gesellschaft mit beschrankter haftung|kommanditgesellschaft|kgaa|kg|se|spa|s p a|sarl|s a r l|sas|sasu|sl|s l|slu|"
+            r"s r l|srls|scarl|sapa|snc|eurl|ab|publ|oy|oyj|as|a s|aps|bvba|sprl|nv|bv|b v|n v|gmbh|ag|sa|s a|cie|et cie)\b")
+
+
+def nkey_raw(s):
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]+", " ", unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower().replace("&", " and "))).strip()
+
+
+def nkey_x(s):
+    """nkey() with the European legal forms left out as well: 'Siemens Aktiengesellschaft' -> 'siemens'"""
+    return re.sub(r"\s+", " ", re.sub(EU_FORMS, " ", nkey(s))).strip()
+
+
 _FORMS = (("inc", r"inc|incorporated|incorporee"), ("ltd", r"ltd|limited|ltee|limitee"), ("corp", r"corp|corporation"), ("llp", r"llp|s e n c r l|sencrl"), ("ulc", r"ulc"),
           ("coop", r"cooperative|coop|co-op"), ("llc", r"llc"), ("lp", r"lp|s e c|sec"), ("foreign", r"pty|gmbh|plc|sas|sarl|bv|nv|ag|oy|ab|kk|srl|spa|aps|as|sa"))
 
@@ -250,11 +265,12 @@ def site_index():
         print("ranked table not read: %s" % e, flush=True)
 
 
-def same_name(owner_k, names, pc):
-    """'' or how the site's own name agrees with the owner's legal name (both stripped of legal-form words)"""
+def same_name(owner_k, names, pc, key=None):
+    """'' or how the site's own name agrees with the owner's legal name (both stripped of legal-form words; key: nkey, or nkey_x abroad)"""
+    key = key or nkey
     ot = owner_k.split()
     for kind in ("legalName", "copyright line", "site name"):
-        sk = nkey(names.get(kind) or "")
+        sk = key(names.get(kind) or "")
         if not sk:
             continue
         if sk == owner_k and (len(ot) >= 2 or len(owner_k) >= 5):
@@ -262,7 +278,7 @@ def same_name(owner_k, names, pc):
     if RURAL.match(pc):
         return ""
     for kind in ("legalName", "copyright line", "site name"):
-        st = nkey(names.get(kind) or "").split()
+        st = key(names.get(kind) or "").split()
         if len(st) < 2 or len(ot) < 2:
             continue
         short, long_ = (st, ot) if len(st) <= len(ot) else (ot, st)
@@ -347,6 +363,22 @@ _CONTACT = re.compile(r"contact|nous-joindre|joindre|coordonn|about|a-propos|pro
 # pays a Canadian firm to hold its marks here. The register prints their address in one line ("767 Fifth Avenue, New York, NY 10153"); the
 # postal code is its last token. Looked for in the three countries whose addresses the readers recognise.
 ABROAD = {"US": ("United States", (".com", ".us")), "GB": ("United Kingdom", (".co.uk", ".com")), "AU": ("Australia", (".com.au", ".com"))}
+# 2026-11-12: and the European countries with the most owners (FR 6,502 · DE 6,011 · IT 4,392 · CH 2,512 · ES 1,967 · NL 1,855 · SE 1,465 …),
+# whose sites print their postal address by law (an Impressum, mentions légales, note legali, aviso legal): the register's postal code
+# printed on the site ties it, as a ZIP code does
+EU_CODE = {"FR": (r"(?<![\d-])(?:F-?\s?)?(\d{5})(?!\d)", "France", (".fr", ".com")), "DE": (r"(?<![\d-])(?:D-?\s?)?(\d{5})(?!\d)", "Deutschland|Germany|Allemagne", (".de", ".com")),
+           "IT": (r"(?<![\d-])(?:I-?\s?)?(\d{5})(?!\d)", "Italia|Italy|Italie", (".it", ".com")), "ES": (r"(?<![\d-])(?:E-?\s?)?(\d{5})(?!\d)", "España|Espana|Spain|Espagne", (".es", ".com")),
+           "CH": (r"(?<![\d-])(?:CH-?\s?)?(\d{4})(?!\d)", "Schweiz|Suisse|Svizzera|Switzerland", (".ch", ".com")), "AT": (r"(?<![\d-])(?:A-?\s?)?(\d{4})(?!\d)", "Österreich|Osterreich|Austria|Autriche", (".at", ".com")),
+           "BE": (r"(?<![\d-])(?:B-?\s?)?(\d{4})(?!\d)", "Belgique|België|Belgie|Belgium|Belgien", (".be", ".com")), "DK": (r"(?<![\d-])(?:DK-?\s?)?(\d{4})(?!\d)", "Danmark|Denmark", (".dk", ".com")),
+           "NL": (r"(?<![\d-])(\d{4}\s?[A-Z]{2})(?![A-Za-z])", "Nederland|Netherlands|Pays-Bas", (".nl", ".com")), "SE": (r"(?<![\d-])(?:S-?|SE-?)?(\d{3}\s?\d{2})(?!\d)", "Sverige|Sweden|Suède", (".se", ".com"))}
+_EU_NAME = {"FR": "France", "DE": "Germany", "IT": "Italy", "ES": "Spain", "CH": "Switzerland", "AT": "Austria", "BE": "Belgium", "DK": "Denmark", "NL": "Netherlands", "SE": "Sweden"}
+for _cc, (_rx, _nm, _tl) in EU_CODE.items():
+    ABROAD[_cc] = (_EU_NAME[_cc], _tl)
+
+
+def is_org_abroad(name, cc):
+    """is_org(), and for an owner in one of the European countries of ABROAD a name that carries that country's legal form (AG, S.p.A., SARL, AB …)"""
+    return is_org(name) or (cc in EU_CODE and bool(re.search(EU_FORMS, nkey_raw(name))))
 _US_STATES = dict(zip("alabama alaska arizona arkansas california colorado connecticut delaware florida georgia hawaii idaho illinois indiana iowa kansas kentucky louisiana maine maryland "
                       "massachusetts michigan minnesota mississippi missouri montana nebraska nevada newhampshire newjersey newmexico newyork northcarolina northdakota ohio oklahoma oregon "
                       "pennsylvania rhodeisland southcarolina southdakota tennessee texas utah vermont virginia washington westvirginia wisconsin wyoming districtofcolumbia".split(),
@@ -376,6 +408,9 @@ def place_abroad(address, country):
             return "", ""
         st = {"new south wales": "NSW", "victoria": "VIC", "queensland": "QLD", "tasmania": "TAS", "western australia": "WA", "south australia": "SA"}.get(m.group(1).lower(), m.group(1).upper())
         return m.group(2), st
+    if country in EU_CODE:  # the LAST postal code of the one-line address ("Hauptstraße 12, 80331 München": 80331)
+        ms = list(re.finditer(EU_CODE[country][0], a.upper() if country == "NL" else a))
+        return (re.sub(r"\s", "", ms[-1].group(1)), "") if ms else ("", "")
     return "", ""
 
 
@@ -395,6 +430,13 @@ def printed_abroad(text, country, code, state):
         for m in re.finditer(r"(?<![A-Za-z0-9])(NSW|VIC|QLD|TAS|ACT|WA|SA|NT)\s+(\d{4})(?!\d)", text):
             same_state = same_state or (bool(state) and m.group(1) == state)
             same_code = same_code or (bool(code) and m.group(2) == code and (not state or m.group(1) == state))
+    elif country in EU_CODE:
+        # the register's postal code followed by a place name ("80331 München", "75008 Paris", "1012 AB Amsterdam"), as an address prints it;
+        # "the same state" here is the country's own name printed on the site
+        rx, names_, _ = EU_CODE[country]
+        for m in re.finditer(rx + r"[ ,]+[A-ZÀ-ÖØ-Þ][A-Za-zÀ-ÖØ-öø-ÿ'’.-]{2,}", text):
+            same_code = same_code or (bool(code) and re.sub(r"\s", "", m.group(1)).upper() == code)
+        same_state = bool(re.search(r"\b(?:%s)\b" % names_, text))
     return same_code, same_state
 
 
@@ -451,7 +493,7 @@ def sites(a):
                 done.add(q[0])
                 if len(q) > 5 and q[5] == "overture":
                     done_ovt.add(q[0])
-    by_name = collections.Counter()
+    by_name, by_name_x = collections.Counter(), collections.Counter()
     owners = []
     abroad = bool(getattr(a, "abroad", False))
     # 2026-11-12: with --overture, the owners for whom an Overture Maps place lists a website under their name (tm_overture_sites.csv) — read
@@ -464,9 +506,10 @@ def sites(a):
     for path, here in ((OWN_CA, True), (OWN_XX, False)):  # "one owner of that name on the register" counts both files
         with gzip.open(path, "rt", encoding="utf-8", newline="") as f:
             for r in csv.DictReader(f):
-                if not is_org(r["owner_name"]):
+                if not (is_org(r["owner_name"]) if here else is_org_abroad(r["owner_name"], r["country"])):
                     continue
                 by_name[nkey(r["owner_name"])] += 1
+                by_name_x[nkey_x(r["owner_name"])] += 1
                 if r["owner_key"] in tied or int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n != k:
                     continue
                 if (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done):
@@ -482,7 +525,7 @@ def sites(a):
     owners.sort(key=lambda r: (-int(r["marks_in_force"] or 0), r["owner_key"]))
     if a.limit:
         owners = owners[:a.limit]
-    print("shard %d/%d: %d owners %s without a site on file (%d looked for before)" % (k, n, len(owners), "abroad (United States, United Kingdom, Australia)" if abroad else "in Canada", len(done)), flush=True)
+    print("shard %d/%d: %d owners %s without a site on file (%d looked for before)" % (k, n, len(owners), ("abroad (%s)" % ", ".join(sorted(ABROAD))) if abroad else "in Canada", len(done)), flush=True)
     deadline = time.time() + a.minutes * 60
     lock, stats, notes = threading.Lock(), collections.Counter(), []
     ff = open("out/tm_sites_%d.csv" % k, "a", encoding="utf-8", newline="")
@@ -509,9 +552,11 @@ def sites(a):
     def one(o):
         if time.time() > deadline:
             return
-        ok_ = nkey(o["owner_name"])
-        marks = [x.split(";")[2] for x in (o["examples"] or "").split(" | ") if x.count(";") == 4 and x.split(";")[2]]
         cc = o["country"] if abroad else "CA"
+        kf = nkey_x if cc in EU_CODE else nkey  # an owner in Europe: its legal form (AG, S.p.A., SARL …) left out too
+        bn = by_name_x if cc in EU_CODE else by_name
+        ok_ = kf(o["owner_name"])
+        marks = [x.split(";")[2] for x in (o["examples"] or "").split(" | ") if x.count(";") == 4 and x.split(";")[2]]
         kind_of = {lab + tld: kind for lab, kind in labels_of(o["owner_name"], marks) for tld in (ABROAD[cc][1] if abroad else (".ca", ".com"))}
         cands = list(kind_of)
         listed = {}
@@ -553,24 +598,24 @@ def sites(a):
                             if c2:
                                 code_ok, where = True, f2
                             state_ok = state_ok or s2
-                sn = same_name(ok_, names, "M5V2T6")
-                what = {"US": "ZIP code", "GB": "postcode", "AU": "postcode"}[cc]
+                sn = same_name(ok_, names, "M5V2T6", key=kf)
+                what = {"US": "ZIP code", "GB": "postcode", "AU": "postcode"}.get(cc, "postal code")
                 how = ""
                 if sn and code_ok:
                     how = sn.replace("the same postal code", "the same %s (%s, printed in an address on the site)" % (what, o["_code"]))
                 if not how and state_ok:
                     for kind in ("legalName", "copyright line"):
                         raw_n = names.get(kind) or ""
-                        if (raw_n and nkey(raw_n) == ok_ and by_name[ok_] == 1 and len(ok_.split()) >= 2 and any(t not in GENERIC and len(t) >= 4 for t in ok_.split())
+                        if (raw_n and kf(raw_n) == ok_ and bn[ok_] == 1 and len(ok_.split()) >= 2 and any(t not in GENERIC and len(t) >= 4 for t in ok_.split())
                                 and forms(raw_n) and forms(raw_n) == forms(o["owner_name"])):
                             how = "the same legal name, which the site itself states with its legal form (%s) and one owner on the register bears; a site in the owner's %s (%s)" % (
                                 kind, "state" if o["_state"] else "country", o["_state"] or ABROAD[cc][0])
                             break
-                if (not how and state_ok and o["_state"] and kind_of.get(h) == "name" and by_name[ok_] == 1 and sn.startswith("the same name") and len(ok_.split()) >= 2
+                if (not how and state_ok and o["_state"] and kind_of.get(h) == "name" and bn[ok_] == 1 and sn.startswith("the same name") and len(ok_.split()) >= 2
                         and any(t not in GENERIC and len(t) >= 4 for t in ok_.split())
                         and fdom.split(".")[0].replace("-", "") in {lab.replace("-", "") for lab, kd in labels_of(o["owner_name"], marks) if kd == "name"}):
                     how = "the same name (%s), on a domain name that is the owner's name written out; a site in the owner's state (%s, %s); one owner of that name on the register" % (
-                        "site name" if nkey(names.get("site name") or "") == ok_ else "its own statement", o["_state"], ABROAD[cc][0])
+                        "site name" if kf(names.get("site name") or "") == ok_ else "its own statement", o["_state"], ABROAD[cc][0])
                 _l = listed.get(h)
                 if not how and _l and sn.startswith("the same name") and len(ok_.split()) + len(ok_) >= 7:
                     # 2026-11-12: two sources agree — an Overture Maps place lists THIS website under the owner's name at the register's postal
@@ -869,13 +914,13 @@ def overture_sites(a):
     owners = {}
     with gzip.open(OWN_XX, "rt", encoding="utf-8", newline="") as f:
         for r in csv.DictReader(f):
-            if r["country"] not in ABROAD or not is_org(r["owner_name"]):
+            if r["country"] not in ABROAD or not (is_org(r["owner_name"]) or (r["country"] in EU_CODE and re.search(EU_FORMS, nkey_raw(r["owner_name"])))):
                 continue
             if not (int(r["marks_in_force"] or 0) or (r["agent_name"] and int(r["marks_with_this_agent"] or 0))):
                 continue
             code, st = place_abroad(r["address"], r["country"])
-            nk = nkey(r["owner_name"])
-            if nk and len(nk) >= 4:
+            nk = nkey_x(r["owner_name"])
+            if nk and len(nk) >= 4 and (code or (st and r["country"] in ("US", "AU"))):
                 owners[r["owner_key"]] = (r["country"], nk, code, st)
     con = duckdb.connect()
     con.execute("SET enable_progress_bar=false;")
@@ -894,22 +939,23 @@ def overture_sites(a):
         release = rel.rstrip("/").rsplit("/", 1)[-1]
         cols = 'names."primary" AS name, websites[1] AS website, addresses[1].postcode AS postcode, addresses[1].region AS region, addresses[1].country AS country, id'
     t0 = time.time()
-    norm_sql = ("trim(regexp_replace(regexp_replace(regexp_replace(replace(lower(strip_accents(coalesce(p.name, ''))), '&', ' and '), '[^a-z0-9 ]+', ' ', 'g'), "
-                "'%s', ' ', 'g'), '\\s+', ' ', 'g'))" % _SQL_FORMS)
-    rows = con.execute("""WITH p AS (SELECT %s FROM %s WHERE websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country IN ('US', 'GB', 'AU'))
+    norm_sql = ("trim(regexp_replace(regexp_replace(regexp_replace(regexp_replace(replace(lower(strip_accents(coalesce(p.name, ''))), '&', ' and '), '[^a-z0-9 ]+', ' ', 'g'), "
+                "'%s', ' ', 'g'), '%s', ' ', 'g'), '\\s+', ' ', 'g'))" % (_SQL_FORMS, EU_FORMS))
+    ccs = ", ".join("'%s'" % c_ for c_ in sorted(ABROAD))
+    rows = con.execute("""WITH p AS (SELECT %s FROM %s WHERE websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country IN (%s))
                           SELECT o.k, o.cc, o.code, o.st, p.name, p.website, p.postcode, p.region, p.id FROM p JOIN own o ON o.cc = p.country AND o.nk = %s""".replace(
         "websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country", "website IS NOT NULL AND country" if src.startswith("read_parquet('") else "websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country") % (
-        cols, src, norm_sql)).fetchall()
+        cols, src, ccs, norm_sql)).fetchall()
     print("Overture places with the name of an owner abroad: %d (%.0f s, %s)" % (len(rows), time.time() - t0, release), flush=True)
     best, n = {}, collections.Counter()
     for k, cc, code, st, name, web, pcode, region, pid in rows:
         host = (re.sub(r"^https?://", "", (web or "").strip().lower()).split("/")[0].split(":")[0])
         host = host[4:] if host.startswith("www.") else host
-        if not host or "." not in host or nkey(name) != owners[k][1]:
+        if not host or "." not in host or nkey_x(name) != owners[k][1]:
             continue
         d = C.registrable(host)
         pc = re.sub(r"[^A-Z0-9]", "", (pcode or "").upper())
-        pc = pc[:5] if cc == "US" else pc
+        pc = pc[:5] if cc == "US" else re.sub(r"^(?:CH|DK|SE|D|F|I|E|A|B)(?=\d)", "", pc) if cc in EU_CODE else pc
         reg = (region or "").upper().split("-")[-1]
         rank = 0 if (code and pc == code) else 1 if (st and reg == st) else 9
         if rank == 9:
@@ -922,7 +968,7 @@ def overture_sites(a):
         w.writerow(["owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
         for k in sorted(best):
             for d, (rank, name, pcode, pid) in sorted(best[k].items(), key=lambda kv: kv[1][0])[:3]:
-                w.writerow([k, d, ("the same name at the same %s" % {"US": "ZIP code", "GB": "postcode", "AU": "postcode"}[owners[k][0]]) if rank == 0 else "the same name in the same state",
+                w.writerow([k, d, ("the same name at the same %s" % ("ZIP code" if owners[k][0] == "US" else "postcode" if owners[k][0] in ("GB", "AU") else "postal code")) if rank == 0 else "the same name in the same state",
                             name, pcode, pid, release])
                 n[rank] += 1
     print("owners abroad with a website an Overture place lists for their name: %d (%d sites at the same postal code, %d in the same state) -> %s" % (
@@ -941,7 +987,7 @@ def main():
     ap.add_argument("--main", default="", help="build: a local copy of the application-main zip (tests)")
     ap.add_argument("--party", default="", help="build: a local copy of the interested-party zip (tests)")
     ap.add_argument("--stamp", default=time.strftime("%Y%m%dT%H%M%S", time.gmtime()))
-    ap.add_argument("--abroad", action="store_true", help="sites: the owners outside Canada (United States, United Kingdom, Australia) instead of the owners in Canada")
+    ap.add_argument("--abroad", action="store_true", help="sites: the owners outside Canada (the United States, the United Kingdom, Australia and ten European countries: ABROAD) instead of the owners in Canada")
     ap.add_argument("--release", default="", help="overture-sites with local parquet files: the Overture release they were taken from")
     ap.add_argument("--overture", action="store_true", help="sites --abroad: the owners for whom an Overture Maps place lists a website (tm_overture_sites.csv), that site read first")
     a = ap.parse_args()
