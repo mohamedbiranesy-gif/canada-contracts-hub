@@ -400,9 +400,9 @@ def value_by_year(x):
     if days < 28:
         return ""
     if days <= 366:
-        return "calculated — the whole value falls within one year: the contract runs %s to %s (%d days)" % (d0, d1, days)
-    return "calculated — %s a year over the term: the published value %s divided by the %.1f years from %s to %s; when the vendor bills, and how much each time, is not published" % (
-        format(amt / (days / 365.25), ",.0f"), format(amt, ",.0f"), days / 365.25, d0, d1)
+        return "calculated — the whole value falls within one year (about %s a month): the contract runs %s to %s (%d days)" % (format(amt / max(1.0, days / 30.44), ",.0f"), d0, d1, days)
+    return ("calculated — %s a year (about %s a month) over the term: the published value %s divided by the %.1f years from %s to %s; when the vendor bills, and how "
+            "much each time, is not published" % (format(amt / (days / 365.25), ",.0f"), format(amt / (days / 30.44), ",.0f"), format(amt, ",.0f"), days / 365.25, d0, d1))
 
 
 def owner_test(x):

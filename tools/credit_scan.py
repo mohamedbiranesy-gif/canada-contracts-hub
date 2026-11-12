@@ -614,6 +614,7 @@ def graph(a):
 
 
 OSM_SITES = os.path.join(DIR, "osm_sites.csv.gz")  # websites of OpenStreetMap objects in Canada (shops, offices, clinics, restaurants …), any TLD
+OVERTURE_SITES = os.path.join(DIR, "overture_sites.csv.gz")  # websites of the Overture Maps places in Canada (open data, monthly), any TLD
 GRAPH_SHOP = os.path.join(DIR, "graph_shopify.csv.gz")  # domains that link to shopify.com / myshopify.com (web graph): store candidates
 GRAPH_MT = os.path.join(DIR, "graph_multitenant.csv.gz")  # domains with 150+ host names of their own (multi-tenant platforms, large organisations)
 PLATFORM_CANDS = os.path.join(DIR, "platform_candidates.csv")  # those of them whose own site prints a Canadian address: to vet for the vendor table
@@ -671,6 +672,61 @@ def osm(a):
     print("OpenStreetMap Canada: %d objects with a website, %d distinct hosts (%s)" % (n_obj, len(sites), ", ".join("%s %d" % kv for kv in tl.most_common(6))), flush=True)
 
 
+OVERTURE_BUCKET = "https://overturemaps-us-west-2.s3.amazonaws.com"
+
+
+def overture(a):
+    """Overture Maps Foundation, places theme (open data: CDLA Permissive 2.0 / ODbL by source; one release a month): every place whose
+    address is in Canada and that names a website -> the site's host, the place's name, city, province, postal code and category. 2026-11-12:
+    1,288,492 such places on 734,503 registrable domains, 345,712 of them neither read by the scan nor on any list (307,833 not .ca) —
+    organisations in Canada whose sites the other lists do not reach. Names and sites only: the mailbox and the address a row stands on are
+    still read on the organisation's own pages. Read with DuckDB over HTTPS (range requests on the release's parquet files; only the files
+    whose places lie in Canada's box, only the columns needed)."""
+    import duckdb
+    import xml.etree.ElementTree as ET
+    os.makedirs("out", exist_ok=True)
+    t0 = time.time()
+    ls = lambda prefix: urllib.request.urlopen(urllib.request.Request("%s/?list-type=2&prefix=%s&delimiter=/" % (OVERTURE_BUCKET, urllib.parse.quote(prefix, safe="/=")),
+                                                                      headers={"User-Agent": CCL.UA}), timeout=120).read().decode("utf-8", "replace")
+    rel = sorted(re.findall(r"<Prefix>(release/[0-9]{4}-[0-9]{2}-[0-9]{2}\.[0-9]+/)</Prefix>", ls("release/")))
+    if not rel:
+        sys.exit("no Overture release listed")
+    release = a.base or rel[-1]
+    keys = re.findall(r"<Key>([^<]+\.parquet)</Key>", ls(release + "theme=places/type=place/"))
+    con = duckdb.connect()
+    con.execute("INSTALL httpfs; LOAD httpfs; SET enable_progress_bar=false;")
+    BOX = "bbox.xmin < -52 AND bbox.xmax > -141 AND bbox.ymin < 84 AND bbox.ymax > 41.6"
+    files = []
+    for k in keys:  # the files whose places lie in Canada's box (the release is sorted in space: three files of sixteen on 2026-11-12)
+        f = "%s/%s" % (OVERTURE_BUCKET, k)
+        if con.execute("SELECT count(*) FROM read_parquet('%s') WHERE %s" % (f, BOX)).fetchone()[0]:
+            files.append(f)
+    print("Overture %s: %d place files, %d in Canada's box (%.0f s)" % (release, len(keys), len(files), time.time() - t0), flush=True)
+    rows = con.execute("""SELECT names."primary", websites[1], addresses[1].locality, addresses[1].region, addresses[1].postcode, basic_category, coalesce(operating_status, '')
+                          FROM read_parquet([%s]) WHERE %s AND addresses[1].country = 'CA' AND websites IS NOT NULL AND len(websites) > 0""" % (", ".join("'%s'" % f for f in files), BOX)).fetchall()
+    sites, n_obj = {}, 0
+    for name, w, city, prov, pc, kind, status in rows:
+        if status in ("permanently_closed",):
+            continue
+        h = host_of((w or "").split(";")[0].strip())
+        if not h or "." not in h or PLATFORM.search(h) or not re.fullmatch(r"[a-z0-9.-]+", h):
+            continue
+        n_obj += 1
+        o = sites.get(h)
+        if o is None:
+            sites[h] = [h, (name or "")[:100], city or "", prov or "", pc or "", kind or "", 1]
+        else:
+            o[6] += 1
+    with open("out/overture_sites.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "name", "city", "province", "postcode", "kind", "objects"])
+        for h in sorted(sites):
+            w.writerow(sites[h])
+    tl = collections.Counter(h.rsplit(".", 1)[-1] for h in sites)
+    print("Overture places in Canada: %d with a website, %d distinct hosts (%s) — release %s, %.0f s" % (n_obj, len(sites), ", ".join("%s %d" % kv for kv in tl.most_common(6)), release,
+                                                                                                        time.time() - t0), flush=True)
+
+
 def lists(a):
     """more .ca names than the web graph knows (1.05 M of the ~3.4 M registered): a public list of domain names collected by other crawlers
     (github.com/tb0hdan/domains, folder data/canada, Git LFS). Names only — each is read once by the scan like any other; most dead ones cost
@@ -718,7 +774,8 @@ def lists(a):
 def merge_graph(a):
     os.makedirs(DIR, exist_ok=True)
     for name, path, cols in (("graph_ca_domains.csv", GRAPH_CA, ["dom", "hosts"]), ("graph_inlinks.csv", GRAPH_IN, ["dom", "targets", "hosts", "tech"]),
-                             ("osm_sites.csv", OSM_SITES, ["dom", "name", "city", "province", "postcode", "kind", "objects"]), ("graph_shopify.csv", GRAPH_SHOP, ["dom", "hosts"]),
+                             ("osm_sites.csv", OSM_SITES, ["dom", "name", "city", "province", "postcode", "kind", "objects"]),
+                             ("overture_sites.csv", OVERTURE_SITES, ["dom", "name", "city", "province", "postcode", "kind", "objects"]), ("graph_shopify.csv", GRAPH_SHOP, ["dom", "hosts"]),
                              ("graph_multitenant.csv", GRAPH_MT, ["dom", "hosts"])):
         rows = {}
         if os.path.exists(path):
@@ -1119,6 +1176,10 @@ def scan_queue(k, n, limit=0):
                 add(r["dom"], 2 if r.get("tech") else 3, int(r.get("targets") or 1), again=bool(r.get("tech")))
     if os.path.exists(OSM_SITES):  # 3. organisations OpenStreetMap places in Canada (any TLD); chains with hundreds of branches last
         with gzip.open(OSM_SITES, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                add(r["dom"], 3, -min(int(r.get("objects") or 1), 400))
+    if os.path.exists(OVERTURE_SITES):  # 3. organisations of the Overture Maps places in Canada (any TLD; 2026-11-12); chains with hundreds of branches last
+        with gzip.open(OVERTURE_SITES, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
                 add(r["dom"], 3, -min(int(r.get("objects") or 1), 400))
     if os.path.exists(UNIVERSE):  # 4. every .ca site of the archive, the sites with the most captured pages first
@@ -1950,7 +2011,7 @@ def merge(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["universe", "merge-universe", "graph", "osm", "lists", "merge-graph", "scan", "vendors", "merge"])
+    ap.add_argument("cmd", choices=["universe", "merge-universe", "graph", "osm", "overture", "lists", "merge-graph", "scan", "vendors", "merge"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--crawl", default="auto")
@@ -1972,7 +2033,7 @@ def main():
         {"scan": scan, "vendors": vendors}[a.cmd](a)
         sys.stdout.flush()
         os._exit(0)  # do not wait for straggler threads
-    {"universe": universe, "merge-universe": merge_universe, "graph": graph, "osm": osm, "lists": lists, "merge-graph": merge_graph, "merge": merge}[a.cmd](a)
+    {"universe": universe, "merge-universe": merge_universe, "graph": graph, "osm": osm, "overture": overture, "lists": lists, "merge-graph": merge_graph, "merge": merge}[a.cmd](a)
 
 
 if __name__ == "__main__":

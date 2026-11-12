@@ -15,10 +15,11 @@ on:
   schedule:
     - cron: "7 0,6,12,18 * * *"   # a scan cycle every 6 hours
     - cron: "37 3 * * *"          # once a day: the web graph again, with the vendors proven since (more sites that link to them)
+    - cron: "29 4 25 * *"         # once a month (2026-11-12): the Overture Maps places in Canada with a website (a release a month)
   workflow_dispatch:
     inputs:
       stage:
-        description: "universe (.ca domains of the newest Common Crawl index) | graph (web graph: .ca domains + domains linking to proven vendors) | osm (OpenStreetMap Canada objects with a website) | lists (more .ca names from a public domain list) | cycle (scan home pages, check vendors, make leads)"
+        description: "universe (.ca domains of the newest Common Crawl index) | graph (web graph: .ca domains + domains linking to proven vendors) | osm (OpenStreetMap Canada objects with a website) | overture (Overture Maps places in Canada with a website) | lists (more .ca names from a public domain list) | cycle (scan home pages, check vendors, make leads)"
         default: "cycle"
       shards:
         description: "parallel runners for the scan (1-10)"
@@ -62,7 +63,7 @@ jobs:
 
   universe:
     needs: plan
-    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'universe' || needs.plan.outputs.has_universe == 'no' }}
+    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || (github.event.schedule == '29 4 25 * *' && 'overture') || 'cycle') == 'universe' || needs.plan.outputs.has_universe == 'no' }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
@@ -106,7 +107,7 @@ jobs:
 
   osm:
     needs: plan
-    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'osm' }}
+    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || (github.event.schedule == '29 4 25 * *' && 'overture') || 'cycle') == 'osm' }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -121,9 +122,25 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: { name: "cs-graph", path: out/, retention-days: 3 }
 
+  overture:
+    needs: plan
+    # 2026-11-12: the Overture Maps places in Canada that name a website (open data, a release a month): run on the 25th of each month
+    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || (github.event.schedule == '29 4 25 * *' && 'overture') || 'cycle') == 'overture' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Overture Maps places in Canada -> every place with a website (organisations located in Canada, any TLD)
+        run: |
+          pip install -q duckdb
+          python3 tools/credit_scan.py overture
+      - uses: actions/upload-artifact@v4
+        with: { name: "cs-graph", path: out/, retention-days: 3 }
+
   lists:
     needs: plan
-    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'lists' }}
+    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || (github.event.schedule == '29 4 25 * *' && 'overture') || 'cycle') == 'lists' }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -139,7 +156,7 @@ jobs:
 
   graph:
     needs: plan
-    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'graph' }}
+    if: ${{ (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || (github.event.schedule == '29 4 25 * *' && 'overture') || 'cycle') == 'graph' }}
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
@@ -155,8 +172,8 @@ jobs:
         with: { name: "cs-graph", path: out/, retention-days: 3 }
 
   merge_graph:
-    needs: [graph, osm, lists]
-    if: ${{ always() && (needs.graph.result == 'success' || needs.osm.result == 'success' || needs.lists.result == 'success') }}
+    needs: [graph, osm, overture, lists]
+    if: ${{ always() && (needs.graph.result == 'success' || needs.osm.result == 'success' || needs.overture.result == 'success' || needs.lists.result == 'success') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -171,7 +188,7 @@ jobs:
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/credit_scan.py merge-graph shards | tee /tmp/g.txt
             python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
-            for f in graph_ca_domains.csv.gz graph_inlinks.csv.gz osm_sites.csv.gz graph_shopify.csv.gz graph_multitenant.csv.gz; do [ -e "data/incoming/claude/credit_scan/$f" ] && git add "data/incoming/claude/credit_scan/$f"; done
+            for f in graph_ca_domains.csv.gz graph_inlinks.csv.gz osm_sites.csv.gz overture_sites.csv.gz graph_shopify.csv.gz graph_multitenant.csv.gz; do [ -e "data/incoming/claude/credit_scan/$f" ] && git add "data/incoming/claude/credit_scan/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "credit-scan: more sites to read ($(grep -v ': 0 domains' /tmp/g.txt | tr '\n' ';' | cut -c1-120)) [skip ci]"
             git push -q origin HEAD:main && break
@@ -183,7 +200,7 @@ jobs:
 
   scan:
     needs: [plan, merge_universe]
-    if: ${{ always() && needs.plan.result == 'success' && (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle') == 'cycle' }}
+    if: ${{ always() && needs.plan.result == 'success' && (inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || (github.event.schedule == '29 4 25 * *' && 'overture') || 'cycle') == 'cycle' }}
     runs-on: ubuntu-latest
     timeout-minutes: 200
     strategy:
