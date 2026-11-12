@@ -1752,3 +1752,52 @@ rent — by the month ("1"); a sponsorship or an exhibitor's fee — for the eve
 An electricity market operator (IESO, AESO) is the exception among the bodies: it settles its participants' charges every month ("1",
 by the kind). In a 1-in-4 sample, 6,054 rows that meet the test now carry a period by the kind (membership 3,165, sponsorship 1,359,
 agent of record 799, dealership 614, licence 74, tenancy 43); rows with an amount and a period 38,898 -> 38,987.
+
+## 2026-11-12 13:40Z — whose mailbox, whose name, whose address; one row per organisation (claude)
+
+The owner asked at 06:41 EST that nothing be misappropriated — no mailbox, no address — and that no buyer stand twice. The 10:45Z table was
+read for it (197,202 ready rows). No mailbox stood twice. 5,425 ready rows had a mailbox on another domain than the organisation's website;
+most were right (a town with two domains, a department on gc.ca), but a sample of 45 held eight wrong ones. What was found, and the rule now:
+
+1. **A portal's page vouches for no mailbox.** A buyer whose site on file is a government portal page (gov.uk/government/organisations/…,
+   canada.ca/…, quebec.ca/…) took any mailbox under that portal: @sutton.gov.uk "ended with .gov.uk", and Sutton Council's invoice mailbox went
+   on the British Council's row. `ap_crawler.same_org`: such a site says nothing; the mailbox's own name decides (metoffice.gov.uk for the Met
+   Office, cma.gov.uk for the Competition and Markets Authority pass; cabinetoffice.gov.uk for the Maritime and Coastguard Agency does not).
+2. **The Québec health network's shared domain** (@ssss.gouv.qc.ca) counts for a body of the network, or when the mailbox is named after the
+   buyer — a CIUSSS's procurement box had gone on the Buanderie centrale de Montréal's row.
+3. **Where a mailbox was read decides whose it is** (AGENTS.md §2.5, "role mailboxes the organisation publishes itself"; and a register's or
+   roster's e-mail is never used). Read on a directory or roster — 211, CIOC, informalberta, municipalites-du-quebec.com, a chamber's or an
+   association's member list, a tourism site, Wikivoyage, the PEPPOL directory — a mailbox is not used: Wikivoyage had put a neighbouring
+   parish's mailbox on Sainte-Marie-Madeleine's row. A mailbox on the organisation's own domain read on another site or file of its own stays
+   (braudio.ca read on brianreimeraudio.com). A mailbox on ANOTHER domain must be read on the organisation's own pages, on a domain whose name
+   spells it, on a government page that names it, or on its own files at a hosting service. `rank.py: mail_page_own`, in the three places a
+   row takes a mailbox (contract buyers, leads, organisations by where they are).
+4. **An invoicing mailbox on another mail domain, printed on the buyer's own site** (the rule of 00:14Z) — not from a page that lists other
+   organisations (a town's business directory had given Crossfield Boom Construction's ap@, Crowsnest Pass Borne Industries', Penhold Epic
+   Roofing's), and not a sister body's (Texas A&M took Kingsville's invoices@tamuk.edu). Those towns now carry their own mailboxes.
+5. **PSPC's table of federal institutions**: the row of the institution named just before the mailbox — the Privy Council Office had taken the
+   Privacy Commissioner's finances@priv.gc.ca, the line above its own. It now carries info@pco-bcp.gc.ca.
+6. **Mailboxes for something else**: a service-quality / complaints box (qualite.services@), a register's (registretap@), a programme's funding
+   box (financementpompiers@), stakeholder engagement (supplier engagement stays), surveys, recruiting (acquisition.talents@), a hospital's
+   sales ledger, access to information written with a dot.
+7. **Names and addresses.** A member directory's page prints the body's own address in its footer: 160 ready rows had the chamber's address
+   as the member's (every Airdrie member at the Airdrie chamber's) — removed. A directory whose page title stood where the member's name goes
+   had named five Tofino businesses "Tofino Chamber of Commerce" — such a row takes its own legal name or domain. Legal names read off a page
+   lose a web agency's credit or page words ("City of Port Coquitlam Footer", "Municipalité de Val-Morin Conception", "Tous droits réservés,
+   SPCTE Inc"); a photo credit, a slogan or a headline is no name; a professional regulator's name on a member's site is not the member's; a
+   Wikidata label is kept only when it is the organisation's own name or its acronym's expansion (not "Public Safety Canada" for Québec's
+   Ministère de la Sécurité publique, not "Umeå University" for Umeå universitet). Every copyright-line name now says the page it was read on
+   (21,752 ready rows carried a bare name).
+8. **One row per organisation** (owner, "the buyer is not repeated twice"; rule 14). The ranker keeps one row per key, but one organisation
+   came in under two keys (rockyview.ca and mdrockyview.ab.ca; a contract record and a site reading). `tools/priority_sort.py` now joins rows
+   with the same name (legal form aside) and the same postal code, mail domain or website domain, or the same mail domain and postal code
+   (a domain no other body shares), and keeps the organisation's best row: the best class of priority, then the stronger relationship (rule 13),
+   then the better mailbox. On the 10:45Z table: 2,446 rows left out, 460 of them ready; `out/ranked/duplicate_buyers_dropped.csv` lists each.
+
+Measured on a 1-in-4 lead sample (never multiplied), the same data before and after: ready rows 48,912 -> 48,796. The 116 that went were
+read row by row: mailboxes read on 211 / CIOC / municipalites-du-quebec.com / lecegep.ca / Wikivoyage / tourism and chamber lists /
+the PEPPOL directory, an access-to-information or complaints box, a register's box, another body's box (Maritime and Coastguard Agency,
+Buanderie centrale). Public bodies that lost a directory-read mailbox go back to the mailbox reader (contract_buyers_without_mailbox.csv).
+Two rules tried and dropped the same hour: "cegep" as a category word and a stricter test for four-letter domain names — they took the
+Cégeps of Victoriaville and Sorel-Tracy off their own mailboxes (cegepvicto.ca, cegepst.qc.ca).
+Checked and kept as they are: two "Camp Massad" (Winnipeg, Montréal), two "Lakeview Dental" — different organisations with one name.

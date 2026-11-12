@@ -622,7 +622,12 @@ BAD_LOCAL = re.compile(r"recrut|recruit|emploi|career|carriere|job|plainte|compl
                        r"privacy|confidential|aiprp|atip|benevol|volunteer|fondation|foundation|donat|webmaster|^rh$|^hr$|recevable|receivable|revenue|revenu|"
                        r"billing|taxation|^taxe|vie-?privee|accessibilit|billetterie|boxoffice|box-office|tickets?$|^tickets|admission|registrar|newsletter|abonnement|"
                        r"unsubscribe|no-?reply|donotreply|^events?$|^news$|alumni|scholarship|bourse|^social$|^marketing$|^comms?$|^communications?$|"
-                       r"(?:^|[._-])ati(?:office)?(?:$|[._-])|foip|(?:^|[._-])foi(?:$|[._-])|acces-?(?:a-?l-?)?info", re.I)
+                       r"(?:^|[._-])ati(?:office)?(?:$|[._-])|foip|(?:^|[._-])foi(?:$|[._-])|acces-?(?:a-?l-?)?info|"
+                       # 2026-11-12 (rows read for the owner): a service-quality / complaints box (qualite.services@), a register's (registretap@), a
+                       # programme's funding box (financementpompiers@), stakeholder engagement, surveys, recruiting (acquisition.talents@), a hospital's
+                       # sales ledger (customers pay it), access to information written with a dot (acces.information.cstu@)
+                       r"qualit[eé]|registre|financement|(?<!supplier[._-])(?<!suppliers[._-])(?<!vendor[._-])(?<!vendors[._-])engage|feedback|commentaire|suggestion|ombuds|sondage|survey|talent|sales[._-]?ledger|"
+                       r"acc[eè]s[._-]?(?:[àa][._-]?l[._-]?)?information", re.I)
 def jur_of_record(r):
     s = (r.get("source") or {}).get("name", "")
     return next((j for rx, j in JUR_SRC if re.search(rx, s)), "")
@@ -751,6 +756,80 @@ def shared_gov_page_names_buyer(e, page, quote, name):
     if GENERIC_LOCAL.match(local) and not conflict:
         return True  # the government's own AP / shared-services box, published on a government page that names no other agency
     return False
+# 2026-11-12 (rows read for the owner, AGENTS.md §2.5 "role mailboxes the organisation publishes itself"): where a mailbox was read decides
+# whose it is. Read on the organisation's own pages — its site's or its mailbox's domain, another domain whose name spells it, an archive
+# capture of one of them, its pages on a hosting service, or its government's page that names it — it is the organisation's. Read on another
+# organisation's page — a community directory (211, CIOC), a regional body's list, a tourism or business directory, Wikivoyage — it is not
+# used: such a page put a neighbouring parish's mailbox on Sainte-Marie-Madeleine's row. The mailbox reader reads the organisation's own site.
+_HOSTING_HOST = re.compile(r"(^|\.)(wixsite\.com|wix\.com|filesusr\.com|squarespace\.com|squarespace-cdn\.com|square\.site|wordpress\.com|wp\.com|webflow\.io|"
+                           r"website-files\.com|myshopify\.com|janeapp\.com|churchcenter\.com|clubrunner\.ca|wildapricot\.org|weebly\.com|godaddysites\.com|"
+                           r"site123\.me|amazonaws\.com|cloudfront\.net|googleusercontent\.com|ctfassets\.net|hubspotusercontent[\w-]*\.net|hs-sites\.com|"
+                           r"azurewebsites\.net|azureedge\.net|windows\.net|netlify\.app|vercel\.app|github\.io|herokuapp\.com|sharepoint\.com|canva\.site|"
+                           r"carrd\.co|strikingly\.com|jimdosite\.com|jimdo\.com|yolasite\.com|edan\.io|govstack\.com|civicweb\.net|escribemeetings\.com|"
+                           r"google\.com|merx\.com|bidsandtenders\.ca|bonfirehub\.ca|bonfirehub\.com)$", re.I)
+_GOV_PAGE_HOST = re.compile(r"(^|\.)(gc\.ca|canada\.ca|gouv\.qc\.ca|quebec\.ca|gov\.[a-z]{2}\.ca|alberta\.ca|ontario\.ca|saskatchewan\.ca|manitoba\.ca|novascotia\.ca|"
+                            r"gnb\.ca|yukon\.ca|princeedwardisland\.ca|gov\.uk|gov\.au|govt\.nz|gov|gouv\.fr|europa\.eu)$", re.I)
+_DIR_HOST = re.compile(r"(?:^|\.)(?:211[a-z-]*|[a-z-]*cioc|informalberta|municipalites-du-quebec|lecegep|lappui|leslibraires|maillon[a-z-]*|arboquebec|"
+                       r"wikivoyage|wikipedia|yellowpages|pagesjaunes|canada411|411|yelp|tripadvisor|facebook|linkedin|instagram|eventbrite|growthzoneapp|"
+                       r"chambermaster|micronetonline|bbb|manta|zoominfo|cylex|hotfrog|mtl|reseaucapital)\.[a-z.]+$|(?:^|\.)(?:directory|annuaire|repertoire|bottin)\.|"
+                       r"peppol|tourism|tourisme|visit[a-z]|chamber|chambre", re.I)
+_DIR_PATH = re.compile(r"/(?:findhealth|directory|directories|repertoire|r%c3%a9pertoire|annuaire|bottin|members?|membres?|member-directory|list/member|record)(?:/|\b|-)", re.I)
+_LIST_PATH = re.compile(r"director|r[ée]pertoire|repertoire|annuaire|bottin|members?\b|membres|listing|commerces|entreprises|businesses", re.I)
+_INVOICE_PATH = re.compile(r"invoic|factur|payable|supplier|vendor|fournisseur|procure|purchas|achat|approvision|financ|accounts|comptab|doing-business|"
+                           r"faire-affaire|paiement|payment|contrat|contract", re.I)
+def names_in_text(text, name):
+    """the text names the organisation: a distinctive word of its name (five letters and more) or its acronym, as a whole word"""
+    nm = norm(re.sub(r"\(.*?\)", " ", name or ""))
+    words = [w for w in nm.split() if w]
+    toks = [t for t in words if len(t) >= 5 and t not in GENERIC_TOK]
+    acrs = {"".join(w[0] for w in words if w not in ("of", "the", "and", "de", "du", "des", "la", "le", "les", "et", "for")), "".join(w[0] for w in words)}
+    acrs |= {m.lower() for m in re.findall(r"\(([A-Z]{3,6})\)", name or "")}
+    t = " " + norm(text) + " "
+    return any((" %s " % x) in t for x in toks) or any(len(a) >= 3 and (" %s " % a) in t for a in acrs)
+def table_row_names(e, quote, name):
+    """in a table of institutions and their mailboxes, the institution named just before this mailbox (after the one before it) is the buyer"""
+    q = quote or ""
+    i = q.lower().find((e or "").lower())
+    if i < 0:
+        return False
+    before = re.split(r"\S+@\S+", q[:i])[-1][-160:]
+    return names_in_text(before, name)
+def sibling_domain(md, sh, name):
+    """@tamuk.edu (Texas A&M–Kingsville) on tamu.edu's page: a sister body's mail domain is the site's name and one or two letters more —
+    unless those letters are the buyer's own acronym (@eosda.com for EOS Data Analytics on eos.com)"""
+    flat = lambda x: re.sub(r"[^a-z0-9]", "", x or "")
+    core, bcore = flat(registrable(md or "").split(".")[0]), flat(registrable(sh or "").split(".")[0])
+    if not (len(bcore) >= 2 and core != bcore and core.startswith(bcore) and len(core) - len(bcore) <= 2):
+        return False
+    words = [w for w in norm(name).split() if w]
+    acr = "".join(w[0] for w in words if w not in ("of", "the", "and", "de", "du", "des", "la", "le", "les", "et"))
+    return not (acr.startswith(core) or core == flat(norm(name)))
+def mail_page_own(e, page, site, name, quote=""):
+    if not page:
+        return True  # no page: the other checks decide (a mailbox with no page is never confirmed in the first place)
+    ph = host_of(page) or ""
+    pd = registrable(ph) if ph else ""
+    md = registrable((e or "").split("@")[-1].lower())
+    sd = registrable(host_of(site) or "") if site else ""
+    if pd and pd in (md, sd):
+        return True
+    if _DIR_HOST.search(ph) or _DIR_PATH.search(urllib.parse.urlparse(page).path or ""):
+        return False  # a directory or roster (211, CIOC, a chamber's or a register's list, Wikivoyage, the PEPPOL directory): never the organisation's own page
+    if md and (md == sd or (sd and md.split(".")[0] == sd.split(".")[0])):
+        return True  # the mailbox is on the organisation's own domain (or its twin: baskinsulation.com for baskinsulation.ca); the page is another site or file of its own (braudio.ca read on brianreimeraudio.com)
+    _a = re.search(r"archive\.org/web/\d+[a-z_]*/(https?://\S+)", page)
+    if _a and registrable(host_of(_a.group(1)) or "") in (md, sd):
+        return True
+    _cores = {x.split(".")[0] for x in (md, sd) if x}
+    if any(lab in _cores for lab in ph.split(".")[:-2]):
+        return True  # metrolinx.merx.com, sts.saguenay.ca: a host whose own label is the organisation's
+    if pd and same_org("x@" + pd, site or "https://unknown.invalid", name) and not _HOSTING_HOST.search(ph) and not _GOV_PAGE_HOST.search(ph):
+        return True  # another domain of its own whose name spells it (ville.montreal.qc.ca for montreal.ca, nlliquorcorp.com)
+    if _HOSTING_HOST.search(ph):
+        return md == sd or bool(sd and sd.split(".")[0] in ph) or same_org(e, site or "https://unknown.invalid", name)  # its own pages or files on a hosting service
+    if _GOV_PAGE_HOST.search(ph):
+        return names_in_text((quote or "") + " " + re.sub(r"[/_.-]+", " ", urllib.parse.urlparse(page).path or ""), name) or same_org(e, "https://unknown.invalid", name)
+    return False
 n_mailrej, n_mailrej_ex = collections.Counter(), []
 CB_NOMAIL = []  # (buyer key, name, website, records) of buyers under a current contract with no confirmed mailbox of their own
 _AP_LOCAL = re.compile(r"invoic|factur|payables?|acctpay|accountspayable|accounts[._-]?pay|comptes?[._-]?(?:payables?|a[._-]?payer|fournisseurs?)|comptesapayer|(?:^|[._-])a\.?p(?:$|[._-])|^ap[a-z]{0,3}invoice", re.I)
@@ -760,7 +839,9 @@ def emailcols(keys, be, gj="", name="", site=""):
         if keys & MTL_KEYS and re.search(r"@(ville\.)?montreal\.(ca|qc\.ca)$", e or "", re.I):  # units of the Ville de Montréal (manual01)
             return True
         if "direct-deposit" in page or "depot-direct" in page:  # PSPC's table maps each federal institution to its mailbox
-            return True
+            # 2026-11-12: the row of THIS institution — the one named just before the mailbox. The Privy Council Office had taken the Privacy
+            # Commissioner's finances@priv.gc.ca, the line above its own in the table.
+            return table_row_names(e, quote, name) or bool(site and registrable((e or "").split("@")[-1].lower()) == registrable(host_of(site) or ""))
         md = (e or "").split("@")[-1].lower()
         # 2026-11-12: where a buyer's OWN site says invoices go is its invoicing mailbox, also on another mail domain — its health network's
         # (ssss.gouv.qc.ca for every establishment of Québec's network), its parent's (nlh.nl.ca on nlhydro.com), its shared-service centre's or
@@ -768,8 +849,12 @@ def emailcols(keys, be, gj="", name="", site=""):
         # mailbox on their row (table of 00:14Z). Only an invoicing local part, only a page of the buyer's own site (never a government-wide
         # site), never a webmail address.
         _ph, _sh = (urllib.parse.urlparse(page or "").hostname or "").lower(), (urllib.parse.urlparse(site if "//" in (site or "") else "https://" + (site or "")).hostname or "").lower()
+        # 2026-11-12 (rows read for the owner): not a page that lists other organisations — a town's business directory printed a contractor's
+        # ap@ (Crossfield took Boom Construction's), a university system's contacts page a sister campus's (Texas A&M took Kingsville's
+        # invoices@tamuk.edu): not a list page, and the mail domain is not a sibling's
         if (_ph and _sh and registrable(_ph) == registrable(_sh) and not SHARED_GOV.match(registrable(_ph)) and _AP_LOCAL.search((e or "").split("@")[0])
-                and not _WEBMAIL.search(md) and not SHARED_GOV.match(md)):
+                and not _WEBMAIL.search(md) and not SHARED_GOV.match(md) and not _LIST_PATH.search(urllib.parse.urlparse(page).path or "")
+                and not sibling_domain(md, _sh, name)):
             n_mailrej["(taken) an invoicing mailbox the buyer's own site prints, on another mail domain"] += registrable(md) != registrable(_sh)
             return True
         if SHARED_GOV.match(md) and not shared_gov_page_names_buyer(e, page, quote, name):
@@ -781,7 +866,8 @@ def emailcols(keys, be, gj="", name="", site=""):
             if h and same_org("x@" + registrable(h[4:] if h.startswith("www.") else h), "https://unknown.invalid", name):
                 return same_org(e, "https://" + h, name)
         return same_org(e, site or "https://unknown.invalid", name)
-    fits = lambda e, page="", quote="": (not gj or jur_of_mail(e) in ("", gj)) and not BAD_LOCAL.search((e or "").split("@")[0]) and own(e, page, quote)
+    fits = lambda e, page="", quote="": (not gj or jur_of_mail(e) in ("", gj)) and not BAD_LOCAL.search((e or "").split("@")[0]) and own(e, page, quote) \
+        and mail_page_own(e, page, site or ("https://" + (e or "").split("@")[-1]), name, quote)
     LABEL = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}
     opts = []  # (accepted, grade, row) from the referee's mailboxes and from earlier enrichment; the best accepted one wins
     for k in sorted(k for k in keys if k):  # sorted: equal mailboxes are broken the same way on every run (a set's order is random)
@@ -803,6 +889,8 @@ def emailcols(keys, be, gj="", name="", site=""):
             n_mailrej["another government's mail domain" if (gj and jur_of_mail(_e) not in ("", gj)) else
                       "a mailbox for something else (press, complaints, admissions, receivables …)" if BAD_LOCAL.search((_e or "").split("@")[0]) else
                       "a government-wide mail domain, and the page does not name this body" if SHARED_GOV.match(_md) else
+                      "read on another organisation's page (a directory, a regional body's, a partner's), not on its own" if not mail_page_own(
+                          _e, mail[k][1].get("evidence_url") or "", site or ("https://" + _md), name, mail[k][1].get("evidence_quote") or "") else
                       "the mail domain is not the buyer's own"] += 1
             if len(n_mailrej_ex) < 60:
                 n_mailrej_ex.append("%s | %s | %s | %s" % (name[:50], _e, site[:40], (mail[k][1].get("evidence_url") or "")[:70]))
@@ -1584,6 +1672,9 @@ for k, L in sorted(leads.items(), key=lead_strength):
         ph = (urllib.parse.urlparse(m.get("evidence_url") or "").hostname or "").lower().removeprefix("www.")
         if not (ph and same_org(m["mailbox"], "https://" + ph, L["buyer_name"])):
             continue
+    if not mail_page_own(m["mailbox"], m.get("evidence_url") or "", lsite or ("https://" + m["mailbox"].split("@")[-1]), L["buyer_name"], m.get("evidence_quote") or ""):
+        n_cl["the mailbox was read on another organisation's page (a directory, a regional body's, a partner's), not on its own: no row"] += 1
+        continue
     if "consultant without a firm" in (L.get("canada_field_value") or ""):
         # test row of 2026-11-11: a lobbyists' register names a consultant who files without a firm — a natural person as the vendor (15 rows). A person is
         # not a vendor of this table (the register lanes leave natural persons out since 2026-11-10); the consultant's firm, when the register names one, is.
@@ -2254,6 +2345,9 @@ for k, ((acc, g), m) in mail.items():
            (leads[k].get("website") if k in leads else "") or ("https://" + eh if eh else "")
     if not same_org(e, site or "https://unknown.invalid", ident):
         skipped13["mailbox not the organisation's own"] += 1; continue
+    _real_site = (VEN.get(k) or {}).get("website") or (BUY.get(k) or {}).get("official_website") or (leads[k].get("website") if k in leads else "")
+    if not mail_page_own(e, m.get("evidence_url") or "", _real_site or ("https://" + md), ident, m.get("evidence_quote") or ""):
+        skipped13["mailbox read on another organisation's page (a directory, a regional body's, a partner's), not on its own"] += 1; continue
     fed = jur_of_mail(e) == "FED" and not k.startswith("v:")
     prov, how = province_of(k, e, site, m.get("evidence_quote") or "")
     country = "CA" if (k.split(":")[0] in ("osm", "wd", "v") or k in PLACES or prov or fed or md.endswith(".ca") or host_of(site).endswith(".ca")
@@ -2907,7 +3001,7 @@ def same_legal_name(a, b):
     if not ta:
         return False
     return any(ta == [t for t in norm(part).split() if t not in _LF_WORDS] for part in [b] + re.split(r"\s*/\s*", b or ""))
-_PAGE_NAME = re.compile(r"\((?:stated on|printed with its legal form|schema\.org)")
+_PAGE_NAME = re.compile(r"\((?:stated on|printed with its legal form|schema\.org|the copyright line of)")
 def register_name_takes(cell, reg_name):
     """a register's name takes an empty cell, and the cell of a name read off the organisation's pages when it is the same name (the register's
     printing, with its source, replaces the page's)"""
@@ -3081,7 +3175,9 @@ for x in rows:
         if ln and (x.get("keys") or "").split("|")[0] in REG_NAMED and x.get("buyer_legal_name_as_published"):
             ln = ""; n_ox["buyer_legal_name_kept_from_the_trademarks_register"] += 1
         if ln:
-            x["buyer_legal_name_as_published"] = ln if basis.startswith("the site's copyright") else "%s (%s)" % (ln, basis); n_ox["buyer_legal_name"] += 1
+            # 2026-11-12: every name says where it was read — the copyright line's page too (21,752 ready rows carried a bare name)
+            x["buyer_legal_name_as_published"] = "%s (%s)" % (ln, ("the copyright line of %s" % (b.get("legal_name_url") or x.get("buyer_website") or "the organisation's site"))
+                                                             if basis.startswith("the site's copyright") else basis); n_ox["buyer_legal_name"] += 1
             if (GENERIC_NAME.match(x.get("buyer") or "") or DOMAIN_NAME.match(x.get("buyer") or "")) and not basis.startswith("the copyright line of"):
                 x["buyer"] = ln; n_ox["p13_name_from_legal_name"] += 1  # the crawler only had the site's domain or a page title
         v2_fill(x, b, "buyer")
@@ -4128,7 +4224,7 @@ for x in rows:
 # Continue Shopping", "· Temagami First Nation ·", "Town of Kapuskasing Freedom of Information", "Perfected Coffee and protected by intellectual
 # property laws", "Privacy Policy The Redeemed Christian Church of God"); and the legal person a sentence names as the owner ("DIV7 is a Division
 # of Naro Building Systems Inc", "HR Property Maintenance · Operated by Haryana Enterprises Ltd"). Names that come from a register are not touched.
-_TP_PAGE = re.compile(r"(?:stated on|printed with its legal form|schema\.org|the name on the organisation's own home page|the organisation's name as the source)")
+_TP_PAGE = re.compile(r"(?:stated on|printed with its legal form|schema\.org|the name on the organisation's own home page|the organisation's name as the source|the copyright line of)")
 def cell_split(cell):
     """a cell "NAME (source text)" -> (NAME, " (source text)"); the source is the bracket that ends the cell and begins with a small letter (or
     "CRA …"); a name's own brackets stay in the name ("CHICKPEA FOOD (MAIN STREET) INC. (the City of Vancouver's open data list …)")"""
@@ -4327,6 +4423,90 @@ try:
 except Exception as _e:
     print("validated certificate subjects skipped: %s" % _e)
 print("legal names from validated certificate subjects (Certificate Transparency): domains on file %d;" % len(OVC), dict(n_ovc))
+# 2026-11-12 (rows read for the owner: "no hallucinations … don't misappropriate … everything exact"): the last look at the buyer's legal-name cell.
+# A name read off a page loses a web agency's credit or a page word run onto it ("City of Port Coquitlam Footer", "Municipalité de Val-Morin
+# Conception", "Ville de St-Honoré Une réalisation de Devicom", "Tous droits réservés, SPCTE Inc"); a photo credit, a slogan or a headline is
+# no name ("Photos courtoisie …", "… the customer always comes first", "30 SCHOOLS IN THE NEWS STORY"); a professional regulator's name read on
+# a member's site is not the member's ("Ordre des Arpenteurs-Géomètres" on a surveying firm's). A Wikidata label is kept only when it is the
+# organisation's own name or its acronym's expansion — not a translation ("Umeå University"), an old name, or another body ("Public Safety
+# Canada" for Québec's Ministère de la Sécurité publique, "European Central Bank" for the European Commission). Register names are untouched.
+_LN_JUNK_TAIL = re.compile(r"\s+(footer|header|une r[ée]alisation|r[ée]alisation|conception|t[ée]moins de navigation|apply now|in the news|access to information|"
+                           r"acc[eè]s [àa] l.information|contacts? directory|open data|site ?map|plan du site|newsletter)\b.*$", re.I)
+_LN_JUNK_HEAD = re.compile(r"^(?:tous droits r[ée]s\w*v[ée]s|all rights reserved|copyright|©)\s*[,.:;–—-]*\s*", re.I)
+_LN_NOT_A_NAME = re.compile(r"^(?:photos?|cr[ée]dits?)\b|courtoisie|the customer always|get the credit|\bapply now\b|\bnews story\b|\bin the news\b", re.I)
+_LN_REGULATOR = re.compile(r"^(?:ordre|order of|barreau|law society|chambre des notaires|coll[eè]ge des (?:m[ée]decins|pharmaciens|dentistes|naturopathes|enseignants))\b", re.I)
+_LN_REGISTER_SRC = re.compile(r"^\s*\((?:as registered|CRA list|holder of the charity registration|organisation validated by a certificate authority|the Canadian trademarks register|"
+                              r"the R[ée]gie|the City of [A-Za-z]+'s open data|the [A-Za-z ]+'s list of active licences|recipient legal name|provincial municipal directory)|global LEI register", re.I)
+n_lnf = collections.Counter()
+def _acr_of(s):
+    return "".join(w[0] for w in norm(s).split() if w not in ("of", "the", "and", "de", "du", "des", "la", "le", "les", "et", "for", "a", "l", "d"))
+for x in rows:
+    _c = x.get("buyer_legal_name_as_published") or ""
+    if not _c:
+        continue
+    _nm, _src = cell_split(_c)
+    _b = x.get("buyer") or ""
+    _new = _nm.strip()
+    if not _LN_REGISTER_SRC.search(_src):
+        _h0 = _LN_JUNK_HEAD.sub("", _new)
+        if _h0 != _new:
+            _new = _h0.strip(" ,-–—|:")
+        _mt = _LN_JUNK_TAIL.search(_new)
+        if _mt and not re.search(r"(?<![a-zà-ÿ])%s(?![a-zà-ÿ])" % re.escape(_mt.group(1).lower()), _b.lower()):
+            _new = _new[:_mt.start()].strip(" ,-–—|:")
+            if _new and not name_overlap(_new, _b, x.get("buyer_website") or ""):
+                _new = ""  # what is left is someone else's name ("Audet Photo SERVICES Réalisation de projets Construction Mafranc inc")
+            n_lnf["a web agency's credit or a page word cut off the end (footer, conception, réalisation …)"] += 1
+        if _new and _LN_NOT_A_NAME.search(_new):
+            _new = ""; n_lnf["not a name (a photo credit, a slogan, a headline): cell emptied"] += 1
+        elif _new and _LN_REGULATOR.search(_new) and not norm(_b).startswith(" ".join(norm(_new).split()[:2])):
+            _new = ""; n_lnf["a professional regulator's name read on a member's site: cell emptied"] += 1
+    if _new and "Wikidata" in _src:
+        _nn, _nb = norm(_new), norm(_b)
+        _same = bool(_nn) and bool(_nb) and (_nn == _nb or (" %s " % _nb) in (" %s " % _nn) or (" %s " % _nn) in (" %s " % _nb))
+        _acr = bool(re.fullmatch(r"[A-Z0-9&]{2,8}", _b.strip() or "-")) and _acr_of(_new).startswith(_nb.replace(" ", ""))
+        _flat_b = _nb.replace(" ", "")
+        _shared = bool({w for w in _nn.split() if len(w) >= 4 and w not in GENERIC_TOK} & {w for w in _nb.split() if len(w) >= 4 and w not in GENERIC_TOK}) \
+            or any(len(w) >= 6 and w in _flat_b for w in _nn.split() if w not in GENERIC_TOK)
+        if "label per Wikidata" in _src and not (_same or _acr):
+            _new = ""; n_lnf["a Wikidata label that is not the organisation's own name (a translation, another body, an old name): cell emptied"] += 1
+        elif not (_same or _acr or _shared) or re.search(r"dioecesis", _new, re.I) or not _nn:
+            _new = ""; n_lnf["a Wikidata official name sharing nothing with the organisation's name: cell emptied"] += 1
+    if _new != _nm.strip():
+        x["buyer_legal_name_as_published"] = (_new + _src) if _new else ""
+print("buyer legal names, last check:", dict(n_lnf))
+# 2026-11-12 (rows read for the owner, "don't misappropriate … addresses"): a member directory's page prints the body's own address in its
+# footer, and 160 ready rows had taken it as the member's ("102, 150 Edwards Way NW, Airdrie" — the Airdrie chamber's — on every Airdrie
+# member's row); a directory whose page title stood where the member's name goes named five Tofino businesses "Tofino Chamber of Commerce".
+# The body's own address is not the member's, the body's name is not the member's, and a run of page words with no number, postal code,
+# province or comma is no address ("NEWS UPDATES PREMIER PARTNERS … ARBIOS BIOTECH").
+_PCX = re.compile(r"\b([A-Z]\d[A-Z])\s?(\d[A-Z]\d)\b")
+_PROVX = re.compile(r"\b(?:AB|BC|MB|NB|NL|NS|NT|NU|ON|PE|QC|SK|YT|Alberta|British Columbia|Manitoba|New Brunswick|Newfoundland|Nova Scotia|Ontario|"
+                    r"Prince Edward Island|Qu[ée]bec|Saskatchewan|Yukon)\b|\b[A-Z]{2}\s+\d{5}\b", re.I)
+n_addr = collections.Counter()
+for x in rows:
+    _a = x.get("buyer_address") or ""
+    _ap = _a.split(" (")[0]
+    if _a and "(as printed in " in _a:
+        _va = (x.get("vendor_address") or "").split(" (")[0]
+        _m1, _m2 = _PCX.search(_ap.upper()), _PCX.search(_va.upper())
+        _n1, _n2 = re.findall(r"\d+", _ap.split(",")[0] if "," in _ap else _ap)[:2], re.findall(r"\d+", _va)[:3]
+        _core = lambda s_: re.sub(r"[^A-Z0-9]", "", s_.upper())
+        if _va and (_core(_ap) == _core(_va) or (_m1 and _m2 and _m1.groups() == _m2.groups() and _n1 and any(n_ in _n2 for n_ in _n1))):
+            x["buyer_address"] = ""; n_addr["a directory's own address (the body's) taken as the member's: removed"] += 1
+            continue
+    if _ap and not re.search(r"\d", _ap) and not _PROVX.search(_ap) and "," not in _ap and not _a.startswith("postal code") and (
+            len(_ap.split()) >= 5 or re.search(r"\b(?:news|updates?|newsletter|archive|menu|home|contact|partners?|agreement)\b", _ap, re.I)):
+        x["buyer_address"] = ""; n_addr["page words with no number, postal code, province or comma: removed"] += 1
+for x in rows:
+    _vn = re.sub(r"^[—–-]+\s*", "", re.sub(r"\s*\(.*$", "", x.get("vendor_legal_name") or re.sub(r"^inferred:\s*", "", x.get("vendor") or "")))
+    _flat = lambda s_: re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKD", s_ or "").encode("ascii", "ignore").decode().lower())
+    if _vn and _flat(x.get("buyer")) and _flat(x.get("buyer")) == _flat(_vn):
+        _ln0 = cell_split(x.get("buyer_legal_name_as_published") or "")[0].strip()
+        _alt = _ln0 if (_ln0 and _flat(_ln0) != _flat(_vn)) else registrable(host_of(x.get("buyer_website") or "") or "") or (x.get("email") or "").partition("@")[2]
+        if _alt:
+            x["buyer"] = _alt; n_addr["the vendor's name stood where the buyer's goes: replaced by the buyer's own legal name or domain"] += 1
+print("buyer address and name, last check:", dict(n_addr))
 print("grants & contributions recipient BNs: %d buyers, %d vendors in file; filled %s" % (len(GCR["buyer"]), len(GCR["vendor"]), dict(n_gcr)))
 # 2026-11-11: the vendor's legal name, last links of the chain (build of 01:51Z: 63,216 named-vendor rows without one; one host's 7,333 rows).
 # (1) data/incoming/claude/claude_vendor_names_read.csv — the vendor's own terms of service read by hand for the vendors with the most rows whose

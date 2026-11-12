@@ -474,6 +474,17 @@ PORTAL_MAIL = {"canada.ca", "gc.ca", "gov.bc.ca", "alberta.ca", "gov.ab.ca", "qu
                "gov.nu.ca", "gov.pe.ca", "gov.uk", "usa.gov"}
 PORTAL_WORDS = {"canada", "canadian", "government", "gouvernement", "ministry", "ministere", "department", "affairs", "office",
                 "services", "service", "agency", "agence", "national", "federal"}
+# a body of Québec's health network (its establishments write from @ssss.gouv.qc.ca): matched on the ascii-folded name and site host
+_HEALTH_NET = re.compile(r"\bc(?:i|iu)?sss\b|cisss|ciusss|\bchu\b|\bchum\b|\bchuq\b|chsld|sante|health|hopital|hospital|institut universitaire|"
+                         r"centre jeunesse|readaptation|\bcrdi\b|\bcrdp\b|\bcrsss\b")
+
+
+def _local_names(local, org_name):
+    """a mailbox on a mail domain many bodies share counts for this body when its local part carries the body's acronym or a distinctive word"""
+    loc, words = re.sub(r"[^a-z0-9]", "", ascii_low(local)), [w for w in re.split(r"[^a-z0-9]+", ascii_low(org_name)) if w]
+    acr = {"".join(w[0] for w in words if w not in GENERIC_WORDS),
+           "".join(w[0] for w in words if w not in GENERIC_WORDS and w not in ("canada", "government", "gouvernement", "ministry", "ministere"))}
+    return any(len(x) >= 3 and x in loc for x in acr) or any(t in loc for t in tokens(org_name) if len(t) >= 5 and t not in PORTAL_WORDS)
 
 
 def ascii_low(x):
@@ -523,12 +534,24 @@ def same_org(email, site, org_name):
     host = host[4:] if host.startswith("www.") else host
     if not d or not host:
         return True
+    # 2026-11-12 (rows read for the owner): a site that is a government's portal page (gov.uk/government/organisations/british-council,
+    # canada.ca/en/…, quebec.ca/gouvernement/…) says nothing about which body a mailbox belongs to — @sutton.gov.uk "ended with .gov.uk" and
+    # Sutton Council's invoice mailbox went on the British Council's row. Such a site vouches for no mailbox; the mailbox's own name decides.
+    _h0 = re.sub(r"^www\d*\.", "", host)
+    if d not in PORTAL_MAIL and (_h0 in PORTAL_MAIL or SHARED_SUFFIX.fullmatch("." + _h0)):
+        return same_org(email, "https://unknown.invalid", org_name)
+    # the Québec health network's shared mail domain (@ssss.gouv.qc.ca) is every establishment's: it counts for a body of the network, or when
+    # the mailbox is named after the buyer — not for another organisation (a test row: the Buanderie centrale de Montréal took a CIUSSS's box)
+    if d.endswith("ssss.gouv.qc.ca"):
+        if _HEALTH_NET.search(ascii_low(org_name) + " " + host):
+            return True
+        return _local_names(local, org_name)
     if d in PORTAL_MAIL:  # one mail domain for a whole government: only a mailbox named after this body counts
         loc, words = re.sub(r"[^a-z0-9]", "", local), [w for w in re.split(r"[^a-z0-9]+", ascii_low(org_name)) if w]
         acr = {"".join(w[0] for w in words if w not in GENERIC_WORDS),
                "".join(w[0] for w in words if w not in GENERIC_WORDS and w not in ("canada", "government", "gouvernement", "ministry", "ministere"))}
         return any(len(x) >= 3 and x in loc for x in acr) or any(t in loc for t in tokens(org_name) if len(t) >= 5 and t not in PORTAL_WORDS)
-    if d == host or d.endswith("." + host) or host.endswith("." + d) or d.endswith("ssss.gouv.qc.ca"):
+    if d == host or d.endswith("." + host) or host.endswith("." + d):
         return True
     if registrable(d) == registrable(host) and not SHARED_SUFFIX.fullmatch("." + registrable(d)):
         return True

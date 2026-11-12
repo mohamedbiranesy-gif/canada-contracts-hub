@@ -139,6 +139,17 @@ Webmail addresses (gmail, hotmail, outlook, yahoo, icloud, proton…) are never 
 not an organisational mailbox. ISP-hosted mailboxes that a small municipality publishes as its official contact (videotron.ca, bellnet.ca…)
 are kept and labelled `mail_provider = ISP mail`.
 
+Whose mailbox it is (2026-11-12, `rank.py: mail_page_own`, `tools/ap_crawler.py: same_org`; coord/DECISIONS.md 13:40Z):
+- read on a directory or roster (211, CIOC, a chamber's or association's member list, a tourism site, Wikivoyage, the PEPPOL directory): not used;
+- on the organisation's own domain, read on another site or file of its own: used;
+- on another domain: only when read on the organisation's own pages, on a domain whose name spells it, on its files at a hosting service,
+  or on a government page that names it; a government portal page (gov.uk/…, canada.ca/…, quebec.ca/…) vouches for no mailbox by itself;
+  the Québec health network's @ssss.gouv.qc.ca counts for a body of the network or a mailbox named after the buyer;
+- never a mailbox for something else (press, complaints, quality of service, access to information, registers, funding programmes,
+  stakeholder engagement, recruiting, receivables).
+One row per organisation: `tools/priority_sort.py` joins rows of one organisation that came in under two keys (same name and postal code,
+mail domain or website; or same unshared mail domain and postal code) and keeps its best row; `duplicate_buyers_dropped.csv` lists the others.
+
 ## Identifier columns (owner 2026-11-06: "PO matters — all identifiers possible")
 Right after `contract_reference` (which now holds the record's complete identifier block, no longer truncated): `invoice_reference_hint`
 (the one reference to quote: PO / procurement number first, else contract number, else solicitation number, else award id — with the
