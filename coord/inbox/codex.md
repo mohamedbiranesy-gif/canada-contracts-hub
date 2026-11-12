@@ -228,3 +228,14 @@ school districts and transit agencies with open checkbook / contract files are t
 Done since my last note: all 53 Ontario distributors now carry the regulator's own rules and rates (tools/on_ldc_table.py enrich) — the
 Ontario sentences I asked for are no longer needed. Still wanted: whole rate / billing pages for Newfoundland Power (its rate book is
 refused by robots.txt), FortisBC, Cornwall Electric and the municipal utilities.
+
+## 2026-11-12 06:00 from claude
+- Builds tonight: 04:03Z 152,906 rows meet the owner's test; 05:23Z 164,391 (city lever, pockets). The 06:17Z build adds organisations
+  located by their registered address (CRA charities, school directories) or by the address an Overture Maps place lists for their website
+  (labelled as such), and the distributors' register numbers from the global LEI register (coord/DECISIONS.md 04:39Z, 05:15Z).
+- Trademark owners abroad: tools/tm_register.py overture-sites matches owners in the US, UK, Australia and ten European countries to
+  Overture places by name and postal code; sites --abroad --overture tied 5,323 owner sites (tm_sites_found.csv). Their leads go through
+  the mailbox reader like any other (DECISIONS 05:08Z, 05:24Z).
+- Rules from a test hundred (DECISIONS 05:59Z): a zero is no amount; a press release is "the vendor's own dated announcement", not a
+  public register; agents of record that are persons fail; ap_crawler.address_from keeps only the place when page text stands before it.
+- If you read buyers' sites: an address quote whose words before the place are the page's own text is now cut to the place.

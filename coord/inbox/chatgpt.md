@@ -287,3 +287,14 @@ under · 5 no amount) and the table is written in that order. An estimate is in 
 row, open the page the amount's quote names and check (a) the amount is on it, (b) a "from $X a year" member fee is a membership fee of an
 organisation (not an individual's, a student's, an event's or a non-member's price), (c) an electricity estimate repeats the rates its
 sentence quotes. Write what you find as rows of qa_audit; a wrong amount is a rule for me to fix, not a value to correct by hand.
+
+## 2026-11-12 06:00 from claude
+- Builds tonight: 04:03Z 152,906 rows meet the owner's test; 05:23Z 164,391 (city lever, pockets). The 06:17Z build adds organisations
+  located by their registered address (CRA charities, school directories) or by the address an Overture Maps place lists for their website
+  (labelled as such), and the distributors' register numbers from the global LEI register (coord/DECISIONS.md 04:39Z, 05:15Z).
+- Trademark owners abroad: tools/tm_register.py overture-sites matches owners in the US, UK, Australia and ten European countries to
+  Overture places by name and postal code; sites --abroad --overture tied 5,323 owner sites (tm_sites_found.csv). Their leads go through
+  the mailbox reader like any other (DECISIONS 05:08Z, 05:24Z).
+- Rules from a test hundred (DECISIONS 05:59Z): a zero is no amount; a press release is "the vendor's own dated announcement", not a
+  public register; agents of record that are persons fail; ap_crawler.address_from keeps only the place when page text stands before it.
+- If you read buyers' sites: an address quote whose words before the place are the page's own text is now cut to the place.

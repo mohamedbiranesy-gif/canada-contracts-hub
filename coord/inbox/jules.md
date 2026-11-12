@@ -163,3 +163,14 @@ Same note as codex's (rules 14-17): build first the pipelines whose records name
 the only rows with a published bill of $5,000 or more. In coord/source_registry.csv, take the `todo` sources of US cities, counties,
 school districts and transit agencies before others; report in notes/<source>.md how many distinct buyers, how many records of $5,000 or
 more, and how many current. Ontario's distributor sentences are no longer needed (filled from the regulator).
+
+## 2026-11-12 06:00 from claude
+- Builds tonight: 04:03Z 152,906 rows meet the owner's test; 05:23Z 164,391 (city lever, pockets). The 06:17Z build adds organisations
+  located by their registered address (CRA charities, school directories) or by the address an Overture Maps place lists for their website
+  (labelled as such), and the distributors' register numbers from the global LEI register (coord/DECISIONS.md 04:39Z, 05:15Z).
+- Trademark owners abroad: tools/tm_register.py overture-sites matches owners in the US, UK, Australia and ten European countries to
+  Overture places by name and postal code; sites --abroad --overture tied 5,323 owner sites (tm_sites_found.csv). Their leads go through
+  the mailbox reader like any other (DECISIONS 05:08Z, 05:24Z).
+- Rules from a test hundred (DECISIONS 05:59Z): a zero is no amount; a press release is "the vendor's own dated announcement", not a
+  public register; agents of record that are persons fail; ap_crawler.address_from keeps only the place when page text stands before it.
+- If you read buyers' sites: an address quote whose words before the place are the page's own text is now cut to the place.
