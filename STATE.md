@@ -1,4 +1,20 @@
-# STATE.md — Claude lane (updated 2026-11-12 07:52Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 13:45Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 13:45Z — precision pass (whose mailbox, whose name, whose address; one row per organisation); build 13:24Z read
+
+**Build of 13:24Z (code 8455a90, dispatched 12:03Z), counted: 198,271 ready of 266,812** (by location 153,178; amount and period 167,068;
+every main field 151,465; published $5,000+ 1,868). Told to the owner at ~12:15Z (the 10:45Z build, 197,202): every ready row is on invoice
+with a bank route (112,185 billers also take a card, in by rule 6); the bill's arrival by e-mail is stated on 2,291 rows only — **asked him
+whether e-mail delivery must be a condition** (no answer yet); 192,274 of the mailboxes are general ones (rule 9); the buyer's legal name
+is on 43 %.
+**Pushed 13:42Z, build dispatched 13:42Z (lands ~14:55Z):** coord/DECISIONS.md 13:40Z — a portal page vouches for no mailbox; directory /
+roster pages never give a mailbox; a box on another domain only from the organisation's own pages; contractors' boxes off towns' rows;
+the chamber's address off 160 member rows; junk legal names; `tools/priority_sort.py` one row per organisation (2,446 rows of the 10:45Z
+table, 460 ready). Sample 1-in-4: ready 48,912 -> 48,796. Expect the next table ~900 ready rows lower, then growth as before.
+**Next:** read the 14:55Z build (BUILD.json, `duplicate_buyers_dropped.csv` in the release assets? — it is written to out/ranked/; check it
+reaches the release); a test hundred; then the levers to a million: Health Canada licence holders (MDALL / DPD / PMRA: right-to-sell fees,
+published amounts, mostly abroad), CIPO patents (Patent_CSV_2024_05_22: PT_interested_party.zip names owners and agents), Wikidata
+official websites for trademark owners abroad, locating the ~120,000 organisations whose mailbox is read but whose address is not.
 
 ## 2026-11-12 07:52Z — build 07:45Z: 176,890 ready; every main invoice field 132,877; test hundred republished
 

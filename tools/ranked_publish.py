@@ -10,7 +10,7 @@ holds for the deliverable too.
 Release assets (same names every build, replaced in place):
   ranked_buyers.csv.gz        the whole table, one row per buyer              ranked_buyers.jsonl.gz   the same rows as JSON lines
   ranked_batches.zip          every package CSV (ranked_batches_2.zip … when one zip would pass 1.8 GB)
-  ranked_contracts.zip        contracts of the delivered buyers               ranked_extras.zip        audit flags, DMARC list, rows changed
+  ranked_contracts.zip        contracts of the delivered buyers               ranked_extras.zip        audit flags, DMARC list, rows changed, rows of an organisation already in the table
   BUILD.json                  build id, time, row counts, each asset's size and SHA-256
 In git (--git-dir): the build's *.md / *.json reports, BUILD.json, WHERE.md (links), batches_head/<package>.csv (first 10 rows of each package).
 Exit code 0 only when every asset was uploaded; the caller then commits --git-dir. Needs `gh` and GH_TOKEN (the workflow's own token).
@@ -109,7 +109,7 @@ def main():
     contract_files = sorted(glob.glob(os.path.join(src, "contracts", "*")))
     if contract_files:
         assets += zips(contract_files, "ranked_contracts", pub)
-    extras = [p for p in (os.path.join(src, n) for n in ("audit_flags.csv", "dmarc_no_enforcement.csv", "rows_changed.csv")) if os.path.exists(p)]
+    extras = [p for p in (os.path.join(src, n) for n in ("audit_flags.csv", "dmarc_no_enforcement.csv", "rows_changed.csv", "duplicate_buyers_dropped.csv")) if os.path.exists(p)]
     if extras:
         assets += zips(extras, "ranked_extras", pub)
     # counts: rows, tiers, packages
