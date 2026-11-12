@@ -1,4 +1,23 @@
-# STATE.md — Claude lane (updated 2026-11-12 19:25Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 21:25Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 21:25Z — build 21:15Z: 216,121 ready; rosters at 342 lists
+
+**Build 21:15Z (5e5069a, the 18:17 schedule that fired at 19:56):** 216,121 ready (+2,863). Not by location 74,510 (+3,761): membership
+18,059, licence 12,086, agent 7,289 (+1,163, patents from pt-sites), sponsorship 5,435, public contract 3,110, dealership 2,645, tenancy 409,
+exchange listing 303 (+243), service 25,174. $5k+ a bill: 1,870 published + 349 estimated. Amount and period 183,695; every field 140,230.
+A build dispatched at 20:43 (dddb3b4) runs after it and carries the rosters merged up to 20:43.
+**Rosters: 342 lists on file** (213 member, 52 exhibitor, 45 tenant, 25 dealer, 7 sponsor); `roster_ingest.py check` counts 54,785 listed
+organisations that would become leads; roster leads on file about 37,600 (the rest are on file through another lane: one row per buyer).
+Today's helper waves: chambers (BC, Alberta, Québec, Ontario, Yellowknife), tourism associations, construction / home builders,
+landscapers, insurance brokers, consulting engineers, co-ops and buying groups (FCL, PharmaChoice, Castle, Sollio, ILDC), schools (FEEP,
+Edvance, SCSBC), seniors' residences (RQRA), camps, industry associations (movers, franchises, aerospace, nuclear, kitchens, coatings,
+precast, concrete, aggregates, auto parts, cosmetics, water, food processing — CTAQ, Taste of Nova Scotia), sponsors (Stampede, CNE, CFL
+teams, junior hockey — running). Diminishing returns now: most remaining directories sit behind Cloudflare, member365, MembershipWorks,
+GrowthZone checks or JavaScript, or bar AI crawlers in robots.txt (respected). New check in roster_ingest: a quote that names a person with
+a phone or a mailbox takes the descriptor out. Withdrawn by rule: CCI Saint-Georges (online ticket), MEIA (online yearly plan).
+**Automation running:** tm-sites and pt-sites (abroad, with the name autocomplete), exchange-issuers (every 6 h; TSX/TSXV 780 sites found,
+CSE 497 from its own list), radio-licences, hc-registers, mailbox-crawl (short runs back to back), rank-buyers (schedule late by ~1.5 h:
+dispatch by hand when a build is needed).
 
 ## 2026-11-12 19:25Z — build 19:14Z read: 213,258 ready (+13,098)
 
