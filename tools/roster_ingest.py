@@ -174,11 +174,21 @@ def merge(a):
     kept, report, many = take(a)
     leads, det = LS.load(exclude=("roster", stamp))
     snap = LS.snapshot(leads, det)
-    new = collections.Counter()
-    for D, dom, h, name, url, addr, ref in kept:
-        key = CCL.lead_key(dom)
-        if key in leads:
-            continue  # the organisation is already a lead (one row per organisation): its first relationship keeps the key
+    new, refreshed, withdrawn = collections.Counter(), collections.Counter(), collections.Counter()
+    takers = collections.defaultdict(list)
+    for k in kept:
+        takers[CCL.lead_key(k[1])].append(k)
+    # the roster lane's leads are what today's rules and descriptors take: a lead whose roster was withdrawn, or that a stricter rule no longer
+    # takes, is withdrawn; a lead whose descriptor was corrected (a better sentence of the body, its address) is written again
+    for key in [k for k, d in det.items() if d.get("platform") == "roster_file" and k not in takers]:
+        withdrawn[det[key].get("roster_key") or "?"] += 1
+        leads.pop(key, None)
+        det.pop(key, None)
+    for key, ks in takers.items():
+        if key in leads and det.get(key, {}).get("platform") != "roster_file":
+            continue  # the organisation is already a lead of another lane (one row per organisation): its first relationship keeps the key
+        was = det.get(key, {}).get("roster_key")
+        D, dom, h, name, url, addr, ref = next((k for k in ks if k[0]["key"] == was), ks[0])
         kind = D["kind"]
         leads[key] = {"buyer_key": key, "buyer_name": name, "website": "https://%s/" % h, "canadian_vendor_rows": 1, "example_vendor": D["biller"],
                       "canada_field_value": "vendor located in Canada (roster: %s)=%s; “%s” (as printed on %s, read %s); %s: “%s” (%s)"
@@ -188,11 +198,13 @@ def merge(a):
                     "record_date": D["read"], "title": "", "reference": ref, "vendor_address": "%s (as printed on %s, read %s)" % (D["biller_address"], D["biller_address_url"], D["read"]),
                     "vendor_address_quote": D["biller_address_quote"], "vendor_address_url": D["biller_address_url"], "vendor_site": D["biller_site"], "member_address_quote": addr,
                     "pays_quote": D["pays_quote"], "pays_url": D["pays_url"], "list_name": D["list_name"], "harvested_by": D["_lane"], "roster_key": D["key"]}
-        new[D["key"]] += 1
+        (refreshed if was else new)[D["key"]] += 1
     w = LS.save("roster", stamp, leads, det, snap)
     for key, n, st in report:
         print("%-28s %6d lines  %s" % (key, n, st))
-    print("roster leads: +%d this run (%s); shards written: %s; domains on more than 15 rosters, left out: %d" % (sum(new.values()), dict(new), w, many))
+    print("roster leads withdrawn (roster withdrawn or no longer taken): %d %s" % (sum(withdrawn.values()), dict(withdrawn)))
+    print("roster leads: +%d this run (%s); on file again: %d; shards written (rows, details, withdrawn; a row whose text did not change is not written): %s; "
+          "domains on more than 15 rosters, left out: %d" % (sum(new.values()), dict(new), sum(refreshed.values()), w, many))
 
 
 def main():

@@ -1,0 +1,12 @@
+{
+ "biller": "BIOTECanada",
+ "biller_site": "https://www.biotech.ca/",
+ "biller_address": "BIOTECanada, 410-410 Laurier Ave West, Ottawa, ON K1R 1B7",
+ "biller_address_url": "https://www.biotech.ca/about/contact-us/",
+ "biller_address_quote": "BIOTECanada 410-410 Laurier Ave West Ottawa, ON K1R 1B7",
+ "pays_quote": "Once your membership application has been reviewed and approved, an invoice will be issued for payment.",
+ "pays_url": "https://www.biotech.ca/join-biotecanada/",
+ "list_name": "the member directory of BIOTECanada",
+ "kind": "member",
+ "read": "2026-11-12"
+}
