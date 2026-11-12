@@ -1,0 +1,14 @@
+{
+ "key": "ce_acec_mb",
+ "kind": "member",
+ "biller": "Association of Consulting Engineering Companies - Manitoba (ACEC-Manitoba)",
+ "biller_site": "https://www.acec-mb.ca/",
+ "biller_address": "P.O. Box 21036, Winnipeg, MB R3R 3R2",
+ "biller_address_url": "https://www.acec-mb.ca/our-member-firms/members/",
+ "biller_address_quote": "P.O. Box 21036 Winnipeg, MB R3R 3R2",
+ "read": "2026-11-12",
+ "pays_by_kind": true,
+ "member_quote": "Members",
+ "member_quote_url": "https://www.acec-mb.ca/our-member-firms/members/",
+ "list_name": "the list of member firms of the Association of Consulting Engineering Companies - Manitoba"
+}

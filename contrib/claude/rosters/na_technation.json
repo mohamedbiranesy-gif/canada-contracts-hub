@@ -1,0 +1,14 @@
+{
+ "key": "na_technation",
+ "kind": "member",
+ "biller": "TECHNATION (Information Technology Association of Canada)",
+ "biller_site": "https://technationcanada.ca/",
+ "biller_address": "100 King Street West, Suite 5600, PO Box 270, Toronto, ON M5X 1C9",
+ "biller_address_url": "https://technationcanada.ca/en/about-us/contact-us/",
+ "biller_address_quote": "Mailing Address 100 King Street West Suite 5600, PO Box 270 Toronto, ON M5X 1C9",
+ "read": "2026-11-12",
+ "pays_by_kind": true,
+ "member_quote": "TECHNATION members represent the best of Canada’s growing tech industry.",
+ "member_quote_url": "https://technationcanada.ca/en/membership/our-members/",
+ "list_name": "the member list (Our Members) of TECHNATION"
+}

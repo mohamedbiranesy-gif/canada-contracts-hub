@@ -1,0 +1,14 @@
+{
+ "key": "pa_on_bild",
+ "kind": "member",
+ "biller": "Building Industry and Land Development Association (BILD)",
+ "biller_site": "https://www.bildgta.ca/",
+ "biller_address": "2005 Sheppard Ave. E., Suite 102, Toronto, ON M2J 5B4",
+ "biller_address_url": "https://www.bildgta.ca/contact/",
+ "biller_address_quote": "Contact BILD 2005 Sheppard Ave. E. Suite 102 Toronto, ON M2J 5B4",
+ "read": "2026-11-12",
+ "pays_by_kind": true,
+ "member_quote": "Search for current BILD member companies by entering part of the company name or by membership group.",
+ "member_quote_url": "https://www.bildgta.ca/about/find-a-member/",
+ "list_name": "the member directory (Find a Member) of the Building Industry and Land Development Association (BILD)"
+}

@@ -1,0 +1,14 @@
+{
+ "key": "na_efc",
+ "kind": "member",
+ "biller": "Electro-Federation Canada (EFC)",
+ "biller_site": "https://www.electrofed.com/",
+ "biller_address": "190 Attwell Drive, Suite 560, Toronto, Ontario M9W 6H8",
+ "biller_address_url": "https://www.electrofed.com/about/contact/",
+ "biller_address_quote": "Head Office 190 Attwell Drive, Suite 560 Toronto, Ontario M9W 6H8 Canada",
+ "read": "2026-11-12",
+ "pays_by_kind": true,
+ "member_quote": "EFC represents over 230 member companies that manufacture, distribute, market and sell a wide range of electrical products.",
+ "member_quote_url": "https://www.electrofed.com/members/",
+ "list_name": "the member list of Electro-Federation Canada (manufacturers, distributors, manufacturers' agents, field service, certification bodies and affiliated members)"
+}
