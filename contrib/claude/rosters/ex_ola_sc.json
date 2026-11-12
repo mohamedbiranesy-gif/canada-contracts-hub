@@ -1,0 +1,17 @@
+{
+ "key": "ex_ola_sc",
+ "kind": "exhibitor",
+ "biller": "Ontario Library Association (OLA Super Conference)",
+ "biller_site": "https://accessola.com/",
+ "biller_address": "Centre for Social Innovation, 192 Spadina Avenue, Suite 300, Toronto ON, M5T 2C2",
+ "biller_address_url": "https://accessola.com/contact-us/",
+ "biller_address_quote": "Mailing Address: Centre for Social Innovation, 192 Spadina Avenue, Suite 300, Toronto ON, M5T 2C2",
+ "read": "2026-11-12",
+ "pays_quote": "Full payment is due no later than December 11, 2026. Exhibitors will not be allowed to set up until space is paid for in full. No exceptions. The Ontario Library Association will accept Electronic Fund Transfers, VISA, MasterCard, and cheques.",
+ "pays_url": "https://olasuperconference.ca/expo/prospectus/payment-information/",
+ "list_hosts": [
+  "olasuperconference.ca"
+ ],
+ "list_host_link_url": "https://accessola.com/",
+ "list_name": "the exhibitor directory of the OLA Super Conference 2027"
+}

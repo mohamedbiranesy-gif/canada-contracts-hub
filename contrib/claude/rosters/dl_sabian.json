@@ -1,0 +1,13 @@
+{
+ "key": "dl_sabian",
+ "kind": "dealer",
+ "biller": "Sabian Ltd.",
+ "biller_site": "https://sabian.com/",
+ "biller_address": "219 Main Street, Meductic, NB, Canada, E6H 2L5",
+ "biller_address_url": "https://sabian.com/privacy-policy/",
+ "biller_address_quote": "Or write to us: Sabian Ltd., 219 Main Street, Meductic, NB, Canada, E6H 2L5",
+ "read": "2026-11-12",
+ "pays_quote": "Only instruments and products purchased as new from an authorized SABIAN dealer are covered by warranty.",
+ "pays_url": "https://sabian.com/warranty/",
+ "list_name": "the SABIAN Find a Dealer locator"
+}

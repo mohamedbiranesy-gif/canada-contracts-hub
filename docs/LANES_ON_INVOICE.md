@@ -82,6 +82,9 @@ Hand in **two files**: `contrib/<lane>/rosters/<key>.json` and `data/incoming/<l
  "list_name": "the exhibitor list of the PDAC 2027 convention"}
 ```
 
+A list kept on the organiser's platform (an exhibitor list on Map Your Show, a2z, PheedLoop, the show's own second domain) is fine: add
+`"list_hosts": ["mapyourshow.com"], "list_host_link_url": "the body's own page that links the list there"` to the descriptor.
+
 CSV columns: `listed_name, listed_website, listed_address, list_url, ref` (`ref`: booth, member, dealer or unit number when the roster
 prints one). `tools/roster_ingest.py` checks the proof itself (`python3 tools/roster_ingest.py check` shows what it would take).
 

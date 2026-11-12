@@ -24,6 +24,8 @@ A lane delivers a roster as two files (data/incoming/** and contrib/** merge wit
       biller_address_url     the page of its site that prints that address;  biller_address_quote: the sentence, at most 300 characters
       read                   the day those pages were read (YYYY-MM-DD)
       pays_quote, pays_url   the body's own sentence saying the listed party pays it or how it bills (dues, booth fee, rent, invoices), <= 300 chars
+      list_hosts, list_host_link_url   (optional) the platforms that keep the body's list (a show's exhibitor list on Map Your Show, a2z …) and
+                             the body's own page that links the list there; list_url may then be a page of those hosts
       list_name              how to name the roster in a sentence ("the member directory of the X Chamber of Commerce")
 
 Rules applied here, not left to the harvester: the body's address must carry a Canadian postal code and the quote must contain it; a listed
@@ -111,6 +113,8 @@ def rosters():
             why = "a quote of more than 300 characters"
         elif C.registrable(host(D["biller_address_url"])) != C.registrable(host(D["biller_site"])):
             why = "the address must be quoted from the body's own site"
+        elif D.get("list_hosts") and C.registrable(host(D.get("list_host_link_url") or "")) != C.registrable(host(D["biller_site"])):
+            why = "list_hosts needs list_host_link_url: the body's own page that links its list on that platform"
         rows = []
         if not why:
             files = sorted(glob.glob(os.path.join(ROOT, "data/incoming/*/roster_%s.csv" % D["key"])) + glob.glob(os.path.join(ROOT, "data/incoming/*/roster_%s.csv.gz" % D["key"])))
@@ -135,16 +139,19 @@ def take(a):
             report.append((D["key"], 0, {"left out: " + why: 1}))
             continue
         bdom = C.registrable(host(D["biller_site"]))
+        # 2026-11-12: a trade show's exhibitor list is often kept on its organiser's platform (Map Your Show, a2z, the show's own second domain): the
+        # descriptor names those hosts in list_hosts, with list_host_link_url, the body's own page that links the list there
+        hosts_ok = {bdom} | {C.registrable(host(x)) or x for x in (D.get("list_hosts") or [])}
         for r in rows:
             name, site, url = (r.get("listed_name") or "").strip(), (r.get("listed_website") or "").strip(), (r.get("list_url") or "").strip()
             h = host(site)
             dom = C.registrable(h) if h and "." in h else ""
             if not name or not dom:
                 st["no name or no site of its own"] += 1
-            elif NOT_OWN.search(h) or dom == bdom:
+            elif NOT_OWN.search(h) or dom in hosts_ok:
                 st["the link is a social network, a marketplace or the body's own site"] += 1
-            elif not url.startswith("http") or C.registrable(host(url)) != bdom:
-                st["list_url is not a page of the body's own site"] += 1
+            elif not url.startswith("http") or C.registrable(host(url)) not in hosts_ok:
+                st["list_url is not a page of the body's own site (nor of a list host it names)"] += 1
             elif re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", name):
                 st["the listed name is an e-mail address (no e-mail from a roster is kept)"] += 1
             elif re.search(r"#\s*\d", name):
