@@ -1739,3 +1739,16 @@ referee re-read it there; a mailbox in a link's title attribute (rpg.ca) — it 
 LEI register only): Smart & Biggar S.E.C. — Québec enterprise number 3378010188; KPMG LLP — Ontario registration 981056021; Gowling WLG
 (Canada) LLP — Ontario registration 260178397; each with the record's own words and URL. The ranker uses it last, only when nothing else
 gave the row a vendor number (87 rows in a sample; most are clients of Smart & Biggar, the agent of record of many owners abroad).
+
+## 2026-11-12 06:54Z — the billing period of a row's kind, when the biller's own sentence is not found (claude)
+
+Rule 13 says a row whose biller's own sentence on how it bills is not found says how a bill of that kind comes, "by the kind of
+relationship"; the payment route did, the billing period did not. In the 05:23Z build 9,710 membership rows that met the test, 272 licence
+rows and 101 tenancy rows had "not published: billing period". `rank.py: billing_of` now gives, when nothing of the biller's own is read,
+and says so in `recurring_billing_basis` ("by the kind of relationship: …; the body's own sentence … was not found"):
+membership dues — by the year ("3 yearly or longer"); a licence or registration fee — for each year or period of the licence ("3");
+rent — by the month ("1"); a sponsorship or an exhibitor's fee — for the event or the season ("3"); a dealer's purchases — for each order
+("4 per transaction"); an agent of record's fees — for each filing, step and renewal ("4"). A biller's own sentence always comes first.
+An electricity market operator (IESO, AESO) is the exception among the bodies: it settles its participants' charges every month ("1",
+by the kind). In a 1-in-4 sample, 6,054 rows that meet the test now carry a period by the kind (membership 3,165, sponsorship 1,359,
+agent of record 799, dealership 614, licence 74, tenancy 43); rows with an amount and a period 38,898 -> 38,987.

@@ -4863,7 +4863,8 @@ def billing_of(x, ld):
         return "3 yearly or longer", CIRA_TERM
     if t == "M":
         if cs.startswith("client of a Canadian trademark agent of record"):
-            return "5 not published", "an agent of record bills its professional fees for each filing, step and renewal it handles for the owner; no schedule of bills is published"
+            return "4 per transaction", ("by the kind of relationship: an agent of record bills its professional fees for each filing, step and renewal it handles for the "
+                                         "owner; no schedule of bills is published")
         m = _FEE_QUOTE.search(cfv) or _FEE_QUOTE.search(cs)
         if m:
             for lab, rx in _REC_TEXT:
@@ -4877,7 +4878,13 @@ def billing_of(x, ld):
             return ({"monthly": "1 monthly" if not longer else "2 monthly or yearly", "monthly_price": "2 monthly or yearly", "quarterly": "1 quarterly" if not longer else "2 monthly or yearly",
                      "yearly": "3 yearly or longer", "per_transaction": "4 per transaction"}[c],
                     "the body's own site on its fees: %s; the organisation is on the body's current list" % q)
-        return "5 not published", "a membership, licence or registration with the body: its fee and the period of the fee were not found (%s)" % why
+        # rule 13 (2026-11-11 21:30Z) and the owner at 20:14 EST ("populate as much as possible per relationship"): when the body's own sentence is not
+        # found, the row says how a bill of that kind comes — by the kind of relationship, and says so
+        if re.search(r"system operator|\b(?:IESO|AESO)\b|op[ée]rateur ind[ée]pendant", vname, re.I):
+            return "1 monthly", ("by the kind of relationship: an electricity market operator settles its participants' charges every month and sends each its "
+                                 "statement; the operator's own sentence was not found (%s)" % why)
+        return "3 yearly or longer", ("by the kind of relationship: a body bills its membership dues, and the fee of a licence or registration, for each year or each "
+                                      "period of the licence; the body's own sentence on its fee and period was not found (%s)" % why)
     if t == "I":
         return "5 not published", "no record of this relationship: the vendor is inferred from the organisation's type and province"
     if "member named in the member directory" in cs:
@@ -4885,7 +4892,14 @@ def billing_of(x, ld):
         if c and _MEMBER_WORDS.search(q):
             return ({"monthly": "1 monthly" if not longer else "2 monthly or yearly", "monthly_price": "2 monthly or yearly", "quarterly": "1 quarterly" if not longer else "2 monthly or yearly",
                      "yearly": "3 yearly or longer", "per_transaction": "4 per transaction"}[c], "the body's own site on its dues: %s; the organisation is in the body's member directory" % q)
-        return "5 not published", "membership dues: the body's own pages do not give the fee and its period (%s)" % why
+        return "3 yearly or longer", ("by the kind of relationship: membership dues are billed by the year; the body's own pages do not give the fee and its period (%s)" % why)
+    if "tenant / merchant named by" in cs:
+        return "1 monthly", "by the kind of relationship: rent and the charges of a lease are billed by the month; the landlord's own sentence on its bills is not read"
+    if "sponsor / exhibitor named by" in cs:
+        return "3 yearly or longer", ("by the kind of relationship: a sponsorship or an exhibitor's fee is billed for the event or the season, once a year or less often; "
+                                      "the body's own sentence on its bills is not read")
+    if "dealer / retailer named by" in cs:
+        return "4 per transaction", "by the kind of relationship: a dealer is invoiced for each order of goods it buys for resale; the supplier's own sentence on its bills is not read"
     if "vendor located in Canada" in cfv or t in ("D", "E") or (t == "C" and not x.get("records_in_contract_dataset")):
         c, q, longer, why = _vendor_cycle(vd)
         return "5 not published", ("the vendor names the organisation %s: what it bills, and how often, is not published%s"
