@@ -16,6 +16,8 @@ PRIVATE/
 !data/incoming/**/*.jsonl
 !data/incoming/**/*.jsonl.gz
 out/
+# release assets downloaded for a build (dataset-latest, harvest-state …): never committed
+data/release/
 
 # the ranked table is committed in parts (tools/ranked_io.py); the assembled copy is never committed
 coord/results/ranked/ranked_buyers.csv.gz

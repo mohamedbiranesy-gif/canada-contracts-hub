@@ -1625,3 +1625,45 @@ relationship sentence gives the share ("all", or "99.4 %"). A place the dump doe
 one; two cities with two distributors in one text give none. The mailbox reader keeps the city line of a page with no postal address
 (`site facts: city_quote, city_url`) for the sites it reads from now on.
 
+
+## 2026-11-12 04:39Z — where an organisation is, when its own pages located nothing: its registered address, then the address a public places dataset lists for its website (claude)
+
+The owner at 16:01 EST: "populate those fields as best as you can, don't just go empty … 1 million". Rule 13 needs, for a row that stands on
+where the organisation is, the organisation's own address. Until now that address had to come from the organisation's own pages (the address
+printed beside its mailbox or on its contact page, the postal code its home page prints, the city it names). 126,561 organisations whose
+mailbox the referee re-read gave none of these; 145,060 keys of withdrawn leads were skipped in the 04:03Z build for that reason alone.
+
+**1. Its registered address in a public registry, before anything else that is not its own page.** `org_places.csv.gz` (39,018 entries: the
+CRA List of charities, Alberta's school authorities, Ontario's private schools) was already on the row as its address, but was never used to
+name the distributor. It is now, after the organisation's own pages and before the city. The cell says "(its registered address in …)".
+An entry on a public register is a fact (rule 1), and the address is the one the organisation filed.
+
+**2. Then the address an Overture Maps place lists for its website** (Overture Maps Foundation, places theme: open data, a release a month,
+taken from Meta's and Microsoft's business listings and others, most of them written by the business itself). Only:
+- one address per registrable domain, when ALL of the domain's open places in Canada print the same postal code (629,062 of 734,698 domains,
+  release 2026-10-21.0); a chain or a body with several sites gives none;
+- when the place's name fits the organisation's (the domain's own label in the place's name, or a distinctive word both names share);
+- when the postal code has a distributor (not Alberta, not an Ontario edge between two distributors, not a territory);
+- and the shared-building rule applies as to any address (fifty organisations print the code: not ready).
+Every cell says what it is: "(the address an Overture Maps place lists for its website <domain>: “<place's name>”, place <id>, from <datasets>;
+Overture Maps Foundation open data, release <r> — a public places dataset, not the organisation's own pages)". The relationship sentence
+says "the address a public places dataset lists for the organisation's website (Overture Maps; nothing on its own pages located it)", the
+`source` column has its own wording, and `ship_ready` adds "the organisation's address is the one a public places dataset (Overture Maps)
+lists for its website, not read on its own pages" — so these rows can be counted, sorted or taken out by one test. When the place gives no
+province, the postal code's first letter gives it, and the cell says so.
+Why it can carry a row: "something being where it is means that there's a relationship" (owner, 2026-11-11 06:24 EST). A business listing that
+names the organisation's website and an address is a published statement that it is there; the distributor of that address bills an
+occupant with its own meter by law. It is weaker than the organisation's own page, which always comes first, and the row says which it is.
+
+**3. The same listed address fills the buyer's address of a row of another kind that has none** (4,938 rows that met the test had no buyer
+address in the 04:03Z build: members, services, sponsors, dealers), with the same cell.
+
+**Storage.** The address file is 40 MB compressed: not in git. `tools/credit_scan.py overture` writes it, `credit-scan.yml` (job overture,
+monthly, the 25th) uploads it to the release `harvest-state`, and both rank workflows download it. A build without it is as before. The
+merge step of that workflow no longer rewrites a site list that the run did not produce (it changed only the gzip header's time and
+committed tens of megabytes of the same rows).
+
+**Sample builds (1 in 4 of the leads, snapshot of 2026-11-11):** rows that meet the test 46,013 → 48,844 with the listed address
+(2,176 rows by the listed address, 758 rows that gave way to it); with the registered address, 399 more rows by it (most of them would have
+had the listed address or the city otherwise). In the sample, 1,646 listed addresses were not used because the place's name did not fit the
+organisation's, and 3,987 because no distributor serves the postal code.

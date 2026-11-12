@@ -37,10 +37,10 @@ permissions:
   contents: write
   actions: write
 concurrency:
-  group: credit-scan-${{ inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle' }}
+  group: credit-scan-${{ inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || (github.event.schedule == '29 4 25 * *' && 'overture') || 'cycle' }}
   cancel-in-progress: false
 env:
-  STAGE: ${{ inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || 'cycle' }}
+  STAGE: ${{ inputs.stage || (github.event.schedule == '37 3 * * *' && 'graph') || (github.event.schedule == '29 4 25 * *' && 'overture') || 'cycle' }}
   SHARDS: ${{ inputs.shards || '6' }}
   MINUTES: ${{ inputs.minutes || '100' }}
   LIMIT: ${{ inputs.limit || '0' }}
@@ -131,10 +131,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
-      - name: Overture Maps places in Canada -> every place with a website (organisations located in Canada, any TLD)
+      - name: Overture Maps places in Canada -> every place with a website (organisations located in Canada, any TLD), and one address per domain whose places print one postal code
+        env: { GH_TOKEN: "${{ github.token }}" }
         run: |
           pip install -q duckdb
           python3 tools/credit_scan.py overture
+          # one address per domain whose places print one postal code (rows by where the organisation is, when its own pages located nothing):
+          # 40 MB compressed, so not in git — the rank builds download it from the release harvest-state
+          gzip -6 -f out/overture_addresses.csv
+          gh release upload harvest-state out/overture_addresses.csv.gz --clobber
+          rm -f out/overture_addresses.csv.gz
       - uses: actions/upload-artifact@v4
         with: { name: "cs-graph", path: out/, retention-days: 3 }
 
@@ -190,7 +196,7 @@ jobs:
             python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             for f in graph_ca_domains.csv.gz graph_inlinks.csv.gz osm_sites.csv.gz overture_sites.csv.gz graph_shopify.csv.gz graph_multitenant.csv.gz; do [ -e "data/incoming/claude/credit_scan/$f" ] && git add "data/incoming/claude/credit_scan/$f"; done
             git diff --cached --quiet && { echo "nothing new"; break; }
-            git commit -q -m "credit-scan: more sites to read ($(grep -v ': 0 domains' /tmp/g.txt | tr '\n' ';' | cut -c1-120)) [skip ci]"
+            git commit -q -m "credit-scan: more sites to read ($(grep -v -e ': 0 domains' -e 'left as it is' /tmp/g.txt | tr '\n' ';' | cut -c1-120)) [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done

@@ -1972,6 +1972,14 @@ if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "org_
         for _r in csv.DictReader(_fh):
             if (_r.get("country") or "CA") == "CA":
                 PLACES[_r["buyer_key"]] = _r
+def place_cell(k):
+    """the registered address a public registry gives for the organisation (org_places.csv.gz: the CRA List of charities, the provincial school
+    directories), as an address cell that says where it is from; '' when there is none"""
+    pl = PLACES.get(k) or {}
+    pc = re.sub(r"[^A-Z0-9]", "", (pl.get("postal_code") or "").upper())
+    pc = "%s %s" % (pc[:3], pc[3:]) if len(pc) == 6 else (pl.get("postal_code") or "")
+    head = ", ".join(v for v in (pl.get("address"), pl.get("city"), " ".join(v_ for v_ in (pl.get("province"), pc) if v_)) if v)
+    return ("%s (its registered address in %s)" % (head, pl.get("source") or "a public registry")) if head else ""
 def province_of(k, email, site, quote):
     if k in VEN and VEN[k]["region"]:
         return VEN[k]["region"], "its address in the vendor table of the release"
@@ -2067,6 +2075,57 @@ _PROV_OF_PC = {"A": "NL", "B": "NS", "C": "PE", "E": "NB", "G": "QC", "H": "QC",
 # client listing or a link (the vendor's statement, never established), a trademark owner billed by the Office (its page names no notice or
 # invoice). The other relationship stays on the row as a note (other_relationship_sources). Decided here, before the row is enriched, so
 # that every cell of the row is the distributor's from the start; a service whose vendor publishes a bank payment keeps its row.
+# 2026-11-12 (coord/DECISIONS.md, 2026-11-12: the address a public places dataset lists): an organisation whose mailbox the referee re-read and
+# whose own pages located nothing — no postal code, no city — may stand on the address an Overture Maps place lists for its website, when all
+# the domain's open places print one postal code and the place's name fits the organisation's (tools/by_location.py: directory_addresses,
+# directory_cell). Its own pages always come first; every cell that uses such an address says where it comes from.
+n_ovt = collections.Counter()
+_ovt_need = set()
+for _k, ((_acc, _g), _m) in mail.items():
+    if _acc and _g >= 1 and "@" in (_m.get("mailbox") or ""):
+        _ovt_need.add(registrable((_m.get("mailbox") or "").strip().lower().partition("@")[2]))
+for _x in rows:
+    for _d in ((_x.get("email") or "").lower().partition("@")[2], host_of(_x.get("buyer_website") or "") if _x.get("buyer_website") else ""):
+        if _d:
+            _ovt_need.add(registrable(_d))
+OVT = _BYLOC.directory_addresses(_ovt_need)
+OVT13, PLC13 = {}, {}
+print("addresses an Overture Maps place lists for the website of an organisation on file (one postal code for the whole domain): %d domains of %d" % (len(OVT), len(_ovt_need)), flush=True)
+del _ovt_need
+_URLISH = re.compile(r"(?:https?://)?(?:www\.)?[\w.-]+\.[a-z]{2,}/?", re.I)
+def _ovt_fits(name, names, dom):
+    """the place's name is the organisation's: the domain's own label in the place's name (or the place's name in the label), or a distinctive
+    word both names share"""
+    lab = re.sub(r"[^a-z0-9]", "", norm(dom.split(".")[0]))
+    ta = set() if (not name or _URLISH.fullmatch(name.strip())) else {w for w in re.findall(r"[a-z]{4,}", norm(name)) if w not in GEN_W}
+    for pn in (names or "").split(" | "):
+        pp = re.sub(r"[^a-z0-9]", "", norm(pn))
+        if len(lab) >= 5 and (lab in pp or (len(pp) >= 5 and pp in lab)):
+            return True
+        if ta & {w for w in re.findall(r"[a-z]{4,}", norm(pn)) if w not in GEN_W}:
+            return True
+    return False
+def ovt_place(name, md, site):
+    """(distributor, address cell) from the address an Overture Maps place lists for the organisation's website, or (None, "")"""
+    doms = [registrable(md)] if md and not FREEMAIL.match(md) else []
+    if site:
+        doms.append(registrable(host_of(site)))
+    for d in dict.fromkeys(x_ for x_ in doms if x_):
+        o = OVT.get(d)
+        if not o:
+            continue
+        if not _ovt_fits(name, o.get("names") or "", d):
+            n_ovt["… a listed address whose place's name does not fit the organisation's: not used"] += 1
+            continue
+        b = _BYLOC.biller_for(o["postcode"])
+        if not b:
+            n_ovt["… a listed address with no distributor (Alberta, an edge between two, a territory): not used"] += 1
+            continue
+        return b, _BYLOC.directory_cell(o)
+    return None, ""
+SRC_OWN = "the distributor's exclusive territory and the organisation's own printed address (no contract, payment or listing record)"
+SRC_DIR = ("the distributor's exclusive territory and the address a public places dataset (Overture Maps) lists for the organisation's website "
+           "(no contract, payment or listing record)")
 GAVE_WAY = {}
 n_gw = collections.Counter()
 _ROSTER13 = ("member named in the member directory", "tenant / merchant named by", "dealer / retailer named by", "sponsor / exhibitor named by")
@@ -2111,13 +2170,18 @@ for x in rows:
             loc, _cityaddr = city_place([_lf["city_quote"]], _lf.get("city_url") or "")
         if loc:
             n_city["rows that give way, to the distributor of the city the organisation's page names"] += 1
+    _ovtaddr = ""
+    if not loc:
+        loc, _ovtaddr = ovt_place(x.get("buyer") or "", md, site)
+        if loc:
+            n_ovt["rows that give way, to the distributor of the address listed for their website"] += 1
     if not loc:
         n_gw["… no distributor can be named for where it is (no postal code read, Alberta, or an area another utility serves)"] += 1; continue
     if registrable(host_of(loc["site"])) in (registrable(md), registrable(host_of(site))):
         continue
     b_addr = x.get("buyer_address") or (("%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")) if _lf.get("address") else "") or _sa
     if not _BYLOC.fsa_of(b_addr):
-        b_addr = (b_addr + "; " if b_addr else "") + (_sa or _cityaddr or "")
+        b_addr = (b_addr + "; " if b_addr else "") + (_sa or _cityaddr or _ovtaddr or "")
     if b_addr.startswith("postal code "):
         b_addr = address_beside_mailbox(b_addr, x.get("email_evidence_quote") or "", x.get("email_evidence_url") or "") or b_addr
     g = int(x["grade"])
@@ -2127,7 +2191,7 @@ for x in rows:
            "buyer": x.get("buyer") or "", "buyer_website": site, "buyer_address": b_addr,
            "email": e, "email_type": x.get("email_type") or "", "email_check": "confirmed", "email_evidence_url": x.get("email_evidence_url") or "", "email_evidence_quote": x.get("email_evidence_quote") or "",
            "contract_status": _BYLOC.status(loc, _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(x.get("email_evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])),
-           "source": "the distributor's exclusive territory and the organisation's own printed address (no contract, payment or listing record)",
+           "source": SRC_DIR if _BYLOC.DIRECTORY_MARK in b_addr else SRC_OWN,
            "vendor": "inferred: " + loc["name"], "vendor_address": loc["address"], "vendor_website": loc["site"],
            "vendor_country_basis": "%s, %s: '%s'" % (loc.get("address_source") or "the vendor's own site", loc["address_url"], loc["address_quote"]),
            "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True}
@@ -2152,12 +2216,25 @@ for k, ((acc, g), m) in mail.items():
                                              _sa13.split(" (as printed")[0]]))
     if _sa13 and _loc13:
         SPC13[k] = _sa13
+    if not _loc13 and k in PLACES:
+        # 2026-11-12: its registered address in a public registry (the CRA List of charities, a provincial school directory) — an entry on a
+        # public register, filed by the organisation itself; it was on the row but never used to name the distributor
+        _loc13 = _BYLOC.biller_for_all(place_cell(k).split(" (its registered")[0])
+        if _loc13:
+            PLC13[k] = place_cell(k); n_ovt["inferred rows by the organisation's registered address in a public registry"] += 1
     if not _loc13:
         _loc13, _ca13 = city_place([_lf13.get("address_quote") or _lf13.get("address") or "", addr_text((BUY.get(k) or {}).get("address")), m.get("evidence_quote") or ""], m.get("evidence_url") or "")
         if not _loc13 and _lf13.get("city_quote"):
             _loc13, _ca13 = city_place([_lf13["city_quote"]], _lf13.get("city_url") or "")
         if _loc13:
             CITY13[k] = _ca13
+    if not _loc13:
+        _nm13 = (VEN.get(k) or {}).get("name") or (BUY.get(k) or {}).get("canonical_name") or (BUY.get(k) or {}).get("name") or \
+                (leads[k].get("buyer_name") if k in leads else "") or (m.get("org_name") or "")
+        _st13 = (VEN.get(k) or {}).get("website") or (BUY.get(k) or {}).get("official_website") or (leads[k].get("website") if k in leads else "") or _lf13.get("site") or ""
+        _loc13, _oa13 = ovt_place(_nm13, (m.get("mailbox") or "").strip().lower().partition("@")[2], _st13)
+        if _loc13:
+            OVT13[k] = _oa13
     if k.startswith("lead:") and not REGISTRY_ROWS and not _loc13:
         # 2026-11-11: an organisation that came through a lane (its key was minted by a lead engine) and whose lead is withdrawn, or removed by
         # the owner's rule of that day (a .ca registration, a store, a card-billed service), gets no inferred row in its place. Without this
@@ -2216,8 +2293,7 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         _lr = lead_row_by_dom.get(dom) if dom else None
         if _lr is not None and not k.startswith("lead:") and k not in _lr["keys"].split("|") and name_fits(_lr.get("buyer") or "", name):
             _lr["keys"] += "|" + k; _lr["buyer_keys"] = int(_lr.get("buyer_keys") or 1) + 1; n_keyjoin["rows"] += 1
-            _ba = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or \
-                  ", ".join(v for v in ((PLACES.get(k) or {}).get(f) for f in ("address", "city", "province", "postal_code")) if v)
+            _ba = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or place_cell(k)
             if _ba and not _lr.get("buyer_address"):
                 _lr["buyer_address"] = _ba; n_keyjoin["buyer_address"] += 1
             if name and re.fullmatch(r"(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", (_lr.get("buyer") or "").lower()) and not re.fullmatch(r"(https?://)?[\w.-]+\.[a-z]{2,}/?", name.strip(), re.I):
@@ -2231,15 +2307,18 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         covered_dom.add(dom)
     vname, vsite, vaddr, vurl, vquote = INFV[vid]
     LABEL = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}
-    b_addr = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or \
-             ", ".join(x for x in ((PLACES.get(k) or {}).get(f) for f in ("address", "city", "province", "postal_code")) if x)
+    b_addr = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or place_cell(k)
     _lf = LFACTS.get(k) or {}
     if not b_addr and _lf.get("address"):
         b_addr = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")
     if vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and SPC13.get(k):
         b_addr = (b_addr + "; " if b_addr else "") + SPC13[k]  # no postal code in what was read of its address: the one its home page prints
+    elif vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and PLC13.get(k):
+        b_addr = (b_addr + "; " if b_addr and PLC13[k] not in b_addr else "") + (PLC13[k] if PLC13[k] not in b_addr else b_addr)
     elif vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and CITY13.get(k):
         b_addr = (b_addr + "; " if b_addr else "") + CITY13[k]; n_city["inferred rows by the city the organisation's page names"] += 1
+    elif vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and OVT13.get(k):
+        b_addr = (b_addr + "; " if b_addr else "") + OVT13[k]; n_ovt["inferred rows by the address listed for the organisation's website"] += 1
     if b_addr.startswith("postal code "):
         b_addr = address_beside_mailbox(b_addr, m.get("evidence_quote") or "", m.get("evidence_url") or "") or b_addr
     if _lf.get("site_name") and re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/?", (name or "").strip().lower()):
@@ -2249,7 +2328,7 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",
         "contract_status": (_BYLOC.status(_BYLOC.BY_KEY[vid[4:]], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])) if vid.startswith("LOC:") else
                             "inferred relationship (no record): %s confidence; the buyer is %s%s; %s" % (conf, what, (" (province from %s)" % how) if how else "", why)),
-        "source": ("the distributor's exclusive territory and the organisation's own printed address (no contract, payment or listing record)" if vid.startswith("LOC:") else
+        "source": ((SRC_DIR if _BYLOC.DIRECTORY_MARK in b_addr else SRC_OWN) if vid.startswith("LOC:") else
                    "inference from the buyer's type and province (no contract, payment or listing record)"),
         "vendor": "inferred: " + vname, "vendor_address": vaddr, "vendor_website": vsite,
         "vendor_country_basis": "%s, %s: '%s'" % ((_BYLOC.BY_KEY[vid[4:]].get("address_source") if vid.startswith("LOC:") else "") or "the vendor's own site", vurl, vquote),
@@ -2257,9 +2336,11 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     n13 += 1
 print("P12 organisations:", len(orgs12), "added:", n12, dict(skipped12), "| P13 added:", n13, "| P13 skipped:", dict(skipped13))
 print("by the city the organisation's own page names (no postal code read; tools/by_location.py biller_for_city):", dict(n_city))
+print("by the address an Overture Maps place lists for the organisation's website (nothing on its own pages located it; tools/by_location.py directory_cell):",
+      dict(n_ovt))
 print("lead rows that took the organisation's own key (registry facts attach):", dict(n_keyjoin))
 _free(globals(), "VEN", "VEN_NAME", "VEN_DOM", "BUY", "TEAMV", "mail", "MAIL_ALL", "mail_dom", "cands", "orgs12", "up_t", "dom_rows", "lead_row_by_dom",
-      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13", "CITY13")  # last used by the row builders above
+      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13", "CITY13", "OVT13", "PLC13")  # last used by the row builders above (OVT: by the last address fill)
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
 rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
@@ -5460,6 +5541,16 @@ for _ri, x in enumerate(rows):
                 x["buyer_address"] = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or "", _lf.get("date") or ""); npk["buyer_address_from_own_page"] += 1
             if _lf.get("site_name") and not x["buyer_trade_name_as_published"]:
                 x["buyer_trade_name_as_published"] = "%s (the name on the organisation's own home page, %s, read %s)" % (_lf["site_name"], _lf.get("site") or "", _lf.get("date") or ""); npk["buyer_trade_name_as_published"] += 1
+        # 2026-11-12: nothing on file gives the buyer's address — the address an Overture Maps place lists for its website, when the domain's places
+        # print one postal code and the place's name fits the buyer's; the cell says it is a public places dataset's (tools/by_location.py)
+        if OVT and not (x.get("buyer_address") or "").strip() and not (x.get("invoice_mailing_address") or "").strip():
+            _md9 = (x.get("email") or "").lower().partition("@")[2]
+            for _d9 in dict.fromkeys(d_ for d_ in ((registrable(_md9) if _md9 and not FREEMAIL.match(_md9) else ""),
+                                                  (registrable(host_of(x["buyer_website"])) if x.get("buyer_website") else "")) if d_):
+                _oa9 = OVT.get(_d9)
+                if _oa9 and _ovt_fits(x.get("buyer") or "", _oa9.get("names") or "", _d9):
+                    x["buyer_address"] = _BYLOC.directory_cell(_oa9); npk["buyer_address_from_a_listed_place (Overture Maps)"] += 1
+                    break
         t, g, ec = x.get("tier") or "", int(x.get("grade") or 0), x.get("email_check") or ""
         name_site = " ".join((x.get(c) or "") for c in ("buyer", "buyer_legal_name_as_published", "buyer_trade_name_as_published", "buyer_website"))
         # buyer_type fallback (C4.1) and sector (S4.1)

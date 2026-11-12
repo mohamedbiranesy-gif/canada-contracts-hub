@@ -363,6 +363,52 @@ def biller_for_city(text):
     return (next(iter(got.values())), said[0], said[1], said[2]) if len(got) == 1 else None
 
 
+# ---- by the address a public places dataset lists for the organisation's website (2026-11-12) ---------------------------------------------
+# Owner 2026-11-11 16:01 EST: "populate those fields as best as you can, don't just go empty … 1 million". 126,561 organisations whose mailbox
+# the referee re-read print no postal code and no city that was read; 24,506 of their mailbox domains are the website of an Overture Maps place
+# in Canada (open data, a release a month: tools/credit_scan.py overture -> overture_addresses.csv.gz in the release harvest-state, one address
+# per registrable domain whose open places all print ONE postal code — a chain or a body with several sites gives none). When the place's name
+# fits the organisation's (the ranker checks), that address names the distributor, and every cell that uses it says where it comes from: a
+# public places dataset, not the organisation's own pages (coord/DECISIONS.md 2026-11-12). Its own pages always come first.
+OVERTURE_ADDR = os.path.join(ROOT, "data/release/overture_addresses.csv.gz")
+DIRECTORY_MARK = "the address an Overture Maps place lists for its website"
+
+
+def directory_addresses(doms, path=None):
+    """{registrable domain: row of the address file} for the domains asked (the file holds some 630,000); {} when the file is not there"""
+    out, path = {}, path or OVERTURE_ADDR
+    if not os.path.exists(path):
+        return out
+    try:
+        with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                if r.get("dom") in doms and usable(r.get("postcode") or "", r.get("postcode") or "", " "):
+                    out[r["dom"]] = r
+    except (OSError, EOFError, csv.Error) as e:
+        print("directory addresses: %s not read (%s)" % (path, e), flush=True)
+    return out
+
+
+_PROV_OF_FIRST = {"A": "NL", "B": "NS", "C": "PE", "E": "NB", "G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON",
+                  "R": "MB", "S": "SK", "T": "AB", "V": "BC", "Y": "YT"}  # Canada Post's first letter (X is the Northwest Territories or Nunavut)
+
+
+def directory_cell(o):
+    """the buyer-address cell of a row whose address is the one the places dataset lists (street, city, province, postal code, and where from)"""
+    pc = o["postcode"]
+    prov, said = (o.get("province") or "").strip(), ""
+    if not prov and _PROV_OF_FIRST.get(pc[:1]):
+        prov, said = _PROV_OF_FIRST[pc[:1]], "; the province is the postal code's (its first letter)"
+    street, city = (o.get("street") or "").strip(), (o.get("city") or "").strip()
+    if street and city and norm_city(re.sub(r"[\s,]+(?:%s)\.?$" % "|".join(re.escape(k_) for k_ in sorted(_PROV_CODE, key=len, reverse=True)), "", street, flags=re.I)) == norm_city(city):
+        street = ""  # the listing's "street" is only the city again ("Airdrie AB")
+    first = [x_ for x_ in (street, city) if x_]
+    head = ", ".join(first + [("%s %s %s" % (prov, pc[:3], pc[3:])).strip()])
+    names = (o.get("names") or "").split(" | ")
+    return ("%s (%s %s: “%s”, place %s, from %s; Overture Maps Foundation open data, release %s — a public places dataset, not the organisation's "
+            "own pages%s)" % (head, DIRECTORY_MARK, o["dom"], names[0][:80], o.get("place_id") or "", o.get("datasets") or "Overture", o.get("release") or "", said))
+
+
 _KP = None
 
 
@@ -417,9 +463,11 @@ def row_cells(b, x):
         if _bc and _bc[0] is b:
             fsa = "city %s, %s of whose postal codes lie in this distributor's territory (GeoNames postal codes by place)" % (_bc[1], ("all" if _bc[3] >= 0.9995 else "%.1f %%" % (100 * _bc[3])))
     src = lambda k: (" (read %s)" % b["read"]) if b.get(k) else ""
+    own = ("the address a public places dataset lists for the organisation's website (Overture Maps; nothing on its own pages located it)"
+           if DIRECTORY_MARK in (x.get("buyer_address") or "") else "the organisation's own address")
     out = {"relationship_kind": "electricity account, by where the organisation is (the distributor is certain for the address; the account holder is not published)",
-           "relationship_fact_basis": ("by where it is: the organisation's own address (%s) lies in the exclusive territory of %s — %s. A fact about the address; whether the "
-                                       "organisation or its landlord holds the account is not published%s" % (fsa, b["name"], b["territory"], shared_sentence(int(x.get("_pc_orgs") or 0)))),
+           "relationship_fact_basis": ("by where it is: %s (%s) lies in the exclusive territory of %s — %s. A fact about the address; whether the "
+                                       "organisation or its landlord holds the account is not published%s" % (own, fsa, b["name"], b["territory"], shared_sentence(int(x.get("_pc_orgs") or 0)))),
            "contract_title": "Electricity service at the organisation's address",
            "bill_items_as_published": b["what"],
            "invoice_reference_hint": "the customer account number printed on the distributor's bill (not public)",

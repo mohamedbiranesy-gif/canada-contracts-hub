@@ -679,9 +679,16 @@ def overture(a):
     """Overture Maps Foundation, places theme (open data: CDLA Permissive 2.0 / ODbL by source; one release a month): every place whose
     address is in Canada and that names a website -> the site's host, the place's name, city, province, postal code and category. 2026-11-12:
     1,288,492 such places on 734,503 registrable domains, 345,712 of them neither read by the scan nor on any list (307,833 not .ca) —
-    organisations in Canada whose sites the other lists do not reach. Names and sites only: the mailbox and the address a row stands on are
-    still read on the organisation's own pages. Read with DuckDB over HTTPS (range requests on the release's parquet files; only the files
-    whose places lie in Canada's box, only the columns needed)."""
+    organisations in Canada whose sites the other lists do not reach. The mailbox a row stands on is still read on the organisation's own
+    pages; so is its address, unless its own pages located nothing (below). Read with DuckDB over HTTPS (range requests on the release's parquet files; only the files
+    whose places lie in Canada's box, only the columns needed).
+    2026-11-12 (owner 2026-11-11 16:01 EST: "populate those fields as best as you can, don't just go empty … 1 million"; coord/DECISIONS.md of
+    2026-11-12 04:39Z): also out/overture_addresses.csv — for every registrable domain whose open places in Canada all print ONE postal code,
+    that place's street, city, province and postal code, its names, the datasets Overture took it from and its place id. A row by where the
+    organisation is may stand on it when nothing of the organisation's own pages gave a postal code or a city, and says so (the ranker checks
+    that the place's name fits the organisation's). A domain whose places print several postal codes (a chain, several sites) gives none.
+    40 MB compressed (629,062 domains, release 2026-10-21.0): kept out of git, in the release "harvest-state" (credit-scan.yml, job overture),
+    which the rank builds download."""
     import duckdb
     import xml.etree.ElementTree as ET
     os.makedirs("out", exist_ok=True)
@@ -702,10 +709,13 @@ def overture(a):
         if con.execute("SELECT count(*) FROM read_parquet('%s') WHERE %s" % (f, BOX)).fetchone()[0]:
             files.append(f)
     print("Overture %s: %d place files, %d in Canada's box (%.0f s)" % (release, len(keys), len(files), time.time() - t0), flush=True)
-    rows = con.execute("""SELECT names."primary", websites[1], addresses[1].locality, addresses[1].region, addresses[1].postcode, basic_category, coalesce(operating_status, '')
+    rows = con.execute("""SELECT names."primary", websites[1], addresses[1].locality, addresses[1].region, addresses[1].postcode, basic_category, coalesce(operating_status, ''),
+                                 id, addresses[1].freeform, list_transform(sources, lambda s: s.dataset), confidence
                           FROM read_parquet([%s]) WHERE %s AND addresses[1].country = 'CA' AND websites IS NOT NULL AND len(websites) > 0""" % (", ".join("'%s'" % f for f in files), BOX)).fetchall()
     sites, n_obj = {}, 0
-    for name, w, city, prov, pc, kind, status in rows:
+    PCV = re.compile(r"[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\d[ABCEGHJ-NPRSTV-Z]\d")
+    by_dom = {}  # registrable domain -> [set of postal codes, best place, names, datasets, places]
+    for name, w, city, prov, pc, kind, status, pid, street, ds, conf in rows:
         if status in ("permanently_closed",):
             continue
         h = host_of((w or "").split(";")[0].strip())
@@ -717,6 +727,30 @@ def overture(a):
             sites[h] = [h, (name or "")[:100], city or "", prov or "", pc or "", kind or "", 1]
         else:
             o[6] += 1
+        d = C.registrable(h)
+        p = re.sub(r"[^A-Z0-9]", "", (pc or "").upper())
+        g = by_dom.setdefault(d, [set(), None, [], set(), 0])
+        g[4] += 1
+        g[3].update(x for x in (ds or ()) if x)
+        if name and name not in g[2] and len(g[2]) < 3:
+            g[2].append(name[:100])
+        if PCV.fullmatch(p):
+            g[0].add(p)
+            if g[1] is None or (conf or 0) > g[1][6]:
+                g[1] = (re.sub(r"\s+", " ", street or "").strip()[:120], city or "", prov or "", p, pid or "", kind or "", conf or 0)
+    n_addr = 0
+    with open("out/overture_addresses.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "names", "street", "city", "province", "postcode", "datasets", "place_id", "kind", "places", "release"])
+        for d in sorted(by_dom):
+            g = by_dom[d]
+            if len(g[0]) != 1 or not g[1]:
+                continue  # several postal codes (a chain, several sites) or none: no address is given for the domain
+            st, city, prov, p, pid, kind, _ = g[1]
+            w.writerow([d, " | ".join(g[2]), st, city, prov, p, "+".join(sorted(g[3] - {"Overture"})) or "Overture", pid, kind, g[4], release.rstrip("/").rsplit("/", 1)[-1]])
+            n_addr += 1
+    print("Overture: %d registrable domains whose places all print one postal code (an address each in out/overture_addresses.csv); %d with several, %d with none"
+          % (n_addr, sum(1 for g in by_dom.values() if len(g[0]) > 1), sum(1 for g in by_dom.values() if not g[0])), flush=True)
     with open("out/overture_sites.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["dom", "name", "city", "province", "postcode", "kind", "objects"])
@@ -778,6 +812,9 @@ def merge_graph(a):
                              ("overture_sites.csv", OVERTURE_SITES, ["dom", "name", "city", "province", "postcode", "kind", "objects"]), ("graph_shopify.csv", GRAPH_SHOP, ["dom", "hosts"]),
                              ("graph_multitenant.csv", GRAPH_MT, ["dom", "hosts"])):
         rows = {}
+        if not glob.glob(os.path.join(a.dir, name)):
+            print("%s: no new list from this run — left as it is" % os.path.basename(path))
+            continue  # (rewriting it would change only the gzip header's time, and commit tens of megabytes of the same rows)
         if os.path.exists(path):
             with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
                 rows = {r["dom"]: r for r in csv.DictReader(fh)}

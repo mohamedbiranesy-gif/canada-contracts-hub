@@ -1,4 +1,24 @@
-# STATE.md — Claude lane (updated 2026-11-12 03:23Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 04:50Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 04:50Z — the 04:03Z build read; where an organisation is when its own pages located nothing (registry, then Overture's listed address)
+
+**Build of 04:03Z (code ff81695 + money fix), counted: 152,906 ready of 213,382** (by location 110,569 · best effort 31,486 · complete
+10,851). Down from 158,527 at 01:44Z on purpose: 6,329 rows at an urban postal code fifty or more organisations print are not ready (the
+landlord's account). Of the 152,906: amount and billing period 124,087; every main invoice field 81,570 (00:14Z: 70,503 and 24,279);
+published $5,000+ 1,791. Told to the owner at ~04:30Z. 43146608664 (MAIL_ALL, contract list, city lever, pockets) started ~04:14Z.
+
+**Built after it (coord/DECISIONS.md 2026-11-12 04:39Z):** an organisation whose own pages located nothing gets, in this order, its
+registered address in a public registry (`org_places.csv.gz`: CRA charities, school directories — it was on the row, never used to name the
+distributor), then the address an Overture Maps place lists for its website (one postal code for the whole domain, the place's name fits;
+`tools/by_location.py directory_addresses / directory_cell`, `rank.py ovt_place / place_cell`), every cell saying where it came from; the
+same listed address fills a missing buyer address on rows of other kinds. The address file (40 MB) is in the release `harvest-state`
+(credit-scan.yml job overture, dispatched); both rank workflows download it. Sample builds (1 in 4, never multiplied): OWNER19 46,013 ready
+of 62,922 → OWNER22 48,952 of 65,327 (every main field 23,577 → 25,698). The next cloud build with it: the 06:17Z cron.
+
+**Toward a million, next lever measured:** the trademark register names 134,458 organisations ABROAD as owners of Canadian marks, 109,538 of
+them with a Canadian agent of record (US 50,172 · CN 26,540 · FR 6,502 · GB 6,439 · DE 6,011) — a record that ties them to a Canadian biller.
+They lack websites; Overture's global places (name + city + website) could give them without guessing a URL. To build: a name+city match
+with the same rules as tools/tm_register.py match, then the mailbox reader, the referee, the agent-of-record rows.
 
 ## 2026-11-12 02:29Z — the owner's evening (rules 14-17): marks, order, estimates, fuller rows; the build with them is the next step
 

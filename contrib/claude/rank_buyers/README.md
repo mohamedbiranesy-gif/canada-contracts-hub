@@ -226,6 +226,16 @@ carries the distributor's legal name (`vendor_legal_name`), its number in its re
 ways of paying are the regulator's own code for every distributor (`tools/on_ldc_table.py`). When ten or more organisations print the same
 urban postal code the row says so; from fifty it does not meet the test (a tower, a campus, a business centre or a mail service: the
 landlord's account). A "postal code" that is a colour code or a form's placeholder is not one (`tools/by_location.py: usable`).
+Where the organisation is, in this order (2026-11-12): the address its own pages print (beside its mailbox, on its contact page, the postal
+code its home page prints); its registered address in a public registry (`org_places.csv.gz`: the CRA List of charities, provincial school
+directories — "(its registered address in …)"); the city its own page names, when one distributor serves the whole city; and, when none of
+these located it, the address an Overture Maps place lists for its website — only when all the domain's open places in Canada print one
+postal code and the place's name fits the organisation's. Such a cell ends "(the address an Overture Maps place lists for its website …:
+“place name”, place id, from datasets; Overture Maps Foundation open data, release … — a public places dataset, not the organisation's own
+pages)", the relationship sentence and `source` say so, and `ship_ready` adds "the organisation's address is the one a public places
+dataset (Overture Maps) lists for its website, not read on its own pages". The same listed address fills the buyer's address on a row of
+another kind that has none. The file (`overture_addresses.csv.gz`, one address per domain, monthly) is in the release `harvest-state`
+(`tools/credit_scan.py overture`, `credit-scan.yml` job overture); a build without it is as before.
 `relationship_fact_basis` says in one sentence why the relationship is a fact, or that it is not one: "fact, seen on the buyer's side"
 (a running service, a `.ca` name) · "fact, public record" (an award, a register) · "stated by the buyer" (a credit line, a membership
 badge) · "stated by the vendor" (a client list) · "link only" · "inferred, not a fact".
