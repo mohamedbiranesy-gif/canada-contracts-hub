@@ -1955,3 +1955,28 @@ is 30 months old: a row says "extract of 2024-05-22" in its relationship; a newe
   ("We accept Credit Card, Direct Deposit, E-transfer, Cash, Debit and Cheque"), Kensington ("… your KACC invoice"), Woodstock ("… an
   email and invoice for your yearly membership dues"), Bay St. George ("Payments can be made by cheque, cash or e-transfer.") — their
   rows say how they bill and are paid in the chamber's own words instead of "by the kind of relationship".
+
+## 2026-11-12 18:17Z — lane `claude`: listed companies and their exchange (TSX, TSXV, CSE); who bills a dealer abroad; organisers with a Canadian office
+
+- **A company listed on a Canadian exchange is billed by that exchange** — a fact the exchange itself publishes (its list of listed
+  companies) and a bill it prints the rule of: Toronto Stock Exchange "The annual sustaining fee is invoiced in February of each year …"
+  (C$12,000 at the least), TSX Venture Exchange "the annual sustaining fee is payable for each calendar year and is equal to $5,500 plus
+  0.011% …" with "the remittance date specified by the Exchange in its invoice", the Canadian Securities Exchange "The monthly maintenance
+  fee is due on the first business day of each month the Issuer is listed" ($1,000 a month at the least). Every such bill is over the
+  $5,000 mark. New kind "exchange listing" (fields as a licence: buyer and biller addresses, what is billed, amount, period, reference =
+  the symbol). The amount for TSX/TSXV is calculated from the market capitalization the exchange's own list gives (labelled "calculated");
+  for the CSE the published floor. No exchange prints how its bill is paid: the row says it is by the kind (wire transfer, pre-authorised
+  debit or cheque). Left out: ETPs, closed-end funds, depositary receipts (a manager or a bank pays, per product), SPACs and capital pool
+  companies (shells), and CSE issuers suspended or halted. The issuer's site: the CSE's own list gives it; for TSX/TSXV the name
+  autocomplete's domain under the issuer's very name, kept only when the home page prints the symbol on its exchange, or the domain is the
+  name, the page names it and links investors' pages (the looser test took an airline's restaurant microsite and a consultancy named like
+  a listed company: rejected).
+- **A dealer abroad is the maker's only where the maker serves that market itself.** Where a maker's own pages name a separate company for
+  a market (MacDon, Inc. for the US, MacDon Australia; Argon 18 Europe; Bourgault Australia), that market's dealers make no row of the
+  Canadian maker: they are left out of its roster (dl_argon18 keeps 206 of 383 lines). Where the maker names no one, the Canadian maker is
+  named and the row says the bill is by the kind of relationship.
+- **An organiser that prints a Canadian office is a Canadian biller for the shows it runs from it** (§2.1 as written: the biller's own
+  printed address): Marketplace Events (a US LLC) prints its Canadian offices — PO boxes in Scarborough and Toronto, Expo Média in
+  Montréal — on its own sites; its 31 Canadian home, boat and equipment shows are kept, the row carrying the address it prints.
+- **robots.txt that begins with a byte-order mark** was read as "allow all" by our readers (the first line did not parse): every shared
+  reader now decodes it as utf-8-sig. A helper had fetched one disallowed script that way before noticing; nothing from it is kept.
