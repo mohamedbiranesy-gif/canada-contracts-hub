@@ -839,6 +839,15 @@ def mail_page_own(e, page, site, name, quote=""):
     return False
 n_mailrej, n_mailrej_ex = collections.Counter(), []
 CB_NOMAIL = []  # (buyer key, name, website, records) of buyers under a current contract with no confirmed mailbox of their own
+CB_NOSITE = []  # (buyer key, name, address) of buyers under a current contract with no mailbox and no website on file (2026-11-12)
+# the website an Overture Maps place lists under such a buyer's very name at its postal code, kept only when the site's own home page carries the
+# name or prints the postal code (tools/overture_names.py query --lanes cb, then verify --lane cb): data/incoming/claude/overture/cb_sites.csv
+CB_SITES = {}
+if os.path.exists(ROOT + "/data/incoming/claude/overture/cb_sites.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/overture/cb_sites.csv", encoding="utf-8", newline="")):
+        if _r.get("site"):
+            CB_SITES[_r["key"]] = _r
+n_cbsite = collections.Counter()
 _AP_LOCAL = re.compile(r"invoic|factur|payables?|acctpay|accountspayable|accounts[._-]?pay|comptes?[._-]?(?:payables?|a[._-]?payer|fournisseurs?)|comptesapayer|(?:^|[._-])a\.?p(?:$|[._-])|^ap[a-z]{0,3}invoice", re.I)
 _WEBMAIL = re.compile(r"^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|icloud|me|aol|protonmail|proton|gmx|videotron|sympatico|bell|rogers|shaw|telus|eastlink|cogeco)\.(?:com|ca|net|fr|co\.uk)$", re.I)
 def emailcols(keys, be, gj="", name="", site=""):
@@ -953,8 +962,15 @@ for p, o in orgs.items():
     r, be = o["best"], o["be"]
     c, v, ve, d = r["contract"], r.get("vendor") or {}, r.get("vendor_enrichment") or {}, (r["contract"].get("dates") or {})
     gj = o["jur"].most_common(1)[0][0] if o["jur"] else ""
+    if not (be.get("official_website") or "").strip():
+        _cbs = next((CB_SITES[k_] for k_ in sorted(k for k in o["keys"] if k) if k_ in CB_SITES), None)
+        if _cbs:
+            be = dict(be, official_website=_cbs["site"], _site_basis=_cbs.get("tied_by") or "")
+            o["be"] = be; n_cbsite["buyer under contract: website from an Overture Maps place, tied on its own home page"] += 1
     em, et, es, eu, eq, g, acc = emailcols(o["keys"], be, gj, o["name"], be.get("official_website") or "")
     tier = tier_of(r)
+    if not (em and acc) and tier in ("A", "B", "L") and not (be.get("official_website") or "").strip():
+        CB_NOSITE.append((sorted(k for k in o["keys"] if k)[0], o["name"], be.get("address") or {}))
     if not (em and acc) and tier in ("A", "B", "L") and (be.get("official_website") or "").strip():
         # 2026-11-12: a buyer under a current contract with no mailbox of its own on file: its own site goes to the mailbox reader
         # (coord/results/ranked/contract_buyers_without_mailbox.csv, read by tools/lead_crawl.py on the mailbox-crawl runners)
@@ -1508,7 +1524,20 @@ if not _SN and not (_PN > 1):  # the whole table only (a sample or a part would 
         _wc.writerow(["buyer_key", "buyer_name", "website", "canadian_vendor_rows", "example_vendor", "canada_field_value", "evidence_dataset", "latest_record_date"])
         for _k, _n, _w, _c in sorted(CB_NOMAIL, key=lambda t: -t[3]):
             _wc.writerow([_k, _n, _w, _c, "", "buyer under a current contract with a Canada-located vendor (contract dataset)", "", ""])
-print("buyers under a current contract with no confirmed mailbox of their own, whose own site goes to the mailbox reader:", len(CB_NOMAIL))
+if not _SN and not (_PN > 1):
+    with open(ROOT + "/out/ranked/contract_buyers_without_website.csv", "w", encoding="utf-8", newline="") as _fc:
+        _wc = csv.writer(_fc)
+        _wc.writerow(["buyer_key", "buyer_name", "postal_code", "region", "country", "address"])
+        for _k, _n, _a in CB_NOSITE:
+            if isinstance(_a, dict):
+                _pc, _rg, _cc = _a.get("postal_code") or "", _a.get("region") or "", _a.get("country") or ""
+                _txt = ", ".join(str(v_) for v_ in (_a.get("line1"), _a.get("city"), _rg, _pc, _cc) if v_)
+            else:
+                _txt = str(_a or ""); _m = re.search(r"\b([A-Z]\d[A-Z])\s?(\d[A-Z]\d)\b", _txt.upper())
+                _pc, _rg, _cc = (_m.group(1) + _m.group(2)) if _m else "", "", "CA" if _m else ""
+            _wc.writerow([_k, _n, _pc, _rg, _cc, _txt[:200]])
+print("buyers under a current contract with no confirmed mailbox of their own, whose own site goes to the mailbox reader:", len(CB_NOMAIL),
+      "| with no website on file (written for the places lookup):", len(CB_NOSITE), "| websites from the places lookup:", dict(n_cbsite))
 def _in_sample(k):
     import hashlib as _hs
     return not _SN or int(_hs.sha1((k or "").encode()).hexdigest()[:8], 16) % _SN == 0

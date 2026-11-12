@@ -35,14 +35,17 @@ jobs:
           python3 tools/hc_registers.py build --work /tmp/hc 2>&1 | tee -a /tmp/l.txt
           # 2026-11-12: the website an Overture Maps place lists under the company's very name at its postal code (and, for the exchange-issuers
           # lane, under the issuer's name in its province), once a week: one scan of the places for both lanes (tools/overture_names.py)
-          last=$(cut -d' ' -f1 data/incoming/claude/overture/last_query_hc_xc.txt 2>/dev/null || echo 0)
+          last=$(cut -d' ' -f1 data/incoming/claude/overture/last_query_hc_xc_cb.txt 2>/dev/null || echo 0)
           if [ "${OVERTURE}" = "true" ] || [ $(( $(date +%s) - ${last:-0} )) -gt 518400 ]; then
-            pip install -q duckdb && python3 tools/overture_names.py query --lanes hc,xc 2>&1 | tee -a /tmp/l.txt || true
+            pip install -q duckdb && python3 tools/overture_names.py query --lanes hc,xc,cb 2>&1 | tee -a /tmp/l.txt || true
           fi
+          # buyers under a current contract with no website on file (rank.py's list): the candidate is kept on its own home page
+          python3 tools/overture_names.py verify --lane cb --minutes 15 2>&1 | tee -a /tmp/l.txt || true
           python3 tools/hc_registers.py sites --overture --overture-minutes 35 --minutes "$MINUTES" --threads 12 2>&1 | tee -a /tmp/l.txt
           mkdir -p keep && cp data/incoming/claude/hc/hc_companies.csv.gz data/incoming/claude/hc/hc_sites.csv data/incoming/claude/hc/hc_sites_done.tsv keep/
           [ -f data/incoming/claude/hc/hc_overture_done.tsv ] && cp data/incoming/claude/hc/hc_overture_done.tsv keep/
-          mkdir -p keep/ovt && cp data/incoming/claude/overture/*.csv keep/ovt/ 2>/dev/null || true
+          mkdir -p keep/ovt && for f in hc_candidates.csv xc_candidates.csv cb_candidates.csv cb_sites.csv cb_done.tsv last_query_hc_xc_cb.txt; do
+            [ -f "data/incoming/claude/overture/$f" ] && cp "data/incoming/claude/overture/$f" keep/ovt/; done
           STAMP=$(date -u +%Y%m%dT%H%M%S)
           git config user.name "hc-registers"; git config user.email "hc-registers@users.noreply.github.com"
           for i in $(seq 1 10); do
@@ -69,7 +72,7 @@ jobs:
               fi
             done
             cp keep/hc_companies.csv.gz data/incoming/claude/hc/
-            mkdir -p data/incoming/claude/overture && cp keep/ovt/*.csv data/incoming/claude/overture/ 2>/dev/null || true
+            mkdir -p data/incoming/claude/overture && cp keep/ovt/* data/incoming/claude/overture/ 2>/dev/null || true
             python3 tools/hc_registers.py leads --stamp "$STAMP" | tee /tmp/m.txt
             python3 tools/secret_guard.py || true
             git add data/incoming/claude/hc data/incoming/claude/lead_shards data/incoming/claude/overture

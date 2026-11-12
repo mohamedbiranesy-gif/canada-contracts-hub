@@ -127,7 +127,83 @@ def lane_dian():
     return out
 
 
-LANES = {"hc": lane_hc, "xc": lane_xc, "dian": lane_dian}
+def lane_cb():
+    """buyers under a current contract with a Canada-located vendor that have neither a mailbox nor a website on file (rank.py writes the list:
+    coord/results/ranked/contract_buyers_without_website.csv)"""
+    p = os.path.join(ROOT, "coord/results/ranked/contract_buyers_without_website.csv")
+    if not os.path.exists(p):
+        return []
+    have = set()
+    sp = os.path.join(OUT, "cb_sites.csv")
+    if os.path.exists(sp):
+        have = {r["key"] for r in csv.DictReader(open(sp, encoding="utf-8", newline=""))}
+    out = []
+    for r in csv.DictReader(open(p, encoding="utf-8", newline="")):
+        if r["buyer_key"] in have:
+            continue
+        cc = iso2(r.get("country")) or ("CA" if re.match(r"[A-Z]\d[A-Z]\s?\d[A-Z]\d$", (r.get("postal_code") or "").upper().strip()) else "")
+        if not cc:
+            continue
+        pc = norm_pc(r.get("postal_code"), cc)
+        st = (r.get("region") or "").upper().split("-")[-1] if re.match(r"^[A-Za-z-]{2,5}$", r.get("region") or "") else region_of(cc, pc, r.get("address"))
+        out.append((r["buyer_key"], r["buyer_name"], cc, pc, st))
+    return out
+
+
+LANES = {"hc": lane_hc, "xc": lane_xc, "dian": lane_dian, "cb": lane_cb}
+
+
+def verify(a):
+    """lane cb: a candidate site is kept when its own home page carries the buyer's name in its title / site name, or prints the buyer's postal
+    code -> data/incoming/claude/overture/cb_sites.csv (append-only; done list cb_done.tsv)"""
+    import hc_registers as HR
+    cand = collections.defaultdict(list)
+    cp = os.path.join(OUT, "%s_candidates.csv" % a.lane)
+    if not os.path.exists(cp):
+        print("verify: no candidates (%s)" % cp, flush=True)
+        return
+    for r in csv.DictReader(open(cp, encoding="utf-8", newline="")):
+        cand[r["key"]].append(r)
+    meta = {}
+    for k, name, cc, pc, st in LANES[a.lane]():
+        meta[k] = (name, cc, pc)
+    sp, dp = os.path.join(OUT, "%s_sites.csv" % a.lane), os.path.join(OUT, "%s_done.tsv" % a.lane)
+    done = {l.split("\t")[0] for l in open(dp, encoding="utf-8")} if os.path.exists(dp) else set()
+    new = not os.path.exists(sp)
+    t_end, cnt = time.time() + 60 * a.minutes, collections.Counter()
+    with open(sp, "a", encoding="utf-8", newline="") as f, open(dp, "a", encoding="utf-8") as dn:
+        w = csv.DictWriter(f, fieldnames=["key", "site", "tied_by", "quote", "read"])
+        if new:
+            w.writeheader()
+        for k, cs in cand.items():
+            if k in done or k not in meta or time.time() > t_end:
+                continue
+            name, cc, pc = meta[k]
+            n = HR.core(name)
+            hit = None
+            for c in cs:
+                d = c["site"]
+                if HR.BAD.search(d):
+                    continue
+                try:
+                    said = HR.home_says(d, n)
+                    pcs = "" if said else HR.pc_on_home(d, pc, "canada" if cc == "CA" else "united states" if cc == "US" else cc)
+                except Exception:
+                    said, pcs = "", ""
+                if said or pcs:
+                    hit = (c, said, pcs)
+                    break
+            dn.write("%s\t%s\n" % (k, hit[0]["site"] if hit else "")); dn.flush()
+            cnt["asked"] += 1
+            if hit:
+                c, said, pcs = hit
+                how = ("carries the buyer's name: “%s”" % said) if said else ("prints the buyer's postal code: “%s”" % HR.no_mail(pcs))
+                w.writerow({"key": k, "site": "https://%s/" % c["site"], "read": time.strftime("%Y-%m-%d"), "quote": (said or HR.no_mail(pcs))[:300],
+                            "tied_by": "an Overture Maps place lists %s under the buyer's name %s (“%s”, place %s; Overture Maps Foundation open data, release %s), "
+                                       "and the site's own home page %s" % (c["site"], "at its postal code %s" % c["place_postcode"] if pc else "in its province or state",
+                                                                            c["place_name"], c["place_id"], c["release"], how)})
+                f.flush(); cnt["tied"] += 1
+    print("verify %s: %s" % (a.lane, dict(cnt)), flush=True)
 
 
 def query(a):
@@ -205,12 +281,14 @@ def query(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["query"])
+    ap.add_argument("cmd", choices=["query", "verify"])
     ap.add_argument("--lanes", default="hc,xc")
+    ap.add_argument("--lane", default="cb", help="verify: the lane whose candidates to check (cb)")
+    ap.add_argument("--minutes", type=float, default=30)
     ap.add_argument("--dir", default="", help="a glob of local parquet files with the columns name, website, postcode, region, country, id (tests)")
     ap.add_argument("--release", default="")
     a = ap.parse_args()
-    query(a)
+    (verify if a.cmd == "verify" else query)(a)
 
 
 if __name__ == "__main__":
