@@ -1,4 +1,38 @@
-# STATE.md — Claude lane (updated 2026-11-12 21:25Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 23:45Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 23:45Z — three new lanes abroad and the website bottleneck (owner 17:16 and 18:26 EST: "explore the international scene … big bucks",
+## "look everywhere at once", "think like the ideas I gave you")
+
+**Build 22:02Z (a513328): 217,145 ready.** $5k+ a bill: 1,871 published + 349 estimated = 2,220 (owner told). Where the $5k+ rows are held back
+(table of 22:02Z): 2,965 public-contract buyers are not ready, 2,025 of them with a published $5k+ amount — 1,317 have no mailbox (915 of them
+$5k+, 365 with no website at all), ~1,290 have only a contract over 3 years old with no end date (rule 11). The register lanes are held back by
+websites: 2,600 holders of a medical device establishment licence ($5,519 a year, published) had none.
+**New today (all tools + workflows, nothing depends on a session):**
+- `tools/dian_cloud.py` + `dian-imports.yml` (weekly): Colombian import declarations (DIAN) — importer, exporter in Canada with its address,
+  the exporter's invoice number and date, FOB value, goods, form of payment ("Giro directo" …). New kind `export sale`. Site tied only when its
+  own pages print the importer's NIT. First run downloading 12 months (dispatched 23:15Z; ~280 MB a month at ~0.5 MB/s).
+- `tools/f5500_benefits.py` + `f5500.yml` (weekly): US employers whose benefit plans pay a Canadian company (US Department of Labor Form 5500
+  open data). Schedule A: Sun Life Assurance Company of Canada (its U.S. branch, NAIC 80802) insures the plans of 3,873 US employers in the 2024
+  filings (policy number, period, persons covered, benefits, commissions → "more than US$X a month" calculated from the commissions); Schedule
+  C: 50 plans paying a provider in Canada (published compensation $5,000+). New kind `benefit plan contract`. Site tied only on the ZIP code
+  printed after the state (test: 33 of 184). First run dispatched 23:39Z. **Open question to the owner: is a Canadian company's U.S. branch a
+  "Canadian biller"?** (rule 7 says any Canadian entity; the rows say so in the vendor address cell.)
+- `tools/overture_names.py`: one scan of the Overture Maps places gives candidate websites (same name at the same postal code / province /
+  country) for lanes hc, xc, dian, cb (contract buyers with no website: rank.py writes coord/results/ranked/contract_buyers_without_website.csv),
+  f55. Each lane keeps a site only by its own test. First hc run: 419 Health Canada companies tied (137 licence holders).
+- Guessed domains, tied only on a published identifier: hc (postal code on the home or contact page; test 4/30), xc (symbol on its exchange
+  on the home page; test 12/77), dian (NIT), f55 (ZIP after the state).
+**Runs in flight at 23:45Z:** dian-imports (first, 12 months), f5500 (first), hc-registers (overture + guess + autocomplete), exchange-issuers
+(overture + guess), rank-buyers (dispatched 22:43, code before these lanes). The next build after ~00:30Z carries the new rank code.
+**Measured, not built (the owner's road-closure idea):** building permits name the contractor and a declared value (Vancouver 600
+non-residential with a contractor in 12 months, with the contractor's address; Calgary ~750 commercial a year, no address). The buyer would
+stand on where it is (the organisation whose own site prints the permit's address). A few hundred rows: queued.
+**Candidates for the next session (ranked by $5k+ rows they could bring):** PCAOB Form AP (Canadian audit firms auditing SEC issuers; audit
+fees published in the 10-K); the Canada Energy Regulator's cost-recovery levies by company (published); BC's Harvest Billing System (monthly
+stumpage invoices with published amounts); CIRO member firms (published fee model); Accreditation Canada's accredited organisations (Canada and
+abroad); DBRS Limited's issuer-paid ratings; more lobbyist registries (Alberta, Québec, Ontario, Ottawa); regulators' firm registers (ESA,
+HCRA, TICO, RECO, AMVIC …) for count.
+
 
 ## 2026-11-12 21:25Z — build 21:15Z: 216,121 ready; rosters at 342 lists
 
