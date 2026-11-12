@@ -1,0 +1,17 @@
+{
+ "key": "co_fcl",
+ "kind": "dealer",
+ "biller": "Federated Co-operatives Limited (FCL)",
+ "biller_site": "https://www.fcl.crs/",
+ "biller_address": "401 22nd Street East, Saskatoon, SK S7K 0H2",
+ "biller_address_url": "https://www.fcl.crs/contact-us/contact-info",
+ "biller_address_quote": "Federated Co-operatives Limited Home Office : 401 22nd Street East SASKATOON SK S7K 0H2 CANADA",
+ "read": "2026-11-12",
+ "pays_quote": "FCL supplies local retail co-operatives with all of the bakery, deli, produce, meat and pharmacy products required for a full-service grocery supermarket.",
+ "pays_url": "https://www.fcl.crs/our-business/food",
+ "list_name": "the list of the independent retail co-operatives of the Co-operative Retailing System that own and buy from Federated Co-operatives Limited, as FCL's own location service publishes it",
+ "list_hosts": [
+  "digitalservices.crs"
+ ],
+ "list_host_link_url": "https://www.fcl.crs/contact-us/location/?retailsOnly=true"
+}

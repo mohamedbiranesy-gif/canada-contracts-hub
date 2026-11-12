@@ -1,0 +1,13 @@
+{
+ "key": "ia_ibanb",
+ "kind": "member",
+ "biller": "Insurance Brokers Association of New Brunswick (IBANB)",
+ "biller_site": "https://www.ibanb.ca/",
+ "biller_address": "541 Riverside Drive, Fredericton, NB E3A 8S6",
+ "biller_address_url": "https://www.ibanb.ca/contact-us.html",
+ "biller_address_quote": "Mailing Address: Insurance Brokers Association of New Brunswick 541 Riverside Drive Fredericton, NB E3A 8S6",
+ "read": "2026-11-12",
+ "pays_quote": "Fees* Number of Brokers Flat Corporate Fee Per Licensed Broker Fee Subtotal Max 1-10 $500.00 + HST $125.00 per employee No Cap 11+ $1000.00 + HST $125.00 per employee $16,000.00 + HST",
+ "pays_url": "https://www.ibanb.ca/member_signup.html",
+ "list_name": "the Find a Broker directory of member brokerages of the Insurance Brokers Association of New Brunswick"
+}

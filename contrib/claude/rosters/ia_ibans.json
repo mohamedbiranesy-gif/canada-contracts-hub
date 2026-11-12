@@ -1,0 +1,13 @@
+{
+ "key": "ia_ibans",
+ "kind": "member",
+ "biller": "Insurance Brokers Association of Nova Scotia (IBANS)",
+ "biller_site": "https://www.ibans.com/",
+ "biller_address": "214 – 12 Ella Lane, Bedford, NS B4B 2M8",
+ "biller_address_url": "https://www.ibans.com/membership.html",
+ "biller_address_quote": "Contact IBANS 214 – 12 Ella Lane Bedford, NS B4B 2M8",
+ "read": "2026-11-12",
+ "pays_quote": "Yes, membership applications are accepted at any time. Once approved by our board your membership fee would be prorated based on the month you join. Our fiscal year runs from July 1 – June 30.",
+ "pays_url": "https://www.ibans.com/membership.html",
+ "list_name": "the Find a Broker map of member brokerages of the Insurance Brokers Association of Nova Scotia"
+}
