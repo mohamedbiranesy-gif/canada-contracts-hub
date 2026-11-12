@@ -1,0 +1,12 @@
+{
+ "kind": "member",
+ "biller": "Chambre de commerce des Îles-de-la-Madeleine (CCÎM)",
+ "biller_site": "https://ccim.qc.ca/",
+ "biller_address": "500, chemin Principal, bureau J, Cap-aux-Meules, Québec G4T 1E5",
+ "biller_address_url": "https://ccim.qc.ca/contact/",
+ "biller_address_quote": "500 Chemin Principal, Bureau J Cap-aux-Meules, Québec G4T 1E5",
+ "read": "2026-11-12",
+ "pays_quote": "Tarifs Catégories Employé-es Délégué-e(s) Tarifs($) Travailleur autonome Travailleur autonome 1 185 $ Niveau 1 1 à 5 1 235 $ Niveau 2 6 à 25 1 285 $",
+ "pays_url": "https://ccim.qc.ca/tarifs",
+ "list_name": "the member directory of Chambre de commerce des Îles-de-la-Madeleine (CCÎM)"
+}

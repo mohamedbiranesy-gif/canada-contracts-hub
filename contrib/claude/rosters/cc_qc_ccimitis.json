@@ -1,0 +1,12 @@
+{
+ "kind": "member",
+ "biller": "Chambre de commerce et d'industrie de La Mitis (CCIM)",
+ "biller_site": "https://www.ccidelamitis.com/",
+ "biller_address": "12-1564, boulevard Jacques-Cartier, Mont-Joli, QC G5H 2V8",
+ "biller_address_url": "https://www.ccidelamitis.com/contact/",
+ "biller_address_quote": "Adresse 12-1564, boulevard Jacques - Cartier, Mont-Joli, QC, G5H 2V8",
+ "read": "2026-11-12",
+ "pays_quote": "Modalités de paiement En ligne avec votre carte de crédit via la plateforme de paiement sécurisée (Stripe) Virement Interac au :",
+ "pays_url": "https://www.ccidelamitis.com/devenirmembre/",
+ "list_name": "the member directory of Chambre de commerce et d'industrie de La Mitis (CCIM)"
+}
