@@ -45,6 +45,8 @@ KINDS = ("member", "dealer", "tenant", "exhibitor", "sponsor")
 PC = re.compile(r"(?<![A-Za-z0-9])[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d(?![A-Za-z0-9])")
 NOT_OWN = re.compile(r"(?:^|\.)(?:facebook|fb|instagram|linkedin|twitter|x|youtube|youtu|tiktok|pinterest|google|goo|bit|linktr|yelp|tripadvisor|amazon|ebay|etsy|kijiji|"
                      r"wixsite|wordpress|blogspot|weebly|godaddysites|square|shopify|myshopify|canada411|yellowpages|pagesjaunes|eventbrite|zoom|apple|microsoft)\.[a-z.]{2,7}$")
+# "please contact George Chayka at …": a quote that sends the reader to a named person (2026-11-12, a sports club's sponsorship page)
+PERSON_Q = re.compile(r"(?i:\b(?:contact|contacter|communiquer avec|joindre|reach|call|email|e-mail)\b)\s+(?:(?i:mr|ms|mrs|mme|m)\.?\s+)?[A-Z][a-zà-ÿ'’\-]+\s+[A-Z][a-zà-ÿ'’\-]+,?\s+(?i:at|au|à|by|par|on|:)?\s*(?:\(?\d{3}\)?[\s.\-]\d{3}|[A-Za-z0-9._%+-]+@)")
 NEED = ("kind", "biller", "biller_site", "biller_address", "biller_address_url", "biller_address_quote", "read", "pays_quote", "pays_url", "list_name")
 WHAT = {"member": "members pay it dues", "dealer": "the listed party buys from it", "tenant": "the listed party pays it rent, fees or a levy",
         "exhibitor": "the listed party pays it for its stand", "sponsor": "the listed party pays it a sponsorship"}
@@ -111,6 +113,8 @@ def rosters():
             why = "the body's address and its quote must carry a Canadian postal code"
         elif len(D["biller_address_quote"]) > 300 or len(D["pays_quote"]) > 300:
             why = "a quote of more than 300 characters"
+        elif PERSON_Q.search(D["pays_quote"]) or PERSON_Q.search(D["biller_address_quote"]) or re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", D["pays_quote"] + " " + D["biller_address_quote"]):
+            why = "a quote names a person or carries an e-mail address (a row never carries a person's name or mailbox)"
         elif C.registrable(host(D["biller_address_url"])) != C.registrable(host(D["biller_site"])):
             why = "the address must be quoted from the body's own site"
         elif D.get("list_hosts") and C.registrable(host(D.get("list_host_link_url") or "")) != C.registrable(host(D["biller_site"])):
