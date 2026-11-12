@@ -1,164 +1,164 @@
 # Coverage vs the downstream team's targets — 2026-11-12
 
-Benchmarks (field × package with a numeric target): **47 of 438 met** (10.7%); 108 within 10 points; 283 further away.
+Benchmarks (field × package with a numeric target): **46 of 438 met** (10.5%); 108 within 10 points; 284 further away.
 A cell counts as filled only when it carries a value: blank, `not_published`, `not_found_yet` and label-only cells ("no identifier published …", "no dataset record …", "0 in the contract dataset …") do not count; the DNS checks count when checked. `any` = share of non-blank cells incl. such labels. Δ = change since the previous build in `coord/results/coverage_history.csv`.
-Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, P05 424, P06M 15579, P06T 40065, P06 272, P07 697, P08 22233, P09 307, P10R 0, P10 2391, P11 1525, P12 15, P13 118052
+Rows per package: P01M 131, P01T 193, P01_GOLD 641, P02 474, P03 274, P04 3741, P05 427, P06M 15581, P06T 39000, P06 272, P07 694, P08 22076, P09 314, P10R 0, P10 2346, P11 1514, P12 16, P13 129688
 
 ## Invoice-grade readiness (the row as an invoice header: bill-to, submit-to, references, terms, tax, vendor identity, follow-up)
 
 | package | rows | all 11 elements | ≥ 9 of 11 | median elements | most-missing element |
 |---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 19.8% | 8 | vendor GST/HST number (116 rows) |
-| P01T | 194 | 1.0% | 34.5% | 8 | payment terms (153 rows) |
-| P01_GOLD | 636 | 24.4% | 70.8% | 9 | payment terms (221 rows) |
-| P02 | 466 | 7.5% | 54.7% | 9 | PO rule (353 rows) |
-| P03 | 265 | 14.3% | 56.6% | 9 | payment terms (130 rows) |
-| P04 | 3733 | 1.2% | 16.6% | 6 | PO rule (3534 rows) |
-| P05 | 424 | 1.2% | 17.5% | 7 | payment terms (350 rows) |
-| P06M | 15579 | 0.0% | 3.0% | 7 | PO rule (15373 rows) |
-| P06T | 40065 | 0.0% | 11.0% | 6 | PO rule (39819 rows) |
+| P01T | 193 | 1.0% | 34.7% | 8 | payment terms (152 rows) |
+| P01_GOLD | 641 | 24.3% | 70.8% | 9 | payment terms (224 rows) |
+| P02 | 474 | 7.4% | 54.9% | 9 | PO rule (358 rows) |
+| P03 | 274 | 14.6% | 57.3% | 9 | payment terms (136 rows) |
+| P04 | 3741 | 1.1% | 17.4% | 6 | PO rule (3540 rows) |
+| P05 | 427 | 1.2% | 17.8% | 7 | payment terms (352 rows) |
+| P06M | 15581 | 0.0% | 3.0% | 7 | PO rule (15375 rows) |
+| P06T | 39000 | 0.0% | 11.2% | 6 | PO rule (38756 rows) |
 | P06 | 272 | 0.0% | 11.4% | 6 | reference to quote (PO / contract / vendor id) (272 rows) |
-| P07 | 697 | 0.0% | 2.4% | 6 | reference to quote (PO / contract / vendor id) (697 rows) |
-| P08 | 22233 | 0.0% | 0.6% | 6 | reference to quote (PO / contract / vendor id) (22233 rows) |
-| P09 | 307 | 1.3% | 44.6% | 8 | payment terms (286 rows) |
-| P10 | 2391 | 0.0% | 1.0% | 5 | reference to quote (PO / contract / vendor id) (2391 rows) |
-| P11 | 1525 | 0.3% | 8.1% | 6 | PO rule (1452 rows) |
-| P12 | 15 | 0.0% | 53.3% | 9 | PO rule (14 rows) |
-| P13 | 118052 | 0.0% | 0.3% | 6 | reference to quote (PO / contract / vendor id) (118052 rows) |
+| P07 | 694 | 0.0% | 2.4% | 6 | reference to quote (PO / contract / vendor id) (694 rows) |
+| P08 | 22076 | 0.0% | 0.6% | 6 | reference to quote (PO / contract / vendor id) (22076 rows) |
+| P09 | 314 | 1.3% | 45.2% | 8 | payment terms (293 rows) |
+| P10 | 2346 | 0.0% | 1.1% | 5 | reference to quote (PO / contract / vendor id) (2346 rows) |
+| P11 | 1514 | 0.2% | 7.5% | 6 | PO rule (1446 rows) |
+| P12 | 16 | 0.0% | 50.0% | 9 | PO rule (15 rows) |
+| P13 | 129688 | 0.0% | 0.2% | 6 | reference to quote (PO / contract / vendor id) (129688 rows) |
 
 ## AP grade (how stringently the row's accounts-payable data meets what an invoice needs; A = invoicing mailbox referee-confirmed on the buyer's own domain with MX, legal name, address, PO rule and terms all published, no penalties)
 
 | package | rows | A | B | C | D | E | median ap_score |
 |---|---|---|---|---|---|---|---|
 | P01M | 131 | 8 | 26 | 97 | 0 | 0 | 71 |
-| P01T | 194 | 24 | 34 | 136 | 0 | 0 | 70 |
-| P01_GOLD | 636 | 229 | 206 | 201 | 0 | 0 | 82 |
-| P02 | 466 | 0 | 196 | 270 | 0 | 0 | 66 |
-| P03 | 265 | 0 | 0 | 251 | 14 | 0 | 57 |
-| P04 | 3733 | 0 | 0 | 3037 | 696 | 0 | 46 |
-| P05 | 424 | 15 | 30 | 366 | 13 | 0 | 51 |
-| P06M | 15579 | 0 | 10 | 15493 | 76 | 0 | 46 |
-| P06T | 40065 | 0 | 24 | 26729 | 13312 | 0 | 38 |
+| P01T | 193 | 24 | 34 | 135 | 0 | 0 | 70 |
+| P01_GOLD | 641 | 230 | 207 | 204 | 0 | 0 | 82 |
+| P02 | 474 | 0 | 198 | 276 | 0 | 0 | 66 |
+| P03 | 274 | 0 | 0 | 259 | 15 | 0 | 57 |
+| P04 | 3741 | 0 | 0 | 3061 | 680 | 0 | 46 |
+| P05 | 427 | 15 | 30 | 369 | 13 | 0 | 51 |
+| P06M | 15581 | 0 | 10 | 15494 | 77 | 0 | 46 |
+| P06T | 39000 | 0 | 24 | 26247 | 12729 | 0 | 38 |
 | P06 | 272 | 16 | 50 | 206 | 0 | 0 | 70 |
-| P07 | 697 | 0 | 21 | 652 | 24 | 0 | 54 |
-| P08 | 22233 | 0 | 0 | 18951 | 3282 | 0 | 43 |
-| P09 | 307 | 4 | 12 | 290 | 1 | 0 | 53 |
-| P10 | 2391 | 3 | 13 | 1620 | 755 | 0 | 41 |
-| P11 | 1525 | 7 | 15 | 43 | 0 | 1460 | 23 |
-| P12 | 15 | 0 | 0 | 15 | 0 | 0 | 54 |
-| P13 | 118052 | 9 | 61 | 117966 | 16 | 0 | 43 |
+| P07 | 694 | 0 | 21 | 649 | 24 | 0 | 54 |
+| P08 | 22076 | 0 | 0 | 18862 | 3214 | 0 | 43 |
+| P09 | 314 | 4 | 12 | 296 | 2 | 0 | 53 |
+| P10 | 2346 | 3 | 13 | 1589 | 741 | 0 | 41 |
+| P11 | 1514 | 7 | 15 | 43 | 0 | 1449 | 23 |
+| P12 | 16 | 0 | 0 | 16 | 0 | 0 | 54 |
+| P13 | 129688 | 8 | 61 | 129603 | 16 | 0 | 43 |
 
 ### AP payability (confirmed channel + bill-to legal name and address + the buyer's reference rule + tax treatment known)
 
 | package | rows | payable today | % | most common gap |
 |---|---|---|---|---|
 | P01M | 131 | 108 | 82.4% | the buyer's PO / reference rule (12) |
-| P01T | 194 | 118 | 60.8% | bill-to legal name and address (60) |
-| P01_GOLD | 636 | 483 | 75.9% | bill-to legal name and address (96) |
-| P02 | 466 | 315 | 67.6% | the buyer's PO / reference rule (83) |
-| P03 | 265 | 0 | 0.0% | a confirmed invoicing / AP or finance channel (265) |
-| P04 | 3733 | 0 | 0.0% | a confirmed invoicing / AP or finance channel (3733) |
-| P05 | 424 | 47 | 11.1% | a confirmed invoicing / AP or finance channel (337) |
-| P06M | 15579 | 164 | 1.1% | a confirmed invoicing / AP or finance channel (15371) |
-| P06T | 40065 | 249 | 0.6% | a confirmed invoicing / AP or finance channel (39478) |
+| P01T | 193 | 118 | 61.1% | bill-to legal name and address (59) |
+| P01_GOLD | 641 | 488 | 76.1% | bill-to legal name and address (96) |
+| P02 | 474 | 322 | 67.9% | the buyer's PO / reference rule (83) |
+| P03 | 274 | 0 | 0.0% | a confirmed invoicing / AP or finance channel (274) |
+| P04 | 3741 | 0 | 0.0% | a confirmed invoicing / AP or finance channel (3741) |
+| P05 | 427 | 47 | 11.0% | a confirmed invoicing / AP or finance channel (340) |
+| P06M | 15581 | 164 | 1.1% | a confirmed invoicing / AP or finance channel (15373) |
+| P06T | 39000 | 246 | 0.6% | a confirmed invoicing / AP or finance channel (38418) |
 | P06 | 272 | 46 | 16.9% | the buyer's PO / reference rule (117) |
-| P07 | 697 | 6 | 0.9% | the buyer's PO / reference rule (273) |
-| P08 | 22233 | 0 | 0.0% | a confirmed invoicing / AP or finance channel (22233) |
-| P09 | 307 | 42 | 13.7% | a confirmed invoicing / AP or finance channel (255) |
-| P10 | 2391 | 7 | 0.3% | a confirmed invoicing / AP or finance channel (2303) |
-| P11 | 1525 | 14 | 0.9% | a confirmed invoicing / AP or finance channel (1460) |
-| P12 | 15 | 4 | 26.7% | a confirmed invoicing / AP or finance channel (10) |
-| P13 | 118052 | 40 | 0.0% | a confirmed invoicing / AP or finance channel (116114) |
+| P07 | 694 | 6 | 0.9% | the buyer's PO / reference rule (272) |
+| P08 | 22076 | 0 | 0.0% | a confirmed invoicing / AP or finance channel (22076) |
+| P09 | 314 | 42 | 13.4% | a confirmed invoicing / AP or finance channel (262) |
+| P10 | 2346 | 7 | 0.3% | a confirmed invoicing / AP or finance channel (2260) |
+| P11 | 1514 | 14 | 0.9% | a confirmed invoicing / AP or finance channel (1449) |
+| P12 | 16 | 4 | 25.0% | a confirmed invoicing / AP or finance channel (11) |
+| P13 | 129688 | 39 | 0.0% | a confirmed invoicing / AP or finance channel (127698) |
 
 ### Pay on sight (an invoice generated from the row would clear AP: confirmed invoicing / AP or finance channel, bill-to legal name + address, vendor legal name + GST/HST number + remit-to address, tax treatment and currency known — published or labelled-derived; the buyer's reference rule is reported separately)
 
 | package | rows | pay on sight | % | + reference rule not published | routed (general inbox only) | most common gap |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 6 | 4.6% | 7 | 0 | the vendor's GST/HST number (BN9) (114) |
-| P01T | 194 | 70 | 36.1% | 4 | 0 | the vendor's GST/HST number (BN9) (72) |
-| P01_GOLD | 636 | 401 | 63.1% | 11 | 0 | the vendor's GST/HST number (BN9) (159) |
-| P02 | 466 | 208 | 44.6% | 21 | 0 | the vendor's GST/HST number (BN9) (201) |
-| P03 | 265 | 17 | 6.4% | 0 | 129 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (98) |
-| P04 | 3733 | 42 | 1.1% | 7 | 853 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (2773) |
-| P05 | 424 | 20 | 4.7% | 8 | 119 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (210) |
-| P06M | 15579 | 6 | 0.0% | 11 | 403 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (14922) |
-| P06T | 40065 | 234 | 0.6% | 16 | 9521 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (29894) |
+| P01T | 193 | 70 | 36.3% | 4 | 0 | the vendor's GST/HST number (BN9) (71) |
+| P01_GOLD | 641 | 405 | 63.2% | 11 | 0 | the vendor's GST/HST number (BN9) (160) |
+| P02 | 474 | 213 | 44.9% | 21 | 0 | the vendor's GST/HST number (BN9) (203) |
+| P03 | 274 | 17 | 6.2% | 0 | 135 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (101) |
+| P04 | 3741 | 43 | 1.1% | 7 | 882 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (2751) |
+| P05 | 427 | 20 | 4.7% | 8 | 120 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (212) |
+| P06M | 15581 | 6 | 0.0% | 11 | 402 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (14925) |
+| P06T | 39000 | 232 | 0.6% | 16 | 9432 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (28924) |
 | P06 | 272 | 28 | 10.3% | 51 | 0 | the vendor's GST/HST number (BN9) (117) |
-| P07 | 697 | 6 | 0.9% | 111 | 35 | the vendor's GST/HST number (BN9) (308) |
-| P08 | 22233 | 3 | 0.0% | 14 | 4944 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (17226) |
-| P09 | 307 | 38 | 12.4% | 1 | 123 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (123) |
-| P10 | 2391 | 7 | 0.3% | 15 | 304 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (1973) |
-| P11 | 1525 | 9 | 0.6% | 3 | 0 | a confirmed invoicing / AP or finance channel (1443) |
-| P12 | 15 | 3 | 20.0% | 0 | 6 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (4) |
-| P13 | 118052 | 11 | 0.0% | 616 | 31414 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (84533) |
-| **all** | 206985 | 1109 | 0.5% | 896 | 47851 | |
+| P07 | 694 | 6 | 0.9% | 111 | 35 | the vendor's GST/HST number (BN9) (306) |
+| P08 | 22076 | 3 | 0.0% | 14 | 4930 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (17085) |
+| P09 | 314 | 39 | 12.4% | 1 | 128 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (122) |
+| P10 | 2346 | 7 | 0.3% | 15 | 294 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (1940) |
+| P11 | 1514 | 8 | 0.5% | 3 | 0 | a confirmed invoicing / AP or finance channel (1434) |
+| P12 | 16 | 3 | 18.8% | 0 | 6 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (5) |
+| P13 | 129688 | 10 | 0.0% | 633 | 33863 | an invoicing / AP or finance mailbox (only a purchasing / general inbo (93661) |
+| **all** | 217382 | 1116 | 0.5% | 913 | 50227 | |
 
 ### What still blocks grade A (rows per missing element; a row counts under every element it lacks)
 
 | package | rows not A | referee confirmation of the mailbox | an invoicing / AP mailbox (not finance / procurement / general) | a mailbox on the buyer's own domain | MX record for the mailbox domain | published bill-to legal name | invoice / billing address | published PO rule | published payment terms | clear the penalty |
 |---|---|---|---|---|---|---|---|---|---|---|
 | P01M | 123 | 0 | 0 | 0 | 69 | 8 | 0 | 103 | 107 | 4 |
-| P01T | 170 | 0 | 0 | 0 | 93 | 51 | 28 | 139 | 154 | 7 |
-| P01_GOLD | 407 | 0 | 0 | 0 | 13 | 77 | 31 | 201 | 236 | 61 |
-| P02 | 466 | 0 | 466 | 0 | 40 | 53 | 21 | 353 | 281 | 23 |
-| P03 | 265 | 0 | 265 | 0 | 17 | 43 | 27 | 127 | 138 | 25 |
-| P04 | 3733 | 0 | 3733 | 0 | 1626 | 1355 | 1062 | 3534 | 3279 | 166 |
-| P05 | 409 | 0 | 357 | 0 | 79 | 88 | 43 | 341 | 352 | 52 |
-| P06M | 15579 | 0 | 15579 | 0 | 10200 | 1224 | 127 | 15373 | 15252 | 219 |
-| P06T | 40065 | 0 | 40065 | 0 | 35019 | 24600 | 17185 | 39819 | 39459 | 932 |
+| P01T | 169 | 0 | 0 | 0 | 93 | 50 | 28 | 138 | 153 | 7 |
+| P01_GOLD | 411 | 0 | 0 | 0 | 13 | 77 | 31 | 204 | 239 | 61 |
+| P02 | 474 | 0 | 474 | 0 | 41 | 54 | 21 | 358 | 287 | 24 |
+| P03 | 274 | 0 | 274 | 0 | 17 | 44 | 29 | 132 | 144 | 25 |
+| P04 | 3741 | 0 | 3741 | 0 | 1598 | 1339 | 1032 | 3540 | 3284 | 170 |
+| P05 | 412 | 0 | 360 | 0 | 79 | 88 | 43 | 343 | 354 | 53 |
+| P06M | 15581 | 0 | 15581 | 0 | 10202 | 1226 | 128 | 15375 | 15254 | 218 |
+| P06T | 39000 | 0 | 39000 | 0 | 34116 | 23906 | 16387 | 38756 | 38399 | 911 |
 | P06 | 256 | 0 | 0 | 0 | 117 | 71 | 52 | 179 | 214 | 9 |
-| P07 | 697 | 0 | 697 | 0 | 442 | 276 | 133 | 651 | 652 | 13 |
-| P08 | 22233 | 0 | 22233 | 0 | 16863 | 10039 | 4809 | 21949 | 21597 | 431 |
-| P09 | 303 | 0 | 282 | 0 | 9 | 71 | 2 | 277 | 289 | 47 |
-| P10 | 2388 | 0 | 2354 | 0 | 1196 | 1272 | 1102 | 2321 | 2282 | 123 |
-| P11 | 1518 | 1460 | 1413 | 0 | 659 | 1036 | 601 | 1452 | 1451 | 61 |
-| P12 | 15 | 0 | 13 | 0 | 1 | 3 | 0 | 14 | 14 | 1 |
-| P13 | 118043 | 0 | 117657 | 0 | 90125 | 67125 | 24 | 117737 | 117007 | 34 |
+| P07 | 694 | 0 | 694 | 0 | 441 | 275 | 132 | 648 | 650 | 13 |
+| P08 | 22076 | 0 | 22076 | 0 | 16756 | 9950 | 4706 | 21793 | 21441 | 426 |
+| P09 | 310 | 0 | 289 | 0 | 13 | 73 | 3 | 283 | 296 | 48 |
+| P10 | 2343 | 0 | 2309 | 0 | 1182 | 1251 | 1077 | 2276 | 2237 | 123 |
+| P11 | 1507 | 1449 | 1402 | 0 | 659 | 1036 | 601 | 1446 | 1446 | 61 |
+| P12 | 16 | 0 | 14 | 0 | 1 | 4 | 0 | 15 | 15 | 1 |
+| P13 | 129680 | 0 | 129288 | 0 | 100590 | 76139 | 24 | 129367 | 128625 | 35 |
 
 ## Where the work is (largest gaps in rows still needed)
 
 | field | package | now | target | rows needed |
 |---|---|---|---|---|
-| buyer_phone | P13 | 64.5% | 95% | 35957 |
-| buyer_ap_cycle_published | P13 | 0.0% | 20% | 23578 |
-| buyer_bn_as_published | P13 | 10.1% | 30% | 23512 |
-| ap_system_hint | P13 | 0.4% | 20% | 23099 |
-| buyer_logo_url | P13 | 77.9% | 95% | 20206 |
-| buyer_legal_name_as_published | P13 | 43.1% | 60% | 19905 |
-| mta_sts | P13 | 84.0% | 100% | 18881 |
-| tls_rpt | P13 | 84.0% | 100% | 18881 |
-| bimi | P13 | 84.0% | 100% | 18881 |
-| buyer_esignature_preference | P13 | 0.1% | 15% | 17592 |
-| buyer_tax_exempt_status | P13 | 0.1% | 15% | 17547 |
-| buyer_payment_method_preference | P13 | 0.7% | 15% | 16938 |
-| vendor_registered_address | P08 | 30.3% | 70% | 8820 |
-| buyer_ap_cycle_published | P06T | 0.0% | 20% | 8003 |
-| ap_system_hint | P06T | 0.6% | 20% | 7760 |
-| buyer_esignature_preference | P06T | 0.2% | 15% | 5938 |
-| buyer_tax_exempt_status | P06T | 0.2% | 15% | 5927 |
-| buyer_phone | P08 | 68.7% | 95% | 5856 |
-| buyer_payment_method_preference | P06T | 0.6% | 15% | 5786 |
-| invoice_reference_hint | P08 | 1.3% | 25% | 5275 |
-| buyer_legal_name_as_published | P08 | 54.8% | 75% | 4481 |
-| buyer_ap_cycle_published | P08 | 0.0% | 20% | 4436 |
-| buyer_bn_as_published | P08 | 15.2% | 35% | 4401 |
-| vendor_bn9 | P08 | 30.6% | 50% | 4323 |
-| ap_system_hint | P08 | 1.0% | 20% | 4219 |
-| vendor_phone | P08 | 66.1% | 85% | 4194 |
-| vendor_emails | P08 | 56.3% | 75% | 4157 |
-| mta_sts | P06T | 90.3% | 100% | 3901 |
-| tls_rpt | P06T | 90.3% | 100% | 3901 |
-| bimi | P06T | 90.3% | 100% | 3901 |
-| buyer_address | P08 | 78.4% | 95% | 3702 |
-| buyer_esignature_preference | P08 | 0.5% | 15% | 3231 |
-| buyer_tax_exempt_status | P08 | 0.5% | 15% | 3221 |
-| buyer_payment_method_preference | P08 | 0.6% | 15% | 3193 |
-| buyer_ap_cycle_published | P06M | 0.0% | 20% | 3110 |
-| ap_system_hint | P06M | 0.8% | 20% | 2991 |
-| vendor_trading_name | P08 | 36.6% | 50% | 2989 |
-| average_contract_duration_days | P04 | 19.0% | 90% | 2649 |
-| currency | P04 | 25.5% | 95% | 2596 |
-| end_date | P04 | 23.8% | 90% | 2471 |
+| buyer_phone | P13 | 61.7% | 95% | 43231 |
+| buyer_bn_as_published | P13 | 9.6% | 30% | 26454 |
+| buyer_ap_cycle_published | P13 | 0.0% | 20% | 25904 |
+| buyer_logo_url | P13 | 75.1% | 95% | 25796 |
+| ap_system_hint | P13 | 0.4% | 20% | 25394 |
+| buyer_legal_name_as_published | P13 | 41.3% | 60% | 24264 |
+| mta_sts | P13 | 82.6% | 100% | 22588 |
+| tls_rpt | P13 | 82.6% | 100% | 22588 |
+| bimi | P13 | 82.6% | 100% | 22588 |
+| buyer_esignature_preference | P13 | 0.1% | 15% | 19332 |
+| buyer_tax_exempt_status | P13 | 0.1% | 15% | 19287 |
+| buyer_payment_method_preference | P13 | 0.6% | 15% | 18642 |
+| vendor_registered_address | P08 | 30.3% | 70% | 8757 |
+| buyer_ap_cycle_published | P06T | 0.0% | 20% | 7790 |
+| ap_system_hint | P06T | 0.6% | 20% | 7551 |
+| buyer_phone | P08 | 68.7% | 95% | 5813 |
+| buyer_esignature_preference | P06T | 0.2% | 15% | 5778 |
+| buyer_tax_exempt_status | P06T | 0.2% | 15% | 5767 |
+| buyer_payment_method_preference | P06T | 0.6% | 15% | 5633 |
+| invoice_reference_hint | P08 | 1.3% | 25% | 5236 |
+| buyer_legal_name_as_published | P08 | 54.9% | 75% | 4431 |
+| buyer_ap_cycle_published | P08 | 0.0% | 20% | 4405 |
+| buyer_bn_as_published | P08 | 15.2% | 35% | 4366 |
+| vendor_bn9 | P08 | 30.6% | 50% | 4281 |
+| ap_system_hint | P08 | 1.0% | 20% | 4192 |
+| vendor_phone | P08 | 66.1% | 85% | 4178 |
+| vendor_emails | P08 | 56.3% | 75% | 4127 |
+| mta_sts | P06T | 90.3% | 100% | 3770 |
+| tls_rpt | P06T | 90.3% | 100% | 3770 |
+| bimi | P06T | 90.3% | 100% | 3770 |
+| buyer_address | P08 | 78.7% | 95% | 3607 |
+| buyer_esignature_preference | P08 | 0.5% | 15% | 3210 |
+| buyer_tax_exempt_status | P08 | 0.5% | 15% | 3199 |
+| buyer_payment_method_preference | P08 | 0.6% | 15% | 3172 |
+| buyer_ap_cycle_published | P06M | 0.0% | 20% | 3111 |
+| ap_system_hint | P06M | 0.8% | 20% | 2992 |
+| vendor_trading_name | P08 | 36.5% | 50% | 2977 |
+| average_contract_duration_days | P04 | 19.7% | 90% | 2629 |
+| currency | P04 | 26.8% | 95% | 2552 |
+| end_date | P04 | 24.5% | 90% | 2451 |
 
 ## 1. identifiers
 
@@ -167,22 +167,22 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 89.3% | 89.3% | +0.2 | 50% | ✅ met |
-| P01T | 194 | 93.8% | 93.8% | +0.0 | 50% | ✅ met |
-| P01_GOLD | 636 | 92.3% | 94.5% | +0.1 | 95% | 🟡 3 pts to go |
-| P02 | 466 | 74.0% | 75.8% | +0.0 | 95% | ❌ 21 pts to go |
-| P03 | 265 | 80.8% | 83.8% | -0.6 | 95% | ❌ 14 pts to go |
-| P04 | 3733 | 30.0% | 31.7% | -0.2 | 90% | ❌ 60 pts to go |
-| P05 | 424 | 38.4% | 41.3% | -0.2 | 70% | ❌ 32 pts to go |
-| P06M | 15579 | 91.9% | 91.9% | +0.1 | n/a | no target |
-| P06T | 40065 | 98.7% | 98.7% | +0.1 | n/a | no target |
+| P01T | 193 | 93.8% | 93.8% | +0.0 | 50% | ✅ met |
+| P01_GOLD | 641 | 92.4% | 94.5% | +0.2 | 95% | 🟡 3 pts to go |
+| P02 | 474 | 74.5% | 76.2% | +0.5 | 95% | ❌ 20 pts to go |
+| P03 | 274 | 80.7% | 84.3% | -0.7 | 95% | ❌ 14 pts to go |
+| P04 | 3741 | 31.4% | 33.0% | +1.2 | 90% | ❌ 59 pts to go |
+| P05 | 427 | 38.9% | 41.7% | +0.3 | 70% | ❌ 31 pts to go |
+| P06M | 15581 | 91.9% | 91.9% | +0.1 | n/a | no target |
+| P06T | 39000 | 98.7% | 98.7% | +0.1 | n/a | no target |
 | P06 | 272 | 34.2% | 34.2% | -0.2 | 30% | ✅ met |
-| P07 | 697 | 6.6% | 6.6% | -0.3 | 30% | ❌ 23 pts to go |
-| P08 | 22233 | 1.3% | 1.3% | +0.0 | 25% | ❌ 24 pts to go |
-| P09 | 307 | 99.0% | 99.7% | +0.0 | 100% | 🟡 1 pts to go |
-| P10 | 2391 | 2.9% | 3.0% | -0.2 | 25% | ❌ 22 pts to go |
-| P11 | 1525 | 48.5% | 49.4% | +1.6 | 60% | ❌ 12 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P13 | 118052 | 99.8% | 99.8% | +0.1 | 0% by design | — leave (by design) |
+| P07 | 694 | 6.6% | 6.6% | -0.3 | 30% | ❌ 23 pts to go |
+| P08 | 22076 | 1.3% | 1.3% | +0.0 | 25% | ❌ 24 pts to go |
+| P09 | 314 | 99.0% | 99.7% | +0.0 | 100% | 🟡 1 pts to go |
+| P10 | 2346 | 3.0% | 3.1% | -0.1 | 25% | ❌ 22 pts to go |
+| P11 | 1514 | 48.2% | 49.0% | +1.3 | 60% | ❌ 12 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P13 | 129688 | 99.8% | 99.8% | +0.1 | 0% by design | — leave (by design) |
 
 ### `po_number_as_published`
 
@@ -191,44 +191,44 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01T | 194 | 0.0% | 0.0% | +0.0 | 10% | 🟡 10 pts to go |
-| P01_GOLD | 636 | 6.0% | 6.0% | -0.1 | 50% | ❌ 44 pts to go |
-| P02 | 466 | 6.2% | 6.2% | +0.0 | 50% | ❌ 44 pts to go |
-| P03 | 265 | 1.5% | 1.5% | +0.0 | 40% | ❌ 38 pts to go |
-| P04 | 3733 | 0.5% | 0.5% | +0.0 | 30% | ❌ 30 pts to go |
-| P05 | 424 | 0.2% | 0.2% | +0.0 | 20% | ❌ 20 pts to go |
-| P06M | 15579 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.0% | 0.0% | +0.0 | 10% | 🟡 10 pts to go |
+| P01_GOLD | 641 | 5.9% | 5.9% | -0.2 | 50% | ❌ 44 pts to go |
+| P02 | 474 | 6.3% | 6.3% | +0.1 | 50% | ❌ 44 pts to go |
+| P03 | 274 | 1.5% | 1.5% | +0.0 | 40% | ❌ 38 pts to go |
+| P04 | 3741 | 0.5% | 0.5% | +0.0 | 30% | ❌ 30 pts to go |
+| P05 | 427 | 0.2% | 0.2% | +0.0 | 20% | ❌ 20 pts to go |
+| P06M | 15581 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 0.7% | 0.7% | +0.0 | 50% | ❌ 49 pts to go |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 0.3% | 0.3% | +0.0 | n/a | no target |
-| P12 | 15 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 0.6% | 0.6% | -0.1 | 50% | ❌ 49 pts to go |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P12 | 16 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `contract_or_agreement_number`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 82.4% | 82.4% | +0.2 | n/a | no target |
-| P01T | 194 | 74.7% | 74.7% | +0.2 | 50% | ✅ met |
-| P01_GOLD | 636 | 67.1% | 67.1% | +0.3 | 85% | ❌ 18 pts to go |
-| P02 | 466 | 64.8% | 64.8% | +0.0 | 90% | ❌ 25 pts to go |
-| P03 | 265 | 59.2% | 59.2% | -0.5 | 85% | ❌ 26 pts to go |
-| P04 | 3733 | 27.5% | 27.5% | -0.1 | 85% | ❌ 58 pts to go |
-| P05 | 424 | 28.8% | 28.8% | -0.1 | 60% | ❌ 31 pts to go |
-| P06M | 15579 | 91.7% | 91.7% | +0.2 | n/a | no target |
-| P06T | 40065 | 98.6% | 98.6% | +0.2 | n/a | no target |
+| P01T | 193 | 74.6% | 74.6% | +0.1 | 50% | ✅ met |
+| P01_GOLD | 641 | 67.4% | 67.4% | +0.6 | 85% | ❌ 18 pts to go |
+| P02 | 474 | 65.2% | 65.2% | +0.4 | 90% | ❌ 25 pts to go |
+| P03 | 274 | 59.9% | 59.9% | +0.2 | 85% | ❌ 25 pts to go |
+| P04 | 3741 | 28.8% | 28.8% | +1.2 | 85% | ❌ 56 pts to go |
+| P05 | 427 | 29.3% | 29.3% | +0.4 | 60% | ❌ 31 pts to go |
+| P06M | 15581 | 91.7% | 91.7% | +0.2 | n/a | no target |
+| P06T | 39000 | 98.6% | 98.6% | +0.2 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 96.1% | 96.1% | +0.0 | 100% | 🟡 4 pts to go |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 45.0% | 45.0% | +1.7 | 60% | ❌ 15 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 96.2% | 96.2% | +0.1 | 100% | 🟡 4 pts to go |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 44.6% | 44.6% | +1.3 | 60% | ❌ 15 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `solicitation_or_tender_number`
 
@@ -237,132 +237,132 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01T | 194 | 0.0% | 0.0% | +0.0 | 30% | ❌ 30 pts to go |
-| P01_GOLD | 636 | 51.1% | 51.1% | +0.3 | 80% | ❌ 29 pts to go |
-| P02 | 466 | 56.9% | 56.9% | +0.0 | 60% | 🟡 3 pts to go |
-| P03 | 265 | 49.8% | 49.8% | -0.4 | 80% | ❌ 30 pts to go |
-| P04 | 3733 | 22.8% | 22.8% | -0.1 | 50% | ❌ 27 pts to go |
-| P05 | 424 | 11.3% | 11.3% | -0.1 | 40% | ❌ 29 pts to go |
-| P06M | 15579 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.0% | 0.0% | +0.0 | 30% | ❌ 30 pts to go |
+| P01_GOLD | 641 | 51.5% | 51.5% | +0.7 | 80% | ❌ 28 pts to go |
+| P02 | 474 | 57.2% | 57.2% | +0.3 | 60% | 🟡 3 pts to go |
+| P03 | 274 | 50.0% | 50.0% | -0.2 | 80% | ❌ 30 pts to go |
+| P04 | 3741 | 24.0% | 24.0% | +1.1 | 50% | ❌ 26 pts to go |
+| P05 | 427 | 11.7% | 11.7% | +0.3 | 40% | ❌ 28 pts to go |
+| P06M | 15581 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 83.1% | 83.1% | -0.3 | 50% | ✅ met |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 5.2% | 5.2% | -0.4 | 40% | ❌ 35 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 82.8% | 82.8% | -0.6 | 50% | ✅ met |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 4.5% | 4.5% | -1.1 | 40% | ❌ 36 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `award_or_notice_id`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01T | 194 | 0.5% | 0.5% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 61.0% | 61.0% | +0.6 | 85% | ❌ 24 pts to go |
-| P02 | 466 | 56.2% | 56.2% | +0.0 | 90% | ❌ 34 pts to go |
-| P03 | 265 | 58.1% | 58.1% | -0.5 | 85% | ❌ 27 pts to go |
-| P04 | 3733 | 23.5% | 23.5% | -0.1 | 85% | ❌ 62 pts to go |
-| P05 | 424 | 19.6% | 19.6% | -0.1 | 50% | ❌ 30 pts to go |
-| P06M | 15579 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.5% | 0.5% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 61.3% | 61.3% | +0.9 | 85% | ❌ 24 pts to go |
+| P02 | 474 | 56.8% | 56.8% | +0.6 | 90% | ❌ 33 pts to go |
+| P03 | 274 | 58.4% | 58.4% | -0.2 | 85% | ❌ 27 pts to go |
+| P04 | 3741 | 24.9% | 24.9% | +1.3 | 85% | ❌ 60 pts to go |
+| P05 | 427 | 19.9% | 19.9% | +0.2 | 50% | ❌ 30 pts to go |
+| P06M | 15581 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 97.1% | 97.1% | +0.0 | 100% | 🟡 3 pts to go |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 5.6% | 5.6% | -0.4 | 60% | ❌ 54 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 97.1% | 97.1% | +0.0 | 100% | 🟡 3 pts to go |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 5.0% | 5.0% | -1.0 | 60% | ❌ 55 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `buyer_vendor_id`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01T | 194 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 13.4% | 13.4% | +0.5 | 60% | ❌ 47 pts to go |
-| P02 | 466 | 6.0% | 6.0% | +0.0 | 50% | ❌ 44 pts to go |
-| P03 | 265 | 7.9% | 7.9% | -0.5 | 50% | ❌ 42 pts to go |
-| P04 | 3733 | 1.8% | 1.8% | +0.0 | 40% | ❌ 38 pts to go |
-| P05 | 424 | 0.7% | 0.7% | +0.0 | 20% | ❌ 19 pts to go |
-| P06M | 15579 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 13.4% | 13.4% | +0.5 | 60% | ❌ 47 pts to go |
+| P02 | 474 | 6.1% | 6.1% | +0.1 | 50% | ❌ 44 pts to go |
+| P03 | 274 | 7.7% | 7.7% | -0.7 | 50% | ❌ 42 pts to go |
+| P04 | 3741 | 1.8% | 1.8% | +0.0 | 40% | ❌ 38 pts to go |
+| P05 | 427 | 0.7% | 0.7% | +0.0 | 20% | ❌ 19 pts to go |
+| P06M | 15581 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 3.3% | 3.3% | +0.0 | 50% | ❌ 47 pts to go |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 0.7% | 0.7% | -0.2 | n/a | no target |
-| P12 | 15 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 3.5% | 3.5% | +0.2 | 50% | ❌ 46 pts to go |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 0.7% | 0.7% | -0.2 | n/a | no target |
+| P12 | 16 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `commodity_codes`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01T | 194 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 35.5% | 35.5% | +0.7 | 80% | ❌ 44 pts to go |
-| P02 | 466 | 51.9% | 51.9% | +0.0 | 90% | ❌ 38 pts to go |
-| P03 | 265 | 32.5% | 32.5% | -0.2 | 80% | ❌ 48 pts to go |
-| P04 | 3733 | 21.5% | 21.5% | -0.1 | 85% | ❌ 64 pts to go |
-| P05 | 424 | 5.4% | 5.4% | -0.1 | 50% | ❌ 45 pts to go |
-| P06M | 15579 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 35.6% | 35.6% | +0.8 | 80% | ❌ 44 pts to go |
+| P02 | 474 | 52.1% | 52.1% | +0.2 | 90% | ❌ 38 pts to go |
+| P03 | 274 | 32.8% | 32.8% | +0.1 | 80% | ❌ 47 pts to go |
+| P04 | 3741 | 22.3% | 22.3% | +0.7 | 85% | ❌ 63 pts to go |
+| P05 | 427 | 5.6% | 5.6% | +0.1 | 50% | ❌ 44 pts to go |
+| P06M | 15581 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 74.9% | 74.9% | +0.6 | 95% | ❌ 20 pts to go |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 3.9% | 3.9% | -0.4 | 50% | ❌ 46 pts to go |
-| P12 | 15 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 74.5% | 74.5% | +0.2 | 95% | ❌ 20 pts to go |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 3.5% | 3.5% | -0.8 | 50% | ❌ 46 pts to go |
+| P12 | 16 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `buyer_org_codes`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01T | 194 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 8.5% | 8.5% | +0.0 | 50% | ❌ 42 pts to go |
-| P02 | 466 | 6.2% | 6.2% | +0.0 | 50% | ❌ 44 pts to go |
-| P03 | 265 | 1.9% | 1.9% | +0.0 | 30% | ❌ 28 pts to go |
-| P04 | 3733 | 0.5% | 0.5% | +0.0 | 30% | ❌ 30 pts to go |
-| P05 | 424 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P06M | 15579 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 8.4% | 8.4% | -0.1 | 50% | ❌ 42 pts to go |
+| P02 | 474 | 6.3% | 6.3% | +0.1 | 50% | ❌ 44 pts to go |
+| P03 | 274 | 1.8% | 1.8% | -0.1 | 30% | ❌ 28 pts to go |
+| P04 | 3741 | 0.5% | 0.5% | +0.0 | 30% | ❌ 30 pts to go |
+| P05 | 427 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P06M | 15581 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 0.3% | 0.3% | +0.0 | n/a | no target |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 0.3% | 0.3% | +0.0 | n/a | no target |
-| P12 | 15 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P12 | 16 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `records_with_this_vendor`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P01T | 194 | 100.0% | 100.0% | +0.0 | 60% | ✅ met |
-| P01_GOLD | 636 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P02 | 466 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P03 | 265 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P04 | 3733 | 100.0% | 100.0% | +0.0 | 95% | ✅ met |
-| P05 | 424 | 100.0% | 100.0% | +0.0 | 70% | ✅ met |
-| P06M | 15579 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P01T | 193 | 100.0% | 100.0% | +0.0 | 60% | ✅ met |
+| P01_GOLD | 641 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P02 | 474 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P03 | 274 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P04 | 3741 | 100.0% | 100.0% | +0.0 | 95% | ✅ met |
+| P05 | 427 | 100.0% | 100.0% | +0.0 | 70% | ✅ met |
+| P06M | 15581 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 100.0% | 100.0% | +0.0 | n/a | no target |
 | P06 | 272 | 100.0% | 100.0% | +0.0 | 50% | ✅ met |
-| P07 | 697 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P09 | 307 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P10 | 2391 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 100.0% | 100.0% | +0.0 | 70% | ✅ met |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P09 | 314 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P10 | 2346 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 100.0% | 100.0% | +0.0 | 70% | ✅ met |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ## 2. vendor
 
@@ -371,132 +371,132 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 11.5% | 11.5% | -0.1 | 70% | ❌ 58 pts to go |
-| P01T | 194 | 52.1% | 52.1% | +1.6 | 60% | 🟡 8 pts to go |
-| P01_GOLD | 636 | 72.6% | 72.6% | -2.2 | 90% | ❌ 17 pts to go |
-| P02 | 466 | 53.2% | 53.2% | -0.4 | 85% | ❌ 32 pts to go |
-| P03 | 265 | 66.4% | 66.4% | -3.2 | 90% | ❌ 24 pts to go |
-| P04 | 3733 | 34.5% | 34.5% | -0.5 | 75% | ❌ 40 pts to go |
-| P05 | 424 | 53.3% | 53.3% | -1.4 | 50% | ✅ met |
-| P06M | 15579 | 3.1% | 3.1% | -0.1 | n/a | no target |
-| P06T | 40065 | 48.5% | 48.5% | +1.2 | n/a | no target |
+| P01T | 193 | 52.3% | 52.3% | +1.8 | 60% | 🟡 8 pts to go |
+| P01_GOLD | 641 | 72.7% | 72.7% | -2.1 | 90% | ❌ 17 pts to go |
+| P02 | 474 | 53.6% | 53.6% | +0.0 | 85% | ❌ 31 pts to go |
+| P03 | 274 | 67.2% | 67.2% | -2.4 | 90% | ❌ 23 pts to go |
+| P04 | 3741 | 35.0% | 35.0% | +0.0 | 75% | ❌ 40 pts to go |
+| P05 | 427 | 53.2% | 53.2% | -1.5 | 50% | ✅ met |
+| P06M | 15581 | 3.1% | 3.1% | -0.1 | n/a | no target |
+| P06T | 39000 | 48.8% | 48.8% | +1.5 | n/a | no target |
 | P06 | 272 | 43.8% | 43.8% | -0.2 | 40% | ✅ met |
-| P07 | 697 | 32.7% | 32.7% | -0.3 | 50% | ❌ 17 pts to go |
-| P08 | 22233 | 30.6% | 30.6% | +0.1 | 50% | ❌ 19 pts to go |
-| P09 | 307 | 57.0% | 57.0% | -1.3 | 80% | ❌ 23 pts to go |
-| P10 | 2391 | 34.2% | 34.2% | -0.3 | 40% | 🟡 6 pts to go |
-| P11 | 1525 | 47.6% | 47.6% | +0.7 | 60% | ❌ 12 pts to go |
-| P12 | 15 | 60.0% | 60.0% | +0.0 | 85% | ❌ 25 pts to go |
-| P13 | 118052 | 30.1% | 30.1% | -1.6 | 0% by design | — leave (by design) |
+| P07 | 694 | 32.7% | 32.7% | -0.3 | 50% | ❌ 17 pts to go |
+| P08 | 22076 | 30.6% | 30.6% | +0.1 | 50% | ❌ 19 pts to go |
+| P09 | 314 | 57.6% | 57.6% | -0.7 | 80% | ❌ 22 pts to go |
+| P10 | 2346 | 34.2% | 34.2% | -0.3 | 40% | 🟡 6 pts to go |
+| P11 | 1514 | 47.4% | 47.4% | +0.5 | 60% | ❌ 13 pts to go |
+| P12 | 16 | 56.2% | 56.2% | -3.8 | 85% | ❌ 29 pts to go |
+| P13 | 129688 | 29.5% | 29.5% | -2.2 | 0% by design | — leave (by design) |
 
 ### `vendor_registered_address`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 58.8% | 58.8% | -0.9 | n/a | no target |
-| P01T | 194 | 53.1% | 53.1% | +2.1 | n/a | no target |
-| P01_GOLD | 636 | 71.4% | 71.4% | -1.3 | 95% | ❌ 24 pts to go |
-| P02 | 466 | 74.2% | 74.2% | +0.4 | 95% | ❌ 21 pts to go |
-| P03 | 265 | 69.1% | 69.1% | -2.8 | 95% | ❌ 26 pts to go |
-| P04 | 3733 | 49.2% | 49.2% | +0.0 | 95% | ❌ 46 pts to go |
-| P05 | 424 | 57.5% | 57.5% | -0.8 | 70% | ❌ 12 pts to go |
-| P06M | 15579 | 45.4% | 45.4% | -0.6 | n/a | no target |
-| P06T | 40065 | 57.5% | 57.5% | +1.3 | n/a | no target |
+| P01T | 193 | 53.4% | 53.4% | +2.4 | n/a | no target |
+| P01_GOLD | 641 | 71.5% | 71.5% | -1.2 | 95% | ❌ 24 pts to go |
+| P02 | 474 | 74.5% | 74.5% | +0.7 | 95% | ❌ 20 pts to go |
+| P03 | 274 | 69.3% | 69.3% | -2.6 | 95% | ❌ 26 pts to go |
+| P04 | 3741 | 49.9% | 49.9% | +0.7 | 95% | ❌ 45 pts to go |
+| P05 | 427 | 57.4% | 57.4% | -0.9 | 70% | ❌ 13 pts to go |
+| P06M | 15581 | 45.4% | 45.4% | -0.6 | n/a | no target |
+| P06T | 39000 | 57.8% | 57.8% | +1.6 | n/a | no target |
 | P06 | 272 | 41.2% | 41.2% | +0.2 | 80% | ❌ 39 pts to go |
-| P07 | 697 | 32.1% | 32.1% | +0.2 | 70% | ❌ 38 pts to go |
-| P08 | 22233 | 30.3% | 30.3% | +0.0 | 70% | ❌ 40 pts to go |
-| P09 | 307 | 86.6% | 86.6% | +0.0 | 100% | ❌ 13 pts to go |
-| P10 | 2391 | 35.5% | 35.5% | +0.0 | 70% | ❌ 34 pts to go |
-| P11 | 1525 | 53.4% | 53.4% | +0.9 | 75% | ❌ 22 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 25.5% | 25.5% | -1.4 | n/a | no target |
+| P07 | 694 | 32.3% | 32.3% | +0.4 | 70% | ❌ 38 pts to go |
+| P08 | 22076 | 30.3% | 30.3% | +0.0 | 70% | ❌ 40 pts to go |
+| P09 | 314 | 86.3% | 86.3% | -0.3 | 100% | ❌ 14 pts to go |
+| P10 | 2346 | 35.6% | 35.6% | +0.1 | 70% | ❌ 34 pts to go |
+| P11 | 1514 | 53.2% | 53.2% | +0.7 | 75% | ❌ 22 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 24.9% | 24.9% | -2.0 | n/a | no target |
 
 ### `vendor_trading_name`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 16.8% | 16.8% | -0.3 | n/a | no target |
-| P01T | 194 | 55.2% | 55.2% | +1.6 | n/a | no target |
-| P01_GOLD | 636 | 48.4% | 48.4% | -1.4 | 60% | ❌ 12 pts to go |
-| P02 | 466 | 56.2% | 56.2% | +0.0 | 60% | 🟡 4 pts to go |
-| P03 | 265 | 54.3% | 54.3% | -0.8 | 60% | 🟡 6 pts to go |
-| P04 | 3733 | 42.5% | 42.5% | +0.4 | 55% | ❌ 12 pts to go |
-| P05 | 424 | 24.3% | 24.3% | -0.3 | 50% | ❌ 26 pts to go |
-| P06M | 15579 | 6.8% | 6.8% | +0.0 | n/a | no target |
-| P06T | 40065 | 51.0% | 51.0% | +0.1 | n/a | no target |
+| P01T | 193 | 56.0% | 56.0% | +2.4 | n/a | no target |
+| P01_GOLD | 641 | 48.4% | 48.4% | -1.4 | 60% | ❌ 12 pts to go |
+| P02 | 474 | 56.5% | 56.5% | +0.3 | 60% | 🟡 4 pts to go |
+| P03 | 274 | 55.1% | 55.1% | +0.0 | 60% | 🟡 5 pts to go |
+| P04 | 3741 | 42.9% | 42.9% | +0.8 | 55% | ❌ 12 pts to go |
+| P05 | 427 | 24.4% | 24.4% | -0.2 | 50% | ❌ 26 pts to go |
+| P06M | 15581 | 6.8% | 6.8% | +0.0 | n/a | no target |
+| P06T | 39000 | 51.2% | 51.2% | +0.3 | n/a | no target |
 | P06 | 272 | 48.5% | 48.5% | +0.9 | n/a | no target |
-| P07 | 697 | 41.9% | 41.9% | +1.0 | 55% | ❌ 13 pts to go |
-| P08 | 22233 | 36.6% | 36.6% | +0.4 | 50% | ❌ 13 pts to go |
-| P09 | 307 | 72.0% | 72.0% | -0.3 | 70% | ✅ met |
-| P10 | 2391 | 47.7% | 47.7% | +0.9 | 55% | 🟡 7 pts to go |
-| P11 | 1525 | 54.2% | 54.2% | +2.0 | 50% | ✅ met |
-| P12 | 15 | 86.7% | 86.7% | +0.0 | n/a | no target |
-| P13 | 118052 | 3.2% | 3.2% | -0.2 | n/a | no target |
+| P07 | 694 | 41.8% | 41.8% | +0.9 | 55% | ❌ 13 pts to go |
+| P08 | 22076 | 36.5% | 36.5% | +0.3 | 50% | ❌ 14 pts to go |
+| P09 | 314 | 72.0% | 72.0% | -0.3 | 70% | ✅ met |
+| P10 | 2346 | 47.7% | 47.7% | +0.9 | 55% | 🟡 7 pts to go |
+| P11 | 1514 | 54.0% | 54.0% | +1.8 | 50% | ✅ met |
+| P12 | 16 | 87.5% | 87.5% | +0.8 | n/a | no target |
+| P13 | 129688 | 3.2% | 3.2% | -0.2 | n/a | no target |
 
 ### `vendor_phone`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 49.6% | 49.6% | -0.8 | n/a | no target |
-| P01T | 194 | 75.8% | 75.8% | +1.3 | n/a | no target |
-| P01_GOLD | 636 | 49.4% | 49.4% | -1.1 | 70% | ❌ 21 pts to go |
-| P02 | 466 | 57.3% | 57.3% | -0.9 | 70% | ❌ 13 pts to go |
-| P03 | 265 | 50.6% | 50.6% | -0.7 | 70% | ❌ 19 pts to go |
-| P04 | 3733 | 56.0% | 56.0% | +1.9 | 65% | 🟡 9 pts to go |
-| P05 | 424 | 28.3% | 28.3% | -0.1 | 60% | ❌ 32 pts to go |
-| P06M | 15579 | 35.8% | 35.8% | -0.8 | n/a | no target |
-| P06T | 40065 | 78.1% | 78.1% | -1.9 | n/a | no target |
+| P01T | 193 | 75.6% | 75.6% | +1.1 | n/a | no target |
+| P01_GOLD | 641 | 49.5% | 49.5% | -1.0 | 70% | ❌ 20 pts to go |
+| P02 | 474 | 57.0% | 57.0% | -1.2 | 70% | ❌ 13 pts to go |
+| P03 | 274 | 51.1% | 51.1% | -0.2 | 70% | ❌ 19 pts to go |
+| P04 | 3741 | 55.7% | 55.7% | +1.6 | 65% | 🟡 9 pts to go |
+| P05 | 427 | 28.6% | 28.6% | +0.2 | 60% | ❌ 31 pts to go |
+| P06M | 15581 | 35.8% | 35.8% | -0.8 | n/a | no target |
+| P06T | 39000 | 77.8% | 77.8% | -2.2 | n/a | no target |
 | P06 | 272 | 69.1% | 69.1% | +0.2 | 40% | ✅ met |
-| P07 | 697 | 65.6% | 65.6% | +0.7 | 85% | ❌ 19 pts to go |
-| P08 | 22233 | 66.1% | 66.1% | +0.8 | 85% | ❌ 19 pts to go |
-| P09 | 307 | 57.7% | 57.7% | -1.6 | 85% | ❌ 27 pts to go |
-| P10 | 2391 | 66.1% | 66.1% | +2.6 | 85% | ❌ 19 pts to go |
-| P11 | 1525 | 63.1% | 63.1% | +1.2 | 75% | ❌ 12 pts to go |
-| P12 | 15 | 33.3% | 33.3% | +6.6 | n/a | no target |
-| P13 | 118052 | 91.8% | 91.8% | +0.6 | 60% | ✅ met |
+| P07 | 694 | 65.4% | 65.4% | +0.5 | 85% | ❌ 20 pts to go |
+| P08 | 22076 | 66.1% | 66.1% | +0.8 | 85% | ❌ 19 pts to go |
+| P09 | 314 | 57.3% | 57.3% | -2.0 | 85% | ❌ 28 pts to go |
+| P10 | 2346 | 66.2% | 66.2% | +2.7 | 85% | ❌ 19 pts to go |
+| P11 | 1514 | 63.1% | 63.1% | +1.2 | 75% | ❌ 12 pts to go |
+| P12 | 16 | 37.5% | 37.5% | +10.8 | n/a | no target |
+| P13 | 129688 | 92.0% | 92.0% | +0.8 | 60% | ✅ met |
 
 ### `vendor_website`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 55.7% | 55.7% | -0.9 | n/a | no target |
-| P01T | 194 | 97.4% | 97.4% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 78.5% | 78.5% | -1.1 | 90% | ❌ 12 pts to go |
-| P02 | 466 | 82.6% | 82.6% | -1.3 | 90% | 🟡 7 pts to go |
-| P03 | 265 | 87.2% | 87.2% | -0.6 | 90% | 🟡 3 pts to go |
-| P04 | 3733 | 84.1% | 84.1% | -0.3 | 85% | 🟡 1 pts to go |
-| P05 | 424 | 44.8% | 44.8% | +0.0 | 70% | ❌ 25 pts to go |
-| P06M | 15579 | 42.3% | 42.3% | -1.3 | n/a | no target |
-| P06T | 40065 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P01T | 193 | 97.4% | 97.4% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 78.5% | 78.5% | -1.1 | 90% | ❌ 12 pts to go |
+| P02 | 474 | 82.5% | 82.5% | -1.4 | 90% | 🟡 8 pts to go |
+| P03 | 274 | 86.9% | 86.9% | -0.9 | 90% | 🟡 3 pts to go |
+| P04 | 3741 | 83.7% | 83.7% | -0.7 | 85% | 🟡 1 pts to go |
+| P05 | 427 | 45.0% | 45.0% | +0.2 | 70% | ❌ 25 pts to go |
+| P06M | 15581 | 42.3% | 42.3% | -1.3 | n/a | no target |
+| P06T | 39000 | 100.0% | 100.0% | +0.0 | n/a | no target |
 | P06 | 272 | 99.3% | 99.3% | +0.0 | 50% | ✅ met |
-| P07 | 697 | 99.9% | 99.9% | +0.0 | 100% | 🟡 0 pts to go |
-| P08 | 22233 | 99.8% | 99.8% | +0.0 | 100% | 🟡 0 pts to go |
-| P09 | 307 | 78.2% | 78.2% | -1.6 | 100% | ❌ 22 pts to go |
-| P10 | 2391 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P11 | 1525 | 97.4% | 97.4% | +0.1 | 100% | 🟡 3 pts to go |
-| P12 | 15 | 53.3% | 53.3% | +0.0 | n/a | no target |
-| P13 | 118052 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P07 | 694 | 99.9% | 99.9% | +0.0 | 100% | 🟡 0 pts to go |
+| P08 | 22076 | 99.8% | 99.8% | +0.0 | 100% | 🟡 0 pts to go |
+| P09 | 314 | 78.0% | 78.0% | -1.8 | 100% | ❌ 22 pts to go |
+| P10 | 2346 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P11 | 1514 | 97.5% | 97.5% | +0.2 | 100% | 🟡 2 pts to go |
+| P12 | 16 | 56.2% | 56.2% | +2.9 | n/a | no target |
+| P13 | 129688 | 100.0% | 100.0% | +0.0 | n/a | no target |
 
 ### `vendor_emails`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 15.3% | 15.3% | -0.2 | n/a | no target |
-| P01T | 194 | 66.5% | 66.5% | +1.4 | n/a | no target |
-| P01_GOLD | 636 | 42.3% | 42.3% | -1.2 | 70% | ❌ 28 pts to go |
-| P02 | 466 | 48.1% | 48.1% | -0.6 | 75% | ❌ 27 pts to go |
-| P03 | 265 | 43.4% | 43.4% | +0.1 | 75% | ❌ 32 pts to go |
-| P04 | 3733 | 39.5% | 39.5% | +0.8 | 70% | ❌ 30 pts to go |
-| P05 | 424 | 22.2% | 22.2% | +0.2 | 55% | ❌ 33 pts to go |
-| P06M | 15579 | 4.7% | 4.7% | -0.1 | n/a | no target |
-| P06T | 40065 | 64.2% | 64.2% | +2.1 | n/a | no target |
+| P01T | 193 | 65.8% | 65.8% | +0.7 | n/a | no target |
+| P01_GOLD | 641 | 42.1% | 42.1% | -1.4 | 70% | ❌ 28 pts to go |
+| P02 | 474 | 48.3% | 48.3% | -0.4 | 75% | ❌ 27 pts to go |
+| P03 | 274 | 43.4% | 43.4% | +0.1 | 75% | ❌ 32 pts to go |
+| P04 | 3741 | 39.6% | 39.6% | +0.9 | 70% | ❌ 30 pts to go |
+| P05 | 427 | 22.0% | 22.0% | +0.0 | 55% | ❌ 33 pts to go |
+| P06M | 15581 | 4.7% | 4.7% | -0.1 | n/a | no target |
+| P06T | 39000 | 64.1% | 64.1% | +2.0 | n/a | no target |
 | P06 | 272 | 49.3% | 49.3% | +2.4 | n/a | no target |
-| P07 | 697 | 50.8% | 50.8% | +0.8 | 70% | ❌ 19 pts to go |
-| P08 | 22233 | 56.3% | 56.3% | +1.5 | 75% | ❌ 19 pts to go |
-| P09 | 307 | 48.5% | 48.5% | -0.7 | 85% | ❌ 36 pts to go |
-| P10 | 2391 | 44.8% | 44.8% | +1.2 | 80% | ❌ 35 pts to go |
-| P11 | 1525 | 56.2% | 56.2% | +1.9 | 70% | ❌ 14 pts to go |
-| P12 | 15 | 40.0% | 40.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 5.3% | 5.3% | +0.1 | n/a | no target |
+| P07 | 694 | 51.0% | 51.0% | +1.0 | 70% | ❌ 19 pts to go |
+| P08 | 22076 | 56.3% | 56.3% | +1.5 | 75% | ❌ 19 pts to go |
+| P09 | 314 | 47.8% | 47.8% | -1.4 | 85% | ❌ 37 pts to go |
+| P10 | 2346 | 44.6% | 44.6% | +1.0 | 80% | ❌ 35 pts to go |
+| P11 | 1514 | 56.2% | 56.2% | +1.9 | 70% | ❌ 14 pts to go |
+| P12 | 16 | 37.5% | 37.5% | -2.5 | n/a | no target |
+| P13 | 129688 | 5.3% | 5.3% | +0.1 | n/a | no target |
 
 ### `vendor_logo_url`
 
@@ -505,22 +505,22 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 55.7% | 55.7% | -0.9 | n/a | no target |
-| P01T | 194 | 95.4% | 95.4% | +0.6 | n/a | no target |
-| P01_GOLD | 636 | 72.0% | 72.0% | -1.8 | 90% | ❌ 18 pts to go |
-| P02 | 466 | 77.7% | 77.7% | -1.3 | 90% | ❌ 12 pts to go |
-| P03 | 265 | 83.4% | 83.4% | +0.1 | 90% | 🟡 7 pts to go |
-| P04 | 3733 | 78.9% | 78.9% | +2.5 | 85% | 🟡 6 pts to go |
-| P05 | 424 | 43.4% | 43.4% | +0.3 | 75% | ❌ 32 pts to go |
-| P06M | 15579 | 42.1% | 42.1% | -1.2 | n/a | no target |
-| P06T | 40065 | 97.1% | 97.1% | +0.4 | n/a | no target |
+| P01T | 193 | 95.3% | 95.3% | +0.5 | n/a | no target |
+| P01_GOLD | 641 | 72.1% | 72.1% | -1.7 | 90% | ❌ 18 pts to go |
+| P02 | 474 | 77.4% | 77.4% | -1.6 | 90% | ❌ 13 pts to go |
+| P03 | 274 | 83.2% | 83.2% | -0.1 | 90% | 🟡 7 pts to go |
+| P04 | 3741 | 78.6% | 78.6% | +2.2 | 85% | 🟡 6 pts to go |
+| P05 | 427 | 43.6% | 43.6% | +0.5 | 75% | ❌ 31 pts to go |
+| P06M | 15581 | 42.1% | 42.1% | -1.2 | n/a | no target |
+| P06T | 39000 | 97.1% | 97.1% | +0.4 | n/a | no target |
 | P06 | 272 | 92.3% | 92.3% | +1.8 | n/a | no target |
-| P07 | 697 | 93.7% | 93.7% | +1.2 | 100% | 🟡 6 pts to go |
-| P08 | 22233 | 92.8% | 92.8% | +2.0 | 100% | 🟡 7 pts to go |
-| P09 | 307 | 67.1% | 67.1% | +1.0 | n/a | no target |
-| P10 | 2391 | 90.0% | 90.0% | +3.2 | 100% | 🟡 10 pts to go |
-| P11 | 1525 | 89.4% | 89.4% | +1.7 | n/a | no target |
-| P12 | 15 | 53.3% | 53.3% | +6.6 | n/a | no target |
-| P13 | 118052 | 67.0% | 67.0% | +1.8 | n/a | no target |
+| P07 | 694 | 93.7% | 93.7% | +1.2 | 100% | 🟡 6 pts to go |
+| P08 | 22076 | 92.8% | 92.8% | +2.0 | 100% | 🟡 7 pts to go |
+| P09 | 314 | 66.2% | 66.2% | +0.1 | n/a | no target |
+| P10 | 2346 | 89.9% | 89.9% | +3.1 | 100% | ❌ 10 pts to go |
+| P11 | 1514 | 89.5% | 89.5% | +1.8 | n/a | no target |
+| P12 | 16 | 56.2% | 56.2% | +9.5 | n/a | no target |
+| P13 | 129688 | 67.8% | 67.8% | +2.6 | n/a | no target |
 
 ### `vendor_neq`
 
@@ -529,44 +529,44 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 45.8% | 45.8% | -0.7 | n/a | no target · QC vendors: 49 rows, 100.0% filled |
-| P01T | 194 | 8.8% | 8.8% | -0.6 | n/a | no target · QC vendors: 4 rows, 75.0% filled |
-| P01_GOLD | 636 | 42.9% | 42.9% | -0.9 | 95% | ❌ 52 pts to go · QC vendors: 51 rows, 98.0% filled |
-| P02 | 466 | 56.2% | 56.2% | +0.6 | 95% | ❌ 39 pts to go · QC vendors: 112 rows, 100.0% filled |
-| P03 | 265 | 45.3% | 45.3% | -0.7 | 95% | ❌ 50 pts to go · QC vendors: 21 rows, 100.0% filled |
-| P04 | 3733 | 32.0% | 32.0% | -0.2 | 95% | ❌ 63 pts to go · QC vendors: 618 rows, 97.9% filled |
-| P05 | 424 | 13.7% | 13.7% | -0.3 | n/a | no target · QC vendors: 35 rows, 94.3% filled |
-| P06M | 15579 | 42.3% | 42.3% | -0.5 | n/a | no target · QC vendors: 5832 rows, 99.8% filled |
-| P06T | 40065 | 5.1% | 5.1% | -0.2 | n/a | no target · QC vendors: 2080 rows, 76.9% filled |
+| P01T | 193 | 8.8% | 8.8% | -0.6 | n/a | no target · QC vendors: 4 rows, 75.0% filled |
+| P01_GOLD | 641 | 42.9% | 42.9% | -0.9 | 95% | ❌ 52 pts to go · QC vendors: 51 rows, 98.0% filled |
+| P02 | 474 | 56.3% | 56.3% | +0.7 | 95% | ❌ 39 pts to go · QC vendors: 113 rows, 100.0% filled |
+| P03 | 274 | 46.0% | 46.0% | +0.0 | 95% | ❌ 49 pts to go · QC vendors: 22 rows, 100.0% filled |
+| P04 | 3741 | 32.7% | 32.7% | +0.5 | 95% | ❌ 62 pts to go · QC vendors: 631 rows, 97.9% filled |
+| P05 | 427 | 13.8% | 13.8% | -0.2 | n/a | no target · QC vendors: 35 rows, 94.3% filled |
+| P06M | 15581 | 42.3% | 42.3% | -0.5 | n/a | no target · QC vendors: 5833 rows, 99.8% filled |
+| P06T | 39000 | 5.1% | 5.1% | -0.2 | n/a | no target · QC vendors: 2008 rows, 76.8% filled |
 | P06 | 272 | 8.5% | 8.5% | +0.1 | n/a | no target · QC vendors: 16 rows, 68.8% filled |
-| P07 | 697 | 6.6% | 6.6% | +0.3 | n/a | no target · QC vendors: 40 rows, 77.5% filled |
-| P08 | 22233 | 6.6% | 6.6% | +0.0 | n/a | no target · QC vendors: 1295 rows, 92.7% filled |
-| P09 | 307 | 76.5% | 76.5% | -0.4 | 95% | ❌ 18 pts to go · QC vendors: 115 rows, 100.0% filled |
-| P10 | 2391 | 15.6% | 15.6% | +0.0 | n/a | no target · QC vendors: 231 rows, 90.0% filled |
-| P11 | 1525 | 14.5% | 14.5% | -0.3 | n/a | no target · QC vendors: 156 rows, 91.0% filled |
-| P12 | 15 | 73.3% | 73.3% | +0.0 | n/a | no target · QC vendors: 3 rows, 100.0% filled |
-| P13 | 118052 | 25.0% | 25.0% | -1.2 | n/a | no target · QC vendors: 29498 rows, 100.0% filled |
+| P07 | 694 | 6.6% | 6.6% | +0.3 | n/a | no target · QC vendors: 40 rows, 77.5% filled |
+| P08 | 22076 | 6.6% | 6.6% | +0.0 | n/a | no target · QC vendors: 1279 rows, 92.8% filled |
+| P09 | 314 | 76.1% | 76.1% | -0.8 | 95% | ❌ 19 pts to go · QC vendors: 116 rows, 100.0% filled |
+| P10 | 2346 | 15.7% | 15.7% | +0.1 | n/a | no target · QC vendors: 228 rows, 89.9% filled |
+| P11 | 1514 | 14.1% | 14.1% | -0.7 | n/a | no target · QC vendors: 154 rows, 90.9% filled |
+| P12 | 16 | 75.0% | 75.0% | +1.7 | n/a | no target · QC vendors: 3 rows, 100.0% filled |
+| P13 | 129688 | 24.3% | 24.3% | -1.9 | n/a | no target · QC vendors: 31573 rows, 100.0% filled |
 
 ### `vendor_years_in_business`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 58.0% | 58.0% | -0.9 | n/a | no target · vendors with a registry record: 76 rows, 100.0% filled |
-| P01T | 194 | 53.1% | 53.1% | +2.1 | n/a | no target · vendors with a registry record: 103 rows, 100.0% filled |
-| P01_GOLD | 636 | 79.7% | 79.7% | -1.8 | 100% | ❌ 20 pts to go · vendors with a registry record: 507 rows, 100.0% filled |
-| P02 | 466 | 77.3% | 77.3% | -0.2 | 100% | ❌ 23 pts to go · vendors with a registry record: 360 rows, 100.0% filled |
-| P03 | 265 | 77.7% | 77.7% | -3.3 | 100% | ❌ 22 pts to go · vendors with a registry record: 206 rows, 100.0% filled |
-| P04 | 3733 | 49.5% | 49.5% | -0.2 | 100% | ❌ 50 pts to go · vendors with a registry record: 1848 rows, 100.0% filled |
-| P05 | 424 | 62.3% | 62.3% | -1.0 | n/a | no target · vendors with a registry record: 264 rows, 100.0% filled |
-| P06M | 15579 | 45.2% | 45.2% | -0.7 | n/a | no target · vendors with a registry record: 7049 rows, 100.0% filled |
-| P06T | 40065 | 57.6% | 57.6% | +1.4 | n/a | no target · vendors with a registry record: 23072 rows, 100.0% filled |
+| P01T | 193 | 53.4% | 53.4% | +2.4 | n/a | no target · vendors with a registry record: 103 rows, 100.0% filled |
+| P01_GOLD | 641 | 79.7% | 79.7% | -1.8 | 100% | ❌ 20 pts to go · vendors with a registry record: 511 rows, 100.0% filled |
+| P02 | 474 | 77.4% | 77.4% | -0.1 | 100% | ❌ 23 pts to go · vendors with a registry record: 367 rows, 100.0% filled |
+| P03 | 274 | 78.1% | 78.1% | -2.9 | 100% | ❌ 22 pts to go · vendors with a registry record: 214 rows, 100.0% filled |
+| P04 | 3741 | 50.5% | 50.5% | +0.8 | 100% | ❌ 50 pts to go · vendors with a registry record: 1890 rows, 100.0% filled |
+| P05 | 427 | 62.1% | 62.1% | -1.2 | n/a | no target · vendors with a registry record: 265 rows, 100.0% filled |
+| P06M | 15581 | 45.2% | 45.2% | -0.7 | n/a | no target · vendors with a registry record: 7049 rows, 100.0% filled |
+| P06T | 39000 | 57.9% | 57.9% | +1.7 | n/a | no target · vendors with a registry record: 22574 rows, 100.0% filled |
 | P06 | 272 | 41.5% | 41.5% | +0.1 | n/a | no target · vendors with a registry record: 113 rows, 100.0% filled |
-| P07 | 697 | 32.7% | 32.7% | +0.4 | n/a | no target · vendors with a registry record: 228 rows, 100.0% filled |
-| P08 | 22233 | 30.5% | 30.5% | +0.1 | n/a | no target · vendors with a registry record: 6777 rows, 100.0% filled |
-| P09 | 307 | 90.2% | 90.2% | -0.4 | n/a | no target · vendors with a registry record: 277 rows, 100.0% filled |
-| P10 | 2391 | 36.2% | 36.2% | +0.0 | n/a | no target · vendors with a registry record: 866 rows, 100.0% filled |
-| P11 | 1525 | 54.4% | 54.4% | +0.8 | n/a | no target · vendors with a registry record: 829 rows, 100.0% filled |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target · vendors with a registry record: 15 rows, 100.0% filled |
-| P13 | 118052 | 25.5% | 25.5% | -1.4 | n/a | no target · vendors with a registry record: 30158 rows, 100.0% filled |
+| P07 | 694 | 32.9% | 32.9% | +0.6 | n/a | no target · vendors with a registry record: 228 rows, 100.0% filled |
+| P08 | 22076 | 30.5% | 30.5% | +0.1 | n/a | no target · vendors with a registry record: 6729 rows, 100.0% filled |
+| P09 | 314 | 90.1% | 90.1% | -0.5 | n/a | no target · vendors with a registry record: 283 rows, 100.0% filled |
+| P10 | 2346 | 36.4% | 36.4% | +0.2 | n/a | no target · vendors with a registry record: 853 rows, 100.0% filled |
+| P11 | 1514 | 54.1% | 54.1% | +0.5 | n/a | no target · vendors with a registry record: 819 rows, 100.0% filled |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | n/a | no target · vendors with a registry record: 16 rows, 100.0% filled |
+| P13 | 129688 | 24.9% | 24.9% | -2.0 | n/a | no target · vendors with a registry record: 32237 rows, 100.0% filled |
 
 ## 3. buyer
 
@@ -575,22 +575,22 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 93.9% | 93.9% | +0.1 | 90% | ✅ met |
-| P01T | 194 | 73.7% | 73.7% | +1.3 | 90% | ❌ 16 pts to go |
-| P01_GOLD | 636 | 87.9% | 87.9% | +0.2 | 95% | 🟡 7 pts to go |
-| P02 | 466 | 88.6% | 88.6% | +0.8 | 95% | 🟡 6 pts to go |
-| P03 | 265 | 83.8% | 83.8% | -0.6 | 85% | 🟡 1 pts to go |
-| P04 | 3733 | 63.7% | 63.7% | +0.7 | 90% | ❌ 26 pts to go |
-| P05 | 424 | 79.2% | 79.2% | +0.1 | 75% | ✅ met |
-| P06M | 15579 | 92.1% | 92.2% | +0.5 | n/a | no target |
-| P06T | 40065 | 38.6% | 38.6% | +1.3 | n/a | no target |
+| P01T | 193 | 74.1% | 74.1% | +1.7 | 90% | ❌ 16 pts to go |
+| P01_GOLD | 641 | 88.0% | 88.0% | +0.3 | 95% | 🟡 7 pts to go |
+| P02 | 474 | 88.6% | 88.6% | +0.8 | 95% | 🟡 6 pts to go |
+| P03 | 274 | 83.9% | 83.9% | -0.5 | 85% | 🟡 1 pts to go |
+| P04 | 3741 | 64.2% | 64.2% | +1.2 | 90% | ❌ 26 pts to go |
+| P05 | 427 | 79.4% | 79.4% | +0.3 | 75% | ✅ met |
+| P06M | 15581 | 92.1% | 92.1% | +0.5 | n/a | no target |
+| P06T | 39000 | 38.7% | 38.7% | +1.4 | n/a | no target |
 | P06 | 272 | 73.9% | 73.9% | +0.3 | 80% | 🟡 6 pts to go |
-| P07 | 697 | 60.4% | 60.5% | +0.6 | 80% | ❌ 20 pts to go |
-| P08 | 22233 | 54.8% | 54.9% | +0.4 | 75% | ❌ 20 pts to go |
-| P09 | 307 | 76.9% | 76.9% | +0.0 | 95% | ❌ 18 pts to go |
-| P10 | 2391 | 46.8% | 46.8% | +0.1 | 70% | ❌ 23 pts to go |
-| P11 | 1525 | 32.1% | 32.1% | +0.8 | 65% | ❌ 33 pts to go |
-| P12 | 15 | 80.0% | 80.0% | +0.0 | 80% | ✅ met |
-| P13 | 118052 | 43.1% | 43.1% | -4.4 | 60% | ❌ 17 pts to go |
+| P07 | 694 | 60.4% | 60.5% | +0.6 | 80% | ❌ 20 pts to go |
+| P08 | 22076 | 54.9% | 54.9% | +0.5 | 75% | ❌ 20 pts to go |
+| P09 | 314 | 76.8% | 76.8% | -0.1 | 95% | ❌ 18 pts to go |
+| P10 | 2346 | 46.7% | 46.7% | +0.0 | 70% | ❌ 23 pts to go |
+| P11 | 1514 | 31.6% | 31.6% | +0.3 | 65% | ❌ 33 pts to go |
+| P12 | 16 | 75.0% | 75.0% | -5.0 | 80% | 🟡 5 pts to go |
+| P13 | 129688 | 41.3% | 41.3% | -6.2 | 60% | ❌ 19 pts to go |
 
 ### `buyer_bn_as_published`
 
@@ -599,66 +599,66 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 19.8% | 19.8% | -0.4 | 50% | ❌ 30 pts to go |
-| P01T | 194 | 15.5% | 15.5% | -0.6 | n/a | no target |
-| P01_GOLD | 636 | 19.2% | 19.2% | -0.3 | 40% | ❌ 21 pts to go |
-| P02 | 466 | 18.9% | 18.9% | -0.2 | 40% | ❌ 21 pts to go |
-| P03 | 265 | 21.1% | 21.1% | -0.2 | 40% | ❌ 19 pts to go |
-| P04 | 3733 | 14.9% | 14.9% | -0.3 | 40% | ❌ 25 pts to go |
-| P05 | 424 | 17.5% | 17.5% | +0.0 | 25% | 🟡 8 pts to go |
-| P06M | 15579 | 10.9% | 10.9% | -0.7 | n/a | no target |
-| P06T | 40065 | 6.1% | 6.1% | -0.8 | n/a | no target |
+| P01T | 193 | 15.5% | 15.5% | -0.6 | n/a | no target |
+| P01_GOLD | 641 | 19.0% | 19.0% | -0.5 | 40% | ❌ 21 pts to go |
+| P02 | 474 | 19.0% | 19.0% | -0.1 | 40% | ❌ 21 pts to go |
+| P03 | 274 | 21.5% | 21.5% | +0.2 | 40% | ❌ 18 pts to go |
+| P04 | 3741 | 14.9% | 14.9% | -0.3 | 40% | ❌ 25 pts to go |
+| P05 | 427 | 17.6% | 17.6% | +0.1 | 25% | 🟡 7 pts to go |
+| P06M | 15581 | 10.9% | 10.9% | -0.7 | n/a | no target |
+| P06T | 39000 | 6.0% | 6.0% | -0.9 | n/a | no target |
 | P06 | 272 | 12.5% | 12.5% | -0.3 | 35% | ❌ 22 pts to go |
-| P07 | 697 | 13.9% | 13.9% | -0.2 | 35% | ❌ 21 pts to go |
-| P08 | 22233 | 15.2% | 15.2% | -0.2 | 35% | ❌ 20 pts to go |
-| P09 | 307 | 16.3% | 16.3% | +0.0 | n/a | no target |
-| P10 | 2391 | 6.4% | 6.4% | -0.3 | 30% | ❌ 24 pts to go |
-| P11 | 1525 | 7.1% | 7.1% | -0.3 | n/a | no target |
-| P12 | 15 | 6.7% | 6.7% | +0.0 | n/a | no target |
-| P13 | 118052 | 10.1% | 10.1% | -2.2 | 30% | ❌ 20 pts to go |
+| P07 | 694 | 13.8% | 13.8% | -0.3 | 35% | ❌ 21 pts to go |
+| P08 | 22076 | 15.2% | 15.2% | -0.2 | 35% | ❌ 20 pts to go |
+| P09 | 314 | 16.6% | 16.6% | +0.3 | n/a | no target |
+| P10 | 2346 | 6.1% | 6.1% | -0.6 | 30% | ❌ 24 pts to go |
+| P11 | 1514 | 6.9% | 6.9% | -0.5 | n/a | no target |
+| P12 | 16 | 6.2% | 6.2% | -0.5 | n/a | no target |
+| P13 | 129688 | 9.6% | 9.6% | -2.7 | 30% | ❌ 20 pts to go |
 
 ### `buyer_address`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P01T | 194 | 84.5% | 84.5% | +0.1 | 100% | ❌ 16 pts to go |
-| P01_GOLD | 636 | 90.9% | 90.9% | +0.2 | 100% | 🟡 9 pts to go |
-| P02 | 466 | 95.1% | 95.1% | -0.4 | 100% | 🟡 5 pts to go |
-| P03 | 265 | 88.7% | 88.7% | -0.7 | 100% | ❌ 11 pts to go |
-| P04 | 3733 | 71.0% | 71.0% | -0.4 | 100% | ❌ 29 pts to go |
-| P05 | 424 | 89.2% | 89.2% | -0.1 | 100% | ❌ 11 pts to go |
-| P06M | 15579 | 99.2% | 99.2% | +0.0 | n/a | no target |
-| P06T | 40065 | 57.1% | 57.1% | -2.2 | n/a | no target |
+| P01T | 193 | 84.5% | 84.5% | +0.1 | 100% | ❌ 16 pts to go |
+| P01_GOLD | 641 | 90.8% | 90.8% | +0.1 | 100% | 🟡 9 pts to go |
+| P02 | 474 | 95.1% | 95.1% | -0.4 | 100% | 🟡 5 pts to go |
+| P03 | 274 | 88.3% | 88.3% | -1.1 | 100% | ❌ 12 pts to go |
+| P04 | 3741 | 71.9% | 71.9% | +0.5 | 100% | ❌ 28 pts to go |
+| P05 | 427 | 89.2% | 89.2% | -0.1 | 100% | ❌ 11 pts to go |
+| P06M | 15581 | 99.2% | 99.2% | +0.0 | n/a | no target |
+| P06T | 39000 | 58.0% | 58.0% | -1.3 | n/a | no target |
 | P06 | 272 | 79.4% | 79.4% | +0.6 | 95% | ❌ 16 pts to go |
-| P07 | 697 | 80.6% | 80.6% | -0.6 | 95% | ❌ 14 pts to go |
-| P08 | 22233 | 78.4% | 78.4% | +0.1 | 95% | ❌ 17 pts to go |
-| P09 | 307 | 96.1% | 96.1% | +0.0 | 100% | 🟡 4 pts to go |
-| P10 | 2391 | 53.8% | 53.9% | -0.6 | 95% | ❌ 41 pts to go |
-| P11 | 1525 | 50.6% | 50.6% | +1.2 | 80% | ❌ 29 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P13 | 118052 | 100.0% | 100.0% | +0.0 | 95% | ✅ met |
+| P07 | 694 | 80.7% | 80.7% | -0.5 | 95% | ❌ 14 pts to go |
+| P08 | 22076 | 78.7% | 78.7% | +0.4 | 95% | ❌ 16 pts to go |
+| P09 | 314 | 95.9% | 95.9% | -0.2 | 100% | 🟡 4 pts to go |
+| P10 | 2346 | 54.0% | 54.0% | -0.4 | 95% | ❌ 41 pts to go |
+| P11 | 1514 | 50.3% | 50.3% | +0.9 | 80% | ❌ 30 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P13 | 129688 | 100.0% | 100.0% | +0.0 | 95% | ✅ met |
 
 ### `buyer_phone`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 87.0% | 87.0% | +1.0 | n/a | no target |
-| P01T | 194 | 75.3% | 75.3% | +7.1 | n/a | no target |
-| P01_GOLD | 636 | 73.0% | 73.0% | +0.0 | 90% | ❌ 17 pts to go |
-| P02 | 466 | 78.1% | 78.1% | +0.2 | 95% | ❌ 17 pts to go |
-| P03 | 265 | 74.0% | 74.0% | -0.9 | 95% | ❌ 21 pts to go |
-| P04 | 3733 | 69.0% | 69.0% | +0.1 | 95% | ❌ 26 pts to go |
-| P05 | 424 | 72.9% | 72.9% | -0.6 | 90% | ❌ 17 pts to go |
-| P06M | 15579 | 85.3% | 85.3% | -1.6 | n/a | no target |
-| P06T | 40065 | 60.8% | 60.8% | +3.6 | n/a | no target |
+| P01T | 193 | 74.6% | 74.6% | +6.4 | n/a | no target |
+| P01_GOLD | 641 | 72.9% | 72.9% | -0.1 | 90% | ❌ 17 pts to go |
+| P02 | 474 | 77.4% | 77.4% | -0.5 | 95% | ❌ 18 pts to go |
+| P03 | 274 | 73.7% | 73.7% | -1.2 | 95% | ❌ 21 pts to go |
+| P04 | 3741 | 69.1% | 69.1% | +0.2 | 95% | ❌ 26 pts to go |
+| P05 | 427 | 72.6% | 72.6% | -0.9 | 90% | ❌ 17 pts to go |
+| P06M | 15581 | 85.3% | 85.3% | -1.6 | n/a | no target |
+| P06T | 39000 | 60.7% | 60.7% | +3.5 | n/a | no target |
 | P06 | 272 | 69.5% | 69.5% | +1.0 | 95% | ❌ 26 pts to go |
-| P07 | 697 | 66.0% | 66.0% | +1.2 | 90% | ❌ 24 pts to go |
-| P08 | 22233 | 68.7% | 68.7% | +0.9 | 95% | ❌ 26 pts to go |
-| P09 | 307 | 87.0% | 87.0% | +0.0 | 100% | ❌ 13 pts to go |
-| P10 | 2391 | 54.8% | 54.8% | -0.5 | 95% | ❌ 40 pts to go |
-| P11 | 1525 | 31.5% | 31.5% | +2.6 | 75% | ❌ 44 pts to go |
-| P12 | 15 | 93.3% | 93.3% | +0.0 | n/a | no target |
-| P13 | 118052 | 64.5% | 64.5% | -6.3 | 95% | ❌ 30 pts to go |
+| P07 | 694 | 66.1% | 66.1% | +1.3 | 90% | ❌ 24 pts to go |
+| P08 | 22076 | 68.7% | 68.7% | +0.9 | 95% | ❌ 26 pts to go |
+| P09 | 314 | 86.6% | 86.6% | -0.4 | 100% | ❌ 13 pts to go |
+| P10 | 2346 | 54.4% | 54.4% | -0.9 | 95% | ❌ 41 pts to go |
+| P11 | 1514 | 31.1% | 31.1% | +2.2 | 75% | ❌ 44 pts to go |
+| P12 | 16 | 87.5% | 87.5% | -5.8 | n/a | no target |
+| P13 | 129688 | 61.7% | 61.7% | -9.1 | 95% | ❌ 33 pts to go |
 
 ### `buyer_logo_url`
 
@@ -667,22 +667,22 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 88.5% | 88.5% | +0.9 | n/a | no target |
-| P01T | 194 | 90.2% | 90.2% | +6.9 | 95% | 🟡 5 pts to go |
-| P01_GOLD | 636 | 84.6% | 84.6% | -0.2 | 90% | 🟡 5 pts to go |
-| P02 | 466 | 90.6% | 90.6% | +0.0 | 95% | 🟡 4 pts to go |
-| P03 | 265 | 84.9% | 84.9% | -0.7 | 95% | ❌ 10 pts to go |
-| P04 | 3733 | 90.7% | 90.7% | +1.5 | 90% | ✅ met |
-| P05 | 424 | 92.5% | 92.5% | -0.6 | 95% | 🟡 2 pts to go |
-| P06M | 15579 | 90.8% | 90.8% | -2.4 | n/a | no target |
-| P06T | 40065 | 82.4% | 82.4% | +7.5 | n/a | no target |
+| P01T | 193 | 90.2% | 90.2% | +6.9 | 95% | 🟡 5 pts to go |
+| P01_GOLD | 641 | 84.6% | 84.6% | -0.2 | 90% | 🟡 5 pts to go |
+| P02 | 474 | 90.3% | 90.3% | -0.3 | 95% | 🟡 5 pts to go |
+| P03 | 274 | 83.6% | 83.6% | -2.0 | 95% | ❌ 11 pts to go |
+| P04 | 3741 | 90.3% | 90.3% | +1.1 | 90% | ✅ met |
+| P05 | 427 | 92.3% | 92.3% | -0.8 | 95% | 🟡 3 pts to go |
+| P06M | 15581 | 90.8% | 90.8% | -2.4 | n/a | no target |
+| P06T | 39000 | 82.4% | 82.4% | +7.5 | n/a | no target |
 | P06 | 272 | 93.0% | 93.0% | +0.7 | 100% | 🟡 7 pts to go |
-| P07 | 697 | 92.8% | 92.8% | +0.6 | 100% | 🟡 7 pts to go |
-| P08 | 22233 | 94.2% | 94.2% | +1.9 | 100% | 🟡 6 pts to go |
-| P09 | 307 | 73.3% | 73.3% | +0.3 | n/a | no target |
-| P10 | 2391 | 93.2% | 93.2% | +1.9 | 100% | 🟡 7 pts to go |
-| P11 | 1525 | 50.0% | 50.0% | +8.1 | 80% | ❌ 30 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 77.9% | 77.9% | -5.8 | 95% | ❌ 17 pts to go |
+| P07 | 694 | 92.8% | 92.8% | +0.6 | 100% | 🟡 7 pts to go |
+| P08 | 22076 | 94.2% | 94.2% | +1.9 | 100% | 🟡 6 pts to go |
+| P09 | 314 | 73.6% | 73.6% | +0.6 | n/a | no target |
+| P10 | 2346 | 93.1% | 93.1% | +1.8 | 100% | 🟡 7 pts to go |
+| P11 | 1514 | 49.7% | 49.7% | +7.8 | 80% | ❌ 30 pts to go |
+| P12 | 16 | 93.8% | 93.8% | -6.2 | n/a | no target |
+| P13 | 129688 | 75.1% | 75.1% | -8.6 | 95% | ❌ 20 pts to go |
 
 ## 4. AP
 
@@ -693,132 +693,132 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 3.1% | 3.1% | +0.0 | n/a | no target |
-| P01T | 194 | 9.3% | 9.3% | -0.1 | n/a | no target |
-| P01_GOLD | 636 | 14.0% | 14.0% | -0.2 | 25% | ❌ 11 pts to go |
-| P02 | 466 | 25.1% | 25.1% | -0.2 | 40% | ❌ 15 pts to go |
-| P03 | 265 | 9.1% | 9.1% | +0.0 | 20% | ❌ 11 pts to go |
-| P04 | 3733 | 3.5% | 3.5% | +0.0 | 20% | ❌ 16 pts to go |
-| P05 | 424 | 3.3% | 3.3% | +0.0 | 15% | ❌ 12 pts to go |
-| P06M | 15579 | 0.3% | 0.3% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P01T | 193 | 8.8% | 8.8% | -0.6 | n/a | no target |
+| P01_GOLD | 641 | 13.9% | 13.9% | -0.3 | 25% | ❌ 11 pts to go |
+| P02 | 474 | 24.9% | 24.9% | -0.4 | 40% | ❌ 15 pts to go |
+| P03 | 274 | 8.8% | 8.8% | -0.3 | 20% | ❌ 11 pts to go |
+| P04 | 3741 | 3.5% | 3.5% | +0.0 | 20% | ❌ 16 pts to go |
+| P05 | 427 | 3.3% | 3.3% | +0.0 | 15% | ❌ 12 pts to go |
+| P06M | 15581 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.3% | 0.3% | +0.0 | n/a | no target |
 | P06 | 272 | 5.1% | 5.1% | +0.0 | n/a | no target |
-| P07 | 697 | 8.5% | 8.5% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.3% | 0.3% | +0.0 | n/a | no target |
-| P09 | 307 | 7.8% | 7.8% | +0.0 | n/a | no target |
-| P10 | 2391 | 0.8% | 0.8% | +0.0 | n/a | no target |
-| P11 | 1525 | 0.9% | 0.9% | -0.1 | n/a | no target |
-| P12 | 15 | 6.7% | 6.7% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P07 | 694 | 8.4% | 8.4% | -0.1 | n/a | no target |
+| P08 | 22076 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P09 | 314 | 7.6% | 7.6% | -0.2 | n/a | no target |
+| P10 | 2346 | 0.9% | 0.9% | +0.1 | n/a | no target |
+| P11 | 1514 | 0.9% | 0.9% | -0.1 | n/a | no target |
+| P12 | 16 | 6.2% | 6.2% | -0.5 | n/a | no target |
+| P13 | 129688 | 0.3% | 0.3% | +0.0 | n/a | no target |
 
 ### `ap_phone`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 18.3% | 18.3% | -0.3 | n/a | no target |
-| P01T | 194 | 22.2% | 22.2% | -0.2 | 70% | ❌ 48 pts to go |
-| P01_GOLD | 636 | 43.1% | 43.1% | -0.4 | 80% | ❌ 37 pts to go |
-| P02 | 466 | 57.3% | 57.3% | +0.0 | 90% | ❌ 33 pts to go |
-| P03 | 265 | 18.5% | 18.5% | -0.1 | 60% | ❌ 42 pts to go |
-| P04 | 3733 | 21.6% | 21.6% | +0.0 | 85% | ❌ 63 pts to go |
-| P05 | 424 | 11.6% | 11.6% | +0.0 | 50% | ❌ 38 pts to go |
-| P06M | 15579 | 0.6% | 0.6% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.6% | 0.6% | -0.1 | n/a | no target |
+| P01T | 193 | 22.3% | 22.3% | -0.1 | 70% | ❌ 48 pts to go |
+| P01_GOLD | 641 | 42.9% | 42.9% | -0.6 | 80% | ❌ 37 pts to go |
+| P02 | 474 | 57.4% | 57.4% | +0.1 | 90% | ❌ 33 pts to go |
+| P03 | 274 | 18.6% | 18.6% | +0.0 | 60% | ❌ 41 pts to go |
+| P04 | 3741 | 22.2% | 22.2% | +0.6 | 85% | ❌ 63 pts to go |
+| P05 | 427 | 11.9% | 11.9% | +0.3 | 50% | ❌ 38 pts to go |
+| P06M | 15581 | 0.6% | 0.6% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.6% | 0.6% | -0.1 | n/a | no target |
 | P06 | 272 | 15.4% | 15.4% | +0.0 | n/a | no target |
-| P07 | 697 | 10.0% | 10.0% | -0.5 | n/a | no target |
-| P08 | 22233 | 0.6% | 0.6% | +0.0 | n/a | no target |
-| P09 | 307 | 77.9% | 77.9% | +0.0 | 95% | ❌ 17 pts to go |
-| P10 | 2391 | 1.5% | 1.5% | -0.2 | n/a | no target |
-| P11 | 1525 | 15.9% | 15.9% | -0.8 | n/a | no target |
-| P12 | 15 | 26.7% | 26.7% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.4% | 0.4% | -0.1 | n/a | no target |
+| P07 | 694 | 9.9% | 9.9% | -0.6 | n/a | no target |
+| P08 | 22076 | 0.6% | 0.6% | +0.0 | n/a | no target |
+| P09 | 314 | 77.1% | 77.1% | -0.8 | 95% | ❌ 18 pts to go |
+| P10 | 2346 | 1.5% | 1.5% | -0.2 | n/a | no target |
+| P11 | 1514 | 15.7% | 15.7% | -1.0 | n/a | no target |
+| P12 | 16 | 25.0% | 25.0% | -1.7 | n/a | no target |
+| P13 | 129688 | 0.4% | 0.4% | -0.1 | n/a | no target |
 
 ### `invoice_mailing_address`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 6.1% | 6.1% | -0.1 | n/a | no target |
-| P01T | 194 | 9.8% | 9.8% | -0.6 | n/a | no target |
-| P01_GOLD | 636 | 34.1% | 34.1% | +0.1 | 70% | ❌ 36 pts to go |
-| P02 | 466 | 39.1% | 39.1% | +0.0 | 75% | ❌ 36 pts to go |
-| P03 | 265 | 18.5% | 18.5% | -0.1 | 55% | ❌ 36 pts to go |
-| P04 | 3733 | 21.5% | 21.5% | -0.1 | 75% | ❌ 54 pts to go |
-| P05 | 424 | 10.6% | 10.6% | -0.1 | 50% | ❌ 39 pts to go |
-| P06M | 15579 | 0.2% | 0.2% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.3% | 0.3% | -0.1 | n/a | no target |
+| P01T | 193 | 9.8% | 9.8% | -0.6 | n/a | no target |
+| P01_GOLD | 641 | 34.0% | 34.0% | +0.0 | 70% | ❌ 36 pts to go |
+| P02 | 474 | 39.2% | 39.2% | +0.1 | 75% | ❌ 36 pts to go |
+| P03 | 274 | 18.6% | 18.6% | +0.0 | 55% | ❌ 36 pts to go |
+| P04 | 3741 | 22.2% | 22.2% | +0.6 | 75% | ❌ 53 pts to go |
+| P05 | 427 | 11.0% | 11.0% | +0.3 | 50% | ❌ 39 pts to go |
+| P06M | 15581 | 0.2% | 0.2% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.3% | 0.3% | -0.1 | n/a | no target |
 | P06 | 272 | 6.2% | 6.2% | +0.3 | n/a | no target |
-| P07 | 697 | 4.9% | 4.9% | -0.3 | n/a | no target |
-| P08 | 22233 | 0.2% | 0.2% | +0.0 | n/a | no target |
-| P09 | 307 | 75.2% | 75.2% | +0.0 | 95% | ❌ 20 pts to go |
-| P10 | 2391 | 0.7% | 0.7% | -0.2 | n/a | no target |
-| P11 | 1525 | 15.5% | 15.5% | -0.9 | n/a | no target |
-| P12 | 15 | 20.0% | 20.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P07 | 694 | 4.9% | 4.9% | -0.3 | n/a | no target |
+| P08 | 22076 | 0.2% | 0.2% | +0.0 | n/a | no target |
+| P09 | 314 | 74.5% | 74.5% | -0.7 | 95% | ❌ 20 pts to go |
+| P10 | 2346 | 0.7% | 0.7% | -0.2 | n/a | no target |
+| P11 | 1514 | 15.4% | 15.4% | -1.0 | n/a | no target |
+| P12 | 16 | 18.8% | 18.8% | -1.2 | n/a | no target |
+| P13 | 129688 | 0.2% | 0.2% | -0.1 | n/a | no target |
 
 ### `invoicing_requirements`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 7.6% | 7.6% | -0.2 | n/a | no target |
-| P01T | 194 | 8.2% | 8.2% | -0.1 | n/a | no target |
-| P01_GOLD | 636 | 57.9% | 58.0% | -0.1 | 80% | ❌ 22 pts to go |
-| P02 | 466 | 45.7% | 45.9% | +0.0 | 75% | ❌ 29 pts to go |
-| P03 | 265 | 37.0% | 37.0% | -0.3 | 70% | ❌ 33 pts to go |
-| P04 | 3733 | 21.1% | 21.5% | +0.0 | 70% | ❌ 49 pts to go |
-| P05 | 424 | 14.2% | 14.2% | +0.0 | 50% | ❌ 36 pts to go |
-| P06M | 15579 | 0.3% | 0.3% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.2% | 0.2% | -0.1 | n/a | no target |
+| P01T | 193 | 8.3% | 8.3% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 57.9% | 58.0% | -0.1 | 80% | ❌ 22 pts to go |
+| P02 | 474 | 45.6% | 45.8% | -0.1 | 75% | ❌ 29 pts to go |
+| P03 | 274 | 37.2% | 37.2% | -0.1 | 70% | ❌ 33 pts to go |
+| P04 | 3741 | 21.7% | 22.2% | +0.6 | 70% | ❌ 48 pts to go |
+| P05 | 427 | 14.8% | 14.8% | +0.6 | 50% | ❌ 35 pts to go |
+| P06M | 15581 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.3% | 0.3% | +0.0 | n/a | no target |
 | P06 | 272 | 15.8% | 15.8% | -0.7 | n/a | no target |
-| P07 | 697 | 1.9% | 1.9% | -0.1 | n/a | no target |
-| P08 | 22233 | 0.4% | 0.4% | +0.0 | n/a | no target |
-| P09 | 307 | 46.6% | 46.9% | +0.0 | 80% | ❌ 33 pts to go |
-| P10 | 2391 | 1.0% | 1.1% | -0.2 | n/a | no target |
-| P11 | 1525 | 6.4% | 6.4% | -0.4 | n/a | no target |
-| P12 | 15 | 40.0% | 40.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.2% | 0.2% | +0.0 | n/a | no target |
+| P07 | 694 | 1.9% | 1.9% | -0.1 | n/a | no target |
+| P08 | 22076 | 0.4% | 0.4% | +0.0 | n/a | no target |
+| P09 | 314 | 47.1% | 47.1% | +0.5 | 80% | ❌ 33 pts to go |
+| P10 | 2346 | 1.1% | 1.1% | -0.1 | n/a | no target |
+| P11 | 1514 | 6.2% | 6.3% | -0.6 | n/a | no target |
+| P12 | 16 | 37.5% | 37.5% | -2.5 | n/a | no target |
+| P13 | 129688 | 0.1% | 0.2% | -0.1 | n/a | no target |
 
 ### `payment_terms_as_published`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 18.3% | 18.3% | -0.3 | n/a | no target |
-| P01T | 194 | 20.6% | 20.6% | -0.8 | 60% | ❌ 39 pts to go |
-| P01_GOLD | 636 | 62.9% | 62.9% | -0.5 | 70% | 🟡 7 pts to go |
-| P02 | 466 | 39.7% | 39.7% | +0.0 | 50% | ❌ 10 pts to go |
-| P03 | 265 | 47.9% | 47.9% | -0.4 | 55% | 🟡 7 pts to go |
-| P04 | 3733 | 12.2% | 12.2% | +0.0 | 40% | ❌ 28 pts to go |
-| P05 | 424 | 17.0% | 17.0% | -0.1 | 40% | ❌ 23 pts to go |
-| P06M | 15579 | 2.1% | 2.1% | -0.1 | n/a | no target |
-| P06T | 40065 | 1.5% | 1.5% | -0.2 | n/a | no target |
+| P01T | 193 | 20.7% | 20.7% | -0.7 | 60% | ❌ 39 pts to go |
+| P01_GOLD | 641 | 62.7% | 62.7% | -0.7 | 70% | 🟡 7 pts to go |
+| P02 | 474 | 39.5% | 39.5% | -0.2 | 50% | ❌ 10 pts to go |
+| P03 | 274 | 47.4% | 47.4% | -0.9 | 55% | 🟡 8 pts to go |
+| P04 | 3741 | 12.2% | 12.2% | +0.0 | 40% | ❌ 28 pts to go |
+| P05 | 427 | 17.1% | 17.1% | +0.0 | 40% | ❌ 23 pts to go |
+| P06M | 15581 | 2.1% | 2.1% | -0.1 | n/a | no target |
+| P06T | 39000 | 1.5% | 1.5% | -0.2 | n/a | no target |
 | P06 | 272 | 21.3% | 21.3% | -0.7 | n/a | no target |
-| P07 | 697 | 6.5% | 6.5% | -0.1 | n/a | no target |
-| P08 | 22233 | 2.9% | 2.9% | +0.0 | n/a | no target |
-| P09 | 307 | 5.9% | 5.9% | +0.0 | n/a | no target |
-| P10 | 2391 | 4.6% | 4.6% | +0.0 | n/a | no target |
-| P11 | 1525 | 4.9% | 4.9% | -0.3 | n/a | no target |
-| P12 | 15 | 6.7% | 6.7% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.9% | 0.9% | -0.1 | n/a | no target |
+| P07 | 694 | 6.3% | 6.3% | -0.3 | n/a | no target |
+| P08 | 22076 | 2.9% | 2.9% | +0.0 | n/a | no target |
+| P09 | 314 | 5.7% | 5.7% | -0.2 | n/a | no target |
+| P10 | 2346 | 4.6% | 4.6% | +0.0 | n/a | no target |
+| P11 | 1514 | 4.5% | 4.5% | -0.7 | n/a | no target |
+| P12 | 16 | 6.2% | 6.2% | -0.5 | n/a | no target |
+| P13 | 129688 | 0.8% | 0.8% | -0.2 | n/a | no target |
 
 ### `po_required_as_published`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 21.4% | 21.4% | -0.3 | n/a | no target |
-| P01T | 194 | 28.4% | 28.4% | -0.2 | 65% | ❌ 37 pts to go |
-| P01_GOLD | 636 | 68.4% | 68.4% | -0.6 | 70% | 🟡 2 pts to go |
-| P02 | 466 | 24.2% | 24.2% | +0.0 | 50% | ❌ 26 pts to go |
-| P03 | 265 | 52.1% | 52.1% | -0.4 | 60% | 🟡 8 pts to go |
-| P04 | 3733 | 5.3% | 5.3% | -0.1 | 40% | ❌ 35 pts to go |
-| P05 | 424 | 19.6% | 19.6% | -0.1 | 45% | ❌ 25 pts to go |
-| P06M | 15579 | 1.3% | 1.3% | -0.1 | n/a | no target |
-| P06T | 40065 | 0.6% | 0.6% | -0.1 | n/a | no target |
+| P01T | 193 | 28.5% | 28.5% | -0.1 | 65% | ❌ 36 pts to go |
+| P01_GOLD | 641 | 68.2% | 68.2% | -0.8 | 70% | 🟡 2 pts to go |
+| P02 | 474 | 24.5% | 24.5% | +0.3 | 50% | ❌ 26 pts to go |
+| P03 | 274 | 51.8% | 51.8% | -0.7 | 60% | 🟡 8 pts to go |
+| P04 | 3741 | 5.4% | 5.4% | +0.0 | 40% | ❌ 35 pts to go |
+| P05 | 427 | 19.7% | 19.7% | +0.0 | 45% | ❌ 25 pts to go |
+| P06M | 15581 | 1.3% | 1.3% | -0.1 | n/a | no target |
+| P06T | 39000 | 0.6% | 0.6% | -0.1 | n/a | no target |
 | P06 | 272 | 34.2% | 34.2% | -0.2 | n/a | no target |
-| P07 | 697 | 6.6% | 6.6% | -0.3 | n/a | no target |
-| P08 | 22233 | 1.3% | 1.3% | +0.0 | n/a | no target |
-| P09 | 307 | 9.8% | 9.8% | +0.0 | n/a | no target |
-| P10 | 2391 | 2.9% | 2.9% | -0.2 | n/a | no target |
-| P11 | 1525 | 4.8% | 4.8% | -0.3 | n/a | no target |
-| P12 | 15 | 6.7% | 6.7% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.3% | 0.3% | +0.0 | n/a | no target |
+| P07 | 694 | 6.6% | 6.6% | -0.3 | n/a | no target |
+| P08 | 22076 | 1.3% | 1.3% | +0.0 | n/a | no target |
+| P09 | 314 | 9.9% | 9.9% | +0.1 | n/a | no target |
+| P10 | 2346 | 3.0% | 3.0% | -0.1 | n/a | no target |
+| P11 | 1514 | 4.5% | 4.5% | -0.6 | n/a | no target |
+| P12 | 16 | 6.2% | 6.2% | -0.5 | n/a | no target |
+| P13 | 129688 | 0.2% | 0.2% | -0.1 | n/a | no target |
 
 ### `invoice_portal_url`
 
@@ -827,132 +827,132 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 12.2% | 12.2% | -0.2 | n/a | no target |
-| P01T | 194 | 13.4% | 13.4% | -0.1 | n/a | no target |
-| P01_GOLD | 636 | 49.2% | 49.2% | -0.6 | 50% | 🟡 1 pts to go |
-| P02 | 466 | 37.3% | 37.3% | +0.0 | n/a | no target |
-| P03 | 265 | 51.7% | 51.7% | -0.4 | 60% | 🟡 8 pts to go |
-| P04 | 3733 | 11.8% | 11.8% | -0.1 | n/a | no target |
-| P05 | 424 | 15.1% | 15.1% | -0.1 | n/a | no target |
-| P06M | 15579 | 0.5% | 0.5% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.3% | 0.3% | -0.1 | n/a | no target |
+| P01T | 193 | 13.5% | 13.5% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 49.1% | 49.1% | -0.7 | 50% | 🟡 1 pts to go |
+| P02 | 474 | 37.3% | 37.3% | +0.0 | n/a | no target |
+| P03 | 274 | 51.1% | 51.1% | -1.0 | 60% | 🟡 9 pts to go |
+| P04 | 3741 | 11.8% | 11.8% | -0.1 | n/a | no target |
+| P05 | 427 | 15.0% | 15.0% | -0.2 | n/a | no target |
+| P06M | 15581 | 0.5% | 0.5% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.3% | 0.3% | -0.1 | n/a | no target |
 | P06 | 272 | 25.4% | 25.4% | -0.2 | n/a | no target |
-| P07 | 697 | 8.2% | 8.2% | -0.1 | n/a | no target |
-| P08 | 22233 | 0.6% | 0.6% | +0.0 | n/a | no target |
-| P09 | 307 | 17.6% | 17.6% | +0.0 | n/a | no target |
-| P10 | 2391 | 2.4% | 2.4% | +0.0 | n/a | no target |
-| P11 | 1525 | 4.3% | 4.3% | -0.4 | n/a | no target |
-| P12 | 15 | 13.3% | 13.3% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.2% | 0.2% | -0.1 | n/a | no target |
+| P07 | 694 | 8.2% | 8.2% | -0.1 | n/a | no target |
+| P08 | 22076 | 0.6% | 0.6% | +0.0 | n/a | no target |
+| P09 | 314 | 18.5% | 18.5% | +0.9 | n/a | no target |
+| P10 | 2346 | 2.4% | 2.4% | +0.0 | n/a | no target |
+| P11 | 1514 | 3.8% | 3.8% | -0.9 | n/a | no target |
+| P12 | 16 | 12.5% | 12.5% | -0.8 | n/a | no target |
+| P13 | 129688 | 0.2% | 0.2% | -0.1 | n/a | no target |
 
 ### `buyer_payment_method_preference`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 11.5% | 11.5% | -0.1 | 15% | 🟡 4 pts to go |
-| P01T | 194 | 12.4% | 12.4% | -0.1 | 15% | 🟡 3 pts to go |
-| P01_GOLD | 636 | 34.9% | 34.9% | -0.4 | 40% | 🟡 5 pts to go |
-| P02 | 466 | 12.9% | 13.1% | +0.0 | 25% | ❌ 12 pts to go |
-| P03 | 265 | 17.4% | 17.4% | -0.1 | 25% | 🟡 8 pts to go |
-| P04 | 3733 | 2.7% | 2.7% | +0.0 | 15% | ❌ 12 pts to go |
-| P05 | 424 | 6.6% | 6.6% | +0.0 | 15% | 🟡 8 pts to go |
-| P06M | 15579 | 0.8% | 0.8% | -0.1 | 15% | ❌ 14 pts to go |
-| P06T | 40065 | 0.6% | 0.6% | +0.1 | 15% | ❌ 14 pts to go |
+| P01T | 193 | 12.4% | 12.4% | -0.1 | 15% | 🟡 3 pts to go |
+| P01_GOLD | 641 | 34.8% | 34.8% | -0.5 | 40% | 🟡 5 pts to go |
+| P02 | 474 | 12.7% | 12.9% | -0.2 | 25% | ❌ 12 pts to go |
+| P03 | 274 | 17.2% | 17.2% | -0.3 | 25% | 🟡 8 pts to go |
+| P04 | 3741 | 2.7% | 2.7% | +0.0 | 15% | ❌ 12 pts to go |
+| P05 | 427 | 6.6% | 6.6% | +0.0 | 15% | 🟡 8 pts to go |
+| P06M | 15581 | 0.8% | 0.8% | -0.1 | 15% | ❌ 14 pts to go |
+| P06T | 39000 | 0.6% | 0.6% | +0.1 | 15% | ❌ 14 pts to go |
 | P06 | 272 | 10.7% | 10.7% | +0.1 | 15% | 🟡 4 pts to go |
-| P07 | 697 | 4.2% | 4.2% | -0.1 | 15% | ❌ 11 pts to go |
-| P08 | 22233 | 0.6% | 0.6% | +0.0 | 15% | ❌ 14 pts to go |
-| P09 | 307 | 1.0% | 1.0% | +0.0 | 15% | ❌ 14 pts to go |
-| P10 | 2391 | 1.3% | 1.3% | +0.0 | 15% | ❌ 14 pts to go |
-| P11 | 1525 | 1.6% | 1.6% | +0.1 | 15% | ❌ 13 pts to go |
-| P12 | 15 | 0.0% | 0.0% | +0.0 | 15% | ❌ 15 pts to go |
-| P13 | 118052 | 0.7% | 0.7% | +0.0 | 15% | ❌ 14 pts to go |
+| P07 | 694 | 4.2% | 4.2% | -0.1 | 15% | ❌ 11 pts to go |
+| P08 | 22076 | 0.6% | 0.6% | +0.0 | 15% | ❌ 14 pts to go |
+| P09 | 314 | 1.0% | 1.0% | +0.0 | 15% | ❌ 14 pts to go |
+| P10 | 2346 | 1.2% | 1.2% | -0.1 | 15% | ❌ 14 pts to go |
+| P11 | 1514 | 1.5% | 1.5% | +0.0 | 15% | ❌ 14 pts to go |
+| P12 | 16 | 0.0% | 0.0% | +0.0 | 15% | ❌ 15 pts to go |
+| P13 | 129688 | 0.6% | 0.6% | -0.1 | 15% | ❌ 14 pts to go |
 
 ### `buyer_tax_exempt_status`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 5.3% | 5.3% | -0.1 | 15% | 🟡 10 pts to go |
-| P01T | 194 | 11.3% | 11.3% | -0.2 | 25% | ❌ 14 pts to go |
-| P01_GOLD | 636 | 28.8% | 28.8% | -0.4 | 25% | ✅ met |
-| P02 | 466 | 25.3% | 25.3% | +0.0 | 15% | ✅ met |
-| P03 | 265 | 21.9% | 21.9% | -0.2 | 15% | ✅ met |
-| P04 | 3733 | 4.0% | 4.0% | +0.0 | 15% | ❌ 11 pts to go |
-| P05 | 424 | 11.1% | 11.1% | +0.0 | 15% | 🟡 4 pts to go |
-| P06M | 15579 | 0.5% | 0.5% | +0.0 | 15% | ❌ 14 pts to go |
-| P06T | 40065 | 0.2% | 0.2% | +0.0 | 15% | ❌ 15 pts to go |
+| P01T | 193 | 11.4% | 11.4% | -0.1 | 25% | ❌ 14 pts to go |
+| P01_GOLD | 641 | 28.5% | 28.5% | -0.7 | 25% | ✅ met |
+| P02 | 474 | 25.1% | 25.1% | -0.2 | 15% | ✅ met |
+| P03 | 274 | 22.3% | 22.3% | +0.2 | 15% | ✅ met |
+| P04 | 3741 | 4.0% | 4.0% | +0.0 | 15% | ❌ 11 pts to go |
+| P05 | 427 | 11.2% | 11.2% | +0.1 | 15% | 🟡 4 pts to go |
+| P06M | 15581 | 0.5% | 0.5% | +0.0 | 15% | ❌ 14 pts to go |
+| P06T | 39000 | 0.2% | 0.2% | +0.0 | 15% | ❌ 15 pts to go |
 | P06 | 272 | 8.5% | 8.5% | +0.1 | 15% | 🟡 6 pts to go |
-| P07 | 697 | 2.9% | 2.9% | +0.0 | 15% | ❌ 12 pts to go |
-| P08 | 22233 | 0.5% | 0.5% | +0.0 | 15% | ❌ 14 pts to go |
-| P09 | 307 | 1.0% | 1.0% | +0.0 | 15% | ❌ 14 pts to go |
-| P10 | 2391 | 1.5% | 1.5% | -0.1 | 15% | ❌ 14 pts to go |
-| P11 | 1525 | 2.5% | 2.5% | -0.2 | 15% | ❌ 12 pts to go |
-| P12 | 15 | 20.0% | 20.0% | +0.0 | 15% | ✅ met |
-| P13 | 118052 | 0.1% | 0.1% | -0.1 | 15% | ❌ 15 pts to go |
+| P07 | 694 | 2.7% | 2.7% | -0.2 | 15% | ❌ 12 pts to go |
+| P08 | 22076 | 0.5% | 0.5% | +0.0 | 15% | ❌ 14 pts to go |
+| P09 | 314 | 1.0% | 1.0% | +0.0 | 15% | ❌ 14 pts to go |
+| P10 | 2346 | 1.5% | 1.5% | -0.1 | 15% | ❌ 14 pts to go |
+| P11 | 1514 | 2.2% | 2.2% | -0.5 | 15% | ❌ 13 pts to go |
+| P12 | 16 | 18.8% | 18.8% | -1.2 | 15% | ✅ met |
+| P13 | 129688 | 0.1% | 0.1% | -0.1 | 15% | ❌ 15 pts to go |
 
 ### `buyer_ap_cycle_published`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 2.3% | 2.3% | +0.0 | 20% | ❌ 18 pts to go |
-| P01T | 194 | 4.1% | 4.1% | -0.1 | 20% | ❌ 16 pts to go |
-| P01_GOLD | 636 | 4.4% | 4.4% | -0.1 | 20% | ❌ 16 pts to go |
-| P02 | 466 | 1.5% | 1.5% | +0.0 | 20% | ❌ 18 pts to go |
-| P03 | 265 | 1.5% | 1.5% | +0.0 | 20% | ❌ 18 pts to go |
-| P04 | 3733 | 0.6% | 0.6% | +0.0 | 20% | ❌ 19 pts to go |
-| P05 | 424 | 1.2% | 1.2% | +0.0 | 20% | ❌ 19 pts to go |
-| P06M | 15579 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
+| P01T | 193 | 4.1% | 4.1% | -0.1 | 20% | ❌ 16 pts to go |
+| P01_GOLD | 641 | 4.4% | 4.4% | -0.1 | 20% | ❌ 16 pts to go |
+| P02 | 474 | 1.5% | 1.5% | +0.0 | 20% | ❌ 18 pts to go |
+| P03 | 274 | 1.8% | 1.8% | +0.3 | 20% | ❌ 18 pts to go |
+| P04 | 3741 | 0.6% | 0.6% | +0.0 | 20% | ❌ 19 pts to go |
+| P05 | 427 | 1.2% | 1.2% | +0.0 | 20% | ❌ 19 pts to go |
+| P06M | 15581 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
 | P06 | 272 | 1.5% | 1.5% | +0.0 | 20% | ❌ 18 pts to go |
-| P07 | 697 | 0.4% | 0.4% | +0.0 | 20% | ❌ 20 pts to go |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
-| P09 | 307 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
-| P10 | 2391 | 0.3% | 0.3% | +0.0 | 20% | ❌ 20 pts to go |
-| P11 | 1525 | 0.3% | 0.3% | +0.0 | 20% | ❌ 20 pts to go |
-| P12 | 15 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
+| P07 | 694 | 0.4% | 0.4% | +0.0 | 20% | ❌ 20 pts to go |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
+| P09 | 314 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
+| P10 | 2346 | 0.3% | 0.3% | +0.0 | 20% | ❌ 20 pts to go |
+| P11 | 1514 | 0.1% | 0.1% | -0.2 | 20% | ❌ 20 pts to go |
+| P12 | 16 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | 20% | ❌ 20 pts to go |
 
 ### `buyer_esignature_preference`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 1.5% | 1.5% | -0.1 | 15% | ❌ 14 pts to go |
-| P01T | 194 | 3.1% | 3.1% | +0.0 | 15% | ❌ 12 pts to go |
-| P01_GOLD | 636 | 10.2% | 10.2% | -0.2 | 15% | 🟡 5 pts to go |
-| P02 | 466 | 12.0% | 12.0% | +0.0 | 15% | 🟡 3 pts to go |
-| P03 | 265 | 20.0% | 20.0% | -0.2 | 15% | ✅ met |
-| P04 | 3733 | 2.3% | 2.3% | +0.0 | 15% | ❌ 13 pts to go |
-| P05 | 424 | 2.8% | 2.8% | +0.0 | 15% | ❌ 12 pts to go |
-| P06M | 15579 | 0.3% | 0.3% | +0.0 | 15% | ❌ 15 pts to go |
-| P06T | 40065 | 0.2% | 0.2% | +0.0 | 15% | ❌ 15 pts to go |
+| P01T | 193 | 3.1% | 3.1% | +0.0 | 15% | ❌ 12 pts to go |
+| P01_GOLD | 641 | 10.1% | 10.1% | -0.3 | 15% | 🟡 5 pts to go |
+| P02 | 474 | 11.8% | 11.8% | -0.2 | 15% | 🟡 3 pts to go |
+| P03 | 274 | 20.1% | 20.1% | -0.1 | 15% | ✅ met |
+| P04 | 3741 | 2.3% | 2.3% | +0.0 | 15% | ❌ 13 pts to go |
+| P05 | 427 | 2.8% | 2.8% | +0.0 | 15% | ❌ 12 pts to go |
+| P06M | 15581 | 0.3% | 0.3% | +0.0 | 15% | ❌ 15 pts to go |
+| P06T | 39000 | 0.2% | 0.2% | +0.0 | 15% | ❌ 15 pts to go |
 | P06 | 272 | 5.1% | 5.1% | +0.0 | 15% | 🟡 10 pts to go |
-| P07 | 697 | 1.6% | 1.6% | +0.0 | 15% | ❌ 13 pts to go |
-| P08 | 22233 | 0.5% | 0.5% | +0.0 | 15% | ❌ 14 pts to go |
-| P09 | 307 | 0.7% | 0.7% | +0.0 | 15% | ❌ 14 pts to go |
-| P10 | 2391 | 1.0% | 1.0% | +0.0 | 15% | ❌ 14 pts to go |
-| P11 | 1525 | 1.2% | 1.2% | +0.0 | 15% | ❌ 14 pts to go |
-| P12 | 15 | 6.7% | 6.7% | +0.0 | 15% | 🟡 8 pts to go |
-| P13 | 118052 | 0.1% | 0.1% | +0.0 | 15% | ❌ 15 pts to go |
+| P07 | 694 | 1.6% | 1.6% | +0.0 | 15% | ❌ 13 pts to go |
+| P08 | 22076 | 0.5% | 0.5% | +0.0 | 15% | ❌ 14 pts to go |
+| P09 | 314 | 0.6% | 0.6% | -0.1 | 15% | ❌ 14 pts to go |
+| P10 | 2346 | 1.0% | 1.0% | +0.0 | 15% | ❌ 14 pts to go |
+| P11 | 1514 | 1.1% | 1.1% | -0.1 | 15% | ❌ 14 pts to go |
+| P12 | 16 | 6.2% | 6.2% | -0.5 | 15% | 🟡 9 pts to go |
+| P13 | 129688 | 0.1% | 0.1% | +0.0 | 15% | ❌ 15 pts to go |
 
 ### `ap_system_hint`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 13.7% | 13.7% | -0.3 | 20% | 🟡 6 pts to go |
-| P01T | 194 | 13.9% | 13.9% | -0.2 | 40% | ❌ 26 pts to go |
-| P01_GOLD | 636 | 45.6% | 45.6% | -0.6 | 40% | ✅ met |
-| P02 | 466 | 42.9% | 42.9% | +0.0 | 20% | ✅ met |
-| P03 | 265 | 48.7% | 48.7% | -0.3 | 35% | ✅ met |
-| P04 | 3733 | 14.1% | 14.1% | -0.1 | 20% | 🟡 6 pts to go |
-| P05 | 424 | 15.3% | 15.3% | -0.1 | 20% | 🟡 5 pts to go |
-| P06M | 15579 | 0.8% | 0.8% | +0.0 | 20% | ❌ 19 pts to go |
-| P06T | 40065 | 0.6% | 0.6% | -0.1 | 20% | ❌ 19 pts to go |
+| P01T | 193 | 14.0% | 14.0% | -0.1 | 40% | ❌ 26 pts to go |
+| P01_GOLD | 641 | 45.6% | 45.6% | -0.6 | 40% | ✅ met |
+| P02 | 474 | 42.8% | 42.8% | -0.1 | 20% | ✅ met |
+| P03 | 274 | 48.2% | 48.2% | -0.8 | 35% | ✅ met |
+| P04 | 3741 | 14.2% | 14.2% | +0.0 | 20% | 🟡 6 pts to go |
+| P05 | 427 | 15.5% | 15.5% | +0.1 | 20% | 🟡 4 pts to go |
+| P06M | 15581 | 0.8% | 0.8% | +0.0 | 20% | ❌ 19 pts to go |
+| P06T | 39000 | 0.6% | 0.6% | -0.1 | 20% | ❌ 19 pts to go |
 | P06 | 272 | 25.0% | 25.0% | -0.3 | 20% | ✅ met |
-| P07 | 697 | 8.6% | 8.6% | +0.0 | 20% | ❌ 11 pts to go |
-| P08 | 22233 | 1.0% | 1.0% | +0.0 | 20% | ❌ 19 pts to go |
-| P09 | 307 | 18.2% | 18.2% | +0.0 | 20% | 🟡 2 pts to go |
-| P10 | 2391 | 3.6% | 3.6% | -0.1 | 20% | ❌ 16 pts to go |
-| P11 | 1525 | 4.6% | 4.6% | -0.2 | 20% | ❌ 15 pts to go |
-| P12 | 15 | 6.7% | 6.7% | +0.0 | 20% | ❌ 13 pts to go |
-| P13 | 118052 | 0.4% | 0.4% | -0.1 | 20% | ❌ 20 pts to go |
+| P07 | 694 | 8.6% | 8.6% | +0.0 | 20% | ❌ 11 pts to go |
+| P08 | 22076 | 1.0% | 1.0% | +0.0 | 20% | ❌ 19 pts to go |
+| P09 | 314 | 18.5% | 18.5% | +0.3 | 20% | 🟡 2 pts to go |
+| P10 | 2346 | 3.7% | 3.7% | +0.0 | 20% | ❌ 16 pts to go |
+| P11 | 1514 | 4.0% | 4.0% | -0.8 | 20% | ❌ 16 pts to go |
+| P12 | 16 | 6.2% | 6.2% | -0.5 | 20% | ❌ 14 pts to go |
+| P13 | 129688 | 0.4% | 0.4% | -0.1 | 20% | ❌ 20 pts to go |
 
 ## 5. contract
 
@@ -963,44 +963,44 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 33.6% | 33.6% | +0.3 | n/a | no target |
-| P01T | 194 | 0.5% | 0.5% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 71.7% | 71.7% | +2.2 | 95% | ❌ 23 pts to go |
-| P02 | 466 | 64.2% | 64.2% | +1.3 | 95% | ❌ 31 pts to go |
-| P03 | 265 | 55.8% | 55.8% | +2.6 | 90% | ❌ 34 pts to go |
-| P04 | 3733 | 25.1% | 25.1% | +0.3 | 85% | ❌ 60 pts to go |
-| P05 | 424 | 38.2% | 38.2% | +0.5 | 75% | ❌ 37 pts to go |
-| P06M | 15579 | 36.2% | 36.2% | +0.1 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.5% | 0.5% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 71.9% | 71.9% | +2.4 | 95% | ❌ 23 pts to go |
+| P02 | 474 | 64.8% | 64.8% | +1.9 | 95% | ❌ 30 pts to go |
+| P03 | 274 | 56.9% | 56.9% | +3.7 | 90% | ❌ 33 pts to go |
+| P04 | 3741 | 26.4% | 26.4% | +1.6 | 85% | ❌ 59 pts to go |
+| P05 | 427 | 38.4% | 38.4% | +0.7 | 75% | ❌ 37 pts to go |
+| P06M | 15581 | 36.1% | 36.1% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 90.6% | 90.6% | +2.3 | 100% | 🟡 9 pts to go |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 5.8% | 5.8% | -0.2 | 60% | ❌ 54 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 90.1% | 90.1% | +1.8 | 100% | 🟡 10 pts to go |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 5.2% | 5.2% | -0.8 | 60% | ❌ 55 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `currency`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 33.6% | 33.6% | +0.3 | n/a | no target |
-| P01T | 194 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 73.4% | 73.4% | +0.6 | 100% | ❌ 27 pts to go |
-| P02 | 466 | 66.3% | 66.3% | +0.0 | 100% | ❌ 34 pts to go |
-| P03 | 265 | 58.5% | 58.5% | -0.4 | n/a | no target |
-| P04 | 3733 | 25.5% | 25.5% | +0.0 | 95% | ❌ 70 pts to go |
-| P05 | 424 | 33.7% | 33.7% | +0.3 | 80% | ❌ 46 pts to go |
-| P06M | 15579 | 36.2% | 36.2% | +0.1 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 73.6% | 73.6% | +0.8 | 100% | ❌ 26 pts to go |
+| P02 | 474 | 66.9% | 66.9% | +0.6 | 100% | ❌ 33 pts to go |
+| P03 | 274 | 59.5% | 59.5% | +0.6 | n/a | no target |
+| P04 | 3741 | 26.8% | 26.8% | +1.3 | 95% | ❌ 68 pts to go |
+| P05 | 427 | 34.2% | 34.2% | +0.8 | 80% | ❌ 46 pts to go |
+| P06M | 15581 | 36.1% | 36.1% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 92.5% | 92.5% | +1.0 | 100% | 🟡 8 pts to go |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 6.0% | 6.0% | -0.4 | n/a | no target |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 92.0% | 92.0% | +0.5 | 100% | 🟡 8 pts to go |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 5.4% | 5.4% | -1.0 | n/a | no target |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `start_date`
 
@@ -1009,22 +1009,22 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 80.2% | 80.2% | +0.4 | n/a | no target |
-| P01T | 194 | 0.5% | 0.5% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 52.2% | 52.2% | +0.6 | 85% | ❌ 33 pts to go |
-| P02 | 466 | 57.5% | 57.5% | +0.0 | 90% | ❌ 32 pts to go |
-| P03 | 265 | 42.3% | 42.3% | -0.3 | 85% | ❌ 43 pts to go |
-| P04 | 3733 | 27.8% | 27.8% | -0.1 | 90% | ❌ 62 pts to go |
-| P05 | 424 | 32.3% | 32.3% | -0.4 | 75% | ❌ 43 pts to go |
-| P06M | 15579 | 86.1% | 86.1% | -1.0 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.5% | 0.5% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 52.3% | 52.3% | +0.7 | 85% | ❌ 33 pts to go |
+| P02 | 474 | 58.0% | 58.0% | +0.5 | 90% | ❌ 32 pts to go |
+| P03 | 274 | 43.1% | 43.1% | +0.5 | 85% | ❌ 42 pts to go |
+| P04 | 3741 | 28.8% | 28.8% | +0.9 | 90% | ❌ 61 pts to go |
+| P05 | 427 | 32.3% | 32.3% | -0.4 | 75% | ❌ 43 pts to go |
+| P06M | 15581 | 86.1% | 86.1% | -1.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 83.4% | 83.4% | +0.0 | 95% | ❌ 12 pts to go |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 5.0% | 5.0% | -0.4 | n/a | no target |
-| P12 | 15 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 82.5% | 82.5% | -0.9 | 95% | ❌ 12 pts to go |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 4.6% | 4.6% | -0.8 | n/a | no target |
+| P12 | 16 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `end_date`
 
@@ -1033,66 +1033,66 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 78.6% | 78.6% | +0.3 | n/a | no target |
-| P01T | 194 | 0.5% | 0.5% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 52.5% | 52.5% | +0.7 | 85% | ❌ 32 pts to go |
-| P02 | 466 | 52.6% | 52.6% | +0.0 | 90% | ❌ 37 pts to go |
-| P03 | 265 | 42.6% | 42.6% | -1.1 | 85% | ❌ 42 pts to go |
-| P04 | 3733 | 23.8% | 23.8% | +0.0 | 90% | ❌ 66 pts to go |
-| P05 | 424 | 42.9% | 42.9% | -0.5 | 75% | ❌ 32 pts to go |
-| P06M | 15579 | 76.7% | 76.7% | -1.1 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.5% | 0.5% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 52.6% | 52.6% | +0.8 | 85% | ❌ 32 pts to go |
+| P02 | 474 | 52.7% | 52.7% | +0.1 | 90% | ❌ 37 pts to go |
+| P03 | 274 | 43.1% | 43.1% | -0.6 | 85% | ❌ 42 pts to go |
+| P04 | 3741 | 24.5% | 24.5% | +0.7 | 90% | ❌ 66 pts to go |
+| P05 | 427 | 42.6% | 42.6% | -0.8 | 75% | ❌ 32 pts to go |
+| P06M | 15581 | 76.7% | 76.7% | -1.1 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 0.3% | 0.3% | +0.0 | 95% | ❌ 95 pts to go |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 4.1% | 4.1% | -0.4 | n/a | no target |
-| P12 | 15 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 0.3% | 0.3% | +0.0 | 95% | ❌ 95 pts to go |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 3.6% | 3.6% | -0.9 | n/a | no target |
+| P12 | 16 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `contract_title`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 90.1% | 90.1% | +0.2 | n/a | no target |
-| P01T | 194 | 94.3% | 94.3% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 85.4% | 85.4% | +0.1 | 100% | ❌ 15 pts to go |
-| P02 | 466 | 76.6% | 76.6% | +0.2 | 100% | ❌ 23 pts to go |
-| P03 | 265 | 91.3% | 91.3% | +0.0 | n/a | no target |
-| P04 | 3733 | 49.0% | 49.0% | +0.2 | 95% | ❌ 46 pts to go |
-| P05 | 424 | 77.4% | 77.4% | -0.1 | 95% | ❌ 18 pts to go |
-| P06M | 15579 | 99.0% | 99.0% | +0.1 | n/a | no target |
-| P06T | 40065 | 91.8% | 91.8% | +1.2 | n/a | no target |
+| P01T | 193 | 94.3% | 94.3% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 85.5% | 85.5% | +0.2 | 100% | ❌ 14 pts to go |
+| P02 | 474 | 77.0% | 77.0% | +0.6 | 100% | ❌ 23 pts to go |
+| P03 | 274 | 91.6% | 91.6% | +0.3 | n/a | no target |
+| P04 | 3741 | 50.1% | 50.1% | +1.3 | 95% | ❌ 45 pts to go |
+| P05 | 427 | 77.5% | 77.5% | +0.0 | 95% | ❌ 18 pts to go |
+| P06M | 15581 | 99.0% | 99.0% | +0.1 | n/a | no target |
+| P06T | 39000 | 91.6% | 91.6% | +1.0 | n/a | no target |
 | P06 | 272 | 22.8% | 22.8% | -0.3 | n/a | no target |
-| P07 | 697 | 13.2% | 13.2% | -0.6 | n/a | no target |
-| P08 | 22233 | 7.1% | 7.1% | +0.0 | n/a | no target |
-| P09 | 307 | 98.7% | 98.7% | +0.0 | 100% | 🟡 1 pts to go |
-| P10 | 2391 | 71.0% | 71.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 69.2% | 69.2% | +1.1 | n/a | no target |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 99.8% | 99.8% | +0.1 | n/a | no target |
+| P07 | 694 | 13.3% | 13.3% | -0.5 | n/a | no target |
+| P08 | 22076 | 7.0% | 7.0% | -0.1 | n/a | no target |
+| P09 | 314 | 98.4% | 98.4% | -0.3 | 100% | 🟡 2 pts to go |
+| P10 | 2346 | 70.9% | 70.9% | -0.1 | n/a | no target |
+| P11 | 1514 | 69.0% | 69.0% | +0.9 | n/a | no target |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 99.8% | 99.8% | +0.1 | n/a | no target |
 
 ### `contract_description`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 90.1% | 90.1% | +0.2 | n/a | no target |
-| P01T | 194 | 94.3% | 94.3% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 88.5% | 88.5% | +0.0 | 100% | ❌ 12 pts to go |
-| P02 | 466 | 77.7% | 77.9% | +0.2 | 100% | ❌ 22 pts to go |
-| P03 | 265 | 92.1% | 92.1% | +0.1 | n/a | no target |
-| P04 | 3733 | 52.2% | 52.2% | +0.3 | 95% | ❌ 43 pts to go |
-| P05 | 424 | 89.4% | 89.4% | -0.2 | 70% | ✅ met |
-| P06M | 15579 | 99.0% | 99.0% | +0.1 | n/a | no target |
-| P06T | 40065 | 91.8% | 91.8% | +1.2 | n/a | no target |
+| P01T | 193 | 94.3% | 94.3% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 88.6% | 88.6% | +0.1 | 100% | ❌ 11 pts to go |
+| P02 | 474 | 78.1% | 78.3% | +0.6 | 100% | ❌ 22 pts to go |
+| P03 | 274 | 92.3% | 92.3% | +0.3 | n/a | no target |
+| P04 | 3741 | 53.3% | 53.3% | +1.4 | 95% | ❌ 42 pts to go |
+| P05 | 427 | 89.5% | 89.5% | -0.1 | 70% | ✅ met |
+| P06M | 15581 | 99.0% | 99.0% | +0.1 | n/a | no target |
+| P06T | 39000 | 91.6% | 91.6% | +1.0 | n/a | no target |
 | P06 | 272 | 22.8% | 22.8% | -0.3 | n/a | no target |
-| P07 | 697 | 13.2% | 13.2% | -0.6 | n/a | no target |
-| P08 | 22233 | 7.1% | 7.1% | +0.0 | n/a | no target |
-| P09 | 307 | 98.7% | 98.7% | +0.0 | 100% | 🟡 1 pts to go |
-| P10 | 2391 | 71.0% | 71.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 69.3% | 69.3% | +1.1 | n/a | no target |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 13.3% | 13.3% | -0.5 | n/a | no target |
+| P08 | 22076 | 7.0% | 7.0% | -0.1 | n/a | no target |
+| P09 | 314 | 98.4% | 98.4% | -0.3 | 100% | 🟡 2 pts to go |
+| P10 | 2346 | 70.9% | 70.9% | -0.1 | n/a | no target |
+| P11 | 1514 | 69.1% | 69.1% | +0.9 | n/a | no target |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ### `number_of_bids`
 
@@ -1101,22 +1101,22 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01T | 194 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 16.5% | 16.5% | -0.3 | 60% | ❌ 44 pts to go · rows from a source that publishes bids: 371 rows, 28.3% filled |
-| P02 | 466 | 11.2% | 11.2% | +0.0 | n/a | no target · rows from a source that publishes bids: 290 rows, 17.9% filled |
-| P03 | 265 | 14.0% | 14.0% | +1.1 | n/a | no target · rows from a source that publishes bids: 139 rows, 26.6% filled |
-| P04 | 3733 | 1.5% | 1.5% | +0.0 | n/a | no target · rows from a source that publishes bids: 871 rows, 6.4% filled |
-| P05 | 424 | 2.6% | 2.6% | +0.0 | n/a | no target · rows from a source that publishes bids: 50 rows, 22.0% filled |
-| P06M | 15579 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01T | 193 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 16.7% | 16.7% | -0.1 | 60% | ❌ 43 pts to go · rows from a source that publishes bids: 376 rows, 28.5% filled |
+| P02 | 474 | 11.0% | 11.0% | -0.2 | n/a | no target · rows from a source that publishes bids: 298 rows, 17.4% filled |
+| P03 | 274 | 14.2% | 14.2% | +1.3 | n/a | no target · rows from a source that publishes bids: 144 rows, 27.1% filled |
+| P04 | 3741 | 1.6% | 1.6% | +0.1 | n/a | no target · rows from a source that publishes bids: 920 rows, 6.3% filled |
+| P05 | 427 | 2.6% | 2.6% | +0.0 | n/a | no target · rows from a source that publishes bids: 52 rows, 21.2% filled |
+| P06M | 15581 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 0.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P09 | 307 | 4.2% | 4.2% | +0.0 | n/a | no target · rows from a source that publishes bids: 293 rows, 4.4% filled |
-| P10 | 2391 | 0.0% | 0.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 0.9% | 0.9% | +0.0 | n/a | no target · rows from a source that publishes bids: 88 rows, 14.8% filled |
-| P12 | 15 | 0.0% | 0.0% | +0.0 | n/a | no target · rows from a source that publishes bids: 15 rows, 0.0% filled |
-| P13 | 118052 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P09 | 314 | 4.5% | 4.5% | +0.3 | n/a | no target · rows from a source that publishes bids: 300 rows, 4.7% filled |
+| P10 | 2346 | 0.0% | 0.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 0.7% | 0.7% | -0.2 | n/a | no target · rows from a source that publishes bids: 77 rows, 13.0% filled |
+| P12 | 16 | 0.0% | 0.0% | +0.0 | n/a | no target · rows from a source that publishes bids: 16 rows, 0.0% filled |
+| P13 | 129688 | 0.0% | 0.0% | +0.0 | n/a | no target |
 
 ## 6. history
 
@@ -1127,66 +1127,66 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P01T | 194 | 0.0% | 97.9% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 53.5% | 82.4% | +0.3 | 90% | ❌ 36 pts to go |
-| P02 | 466 | 52.4% | 87.6% | +0.0 | 90% | ❌ 38 pts to go |
-| P03 | 265 | 44.2% | 80.8% | -0.3 | 90% | ❌ 46 pts to go |
-| P04 | 3733 | 19.0% | 93.9% | -0.1 | 90% | ❌ 71 pts to go |
-| P05 | 424 | 0.0% | 83.5% | +0.0 | 90% | ❌ 90 pts to go |
-| P06M | 15579 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.0% | 99.8% | +0.0 | n/a | no target |
+| P01T | 193 | 0.0% | 97.9% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 53.7% | 82.4% | +0.5 | 90% | ❌ 36 pts to go |
+| P02 | 474 | 52.7% | 87.3% | +0.3 | 90% | ❌ 37 pts to go |
+| P03 | 274 | 44.9% | 80.3% | +0.4 | 90% | ❌ 45 pts to go |
+| P04 | 3741 | 19.7% | 93.2% | +0.6 | 90% | ❌ 70 pts to go |
+| P05 | 427 | 0.0% | 82.9% | +0.0 | 90% | ❌ 90 pts to go |
+| P06M | 15581 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.0% | 99.8% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P09 | 307 | 2.3% | 3.9% | +0.0 | 90% | ❌ 88 pts to go |
-| P10 | 2391 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 3.7% | 97.0% | -0.4 | n/a | no target |
-| P12 | 15 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P09 | 314 | 2.5% | 4.1% | +0.2 | 90% | ❌ 88 pts to go |
+| P10 | 2346 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 3.1% | 97.1% | -1.0 | n/a | no target |
+| P12 | 16 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 100.0% | +0.0 | n/a | no target |
 
 ### `commodity_distribution_top3`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P01T | 194 | 0.5% | 98.5% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 26.3% | 55.2% | +0.4 | 90% | ❌ 64 pts to go |
-| P02 | 466 | 51.5% | 86.7% | +0.0 | n/a | no target |
-| P03 | 265 | 24.2% | 60.8% | -0.1 | n/a | no target |
-| P04 | 3733 | 20.9% | 95.7% | -0.1 | n/a | no target |
-| P05 | 424 | 0.5% | 84.0% | +0.0 | n/a | no target |
-| P06M | 15579 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.1% | 99.9% | +0.0 | n/a | no target |
+| P01T | 193 | 0.5% | 98.4% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 26.4% | 55.1% | +0.5 | 90% | ❌ 64 pts to go |
+| P02 | 474 | 51.5% | 86.1% | +0.0 | n/a | no target |
+| P03 | 274 | 24.5% | 59.9% | +0.2 | n/a | no target |
+| P04 | 3741 | 21.6% | 95.1% | +0.6 | n/a | no target |
+| P05 | 427 | 0.5% | 83.4% | +0.0 | n/a | no target |
+| P06M | 15581 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.1% | 99.9% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P09 | 307 | 41.0% | 42.7% | +0.0 | n/a | no target |
-| P10 | 2391 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 3.5% | 96.8% | -0.2 | n/a | no target |
-| P12 | 15 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P09 | 314 | 40.8% | 42.4% | -0.2 | n/a | no target |
+| P10 | 2346 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 3.0% | 97.0% | -0.7 | n/a | no target |
+| P12 | 16 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 100.0% | +0.0 | n/a | no target |
 
 ### `year_over_year_spend_trend`
 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P01T | 194 | 2.1% | 100.0% | +0.0 | n/a | no target |
-| P01_GOLD | 636 | 51.9% | 80.8% | +0.1 | 95% | ❌ 43 pts to go |
-| P02 | 466 | 56.4% | 91.6% | +0.0 | n/a | no target |
-| P03 | 265 | 46.4% | 83.0% | -0.4 | n/a | no target |
-| P04 | 3733 | 21.1% | 96.0% | -0.1 | n/a | no target |
-| P05 | 424 | 4.5% | 88.0% | +0.0 | n/a | no target |
-| P06M | 15579 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P06T | 40065 | 0.1% | 100.0% | +0.0 | n/a | no target |
+| P01T | 193 | 2.1% | 100.0% | +0.0 | n/a | no target |
+| P01_GOLD | 641 | 52.3% | 81.0% | +0.5 | 95% | ❌ 43 pts to go |
+| P02 | 474 | 57.0% | 91.6% | +0.6 | n/a | no target |
+| P03 | 274 | 47.8% | 83.2% | +1.0 | n/a | no target |
+| P04 | 3741 | 22.3% | 95.7% | +1.1 | n/a | no target |
+| P05 | 427 | 4.7% | 87.6% | +0.2 | n/a | no target |
+| P06M | 15581 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P06T | 39000 | 0.1% | 100.0% | +0.0 | n/a | no target |
 | P06 | 272 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P07 | 697 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P08 | 22233 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P09 | 307 | 62.5% | 64.2% | +0.0 | n/a | no target |
-| P10 | 2391 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P11 | 1525 | 3.9% | 97.2% | -0.2 | n/a | no target |
-| P12 | 15 | 0.0% | 100.0% | +0.0 | n/a | no target |
-| P13 | 118052 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P07 | 694 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P08 | 22076 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P09 | 314 | 61.8% | 63.4% | -0.7 | n/a | no target |
+| P10 | 2346 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P11 | 1514 | 3.2% | 97.2% | -0.9 | n/a | no target |
+| P12 | 16 | 0.0% | 100.0% | +0.0 | n/a | no target |
+| P13 | 129688 | 0.0% | 100.0% | +0.0 | n/a | no target |
 
 ## 7. mail security
 
@@ -1197,22 +1197,22 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
-| P01T | 194 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
-| P01_GOLD | 636 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
-| P02 | 466 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
-| P03 | 265 | 99.2% | 99.2% | -0.8 | 100% | 🟡 1 pts to go |
-| P04 | 3733 | 98.8% | 98.8% | -1.2 | 100% | 🟡 1 pts to go |
-| P05 | 424 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
-| P06M | 15579 | 95.0% | 95.0% | -5.0 | 100% | 🟡 5 pts to go |
-| P06T | 40065 | 90.3% | 90.3% | -9.7 | 100% | 🟡 10 pts to go |
+| P01T | 193 | 97.9% | 97.9% | -2.1 | 100% | 🟡 2 pts to go |
+| P01_GOLD | 641 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
+| P02 | 474 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
+| P03 | 274 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
+| P04 | 3741 | 98.8% | 98.8% | -1.2 | 100% | 🟡 1 pts to go |
+| P05 | 427 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
+| P06M | 15581 | 95.2% | 95.2% | -4.8 | 100% | 🟡 5 pts to go |
+| P06T | 39000 | 90.3% | 90.3% | -9.7 | 100% | 🟡 10 pts to go |
 | P06 | 272 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
-| P07 | 697 | 98.9% | 98.9% | -1.1 | 100% | 🟡 1 pts to go |
-| P08 | 22233 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
-| P09 | 307 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P10 | 2391 | 98.0% | 98.0% | -2.0 | 100% | 🟡 2 pts to go |
-| P11 | 1525 | 95.6% | 95.6% | -4.4 | 100% | 🟡 4 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P13 | 118052 | 84.0% | 84.0% | -16.0 | 100% | ❌ 16 pts to go |
+| P07 | 694 | 98.8% | 98.8% | -1.2 | 100% | 🟡 1 pts to go |
+| P08 | 22076 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
+| P09 | 314 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P10 | 2346 | 98.0% | 98.0% | -2.0 | 100% | 🟡 2 pts to go |
+| P11 | 1514 | 95.6% | 95.6% | -4.4 | 100% | 🟡 4 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P13 | 129688 | 82.6% | 82.6% | -17.4 | 100% | ❌ 17 pts to go |
 
 ### `tls_rpt`
 
@@ -1221,22 +1221,22 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
-| P01T | 194 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
-| P01_GOLD | 636 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
-| P02 | 466 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
-| P03 | 265 | 99.2% | 99.2% | -0.8 | 100% | 🟡 1 pts to go |
-| P04 | 3733 | 98.8% | 98.8% | -1.2 | 100% | 🟡 1 pts to go |
-| P05 | 424 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
-| P06M | 15579 | 95.0% | 95.0% | -5.0 | 100% | 🟡 5 pts to go |
-| P06T | 40065 | 90.3% | 90.3% | -9.7 | 100% | 🟡 10 pts to go |
+| P01T | 193 | 97.9% | 97.9% | -2.1 | 100% | 🟡 2 pts to go |
+| P01_GOLD | 641 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
+| P02 | 474 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
+| P03 | 274 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
+| P04 | 3741 | 98.8% | 98.8% | -1.2 | 100% | 🟡 1 pts to go |
+| P05 | 427 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
+| P06M | 15581 | 95.2% | 95.2% | -4.8 | 100% | 🟡 5 pts to go |
+| P06T | 39000 | 90.3% | 90.3% | -9.7 | 100% | 🟡 10 pts to go |
 | P06 | 272 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
-| P07 | 697 | 98.9% | 98.9% | -1.1 | 100% | 🟡 1 pts to go |
-| P08 | 22233 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
-| P09 | 307 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P10 | 2391 | 98.0% | 98.0% | -2.0 | 100% | 🟡 2 pts to go |
-| P11 | 1525 | 95.6% | 95.6% | -4.4 | 100% | 🟡 4 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P13 | 118052 | 84.0% | 84.0% | -16.0 | 100% | ❌ 16 pts to go |
+| P07 | 694 | 98.8% | 98.8% | -1.2 | 100% | 🟡 1 pts to go |
+| P08 | 22076 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
+| P09 | 314 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P10 | 2346 | 98.0% | 98.0% | -2.0 | 100% | 🟡 2 pts to go |
+| P11 | 1514 | 95.6% | 95.6% | -4.4 | 100% | 🟡 4 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P13 | 129688 | 82.6% | 82.6% | -17.4 | 100% | ❌ 17 pts to go |
 
 ### `bimi`
 
@@ -1245,20 +1245,20 @@ Rows per package: P01M 131, P01T 194, P01_GOLD 636, P02 466, P03 265, P04 3733, 
 | package | rows | now (values) | any (incl. labels) | Δ | target | status |
 |---|---|---|---|---|---|---|
 | P01M | 131 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
-| P01T | 194 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
-| P01_GOLD | 636 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
-| P02 | 466 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
-| P03 | 265 | 99.2% | 99.2% | -0.8 | 100% | 🟡 1 pts to go |
-| P04 | 3733 | 98.8% | 98.8% | -1.2 | 100% | 🟡 1 pts to go |
-| P05 | 424 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
-| P06M | 15579 | 95.0% | 95.0% | -5.0 | 100% | 🟡 5 pts to go |
-| P06T | 40065 | 90.3% | 90.3% | -9.7 | 100% | 🟡 10 pts to go |
+| P01T | 193 | 97.9% | 97.9% | -2.1 | 100% | 🟡 2 pts to go |
+| P01_GOLD | 641 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
+| P02 | 474 | 99.8% | 99.8% | -0.2 | 100% | 🟡 0 pts to go |
+| P03 | 274 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
+| P04 | 3741 | 98.8% | 98.8% | -1.2 | 100% | 🟡 1 pts to go |
+| P05 | 427 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
+| P06M | 15581 | 95.2% | 95.2% | -4.8 | 100% | 🟡 5 pts to go |
+| P06T | 39000 | 90.3% | 90.3% | -9.7 | 100% | 🟡 10 pts to go |
 | P06 | 272 | 99.3% | 99.3% | -0.7 | 100% | 🟡 1 pts to go |
-| P07 | 697 | 98.9% | 98.9% | -1.1 | 100% | 🟡 1 pts to go |
-| P08 | 22233 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
-| P09 | 307 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P10 | 2391 | 98.0% | 98.0% | -2.0 | 100% | 🟡 2 pts to go |
-| P11 | 1525 | 95.6% | 95.6% | -4.4 | 100% | 🟡 4 pts to go |
-| P12 | 15 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
-| P13 | 118052 | 84.0% | 84.0% | -16.0 | 100% | ❌ 16 pts to go |
+| P07 | 694 | 98.8% | 98.8% | -1.2 | 100% | 🟡 1 pts to go |
+| P08 | 22076 | 98.5% | 98.5% | -1.5 | 100% | 🟡 2 pts to go |
+| P09 | 314 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P10 | 2346 | 98.0% | 98.0% | -2.0 | 100% | 🟡 2 pts to go |
+| P11 | 1514 | 95.6% | 95.6% | -4.4 | 100% | 🟡 4 pts to go |
+| P12 | 16 | 100.0% | 100.0% | +0.0 | 100% | ✅ met |
+| P13 | 129688 | 82.6% | 82.6% | -17.4 | 100% | ❌ 17 pts to go |
 
