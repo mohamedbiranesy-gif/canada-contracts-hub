@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-12 15:02 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 15:22 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-12)
 | metric | value |
@@ -46,6 +46,11 @@
 | claude | claude_buyer_ap_results_agent02.csv | 28 | 28 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_agent03.csv | 8 | 8 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_apfirst01.csv | 5352 | 5352 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_batch908.csv | 100 | 2 | 91 | 7 | 0 |
+| claude | claude_buyer_ap_results_batch909.csv | 100 | 15 | 81 | 4 | 0 |
+| claude | claude_buyer_ap_results_batch912.csv | 28 | 10 | 15 | 3 | 0 |
+| claude | claude_buyer_ap_results_batch913.csv | 26 | 6 | 12 | 8 | 0 |
+| claude | claude_buyer_ap_results_batch914.csv | 50 | 22 | 22 | 6 | 0 |
 | claude | claude_buyer_ap_results_cccrawl01.csv | 112363 | 112363 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl02.csv | 62425 | 62425 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl03.csv | 46182 | 46182 | 0 | 0 | 0 |
@@ -55,7 +60,7 @@
 | claude | claude_buyer_ap_results_cccrawl07.csv | 44454 | 44454 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl08.csv | 44781 | 44781 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl09.csv | 44518 | 44518 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl10.csv | 6726 | 6726 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl10.csv | 6773 | 6773 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
@@ -86,6 +91,16 @@
 | claude | claude_vendor_names_read.csv | 6 | 0 | 0 | 0 | 6 |
 | claude | claude_vendor_sites.csv | 842 | 0 | 0 | 0 | 842 |
 | claude | claude_wikidata_orgs.csv | 42229 | 0 | 0 | 0 | 42229 |
+| claude | roster_ca_con_ogca.csv | 142 | 0 | 0 | 0 | 142 |
+| claude | roster_ca_con_winnipeg.csv | 678 | 0 | 0 | 0 | 678 |
+| claude | roster_cc_at_miramichi.csv | 103 | 0 | 0 | 0 | 103 |
+| claude | roster_cc_qc_ccgj.csv | 9 | 0 | 0 | 0 | 9 |
+| claude | roster_cc_qc_cci3r.csv | 487 | 0 | 0 | 0 | 487 |
+| claude | roster_cc_qc_cciq.csv | 167 | 0 | 0 | 0 | 167 |
+| claude | roster_cc_qc_ccirdn.csv | 210 | 0 | 0 | 0 | 210 |
+| claude | roster_cc_qc_ccvd.csv | 350 | 0 | 0 | 0 | 350 |
+| claude | roster_ex_agdays.csv | 507 | 0 | 0 | 0 | 507 |
+| claude | roster_ex_pdac.csv | 1300 | 0 | 0 | 0 | 1300 |
 | codex | codex_buyer_ap_results_batch01.csv | 100 | 44 | 56 | 0 | 0 |
 | codex | codex_buyer_ap_results_batch02.csv | 126 | 61 | 29 | 18 | 18 |
 | codex | codex_buyer_ap_results_batch03.csv | 95 | 57 | 0 | 14 | 24 |
