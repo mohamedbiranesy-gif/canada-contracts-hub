@@ -1,4 +1,31 @@
-# STATE.md — Claude lane (updated 2026-11-12 05:19Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 06:02Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 06:02Z — build 05:23Z read (164,391 ready); the 06:17Z build carries everything below; a test hundred read and fixed
+
+**Build of 05:23Z (MAIL_ALL, contract list, city lever, pockets), counted: 164,391 ready of 223,790** (by location 121,978; amount and
+period 135,459; every main invoice field 89,115; published $5,000+ 1,859). Told to the owner at ~05:35Z.
+
+**Pushed since, in the 06:17Z cron build (lands ~07:35Z):** registry and Overture addresses (DECISIONS 04:39Z), the reader takes located
+sites (04:58Z), distributors' numbers and terms (05:15Z: sample every-main-field 25,698 -> 34,672), test-set fixes (05:59Z: zero amounts,
+press-release wording, person agents, address junk, copyright names). Sample OWNER23 (1 in 4, never multiplied): 48,913 ready of 65,327.
+
+**Trademark owners abroad, running by themselves now:** tm-sites tied 5,323 owner sites through Overture listings (tm_sites_found.csv:
+13,200 in all); tm-register made 17,808 leads (15,098 with a Canadian agent of record). The mailbox reader reads them next, the referee
+re-reads, the rank build makes agent-of-record rows.
+
+**Not ready (05:23Z, 59,399 rows):** 42,529 "payment: not published" — mostly services (hosting, DNS, software: easyDNS 2,788, Jane 2,247,
+Hawk Host 1,971 …) whose vendors publish no bank payment; by rule 13 these are not rows unless the vendor says so. 6,457 shared buildings;
+6,181 no mailbox; 9,864 relationships not established (vendor statements, links).
+
+**The plan to a million, as it stands (honest):**
+1. Canada by where the organisation is — automated end to end (scan lists -> home-page scan -> mailbox reader -> referee -> rows). The
+   ceiling is the organisations in Canada with a site, a role mailbox and an address that can be located (400,000-500,000 estimated);
+   121,978 today. Growth now comes from the reader working through the Overture and certificate-log domains, every cycle.
+2. Organisations abroad tied to a Canadian biller by a record — trademark owners and their Canadian agents (109,538 with an agent; 18,729
+   with a listed website), then patent owners and their agents (CIPO), importers in customs records, US public buyers (subawards, FERC
+   EQR), lobbyist clients. Each needs the organisation's site found without guessing (a register's or a places dataset's own listing).
+3. Every row filled billers-first; estimates calculated and labelled.
+A million is not on file; the second half needs record types abroad not yet built.
 
 ## 2026-11-12 04:50Z — the 04:03Z build read; where an organisation is when its own pages located nothing (registry, then Overture's listed address)
 
