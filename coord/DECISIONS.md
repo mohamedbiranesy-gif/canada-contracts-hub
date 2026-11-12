@@ -1689,3 +1689,18 @@ Overture place lists THIS website under the owner's name at the register's posta
 that state) AND the site's own pages state the owner's name. On 40 owners (the largest first): 10 tied (Google, Pfizer, Mattel, Henkel,
 Honeywell, PepsiCo …), against 1 under the earlier tests alone. `tm-sites.yml` input `overture=true` writes the candidates first (job
 candidates), then the runners read. The leads follow the daily `tm-register.yml` (match, leads), the mailbox reader, the referee.
+
+## 2026-11-12 05:15Z — the distributors' numbers from the global LEI register; Nova Scotia Power's and Manitoba Hydro's due terms (claude)
+
+Rule 16: "one page read at a biller fills thousands of rows: billers first". In the 04:03Z build the rows by where the organisation is that
+met the test lacked the biller's number for BC Hydro (20,066 rows), Nova Scotia Power (2,528) and NB Power (1,497), and the due terms for
+Manitoba Hydro (3,647) and Nova Scotia Power — so none of them counted among the rows with every main invoice field. Rule 11 lets a
+biller's number in its home register stand for a GST/HST number that is not public, labelled. The global Legal Entity Identifier register
+(GLEIF's open API, api.gleif.org) records, for each legal entity, its LEI and — where it has one — its number in its business register:
+NB Power 022248 (New Brunswick Corporate Registry), Nova Scotia Power 1567820 (Nova Scotia Registry of Joint Stock Companies), Maritime
+Electric 235139-1 (Corporations Canada), Newfoundland Power 4508 (Newfoundland and Labrador Registry of Companies); BC Hydro and Manitoba
+Hydro (bodies created by their own Acts) have an LEI and no business-register number, and their cells say so. Each value carries a verbatim
+excerpt of the register's record and its URL (`tools/data/billers_by_location.json: registration`; the row's `vendor_registry_id`, and
+`vendor_tax_or_registration_number` says "this register entry carries no Business Number"). Due terms, each verified on the page: Nova
+Scotia Power's Regulations, s. 5.4 ("Bills are due on the billing date." … not paid within twenty days after the billing date: an interest
+charge; thirty days: disconnection), and Manitoba Hydro's billing glossary (due date; late payment charge of 1.25 % a month after it).
