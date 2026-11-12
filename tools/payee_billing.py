@@ -107,6 +107,20 @@ PAYEES = [
                   "cheque, bank draft, money order, or credit card.”"),
          remit_to=("“Health Canada Accounts Receivable, Address Locator: 1918B 18th Floor, Room 1804B, Jeanne-Mance Building 161 Goldenrod Driveway, Tunney's Pasture "
                    "Ottawa, Ontario K1A 0K9” — “Please include your Health Canada customer number or group account number on the Cheque, Money Order or Bank Draft”")),
+    # ISED: the yearly radio licence invoice (tools/radio_licences.py); its page on paying a radio authorization invoice, read 2026-11-12
+    dict(names=["Innovation, Science and Economic Development Canada", "Innovation, Sciences et Développement économique Canada", "ISED", "ISDE"], hosts=[], read="2026-11-12",
+         url="https://ised-isde.canada.ca/site/spectrum-management-system/en/pay-online",
+         payment=("by wire transfer or direct deposit to the Receiver General for Canada at The Bank of Nova Scotia, by cheque or money order, or online: “Other payment "
+                  "options Wire transfer Use the following information to complete a wire transfer payment: Bank Name : The Bank of Nova Scotia 4715 Tahoe Blvd, Mississauga "
+                  "ON L4W 0B4” — “For payment by cheque or money order made payable to the Receiver General for Canada, include your account number and the invoice number, "
+                  "both available on your invoice or on your email notification”"),
+         delivery="an invoice every year: “They are used to calculate licence renewal invoices and for any new or amended licences issued throughout the fiscal year.”",
+         delivery_url=("https://ised-isde.canada.ca/site/spectrum-management-telecommunications/en/licences-and-certificates/radiocom-information-circulars-ric/"
+                       "ric-42-guide-calculating-radio-licence-fees"),
+         period="“The annual fee for the renewal of a radio licence is payable before the radio licence expires on March 31 of each year.”",
+         period_url=("https://ised-isde.canada.ca/site/spectrum-management-telecommunications/en/licences-and-certificates/radiocom-information-circulars-ric/"
+                     "ric-42-guide-calculating-radio-licence-fees"),
+         remit_to="“By courier to the following address: ISED – Spectrum Revenue Centre 235 Queen Street, Room 643A Ottawa ON K1A 0H5”"),
 ]
 
 # ---- entries added by any lane (2026-11-11): contrib/<lane>/payees/<key>.json, one body a file, the same keys as an entry above ------------------

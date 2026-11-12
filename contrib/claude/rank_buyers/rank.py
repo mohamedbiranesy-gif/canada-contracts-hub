@@ -5435,8 +5435,9 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_indicative"] = "%s%s%s" % ({"CAD": "C$", "USD": "US$"}.get(c_, "$"), ("%.2f" % v).rstrip("0").rstrip("."),
                                                              " per vehicle" if re.search(r"per vehicle", m.group(1), re.I) else " a year" if re.search(r"annual|year|ann[ée]e", m.group(1), re.I) else "")
                 out["bill_amount_basis"] = "the body's own statement of its fee: “%s” (%s)" % (m.group(1)[:280], m.group(2))
-        if ld.get("platform") == "hc_register":
-            # tools/hc_registers.py: the published fee of one product (a drug, a device licence) and the year's bill calculated from the products the register
+        if ld.get("platform") in ("hc_register", "radio_register"):
+            # tools/hc_registers.py / tools/radio_licences.py: the published fee of one product (a drug, a device licence, a radio station) and the year's bill
+            # calculated from what the register lists for the organisation today (a radio licensee's: at least, from the lowest fee of each station)
             # lists for the company today; how the invoice comes and when it is due, in Health Canada's own guidance
             for _c, _k in (("bill_amount_indicative", "fee_unit"), ("bill_amount_basis", "fee_unit_basis"), ("bill_amount_calculated", "fee_calculated"),
                            ("bill_delivery_as_published", "bill_delivery"), ("bill_due_terms_as_published", "bill_terms"), ("bill_items_as_published", "bill_items")):

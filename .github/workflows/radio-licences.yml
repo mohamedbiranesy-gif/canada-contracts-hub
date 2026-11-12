@@ -1,0 +1,70 @@
+name: radio-licences
+# ISED's radio licensees (tools/radio_licences.py): every organisation that holds a granted, fee-paying radio authorization in the Spectrum Management
+# System's monthly authorization data extract (open data). ISED invoices each licensee every year ("The annual fee for the renewal of a radio licence
+# is payable before the radio licence expires on March 31 of each year", RIC-42); the invoice is paid by wire transfer, direct deposit or cheque to the
+# Receiver General for Canada, or online. The extract is pulled only when ISED has published a newer one (one request; www.ic.gc.ca asks a 20-second
+# crawl delay). A licensee's site is tied from the sites on file (same postal code, names that agree) or from the company-name autocomplete under its
+# very name, checked on the site's own home page. The mailbox comes from that site (mailbox-crawl reads lead_shards/). Resumable: the done list is
+# committed, and every run asks the autocomplete about the names not asked yet.
+on:
+  schedule:
+    - cron: "53 1,5,9,13,17,21 * * *"
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "minutes for the site finder"
+        default: "100"
+permissions:
+  contents: write
+concurrency:
+  group: radio-licences
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Pull, build, find sites, write leads, commit
+        env: { MINUTES: "${{ inputs.minutes || '100' }}" }
+        run: |
+          python3 tools/radio_licences.py pull --work /tmp/radio 2>&1 | tee /tmp/l.txt
+          python3 tools/radio_licences.py build --work /tmp/radio 2>&1 | tee -a /tmp/l.txt
+          python3 tools/radio_licences.py sites --minutes "$MINUTES" --threads 12 2>&1 | tee -a /tmp/l.txt
+          mkdir -p keep && cp data/incoming/claude/radio/radio_licensees.csv.gz data/incoming/claude/radio/extract_info.json data/incoming/claude/radio/radio_sites.csv data/incoming/claude/radio/radio_sites_done.tsv keep/
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          git config user.name "radio-licences"; git config user.email "radio-licences@users.noreply.github.com"
+          for i in $(seq 1 10); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            mkdir -p data/incoming/claude/radio
+            # the site list and the done list only grow: the lines of main and of this run, once each
+            for f in radio_sites.csv radio_sites_done.tsv; do
+              if [ -f "data/incoming/claude/radio/$f" ]; then
+                python3 - "$f" <<'PY'
+          import sys
+          f = sys.argv[1]
+          a = open("data/incoming/claude/radio/" + f, encoding="utf-8").read().splitlines()
+          b = open("keep/" + f, encoding="utf-8").read().splitlines()
+          seen, out = set(), []
+          for l in a + b:
+              if l not in seen:
+                  seen.add(l); out.append(l)
+          head = [l for l in out if l.startswith("key,")][:1]
+          open("data/incoming/claude/radio/" + f, "w", encoding="utf-8").write("\n".join(head + [l for l in out if not l.startswith("key,")]) + "\n")
+          PY
+              else
+                cp "keep/$f" "data/incoming/claude/radio/$f"
+              fi
+            done
+            cp keep/radio_licensees.csv.gz keep/extract_info.json data/incoming/claude/radio/
+            python3 tools/radio_licences.py leads --stamp "$STAMP" | tee /tmp/m.txt
+            python3 tools/secret_guard.py || true
+            git add data/incoming/claude/radio data/incoming/claude/lead_shards
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "radio-licences: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
+          { echo '```'; cat /tmp/l.txt /tmp/m.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

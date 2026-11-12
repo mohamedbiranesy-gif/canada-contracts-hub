@@ -198,6 +198,14 @@ def sites_on_file():
     return out
 
 
+_MAIL = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+
+
+def no_mail(t):
+    """a quote of a page as evidence of a tie keeps no e-mail address (the mailbox of a row is read and checked elsewhere)"""
+    return re.sub(r"\s{2,}", " ", _MAIL.sub("[e-mail]", t or ""))
+
+
 def names_agree(a, b):
     """every word of the shorter core name is in the longer one, and what agrees identifies (two words, or one of six letters or more)"""
     ca, cb = core(a).split(), core(b).split()
@@ -224,7 +232,7 @@ def tie_on_file(cos):
                     continue
                 m = re.search(r"\b([A-Z]\d[A-Z])\s?(\d[A-Z]\d)\b", (d.get("address") or "").upper())
                 if m and d.get("website") and d.get("name"):
-                    by_pc[m.group(1) + m.group(2)].append((d["name"], d["website"], "the contact reader's reading of its own page %s: “%s”" % (d.get("address_url") or d["website"], (d.get("address_quote") or d.get("address") or "").replace("\ufffd", "")[:200])))
+                    by_pc[m.group(1) + m.group(2)].append((d["name"], d["website"], "the contact reader's reading of its own page %s: “%s”" % (d.get("address_url") or d["website"], no_mail((d.get("address_quote") or d.get("address") or "").replace("\ufffd", ""))[:200])))
     except Exception as e:
         print("org contacts not read: %s" % str(e)[:100])
     tp = os.path.join(INC, "tm", "tm_sites_found.csv")
@@ -431,6 +439,7 @@ def lead_of(o, s):
                 "cancelled in the Medical Devices Active Licence Listing (read %s)" % (format(fee, ",.0f"), " + ".join(parts), MD_FEE_URL, READ, TODAY))
         title = "Right to sell %s (Health Canada, Medical Devices Active Licence Listing: %s)" % (what, o["examples"][:200])
         reg_label = "Health Canada's Medical Devices Active Licence Listing (the manufacturer of each licensed device)"
+    s = dict(s, tied_by=no_mail(s.get("tied_by")), quote=no_mail(s.get("quote")))
     row = {"buyer_key": key, "buyer_name": o["name"], "website": s["site"], "canadian_vendor_rows": 1, "example_vendor": "Health Canada",
            "canada_field_value": "membership / statutory fee relationship: right-to-sell holder of the Canadian body (Health Canada)=%s (as printed on %s, read %s); Health Canada: “%s” (%s)"
                                  % (HC_ADDRESS, PAY_URL, READ, quote_period, period_url),

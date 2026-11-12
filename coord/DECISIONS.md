@@ -1884,3 +1884,22 @@ the firm the agent works in, in brackets at the head of the agent's address: "(M
 17 Bellwood Avenue …", "(WITMART INC), 18 King Street East …". That firm sends the account. `relationship_rows.py`: when the bracket
 carries a word of a firm (LLP, Inc., IP, Law, Agents …), the firm becomes the row's vendor, its address the rest of the line, and the
 person is kept in `agent_named_on_register`; with no bracket, or a bracket with no firm word, the row stays out as before.
+
+## 2026-11-12 16:10Z — lane `claude`: ISED's radio licensees (a regulator's yearly invoice, 27,051 organisations)
+
+Every holder of a radio licence in Canada is invoiced by Innovation, Science and Economic Development Canada each year: "The annual fee
+for the renewal of a radio licence is payable before the radio licence expires on March 31 of each year" and the fees "are used to
+calculate licence renewal invoices" (RIC-42, Issue 16, April 2026); the invoice is paid by wire transfer or direct deposit to the
+Receiver General for Canada, by cheque, or online (ISED's "Pay online" page). ISED's monthly open-data extract of the Spectrum
+Management System names each licensee, its address, its client account and every authorization (status, in-service date, stations).
+`tools/radio_licences.py` + `radio-licences.yml` (six runs a day until the names are all asked): granted, fee-paying authorizations;
+organisations only (a name with a word of an organisation or a legal form; persons and names that say nothing are left out);
+federal departments left out (they settle between departments, not by invoice); licensees holding only broadcasting, spectrum-licence or
+earth-station authorizations left out (other fee orders, not read). 36,317 accounts → 27,051 organisations; 3,385 tied to a site on
+file at once (2,898 leads after sites shared by more than three licensees are left out); the rest go to the company-name autocomplete,
+one a second, kept only when the site's own home page carries the name. The amount is a floor, labelled so: "calculated — at least
+C$X a year", from the lowest fee of ISED's own tables for each station (a fixed land-mobile station at the fee outside a metropolitan
+area, a point-to-point station at the remote zone's rate); a fleet is counted once per authorization, and a record of more than 1,000
+identical stations (meters, province-wide fleets) is not counted at all — leaving stations out keeps "at least" true. Rows go through
+the member tier like Health Canada's; ISED is in `tools/payee_billing.py`. Quotes in a site tie no longer carry an e-mail address
+(`hc_registers.no_mail`).
