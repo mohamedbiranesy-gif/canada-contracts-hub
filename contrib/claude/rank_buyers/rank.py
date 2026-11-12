@@ -699,8 +699,12 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
         for _k, _v in _cands.items():
             if _v not in (None, "", {}, []) and (_k not in _pb or _ad > _pb[_k][3]):
                 _pb[_k] = (str(_v), _refid, (r.get("source") or {}).get("name") or "", _ad, r.get("record_id") or "")
-    if sc > o["bs"] or (sc == o["bs"] and award_date(r) > award_date(o["best"])):
-        o["best"], o["bs"], o["fields"] = r, sc, fields
+    # owner 2026-11-11 20:36 EST ("no buyer twice is hard rule … mark everything, prioritise over 5000"): a buyer has one row, and the record
+    # that stands on it is, among the records of its best tier, one whose published value is $5,000 or more — then the most complete, then the
+    # latest. Before, the most complete record stood on the row also when a contract of that size with the same or another vendor was current.
+    _bk = (TS[tier_of(r)], 1 if _val >= 5000 else 0, sc, award_date(r) or "")
+    if o["best"] is None or _bk > o["bk"]:
+        o["best"], o["bs"], o["fields"], o["bk"] = r, sc, fields, _bk
         if len(name) < len(o["name"]) or not o["name"]: o["name"] = name
 # 3. one row per organisation
 rows = []
@@ -739,6 +743,9 @@ def shared_gov_page_names_buyer(e, page, quote, name):
     if GENERIC_LOCAL.match(local) and not conflict:
         return True  # the government's own AP / shared-services box, published on a government page that names no other agency
     return False
+n_mailrej, n_mailrej_ex = collections.Counter(), []
+_AP_LOCAL = re.compile(r"invoic|factur|payables?|acctpay|accountspayable|accounts[._-]?pay|comptes?[._-]?(?:payables?|a[._-]?payer|fournisseurs?)|comptesapayer|(?:^|[._-])a\.?p(?:$|[._-])|^ap[a-z]{0,3}invoice", re.I)
+_WEBMAIL = re.compile(r"^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|icloud|me|aol|protonmail|proton|gmx|videotron|sympatico|bell|rogers|shaw|telus|eastlink|cogeco)\.(?:com|ca|net|fr|co\.uk)$", re.I)
 def emailcols(keys, be, gj="", name="", site=""):
     def own(e, page="", quote=""):
         if keys & MTL_KEYS and re.search(r"@(ville\.)?montreal\.(ca|qc\.ca)$", e or "", re.I):  # units of the Ville de Montréal (manual01)
@@ -746,6 +753,16 @@ def emailcols(keys, be, gj="", name="", site=""):
         if "direct-deposit" in page or "depot-direct" in page:  # PSPC's table maps each federal institution to its mailbox
             return True
         md = (e or "").split("@")[-1].lower()
+        # 2026-11-12: where a buyer's OWN site says invoices go is its invoicing mailbox, also on another mail domain — its health network's
+        # (ssss.gouv.qc.ca for every establishment of Québec's network), its parent's (nlh.nl.ca on nlhydro.com), its shared-service centre's or
+        # its e-invoicing provider's (…@pdf.basware.com, …coupahost.com). 331 buyers under contract had such a mailbox, verified, and no
+        # mailbox on their row (table of 00:14Z). Only an invoicing local part, only a page of the buyer's own site (never a government-wide
+        # site), never a webmail address.
+        _ph, _sh = (urllib.parse.urlparse(page or "").hostname or "").lower(), (urllib.parse.urlparse(site if "//" in (site or "") else "https://" + (site or "")).hostname or "").lower()
+        if (_ph and _sh and registrable(_ph) == registrable(_sh) and not SHARED_GOV.match(registrable(_ph)) and _AP_LOCAL.search((e or "").split("@")[0])
+                and not _WEBMAIL.search(md) and not SHARED_GOV.match(md)):
+            n_mailrej["(taken) an invoicing mailbox the buyer's own site prints, on another mail domain"] += registrable(md) != registrable(_sh)
+            return True
         if SHARED_GOV.match(md) and not shared_gov_page_names_buyer(e, page, quote, name):
             return False  # another agency's mailbox on the same government domain (spot-check 2026-11-04: tn.gov/correction credited to TDOT)
         if gj and gj != "FED" and jur_of_mail(e) == gj and re.search(r"@(gov\.[a-z]{2}\.ca|gnb\.ca|novascotia\.ca|ontario\.ca)$", e or "", re.I):
@@ -762,6 +779,17 @@ def emailcols(keys, be, gj="", name="", site=""):
         if k in mail and fits(mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or "", mail[k][1].get("evidence_quote") or ""):
             (acc, g), m = mail[k]
             opts.append(((acc, g), (m["mailbox"], LABEL[g], "confirmed" if acc else m["check_status"], m["evidence_url"], m["evidence_quote"], g, acc)))
+        elif k in mail:
+            # 2026-11-12: why a mailbox the referee holds for this buyer is not taken — counted (1,400 buyers under contract had one and no
+            # mailbox on their row in the table of 00:14Z; behind them 77,330 buyer-vendor relationships)
+            _e = mail[k][1]["mailbox"]
+            _md = (_e or "").split("@")[-1].lower()
+            n_mailrej["another government's mail domain" if (gj and jur_of_mail(_e) not in ("", gj)) else
+                      "a mailbox for something else (press, complaints, admissions, receivables …)" if BAD_LOCAL.search((_e or "").split("@")[0]) else
+                      "a government-wide mail domain, and the page does not name this body" if SHARED_GOV.match(_md) else
+                      "the mail domain is not the buyer's own"] += 1
+            if len(n_mailrej_ex) < 60:
+                n_mailrej_ex.append("%s | %s | %s | %s" % (name[:50], _e, site[:40], (mail[k][1].get("evidence_url") or "")[:70]))
     for kind in ("ap_contact", "procurement_contact", "general_contact"):  # earlier enrichment, evidence kept
         c = be.get(kind) or {}
         if c.get("emails") and fits(c["emails"][0]) and roleish(c["emails"][0].split("@")[0], name):
@@ -860,6 +888,8 @@ for p, o in orgs.items():
     x["vendor_incorporation_date"] = x.get("vendor_incorporation_date") or (ve.get("incorporation_or_registration_date") or "")[:10]
     x["vendor_bn_source"] = ve.get("business_number_source") or ""
 print("same-pair fill (facts from another record of the same buyer-vendor pair):", dict(n_pair))
+print("buyers under contract: a mailbox the referee holds that is not taken for the row, by reason: %s | examples (buyer | mailbox | site on file | page it was read on): %s"
+      % (dict(n_mailrej.most_common()), " ;; ".join(n_mailrej_ex[:60])))
 print("contract records whose vendor's registry match pairs a partnership with a corporation (registry cells not used):", n_ve_form)
 for _o in orgs.values():  # used only while the organisation's row was built
     _o.pop("pairbest", None); _o.pop("vrefs", None); _o["best"] = None
@@ -1959,6 +1989,12 @@ def infer(name, email, site, prov, fed, place=""):
 # "site name|copyright name|legalName|postal code"): the address of an organisation whose lead reader kept none. 377,262 home pages on 2026-11-11.
 SCAN_PC = _BYLOC.scan_postal_codes()
 print("home pages that print a Canadian postal code (the scan's name facts):", len(SCAN_PC))
+# 2026-11-12: how many organisations print the same urban postal code (tools/by_location.py: SHARED_SAY, SHARED_FAIL) — over the home pages the
+# scan read and, further down, this build's rows by where the organisation is; by registrable domain. A rural code stands for a whole town.
+_PC_DOMS = collections.defaultdict(set)
+for _h, (_pc, _day) in SCAN_PC.items():
+    if _pc[1] != "0":
+        _PC_DOMS[_pc].add(registrable(_h))
 def scan_address(md, *sites):
     """'' or the postal code the organisation's own home page prints, as an address cell that says where it was read. The site must be the
     one the organisation's mailbox is on (same registrable domain): a directory page that printed its mailbox is not its home page."""
@@ -4830,6 +4866,58 @@ def _ca_amount_calculated():
             "The organisation's own registrar and the price it pays are not published" % (_f(_CA_PRICES[0][0]), _f(_CA_PRICES[-1][0]), _f(_midv), len(_CA_PRICES), _ex))
 CA_AMOUNT_CALC = _ca_amount_calculated()
 print("a .ca name by the year, as printed by the vendors on file: %d prices%s" % (len(_CA_PRICES), (" — " + CA_AMOUNT_CALC[:140]) if CA_AMOUNT_CALC else " (fewer than five: no calculated amount)"))
+# 2026-11-12: a member body's dues, as its own membership pages print them. The reader keeps price statements ("$299 per Year") and plan
+# statements ("annual memberships starting at $219 for the year"); a member row took only a price statement whose own words said "member" —
+# so Vernon's "$299 per Year" on /membership/membership-levels/ and Langley's "$219 for the year" were not taken (204 member rows of 12,435
+# carried an amount in the table of 00:14Z). A statement counts when its page is a membership page (by its address) or its words say
+# member / dues; a page of advertising, sponsorship, events or news never; the lowest such amount is the floor of a member's dues.
+_DUES_PATH = re.compile(r"member|membre|adh[ée]|join|dues|cotis|rates?-|tarif|levels|options|benefits|avantages|investment|investissement", re.I)
+_NOT_DUES_PATH = re.compile(r"advertis|publicit|sponsor|commandit|banner|event|[ée]v[ée]nement|ticket|billet|news|nouvelles|blog|article|tariff-business|award|gala|golf", re.I)
+# what is not the dues of an organisation: a discount or a rebate, a fee of a person (individual, student, retired …), a fee by head
+_NOT_DUES = re.compile(r"non-?members?|non-?membres?|r[ée]duction|discount|rabais|remise|\d\s?%|\bsave\b|[ée]conomi|per\s+capita|par\s+(?:capita|habitant|personne)|individu|student|[ée]tudiant|personal\s+member|youth|jeunes|"
+                       r"junior|retir|retrait[ée]|famil|household|lifetime|[àa]\s+vie\b|per\s+(?:person|head)|par\s+t[êe]te", re.I)
+_AMT_Q = re.compile(r"(?:C|CA|US)?\$\s?(\d+(?:[ ,\u00a0]\d{3})*(?:\.\d{1,2})?)(?!\d)|(?<![\d.,])(\d+(?:[ \u00a0]\d{3})*(?:,\d{1,2})?)\s?\$")
+def member_dues(rec, vd=""):
+    """(value, currency, 'year' | 'month', statement) — the lowest dues a member body's own membership pages print, or None. The amount is read
+    again from the statement's words: the reader's money pattern cut a number of four digits written without a separator ("$1195.00" was 119)."""
+    best = None
+    for st_ in (rec or {}).get("stmts") or []:
+        per = {"price_year": "year", "plan_year": "year", "price_month": "month", "plan_month": "month"}.get(st_.get("c"))
+        if not per:
+            continue
+        q, u = st_.get("q") or "", st_.get("u") or ""
+        h_ = (urllib.parse.urlparse(u).hostname or "").lower()
+        if vd and registrable(h_[4:] if h_.startswith("www.") else h_) != vd:
+            continue  # a page of another site
+        path = urllib.parse.urlparse(u).path or ""
+        if _NOT_DUES_PATH.search(path) or not (_DUES_PATH.search(path) or _MEMBER_WORDS.search(q)):
+            continue
+        if len(q.split()) > 16 and not _MEMBER_WORDS.search(q):
+            continue  # a long sentence on a membership page that does not speak of membership
+        if _NOT_DUES.search(q) or _VB._PROMO.search(q) or _VB._NOT_A_PRICE.search(q) or _VB._ADDON.search(q):
+            continue
+        v0, cur = _VB.parse_money(st_.get("m") or q)
+        if v0 is None:
+            v0, cur = _VB.parse_money(q)  # a plan statement's match is its words ("annual memberships"): the amount is in its sentence
+        if v0 is None:
+            continue
+        d0 = ("%.2f" % v0).rstrip("0").rstrip(".").split(".")[0]
+        v = None
+        for m_ in _AMT_Q.finditer(q):  # the amount of the statement, whole
+            t_ = (m_.group(1) or m_.group(2) or "").replace("\u00a0", " ")
+            dig = re.sub(r"[ ,]", "", t_.split(".")[0]) if m_.group(1) else re.sub(r"[ ]", "", t_.split(",")[0])
+            if dig.startswith(d0):
+                try:
+                    v = float(re.sub(r"[ ,]", "", t_)) if m_.group(1) else float(re.sub(r" ", "", t_).replace(",", "."))
+                except ValueError:
+                    v = None
+                break
+        if v is None or v < 20 or v > 25000:
+            continue  # a "$0" plan, a "$1" offer; a figure of an article
+        y = v * 12 if per == "month" else v
+        if best is None or y < best[0]:
+            best = (y, v, cur, per, st_)
+    return best[1:] if best else None
 def _money_words(v, cur, per):
     return "from %s%s a %s" % ({"CAD": "C$", "USD": "US$"}.get(cur, "$"), ("%.2f" % v).rstrip("0").rstrip("."), per)
 def bill_profile(x, ld, cls):
@@ -4949,12 +5037,11 @@ def bill_profile(x, ld, cls):
             # a member named in the body's own directory pays its dues: the amount is the body's lowest published membership fee, said to be the
             # lowest (a member's own dues are never published; they are that or more) — the same reading as for a register's fee (tier M above)
             rec = VBILL.get(vd) if vd else None
-            low = _VB.lowest(rec) if rec else {}
-            st_ = (low.get("year") or low.get("month") or (None, None, None))[2]
-            if st_ and _MEMBER_WORDS.search(st_["q"]):
-                per = "year" if low.get("year") else "month"
-                out["bill_amount_indicative"] = _money_words(low[per][0], low[per][1], per)
-                out["bill_amount_basis"] = "the body's lowest published fee by the %s: “%s” (%s, read %s); the member's own dues are not published" % (per, st_["q"][:260], st_["u"], rec.get("date"))
+            md_ = member_dues(rec, vd) if rec else None
+            if md_:
+                v_, cur_, per, st_ = md_
+                out["bill_amount_indicative"] = _money_words(v_, cur_, per)
+                out["bill_amount_basis"] = "the body's lowest published membership fee by the %s: “%s” (%s, read %s); the member's own dues are not published (they are that or more)" % (per, st_["q"][:260], st_["u"], rec.get("date"))
                 n_billcol["member rows that carry the body's lowest published dues"] += 1
     else:
         out["relationship_fact_basis"] = "fact, public record: %s names the vendor and the contract (%s)" % ((x.get("source") or "the public source")[:120], (x.get("contract_link") or "")[:160])
@@ -4992,6 +5079,7 @@ def bill_profile(x, ld, cls):
     return out
 n_bill, n_bill_shop, n_billcol, n_inv, n_inv_t = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
 n_ship, n_ship_miss, n_ship_one, n_ship_level = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
+n_mark, n_fill = collections.Counter(), collections.Counter()  # owner 2026-11-11 20:36 EST: every row marked by its amount; 20:04 EST: how full the invoice is
 KEY_FIELDS = ["buyer_website", "buyer_address", "buyer_phone", "buyer_legal_name_as_published", "email_evidence_url", "ap_phone", "invoice_mailing_address", "invoicing_requirements", "payment_terms_as_published",
               "po_required_as_published", "contract_title", "contract_value", "award_date", "contract_link", "vendor_address", "vendor_bn9", "vendor_website", "vendor_emails", "vendor_phone", "vendor_legal_name", "invoice_reference_hint", "commodity_codes"]
 _today = datetime.date.today()
@@ -5015,7 +5103,7 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("language_hint", ["template_language"]),
                    ("all_references_with_this_vendor", ["most_recent_record_reference_any_vendor", "records_in_contract_dataset", "other_relationship_sources"]),
                    ("buyer_type", ["sensitivity_tag", "sensitivity_flag", "buyer_sector", "peppol_participant_id", "peppol_registered"]),
-                   ("completeness_score", ["data_quality_score", "ship_ready", "ship_ready_missing", "payment_route", "payment_route_basis", "invoice_fields_for_kind", "invoice_fields_missing_for_kind", "vendor_tax_or_registration_number", "ap_mailbox_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
+                   ("completeness_score", ["data_quality_score", "ship_ready", "ship_ready_missing", "amount_mark", "payment_route", "payment_route_basis", "invoice_fields_for_kind", "invoice_fields_missing_for_kind", "vendor_tax_or_registration_number", "ap_mailbox_ready"]), ("email_check", ["mailbox_confidence", "evidence_age_days", "reverify_due"]), ("email_evidence_quote", ["email_evidence_context", "mailbox_recheck_note"]),
                    ("invoice_portal_url", ["invoice_portal_kind", "invoice_portal_note", "ap_system_hint", "invoicing_requirements_structured", "pay_on_sight", "pay_on_sight_missing", "channel_tier", "invoice_text", "invoice_card_json", "invoice_readiness", "invoice_missing", "ap_grade", "ap_score", "ap_grade_basis", "ap_gap_to_A", "ap_payability", "supplier_setup_url"]), ("payment_terms_as_published", ["payment_terms_default_policy"]),
                    ("instrument_type", ["instrument_type_normalized"]), ("contract_status", ["inference_confidence"]), ("buyer_bn_as_published", ["buyer_bn_program", "buyer_trade_name_as_published"]), ("vendor_registry_status", ["vendor_registry_warning", "vendor_registry_note"]),
                    ("other_relationship_sources", ["typical_contract_value_p50", "typical_contract_value_p75", "typical_cadence_days", "vendor_concentration_top_share", "all_canadian_vendors", "pair_prior_records", "pair_first_or_repeat", "pair_value_trend", "pair_dates_and_values"]),
@@ -5048,6 +5136,21 @@ _w1 = csv.DictWriter(_f1, fieldnames=cols, extrasaction="ignore") if _PLAIN else
 if _PLAIN:
     _w1.writeheader()
 _w2 = csv.DictWriter(_f2, fieldnames=cols, extrasaction="ignore"); _w2.writeheader()
+# 2026-11-12: the organisations that print the same urban postal code (_PC_DOMS, begun where the scan's codes are loaded): this build's rows added
+_loc_rows = []
+for x in rows:
+    if x.get("tier") == "I":
+        _pc = _BYLOC.code_of(x.get("buyer_address") or "") or _BYLOC.code_of(x.get("email_evidence_quote") or "")
+        if _pc and _pc[1] != "0":
+            _md = registrable((x.get("email") or "").partition("@")[2].lower())
+            if _md:
+                _PC_DOMS[_pc].add(_md)
+            _loc_rows.append((x, _pc))
+for x, _pc in _loc_rows:
+    x["_pc_orgs"] = len(_PC_DOMS[_pc])
+print("rows by where the organisation is, at an urban postal code many organisations print: %d or more (said on the row) %d; %d or more (the landlord's account: not ready) %d — of %d such rows at an urban code"
+      % (_BYLOC.SHARED_SAY, sum(1 for x, _ in _loc_rows if x["_pc_orgs"] >= _BYLOC.SHARED_SAY), _BYLOC.SHARED_FAIL, sum(1 for x, _ in _loc_rows if x["_pc_orgs"] >= _BYLOC.SHARED_FAIL), len(_loc_rows)))
+del _PC_DOMS, _loc_rows
 for _ri, x in enumerate(rows):
     if _PI and x.get("_pre"):
         rows[_ri] = None  # ranking in parts: the rows that exist before the leads are written by part 0
@@ -5176,6 +5279,13 @@ for _ri, x in enumerate(rows):
         # a row that stands on where the organisation is: what its distributor bills, how often, the least amount, how the bill arrives and is paid
         _bl = _BYLOC.of_row(x)
         if _bl:
+            # 2026-11-12: a row that gave way to the distributor still went through the bill profile of the lead it came from — 2,600 rows of the
+            # table of 00:14Z printed another vendor's tax sentence (a web host's "prix … avant taxes") on an electricity bill. Every bill cell
+            # of such a row is the distributor's, or empty.
+            if any(x.get(_c) for _c in ("bill_tax_rule_as_published", "bill_identifier_format", "bill_amount_indicative", "bill_payment_method_as_published", "bill_amount_calculated")):
+                n_billcol["rows by where the organisation is that carried bill cells of another relationship's vendor: emptied"] += 1
+            for _c in BILL_COLS:
+                x[_c] = ""
             for _c, _v in _BYLOC.row_cells(_bl, x).items():
                 if _v:
                     x[_c] = _v
@@ -5637,6 +5747,15 @@ for _ri, x in enumerate(rows):
             n_ship_level["by where the organisation is (its electricity distributor)" if "by where the organisation is" in _sr9 else
                          "every field of its kind, in the biller's or the record's own words" if _sr9 in ("yes", "yes (the amount is calculated and labelled so)") else
                          "best effort: by the kind of relationship, or a field of its kind not published"] += 1
+        n_mark[((x.get("amount_mark") or "5 no amount").split(" (")[0], "yes" if not _o9 else "no")] += 1
+        if not _o9:
+            _am9 = any(str(x.get(_c) or "").strip() for _c in ("bill_amount_indicative", "contract_value", "bill_amount_calculated"))
+            _pe9 = (x.get("recurring_billing") or "")[:1] in ("1", "2", "3", "4")
+            n_fill["ship ready"] += 1
+            n_fill["with an amount (published or calculated) and a billing period"] += _am9 and _pe9
+            n_fill["with amount, period, biller legal name and number, what is billed, how the bill arrives, how it is paid, due terms"] += bool(
+                _am9 and _pe9 and all(any(str(x.get(_c) or "").strip() for _c in _cs) for _cs in (("vendor_legal_name",), ("vendor_tax_or_registration_number",), ("bill_items_as_published", "contract_title"),
+                                                                                             ("bill_delivery_as_published",), ("bill_payment_method_as_published",), ("bill_due_terms_as_published", "payment_terms_as_published"))))
         for _p9 in _o9:
             n_ship_miss[_p9.split(" (")[0]] += 1
         if len(_o9) == 1:
@@ -5713,6 +5832,8 @@ _sy = sum(n_ for (k_, r_, v_), n_ in n_ship.items() if v_ == "yes")
 print("SHIP READY (a Canadian biller with a relationship that is current + the organisation's role mailbox re-read by the referee + a bill on invoice, payable by bank transfer — never a card on file + no flag; "
       "owner 2026-11-11 16:01 EST: the fields are populated as well as they can be): %d of %d rows" % (_sy, sum(n_ship.values())))
 print("  of which: %s" % " · ".join("%s %d" % kv for kv in n_ship_level.most_common()))
+print("  by amount (owner 20:36 EST: every row marked, $5,000 and more first) — ready / all: %s" % " · ".join("%s: %d / %d" % (m_, n_mark[(m_, "yes")], n_mark[(m_, "yes")] + n_mark[(m_, "no")]) for m_ in sorted({m2 for (m2, _v) in n_mark})))
+print("  how full the invoice is, over the ready rows: %s" % " · ".join("%s %d" % kv for kv in n_fill.items()))
 print("  by kind and by how the bill is paid (ready / all): %s" % " · ".join("%s — %s: %d / %d" % (k_, r_, n_ship[(k_, r_, "yes")], n_ship[(k_, r_, "yes")] + n_ship[(k_, r_, "no")]) for (k_, r_) in sorted({(k2, r2) for (k2, r2, _v) in n_ship}, key=lambda kr: -(n_ship[(kr[0], kr[1], "yes")] + n_ship[(kr[0], kr[1], "no")]))))
 print("  what is missing, over the rows that fail: %s" % " · ".join("%s %d" % kv for kv in n_ship_miss.most_common(20)))
 print("  one thing away (kind: what is missing): %s" % " · ".join("%s: %s %d" % (k_, m_, n_) for (k_, m_), n_ in n_ship_one.most_common(16)))

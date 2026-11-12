@@ -1,4 +1,53 @@
-# STATE.md — Claude lane (updated 2026-11-11 22:47Z — a row is one buyer billed ON INVOICE by a Canadian entity, payable BY BANK, with the organisation's own mailbox; since 16:01 EST every other field is populated as well as it can be and no longer takes a row out (AGENTS.md §1 rules 6-13). Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 02:29Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 02:29Z — the owner's evening (rules 14-17): marks, order, estimates, fuller rows; the build with them is the next step
+
+**The owner, 2026-11-11 20:04-20:36 EST** (AGENTS.md §1 rules 14-17; coord/DECISIONS.md 2026-11-12 02:14Z): "ship ready" on four things is not
+enough — he wants every invoice field, an amount per billing period (estimated, labelled, when nothing is published); $5,000 a bill is a
+priority, not a wall ("mark everything, prioritise over 5000"); one row per buyer is a hard rule, a vendor may repeat; the goal is a million
+buyers; long sessions are ending ("one credit reset left … automation hand-offs [doing the] majority"). Told plainly that a million is not
+in sight from what is on file (400,000-500,000 organisations in Canada at most, the rest must be organisations abroad tied to a Canadian
+biller by a record) — not promised.
+
+**Numbers (table of 00:14Z, code 445acd8): 136,513 of 186,576 rows meet the test** (by location 96,187 · best effort 29,967 · complete
+10,359). Of the 136,513: with an amount and a billing period 70,503; with every main invoice field 24,279; with a published amount of $5,000
+or more 1,510 (contract values). Contract dataset: 803,097 records, 316,131 buyer-vendor pairs, 5,590 buyers; current and $5,000+: 90,680
+pairs, 66,678 behind 1,687 buyers with a mailbox. Sample build OWNER15 (1 lead in 4; never multiplied): 43,723 of 61,237.
+
+**Built tonight (commit after this file):**
+- `amount_mark` on every row (tools/relationship_rows.py: published $5,000+ · estimated $5,000+ · published under · estimated under · none)
+  and `tools/priority_sort.py` (run by tools/rank_tail.sh): the rows that meet the test first, by mark. BUILD.json `ship_ready` carries
+  `by_amount_mark`, `with_amount_and_billing_period`, `with_every_main_invoice_field`; the build log prints the same.
+- Ontario's 53 distributors from their regulator (`tools/on_ldc_table.py enrich / rates`; `on-ldc-table.yml` refreshes the rates on the
+  2nd of each month): the Distribution System Code (monthly bill, 20 days to pay, how a bill is issued and paid), the fixed monthly charge
+  and every rate by the kWh from the Board's open-data file, the licensed name and licence number, HST. Hand-read additions (verified quote
+  by quote): BC Hydro, SaskPower, Nova Scotia Power, Maritime Electric, Qulliq legal names; BC Hydro, SaskPower, NS Power, Maritime
+  Electric rates; due terms, remit-to, tax. Every distributor with a rate gets `bill_amount_calculated` = its rate at 2,500 kWh a month
+  (the use at which the Board's calculator opens), before tax, labelled "estimated —".
+- Faults found in the published table, each a rule: colour codes / placeholders taken for postal codes (`by_location.usable`); urban postal
+  codes printed by 10+ organisations said on the row, 50+ not ready (SHARED_SAY / SHARED_FAIL); another vendor's bill cells on rows that
+  gave way to the distributor, emptied; the missing purchase-order number is a note now, not a failure (rule 13).
+- Member rows: the body's lowest published dues from its own membership pages (`rank.py: member_dues`): 1,442 member rows of 11,605 carry
+  dues in a re-test of the published table (195 before). The reader's money pattern cuts four-digit amounts without a separator
+  ("$1195.00" -> 119): member_dues re-reads the amount from the sentence; tools/vendor_billing.py MONEY is still to be fixed.
+- Buyers under contract: the record on a buyer's row is, within its best tier, one of $5,000 or more; an invoicing mailbox the buyer's own
+  site prints counts also on another mail domain (its network's, parent's, e-invoicing provider's) — 50 more buyers with a mailbox; the
+  build log counts why the referee's other mailboxes are not taken (`buyers under contract: a mailbox the referee holds that is not taken`).
+
+**Next, in this order (short sessions):**
+1. Read the build that this commit's dispatch starts: BUILD.json (`ship_ready.by_amount_mark`, `with_every_main_invoice_field`), SUMMARY.md
+   ("SHIP READY", "by amount", "how full", "urban postal code many", "buyers under contract"). Tell the owner three numbers.
+2. A hundred from that table, read row by row before he sees it (tools/test_sample.py shows `amount_mark`); faults become rules first.
+3. tools/vendor_billing.py: MONEY must read "$1195.00" and "$1000" whole (NUM needs `\d{4,}` without separators); then member dues and
+   service prices re-read.
+4. Contract buyers without a mailbox (2,138 buyers, 87,248 pairs; coord/results/ranked list from tools/relationship_rows.py): 552 have a
+   lane's mailbox of an unrelated organisation (one university's AP box credited to dozens) — those lane rows should be rejected at the
+   referee; the rest need their own site read (1,110 have one on file).
+5. Billers with no number yet: BC Hydro (17,500 rows), NB Power ("New Brunswick Power Corporation"), Nova Scotia Power, Maritime Electric,
+   Newfoundland Power (its rate book is refused by robots.txt: no rate, said so).
+6. Sources that bring NEW buyers with large bills (rule 15): public bodies under contract outside the dataset (US cities, counties, school
+   districts — codex / jules lanes), dealers of Canadian manufacturers, firms licensed by Canadian regulators, customers of Canadian
+   business software. The mailbox reader keeps reading the ~63,000 sites that print a mailbox and a Canadian address.
 
 ## 2026-11-11 22:47Z — rule 13 in the table: 79,860 ship ready (build 22:11Z); second step pushed (give-way, Ontario by postal code, reader's queue), its build is running
 

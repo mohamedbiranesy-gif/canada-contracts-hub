@@ -8,6 +8,9 @@
 # compressed only, package working parts removed as they are written — the packages (15 KB a row) are the only plain text left.
 set -e
 df -h / | tail -1 | sed 's/^/disk after ranking: /'
+# the table in the owner's order of priority (2026-11-11 20:36 EST: "mark everything, prioritise over 5000"): the rows that meet the test first,
+# by amount mark — published $5,000 or more, estimated $5,000 or more, published under, estimated under, no amount. Before anything reads the table.
+if python3 tools/priority_sort.py out/ranked > priority.log 2>&1; then cat priority.log; cat priority.log >> rank.log; else echo "::error::the table could not be put in the order of priority"; cat priority.log; exit 1; fi
 # the change list against the previous build (coord/results/ranked/ranked_buyers.csv.gz, put there by tools/rank_prep.sh) — before the publish
 # step replaces that file with this build's table
 python3 tools/release_diff.py coord/results/ranked/ranked_buyers.csv.gz out/ranked/ranked_buyers.csv.gz out/ranked > release_diff.log 2>&1 || echo "::warning::change list not made (see release_diff.log)"

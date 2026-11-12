@@ -31,6 +31,48 @@ import collections, csv, glob, gzip, json, os, re, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PC = re.compile(r"(?<![A-Za-z0-9])([ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z])[  -]?\d[ABCEGHJ-NPRSTV-Z]\d(?![A-Za-z0-9])")
+# 2026-11-12 — what is NOT a postal code although it has the shape of one. Found in the table of 00:14Z: 53 rows stood on a colour code or a
+# form's placeholder, and the home-page scan held 2,284 such "codes" (291 greys: E6E 6E6, A1A 1A1 …; a Norwegian clinic had become a customer
+# of NB Power).
+#  - a colour code (#E6E6E6, "d6cdc0" in a page's data): six hexadecimal characters. Of the letters of a postal code only A, B, C and E are
+#    hexadecimal, so a code whose three letters are all among them is taken only when it is printed as a postal code is — in capitals, with
+#    a space or a hyphen between its halves — and is a code that exists (tools/data/pc_abce.txt.gz, from the GeoNames dump);
+#  - a placeholder: three times the same pair (A1A 1A1, H0H 0H0, K1K 1K1 — some exist, and a form's example is what a page prints), the
+#    alphabet's A1B 2C3, Canada Post's own example K1A 0B1.
+_PCX = re.compile(r"(?<![A-Za-z0-9#])([ABCEGHJ-NPRSTVXYabceghj-nprstvxy]\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z])([ \u00a0-]?)(\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z]\d)(?![A-Za-z0-9])")
+PLACEHOLDER = {"A1B2C3", "K1A0B1", "A2B3C4", "X0X0X0"}
+_ABCE = None
+
+
+def _abce():
+    global _ABCE
+    if _ABCE is None:
+        _ABCE = set()
+        try:
+            with gzip.open(os.path.join(ROOT, "tools/data/pc_abce.txt.gz"), "rt", encoding="utf-8") as f:
+                _ABCE = {l.strip() for l in f if l.strip() and not l.startswith("#")}
+        except OSError:
+            pass
+    return _ABCE
+
+
+def usable(pc, as_printed="", sep=None):
+    """is this six-character code a postal code an address can stand on? as_printed / sep: how the page prints it, when that is known"""
+    if len(pc) != 6 or pc in PLACEHOLDER or re.fullmatch(r"([A-Z]\d)\1\1", pc):
+        return False
+    if not re.search(r"[^ABCE0-9]", pc):  # its letters are all hexadecimal: it could be a colour
+        if sep is None:
+            return False  # kept without its context (the home-page scan's stored codes): not taken
+        return bool(sep) and as_printed == as_printed.upper() and pc in _abce()
+    return True
+
+
+def codes(text):
+    """the postal codes a text prints, in order: (code, match) — what is a colour code or a placeholder is left out"""
+    for m in _PCX.finditer(text or ""):
+        pc = (m.group(1) + m.group(3)).upper()
+        if usable(pc, m.group(1) + m.group(3), m.group(2)):
+            yield pc, m
 NEED = ("key", "name", "site", "address", "address_url", "address_quote", "prefixes", "territory", "what")
 
 
@@ -175,20 +217,25 @@ def _on():
 
 def fsa_of(text):
     """the postal area (first three characters of a Canadian postal code) of the first postal code printed in an address"""
-    m = PC.search((text or "").upper())
-    return m.group(1) if m else ""
+    pc = next((c for c, _ in codes(text)), "")
+    return pc[:3]
+
+
+def code_of(text):
+    """the first postal code a text prints (six characters), or ''"""
+    return next((c for c, _ in codes(text)), "")
 
 
 def biller_for(text):
     """the distributor of the address, or None: no postal code, Alberta (the retailer is the customer's choice), an area left out"""
-    m = PC.search((text or "").upper())
-    if not m:
+    pc = text if (isinstance(text, str) and len(text) == 6 and text.isalnum() and text == text.upper()) else code_of(text)
+    if not pc:
         return None
-    fsa = m.group(1)
+    fsa = pc[:3]
     if fsa[0] in "KLMNP":
         # Ontario: some sixty distributors, and a postal area is often shared by two — the postal code itself decides (the Ontario Energy
         # Board's map of service areas; a code near an edge, or unknown in a shared area, gets none)
-        nm = _on().get(re.sub(r"[^A-Z0-9]", "", m.group(0))) or _on().get(fsa)
+        nm = _on().get(pc) or _on().get(fsa)
         return BY_TABLE.get(nm) if nm else None
     for b in BILLERS:
         if b["prefixes"] and fsa not in b["except_fsas"] and any(fsa.startswith(p) for p in sorted(b["prefixes"], key=len, reverse=True)):
@@ -198,7 +245,10 @@ def biller_for(text):
 
 def biller_for_all(text):
     """the distributor of a text that may print several postal codes (a page, a quote): all of them must lie in one distributor's territory"""
-    got = {id(biller_for(m.group(0))): biller_for(m.group(0)) for m in PC.finditer((text or "").upper())}
+    got = {}
+    for pc, _ in codes(text):
+        b = biller_for(pc)
+        got[id(b)] = b
     return next(iter(got.values())) if len(got) == 1 else None
 
 
@@ -211,8 +261,8 @@ def of_row(x):
         return b
     if not fsa_of(x.get("buyer_address") or "") and biller_for_all(x.get("email_evidence_quote") or "") is b:
         # the organisation's own page prints its postal code beside its mailbox, and no fuller address was read: the postal code stands for it
-        m = PC.search((x.get("email_evidence_quote") or "").upper())
-        x["buyer_address"] = "postal code %s (as printed beside the organisation's mailbox on %s)" % (m.group(0), x.get("email_evidence_url") or "its own page")
+        pc = code_of(x.get("email_evidence_quote") or "")
+        x["buyer_address"] = "postal code %s %s (as printed beside the organisation's mailbox on %s)" % (pc[:3], pc[3:], x.get("email_evidence_url") or "its own page")
         return b
     return None
 
@@ -222,13 +272,25 @@ def status(b, fsa):
             "by it every month, and where a landlord holds the meter the landlord is" % (fsa, b["territory"]))
 
 
+# 2026-11-12 — an urban postal code is one side of a street block or one building. When many organisations print the same one on their own
+# sites it is a tower, a campus, a business centre or a mail service (the table of 00:14Z: 133 rows on M5C 1C4, 67 on First Canadian Place's
+# M5X 1C7, 34 sports federations on the Olympic stadium's H1S 2A7), and there the landlord holds the electricity account. Counted over the
+# home pages the scan read and this build's rows, by registrable domain; a rural code (second character 0) stands for a whole town and is
+# not counted. From SHARED_SAY organisations the row says so; from SHARED_FAIL it does not meet the test (tools/relationship_rows.py).
+SHARED_SAY, SHARED_FAIL = 10, 50
+
+
+def shared_sentence(n):
+    return ("; %d organisations print this same postal code on their own sites — a shared building, where the landlord often holds the account" % n) if n >= SHARED_SAY else ""
+
+
 def row_cells(b, x):
     """the cells of a by-location row: what is billed, how often, the least amount, how the bill arrives and is paid — each in the distributor's own words when read"""
     fsa = fsa_of(x.get("buyer_address") or "")
     src = lambda k: (" (read %s)" % b["read"]) if b.get(k) else ""
     out = {"relationship_kind": "electricity account, by where the organisation is (the distributor is certain for the address; the account holder is not published)",
            "relationship_fact_basis": ("by where it is: the organisation's own address (%s) lies in the exclusive territory of %s — %s. A fact about the address; whether the "
-                                       "organisation or its landlord holds the account is not published" % (fsa, b["name"], b["territory"])),
+                                       "organisation or its landlord holds the account is not published%s" % (fsa, b["name"], b["territory"], shared_sentence(int(x.get("_pc_orgs") or 0)))),
            "contract_title": "Electricity service at the organisation's address",
            "bill_items_as_published": b["what"],
            "invoice_reference_hint": "the customer account number printed on the distributor's bill (not public)",
@@ -241,9 +303,19 @@ def row_cells(b, x):
     if b.get("amount"):
         out["bill_amount_indicative"], out["bill_amount_basis"] = b["amount"], b["amount_basis"]
     for col, k in (("bill_delivery_as_published", "delivery"), ("bill_payment_method_as_published", "payment"), ("bill_due_terms_as_published", "terms"),
-                   ("bill_remit_to_as_published", "remit_to"), ("service_stops_if_unpaid", "unpaid")):
+                   ("bill_remit_to_as_published", "remit_to"), ("service_stops_if_unpaid", "unpaid"), ("bill_tax_rule_as_published", "tax")):
         if b.get(k):
             out[col] = b[k] + src(k)
+    # 2026-11-12 (owner 20:04 and 20:14 EST: "what about estimated value per billing cadence and all other … invoice fields"; "an inference be
+    # permissible … a fair estimate can be made"): what the bill comes to at a stated use, calculated from the distributor's own published rate
+    # and labelled; the distributor's legal name as it or its regulator prints it; its number in the regulator's register where it has one
+    if b.get("estimate"):
+        out["bill_amount_calculated"] = b["estimate"]
+    ln = b.get("legal_name") or b.get("legal_name_as_printed")
+    if ln and not str(x.get("vendor_legal_name") or "").strip():
+        out["vendor_legal_name"] = "%s (%s)" % (ln, b.get("legal_name_basis") or "as the distributor's own pages print it")
+    if b.get("registration") and not any(str(x.get(c) or "").strip() for c in ("vendor_bn9", "vendor_neq", "vendor_registry_id")):
+        out["vendor_registry_id"] = b["registration"]
     return out
 
 
@@ -261,7 +333,7 @@ def scan_postal_codes():
                     q = l.rstrip("\n").split("\t")
                     if len(q) >= 4 and q[3].count("|") == 3:
                         pc = q[3].rsplit("|", 1)[1].strip().upper()
-                        if len(pc) == 6 and q[0]:
+                        if len(pc) == 6 and q[0] and usable(pc):  # (a colour code or a placeholder kept as a postal code is not one)
                             out[q[0].lower()] = (pc, day)
         except (OSError, EOFError) as e:
             print("scan postal codes: %s not read (%s)" % (os.path.basename(p), e), flush=True)

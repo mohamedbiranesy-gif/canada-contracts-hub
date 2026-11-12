@@ -92,6 +92,32 @@ simple terms and just populate those field as best as you can don't just go empt
     `ship_ready` is "yes" (every field of its kind, in the biller's own words), "yes (…)" with what is by the kind, by where the
     organisation is, or not published, or "no". The log of each build counts the three apart.
 
+**Owner rules (2026-11-11 evening, binding; 20:04, 20:14, 20:22 and 20:36 EST). Where they differ from the rules above, these win.** He was shown
+how full the rows are (of 136,513 rows that met the test, 70,503 carried an amount and a billing period and 24,279 every main invoice field) and
+what $5,000 a bill would leave (1,510 rows); for half an hour he chose a hard floor and one row per buyer and vendor, then settled it at 20:36.
+14. **One row per buyer; no buyer twice — "hard rule … so it should be 1 million buyers, vendor can be repeated".** Rule 8 stands. The 316,131
+    buyer-vendor relationships of the contract dataset stay on file behind their 5,590 buyers (`tools/relationship_rows.py main()`: an
+    analysis, not the deliverable); a buyer's row carries, among the records of its best tier, one whose published value is $5,000 or more,
+    and counts its other Canadian vendors.
+15. **$5,000 a bill is a priority, not a wall.** "the relationship billed amount per cadence should be 5000 plus", then: "we will also include
+    those of lower value but mark them, mark everything, prioritise over 5000 … that's why I was willing to lift 5000 cap, make it soft".
+    Every row carries `amount_mark` — published $5,000 or more · estimated $5,000 or more · published under $5,000 · estimated under $5,000 ·
+    no amount — and the table is written in that order (`tools/priority_sort.py`). Rank a new source by the new buyers it brings AND by how
+    large its bills are: public bodies under contract, dealers of Canadian manufacturers, firms certified or licensed by Canadian bodies,
+    customers of Canadian business software, organisations with large premises.
+16. **Every invoice field, as far as the kind of relationship goes; an estimate where nothing is published.** "what about estimated value per
+    billing cadence and all other rows/invoice fields … I want to make sure it's useful efficient work"; "an inference be permissible,
+    combined with billing cadence a fair estimate can be made … if no findable amount at all … be sure to populate as much as possible per
+    relationship, let's not slack". An estimate is calculated from published figures, says so and says from what (`bill_amount_calculated`,
+    opening "estimated —" or "calculated —"); it never stands in a published cell, and where nothing published supports one (what a dealer
+    buys) the cell stays "not published". Every build's log gives three counts: the rows that meet the test; of those, the rows with an
+    amount and a billing period; the rows with every main invoice field. One page read at a biller fills thousands of rows: billers first.
+17. **Built to run without long sessions.** "I have one credit reset left … it'll have to go back to short work sessions and your automation
+    hand-offs [doing the] majority … this isn't sustainable". Whatever is done twice is a tool plus a workflow; a session reads the counts,
+    reads rows, fixes rules. He was told plainly that a million buyers is not in sight from what is on file (an estimate of 400,000 to
+    500,000 organisations in Canada with a site, a mailbox of their own and an address a distributor can be named for) and that the second
+    half must come from organisations abroad tied to a Canadian biller by a record.
+
 **Owner rule (2026-10-28): when a buyer publishes no invoicing/AP mailbox, save its purchasing/procurement role mailbox
   (`ap_email_type=procurement`) or, failing that, its general role mailbox such as info@ / reception@ / greffe@
   (`ap_email_type=general`), with status `found` and a note saying no invoicing mailbox is published.** Still never

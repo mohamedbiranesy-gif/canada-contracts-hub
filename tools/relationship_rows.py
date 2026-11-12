@@ -313,7 +313,96 @@ def agent_is_a_person(x):
         except Exception:
             _GIVEN = set()
     return re.sub(r"[^a-z]", "", w[0].lower()) in _GIVEN
+# - a row by where the organisation is, at a postal code that fifty or more organisations print (tools/by_location.py: SHARED_FAIL): a tower,
+#   a campus, a business centre or a mail service — the electricity account there is the landlord's
+_SHARED = re.compile(r"(\d[\d,]*) organisations print this same postal code")
+def shared_address(x):
+    m = _SHARED.search(x.get("relationship_fact_basis") or "")
+    return int(m.group(1).replace(",", "")) if m else 0
 ROUTE_OK = ("bank", "either", "kind")  # owner 2026-11-11 14:20 EST: an invoice that can be paid by bank transfer is in, also when the biller would take a card
+
+# Owner, 2026-11-11 evening. 20:22 EST: "the relationship billed amount per cadence should be 5000 plus". Shown that 1,510 of 136,513 rows carry
+# a published amount that high, he first chose a hard floor and one row per buyer-vendor pair, then at 20:36 EST settled it: "we will also
+# include those of lower value but mark them, mark everything, prioritise over 5000 … no buyer twice is hard rule so it should be 1 million
+# buyers, vendor can be repeated … that's why I was willing to lift 5000 cap, make it soft". So $5,000 is a MARK and an order, not a test:
+# every row says which of five classes its amount is in (amount_mark) and the table is written in that order (tools/priority_sort.py).
+#   1 published, $5,000 or more    the value of the contract as the public record gives it, or the biller's own published fee or price
+#   2 estimated, $5,000 or more    no published amount that high, and an amount calculated from published figures that is (labelled on the row)
+#   3 published, under $5,000      a price "from $15.43 a month" is $15.43
+#   4 estimated, under $5,000
+#   5 no amount
+# The figure is taken in the currency of the record (a contract in US dollars or euros is not converted). For a contract the public record
+# gives the value of the contract and its dates, not each invoice: the row also carries the value by the year of its term, calculated and
+# labelled (value_by_year).
+FLOOR = 5000.0
+_NUM = r"\d{1,3}(?:[ ,\u00a0]\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?"
+_AMT1 = re.compile(r"(?:C|CA|US|CAD|USD)?\$\s?(" + _NUM + r")")
+_AMT2 = re.compile(r"(?<![\w.])(" + _NUM + r")\s?(?:\$|CAD\b|USD\b|EUR\b|€|dollars\b)")
+def _f(t):
+    try:
+        return float(re.sub(r"[ ,\u00a0]", "", t))
+    except ValueError:
+        return None
+
+
+def published_amount(x):
+    """(the published amount of the row, the column it stands in) or (None, "") — never the calculated one"""
+    cv = str(x.get("contract_value") or x.get("contract_value_from_pair") or "").strip()
+    m = re.match(r"\s*(?:C|CA|US|CAD|USD)?\$?\s?(" + _NUM + r")", cv)
+    if m and _f(m.group(1)) is not None:
+        return _f(m.group(1)), "contract_value"
+    b = str(x.get("bill_amount_indicative") or "").strip()
+    m = _AMT1.search(b) or _AMT2.search(b)
+    if m and _f(m.group(1)) is not None:
+        return _f(m.group(1)), "bill_amount_indicative"
+    m = re.search(r"(" + _NUM + r")\s?(?:¢|cents?\b)", b)   # "40.89 ¢ a day"
+    if m and _f(m.group(1)) is not None:
+        return _f(m.group(1)) / 100.0, "bill_amount_indicative"
+    return None, ""
+
+
+def estimated_amount(x):
+    """the first figure of the row's calculated / estimated amount, or None (a contract's value by the year is the published value, spread: not an estimate of its own)"""
+    b = str(x.get("bill_amount_calculated") or "").strip()
+    if not b or published_amount(x)[1] == "contract_value":
+        return None
+    m = _AMT1.search(b) or _AMT2.search(b) or re.search(r"(?:—|about)\s+(" + _NUM + r")", b)
+    return _f(m.group(1)) if m else None
+
+
+def amount_mark(x):
+    """the class of the row's amount (see FLOOR), with the figure it rests on"""
+    amt, col = published_amount(x)
+    est = estimated_amount(x)
+    n = lambda v: format(v, ",.2f").rstrip("0").rstrip(".")
+    if amt is not None and amt >= FLOOR:
+        return "1 published, $5,000 or more (%s: %s)" % ("the contract's value" if col == "contract_value" else "the biller's published amount", n(amt))
+    if est is not None and est >= FLOOR:
+        return "2 estimated, $5,000 or more (%s, calculated — see bill_amount_calculated%s)" % (n(est), ("; published: %s" % n(amt)) if amt is not None else "")
+    if amt is not None:
+        return "3 published, under $5,000 (%s: %s%s)" % ("the contract's value" if col == "contract_value" else "the biller's published amount", n(amt), ("; estimated %s" % n(est)) if est is not None else "")
+    if est is not None:
+        return "4 estimated, under $5,000 (%s, calculated — see bill_amount_calculated)" % n(est)
+    return "5 no amount"
+
+
+def value_by_year(x):
+    """'' or the contract's published value divided by the years of its published term — calculated, and said to be"""
+    amt, col = published_amount(x)
+    if col != "contract_value" or not amt:
+        return ""
+    try:
+        d0 = datetime.date.fromisoformat(str(x.get("start_date") or x.get("award_date") or "")[:10])
+        d1 = datetime.date.fromisoformat(str(x.get("end_date") or "")[:10])
+    except ValueError:
+        return ""
+    days = (d1 - d0).days
+    if days < 28:
+        return ""
+    if days <= 366:
+        return "calculated — the whole value falls within one year: the contract runs %s to %s (%d days)" % (d0, d1, days)
+    return "calculated — %s a year over the term: the published value %s divided by the %.1f years from %s to %s; when the vendor bills, and how much each time, is not published" % (
+        format(amt / (days / 365.25), ",.0f"), format(amt, ",.0f"), days / 365.25, d0, d1)
 
 
 def owner_test(x):
@@ -347,6 +436,11 @@ def owner_test(x):
         out.append("mailbox not re-read by the referee (%s)" % (ec or "not checked")[:40])
     if route not in ROUTE_OK:
         out.append("payment: %s" % ROUTE_LABEL[route])
+    if kind == "public contract" and not _has(x, "bill_amount_calculated"):
+        vy = value_by_year(x)
+        if vy:
+            x["bill_amount_calculated"] = vy
+    x["amount_mark"] = amount_mark(x)
     # Owner, 2026-11-11 16:01 EST: "populate those fields as best as you can, don't just go empty … there's clear goal and it is 1 million". A row
     # stands on four things — a Canadian biller with a relationship, a bill on invoice, a bank payment, the organisation's mailbox. A field of
     # its kind that nothing published fills does not take the row out any more: it is said on the row (invoice_fields_missing_for_kind, and in
@@ -360,18 +454,27 @@ def owner_test(x):
         out += sponsorship_faults(x)
     if kind == "agent of record" and agent_is_a_person(x):
         out.append("relationship: the agent of record is a named person, not a firm")
+    n_shared = shared_address(x) if kind == "utility account by location" else 0
+    if n_shared >= 50:
+        out.append("relationship: %d organisations print this postal code — a tower, a campus, a business centre or a mail service, where an account of its own is unlikely" % n_shared)
     if (x.get("sensitivity_flag") or "") == "yes":
         out.append("flag: " + ((x.get("sensitivity_tag") or "sensitive buyer").split(":")[0][:70]))
     if _has(x, "vendor_registry_warning"):
         out.append("flag: vendor registry warning")
-    if kind in PO_KINDS and (x.get("po_required_as_published") or "").startswith("yes") and not (_has(x, "po_number_as_published") or _has(x, "po_number_as_published_from_pair")):
-        out.append("flag: the buyer requires a purchase-order number on invoices and none is published for this vendor")
+    # 2026-11-12 (rule 13: a field nothing published fills is named on the row and no longer takes it out): the purchase-order number a buyer
+    # asks for on invoices is in the vendor's own papers, not in the public record. It was a flag that failed the row (231 rows with a published
+    # contract value of $5,000 or more, sample build of 02:00Z); it is said on the row now.
+    po_missing = kind in PO_KINDS and (x.get("po_required_as_published") or "").startswith("yes") and not (_has(x, "po_number_as_published") or _has(x, "po_number_as_published_from_pair"))
     soft = [f for f in miss if f not in must]
     said = []
     if kind == "utility account by location":
         said.append("by where the organisation is: the biller is certain for the address, the account holder is not published")
+        if n_shared:
+            said.append("a shared address: %d organisations print this postal code" % n_shared)
     if route == "kind":
         said.append("how it is billed and paid is by the kind of relationship, not yet in the biller's own words")
+    if po_missing:
+        said.append("not published: the purchase-order number the buyer requires on invoices (the vendor holds it)")
     if soft:
         said.append("not published: " + ", ".join(soft))
     elif "amount" in fields and not (_has(x, "contract_value") or _has(x, "bill_amount_indicative")):
@@ -432,7 +535,7 @@ def main():
             vid = (r.get("vendor_enrichment") or {}).get("vendor_key") or ("n:" + norm(vname))
             p = pairs.get((i, vid))
             if p is None:
-                p = pairs[(i, vid)] = {"n": 0, "bs": (-1.0, ""), "best": b"", "refs": [], "name": vname}
+                p = pairs[(i, vid)] = {"n": 0, "bs": (-1.0, ""), "key": (-1, (-1.0, "")), "best": b"", "refs": [], "name": vname}
             p["n"] += 1
             c = r.get("contract") or {}
             ad = award_date(r)
@@ -441,8 +544,15 @@ def main():
             if len(p["refs"]) < 40:
                 p["refs"].append((ad, ref[:60], str(c.get("value") or ""), str(c.get("currency") or "")[:3]))
             sc = (float(contract_score(r)[0]), ad)
-            if sc > p["bs"]:
-                p["bs"], p["best"] = sc, zlib.compress(l.encode("utf-8"), 1)
+            # the record that stands for the pair: a current contract whose published value meets the floor first (owner 2026-11-11 20:35 EST),
+            # then the ranker's own score. Before, the best-scored record stood for the pair also when a larger current one existed.
+            try:
+                _val = float(c.get("value")) if c.get("value") not in (None, "") else None
+            except (TypeError, ValueError):
+                _val = None
+            key = (1 if (_val is not None and _val >= FLOOR and tier_of(r) in ("A", "B", "L")) else 0, sc)
+            if key > p["key"]:
+                p["key"], p["bs"], p["best"] = key, sc, zlib.compress(l.encode("utf-8"), 1)
     by_row = collections.defaultdict(list)
     for (i, vid), p in pairs.items():
         by_row[i].append((vid, p))
@@ -453,7 +563,7 @@ def main():
     os.makedirs(a.out, exist_ok=True)
     out_cols = [c for c in cols if c != "ship_ready"]
     j = out_cols.index("data_quality_score") + 1 if "data_quality_score" in out_cols else 4
-    out_cols = out_cols[:j] + ["ship_ready", "ship_ready_missing", "payment_route", "payment_route_basis", "invoice_fields_for_kind", "invoice_fields_missing_for_kind", "vendor_tax_or_registration_number", "row_unit", "relationship_id"] + \
+    out_cols = out_cols[:j] + ["ship_ready", "ship_ready_missing", "amount_mark", "payment_route", "payment_route_basis", "invoice_fields_for_kind", "invoice_fields_missing_for_kind", "vendor_tax_or_registration_number", "row_unit", "relationship_id"] + \
         [c for c in out_cols[j:] if c not in ("ship_ready_missing",)] + (["ap_mailbox_ready"] if "ap_mailbox_ready" not in out_cols else [])
     out_cols = list(dict.fromkeys(out_cols))
     w = None
@@ -489,10 +599,26 @@ def main():
                 x["ap_mailbox_ready"] = x.get("ship_ready") or ""   # a table built before 2026-11-11 18Z: the old label under its own name
             x["row_unit"] = "relationship: this buyer and the vendor named on the row"
             x["relationship_id"] = "%s|%s" % ((x.get("keys") or "").split("|")[0], norm(x.get("vendor") or "")[:60])
-            count(x, "rows of the ranked table")
-            if w:
-                w.writerow(x)
             prs = by_row.get(i)
+            swapped = False
+            if prs and row_info[i][0] and owner_test(x)[2]:
+                # the buyer's own row carries one record of its best vendor. When that record fails the test and another record of the same pair
+                # passes it (a larger, current contract with the same vendor), the pair's record stands for the relationship.
+                for vid, p in prs:
+                    if norm(p["name"]) and norm(p["name"]) in row_info[i][1:]:
+                        y = pair_row(R, x, clean_ve(json.loads(zlib.decompress(p["best"]).decode("utf-8"))), p, int(x.get("grade") or 0), (x.get("acc") or "") == "True")
+                        if not owner_test(y)[2]:
+                            y["row_unit"] = "relationship: this buyer and its vendor of the ranked table, by the pair's record that meets the test"
+                            count(y, "pair rows from the contract dataset")
+                            n["… of which the buyer's own vendor, by another record of the pair"] += 1
+                            if w:
+                                w.writerow(y)
+                            swapped = True
+                        break
+            if not swapped:
+                count(x, "rows of the ranked table")
+                if w:
+                    w.writerow(x)
             if not prs:
                 continue
             has_mail, own_v, own_l = row_info[i]

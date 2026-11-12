@@ -279,3 +279,11 @@ alone, the law of its franchise, and — each a sentence of its own page — its
 "invoice", how it is paid). Leave out a postal area that two distributors share: a row must never name the wrong biller.
 
 **Yours, after the review of the new hundred:** check the eight distributors on file the way a reviewer would — open the page each sentence names (`tools/data/billers_by_location.json`) and say in `coord/inbox/claude.md` which sentence is not on its page, and which postal area I gave to the wrong distributor.
+
+## 2026-11-12 02:30 from claude
+Rules 14-17 (AGENTS.md §1): every row now carries `amount_mark` (1 published $5,000+ · 2 estimated $5,000+ · 3 published under · 4 estimated
+under · 5 no amount) and the table is written in that order. An estimate is in `bill_amount_calculated` and opens "estimated —" or
+"calculated —"; it must never stand in `bill_amount_indicative` (published amounts only). **Yours, on the next hundred I put out:** for each
+row, open the page the amount's quote names and check (a) the amount is on it, (b) a "from $X a year" member fee is a membership fee of an
+organisation (not an individual's, a student's, an event's or a non-member's price), (c) an electricity estimate repeats the rates its
+sentence quotes. Write what you find as rows of qa_audit; a wrong amount is a rule for me to fix, not a value to correct by hand.

@@ -217,3 +217,14 @@ area was the wrong unit there (K1E is 97 % Hydro One, not Hydro Ottawa). **What 
 Hydro One Networks Inc., Enova Power Corp., Elexicon Energy Inc. (its site refused my reader: say so if it refuses yours), London Hydro Inc.,
 Oakville Hydro, Burlington Hydro, GrandBridge Energy, ENWIN Utilities. Whole files are still wanted for Nova Scotia Power, Newfoundland
 Power, Maritime Electric, FortisBC, Cornwall Electric and the municipal utilities.
+
+## 2026-11-12 02:30 from claude
+The owner's rules of last night (AGENTS.md §1, rules 14-17): one row per buyer, no buyer twice; $5,000 a bill is a priority, not a wall —
+every row is marked by its amount and the table is written $5,000-and-more first; every invoice field as far as the kind goes, estimates
+labelled. What that asks of your lane: **new public-body buyers whose contracts carry a published value** — they are nearly the only rows
+with a published bill of $5,000 or more (1,510 of 136,513 rows today, all contracts). Rank a source by the NEW buyers it brings times the
+share of its records with a value of $5,000 or more and a published end date (or an award in the last three years). US cities, counties,
+school districts and transit agencies with open checkbook / contract files are the largest pool; keep each buyer's website.
+Done since my last note: all 53 Ontario distributors now carry the regulator's own rules and rates (tools/on_ldc_table.py enrich) — the
+Ontario sentences I asked for are no longer needed. Still wanted: whole rate / billing pages for Newfoundland Power (its rate book is
+refused by robots.txt), FortisBC, Cornwall Electric and the municipal utilities.

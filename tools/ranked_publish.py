@@ -115,6 +115,7 @@ def main():
     # counts: rows, tiers, packages
     tiers, n_rows, n_mail = collections.Counter(), 0, 0
     ship, ship_t = collections.Counter(), collections.Counter()  # the owner's ship-ready test (2026-11-11): the count the table is held to
+    ship_m, ship_f = collections.Counter(), collections.Counter()  # by the amount mark ($5,000 and more first), and how full the invoice is (owner 2026-11-11 evening)
     with gzip.open(table, "rt", encoding="utf-8", newline="") as f:
         for r in csv.DictReader(f):
             n_rows += 1
@@ -125,6 +126,13 @@ def main():
             if sr.startswith("yes"):
                 ship["by_location" if "by where the organisation is" in sr else "complete" if sr in ("yes", "yes (the amount is calculated and labelled so)") else "best_effort"] += 1
                 ship_t[(r.get("invoice_fields_for_kind") or "").split(":")[0] or (r.get("tier") or "?")] += 1
+                ship_m[((r.get("amount_mark") or "5 no amount").split(" (")[0])] += 1
+                am = any((r.get(c) or "").strip() for c in ("bill_amount_indicative", "contract_value", "bill_amount_calculated"))
+                pe = (r.get("recurring_billing") or "")[:1] in ("1", "2", "3", "4")
+                ship_f["with_amount_and_billing_period"] += am and pe
+                ship_f["with_every_main_invoice_field"] += bool(am and pe and all(any((r.get(c) or "").strip() for c in cs) for cs in (
+                    ("vendor_legal_name",), ("vendor_tax_or_registration_number",), ("bill_items_as_published", "contract_title"), ("bill_delivery_as_published",),
+                    ("bill_payment_method_as_published",), ("bill_due_terms_as_published", "payment_terms_as_published"))))
     packages = collections.OrderedDict()
     for p in batch_files:
         name = BF.package(p)
@@ -135,6 +143,8 @@ def main():
     build = {"id": "%s-%s" % (stamp, sha), "built": stamp, "code": sha, "release": a.tag, "rows": n_rows, "rows_with_mailbox": n_mail, "by_tier": dict(sorted(tiers.items())),
              "ship_ready": {"rows": sum(ship.values()), "complete_in_the_billers_or_the_records_own_words": ship["complete"], "best_effort_by_kind_or_a_field_not_published": ship["best_effort"],
                             "by_where_the_organisation_is": ship["by_location"], "by_kind": dict(sorted(ship_t.items())),
+                            "by_amount_mark": dict(sorted(ship_m.items())), "with_amount_and_billing_period": ship_f["with_amount_and_billing_period"],
+                            "with_every_main_invoice_field": ship_f["with_every_main_invoice_field"],
                             "test": "a Canadian biller with a relationship that is current + the organisation's role mailbox re-read by the referee + a bill on invoice, payable by bank transfer (never a card on file) + no flag; the fields of its kind are populated as well as they can be and what is not published is said on the row (owner 2026-11-11 13:00 to 16:01 EST; tools/relationship_rows.py owner_test)"},
              "packages": packages, "assets": [{"name": os.path.basename(p), "bytes": os.path.getsize(p), "sha256": sha256(p),
                                                "url": "https://github.com/%s/releases/download/%s/%s" % (REPO, a.tag, os.path.basename(p))} for p in assets]}

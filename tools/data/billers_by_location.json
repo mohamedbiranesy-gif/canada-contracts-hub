@@ -49,7 +49,8 @@
   "amount_basis": "the minimum monthly bill of rate G: “Le montant mensuel minimal de la facture est de 15,426 $ si l’électricité livrée est monophasée ou de 46,278 $ si elle est triphasée.” (https://www.hydroquebec.com/data/documents-donnees/pdf/tarifs-electricite.pdf?v=20261001, in force 1 April 2026); on top of it 12.388 ¢ a kilowatt-hour — the organisation's own consumption is not published",
   "delivery": "an invoice (“facture”), due 21 days after its date: “Vous devez payer votre facture dans les 21 jours suivant la date de facturation.” (https://www.hydroquebec.com/affaires/espace-clients/paiement/options-paiement.html)",
   "payment": "through a bank or by cheque; a credit card is refused: “Modes de paiement acceptés : Prélèvement automatique Paiement Internet Paiement par la banque Mandat postal ou traite bancaire Chèque Modes de paiement refusés* : Carte de crédit Cryptomonnaie Monnaies étrangères” (https://www.hydroquebec.com/affaires/espace-clients/paiement/options-paiement.html)",
-  "terms": "“Vous devez payer votre facture dans les 21 jours suivant la date de facturation.” (https://www.hydroquebec.com/affaires/espace-clients/paiement/options-paiement.html)"
+  "terms": "“Vous devez payer votre facture dans les 21 jours suivant la date de facturation.” (https://www.hydroquebec.com/affaires/espace-clients/paiement/options-paiement.html)",
+  "estimate": "estimated — about $325 a month before tax for 2,500 kWh a month: calculated from rate G — the system access charge of $15.426 + 2,500 kWh × 12.388 ¢: “La structure du tarif mensuel G pour un abonnement annuel est la suivante : 15,426 $” … “de frais d’accès au réseau plus 22,071 $” … “au-delà de 50 kilowatts plus 12,388 ¢” … “le kilowattheure pour les 15 090 premiers kilowattheures” (https://www.hydroquebec.com/data/documents-donnees/pdf/tarifs-electricite.pdf?v=20261001, in force 1 April 2026); 2,500 kWh a month is the use at which the Ontario Energy Board's small-business bill calculator opens (https://www.oeb.ca/_html/calculator/en/electricity/smallbusiness/), taken here as one yardstick for every province; GST and QST are not counted; this organisation's own consumption is not published"
  },
  {
   "key": "bc_hydro",
@@ -87,7 +88,17 @@
   "what": "electricity for the premises at the organisation's address",
   "delivery": "a bill with a due date: “If you don't pay your bill by the due date:” (https://app.bchydro.com/accounts-billing/bill-payment/late-payment.html)",
   "payment": "through a bank, by pre-authorized withdrawal or by cheque (electronic funds transfer for large business customers); a credit card through a third party, for a fee: “Online banking Log in to your bank's website, go to the pay bill section and add or select BC Hydro as a payee.” … “By mail To pay by mail, send your cheque to our payment address below.” (https://app.bchydro.com/accounts-billing/bill-payment/ways-to-pay.html)",
-  "unpaid": "“A late payment charge will be added to your account.” (https://app.bchydro.com/accounts-billing/bill-payment/late-payment.html)"
+  "unpaid": "“A late payment charge will be added to your account.” (https://app.bchydro.com/accounts-billing/bill-payment/late-payment.html)",
+  "legal_name": "British Columbia Hydro and Power Authority",
+  "legal_name_basis": "as it names itself on its legal page: “may not be copied without the express permission of British Columbia Hydro and Power Authority (BC Hydro), which reserves all rights” (https://www.bchydro.com/siteinfo/legal.html, read 2026-11-11)",
+  "period": "1 monthly or every two months",
+  "period_basis": "the distributor's own page names its two bill frequencies: “how often you receive a bill. Bill frequency Security deposit Bi-monthly Security deposit amount is up to three times (3X) the estimated average monthly amount based on actual electricity usage Monthly Security deposit amount is up to two times (2X)” (https://app.bchydro.com/accounts-billing/bill-payment/customer-service-rules.html)",
+  "amount": "from $0.4089 a day (about $12.27 for 30 days, calculated from the daily charge)",
+  "amount_basis": "the basic charge of its Small General Service rate, which is also its minimum charge: “The Small General Service rate is for business customers with an annual peak demand less than 35 kW.” … “40.89 cents per day. Energy Charge 14.06 cents per kWh.” … “40.89 cents per day. Equal to the Basic Charge.” (https://app.bchydro.com/accounts-billing/rates-energy-use/electricity-rates/non-residential-rates/general-service-rates.html); energy by the kilowatt-hour comes on top — this organisation's own consumption is not published",
+  "estimate": "estimated — about $364 a month before tax for 2,500 kWh a month: calculated from its Small General Service rate — 30 days × 40.89 ¢ + 2,500 kWh × 14.06 ¢: “40.89 cents per day. Energy Charge 14.06 cents per kWh.” (https://app.bchydro.com/accounts-billing/rates-energy-use/electricity-rates/non-residential-rates/general-service-rates.html, read 2026-11-11); 2,500 kWh a month is the use at which the Ontario Energy Board's small-business bill calculator opens (https://www.oeb.ca/_html/calculator/en/electricity/smallbusiness/), taken here as one yardstick for every province; GST is not counted; this organisation's own consumption is not published",
+  "terms": "“Payment for the full amount of your bill is required within 21 days of the billing date.” (https://app.bchydro.com/accounts-billing/bill-payment/customer-service-rules.html)",
+  "remit_to": "“BC Hydro P.O. Box 9501 STN Terminal Vancouver, B.C. V6B 4N1” (https://app.bchydro.com/accounts-billing/bill-payment/ways-to-pay.html)",
+  "tax": "“5% Goods and Services Tax (GST) GST on electricity charges is payable by all customers with the exception of certain First Nations customers.” (https://app.bchydro.com/accounts-billing/bill-payment/customer-service-rules.html)"
  },
  {
   "key": "toronto_hydro",
@@ -131,7 +142,8 @@
   "amount_basis": "the basic monthly charge of the small general service rate, which is its minimum bill: “Basic monthly charge – single phase $21.57 Basic monthly charge – three phase $35.04 First 11,000 kWh 9.864¢/kWh Balance of kWh 7.568¢/kWh Minimum monthly bill is the basic charge.” (https://www.hydro.mb.ca/account/rates/commercial/); energy by the kilowatt-hour comes on top — the organisation's own consumption is not published",
   "delivery": "a monthly bill: “Eligible commercial or industrial customers are billed monthly for a basic charge, distribution charge, and energy charge.” (https://www.hydro.mb.ca/account/rates/commercial/)",
   "payment": "through a bank or credit union, by pre-authorized withdrawal or by cheque; no credit card: “Log into your digital banking app or financial institution’s website, add us as a payee with your 14-digital account number and pay with your account.” … “However, we don’t accept e-transfers, credit card, cash, phone or in-person payments at this time.” (https://www.hydro.mb.ca/account/billing/payment/)",
-  "remit_to": "“Manitoba Hydro PO Box 7900 STN MAIN Winnipeg MB R3C 5R1” (https://www.hydro.mb.ca/account/billing/payment/)"
+  "remit_to": "“Manitoba Hydro PO Box 7900 STN MAIN Winnipeg MB R3C 5R1” (https://www.hydro.mb.ca/account/billing/payment/)",
+  "estimate": "estimated — about $268 a month before tax for 2,500 kWh a month: calculated from its small general service rate — the basic charge of $21.57 + 2,500 kWh × 9.864 ¢: “Basic monthly charge – single phase $21.57 Basic monthly charge – three phase $35.04 First 11,000 kWh 9.864¢/kWh” (https://www.hydro.mb.ca/account/rates/commercial/); 2,500 kWh a month is the use at which the Ontario Energy Board's small-business bill calculator opens (https://www.oeb.ca/_html/calculator/en/electricity/smallbusiness/), taken here as one yardstick for every province; taxes are not counted; this organisation's own consumption is not published"
  },
  {
   "key": "hydro_ottawa",
@@ -186,7 +198,13 @@
   "delivery": "a bill, on paper or as an eBill: “Please include your bill or a printed copy of your eBill.” (https://saskpower.com/accounts/payments/paying-your-bill)",
   "payment": "through a bank, by pre-authorized payment or by cheque; a credit card with a fee: “Through Your Bank Pay online, over the phone or in person. Check your bank's app or website for their online banking and bill payment services.” … “By Mail Send your cheques to our payment address. Make your cheque payable to SaskPower.” … “A 1.75% fee is charged to all credit card payments.” (https://saskpower.com/accounts/payments/paying-your-bill)",
   "terms": "“To avoid late fees make sure we receive your payment by the due date.” (https://saskpower.com/accounts/payments/paying-your-bill)",
-  "remit_to": "“Cheques under $10,000 PO Box 6300, STN Main Regina, SK S4P 4J5” (https://saskpower.com/accounts/payments/paying-your-bill)"
+  "remit_to": "“Cheques under $10,000 PO Box 6300, STN Main Regina, SK S4P 4J5” (https://saskpower.com/accounts/payments/paying-your-bill)",
+  "legal_name": "Saskatchewan Power Corporation",
+  "legal_name_basis": "as it names itself in the terms of its own site: “This Website is owned and operated by the Saskatchewan Power Corporation (\"SaskPower\") a Crown Corporation incorporated under the Power Corporation Act (Saskatchewan).” (https://www.saskpower.com/, read 2026-11-11)",
+  "amount": "from $42.79 a month",
+  "amount_basis": "the basic monthly charge of its small commercial rate (codes E75 urban, E76 rural), effective February 1, 2026: “Basic monthly charge $42.79 $42.79 Demand Charge First 50 kVA/month $0 $0 Balance $/kVA $20.788 $20.788 Energy Charge First block kWh/month 14,500 kWh 13,000 kWh First block (¢/kWh) 15.602¢ 15.602¢” (https://saskpower.com/-/media/saskpower/accounts-and-services/rates/service-rates/power-supply-rates/servicerates-saskpowersuppliedtransformation.pdf); energy by the kilowatt-hour comes on top — this organisation's own consumption is not published",
+  "estimate": "estimated — about $433 a month before tax for 2,500 kWh a month: calculated from its small commercial rate — the basic charge of $42.79 + 2,500 kWh × 15.602 ¢: “Basic monthly charge $42.79 $42.79 Demand Charge First 50 kVA/month $0 $0 Balance $/kVA $20.788 $20.788 Energy Charge First block kWh/month 14,500 kWh 13,000 kWh First block (¢/kWh) 15.602¢ 15.602¢” (https://saskpower.com/-/media/saskpower/accounts-and-services/rates/service-rates/power-supply-rates/servicerates-saskpowersuppliedtransformation.pdf, read 2026-11-11); 2,500 kWh a month is the use at which the Ontario Energy Board's small-business bill calculator opens (https://www.oeb.ca/_html/calculator/en/electricity/smallbusiness/), taken here as one yardstick for every province; taxes are not counted; this organisation's own consumption is not published",
+  "tax": "taxes are added to its rates: “The rates herein defined are net and do not include any taxes or surcharges, which may lawfully be imposed by or at the request of any municipal, provincial or federal authority.” (https://saskpower.com/-/media/saskpower/accounts-and-services/rates/service-rates/power-supply-rates/servicerates-saskpowersuppliedtransformation.pdf)"
  },
  {
   "key": "nb_power",
@@ -221,13 +239,14 @@
   "amount_basis": "the service charge of its standard business rate, effective April 14, 2026: “General Service 1 (standard) Service Charge: $30.87” (https://www.nbpower.com/en/products-services/business/rates); demand and energy come on top — the organisation's own consumption is not published",
   "delivery": "a bill: “All bills for service are due when rendered and are subject to a late payment charge when payments are received after the date specified on the bill.” (https://www.nbpower.com/en/accounts-billing/understanding-your-bill/rate-schedules-and-policies/f-billing-and-payments)",
   "payment": "through a bank or by automatic withdrawal from a bank account; a credit card with a fee: “Add NB Power as a payee for options to pay your bill in person, online or over the phone .” … “Never miss your bill due date with automatic payments from your bank account.” … “Easily make a secure, one-time payment using your credit card. (A convenience fee will be applied).” (https://www.nbpower.com/en/accounts-billing/billing-and-payment)",
-  "terms": "“All bills for service are due when rendered and are subject to a late payment charge when payments are received after the date specified on the bill.” (https://www.nbpower.com/en/accounts-billing/understanding-your-bill/rate-schedules-and-policies/f-billing-and-payments)"
+  "terms": "“All bills for service are due when rendered and are subject to a late payment charge when payments are received after the date specified on the bill.” (https://www.nbpower.com/en/accounts-billing/understanding-your-bill/rate-schedules-and-policies/f-billing-and-payments)",
+  "estimate": "estimated — about $486 a month before tax for 2,500 kWh a month: calculated from its General Service 1 rate — the service charge of $30.87 + 2,500 kWh × 18.21 ¢: “First 5000 kilowatt hours 17.76¢ Base Rate + 0.45¢ Variance Account Charge 18.21¢ Total Charge” (https://www.nbpower.com/en/products-services/business/rates, effective April 14, 2026); 2,500 kWh a month is the use at which the Ontario Energy Board's small-business bill calculator opens (https://www.oeb.ca/_html/calculator/en/electricity/smallbusiness/), taken here as one yardstick for every province; HST is not counted; this organisation's own consumption is not published"
  },
  {
   "key": "qulliq",
   "name": "Qulliq Energy Corporation",
   "site": "https://www.qec.nu.ca/",
-  "read": "2026-11-03",
+  "read": "2026-11-11",
   "address": "3091 6th Street, Baker Lake, NU X0C 0A0",
   "address_url": "https://www.qec.nu.ca/contact-us",
   "address_quote": "REGIONAL OFFICES Baker Lake Iqaluit 3091 6th Street Baker Lake, NU X0C 0A0",
@@ -239,7 +258,9 @@
   ],
   "except_fsas": [],
   "territory": "Qulliq Energy Corporation is the only electricity utility in Nunavut, serving all 25 communities (Qulliq Energy Corporation Act)",
-  "what": "electricity for the premises at the organisation's address"
+  "what": "electricity for the premises at the organisation's address",
+  "legal_name": "Qulliq Energy Corporation",
+  "legal_name_basis": "as it names itself on its legal page: “This website is owned and operated by Qulliq Energy Corporation (QEC) headquartered in Baker Lake, Nunavut.” (https://www.qec.nu.ca/legal, read 2026-11-11)"
  },
  {
   "key": "on_alectra_utilities_corporation",
@@ -288,7 +309,14 @@
   "what": "electricity for the premises at the organisation's address",
   "delivery": "a bill: “We offer a number of secure and convenient ways to pay your bill.” (https://nspower.ca/ways-to-pay)",
   "payment": "through a bank, by pre-authorized payment or by cheque; a credit card through a third party, for a fee: “Visit your bank's website and select \"Nova Scotia Power Inc.\" as a payee.” … “Cheque To pay by mail, send your cheque to: PO Box 848, Halifax, Nova Scotia B3J 2V7” … “Credit Card Use Visa or Mastercard to make a quick, one-time payment or automatic payment through EZ Pay 1 , our third-party payment provider.” (https://nspower.ca/ways-to-pay)",
-  "remit_to": "“Billing & Payments Only Nova Scotia Power Inc. P.O. Box 848 Halifax, NS B3J 2V7” (https://nspower.ca/customer-service)"
+  "remit_to": "“Billing & Payments Only Nova Scotia Power Inc. P.O. Box 848 Halifax, NS B3J 2V7” (https://nspower.ca/customer-service)",
+  "legal_name": "Nova Scotia Power Inc.",
+  "legal_name_basis": "as its own page prints it: “Civic Address Nova Scotia Power Inc. 1223 Lower Water Street Halifax, NS B3J 3S8” (https://nspower.ca/customer-service, read 2026-11-11)",
+  "period": "1 monthly",
+  "period_basis": "its tariff states its charges by the month: “SMALL GENERAL TARIFF Page 1 of 2 Rate Code 10 CUSTOMER CHARGE per month” (Tariffs, May 2026: https://www.nspower.ca/docs/default-source/regulatory/tariff-book-2026.pdf)",
+  "amount": "from $22.00 a month",
+  "amount_basis": "the customer charge of its Small General Tariff, which is also its minimum monthly charge: “SMALL GENERAL TARIFF Page 1 of 2 Rate Code 10 CUSTOMER CHARGE per month Effective upon the date of the $22.00 Board’s Order Effective January 1, 2027 $22.73” … “MINIMUM MONTHLY CHARGE The minimum monthly charge shall be as follows: per month Effective upon the date of the $22.00 Board’s Order” (Tariffs, May 2026: https://www.nspower.ca/docs/default-source/regulatory/tariff-book-2026.pdf); energy by the kilowatt-hour comes on top — this organisation's own consumption is not published",
+  "estimate": "estimated — about $453 a month before tax for 2,500 kWh a month: calculated from its Small General Tariff — the customer charge of $22.00 + 200 kWh × 18.919 ¢ + 2,300 kWh × 17.112 ¢: “ENERGY CHARGE cents per kilowatt-hour for the first 200 for all kilowatt-hours additional per month kilowatt-hours Effective upon the date of the 18.919 17.112” (Tariffs, May 2026: https://www.nspower.ca/docs/default-source/regulatory/tariff-book-2026.pdf, read 2026-11-11); the riders for fuel, conservation and storm costs and HST are not counted; 2,500 kWh a month is the use at which the Ontario Energy Board's small-business bill calculator opens (https://www.oeb.ca/_html/calculator/en/electricity/smallbusiness/), taken here as one yardstick for every province; this organisation's own consumption is not published"
  },
  {
   "key": "nl_power",
@@ -337,6 +365,11 @@
   "what": "electricity for the premises at the organisation's address",
   "delivery": "a bill: “Major banks and credit unions accept payments for Maritime Electric electricity bills.” (https://maritimeelectric.com/accounts-billing/your-bill/paying-your-bill)",
   "payment": "through a bank or credit union, by pre-authorized payment or by cheque; a credit card through a third party, for a fee: “Major banks and credit unions accept payments for Maritime Electric electricity bills. Add Maritime Electric as a payee on your bank account.” … “The Pre-Authorized Payment Plan assures your payment arrives on time, every time.” … “You can make a payment with your Visa or MasterCard online or by phone through Paymentus .” (https://maritimeelectric.com/accounts-billing/your-bill/paying-your-bill)",
-  "remit_to": "“mail a cheque to Maritime Electric at the following mailing address: Maritime Electric PO Box 1328 180 Kent Street Charlottetown, PE C1A 7N2” (https://maritimeelectric.com/accounts-billing/your-bill/paying-your-bill)"
+  "remit_to": "“mail a cheque to Maritime Electric at the following mailing address: Maritime Electric PO Box 1328 180 Kent Street Charlottetown, PE C1A 7N2” (https://maritimeelectric.com/accounts-billing/your-bill/paying-your-bill)",
+  "legal_name": "Maritime Electric Company, Limited",
+  "legal_name_basis": "as its own rate schedule names it: “Schedule of \"Adjusted Rates\" Maritime Electric Company, Limited Schedule of Rates Rate Code August 1, 2026” (https://www.maritimeelectric.com/media/q1fcy52a/602000-section-n-28-effective-august-1-2026.pdf, read 2026-11-11)",
+  "amount": "from $24.57 a billing period",
+  "amount_basis": "the service charge of its General Service rate (code 232) in its schedule of rates of August 1, 2026: “232 General Service Service Charge $ 24.57 Demand Charge - per kW for first 20 kW $ - Demand Charge - per kW for balance of kW $ 13.43 Energy Charge per kWh for first 5,000 kWh $ 0.2188” (https://www.maritimeelectric.com/media/q1fcy52a/602000-section-n-28-effective-august-1-2026.pdf); energy by the kilowatt-hour comes on top — this organisation's own consumption is not published",
+  "estimate": "estimated — about $572 a month before tax for 2,500 kWh a month: calculated from its General Service rate — the service charge of $24.57 + 2,500 kWh × 21.88 ¢: “232 General Service Service Charge $ 24.57 Demand Charge - per kW for first 20 kW $ - Demand Charge - per kW for balance of kW $ 13.43 Energy Charge per kWh for first 5,000 kWh $ 0.2188” (https://www.maritimeelectric.com/media/q1fcy52a/602000-section-n-28-effective-august-1-2026.pdf, read 2026-11-11); 2,500 kWh a month is the use at which the Ontario Energy Board's small-business bill calculator opens (https://www.oeb.ca/_html/calculator/en/electricity/smallbusiness/), taken here as one yardstick for every province; HST is not counted; this organisation's own consumption is not published"
  }
 ]

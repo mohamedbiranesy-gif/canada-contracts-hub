@@ -3,10 +3,17 @@ name: on-ldc-table
 # service areas (open data of the Government of Ontario), the location of every postal code (GeoNames) and Statistics Canada's postal areas;
 # the Board's page on each distributor gives its address and site. Three files are downloaded and some sixty pages of oeb.ca read, once.
 # The Board refreshes its map about once a year: run by hand then (the 1st of each quarter is a reminder that costs four minutes).
+# The Board's file of current rates (the fixed monthly charge and the rates by the kilowatt-hour of every distributor's small-business class) is
+# refreshed monthly: on the 2nd of every month only that step runs (tools/on_ldc_table.py rates), one request, a minute.
 on:
   schedule:
     - cron: "23 7 1 1,4,7,10 *"
+    - cron: "41 7 2 * *"
   workflow_dispatch:
+    inputs:
+      what:
+        description: "build (the whole table) or rates (the distributors' rates only)"
+        default: "build"
 permissions:
   contents: write
 concurrency:
@@ -21,6 +28,17 @@ jobs:
         with: { ref: main }
       - name: Build the table, commit when it changed
         run: |
+          if [ "${{ github.event.schedule }}" = "41 7 2 * *" ] || [ "${{ inputs.what }}" = "rates" ]; then
+            python3 tools/on_ldc_table.py rates 2>&1 | tee /tmp/t.txt
+            { echo '```'; cat /tmp/t.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+            python3 -c "import json; e=json.load(open('tools/data/billers_by_location_on.json')); n=sum(1 for x in e if x.get('amount')); print('distributors with a fixed charge:', n); raise SystemExit(0 if n >= 40 else 1)"
+            git config user.name "on-ldc-table"; git config user.email "on-ldc-table@users.noreply.github.com"
+            git add tools/data/billers_by_location_on.json
+            git diff --cached --quiet && { echo "nothing new"; exit 0; }
+            git commit -q -m "on-ldc-table: Ontario distributors' rates from the regulator's file ($(grep -m1 '^Ontario distributors' /tmp/t.txt | cut -c1-150)) [skip ci]"
+            for i in 1 2 3 4 5; do git pull -q --no-rebase origin main && git push -q origin HEAD:main && break; sleep $((RANDOM % 10 + 3)); done
+            exit 0
+          fi
           pip install -q pyshp shapely pyproj
           python3 -W ignore tools/on_ldc_table.py build 2>&1 | tee /tmp/t.txt
           python3 tools/on_ldc_table.py check 2>&1 | tee -a /tmp/t.txt
@@ -35,7 +53,7 @@ jobs:
           sys.exit(1 if old and new < 0.9 * old else 0)
           EOF
           git config user.name "on-ldc-table"; git config user.email "on-ldc-table@users.noreply.github.com"
-          git add tools/data/on_postal_ldc.tsv.gz tools/data/billers_by_location_on.json
+          git add tools/data/on_postal_ldc.tsv.gz tools/data/billers_by_location_on.json tools/data/pc_abce.txt.gz
           git diff --cached --quiet && { echo "nothing new"; exit 0; }
           git commit -q -m "on-ldc-table: Ontario postal codes by licensed distributor ($(grep -m1 '^Ontario postal codes' /tmp/t.txt | cut -c1-150)) [skip ci]"
           for i in 1 2 3 4 5; do git pull -q --no-rebase origin main && git push -q origin HEAD:main && break; sleep $((RANDOM % 10 + 3)); done

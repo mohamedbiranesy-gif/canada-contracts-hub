@@ -210,6 +210,22 @@ begins "by where it is:", the vendor is the electricity distributor of the organ
 `bill_amount_indicative` (the least the distributor bills a business in a month), `bill_delivery_as_published`,
 `bill_payment_method_as_published`, `bill_due_terms_as_published` and `bill_remit_to_as_published` are the distributor's own sentences.
 The distributor is certain for the address; whose name is on the account is not published, and the row says so.
+
+**Since 2026-11-11 20:36 EST (AGENTS.md §1, rules 14 to 17).** One row per buyer, no buyer twice; a vendor may stand on many rows. $5,000 is
+a mark and an order, not a test. `amount_mark` puts every row in one of five classes: "1 published, $5,000 or more" (the value of the
+contract as the public record gives it, or the biller's own published fee or price) · "2 estimated, $5,000 or more" · "3 published, under
+$5,000" (a price "from $15.43 a month" is $15.43) · "4 estimated, under $5,000" · "5 no amount" — each with the figure it rests on. The
+table is written in that order, the rows that meet the test first (`tools/priority_sort.py`, run by `tools/rank_tail.sh`); inside a class
+the ranker's order is kept. A buyer under contract carries, among the records of its best tier, one whose published value is $5,000 or
+more. An estimate is a calculation from published figures and stands in `bill_amount_calculated`, opening with "estimated —" or
+"calculated —": for a row by where the organisation is, what the distributor's own published rate comes to at 2,500 kWh a month (the use
+at which the Ontario Energy Board's small-business bill calculator opens), before tax; for a contract, its published value by the year of
+its published term. Never in `bill_amount_indicative`, which holds published amounts only. A row by where the organisation is also
+carries the distributor's legal name (`vendor_legal_name`), its number in its regulator's register where it has one
+(`vendor_registry_id`: an Ontario distributor's licence number), and its tax rule; in Ontario the billing period, the due terms and the
+ways of paying are the regulator's own code for every distributor (`tools/on_ldc_table.py`). When ten or more organisations print the same
+urban postal code the row says so; from fifty it does not meet the test (a tower, a campus, a business centre or a mail service: the
+landlord's account). A "postal code" that is a colour code or a form's placeholder is not one (`tools/by_location.py: usable`).
 `relationship_fact_basis` says in one sentence why the relationship is a fact, or that it is not one: "fact, seen on the buyer's side"
 (a running service, a `.ca` name) · "fact, public record" (an award, a register) · "stated by the buyer" (a credit line, a membership
 badge) · "stated by the vendor" (a client list) · "link only" · "inferred, not a fact".

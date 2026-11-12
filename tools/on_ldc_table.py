@@ -21,6 +21,7 @@ And from the Board's own page on each distributor (utility performance scorecard
 
   python3 tools/on_ldc_table.py build     writes tools/data/on_postal_ldc.tsv.gz and tools/data/billers_by_location_on.json
   python3 tools/on_ldc_table.py check     the table's counts, and a few postal codes whose distributor is known
+  python3 tools/on_ldc_table.py rates     every distributor's bill from the regulator: the Code's rules, the fixed charge and the calculated bill (monthly)
 
 Needs: pip install pyshp shapely pyproj. Run by hand or by a workflow when the Board refreshes its map (once a year so far).
 """
@@ -30,6 +31,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 TABLE = os.path.join(ROOT, "tools/data/on_postal_ldc.tsv.gz")
 BILLERS = os.path.join(ROOT, "tools/data/billers_by_location_on.json")
+ABCE = os.path.join(ROOT, "tools/data/pc_abce.txt.gz")
 CACHE = os.path.join(ROOT, "out/geo")
 LDC_PAGE = "https://data.ontario.ca/dataset/ontario-ldc-boundaries-map"
 LDC_ZIP = "https://data.ontario.ca/dataset/ca5c6df5-ca15-4005-be33-c75fcf9bc7e8/resource/42cb3659-8d6a-4a77-b0e5-a9c32736169f/download/energy_ldc_service_boundaries_20240930.zip"
@@ -43,6 +45,106 @@ URBAN_M, RURAL_M, PURE = 300.0, 5000.0, 0.995
 SITES = {"GrandBridge Energy Inc.": "https://grandbridgeenergy.com/"}
 flat = lambda t: re.sub(r"\s+", " ", t).strip()
 nkey = lambda s: re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
+
+# ---- what every Ontario distributor's bill is, from the regulator itself (2026-11-12) ---------------------------------------------------------
+# Owner, 2026-11-11 20:04 EST: "what about estimated value per billing cadence and all other … invoice fields". 41 of the 53 distributors had
+# nothing but an address. Two sources of the Ontario Energy Board fill every one of them at once:
+#  (1) its Distribution System Code, binding on every licensed distributor: a bill every month to each small-business customer, at least
+#      20 days to pay it, how a bill is issued and how a payment is made;
+#  (2) its file of current rates behind its bill calculator (open data, refreshed monthly): for each distributor and rate zone the fixed
+#      monthly charge of the General Service Less Than 50 kW class and every rate by the kilowatt-hour.
+# The fixed charge is published: it is the least a bill is ("from $… a month"). What a bill comes to at a stated use is CALCULATED from
+# those published rates and labelled so; the use is the one at which the Board's own small-business calculator opens (2,500 kWh a month).
+# A distributor read by hand (tools/data/billers_by_location.json) keeps its own sentences: these fill only what it does not have.
+DSC = "https://www.oeb.ca/sites/default/files/Distribution_System_Code_20250801_AODA.pdf"
+DSC_NAME = "the Ontario Energy Board's Distribution System Code, which binds every licensed distributor"
+DSC_Q = {"period": "A distributor shall issue a bill to each non-seasonal residential customer and each general service < 50kW customer on a monthly basis.",
+         "terms": "the minimum payment period shall be 20 days from the date on which the bill was issued to the customer.",
+         "delivery": "a bill will be deemed to have been issued to a customer: (a) if sent by mail, on the third day after the date on which the bill was printed by the distributor; (b) if made available over the internet",
+         "payment": "(a) if paid by mail, three days prior to the date on which the distributor receives the payment; (b) if paid at a financial institution or electronically, on the date on which the payment is acknowledged or recorded by the customer’s financial institution; or (c) if paid by credit card"}
+OEB_RATES = "https://www.oeb.ca/_html/calculator/data/BillData_GS.xml"
+OEB_RATES_PAGE = "https://oeb.ca/open-data/current-electricity-rates-general-service-50-kw-rate-class"
+OEB_CALC = "https://www.oeb.ca/_html/calculator/en/electricity/smallbusiness/"
+REF_KWH = 2500
+
+
+def _rate_rows():
+    """[{field: value}] of the Board's file of current small-business rates, one per distributor and rate zone"""
+    t = _get(OEB_RATES, "BillData_GS.xml").decode("utf-8", "replace")
+    return [dict(re.findall(r"<(\w+)>([^<]*)</\1>", blk)) for blk in re.findall(r"<BillDataRow>(.*?)</BillDataRow>", t, re.S)]
+
+
+def _estimate(r, kwh=REF_KWH):
+    """(the bill before tax at `kwh` a month, the fixed part, the rate by the kilowatt-hour) from one row of the Board's file, or None: energy at
+    the Time-of-Use prices in the row's own split of the day, adjusted for line losses, plus the distribution, transmission and regulatory rates"""
+    try:
+        f = lambda k: float(r[k])
+        com = f("EOffP") * f("RPPOffP") + f("EMidP") * f("RPPMidP") + f("EOnP") * f("RPPOnP")
+        per = com * f("LF") + f("DC") + f("LF") * (f("Net") + f("Conn") + f("WMSR") + f("RRRP"))
+        fixed = f("SC") + f("SSS")
+    except (KeyError, ValueError):
+        return None
+    return fixed + kwh * per, fixed, per
+
+
+def enrich(ent, read_day=None):
+    """adds to each distributor's entry: its licensed name and licence number, the Code's rules on its bill, the fixed charge and the calculated bill"""
+    day = read_day or time.strftime("%Y-%m-%d")
+    rows = _rate_rows()
+    names = sorted((e["table_key"] for e in ent), key=lambda x: -len(nkey(x)))
+    alias = {"hearst power distribution co ltd": "Hearst Power Distribution Company Limited"}
+    by = collections.defaultdict(list)
+    for r in rows:
+        k = nkey(r.get("Dist"))
+        m = alias.get(k) or next((n for n in names if k == nkey(n) or k.startswith(nkey(n) + " ")), None)
+        if m:
+            by[m].append(r)
+    n = collections.Counter()
+    for e in ent:
+        nm = e["table_key"]
+        lic = re.search(r"\(licence ([A-Z]{2}-\d{4}-\d{4})", e.get("territory") or "")
+        e["legal_name"] = nm
+        e["legal_name_basis"] = "the name under which the Ontario Energy Board licenses this distributor%s, as the Board prints it on its page for the distributor (%s, read %s)" % (
+            (" (licence %s)" % lic.group(1)) if lic else "", e.get("address_url") or "", e.get("address_read") or day)
+        if lic:
+            e["registration"] = "Ontario Energy Board electricity distribution licence %s (its number in the regulator's public register of licensed distributors)" % lic.group(1)
+        e["period"] = "1 monthly"
+        e["period_basis"] = "%s: “%s” (s. 2.6.1A; %s)" % (DSC_NAME, DSC_Q["period"], DSC)
+        e["delivery"] = "a bill, by mail or made available on line: %s says how — “%s” (s. 2.6.4; %s)" % (DSC_NAME, DSC_Q["delivery"], DSC)
+        e["payment"] = ("by mail, at a financial institution or electronically; by credit card where the distributor takes one — the ways %s counts a payment: “%s” (s. 2.6.5; %s)"
+                        % (DSC_NAME, DSC_Q["payment"], DSC))
+        e["terms"] = "at least 20 days from the day the bill is issued: “%s” (s. 2.6.3 of %s; %s)" % (DSC_Q["terms"], DSC_NAME, DSC)
+        e["tax"] = "HST of 13 %% is added: the Board's file of current rates carries it for every Ontario distributor (“<GST>0.13</GST>”, %s)" % OEB_RATES
+        zs = [(r, _estimate(r)) for r in by.get(nm, [])]
+        zs = [(r, x) for r, x in zs if x]
+        if not zs:
+            n["no row in the Board's rate file"] += 1
+            continue
+        zs.sort(key=lambda rx: float(rx[0]["SC"]))
+        lo, hi = zs[0], zs[-1]
+        zone = lambda r: (r["Dist"] + ((" : " + r["Class"]) if "GENERAL SERVICE LESS THAN 50" not in (r.get("Class") or "") else "")).strip()
+        many = (" — the lowest of its %d rate zones or classes; the highest is $%s (%s)" % (len(zs), hi[0]["SC"], zone(hi[0]))) if len(zs) > 1 else ""
+        e["amount"] = "from $%s a month" % lo[0]["SC"]
+        e["amount_basis"] = ("the fixed monthly charge of its small-business class (service charge and fixed riders), year %s, in the Ontario Energy Board's file of current rates behind its bill "
+                             "calculator: “<Dist>%s</Dist>” … “<SC>%s</SC>”%s (%s, described at %s; read %s); the rates by the kilowatt-hour come on top — the organisation's own "
+                             "consumption is not published" % (lo[0].get("YEAR") or "", lo[0]["Dist"], lo[0]["SC"], many, OEB_RATES, OEB_RATES_PAGE, day))
+        est = sorted(x[0] for r, x in zs)
+        e["estimate"] = ("estimated — about $%s a month before tax for %s kWh a month%s: calculated from the Ontario Energy Board's file of current rates for this distributor (%s, read %s) — "
+                         "fixed charges $%.2f + %s kWh × %.2f ¢ (energy at the Time-of-Use prices in the file's own split of the day, with line losses; distribution, transmission and "
+                         "regulatory rates)%s; %s kWh a month is the use at which the Board's small-business bill calculator opens (%s); the Ontario Electricity Rebate and HST are not "
+                         "counted; this organisation's own consumption is not published"
+                         % (format(round(est[0]), ","), format(REF_KWH, ","), (" (about $%s in its dearest rate zone)" % format(round(est[-1]), ",")) if len(est) > 1 and round(est[-1]) != round(est[0]) else "",
+                            OEB_RATES, day, lo[1][1], format(REF_KWH, ","), 100 * lo[1][2], (" for “%s”" % zone(lo[0])) if len(zs) > 1 else "", format(REF_KWH, ","), OEB_CALC))
+        n["distributors with the fixed charge and the calculated bill"] += 1
+    print("Ontario distributors' bills from the regulator: %s (of %d); rate rows of the file matched to no distributor on file: %s" % (
+        dict(n), len(ent), sorted({r.get("Dist") for r in rows} - {r.get("Dist") for rs in by.values() for r in rs})))
+    return ent
+
+
+def rates():
+    """the monthly refresh: the regulator's rate file read again, every distributor's entry updated in place"""
+    ent = json.load(open(BILLERS, encoding="utf-8"))
+    json.dump(enrich(ent), open(BILLERS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
 def _get(url, name, big=False):
@@ -151,10 +253,12 @@ def build():
         if sh and sh.most_common(1)[0][1] / sum(sh.values()) >= PURE:
             pure[code] = sh.most_common(1)[0][0]
     z = zipfile.ZipFile(io.BytesIO(_get(GEONAMES, "CA_full.csv.zip", big=True)))
-    out, n = {}, collections.Counter()
+    out, n, abce = {}, collections.Counter(), set()
     with z.open("CA_full.txt") as fh:
         for line in io.TextIOWrapper(fh, encoding="utf-8", errors="replace"):
             q = line.rstrip("\n").split("\t")
+            if len(q) > 1 and re.fullmatch(r"[ABCE]\d[ABCE] ?\d[ABCE]\d", q[1].strip().upper()):
+                abce.add(q[1].replace(" ", "").upper())  # every province: the codes a colour code could spell (tools/by_location.py: usable)
             if len(q) < 11 or q[4] != "ON":
                 continue
             pc = q[1].replace(" ", "").upper()
@@ -171,6 +275,11 @@ def build():
                 out[pc] = areas[i][0]; n["given a distributor"] += 1
             else:
                 n["too near the edge of its service area"] += 1
+    if len(abce) > 5000:  # (a dump that lost them is not written over the list on file)
+        with gzip.open(ABCE, "wt", encoding="utf-8") as f:
+            f.write("# Canadian postal codes whose three letters are all among A, B, C and E — the letters a colour code can spell (#E6E6E6). Built by tools/on_ldc_table.py from the "
+                    "GeoNames postal code dump CA_full (CC BY). A code of that shape printed on a page is taken as a postal code only when it is in this list.\n")
+            f.write("\n".join(sorted(abce)) + "\n")
     names = sorted({a[0] for a in areas})
     idx = {nm: i for i, nm in enumerate(names)}
     os.makedirs(os.path.dirname(TABLE), exist_ok=True)
@@ -212,7 +321,7 @@ def build():
                                   "energy from a retailer; the organisation's postal code is located inside that area and inside no other distributor's (postal code location: GeoNames)"
                                   % (nm, num or "on the Board's register", (" — with the area mapped as “%s”" % "”, “".join(other)) if other else "", LDC_DATE)),
                     "what": "electricity delivered to the premises at the organisation's address", "read": time.strftime("%Y-%m-%d")})
-    json.dump(ent, open(BILLERS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    json.dump(enrich(ent), open(BILLERS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("distributors with the Board's page (address, site): %d; mapped but without such a page (no row is made on them): %s" % (len(ent), missing))
 
 
@@ -246,4 +355,4 @@ def check():
 
 
 if __name__ == "__main__":
-    {"build": build, "check": check}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()
+    {"build": build, "check": check, "rates": rates}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()

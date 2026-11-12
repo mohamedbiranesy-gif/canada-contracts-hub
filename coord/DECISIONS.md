@@ -1551,3 +1551,57 @@ postal address and a mailbox is a candidate too (39,393 never queued).
 
 Also: the organisation's postal code from the home-page scan is an address when the reader kept none (377,262 home pages), said as such
 on the row; a vendor is looked up in the register under the legal name its own site prints (3,763 rows had lost the vendor's number).
+
+## 2026-11-12 02:14Z — the owner's evening: how full a row is, $5,000 as a priority, one row per buyer; what was counted, decided and built (claude)
+
+**What he said (2026-11-11, EST).** 20:04 "what is this ship ready for you … what about estimated value per billing cadence and all other rows/
+invoice fields … I want to make sure it's useful efficient work". 20:14 "an inference be permissible, combined with billing cadence a fair
+estimate can be made … be sure to populate as much as possible per relationship … I have one credit reset left … short work sessions and your
+automation hand-offs". 20:22 "what about the contracts, also the relationship billed amount per cadence should be 5000 plus … we still need to
+reach 1 million". Asked two questions at 20:35 he chose a hard floor and one row per buyer and vendor; at 20:36 he settled it: "we will also
+include those of lower value but mark them, mark everything, prioritise over 5000 … no buyer twice is hard rule so it should be 1 million
+buyers, vendor can be repeated … that's why I was willing to lift 5000 cap, make it soft". AGENTS.md §1 rules 14 to 17.
+
+**What was counted for him (table of 00:14Z, 136,513 rows that met the test).** With an amount and a billing period 70,503; with every main
+invoice field 24,279 (nearly all Hydro-Québec's); with no amount 66,010. Where an amount stood it was the biller's lowest published charge.
+With a published amount of $5,000 or more: 1,510 contract values and one fee. The contract dataset: 803,097 records, 316,131 buyer-vendor
+pairs, 5,590 buyers; current and $5,000 or more: 158,427 records, 90,680 pairs — 66,678 of them behind 1,687 buyers with a mailbox.
+
+**1. Every row is marked by its amount and the table is written in that order.** `amount_mark` (tools/relationship_rows.py): published
+$5,000 or more · estimated $5,000 or more · published under $5,000 · estimated under $5,000 · no amount. `tools/priority_sort.py` (run by
+`tools/rank_tail.sh`) puts the rows that meet the test first, by mark; constant memory. The test itself does not look at the amount.
+
+**2. What an estimate is.** A calculation from published figures, labelled, in `bill_amount_calculated` — never in a published cell. For
+electricity: the distributor's own rate (fixed charge + price by the kilowatt-hour) at 2,500 kWh a month, before tax. The 2,500 is the use at
+which the Ontario Energy Board's small-business bill calculator opens; it is used as one yardstick for every province and the row says so.
+For a contract: its published value by the year of its published term. Where nothing published supports a figure (what a dealer buys from
+its supplier) no estimate is made. Sponsors (the published price of the level a sponsor is listed under) and members (the body's dues
+schedule) need a reader of their own: 1,261 and 1,258 billers, too many to read by hand.
+
+**3. Ontario's distributors from their regulator, all 53 at once** (tools/on_ldc_table.py: enrich, rates). The Distribution System Code
+binds every licensed distributor: a bill every month to each small-business customer (s. 2.6.1A), at least 20 days to pay (2.6.3), how a
+bill is issued (2.6.4) and how a payment is made (2.6.5). The Board's file of current rates behind its bill calculator (open data, monthly)
+gives each distributor's fixed monthly charge and every rate by the kilowatt-hour: field SC is the service charge with its fixed riders
+(checked on two distributors: SC − OFC is the service charge their own tariff prints). The licensed name is the legal name; the licence
+number is the distributor's number in the regulator's register. A distributor read by hand keeps its own sentences.
+
+**4. Three faults found in the published table, each a rule now.** (a) 53 rows stood on a "postal code" that was a colour code or a form's
+placeholder (E6E 6E6, A1B 2C3); the scan held 2,341 such codes. A code whose letters are all among A, B, C, E is taken only when printed in
+capitals with a space or hyphen and found in the list of real codes; three equal pairs and the usual examples never (tools/by_location.py:
+usable). (b) An urban postal code is one building or one side of a block: when ten or more organisations print the same one the row says
+so; from fifty it does not meet the test (133 rows on M5C 1C4, 67 on First Canadian Place) — the account there is the landlord's. Counted
+by registrable domain over the scan and the build; a rural code is a whole town and is not counted. (c) A row that gave way to the
+distributor still carried the other vendor's bill cells (a web host's tax sentence on 2,600 electricity rows): emptied.
+
+**5. Buyers under contract are the rows with large published amounts, and 1,401 of them had a verified mailbox that the ranker did not
+take.** Sorted by why: no site on file 552 (many are a lane's mistake — one university's mailbox credited to dozens of unrelated buyers);
+another mail domain read on the buyer's own site 331; another domain on another site 207 (mistakes); same domain, wrong purpose or a
+duplicate of a row 182; Québec's health network domain 124. Decided: an INVOICING mailbox (by its local part) that the buyer's own site
+prints counts as the buyer's also on another mail domain — its network's, its parent's, its shared-service centre's — never a
+government-wide site, never webmail. A buyer's row also carries, among the records of its best tier, one whose value is $5,000 or more.
+
+**6. What was told to the owner about a million.** One row is one organisation with a mailbox of its own and a Canadian biller. Inside
+Canada an estimate of 400,000 to 500,000 such organisations at most; the rest must be organisations abroad tied to a Canadian biller by a
+record (dealers, firms certified or licensed, customers of Canadian business software, owners of Canadian patents and trademarks). Not
+promised; a counted number every time.
+
