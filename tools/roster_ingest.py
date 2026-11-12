@@ -24,6 +24,8 @@ A lane delivers a roster as two files (data/incoming/** and contrib/** merge wit
       biller_address_url     the page of its site that prints that address;  biller_address_quote: the sentence, at most 300 characters
       read                   the day those pages were read (YYYY-MM-DD)
       pays_quote, pays_url   the body's own sentence saying the listed party pays it or how it bills (dues, booth fee, rent, invoices), <= 300 chars
+      pays_by_kind, member_quote, member_quote_url   (kind member only) when the body publishes no sentence on its dues: true, and the body's
+                             own sentence naming the listed its members (rule 13: an association's dues are said by the kind of relationship)
       list_hosts, list_host_link_url   (optional) the platforms that keep the body's list (a show's exhibitor list on Map Your Show, a2z …) and
                              the body's own page that links the list there; list_url may then be a page of those hosts
       list_name              how to name the roster in a sentence ("the member directory of the X Chamber of Commerce")
@@ -103,7 +105,12 @@ def rosters():
             continue
         D["key"] = D.get("key") or os.path.basename(jf)[:-5]
         D["_file"], D["_lane"] = jf, lane
-        miss = [k for k in NEED if not str(D.get(k) or "").strip()]
+        # rule 13 (2026-11-11 16:01 EST): "an association's dues" may be said by the kind of relationship when the body publishes no sentence on
+        # them — for a member list only, and only when the body's own words call the listed its members (pays_by_kind + member_quote / _url)
+        by_kind = D.get("kind") == "member" and D.get("pays_by_kind") is True and str(D.get("member_quote") or "").strip() and str(D.get("member_quote_url") or "").strip()
+        if by_kind:
+            D["pays_quote"], D["pays_url"] = D.get("pays_quote") or "", D.get("pays_url") or ""
+        miss = [k for k in NEED if not str(D.get(k) or "").strip() and not (by_kind and k in ("pays_quote", "pays_url"))]
         why = ""
         if miss:
             why = "descriptor lacks " + ", ".join(miss)
@@ -111,8 +118,10 @@ def rosters():
             why = "kind must be one of %s" % ", ".join(KINDS)
         elif not PC.search(D["biller_address"].upper()) or not PC.search(D["biller_address_quote"].upper()):
             why = "the body's address and its quote must carry a Canadian postal code"
-        elif len(D["biller_address_quote"]) > 300 or len(D["pays_quote"]) > 300:
+        elif len(D["biller_address_quote"]) > 300 or len(D["pays_quote"]) > 300 or len(D.get("member_quote") or "") > 300:
             why = "a quote of more than 300 characters"
+        elif by_kind and C.registrable(host(D["member_quote_url"])) != C.registrable(host(D["biller_site"])):
+            why = "member_quote must be quoted from the body's own site"
         elif PERSON_Q.search(D["pays_quote"]) or PERSON_Q.search(D["biller_address_quote"]) or re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", D["pays_quote"] + " " + D["biller_address_quote"]):
             why = "a quote names a person or carries an e-mail address (a row never carries a person's name or mailbox)"
         elif C.registrable(host(D["biller_address_url"])) != C.registrable(host(D["biller_site"])):
@@ -206,13 +215,18 @@ def merge(a):
         D, dom, h, name, url, addr, ref = next((k for k in ks if k[0]["key"] == was), ks[0])
         kind = D["kind"]
         leads[key] = {"buyer_key": key, "buyer_name": name, "website": "https://%s/" % h, "canadian_vendor_rows": 1, "example_vendor": D["biller"],
-                      "canada_field_value": "vendor located in Canada (roster: %s)=%s; “%s” (as printed on %s, read %s); %s: “%s” (%s)"
-                                            % (kind, host(D["biller_site"]), D["biller_address_quote"], D["biller_address_url"], D["read"], WHAT[kind], D["pays_quote"], D["pays_url"]),
+                      "canada_field_value": ("vendor located in Canada (roster: %s)=%s; “%s” (as printed on %s, read %s); %s: “%s” (%s)"
+                                             % (kind, host(D["biller_site"]), D["biller_address_quote"], D["biller_address_url"], D["read"], WHAT[kind], D["pays_quote"], D["pays_url"]))
+                                            if D.get("pays_quote") else
+                                            ("vendor located in Canada (roster: %s)=%s; “%s” (as printed on %s, read %s); %s — by the kind of relationship, the body "
+                                             "publishes no sentence on its dues: its own words name the listed its members: “%s” (%s)"
+                                             % (kind, host(D["biller_site"]), D["biller_address_quote"], D["biller_address_url"], D["read"], WHAT[kind], D["member_quote"], D["member_quote_url"])),
                       "evidence_dataset": url, "latest_record_date": D["read"]}
         det[key] = {"key": key, "platform": "roster_file", "roster": kind, "page_class": "sponsor" if kind == "exhibitor" else kind, "record_url": url, "vendor": D["biller"],
                     "record_date": D["read"], "title": "", "reference": ref, "vendor_address": "%s (as printed on %s, read %s)" % (D["biller_address"], D["biller_address_url"], D["read"]),
                     "vendor_address_quote": D["biller_address_quote"], "vendor_address_url": D["biller_address_url"], "vendor_site": D["biller_site"], "member_address_quote": addr,
-                    "pays_quote": D["pays_quote"], "pays_url": D["pays_url"], "list_name": D["list_name"], "harvested_by": D["_lane"], "roster_key": D["key"]}
+                    "pays_quote": D["pays_quote"], "pays_url": D["pays_url"], "pays_by_kind": not D.get("pays_quote"),
+                    "member_quote": D.get("member_quote") or "", "member_quote_url": D.get("member_quote_url") or "", "list_name": D["list_name"], "harvested_by": D["_lane"], "roster_key": D["key"]}
         (refreshed if was else new)[D["key"]] += 1
     w = LS.save("roster", stamp, leads, det, snap)
     for key, n, st in report:
