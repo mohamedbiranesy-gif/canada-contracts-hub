@@ -34,7 +34,10 @@ DIR = os.path.join(ROOT, "data/incoming/claude/vendor_billing")
 TODAY = datetime.date.today().isoformat()
 V = 5  # 5 (2026-11-11 20Z): payment pages of regulators, cities, associations and firms ("pay your invoice using …", EFT, wire, online banking); renewal notices and notices of assessment as the bill. Earlier: 2 (2026-11-11): what happens when a bill is not paid, the currency of the prices, the ways of paying; amounts parsed. 3: the site's own title and description of what the vendor sells 4 (2026-11-11): the terms page is always among the pages read; how the invoice arrives, the tax rule and the vendor's own tax number are kept
 
-NUM = r"\d{1,3}(?:[ ,. ]\d{3})*(?:[.,]\d{1,2})?"
+# 2026-11-12: a number of four digits or more written without a thousands separator was cut to its first three ("$1195.00" matched as "$119",
+# "1500$" as "500$", "$12500/year" as "$125"): grouped thousands first, else the whole run of digits. Records read before keep the cut match;
+# lowest() reads the amount again from the sentence (whole_amount).
+NUM = r"(?:\d{1,3}(?:[ ,. ]\d{3})+|\d+)(?:[.,]\d{1,2})?"
 MONEY = r"(?:(?:CA|US|CAD|USD|C)?\s?\$\s?%s|%s\s?\$(?:\s?(?:CAD|USD|CA|US)\b)?|%s\s?(?:CAD|USD)\b)" % (NUM, NUM, NUM)
 _PER = r"(?:per|a|each|every|par|chaque)\s+(?:(?:user|seat|site|mailbox|domain|location|agent|member|practitioner|licen[cs]e|utilisateur|site|bo[iî]te|domaine|membre)\s+(?:(?:and|et)\s+)?(?:per|a|par)\s+)?"
 MONTH = r"(?:/\s?mo(?:nth|is|\.)?(?![a-zà-ÿ])|\b%s(?:month|mois)\b|\bmonthly\b|\bmensuel(?:le)?s?\b|\bmensuellement\b)" % _PER
@@ -379,6 +382,23 @@ _PRICE_CUE = re.compile(r"\b(?:start(?:s|ing)?\s+(?:at|from)|from|as\s+low\s+as|
 _TELECOM_PATH = re.compile(r"/(?:tv|television|phone|telephone|telephonie|mobile|mobilite|internet|fibre|fibreinternet|fiber|cable|wireless|residential|residentiel|home|packages|rural|voip)(?:[/.?-]|$)", re.I)
 
 
+def whole_amount(m, q):
+    """(value, currency) of a statement's amount, read whole from its sentence when the match kept by an earlier reader was cut short"""
+    v, cur = parse_money(m or q)
+    if v is None or not m or not q:
+        return v, cur
+    i = q.find(m)
+    if i < 0:
+        return v, cur
+    for mm in re.finditer(MONEY, q):
+        if mm.start() < i + len(m) and mm.end() > i:  # the match of today's pattern that covers the kept one
+            v2, cur2 = parse_money(mm.group(0))
+            if v2 is not None and v2 > v and str(int(v)) in re.sub(r"[^\d]", "", mm.group(0)):
+                return v2, cur2 or cur
+            break
+    return v, cur
+
+
 def lowest(rec, service=""):
     """{'month': (value, currency, statement), 'year': (…)} — the lowest published price of each period, 1 or more (a "$0" plan and a
     "$1 for the first month" offer are not prices of the service). service: what the relationship was seen as — "dns" (the organisation's zone is
@@ -390,7 +410,7 @@ def lowest(rec, service=""):
         if not per:
             continue
         q, u = s.get("q") or "", s.get("u") or ""
-        v, cur = parse_money(s.get("m") or q)
+        v, cur = whole_amount(s.get("m") or "", q)
         if v is None or _PROMO.search(q) or _NOT_A_PRICE.search(q):
             continue
         if _ADDON.search(q):
