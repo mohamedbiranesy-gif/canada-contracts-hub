@@ -1,0 +1,13 @@
+{
+ "kind": "member",
+ "biller": "Canadian Water and Wastewater Association (CWWA)",
+ "biller_site": "https://cwwa.ca/",
+ "biller_address": "Unit 11, 1010 Polytek Street, Ottawa, ON K1J 9H9",
+ "biller_address_url": "https://cwwa.ca/contact-us/",
+ "biller_address_quote": "Address: CWWA, Unit 11, 1010 Polytek Street, Ottawa, ON K1J 9H9 Canada",
+ "read": "2026-11-12",
+ "pays_quote": "Membership fees are based on population served, allowing the smallest utilities to get all the advantages of membership at the lowest price.",
+ "pays_url": "https://cwwa.ca/memberships/",
+ "list_name": "the membership directory of the Canadian Water and Wastewater Association (utility, associate, regional association and subscription members)",
+ "key": "na_cwwa"
+}
