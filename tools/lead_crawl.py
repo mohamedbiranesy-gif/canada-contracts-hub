@@ -160,6 +160,14 @@ def install_hooks():
                         break
                 if m:
                     st["addr"] = (cc, re.sub(r"^\S*\s", "", text[max(0, m.start() - 110):m.end()].strip())[-200:], final)
+                elif "city" not in st:
+                    # 2026-11-12: no postal address on the page — the city the organisation names ("Kamloops, BC", "Laval (Québec)"), when the
+                    # postal-code dump knows that place: tools/by_location.py names the distributor when one serves the whole city
+                    import by_location as _BL
+                    for mc in _BL.CITY_RX.finditer(text):
+                        if _BL.biller_for_city(mc.group(0)) is not None or (_BL._PROV_CODE.get((mc.group(2) or mc.group(3) or "").lower()), _BL.norm_city(mc.group(1).split()[-1])) in _BL._cities():
+                            st["city"] = (re.sub(r"\s+", " ", text[max(0, mc.start() - 80):mc.end() + 10]).strip()[:200], final)
+                            break
                 if st.get("shopify") and "shopify_url" not in st:
                     st["shopify_url"] = final
             except Exception:
@@ -248,6 +256,8 @@ def facts_line(key, site, st):
         o.update(site="%s://%s/" % (pf.scheme, pf.netloc), asked=site, moved=st["moved"])
     if st.get("addr"):
         o.update(address_country=st["addr"][0], address_quote=st["addr"][1], address_url=st["addr"][2], address=CCL.address_from(st["addr"][1]))
+    elif st.get("city"):
+        o.update(city_quote=st["city"][0], city_url=st["city"][1])
     if st.get("rbq"):
         o["ids"] = {"rbq": {"v": st["rbq"][0], "url": st["rbq"][1], "q": st["rbq"][2]}}
     return json.dumps(o, ensure_ascii=False) + "\n"

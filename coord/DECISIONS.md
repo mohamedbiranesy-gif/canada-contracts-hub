@@ -1605,3 +1605,23 @@ Canada an estimate of 400,000 to 500,000 such organisations at most; the rest mu
 record (dealers, firms certified or licensed, customers of Canadian business software, owners of Canadian patents and trademarks). Not
 promised; a counted number every time.
 
+## 2026-11-12 03:10Z — three more levers for rows the owner ranks first, and for rows at all (claude)
+
+**1. A buyer under contract takes any of its verified mailboxes that is its own.** The ranker kept one mailbox per key, the best-graded; a
+lane's mailbox of another organisation (one US university's AP box was filed for dozens of unrelated buyers) hid the buyer's own one.
+`rank.py: MAIL_ALL` keeps every verified mailbox of a "b:" key and `emailcols()` takes the best that fits. A sample build took 141 such
+buyers; the rows with a published amount of $5,000 or more that meet the test went from 1,611 to 1,679 there.
+
+**2. Buyers under a current contract with no mailbox of their own go to the mailbox reader.** The full build writes
+`coord/results/ranked/contract_buyers_without_mailbox.csv` (key, name, own website; government-wide sites left out) and the mailbox-crawl
+runners read it first; a lane's earlier (rejected) mailbox no longer keeps such a buyer out of the reader's queue.
+
+**3. A distributor by the city an organisation's own page names, when no postal code was read.** 126,561 organisations with a mailbox
+print no postal code that was read; 15,459 print "City, Province" beside their mailbox. A city names a distributor when 98 % or more of its
+postal codes lie in one distributor's territory and at most 1 % in another's (`tools/on_ldc_table.py cities` -> `tools/data/city_biller.tsv.gz`:
+5,105 of 7,294 places of the GeoNames dump; Toronto, Ottawa, London, Mississauga, Laval, Montréal, Winnipeg, Halifax, Regina, Surrey yes;
+Kelowna, Westmount, Sherbrooke, Saskatoon, Barrie, Delta, Calgary no). The address cell says it is a city and where it was read; the
+relationship sentence gives the share ("all", or "99.4 %"). A place the dump does not know (a region, a country: "Amsterdam (NL)") is not
+one; two cities with two distributors in one text give none. The mailbox reader keeps the city line of a page with no postal address
+(`site facts: city_quote, city_url`) for the sites it reads from now on.
+

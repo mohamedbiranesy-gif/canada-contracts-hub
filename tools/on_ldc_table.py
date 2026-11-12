@@ -22,6 +22,7 @@ And from the Board's own page on each distributor (utility performance scorecard
   python3 tools/on_ldc_table.py build     writes tools/data/on_postal_ldc.tsv.gz and tools/data/billers_by_location_on.json
   python3 tools/on_ldc_table.py check     the table's counts, and a few postal codes whose distributor is known
   python3 tools/on_ldc_table.py rates     every distributor's bill from the regulator: the Code's rules, the fixed charge and the calculated bill (monthly)
+  python3 tools/on_ldc_table.py cities    every place name of the postal-code dump and the one distributor of all its postal codes (tools/data/city_biller.tsv.gz)
 
 Needs: pip install pyshp shapely pyproj. Run by hand or by a workflow when the Board refreshes its map (once a year so far).
 """
@@ -139,6 +140,39 @@ def enrich(ent, read_day=None):
     print("Ontario distributors' bills from the regulator: %s (of %d); rate rows of the file matched to no distributor on file: %s" % (
         dict(n), len(ent), sorted({r.get("Dist") for r in rows} - {r.get("Dist") for rs in by.values() for r in rs})))
     return ent
+
+
+def cities():
+    """tools/data/city_biller.tsv.gz — for every place name of the postal-code dump, province by province: the distributor of its postal codes when
+    one distributor has 98 % of them and another at most 1 % (tools/by_location.py: biller_for_city); '-' for a place no single distributor serves
+    (a city split between two, a pocket, Alberta) so that a text naming it is not given another city's distributor"""
+    import importlib
+    import by_location as BL
+    importlib.reload(BL)  # the Ontario table just written
+    z = zipfile.ZipFile(io.BytesIO(_get(GEONAMES, "CA_full.csv.zip", big=True)))
+    per = collections.defaultdict(collections.Counter)
+    with z.open("CA_full.txt") as fh:
+        for line in io.TextIOWrapper(fh, encoding="utf-8", errors="replace"):
+            q = line.rstrip("\n").split("\t")
+            if len(q) < 5 or not q[2] or not q[4]:
+                continue
+            pc = q[1].replace(" ", "").upper()
+            b = BL.biller_for(pc) if len(pc) == 6 and BL.usable(pc) else None
+            per[(q[4], BL.norm_city(q[2]))][b["key"] if b else "-"] += 1
+    n = collections.Counter()
+    with gzip.open(BL.CITY_TABLE, "wt", encoding="utf-8") as f:
+        f.write("# province\tplace (normalised)\tdistributor key or -\tshare of the place's postal codes\tpostal codes. Built by tools/on_ldc_table.py cities on %s from the GeoNames "
+                "postal code dump CA_full (CC BY) and tools/by_location.py's rules for a postal code.\n" % time.strftime("%Y-%m-%d"))
+        for (prov, city), c in sorted(per.items()):
+            tot = sum(c.values())
+            top, k = c.most_common(1)[0]
+            other = sum(v for b, v in c.items() if b not in ("-", top))
+            # one distributor has 98 % of the place's postal codes and another has at most 1 % (a code at the edge: Toronto's 14,802 codes
+            # include one of Hydro One's and one of Alectra's); a place of one or two postal codes (a rural district) only when all are its
+            ok = top != "-" and k / tot >= 0.98 and other <= 0.01 * tot and (tot >= 3 or k == tot)
+            f.write("%s\t%s\t%s\t%.3f\t%d\n" % (prov, city, top if ok else "-", k / tot, tot))
+            n["places with one distributor" if ok else "places with none, or split"] += 1
+    print("places of the postal-code dump by distributor: %s" % dict(n))
 
 
 def rates():
@@ -323,6 +357,7 @@ def build():
                     "what": "electricity delivered to the premises at the organisation's address", "read": time.strftime("%Y-%m-%d")})
     json.dump(enrich(ent), open(BILLERS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("distributors with the Board's page (address, site): %d; mapped but without such a page (no row is made on them): %s" % (len(ent), missing))
+    cities()
 
 
 def load():
@@ -355,4 +390,4 @@ def check():
 
 
 if __name__ == "__main__":
-    {"build": build, "check": check, "rates": rates}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()
+    {"build": build, "check": check, "rates": rates, "cities": cities}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()

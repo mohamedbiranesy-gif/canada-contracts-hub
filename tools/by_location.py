@@ -252,6 +252,90 @@ def biller_for_all(text):
     return next(iter(got.values())) if len(got) == 1 else None
 
 
+# ---- by the city the organisation's own page names, when it prints no postal code (2026-11-12) -------------------------------------------
+# 126,561 organisations with a mailbox of their own print no postal code that was read; 15,459 of them print "City, Province" beside their
+# mailbox ("261 Victoria St Kamloops, BC", "Laval (Québec)"). A city names a distributor when EVERY postal code of that city lies in one
+# distributor's territory — counted over the postal-code dump's place names with the same rules as a postal code (tools/on_ldc_table.py
+# cities -> tools/data/city_biller.tsv.gz: a city 98 % of whose codes have one distributor and none another). A city split between two
+# distributors, a city of Alberta, a place the dump does not know, or two cities with two distributors in one text: no distributor.
+_PROVN = (r"Qu[ée]bec|Ontario|British Columbia|Colombie-Britannique|Alberta|Manitoba|Saskatchewan|Nova Scotia|Nouvelle-[ÉE]cosse|New Brunswick|Nouveau-Brunswick|"
+          r"Newfoundland(?: and Labrador)?|Terre-Neuve(?:-et-Labrador)?|Prince Edward Island|[ÎI]le-du-Prince-[ÉE]douard|Yukon|Nunavut|Northwest Territories")
+CITY_RX = re.compile(r"(?<![A-Za-zÀ-ÿ])([A-ZÀ-Ý][A-Za-zÀ-ÿ.'’\-]+(?:[ \-][A-ZÀ-Ýa-zà-ÿ][A-Za-zÀ-ÿ.'’\-]+){0,3})\s*(?:,\s*|\(\s*)(?:(" + _PROVN + r")|(QC|Qc|ON|BC|AB|MB|SK|NS|NB|NL|PE|PEI|YT|NT|NU))\)?"
+                     r"(?:,?\s*Canada)?(?![A-Za-zÀ-ÿ])(?!,?\s*(?:CA|California|USA?)\b)(?!\s+\d{5})")
+_PROV_CODE = {"quebec": "QC", "québec": "QC", "qc": "QC", "ontario": "ON", "on": "ON", "british columbia": "BC", "colombie-britannique": "BC", "bc": "BC", "alberta": "AB", "ab": "AB",
+              "manitoba": "MB", "mb": "MB", "saskatchewan": "SK", "sk": "SK", "nova scotia": "NS", "nouvelle-ecosse": "NS", "nouvelle-écosse": "NS", "ns": "NS", "new brunswick": "NB",
+              "nouveau-brunswick": "NB", "nb": "NB", "newfoundland": "NL", "newfoundland and labrador": "NL", "terre-neuve": "NL", "terre-neuve-et-labrador": "NL", "nl": "NL",
+              "prince edward island": "PE", "ile-du-prince-edouard": "PE", "île-du-prince-édouard": "PE", "pe": "PE", "pei": "PE", "yukon": "YT", "yt": "YT", "nunavut": "NU", "nu": "NU",
+              "northwest territories": "NT", "nt": "NT"}
+CITY_TABLE = os.path.join(ROOT, "tools/data/city_biller.tsv.gz")
+_CITY = None
+
+
+def norm_city(s):
+    import unicodedata
+    t = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()
+    t = re.sub(r"\b(?:ste?)[.]?(?=[ -])", lambda m: "sainte" if m.group(0).startswith("ste") else "saint", t)
+    return re.sub(r"[^a-z0-9]+", " ", t).strip()
+
+
+def _cities():
+    """{(province code, city): (distributor key, share, postal codes)}"""
+    global _CITY
+    if _CITY is None:
+        _CITY = {}
+        try:
+            with gzip.open(CITY_TABLE, "rt", encoding="utf-8") as f:
+                for l in f:
+                    if l.startswith("#"):
+                        continue
+                    q = l.rstrip("\n").split("\t")
+                    if len(q) >= 5:
+                        _CITY[(q[0], q[1])] = (q[2], float(q[3]), int(q[4]))
+        except OSError:
+            pass
+    return _CITY
+
+
+def biller_for_city(text):
+    """(distributor, "City, PROV" as printed, the words it was read in) when every city the text names that the dump knows lies in one
+    distributor's territory, else None"""
+    tab, got, said = _cities(), {}, None
+    if not tab:
+        return None
+    for m in CITY_RX.finditer(text or ""):
+        prov = _PROV_CODE.get((m.group(2) or m.group(3) or "").lower())
+        city = norm_city(m.group(1))
+        if not prov or not city:
+            continue
+        words, raw = city.split(), m.group(1).split()
+        e, name = None, ""
+        for i in range(len(words)):  # "Contact 261 Victoria St Kamloops": the city is the last words of the match
+            e = tab.get((prov, " ".join(words[i:])))
+            if e is not None:
+                # the words of the match as printed that spell it ("Notre-Dame-de-l'Île-Perrot" is one printed word and six normalised ones)
+                name = next((" ".join(raw[j:]) for j in range(len(raw)) if norm_city(" ".join(raw[j:])) == " ".join(words[i:])), m.group(1))
+                break
+        if e is None:
+            continue  # a place the dump does not know (a region, a country, a street)
+        b = BY_KEY.get(e[0])
+        if b is None:
+            return None  # a city the dump knows that no single distributor serves (split, a pocket, Alberta)
+        got[e[0]] = b
+        said = said or ("%s, %s" % (name.strip(" ,.("), prov), (text or "")[max(0, m.start() - 60):m.end() + 10], e[1])
+    return (next(iter(got.values())), said[0], said[1], said[2]) if len(got) == 1 else None
+
+
+_KP = None
+
+
+def _KNOWN_PLACES():
+    """every (province, city) of the dump, also the ones no single distributor serves (written with them in the city table, distributor '-')"""
+    global _KP
+    if _KP is None:
+        _KP = {k for k in _cities()}
+    return _KP
+
+
 def of_row(x):
     """the distributor of a row whose vendor is one of the table and whose buyer's printed address lies in its territory"""
     b = BY_NAME.get(re.sub(r"^inferred:\s*", "", (x.get("vendor") or "").strip()))
@@ -259,6 +343,8 @@ def of_row(x):
         return None
     if biller_for(x.get("buyer_address") or "") is b:
         return b
+    if not fsa_of(x.get("buyer_address") or "") and (biller_for_city(x.get("buyer_address") or "") or (None,))[0] is b:
+        return b  # the organisation's own page names its city, and the whole city is this distributor's
     if not fsa_of(x.get("buyer_address") or "") and biller_for_all(x.get("email_evidence_quote") or "") is b:
         # the organisation's own page prints its postal code beside its mailbox, and no fuller address was read: the postal code stands for it
         pc = code_of(x.get("email_evidence_quote") or "")
@@ -268,8 +354,9 @@ def of_row(x):
 
 
 def status(b, fsa):
-    return ("billed by the electricity distributor of its address — by where the organisation is (postal area %s), not by a record: %s; an occupant with its own meter is billed "
-            "by it every month, and where a landlord holds the meter the landlord is" % (fsa, b["territory"]))
+    where = ("postal area %s" % fsa) if re.fullmatch(r"[A-Z]\d[A-Z]", fsa or "") else (fsa or "its city")
+    return ("billed by the electricity distributor of its address — by where the organisation is (%s), not by a record: %s; an occupant with its own meter is billed "
+            "by it every month, and where a landlord holds the meter the landlord is" % (where, b["territory"]))
 
 
 # 2026-11-12 — an urban postal code is one side of a street block or one building. When many organisations print the same one on their own
@@ -287,6 +374,10 @@ def shared_sentence(n):
 def row_cells(b, x):
     """the cells of a by-location row: what is billed, how often, the least amount, how the bill arrives and is paid — each in the distributor's own words when read"""
     fsa = fsa_of(x.get("buyer_address") or "")
+    if not fsa:
+        _bc = biller_for_city(x.get("buyer_address") or "")
+        if _bc and _bc[0] is b:
+            fsa = "city %s, %s of whose postal codes lie in this distributor's territory (GeoNames postal codes by place)" % (_bc[1], ("all" if _bc[3] >= 0.9995 else "%.1f %%" % (100 * _bc[3])))
     src = lambda k: (" (read %s)" % b["read"]) if b.get(k) else ""
     out = {"relationship_kind": "electricity account, by where the organisation is (the distributor is certain for the address; the account holder is not published)",
            "relationship_fact_basis": ("by where it is: the organisation's own address (%s) lies in the exclusive territory of %s — %s. A fact about the address; whether the "

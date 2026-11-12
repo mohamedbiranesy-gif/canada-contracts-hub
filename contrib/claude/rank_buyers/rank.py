@@ -2048,6 +2048,18 @@ def address_beside_mailbox(pc_text, quote, url):
         return ""  # (a quote that is page source, tags and all, is not cut into an address)
     a_ = _addr_from(quote[:mq.end()]) or ""
     return ("%s (as printed beside the organisation's mailbox on %s)" % (a_, url or "its own page")) if (len(a_) >= 18 and _STREET_WORD.search(a_) and re.match(r"\d", a_)) else ""
+def city_place(texts, url):
+    """(distributor, address cell) when no postal code was read and the organisation's own page names a city that one distributor serves whole
+    (tools/by_location.py: biller_for_city) — the cell says the city, where it was read and that it is a city, not a street address"""
+    t = " ".join(x_ for x_ in texts if x_)
+    if not t or _BYLOC.fsa_of(t):
+        return None, ""
+    r_ = _BYLOC.biller_for_city(t)
+    if not r_:
+        return None, ""
+    return r_[0], "%s (the city the organisation's own page prints beside its mailbox or address: “%s”, %s; no street address or postal code was read)" % (
+        r_[1], re.sub(r"\s+", " ", r_[2]).strip()[:160], url or "its own page")
+n_city = collections.Counter()
 _PROV_OF_PC = {"A": "NL", "B": "NS", "C": "PE", "E": "NB", "G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON", "R": "MB", "S": "SK", "T": "AB", "V": "BC", "Y": "YT"}
 # owner 2026-11-11 16:01 EST, second step. A row whose own relationship cannot meet the rule gives way to the one biller its address has by
 # law, when its own printed address names one: a service whose vendor's way of being paid is not published (hosting and software are commonly
@@ -2092,13 +2104,20 @@ for x in rows:
     site = x.get("buyer_website") or ""
     _sa = scan_address(md, site, _lf.get("site"))
     loc = _BYLOC.biller_for_all(" ".join([x.get("buyer_address") or "", _lf.get("address") or "", x.get("email_evidence_quote") or "", _sa.split(" (as printed")[0]]))
+    _cityaddr = ""
+    if not loc:
+        loc, _cityaddr = city_place([x.get("buyer_address") or "", _lf.get("address_quote") or _lf.get("address") or "", x.get("email_evidence_quote") or ""], x.get("email_evidence_url") or "")
+        if not loc and _lf.get("city_quote"):
+            loc, _cityaddr = city_place([_lf["city_quote"]], _lf.get("city_url") or "")
+        if loc:
+            n_city["rows that give way, to the distributor of the city the organisation's page names"] += 1
     if not loc:
         n_gw["… no distributor can be named for where it is (no postal code read, Alberta, or an area another utility serves)"] += 1; continue
     if registrable(host_of(loc["site"])) in (registrable(md), registrable(host_of(site))):
         continue
     b_addr = x.get("buyer_address") or (("%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")) if _lf.get("address") else "") or _sa
     if not _BYLOC.fsa_of(b_addr):
-        b_addr = (b_addr + "; " if b_addr else "") + (_sa or "")
+        b_addr = (b_addr + "; " if b_addr else "") + (_sa or _cityaddr or "")
     if b_addr.startswith("postal code "):
         b_addr = address_beside_mailbox(b_addr, x.get("email_evidence_quote") or "", x.get("email_evidence_url") or "") or b_addr
     g = int(x["grade"])
@@ -2107,7 +2126,7 @@ for x in rows:
     new = {"jurisdiction": "", "_jur": prov or _PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) or "CA", "rank_group": "I%d" % g, "completeness_score": 3 * 10 + g * 6 + 3,
            "buyer": x.get("buyer") or "", "buyer_website": site, "buyer_address": b_addr,
            "email": e, "email_type": x.get("email_type") or "", "email_check": "confirmed", "email_evidence_url": x.get("email_evidence_url") or "", "email_evidence_quote": x.get("email_evidence_quote") or "",
-           "contract_status": _BYLOC.status(loc, _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(x.get("email_evidence_quote") or "")),
+           "contract_status": _BYLOC.status(loc, _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(x.get("email_evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])),
            "source": "the distributor's exclusive territory and the organisation's own printed address (no contract, payment or listing record)",
            "vendor": "inferred: " + loc["name"], "vendor_address": loc["address"], "vendor_website": loc["site"],
            "vendor_country_basis": "%s, %s: '%s'" % (loc.get("address_source") or "the vendor's own site", loc["address_url"], loc["address_quote"]),
@@ -2116,6 +2135,7 @@ for x in rows:
     n_gw["… given to the distributor of the organisation's address: %s" % loc["name"]] += 1
 print("rows that give way to the biller their address has by law:", dict(sorted(n_gw.items(), key=lambda kv: -kv[1])))
 SPC13 = {}
+CITY13 = {}  # 2026-11-12: the city an organisation's own page names, when no postal code was read (rank: P13 by where it is)
 cands = []
 skipped13 = collections.Counter()
 for k, ((acc, g), m) in mail.items():
@@ -2132,6 +2152,12 @@ for k, ((acc, g), m) in mail.items():
                                              _sa13.split(" (as printed")[0]]))
     if _sa13 and _loc13:
         SPC13[k] = _sa13
+    if not _loc13:
+        _loc13, _ca13 = city_place([_lf13.get("address_quote") or _lf13.get("address") or "", addr_text((BUY.get(k) or {}).get("address")), m.get("evidence_quote") or ""], m.get("evidence_url") or "")
+        if not _loc13 and _lf13.get("city_quote"):
+            _loc13, _ca13 = city_place([_lf13["city_quote"]], _lf13.get("city_url") or "")
+        if _loc13:
+            CITY13[k] = _ca13
     if k.startswith("lead:") and not REGISTRY_ROWS and not _loc13:
         # 2026-11-11: an organisation that came through a lane (its key was minted by a lead engine) and whose lead is withdrawn, or removed by
         # the owner's rule of that day (a .ca registration, a store, a card-billed service), gets no inferred row in its place. Without this
@@ -2212,6 +2238,8 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         b_addr = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")
     if vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and SPC13.get(k):
         b_addr = (b_addr + "; " if b_addr else "") + SPC13[k]  # no postal code in what was read of its address: the one its home page prints
+    elif vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and CITY13.get(k):
+        b_addr = (b_addr + "; " if b_addr else "") + CITY13[k]; n_city["inferred rows by the city the organisation's page names"] += 1
     if b_addr.startswith("postal code "):
         b_addr = address_beside_mailbox(b_addr, m.get("evidence_quote") or "", m.get("evidence_url") or "") or b_addr
     if _lf.get("site_name") and re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/?", (name or "").strip().lower()):
@@ -2219,7 +2247,7 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     rows.append({"jurisdiction": "", "_jur": prov or (_PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) if vid.startswith("LOC:") else "") or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
         "buyer": name, "buyer_website": site, "buyer_address": b_addr,
         "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",
-        "contract_status": (_BYLOC.status(_BYLOC.BY_KEY[vid[4:]], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "")) if vid.startswith("LOC:") else
+        "contract_status": (_BYLOC.status(_BYLOC.BY_KEY[vid[4:]], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])) if vid.startswith("LOC:") else
                             "inferred relationship (no record): %s confidence; the buyer is %s%s; %s" % (conf, what, (" (province from %s)" % how) if how else "", why)),
         "source": ("the distributor's exclusive territory and the organisation's own printed address (no contract, payment or listing record)" if vid.startswith("LOC:") else
                    "inference from the buyer's type and province (no contract, payment or listing record)"),
@@ -2228,9 +2256,10 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True})
     n13 += 1
 print("P12 organisations:", len(orgs12), "added:", n12, dict(skipped12), "| P13 added:", n13, "| P13 skipped:", dict(skipped13))
+print("by the city the organisation's own page names (no postal code read; tools/by_location.py biller_for_city):", dict(n_city))
 print("lead rows that took the organisation's own key (registry facts attach):", dict(n_keyjoin))
 _free(globals(), "VEN", "VEN_NAME", "VEN_DOM", "BUY", "TEAMV", "mail", "MAIL_ALL", "mail_dom", "cands", "orgs12", "up_t", "dom_rows", "lead_row_by_dom",
-      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13")  # last used by the row builders above
+      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13", "CITY13")  # last used by the row builders above
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
 rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
