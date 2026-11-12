@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-12 02:29Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 03:23Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
 
 ## 2026-11-12 02:29Z — the owner's evening (rules 14-17): marks, order, estimates, fuller rows; the build with them is the next step
 
@@ -34,20 +34,37 @@ pairs, 66,678 behind 1,687 buyers with a mailbox. Sample build OWNER15 (1 lead i
   site prints counts also on another mail domain (its network's, parent's, e-invoicing provider's) — 50 more buyers with a mailbox; the
   build log counts why the referee's other mailboxes are not taken (`buyers under contract: a mailbox the referee holds that is not taken`).
 
+**Added after 02:29Z (all pushed by 03:23Z):**
+- tools/vendor_billing.py: four-digit amounts without a separator are read whole (MONEY), kept matches are re-read in lowest(); NB Power's
+  legal name ("New Brunswick Power Corporation", its own supplier terms).
+- Buyers under contract: `rank.py MAIL_ALL` — a row tries every verified mailbox of its "b:" keys, not only the best-graded (a lane's
+  mailbox of another organisation hid the buyer's own: 141 buyers in a sample build); the full build writes
+  `coord/results/ranked/contract_buyers_without_mailbox.csv` and the mailbox-crawl runners read it first (`lead_crawl.py`: a "b:" key is
+  read even when a lane filed a mailbox for it).
+- By the city an organisation's own page names, when no postal code was read (`by_location.biller_for_city`, `tools/data/city_biller.tsv.gz`
+  from `on_ldc_table.py cities`: a city 98 %+ of whose postal codes are one distributor's): +1,944 rows in a sample build; the mailbox
+  reader keeps a page's city line (`site facts: city_quote, city_url`).
+- **A new list of sites: the Overture Maps places in Canada with a website** (`credit_scan.py overture`; monthly on the 25th in
+  credit-scan.yml; `data/incoming/claude/credit_scan/overture_sites.csv.gz`): 773,691 hosts, 345,712 registrable domains neither read nor
+  listed before (307,833 not .ca; ON 142k, QC 73k, BC 56k). The scan reads them at priority 3 (with OpenStreetMap's); the mailbox reader
+  takes the ones whose home page prints a mailbox and a Canadian address. This is the largest new pool of organisations since the .ca lists.
+- Sample build OWNER18 (all of the above but Overture): 45,941 of 62,871 ready; published $5,000+ ready 1,679.
+
+**Builds:** 01:44Z (code ceb7eba, before tonight's rules): **158,527 ready of 213,288** (by location 116,526 · best effort 31,171 · complete
+10,830). 02:54Z (code ff81695 + the money fix: marks, order, regulator, faults, dues) running; 43146608664 queued behind it (everything above).
+
 **Next, in this order (short sessions):**
-1. Read the build that this commit's dispatch starts: BUILD.json (`ship_ready.by_amount_mark`, `with_every_main_invoice_field`), SUMMARY.md
-   ("SHIP READY", "by amount", "how full", "urban postal code many", "buyers under contract"). Tell the owner three numbers.
-2. A hundred from that table, read row by row before he sees it (tools/test_sample.py shows `amount_mark`); faults become rules first.
-3. tools/vendor_billing.py: MONEY must read "$1195.00" and "$1000" whole (NUM needs `\d{4,}` without separators); then member dues and
-   service prices re-read.
-4. Contract buyers without a mailbox (2,138 buyers, 87,248 pairs; coord/results/ranked list from tools/relationship_rows.py): 552 have a
-   lane's mailbox of an unrelated organisation (one university's AP box credited to dozens) — those lane rows should be rejected at the
-   referee; the rest need their own site read (1,110 have one on file).
-5. Billers with no number yet: BC Hydro (17,500 rows), NB Power ("New Brunswick Power Corporation"), Nova Scotia Power, Maritime Electric,
-   Newfoundland Power (its rate book is refused by robots.txt: no rate, said so).
-6. Sources that bring NEW buyers with large bills (rule 15): public bodies under contract outside the dataset (US cities, counties, school
-   districts — codex / jules lanes), dealers of Canadian manufacturers, firms licensed by Canadian regulators, customers of Canadian
-   business software. The mailbox reader keeps reading the ~63,000 sites that print a mailbox and a Canadian address.
+1. Read the two builds (BUILD.json `ship_ready.by_amount_mark`, `with_amount_and_billing_period`, `with_every_main_invoice_field`;
+   SUMMARY.md "SHIP READY", "by amount", "how full", "urban postal code many", "buyers under contract", "by the city"). Tell the owner.
+2. A hundred from the newest table, read row by row before he sees it (tools/test_sample.py shows `amount_mark`); faults become rules.
+3. Watch the scan take the Overture sites (credit-scan logs; LANES.md "home pages read by the scan") and the mailbox reader's yield.
+4. Municipal electric utilities of the pockets (Hydro-Sherbrooke, Hydro Westmount, Hydro-Joliette, New Westminster, Saint John Energy,
+   Summerside, Penticton, ATCO Electric Yukon): ~2,700 organisations with a mailbox and a postal code there; each needs its own page read
+   (address, territory, billing). Their cities are '-' in the city table today.
+5. Billers with no number: BC Hydro (17,500+ rows; its own GST number is not on its supplier pages), Nova Scotia Power, NB Power, Maritime
+   Electric, Newfoundland Power (its rate book is refused by robots.txt: no rate, said so).
+6. Sources of NEW buyers with large bills (rule 15): codex / jules inboxes have the request (public bodies under contract outside the
+   dataset first).
 
 ## 2026-11-12 02:15Z — safety-net turn: build 00:14Z gives 136,513 ship ready of 186,576; London Hydro's and Enova's own sentences added
 
