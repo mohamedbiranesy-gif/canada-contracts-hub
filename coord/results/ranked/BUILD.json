@@ -1,90 +1,98 @@
 {
- "id": "2026-11-12T02:43:45Z-ceb7eba",
- "built": "2026-11-12T02:43:45Z",
- "code": "ceb7eba",
+ "id": "2026-11-12T04:03:05Z-2c5b0dc",
+ "built": "2026-11-12T04:03:05Z",
+ "code": "2c5b0dc",
  "release": "ranked-latest",
- "rows": 213288,
- "rows_with_mailbox": 207112,
+ "rows": 213382,
+ "rows_with_mailbox": 207212,
  "by_tier": {
-  "A": 1274,
-  "B": 1734,
+  "A": 1278,
+  "B": 1737,
   "C": 329,
-  "D": 23716,
-  "E": 4841,
+  "D": 23719,
+  "E": 4843,
   "F": 15,
-  "I": 117988,
+  "I": 118052,
   "L": 438,
   "M": 15937,
-  "T": 40840
+  "T": 40864
  },
  "ship_ready": {
-  "rows": 158527,
-  "complete_in_the_billers_or_the_records_own_words": 10830,
-  "best_effort_by_kind_or_a_field_not_published": 31171,
-  "by_where_the_organisation_is": 116526,
+  "rows": 152906,
+  "complete_in_the_billers_or_the_records_own_words": 10851,
+  "best_effort_by_kind_or_a_field_not_published": 31486,
+  "by_where_the_organisation_is": 110569,
   "by_kind": {
    "agent of record": 3095,
-   "dealership": 1853,
+   "dealership": 1861,
    "licence or registration": 9704,
-   "membership": 12629,
-   "public contract": 2555,
-   "service seen on the buyer's side": 7836,
+   "membership": 12627,
+   "public contract": 2870,
+   "service seen on the buyer's side": 7851,
    "sponsorship": 4228,
    "tenancy": 101,
-   "utility account by location": 116526
+   "utility account by location": 110569
   },
+  "by_amount_mark": {
+   "1 published, $5,000 or more": 1791,
+   "3 published, under $5,000": 124077,
+   "4 estimated, under $5,000": 286,
+   "5 no amount": 26752
+  },
+  "with_amount_and_billing_period": 124087,
+  "with_every_main_invoice_field": 81570,
   "test": "a Canadian biller with a relationship that is current + the organisation's role mailbox re-read by the referee + a bill on invoice, payable by bank transfer (never a card on file) + no flag; the fields of its kind are populated as well as they can be and what is not published is said on the row (owner 2026-11-11 13:00 to 16:01 EST; tools/relationship_rows.py owner_test)"
  },
  "packages": {
   "P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email": 131,
   "P01T_active_service_seen_on_buyer_site_invoicing_AP_email": 194,
-  "P01_GOLD_active_relationship_invoicing_AP_email": 627,
+  "P01_GOLD_active_relationship_invoicing_AP_email": 636,
   "P02_active_relationship_finance_accounting_email": 466,
   "P03_active_relationship_purchasing_email": 265,
   "P04_active_relationship_general_email": 3733,
   "P05_likely_active_awarded_12_36_months_any_email": 424,
   "P06M_member_or_regulated_payer_of_canadian_body_other_email": 15579,
-  "P06T_active_service_seen_on_buyer_site_other_email": 40041,
+  "P06T_active_service_seen_on_buyer_site_other_email": 40065,
   "P06_client_listing_invoicing_AP_email": 272,
   "P07_client_listing_finance_or_purchasing_email": 697,
-  "P08_client_listing_general_email": 22230,
+  "P08_client_listing_general_email": 22233,
   "P09_older_contract_or_payment_any_email": 307,
   "P10R_ca_domain_registration_contract_own_email": 0,
-  "P10_linked_from_vendor_site_any_email": 2389,
-  "P11_any_relationship_email_not_yet_confirmed": 1527,
+  "P10_linked_from_vendor_site_any_email": 2391,
+  "P11_any_relationship_email_not_yet_confirmed": 1525,
   "P12_weaker_relationship_within_5_years_own_email": 15,
-  "P13_inferred_relationship_no_record_own_email": 117988,
-  "Z_no_email_yet_not_delivered": 6403
+  "P13_inferred_relationship_no_record_own_email": 118052,
+  "Z_no_email_yet_not_delivered": 6397
  },
  "assets": [
   {
    "name": "ranked_buyers.csv.gz",
-   "bytes": 314411034,
-   "sha256": "a21eecfe68cbbc7b29b920c8ccd6f335deb2e92d64c5324d51852db7aa750090",
+   "bytes": 352628098,
+   "sha256": "261b6af74ad2bd46d43cf5131ea252f4b86147fbb6f4e15a2ce6ac1025b6b13f",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.csv.gz"
   },
   {
    "name": "ranked_buyers.jsonl.gz",
-   "bytes": 380552036,
-   "sha256": "e51be47df78bf00d9608cf2562a2445df0f0f7a38867727c2146fbba3e3bd0e4",
+   "bytes": 410928566,
+   "sha256": "c238e8e84b4c1e7e90c09bf0c80ebb696b22dcd16672868b344b542d63fb7643",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.jsonl.gz"
   },
   {
    "name": "ranked_batches.zip",
-   "bytes": 335706834,
-   "sha256": "d395cbd54ac3ae9ea1d3b18c7e5aa8cce799a687cf4bc4766fa34275aeb34c5a",
+   "bytes": 367247507,
+   "sha256": "8ede00999256d40fd8f5de727bcaa1fd77e625fbfad2d30dbc6ea8a855e6c94f",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_batches.zip"
   },
   {
    "name": "ranked_contracts.zip",
-   "bytes": 44511791,
-   "sha256": "7f9414a9f9cf726c5ead544bcd394a901e8a84a85e79b0999bd6b988fb669bcc",
+   "bytes": 44557208,
+   "sha256": "73fe472e2d3df3f4014f145b0a0913ac6c6aff299c08fcd8efaa73cc219dfeea",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_contracts.zip"
   },
   {
    "name": "ranked_extras.zip",
-   "bytes": 10573252,
-   "sha256": "312a41fc7e1f8389373bbf6244cec6f93d29d44fb9e386b4b72a34906fc1b856",
+   "bytes": 13755151,
+   "sha256": "d400524cd9443b980c852be260f637b5e2b61161ec38f1cc51e705b23be174f4",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_extras.zip"
   }
  ]
