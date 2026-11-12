@@ -1,0 +1,13 @@
+{
+ "kind": "member",
+ "biller": "Society of Christian Schools in British Columbia (SCSBC)",
+ "biller_site": "https://scsbc.ca/",
+ "biller_address": "22500 University Drive, Langley, BC V2Y 1Y1",
+ "biller_address_url": "https://scsbc.ca/about-us/contact/",
+ "biller_address_quote": "Location 22500 University Drive Langley BC V2Y 1Y1",
+ "read": "2026-11-12",
+ "pays_quote": "member schools commit to SCSBC’s constituting documents and participate through an annual membership fee based on student enrollment.",
+ "pays_url": "https://scsbc.ca/about-us/membership/",
+ "list_name": "the member school list of the Society of Christian Schools in British Columbia (SCSBC Member Schools)",
+ "key": "sc_scsbc"
+}

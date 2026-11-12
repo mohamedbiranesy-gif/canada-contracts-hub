@@ -1,0 +1,13 @@
+{
+ "kind": "member",
+ "biller": "Canadian Nuclear Association",
+ "biller_site": "https://cna.ca/",
+ "biller_address": "340 Albert Street, Suite 1120, Ottawa, Ontario K1R 7Y6",
+ "biller_address_url": "https://cna.ca/contact/",
+ "biller_address_quote": "340 Albert Street, Suite 1120 Ottawa, Ontario K1R 7Y6",
+ "read": "2026-11-12",
+ "pays_quote": "Voting Members will be sent a prorated invoice for membership dues and attend an introductory meeting with a CNA Executive.",
+ "pays_url": "https://cna.ca/wp-content/uploads/2026/06/2026-CNA-Membership-Brochure.pdf",
+ "list_name": "the list of Voting Members of the Canadian Nuclear Association",
+ "key": "na_cna"
+}
