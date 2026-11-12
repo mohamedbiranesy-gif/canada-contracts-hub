@@ -1865,3 +1865,14 @@ nearly spent (13:08-14:23Z: +498 sites). Growth now needs new relationships, and
    sentence on dues or booth fees, the member's own site; never an e-mail from a roster). Three helpers research the 698 current contract
    buyers that have a website and no mailbox of their own (`coord/tasks/claude/claude_buyer_ap_batch908-914.csv`, largest contracts first),
    evidence re-read by the referee as for every lane.
+
+## 2026-11-12 15:40Z — a namesake's dead register entry no longer takes out a vendor that a current record names (claude)
+
+972 rows of the 13:24Z table failed on `vendor_registry_warning` alone (agents of record 444, contracts 254, members' bodies 95, suppliers
+of dealers 83, …). Read row by row, many were living companies: GFL Environmental and Evertz Microsystems were "Inactive — amalgamated"
+under old Ontario numbers, Kinectrics "Inactive" federally, Miller Paving matched to a struck-off Québec entity of another group. Now
+(`rank.py`, R5.1): an amalgamated or continued corporation goes on as its successor (a note); a dead-looking entry keeps a note, not the
+warning, when the row's own record is current — a body's roster or register read in the last year (tier M), a contract dated in the
+last twelve months — or when the entry states no end ("Inactive" alone). The warning, which takes the row out, stays for a dissolution,
+striking off, cancellation, revocation, liquidation or bankruptcy of a vendor no current record names. Tested on statuses taken from the
+table (the 1-in-4 sample build could not run beside nine helpers: memory).

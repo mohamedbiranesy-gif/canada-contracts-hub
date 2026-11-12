@@ -6013,8 +6013,25 @@ for _ri, x in enumerate(rows):
         _live = re.compile(r"\bactive\b|immatricul|en vigueur|in good standing|registered\b|existing|current", re.I)
         # 2026-11-08 19:55 EST: warn when the vendor's PRIMARY registry record is dead, or when no registry shows it alive — not when an extra-provincial
         # registration lapsed while the home registry says Active (542 Gold rows carried the warning for that and lost grade A)
-        if _segs and (_dead.search(_segs[0]) and not _live.search(_segs[0]) or (not any(_live.search(t) for t in _segs) and any(_dead.search(t) for t in _segs))):
-            x["vendor_registry_warning"] = "WARNING: registry status '%s' — the match may be a namesake or the vendor may no longer exist; verify before use" % vs[:60]; npk["registry_warning"] += 1
+        # 2026-11-12: a corporation that amalgamated or was continued elsewhere goes on as its successor (GFL Environmental, Evertz, Kinectrics were
+        # "Inactive — amalgamated" under an old number while they bill today); and a vendor that a CURRENT record names — a body's roster or
+        # register read in the last year, a contract dated in the last twelve months — exists, whatever a namesake's entry says. Those keep a note;
+        # the warning (which takes the row out) stays for an end — dissolved, struck off, cancelled, revoked, liquidated, bankrupt — of a vendor
+        # no current record names. 972 rows failed on the warning alone in the table of 13:24Z.
+        _succ = re.compile(r"amalgamat|continu|fusion", re.I)
+        _end = re.compile(r"dissol|radi[ée]|cancel|revoked|struck|annul|liquidat|bankrupt|faillite", re.I)
+        _segdead = lambda t_: bool(_dead.search(t_)) and not _live.search(t_) and not _succ.search(t_)
+        _current_rec = t == "M" or (t in ("A", "B") and (x.get("award_date") or "")[:10] >= CUTOFF)
+        if _segs and (_segdead(_segs[0]) or (not any(_live.search(t_) or _succ.search(t_) for t_ in _segs) and any(_segdead(t_) for t_ in _segs))):
+            if _current_rec or not any(_end.search(t_) for t_ in _segs):
+                x["vendor_registry_note"] = ("a register lists '%s' for a corporation of this name — %s; the warning is not kept"
+                                             % (vs[:80], "the vendor is named in a current record (%s)" % ("the body's own list, read in the last year" if t == "M" else "a contract dated %s" % (x.get("award_date") or "")[:10])
+                                                if _current_rec else "an inactive entry with no end (dissolution, striking off, cancellation) stated, often an old number of a living company"))
+                npk["registry_note: dead-looking entry, vendor current or no end stated"] += 1
+            else:
+                x["vendor_registry_warning"] = "WARNING: registry status '%s' — the match may be a namesake or the vendor may no longer exist; verify before use" % vs[:60]; npk["registry_warning"] += 1
+        elif _segs and any(_succ.search(t_) for t_ in _segs) and not any(_live.search(t_) for t_ in _segs):
+            x["vendor_registry_note"] = "a register lists '%s': the corporation amalgamated or was continued, and goes on as its successor" % vs[:80]; npk["registry_note: amalgamated / continued"] += 1
         elif _segs and any(_dead.search(t) for t in _segs[1:]):
             x["vendor_registry_note"] = "another registry lists a lapsed registration (%s); the primary record is alive" % "; ".join(t[:50] for t in _segs[1:] if _dead.search(t))[:160]; npk["registry_note"] += 1
         # evidence age (O1.3)
