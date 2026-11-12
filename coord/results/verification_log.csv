@@ -6900,7 +6900,7 @@ chatgpt,chatgpt_buyer_ap_results_batch02.csv,CH-AP-00198,b:ecedb3b20a718a77,purc
 gemini,gemini_buyer_ap_results_batch42.csv,CH-AP-P0171,b:ecedb3b20a718a77,townhall@collingwood.ca,https://www.collingwood.ca/customer-corporate-service,verified
 gemini,gemini_buyer_ap_results_batch07.csv,GE-AP-00663,b:eceee88d89b2351e,info@ville.lac-megantic.qc.ca,https://www.ville.lac-megantic.qc.ca/fr/nous-joindre,verified
 gemini,gemini_buyer_ap_results_batch44.csv,GE-AP-44075,b:eceee88d89b2351e,tresorerie@ville.lac-megantic.qc.ca,https://www.ville.lac-megantic.qc.ca/fr/la-ville/budgets-et-documents-financiers,verified
-gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00224,b:ecfb0d2978e1759e,finances@candiac.ca,https://candiac.ca/la-ville/information/bottin-des-services,not_found_on_page
+gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00224,b:ecfb0d2978e1759e,finances@candiac.ca,https://candiac.ca/la-ville/information/bottin-des-services,not_found_on_page_hidden
 gemini,gemini_buyer_ap_results_batch03.csv,GE-AP-00224,b:ecfb0d2978e1759e,communications@ville.candiac.qc.ca,https://www.211qc.ca/organisme/candiac-ville-18760988,verified
 gemini,gemini_buyer_ap_results_batch23.csv,GE-AP-P0177,b:ecfb0d2978e1759e,info@ville.candiac.qc.ca,https://candiac.ca/uploads/attachments/2023_Candiac_Guide_du_Citoyen.pdf,verified
 chatgpt,chatgpt_buyer_ap_results_batch07.csv,CH-AP-00644,b:ed092d4521ccfc32,info@plannera.ca,https://www.plannera.ca/contact-us/plannera-contact,verified
