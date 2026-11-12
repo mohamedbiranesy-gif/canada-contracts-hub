@@ -226,6 +226,38 @@ def code_of(text):
     return next((c for c, _ in codes(text)), "")
 
 
+# 2026-11-12 — a postal area left out of a distributor's territory because a municipal network lies in it is often shared with the towns around
+# it (J6E: Joliette 901 postal codes, Saint-Charles-Borromée 375 and Notre-Dame-des-Prairies 309; H3Y/H3Z: Westmount 709, Montréal 78; E2H:
+# Rothesay 207, Saint John 146). A postal code there names the distributor when its place (the GeoNames postal-code dump, by code:
+# tools/data/pocket_places.tsv.gz, written by tools/on_ldc_table.py cities) is not one of the towns the distributor's own territory sentence
+# leaves out. Not used: British Columbia (FortisBC's areas are not a list of towns) and J0L (the Saint-Jean-Baptiste-de-Rouville
+# co-operative serves parts of several towns).
+POCKET_TOWNS = {"hydro_quebec": {"alma", "amos", "baie comeau", "coaticook", "joliette", "magog", "saguenay", "jonquiere", "chicoutimi", "sherbrooke", "westmount",
+                                 "saint jean baptiste"},
+                "saskpower": {"saskatoon", "swift current"},
+                "nb_power": {"saint john", "edmundston", "perth andover"},
+                "ns_power": {"antigonish", "berwick", "lunenburg", "mahone bay", "riverport", "canso"},
+                "maritime_electric": {"summerside"}}
+POCKET_KEEP_OUT = {"J0L"}
+POCKET_PLACES = os.path.join(ROOT, "tools/data/pocket_places.tsv.gz")
+_PP = None
+
+
+def _pocket_place(pc):
+    global _PP
+    if _PP is None:
+        _PP = {}
+        try:
+            with gzip.open(POCKET_PLACES, "rt", encoding="utf-8") as f:
+                for l in f:
+                    if not l.startswith("#"):
+                        a_, _, b_ = l.rstrip("\n").partition("\t")
+                        _PP[a_] = b_
+        except OSError:
+            pass
+    return _PP.get(pc, "")
+
+
 def biller_for(text):
     """the distributor of the address, or None: no postal code, Alberta (the retailer is the customer's choice), an area left out"""
     pc = text if (isinstance(text, str) and len(text) == 6 and text.isalnum() and text == text.upper()) else code_of(text)
@@ -240,6 +272,12 @@ def biller_for(text):
     for b in BILLERS:
         if b["prefixes"] and fsa not in b["except_fsas"] and any(fsa.startswith(p) for p in sorted(b["prefixes"], key=len, reverse=True)):
             return b
+    for b in BILLERS:  # a postal area left out whole: the postal code's own place decides
+        if fsa in b["except_fsas"] and b["key"] in POCKET_TOWNS and fsa not in POCKET_KEEP_OUT and any(fsa.startswith(p) for p in b["prefixes"]):
+            place = _pocket_place(pc)
+            if place and place not in POCKET_TOWNS[b["key"]]:
+                return b
+            return None
     return None
 
 

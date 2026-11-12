@@ -53,7 +53,7 @@ jobs:
           sys.exit(1 if old and new < 0.9 * old else 0)
           EOF
           git config user.name "on-ldc-table"; git config user.email "on-ldc-table@users.noreply.github.com"
-          git add tools/data/on_postal_ldc.tsv.gz tools/data/billers_by_location_on.json tools/data/pc_abce.txt.gz
+          git add tools/data/on_postal_ldc.tsv.gz tools/data/billers_by_location_on.json tools/data/pc_abce.txt.gz tools/data/city_biller.tsv.gz tools/data/pocket_places.tsv.gz
           git diff --cached --quiet && { echo "nothing new"; exit 0; }
           git commit -q -m "on-ldc-table: Ontario postal codes by licensed distributor ($(grep -m1 '^Ontario postal codes' /tmp/t.txt | cut -c1-150)) [skip ci]"
           for i in 1 2 3 4 5; do git pull -q --no-rebase origin main && git push -q origin HEAD:main && break; sleep $((RANDOM % 10 + 3)); done

@@ -150,6 +150,17 @@ def cities():
     import by_location as BL
     importlib.reload(BL)  # the Ontario table just written
     z = zipfile.ZipFile(io.BytesIO(_get(GEONAMES, "CA_full.csv.zip", big=True)))
+    # first the places of the postal codes of the postal areas a distributor leaves out (by_location: POCKET_TOWNS decides with them)
+    out_fsas = {f for b in BL.BILLERS for f in b.get("except_fsas") or ()}
+    n_pp = 0
+    with z.open("CA_full.txt") as fh, gzip.open(BL.POCKET_PLACES, "wt", encoding="utf-8") as fo:
+        fo.write("# postal code\tplace (normalised) — the postal codes of the postal areas a distributor's territory leaves out, from the GeoNames postal code dump CA_full (CC BY)\n")
+        for line in io.TextIOWrapper(fh, encoding="utf-8", errors="replace"):
+            q = line.rstrip("\n").split("\t")
+            if len(q) > 4 and q[1][:3] in out_fsas and q[2]:
+                fo.write("%s\t%s\n" % (q[1].replace(" ", "").upper(), BL.norm_city(q[2]))); n_pp += 1
+    importlib.reload(BL)
+    print("postal codes of the postal areas left out, with their place: %d" % n_pp)
     per = collections.defaultdict(collections.Counter)
     with z.open("CA_full.txt") as fh:
         for line in io.TextIOWrapper(fh, encoding="utf-8", errors="replace"):
