@@ -1927,3 +1927,18 @@ or PayPal only (Hawk Host, easyDNS, doteasy …): those rows stay out. Two print
   wish to send payment for an invoice by cheque or money order …" (its knowledge base).
 Canadian Web Hosting names wire transfers, Interac and cheques only in a refund clause: not taken (a refund clause is not how a bill is
 paid). These rows are small bills (from C$2.79 a month) and sort under the $5,000 mark; a buyer with a record of its own keeps that.
+
+## 2026-11-12 17:20Z — lane `claude`: the Canadian patents register (owners and their Canadian patent agent of record)
+
+`tools/pt_register.py` + `pt-register.yml` (match + leads, daily) + `pt-sites.yml` (the owners' own sites, by dispatch). The Office's patent
+register as open data (CSV extract of 2024-05-22, the one published as CSV): 386,885 patents and applications alive (status GR granted in
+force; CO, ER, RP, AL, PG, AA, PI pending), each with its current owner and its agent of record. 91,523 owners have a Canadian agent of
+record; 67,430 of them are organisations (28,150 in the United States, 8,879 in Canada …), 49,831 not on the trademarks register under the
+same name. The agent firm's address is not in the patent table: it is taken from the same Office's trademarks register (its entry for the
+firm, or the firm a person-agent's entry prints in brackets), and the row says so; an owner whose agent has no address there makes no row
+(80,555 of 91,523 have one; Bereskin & Parr, 5,988 owners, is not on the trademarks register and its site did not answer). The relationship
+is the agent's ("client of a Canadian patent agent of record"): the agent prosecutes the applications, pays the yearly maintenance fees and
+bills the owner, sometimes through the owner's own counsel abroad — said on the row; kind "agent of record", billed per transaction. The
+owner's site is tied by the trademarks lane's own tests, run on the patent owners' files (`tm_register.match / sites / merge_sites` with the
+module's paths pointed at data/incoming/claude/pt/). First run here: 1,335 Canadian owners tied to sites on file → 1,127 leads. The extract
+is 30 months old: a row says "extract of 2024-05-22" in its relationship; a newer CSV extract replaces it when the Office publishes one.

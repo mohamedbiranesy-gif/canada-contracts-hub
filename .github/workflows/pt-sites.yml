@@ -1,0 +1,119 @@
+name: pt-sites
+# The own sites of the owners of Canadian patents and applications (tools/pt_register.py sites = tools/tm_register.py sites on the patent
+# owners' files): the same searches and the same tests as tm-sites.yml — a domain name made of the owner's own name, an Overture Maps listing
+# or the name autocomplete; a site is kept only when its own pages tie it to the owner (the register's postal code printed under the same
+# name, the owner's legal person stated with its legal form, or the name as both domain and site name). Then pt-register.yml writes the leads.
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel runners (1-6)"
+        default: "4"
+      minutes:
+        description: "minutes per runner"
+        default: "120"
+      limit:
+        description: "at most this many owners per runner (0 = no limit)"
+        default: "0"
+      abroad:
+        description: "true = the owners outside Canada (United States, United Kingdom, Australia, and since 2026-11-12 ten European countries): 109,538 owners abroad have a Canadian agent of record"
+        default: "false"
+      overture:
+        description: "true (with abroad=true) = only the owners abroad for whom an Overture Maps place lists a website under their name at their postal code / in their state: that published site is read first (tools/tm_register.py overture-sites runs first)"
+        default: "false"
+      clearbit:
+        description: "true (with abroad=true) = also the domains the company-name autocomplete gives under the owner's very name, one request a second per runner (owners looked for before included); a domain is kept by the same tests (the register's postal code printed under the same name, or the legal person with its legal form in the owner's state)"
+        default: "false"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: pt-sites
+  cancel-in-progress: false
+env:
+  SHARDS: ${{ inputs.shards || '4' }}
+  MINUTES: ${{ inputs.minutes || '120' }}
+  LIMIT: ${{ inputs.limit || '0' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        run: python3 -c "import os; n=max(1,min(6,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+
+  # 2026-11-12: the websites an Overture Maps place lists under an owner's name (open data; published, not guessed): written once, committed,
+  # then every runner reads them first
+  candidates:
+    needs: plan
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Owners abroad x the Overture Maps places that list a website (the same name at the same postal code, or in the same state)
+        run: |
+          pip install -q duckdb
+          python3 tools/tm_register.py overture-sites | tee /tmp/ovt.txt
+          cp data/incoming/claude/tm/tm_overture_sites.csv /tmp/tm_overture_sites.csv
+          git config user.name "pt-sites"; git config user.email "pt-sites@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            cp /tmp/tm_overture_sites.csv data/incoming/claude/tm/tm_overture_sites.csv
+            git add data/incoming/claude/tm/tm_overture_sites.csv
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "tm-sites: $(tail -1 /tmp/ovt.txt | cut -c1-130) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the candidates could not be pushed to main"; exit 1; }
+
+  sites:
+    needs: [plan, candidates]
+    if: ${{ always() && needs.plan.result == 'success' && needs.candidates.result != 'failure' && needs.candidates.result != 'cancelled' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Look for each owner's own site under its own name
+        run: |
+          M=$(( MINUTES > 170 ? 170 : MINUTES ))
+          python3 tools/pt_register.py sites --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --limit "$LIMIT" ${{ inputs.abroad == 'true' && '--abroad' || '' }} ${{ inputs.overture == 'true' && '--overture' || '' }} ${{ inputs.clearbit == 'true' && '--clearbit' || '' }}
+      - uses: actions/upload-artifact@v4
+        with: { name: "pts-${{ matrix.k }}", path: out/, retention-days: 3 }
+
+  merge:
+    needs: [plan, sites]
+    if: ${{ always() && needs.sites.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "pts-*", path: shards, merge-multiple: true }
+      - name: Sites found -> main; then the match and the leads
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ls -la shards | head -20 || true
+          git config user.name "pt-sites"; git config user.email "pt-sites@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/pt_register.py merge-sites shards | tee /tmp/tms.txt
+            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
+            git add data/incoming/claude/pt 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "pt-sites: $(tail -1 /tmp/tms.txt | cut -c1-130) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          # a merge that could not be pushed is a failed job
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
+          cat /tmp/tms.txt >> "$GITHUB_STEP_SUMMARY"
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/pt-register.yml/dispatches" -f ref=main -f "inputs[stage]=match" || true

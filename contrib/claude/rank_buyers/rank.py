@@ -1198,7 +1198,7 @@ def apply_details(x, k):
         _src = " (%s)" % br.get("label", "the body's public register")
         if br.get("legal_name"):
             x["buyer_legal_name_as_published"] = br["legal_name"] + _src; n_lf["buyer_legal_name_from_register"] += 1
-            if d.get("platform") in ("tm_register", "authority_register"):
+            if d.get("platform") in ("tm_register", "pt_register", "authority_register"):
                 # the owner of record on the federal trademarks register IS the legal person (and the site was tied to it by that very name):
                 # a name read off the site later does not replace it. The same for a registrant of a regulatory authority: the row is the
                 # registrant's relationship, and a site shared with sister companies ("LH (Wasaga) Ltd." on Lancaster Homes' site) states another name
@@ -1775,6 +1775,12 @@ for k, L in sorted(leads.items(), key=lead_strength):
                             % (L["example_vendor"], (LDET.get(k) or {}).get("tm_marks_with_this_agent") or "one or more", (LDET.get(k) or {}).get("reference") or "see the register",
                                (LDET.get(k) or {}).get("tm_first_registered") or "not yet", (LDET.get(k) or {}).get("tm_latest_renewal_due") or "not set",
                                (LDET.get(k) or {}).get("tm_extract") or (L.get("latest_record_date") or "")[:10])) if member and "trademark agent of record" in L.get("canada_field_value", "") else
+                           ("client of a Canadian patent agent of record: %s acts for the owner before the Canadian Intellectual Property Office on %s of its Canadian patents and applications "
+                            "(e.g. %s; %s in force, %s pending) — the Office's public patent register, extract of %s; the agent prosecutes the applications, pays the yearly maintenance fees "
+                            "and bills the owner for both, sometimes through the owner's own counsel"
+                            % (L["example_vendor"], (LDET.get(k) or {}).get("pt_with_this_agent") or "one or more", (LDET.get(k) or {}).get("reference") or "see the register",
+                               (LDET.get(k) or {}).get("pt_in_force", "?"), (LDET.get(k) or {}).get("pt_pending", "?"),
+                               (LDET.get(k) or {}).get("pt_extract") or (L.get("latest_record_date") or "")[:10])) if member and "patent agent of record" in L.get("canada_field_value", "") else
                            ("owner of %s trademark registration(s) in force on the Canadian register (e.g. %s; first registered %s, latest renewal due %s): the owner pays the Canadian Intellectual "
                             "Property Office to register a mark and to renew it every ten years — the Office's public register, extract of %s"
                             % ((LDET.get(k) or {}).get("tm_marks_in_force") or "one or more", (LDET.get(k) or {}).get("reference") or "see the register",
@@ -5148,9 +5154,9 @@ def billing_of(x, ld):
     if t == "R":
         return "3 yearly or longer", CIRA_TERM
     if t == "M":
-        if cs.startswith("client of a Canadian trademark agent of record"):
-            return "4 per transaction", ("by the kind of relationship: an agent of record bills its professional fees for each filing, step and renewal it handles for the "
-                                         "owner; no schedule of bills is published")
+        if cs.startswith(("client of a Canadian trademark agent of record", "client of a Canadian patent agent of record")):
+            return "4 per transaction", ("by the kind of relationship: an agent of record bills its professional fees for each filing, step, renewal or maintenance fee it handles "
+                                         "for the owner; no schedule of bills is published")
         m = _FEE_QUOTE.search(cfv) or _FEE_QUOTE.search(cs)
         if m:
             for lab, rx in _REC_TEXT:
@@ -5464,6 +5470,9 @@ def bill_profile(x, ld, cls):
         if cs.startswith("client of a Canadian trademark agent of record"):
             out["relationship_fact_basis"] = ("fact, public record: the Canadian Intellectual Property Office's trademarks register names this firm as the agent of record for the organisation's "
                                               "trademarks (%s)" % (x.get("contract_link") or x.get("source") or "")[:160])
+        elif cs.startswith("client of a Canadian patent agent of record"):
+            out["relationship_fact_basis"] = ("fact, public record: the Canadian Intellectual Property Office's patent register (CSV extract of 2024-05-22) names this firm as the agent of record "
+                                              "for the organisation's patents and applications (%s)" % (x.get("contract_link") or x.get("source") or "")[:160])
         elif cs.startswith(("holder of licence", "registered with a Canadian regulatory authority", "owner of ", "accredited business")):
             out["relationship_fact_basis"] = "fact, public record: the body's own public register lists the organisation as licensed / registered / accredited today (%s)" % (x.get("contract_link") or x.get("source") or "")[:160]
         elif cs.startswith("member of a Canadian body (stated on the buyer's own site"):
@@ -5740,6 +5749,12 @@ for _ri, x in enumerate(rows):
             x["how_relationship_was_found"] = ("tools/tm_register.py read the Canadian Intellectual Property Office's open-data trademarks register (owner of record with its address; agent of record "
                                                "with its address); the owner's own site was kept only on %s (%s); the mailbox comes from that site"
                                                % (_ld.get("site_tied_to_holder_by") or "the tests of the tool", (_ld.get("site_facts_from") or "")[:120]))
+        elif _cs.startswith("client of a Canadian patent agent of record"):
+            _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+            x["relationship_kind"] = "professional representation before a Canadian public body: the owner's patent agent of record, a Canada-located firm named by the register"
+            x["how_relationship_was_found"] = ("tools/pt_register.py read the Canadian Intellectual Property Office's open-data patent register (owner of record with its address; agent of record; "
+                                               "the agent firm's address from the same Office's trademarks register); the owner's own site was kept only on %s (%s); the mailbox comes from that site"
+                                               % (_ld.get("site_tied_to_holder_by") or "the tests of tools/tm_register.py", (_ld.get("site_facts_from") or "")[:120]))
         elif _cs.startswith("accredited business"):
             x["how_relationship_was_found"] = "tools/bbb_accredited.py read the business's public BBB profile (an archived copy; bbb.org's sitemap of accredited businesses says who is accredited today); the profile gives the business's own website"
         elif _cs.startswith("member of a Canadian body (stated on the buyer's own site"):

@@ -1,0 +1,52 @@
+name: pt-register
+# The Canadian patents register as a relationship source (tools/pt_register.py). The Canadian Intellectual Property Office publishes the patent
+# register as open data (CSV extract of 2024-05-22): every patent and application with its status, its current owner (legal name, address) and
+# its agent of record, a Canadian patent agent firm (its address from the same Office's trademarks register). A live patent or application has
+# an agent who prosecutes it, pays its yearly maintenance fees and bills the owner. A lead is made only for an owner whose own site is tied to
+# it by the tests of the trademarks lane (tools/tm_register.py); the mailbox comes from that site like every other lead's.
+#   match (default) : owners in Canada x the sites on file, plus the owners' own sites found by pt-sites.yml -> pt_matches.csv -> leads
+#   build           : download the register's two tables and rebuild the owner tables first (they are committed; the extract is fixed)
+on:
+  schedule:
+    - cron: "11 8 * * *"
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "match | build"
+        default: "match"
+permissions:
+  contents: write
+concurrency:
+  group: pt-register
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Owners of record, their agents, the sites tied to them, the leads
+        env: { GH_TOKEN: "${{ github.token }}", STAGE: "${{ inputs.stage || 'match' }}" }
+        run: |
+          git config user.name "pt-register"; git config user.email "pt-register@users.noreply.github.com"
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          : > /tmp/pt.txt
+          if [ "$STAGE" = "build" ] || [ ! -s data/incoming/claude/pt/pt_owners_ca.csv.gz ]; then
+            python3 tools/pt_register.py build | tee -a /tmp/pt.txt
+            mkdir -p /tmp/pt && cp data/incoming/claude/pt/pt_owners_ca.csv.gz data/incoming/claude/pt/pt_owners_abroad.csv.gz /tmp/pt/
+          fi
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            if [ -d /tmp/pt ]; then mkdir -p data/incoming/claude/pt && cp /tmp/pt/* data/incoming/claude/pt/; fi
+            python3 tools/pt_register.py match | tee -a /tmp/pt.txt
+            python3 tools/pt_register.py leads --stamp "$STAMP" | tee -a /tmp/pt.txt
+            python3 tools/secret_guard.py || true
+            git add data/incoming/claude/pt data/incoming/claude/lead_shards 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "pt-register: $(grep -m1 '^patent leads' /tmp/pt.txt | cut -c1-130) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
+          { echo '```'; cat /tmp/pt.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
