@@ -1,4 +1,28 @@
-# STATE.md — Claude lane (updated 2026-11-12 13:45Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 15:25Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 15:25Z — contract billing period and amount per bill; Health Canada lane; rosters and mailboxes by helpers
+
+**Build of 14:57Z (code a7cfa01), counted: 198,399 ready of 264,965** (by location 152,797; membership 12,559; licence 10,494; service 8,548;
+agent 5,023; sponsorship 4,191; public contract 2,849; dealership 1,839; tenancy 99). Published $5,000+ 1,785; amount and period 167,345;
+every main field 151,085. Told to the owner at ~15:10Z.
+**Owner, 09:00-09:15 EST:** contracts preferred ("they'll go over 5,000 … all the things populated") but a mixed approach, everything that is a
+real current relationship; contract rows must carry a billing period and the amount of one bill; PO only when published ("blanket" only
+when it is one); no portals; don't over-rely on electricity; deadline: end of November. "All hands on deck."
+**Pushed and in the build dispatched 15:07Z (lands ~16:20Z):** DECISIONS 14:45Z (contract cadence by what it buys, `contract_nature`,
+amount of one bill and amount_mark per bill, `po_or_reference_to_quote`, a clean vendor first, Namespro free DNS) and 15:05Z (Health Canada).
+Sample 1-in-4: ready contract rows 2,050 -> 2,123; service rows 1,963 -> 1,580 (Namespro).
+**Health Canada lane** (`tools/hc_registers.py`, workflow `hc-registers.yml` at 03:23 / 15:23 UTC, first run dispatched 15:13Z): 4,204 companies
+(drug DIN owners with drugs on the market; makers of licensed Class II-IV devices), 1,320 billed $5,000+ a year (calculated from published
+fees); 409 leads with a site so far (leads_hc_20261112T151000); the workflow keeps finding sites (strict: domain = name, .ca for a Canadian
+company, a group's entities only on their own country's ending).
+**Helpers (subagents; files in data/incoming/claude/roster_*.csv + contrib/claude/rosters/*.json, checked by tools/roster_ingest.py, which now
+also requires the member's site to carry its name):** rosters merged so far into leads_roster_20261112T151832 (+3,572 leads). Still running at
+15:25Z: Ontario, BC, Prairie chambers; builders/trade associations; tourism bodies; OCDS awards to Canadian suppliers abroad
+(records_ocds_*); mailboxes for contract buyers batches 910-911. Batches 908-909 and 912-914 done (≈60 mailboxes found; not-searched rows
+removed so they stay open). **Commit the roster files the Prairie / Ontario / BC helpers leave, run `roster_ingest.py merge`, commit the shards.**
+**Next:** read the 16:20Z build (contract rows, Namespro rows gone, HC rows); commit the helpers' outputs as they land; dispatch a build after
+the shards are read by the mailbox reader; the Sunday report (coord/WEEKLY_REPORT.md).
+
 
 ## 2026-11-12 13:45Z — precision pass (whose mailbox, whose name, whose address; one row per organisation); build 13:24Z read
 
