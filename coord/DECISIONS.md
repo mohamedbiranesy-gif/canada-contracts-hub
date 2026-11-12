@@ -1928,7 +1928,7 @@ or PayPal only (Hawk Host, easyDNS, doteasy …): those rows stay out. Two print
 Canadian Web Hosting names wire transfers, Interac and cheques only in a refund clause: not taken (a refund clause is not how a bill is
 paid). These rows are small bills (from C$2.79 a month) and sort under the $5,000 mark; a buyer with a record of its own keeps that.
 
-## 2026-11-12 17:20Z — lane `claude`: the Canadian patents register (owners and their Canadian patent agent of record)
+## 2026-11-12 17:14Z — lane `claude`: the Canadian patents register (owners and their Canadian patent agent of record)
 
 `tools/pt_register.py` + `pt-register.yml` (match + leads, daily) + `pt-sites.yml` (the owners' own sites, by dispatch). The Office's patent
 register as open data (CSV extract of 2024-05-22, the one published as CSV): 386,885 patents and applications alive (status GR granted in
