@@ -246,6 +246,80 @@ def overture_pass(have):
     print("overture: %d issuers with a candidate site, %d asked, %d sites tied" % (len(by), len(todo), found), flush=True)
 
 
+GDONE = os.path.join(DIR, "issuer_guess_done.tsv")
+
+
+def guess_pass(have, minutes):
+    """the issuer's very name as a domain (.com, then .ca), kept ONLY when the site's own home page prints the issuer's symbol on its exchange
+    ("TSXV: ABC", "TSX: ABC", "… under the symbol ABC") — never on the name alone"""
+    import queue, socket, threading
+    import hc_registers as HR
+    done = {l.split("\t")[0] for l in open(GDONE, encoding="utf-8")} if os.path.exists(GDONE) else set()
+    todo = [o for o in issuers() if o["key"] not in have and o["key"] not in done and o["exchange"] != "CSE" and o.get("ticker")]
+    todo.sort(key=lambda o: -float(o["fee"]))
+    t_end, lock, q, cnt = time.time() + 60 * minutes, threading.Lock(), queue.Queue(), collections.Counter()
+    for o in todo:
+        q.put(o)
+
+    def doms(o):
+        w = [x for x in HR.core(o["name"]).split() if x not in ("the",)]
+        if not w:
+            return []
+        stems = []
+        for st in ("".join(w), "".join(w[:2]), w[0] + "corp", w[0]):
+            st = re.sub(r"[^a-z0-9]", "", st)
+            if len(st) >= 4 and st not in stems:
+                stems.append(st)
+        return ["%s.%s" % (st, t) for st in stems[:4] for t in ("com", "ca")]
+
+    def worker():
+        socket.setdefaulttimeout(6)
+        while time.time() < t_end:
+            try:
+                o = q.get_nowait()
+            except queue.Empty:
+                return
+            hit = None
+            for d in doms(o):
+                try:
+                    socket.getaddrinfo(d, 443)
+                except Exception:
+                    continue
+                try:
+                    import client_lists as CL
+                    page, final = (CL.fetch("https://%s/" % d) if CL.allowed("https://%s/" % d) else ("", ""))
+                except Exception:
+                    page = ""
+                if not page:
+                    continue
+                import html as _h
+                text = re.sub(r"\s+", " ", _h.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style).*?</\1>", " ", page[:400_000]))))
+                m = re.search(TICKER_ON_PAGE % re.escape(o["ticker"]), text)
+                if m:
+                    hit = (d, "its home page prints “%s”" % text[max(0, m.start() - 40): m.end() + 20].strip())
+                    break
+            with lock:
+                with open(GDONE, "a", encoding="utf-8") as dn:
+                    dn.write("%s\t%s\n" % (o["key"], hit[0] if hit else ""))
+                cnt["asked"] += 1
+                if hit:
+                    new = not os.path.exists(SITES)
+                    with open(SITES, "a", encoding="utf-8", newline="") as f:
+                        w = csv.DictWriter(f, fieldnames=["key", "site", "tied_by", "quote", "read"])
+                        if new:
+                            w.writeheader()
+                        w.writerow({"key": o["key"], "site": "https://%s/" % hit[0], "read": TODAY, "quote": hit[1][:300],
+                                    "tied_by": "the issuer's very name as a domain (%s), and %s" % (hit[0], hit[1])})
+                    have[o["key"]] = True; cnt["found"] += 1
+
+    ts = [threading.Thread(target=worker, daemon=True) for _ in range(8)]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    print("name as a domain: %d issuers without a site, %d asked, %d sites tied (the symbol on the exchange printed on the home page)" % (len(todo), cnt["asked"], cnt["found"]), flush=True)
+
+
 def cmd_sites(a):
     """each issuer's website: the company-name autocomplete (one request a second) proposes a domain under the issuer's very name, and the
     domain's own home page prints the issuer's symbol on its exchange, or its name in its title"""
@@ -277,6 +351,8 @@ def cmd_sites(a):
     print("issuer sites from the exchange's own list (Canadian Securities Exchange): %d new" % len(fresh), flush=True)
     if getattr(a, "overture", False):
         overture_pass(have)
+    if getattr(a, "guess", False):
+        guess_pass(have, a.guess_minutes)
     todo = [o for o in issuers() if o["key"] not in have and o["key"] not in done and o["exchange"] != "CSE"]
     todo.sort(key=lambda o: -float(o["fee"]))
     new = not os.path.exists(SITES)
@@ -412,6 +488,8 @@ def main():
     p = sub.add_parser("build"); p.add_argument("--work", required=True)
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=60)
     p.add_argument("--overture", action="store_true", help="first the sites an Overture Maps place lists under the issuer's name in its province / state (tools/overture_names.py)")
+    p.add_argument("--guess", action="store_true", help="then the issuer's very name as a domain, kept only on its symbol printed on the home page")
+    p.add_argument("--guess-minutes", type=float, default=25)
     p = sub.add_parser("leads"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"pull": cmd_pull, "build": cmd_build, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
