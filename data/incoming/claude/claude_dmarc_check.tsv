@@ -7051,6 +7051,7 @@ acatechnology.ca	none	acatechnology.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1
 acauto.ca	none	acauto.ca	v=DMARC1;p=none;sp=none;pct=100;rua=mailto:reports@dmarc.lnm-projects.com;ruf=mailto:reports@dmarc.lnm-projects.com;ri=86400;aspf=r;adkim=r;fo=1	100	yes	soft_fail	v=spf1 include:relayhost1.linknowmedia.cloud include:relayhost2.linknowmedia.cloud +a +mx +ip4:208.94.107.10 +ip4:208.94.107.40 +ip4:72.55.172.68 ~all	2026-11-10	none	none	none
 acaweb.ca	none	acaweb.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spf.protection.outlook.com include:47880002.spf05.hubspotemail.net ~all	2026-11-11	none	none	none
 acbaglobal.ca	quarantine	acbaglobal.ca	v=DMARC1; p=quarantine; sp=quarantine; rf=afrf; pct=100; rua=mailto:kvcadmin@acbaglobal.ca; ruf=mailto:kvcadmin@acbaglobal.ca; ri=86400	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
+acbcartage.com	none	acbcartage.com	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 acbm.ca	no_record		no DMARC record at _dmarc.acbm.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 acbn.org	no_record		no DMARC record at _dmarc.acbn.org; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 acbncanada.com	no_record		no DMARC record at _dmarc.acbncanada.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com include:zoho.com include:zcsend.net ~all	2026-11-06	none	none	none
@@ -13000,7 +13001,7 @@ afripridewomencoop.com	none	afripridewomencoop.com	v=DMARC1;p=none;sp=none;adkim
 afrique-inter.com	no_record		no DMARC record at _dmarc.afrique-inter.com; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 afriqueaufeminin.org	quarantine	afriqueaufeminin.org	v=DMARC1;p=quarantine;sp=none;adkim=r;aspf=r;pct=100;fo=1;rf=afrf;ri=86400;rua=mailto:f61e3286@mxtoolbox.dmarc-report.com;ruf=mailto:f61e3286@forensics.dmarc-report.com	100	yes	soft_fail	v=spf1 ip4:54.39.100.235 include:spf.web-dns1.com +ip4:51.161.13.182 +a +mx +ip4:54.39.100.142 +ip4:192.99.195.0 +ip4:149.56.21.3 +include:web-dns1.com ~all	2026-11-10	none	none	none
 afriquebec.ca	none	afriquebec.ca	v=DMARC1; p=none	100	no	error		2026-11-12	none	none	none
-afriqueexpansion.com	error		LifetimeTimeout			error		2026-11-12	none	none	none
+afriqueexpansion.com	error		no nameservers			error		2026-11-12	none	none	none
 afriqueinter.com	reject	afriqueinter.com	v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s;pct=20;fo=1;rf=afrf;ri=86400;rua=mailto:postmaster@afriqueinter.com,mailto:dmarc@afriqueinter.com;ruf=mailto:postmaster@afriqueinter.com,mailto:dmarc@afriqueinter.com	20	yes	hard_fail	v=spf1 +mx +a +ip4:198.46.81.50 +include:relay.mailchannels.net +ip4:173.231.211.77 +include:_spf.google.com +include:spf.protection.outlook.com +include:spf.postal.sonixis.com -all	2026-11-11	none	none	none
 afriregister.ca	none	afriregister.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:149.102.157.47 ~all	2026-11-10	none	none	none
 afritalentagency.com	no_record		no DMARC record at _dmarc.afritalentagency.com; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:spfc40.carrierzone.com ~all	2026-11-11	none	none	none
@@ -13375,6 +13376,7 @@ agdrivingedu.ca	none	agdrivingedu.ca	v=DMARC1; p=none; rua=mailto:rua@dmarc.brev
 agdrivingschool.ca	none	agdrivingschool.ca	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 agdronecanada.ca	no_record		no DMARC record at _dmarc.agdronecanada.ca; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 agdronesinc.ca	none	agdronesinc.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com include:_spf.reach.hostinger.com ~all	2026-11-06	none	none	none
+agdvex.com	no_record		no DMARC record at _dmarc.agdvex.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spfc9.megamailservers.com include:videotron.ca ~all	2026-11-12	none	none	none
 agdx.ca	none	agdx.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:spf.titan.email include:_spf.reach.hostinger.com ~all	2026-11-10	none	none	none
 agdx.com	no_record		no DMARC record at _dmarc.agdx.com; confirmed by 8.8.8.8			hard_fail	v=spf1 -all	2026-11-10	none	none	none
 age-3.com	no_record		no DMARC record at _dmarc.age-3.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com include:canada.o365.crossware.co.nz -all	2026-11-06	none	none	none
@@ -13461,6 +13463,7 @@ agenceboissinot.com	none	agenceboissinot.com	v=DMARC1;p=none; sp=none	100	no	sof
 agenceboomerang.ca	none	agenceboomerang.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 a mx ip4:209.16.158.186 ~all	2026-11-10	none	none	none
 agenceboost.ca	none	agenceboost.ca	v=DMARC1;p=none	100	no	soft_fail	v=spf1 a mx ip4:51.222.43.14 ip4:158.85.89.116 ip4:158.85.77.121 include:_spf.google.com ~all	2026-11-10	none	none	none
 agencebranding.ca	quarantine	agencebranding.ca	v=DMARC1; p=quarantine; rua=mailto:info@agencebranding.ca; ruf=mailto:info@agencebranding.ca; sp=none; adkim=r; aspf=r; pct=100	100	yes	soft_fail	v=spf1 include:one.zoho.com include:mail.zohoanalytics.com ~all	2026-11-10	none	none	none
+agencebta.com	quarantine	agencebta.com	v=DMARC1;p=quarantine;sp=reject;adkim=s;aspf=s;pct=100;fo=0;rf=afrf;ri=3600;rua=mailto:aggregate-report@krakenweb.io;ruf=mailto:forensic-report@krakenweb.io	100	yes	soft_fail	v=spf1 ip4:144.217.58.114 +mx include:pipedrive.com include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 agencebunkr.com	none	agencebunkr.com	v=DMARC1; p=none; rua=mailto:postmaster@agencebunkr.com;	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 agencecalibre.ca	none	agencecalibre.ca	v=DMARC1; p=none	100	no	hard_fail	v=spf1 a mx ip4:173.209.56.130 ip4:158.85.89.116 ip4:158.85.77.121 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 agencecameleon.ca	none	agencecameleon.ca	v=DMARC1;p=none	100	no	soft_fail	v=spf1 a mx ip4:51.222.108.63 ip4:158.85.89.116 ip4:158.85.77.121 ~all	2026-11-06	none	none	none
@@ -13469,6 +13472,7 @@ agencecaravelle.ca	none	agencecaravelle.ca	v=DMARC1; p=none	100	no	soft_fail	v=s
 agencecarbure.com	none	agencecarbure.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 a mx include:_spf.google.com ~all	2026-11-06	none	none	none
 agencecardinal.com	no_record		no DMARC record at _dmarc.agencecardinal.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 agencecartier.com	quarantine	agencecartier.com	v=DMARC1;p=quarantine;sp=quarantine;adkim=r;aspf=r;pct=100;fo=1;rf=afrf;ri=86400	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
+agencecaza.ca	quarantine	agencecaza.ca	v=DMARC1;p=quarantine;sp=quarantine;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	soft_fail	v=spf1 include:spf.hcu.email ~all	2026-11-12	none	none	none
 agencecbe.ca	none	agencecbe.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-11	none	none	none
 agencecfl.ca	no_record		no DMARC record at _dmarc.agencecfl.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 agencechantalbrossard.ca	none	agencechantalbrossard.ca	v=DMARC1;p=none	100	no	soft_fail	v=spf1 a mx ip4:51.222.108.63 ip4:158.85.89.116 ip4:158.85.77.121 include:_spf.hostpapa.com ~all	2026-11-06	none	none	none
@@ -22816,6 +22820,7 @@ amaecoffeeco.ca	no_record		no DMARC record at _dmarc.amaecoffeeco.ca; confirmed 
 amaecounselling.ca	no_record		no DMARC record at _dmarc.amaecounselling.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 amaelectric.ca	none	amaelectric.ca	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100	100	no	soft_fail	v=spf1 include:spf.titan.email include:_spf.wpcloud.com ~all	2026-11-10	none	none	none
 amaf.mb.ca	none	amaf.mb.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:15.235.42.85 include:spf.web-dns1.com ~all	2026-11-06	none	none	none
+amagency.com	no_record		no DMARC record at _dmarc.amagency.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 amaglobale.ca	quarantine	amaglobale.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 amagloriacollection.com	no_record		no DMARC record at _dmarc.amagloriacollection.com; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 amagnm.com	none	amagnm.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
@@ -23432,6 +23437,7 @@ amca.ca	none	amca.ca	v=DMARC1; p=none; rua=mailto:jhope@1linktec.net	100	yes	har
 amcacademy.ca	no_record		no DMARC record at _dmarc.amcacademy.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.porkbun.com ~all	2026-11-10	none	none	none
 amcaccounting.ca	no_record		no DMARC record at _dmarc.amcaccounting.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 amcafe.ca	none	amcafe.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-06	none	none	none
+amcai.com	quarantine	amcai.com	v=DMARC1;p=quarantine;sp=none;pct=100;rua=mailto:dmarc_reports@amcai.com;ruf=mailto:dmarc_reports@amcai.com;ri=86400;aspf=s;adkim=r;fo=1;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com ip4:99.209.13.58 -all	2026-11-12	none	none	none
 amcallisterdesign.com	no_record		no DMARC record at _dmarc.amcallisterdesign.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:68.168.124.162 include:spf.web-dns1.com +ip4:173.209.36.176 +ip4:173.209.33.162 +include:web-dns1.com ~all	2026-11-11	none	none	none
 amcamping.ca	no_record		no DMARC record at _dmarc.amcamping.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:15.235.115.189 include:spf.web-dns1.com +a +mx +ip4:51.222.152.19 ~all	2026-11-12	none	none	none
 amcan.tech	none	amcan.tech	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400;rua=mailto:services@cpdhouse.org}	100	yes	soft_fail	v=spf1 mx include:wildapricot.org ~all	2026-11-06	none	none	none
@@ -24471,6 +24477,7 @@ ampcbc.ca	no_record		no DMARC record at _dmarc.ampcbc.ca; confirmed by 8.8.8.8		
 ampchamp.ca	none	ampchamp.ca	v=DMARC1; p=none; rua=mailto:email@yourdomain.com; ruf=mailto:email@yourdomain.com; fo=0:1:s;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 ampcity.ca	none	ampcity.ca	v=DMARC1; p=none; rua=mailto:info@ampcity.ca	100	yes	soft_fail	v=spf1 include:zohocloud.ca ~all	2026-11-12	none	none	none
 ampclinic.ca	no_record		no DMARC record at _dmarc.ampclinic.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
+ampcographics.com	no_record		no DMARC record at _dmarc.ampcographics.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 ampcometal.com	reject	ampcometal.com	v=DMARC1; p=reject; rua=mailto:dmarc@ampcometal.com,mailto:dmarc_agg@vali.email; ruf=mailto:dmarc@ampcometal.com,mailto:dmarc_agg@vali.email;	100	yes	hard_fail	v=spf1 ip4:188.226.223.114 ip4:159.223.212.33 include:servers.mcsv.net include:spf.protection.outlook.com include:spf.smtp2go.com include:spf.exclaimer.net ip4:80.247.162.72/32 include:spf.antispamcloud.com include:5331421.spf02.hubspotemail.net -all	2026-11-12	none	none	v=BIMI1; l=https://www.ampcometal.com/email/ampco_metal_sa_153459347.svg; a=https://www.ampcometal.com/email/ampco_metal_sa_153459347.pem;
 ampcontrol.io	none	ampcontrol.io	v=DMARC1;p=none;sp=reject;rua=mailto:rua@dmarc.brevo.com	100	yes	soft_fail	v=spf1 include:_spf.google.com include:5214241.spf08.hubspotemail.net ~all	2026-11-11	none	none	none
 ampcontrolgroup.com	quarantine	ampcontrolgroup.com	v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc@ampcontrolgroup.com; ruf=mailto:dmarc@ampcontrolgroup.com; fo=1; adkim=s; aspf=s	100	yes	hard_fail	v=spf1 ip4:139.130.42.210 ip4:58.162.215.121 a:chi-web-01.simprocloud.com include:spf.mandrillapp.com include:spf.protection.outlook.com include:mail.zendesk.com -all	2026-11-11	none	none	none
@@ -24500,7 +24507,7 @@ ampel.ca	no_record		no DMARC record at _dmarc.ampel.ca; confirmed by 8.8.8.8			s
 ampelidae.fr	quarantine	ampelidae.fr	v=DMARC1;p=quarantine;pct=100;rua=mailto:webadmin@ampelidae.fr;sp=quarantine;aspf=r;	100	yes	soft_fail	v=spf1 include:mx.ovh.com ip4:5.196.117.167 ip4:82.127.205.132 mx a a:mvm.ampelidae.fr mx:mvm.ampelidae.fr ~all	2026-11-12	none	none	none
 ampera.ca	reject	ampera.ca	v=DMARC1; p=reject; rua=mailto:dmarc_rua@onsecureserver.net; adkim=r; aspf=r;	100	yes	soft_fail	v=spf1 include:zoho.com include:secureserver.net ~all	2026-11-12	none	none	none
 ampere.ca	reject	ampere.ca	v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email;	100	yes	hard_fail	v=spf1 ip4:67.69.165.202 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
-amperealliance.com	error		no nameservers			error		2026-11-12	none	none	none
+amperealliance.com	error		LifetimeTimeout			error		2026-11-12	none	none	none
 amperebyte.ca	no_record		no DMARC record at _dmarc.amperebyte.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 amperecomputing.com	quarantine	amperecomputing.com	v=DMARC1; p=quarantine; fo=1; pct=100; rua=mailto:390c6666@mxtoolbox.dmarc-report.com,mailto:dmarc-reports@amperecomputing.com; ruf=mailto:390c6666@forensics.dmarc-report.com;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:sent-via.netsuite.com include:_spf.atlassian.net include:_spf.salesforce.com ip4:66.35.38.217 ip4:150.195.203.0/24 ip4:45.62.176.0/21 ip4:45.62.184.0/23 ip4:140.82.198.0/24 ip4:216.194.108.62 ip4:209.247.141.18 ip4:45.62.187.192 ip4:216.194.99.49 -al	2026-11-11	none	none	none
 amperecreations.com	none	amperecreations.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
@@ -25280,7 +25287,7 @@ anchorhere.ca	none	anchorhere.ca	v=DMARC1; p=none	100	no	no_record		2026-11-06	n
 anchorhillcandle.com	none	anchorhillcandle.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:zoho.com ~all	2026-11-10	none	none	none
 anchorhomecareservices.ca	none	anchorhomecareservices.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-12	none	none	none
 anchorhomes.ca	no_record		no DMARC record at _dmarc.anchorhomes.ca; confirmed by 8.8.8.8			neutral	v=spf1 ip4:66.96.128.0/18 include:websitewelcome.com ?all	2026-11-11	none	none	none
-anchorhope.com	error		LifetimeTimeout			error		2026-11-12	none	none	none
+anchorhope.com	error		no nameservers			error		2026-11-12	none	none	none
 anchorhp.com	none	anchorhp.com	v=DMARC1;p=none;pct=100;rua=mailto:info@anchorhp.com;ri=86400;fo=1;	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 anchoridgecounselling.com	none	anchoridgecounselling.com	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 anchorindiana.com	none	anchorindiana.com	v=DMARC1; p=none;	100	no	no_record		2026-11-12	none	none	none
@@ -27769,7 +27776,7 @@ apbains.com	no_record		no DMARC record at _dmarc.apbains.com; confirmed by 8.8.8
 apbands.com	none	apbands.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:dc-aa8e722993._spfm.apbands.com ~all	2026-11-10	none	none	none
 apbc.ca	quarantine	apbc.ca	v=DMARC1; p=quarantine; pct=100; rua=mailto:re+fszchut8rry@dmarc.postmarkapp.com,mailto:dmarcreports@apbc.ca; sp=none; aspf=r;	100	yes	hard_fail	v=spf1 a mx ip4:209.160.41.186 include:servers.mcsv.net include:spf.caorda.com include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 apbm.ca	no_record		no DMARC record at _dmarc.apbm.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
-apbm.com	error		LifetimeTimeout			error		2026-11-12	none	none	none
+apbm.com	error		no nameservers			error		2026-11-12	none	none	none
 apbmaconnerie.com	none	apbmaconnerie.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.mailjet.com include:spf.protection.outlook.com -all	2026-11-04			
 apboardoftrade.com	none	apboardoftrade.com	v=DMARC1;p=none;pct=100;aspf=r;adkim=r;	100	no	hard_fail	v=spf1 a mx include:_spf.elasticemail.com include:clientemailspf.growthzoneapp.com include:spf.protection.outlook.com ip4:72.139.36.58 include:_spf.membeemail.com -all	2026-11-10	none	none	none
 apboisfranc.ca	reject	apboisfranc.ca	v=DMARC1;p=reject;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	soft_fail	v=spf1 +a +mx +ip4:173.209.49.154 +ip4:173.209.46.1 +ip4:173.209.46.33 +ip4:68.168.124.130 +ip4:67.43.233.4 +include:_spf.google.com ~all	2026-11-11	none	none	none
@@ -30503,6 +30510,7 @@ arcbc.ca	no_record		no DMARC record at _dmarc.arcbc.ca; confirmed by 8.8.8.8			s
 arcbends.com	none	arcbends.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 mx include:spfc12.megamailservers.com ~all	2026-11-11	none	none	none
 arcbio.ca	quarantine	arcbio.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 arcbiosystems.ca	no_record		no DMARC record at _dmarc.arcbiosystems.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
+arcbrotherselectric.com	reject	arcbrotherselectric.com	v=DMARC1; p=reject; pct=100; rua=mailto:re+hhbpi21pa2o@dmarc.postmarkapp.com; sp=reject; aspf=r;	100	yes	hard_fail	v=spf1 a:remote.arcbrotherselectric.com ip4:67.69.168.80 ip4:67.69.168.81 ip4:67.69.168.82 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 arcc-cdac.ca	quarantine	arcc-cdac.ca	v=DMARC1;p=quarantine;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400;rua=mailto:re+lgzr5j1ed6g@dmarc.postmarkapp.com	100	yes	soft_fail	v=spf1 a mx a:sh-cp40.yyz2.servername.online ip4:66.102.137.202 include:relay.mailchannels.net include:_spf.mlsend.com include:_spf.google.com ~all	2026-11-06	none	none	none
 arccan.ca	none	arccan.ca	v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:spf.brevo.com -all	2026-11-12	none	none	none
 arcclimbing.ca	no_record		no DMARC record at _dmarc.arcclimbing.ca; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
@@ -31460,6 +31468,7 @@ argnmorocco.com	none	argnmorocco.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 i
 argofts.com	no_record		no DMARC record at _dmarc.argofts.com; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 argographene.com	reject	argographene.com	v=DMARC1; p=reject; sp=reject; np=reject; rua=mailto:dmarc-reports@inter-corporate.com; ruf=mailto:dmarc-reports@inter-corporate.com; fo=0:1:d:s; adkim=s; aspf=s; psd=n	100	yes	soft_fail	v=spf1 include:_spf.google.com include:mail.inter-corporate.com ~all	2026-11-12	none	none	none
 argoinc.ca	no_record		no DMARC record at _dmarc.argoinc.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
+argoland.com	quarantine	argoland.com	v=DMARC1;p=quarantine;rua=mailto:2d5443faa5@rua.easydmarc.eu;ruf=mailto:2d5443faa5@ruf.easydmarc.eu;fo=1;	100	yes	soft_fail	v=spf1 include:spf.protection.outlook.com include:spfa.cpmails.com ~all	2026-11-12	none	none	none
 argon18.com	no_record		no DMARC record at _dmarc.argon18.com; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:178.72.16.17 include:servers.mcsv.net include:spf.protection.outlook.com include:zcsend.net include:_spf.firebasemail.com -all	2026-11-10	none	none	none
 argona.ca	no_record		no DMARC record at _dmarc.argona.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:68.66.224.43 include:spf.a2hosting.com ~all	2026-11-12	none	none	none
 argonathletics.com	no_record		no DMARC record at _dmarc.argonathletics.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
@@ -34644,7 +34653,7 @@ asenergie.ca	quarantine	asenergie.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; ru
 aseniwuche.com	none	aseniwuche.com	v=DMARC1; p=none; pct=100;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 asenseofcountry.com	none	asenseofcountry.com	v=DMARC1; p=none; pct=100; rua=mailto:dmarc@fbl.optin.com;	100	yes	soft_fail	v=spf1 ip4:51.79.20.148 ip4:162.214.78.220 +a +mx ~all	2026-11-10	none	none	none
 asenterprises.ca	no_record		no DMARC record at _dmarc.asenterprises.ca; confirmed by 8.8.8.8			neutral	v=spf1 ip4:66.96.128.0/18 include:websitewelcome.com ?all	2026-11-10	none	none	none
-asenterprises.com	error		no nameservers			error		2026-11-12	none	none	none
+asenterprises.com	error		LifetimeTimeout			error		2026-11-12	none	none	none
 asentiamanuka.com	no_record		no DMARC record at _dmarc.asentiamanuka.com; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 asenvi.co	no_record		no DMARC record at _dmarc.asenvi.co; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.efwd.registrar-servers.com ~all	2026-11-12	none	none	none
 aseorigins.com	no_record		no DMARC record at _dmarc.aseorigins.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
@@ -45079,6 +45088,7 @@ balmedia.ca	quarantine	balmedia.ca	v=DMARC1; p=quarantine; sp=none; rf=afrf; pct
 balmoralcap.com	quarantine	balmoralcap.com	v=DMARC1; p=quarantine; pct=100	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 balmoralchapel.ca	no_record		no DMARC record at _dmarc.balmoralchapel.ca; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
 balmoralclinic.ca	reject	balmoralclinic.ca	v=DMARC1; p=reject; rua=mailto:webmaster@balmoralclinic.ca	100	yes	soft_fail	v=spf1 +a +mx +ip4:70.32.23.76 include:spf.a2hosting.com include:_spf.google.com ~all	2026-11-06	none	none	none
+balmoralcustomhomes.com	no_record		no DMARC record at _dmarc.balmoralcustomhomes.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf-usg1.ppe-hosted.com include:secureserver.net ~all	2026-11-12	none	none	none
 balmoraldental.ca	none	balmoraldental.ca	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 balmoralhall.ca	quarantine	balmoralhall.ca	v=DMARC1; p=quarantine; rua=mailto:dmarc@balmoralhall.ca;	100	yes	hard_fail	v=spf1 a:mrbuttons.concoursehost.com include:spf1.balmoralhall.ca include:spf.protection.outlook.com include:outboundmail.blackbaud.net include:sendgrid.net -all	2026-11-06	none	none	none
 balmorallumber.ca	no_record		no DMARC record at _dmarc.balmorallumber.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
@@ -51715,6 +51725,7 @@ bellbazaar.com	none	bellbazaar.com	v=DMARC1; p=none; rua=mailto:postmaster@bellb
 bellbees.ca	no_record		no DMARC record at _dmarc.bellbees.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
 bellbuckle.com	no_record		no DMARC record at _dmarc.bellbuckle.com; confirmed by 8.8.8.8			hard_fail	v=spf1 mx include:netblocks.dreamhost.com include:relay.mailchannels.net -all	2026-11-10	none	none	none
 bellcapitalcup.ca	no_record		no DMARC record at _dmarc.bellcapitalcup.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:mailcontrol.com include:spf.protection.outlook.com ip4:207.164.48.2 ~all	2026-11-06	none	none	none
+bellcartage.com	reject	bellcartage.com	v=DMARC1; p=reject; pct=100; rua=mailto:re+yu9blakolj2@dmarc.postmarkapp.com; sp=reject; aspf=r;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:spf.sendinblue.com a:bellcartage.mypep.link a:sra.bellcartage.com -all	2026-11-12	none	none	none
 bellchiropractic.com	no_record		no DMARC record at _dmarc.bellchiropractic.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx include:secureserver.net ~all	2026-11-06	none	none	none
 bellcitymotorworks.ca	no_record		no DMARC record at _dmarc.bellcitymotorworks.ca; confirmed by 8.8.8.8			neutral	v=spf1 ip4:66.96.128.0/18 include:websitewelcome.com ?all	2026-11-10	none	none	none
 bellcombustion.com	reject	bellcombustion.com	v=DMARC1; p=reject; rua=mailto:alert@bellcombustion.com; adkim=s; aspf=s; pct=100;	100	yes	hard_fail	v=spf1 ip4:216.223.138.37 ip4:108.168.118.232 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
@@ -52113,6 +52124,7 @@ beltoutlet.com	reject	beltoutlet.com	v=DMARC1; p=reject; pct=100; rua=mailto:b1i
 beltronic.ca	no_record		no DMARC record at _dmarc.beltronic.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 a:dispatch-us.ppe-hosted.com include:secureserver.net -all	2026-11-10	none	none	none
 belttech1.com	no_record		no DMARC record at _dmarc.belttech1.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 belttoass.ca	none	belttoass.ca	v=DMARC1; p=none	100	no	no_record		2026-11-12	none	none	none
+beluce.com	none	beluce.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:_spf.cmail.ondemand.com include:spf-009e2a01.pphosted.com ip4:23.148.96.50 ip4:23.148.96.51 ip4:23.148.96.52 ip4:38.140.220.170 -all	2026-11-12	none	none	none
 belugababy.ca	no_record		no DMARC record at _dmarc.belugababy.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.godaddy.com ~all	2026-11-10	none	none	none
 belugababy.com	none	belugababy.com	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:_spf.google.com include:namebrightmail.com -all	2026-11-10	none	none	none
 belugo.ca	no_record		no DMARC record at _dmarc.belugo.ca; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
@@ -52956,6 +52968,7 @@ bermco.ca	none	bermco.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf-
 bermere.com	no_record		no DMARC record at _dmarc.bermere.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 bermex.ca	quarantine	bermex.ca	v=DMARC1; p=quarantine; rua=mailto:dmarc@bdmfurniture.net	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 bermies.com	quarantine	bermies.com	v=DMARC1; p=quarantine; rua=mailto:seo@bermies.com	100	yes	soft_fail	v=spf1 include:_spf.google.com include:spf.protection.outlook.com ~all	2026-11-10	none	none	none
+bermis.com	none	bermis.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:184.107.183.67 include:spf.websitehostserver.net +a +mx +ip4:184.107.41.70 ~all	2026-11-12	none	none	none
 bermline.ca	none	bermline.ca	v=DMARC1; p=none; rua=mailto:peter.maclachlan@bermline.ca	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 bermontrealty.com	no_record		no DMARC record at _dmarc.bermontrealty.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.intermedia.net ~all	2026-11-10	none	none	none
 bermudagolf.org	no_record		no DMARC record at _dmarc.bermudagolf.org; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
@@ -54819,6 +54832,7 @@ beyondthewaves.ca	none	beyondthewaves.ca	v=DMARC1; p=none;	100	no	soft_fail	v=sp
 beyondthewindow.ca	none	beyondthewindow.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 ip4:50.87.185.235 a mx include:websitewelcome.com ~all	2026-11-11	none	none	none
 beyondthexperience.ca	no_record		no DMARC record at _dmarc.beyondthexperience.ca; confirmed by 8.8.8.8			no_all	v=spf1 ip4:66.96.128.0/18 include:websitewelcome.com?all	2026-11-12	none	none	none
 beyondthreads.com	no_record		no DMARC record at _dmarc.beyondthreads.com; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
+beyondtransportationinc.com	quarantine	beyondtransportationinc.com	v=DMARC1; p=quarantine; pct=100 ; rua=mailto:dmarc@beyondtransportationinc.com; ruf=mailto:dmarc@beyondtransportationinc.com	100	yes	soft_fail	v=spf1 ip4:35.183.224.50 ip4:199.243.98.18 include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 beyondtraumatherapy.ca	no_record		no DMARC record at _dmarc.beyondtraumatherapy.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 beyondtworings.com	none	beyondtworings.com	v=DMARC1; p=none; 	100	no	soft_fail	v=spf1 mx include:snapretailemail.com ~all	2026-11-10	none	none	none
 beyondvisionimmigration.ca	no_record		no DMARC record at _dmarc.beyondvisionimmigration.ca; confirmed by 8.8.8.8			neutral	v=spf1 a mx include:_spf.site4now.net ?all	2026-11-12	none	none	none
@@ -69051,7 +69065,7 @@ briteagencies.com	no_record		no DMARC record at _dmarc.briteagencies.com; confir
 britebeginnings.ca	none	britebeginnings.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spf.protection.outlook.com a:dispatch-us.ppe-hosted.com ~all	2026-11-06	none	none	none
 britec.com	none	britec.com	v=DMARC1; p=none; rua=mailto:reports@reports-sg.inkydmarc.com;	100	yes	hard_fail	v=spf1 mx a:azure.quotevalet.com include:spf.smtp2go.com include:spf.protection.outlook.com include:autotask.net include:emsd1.com include:sendgrid.net -all	2026-11-11	none	none	none
 britecreations.com	no_record		no DMARC record at _dmarc.britecreations.com; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
-britedaycleaning.com	error		LifetimeTimeout			error		2026-11-12	none	none	none
+britedaycleaning.com	error		no nameservers			error		2026-11-12	none	none	none
 briteguide.com	none	briteguide.com	v=DMARC1; p=none;	100	no	no_record		2026-11-12	none	none	none
 briteguides.com	no_record		no DMARC record at _dmarc.briteguides.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.briteguides.com ~all	2026-11-12	none	none	none
 britelane.ca	no_record		no DMARC record at _dmarc.britelane.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:one.zoho.com ~all	2026-11-12	none	none	none
@@ -69373,6 +69387,7 @@ brockvillerentals.ca	no_record		no DMARC record at _dmarc.brockvillerentals.ca; 
 brockvillerowingclub.com	no_record		no DMARC record at _dmarc.brockvillerowingclub.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 brockvilletherapy.ca	no_record		no DMARC record at _dmarc.brockvilletherapy.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 brockvillewellness.ca	none	brockvillewellness.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
+brockway.ca	none	brockway.ca	v=DMARC1; p=none; sp=none;	100	no	soft_fail	v=spf1 ip4:24.224.134.58 include:spf.mtaroutes.com include:_spf.eastlink.ca include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 brockwaysauto.com	no_record		no DMARC record at _dmarc.brockwaysauto.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 brocon.ca	no_record		no DMARC record at _dmarc.brocon.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
 brocor.com	no_record		no DMARC record at _dmarc.brocor.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com include:relay.mailchannels.net -all	2026-11-12	none	none	none
@@ -69827,6 +69842,7 @@ brotherslandscaping.ca	quarantine	brotherslandscaping.ca	v=DMARC1; p=quarantine;
 brotherslandscapinglondon.ca	none	brotherslandscapinglondon.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
 brotherslockandsafe.ca	none	brotherslockandsafe.ca	v=DMARC1; p=none; rua=mailto:postmaster@brotherslockandsafe.ca	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 brotherslpm.ca	none	brotherslpm.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
+brothersmarkle.com	no_record		no DMARC record at _dmarc.brothersmarkle.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 brothersmoving.ca	no_record		no DMARC record at _dmarc.brothersmoving.ca; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
 brotherspestcontrol.ca	no_record		no DMARC record at _dmarc.brotherspestcontrol.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:zohocloud.ca include:spf.efwd.registrar-servers.com ~all	2026-11-10	none	none	none
 brothersplumbing.ca	no_record		no DMARC record at _dmarc.brothersplumbing.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx ptr include:secureserver.net ~all	2026-11-06	none	none	none
@@ -69989,6 +70005,7 @@ browntrout.com	quarantine	browntrout.com	v=DMARC1; p=quarantine; rua=mailto:dmar
 brownude.com	none	brownude.com	v=DMARC1; p=none; rua=mailto:info@brownude.com	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 brownventilation.com	no_record		no DMARC record at _dmarc.brownventilation.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 brownwatson.com.au	none	brownwatson.com.au	v=DMARC1; p=none; rua=mailto:bwi-dmarc-reports@browat.onmicrosoft.com	100	yes	hard_fail	v=spf1 include:_spf.psm.knowbe4.com include:spf.protection.outlook.com include:one.zoho.com.au include:narva.prontocloud.com.au ip4:203.89.230.39 ip4:203.89.205.114 ip4:203.214.191.3 ip4:203.89.197.41 -all	2026-11-11	none	none	none
+brownwindow.com	quarantine	brownwindow.com	v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc@brownwindow.com	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com ip4:174.94.133.175 -all	2026-11-12	none	none	none
 brownwoodrenovation.ca	none	brownwoodrenovation.ca	v=DMARC1; p=none; rua=mailto:info@brownwoodrenovation.ca	100	yes	soft_fail	v=spf1 +a +mx +ip4:50.6.42.215 +include:websitewelcome.com ~all	2026-11-12	none	none	none
 browsandbeyond.ca	none	browsandbeyond.ca	v=DMARC1;p=none;	100	no	hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
 browsandbeyond.com	no_record		no DMARC record at _dmarc.browsandbeyond.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:198.57.247.213 +include:websitewelcome.com ~all	2026-11-10	none	none	none
@@ -70987,6 +71004,7 @@ budolifeacademy.ca	none	budolifeacademy.ca	v=DMARC1; p=none; rua=mailto:info@bud
 budomoose.com	no_record		no DMARC record at _dmarc.budomoose.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_hostingspf.doteasy.com ~all	2026-11-12	none	none	none
 budovideos.com	quarantine	budovideos.com	v=DMARC1; p= quarantine; rua=mailto:budovideos.com@dmarc.sharelink.email; ruf=mailto:budovideos.com@dmarc.sharelink.email; fo=1	100	yes	soft_fail	v=spf1 include:_spf.google.com include:amazonses.com include:shops.shopify.com ~all	2026-11-11	none	none	none
 budovitch.ca	no_record		no DMARC record at _dmarc.budovitch.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.cloudus.oxcs.net ~all	2026-11-11	none	none	none
+budrevics.com	no_record		no DMARC record at _dmarc.budrevics.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:aspmx.googlemail.com ~all	2026-11-12	none	none	none
 buds-n-suds-cleaning-services-.ca	no_record		no DMARC record at _dmarc.buds-n-suds-cleaning-services-.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 budsambulance.net	no_record		no DMARC record at _dmarc.budsambulance.net; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 budsandbloomsflowerfarm.ca	no_record		no DMARC record at _dmarc.budsandbloomsflowerfarm.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
@@ -71210,6 +71228,7 @@ builderselite.ca	no_record		no DMARC record at _dmarc.builderselite.ca; confirme
 builderseries.ca	no_record		no DMARC record at _dmarc.builderseries.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:192.81.168.39 +a +mx +ip4:192.81.171.134 ~all	2026-11-10	none	none	none
 buildersmaterials.com	no_record		no DMARC record at _dmarc.buildersmaterials.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 buildersoft.ca	none	buildersoft.ca	v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com	100	yes	soft_fail	v=spf1 include:spf.mailjet.com include:zohomail.com include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
+buildersoftwaretools.com	quarantine	buildersoftwaretools.com	v=DMARC1; p=quarantine; pct=100; rua=mailto:tony.sanchez@buildersoftwaretools.com; ruf=mailto:tony.sanchez@buildersoftwaretools.com; ri=86400; fo=1;	100	yes	soft_fail	v=spf1 include:spf.protection.outlook.com include:bstapps.com ip4:198.57.169.26 ip4:198.57.169.98 ~all	2026-11-12	none	none	none
 buildersolutionsgroup.ca	none	buildersolutionsgroup.ca	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	soft_fail	v=spf1 ip4:158.69.54.144 include:spf.web-dns1.com +ip4:149.56.24.134 +a +mx +ip4:51.79.16.13 ~all	2026-11-10	none	none	none
 buildersselectinsurance.com	none	buildersselectinsurance.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 ip4:192.252.130.152 +mx +a +ip4:192.252.130.153 +include:relayhost1.linknowmedia.cloud +include:relayhost2.linknowmedia.cloud -all	2026-11-12	none	none	none
 buildersstudio.com	no_record		no DMARC record at _dmarc.buildersstudio.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.hostedemail.com include:hover.com ~all	2026-11-11	none	none	none
@@ -72811,6 +72830,7 @@ buxmontbassmasters.com	none	buxmontbassmasters.com	v=DMARC1;p=none;sp=none;pct=1
 buxmontbassmasters.net	none	buxmontbassmasters.net	v=DMARC1;p=none;sp=none;pct=100;rua=mailto:reports@dmarc.lnm-projects.com;ruf=mailto:reports@dmarc.lnm-projects.com;ri=86400;aspf=r;adkim=r;fo=1	100	yes	hard_fail	v=spf1 include:relayhost1.linknowmedia.cloud include:relayhost2.linknowmedia.cloud +a +mx +ip4:208.94.107.8 +ip4:208.94.107.24 +ip4:192.175.104.8 +ip4:72.55.159.5 -all	2026-11-11	none	none	none
 buxomcosmetics.com	quarantine	buxomcosmetics.com	v=DMARC1; p=quarantine; rua=mailto:dmarc_agg@vali.email,mailto:dmarc@buxomcosmetics.com,mailto:rua+buxomcosmetics.com@dmarc.barracudanetworks.com; ruf=mailto:ruf+buxomcosmetics.com@dmarc.barracudanetworks.com; fo=1	100	yes	soft_fail	v=spf1 include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email ~all	2026-11-11	none	none	none
 buxtonadr.ca	quarantine	buxtonadr.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
+buxtonanddawe.com	none	buxtonanddawe.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:_spf.cmsa.buildops.com -all	2026-11-12	none	none	none
 buxtonconsulting.org	no_record		no DMARC record at _dmarc.buxtonconsulting.org; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com a:mail.gthiringsolutions.ca -all	2026-11-10	none	none	none
 buy-thc.com	reject	buy-thc.com	v=DMARC1; p=reject; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	soft_fail	v=spf1 include:_spf.google.com include:mailgun.org ~all	2026-11-11	none	none	none
 buy-wise.ca	no_record		no DMARC record at _dmarc.buy-wise.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:184.107.112.75 include:relay.spamshield.io ip4:184.107.112.78 +a +mx ~all	2026-11-10	none	none	none
@@ -77081,6 +77101,7 @@ campinglevesque.com	none	campinglevesque.com	v=DMARC1;p=none; sp=none	100	no	sof
 campingmagogorford.com	quarantine	campingmagogorford.com	v=DMARC1; p=quarantine; adkim=s; aspf=s	100	no	hard_fail	v=spf1 +a +mx include:amazonses.com -all	2026-11-12	none	none	none
 campingmanitoba.com	no_record		no DMARC record at _dmarc.campingmanitoba.com; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:66.198.240.25 include:spf.supercp.com +a +mx ~all	2026-11-12	none	none	none
 campingmap.ca	none	campingmap.ca	v=DMARC1; p=none;	100	no	no_record		2026-11-12	none	none	none
+campingmarinabellerive.com	no_record		no DMARC record at _dmarc.campingmarinabellerive.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 campingmart.ca	no_record		no DMARC record at _dmarc.campingmart.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:shops.shopify.com include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 campingmelbourne.com	none	campingmelbourne.com	v=DMARC1; p=none; rua=mailto:jxf1gry0@ag.us.dmarcian.com; ruf=mailto:jxf1gry0@fr.us.dmarcian.com;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 campingmerbleue.com	none	campingmerbleue.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:51.79.50.53 +include:spf.protection.outlook.com +include:_spf.google.com ~all	2026-11-10	none	none	none
@@ -81581,6 +81602,7 @@ caramunchies.com	none	caramunchies.com	v=DMARC1; p=none; rua=mailto:orders@caram
 carandco.ca	no_record		no DMARC record at _dmarc.carandco.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
 carandevelopments.com	no_record		no DMARC record at _dmarc.carandevelopments.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 carangesolutions.com	none	carangesolutions.com	v=DMARC1;p=none;pct=100;rua=mailto:a.carange@carangesolutions.com;ri=86400;fo=1	100	yes	soft_fail	v=spf1 include:_spf.google.com include:spf.mailjet.com ~all	2026-11-06	none	none	none
+caranoequipment.com	none	caranoequipment.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 caranto.ca	none	caranto.ca	v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com	100	yes	no_record		2026-11-12	none	none	none
 carapartners.ca	none	carapartners.ca	v=DMARC1; p=none; fo=1; rua=mailto:dmarc_rua@onsecureserver.net,mailto:rua+carapartners.ca@dmarc.barracudanetworks.com; ruf=mailto:ruf+carapartners.ca@dmarc.barracudanetworks.com	100	yes	hard_fail	v=spf1 include:secureserver.net include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 carappdirect.ca	quarantine	carappdirect.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
@@ -83814,6 +83836,7 @@ casamigo.ca	no_record		no DMARC record at _dmarc.casamigo.ca; confirmed by 8.8.8
 casamiro.ca	no_record		no DMARC record at _dmarc.casamiro.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 mx include:netblocks.dreamhost.com include:relay.mailchannels.net -all	2026-11-10	none	none	none
 casamod.ca	none	casamod.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-12	none	none	none
 casamorales.ca	none	casamorales.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
+casamorra.com	none	casamorra.com	v=DMARC1; p=none; fo=1	100	no	soft_fail	v=spf1 include:mailgun.org ~all	2026-11-12	none	none	none
 casampizza.ca	no_record		no DMARC record at _dmarc.casampizza.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:66.102.132.213 +a +mx +ip4:76.74.235.190 +include:spf.hostpapa.com +include:spf.antispamcloud.com +ip4:192.99.33.124 ~all	2026-11-10	none	none	none
 casamuze.com	none	casamuze.com	v=DMARC1; p=none; rua=mailto:hello@casamuze.com	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-11	none	none	none
 casanature.ca	quarantine	casanature.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
@@ -87162,6 +87185,7 @@ cecb.ca	none	cecb.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 ip4:184.107.95.19
 cecchetticanada.com	quarantine	cecchetticanada.com	v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc@psicorpgroup.com; ruf=mailto:dmarc@psicorpgroup.com; sp=none; ri=86400	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 cecchinigroup.ca	reject	cecchinigroup.ca	v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:187b8d5598234ad1ba2c90218a83fb01@dmarc-reports.cloudflare.net,mailto:info@cecchinigroup.ca; fo=1	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 cecco.org	no_record		no DMARC record at _dmarc.cecco.org; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
+cecconisimone.com	none	cecconisimone.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:192.168.0.0/24 ip4:207.164.80.130/27 mx a:mx.cecconisimone.com a:smtp.cecconisimone.com mx:mx.cecconisimone.com mx:smtp.cecconisimone.com a mx include:e2ma.net ~all	2026-11-12	none	none	none
 cecconstruction.ca	no_record		no DMARC record at _dmarc.cecconstruction.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.privateemail.com ~all	2026-11-12	none	none	none
 ceccorp.ca	none	ceccorp.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 ceceandthesuper6.com	none	ceceandthesuper6.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:secureserver.net include:spf.protection.outlook.com -all	2026-11-12	none	none	none
@@ -89662,7 +89686,7 @@ cfapx.ca	none	cfapx.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.ml
 cfaq.net	no_record		no DMARC record at _dmarc.cfaq.net; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 cfaq1991.com	no_record		no DMARC record at _dmarc.cfaq1991.com; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:50.116.63.46 ip4:163.182.174.197 include:_spf.google.com ~all	2026-11-12	none	none	none
 cfare.ca	no_record		no DMARC record at _dmarc.cfare.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.cfare.ca ~all	2026-11-10	none	none	none
-cfarley.com	error		no nameservers			error		2026-11-12	none	none	none
+cfarley.com	error		LifetimeTimeout			error		2026-11-12	none	none	none
 cfars.net	none	cfars.net	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	soft_fail	v=spf1 ip4:67.215.2.138 +a +mx ~all	2026-11-12	none	none	none
 cfas.ca	no_record		no DMARC record at _dmarc.cfas.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:servers.mcsv.net include:spf.exwaresolutions.com include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 cfat.ca	none	cfat.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
@@ -93501,6 +93525,7 @@ chiropratiquevieactive.ca	none	chiropratiquevieactive.ca	v=DMARC1;p=none; sp=non
 chirorepentigny.ca	reject	chirorepentigny.ca	v=DMARC1;p=reject;sp=reject;pct=10; aspf=r;fo=0;ri=86400;rua=mailto:info@chirorepentigny.ca	10	yes	soft_fail	v=spf1 a mx ip4:51.222.43.14 ip4:158.85.89.116 ip4:158.85.77.121 ~all	2026-11-06	none	none	none
 chirorosemere.com	none	chirorosemere.com	v=DMARC1; p=none; aspf=r; adkim=r;	100	no	soft_fail	v=spf1 +a include:_spf.google.com include:chirorosemere.com.spf.auto.dnssmarthost.net +mx ~all	2026-11-10	none	none	none
 chiroroussillon.com	no_record		no DMARC record at _dmarc.chiroroussillon.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
+chirosantesaurel.com	no_record		no DMARC record at _dmarc.chirosantesaurel.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 chirosbyjigyasa.com	none	chirosbyjigyasa.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:mailgun.org ~all	2026-11-11	none	none	none
 chirosns.ca	none	chirosns.ca	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com ip4:69.27.107.44 -all	2026-11-11	none	none	none
 chirosolutionssante.com	no_record		no DMARC record at _dmarc.chirosolutionssante.com; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx ip4:15.235.83.120/32 ip4:66.70.215.45/30 include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
@@ -93554,6 +93579,7 @@ chisholmroofing.ca	no_record		no DMARC record at _dmarc.chisholmroofing.ca; conf
 chisholmteam.ca	none	chisholmteam.ca	v=DMARC1; p=none; rua=mailto:dmarc@chisholmteam.ca	100	yes	soft_fail	v=spf1 include:dc-aa8e722993._spfm.chisholmteam.ca ~all	2026-11-10	none	none	none
 chisholmtv.com	none	chisholmtv.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf-us.ionos.com ~all	2026-11-11	none	none	none
 chishtiglobal.ca	quarantine	chishtiglobal.ca	v=DMARC1; p=quarantine; adkim=s; aspf=s	100	no	soft_fail	v=spf1 +a +mx +ip4:104.37.185.88 +include:relay.mailbaby.net ~all	2026-11-12	none	none	none
+chislettroofing.com	none	chislettroofing.com	v=DMARC1; p=none; rua=mailto:dmarc_rua@onsecureserver.net	100	yes	hard_fail	v=spf1 include:spf.em.secureserver.net include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 chislon.ca	no_record		no DMARC record at _dmarc.chislon.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 chisombiliokoye.ca	quarantine	chisombiliokoye.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	soft_fail	v=spf1 a mx ptr include:secureserver.net ~all	2026-11-12	none	none	none
 chispawasi.com	no_record		no DMARC record at _dmarc.chispawasi.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
@@ -102194,7 +102220,7 @@ cobrainformatique.ca	none	cobrainformatique.ca	v=DMARC1;p=none;sp=none;pct=100;r
 cobralab.ca	no_record		no DMARC record at _dmarc.cobralab.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 mx include:netblocks.dreamhost.com include:relay.mailchannels.net -all	2026-11-10	none	none	none
 cobramestate.com	reject	cobramestate.com	v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:amazonses.com exists:%{i}._spf.inkyphishfence.com -all	2026-11-11	none	none	none
 cobramfarmequipment.com	none	cobramfarmequipment.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 a include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
-cobramfarmequipment.com.au	error		LifetimeTimeout			error		2026-11-12	none	none	none
+cobramfarmequipment.com.au	error		no nameservers			error		2026-11-12	none	none	none
 cobratackle.com	no_record		no DMARC record at _dmarc.cobratackle.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 cobratrading.com	none	cobratrading.com	v=DMARC1;  p=none; rua=mailto:9242054f9f06436d80a0a6697596c626@dmarc-reports.cloudflare.net	100	yes	hard_fail	v=spf1 include:spf.serverdata.net include:spf.smarsh.com include:sendgrid.net -all	2026-11-11	none	none	none
 cobrayachts.ca	none	cobrayachts.ca	v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com	100	yes	soft_fail	v=spf1 include:_spf.mx.cloudflare.net ~all	2026-11-12	none	none	none
@@ -103808,6 +103834,7 @@ collinspainting.com	quarantine	collinspainting.com	v=DMARC1; p=quarantine;	100	n
 collinspecan.com	no_record		no DMARC record at _dmarc.collinspecan.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
 collinsplumbing.ca	no_record		no DMARC record at _dmarc.collinsplumbing.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 collinsrecruit.com	none	collinsrecruit.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +ip4:40.160.24.203 +include:relay.mailchannels.net +include:spf.protection.outlook.com +include:_spf.bullhornmail.com ~all	2026-11-10	none	none	none
+collinssales.com	none	collinssales.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spf.protection.outlook.com include:aspmx.pardot.com ~all	2026-11-12	none	none	none
 collinsvillecanoe.com	none	collinsvillecanoe.com	v=DMARC1;p=none;rua=mailto:dmarc-devs@rainpos.com;pct=10;ruf=mailto:dmarc-devs@rainpos.com;fo=0:d:s;aspf=r;adkim=r;	10	yes	soft_fail	v=spf1 mx a include:_spf.elasticemail.com include:google.com ~all	2026-11-11	none	none	none
 collintheshots.com	none	collintheshots.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-11	none	none	none
 collisexcavating.com	no_record		no DMARC record at _dmarc.collisexcavating.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
@@ -105361,6 +105388,7 @@ completelyconnected.net	none	completelyconnected.net	v=DMARC1; p=none;	100	no	no
 completelycustom.com	quarantine	completelycustom.com	v=DMARC1;p=quarantine;pct=100;rua=mailto:connekted@completelycustom.com;ruf=mailto:connekted@completelycustom.com;fo=1;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 completelyflooredinc.ca	no_record		no DMARC record at _dmarc.completelyflooredinc.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 completelymanaged.com	quarantine	completelymanaged.com	v=DMARC1; p=quarantine; rua=mailto:alerts@completelymanaged.com	100	yes	soft_fail	v=spf1 include:zoho.com include:sender.zohoinvoice.com ~all	2026-11-11	none	none	none
+completelywired.com	no_record		no DMARC record at _dmarc.completelywired.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 completemagic.com	reject	completemagic.com	v=DMARC1;p=reject;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400;rua=mailto:dmarc@completemagic.com	100	yes	soft_fail	v=spf1 ip4:172.96.191.27 include:_spf.arandomserver.com +a +mx +ip4:198.252.98.30 +ip4:198.252.98.75 +ip4:198.252.106.90 ~all	2026-11-11	none	none	none
 completemd.ca	no_record		no DMARC record at _dmarc.completemd.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.titan.email ~all	2026-11-11	none	none	none
 completementraisin.ca	no_record		no DMARC record at _dmarc.completementraisin.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:108.179.243.190 ~all	2026-11-11	none	none	none
@@ -106092,6 +106120,7 @@ concordelectronics.ca	no_record		no DMARC record at _dmarc.concordelectronics.ca
 concordemediation.com	quarantine	concordemediation.com	v=DMARC1; p=quarantine; rua=mailto:postmaster@concordemediation.com	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 concordequine.com	no_record		no DMARC record at _dmarc.concordequine.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 concordetravel.ca	no_record		no DMARC record at _dmarc.concordetravel.ca; confirmed by 8.8.8.8			neutral	v=spf1 ip4:66.96.128.0/18 include:websitewelcome.com ?all	2026-11-10	none	none	none
+concordfireplaces.com	no_record		no DMARC record at _dmarc.concordfireplaces.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.cloudus.oxcs.net ~all	2026-11-12	none	none	none
 concordflooring.ca	no_record		no DMARC record at _dmarc.concordflooring.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com include:secureserver.net -all	2026-11-10	none	none	none
 concordfoodcentre.ca	quarantine	concordfoodcentre.ca	v=DMARC1; p=quarantine;	100	no	hard_fail	v=spf1 include:relay.mailchannels.net -all	2026-11-10	none	none	none
 concordglazing.ca	no_record		no DMARC record at _dmarc.concordglazing.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
@@ -106262,6 +106291,7 @@ concut.ca	no_record		no DMARC record at _dmarc.concut.ca; confirmed by 8.8.8.8		
 condair.co.uk	no_record		no DMARC record at _dmarc.condair.co.uk; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 condair.com	none	condair.com	v=DMARC1; p=none; pct=100; rua=mailto:dmarc-rua@condair.com; ruf=mailto:dmarc-ruf@condair.com; fo=1	100	yes	hard_fail	v=spf1 include:_netblocks.condair.com include:_netblocks2.condair.com include:_netblocks3.condair.com include:_netblocks4.condair.com include:_netblocks5.condair.com include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 condalab.com	quarantine	condalab.com	v=DMARC1; p=quarantine; pct=1;	1	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:spf.mandrillapp.com ip4:178.63.46.185 ip4:195.235.87.0/29 ip4:95.216.96.165 ip4:195.235.87.2 include:spf.brevo.com -all	2026-11-06	none	none	none
+condeland.com	none	condeland.com	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	soft_fail	v=spf1 ip4:66.102.133.237 ip4:69.90.66.160 +include:spf.antispamcloud.com +include:spf.hostpapa.com +include:mailgun.org ~all	2026-11-12	none	none	none
 condellotravel.ca	none	condellotravel.ca	v=DMARC1; p=none; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	no_record		2026-11-10	none	none	none
 condellotravel.com	no_record		no DMARC record at _dmarc.condellotravel.com; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 conderdevelopments.ca	no_record		no DMARC record at _dmarc.conderdevelopments.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
@@ -108137,6 +108167,7 @@ contactbrant.net	no_record		no DMARC record at _dmarc.contactbrant.net; confirme
 contactcentrewest.com	no_record		no DMARC record at _dmarc.contactcentrewest.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 contactchemicals.ca	none	contactchemicals.ca	v=DMARC1; p=none; rua=mailto:administrator@contactchemicals.ca	100	yes	soft_fail	v=spf1 include:_spf.google.com include:ewebcare.com a ~all	2026-11-10	none	none	none
 contactcommunityservices.ca	quarantine	contactcommunityservices.ca	v=DMARC1;p=quarantine;sp=quarantine;adkim=r;aspf=s;pct=100;fo=1;rf=afrf;ri=86400	100	no	hard_fail	v=spf1 ip4:70.38.0.212 include:spf.protection.outlook.com a:media2.akaraisin.com -all	2026-11-10	none	none	none
+contactdelage.com	none	contactdelage.com	v=DMARC1; p=none; rua=mailto:dmarc@contactdelage.com; ruf=mailto:dmarc@contactdelage.com; sp=reject; ri=84600; aspf=r;	100	yes	soft_fail	v=spf1 include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 contactdesigngroup.com	none	contactdesigngroup.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:172.96.191.7 include:_spf.arandomserver.com +ip4:103.119.218.67 ~all	2026-11-11	none	none	none
 contactdistribution.com	none	contactdistribution.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spf.registeredsite.com include:spf.cloudus.oxcs.net ~all	2026-11-10	none	none	none
 contactelectrique.com	no_record		no DMARC record at _dmarc.contactelectrique.com; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
@@ -108894,6 +108925,7 @@ coombsco.ca	none	coombsco.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_s
 coombsfair.org	no_record		no DMARC record at _dmarc.coombsfair.org; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
 coombsfurniture.ca	none	coombsfurniture.ca	v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com	100	yes	soft_fail	v=spf1 ip4:66.102.137.52 +a +mx +ip4:69.90.162.170 +ip4:76.74.128.220 +include:_spf.google.com ~all	2026-11-10	none	none	none
 coonbros.com	none	coonbros.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf-us.ionos.com ~all	2026-11-10	none	none	none
+cooney.ca	none	cooney.ca	v=DMARC1; p=none; rua=mailto:ithelpdesk@cooney.ca; ruf=mailto:ithelpdesk@cooney.ca; fo=1	100	yes	hard_fail	v=spf1 a ip4:207.35.172.148/32 a:owa.cooney.ca -all	2026-11-12	none	none	none
 cooneyexcavating.ca	none	cooneyexcavating.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:72.52.154.197 ~all	2026-11-10	none	none	none
 cooneyorthodontics.com	no_record		no DMARC record at _dmarc.cooneyorthodontics.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com include:19582492.spf05.hubspotemail.net -all	2026-11-11	none	none	none
 cooneysports.ca	no_record		no DMARC record at _dmarc.cooneysports.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
@@ -109370,6 +109402,7 @@ coralsunlimited.com	no_record		no DMARC record at _dmarc.coralsunlimited.com; co
 coralsupreme.com	none	coralsupreme.com	v=DMARC1; p=none	100	no	no_record		2026-11-11	none	none	none
 coralytics.ca	none	coralytics.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:162.253.224.21 +a +mx +include:spf.edge.infinitysrv.com ~all	2026-11-12	none	none	none
 coralz.ca	no_record		no DMARC record at _dmarc.coralz.ca; confirmed by 8.8.8.8			neutral	v=spf1 ip4:66.96.128.0/18 include:websitewelcome.com ?all	2026-11-12	none	none	none
+coram.com	quarantine	coram.com	v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s	100	no	soft_fail	v=spf1 include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 coramdeochoir.ca	none	coramdeochoir.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:mailgun.org ~all	2026-11-11	none	none	none
 coramsclothingandboots.com	none	coramsclothingandboots.com	v=DMARC1; p=none	100	no	no_record		2026-11-11	none	none	none
 coranmoncompagnon.com	none	coranmoncompagnon.com	v=DMARC1; p=none; rua=mailto:postmaster@coranmoncompagnon.com	100	yes	soft_fail	v=spf1 ip4:91.134.60.146 ip4:141.94.195.10 +a +mx +ip4:51.178.64.183 ~all	2026-11-11	none	none	none
@@ -115203,6 +115236,7 @@ crosswing.com	none	crosswing.com	v=DMARC1;p=none;pct=100;rua=mailto:develop@cros
 crosswoodconstruction.ca	reject	crosswoodconstruction.ca	v=DMARC1; p=reject; rua=mailto:dmarc_rua@onsecureserver.net; adkim=r; aspf=r;	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 crosswordbee.com	none	crosswordbee.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:172.96.185.129 include:_spf.arandomserver.com +ip4:172.96.185.201 ~all	2026-11-11	none	none	none
 croteauexcavation.com	none	croteauexcavation.com	v=DMARC1; p=none; sp=none	100	no	hard_fail	v=spf1 a mx include:spf.penseweb.com -all	2026-11-04			
+crotechelectrical.com	no_record		no DMARC record at _dmarc.crotechelectrical.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 crotos.ca	no_record		no DMARC record at _dmarc.crotos.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.crotos.ca ~all	2026-11-12	none	none	none
 crouchexecmg.com	quarantine	crouchexecmg.com	v=DMARC1; p=quarantine	100	no	no_record		2026-11-10	none	none	none
 crousescleaners.com	no_record		no DMARC record at _dmarc.crousescleaners.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:_spf.mailersend.net include:spf.protection.outlook.com -all	2026-11-10	none	none	none
@@ -115846,6 +115880,7 @@ crystalclassic.ca	quarantine	crystalclassic.ca	v=DMARC1; p=quarantine; rua=mailt
 crystalcleancans.com	no_record		no DMARC record at _dmarc.crystalcleancans.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-11	none	none	none
 crystalcleancleaningcompany.ca	no_record		no DMARC record at _dmarc.crystalcleancleaningcompany.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx ptr ~all	2026-11-10	none	none	none
 crystalcleanco.ca	none	crystalcleanco.ca	v=DMARC1;p=none;	100	no	soft_fail	v=spf1 include:_spf.wpcloud.com ~all	2026-11-12	none	none	none
+crystalcleandreamteam.com	none	crystalcleandreamteam.com	v=DMARC1; p=none; rua=mailto:dmarc@crystalcleandreamteam.com; fo=1	100	yes	soft_fail	v=spf1 mx ip4:104.152.168.8 ~all	2026-11-12	none	none	none
 crystalcleanhalifax.ca	no_record		no DMARC record at _dmarc.crystalcleanhalifax.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 crystalcleaning.ca	none	crystalcleaning.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	no_record		2026-11-06	none	none	none
 crystalcleanpro.ca	none	crystalcleanpro.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.webador.com ~all	2026-11-12	none	none	none
@@ -118993,6 +119028,7 @@ cyclonerangehoods.com	none	cyclonerangehoods.com	v=DMARC1; p=none; rua=mailto:dm
 cyclonesante.com	reject	cyclonesante.com	v=DMARC1; p=reject; rua=mailto:canada1@ca.cp-dmarc.com; ruf=mailto:canada1@ca.cp-dmarc.com; fo=1	100	yes	hard_fail	v=spf1 mx include:ca._netblocks.mimecast.com include:spf.protection.outlook.com include:one.zoho.com -all	2026-11-06	none	none	none
 cyclonesgranby.ca	none	cyclonesgranby.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 a mx ip4:72.10.168.122 ip4:158.85.89.116 ip4:158.85.77.121 ~all	2026-11-10	none	none	none
 cyclonesolutions.com	none	cyclonesolutions.com	v=DMARC1; p=none; rua=mailto:45a189dd44ec.a@dmarcinput.com; ruf=mailto:45a189dd44ec.f@dmarcinput.com; sp=none; fo=1	100	yes	soft_fail	v=spf1 include:amazonses.com  a include:spf.protection.outlook.com ip4:168.245.102.208 ip4:69.49.121.0/24 ip4:216.251.36.0/24 ip6:2001:1810:1043:0205::/64 ~all	2026-11-11	none	none	none
+cyclonetaylor.com	no_record		no DMARC record at _dmarc.cyclonetaylor.com; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:66.199.170.0/24 include:spf.protection.outlook.com include:ccsend.com -all	2026-11-12	none	none	none
 cyclonetaylorfigureskates.com	reject	cyclonetaylorfigureskates.com	v=DMARC1;p=reject;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-12	none	none	none
 cyclonordsud.org	none	cyclonordsud.org	v=DMARC1; p=none; adkim=r; pct=100; sp=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-04			
 cyclopro.ca	no_record		no DMARC record at _dmarc.cyclopro.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.cyclopro.ca ~all	2026-11-06	none	none	none
@@ -119457,6 +119493,7 @@ dadirriextracts.com	quarantine	dadirriextracts.com	v=DMARC1;p=quarantine;pct=100
 dadokitchens.com	no_record		no DMARC record at _dmarc.dadokitchens.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.dadokitchens.com ~all	2026-11-06	none	none	none
 dadouscorner.ca	none	dadouscorner.ca	v=DMARC1;p=none;	100	no	soft_fail	v=spf1 include:spf.titan.email include:_spf.wpcloud.com ~all	2026-11-12	none	none	none
 dadras.ca	no_record		no DMARC record at _dmarc.dadras.ca; confirmed by 8.8.8.8			neutral	v=spf1 ip4:66.96.128.0/18 include:websitewelcome.com ?all	2026-11-10	none	none	none
+dadsales.com	quarantine	dadsales.com	v=DMARC1; p=quarantine; pct=100; rua=mailto:atp@dadsales.com; adkim=r; aspf=r;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:squarespace-mail.com -all	2026-11-12	none	none	none
 dadsgrads.com	no_record		no DMARC record at _dmarc.dadsgrads.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spfc40.carrierzone.com ~all	2026-11-12	none	none	none
 dadsorganicmarket.com	none	dadsorganicmarket.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:51.222.154.77 +a +mx +ip4:51.79.20.134 +ip4:66.70.207.215 +include:mout.mywhc.ca +ip4:69.27.101.2 +ip4:69.27.96.200 +ip4:69.27.97.200 +ip4:15.235.60.13 ~all	2026-11-10	none	none	none
 dadsoutside.ca	no_record		no DMARC record at _dmarc.dadsoutside.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
@@ -121553,6 +121590,7 @@ davescashforcarscalgary.ca	none	davescashforcarscalgary.ca	v=DMARC1; p=none	100	
 daveschair.com	no_record		no DMARC record at _dmarc.daveschair.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:199.26.87.92 +ip4:199.26.87.104 +a:spf.mithrilnetwork.com ~all	2026-11-10	none	none	none
 davesdiesel.ca	no_record		no DMARC record at _dmarc.davesdiesel.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 davesdieselrepair.com	none	davesdieselrepair.com	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:spf.protractor.com -all	2026-11-06	none	none	none
+davesducts.com	none	davesducts.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 a mx ip4:50.87.225.37 ip4:173.254.39.62 include:websitewelcome.com include:_spf.google.com ~all	2026-11-12	none	none	none
 davesdyes.net	none	davesdyes.net	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
 davesells.ca	none	davesells.ca	v=DMARC1; p=none;	100	no	no_record		2026-11-06	none	none	none
 davesfurnitureandappliances.ca	no_record		no DMARC record at _dmarc.davesfurnitureandappliances.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-11	none	none	none
@@ -123519,6 +123557,7 @@ decoraconcept.ca	none	decoraconcept.ca	v=DMARC1; p=none; rua=mailto:info@decorac
 decorama.ca	no_record		no DMARC record at _dmarc.decorama.ca; confirmed by 8.8.8.8			error		2026-11-10	none	none	none
 decoramould.com	no_record		no DMARC record at _dmarc.decoramould.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:72.52.215.122 +include:shops.shopify.com +include:_spf.google.com ~all	2026-11-11	none	none	none
 decorandfloors.com	none	decorandfloors.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
+decoranswer.com	no_record		no DMARC record at _dmarc.decoranswer.com; confirmed by 8.8.8.8			neutral	v=spf1 ip4:66.96.128.0/18 include:websitewelcome.com ?all	2026-11-12	none	none	none
 decorastone.ca	no_record		no DMARC record at _dmarc.decorastone.ca; confirmed by 8.8.8.8			neutral	v=spf1 include:spf.messagingengine.com ?all	2026-11-10	none	none	none
 decoratedonmain.ca	no_record		no DMARC record at _dmarc.decoratedonmain.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.vianet.ca ~all	2026-11-10	none	none	none
 decorateit.ca	no_record		no DMARC record at _dmarc.decorateit.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:emailsrvr.com -all	2026-11-10	none	none	none
@@ -123750,6 +123789,7 @@ deepdivetherapy.ca	none	deepdivetherapy.ca	v=DMARC1; p=none; rua=mailto:dmarc_ag
 deepdowncleaning.ca	none	deepdowncleaning.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 deepdowninside.com	no_record		no DMARC record at _dmarc.deepdowninside.com; confirmed by 8.8.8.8			hard_fail	v=spf1 -all	2026-11-12	none	none	none
 deepearth.ca	none	deepearth.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
+deepelectricalsupply.com	no_record		no DMARC record at _dmarc.deepelectricalsupply.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 deepellumart.co	none	deepellumart.co	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
 deependpools.ca	no_record		no DMARC record at _dmarc.deependpools.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 deepera.ai	quarantine	deepera.ai	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	soft_fail	v=spf1 a mx ptr include:secureserver.net ~all	2026-11-12	none	none	none
@@ -126764,6 +126804,7 @@ desmania.com	quarantine	desmania.com	v=DMARC1; p=quarantine; rua=mailto:ashwani@
 desmaraisauto.ca	no_record		no DMARC record at _dmarc.desmaraisauto.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.protection.devicom.com include:spf.protection.outlook.com include:spf.privateemail.com include:_spf.google.com ~all	2026-11-12	none	none	none
 desmaraisconcept.ca	no_record		no DMARC record at _dmarc.desmaraisconcept.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:66.102.133.116 +a +mx +ip4:66.102.132.87 +include:spf.servername.online ~all	2026-11-06	none	none	none
 desmaraisgroup.ca	no_record		no DMARC record at _dmarc.desmaraisgroup.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
+desmaraisprotection.com	no_record		no DMARC record at _dmarc.desmaraisprotection.com; confirmed by 8.8.8.8			soft_fail	v=spf1 mx:desmaraisprotection.com include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 desmarstudio.com	none	desmarstudio.com	v=DMARC1; p=none; rua=mailto:366137a4@mxtoolbox.dmarc-report.com; ruf=mailto:366137a4@forensics.dmarc-report.com; fo=1	100	yes	soft_fail	v=spf1 include:_spf.google.com include:dc-aa8e722993._spfm.desmarstudio.com include:secureserver.net ~all	2026-11-11	none	none	none
 desmat.ca	no_record		no DMARC record at _dmarc.desmat.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 desmccaffrey.com	none	desmccaffrey.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 +mx +a +ip4:69.27.102.3 +ip4:69.27.96.200 +ip4:69.27.97.200 +include:mailgun.org ~all	2026-11-11	none	none	none
@@ -129061,7 +129102,7 @@ digitalfriends.ca	none	digitalfriends.ca	v=DMARC1; p=none;	100	no	hard_fail	v=sp
 digitalfront.ca	no_record		no DMARC record at _dmarc.digitalfront.ca; confirmed by 8.8.8.8			neutral	v=spf1 include:spf.protection.outlook.com  ip4:167.89.85.122 ?all	2026-11-10	none	none	none
 digitalfrontdesk.ca	none	digitalfrontdesk.ca	v=DMARC1; p=none; rua=mailto:info@digitalfrontdesk.ca; adkim=r; aspf=r	100	yes	soft_fail	v=spf1 include:dc-8e814c8572._spfm.digitalfrontdesk.ca ~all	2026-11-10	none	none	none
 digitalfrontporch.ca	none	digitalfrontporch.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-10	none	none	none
-digitalfrost.com	error		LifetimeTimeout			error		2026-11-12	none	none	none
+digitalfrost.com	error		no nameservers			error		2026-11-12	none	none	none
 digitalfun.ca	no_record		no DMARC record at _dmarc.digitalfun.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 digitalfun.net	no_record		no DMARC record at _dmarc.digitalfun.net; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.mxhichina.com -all	2026-11-10	none	none	none
 digitalfusionstudios.com	quarantine	digitalfusionstudios.com	v=DMARC1; p=quarantine; rua=mailto:kyle@digitalfusionstudios.com	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
@@ -131180,6 +131221,7 @@ djcargo.cn	no_record		no DMARC record at _dmarc.djcargo.cn; confirmed by 8.8.8.8
 djcartons.com	no_record		no DMARC record at _dmarc.djcartons.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-06	none	none	none
 djcentral.ca	none	djcentral.ca	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400;rua=mailto:dmarcreports@lovable.dev	100	yes	hard_fail	v=spf1 ip4:66.102.137.16 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 djcharley.ca	none	djcharley.ca	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400;rua=mailto:djcharley@live.ca;ruf=mailto:djcharley@live.ca	100	yes	soft_fail	v=spf1 +ip4:66.102.133.237 +include:spf.servername.online ~all	2026-11-12	none	none	none
+djcharlton.com	no_record		no DMARC record at _dmarc.djcharlton.com; confirmed by 8.8.8.8			hard_fail	v=spf1 mx include:easymail.ca -all	2026-11-12	none	none	none
 djclothing.ca	no_record		no DMARC record at _dmarc.djclothing.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 djconsult.ca	none	djconsult.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:50.30.32.4 include:spf-c.mailbaby.net ip4:152.53.53.76 +a +mx +ip4:152.53.39.8 +ip4:152.53.31.58 ~all	2026-11-12	none	none	none
 djcreative.ca	quarantine	djcreative.ca	v=DMARC1; p=quarantine	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
@@ -131716,6 +131758,7 @@ dmvimprints.com	none	dmvimprints.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 in
 dmvjdmdepot.com	none	dmvjdmdepot.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-11	none	none	none
 dmwdhosting.ca	none	dmwdhosting.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:15.235.9.78 ~all	2026-11-12	none	none	none
 dmweldingltd.ca	no_record		no DMARC record at _dmarc.dmweldingltd.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
+dmwelectrical.com	no_record		no DMARC record at _dmarc.dmwelectrical.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com include:spf.mtaroutes.com -all	2026-11-12	none	none	none
 dmwellness.ca	no_record		no DMARC record at _dmarc.dmwellness.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.dmwellness.ca ~all	2026-11-06	none	none	none
 dmws.nl	none	dmws.nl	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 dmxmarketing.com	none	dmxmarketing.com	v=DMARC1; p=none; rua=mailto:dmarc-reports@dmxmarketing.com	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
@@ -132542,6 +132585,7 @@ dollypops.ca	no_record		no DMARC record at _dmarc.dollypops.ca; confirmed by 8.8
 dollysplace.com	no_record		no DMARC record at _dmarc.dollysplace.com; confirmed by 8.8.8.8			hard_fail	v=spf1 a:smtpout1.namebrightmail.com a:smtpout2.namebrightmail.com include:namebrightmail.com -all	2026-11-12	none	none	none
 dollyvalentine.net	none	dollyvalentine.net	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-11	none	none	none
 dolmaz.ca	none	dolmaz.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-06	none	none	none
+dolmengroupinc.com	no_record		no DMARC record at _dmarc.dolmengroupinc.com; confirmed by 8.8.8.8			neutral	v=spf1 a mx ptr include:bluehost.com ?all	2026-11-12	none	none	none
 dolon.ca	no_record		no DMARC record at _dmarc.dolon.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 doloresdepretto.com	no_record		no DMARC record at _dmarc.doloresdepretto.com; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 dolorestodd.com	quarantine	dolorestodd.com	v=DMARC1;p=quarantine;pct=100;	100	no	hard_fail	v=spf1 include:spf.caorda.com -all	2026-11-11	none	none	none
@@ -132746,6 +132790,7 @@ domart.fr	no_record		no DMARC record at _dmarc.domart.fr; confirmed by 8.8.8.8		
 domartech.ca	none	domartech.ca	v=DMARC1; p=none; rua=mailto:info@domartech.ca; ruf=mailto:info@domartech.ca; sp=none; adkim=r; aspf=r; pct=100	100	yes	soft_fail	v=spf1 include:zohomail.com ~all	2026-11-10	none	none	none
 domartrailers.com	reject	domartrailers.com	v=DMARC1; p=reject; rua=mailto:a.9ose8xqi@sdmarc.net; ruf=mailto:f.9ose8xqi@sdmarc.net; adkim=r; aspf=r	100	yes	no_all	v=spf1 redirect=_s9ose8xqi.sdmarc.net	2026-11-10	v=STSv1; id=1794286664	v=TLSRPTv1; rua=mailto:reports@sendmarc.net	none
 domasante.com	none	domasante.com	v=DMARC1;p=none; rua=mailto:rapportdmarc@adikmedia.com	100	yes	hard_fail	v=spf1 a mx ip4:104.152.168.21 include:spf.hostwhitelabel.com include:_spf.google.com -all	2026-11-12	none	none	none
+domastairs.com	none	domastairs.com	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	no_record		2026-11-12	none	none	none
 domastudio.ca	quarantine	domastudio.ca	v=DMARC1;p=quarantine;	100	no	soft_fail	v=spf1 include:_spf.wpcloud.com include:_spf.google.com ~all	2026-11-12	none	none	none
 domastudio.com	no_record		no DMARC record at _dmarc.domastudio.com; confirmed by 8.8.8.8			hard_fail	v=spf1 -all	2026-11-12	none	none	none
 domatcha.com	none	domatcha.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:secureserver.net -all	2026-11-06	none	none	none
@@ -134557,6 +134602,7 @@ dramyseiberlich.com	none	dramyseiberlich.com	v=DMARC1; p=none; rua=mailto:dmarc@
 dramytung.com	none	dramytung.com	v=DMARC1; p=none; rua=mailto:bdf1fdfc58e248d2837b3ba6ea5e3a4c@dmarc-reports.cloudflare.net	100	yes	soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-12	none	none	none
 dranchakstudio.com	none	dranchakstudio.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 dranco.be	quarantine	dranco.be	v=DMARC1; p=quarantine; sp=quarantine; fo=1;	100	no	hard_fail	v=spf1 ip4:20.107.87.230 ip4:104.214.216.133 ip4:20.105.147.212 ip4:78.29.195.58 ip4:20.105.147.63 ip4:176.62.168.242 include:spf.protection.outlook.com include:spf.eu.exclaimer.net -all	2026-11-12	none	none	none
+dranco.com	no_record		no DMARC record at _dmarc.dranco.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 drandreaaraujo.com	no_record		no DMARC record at _dmarc.drandreaaraujo.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 drandreahickey.ca	none	drandreahickey.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spf.protection.outlook.com ~all	2026-11-10	none	none	none
 drandreruest.com	none	drandreruest.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:_spf.google.com +ip4:173.209.43.114 include:zeptomail.net include:zcsend.net -all	2026-11-10	none	none	none
@@ -136791,6 +136837,7 @@ dsflaw.ca	no_record		no DMARC record at _dmarc.dsflaw.ca; confirmed by 8.8.8.8		
 dsfltee.com	quarantine	dsfltee.com	v=DMARC1;p=quarantine;sp=quarantine;pct=100;rua=mailto:dmarc@dsfltee.com;ruf=mailto:dmarc@dsfltee.com;ri=86400;aspf=s;adkim=s;fo=0:1:d:s	100	yes	hard_fail	v=spf1 include:spf.smtp2go.com include:spf.protection.outlook.com include:spf.equipemicrofix.com include:spf.mandrillapp.com include:a3i260.smtp2go.com -all	2026-11-12	none	none	none
 dsfm.mb.ca	quarantine	dsfm.mb.ca	v=DMARC1; p=quarantine; rua=mailto:rapports_dmarc@dsfm.mb.ca;	100	yes	hard_fail	v=spf1 ip4:216.73.74.7 ip4:216.73.78.0/24 ip4:198.163.6.0/24 ip4:64.46.59.92/32 include:spf.protection.outlook.com include:customerspf.schoolmessenger.com include:_spf.alchemer-ca.com a:am1.mail.sharepointonline.com -all	2026-11-10	none	none	none
 dsgairsoft.ca	no_record		no DMARC record at _dmarc.dsgairsoft.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.dsgairsoft.ca ~all	2026-11-10	none	none	none
+dsgcanusa.com	no_record		no DMARC record at _dmarc.dsgcanusa.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.protection.outlook.com include:_netblocks.mimecast.com ~all	2026-11-12	none	none	none
 dsgingenierie.ca	no_record		no DMARC record at _dmarc.dsgingenierie.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 dsglaw.ca	none	dsglaw.ca	v=DMARC1; p=none;ruf=mailto:dsglaw@eu.cp-dmarc.com; rua=mailto:dsglaw@eu.cp-dmarc.com;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com exists:%{i}._spf.inkyphishfence.com -all	2026-11-10	none	none	none
 dsgmapparel.ca	none	dsgmapparel.ca	v=DMARC1; p=none	100	no	no_record		2026-11-11	none	none	none
@@ -137877,6 +137924,7 @@ durabuiltcommercial.com	no_record		no DMARC record at _dmarc.durabuiltcommercial
 duracare.ca	none	duracare.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
 duraclim.com	reject	duraclim.com	v=DMARC1; p=reject; pct=100	100	no	soft_fail	v=spf1 include:_spf.google.com include:sendersrv.com ~all	2026-11-10	none	none	none
 duracomm.com	quarantine	duracomm.com	v=DMARC1; p=quarantine; pct=100; rua=mailto:it@mce-llc.com; fo=1; sp=quarantine; aspf=r; adkim=r	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:spf-us.emailsignatures365.com include:secureserver.net include:aspmx.pardot.com include:_spf.salesforce.com -all	2026-11-10	none	none	none
+duraconconstruction.com	none	duraconconstruction.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf-us.ionos.com ~all	2026-11-12	none	none	none
 duraconstruction.ca	no_record		no DMARC record at _dmarc.duraconstruction.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 duracuir.ca	no_record		no DMARC record at _dmarc.duracuir.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 duracuire.ca	none	duracuire.ca	v=DMARC1; p=none; rua=mailto:dmarc@joe.io	100	yes	soft_fail	v=spf1 include:emailsrvr.com ~all	2026-11-06	none	none	none
@@ -142667,6 +142715,7 @@ edeniq.com	reject	edeniq.com	v=DMARC1;p=reject;pct=100;rua=mailto:7f4c225844@rua
 edenlanemuskoka.com	none	edenlanemuskoka.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
 edenmills.ca	none	edenmills.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 edennaturopathic.org	quarantine	edennaturopathic.org	v=DMARC1; p=quarantine; sp=quarantine; pct=100; adkim=s; aspf=s; rua=mailto:dmarc-reports@auvem.com	100	yes	hard_fail	v=spf1 include:mxroute.com -all	2026-11-12	none	none	none
+edenoak.com	quarantine	edenoak.com	v=DMARC1; p=quarantine; rua=mailto:administrator@edenoak.com; ruf=mailto:administrator@edenoak.com; fo=1	100	yes	hard_fail	v=spf1 include:clientspf.builderlynx.com include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 edenosteopathy.ca	no_record		no DMARC record at _dmarc.edenosteopathy.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.efwd.registrar-servers.com ~all	2026-11-12	none	none	none
 edenouest.ca	none	edenouest.ca	v=DMARC1;p=none; sp=none	100	no	soft_fail	v=spf1 a mx ip4:51.222.173.49 ip4:158.85.89.116 ip4:158.85.77.121 ~all	2026-11-10	none	none	none
 edenplacebelleville.ca	no_record		no DMARC record at _dmarc.edenplacebelleville.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spfc9.megamailservers.com ~all	2026-11-10	none	none	none
@@ -144075,6 +144124,7 @@ egglicious.ca	no_record		no DMARC record at _dmarc.egglicious.ca; confirmed by 8
 eggmedical.com	quarantine	eggmedical.com	v=DMARC1; p=quarantine; rua=mailto:na4nfhy0@ag.us.dmarcian.com;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:_spf-us.ppe-hosted.com -all	2026-11-12	none	none	none
 eggnoggames.com	no_record		no DMARC record at _dmarc.eggnoggames.com; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 eggplantsweats.com	no_record		no DMARC record at _dmarc.eggplantsweats.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-11	none	none	none
+eggray.com	none	eggray.com	v=DMARC1;p=none;rua=mailto:quarantine@eggray.com;	100	yes	soft_fail	v=spf1 include:appriver.com ~all	2026-11-12	none	none	none
 eggree.com	no_record		no DMARC record at _dmarc.eggree.com; confirmed by 8.8.8.8			hard_fail	v=spf1 +include:_netblocks.m.feishu.cn -all	2026-11-11	none	none	none
 eggsmedia.com	quarantine	eggsmedia.com	v=DMARC1; p=quarantine; rua=mailto:noreply@eggsmedia.com	100	yes	soft_fail	v=spf1 +a +mx include:eggsmedia.com.spf.auto.dnssmarthost.net +include:_spf.google.com ~all	2026-11-06	none	none	none
 eggsmorning.ca	no_record		no DMARC record at _dmarc.eggsmorning.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.eggsmorning.ca ~all	2026-11-06	none	none	none
@@ -145046,6 +145096,7 @@ electricaltrends.com	quarantine	electricaltrends.com	v=DMARC1; p=quarantine; rua
 electricalwizard.ca	none	electricalwizard.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf-us.ionos.com include:zcsend.ca ~all	2026-11-10	none	none	none
 electricandmorellc.com	none	electricandmorellc.com	v=DMARC1;p=none;sp=none;pct=100;rua=mailto:reports@dmarc.lnm-projects.com;ruf=mailto:reports@dmarc.lnm-projects.com;ri=86400;aspf=r;adkim=r;fo=1	100	yes	soft_fail	v=spf1 include:relayhost1.linknowmedia.cloud include:relayhost2.linknowmedia.cloud +a +mx +ip4:208.94.107.80 ~all	2026-11-11	none	none	none
 electricautonomy.com	none	electricautonomy.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 a mx include:_spf.google.com include:dc-aa8e722993._spfm.electricautonomy.com include:hubspotemail.net ~all	2026-11-11	none	none	none
+electricavenue.com	no_record		no DMARC record at _dmarc.electricavenue.com; confirmed by 8.8.8.8			hard_fail	v=spf1 -all	2026-11-12	none	none	none
 electricavenuesaguenay.ca	none	electricavenuesaguenay.ca	v=DMARC1; p=none; aspf=r; adkim=r;	100	no	soft_fail	v=spf1 +a +mx +ip4:35.215.84.8  include:electricavenuesaguenay.ca.spf.auto.dnssmarthost.net ~all	2026-11-10	none	none	none
 electricbargainstores.com	none	electricbargainstores.com	v=DMARC1; p=none;	100	no	no_record		2026-11-11	none	none	none
 electricbikestore.com	none	electricbikestore.com	v=DMARC1; p=none; pct=100; rua=mailto:re+nbmtvrcbmpz@dmarc.postmarkapp.com; sp=none; aspf=r;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:one.zoho.com -all	2026-11-11	none	none	none
@@ -147728,6 +147779,7 @@ emberconsultants.ca	none	emberconsultants.ca	v=DMARC1; p=none	100	no	soft_fail	v
 embercore.ca	no_record		no DMARC record at _dmarc.embercore.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 embercounselling.ca	none	embercounselling.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 emberelectric.ca	no_record		no DMARC record at _dmarc.emberelectric.ca; confirmed by 8.8.8.8			no_all	v=spf1 include:_spf.hostedemail.com &#45;all	2026-11-10	none	none	none
+emberelectric.com	none	emberelectric.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:192.250.237.67 include:spf.mysecurecloudhost.com +a +mx +ip4:66.226.150.1 include:_hostingspf.doteasy.com ~all	2026-11-12	none	none	none
 emberexperience.ca	reject	emberexperience.ca	v=DMARC1; p=reject; rua=mailto:39f4080b3ace449282e20c74f998a10c@dmarc-reports.cloudflare.net,mailto:f2a043c1c5d0679@rep.dmarcanalyzer.com; ruf=mailto:f2a043c1c5d0679@rep.dmarcanalyzer.com	100	yes	hard_fail	v=spf1 ip4:50.31.47.101 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 emberfireplaces.com	none	emberfireplaces.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 a:dispatch-us.ppe-hosted.com include:secureserver.net -all	2026-11-12	none	none	none
 emberfitness.ca	none	emberfitness.ca	v=DMARC1; p=none; rua=mailto:postmaster@emberfitness.ca, mailto:dmarc@emberfitness.ca; pct=100; adkim=s; aspf=s	100	yes	soft_fail	v=spf1 include:_spf.google.com include:_spf.reach.hostinger.com ~all	2026-11-04			
@@ -149803,6 +149855,7 @@ enerprox.com	no_record		no DMARC record at _dmarc.enerprox.com; confirmed by 8.8
 enerpure.tech	none	enerpure.tech	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 enerqicenter.com	none	enerqicenter.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
 enerqihealing.ca	quarantine	enerqihealing.ca	v=DMARC1; p=quarantine;	100	no	neutral	v=spf1 mx a include:spf.easyonnet.com ?all	2026-11-10	none	none	none
+enerquality.ca	none	enerquality.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:107.161.37.90 include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 enersaveny.com	no_record		no DMARC record at _dmarc.enersaveny.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_hostingspf.doteasy.com ~all	2026-11-11	none	none	none
 enersaver.ca	no_record		no DMARC record at _dmarc.enersaver.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 enersavesolutions.ca	none	enersavesolutions.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-12	none	none	none
@@ -150229,6 +150282,7 @@ enlivenmuskoka.ca	no_record		no DMARC record at _dmarc.enlivenmuskoka.ca; confir
 enlivenshopstudio.com	no_record		no DMARC record at _dmarc.enlivenshopstudio.com; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 enlivenskills.com	no_record		no DMARC record at _dmarc.enlivenskills.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:162.254.39.142 +ip4:66.29.153.192 include:spf.web-hosting.com +ip4:162.254.39.145 ~all	2026-11-10	none	none	none
 enliventech.ca	no_record		no DMARC record at _dmarc.enliventech.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
+enmarelectrical.com	reject	enmarelectrical.com	v=DMARC1; p=reject; sp=reject; ruf=mailto:enzo@enmarelectrical.com;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 enmarge.ca	none	enmarge.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 enmarge1217.ca	none	enmarge1217.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:72.10.163.42 ip4:158.85.89.116 ip4:158.85.77.121 include:spf.protection.outlook.com ~all	2026-11-06	none	none	none
 enmarhomes.ca	no_record		no DMARC record at _dmarc.enmarhomes.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 +mx +a +ip4:162.241.253.81 ~all	2026-11-11	none	none	none
@@ -154734,6 +154788,7 @@ etiennelemelinsf.ca	none	etiennelemelinsf.ca	v=DMARC1; p=none;	100	no	soft_fail	
 etienneortega.com	none	etienneortega.com	v=DMARC1; p=none; pct=100; rua=mailto:re+vqq1ni5x8ay@dmarc.postmarkapp.com; sp=none; aspf=r;	100	yes	no_record		2026-11-11	none	none	none
 etiglobal.org	quarantine	etiglobal.org	v=DMARC1; p=quarantine; rua=mailto:dmarc_agg@vali.email; ruf=mailto:gerry@interpool-hosting.com; pct=100;	100	yes	soft_fail	v=spf1 mx a ~all	2026-11-10	none	none	none
 etiko.ca	none	etiko.ca	v=DMARC1; p=none; rua=mailto:dmarc_rua@onsecureserver.net	100	yes	hard_fail	v=spf1 include:spf.em.secureserver.net include:secureserver.net -all	2026-11-10	none	none	none
+etim-na.org	none	etim-na.org	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:7167833.spf08.hubspotemail.net -all	2026-11-12	none	none	none
 etincelle.ca	none	etincelle.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:servers.mcsv.net ip4:70.50.164.197 ip4:207.134.237.251 ip4:174.142.128.221 ip4:207.253.217.8 ip4:207.253.217.2 ip4:207.253.217.3 -all	2026-11-06	none	none	none
 etincelleapprentissage.ca	no_record		no DMARC record at _dmarc.etincelleapprentissage.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 etincellecreative.ca	no_record		no DMARC record at _dmarc.etincellecreative.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:zoho.com ~all	2026-11-12	none	none	none
@@ -155807,7 +155862,7 @@ everdry.ca	no_record		no DMARC record at _dmarc.everdry.ca; confirmed by 8.8.8.8
 everemblem.com	quarantine	everemblem.com	v=DMARC1; p=quarantine; rua=mailto:wbojs90f@ag.us.dmarcian.com;	100	yes	soft_fail	v=spf1 include:spf.privateemail.com ~all	2026-11-11	none	none	none
 everest-construction.ca	no_record		no DMARC record at _dmarc.everest-construction.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com ip4:199.16.129.199 -all	2026-11-10	none	none	none
 everest-construction.com	none	everest-construction.com	v=DMARC1;p=none;sp=none;pct=100;rua=mailto:reports@dmarc.lnm-projects.com;ruf=mailto:reports@dmarc.lnm-projects.com;ri=86400;aspf=r;adkim=r;fo=1	100	yes	soft_fail	v=spf1 include:relayhost1.linknowmedia.cloud include:relayhost2.linknowmedia.cloud +a +mx +ip4:208.94.107.112 ~all	2026-11-10	none	none	none
-everest.ca	error		LifetimeTimeout			error		2026-11-12	none	none	none
+everest.ca	error		no nameservers			error		2026-11-12	none	none	none
 everestabm.ca	no_record		no DMARC record at _dmarc.everestabm.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:zohocloud.ca ~all	2026-11-12	none	none	none
 everestacademy.com	no_record		no DMARC record at _dmarc.everestacademy.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 everestadvisory.ca	none	everestadvisory.ca	v=DMARC1; p=none; rua=mailto:pratishtha@luminalaw.ca	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
@@ -160572,6 +160627,7 @@ famillefontaine.ca	none	famillefontaine.ca	v=DMARC1;p=none;	100	no	hard_fail	v=s
 famillefontaine.com	no_record		no DMARC record at _dmarc.famillefontaine.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:mx.ovh.com ~all	2026-11-06	none	none	none
 famillelouishoude.com	none	famillelouishoude.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 a mx ip4:67.43.228.154 ip4:158.85.89.116 ip4:158.85.77.121 ~all	2026-11-12	none	none	none
 famillematte.org	none	famillematte.org	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:173.209.32.66 include:spf.web-dns1.com ~all	2026-11-12	none	none	none
+famillemigneron.com	reject	famillemigneron.com	v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:dmarc@famillemigneron.com;	100	yes	hard_fail	v=spf1 ip4:207.126.101.0/24 -all	2026-11-12	none	none	none
 famillemirabel.com	no_record		no DMARC record at _dmarc.famillemirabel.com; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:_spf.google.com ~all	2026-11-04			
 famillemyriam.org	none	famillemyriam.org	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:66.102.137.130 +a +mx +ip4:69.90.163.90 +include:spf.hostpapa.com ~all	2026-11-10	none	none	none
 famillenomade.ca	none	famillenomade.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 a mx ip4:209.16.158.18 ~all	2026-11-11	none	none	none
@@ -162326,11 +162382,13 @@ fdlconsulting.ca	none	fdlconsulting.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 
 fdlelectric.com	none	fdlelectric.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spfc40.carrierzone.com ~all	2026-11-12	none	none	none
 fdlhealing.com	no_record		no DMARC record at _dmarc.fdlhealing.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 fdm-to.ca	no_record		no DMARC record at _dmarc.fdm-to.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
+fdmdesigns.com	none	fdmdesigns.com	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:secureserver.net include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 fdmggroup.com	no_record		no DMARC record at _dmarc.fdmggroup.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf-usg2.ppe-hosted.com include:secureserver.net ~all	2026-11-12	none	none	none
 fdmortgage.ca	no_record		no DMARC record at _dmarc.fdmortgage.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 fdmt.ca	none	fdmt.ca	v=DMARC1; p=none; rua=mailto:a.velasquez@fdmt.ca; ruf=mailto:a.velasquez@fdmt.ca; fo=1	100	yes	soft_fail	v=spf1 include:spf.protection.outlook.com include:spf.mandrillapp.com include:spf.k-ecommerce.com include:spf-ca.emailsignatures365.com ~all	2026-11-06	none	none	none
 fdplastics.com	quarantine	fdplastics.com	v=DMARC1; p=quarantine; sp=quarantine; rua=mailto:itms@fdplastics.com; fo=1; pct=100;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:server274.smtp-spf.sureserver.com include:spf.mtasv.net -all	2026-11-10	none	none	none
 fdr.on.ca	quarantine	fdr.on.ca	v=DMARC1; p=quarantine; rua=mailto:slfmxprw@ag.us.dmarcian.com; ruf=mailto:slfmxprw@fr.us.dmarcian.com;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:spf.ca.exclaimer.net include:spf.myconnectwise.net -all	2026-11-10	none	none	none
+fdrelectroservices.ca	none	fdrelectroservices.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:66.102.128.200 ip4:64.34.65.20 +a +mx +ip4:69.28.199.30 +include:spf.antispamcloud.com +include:spf.websiteservername.com +include:relay.mailchannels.net ~all	2026-11-12	none	none	none
 fdrfab.com	no_record		no DMARC record at _dmarc.fdrfab.com; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 fdria.ca	none	fdria.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
 fdrio.ca	none	fdrio.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:51.161.14.84 include:spf.web-dns1.com +mx +a +ip4:54.39.100.142 +include:_spf.membeemail.com ~all	2026-11-06	none	none	none
@@ -162698,6 +162756,7 @@ feldmandaxon.com	reject	feldmandaxon.com	v=DMARC1; p=reject	100	no	hard_fail	v=s
 feldmanlawyers.ca	quarantine	feldmanlawyers.ca	v=DMARC1; p=quarantine; pct=100;	100	no	soft_fail	v=spf1 ip4:76.9.221.114 ip4:51.79.18.178 include:spf.protection.outlook.com ~all	2026-11-10	none	none	none
 feldsparceramics.com	none	feldsparceramics.com	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 feldstein.ca	none	feldstein.ca	v=DMARC1; p=none; pct=100	100	no	hard_fail	v=spf1 include:_spf.psm.knowbe4.com include:spf.protection.outlook.com -all	2026-11-10	none	none	none
+feldtelectric.com	no_record		no DMARC record at _dmarc.feldtelectric.com; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx ptr include:secureserver.net ~all	2026-11-12	none	none	none
 feledlighting.com	no_record		no DMARC record at _dmarc.feledlighting.com; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:15.235.65.74 include:spf.web-dns1.com +a +mx +ip4:54.39.100.97 ~all	2026-11-10	none	none	none
 felfrost.ca	no_record		no DMARC record at _dmarc.felfrost.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 mx include:netblocks.dreamhost.com include:relay.mailchannels.net -all	2026-11-10	none	none	none
 felgenwerks.com	no_record		no DMARC record at _dmarc.felgenwerks.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-11	none	none	none
@@ -165323,6 +165382,7 @@ finnclothing.com	none	finnclothing.com	v=DMARC1; p=none	100	no	no_record		2026-1
 finnconstruction.ca	no_record		no DMARC record at _dmarc.finnconstruction.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:107.161.37.19 include:spf.mxprotection.net ip4:107.161.37.12 ip4:192.238.12.7 ip4:162.223.225.10 ip4:162.223.225.6 include:spf.protection.outlook.com +a +mx ~all	2026-11-06	none	none	none
 finneganandco.ca	no_record		no DMARC record at _dmarc.finneganandco.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 finneganinsurance.ca	quarantine	finneganinsurance.ca	v=DMARC1; p=quarantine; pct=100; rua=mailto:a.ty0tu2zz@reports.hornetdmarc.com	100	yes	no_all	v=spf1 redirect=finneganinsurance.ca.spf.hornetdmarc.com	2026-11-10	none	none	none
+finneganmarshall.com	none	finneganmarshall.com	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	hard_fail	v=spf1 ip4:65.60.38.74 include:spf.greengeeks.net ip4:65.60.34.202 +mx +a +a:dispatch-eu.ppe-hosted.com +ip4:65.60.34.202 +ip4:185.183.29.33 +ip4:173.209.43.16 -all	2026-11-12	none	none	none
 finney-co.com	none	finney-co.com	v=DMARC1; p=none; rua=mailto:store@finney-co.com	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 finngo.com	quarantine	finngo.com	v=DMARC1; p=quarantine;	100	no	soft_fail	v=spf1 include:spf.smtp2go.com include:_spf.google.com ~all	2026-11-10	none	none	none
 finngoods.com	none	finngoods.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:162.244.239.244 +ip4:162.244.239.124 +ip4:198.178.116.238 include:relay.mailchannels.net include:spf.protection.outlook.com ~all	2026-11-10	none	none	none
@@ -167355,6 +167415,7 @@ flashbacktechnologies.com	no_record		no DMARC record at _dmarc.flashbacktechnolo
 flashbackwhistler.ca	none	flashbackwhistler.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf-usg1.ppe-hosted.com include:secureserver.net ~all	2026-11-10	none	none	none
 flashbattery.ca	none	flashbattery.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:63.250.38.127 +ip4:66.29.137.57 include:spf.web-hosting.com ~all	2026-11-12	none	none	none
 flashbeeconnect.com	reject	flashbeeconnect.com	v=DMARC1; p=reject; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
+flashbeelogistics.com	no_record		no DMARC record at _dmarc.flashbeelogistics.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 flashbird.ca	none	flashbird.ca	v=DMARC1; p=none; rua=mailto:andyfang@flashbird.ca	100	yes	soft_fail	v=spf1 include:dc-aa8e722993._spfm.flashbird.ca ~all	2026-11-06	none	none	none
 flashbooks.ca	none	flashbooks.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 flashboum.com	quarantine	flashboum.com	v=DMARC1;p=quarantine;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	soft_fail	v=spf1 ip4:15.235.55.224 include:spf.web-dns1.com ip4:54.39.100.84 +a +mx +ip4:158.69.54.97 +include:web-dns1.com ~all	2026-11-12	none	none	none
@@ -171782,6 +171843,7 @@ fortiscleaning.ca	none	fortiscleaning.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf
 fortisconstruction.ca	no_record		no DMARC record at _dmarc.fortisconstruction.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 fortiscorporation.com	quarantine	fortiscorporation.com	v=DMARC1; p=quarantine; rua=mailto:dmarc_agg@vali.email,mailto:dmarcreports.sydney@firstwavecloud.com; adkim=s; aspf=s;	100	yes	hard_fail	v=spf1 include:spf.firstcloudsecurity.net include:outbound.smtp.wisestamp.net include:spf.sendinblue.com include:spf.protection.outlook.com ip4:216.197.229.125 -all	2026-11-11	none	none	none
 fortisdentalclinic.ca	none	fortisdentalclinic.ca	v=DMARC1; p=none; rua=mailto:postmaster@fortisdentalclinic.ca, mailto:dmarc@fortisdentalclinic.ca; pct=100; adkim=s; aspf=s	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
+fortiselectric.com	quarantine	fortiselectric.com	v=DMARC1; p=quarantine; pct=100; rua=mailto:dherce@fortiselectric.com	100	yes	hard_fail	v=spf1 +ip4:162.241.224.200 +include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 fortiselite.com	no_record		no DMARC record at _dmarc.fortiselite.com; confirmed by 8.8.8.8			hard_fail	v=spf1 a:dispatch-us.ppe-hosted.com include:secureserver.net -all	2026-11-11	none	none	none
 fortisenv.ca	no_record		no DMARC record at _dmarc.fortisenv.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.fortisenv.ca ~all	2026-11-11	none	none	none
 fortisfaucet.com	no_record		no DMARC record at _dmarc.fortisfaucet.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
@@ -171936,6 +171998,7 @@ fortune-casino.ca	no_record		no DMARC record at _dmarc.fortune-casino.ca; confir
 fortune.ca	no_record		no DMARC record at _dmarc.fortune.ca; confirmed by 8.8.8.8			no_record		2026-11-04			
 fortunebaycorp.com	none	fortunebaycorp.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com ip4:107.180.58.74 -all	2026-11-06	none	none	none
 fortunebuildingsupply.ca	no_record		no DMARC record at _dmarc.fortunebuildingsupply.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
+fortuneccp.com	none	fortuneccp.com	v=DMARC1; p=none; rua=mailto:dmarc@fortuneccp.com	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 fortuneconsultancy.ca	no_record		no DMARC record at _dmarc.fortuneconsultancy.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
 fortunecreekcabins.ca	no_record		no DMARC record at _dmarc.fortunecreekcabins.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 fortunedental.ca	reject	fortunedental.ca	v=DMARC1; p=reject; fo=1; pct=100	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
@@ -175000,12 +175063,15 @@ fromageriedescantons.com	none	fromageriedescantons.com	v=DMARC1; p=none; rua=mai
 fromageriedesgrondines.com	no_record		no DMARC record at _dmarc.fromageriedesgrondines.com; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
 fromageriedulittoral.com	quarantine	fromageriedulittoral.com	v=DMARC1; p=quarantine; adkim=s; aspf=s	100	no	neutral	v=spf1 +a +mx +a:serveurkaleidos.com ?all	2026-11-10	none	none	none
 fromageriedupieddevent.com	no_record		no DMARC record at _dmarc.fromageriedupieddevent.com; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
+fromagerieetchemin.com	no_record		no DMARC record at _dmarc.fromagerieetchemin.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com include:_spf.wix.com -all	2026-11-12	none	none	none
 fromageriefuoco.com	none	fromageriefuoco.com	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 fromageriegilbert.net	no_record		no DMARC record at _dmarc.fromageriegilbert.net; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx ip4:207.134.74.172 ip4:158.69.74.143 include:spf.protection.outlook.com include:_spf.google.com ~all	2026-11-10	none	none	none
 fromageriegourmande.ca	no_record		no DMARC record at _dmarc.fromageriegourmande.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 fromagerielastation.com	none	fromagerielastation.com	v=DMARC1; p=none	100	no	hard_fail	v=spf1 mx ip4:192.252.132.219 ip4:192.252.132.213 include:spf.protection.outlook.com include:centrixmail.com -all	2026-11-10	none	none	none
 fromagerieledetour.ca	none	fromagerieledetour.ca	v=DMARC1;p=none; sp=none	100	no	soft_fail	v=spf1 a mx ip4:72.10.168.122 ip4:158.85.89.116 ip4:158.85.77.121 ~all	2026-11-10	none	none	none
 fromagerielemetayer.com	no_record		no DMARC record at _dmarc.fromagerielemetayer.com; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:66.102.137.52 +a +mx +ip4:69.90.162.180 +include:spf.hostpapa.com +ip4:69.28.199.160 +include:spf.antispamcloud.com +include:spf.antispamcloud.com ~all	2026-11-10	none	none	none
+fromagerielesrivieres.com	none	fromagerielesrivieres.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:192.250.237.219 include:spf.mysecurecloudhost.com ~all	2026-11-12	none	none	none
+fromageriemariekade.com	no_record		no DMARC record at _dmarc.fromageriemariekade.com; confirmed by 8.8.8.8			neutral	v=spf1  a mx ptr include:websitewelcome.com ?all	2026-11-12	none	none	none
 fromagerienouvellefrance.com	reject	fromagerienouvellefrance.com	v=DMARC1;p=reject; rua=mailto:support@kreasoft.ca	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com ip4:167.114.118.235 -all	2026-11-10	none	none	none
 fromageriepei.com	no_record		no DMARC record at _dmarc.fromageriepei.com; confirmed by 8.8.8.8			neutral	v=spf1 include:_spf.google.com ?all	2026-11-10	none	none	none
 fromagerieperron.com	none	fromagerieperron.com	v=DMARC1; p=none; pct=100; rua=mailto:re+pvruhoqmqb8@dmarc.postmarkapp.com; sp=none; aspf=r;	100	yes	hard_fail	v=spf1 +ip4:68.71.59.194 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
@@ -175017,6 +175083,7 @@ fromagerievictoria.com	quarantine	fromagerievictoria.com	v=DMARC1;p=quarantine;s
 fromagesbergeron.com	quarantine	fromagesbergeron.com	v=DMARC1; p=quarantine; pct=100	100	no	soft_fail	v=spf1 mx a include:spf.mscloud.ca include:spf.protection.outlook.com ip4:147.253.143.162 include:_spf.elasticemail.com ~all	2026-11-11	none	none	none
 fromagesduquebec.qc.ca	none	fromagesduquebec.qc.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:mailgun.org include:spf.protection.outlook.com ~all	2026-11-06	none	none	none
 fromagestalbert.com	none	fromagestalbert.com	v=DMARC1; p=none; rua=mailto:ipm3zii@ar.glockapps.com; ruf=mailto:ipm3zii@fr.glockapps.com; adkim=r; aspf=r; fo=1; sp=reject; ri=604800;	100	yes	hard_fail	v=spf1 ip4:207.236.109.154 include:spf.protection.outlook.com include:_spf.psm.knowbe4.com -all	2026-11-10	none	none	none
+fromagex.com	quarantine	fromagex.com	v=DMARC1; p=quarantine; rua=mailto:dmarc@fromagex.com; ruf=mailto:dmarc@fromagex.com; fo=1	100	yes	hard_fail	v=spf1 a:perrontelecom.ca a:smtp.cogeco.ca ip4:70.33.224.141 ip4:209.104.101.136 ip4:216.250.240.69 ip4:167.99.177.113 ip4:216.250.240.76 include:spf.protection.outlook.com include:spf.emailsignatures365.com include:23780611.spf07.hubspotemail.net -all	2026-11-12	none	none	none
 fromanother.ca	none	fromanother.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-06	none	none	none
 fromanslandscaping.ca	none	fromanslandscaping.ca	v=DMARC1; p=none;	100	no	no_record		2026-11-10	none	none	none
 fromashes.ca	no_record		no DMARC record at _dmarc.fromashes.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
@@ -175109,6 +175176,7 @@ frontdeal.ca	none	frontdeal.ca	v=DMARC1; p=none; adkim=r; aspf=r	100	no	soft_fai
 frontdesksuite.com	none	frontdesksuite.com	v=DMARC1; p=none; rua=mailto:dmarc@inbound.flowmailer.net; ruf=mailto:dmarc@inbound.flowmailer.net; fo=1	100	yes	hard_fail	v=spf1 include:spf.flowmailer.net include:spf.protection.outlook.com include:u1646432.wl183.sendgrid.net -all	2026-11-10	none	none	none
 frontdesksupply.com	none	frontdesksupply.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +ip4:35.209.4.62 include:frontdesksupply.com.spf.auto.dnssmarthost.net include:sendgrid.net include:_spf.google.com ~all	2026-11-11	none	none	none
 frontdoorbeauty.com	no_record		no DMARC record at _dmarc.frontdoorbeauty.com; confirmed by 8.8.8.8			hard_fail	v=spf1 a:dispatch-us.ppe-hosted.com include:secureserver.net -all	2026-11-10	none	none	none
+frontdoordevelopments.com	none	frontdoordevelopments.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 frontdoormedia.ca	none	frontdoormedia.ca	v=DMARC1;p=none;	100	no	soft_fail	v=spf1 include:_spf.wpcloud.com include:spf.titan.email ~all	2026-11-10	none	none	none
 frontech.ca	reject	frontech.ca	v=DMARC1; p=reject; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	no_record		2026-11-10	none	none	none
 frontenacconciergenursing.ca	no_record		no DMARC record at _dmarc.frontenacconciergenursing.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:zohocloud.ca ~all	2026-11-12	none	none	none
@@ -176985,6 +177053,7 @@ futuristicvapes.com	none	futuristicvapes.com	v=DMARC1; p=none; rua=mailto:info@f
 futurizecanada.ca	no_record		no DMARC record at _dmarc.futurizecanada.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
 futuroclub.ca	no_record		no DMARC record at _dmarc.futuroclub.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 futurospective.com	no_record		no DMARC record at _dmarc.futurospective.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
+futurplus.ca	none	futurplus.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 mx ip4:72.0.192.117 ip4:64.235.193.4 ip4:72.0.192.121 include:spf.protection.outlook.com include:email.freshdesk.com  include:sendgrid.net ~all	2026-11-12	none	none	none
 futurpreneur.ca	reject	futurpreneur.ca	v=DMARC1;p=reject;rua=mailto:ec818c4bcc@rua.easydmarc.us,mailto:ITservices@futurpreneur.ca;ruf=mailto:ec818c4bcc@ruf.easydmarc.us,mailto:itservices@futurpreneur.ca;fo=0:1:d:s	100	yes	soft_fail	v=spf1 include:_spf.futurpreneur_ca._d.easydmarc.pro ~all	2026-11-06	none	none	none
 futurpreneurfoundation.ca	none	futurpreneurfoundation.ca	v=DMARC1;p=none;rua=mailto:ec818c4bcc@rua.ca.easydmarc.com;ruf=mailto:ec818c4bcc@ruf.ca.easydmarc.com;fo=1;	100	yes	soft_fail	v=spf1 include:_spf.futurpreneurfoundation_ca._d.easydmarc.pro ~all	2026-11-10	none	none	none
 futurpruf.com	none	futurpruf.com	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100	100	no	soft_fail	v=spf1 include:_spf.google.com include:44637301.spf02.hubspotemail.net ~all	2026-11-12	none	none	none
@@ -177388,6 +177457,7 @@ gabrielcosmeticsinc.com	none	gabrielcosmeticsinc.com	v=DMARC1; p=none	100	no	sof
 gabrielcosta.ca	no_record		no DMARC record at _dmarc.gabrielcosta.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 gabrielduquette.ca	none	gabrielduquette.ca	v=DMARC1; p=none; rua=mailto:info@gabrielduquette.ca; fo=1; adkim=r; aspf=r	100	yes	soft_fail	v=spf1 a mx ip4:147.93.119.82 include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 gabrielepoggiali.com	no_record		no DMARC record at _dmarc.gabrielepoggiali.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
+gabrielexcavating.com	none	gabrielexcavating.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:40.160.24.203 include:relay.mailchannels.net + include:_spf.hostedemail.com ~all	2026-11-12	none	none	none
 gabrielfolk.ca	no_record		no DMARC record at _dmarc.gabrielfolk.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 gabrielfrank.ca	no_record		no DMARC record at _dmarc.gabrielfrank.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:67.208.45.200 include:spf.greengeeks.net +ip4:173.236.25.210 +include:relay.mailchannels.net ~all	2026-11-12	none	none	none
 gabrielguaypaysagiste.com	no_record		no DMARC record at _dmarc.gabrielguaypaysagiste.com; confirmed by 8.8.8.8			no_record		2026-11-04			
@@ -180230,6 +180300,7 @@ gefm.ca	none	gefm.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:66.102.137.15
 gefo.ca	none	gefo.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 +a +mx +ip4:67.222.8.147 +include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 gegconseils.ca	no_record		no DMARC record at _dmarc.gegconseils.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:68.168.124.162 include:spf.web-dns1.com +a +mx +ip4:173.209.33.167 +ip4:173.209.33.162 ~all	2026-11-10	none	none	none
 gegd.ca	none	gegd.ca	v=DMARC1;p=none; sp=none	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
+gegra.ca	no_record		no DMARC record at _dmarc.gegra.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 gehaperformance.com	no_record		no DMARC record at _dmarc.gehaperformance.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.privateemail.com ~all	2026-11-12	none	none	none
 gehcpa.com	none	gehcpa.com	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 gehlfoods.com	none	gehlfoods.com	v=DMARC1; p=none; rua=mailto:dmarcreport@gehlfoods.com	100	yes	soft_fail	v=spf1 include:us._netblocks.mimecast.com ~all	2026-11-11	none	none	none
@@ -181073,6 +181144,7 @@ gentechinternational.ca	no_record		no DMARC record at _dmarc.gentechinternationa
 gentechservices.ca	none	gentechservices.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 gentecmortgage.com	none	gentecmortgage.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 a mx include:_spf.elasticemail.com ~all	2026-11-12	none	none	none
 gentegra.com	reject	gentegra.com	v=DMARC1; p=reject; rua=mailto:ogr0zpds@ag.us.dmarcian.com;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:_spf.smtp.com include:servers.mcsv.net -all	2026-11-12	none	none	none
+gentehomes.com	no_record		no DMARC record at _dmarc.gentehomes.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 gentek.ca	reject	gentek.ca	v=DMARC1; p=reject; rua=mailto:475f9e08d60b316@rep.dmarcanalyzer.com; ruf=mailto:475f9e08d60b316@for.dmarcanalyzer.com; fo=1;	100	yes	no_all	v=spf1 redirect=29j97u39._spf._d.mim.ec	2026-11-12	none	none	none
 gentekbuildingproducts.com	no_record		no DMARC record at _dmarc.gentekbuildingproducts.com; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 gentekpower.ca	none	gentekpower.ca	v=DMARC1; p=none; rua=mailto:dmarc_rua@onsecureserver.net	100	yes	soft_fail	v=spf1 include:spf.em.secureserver.net include:dc-aa8e722993._spfm.gentekpower.ca ~all	2026-11-11	none	none	none
@@ -186185,6 +186257,7 @@ gmeelectrique.com	no_record		no DMARC record at _dmarc.gmeelectrique.com; confir
 gmelatti.ca	quarantine	gmelatti.ca	v=DMARC1; p=quarantine; pct=100; rua=mailto:rua@gmelatti.ca; ruf=mailto:ruf@gmelatti.ca	100	yes	hard_fail	v=spf1 ip4:206.55.91.136/29 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 gmeloex.com	none	gmeloex.com	v=DMARC1; p=none; sp=none; fo=0; ri=604800; rua=mailto:support@fossie.ca; ruf=mailto:support@fossie.ca	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 gmeng.ca	none	gmeng.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:mx1.idig.net include:mx2.idig.net include:mx3.idig.net +mx +a +ip4:67.231.20.80 +ip4:64.34.111.253 +ip4:64.34.111.235 +ip4:64.34.111.239 +include:spf.idig.net ~all	2026-11-10	none	none	none
+gmercer.com	none	gmercer.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 gmethrift.com	none	gmethrift.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 gmex.com	none	gmex.com	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email;	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 gmexcavation.ca	quarantine	gmexcavation.ca	v=DMARC1;p=quarantine;sp=none;adkim=r;aspf=r;pct=5;fo=1;rf=afrf;ri=86400;rua=mailto:dmarc@gmexcavation.ca;ruf=mailto:dmarc@gmexcavation.ca	5	yes	soft_fail	v=spf1 a mx ip4:148.113.200.68 ip4:67.205.73.193 ~all	2026-11-12	none	none	none
@@ -186228,6 +186301,7 @@ gmlabs.ca	no_record		no DMARC record at _dmarc.gmlabs.ca; confirmed by 8.8.8.8		
 gmlarmy.com	no_record		no DMARC record at _dmarc.gmlarmy.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com include:amazonses.com include:one.zoho.com ~all	2026-11-12	none	none	none
 gmld.ca	none	gmld.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 gmleblanc.ca	none	gmleblanc.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 a mx ip4:104.152.168.22 include:spf.hostwhitelabel.com ~all	2026-11-10	none	none	none
+gmlighting.net	reject	gmlighting.net	v=DMARC1; p=reject; pct=100; rua=mailto:itsupport@gmlighting.net; ruf=mailto:itsupport@gmlighting.net	100	yes	hard_fail	v=spf1 ip4:12.217.143.42 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 gmlinc.ca	quarantine	gmlinc.ca	v=dmarc1; p=quarantine; pct=100; rua=mailto:d@rua.agari.com; ruf=mailto:d@ruf.agari.com; fo=1	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 gmllp.ca	none	gmllp.ca	v=DMARC1; p=none	100	no	hard_fail	v=spf1 ip4:198.55.57.1/32 ip4:206.223.185.199/32 include:squarespace-mail.com include:spf.protection.outlook.com include:spfa.cpmails.com -all	2026-11-10	none	none	none
 gmltechni.ca	none	gmltechni.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:66.102.133.175 ip4:66.102.133.242 +a +mx +ip4:64.34.75.141 +include:spf.hostpapa.com +ip4:69.90.162.170 +include:_spf.hostedemail.com ~all	2026-11-10	none	none	none
@@ -186832,6 +186906,7 @@ goedeten.ca	no_record		no DMARC record at _dmarc.goedeten.ca; confirmed by 8.8.8
 goedomega3.com	none	goedomega3.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 mx include:servers.mcsv.net include:_spf.google.com include:22454452.spf04.hubspotemail.net include:sendgrid.net include:amazonses.com ~all	2026-11-06	none	none	none
 goel-tech.ca	no_record		no DMARC record at _dmarc.goel-tech.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 goelectricalinc.ca	no_record		no DMARC record at _dmarc.goelectricalinc.ca; confirmed by 8.8.8.8			no_record		2026-11-06	none	none	none
+goelectricave.com	quarantine	goelectricave.com	v=DMARC1; p=quarantine; sp=quarantine	100	no	soft_fail	v=spf1 include:spf.protection.outlook.com include:mail.zendesk.com include:22805556.spf08.hubspotemail.net include:servers.mcsv.net ~all	2026-11-12	none	none	none
 goelectricite.com	quarantine	goelectricite.com	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-04			
 goeliche.ca	no_record		no DMARC record at _dmarc.goeliche.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf-orm.oricom.ca ~all	2026-11-11	none	none	none
 goelimmigration.com	error		no nameservers			error		2026-11-12	none	none	none
@@ -189143,7 +189218,7 @@ gotbots.net	quarantine	gotbots.net	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=
 gotbranding.ca	reject	gotbranding.ca	v=DMARC1; p=reject; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 gotc.ca	no_record		no DMARC record at _dmarc.gotc.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:_spf_whitelisted-block.cloudaccess.net ~all	2026-11-12	none	none	none
 gotcare.ca	none	gotcare.ca	v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com	100	yes	hard_fail	v=spf1 include:_spf.google.com a:spf10.webnames.ca include:_spf.salesforce.com -all	2026-11-10	none	none	none
-gotchainvestigations.ca	error		LifetimeTimeout			error		2026-11-12	none	none	none
+gotchainvestigations.ca	error		no nameservers			error		2026-11-12	none	none	none
 gotchainvestigationsinc.ca	none	gotchainvestigationsinc.ca	v=DMARC1; p=none; rua=mailto:info@gotchainvestigationsinc.ca; ruf=mailto:info@gotchainvestigationsinc.ca; sp=none; aspf=r;	100	yes	soft_fail	v=spf1 include:_spf.google.com include:_spf.wpcloud.com ~all	2026-11-10	none	none	none
 gotcher-beaver.com	none	gotcher-beaver.com	v=DMARC1; p=none; rua=mailto:nulls@gotcher-beaver.com	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 gotconsent.ca	no_record		no DMARC record at _dmarc.gotconsent.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
@@ -191160,6 +191235,7 @@ gravurerobitaille.com	none	gravurerobitaille.com	v=DMARC1; p=none; rua=mailto:dm
 gravuresboisfrancs.com	quarantine	gravuresboisfrancs.com	v=DMARC1; p=quarantine; rua=mailto:rapportdmarc@gravuresboisfrancs.com; ruf=mailto:rapportdmarc@gravuresboisfrancs.com; fo=1; pct=100; aspf=s	100	yes	no_all	v=spf1 include:_spf.google.com +include:_spf.secure-decoration.com +include:spf.protection.outlook.com +include:turbo-smtp.com +include:spf.hornetsecurity.com	2026-11-06	none	none	none
 gravureseg.com	none	gravureseg.com	v=DMARC1; p=none; rua=mailto:patrickchabot@gravureseg.com	100	yes	hard_fail	v=spf1 ip4:158.69.168.192 ip4:51.161.14.84 include:spf.web-dns1.com +ip4:54.39.100.142 +include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 gravuresrivenord.com	none	gravuresrivenord.com	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400	100	no	soft_fail	v=spf1 ip4:173.209.32.98 include:spf.web-dns1.com +a +mx ~all	2026-11-12	none	none	none
+gravureunik.com	no_record		no DMARC record at _dmarc.gravureunik.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
 gravylet.ca	no_record		no DMARC record at _dmarc.gravylet.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 gray-os.com	none	gray-os.com	v=DMARC1; p=none; rua=mailto:security@gray-os.com; fo=1	100	yes	soft_fail	v=spf1 include:7950798.spf01.hubspotemail.net include:_spf.google.com ~all	2026-11-10	none	none	none
 gray.mb.ca	no_record		no DMARC record at _dmarc.gray.mb.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 a mx include:_spf.palladium.namespro.ca -all	2026-11-11	none	none	none
@@ -194446,6 +194522,7 @@ groupemcneil-dendrotik.com	quarantine	groupemcneil-dendrotik.com	v=DMARC1; p=qua
 groupemcr.com	no_record		no DMARC record at _dmarc.groupemcr.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.groupemcr.com ~all	2026-11-10	none	none	none
 groupemeb.com	none	groupemeb.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 groupemecanix.com	none	groupemecanix.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:67.43.235.82 include:spf.likuid.com +a +mx ~all	2026-11-11	none	none	none
+groupemel.com	no_record		no DMARC record at _dmarc.groupemel.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 groupemenagestar.ca	none	groupemenagestar.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 groupemenard.ca	none	groupemenard.ca	v=DMARC1; p=none; rua=mailto:01d327d2@mxtoolbox.dmarc-report.com; ruf=mailto:01d327d2@forensics.dmarc-report.com; fo=1	100	yes	hard_fail	v=spf1 ip4:104.254.183.99 ip4:174.142.231.180 +include:_spf-web20.hosting-management.com +a +mx include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 groupemenard.com	quarantine	groupemenard.com	v=DMARC1; p=quarantine; pct=100;adkim=r;aspf=r;	100	no	hard_fail	v=spf1 include:_spf.mlsend.com +a +mx include:_spf_useast2.prod.hydra.sophos.com include:spf.smtp2go.com include:mailgun.org -all	2026-11-06	none	none	none
@@ -195743,6 +195820,7 @@ gtaspotlesssolutions.ca	reject	gtaspotlesssolutions.ca	v=DMARC1; p=reject; adkim
 gtaspotlight.ca	quarantine	gtaspotlight.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	no_record		2026-11-12	none	none	none
 gtastaffing.ca	none	gtastaffing.ca	v=DMARC1; p=none; rua=mailto:dmarc@gtastaffing.ca; fo=1; adkim=s; aspf=s	100	yes	hard_fail	v=spf1 include:secureserver.net include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 gtasteel.ca	none	gtasteel.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
+gtastrategies.com	none	gtastrategies.com	v=DMARC1; p=none; adkim=r; aspf=r;	100	no	no_record		2026-11-12	none	none	none
 gtastuccorepair.ca	none	gtastuccorepair.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:68.65.123.228 +ip4:68.65.123.233 include:spf.web-hosting.com ~all	2026-11-12	none	none	none
 gtasupplies.ca	no_record		no DMARC record at _dmarc.gtasupplies.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 gtasurveying.ca	no_record		no DMARC record at _dmarc.gtasurveying.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:66.102.138.193 ip4:66.102.137.130 +a +mx +ip4:69.90.163.180 +include:spf.hostpapa.com +ip4:69.28.199.200 +include:relay.mailchannels.net ~all	2026-11-10	none	none	none
@@ -199956,6 +200034,7 @@ hardwaredistrict.ca	none	hardwaredistrict.ca	v=DMARC1; p=none;	100	no	soft_fail	
 hardwarefair-saudi.com	reject	hardwarefair-saudi.com	v=DMARC1; p=reject; adkim=s; aspf=r; pct=100; rua=mailto:dmarc_agg@dmarc.everest.email; ruf=mailto:dmarc_fr@dmarc.everest.email	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:msgfocus.com -all	2026-11-06	none	none	none
 hardwareoutlet.ca	none	hardwareoutlet.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf-us.ionos.com ~all	2026-11-11	none	none	none
 hardwarerover.ca	quarantine	hardwarerover.ca	v=DMARC1; p=quarantine; rua=mailto:postmaster@hardwarerover.ca; adkim=r; aspf=r; pct=100	100	yes	hard_fail	v=spf1 include:mxroute.com -all	2026-11-12	none	none	none
+hardwearpromo.com	none	hardwearpromo.com	v=DMARC1; p=none; rua=mailto:bcf426da@mxtoolbox.dmarc-report.com; ruf=mailto:bcf426da@forensics.dmarc-report.com	100	yes	soft_fail	v=spf1 +a +mx +include:spf.servername.online ~all	2026-11-12	none	none	none
 hardwicktreecare.com	no_record		no DMARC record at _dmarc.hardwicktreecare.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +mx +a +ip4:68.65.123.206 +ip4:68.65.123.204 +ip4:68.65.123.205 ~all	2026-11-10	none	none	none
 hardwiredautoco.ca	none	hardwiredautoco.ca	v=DMARC1; p=none; pct=100; fo=1; ri=3600; rua=mailto:32a1088@dmarc.mailgun.org,mailto:7a82e45f@inbox.ondmarc.com; ruf=mailto:32a1088@dmarc.mailgun.org,mailto:7a82e45f@inbox.ondmarc.com;	100	yes	soft_fail	v=spf1 include:mailgun.org ~all	2026-11-12	none	none	none
 hardwiredit.ca	none	hardwiredit.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf-us.ionos.com ~all	2026-11-12	none	none	none
@@ -200529,6 +200608,7 @@ hartprint.ca	none	hartprint.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 a mx pt
 hartprint.com	none	hartprint.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 hartpump.com	no_record		no DMARC record at _dmarc.hartpump.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:mailgun.org include:spf.protection.outlook.com ~all	2026-11-11	none	none	none
 hartranches.ca	none	hartranches.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
+hartrans.ca	quarantine	hartrans.ca	v=DMARC1; p=quarantine; pct=100; rua=mailto:re+bmdodmvc9ry@dmarc.postmarkapp.com; sp=none; aspf=r;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 hartroofing.ca	none	hartroofing.ca	v=DMARC1; p=none; rua=mailto:dmarc-reports@hartroofing.ca	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com ip4:216.130.81.3 include:sendgrid.net -all	2026-11-11	none	none	none
 harts.com	no_record		no DMARC record at _dmarc.harts.com; confirmed by 8.8.8.8			hard_fail	v=spf1 a:spf10.webnames.ca -all	2026-11-11	none	none	none
 hartschairs.com	no_record		no DMARC record at _dmarc.hartschairs.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
@@ -201426,6 +201506,7 @@ hayward-health.local	no_record		no DMARC record at _dmarc.hayward-health.local; 
 haywardequestrian.com	no_record		no DMARC record at _dmarc.haywardequestrian.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.improvmx.com ~all	2026-11-11	none	none	none
 haywardhealth.ca	none	haywardhealth.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 haywardhhs.com	no_record		no DMARC record at _dmarc.haywardhhs.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
+haywardhvacdesign.com	no_record		no DMARC record at _dmarc.haywardhvacdesign.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:162.241.217.27 +ip4:162.241.184.237 +ip4:66.147.244.143 include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
 haywardsfuneral.com	quarantine	haywardsfuneral.com	v=DMARC1; p=quarantine;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 haywirebookings.ca	no_record		no DMARC record at _dmarc.haywirebookings.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 haywirewinery.com	none	haywirewinery.com	v=DMARC1; p=none; sp=none; adkim=r; aspf=r;	100	no	hard_fail	v=spf1 ip4:173.231.246.80 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
@@ -201847,6 +201928,7 @@ hdmarine.ca	no_record		no DMARC record at _dmarc.hdmarine.ca; confirmed by 8.8.8
 hdmbusinesssolutions.ca	no_record		no DMARC record at _dmarc.hdmbusinesssolutions.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.hdmbusinesssolutions.ca ~all	2026-11-12	none	none	none
 hdmech.net	quarantine	hdmech.net	v=DMARC1;p=quarantine;pct=100;rua=mailto:admin@hdmech.net;aspf=r;adkim=r;	100	yes	hard_fail	v=spf1 include:spfa.cpmails.com include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 hdmedia.fr	quarantine	hdmedia.fr	v=DMARC1; p=quarantine; sp=quarantine; rua=mailto:dmarc@mailinblue.com!10m,mailto:dmarc@hdmedia.fr; ruf=mailto:dmarc@mailinblue.com!10m; rf=afrf; pct=100; ri=86400	100	yes	soft_fail	v=spf1 ip4:5.39.26.69 ip4:77.32.144.84 include:spf.brevo.com include:_spf.google.com mx ~all	2026-11-06			
+hdminingintl.com	no_record		no DMARC record at _dmarc.hdminingintl.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
 hdmlaw.ca	no_record		no DMARC record at _dmarc.hdmlaw.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 hdmoviecodes.com	none	hdmoviecodes.com	v=DMARC1; p=none; rua=mailto:2d94516ab43c4a2eb83fb8be587e5093@dmarc-reports.cloudflare.net;	100	yes	soft_fail	v=spf1 include:mailgun.org include:_spf.google.com ip4:160.7.246.231 ~all	2026-11-10	none	none	none
 hdmuscle.com	no_record		no DMARC record at _dmarc.hdmuscle.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
@@ -203982,6 +204064,9 @@ helsylab.com	no_record		no DMARC record at _dmarc.helsylab.com; confirmed by 8.8
 helsytraiteur.com	none	helsytraiteur.com	v=DMARC1; p=none; rua=mailto:info@helsytraiteur.com	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 helt.ca	none	helt.ca	v=DMARC1; p=none	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 helukabel.ca	none	helukabel.ca	v=DMARC1;p=none;rua=mailto:dmarcreports@helukabel.ca;	100	yes	hard_fail	v=spf1 include:spf.mailjet.com include:spf.protection.outlook.com include:spf.dynect.net include:icpbounce.com -all	2026-11-11	none	none	none
+helukabel.fr	reject	helukabel.fr	v=DMARC1; p=reject	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:inxserver.com -all	2026-11-12	none	none	none
+helukabel.nl	reject	helukabel.nl	v=DMARC1; p=reject	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com include:inxserver.com include:smtp.itco.nl -all	2026-11-12	none	none	none
+helukabel.ro	no_record		no DMARC record at _dmarc.helukabel.ro; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 helvecos.ch	no_record		no DMARC record at _dmarc.helvecos.ch; confirmed by 8.8.8.8			error		2026-11-12	none	none	none
 helvetios.ca	none	helvetios.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-06	none	none	none
 helvetos.ca	none	helvetos.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:66.102.132.32 +a +mx +ip4:69.90.66.180 +include:spf.hostpapa.com ~all	2026-11-11	none	none	none
@@ -204386,6 +204471,7 @@ herbst.ca	no_record		no DMARC record at _dmarc.herbst.ca; confirmed by 8.8.8.8		
 herbsthatheal.ca	none	herbsthatheal.ca	v=DMARC1; p=none; rua=mailto:dmarc_rua@onsecureserver.net	100	yes	soft_fail	v=spf1 include:_spf-usg2.ppe-hosted.com include:secureserver.net ~all	2026-11-12	none	none	none
 herbstravelplaza.ca	none	herbstravelplaza.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 ip4:65.39.184.211 ip4:64.34.109.53 +a +mx +ip4:65.39.184.151 +ip4:199.16.112.171 +include:relay.mailchannels.net include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 herbtrail.ca	no_record		no DMARC record at _dmarc.herbtrail.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:149.56.17.181 +a +mx ~all	2026-11-10	none	none	none
+herbu.com	no_record		no DMARC record at _dmarc.herbu.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
 herbwild.com	none	herbwild.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
 herchangeroom.com	none	herchangeroom.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:72.251.11.16 include:spf.web-dns1.com ~all	2026-11-11	none	none	none
 herchapter.ca	none	herchapter.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:148.113.164.26 ~all	2026-11-12	none	none	none
@@ -211009,6 +211095,7 @@ houseofduaa.com	quarantine	houseofduaa.com	v=DMARC1; p=quarantine; fo=1; pct=100
 houseofduality.ca	no_record		no DMARC record at _dmarc.houseofduality.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.mx.cloudflare.net ~all	2026-11-12	none	none	none
 houseofduval.com	no_record		no DMARC record at _dmarc.houseofduval.com; confirmed by 8.8.8.8			hard_fail	v=spf1 a:dispatch-us.ppe-hosted.com include:secureserver.net -all	2026-11-11	none	none	none
 houseofeights.com	none	houseofeights.com	v=DMARC1; p=none; pct=100; fo=1; ri=3600; rua=mailto:1dd3f5c7@inbox.ondmarc.com; ruf=mailto:1dd3f5c7@inbox.ondmarc.com;	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
+houseofelectrical.com	none	houseofelectrical.com	v=DMARC1; p=none; pct=100; rua=mailto:re+skhekb1nowh@dmarc.postmarkapp.com; sp=none; aspf=r;	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 houseofelia.com	no_record		no DMARC record at _dmarc.houseofelia.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:67.205.73.72 +ip4:23.227.38.65 +ip4:198.185.159.144 +ip4:198.185.159.145 +ip4:198.49.23.144 +ip4:198.49.23.145 ~all	2026-11-10	none	none	none
 houseofempanadas.ca	no_record		no DMARC record at _dmarc.houseofempanadas.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-06	none	none	none
 houseofetiquette.com	none	houseofetiquette.com	v=DMARC1; p=none; pct=100; rua=mailto:re+qcco23t9rxz@dmarc.postmarkapp.com; sp=none; aspf=r;	100	yes	soft_fail	v=spf1 a mx include:servers.mcsv.net include:shops.shopify.com include:_spf.google.com ~all	2026-11-11	none	none	none
@@ -212474,6 +212561,7 @@ humbleservices.ca	none	humbleservices.ca	v=DMARC1; p=none; rua=mailto:dmarc@your
 humblevaquero.store	none	humblevaquero.store	v=DMARC1; p=none	100	no	no_record		2026-11-11	none	none	none
 humblewellnessclinic.com	no_record		no DMARC record at _dmarc.humblewellnessclinic.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:zohomail.in ~all	2026-11-06	none	none	none
 humblewoodhats.ca	quarantine	humblewoodhats.ca	v=DMARC1; p=quarantine	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
+humboldproperties.com	quarantine	humboldproperties.com	v=DMARC1; p=quarantine;	100	no	hard_fail	v=spf1 ip4:72.143.34.246 ip4:72.138.152.242 a:mail.humboldproperties.com mx include:spf.protection.outlook.com include:spf.easyonnet.com -all	2026-11-12	none	none	none
 humboldt-apotheke-hannover.de	quarantine	humboldt-apotheke-hannover.de	v=DMARC1; p=quarantine; rua=mailto:57fbf82e@mxtoolbox.dmarc-report.com,mailto:postmaster@mxservice.de; ruf=mailto:57fbf82e@forensics.dmarc-report.com,mailto:postmaster@mxservice.de; fo=1	100	yes	soft_fail	v=spf1 mx a ip4:78.138.64.172 a:mail.mxservice.de ~all	2026-11-10	none	none	none
 humboldt.ca	quarantine	humboldt.ca	v=DMARC1;p=quarantine;pct=100	100	no	hard_fail	v=spf1 mx a ip4:3.231.237.226 ip4:50.87.151.40 ip4:50.87.144.113 ip4:72.2.4.226 ip4:72.2.4.227 include:_spf.humboldt.ca include:spf.protection.outlook.com include:bookking.ca exists:%{i}._spf.inkyphishfence.com -all	2026-11-06	none	none	none
 humboldtgolfclub.ca	no_record		no DMARC record at _dmarc.humboldtgolfclub.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:69.27.100.3 +a +mx +include:spf.blacksun.ca ~all	2026-11-06	none	none	none
@@ -216284,6 +216372,8 @@ ikonic.ca	no_record		no DMARC record at _dmarc.ikonic.ca; confirmed by 8.8.8.8		
 ikonica.ca	none	ikonica.ca	v=DMARC1; p=none; aspf=r; adkim=r;	100	no	soft_fail	v=spf1 +a include:_spf.google.com +mx ~all	2026-11-04			
 ikonicbadges.com	none	ikonicbadges.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com include:shops.shopify.com ~all	2026-11-12	none	none	none
 ikonicmortgages.com	none	ikonicmortgages.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
+ikonikprint.ca	no_record		no DMARC record at _dmarc.ikonikprint.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
+ikonikprint.com	no_record		no DMARC record at _dmarc.ikonikprint.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.ikonikprint.com ~all	2026-11-12	none	none	none
 ikonliving.ca	none	ikonliving.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all	2026-11-12	none	none	none
 ikonnect.ca	no_record		no DMARC record at _dmarc.ikonnect.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.stackmail.com a mx -all	2026-11-12	none	none	none
 ikonsalon.ca	reject	ikonsalon.ca	v=DMARC1; p=reject; rua=mailto:dmarc_rua@onsecureserver.net; adkim=r; aspf=r;	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
@@ -217125,97 +217215,3 @@ immifix.ca	no_record		no DMARC record at _dmarc.immifix.ca; confirmed by 8.8.8.8
 immiforms.ca	quarantine	immiforms.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
 immig.ca	none	immig.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:162.241.252.35 +include:websitewelcome.com ~all	2026-11-10	none	none	none
 immigai.ca	reject	immigai.ca	v=DMARC1; p=reject; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-12	none	none	none
-immigenius.com	no_record		no DMARC record at _dmarc.immigenius.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
-immignation.ca	no_record		no DMARC record at _dmarc.immignation.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf-usg1.ppe-hosted.com include:secureserver.net ~all	2026-11-10	none	none	none
-immigoal.com	none	immigoal.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:zcsend.net include:one.zoho.com.cn include:secureserver.net include:spf.protection.outlook.com ~all	2026-11-12	none	none	none
-immigopro.ca	none	immigopro.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:66.102.138.151 ~all	2026-11-10	none	none	none
-immigracanada.ca	no_record		no DMARC record at _dmarc.immigracanada.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
-immigraffaires.ca	no_record		no DMARC record at _dmarc.immigraffaires.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
-immigrand.org	no_record		no DMARC record at _dmarc.immigrand.org; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
-immigrant-education.ca	quarantine	immigrant-education.ca	v=DMARC1;p=quarantine;pct=100;rua=mailto:5304bada1c@rua.easydmarc.us;ruf=mailto:5304bada1c@ruf.easydmarc.us;ri=86400;fo=1;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
-immigrantatlarge.ca	reject	immigrantatlarge.ca	v=DMARC1; p=reject; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
-immigrantatlargecanada.ca	quarantine	immigrantatlargecanada.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	soft_fail	v=spf1 include:dc-aa8e722993._spfm.immigrantatlargecanada.ca ~all	2026-11-10	none	none	none
-immigrantbusinessbc.ca	no_record		no DMARC record at _dmarc.immigrantbusinessbc.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:_spf.webnames.ca -all	2026-11-10	none	none	none
-immigrantcanada.org	none	immigrantcanada.org	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:173.209.32.66 include:spf.web-dns1.com ~all	2026-11-11	none	none	none
-immigrantcollaborative.org	none	immigrantcollaborative.org	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:75.102.22.98 include:relay.mailchannels.net ~all	2026-11-12	none	none	none
-immigrantdevelopment.org	no_record		no DMARC record at _dmarc.immigrantdevelopment.org; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
-immigrantentrepreneurcanada.ca	none	immigrantentrepreneurcanada.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
-immigrantlight.ca	none	immigrantlight.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-12	none	none	none
-immigrantmd.ca	none	immigrantmd.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-12	none	none	none
-immigrantmuse.ca	no_record		no DMARC record at _dmarc.immigrantmuse.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-12	none	none	none
-immigrantquebec.com	reject	immigrantquebec.com	v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:christophe.berthet@immigrantquebec.com,mailto:rua@dmarc.brevo.com; ruf=mailto:christophe.berthet@immigrantquebec.com; ri=86400; aspf=s; adkim=s; fo=1	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
-immigrantresource.ca	none	immigrantresource.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-12	none	none	none
-immigrantservicescalgary.ca	quarantine	immigrantservicescalgary.ca	v=DMARC1;p=quarantine;pct=100;rua=mailto:easy680027@easydmarc.com,mailto:dmarc.aggregate@immigrantservicescalgary.ca;ruf=mailto:ruf@rep.easydmarc.com;fo=1	100	yes	hard_fail	v=spf1 ip4:72.2.56.234 ip4:147.253.210.181 include:spf.protection.outlook.com include:_spf.psm.knowbe4.com include:ca-central-1.amazonses.com include:_spf.salesforce.com include:i.civicrm.ca -all	2026-11-06	none	none	v=BIMI1;l=https://www.immigrantservicescalgary.ca/sites/default/files/ISC_Default_BIMI.svg
-immigrantslight.ca	none	immigrantslight.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-12	none	none	none
-immigrantsnoussommes.ca	no_record		no DMARC record at _dmarc.immigrantsnoussommes.ca; confirmed by 8.8.8.8			soft_fail	"v=spf1 include:_spf.google.com ~all
-(Si ya"	2026-11-12	none	none	none
-immigrantwelcome.ca	none	immigrantwelcome.ca	v=DMARC1; p=none; aspf=r; adkim=r;	100	no	soft_fail	v=spf1 +include:mailgun.org +include:spf.protection.outlook.com ~all	2026-11-06	none	none	none
-immigrantwomenentrepreneur.ca	none	immigrantwomenentrepreneur.ca	v=DMARC1; p=none; rua=mailto:info@immigrantwomenentrepreneur.ca; ruf=mailto:info@immigrantwomenentrepreneur.ca; sp=none; adkim=r; aspf=r; pct=100	100	yes	soft_fail	v=spf1 include:dc-8e814c8572._spfm.immigrantwomenentrepreneur.ca ~all	2026-11-12	none	none	none
-immigrantwomeninbusiness.com	none	immigrantwomeninbusiness.com	v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com	100	yes	hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
-immigrate.biz	reject	immigrate.biz	v=DMARC1;p=reject;pct=100;rua=mailto:dmarc@immigrate.biz	100	yes	soft_fail	v=spf1 include:_spf.google.com include:zcsend.net include:spf.zoho.com include:spf.mandrillapp.com include:transmail.net include:sendgrid.net ~all	2026-11-10	none	none	none
-immigratealberta.ca	no_record		no DMARC record at _dmarc.immigratealberta.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.mx.cloudflare.net ~all	2026-11-12	none	none	none
-immigrateasy.com	none	immigrateasy.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:zohocloud.ca include:spf.efwd.registrar-servers.com ~all	2026-11-12	none	none	none
-immigratecan.ca	no_record		no DMARC record at _dmarc.immigratecan.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com include:spf.unisender.com ~all	2026-11-06	none	none	none
-immigratefaster.ca	none	immigratefaster.ca	v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
-immigrateme.ca	no_record		no DMARC record at _dmarc.immigrateme.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.hostedemail.com ~all	2026-11-10	none	none	none
-immigrateos.com	none	immigrateos.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
-immigration-hsj.ca	no_record		no DMARC record at _dmarc.immigration-hsj.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
-immigration-nation.ca	none	immigration-nation.ca	v=DMARC1; p=none; rua=mailto:info@edmontonresumewriters.ca, mailto:dmarc@solarmora.com; pct=100; adkim=s; aspf=s	100	yes	soft_fail	v=spf1 include:spf.supercp.com include:_spf.google.com ~all	2026-11-06	none	none	none
-immigration-r-us.com	no_record		no DMARC record at _dmarc.immigration-r-us.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
-immigration-solutions.ca	no_record		no DMARC record at _dmarc.immigration-solutions.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 a:mail.hostingww.com mx include:mail.hostingww.com -all	2026-11-10	none	none	none
-immigration-visa.ca	no_record		no DMARC record at _dmarc.immigration-visa.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
-immigration.ca	quarantine	immigration.ca	v=DMARC1; p=quarantine; sp=quarantine; pct=100; ruf=mailto:dmarc@immigration.ca; rua=mailto:dmarc@immigration.ca; fo=1;	100	yes	soft_fail	v=spf1 include:spf.spamhero.com include:_spf.google.com ~all	2026-11-12	none	none	none
-immigration365.ca	none	immigration365.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:69.27.124.195 ~all	2026-11-10	none	none	none
-immigration4canada.ca	no_record		no DMARC record at _dmarc.immigration4canada.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:162.252.81.82 +a +mx ~all	2026-11-10	none	none	none
-immigrationalliance.ca	no_record		no DMARC record at _dmarc.immigrationalliance.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:209.42.24.113 include:spf.mysecurecloudhost.com +a +mx +ip4:209.42.24.71 +ip4:209.42.24.73 ~all	2026-11-10	none	none	none
-immigrationassist.ca	no_record		no DMARC record at _dmarc.immigrationassist.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 a:dispatch-us.ppe-hosted.com include:secureserver.net -all	2026-11-10	none	none	none
-immigrationcanadaservices.com	none	immigrationcanadaservices.com	v=DMARC1; p=none;	100	no	no_record		2026-11-12	none	none	none
-immigrationcanadaseva.ca	no_record		no DMARC record at _dmarc.immigrationcanadaseva.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-11	none	none	none
-immigrationcfw.ca	none	immigrationcfw.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:148.113.170.105 include:spf.web-dns1.com +ip4:198.50.215.64 +ip4:54.39.101.30 ~all	2026-11-10	none	none	none
-immigrationcircle.ca	no_record		no DMARC record at _dmarc.immigrationcircle.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:45.84.205.150 include:mailchannels.net include:relay.mailchannels.net include:_spf.google.com ~all	2026-11-12	none	none	none
-immigrationclientcentre.ca	none	immigrationclientcentre.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:51.81.243.109 +a +mx +ip4:204.197.172.34 ~all	2026-11-12	none	none	none
-immigrationcompany.ca	reject	immigrationcompany.ca	v=DMARC1; p=reject; rua=mailto:web@immigrationcompany.ca; ruf=mailto:webhost@immigrationcompany.ca; fo=1	100	yes	soft_fail	v=spf1 include:websitewelcome.com include:_spf.google.com ~all	2026-11-10	none	none	none
-immigrationconnect.com	no_record		no DMARC record at _dmarc.immigrationconnect.com; confirmed by 8.8.8.8			hard_fail	v=spf1 -all	2026-11-12	none	none	none
-immigrationconnect.net	no_record		no DMARC record at _dmarc.immigrationconnect.net; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:51.161.14.84 include:spf.web-dns1.com ~all	2026-11-12	none	none	none
-immigrationconsultantservices.ca	no_record		no DMARC record at _dmarc.immigrationconsultantservices.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:68.66.226.75 include:spf.a2hosting.com ~all	2026-11-12	none	none	none
-immigrationconsultingmk.ca	none	immigrationconsultingmk.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-12	none	none	none
-immigrationcopilot.ca	none	immigrationcopilot.ca	v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com	100	yes	no_record		2026-11-12	none	none	none
-immigrationcorner.ca	none	immigrationcorner.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
-immigrationcur.org	no_record		no DMARC record at _dmarc.immigrationcur.org; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:200.26.194.10 include:dnsexit.com include:spf.mxthunder.com -all	2026-11-04			
-immigrationdarcypurdy.ca	none	immigrationdarcypurdy.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf-us.ionos.com ~all	2026-11-12	none	none	none
-immigrationdome.ca	no_record		no DMARC record at _dmarc.immigrationdome.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:webhostbox.net ~all	2026-11-12	none	none	none
-immigrationdrolet.ca	none	immigrationdrolet.ca	v=DMARC1; p=none	100	no	hard_fail	v=spf1 mx a ip4:67.205.73.172 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
-immigrationelite.com	none	immigrationelite.com	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
-immigrationemploicanada.ca	none	immigrationemploicanada.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-12	none	none	none
-immigrationexpertscanada.ca	quarantine	immigrationexpertscanada.ca	v=DMARC1; p=quarantine; sp=none; rf=afrf; pct=100; ri=86400	100	no	soft_fail	v=spf1 ip4:199.175.162.38 include:likuid.com include:spf.likuid.com +a +mx ip4:67.43.238.210 ip4:67.43.238.211 ~all	2026-11-10	none	none	none
-immigrationfd.com	no_record		no DMARC record at _dmarc.immigrationfd.com; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:51.222.43.65 include:spf.web-dns1.com ~all	2026-11-12	none	none	none
-immigrationgateway.ca	no_record		no DMARC record at _dmarc.immigrationgateway.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:spf.titan.email ~all	2026-11-10	none	none	none
-immigrationgroup.ca	no_record		no DMARC record at _dmarc.immigrationgroup.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-10	none	none	none
-immigrationgurus.ca	no_record		no DMARC record at _dmarc.immigrationgurus.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:185.146.22.239 include:spf.a2hosting.com ~all	2026-11-10	none	none	none
-immigrationib.ca	none	immigrationib.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 a mx ip4:199.16.129.201 ~all	2026-11-10	none	none	none
-immigrationincanada.ca	none	immigrationincanada.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:65.98.32.96 include:spf.mysecurecloudhost.com +ip4:65.98.32.103 ~all	2026-11-11	none	none	none
-immigrationinternational.ca	no_record		no DMARC record at _dmarc.immigrationinternational.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:51.222.203.80 include:spf.web-dns1.com include:spf.protection.outlook.com +a +mx +ip4:54.39.100.235 include:one.zoho.com -all	2026-11-11	none	none	none
-immigrationjpn.ca	none	immigrationjpn.ca	v=DMARC1; p=none	100	no	no_record		2026-11-12	none	none	none
-immigrationlawyerbrampton.ca	no_record		no DMARC record at _dmarc.immigrationlawyerbrampton.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
-immigrationlawyerquebec.com	quarantine	immigrationlawyerquebec.com	v=DMARC1; p=quarantine; rua=mailto:quarantine@immigrationlawyerquebec.com	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:sendgrid.net -all	2026-11-10	none	none	none
-immigrationlawyervancouver.ca	no_record		no DMARC record at _dmarc.immigrationlawyervancouver.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.mx.cloudflare.net ~all	2026-11-12	none	none	none
-immigrationlinasa.ca	none	immigrationlinasa.ca	v=DMARC1; p=none; sp=none; adkim=r; aspf=r; pct=100; rua=mailto:rua@dmarc.brevo.com	100	yes	soft_fail	v=spf1 include:spf.titan.email include:spf.sendinblue.com ~all	2026-11-10	none	none	none
-immigrationlinasa.ma	no_record		no DMARC record at _dmarc.immigrationlinasa.ma; confirmed by 8.8.8.8			soft_fail	v=spf1 +a +mx +ip4:192.168.168.2 ~all	2026-11-10	none	none	none
-immigrationlondon.ca	none	immigrationlondon.ca	v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com	100	yes	no_record		2026-11-10	none	none	none
-immigrationmanga.ca	none	immigrationmanga.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 ip4:109.234.166.109 +a +mx +include:spf.jabatus.fr ~all	2026-11-10	none	none	none
-immigrationmedclinic.com	no_record		no DMARC record at _dmarc.immigrationmedclinic.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
-immigrationmedicalcentre.ca	none	immigrationmedicalcentre.ca	v=DMARC1; p=none; aspf=r	100	no	soft_fail	v=spf1 include:_spf.breezemaxweb.cloud include:_spf.breezemaxweb.com include:_spf.google.com include:secureserver.net ~all	2026-11-06	none	none	none
-immigrationmedicalottawa.ca	no_record		no DMARC record at _dmarc.immigrationmedicalottawa.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:167.114.103.50 +a +mx -all	2026-11-10	none	none	none
-immigrationmedicals.com	quarantine	immigrationmedicals.com	v=DMARC1; p=quarantine; rua=mailto:PITCMSP@immigrationmedicals.com;	100	yes	hard_fail	v=spf1 include:spf.ess.ca.barracudanetworks.com include:spf.protection.outlook.com -all	2026-11-10	none	none	none
-immigrationmedtoronto.com	none	immigrationmedtoronto.com	v=DMARC1; p=none; rua=mailto:85e8b72b12384bdbaeee84922da5edca@dmarc-reports.cloudflare.net	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
-immigrationmindset.ca	none	immigrationmindset.ca	v=DMARC1; p=none; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
-immigrationnewscanada.ca	none	immigrationnewscanada.ca	v=DMARC1;p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com include:_spf.wpcloud.com ~all	2026-11-06	none	none	none
-immigrationpg.ca	none	immigrationpg.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:72.251.9.76 include:_spf.cloudwebhosting.com +ip4:72.251.9.73 +ip4:165.140.71.65 +include:_spf.google.com +include:relay.mailchannels.net ~all	2026-11-11	none	none	none
-immigrationprimo.ca	quarantine	immigrationprimo.ca	v=DMARC1;p=quarantine;pct=100;rua=mailto:umbt_admin@immigrationprimo.onmicrosoft.com	100	yes	hard_fail	v=spf1 ip4:184.107.95.124 ip4:198.72.99.47 include:spf.hornetsecurity.com include:spf.protection.outlook.com include:sendgrid.net -all	2026-11-10	none	none	none
-immigrationratings.ca	no_record		no DMARC record at _dmarc.immigrationratings.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
-immigrationscat.com	none	immigrationscat.com	v=DMARC1; p=none; rua=mailto:dmarc_rua@onsecureserver.net	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all	2026-11-12	none	none	none
-immigrationservices.ca	quarantine	immigrationservices.ca	v=DMARC1; p=quarantine; rua=mailto:39be56b2d31c4aa0b510b9dfe9b9aa69@dmarc-reports.cloudflare.net,mailto:dmarc@ccomp.ca; ruf=mailto:dmarc@ccomp.ca;	100	yes	hard_fail	v=spf1 ip4:38.99.168.228 include:spf.protection.outlook.com -all	2026-11-04			
-immigrationservices.com	no_record		no DMARC record at _dmarc.immigrationservices.com; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
-immigrationservicestoronto.ca	no_record		no DMARC record at _dmarc.immigrationservicestoronto.ca; confirmed by 8.8.8.8			no_record		2026-11-12	none	none	none
-immigrationstationcanada.com	none	immigrationstationcanada.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-12	none	none	none
-immigrationtocanada.com	none	immigrationtocanada.com	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400;rua=mailto:forms@immigrationtocanada.com;adkim=r;aspf=r	100	yes	soft_fail	v=spf1 +a +ip4:148.113.189.187 include:_spf.google.com include:spf.web-dns1.com ~all	2026-11-11	none	none	none
