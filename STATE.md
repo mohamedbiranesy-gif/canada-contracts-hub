@@ -1,6 +1,6 @@
-# STATE.md — Claude lane (updated 2026-11-12 17:00Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 16:48Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
 
-## 2026-11-12 17:00Z — new lanes (ISED radio licences, Health Canada establishment licences), rosters at scale, two hosting vendors; build 16:17Z read
+## 2026-11-12 16:48Z — new lanes (ISED radio licences, Health Canada establishment licences), rosters at scale, two hosting vendors; build 16:17Z read
 
 **Build of 16:17Z (code 54e964a), counted: 197,493 ready of 264,355** (by location 152,764; membership 12,406; licence 10,563; service 7,921;
 agent 4,807; sponsorship 4,178; public contract 2,921; dealership 1,834; tenancy 99). Amount and period 174,898 (+7,553); every main field
@@ -19,7 +19,7 @@ an invoice payable by bank: whc.ca, varialhosting.com — `tools/tech_relationsh
 - `tools/roster_ingest.py merge` now withdraws a roster's leads when the roster is withdrawn or a stricter rule no longer takes them, and
   writes again the leads of a corrected descriptor (cc_on_ssm withdrawn: its page says card only).
 **Rosters merged today (helpers):** +3,572 (15:18Z), +3,411 (15:37Z), +1,569 (15:49Z), +1,613 (16:13Z), +4,581 (16:44Z) organisations.
-Helpers still running at 17:00Z: Atlantic chambers, Ontario chambers wave 3, trade-show exhibitors A (agri/food/energy/mining/manufacturing)
+Helpers still running at 16:48Z: Atlantic chambers, Ontario chambers wave 3, trade-show exhibitors A (agri/food/energy/mining/manufacturing)
 and B (building/home/gift/boats/health), dealer locators of Canadian manufacturers. **Their files land in data/incoming/claude/roster_*.csv +
 contrib/claude/rosters/*.json: scrub e-mails, `roster_ingest.py merge --stamp S`, check 0 e-mails in the shard, commit rosters + shards.**
 The cloud biz-licences merge (04:41/16:41) re-runs the merge on main: never leave a merged roster uncommitted.
