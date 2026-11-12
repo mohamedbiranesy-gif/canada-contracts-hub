@@ -1,4 +1,4 @@
-# STATE.md — Claude lane (updated 2026-11-12 04:50Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 05:19Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
 
 ## 2026-11-12 04:50Z — the 04:03Z build read; where an organisation is when its own pages located nothing (registry, then Overture's listed address)
 
@@ -14,6 +14,20 @@ distributor), then the address an Overture Maps place lists for its website (one
 same listed address fills a missing buyer address on rows of other kinds. The address file (40 MB) is in the release `harvest-state`
 (credit-scan.yml job overture, dispatched); both rank workflows download it. Sample builds (1 in 4, never multiplied): OWNER19 46,013 ready
 of 62,922 → OWNER22 48,952 of 65,327 (every main field 23,577 → 25,698). The next cloud build with it: the 06:17Z cron.
+
+**Also pushed (05:00-05:15Z):**
+- The mailbox reader takes sites a listed address locates: 9,193 home pages print a role mailbox and no Canadian address (first class),
+  22,546 print neither (second class, contact pages); `mailbox-crawl.yml` downloads the address file (run 43159326222 is the first with it).
+- `credit_scan.py merge-graph` rewrites a list only when a row changed, with a fixed gzip time (the 04:54Z run re-committed 20 MB of the same rows).
+- Billers first (coord/DECISIONS.md 05:15Z): the distributors' numbers from the global LEI register (api.gleif.org, open): NB Power 022248,
+  Nova Scotia Power 1567820, Maritime Electric 235139-1, Newfoundland Power 4508 (their business registers), BC Hydro and Manitoba Hydro
+  (LEI only, bodies created by their own Acts); NS Power's due terms (its Regulations s. 5.4) and Manitoba Hydro's (billing glossary).
+  Some 27,000 ready rows lacked one of these in the 04:03Z build (BC Hydro 20,066 had no number).
+- Trademark owners abroad (DECISIONS 05:08Z): `tm_register.py overture-sites` (14,112 owners in the US, UK, Australia with a website an
+  Overture place lists under their name), `sites --abroad --overture` reads it first; tied when the site's own pages state the name (10 of
+  the 40 largest in a test). tm-sites run 43159394354 dispatched; the daily tm-register.yml makes the leads.
+- Checked and dropped: a re-read of the 126,561 located-nowhere organisations' contact pages (the reader already read 6-9 pages of most);
+  OpenStreetMap addresses on top of Overture's (407 more).
 
 **Toward a million, next lever measured:** the trademark register names 134,458 organisations ABROAD as owners of Canadian marks, 109,538 of
 them with a Canadian agent of record (US 50,172 · CN 26,540 · FR 6,502 · GB 6,439 · DE 6,011) — a record that ties them to a Canadian biller.
