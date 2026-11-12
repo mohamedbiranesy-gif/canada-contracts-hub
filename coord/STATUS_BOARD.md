@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-12 13:40 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 13:54 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-11)
 | metric | value |
@@ -81,7 +81,7 @@
 | claude | claude_org_directories.csv | 6277 | 0 | 0 | 0 | 6277 |
 | claude | claude_peppol_participants.csv | 77 | 0 | 0 | 0 | 77 |
 | claude | claude_registry_bulk.csv | 41690 | 36008 | 2783 | 0 | 2899 |
-| claude | claude_registry_lookup.csv | 82833 | 11626 | 41742 | 0 | 29465 |
+| claude | claude_registry_lookup.csv | 92919 | 24597 | 51188 | 0 | 17134 |
 | claude | claude_site_owner_wd.csv | 8041 | 0 | 0 | 0 | 8041 |
 | claude | claude_vendor_names_read.csv | 6 | 0 | 0 | 0 | 6 |
 | claude | claude_vendor_sites.csv | 842 | 0 | 0 | 0 | 842 |
