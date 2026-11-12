@@ -33,7 +33,7 @@ with gzip.open(src, "rt", encoding="utf-8", errors="replace", newline="") as f, 
         kind0 = RR.kind_of(x)
         cs = x.get("contract_status") or ""
         # 1. the body's own payment page and fee schedule (what bill_profile adds to rows whose cells are empty)
-        if kind0 in ("licence or registration", "membership", "agent of record", "sponsorship", "dealership", "tenancy"):
+        if kind0 in ("licence or registration", "membership", "agent of record", "sponsorship", "dealership", "tenancy", "exchange listing"):
             out = {}
             if PB.fill(out, x, x.get("vendor") or "", x.get("vendor_website") or ""):
                 for k, v in out.items():

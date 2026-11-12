@@ -312,7 +312,7 @@ def robots_ok(root, url, cache=None):
         elif st == 200 and data:
             rp = urllib.robotparser.RobotFileParser()
             try:
-                rp.parse(data.decode("utf-8", "replace").splitlines())
+                rp.parse(data.decode("utf-8-sig", "replace").splitlines())
             except Exception:
                 rp = True
         if cache is not None:

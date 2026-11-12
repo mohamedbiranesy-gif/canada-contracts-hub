@@ -67,7 +67,7 @@ def allowed(url):
         txt = fetch_text(key + "/robots.txt", 300_000)  # robots.txt is text/plain: fetch() keeps only HTML
         if txt is False:
             rp.disallow_all = True  # robots.txt refused (401/403): stay out, as urllib.robotparser does
-        rp.parse((txt or "").splitlines())
+        rp.parse((txt or "").lstrip("\ufeff").splitlines())  # a robots.txt that starts with a byte-order mark keeps its first group
         robots[key] = rp
     try:
         return robots[key].can_fetch(UA, url)

@@ -100,7 +100,7 @@ def robots_text(url):
         txt = ""
     else:
         txt = txt if txt and "<html" not in txt[:600].lower() else ""
-        rp.parse(txt.splitlines())
+        rp.parse(txt.lstrip("\ufeff").splitlines())
     with _guard:
         _robots[key], _robots_txt[key] = rp, txt
     return txt

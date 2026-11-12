@@ -208,7 +208,7 @@ def allowed(url):
         if status in (401, 403):
             rp.disallow_all = True
         elif status == 200:
-            rp.parse(data.decode("utf-8", "replace").splitlines())
+            rp.parse(data.decode("utf-8-sig", "replace").splitlines())  # utf-8-sig: a robots.txt that starts with a byte-order mark keeps its first group
         else:
             rp.allow_all = True
         robots[key] = rp

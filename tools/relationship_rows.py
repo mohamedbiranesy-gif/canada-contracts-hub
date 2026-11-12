@@ -139,6 +139,7 @@ _LIVE = re.compile(r"\bactive\b|immatricul|en vigueur|in good standing|registere
 FIELDS = {
     "public contract": ["buyer address", "vendor address", "vendor tax or registration number", "what is billed", "amount", "reference"],
     "licence or registration": ["buyer address", "vendor address", "what is billed", "amount", "billing period", "reference"],
+    "exchange listing": ["buyer address", "vendor address", "what is billed", "amount", "billing period", "reference"],
     "membership": ["buyer address", "vendor address", "vendor tax or registration number", "amount", "billing period"],
     "dealership": ["buyer address", "vendor address", "vendor tax or registration number"],
     "tenancy": ["buyer address", "vendor address", "vendor tax or registration number", "billing period"],
@@ -184,6 +185,8 @@ def kind_of(x):
         return "sponsorship"
     if cs.startswith(("client of a Canadian trademark agent", "client of a Canadian patent agent")):
         return "agent of record"
+    if cs.startswith("listed issuer on a Canadian stock exchange"):
+        return "exchange listing"  # tools/exchange_issuers.py: the exchange's own list of listed companies; the annual sustaining fee is invoiced
     return {"T": "service seen on the buyer's side", "R": ".ca registration", "M": "licence or registration"}.get(t, "public contract" if t == "C" and x.get("records_in_contract_dataset") else "not established")
 
 
@@ -264,6 +267,7 @@ BY_KIND = {
     "tenancy": "rent under a commercial lease: due each month, paid by cheque or pre-authorised debit",
     "sponsorship": "a sponsorship or an exhibitor's fee: an invoice from the organiser, paid by cheque or bank transfer",
     "agent of record": "an agent's professional fees and the official fees it advances: an invoice for each step, paid by cheque or wire transfer",
+    "exchange listing": "a stock exchange's annual sustaining fee: the exchange's invoice, once a year, paid by wire transfer or cheque",
     "utility account by location": "an electricity bill: issued every month or every two months, paid through a financial institution, by pre-authorised debit or by cheque",
 }
 NOT_BY_KIND = ("canadian intellectual property office",)  # its page names the ways of paying and no notice or invoice: nothing is said in its place
@@ -517,6 +521,8 @@ def billing_cadence(x, kind):
         when.append("before each renewal of the licence" + ("; the notice comes %s days before" % (m.group(1) or m.group(2)) if m else ""))
     elif kind == "membership" and code == "3":
         when.append("at each renewal of the membership")
+    elif kind == "exchange listing" and code == "3":
+        when.append("once a year, on the exchange's invoice" + ("; Toronto Stock Exchange invoices in February" if "invoiced in February" in deliv else ""))
     elif kind == "sponsorship":
         when.append("for each event or season")
     elif kind == "agent of record":
@@ -599,8 +605,9 @@ def po_or_reference(x, kind):
     acct = {"utility account by location": "the account number on the distributor's bill",
             "membership": "the member's number on the body's dues notice", "licence or registration": "the licence or registration number on the body's notice",
             "agent of record": "the agent's file number for the owner's matter", "dealership": "the dealer's account and order numbers",
+            "exchange listing": "the issuer's name and symbol on the exchange's invoice",
             "sponsorship": "the sponsorship agreement", "tenancy": "the lease and unit", "service seen on the buyer's side": "the customer's account number"}.get(kind, "the organisation's account with the biller")
-    lic = re.sub(r"\s+", " ", str(x.get("contract_reference") or "")).strip() if kind in ("licence or registration", "agent of record") else ""
+    lic = re.sub(r"\s+", " ", str(x.get("contract_reference") or "")).strip() if kind in ("licence or registration", "agent of record", "exchange listing") else ""
     if lic and not lic.startswith("{"):
         return "no PO: a bill of this kind quotes %s — the record's own number is %s (published)%s" % (acct, lic[:120], rule_s)
     return "no PO: a bill of this kind quotes %s, which is not published%s" % (acct, rule_s)
@@ -624,7 +631,7 @@ def owner_test(x):
             "vendor legal name": _has(x, "vendor_legal_name") and "on that line alone" not in (x.get("vendor_legal_name") or ""),
             "vendor address": _has(x, "vendor_address") or _has(x, "vendor_registered_address"),
             "vendor tax or registration number": bool(x["vendor_tax_or_registration_number"]),
-            "what is billed": _has(x, "contract_title") or _has(x, "bill_items_as_published") or (kind in ("public contract", "licence or registration", "agent of record") and _has(x, "contract_description")),
+            "what is billed": _has(x, "contract_title") or _has(x, "bill_items_as_published") or (kind in ("public contract", "licence or registration", "agent of record", "exchange listing") and _has(x, "contract_description")),
             "amount": _has(x, "contract_value") or _has(x, "bill_amount_indicative") or _has(x, "bill_amount_calculated"),
             "billing period": (x.get("recurring_billing") or "")[:1] in ("1", "2", "3", "4"),
             "reference": _has(x, "contract_reference") or _has(x, "invoice_reference_hint")}

@@ -57,7 +57,7 @@ def robots_ok(url):
         st, body, _, _ = get(key + "/robots.txt", check_robots=False, limit=500_000)
         if st in (401, 403):
             rp.disallow_all = True
-        rp.parse((body or b"").decode("utf-8", "replace").splitlines() if st == 200 else [])
+        rp.parse((body or b"").decode("utf-8-sig", "replace").splitlines() if st == 200 else [])
         _robots[key] = rp
     try:
         return _robots[key].can_fetch(UA, url)

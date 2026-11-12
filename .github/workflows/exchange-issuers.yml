@@ -1,0 +1,72 @@
+name: exchange-issuers
+# Companies listed on the Toronto Stock Exchange and the TSX Venture Exchange (tools/exchange_issuers.py). Every listed issuer pays its exchange an
+# annual sustaining fee on an invoice ("The annual sustaining fee is invoiced in February of each year", TSX Listing Fee Schedule; TSXV: "the
+# remittance date specified by the Exchange in its invoice"), at least $5,500 a year. The exchanges' own monthly list of listed companies is pulled
+# (one request), each issuer's site is the one the company-name autocomplete gives under its very name, kept only when the site's own home page
+# prints the issuer's symbol on its exchange or names it; the mailbox comes from that site (mailbox-crawl reads lead_shards/). Resumable: the site
+# list and the done list are committed, and every run asks only about the issuers not asked yet.
+on:
+  schedule:
+    - cron: "37 3,9,15,21 * * *"
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "minutes for the site finder"
+        default: "100"
+permissions:
+  contents: write
+concurrency:
+  group: exchange-issuers
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Pull, build, find sites, write leads, commit
+        env: { MINUTES: "${{ inputs.minutes || '100' }}" }
+        run: |
+          pip install -q openpyxl
+          python3 tools/exchange_issuers.py pull --work /tmp/xc 2>&1 | tee /tmp/l.txt
+          python3 tools/exchange_issuers.py build --work /tmp/xc 2>&1 | tee -a /tmp/l.txt
+          python3 tools/exchange_issuers.py sites --minutes "$MINUTES" 2>&1 | tee -a /tmp/l.txt
+          mkdir -p keep && cp data/incoming/claude/exchange/issuers.csv.gz keep/
+          for f in issuer_sites.csv issuer_sites_done.tsv; do [ -f "data/incoming/claude/exchange/$f" ] && cp "data/incoming/claude/exchange/$f" keep/; done
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          git config user.name "exchange-issuers"; git config user.email "exchange-issuers@users.noreply.github.com"
+          for i in $(seq 1 10); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            mkdir -p data/incoming/claude/exchange
+            # the site list and the done list only grow: the lines of main and of this run, once each
+            for f in issuer_sites.csv issuer_sites_done.tsv; do
+              [ -f "keep/$f" ] || continue
+              if [ -f "data/incoming/claude/exchange/$f" ]; then
+                python3 - "$f" <<'PY'
+          import sys
+          f = sys.argv[1]
+          a = open("data/incoming/claude/exchange/" + f, encoding="utf-8").read().splitlines()
+          b = open("keep/" + f, encoding="utf-8").read().splitlines()
+          seen, out = set(), []
+          for l in a + b:
+              if l not in seen:
+                  seen.add(l); out.append(l)
+          head = [l for l in out if l.startswith("key,")][:1]
+          open("data/incoming/claude/exchange/" + f, "w", encoding="utf-8").write("\n".join(head + [l for l in out if not l.startswith("key,")]) + "\n")
+          PY
+              else
+                cp "keep/$f" "data/incoming/claude/exchange/$f"
+              fi
+            done
+            cp keep/issuers.csv.gz data/incoming/claude/exchange/
+            python3 tools/exchange_issuers.py leads --stamp "$STAMP" | tee /tmp/m.txt
+            python3 tools/secret_guard.py || true
+            git add data/incoming/claude/exchange data/incoming/claude/lead_shards
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "exchange-issuers: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
+          { echo '```'; cat /tmp/l.txt /tmp/m.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

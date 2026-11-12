@@ -101,7 +101,7 @@ def robots_of(root):
     if st == 200 and data:
         rp = urllib.robotparser.RobotFileParser()
         try:
-            rp.parse(data.decode("utf-8", "replace").splitlines())
+            rp.parse(data.decode("utf-8-sig", "replace").splitlines())
             return rp, True, False
         except Exception:
             return None, True, False

@@ -66,7 +66,7 @@ def allowed(url):
         rp.parse([])
         try:
             with urllib.request.urlopen(urllib.request.Request(base + "/robots.txt", headers=UA), timeout=10) as r:
-                rp.parse(r.read(300000).decode("utf-8", "replace").splitlines())
+                rp.parse(r.read(300000).decode("utf-8-sig", "replace").splitlines())
         except urllib.error.HTTPError as e:
             if e.code in (401, 403):
                 rp.disallow_all = True

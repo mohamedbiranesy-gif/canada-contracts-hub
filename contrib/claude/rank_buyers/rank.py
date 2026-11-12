@@ -1198,7 +1198,7 @@ def apply_details(x, k):
         _src = " (%s)" % br.get("label", "the body's public register")
         if br.get("legal_name"):
             x["buyer_legal_name_as_published"] = br["legal_name"] + _src; n_lf["buyer_legal_name_from_register"] += 1
-            if d.get("platform") in ("tm_register", "pt_register", "authority_register"):
+            if d.get("platform") in ("tm_register", "pt_register", "authority_register", "exchange_register"):
                 # the owner of record on the federal trademarks register IS the legal person (and the site was tied to it by that very name):
                 # a name read off the site later does not replace it. The same for a registrant of a regulatory authority: the row is the
                 # registrant's relationship, and a site shared with sister companies ("LH (Wasaga) Ltd." on Lancaster Homes' site) states another name
@@ -1789,6 +1789,10 @@ for k, L in sorted(leads.items(), key=lead_strength):
                            ("holds the right to sell %s in Canada on Health Canada's public register (%s, read %s): Health Canada invoices the holder every year for the right "
                             "to sell each one" % ((LDET.get(k) or {}).get("hc_what") or "products", (LDET.get(k) or {}).get("register_label") or "Health Canada's register",
                                                   (L.get("latest_record_date") or "")[:10])) if member and "right-to-sell holder of the Canadian body" in L.get("canada_field_value", "") else
+                           ("listed issuer on a Canadian stock exchange: %s — symbol %s, listed since %s, on %s (read %s); every listed company pays the exchange an annual sustaining "
+                            "fee, on the exchange's invoice" % (L["example_vendor"], (LDET.get(k) or {}).get("xc_ticker") or "?", (LDET.get(k) or {}).get("start") or "an unstated date",
+                                                               (LDET.get(k) or {}).get("register_label") or "the exchange's list of listed companies",
+                                                               (L.get("latest_record_date") or "")[:10])) if member and "listed issuer of the Canadian body" in L.get("canada_field_value", "") else
                            ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
                            tech_status(k, L) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
@@ -1818,6 +1822,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
                    "the buyer's own website (it states its membership of the Canada-located body, linked)" if member and "member badge on the buyer's own site" in cfv else
                    "the Canadian regulatory authority's own public register (the registrant's own entry)" if member and "registrant of the Canadian body" in cfv else
                    "the Canadian licensing body's own public list of active licences (open data, updated daily)" if member and "licence holder of the Canadian body" in cfv else
+                   "the exchange's own list of listed companies (TMX Group's monthly workbook of TSX and TSXV issuers)" if member and "listed issuer of the Canadian body" in cfv else
                    "the Canadian trademarks register published by the Canadian Intellectual Property Office (open data; owner of record and agent of record)" if member and "trademark" in cfv and "Canadian Intellectual Property Office" in cfv else
                    "the Canadian body's own current member / participant list" if member else
                    "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if tech and "credited on the buyer's own site" in cfv else
@@ -5154,6 +5159,8 @@ def billing_of(x, ld):
     if t == "R":
         return "3 yearly or longer", CIRA_TERM
     if t == "M":
+        if cs.startswith("listed issuer on a Canadian stock exchange"):
+            return "3 yearly or longer", "the exchange's own fee schedule: %s" % (ld.get("bill_delivery") or "an annual sustaining fee for each calendar year")[:420]
         if cs.startswith(("client of a Canadian trademark agent of record", "client of a Canadian patent agent of record")):
             return "4 per transaction", ("by the kind of relationship: an agent of record bills its professional fees for each filing, step, renewal or maintenance fee it handles "
                                          "for the owner; no schedule of bills is published")
@@ -5441,7 +5448,7 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_indicative"] = "%s%s%s" % ({"CAD": "C$", "USD": "US$"}.get(c_, "$"), ("%.2f" % v).rstrip("0").rstrip("."),
                                                              " per vehicle" if re.search(r"per vehicle", m.group(1), re.I) else " a year" if re.search(r"annual|year|ann[ée]e", m.group(1), re.I) else "")
                 out["bill_amount_basis"] = "the body's own statement of its fee: “%s” (%s)" % (m.group(1)[:280], m.group(2))
-        if ld.get("platform") in ("hc_register", "radio_register"):
+        if ld.get("platform") in ("hc_register", "radio_register", "exchange_register"):
             # tools/hc_registers.py / tools/radio_licences.py: the published fee of one product (a drug, a device licence, a radio station) and the year's bill
             # calculated from what the register lists for the organisation today (a radio licensee's: at least, from the lowest fee of each station)
             # lists for the company today; how the invoice comes and when it is due, in Health Canada's own guidance
@@ -5473,6 +5480,9 @@ def bill_profile(x, ld, cls):
         elif cs.startswith("client of a Canadian patent agent of record"):
             out["relationship_fact_basis"] = ("fact, public record: the Canadian Intellectual Property Office's patent register (CSV extract of 2024-05-22) names this firm as the agent of record "
                                               "for the organisation's patents and applications (%s)" % (x.get("contract_link") or x.get("source") or "")[:160])
+        elif cs.startswith("listed issuer on a Canadian stock exchange"):
+            out["relationship_fact_basis"] = ("fact, public record: the exchange's own list of listed companies names the organisation as a listed issuer, with its symbol (%s)"
+                                              % (x.get("contract_link") or x.get("source") or "")[:160])
         elif cs.startswith(("holder of licence", "registered with a Canadian regulatory authority", "owner of ", "accredited business")):
             out["relationship_fact_basis"] = "fact, public record: the body's own public register lists the organisation as licensed / registered / accredited today (%s)" % (x.get("contract_link") or x.get("source") or "")[:160]
         elif cs.startswith("member of a Canadian body (stated on the buyer's own site"):
@@ -5749,6 +5759,11 @@ for _ri, x in enumerate(rows):
             x["how_relationship_was_found"] = ("tools/tm_register.py read the Canadian Intellectual Property Office's open-data trademarks register (owner of record with its address; agent of record "
                                                "with its address); the owner's own site was kept only on %s (%s); the mailbox comes from that site"
                                                % (_ld.get("site_tied_to_holder_by") or "the tests of the tool", (_ld.get("site_facts_from") or "")[:120]))
+        elif _cs.startswith("listed issuer on a Canadian stock exchange"):
+            _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+            x["relationship_kind"] = "listing on a Canadian stock exchange: the issuer pays the exchange an annual sustaining fee, invoiced every year (the exchange's own list and fee schedule)"
+            x["how_relationship_was_found"] = ("tools/exchange_issuers.py read the exchanges' own monthly list of listed companies (name, symbol, market capitalization, head office); the issuer's "
+                                               "own site was kept only because %s; the mailbox comes from that site" % (_ld.get("site_tied_to_holder_by") or "the tests of the tool")[:400])
         elif _cs.startswith("client of a Canadian patent agent of record"):
             _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
             x["relationship_kind"] = "professional representation before a Canadian public body: the owner's patent agent of record, a Canada-located firm named by the register"

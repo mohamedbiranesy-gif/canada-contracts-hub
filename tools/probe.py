@@ -57,7 +57,7 @@ def allowed(url):
             rp = False
         elif st == 200 and data:
             rp = urllib.robotparser.RobotFileParser()
-            rp.parse(data.decode("utf-8", "replace").splitlines())
+            rp.parse(data.decode("utf-8-sig", "replace").splitlines())
         _robots[root] = (rp, st, err)
     rp, st, err = _robots[root]
     if rp is False:
