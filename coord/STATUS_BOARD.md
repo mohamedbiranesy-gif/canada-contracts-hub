@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-12 19:36 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 19:42 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-12)
 | metric | value |
@@ -616,7 +616,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 557447 entities researched, 528545 with at least one verified contact.
+**team_buyers**: 557778 entities researched, 528874 with at least one verified contact.
 
 **team_vendors**: 15607 entities researched, 4085 with at least one verified contact.
 
@@ -629,10 +629,10 @@
 | jules | 12 | 0 | 12 | 9 |
 
 ## Last ingest
-- buyers with team findings: 557778 (with at least one verified e-mail/portal: 528871)
+- buyers with team findings: 558046 (with at least one verified e-mail/portal: 529139)
 - vendors with team findings: 15607
 - QA rows: 200
-- counters: {'files': 590, 'buyer_findings_verified': 569210, 'buyer_findings_verified_on_archive_copy': 14512, 'buyer_findings_not_found_on_page': 3389, 'buyer_findings_unverified_page_unavailable': 27450, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 814, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3801, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27775, 'ledger_verdict_stands_page_not_read_again_verified': 573374, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 26970, 'verify_tasks_jules': 9}
+- counters: {'files': 607, 'buyer_findings_verified': 569493, 'buyer_findings_verified_on_archive_copy': 14512, 'buyer_findings_not_found_on_page': 3389, 'buyer_findings_unverified_page_unavailable': 27450, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 814, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3801, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27777, 'ledger_verdict_stands_page_not_read_again_verified': 573709, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 26970, 'verify_tasks_jules': 9}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -641,7 +641,7 @@ Every row's outcome is in `coord/results/verification_log.csv` (lane claude: `ve
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 1594 | 5 | 0 | 60 | 1 | 43 | 0 |
-| claude | 562816 | 1 | 0 | 27033 | 66 | 2194 | 813 |
+| claude | 563099 | 1 | 0 | 27033 | 66 | 2194 | 813 |
 | codex | 229 | 0 | 0 | 17 | 0 | 4 | 0 |
 | gemini | 4571 | 7 | 0 | 327 | 454 | 1148 | 1 |
 
