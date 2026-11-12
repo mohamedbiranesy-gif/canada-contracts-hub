@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-12 19:18 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 19:36 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-12)
 | metric | value |
@@ -64,7 +64,7 @@
 | claude | claude_buyer_ap_results_cccrawl07.csv | 44454 | 44454 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl08.csv | 44781 | 44781 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl09.csv | 44518 | 44518 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl10.csv | 13973 | 13973 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl10.csv | 14256 | 14256 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
@@ -122,6 +122,7 @@
 | claude | roster_cc_bc_abbotsford.csv | 537 | 0 | 0 | 0 | 537 |
 | claude | roster_cc_bc_burns_lake.csv | 50 | 0 | 0 | 0 | 50 |
 | claude | roster_cc_bc_campbell_river.csv | 219 | 0 | 0 | 0 | 219 |
+| claude | roster_cc_bc_comoxvalley.csv | 306 | 0 | 0 | 0 | 306 |
 | claude | roster_cc_bc_cranbrook.csv | 348 | 0 | 0 | 0 | 348 |
 | claude | roster_cc_bc_dawson_creek.csv | 120 | 0 | 0 | 0 | 120 |
 | claude | roster_cc_bc_duncan_cowichan.csv | 592 | 0 | 0 | 0 | 592 |
@@ -181,6 +182,7 @@
 | claude | roster_cc_on_kitchenerwaterloo.csv | 1192 | 0 | 0 | 0 | 1192 |
 | claude | roster_cc_on_lincoln.csv | 237 | 0 | 0 | 0 | 237 |
 | claude | roster_cc_on_milton.csv | 618 | 0 | 0 | 0 | 618 |
+| claude | roster_cc_on_mississauga.csv | 756 | 0 | 0 | 0 | 756 |
 | claude | roster_cc_on_niagarafalls.csv | 268 | 0 | 0 | 0 | 268 |
 | claude | roster_cc_on_northbay.csv | 534 | 0 | 0 | 0 | 534 |
 | claude | roster_cc_on_northgrenville.csv | 118 | 0 | 0 | 0 | 118 |
@@ -206,21 +208,34 @@
 | claude | roster_cc_qc_cciargenteuil.csv | 35 | 0 | 0 | 0 | 35 |
 | claude | roster_cc_qc_ccibdc.csv | 263 | 0 | 0 | 0 | 263 |
 | claude | roster_cc_qc_ccibfe.csv | 589 | 0 | 0 | 0 | 589 |
-| claude | roster_cc_qc_ccicq.csv | 187 | 0 | 0 | 0 | 187 |
+| claude | roster_cc_qc_ccibvhsl.csv | 164 | 0 | 0 | 0 | 164 |
+| claude | roster_cc_qc_ccicq.csv | 188 | 0 | 0 | 0 | 188 |
 | claude | roster_cc_qc_ccid.csv | 432 | 0 | 0 | 0 | 432 |
 | claude | roster_cc_qc_ccidm.csv | 81 | 0 | 0 | 0 | 81 |
-| claude | roster_cc_qc_ccigl.csv | 679 | 0 | 0 | 0 | 679 |
-| claude | roster_cc_qc_ccimirabel.csv | 177 | 0 | 0 | 0 | 177 |
+| claude | roster_cc_qc_ccigl.csv | 677 | 0 | 0 | 0 | 677 |
+| claude | roster_cc_qc_ccihr.csv | 354 | 0 | 0 | 0 | 354 |
+| claude | roster_cc_qc_ccim_iles.csv | 66 | 0 | 0 | 0 | 66 |
+| claude | roster_cc_qc_ccimirabel.csv | 175 | 0 | 0 | 0 | 175 |
+| claude | roster_cc_qc_ccimitis.csv | 115 | 0 | 0 | 0 | 115 |
+| claude | roster_cc_qc_ccimm.csv | 210 | 0 | 0 | 0 | 210 |
 | claude | roster_cc_qc_ccinormandin.csv | 60 | 0 | 0 | 0 | 60 |
 | claude | roster_cc_qc_ccio.csv | 77 | 0 | 0 | 0 | 77 |
 | claude | roster_cc_qc_cciq.csv | 167 | 0 | 0 | 0 | 167 |
 | claude | roster_cc_qc_ccirdn.csv | 210 | 0 | 0 | 0 | 210 |
-| claude | roster_cc_qc_ccishawinigan.csv | 109 | 0 | 0 | 0 | 109 |
+| claude | roster_cc_qc_ccirm.csv | 136 | 0 | 0 | 0 | 136 |
+| claude | roster_cc_qc_ccirr.csv | 33 | 0 | 0 | 0 | 33 |
+| claude | roster_cc_qc_ccirt.csv | 204 | 0 | 0 | 0 | 204 |
+| claude | roster_cc_qc_ccisg.csv | 231 | 0 | 0 | 0 | 231 |
+| claude | roster_cc_qc_ccishawinigan.csv | 108 | 0 | 0 | 0 | 108 |
 | claude | roster_cc_qc_ccitb.csv | 557 | 0 | 0 | 0 | 557 |
 | claude | roster_cc_qc_cckl.csv | 228 | 0 | 0 | 0 | 228 |
+| claude | roster_cc_qc_ccmanic.csv | 31 | 0 | 0 | 0 | 31 |
 | claude | roster_cc_qc_ccmekinac.csv | 123 | 0 | 0 | 0 | 123 |
 | claude | roster_cc_qc_ccmontlaurier.csv | 173 | 0 | 0 | 0 | 173 |
+| claude | roster_cc_qc_ccsh.csv | 343 | 0 | 0 | 0 | 343 |
 | claude | roster_cc_qc_ccslmr.csv | 176 | 0 | 0 | 0 | 176 |
+| claude | roster_cc_qc_ccstjoseph.csv | 35 | 0 | 0 | 0 | 35 |
+| claude | roster_cc_qc_cctemiscouata.csv | 4 | 0 | 0 | 0 | 4 |
 | claude | roster_cc_qc_ccvd.csv | 350 | 0 | 0 | 0 | 350 |
 | claude | roster_cc_qc_hsf.csv | 81 | 0 | 0 | 0 | 81 |
 | claude | roster_cc_qc_sainteadele.csv | 181 | 0 | 0 | 0 | 181 |
@@ -315,6 +330,8 @@
 | claude | roster_ia_rccaq.csv | 109 | 0 | 0 | 0 | 109 |
 | claude | roster_la_appq.csv | 174 | 0 | 0 | 0 | 174 |
 | claude | roster_la_bclna.csv | 354 | 0 | 0 | 0 | 354 |
+| claude | roster_la_landscape_ontario.csv | 1132 | 0 | 0 | 0 | 1132 |
+| claude | roster_la_landscape_sask.csv | 21 | 0 | 0 | 0 | 21 |
 | claude | roster_la_quebecvert.csv | 171 | 0 | 0 | 0 | 171 |
 | claude | roster_na_awmac.csv | 383 | 0 | 0 | 0 | 383 |
 | claude | roster_na_biotech.csv | 195 | 0 | 0 | 0 | 195 |
@@ -599,7 +616,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 557167 entities researched, 528266 with at least one verified contact.
+**team_buyers**: 557447 entities researched, 528545 with at least one verified contact.
 
 **team_vendors**: 15607 entities researched, 4085 with at least one verified contact.
 
@@ -612,10 +629,10 @@
 | jules | 12 | 0 | 12 | 9 |
 
 ## Last ingest
-- buyers with team findings: 557447 (with at least one verified e-mail/portal: 528542)
+- buyers with team findings: 557778 (with at least one verified e-mail/portal: 528871)
 - vendors with team findings: 15607
 - QA rows: 200
-- counters: {'files': 570, 'buyer_findings_verified': 568857, 'buyer_findings_verified_on_archive_copy': 14511, 'buyer_findings_not_found_on_page': 3389, 'buyer_findings_unverified_page_unavailable': 27448, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 814, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3801, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27775, 'ledger_verdict_stands_page_not_read_again_verified': 573054, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 26968, 'verify_tasks_jules': 9}
+- counters: {'files': 590, 'buyer_findings_verified': 569210, 'buyer_findings_verified_on_archive_copy': 14512, 'buyer_findings_not_found_on_page': 3389, 'buyer_findings_unverified_page_unavailable': 27450, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 814, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3801, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27775, 'ledger_verdict_stands_page_not_read_again_verified': 573374, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 26970, 'verify_tasks_jules': 9}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -624,7 +641,7 @@ Every row's outcome is in `coord/results/verification_log.csv` (lane claude: `ve
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 1594 | 5 | 0 | 60 | 1 | 43 | 0 |
-| claude | 562463 | 1 | 0 | 27031 | 66 | 2194 | 813 |
+| claude | 562816 | 1 | 0 | 27033 | 66 | 2194 | 813 |
 | codex | 229 | 0 | 0 | 17 | 0 | 4 | 0 |
 | gemini | 4571 | 7 | 0 | 327 | 454 | 1148 | 1 |
 
