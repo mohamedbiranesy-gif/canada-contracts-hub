@@ -445,6 +445,7 @@ claude,claude_buyer_ap_results_apfirst01.csv,CL-APF-001586,ap:15768cbed8e8f00b,i
 claude,claude_buyer_ap_results_apfirst01.csv,CL-APF-001491,ap:157a7bfef3b880b0,info@exkavor.ca,https://exkavor.ca/,verified
 claude,claude_buyer_ap_results_apfirst01.csv,CL-APF-003623,ap:157d660bfcb9aecc,info@royaleuropean.com,https://royaleuropean.com/contact-page/,verified
 claude,claude_buyer_ap_results_apfirst01.csv,CL-APF-001428,ap:15930809e67381b5,info@equipementstno.com,https://equipementstno.com/,verified
+claude,claude_buyer_ap_results_cccrawl10.csv,SF-f48f49f6f8,ap:15930809e67381b5,achat@equipementstno.com,https://equipementstno.com/nous-joindre,verified
 claude,claude_buyer_ap_results_apfirst01.csv,CL-APF-004049,ap:15942732ecd5a9b6,info@toiturerogersavoie.com,https://www.toiturerogersavoie.com/,verified
 claude,claude_buyer_ap_results_apfirst01.csv,CL-APF-002508,ap:159c0d25c6eba55d,info@lusiyyc.ca,https://www.lusiyyc.ca/,verified
 claude,claude_buyer_ap_results_apfirst01.csv,CL-APF-001537,ap:15a244c5add49d29,info@ferblanteriedaoust.ca,https://www.ferblanteriedaoust.ca/,verified
@@ -8825,6 +8826,7 @@ claude,claude_buyer_ap_results_search01.csv,CL-WS-00114,b:894c211b38bb0e54,procu
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00114,b:894c211b38bb0e54,procurementservices@carleton.ca,https://carleton.ca/facts/glossary/p/purchase-order/,verified
 claude,claude_buyer_ap_results_crawl01.csv,GE-AP-00704,b:894ecbf45a7d3199,info@ste-barbe.com,https://www.ste-barbe.com,verified
 claude,claude_buyer_ap_results_search01.csv,CL-WS-00078,b:896968037db7ce95,info@mrcbonaventure.com,https://web.archive.org/web/20251212211158/http://mrcbonaventure.com/la-mrc/structure-et-equipes/equipe-et-comites/,verified
+claude,claude_buyer_ap_results_cccrawl10.csv,SF-00f49b8c2b,b:896abaa17872167e,payables@arnprior.ca,https://www.arnprior.ca/contacts-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00636,b:896abaa17872167e,utility.billing@arnprior.ca,https://www.arnprior.ca/contacts-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CH-AP-00636,b:896abaa17872167e,payables@arnprior.ca,https://www.arnprior.ca/contacts-directory/,verified
 claude,claude_buyer_ap_results_crawl01.csv,CL-T5-0107,b:896abaa17872167e,payables@arnprior.ca,https://www.arnprior.ca/contacts-directory/,verified
@@ -250429,6 +250431,7 @@ claude,claude_buyer_ap_results_cccrawl07.csv,CC-65abcc0069,lead:65abcc0069fa6a39
 claude,claude_buyer_ap_results_cccrawl06.csv,CC-65abe4ce6a,lead:65abe4ce6a4a3cbe,info@pjhinc.ca,https://constructionpjh.com/,verified
 claude,claude_buyer_ap_results_cccrawl06.csv,CC-65abffcf73,lead:65abffcf73cc462b,info@carterandpartners.ca,https://carterandpartners.ca/,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-65ac0484b8,lead:65ac0484b82d426b,info@thetruckingnetwork.ca,https://thetruckingnetwork.ca/,verified
+claude,claude_buyer_ap_results_cccrawl10.csv,SF-05df98e125,lead:65ac1578ff2e6f25,ap@playquest.ca,https://playquest.ca/pay-invoice/,verified
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-65ac3b6963,lead:65ac3b6963ebf6c8,office@spmanpower.ca,https://www.spmanpower.ca/,verified
 claude,claude_buyer_ap_results_cccrawl02.csv,CC-65ac4981e2,lead:65ac4981e20c2b5d,info@gracefulguidancellc.com,https://www.gracefulguidancellc.com/,verified
 claude,claude_buyer_ap_results_cccrawl06.csv,CC-65ac52dc36,lead:65ac52dc36ba0172,info@shresmove.ca,https://shresmove.ca/,verified
@@ -285097,6 +285100,3 @@ claude,claude_buyer_ap_results_cccrawl02.csv,CC-76ed493a07,lead:76ed493a075c5c50
 claude,claude_buyer_ap_results_cccrawl02.csv,CC-76eda3fa87,lead:76eda3fa872f7643,info@rxnavigatorsolutions.com,https://rxnavigatorsolutions.com/,verified
 claude,claude_buyer_ap_results_cccrawl03.csv,TN-76edff19bb,lead:76edff19bb278034,info@collectorsdungeon.com,https://www.collectorsdungeon.com/policies/contact-information,unverified_page_unavailable
 claude,claude_buyer_ap_results_cccrawl01.csv,CC-76ee3e04e9,lead:76ee3e04e9080ac6,info@esperanzaeducation.ca,http://www.esperanzaeducation.ca/,verified
-claude,claude_buyer_ap_results_cccrawl04.csv,CC-76ee499f18,lead:76ee499f181ae0d9,info@qualityinnlevis.com,https://www.qualityinnlevis.com/,verified
-claude,claude_buyer_ap_results_cccrawl03.csv,CC-76ee552528,lead:76ee5525281a5ac9,info@incorporationagency.ca,https://incorporationagency.ca/,verified
-claude,claude_buyer_ap_results_cccrawl01.csv,SF-1c06605934,lead:76ee8ad50b3f08a0,approvisionnements@cogir.net,https://immobilier.cogir.net/nos-fournisseurs/,verified
