@@ -191,7 +191,7 @@
    "not_enriched": 104
   }
  },
- "last_rebuild": "2026-11-12T14:45:11Z",
+ "last_rebuild": "2026-11-12T15:36:58Z",
  "last_rebuild_report": {
   "team_buyers_verified": 522122,
   "team_vendors": 15607,
@@ -199,17 +199,16 @@
   "web_vendors_with_site": 18806,
   "orgbook_xp_matches": 2345,
   "raw_full_files_entries": 58311,
-  "records_ap_extended": 795694,
-  "records_vendor_patched": 182762,
-  "records_ap_added": 83,
-  "moved_to_ended": 151,
+  "records_ap_extended": 795702,
+  "records_vendor_patched": 182728,
   "new_records_duplicate": 275744,
   "new_records_vendor_matched": 60,
   "new_records_buyer_matched": 74,
   "new_records_added": 74,
+  "moved_to_ended": 74,
   "records_orgbook_added": 4,
   "records_web_added": 1,
-  "built_at": "2026-11-12T14:45:11Z",
+  "built_at": "2026-11-12T15:36:58Z",
   "reference_date": "2026-11-12"
  }
 }
