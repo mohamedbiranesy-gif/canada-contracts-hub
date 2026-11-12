@@ -1,0 +1,14 @@
+{
+ "key": "ta_on_ota",
+ "kind": "member",
+ "biller": "Ontario Trucking Association (OTA)",
+ "biller_site": "https://ontruck.org/",
+ "biller_address": "555 Dixon Road, Toronto, Ontario M9W 1H8",
+ "biller_address_url": "https://ontruck.org/about/",
+ "biller_address_quote": "Ontario Trucking Association | 555 DIXON ROAD, TORONTO, ONTARIO M9W 1H8",
+ "read": "2026-11-12",
+ "pays_by_kind": true,
+ "member_quote": "The members of the Ontario Trucking Association (OTA) form the backbone of Ontario’s supply chain.",
+ "member_quote_url": "https://ontruck.org/about/",
+ "list_name": "the carrier directory (Find a Carrier) of the Ontario Trucking Association"
+}
