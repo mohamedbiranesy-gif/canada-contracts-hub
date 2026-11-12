@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-12 04:36 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 05:28 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-11)
 | metric | value |
@@ -52,7 +52,7 @@
 | claude | claude_buyer_ap_results_cccrawl04.csv | 43115 | 43115 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl05.csv | 44666 | 44666 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl06.csv | 44876 | 44876 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl07.csv | 34995 | 34995 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl07.csv | 43038 | 43038 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
@@ -306,7 +306,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 441870 entities researched, 414252 with at least one verified contact.
+**team_buyers**: 449696 entities researched, 421981 with at least one verified contact.
 
 **team_vendors**: 15607 entities researched, 4085 with at least one verified contact.
 
@@ -319,10 +319,10 @@
 | jules | 12 | 0 | 12 | 9 |
 
 ## Last ingest
-- buyers with team findings: 449696 (with at least one verified e-mail/portal: 421978)
+- buyers with team findings: 457485 (with at least one verified e-mail/portal: 429715)
 - vendors with team findings: 15607
 - QA rows: 200
-- counters: {'files': 291, 'buyer_findings_verified': 457602, 'buyer_findings_verified_on_archive_copy': 13933, 'buyer_findings_not_found_on_page': 3231, 'buyer_findings_unverified_page_unavailable': 26383, 'buyer_findings_not_found_on_page_hidden': 516, 'buyer_findings_rejected_personal_or_invalid': 822, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3619, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 936, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 26674, 'ledger_verdict_stands_page_not_read_again_verified': 455382, 'verify_tasks_chatgpt': 110, 'verify_tasks_gemini': 25785, 'verify_tasks_jules': 9}
+- counters: {'files': 292, 'buyer_findings_verified': 465593, 'buyer_findings_verified_on_archive_copy': 13961, 'buyer_findings_not_found_on_page': 3248, 'buyer_findings_unverified_page_unavailable': 26418, 'buyer_findings_not_found_on_page_hidden': 516, 'buyer_findings_rejected_personal_or_invalid': 822, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3644, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 937, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 26731, 'ledger_verdict_stands_page_not_read_again_verified': 463425, 'verify_tasks_chatgpt': 110, 'verify_tasks_gemini': 25837, 'verify_tasks_jules': 9}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -331,7 +331,7 @@ Every row's outcome is in `coord/results/verification_log.csv` (lane claude: `ve
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 1594 | 5 | 0 | 60 | 1 | 43 | 0 |
-| claude | 451208 | 1 | 0 | 25966 | 61 | 2036 | 821 |
+| claude | 459199 | 1 | 0 | 26001 | 61 | 2053 | 821 |
 | codex | 229 | 0 | 0 | 17 | 0 | 4 | 0 |
 | gemini | 4571 | 7 | 0 | 327 | 454 | 1148 | 1 |
 
