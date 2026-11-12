@@ -1,0 +1,17 @@
+{
+ "key": "ex_halifax_ideal_home",
+ "kind": "exhibitor",
+ "biller": "Marketplace Events (Ideal Home Show (Halifax))",
+ "biller_site": "https://www.marketplaceevents.com/",
+ "biller_address": "PO Box 70060 Rimrock Plaza PO, Toronto, ON M3J 0H3",
+ "biller_address_url": "https://www.marketplaceevents.com/contact-us/office-locations",
+ "biller_address_quote": "Canada TORONTO, ONTARIO PO Box 70060 Rimrock Plaza PO Toronto, ON M3J 0H3",
+ "read": "2026-11-12",
+ "pays_quote": "2027 Booth Pricing Booth Space $17.50 per sq ft (100 sq ft minimum) Corner Premium $150 per corner Enhanced Exhibitor Listing $150 (mandatory)",
+ "pays_url": "https://www.springideal.ca/looking-to-exhibit/booth-rates",
+ "list_hosts": [
+  "springideal.ca"
+ ],
+ "list_host_link_url": "https://www.marketplaceevents.com/our-shows",
+ "list_name": "the exhibitor list of the Ideal Home Show, Halifax (show of April 2-4, 2027)"
+}

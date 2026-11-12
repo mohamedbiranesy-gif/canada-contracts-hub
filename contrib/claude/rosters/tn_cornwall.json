@@ -1,0 +1,13 @@
+{
+ "key": "tn_cornwall",
+ "kind": "tenant",
+ "biller": "Cornwall Centre Administration (Cushman & Wakefield)",
+ "biller_site": "https://cornwallcentre.ca/",
+ "biller_address": "202-2114 11th Avenue, Regina, SK S4P 0J5",
+ "biller_address_url": "https://cornwallcentre.ca/pages/contact-us",
+ "biller_address_quote": "Cornwall Centre Administration is located at:202-2114 11th Avenue, Regina, SK S4P 0J5",
+ "read": "2026-11-12",
+ "pays_quote": "Cornwall Centre offers in-line and permanent kiosk on a long-term basis (5+ years).",
+ "pays_url": "https://cornwallcentre.ca/pages/leasing",
+ "list_name": "the store directory of Cornwall Centre"
+}

@@ -1,0 +1,13 @@
+{
+ "key": "hba_waterloo",
+ "kind": "member",
+ "biller": "Waterloo Region Home Builders' Association",
+ "biller_site": "https://wrhba.com/",
+ "biller_address": "625 King St E, Suite 1C, Kitchener, ON N2G 4V4",
+ "biller_address_url": "https://wrhba.com/",
+ "biller_address_quote": "Address 625 King St E Suit 1C Kitchener, ON N2G 4V4",
+ "read": "2026-11-12",
+ "pays_quote": "These discounts and savings can offset the cost of an annual membership.",
+ "pays_url": "https://wrhba.com/pages/membership-application",
+ "list_name": "the Waterloo Region Home Builders' Association's member directory"
+}

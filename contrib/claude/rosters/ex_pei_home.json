@@ -1,0 +1,17 @@
+{
+ "key": "ex_pei_home",
+ "kind": "exhibitor",
+ "biller": "Marketplace Events (PEI Provincial Home Show)",
+ "biller_site": "https://www.marketplaceevents.com/",
+ "biller_address": "PO Box 70060 Rimrock Plaza PO, Toronto, ON M3J 0H3",
+ "biller_address_url": "https://www.marketplaceevents.com/contact-us/office-locations",
+ "biller_address_quote": "Canada TORONTO, ONTARIO PO Box 70060 Rimrock Plaza PO Toronto, ON M3J 0H3",
+ "read": "2026-11-12",
+ "pays_quote": "2027 Booth Pricing Booth Rate $14 per sq ft (100 sq ft minimum) Corner Premium $100 per corner Enhanced Exhibitor Listing $99 (mandatory)",
+ "pays_url": "https://www.peihomeshow.ca/looking-to-exhibit/booth-rates",
+ "list_hosts": [
+  "peihomeshow.ca"
+ ],
+ "list_host_link_url": "https://www.marketplaceevents.com/our-shows",
+ "list_name": "the exhibitor list of the PEI Provincial Home Show (show of March 5-7, 2027)"
+}

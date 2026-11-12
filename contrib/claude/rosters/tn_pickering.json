@@ -1,0 +1,13 @@
+{
+ "key": "tn_pickering",
+ "kind": "tenant",
+ "biller": "The Shops at Pickering City Centre (management office)",
+ "biller_site": "https://theshopsatpcc.com/",
+ "biller_address": "1355 Kingston Road, Pickering, ON L1V 1B8",
+ "biller_address_url": "https://theshopsatpcc.com/pages/ptc-contact-us",
+ "biller_address_quote": "THE SHOPS AT PICKERING CITY CENTREMANAGEMENT OFFICE1355 Kingston RoadPickering, ON L1V 1B8",
+ "read": "2026-11-12",
+ "pays_quote": "Leasing This family-orientated regional shopping centre is the destination of choice for suburban communities east of the Greater Toronto Area (GTA).",
+ "pays_url": "https://theshopsatpcc.com/pages/leasing",
+ "list_name": "the store directory of Pickering City Centre"
+}

@@ -1,0 +1,13 @@
+{
+ "key": "dl_enviro",
+ "kind": "dealer",
+ "biller": "Sherwood Industries Ltd. (Enviro)",
+ "biller_site": "https://enviro.com/",
+ "biller_address": "6782 Oldfield Road, Saanichton, BC V8M 2A3, Canada",
+ "biller_address_url": "https://enviro.com/resources/privacy-policy/",
+ "biller_address_quote": "www.enviro.com 6782 Oldfield Road Saanichton, BC V8M 2A3 Canada",
+ "read": "2026-11-12",
+ "pays_quote": "Enviro Hearth Products are only sold through a network of authorized dealers. Enviro authorized dealers are trained professionals that can help you choose the right product for your home and perform any necessary warranty repairs, as they are up-to-date on all technical and product updates.",
+ "pays_url": "https://enviro.com/custom_content/docs/Enviro_Internet_Policy.pdf",
+ "list_name": "the Enviro dealer locator (Canada and United States)"
+}

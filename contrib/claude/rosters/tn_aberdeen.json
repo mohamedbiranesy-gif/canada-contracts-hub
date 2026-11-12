@@ -1,0 +1,13 @@
+{
+ "key": "tn_aberdeen",
+ "kind": "tenant",
+ "biller": "Aberdeen Mall (managed by Cushman & Wakefield Asset Services)",
+ "biller_site": "https://www.aberdeenmall.ca/",
+ "biller_address": "#275-1320 Trans-Canada Highway West, Kamloops, BC V1S 1J2",
+ "biller_address_url": "https://www.aberdeenmall.ca/pages/aberdeen-contact-us",
+ "biller_address_quote": "Aberdeen Mall Administration Office#275-1320 Trans-Canada Highway WestKamloops, BC V1S 1J2",
+ "read": "2026-11-12",
+ "pays_quote": "If you have a small business with big dreams, our Specialty Leasing Program is the ideal opportunity for new retailers who want to start small or test the waters for a future as a permanent inline tenant.",
+ "pays_url": "https://www.aberdeenmall.ca/pages/aberdeen-leasing",
+ "list_name": "the store directory of Aberdeen Mall Kamloops"
+}

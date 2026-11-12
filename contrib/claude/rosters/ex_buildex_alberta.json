@@ -1,0 +1,17 @@
+{
+ "key": "ex_buildex_alberta",
+ "kind": "exhibitor",
+ "biller": "Informa Connect (BUILDEX Alberta)",
+ "biller_site": "https://informaconnect.com/buildex-alberta/",
+ "biller_address": "239 10th Avenue SE, Demcor Building, Calgary AB T2G 0V9",
+ "biller_address_url": "https://informaconnect.com/contact-us/",
+ "biller_address_quote": "Calgary 239 10th Avenue SE Demcor Building Calgary AB, T2G 0V9",
+ "read": "2026-11-12",
+ "pays_quote": "The cost of the NES Pass may be used as a partial credit against the following year’s BUILDEX exhibition or sponsorship cost.",
+ "pays_url": "https://informaconnect.com/buildex-alberta/show-policies/",
+ "list_hosts": [
+  "smallworldlabs.com"
+ ],
+ "list_host_link_url": "https://informaconnect.com/buildex-alberta/",
+ "list_name": "the BUILDEX Alberta 2026 exhibitor list"
+}

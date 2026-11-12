@@ -1,0 +1,13 @@
+{
+ "key": "tn_devonshire",
+ "kind": "tenant",
+ "biller": "Primaris Management Inc.",
+ "biller_site": "https://www.devonshiremall.com/",
+ "biller_address": "Devonshire Mall, 3100 Howard Ave., Windsor, Ontario N8X 3Y8",
+ "biller_address_url": "https://www.devonshiremall.com/pages/devonshire-privacy-policy",
+ "biller_address_quote": "Primaris Reit, Devonshire Mall, 3100 Howard Ave., Windsor, Ontario, Canada N8X 3Y8",
+ "read": "2026-11-12",
+ "pays_quote": "Primaris is your partner in retail. Our exceptionally managed, market-leading shopping centres attract a mix of national and local retailers and deliver a unique shopping experience for consumers.",
+ "pays_url": "https://www.primarisreit.com/en/portfolio",
+ "list_name": "the store directory of Devonshire Mall"
+}
