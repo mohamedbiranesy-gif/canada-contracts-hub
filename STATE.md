@@ -65,6 +65,14 @@ pairs, 66,678 behind 1,687 buyers with a mailbox. Sample build OWNER15 (1 lead i
    Electric, Newfoundland Power (its rate book is refused by robots.txt: no rate, said so).
 6. Sources of NEW buyers with large bills (rule 15): codex / jules inboxes have the request (public bodies under contract outside the
    dataset first).
+7. Toward a million (the direction, not built): inside Canada the pool is the sites the scan reads (now with Overture's 345,712 new
+   domains); past ~300,000-400,000 rows the organisations must be abroad, tied to a Canadian biller by a record. The largest such records
+   in bulk: owners of Canadian trademarks and patents with a Canadian agent of record (CIPO's open data: owner name and country; the
+   owner's site must be FOUND, never guessed — an exact name + city match against Overture's places worldwide or Wikidata's official
+   website), and US prime contractors with a Canadian subawardee (USAspending subawards, country CAN).
+
+(03:37Z: the pockets' postal codes now name the distributor when the code's own place is not a municipal network's town —
+`by_location.POCKET_TOWNS`, `tools/data/pocket_places.tsv.gz`; Québec, Saskatchewan, New Brunswick, Nova Scotia, PEI; not BC, not J0L.)
 
 ## 2026-11-12 02:15Z — safety-net turn: build 00:14Z gives 136,513 ship ready of 186,576; London Hydro's and Enova's own sentences added
 
