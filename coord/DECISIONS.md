@@ -1667,3 +1667,10 @@ committed tens of megabytes of the same rows).
 (2,176 rows by the listed address, 758 rows that gave way to it); with the registered address, 399 more rows by it (most of them would have
 had the listed address or the city otherwise). In the sample, 1,646 listed addresses were not used because the place's name did not fit the
 organisation's, and 3,987 because no distributor serves the postal code.
+
+**Added at 05:08Z — the mailbox reader takes the sites a listed address locates.** `tools/lead_crawl.py` queued a site of another ending
+than .ca only when its home page printed a Canadian postal address. A site whose domain an Overture Maps place lists with one postal code a
+distributor serves is located all the same: 9,193 home pages the scan read print a role mailbox and no Canadian address (first class, read
+with the other located sites), 22,546 print neither (second class, contact pages, 4 pages each). `mailbox-crawl.yml` downloads the address
+file from `harvest-state`. `tools/credit_scan.py merge-graph` rewrites a list only when a row changed, with a fixed gzip time (the
+Overture run at 04:54Z committed the same 20 MB list again).

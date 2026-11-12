@@ -442,6 +442,7 @@ def leads_mode(a, k, n):
     # Its relationship is the registration of its .ca domain name (agreement with the Canadian Internet Registration Authority, paid for through a
     # CIRA-certified Canadian registrar); what is missing is the mailbox row with its page and quote. A light read: at most 8 pages.
     n_reg = 0
+    _ovt = {}  # sites located by an Overture Maps place's address (filled below when site candidates are queued)
     if a.registry:
         lead_doms = {C.registrable(h[4:] if h.startswith("www.") else h) for h in hosts}
         rank_em = {"invoice_submission": 0, "accounts_payable": 0, "supplier_payment": 0, "finance": 1, "procurement": 1, "general": 2, "role": 3}
@@ -457,15 +458,25 @@ def leads_mode(a, k, n):
         except Exception as e:
             print("no postal codes from the scan (%s): the candidates keep the old order" % e, flush=True)
             BL, _pcs = None, {}
+        # 2026-11-12 (coord/DECISIONS.md 2026-11-12 04:39Z): a site whose home page prints no Canadian address, but whose domain an Overture Maps
+        # place in Canada lists with one postal code a distributor serves, is located all the same (tools/by_location.py directory_addresses;
+        # the file comes from the release harvest-state): the ranker makes its row once its mailbox is read, if the place's name fits
+        try:
+            _ovt = BL.directory_addresses({d for d, (em_, cc_) in hints.items() if cc_ != "CA" and not d.endswith(".ca")}) if BL else {}
+            _ovt = {d: o for d, o in _ovt.items() if BL.biller_for(o["postcode"])}
+        except Exception as e:
+            print("no listed addresses (%s)" % e, flush=True)
+            _ovt = {}
+        print("sites of another ending than .ca with no Canadian address on the home page, located by an Overture Maps place's address: %d" % len(_ovt), flush=True)
         def _loc_rank(dom, cc):
             pc = (_pcs.get(dom) or ("",))[0]
-            if pc and BL and BL.biller_for(pc[:3] + " " + pc[3:]):
-                return 0
+            if (pc and BL and BL.biller_for(pc[:3] + " " + pc[3:])) or dom in _ovt:
+                return 0  # in a distributor's territory: by the postal code its home page prints, or by its listed address
             return 1 if (pc or cc == "CA") else 2
         cand = []
         for dom, (em, cc) in hints.items():
             ca = dom.endswith(".ca")
-            if not em or not ((ca and cc in ("", "CA")) or cc == "CA") or not shard_ok(dom, k, n):
+            if not em or not ((ca and cc in ("", "CA")) or cc == "CA" or dom in _ovt) or not shard_ok(dom, k, n):
                 continue
             rd = C.registrable(dom)
             key = "lead:" + hashlib.sha1((("%s|reg:ca" if ca else "%s|site:ca-address") % rd).encode()).hexdigest()[:16]
@@ -513,6 +524,25 @@ def leads_mode(a, k, n):
                     continue
                 cand2.append((0 + (10 if key in reread else 0), dom, key)); n_other += 1
             print("second-class candidates of another ending than .ca (a Canadian postal address on the home page): %d" % n_other, flush=True)
+            # 2026-11-12: and the sites of another ending whose home page prints no mailbox and no Canadian address, located by an Overture Maps
+            # place's address (22,546 on 2026-11-12), after them
+            n_ovt2 = 0
+            try:
+                import by_location as _BL2
+                _nm = {d for d, cc in CS.sites_without_mailbox_any().items() if cc != "CA" and shard_ok(d, k, n)}
+                _ovt2 = {d for d, o in _BL2.directory_addresses(_nm).items() if _BL2.biller_for(o["postcode"])}
+            except Exception as e:
+                print("sites located by a listed address not queued (%s)" % e, flush=True)
+                _ovt2 = set()
+            for dom in sorted(_ovt2):
+                if dom in _ovt or not shard_ok(dom, k, n):
+                    continue
+                rd = C.registrable(dom)
+                key = "lead:" + hashlib.sha1(("%s|site:ca-address" % rd).encode()).hexdigest()[:16]
+                if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known or dom in taken:
+                    continue
+                cand2.append((0 + (10 if key in reread else 0), dom, key)); n_ovt2 += 1  # located: a row as soon as a mailbox is read
+            print("second-class candidates located by an Overture Maps place's address: %d" % n_ovt2, flush=True)
             cand2.sort()
             _via2 = CS.site_via()
             for _, dom, key in cand2[:a.registry2]:

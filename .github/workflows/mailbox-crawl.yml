@@ -57,6 +57,11 @@ jobs:
       - uses: actions/checkout@v4
         with: { ref: main }
       - run: sudo apt-get install -y -q poppler-utils >/dev/null 2>&1 || true
+      - name: The address an Overture Maps place lists for each website (sites located by it are read too; tools/credit_scan.py overture, monthly)
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          mkdir -p data/release
+          gh release download harvest-state -p overture_addresses.csv.gz -D data/release --clobber || echo "no listed addresses: sites are located by their own home page only"
       - name: Read each lead's own site for its role mailbox
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))

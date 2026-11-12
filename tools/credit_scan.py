@@ -26,7 +26,7 @@ the page; D: a design verb alone ("designed by", "conception :", "une réalisati
 "propulsé par": only in the footer zone, vendors with a free plan excluded. Sponsors, donors, hosts of events, themes, photo credits,
 "developed by" / "built by" without a web noun (real-estate developers, builders) are not credits.
 """
-import argparse, collections, csv, glob, gzip, hashlib, html, json, os, random, re, sys, threading, time, urllib.error, urllib.parse, urllib.request, urllib.robotparser
+import argparse, collections, csv, glob, gzip, hashlib, html, io, json, os, random, re, sys, threading, time, urllib.error, urllib.parse, urllib.request, urllib.robotparser
 
 csv.field_size_limit(1 << 30)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -818,18 +818,22 @@ def merge_graph(a):
         if os.path.exists(path):
             with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
                 rows = {r["dom"]: r for r in csv.DictReader(fh)}
-        n0 = len(rows)
+        n0, changed = len(rows), False
         for f in sorted(glob.glob(os.path.join(a.dir, name))):
             for r in csv.DictReader(open(f, encoding="utf-8")):
                 if r.get("dom"):
+                    r = {c: r.get(c) or "" for c in cols}
+                    if {c: (rows.get(r["dom"]) or {}).get(c) or "" for c in cols} != r:
+                        changed = True
                     rows[r["dom"]] = r
-        if rows:
-            with gzip.open(path, "wt", encoding="utf-8", newline="") as fh:
+        if rows and changed:
+            # mtime 0: the same rows give the same bytes (2026-11-12: a run that added nothing committed the 20 MB list again)
+            with io.TextIOWrapper(gzip.GzipFile(path, "wb", mtime=0), encoding="utf-8", newline="") as fh:
                 w = csv.DictWriter(fh, fieldnames=cols, extrasaction="ignore")
                 w.writeheader()
                 for d in sorted(rows):
                     w.writerow(rows[d])
-        print("%s: %d domains (+%d this run)" % (os.path.basename(path), len(rows), len(rows) - n0))
+        print("%s: %d domains (+%d this run%s)" % (os.path.basename(path), len(rows), len(rows) - n0, "" if changed else "; no row changed, left as it is"))
 
 
 # ------------------------------------------------------------------------------------------------------------------- scan
@@ -875,6 +879,19 @@ def ca_sites_without_mailbox():
     for l in state_lines("done"):
         q = l.split("\t")
         if len(q) > 5 and q[0].endswith(".ca"):
+            latest[q[0]] = (q[2] == "ok" and any(re.fullmatch(r"t[4-9]", x) for x in q[5:]),
+                            next((x[3:] for x in q[6:] if x.startswith("em=")), ""), next((x[3:] for x in q[6:] if x.startswith("cc=")), ""))
+    return {d: cc for d, (ok, em, cc) in latest.items() if ok and not em}
+
+
+def sites_without_mailbox_any():
+    """{site: country of the postal address it prints or ""} — sites of another ending than .ca whose home page the scan read (detector 4+) and
+    that print NO role mailbox there (the latest read counts); the .ca ones are ca_sites_without_mailbox(). 552,175 of them print no Canadian
+    address either on 2026-11-12; those an Overture Maps place's address locates are read for their contact page (tools/lead_crawl.py)."""
+    latest = {}
+    for l in state_lines("done"):
+        q = l.split("\t")
+        if len(q) > 5 and not q[0].endswith(".ca"):
             latest[q[0]] = (q[2] == "ok" and any(re.fullmatch(r"t[4-9]", x) for x in q[5:]),
                             next((x[3:] for x in q[6:] if x.startswith("em=")), ""), next((x[3:] for x in q[6:] if x.startswith("cc=")), ""))
     return {d: cc for d, (ok, em, cc) in latest.items() if ok and not em}
