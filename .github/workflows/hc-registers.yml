@@ -11,8 +11,11 @@ on:
   workflow_dispatch:
     inputs:
       minutes:
-        description: "minutes for the site finder"
-        default: "90"
+        description: "minutes for the site finder (the company-name autocomplete)"
+        default: "75"
+      overture:
+        description: "true = scan the Overture Maps places now for the companies and issuers without a site (otherwise once a week)"
+        default: "false"
 permissions:
   contents: write
 concurrency:
@@ -21,24 +24,33 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 200
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
       - name: Pull, build, find sites, write leads, commit
-        env: { MINUTES: "${{ inputs.minutes || '90' }}" }
+        env: { MINUTES: "${{ inputs.minutes || '75' }}", OVERTURE: "${{ inputs.overture || 'false' }}" }
         run: |
           python3 tools/hc_registers.py pull --work /tmp/hc 2>&1 | tee /tmp/l.txt
           python3 tools/hc_registers.py build --work /tmp/hc 2>&1 | tee -a /tmp/l.txt
-          python3 tools/hc_registers.py sites --minutes "$MINUTES" --threads 12 2>&1 | tee -a /tmp/l.txt
+          # 2026-11-12: the website an Overture Maps place lists under the company's very name at its postal code (and, for the exchange-issuers
+          # lane, under the issuer's name in its province), once a week: one scan of the places for both lanes (tools/overture_names.py)
+          last=$(cut -d' ' -f1 data/incoming/claude/overture/last_query.txt 2>/dev/null || echo 0)
+          if [ "${OVERTURE}" = "true" ] || [ $(( $(date +%s) - ${last:-0} )) -gt 518400 ]; then
+            pip install -q duckdb && python3 tools/overture_names.py query --lanes hc,xc 2>&1 | tee -a /tmp/l.txt || true
+          fi
+          python3 tools/hc_registers.py sites --overture --overture-minutes 35 --minutes "$MINUTES" --threads 12 2>&1 | tee -a /tmp/l.txt
           mkdir -p keep && cp data/incoming/claude/hc/hc_companies.csv.gz data/incoming/claude/hc/hc_sites.csv data/incoming/claude/hc/hc_sites_done.tsv keep/
+          [ -f data/incoming/claude/hc/hc_overture_done.tsv ] && cp data/incoming/claude/hc/hc_overture_done.tsv keep/
+          mkdir -p keep/ovt && cp data/incoming/claude/overture/*.csv keep/ovt/ 2>/dev/null || true
           STAMP=$(date -u +%Y%m%dT%H%M%S)
           git config user.name "hc-registers"; git config user.email "hc-registers@users.noreply.github.com"
           for i in $(seq 1 10); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             mkdir -p data/incoming/claude/hc
             # the site list and the done list only grow: the lines of main and of this run, once each
-            for f in hc_sites.csv hc_sites_done.tsv; do
+            for f in hc_sites.csv hc_sites_done.tsv hc_overture_done.tsv; do
+              [ -f "keep/$f" ] || continue
               if [ -f "data/incoming/claude/hc/$f" ]; then
                 python3 - "$f" <<'PY'
           import sys
@@ -57,9 +69,10 @@ jobs:
               fi
             done
             cp keep/hc_companies.csv.gz data/incoming/claude/hc/
+            mkdir -p data/incoming/claude/overture && cp keep/ovt/*.csv data/incoming/claude/overture/ 2>/dev/null || true
             python3 tools/hc_registers.py leads --stamp "$STAMP" | tee /tmp/m.txt
             python3 tools/secret_guard.py || true
-            git add data/incoming/claude/hc data/incoming/claude/lead_shards
+            git add data/incoming/claude/hc data/incoming/claude/lead_shards data/incoming/claude/overture
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "hc-registers: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
             git push -q origin HEAD:main && break

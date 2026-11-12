@@ -404,6 +404,106 @@ def home_says(domain, n):
     return ""
 
 
+OVT = os.path.join(INC, "overture", "hc_candidates.csv")
+ODONE = os.path.join(DIR, "hc_overture_done.tsv")
+
+
+def pc_on_home(domain, pcode, country):
+    """the register's postal code printed on the site's own home page: a Canadian code with or without its space, a US ZIP after the state's
+    two letters, any other code as written -> the words around it, else """""
+    import client_lists as CL
+    site = "https://%s/" % domain
+    if not pcode or not CL.allowed(site):
+        return ""
+    page, final = CL.fetch(site)
+    if not page:
+        return ""
+    text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style).*?</\1>", " ", page[:400_000]))))
+    p = re.sub(r"[^A-Z0-9]", "", pcode.upper())
+    c = norm(country)
+    if c in ("canada", "ca") and re.match(r"[A-Z]\d[A-Z]\d[A-Z]\d$", p):
+        rx = r"(?i)\b%s\s?%s\b" % (p[:3], p[3:])
+    elif c in ("united states", "us") and re.match(r"\d{5}", p):
+        rx = r"\b[A-Z]{2},?\s+%s(?:-\d{4})?\b" % p[:5]
+    elif len(p) >= 4:
+        rx = r"(?i)(?<![A-Z0-9])%s(?![A-Z0-9])" % re.escape(pcode.strip())
+    else:
+        return ""
+    m = re.search(rx, text)
+    return text[max(0, m.start() - 60): m.end() + 20].strip() if m else ""
+
+
+def overture_pass(cos, have, w, f, minutes, threads):
+    """the companies for which an Overture Maps place lists a website under their very name at their postal code
+    (tools/overture_names.py): the site is kept when its own home page carries the company's name in its title / site name or prints the
+    register's postal code. A company in Canada on a site that is not .ca, or one whose name a group's entities in other countries also bear,
+    is kept only on its postal code printed on the site (the place may list the parent's worldwide site)."""
+    import queue, threading
+    if not os.path.exists(OVT):
+        print("overture: no candidates file (tools/overture_names.py query)", flush=True)
+        return 0
+    by = collections.defaultdict(list)
+    for r in csv.DictReader(open(OVT, encoding="utf-8", newline="")):
+        by[r["key"]].append(r)
+    done = {l.split("\t")[0] for l in open(ODONE, encoding="utf-8")} if os.path.exists(ODONE) else set()
+    todo = [o for o in cos if o["key"] in by and o["key"] not in have and o["key"] not in done]
+    todo.sort(key=lambda o: -float(o["fee_total"] or 0))
+    GROUPS.clear()
+    for o in cos:
+        c_ = core(o["name"])
+        if c_:
+            GROUPS.setdefault(group_key(c_), set()).add(norm(o.get("country") or ""))
+    t_end = time.time() + 60 * minutes
+    lock, q, cnt = threading.Lock(), queue.Queue(), collections.Counter()
+    for o in todo:
+        q.put(o)
+    dn = open(ODONE, "a", encoding="utf-8")
+
+    def worker():
+        while time.time() < t_end:
+            try:
+                o = q.get_nowait()
+            except queue.Empty:
+                return
+            n = core(o["name"])
+            ca = norm(o.get("country") or "") in ("canada", "ca")
+            multi = len(GROUPS.get(group_key(n), set()) - {norm(o.get("country") or "")}) > 0
+            hit = None
+            for c in by[o["key"]]:
+                d = c["site"]
+                if BAD.search(d):
+                    continue
+                strict = (ca and not d.endswith(".ca")) or (multi and d.rsplit(".", 1)[-1] in GENERIC)
+                try:
+                    said = "" if strict else home_says(d, n)
+                    pcs = "" if said else pc_on_home(d, o.get("postal_code") or "", o.get("country") or "")
+                except Exception:
+                    said, pcs = "", ""
+                if said or pcs:
+                    hit = (c, said, pcs)
+                    break
+            with lock:
+                dn.write("%s\t%s\n" % (o["key"], hit[0]["site"] if hit else "")); dn.flush()
+                cnt["asked"] += 1
+                if hit:
+                    c, said, pcs = hit
+                    how = ("carries the company's name: “%s”" % said) if said else ("prints the register's postal code: “%s”" % no_mail(pcs))
+                    w.writerow({"key": o["key"], "site": "https://%s/" % c["site"], "read": TODAY, "quote": (said or no_mail(pcs))[:300],
+                                "tied_by": "an Overture Maps place lists %s under the company's name at its postal code %s (“%s”, place %s; Overture Maps "
+                                           "Foundation open data, release %s), and the site's own home page %s" % (
+                                               c["site"], c["place_postcode"], c["place_name"], c["place_id"], c["release"], how)})
+                    f.flush(); have[o["key"]] = True; cnt["found"] += 1
+
+    ts = [threading.Thread(target=worker, daemon=True) for _ in range(threads)]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    dn.close()
+    print("overture: %d companies with a candidate site, %d asked this run, %d sites tied" % (len(todo), cnt["asked"], cnt["found"]), flush=True)
+    return cnt["found"]
+
+
 def cmd_sites(a):
     import queue, threading
     os.makedirs(DIR, exist_ok=True)
@@ -418,6 +518,8 @@ def cmd_sites(a):
     for k, r in tie_on_file([o for o in cos if o["key"] not in have]).items():
         w.writerow(r); have[k] = r; n_file += 1
     f.flush()
+    if getattr(a, "overture", False):
+        overture_pass(cos, have, w, f, a.overture_minutes, a.threads)
     done = set()
     if os.path.exists(SDONE):
         done = {l.split("\t")[0] for l in open(SDONE, encoding="utf-8")}
@@ -585,6 +687,8 @@ def main():
     p = sub.add_parser("pull"); p.add_argument("--work", default=os.path.expanduser("~/cch-sources/hc"))
     p = sub.add_parser("build"); p.add_argument("--work", default=os.path.expanduser("~/cch-sources/hc"))
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=50); p.add_argument("--threads", type=int, default=12)
+    p.add_argument("--overture", action="store_true", help="first the sites an Overture Maps place lists under the company's name at its postal code (tools/overture_names.py)")
+    p.add_argument("--overture-minutes", type=float, default=40)
     p = sub.add_parser("leads"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"pull": cmd_pull, "build": cmd_build, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)

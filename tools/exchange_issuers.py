@@ -203,6 +203,49 @@ def ticker_on_home(domain, ticker, name):
     return ""
 
 
+OVT = os.path.join(INC, "overture", "xc_candidates.csv")
+ODONE = os.path.join(DIR, "issuer_overture_done.tsv")
+
+
+def overture_pass(have):
+    """the issuers for which an Overture Maps place lists a website under their very name in the province / state of their head office
+    (tools/overture_names.py): kept by the same test as the autocomplete's (ticker_on_home)"""
+    if not os.path.exists(OVT):
+        print("overture: no candidates file (tools/overture_names.py query)", flush=True)
+        return
+    by = collections.defaultdict(list)
+    for r in csv.DictReader(open(OVT, encoding="utf-8", newline="")):
+        by[r["key"]].append(r)
+    done = {l.split("\t")[0] for l in open(ODONE, encoding="utf-8")} if os.path.exists(ODONE) else set()
+    todo = [o for o in issuers() if o["key"] in by and o["key"] not in have and o["key"] not in done]
+    new = not os.path.exists(SITES)
+    found = 0
+    with open(SITES, "a", encoding="utf-8", newline="") as f, open(ODONE, "a", encoding="utf-8") as dn:
+        w = csv.DictWriter(f, fieldnames=["key", "site", "tied_by", "quote", "read"])
+        if new:
+            w.writeheader()
+        for o in todo:
+            hit, why, c = "", "", None
+            for c in by[o["key"]]:
+                d = c["site"]
+                if BAD.search(d):
+                    continue
+                try:
+                    why = ticker_on_home(d, o["ticker"], o["name"])
+                except Exception:
+                    why = ""
+                if why:
+                    hit = d
+                    break
+            dn.write("%s\t%s\n" % (o["key"], hit)); dn.flush()
+            if hit:
+                w.writerow({"key": o["key"], "site": "https://%s/" % hit, "read": TODAY, "quote": why[:300],
+                            "tied_by": "an Overture Maps place lists %s under the issuer's name in %s, the province / state of its head office (“%s”, place %s; "
+                                       "Overture Maps Foundation open data, release %s), and %s" % (hit, o["hq_location"], c["place_name"], c["place_id"], c["release"], why)})
+                f.flush(); have[o["key"]] = True; found += 1
+    print("overture: %d issuers with a candidate site, %d asked, %d sites tied" % (len(by), len(todo), found), flush=True)
+
+
 def cmd_sites(a):
     """each issuer's website: the company-name autocomplete (one request a second) proposes a domain under the issuer's very name, and the
     domain's own home page prints the issuer's symbol on its exchange, or its name in its title"""
@@ -232,6 +275,8 @@ def cmd_sites(a):
                 w0.writeheader()
             w0.writerows(fresh)
     print("issuer sites from the exchange's own list (Canadian Securities Exchange): %d new" % len(fresh), flush=True)
+    if getattr(a, "overture", False):
+        overture_pass(have)
     todo = [o for o in issuers() if o["key"] not in have and o["key"] not in done and o["exchange"] != "CSE"]
     todo.sort(key=lambda o: -float(o["fee"]))
     new = not os.path.exists(SITES)
@@ -366,6 +411,7 @@ def main():
     p = sub.add_parser("pull"); p.add_argument("--work", required=True)
     p = sub.add_parser("build"); p.add_argument("--work", required=True)
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=60)
+    p.add_argument("--overture", action="store_true", help="first the sites an Overture Maps place lists under the issuer's name in its province / state (tools/overture_names.py)")
     p = sub.add_parser("leads"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"pull": cmd_pull, "build": cmd_build, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
