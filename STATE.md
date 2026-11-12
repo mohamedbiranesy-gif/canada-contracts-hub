@@ -1,4 +1,33 @@
-# STATE.md — Claude lane (updated 2026-11-12 16:48Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 18:20Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 18:20Z — exchange issuers (TSX, TSXV, CSE), patents through pt-sites, rosters at scale (dealers, malls, shows, builders); robots.txt BOM fix
+
+**Last build read: 17:06Z (aaaa5ed): 200,160 ready** (by location 151,273; membership 13,625; licence 11,670; service 7,964; agent 6,044;
+sponsorship 4,471; public contract 3,101; dealership 1,892; tenancy 120); $5k+ a bill 1,683 published + 115 estimated; amount and period
+175,856; every main field 149,578. Told to the owner. The 18:17Z scheduled build carries everything below except what landed after 18:17Z.
+**New since 17:06Z (all committed):**
+- `tools/exchange_issuers.py` + `exchange-issuers.yml` (03:37, 09:37, 15:37, 21:37): listed companies of the Toronto Stock Exchange (664),
+  TSX Venture (1,343) and the Canadian Securities Exchange (616 Active equity issuers). TSX/TSXV: annual sustaining fee "invoiced in February",
+  C$5,500+ a year, amount calculated from the list's market capitalization (labelled); site = name autocomplete under the issuer's very name,
+  kept only when the home page prints its symbol ("TSX: ABC"), or the domain is its name + the page names it + links investors' pages (the test
+  of 2026-11-12 caught 4 namesakes under the looser rule). CSE: its own list gives each issuer's website (494 leads at once), a MONTHLY
+  maintenance fee, C$1,000 a month at the least, "due on the first business day of each month". Payment method not printed by any exchange →
+  by the kind. New kind "exchange listing" in relationship_rows (fields as a licence) + priority_sort (5) + retest_rows. First cloud run
+  43274137512 dispatched 17:53Z (old code, TSX/TSXV only; the next run rebuilds with the CSE).
+- pt-sites found 2,792 owner sites; pt-register now 3,638 patent leads (agent of record = Canadian patent agent; by the kind: per transaction).
+- Rosters merged 17:36Z-18:14Z: +2,606, +524, +187, +1,691, +1,004 (construction associations of Ottawa, Vancouver Island, Niagara, Nova Scotia,
+  London, Thunder Bay; HBAs of London, Waterloo; dealers of MacDon, Loewen, Enviro, Paradigm, Honey Bee, Argon 18 (Europe left out — Argon 18
+  Europe may supply it), Bourgault, Elmer's, SeedMaster; tenants of Cadillac Fairview, Oxford, Primaris, Morguard, RioCan + others; exhibitors of
+  ~40 shows: Marketplace Events' home/boat/sport shows, IDS, CPMA, WMTS, MEET, BUILDEX, Expo habitat, HAC). Domains on more than 15 rosters
+  (chains) are left out (100 now). Not yet merged: dl_morris (reviewed, committed) and whatever the running helpers write.
+- robots.txt with a byte-order mark was read as "allow all" by every shared reader (utf-8 decode kept the BOM): fixed (utf-8-sig / lstrip) in
+  ap_crawler, client_lists, credit_scan, live_clients, probe, research_driver, small_sources, dated_stories.
+- ap_crawler: plain http also when https resets or refuses. validate_returns: renseignements@ is a role mailbox. Batches 915-916 committed.
+**Helpers running at 18:20Z:** dealers B (Kingsman, Opus, Garneau, PSB, Bryston, Brandt, Meridian, Kohltech, Pronovost, Normand, Campion, Arc'teryx,
+Mustang — blocked makers listed to it), tourism member directories (DMOs, tourism associations), builders/construction associations, malls.
+**Roster merge rule learned:** never move a helper's file out of the way to hold it (a helper rewrote Bourgault while it was held and the move
+back overwrote the fix). Merge only after review; a file that lands during a merge is reviewed before the commit.
+**Next:** read the 18:17Z build when it lands (~19:35Z); merge helper rosters as they land; Sunday: coord/WEEKLY_REPORT.md.
 
 ## 2026-11-12 16:48Z — new lanes (ISED radio licences, Health Canada establishment licences), rosters at scale, two hosting vendors; build 16:17Z read
 
