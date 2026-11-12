@@ -1,0 +1,13 @@
+{
+ "key": "cc_pe_kensington",
+ "kind": "member",
+ "biller": "Kensington & Area Chamber of Commerce",
+ "biller_site": "https://www.kaccpei.com/",
+ "biller_address": "PO Box 234, Kensington, PE C0A 1N0",
+ "biller_address_url": "https://www.kaccpei.com/kaccpayments",
+ "biller_address_quote": "Cheques can be made out to Kensington & Area Chamber and can be mailed to: Kensington & Area Chamber PO Box 234 Kensington, PE C0A 1N0",
+ "read": "2026-11-12",
+ "pays_quote": "There are a few options to pay for your KACC invoice.",
+ "pays_url": "https://www.kaccpei.com/kaccpayments",
+ "list_name": "the Kensington & Area Chamber of Commerce's public member directory"
+}

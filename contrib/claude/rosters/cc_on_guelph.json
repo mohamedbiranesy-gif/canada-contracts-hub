@@ -1,0 +1,13 @@
+{
+ "key": "cc_on_guelph",
+ "kind": "member",
+ "biller": "Guelph Chamber of Commerce",
+ "biller_site": "https://www.guelphchamber.com/",
+ "biller_address": "201-111 Farquhar Street, Guelph, Ontario N1H 3N4",
+ "biller_address_url": "https://www.guelphchamber.com/contact",
+ "biller_address_quote": "Guelph Chamber of Commerce 201-111 Farquhar Street Guelph, Ontario N1H 3N4",
+ "pays_quote": "If you prefer to pay your membership monthly, please click here.",
+ "pays_url": "https://www.guelphchamber.com/membership/become-a-member",
+ "list_name": "the Guelph Chamber of Commerce's public member directory",
+ "read": "2026-11-12"
+}

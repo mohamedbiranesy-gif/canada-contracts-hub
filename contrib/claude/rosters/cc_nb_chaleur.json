@@ -1,0 +1,13 @@
+{
+ "key": "cc_nb_chaleur",
+ "kind": "member",
+ "biller": "Chaleur Chamber of Commerce (Chambre de commerce Chaleur)",
+ "biller_site": "https://chaleurchamber.ca/",
+ "biller_address": "219 Main Street, Pièce #5, Bathurst, NB E2A 1A9",
+ "biller_address_url": "https://chaleurchamber.ca/a-propos/",
+ "biller_address_quote": "Contact 219 Main Street Pièce #5 Bathurst, Nouveau-Brunswick, Canada E2A 1A9",
+ "read": "2026-11-12",
+ "pays_quote": "Nombre d’employés Frais d’adhésion ($) 1 à 5 210.00 + TVH = 241.50 6 à 10 270.00 + TVH = 310.50 11 à 25 338.00 + TVH = 388.70 26 à 50 450.00 + TVH = 517.50",
+ "pays_url": "https://chaleurchamber.ca/services-aux-membres/",
+ "list_name": "the Chaleur Chamber of Commerce's public member directory"
+}
