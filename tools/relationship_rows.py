@@ -141,6 +141,7 @@ FIELDS = {
     "licence or registration": ["buyer address", "vendor address", "what is billed", "amount", "billing period", "reference"],
     "exchange listing": ["buyer address", "vendor address", "what is billed", "amount", "billing period", "reference"],
     "export sale": ["buyer address", "vendor address", "what is billed", "amount", "reference"],
+    "benefit plan contract": ["buyer address", "vendor address", "what is billed", "amount", "reference"],
     "membership": ["buyer address", "vendor address", "vendor tax or registration number", "amount", "billing period"],
     "dealership": ["buyer address", "vendor address", "vendor tax or registration number"],
     "tenancy": ["buyer address", "vendor address", "vendor tax or registration number", "billing period"],
@@ -170,6 +171,8 @@ def record_basis(x):
 
 def kind_of(x):
     t, fb, cs = x.get("tier") or "", x.get("relationship_fact_basis") or "", x.get("contract_status") or ""
+    if cs.startswith(("insured benefit plan of a Canadian insurer", "service provider in Canada paid by the organisation's benefit plan")):
+        return "benefit plan contract"  # tools/f5500_benefits.py: the plan's Form 5500 names the Canadian insurer or the provider in Canada
     if cs.startswith("importer of record of goods invoiced by"):
         return "export sale"  # tools/dian_cloud.py: an import declaration names the importer, the exporter in Canada and the exporter's invoice
     if "names the vendor and the contract" in fb or (t in ("A", "B", "L", "F") and fb.startswith("fact, public record")):
@@ -278,6 +281,7 @@ BY_KIND = {
     "agent of record": "an agent's professional fees and the official fees it advances: an invoice for each step, paid by cheque or wire transfer",
     "exchange listing": "a stock exchange's listing fee: billed by the exchange for each year or each month of listing, paid by wire transfer, pre-authorised debit or cheque",
     "utility account by location": "an electricity bill: issued every month or every two months, paid through a financial institution, by pre-authorised debit or by cheque",
+    "benefit plan contract": "an insurer's group premium or a plan provider's fee: a premium statement or an invoice, paid by ACH, wire transfer or cheque",
 }
 NOT_BY_KIND = ("canadian intellectual property office",)  # its page names the ways of paying and no notice or invoice: nothing is said in its place
 ROUTE_LABEL = {"kind": "on invoice, by bank transfer / cheque — by the kind of relationship (the biller's own words were not found)",
@@ -542,6 +546,8 @@ def billing_cadence(x, kind):
         when.append("for each order")
     elif kind == "export sale":
         when.append("for each shipment, on the exporter's commercial invoice")
+    elif kind == "benefit plan contract" and code == "1":
+        when.append("a premium statement for each month of the policy year")
     elif kind == "tenancy" and code == "1":
         when.append("rent for each month")
     due = re.split(r":\s*[“\"]", str(x.get("bill_due_terms_as_published") or ""))[0].strip(" ;,")

@@ -1,0 +1,77 @@
+name: f5500
+# US employers whose benefit plans pay a Canadian company (tools/f5500_benefits.py), from the Form 5500 filings the US Department of Labor
+# publishes as open data (refreshed every month): Schedule A names each plan's insurers — Sun Life Assurance Company of Canada insures the plans
+# of some 4,000 US employers (policy number, policy period, persons covered, kinds of benefit, commissions) — and Schedule C names every provider
+# paid $5,000 or more, with its address (country CA: a provider in Canada). The sponsor's site is kept only on its own pages (its ZIP code
+# printed after its state, or its name in its title for a place-dataset candidate); the mailbox comes from that site (mailbox-crawl).
+on:
+  schedule:
+    - cron: "17 7 * * 3"          # weekly: the site finder works through the sponsors; the filings are pulled again when a week has passed
+  workflow_dispatch:
+    inputs:
+      years:
+        description: "plan years to pull"
+        default: "2024,2025"
+      minutes:
+        description: "minutes for the site finder"
+        default: "80"
+permissions:
+  contents: write
+concurrency:
+  group: f5500
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Pull, build, find sites, write leads, commit
+        env: { YEARS: "${{ inputs.years || '2024,2025' }}", MINUTES: "${{ inputs.minutes || '80' }}" }
+        run: |
+          python3 tools/f5500_benefits.py pull --years "$YEARS" 2>&1 | tee /tmp/l.txt
+          python3 tools/f5500_benefits.py build 2>&1 | tee -a /tmp/l.txt
+          last=$(cut -d' ' -f1 data/incoming/claude/overture/last_query_f55.txt 2>/dev/null || echo 0)
+          if [ $(( $(date +%s) - ${last:-0} )) -gt 1200000 ]; then
+            pip install -q duckdb && python3 tools/overture_names.py query --lanes f55 2>&1 | tee -a /tmp/l.txt || true
+          fi
+          python3 tools/f5500_benefits.py sites --minutes "$MINUTES" --threads 12 2>&1 | tee -a /tmp/l.txt
+          mkdir -p keep && cp -r data/incoming/claude/f5500 keep/ && mkdir -p keep/ovt && for f in f55_candidates.csv last_query_f55.txt; do
+            [ -f "data/incoming/claude/overture/$f" ] && cp "data/incoming/claude/overture/$f" keep/ovt/; done
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          git config user.name "f5500"; git config user.email "f5500@users.noreply.github.com"
+          for i in $(seq 1 10); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            mkdir -p data/incoming/claude/f5500 data/incoming/claude/overture
+            cp keep/f5500/*.csv.gz data/incoming/claude/f5500/ 2>/dev/null || true
+            cp keep/ovt/* data/incoming/claude/overture/ 2>/dev/null || true
+            for f in f5500_sites.csv f5500_sites_done.tsv; do
+              [ -f "keep/f5500/$f" ] || continue
+              if [ -f "data/incoming/claude/f5500/$f" ]; then
+                python3 - "$f" <<'PY'
+          import sys
+          f = sys.argv[1]
+          a = open("data/incoming/claude/f5500/" + f, encoding="utf-8").read().splitlines()
+          b = open("keep/f5500/" + f, encoding="utf-8").read().splitlines()
+          seen, out = set(), []
+          for l in a + b:
+              if l not in seen:
+                  seen.add(l); out.append(l)
+          head = [l for l in out if l.startswith("key,")][:1]
+          open("data/incoming/claude/f5500/" + f, "w", encoding="utf-8").write("\n".join(head + [l for l in out if not l.startswith("key,")]) + "\n")
+          PY
+              else
+                cp "keep/f5500/$f" "data/incoming/claude/f5500/$f"
+              fi
+            done
+            python3 tools/f5500_benefits.py leads --stamp "$STAMP" | tee /tmp/m.txt
+            python3 tools/secret_guard.py || true
+            git add data/incoming/claude/f5500 data/incoming/claude/overture data/incoming/claude/lead_shards
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "f5500: $(grep -m1 '^f5500 buyers' /tmp/l.txt | cut -c1-100); $(tail -1 /tmp/m.txt | cut -c1-80) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
+          { echo '```'; cat /tmp/l.txt /tmp/m.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

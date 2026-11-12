@@ -150,7 +150,26 @@ def lane_cb():
     return out
 
 
-LANES = {"hc": lane_hc, "xc": lane_xc, "dian": lane_dian, "cb": lane_cb}
+def lane_f55():
+    """US employers whose benefit plan pays a Canadian insurer or a provider in Canada, without a site on file (tools/f5500_benefits.py); the
+    Form 5500 gives the sponsor's mailing ZIP code"""
+    p = os.path.join(INC, "f5500", "f5500_buyers.csv.gz")
+    if not os.path.exists(p):
+        return []
+    have = set()
+    sp = os.path.join(INC, "f5500", "f5500_sites.csv")
+    if os.path.exists(sp):
+        have = {r["key"] for r in csv.DictReader(open(sp, encoding="utf-8", newline=""))}
+    out = []
+    with gzip.open(p, "rt", encoding="utf-8", newline="") as f:
+        for r in csv.DictReader(f):
+            if r["key"] in have or not re.fullmatch(r"\d{5}", r.get("zip") or ""):
+                continue
+            out.append((r["key"], r["name"], "US", r["zip"], r.get("state") or ""))
+    return out
+
+
+LANES = {"hc": lane_hc, "xc": lane_xc, "dian": lane_dian, "cb": lane_cb, "f55": lane_f55}
 
 
 def verify(a):

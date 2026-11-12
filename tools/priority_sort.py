@@ -62,7 +62,7 @@ def identity_keys(buyer, email, website, address):
 
 _GRADE = {"invoicing/AP": 4, "finance/accounting dept or supplier-payment office": 3, "purchasing": 2, "general": 1}
 # rule 13: a record (a contract, a licence, a roster) or a service seen on the buyer's side comes before the distributor of its address
-_KIND = {"public contract": 6, "licence or registration": 5, "agent of record": 5, "exchange listing": 5, "export sale": 6, "membership": 4, "sponsorship": 4, "dealership": 4, "tenancy": 4,
+_KIND = {"public contract": 6, "licence or registration": 5, "agent of record": 5, "exchange listing": 5, "export sale": 6, "benefit plan contract": 6, "membership": 4, "sponsorship": 4, "dealership": 4, "tenancy": 4,
          "service seen on the buyer's side": 3, "utility account by location": 2}
 _DOMAIN_ONLY = re.compile(r"^(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}$", re.I)
 

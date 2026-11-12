@@ -1858,6 +1858,19 @@ for k, L in sorted(leads.items(), key=lead_strength):
             x["bill_payment_method_as_published"] = "“%s” (FORMA_PAGO of the import declaration; TIPO_IMPORTACION “%s”)" % (_dd0["dian_payment_form"], _dd0.get("dian_import_type") or "")
         if not x.get("buyer_address") and _dd0.get("dian_importer_address"):
             x["buyer_address"] = "%s (as the import declaration records it: DIRECCION_IMPORTADOR, DEPARTAMENTO_IMPORTADOR)" % _dd0["dian_importer_address"]
+    if _dd0.get("platform") == "f5500_plan":
+        # tools/f5500_benefits.py: the plan's Form 5500 (US Department of Labor) names the Canadian insurer of its contracts (Schedule A) or a provider
+        # in Canada it paid (Schedule C item 2)
+        if _dd0.get("f55_insurer"):
+            x["contract_status"] = ("insured benefit plan of a Canadian insurer: %s insures the organisation's plan (%s) — policy %s, %s, %s persons covered, policy period "
+                                    "to %s; Form 5500 Schedule A of plan year %s (US Department of Labor)" % (
+                                        _dd0["f55_insurer"], (_dd0.get("f55_plan_names") or "its benefit plan")[:120], _dd0.get("f55_policy_numbers") or "?",
+                                        _dd0.get("f55_benefits") or "group insurance", _dd0.get("f55_persons") or "?", _dd0.get("f55_policy_to") or "?", _dd0.get("f55_plan_year") or "?"))
+        else:
+            x["contract_status"] = ("service provider in Canada paid by the organisation's benefit plan: %s, paid US$%s in plan year %s (Form 5500 Schedule C, US Department of Labor)"
+                                    % (_dd0.get("f55_providers") or _dd0.get("vendor") or "?", format(float(_dd0.get("f55_provider_comp") or 0), ",.0f"), _dd0.get("f55_plan_year") or "?"))
+        if not x.get("buyer_address") and _dd0.get("f55_sponsor_address"):
+            x["buyer_address"] = "%s (the sponsor's mailing address as the plan's Form 5500 records it)" % _dd0["f55_sponsor_address"]
     if registry:
         x["vendor_website"] = x.get("vendor_website") or "https://www.cira.ca/"
         x["vendor_address"] = (LDET.get(k) or {}).get("vendor_address") or x.get("vendor_address") or ""  # CIRA's address as its own agreement prints it (a dataset record of CIRA said only "Ottawa, ON")
@@ -1874,6 +1887,8 @@ for k, L in sorted(leads.items(), key=lead_strength):
                    "the Canada-located vendor's own website" if client else src or "relationship record")
     if (LDET.get(k) or {}).get("platform") == "dian_import":
         x["source"] = "Colombia's customs (DIAN) import declaration"
+    if (LDET.get(k) or {}).get("platform") == "f5500_plan":
+        x["source"] = "the plan's Form 5500 filing (US Department of Labor)"
 print("lead rows: facts from the buyer's own pages / the vendor's link label:", dict(n_lf), "| sites named again from their stored home-page title:", n_name_again)
 print("client-page links judged (cloud row factory):", dict(sorted(n_cl.items(), key=lambda kv: -kv[1])))
 for x in rows:
@@ -5167,6 +5182,11 @@ def contract_cadence_by_kind(x):
 
 def billing_of(x, ld):
     """(recurring_billing, recurring_billing_basis): what is published about when the vendor bills this buyer"""
+    if ld.get("platform") == "f5500_plan":
+        if ld.get("f55_insurer"):
+            return "1 monthly", ("by the kind of relationship: a group insurance premium is billed each month for the policy year; the plan's policy %s runs to %s "
+                                 "(Form 5500 Schedule A, plan year %s)" % (ld.get("f55_policy_numbers") or "?", ld.get("f55_policy_to") or "?", ld.get("f55_plan_year") or "?"))
+        return "5 not published", "the plan's Schedule C records what the provider was paid in the plan year (%s), not how often it bills" % (ld.get("f55_plan_year") or "?")
     if ld.get("platform") == "dian_import":
         return "4 per transaction", ("for each shipment, the exporter's commercial invoice: the import declarations on file cite %s invoice%s of exporters in Canada "
                                      "from %s to %s, the newest %s of %s (Colombia's customs, DIAN)" % (ld.get("dian_invoices") or "1", "" if str(ld.get("dian_invoices")) == "1" else "s",
@@ -5429,6 +5449,30 @@ def _money_words(v, cur, per):
     return "from %s%s a %s" % ({"CAD": "C$", "USD": "US$"}.get(cur, "$"), ("%.2f" % v).rstrip("0").rstrip("."), per)
 def bill_profile(x, ld, cls):
     """the other fields of the vendor's bill and the reason the relationship is a fact, each from a published page"""
+    if ld.get("platform") == "f5500_plan":
+        _ins, _py = ld.get("f55_insurer") or "", ld.get("f55_plan_year") or "?"
+        if _ins:
+            _pr, _cm = float(ld.get("f55_premiums") or 0), float(ld.get("f55_commissions") or 0)
+            _calc = (("calculated — about US$%s a month: the premiums the insurer received in plan year %s, US$%s (Form 5500 Schedule A, WLFR_PREMIUM_RCVD_AMT), "
+                      "spread over 12 monthly bills" % (format(_pr / 12, ",.0f"), _py, format(_pr, ",.0f"))) if _pr > 0 else
+                     ("calculated — more than US$%s a month (more than US$%s a year): the insurer paid US$%s in commissions on these contracts in plan year %s "
+                      "(Form 5500 Schedule A, INS_BROKER_COMM_TOT_AMT); commissions are paid out of the premium, so the premium is more" % (
+                          format(_cm / 12, ",.0f"), format(_cm, ",.0f"), format(_cm, ",.0f"), _py)) if _cm > 0 else "")
+            return {"bill_amount_calculated": _calc,
+                    "bill_items_as_published": "group %s insurance for %s persons covered, policy %s (Form 5500 Schedule A)" % (ld.get("f55_benefits") or "", ld.get("f55_persons") or "?", ld.get("f55_policy_numbers") or "?"),
+                    "bill_currency_as_published": "USD (the plan's Form 5500)",
+                    "bill_delivery_as_published": "by the kind of relationship: a premium statement each month for the policy year, the policy running to %s" % (ld.get("f55_policy_to") or "?"),
+                    "bill_identifier_format": "the policy (contract) number, as the plan's Schedule A gives it (%s)" % (ld.get("f55_policy_numbers") or "?"),
+                    "relationship_fact_basis": ("fact, public record: the plan's Form 5500 Schedule A (US Department of Labor, plan year %s) names %s as the insurer of its contract %s, "
+                                                "policy period to %s, %s persons covered (%s; %s)" % (_py, _ins, ld.get("f55_policy_numbers") or "?", ld.get("f55_policy_to") or "?",
+                                                                                                    ld.get("f55_persons") or "?", ld.get("record_url") or "", ld.get("dataset_page") or ""))}
+        _pc = float(ld.get("f55_provider_comp") or 0)
+        return {"bill_amount_indicative": "US$%s paid in plan year %s" % (format(_pc, ",.0f"), _py) if _pc > 0 else "",
+                "bill_amount_basis": "the plan's Form 5500 Schedule C, item 2 (direct and indirect compensation of the provider), plan year %s (%s)" % (_py, ld.get("record_url") or ""),
+                "bill_items_as_published": "services to the organisation's benefit plan (Form 5500 Schedule C)",
+                "bill_currency_as_published": "USD (the plan's Form 5500)",
+                "relationship_fact_basis": ("fact, public record: the plan's Form 5500 Schedule C (US Department of Labor, plan year %s) names %s, at %s, as paid US$%s by the plan (%s)"
+                                            % (_py, ld.get("f55_providers") or ld.get("vendor") or "?", (ld.get("vendor_address") or "?").split(" (")[0], format(_pc, ",.0f"), ld.get("record_url") or ""))}
     if ld.get("platform") == "dian_import":
         _fob = float(ld.get("dian_fob") or 0)
         return {"bill_amount_indicative": "US$%s FOB for the newest invoice (%s of %s)" % (format(_fob, ",.2f"), ld.get("dian_invoice") or "?", ld.get("dian_invoice_date") or "?"),
@@ -5807,6 +5851,12 @@ for _ri, x in enumerate(rows):
     x["buyer_type"] = buyer_type(x.get("buyer"), x.get("jurisdiction") or x.get("_jur") or "")
     x["relationship_kind"] = KIND.get(t, KIND["N"])
     x["how_relationship_was_found"] = HOW_FOUND.get(t, HOW_FOUND["N"])
+    if (x.get("contract_status") or "").startswith(("insured benefit plan of a Canadian insurer", "service provider in Canada paid by the organisation's benefit plan")):
+        _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+        x["relationship_kind"] = ("benefit plan contract: %s" % ("a Canadian insurer bills the employer's group insurance premiums (the plan's Form 5500)" if _ld.get("f55_insurer")
+                                                                 else "a provider in Canada is paid by the employer's benefit plan (the plan's Form 5500)"))
+        x["how_relationship_was_found"] = ("tools/f5500_benefits.py read the US Department of Labor's Form 5500 open data (Schedule A insurers, Schedule C providers with a foreign "
+                                           "address in Canada); the sponsor's own site was kept only because %s; the mailbox comes from that site" % (_ld.get("site_tied_to_holder_by") or "its own pages print its ZIP code")[:420])
     if (x.get("contract_status") or "").startswith("importer of record of goods invoiced by"):
         _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
         x["relationship_kind"] = "export sale: an exporter located in Canada invoices the importer for each shipment (Colombia's customs, DIAN, publishes the declaration)"
