@@ -18313,7 +18313,7 @@ ampedupscooters.ca	quarantine	ampedupscooters.ca	v=DMARC1; p=quarantine; adkim=r
 ampedupscooters.com	none	ampedupscooters.com	v=DMARC1; p=none	100	no	no_record		2026-11-08	none	none	none
 ampel.ca	no_record		no DMARC record at _dmarc.ampel.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx include:spf.protection.outlook.com include:_spf.mlsend.com ~all	2026-11-11	none	none	none
 ampere.ca	reject	ampere.ca	v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email;	100	yes	hard_fail	v=spf1 ip4:67.69.165.202 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
-amperealliance.com	error		no nameservers			error		2026-11-11	none	none	none
+amperealliance.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
 amperebyte.ca	no_record		no DMARC record at _dmarc.amperebyte.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 amperecomputing.com	quarantine	amperecomputing.com	v=DMARC1; p=quarantine; fo=1; pct=100; rua=mailto:390c6666@mxtoolbox.dmarc-report.com,mailto:dmarc-reports@amperecomputing.com; ruf=mailto:390c6666@forensics.dmarc-report.com;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com include:sent-via.netsuite.com include:_spf.atlassian.net include:_spf.salesforce.com ip4:66.35.38.217 ip4:150.195.203.0/24 ip4:45.62.176.0/21 ip4:45.62.184.0/23 ip4:140.82.198.0/24 ip4:216.194.108.62 ip4:209.247.141.18 ip4:45.62.187.192 ip4:216.194.99.49 -al	2026-11-11	none	none	none
 amperecreations.com	none	amperecreations.com	v=DMARC1; p=none	100	no	soft_fail	v=spf1 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
@@ -36195,7 +36195,7 @@ bcdominos.ca	no_record		no DMARC record at _dmarc.bcdominos.ca; confirmed by 8.8
 bcdpc.ca	no_record		no DMARC record at _dmarc.bcdpc.ca; confirmed by 8.8.8.8			neutral	v=spf1 ip4:66.96.128.0/18 include:websitewelcome.com ?all	2026-11-11	none	none	none
 bcdplanet.com	no_record		no DMARC record at _dmarc.bcdplanet.com; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 bcdrc.ca	no_record		no DMARC record at _dmarc.bcdrc.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 a mx a:bcdrc.ca ip4:64.69.79.159 ip4:64.34.111.158  include:iamonline.com include:_spf.google.com include:spf.protection.outlook.com  ~all	2026-11-11	none	none	none
-bcdrivinglawyer.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+bcdrivinglawyer.com	error		no nameservers			error		2026-11-11	none	none	none
 bcdrivinglawyers.com	none	bcdrivinglawyers.com	v=DMARC1;p=none;	100	no	soft_fail	v=spf1 +a +mx +ip4:66.70.180.133 +include:mout.mywhc.ca +ip4:51.79.37.235 include:_spf.wpcloud.com ~all	2026-11-10	none	none	none
 bcdynamo.ca	no_record		no DMARC record at _dmarc.bcdynamo.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 mx a a:mail.secure-by-design.com a:mail.netidea.com include:imap-spf.sbd.im ~all	2026-11-11	none	none	none
 bceab.ca	quarantine	bceab.ca	v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc_agg@vali.email;	100	yes	hard_fail	v=spf1 include:spf.protection.outlook.com a:p.spf.prod.gov.bc.ca -all	2026-11-10	none	none	none
@@ -66313,7 +66313,7 @@ cfan.org.za	none	cfan.org.za	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 mx includ
 cfapx.ca	none	cfapx.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.mlsend.com include:_spf.google.com ~all	2026-11-11	none	none	none
 cfaq.net	no_record		no DMARC record at _dmarc.cfaq.net; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-06	none	none	none
 cfare.ca	no_record		no DMARC record at _dmarc.cfare.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:dc-aa8e722993._spfm.cfare.ca ~all	2026-11-10	none	none	none
-cfarley.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+cfarley.com	error		no nameservers			error		2026-11-11	none	none	none
 cfas.ca	no_record		no DMARC record at _dmarc.cfas.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:servers.mcsv.net include:spf.exwaresolutions.com include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 cfat.ca	none	cfat.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
 cfatready.ca	no_record		no DMARC record at _dmarc.cfatready.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
@@ -72451,7 +72451,7 @@ cleaniq.ca	reject	cleaniq.ca	v=DMARC1; p=reject; rua=mailto:ca9656eb@in.mailhard
 cleanit.ca	no_record		no DMARC record at _dmarc.cleanit.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:149.56.17.181 +a +mx include:spf.protection.outlook.com ~all	2026-11-10	none	none	none
 cleanitall.ca	none	cleanitall.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 ip4:129.121.85.17 ip4:162.241.253.144 a mx include:websitewelcome.com ~all	2026-11-10	none	none	none
 cleanjourney.com	none	cleanjourney.com	v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400;ruf=mailto:dmarc@attitudeliving.com	100	no	hard_fail	v=spf1 include:spf.hornetsecurity.com include:spf.protection.outlook.com include:mailgun.org -all	2026-11-11	none	none	none
-cleanking.com	error		no nameservers			error		2026-11-11	none	none	none
+cleanking.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
 cleankinguk.com	no_record		no DMARC record at _dmarc.cleankinguk.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 cleankisslifestyle.com	no_record		no DMARC record at _dmarc.cleankisslifestyle.com; confirmed by 8.8.8.8			no_record		2026-11-11	none	none	none
 cleanlab.ca	no_record		no DMARC record at _dmarc.cleanlab.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:198.72.126.225 include:spf.greengeeks.net ip4:192.175.100.228 +a +mx +ip4:192.175.100.228 ~all	2026-11-10	none	none	none
@@ -149239,7 +149239,7 @@ homeopathicalliance.com	no_record		no DMARC record at _dmarc.homeopathicalliance
 homeopathicdrugstore.ca	none	homeopathicdrugstore.ca	v=DMARC1; p=none;	100	no	hard_fail	v=spf1 include:_spf.mx.cloudflare.net -all	2026-11-06	none	none	none
 homeopathicfamilypractice.com	none	homeopathicfamilypractice.com	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:dc-aa8e722993._spfm.homeopathicfamilypractice.com ~all	2026-11-10	none	none	none
 homeopathieenligne.ca	quarantine	homeopathieenligne.ca	v=DMARC1; p=quarantine; adkim=s; aspf=s	100	no	hard_fail	v=spf1 +a +mx +a:host.selectrum-serv2.ca -all	2026-11-10	none	none	none
-homeopathieenligne.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+homeopathieenligne.com	error		no nameservers			error		2026-11-11	none	none	none
 homeopathy.com	no_record		no DMARC record at _dmarc.homeopathy.com; confirmed by 8.8.8.8			soft_fail	v=spf1 include:easymail.ca ~all	2026-11-11	none	none	none
 homeopathycoalition.ca	no_record		no DMARC record at _dmarc.homeopathycoalition.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 homeopathyhealthcare.ca	none	homeopathyhealthcare.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
@@ -163646,7 +163646,7 @@ jivewire.ca	no_record		no DMARC record at _dmarc.jivewire.ca; confirmed by 8.8.8
 jj-farms.com	quarantine	jj-farms.com	v=DMARC1; p=quarantine; rua=mailto:fqdzj8jg@ag.us.dmarcian.com; ruf=mailto:fqdzj8jg@fr.us.dmarcian.com; fo=1;	100	yes	soft_fail	v=spf1 ip4:199.58.194.178 include:spf.protection.outlook.com include:spf.constantcontact.com ~all	2026-11-11	none	none	none
 jj4ward3.ca	quarantine	jj4ward3.ca	v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;	100	yes	soft_fail	v=spf1 include:dc-8e814c8572._spfm.jj4ward3.ca ~all	2026-11-10	none	none	none
 jjaa.ca	none	jjaa.ca	v=DMARC1; p=none;	100	no	soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-11	none	none	none
-jjaa.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+jjaa.com	error		no nameservers			error		2026-11-11	none	none	none
 jjacpa.ca	no_record		no DMARC record at _dmarc.jjacpa.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 ip4:71.19.241.30 include:spf-c.mailbaby.net ip4:71.19.255.8 +a +mx +ip4:173.254.206.67 +ip4:208.69.58.223 +ip4:71.19.254.100 +ip4:138.197.175.134 +include:spf.protection.outlook.com -all	2026-11-10	none	none	none
 jjagparts.com	no_record		no DMARC record at _dmarc.jjagparts.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 jjamechanicalltd.com	none	jjamechanicalltd.com	v=DMARC1; p=none; pct=100	100	no	hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-10	none	none	none

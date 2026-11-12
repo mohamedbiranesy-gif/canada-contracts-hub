@@ -1,4 +1,4 @@
-# Cloud lanes — status from the files on main (2026-11-11 23:14 UTC)
+# Cloud lanes — status from the files on main (2026-11-12 00:15 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
@@ -14,16 +14,16 @@
 - 101371 domains: no_address 46276, unreachable 15397, CA 12374, US 6879, blocked 5519, robots 4931, CA-loc 4365, GB 2134
 
 ## 3. DNS lookups
-- domains looked up in the cloud: **9241964**; on Shopify's storefront addresses: **2449883**; with a www alias: 762479
+- domains looked up in the cloud: **9352001**; on Shopify's storefront addresses: **2528647**; with a www alias: 762479
 
 ## 4. Relationship leads on file
 - Mac era B/L dated record (payment, subaward, release): **10803**
 - Mac era D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **52386**
 - Mac era M member / regulated payer list: **2290**
 - Mac era T vetted software service (store / portal): **5511**
-- cloud D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **116860**
+- cloud D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **116863**
 - cloud M accredited business (BBB) [bbb]: **3106**
-- cloud M licence holder (the licensing body's own list of active licences) [lic]: **8460**
+- cloud M licence holder (the licensing body's own list of active licences) [lic]: **8509**
 - cloud M licence holder (the licensing body's own list of active licences) [rbq]: **12947**
 - cloud M member / regulated payer list: **14445**
 - cloud M membership stated by the member: **1755**
@@ -83,5 +83,5 @@
 - mailbox rows written by the cloud crawls (before the referee): **290694**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **176836** — by tier: A 1223, B 1685, C 307, D 22978, E 4624, F 15, I 93957, L 422, M 14772, T 36853
-- named-vendor relationships (A B T M C D L): **78240** · registry contract R: **0** · link only (E): **4624** · older / inferred (F I): **93972**
+- rows with a confirmed mailbox: **179345** — by tier: A 1223, B 1685, C 307, D 22862, E 4521, F 15, I 97406, L 422, M 14792, T 36112
+- named-vendor relationships (A B T M C D L): **77403** · registry contract R: **0** · link only (E): **4521** · older / inferred (F I): **97421**

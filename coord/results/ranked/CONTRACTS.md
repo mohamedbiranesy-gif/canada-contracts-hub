@@ -1,4 +1,4 @@
-# Contracts of the delivered buyers — 2026-11-11
+# Contracts of the delivered buyers — 2026-11-12
 
 271931 contract records of 2327 delivered organisations (tiers A/B/L/C/D/F, most recent first, at most 500 per organisation, 5000 for Gold buyers), in 9 gzipped part files.
 - ceiling: the delivered organisations have 637812 records with Canada-located vendors in the dataset in all (405670 of them Gold buyers'); the cap drops only the oldest records of the very largest buyers

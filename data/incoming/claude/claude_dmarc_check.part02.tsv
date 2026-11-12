@@ -13115,7 +13115,7 @@ phoenixpropertysolutions.ca	no_record		no DMARC record at _dmarc.phoenixproperty
 phoenixprotection.ca	no_record		no DMARC record at _dmarc.phoenixprotection.ca; confirmed by 8.8.8.8			no_record		2026-11-10	none	none	none
 phoenixpsychotherapy.ca	no_record		no DMARC record at _dmarc.phoenixpsychotherapy.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com include:_spf.unitens.com ~all	2026-11-10	none	none	none
 phoenixq.ca	none	phoenixq.ca	v=DMARC1; p=none	100	no	soft_fail	v=spf1 include:_spf.mail.hostinger.com ~all	2026-11-10	none	none	none
-phoenixrange.ca	error		LifetimeTimeout			error		2026-11-11	none	none	none
+phoenixrange.ca	error		no nameservers			error		2026-11-11	none	none	none
 phoenixrangeyeg.ca	no_record		no DMARC record at _dmarc.phoenixrangeyeg.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-06	none	none	none
 phoenixrehab.ca	reject	phoenixrehab.ca	v=DMARC1; p=reject; pct=100;	100	no	soft_fail	v=spf1 include:zohocloud.ca include:_spf.mlsend.com include:amazonses.com include:sendersrv.com ~all	2026-11-06	none	none	none
 phoenixresearch.ca	no_record		no DMARC record at _dmarc.phoenixresearch.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 ip4:199.58.176.201 include:relay.mailchannels.net +a +mx +ip4:208.76.80.45 ~all	2026-11-10	none	none	none
@@ -91058,7 +91058,7 @@ wildbody.ca	none	wildbody.ca	v=DMARC1; p=none; rua=mailto:dmarc_kjb@kajabi.com; 
 wildbrain.com	reject	wildbrain.com	v=DMARC1; p=reject; rua=mailto:yzwkkfxo@ag.ca.dmarcian.com; ruf=mailto:yzwkkfxo@fr.ca.dmarcian.com; pct=100;	100	yes	error		2026-11-06	none	none	none
 wildbros.ca	no_record		no DMARC record at _dmarc.wildbros.ca; confirmed by 8.8.8.8			hard_fail	v=spf1 include:secureserver.net -all	2026-11-06	none	none	none
 wildcardfitness.ca	no_record		no DMARC record at _dmarc.wildcardfitness.ca; confirmed by 8.8.8.8			soft_fail	v=spf1 include:_spf.google.com ~all	2026-11-10	none	none	none
-wildcardstables.com	error		LifetimeTimeout			error		2026-11-11	none	none	none
+wildcardstables.com	error		no nameservers			error		2026-11-11	none	none	none
 wildcatheli.com	no_record		no DMARC record at _dmarc.wildcatheli.com; confirmed by 8.8.8.8			hard_fail	v=spf1 include:spf.protection.outlook.com -all	2026-11-11	none	none	none
 wildcatlandscaping.com	none	wildcatlandscaping.com	v=DMARC1;p=none;sp=none;pct=100;rua=mailto:reports@dmarc.lnm-projects.com;ruf=mailto:reports@dmarc.lnm-projects.com;ri=86400;aspf=r;adkim=r;fo=1	100	yes	soft_fail	v=spf1 include:relayhost1.linknowmedia.cloud include:relayhost2.linknowmedia.cloud +a +mx +ip4:208.94.107.114 ~all	2026-11-10	none	none	none
 wildcatsbaseball.ca	none	wildcatsbaseball.ca	v=DMARC1; p=none	100	no	no_record		2026-11-06	none	none	none
