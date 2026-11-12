@@ -1,0 +1,17 @@
+{
+ "key": "tour_bas_saint_laurent",
+ "kind": "member",
+ "biller": "Tourisme Bas-Saint-Laurent",
+ "biller_site": "https://atrbsl.ca/",
+ "biller_address": "480, rue Lafontaine, Rivière-du-Loup (Québec) G5R 3C4",
+ "biller_address_url": "https://atrbsl.ca/nous-joindre/",
+ "biller_address_quote": "480, rue Lafontaine Rivière-du-Loup (Québec) G5R 3C4",
+ "read": "2026-11-12",
+ "pays_quote": "La cotisation doit être payée à la réception de la facture en ligne. Si la cotisation n’est pas payée après 60 jours, l’adhésion est annulée, l’organisation n’est plus considérée comme membre et se voit retirer les avantages reliés à l’adhésion.",
+ "pays_url": "https://atrbsl.ca/membres/",
+ "list_name": "the member listings of Tourisme Bas-Saint-Laurent on bassaintlaurent.ca (its tourist site, from which a member whose dues are unpaid is removed)",
+ "list_hosts": [
+  "bassaintlaurent.ca"
+ ],
+ "list_host_link_url": "https://atrbsl.ca/membres/"
+}
