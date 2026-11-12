@@ -1,21 +1,21 @@
-# STATUS BOARD (auto-generated 2026-11-12 14:42 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 15:02 UTC — do not edit by hand)
 
-## Dataset (release `dataset-latest`, reference date 2026-11-11)
+## Dataset (release `dataset-latest`, reference date 2026-11-12)
 | metric | value |
 |---|---|
-| contracts, vendor verified in Canada | 817,724 |
+| contracts, vendor verified in Canada | 817,647 |
 | contracts, vendor country unverified | 51,346 |
 | sources with records / checked without | 87 / 119 |
-| status: ongoing (explicit end date) | 90,853 |
+| status: ongoing (explicit end date) | 90,776 |
 | status: ongoing_inferred | 321,565 |
 | status: end_date_unknown | 405,306 |
-| buyer AP e-mail | 791448 (97%) |
-| buyer invoice portal | 76110 (9%) |
-| buyer website | 757419 (93%) |
-| vendor registry match | 416566 (51%) |
-| vendor Business Number (BN9) | 130632 (16%) |
-| vendor website | 268985 (33%) |
-| vendor any contact | 276058 (34%) |
+| buyer AP e-mail | 791977 (97%) |
+| buyer invoice portal | 76101 (9%) |
+| buyer website | 757343 (93%) |
+| vendor registry match | 416503 (51%) |
+| vendor Business Number (BN9) | 130616 (16%) |
+| vendor website | 268932 (33%) |
+| vendor any contact | 276004 (34%) |
 
 ## Team research progress (rows returned → verified)
 | lane | task | rows | found | not_published | blocked | other |
@@ -82,7 +82,7 @@
 | claude | claude_peppol_participants.csv | 77 | 0 | 0 | 0 | 77 |
 | claude | claude_registry_bulk.csv | 41690 | 36008 | 2783 | 0 | 2899 |
 | claude | claude_registry_lookup.csv | 92919 | 24597 | 51188 | 0 | 17134 |
-| claude | claude_site_owner_wd.csv | 8041 | 0 | 0 | 0 | 8041 |
+| claude | claude_site_owner_wd.csv | 8042 | 0 | 0 | 0 | 8042 |
 | claude | claude_vendor_names_read.csv | 6 | 0 | 0 | 0 | 6 |
 | claude | claude_vendor_sites.csv | 842 | 0 | 0 | 0 | 842 |
 | claude | claude_wikidata_orgs.csv | 42229 | 0 | 0 | 0 | 42229 |
