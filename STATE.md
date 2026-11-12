@@ -1,4 +1,18 @@
-# STATE.md — Claude lane (updated 2026-11-12 06:02Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 07:52Z — one row per buyer, no buyer twice; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every row marked by its amount and the table written $5,000-and-more first; every invoice field as far as the kind goes, estimates labelled (AGENTS.md §1 rules 6-17). Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 07:52Z — build 07:45Z: 176,890 ready; every main invoice field 132,877; test hundred republished
+
+**Build of 07:45Z (run 43169349649, dispatched by hand: the 06:17Z schedule did not fire), counted: 176,890 ready of 236,452** (by location
+134,437; complete 11,287; best effort 31,166). Amount and period 147,820; **every main invoice field 132,877** (05:23Z: 89,115 — the
+distributors' numbers and terms); published $5,000+ 1,859. In the published table, ready rows by a listed (Overture) address 9,666, by a
+registered address 2,943; 941 rows of other kinds took a listed address as the buyer's; 32,144 ready rows carry a number from the LEI register.
+**Not in it yet (pushed 06:54Z):** billing periods by the kind of relationship (sample: 6,054 ready rows gain a period). The next build is
+the 12:17Z schedule; if it does not fire, dispatch rank-buyers.yml by hand.
+**Review page republished** (https://claude.ai/artifact/AKuRT9NPpMX3Jwfqj1ZERt): a hundred rows of the 07:45Z table (seed 20261111),
+read row by row first; the page now shows each row's amount mark and what a by-location row stands on. Its `verdicts` collection was empty.
+**Next session:** read the 12:17Z build; read the owner's marks on the review page (ArtifactData list verdicts); watch the agent-of-record
+rows grow from the trademark owners abroad (mailbox reader -> referee); patents (CIPO's patent data names the "current registered patent
+agent of record representing the owner"; its download server needs the certificate handling of tools/tm_register.py).
 
 ## 2026-11-12 06:02Z — build 05:23Z read (164,391 ready); the 06:17Z build carries everything below; a test hundred read and fixed
 
