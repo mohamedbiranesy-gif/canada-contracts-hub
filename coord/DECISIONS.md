@@ -1903,3 +1903,13 @@ area, a point-to-point station at the remote zone's rate); a fleet is counted on
 identical stations (meters, province-wide fleets) is not counted at all — leaving stations out keeps "at least" true. Rows go through
 the member tier like Health Canada's; ISED is in `tools/payee_billing.py`. Quotes in a site tie no longer carry an e-mail address
 (`hc_registers.no_mail`).
+
+## 2026-11-12 16:25Z — lane `claude`: Health Canada's medical device establishment licences (3,223 holders, $5,519 a year each, invoiced)
+
+The Health Canada lane (tools/hc_registers.py) now also reads the Medical Devices Establishment Licence listing: every importer or
+distributor of medical devices in Canada holds an MDEL (2,219 in Canada, 684 in the United States, 131 in China …). Health Canada's fee
+page: "Medical Device Establishment Licence $5,426 $5,519" (as of April 1, 2025 / 2026); its annual licence review: "We will issue an
+invoice after we receive and screen your ALR application for completeness."; its fee guidance: "Payment is due upon issuance of the
+invoice." The fee of one licence is the bill — published, over $5,000 — so these rows sort with the first mark. The listing is its own
+search form (no robots.txt on the host, no CAPTCHA): three searches, one by activity, each returning every country. 384 holders tied to a
+site on file at once; the rest go to the name autocomplete in the twice-daily Health Canada runs (the largest bills first).

@@ -20,8 +20,13 @@ The registers give each company's name and address (abroad for most device maker
   (2) when the company-name autocomplete (Clearbit, no key, one request a second) proposes a domain under the company's very name (legal forms
       aside) and that domain's own home page carries the name in its title or site name (tools/site_finder_names.py's test).
 The mailbox comes from that site, like every other lead's (tools/lead_crawl.py reads lead_shards/). Natural persons are not in these registers.
+Establishment licences (2026-11-12). Every importer or distributor of medical devices in Canada, here or abroad, holds a medical device establishment
+licence (MDEL); Health Canada's MDEL listing names each holder of an active licence with its address. Its fee as of April 1, 2026 is $5,519 a year
+(“Medical Device Establishment Licence $5,426 $5,519”); “We will issue an invoice after we receive and screen your ALR application for completeness.”
+(the annual licence review); “Payment is due upon issuance of the invoice.” One line per licence; the fee is published, not calculated.
 
-  pull  [--work DIR]              the six lists of the two APIs -> DIR (health-products.canada.ca; about 60 MB)
+  pull  [--work DIR]              the six lists of the two APIs -> DIR (health-products.canada.ca; about 60 MB), and the medical device establishment
+                                  licence listing (three searches of its own form, by activity)
   build [--work DIR]              -> data/incoming/claude/hc/hc_companies.csv.gz: one line per company and register, with its products and fee
   sites [--minutes M]             sites for the companies without one -> data/incoming/claude/hc/hc_sites.csv (append-only; done list beside it)
   leads [--stamp S]               companies with a site -> data/incoming/claude/lead_shards/leads_hc_<S>.gz + details_hc_<S>.gz
@@ -49,8 +54,24 @@ PAY_URL = "https://www.canada.ca/en/health-canada/services/funding/cost-recovery
 DRUG_GUIDE_URL = "https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/fees/right-to-sell-drugs-2019/document.html"
 MD_GUIDE_URL = ("https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/"
                 "guidance-document-medical-device-licence-renewal-fees-right-sell-licensed.html")
-FEE = {"rx": 5626.0, "otc": 3391.0, "dis": 1760.0, "md": 460.0}
-FEE_WORD = {"rx": "drug other than a disinfectant or a non-prescription drug", "otc": "non-prescription drug", "dis": "disinfectant", "md": "licensed Class II, III or IV medical device"}
+FEE = {"rx": 5626.0, "otc": 3391.0, "dis": 1760.0, "md": 460.0, "mdel": 5519.0}
+FEE_WORD = {"rx": "drug other than a disinfectant or a non-prescription drug", "otc": "non-prescription drug", "dis": "disinfectant", "md": "licensed Class II, III or IV medical device",
+            "mdel": "medical device establishment licence"}
+# Medical device establishment licences (MDEL): every importer or distributor of medical devices in Canada, here or abroad; the listing is the
+# public search of active licences (one search by activity returns them all); Health Canada invoices the licence fee at each yearly review
+MDEL_LIST = "https://health-products.canada.ca/mdel-leim/"
+MDEL_ACTS = {"1": "Distribute", "2": "Import", "3": "Manufacture Devices for Distribution"}
+MDEL_FEE_URL = ("https://www.canada.ca/en/health-canada/services/drugs-health-products/funding-fees/fees-respect-human-drugs-medical-devices/"
+                "medical-device-establishment-licence-funding-fees-drugs-health-products.html")
+MDEL_FEE_Q = "Fee category Fee as of April 1, 2025 Fee as of April 1, 2026 Medical Device Establishment Licence $5,426 $5,519"
+MDEL_ALR_URL = ("https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/"
+                "medical-devices-compliance-bulletin/annual-licence-review-2023.html")
+MDEL_ALR_Q = "We will issue an invoice after we receive and screen your ALR application for completeness."
+MDEL_GUIDE_URL = "https://www.canada.ca/en/health-canada/services/drugs-health-products/funding-fees/review-medical-device-establishment-licence.html"
+MDEL_INV_Q = ("Following preliminary examination and upon determination that the application is accepted for further review, Health Canada will issue "
+              "a notice to the applicant and an invoice for the applicable fee.")
+MDEL_DUE_Q = "Payment is due upon issuance of the invoice."
+MDEL_LATE_Q = "Interest on overdue accounts begins to accrue 30 days from the date of invoice issuance."
 DRUG_FEE_Q = ("Fee as of April 1, 2025 Fee as of April 1, 2026 Drugs (DINs) The annual fee for the right to sell a drug … 1 Disinfectant $1,730 $1,760 "
               "2 Non-prescription drug $3,334 $3,391 3 Drug other than one referred to in item 1 or 2 $5,531 $5,626")
 MD_FEE_Q = ("Fee as of April 1, 2025 Fee as of April 1, 2026 Medical devices The annual fee for the right to sell either a licensed Class II, III or IV "
@@ -109,6 +130,30 @@ def cmd_pull(a):
         get(API % ep, p)
         print("%s: %d bytes" % (k, os.path.getsize(p)), flush=True)
         time.sleep(1.0)
+    pull_mdel(a.work)
+
+
+def pull_mdel(work):
+    """the MDEL listing: its own search form, one search by activity (every country) -> mdel_<activity>.html"""
+    import http.cookiejar
+    op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
+    for act in MDEL_ACTS:
+        try:
+            with op.open(urllib.request.Request(MDEL_LIST, headers={"User-Agent": UA}), timeout=120) as r:
+                home = r.read().decode("utf-8", "replace")
+            m = re.search(r'name="searchMdelForm" method="post" action="([^"]+)"', home)
+            if not m:
+                print("MDEL listing: no search form found"); return
+            time.sleep(2.0)
+            body = urllib.parse.urlencode({"licence": "", "companyId": "", "company": "", "activityId": act, "countryId": "", "regionId": "", "action": "Search"}).encode()
+            req = urllib.request.Request(urllib.parse.urljoin(MDEL_LIST, m.group(1)), data=body, headers={"User-Agent": UA, "Referer": MDEL_LIST,
+                                                                                                          "Content-Type": "application/x-www-form-urlencoded"})
+            with op.open(req, timeout=300) as r, open(os.path.join(work, "mdel_%s.html" % act), "wb") as f:
+                f.write(r.read())
+            print("MDEL listing, %s: %d bytes" % (MDEL_ACTS[act], os.path.getsize(os.path.join(work, "mdel_%s.html" % act))), flush=True)
+            time.sleep(3.0)
+        except Exception as e:
+            print("MDEL listing, %s: not read (%s)" % (MDEL_ACTS[act], str(e)[:120]))
 
 
 def cmd_build(a):
@@ -174,14 +219,45 @@ def cmd_build(a):
                     "fee_total": "%.0f" % (FEE["md"] * p["n"]),
                     "examples": "; ".join("licence %s %s (class %s)" % l for l in sorted(p["lic"], key=lambda l: l[0] or 0)[:5]), "first_on_market": p["first"],
                     "record_url": "https://health-products.canada.ca/mdall-limh/"})
+    # medical device establishment licences: one line per active licence (its holder's name and address as the listing prints them)
+    lic = {}
+    for act, an in MDEL_ACTS.items():
+        fp = os.path.join(a.work, "mdel_%s.html" % act)
+        if not os.path.exists(fp):
+            continue
+        page = open(fp, encoding="utf-8", errors="replace").read()
+        for tr in re.findall(r"(?is)<tr[^>]*>(.*?)</tr>", page):
+            cells = re.findall(r"(?is)<td[^>]*>(.*?)</td>", tr)
+            if len(cells) < 3:
+                continue
+            txt = lambda h: " ".join(html.unescape(re.sub(r"<[^>]+>", " ", h)).split())
+            no, cid = txt(cells[0]), txt(cells[1])
+            if not no.isdigit():
+                continue
+            parts = [txt(x) for x in re.split(r"(?i)<br\s*/?>", cells[2])]
+            parts = [x for x in parts if x]
+            if not parts:
+                continue
+            d = lic.setdefault(no, {"no": no, "cid": cid, "name": parts[0], "lines": parts[1:], "acts": []})
+            if an not in d["acts"]:
+                d["acts"].append(an)
+    for no, d in lic.items():
+        last = d["lines"][-1] if d["lines"] else ""
+        bits = [b.strip() for b in last.split(",")]
+        country = bits[-2] if len(bits) >= 3 else ""
+        postal = bits[-1] if len(bits) >= 3 else ""
+        out.append({"key": "hc:mdel:%s" % no, "register": "mdel", "name": d["name"], "address": ", ".join(d["lines"]), "postal_code": postal,
+                    "city": (bits[0] if bits else ""), "country": country, "products": 1, "by_category": json.dumps({"mdel": 1}),
+                    "fee_total": "%.0f" % FEE["mdel"], "examples": "MDEL %s (company %s): %s" % (no, d["cid"], ", ".join(d["acts"])), "first_on_market": "",
+                    "record_url": MDEL_LIST})
     out = [o for o in out if o["name"]]
     with gzip.open(os.path.join(DIR, "hc_companies.csv.gz"), "wt", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(out[0].keys()))
         w.writeheader()
         w.writerows(out)
     big = sum(1 for o in out if float(o["fee_total"]) >= 5000)
-    print("companies: %d (drugs %d, devices %d); a yearly bill of $5,000 or more: %d; by country: %s"
-          % (len(out), sum(o["register"] == "dpd" for o in out), sum(o["register"] == "mdall" for o in out), big,
+    print("companies: %d (drugs %d, devices %d, establishment licences %d); a yearly bill of $5,000 or more: %d; by country: %s"
+          % (len(out), sum(o["register"] == "dpd" for o in out), sum(o["register"] == "mdall" for o in out), sum(o["register"] == "mdel" for o in out), big,
              collections.Counter(o["country"] for o in out).most_common(8)), flush=True)
 
 
@@ -429,6 +505,18 @@ def lead_of(o, s):
                 % (format(fee, ",.0f"), " + ".join(parts), DRUG_FEE_URL, READ, TODAY, DRUG_SMALL_Q, DRUG_GUIDE_URL))
         title = "Right to sell %s (Health Canada, Drug Product Database: %s)" % (what, o["examples"][:200])
         reg_label = "Health Canada's Drug Product Database (the owner of each drug identification number, its status today)"
+    elif reg == "mdel":
+        no = o["key"].split(":")[-1]
+        acts = o["examples"].split(": ", 1)[-1]
+        what = "a medical device establishment licence (MDEL %s: %s)" % (no, acts)
+        quote_period, period_url = MDEL_ALR_Q, MDEL_ALR_URL
+        unit_cat, unit_q, unit_url = "mdel", MDEL_FEE_Q, MDEL_FEE_URL
+        delivery = ("an invoice from Health Canada at each yearly licence review: “%s” (%s, read %s) — “%s” (%s, read %s)"
+                    % (MDEL_ALR_Q, MDEL_ALR_URL, READ, MDEL_INV_Q, MDEL_GUIDE_URL, READ))
+        terms = "“%s” “%s” (%s, read %s)" % (MDEL_DUE_Q, MDEL_LATE_Q, MDEL_GUIDE_URL, READ)
+        calc = ""  # the published fee of the one licence is the bill: no calculation
+        title = "Medical device establishment licence %s (Health Canada, MDEL listing: %s)" % (no, acts)
+        reg_label = "Health Canada's Medical Devices Establishment Licence listing (every holder of an active licence)"
     else:
         what = "%d licensed Class II-IV medical device%s" % (int(o["products"]), "" if int(o["products"]) == 1 else "s")
         quote_period, period_url = MD_PERIOD_Q, MD_GUIDE_URL
@@ -441,20 +529,22 @@ def lead_of(o, s):
         reg_label = "Health Canada's Medical Devices Active Licence Listing (the manufacturer of each licensed device)"
     s = dict(s, tied_by=no_mail(s.get("tied_by")), quote=no_mail(s.get("quote")))
     row = {"buyer_key": key, "buyer_name": o["name"], "website": s["site"], "canadian_vendor_rows": 1, "example_vendor": "Health Canada",
-           "canada_field_value": "membership / statutory fee relationship: right-to-sell holder of the Canadian body (Health Canada)=%s (as printed on %s, read %s); Health Canada: “%s” (%s)"
-                                 % (HC_ADDRESS, PAY_URL, READ, quote_period, period_url),
+           "canada_field_value": "membership / statutory fee relationship: %s of the Canadian body (Health Canada)=%s (as printed on %s, read %s); Health Canada: “%s” (%s)"
+                                 % ("licence holder" if reg == "mdel" else "right-to-sell holder", HC_ADDRESS, PAY_URL, READ, quote_period, period_url),
            "evidence_dataset": o["record_url"], "latest_record_date": TODAY}
     det = {"key": key, "platform": "hc_register", "record_url": o["record_url"], "vendor": "Health Canada", "record_date": TODAY,
-           "start": o.get("first_on_market") or "", "end": "", "reference": o["key"].split(":")[-1], "title": title,
+           "start": o.get("first_on_market") or "", "end": "", "reference": ("MDEL %s" % o["key"].split(":")[-1]) if reg == "mdel" else o["key"].split(":")[-1], "title": title,
            "vendor_address": "%s (as printed on %s)" % (REMIT_Q, PAY_URL), "vendor_site": HC_SITE,
            "member_address_quote": o["address"], "register_label": reg_label,
-           "buyer_register": {"legal_name": o["name"], "trade_names": [], "registry_id": "Health Canada %s company %s" % ("DPD" if reg == "dpd" else "MDALL", o["key"].split(":")[-1]),
+           "buyer_register": {"legal_name": o["name"], "trade_names": [], "registry_id": ("Health Canada MDEL %s, %s" % (o["key"].split(":")[-1], o["examples"].split(":")[0].split("(")[-1].rstrip(")")))
+                              if reg == "mdel" else "Health Canada %s company %s" % ("DPD" if reg == "dpd" else "MDALL", o["key"].split(":")[-1]),
                               "label": "%s, read %s" % (reg_label, TODAY)},
            "hc_register": reg, "hc_products": int(o["products"]), "hc_by_category": cats, "hc_examples": o["examples"], "hc_what": what,
            "fee_unit": "C$%s a year for each %s (as of April 1, 2026)" % (format(FEE[unit_cat], ",.0f"), FEE_WORD[unit_cat]),
            "fee_unit_basis": "Health Canada's own fee page: “%s” (%s, read %s)" % (unit_q, unit_url, READ),
            "fee_calculated": calc, "bill_delivery": delivery, "bill_terms": terms,
-           "bill_items": "the yearly fee for the right to sell %s%s (%s)" % (what, "" if reg == "dpd" else " in Canada", o["examples"][:200]),
+           "bill_items": ("the yearly fee of %s, at its annual licence review" % what) if reg == "mdel" else
+                         "the yearly fee for the right to sell %s%s (%s)" % (what, "" if reg == "dpd" else " in Canada", o["examples"][:200]),
            "fee_basis": "%s (%s)" % (unit_q, unit_url), "site_named_by": s["tied_by"], "site_tied_to_holder_by": s["tied_by"], "site_quote": s.get("quote") or ""}
     return row, det
 
