@@ -408,7 +408,7 @@ OVT = os.path.join(INC, "overture", "hc_candidates.csv")
 ODONE = os.path.join(DIR, "hc_overture_done.tsv")
 
 
-def pc_on_home(domain, pcode, country):
+def pc_on_home(domain, pcode, country, contact=False):
     """the register's postal code printed on the site's own home page: a Canadian code with or without its space, a US ZIP after the state's
     two letters, any other code as written -> the words around it, else """""
     import client_lists as CL
@@ -430,7 +430,102 @@ def pc_on_home(domain, pcode, country):
     else:
         return ""
     m = re.search(rx, text)
-    return text[max(0, m.start() - 60): m.end() + 20].strip() if m else ""
+    if m:
+        return text[max(0, m.start() - 60): m.end() + 20].strip()
+    if not contact:
+        return ""
+    base = final or site
+    for h in re.findall(r"(?is)<a\b[^>]*href\s*=\s*[\"']([^\"'#]+)[\"']", page[:400_000]):
+        u = urllib.parse.urljoin(base, html.unescape(h))
+        hu = (urllib.parse.urlparse(u).hostname or "").lower()
+        if not hu or hu.removeprefix("www.") != (urllib.parse.urlparse(base).hostname or "").lower().removeprefix("www."):
+            continue
+        if not re.search(r"contact|nous-joindre|joindre|coordonn|about|a-propos|location|find-us|trouver", u, re.I) or not CL.allowed(u):
+            continue
+        p2, f2 = CL.fetch(u)
+        if p2:
+            t2 = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style).*?</\1>", " ", p2[:400_000]))))
+            m = re.search(rx, t2)
+            if m:
+                return "%s: %s" % (f2 or u, t2[max(0, m.start() - 60): m.end() + 20].strip())
+        break  # one contact page at most
+    return ""
+
+
+GUESS_DONE = os.path.join(DIR, "hc_guess_done.tsv")
+
+
+def guess_pass(cos, have, w, f, minutes, threads):
+    """the company's very name as a domain (.ca for a company in Canada, then .com; .com for one in the United States), kept ONLY when the site's
+    own home page or its contact page prints the register's postal code: a guessed domain is never tied on its name alone"""
+    import queue, socket, threading
+    done = {l.split("\t")[0] for l in open(GUESS_DONE, encoding="utf-8")} if os.path.exists(GUESS_DONE) else set()
+    todo = [o for o in cos if o["key"] not in have and o["key"] not in done and norm(o.get("country") or "") in ("canada", "ca", "united states", "us")
+            and o.get("postal_code")]
+    todo.sort(key=lambda o: -float(o["fee_total"] or 0))
+    if not GROUPS:
+        for o in cos:
+            c_ = core(o["name"])
+            if c_:
+                GROUPS.setdefault(group_key(c_), set()).add(norm(o.get("country") or ""))
+    t_end = time.time() + 60 * minutes
+    lock, q, cnt = threading.Lock(), queue.Queue(), collections.Counter()
+    for o in todo:
+        q.put(o)
+    dn = open(GUESS_DONE, "a", encoding="utf-8")
+
+    def doms(o):
+        n = core(o["name"])
+        words = [x for x in n.split() if x not in ("canada", "canadian", "inc", "ltd", "corp")]
+        if not words:
+            return []
+        ca = norm(o.get("country") or "") in ("canada", "ca")
+        # a name that a group's entities in other countries also bear (Stryker Canada, Stryker Corporation): its .com is the parent's — .ca only
+        multi = len(GROUPS.get(group_key(n), set()) - {norm(o.get("country") or "")}) > 0
+        stems = []
+        for st in (re.sub(r"[^a-z0-9]", "", "".join(words)), re.sub(r"[^a-z0-9]", "", "".join(words[:2])), re.sub(r"[^a-z0-9]", "", words[0])):
+            if len(st) >= 5 and st not in stems:
+                stems.append(st)
+        return ["%s.%s" % (st, t) for st in stems[:3] for t in ((("ca",) if multi else ("ca", "com")) if ca else ("com",))]
+
+    def worker():
+        socket.setdefaulttimeout(6)
+        while time.time() < t_end:
+            try:
+                o = q.get_nowait()
+            except queue.Empty:
+                return
+            hit = None
+            for d in doms(o):
+                if BAD.search(d):
+                    continue
+                try:
+                    socket.getaddrinfo(d, 443)
+                except Exception:
+                    continue
+                try:
+                    pcs = pc_on_home(d, o["postal_code"], o.get("country") or "", contact=True)
+                except Exception:
+                    pcs = ""
+                if pcs:
+                    hit = (d, pcs)
+                    break
+            with lock:
+                dn.write("%s\t%s\n" % (o["key"], hit[0] if hit else "")); dn.flush()
+                cnt["asked"] += 1
+                if hit:
+                    d, pcs = hit
+                    w.writerow({"key": o["key"], "site": "https://%s/" % d, "read": TODAY, "quote": no_mail(pcs)[:300],
+                                "tied_by": "the company's very name as a domain (%s), whose own pages print the register's postal code %s: “%s”" % (d, o["postal_code"], no_mail(pcs)[:200])})
+                    f.flush(); have[o["key"]] = True; cnt["found"] += 1
+
+    ts = [threading.Thread(target=worker, daemon=True) for _ in range(threads)]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    dn.close()
+    print("name as a domain: %d companies in Canada / the United States without a site, %d asked this run, %d sites tied" % (len(todo), cnt["asked"], cnt["found"]), flush=True)
 
 
 def overture_pass(cos, have, w, f, minutes, threads):
@@ -520,6 +615,8 @@ def cmd_sites(a):
     f.flush()
     if getattr(a, "overture", False):
         overture_pass(cos, have, w, f, a.overture_minutes, a.threads)
+    if getattr(a, "guess", False):
+        guess_pass(cos, have, w, f, a.guess_minutes, a.threads)
     done = set()
     if os.path.exists(SDONE):
         done = {l.split("\t")[0] for l in open(SDONE, encoding="utf-8")}
@@ -689,6 +786,8 @@ def main():
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=50); p.add_argument("--threads", type=int, default=12)
     p.add_argument("--overture", action="store_true", help="first the sites an Overture Maps place lists under the company's name at its postal code (tools/overture_names.py)")
     p.add_argument("--overture-minutes", type=float, default=40)
+    p.add_argument("--guess", action="store_true", help="then the company's very name as a domain, kept only on the register's postal code printed on the site")
+    p.add_argument("--guess-minutes", type=float, default=30)
     p = sub.add_parser("leads"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"pull": cmd_pull, "build": cmd_build, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
