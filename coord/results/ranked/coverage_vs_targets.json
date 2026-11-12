@@ -6630,7 +6630,7 @@
 },
 "mta_sts|P04": {
 "rows": 3629,
-"filled": 3613,
+"filled": 3614,
 "pct": 99.6,
 "pct_any": 99.6,
 "target": 100,
@@ -6648,18 +6648,18 @@
 },
 "mta_sts|P06M": {
 "rows": 15872,
-"filled": 15551,
-"pct": 98.0,
-"pct_any": 98.0,
+"filled": 15570,
+"pct": 98.1,
+"pct_any": 98.1,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P06T": {
 "rows": 37219,
-"filled": 36438,
-"pct": 97.9,
-"pct_any": 97.9,
+"filled": 36553,
+"pct": 98.2,
+"pct_any": 98.2,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6684,9 +6684,9 @@
 },
 "mta_sts|P08": {
 "rows": 21626,
-"filled": 21485,
-"pct": 99.3,
-"pct_any": 99.3,
+"filled": 21491,
+"pct": 99.4,
+"pct_any": 99.4,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6702,7 +6702,7 @@
 },
 "mta_sts|P10": {
 "rows": 2168,
-"filled": 2144,
+"filled": 2145,
 "pct": 98.9,
 "pct_any": 98.9,
 "target": 100,
@@ -6711,9 +6711,9 @@
 },
 "mta_sts|P11": {
 "rows": 1512,
-"filled": 1500,
-"pct": 99.2,
-"pct_any": 99.2,
+"filled": 1502,
+"pct": 99.3,
+"pct_any": 99.3,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6729,9 +6729,9 @@
 },
 "mta_sts|P13": {
 "rows": 144433,
-"filled": 133222,
-"pct": 92.2,
-"pct_any": 92.2,
+"filled": 134187,
+"pct": 92.9,
+"pct_any": 92.9,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6783,7 +6783,7 @@
 },
 "tls_rpt|P04": {
 "rows": 3629,
-"filled": 3613,
+"filled": 3614,
 "pct": 99.6,
 "pct_any": 99.6,
 "target": 100,
@@ -6801,18 +6801,18 @@
 },
 "tls_rpt|P06M": {
 "rows": 15872,
-"filled": 15551,
-"pct": 98.0,
-"pct_any": 98.0,
+"filled": 15570,
+"pct": 98.1,
+"pct_any": 98.1,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P06T": {
 "rows": 37219,
-"filled": 36438,
-"pct": 97.9,
-"pct_any": 97.9,
+"filled": 36553,
+"pct": 98.2,
+"pct_any": 98.2,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6837,9 +6837,9 @@
 },
 "tls_rpt|P08": {
 "rows": 21626,
-"filled": 21485,
-"pct": 99.3,
-"pct_any": 99.3,
+"filled": 21491,
+"pct": 99.4,
+"pct_any": 99.4,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6855,7 +6855,7 @@
 },
 "tls_rpt|P10": {
 "rows": 2168,
-"filled": 2144,
+"filled": 2145,
 "pct": 98.9,
 "pct_any": 98.9,
 "target": 100,
@@ -6864,9 +6864,9 @@
 },
 "tls_rpt|P11": {
 "rows": 1512,
-"filled": 1500,
-"pct": 99.2,
-"pct_any": 99.2,
+"filled": 1502,
+"pct": 99.3,
+"pct_any": 99.3,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6882,9 +6882,9 @@
 },
 "tls_rpt|P13": {
 "rows": 144433,
-"filled": 133222,
-"pct": 92.2,
-"pct_any": 92.2,
+"filled": 134187,
+"pct": 92.9,
+"pct_any": 92.9,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6936,7 +6936,7 @@
 },
 "bimi|P04": {
 "rows": 3629,
-"filled": 3613,
+"filled": 3614,
 "pct": 99.6,
 "pct_any": 99.6,
 "target": 100,
@@ -6954,18 +6954,18 @@
 },
 "bimi|P06M": {
 "rows": 15872,
-"filled": 15551,
-"pct": 98.0,
-"pct_any": 98.0,
+"filled": 15570,
+"pct": 98.1,
+"pct_any": 98.1,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P06T": {
 "rows": 37219,
-"filled": 36438,
-"pct": 97.9,
-"pct_any": 97.9,
+"filled": 36553,
+"pct": 98.2,
+"pct_any": 98.2,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6990,9 +6990,9 @@
 },
 "bimi|P08": {
 "rows": 21626,
-"filled": 21485,
-"pct": 99.3,
-"pct_any": 99.3,
+"filled": 21491,
+"pct": 99.4,
+"pct_any": 99.4,
 "target": 100,
 "present": true,
 "subset": ""
@@ -7008,7 +7008,7 @@
 },
 "bimi|P10": {
 "rows": 2168,
-"filled": 2144,
+"filled": 2145,
 "pct": 98.9,
 "pct_any": 98.9,
 "target": 100,
@@ -7017,9 +7017,9 @@
 },
 "bimi|P11": {
 "rows": 1512,
-"filled": 1500,
-"pct": 99.2,
-"pct_any": 99.2,
+"filled": 1502,
+"pct": 99.3,
+"pct_any": 99.3,
 "target": 100,
 "present": true,
 "subset": ""
@@ -7035,9 +7035,9 @@
 },
 "bimi|P13": {
 "rows": 144433,
-"filled": 133222,
-"pct": 92.2,
-"pct_any": 92.2,
+"filled": 134187,
+"pct": 92.9,
+"pct_any": 92.9,
 "target": 100,
 "present": true,
 "subset": ""

@@ -19,7 +19,7 @@ Result: **FAIL** — 11 hard checks, 17 soft checks; hard failures: 1. Every fla
 | 11b | quote shows the label next to the address (referee saw the address on the page) | soft | 0 | PASS |
 | 12 | evidence page on the organisation's domain (or its site) | soft | 11051 | REVIEW |
 | 13 | email_type label matches grade | hard | 0 | PASS |
-| 14 | DMARC / SPF / provider columns filled | soft | 12515 | REVIEW |
+| 14 | DMARC / SPF / provider columns filled | soft | 11406 | REVIEW |
 | 15 | tier vs dates (A end ≥ today; B award ≤ 12 m; L 12–36 m) | soft | 3 | REVIEW |
 | 16 | vendor named and Canada proof present | hard | 0 | PASS |
 | 17 | Canada proof is a source field or the vendor's site (never a name) | soft | 0 | PASS |
@@ -278,10 +278,10 @@ Result: **FAIL** — 11 hard checks, 17 soft checks; hard failures: 1. Every fla
 - US city / county / local government: 11
 
 ## DMARC posture of the delivered mailboxes
-- no DMARC record: 87440
-- v=DMARC1; p=none (monitor only, no enforcement): 85030
-- p=quarantine: 29800
-- p=reject: 14840
-- not checked yet: 12515
-- invalid DMARC record: 165
-- DNS lookup failed: 74
+- no DMARC record: 87739
+- v=DMARC1; p=none (monitor only, no enforcement): 85307
+- p=quarantine: 29902
+- p=reject: 14877
+- not checked yet: 11406
+- DNS lookup failed: 467
+- invalid DMARC record: 166

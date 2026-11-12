@@ -1,7 +1,7 @@
 {
- "id": "2026-11-12T07:45:01Z-3a45807",
- "built": "2026-11-12T07:45:01Z",
- "code": "3a45807",
+ "id": "2026-11-12T09:03:28Z-a1d23ce",
+ "built": "2026-11-12T09:03:28Z",
+ "code": "a1d23ce",
  "release": "ranked-latest",
  "rows": 236452,
  "rows_with_mailbox": 230133,
@@ -39,7 +39,7 @@
    "4 estimated, under $5,000": 285,
    "5 no amount": 26938
   },
-  "with_amount_and_billing_period": 147820,
+  "with_amount_and_billing_period": 148117,
   "with_every_main_invoice_field": 132877,
   "test": "a Canadian biller with a relationship that is current + the organisation's role mailbox re-read by the referee + a bill on invoice, payable by bank transfer (never a card on file) + no flag; the fields of its kind are populated as well as they can be and what is not published is said on the row (owner 2026-11-11 13:00 to 16:01 EST; tools/relationship_rows.py owner_test)"
  },
@@ -67,32 +67,32 @@
  "assets": [
   {
    "name": "ranked_buyers.csv.gz",
-   "bytes": 408335295,
-   "sha256": "1840ed9748eea065b164c313a9645deca3001c2491e380d90da0ea8458114095",
+   "bytes": 408463718,
+   "sha256": "e0c086c66383522ef20624fd2b1f7cb42423ee9fffbd721d4f7a4b35e441c2de",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.csv.gz"
   },
   {
    "name": "ranked_buyers.jsonl.gz",
-   "bytes": 471056642,
-   "sha256": "2539a9514aae7a04c83081a1b6c41729edca155373edac3846e0267608299cd5",
+   "bytes": 471188570,
+   "sha256": "85092e04d3bfc98cc85cffcc8fabc6733b7a0bf594f29fc341e44dd2e48e53c3",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.jsonl.gz"
   },
   {
    "name": "ranked_batches.zip",
-   "bytes": 424193535,
-   "sha256": "bd293b89b95a171ba75a7ed50dad20bbd6dd76d5fb26e0b6de9cbdc9a43a7bf2",
+   "bytes": 424373389,
+   "sha256": "f16355c7b70ab214718718d0f4337e48cea6391e4d690cffaccb7ca139f20cc1",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_batches.zip"
   },
   {
    "name": "ranked_contracts.zip",
-   "bytes": 45810645,
-   "sha256": "6c5af88f1cf3948c9e218a761ec730988cc3144bd196630029c79e664b7ffc77",
+   "bytes": 45810646,
+   "sha256": "66e9042818b6f5f357f356854d293c964d3a1821921a22a2bd080c833aefb8e1",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_contracts.zip"
   },
   {
    "name": "ranked_extras.zip",
-   "bytes": 13837940,
-   "sha256": "705e59683533dc883655d94437307c3f87c056ac92dd63281180aa1c2bfb342d",
+   "bytes": 11924937,
+   "sha256": "fec69e59fec8818ae838844253bcf17d13e85f7c94788eb28b57ec8231b5e9e5",
    "url": "https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_extras.zip"
   }
  ]

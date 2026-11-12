@@ -1,6 +1,6 @@
 # Where the deliverable is
 
-Build **2026-11-12T07:45:01Z-3a45807** — 236452 rows, 230133 with a mailbox. Tiers (rows with a mailbox): A 1309, B 1771, C 336, D 23079, E 4446, F 16, I 144433, L 441, M 16287, T 38015.
+Build **2026-11-12T09:03:28Z-a1d23ce** — 236452 rows, 230133 with a mailbox. Tiers (rows with a mailbox): A 1309, B 1771, C 336, D 23079, E 4446, F 16, I 144433, L 441, M 16287, T 38015.
 
 The files are **release assets**, not files of this folder (a build is several hundred MB; committing each one grew the repository by gigabytes a day):
 
@@ -8,11 +8,11 @@ The files are **release assets**, not files of this folder (a build is several h
 
 | File | Size | What |
 |---|---|---|
-| [ranked_buyers.csv.gz](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.csv.gz) | 408.3 MB | the whole table, one row per buyer |
-| [ranked_buyers.jsonl.gz](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.jsonl.gz) | 471.1 MB | the same rows as JSON lines |
-| [ranked_batches.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_batches.zip) | 424.2 MB | every package as CSV (113 files) |
+| [ranked_buyers.csv.gz](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.csv.gz) | 408.5 MB | the whole table, one row per buyer |
+| [ranked_buyers.jsonl.gz](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_buyers.jsonl.gz) | 471.2 MB | the same rows as JSON lines |
+| [ranked_batches.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_batches.zip) | 424.4 MB | every package as CSV (113 files) |
 | [ranked_contracts.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_contracts.zip) | 45.8 MB | contracts of the delivered buyers |
-| [ranked_extras.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_extras.zip) | 13.8 MB | audit flags, DMARC list, rows changed since the last build |
+| [ranked_extras.zip](https://github.com/mohamedbiranesy-gif/canada-contracts-hub/releases/download/ranked-latest/ranked_extras.zip) | 11.9 MB | audit flags, DMARC list, rows changed since the last build |
 
 ## Packages in `ranked_batches.zip`
 
