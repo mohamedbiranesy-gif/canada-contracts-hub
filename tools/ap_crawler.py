@@ -180,8 +180,10 @@ def fetch(url, limit=6_000_000, _hops=0):
     except Exception as ex:
         msg = str(ex).lower()
         p = urllib.parse.urlparse(url)
-        if _hops == 0 and p.scheme == "https" and ("ssl" in msg or "certificate" in msg or "handshake" in msg or "eof" in msg):
-            return fetch("http://" + url[8:], limit, 1)  # broken TLS on a small municipal site: the plain-http copy is the same public page
+        if _hops == 0 and p.scheme == "https" and ("ssl" in msg or "certificate" in msg or "handshake" in msg or "eof" in msg or "reset" in msg or "refused" in msg):
+            # broken TLS on a small municipal site: the plain-http copy is the same public page. Also a site that resets or refuses https and answers
+            # over http only (2026-11-12: Nantes, Saint-Édouard-de-Maskinongé, Berry redirect over http to their hosted municipal site)
+            return fetch("http://" + url[8:], limit, 1)
         if _hops == 0 and ("nodename" in msg or "name or service" in msg or "getaddrinfo" in msg or "no address" in msg) and p.hostname and not p.hostname.startswith("www."):
             return fetch(url.replace("://" + p.hostname, "://www." + p.hostname, 1), limit, 1)  # bare host without a DNS record, www. has one
         return 0, "", b"", url
