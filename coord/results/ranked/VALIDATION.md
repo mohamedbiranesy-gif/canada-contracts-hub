@@ -1,4 +1,4 @@
-# Integrity gates — 274661 delivered rows in 18 packages (131 files)
+# Integrity gates — 275700 delivered rows in 18 packages (130 files)
 
 - **1 mailbox present, valid, domain with a mail server**: PASS (0)
 - **2 role mailbox (no person-like local part, no freemail)**: PASS (0)
@@ -11,21 +11,21 @@
 Informational: 3 rows whose quote shows the label next to the address rather than the address itself (the address sits in a mailto link; the referee re-fetched the page and saw it).
 
 ## Rows per package
-- P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 246
-- P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 227
-- P01_GOLD_active_relationship_invoicing_AP_email: 630
-- P02_active_relationship_finance_accounting_email: 464
+- P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 250
+- P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 225
+- P01_GOLD_active_relationship_invoicing_AP_email: 626
+- P02_active_relationship_finance_accounting_email: 467
 - P03_active_relationship_purchasing_email: 265
-- P04_active_relationship_general_email: 3584
-- P05_likely_active_awarded_12_36_months_any_email: 423
-- P06M_member_or_regulated_payer_of_canadian_body_other_email: 21978
-- P06T_active_service_seen_on_buyer_site_other_email: 59807
-- P06_client_listing_invoicing_AP_email: 273
-- P07_client_listing_finance_or_purchasing_email: 787
-- P08_client_listing_general_email: 29136
-- P09_older_contract_or_payment_any_email: 277
+- P04_active_relationship_general_email: 3572
+- P05_likely_active_awarded_12_36_months_any_email: 424
+- P06M_member_or_regulated_payer_of_canadian_body_other_email: 22195
+- P06T_active_service_seen_on_buyer_site_other_email: 59830
+- P06_client_listing_invoicing_AP_email: 276
+- P07_client_listing_finance_or_purchasing_email: 820
+- P08_client_listing_general_email: 30285
+- P09_older_contract_or_payment_any_email: 275
 - P10R_ca_domain_registration_contract_own_email: 0
-- P10_linked_from_vendor_site_any_email: 2125
-- P11_any_relationship_email_not_yet_confirmed: 1801
-- P12_weaker_relationship_within_5_years_own_email: 10
-- P13_inferred_relationship_no_record_own_email: 152628
+- P10_linked_from_vendor_site_any_email: 2126
+- P11_any_relationship_email_not_yet_confirmed: 1807
+- P12_weaker_relationship_within_5_years_own_email: 11
+- P13_inferred_relationship_no_record_own_email: 152246
