@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-12 03:32 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 04:18 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-11)
 | metric | value |
@@ -52,7 +52,7 @@
 | claude | claude_buyer_ap_results_cccrawl04.csv | 43115 | 43115 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl05.csv | 44666 | 44666 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl06.csv | 44876 | 44876 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl07.csv | 26942 | 26942 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl07.csv | 34995 | 34995 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
@@ -79,7 +79,7 @@
 | claude | claude_peppol_participants.csv | 77 | 0 | 0 | 0 | 77 |
 | claude | claude_registry_bulk.csv | 41690 | 36008 | 2783 | 0 | 2899 |
 | claude | claude_registry_lookup.csv | 82833 | 11626 | 41742 | 0 | 29465 |
-| claude | claude_site_owner_wd.csv | 7834 | 0 | 0 | 0 | 7834 |
+| claude | claude_site_owner_wd.csv | 7957 | 0 | 0 | 0 | 7957 |
 | claude | claude_vendor_names_read.csv | 6 | 0 | 0 | 0 | 6 |
 | claude | claude_vendor_sites.csv | 842 | 0 | 0 | 0 | 842 |
 | claude | claude_wikidata_orgs.csv | 42229 | 0 | 0 | 0 | 42229 |
