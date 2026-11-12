@@ -413,7 +413,9 @@ def leads_mode(a, k, n):
             h = host_of(r.get("website") or sites.get(r["buyer_key"]))
             if not h or "." not in h or r["buyer_key"] in done or h in hosts or not shard_ok(h, k, n):
                 continue
-            if r["buyer_key"] in known or C.registrable(h) in known_dom:
+            if (r["buyer_key"] in known or C.registrable(h) in known_dom) and not r["buyer_key"].startswith("b:"):
+                # (2026-11-12: a buyer under contract, "b:…", listed by the ranker because no mailbox of its OWN is on file — the lanes' mailbox
+                # for it was another organisation's — is read even so: coord/results/ranked/contract_buyers_without_mailbox.csv)
                 skipped += 1
                 continue
             hosts.add(h)

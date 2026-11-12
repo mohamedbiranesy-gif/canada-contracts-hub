@@ -181,6 +181,8 @@ def main():
     os.makedirs(os.path.join(g, "batches_head"))
     for p in sorted(glob.glob(os.path.join(src, "*.md")) + glob.glob(os.path.join(src, "*.json"))):
         shutil.copy(p, g)
+    if os.path.exists(os.path.join(src, "contract_buyers_without_mailbox.csv")):  # the mailbox reader's list of buyers under contract to read (rank.py)
+        shutil.copy(os.path.join(src, "contract_buyers_without_mailbox.csv"), g)
     if os.path.exists(os.path.join(src, "contracts", "CONTRACTS.md")):
         shutil.copy(os.path.join(src, "contracts", "CONTRACTS.md"), os.path.join(g, "CONTRACTS.md"))
     shutil.copy(os.path.join(pub, "BUILD.json"), os.path.join(g, "BUILD.json"))

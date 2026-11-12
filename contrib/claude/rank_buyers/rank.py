@@ -204,6 +204,10 @@ def real_grade(email, etype, quote, org=""):
 # 1. best mailbox per buyer key (referee export)
 WRONG_ENTITY = {"ptvi.invoice@vale.com": "PT Vale Indonesia's invoicing mailbox (an overseas shipping instruction on vale.com), not Vale Canada's"}
 mail = {}
+# 2026-11-12: every verified mailbox of a buyer under contract (key "b:…"), not only the best-graded one. `mail` keeps one row per key, and a
+# lane's mailbox of ANOTHER organisation (one university's AP box credited to dozens of buyers) with the highest grade hid the buyer's own
+# mailbox: 1,400 buyers under contract had a verified mailbox and none on their row (table of 00:14Z). emailcols() tries them all, best first.
+MAIL_ALL = {}
 from validate_returns import TLDS as _TLDS  # IANA's list of top-level domains (tools/data/iana_tlds.txt)
 N_BAD_TLD = collections.Counter()
 def repair_mailbox(m, page_url):
@@ -262,6 +266,8 @@ for r in csv.DictReader(io.StringIO(raw)):
         ok = ok.strip()
         if ok and (ok not in mail or s > mail[ok][0]):
             mail[ok] = (s, r)
+        if ok and ok.startswith("b:"):
+            MAIL_ALL.setdefault(ok, []).append((s, r))
 # 1a. the other mailboxes the referee verified for a key: org_mailboxes.csv keeps ONE row per key, so a verified
 # invoicing mailbox can hide behind a general one (or behind one rank.py rejects as person-like: Dalhousie's fin.pay@
 # kept, apinvoice@ verified too). The verification log names every verified (key, mailbox); the lane's own row gives
@@ -296,6 +302,8 @@ for _vl in (ROOT + "/coord/results/verification_log.csv", ROOT + "/coord/results
             s = mail_entry(ent)
             if s and (k not in mail or s > mail[k][0]):
                 mail[k] = (s, ent); n_vl += 1
+            if s and k.startswith("b:"):
+                MAIL_ALL.setdefault(k, []).append((s, ent))
 print("mailboxes taken from the verification log (better than org_mailboxes' single pick):", n_vl, "| referee mailbox rows whose last label is not a top-level domain:", dict(N_BAD_TLD))
 _free(globals(), "LANE_ROWS", "raw")
 # 1b. optional release tables (each skipped when absent): vendor registry facts / websites / addresses (field fill),
@@ -744,6 +752,7 @@ def shared_gov_page_names_buyer(e, page, quote, name):
         return True  # the government's own AP / shared-services box, published on a government page that names no other agency
     return False
 n_mailrej, n_mailrej_ex = collections.Counter(), []
+CB_NOMAIL = []  # (buyer key, name, website, records) of buyers under a current contract with no confirmed mailbox of their own
 _AP_LOCAL = re.compile(r"invoic|factur|payables?|acctpay|accountspayable|accounts[._-]?pay|comptes?[._-]?(?:payables?|a[._-]?payer|fournisseurs?)|comptesapayer|(?:^|[._-])a\.?p(?:$|[._-])|^ap[a-z]{0,3}invoice", re.I)
 _WEBMAIL = re.compile(r"^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|icloud|me|aol|protonmail|proton|gmx|videotron|sympatico|bell|rogers|shaw|telus|eastlink|cogeco)\.(?:com|ca|net|fr|co\.uk)$", re.I)
 def emailcols(keys, be, gj="", name="", site=""):
@@ -776,7 +785,14 @@ def emailcols(keys, be, gj="", name="", site=""):
     LABEL = {4: "invoicing/AP", 3: "finance/accounting dept or supplier-payment office", 2: "purchasing", 1: "general"}
     opts = []  # (accepted, grade, row) from the referee's mailboxes and from earlier enrichment; the best accepted one wins
     for k in sorted(k for k in keys if k):  # sorted: equal mailboxes are broken the same way on every run (a set's order is random)
-        if k in mail and fits(mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or "", mail[k][1].get("evidence_quote") or ""):
+        _alt = next(((s_, m_) for s_, m_ in sorted(MAIL_ALL.get(k, ()), key=lambda sm: sm[0], reverse=True)
+                     if fits(m_["mailbox"], m_.get("evidence_url") or "", m_.get("evidence_quote") or "")), None) if k in mail and not fits(
+                         mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or "", mail[k][1].get("evidence_quote") or "") else None
+        if _alt:
+            (acc, g), m = _alt
+            n_mailrej["(taken) another verified mailbox of the buyer, the best-graded one being another organisation's"] += 1
+            opts.append(((acc, g), (m["mailbox"], LABEL[g], "confirmed" if acc else m["check_status"], m["evidence_url"], m["evidence_quote"], g, acc)))
+        elif k in mail and fits(mail[k][1]["mailbox"], mail[k][1].get("evidence_url") or "", mail[k][1].get("evidence_quote") or ""):
             (acc, g), m = mail[k]
             opts.append(((acc, g), (m["mailbox"], LABEL[g], "confirmed" if acc else m["check_status"], m["evidence_url"], m["evidence_quote"], g, acc)))
         elif k in mail:
@@ -844,6 +860,13 @@ for p, o in orgs.items():
     gj = o["jur"].most_common(1)[0][0] if o["jur"] else ""
     em, et, es, eu, eq, g, acc = emailcols(o["keys"], be, gj, o["name"], be.get("official_website") or "")
     tier = tier_of(r)
+    if not (em and acc) and tier in ("A", "B", "L") and (be.get("official_website") or "").strip():
+        # 2026-11-12: a buyer under a current contract with no mailbox of its own on file: its own site goes to the mailbox reader
+        # (coord/results/ranked/contract_buyers_without_mailbox.csv, read by tools/lead_crawl.py on the mailbox-crawl runners)
+        _ws = be["official_website"].strip()
+        _wh = registrable(host_of(_ws) or "")
+        if _wh and not SHARED_GOV.match(_wh):
+            CB_NOMAIL.append((sorted(k for k in o["keys"] if k)[0], o["name"], _ws, o["n"]))
     score = TS[tier] * 10 + g * 6 + (3 if acc else 0) + o["fields"]
     a = v.get("address") or {}
     rows.append({"jurisdiction": gj, "rank_group": ("GOLD" if tier in "AB" and g == 4 and acc else "%s%d" % (tier, g)), "completeness_score": score,
@@ -1383,6 +1406,14 @@ if _PN > 1:
     del _others
     _memstat("after the cut", rows, globals())
 _SN = int(os.environ.get("RANK_SAMPLE") or 0)  # debug only: a fixed 1-in-N sample of the leads and of the inferred rows, to compare two versions of this script on a small machine
+if not _SN and not (_PN > 1):  # the whole table only (a sample or a part would write a partial list)
+    os.makedirs(ROOT + "/out/ranked", exist_ok=True)  # tools/ranked_publish.py copies it to coord/results/ranked/ (the mailbox reader's lead list)
+    with open(ROOT + "/out/ranked/contract_buyers_without_mailbox.csv", "w", encoding="utf-8", newline="") as _fc:
+        _wc = csv.writer(_fc)
+        _wc.writerow(["buyer_key", "buyer_name", "website", "canadian_vendor_rows", "example_vendor", "canada_field_value", "evidence_dataset", "latest_record_date"])
+        for _k, _n, _w, _c in sorted(CB_NOMAIL, key=lambda t: -t[3]):
+            _wc.writerow([_k, _n, _w, _c, "", "buyer under a current contract with a Canada-located vendor (contract dataset)", "", ""])
+print("buyers under a current contract with no confirmed mailbox of their own, whose own site goes to the mailbox reader:", len(CB_NOMAIL))
 def _in_sample(k):
     import hashlib as _hs
     return not _SN or int(_hs.sha1((k or "").encode()).hexdigest()[:8], 16) % _SN == 0
@@ -2198,7 +2229,7 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     n13 += 1
 print("P12 organisations:", len(orgs12), "added:", n12, dict(skipped12), "| P13 added:", n13, "| P13 skipped:", dict(skipped13))
 print("lead rows that took the organisation's own key (registry facts attach):", dict(n_keyjoin))
-_free(globals(), "VEN", "VEN_NAME", "VEN_DOM", "BUY", "TEAMV", "mail", "mail_dom", "cands", "orgs12", "up_t", "dom_rows", "lead_row_by_dom",
+_free(globals(), "VEN", "VEN_NAME", "VEN_DOM", "BUY", "TEAMV", "mail", "MAIL_ALL", "mail_dom", "cands", "orgs12", "up_t", "dom_rows", "lead_row_by_dom",
       "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13")  # last used by the row builders above
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
