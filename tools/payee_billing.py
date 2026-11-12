@@ -99,6 +99,14 @@ PAYEES = [
     dict(names=["Ontario Motor Vehicle Industry Council (OMVIC)", "Ontario Motor Vehicle Industry Council", "OMVIC"], hosts=["omvic.ca"], read="2026-11-11",
          url="https://www.omvic.ca/selling/fees/transaction-fees/",
          no_invoice="“OMVIC does not issue invoices. Dealers are expected to self-report and remit payment with their renewal application.”"),
+    # Health Canada: the yearly right-to-sell fees of drugs and medical devices (tools/hc_registers.py); its page on paying its invoices, read 2026-11-12
+    dict(names=["Health Canada", "Santé Canada", "Sante Canada"], hosts=[], read="2026-11-12",
+         url="https://www.canada.ca/en/health-canada/services/funding/cost-recovery-service-fees/how-pay-fees.html",
+         payment=("through a Canadian financial institution's bill payment, direct deposit, wire transfer, cheque, bank draft or money order, or a card: “Payments can be "
+                  "made by applying an existing credit, payment through a Canadian Financial Institution (via Bill Payment Service - BPS), direct deposit, wire transfer, "
+                  "cheque, bank draft, money order, or credit card.”"),
+         remit_to=("“Health Canada Accounts Receivable, Address Locator: 1918B 18th Floor, Room 1804B, Jeanne-Mance Building 161 Goldenrod Driveway, Tunney's Pasture "
+                   "Ottawa, Ontario K1A 0K9” — “Please include your Health Canada customer number or group account number on the Cheque, Money Order or Bank Draft”")),
 ]
 
 # ---- entries added by any lane (2026-11-11): contrib/<lane>/payees/<key>.json, one body a file, the same keys as an entry above ------------------

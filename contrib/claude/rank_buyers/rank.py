@@ -1780,6 +1780,9 @@ for k, L in sorted(leads.items(), key=lead_strength):
                             % ((LDET.get(k) or {}).get("tm_marks_in_force") or "one or more", (LDET.get(k) or {}).get("reference") or "see the register",
                                (LDET.get(k) or {}).get("tm_first_registered") or "not yet", (LDET.get(k) or {}).get("tm_latest_renewal_due") or "not set",
                                (LDET.get(k) or {}).get("tm_extract") or (L.get("latest_record_date") or "")[:10])) if member and "trademark registration holder of the Canadian body" in L.get("canada_field_value", "") else
+                           ("holds the right to sell %s in Canada on Health Canada's public register (%s, read %s): Health Canada invoices the holder every year for the right "
+                            "to sell each one" % ((LDET.get(k) or {}).get("hc_what") or "products", (LDET.get(k) or {}).get("register_label") or "Health Canada's register",
+                                                  (L.get("latest_record_date") or "")[:10])) if member and "right-to-sell holder of the Canadian body" in L.get("canada_field_value", "") else
                            ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
                            tech_status(k, L) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
@@ -5432,6 +5435,13 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_indicative"] = "%s%s%s" % ({"CAD": "C$", "USD": "US$"}.get(c_, "$"), ("%.2f" % v).rstrip("0").rstrip("."),
                                                              " per vehicle" if re.search(r"per vehicle", m.group(1), re.I) else " a year" if re.search(r"annual|year|ann[ée]e", m.group(1), re.I) else "")
                 out["bill_amount_basis"] = "the body's own statement of its fee: “%s” (%s)" % (m.group(1)[:280], m.group(2))
+        if ld.get("platform") == "hc_register":
+            # tools/hc_registers.py: the published fee of one product (a drug, a device licence) and the year's bill calculated from the products the register
+            # lists for the company today; how the invoice comes and when it is due, in Health Canada's own guidance
+            for _c, _k in (("bill_amount_indicative", "fee_unit"), ("bill_amount_basis", "fee_unit_basis"), ("bill_amount_calculated", "fee_calculated"),
+                           ("bill_delivery_as_published", "bill_delivery"), ("bill_due_terms_as_published", "bill_terms"), ("bill_items_as_published", "bill_items")):
+                if ld.get(_k):
+                    out[_c] = ld[_k]
         if ld.get("platform") == "rbq_licence" and not out.get("bill_amount_indicative") and not re.search(r"constructeur-propri", (ld.get("title") or "") + " " + (x.get("contract_title") or ""), re.I):
             # (an owner-builder's licence — "constructeur-propriétaire" — has its own fee table, not read yet: no amount is written for it)
             # the Régie's own fee table, read 2026-11-11: what a licence costs to keep for a year, by type of licence (the row's licence names its categories)

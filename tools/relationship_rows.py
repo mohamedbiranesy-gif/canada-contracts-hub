@@ -599,7 +599,9 @@ def po_or_reference(x, kind):
             "agent of record": "the agent's file number for the owner's matter", "dealership": "the dealer's account and order numbers",
             "sponsorship": "the sponsorship agreement", "tenancy": "the lease and unit", "service seen on the buyer's side": "the customer's account number"}.get(kind, "the organisation's account with the biller")
     lic = re.sub(r"\s+", " ", str(x.get("contract_reference") or "")).strip() if kind in ("licence or registration", "agent of record") else ""
-    return ("no PO: a bill of this kind quotes %s%s, which is not published%s" % (acct, (" (the record's number: %s)" % lic[:120]) if lic and not lic.startswith("{") else "", rule_s))
+    if lic and not lic.startswith("{"):
+        return "no PO: a bill of this kind quotes %s — the record's own number is %s (published)%s" % (acct, lic[:120], rule_s)
+    return "no PO: a bill of this kind quotes %s, which is not published%s" % (acct, rule_s)
 
 
 def owner_test(x):

@@ -1837,3 +1837,31 @@ just state that … don't guess 8 digits"; 08:45 EST: an estimate where nothing 
 
 1-in-4 sample, never multiplied: ready contract rows 2,050 -> 2,123; service rows 1,963 -> 1,580 (Namespro, 422 rows); ready rows with an
 amount and a billing period 39,775 -> 41,494, with a billing period 46,802 -> 48,477 of 48,498.
+
+## 2026-11-12 15:05Z — Health Canada's right-to-sell invoices: a regulator lane of $5,000+ yearly bills; rosters by many hands (claude)
+
+The owner, 09:00-09:15 EST: contracts first where they exist, "something damn near a contract", "most would be over 5,000", "a mixed
+approach … all hands on deck". The mailbox reader has read 2,311,863 sites (431,882 with a role mailbox); the Canadian pool it reads is
+nearly spent (13:08-14:23Z: +498 sites). Growth now needs new relationships, and new organisations, not more of the same sites.
+
+1. **Health Canada invoices every company that sells a drug or a licensed medical device in Canada, every year** (`tools/hc_registers.py`,
+   workflow `hc-registers.yml`, twice a day). Drug Product Database: the owner of each drug identification number with status Marketed;
+   Health Canada's guidance: “Every October 1 st , Health Canada sends invoices for the upcoming year …”, “The person on record as owning the
+   Drug Identification Number when the invoice is issued is responsible for payment.”, “Payment is due 30 days from date of issuance.” Fees
+   as of April 1, 2026, from its fee page: $5,626 a drug ($3,391 a non-prescription drug, $1,760 a disinfectant). Medical Devices Active
+   Licence Listing: the manufacturer of each Class II-IV licence issued and not cancelled, $460 a licence; “The invoices are mailed in
+   February for payment within 30 days.” Payment, its own page: bill payment through a Canadian bank, direct deposit, wire, cheque, card.
+   760 drug companies and 3,444 device makers (2,892 abroad); 1,320 of them are billed $5,000 or more a year (calculated from the published
+   fees, labelled; a small business is billed 25 % less, not known per company). The row: kind "licence or registration", published amount
+   = the fee of one product, `bill_amount_calculated` = the year's total, period yearly, delivery and terms in Health Canada's words.
+   **Sites, no guessing:** a site on file that prints the company's postal code under a name that agrees (contact readings, trademark
+   owners' sites): 353; then the company-name autocomplete, kept only when the domain IS the company's name on a generic ending or its
+   country's (`domain_fits`), its home page carries the name, and — for a company whose register address is in Canada — the domain is .ca.
+   The first pass without those two checks tied Janssen Inc. to a restaurant in Germany and Apotex to apotex.cz; they were taken out
+   before anything was written (26 + 7 ties removed). A Canadian subsidiary is never given its parent's .com.
+2. **Rosters and mailboxes by many hands.** Six helpers harvest public member directories (chambers and boards of trade of every province,
+   construction associations) and Canadian trade shows' exhibitor lists into `data/incoming/claude/roster_<key>.csv` +
+   `contrib/claude/rosters/<key>.json`, the format `tools/roster_ingest.py` checks (the body's own address with its postal code, its own
+   sentence on dues or booth fees, the member's own site; never an e-mail from a roster). Three helpers research the 698 current contract
+   buyers that have a website and no mailbox of their own (`coord/tasks/claude/claude_buyer_ap_batch908-914.csv`, largest contracts first),
+   evidence re-read by the referee as for every lane.

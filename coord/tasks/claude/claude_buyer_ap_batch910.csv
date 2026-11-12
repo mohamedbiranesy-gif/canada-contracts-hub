@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CL-CT-01001,current contract buyer without a mailbox of its own (largest published values first: 10628960),b:ffea28ab52525576,Public Service Commission,,CA,https://www.alberta.ca,,,6
+CL-CT-01002,current contract buyer without a mailbox of its own (largest published values first: 10494837),b:e9bde89a4591a3b5,Municipalité de Val-des-Lacs,,CA,https://www.val-des-lacs.ca,,,56
+CL-CT-01003,current contract buyer without a mailbox of its own (largest published values first: 10490984),b:23932f239d2d2bb6,Department of Energy,,US,https://www.energy.gov,,,26
+CL-CT-01004,current contract buyer without a mailbox of its own (largest published values first: 10465003),b:46486bbe7d21b222,CORCAN,,CA,https://www.canada.ca/en/correctional-service.html,,,20
+CL-CT-01005,current contract buyer without a mailbox of its own (largest published values first: 10429147),b:645657f0625a26df,CGI FEDERAL INC.,,US,https://www.cgifederal.com,,,19
+CL-CT-01006,current contract buyer without a mailbox of its own (largest published values first: 10276243),b:db9a56db9bb5b3b2,Leduc County,,CA,https://www.leduc-county.com/en/index.aspx,,,18
+CL-CT-01007,current contract buyer without a mailbox of its own (largest published values first: 10141664),b:30e93aedff28bd26,Receiver General,,CA,https://www.canada.ca/en/public-services-procurement.html,,,6
+CL-CT-01008,current contract buyer without a mailbox of its own (largest published values first: 10000000),b:5e44af05a6102b9a,West Midlands Combined Authority,,EU,http://www.wmca.org.uk,,,2
+CL-CT-01009,current contract buyer without a mailbox of its own (largest published values first: 9945700),b:f0f5137c21000510,Paroisse de Saint-Christophe-d'Arthabaska,,CA,https://www.saint-christophe-darthabaska.ca,,,66
+CL-CT-01010,current contract buyer without a mailbox of its own (largest published values first: 9892019),b:bf7fcb617918858a,Queensway Carleton Hospital,,CA,WWW.QCH.ON.CA,,,8
+CL-CT-01011,current contract buyer without a mailbox of its own (largest published values first: 9807543),b:bbba0fad6d3e3fc0,Cégep de Valleyfield,,CA,https://www.cegepvalleyfield.ca,,,75
+CL-CT-01012,current contract buyer without a mailbox of its own (largest published values first: 9748371),b:30e994beb9bb0696,St. Clair Township,,CA,https://stclairtownship.ca,,,41
+CL-CT-01013,current contract buyer without a mailbox of its own (largest published values first: 9731510),b:4a5958b82d80ebaf,Forest Analysis and Inventory Branch,,CA,https://www2.gov.bc.ca,,,49
+CL-CT-01014,current contract buyer without a mailbox of its own (largest published values first: 9672312),b:b84adb83d826735e,Municipalité de Saints-Anges,,CA,https://www.saintsanges.com,,,40
+CL-CT-01015,current contract buyer without a mailbox of its own (largest published values first: 9481402),b:e1b51049520b6071,Cégep de Drummondville.,,CA,https://www.cegepdrummond.ca,,,63
+CL-CT-01016,current contract buyer without a mailbox of its own (largest published values first: 9339007),b:060e3765cc48193c,Cégep de Rosemont,,CA,https://www.crosemont.qc.ca/,,,137
+CL-CT-01017,current contract buyer without a mailbox of its own (largest published values first: 9336662),b:9f651f6792f56f5a,Municipalité de Saint-Gabriel-de-Brandon,,CA,https://saintgabrieldebrandon.com,,,36
+CL-CT-01018,current contract buyer without a mailbox of its own (largest published values first: 9265685),b:db3d13963d8b80a6,Municipalité de Lotbinière,,CA,https://www.municipalite-lotbiniere.com,,,36
+CL-CT-01019,current contract buyer without a mailbox of its own (largest published values first: 9156920),b:44ee89ab91f18a3c,Prairie Rose School Division,,CA,https://www.prrd.ab.ca,,,3
+CL-CT-01020,current contract buyer without a mailbox of its own (largest published values first: 9075550),b:6d2381d67a275253,MRC des Sources,,CA,https://www.mrcdessources.com,,,183
+CL-CT-01021,current contract buyer without a mailbox of its own (largest published values first: 8963300),b:150558ce55f06c50,"Major Projects, Infrastructure & Properties Department",,CA,https://www2.gov.bc.ca,,,1
+CL-CT-01022,current contract buyer without a mailbox of its own (largest published values first: 8956859),b:df7bec2acb66b733,GENERAL DYNAMICS LAND SYSTEMS INC.,,US,https://www.gdls.com,,,41
+CL-CT-01023,current contract buyer without a mailbox of its own (largest published values first: 8844490),b:ae75d20736a3f2c0,Municipalité de Notre-Dame-du-Portage,,CA,https://www.municipalite.notre-dame-du-portage.qc.ca,,,51
+CL-CT-01024,current contract buyer without a mailbox of its own (largest published values first: 8819330),b:ae43a963b3e56478,St. Albert Public Schools,,CA,https://www.spschools.org,,,9
+CL-CT-01025,current contract buyer without a mailbox of its own (largest published values first: 8640000),b:1ba0bfb70d7133d7,SSE plc,,UK,https://www.sse.com/,,,1
+CL-CT-01026,current contract buyer without a mailbox of its own (largest published values first: 8603556),b:040f0ad1d9206974,Dirección de Adquisiciones del Mando de Apoyo Logístico del Ejército del Aire y del Espacio,,ES,http://www.ejercitodelaire.mde.es,,,3
+CL-CT-01027,current contract buyer without a mailbox of its own (largest published values first: 8594254),b:746baa991ae6e929,Municipalité de Compton,,CA,https://www.compton.ca,,,51
+CL-CT-01028,current contract buyer without a mailbox of its own (largest published values first: 8448232),b:0d088f9661d79ae2,BELL BOEING JOINT PROJECT OFFICE,,US,https://www.boeing.com,,,17
+CL-CT-01029,current contract buyer without a mailbox of its own (largest published values first: 8298481),b:8f75725cf6c9c185,Public Service Commission of Canada,,CA,https://www.canada.ca/en/public-service-commission.html,,,75
+CL-CT-01030,current contract buyer without a mailbox of its own (largest published values first: 8109871),b:4967cc5760fffaef,Municipalité de Saint-Étienne-de-Beauharnois,,CA,https://www.st-etiennedebeauharnois.qc.ca,,,20
+CL-CT-01031,current contract buyer without a mailbox of its own (largest published values first: 7926497),b:c862821cd8122740,Municipalité de Chesterville,,CA,https://www.chesterville.net,,,26
+CL-CT-01032,current contract buyer without a mailbox of its own (largest published values first: 7894350),b:1c4e9efe6874a5f1,NHS Blood and Transplant,,UK,https://www.gov.uk/government/organisations/nhs-blood-and-transplant,,,5
+CL-CT-01033,current contract buyer without a mailbox of its own (largest published values first: 7867447),b:fd7d84d6c31de6cf,Municipalité de Saint-Gabriel-de-Valcartier,,CA,https://www.saint-gabriel-de-valcartier.ca,,,19
+CL-CT-01034,current contract buyer without a mailbox of its own (largest published values first: 7832073),b:dba433d964b05c87,Town of Stettler,,CA,https://www.stettler.net,,,28
+CL-CT-01035,current contract buyer without a mailbox of its own (largest published values first: 7806666),b:b7b7b83def6ec9a6,Cégep de Rivière-du-Loup.,,CA,https://www.cegeprdl.ca/,,,82
+CL-CT-01036,current contract buyer without a mailbox of its own (largest published values first: 7695812),b:1559347444d97bb2,Municipalité de Sainte-Eulalie,,CA,https://www.municipalite.sainte-eulalie.qc.ca,,,26
+CL-CT-01037,current contract buyer without a mailbox of its own (largest published values first: 7300831),b:78c1ddb28e6f06be,Canadian Heritage,,CA,https://www.canada.ca/en/canadian-heritage.html,,,14
+CL-CT-01038,current contract buyer without a mailbox of its own (largest published values first: 7224723),b:b940a172bf1ff1eb,Canton Ham-Nord,,CA,https://www.ham-nord.ca,,,42
+CL-CT-01039,current contract buyer without a mailbox of its own (largest published values first: 7221718),b:b474c76f9adaa433,Municipalité régionale de comté La Côte-de-Beaupré,,CA,https://www.mrccotedebeaupre.com,,,6
+CL-CT-01040,current contract buyer without a mailbox of its own (largest published values first: 7207211),b:16042893be5c9abb,Peace District Office ),,CA,https://www2.gov.bc.ca,,,4
+CL-CT-01041,current contract buyer without a mailbox of its own (largest published values first: 7204728),b:32fa540ef18572a8,Old Port of Montreal Corporation,,CA,http://www.oldportcorporation.com/home.html,,,9
+CL-CT-01042,current contract buyer without a mailbox of its own (largest published values first: 7000463),b:8af798e9d283fb32,Manitoba Environment and Climate Change,,CA,https://www.gov.mb.ca,,,1
+CL-CT-01043,current contract buyer without a mailbox of its own (largest published values first: 6951263),b:57c02451ea2dfc49,Department of Finance Canada,,CA,https://www.canada.ca/en/department-finance.html,,,53
+CL-CT-01044,current contract buyer without a mailbox of its own (largest published values first: 6853716),b:5b12b5a69db6c8a8,Cégep de Baie-Comeau.,,CA,https://www.cegepbc.ca,,,99
+CL-CT-01045,current contract buyer without a mailbox of its own (largest published values first: 6670474),b:6bd241f741e6d128,Community Safety,,CA,https://www.saskatchewan.ca,,,13
+CL-CT-01046,current contract buyer without a mailbox of its own (largest published values first: 6662908),b:6ce395aa4291fc57,Municipalité de Hatley,,CA,https://www.municipalitehatley.com,,,24
+CL-CT-01047,current contract buyer without a mailbox of its own (largest published values first: 6518490),b:4401427e5f7230a4,TenneT TSO,,CA,https://www.tennet.eu/nl/home,,,3
+CL-CT-01048,current contract buyer without a mailbox of its own (largest published values first: 6500000),b:7d960c75eb91645b,Deutsches Zentrum für Luft- und Raumfahrt e.V. (DLR),,EU,http://www.dlr.de,,,5
+CL-CT-01049,current contract buyer without a mailbox of its own (largest published values first: 6462457),b:b6ed4629b621e1ee,Paroisse de Saint-Fabien,,CA,https://www.saint-fabien.ca,,,11
+CL-CT-01050,current contract buyer without a mailbox of its own (largest published values first: 6428998),b:96ce3805140b76a8,Staten og Kommunernes Indkøbsservice A/S,,EU,https://www.ski.dk,,,2
+CL-CT-01051,current contract buyer without a mailbox of its own (largest published values first: 6415473),b:6928ecd11fe7556c,Energy and Resources,,CA,https://www.saskatchewan.ca,,,53
+CL-CT-01052,current contract buyer without a mailbox of its own (largest published values first: 6414842),b:07382479ff270165,Municipalité régionale de comté Le Haut-Saint-François,,CA,https://www.mrchsf.com,,,14
+CL-CT-01053,current contract buyer without a mailbox of its own (largest published values first: 6330277),b:858be3d768e26c90,Fonds de recherche du Québec,,CA,https://frq.gouv.qc.ca/,,,50
+CL-CT-01054,current contract buyer without a mailbox of its own (largest published values first: 6283200),b:1eef5dfabb6bc01b,Town of Bonnyville,,CA,http://www.town.bonnyville.ab.ca,,,7
+CL-CT-01055,current contract buyer without a mailbox of its own (largest published values first: 6203370),b:15b7a24c0d4afd84,Seaward,,CA,https://www2.gov.bc.ca,,,15
+CL-CT-01056,current contract buyer without a mailbox of its own (largest published values first: 6000000),b:5d0981c7e766d49f,Canada Lands Company Limited,,CA,https://www.clc-sic.ca,,,3
+CL-CT-01057,current contract buyer without a mailbox of its own (largest published values first: 5900000),b:7507f3a32305a510,"Seniors, Community and Social Services",,CA,https://www.alberta.ca,,,1
+CL-CT-01058,current contract buyer without a mailbox of its own (largest published values first: 5815260),b:273920032369fea9,Village de Stukely-Sud,,CA,https://www.stukely-sud.com,,,28
+CL-CT-01059,current contract buyer without a mailbox of its own (largest published values first: 5765628),b:390333a9c4376604,Renfrew County District School Board,,CA,http://www.renfrew.edu.on.ca,,,88
+CL-CT-01060,current contract buyer without a mailbox of its own (largest published values first: 5586492),b:92bec8d15631cf8c,NCC,,CA,https://ncc-ccn.gc.ca,,,1
+CL-CT-01061,current contract buyer without a mailbox of its own (largest published values first: 5537471),b:77002e7afbcc4d1a,Wood Buffalo Housing,,CA,https://www.wbhadc.ca,,,3
+CL-CT-01062,current contract buyer without a mailbox of its own (largest published values first: 5391579),b:1297e93dedabb900,National Film Board,,CA,https://www.canada.ca/en/national-film-board.html,,,74
+CL-CT-01063,current contract buyer without a mailbox of its own (largest published values first: 5377500),b:794e055bb37c34e1,Veikkaus Oy,,EU,https://www.veikkaus.fi,,,2
+CL-CT-01064,current contract buyer without a mailbox of its own (largest published values first: 5322460),b:05abfd06f2b458b1,"Fisheries, Forestry & Agriculture",,CA,https://www.gov.nl.ca,,,146
+CL-CT-01065,current contract buyer without a mailbox of its own (largest published values first: 5278434),b:c8859dbfc0a4a98a,Municipalité de Saint-Romain,,CA,https://www.st-romain.ca,,,23
+CL-CT-01066,current contract buyer without a mailbox of its own (largest published values first: 5222452),b:96e5afb5759f103c,Translation Bureau,,CA,https://www.canada.ca/en/public-services-procurement.html,,,133
+CL-CT-01067,current contract buyer without a mailbox of its own (largest published values first: 5110967),b:0502689f7696a9bf,Tourism and Sport,,CA,https://www.alberta.ca,,,13
+CL-CT-01068,current contract buyer without a mailbox of its own (largest published values first: 4919298),b:f385e074d2c688c8,Municipalité de Saint-Hubert-de-Rivière-du-Loup,,CA,https://www.municipalite.saint-hubert-de-riviere-du-loup.qc.ca,,,16
+CL-CT-01069,current contract buyer without a mailbox of its own (largest published values first: 4902642),b:47184de798aea71b,Ministerie van Defensie,,EU,https://www.mindef.nl,,,8
+CL-CT-01070,current contract buyer without a mailbox of its own (largest published values first: 4902639),b:a564bb69f761e6b1,"Ministerie van Defensie, Koninklijke Marine",,CA,https://www.defensie.nl,,,1
+CL-CT-01071,current contract buyer without a mailbox of its own (largest published values first: 4746195),b:eacd76e15beba927,Township of Tiny,,CA,http://www.tiny.ca,,,34
+CL-CT-01072,current contract buyer without a mailbox of its own (largest published values first: 4686394),b:e7c0fe121dd716dd,"Arts, Culture and Status of Women",,CA,https://www.alberta.ca,,,7
+CL-CT-01073,current contract buyer without a mailbox of its own (largest published values first: 4614103),b:e3f7f274146ee363,Municipalité de Wickham,,CA,https://www.wickham.ca,,,61
+CL-CT-01074,current contract buyer without a mailbox of its own (largest published values first: 4604175),b:f7bbe9a930bc957b,Municipalité de Notre-Dame-de-Montauban,,CA,https://www.notredamedemontauban.com,,,10
+CL-CT-01075,current contract buyer without a mailbox of its own (largest published values first: 4593266),b:31b566f215535e2f,"General Atomics Aeronautical Systems, Inc. (GA-ASI)",,US,https://www.ga-asi.com,,,3
+CL-CT-01076,current contract buyer without a mailbox of its own (largest published values first: 4552666),b:499881171bef7223,Ministry of Emergency Management and Climate Readiness,,CA,https://www2.gov.bc.ca,,,8
+CL-CT-01077,current contract buyer without a mailbox of its own (largest published values first: 4462916),b:3385f9ae7954dc73,Accessibility Standards Canada,,CA,https://accessible.canada.ca,,,57
+CL-CT-01078,current contract buyer without a mailbox of its own (largest published values first: 4359959),b:10f83c454bc04291,Alberta Foundation for the Arts,,CA,http://www.affta.ab.ca,,,4
+CL-CT-01079,current contract buyer without a mailbox of its own (largest published values first: 4250000),b:7437c21d8541b14e,Rehabilitation and Maintenance,,CA,https://www2.gov.bc.ca,,,6
+CL-CT-01080,current contract buyer without a mailbox of its own (largest published values first: 4143764),b:99019b77f316debe,MRC D'Acton,,CA,https://www.mrcacton.ca,,,15
+CL-CT-01081,current contract buyer without a mailbox of its own (largest published values first: 4094930),b:6052195251341880,Skeena,,CA,https://www2.gov.bc.ca,,,24
+CL-CT-01082,current contract buyer without a mailbox of its own (largest published values first: 4090500),b:0c01a3db0cc82ca7,Ministère du Travail,,CA,http://www.travail.gouv.qc.ca/,,,26
+CL-CT-01083,current contract buyer without a mailbox of its own (largest published values first: 4076127),b:ab3410266929be18,Public Service Commission (PSC),,CA,https://www.canada.ca/en/public-service-commission.html,,,4
+CL-CT-01084,current contract buyer without a mailbox of its own (largest published values first: 4064188),b:3fed7d791ca06b2a,Thunder Bay Regional Health Sciences Centre,,CA,https://tbrhsc.net,,,9
+CL-CT-01085,current contract buyer without a mailbox of its own (largest published values first: 4036667),b:e76b6281c78b6746,Municipalité de Sainte-Anne-de-la-Rochelle,,CA,https://www.steannedelarochelle.ca,,,26
+CL-CT-01086,current contract buyer without a mailbox of its own (largest published values first: 3950289),b:ffea28ab52525576,Public Service Commission,,CA,https://www.alberta.ca,,,42
+CL-CT-01087,current contract buyer without a mailbox of its own (largest published values first: 3928904),b:a03e4ce638dfe2f7,Special Areas Board,,CA,http://www.specialareas.ab.ca,,,29
+CL-CT-01088,current contract buyer without a mailbox of its own (largest published values first: 3887878),b:8a640eec8ae13ba4,Longue-Pointe-de-Mingan,,CA,longuepointedemingan.ca,,,4
+CL-CT-01089,current contract buyer without a mailbox of its own (largest published values first: 3794937),b:15072e667887a7e2,County of Haliburton,,CA,http://www.haliburtoncounty.ca,,,41
+CL-CT-01090,current contract buyer without a mailbox of its own (largest published values first: 3759931),b:0e68fdd639afb445,Rural Municipality of Mervin No. 499,,CA,https://www.rmofmervin.ca,,,17
+CL-CT-01091,current contract buyer without a mailbox of its own (largest published values first: 3750000),b:30664972fea0213d,DND Petawawa,,CA,https://www.canada.ca/en/department-national-defence.html,,,1
+CL-CT-01092,current contract buyer without a mailbox of its own (largest published values first: 3697319),b:306fd8809e09dd3d,Municipalité de Saint-Michel-de-Bellechasse,,CA,https://www.stmicheldebellechasse.ca,,,9
+CL-CT-01093,current contract buyer without a mailbox of its own (largest published values first: 3493125),b:e5aa0eeee9fe6a4a,Gander International Airport,,CA,https://www.ganderairport.com/,,,1
+CL-CT-01094,current contract buyer without a mailbox of its own (largest published values first: 3463520),b:22c5bcfa78a68d5a,Affordability and Utilities,,CA,https://www.alberta.ca,,,21
+CL-CT-01095,current contract buyer without a mailbox of its own (largest published values first: 3461036),b:2ef08b2b6f4881fb,Commissaire à la santé et au bien-être,,CA,https://www.csbe.gouv.qc.ca/accueil.html,,,43
+CL-CT-01096,current contract buyer without a mailbox of its own (largest published values first: 3387722),b:83a87c617ea457f7,Justice & Public Safety,,CA,https://www.gov.nl.ca,,,92
+CL-CT-01097,current contract buyer without a mailbox of its own (largest published values first: 3312239),b:e716ca1dff21550e,Municipalité de Saint-Gabriel-Lalemant,,CA,https://www.saintgabriellalemant.qc.ca,,,21
+CL-CT-01098,current contract buyer without a mailbox of its own (largest published values first: 3169867),b:57dcf12ddc6cdec1,Municipalité de Notre-Dame-de-Stanbridge,,CA,https://www.notredamedestanbridge.qc.ca,,,25
+CL-CT-01099,current contract buyer without a mailbox of its own (largest published values first: 3161123),b:61428ba654b070ae,Municipalité de Saint-Pierre-de-l'Île-d'Orléans,,CA,https://www.st-pierre.iledorleans.com,,,9
+CL-CT-010100,current contract buyer without a mailbox of its own (largest published values first: 3143647),b:573301f0ddc9aae1,Zambia Medicines and Medical Supplies Agency,,ZM,https://www.medstore.co.zm,,,1

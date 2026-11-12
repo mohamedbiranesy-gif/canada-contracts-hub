@@ -1,0 +1,69 @@
+name: hc-registers
+# Health Canada's product registers (tools/hc_registers.py): the companies Health Canada invoices every year for the right to sell a drug (Drug
+# Product Database: the owner of each drug identification number on the market) or a licensed Class II-IV medical device (Medical Devices Active
+# Licence Listing). Fees published by Health Canada ($5,626 / $3,391 / $1,760 a drug, $460 a device licence, as of April 1, 2026); invoices every
+# October 1 (drugs) and in February (devices), payable through a bank, by wire, cheque or card. Only the two public APIs are asked; a company's
+# site is tied from the sites on file (same postal code, names that agree) or from the company-name autocomplete under its very name, checked on
+# the site's own home page. The mailbox comes from that site (mailbox-crawl reads lead_shards/). Resumable: the done list is committed.
+on:
+  schedule:
+    - cron: "23 3,15 * * *"
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "minutes for the site finder"
+        default: "90"
+permissions:
+  contents: write
+concurrency:
+  group: hc-registers
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Pull, build, find sites, write leads, commit
+        env: { MINUTES: "${{ inputs.minutes || '90' }}" }
+        run: |
+          python3 tools/hc_registers.py pull --work /tmp/hc 2>&1 | tee /tmp/l.txt
+          python3 tools/hc_registers.py build --work /tmp/hc 2>&1 | tee -a /tmp/l.txt
+          python3 tools/hc_registers.py sites --minutes "$MINUTES" --threads 12 2>&1 | tee -a /tmp/l.txt
+          mkdir -p keep && cp data/incoming/claude/hc/hc_companies.csv.gz data/incoming/claude/hc/hc_sites.csv data/incoming/claude/hc/hc_sites_done.tsv keep/
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          git config user.name "hc-registers"; git config user.email "hc-registers@users.noreply.github.com"
+          for i in $(seq 1 10); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            mkdir -p data/incoming/claude/hc
+            # the site list and the done list only grow: the lines of main and of this run, once each
+            for f in hc_sites.csv hc_sites_done.tsv; do
+              if [ -f "data/incoming/claude/hc/$f" ]; then
+                python3 - "$f" <<'PY'
+          import sys
+          f = sys.argv[1]
+          a = open("data/incoming/claude/hc/" + f, encoding="utf-8").read().splitlines()
+          b = open("keep/" + f, encoding="utf-8").read().splitlines()
+          seen, out = set(), []
+          for l in a + b:
+              if l not in seen:
+                  seen.add(l); out.append(l)
+          head = [l for l in out if l.startswith("key,")][:1]
+          open("data/incoming/claude/hc/" + f, "w", encoding="utf-8").write("\n".join(head + [l for l in out if not l.startswith("key,")]) + "\n")
+          PY
+              else
+                cp "keep/$f" "data/incoming/claude/hc/$f"
+              fi
+            done
+            cp keep/hc_companies.csv.gz data/incoming/claude/hc/
+            python3 tools/hc_registers.py leads --stamp "$STAMP" | tee /tmp/m.txt
+            python3 tools/secret_guard.py || true
+            git add data/incoming/claude/hc data/incoming/claude/lead_shards
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "hc-registers: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
+          { echo '```'; cat /tmp/l.txt /tmp/m.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
