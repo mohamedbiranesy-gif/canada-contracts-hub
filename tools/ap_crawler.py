@@ -302,6 +302,64 @@ _A_STREET = re.compile(r"(?i)\b(?:street|st|avenue|ave|av|road|rd|drive|dr|boule
 _A_DATE = re.compile(r"\d{1,2},\s+(?:19|20)\d{2}\b")
 
 
+# 2026-11-12 (test set of the day: "dans la conception … à haute performance énergétique. Pont-Rouge, QC G3H2P9", "… Email info@x.ca
+# Pointe-Claire, QC H9R 5N3"): with no street number in the quote, the address is the place in front of the province and postal code — not
+# the page's sentence, label, mailbox or person before it. The place words are taken back from the province: capitalised words (and the
+# small words of place names: de, du, la, sur …), at most four, stopping at a sentence's end, a label of the page, a mailbox or a number.
+_PLACE_END = re.compile(r"[\s,(]*(?:A[BL]|BC|MB|N[BLSTU]|ON|PE|QC|Q[Cc]|SK|YT|Alberta|British Columbia|Colombie-Britannique|Manitoba|New Brunswick|Nouveau-Brunswick|"
+                        r"Newfoundland(?: and Labrador)?|Terre-Neuve(?:-et-Labrador)?|Nova Scotia|Nouvelle-[ÉE]cosse|Ontario|Prince Edward Island|[ÎI]le-du-Prince-[ÉE]douard|"
+                        r"Qu[ée]bec|Qc|Saskatchewan|Yukon|Northwest Territories|Nunavut)\.?\)?[\s,]*(?:(?:Canada|CAN)[\s,]+)?(?:[A-Za-z]\d[A-Za-z][\s-]?\d[A-Za-z]\d)?\s*(?:,?\s*(?:Canada|CA|CAN))?\s*$")
+_PROV_WORD = {"ab": "AB", "alberta": "AB", "bc": "BC", "british columbia": "BC", "colombie britannique": "BC", "mb": "MB", "manitoba": "MB", "nb": "NB", "new brunswick": "NB",
+              "nouveau brunswick": "NB", "nl": "NL", "newfoundland": "NL", "newfoundland and labrador": "NL", "terre neuve": "NL", "terre neuve et labrador": "NL", "ns": "NS",
+              "nova scotia": "NS", "nouvelle ecosse": "NS", "on": "ON", "ontario": "ON", "pe": "PE", "prince edward island": "PE", "ile du prince edouard": "PE", "qc": "QC",
+              "quebec": "QC", "sk": "SK", "saskatchewan": "SK", "yt": "YT", "yukon": "YT", "nt": "NT", "northwest territories": "NT", "nu": "NU", "nunavut": "NU"}
+_PC_PROV = {"A": "NL", "B": "NS", "C": "PE", "E": "NB", "G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON", "R": "MB", "S": "SK", "T": "AB", "V": "BC", "Y": "YT"}
+_PLACE_SMALL = {"de", "du", "des", "la", "le", "les", "sur", "en", "lès", "d'", "of", "the", "and", "et", "upon", "on", "in", "-"}
+
+
+def _place_only(t):
+    m = _PLACE_END.search(t)
+    if not m or m.start() == 0:
+        return t
+    head = t[:m.start()]
+    # only when what stands in front of the place is the page's text — a mailbox, a label of the page, the end of a sentence — and no street
+    # follows the last number (a street the first rule could not cut: "27 chemin des neiges", "B-245 McDermot Avenue (corner of …) Winnipeg",
+    # "25, ch. de la Québécoise Saint-Adolphe-d'Howard"), nor does a number stand right before the place ("Box 61, Burwash Landing")
+    if not ("@" in head or _A_LABEL.search(head) or re.search(r"[a-zà-ÿ]{2,}[.!?]\s+[A-ZÀ-Ý]", head)):
+        return t
+    ld = [m_.end() for m_ in re.finditer(r"\d", head)]
+    if ld and (_A_STREET.search(head[ld[-1]:]) or re.search(r"\d", head[-25:]) or re.search(r"(?i)\b(?:P\.?\s?O\.?\s*Box|C\.?\s?P\.?|Case postale|Box)\s*#?\s*\d", head)):
+        return t
+    words, out = re.split(r"[\s,]+", head.strip()), []
+    for w_ in reversed(words):
+        abbr = w_.rstrip(".").lower() in ("st", "ste", "mt", "ft", "pt")
+        if len(out) >= 4 or "@" in w_ or re.search(r"\d", w_) or _A_LABEL.fullmatch(w_.strip(",.:;()")) or (out and w_.endswith((".", ":", ";", "!", "?")) and not abbr):
+            break
+        if not (w_[:1].isupper() or w_.lower() in _PLACE_SMALL or re.fullmatch(r"[A-ZÀ-Ý][\w'’.-]*", w_.strip(",()"))):
+            break
+        out.insert(0, w_)
+    while out and out[0].lower() in _PLACE_SMALL:
+        out.pop(0)
+    if not out:
+        return t
+    # the longest run of those words that is a place of the province (the GeoNames place names of tools/data/city_biller.tsv.gz): "Harry Walsh
+    # WPM Novar" is Novar; a place the table does not know keeps at most its last two words
+    import unicodedata as _ud
+    tailtxt = t[m.start():]
+    key = re.sub(r"[^a-z ]+", " ", _ud.normalize("NFKD", tailtxt).encode("ascii", "ignore").decode().lower())
+    prov = next((v for k_, v in sorted(_PROV_WORD.items(), key=lambda kv: -len(kv[0])) if re.search(r"\b%s\b" % k_, key)), "")
+    pcm = re.search(r"([A-Za-z])\d[A-Za-z][\s-]?\d[A-Za-z]\d", tailtxt)
+    prov = prov or (_PC_PROV.get(pcm.group(1).upper(), "") if pcm else "")
+    try:
+        import by_location as _BL
+        tab = _BL._cities()
+        known = next((out[i:] for i in range(len(out)) if (prov, _BL.norm_city(" ".join(out[i:]).strip(",()"))) in tab), None) if prov else None
+    except Exception:
+        known = None
+    out = known or out[-2:]
+    return (" ".join(out) + tailtxt).strip(" ,.-–|:")
+
+
 def address_from(quote):
     """the address part of a quote that ends at the postal code: from the street number on.
     2026-11-10 (first rule): a telephone number or a copyright year in front of the address was taken for the street number ("403.686.6444 1677 –
@@ -316,7 +374,7 @@ def address_from(quote):
     tail = q[cut:]
     ms = list(_A_START.finditer(tail))
     if not ms:
-        return (tail if cut else q).strip(" ,.-–|:")
+        return _place_only((tail if cut else q).strip(" ,.-–|:"))
     start = ms[-1].start()
     for i, m in enumerate(ms):
         nxt = ms[i + 1].start() if i + 1 < len(ms) else len(tail)

@@ -151,6 +151,19 @@ WHAT_IS_BILLED = {"membership": "membership dues", "dealership": "goods bought f
                   "sponsorship": "the sponsorship or exhibitor fee"}  # the kind itself says what the bill is for
 
 
+# test set of 2026-11-12: a contract a company announces in its own press release (a newswire, its newsroom) was labelled "fact, public
+# record". It is the vendor's own dated announcement of a signed agreement — for a listed company a disclosure it answers for — and the
+# row says so; it stays a public contract.
+_PRESS = re.compile(r"press releases?|newswire|business wire|globenewswire|newsroom|communiqu[ée]s? de presse", re.I)
+
+
+def record_basis(x):
+    src, link = (x.get("source") or "the public source")[:120], (x.get("contract_link") or "")[:160]
+    if _PRESS.search(src):
+        return "fact, the vendor's own dated announcement of the agreement (not a public register): %s names the vendor and the contract (%s)" % (src, link)
+    return "fact, public record: %s names the vendor and the contract (%s)" % (src, link)
+
+
 def kind_of(x):
     t, fb, cs = x.get("tier") or "", x.get("relationship_fact_basis") or "", x.get("contract_status") or ""
     if "names the vendor and the contract" in fb or (t in ("A", "B", "L", "F") and fb.startswith("fact, public record")):
@@ -300,10 +313,14 @@ def agent_is_a_person(x):
     "Fasken Martineau DuMoulin" are firms named after their founders"""
     global _GIVEN
     v = (x.get("vendor") or "").strip()
+    if re.match(r"(?:mr|mrs|ms|dr|me|ma[iî]tre)\.?\s+[A-Za-zÀ-ÿ]", v, re.I):
+        return True  # "MR. CHRISTOPHER TAN", "ME DANIEL ROUSSIN", "MAÎTRE …" (test set of 2026-11-12)
     w = re.findall(r"[A-Za-zÀ-ÿ'’.-]+", v)
-    if not (2 <= len(w) <= 4) or _FIRM.search(v) or re.search(r"\d", v):
+    if not (2 <= len(w) <= 4) or _FIRM.search(v) or "+" in v or re.search(r"\d", v):
         return False
-    if any(re.fullmatch(r"[A-Za-z]\.?", t) for t in w[1:-1]):
+    if any(re.fullmatch(r"(?:[A-Za-z]\.){1,3}|[A-Za-z]\.?", t) for t in w[:-1]):
+        return True  # an initial: "D. MICHAEL BEAN", "MAY M.M. CHENG", "R.GRANT CANSFIELD"
+    if re.fullmatch(r"[A-Za-z]\.[A-Za-z]{2,}", w[0]):
         return True
     if _GIVEN is None:
         try:
@@ -312,7 +329,13 @@ def agent_is_a_person(x):
             _GIVEN = set(_fn)
         except Exception:
             _GIVEN = set()
-    return re.sub(r"[^a-z]", "", w[0].lower()) in _GIVEN
+    return re.sub(r"[^a-z]", "", w[0].lower()) in _GIVEN or re.sub(r"[^a-z]", "", w[0].lower()) in _MORE_GIVEN
+
+
+# given names of agents of record read on the test set of 2026-11-12 that the list of tools/buyer_pages.py did not hold
+_MORE_GIVEN = set("""anita lei chad selena kimberley theo cory danyel jay xin rupinder kirsten jessie julien adrienne katharine yuri del stephanie
+corey ardeshir bruno zak doreen tessa clare karol yue hubert emmet lyanne lonnie esmaeil sorel ahmed dirk yunwei dario russel yadvinder sampson
+angeliki""".split())
 # - a row by where the organisation is, at a postal code that fifty or more organisations print (tools/by_location.py: SHARED_FAIL): a tower,
 #   a campus, a business centre or a mail service — the electricity account there is the landlord's
 _SHARED = re.compile(r"(\d[\d,]*) organisations print this same postal code")
@@ -347,16 +370,17 @@ def _f(t):
 
 def published_amount(x):
     """(the published amount of the row, the column it stands in) or (None, "") — never the calculated one"""
+    # (a zero is no amount: test set of 2026-11-12, an import declaration whose "value" was the duty paid, 0)
     cv = str(x.get("contract_value") or x.get("contract_value_from_pair") or "").strip()
     m = re.match(r"\s*(?:C|CA|US|CAD|USD)?\$?\s?(" + _NUM + r")", cv)
-    if m and _f(m.group(1)) is not None:
+    if m and (_f(m.group(1)) or 0) > 0:
         return _f(m.group(1)), "contract_value"
     b = str(x.get("bill_amount_indicative") or "").strip()
     m = _AMT1.search(b) or _AMT2.search(b)
-    if m and _f(m.group(1)) is not None:
+    if m and (_f(m.group(1)) or 0) > 0:
         return _f(m.group(1)), "bill_amount_indicative"
     m = re.search(r"(" + _NUM + r")\s?(?:¢|cents?\b)", b)   # "40.89 ¢ a day"
-    if m and _f(m.group(1)) is not None:
+    if m and (_f(m.group(1)) or 0) > 0:
         return _f(m.group(1)) / 100.0, "bill_amount_indicative"
     return None, ""
 
@@ -728,7 +752,7 @@ def pair_row(R, x, r, p, g, acc):
     y["relationship_kind"] = kind_label
     y["inference_confidence"] = "n/a (the relationship is a record, not an inference)"
     y["how_relationship_was_found"] = R["HOW_FOUND"].get("A") or ""
-    y["relationship_fact_basis"] = "fact, public record: %s names the vendor and the contract (%s)" % ((y.get("source") or "the public source")[:120], (y.get("contract_link") or "")[:160])
+    y["relationship_fact_basis"] = record_basis(y)
     y["relationship_detail"] = ("%s (%s, %s) — %s: %s | %s" % (x.get("buyer") or "", x.get("buyer_type") or "", x.get("jurisdiction") or "", kind_label, y["vendor"], y.get("contract_title") or ""))[:400]
     y["recurring_billing"] = "5 not published"
     y["recurring_billing_basis"] = "the public record gives the parties, the subject, the value and the dates of the contract, not when the vendor bills"

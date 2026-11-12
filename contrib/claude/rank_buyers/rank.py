@@ -5185,7 +5185,7 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_basis"] = "the body's lowest published membership fee by the %s: “%s” (%s, read %s); the member's own dues are not published (they are that or more)" % (per, st_["q"][:260], st_["u"], rec.get("date"))
                 n_billcol["member rows that carry the body's lowest published dues"] += 1
     else:
-        out["relationship_fact_basis"] = "fact, public record: %s names the vendor and the contract (%s)" % ((x.get("source") or "the public source")[:120], (x.get("contract_link") or "")[:160])
+        out["relationship_fact_basis"] = _RR.record_basis(x)  # a press release says it is the vendor's own announcement (tools/relationship_rows.py)
     if cls.startswith("5") and t in ("C", "D") and "vendor located in Canada" in cfv and "member named in the member directory" not in cs:
         c_, q_, longer_, why_ = _vendor_cycle(vd)
         if c_ in ("monthly", "monthly_price", "quarterly"):
@@ -5541,6 +5541,10 @@ for _ri, x in enumerate(rows):
                 x["buyer_address"] = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or "", _lf.get("date") or ""); npk["buyer_address_from_own_page"] += 1
             if _lf.get("site_name") and not x["buyer_trade_name_as_published"]:
                 x["buyer_trade_name_as_published"] = "%s (the name on the organisation's own home page, %s, read %s)" % (_lf["site_name"], _lf.get("site") or "", _lf.get("date") or ""); npk["buyer_trade_name_as_published"] += 1
+        # test set of 2026-11-12: a copyright line taken for the name ("© 2017-2026 ITMBC Enterprises Inc.")
+        _bn9 = re.sub(r"^\s*(?:©|\(c\)|copyright)\s*(?:©\s*)?(?:(?:19|20)\d{2}\s*(?:[-–]\s*(?:19|20)\d{2})?)?\s*[,.|:–-]*\s*", "", x.get("buyer") or "", flags=re.I).strip()
+        if _bn9 != (x.get("buyer") or "").strip() and len(_bn9) >= 3:
+            x["buyer"] = _bn9; npk["buyer name without the copyright sign and years in front of it"] += 1
         # 2026-11-12: nothing on file gives the buyer's address — the address an Overture Maps place lists for its website, when the domain's places
         # print one postal code and the place's name fits the buyer's; the cell says it is a public places dataset's (tools/by_location.py)
         if OVT and not (x.get("buyer_address") or "").strip() and not (x.get("invoice_mailing_address") or "").strip():

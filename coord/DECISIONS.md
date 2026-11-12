@@ -1711,3 +1711,26 @@ when it is printed before a place name ("80331 München"), as a legal notice pri
 …) are left out of both names (`nkey_x`, the same pattern in Python and in DuckDB). 18,076 owners abroad now have a listed website (US
 12,876 · DE 1,808 · GB 809 · IT 603 · AU 438 · CH 363 …). On 40 owners in Germany, Switzerland, Austria and Italy: 9 tied, four of them by
 the postal code their own legal notice prints (Bosch, Osram, Kulzer, Prysmian …).
+
+## 2026-11-12 05:59Z — a test hundred from the 05:23Z table, read row by row: five faults, each a rule (claude)
+
+Drawn by `tools/test_sample.py` (seed 20261111, inside each kind; 164,391 ready rows). What was wrong, and the rule that now holds:
+1. **A zero taken for an amount.** An import declaration (Colombia's customs statistics) whose value field was the duty paid, 0, was marked
+   "published, under $5,000 (0)". A zero is no amount (`relationship_rows.published_amount`): the row is "no amount".
+2. **A company's own press release labelled "fact, public record".** 73 ready rows stand on a contract a company announced on a newswire or
+   in its newsroom (Cameco and Slovenské elektrárne, CGI and Caisse Alliance, AtkinsRéalis and Sizewell C). For a listed company that is
+   a disclosure it answers for, and the rows stay public contracts; the sentence now says what it is: "fact, the vendor's own dated
+   announcement of the agreement (not a public register)" (`relationship_rows.record_basis`).
+3. **Agents of record that are persons.** "ANITA MAR", "LEI ZHOU", "MR. CHRISTOPHER TAN", "ME DANIEL ROUSSIN", "MAY M.M. CHENG": the test
+   knew 575 given names and no honorific. It now reads honorifics (Mr., Me, Maître, Dr.), initials of several letters, "+" as a firm's sign
+   ("PERRY + CURRIER"), and 37 more given names; a firm named after its founders ("ANDREWS ROBICHAUD", "STEWART MCKELVEY") stays a firm.
+   Such rows do not meet the test (natural persons are left out, as everywhere).
+4. **Page text in front of an address.** "dans la conception … à haute performance énergétique. Pont-Rouge, QC G3H2P9", "Contact Harry
+   Walsh WPM Novar, ON" — with no street number in the quote, `ap_crawler.address_from` returned the whole quote. It now keeps the place in
+   front of the province and postal code (the longest run of capitalised words that is a place of that province in the GeoNames names of
+   `tools/data/city_biller.tsv.gz`), but only when what stands before it is the page's own text (a mailbox, a label, a sentence's end) and
+   no street or box follows the last number. Over the 262,025 address quotes on file: 2,289 cuts change, every one shorter; a person's
+   name before the place is no longer printed as part of an address.
+5. **A copyright line taken for the name** ("© 2017-2026 ITMBC Enterprises Inc."): the sign and the years are taken off.
+Seen and left as they are: a mailbox read on a directory page of the organisation's own domain (laconstruction.ca for defran.ca) — the
+referee re-read it there; a mailbox in a link's title attribute (rpg.ca) — it is in the page as printed.
