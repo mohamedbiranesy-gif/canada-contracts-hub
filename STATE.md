@@ -1,4 +1,21 @@
-# STATE.md — Claude lane (updated 2026-11-12 18:20Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 19:25Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 19:25Z — build 19:14Z read: 213,258 ready (+13,098)
+
+**Build 19:14Z (d81c2ab), counted from BUILD.json and the table (scratchpad build_next/analyze.py):** 213,258 ready of 277,676 rows.
+Not by location 70,749 (+21,862); by location 142,509 (−8,764: those buyers now stand on a record or a service — one row per buyer, a
+record first). By kind: service 25,172 (+17,208), membership 16,324 (+2,699), licence 11,871, agent 6,126, sponsorship 5,394 (+923),
+public contract 3,110, dealership 2,330 (+438), tenancy 362 (+242), exchange listing 60 (new, C$12,000+ a year each). $5k+ a bill: 1,771
+published + 198 estimated. Amount and period 184,086 (+8,230); every main field 141,107 (−8,471, carried by the location rows that moved).
+Ready by new source: roster members 14,921, trademark agents 5,992, roster exhibitors/sponsors 5,394, roster dealers 2,330, radio 610,
+Health Canada 484, roster tenants 362, patent agents 134, exchange 60.
+**The service jump is mostly one host:** Web Hosting Canada 16,542 rows (its pay page: an order generates an invoice payable by wire transfer
+or Interac — rule 6 "In" when the biller also takes cards), Webnames 3,171 (paid DNS plans, cheque accepted), linknowmedia 1,957, Likuid 762,
+Astral 528, Varial 375, WellnessLiving 310. Told to the owner with the offer to take hosting out entirely if he reads rule 6 that way.
+Rosters merged 18:28Z-19:07Z (after the build's code): chambers (Québec wave, Alberta, Yellowknife, Trail), tourism (Cantons-de-l'Est,
+Montérégie, Bas-Saint-Laurent, Attractions Ontario …), co-ops (FCL 148, PharmaChoice, Sollio, Castle, ILDC), insurance brokers (IBANB, IBANS,
+RCCAQ), landscapers (BCLNA, Québec Vert, APPQ), engineers (CEA, AFG), BC Funeral Association, PEI construction. Tenant rosters no longer
+count toward the more-than-15-rosters rule. Helpers still running: associations wave 2, Québec chambers.
 
 ## 2026-11-12 18:20Z — exchange issuers (TSX, TSXV, CSE), patents through pt-sites, rosters at scale (dealers, malls, shows, builders); robots.txt BOM fix
 
