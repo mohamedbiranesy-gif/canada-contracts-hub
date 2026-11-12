@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-12 17:53 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 18:02 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-12)
 | metric | value |
@@ -64,7 +64,7 @@
 | claude | claude_buyer_ap_results_cccrawl07.csv | 44454 | 44454 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl08.csv | 44781 | 44781 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl09.csv | 44518 | 44518 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl10.csv | 10611 | 10611 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl10.csv | 11157 | 11157 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
@@ -95,6 +95,7 @@
 | claude | claude_vendor_names_read.csv | 6 | 0 | 0 | 0 | 6 |
 | claude | claude_vendor_sites.csv | 842 | 0 | 0 | 0 | 842 |
 | claude | claude_wikidata_orgs.csv | 42229 | 0 | 0 | 0 | 42229 |
+| claude | roster_ca_con_cans.csv | 576 | 0 | 0 | 0 | 576 |
 | claude | roster_ca_con_niagara.csv | 217 | 0 | 0 | 0 | 217 |
 | claude | roster_ca_con_oca.csv | 1027 | 0 | 0 | 0 | 1027 |
 | claude | roster_ca_con_ogca.csv | 142 | 0 | 0 | 0 | 142 |
@@ -208,6 +209,7 @@
 | claude | roster_cc_sk_yorkton.csv | 221 | 0 | 0 | 0 | 221 |
 | claude | roster_dl_arcticspas.csv | 177 | 0 | 0 | 0 | 177 |
 | claude | roster_dl_coastspas.csv | 89 | 0 | 0 | 0 | 89 |
+| claude | roster_dl_enviro.csv | 472 | 0 | 0 | 0 | 472 |
 | claude | roster_dl_hydropool.csv | 261 | 0 | 0 | 0 | 261 |
 | claude | roster_dl_loewen.csv | 110 | 0 | 0 | 0 | 110 |
 | claude | roster_dl_macdon.csv | 102 | 0 | 0 | 0 | 102 |
@@ -215,9 +217,11 @@
 | claude | roster_dl_valor.csv | 586 | 0 | 0 | 0 | 586 |
 | claude | roster_ex_agdays.csv | 507 | 0 | 0 | 0 | 507 |
 | claude | roster_ex_ahes.csv | 15 | 0 | 0 | 0 | 15 |
+| claude | roster_ex_alberta_equipment.csv | 129 | 0 | 0 | 0 | 129 |
 | claude | roster_ex_atlantic_truck.csv | 89 | 0 | 0 | 0 | 89 |
-| claude | roster_ex_bc_home_garden.csv | 193 | 0 | 0 | 0 | 193 |
+| claude | roster_ex_bc_home_garden.csv | 194 | 0 | 0 | 0 | 194 |
 | claude | roster_ex_bcnrf.csv | 57 | 0 | 0 | 0 | 57 |
+| claude | roster_ex_buildex_alberta.csv | 89 | 0 | 0 | 0 | 89 |
 | claude | roster_ex_buildex_vancouver.csv | 27 | 0 | 0 | 0 | 27 |
 | claude | roster_ex_calgary_boat_outdoor.csv | 75 | 0 | 0 | 0 | 75 |
 | claude | roster_ex_calgary_fall_home.csv | 210 | 0 | 0 | 0 | 210 |
@@ -227,16 +231,21 @@
 | claude | roster_ex_cpma.csv | 214 | 0 | 0 | 0 | 214 |
 | claude | roster_ex_edmonton_boat_sport.csv | 169 | 0 | 0 | 0 | 169 |
 | claude | roster_ex_edmonton_fall_home.csv | 203 | 0 | 0 | 0 | 203 |
-| claude | roster_ex_edmonton_home_garden.csv | 239 | 0 | 0 | 0 | 239 |
-| claude | roster_ex_edmonton_reno.csv | 138 | 0 | 0 | 0 | 138 |
+| claude | roster_ex_edmonton_home_garden.csv | 240 | 0 | 0 | 0 | 240 |
+| claude | roster_ex_edmonton_reno.csv | 139 | 0 | 0 | 0 | 139 |
 | claude | roster_ex_expohabitat_estrie.csv | 88 | 0 | 0 | 0 | 88 |
+| claude | roster_ex_expohabitat_mauricie.csv | 88 | 0 | 0 | 0 | 88 |
 | claude | roster_ex_expohabitat_outaouais.csv | 79 | 0 | 0 | 0 | 79 |
 | claude | roster_ex_expohabitation_mtl.csv | 83 | 0 | 0 | 0 | 83 |
+| claude | roster_ex_fredericton_home.csv | 108 | 0 | 0 | 0 | 108 |
 | claude | roster_ex_gbfw.csv | 95 | 0 | 0 | 0 | 95 |
+| claude | roster_ex_halifax_fall_home.csv | 166 | 0 | 0 | 0 | 166 |
+| claude | roster_ex_halifax_ideal_home.csv | 209 | 0 | 0 | 0 | 209 |
 | claude | roster_ex_ids_toronto.csv | 97 | 0 | 0 | 0 | 97 |
 | claude | roster_ex_ids_vancouver.csv | 146 | 0 | 0 | 0 | 146 |
 | claude | roster_ex_manitoba_sport_outdoor.csv | 32 | 0 | 0 | 0 | 32 |
 | claude | roster_ex_meet.csv | 83 | 0 | 0 | 0 | 83 |
+| claude | roster_ex_moncton_boat_sport.csv | 37 | 0 | 0 | 0 | 37 |
 | claude | roster_ex_nhes.csv | 24 | 0 | 0 | 0 | 24 |
 | claude | roster_ex_ola_sc.csv | 152 | 0 | 0 | 0 | 152 |
 | claude | roster_ex_ottawa_boat_outdoor.csv | 41 | 0 | 0 | 0 | 41 |
@@ -245,8 +254,11 @@
 | claude | roster_ex_ottawa_home_remodel.csv | 91 | 0 | 0 | 0 | 91 |
 | claude | roster_ex_pacag.csv | 240 | 0 | 0 | 0 | 240 |
 | claude | roster_ex_pdac.csv | 1300 | 0 | 0 | 0 | 1300 |
+| claude | roster_ex_pei_home.csv | 134 | 0 | 0 | 0 | 134 |
+| claude | roster_ex_saint_john_home.csv | 111 | 0 | 0 | 0 | 111 |
 | claude | roster_ex_salon_bateau_mtl.csv | 73 | 0 | 0 | 0 | 73 |
-| claude | roster_ex_salon_nat_habitation.csv | 257 | 0 | 0 | 0 | 257 |
+| claude | roster_ex_salon_nat_habitation.csv | 258 | 0 | 0 | 0 | 258 |
+| claude | roster_ex_salon_plein_air_qc.csv | 148 | 0 | 0 | 0 | 148 |
 | claude | roster_ex_sask_oilshow.csv | 175 | 0 | 0 | 0 | 175 |
 | claude | roster_ex_toronto_sportsmens.csv | 249 | 0 | 0 | 0 | 249 |
 | claude | roster_ex_truckworld.csv | 469 | 0 | 0 | 0 | 469 |
@@ -254,18 +266,37 @@
 | claude | roster_ex_winnipeg_home_garden.csv | 184 | 0 | 0 | 0 | 184 |
 | claude | roster_ex_winnipeg_reno.csv | 129 | 0 | 0 | 0 | 129 |
 | claude | roster_ex_wmts.csv | 39 | 0 | 0 | 0 | 39 |
+| claude | roster_hba_london.csv | 291 | 0 | 0 | 0 | 291 |
 | claude | roster_hba_niagara.csv | 154 | 0 | 0 | 0 | 154 |
 | claude | roster_hba_regina.csv | 168 | 0 | 0 | 0 | 168 |
+| claude | roster_hba_waterloo.csv | 140 | 0 | 0 | 0 | 140 |
 | claude | roster_na_awmac.csv | 383 | 0 | 0 | 0 | 383 |
 | claude | roster_na_biotech.csv | 195 | 0 | 0 | 0 | 195 |
 | claude | roster_na_rac.csv | 107 | 0 | 0 | 0 | 107 |
 | claude | roster_ta_bc_trucking.csv | 364 | 0 | 0 | 0 | 364 |
 | claude | roster_ta_rcabc.csv | 160 | 0 | 0 | 0 | 160 |
+| claude | roster_tn_aberdeen.csv | 77 | 0 | 0 | 0 | 77 |
+| claude | roster_tn_bramalea.csv | 228 | 0 | 0 | 0 | 228 |
 | claude | roster_tn_cf.csv | 1934 | 0 | 0 | 0 | 1934 |
+| claude | roster_tn_conestoga.csv | 129 | 0 | 0 | 0 | 129 |
+| claude | roster_tn_cornwall.csv | 63 | 0 | 0 | 0 | 63 |
+| claude | roster_tn_devonshire.csv | 153 | 0 | 0 | 0 | 153 |
+| claude | roster_tn_dufferin.csv | 119 | 0 | 0 | 0 | 119 |
+| claude | roster_tn_halifax.csv | 157 | 0 | 0 | 0 | 157 |
 | claude | roster_tn_hillcrest.csv | 117 | 0 | 0 | 0 | 117 |
+| claude | roster_tn_kildonan.csv | 90 | 0 | 0 | 0 | 90 |
+| claude | roster_tn_limeridge.csv | 165 | 0 | 0 | 0 | 165 |
+| claude | roster_tn_medicinehat.csv | 68 | 0 | 0 | 0 | 68 |
+| claude | roster_tn_orchardpark.csv | 158 | 0 | 0 | 0 | 158 |
+| claude | roster_tn_parkplace.csv | 92 | 0 | 0 | 0 | 92 |
+| claude | roster_tn_peterpond.csv | 49 | 0 | 0 | 0 | 49 |
+| claude | roster_tn_pickering.csv | 122 | 0 | 0 | 0 | 122 |
+| claude | roster_tn_placedorleans.csv | 103 | 0 | 0 | 0 | 103 |
+| claude | roster_tn_rosemere.csv | 99 | 0 | 0 | 0 | 99 |
 | claude | roster_tn_southcentre.csv | 173 | 0 | 0 | 0 | 173 |
 | claude | roster_tn_squareone.csv | 310 | 0 | 0 | 0 | 310 |
 | claude | roster_tn_stc.csv | 195 | 0 | 0 | 0 | 195 |
+| claude | roster_tn_uppercanada.csv | 178 | 0 | 0 | 0 | 178 |
 | claude | roster_tn_yorkdale.csv | 225 | 0 | 0 | 0 | 225 |
 | claude | roster_tour_discover_saskatoon.csv | 228 | 0 | 0 | 0 | 228 |
 | claude | roster_tour_hospitality_nl.csv | 395 | 0 | 0 | 0 | 395 |
@@ -492,7 +523,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 554304 entities researched, 525406 with at least one verified contact.
+**team_buyers**: 554304 entities researched, 525409 with at least one verified contact.
 
 **team_vendors**: 15607 entities researched, 4085 with at least one verified contact.
 
@@ -505,10 +536,10 @@
 | jules | 12 | 0 | 12 | 9 |
 
 ## Last ingest
-- buyers with team findings: 554304 (with at least one verified e-mail/portal: 525406)
+- buyers with team findings: 554641 (with at least one verified e-mail/portal: 525743)
 - vendors with team findings: 15607
 - QA rows: 200
-- counters: {'files': 467, 'buyer_findings_verified': 565499, 'buyer_findings_verified_on_archive_copy': 14499, 'buyer_findings_not_found_on_page': 3386, 'buyer_findings_unverified_page_unavailable': 27441, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 822, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3798, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27766, 'ledger_verdict_stands_page_not_read_again_verified': 569942, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 26958, 'verify_tasks_jules': 9}
+- counters: {'files': 482, 'buyer_findings_verified': 565857, 'buyer_findings_verified_on_archive_copy': 14501, 'buyer_findings_not_found_on_page': 3386, 'buyer_findings_unverified_page_unavailable': 27444, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 814, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3798, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27769, 'ledger_verdict_stands_page_not_read_again_verified': 569973, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 26961, 'verify_tasks_jules': 9}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -517,7 +548,7 @@ Every row's outcome is in `coord/results/verification_log.csv` (lane claude: `ve
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 1594 | 5 | 0 | 60 | 1 | 43 | 0 |
-| claude | 559105 | 1 | 0 | 27024 | 66 | 2191 | 821 |
+| claude | 559463 | 1 | 0 | 27027 | 66 | 2191 | 813 |
 | codex | 229 | 0 | 0 | 17 | 0 | 4 | 0 |
 | gemini | 4571 | 7 | 0 | 327 | 454 | 1148 | 1 |
 
