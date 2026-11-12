@@ -1,4 +1,4 @@
-# Cloud lanes — status from the files on main (2026-11-12 14:58 UTC)
+# Cloud lanes — status from the files on main (2026-11-12 16:19 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
@@ -25,7 +25,7 @@
 - cloud M accredited business (BBB) [bbb]: **3106**
 - cloud M licence holder (the licensing body's own list of active licences) [lic]: **9666**
 - cloud M licence holder (the licensing body's own list of active licences) [rbq]: **12947**
-- cloud M member / regulated payer list: **20516**
+- cloud M member / regulated payer list: **20925**
 - cloud M membership stated by the member: **1875**
 - cloud T credit line on the buyer's site: **74399**
 - cloud T provider in the buyer's DNS: **627232**
@@ -33,10 +33,10 @@
 - cloud T vetted software service (store / portal) [shards]: **38991**
 
 ## 5. Mailbox crawl
-- lead sites read: **2311693** (nothing_found 1581691, found 431882, unreachable 212321, blocked 72655, timeout 12942, error 202)
-  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 1476890 read, mailbox on 289383 (20 %), blocked 27181
+- lead sites read: **2311967** (nothing_found 1581916, found 431882, unreachable 212322, blocked 72703, timeout 12942, error 202)
+  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 1476905 read, mailbox on 289383 (20 %), blocked 27181
   - T provider in the buyer's DNS: 605385 read, mailbox on 74300 (12 %), blocked 28055
-  - D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): 130056 read, mailbox on 33534 (26 %), blocked 13798
+  - D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): 130315 read, mailbox on 33534 (26 %), blocked 13846
   - T credit line on the buyer's site: 65665 read, mailbox on 22100 (34 %), blocked 2313
   - M member / regulated payer list: 16836 read, mailbox on 7447 (44 %), blocked 383
   - M licence holder (the licensing body's own list of active licences) [rbq]: 7177 read, mailbox on 3035 (42 %), blocked 210
@@ -83,5 +83,5 @@
 - mailbox rows written by the cloud crawls (before the referee): **494106**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **258044** — by tier: A 1200, B 1703, C 278, D 22438, E 4205, F 16, I 164561, L 419, M 19298, T 43926
-- named-vendor relationships (A B T M C D L): **89262** · registry contract R: **0** · link only (E): **4205** · older / inferred (F I): **164577**
+- rows with a confirmed mailbox: **257480** — by tier: A 1200, B 1705, C 278, D 22276, E 4194, F 16, I 164579, L 419, M 19146, T 43667
+- named-vendor relationships (A B T M C D L): **88691** · registry contract R: **0** · link only (E): **4194** · older / inferred (F I): **164595**

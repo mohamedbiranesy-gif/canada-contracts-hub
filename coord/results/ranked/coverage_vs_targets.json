@@ -1,30 +1,30 @@
 {
 "date": "2026-11-12",
 "benchmarks": 438,
-"met": 50,
-"near": 106,
+"met": 92,
+"near": 65,
 "cells": {
 "invoice_reference_hint|P01M": {
-"rows": 196,
-"filled": 179,
-"pct": 91.3,
-"pct_any": 91.3,
+"rows": 190,
+"filled": 173,
+"pct": 91.1,
+"pct_any": 91.1,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "invoice_reference_hint|P01T": {
-"rows": 198,
-"filled": 188,
-"pct": 94.9,
-"pct_any": 94.9,
+"rows": 202,
+"filled": 192,
+"pct": 95.0,
+"pct_any": 95.0,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "invoice_reference_hint|P01_GOLD": {
-"rows": 625,
-"filled": 578,
+"rows": 624,
+"filled": 577,
 "pct": 92.5,
 "pct_any": 94.7,
 "target": 95,
@@ -32,25 +32,25 @@
 "subset": ""
 },
 "invoice_reference_hint|P02": {
-"rows": 463,
-"filled": 347,
-"pct": 74.9,
+"rows": 464,
+"filled": 348,
+"pct": 75.0,
 "pct_any": 76.5,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "invoice_reference_hint|P03": {
-"rows": 260,
-"filled": 210,
-"pct": 80.8,
-"pct_any": 84.2,
+"rows": 262,
+"filled": 212,
+"pct": 80.9,
+"pct_any": 84.4,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "invoice_reference_hint|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 1112,
 "pct": 31.3,
 "pct_any": 33.0,
@@ -68,17 +68,17 @@
 "subset": ""
 },
 "invoice_reference_hint|P06M": {
-"rows": 19102,
-"filled": 17535,
-"pct": 91.8,
-"pct_any": 91.8,
+"rows": 18956,
+"filled": 17418,
+"pct": 91.9,
+"pct_any": 91.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoice_reference_hint|P06T": {
-"rows": 43728,
-"filled": 43307,
+"rows": 43465,
+"filled": 43044,
 "pct": 99.0,
 "pct_any": 99.0,
 "target": "n/a",
@@ -86,25 +86,25 @@
 "subset": ""
 },
 "invoice_reference_hint|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 84,
-"pct": 33.1,
-"pct_any": 33.1,
+"pct": 33.2,
+"pct_any": 33.2,
 "target": 30,
 "present": true,
 "subset": ""
 },
 "invoice_reference_hint|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 44,
-"pct": 6.6,
-"pct_any": 6.6,
+"pct": 6.7,
+"pct_any": 6.7,
 "target": 30,
 "present": true,
 "subset": ""
 },
 "invoice_reference_hint|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 274,
 "pct": 1.3,
 "pct_any": 1.3,
@@ -122,7 +122,7 @@
 "subset": ""
 },
 "invoice_reference_hint|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 71,
 "pct": 3.3,
 "pct_any": 3.3,
@@ -131,10 +131,10 @@
 "subset": ""
 },
 "invoice_reference_hint|P11": {
-"rows": 1633,
-"filled": 862,
-"pct": 52.8,
-"pct_any": 53.6,
+"rows": 1596,
+"filled": 828,
+"pct": 51.9,
+"pct_any": 52.7,
 "target": 60,
 "present": true,
 "subset": ""
@@ -149,8 +149,8 @@
 "subset": ""
 },
 "invoice_reference_hint|P13": {
-"rows": 164561,
-"filled": 163862,
+"rows": 164579,
+"filled": 163881,
 "pct": 99.6,
 "pct_any": 99.6,
 "target": null,
@@ -158,7 +158,7 @@
 "subset": ""
 },
 "po_number_as_published|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -167,7 +167,7 @@
 "subset": ""
 },
 "po_number_as_published|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -176,25 +176,25 @@
 "subset": ""
 },
 "po_number_as_published|P01_GOLD": {
-"rows": 625,
-"filled": 38,
-"pct": 6.1,
-"pct_any": 6.1,
+"rows": 624,
+"filled": 37,
+"pct": 5.9,
+"pct_any": 5.9,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "po_number_as_published|P02": {
-"rows": 463,
-"filled": 28,
-"pct": 6.0,
-"pct_any": 6.0,
+"rows": 464,
+"filled": 27,
+"pct": 5.8,
+"pct_any": 5.8,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "po_number_as_published|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 4,
 "pct": 1.5,
 "pct_any": 1.5,
@@ -203,7 +203,7 @@
 "subset": ""
 },
 "po_number_as_published|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 20,
 "pct": 0.6,
 "pct_any": 0.6,
@@ -221,7 +221,7 @@
 "subset": ""
 },
 "po_number_as_published|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -230,7 +230,7 @@
 "subset": ""
 },
 "po_number_as_published|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -239,7 +239,7 @@
 "subset": ""
 },
 "po_number_as_published|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -248,7 +248,7 @@
 "subset": ""
 },
 "po_number_as_published|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -257,7 +257,7 @@
 "subset": ""
 },
 "po_number_as_published|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -275,7 +275,7 @@
 "subset": ""
 },
 "po_number_as_published|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -284,7 +284,7 @@
 "subset": ""
 },
 "po_number_as_published|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 5,
 "pct": 0.3,
 "pct_any": 0.3,
@@ -302,7 +302,7 @@
 "subset": ""
 },
 "po_number_as_published|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -311,35 +311,35 @@
 "subset": ""
 },
 "contract_or_agreement_number|P01M": {
-"rows": 196,
-"filled": 170,
-"pct": 86.7,
-"pct_any": 86.7,
+"rows": 190,
+"filled": 164,
+"pct": 86.3,
+"pct_any": 86.3,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_or_agreement_number|P01T": {
-"rows": 198,
-"filled": 152,
-"pct": 76.8,
-"pct_any": 76.8,
+"rows": 202,
+"filled": 156,
+"pct": 77.2,
+"pct_any": 77.2,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "contract_or_agreement_number|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 420,
-"pct": 67.2,
-"pct_any": 67.2,
+"pct": 67.3,
+"pct_any": 67.3,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "contract_or_agreement_number|P02": {
-"rows": 463,
-"filled": 305,
+"rows": 464,
+"filled": 306,
 "pct": 65.9,
 "pct_any": 65.9,
 "target": 90,
@@ -347,16 +347,16 @@
 "subset": ""
 },
 "contract_or_agreement_number|P03": {
-"rows": 260,
-"filled": 156,
-"pct": 60.0,
-"pct_any": 60.0,
+"rows": 262,
+"filled": 158,
+"pct": 60.3,
+"pct_any": 60.3,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "contract_or_agreement_number|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 1016,
 "pct": 28.6,
 "pct_any": 28.6,
@@ -374,17 +374,17 @@
 "subset": ""
 },
 "contract_or_agreement_number|P06M": {
-"rows": 19102,
-"filled": 17477,
-"pct": 91.5,
-"pct_any": 91.5,
+"rows": 18956,
+"filled": 17360,
+"pct": 91.6,
+"pct_any": 91.6,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_or_agreement_number|P06T": {
-"rows": 43728,
-"filled": 43267,
+"rows": 43465,
+"filled": 43004,
 "pct": 98.9,
 "pct_any": 98.9,
 "target": "n/a",
@@ -392,7 +392,7 @@
 "subset": ""
 },
 "contract_or_agreement_number|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -401,7 +401,7 @@
 "subset": ""
 },
 "contract_or_agreement_number|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -410,7 +410,7 @@
 "subset": ""
 },
 "contract_or_agreement_number|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -428,7 +428,7 @@
 "subset": ""
 },
 "contract_or_agreement_number|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -437,10 +437,10 @@
 "subset": ""
 },
 "contract_or_agreement_number|P11": {
-"rows": 1633,
-"filled": 811,
-"pct": 49.7,
-"pct_any": 49.7,
+"rows": 1596,
+"filled": 777,
+"pct": 48.7,
+"pct_any": 48.7,
 "target": 60,
 "present": true,
 "subset": ""
@@ -455,7 +455,7 @@
 "subset": ""
 },
 "contract_or_agreement_number|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -464,7 +464,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -473,7 +473,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -482,34 +482,34 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 322,
-"pct": 51.5,
-"pct_any": 51.5,
+"pct": 51.6,
+"pct_any": 51.6,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "solicitation_or_tender_number|P02": {
-"rows": 463,
-"filled": 268,
-"pct": 57.9,
-"pct_any": 57.9,
+"rows": 464,
+"filled": 270,
+"pct": 58.2,
+"pct_any": 58.2,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "solicitation_or_tender_number|P03": {
-"rows": 260,
-"filled": 129,
-"pct": 49.6,
-"pct_any": 49.6,
+"rows": 262,
+"filled": 131,
+"pct": 50.0,
+"pct_any": 50.0,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "solicitation_or_tender_number|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 839,
 "pct": 23.6,
 "pct_any": 23.6,
@@ -527,7 +527,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -536,7 +536,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -545,7 +545,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -554,7 +554,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -563,7 +563,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -581,7 +581,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -590,10 +590,10 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 65,
-"pct": 4.0,
-"pct_any": 4.0,
+"pct": 4.1,
+"pct_any": 4.1,
 "target": 40,
 "present": true,
 "subset": ""
@@ -608,7 +608,7 @@
 "subset": ""
 },
 "solicitation_or_tender_number|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -617,7 +617,7 @@
 "subset": ""
 },
 "award_or_notice_id|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -626,7 +626,7 @@
 "subset": ""
 },
 "award_or_notice_id|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 1,
 "pct": 0.5,
 "pct_any": 0.5,
@@ -635,34 +635,34 @@
 "subset": ""
 },
 "award_or_notice_id|P01_GOLD": {
-"rows": 625,
-"filled": 383,
-"pct": 61.3,
-"pct_any": 61.3,
+"rows": 624,
+"filled": 382,
+"pct": 61.2,
+"pct_any": 61.2,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "award_or_notice_id|P02": {
-"rows": 463,
-"filled": 269,
-"pct": 58.1,
-"pct_any": 58.1,
+"rows": 464,
+"filled": 270,
+"pct": 58.2,
+"pct_any": 58.2,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "award_or_notice_id|P03": {
-"rows": 260,
-"filled": 152,
-"pct": 58.5,
-"pct_any": 58.5,
+"rows": 262,
+"filled": 154,
+"pct": 58.8,
+"pct_any": 58.8,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "award_or_notice_id|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 869,
 "pct": 24.4,
 "pct_any": 24.4,
@@ -680,7 +680,7 @@
 "subset": ""
 },
 "award_or_notice_id|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -689,7 +689,7 @@
 "subset": ""
 },
 "award_or_notice_id|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -698,7 +698,7 @@
 "subset": ""
 },
 "award_or_notice_id|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -707,7 +707,7 @@
 "subset": ""
 },
 "award_or_notice_id|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -716,7 +716,7 @@
 "subset": ""
 },
 "award_or_notice_id|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -734,7 +734,7 @@
 "subset": ""
 },
 "award_or_notice_id|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -743,10 +743,10 @@
 "subset": ""
 },
 "award_or_notice_id|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 72,
-"pct": 4.4,
-"pct_any": 4.4,
+"pct": 4.5,
+"pct_any": 4.5,
 "target": 60,
 "present": true,
 "subset": ""
@@ -761,7 +761,7 @@
 "subset": ""
 },
 "award_or_notice_id|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -770,7 +770,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -779,7 +779,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -788,16 +788,16 @@
 "subset": ""
 },
 "buyer_vendor_id|P01_GOLD": {
-"rows": 625,
-"filled": 82,
-"pct": 13.1,
-"pct_any": 13.1,
+"rows": 624,
+"filled": 81,
+"pct": 13.0,
+"pct_any": 13.0,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "buyer_vendor_id|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 32,
 "pct": 6.9,
 "pct_any": 6.9,
@@ -806,17 +806,17 @@
 "subset": ""
 },
 "buyer_vendor_id|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 21,
-"pct": 8.1,
-"pct_any": 8.1,
+"pct": 8.0,
+"pct_any": 8.0,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "buyer_vendor_id|P04": {
-"rows": 3558,
-"filled": 69,
+"rows": 3556,
+"filled": 68,
 "pct": 1.9,
 "pct_any": 1.9,
 "target": 40,
@@ -833,7 +833,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -842,7 +842,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -851,7 +851,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -860,7 +860,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -869,7 +869,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -887,7 +887,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -896,7 +896,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 9,
 "pct": 0.6,
 "pct_any": 0.6,
@@ -914,7 +914,7 @@
 "subset": ""
 },
 "buyer_vendor_id|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -923,7 +923,7 @@
 "subset": ""
 },
 "commodity_codes|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -932,7 +932,7 @@
 "subset": ""
 },
 "commodity_codes|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -941,7 +941,7 @@
 "subset": ""
 },
 "commodity_codes|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 226,
 "pct": 36.2,
 "pct_any": 36.2,
@@ -950,26 +950,26 @@
 "subset": ""
 },
 "commodity_codes|P02": {
-"rows": 463,
-"filled": 243,
-"pct": 52.5,
-"pct_any": 52.5,
+"rows": 464,
+"filled": 244,
+"pct": 52.6,
+"pct_any": 52.6,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "commodity_codes|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 88,
-"pct": 33.8,
-"pct_any": 33.8,
+"pct": 33.6,
+"pct_any": 33.6,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "commodity_codes|P04": {
-"rows": 3558,
-"filled": 775,
+"rows": 3556,
+"filled": 774,
 "pct": 21.8,
 "pct_any": 21.8,
 "target": 85,
@@ -986,7 +986,7 @@
 "subset": ""
 },
 "commodity_codes|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -995,7 +995,7 @@
 "subset": ""
 },
 "commodity_codes|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1004,7 +1004,7 @@
 "subset": ""
 },
 "commodity_codes|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1013,7 +1013,7 @@
 "subset": ""
 },
 "commodity_codes|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1022,7 +1022,7 @@
 "subset": ""
 },
 "commodity_codes|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1032,15 +1032,15 @@
 },
 "commodity_codes|P09": {
 "rows": 278,
-"filled": 204,
-"pct": 73.4,
-"pct_any": 73.4,
+"filled": 205,
+"pct": 73.7,
+"pct_any": 73.7,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "commodity_codes|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1049,10 +1049,10 @@
 "subset": ""
 },
 "commodity_codes|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 52,
-"pct": 3.2,
-"pct_any": 3.2,
+"pct": 3.3,
+"pct_any": 3.3,
 "target": 50,
 "present": true,
 "subset": ""
@@ -1067,7 +1067,7 @@
 "subset": ""
 },
 "commodity_codes|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1076,7 +1076,7 @@
 "subset": ""
 },
 "buyer_org_codes|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1085,7 +1085,7 @@
 "subset": ""
 },
 "buyer_org_codes|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1094,25 +1094,25 @@
 "subset": ""
 },
 "buyer_org_codes|P01_GOLD": {
-"rows": 625,
-"filled": 53,
-"pct": 8.5,
-"pct_any": 8.5,
+"rows": 624,
+"filled": 52,
+"pct": 8.3,
+"pct_any": 8.3,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "buyer_org_codes|P02": {
-"rows": 463,
-"filled": 28,
-"pct": 6.0,
-"pct_any": 6.0,
+"rows": 464,
+"filled": 27,
+"pct": 5.8,
+"pct_any": 5.8,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "buyer_org_codes|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 6,
 "pct": 2.3,
 "pct_any": 2.3,
@@ -1121,7 +1121,7 @@
 "subset": ""
 },
 "buyer_org_codes|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 19,
 "pct": 0.5,
 "pct_any": 0.5,
@@ -1139,7 +1139,7 @@
 "subset": ""
 },
 "buyer_org_codes|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1148,7 +1148,7 @@
 "subset": ""
 },
 "buyer_org_codes|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1157,7 +1157,7 @@
 "subset": ""
 },
 "buyer_org_codes|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1166,7 +1166,7 @@
 "subset": ""
 },
 "buyer_org_codes|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1175,7 +1175,7 @@
 "subset": ""
 },
 "buyer_org_codes|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1193,7 +1193,7 @@
 "subset": ""
 },
 "buyer_org_codes|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1202,7 +1202,7 @@
 "subset": ""
 },
 "buyer_org_codes|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 5,
 "pct": 0.3,
 "pct_any": 0.3,
@@ -1220,7 +1220,7 @@
 "subset": ""
 },
 "buyer_org_codes|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1229,8 +1229,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P01M": {
-"rows": 196,
-"filled": 196,
+"rows": 190,
+"filled": 190,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": "n/a",
@@ -1238,8 +1238,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P01T": {
-"rows": 198,
-"filled": 198,
+"rows": 202,
+"filled": 202,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 60,
@@ -1247,8 +1247,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P01_GOLD": {
-"rows": 625,
-"filled": 625,
+"rows": 624,
+"filled": 624,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -1256,8 +1256,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P02": {
-"rows": 463,
-"filled": 463,
+"rows": 464,
+"filled": 464,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -1265,8 +1265,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P03": {
-"rows": 260,
-"filled": 260,
+"rows": 262,
+"filled": 262,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -1274,8 +1274,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P04": {
-"rows": 3558,
-"filled": 3558,
+"rows": 3556,
+"filled": 3556,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 95,
@@ -1292,8 +1292,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P06M": {
-"rows": 19102,
-"filled": 19102,
+"rows": 18956,
+"filled": 18956,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": "n/a",
@@ -1301,8 +1301,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P06T": {
-"rows": 43728,
-"filled": 43728,
+"rows": 43465,
+"filled": 43465,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": "n/a",
@@ -1310,8 +1310,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P06": {
-"rows": 254,
-"filled": 254,
+"rows": 253,
+"filled": 253,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 50,
@@ -1319,8 +1319,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P07": {
-"rows": 666,
-"filled": 666,
+"rows": 660,
+"filled": 660,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": "n/a",
@@ -1328,8 +1328,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P08": {
-"rows": 21518,
-"filled": 21518,
+"rows": 21363,
+"filled": 21363,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": "n/a",
@@ -1346,8 +1346,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P10": {
-"rows": 2146,
-"filled": 2146,
+"rows": 2137,
+"filled": 2137,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": "n/a",
@@ -1355,8 +1355,8 @@
 "subset": ""
 },
 "records_with_this_vendor|P11": {
-"rows": 1633,
-"filled": 1633,
+"rows": 1596,
+"filled": 1596,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 70,
@@ -1373,7 +1373,7 @@
 "subset": ""
 },
 "records_with_this_vendor|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -1382,71 +1382,71 @@
 "subset": ""
 },
 "vendor_bn9|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 15,
-"pct": 7.7,
-"pct_any": 7.7,
+"pct": 7.9,
+"pct_any": 7.9,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P01T": {
-"rows": 198,
-"filled": 108,
-"pct": 54.5,
-"pct_any": 54.5,
+"rows": 202,
+"filled": 111,
+"pct": 55.0,
+"pct_any": 55.0,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P01_GOLD": {
-"rows": 625,
-"filled": 459,
-"pct": 73.4,
-"pct_any": 73.4,
+"rows": 624,
+"filled": 465,
+"pct": 74.5,
+"pct_any": 74.5,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P02": {
-"rows": 463,
-"filled": 250,
-"pct": 54.0,
-"pct_any": 54.0,
+"rows": 464,
+"filled": 252,
+"pct": 54.3,
+"pct_any": 54.3,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P03": {
-"rows": 260,
-"filled": 173,
-"pct": 66.5,
-"pct_any": 66.5,
+"rows": 262,
+"filled": 177,
+"pct": 67.6,
+"pct_any": 67.6,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P04": {
-"rows": 3558,
-"filled": 1254,
-"pct": 35.2,
-"pct_any": 35.2,
+"rows": 3556,
+"filled": 1347,
+"pct": 37.9,
+"pct_any": 37.9,
 "target": 75,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P05": {
 "rows": 419,
-"filled": 223,
-"pct": 53.2,
-"pct_any": 53.2,
+"filled": 228,
+"pct": 54.4,
+"pct_any": 54.4,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P06M": {
-"rows": 19102,
-"filled": 574,
+"rows": 18956,
+"filled": 576,
 "pct": 3.0,
 "pct_any": 3.0,
 "target": "n/a",
@@ -1454,64 +1454,64 @@
 "subset": ""
 },
 "vendor_bn9|P06T": {
-"rows": 43728,
-"filled": 22689,
-"pct": 51.9,
-"pct_any": 51.9,
+"rows": 43465,
+"filled": 22178,
+"pct": 51.0,
+"pct_any": 51.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P06": {
-"rows": 254,
-"filled": 111,
-"pct": 43.7,
-"pct_any": 43.7,
+"rows": 253,
+"filled": 110,
+"pct": 43.5,
+"pct_any": 43.5,
 "target": 40,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P07": {
-"rows": 666,
-"filled": 217,
-"pct": 32.6,
-"pct_any": 32.6,
+"rows": 660,
+"filled": 212,
+"pct": 32.1,
+"pct_any": 32.1,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P08": {
-"rows": 21518,
-"filled": 6592,
-"pct": 30.6,
-"pct_any": 30.6,
+"rows": 21363,
+"filled": 6619,
+"pct": 31.0,
+"pct_any": 31.0,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P09": {
 "rows": 278,
-"filled": 163,
-"pct": 58.6,
-"pct_any": 58.6,
+"filled": 157,
+"pct": 56.5,
+"pct_any": 56.5,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P10": {
-"rows": 2146,
-"filled": 738,
-"pct": 34.4,
-"pct_any": 34.4,
+"rows": 2137,
+"filled": 806,
+"pct": 37.7,
+"pct_any": 37.7,
 "target": 40,
 "present": true,
 "subset": ""
 },
 "vendor_bn9|P11": {
-"rows": 1633,
-"filled": 808,
-"pct": 49.5,
-"pct_any": 49.5,
+"rows": 1596,
+"filled": 821,
+"pct": 51.4,
+"pct_any": 51.4,
 "target": 60,
 "present": true,
 "subset": ""
@@ -1526,107 +1526,107 @@
 "subset": ""
 },
 "vendor_bn9|P13": {
-"rows": 164561,
-"filled": 47234,
-"pct": 28.7,
-"pct_any": 28.7,
+"rows": 164579,
+"filled": 74963,
+"pct": 45.5,
+"pct_any": 45.5,
 "target": null,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 110,
-"pct": 56.1,
-"pct_any": 56.1,
+"pct": 57.9,
+"pct_any": 57.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 111,
-"pct": 56.1,
-"pct_any": 56.1,
+"pct": 55.0,
+"pct_any": 55.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P01_GOLD": {
-"rows": 625,
-"filled": 449,
-"pct": 71.8,
-"pct_any": 71.8,
+"rows": 624,
+"filled": 452,
+"pct": 72.4,
+"pct_any": 72.4,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P02": {
-"rows": 463,
-"filled": 346,
-"pct": 74.7,
-"pct_any": 74.7,
+"rows": 464,
+"filled": 347,
+"pct": 74.8,
+"pct_any": 74.8,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P03": {
-"rows": 260,
-"filled": 176,
-"pct": 67.7,
-"pct_any": 67.7,
+"rows": 262,
+"filled": 181,
+"pct": 69.1,
+"pct_any": 69.1,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P04": {
-"rows": 3558,
-"filled": 1768,
-"pct": 49.7,
-"pct_any": 49.7,
+"rows": 3556,
+"filled": 1884,
+"pct": 53.0,
+"pct_any": 53.0,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P05": {
 "rows": 419,
-"filled": 238,
-"pct": 56.8,
-"pct_any": 56.8,
+"filled": 245,
+"pct": 58.5,
+"pct_any": 58.5,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P06M": {
-"rows": 19102,
-"filled": 8078,
-"pct": 42.3,
-"pct_any": 42.3,
+"rows": 18956,
+"filled": 8052,
+"pct": 42.5,
+"pct_any": 42.5,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P06T": {
-"rows": 43728,
-"filled": 26657,
-"pct": 61.0,
-"pct_any": 61.0,
+"rows": 43465,
+"filled": 23998,
+"pct": 55.2,
+"pct_any": 55.2,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P06": {
-"rows": 254,
-"filled": 105,
-"pct": 41.3,
-"pct_any": 41.3,
+"rows": 253,
+"filled": 103,
+"pct": 40.7,
+"pct_any": 40.7,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P07": {
-"rows": 666,
-"filled": 214,
+"rows": 660,
+"filled": 212,
 "pct": 32.1,
 "pct_any": 32.1,
 "target": 70,
@@ -1634,37 +1634,37 @@
 "subset": ""
 },
 "vendor_registered_address|P08": {
-"rows": 21518,
-"filled": 6501,
-"pct": 30.2,
-"pct_any": 30.2,
+"rows": 21363,
+"filled": 6547,
+"pct": 30.6,
+"pct_any": 30.6,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P09": {
 "rows": 278,
-"filled": 240,
-"pct": 86.3,
-"pct_any": 86.3,
+"filled": 241,
+"pct": 86.7,
+"pct_any": 86.7,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P10": {
-"rows": 2146,
-"filled": 757,
-"pct": 35.3,
-"pct_any": 35.3,
+"rows": 2137,
+"filled": 823,
+"pct": 38.5,
+"pct_any": 38.5,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "vendor_registered_address|P11": {
-"rows": 1633,
-"filled": 901,
-"pct": 55.2,
-"pct_any": 55.2,
+"rows": 1596,
+"filled": 896,
+"pct": 56.1,
+"pct_any": 56.1,
 "target": 75,
 "present": true,
 "subset": ""
@@ -1679,134 +1679,134 @@
 "subset": ""
 },
 "vendor_registered_address|P13": {
-"rows": 164561,
-"filled": 39773,
-"pct": 24.2,
-"pct_any": 24.2,
+"rows": 164579,
+"filled": 67503,
+"pct": 41.0,
+"pct_any": 41.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 49,
-"pct": 25.0,
-"pct_any": 25.0,
+"pct": 25.8,
+"pct_any": 25.8,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P01T": {
-"rows": 198,
-"filled": 117,
-"pct": 59.1,
-"pct_any": 59.1,
+"rows": 202,
+"filled": 123,
+"pct": 60.9,
+"pct_any": 60.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P01_GOLD": {
-"rows": 625,
-"filled": 306,
-"pct": 49.0,
-"pct_any": 49.0,
+"rows": 624,
+"filled": 302,
+"pct": 48.4,
+"pct_any": 48.4,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P02": {
-"rows": 463,
-"filled": 260,
-"pct": 56.2,
-"pct_any": 56.2,
+"rows": 464,
+"filled": 259,
+"pct": 55.8,
+"pct_any": 55.8,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P03": {
-"rows": 260,
-"filled": 140,
-"pct": 53.8,
-"pct_any": 53.8,
+"rows": 262,
+"filled": 136,
+"pct": 51.9,
+"pct_any": 51.9,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P04": {
-"rows": 3558,
-"filled": 1506,
-"pct": 42.3,
-"pct_any": 42.3,
+"rows": 3556,
+"filled": 1511,
+"pct": 42.5,
+"pct_any": 42.5,
 "target": 55,
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P05": {
 "rows": 419,
-"filled": 99,
-"pct": 23.6,
-"pct_any": 23.6,
+"filled": 98,
+"pct": 23.4,
+"pct_any": 23.4,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P06M": {
-"rows": 19102,
-"filled": 1751,
-"pct": 9.2,
-"pct_any": 9.2,
+"rows": 18956,
+"filled": 1707,
+"pct": 9.0,
+"pct_any": 9.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P06T": {
-"rows": 43728,
-"filled": 22526,
-"pct": 51.5,
-"pct_any": 51.5,
+"rows": 43465,
+"filled": 23991,
+"pct": 55.2,
+"pct_any": 55.2,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 123,
-"pct": 48.4,
-"pct_any": 48.4,
+"pct": 48.6,
+"pct_any": 48.6,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P07": {
-"rows": 666,
-"filled": 277,
-"pct": 41.6,
-"pct_any": 41.6,
+"rows": 660,
+"filled": 278,
+"pct": 42.1,
+"pct_any": 42.1,
 "target": 55,
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P08": {
-"rows": 21518,
-"filled": 7818,
-"pct": 36.3,
-"pct_any": 36.3,
+"rows": 21363,
+"filled": 7803,
+"pct": 36.5,
+"pct_any": 36.5,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P09": {
 "rows": 278,
-"filled": 202,
-"pct": 72.7,
-"pct_any": 72.7,
+"filled": 201,
+"pct": 72.3,
+"pct_any": 72.3,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "vendor_trading_name|P10": {
-"rows": 2146,
-"filled": 1025,
+"rows": 2137,
+"filled": 1022,
 "pct": 47.8,
 "pct_any": 47.8,
 "target": 55,
@@ -1814,10 +1814,10 @@
 "subset": ""
 },
 "vendor_trading_name|P11": {
-"rows": 1633,
-"filled": 905,
-"pct": 55.4,
-"pct_any": 55.4,
+"rows": 1596,
+"filled": 912,
+"pct": 57.1,
+"pct_any": 57.1,
 "target": 50,
 "present": true,
 "subset": ""
@@ -1832,53 +1832,53 @@
 "subset": ""
 },
 "vendor_trading_name|P13": {
-"rows": 164561,
-"filled": 5183,
-"pct": 3.1,
-"pct_any": 3.1,
+"rows": 164579,
+"filled": 5195,
+"pct": 3.2,
+"pct_any": 3.2,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_phone|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 81,
-"pct": 41.3,
-"pct_any": 41.3,
+"pct": 42.6,
+"pct_any": 42.6,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_phone|P01T": {
-"rows": 198,
-"filled": 150,
-"pct": 75.8,
-"pct_any": 75.8,
+"rows": 202,
+"filled": 155,
+"pct": 76.7,
+"pct_any": 76.7,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_phone|P01_GOLD": {
-"rows": 625,
-"filled": 310,
-"pct": 49.6,
-"pct_any": 49.6,
+"rows": 624,
+"filled": 311,
+"pct": 49.8,
+"pct_any": 49.8,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "vendor_phone|P02": {
-"rows": 463,
-"filled": 265,
-"pct": 57.2,
-"pct_any": 57.2,
+"rows": 464,
+"filled": 262,
+"pct": 56.5,
+"pct_any": 56.5,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "vendor_phone|P03": {
-"rows": 260,
-"filled": 132,
+"rows": 262,
+"filled": 133,
 "pct": 50.8,
 "pct_any": 50.8,
 "target": 70,
@@ -1886,91 +1886,91 @@
 "subset": ""
 },
 "vendor_phone|P04": {
-"rows": 3558,
-"filled": 1952,
-"pct": 54.9,
-"pct_any": 54.9,
+"rows": 3556,
+"filled": 1947,
+"pct": 54.8,
+"pct_any": 54.8,
 "target": 65,
 "present": true,
 "subset": ""
 },
 "vendor_phone|P05": {
 "rows": 419,
-"filled": 121,
-"pct": 28.9,
-"pct_any": 28.9,
+"filled": 120,
+"pct": 28.6,
+"pct_any": 28.6,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "vendor_phone|P06M": {
-"rows": 19102,
-"filled": 5964,
-"pct": 31.2,
-"pct_any": 31.2,
+"rows": 18956,
+"filled": 5971,
+"pct": 31.5,
+"pct_any": 31.5,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_phone|P06T": {
-"rows": 43728,
-"filled": 32255,
-"pct": 73.8,
-"pct_any": 73.8,
+"rows": 43465,
+"filled": 32920,
+"pct": 75.7,
+"pct_any": 75.7,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_phone|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 180,
-"pct": 70.9,
-"pct_any": 70.9,
+"pct": 71.1,
+"pct_any": 71.1,
 "target": 40,
 "present": true,
 "subset": ""
 },
 "vendor_phone|P07": {
-"rows": 666,
-"filled": 438,
-"pct": 65.8,
-"pct_any": 65.8,
+"rows": 660,
+"filled": 431,
+"pct": 65.3,
+"pct_any": 65.3,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "vendor_phone|P08": {
-"rows": 21518,
-"filled": 14177,
-"pct": 65.9,
-"pct_any": 65.9,
+"rows": 21363,
+"filled": 13982,
+"pct": 65.4,
+"pct_any": 65.4,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "vendor_phone|P09": {
 "rows": 278,
-"filled": 161,
-"pct": 57.9,
-"pct_any": 57.9,
+"filled": 158,
+"pct": 56.8,
+"pct_any": 56.8,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "vendor_phone|P10": {
-"rows": 2146,
-"filled": 1418,
-"pct": 66.1,
-"pct_any": 66.1,
+"rows": 2137,
+"filled": 1410,
+"pct": 66.0,
+"pct_any": 66.0,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "vendor_phone|P11": {
-"rows": 1633,
-"filled": 1041,
-"pct": 63.7,
-"pct_any": 63.7,
+"rows": 1596,
+"filled": 1036,
+"pct": 64.9,
+"pct_any": 64.9,
 "target": 75,
 "present": true,
 "subset": ""
@@ -1985,26 +1985,26 @@
 "subset": ""
 },
 "vendor_phone|P13": {
-"rows": 164561,
-"filled": 151116,
-"pct": 91.8,
-"pct_any": 91.8,
+"rows": 164579,
+"filled": 151219,
+"pct": 91.9,
+"pct_any": 91.9,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "vendor_website|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 91,
-"pct": 46.4,
-"pct_any": 46.4,
+"pct": 47.9,
+"pct_any": 47.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_website|P01T": {
-"rows": 198,
-"filled": 194,
+"rows": 202,
+"filled": 198,
 "pct": 98.0,
 "pct_any": 98.0,
 "target": "n/a",
@@ -2012,37 +2012,37 @@
 "subset": ""
 },
 "vendor_website|P01_GOLD": {
-"rows": 625,
-"filled": 492,
-"pct": 78.7,
-"pct_any": 78.7,
+"rows": 624,
+"filled": 490,
+"pct": 78.5,
+"pct_any": 78.5,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "vendor_website|P02": {
-"rows": 463,
-"filled": 383,
-"pct": 82.7,
-"pct_any": 82.7,
+"rows": 464,
+"filled": 381,
+"pct": 82.1,
+"pct_any": 82.1,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "vendor_website|P03": {
-"rows": 260,
-"filled": 226,
-"pct": 86.9,
-"pct_any": 86.9,
+"rows": 262,
+"filled": 225,
+"pct": 85.9,
+"pct_any": 85.9,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "vendor_website|P04": {
-"rows": 3558,
-"filled": 2958,
-"pct": 83.1,
-"pct_any": 83.1,
+"rows": 3556,
+"filled": 2949,
+"pct": 82.9,
+"pct_any": 82.9,
 "target": 85,
 "present": true,
 "subset": ""
@@ -2057,17 +2057,17 @@
 "subset": ""
 },
 "vendor_website|P06M": {
-"rows": 19102,
-"filled": 7190,
-"pct": 37.6,
-"pct_any": 37.6,
+"rows": 18956,
+"filled": 7193,
+"pct": 37.9,
+"pct_any": 37.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_website|P06T": {
-"rows": 43728,
-"filled": 43713,
+"rows": 43465,
+"filled": 43450,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": "n/a",
@@ -2075,8 +2075,8 @@
 "subset": ""
 },
 "vendor_website|P06": {
-"rows": 254,
-"filled": 252,
+"rows": 253,
+"filled": 251,
 "pct": 99.2,
 "pct_any": 99.2,
 "target": 50,
@@ -2084,8 +2084,8 @@
 "subset": ""
 },
 "vendor_website|P07": {
-"rows": 666,
-"filled": 665,
+"rows": 660,
+"filled": 659,
 "pct": 99.8,
 "pct_any": 99.8,
 "target": 100,
@@ -2093,8 +2093,8 @@
 "subset": ""
 },
 "vendor_website|P08": {
-"rows": 21518,
-"filled": 21486,
+"rows": 21363,
+"filled": 21331,
 "pct": 99.9,
 "pct_any": 99.9,
 "target": 100,
@@ -2103,16 +2103,16 @@
 },
 "vendor_website|P09": {
 "rows": 278,
-"filled": 218,
-"pct": 78.4,
-"pct_any": 78.4,
+"filled": 219,
+"pct": 78.8,
+"pct_any": 78.8,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "vendor_website|P10": {
-"rows": 2146,
-"filled": 2146,
+"rows": 2137,
+"filled": 2137,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -2120,10 +2120,10 @@
 "subset": ""
 },
 "vendor_website|P11": {
-"rows": 1633,
-"filled": 1595,
-"pct": 97.7,
-"pct_any": 97.7,
+"rows": 1596,
+"filled": 1558,
+"pct": 97.6,
+"pct_any": 97.6,
 "target": 100,
 "present": true,
 "subset": ""
@@ -2138,8 +2138,8 @@
 "subset": ""
 },
 "vendor_website|P13": {
-"rows": 164561,
-"filled": 164561,
+"rows": 164579,
+"filled": 164579,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": "n/a",
@@ -2147,55 +2147,55 @@
 "subset": ""
 },
 "vendor_emails|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 36,
-"pct": 18.4,
-"pct_any": 18.4,
+"pct": 18.9,
+"pct_any": 18.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_emails|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 134,
-"pct": 67.7,
-"pct_any": 67.7,
+"pct": 66.3,
+"pct_any": 66.3,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_emails|P01_GOLD": {
-"rows": 625,
-"filled": 267,
-"pct": 42.7,
-"pct_any": 42.7,
+"rows": 624,
+"filled": 269,
+"pct": 43.1,
+"pct_any": 43.1,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "vendor_emails|P02": {
-"rows": 463,
-"filled": 224,
-"pct": 48.4,
-"pct_any": 48.4,
+"rows": 464,
+"filled": 219,
+"pct": 47.2,
+"pct_any": 47.2,
 "target": 75,
 "present": true,
 "subset": ""
 },
 "vendor_emails|P03": {
-"rows": 260,
-"filled": 116,
-"pct": 44.6,
-"pct_any": 44.6,
+"rows": 262,
+"filled": 117,
+"pct": 44.7,
+"pct_any": 44.7,
 "target": 75,
 "present": true,
 "subset": ""
 },
 "vendor_emails|P04": {
-"rows": 3558,
-"filled": 1381,
-"pct": 38.8,
-"pct_any": 38.8,
+"rows": 3556,
+"filled": 1375,
+"pct": 38.7,
+"pct_any": 38.7,
 "target": 70,
 "present": true,
 "subset": ""
@@ -2210,46 +2210,46 @@
 "subset": ""
 },
 "vendor_emails|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 1111,
-"pct": 5.8,
-"pct_any": 5.8,
+"pct": 5.9,
+"pct_any": 5.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_emails|P06T": {
-"rows": 43728,
-"filled": 29069,
-"pct": 66.5,
-"pct_any": 66.5,
+"rows": 43465,
+"filled": 28295,
+"pct": 65.1,
+"pct_any": 65.1,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_emails|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 132,
-"pct": 52.0,
-"pct_any": 52.0,
+"pct": 52.2,
+"pct_any": 52.2,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_emails|P07": {
-"rows": 666,
-"filled": 347,
-"pct": 52.1,
-"pct_any": 52.1,
+"rows": 660,
+"filled": 341,
+"pct": 51.7,
+"pct_any": 51.7,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "vendor_emails|P08": {
-"rows": 21518,
-"filled": 12126,
-"pct": 56.4,
-"pct_any": 56.4,
+"rows": 21363,
+"filled": 11934,
+"pct": 55.9,
+"pct_any": 55.9,
 "target": 75,
 "present": true,
 "subset": ""
@@ -2264,19 +2264,19 @@
 "subset": ""
 },
 "vendor_emails|P10": {
-"rows": 2146,
-"filled": 949,
-"pct": 44.2,
-"pct_any": 44.2,
+"rows": 2137,
+"filled": 947,
+"pct": 44.3,
+"pct_any": 44.3,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "vendor_emails|P11": {
-"rows": 1633,
-"filled": 955,
-"pct": 58.5,
-"pct_any": 58.5,
+"rows": 1596,
+"filled": 917,
+"pct": 57.5,
+"pct_any": 57.5,
 "target": 70,
 "present": true,
 "subset": ""
@@ -2291,8 +2291,8 @@
 "subset": ""
 },
 "vendor_emails|P13": {
-"rows": 164561,
-"filled": 8889,
+"rows": 164579,
+"filled": 8942,
 "pct": 5.4,
 "pct_any": 5.4,
 "target": "n/a",
@@ -2300,17 +2300,17 @@
 "subset": ""
 },
 "vendor_logo_url|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 91,
-"pct": 46.4,
-"pct_any": 46.4,
+"pct": 47.9,
+"pct_any": 47.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_logo_url|P01T": {
-"rows": 198,
-"filled": 190,
+"rows": 202,
+"filled": 194,
 "pct": 96.0,
 "pct_any": 96.0,
 "target": "n/a",
@@ -2318,8 +2318,8 @@
 "subset": ""
 },
 "vendor_logo_url|P01_GOLD": {
-"rows": 625,
-"filled": 450,
+"rows": 624,
+"filled": 449,
 "pct": 72.0,
 "pct_any": 72.0,
 "target": 90,
@@ -2327,62 +2327,62 @@
 "subset": ""
 },
 "vendor_logo_url|P02": {
-"rows": 463,
-"filled": 360,
-"pct": 77.8,
-"pct_any": 77.8,
+"rows": 464,
+"filled": 355,
+"pct": 76.5,
+"pct_any": 76.5,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "vendor_logo_url|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 216,
-"pct": 83.1,
-"pct_any": 83.1,
+"pct": 82.4,
+"pct_any": 82.4,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "vendor_logo_url|P04": {
-"rows": 3558,
-"filled": 2776,
-"pct": 78.0,
-"pct_any": 78.0,
+"rows": 3556,
+"filled": 2762,
+"pct": 77.7,
+"pct_any": 77.7,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "vendor_logo_url|P05": {
 "rows": 419,
-"filled": 182,
-"pct": 43.4,
-"pct_any": 43.4,
+"filled": 180,
+"pct": 43.0,
+"pct_any": 43.0,
 "target": 75,
 "present": true,
 "subset": ""
 },
 "vendor_logo_url|P06M": {
-"rows": 19102,
-"filled": 7159,
-"pct": 37.5,
-"pct_any": 37.5,
+"rows": 18956,
+"filled": 7164,
+"pct": 37.8,
+"pct_any": 37.8,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_logo_url|P06T": {
-"rows": 43728,
-"filled": 42488,
-"pct": 97.2,
-"pct_any": 97.2,
+"rows": 43465,
+"filled": 42217,
+"pct": 97.1,
+"pct_any": 97.1,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "vendor_logo_url|P06": {
-"rows": 254,
-"filled": 234,
+"rows": 253,
+"filled": 233,
 "pct": 92.1,
 "pct_any": 92.1,
 "target": "n/a",
@@ -2390,17 +2390,17 @@
 "subset": ""
 },
 "vendor_logo_url|P07": {
-"rows": 666,
-"filled": 624,
-"pct": 93.7,
-"pct_any": 93.7,
+"rows": 660,
+"filled": 619,
+"pct": 93.8,
+"pct_any": 93.8,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "vendor_logo_url|P08": {
-"rows": 21518,
-"filled": 19971,
+"rows": 21363,
+"filled": 19818,
 "pct": 92.8,
 "pct_any": 92.8,
 "target": 100,
@@ -2417,8 +2417,8 @@
 "subset": ""
 },
 "vendor_logo_url|P10": {
-"rows": 2146,
-"filled": 1930,
+"rows": 2137,
+"filled": 1921,
 "pct": 89.9,
 "pct_any": 89.9,
 "target": 100,
@@ -2426,10 +2426,10 @@
 "subset": ""
 },
 "vendor_logo_url|P11": {
-"rows": 1633,
-"filled": 1464,
-"pct": 89.7,
-"pct_any": 89.7,
+"rows": 1596,
+"filled": 1427,
+"pct": 89.4,
+"pct_any": 89.4,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -2444,35 +2444,35 @@
 "subset": ""
 },
 "vendor_logo_url|P13": {
-"rows": 164561,
-"filled": 112503,
-"pct": 68.4,
-"pct_any": 68.4,
+"rows": 164579,
+"filled": 112842,
+"pct": 68.6,
+"pct_any": 68.6,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_legal_name_as_published|P01M": {
-"rows": 196,
-"filled": 187,
-"pct": 95.4,
-"pct_any": 95.4,
+"rows": 190,
+"filled": 181,
+"pct": 95.3,
+"pct_any": 95.3,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "buyer_legal_name_as_published|P01T": {
-"rows": 198,
-"filled": 137,
-"pct": 69.2,
-"pct_any": 69.2,
+"rows": 202,
+"filled": 139,
+"pct": 68.8,
+"pct_any": 68.8,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "buyer_legal_name_as_published|P01_GOLD": {
-"rows": 625,
-"filled": 544,
+"rows": 624,
+"filled": 543,
 "pct": 87.0,
 "pct_any": 87.0,
 "target": 95,
@@ -2480,8 +2480,8 @@
 "subset": ""
 },
 "buyer_legal_name_as_published|P02": {
-"rows": 463,
-"filled": 408,
+"rows": 464,
+"filled": 409,
 "pct": 88.1,
 "pct_any": 88.1,
 "target": 95,
@@ -2489,16 +2489,16 @@
 "subset": ""
 },
 "buyer_legal_name_as_published|P03": {
-"rows": 260,
-"filled": 215,
-"pct": 82.7,
-"pct_any": 82.7,
+"rows": 262,
+"filled": 217,
+"pct": 82.8,
+"pct_any": 82.8,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "buyer_legal_name_as_published|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 2266,
 "pct": 63.7,
 "pct_any": 63.7,
@@ -2516,46 +2516,46 @@
 "subset": ""
 },
 "buyer_legal_name_as_published|P06M": {
-"rows": 19102,
-"filled": 17534,
-"pct": 91.8,
+"rows": 18956,
+"filled": 17391,
+"pct": 91.7,
 "pct_any": 91.8,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_legal_name_as_published|P06T": {
-"rows": 43728,
-"filled": 14572,
-"pct": 33.3,
-"pct_any": 33.3,
+"rows": 43465,
+"filled": 14525,
+"pct": 33.4,
+"pct_any": 33.4,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_legal_name_as_published|P06": {
-"rows": 254,
-"filled": 188,
-"pct": 74.0,
-"pct_any": 74.0,
+"rows": 253,
+"filled": 187,
+"pct": 73.9,
+"pct_any": 73.9,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "buyer_legal_name_as_published|P07": {
-"rows": 666,
-"filled": 395,
-"pct": 59.3,
-"pct_any": 59.5,
+"rows": 660,
+"filled": 393,
+"pct": 59.5,
+"pct_any": 59.7,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "buyer_legal_name_as_published|P08": {
-"rows": 21518,
-"filled": 11808,
-"pct": 54.9,
-"pct_any": 54.9,
+"rows": 21363,
+"filled": 11748,
+"pct": 55.0,
+"pct_any": 55.0,
 "target": 75,
 "present": true,
 "subset": ""
@@ -2570,19 +2570,19 @@
 "subset": ""
 },
 "buyer_legal_name_as_published|P10": {
-"rows": 2146,
-"filled": 977,
-"pct": 45.5,
-"pct_any": 45.6,
+"rows": 2137,
+"filled": 976,
+"pct": 45.7,
+"pct_any": 45.7,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "buyer_legal_name_as_published|P11": {
-"rows": 1633,
-"filled": 472,
-"pct": 28.9,
-"pct_any": 28.9,
+"rows": 1596,
+"filled": 466,
+"pct": 29.2,
+"pct_any": 29.2,
 "target": 65,
 "present": true,
 "subset": ""
@@ -2597,118 +2597,118 @@
 "subset": ""
 },
 "buyer_legal_name_as_published|P13": {
-"rows": 164561,
-"filled": 58697,
-"pct": 35.7,
+"rows": 164579,
+"filled": 58666,
+"pct": 35.6,
 "pct_any": 35.7,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P01M": {
-"rows": 196,
-"filled": 25,
-"pct": 12.8,
-"pct_any": 12.8,
+"rows": 190,
+"filled": 36,
+"pct": 18.9,
+"pct_any": 18.9,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P01T": {
-"rows": 198,
-"filled": 27,
-"pct": 13.6,
-"pct_any": 13.6,
+"rows": 202,
+"filled": 34,
+"pct": 16.8,
+"pct_any": 16.8,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P01_GOLD": {
-"rows": 625,
-"filled": 118,
-"pct": 18.9,
-"pct_any": 18.9,
-"target": 40,
-"present": true,
-"subset": ""
-},
-"buyer_bn_as_published|P02": {
-"rows": 463,
-"filled": 91,
+"rows": 624,
+"filled": 123,
 "pct": 19.7,
 "pct_any": 19.7,
 "target": 40,
 "present": true,
 "subset": ""
 },
+"buyer_bn_as_published|P02": {
+"rows": 464,
+"filled": 92,
+"pct": 19.8,
+"pct_any": 19.8,
+"target": 40,
+"present": true,
+"subset": ""
+},
 "buyer_bn_as_published|P03": {
-"rows": 260,
-"filled": 54,
-"pct": 20.8,
-"pct_any": 20.8,
+"rows": 262,
+"filled": 57,
+"pct": 21.8,
+"pct_any": 21.8,
 "target": 40,
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P04": {
-"rows": 3558,
-"filled": 519,
-"pct": 14.6,
-"pct_any": 14.6,
+"rows": 3556,
+"filled": 549,
+"pct": 15.4,
+"pct_any": 15.4,
 "target": 40,
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P05": {
 "rows": 419,
-"filled": 71,
-"pct": 16.9,
-"pct_any": 16.9,
+"filled": 86,
+"pct": 20.5,
+"pct_any": 20.5,
 "target": 25,
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P06M": {
-"rows": 19102,
-"filled": 1707,
-"pct": 8.9,
-"pct_any": 8.9,
+"rows": 18956,
+"filled": 3995,
+"pct": 21.1,
+"pct_any": 21.1,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P06T": {
-"rows": 43728,
-"filled": 2140,
-"pct": 4.9,
-"pct_any": 4.9,
+"rows": 43465,
+"filled": 3731,
+"pct": 8.6,
+"pct_any": 8.6,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P06": {
-"rows": 254,
-"filled": 31,
-"pct": 12.2,
-"pct_any": 12.2,
+"rows": 253,
+"filled": 55,
+"pct": 21.7,
+"pct_any": 21.7,
 "target": 35,
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P07": {
-"rows": 666,
-"filled": 94,
-"pct": 14.1,
-"pct_any": 14.1,
+"rows": 660,
+"filled": 145,
+"pct": 22.0,
+"pct_any": 22.0,
 "target": 35,
 "present": true,
 "subset": ""
 },
 "buyer_bn_as_published|P08": {
-"rows": 21518,
-"filled": 3293,
-"pct": 15.3,
-"pct_any": 15.3,
+"rows": 21363,
+"filled": 4988,
+"pct": 23.3,
+"pct_any": 23.3,
 "target": 35,
 "present": true,
 "subset": ""
@@ -2723,8 +2723,8 @@
 "subset": ""
 },
 "buyer_bn_as_published|P10": {
-"rows": 2146,
-"filled": 121,
+"rows": 2137,
+"filled": 120,
 "pct": 5.6,
 "pct_any": 5.6,
 "target": 30,
@@ -2732,10 +2732,10 @@
 "subset": ""
 },
 "buyer_bn_as_published|P11": {
-"rows": 1633,
-"filled": 100,
-"pct": 6.1,
-"pct_any": 6.1,
+"rows": 1596,
+"filled": 99,
+"pct": 6.2,
+"pct_any": 6.2,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -2750,8 +2750,8 @@
 "subset": ""
 },
 "buyer_bn_as_published|P13": {
-"rows": 164561,
-"filled": 13451,
+"rows": 164579,
+"filled": 13560,
 "pct": 8.2,
 "pct_any": 8.2,
 "target": 30,
@@ -2759,8 +2759,8 @@
 "subset": ""
 },
 "buyer_address|P01M": {
-"rows": 196,
-"filled": 196,
+"rows": 190,
+"filled": 190,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -2768,17 +2768,17 @@
 "subset": ""
 },
 "buyer_address|P01T": {
-"rows": 198,
-"filled": 169,
-"pct": 85.4,
-"pct_any": 85.4,
+"rows": 202,
+"filled": 173,
+"pct": 85.6,
+"pct_any": 85.6,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "buyer_address|P01_GOLD": {
-"rows": 625,
-"filled": 567,
+"rows": 624,
+"filled": 566,
 "pct": 90.7,
 "pct_any": 90.7,
 "target": 100,
@@ -2786,8 +2786,8 @@
 "subset": ""
 },
 "buyer_address|P02": {
-"rows": 463,
-"filled": 446,
+"rows": 464,
+"filled": 447,
 "pct": 96.3,
 "pct_any": 96.3,
 "target": 100,
@@ -2795,8 +2795,8 @@
 "subset": ""
 },
 "buyer_address|P03": {
-"rows": 260,
-"filled": 230,
+"rows": 262,
+"filled": 232,
 "pct": 88.5,
 "pct_any": 88.5,
 "target": 100,
@@ -2804,8 +2804,8 @@
 "subset": ""
 },
 "buyer_address|P04": {
-"rows": 3558,
-"filled": 2572,
+"rows": 3556,
+"filled": 2571,
 "pct": 72.3,
 "pct_any": 72.3,
 "target": 100,
@@ -2822,46 +2822,46 @@
 "subset": ""
 },
 "buyer_address|P06M": {
-"rows": 19102,
-"filled": 18997,
-"pct": 99.5,
-"pct_any": 99.5,
+"rows": 18956,
+"filled": 18848,
+"pct": 99.4,
+"pct_any": 99.4,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_address|P06T": {
-"rows": 43728,
-"filled": 25135,
-"pct": 57.5,
-"pct_any": 57.5,
+"rows": 43465,
+"filled": 24959,
+"pct": 57.4,
+"pct_any": 57.4,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_address|P06": {
-"rows": 254,
-"filled": 208,
-"pct": 81.9,
-"pct_any": 81.9,
+"rows": 253,
+"filled": 207,
+"pct": 81.8,
+"pct_any": 81.8,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_address|P07": {
-"rows": 666,
-"filled": 547,
-"pct": 82.1,
-"pct_any": 82.1,
+"rows": 660,
+"filled": 543,
+"pct": 82.3,
+"pct_any": 82.3,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_address|P08": {
-"rows": 21518,
-"filled": 17581,
-"pct": 81.7,
-"pct_any": 81.7,
+"rows": 21363,
+"filled": 17395,
+"pct": 81.4,
+"pct_any": 81.4,
 "target": 95,
 "present": true,
 "subset": ""
@@ -2876,19 +2876,19 @@
 "subset": ""
 },
 "buyer_address|P10": {
-"rows": 2146,
-"filled": 1166,
+"rows": 2137,
+"filled": 1160,
 "pct": 54.3,
-"pct_any": 54.4,
+"pct_any": 54.3,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_address|P11": {
-"rows": 1633,
-"filled": 974,
-"pct": 59.6,
-"pct_any": 59.6,
+"rows": 1596,
+"filled": 959,
+"pct": 60.1,
+"pct_any": 60.1,
 "target": 80,
 "present": true,
 "subset": ""
@@ -2903,8 +2903,8 @@
 "subset": ""
 },
 "buyer_address|P13": {
-"rows": 164561,
-"filled": 164541,
+"rows": 164579,
+"filled": 164559,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 95,
@@ -2912,26 +2912,26 @@
 "subset": ""
 },
 "buyer_phone|P01M": {
-"rows": 196,
-"filled": 117,
-"pct": 59.7,
-"pct_any": 59.7,
+"rows": 190,
+"filled": 113,
+"pct": 59.5,
+"pct_any": 59.5,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_phone|P01T": {
-"rows": 198,
-"filled": 137,
-"pct": 69.2,
-"pct_any": 69.2,
+"rows": 202,
+"filled": 142,
+"pct": 70.3,
+"pct_any": 70.3,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_phone|P01_GOLD": {
-"rows": 625,
-"filled": 457,
+"rows": 624,
+"filled": 456,
 "pct": 73.1,
 "pct_any": 73.1,
 "target": 90,
@@ -2939,28 +2939,28 @@
 "subset": ""
 },
 "buyer_phone|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 363,
-"pct": 78.4,
-"pct_any": 78.4,
+"pct": 78.2,
+"pct_any": 78.2,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_phone|P03": {
-"rows": 260,
-"filled": 192,
-"pct": 73.8,
-"pct_any": 73.8,
+"rows": 262,
+"filled": 194,
+"pct": 74.0,
+"pct_any": 74.0,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_phone|P04": {
-"rows": 3558,
-"filled": 2453,
-"pct": 68.9,
-"pct_any": 68.9,
+"rows": 3556,
+"filled": 2452,
+"pct": 69.0,
+"pct_any": 69.0,
 "target": 95,
 "present": true,
 "subset": ""
@@ -2975,35 +2975,35 @@
 "subset": ""
 },
 "buyer_phone|P06M": {
-"rows": 19102,
-"filled": 13516,
-"pct": 70.8,
-"pct_any": 70.8,
+"rows": 18956,
+"filled": 13465,
+"pct": 71.0,
+"pct_any": 71.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_phone|P06T": {
-"rows": 43728,
-"filled": 22202,
-"pct": 50.8,
-"pct_any": 50.8,
+"rows": 43465,
+"filled": 22141,
+"pct": 50.9,
+"pct_any": 50.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_phone|P06": {
-"rows": 254,
-"filled": 179,
-"pct": 70.5,
-"pct_any": 70.5,
+"rows": 253,
+"filled": 178,
+"pct": 70.4,
+"pct_any": 70.4,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_phone|P07": {
-"rows": 666,
-"filled": 441,
+"rows": 660,
+"filled": 437,
 "pct": 66.2,
 "pct_any": 66.2,
 "target": 90,
@@ -3011,8 +3011,8 @@
 "subset": ""
 },
 "buyer_phone|P08": {
-"rows": 21518,
-"filled": 14743,
+"rows": 21363,
+"filled": 14633,
 "pct": 68.5,
 "pct_any": 68.5,
 "target": 95,
@@ -3029,8 +3029,8 @@
 "subset": ""
 },
 "buyer_phone|P10": {
-"rows": 2146,
-"filled": 1145,
+"rows": 2137,
+"filled": 1142,
 "pct": 53.4,
 "pct_any": 53.4,
 "target": 95,
@@ -3038,10 +3038,10 @@
 "subset": ""
 },
 "buyer_phone|P11": {
-"rows": 1633,
-"filled": 463,
-"pct": 28.4,
-"pct_any": 28.4,
+"rows": 1596,
+"filled": 458,
+"pct": 28.7,
+"pct_any": 28.7,
 "target": 75,
 "present": true,
 "subset": ""
@@ -3056,17 +3056,17 @@
 "subset": ""
 },
 "buyer_phone|P13": {
-"rows": 164561,
-"filled": 85689,
-"pct": 52.1,
-"pct_any": 52.1,
+"rows": 164579,
+"filled": 85624,
+"pct": 52.0,
+"pct_any": 52.0,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_logo_url|P01M": {
-"rows": 196,
-"filled": 129,
+"rows": 190,
+"filled": 125,
 "pct": 65.8,
 "pct_any": 65.8,
 "target": "n/a",
@@ -3074,46 +3074,46 @@
 "subset": ""
 },
 "buyer_logo_url|P01T": {
-"rows": 198,
-"filled": 166,
-"pct": 83.8,
-"pct_any": 83.8,
+"rows": 202,
+"filled": 170,
+"pct": 84.2,
+"pct_any": 84.2,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_logo_url|P01_GOLD": {
-"rows": 625,
-"filled": 530,
-"pct": 84.8,
-"pct_any": 84.8,
+"rows": 624,
+"filled": 528,
+"pct": 84.6,
+"pct_any": 84.6,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "buyer_logo_url|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 419,
-"pct": 90.5,
-"pct_any": 90.5,
+"pct": 90.3,
+"pct_any": 90.3,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_logo_url|P03": {
-"rows": 260,
-"filled": 216,
-"pct": 83.1,
-"pct_any": 83.1,
+"rows": 262,
+"filled": 218,
+"pct": 83.2,
+"pct_any": 83.2,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "buyer_logo_url|P04": {
-"rows": 3558,
-"filled": 3229,
-"pct": 90.8,
-"pct_any": 90.8,
+"rows": 3556,
+"filled": 3227,
+"pct": 90.7,
+"pct_any": 90.7,
 "target": 90,
 "present": true,
 "subset": ""
@@ -3128,17 +3128,17 @@
 "subset": ""
 },
 "buyer_logo_url|P06M": {
-"rows": 19102,
-"filled": 14437,
-"pct": 75.6,
-"pct_any": 75.6,
+"rows": 18956,
+"filled": 14363,
+"pct": 75.8,
+"pct_any": 75.8,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "buyer_logo_url|P06T": {
-"rows": 43728,
-"filled": 30330,
+"rows": 43465,
+"filled": 30148,
 "pct": 69.4,
 "pct_any": 69.4,
 "target": "n/a",
@@ -3146,8 +3146,8 @@
 "subset": ""
 },
 "buyer_logo_url|P06": {
-"rows": 254,
-"filled": 235,
+"rows": 253,
+"filled": 234,
 "pct": 92.5,
 "pct_any": 92.5,
 "target": 100,
@@ -3155,17 +3155,17 @@
 "subset": ""
 },
 "buyer_logo_url|P07": {
-"rows": 666,
-"filled": 618,
-"pct": 92.8,
-"pct_any": 92.8,
+"rows": 660,
+"filled": 612,
+"pct": 92.7,
+"pct_any": 92.7,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "buyer_logo_url|P08": {
-"rows": 21518,
-"filled": 20233,
+"rows": 21363,
+"filled": 20083,
 "pct": 94.0,
 "pct_any": 94.0,
 "target": 100,
@@ -3182,8 +3182,8 @@
 "subset": ""
 },
 "buyer_logo_url|P10": {
-"rows": 2146,
-"filled": 1995,
+"rows": 2137,
+"filled": 1987,
 "pct": 93.0,
 "pct_any": 93.0,
 "target": 100,
@@ -3191,10 +3191,10 @@
 "subset": ""
 },
 "buyer_logo_url|P11": {
-"rows": 1633,
-"filled": 741,
-"pct": 45.4,
-"pct_any": 45.4,
+"rows": 1596,
+"filled": 731,
+"pct": 45.8,
+"pct_any": 45.8,
 "target": 80,
 "present": true,
 "subset": ""
@@ -3209,8 +3209,8 @@
 "subset": ""
 },
 "buyer_logo_url|P13": {
-"rows": 164561,
-"filled": 105139,
+"rows": 164579,
+"filled": 105107,
 "pct": 63.9,
 "pct_any": 63.9,
 "target": 95,
@@ -3218,7 +3218,7 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 5,
 "pct": 2.6,
 "pct_any": 2.6,
@@ -3227,16 +3227,16 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P01T": {
-"rows": 198,
-"filled": 17,
-"pct": 8.6,
-"pct_any": 8.6,
+"rows": 202,
+"filled": 18,
+"pct": 8.9,
+"pct_any": 8.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "ap_contact_name_as_published|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 87,
 "pct": 13.9,
 "pct_any": 13.9,
@@ -3245,16 +3245,16 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 116,
-"pct": 25.1,
-"pct_any": 25.1,
+"pct": 25.0,
+"pct_any": 25.0,
 "target": 40,
 "present": true,
 "subset": ""
 },
 "ap_contact_name_as_published|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 23,
 "pct": 8.8,
 "pct_any": 8.8,
@@ -3263,7 +3263,7 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 131,
 "pct": 3.7,
 "pct_any": 3.7,
@@ -3281,8 +3281,8 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P06M": {
-"rows": 19102,
-"filled": 57,
+"rows": 18956,
+"filled": 56,
 "pct": 0.3,
 "pct_any": 0.3,
 "target": "n/a",
@@ -3290,8 +3290,8 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P06T": {
-"rows": 43728,
-"filled": 112,
+"rows": 43465,
+"filled": 109,
 "pct": 0.3,
 "pct_any": 0.3,
 "target": "n/a",
@@ -3299,7 +3299,7 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 14,
 "pct": 5.5,
 "pct_any": 5.5,
@@ -3308,16 +3308,16 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 56,
-"pct": 8.4,
-"pct_any": 8.4,
+"pct": 8.5,
+"pct_any": 8.5,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "ap_contact_name_as_published|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 56,
 "pct": 0.3,
 "pct_any": 0.3,
@@ -3335,7 +3335,7 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 17,
 "pct": 0.8,
 "pct_any": 0.8,
@@ -3344,7 +3344,7 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 13,
 "pct": 0.8,
 "pct_any": 0.8,
@@ -3362,8 +3362,8 @@
 "subset": ""
 },
 "ap_contact_name_as_published|P13": {
-"rows": 164561,
-"filled": 358,
+"rows": 164579,
+"filled": 359,
 "pct": 0.2,
 "pct_any": 0.2,
 "target": "n/a",
@@ -3371,35 +3371,35 @@
 "subset": ""
 },
 "ap_phone|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 28,
-"pct": 14.3,
-"pct_any": 14.3,
+"pct": 14.7,
+"pct_any": 14.7,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "ap_phone|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 41,
-"pct": 20.7,
-"pct_any": 20.7,
+"pct": 20.3,
+"pct_any": 20.3,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "ap_phone|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 272,
-"pct": 43.5,
-"pct_any": 43.5,
+"pct": 43.6,
+"pct_any": 43.6,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "ap_phone|P02": {
-"rows": 463,
-"filled": 266,
+"rows": 464,
+"filled": 267,
 "pct": 57.5,
 "pct_any": 57.5,
 "target": 90,
@@ -3407,16 +3407,16 @@
 "subset": ""
 },
 "ap_phone|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 50,
-"pct": 19.2,
-"pct_any": 19.2,
+"pct": 19.1,
+"pct_any": 19.1,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "ap_phone|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 758,
 "pct": 21.3,
 "pct_any": 21.3,
@@ -3434,8 +3434,8 @@
 "subset": ""
 },
 "ap_phone|P06M": {
-"rows": 19102,
-"filled": 134,
+"rows": 18956,
+"filled": 132,
 "pct": 0.7,
 "pct_any": 0.7,
 "target": "n/a",
@@ -3443,8 +3443,8 @@
 "subset": ""
 },
 "ap_phone|P06T": {
-"rows": 43728,
-"filled": 253,
+"rows": 43465,
+"filled": 247,
 "pct": 0.6,
 "pct_any": 0.6,
 "target": "n/a",
@@ -3452,25 +3452,25 @@
 "subset": ""
 },
 "ap_phone|P06": {
-"rows": 254,
-"filled": 40,
-"pct": 15.7,
-"pct_any": 15.7,
+"rows": 253,
+"filled": 39,
+"pct": 15.4,
+"pct_any": 15.4,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "ap_phone|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 66,
-"pct": 9.9,
-"pct_any": 9.9,
+"pct": 10.0,
+"pct_any": 10.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "ap_phone|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 138,
 "pct": 0.6,
 "pct_any": 0.6,
@@ -3488,7 +3488,7 @@
 "subset": ""
 },
 "ap_phone|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 34,
 "pct": 1.6,
 "pct_any": 1.6,
@@ -3497,10 +3497,10 @@
 "subset": ""
 },
 "ap_phone|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 232,
-"pct": 14.2,
-"pct_any": 14.2,
+"pct": 14.5,
+"pct_any": 14.5,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -3515,8 +3515,8 @@
 "subset": ""
 },
 "ap_phone|P13": {
-"rows": 164561,
-"filled": 525,
+"rows": 164579,
+"filled": 528,
 "pct": 0.3,
 "pct_any": 0.3,
 "target": "n/a",
@@ -3524,52 +3524,52 @@
 "subset": ""
 },
 "invoice_mailing_address|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 10,
-"pct": 5.1,
-"pct_any": 5.1,
+"pct": 5.3,
+"pct_any": 5.3,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoice_mailing_address|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 19,
-"pct": 9.6,
-"pct_any": 9.6,
+"pct": 9.4,
+"pct_any": 9.4,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoice_mailing_address|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 217,
-"pct": 34.7,
-"pct_any": 34.7,
+"pct": 34.8,
+"pct_any": 34.8,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "invoice_mailing_address|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 182,
-"pct": 39.3,
-"pct_any": 39.3,
+"pct": 39.2,
+"pct_any": 39.2,
 "target": 75,
 "present": true,
 "subset": ""
 },
 "invoice_mailing_address|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 51,
-"pct": 19.6,
-"pct_any": 19.6,
+"pct": 19.5,
+"pct_any": 19.5,
 "target": 55,
 "present": true,
 "subset": ""
 },
 "invoice_mailing_address|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 758,
 "pct": 21.3,
 "pct_any": 21.3,
@@ -3587,7 +3587,7 @@
 "subset": ""
 },
 "invoice_mailing_address|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 40,
 "pct": 0.2,
 "pct_any": 0.2,
@@ -3596,8 +3596,8 @@
 "subset": ""
 },
 "invoice_mailing_address|P06T": {
-"rows": 43728,
-"filled": 144,
+"rows": 43465,
+"filled": 143,
 "pct": 0.3,
 "pct_any": 0.3,
 "target": "n/a",
@@ -3605,7 +3605,7 @@
 "subset": ""
 },
 "invoice_mailing_address|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 16,
 "pct": 6.3,
 "pct_any": 6.3,
@@ -3614,7 +3614,7 @@
 "subset": ""
 },
 "invoice_mailing_address|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 33,
 "pct": 5.0,
 "pct_any": 5.0,
@@ -3623,8 +3623,8 @@
 "subset": ""
 },
 "invoice_mailing_address|P08": {
-"rows": 21518,
-"filled": 44,
+"rows": 21363,
+"filled": 43,
 "pct": 0.2,
 "pct_any": 0.2,
 "target": "n/a",
@@ -3641,7 +3641,7 @@
 "subset": ""
 },
 "invoice_mailing_address|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 17,
 "pct": 0.8,
 "pct_any": 0.8,
@@ -3650,10 +3650,10 @@
 "subset": ""
 },
 "invoice_mailing_address|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 225,
-"pct": 13.8,
-"pct_any": 13.8,
+"pct": 14.1,
+"pct_any": 14.1,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -3668,8 +3668,8 @@
 "subset": ""
 },
 "invoice_mailing_address|P13": {
-"rows": 164561,
-"filled": 308,
+"rows": 164579,
+"filled": 307,
 "pct": 0.2,
 "pct_any": 0.2,
 "target": "n/a",
@@ -3677,52 +3677,52 @@
 "subset": ""
 },
 "invoicing_requirements|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 18,
-"pct": 9.2,
-"pct_any": 9.2,
+"pct": 9.5,
+"pct_any": 9.5,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoicing_requirements|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 17,
-"pct": 8.6,
-"pct_any": 8.6,
+"pct": 8.4,
+"pct_any": 8.4,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoicing_requirements|P01_GOLD": {
-"rows": 625,
-"filled": 364,
-"pct": 58.2,
-"pct_any": 58.4,
+"rows": 624,
+"filled": 362,
+"pct": 58.0,
+"pct_any": 58.2,
 "target": 80,
 "present": true,
 "subset": ""
 },
 "invoicing_requirements|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 211,
-"pct": 45.6,
-"pct_any": 45.8,
+"pct": 45.5,
+"pct_any": 45.7,
 "target": 75,
 "present": true,
 "subset": ""
 },
 "invoicing_requirements|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 96,
-"pct": 36.9,
-"pct_any": 36.9,
+"pct": 36.6,
+"pct_any": 36.6,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "invoicing_requirements|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 755,
 "pct": 21.2,
 "pct_any": 21.7,
@@ -3740,8 +3740,8 @@
 "subset": ""
 },
 "invoicing_requirements|P06M": {
-"rows": 19102,
-"filled": 69,
+"rows": 18956,
+"filled": 68,
 "pct": 0.4,
 "pct_any": 0.4,
 "target": "n/a",
@@ -3749,16 +3749,16 @@
 "subset": ""
 },
 "invoicing_requirements|P06T": {
-"rows": 43728,
-"filled": 109,
-"pct": 0.2,
+"rows": 43465,
+"filled": 113,
+"pct": 0.3,
 "pct_any": 0.3,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoicing_requirements|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 39,
 "pct": 15.4,
 "pct_any": 15.4,
@@ -3767,17 +3767,17 @@
 "subset": ""
 },
 "invoicing_requirements|P07": {
-"rows": 666,
-"filled": 13,
-"pct": 2.0,
-"pct_any": 2.0,
+"rows": 660,
+"filled": 12,
+"pct": 1.8,
+"pct_any": 1.8,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoicing_requirements|P08": {
-"rows": 21518,
-"filled": 87,
+"rows": 21363,
+"filled": 85,
 "pct": 0.4,
 "pct_any": 0.4,
 "target": "n/a",
@@ -3794,7 +3794,7 @@
 "subset": ""
 },
 "invoicing_requirements|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 24,
 "pct": 1.1,
 "pct_any": 1.2,
@@ -3803,10 +3803,10 @@
 "subset": ""
 },
 "invoicing_requirements|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 88,
-"pct": 5.4,
-"pct_any": 5.4,
+"pct": 5.5,
+"pct_any": 5.5,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -3821,8 +3821,8 @@
 "subset": ""
 },
 "invoicing_requirements|P13": {
-"rows": 164561,
-"filled": 201,
+"rows": 164579,
+"filled": 197,
 "pct": 0.1,
 "pct_any": 0.1,
 "target": "n/a",
@@ -3830,8 +3830,8 @@
 "subset": ""
 },
 "payment_terms_as_published|P01M": {
-"rows": 196,
-"filled": 37,
+"rows": 190,
+"filled": 36,
 "pct": 18.9,
 "pct_any": 18.9,
 "target": "n/a",
@@ -3839,43 +3839,43 @@
 "subset": ""
 },
 "payment_terms_as_published|P01T": {
-"rows": 198,
-"filled": 42,
-"pct": 21.2,
-"pct_any": 21.2,
+"rows": 202,
+"filled": 43,
+"pct": 21.3,
+"pct_any": 21.3,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "payment_terms_as_published|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 393,
-"pct": 62.9,
-"pct_any": 62.9,
+"pct": 63.0,
+"pct_any": 63.0,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "payment_terms_as_published|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 181,
-"pct": 39.1,
-"pct_any": 39.1,
+"pct": 39.0,
+"pct_any": 39.0,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "payment_terms_as_published|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 124,
-"pct": 47.7,
-"pct_any": 47.7,
+"pct": 47.3,
+"pct_any": 47.3,
 "target": 55,
 "present": true,
 "subset": ""
 },
 "payment_terms_as_published|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 449,
 "pct": 12.6,
 "pct_any": 12.6,
@@ -3893,17 +3893,17 @@
 "subset": ""
 },
 "payment_terms_as_published|P06M": {
-"rows": 19102,
-"filled": 642,
-"pct": 3.4,
-"pct_any": 3.4,
+"rows": 18956,
+"filled": 625,
+"pct": 3.3,
+"pct_any": 3.3,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "payment_terms_as_published|P06T": {
-"rows": 43728,
-"filled": 760,
+"rows": 43465,
+"filled": 749,
 "pct": 1.7,
 "pct_any": 1.7,
 "target": "n/a",
@@ -3911,7 +3911,7 @@
 "subset": ""
 },
 "payment_terms_as_published|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 53,
 "pct": 20.9,
 "pct_any": 20.9,
@@ -3920,7 +3920,7 @@
 "subset": ""
 },
 "payment_terms_as_published|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 41,
 "pct": 6.2,
 "pct_any": 6.2,
@@ -3929,8 +3929,8 @@
 "subset": ""
 },
 "payment_terms_as_published|P08": {
-"rows": 21518,
-"filled": 626,
+"rows": 21363,
+"filled": 623,
 "pct": 2.9,
 "pct_any": 2.9,
 "target": "n/a",
@@ -3947,7 +3947,7 @@
 "subset": ""
 },
 "payment_terms_as_published|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 109,
 "pct": 5.1,
 "pct_any": 5.1,
@@ -3956,10 +3956,10 @@
 "subset": ""
 },
 "payment_terms_as_published|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 70,
-"pct": 4.3,
-"pct_any": 4.3,
+"pct": 4.4,
+"pct_any": 4.4,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -3974,8 +3974,8 @@
 "subset": ""
 },
 "payment_terms_as_published|P13": {
-"rows": 164561,
-"filled": 1207,
+"rows": 164579,
+"filled": 1213,
 "pct": 0.7,
 "pct_any": 0.7,
 "target": "n/a",
@@ -3983,44 +3983,44 @@
 "subset": ""
 },
 "po_required_as_published|P01M": {
-"rows": 196,
-"filled": 52,
-"pct": 26.5,
-"pct_any": 26.5,
+"rows": 190,
+"filled": 50,
+"pct": 26.3,
+"pct_any": 26.3,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "po_required_as_published|P01T": {
-"rows": 198,
-"filled": 59,
-"pct": 29.8,
-"pct_any": 29.8,
+"rows": 202,
+"filled": 61,
+"pct": 30.2,
+"pct_any": 30.2,
 "target": 65,
 "present": true,
 "subset": ""
 },
 "po_required_as_published|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 429,
-"pct": 68.6,
-"pct_any": 68.6,
+"pct": 68.8,
+"pct_any": 68.8,
 "target": 70,
 "present": true,
 "subset": ""
 },
 "po_required_as_published|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 110,
-"pct": 23.8,
-"pct_any": 23.8,
+"pct": 23.7,
+"pct_any": 23.7,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "po_required_as_published|P03": {
-"rows": 260,
-"filled": 132,
+"rows": 262,
+"filled": 133,
 "pct": 50.8,
 "pct_any": 50.8,
 "target": 60,
@@ -4028,10 +4028,10 @@
 "subset": ""
 },
 "po_required_as_published|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 201,
-"pct": 5.6,
-"pct_any": 5.6,
+"pct": 5.7,
+"pct_any": 5.7,
 "target": 40,
 "present": true,
 "subset": ""
@@ -4046,8 +4046,8 @@
 "subset": ""
 },
 "po_required_as_published|P06M": {
-"rows": 19102,
-"filled": 386,
+"rows": 18956,
+"filled": 379,
 "pct": 2.0,
 "pct_any": 2.0,
 "target": "n/a",
@@ -4055,8 +4055,8 @@
 "subset": ""
 },
 "po_required_as_published|P06T": {
-"rows": 43728,
-"filled": 345,
+"rows": 43465,
+"filled": 344,
 "pct": 0.8,
 "pct_any": 0.8,
 "target": "n/a",
@@ -4064,25 +4064,25 @@
 "subset": ""
 },
 "po_required_as_published|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 84,
-"pct": 33.1,
-"pct_any": 33.1,
+"pct": 33.2,
+"pct_any": 33.2,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "po_required_as_published|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 44,
-"pct": 6.6,
-"pct_any": 6.6,
+"pct": 6.7,
+"pct_any": 6.7,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "po_required_as_published|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 274,
 "pct": 1.3,
 "pct_any": 1.3,
@@ -4100,7 +4100,7 @@
 "subset": ""
 },
 "po_required_as_published|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 71,
 "pct": 3.3,
 "pct_any": 3.3,
@@ -4109,10 +4109,10 @@
 "subset": ""
 },
 "po_required_as_published|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 67,
-"pct": 4.1,
-"pct_any": 4.1,
+"pct": 4.2,
+"pct_any": 4.2,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -4127,8 +4127,8 @@
 "subset": ""
 },
 "po_required_as_published|P13": {
-"rows": 164561,
-"filled": 362,
+"rows": 164579,
+"filled": 357,
 "pct": 0.2,
 "pct_any": 0.2,
 "target": "n/a",
@@ -4136,55 +4136,55 @@
 "subset": ""
 },
 "invoice_portal_url|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 29,
-"pct": 14.8,
-"pct_any": 14.8,
+"pct": 15.3,
+"pct_any": 15.3,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoice_portal_url|P01T": {
-"rows": 198,
-"filled": 27,
-"pct": 13.6,
-"pct_any": 13.6,
+"rows": 202,
+"filled": 28,
+"pct": 13.9,
+"pct_any": 13.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoice_portal_url|P01_GOLD": {
-"rows": 625,
-"filled": 312,
-"pct": 49.9,
-"pct_any": 49.9,
+"rows": 624,
+"filled": 311,
+"pct": 49.8,
+"pct_any": 49.8,
 "target": 50,
 "present": true,
 "subset": ""
 },
 "invoice_portal_url|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 177,
-"pct": 38.2,
-"pct_any": 38.2,
+"pct": 38.1,
+"pct_any": 38.1,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoice_portal_url|P03": {
-"rows": 260,
-"filled": 133,
-"pct": 51.2,
-"pct_any": 51.2,
+"rows": 262,
+"filled": 135,
+"pct": 51.5,
+"pct_any": 51.5,
 "target": 60,
 "present": true,
 "subset": ""
 },
 "invoice_portal_url|P04": {
-"rows": 3558,
-"filled": 451,
-"pct": 12.7,
-"pct_any": 12.7,
+"rows": 3556,
+"filled": 449,
+"pct": 12.6,
+"pct_any": 12.6,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -4199,8 +4199,8 @@
 "subset": ""
 },
 "invoice_portal_url|P06M": {
-"rows": 19102,
-"filled": 156,
+"rows": 18956,
+"filled": 154,
 "pct": 0.8,
 "pct_any": 0.8,
 "target": "n/a",
@@ -4208,7 +4208,7 @@
 "subset": ""
 },
 "invoice_portal_url|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 143,
 "pct": 0.3,
 "pct_any": 0.3,
@@ -4217,26 +4217,26 @@
 "subset": ""
 },
 "invoice_portal_url|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 61,
-"pct": 24.0,
-"pct_any": 24.0,
+"pct": 24.1,
+"pct_any": 24.1,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoice_portal_url|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 52,
-"pct": 7.8,
-"pct_any": 7.8,
+"pct": 7.9,
+"pct_any": 7.9,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "invoice_portal_url|P08": {
-"rows": 21518,
-"filled": 120,
+"rows": 21363,
+"filled": 118,
 "pct": 0.6,
 "pct_any": 0.6,
 "target": "n/a",
@@ -4253,7 +4253,7 @@
 "subset": ""
 },
 "invoice_portal_url|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 54,
 "pct": 2.5,
 "pct_any": 2.5,
@@ -4262,10 +4262,10 @@
 "subset": ""
 },
 "invoice_portal_url|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 52,
-"pct": 3.2,
-"pct_any": 3.2,
+"pct": 3.3,
+"pct_any": 3.3,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -4280,8 +4280,8 @@
 "subset": ""
 },
 "invoice_portal_url|P13": {
-"rows": 164561,
-"filled": 300,
+"rows": 164579,
+"filled": 302,
 "pct": 0.2,
 "pct_any": 0.2,
 "target": "n/a",
@@ -4289,34 +4289,34 @@
 "subset": ""
 },
 "buyer_payment_method_preference|P01M": {
-"rows": 196,
-"filled": 21,
-"pct": 10.7,
-"pct_any": 10.7,
+"rows": 190,
+"filled": 20,
+"pct": 10.5,
+"pct_any": 10.5,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_payment_method_preference|P01T": {
-"rows": 198,
-"filled": 25,
-"pct": 12.6,
-"pct_any": 12.6,
+"rows": 202,
+"filled": 26,
+"pct": 12.9,
+"pct_any": 12.9,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_payment_method_preference|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 219,
-"pct": 35.0,
-"pct_any": 35.0,
+"pct": 35.1,
+"pct_any": 35.1,
 "target": 40,
 "present": true,
 "subset": ""
 },
 "buyer_payment_method_preference|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 56,
 "pct": 12.1,
 "pct_any": 12.3,
@@ -4325,16 +4325,16 @@
 "subset": ""
 },
 "buyer_payment_method_preference|P03": {
-"rows": 260,
-"filled": 42,
-"pct": 16.2,
-"pct_any": 16.2,
+"rows": 262,
+"filled": 43,
+"pct": 16.4,
+"pct_any": 16.4,
 "target": 25,
 "present": true,
 "subset": ""
 },
 "buyer_payment_method_preference|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 99,
 "pct": 2.8,
 "pct_any": 2.8,
@@ -4352,17 +4352,17 @@
 "subset": ""
 },
 "buyer_payment_method_preference|P06M": {
-"rows": 19102,
-"filled": 144,
-"pct": 0.8,
-"pct_any": 0.8,
+"rows": 18956,
+"filled": 142,
+"pct": 0.7,
+"pct_any": 0.7,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_payment_method_preference|P06T": {
-"rows": 43728,
-"filled": 210,
+"rows": 43465,
+"filled": 211,
 "pct": 0.5,
 "pct_any": 0.5,
 "target": 15,
@@ -4370,16 +4370,16 @@
 "subset": ""
 },
 "buyer_payment_method_preference|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 28,
-"pct": 11.0,
-"pct_any": 11.0,
+"pct": 11.1,
+"pct_any": 11.1,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_payment_method_preference|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 27,
 "pct": 4.1,
 "pct_any": 4.1,
@@ -4388,8 +4388,8 @@
 "subset": ""
 },
 "buyer_payment_method_preference|P08": {
-"rows": 21518,
-"filled": 133,
+"rows": 21363,
+"filled": 134,
 "pct": 0.6,
 "pct_any": 0.6,
 "target": 15,
@@ -4406,7 +4406,7 @@
 "subset": ""
 },
 "buyer_payment_method_preference|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 28,
 "pct": 1.3,
 "pct_any": 1.3,
@@ -4415,8 +4415,8 @@
 "subset": ""
 },
 "buyer_payment_method_preference|P11": {
-"rows": 1633,
-"filled": 22,
+"rows": 1596,
+"filled": 21,
 "pct": 1.3,
 "pct_any": 1.3,
 "target": 15,
@@ -4433,8 +4433,8 @@
 "subset": ""
 },
 "buyer_payment_method_preference|P13": {
-"rows": 164561,
-"filled": 873,
+"rows": 164579,
+"filled": 870,
 "pct": 0.5,
 "pct_any": 0.5,
 "target": 15,
@@ -4442,25 +4442,25 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 14,
-"pct": 7.1,
-"pct_any": 7.1,
+"pct": 7.4,
+"pct_any": 7.4,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_tax_exempt_status|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 25,
-"pct": 12.6,
-"pct_any": 12.6,
+"pct": 12.4,
+"pct_any": 12.4,
 "target": 25,
 "present": true,
 "subset": ""
 },
 "buyer_tax_exempt_status|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 181,
 "pct": 29.0,
 "pct_any": 29.0,
@@ -4469,25 +4469,25 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 118,
-"pct": 25.5,
-"pct_any": 25.5,
+"pct": 25.4,
+"pct_any": 25.4,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_tax_exempt_status|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 59,
-"pct": 22.7,
-"pct_any": 22.7,
+"pct": 22.5,
+"pct_any": 22.5,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_tax_exempt_status|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 143,
 "pct": 4.0,
 "pct_any": 4.0,
@@ -4505,8 +4505,8 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P06M": {
-"rows": 19102,
-"filled": 138,
+"rows": 18956,
+"filled": 134,
 "pct": 0.7,
 "pct_any": 0.7,
 "target": 15,
@@ -4514,8 +4514,8 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P06T": {
-"rows": 43728,
-"filled": 102,
+"rows": 43465,
+"filled": 100,
 "pct": 0.2,
 "pct_any": 0.2,
 "target": 15,
@@ -4523,7 +4523,7 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 23,
 "pct": 9.1,
 "pct_any": 9.1,
@@ -4532,17 +4532,17 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P07": {
-"rows": 666,
-"filled": 17,
-"pct": 2.6,
-"pct_any": 2.6,
+"rows": 660,
+"filled": 16,
+"pct": 2.4,
+"pct_any": 2.4,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_tax_exempt_status|P08": {
-"rows": 21518,
-"filled": 105,
+"rows": 21363,
+"filled": 104,
 "pct": 0.5,
 "pct_any": 0.5,
 "target": 15,
@@ -4559,7 +4559,7 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 35,
 "pct": 1.6,
 "pct_any": 1.6,
@@ -4568,10 +4568,10 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 33,
-"pct": 2.0,
-"pct_any": 2.0,
+"pct": 2.1,
+"pct_any": 2.1,
 "target": 15,
 "present": true,
 "subset": ""
@@ -4586,8 +4586,8 @@
 "subset": ""
 },
 "buyer_tax_exempt_status|P13": {
-"rows": 164561,
-"filled": 186,
+"rows": 164579,
+"filled": 187,
 "pct": 0.1,
 "pct_any": 0.1,
 "target": 15,
@@ -4595,16 +4595,16 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 4,
-"pct": 2.0,
-"pct_any": 2.0,
+"pct": 2.1,
+"pct_any": 2.1,
 "target": 20,
 "present": true,
 "subset": ""
 },
 "buyer_ap_cycle_published|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 7,
 "pct": 3.5,
 "pct_any": 3.5,
@@ -4613,7 +4613,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 27,
 "pct": 4.3,
 "pct_any": 4.3,
@@ -4622,7 +4622,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 7,
 "pct": 1.5,
 "pct_any": 1.5,
@@ -4631,7 +4631,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 5,
 "pct": 1.9,
 "pct_any": 1.9,
@@ -4640,7 +4640,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 26,
 "pct": 0.7,
 "pct_any": 0.7,
@@ -4658,7 +4658,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 7,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -4667,8 +4667,8 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P06T": {
-"rows": 43728,
-"filled": 13,
+"rows": 43465,
+"filled": 12,
 "pct": 0.0,
 "pct_any": 0.0,
 "target": 20,
@@ -4676,7 +4676,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 4,
 "pct": 1.6,
 "pct_any": 1.6,
@@ -4685,7 +4685,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 3,
 "pct": 0.5,
 "pct_any": 0.5,
@@ -4694,7 +4694,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 11,
 "pct": 0.1,
 "pct_any": 0.1,
@@ -4712,7 +4712,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 7,
 "pct": 0.3,
 "pct_any": 0.3,
@@ -4721,7 +4721,7 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 2,
 "pct": 0.1,
 "pct_any": 0.1,
@@ -4739,8 +4739,8 @@
 "subset": ""
 },
 "buyer_ap_cycle_published|P13": {
-"rows": 164561,
-"filled": 36,
+"rows": 164579,
+"filled": 37,
 "pct": 0.0,
 "pct_any": 0.0,
 "target": 20,
@@ -4748,16 +4748,16 @@
 "subset": ""
 },
 "buyer_esignature_preference|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 4,
-"pct": 2.0,
-"pct_any": 2.0,
+"pct": 2.1,
+"pct_any": 2.1,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_esignature_preference|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 7,
 "pct": 3.5,
 "pct_any": 3.5,
@@ -4766,7 +4766,7 @@
 "subset": ""
 },
 "buyer_esignature_preference|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 66,
 "pct": 10.6,
 "pct_any": 10.6,
@@ -4775,7 +4775,7 @@
 "subset": ""
 },
 "buyer_esignature_preference|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 52,
 "pct": 11.2,
 "pct_any": 11.2,
@@ -4784,16 +4784,16 @@
 "subset": ""
 },
 "buyer_esignature_preference|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 55,
-"pct": 21.2,
-"pct_any": 21.2,
+"pct": 21.0,
+"pct_any": 21.0,
 "target": 15,
 "present": true,
 "subset": ""
 },
 "buyer_esignature_preference|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 83,
 "pct": 2.3,
 "pct_any": 2.3,
@@ -4811,8 +4811,8 @@
 "subset": ""
 },
 "buyer_esignature_preference|P06M": {
-"rows": 19102,
-"filled": 99,
+"rows": 18956,
+"filled": 95,
 "pct": 0.5,
 "pct_any": 0.5,
 "target": 15,
@@ -4820,7 +4820,7 @@
 "subset": ""
 },
 "buyer_esignature_preference|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 90,
 "pct": 0.2,
 "pct_any": 0.2,
@@ -4829,7 +4829,7 @@
 "subset": ""
 },
 "buyer_esignature_preference|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 12,
 "pct": 4.7,
 "pct_any": 4.7,
@@ -4838,7 +4838,7 @@
 "subset": ""
 },
 "buyer_esignature_preference|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 11,
 "pct": 1.7,
 "pct_any": 1.7,
@@ -4847,8 +4847,8 @@
 "subset": ""
 },
 "buyer_esignature_preference|P08": {
-"rows": 21518,
-"filled": 102,
+"rows": 21363,
+"filled": 99,
 "pct": 0.5,
 "pct_any": 0.5,
 "target": 15,
@@ -4865,7 +4865,7 @@
 "subset": ""
 },
 "buyer_esignature_preference|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 24,
 "pct": 1.1,
 "pct_any": 1.1,
@@ -4874,7 +4874,7 @@
 "subset": ""
 },
 "buyer_esignature_preference|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 15,
 "pct": 0.9,
 "pct_any": 0.9,
@@ -4892,7 +4892,7 @@
 "subset": ""
 },
 "buyer_esignature_preference|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 133,
 "pct": 0.1,
 "pct_any": 0.1,
@@ -4901,26 +4901,26 @@
 "subset": ""
 },
 "ap_system_hint|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 30,
-"pct": 15.3,
-"pct_any": 15.3,
+"pct": 15.8,
+"pct_any": 15.8,
 "target": 20,
 "present": true,
 "subset": ""
 },
 "ap_system_hint|P01T": {
-"rows": 198,
-"filled": 28,
-"pct": 14.1,
-"pct_any": 14.1,
+"rows": 202,
+"filled": 29,
+"pct": 14.4,
+"pct_any": 14.4,
 "target": 40,
 "present": true,
 "subset": ""
 },
 "ap_system_hint|P01_GOLD": {
-"rows": 625,
-"filled": 289,
+"rows": 624,
+"filled": 288,
 "pct": 46.2,
 "pct_any": 46.2,
 "target": 40,
@@ -4928,7 +4928,7 @@
 "subset": ""
 },
 "ap_system_hint|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 203,
 "pct": 43.8,
 "pct_any": 43.8,
@@ -4937,19 +4937,19 @@
 "subset": ""
 },
 "ap_system_hint|P03": {
-"rows": 260,
-"filled": 124,
-"pct": 47.7,
-"pct_any": 47.7,
+"rows": 262,
+"filled": 126,
+"pct": 48.1,
+"pct_any": 48.1,
 "target": 35,
 "present": true,
 "subset": ""
 },
 "ap_system_hint|P04": {
-"rows": 3558,
-"filled": 525,
-"pct": 14.8,
-"pct_any": 14.8,
+"rows": 3556,
+"filled": 523,
+"pct": 14.7,
+"pct_any": 14.7,
 "target": 20,
 "present": true,
 "subset": ""
@@ -4964,8 +4964,8 @@
 "subset": ""
 },
 "ap_system_hint|P06M": {
-"rows": 19102,
-"filled": 207,
+"rows": 18956,
+"filled": 201,
 "pct": 1.1,
 "pct_any": 1.1,
 "target": 20,
@@ -4973,8 +4973,8 @@
 "subset": ""
 },
 "ap_system_hint|P06T": {
-"rows": 43728,
-"filled": 272,
+"rows": 43465,
+"filled": 270,
 "pct": 0.6,
 "pct_any": 0.6,
 "target": 20,
@@ -4982,16 +4982,16 @@
 "subset": ""
 },
 "ap_system_hint|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 62,
-"pct": 24.4,
-"pct_any": 24.4,
+"pct": 24.5,
+"pct_any": 24.5,
 "target": 20,
 "present": true,
 "subset": ""
 },
 "ap_system_hint|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 55,
 "pct": 8.3,
 "pct_any": 8.3,
@@ -5000,8 +5000,8 @@
 "subset": ""
 },
 "ap_system_hint|P08": {
-"rows": 21518,
-"filled": 218,
+"rows": 21363,
+"filled": 213,
 "pct": 1.0,
 "pct_any": 1.0,
 "target": 20,
@@ -5018,7 +5018,7 @@
 "subset": ""
 },
 "ap_system_hint|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 82,
 "pct": 3.8,
 "pct_any": 3.8,
@@ -5027,7 +5027,7 @@
 "subset": ""
 },
 "ap_system_hint|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 58,
 "pct": 3.6,
 "pct_any": 3.6,
@@ -5045,8 +5045,8 @@
 "subset": ""
 },
 "ap_system_hint|P13": {
-"rows": 164561,
-"filled": 604,
+"rows": 164579,
+"filled": 608,
 "pct": 0.4,
 "pct_any": 0.4,
 "target": 20,
@@ -5054,16 +5054,16 @@
 "subset": ""
 },
 "contract_value|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 44,
-"pct": 22.4,
-"pct_any": 22.4,
+"pct": 23.2,
+"pct_any": 23.2,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_value|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 1,
 "pct": 0.5,
 "pct_any": 0.5,
@@ -5072,8 +5072,8 @@
 "subset": ""
 },
 "contract_value|P01_GOLD": {
-"rows": 625,
-"filled": 452,
+"rows": 624,
+"filled": 451,
 "pct": 72.3,
 "pct_any": 72.3,
 "target": 95,
@@ -5081,8 +5081,8 @@
 "subset": ""
 },
 "contract_value|P02": {
-"rows": 463,
-"filled": 304,
+"rows": 464,
+"filled": 305,
 "pct": 65.7,
 "pct_any": 65.7,
 "target": 95,
@@ -5090,17 +5090,17 @@
 "subset": ""
 },
 "contract_value|P03": {
-"rows": 260,
-"filled": 150,
-"pct": 57.7,
-"pct_any": 57.7,
+"rows": 262,
+"filled": 151,
+"pct": 57.6,
+"pct_any": 57.6,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "contract_value|P04": {
-"rows": 3558,
-"filled": 928,
+"rows": 3556,
+"filled": 927,
 "pct": 26.1,
 "pct_any": 26.1,
 "target": 85,
@@ -5117,16 +5117,16 @@
 "subset": ""
 },
 "contract_value|P06M": {
-"rows": 19102,
-"filled": 5791,
-"pct": 30.3,
-"pct_any": 30.3,
+"rows": 18956,
+"filled": 5800,
+"pct": 30.6,
+"pct_any": 30.6,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_value|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5135,7 +5135,7 @@
 "subset": ""
 },
 "contract_value|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5144,7 +5144,7 @@
 "subset": ""
 },
 "contract_value|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5153,7 +5153,7 @@
 "subset": ""
 },
 "contract_value|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5163,15 +5163,15 @@
 },
 "contract_value|P09": {
 "rows": 278,
-"filled": 250,
-"pct": 89.9,
-"pct_any": 89.9,
+"filled": 249,
+"pct": 89.6,
+"pct_any": 89.6,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "contract_value|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5180,10 +5180,10 @@
 "subset": ""
 },
 "contract_value|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 76,
-"pct": 4.7,
-"pct_any": 4.7,
+"pct": 4.8,
+"pct_any": 4.8,
 "target": 60,
 "present": true,
 "subset": ""
@@ -5198,7 +5198,7 @@
 "subset": ""
 },
 "contract_value|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5207,16 +5207,16 @@
 "subset": ""
 },
 "currency|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 44,
-"pct": 22.4,
-"pct_any": 22.4,
+"pct": 23.2,
+"pct_any": 23.2,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "currency|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5225,34 +5225,34 @@
 "subset": ""
 },
 "currency|P01_GOLD": {
-"rows": 625,
-"filled": 463,
-"pct": 74.1,
-"pct_any": 74.1,
+"rows": 624,
+"filled": 462,
+"pct": 74.0,
+"pct_any": 74.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "currency|P02": {
-"rows": 463,
-"filled": 314,
-"pct": 67.8,
-"pct_any": 67.8,
+"rows": 464,
+"filled": 315,
+"pct": 67.9,
+"pct_any": 67.9,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "currency|P03": {
-"rows": 260,
-"filled": 156,
-"pct": 60.0,
-"pct_any": 60.0,
+"rows": 262,
+"filled": 158,
+"pct": 60.3,
+"pct_any": 60.3,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "currency|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 943,
 "pct": 26.5,
 "pct_any": 26.5,
@@ -5270,16 +5270,16 @@
 "subset": ""
 },
 "currency|P06M": {
-"rows": 19102,
-"filled": 5791,
-"pct": 30.3,
-"pct_any": 30.3,
+"rows": 18956,
+"filled": 5800,
+"pct": 30.6,
+"pct_any": 30.6,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "currency|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5288,7 +5288,7 @@
 "subset": ""
 },
 "currency|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5297,7 +5297,7 @@
 "subset": ""
 },
 "currency|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5306,7 +5306,7 @@
 "subset": ""
 },
 "currency|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5324,7 +5324,7 @@
 "subset": ""
 },
 "currency|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5333,10 +5333,10 @@
 "subset": ""
 },
 "currency|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 79,
-"pct": 4.8,
-"pct_any": 4.8,
+"pct": 4.9,
+"pct_any": 4.9,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -5351,7 +5351,7 @@
 "subset": ""
 },
 "currency|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5360,16 +5360,16 @@
 "subset": ""
 },
 "start_date|P01M": {
-"rows": 196,
-"filled": 166,
-"pct": 84.7,
-"pct_any": 84.7,
+"rows": 190,
+"filled": 160,
+"pct": 84.2,
+"pct_any": 84.2,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "start_date|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 1,
 "pct": 0.5,
 "pct_any": 0.5,
@@ -5378,34 +5378,34 @@
 "subset": ""
 },
 "start_date|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 329,
-"pct": 52.6,
-"pct_any": 52.6,
+"pct": 52.7,
+"pct_any": 52.7,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "start_date|P02": {
-"rows": 463,
-"filled": 271,
-"pct": 58.5,
-"pct_any": 58.5,
+"rows": 464,
+"filled": 272,
+"pct": 58.6,
+"pct_any": 58.6,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "start_date|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 114,
-"pct": 43.8,
-"pct_any": 43.8,
+"pct": 43.5,
+"pct_any": 43.5,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "start_date|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 1011,
 "pct": 28.4,
 "pct_any": 28.4,
@@ -5423,8 +5423,8 @@
 "subset": ""
 },
 "start_date|P06M": {
-"rows": 19102,
-"filled": 16460,
+"rows": 18956,
+"filled": 16340,
 "pct": 86.2,
 "pct_any": 86.2,
 "target": "n/a",
@@ -5432,7 +5432,7 @@
 "subset": ""
 },
 "start_date|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5441,7 +5441,7 @@
 "subset": ""
 },
 "start_date|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5450,7 +5450,7 @@
 "subset": ""
 },
 "start_date|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5459,7 +5459,7 @@
 "subset": ""
 },
 "start_date|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5477,7 +5477,7 @@
 "subset": ""
 },
 "start_date|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5486,10 +5486,10 @@
 "subset": ""
 },
 "start_date|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 67,
-"pct": 4.1,
-"pct_any": 4.1,
+"pct": 4.2,
+"pct_any": 4.2,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -5504,7 +5504,7 @@
 "subset": ""
 },
 "start_date|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5513,16 +5513,16 @@
 "subset": ""
 },
 "end_date|P01M": {
-"rows": 196,
-"filled": 164,
-"pct": 83.7,
-"pct_any": 83.7,
+"rows": 190,
+"filled": 158,
+"pct": 83.2,
+"pct_any": 83.2,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "end_date|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 1,
 "pct": 0.5,
 "pct_any": 0.5,
@@ -5531,37 +5531,37 @@
 "subset": ""
 },
 "end_date|P01_GOLD": {
-"rows": 625,
-"filled": 328,
-"pct": 52.5,
-"pct_any": 52.5,
+"rows": 624,
+"filled": 327,
+"pct": 52.4,
+"pct_any": 52.4,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "end_date|P02": {
-"rows": 463,
-"filled": 246,
-"pct": 53.1,
-"pct_any": 53.1,
+"rows": 464,
+"filled": 245,
+"pct": 52.8,
+"pct_any": 52.8,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "end_date|P03": {
-"rows": 260,
-"filled": 113,
-"pct": 43.5,
-"pct_any": 43.5,
+"rows": 262,
+"filled": 115,
+"pct": 43.9,
+"pct_any": 43.9,
 "target": 85,
 "present": true,
 "subset": ""
 },
 "end_date|P04": {
-"rows": 3558,
-"filled": 863,
-"pct": 24.3,
-"pct_any": 24.3,
+"rows": 3556,
+"filled": 862,
+"pct": 24.2,
+"pct_any": 24.2,
 "target": 90,
 "present": true,
 "subset": ""
@@ -5576,16 +5576,16 @@
 "subset": ""
 },
 "end_date|P06M": {
-"rows": 19102,
-"filled": 14888,
-"pct": 77.9,
-"pct_any": 77.9,
+"rows": 18956,
+"filled": 14715,
+"pct": 77.6,
+"pct_any": 77.6,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "end_date|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5594,7 +5594,7 @@
 "subset": ""
 },
 "end_date|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5603,7 +5603,7 @@
 "subset": ""
 },
 "end_date|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5612,7 +5612,7 @@
 "subset": ""
 },
 "end_date|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5630,7 +5630,7 @@
 "subset": ""
 },
 "end_date|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5639,10 +5639,10 @@
 "subset": ""
 },
 "end_date|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 52,
-"pct": 3.2,
-"pct_any": 3.2,
+"pct": 3.3,
+"pct_any": 3.3,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -5657,7 +5657,7 @@
 "subset": ""
 },
 "end_date|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5666,17 +5666,17 @@
 "subset": ""
 },
 "contract_title|P01M": {
-"rows": 196,
-"filled": 184,
-"pct": 93.9,
-"pct_any": 93.9,
+"rows": 190,
+"filled": 178,
+"pct": 93.7,
+"pct_any": 93.7,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_title|P01T": {
-"rows": 198,
-"filled": 189,
+"rows": 202,
+"filled": 193,
 "pct": 95.5,
 "pct_any": 95.5,
 "target": "n/a",
@@ -5684,34 +5684,34 @@
 "subset": ""
 },
 "contract_title|P01_GOLD": {
-"rows": 625,
-"filled": 535,
+"rows": 624,
+"filled": 534,
 "pct": 85.6,
-"pct_any": 85.6,
+"pct_any": 85.7,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "contract_title|P02": {
-"rows": 463,
-"filled": 358,
-"pct": 77.3,
-"pct_any": 77.3,
+"rows": 464,
+"filled": 359,
+"pct": 77.4,
+"pct_any": 77.4,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "contract_title|P03": {
-"rows": 260,
-"filled": 239,
-"pct": 91.9,
-"pct_any": 91.9,
+"rows": 262,
+"filled": 241,
+"pct": 92.0,
+"pct_any": 92.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_title|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 1788,
 "pct": 50.3,
 "pct_any": 50.3,
@@ -5729,8 +5729,8 @@
 "subset": ""
 },
 "contract_title|P06M": {
-"rows": 19102,
-"filled": 18941,
+"rows": 18956,
+"filled": 18795,
 "pct": 99.2,
 "pct_any": 99.2,
 "target": "n/a",
@@ -5738,8 +5738,8 @@
 "subset": ""
 },
 "contract_title|P06T": {
-"rows": 43728,
-"filled": 40492,
+"rows": 43465,
+"filled": 40229,
 "pct": 92.6,
 "pct_any": 92.6,
 "target": "n/a",
@@ -5747,25 +5747,25 @@
 "subset": ""
 },
 "contract_title|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 57,
-"pct": 22.4,
-"pct_any": 22.4,
+"pct": 22.5,
+"pct_any": 22.5,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_title|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 86,
-"pct": 12.9,
-"pct_any": 12.9,
+"pct": 13.0,
+"pct_any": 13.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_title|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 1392,
 "pct": 6.5,
 "pct_any": 6.5,
@@ -5783,19 +5783,19 @@
 "subset": ""
 },
 "contract_title|P10": {
-"rows": 2146,
-"filled": 1514,
-"pct": 70.5,
-"pct_any": 70.5,
+"rows": 2137,
+"filled": 1511,
+"pct": 70.7,
+"pct_any": 70.7,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_title|P11": {
-"rows": 1633,
-"filled": 1171,
-"pct": 71.7,
-"pct_any": 71.7,
+"rows": 1596,
+"filled": 1137,
+"pct": 71.2,
+"pct_any": 71.2,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -5810,8 +5810,8 @@
 "subset": ""
 },
 "contract_title|P13": {
-"rows": 164561,
-"filled": 163856,
+"rows": 164579,
+"filled": 163875,
 "pct": 99.6,
 "pct_any": 99.6,
 "target": "n/a",
@@ -5819,17 +5819,17 @@
 "subset": ""
 },
 "contract_description|P01M": {
-"rows": 196,
-"filled": 184,
-"pct": 93.9,
-"pct_any": 93.9,
+"rows": 190,
+"filled": 178,
+"pct": 93.7,
+"pct_any": 93.7,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_description|P01T": {
-"rows": 198,
-"filled": 189,
+"rows": 202,
+"filled": 193,
 "pct": 95.5,
 "pct_any": 95.5,
 "target": "n/a",
@@ -5837,26 +5837,26 @@
 "subset": ""
 },
 "contract_description|P01_GOLD": {
-"rows": 625,
-"filled": 555,
+"rows": 624,
+"filled": 554,
 "pct": 88.8,
-"pct_any": 88.8,
+"pct_any": 88.9,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "contract_description|P02": {
-"rows": 463,
-"filled": 363,
-"pct": 78.4,
-"pct_any": 78.6,
+"rows": 464,
+"filled": 365,
+"pct": 78.7,
+"pct_any": 78.7,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "contract_description|P03": {
-"rows": 260,
-"filled": 241,
+"rows": 262,
+"filled": 243,
 "pct": 92.7,
 "pct_any": 92.7,
 "target": "n/a",
@@ -5864,7 +5864,7 @@
 "subset": ""
 },
 "contract_description|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 1906,
 "pct": 53.6,
 "pct_any": 53.6,
@@ -5882,8 +5882,8 @@
 "subset": ""
 },
 "contract_description|P06M": {
-"rows": 19102,
-"filled": 18941,
+"rows": 18956,
+"filled": 18795,
 "pct": 99.2,
 "pct_any": 99.2,
 "target": "n/a",
@@ -5891,8 +5891,8 @@
 "subset": ""
 },
 "contract_description|P06T": {
-"rows": 43728,
-"filled": 40492,
+"rows": 43465,
+"filled": 40229,
 "pct": 92.6,
 "pct_any": 92.6,
 "target": "n/a",
@@ -5900,25 +5900,25 @@
 "subset": ""
 },
 "contract_description|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 57,
-"pct": 22.4,
-"pct_any": 22.4,
+"pct": 22.5,
+"pct_any": 22.5,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_description|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 86,
-"pct": 12.9,
-"pct_any": 12.9,
+"pct": 13.0,
+"pct_any": 13.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_description|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 1392,
 "pct": 6.5,
 "pct_any": 6.5,
@@ -5936,19 +5936,19 @@
 "subset": ""
 },
 "contract_description|P10": {
-"rows": 2146,
-"filled": 1514,
-"pct": 70.5,
-"pct_any": 70.5,
+"rows": 2137,
+"filled": 1511,
+"pct": 70.7,
+"pct_any": 70.7,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "contract_description|P11": {
-"rows": 1633,
-"filled": 1172,
-"pct": 71.8,
-"pct_any": 71.8,
+"rows": 1596,
+"filled": 1138,
+"pct": 71.3,
+"pct_any": 71.3,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -5963,7 +5963,7 @@
 "subset": ""
 },
 "contract_description|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5972,7 +5972,7 @@
 "subset": ""
 },
 "number_of_bids|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5981,7 +5981,7 @@
 "subset": ""
 },
 "number_of_bids|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -5990,34 +5990,34 @@
 "subset": ""
 },
 "number_of_bids|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 104,
-"pct": 16.6,
-"pct_any": 16.6,
+"pct": 16.7,
+"pct_any": 16.7,
 "target": 60,
 "present": true,
-"subset": "rows from a source that publishes bids: 367 rows, 28.3% filled"
+"subset": "rows from a source that publishes bids: 366 rows, 28.4% filled"
 },
 "number_of_bids|P02": {
-"rows": 463,
-"filled": 50,
-"pct": 10.8,
-"pct_any": 10.8,
+"rows": 464,
+"filled": 49,
+"pct": 10.6,
+"pct_any": 10.6,
 "target": "n/a",
 "present": true,
-"subset": "rows from a source that publishes bids: 294 rows, 17.0% filled"
+"subset": "rows from a source that publishes bids: 295 rows, 16.6% filled"
 },
 "number_of_bids|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 35,
-"pct": 13.5,
-"pct_any": 13.5,
+"pct": 13.4,
+"pct_any": 13.4,
 "target": "n/a",
 "present": true,
-"subset": "rows from a source that publishes bids: 137 rows, 25.5% filled"
+"subset": "rows from a source that publishes bids: 139 rows, 25.2% filled"
 },
 "number_of_bids|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 60,
 "pct": 1.7,
 "pct_any": 1.7,
@@ -6035,7 +6035,7 @@
 "subset": "rows from a source that publishes bids: 51 rows, 19.6% filled"
 },
 "number_of_bids|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -6044,7 +6044,7 @@
 "subset": ""
 },
 "number_of_bids|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -6053,7 +6053,7 @@
 "subset": ""
 },
 "number_of_bids|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -6062,7 +6062,7 @@
 "subset": ""
 },
 "number_of_bids|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -6071,7 +6071,7 @@
 "subset": ""
 },
 "number_of_bids|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -6089,7 +6089,7 @@
 "subset": "rows from a source that publishes bids: 265 rows, 4.2% filled"
 },
 "number_of_bids|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -6098,7 +6098,7 @@
 "subset": ""
 },
 "number_of_bids|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 10,
 "pct": 0.6,
 "pct_any": 0.6,
@@ -6116,7 +6116,7 @@
 "subset": "rows from a source that publishes bids: 16 rows, 0.0% filled"
 },
 "number_of_bids|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 0.0,
@@ -6125,7 +6125,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6134,7 +6134,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 98.0,
@@ -6143,34 +6143,34 @@
 "subset": ""
 },
 "average_contract_duration_days|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 336,
 "pct": 53.8,
-"pct_any": 82.6,
+"pct_any": 82.5,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "average_contract_duration_days|P02": {
-"rows": 463,
+"rows": 464,
 "filled": 246,
-"pct": 53.1,
-"pct_any": 87.0,
+"pct": 53.0,
+"pct_any": 86.9,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "average_contract_duration_days|P03": {
-"rows": 260,
-"filled": 118,
+"rows": 262,
+"filled": 119,
 "pct": 45.4,
-"pct_any": 80.0,
+"pct_any": 79.8,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "average_contract_duration_days|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 686,
 "pct": 19.3,
 "pct_any": 93.0,
@@ -6188,7 +6188,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6197,7 +6197,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P06T": {
-"rows": 43728,
+"rows": 43465,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 99.8,
@@ -6206,7 +6206,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6215,7 +6215,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6224,7 +6224,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6242,7 +6242,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6251,10 +6251,10 @@
 "subset": ""
 },
 "average_contract_duration_days|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 45,
 "pct": 2.8,
-"pct_any": 97.3,
+"pct_any": 97.2,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -6269,7 +6269,7 @@
 "subset": ""
 },
 "average_contract_duration_days|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6278,7 +6278,7 @@
 "subset": ""
 },
 "commodity_distribution_top3|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6287,7 +6287,7 @@
 "subset": ""
 },
 "commodity_distribution_top3|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 1,
 "pct": 0.5,
 "pct_any": 98.5,
@@ -6296,34 +6296,34 @@
 "subset": ""
 },
 "commodity_distribution_top3|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 166,
 "pct": 26.6,
-"pct_any": 55.4,
+"pct_any": 55.3,
 "target": 90,
 "present": true,
 "subset": ""
 },
 "commodity_distribution_top3|P02": {
-"rows": 463,
-"filled": 240,
-"pct": 51.8,
-"pct_any": 85.7,
+"rows": 464,
+"filled": 241,
+"pct": 51.9,
+"pct_any": 85.8,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "commodity_distribution_top3|P03": {
-"rows": 260,
+"rows": 262,
 "filled": 66,
-"pct": 25.4,
-"pct_any": 60.0,
+"pct": 25.2,
+"pct_any": 59.5,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "commodity_distribution_top3|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 748,
 "pct": 21.0,
 "pct_any": 94.8,
@@ -6341,7 +6341,7 @@
 "subset": ""
 },
 "commodity_distribution_top3|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6350,8 +6350,8 @@
 "subset": ""
 },
 "commodity_distribution_top3|P06T": {
-"rows": 43728,
-"filled": 38,
+"rows": 43465,
+"filled": 39,
 "pct": 0.1,
 "pct_any": 99.9,
 "target": "n/a",
@@ -6359,7 +6359,7 @@
 "subset": ""
 },
 "commodity_distribution_top3|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6368,7 +6368,7 @@
 "subset": ""
 },
 "commodity_distribution_top3|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6377,7 +6377,7 @@
 "subset": ""
 },
 "commodity_distribution_top3|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6395,7 +6395,7 @@
 "subset": ""
 },
 "commodity_distribution_top3|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6404,10 +6404,10 @@
 "subset": ""
 },
 "commodity_distribution_top3|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 45,
 "pct": 2.8,
-"pct_any": 97.3,
+"pct_any": 97.2,
 "target": "n/a",
 "present": true,
 "subset": ""
@@ -6422,7 +6422,7 @@
 "subset": ""
 },
 "commodity_distribution_top3|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6431,7 +6431,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6440,7 +6440,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 4,
 "pct": 2.0,
 "pct_any": 100.0,
@@ -6449,17 +6449,17 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P01_GOLD": {
-"rows": 625,
-"filled": 329,
+"rows": 624,
+"filled": 328,
 "pct": 52.6,
-"pct_any": 81.4,
+"pct_any": 81.2,
 "target": 95,
 "present": true,
 "subset": ""
 },
 "year_over_year_spend_trend|P02": {
-"rows": 463,
-"filled": 266,
+"rows": 464,
+"filled": 267,
 "pct": 57.5,
 "pct_any": 91.4,
 "target": "n/a",
@@ -6467,16 +6467,16 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P03": {
-"rows": 260,
-"filled": 128,
-"pct": 49.2,
-"pct_any": 83.8,
+"rows": 262,
+"filled": 130,
+"pct": 49.6,
+"pct_any": 84.0,
 "target": "n/a",
 "present": true,
 "subset": ""
 },
 "year_over_year_spend_trend|P04": {
-"rows": 3558,
+"rows": 3556,
 "filled": 776,
 "pct": 21.8,
 "pct_any": 95.6,
@@ -6494,7 +6494,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P06M": {
-"rows": 19102,
+"rows": 18956,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6503,8 +6503,8 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P06T": {
-"rows": 43728,
-"filled": 51,
+"rows": 43465,
+"filled": 52,
 "pct": 0.1,
 "pct_any": 100.0,
 "target": "n/a",
@@ -6512,7 +6512,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6521,7 +6521,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P07": {
-"rows": 666,
+"rows": 660,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6530,7 +6530,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P08": {
-"rows": 21518,
+"rows": 21363,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6548,7 +6548,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6557,7 +6557,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P11": {
-"rows": 1633,
+"rows": 1596,
 "filled": 47,
 "pct": 2.9,
 "pct_any": 97.4,
@@ -6575,7 +6575,7 @@
 "subset": ""
 },
 "year_over_year_spend_trend|P13": {
-"rows": 164561,
+"rows": 164579,
 "filled": 0,
 "pct": 0.0,
 "pct_any": 100.0,
@@ -6584,44 +6584,44 @@
 "subset": ""
 },
 "mta_sts|P01M": {
-"rows": 196,
-"filled": 188,
-"pct": 95.9,
-"pct_any": 95.9,
+"rows": 190,
+"filled": 190,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P01T": {
-"rows": 198,
-"filled": 191,
-"pct": 96.5,
-"pct_any": 96.5,
+"rows": 202,
+"filled": 202,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 624,
-"pct": 99.8,
-"pct_any": 99.8,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P02": {
-"rows": 463,
-"filled": 462,
-"pct": 99.8,
-"pct_any": 99.8,
+"rows": 464,
+"filled": 464,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P03": {
-"rows": 260,
-"filled": 260,
+"rows": 262,
+"filled": 262,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -6629,64 +6629,64 @@
 "subset": ""
 },
 "mta_sts|P04": {
-"rows": 3558,
-"filled": 3552,
-"pct": 99.8,
-"pct_any": 99.8,
+"rows": 3556,
+"filled": 3556,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P05": {
 "rows": 419,
-"filled": 418,
-"pct": 99.8,
-"pct_any": 99.8,
+"filled": 419,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P06M": {
-"rows": 19102,
-"filled": 18394,
-"pct": 96.3,
-"pct_any": 96.3,
+"rows": 18956,
+"filled": 18956,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P06T": {
-"rows": 43728,
-"filled": 41223,
-"pct": 94.3,
-"pct_any": 94.3,
+"rows": 43465,
+"filled": 43465,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 253,
-"pct": 99.6,
-"pct_any": 99.6,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P07": {
-"rows": 666,
-"filled": 665,
-"pct": 99.8,
-"pct_any": 99.8,
+"rows": 660,
+"filled": 660,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P08": {
-"rows": 21518,
-"filled": 21427,
-"pct": 99.6,
-"pct_any": 99.6,
+"rows": 21363,
+"filled": 21363,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6701,19 +6701,19 @@
 "subset": ""
 },
 "mta_sts|P10": {
-"rows": 2146,
-"filled": 2135,
-"pct": 99.5,
-"pct_any": 99.5,
+"rows": 2137,
+"filled": 2137,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "mta_sts|P11": {
-"rows": 1633,
-"filled": 1589,
-"pct": 97.3,
-"pct_any": 97.3,
+"rows": 1596,
+"filled": 1596,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6728,53 +6728,53 @@
 "subset": ""
 },
 "mta_sts|P13": {
-"rows": 164561,
-"filled": 155633,
-"pct": 94.6,
-"pct_any": 94.6,
+"rows": 164579,
+"filled": 164579,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P01M": {
-"rows": 196,
-"filled": 188,
-"pct": 95.9,
-"pct_any": 95.9,
+"rows": 190,
+"filled": 190,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P01T": {
-"rows": 198,
-"filled": 191,
-"pct": 96.5,
-"pct_any": 96.5,
+"rows": 202,
+"filled": 202,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 624,
-"pct": 99.8,
-"pct_any": 99.8,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P02": {
-"rows": 463,
-"filled": 462,
-"pct": 99.8,
-"pct_any": 99.8,
+"rows": 464,
+"filled": 464,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P03": {
-"rows": 260,
-"filled": 260,
+"rows": 262,
+"filled": 262,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -6782,64 +6782,64 @@
 "subset": ""
 },
 "tls_rpt|P04": {
-"rows": 3558,
-"filled": 3552,
-"pct": 99.8,
-"pct_any": 99.8,
+"rows": 3556,
+"filled": 3556,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P05": {
 "rows": 419,
-"filled": 418,
-"pct": 99.8,
-"pct_any": 99.8,
+"filled": 419,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P06M": {
-"rows": 19102,
-"filled": 18394,
-"pct": 96.3,
-"pct_any": 96.3,
+"rows": 18956,
+"filled": 18956,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P06T": {
-"rows": 43728,
-"filled": 41223,
-"pct": 94.3,
-"pct_any": 94.3,
+"rows": 43465,
+"filled": 43465,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 253,
-"pct": 99.6,
-"pct_any": 99.6,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P07": {
-"rows": 666,
-"filled": 665,
-"pct": 99.8,
-"pct_any": 99.8,
+"rows": 660,
+"filled": 660,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P08": {
-"rows": 21518,
-"filled": 21427,
-"pct": 99.6,
-"pct_any": 99.6,
+"rows": 21363,
+"filled": 21363,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6854,19 +6854,19 @@
 "subset": ""
 },
 "tls_rpt|P10": {
-"rows": 2146,
-"filled": 2135,
-"pct": 99.5,
-"pct_any": 99.5,
+"rows": 2137,
+"filled": 2137,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "tls_rpt|P11": {
-"rows": 1633,
-"filled": 1589,
-"pct": 97.3,
-"pct_any": 97.3,
+"rows": 1596,
+"filled": 1596,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
@@ -6881,53 +6881,53 @@
 "subset": ""
 },
 "tls_rpt|P13": {
-"rows": 164561,
-"filled": 155633,
-"pct": 94.6,
-"pct_any": 94.6,
+"rows": 164579,
+"filled": 164579,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P01M": {
-"rows": 196,
-"filled": 188,
-"pct": 95.9,
-"pct_any": 95.9,
+"rows": 190,
+"filled": 190,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P01T": {
-"rows": 198,
-"filled": 191,
-"pct": 96.5,
-"pct_any": 96.5,
+"rows": 202,
+"filled": 202,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P01_GOLD": {
-"rows": 625,
+"rows": 624,
 "filled": 624,
-"pct": 99.8,
-"pct_any": 99.8,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P02": {
-"rows": 463,
-"filled": 462,
-"pct": 99.8,
-"pct_any": 99.8,
+"rows": 464,
+"filled": 464,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P03": {
-"rows": 260,
-"filled": 260,
+"rows": 262,
+"filled": 262,
 "pct": 100.0,
 "pct_any": 100.0,
 "target": 100,
@@ -6935,64 +6935,64 @@
 "subset": ""
 },
 "bimi|P04": {
-"rows": 3558,
-"filled": 3552,
-"pct": 99.8,
-"pct_any": 99.8,
+"rows": 3556,
+"filled": 3556,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P05": {
 "rows": 419,
-"filled": 418,
-"pct": 99.8,
-"pct_any": 99.8,
+"filled": 419,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P06M": {
-"rows": 19102,
-"filled": 18394,
-"pct": 96.3,
-"pct_any": 96.3,
+"rows": 18956,
+"filled": 18956,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P06T": {
-"rows": 43728,
-"filled": 41223,
-"pct": 94.3,
-"pct_any": 94.3,
+"rows": 43465,
+"filled": 43465,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P06": {
-"rows": 254,
+"rows": 253,
 "filled": 253,
-"pct": 99.6,
-"pct_any": 99.6,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P07": {
-"rows": 666,
-"filled": 665,
-"pct": 99.8,
-"pct_any": 99.8,
+"rows": 660,
+"filled": 660,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P08": {
-"rows": 21518,
-"filled": 21427,
-"pct": 99.6,
-"pct_any": 99.6,
+"rows": 21363,
+"filled": 21363,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
@@ -7007,19 +7007,19 @@
 "subset": ""
 },
 "bimi|P10": {
-"rows": 2146,
-"filled": 2135,
-"pct": 99.5,
-"pct_any": 99.5,
+"rows": 2137,
+"filled": 2137,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "bimi|P11": {
-"rows": 1633,
-"filled": 1589,
-"pct": 97.3,
-"pct_any": 97.3,
+"rows": 1596,
+"filled": 1596,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
@@ -7034,44 +7034,44 @@
 "subset": ""
 },
 "bimi|P13": {
-"rows": 164561,
-"filled": 155633,
-"pct": 94.6,
-"pct_any": 94.6,
+"rows": 164579,
+"filled": 164579,
+"pct": 100.0,
+"pct_any": 100.0,
 "target": 100,
 "present": true,
 "subset": ""
 },
 "vendor_neq|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 88,
-"pct": 44.9,
-"pct_any": 44.9,
+"pct": 46.3,
+"pct_any": 46.3,
 "target": "n/a",
 "present": true,
 "subset": "QC vendors: 50 rows, 100.0% filled"
 },
 "vendor_neq|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 18,
-"pct": 9.1,
-"pct_any": 9.1,
+"pct": 8.9,
+"pct_any": 8.9,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 5 rows, 60.0% filled"
+"subset": "QC vendors: 7 rows, 42.9% filled"
 },
 "vendor_neq|P01_GOLD": {
-"rows": 625,
-"filled": 273,
-"pct": 43.7,
-"pct_any": 43.7,
+"rows": 624,
+"filled": 268,
+"pct": 42.9,
+"pct_any": 42.9,
 "target": 95,
 "present": true,
-"subset": "QC vendors: 51 rows, 98.0% filled"
+"subset": "QC vendors: 49 rows, 98.0% filled"
 },
 "vendor_neq|P02": {
-"rows": 463,
-"filled": 260,
+"rows": 464,
+"filled": 261,
 "pct": 56.2,
 "pct_any": 56.2,
 "target": 95,
@@ -7079,103 +7079,103 @@
 "subset": "QC vendors: 110 rows, 100.0% filled"
 },
 "vendor_neq|P03": {
-"rows": 260,
-"filled": 116,
-"pct": 44.6,
-"pct_any": 44.6,
+"rows": 262,
+"filled": 110,
+"pct": 42.0,
+"pct_any": 42.0,
 "target": 95,
 "present": true,
-"subset": "QC vendors: 19 rows, 100.0% filled"
+"subset": "QC vendors: 17 rows, 100.0% filled"
 },
 "vendor_neq|P04": {
-"rows": 3558,
-"filled": 1142,
+"rows": 3556,
+"filled": 1141,
 "pct": 32.1,
 "pct_any": 32.1,
 "target": 95,
 "present": true,
-"subset": "QC vendors: 581 rows, 97.9% filled"
+"subset": "QC vendors: 591 rows, 97.0% filled"
 },
 "vendor_neq|P05": {
 "rows": 419,
-"filled": 57,
-"pct": 13.6,
-"pct_any": 13.6,
+"filled": 56,
+"pct": 13.4,
+"pct_any": 13.4,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 34 rows, 94.1% filled"
+"subset": "QC vendors: 35 rows, 91.4% filled"
 },
 "vendor_neq|P06M": {
-"rows": 19102,
-"filled": 7394,
-"pct": 38.7,
-"pct_any": 38.7,
+"rows": 18956,
+"filled": 7363,
+"pct": 38.8,
+"pct_any": 38.8,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 5981 rows, 99.8% filled"
+"subset": "QC vendors: 5994 rows, 99.8% filled"
 },
 "vendor_neq|P06T": {
-"rows": 43728,
-"filled": 1963,
-"pct": 4.5,
-"pct_any": 4.5,
+"rows": 43465,
+"filled": 1878,
+"pct": 4.3,
+"pct_any": 4.3,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 1914 rows, 75.5% filled"
+"subset": "QC vendors: 2180 rows, 62.3% filled"
 },
 "vendor_neq|P06": {
-"rows": 254,
-"filled": 21,
-"pct": 8.3,
-"pct_any": 8.3,
+"rows": 253,
+"filled": 20,
+"pct": 7.9,
+"pct_any": 7.9,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 14 rows, 71.4% filled"
+"subset": "QC vendors: 13 rows, 69.2% filled"
 },
 "vendor_neq|P07": {
-"rows": 666,
-"filled": 41,
-"pct": 6.2,
-"pct_any": 6.2,
+"rows": 660,
+"filled": 40,
+"pct": 6.1,
+"pct_any": 6.1,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 36 rows, 72.2% filled"
+"subset": "QC vendors: 35 rows, 71.4% filled"
 },
 "vendor_neq|P08": {
-"rows": 21518,
-"filled": 1368,
+"rows": 21363,
+"filled": 1364,
 "pct": 6.4,
 "pct_any": 6.4,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 1204 rows, 92.8% filled"
+"subset": "QC vendors: 1194 rows, 92.5% filled"
 },
 "vendor_neq|P09": {
 "rows": 278,
-"filled": 208,
-"pct": 74.8,
-"pct_any": 74.8,
+"filled": 206,
+"pct": 74.1,
+"pct_any": 74.1,
 "target": 95,
 "present": true,
-"subset": "QC vendors: 96 rows, 100.0% filled"
+"subset": "QC vendors: 101 rows, 100.0% filled"
 },
 "vendor_neq|P10": {
-"rows": 2146,
+"rows": 2137,
 "filled": 326,
-"pct": 15.2,
-"pct_any": 15.2,
+"pct": 15.3,
+"pct_any": 15.3,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 199 rows, 89.4% filled"
+"subset": "QC vendors: 195 rows, 91.3% filled"
 },
 "vendor_neq|P11": {
-"rows": 1633,
-"filled": 211,
-"pct": 12.9,
-"pct_any": 12.9,
+"rows": 1596,
+"filled": 210,
+"pct": 13.2,
+"pct_any": 13.2,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 157 rows, 89.8% filled"
+"subset": "QC vendors: 154 rows, 90.3% filled"
 },
 "vendor_neq|P12": {
 "rows": 16,
@@ -7187,148 +7187,148 @@
 "subset": "QC vendors: 3 rows, 100.0% filled"
 },
 "vendor_neq|P13": {
-"rows": 164561,
-"filled": 38912,
-"pct": 23.6,
-"pct_any": 23.6,
+"rows": 164579,
+"filled": 38676,
+"pct": 23.5,
+"pct_any": 23.5,
 "target": "n/a",
 "present": true,
-"subset": "QC vendors: 38912 rows, 100.0% filled"
+"subset": "QC vendors: 38676 rows, 100.0% filled"
 },
 "vendor_years_in_business|P01M": {
-"rows": 196,
+"rows": 190,
 "filled": 109,
-"pct": 55.6,
-"pct_any": 55.6,
+"pct": 57.4,
+"pct_any": 57.4,
 "target": "n/a",
 "present": true,
 "subset": "vendors with a registry record: 109 rows, 100.0% filled"
 },
 "vendor_years_in_business|P01T": {
-"rows": 198,
+"rows": 202,
 "filled": 111,
-"pct": 56.1,
-"pct_any": 56.1,
+"pct": 55.0,
+"pct_any": 55.0,
 "target": "n/a",
 "present": true,
 "subset": "vendors with a registry record: 111 rows, 100.0% filled"
 },
 "vendor_years_in_business|P01_GOLD": {
-"rows": 625,
-"filled": 500,
-"pct": 80.0,
-"pct_any": 80.0,
+"rows": 624,
+"filled": 503,
+"pct": 80.6,
+"pct_any": 80.6,
 "target": 100,
 "present": true,
-"subset": "vendors with a registry record: 500 rows, 100.0% filled"
+"subset": "vendors with a registry record: 503 rows, 100.0% filled"
 },
 "vendor_years_in_business|P02": {
-"rows": 463,
-"filled": 361,
-"pct": 78.0,
-"pct_any": 78.0,
+"rows": 464,
+"filled": 363,
+"pct": 78.2,
+"pct_any": 78.2,
 "target": 100,
 "present": true,
-"subset": "vendors with a registry record: 361 rows, 100.0% filled"
+"subset": "vendors with a registry record: 363 rows, 100.0% filled"
 },
 "vendor_years_in_business|P03": {
-"rows": 260,
-"filled": 199,
-"pct": 76.5,
-"pct_any": 76.5,
+"rows": 262,
+"filled": 204,
+"pct": 77.9,
+"pct_any": 77.9,
 "target": 100,
 "present": true,
-"subset": "vendors with a registry record: 199 rows, 100.0% filled"
+"subset": "vendors with a registry record: 204 rows, 100.0% filled"
 },
 "vendor_years_in_business|P04": {
-"rows": 3558,
-"filled": 1793,
-"pct": 50.4,
-"pct_any": 50.4,
+"rows": 3556,
+"filled": 1911,
+"pct": 53.7,
+"pct_any": 53.7,
 "target": 100,
 "present": true,
-"subset": "vendors with a registry record: 1793 rows, 100.0% filled"
+"subset": "vendors with a registry record: 1911 rows, 100.0% filled"
 },
 "vendor_years_in_business|P05": {
 "rows": 419,
-"filled": 258,
-"pct": 61.6,
-"pct_any": 61.6,
+"filled": 265,
+"pct": 63.2,
+"pct_any": 63.2,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 258 rows, 100.0% filled"
+"subset": "vendors with a registry record: 265 rows, 100.0% filled"
 },
 "vendor_years_in_business|P06M": {
-"rows": 19102,
-"filled": 8063,
-"pct": 42.2,
-"pct_any": 42.2,
+"rows": 18956,
+"filled": 8037,
+"pct": 42.4,
+"pct_any": 42.4,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 8063 rows, 100.0% filled"
+"subset": "vendors with a registry record: 8037 rows, 100.0% filled"
 },
 "vendor_years_in_business|P06T": {
-"rows": 43728,
-"filled": 26677,
-"pct": 61.0,
-"pct_any": 61.0,
+"rows": 43465,
+"filled": 24026,
+"pct": 55.3,
+"pct_any": 55.3,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 26677 rows, 100.0% filled"
+"subset": "vendors with a registry record: 24026 rows, 100.0% filled"
 },
 "vendor_years_in_business|P06": {
-"rows": 254,
-"filled": 107,
-"pct": 42.1,
-"pct_any": 42.1,
+"rows": 253,
+"filled": 105,
+"pct": 41.5,
+"pct_any": 41.5,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 107 rows, 100.0% filled"
+"subset": "vendors with a registry record: 105 rows, 100.0% filled"
 },
 "vendor_years_in_business|P07": {
-"rows": 666,
-"filled": 218,
+"rows": 660,
+"filled": 216,
 "pct": 32.7,
 "pct_any": 32.7,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 218 rows, 100.0% filled"
+"subset": "vendors with a registry record: 216 rows, 100.0% filled"
 },
 "vendor_years_in_business|P08": {
-"rows": 21518,
-"filled": 6533,
-"pct": 30.4,
-"pct_any": 30.4,
+"rows": 21363,
+"filled": 6580,
+"pct": 30.8,
+"pct_any": 30.8,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 6533 rows, 100.0% filled"
+"subset": "vendors with a registry record: 6580 rows, 100.0% filled"
 },
 "vendor_years_in_business|P09": {
 "rows": 278,
-"filled": 249,
-"pct": 89.6,
-"pct_any": 89.6,
+"filled": 250,
+"pct": 89.9,
+"pct_any": 89.9,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 249 rows, 100.0% filled"
+"subset": "vendors with a registry record: 250 rows, 100.0% filled"
 },
 "vendor_years_in_business|P10": {
-"rows": 2146,
-"filled": 773,
-"pct": 36.0,
-"pct_any": 36.0,
+"rows": 2137,
+"filled": 841,
+"pct": 39.4,
+"pct_any": 39.4,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 773 rows, 100.0% filled"
+"subset": "vendors with a registry record: 841 rows, 100.0% filled"
 },
 "vendor_years_in_business|P11": {
-"rows": 1633,
-"filled": 913,
-"pct": 55.9,
-"pct_any": 55.9,
+"rows": 1596,
+"filled": 909,
+"pct": 57.0,
+"pct_any": 57.0,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 913 rows, 100.0% filled"
+"subset": "vendors with a registry record: 909 rows, 100.0% filled"
 },
 "vendor_years_in_business|P12": {
 "rows": 16,
@@ -7340,13 +7340,13 @@
 "subset": "vendors with a registry record: 16 rows, 100.0% filled"
 },
 "vendor_years_in_business|P13": {
-"rows": 164561,
-"filled": 39773,
-"pct": 24.2,
-"pct_any": 24.2,
+"rows": 164579,
+"filled": 67503,
+"pct": 41.0,
+"pct_any": 41.0,
 "target": "n/a",
 "present": true,
-"subset": "vendors with a registry record: 39773 rows, 100.0% filled"
+"subset": "vendors with a registry record: 67503 rows, 100.0% filled"
 }
 }
 }
