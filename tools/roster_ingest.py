@@ -160,11 +160,15 @@ def take(a):
                 st["the linked site's name shares nothing with the listed name (a web host, a parent's or a chain's site)"] += 1
             else:
                 st["taken"] += 1
-                listed_by[dom].add(D["key"])
+                if D["kind"] != "tenant":
+                    listed_by[dom].add(D["key"])
                 kept.append((D, dom, h, name, url, (r.get("listed_address") or "").strip()[:200], (r.get("ref") or "").strip()[:60]))
         report.append((D["key"], len(rows), dict(st)))
+    # a domain more than 15 bodies list is a chain's or a parent's site (a franchisee or a branch links its franchisor's): left out. A shopping
+    # centre's tenant is not counted and not left out (2026-11-12): a chain's store in a centre is leased by the chain itself, and a chain is in
+    # many centres (Cadillac Fairview's 14 centres alone are 14 rosters) — the chain's domain stays one buyer, one row
     many = {d for d, s in listed_by.items() if len(s) > 15}
-    return [k for k in kept if k[1] not in many], report, len(many)
+    return [k for k in kept if k[0]["kind"] == "tenant" or k[1] not in many], report, len(many)
 
 
 def check(a):

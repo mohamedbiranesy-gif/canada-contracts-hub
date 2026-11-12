@@ -1,0 +1,13 @@
+{
+ "key": "tn_whiteoaks",
+ "kind": "tenant",
+ "biller": "White Oaks Shopping Centre Inc",
+ "biller_site": "https://www.whiteoaksmall.ca/",
+ "biller_address": "1105 Wellington Road, London, Ontario N6E 1V4",
+ "biller_address_url": "https://www.whiteoaksmall.ca/privacy-policy/",
+ "biller_address_quote": "White Oaks Shopping Centre Inc 1105 Wellington Road London , Ontario N6E 1V4",
+ "read": "2026-11-12",
+ "pays_quote": "Specialty Leasing Inquiries",
+ "pays_url": "https://www.whiteoaksmall.ca/mall-info/contact-us/",
+ "list_name": "the store directory of White Oaks Mall"
+}
