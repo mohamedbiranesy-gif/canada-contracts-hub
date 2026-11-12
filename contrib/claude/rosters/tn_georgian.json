@@ -1,0 +1,13 @@
+{
+ "key": "tn_georgian",
+ "kind": "tenant",
+ "biller": "RioCan Real Estate Investment Trust",
+ "biller_site": "https://georgianmall.ca/",
+ "biller_address": "509 Bayfield St, Barrie, Ontario L4M 4Z8",
+ "biller_address_url": "https://georgianmall.ca/directory",
+ "biller_address_quote": "Georgian Mall 509 Bayfield St Barrie, Ontario L4M 4Z8",
+ "read": "2026-11-12",
+ "pays_quote": "Our leasing representatives are happy to help answer any questions you may have about the properties or their availability.",
+ "pays_url": "https://georgianmall.ca/Leasing",
+ "list_name": "the store directory of Georgian Mall"
+}

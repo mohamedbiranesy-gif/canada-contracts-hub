@@ -1,0 +1,13 @@
+{
+ "key": "tn_billingsbridge",
+ "kind": "tenant",
+ "biller": "Billings Bridge Shopping Centre (administration office)",
+ "biller_site": "https://www.billingsbridge.com/",
+ "biller_address": "2269 Riverside Drive East, Suite 144, Ottawa, ON K1H 8K2",
+ "biller_address_url": "https://www.billingsbridge.com/pages/billings-contact-us",
+ "biller_address_quote": "BILLINGS BRIDGE ADMINISTRATION OFFICE2269 Riverside Drive East,Suite 144Ottawa On K1H 8K2",
+ "read": "2026-11-12",
+ "pays_quote": "Interested in a leasing opportunity at Billings Bridge?",
+ "pays_url": "https://billingsbridge.com/pages/leasing",
+ "list_name": "the store directory of Billings Bridge Ottawa"
+}

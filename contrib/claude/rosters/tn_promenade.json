@@ -1,0 +1,13 @@
+{
+ "key": "tn_promenade",
+ "kind": "tenant",
+ "biller": "Promenade Limited Partnership",
+ "biller_site": "https://www.promenade.ca/",
+ "biller_address": "1 Promenade Circle, Thornhill, Ontario L4J 4P8",
+ "biller_address_url": "https://www.promenade.ca/pages/about",
+ "biller_address_quote": "Visit 1 Promenade Circle, Thornhill, Ontario L4J4P8",
+ "read": "2026-11-12",
+ "pays_quote": "Promenade offers both long term inline leasing as well as short term specialty leasing",
+ "pays_url": "https://www.promenade.ca/pages/leasing",
+ "list_name": "the store directory of Promenade"
+}

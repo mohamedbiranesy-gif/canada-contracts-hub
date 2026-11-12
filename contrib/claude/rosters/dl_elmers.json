@@ -1,0 +1,13 @@
+{
+ "key": "dl_elmers",
+ "kind": "dealer",
+ "biller": "Elmer's Manufacturing",
+ "biller_site": "https://elmersmfg.com/",
+ "biller_address": "9118 Hwy 30 North, Altona, MB R0G 0B0, Canada",
+ "biller_address_url": "https://elmersmfg.com/contact-us/",
+ "biller_address_quote": "9118 Hwy 30 North, Altona, MB, R0G 0B0",
+ "read": "2026-11-12",
+ "pays_quote": "Our products are sold in Canada and several countries around the world, such as the United States and Australia through local farming equipment distributors.",
+ "pays_url": "https://elmersmfg.com/wp-content/uploads/2025/06/Elmers-Manufacturing-Report.pdf",
+ "list_name": "the Elmer's Manufacturing dealer locator (Canada, United States, Australia and South Africa)"
+}

@@ -1,0 +1,13 @@
+{
+ "key": "dl_honeybee",
+ "kind": "dealer",
+ "biller": "Honey Bee Manufacturing Ltd.",
+ "biller_site": "https://honeybee.ca/",
+ "biller_address": "Box 120, Frontier, Saskatchewan S0N 0W0, Canada",
+ "biller_address_url": "https://honeybee.ca/contact/",
+ "biller_address_quote": "Honey Bee Manufacturing Ltd. Box 120, Frontier, Saskatchewan, Canada S0N 0W0",
+ "read": "2026-11-12",
+ "pays_quote": "Parts Inquiries (please place parts orders on our Dealer Portal)",
+ "pays_url": "https://honeybee.ca/contact/",
+ "list_name": "the Honey Bee dealer locator (dealers and parts dealers worldwide)"
+}

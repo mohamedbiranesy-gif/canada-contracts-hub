@@ -1,0 +1,13 @@
+{
+ "key": "tn_oakvilleplace",
+ "kind": "tenant",
+ "biller": "RioCan Real Estate Investment Trust",
+ "biller_site": "https://oakvilleplace.com/",
+ "biller_address": "240 Leighland Ave, Oakville, Ontario L6H 3H6",
+ "biller_address_url": "https://oakvilleplace.com/directory",
+ "biller_address_quote": "Oakville Place 240 Leighland Ave Oakville, Ontario L6H 3H6",
+ "read": "2026-11-12",
+ "pays_quote": "Our leasing representatives are happy to help answer any questions you may have about the properties or their availability.",
+ "pays_url": "https://oakvilleplace.com/leasing",
+ "list_name": "the store directory of Oakville Place"
+}

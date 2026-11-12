@@ -1,0 +1,13 @@
+{
+ "key": "tn_lyndenpark",
+ "kind": "tenant",
+ "biller": "Lynden Park Mall (NADG)",
+ "biller_site": "https://www.lyndenparkmall.com/",
+ "biller_address": "84 Lynden Rd, Brantford, ON N3R 6B8",
+ "biller_address_url": "https://www.lyndenparkmall.com/directory",
+ "biller_address_quote": "Lynden Park Mall 84 Lynden Rd Brantford, ON N3R 6B8",
+ "read": "2026-11-12",
+ "pays_quote": "Lynden Park Mall is Brantford’s only regional enclosed shopping centre and is well positioned at the interchange of Highway 403 and Wayne Gretzky Parkway.",
+ "pays_url": "https://www.lyndenparkmall.com/leasing",
+ "list_name": "the store directory of Lynden Park Mall"
+}

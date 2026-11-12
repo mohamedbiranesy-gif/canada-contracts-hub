@@ -1,0 +1,13 @@
+{
+ "key": "dl_seedmaster",
+ "kind": "dealer",
+ "biller": "SeedMaster Manufacturing Ltd.",
+ "biller_site": "https://seedmaster.ca/",
+ "biller_address": "1 South Plains Road West, Emerald Park, Saskatchewan S4L 1C6, Canada",
+ "biller_address_url": "https://seedmaster.ca/contact-us/",
+ "biller_address_quote": "Office Location 1 South Plains Road West Emerald Park, Saskatchewan S4L 1C6",
+ "read": "2026-11-12",
+ "pays_quote": "From sales and service to parts and support, our network of SeedMaster dealers are here for you any time of year.",
+ "pays_url": "https://seedmaster.ca/find-a-dealer/",
+ "list_name": "the SeedMaster dealer locator (dealers in Canada, the United States and Australia)"
+}

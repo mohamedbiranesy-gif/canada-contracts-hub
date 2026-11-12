@@ -267,7 +267,7 @@ BY_KIND = {
     "tenancy": "rent under a commercial lease: due each month, paid by cheque or pre-authorised debit",
     "sponsorship": "a sponsorship or an exhibitor's fee: an invoice from the organiser, paid by cheque or bank transfer",
     "agent of record": "an agent's professional fees and the official fees it advances: an invoice for each step, paid by cheque or wire transfer",
-    "exchange listing": "a stock exchange's annual sustaining fee: the exchange's invoice, once a year, paid by wire transfer or cheque",
+    "exchange listing": "a stock exchange's listing fee: billed by the exchange for each year or each month of listing, paid by wire transfer, pre-authorised debit or cheque",
     "utility account by location": "an electricity bill: issued every month or every two months, paid through a financial institution, by pre-authorised debit or by cheque",
 }
 NOT_BY_KIND = ("canadian intellectual property office",)  # its page names the ways of paying and no notice or invoice: nothing is said in its place
@@ -523,6 +523,8 @@ def billing_cadence(x, kind):
         when.append("at each renewal of the membership")
     elif kind == "exchange listing" and code == "3":
         when.append("once a year, on the exchange's invoice" + ("; Toronto Stock Exchange invoices in February" if "invoiced in February" in deliv else ""))
+    elif kind == "exchange listing" and code == "1":
+        when.append("a fee for each month of listing")
     elif kind == "sponsorship":
         when.append("for each event or season")
     elif kind == "agent of record":

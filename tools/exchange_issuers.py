@@ -47,12 +47,26 @@ TSXV_Q = ("the annual sustaining fee is payable for each calendar year and is eq
           "(plus applicable taxes) up to a maximum of $90,000 (plus applicable taxes).")
 TSXV_INV_Q = ("If an Issuer fails to submit its annual sustaining fee by the remittance date specified by the Exchange in its invoice, an additional monthly "
               "fee of 1.5% of the outstanding annual sustaining fee will be payable by the Issuer for each full month that the annual sustaining fee remains unpaid.")
-NAME = {"TSX": "Toronto Stock Exchange (TSX Inc., TMX Group)", "TSXV": "TSX Venture Exchange (TMX Group)"}
+NAME = {"TSX": "Toronto Stock Exchange (TSX Inc., TMX Group)", "TSXV": "TSX Venture Exchange (TMX Group)", "CSE": "Canadian Securities Exchange (CNSX Markets Inc.)"}
+# The Canadian Securities Exchange (2026-11-12): its own list of listed companies, the one its "Listed Companies" page loads (one request), names each
+# issuer, its symbol, sector, listing date and its website; its fee page: a monthly maintenance fee, $1,000 a month at the least.
+CSE_LIST = "https://thecse.com/api/webapi/listed-companies/"
+CSE_LIST_PAGE = "https://thecse.com/listing/listed-companies/"
+CSE_FEES = "https://thecse.com/listing/fees-policies-forms/"
+CSE_ADDR = "Canadian Securities Exchange (CNSX Markets Inc.), 100 King Street West, Suite 7210, Toronto, ON M5X 1E1"
+CSE_ADDR_Q = "100 King Street West, Suite 7210 Toronto, ON, M5X 1E1"
+CSE_ADDR_URL = "https://thecse.com/en/contact-us/"
+CSE_DUE_Q = "The monthly maintenance fee is due on the first business day of each month the Issuer is listed."
+CSE_MIN_Q = "The first monthly fee for a Listed Issuer will be the minimum base fee of $1,000."
+CSE_ASSESS_Q = ("Each listed issuer will be assessed a monthly fee calculated as a percentage of its daily average market capitalization for the first 9 months "
+                "of the previous calendar year.")
+CSE_TABLE_Q = ("the fee table's cells: Market Capitalization / Monthly Fee / Annual Cost — $10 million or less / $1,000 / $12,000; Greater than $10 million / "
+               "Base Fee $1,250 / Rate 0.001% of Market Capitalization / Minimum $16,200 / Maximum $125,000")
 NOT_ISSUER = {"ETP", "CDR", "Closed-End Funds", "SPAC", "CPC"}
 ISSUERS = os.path.join(DIR, "issuers.csv.gz")
 SITES = os.path.join(DIR, "issuer_sites.csv")
 SDONE = os.path.join(DIR, "issuer_sites_done.tsv")
-COLS = ["key", "co_id", "exchange", "name", "ticker", "market_cap", "sector", "hq_location", "hq_region", "listing_type", "listing_date", "fee", "list_month"]
+COLS = ["key", "co_id", "exchange", "name", "ticker", "market_cap", "sector", "hq_location", "hq_region", "listing_type", "listing_date", "fee", "list_month", "site_listed"]
 BAD = re.compile(r"linkedin|facebook|twitter|x\.com|instagram|youtube|sedar|tmx\.com|tsx\.com|google|wikipedia", re.I)
 
 
@@ -72,6 +86,10 @@ def cmd_pull(a):
     with urllib.request.urlopen(req, timeout=120) as r, open(os.path.join(a.work, "listed.xlsx"), "wb") as f:
         f.write(r.read())
     print("pulled the list of listed companies (%d bytes)" % os.path.getsize(os.path.join(a.work, "listed.xlsx")))
+    req = urllib.request.Request(CSE_LIST, headers={"User-Agent": UA, "Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=120) as r, open(os.path.join(a.work, "cse_listed.json"), "wb") as f:
+        f.write(r.read())
+    print("pulled the Canadian Securities Exchange's list of listed companies (%d bytes)" % os.path.getsize(os.path.join(a.work, "cse_listed.json")))
 
 
 def cmd_build(a):
@@ -99,9 +117,25 @@ def cmd_build(a):
                         "listing_type": col(r, "Listing Type") or "", "listing_date": ("%s-%s-%s" % (ld[:4], ld[4:6], ld[6:8])) if re.fullmatch(r"\d{8}", ld) else "",
                         "fee": "%.0f" % fee_of(ex, mcap), "list_month": "%s %s" % (month.group(1), month.group(2)) if month else ""})
             why["%s issuer kept" % ex] += 1
+    cj = os.path.join(a.work, "cse_listed.json")
+    if os.path.exists(cj):
+        by_issuer = {}
+        for r in json.load(open(cj, encoding="utf-8")):
+            if (r.get("security_type") or "") != "Equity" or (r.get("status") or "") != "Active" or (r.get("listing_market") or "CSE") != "CSE":
+                why["CSE %s: left out" % (r.get("security_type") or "?")] += 1
+                continue
+            iid = re.sub(r"\D", "", (r.get("sedar_filings") or "").rsplit("/", 1)[-1]) or (r.get("symbol") or "").split(".")[0]
+            by_issuer.setdefault(iid, []).append(r)
+        for iid, rs in by_issuer.items():
+            r = min(rs, key=lambda x: (len(x.get("symbol") or ""), len(x.get("security_name") or "")))  # the issuer's main class: URB before URB.A
+            out.append({"key": "xc:cse:%s" % iid, "co_id": "cse:%s" % iid, "exchange": "CSE", "name": re.sub(r"\s+", " ", r.get("security_name") or "").strip(),
+                        "ticker": (r.get("symbol") or "").strip(), "market_cap": "", "sector": r.get("sector") or "", "hq_location": "", "hq_region": "",
+                        "listing_type": "tier %s" % r.get("tier") if r.get("tier") else "", "listing_date": r.get("listing_date") or "", "fee": "12000",
+                        "list_month": TODAY, "site_listed": (r.get("company_website_url") or "").strip()})
+            why["CSE issuer kept"] += 1
     os.makedirs(DIR, exist_ok=True)
     with gzip.open(ISSUERS, "wt", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=COLS); w.writeheader(); w.writerows(out)
+        w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore"); w.writeheader(); w.writerows(out)
     print("listed issuers: %s; a yearly fee of $5,000 or more (calculated): %d" % (dict(why), sum(1 for o in out if float(o["fee"]) >= 5000)))
 
 
@@ -176,7 +210,29 @@ def cmd_sites(a):
     os.makedirs(DIR, exist_ok=True)
     have = sites_on_file()
     done = {l.split("\t")[0] for l in open(SDONE, encoding="utf-8")} if os.path.exists(SDONE) else set()
-    todo = [o for o in issuers() if o["key"] not in have and o["key"] not in done]
+    fresh = []
+    for o in issuers():
+        u = (o.get("site_listed") or "").strip()
+        if o["key"] in have or not u:
+            continue
+        u = u if re.match(r"(?i)https?://", u) else "https://" + u
+        h = (urllib.parse.urlparse(u).hostname or "").lower()
+        if not h or "." not in h or BAD.search(h):
+            continue
+        r0 = {"key": o["key"], "site": "https://%s/" % (h[4:] if h.startswith("www.") else h), "read": TODAY,
+              "tied_by": "the exchange's own list of listed companies gives %s as the company's website (%s, read %s)" % (o["site_listed"], CSE_LIST_PAGE, TODAY),
+              "quote": "company_website_url: %s" % o["site_listed"]}
+        have[o["key"]] = r0
+        fresh.append(r0)
+    if fresh:
+        new0 = not os.path.exists(SITES)
+        with open(SITES, "a", encoding="utf-8", newline="") as f0:
+            w0 = csv.DictWriter(f0, fieldnames=["key", "site", "tied_by", "quote", "read"])
+            if new0:
+                w0.writeheader()
+            w0.writerows(fresh)
+    print("issuer sites from the exchange's own list (Canadian Securities Exchange): %d new" % len(fresh), flush=True)
+    todo = [o for o in issuers() if o["key"] not in have and o["key"] not in done and o["exchange"] != "CSE"]
     todo.sort(key=lambda o: -float(o["fee"]))
     new = not os.path.exists(SITES)
     f = open(SITES, "a", encoding="utf-8", newline="")
@@ -223,35 +279,53 @@ def money(v):
 
 def lead_of(o, s):
     key = "lead:" + hashlib.sha1(("xc|%s" % o["co_id"]).encode()).hexdigest()[:16]
-    ex, fee, mcap = o["exchange"], float(o["fee"]), float(o["market_cap"] or 0)
+    ex, fee, mcap = o["exchange"], float(o["fee"] or 0), float(o["market_cap"] or 0)
     biller = NAME[ex]
-    if ex == "TSX":
-        unit_q, unit_url, inv_q = TSX_TIER_Q, TSX_FEES, TSX_INV_Q
-        basis = "Toronto Stock Exchange's Listing Fee Schedule (effective August 1, 2025), annual sustaining fee of a corporate issuer: “%s” (%s, read %s)" % (TSX_TIER_Q, TSX_FEES, READ)
-        more = "; an eligible international interlisted issuer pays 25 % less and an eligible secondary market issuer 50 % less, and $1,000 is added for each supplemental security — not known here"
+    short = biller.split(" (")[0]
+    if ex == "CSE":
+        addr, addr_q, addr_url, vsite, list_url, list_page = CSE_ADDR, CSE_ADDR_Q, CSE_ADDR_URL, "https://thecse.com/", CSE_LIST, CSE_LIST_PAGE
+        cfv_q, unit_url = CSE_DUE_Q, CSE_FEES
+        basis = "the Canadian Securities Exchange's listing fees: “%s” “%s” — %s (%s, read %s)" % (CSE_MIN_Q, CSE_ASSESS_Q, CSE_TABLE_Q, CSE_FEES, READ)
+        calc = ("calculated — at least C$12,000 a year (C$1,000 a month): the exchange's published minimum monthly fee; above a market capitalization of $10 million "
+                "the fee is $1,250 a month plus 0.001 %% of the market capitalization, C$16,200 to C$125,000 a year — the exchange's list gives no market capitalization (%s)" % CSE_FEES)
+        fee_unit = "C$1,000 a month at the least (the exchange's published minimum base fee)"
+        delivery = "a monthly maintenance fee, due on the first business day of each month: “%s” (%s, read %s)" % (CSE_DUE_Q, CSE_FEES, READ)
+        terms = "due on the first business day of each month the issuer is listed: “%s” (%s, read %s)" % (CSE_DUE_Q, CSE_FEES, READ)
+        items = "the monthly maintenance fee for the listing of %s on the Canadian Securities Exchange (symbol %s)" % (o["name"], o["ticker"])
+        fee_words = "a monthly maintenance fee, due on the first business day of each month"
+        reg_id = "CSE symbol %s (CSE issuer %s)" % (o["ticker"], o["co_id"].split(":")[-1])
+        unit_q = "%s %s" % (CSE_MIN_Q, CSE_TABLE_Q)
     else:
-        unit_q, unit_url, inv_q = TSXV_Q, TSXV_FEES, TSXV_INV_Q
-        basis = "TSX Venture Exchange's fee schedule: “%s” (%s, read %s)" % (TSXV_Q, TSXV_FEES, READ)
-        more = ""
-    calc = ("calculated — about %s a year: the exchange's published annual sustaining fee applied to the issuer's market capitalization of %s on %s as the exchange's "
-            "own list gives it (%s); the fee is calculated on the market capitalization of the last trading day of the year, so the bill differs%s"
-            % (money(fee), money(mcap), o["list_month"] or "the list's date", LIST_URL, more))
+        addr, addr_q, addr_url, vsite, list_url, list_page = ADDR, ADDR_Q, ADDR_URL, "https://www.tsx.com/", LIST_URL, LIST_PAGE
+        if ex == "TSX":
+            unit_q, unit_url, cfv_q = TSX_TIER_Q, TSX_FEES, TSX_INV_Q
+            basis = "Toronto Stock Exchange's Listing Fee Schedule (effective August 1, 2025), annual sustaining fee of a corporate issuer: “%s” (%s, read %s)" % (TSX_TIER_Q, TSX_FEES, READ)
+            more = "; an eligible international interlisted issuer pays 25 % less and an eligible secondary market issuer 50 % less, and $1,000 is added for each supplemental security — not known here"
+        else:
+            unit_q, unit_url, cfv_q = TSXV_Q, TSXV_FEES, TSXV_INV_Q
+            basis = "TSX Venture Exchange's fee schedule: “%s” (%s, read %s)" % (TSXV_Q, TSXV_FEES, READ)
+            more = ""
+        calc = ("calculated — about %s a year: the exchange's published annual sustaining fee applied to the issuer's market capitalization of %s on %s as the exchange's "
+                "own list gives it (%s); the fee is calculated on the market capitalization of the last trading day of the year, so the bill differs%s"
+                % (money(fee), money(mcap), o["list_month"] or "the list's date", LIST_URL, more))
+        fee_unit = "%s a year at the least (the exchange's published minimum: %s)" % ("C$12,000" if ex == "TSX" else "C$5,500", "the base fee of its first tier" if ex == "TSX" else "$5,500 plus 0.011 % of the market capitalization")
+        delivery = "an invoice from the exchange every year: “%s” (%s, read %s)" % (cfv_q, unit_url, READ)
+        terms = ("by the remittance date the exchange's invoice gives, 1.5 %% a month after it: “%s” (%s, read %s)" % (TSXV_INV_Q, TSXV_FEES, READ)) if ex == "TSXV" else ""
+        items = "the annual sustaining fee for the listing of %s on %s (symbol %s)" % (o["name"], short, o["ticker"])
+        fee_words = "an annual sustaining fee, on the exchange's invoice"
+        reg_id = "%s symbol %s (TMX company id %s)" % (ex, o["ticker"], o["co_id"])
     row = {"buyer_key": key, "buyer_name": o["name"], "website": s["site"], "canadian_vendor_rows": 1, "example_vendor": biller,
            "canada_field_value": "membership / statutory fee relationship: listed issuer of the Canadian body (%s)=%s (as printed on %s, read %s); %s: “%s” (%s)"
-                                 % (biller, ADDR, ADDR_URL, READ, biller.split(" (")[0], inv_q, unit_url),
-           "evidence_dataset": LIST_PAGE, "latest_record_date": TODAY}
-    det = {"key": key, "platform": "exchange_register", "record_url": LIST_URL, "vendor": biller, "record_date": TODAY, "start": o["listing_date"], "end": "",
-           "reference": "symbol %s (%s)" % (o["ticker"], ex), "title": "Listing on %s, symbol %s — %s, head office %s, %s" % (biller.split(" (")[0], o["ticker"], o["sector"], o["hq_location"], o["hq_region"]),
-           "vendor_address": "%s (as printed on %s, read %s)" % (ADDR_Q, ADDR_URL, READ), "vendor_site": "https://www.tsx.com/",
-           "member_address_quote": "", "register_label": "the exchange's list of listed companies (%s, %s)" % (o["list_month"], LIST_URL),
-           "buyer_register": {"legal_name": o["name"], "trade_names": [], "registry_id": "%s symbol %s (TMX company id %s)" % (ex, o["ticker"], o["co_id"]),
-                              "label": "the list of companies listed on %s, %s" % (biller.split(" (")[0], o["list_month"])},
-           "xc_exchange": ex, "xc_ticker": o["ticker"], "xc_market_cap": mcap, "xc_sector": o["sector"],
-           "fee_unit": "%s a year at the least (the exchange's published minimum: %s)" % ("C$12,000" if ex == "TSX" else "C$5,500", "the base fee of its first tier" if ex == "TSX" else "$5,500 plus 0.011 % of the market capitalization"),
-           "fee_unit_basis": basis, "fee_calculated": calc,
-           "bill_delivery": "an invoice from the exchange every year: “%s” (%s, read %s)" % (inv_q, unit_url, READ),
-           "bill_terms": ("by the remittance date the exchange's invoice gives, 1.5 % a month after it: “%s” (%s, read %s)" % (TSXV_INV_Q, TSXV_FEES, READ)) if ex == "TSXV" else "",
-           "bill_items": "the annual sustaining fee for the listing of %s on %s (symbol %s)" % (o["name"], biller.split(" (")[0], o["ticker"]),
+                                 % (biller, addr, addr_url, READ, short, cfv_q, unit_url),
+           "evidence_dataset": list_page, "latest_record_date": TODAY}
+    det = {"key": key, "platform": "exchange_register", "record_url": list_url, "vendor": biller, "record_date": TODAY, "start": o["listing_date"], "end": "",
+           "reference": "symbol %s (%s)" % (o["ticker"], ex),
+           "title": "Listing on %s, symbol %s — %s%s" % (short, o["ticker"], o["sector"], (", head office %s, %s" % (o["hq_location"], o["hq_region"])) if o.get("hq_location") else ""),
+           "vendor_address": "%s (as printed on %s, read %s)" % (addr_q, addr_url, READ), "vendor_site": vsite,
+           "member_address_quote": "", "register_label": "the exchange's list of listed companies (%s, %s)" % (o["list_month"], list_page),
+           "buyer_register": {"legal_name": o["name"], "trade_names": [], "registry_id": reg_id, "label": "the list of companies listed on %s, %s" % (short, o["list_month"])},
+           "xc_exchange": ex, "xc_ticker": o["ticker"], "xc_market_cap": mcap, "xc_sector": o["sector"], "xc_fee_words": fee_words,
+           "fee_unit": fee_unit, "fee_unit_basis": basis, "fee_calculated": calc, "bill_delivery": delivery, "bill_terms": terms, "bill_items": items,
            "fee_basis": "%s (%s)" % (unit_q, unit_url), "site_named_by": s["tied_by"], "site_tied_to_holder_by": s["tied_by"], "site_quote": s.get("quote") or ""}
     return row, det
 

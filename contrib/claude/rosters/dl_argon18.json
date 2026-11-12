@@ -1,0 +1,14 @@
+{
+ "key": "dl_argon18",
+ "kind": "dealer",
+ "biller": "Argon 18 Inc.",
+ "biller_site": "https://www.argon18.com/",
+ "biller_address": "225 Rue de Liège West, suite 110, Montréal (Québec), Canada H2P 1H4",
+ "biller_address_url": "https://www.argon18.com/en-us/support/contact-us",
+ "biller_address_quote": "Argon 18 Inc. 225 Rue de Liège West, suite 110 Montréal (Québec), Canada H2P 1H4",
+ "read": "2026-11-12",
+ "pays_quote": "DISTRIBUTORS AND RETAILERS In the case of retailers and distributors, the warranty period described in the previous paragraph is calculated from the date of delivery.",
+ "pays_url": "https://www.argon18.com/en-us/support/warranty",
+ "list_name": "the Argon 18 dealer locator (retailers and distributors)",
+ "scope_note": "dealers in Canada, the United States and the markets for which Argon 18's locator names no separate Argon 18 entity; European retailers left out (lane claude, 2026-11-12): Argon 18 Europe, a Danish company of the group, may be the one that supplies and bills them"
+}

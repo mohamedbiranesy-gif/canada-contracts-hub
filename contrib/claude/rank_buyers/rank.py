@@ -1789,10 +1789,10 @@ for k, L in sorted(leads.items(), key=lead_strength):
                            ("holds the right to sell %s in Canada on Health Canada's public register (%s, read %s): Health Canada invoices the holder every year for the right "
                             "to sell each one" % ((LDET.get(k) or {}).get("hc_what") or "products", (LDET.get(k) or {}).get("register_label") or "Health Canada's register",
                                                   (L.get("latest_record_date") or "")[:10])) if member and "right-to-sell holder of the Canadian body" in L.get("canada_field_value", "") else
-                           ("listed issuer on a Canadian stock exchange: %s — symbol %s, listed since %s, on %s (read %s); every listed company pays the exchange an annual sustaining "
-                            "fee, on the exchange's invoice" % (L["example_vendor"], (LDET.get(k) or {}).get("xc_ticker") or "?", (LDET.get(k) or {}).get("start") or "an unstated date",
-                                                               (LDET.get(k) or {}).get("register_label") or "the exchange's list of listed companies",
-                                                               (L.get("latest_record_date") or "")[:10])) if member and "listed issuer of the Canadian body" in L.get("canada_field_value", "") else
+                           ("listed issuer on a Canadian stock exchange: %s — symbol %s, listed since %s, on %s (read %s); every listed company pays the exchange %s"
+                            % (L["example_vendor"], (LDET.get(k) or {}).get("xc_ticker") or "?", (LDET.get(k) or {}).get("start") or "an unstated date",
+                               (LDET.get(k) or {}).get("register_label") or "the exchange's list of listed companies", (L.get("latest_record_date") or "")[:10],
+                               (LDET.get(k) or {}).get("xc_fee_words") or "an annual sustaining fee, on the exchange's invoice")) if member and "listed issuer of the Canadian body" in L.get("canada_field_value", "") else
                            ("member / regulated payer of a Canadian body (current list read %s): %s" % ((L.get("latest_record_date") or "")[:10], L["example_vendor"])) if member else
                            tech_status(k, L) if tech else
                            ("likely active (awarded 12-36 months ago; deal announced by the Canada-based vendor: press release / EDC transaction)" if announced else
@@ -5160,6 +5160,8 @@ def billing_of(x, ld):
         return "3 yearly or longer", CIRA_TERM
     if t == "M":
         if cs.startswith("listed issuer on a Canadian stock exchange"):
+            if ld.get("xc_exchange") == "CSE":  # the Canadian Securities Exchange: a monthly maintenance fee
+                return "1 monthly", "the exchange's own fee page: %s" % (ld.get("bill_delivery") or "a monthly maintenance fee")[:420]
             return "3 yearly or longer", "the exchange's own fee schedule: %s" % (ld.get("bill_delivery") or "an annual sustaining fee for each calendar year")[:420]
         if cs.startswith(("client of a Canadian trademark agent of record", "client of a Canadian patent agent of record")):
             return "4 per transaction", ("by the kind of relationship: an agent of record bills its professional fees for each filing, step, renewal or maintenance fee it handles "
@@ -5761,8 +5763,9 @@ for _ri, x in enumerate(rows):
                                                % (_ld.get("site_tied_to_holder_by") or "the tests of the tool", (_ld.get("site_facts_from") or "")[:120]))
         elif _cs.startswith("listed issuer on a Canadian stock exchange"):
             _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
-            x["relationship_kind"] = "listing on a Canadian stock exchange: the issuer pays the exchange an annual sustaining fee, invoiced every year (the exchange's own list and fee schedule)"
-            x["how_relationship_was_found"] = ("tools/exchange_issuers.py read the exchanges' own monthly list of listed companies (name, symbol, market capitalization, head office); the issuer's "
+            x["relationship_kind"] = ("listing on a Canadian stock exchange: the issuer pays the exchange %s (the exchange's own list and fee schedule)"
+                                      % (_ld.get("xc_fee_words") or "an annual sustaining fee, on the exchange's invoice"))
+            x["how_relationship_was_found"] = ("tools/exchange_issuers.py read the exchange's own list of listed companies (name, symbol, sector, listing date); the issuer's "
                                                "own site was kept only because %s; the mailbox comes from that site" % (_ld.get("site_tied_to_holder_by") or "the tests of the tool")[:400])
         elif _cs.startswith("client of a Canadian patent agent of record"):
             _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}

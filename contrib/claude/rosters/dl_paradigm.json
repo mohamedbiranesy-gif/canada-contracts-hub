@@ -1,0 +1,13 @@
+{
+ "key": "dl_paradigm",
+ "kind": "dealer",
+ "biller": "Paradigm Electronics Inc.",
+ "biller_site": "https://www.paradigm.com/",
+ "biller_address": "205 Annagem Blvd., Mississauga, ON L5T 2V1, Canada",
+ "biller_address_url": "https://www.paradigm.com/en/contact-us",
+ "biller_address_quote": "Paradigm Electronics Inc. 205 Annagem Blvd. Mississauga, ON L5T 2V1 Canada",
+ "read": "2026-11-12",
+ "pays_quote": "This warranty applies only to purchases made from authorized Paradigm dealers in Canada and the United States.",
+ "pays_url": "https://www.paradigm.com/en/warranty-information",
+ "list_name": "the Paradigm dealer locator (authorized dealers in Canada and the United States, and its international distributors list)"
+}
