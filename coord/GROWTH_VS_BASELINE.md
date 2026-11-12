@@ -4,42 +4,42 @@ The baseline is what could have been shipped on 2026-11-09. Waiting pays only if
 
 | metric | baseline | now | change |
 |---|---|---|---|
-| rows | 63641 | 260045 | +196404 |
-| rows_named_vendor_relationship | 12816 | 95027 | +82211 |
+| rows | 63641 | 259912 | +196271 |
+| rows_named_vendor_relationship | 12816 | 95335 | +82519 |
 | rows_registry_contract_R | 0 | 0 | +0 |
-| rows_inferred_or_weak | 50825 | 165018 | +114193 |
-| buyers_total | 63641 | 260045 | +196404 |
-| buyers_ap_confirmed | 1364 | 1935 | +571 |
-| buyers_fin_confirmed | 1715 | 3895 | +2180 |
-| buyers_any_confirmed | 63163 | 258180 | +195017 |
-| pay_on_sight_yes | 833 | 1164 | +331 |
-| pay_on_sight_ref | 841 | 990 | +149 |
-| pay_on_sight_routed | 22341 | 60198 | +37857 |
-| gold_rows | 624 | 644 | +20 |
-| gold_pay_on_sight | 395 | 409 | +14 |
-| grade_A | 306 | 319 | +13 |
-| gold_A | 225 | 230 | +5 |
-| grade_A_or_B | 867 | 1043 | +176 |
-| public_rows | 12835 | 95043 | +82208 |
-| terms_published_public | 1877 | 3375 | +1498 |
-| po_rule_published_public | 1396 | 2191 | +795 |
-| billto_legal_name_published | 33765 | 109512 | +75747 |
-| vendor_bn9_known | 53138 | 82051 | +28913 |
+| rows_inferred_or_weak | 50825 | 164577 | +113752 |
+| buyers_total | 63641 | 259912 | +196271 |
+| buyers_ap_confirmed | 1364 | 1911 | +547 |
+| buyers_fin_confirmed | 1715 | 3869 | +2154 |
+| buyers_any_confirmed | 63163 | 258044 | +194881 |
+| pay_on_sight_yes | 833 | 1143 | +310 |
+| pay_on_sight_ref | 841 | 983 | +142 |
+| pay_on_sight_routed | 22341 | 59726 | +37385 |
+| gold_rows | 624 | 625 | +1 |
+| gold_pay_on_sight | 395 | 397 | +2 |
+| grade_A | 306 | 311 | +5 |
+| gold_A | 225 | 224 | -1 |
+| grade_A_or_B | 867 | 1031 | +164 |
+| public_rows | 12835 | 95351 | +82516 |
+| terms_published_public | 1877 | 3640 | +1763 |
+| po_rule_published_public | 1396 | 2374 | +978 |
+| billto_legal_name_published | 33765 | 109241 | +75476 |
+| vendor_bn9_known | 53138 | 81623 | +28485 |
 | inferred_policy_cells_p80 | 0 | 0 | +0 |
-| benchmarks_met | 100 | 46 | -54 |
+| benchmarks_met | 100 | 50 | -50 |
 
 New source keys since the baseline: none
 
 | package tier | baseline rows | now | change |
 |---|---|---|---|
-| A | 1278 | 1321 | +43 |
-| B | 1619 | 1773 | +154 |
-| C | 402 | 336 | -66 |
-| D | 3623 | 23086 | +19463 |
-| E | 2763 | 4432 | +1669 |
+| A | 1278 | 1241 | -37 |
+| B | 1619 | 1738 | +119 |
+| C | 402 | 300 | -102 |
+| D | 3623 | 22950 | +19327 |
+| E | 2763 | 4416 | +1653 |
 | F | 19 | 16 | -3 |
-| I | 50806 | 165002 | +114196 |
-| L | 397 | 440 | +43 |
-| M | 189 | 18844 | +18655 |
-| T | 2545 | 44795 | +42250 |
+| I | 50806 | 164561 | +113755 |
+| L | 397 | 433 | +36 |
+| M | 189 | 19589 | +19400 |
+| T | 2545 | 44668 | +42123 |
 
