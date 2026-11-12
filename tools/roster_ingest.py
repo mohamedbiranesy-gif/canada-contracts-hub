@@ -145,6 +145,8 @@ def take(a):
                 st["the link is a social network, a marketplace or the body's own site"] += 1
             elif not url.startswith("http") or C.registrable(host(url)) != bdom:
                 st["list_url is not a page of the body's own site"] += 1
+            elif re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", name):
+                st["the listed name is an e-mail address (no e-mail from a roster is kept)"] += 1
             elif re.search(r"#\s*\d", name):
                 st["a numbered store or unit of a chain (its link goes to the chain's site, not the member's own)"] += 1
             elif not name_fits_domain(name, dom):
