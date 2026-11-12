@@ -2010,3 +2010,34 @@ listed organisations its members (`pays_by_kind`, `member_quote`, `member_quote_
 the kind of relationship. Unchanged: the body's own printed Canadian address; a directory that mixes members and non-members, a free
 directory, or a body whose words say membership is free or paid by card only, makes no roster; never for exhibitors, sponsors, dealers or
 tenants (each still needs the body's sentence that the listed pay it).
+
+## 2026-11-12 23:22Z — lane `claude`: Colombian import declarations (export sale), places-dataset websites, the owner's "observed activity" idea
+
+- **A new kind of row: `export sale`.** Colombia's customs (DIAN) publishes every import declaration line each month: the importer (name, NIT,
+  address), the exporter with its address (PAIS_EXPORTADOR "Canadá" — the vendor in Canada by the source's own field, §2.1), the
+  exporter's invoice number and date (NUMERO_FACTURA, FECHA_FACTURA), its FOB value in US dollars, the goods and tariff heading, and how
+  the importer pays it (FORMA_PAGO: "Giro directo", "Pagos anticipados", "Financiación directa del proveedor" … — a payment abroad through
+  the banks of the foreign-exchange market). Every invoice field is in a public record. tools/dian_cloud.py (workflow dian-imports, weekly)
+  keeps the newest 12 months; a line with no payment abroad ("no genera pago", "no reembolsable", foreign direct investment, samples), an
+  importer that is a natural person and an exporter named as a person make no row. One month (2026-08): 1,398 lines from Canada, 353
+  importers, 299 with US$5,000 or more that month.
+- **An importer's site is tied only by its tax number.** Candidates: Wikidata's NIT (P13465), an Overture Maps place of the same name in
+  Colombia, the company-name autocomplete, and the importer's name as a .com.co / .com / .co domain. A candidate is kept ONLY when the
+  site's own home page or its contact / privacy / legal page prints the importer's NIT (Ley 1581 de 2012 has every site that collects
+  personal data publish a data-processing policy naming the company and its NIT). Test: Eagle Commercial S.A. — "identificada con el NIT.
+  830.040.391-7" on its own policy page.
+- **Websites from a public places dataset, for the lanes that name organisations without a site** (tools/overture_names.py): a place of
+  the same name (accents, case, punctuation and legal forms aside) at the same postal code (Health Canada's register companies), in the
+  same province (TSX/TSXV issuers) or in the same country (Colombian importers, NIT check) is a candidate; each lane keeps a site only by its
+  own tests (name in the title / postal code printed; symbol on its exchange; NIT). First run: 419 Health Canada companies tied (137 holders
+  of a medical device establishment licence, billed $5,519 a year). The buyers under a current contract with neither mailbox nor website
+  (rank.py now lists them: coord/results/ranked/contract_buyers_without_website.csv; 365 carry a published $5k+ amount) go through the same
+  lookup (lane cb), the site kept on its own home page, then to the mailbox reader.
+- **A guessed domain is tied only on a published identifier.** The company's very name as a domain (.ca, then .com) is kept only when the
+  site's own home or contact page prints the register's postal code (Health Canada) or the NIT (DIAN) — never on the name alone. A name a
+  group bears in other countries is guessed on .ca only (its .com is the parent's).
+- **The owner's road-closure idea (observed activity → contractor and buyer), measured, not built yet.** City building permits name the
+  contractor and a declared value: Vancouver's open data gives the contractor's address too (600 non-residential permits with a contractor in
+  the last 12 months), Calgary's names the contractor without address (~750 commercial a year). The buyer is not named: it would stand on
+  where the organisation is (the organisation whose own site prints the permit's address, single occupant), the row saying who hired the
+  builder is not published. Expected yield after the address match: a few hundred rows; queued behind the website lanes, which unlock more.
