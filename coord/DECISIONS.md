@@ -1876,3 +1876,11 @@ warning, when the row's own record is current — a body's roster or register re
 last twelve months — or when the entry states no end ("Inactive" alone). The warning, which takes the row out, stays for a dissolution,
 striking off, cancellation, revocation, liquidation or bankruptcy of a vendor no current record names. Tested on statuses taken from the
 table (the 1-in-4 sample build could not run beside nine helpers: memory).
+
+## 2026-11-12 15:50Z — an agent of record named as a person bills through the firm the register prints beside the name (claude)
+
+1,292 agent-of-record rows (13:24Z table) failed on "the agent of record is a named person, not a firm". The trademarks register prints
+the firm the agent works in, in brackets at the head of the agent's address: "(MILLER THOMSON LLP), 115 King Street South …", "(Yates IP),
+17 Bellwood Avenue …", "(WITMART INC), 18 King Street East …". That firm sends the account. `relationship_rows.py`: when the bracket
+carries a word of a firm (LLP, Inc., IP, Law, Agents …), the firm becomes the row's vendor, its address the rest of the line, and the
+person is kept in `agent_named_on_register`; with no bracket, or a bracket with no firm word, the row stays out as before.

@@ -659,7 +659,16 @@ def owner_test(x):
     if kind == "sponsorship":
         out += sponsorship_faults(x)
     if kind == "agent of record" and agent_is_a_person(x):
-        out.append("relationship: the agent of record is a named person, not a firm")
+        # 2026-11-12: the register prints the firm the agent works in, in brackets at the head of the agent's address — "(MILLER THOMSON LLP), 115 King
+        # Street South …", "(Yates IP), 17 Bellwood Avenue …": that firm sends the account. A bracket with no word of a firm, or none, stays out.
+        _fm = re.match(r"\s*\(([^()]{3,90})\)\s*,?\s*(.*)$", x.get("vendor_address") or "")
+        _firm = (_fm.group(1).strip() if _fm else "")
+        if _firm and _FIRM.search(_firm) and not re.fullmatch(r"(?i)(?:mr|mrs|ms|dr|me)\.?\s.*", _firm):
+            x["agent_named_on_register"] = "%s — the agent named on the register, who works in %s" % (x.get("vendor") or "", _firm)
+            x["vendor"] = _firm
+            x["vendor_address"] = _fm.group(2).strip()
+        else:
+            out.append("relationship: the agent of record is a named person, not a firm")
     _fd = free_dns(x) if kind == "service seen on the buyer's side" else None
     if _fd:
         out.append("relationship: the provider's DNS hosting is free with a domain's registration (“%s”, %s, read %s): nothing is billed for it; the domain's "
