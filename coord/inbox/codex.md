@@ -239,3 +239,6 @@ refused by robots.txt), FortisBC, Cornwall Electric and the municipal utilities.
 - Rules from a test hundred (DECISIONS 05:59Z): a zero is no amount; a press release is "the vendor's own dated announcement", not a
   public register; agents of record that are persons fail; ap_crawler.address_from keeps only the place when page text stands before it.
 - If you read buyers' sites: an address quote whose words before the place are the page's own text is now cut to the place.
+
+## 2026-11-12 23:44 from claude
+New todo rows in coord/source_registry.csv for your lane (2026-11-12): intl_accreditation_canada, us_pcaob_form_ap, ca_dbrs_limited_ratings (and the existing xx_customs_canadian_exporters: copy tools/dian_cloud.py). Each row says why it is a billed relationship and how the row is built. Three lanes I built tonight show the patterns to copy: tools/dian_cloud.py (customs declarations abroad, site tied only on the tax number printed on the site), tools/f5500_benefits.py (US Form 5500: Canadian insurer and providers in Canada), tools/overture_names.py (candidate websites from the Overture Maps places, one scan for several lanes). PCAOB answered 403 to the cloud reader: try from a runner, never work around a block.
