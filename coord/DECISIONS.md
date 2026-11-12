@@ -1942,3 +1942,16 @@ bills the owner, sometimes through the owner's own counsel abroad — said on th
 owner's site is tied by the trademarks lane's own tests, run on the patent owners' files (`tm_register.match / sites / merge_sites` with the
 module's paths pointed at data/incoming/claude/pt/). First run here: 1,335 Canadian owners tied to sites on file → 1,127 leads. The extract
 is 30 months old: a row says "extract of 2024-05-22" in its relationship; a newer CSV extract replaces it when the Office publishes one.
+
+## 2026-11-12 17:22Z — lane `claude`: rosters at scale (chambers, exhibitors, dealers), lists on a platform, chambers' payment pages
+
+- Today's roster merges added about 23,000 organisations as leads (chambers of commerce in every province, construction and trade
+  associations, trade-show exhibitors, dealer networks of Canadian manufacturers). The merge now withdraws the leads of a roster that is
+  withdrawn or no longer taken, and rewrites the leads of a corrected descriptor (cc_on_ssm withdrawn: its page says dues by credit card only).
+- A trade show's exhibitor list is often kept on the organiser's platform (Map Your Show, a2z, PheedLoop, a second domain of the show):
+  a descriptor may now name those hosts (`list_hosts`) with `list_host_link_url`, the organiser's own page that links the list there.
+  The organiser's Canadian address still comes from its own site; a platform's domain is never taken as an exhibitor's site.
+- Four chambers' own payment pages are payee entries (contrib/claude/payees/, verified by `payee_billing.py verify`): Saint John
+  ("We accept Credit Card, Direct Deposit, E-transfer, Cash, Debit and Cheque"), Kensington ("… your KACC invoice"), Woodstock ("… an
+  email and invoice for your yearly membership dues"), Bay St. George ("Payments can be made by cheque, cash or e-transfer.") — their
+  rows say how they bill and are paid in the chamber's own words instead of "by the kind of relationship".
