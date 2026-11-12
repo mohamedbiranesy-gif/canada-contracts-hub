@@ -2,15 +2,15 @@ key,site,how,place_name,place_postcode,place_region,place_id,release
 xc:AIR0001,arajet.com,the same name in the same province or state,Air Canada,H4Y 1H1,QC,05ec1264-e757-4ece-bc72-d484b7a8cc87,2026-10-21.0
 xc:AIR0001,aircanada.com,the same name in the same province or state,Air Canada,H4S 1Z3,QC,ed982f3b-d79d-439d-9e6a-cd7b733a394f,2026-10-21.0
 xc:ALA0001,alamosgold.com,the same name in the same province or state,Alamos Gold,M5J 2T3,ON,f07fc1f2-9636-49b3-a8d2-094c5bb85e39,2026-10-21.0
-xc:ARI0010,aritzia.com,the same name in the same province or state,Aritzia,V6E 1B2,BC,0e2644e0-535d-4415-892f-2a2d1bc85f83,2026-10-21.0
-xc:ATC0001,atco.com,the same name in the same province or state,ATCO,T0H 3N0,AB,5390fba6-11f8-4ba2-b082-dc75615ddcc0,2026-10-21.0
+xc:ARI0010,aritzia.com,the same name in the same province or state,Aritzia,V7B 0B7,BC,c9533184-4381-4371-b5b3-0f3a1b433787,2026-10-21.0
+xc:ATC0001,atco.com,the same name in the same province or state,ATCO,T3E 8B4,AB,a9e2a61b-bf15-4175-8179-812243552989,2026-10-21.0
 xc:AUT0005,autocan.ca,the same name in the same province or state,AutoCanada,T5V 0C3,AB,4554be89-dd8e-41ef-8ef9-173f326fd8a6,2026-10-21.0
-xc:BAN0005,bmo.com,the same name in the same province or state,Bank of Montreal,M2M,ON,f4d8d757-2fff-4df5-9ef7-cf18fee08f14,2026-10-21.0
+xc:BAN0005,bmo.com,the same name in the same province or state,Bank Of Montreal,,ON,d36cd902-1791-46ca-9bbc-08c4b0d7d78c,2026-10-21.0
 xc:BAN0005,bmo.ca,the same name in the same province or state,Bank Of Montreal,K0E 1B0,ON,50c42664-ce8e-43bb-87fa-c425559d6869,2026-10-21.0
-xc:BAN0006,banquescotia.com,the same name in the same province or state,Bank of Nova Scotia,K6J,ON,d600743c-ae0c-49a3-a42a-1b433bf0992b,2026-10-21.0
 xc:BAN0006,scotiabank.com,the same name in the same province or state,"Bank of Nova Scotia, The",M5H 3Y2,ON,89c1ec7b-040e-4f65-a45b-323a3b9a5628,2026-10-21.0
-xc:BEC0001,beckers.com,the same name in the same province or state,Becker Milk Co Ltd,M4X 1G1,ON,335d90b7-68d5-4311-8e10-30da993b2c16,2026-10-21.0
+xc:BAN0006,banquescotia.com,the same name in the same province or state,Bank of Nova Scotia,K6J,ON,d600743c-ae0c-49a3-a42a-1b433bf0992b,2026-10-21.0
 xc:BEC0001,foodpages.ca,the same name in the same province or state,Becker Milk Co Ltd,K8V 2Y4,ON,e793a83b-ce42-4781-850d-090918cebaa6,2026-10-21.0
+xc:BEC0001,beckers.com,the same name in the same province or state,Becker Milk Co Ltd,M1L 3H3,ON,c823a4ef-5d40-4ea6-83b8-5ba429f8bec1,2026-10-21.0
 xc:BEC0001,macs.ca,the same name in the same province or state,Becker Milk Co Ltd,L9W 2W6,ON,32f2a629-7b54-4a60-b94f-f5e8f3a06ed6,2026-10-21.0
 xc:BIG0006,bigrockbeer.com,the same name in the same province or state,Big Rock Brewery,T2C 4L8,AB,adc9bd31-257f-414e-8bd7-05b5b3e487c3,2026-10-21.0
 xc:BIO0008,bauschhealth.com,the same name in the same province or state,Bausch Health Companies,H7L 4A8,QC,b016073c-d397-4a0c-ac69-5d3792bfad14,2026-10-21.0
@@ -18,30 +18,30 @@ xc:BOM0001,bombardier.com,the same name in the same province or state,Bombardier
 xc:BRO0050,brookfield.com,the same name in the same province or state,Brookfield Asset Management,10281,NY,0116f835-766d-49f7-b0c5-01c76e30de32,2026-10-21.0
 xc:BTW0001,b2gold.com,the same name in the same province or state,B2Gold Corp,V6C 2X8,BC,0a4cef11-7e3a-4c9e-9c2b-f5f4daaa4ace,2026-10-21.0
 xc:CAN0003,cn.ca,the same name in the same province or state,Canadian National Railway Company,H3B 4G1,QC,6533babc-7d51-4182-b34c-e5b5ecc0c7e0,2026-10-21.0
-xc:CAN0029,cnrl.com,the same name in the same province or state,Canadian Natural Resources Limited,T8V 8B9,AB,3402308e-4386-42b8-ba30-0757de9deb8e,2026-10-21.0
-xc:CAN0041,canadiantire.ca,the same name in the same province or state,Canadian Tire,P0S 1K0,ON,a200837c-5cbb-43ec-be6a-64622962a8ae,2026-10-21.0
+xc:CAN0029,cnrl.com,the same name in the same province or state,Canadian Natural Resources Limited,T2P 0J4,AB,531d48c0-ecd8-4061-8890-d3b6f8ba31d8,2026-10-21.0
+xc:CAN0041,canadiantire.ca,the same name in the same province or state,Canadian Tire,P9N 1L9,ON,4c6161ac-910a-4cfe-bfd6-42db748c5938,2026-10-21.0
 xc:CAN0042,canadianutilities.com,the same name in the same province or state,Canadian Utilities Limited,T2R 1N6,AB,257b5161-f873-494d-9a95-21d51db90309,2026-10-21.0
 xc:CAN0067,icesports.com,the same name in the same province or state,Canlan Ice Sports,V5B 3B8,BC,9a44e222-a191-4da2-8060-f801f0eb706d,2026-10-21.0
 xc:CAN0134,domanbm.com,the same name in the same province or state,Doman Building Materials Group,V6E 4A6,BC,5171d891-9481-4e65-91a8-f7a9f77c31ab,2026-10-21.0
 xc:CAN0149,cesenergysolutions.com,the same name in the same province or state,CES Energy Solutions,T2P 0B2,AB,3c90c666-375a-47a6-bce5-0bbf6b41ef49,2026-10-21.0
 xc:CAT0002,cathedralenergyservices.com,the same name in the same province or state,ACT Energy Technologies Ltd.,T2H 1K2,AB,4479647c-7a88-494c-973d-0f207dc10cc0,2026-10-21.0
 xc:CCL0001,cclind.com,the same name in the same province or state,CCL Industries Inc,M2H 3R1,ON,ae5c563f-5409-4717-8f89-66b4ea083e74,2026-10-21.0
-xc:CEL0003,celestica.com,the same name in the same province or state,Celestica,M2N 6L7,ON,8ac5d6be-4663-46e9-865c-2a4a4075c25e,2026-10-21.0
+xc:CEL0003,celestica.com,the same name in the same province or state,Celestica,M3C 1V7,ON,8ad69630-1e06-498e-b382-222d1ab8262b,2026-10-21.0
 xc:CEN0015,centerragold.com,the same name in the same province or state,Centerra Gold Inc.,M5J 2P1,ON,2a346c5a-73a3-45b0-bf27-625c03cd0c38,2026-10-21.0
 xc:CEN0020,cenovus.com,the same name in the same province or state,Cenovus Energy Inc,T2P 0M5,AB,886fef38-cc52-41db-b43a-bdccc7bf441e,2026-10-21.0
 xc:CHA0006,wheatonpm.com,the same name in the same province or state,Wheaton Precious Metals,V6E 0C4,BC,8894b2c4-ec9d-4092-8aba-3ea74322560a,2026-10-21.0
 xc:CHA0020,chartwell.com,the same name in the same province or state,Chartwell Retirement Residences,L5W 0G5,ON,e1efefea-d688-4cde-8af9-c5c1419c8322,2026-10-21.0
 xc:CIB0001,gechq.com,the same name in the same province or state,Global Education Communities Corp,V5Z4J7,BC,0fa96a14-a9aa-4d0a-9568-bed666f896ab,2026-10-21.0
-xc:CIN0006,cineplex.com,the same name in the same province or state,Cineplex,N7S 1P7,ON,48481030-459b-4454-baef-857370ecffa0,2026-10-21.0
+xc:CIN0006,cineplex.com,the same name in the same province or state,Cineplex,N5R 5J5,ON,a0018063-308f-4a77-b4e0-2f057d66d55d,2026-10-21.0
 xc:CIR0004,ftgcorp.com,the same name in the same province or state,Firan Technology Group,M1X 1A5,ON,260809bd-4228-481d-b4cf-072937a55bbf,2026-10-21.0
 xc:CLA0003,clairvest.com,the same name in the same province or state,Clairvest Group Inc,M4T 2S3,ON,a9a38456-8724-469d-8909-88f63e62b2af,2026-10-21.0
 xc:COM0018,cmgl.ca,the same name in the same province or state,Computer Modelling Group Ltd.,T2L 2M1,AB,9f08c06b-256e-42d8-b0d3-a0ea6c2a291b,2026-10-21.0
 xc:CON0092,conifex.com,the same name in the same province or state,Conifex Timber Inc,V2L 1N2,BC,12561d3e-25ef-44df-9679-731eb403521f,2026-10-21.0
 xc:COR0003,corby.ca,the same name in the same province or state,Corby Spirit and Wine Limited,M5V 3M2,ON,ed914ec6-aa83-439d-9d7a-c4958604be20,2026-10-21.0
-xc:COR0021,corusent.com,the same name in the same province or state,Corus Entertainment,M5A 1B6,ON,a8c502aa-e372-4e7b-ab80-386f91c4f386,2026-10-21.0
-xc:CUR0007,ceifx.com,the same name in the same province or state,Currency Exchange International,33180,FL,7477f34b-a95d-4e65-8111-efe2c0bbdf85,2026-10-21.0
+xc:COR0021,corusent.com,the same name in the same province or state,Corus Entertainment,M5J 2T3,ON,f04e1da1-670d-442c-9d41-f33af66cb751,2026-10-21.0
 xc:CUR0007,google.com,the same name in the same province or state,Currency Exchange International,33156,FL,61cd9782-3797-4265-a0df-35c1e6f28b19,2026-10-21.0
-xc:DEN0004,calfrac.com,the same name in the same province or state,Calfrac Well Services,T8X 1S8,AB,2f4995f7-e807-4e1f-baba-2667920fe745,2026-10-21.0
+xc:CUR0007,ceifx.com,the same name in the same province or state,Currency Exchange International,33323,FL,bb10d7cd-57df-4fd4-aa31-edd041a7b5ae,2026-10-21.0
+xc:DEN0004,calfrac.com,the same name in the same province or state,Calfrac Well Services Ltd,T4P 3R2,AB,4654d503-7f7c-4a5a-b562-7eb4357b5d97,2026-10-21.0
 xc:DIR0006,dirtt.com,the same name in the same province or state,DIRTT Environmental Solutions,T2C 1N6,AB,3c2c53eb-1d93-4a8f-8dd3-ef186ee14080,2026-10-21.0
 xc:DRE0004,dream.ca,the same name in the same province or state,Dream Unlimited,M5C 3G6,ON,e0df7255-46e2-4504-ad68-168de9ef2c91,2026-10-21.0
 xc:ECO0007,ecosynthetix.com,the same name in the same province or state,EcoSynthetix,L7M 1A6,ON,d6a0d92c-451d-43cb-a84b-6e544eebc87f,2026-10-21.0
@@ -53,8 +53,8 @@ xc:EXC0001,excocorp.com,the same name in the same province or state,Exco Technol
 xc:FAI0001,fairfax.ca,the same name in the same province or state,Fairfax Financial Holdings,M5J 2N7,ON,925c5c20-fcc4-436b-8e67-387e1fc38414,2026-10-21.0
 xc:FIN0003,finning.ca,the same name in the same province or state,Finning International Inc,V6C 2X8,BC,5dafeca4-3144-4944-9ae8-efd66944be8a,2026-10-21.0
 xc:FIN0003,finning.com,the same name in the same province or state,Finning International Inc.,V4N 5C3,BC,38a1c747-04f7-49d6-99ed-77ea08a93f5f,2026-10-21.0
-xc:GEN0017,genesisland.com,the same name in the same province or state,Genesis Land Development Corp,T2E 8A2,AB,efc7af59-5835-46be-89ff-981f197e7f57,2026-10-21.0
-xc:GFL0001,gflenv.com,the same name in the same province or state,GFL Environmental,N8X 2A9,ON,39327638-3542-4d0f-919c-13a5fb1a8e89,2026-10-21.0
+xc:GEN0017,genesisland.com,the same name in the same province or state,Genesis Land Development Corp,T2E 8A2,AB,12e0e884-c6b3-415b-a434-675c8bbc7d19,2026-10-21.0
+xc:GFL0001,gflenv.com,the same name in the same province or state,GFL Environmental,P7K 0C8,ON,6099f77c-b72c-4278-8d35-86a21b4b48df,2026-10-21.0
 xc:GIL0001,gildan.com,the same name in the same province or state,Gildan Activewear Inc,H4T 1P5,QC,02ff560d-4008-4052-8fda-1a8dd517bc7c,2026-10-21.0
 xc:GIL0001,gildancorp.com,the same name in the same province or state,Gildan Activewear Inc,H3A 3J2,QC,0cd54453-8a08-40c3-81af-e0e32a4fd555,2026-10-21.0
 xc:GLE0009,torexgold.com,the same name in the same province or state,Torex Gold Resources Inc.,M5X 2A2,ON,a2566e2f-1c6b-4106-ba86-761da119d3ae,2026-10-21.0
@@ -63,36 +63,36 @@ xc:GOO0001,goodfellowinc.com,the same name in the same province or state,Goodfel
 xc:GTC0001,tctranscontinental.com,the same name in the same province or state,Transcontinental,H3B 0G1,QC,56e2a618-fb44-4995-b05f-cf780dab922d,2026-10-21.0
 xc:HAM0003,hammfg.com,the same name in the same province or state,Hammond Manufacturing Co. Ltd.,N1H 1E5,ON,8f68dfa7-b25f-48ab-94c4-6de1d1109227,2026-10-21.0
 xc:HAR0020,adentragroup.com,the same name in the same province or state,Adentra,V2Y 2C1,BC,9db487bf-da03-4599-bdc6-90441b56d0c2,2026-10-21.0
-xc:HYD0008,hydroone.com,the same name in the same province or state,Hydro One Inc,N9C 4C6,ON,456ccede-67e0-4ebd-99bb-ab98c6b00f58,2026-10-21.0
+xc:HYD0008,hydroone.com,the same name in the same province or state,Hydro One,P9N 4M4,ON,cd0f4e54-2e82-4f89-8946-2ed34fa3a619,2026-10-21.0
 xc:I800001,i80gold.com,the same name in the same province or state,i-80 Gold Corp,89502-6509,NV,33226d18-e089-4d3b-86a2-76cd7d09abd2,2026-10-21.0
-xc:IMP0005,imperialoil.ca,the same name in the same province or state,Imperial Oil Limited,T2C 5G6,AB,d00159b5-596d-401f-810c-37a3e17e858b,2026-10-21.0
+xc:IMP0005,imperialoil.ca,the same name in the same province or state,Imperial Oil,T2P 4K3,AB,c283702e-a898-43cf-beab-44fc92d15b7a,2026-10-21.0
 xc:INT0017,intermap.com,the same name in the same province or state,Intermap Technologies Inc,80112-5870,CO,1032552c-b21d-4b0b-a2c5-1b7ccb5aad87,2026-10-21.0
 xc:INT0027,interfor.com,the same name in the same province or state,Interfor Corp,V0H 1H0,BC,6ad447ae-6fc7-4604-ac68-697636225ad1,2026-10-21.0
 xc:KIN0008,kinross.com,the same name in the same province or state,Kinross Gold Corporation,L5N 4J9,ON,5e578e94-86d4-49da-8f64-a25a3a3366bc,2026-10-21.0
 xc:LAR0004,laramide.com,the same name in the same province or state,Laramide Resources Ltd,M9N 1L5,ON,43e38991-fccf-403a-96d6-fd330187da1a,2026-10-21.0
-xc:LAU0002,banquelaurentienne.ca,the same name in the same province or state,Laurentian Bank of Canada,J9P 1T1,QC,76dda9cb-686a-42bb-9bb6-0db85b2fba93,2026-10-21.0
-xc:LAU0002,banquelaurentienne.com,the same name in the same province or state,Laurentian Bank of Canada,J7E 2X6,QC,e0115e11-acbf-434d-9935-a66793b6d8b8,2026-10-21.0
+xc:LAU0002,banquelaurentienne.ca,the same name in the same province or state,Laurentian Bank of Canada,J9X 3C2,QC,d165661a-81df-4cf5-bf1b-52893fa0dfde,2026-10-21.0
+xc:LAU0002,banquelaurentienne.com,the same name in the same province or state,Laurentian Bank of Canada,H3Z 1G8,QC,84438da4-932d-4456-96ad-f81aa54ed211,2026-10-21.0
 xc:LEI0007,siennaliving.ca,the same name in the same province or state,Sienna Senior Living,L3R 0E8,ON,d6f2d966-f46a-4d82-9eb5-7db0c9e5c268,2026-10-21.0
 xc:LEI0007,leisureworld.ca,the same name in the same province or state,Sienna Senior Living,L4M 3H7,ON,5db19161-6890-4a35-99d1-4e86a712359b,2026-10-21.0
-xc:LEO0001,leons.ca,the same name in the same province or state,Leon's Furniture,N7S 6M6,ON,aa16158d-b4ad-416a-8e1d-0b6ac53a7585,2026-10-21.0
+xc:LEO0001,leons.ca,the same name in the same province or state,Leon's Furniture,N8X 0A7,ON,65edf19f-2c6c-4171-94f8-d29c07431f21,2026-10-21.0
 xc:LEO0001,leonstrenton.ca,the same name in the same province or state,Leon's Furniture,K8V 5P8,ON,25f9d5ce-28dc-474a-b996-e9e4561899be,2026-10-21.0
 xc:LIN0001,linamar.com,the same name in the same province or state,Linamar,N1H 1E6,ON,1ba56170-0f1b-4ced-bc94-808c076548b4,2026-10-21.0
 xc:LIN0001,linktr.ee,the same name in the same province or state,Linamar Corporation,N1H 1C5,ON,9d51e489-fb63-4b37-9160-3a1c71375de8,2026-10-21.0
 xc:LIT0005,lithiumamericas.com,the same name in the same province or state,Lithium Americas Corp.,V6C 2X8,BC,07063570-494b-4fbe-84b3-b90a0a88c66d,2026-10-21.0
-xc:MAG0001,magellanaerospace.com,the same name in the same province or state,Magellan Aerospace,N2C 1J1,ON,1e652ccf-b71f-4f0d-87ec-c45d23d372cd,2026-10-21.0
 xc:MAG0001,magellan.aero,the same name in the same province or state,Magellan Aerospace,K0J 1Y0,ON,c33830bc-c11c-4ea5-ba0f-5150f7a76ef2,2026-10-21.0
-xc:MAI0002,mainst.biz,the same name in the same province or state,Mainstreet Equity,T2G 0W2,AB,2fbb6d13-f5a9-408f-8e22-48f2a440bf82,2026-10-21.0
+xc:MAG0001,magellanaerospace.com,the same name in the same province or state,Magellan Aerospace,N2C 1J1,ON,1e652ccf-b71f-4f0d-87ec-c45d23d372cd,2026-10-21.0
+xc:MAI0002,mainst.biz,the same name in the same province or state,Mainstreet Equity Corp.,T2G 0X1,AB,0e4d692c-fe6b-406e-8427-2b969d46bf09,2026-10-21.0
 xc:MAJ0001,majordrilling.com,the same name in the same province or state,Major Drilling Group International Inc,E1C 1T7,NB,07fa73f9-1e5b-4949-9ec0-6807509b16d0,2026-10-21.0
-xc:MAN0013,manulife.ca,the same name in the same province or state,Manulife Financial,L4L 4G9,ON,75495a8d-ee3a-4e41-985c-f6a68c3a80ce,2026-10-21.0
-xc:MAN0013,manulife.com,the same name in the same province or state,Manulife Financial,M2M 4G3,ON,27e794df-0aea-45b2-b04b-eded32e6da59,2026-10-21.0
+xc:MAN0013,manulife.ca,the same name in the same province or state,Manulife Financial,N7V 4G6,ON,9e48a63c-27e3-4f27-a84f-9715cf1e39fa,2026-10-21.0
+xc:MAN0013,manulife.com,the same name in the same province or state,Manulife Financial,K1P 6L5,ON,f4d8220c-602e-4773-8c8a-c8f574944b68,2026-10-21.0
 xc:MCI0001,healwell.ai,the same name in the same province or state,HealWell AI,M6G 1A1,ON,c06b4a7b-6b4b-44d9-a9df-db75db1b4a53,2026-10-21.0
-xc:MEL0002,melcor.ca,the same name in the same province or state,Melcor Developments Ltd,T3G 5H6,AB,f0eb9088-fb9f-4b24-9607-88bed2b628ba,2026-10-21.0
+xc:MEL0002,melcor.ca,the same name in the same province or state,Melcor Developments Ltd,T5J 1Y7,AB,1e0a7eb4-5955-4213-9f8c-b38ab2e4ab5d,2026-10-21.0
 xc:MET0004,methanex.com,the same name in the same province or state,Methanex Corporation,V6C3M1,BC,d3c3d258-a364-49c9-99b8-b424db578c68,2026-10-21.0
-xc:MET0007,metro.ca,the same name in the same province or state,Metro,H4S 1A1,QC,c9d69ed2-b998-4d34-b3a5-f8b0a6f4bd97,2026-10-21.0
+xc:MET0007,metro.ca,the same name in the same province or state,Metro,J7V 0H1,QC,c9f58b6a-055e-4db7-ba0a-de8eb2d44add,2026-10-21.0
 xc:MIC0003,microbix.com,the same name in the same province or state,Microbix Biosystems Inc,M9W 4Z4,ON,830b2256-f3de-442d-aacb-9b64d109395f,2026-10-21.0
 xc:MON0004,stllrgold.com,the same name in the same province or state,STLLR Gold Inc.,M5J 2S1,ON,61338c31-a9bf-459e-94a3-a5a8d8a4da7f,2026-10-21.0
 xc:MTC0001,mcanmortgage.com,the same name in the same province or state,MCAN Mortgage Corporation,M5H 3T4,ON,7fdddf5e-163a-4b3d-baa6-b30fc82a831d,2026-10-21.0
-xc:NAT0002,nbc.ca,the same name in the same province or state,National Bank of Canada,H4L 3M5,QC,445f1a72-1785-4d28-89c6-752bdcd16a4a,2026-10-21.0
+xc:NAT0002,nbc.ca,the same name in the same province or state,National Bank of Canada,J7P 4W4,QC,dc25828d-6fb1-4b39-9382-e2217a37a090,2026-10-21.0
 xc:NAT0002,bnc.ca,the same name in the same province or state,National Bank of Canada,G5C 2X8,QC,6e13a359-4aab-4608-8626-b89e0718303a,2026-10-21.0
 xc:NEW0052,flintcorp.com,the same name in the same province or state,FLINT Corp.,T2P 2V7,AB,47415068-a93b-4cf7-8102-f5a77820bc62,2026-10-21.0
 xc:NOR0021,northwest.ca,the same name in the same province or state,The North West Company,R3C 1A3,MB,e4fb7638-ff02-4839-997f-ce5addb322e2,2026-10-21.0
@@ -110,30 +110,30 @@ xc:RES0014,rbi.com,the same name in the same province or state,Restaurant Brands
 xc:RIC0004,richelieu.com,the same name in the same province or state,Richelieu Hardware,H4S 1V4,QC,6fb8d628-9a57-4a69-a025-efa39fe34e0e,2026-10-21.0
 xc:RIO0005,riocan.com,the same name in the same province or state,Riocan Real Estate Investment Trust,M4P 1E4,ON,acf606b6-a5f6-41fd-b5a0-4cb3a4277536,2026-10-21.0
 xc:ROG0003,rogers.com,the same name in the same province or state,Rogers Communications Inc,M3B 1Z1,ON,fccc6c5f-7e34-48b7-a9cb-f790aff04d04,2026-10-21.0
-xc:ROO0001,roots.com,the same name in the same province or state,Roots,L9A 4X5,ON,106f060c-a1d5-48fb-8e39-e8e2af80a199,2026-10-21.0
+xc:ROO0001,roots.com,the same name in the same province or state,Roots,N6E 1V4,ON,567eac91-66ff-44a9-ad69-4814325ba46c,2026-10-21.0
 xc:ROY0003,rbcroyalbank.com,the same name in the same province or state,Royal Bank of Canada,L7G 4B1,ON,92b10ce7-ce12-47d3-92c1-77511a33dd44,2026-10-21.0
 xc:ROY0003,royabank.ca,the same name in the same province or state,Royal Bank Of Canada,K6V 3G9,ON,56aca51a-b3e4-48ab-ac1f-35a53d2eb5f9,2026-10-21.0
 xc:RTO0001,goeasy.com,the same name in the same province or state,goeasy LTD,L5B 2N5,ON,ee6548ec-c1c4-46f2-a6e3-802ff2064786,2026-10-21.0
-xc:SHO0004,shopify.com,the same name in the same province or state,Shopify,K1N 5T5,ON,efa35bf4-4468-4c5d-967d-2dcfd0d6bd83,2026-10-21.0
+xc:SHO0004,shopify.com,the same name in the same province or state,Shopify,N2L 6C2,ON,30d012a7-e3d1-4262-8361-b166f29bf301,2026-10-21.0
 xc:SPI0007,spinmaster.com,the same name in the same province or state,Spin Master,M5V 0V7,ON,917a0ad5-d592-4897-a697-f421b48dc2a2,2026-10-21.0
 xc:STA0034,starcore.com,the same name in the same province or state,Starcore International Mines,V6C 3B6,BC,de102ce4-67e4-414a-922e-c04732ca40c3,2026-10-21.0
-xc:STE0005,stella-jones.com,the same name in the same province or state,Stella-Jones,H4R 2J8,QC,6c859964-c36f-4418-80cb-5f3f36990cdd,2026-10-21.0
+xc:STE0005,stella-jones.com,the same name in the same province or state,Stella-Jones Inc,J5B 2H8,QC,8bf92223-8b62-469a-b1c6-2011928e123a,2026-10-21.0
 xc:STE0005,groupecambium.ca,the same name in the same province or state,Stella-Jones,J3R 3L2,QC,0c9148ba-6df4-41ea-b826-7e3a0643ad84,2026-10-21.0
 xc:STI0005,stingray.com,the same name in the same province or state,Stingray Group inc,H3C 1T4,QC,765cc599-e425-4ebf-a193-b712f548872e,2026-10-21.0
-xc:SUN0008,petro-canada.ca,the same name in the same province or state,Suncor Energy,T2J 0P5,AB,bdbb823c-85c7-4663-9a18-a45a202b31a4,2026-10-21.0
 xc:SUN0008,suncor.com,the same name in the same province or state,Suncor Energy,T2P 3E3,AB,87597694-9dcb-47e5-b41b-309a0dbafef5,2026-10-21.0
-xc:SUN0014,sunlife.ca,the same name in the same province or state,Sun Life Financial,N3C 4E1,ON,c52f2e20-167c-4397-a29a-fa15e7cbb140,2026-10-21.0
+xc:SUN0008,petro-canada.ca,the same name in the same province or state,Suncor Energy,T2J 0P5,AB,bdbb823c-85c7-4663-9a18-a45a202b31a4,2026-10-21.0
+xc:SUN0014,sunlife.ca,the same name in the same province or state,Sun Life Financial,N0P 1A0,ON,77030ab5-9f35-492d-a1a8-4ad758a8912e,2026-10-21.0
 xc:SUN0014,linkedin.com,the same name in the same province or state,Sun Life Financial,M5J 2P1,ON,13a7ef3f-5155-49c8-9901-05a94e208a12,2026-10-21.0
 xc:SUP0004,supremex.com,the same name in the same province or state,SupremeX,H8N 2J7,QC,3b2912ef-19f5-4e23-99fd-e79f9852199d,2026-10-21.0
 xc:TAS0002,trekormetals.com,the same name in the same province or state,Trekor Metals Limited,V6E 1A1,BC,e3554aca-0e4f-4ed2-9211-985fbcda5383,2026-10-21.0
 xc:TEC0009,teck.com,the same name in the same province or state,Teck Resources Limited,V6C 2K1,BC,d3383af9-65a7-4aff-a94f-dab373da35c4,2026-10-21.0
 xc:TEL0021,telus.com,the same name in the same province or state,Telus,V9L 1V2,BC,400dbd9c-e6c8-4e94-9eda-1992dbbbfcfb,2026-10-21.0
-xc:TEL0021,koodomobile.com,the same name in the same province or state,Telus,V3R 7B9,BC,cf61f380-2289-4114-9828-1bfea36c6953,2026-10-21.0
 xc:TEL0021,pcoast.ca,the same name in the same province or state,Telus,V5C 2K7,BC,5d4bf0de-65fd-484b-b934-7b0b10e0eb71,2026-10-21.0
+xc:TEL0021,koodomobile.com,the same name in the same province or state,Telus,V3R 7B9,BC,cf61f380-2289-4114-9828-1bfea36c6953,2026-10-21.0
 xc:TID0002,pennwest.com,the same name in the same province or state,Tidewater Midstream & Infrastructure Ltd,T7X 5A1,AB,1995835b-9131-4c84-98a2-5d8ab9bf0cfc,2026-10-21.0
 xc:TOR0001,tdcanadatrust.com,the same name in the same province or state,Toronto Dominion Bank,M2N 6L8,ON,40dd8d4c-17b5-42d8-8964-9996b63ba3c4,2026-10-21.0
-xc:TRI0014,tricanwellservice.com,the same name in the same province or state,Trican Well Service,T2P 4G8,AB,814c693e-844f-4f6f-96b7-9227b281602f,2026-10-21.0
-xc:TRI0014,trican.ca,the same name in the same province or state,Trican WELL Service LTD,T2Z 4M3,AB,2b7fde69-3956-4933-8a5f-b01991af124a,2026-10-21.0
+xc:TRI0014,tricanwellservice.com,the same name in the same province or state,Trican Well Service,T8X 5A8,AB,6880c5fa-fe16-4bfe-92fe-5b277859a025,2026-10-21.0
+xc:TRI0014,trican.ca,the same name in the same province or state,Trican Well Service Ltd,T9E 0A8,AB,6e809b34-ee14-4256-a9be-390f28433fd9,2026-10-21.0
 xc:TSX0001,tmx.com,the same name in the same province or state,TMX Group,M9N 1L5,ON,e0e8f27d-5863-479a-a15d-c14a098f074c,2026-10-21.0
 xc:TSX0001,newsfilecorp.com,the same name in the same province or state,TMX Group,M5H 1S3,ON,ef0007b9-59f5-4eb2-a418-9b1383f35ee9,2026-10-21.0
 xc:URB0005,urbanacorp.com,the same name in the same province or state,Urbana Corp,M5H 1J9,ON,af2d685f-71ab-4cda-aa53-b12ffdbf5968,2026-10-21.0
@@ -142,8 +142,8 @@ xc:V-00099,recyclico.com,the same name in the same province or state,RecycLiCo B
 xc:V-00135,arcticstar.ca,the same name in the same province or state,Arctic Star Exploration,V6E 3V6,BC,acdd5e88-c72f-4ae1-bf0a-73c35fc34887,2026-10-21.0
 xc:V-00199,goldbankmining.com,the same name in the same province or state,Goldbank Mining Corporation,V6C 3B2,BC,7d96664a-79d0-4db4-b759-c67192561602,2026-10-21.0
 xc:V-00280,mariakyle.ca,the same name in the same province or state,Dominion Lending Centres,V9L 3T1,BC,c5bbf9f0-4bee-43d7-b8c6-2603f6ae8a4a,2026-10-21.0
-xc:V-00280,denisedumbrell.ca,the same name in the same province or state,Dominion Lending Centres,V9P 2G4,BC,3d958d3b-d485-4969-919b-e52ae577ecbd,2026-10-21.0
-xc:V-00280,marlonparel.ca,the same name in the same province or state,Dominion Lending Centres,V3X 1G1,BC,f2f0cb1f-5435-4d71-b958-839f0e4a4082,2026-10-21.0
+xc:V-00280,ginajohal.ca,the same name in the same province or state,Dominion Lending Centres,V6H 3V3,BC,01b8ad2c-d5e9-4ed3-9b79-9069169c9263,2026-10-21.0
+xc:V-00280,onwardlending.ca,the same name in the same province or state,Dominion Lending Centres,V6X 3C7,BC,2b2a4427-1db9-4a0a-8dd7-3962ed240491,2026-10-21.0
 xc:V-00293,c-comsat.com,the same name in the same province or state,C-Com Satellite Systems Inc.,K1B 3V7,ON,20c4a9e7-f2e6-4600-8453-5e1e77b964d5,2026-10-21.0
 xc:V-00354,canyoncreekfood.com,the same name in the same province or state,Canyon Creek Food Company,T6E 5G2,AB,c340b6cf-9b2b-4fb5-a1bb-bec5a4ec292e,2026-10-21.0
 xc:V-00466,firstcanadiangraphite.com,the same name in the same province or state,First Canadian Graphite,V6E 3V6,BC,2688620d-9ce8-4829-ae29-502e47dc9365,2026-10-21.0
@@ -169,7 +169,7 @@ xc:V-01335,ntgclarity.com,the same name in the same province or state,NTG Clarit
 xc:V-01369,perimetermed.com,the same name in the same province or state,Perimeter Medical Imaging AI,75247-3800,TX,ed874ad6-a1ad-46cb-90fe-aeea41b133a6,2026-10-21.0
 xc:V-01411,nvgoldcorp.com,the same name in the same province or state,Northern Lion Gold Corporation,V6B 4N8,BC,e83802c7-4588-4f45-b35f-e50ba7459c40,2026-10-21.0
 xc:V-01413,northern-shield.com,the same name in the same province or state,Northern Shield Resources Inc.,K2P 1L4,ON,f2a2ae00-f923-4cc6-97cb-9b46a53c98e3,2026-10-21.0
-xc:V-01423,vanadiumcorp.com,the same name in the same province or state,Vanadiumcorp Resource Inc,V4A 5A4,BC,ce50732c-b0d2-409a-9d64-5af712a0e2f4,2026-10-21.0
+xc:V-01423,vanadiumcorp.com,the same name in the same province or state,VanadiumCorp Resource Inc.,V6M 3W5,BC,526fbf6b-e16d-4a0c-a13a-9a02578e06f5,2026-10-21.0
 xc:V-01475,pacificbooker.bc.ca,the same name in the same province or state,Pacific Booker Minerals Inc,V6E 3Z3,BC,dfab3856-916a-4a8b-a410-9caf2fcaaef6,2026-10-21.0
 xc:V-01497,safisilver.com,the same name in the same province or state,Safi Silver Corp.,M6H 3Y8,ON,e4e72563-0585-4b23-997e-69ed11710c31,2026-10-21.0
 xc:V-01580,acceleware.com,the same name in the same province or state,Acceleware Ltd,T2S 1R9,AB,60b5f268-c1a0-4869-a530-c53f004f9e02,2026-10-21.0
@@ -207,7 +207,7 @@ xc:V-02662,vertxinc.com,the same name in the same province or state,Vertical Exp
 xc:V-02693,ximenminingcorp.com,the same name in the same province or state,Ximen Mining,V6C 1A8,BC,b5cc9679-8855-498b-b6ee-c07821ea664c,2026-10-21.0
 xc:V-02702,solution.financial,the same name in the same province or state,Solution Financial Inc.,V6X 4K1,BC,a9dcb4e7-b5cd-4ca7-b2cb-7f9c92bba09c,2026-10-21.0
 xc:V-02738,medxhealth.com,the same name in the same province or state,MedX Health,L5T 1M2,ON,f4f49030-eac5-4774-aabc-b679d1712a33,2026-10-21.0
-xc:V-02794,greatcanadianliquor.com,the same name in the same province or state,Rocky Mountain Liquor,T0H 1L0,AB,8490af0c-d8b8-4065-a4b9-628838d50cc1,2026-10-21.0
+xc:V-02794,greatcanadianliquor.com,the same name in the same province or state,Rocky Mountain Liquor,T4S 1J9,AB,d1a0f45e-28e1-4a79-bddb-6af50755b928,2026-10-21.0
 xc:V-02899,avrupaminerals.com,the same name in the same province or state,Avrupa Minerals Ltd.,V6C 1Z7,BC,fbe11e2b-b6fd-4d42-b328-09eb71141637,2026-10-21.0
 xc:V-02990,leonovus.com,the same name in the same province or state,Leonovus Inc,K2B 8K2,ON,4a0d896f-7144-4928-989d-149313a5d864,2026-10-21.0
 xc:V-03031,opawica.com,the same name in the same province or state,Opawica Explorations Inc,V6C 2T5,BC,65b61863-26d6-45aa-8e48-c8e2e894b7f3,2026-10-21.0
@@ -226,8 +226,8 @@ xc:V-03883,casaminerals.com,the same name in the same province or state,Casa Min
 xc:V-03959,goldreserveinc.com,the same name in the same province or state,Gold Reserve Corporation,99201-1005,WA,cf98bb3a-a256-4efd-b07d-d74b6f981a07,2026-10-21.0
 xc:V-03981,diamondwines.com,the same name in the same province or state,Diamond Estates Wines & Spirits,M8Z 5T7,ON,0a7829a1-1b5e-4a40-8267-cbcf6d378623,2026-10-21.0
 xc:V-04004,elcoracorp.com,the same name in the same province or state,Elcora Advanced Materials Corp.,B4A 2T3,NS,8674b9df-042f-4324-a52d-b94b6078486e,2026-10-21.0
-xc:V-04006,voyageurminerals.ca,the same name in the same province or state,Voyageur Pharmaceuticals,T2G 2B3,AB,44b4b2ee-876b-4cbf-8f28-7fa7dc16f44d,2026-10-21.0
 xc:V-04006,voyageurpharmaceuticals.ca,the same name in the same province or state,Voyageur Pharmaceuticals,T3B 2W9,AB,fe3aeb0b-8821-4864-9135-4b3b2d7bb6dd,2026-10-21.0
+xc:V-04006,voyageurminerals.ca,the same name in the same province or state,Voyageur Pharmaceuticals,T2G 2B3,AB,44b4b2ee-876b-4cbf-8f28-7fa7dc16f44d,2026-10-21.0
 xc:V-04015,nmg.com,the same name in the same province or state,Nouveau Monde Graphite Inc.,J0K 3B0,QC,f00b50e9-4680-43c1-a6c5-e3019bff697a,2026-10-21.0
 xc:V-04020,gfgresources.com,the same name in the same province or state,GFG Resources Inc,S7N 1A9,SK,b07b95c9-215a-402e-885d-21cb393f273f,2026-10-21.0
 xc:V-04024,wrrgold.com,the same name in the same province or state,Walker River Resources Corp,V6E 4A4,BC,79214cdb-a5fd-40e3-a968-976b1ff15329,2026-10-21.0
@@ -236,7 +236,7 @@ xc:V-04159,stalliondiscoveries.com,the same name in the same province or state,S
 xc:V-04191,silverpredator.com,the same name in the same province or state,Silver Predator Corporation,83835-8192,ID,d62c284b-89a1-43d4-91fb-802dfa348688,2026-10-21.0
 xc:V-04215,pagesjaunes.ca,the same name in the same province or state,Eastwood Bio-Medical Canada,V6X 3Z6,BC,e1c95f7b-11f0-40a1-a5dc-345753d049d7,2026-10-21.0
 xc:V-04240,aequuseyecare.ca,the same name in the same province or state,Aequus Pharmaceuticals Inc.,V6C 1S4,BC,e931a840-f074-4ef8-bbc9-437ce752bd4f,2026-10-21.0
-xc:V-04250,vertex.ca,the same name in the same province or state,Vertex Resource Group Ltd.,T8W 5A8,AB,3ab662eb-f02e-4638-b47b-ca945dc56821,2026-10-21.0
+xc:V-04250,vertex.ca,the same name in the same province or state,Vertex Resource Group Ltd.,T2P 3E7,AB,db05b7bf-ee4b-43f8-8349-8e60c6b0d8b4,2026-10-21.0
 xc:V-04292,thefutrcorp.com,the same name in the same province or state,The FUTR Corp,M5H 3Y9,ON,95771a33-2eba-41c0-b990-e03be8a03bfe,2026-10-21.0
 xc:V-04339,cryptostar.com,the same name in the same province or state,Cryptostar Corp.,M5J 2V8,ON,1c4b8b88-9d1a-4bf0-9d27-48c98f4ea37a,2026-10-21.0
 xc:V-04375,astronconnect.com,the same name in the same province or state,Astron Connect Inc.,V6C 2X8,BC,e0b57aa5-c8f4-48ab-8a5d-8efd24fc459c,2026-10-21.0
@@ -273,7 +273,7 @@ xc:V-5089,nvrometals.com,the same name in the same province or state,NVRO Metals
 xc:V-5111,nicoenergy.ca,the same name in the same province or state,Ni-Co Energy Inc,J9J 3S9,QC,76ddfa55-1a6b-410d-88ae-b13e8f16561b,2026-10-21.0
 xc:VEL0001,velan.com,the same name in the same province or state,Velan,H4T 1G2,QC,e122b856-074c-44aa-b677-9f124eedab25,2026-10-21.0
 xc:VEL0001,velansteamtraps.com,the same name in the same province or state,Velan Inc,J2J 1E7,QC,f930fc46-eff9-4daf-9852-87c49f1db60b,2026-10-21.0
-xc:WAJ0001,wajax.com,the same name in the same province or state,Wajax,N9C2L8,ON,a32cae8b-24de-4afb-888b-faa2a2c81cfd,2026-10-21.0
+xc:WAJ0001,wajax.com,the same name in the same province or state,Wajax,P7B 6M4,ON,78192d46-f00d-4629-a64a-3142815bad4b,2026-10-21.0
 xc:WAL0003,wallfinancialcorporation.com,the same name in the same province or state,Wall Financial Corp,V6Z 2R9,BC,5e6b2e34-6489-4237-b559-72df8c2f0d6a,2026-10-21.0
 xc:WAL0006,wallbridgemining.com,the same name in the same province or state,Wallbridge Mining Co Ltd,P3Y 1L7,ON,002181f6-f5e2-4491-976c-1995a4d2cd7b,2026-10-21.0
 xc:WES0005,westfraser.com,the same name in the same province or state,West Fraser Timber Co Ltd,V7B 1B4,BC,9e8d2bf6-5df2-4a3f-81c9-2b9257b033ad,2026-10-21.0
