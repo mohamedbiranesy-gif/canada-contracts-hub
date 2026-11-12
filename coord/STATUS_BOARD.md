@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-12 17:07 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 17:31 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-12)
 | metric | value |
@@ -62,7 +62,7 @@
 | claude | claude_buyer_ap_results_cccrawl07.csv | 44454 | 44454 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl08.csv | 44781 | 44781 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl09.csv | 44518 | 44518 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl10.csv | 9507 | 9507 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl10.csv | 9734 | 9734 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
@@ -89,7 +89,7 @@
 | claude | claude_peppol_participants.csv | 77 | 0 | 0 | 0 | 77 |
 | claude | claude_registry_bulk.csv | 41690 | 36008 | 2783 | 0 | 2899 |
 | claude | claude_registry_lookup.csv | 92919 | 24597 | 51188 | 0 | 17134 |
-| claude | claude_site_owner_wd.csv | 8042 | 0 | 0 | 0 | 8042 |
+| claude | claude_site_owner_wd.csv | 8079 | 0 | 0 | 0 | 8079 |
 | claude | claude_vendor_names_read.csv | 6 | 0 | 0 | 0 | 6 |
 | claude | claude_vendor_sites.csv | 842 | 0 | 0 | 0 | 842 |
 | claude | claude_wikidata_orgs.csv | 42229 | 0 | 0 | 0 | 42229 |
@@ -202,10 +202,26 @@
 | claude | roster_cc_sk_swiftcurrent.csv | 219 | 0 | 0 | 0 | 219 |
 | claude | roster_cc_sk_yorkton.csv | 221 | 0 | 0 | 0 | 221 |
 | claude | roster_dl_arcticspas.csv | 177 | 0 | 0 | 0 | 177 |
+| claude | roster_dl_coastspas.csv | 89 | 0 | 0 | 0 | 89 |
+| claude | roster_dl_hydropool.csv | 262 | 0 | 0 | 0 | 262 |
+| claude | roster_dl_sabian.csv | 456 | 0 | 0 | 0 | 456 |
+| claude | roster_dl_valor.csv | 586 | 0 | 0 | 0 | 586 |
 | claude | roster_ex_agdays.csv | 507 | 0 | 0 | 0 | 507 |
+| claude | roster_ex_bc_home_garden.csv | 193 | 0 | 0 | 0 | 193 |
+| claude | roster_ex_bcnrf.csv | 57 | 0 | 0 | 0 | 57 |
+| claude | roster_ex_calgary_home_garden.csv | 252 | 0 | 0 | 0 | 252 |
+| claude | roster_ex_cgc.csv | 240 | 0 | 0 | 0 | 240 |
+| claude | roster_ex_edmonton_home_garden.csv | 239 | 0 | 0 | 0 | 239 |
+| claude | roster_ex_gbfw.csv | 95 | 0 | 0 | 0 | 95 |
 | claude | roster_ex_ids_toronto.csv | 97 | 0 | 0 | 0 | 97 |
 | claude | roster_ex_ids_vancouver.csv | 146 | 0 | 0 | 0 | 146 |
+| claude | roster_ex_ola_sc.csv | 152 | 0 | 0 | 0 | 152 |
+| claude | roster_ex_pacag.csv | 240 | 0 | 0 | 0 | 240 |
 | claude | roster_ex_pdac.csv | 1300 | 0 | 0 | 0 | 1300 |
+| claude | roster_ex_salon_bateau_mtl.csv | 73 | 0 | 0 | 0 | 73 |
+| claude | roster_ex_sask_oilshow.csv | 175 | 0 | 0 | 0 | 175 |
+| claude | roster_ex_truckworld.csv | 469 | 0 | 0 | 0 | 469 |
+| claude | roster_ex_winnipeg_home_garden.csv | 184 | 0 | 0 | 0 | 184 |
 | claude | roster_hba_niagara.csv | 154 | 0 | 0 | 0 | 154 |
 | claude | roster_hba_regina.csv | 168 | 0 | 0 | 0 | 168 |
 | claude | roster_na_awmac.csv | 383 | 0 | 0 | 0 | 383 |
@@ -438,7 +454,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 552891 entities researched, 523996 with at least one verified contact.
+**team_buyers**: 553491 entities researched, 524595 with at least one verified contact.
 
 **team_vendors**: 15607 entities researched, 4085 with at least one verified contact.
 
@@ -451,10 +467,10 @@
 | jules | 12 | 0 | 12 | 9 |
 
 ## Last ingest
-- buyers with team findings: 553491 (with at least one verified e-mail/portal: 524592)
+- buyers with team findings: 553604 (with at least one verified e-mail/portal: 524705)
 - vendors with team findings: 15607
 - QA rows: 200
-- counters: {'files': 426, 'buyer_findings_verified': 564608, 'buyer_findings_verified_on_archive_copy': 14496, 'buyer_findings_not_found_on_page': 3386, 'buyer_findings_unverified_page_unavailable': 27436, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 822, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3797, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27763, 'ledger_verdict_stands_page_not_read_again_verified': 568460, 'verify_tasks_chatgpt': 109, 'verify_tasks_gemini': 26957, 'verify_tasks_jules': 9}
+- counters: {'files': 426, 'buyer_findings_verified': 564724, 'buyer_findings_verified_on_archive_copy': 14496, 'buyer_findings_not_found_on_page': 3386, 'buyer_findings_unverified_page_unavailable': 27436, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 822, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3798, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27763, 'ledger_verdict_stands_page_not_read_again_verified': 569082, 'verify_tasks_chatgpt': 109, 'verify_tasks_gemini': 26957, 'verify_tasks_jules': 9}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -463,7 +479,7 @@ Every row's outcome is in `coord/results/verification_log.csv` (lane claude: `ve
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 1594 | 5 | 0 | 60 | 1 | 43 | 0 |
-| claude | 558214 | 1 | 0 | 27019 | 66 | 2191 | 821 |
+| claude | 558330 | 1 | 0 | 27019 | 66 | 2191 | 821 |
 | codex | 229 | 0 | 0 | 17 | 0 | 4 | 0 |
 | gemini | 4571 | 7 | 0 | 327 | 454 | 1148 | 1 |
 
