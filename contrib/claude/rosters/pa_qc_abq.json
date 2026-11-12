@@ -1,0 +1,13 @@
+{
+ "kind": "member",
+ "biller": "Association béton Québec (ABQ)",
+ "biller_site": "https://betonabq.org/",
+ "biller_address": "520 rue D’Avaugour, bureau 2200, Boucherville QC J4B 0G6",
+ "biller_address_url": "https://betonabq.org/contact/",
+ "biller_address_quote": "Adresse 520 rue D’Avaugour, bureau 2200, Boucherville QC J4B 0G6",
+ "read": "2026-11-12",
+ "pays_quote": "La cotisation de l’année 2026 pour les membres producteurs s’élève à 0,125 $/m3.",
+ "pays_url": "https://betonabq.org/wp-content/uploads/2026/03/Producteur-Formulaire-adhesion-2026.pdf",
+ "list_name": "the member directory of the Association béton Québec (producer and associate members)",
+ "key": "pa_qc_abq"
+}

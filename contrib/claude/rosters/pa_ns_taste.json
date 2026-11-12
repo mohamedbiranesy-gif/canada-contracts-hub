@@ -1,0 +1,13 @@
+{
+ "kind": "member",
+ "biller": "Taste of Nova Scotia",
+ "biller_site": "https://tasteofnovascotia.com/",
+ "biller_address": "33 Ochterloney Street, Suite 240, Dartmouth, Nova Scotia B2Y 4P5",
+ "biller_address_url": "https://tasteofnovascotia.com/contact/",
+ "biller_address_quote": "Phone 1 (902) 492 9291 Address 33 Ochterloney Street, Suite 240 , Dartmouth, Nova Scotia B2Y 4P5 Canada",
+ "read": "2026-11-12",
+ "pays_quote": "Producer/Processor Member Fee Structure Producer-Processor membership fees are based on gross sales last year and are as follows: $200,000 or less: $540.75+ HST $200,001-$350,000: $810.60 + HST $350,001-$500,00: $1,076.09 + HST $500,001-$1,000,000: $1,622.25 + HST Over $1,000,000: $2,163.00 + HST",
+ "pays_url": "https://tasteofnovascotia.com/become-a-member/producer-application/",
+ "list_name": "the member directory of Taste of Nova Scotia (restaurant, producer/processor and associate members)",
+ "key": "pa_ns_taste"
+}
