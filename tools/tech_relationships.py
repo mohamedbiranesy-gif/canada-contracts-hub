@@ -420,10 +420,24 @@ BILLING_BY_DOMAIN = {
                        currency="“All payments must be made in Canadian dollars, unless stated otherwise.” (terms of service)",
                        delivery=("“When we generate a new invoice, we'll send you an email with a copy of the invoice and will also make the invoice available in your Client Area” "
                                  "(terms of service)"),
-                       payment=("“WHC accepts payments by Visa, Mastercard and Paypal (which includes American Express).” … “Unless otherwise requested, WHC will attempt to charge the "
-                                "payment method on file 5 days prior to your invoice's due date.” (terms of service)"),
+                       # 2026-11-12: its payment page (https://whc.ca/pay) offers the invoice paid by wire transfer, Interac e-mail transfer or a deposit at the bank:
+                       # an invoice that can be paid by bank transfer is in, also when the biller would take a card (owner 2026-11-11 14:20 EST)
+                       payment=("on its payment page: “Complete our online order form to generate an invoice and select Wire Transfer / Interac / Deposit as the payment method.” "
+                                "“North American Wire transfers or direct deposits at a CIBC branch (in North America) Please note: we do not accept wire transfers or direct deposits "
+                                "for amounts less than 30$.” (https://whc.ca/pay, read 2026-11-12) — and in its terms: “WHC accepts payments by Visa, Mastercard and Paypal (which "
+                                "includes American Express).” … “Unless otherwise requested, WHC will attempt to charge the payment method on file 5 days prior to your invoice's due "
+                                "date.” (terms of service)"),
                        unpaid=("“Services not paid on their due date risk being suspended, and may be terminated permanently shortly after, at WHC’s sole discretion.” "
                                "(https://whc.ca/legal/terms-of-service, read 2026-11-11)"))),
+    # Varial Hosting: its billing questions, read with the project's reader on 2026-11-12 (knowledge base of its client area)
+    "varialhosting.com": dict(cls="monthly_or_yearly", read="2026-11-12", url="https://my.varialhosting.com/knowledgebase/33/Billing",
+                              quote="How do I renew my hosting plan? Hosting renewal invoices are automatically generated 15 days before the account is due for.",
+                              more="its price list is by the month and by terms of one to three years (https://varialhosting.com/): which term this organisation chose is not published",
+                              bill=dict(
+                                  delivery="an invoice before each renewal: “Hosting renewal invoices are automatically generated 15 days before the account is due for.” (knowledge base: Billing)",
+                                  payment=("“We accept payment by credit card, PayPal, Interac e-Transfer, electronic funds transfer (EFT) and...” (https://my.varialhosting.com/knowledgebase/33/Billing) — "
+                                           "“If you wish to send payment for an invoice by cheque or money order, please make the payment payable to Varial Technologies, Inc” "
+                                           "(https://my.varialhosting.com/knowledgebase/41/How-do-I-mail-in-a-payment.html, read 2026-11-12)"))),
 }
 BILLING["lightspeed_golf"] = BILLING["lightspeed"]
 BILLING["wellnessliving_widget"] = BILLING.get("wellnessliving")

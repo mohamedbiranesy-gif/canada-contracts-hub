@@ -1913,3 +1913,17 @@ invoice after we receive and screen your ALR application for completeness."; its
 invoice." The fee of one licence is the bill — published, over $5,000 — so these rows sort with the first mark. The listing is its own
 search form (no robots.txt on the host, no CAPTCHA): three searches, one by activity, each returning every country. 384 holders tied to a
 site on file at once; the rest go to the name autocomplete in the twice-daily Health Canada runs (the largest bills first).
+
+## 2026-11-12 16:55Z — lane `claude`: two hosting vendors whose own pages offer the invoice paid by bank transfer
+
+36,862 rows of a service seen on the buyer's side fail on "payment: not published"; 100 vendors stand behind 25,951 of them. Their own
+sites were searched for how they are paid (sitemap pages on billing, payment, invoices, terms; the project's reader). Most take a card
+or PayPal only (Hawk Host, easyDNS, doteasy …): those rows stay out. Two print an invoice payable by bank:
+- Web Hosting Canada (whc.ca): "Complete our online order form to generate an invoice and select Wire Transfer / Interac / Deposit as
+  the payment method." (https://whc.ca/pay). It also charges a card on file by default; its entry in `tools/tech_relationships.py`
+  now carries both, bank first, and the row's route is "either" — in, by the owner's rule of 2026-11-11 14:20 EST ("an invoice that
+  can be paid by bank transfer is in, also when the biller would take a card").
+- Varial Hosting: "We accept payment by credit card, PayPal, Interac e-Transfer, electronic funds transfer (EFT) and..." and "If you
+  wish to send payment for an invoice by cheque or money order …" (its knowledge base).
+Canadian Web Hosting names wire transfers, Interac and cheques only in a refund clause: not taken (a refund clause is not how a bill is
+paid). These rows are small bills (from C$2.79 a month) and sort under the $5,000 mark; a buyer with a record of its own keeps that.
