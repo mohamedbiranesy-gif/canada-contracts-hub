@@ -1,0 +1,33 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CL-CT-13201,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 6),b:5c8339ac30652fea,Municipalité de Saint-Mathieu-de-Rioux,,CA,https://www.st-mathieu-de-rioux.ca,,,6
+CL-CT-13202,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 5),b:944ed9ab4669c2ad,Camrose County,,CA,http://www.county.camrose.ab.ca,,,5
+CL-CT-13203,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 5),b:8590feaa8576d8ec,MRC Avignon,,,https://www.mrcavignon.com,,,5
+CL-CT-13204,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 5),b:6e33509dceec359f,Municipalité de Rivière-Saint-Jean,,,https://www.rivieresaintjean-magpie.com,,,5
+CL-CT-13205,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 4),b:a1f3f656f251a179,"Department of Industry, Science and Resources",,US,https://www.industry.gov.au,,,4
+CL-CT-13206,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 4),b:9e8554223ff75a95,Travel Alberta,,,https://www.travelalberta.com,,,4
+CL-CT-13207,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 4),b:08746a1eaa783711,London Police Service,,CA,https://www.londonpolice.ca,,,4
+CL-CT-13208,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 4),b:90822ac59826a95f,Village de Lac-Saguay,,CA,https://www.lacsaguay.qc.ca,,,4
+CL-CT-13209,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 4),b:559cf91d29654e06,Paroisse de Saint-Augustin-de-Woburn,,CA,https://www.saintaugustindewoburn.ca,,,4
+CL-CT-13210,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 4),b:c0fbf91e370f9ec8,Municipalité de Saint-Robert-Bellarmin,,CA,https://www.st-robertbellarmin.qc.ca,,,4
+CL-CT-13211,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 3),b:af62ed6b94470c4c,Alberta Securities Commission,,CA,https://www.asc.ca,,,3
+CL-CT-13212,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 3),b:14496db9f1315867,Grande Yellowhead Public School Division,,CA,https://www.gypsd.ca,,,3
+CL-CT-13213,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 3),b:4e48b16f3d6ae10c,RCMP External Review Committee,,CA,https://rcmp.ca/en,,,3
+CL-CT-13214,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 3),b:ba10de65ce9b1cae,Technische Universität Bergakademie Freiberg,,,https://tu-freiberg.de,,,3
+CL-CT-13215,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 3),b:c2eea6dcef2e3e12,Paroisse de Saint-Hilaire-de-Dorset,,CA,https://www.sthilairededorset.ca,,,3
+CL-CT-13216,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 2),b:60e7a6e7e3a01b86,Town of Cardston,,CA,http://www.cardston.ca,,,2
+CL-CT-13217,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 2),b:34909e902c8f85ac,RCMP,,CA,https://rcmp.ca/en,,,2
+CL-CT-13218,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:b47b83708073c0ac,Australian Criminal Intelligence Commission,,US,https://www.acic.gov.au,,,1
+CL-CT-13219,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:7c443e8aa1edf1b2,Federal Court of Australia,,US,https://www.fedcourt.gov.au,,,1
+CL-CT-13220,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:ad28fc3dd1abe294,Elk Island Catholic Schools,,CA,https://www.eics.ab.ca,,,1
+CL-CT-13221,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:af692c0f3fe65b98,Northern/Interior Regional Office - Community Corrections,,CA,https://www2.gov.bc.ca,,,1
+CL-CT-13222,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:485bdadef69ffc71,"Superior Court of California, County of Los Angeles",,,https://www.lacourt.org,,,1
+CL-CT-13223,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:2781f4df8ffcf6cc,Mon Sheong Foundation,,,https://www.monsheong.org,,,1
+CL-CT-13224,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:c3d334be1bf67dd7,Canadian Museum of Nature,,CA,https://nature.ca/en,,,1
+CL-CT-13225,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:9e29655fe343baba,"BAE Systems, Inc.",,,https://www.baesystems.com/en-us,,,1
+CL-CT-13226,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:510cdc017f3a10b5,Municipalité de Saint-Omer,,CA,https://www.st-omer.qc.ca,,,1
+CL-CT-13227,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:1cf693db51496191,Paroisse de Notre-Dame-Auxiliatrice-de-Buckland,,CA,https://www.buckland.qc.ca,,,1
+CL-CT-13228,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:5b26a0f3be6afe37,Päästeamet,,,http://www.rescue.ee,,,1
+CL-CT-13229,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:7a701edb86e37c1d,District of Columbia Courts,,US,https://www.dccourts.gov,,,1
+CL-CT-13230,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:d58528969813f76c,BAE SYSTEMS TECHNOLOGY SOLUTIONS & SERVICES INC.,,,https://www.baesystems.com/en-us,,,1
+CL-CT-13231,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:1cc516cb1b449afc,"CACI TECHNOLOGIES, INC.",,,https://www.caci.com,,,1
+CL-CT-13232,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1),b:db2f40540b9852b2,BAE SYSTEMS SPACE & MISSION SYSTEMS INC.,,,https://www.baesystems.com/en-us,,,1

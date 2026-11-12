@@ -1,1 +1,26 @@
-{}
+{
+ "contrib/claude/payees/cc_nb_saint_john.json": {
+  "quotes": 3,
+  "sig": "0e3757e4ce1d5c58",
+  "url": "https://thechambersj.com/membership-benefits/",
+  "verified": "2026-11-12"
+ },
+ "contrib/claude/payees/cc_nb_woodstock.json": {
+  "quotes": 1,
+  "sig": "d64442c4c66dfe49",
+  "url": "https://www.gwcc.ca/become-a-member",
+  "verified": "2026-11-12"
+ },
+ "contrib/claude/payees/cc_nl_bay_st_george.json": {
+  "quotes": 1,
+  "sig": "a1879e198972ad8d",
+  "url": "https://www.bsgcoc.ca/join-us",
+  "verified": "2026-11-12"
+ },
+ "contrib/claude/payees/cc_pe_kensington.json": {
+  "quotes": 1,
+  "sig": "94aed50ef217152b",
+  "url": "https://www.kaccpei.com/kaccpayments",
+  "verified": "2026-11-12"
+ }
+}

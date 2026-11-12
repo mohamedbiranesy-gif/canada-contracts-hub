@@ -1,0 +1,101 @@
+task_id,org_group,buyer_key,buyer_name,other_spellings,country,known_website,known_general_email,known_procurement_email,contracts_in_dataset
+CL-CT-13101,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 3125),b:0f36563ed81dcfd4,Santé Québec – Capitale-Nationale – Universitaire,,CA,https://www.ciusss-capitalenationale.gouv.qc.ca,,,3125
+CL-CT-13102,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 2288),b:60ef5d5b36d1d258,Government of Yukon,,CA,https://yukon.ca,,,2288
+CL-CT-13103,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1853),b:96fe5b060839ea0a,Ministère de la Sécurité publique,,CA,https://www.quebec.ca/gouvernement/ministere/securite-publique,,,1853
+CL-CT-13104,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1636),b:540e4b4e71b2e0a8,Société de l'assurance automobile du Québec,,CA,https://saaq.gouv.qc.ca,,,1636
+CL-CT-13105,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1385),b:6fc7c2f42226e13d,Revenu Québec,,CA,https://www.revenuquebec.ca,,,1385
+CL-CT-13106,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 1205),b:c16ae7a169e1e6a6,Ministère de la Justice du Québec,,CA,https://www.justice.gouv.qc.ca,,,1205
+CL-CT-13107,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 895),b:2dad2321bc7b9e19,Ville de Granby,,CA,https://www.granby.ca,,,895
+CL-CT-13108,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 668),b:f45eadade0bee638,Institut national de santé publique du Québec,,CA,https://www.inspq.qc.ca,,,668
+CL-CT-13109,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 602),b:217a96f2901d1709,Bibliothèque et Archives nationales du Québec,,CA,https://www.banq.qc.ca,,,602
+CL-CT-13110,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 513),b:c54cda6b541fea60,Société de transport de Laval,,CA,https://stlaval.ca,,,513
+CL-CT-13111,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 475),b:6ede6fddbbd445a8,Liquor Control Board of Ontario (LCBO),,,https://www.lcbo.com,,,475
+CL-CT-13112,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 441),b:03849d49c9e41c25,Centre de services scolaire des Monts-et-Marées,,CA,https://www.cssmm.gouv.qc.ca,,,441
+CL-CT-13113,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 402),b:a0fb32a0bd8f178c,Santé Québec,,CA,https://www.santequebec.ca,,,402
+CL-CT-13114,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 256),b:b558a4607afb527e,Ville de Boucherville,,CA,https://www.boucherville.ca,,,256
+CL-CT-13115,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 252),b:663cdf88bca54384,CNESST,,CA,https://www.cnesst.gouv.qc.ca,,,252
+CL-CT-13116,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 252),b:eba869f97dcf3d9c,Curateur public du Québec,,CA,https://www.curateur.gouv.qc.ca,,,252
+CL-CT-13117,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 237),b:6573ccb822cbd2da,Institut de tourisme et d'hôtellerie du Québec,,CA,https://www.ithq.qc.ca,,,237
+CL-CT-13118,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 228),b:c3dbf5f79a13e8c7,Humber Polytechnic,,CA,https://humber.ca,,,228
+CL-CT-13119,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 219),b:4035596a371f1803,Centre de services scolaire de la Riveraine,,CA,https://cssdlr.gouv.qc.ca,,,219
+CL-CT-13120,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 211),b:a063525403d70688,Ville de Chibougamau,,CA,https://www.ville.chibougamau.qc.ca,,,211
+CL-CT-13121,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 209),b:069c7e7d760e4322,Town of Orangeville,,CA,https://www.orangeville.ca,,,209
+CL-CT-13122,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 187),b:117191c40b9a94aa,Canton de Orford,,CA,https://www.canton.orford.qc.ca,,,187
+CL-CT-13123,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 177),b:b3b0b2c726742420,Cégep Limoilou,,CA,https://www.cegeplimoilou.ca,,,177
+CL-CT-13124,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 162),b:3fc88bb62acf8692,Société de transport de Sherbrooke,,CA,https://www.sts.qc.ca,,,162
+CL-CT-13125,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 160),b:6bbc87397754d206,Autorité des marchés financiers,,CA,https://lautorite.qc.ca,,,160
+CL-CT-13126,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 159),b:4a231ad4cf1dac40,Ville de Lebel-sur-Quévillon,,,https://www.lsq.quebec,,,159
+CL-CT-13127,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 154),b:3f4422845c7dafa2,City of Moose Jaw,,CA,https://moosejaw.ca,,,154
+CL-CT-13128,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 144),b:b9ca747cf742855b,Ville de McMasterville,,CA,https://www.mcmasterville.ca,,,144
+CL-CT-13129,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 121),b:10a9176ece1deac1,Ministère des Affaires municipales et de l'Habitation,,CA,https://www.quebec.ca/gouvernement/ministere/affaires-municipales,,,121
+CL-CT-13130,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 120),b:647aa888e95d66c1,Municipalité de Saint-Cyrille-de-Wendover,,CA,https://www.stcyrille.qc.ca,,,120
+CL-CT-13131,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 100),b:16f3f0da4d9a214d,Waterloo Regional Police Service,,CA,https://www.wrps.on.ca,,,100
+CL-CT-13132,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 96),b:4eb8a3c2443cee90,Ville de Saint-Tite,,,https://www.villest-tite.com,,,96
+CL-CT-13133,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 95),b:763f05c670a795aa,CBC/Radio-Canada,,CA,https://cbc.radio-canada.ca/en,,,95
+CL-CT-13134,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 94),b:404e1da067aef2af,Toronto Police Service,,CA,https://www.tps.ca,,,94
+CL-CT-13135,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 89),b:bdf80ddc49d9d3b4,Attorney General,,CA,https://www2.gov.bc.ca,,,89
+CL-CT-13136,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 87),b:ebda3045735cf7fb,École nationale de police du Québec,,CA,https://www.enpq.qc.ca,,,87
+CL-CT-13137,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 75),b:755a8f615dde1fd9,Municipalité de Saint-Nazaire,,CA,https://www.ville.saint-nazaire.qc.ca,,,75
+CL-CT-13138,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 74),b:a10ac9259f15fa19,University of Alberta,,CA,https://www.ualberta.ca,,,74
+CL-CT-13139,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 71),b:ceb82f728ec3920d,Régie du bâtiment du Québec,,CA,https://www.rbq.gouv.qc.ca,,,71
+CL-CT-13140,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 70),b:13eb7af148339115,Canton de Hatley,,CA,https://www.cantondehatley.ca,,,70
+CL-CT-13141,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 66),b:f8cd9bc84c8ffab6,Municipalité de Sainte-Catherine-de-Hatley,,CA,https://www.sainte-catherine-de-hatley.ca,,,66
+CL-CT-13142,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 63),b:2133da9d8d883a3e,Municipalité de Saint-Polycarpe,,CA,https://stpolycarpe.ca,,,63
+CL-CT-13143,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 59),b:8af2a2df40ff5ac2,Municipalité de Saint-Isidore,,,https://www.saint-isidore.net,,,59
+CL-CT-13144,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 58),b:116ca7920d2d547f,Commonwealth of Massachusetts - PAROLE BOARD (PAR),,US,https://www.mass.gov,,,58
+CL-CT-13145,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 56),b:498d895dbbaca226,Ville de Saint-Rémi,,CA,https://www.ville.saint-remi.qc.ca,,,56
+CL-CT-13146,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 56),b:e3a684fe1e2257db,Municipalité de Nantes,,CA,https://www.munantes.qc.ca,,,56
+CL-CT-13147,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 52),b:f75250192fb63c4b,Municipalité de Wotton,,CA,https://www.wotton.ca,,,52
+CL-CT-13148,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 52),b:758d533f0d08d5a1,Municipalité de Sainte-Geneviève-de-Berthier,,CA,https://www.municipalites-du-quebec.ca/sainte-genevieve-de-berthier,,,52
+CL-CT-13149,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 50),b:5ddd316c011f4fee,Municipalité de Saint-Siméon,,CA,https://www.saintsimeon.ca,,,50
+CL-CT-13150,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 45),b:2fb74fc749130eab,Rocky View Schools,,CA,https://www.rockyview.ab.ca,,,45
+CL-CT-13151,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 45),b:800ddd015f87d2a3,Municipalité de Lyster,,CA,https://www.lyster.ca,,,45
+CL-CT-13152,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 43),b:28c1524b15d32cb0,Ville de Léry,,CA,https://www.lery.ca,,,43
+CL-CT-13153,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 42),b:f48436234dcf06a1,Ville de Beaupré,,,https://www.villedebeaupre.com,,,42
+CL-CT-13154,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 39),b:bace93a8aae18318,Municipalité de Saint-Zénon,,,https://www.saint-zenon.com,,,39
+CL-CT-13155,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 39),b:46f71d150f822c73,Municipalité de Saint-Norbert-d'Arthabaska,,CA,https://www.saint-norbert-darthabaska.ca,,,39
+CL-CT-13156,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 38),b:18de546a5c7d395d,Municipalité de Saint-André-Avellin,,CA,https://www.ville.st-andre-avellin.qc.ca,,,38
+CL-CT-13157,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 32),b:843e5559dea692ee,Municipalité de Saint-Victor,,CA,https://www.st-victor.qc.ca,,,32
+CL-CT-13158,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 30),b:9d7c00816795a651,Canton de Potton,,CA,https://www.potton.ca,,,30
+CL-CT-13159,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 29),b:837fbc59d9531f64,Municipalité régionale de comté Le Val-Saint-François,,CA,https://val-saint-francois.qc.ca,,,29
+CL-CT-13160,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 29),b:58f2dc251c8bbdba,Paroisse de Sainte-Marguerite,,CA,https://www.sainte-marguerite.ca,,,29
+CL-CT-13161,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 29),b:6024c341e13f8296,Municipalité de Baie-du-Febvre,,,https://www.baie-du-febvre.net,,,29
+CL-CT-13162,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 29),b:3ce6e0591c0db46b,Department of Agriculture,,US,https://www.usda.gov,,,29
+CL-CT-13163,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 27),b:e5e971380de0677f,Municipalité de Notre-Dame-de-Pontmain,,CA,https://www.munpontmain.qc.ca,,,27
+CL-CT-13164,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 27),b:03a431b6bf34b87b,Paroisse de Sainte-Praxède,,CA,https://www.ste-praxede.ca,,,27
+CL-CT-13165,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 26),b:2faa63d9cebacb47,Paroisse de Notre-Dame-de-Lourdes,,,https://www.municipalitelourdes.com,,,26
+CL-CT-13166,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 26),b:9172a175e5156249,Department of Justice,,US,https://www.justice.gov,,,26
+CL-CT-13167,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 25),b:365a4fc1ac302c46,Office of the Commissioner of Official Languages,,CA,https://www.clo-ocol.gc.ca/en,,,25
+CL-CT-13168,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 24),b:67568e6c25cc7a17,The Good Samaritan Society (A Lutheran Social Service Organization),,,https://www.good-sam.com,,,24
+CL-CT-13169,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 24),b:389fb52c019cd7c7,Municipalité de Sainte-Sabine,,CA,https://www.stesabine.ca,,,24
+CL-CT-13170,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 24),b:26335da83ea6db05,Municipalité de Saint-Édouard-de-Maskinongé,,CA,https://www.st-edouard-de-maskinonge.ca,,,24
+CL-CT-13171,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 23),b:8b66a30e59a17bd5,Ville de Sainte-Anne-de-Beaupré,,,https://www.sainteannedebeaupre.com,,,23
+CL-CT-13172,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 23),b:52e25da22d883cc8,Municipalité de Lac-Saint-Paul,,CA,https://www.lac-saint-paul.ca,,,23
+CL-CT-13173,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 23),b:7b55f16433d9b24f,Paroisse de Sainte-Marie-Madeleine,,CA,https://www.sainte-marie-madeleine.ca,,,23
+CL-CT-13174,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 23),b:bdd21db61fcba6f1,Municipalité de Sainte-Aurélie,,CA,https://www.ste-aurelie.qc.ca,,,23
+CL-CT-13175,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 22),b:0c4a0df2007cd1a7,Civilian Review and Complaints Commission for the RCMP,,CA,https://www.crcc-ccetp.gc.ca/en,,,22
+CL-CT-13176,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 22),b:36ace3c22021206a,Municipalité de Bonsecours,,CA,https://www.bonsecours.ca,,,22
+CL-CT-13177,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 22),b:0599a3a5c0bbd5af,Paroisse de Saint-Martin,,CA,https://www.st-martin.qc.ca,,,22
+CL-CT-13178,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 21),b:71e6ed7065b736c5,Edmonton Police Service,,CA,https://www.edmontonpolice.ca,,,21
+CL-CT-13179,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 20),b:0c9c6c950996e7b2,Municipalité de Cacouna,,CA,https://www.cacouna.ca,,,20
+CL-CT-13180,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 20),b:ec246f428dc094ad,Paroisse de Sainte-Hénédine,,,https://www.ste-henedine.com,,,20
+CL-CT-13181,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 18),b:184b2764ba4e6917,Municipalité de Saint-Marc-sur-Richelieu,,,https://www.smsr.quebec,,,18
+CL-CT-13182,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 17),b:7fa5a80289062537,Municipalité de Berry,,,https://www.municipalite-berry.org,,,17
+CL-CT-13183,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 16),b:de8d1eeeccc7a7c4,Municipalité de Lac-Bouchette,,,https://www.lac-bouchette.com,,,16
+CL-CT-13184,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 16),b:de7a387a83bd0921,Municipalité régionale de comté La Jacques-Cartier,,,https://www.mrc.jacques-cartier.com,,,16
+CL-CT-13185,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 15),b:b1d44f34848fcfb5,Department of Foreign Affairs and Trade,,US,https://www.dfat.gov.au,,,15
+CL-CT-13186,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 15),b:3834f88043d3bcf6,Yellowhead County,,CA,https://yhcounty.ca,,,15
+CL-CT-13187,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 14),b:e516d74116d7c4df,Municipalité de Irlande,,CA,https://www.mundirlande.qc.ca,,,14
+CL-CT-13188,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 13),b:88899d9b49de2ece,Office of the Information Commissioner of Canada,,CA,https://www.oic-ci.gc.ca/en,,,13
+CL-CT-13189,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 12),b:ab4ccea5220bdd9e,HomeEd (City of Edmonton Non-Profit Housing Corporation),,CA,https://www.homeed.ca,,,12
+CL-CT-13190,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 12),b:f34bc54cc1189789,Municipalité de Saint-François-de-Sales,,CA,https://stfrancoisdesales.qc.ca,,,12
+CL-CT-13191,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 11),b:89bcd7e19654495e,Municipalité de Saint-Simon-les-Mines,,CA,https://www.sslm.ca,,,11
+CL-CT-13192,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 10),b:c337f29214d3260f,Court Services Branch,,CA,https://www2.gov.bc.ca,,,10
+CL-CT-13193,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 10),b:8a61218add1e052f,Municipalité de Sainte-Marie-de-Blandford,,,https://www.saintemariedeblandford.org,,,10
+CL-CT-13194,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 9),b:33606fc97d9d2d9a,BC Corrections,,CA,https://www2.gov.bc.ca,,,9
+CL-CT-13195,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 8),b:5964961a44b04740,The Correctional Investigator Canada,,CA,https://oci-bec.gc.ca/en,,,8
+CL-CT-13196,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 8),b:fa697e88f95a8ce2,Municipalité de Lamarche,,CA,https://www.ville.lamarche.qc.ca,,,8
+CL-CT-13197,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 7),b:fe6b9dc73d994410,BC Parks and Conservation Officer Service Division,,CA,https://www2.gov.bc.ca,,,7
+CL-CT-13198,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 7),b:c786c20604470463,Ontario Securities Commission,,CA,https://www.osc.ca,,,7
+CL-CT-13199,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 6),b:d4c3c3cb06b1646b,County of Northern Lights,,,http://www.countyofnorthernlights.com,,,6
+CL-CT-13200,current contract buyer without a mailbox of its own (most Canadian-vendor contracts first: 6),b:28c20d1c087ca16c,Carling Township,,CA,https://carling.ca,,,6
