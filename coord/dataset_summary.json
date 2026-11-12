@@ -1,9 +1,9 @@
 {
- "reference_date": "2026-11-11",
- "verified_ca_records": 817724,
+ "reference_date": "2026-11-12",
+ "verified_ca_records": 817647,
  "unverified_records": 51346,
  "status_verified_ca": {
-  "ongoing": 90853,
+  "ongoing": 90776,
   "end_date_unknown": 405306,
   "ongoing_inferred": 321565
  },
@@ -157,13 +157,13 @@
   "record_enrichment_coverage": {
    "ca_records": 513143,
    "ca_buyer_enriched": 511684,
-   "ca_buyer_website": 757419,
-   "ca_vendor_website": 268985,
-   "ca_vendor_contact_any": 276058,
-   "ca_vendor_registry_match": 416566,
-   "ca_vendor_bn9": 130632,
-   "ca_buyer_invoice_portal": 76110,
-   "ca_buyer_ap_email": 791448,
+   "ca_buyer_website": 757343,
+   "ca_vendor_website": 268932,
+   "ca_vendor_contact_any": 276004,
+   "ca_vendor_registry_match": 416503,
+   "ca_vendor_bn9": 130616,
+   "ca_buyer_invoice_portal": 76101,
+   "ca_buyer_ap_email": 791977,
    "unverified_records": 51346,
    "unverified_vendor_registry_match": 13573,
    "unverified_vendor_bn9": 7443,
@@ -191,25 +191,25 @@
    "not_enriched": 104
   }
  },
- "last_rebuild": "2026-11-11T14:46:37Z",
+ "last_rebuild": "2026-11-12T14:45:11Z",
  "last_rebuild_report": {
-  "team_buyers_verified": 307557,
+  "team_buyers_verified": 522122,
   "team_vendors": 15607,
   "seao_api_end_dates": 63,
   "web_vendors_with_site": 18806,
   "orgbook_xp_matches": 2345,
   "raw_full_files_entries": 58311,
-  "records_ap_extended": 795821,
-  "records_vendor_patched": 182833,
-  "records_ap_added": 4,
-  "moved_to_ended": 206,
-  "new_records_duplicate": 275746,
-  "new_records_vendor_matched": 58,
-  "new_records_buyer_matched": 72,
-  "new_records_added": 72,
+  "records_ap_extended": 795694,
+  "records_vendor_patched": 182762,
+  "records_ap_added": 83,
+  "moved_to_ended": 151,
+  "new_records_duplicate": 275744,
+  "new_records_vendor_matched": 60,
+  "new_records_buyer_matched": 74,
+  "new_records_added": 74,
   "records_orgbook_added": 4,
   "records_web_added": 1,
-  "built_at": "2026-11-11T14:46:37Z",
-  "reference_date": "2026-11-11"
+  "built_at": "2026-11-12T14:45:11Z",
+  "reference_date": "2026-11-12"
  }
 }
