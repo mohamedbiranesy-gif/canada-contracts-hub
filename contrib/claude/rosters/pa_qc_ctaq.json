@@ -1,0 +1,13 @@
+{
+ "kind": "member",
+ "biller": "Conseil de la transformation alimentaire du Québec (CTAQ)",
+ "biller_site": "https://conseiltaq.com/",
+ "biller_address": "216, rue Denison Est, Granby, Québec J2H 2R6",
+ "biller_address_url": "https://conseiltaq.com/nous-joindre",
+ "biller_address_quote": "CTAQ 216, rue Denison Est Granby, Québec, J2H 2R6",
+ "read": "2026-11-12",
+ "pays_quote": "À partir du mois de juillet de chaque année, l’adhésion des nouveaux membres est facturée au prorata des mois restants de l’année en cours ainsi que sur les 12 prochains mois de l’année suivante.",
+ "pays_url": "https://conseiltaq.com/devenir-membre",
+ "list_name": "the member directory of the Conseil de la transformation alimentaire du Québec (Répertoire des membres)",
+ "key": "pa_qc_ctaq"
+}
