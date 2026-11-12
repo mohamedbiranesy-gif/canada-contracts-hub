@@ -1,0 +1,12 @@
+{
+ "kind": "member",
+ "biller": "Chambre de commerce de Val-d'Or",
+ "biller_site": "https://ccvd.qc.ca/",
+ "biller_address": "921, 3e Avenue, suite 200, Val-d'Or (Québec) J9P 1T4",
+ "biller_address_url": "https://ccvd.qc.ca/contact/",
+ "biller_address_quote": "Chambre de commerce de Val-d'Or 921, 3e Avenue, suite 200 Val-d'Or (Québec) J9P 1T4",
+ "read": "2026-11-12",
+ "pays_quote": "Nombre d'employés et tarification * Travailleur autonome 125$ + tx Organisme à but non lucratif (OBNL) 150$ + tx Entreprise moins de 9 employés 185$ + tx",
+ "pays_url": "https://ccvd.qc.ca/devenir-membre/",
+ "list_name": "the member directory of Chambre de commerce de Val-d'Or"
+}

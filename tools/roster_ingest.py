@@ -53,6 +53,39 @@ def host(u):
     return h[4:] if h.startswith("www.") else h
 
 
+def _fold(t):
+    import unicodedata
+    t = re.sub(r"['’`´]", " ", t or "")  # l’Or-et-des-Bois: the article is a word of its own
+    return re.sub(r"[^a-z0-9 ]+", " ", unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode().lower())
+
+
+_GENERIC_TOK = set("""the and les des inc ltd ltee limited corp corporation company group groupe centre center services service solutions canada quebec ontario
+international construction contracting contractors entreprises enterprises de du la le et""".split())
+
+
+def name_fits_domain(name, dom):
+    """the member's own site carries its name: a distinctive word of the listed name (four letters or more) is in the domain's label, or the
+    label starts with the name's first word (AGT Robotique at agtrobotics.com), or the label is the initials of the name"""
+    label = re.sub(r"[^a-z0-9]", "", dom.split(".")[0].lower())
+    name = re.sub(r"(?i)\bs\.?\s?e\.?\s?n\.?\s?c\.?(?:\s?r\.?\s?l\.?)?|\bs\.?\s?r\.?\s?l\.?|\bl\.?\s?l\.?\s?p\.?", " ", name or "")
+    toks = [t for t in _fold(name).split() if t]
+    if not label or not toks:
+        return False
+    if any(len(t) >= 4 and t not in _GENERIC_TOK and t in label for t in toks):
+        return True
+    if len(toks[0]) >= 3 and label.startswith(toks[0]):
+        return True
+    joined = "".join(toks)
+    if len(label) >= 4 and label in joined:  # Ti-Coq at ti-coq.com, S&J Construction at sjconstruction.ca
+        return True
+    acr = [re.sub(r"[^a-z0-9]", "", m.lower()) for m in re.findall(r"\(([A-Za-z0-9&]{2,8})\)", name or "")]
+    if any(len(a_) >= 3 and label.startswith(a_) for a_ in acr):  # Triple Crown Enterprises Ltd. (TCE) at tceont.com
+        return True
+    small = ("de", "du", "la", "le", "et", "and", "the", "of", "des", "les", "inc", "ltd", "ltee", "l", "d")
+    ini = "".join(t[0] for t in toks if t not in small)
+    return len(ini) >= 3 and len(label) >= 3 and (label.startswith(ini) or ini.startswith(label))
+
+
 def rosters():
     """[(descriptor, rows, why not)]"""
     import ap_crawler as C
@@ -112,6 +145,10 @@ def take(a):
                 st["the link is a social network, a marketplace or the body's own site"] += 1
             elif not url.startswith("http") or C.registrable(host(url)) != bdom:
                 st["list_url is not a page of the body's own site"] += 1
+            elif re.search(r"#\s*\d", name):
+                st["a numbered store or unit of a chain (its link goes to the chain's site, not the member's own)"] += 1
+            elif not name_fits_domain(name, dom):
+                st["the linked site's name shares nothing with the listed name (a web host, a parent's or a chain's site)"] += 1
             else:
                 st["taken"] += 1
                 listed_by[dom].add(D["key"])
