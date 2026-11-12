@@ -1980,3 +1980,22 @@ is 30 months old: a row says "extract of 2024-05-22" in its relationship; a newe
   Montréal — on its own sites; its 31 Canadian home, boat and equipment shows are kept, the row carrying the address it prints.
 - **robots.txt that begins with a byte-order mark** was read as "allow all" by our readers (the first line did not parse): every shared
   reader now decodes it as utf-8-sig. A helper had fetched one disallowed script that way before noticing; nothing from it is kept.
+
+## 2026-11-12 19:40Z — lane `claude`: rosters — tenants and the chain rule, who bills a member, sites that bar AI crawlers
+
+- **A shopping centre's tenants do not count toward, and are not left out by, the more-than-15-rosters rule.** The rule (a domain that
+  more than 15 bodies list is a chain's or a parent's site) protects against a franchisee or a branch that links its franchisor's site.
+  A chain's store in a centre is leased by the chain itself, and one landlord's centres are each a roster (Cadillac Fairview's 14
+  centres were 14): the rule had withdrawn lululemon, Sport Chek, Shoppers Drug Mart … from every list, chambers included. The chain's
+  domain stays one buyer, one row.
+- **A member billed by another body is not the roster's member.** Destination Québec cité says hotels' membership comes with their
+  hotel association's and four MRCs' businesses join through their MRC: only its direct members are on its roster. Québec Vert's
+  cards tagged with another association (APPQ, ASHOQ, AQPP, APGQ: "via cotisation à votre association") are left out of its roster.
+  Municipalities that are free members of a tourism association (Bas-Saint-Laurent) are left out.
+- **A directory that does not mark who pays is not a roster** (Destination Vancouver and Muskoka list paying members next to beaches,
+  parks and trails; Destination Toronto and Discover Halifax are free for local businesses).
+- **A site whose robots.txt bars ClaudeBot or anthropic-ai by name is not read, even when our project agent is allowed under `*`**
+  (Tourisme Centre-du-Québec, Tourisme Côte-Nord; earlier Map Your Show). The site's intent is plain.
+- **Dues payable by card only take the roster out** (Toronto Construction Association, Richmond Hill Board of Trade, Assiniboia Chamber:
+  their own forms offer only a card), as cc_on_ssm was withdrawn. A body that prints no postal code does not pass (Kingston HBA,
+  Brockville, Cape Breton).
