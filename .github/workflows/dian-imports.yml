@@ -1,0 +1,81 @@
+name: dian-imports
+# Colombian importers billed by an exporter located in Canada (tools/dian_cloud.py). Colombia's customs (DIAN) publishes every import declaration
+# line each month: the importer (name, NIT, address), the exporter with its address (PAIS_EXPORTADOR "Canadá": the vendor in Canada by the source's
+# own field), the exporter's invoice number and date, its FOB value in US dollars, what was bought, and how the importer pays it (FORMA_PAGO:
+# "Giro directo", "Pagos anticipados", "Financiación directa del proveedor" ... — a payment abroad through the banks of the foreign-exchange market).
+# Lines with no payment abroad, natural persons and exporters named as persons make no row. The importer's site is kept only when its own pages
+# print its NIT; the mailbox comes from that site (mailbox-crawl reads lead_shards/). Resumable: the monthly extracts, the site list and the done
+# list are committed; each run downloads only the months not read yet (one zip of ~280 MB at a time, deleted once read).
+on:
+  schedule:
+    - cron: "41 6 * * 1"          # weekly: a new month appears around the 21st; the site finder works through the importers without a site
+  workflow_dispatch:
+    inputs:
+      months:
+        description: "how many of the newest monthly files to keep on file"
+        default: "12"
+      minutes:
+        description: "minutes for the site finder"
+        default: "70"
+permissions:
+  contents: write
+concurrency:
+  group: dian-imports
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Fetch the months not read yet, pair, find sites, write leads, commit
+        env: { MONTHS_N: "${{ inputs.months || '12' }}", MINUTES: "${{ inputs.minutes || '70' }}" }
+        run: |
+          python3 tools/dian_cloud.py fetch --months "$MONTHS_N" --minutes 220 2>&1 | tee /tmp/l.txt
+          python3 tools/dian_cloud.py pairs 2>&1 | tee -a /tmp/l.txt
+          # the importers' names among the Overture Maps places of Colombia that list a website (once a month)
+          last=$(cut -d' ' -f1 data/incoming/claude/overture/last_query_dian.txt 2>/dev/null || echo 0)
+          if [ $(( $(date +%s) - ${last:-0} )) -gt 2400000 ]; then
+            pip install -q duckdb && python3 tools/overture_names.py query --lanes dian 2>&1 | tee -a /tmp/l.txt || true
+          fi
+          python3 tools/dian_cloud.py sites --minutes "$MINUTES" --threads 8 2>&1 | tee -a /tmp/l.txt
+          mkdir -p keep && cp -r data/incoming/claude/dian keep/ && mkdir -p keep/ovt && cp data/incoming/claude/overture/dian_candidates.csv data/incoming/claude/overture/last_query_dian.txt keep/ovt/ 2>/dev/null || true
+          STAMP=$(date -u +%Y%m%dT%H%M%S)
+          git config user.name "dian-imports"; git config user.email "dian-imports@users.noreply.github.com"
+          for i in $(seq 1 10); do
+            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            mkdir -p data/incoming/claude/dian/months data/incoming/claude/overture
+            cp keep/dian/months/*.jsonl.gz data/incoming/claude/dian/months/ 2>/dev/null || true
+            cp keep/dian/dian_pairs.csv.gz data/incoming/claude/dian/ 2>/dev/null || true
+            cp keep/ovt/* data/incoming/claude/overture/ 2>/dev/null || true
+            # the site list and the done list only grow: the lines of main and of this run, once each
+            for f in dian_sites.csv dian_sites_done.tsv; do
+              [ -f "keep/dian/$f" ] || continue
+              if [ -f "data/incoming/claude/dian/$f" ]; then
+                python3 - "$f" <<'PY'
+          import sys
+          f = sys.argv[1]
+          a = open("data/incoming/claude/dian/" + f, encoding="utf-8").read().splitlines()
+          b = open("keep/dian/" + f, encoding="utf-8").read().splitlines()
+          seen, out = set(), []
+          for l in a + b:
+              if l not in seen:
+                  seen.add(l); out.append(l)
+          head = [l for l in out if l.startswith("key,")][:1]
+          open("data/incoming/claude/dian/" + f, "w", encoding="utf-8").write("\n".join(head + [l for l in out if not l.startswith("key,")]) + "\n")
+          PY
+              else
+                cp "keep/dian/$f" "data/incoming/claude/dian/$f"
+              fi
+            done
+            python3 tools/dian_cloud.py leads --stamp "$STAMP" | tee /tmp/m.txt
+            python3 tools/secret_guard.py || true
+            git add data/incoming/claude/dian data/incoming/claude/overture data/incoming/claude/lead_shards
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "dian-imports: $(grep -m1 '^dian pairs' /tmp/l.txt | cut -c1-90); $(tail -1 /tmp/m.txt | cut -c1-90) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
+          { echo '```'; cat /tmp/l.txt /tmp/m.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

@@ -1815,6 +1815,20 @@ for k, L in sorted(leads.items(), key=lead_strength):
     vdom = ev.lower() if re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}", ev.lower()) else (dm.group(1) if dm else "")
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
     apply_details(x, k)
+    _dd0 = LDET.get(k) or {}
+    if _dd0.get("platform") == "dian_import":
+        # tools/dian_cloud.py: Colombia's customs (DIAN) publishes every import declaration line — the importer (with its NIT), the exporter with its
+        # address, the exporter's invoice number and date, its FOB value and how the importer pays it (FORMA_PAGO): a public record of the bill
+        x["contract_status"] = ("importer of record of goods invoiced by an exporter located in Canada: %s invoiced it on %s (invoice %s, US$%s FOB) — import "
+                                "declaration %s of %s published by Colombia's customs (DIAN); %s declaration line%s from exporters in Canada on file from %s to %s, US$%s FOB in all"
+                                % (_dd0.get("vendor") or "", _dd0.get("dian_invoice_date") or "an unstated date", _dd0.get("dian_invoice") or "?",
+                                   format(float(_dd0.get("dian_fob") or 0), ",.2f"), _dd0.get("dian_declaration") or "?", _dd0.get("dian_declaration_date") or "?",
+                                   L.get("canadian_vendor_rows") or "1", "" if str(L.get("canadian_vendor_rows")) == "1" else "s", _dd0.get("dian_first") or "?",
+                                   _dd0.get("dian_last") or "?", format(float(_dd0.get("dian_fob_total_buyer") or 0), ",.2f")))
+        if _dd0.get("dian_payment_form"):
+            x["bill_payment_method_as_published"] = "“%s” (FORMA_PAGO of the import declaration; TIPO_IMPORTACION “%s”)" % (_dd0["dian_payment_form"], _dd0.get("dian_import_type") or "")
+        if not x.get("buyer_address") and _dd0.get("dian_importer_address"):
+            x["buyer_address"] = "%s (as the import declaration records it: DIRECCION_IMPORTADOR, DEPARTAMENTO_IMPORTADOR)" % _dd0["dian_importer_address"]
     if registry:
         x["vendor_website"] = x.get("vendor_website") or "https://www.cira.ca/"
         x["vendor_address"] = (LDET.get(k) or {}).get("vendor_address") or x.get("vendor_address") or ""  # CIRA's address as its own agreement prints it (a dataset record of CIRA said only "Ottawa, ON")
@@ -1829,6 +1843,8 @@ for k, L in sorted(leads.items(), key=lead_strength):
                    "the buyer's own public DNS records (they name the Canada-located provider of its e-mail, hosting or DNS service)" if tech and "seen in the buyer's public DNS" in cfv else
                    "the buyer's own website or its customer portal on the vendor's platform (service of a Canada-HQ vendor in use)" if tech else
                    "the Canada-located vendor's own website" if client else src or "relationship record")
+    if (LDET.get(k) or {}).get("platform") == "dian_import":
+        x["source"] = "Colombia's customs (DIAN) import declaration"
 print("lead rows: facts from the buyer's own pages / the vendor's link label:", dict(n_lf), "| sites named again from their stored home-page title:", n_name_again)
 print("client-page links judged (cloud row factory):", dict(sorted(n_cl.items(), key=lambda kv: -kv[1])))
 for x in rows:
@@ -5122,6 +5138,10 @@ def contract_cadence_by_kind(x):
 
 def billing_of(x, ld):
     """(recurring_billing, recurring_billing_basis): what is published about when the vendor bills this buyer"""
+    if ld.get("platform") == "dian_import":
+        return "4 per transaction", ("for each shipment, the exporter's commercial invoice: the import declarations on file cite %s invoice%s of exporters in Canada "
+                                     "from %s to %s, the newest %s of %s (Colombia's customs, DIAN)" % (ld.get("dian_invoices") or "1", "" if str(ld.get("dian_invoices")) == "1" else "s",
+                                                                                                        ld.get("dian_first") or "?", ld.get("dian_last") or "?", ld.get("dian_invoice") or "?", ld.get("dian_invoice_date") or "?"))
     t = x.get("tier") or "N"
     cfv, cs = x.get("vendor_country_basis") or "", x.get("contract_status") or ""
     vd = registrable(host_of(ld.get("vendor_site") or x.get("vendor_website") or "") or "")
@@ -5380,6 +5400,25 @@ def _money_words(v, cur, per):
     return "from %s%s a %s" % ({"CAD": "C$", "USD": "US$"}.get(cur, "$"), ("%.2f" % v).rstrip("0").rstrip("."), per)
 def bill_profile(x, ld, cls):
     """the other fields of the vendor's bill and the reason the relationship is a fact, each from a published page"""
+    if ld.get("platform") == "dian_import":
+        _fob = float(ld.get("dian_fob") or 0)
+        return {"bill_amount_indicative": "US$%s FOB for the newest invoice (%s of %s)" % (format(_fob, ",.2f"), ld.get("dian_invoice") or "?", ld.get("dian_invoice_date") or "?"),
+                "bill_amount_basis": ("VALOR_FOB_USD of import declaration %s (Colombia's customs, DIAN: %s); with freight US$%s and insurance US$%s the customs value is US$%s CIF; "
+                                      "US$%s FOB with this exporter and US$%s with every exporter in Canada on file (%s)" % (
+                                          ld.get("dian_declaration") or "?", ld.get("record_url") or "", ld.get("dian_freight") or "0", ld.get("dian_insurance") or "0",
+                                          ld.get("dian_cif") or "?", format(float(ld.get("dian_fob_total_pair") or 0), ",.2f"), format(float(ld.get("dian_fob_total_buyer") or 0), ",.2f"),
+                                          (ld.get("dian_months") or "").replace(";", ", "))),
+                "bill_items_as_published": "%s (tariff heading %s)" % ((ld.get("title") or "")[:260], ld.get("dian_hs") or "?"),
+                "bill_currency_as_published": "USD (VALOR_FOB_USD of the declaration)",
+                "bill_delivery_as_published": ("the exporter's commercial invoice %s of %s, cited in import declaration %s (NUMERO_FACTURA, FECHA_FACTURA); shipped by %s, cleared at %s"
+                                               % (ld.get("dian_invoice") or "?", ld.get("dian_invoice_date") or "?", ld.get("dian_declaration") or "?",
+                                                  (ld.get("dian_transport") or "?").lower(), ld.get("dian_customs_office") or "?")),
+                "bill_payment_method_as_published": "“%s” (FORMA_PAGO of the import declaration; TIPO_IMPORTACION “%s”)" % (ld.get("dian_payment_form") or "?", ld.get("dian_import_type") or "?"),
+                "bill_identifier_format": "the exporter's invoice number, as the declaration cites it (%s)" % (ld.get("dian_invoice") or "?"),
+                "relationship_fact_basis": ("fact, public record: Colombia's customs (DIAN) publishes import declaration %s of %s, which names the organisation as the importer "
+                                            "(NIT %s) and %s as the exporter, at %s, with the exporter's invoice %s of %s (%s)" % (
+                                                ld.get("dian_declaration") or "?", ld.get("dian_declaration_date") or "?", ld.get("dian_nit") or "?", ld.get("vendor") or "?",
+                                                (ld.get("vendor_address") or "?").split(" (")[0], ld.get("dian_invoice") or "?", ld.get("dian_invoice_date") or "?", ld.get("record_url") or ""))}
     t = x.get("tier") or "N"
     cfv, cs = x.get("vendor_country_basis") or "", x.get("contract_status") or ""
     vd = registrable(host_of(ld.get("vendor_site") or x.get("vendor_website") or "") or "")
@@ -5739,6 +5778,11 @@ for _ri, x in enumerate(rows):
     x["buyer_type"] = buyer_type(x.get("buyer"), x.get("jurisdiction") or x.get("_jur") or "")
     x["relationship_kind"] = KIND.get(t, KIND["N"])
     x["how_relationship_was_found"] = HOW_FOUND.get(t, HOW_FOUND["N"])
+    if (x.get("contract_status") or "").startswith("importer of record of goods invoiced by"):
+        _ld = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+        x["relationship_kind"] = "export sale: an exporter located in Canada invoices the importer for each shipment (Colombia's customs, DIAN, publishes the declaration)"
+        x["how_relationship_was_found"] = ("tools/dian_cloud.py read DIAN's monthly declaration-level import microdata (importer, exporter and its address, invoice, value, "
+                                           "form of payment); the importer's own site was kept only because %s; the mailbox comes from that site" % (_ld.get("site_tied_to_holder_by") or "its own pages print its NIT")[:420])
     if t == "M":  # tier M has several engines: say which one found this row
         _cs = x.get("contract_status") or ""
         if _cs.startswith("holder of licence"):

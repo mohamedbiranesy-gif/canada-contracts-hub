@@ -107,7 +107,27 @@ def lane_xc():
     return out
 
 
-LANES = {"hc": lane_hc, "xc": lane_xc}
+def lane_dian():
+    """Colombian importers of goods invoiced from Canada without a site on file (tools/dian_cloud.py). DIAN gives no postal code: any place of
+    the same name in Colombia is a candidate ("*"), and the lane keeps a site only when its own pages print the importer's NIT."""
+    p = os.path.join(INC, "dian", "dian_pairs.csv.gz")
+    if not os.path.exists(p):
+        return []
+    have = set()
+    sp = os.path.join(INC, "dian", "dian_sites.csv")
+    if os.path.exists(sp):
+        have = {r["key"] for r in csv.DictReader(open(sp, encoding="utf-8", newline=""))}
+    out, seen = [], set()
+    with gzip.open(p, "rt", encoding="utf-8", newline="") as f:
+        for r in csv.DictReader(f):
+            if r["key"] in have or r["key"] in seen:
+                continue
+            seen.add(r["key"])
+            out.append((r["key"], r["importer"], "CO", "", "*"))
+    return out
+
+
+LANES = {"hc": lane_hc, "xc": lane_xc, "dian": lane_dian}
 
 
 def query(a):
@@ -161,7 +181,7 @@ def query(a):
         d = C.registrable(host)
         ppc = norm_pc(pcode, cc)
         reg = (region or "").upper().split("-")[-1]
-        rank = 0 if (pc and ppc == pc) else 1 if (st and reg == st and not pc) else 9
+        rank = 0 if (pc and ppc == pc) else 1 if (st and reg == st and not pc) else 2 if (st == "*" and not pc) else 9
         if rank == 9:
             continue
         if d not in best[k] or rank < best[k][d][0]:
@@ -175,11 +195,11 @@ def query(a):
             w.writerow(["key", "site", "how", "place_name", "place_postcode", "place_region", "place_id", "release"])
             for k in sorted(x for x in best if want[x][0] == lane):
                 for d, (rank, name, pcode, region, pid) in sorted(best[k].items(), key=lambda kv: kv[1][0])[:3]:
-                    w.writerow([k, d, "the same name at the same postal code" if rank == 0 else "the same name in the same province or state",
+                    w.writerow([k, d, "the same name at the same postal code" if rank == 0 else "the same name in the same province or state" if rank == 1 else "the same name in the same country",
                                 name, pcode, region, pid, release])
                 n[lane] += 1
         print("%s: %d organisations with a website an Overture place lists under their name -> %s" % (lane, n[lane], os.path.relpath(path, ROOT)), flush=True)
-    with open(os.path.join(OUT, "last_query.txt"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT, "last_query_%s.txt" % a.lanes.replace(",", "_")), "w", encoding="utf-8") as f:
         f.write("%d %s %s\n" % (int(time.time()), release, a.lanes))
 
 

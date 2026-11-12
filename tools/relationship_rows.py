@@ -140,6 +140,7 @@ FIELDS = {
     "public contract": ["buyer address", "vendor address", "vendor tax or registration number", "what is billed", "amount", "reference"],
     "licence or registration": ["buyer address", "vendor address", "what is billed", "amount", "billing period", "reference"],
     "exchange listing": ["buyer address", "vendor address", "what is billed", "amount", "billing period", "reference"],
+    "export sale": ["buyer address", "vendor address", "what is billed", "amount", "reference"],
     "membership": ["buyer address", "vendor address", "vendor tax or registration number", "amount", "billing period"],
     "dealership": ["buyer address", "vendor address", "vendor tax or registration number"],
     "tenancy": ["buyer address", "vendor address", "vendor tax or registration number", "billing period"],
@@ -169,6 +170,8 @@ def record_basis(x):
 
 def kind_of(x):
     t, fb, cs = x.get("tier") or "", x.get("relationship_fact_basis") or "", x.get("contract_status") or ""
+    if cs.startswith("importer of record of goods invoiced by"):
+        return "export sale"  # tools/dian_cloud.py: an import declaration names the importer, the exporter in Canada and the exporter's invoice
     if "names the vendor and the contract" in fb or (t in ("A", "B", "L", "F") and fb.startswith("fact, public record")):
         return "public contract"
     if fb.startswith("by where it is"):
@@ -223,6 +226,12 @@ def payment_route(x, kind):
     d = (x.get("bill_delivery_as_published") or "").strip()
     if d.startswith("no invoice is sent"):
         return "noinvoice", d[:300]
+    if kind == "export sale":
+        # the import declaration itself records how the importer pays the exporter's invoice (FORMA_PAGO): a payment abroad, through the banks of
+        # Colombia's foreign-exchange market or an account abroad; lines with no payment abroad make no row (tools/dian_cloud.py)
+        if v:
+            return "bank", "the exporter's invoice is paid from Colombia through the banks of the foreign-exchange market, as the import declaration records it: %s" % v[:200]
+        return "unknown", "the declaration's form of payment was not read"
     if kind == "public contract":
         if _has(x, "buyer_payment_method_preference"):
             return "bank", "invoice paid by the buyer's accounts payable — as the buyer publishes: %s" % x["buyer_payment_method_preference"].strip()[:220]
@@ -531,6 +540,8 @@ def billing_cadence(x, kind):
         when.append("for each filing, step and renewal (a trademark registration is renewed every 10 years)")
     elif kind == "dealership":
         when.append("for each order")
+    elif kind == "export sale":
+        when.append("for each shipment, on the exporter's commercial invoice")
     elif kind == "tenancy" and code == "1":
         when.append("rent for each month")
     due = re.split(r":\s*[“\"]", str(x.get("bill_due_terms_as_published") or ""))[0].strip(" ;,")
