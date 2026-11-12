@@ -1,4 +1,33 @@
-# STATE.md — Claude lane (updated 2026-11-12 15:25Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+# STATE.md — Claude lane (updated 2026-11-12 17:00Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
+
+## 2026-11-12 17:00Z — new lanes (ISED radio licences, Health Canada establishment licences), rosters at scale, two hosting vendors; build 16:17Z read
+
+**Build of 16:17Z (code 54e964a), counted: 197,493 ready of 264,355** (by location 152,764; membership 12,406; licence 10,563; service 7,921;
+agent 4,807; sponsorship 4,178; public contract 2,921; dealership 1,834; tenancy 99). Amount and period 174,898 (+7,553); every main field
+151,043; $5,000+ a bill: 1,531 published, 72 estimated. −906 against 14:57Z: free-DNS rows out (−627, by rule), contracts +72, the rest not
+traced. Told to the owner at 16:35Z. Failures by kind (scratchpad build_1627/why.py): agent of record 1,180 "named person" (fix pushed
+after this build), service rows 36,862 "payment: not published" (hosting / DNS / software: card on file — by rule; 2 hosts found that print
+an invoice payable by bank: whc.ca, varialhosting.com — `tools/tech_relationships.py`, DECISIONS 16:55Z), public contracts 2,339 no mailbox.
+**New lanes, all in the cloud (DECISIONS 16:10Z, 16:25Z):**
+- `tools/radio_licences.py` + `radio-licences.yml` (01:53, 05:53 … every 4 h): ISED's radio licensees, 27,051 organisations invoiced every
+  year; 2,898 leads at once (sites on file), the rest through the name autocomplete (one a second, ~6,000 a run). Amount = labelled floor.
+- `tools/hc_registers.py` now also reads the MDEL listing (3,223 establishment licences, $5,519 a year each, published): 384 leads at once;
+  the twice-daily Health Canada run asks the autocomplete for the rest (largest bills first). HC leads on file: 1,231 at 16:21Z.
+- `tools/tm_register.py sites --abroad --clearbit` (+ input `clearbit` in tm-sites.yml): the autocomplete's domains for trademark owners
+  abroad, kept only by the old tests (postal code printed under the same name, or legal person with legal form in the owner's state).
+  First run dispatched 16:40Z (4 shards × 165 min); measured on 60 owners: 7 autocomplete domains read, 0 tied — a modest lever.
+- `tools/roster_ingest.py merge` now withdraws a roster's leads when the roster is withdrawn or a stricter rule no longer takes them, and
+  writes again the leads of a corrected descriptor (cc_on_ssm withdrawn: its page says card only).
+**Rosters merged today (helpers):** +3,572 (15:18Z), +3,411 (15:37Z), +1,569 (15:49Z), +1,613 (16:13Z), +4,581 (16:44Z) organisations.
+Helpers still running at 17:00Z: Atlantic chambers, Ontario chambers wave 3, trade-show exhibitors A (agri/food/energy/mining/manufacturing)
+and B (building/home/gift/boats/health), dealer locators of Canadian manufacturers. **Their files land in data/incoming/claude/roster_*.csv +
+contrib/claude/rosters/*.json: scrub e-mails, `roster_ingest.py merge --stamp S`, check 0 e-mails in the shard, commit rosters + shards.**
+The cloud biz-licences merge (04:41/16:41) re-runs the merge on main: never leave a merged roster uncommitted.
+**OCDS abroad:** 48 awards, 5 publications (records_ocds_*), committed.
+**Build dispatched 16:23Z (run 43258177022, code with the registry-warning and agent-firm fixes, the radio/MDEL wiring) lands ~17:45Z.**
+**Next:** read that build (agent of record and registry-warning counts; first HC rows); a patent lane is possible (CIPO Patent_CSV_2024_05_22:
+PT_interested_party.zip 222 MB, 1.7 GB csv: OWNR / AGNT parties by patent; PT_main 114 MB for status) — not built; disk here ~6 GB free.
+
 
 ## 2026-11-12 15:25Z — contract billing period and amount per bill; Health Canada lane; rosters and mailboxes by helpers
 
