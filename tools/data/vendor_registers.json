@@ -1,0 +1,32 @@
+[
+ {
+  "aliases": [
+   "SMART & BIGGAR LP",
+   "SMART & BIGGAR S.E.C.",
+   "Smart & Biggar"
+  ],
+  "legal_name": "SMART & BIGGAR S.E.C.",
+  "lei": "254900Z8GFX99B21MM73",
+  "registration": "number 3378010188 in the Québec Enterprise Register (Registraire des entreprises), and LEI 254900Z8GFX99B21MM73, as the global LEI register records them for SMART & BIGGAR S.E.C.: “\"lei\":\"254900Z8GFX99B21MM73\" … \"legalName\":{\"name\":\"SMART & BIGGAR S.E.C.\" … \"registeredAt\":{\"id\":\"RA000081\" … \"registeredAs\":\"3378010188\"” (https://api.gleif.org/api/v1/lei-records/254900Z8GFX99B21MM73, read 2026-11-12)",
+  "neq": "3378010188"
+ },
+ {
+  "aliases": [
+   "KPMG LLP",
+   "KPMG LLP KPMG S.R.L."
+  ],
+  "legal_name": "KPMG LLP KPMG S.R.L.",
+  "lei": "254900AT489CC197UP49",
+  "registration": "number 981056021 in the Ontario Corporate Registry, and LEI 254900AT489CC197UP49, as the global LEI register records them for KPMG LLP KPMG S.R.L.: “\"lei\":\"254900AT489CC197UP49\" … \"legalName\":{\"name\":\"KPMG LLP KPMG S.R.L.\" … \"registeredAt\":{\"id\":\"RA000079\" … \"registeredAs\":\"981056021\"” (https://api.gleif.org/api/v1/lei-records/254900AT489CC197UP49, read 2026-11-12)"
+ },
+ {
+  "aliases": [
+   "GOWLING WLG (CANADA) LLP",
+   "Gowling WLG (Canada) LLP",
+   "Gowling WLG"
+  ],
+  "legal_name": "GOWLING WLG (CANADA) LLP",
+  "lei": "5493003D3M7H2ACII617",
+  "registration": "number 260178397 in the Ontario Corporate Registry, and LEI 5493003D3M7H2ACII617, as the global LEI register records them for GOWLING WLG (CANADA) LLP: “\"lei\":\"5493003D3M7H2ACII617\" … \"legalName\":{\"name\":\"GOWLING WLG (CANADA) LLP\" … \"registeredAt\":{\"id\":\"RA000079\" … \"registeredAs\":\"260178397\"” (https://api.gleif.org/api/v1/lei-records/5493003D3M7H2ACII617, read 2026-11-12)"
+ }
+]

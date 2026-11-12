@@ -1734,3 +1734,8 @@ Drawn by `tools/test_sample.py` (seed 20261111, inside each kind; 164,391 ready 
 5. **A copyright line taken for the name** ("© 2017-2026 ITMBC Enterprises Inc."): the sign and the years are taken off.
 Seen and left as they are: a mailbox read on a directory page of the organisation's own domain (laconstruction.ca for defran.ca) — the
 referee re-read it there; a mailbox in a link's title attribute (rpg.ca) — it is in the page as printed.
+
+**Added at 06:36Z — three agent firms' numbers from the same register.** `tools/data/vendor_registers.json` (exact legal names in the global
+LEI register only): Smart & Biggar S.E.C. — Québec enterprise number 3378010188; KPMG LLP — Ontario registration 981056021; Gowling WLG
+(Canada) LLP — Ontario registration 260178397; each with the record's own words and URL. The ranker uses it last, only when nothing else
+gave the row a vendor number (87 rows in a sample; most are clients of Smart & Biggar, the agent of record of many owners abroad).

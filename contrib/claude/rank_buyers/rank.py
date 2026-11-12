@@ -5261,6 +5261,14 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
 # written and released. Both passes only read the row itself, and their long texts (provenance, invoice text, the invoice card as JSON …) were about
 # half of a row's memory — held for every row at once just to be written a minute later. The row count is meant to grow tenfold on a 16 GB runner.
 n9, npk = collections.Counter(), collections.Counter()
+_vreg_key = lambda s_: " ".join(w_ for w_ in norm(s_).split() if w_ not in ("lp", "llp", "sec", "s", "e", "c", "srl", "r", "l", "the"))  # LP = S.E.C., LLP = S.R.L.: one partnership
+VREG = {}
+try:
+    for _r in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "tools", "data", "vendor_registers.json"), encoding="utf-8")):
+        for _a in _r.get("aliases") or ():
+            VREG[_vreg_key(_a)] = _r
+except (OSError, ValueError):
+    pass
 cnt, _n_rows, _n_mail, _n_contract = collections.Counter(), len(rows), 0, 0
 # 2026-11-10 (disk): the plain CSV is 15 KB a row — 2.6 GB at 170,000 rows, 15 GB at a million; nothing reads it (a runner has 85 GB free).
 # Only the compressed table is written now (batches.py and contracts_export.py read it); RANK_PLAIN_CSV=1 still writes the plain file for a local look.
@@ -5541,6 +5549,12 @@ for _ri, x in enumerate(rows):
                 x["buyer_address"] = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or "", _lf.get("date") or ""); npk["buyer_address_from_own_page"] += 1
             if _lf.get("site_name") and not x["buyer_trade_name_as_published"]:
                 x["buyer_trade_name_as_published"] = "%s (the name on the organisation's own home page, %s, read %s)" % (_lf["site_name"], _lf.get("site") or "", _lf.get("date") or ""); npk["buyer_trade_name_as_published"] += 1
+        # 2026-11-12 (billers first): a vendor's number in its home register as the global LEI register records it (tools/data/vendor_registers.json,
+        # exact legal names only: Smart & Biggar, KPMG, Gowling WLG), when nothing else gave the row a number
+        if VREG and not any(str(x.get(c_) or "").strip() for c_ in ("vendor_bn9", "vendor_neq", "vendor_registry_id")):
+            _vr = VREG.get(_vreg_key(x.get("vendor") or ""))
+            if _vr:
+                x["vendor_registry_id"] = _vr["registration"]; npk["vendor number from the LEI register (tools/data/vendor_registers.json)"] += 1
         # test set of 2026-11-12: a copyright line taken for the name ("© 2017-2026 ITMBC Enterprises Inc.")
         _bn9 = re.sub(r"^\s*(?:©|\(c\)|copyright)\s*(?:©\s*)?(?:(?:19|20)\d{2}\s*(?:[-–]\s*(?:19|20)\d{2})?)?\s*[,.|:–-]*\s*", "", x.get("buyer") or "", flags=re.I).strip()
         if _bn9 != (x.get("buyer") or "").strip() and len(_bn9) >= 3:
