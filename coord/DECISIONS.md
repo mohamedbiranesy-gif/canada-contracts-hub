@@ -1981,7 +1981,7 @@ is 30 months old: a row says "extract of 2024-05-22" in its relationship; a newe
 - **robots.txt that begins with a byte-order mark** was read as "allow all" by our readers (the first line did not parse): every shared
   reader now decodes it as utf-8-sig. A helper had fetched one disallowed script that way before noticing; nothing from it is kept.
 
-## 2026-11-12 19:40Z — lane `claude`: rosters — tenants and the chain rule, who bills a member, sites that bar AI crawlers
+## 2026-11-12 19:35Z — lane `claude`: rosters — tenants and the chain rule, who bills a member, sites that bar AI crawlers
 
 - **A shopping centre's tenants do not count toward, and are not left out by, the more-than-15-rosters rule.** The rule (a domain that
   more than 15 bodies list is a chain's or a parent's site) protects against a franchisee or a branch that links its franchisor's site.
