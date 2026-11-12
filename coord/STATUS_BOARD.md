@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-12 20:33 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-12 20:58 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-12)
 | metric | value |
@@ -64,7 +64,7 @@
 | claude | claude_buyer_ap_results_cccrawl07.csv | 44454 | 44454 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl08.csv | 44781 | 44781 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl09.csv | 44518 | 44518 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl10.csv | 15349 | 15349 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl10.csv | 15416 | 15416 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
@@ -268,6 +268,7 @@
 | claude | roster_dl_hydropool.csv | 261 | 0 | 0 | 0 | 261 |
 | claude | roster_dl_ildc.csv | 19 | 0 | 0 | 0 | 19 |
 | claude | roster_dl_kingsman.csv | 187 | 0 | 0 | 0 | 187 |
+| claude | roster_dl_kohltech.csv | 253 | 0 | 0 | 0 | 253 |
 | claude | roster_dl_loewen.csv | 110 | 0 | 0 | 0 | 110 |
 | claude | roster_dl_macdon.csv | 102 | 0 | 0 | 0 | 102 |
 | claude | roster_dl_montigo.csv | 127 | 0 | 0 | 0 | 127 |
@@ -362,14 +363,22 @@
 | claude | roster_na_rac.csv | 107 | 0 | 0 | 0 | 107 |
 | claude | roster_na_ttmac.csv | 202 | 0 | 0 | 0 | 202 |
 | claude | roster_pa_ab_esaa.csv | 221 | 0 | 0 | 0 | 221 |
-| claude | roster_pa_mb_meia.csv | 94 | 0 | 0 | 0 | 94 |
 | claude | roster_pa_ns_taste.csv | 162 | 0 | 0 | 0 | 162 |
+| claude | roster_pa_on_concrete.csv | 141 | 0 | 0 | 0 | 141 |
 | claude | roster_pa_on_ossga.csv | 122 | 0 | 0 | 0 | 122 |
 | claude | roster_pa_qc_abq.csv | 90 | 0 | 0 | 0 | 90 |
 | claude | roster_pa_qc_amq.csv | 101 | 0 | 0 | 0 | 101 |
+| claude | roster_pa_qc_ctaq.csv | 334 | 0 | 0 | 0 | 334 |
 | claude | roster_sc_edvance.csv | 102 | 0 | 0 | 0 | 102 |
 | claude | roster_sc_feep.csv | 213 | 0 | 0 | 0 | 213 |
 | claude | roster_sc_scsbc.csv | 37 | 0 | 0 | 0 | 37 |
+| claude | roster_sp_cne.csv | 26 | 0 | 0 | 0 | 26 |
+| claude | roster_sp_elks.csv | 75 | 0 | 0 | 0 | 75 |
+| claude | roster_sp_montgolfieres.csv | 55 | 0 | 0 | 0 | 55 |
+| claude | roster_sp_riders.csv | 52 | 0 | 0 | 0 | 52 |
+| claude | roster_sp_stampede.csv | 38 | 0 | 0 | 0 | 38 |
+| claude | roster_sp_westernfair.csv | 8 | 0 | 0 | 0 | 8 |
+| claude | roster_sp_winnipegfolk.csv | 7 | 0 | 0 | 0 | 7 |
 | claude | roster_sr_rqra.csv | 496 | 0 | 0 | 0 | 496 |
 | claude | roster_ta_bc_trucking.csv | 364 | 0 | 0 | 0 | 364 |
 | claude | roster_ta_rcabc.csv | 160 | 0 | 0 | 0 | 160 |
@@ -651,7 +660,7 @@
 | gemini | gemini_vendor_contacts_results_batch99.csv | 100 | 61 | 39 | 0 | 0 |
 | gemini | gemini_verify_buyer_ap_results_batch01.csv | 1069 | 914 | 128 | 27 | 0 |
 
-**team_buyers**: 558372 entities researched, 529465 with at least one verified contact.
+**team_buyers**: 558455 entities researched, 529547 with at least one verified contact.
 
 **team_vendors**: 15607 entities researched, 4085 with at least one verified contact.
 
@@ -664,10 +673,10 @@
 | jules | 12 | 0 | 12 | 9 |
 
 ## Last ingest
-- buyers with team findings: 558455 (with at least one verified e-mail/portal: 529544)
+- buyers with team findings: 559041 (with at least one verified e-mail/portal: 530129)
 - vendors with team findings: 15607
 - QA rows: 200
-- counters: {'files': 627, 'buyer_findings_verified': 569915, 'buyer_findings_verified_on_archive_copy': 14517, 'buyer_findings_not_found_on_page': 3389, 'buyer_findings_unverified_page_unavailable': 27454, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 814, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3801, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27780, 'ledger_verdict_stands_page_not_read_again_verified': 574304, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 26974, 'verify_tasks_jules': 9}
+- counters: {'files': 642, 'buyer_findings_verified': 570581, 'buyer_findings_verified_on_archive_copy': 14519, 'buyer_findings_not_found_on_page': 3390, 'buyer_findings_unverified_page_unavailable': 27454, 'buyer_findings_not_found_on_page_hidden': 521, 'buyer_findings_rejected_personal_or_invalid': 814, 'vendor_emails_not_found_on_page': 412, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4466, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3801, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 942, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 27781, 'ledger_verdict_stands_page_not_read_again_verified': 574428, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 26975, 'verify_tasks_jules': 9}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -676,7 +685,7 @@ Every row's outcome is in `coord/results/verification_log.csv` (lane claude: `ve
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 1594 | 5 | 0 | 60 | 1 | 43 | 0 |
-| claude | 563521 | 1 | 0 | 27037 | 66 | 2194 | 813 |
+| claude | 564187 | 1 | 0 | 27037 | 66 | 2195 | 813 |
 | codex | 229 | 0 | 0 | 17 | 0 | 4 | 0 |
 | gemini | 4571 | 7 | 0 | 327 | 454 | 1148 | 1 |
 
