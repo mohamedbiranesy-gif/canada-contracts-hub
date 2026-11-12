@@ -1801,3 +1801,39 @@ Buanderie centrale). Public bodies that lost a directory-read mailbox go back to
 Two rules tried and dropped the same hour: "cegep" as a category word and a stricter test for four-letter domain names — they took the
 Cégeps of Victoriaville and Sorel-Tracy off their own mailboxes (cegepvicto.ca, cegepst.qc.ca).
 Checked and kept as they are: two "Camp Massad" (Winnipeg, Montréal), two "Lakeview Dental" — different organisations with one name.
+
+## 2026-11-12 14:45Z — a contract's billing period and the amount of one bill; the PO; a clean vendor first; free DNS (claude)
+
+The owner, 09:00 EST: "those contract amounts, the billing cadence, you better have it set. Don't just put the value of the contract, but
+also the billing cadence. So let's say it's monthly. What would that be?"; 09:11 EST: "If you can find a blanket PO, great. If you can't,
+just state that … don't guess 8 digits"; 08:45 EST: an estimate where nothing is published, "very fairly accurate or plausible".
+
+1. **A contract's billing period by what it buys** (`rank.py: contract_nature, contract_cadence_by_kind`). A public record gives parties,
+   subject, value and dates, never a schedule of payments. What the contract buys is read from its commodity code (UNSPSC, CPV, NAICS),
+   the record's own category, or the words of its title, and says how a contract of that kind is billed: works by progress invoice each
+   month (in Ontario the Construction Act's rule, quoted), a service over a term each month in arrears, goods at each delivery, an unclear
+   contract with a term of 60 days or more month by month. The row says "by the kind of relationship", from what the kind was read, and
+   that the contract's own schedule is not published. A record whose own text names the period ("annual maintenance") keeps it.
+   New column `contract_nature`.
+2. **The amount of one bill** (`relationship_rows.py: contract_bill, value_by_buyer_term`). Monthly: the published value over the published
+   term ("about $20,802 a month, calculated"). No end date published: over the average term of the buyer's own contracts whose two dates
+   are published, two or more of them — an estimate, labelled. Yearly: one year of the term. At delivery with no term: the whole value.
+   `billing_cadence` says it in words. **`amount_mark` of a contract is now by the amount of one bill** (rule 15, "per cadence"), not the
+   whole value: a $20,000 contract over two years is "3 published, under $5,000 a bill (… about 833 a month …)". Expect the count of
+   "published $5,000 or more" to fall by the contracts whose monthly bill is smaller.
+3. **PO** (`po_or_reference_to_quote`): a PO number only when the record publishes one; "blanket" only when the record is a standing offer,
+   blanket order or supply arrangement (its number is quoted on each call-up); otherwise "no PO number published; the contract number …
+   (published in the record) is the reference an invoice quotes", or the award / notice number, or "no PO or contract number published".
+   Other kinds say what their bill quotes instead (the account number on the distributor's bill, the member's number …) and that it is
+   not published. Nothing is guessed.
+4. **A clean vendor first.** Within a buyer's best tier, a record whose vendor the registers show alive and whose record prints the vendor's
+   address comes before a bigger one: 254 buyers failed on a registry warning and 166 on a missing vendor address (13:24Z table) while
+   other contracts of theirs were clean.
+5. **Free DNS is no bill.** Namespro's own page: DNS hosting "100% free, included with all domain registrations … There is no monthly fee
+   of any kind" (`tools/data/free_dns_providers.json`). Rows that stood on Namespro's DNS fail the test and say why (what is billed is the
+   domain's registration, through a registrar: no row, rule 6).
+6. Estimates for rows of other kinds with no amount (pushed with this): a trademark agent's row takes CIPO's official renewal fee as a
+   floor; a chamber's member, the middle of the lowest dues the chambers of this build publish (twenty or more of them).
+
+1-in-4 sample, never multiplied: ready contract rows 2,050 -> 2,123; service rows 1,963 -> 1,580 (Namespro, 422 rows); ready rows with an
+amount and a billing period 39,775 -> 41,494, with a billing period 46,802 -> 48,477 of 48,498.

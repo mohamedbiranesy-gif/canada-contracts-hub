@@ -394,10 +394,39 @@ def estimated_amount(x):
     return _f(m.group(1)) if m else None
 
 
+_A_MONTH = re.compile(r"about \$?(" + _NUM + r") a month")
+def contract_bill(x):
+    """(the amount of one bill of a contract, how it is had: "calculated" | "estimated" | "whole", words) — or (None, "", "") for a row with no contract value.
+    Rule 15 (owner, 2026-11-11 20:22 EST): "the relationship billed amount per cadence". A contract billed month by month (by its kind,
+    rank.py contract_cadence_by_kind) is billed its value spread over its term; one billed at delivery is billed its value, unless it runs over
+    a term, when the monthly average stands for a bill."""
+    amt, col = published_amount(x)
+    if col != "contract_value":
+        return None, "", ""
+    code = (x.get("recurring_billing") or "")[:1]
+    b = str(x.get("bill_amount_calculated") or "")
+    m = _A_MONTH.search(b)
+    if m and code in ("1", "2", "4"):
+        return _f(m.group(1)), ("estimated" if b.startswith("estimated") else "calculated"), "about %s a month" % m.group(1)
+    y = re.search(r"calculated — (" + _NUM + r") a year", b)
+    if y and code == "3":  # billed by the year (the record's own words): the value of one year of its term
+        return _f(y.group(1)), "calculated", "%s a year" % y.group(1)
+    return amt, "whole", ""
+
+
 def amount_mark(x):
     """the class of the row's amount (see FLOOR), with the figure it rests on"""
     amt, col = published_amount(x)
     est = estimated_amount(x)
+    if col == "contract_value":
+        bill, how, words = contract_bill(x)
+        n0 = lambda v: format(v, ",.0f")
+        if how == "calculated":
+            return ("%s published, %s a bill (the contract's value %s: %s over its term, calculated)"
+                    % ("1" if bill >= FLOOR else "3", "$5,000 or more" if bill >= FLOOR else "under $5,000", n0(amt), words))
+        if how == "estimated":
+            return ("%s estimated, %s a bill (the contract's value %s: %s if it runs the buyer's average term — see bill_amount_calculated)"
+                    % ("2" if bill >= FLOOR else "4", "$5,000 or more" if bill >= FLOOR else "under $5,000", n0(amt), words))
     n = lambda v: format(v, ",.2f").rstrip("0").rstrip(".")
     if amt is not None and amt >= FLOOR:
         return "1 published, $5,000 or more (%s: %s)" % ("the contract's value" if col == "contract_value" else "the biller's published amount", n(amt))
@@ -408,6 +437,108 @@ def amount_mark(x):
     if est is not None:
         return "4 estimated, under $5,000 (%s, calculated — see bill_amount_calculated)" % n(est)
     return "5 no amount"
+
+
+# 2026-11-12 (owner, 08:45 EST: "the billed amount would be somewhat accurate … if it's not published, then the estimation would be very fairly
+# accurate or plausible … make sure all the invoice fields are as populated as they can be for that relationship"). Where nothing of the biller's
+# own gives an amount, a row of these kinds takes an estimate calculated from published figures, labelled "estimated —" and saying from what.
+# A published figure always comes first; an estimate never goes into a published cell.
+CIPO_TM_RENEWAL = ("estimated — at least $595.06 for each renewal of a registration (CIPO's official 2026 fee for a renewal filed online, first class of goods "
+                   "or services; $185.49 for each additional class: “For the first class of goods or services to which the request for renewal relates” "
+                   "$595.06, “For each additional class of goods or services to which the request for renewal relates” $185.49 — "
+                   "https://ised-isde.canada.ca/site/canadian-intellectual-property-office/en/node/220, read 2026-11-12). The agent bills the office's fee "
+                   "with its own fee for the work, which is not published; a registration is renewed every 10 years, other filings as the owner needs them")
+CHAMBER_DUES = None  # set by the ranker from the dues the chambers of commerce and boards of trade of this build publish: {"median", "n", "low", "high"}
+_CHAMBER = re.compile(r"chamber of commerce|board of trade|chambre de commerce|chambre de commerce et d.industrie|\bchamber\b|\bcc[a-z]?\b", re.I)
+
+
+def estimate_missing_amount(x, kind):
+    """an estimate for a row of a kind whose amount nothing of the biller's own gives — calculated from published figures, and said to be"""
+    if _has(x, "contract_value") or _has(x, "bill_amount_indicative") or _has(x, "bill_amount_calculated"):
+        return ""
+    if kind == "public contract":
+        t = str(x.get("typical_contract_value_p50") or "").replace(",", "")
+        p50 = _f(t) if re.match(r"^\d", t) else None
+        if p50 and p50 > 0:
+            n = re.match(r"\d+", str(x.get("contracts_with_canadian_suppliers") or ""))
+            d = str(x.get("average_contract_duration_days") or "")
+            dur = int(d) if d.isdigit() else 0
+            per = ("; spread over this buyer's average term of %d days, about $%s a month" % (dur, format(p50 / max(1.0, dur / 30.44), ",.0f"))) if dur >= 28 else ""
+            return ("estimated — about $%s for the contract: the middle (median) of the published values of this buyer's %scontracts with Canada-located vendors "
+                    "in the contract dataset%s; this contract's own value is not published" % (format(p50, ",.0f"), (n.group(0) + " ") if n else "", per))
+    if kind == "agent of record" and re.search(r"trademark|marque", (x.get("contract_status") or "") + " " + (x.get("relationship_fact_basis") or ""), re.I):
+        return CIPO_TM_RENEWAL
+    if kind == "membership" and CHAMBER_DUES and CHAMBER_DUES.get("n", 0) >= 20:
+        vn = re.sub(r"^[—–-]+\s*", "", (x.get("vendor_legal_name") or x.get("vendor") or ""))
+        if re.search(r"chamber of commerce|board of trade|chambre de commerce", vn, re.I):
+            return ("estimated — about $%s a year: the middle (median) of the lowest yearly dues that %d Canadian chambers of commerce and boards of trade "
+                    "publish on their own pages (from $%s to $%s; this build's own readings of them); this body's own dues are not published, or not read yet"
+                    % (format(CHAMBER_DUES["median"], ",.0f"), CHAMBER_DUES["n"], format(CHAMBER_DUES["low"], ",.0f"), format(CHAMBER_DUES["high"], ",.0f")))
+    return ""
+
+
+# 2026-11-12: a provider whose own page says its DNS hosting is free with a domain's registration bills nothing for the DNS a buyer's records
+# name — what it bills is the domain's registration, which a registrar collects (owner's rule of 2026-11-11: no row). tools/data/free_dns_providers.json
+try:
+    FREE_DNS = {r["domain"]: r for r in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "free_dns_providers.json"), encoding="utf-8"))}
+except (OSError, ValueError):
+    FREE_DNS = {}
+
+
+def free_dns(x):
+    """the provider's own statement that the DNS service the row stands on is free, or None"""
+    if "DNS records name the vendor" not in (x.get("relationship_fact_basis") or ""):
+        return None
+    h = re.sub(r"^https?://", "", (x.get("vendor_website") or "").lower()).split("/")[0]
+    h = h[4:] if h.startswith("www.") else h
+    return FREE_DNS.get(h)
+
+
+_KIND_SENTENCE = {"membership": "member of a Canada-located body: the body's own member directory names the organisation (dues by the year)",
+                  "dealership": "dealer / retailer of a Canada-located supplier: the supplier's own dealer list names the organisation",
+                  "sponsorship": "sponsor / exhibitor of a Canada-located body's event or season: the body's own page names the organisation",
+                  "tenancy": "tenant / merchant of a Canada-located landlord: the landlord's own directory names the organisation"}
+
+
+def billing_cadence(x, kind):
+    """how often, and when, the bill comes — in plain words, from the row's own cells (billing period, its basis, due terms, delivery)"""
+    code = (x.get("recurring_billing") or "")[:1]
+    base = {"1": "monthly", "2": "monthly or yearly (the plan the buyer chose)", "3": "yearly", "4": "for each transaction"}.get(code, "")
+    if not base:
+        return "not published" + ("; as the contract provides" if kind == "public contract" else "")
+    when = []
+    deliv = str(x.get("bill_delivery_as_published") or "")
+    if kind == "utility account by location" and code == "1":
+        when.append("a bill for each month of service")
+    elif kind == "licence or registration" and code == "3":
+        m = re.search(r"(\d+)\s*jours avant|(\d+)\s*days? before", deliv, re.I)
+        when.append("before each renewal of the licence" + ("; the notice comes %s days before" % (m.group(1) or m.group(2)) if m else ""))
+    elif kind == "membership" and code == "3":
+        when.append("at each renewal of the membership")
+    elif kind == "sponsorship":
+        when.append("for each event or season")
+    elif kind == "agent of record":
+        when.append("for each filing, step and renewal (a trademark registration is renewed every 10 years)")
+    elif kind == "dealership":
+        when.append("for each order")
+    elif kind == "tenancy" and code == "1":
+        when.append("rent for each month")
+    due = re.split(r":\s*[“\"]", str(x.get("bill_due_terms_as_published") or ""))[0].strip(" ;,")
+    if due and len(due) <= 120:
+        when.append("due " + re.sub(r"^due\s+", "", due))
+    if kind == "public contract":
+        b = str(x.get("bill_amount_calculated") or "")
+        m = _A_MONTH.search(b)
+        if code == "1" and m:
+            when.append("about $%s a month (%s)" % (m.group(1), "estimated from the buyer's average term" if b.startswith("estimated") else "calculated: the published value over the published term"))
+        elif code == "4":
+            when.append("an invoice at each delivery or stage" + ((", about $%s a month on average over the term (calculated)" % m.group(1)) if m else ""))
+        elif code == "1":
+            amt, col = published_amount(x)
+            if col == "contract_value":
+                when.append("the monthly amount cannot be calculated: the term is not published (the contract's value is %s)" % format(amt, ",.0f"))
+    bk = " (by the kind of relationship)" if "by the kind" in (x.get("recurring_billing_basis") or "") else ""
+    return base + bk + ("; " + "; ".join(when) if when else "")
 
 
 def value_by_year(x):
@@ -429,9 +560,59 @@ def value_by_year(x):
             "much each time, is not published" % (format(amt / (days / 365.25), ",.0f"), format(amt / (days / 30.44), ",.0f"), format(amt, ",.0f"), days / 365.25, d0, d1))
 
 
+def value_by_buyer_term(x):
+    """'' or, for a contract whose end date is not published, its published value spread over the average term of the buyer's contracts whose
+    both dates are published (two or more of them) — an estimate, and said to be"""
+    amt, col = published_amount(x)
+    if col != "contract_value" or not amt or _has(x, "end_date"):
+        return ""
+    d, n = str(x.get("average_contract_duration_days") or ""), str(x.get("contract_durations_counted") or "")
+    if not (d.isdigit() and n.isdigit()) or int(n) < 2 or int(d) < 28:
+        return ""
+    days = int(d)
+    return ("estimated — about %s a month if it runs %d days, the average term of the %s contracts of this buyer with Canada-located vendors whose start and end are "
+            "both published (the published value %s spread over it); this contract's end date is not published"
+            % (format(amt / max(1.0, days / 30.44), ",.0f"), days, n, format(amt, ",.0f")))
+
+
+def po_or_reference(x, kind):
+    """what the invoice quotes as the buyer's purchase order or reference — a number only when it is published; how it is had, and what is not published"""
+    po = re.sub(r"\s+", " ", str(x.get("po_number_as_published") or x.get("po_number_as_published_from_pair") or "")).strip()
+    rule = str(x.get("po_required_as_published") or "")
+    rule_s = ("; the buyer's own rule: %s" % rule[:200]) if rule and not rule.startswith("not") else ""
+    if po:
+        return "PO %s — published%s" % (po[:160], rule_s)
+    inst = str(x.get("instrument_type_normalized") or x.get("instrument_type_from_pair") or "").lower()
+    num = re.sub(r"\s+", " ", str(x.get("contract_or_agreement_number") or x.get("contract_or_agreement_number_from_pair") or "")).strip()
+    if kind == "public contract":
+        if inst in ("standing offer", "blanket order", "supply arrangement") and num:
+            return ("blanket: the record is a %s, number %s (published) — each call-up against it quotes this number; the call-up's own number is not published%s"
+                    % (inst, num[:120], rule_s))
+        if num:
+            return "no PO number published; the contract number %s (published in the record) is the reference an invoice quotes%s" % (num[:120], rule_s)
+        aw = re.sub(r"\s+", " ", str(x.get("award_or_notice_id") or x.get("award_or_notice_id_from_pair") or "")).strip()
+        if aw:
+            return "no PO or contract number published; the award / notice number %s (published) identifies the contract%s" % (aw[:120], rule_s)
+        return "no PO or contract number published%s" % rule_s
+    acct = {"utility account by location": "the account number on the distributor's bill",
+            "membership": "the member's number on the body's dues notice", "licence or registration": "the licence or registration number on the body's notice",
+            "agent of record": "the agent's file number for the owner's matter", "dealership": "the dealer's account and order numbers",
+            "sponsorship": "the sponsorship agreement", "tenancy": "the lease and unit", "service seen on the buyer's side": "the customer's account number"}.get(kind, "the organisation's account with the biller")
+    lic = re.sub(r"\s+", " ", str(x.get("contract_reference") or "")).strip() if kind in ("licence or registration", "agent of record") else ""
+    return ("no PO: a bill of this kind quotes %s%s, which is not published%s" % (acct, (" (the record's number: %s)" % lic[:120]) if lic and not lic.startswith("{") else "", rule_s))
+
+
 def owner_test(x):
     """payment route, fields of the kind, ship ready — on any row of the table (a buyer's row or a pair row)"""
     kind = kind_of(x)
+    if kind == "public contract" and not _has(x, "bill_amount_calculated"):
+        vy = value_by_year(x) or value_by_buyer_term(x)
+        if vy:
+            x["bill_amount_calculated"] = vy
+    x["po_or_reference_to_quote"] = po_or_reference(x, kind)
+    est = estimate_missing_amount(x, kind)  # before the fields of the kind are counted: an estimate, labelled, fills "amount"
+    if est:
+        x["bill_amount_calculated"] = est
     route, basis = payment_route(x, kind)
     x["payment_route"], x["payment_route_basis"] = ROUTE_LABEL[route], basis
     x["vendor_tax_or_registration_number"] = tax_or_registration(x)
@@ -460,11 +641,10 @@ def owner_test(x):
         out.append("mailbox not re-read by the referee (%s)" % (ec or "not checked")[:40])
     if route not in ROUTE_OK:
         out.append("payment: %s" % ROUTE_LABEL[route])
-    if kind == "public contract" and not _has(x, "bill_amount_calculated"):
-        vy = value_by_year(x)
-        if vy:
-            x["bill_amount_calculated"] = vy
     x["amount_mark"] = amount_mark(x)
+    x["billing_cadence"] = billing_cadence(x, kind)
+    if kind in _KIND_SENTENCE and (x.get("relationship_kind") or "").startswith("named as a client by the Canada-located vendor"):
+        x["relationship_kind"] = _KIND_SENTENCE[kind]  # a roster row's kind said "named as a client" (test rows of 2026-11-12)
     # Owner, 2026-11-11 16:01 EST: "populate those fields as best as you can, don't just go empty … there's clear goal and it is 1 million". A row
     # stands on four things — a Canadian biller with a relationship, a bill on invoice, a bank payment, the organisation's mailbox. A field of
     # its kind that nothing published fills does not take the row out any more: it is said on the row (invoice_fields_missing_for_kind, and in
@@ -478,6 +658,10 @@ def owner_test(x):
         out += sponsorship_faults(x)
     if kind == "agent of record" and agent_is_a_person(x):
         out.append("relationship: the agent of record is a named person, not a firm")
+    _fd = free_dns(x) if kind == "service seen on the buyer's side" else None
+    if _fd:
+        out.append("relationship: the provider's DNS hosting is free with a domain's registration (“%s”, %s, read %s): nothing is billed for it; the domain's "
+                   "registration is what a registrar bills (owner's rule of 2026-11-11: no row)" % (_fd["quote"][:160], _fd["url"], _fd["read"]))
     n_shared = shared_address(x) if kind == "utility account by location" else 0
     if n_shared >= 50:
         out.append("relationship: %d organisations print this postal code — a tower, a campus, a business centre or a mail service, where an account of its own is unlikely" % n_shared)
@@ -499,6 +683,8 @@ def owner_test(x):
             said.append("a shared address: %d organisations print this postal code" % n_shared)
     if route == "kind":
         said.append("how it is billed and paid is by the kind of relationship, not yet in the biller's own words")
+    if kind == "public contract" and (x.get("recurring_billing_basis") or "").startswith("by the kind of relationship"):
+        said.append("when it is billed is by the kind of the contract (its own schedule of payments is not published)")
     if po_missing:
         said.append("not published: the purchase-order number the buyer requires on invoices (the vendor holds it)")
     if soft:

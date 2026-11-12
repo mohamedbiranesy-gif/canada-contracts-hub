@@ -595,6 +595,8 @@ def tier_of(r):
     if t == "C" and CUTOFF3 <= award_date(r) < CUTOFF and r["status"] != "ended":
         return "L"  # owner's rule (2026-11-01): multi-year contracts awarded 12-36 months ago, no end date: "likely active", own package
     return t
+_DEAD_REG = re.compile(r"dissol|inactive|radi[ée]|cancel|revoked|struck|annul|liquidat|discontinued|amalgamated|historical", re.I)
+_LIVE_REG = re.compile(r"\bactive\b|immatricul|en vigueur|in good standing|registered\b|existing|current", re.I)
 def contract_score(r):
     c, v = r["contract"], r.get("vendor") or {}
     ve, d = r.get("vendor_enrichment") or {}, (r["contract"].get("dates") or {})
@@ -715,7 +717,12 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
     # owner 2026-11-11 20:36 EST ("no buyer twice is hard rule … mark everything, prioritise over 5000"): a buyer has one row, and the record
     # that stands on it is, among the records of its best tier, one whose published value is $5,000 or more — then the most complete, then the
     # latest. Before, the most complete record stood on the row also when a contract of that size with the same or another vendor was current.
-    _bk = (TS[tier_of(r)], 1 if _val >= 5000 else 0, sc, award_date(r) or "")
+    # 2026-11-12: within the best tier, a record whose vendor the registers show alive and whose record prints the vendor's address comes first —
+    # 254 buyers' rows failed on a registry warning and 166 on a missing vendor address (13:24Z table) while other contracts of theirs were clean
+    _rs0 = [t_.strip() for t_ in str((r.get("vendor_enrichment") or {}).get("registry_status") or "").split(";") if t_.strip()]
+    _dead0 = bool(_rs0) and bool((_DEAD_REG.search(_rs0[0]) and not _LIVE_REG.search(_rs0[0])) or (not any(_LIVE_REG.search(t_) for t_ in _rs0) and any(_DEAD_REG.search(t_) for t_ in _rs0)))
+    _clean = 0 if (_dead0 or not ((r.get("vendor") or {}).get("address"))) else 1
+    _bk = (TS[tier_of(r)], _clean, 1 if _val >= 5000 else 0, sc, award_date(r) or "")
     if o["best"] is None or _bk > o["bk"]:
         o["best"], o["bs"], o["fields"], o["bk"] = r, sc, fields, _bk
         if len(name) < len(o["name"]) or not o["name"]: o["name"] = name
@@ -4685,6 +4692,7 @@ for x in rows:
                 x["typical_contract_value_p90"] = "%.2f" % vals[min(len(vals) - 1, int(len(vals) * 0.9))]
             if _o2.get("durs"):
                 x["average_contract_duration_days"] = str(round(sum(_o2["durs"]) / len(_o2["durs"])))
+                x["contract_durations_counted"] = str(len(_o2["durs"]))
             if _o2.get("coms"):
                 x["commodity_distribution_top3"] = "; ".join("%s (%d)" % (cc, nn) for cc, nn in _o2["coms"].most_common(3))[:300]
             yv = sorted((y, v) for y, v in (_o2.get("yv") or {}).items() if y.isdigit())
@@ -5003,6 +5011,101 @@ _BILL_NOUN = r"(?:fees?|payments?|billing|invoic\w+|subscriptions?|rentals?|leas
 _REC_PERIOD = [("1 monthly", r"(?:monthly|per month|each month|mensuel(?:le)?s?|par mois|mensuellement)"), ("1 quarterly", r"(?:quarterly|per quarter|trimestriel(?:le)?s?|par trimestre)"),
                ("3 yearly or longer", r"(?:annual(?:ly)?|yearly|per year|annuel(?:le)?s?|par an(?:n[ée]e)?)")]
 _REC_RX = [(lab, re.compile(r"\b" + per + r"\W+(?:\w+\W+){0,2}" + _BILL_NOUN + r"\b|\b" + _BILL_NOUN + r"\W+(?:\w+\W+){0,2}" + per + r"\b", re.I)) for lab, per in _REC_PERIOD]
+# 2026-11-12 (owner, 09:00 EST: "those contract amounts, the billing cadence, you better have it set. Don't just put the value of the contract,
+# but also the billing cadence. So let's say it's monthly. What would that be?"). A public record gives a contract's parties, subject, value and
+# dates, not its schedule of payments. What the contract buys says how a contract of that kind is billed: works by progress invoice each month,
+# a service over a term each month in arrears, goods at each delivery. The row says it is by the kind of the contract, and from what the kind
+# was read (its commodity code, the record's own category, or the words of its title); the amount of one bill is calculated in
+# tools/relationship_rows.py (the published value over the published term, or over the buyer's own average term — then an estimate).
+_NAT_CONSTR = re.compile(r"\b(?:construction|constructing|reconstruct\w*|rehabilitat\w*|r[ée]habilitation|r[ée]fection|travaux|paving|pavage|resurfac\w*|asphalt(?:ing|age)|"
+                         r"bridges?|ponts?|culverts?|ponceaux?|sewers?|[ée]gouts?|watermains?|aqueducs?|roofing|toitures?|renovat\w*|r[ée]novation|demolition|d[ée]molition|"
+                         r"excavat\w*|terrassement|earthworks?|agrandissement|r[ée]am[ée]nagement|mise aux normes|road works|roadworks|works contract)\b", re.I)
+_NAT_SERV = re.compile(r"\b(?:services?|entretien|d[ée]neigement|snow (?:removal|clearing|plowing|ploughing)|maintenance|collecte|collection|consult\w*|conseils?|"
+                       r"ing[ée]nierie|engineering|design|conception|[ée]tudes?|study|studies|inspections?|nettoyage|cleaning|janitorial|conciergerie|gardiennage|"
+                       r"security guards?|surveillance|support|audit|v[ée]rification|formation|training|location|rental|leasing|hauling|towing|remorquage|"
+                       r"landscap\w*|paysag\w*|tonte|mowing|disposal|[ée]limination|gestion|management|hosting|h[ée]bergement|operation|exploitation)\b", re.I)
+_NAT_GOODS = re.compile(r"\b(?:fournitures?|achats?|acquisitions?|purchases?|purchasing|supply(?:\s+and\s+deliver\w*)?|livraison|delivery of|camions?|trucks?|v[ée]hicules?|"
+                        r"vehicles?|[ée]quipements?|equipment|mat[ée]riel|materials?|produits?|products?|pi[èe]ces|parts|chlorure|abrasifs?|salt|carburants?|fuel|propane|"
+                        r"diesel|enrob[ée]s|uniforms?|v[êe]tements|ordinateurs?|computers?|laptops?|serveurs?|licen[cs]es?|mobilier|furniture|chemicals?|produit chimique)\b", re.I)
+def contract_nature(x):
+    """("works" | "services" | "goods" | "", from what it was read) for a contract row"""
+    codes = " ".join(str(x.get(c_) or "") for c_ in ("commodity_codes", "commodity", "commodity_codes_from_pair"))
+    for m in re.finditer(r"(UNSPSC|CPV|NAICS)?\s*(\d{6,8})\b(?:\s*\(?([^);|]{0,60}))?", codes):
+        sch, code, label = (m.group(1) or ("UNSPSC" if len(m.group(2)) == 8 else "NAICS")), m.group(2), (m.group(3) or "").strip()
+        why = "its commodity code %s %s%s" % (sch, code, (" (%s)" % label) if label else "")
+        seg = code[:2]
+        if sch == "UNSPSC" and len(code) == 8:
+            if code[:4] in ("7211", "7212", "7213", "7214", "7215") or seg == "95":
+                return "works", why
+            if seg == "72":
+                return ("works" if _NAT_CONSTR.search(label) else "services"), why
+            if "70" <= seg <= "94":
+                return "services", why
+            if "10" <= seg <= "60":
+                return "goods", why
+        if sch == "CPV":
+            if seg == "45":
+                return "works", why
+            if seg <= "44" or seg == "48":
+                return "goods", why
+            if seg >= "50":
+                return "services", why
+        if sch == "NAICS":
+            if seg == "23":
+                return "works", why
+            if seg in ("31", "32", "33", "42", "44", "45"):
+                return "goods", why
+            return "services", why
+    pm = (x.get("procurement_method") or x.get("procurement_method_from_pair") or "").strip()
+    if re.fullmatch(r"(?i)construction|travaux(?: de construction)?|works", pm):
+        return "works", "the record's own category: “%s”" % pm
+    if re.fullmatch(r"(?i)services?|services professionnels|services de nature technique", pm):
+        return "services", "the record's own category: “%s”" % pm
+    if re.fullmatch(r"(?i)goods|biens|approvisionnement|supplies", pm):
+        return "goods", "the record's own category: “%s”" % pm
+    t = " ".join(str(x.get(c_) or "") for c_ in ("contract_title", "contract_description"))
+    t = re.sub(r"\((?:the record's title|first sentence of the record's description)[^)]*\)", " ", t)[:400]
+    why = "the words of its title: “%s”" % re.sub(r"\s+", " ", (x.get("contract_title") or x.get("contract_description") or "")[:120]).strip()
+    if _NAT_CONSTR.search(t):
+        return "works", why
+    g, sv = _NAT_GOODS.search(t), _NAT_SERV.search(t)
+    if sv:
+        return "services", why
+    if g:
+        return "goods", why
+    return "", ""
+_ON_MONTHLY = ("in Ontario the Construction Act makes it the rule: “Unless the contract provides otherwise, a proper invoice must be given to the owner on a monthly "
+               "basis” (s. 6.3(1), as Goodmans LLP sets it out, https://www.goodmans.ca/insights/article/Prompt_Payment_under_the_Construction_Act__The__Proper_Invoice__and_Strict_Payment_Deadlines, read 2026-11-12)")
+def contract_term_days(x):
+    try:
+        d0 = datetime.date.fromisoformat(str(x.get("start_date") or x.get("award_date") or "")[:10])
+        d1 = datetime.date.fromisoformat(str(x.get("end_date") or "")[:10])
+        return (d1 - d0).days
+    except ValueError:
+        return None
+def contract_cadence_by_kind(x):
+    """(recurring_billing, basis) for a contract whose record says nothing of when the vendor bills: how a contract of its kind is billed, said to be"""
+    nat, why = contract_nature(x)
+    days = contract_term_days(x)
+    tail = "; this contract's own schedule of payments is not published"
+    if nat == "works":
+        on = (x.get("jurisdiction") or "") == "CA" and re.search(r"\b(?:ON|Ontario)\b", (x.get("buyer_address") or "") + " " + (x.get("buyer_province") or ""))
+        return "1 monthly", ("by the kind of relationship: works are billed by progress invoice, month by month as the work goes%s (what the contract buys: works, by %s)%s"
+                             % (("; " + _ON_MONTHLY) if on else "", why, tail))
+    if nat == "services":
+        if days is not None and days < 45:
+            return "4 per transaction", "by the kind of relationship: a service of a few weeks is invoiced when it is rendered (what the contract buys: a service, by %s)%s" % (why, tail)
+        return "1 monthly", ("by the kind of relationship: a service that runs over a term is invoiced in arrears, for the work of each month (what the contract buys: a service, by %s)%s"
+                             % (why, tail))
+    if nat == "goods":
+        return "4 per transaction", "by the kind of relationship: goods are invoiced at each delivery (what the contract buys: goods, by %s)%s" % (why, tail)
+    if days is not None and days >= 60:
+        return "1 monthly", ("by the kind of relationship: a contract that runs over a term (%d days) is invoiced as it goes, month by month being the usual period; what it buys "
+                             "is not stated in a way read here%s" % (days, tail))
+    return "4 per transaction", ("by the kind of relationship: a contract with no term published is invoiced at delivery or at each stage of the work; what it buys is not "
+                                 "stated in a way read here%s" % tail)
+
+
 def billing_of(x, ld):
     """(recurring_billing, recurring_billing_basis): what is published about when the vendor bills this buyer"""
     t = x.get("tier") or "N"
@@ -5092,6 +5195,8 @@ def billing_of(x, ld):
         m = rx.search(txt)
         if m:
             return lab, "the public record's own text: “%s”" % re.sub(r"\s+", " ", txt[max(0, m.start() - 120):m.end() + 120]).strip()
+    if x.get("contract_value") or x.get("contract_title") or x.get("contract_description") or x.get("award_date"):
+        return contract_cadence_by_kind(x)
     return "5 not published", "the public record gives the parties, the subject, the value and the dates of the contract, not when the vendor bills"
 # ---- owner 2026-11-11 07:15 EST: "the data that would go within the invoice … billing cadence, other things like that around that billing and
 # invoicing nature of the relationship … know the fields that the Shopify invoice would have … How much does it cost?" and "when do we know for a
@@ -5447,7 +5552,9 @@ for after, new in (("buyer_address", ["buyer_phone", "buyer_contact_evidence_url
                    ("all_references_with_this_vendor", ["contract_value_from_pair", "start_date_from_pair", "end_date_from_pair", "contract_title_from_pair", "contract_description_from_pair", "instrument_type_from_pair", "procurement_method_from_pair", "number_of_bids_from_pair", "po_number_as_published_from_pair", "contract_or_agreement_number_from_pair", "solicitation_or_tender_number_from_pair", "award_or_notice_id_from_pair", "buyer_vendor_id_from_pair", "commodity_codes_from_pair", "buyer_org_codes_from_pair"]), ("vendor_website_status", ["vendor_website_basis", "vendor_linkedin_url", "vendor_industry_naics"]), ("peppol_registered", ["statutory_payees_inferred", "buyer_municipal_tier", "buyer_population", "directory_general_email", "municipal_directory_source", "buyer_fiscal_year_end", "buyer_charity_status", "buyer_charity_designation", "buyer_wikidata", "buyer_founded", "buyer_budget_or_revenue", "buyer_employees", "buyer_legal_form"]),
                    ("vendor_years_in_business", ["vendor_wikidata", "vendor_founded", "vendor_employees"]),
                    ("typical_contract_value_p75", ["typical_contract_value_p90", "average_contract_duration_days", "commodity_distribution_top3", "year_over_year_spend_trend"]),
-                   ("buyer_tax_exempt_status", ["buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived"]), ("end_date", ["contract_term_as_published"])):
+                   ("buyer_tax_exempt_status", ["buyer_tax_status_derived", "tax_rate_indicative_derived", "invoice_currency_derived"]), ("end_date", ["contract_term_as_published"]),
+                   ("recurring_billing", ["billing_cadence"]), ("contract_reference", ["po_or_reference_to_quote"]), ("commodity", ["contract_nature"]),
+                   ("average_contract_duration_days", ["contract_durations_counted"])):
     if after in cols:
         i = cols.index(after) + 1
         cols[i:i] = [c for c in new if c not in cols]
@@ -5464,6 +5571,25 @@ try:
 except (OSError, ValueError):
     pass
 cnt, _n_rows, _n_mail, _n_contract = collections.Counter(), len(rows), 0, 0
+# 2026-11-12 (owner, 08:45 EST: an amount on every row, estimated plausibly where none is published): the lowest yearly dues that the chambers
+# of commerce and boards of trade of this build publish on their own pages, one figure a chamber — the basis of the estimate a member row of a
+# chamber whose own dues are not read takes (tools/relationship_rows.py: estimate_missing_amount)
+_chd = {}
+for x in rows:
+    if "member named in the member directory" not in (x.get("contract_status") or "") or not re.search(r"chamber of commerce|board of trade|chambre de commerce", x.get("vendor") or "", re.I):
+        continue
+    _ldc = LDET.get((x.get("keys") or "").split("|")[0]) or {}
+    _vdc = registrable(host_of(_ldc.get("vendor_site") or x.get("vendor_website") or "") or "")
+    if not _vdc or _vdc in _chd:
+        continue
+    _mdc = member_dues(VBILL.get(_vdc), _vdc) if VBILL.get(_vdc) else None
+    if _mdc and _mdc[2] == "year" and (_mdc[1] or "CAD").upper() in ("CAD", "C$", "$", "") and 25 <= _mdc[0] <= 5000:
+        _chd[_vdc] = _mdc[0]
+if len(_chd) >= 20:
+    _cv = sorted(_chd.values())
+    _RR.CHAMBER_DUES = {"median": _cv[len(_cv) // 2], "n": len(_cv), "low": _cv[0], "high": _cv[-1]}
+print("chambers of commerce and boards of trade whose lowest yearly dues are read on their own pages: %d%s" % (len(_chd), (" — median $%.0f, from $%.0f to $%.0f" % (
+    _RR.CHAMBER_DUES["median"], _RR.CHAMBER_DUES["low"], _RR.CHAMBER_DUES["high"])) if _RR.CHAMBER_DUES else " (fewer than 20: no estimate from them)"))
 # 2026-11-10 (disk): the plain CSV is 15 KB a row — 2.6 GB at 170,000 rows, 15 GB at a million; nothing reads it (a runner has 85 GB free).
 # Only the compressed table is written now (batches.py and contracts_export.py read it); RANK_PLAIN_CSV=1 still writes the plain file for a local look.
 _PLAIN = os.environ.get("RANK_PLAIN_CSV") == "1"
@@ -5615,6 +5741,10 @@ for _ri, x in enumerate(rows):
         if _mt:
             x["vendor"] = "%s’%s" % (_vn0, _mt.group(1).strip()); n9["vendor name cut at an apostrophe: completed from the page title"] += 1
     x["recurring_billing"], x["recurring_billing_basis"] = billing_of(x, _ldb)
+    if (x.get("tier") or "") not in ("I", "M", "R", "T", "D", "E") and (x.get("contract_value") or x.get("award_date") or x.get("contract_title")):
+        _nat, _nwhy = contract_nature(x)
+        if _nat:
+            x["contract_nature"] = "%s — by %s" % ({"works": "works (construction)", "services": "a service", "goods": "goods"}[_nat], _nwhy)
     for _c, _v in bill_profile(x, _ldb, x["recurring_billing"]).items():
         if _v:
             x[_c] = _v
