@@ -49,6 +49,45 @@ pairs, 66,678 behind 1,687 buyers with a mailbox. Sample build OWNER15 (1 lead i
    districts — codex / jules lanes), dealers of Canadian manufacturers, firms licensed by Canadian regulators, customers of Canadian
    business software. The mailbox reader keeps reading the ~63,000 sites that print a mailbox and a Canadian address.
 
+## 2026-11-12 02:15Z — safety-net turn: build 00:14Z gives 136,513 ship ready of 186,576; London Hydro's and Enova's own sentences added
+
+(The main session's last commit is 445acd8 at 23:35Z, "what reading the hundred of the 23:14Z build found"; it did not write a section
+here. This one records what the cloud shows. The section of 22:47Z below still holds the rules and the "Next" list.)
+
+**Numbers (build 2026-11-12T00:14:07Z, code 445acd8; `coord/results/ranked/BUILD.json`, `coord/GROWTH_VS_BASELINE.md`).**
+- Rows 186,576; with a mailbox 180,937 (baseline 63,641: +117,296).
+- **Ship ready 136,513**: by where the organisation is 96,187 · best effort (by the kind, or a field not published) 29,967 · complete
+  in the biller's or the record's own words 10,359. By kind: utility account by location 96,187 · membership 12,435 · licence 9,047 ·
+  service 7,266 · sponsorship 4,183 · agent of record 2,924 · public contract 2,547 · dealership 1,825 · tenancy 99.
+- Pay on sight (growth file): yes 1,104 · reference-less 829 · routed 41,833. Downstream pack of the build: pay_on_sight_yes 1,933.
+- Row factory: 676,067 buyers in the cloud leads (member-live 23:13Z: +4,184 new); leads read by the build 786,046.
+- Mailbox reader: 1,279,997 lead sites read, 315,187 with a mailbox (22:47Z: 902,604 / 236,200; +78,987 mailbox sites in two runs).
+  The referee ran after each (01:30Z success). Rank build 43136600232 was dispatched at 01:44Z and is running: it delivers them.
+
+**Health (01:50Z).** All five workflows are alive. The failures of 2026-11-11 (row-factory 18:35Z `merge_extract`, claude-engines
+19:01Z and 20:16Z, rank-buyers 20:41Z `startup_failure`) are GitHub's artifact service during its outage (upload "Unexpected token '<'",
+download "artifact not found"), not our code: no fix. GitHub status now: operational. Queued behind the 20-runner limit: row-factory
+(01:31Z; its last complete cycle is 17:52Z on 2026-11-11 — check that this one ends), mailbox-crawl (6 of 8 shards running).
+Run 43097494823 (verify-and-merge, queued since 20:41Z, a leftover of the outage) should be cancelled; this session was not allowed
+to cancel a run. Later referee runs succeed, so it blocks nothing.
+
+**Advanced (item 4 of "Next" at 22:47Z — the distributors' own words for Ontario).** `tools/data/billers_by_location.json`:
+- London Hydro Inc. (376 rows in the 00:14Z build): billed monthly (own sentence), from $36.38 a month (fixed monthly delivery charge,
+  Commercial < 50 kW), a bill with an invoice number, paid through a bank / pre-authorized withdrawal / cheque (card through Paymentus
+  as well), remit-to P.O. Box 3060.
+- Enova Power Corp. (450 rows): monthly invoice, paid through a financial institution / pre-authorized withdrawal / cheque (card as
+  well), due 23 days after issue, late charge 1.50 % a month, remit-to PO Box 9021 Kitchener. No amount: its rates page gives service
+  charges ($27.34, $33.46, $38.91 a month from 2026-01-01) without naming, in the text read, the class and zone of each — not taken.
+- Every quoted sentence was looked for on the page named for it (read 2026-11-12 with the project's reader, robots obeyed); the table
+  loads (62 billers), `payment_route` gives "either" as for Alectra. No change to rank.py. Effect: 826 rows move from "by the kind"
+  to the distributor's own words at the next build. Ontario distributors with own sentences now: Toronto Hydro, Hydro Ottawa,
+  Alectra, Hydro One, London Hydro, Enova (6 of 53).
+
+**Next.** The list of 22:47Z from item 2 (the main session knows where it stands on the hundred), then: read the build of 01:44Z
+(expect more rows by location from +78,987 mailbox sites; tell the owner the count); Ontario's next distributors by rows in the build
+(take the counts from the line "rows that give way …" / by distributor in SUMMARY.md); Enova's amount from its tariff PDF; Hydro
+One's amount; Elexicon refuses the reader (status blocked, not retried).
+
 ## 2026-11-11 22:47Z — rule 13 in the table: 79,860 ship ready (build 22:11Z); second step pushed (give-way, Ontario by postal code, reader's queue), its build is running
 
 **The owner at 16:01 EST, in full:** "1 million goals think differently if need be this your project take all liberty as long as under

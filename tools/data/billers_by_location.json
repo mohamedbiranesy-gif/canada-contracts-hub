@@ -287,6 +287,31 @@
   "payment": "through a financial institution (online banking, at the bank with the bill's payment slip) or by automatic withdrawal; a card or PayPal as well: “You can also pay your bill in-person at your local bank using the payment slip that's found at the bottom of Page 1 of your bill.” … “Set up AutoPay and never forget a bill payment.” … “Credit/Debit, Paypal, Apple/Google Pay” (https://www.hydroone.com/rates-and-billing/billing-and-payments)"
  },
  {
+  "key": "on_london_hydro_inc",
+  "table_key": "London Hydro Inc.",
+  "name": "London Hydro Inc.",
+  "read": "2026-11-12",
+  "period": "1 monthly",
+  "period_basis": "the distributor's own words: “All London Hydro accounts are billed monthly, and we offer several payment options for your convenience.” (https://www.londonhydro.com/accounts-services/billing-payment/payment-options)",
+  "amount": "from $36.38 a month",
+  "amount_basis": "the fixed monthly delivery charge of its smallest business class in its published rates — the class: “Commercial, Less Than 50 KW With No Interval Meter (Rates Effective May 1, 2026 - October 31, 2026)”; “Delivery Fixed Monthly Charge per month $36.38” (https://www.londonhydro.com/accounts-services/electricity-rates/commercial-electricity-rates); delivery and energy by the kilowatt-hour come on top — the organisation's own consumption is not published",
+  "delivery": "a bill that carries an invoice number: “The number located just above the mailing address is your invoice number” (https://www.londonhydro.com/accounts-services/billing-payment/about-my-bill)",
+  "payment": "through a bank or financial institution, by pre-authorized withdrawal, or by cheque in the mail; a credit card through a third party as well: “London Hydro is linked to all major banks and financial institutions so you can make your payments at your convenience from your bank’s website, via telephone banking or at a bank ATM machine.” … “Your monthly bill payment will be automatically withdrawn from your account” … “pop your remittance voucher along with a cheque or money order made payable to London Hydro in the mail.” … “Pay your bill online using Paymentus Corporation with Mastercard or VISA.” (https://www.londonhydro.com/accounts-services/billing-payment/payment-options)",
+  "remit_to": "“Our Mailing address is: London Hydro P.O. Box 3060 London, Ontario N6A 4J8” (https://www.londonhydro.com/accounts-services/billing-payment/payment-options)"
+ },
+ {
+  "key": "on_enova_power_corp",
+  "table_key": "Enova Power Corp.",
+  "name": "Enova Power Corp.",
+  "read": "2026-11-12",
+  "period": "1 monthly",
+  "period_basis": "the distributor's own words on its rates page: “explanations to help you understand the charges on your monthly invoice.” (https://enovapower.com/my-account/electricity-rates/)",
+  "delivery": "an invoice: “We’re happy to offer you several methods for paying your electricity invoice.” (https://enovapower.com/my-account/ways-to-pay-and-financial-assistance-programs/) … “The due date of your current invoice.” (https://enovapower.com/my-account/get-to-know-your-bill/)",
+  "payment": "through a financial institution, by pre-authorized withdrawal from a bank account, or by cheque in the mail; Mastercard or VISA through its payment portal as well: “Pay your bill through your financial institution.” … “Sign up for Pre-Authorized Payment to have your payment withdrawn from your bank account on the day it is due.” … “You can send a cheque to our offices.” … “You have the option of paying with Mastercard or VISA through our Payment portal.” (https://enovapower.com/my-account/ways-to-pay-and-financial-assistance-programs/)",
+  "terms": "“Payment Due 23 days after the bill is issued” (https://enovapower.com/my-account/ways-to-pay-and-financial-assistance-programs/) … “Late payment – per month 1.50% Late payment – per year 19.56%” (https://enovapower.com/my-account/electricity-rates/)",
+  "remit_to": "“Please mail your cheque to Enova, PO Box 9021, Kitchener, ON, N2G 4P1” (https://enovapower.com/my-account/ways-to-pay-and-financial-assistance-programs/)"
+ },
+ {
   "key": "ns_power",
   "name": "Nova Scotia Power",
   "legal_name_as_printed": "Nova Scotia Power Inc.",
