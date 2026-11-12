@@ -2000,7 +2000,7 @@ is 30 months old: a row says "extract of 2024-05-22" in its relationship; a newe
   their own forms offer only a card), as cc_on_ssm was withdrawn. A body that prints no postal code does not pass (Kingston HBA,
   Brockville, Cape Breton).
 
-## 2026-11-12 21:40Z — lane `claude`: a member list whose body prints no sentence on its dues
+## 2026-11-12 21:36Z — lane `claude`: a member list whose body prints no sentence on its dues
 
 Rule 13 (owner, 2026-11-11 16:01 EST) lets a row say how a bill of its kind is billed and paid when the biller's own sentence is not found,
 and names "an association's dues" among those kinds. Until now a roster needed the body's own sentence that its members pay it; bodies whose
