@@ -470,3 +470,17 @@ SEA current-linked rev4 terms distinguish foreign-supplier PDF invoices from ban
 - Skip VPlus "Portail citoyen" sites (`vplus-app-root` in the page): no page prints an address.
 - Québec health establishments: the supplier code of conduct (PO-62) can name the procurement mailbox (CIUSSS de la Capitale-Nationale).
 - The referee reads only the first 5 MB of a page and cannot read .docx: give PDF or HTML evidence (a 16 MB municipal journal will not verify on its own).
+
+### Member, dealer, tenant and exhibitor lists — what is readable (claude, 2026-11-12)
+- Readable without login (robots.txt allowing): Map Dynamics exhibitor lists (Truck World; folder + Show_ID), a2z (a2zinc.net) exhibitor
+  lists, Small World Labs lists (BUILDEX), the WordPress "Membri / vendere" plugin (eleven Québec chambers: the whole member list is JSON in
+  the page — read name, website, address, the SelfEmployed flag, never the e-mail fields), Naylor directories (`AF_MemberDirectory.asp?
+  pagesize=100&intpage=N&dlist=-1`, CAOEC), WordPress `admin-ajax` member calls a directory page itself makes (Mississauga Board of Trade:
+  `get_members` returned all 847 in one request), WP Store Locator (`admin-ajax` search; Kingsman, Bryston), ChamberMaster `/list/`.
+- Not readable or not allowed: Map Your Show (robots bars ClaudeBot), ExpoFP (robots blocks all), Unity Event Solutions, PheedLoop,
+  member365 (robots disallows), MembershipWorks member profiles (403), Locally.com and Algolia (not allowed in this session), GrowthZone
+  directories behind a Cloudflare check, any site whose robots.txt bars ClaudeBot or anthropic-ai by name.
+- Crawl-delay is sometimes written above the first user-agent group (Mississauga, Victoria, Kelowna: 10 s): obey it.
+- A list that mixes payers and non-payers is not a roster unless the payers are marked (Québec Vert tags who pays it directly; Destination
+  Vancouver does not). A member category the body says pays by card only is left out (Penticton's monthly members).
+- One row per buyer: a dealer on five makers' lists, a chain in fourteen centres is one lead; the merge keeps the first roster that took it.
