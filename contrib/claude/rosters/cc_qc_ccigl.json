@@ -1,0 +1,12 @@
+{
+ "kind": "member",
+ "biller": "Chambre de commerce et d'industrie du Grand Lévis (CCIGL)",
+ "biller_site": "https://cciglevis.ca/",
+ "biller_address": "5700, rue J.-B.-Michaud, Bureau 225, Lévis QC G6V 0B1",
+ "biller_address_url": "https://cciglevis.ca/nous-joindre/",
+ "biller_address_quote": "5700, rue J.-B.-Michaud, Bureau 225, Lévis QC G6V 0B1",
+ "read": "2026-11-12",
+ "pays_quote": "Adhésion envoyée avec succès! Pour compléter votre adhésion, vous devez effectuer un paiement.",
+ "pays_url": "https://cciglevis.ca/adhesion/",
+ "list_name": "the member directory of Chambre de commerce et d'industrie du Grand Lévis (CCIGL)"
+}
