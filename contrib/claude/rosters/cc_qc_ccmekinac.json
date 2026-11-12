@@ -1,0 +1,12 @@
+{
+ "kind": "member",
+ "biller": "Chambre de commerce de Mékinac",
+ "biller_site": "https://ccmekinac.ca/",
+ "biller_address": "645, route 153, Saint-Tite (Québec) G0X 3H0",
+ "biller_address_url": "https://ccmekinac.ca/nous-joindre/",
+ "biller_address_quote": "Nos coordonnées 645, route 153 Saint-Tite (Québec) G0X 3H0",
+ "read": "2026-11-12",
+ "pays_quote": "Une fois le formulaire envoyé, nous vous enverrons la facture. Une fois le paiement reçu, vous serez automatiquement ajouté dans notre répertoire des membres.",
+ "pays_url": "https://ccmekinac.ca/devenir-membre/",
+ "list_name": "the member directory of Chambre de commerce de Mékinac"
+}
