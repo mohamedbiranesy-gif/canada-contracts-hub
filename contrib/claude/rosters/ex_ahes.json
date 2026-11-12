@@ -1,0 +1,17 @@
+{
+ "key": "ex_ahes",
+ "kind": "exhibitor",
+ "biller": "Marketplace Events (Atlantic Heavy Equipment Show)",
+ "biller_site": "https://www.marketplaceevents.com/",
+ "biller_address": "PO Box 70060 Rimrock Plaza PO, Toronto, ON M3J 0H3",
+ "biller_address_url": "https://www.marketplaceevents.com/contact-us/office-locations",
+ "biller_address_quote": "Canada TORONTO, ONTARIO PO Box 70060 Rimrock Plaza PO Toronto, ON M3J 0H3",
+ "read": "2026-11-12",
+ "pays_quote": "INDOOR / 01 SPACE REQUIREMENT 100–799 SQ. FT. RATE PER SQ. FT. $17.00",
+ "pays_url": "https://www.ahes.ca/exhibit/booth-rates",
+ "list_hosts": [
+  "ahes.ca"
+ ],
+ "list_host_link_url": "https://www.marketplaceevents.com/our-shows",
+ "list_name": "the exhibitor list of the Atlantic Heavy Equipment Show (show of March 29-30, 2028)"
+}

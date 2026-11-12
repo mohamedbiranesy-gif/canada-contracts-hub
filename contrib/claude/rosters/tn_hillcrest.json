@@ -1,0 +1,13 @@
+{
+ "key": "tn_hillcrest",
+ "kind": "tenant",
+ "biller": "Oxford Properties Group",
+ "biller_site": "https://hillcrestmall.ca/",
+ "biller_address": "900-100 Adelaide Street West, Toronto, Ontario M5H 0E2",
+ "biller_address_url": "https://hillcrestmall.ca/newsletter",
+ "biller_address_quote": "I opt-in to receive email communications from Oxford Properties Group, 900-100 Adelaide Street West, Toronto, Ontario M5H 0E2",
+ "read": "2026-11-12",
+ "pays_quote": "To learn more about leasing with Oxford Properties, visit Lease With Us",
+ "pays_url": "https://hillcrestmall.ca/leasing",
+ "list_name": "the store directory of Hillcrest Mall"
+}

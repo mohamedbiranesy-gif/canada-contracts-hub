@@ -1,0 +1,13 @@
+{
+ "key": "tn_yorkdale",
+ "kind": "tenant",
+ "biller": "Oxford Properties Group",
+ "biller_site": "https://yorkdale.com/",
+ "biller_address": "900-100 Adelaide Street West, Toronto, Ontario M5H 0E2",
+ "biller_address_url": "https://yorkdale.com/newsletter",
+ "biller_address_quote": "I opt-in to receive email communications from Oxford Properties Group, 900-100 Adelaide Street West, Toronto, Ontario M5H 0E2",
+ "read": "2026-11-12",
+ "pays_quote": "To learn more about leasing with Oxford Properties, visit Lease With Us",
+ "pays_url": "https://yorkdale.com/leasing",
+ "list_name": "the store directory of Yorkdale Shopping Centre"
+}

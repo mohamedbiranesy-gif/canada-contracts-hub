@@ -1,0 +1,17 @@
+{
+ "key": "ex_buildex_vancouver",
+ "kind": "exhibitor",
+ "biller": "Informa Connect (BUILDEX Vancouver)",
+ "biller_site": "https://informaconnect.com/buildex-vancouver/",
+ "biller_address": "20 Eglinton Avenue W, Suite 1200, Toronto ON M4R 1K8",
+ "biller_address_url": "https://informaconnect.com/contact-us/",
+ "biller_address_quote": "Canada Toronto 20 Eglinton Avenue W Suite 1200 Toronto ON, M4R 1K8",
+ "read": "2026-11-12",
+ "pays_quote": "The cost of the NES Pass may be used as a partial credit against the following year’s BUILDEX exhibition or sponsorship cost.",
+ "pays_url": "https://informaconnect.com/buildex-vancouver/show-policies/",
+ "list_hosts": [
+  "smallworldlabs.com"
+ ],
+ "list_host_link_url": "https://informaconnect.com/buildex-vancouver/",
+ "list_name": "the BUILDEX Vancouver 2027 exhibitor list"
+}
