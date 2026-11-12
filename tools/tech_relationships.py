@@ -368,6 +368,14 @@ BILLING = {
     "edsby": dict(cls="yearly", read="2026-11-11", url="https://www.edsby.com/faqs/",
                   quote="Certain other features and advanced functionality are also charged for annually and at per student per year rates."),
     "jumptools": dict(cls="yearly", read="2026-11-11", url="https://jumptools.com/", quote="Get online for as little as $35/month (paid annually)."),
+    # WellnessLiving's terms for businesses, read with the project's reader on 2026-11-12: a monthly bill, debited from a card or a bank account,
+    # or sent as an invoice
+    "wellnessliving": dict(cls="monthly", read="2026-11-12", url="https://www.wellnessliving.com/text/terms-of-use-business.html",
+                           quote=("WellnessLiving will automatically renew as per Section 8, and bill your credit card/bank account or other form of payment or issue an invoice "
+                                  "to you every month for monthly fees."),
+                           bill=dict(payment=("“WellnessLiving will automatically renew as per Section 8, and bill your credit card/bank account or other form of payment or issue "
+                                              "an invoice to you every month for monthly fees.” (terms of use for businesses)"),
+                                     delivery="an invoice every month, or a debit: “… or issue an invoice to you every month for monthly fees.” (terms of use for businesses)")),
 }
 # what the vendor's bill carries and how much it is, in the vendor's own words (owner 2026-11-11 07:15 EST: "there's some Shopify invoice
 # somewhere online, so we can know the fields that the Shopify invoice would have … How much does it cost?"). Pages opened with the project's
