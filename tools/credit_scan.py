@@ -1179,9 +1179,11 @@ def scan_queue(k, n, limit=0):
             for r in csv.DictReader(fh):
                 add(r["dom"], 3, -min(int(r.get("objects") or 1), 400))
     if os.path.exists(OVERTURE_SITES):  # 3. organisations of the Overture Maps places in Canada (any TLD; 2026-11-12); chains with hundreds of branches last
+        # at the front of priority 3: a place with an address in Canada is an organisation located in Canada (a row by where it is once its own
+        # site gives a mailbox and an address), where a site of the web graph is only one that links to a Canadian vendor
         with gzip.open(OVERTURE_SITES, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
-                add(r["dom"], 3, -min(int(r.get("objects") or 1), 400))
+                add(r["dom"], 3, 100000 - min(int(r.get("objects") or 1), 400))
     if os.path.exists(UNIVERSE):  # 4. every .ca site of the archive, the sites with the most captured pages first
         with gzip.open(UNIVERSE, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
