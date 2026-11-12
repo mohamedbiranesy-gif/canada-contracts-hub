@@ -443,20 +443,35 @@ def sites(a):
     k, n = (int(x) for x in (a.shard.split("/") + ["1"])[:2])
     os.makedirs("out", exist_ok=True)
     tied = {r["owner_key"] for r in csv.DictReader(open(MATCHES, encoding="utf-8", newline=""))} if os.path.exists(MATCHES) else set()
-    done = set()
+    done, done_ovt = set(), set()
     if os.path.exists(SDONE):
         with gzip.open(SDONE, "rt", encoding="utf-8") as f:
-            done = {l.split("\t", 1)[0] for l in f}
+            for l in f:
+                q = l.rstrip("\n").split("\t")
+                done.add(q[0])
+                if len(q) > 5 and q[5] == "overture":
+                    done_ovt.add(q[0])
     by_name = collections.Counter()
     owners = []
     abroad = bool(getattr(a, "abroad", False))
+    # 2026-11-12: with --overture, the owners for whom an Overture Maps place lists a website under their name (tm_overture_sites.csv) — read
+    # first, also when the owner was looked for before under domain names made of its name
+    ovt = collections.defaultdict(list)
+    if abroad and getattr(a, "overture", False) and os.path.exists(OVT_SITES):
+        for r in csv.DictReader(open(OVT_SITES, encoding="utf-8", newline="")):
+            ovt[r["owner_key"]].append(r)
+    use_ovt = bool(ovt)
     for path, here in ((OWN_CA, True), (OWN_XX, False)):  # "one owner of that name on the register" counts both files
         with gzip.open(path, "rt", encoding="utf-8", newline="") as f:
             for r in csv.DictReader(f):
                 if not is_org(r["owner_name"]):
                     continue
                 by_name[nkey(r["owner_name"])] += 1
-                if r["owner_key"] in tied or r["owner_key"] in done or int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n != k:
+                if r["owner_key"] in tied or int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n != k:
+                    continue
+                if (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done):
+                    continue
+                if use_ovt and r["owner_key"] not in ovt:
                     continue
                 if here and not abroad and r["postal_code"]:
                     owners.append(r)
@@ -499,7 +514,12 @@ def sites(a):
         cc = o["country"] if abroad else "CA"
         kind_of = {lab + tld: kind for lab, kind in labels_of(o["owner_name"], marks) for tld in (ABROAD[cc][1] if abroad else (".ca", ".com"))}
         cands = list(kind_of)
-        live = [h for h in cands if resolves(h)][:4]
+        listed = {}
+        for r_ in ovt.get(o["owner_key"], ()):  # published websites first: an Overture place under the owner's name at its postal code / in its state
+            listed[r_["site"]] = r_
+            kind_of.setdefault(r_["site"], "listed")
+        cands = list(listed) + [h for h in cands if h not in listed]
+        live = [h for h in cands if resolves(h)][:4 + len(listed)]
         hit, n_read = None, 0
         for h in live:
             cache = {}
@@ -551,12 +571,25 @@ def sites(a):
                         and fdom.split(".")[0].replace("-", "") in {lab.replace("-", "") for lab, kd in labels_of(o["owner_name"], marks) if kd == "name"}):
                     how = "the same name (%s), on a domain name that is the owner's name written out; a site in the owner's state (%s, %s); one owner of that name on the register" % (
                         "site name" if nkey(names.get("site name") or "") == ok_ else "its own statement", o["_state"], ABROAD[cc][0])
+                _l = listed.get(h)
+                if not how and _l and sn.startswith("the same name") and len(ok_.split()) + len(ok_) >= 7:
+                    # 2026-11-12: two sources agree — an Overture Maps place lists THIS website under the owner's name at the register's postal
+                    # code (or in its state, and the site prints an address of that state), and the site's own pages state that name
+                    if _l["how"].startswith("the same name at the same"):
+                        how = "the same name (%s); an Overture Maps place lists this website under the owner's name at the register's %s (%s, place %s)" % (
+                            sn.split("(", 1)[1].split(")")[0], what, o["_code"], _l["place_id"])
+                    elif state_ok:
+                        how = "the same name (%s) and an address of the owner's state (%s) on the site; an Overture Maps place lists this website under the owner's name in that state (place %s)" % (
+                            sn.split("(", 1)[1].split(")")[0], o["_state"] or ABROAD[cc][0], _l["place_id"])
                 if not how:
                     with lock:
                         stats["read, not tied: " + ("name agrees, " + ("the owner's state, another postal code" if state_ok else "no address of the owner's state on its pages") if sn else "its name is another")] += 1
                 else:
+                    _lst = listed.get(h)
                     hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["_code"], "tied_by": how,
-                           "site_facts_from": "its own pages (%s), found under a domain name made of the owner's name or mark" % where,
+                           "site_facts_from": ("its own pages (%s), found as the website an Overture Maps place lists for the owner's name (“%s”, %s; %s, release %s)" % (
+                               where, _lst["place_name"], _lst["place_postcode"], _lst["how"], _lst["release"]) if _lst else
+                                               "its own pages (%s), found under a domain name made of the owner's name or mark" % where),
                            "site_states": "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:200], "read": TODAY}
                     break
                 continue
@@ -609,7 +642,8 @@ def sites(a):
             if hit:
                 w.writerow(hit)
                 stats[hit["tied_by"].split(" (")[0]] += 1
-            fd.write("%s\t%s\t%d\t%d\t%s\n" % (o["owner_key"], TODAY, len(cands), len(live), hit["site"] if hit else ""))
+            fd.write("%s\t%s\t%d\t%d\t%s%s\n" % (o["owner_key"], TODAY, len(cands), len(live), hit["site"] if hit else "", "\toverture" if listed else ""))
+            stats["owners with a listed website"] += bool(listed)
             if stats["owners"] % 500 == 0:
                 ff.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
@@ -815,9 +849,89 @@ def leads(a):
         len(kept), n_agent, n_office, gone, nu, nd, ng))
 
 
+# ---- owners abroad: the website an Overture Maps place lists for the owner's name at its postal code (2026-11-12) ----------------------------
+# Guessing a domain name from the owner's name found 2,572 sites for 44,294 owners in the United States (5.8 %). The Overture Maps places
+# (open data, a release a month) list, for tens of millions of businesses, a name, an address and a website — published, not guessed. An owner
+# whose name (legal forms left out) and postal code (US ZIP, GB postcode, AU postcode) are those of a place gets that place's website as the
+# FIRST site to read; the site counts only when its own pages tie it to the owner by the same tests as before (sites --abroad --overture).
+OVT_SITES = os.path.join(DIR, "tm_overture_sites.csv")
+OVT_BUCKET = "https://overturemaps-us-west-2.s3.amazonaws.com"
+_SQL_FORMS = (r"\b(inc|incorporated|incorporee|ltd|ltee|limited|limitee|corp|corporation|co|company|compagnie|cie|llc|llp|lp|sencrl|senc|srl|enr|reg|regd|ulc|plc|"
+              r"gmbh|sa|sas|ag|bv|nv|pty|the|la|le|les|l)\b")  # FORM, as RE2 reads it (DuckDB string literals keep the backslash)
+
+
+def overture_sites(a):
+    """owners abroad (United States, United Kingdom, Australia) x the Overture Maps places of those countries that list a website: the same
+    name (legal forms left out) at the same postal code, or failing that in the same state -> data/incoming/claude/tm/tm_overture_sites.csv.
+    a.dir: a glob of local parquet files with the columns name, website, postcode, region, country, id (tests), else the newest release."""
+    import duckdb
+    import ap_crawler as C
+    owners = {}
+    with gzip.open(OWN_XX, "rt", encoding="utf-8", newline="") as f:
+        for r in csv.DictReader(f):
+            if r["country"] not in ABROAD or not is_org(r["owner_name"]):
+                continue
+            if not (int(r["marks_in_force"] or 0) or (r["agent_name"] and int(r["marks_with_this_agent"] or 0))):
+                continue
+            code, st = place_abroad(r["address"], r["country"])
+            nk = nkey(r["owner_name"])
+            if nk and len(nk) >= 4:
+                owners[r["owner_key"]] = (r["country"], nk, code, st)
+    con = duckdb.connect()
+    con.execute("SET enable_progress_bar=false;")
+    con.execute("CREATE TABLE own (k VARCHAR, cc VARCHAR, nk VARCHAR, code VARCHAR, st VARCHAR)")
+    con.executemany("INSERT INTO own VALUES (?, ?, ?, ?, ?)", [(k, *v) for k, v in owners.items()])
+    if a.dir and a.dir != "shards" and glob.glob(a.dir):
+        src, release = "read_parquet('%s')" % a.dir, (getattr(a, "release", "") or "a local copy")
+        cols = "name, website, postcode, region, country, id"
+    else:
+        import urllib.request
+        ls = lambda prefix: urllib.request.urlopen(urllib.request.Request("%s/?list-type=2&prefix=%s&delimiter=/" % (OVT_BUCKET, prefix), headers={"User-Agent": UA}), timeout=120).read().decode()
+        rel = sorted(re.findall(r"<Prefix>(release/[0-9]{4}-[0-9]{2}-[0-9]{2}\.[0-9]+/)</Prefix>", ls("release/")))[-1]
+        keys = re.findall(r"<Key>([^<]+\.parquet)</Key>", ls(rel + "theme=places/type=place/"))
+        con.execute("INSTALL httpfs; LOAD httpfs;")
+        src = "read_parquet([%s])" % ", ".join("'%s/%s'" % (OVT_BUCKET, k_) for k_ in keys)
+        release = rel.rstrip("/").rsplit("/", 1)[-1]
+        cols = 'names."primary" AS name, websites[1] AS website, addresses[1].postcode AS postcode, addresses[1].region AS region, addresses[1].country AS country, id'
+    t0 = time.time()
+    norm_sql = ("trim(regexp_replace(regexp_replace(regexp_replace(replace(lower(strip_accents(coalesce(p.name, ''))), '&', ' and '), '[^a-z0-9 ]+', ' ', 'g'), "
+                "'%s', ' ', 'g'), '\\s+', ' ', 'g'))" % _SQL_FORMS)
+    rows = con.execute("""WITH p AS (SELECT %s FROM %s WHERE websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country IN ('US', 'GB', 'AU'))
+                          SELECT o.k, o.cc, o.code, o.st, p.name, p.website, p.postcode, p.region, p.id FROM p JOIN own o ON o.cc = p.country AND o.nk = %s""".replace(
+        "websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country", "website IS NOT NULL AND country" if src.startswith("read_parquet('") else "websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country") % (
+        cols, src, norm_sql)).fetchall()
+    print("Overture places with the name of an owner abroad: %d (%.0f s, %s)" % (len(rows), time.time() - t0, release), flush=True)
+    best, n = {}, collections.Counter()
+    for k, cc, code, st, name, web, pcode, region, pid in rows:
+        host = (re.sub(r"^https?://", "", (web or "").strip().lower()).split("/")[0].split(":")[0])
+        host = host[4:] if host.startswith("www.") else host
+        if not host or "." not in host or nkey(name) != owners[k][1]:
+            continue
+        d = C.registrable(host)
+        pc = re.sub(r"[^A-Z0-9]", "", (pcode or "").upper())
+        pc = pc[:5] if cc == "US" else pc
+        reg = (region or "").upper().split("-")[-1]
+        rank = 0 if (code and pc == code) else 1 if (st and reg == st) else 9
+        if rank == 9:
+            continue
+        cur = best.setdefault(k, {})
+        if d not in cur or rank < cur[d][0]:
+            cur[d] = (rank, name, pcode or "", pid or "")
+    with open(OVT_SITES, "w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
+        for k in sorted(best):
+            for d, (rank, name, pcode, pid) in sorted(best[k].items(), key=lambda kv: kv[1][0])[:3]:
+                w.writerow([k, d, ("the same name at the same %s" % {"US": "ZIP code", "GB": "postcode", "AU": "postcode"}[owners[k][0]]) if rank == 0 else "the same name in the same state",
+                            name, pcode, pid, release])
+                n[rank] += 1
+    print("owners abroad with a website an Overture place lists for their name: %d (%d sites at the same postal code, %d in the same state) -> %s" % (
+        len(best), n[0], n[1], OVT_SITES), flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["build", "match", "leads", "sites", "merge-sites", "agent-sites"])
+    ap.add_argument("cmd", choices=["build", "match", "leads", "sites", "merge-sites", "agent-sites", "overture-sites"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--minutes", type=float, default=100)
@@ -828,8 +942,10 @@ def main():
     ap.add_argument("--party", default="", help="build: a local copy of the interested-party zip (tests)")
     ap.add_argument("--stamp", default=time.strftime("%Y%m%dT%H%M%S", time.gmtime()))
     ap.add_argument("--abroad", action="store_true", help="sites: the owners outside Canada (United States, United Kingdom, Australia) instead of the owners in Canada")
+    ap.add_argument("--release", default="", help="overture-sites with local parquet files: the Overture release they were taken from")
+    ap.add_argument("--overture", action="store_true", help="sites --abroad: the owners for whom an Overture Maps place lists a website (tm_overture_sites.csv), that site read first")
     a = ap.parse_args()
-    {"build": build, "match": match, "leads": leads, "sites": sites, "merge-sites": merge_sites, "agent-sites": agent_sites}[a.cmd](a)
+    {"build": build, "match": match, "leads": leads, "sites": sites, "merge-sites": merge_sites, "agent-sites": agent_sites, "overture-sites": overture_sites}[a.cmd](a)
 
 
 if __name__ == "__main__":

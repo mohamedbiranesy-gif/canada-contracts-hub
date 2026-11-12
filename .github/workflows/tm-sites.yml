@@ -24,6 +24,9 @@ on:
       abroad:
         description: "true = the owners outside Canada (United States, United Kingdom, Australia): 109,538 owners abroad have a Canadian agent of record"
         default: "false"
+      overture:
+        description: "true (with abroad=true) = only the owners abroad for whom an Overture Maps place lists a website under their name at their postal code / in their state: that published site is read first (tools/tm_register.py overture-sites runs first)"
+        default: "false"
 permissions:
   contents: write
   actions: write
@@ -43,8 +46,36 @@ jobs:
       - id: m
         run: python3 -c "import os; n=max(1,min(6,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
 
-  sites:
+  # 2026-11-12: the websites an Overture Maps place lists under an owner's name (open data; published, not guessed): written once, committed,
+  # then every runner reads them first
+  candidates:
     needs: plan
+    if: ${{ inputs.overture == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Owners abroad x the Overture Maps places that list a website (the same name at the same postal code, or in the same state)
+        run: |
+          pip install -q duckdb
+          python3 tools/tm_register.py overture-sites | tee /tmp/ovt.txt
+          cp data/incoming/claude/tm/tm_overture_sites.csv /tmp/tm_overture_sites.csv
+          git config user.name "tm-sites"; git config user.email "tm-sites@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git fetch -q origin main && git reset -q --hard origin/main
+            cp /tmp/tm_overture_sites.csv data/incoming/claude/tm/tm_overture_sites.csv
+            git add data/incoming/claude/tm/tm_overture_sites.csv
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "tm-sites: $(tail -1 /tmp/ovt.txt | cut -c1-130) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3))
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the candidates could not be pushed to main"; exit 1; }
+
+  sites:
+    needs: [plan, candidates]
+    if: ${{ always() && needs.plan.result == 'success' && needs.candidates.result != 'failure' && needs.candidates.result != 'cancelled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 200
     strategy:
@@ -57,7 +88,7 @@ jobs:
       - name: Look for each owner's own site under its own name
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
-          python3 tools/tm_register.py sites --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --limit "$LIMIT" ${{ inputs.abroad == 'true' && '--abroad' || '' }}
+          python3 tools/tm_register.py sites --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --limit "$LIMIT" ${{ inputs.abroad == 'true' && '--abroad' || '' }} ${{ inputs.overture == 'true' && '--overture' || '' }}
       - uses: actions/upload-artifact@v4
         with: { name: "tms-${{ matrix.k }}", path: out/, retention-days: 3 }
 

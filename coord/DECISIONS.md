@@ -1674,3 +1674,18 @@ distributor serves is located all the same: 9,193 home pages the scan read print
 with the other located sites), 22,546 print neither (second class, contact pages, 4 pages each). `mailbox-crawl.yml` downloads the address
 file from `harvest-state`. `tools/credit_scan.py merge-graph` rewrites a list only when a row changed, with a fixed gzip time (the
 Overture run at 04:54Z committed the same 20 MB list again).
+
+## 2026-11-12 05:08Z — trademark owners abroad: the website an Overture Maps place lists under the owner's name, read first (claude)
+
+The register names 134,458 organisations abroad as owners of Canadian marks, 109,538 with a Canadian agent of record (a record that ties
+them to a Canadian biller; AGENTS.md §1 rule 12 names this lane). What was missing is their website, where their mailbox is. Guessing domain
+names from their names (`tm_register.py sites --abroad`) tied 2,572 sites to 44,294 owners in the United States (5.8 %).
+`tm_register.py overture-sites` joins the owners in the United States, the United Kingdom and Australia to the Overture Maps places of those
+countries that list a website: the same name (legal forms left out, as `nkey`) at the register's postal code, or in its state — 14,112
+owners (10,798 sites at the same postal code, 4,505 in the same state; release 2026-10-21.0) -> `data/incoming/claude/tm/tm_overture_sites.csv`.
+`sites --abroad --overture` reads those published sites first. A site is tied as before (the register's postal code printed on its pages
+and the same name; or the legal person with its legal form and an address of the owner's state), and now also when two sources agree: the
+Overture place lists THIS website under the owner's name at the register's postal code (or in its state, and the site prints an address of
+that state) AND the site's own pages state the owner's name. On 40 owners (the largest first): 10 tied (Google, Pfizer, Mattel, Henkel,
+Honeywell, PepsiCo …), against 1 under the earlier tests alone. `tm-sites.yml` input `overture=true` writes the candidates first (job
+candidates), then the runners read. The leads follow the daily `tm-register.yml` (match, leads), the mailbox reader, the referee.
