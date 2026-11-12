@@ -1999,3 +1999,14 @@ is 30 months old: a row says "extract of 2024-05-22" in its relationship; a newe
 - **Dues payable by card only take the roster out** (Toronto Construction Association, Richmond Hill Board of Trade, Assiniboia Chamber:
   their own forms offer only a card), as cc_on_ssm was withdrawn. A body that prints no postal code does not pass (Kingston HBA,
   Brockville, Cape Breton).
+
+## 2026-11-12 21:40Z — lane `claude`: a member list whose body prints no sentence on its dues
+
+Rule 13 (owner, 2026-11-11 16:01 EST) lets a row say how a bill of its kind is billed and paid when the biller's own sentence is not found,
+and names "an association's dues" among those kinds. Until now a roster needed the body's own sentence that its members pay it; bodies whose
+member directory is public but whose site prints nothing on dues (BILD GTA, Electro-Federation Canada, TECHNATION, the Mining Association
+of Canada, ECAO, the Ontario Trucking Association …) were left out. A member roster may now stand instead on the body's own words naming the
+listed organisations its members (`pays_by_kind`, `member_quote`, `member_quote_url` — on its own site), and the row says the dues are by
+the kind of relationship. Unchanged: the body's own printed Canadian address; a directory that mixes members and non-members, a free
+directory, or a body whose words say membership is free or paid by card only, makes no roster; never for exhibitors, sponsors, dealers or
+tenants (each still needs the body's sentence that the listed pay it).
