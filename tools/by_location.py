@@ -215,6 +215,28 @@ def _on():
     return _ON
 
 
+_ONA = None
+
+
+def _on_addr():
+    """Ontario: {postal code: distributor as licensed} for the codes the dump's table leaves out, by every address point of the code (Overture Maps
+    addresses inside the Board's map: tools/on_ldc_table.py addrcodes)"""
+    global _ONA
+    if _ONA is None:
+        _ONA, names = {}, {}
+        try:
+            with gzip.open(os.path.join(ROOT, "tools/data/on_postal_ldc_addr.tsv.gz"), "rt", encoding="utf-8") as f:
+                for l in f:
+                    a, _, v = l.rstrip("\n").partition("\t")
+                    if a.startswith("="):
+                        names[a[1:]] = v
+                    elif a and not a.startswith("#"):
+                        _ONA[a] = names.get(v, "")
+        except OSError:
+            pass
+    return _ONA
+
+
 def fsa_of(text):
     """the postal area (first three characters of a Canadian postal code) of the first postal code printed in an address"""
     pc = next((c for c, _ in codes(text)), "")
@@ -267,7 +289,7 @@ def biller_for(text):
     if fsa[0] in "KLMNP":
         # Ontario: some sixty distributors, and a postal area is often shared by two — the postal code itself decides (the Ontario Energy
         # Board's map of service areas; a code near an edge, or unknown in a shared area, gets none)
-        nm = _on().get(pc) or _on().get(fsa)
+        nm = _on().get(pc) or _on_addr().get(pc) or _on().get(fsa)
         return BY_TABLE.get(nm) if nm else None
     for b in BILLERS:
         if b["prefixes"] and fsa not in b["except_fsas"] and any(fsa.startswith(p) for p in sorted(b["prefixes"], key=len, reverse=True)):

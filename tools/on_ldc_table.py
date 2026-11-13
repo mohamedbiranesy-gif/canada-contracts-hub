@@ -23,6 +23,7 @@ And from the Board's own page on each distributor (utility performance scorecard
   python3 tools/on_ldc_table.py check     the table's counts, and a few postal codes whose distributor is known
   python3 tools/on_ldc_table.py rates     every distributor's bill from the regulator: the Code's rules, the fixed charge and the calculated bill (monthly)
   python3 tools/on_ldc_table.py cities    every place name of the postal-code dump and the one distributor of all its postal codes (tools/data/city_biller.tsv.gz)
+  python3 tools/on_ldc_table.py addrcodes every Ontario postal code the dump's table leaves out, by all its address points (Overture Maps addresses) -> tools/data/on_postal_ldc_addr.tsv.gz
 
 Needs: pip install pyshp shapely pyproj. Run by hand or by a workflow when the Board refreshes its map (once a year so far).
 """
@@ -371,6 +372,115 @@ def build():
     cities()
 
 
+# ---- every address point of a postal code (2026-11-13) ---------------------------------------------------------------------------------------
+# The dump gives a postal code ONE point (a rural code's is the post office of its district), and a code near the edge of a service area, a rural
+# code or a code the dump does not know got no distributor: 6,475 located organisations in Ontario had none (4,007 of them on a rural code). Overture
+# Maps' address theme (open data; in Canada Statistics Canada's Open Database of Addresses and the municipalities' own address files) gives
+# 5.4 million Ontario addresses, each a point with its postal code. A postal code whose address points lie, all but a few, in ONE service area of
+# the Board's map is that distributor's: at least 98 % of 3 points or more, or — 1 or 2 points — all of them at least 100 m inside one area.
+# A code whose points straddle two areas gets none. Written to tools/data/on_postal_ldc_addr.tsv.gz; tools/by_location.py reads it after the
+# dump's table (a code the dump's table gives keeps its distributor) and before the postal area's line.
+ADDR_TABLE = os.path.join(ROOT, "tools/data/on_postal_ldc_addr.tsv.gz")
+OVT_ADDR_BASE = "https://overturemaps-us-west-2.s3.amazonaws.com"
+
+
+def _ovt_release():
+    import urllib.request
+    import ap_crawler as C
+    req = urllib.request.Request(OVT_ADDR_BASE + "/?list-type=2&prefix=release/&delimiter=/", headers={"User-Agent": C.UA})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        x = r.read().decode("utf-8", "replace")
+    return sorted(re.findall(r"release/([0-9-]+\.[0-9]+)/", x))[-1]
+
+
+def addrcodes():
+    import urllib.request
+    import duckdb
+    import numpy as np
+    import shapely
+    from shapely.strtree import STRtree
+    import ap_crawler as C
+    areas, tr = _areas()
+    polys = [a[3] for a in areas]
+    for g in polys:
+        shapely.prepare(g)
+    tree = STRtree(polys)
+    rel = _ovt_release()
+    req = urllib.request.Request(OVT_ADDR_BASE + "/?list-type=2&prefix=release/%s/theme=addresses/type=address/" % rel, headers={"User-Agent": C.UA})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        keys = re.findall(r"<Key>([^<]+\.parquet)</Key>", r.read().decode("utf-8", "replace"))
+    con = duckdb.connect()
+    con.execute("INSTALL httpfs; LOAD httpfs; SET http_timeout=120000;")
+    lst = "[" + ",".join("'%s/%s'" % (OVT_ADDR_BASE, k) for k in keys) + "]"
+    q = ("SELECT upper(replace(postcode, ' ', '')) AS pc, bbox.xmin AS x, bbox.ymin AS y FROM read_parquet(%s) "
+         "WHERE bbox.xmin > -95.2 AND bbox.xmax < -74.3 AND bbox.ymin > 41.6 AND bbox.ymax < 57.0 AND country = 'CA' "
+         "AND address_levels[1].value = 'ON' AND postcode IS NOT NULL" % lst)
+    cnt = collections.defaultdict(collections.Counter)
+    few = collections.defaultdict(list)
+    n = collections.Counter()
+    cur = con.execute(q)
+    rdr = cur.to_arrow_reader(400_000) if hasattr(cur, "to_arrow_reader") else cur.fetch_record_batch(400_000)
+    for rb in rdr:
+        d = rb.to_pydict()
+        pcs = np.array(d["pc"], dtype=object)
+        xs, ys = tr.transform(np.array(d["x"], dtype=float), np.array(d["y"], dtype=float))
+        pts = shapely.points(xs, ys)
+        ii, jj = tree.query(pts, predicate="within")
+        got = collections.defaultdict(list)
+        for i, j in zip(ii.tolist(), jj.tolist()):
+            got[i].append(j)
+        for i in range(len(pcs)):
+            pc = pcs[i]
+            if not pc or not re.fullmatch(r"[KLMNP]\d[A-Z]\d[A-Z]\d", pc):
+                n["not an Ontario postal code"] += 1
+                continue
+            js = got.get(i, [])
+            nm = areas[js[0]][0] if len(js) == 1 else ("" if not js else "?")
+            cnt[pc][nm] += 1
+            if len(few[pc]) < 3 and len(js) == 1:
+                few[pc].append((js[0], pts[i]))
+            n["address points"] += 1
+        print("  %d address points read" % n["address points"], flush=True)
+    old = load()
+    out, conflict = {}, collections.Counter()
+    for pc, c in cnt.items():
+        tot = sum(c.values())
+        nm, k = c.most_common(1)[0]
+        if not nm or nm == "?":
+            n["codes whose points lie outside every area or in two"] += 1
+            continue
+        if tot >= 3:
+            ok = k / tot >= 0.98
+        else:
+            ok = k == tot and all(polys[j].boundary.distance(pt) >= 100 for j, pt in few[pc])
+        if not ok:
+            n["codes whose points straddle two areas"] += 1
+            continue
+        prev = old.get(pc)
+        if prev and prev != nm:
+            conflict["%s -> %s" % (prev, nm)] += 1
+            n["codes the dump's table gives another distributor (kept as it was)"] += 1
+            continue
+        if prev:
+            n["codes the dump's table already gives the same distributor"] += 1
+            continue
+        out[pc] = nm
+        n["codes given a distributor by their address points"] += 1
+    names = sorted(set(out.values()))
+    idx = {nm: i for i, nm in enumerate(names)}
+    with gzip.open(ADDR_TABLE, "wt", encoding="utf-8", newline="") as f:
+        f.write("# Ontario postal codes -> licensed electricity distributor, by every address point of the code. Built by tools/on_ldc_table.py addrcodes on %s from: the Ontario "
+                "Energy Board's map of service areas (%s, refresh of %s, Open Government Licence - Ontario) and Overture Maps' addresses (release %s, theme addresses; open data). "
+                "Only the codes the postal-code dump's table (on_postal_ldc.tsv.gz) leaves without a distributor.\n" % (time.strftime("%Y-%m-%d"), LDC_PAGE, LDC_DATE, rel))
+        for nm in names:
+            f.write("=%d\t%s\n" % (idx[nm], nm))
+        for pc in sorted(out):
+            f.write("%s\t%d\n" % (pc, idx[out[pc]]))
+    print("Ontario address points: %s" % dict(n))
+    print("conflicts with the dump's table (kept): %s" % dict(conflict.most_common(12)))
+    print("-> %s (%d codes)" % (os.path.relpath(ADDR_TABLE, ROOT), len(out)))
+
+
 def load():
     """({postal code or postal area: distributor name}) — empty when the table is not there"""
     out, names = {}, {}
@@ -401,4 +511,4 @@ def check():
 
 
 if __name__ == "__main__":
-    {"build": build, "check": check, "rates": rates, "cities": cities}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()
+    {"build": build, "check": check, "rates": rates, "cities": cities, "addrcodes": addrcodes}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()

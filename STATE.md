@@ -11,6 +11,32 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 09:10Z — where organisations stood unlocated, and four ways round it (none counted yet; the next build reads them):**
+- Measured on the site facts on file (275,632 sites that print a postal code): 31,219 print an Alberta code (no row by location: the retailer bills
+  there), and **about 9,000 more print a code of an area no distributor on file covered** — Ontario 6,475 (4,007 rural codes whose one point in the
+  postal-code dump is a post office; 2,468 codes near the edge of a service area or unknown to the dump), Kelowna ~1,540, Saskatoon ~1,900,
+  Sherbrooke ~1,170, New Westminster 571, Penticton 319, Westmount 297, Cornwall 264, the territories 638, Medicine Hat, Joliette, Magog …
+- **Added (each sentence checked on its page):** the City of Medicine Hat (exempt from Alberta's retail competition, Part 8 of the Electric
+  Utilities Act: "Electricity generation, distribution and retail are all performed by the City of Medicine Hat"; T1A/T1B/T1C), Hydro Westmount
+  ("Ce réseau distribue l'électricité à toutes les résidences et à tous les commerces de la municipalité"), New Westminster's utility (grid
+  "spanning the entire municipality"; commercial accounts "Billed every month"), Penticton's ("providing electrical service to the community's
+  20,000+ … customers"; "bills are mailed monthly"), each for the postal codes whose own place is the town (by_location `pocket_of`), and
+  **Cornwall Electric**, which the Ontario table mapped (964 postal codes) but no biller entry carried.
+- Not added: Joliette ("Hydro-Joliette ne dessert qu'une partie du territoire"), Sherbrooke, Saskatoon (Saskatoon Light & Power's franchise is a PDF
+  map), Kelowna (no open boundary), FortisBC's interior (its service-area page is a map), Saint John Energy (its site does not answer the reader),
+  Swift Current (robots.txt refuses the reader), AMVIC (card only, "Business will not receive an invoice").
+- **Ontario by every address point** (tools/on_ldc_table.py addrcodes): Overture Maps' 5.4 million Ontario address points, each with its postal
+  code, inside the Energy Board's map — a code whose points lie ≥98 % in one service area gets that distributor (codes the dump's table gives keep
+  theirs) → tools/data/on_postal_ldc_addr.tsv.gz, read by by_location after the dump's table.
+- **Privacy / terms / legal pages** (addr-reread legal=true, 6 runners, dispatched 08:49Z): the 165,740 sites every earlier pass left without an
+  address; an address kept only beside the organisation's own name (host, affiliate, public bodies, person names left out). Test 7 of 240 (2.9 %).
+- bc-crown first run (06:55Z → 08:42Z): water 5,486 holders, stumpage 505 clients (all six reports; 347 with a month of $5,000 or more), 436 sites
+  → 419 leads (393 water, 26 stumpage); the run with AER / PMRA / CNSC / Wikidata started 08:42Z.
+- **Decision prepared, not taken — workers' compensation by law:** every employer in a compulsory industry is billed premiums by its province's
+  board (WCB-Alberta, WSIB, CNESST, WorkSafeBC …: one board per province, by statute, invoiced, paid through a bank), but no board publishes its
+  employers and whether an organisation employs anyone is not published. It would give an Alberta organisation a row the way electricity gives one
+  elsewhere. Recommendation: NO — weaker than an address (what the organisation is, not where it is), unless the owner wants it, labelled.
+
 **2026-11-13 08:02Z — build 07:49Z: 267,950 ready (+12,791)**: location 177,975 (+10,246: the address re-read and the telephone places), agent of
 record 11,564 (+2,012: owners' sites tied this morning), licence 14,314, benefit plan 786, membership 19,269, service 31,986; $5k+ a bill 2,814
 (published 2,178, estimated 636); with an amount and a billing period 225,909; with every main invoice field 176,263; 326,765 rows (320,934 with a

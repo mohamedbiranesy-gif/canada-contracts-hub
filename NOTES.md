@@ -91,3 +91,24 @@ re-read moves part of it. H2 (abroad) still needs new ways to a site; the cross-
 Hypothesis update: bodies that bill by statute and publish the list of whom they bill (water licences, stumpage, regulator levies, pesticide
 charges) give complete rows in the biller's own words, with $5,000+ amounts calculated from published rates; each is hundreds to a few
 thousand organisations — they lift the quality and the $5k+ count more than the total.
+
+## Mapping pass 6 (2026-11-13 09:15Z) — the organisations no distributor covered, and town utilities
+- H (location ceiling): the site facts hold 275,632 sites with a postal code; 31,219 Alberta (no by-location row: the retailer bills) and ~9,000
+  elsewhere in areas the table left out. Established: Ontario 6,475 (rural codes 4,007 — the dump's single point per rural code is the post
+  office; edge / unknown codes 2,468); Kelowna ~1,540; Saskatoon ~1,900; Sherbrooke ~1,170; New Westminster 571; Penticton 319; Westmount 297;
+  Cornwall 264 (mapped by the OEB table, but no biller entry); territories 638.
+- Source table additions (all read 2026-11-13, quotes ≤300 chars, checked on the page):
+  | claim | source | quote |
+  | Medicine Hat sells its own electricity, exempt from retail competition | medicinehat.ca/…/electricity/ | "Part 8 of the Electric Utilities Act provides Medicine Hat with an exemption from retail competition." |
+  | Hydro Westmount serves every home and business of Westmount | westmount.org/…/informations-generales | "Ce réseau distribue l’électricité à toutes les résidences et à tous les commerces de la municipalité." |
+  | New Westminster's grid covers the whole city | newwestcity.ca strategic plan 2026 (PDF) | "comprehensive grid infrastructure spanning the entire municipality" |
+  | Penticton's utility serves the community | penticton.ca/…/electrical-services | "providing electrical service to the community's 20,000+ residential, commercial and industrial customers" |
+  | Cornwall Electric's area | cornwallelectric.com/about-us | "CE has approximately 26,200 customers in the City of Cornwall, South Glengarry, South Stormont, and the Ontario portion of the Mohawk Territory of Akwesasne." |
+  | Hydro-Joliette serves only part of Joliette (so not added) | joliette.ca/…/a-propos | "Pour des raisons historiques, Hydro-Joliette ne dessert qu’une partie du territoire de la Ville de Joliette." |
+  | AMVIC sends no invoice, card only (not usable) | amvic.org renew / levy pages | "Fees can be paid online by credit card (Mastercard, Visa, Amex or Visa Debit)." |
+- Overture Maps addresses carry a postal code on 99.997 % of 5.94 M Canadian points in the Ontario box (5.43 M in Ontario): every point of a
+  postal code can be tested against the Board's map, not the dump's one point → tools/on_ldc_table.py addrcodes.
+- Privacy / terms / legal pages of unlocated sites: 7 of 240 print the organisation's own address beside its own name (2.9 %); without the name
+  rule a third of hits were someone else's (the host's Ottawa office, an affiliate, a governing-law clause).
+- Unknown: how many of the ~9,000 have a confirmed mailbox (rows follow only for those); the Overture address match for organisations whose own
+  code straddles two areas (street-level matching: not built).
