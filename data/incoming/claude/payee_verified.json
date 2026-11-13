@@ -64,5 +64,11 @@
   "sig": "1aff54dec6af7ca4",
   "url": "https://learn.ocswholesale.ca/wp-content/uploads/2026/02/OCS-Wholesale-Authorized-Cannabis-Retailers-Handbook-February2026.pdf",
   "verified": "2026-11-12"
+ },
+ "tools/data/payees/osler.json": {
+  "quotes": 4,
+  "sig": "be3b734fba504e63",
+  "url": "https://www.osler.com/en/client-service-terms/",
+  "verified": "2026-11-13"
  }
 }
