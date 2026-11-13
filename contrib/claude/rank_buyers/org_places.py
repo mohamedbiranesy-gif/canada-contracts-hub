@@ -7,6 +7,9 @@ Writes org_places.csv.gz next to this file: buyer_key, name, address, city, prov
                    with a web address in that year's Charity Contact Web Addresses file
   onps:<number>    Ontario "Private school contact information" (data.ontario.ca)
   abed:s<code>     Alberta "Alberta schools and authorities" (open.alberta.ca), schools; abed:a<code> = school authorities
+  lead:<hash>      2026-11-13: written by tools/bps_energy.py leads — the address of an Ontario public body (school board, municipality,
+                   hospital, college, university) in Ontario's school board contact list or directory of institutions under FIPPA / MFIPPA,
+                   under the key of its lead; kept as they are when this script rebuilds the file
 The same keys are used by the crawler task lists built from these registries (claude_buyer_ap_batch910-914, local work
 lists on the crawler Mac). Downloads are cached in ~/.cache/cch-org-places/ (one request per file, identified UA).
 Usage: python3 contrib/claude/rank_buyers/org_places.py
@@ -79,6 +82,11 @@ def main():
     except ImportError:
         print("openpyxl missing: Alberta schools skipped")
     cols = ["buyer_key", "name", "address", "city", "province", "postal_code", "country", "source"]
+    if os.path.exists(OUT):  # the rows tools/bps_energy.py adds (lead keys, Ontario's own directories) are not this script's to rebuild
+        with gzip.open(OUT, "rt", encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                if r["buyer_key"].startswith("lead:") and r["buyer_key"] not in out:
+                    out[r["buyer_key"]] = r
     with gzip.open(OUT, "wt", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=cols)
         w.writeheader()

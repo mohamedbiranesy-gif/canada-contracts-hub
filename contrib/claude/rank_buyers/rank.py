@@ -2716,11 +2716,19 @@ def _bps_cells(x):
                                        "its report by name and address" % d_["year"]),
         "contract_status": _bps_status(org, gk)}
 if _BPS_IX:
-    for x in rows:
-        _m = _BPSE.match(_BPS_IX, x.get("buyer") or "", x.get("buyer_address") or "", x.get("_jur") or x.get("jurisdiction") or "")
-        if not _m:
+    _bps_of = {}
+    for _i, x in enumerate(rows):
+        _m = _BPSE.match(_BPS_IX, x.get("buyer") or "", x.get("buyer_address") or "", x.get("_jur") or x.get("jurisdiction") or "", x.get("email") or "")
+        if _m:
+            _bps_of[_i] = _m[0]
+    _org_5k = {o_ for i_, o_ in _bps_of.items() if rows[i_].get("tier") != "I" and _bps_published_5k(rows[i_])}  # a body with a published $5,000+ record keeps it
+    for _i, x in enumerate(rows):
+        if _i not in _bps_of:
             continue
-        _org = _m[0]
+        _org = _bps_of[_i]
+        _dir = BPS["orgs"][_org].get("directory") or {}
+        _diraddr = ("%s, %s, ON %s %s (its address in %s)" % (_dir["address"], _dir.get("city") or "", _dir["postal_code"][:3], _dir["postal_code"][3:], _dir.get("source") or "a directory of the Province of Ontario")
+                    if _dir.get("address") and len(_dir.get("postal_code") or "") == 6 else "")
         _gs = BPS["orgs"][_org]["groups"]
         _gk = max(_gs, key=lambda k_: _gs[k_]["month"])
         _loc = _BYLOC.BY_KEY.get(_gk)
@@ -2732,10 +2740,14 @@ if _BPS_IX:
                 x.update(_bps_vendor(_loc)); n_bps["… standing on where it is, moved to the distributor of the largest of its reported bills"] += 1
             x["contract_status"] = _bps_status(_org, _gk)
             x["_bps"] = (_org, _gk)
+            if _diraddr and not _BYLOC.code_of(x.get("buyer_address") or ""):
+                x["buyer_address"] = _diraddr; n_bps["… its address from the province's directory (none with a postal code on the row)"] += 1
             n_bps["… standing on where it is: now on the record of its own report"] += 1
             continue
         if _bps_published_5k(x):
             n_bps["… kept on its record: it carries a published amount of $5,000 or more"] += 1; continue
+        if _org in _org_5k:
+            n_bps["… kept on its record: another row of the body carries a published amount of $5,000 or more (one row per buyer)"] += 1; continue
         if _gs[_gk]["month"] < 5000:
             n_bps["… kept on its record: the bill its report gives is under $5,000 a month"] += 1; continue
         _e = (x.get("email") or "").strip()
@@ -2756,6 +2768,8 @@ if _BPS_IX:
                 "contracts_with_canadian_suppliers": x.get("contracts_with_canadian_suppliers") or 0, "buyer_keys": x.get("buyer_keys") or 1, "keys": x.get("keys") or "",
                 "tier": "I", "grade": _g, "acc": True, "_bps": (_org, _gk)}
         _new.update(_bps_vendor(_loc))
+        if _diraddr and not _BYLOC.code_of(_new["buyer_address"]):
+            _new["buyer_address"] = _diraddr; n_bps["… its address from the province's directory (none with a postal code on the row)"] += 1
         for _c in list(x.keys()):
             if not _c.startswith("_") and _c not in _new and _c != "jurisdiction":
                 x[_c] = ""  # every column stays (the first row names the columns), the record's own cells go

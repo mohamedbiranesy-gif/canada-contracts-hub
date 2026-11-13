@@ -21,6 +21,8 @@ same kilowatt-hours as another (Peel's Lakeview water plant and A.P. Kennedy pla
 are listed too (the larger of the parent and the sum of its buildings is kept), and a facility whose postal code names no distributor.
 
   python3 tools/bps_energy.py build [--cache DIR]   -> tools/data/on_bps_electricity.json.gz
+  python3 tools/bps_energy.py leads [--cache DIR]   -> data/incoming/claude/lead_shards/leads_bps_<stamp>.gz (bodies whose website is not a lead
+                                                       yet) + their directory address in contrib/claude/rank_buyers/org_places.csv.gz
 """
 import argparse, bisect, collections, datetime, gzip, json, os, re, sys
 
@@ -228,6 +230,11 @@ def build(a):
         if groups:
             out[o] = {"sector": d["sector"], "subsector": d["subsector"], "year": d["year"], "url": d["url"], "groups": groups, "left_out": dict(left),
                       "facilities": sum(g["n"] for g in groups.values())}
+    for o, e in find_directory(index(out), cache).items():
+        out[o]["directory"] = e  # its website and address in the province's own lists (school boards; institutions under FIPPA / MFIPPA)
+    for d_ in out.values():
+        for k_ in ("_fsas", "_places", "_kind"):
+            d_.pop(k_, None)
     meta = {"built": today, "dataset_page": DATASET_PAGE, "dataset_quote": q_page, "dataset_quote_voluntary": q_vol, "regulation": REGULATION, "regulation_quote": q_reg,
             "files": {str(y): u for y, u in FILES}, "hq_pdf": HQ_PDF, "hq_title": HQ_TITLE, "hq_lines": hq_lines, "hq_levels": LEVELS, "hq_prices": prices,
             "oeb_file": OEB_FILE, "small_kwh": SMALL, "intensity_max": INTENSITY_MAX, "counts": dict(n)}
@@ -333,19 +340,30 @@ _KW = {"school": re.compile(r"\b(school board|conseil scolaire|district school|c
        "hosp": re.compile(r"\b(hospital|h[oô]pital|health|sant[ée]|healthcare|medical cent|care cent)", re.I)}
 
 
-def match(ix, name, address, jur):
-    """the organisation of the reports this row is, or None — (organisation, how)"""
+def _dom(url_or_mail):
+    from ap_crawler import registrable
+    h = (url_or_mail or "").strip().lower()
+    h = h.partition("@")[2] if "@" in h and "/" not in h else re.sub(r"^https?://", "", h).split("/")[0].split("?")[0]
+    return (registrable(h) or h) if h else ""
+
+
+def match(ix, name, address, jur, email=""):
+    """the organisation of the reports this row is, or None — (organisation, how). A row without a postal code: a municipality by name in a
+    row of Ontario; any body whose mailbox is on the domain of the website its province's directory gives it (City of Ottawa, ottawa.ca)"""
     if not ix or not name:
         return None
     pcs = re.findall(r"(?<![A-Za-z0-9])([KLMNP]\d[A-Z])\s?\d[A-Z]\d(?![A-Za-z0-9])", (address or "").upper())
     if re.search(r"(?<![A-Za-z0-9])[ABCEGHJRSTVXY]\d[A-Z]\s?\d[A-Z]\d(?![A-Za-z0-9])", (address or "").upper()) and not pcs:
         return None  # a postal code of another province
-    if not pcs and (jur or "") != "ON":
+    md = _dom(email) if email else ""
+    if not pcs and (jur or "") != "ON" and not md:
         return None
     fa = fold(address or "")
     def agrees(d):
         if pcs:
             return any(p in d["_fsas"] for p in pcs) or any(re.search(r"\b%s\b" % re.escape(pl), fa) for pl in d["_places"] if len(pl) > 3)
+        if md and (d.get("directory") or {}).get("site_ok") and _dom(d["directory"].get("website")) == md:
+            return "mailbox"
         return None  # no postal code on the row
     mk = muni_key(name)
     if mk:
@@ -355,8 +373,16 @@ def match(ix, name, address, jur):
         if len(c) == 1:
             d = ix["orgs"][c[0][0]]
             a = agrees(d)
+            if a is None and md and (jur or "") in ("ON", "CA", "") and (md.endswith(".ca") or md.endswith(".on.ca")) and \
+                    not re.search(r"\.(?:bc|ab|sk|mb|qc|nb|ns|pe|nl|nf|yk|yt|nt|nu)\.ca$", md):
+                # a row without a postal code: the mailbox is on a .ca domain that spells the municipality's own name ("apinvoice@toronto.ca")
+                core = re.sub(r"[^a-z]", "", mk[0])
+                if len(core) >= 4 and core in re.sub(r"[^a-z]", "", md.split(".")[0]):
+                    a = "mailbox-name"
             if a or (a is None and jur == "ON"):
-                return c[0][0], ("name and address" if a else "name, in a row of Ontario without a postal code")
+                return c[0][0], ("name and the mailbox's domain, the website Ontario's directory gives it" if a == "mailbox" else
+                                 "name and the mailbox's .ca domain, which spells the municipality's name" if a == "mailbox-name" else "name and address" if a else
+                                 "name, in a row of Ontario without a postal code")
         return None
     best = None
     kinds = {k for k, rx in _KW.items() if rx.search(name)}
@@ -378,8 +404,138 @@ def match(ix, name, address, jur):
         if a:
             if best:
                 return None  # two organisations fit: never guess
-            best = (o, "name and address")
+            best = (o, "name and the mailbox's domain, the website Ontario's directory gives it" if a == "mailbox" else "name and address")
     return best
+
+
+# ---- the bodies the table does not hold yet: their website and address from two Ontario directories, as leads -------------------------------
+# A body of the reports becomes a row when the crawler finds its own role mailbox. Its website and its address come from the province's own
+# lists: the public school boards' contact list, and the directory of institutions under FIPPA / MFIPPA (municipalities, hospitals, colleges,
+# universities, boards). Their e-mail column is never read (a register's e-mail is not a mailbox the organisation chose to publish for us).
+BOARDS = "https://data.ontario.ca/dataset/9831236f-6e01-447a-9e28-b9c6b3348631/resource/74aa6226-7798-4130-ba44-8546e3198186/download/school_board_contact_list_september2026_en_csv.csv"
+BOARDS_SRC = "Ontario's public school board contact list (data.ontario.ca, September 2026)"
+DOI = "https://data.ontario.ca/dataset/ec9daf71-33de-469e-af32-05265673049b/resource/c1164f6a-1677-4b21-9ff2-5e92163e9a99/download/doi_dec2025_en.csv"
+DOI_SRC = "Ontario's directory of institutions under FIPPA and MFIPPA (data.ontario.ca, December 2025)"
+PLACES_FILE = os.path.join(ROOT, "contrib/claude/rank_buyers/org_places.csv.gz")
+PLACE_COLS = ["buyer_key", "name", "address", "city", "province", "postal_code", "country", "source"]
+
+
+def _clean(v):
+    v = re.sub(r"<[^>]+>", "", str(v or "")).strip()
+    return "" if v.lower() in ("not available", "n/a", "none", "-") else v
+
+
+def _po(v):
+    return ("" if not v else v if re.match(r"(?i)(?:p\.?\s?o\.?\s?)?box\b|postal bag|bag\b|c\.?p\.?\b", v) else "PO Box " + v)
+
+
+def directory_entries(cache):
+    import csv as _csv, io
+    out = []
+    for r in _csv.DictReader(io.StringIO(fetch(BOARDS, cache, "school_board_contact_list_en.csv").decode("utf-8-sig", "replace"))):
+        out.append({"name": _clean(r.get("Board Name")), "website": _clean(r.get("Website")), "address": ", ".join(v for v in (_clean(r.get("Suite")), _po(_clean(r.get("PO Box"))), _clean(r.get("Street"))) if v),
+                    "city": _clean(r.get("City")), "postal_code": _clean(r.get("Postal Code")), "source": BOARDS_SRC})
+    for r in _csv.DictReader(io.StringIO(fetch(DOI, cache, "doi_en.csv").decode("utf-8-sig", "replace"))):
+        out.append({"name": _clean(r.get("Name of institution")), "website": _clean(r.get("Website")),
+                    "address": ", ".join(v for v in (_clean(r.get("Suite/Floor/P.O. box/Building name")), _clean(r.get("Street"))) if v),
+                    "city": _clean(r.get("City")), "postal_code": _clean(r.get("Postal code")), "source": DOI_SRC, "type": _clean(r.get("Institution type"))})
+    return out
+
+
+def _site_fits(name, dom):
+    """the directory's website is the body's own when its domain carries a word of the name (4 letters or more) or the initials of the name
+    ("tvdsb.on.ca" Thames Valley District School Board, "rmh.org" Ross Memorial Hospital); a web agency's staging host does not"""
+    lab = re.sub(r"[^a-z0-9]", "", (dom or "").split(".")[0])
+    words = [w for w in fold(name).split() if w not in ("of", "and", "the", "de", "du", "des", "la", "le")]
+    if any(len(w) >= 4 and w in lab for w in words):
+        return True
+    ini = "".join(w[0] for w in words)
+    return any(ini[i:i + 3] in lab for i in range(max(1, len(ini) - 2)))
+
+
+def find_directory(ix, cache):
+    """{organisation of the reports: its entry in the school board list or the directory of institutions} — matched by name and address"""
+    found = {}
+    for e in directory_entries(cache):
+        pc = re.sub(r"\s", "", e["postal_code"]).upper()
+        m = match(ix, e["name"], "%s, %s, ON %s" % (e["address"], e["city"], pc), "ON")
+        if not m:
+            continue
+        o = m[0]
+        if o in found and found[o]["source"] == BOARDS_SRC:
+            continue  # the school board list first
+        e = dict(e, postal_code=pc)
+        w = e["website"]
+        if w:
+            if not re.match(r"https?://", w, re.I):
+                w = "https://" + w.lstrip("/")
+            host = re.sub(r"^https?://", "", w.lower()).split("/")[0].split("?")[0]
+            e["website"] = "%s://%s/" % ("http" if w.lower().startswith("http:") else "https", host)  # the directory often links its FOI page
+            e["site_ok"] = _site_fits(e["name"], _dom(e["website"]))
+        found[o] = e
+    return found
+
+
+def leads(a):
+    import csv as _csv, hashlib, io
+    import lead_store as LS
+    from ap_crawler import registrable
+    d = load()
+    ix = index(d["orgs"])
+    have_dom = {}
+    for r in LS.rows():
+        w = (r.get("website") or "").strip()
+        host = re.sub(r"^https?://", "", w.lower()).split("/")[0]
+        if host:
+            have_dom.setdefault(registrable(host) or host, r.get("buyer_key") or "")
+    n = collections.Counter()
+    found = find_directory(ix, a.cache)
+    n["bodies of the reports found in a directory"] = len(found)
+    new_leads, places = [], {}
+    stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%S")
+    for o, e in sorted(found.items()):
+        w = e["website"]
+        if not w:
+            n["… without a website in the directory"] += 1
+            continue
+        dom = _dom(w)
+        if not e.get("site_ok"):
+            n["… whose directory website is not shown to be its own (no word or initials of its name in the domain)"] += 1
+            continue
+        k = have_dom.get(dom)
+        if k:
+            n["… whose website is already a lead (its key gets the directory's address)"] += 1
+        else:
+            k = "lead:" + hashlib.sha1(("bps|" + dom).encode()).hexdigest()[:16]
+            g = max(d["orgs"][o]["groups"].values(), key=lambda g_: g_["month"])
+            new_leads.append({"buyer_key": k, "buyer_name": e["name"], "website": w, "canadian_vendor_rows": 1, "example_vendor": g["distributor"],
+                              "canada_field_value": "Ontario broader public sector energy report (O. Reg. 25/23): %d %s in the distributor's territory" % (g["n"], "facility" if g["n"] == 1 else "facilities"),
+                              "evidence_dataset": "Ontario Broader Public Sector energy reporting, %s data set (data.ontario.ca); %s" % (d["orgs"][o]["year"], e["source"]),
+                              "latest_record_date": "%s-12-31" % d["orgs"][o]["year"]})
+            have_dom[dom] = k
+            n["… new leads"] += 1
+        if e["address"] and len(e["postal_code"]) == 6:
+            places[k] = {"buyer_key": k, "name": e["name"], "address": e["address"], "city": e["city"], "province": "ON", "postal_code": e["postal_code"], "country": "CA", "source": e["source"]}
+    if new_leads:
+        os.makedirs(LS.SHARDS, exist_ok=True)
+        p = os.path.join(LS.SHARDS, "leads_bps_%s.gz" % stamp)
+        with gzip.open(p, "wt", encoding="utf-8", newline="") as fh:
+            w_ = _csv.DictWriter(fh, fieldnames=LS.LEAD_COLS)
+            w_.writeheader()
+            for r in new_leads:
+                w_.writerow(r)
+        print("wrote", p, len(new_leads))
+    if places:
+        cur = []
+        with gzip.open(PLACES_FILE, "rt", encoding="utf-8") as fh:
+            cur = [r for r in _csv.DictReader(fh) if r["buyer_key"] not in places]
+        with gzip.open(PLACES_FILE, "wt", encoding="utf-8", newline="") as fh:
+            w_ = _csv.DictWriter(fh, fieldnames=PLACE_COLS)
+            w_.writeheader()
+            for r in sorted(cur + list(places.values()), key=lambda r: r["buyer_key"]):
+                w_.writerow({c: r.get(c, "") for c in PLACE_COLS})
+        n["registered addresses written for the ranker (org_places.csv.gz)"] = len(places)
+    print(json.dumps(dict(n), indent=1, ensure_ascii=False))
 
 
 def load(path=OUT):
@@ -392,10 +548,10 @@ def load(path=OUT):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["build"])
+    ap.add_argument("cmd", choices=["build", "leads"])
     ap.add_argument("--cache", default=os.path.expanduser("~/cch-crawler-state/bps"))
     a = ap.parse_args()
-    build(a)
+    build(a) if a.cmd == "build" else leads(a)
 
 
 if __name__ == "__main__":
