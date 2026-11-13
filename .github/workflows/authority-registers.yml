@@ -42,6 +42,9 @@ jobs:
           wait
           for A in omvic hcra; do grep -E "^$A|registrants in the list|profiles:" "/tmp/r_$A.txt" | tail -4 | cut -c1-600; done | tee /tmp/r.txt
           python3 tools/authority_registers.py sites --minutes 45 --workers 30 2>&1 | tail -3 | tee -a /tmp/r.txt
+          # 2026-11-13: registrants whose profile names no site (or whose site did not tie): the websites an Overture place at their own postal
+          # code lists, kept on the telephone or the site's own name (the postal code only when the place bears the registrant's name)
+          python3 tools/authority_registers.py addr-sites --minutes 45 --workers 30 2>&1 | tail -3 | tee -a /tmp/r.txt
           ls -la out
       - name: Commit
         env: { GH_TOKEN: "${{ github.token }}" }
