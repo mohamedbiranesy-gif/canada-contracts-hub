@@ -32,6 +32,8 @@ very name (kept when the site's own home page carries it); then the mailbox craw
   build-water --work W       -> data/incoming/claude/bcgov/bc_water_licensees.csv.gz (one line per licensee that is an organisation)
   pull-stumpage --work W     the Billing Summary reports (a100.gov.bc.ca asks a 10-second crawl delay) and the harvesting authorities' client names
   build-stumpage --work W    -> data/incoming/claude/bcgov/bc_stumpage_clients.csv.gz (+ bc_stumpage_invoices.csv.gz, the invoices of those clients)
+  pull-aer --work W          the AER's ST37 Excel package, when newer than the last build's
+  build-aer --work W         -> data/incoming/claude/bcgov/ab_aer_licensees.csv.gz (one line per licensee of a drilled well in force; Alberta)
   sites --minutes M          each holder's own site -> bcgov/bc_sites.csv (+ bc_sites_done.tsv: names the autocomplete was asked)
   leads --stamp S            -> lead_shards/leads_bcgov_S.gz + details_bcgov_S.gz (new leads only)
 """
@@ -146,6 +148,32 @@ WCOLS = ["key", "client_no", "name", "address", "postal_code", "country", "licen
          "rental_uncalculated", "first_priority", "district", "region", "sources", "pods", "extract_date"]
 SCOLS = ["key", "client", "name", "invoices", "value_12m", "months_billed", "first_billed", "last_billed", "last_invoice", "last_value", "last_mark",
          "last_category", "marks", "max_month", "max_month_value", "areas", "report_from", "report_to", "extract_date"]
+# ---- one Alberta body of the same kind (2026-11-13): the Alberta Energy Regulator's yearly administration fee (industry levy) on every operator of
+# wells. Its words: "Invoices for administration fees are sent to and payable by the party that was the operator on record (as defined in section
+# 29 of REDA) as of December 31, 2025."; "Invoices to operators detailing the fee calculations will be emailed on April 1, 2026, with payment due
+# by May 1, 2026." (Bulletin 2026-14); "If the operator fails to pay the fee, then the licensee is responsible for paying the invoiced amount and
+# any assessed penalty."; "No. Cheques and Electronic Fund Transfer (EFT) are the only methods of payment accepted." (its FAQ, Bulletin 2024-07).
+# The wells and their licensees: ST37, List of Wells in Alberta (free, monthly). A licensee with a drilled well whose licence is in force
+# (issued, amended, suspended, re-entered) is billed for it — as the operator, or when the operator does not pay.
+AER_BODY = "Alberta Energy Regulator (administration fee — industry levy)"
+AER_ST37 = "https://www.aer.ca/data-and-performance-reports/statistical-reports/st37"
+AER_ZIP = "https://static.aer.ca/prd/documents/sts/st37/ST_37_Excel.zip"
+AER_BULLETIN = "https://static.aer.ca/prd/documents/bulletins/Bulletin-2026-14.pdf"
+AER_FAQ = "https://static.aer.ca/prd/documents/bulletins/Bulletin-2024-07-FAQ.pdf"
+AER_CONTACT = "https://www.aer.ca/about-aer/contact-us"
+AER_ADDRESS = "Calgary (Head Office) Suite 1000, 250 – 5th Street SW Calgary, Alberta T2P 0R4"
+A_TO = ("Invoices for administration fees are sent to and payable by the party that was the operator on record (as defined in section 29 of REDA) as of "
+        "December 31, 2025.")
+A_EMAIL = "The invoices are sent by email to ensure secure delivery and create efficiencies in approval and payment processing."
+A_WHEN = "Invoices to operators detailing the fee calculations will be emailed on April 1, 2026, with payment due by May 1, 2026."
+A_LICENSEE = "If the operator fails to pay the fee, then the licensee is responsible for paying the invoiced amount and any assessed penalty."
+A_PAY = "No. Cheques and Electronic Fund Transfer (EFT) are the only methods of payment accepted."
+A_PENALTY = "impose a late-payment penalty, which is 20 per cent on any portion of the fee that remains unpaid after the due date."
+A_BASE, A_FACTOR = 42.00, 4.359006  # the base fee of an inactive well (fee class 0) and the 2026/27 adjustment factor (Bulletin 2026-14)
+A_LIVE = {"Issued", "Amended", "Suspension", "Re-Entered", "Re-entered"}
+ACOLS = ["key", "name", "wells", "suspended", "licences", "licence_examples", "first_spud", "last_status_date", "fee_floor", "extract_date"]
+AER = os.path.join(DIR, "ab_aer_licensees.csv.gz")
+AER_INFO = os.path.join(DIR, "ab_aer_info.json")
 WATER = os.path.join(DIR, "bc_water_licensees.csv.gz")
 STUMP = os.path.join(DIR, "bc_stumpage_clients.csv.gz")
 STUMP_INV = os.path.join(DIR, "bc_stumpage_invoices.csv.gz")
@@ -464,10 +492,84 @@ def cmd_build_stumpage(a):
           % (len(out), rng["to"], len(inv), sum(len(v) for v in by.values()), big, dict(why)), flush=True)
 
 
+# ---------------------------------------------------------------------------------------------------- the AER's administration fee
+def cmd_pull_aer(a):
+    """ST37's free Excel package (about 180 MB), only when the AER has published a newer one than the last build's"""
+    import zipfile
+    os.makedirs(a.work, exist_ok=True)
+    req = urllib.request.Request(AER_ZIP, method="HEAD", headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        lm = r.headers.get("Last-Modified") or r.headers.get("ETag") or ""
+    info = json.load(open(AER_INFO)) if os.path.exists(AER_INFO) else {}
+    if lm and info.get("last_modified") == lm and os.path.exists(AER) and not getattr(a, "force", False):
+        print("ST37: not newer than the last build (%s)" % lm, flush=True)
+        return
+    z = os.path.join(a.work, "ST_37_Excel.zip")
+    get(AER_ZIP, z, timeout=900)
+    with zipfile.ZipFile(z) as zf:
+        n = next(i.filename for i in zf.infolist() if i.filename.endswith("ST37_BH.xlsx"))
+        with zf.open(n) as src, open(os.path.join(a.work, "ST37_BH.xlsx"), "wb") as dst:
+            dst.write(src.read())
+    os.remove(z)
+    json.dump({"last_modified": lm, "pulled": TODAY}, open(os.path.join(a.work, "ab_aer_info.json"), "w"))
+    print("ST37: pulled (%s)" % lm, flush=True)
+
+
+def cmd_build_aer(a):
+    import openpyxl
+    src = os.path.join(a.work, "ST37_BH.xlsx")
+    if not os.path.exists(src):
+        print("ST37: nothing new to build", flush=True)
+        return
+    os.makedirs(DIR, exist_ok=True)
+    ws = openpyxl.load_workbook(src, read_only=True).worksheets[0]
+    by, n = collections.defaultdict(lambda: {"wells": 0, "suspended": 0, "lic": [], "spud": [], "sdate": []}), 0
+    head = None
+    for row in ws.iter_rows(values_only=True):
+        if head is None:
+            head = {c: i for i, c in enumerate(row)}
+            continue
+        n += 1
+        st = (row[head["Licence_Status"]] or "").strip()
+        spud = str(row[head["Spud_Date"]] or "").strip()
+        if st not in A_LIVE or not spud:
+            continue  # a well not drilled, abandoned, reclaimed or cancelled is not billed
+        nm = clean_name(row[head["Licensee"]] or "")
+        o = by[nm]
+        o["wells"] += 1
+        o["suspended"] += st == "Suspension"
+        if len(o["lic"]) < 8:
+            o["lic"].append(str(row[head["Well_Licence_Number"]] or "").strip())
+        m = re.match(r"(\d{2})/(\d{2})/(\d{4})", spud)
+        if m:
+            o["spud"].append("%s-%s-%s" % (m.group(3), m.group(1), m.group(2)))
+        m = re.match(r"(\d{2})/(\d{2})/(\d{4})", str(row[head["Licence_Status_Date"]] or ""))
+        if m:
+            o["sdate"].append("%s-%s-%s" % (m.group(3), m.group(1), m.group(2)))
+    out, why = [], collections.Counter()
+    for nm, o in by.items():
+        if not nm or not RL.is_org(nm) or RL.FEDERAL.search(nm.replace("&", "and")) or PROVINCIAL.search(nm) or re.search(r"orphan well association", nm, re.I):
+            why["a person, a public body or the orphan well association"] += 1
+            continue
+        out.append({"key": "aer:" + hashlib.sha1(HR.norm(nm).encode()).hexdigest()[:12], "name": nm, "wells": o["wells"], "suspended": o["suspended"],
+                    "licences": o["wells"], "licence_examples": " ".join(o["lic"]), "first_spud": min(o["spud"]) if o["spud"] else "",
+                    "last_status_date": max(o["sdate"]) if o["sdate"] else "", "fee_floor": "%.2f" % (o["wells"] * A_BASE * A_FACTOR), "extract_date": TODAY})
+        why["licensee kept"] += 1
+    out.sort(key=lambda o: o["key"])
+    with gzip.open(AER, "wt", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=ACOLS)
+        w.writeheader()
+        w.writerows(out)
+    if os.path.exists(os.path.join(a.work, "ab_aer_info.json")):
+        json.dump(json.load(open(os.path.join(a.work, "ab_aer_info.json"))), open(AER_INFO, "w"))
+    big = sum(1 for o in out if float(o["fee_floor"]) >= 5000)
+    print("AER: %d licensees with a drilled well in force (%d wells read; a fee floor of $5,000 a year or more: %d); %s" % (len(out), n, big, dict(why)), flush=True)
+
+
 # ---------------------------------------------------------------------------------------------------- sites and leads
 def holders():
     out = []
-    for p, lane in ((WATER, "water"), (STUMP, "stumpage")):
+    for p, lane in ((WATER, "water"), (STUMP, "stumpage"), (AER, "aer")):
         if os.path.exists(p):
             with gzip.open(p, "rt", encoding="utf-8", newline="") as f:
                 for r in csv.DictReader(f):
@@ -629,6 +731,33 @@ def lead_stumpage(o, s):
     return row, det
 
 
+def lead_aer(o, s):
+    key = "lead:" + hashlib.sha1(("aerlevy|%s" % o["key"]).encode()).hexdigest()[:16]
+    s = dict(s, tied_by=HR.no_mail(s.get("tied_by")), quote=HR.no_mail(s.get("quote")))
+    n = int(o["wells"])
+    unit = A_BASE * A_FACTOR
+    row = {"buyer_key": key, "buyer_name": o["name"], "website": s["site"], "canadian_vendor_rows": 1, "example_vendor": AER_BODY,
+           "canada_field_value": "membership / statutory fee relationship: licence holder of the Canadian body (%s)=%s (as printed on %s, read %s); the AER: “%s” “%s” (%s; %s)"
+                                 % (AER_BODY, AER_ADDRESS, AER_CONTACT, READ, A_TO, A_LICENSEE, AER_BULLETIN, AER_FAQ),
+           "evidence_dataset": AER_ST37, "latest_record_date": o["extract_date"]}
+    det = {"key": key, "platform": "ab_aer", "record_url": AER_ST37, "vendor": AER_BODY, "record_date": o["extract_date"],
+           "start": o.get("first_spud") or "", "end": "", "reference": "well licence %s" % " ".join(o["licence_examples"].split()[:3]),
+           "title": "Licensee of %d drilled well%s in force in Alberta (%d suspended) — ST37, List of Wells in Alberta" % (n, "" if n == 1 else "s", int(o["suspended"])),
+           "vendor_address": "%s (as printed on %s, read %s)" % (AER_ADDRESS, AER_CONTACT, READ), "vendor_site": "https://www.aer.ca/", "member_address_quote": "",
+           "register_label": "the AER's ST37, List of Wells in Alberta (each well, its licence, its licensee and its status)",
+           "buyer_register": {"legal_name": o["name"], "trade_names": [], "registry_id": "", "label": "the AER's ST37, List of Wells in Alberta, read %s" % o["extract_date"]},
+           "aer_wells": n, "aer_suspended": int(o["suspended"]),
+           "fee_unit": "C$%.2f base fee a year for each inactive well, times the adjustment factor %s (a producing well pays more, by its production class)" % (A_BASE, A_FACTOR),
+           "fee_unit_basis": "the AER's Bulletin 2026-14 (2026/27 administration fees): fee class 0 “Inactive wells … $42.00”; “The adjustment factor is set at 4.359006 of the base fee specified for wells in all classes in the AFR.” (%s, read %s)" % (AER_BULLETIN, READ),
+           "fee_calculated": ("calculated — at least C$%s a year: %d well%s × C$%.2f (the base fee of an inactive well, $42.00, × the adjustment factor 4.359006); a producing well "
+                              "is billed by its production class (up to $3,800.00 × 4.359006), not published by well here" % (format(n * unit, ",.2f"), n, "" if n == 1 else "s", unit)),
+           "bill_delivery": "an invoice every year, by e-mail: “%s” “%s” (%s, read %s)" % (A_EMAIL, A_WHEN, AER_BULLETIN, READ),
+           "bill_terms": "due by May 1, 2026; the AER may “%s” (%s, read %s)" % (A_PENALTY, AER_BULLETIN, READ),
+           "bill_items": "the yearly administration fee (industry levy) on its %d well%s" % (n, "" if n == 1 else "s"),
+           "fee_basis": "%s (%s)" % (A_TO, AER_BULLETIN), "site_named_by": s["tied_by"], "site_tied_to_holder_by": s["tied_by"], "site_quote": s.get("quote") or ""}
+    return row, det
+
+
 def cmd_leads(a):
     os.makedirs(SHARDS, exist_ok=True)
     stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
@@ -649,7 +778,7 @@ def cmd_leads(a):
         if hosts[urllib.parse.urlparse(s["site"]).hostname] > 3:
             by["site shared by more than three holders (a group's or a host's site): left out"] += 1
             continue
-        row, det = (lead_water if o["lane"] == "water" else lead_stumpage)(o, s)
+        row, det = {"water": lead_water, "stumpage": lead_stumpage, "aer": lead_aer}[o["lane"]](o, s)
         if row["buyer_key"] in have:
             continue
         have.add(row["buyer_key"]); rows.append(row); dets.append(det); by["new lead (%s)" % o["lane"]] += 1
@@ -660,19 +789,19 @@ def cmd_leads(a):
         with gzip.open(os.path.join(SHARDS, "details_bcgov_%s.gz" % stamp), "wt", encoding="utf-8") as f:
             for d in dets:
                 f.write(json.dumps(d, ensure_ascii=False) + "\n")
-    print("B.C. water licensee / stumpage client leads on file: %d (+%d this run: %s)" % (len(have), len(rows), dict(by)), flush=True)
+    print("B.C. water licensee / stumpage client / AER licensee leads on file: %d (+%d this run: %s)" % (len(have), len(rows), dict(by)), flush=True)
 
 
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for c in ("pull-water", "build-water", "pull-stumpage", "build-stumpage"):
-        p = sub.add_parser(c); p.add_argument("--work", required=True)
+    for c in ("pull-water", "build-water", "pull-stumpage", "build-stumpage", "pull-aer", "build-aer"):
+        p = sub.add_parser(c); p.add_argument("--work", required=True); p.add_argument("--force", action="store_true")
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=60); p.add_argument("--threads", type=int, default=12); p.add_argument("--addr-minutes", type=float, default=30)
     p = sub.add_parser("leads"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"pull-water": cmd_pull_water, "build-water": cmd_build_water, "pull-stumpage": cmd_pull_stumpage, "build-stumpage": cmd_build_stumpage,
-     "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
+     "pull-aer": cmd_pull_aer, "build-aer": cmd_build_aer, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
 
 
 if __name__ == "__main__":
