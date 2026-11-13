@@ -1,9 +1,9 @@
-# Ingest report — 2026-11-13T06:33:39Z
+# Ingest report — 2026-11-13T06:42:10Z
 
-- buyers with team findings: 620774 (with at least one verified e-mail/portal: 591194)
+- buyers with team findings: 620778 (with at least one verified e-mail/portal: 591200)
 - vendors with team findings: 15607
 - QA rows: 200
-- counters: {'files': 689, 'buyer_findings_verified': 634431, 'buyer_findings_verified_on_archive_copy': 14691, 'buyer_findings_not_found_on_page': 3479, 'buyer_findings_unverified_page_unavailable': 28077, 'buyer_findings_not_found_on_page_hidden': 525, 'buyer_findings_rejected_personal_or_invalid': 814, 'vendor_emails_not_found_on_page': 413, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4465, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3891, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 946, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 28402, 'ledger_verdict_stands_page_not_read_again_verified': 638555, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 27641, 'verify_tasks_jules': 9}
+- counters: {'files': 689, 'buyer_findings_verified': 634443, 'buyer_findings_verified_on_archive_copy': 14692, 'buyer_findings_not_found_on_page': 3479, 'buyer_findings_unverified_page_unavailable': 28077, 'buyer_findings_not_found_on_page_hidden': 525, 'buyer_findings_rejected_personal_or_invalid': 814, 'vendor_emails_not_found_on_page': 413, 'vendor_emails_not_found_on_page_hidden': 422, 'vendor_emails_verified': 4465, 'vendor_emails_unverified_page_unavailable': 329, 'buyer_findings_cross_verified': 13, 'ledger_verdict_stands_page_not_read_again_not_found_on_page': 3891, 'ledger_verdict_stands_page_not_read_again_not_found_on_page_hidden': 946, 'ledger_verdict_stands_page_not_read_again_unverified_page_unavailable': 28404, 'ledger_verdict_stands_page_not_read_again_verified': 638897, 'verify_tasks_chatgpt': 107, 'verify_tasks_gemini': 27641, 'verify_tasks_jules': 9}
 - QA tallies: {'buyer_match=yes': 181, 'vendor_match=yes': 173, 'title_match=yes': 181, 'value_match=yes': 120, 'dates_match=yes': 83, 'status_supported=yes': 89, 'dates_match=not_shown': 109, 'buyer_match=not_shown': 14, 'vendor_match=not_shown': 27, 'title_match=not_shown': 13, 'value_match=not_shown': 77, 'status_supported=unclear': 100, 'dates_match=no': 8, 'title_match=no': 6, 'buyer_match=no': 5, 'value_match=no': 3, 'status_supported=no': 11}
 
 ## Outcome of each lane's buyer findings
@@ -12,6 +12,6 @@ Every row's outcome is in `coord/results/verification_log.csv` (lane claude: `ve
 | lane | verified | cross_verified | waiting to be checked | page unavailable | e-mails hidden from verifier | not on page | rejected |
 |---|---|---|---|---|---|---|---|
 | chatgpt | 1594 | 5 | 0 | 60 | 1 | 43 | 0 |
-| claude | 628037 | 1 | 0 | 27660 | 70 | 2284 | 813 |
+| claude | 628049 | 1 | 0 | 27660 | 70 | 2284 | 813 |
 | codex | 229 | 0 | 0 | 17 | 0 | 4 | 0 |
 | gemini | 4571 | 7 | 0 | 327 | 454 | 1148 | 1 |
