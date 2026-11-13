@@ -366,6 +366,88 @@ def cmd_sites(a):
     print("sites: %s%s" % (dict(st.most_common(8)), "" if whole else " — stopped by the time box"), flush=True)
 
 
+ADDR = os.path.join(INC, "overture", "reg_addr_candidates.csv")  # tools/overture_names.py addr --lanes reg
+
+
+def cmd_addr_sites(a):
+    """2026-11-13: registrants (organisations) whose profile names no website, or whose named site did not tie: the websites an Overture Maps
+    place at the registrant's own postal code lists. Kept on the registrant's telephone number on the site, or the site's own name agreeing
+    with its legal or business name; its postal code or street address only when the place bears the registrant's name (every business of
+    the building prints them). -> out/reg_sites.jsonl, the same records as `sites`, with "via" """
+    import run_box
+    import biz_licences as BL
+    import lead_crawl as LC
+    import tech_relationships as T
+    import tm_register as TM
+    os.makedirs("out", exist_ok=True)
+    if not os.path.exists(ADDR):
+        print("no candidates (tools/overture_names.py addr --lanes reg)", flush=True)
+        return
+    done = sites_on_file()
+    prof = {}
+    for auth in AUTH:
+        for i, o in profiles_on_file(auth).items():
+            prof["%s:%s" % (auth, i)] = o
+    cand = collections.defaultdict(list)
+    for r in csv.DictReader(open(ADDR, encoding="utf-8", newline="")):
+        if r["key"] in prof and (r["key"] not in done or (done[r["key"]].get("status") != "tied" and not done[r["key"]].get("via"))):
+            cand[r["key"]].append(r)
+    todo = sorted(cand)
+    if a.limit:
+        todo = todo[:a.limit]
+    print("addr: %d registrants with a place at their own postal code that lists a website" % len(todo), flush=True)
+    lock, st = threading.Lock(), collections.Counter()
+    fo = open("out/reg_sites.jsonl", "a", encoding="utf-8")
+
+    def one(key):
+        p = prof[key]
+        names = [x for x in (p.get("business_name"), p.get("legal_name")) if x]
+        last = None
+        for c in cand[key]:
+            h = c["site"]
+            o = {"key": key, "host": h, "date": TODAY, "by": "", "quote": "", "final": "", "status": "",
+                 "via": "an Overture Maps place at the registrant's own postal code (%s; “%s”, place %s, release %s) lists it" % (c["place_postcode"], c["place_name"], c["place_id"], c["release"])}
+            try:
+                u = "https://%s/" % h
+                if not C.allowed(u):
+                    o["status"] = "robots"
+                else:
+                    stc, ct, data, final = C.fetch(u, 3_000_000)
+                    o["status"] = "http_%s" % stc
+                    if stc == 200 and data and "html" in (ct or "").lower():
+                        fh = (urllib.parse.urlparse(final).hostname or "").lower()
+                        fh = fh[4:] if fh.startswith("www.") else fh
+                        o["final"] = final
+                        if NOT_OWN.search(fh):
+                            o["status"] = "leads to a site that is not its own"
+                        else:
+                            raw = data.decode("utf-8", "replace")
+                            text = C.visible(raw)
+                            by, q = tie(p, text, raw)
+                            if by and not by.startswith("its telephone") and not any(TM.place_fits(n, c.get("place_name") or "") for n in names):
+                                by, q = "", ""  # a postal code / street address at a building many businesses share
+                            if not by:
+                                title, meta = T.page_meta(raw)
+                                sn = LC.site_name_for(fh, meta.get("og:site_name"), title, T)
+                                if sn and any(BL.names_agree(sn, n) for n in names):
+                                    by, q = "its own name (site name “%s”)" % sn[:90], "site name “%s” — registrant “%s”" % (sn[:90], " / ".join(names)[:120])
+                            o["by"], o["quote"] = by, q[:300]
+                            o["status"] = "tied" if by else "addr: the site shows neither the registrant's telephone number nor its name"
+            except Exception as e:
+                o["status"] = "error %s" % str(e)[:60]
+            last = o
+            if o["status"] == "tied":
+                break
+        with lock:
+            st[last["status"] if last else "none"] += 1
+            if last:
+                fo.write(json.dumps(last, ensure_ascii=False) + "\n"); fo.flush()
+
+    whole = run_box.Box(a.minutes).run(one, todo, a.workers, grace=30)
+    fo.close()
+    print("addr sites: %s%s" % (dict(st.most_common(8)), "" if whole else " — stopped by the time box"), flush=True)
+
+
 def lead_of(p, s):
     A = AUTH[p["auth"]]
     key = "lead:" + hashlib.sha1(("%s|%s" % (p["auth"], p["id"])).encode()).hexdigest()[:16]
@@ -386,7 +468,7 @@ def lead_of(p, s):
                               "legal_form": p.get("legal_type") or "", "phone": ("%s-%s-%s" % (ph[:3], ph[3:6], ph[6:])) if len(ph) == 10 else "",
                               "label": "%s's public register, the registrant's own entry %s, read %s" % (A["short"], p["url"], p.get("date") or TODAY)},
            "registration_first": p.get("first_registered") or "", "registration_expires": p.get("expires") or "", "registered_with": A["name"], "registration_class": p.get("class") or "",
-           "fee_basis": "%s (%s)" % (A["fee_quote"], A["fee_url"]), "site_named_by": "the register (field Website: %s)" % (p.get("website") or ""),
+           "fee_basis": "%s (%s)" % (A["fee_quote"], A["fee_url"]), "site_named_by": s.get("via") or "the register (field Website: %s)" % (p.get("website") or ""),
            "site_tied_to_holder_by": s.get("by") or "", "site_page": s.get("final") or "", "site_quote": s.get("quote") or ""}
     if A.get("annual_fee"):
         det.update(value=A["annual_fee"], currency="CAD",
@@ -517,8 +599,9 @@ def main():
     p.add_argument("--redo-days", type=int, default=45, help="a profile older than this is read again (renewals move the expiry date)")
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=40); p.add_argument("--workers", type=int, default=30); p.add_argument("--limit", type=int, default=0)
     p = sub.add_parser("merge"); p.add_argument("dir"); p.add_argument("--stamp", default="")
+    p = sub.add_parser("addr-sites"); p.add_argument("--minutes", type=float, default=40); p.add_argument("--workers", type=int, default=30); p.add_argument("--limit", type=int, default=0)
     a = ap.parse_args()
-    {"pull": cmd_pull, "profiles": cmd_profiles, "sites": cmd_sites, "merge": cmd_merge}[a.cmd](a)
+    {"pull": cmd_pull, "profiles": cmd_profiles, "sites": cmd_sites, "merge": cmd_merge, "addr-sites": cmd_addr_sites}[a.cmd](a)
 
 
 if __name__ == "__main__":
