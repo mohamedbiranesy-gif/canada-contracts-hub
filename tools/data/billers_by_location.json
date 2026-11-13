@@ -411,5 +411,32 @@
   "amount_basis": "the service charge of its General Service rate (code 232) in its schedule of rates of August 1, 2026: “232 General Service Service Charge $ 24.57 Demand Charge - per kW for first 20 kW $ - Demand Charge - per kW for balance of kW $ 13.43 Energy Charge per kWh for first 5,000 kWh $ 0.2188” (https://www.maritimeelectric.com/media/q1fcy52a/602000-section-n-28-effective-august-1-2026.pdf); energy by the kilowatt-hour comes on top — this organisation's own consumption is not published",
   "estimate": "estimated — about $572 a month before tax for 2,500 kWh a month: calculated from its General Service rate — the service charge of $24.57 + 2,500 kWh × 21.88 ¢: “232 General Service Service Charge $ 24.57 Demand Charge - per kW for first 20 kW $ - Demand Charge - per kW for balance of kW $ 13.43 Energy Charge per kWh for first 5,000 kWh $ 0.2188” (https://www.maritimeelectric.com/media/q1fcy52a/602000-section-n-28-effective-august-1-2026.pdf, read 2026-11-11); 2,500 kWh a month is the use at which the Ontario Energy Board's small-business bill calculator opens (https://www.oeb.ca/_html/calculator/en/electricity/smallbusiness/), taken here as one yardstick for every province; HST is not counted; this organisation's own consumption is not published",
   "registration": "number 235139-1 in Corporations Canada (federal corporate registry), and LEI 254900LA45X8TZ31R066, as the global LEI register records them: “\"lei\":\"254900LA45X8TZ31R066\" … \"legalName\":{\"name\":\"MARITIME ELECTRIC COMPANY, LIMITED\" … \"registeredAt\":{\"id\":\"RA000072\" … \"registeredAs\":\"235139-1\"” (https://api.gleif.org/api/v1/lei-records/254900LA45X8TZ31R066, read 2026-11-12)"
+ },
+ {
+  "key": "medicine_hat",
+  "name": "City of Medicine Hat (electric utility)",
+  "site": "https://www.medicinehat.ca/",
+  "read": "2026-11-13",
+  "address": "580 1 Street S.E., Medicine Hat, AB T1A 8E6",
+  "address_url": "https://www.medicinehat.ca/home-property-utilities/utilities/paying-your-utility-bill/",
+  "address_quote": "Send a cheque to the City of Medicine Hat, 580 1 Street S.E., Medicine Hat, AB T1A 8E6",
+  "address_read": "2026-11-13",
+  "prefixes": [
+   "T1A",
+   "T1B",
+   "T1C"
+  ],
+  "except_fsas": [],
+  "territory": "the City of Medicine Hat generates, distributes and sells the electricity of its service area, which Alberta's retail competition does not reach: “Electricity generation, distribution and retail are all performed by the City of Medicine Hat” … “Part 8 of the Electric Utilities Act provides Medicine Hat with an exemption from retail competition.” (https://www.medicinehat.ca/home-property-utilities/utilities/electricity/); only the city's own postal areas (T1A, T1B, T1C) are taken — elsewhere in Alberta the retailer is the customer's choice and no row stands on the address",
+  "what": "electricity for the premises at the organisation's address (on the City's combined utility bill, with natural gas, water, sewer and solid waste where the premises have them)",
+  "period": "1 monthly",
+  "period_basis": "the City's own words on paying the utility bill: “Directly withdraw your balance from your bank account each month.” (https://www.medicinehat.ca/home-property-utilities/utilities/paying-your-utility-bill/)",
+  "delivery": "a combined utility bill from the City: “Your electricity charges show up on a combined utility bill directly from the City.” (https://www.medicinehat.ca/home-property-utilities/utilities/electricity/)",
+  "payment": "through a bank (online banking, automatic withdrawal, or at a bank, trust company, treasury branch or credit union) or by cheque; a credit card only through a third-party service: “Select City of Medicine Hat as a payee in your online banking app.” … “Send a cheque to the City of Medicine Hat, 580 1 Street S.E., Medicine Hat, AB T1A 8E6” (https://www.medicinehat.ca/home-property-utilities/utilities/paying-your-utility-bill/)",
+  "terms": "“Please allow five business days for processing if paying at a financial institution or by mail.” (https://www.medicinehat.ca/home-property-utilities/utilities/paying-your-utility-bill/)",
+  "remit_to": "“Send a cheque to the City of Medicine Hat, 580 1 Street S.E., Medicine Hat, AB T1A 8E6” (https://www.medicinehat.ca/home-property-utilities/utilities/paying-your-utility-bill/)",
+  "legal_name": "City of Medicine Hat",
+  "legal_name_basis": "as its own payment page names the payee: “*Cheques payable to City of Medicine Hat.” (https://www.medicinehat.ca/home-property-utilities/utilities/paying-your-utility-bill/, read 2026-11-13)",
+  "estimate": "calculated — at least $26.55 a month before tax: the daily service charge ($0.7750) and administration charge ($0.0984) of its small commercial rate, effective January 1, 2026, over 30.4 days — the rate brochure prints its columns side by side: “3.1 SMALL COMMERCIAL Demand Charge $6.23 per kVA Service Charge $0.7750 per day Capacity Charge $0.02859 per kWh Administration Charge $0.0984 per day” (https://www.medicinehat.ca/media/vhua0uvl/2026-utility-rate-brochure.pdf, read 2026-11-13); electricity by the kilowatt-hour (facilities usage, capacity, an energy charge set each month) and the municipal consent and access fee come on top — this organisation's own consumption is not published"
  }
 ]
