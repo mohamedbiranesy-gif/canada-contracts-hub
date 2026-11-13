@@ -288,6 +288,60 @@ def resolves(domain):
         return False
 
 
+SECOP_SET = "https://www.datos.gov.co/resource/qmzu-gj57.json"  # SECOP II - Proveedores Registrados (Colombia Compra Eficiente, open data)
+SECOP_DONE = os.path.join(DIR, "dian_secop_done.tsv")
+NOT_A_SITE = {"", "no provisto", "no definido", "n/a", "na", "-", "http://", "https://", "no tiene", "ninguno", "no aplica", "www", "no", "0", "ninguna"}
+
+
+def secop_sites(nits):
+    """{nit: [(domain, name as registered)]}: the website a company gave in its own entry of Colombia's public procurement supplier register
+    (SECOP II, Proveedores Registrados), for the NITs asked; the register's e-mail and telephone columns are not asked for"""
+    out = collections.defaultdict(list)
+    nits = sorted(set(nits))
+    for i in range(0, len(nits), 80):
+        q = urllib.parse.urlencode({"$select": "nit,nombre,sitio_web", "$where": "nit in (%s)" % ",".join("'%s'" % n for n in nits[i:i + 80] if n.isdigit()), "$limit": 2000})
+        try:
+            req = urllib.request.Request(SECOP_SET + "?" + q, headers={"User-Agent": UA})
+            rows = json.loads(urllib.request.urlopen(req, timeout=90).read())
+        except Exception as e:
+            print("secop: chunk %d not read (%s)" % (i // 80, e), flush=True)
+            continue
+        for r in rows:
+            sw = (r.get("sitio_web") or "").strip()
+            if sw.lower() in NOT_A_SITE or "." not in sw or "@" in sw or " " in sw.strip():
+                continue
+            h = DI.host(sw if "//" in sw else "http://" + sw)
+            h = h[4:] if h.startswith("www.") else h
+            if h and "." in h and (h, r.get("nombre") or "") not in out[r["nit"]]:
+                out[r["nit"]].append((h, r.get("nombre") or ""))
+        time.sleep(1)
+    return out
+
+
+def site_names(domain):
+    """the home page's <title>, og:site_name and copyright line (visible text), for the name test of a site the company itself registered"""
+    import client_lists as CL
+    site = "https://%s/" % domain
+    if not CL.allowed(site):
+        return ""
+    page, final = CL.fetch(site)
+    if not page:
+        return ""
+    t = re.search(r"(?is)<title[^>]*>(.*?)</title>", page[:200_000])
+    og = re.search(r"(?is)<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=[\"']([^\"']+)", page[:200_000])
+    cp = re.search(r"(?:©|&copy;|copyright)\s*(?:\d{4}\s*[-–]?\s*\d{0,4})?\s*([^<|.\n]{3,80})", visible(page), re.I)
+    return " | ".join(x for x in ((t.group(1) if t else ""), (og.group(1) if og else ""), (cp.group(1) if cp else "")) if x).strip()
+
+
+def name_on_site(name, words):
+    """every distinctive word of the importer's name (legal forms and everyday words left out, at least one of five letters or more) in the
+    site's own name / title / copyright line"""
+    import tm_register as TM
+    own = [x for x in TM.nkey_x(name).split() if x not in GENERIC_ES and not x.isdigit()]
+    have = set(TM.nkey_x(html.unescape(words)).split()) | {TM.nkey_x(html.unescape(words)).replace(" ", "")}
+    return bool(own) and any(len(x) >= 5 for x in own) and all(x in have for x in own)
+
+
 def cmd_sites(a):
     import queue, threading
     import hc_registers as HR
@@ -307,7 +361,12 @@ def cmd_sites(a):
     except Exception as e:
         print("wikidata: not read (%s)" % e, flush=True)
         wd_nit, wd_name = {}, {}
-    todo = [n for n in by if "dian:%s" % n not in have and "dian:%s" % n not in done]
+    # 2026-11-13: the website each importer gave in its own entry of the SECOP II supplier register, read first; an importer looked for before
+    # is looked for again when the register gives it a website not tried yet (dian_secop_done.tsv)
+    sdone = {l.split("\t")[0] for l in open(SECOP_DONE, encoding="utf-8")} if os.path.exists(SECOP_DONE) else set()
+    secop = secop_sites([n for n in by if "dian:%s" % n not in have and "dian:%s" % n not in sdone])
+    print("SECOP II: %d importers without a site give a website in their own supplier-register entry" % len(secop), flush=True)
+    todo = [n for n in by if "dian:%s" % n not in have and ("dian:%s" % n not in done or (n in secop and "dian:%s" % n not in sdone))]
     # the largest buyers first: their invoices from Canada on file, in US dollars
     todo.sort(key=lambda n: -sum(num(p["fob_usd_total"]) for p in by[n]))
     new = not os.path.exists(SITES)
@@ -316,6 +375,7 @@ def cmd_sites(a):
     if new:
         w.writeheader()
     dn = open(SDONE, "a", encoding="utf-8")
+    sd = open(SECOP_DONE, "a", encoding="utf-8")
     t_end, cnt = time.time() + 60 * a.minutes, collections.Counter()
     lock, cb_lock, q = threading.Lock(), threading.Lock(), queue.Queue()
     for n in todo:
@@ -325,6 +385,11 @@ def cmd_sites(a):
         name = by[nit][0]["importer"]
         core = HR.core(name)
         cands = []
+        for d_, nm_ in secop.get(nit, ()):
+            cands.append((d_, "the company's own entry in Colombia's public procurement supplier register (SECOP II, “%s”, NIT %s; datos.gov.co dataset qmzu-gj57) gives this website"
+                           % (re.sub(r"\s+", " ", nm_)[:80], nit)))
+        if "dian:%s" % nit in done:  # looked for before under every other source: only the register's website is new
+            cands = cands[:len(secop.get(nit, ()))]
         for _i, s_ in sorted(wd_nit.get(nit, ())):
             cands.append((DI.host(s_), "Wikidata gives it as the official website of the item whose Colombian NIT is %s" % nit))
         for s_ in ovt.get("dian:%s" % nit, ()):
@@ -352,6 +417,16 @@ def cmd_sites(a):
                 got = None
             if got:
                 return (d, why, got), n_read
+            if why.startswith("the company's own entry"):
+                # the NIT is not printed on the pages read: the company's own register entry gives this website for its NIT, and the site names
+                # itself by every distinctive word of the importer's name — two statements of the company that agree
+                words = site_names(d)
+                # a Colombian subsidiary that gave its group's worldwide site (Schneider Electric de Colombia -> schneider-electric.com): the site
+                # is the group's, its mailbox the group's head office's — kept only when the NIT is printed (above)
+                if re.search(r"colombia", name, re.I) and not (d.endswith(".co") or re.search(r"colombia", words, re.I)):
+                    continue
+                if words and name_on_site(name, words):
+                    return (d, why + "; the site names itself so", ("https://%s/" % d, "the site's own name: " + words[:200])), n_read
         return None, n_read
 
     def worker():
@@ -363,12 +438,16 @@ def cmd_sites(a):
             hit, n_read = one(nit)
             with lock:
                 dn.write("%s\t%s\n" % ("dian:%s" % nit, hit[0] if hit else "")); dn.flush()
+                if nit in secop:
+                    sd.write("dian:%s\t%s\n" % (nit, hit[0] if hit else "")); sd.flush()
                 cnt["importers asked"] += 1; cnt["sites read"] += n_read
                 if hit:
                     d, why, (u, qt) = hit
                     qt = re.sub(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", "[e-mail]", qt)
-                    w.writerow({"key": "dian:%s" % nit, "site": "https://%s/" % d, "read": TODAY, "quote": qt[:300],
-                                "tied_by": "%s; the site's own page %s prints the importer's NIT %s: “%s”" % (why, u, nit, qt[:200])})
+                    w.writerow({"key": "dian:%s" % nit, "site": "https://%s/" % d, "read": TODAY,
+                                "quote": (qt[len("the site's own name: "):] if qt.startswith("the site's own name: ") else qt)[:300],
+                                "tied_by": ("%s (%s: “%s”)" % (why, u, qt[len("the site's own name: "):][:200])) if qt.startswith("the site's own name: ") else
+                                           "%s; the site's own page %s prints the importer's NIT %s: “%s”" % (why, u, nit, qt[:200])})
                     f.flush(); cnt["sites tied"] += 1
 
     ts = [threading.Thread(target=worker, daemon=True) for _ in range(a.threads)]
@@ -376,7 +455,7 @@ def cmd_sites(a):
         t.start()
     for t in ts:
         t.join()
-    dn.close(); f.close()
+    dn.close(); f.close(); sd.close()
     print("dian sites: %d on file before, %d importers without one; %s" % (len(have), len(todo), dict(cnt)), flush=True)
 
 

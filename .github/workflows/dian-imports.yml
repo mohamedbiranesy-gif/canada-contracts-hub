@@ -5,7 +5,8 @@ name: dian-imports
 # "Giro directo", "Pagos anticipados", "Financiación directa del proveedor" ... — a payment abroad through the banks of the foreign-exchange market).
 # Lines with no payment abroad, natural persons and exporters named as persons make no row. The importer's site is kept only when its own pages
 # print its NIT; the mailbox comes from that site (mailbox-crawl reads lead_shards/). Resumable: the monthly extracts, the site list and the done
-# list are committed; each run downloads only the months not read yet (one zip of ~280 MB at a time, deleted once read).
+# list are committed; each run downloads only the months not read yet (one zip of ~280 MB at a time, deleted once read). Since 2026-11-13 the
+# website each importer gave in its own entry of Colombia's SECOP II supplier register (datos.gov.co) is read first.
 on:
   schedule:
     - cron: "41 6 * * 1"          # weekly: a new month appears around the 21st; the site finder works through the importers without a site
@@ -50,7 +51,7 @@ jobs:
             cp keep/dian/dian_pairs.csv.gz data/incoming/claude/dian/ 2>/dev/null || true
             cp keep/ovt/* data/incoming/claude/overture/ 2>/dev/null || true
             # the site list and the done list only grow: the lines of main and of this run, once each
-            for f in dian_sites.csv dian_sites_done.tsv; do
+            for f in dian_sites.csv dian_sites_done.tsv dian_secop_done.tsv; do
               [ -f "keep/dian/$f" ] || continue
               if [ -f "data/incoming/claude/dian/$f" ]; then
                 python3 - "$f" <<'PY'
