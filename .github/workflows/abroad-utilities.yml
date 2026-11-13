@@ -1,0 +1,54 @@
+name: abroad-utilities
+# Owner 2026-11-13 09:46 EST (AGENTS.md rule 18): a U.S. power company owned by a Canadian company counts as a Canadian vendor. The territories of
+# the electric utilities Canadian companies own (tools/abroad_utilities.py: HIFLD retail service territories on PNNL's server, Census ZIP code areas),
+# the organisations with a website among the Overture Maps places of those ZIP areas and islands, and a lead (no vendor) for each site not on file:
+# the mailbox crawl reads it, the ranker makes the row by where the organisation is (tools/by_location.py abroad_where) once its own pages give a
+# mailbox and an address in the territory.
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "all | zips (territories + ZIP table) | places (places + leads)"
+        default: "all"
+  schedule:
+    - cron: "23 6 2 * *"   # monthly (Overture's release is monthly; the territories change rarely)
+permissions:
+  contents: write
+concurrency:
+  group: abroad-utilities
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Territories, ZIP table, places, leads (computed once; main merged in on a refused push)
+        env:
+          STAGE: ${{ inputs.stage || 'all' }}
+        run: |
+          pip install -q duckdb shapely pyshp
+          UA='canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)'
+          if [ "$STAGE" = "all" ] || [ "$STAGE" = "zips" ]; then
+            python3 tools/abroad_utilities.py territories | tee /tmp/a.txt
+            curl -s -m 600 -A "$UA" -o /tmp/zcta.zip "https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_us_zcta520_500k.zip"
+            python3 tools/abroad_utilities.py zips --zcta /tmp/zcta.zip | tee -a /tmp/a.txt
+          fi
+          if [ "$STAGE" = "all" ] || [ "$STAGE" = "places" ]; then
+            python3 tools/abroad_utilities.py places | tee -a /tmp/a.txt
+            python3 tools/abroad_utilities.py leads --stamp "$(date -u +%Y%m%dT%H%M%S)a" | tee -a /tmp/a.txt
+          fi
+          git config user.name "abroad-utilities"; git config user.email "abroad-utilities@users.noreply.github.com"
+          python3 tools/secret_guard.py || true
+          git add data/incoming/claude/abroad tools/data/us_zip_billers.csv data/incoming/claude/lead_shards 2>/dev/null || true
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -q -m "abroad-utilities: $(grep -h 'abroad leads' /tmp/a.txt | cut -c1-150) [skip ci]"
+          for i in $(seq 1 20); do
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 10 + 3))
+            git fetch -q origin main
+            git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; true; }
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed"; exit 1; }
+          cat /tmp/a.txt >> "$GITHUB_STEP_SUMMARY"

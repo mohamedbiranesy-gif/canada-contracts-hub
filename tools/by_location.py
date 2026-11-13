@@ -194,6 +194,73 @@ BILLERS = _load()
 BY_NAME = {b["name"]: b for b in BILLERS}
 BY_KEY = {b["key"]: b for b in BILLERS}
 BY_TABLE = {b["table_key"]: b for b in BILLERS if b.get("table_key")}
+
+
+# ---- abroad (2026-11-13, owner 09:46 EST; AGENTS.md rule 18): electric utilities that Canadian companies own ---------------------------------
+# tools/data/billers_abroad.json (each utility's own sentences, its Canadian parent's own sentence on owning it, the parent's printed address)
+# and tools/data/us_zip_billers.csv (tools/abroad_utilities.py zips: the ZIP code areas lying wholly in one such utility's territory). An address
+# names a utility abroad only when it prints no Canadian postal code: all the U.S. ZIP codes it prints lie in one utility's table, or it names one
+# island a Caribbean utility serves whole.
+def _load_abroad():
+    try:
+        out = json.load(open(os.path.join(ROOT, "tools/data/billers_abroad.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        return [], {}
+    for b in out:
+        b["abroad"] = True
+        b.setdefault("prefixes", [])
+        b["except_fsas"] = set()
+    zips = {}
+    try:
+        keys = {b["key"] for b in out}
+        for r in csv.DictReader(open(os.path.join(ROOT, "tools/data/us_zip_billers.csv"), encoding="utf-8", newline="")):
+            if r.get("kept") == "yes" and r.get("biller") in keys:
+                zips[r["zip"]] = r["biller"]
+    except OSError:
+        pass
+    return out, zips
+
+
+ABROAD, _ZIPS = _load_abroad()
+for _b in ABROAD:
+    BY_KEY[_b["key"]] = _b
+    BY_NAME[_b["name"]] = _b
+_US_STATES = ("FL|Fla\\.?|Florida|AZ|Ariz\\.?|Arizona|NY|N\\.Y\\.|New York|VT|Vt\\.|Vermont|ME|Maine|NH|N\\.H\\.|New Hampshire|CA|Calif\\.?|California|NV|Nevada")
+US_ZIP_RX = re.compile(r"(?<![A-Za-z0-9])(?:" + _US_STATES + r")\.?,?\s+(\d{5})(?:-\d{4})?(?![0-9])")
+_CARIB = [("ky_caribbean_utilities", re.compile(r"\bKY1-\d{4}\b|Grand Cayman|Cayman Islands", re.I), re.compile(r"Cayman Brac|Little Cayman|KY2-", re.I), "Grand Cayman"),
+          ("bb_blpc", re.compile(r"\bBB\d{5}\b|\bBarbados\b", re.I), None, "Barbados"),
+          ("bm_belco", re.compile(r"\bBermuda\b|\b(?:HM|DV|FL|CR|GE|MA|SN|WK|SB|DD|BB|HS|PG)\s?\d{2}\b(?=[^A-Za-z]{0,6}Bermuda)", re.I), None, "Bermuda")]
+
+
+def abroad_where(text):
+    """(utility abroad, how its address names it) or (None, ""): no Canadian postal code in the text; every U.S. ZIP code printed after one of the
+    utilities' states lies in one utility's table, or exactly one island a Caribbean utility serves whole is named"""
+    text = text or ""
+    if not ABROAD or next(iter(codes(text)), None) is not None:  # (codes() is a generator)
+        return None, ""
+    zs = US_ZIP_RX.findall(text)
+    if zs:
+        got = {_ZIPS.get(z) for z in zs}
+        if len(got) == 1 and None not in got:
+            return BY_KEY[got.pop()], "ZIP code %s" % zs[0]
+        return None, ""
+    hit = []
+    for key, rx, notrx, label in _CARIB:
+        if key in BY_KEY and rx.search(text) and not (notrx and notrx.search(text)):
+            hit.append((key, label))
+    if len(hit) == 1:
+        return BY_KEY[hit[0][0]], hit[0][1]
+    return None, ""
+
+
+def ownership_sentence(b):
+    """a utility abroad: the Canadian parent's own sentence on owning it, and the parent's printed address in Canada (rule 18)"""
+    if not b or not b.get("abroad"):
+        return ""
+    return ("%s is owned by %s — “%s” (%s, read %s); %s is located in Canada: “%s” (%s). A Canadian vendor by AGENTS.md rule 18 (owner, 2026-11-13: "
+            "“The U.S. power company owned by Canadian company counts as Canadian vendor.”)" % (
+                b["name"], b["owner"], b["owner_quote"], b["owner_url"], b.get("read") or "", b["owner"], b.get("owner_address_quote") or b.get("owner_address") or "",
+                b.get("owner_address_url") or ""))
 _ON = None
 
 
@@ -318,11 +385,14 @@ def biller_for(text):
 
 
 def biller_for_all(text):
-    """the distributor of a text that may print several postal codes (a page, a quote): all of them must lie in one distributor's territory"""
+    """the distributor of a text that may print several postal codes (a page, a quote): all of them must lie in one distributor's territory.
+    No Canadian postal code at all: a utility abroad that a Canadian company owns, when the text's U.S. ZIP codes or island name it (rule 18)"""
     got = {}
     for pc, _ in codes(text):
         b = biller_for(pc)
         got[id(b)] = b
+    if not got:
+        return abroad_where(text)[0]
     return next(iter(got.values())) if len(got) == 1 else None
 
 
@@ -543,6 +613,10 @@ def of_row(x):
     b = BY_NAME.get(re.sub(r"^inferred:\s*", "", (x.get("vendor") or "").strip()))
     if not b:
         return None
+    if b.get("abroad"):  # rule 18: a utility abroad — its ZIP table or its island, on the organisation's printed address (or beside its mailbox)
+        if biller_for_all(x.get("buyer_address") or "") is b or biller_for_all(x.get("email_evidence_quote") or "") is b:
+            return b
+        return None
     if biller_for(x.get("buyer_address") or "") is b:
         return b
     if not fsa_of(x.get("buyer_address") or "") and (biller_for_city(x.get("buyer_address") or "") or (None,))[0] is b:
@@ -557,6 +631,9 @@ def of_row(x):
 
 def status(b, fsa):
     where = ("postal area %s" % fsa) if re.fullmatch(r"[A-Z]\d[A-Z]", fsa or "") else (fsa or "its city")
+    if b.get("abroad"):
+        return ("billed by the electric utility of its address — by where the organisation is (%s), not by a record: %s is the utility of %s; an occupant with its own "
+                "meter is billed by it every month, and where a landlord holds the meter the landlord is. %s" % (where, b["name"], b["territory"], ownership_sentence(b)))
     return ("billed by the electricity distributor of its address — by where the organisation is (%s), not by a record: %s; an occupant with its own meter is billed "
             "by it every month, and where a landlord holds the meter the landlord is" % (where, b["territory"]))
 
@@ -576,6 +653,8 @@ def shared_sentence(n):
 def row_cells(b, x):
     """the cells of a by-location row: what is billed, how often, the least amount, how the bill arrives and is paid — each in the distributor's own words when read"""
     fsa = fsa_of(x.get("buyer_address") or "")
+    if b.get("abroad"):
+        fsa = abroad_where(x.get("buyer_address") or "")[1] or abroad_where(x.get("email_evidence_quote") or "")[1] or "its printed address"
     if not fsa:
         _bc = biller_for_city(x.get("buyer_address") or "")
         if _bc and _bc[0] is b:
@@ -591,7 +670,9 @@ def row_cells(b, x):
            "contract_title": "Electricity service at the organisation's address",
            "bill_items_as_published": b["what"],
            "invoice_reference_hint": "the customer account number printed on the distributor's bill (not public)",
-           "bill_currency_as_published": "Canadian dollars (a Canadian distributor's regulated rates)"}
+           "bill_currency_as_published": ("%s (the utility's regulated rates)" % b.get("currency", "local currency")) if b.get("abroad") else "Canadian dollars (a Canadian distributor's regulated rates)"}
+    if b.get("abroad"):
+        out["relationship_fact_basis"] += ". " + ownership_sentence(b)
     if b.get("period"):
         out["recurring_billing"], out["recurring_billing_basis"] = b["period"], b["period_basis"] + src("period")
     else:

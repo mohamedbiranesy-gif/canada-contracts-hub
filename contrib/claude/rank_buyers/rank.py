@@ -1142,6 +1142,11 @@ for _d in _LCF.facts_records():
             n_name_again += bool(_d["site_name"])
         if _d.get("address_quote") and _d.get("address_how") not in ("jsonld", "map", "street_city", "city_contact", "registry"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
             _d["address"] = _addr_from(_d["address_quote"]) or _d.get("address") or ""
+            if not _d["address"] and (_d.get("address_country") or "") != "CA":
+                # 2026-11-13 (rule 18, utilities abroad): a U.S. address the cutter does not take whole — the quote up to its ZIP code stands for it
+                _mz = _BYLOC.US_ZIP_RX.search(_d["address_quote"])
+                if _mz:
+                    _d["address"] = re.sub(r"\s+", " ", _d["address_quote"][max(0, _mz.end() - 120):_mz.end()]).strip()
         if "?" in (_d.get("address_url") or ""):
             # a visitor or campaign identifier a site adds to its own links (?shpxid=…, utm_…, fbclid) is not part of the page's address
             _d["address_url"] = re.sub(r"[?&]$", "", re.sub(r"(?<=[?&])(?:shpxid|utm_[a-z]+|fbclid|gclid|srsltid|_gl|mc_[a-z]+|ref)=[^&#]*&?", "", _d["address_url"]))
@@ -2578,17 +2583,22 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         b_addr = address_beside_mailbox(b_addr, m.get("evidence_quote") or "", m.get("evidence_url") or "") or b_addr
     if _lf.get("site_name") and re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/?", (name or "").strip().lower()):
         name = _lf["site_name"]  # the lead only carried the domain: the organisation's own home page names it (as apply_details does for a lead's row)
-    rows.append({"jurisdiction": "", "_jur": prov or (_PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) if vid.startswith("LOC:") else "") or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
+    _abr = _BYLOC.BY_KEY.get(vid[4:]) if vid.startswith("LOC:") else None
+    _abr = _abr if (_abr or {}).get("abroad") else None  # rule 18: a utility abroad that a Canadian company owns
+    rows.append({"jurisdiction": "", "_jur": (_abr["jur"] if _abr else None) or prov or (_PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) if vid.startswith("LOC:") else "") or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
         "buyer": name, "buyer_website": site, "buyer_address": b_addr,
         "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",
-        "contract_status": (_BYLOC.status(_BYLOC.BY_KEY[vid[4:]], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])) if vid.startswith("LOC:") else
+        "contract_status": (_BYLOC.status(_abr, _BYLOC.abroad_where(b_addr)[1] or _BYLOC.abroad_where(m.get("evidence_quote") or "")[1]) if _abr else
+                            _BYLOC.status(_BYLOC.BY_KEY[vid[4:]], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])) if vid.startswith("LOC:") else
                             "inferred relationship (no record): %s confidence; the buyer is %s%s; %s" % (conf, what, (" (province from %s)" % how) if how else "", why)),
         "source": (_src_loc(b_addr) if vid.startswith("LOC:") else
                    "inference from the buyer's type and province (no contract, payment or listing record)"),
         "vendor": "inferred: " + vname, "vendor_address": vaddr, "vendor_website": vsite,
-        "vendor_country_basis": "%s, %s: '%s'" % ((_BYLOC.BY_KEY[vid[4:]].get("address_source") if vid.startswith("LOC:") else "") or "the vendor's own site", vurl, vquote),
+        "vendor_country_basis": _BYLOC.ownership_sentence(_abr) if _abr else "%s, %s: '%s'" % ((_BYLOC.BY_KEY[vid[4:]].get("address_source") if vid.startswith("LOC:") else "") or "the vendor's own site", vurl, vquote),
         "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True})
     n13 += 1
+    if _abr:
+        n_ovt["rows by where the organisation is abroad — a utility a Canadian company owns (rule 18): %s" % _abr["key"]] += 1
 print("P12 organisations:", len(orgs12), "added:", n12, dict(skipped12), "| P13 added:", n13, "| P13 skipped:", dict(skipped13))
 print("by the city the organisation's own page names (no postal code read; tools/by_location.py biller_for_city):", dict(n_city))
 print("by the address an Overture Maps place lists for the organisation's website (nothing on its own pages located it; tools/by_location.py directory_cell):",
