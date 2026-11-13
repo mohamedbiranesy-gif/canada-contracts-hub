@@ -18,6 +18,19 @@ OUT = os.path.join(ROOT, "data/incoming/claude/cb_sites_cb.csv")
 COUNTRY = {"US": "united states", "UK": "united kingdom", "EU": ""}
 
 
+_CA_MARK = re.compile(r"\b(?:canada|qu[ée]bec|ontario|british columbia|alberta|manitoba|saskatchewan|nova scotia|new brunswick|newfoundland|prince edward island|"
+                      r"yukon|nunavut|northwest territories)\b|\b[ABCEGHJ-NPRSTVXY]\d[A-Z]\s?\d[A-Z]\d\b", re.I)
+
+
+def canadian_page(d):
+    import client_lists as CL
+    u = "https://%s/" % d
+    if not CL.allowed(u):
+        return False
+    page, _ = CL.fetch(u)
+    return bool(page and _CA_MARK.search(re.sub(r"<[^>]+>", " ", page)))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("ranked")
@@ -77,7 +90,9 @@ def main():
                     said = HR.home_says(d, n)
                 except Exception:
                     said = ""
-                if said:
+                if said and country == "canada" and not d.endswith(".ca") and not canadian_page(d):
+                    said = ""  # 2026-11-13: "Valoris" took a Belgrade employment agency's valoris.org, "NL Housing" a Dutch room-rental site: a site that is not
+                    # a .ca must print a Canadian province or postal code on its home page
                     with lock:
                         w.writerow({"key": key, "name": name, "site": "https://%s/" % d,
                                     "tied_by": "the company-name autocomplete (Clearbit) proposes %s under the organisation's very name (%s, legal forms aside), and the site's own home page carries it: “%s”" % (d, n, said[:200])})

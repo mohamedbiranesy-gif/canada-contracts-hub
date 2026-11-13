@@ -65,10 +65,28 @@
   "url": "https://learn.ocswholesale.ca/wp-content/uploads/2026/02/OCS-Wholesale-Authorized-Cannabis-Retailers-Handbook-February2026.pdf",
   "verified": "2026-11-12"
  },
+ "tools/data/payees/airdrie_chamber.json": {
+  "quotes": 3,
+  "sig": "87baa0e27f61c7e9",
+  "url": "https://airdriechamber.ab.ca/faqs",
+  "verified": "2026-11-13"
+ },
+ "tools/data/payees/greater_kw_chamber.json": {
+  "quotes": 1,
+  "sig": "b7976d1236875903",
+  "url": "https://greaterkwchamber.com/member-login/",
+  "verified": "2026-11-13"
+ },
  "tools/data/payees/osler.json": {
   "quotes": 4,
   "sig": "be3b734fba504e63",
   "url": "https://www.osler.com/en/client-service-terms/",
+  "verified": "2026-11-13"
+ },
+ "tools/data/payees/vernon_chamber.json": {
+  "quotes": 2,
+  "sig": "488dca9689d413c3",
+  "url": "https://www.vernonchamber.ca/faq/",
   "verified": "2026-11-13"
  }
 }
