@@ -24,7 +24,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
@@ -40,7 +40,15 @@ jobs:
           python3 tools/ranked_io.py assemble || true
           python3 tools/biz_licences.py pull --only "$ONLY" 2>&1 | tee /tmp/l.txt
           python3 tools/biz_licences.py match out 2>&1 | tee -a /tmp/l.txt
+          # 2026-11-13: licensees no organisation on file matched: the websites an Overture place at the licence's own postal code lists, kept by the
+          # lane's own rule read on the site (names agree AND the licence's postal code / telephone / street printed); candidates made again per release
+          newest=$(curl -sS --retry 3 "https://overturemaps-us-west-2.s3.amazonaws.com/?list-type=2&prefix=release/&delimiter=/" | grep -o 'release/[0-9-]*\.[0-9]*/' | sort | tail -1 | cut -d/ -f2)
+          made=$(tail -1 data/incoming/claude/overture/lic_addr_candidates.csv 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r')
+          if [ -n "$newest" ] && [ "$made" != "$newest" ]; then pip install -q duckdb && python3 tools/overture_names.py addr --lanes lic --lic-dir out 2>&1 | tail -3 | tee -a /tmp/l.txt || true; fi
+          python3 tools/biz_licences.py addr-sites out --minutes 60 --workers 30 2>&1 | tail -3 | tee -a /tmp/l.txt || true
           mkdir -p keep && cp out/licence_leads.jsonl keep/ 2>/dev/null || true
+          cp out/licence_leads_addr.jsonl out/lic_addr_done.tsv keep/ 2>/dev/null || true
+          mkdir -p keep/ovt && cp data/incoming/claude/overture/lic_addr_candidates.csv keep/ovt/ 2>/dev/null || true
           # what one licence is billed (tools/payee_fees.py): Toronto's nightly list of outstanding licence invoices (licence number, invoice number,
           # amount due), the fee of each kind of Toronto licence, Calgary's and Edmonton's fee schedules. A source that fails keeps its last reading.
           python3 tools/payee_fees.py harvest 2>&1 | tee -a /tmp/l.txt || true
@@ -49,6 +57,7 @@ jobs:
           git config user.name "biz-licences"; git config user.email "biz-licences@users.noreply.github.com"
           for i in $(seq 1 10); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
+            mkdir -p data/incoming/claude/overture && cp keep/ovt/lic_addr_candidates.csv data/incoming/claude/overture/ 2>/dev/null || true
             python3 tools/biz_licences.py merge keep --stamp "$STAMP" | tee /tmp/m.txt
             # rosters another lane harvested (members, dealers, tenants, exhibitors, sponsors of a Canadian body: contrib/<lane>/rosters/<key>.json +
             # data/incoming/<lane>/roster_<key>.csv): the same commit carries their leads (tools/roster_ingest.py checks each roster's proof itself)
@@ -56,6 +65,7 @@ jobs:
             cp keep/payee_fees.json keep/payee_open_invoices.csv.gz data/incoming/claude/ 2>/dev/null || true
             python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/lead_shards data/incoming/claude/payee_fees.json data/incoming/claude/payee_open_invoices.csv.gz 2>/dev/null || true
+            git add data/incoming/claude/licences data/incoming/claude/overture/lic_addr_candidates.csv 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "biz-licences: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
             git push -q origin HEAD:main && break

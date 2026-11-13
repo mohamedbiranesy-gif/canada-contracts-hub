@@ -353,7 +353,8 @@ def addr(a):
              "ptca": (PT.DIR, PT.OWN_CA, PT.MATCHES, PT.FOUND, PT.SDONE, None, os.path.join(PT.DIR, "pt_overture_addr_ca_sites.csv")),
              "rbq": (None, None, None, None, None, None, os.path.join(OUT, "rbq_addr_candidates.csv")),
              "reg": (None, None, None, None, None, None, os.path.join(OUT, "reg_addr_candidates.csv")),
-             "radio": (None, None, None, None, None, None, os.path.join(OUT, "radio_addr_candidates.csv"))}
+             "radio": (None, None, None, None, None, None, os.path.join(OUT, "radio_addr_candidates.csv")),
+             "lic": (None, None, None, None, None, None, os.path.join(OUT, "lic_addr_candidates.csv"))}
     want, words_of = {}, {}
     if "f55" in a.lanes.split(","):
         # 2026-11-13: US employers of the Form 5500 lane (tools/f5500_benefits.py) without a site: the sponsor's own street address and ZIP code
@@ -444,7 +445,29 @@ def addr(a):
                 words_of[("radio", o["key"])] = {t for t in TM.nkey(o.get("name") or "").split() if len(t) >= 4 and t not in TM.GENERIC}
                 n_["CA"] += 1
         print("radio: licensees without a site, with a postal code: %s" % dict(n_), flush=True)
-    for lane in [x for x in a.lanes.split(",") if x in files and x not in ("f55", "hc", "rbq", "reg", "radio")]:
+    if "lic" in a.lanes.split(","):
+        # 2026-11-13: municipal business licences and Québec permits (tools/biz_licences.py; out/licences_*.csv.gz of a pull, or --dir) that no
+        # organisation on file matched: the licence's full postal code
+        import hashlib
+        ldir = a.lic_dir or "out"
+        have_ = set()
+        for p_ in glob.glob(os.path.join(INC, "lead_shards", "leads_lic_*.gz")):
+            with gzip.open(p_, "rt", encoding="utf-8", newline="") as fh:
+                have_ |= {r["buyer_key"] for r in csv.DictReader(fh)}
+        n_ = collections.Counter()
+        for f_ in sorted(glob.glob(os.path.join(ldir, "licences_*.csv.gz"))):
+            with gzip.open(f_, "rt", encoding="utf-8", newline="") as fh:
+                for r in csv.DictReader(fh):
+                    if len(r.get("postal") or "") != 6:
+                        continue
+                    if ("lead:" + hashlib.sha1(("lic|%s|%s" % (r["src"], r["number"])).encode()).hexdigest()[:16]) in have_:
+                        continue
+                    k = "%s:%s" % (r["src"], r["number"])
+                    want[("lic", k)] = ("CA", r["postal"].upper(), "", "")
+                    words_of[("lic", k)] = {t for t in TM.nkey((r.get("name") or "") + " " + (r.get("trade") or "")).split() if len(t) >= 4 and t not in TM.GENERIC}
+                    n_[r["src"]] += 1
+        print("lic: licensees not matched yet, with a postal code: %s" % dict(n_), flush=True)
+    for lane in [x for x in a.lanes.split(",") if x in files and x not in ("f55", "hc", "rbq", "reg", "radio", "lic")]:
         d_, own, matches, found, sdone, ovt, _ = files[lane]
         skip = set()
         for p_ in (matches, found, ovt):
@@ -560,7 +583,7 @@ def addr(a):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["key" if lane in ("f55", "hc", "rbq", "reg", "radio") else "owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
+            w.writerow(["key" if lane in ("f55", "hc", "rbq", "reg", "radio", "lic") else "owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
             for k, d, (name, z, pid, street) in sorted(out[lane]):
                 cc = want[(lane, k)][0]
                 w.writerow([k, d, "the owner's own street address (%s, %s %s)" % (street[:60], "ZIP code" if cc == "US" else "postcode", z) if cc == "US" else
@@ -578,6 +601,7 @@ def main():
     ap.add_argument("--dir", default="", help="a glob of local parquet files with the columns name, website, postcode, region, country, id (tests)")
     ap.add_argument("--release", default="")
     ap.add_argument("--files", type=int, default=0, help="addr: read only the first N parquet files of the release (tests)")
+    ap.add_argument("--lic-dir", default="", help="addr --lanes lic: the folder of the licence lists (out/ of tools/biz_licences.py pull)")
     a = ap.parse_args()
     {"verify": verify, "addr": addr}.get(a.cmd, query)(a)
 

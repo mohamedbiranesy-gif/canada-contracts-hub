@@ -547,8 +547,132 @@ def lead_of(o):
     return row, det
 
 
+LDIR = os.path.join(INC, "licences")
+ADDR = os.path.join(INC, "overture", "lic_addr_candidates.csv")  # tools/overture_names.py addr --lanes lic
+ADONE = os.path.join(LDIR, "addr_done.tsv")
+
+
+def addr_sites(a):
+    """2026-11-13: licensees (organisations) that no organisation on file matched: the websites an Overture Maps place at the licence's own
+    postal code lists. The lane's own rule decides, read on the site's own pages: the names agree (the licence's legal or trade name and the
+    site's own name, title or copyright line) AND the site prints the licence's postal code, telephone or street number and street.
+    -> out/licence_leads_addr.jsonl (the records `merge` reads), out/lic_addr_done.tsv"""
+    import ap_crawler as C
+    import lead_crawl as LC
+    import tech_relationships as T
+    from concurrent.futures import ThreadPoolExecutor
+    import threading
+    os.makedirs("out", exist_ok=True)
+    os.makedirs(C.STATE, exist_ok=True)
+    C.HOST_INTERVAL = 0.6
+    if not os.path.exists(ADDR):
+        print("no candidates (tools/overture_names.py addr --lanes lic)", flush=True)
+        return
+    lic = {}
+    for f in sorted(glob.glob(os.path.join(a.dir, "licences_*.csv.gz"))):
+        with gzip.open(f, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                lic["%s:%s" % (r["src"], r["number"])] = r
+    have = set()
+    for p_ in glob.glob(os.path.join(SHARDS, "leads_lic_*.gz")):
+        with gzip.open(p_, "rt", encoding="utf-8", newline="") as fh:
+            have |= {r["buyer_key"] for r in csv.DictReader(fh)}
+    done = {l.split("\t")[0] for l in open(ADONE, encoding="utf-8")} if os.path.exists(ADONE) else set()
+    cand = collections.defaultdict(list)
+    for r in csv.DictReader(open(ADDR, encoding="utf-8", newline="")):
+        k = r["key"]
+        if k in lic and k not in done and ("lead:" + hashlib.sha1(("lic|%s|%s" % tuple(k.split(":", 1))).encode()).hexdigest()[:16]) not in have:
+            cand[k].append(r)
+    todo = sorted(cand)
+    if a.limit:
+        todo = todo[:a.limit]
+    print("licensees with a place at their own postal code that lists a website: %d" % len(todo), flush=True)
+    deadline = time.time() + a.minutes * 60
+    lock, stats = threading.Lock(), collections.Counter()
+    fo = open("out/licence_leads_addr.jsonl", "a", encoding="utf-8")
+    fd = open("out/lic_addr_done.tsv", "a", encoding="utf-8")
+
+    def page(url):
+        if not C.allowed(url):
+            return "", url
+        st, ct, data, final = C.fetch(url, 1_500_000)
+        if st != 200 or not data:
+            return "", final
+        return data.decode("utf-8", "replace"), final
+
+    def one(k):
+        if time.time() > deadline:
+            return
+        r = lic[k]
+        got = ""
+        for c in cand[k]:
+            dom = c["site"]
+            try:
+                raw, final = page("https://%s/" % dom)
+                if not raw:
+                    continue
+                fhost = (urllib.parse.urlparse(final).hostname or dom).lower()
+                title, meta = T.page_meta(raw)
+                sn = LC.site_name_for(fhost, meta.get("og:site_name"), title, T) or ""
+                text = C.visible(raw)
+                cp = re.search(r"(?:©|&copy;|copyright)\s*(?:\d{4}\s*[-–]?\s*\d{0,4})?\s*([^|.\n]{3,80})", text, re.I)
+                names = [x for x in (sn, title, cp.group(1).strip() if cp else "") if x]
+                if not names or not lic_agrees(names, r):
+                    continue
+                pages = [text]
+                for link, label in C.links(raw, final):
+                    p_ = urllib.parse.urlparse(link)
+                    if (p_.scheme in ("http", "https") and C.registrable((p_.hostname or "").lower()) == C.registrable(fhost)
+                            and re.search(r"contact|joindre|nous-joindre|coordonn|about|propos", p_.path + " " + label, re.I)):
+                        r2, f2 = page(link.split("#")[0])
+                        if r2:
+                            pages.append(C.visible(r2))
+                        break
+                proof = ""
+                for t in pages:
+                    if len(r["postal"]) == 6 and re.search(r"(?<![A-Za-z0-9])%s\s?%s(?![A-Za-z0-9])" % (r["postal"][:3], r["postal"][3:]), t, re.I):
+                        proof = "the licence's postal code %s %s" % (r["postal"][:3], r["postal"][3:]); break
+                    if len(r["phone"]) == 10 and re.search(r"(?<!\d)\(?%s\)?[\s.\-]{0,3}%s[\s.\-]{0,3}%s(?!\d)" % (r["phone"][:3], r["phone"][3:6], r["phone"][6:]), t):
+                        proof = "the licence's telephone number"; break
+                    sk = street_key(r["address"])
+                    if sk and re.search(r"(?<![\d-])%s[A-Za-z]?\s+%s\b" % (re.escape(sk[0]), re.escape(sk[1])), norm(t)):
+                        proof = "the licence's street number and street (%s %s)" % sk; break
+                if not proof:
+                    continue
+                o = dict(host=fhost[4:] if fhost.startswith("www.") else fhost, org_names=names[:3], org_address=(r["address"] + ", " + r["city"])[:200],
+                         basis="an Overture Maps place at the licence's own postal code lists this website (“%s”, place %s, release %s); its own pages print %s; names agree (%s ~ %s)" % (
+                             c["place_name"], c["place_id"], c["release"], proof, names[0][:60], (r["trade"] or r["name"])[:60]),
+                         licences_of_this_licensee=1, lic=r)
+                with lock:
+                    fo.write(json.dumps(o, ensure_ascii=False) + "\n")
+                got = dom
+                break
+            except Exception:
+                continue
+        with lock:
+            fd.write("%s\t%s\n" % (k, got))
+            stats["asked"] += 1
+            stats["tied"] += bool(got)
+            stats["tied: %s" % r["src"]] += bool(got)
+            if stats["asked"] % 500 == 0:
+                fo.flush(); fd.flush()
+                print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
+    with ThreadPoolExecutor(a.workers) as ex:
+        list(ex.map(one, todo))
+    fo.close(); fd.close()
+    print("addr: %s" % dict(stats), flush=True)
+
+
 def merge(a):
     os.makedirs(SHARDS, exist_ok=True)
+    os.makedirs(LDIR, exist_ok=True)
+    _ad = os.path.join(a.dir, "lic_addr_done.tsv")
+    if os.path.exists(_ad):  # 2026-11-13: licensees asked with the places at their own postal code
+        _old = set(open(ADONE, encoding="utf-8").read().splitlines()) if os.path.exists(ADONE) else set()
+        with open(ADONE, "a", encoding="utf-8") as _f:
+            for l in open(_ad, encoding="utf-8").read().splitlines():
+                if l and l not in _old:
+                    _f.write(l + "\n"); _old.add(l)
     stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
     have = set()
     for p in glob.glob(os.path.join(SHARDS, "leads_lic_*.gz")):
@@ -579,15 +703,18 @@ def merge(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["probe", "pull", "match", "merge"])
+    ap.add_argument("cmd", choices=["probe", "pull", "match", "merge", "addr-sites"])
     ap.add_argument("dir", nargs="?", default="out")
     ap.add_argument("--only", default="")
     ap.add_argument("--stamp", default="")
+    ap.add_argument("--minutes", type=float, default=40)
+    ap.add_argument("--workers", type=int, default=30)
+    ap.add_argument("--limit", type=int, default=0)
     a = ap.parse_args()
     n = load_descriptors()
     if n:
         print("registers described in files: %d (%s)" % (n, ", ".join(k for k, S in SOURCES.items() if S.get("payee_read") or S["kind"] in ("csv", "arcgis", "file"))), flush=True)
-    {"probe": probe, "pull": pull, "match": match, "merge": merge}[a.cmd](a)
+    {"probe": probe, "pull": pull, "match": match, "merge": merge, "addr-sites": addr_sites}[a.cmd](a)
 
 
 if __name__ == "__main__":
