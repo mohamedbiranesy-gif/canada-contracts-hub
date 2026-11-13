@@ -29,9 +29,9 @@ that finished 200 sites or more; the hourly timer and the keeper start the rest.
   The rest were unreachable (~172,000), blocked or barred by robots (~80,000).
 - registry-locate: run 1 located 2,818 of 36,313 (REQ 1,396, Corporations Canada 1,422); v2 (a Québec other name declared by one body only,
   distinctive name, Québec telephone number) +662. tm-sites +982 and pt-sites +497/+191 from the Foursquare candidates.
-- Prepared for the owner (coord/DECISIONS.md 14:30Z): utilities abroad owned by Canadian companies as billers by location — the only pool of
-  the size of the gap (published counts: Enbridge's three U.S. gas utilities ~3 million accounts, Emera's Florida/New Mexico/Caribbean ~2.1
-  million, Fortis's Arizona/Cayman ~0.6 million); not built.
+- Prepared for the owner (coord/DECISIONS.md 14:30Z, corrected 14:45Z): electric utilities abroad owned by Canadian companies as billers by
+  location (Tampa Electric 840,000 customers, the Tucson-area utilities ~566,000, Central Hudson, Green Mountain Power, Versant Power, Liberty's,
+  the Caribbean ones); gas utilities do not qualify (not every premises has gas). Rough estimate 70,000-90,000 rows; not built until he answers.
 
 **2026-11-13 13:44Z — owner's word (07:47, 08:07 EST) and what started since:**
 - Decisions: Alberta water and workers' compensation — no; client lists — no rows (leads to investigate only); a subsidiary on its parent's site —
