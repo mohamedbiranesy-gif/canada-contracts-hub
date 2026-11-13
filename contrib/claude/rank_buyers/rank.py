@@ -2270,6 +2270,21 @@ def address_beside_mailbox(pc_text, quote, url):
         return ""  # (a quote that is page source, tags and all, is not cut into an address)
     a_ = _addr_from(quote[:mq.end()]) or ""
     return ("%s (as printed beside the organisation's mailbox on %s)" % (a_, url or "its own page")) if (len(a_) >= 18 and _STREET_WORD.search(a_) and re.match(r"\d", a_)) else ""
+def address_beside_mailbox_abroad(quote, url):
+    """rule 18: the organisation's address abroad as the page that prints its mailbox prints it — the words up to a U.S. ZIP code of the utilities'
+    states, or up to an address on an island a Caribbean utility serves whole (the strict patterns of tools/by_location.py) — when its own site's
+    facts gave none; "" when the quote is page source or holds no such address"""
+    q = re.sub(r"\s+", " ", quote or "")
+    if not q:
+        return ""
+    m = _BYLOC.US_ZIP_RX.search(q)
+    if not m:
+        m = next((rx.search(q) for _k, rx, _n, _l in _BYLOC._CARIB if rx.search(q)), None)
+    if not m or "<" in q[max(0, m.end() - 160):m.end()]:
+        return ""
+    a_ = re.sub(r"^\S*\s", "", q[max(0, m.end() - 120):m.end()])
+    a_ = re.split(r"\S+@\S+|\||•|·|(?i:\b(?:e-?mail|phone|tel|fax)\b\s*:?)", a_)[-1].strip(" ,;:|-")  # what follows the mailbox, a separator or a label
+    return ("%s (as printed beside the organisation's mailbox on %s)" % (a_, url or "its own page")) if (len(a_) >= 12 and re.search(r"\d", a_)) else ""
 def city_place(texts, url):
     """(distributor, address cell) when no postal code was read and the organisation's own page names a city that one distributor serves whole
     (tools/by_location.py: biller_for_city) — the cell says the city, where it was read and that it is a city, not a street address"""
@@ -2428,8 +2443,12 @@ for x in rows:
         loc, _ovtaddr = phone_place(k)
         if loc:
             n_ovt["rows that give way, to the distributor of the place listing their telephone number"] += 1
+    _pw_gw = ""
+    if not loc and _BYLOC.POINTS:  # rule 18: a place at a territory's edge, by the point of its website's own listing
+        loc, _pw_gw = _BYLOC.abroad_point(registrable(host_of(site or _lf.get("site") or "")), " ".join([x.get("buyer_address") or "", _lf.get("address") or ""]))
     if not loc:
         n_gw["… no distributor can be named for where it is (no postal code read, Alberta, or an area another utility serves)"] += 1; continue
+    _abr_gw = loc if loc.get("abroad") else None  # rule 18: a utility abroad that a Canadian company owns — its own jurisdiction, where and ownership sentence
     if registrable(host_of(loc["site"])) in (registrable(md), registrable(host_of(site))):
         continue
     b_addr = x.get("buyer_address") or (lf_cell(_lf, site or "") if _lf.get("address") else "") or _sa
@@ -2437,19 +2456,24 @@ for x in rows:
         b_addr = (b_addr + "; " if b_addr else "") + (_sa or _cityaddr or _ovtaddr or "")
     if b_addr.startswith("postal code "):
         b_addr = address_beside_mailbox(b_addr, x.get("email_evidence_quote") or "", x.get("email_evidence_url") or "") or b_addr
+    if _abr_gw and not b_addr.strip(" ;"):
+        b_addr = address_beside_mailbox_abroad(x.get("email_evidence_quote") or "", x.get("email_evidence_url") or "")
     g = int(x["grade"])
     prov, how = province_of(k, e, site, x.get("email_evidence_quote") or "")
     GAVE_WAY[k] = "%s — %s — is on file for this organisation and is not what the row stands on: %s" % ((x.get("vendor") or "").strip(), re.sub(r"\s+", " ", cs)[:260].rstrip(" .,;:"), why)
-    new = {"jurisdiction": "", "_jur": prov or _PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) or "CA", "rank_group": "I%d" % g, "completeness_score": 3 * 10 + g * 6 + 3,
+    new = {"jurisdiction": "", "_jur": (_abr_gw["jur"] if _abr_gw else None) or prov or _PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) or "CA", "rank_group": "I%d" % g, "completeness_score": 3 * 10 + g * 6 + 3,
            "buyer": x.get("buyer") or "", "buyer_website": site, "buyer_address": b_addr,
            "email": e, "email_type": x.get("email_type") or "", "email_check": "confirmed", "email_evidence_url": x.get("email_evidence_url") or "", "email_evidence_quote": x.get("email_evidence_quote") or "",
-           "contract_status": _BYLOC.status(loc, _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(x.get("email_evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])),
+           "contract_status": (_BYLOC.status(loc, _BYLOC.abroad_where(b_addr)[1] or _BYLOC.abroad_where(x.get("email_evidence_quote") or "")[1] or _pw_gw or "its printed address") if _abr_gw else
+                               _BYLOC.status(loc, _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(x.get("email_evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1]))),
            "source": _src_loc(b_addr),
            "vendor": "inferred: " + loc["name"], "vendor_address": loc["address"], "vendor_website": loc["site"],
-           "vendor_country_basis": "%s, %s: '%s'" % (loc.get("address_source") or "the vendor's own site", loc["address_url"], loc["address_quote"]),
+           "vendor_country_basis": (_BYLOC.ownership_sentence(loc) if _abr_gw else "%s, %s: '%s'" % (loc.get("address_source") or "the vendor's own site", loc["address_url"], loc["address_quote"])),
            "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True}
     x.clear(); x.update(new)
     n_gw["… given to the distributor of the organisation's address: %s" % loc["name"]] += 1
+    if _abr_gw:
+        n_ovt["rows by where the organisation is abroad — a utility a Canadian company owns (rule 18), given way to: %s" % loc["key"]] += 1
 print("rows that give way to the biller their address has by law:", dict(sorted(n_gw.items(), key=lambda kv: -kv[1])))
 SPC13 = {}
 CITY13 = {}  # 2026-11-12: the city an organisation's own page names, when no postal code was read (rank: P13 by where it is)
@@ -2593,6 +2617,8 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         name = _lf["site_name"]  # the lead only carried the domain: the organisation's own home page names it (as apply_details does for a lead's row)
     _abr = _BYLOC.BY_KEY.get(vid[4:]) if vid.startswith("LOC:") else None
     _abr = _abr if (_abr or {}).get("abroad") else None  # rule 18: a utility abroad that a Canadian company owns
+    if _abr and not b_addr:
+        b_addr = address_beside_mailbox_abroad(m.get("evidence_quote") or "", m.get("evidence_url") or "")
     rows.append({"jurisdiction": "", "_jur": (_abr["jur"] if _abr else None) or prov or (_PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) if vid.startswith("LOC:") else "") or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
         "buyer": name, "buyer_website": site, "buyer_address": b_addr,
         "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",
