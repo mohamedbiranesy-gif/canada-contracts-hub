@@ -58,7 +58,8 @@ def us_state_code(s):
 GB_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})(?![A-Za-z0-9])")
 AU_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(NSW|VIC|QLD|TAS|ACT)\s+(\d{4})(?!\d)")
 # 2026-11-13 (rule 18, utilities abroad): the islands a Caribbean utility owned by a Canadian company serves whole — an address that names one
-KY_ADDR = re.compile(r"(?<![A-Za-z0-9])(?:KY1-\d{4}|Grand Cayman)(?![A-Za-z0-9])")
+# (2026-11-13 16:35Z: "Grand Cayman" alone is a destination, not an address — a postal code, or a post office box or a numbered street before it)
+KY_ADDR = re.compile(r"(?<![A-Za-z0-9])(?:KY1-\d{4}|(?:P\.?\s?O\.?\s?Box|Box)\s+\d+[^.\n]{0,60}?Grand Cayman|\d+[A-Za-z]?\s+[A-Z][A-Za-z']+(?:\s+[A-Z][A-Za-z']+)?\s+(?:Road|Street|Avenue|Drive|Way|Lane|Crescent|Boulevard|Blvd|Rd|St|Ave|Dr)\.?,?[^.\n]{0,40}?Grand Cayman)(?![A-Za-z0-9])")
 BB_ADDR = re.compile(r"(?<![A-Za-z0-9])(?:BB\d{5}|(?:St\.?|Saint) (?:Michael|James|Peter|Andrew|Thomas|Joseph|John|Philip|George|Lucy),? Barbados|Bridgetown,? Barbados|Christ Church,? Barbados)(?![A-Za-z0-9])")
 BM_ADDR = re.compile(r"(?<![A-Za-z0-9])(?:HM|DV|FL|CR|GE|MA|SN|WK|SB|DD|BB|HS|PG) ?\d{2},? Bermuda(?![A-Za-z0-9])")
 SFDONE = os.path.join(INC, "claude_site_facts_done.tsv")

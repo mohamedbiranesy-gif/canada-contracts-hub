@@ -227,9 +227,12 @@ for _b in ABROAD:
     BY_NAME[_b["name"]] = _b
 _US_STATES = ("FL|Fla\\.?|Florida|AZ|Ariz\\.?|Arizona|NY|N\\.Y\\.|New York|VT|Vt\\.|Vermont|ME|Maine|NH|N\\.H\\.|New Hampshire|CA|Calif\\.?|California|NV|Nevada")
 US_ZIP_RX = re.compile(r"(?<![A-Za-z0-9])(?:" + _US_STATES + r")\.?,?\s+(\d{5})(?:-\d{4})?(?![0-9])")
-_CARIB = [("ky_caribbean_utilities", re.compile(r"\bKY1-\d{4}\b|Grand Cayman|Cayman Islands", re.I), re.compile(r"Cayman Brac|Little Cayman|KY2-", re.I), "Grand Cayman"),
-          ("bb_blpc", re.compile(r"\bBB\d{5}\b|\bBarbados\b", re.I), None, "Barbados"),
-          ("bm_belco", re.compile(r"\bBermuda\b|\b(?:HM|DV|FL|CR|GE|MA|SN|WK|SB|DD|BB|HS|PG)\s?\d{2}\b(?=[^A-Za-z]{0,6}Bermuda)", re.I), None, "Bermuda")]
+# (2026-11-13 16:35Z: the name of an island alone is a destination — a travel agency's page, a supplier's "we ship to Barbados" — not where the
+# organisation is: an island counts only with an address on it, the same patterns as the mailbox reader's site facts, tools/lead_crawl.py)
+_CARIB = [("ky_caribbean_utilities", re.compile(r"\bKY1-\d{4}\b|(?:P\.?\s?O\.?\s?Box|Box)\s+\d+[^.\n]{0,60}?Grand Cayman|\d+[A-Za-z]?\s+[A-Z][A-Za-z']+(?:\s+[A-Z][A-Za-z']+)?\s+"
+                                           r"(?:Road|Street|Avenue|Drive|Way|Lane|Crescent|Boulevard|Blvd|Rd|St|Ave|Dr)\.?,?[^.\n]{0,40}?Grand Cayman"), re.compile(r"Cayman Brac|Little Cayman|KY2-", re.I), "Grand Cayman"),
+          ("bb_blpc", re.compile(r"\bBB\d{5}\b|(?:St\.?|Saint) (?:Michael|James|Peter|Andrew|Thomas|Joseph|John|Philip|George|Lucy),? Barbados|Bridgetown,? Barbados|Christ Church,? Barbados"), None, "Barbados"),
+          ("bm_belco", re.compile(r"\b(?:HM|DV|FL|CR|GE|MA|SN|WK|SB|DD|BB|HS|PG) ?\d{2},? Bermuda\b"), None, "Bermuda")]
 
 
 def abroad_where(text):
