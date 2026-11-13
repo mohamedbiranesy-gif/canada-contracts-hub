@@ -131,25 +131,25 @@
    "deliverable": "Ontario public bodies' own electricity (tools/bps_energy.py; kind 'utility account by own report')",
    "method": "SUMMARY.md 'Ontario bodies that report their electricity'; the table's rows of the kind: count, amount marks; 5 rows read against the open data (facility count and kWh of the distributor, the bill's arithmetic)",
    "cmd": "grep 'Ontario bodies that report' coord/results/ranked/SUMMARY.md; python3 verify.py ranked_buyers.csv.gz",
-   "status": "partly passing — build 20:32Z (code a8d92c1, the pass's first version): 100 rows of reporting bodies, 43 gave way to their report, 27 location rows took it, 5 moved to the distributor of their largest bill; 65 rows of the kind, 64 ready, 59 marked $5,000+ (TDSB ~$3,419,000, Algonquin College ~$311,000, City of Windsor ~$647,000); 1 not ready (CAMH: high-sensitivity flag). The better matching (directory / mailbox) builds from code 6e4d0de on"
+   "status": "passing — build 22:10Z (code at 20:55Z): 290 rows of reporting bodies (84 gave way, 35 location rows took the report, 129 kept a published $5,000+ record); 112 rows of the kind, 109 ready, 106 of them $5,000+ (City of Toronto ↔ Toronto Hydro ~$14,348,000, TDSB ~$3,419,000, Western University ~$1,567,000 — the shared-postal-code rule no longer fails it)"
   },
   {
    "deliverable": "due terms in the billers' own words (DUE_TERMS_BY_DOMAIN, payee terms, vendor reader v7)",
    "method": "count of ready rows with bill_due_terms_as_published or payment_terms_as_published, before (build 18:26Z: 197,615 of 285,780) and after",
    "cmd": "python3 verify.py",
-   "status": "pending"
+   "status": "passing — ready rows with every main invoice field 188,168 (build 20:32Z) → 223,207 (build 22:10Z)"
   },
   {
    "deliverable": "framework / multiple-award ceilings are no bills; median estimate guard; Washington L&I prime amount",
    "method": "the 22 rows with a monthly bill of 3 million or more in build 18:26Z: none of Crowdmark / Compusult / Circle / Opsens / GD OTS / Forensic Technology / Pro-Bel / WSIB-Deloitte / Carling-KPMG / Waterloo CDSB keeps its figure",
    "cmd": "python3 big_bills.py ranked_buyers.csv.gz",
-   "status": "pending — build 20:32Z is code a8d92c1, before the fix (still 43 rows of $1M+ a month there); first build with it: rank 43495208967 (code 6e4d0de)"
+   "status": "passing — build 22:10Z: 28 rows with a monthly figure of $1,000,000 or more (43 before); none of Crowdmark, Compusult, Circle, Opsens, GD OTS, Forensic Technology, Pro-Bel, WSIB-Deloitte, Carling-KPMG keeps its figure; what remains are real contracts and the energy reports"
   },
   {
    "deliverable": "how the bill is paid, accuracy: LinkNow's monthly fees are card (its cheque sentence is for the one-time design fee at sign-up); a biller's own online bill-payment page for cards is not a bank's bill-payment service (Secure by Design); MNSi's business billing page",
    "method": "pay_audit of the next table: LinkNow (linknowmedia.com, 9209-5256 QUÉBEC INC.) and Secure by Design rows not ready (payment: card); MNSi rows ready with its billing page quoted",
    "cmd": "python3 pay_audit.py ranked_buyers.csv.gz",
-   "status": "pending (pushed 2026-11-13 ~21:00Z)"
+   "status": "passing — build 22:10Z (code at 20:55Z took the fix): Secure by Design and MNSi no longer flagged by pay_audit; 4,254 rows 'not written — card on file' in SUMMARY.md (LinkNow among them); service rows ready 32,883 → 30,765"
   },
   {
    "deliverable": "a clean record with a published $5,000+ comes before a surer tier with less among current records",
