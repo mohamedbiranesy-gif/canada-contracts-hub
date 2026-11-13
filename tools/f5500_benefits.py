@@ -275,12 +275,14 @@ def cmd_sites(a):
 
     def one(b):
         n = HR.core(b["name"])
+        import tm_register as TM
         for c in addr.get(b["key"], ()):
             d = c["site"]
             if HR.BAD.search(d):
                 continue
             said = HR.home_says(d, n)
-            pcs = "" if said else HR.pc_on_home(d, b["zip"], "united states", contact=True)
+            # the ZIP code printed counts only when the place at the address is under the sponsor's own name (every tenant prints it)
+            pcs = "" if (said or not TM.place_fits(b["name"], c.get("place_name") or "")) else HR.pc_on_home(d, b["zip"], "united states", contact=True)
             lg = "" if (said or pcs) else legal_says(d, b["name"])
             if said or pcs or lg:
                 how = (("carries the sponsor's name: “%s”" % said) if said else ("prints the sponsor's ZIP code: “%s”" % HR.no_mail(pcs)) if pcs else

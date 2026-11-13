@@ -368,6 +368,15 @@ def _legal_norm(s):
     return " %s " % nkey_raw(s.replace(".", " "))
 
 
+def place_fits(org_name, place_name):
+    """a place's name that is the organisation's: a distinctive word (four letters or more, not an everyday one) both names share — the test a
+    place at the organisation's own ADDRESS must pass before the postal code printed on its site can count (every tenant of a building prints
+    that code: 2026-11-13, 'NOVARTIS PHARMACEUTICALS CANADA INC' and a fitness club at the same postal code)"""
+    a_ = {t for t in nkey_x(org_name).split() if len(t) >= 4 and t not in GENERIC}
+    b_ = {t for t in nkey_x(place_name).split() if len(t) >= 4 and t not in GENERIC}
+    return bool(a_ & b_)
+
+
 def legal_name_page(raw, final, fdom, owner_name, cache):
     """(url, the words around it, pages read) when one of the site's own terms / privacy / legal-notice pages linked from its home page prints
     the owner's full legal name WITH its legal form (at least three words: 'Zoetis Services LLC', 'Merck Sharp & Dohme LLC'), else ("", "", n)"""

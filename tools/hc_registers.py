@@ -589,7 +589,8 @@ def addr_pass(cos, have, w, f, minutes, threads):
                 strict = (ca and not d.endswith(".ca")) or (multi and d.rsplit(".", 1)[-1] in GENERIC)
                 try:
                     said = "" if strict else home_says(d, n)
-                    pcs = "" if said else pc_on_home(d, o.get("postal_code") or "", o.get("country") or "", contact=True)
+                    # the postal code printed counts only when the place at the address is under the company's own name (every tenant prints it)
+                    pcs = "" if (said or not TM.place_fits(o["name"], c.get("place_name") or "")) else pc_on_home(d, o.get("postal_code") or "", o.get("country") or "", contact=True)
                     lg = "" if (said or pcs) else legal(d, o["name"])
                 except Exception:
                     said, pcs, lg = "", "", ""
