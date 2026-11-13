@@ -770,6 +770,8 @@ def owner_test(x):
         out.append("relationship: %d organisations print this postal code — a tower, a campus, a business centre or a mail service, where an account of its own is unlikely" % n_shared)
     if (x.get("sensitivity_flag") or "") == "yes":
         out.append("flag: " + ((x.get("sensitivity_tag") or "sensitive buyer").split(":")[0][:70]))
+    if _has(x, "buyer_name_fault"):
+        out.append("buyer not named: " + x["buyer_name_fault"][:120])  # AGENTS.md §2.2 (rank.py: an image's file name as the name, and no site of its own)
     if _has(x, "vendor_registry_warning"):
         out.append("flag: vendor registry warning")
     # 2026-11-12 (rule 13: a field nothing published fills is named on the row and no longer takes it out): the purchase-order number a buyer
