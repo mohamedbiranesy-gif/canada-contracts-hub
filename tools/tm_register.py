@@ -594,10 +594,12 @@ def sites(a):
             if os.path.exists(p_):
                 for r in csv.DictReader(open(p_, encoding="utf-8", newline="")):
                     ovt[r["owner_key"]].append(r)
-    if use_ror and os.path.exists(ROR_SITES):
-        for r in csv.DictReader(open(ROR_SITES, encoding="utf-8", newline="")):
-            r["source"] = "ror"
-            ovt[r["owner_key"]].append(r)
+    if use_ror:  # the registries' listed websites: ROR, then Wikidata (each row says its source)
+        for p_, src_ in ((ROR_SITES, "ror"), (WD_SITES, "wikidata")):
+            if os.path.exists(p_):
+                for r in csv.DictReader(open(p_, encoding="utf-8", newline="")):
+                    r["source"] = r.get("source") or src_
+                    ovt[r["owner_key"]].append(r)
     use_ovt = bool(ovt)
     for path, here in ((OWN_CA, True), (OWN_XX, False)):  # "one owner of that name on the register" counts both files
         with gzip.open(path, "rt", encoding="utf-8", newline="") as f:
@@ -608,7 +610,7 @@ def sites(a):
                 by_name_x[nkey_x(r["owner_name"])] += 1
                 if r["owner_key"] in tied or int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n != k:
                     continue
-                if (r["owner_key"] in done_legal) if use_legal else (r["owner_key"] in done_ror) if use_ror else (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done_cb) if use_cb else (r["owner_key"] in done):
+                if (r["owner_key"] in done_legal) if use_legal else (all(REG_SRC.get(v.get("source"), ("", "?"))[1] in marks_of.get(r["owner_key"], set()) for v in ovt.get(r["owner_key"], ()))) if use_ror else (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done_cb) if use_cb else (r["owner_key"] in done):
                     continue
                 if use_ovt and r["owner_key"] not in ovt:
                     continue
@@ -727,19 +729,20 @@ def sites(a):
                     how = "the same name (%s), on a domain name that is the owner's name written out; a site in the owner's state (%s, %s); one owner of that name on the register" % (
                         "site name" if kf(names.get("site name") or "") == ok_ else "its own statement", o["_state"], ABROAD[cc][0])
                 _l = listed.get(h)
-                if not how and _l and _l.get("source") == "ror" and sn.startswith("the same name") and (state_ok or code_ok) and len(ok_.split()) + len(ok_) >= 7:
+                if not how and _l and _l.get("source") in REG_SRC and sn.startswith("the same name") and (state_ok or code_ok) and len(ok_.split()) + len(ok_) >= 7:
                     # 2026-11-13: two sources agree — the Research Organization Registry lists THIS website for the organisation of the owner's very
                     # name in its country, and the site's own pages state that name with an address of the owner's state (or country)
-                    how = "the same name (%s) and an address of the owner's %s (%s) on the site; the Research Organization Registry lists this website for the organisation of that name in %s (%s)" % (
+                    how = "the same name (%s) and an address of the owner's %s (%s) on the site; " + REG_SRC[_l["source"]][0] + " the organisation of that name in %s (%s)"
+                    how = how % (
                         sn.split("(", 1)[1].split(")")[0], "state" if o["_state"] else "country", o["_state"] or ABROAD[cc][0], ABROAD[cc][0], _l["place_id"])
-                if (not how and _l and _l.get("source") == "ror" and sn.startswith("the same name") and len(ok_.split()) >= 2 and len(ok_) >= 10
+                if (not how and _l and _l.get("source") in REG_SRC and sn.startswith("the same name") and len(ok_.split()) >= 2 and len(ok_) >= 10
                         and any(t not in GENERIC and len(t) >= 4 for t in ok_.split()) and bn[ok_] == 1):
                     # 2026-11-13 07:32Z: three sources agree — the register's owner name, the Research Organization Registry's record of that very name
                     # in the owner's country with THIS website, and the site's own statement of that name (no address of the owner's state read on
                     # its pages: a university's or an institute's site often prints none on its home page); one owner of that name on the register
-                    how = "the same name (%s) on the site; the Research Organization Registry lists this website for the organisation of that very name in %s (%s); one owner of that name on the register" % (
+                    how = ("the same name (%s) on the site; " + REG_SRC[_l["source"]][0] + " the organisation of that very name in %s (%s); one owner of that name on the register") % (
                         sn.split("(", 1)[1].split(")")[0], ABROAD[cc][0], _l["place_id"])
-                if not how and _l and _l.get("source") != "ror" and sn and (sn.startswith("the same name") or _l["how"].startswith("the owner's own ")) and len(ok_.split()) + len(ok_) >= 7:
+                if not how and _l and _l.get("source") not in REG_SRC and sn and (sn.startswith("the same name") or _l["how"].startswith("the owner's own ")) and len(ok_.split()) + len(ok_) >= 7:
                     # 2026-11-12: two sources agree — an Overture Maps place lists THIS website under the owner's name at the register's postal
                     # code (or in its state, and the site prints an address of that state), and the site's own pages state that name
                     if _l["how"].startswith("the same name at the same"):
@@ -763,8 +766,8 @@ def sites(a):
                     # runs it, and the place's listing is the second fact (a subsidiary on its group's site: "Zoetis Services LLC" on zoetis.com)
                     _lu, _lq, _ln = legal_name_page(raw, final, fdom, o["owner_name"], cache)
                     n_read += _ln
-                    if _lu and _l.get("source") == "ror":
-                        how = "the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); the Research Organization Registry lists this website for the organisation of that name (%s)" % (
+                    if _lu and _l.get("source") in REG_SRC:
+                        how = ("the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); " + REG_SRC[_l["source"]][0] + " the organisation of that name (%s)") % (
                             _lu, _lq, _l["place_id"])
                     elif _lu:
                         how = "the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); an Overture Maps place %s lists this website (place %s)" % (
@@ -779,8 +782,8 @@ def sites(a):
                 else:
                     _lst = listed.get(h)
                     hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["_code"], "tied_by": how,
-                           "site_facts_from": ("its own pages (%s), found as the website the Research Organization Registry lists for the owner's name in its country (“%s”, %s; ROR data %s)" % (
-                               where, _lst["place_name"], _lst["place_id"], _lst["release"]) if _lst and _lst.get("source") == "ror" else
+                           "site_facts_from": ("its own pages (%s), found as the website %s lists for the owner's name in its country (“%s”, %s; data of %s)" % (
+                               where, REG_SRC[_lst["source"]][2], _lst["place_name"], _lst["place_id"], _lst["release"]) if _lst and _lst.get("source") in REG_SRC else
                                                "its own pages (%s), found as the website an Overture Maps place lists %s (“%s”, %s; %s, release %s)" % (
                                where, "at the owner's own address" if _lst["how"].startswith("the owner's own ") else "for the owner's name",
                                _lst["place_name"], _lst["place_postcode"], _lst["how"], _lst["release"]) if _lst else
@@ -819,18 +822,18 @@ def sites(a):
                 # One owner of that name on the register.
                 how = "the same name (%s), on a domain name that is the owner's name written out; a site in Canada (%s); one owner of that name on the register" % (
                     "site name" if nkey(names.get("site name") or "") == ok_ else "its own statement", ("it prints the postal code %s, the register has %s" % (pc, o["postal_code"])) if pc else "a .ca name, no postal code on the pages read")
-            if (not how and listed.get(h) and listed[h].get("source") == "ror" and pc and len(ok_.split()) + len(ok_) >= 7
+            if (not how and listed.get(h) and listed[h].get("source") in REG_SRC and pc and len(ok_.split()) + len(ok_) >= 7
                     and same_name(ok_, names, "M5V2T6").startswith("the same name")):
                 # 2026-11-13: two sources agree — the Research Organization Registry lists THIS website for the organisation of the owner's very
                 # name in Canada, and the site's own pages state that name with a Canadian postal code
-                how = "the same name (%s) and a Canadian postal code on the site (%s; the register has %s); the Research Organization Registry lists this website for the organisation of that name in Canada (%s)" % (
+                how = ("the same name (%s) and a Canadian postal code on the site (%s; the register has %s); " + REG_SRC[listed[h]["source"]][0] + " the organisation of that name in Canada (%s)") % (
                     same_name(ok_, names, "M5V2T6").split("(", 1)[1].split(")")[0], pc, o["postal_code"], listed[h]["place_id"])
-            if (not how and listed.get(h) and listed[h].get("source") == "ror" and not pc and len(ok_.split()) >= 2 and len(ok_) >= 10
+            if (not how and listed.get(h) and listed[h].get("source") in REG_SRC and not pc and len(ok_.split()) >= 2 and len(ok_) >= 10
                     and any(t not in GENERIC and len(t) >= 4 for t in ok_.split()) and by_name[ok_] == 1
                     and same_name(ok_, names, "M5V2T6").startswith("the same name")):
                 # three sources agree (the register, ROR's record of that very name in Canada with THIS website, the site's own statement); no
                 # postal code on the pages read; one owner of that name on the register
-                how = "the same name (%s) on the site; the Research Organization Registry lists this website for the organisation of that very name in Canada (%s); one owner of that name on the register" % (
+                how = ("the same name (%s) on the site; " + REG_SRC[listed[h]["source"]][0] + " the organisation of that very name in Canada (%s); one owner of that name on the register") % (
                     same_name(ok_, names, "M5V2T6").split("(", 1)[1].split(")")[0], listed[h]["place_id"])
             if not how and listed.get(h):
                 # 2026-11-13: a site an Overture Maps place at the owner's own postal code lists, whose own terms / privacy / legal page prints
@@ -839,8 +842,8 @@ def sites(a):
                 n_read += _ln
                 if _lu:
                     how = "the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); %s (%s)" % (
-                        _lu, _lq, "the Research Organization Registry lists this website for the organisation of that name" if listed[h].get("source") == "ror"
-                        else "an Overture Maps place at the owner's own postal code on the register lists this website (place", listed[h]["place_id"]) + ("" if listed[h].get("source") == "ror" else ")")
+                        _lu, _lq, (REG_SRC[listed[h]["source"]][0] + " the organisation of that name") if listed[h].get("source") in REG_SRC
+                        else "an Overture Maps place at the owner's own postal code on the register lists this website (place", listed[h]["place_id"]) + ("" if listed[h].get("source") in REG_SRC else ")")
                     where = _lu
             if not how:
                 # what stood between this site and a tie (counted, for the rule's next look)
@@ -851,8 +854,8 @@ def sites(a):
                         notes.append((o["owner_name"], o["postal_code"], fdom, pc, "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:90]))
             if how:
                 hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["postal_code"], "tied_by": how,
-                       "site_facts_from": ("its own pages (%s), found as the website the Research Organization Registry lists for the owner's name in Canada (“%s”, %s; ROR data %s)" % (
-                           where, listed[h]["place_name"], listed[h]["place_id"], listed[h]["release"]) if listed.get(h) and listed[h].get("source") == "ror" else
+                       "site_facts_from": ("its own pages (%s), found as the website %s lists for the owner's name in Canada (“%s”, %s; data of %s)" % (
+                           where, REG_SRC[listed[h]["source"]][2], listed[h]["place_name"], listed[h]["place_id"], listed[h]["release"]) if listed.get(h) and listed[h].get("source") in REG_SRC else
                                            "its own pages (%s), found as the website an Overture Maps place lists at the owner's own address (“%s”, %s; release %s)" % (
                            where, listed[h]["place_name"], listed[h]["place_postcode"], listed[h]["release"]) if listed.get(h) else
                                            "its own pages (%s), found under a domain name made of the owner's name or mark" % where),
@@ -866,8 +869,8 @@ def sites(a):
             if hit:
                 w.writerow(hit)
                 stats[hit["tied_by"].split(" (")[0]] += 1
-            mk = (set(marks_of.get(o["owner_key"], set())) | ({"overture"} if any(v.get("source") != "ror" for v in listed.values()) else set())
-                  | ({"ror2"} if any(v.get("source") == "ror" for v in listed.values()) else set()) | ({"clearbit"} if use_cb else set()) | ({"legal"} if use_legal and listed else set()))
+            mk = (set(marks_of.get(o["owner_key"], set())) | ({"overture"} if any(v.get("source") not in REG_SRC for v in listed.values()) else set())
+                  | {REG_SRC[v["source"]][1] for v in listed.values() if v.get("source") in REG_SRC} | ({"clearbit"} if use_cb else set()) | ({"legal"} if use_legal and listed else set()))
             fd.write("%s\t%s\t%d\t%d\t%s%s\n" % (o["owner_key"], TODAY, len(cands), len(live), hit["site"] if hit else "", ("\t" + ",".join(sorted(mk))) if mk else ""))
             stats["autocomplete domains read"] += len(cbs)
             stats["owners with a listed website"] += bool(listed)
@@ -1090,6 +1093,9 @@ OVT_ADDR_CA = os.path.join(DIR, "tm_overture_addr_ca_sites.csv")  # 2026-11-13: 
 # (tools/ror_sites.py) — read like the Overture candidates; a site counts only when its own pages state the owner's name (with an address of the
 # owner's state or country, or a Canadian postal code for an owner in Canada), or print its full legal name on the site's own legal page
 ROR_SITES = os.path.join(DIR, "tm_ror_sites.csv")
+WD_SITES = os.path.join(DIR, "tm_wd_sites.csv")  # 2026-11-13: Wikidata's official website (P856) of an item of the owner's very name in its country (tools/wikidata_sites.py)
+REG_SRC = {"ror": ("the Research Organization Registry lists this website for", "ror2", "the Research Organization Registry"),
+           "wikidata": ("Wikidata gives this website as the official website of", "wd", "Wikidata")}
 OVT_BUCKET = "https://overturemaps-us-west-2.s3.amazonaws.com"
 _SQL_FORMS = (r"\b(inc|incorporated|incorporee|ltd|ltee|limited|limitee|corp|corporation|co|company|compagnie|cie|llc|llp|lp|sencrl|senc|srl|enr|reg|regd|ulc|plc|"
               r"gmbh|sa|sas|ag|bv|nv|pty|the|la|le|les|l)\b")  # FORM, as RE2 reads it (DuckDB string literals keep the backslash)
