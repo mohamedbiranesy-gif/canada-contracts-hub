@@ -12,6 +12,15 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
 
+**2026-11-13 22:43Z — NEXT (for whoever picks this up; the owner's deadline is the 18th, lock-in by the 17th):**
+1. Build of 22:29Z start (rank 43518016787, ends ~00:10Z) carries: buyer-name accuracy, rule 19 by name (LLC / USA Inc.), foundations out of sponsorships,
+   dealers' shop terms off, members' benefit prices off the dues, province/postal-code conflicts, municipalities' electricity from residents (tools/muni_energy.py),
+   the $5,000+ record first among current records. Check: SUMMARY.md counters "municipalities outside Ontario", "buyer name", CHECKS.json pending items.
+2. The $5,000+ rows held for no mailbox: contrib/claude/c5k_mailboxes.py read 583 of their sites (results -> data/incoming/claude/claude_buyer_ap_results_c5k01.csv,
+   then the referee); contrib/claude/c5k_sites.py found sites for those with none (cb_sites_cb.csv) — read those sites with c5k_mailboxes.py --sites.
+3. Vendor reader v7 re-reads from 05:43Z (due terms); dispatch vendor-billing with minutes=150 if the cron run reads few.
+4. Build 22:10Z (measured): 301,184 ready; $5,000+ 2,873; every main field 223,207 (see docs/ROUTE_TO_1M.md update).
+
 **2026-11-13 21:31Z — measured on build 20:32Z (code a8d92c1, the energy-report pass's first version), then accuracy and $5,000+ work (all pushed; the
 next builds are 6e4d0de, running, and whatever main is when it ends):**
 - Build 20:32Z: 344,167 rows, **285,851 ready**; $5,000+ ready: 2,182 published + 708 estimated = **2,890**; every main invoice field on 188,168. Kinds ready:
