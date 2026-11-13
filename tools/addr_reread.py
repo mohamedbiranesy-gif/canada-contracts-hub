@@ -369,6 +369,134 @@ def read_one_legal(t):
     return out
 
 
+# 2026-11-13: a street address printed with its city and province but no postal code ("147 Wyndham Street North, Suite 302, Guelph, ON"), or the
+# one city the organisation's own contact page names. Two samples of 148 organisations that every earlier pass (text, JSON-LD, map, legal pages)
+# left unlocated, read again: 16 print a street address with its city and province and no postal code — 8 of them in a city every postal code of
+# which lies in one distributor's territory; 10 name one such city on their contact page. The city names the distributor
+# (tools/by_location.py biller_for_city: every postal code of the city in one territory; never a city split between two distributors, never
+# Alberta, never two cities of two distributors on one page). The quote starts at the street number (what stands before it is not quoted) and is
+# not kept when it names a person.
+_PROV_W = (r"(?:ON|Ont\.?|Ontario|QC|Qc|Qu[ée]bec|BC|B\.C\.|British Columbia|Colombie-Britannique|MB|Manitoba|SK|Sask\.?|Saskatchewan|NS|N\.S\.|Nova Scotia|"
+           r"Nouvelle-[ÉE]cosse|NB|N\.B\.|New Brunswick|Nouveau-Brunswick|NL|Newfoundland(?: and Labrador)?|PE|PEI|P\.E\.I\.|Prince Edward Island|YT|Yukon|NT|"
+           r"Northwest Territories|NU|Nunavut)")
+STREET_EN = re.compile(r"(?<![\w\-/()])(\d{1,6}[A-Za-z]?(?:-\d{1,6})?,?\s+(?:[A-ZÀ-Ý][\w'’.\-]*\s+|\d{1,3}(?:st|nd|rd|th)?\s+){0,5}?(?:Street|St\.?|Avenue|Ave\.?|"
+                       r"Road|Rd\.?|Boulevard|Blvd\.?|Boul\.?|Drive|Dr\.?|Way|Lane|Ln\.?|Crescent|Cres\.?|Court|Ct\.?|Place|Pl\.?|Highway|Hwy\.?|Parkway|Pkwy\.?|Trail|Line|"
+                       r"Sideroad|Concession|Circle|Square|Terrace|Gate|Row)\b(?:\s+(?:North|South|East|West|N|S|E|W|NE|NW|SE|SW)\.?)?"
+                       r"(?:[,\s·\-–]+(?:Suite|Unit|Bureau|Ste\.?|Apt\.?|Local|Floor|Room|#)\s*[\w\-]{1,6})?[^<>|\d]{0,45}?\b" + _PROV_W + r"\)?(?:\s*[,(]\s*" + _PROV_W + r"\)?)?)(?![\w])", re.U)
+STREET_FR = re.compile(r"(?<![\w\-/()])(\d{1,6}[A-Za-z]?,?\s+(?:rue|avenue|av\.|boulevard|boul\.?|chemin|ch\.|route|rang|place|mont[ée]e|c[ôo]te|promenade|all[ée]e)\s+"
+                       r"[^<>|\d]{2,60}?(?:[,\s\-–]+(?:bureau|local|suite|app\.?|#)\s*[\w\-]{1,6})?[^<>|\d]{0,45}?\b" + _PROV_W + r"\)?(?:\s*[,(]\s*" + _PROV_W + r"\)?)?)(?![\w])", re.I | re.U)
+_STREET_WORD = re.compile(r"\b(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Boul|Drive|Dr|Way|Lane|Ln|Crescent|Cres|Court|Ct|Place|Pl|Highway|Hwy|Parkway|Pkwy|"
+                          r"Trail|Line|Sideroad|Concession|Circle|Square|Terrace|Gate|Row|rue|avenue|av|boulevard|chemin|ch|route|rang|place|mont[ée]e|c[ôo]te|"
+                          r"promenade|all[ée]e)\b\.?", re.I)
+# a city named as a service area, not as where the organisation is ("Serving Winnipeg, Manitoba", "partout à Laval, QC")
+_SERVING = re.compile(r"(?i)\b(?:serv(?:ing|ice|ices|icing|ed)?|desserv\w*|across|throughout|surrounding|areas?|r[ée]gions?|partout|clients?|customers?|"
+                      r"deliver\w*|livr\w*|near|pr[èe]s de|from|depuis|to)\W*$")
+# a contact page, as its address or its menu label names it (not an "about" page, a client list or a portfolio)
+CONTACT_STRICT = re.compile(r"contact|joindre|coordonn|nous-trouver|find-us|location|directions|visit|hours|heures|adresse|address", re.I)
+
+
+def _person_in(q, street=False):
+    """a title or "Attn" anywhere; a given name and a surname — in a street address only between the street and the city (a street named after
+    a person, "990 Victoria Street", or a city, "Victoria, BC", is not a person)"""
+    if _TITLED.search(q):
+        return True
+    if street:
+        m = _STREET_WORD.search(q)
+        cm = list(BL.CITY_RX.finditer(q))
+        q = q[m.end() if m else 0:cm[-1].start() if cm else len(q)]
+    toks = re.findall(r"[A-Za-zÀ-ÿ'’\-]+", q)
+    return any(toks[i].lower() in _given() and toks[i][:1].isupper() and toks[i + 1][:1].isupper() for i in range(len(toks) - 1))
+
+
+# a date and an event, not an address ("Aug 22 Capital Pride Street Festival Ottawa, Ontario")
+_EVENT = re.compile(r"(?i)\b(?:festival|fair|foire|expo|market|march[ée]|show|concert|gala|parade|d[ée]fil[ée]|tournament|tournoi|conference|congr[èe]s|summit|"
+                    r"workshop|atelier|event|[ée]v[ée]nement|party|soir[ée]e|race|course|walk|marche|run)\b")
+_DATE_BEFORE = re.compile(r"(?i)\b(?:jan(?:uary|vier)?|feb(?:ruary)?|f[ée]v(?:rier)?|mar(?:ch|s)?|apr(?:il)?|avr(?:il)?|may|mai|june?|juin|july?|juil(?:let)?|aug(?:ust)?|ao[uû]t|"
+                         r"sept?(?:ember|embre)?|oct(?:ober|obre)?|nov(?:ember|embre)?|dec(?:ember)?|d[ée]c(?:embre)?|mon(?:day)?|tue(?:sday)?|wed(?:nesday)?|thu(?:rsday)?|fri(?:day)?|sat(?:urday)?|sun(?:day)?|lundi|mardi|mercredi|jeudi|"
+                         r"vendredi|samedi|dimanche)\.?,?\s*$")
+
+
+def street_city(raw):
+    """(address, quote) of a street address with its city and province, no postal code, in a city one distributor serves whole — or None.
+    A page that prints more than two different street addresses (a listing, a list of branches) gives none."""
+    t = re.sub(r"\s+", " ", C.visible(raw))
+    got, seen = None, set()
+    for rx in (STREET_EN, STREET_FR):
+        for m in rx.finditer(t):
+            q = html.unescape(m.group(1)).strip(" ,·|-–")
+            num = re.match(r"[\d\-A-Za-z]+", q).group(0)
+            seen.add((num, (_STREET_WORD.split(q, 1)[0].split()[1:2] or [""])[0].lower()))
+            if (got or len(q) > 200 or re.fullmatch(r"\d{3}-\d{4}", num) or BL.fsa_of(q) or _person_in(q, street=True) or THIRD.search(q) or _EVENT.search(q)
+                    or _DATE_BEFORE.search(t[max(0, m.start(1) - 16):m.start(1)])):
+                continue
+            if BL.biller_for_city(q):
+                got = (q, q)
+    return got if got and len(seen) <= 2 else None
+
+
+def contact_city(raw):
+    """("City, Province" as printed, the same words) when the page names cities of one distributor only, that distributor serves each city
+    whole, and the city is not named as a service area"""
+    t = re.sub(r"\s+", " ", C.visible(raw))
+    if not BL.biller_for_city(t):
+        return None
+    for m in BL.CITY_RX.finditer(t):
+        bc = BL.biller_for_city(m.group(0))
+        if not bc:
+            continue
+        city = bc[1].rsplit(",", 1)[0].strip()  # the city's words as printed ("Markham" of "Cartagena Software Limited Markham, Ontario")
+        j = m.group(0).rfind(city)
+        if j < 0:
+            continue
+        if _SERVING.search(t[max(0, m.start() + j - 40):m.start() + j]):
+            continue
+        q = html.unescape(m.group(0)[j:]).strip(" ,(")
+        if not _person_in(q):
+            return q, q
+    return None
+
+
+def read_one_city(t):
+    """the home page and up to three contact / about / location pages: a street address with its city (any of them), else the city a contact page
+    names"""
+    key, site = t["key"], t["site"]
+    raw, final, st = get(site)
+    out = {"key": key, "site": site, "date": TODAY, "status": st}
+    if raw is None:
+        return out
+    base = final if str(final).startswith("http") else site
+    home_dom = C.registrable(urllib.parse.urlparse(base).hostname or "")
+    pages, contact = [(base, raw)], []
+    seen = {base.rstrip("/")}
+    for u, lab in C.links(raw, base):
+        if len(pages) >= 4:
+            break
+        p = urllib.parse.urlparse(u)
+        if p.scheme not in ("http", "https") or C.registrable(p.hostname or "") != home_dom or u.rstrip("/") in seen:
+            continue
+        if not (CONTACT.search(p.path or "") or CONTACT.search(lab or "")) or re.search(r"\.(?:pdf|jpe?g|png|gif|zip|docx?)$", p.path or "", re.I):
+            continue
+        seen.add(u.rstrip("/"))
+        r2, f2, s2 = get(u)
+        if r2 is not None:
+            pages.append((f2 if str(f2).startswith("http") else u, r2))
+            if CONTACT_STRICT.search(p.path or "") or CONTACT_STRICT.search(lab or ""):
+                contact.append(pages[-1])
+    for how, fn, which in (("street_city", street_city, pages), ("city_contact", contact_city, contact)):
+        for u, r in which:
+            try:
+                got = fn(r)
+            except Exception:  # noqa: BLE001
+                got = None
+            if got:
+                addr, quote = got
+                out.update(status="found", address=addr, address_quote=quote, address_url=u, address_how=how, address_country="CA")
+                return out
+    out["status"] = "city_nothing"
+    out["pages"] = len(pages)
+    return out
+
+
 def pick_legal(a):
     """the sites every earlier pass read without finding an address: their own privacy / terms / legal pages (read_one_legal)"""
     last = {}
@@ -378,7 +506,7 @@ def pick_legal(a):
                 p_ = l.rstrip("\n").split("\t")
                 if len(p_) >= 2:
                     last[p_[0]] = p_[1]
-    need = {k for k, st in last.items() if st == "nothing"}
+    need = {k for k, st in last.items() if st == ("legal_nothing" if getattr(a, "city", False) else "nothing")}
     site = {}
     for p in sorted(glob.glob(os.path.join(FACTS_DIR, "facts_*.gz"))):
         with gzip.open(p, "rt", encoding="utf-8", errors="replace") as f:
@@ -403,7 +531,7 @@ def pick_legal(a):
         for k in sorted(need):
             if site.get(k):
                 w.writerow([k, site[k]]); n += 1
-    print("addr-reread pick --legal: %d sites read before with no address (of %d) -> %s" % (n, len(need), a.out))
+    print("addr-reread pick --%s: %d sites read before with no address (of %d) -> %s" % ("city" if getattr(a, "city", False) else "legal", n, len(need), a.out))
 
 
 def pick_phones(a):
@@ -451,7 +579,7 @@ def pick_phones(a):
 def cmd_pick(a):
     if getattr(a, "phones", False):
         return pick_phones(a)
-    if getattr(a, "legal", False):
+    if getattr(a, "legal", False) or getattr(a, "city", False):
         return pick_legal(a)
     done = set()
     if os.path.exists(DONE):
@@ -521,7 +649,7 @@ def cmd_read(a):
         def feed():
             while len(futs) < a.workers * 2 and time.time() < deadline:
                 try:
-                    futs.add(ex.submit(read_one_legal if getattr(a, "legal", False) else read_one, next(it)))
+                    futs.add(ex.submit(read_one_city if getattr(a, "city", False) else read_one_legal if getattr(a, "legal", False) else read_one, next(it)))
                 except StopIteration:
                     return False
             return True
@@ -576,7 +704,7 @@ def cmd_merge(a):
                             o[c_] = v_
     os.makedirs(FACTS_DIR, exist_ok=True)
     out = os.path.join(FACTS_DIR, "facts_%sa.gz" % a.stamp)
-    n = {"found": 0, "text": 0, "jsonld": 0, "map": 0, "legal": 0}
+    n = {"found": 0, "text": 0, "jsonld": 0, "map": 0, "legal": 0, "street_city": 0, "city_contact": 0}
     with gzip.open(out, "wt", encoding="utf-8") as f:
         for k in sorted(need):
             o = recs[k]
@@ -584,7 +712,7 @@ def cmd_merge(a):
             line.update(key=k, site=line.get("site") or o.get("site"), date=o.get("date") or TODAY, address_country="CA", address=o["address"],
                         address_quote=o["address_quote"], address_url=o["address_url"], address_how=o["address_how"])
             f.write(json.dumps(line, ensure_ascii=False) + "\n")
-            n["found"] += 1; n[o["address_how"]] += 1
+            n["found"] += 1; n[o["address_how"]] = n.get(o["address_how"], 0) + 1
     with open(DONE, "a", encoding="utf-8") as f:
         for k, o in sorted(recs.items()):
             f.write("%s\t%s\t%s\n" % (k, o.get("status") or "", o.get("date") or TODAY))
@@ -615,6 +743,7 @@ def main():
     ap.add_argument("--stamp", default=time.strftime("%Y%m%dT%H%M%S"))
     ap.add_argument("--phones", action="store_true", help="pick: the sites read before with no address and no telephone number on file")
     ap.add_argument("--legal", action="store_true", help="pick / read: the sites read before with no address — their own privacy / terms / legal pages")
+    ap.add_argument("--city", action="store_true", help="pick / read: the sites the legal pass left — a street address with its city and no postal code, or the city of the contact page")
     a = ap.parse_args()
     {"pick": cmd_pick, "read": cmd_read, "merge": cmd_merge}[a.cmd](a)
 

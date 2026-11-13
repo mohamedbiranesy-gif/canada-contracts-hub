@@ -25,6 +25,9 @@ on:
       legal:
         description: "true = the sites every earlier pass left without an address: their own privacy / terms / legal pages (the address kept only beside the organisation's own name)"
         default: "false"
+      city:
+        description: "true = the sites the legal pass left: a street address printed with its city and no postal code, or the one city of its contact page, in a city one distributor serves whole"
+        default: "false"
   schedule:
     - cron: "41 9 * * 0"   # weekly: the sites whose mailbox was confirmed since
 permissions:
@@ -49,7 +52,7 @@ jobs:
         with: { ref: main }
       - name: The organisations to read again
         run: |
-          python3 tools/addr_reread.py pick --out out/addr_targets.csv ${{ inputs.phones == 'true' && '--phones' || '' }} ${{ inputs.legal == 'true' && '--legal' || '' }} | tee /tmp/pick.txt
+          python3 tools/addr_reread.py pick --out out/addr_targets.csv ${{ inputs.phones == 'true' && '--phones' || '' }} ${{ inputs.legal == 'true' && '--legal' || '' }} ${{ inputs.city == 'true' && '--city' || '' }} | tee /tmp/pick.txt
           cat /tmp/pick.txt >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with: { name: addr-targets, path: out/addr_targets.csv, retention-days: 3 }
@@ -72,7 +75,7 @@ jobs:
       - name: Read the sites of this shard
         run: |
           M=$(( MINUTES > 175 ? 175 : MINUTES ))
-          python3 tools/addr_reread.py read --targets out/addr_targets.csv --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers "$WORKERS" --limit "$LIMIT" ${{ inputs.legal == 'true' && '--legal' || '' }}
+          python3 tools/addr_reread.py read --targets out/addr_targets.csv --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers "$WORKERS" --limit "$LIMIT" ${{ inputs.legal == 'true' && '--legal' || '' }} ${{ inputs.city == 'true' && '--city' || '' }}
       - uses: actions/upload-artifact@v4
         if: always()
         with: { name: "addr-read-${{ matrix.k }}", path: "out/addr_reread_*.jsonl", retention-days: 3 }
@@ -106,4 +109,4 @@ jobs:
           cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
           # the telephone numbers kept: the places that list them (tools/phone_places.py), now that the numbers are on main
           # (not after a run on the legal pages: it reads no new telephone numbers)
-          if [ "${{ inputs.legal }}" != "true" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/phone-places.yml/dispatches" -f ref=main >/dev/null 2>&1 || true; fi
+          if [ "${{ inputs.legal }}" != "true" ] && [ "${{ inputs.city }}" != "true" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/phone-places.yml/dispatches" -f ref=main >/dev/null 2>&1 || true; fi
