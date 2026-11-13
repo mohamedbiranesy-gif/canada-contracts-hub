@@ -1,0 +1,17 @@
+{
+ "key": "dl_bccw_bc",
+ "kind": "dealer",
+ "biller": "BC Liquor Distribution Branch (BC Cannabis Wholesale)",
+ "biller_site": "https://www.bccannabiswholesale.com/",
+ "biller_address": "3383 Gilmore Way, Burnaby BC, V5G 4S1",
+ "biller_address_url": "https://www.bccannabiswholesale.com/pages/privacy-policy",
+ "biller_address_quote": "the Liquor Distribution Branch, 3383 Gilmore Way, Burnaby BC, V5G 4S1",
+ "read": "2026-11-13",
+ "pays_quote": "The BC Liquor Distribution Branch is the sole wholesale distributor of non-medical cannabis throughout the province",
+ "pays_url": "https://www.bccannabiswholesale.com/pages/doing-business-with-bc-cannabis-wholesale",
+ "list_name": "the Province's list of licensed cannabis retail stores in B.C. (open stores; Liquor and Cannabis Regulation Branch, in the Province's cannabis licensing pages that BC Cannabis Wholesale's own 'Doing business' page links), each supplied by the Liquor Distribution Branch, the sole wholesale distributor; a store's own site kept only where it prints the store's postal code",
+ "list_hosts": [
+  "www2.gov.bc.ca"
+ ],
+ "list_host_link_url": "https://www.bccannabiswholesale.com/pages/doing-business-with-bc-cannabis-wholesale"
+}
