@@ -5809,7 +5809,8 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_basis"] = ("not taken: the prices read on the vendor's site (%s) are for another of its products than the one seen in the organisation's DNS records "
                                             "(a mailbox price for a zone on its name servers, or a telephone, television or Internet-access price)" % vd)
             for col, k in (("bill_currency_as_published", "currency"), ("bill_payment_method_as_published", "paymethod"), ("service_stops_if_unpaid", "unpaid"),
-                           ("bill_delivery_as_published", "delivery"), ("bill_tax_rule_as_published", "tax")):  # the last two: reader version 4 (2026-11-11)
+                           ("bill_delivery_as_published", "delivery"), ("bill_tax_rule_as_published", "tax"),  # the last two: reader version 4 (2026-11-11)
+                           ("bill_due_terms_as_published", "terms")):  # reader version 7 (2026-11-13): when the bill is due
                 st_ = _VB.extra_of(rec, k)
                 if st_ and not out.get(col):
                     out[col] = "“%s” (%s, read %s)" % (st_["q"][:280], st_["u"], rec.get("date"))
@@ -5952,7 +5953,7 @@ def bill_profile(x, ld, cls):
         _rec9 = VBILL.get(vd) if vd else None
         if _rec9:
             for col, k in (("bill_payment_method_as_published", "paymethod"), ("bill_delivery_as_published", "delivery"), ("service_stops_if_unpaid", "unpaid"),
-                           ("bill_currency_as_published", "currency"), ("bill_tax_rule_as_published", "tax")):
+                           ("bill_currency_as_published", "currency"), ("bill_tax_rule_as_published", "tax"), ("bill_due_terms_as_published", "terms")):
                 st_ = _VB.extra_of(_rec9, k)
                 if st_ and not out.get(col) and not str(x.get(col) or "").strip():
                     out[col] = "“%s” (%s, read %s)" % (st_["q"][:280], st_["u"], _rec9.get("date"))

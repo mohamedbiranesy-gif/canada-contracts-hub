@@ -32,7 +32,7 @@ import ap_crawler as C
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIR = os.path.join(ROOT, "data/incoming/claude/vendor_billing")
 TODAY = datetime.date.today().isoformat()
-V = 6  # 6 (2026-11-13): a vendor's terms on its own terms. / legal. subdomain (terms.doteasy.com); "must pay the Charges by …", "pay with …", "methods of payment" (hosts' terms read by hand that day). Earlier: 5 (2026-11-11 20Z): payment pages of regulators, cities, associations and firms ("pay your invoice using …", EFT, wire, online banking); renewal notices and notices of assessment as the bill. Earlier: 2 (2026-11-11): what happens when a bill is not paid, the currency of the prices, the ways of paying; amounts parsed. 3: the site's own title and description of what the vendor sells 4 (2026-11-11): the terms page is always among the pages read; how the invoice arrives, the tax rule and the vendor's own tax number are kept
+V = 7  # 7 (2026-11-13 21Z): when the bill is due, in the vendor's own terms ("Invoices are due upon receipt", "payable within 30 days", "All fees are due prior to the renewal date", "les factures sont payables dans les 30 jours"); kept only from a terms / billing / help page. 6 (2026-11-13): a vendor's terms on its own terms. / legal. subdomain (terms.doteasy.com); "must pay the Charges by …", "pay with …", "methods of payment" (hosts' terms read by hand that day). Earlier: 5 (2026-11-11 20Z): payment pages of regulators, cities, associations and firms ("pay your invoice using …", EFT, wire, online banking); renewal notices and notices of assessment as the bill. Earlier: 2 (2026-11-11): what happens when a bill is not paid, the currency of the prices, the ways of paying; amounts parsed. 3: the site's own title and description of what the vendor sells 4 (2026-11-11): the terms page is always among the pages read; how the invoice arrives, the tax rule and the vendor's own tax number are kept
 
 # 2026-11-12: a number of four digits or more written without a thousands separator was cut to its first three ("$1195.00" matched as "$119",
 # "1500$" as "500$", "$12500/year" as "$125"): grouped thousands first, else the whole run of digits. Records read before keep the cut match;
@@ -115,6 +115,22 @@ EXTRA += [
                        r"|\b(?:applicable\s+)?(?:tax(?:es)?|GST(?:\s?/\s?HST)?|HST|TPS(?:\s?/\s?TVQ)?|TVQ)\b[^.!?|•]{0,40}?\b(?:(?:are|is|will\s+be)\s+(?:extra|additional|added|not\s+included|charged\s+in\s+addition)|en\s+sus|s['’]ajoutent|seront\s+ajout[ée]es|"
                        r"(?:are|is)\s+included|sont\s+incluses?|non\s+incluses?)\b", re.I)),
     ("taxno", re.compile(r"\b(?:GST\s?/\s?HST|TPS\s?/\s?TVH|GST|HST|TPS|TVH|QST|TVQ)\b\s*(?:registration\s*)?(?:#|no\.?|n[o°]\.?|number|num[ée]ro)?\s*:?\s*#?\s*(\d{9}\s?(?:RT|TQ)\s?\d{4}|\d{10}\s?TQ\s?\d{4}|\d{9}(?!\d))", re.I)),
+]
+# version 7 (2026-11-13; owner 13:23 EST: "go through every row populate as much as can be max"): when the bill is due — 88,000 ready rows had every main invoice
+# field but the due terms. The vendor's own sentence naming a bill (invoice, fee, dues, renewal …) and a due moment (on receipt, within N days, in advance,
+# before the renewal date, net N); like "delivery", kept only from a terms / billing / help page (an invoicing product's feature page describes its users' invoices)
+_DUE_SUBJ = (r"(?:invoices?|bills?|payments?|fees?|dues|amounts?\s+(?:due|owing|invoiced|billed)|balances?|charges?|renewals?|membership(?:\s+fees?)?|subscriptions?|"
+             r"factures?|paiements?|frais|cotisations?|montants?\s+(?:dus?|factur[ée]s?)|soldes?|renouvellements?)")
+EXTRA += [
+    ("terms", re.compile(r"\b" + _DUE_SUBJ + r"\b[^.!?|•]{0,60}?\b(?:(?:are|is|will\s+be|must\s+be|shall\s+be|become|becomes)\s+(?:due|payable)(?:\s+(?:and|&)\s+payable)?\s+"
+                         r"(?:upon|on|within|by|before|prior|in\s+advance|in\s+full|immediately|at\s+the\s+time|net\b|annually|monthly|yearly|each)"
+                         r"|(?:are|is|will\s+be|must\s+be|shall\s+be)\s+paid\s+(?:in\s+full\s+)?(?:within\s+\d+\s+days|upon\s+receipt|in\s+advance|prior\s+to|before\s+(?:the|their|its))"
+                         r"|due\s+(?:and\s+payable\s+)?(?:upon\s+receipt|on\s+receipt|within\s+\d+\s+days|in\s+advance|immediately|on\s+or\s+before|prior\s+to|by\s+the|on\s+the\s+(?:first|1st|renewal|due))"
+                         r"|payable\s+(?:upon\s+receipt|on\s+receipt|within\s+\d+\s+days|in\s+advance|immediately|net\s+\d+)"
+                         r"|net\s+\d{1,2}\s+days"
+                         r"|(?:sont|est|seront|sera|doivent\s+[êe]tre|doit\s+[êe]tre)\s+(?:payables?|dues?|exigibles?|acquitt[ée]e?s?|pay[ée]e?s?)\b[^.!?|•]{0,40}?"
+                         r"(?:dans\s+les\s+\d+\s+jours|[àa]\s+la\s+r[ée]ception|d[èe]s\s+(?:la\s+)?r[ée]ception|avant|au\s+plus\s+tard|[àa]\s+l[’']?avance|d[’']avance|[àa]\s+l[’']?[ée]ch[ée]ance)"
+                         r"|payables?\s+(?:dans\s+les\s+\d+\s+jours|[àa]\s+la\s+r[ée]ception|d[èe]s\s+(?:la\s+)?r[ée]ception|[àa]\s+l[’']?avance|d[’']avance))", re.I)),
 ]
 _TERMS_URL = re.compile(r"terms|conditions|modalit|faq|legal|agreement|entente|contrat|polic|politique|support|help|aide|tos\b|cgv|cgu|fine-print|billing-polic|"
                         r"pay(?:ment|er|ing)?s?(?:\b|[-_])|paiement|renew|renouvel|licen[cs]e|membership|adh[ée]sion|cotisation|\bdues\b|\bfees?\b|\bfrais\b", re.I)
@@ -210,7 +226,7 @@ def statements(text, url, cap=2):
             if seen[cls] >= 1:
                 break
             q = quote_of(text, m.start(), m.end())
-            if cls == "delivery" and (not _TERMS_URL.search(urllib.parse.urlparse(url).path) or _PRODUCT_URL.search(urllib.parse.urlparse(url).path)):
+            if cls in ("delivery", "terms") and (not _TERMS_URL.search(urllib.parse.urlparse(url).path) or _PRODUCT_URL.search(urllib.parse.urlparse(url).path)):
                 break
             if len(q) >= 20 and not RESIDUE.search(q):
                 seen[cls] += 1
