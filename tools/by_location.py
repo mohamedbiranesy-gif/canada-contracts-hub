@@ -231,7 +231,7 @@ def _on_addr():
                     if a.startswith("="):
                         names[a[1:]] = v
                     elif a and not a.startswith("#"):
-                        _ONA[a] = names.get(v, "")
+                        _ONA[a] = "!" if v == "!" else names.get(v, "")
         except OSError:
             pass
     return _ONA
@@ -289,6 +289,8 @@ def biller_for(text):
     if fsa[0] in "KLMNP":
         # Ontario: some sixty distributors, and a postal area is often shared by two — the postal code itself decides (the Ontario Energy
         # Board's map of service areas; a code near an edge, or unknown in a shared area, gets none)
+        if _on_addr().get(pc) == "!":
+            return None  # the dump's one point and the code's address points name two distributors (tools/on_ldc_table.py addrcodes)
         nm = _on().get(pc) or _on_addr().get(pc) or _on().get(fsa)
         return BY_TABLE.get(nm) if nm else None
     for b in BILLERS:

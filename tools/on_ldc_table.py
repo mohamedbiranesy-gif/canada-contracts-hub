@@ -379,7 +379,8 @@ def build():
 # 5.4 million Ontario addresses, each a point with its postal code. A postal code whose address points lie, all but a few, in ONE service area of
 # the Board's map is that distributor's: at least 98 % of 3 points or more, or — 1 or 2 points — all of them at least 100 m inside one area.
 # A code whose points straddle two areas gets none. Written to tools/data/on_postal_ldc_addr.tsv.gz; tools/by_location.py reads it after the
-# dump's table (a code the dump's table gives keeps its distributor) and before the postal area's line.
+# dump's table (a code the dump's table gives keeps its distributor) and before the postal area's line; a code whose address points lie in
+# another area than the dump's one point puts the two methods at odds, and then neither is used ("!" in the table).
 ADDR_TABLE = os.path.join(ROOT, "tools/data/on_postal_ldc_addr.tsv.gz")
 OVT_ADDR_BASE = "https://overturemaps-us-west-2.s3.amazonaws.com"
 
@@ -404,7 +405,7 @@ def addrcodes():
     polys = [a[3] for a in areas]
     for g in polys:
         shapely.prepare(g)
-    tree = STRtree(polys)
+    boxes = [g.bounds for g in polys]
     rel = _ovt_release()
     req = urllib.request.Request(OVT_ADDR_BASE + "/?list-type=2&prefix=release/%s/theme=addresses/type=address/" % rel, headers={"User-Agent": C.UA})
     with urllib.request.urlopen(req, timeout=120) as r:
@@ -424,25 +425,28 @@ def addrcodes():
         d = rb.to_pydict()
         pcs = np.array(d["pc"], dtype=object)
         xs, ys = tr.transform(np.array(d["x"], dtype=float), np.array(d["y"], dtype=float))
-        pts = shapely.points(xs, ys)
-        ii, jj = tree.query(pts, predicate="within")
-        got = collections.defaultdict(list)
-        for i, j in zip(ii.tolist(), jj.tolist()):
-            got[i].append(j)
+        xs, ys = np.asarray(xs), np.asarray(ys)
+        who = np.full(len(xs), -1, dtype=np.int64)  # the one area a point lies in; -2: two areas
+        for j, (x0, y0, x1, y1) in enumerate(boxes):
+            m = np.nonzero((xs >= x0) & (xs <= x1) & (ys >= y0) & (ys <= y1))[0]
+            if not len(m):
+                continue
+            ins = m[shapely.contains_xy(polys[j], xs[m], ys[m])]
+            who[ins] = np.where(who[ins] == -1, j, -2)
         for i in range(len(pcs)):
             pc = pcs[i]
             if not pc or not re.fullmatch(r"[KLMNP]\d[A-Z]\d[A-Z]\d", pc):
                 n["not an Ontario postal code"] += 1
                 continue
-            js = got.get(i, [])
-            nm = areas[js[0]][0] if len(js) == 1 else ("" if not js else "?")
+            j = int(who[i])
+            nm = areas[j][0] if j >= 0 else ("" if j == -1 else "?")
             cnt[pc][nm] += 1
-            if len(few[pc]) < 3 and len(js) == 1:
-                few[pc].append((js[0], pts[i]))
+            if j >= 0 and len(few[pc]) < 3:
+                few[pc].append((j, shapely.Point(xs[i], ys[i])))
             n["address points"] += 1
         print("  %d address points read" % n["address points"], flush=True)
     old = load()
-    out, conflict = {}, collections.Counter()
+    out, conflict, disagree = {}, collections.Counter(), set()
     for pc, c in cnt.items():
         tot = sum(c.values())
         nm, k = c.most_common(1)[0]
@@ -459,7 +463,8 @@ def addrcodes():
         prev = old.get(pc)
         if prev and prev != nm:
             conflict["%s -> %s" % (prev, nm)] += 1
-            n["codes the dump's table gives another distributor (kept as it was)"] += 1
+            disagree.add(pc)
+            n["codes the dump's table gives another distributor (the two disagree: none)"] += 1
             continue
         if prev:
             n["codes the dump's table already gives the same distributor"] += 1
@@ -476,8 +481,11 @@ def addrcodes():
             f.write("=%d\t%s\n" % (idx[nm], nm))
         for pc in sorted(out):
             f.write("%s\t%d\n" % (pc, idx[out[pc]]))
+        # a code whose address points lie (98 % or more) in another area than the dump's one point: the two methods disagree — no distributor
+        for pc in sorted(disagree):
+            f.write("%s\t!\n" % pc)
     print("Ontario address points: %s" % dict(n))
-    print("conflicts with the dump's table (kept): %s" % dict(conflict.most_common(12)))
+    print("codes where the dump's point and the address points disagree (now none): %s" % dict(conflict.most_common(12)))
     print("-> %s (%d codes)" % (os.path.relpath(ADDR_TABLE, ROOT), len(out)))
 
 
