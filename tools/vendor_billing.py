@@ -96,7 +96,7 @@ EXTRA = [
                              r"pay\s+(?:your|an|the|my)\s+(?:invoices?|bills?|account|dues|membership|fees?|licen[cs]e)\b[^.!?|•]{0,50}?\b(?:using|by|with|via|through)|payments?\s+(?:can|may)\s+be\s+made|ways?\s+to\s+pay|"
                              r"effectuer\s+(?:le|un|votre)\s+paiement|payer\s+(?:par|votre\s+facture|votre\s+cotisation)|paiement\s+(?:par|peut\s+[êe]tre))\b[^.!?|•]{0,200}?"
                              r"\b(?:credit\s+cards?|visa|mastercard|interac|e-?transfers?|cheques?|checks?|pre-?authori[sz]ed|paypal|cartes?\s+de\s+cr[ée]dit|virements?|ch[èe]ques?|pr[ée]l[èe]vements?|"
-                             r"electronic\s+funds?\s+transfers?|EFT|wire(?:\s+transfers?)?|bank\s+(?:transfers?|drafts?)|online\s+banking|money\s+orders?|direct\s+deposit|mandats?(?:-poste)?|institutions?\s+financi[èe]res?)\b", re.I)),
+                             r"electronic\s+funds?\s+transfers?|EFT|wire(?:\s+transfers?)?|bank\s+(?:transfers?|drafts?)|online\s+banking|money\s+orders?|direct\s+deposit|mandats?[- ]postes?|institutions?\s+financi[èe]res?)\b", re.I)),
 ]
 # version 4: three more lines of a bill, each in the vendor's own words
 #   delivery — how the invoice reaches the customer ("we'll send you an email with a copy of the invoice", "votre facture vous sera envoyée par courriel"); kept only
