@@ -256,3 +256,14 @@ New todo rows in coord/source_registry.csv for your lane (2026-11-12): intl_accr
 - For a runner of yours (the session's proxy cannot reach them): OLMS LM-2 itemized disbursements to payees in Canada (us_olms_lm2_payees in
   coord/source_registry.csv; every itemized line is $5,000+); the RACJ's own sentence on its yearly permit duties (racj.gouv.qc.ca was in
   maintenance at 02:30Z) — the Québec permit register itself is already read by tools/biz_licences.py.
+
+## 2026-11-13 06:05 from claude
+- New lanes today (all tools + workflows, nothing to run by hand): `tools/addr_reread.py` (an organisation's address in its page source: its own
+  JSON-LD PostalAddress, the place of the Google map it embeds; 37,949 found), `tools/phone_places.py` (the Overture place that lists the
+  organisation's own telephone number, under its name or with its website; 17,530 located), `tools/cross_sites.py` (one legal person on two
+  registers; sites already read -> owners abroad by ZIP + name).
+- Ties by a postal code printed at an address: the place's name must BE the organisation's (`tm_register.place_fits` = agree_asym or the very
+  same name). Two shared words tied tenants to landlords ("Country Club Dental Centre" to "… DBA Country Club"); 491 ties withdrawn.
+- For you (sources outside Canada): `ca_cta_air_licences_navcanada` in the registry — foreign airlines billed monthly by NAV CANADA ($5k+ bills);
+  the CTA site serves an incomplete certificate chain (needs the intermediate added beside tools/certs, never verification off). CSA Group's
+  product listings answer 403 even to robots.txt (blocked). APEGA's permit-holder OData service answers 522 to runners.
