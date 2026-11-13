@@ -616,6 +616,14 @@ def graph(a):
 OSM_SITES = os.path.join(DIR, "osm_sites.csv.gz")  # websites of OpenStreetMap objects in Canada (shops, offices, clinics, restaurants …), any TLD
 OVERTURE_SITES = os.path.join(DIR, "overture_sites.csv.gz")  # websites of the Overture Maps places in Canada (open data, monthly), any TLD
 FSQ_SITES = os.path.join(DIR, "fsq_sites.csv.gz")  # websites of Foursquare's open places in Canada (tools/fsq_places.py ca; Apache 2.0), any TLD
+# 2026-11-13: the origins Chrome users in Canada visit (Chrome UX Report, country list "ca", published monthly as CSV by github.com/zakird/
+# crux-top-lists, from Google's public CrUX BigQuery dataset): sites of another ending than .ca that no other list has — most are sites from
+# abroad (their home pages print no Canadian address and they go no further); those that print a Canadian postal address are organisations in
+# Canada for the mailbox reader (tools/lead_crawl.py, second class). Names that read like adult, gambling or piracy sites are left out.
+CRUX_SITES = os.path.join(DIR, "crux_sites.csv.gz")
+CRUX_URL = "https://raw.githubusercontent.com/zakird/crux-top-lists/main/data/country/ca/%s.csv.gz"
+CRUX_BAD = re.compile(r"porn|xxx|escort|hentai|rule34|xnxx|xvideo|onlyfans|nude|erotic|hookup|camgirl|sexcam|sexy|\bsex|casino|betting|\bbet\b|1xbet|bet365|"
+                      r"gambl|poker|\bslots?\b|torrent|piratebay|payday", re.I)
 GRAPH_SHOP = os.path.join(DIR, "graph_shopify.csv.gz")  # domains that link to shopify.com / myshopify.com (web graph): store candidates
 GRAPH_MT = os.path.join(DIR, "graph_multitenant.csv.gz")  # domains with 150+ host names of their own (multi-tenant platforms, large organisations)
 PLATFORM_CANDS = os.path.join(DIR, "platform_candidates.csv")  # those of them whose own site prints a Canadian address: to vet for the vendor table
@@ -804,6 +812,51 @@ def lists(a):
                 n_new += 1
             proc.wait()
     print("public list: %d .ca host names read, %d registrable .ca domains that neither the index nor the web graph had" % (n_seen, n_new), flush=True)
+
+
+def crux(a):
+    """the newest monthly CrUX list for Canada (github.com/zakird/crux-top-lists, data/country/ca/YYYYMM.csv.gz: origin, rank bucket) ->
+    data/incoming/claude/credit_scan/crux_sites.csv.gz (dom, rank): registrable domains of another ending than .ca, the most visited bucket of
+    each, platforms and adult / gambling / piracy-like names left out. The .ca origins are in the archive's .ca list already."""
+    import datetime
+    got, month = None, ""
+    d = datetime.date.today().replace(day=1)
+    for _ in range(4):
+        d = (d - datetime.timedelta(days=1)).replace(day=1)
+        month = d.strftime("%Y%m")
+        req = urllib.request.Request(CRUX_URL % month, headers={"User-Agent": C.UA})
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                got = r.read()
+            break
+        except Exception as e:
+            print("CrUX %s: %s" % (month, e), flush=True)
+    if not got:
+        print("no CrUX list could be read: nothing written", flush=True)
+        return
+    best, n = {}, collections.Counter()
+    for r in csv.DictReader(io.StringIO(gzip.decompress(got).decode("utf-8", "replace"))):
+        h = (urllib.parse.urlparse(r.get("origin") or "").hostname or "").lower()
+        h = h[4:] if h.startswith("www.") else h
+        if not h or "." not in h:
+            continue
+        if h.endswith(".ca") or h.endswith(".quebec"):
+            n[".ca (in the archive's list)"] += 1
+            continue
+        dm = C.registrable(h)
+        if PLATFORM.search(dm) or CRUX_BAD.search(dm):
+            n["platform or adult / gambling-like name"] += 1
+            continue
+        rk = int(r.get("rank") or 1000000)
+        if dm not in best or rk < best[dm]:
+            best[dm] = rk
+    os.makedirs(DIR, exist_ok=True)
+    with gzip.open(CRUX_SITES, "wt", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "rank"])
+        for dm, rk in sorted(best.items(), key=lambda kv: (kv[1], kv[0])):
+            w.writerow([dm, rk])
+    print("CrUX %s (Canada): %d registrable domains of another ending than .ca -> %s; %s" % (month, len(best), CRUX_SITES, dict(n)), flush=True)
 
 
 def merge_graph(a):
@@ -1243,6 +1296,10 @@ def scan_queue(k, n, limit=0):
         with gzip.open(FSQ_SITES, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
                 add(r["dom"], 3, 50000 - min(int(r.get("objects") or 1), 400))
+    if os.path.exists(CRUX_SITES):  # 3. sites of another ending than .ca that Chrome users in Canada visit (CrUX; 2026-11-13), the most visited first
+        with gzip.open(CRUX_SITES, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                add(r["dom"], 3, 10000 - min(int(r.get("rank") or 1000000), 1000000) // 1000)
     if os.path.exists(UNIVERSE):  # 4. every .ca site of the archive, the sites with the most captured pages first
         with gzip.open(UNIVERSE, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
@@ -2072,7 +2129,7 @@ def merge(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["universe", "merge-universe", "graph", "osm", "overture", "lists", "merge-graph", "scan", "vendors", "merge"])
+    ap.add_argument("cmd", choices=["universe", "merge-universe", "graph", "osm", "overture", "lists", "crux", "merge-graph", "scan", "vendors", "merge"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--crawl", default="auto")
@@ -2094,7 +2151,7 @@ def main():
         {"scan": scan, "vendors": vendors}[a.cmd](a)
         sys.stdout.flush()
         os._exit(0)  # do not wait for straggler threads
-    {"universe": universe, "merge-universe": merge_universe, "graph": graph, "osm": osm, "overture": overture, "lists": lists, "merge-graph": merge_graph, "merge": merge}[a.cmd](a)
+    {"universe": universe, "merge-universe": merge_universe, "graph": graph, "osm": osm, "overture": overture, "lists": lists, "crux": crux, "merge-graph": merge_graph, "merge": merge}[a.cmd](a)
 
 
 if __name__ == "__main__":

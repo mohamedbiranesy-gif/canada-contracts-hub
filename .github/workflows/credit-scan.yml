@@ -141,6 +141,17 @@ jobs:
           gzip -6 -f out/overture_addresses.csv
           gh release upload harvest-state out/overture_addresses.csv.gz --clobber
           rm -f out/overture_addresses.csv.gz
+      - name: The sites Chrome users in Canada visit (CrUX country list, monthly) -> crux_sites.csv.gz (committed here; the next scan cycle reads it)
+        run: |
+          python3 tools/credit_scan.py crux | tee /tmp/x.txt
+          git config user.name "credit-scan"; git config user.email "credit-scan@users.noreply.github.com"
+          for i in $(seq 1 12); do
+            git add data/incoming/claude/credit_scan/crux_sites.csv.gz 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing new"; break; }
+            git commit -q -m "credit-scan: $(tail -1 /tmp/x.txt | cut -c1-120) [skip ci]"
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 12 + 3)); git fetch -q origin main; git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; true; }
+          done
       - uses: actions/upload-artifact@v4
         with: { name: "cs-graph", path: out/, retention-days: 3 }
 
