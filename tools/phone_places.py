@@ -38,7 +38,9 @@ def host(u):
 
 def cmd_targets(a):
     import addr_reread as AR
-    AR.cmd_pick(argparse.Namespace(out="out/addr_targets_phone.csv"))
+    # every organisation with a confirmed mailbox still unlocated — also the ones the address re-read has read without finding an address
+    # (2026-11-13 06:48Z: without them the targets fell from 77,187 to 131 once the re-read had marked its sites done)
+    AR.cmd_pick(argparse.Namespace(out="out/addr_targets_phone.csv", include_done=True))
     tg = {r["key"]: r["site"] for r in csv.DictReader(open("out/addr_targets_phone.csv", encoding="utf-8"))}
     ph, name = {}, {}
     for p in sorted(glob.glob(os.path.join(INC, "claude_buyer_ap_results_cccrawl*.csv"))):
