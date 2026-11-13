@@ -6735,6 +6735,13 @@ for _ri, x in enumerate(rows):
         npk["ap_mailbox_ready_yes"] += x["ap_mailbox_ready"] == "yes"
         if (x.get("relationship_fact_basis") or "").startswith("by where it is"):
             x["vendor"] = re.sub(r"^inferred:\s*", "", x.get("vendor") or "")  # the distributor of the address is certain: only the account holder is not published
+        if (x.get("source") or "").lower().startswith("auditor of record") and str(x.get("contract_value") or "").strip() \
+                and not re.search(r"audit|v[ée]rification|honoraires|remuneration of (?:the )?auditor", str(x.get("contract_value") or ""), re.I):
+            # 2026-11-13 (owner 13:23 EST: "everything accurate no errors"): an auditor of record's row had taken a figure of the statements or of the
+            # Financial Information Return for the contract's value (City of Kamloops 17,265,535; Township of Brudenell 25,751,298 — a total, not the
+            # audit fee): only a value whose quote names the audit fee is kept
+            x["contract_value"] = ""; x["contract_value_from_pair"] = ""
+            n_x2["auditor of record: a figure of the statements not taken for the audit fee"] += 1
         _k9, _r9, _o9 = _RR.owner_test(x)
         n_ship[(_k9, x["payment_route"], "yes" if not _o9 else "no")] += 1
         if not _o9:
