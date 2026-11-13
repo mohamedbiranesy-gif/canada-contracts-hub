@@ -347,7 +347,10 @@ def addr(a):
     files = {"tm": (TM.DIR, TM.OWN_XX, TM.MATCHES, TM.FOUND, TM.SDONE, TM.OVT_SITES, os.path.join(TM.DIR, "tm_overture_addr_sites.csv")),
              "pt": (PT.DIR, PT.OWN_XX, PT.MATCHES, PT.FOUND, PT.SDONE, os.path.join(PT.DIR, "pt_overture_sites.csv"), os.path.join(PT.DIR, "pt_overture_addr_sites.csv")),
              "f55": (None, None, None, None, None, None, os.path.join(OUT, "f55_addr_candidates.csv")),
-             "hc": (None, None, None, None, None, None, os.path.join(OUT, "hc_addr_candidates.csv"))}
+             "hc": (None, None, None, None, None, None, os.path.join(OUT, "hc_addr_candidates.csv")),
+             # 2026-11-13: owners IN CANADA of the two registers (the full postal code: a block face or one building)
+             "tmca": (TM.DIR, TM.OWN_CA, TM.MATCHES, TM.FOUND, TM.SDONE, None, os.path.join(TM.DIR, "tm_overture_addr_ca_sites.csv")),
+             "ptca": (PT.DIR, PT.OWN_CA, PT.MATCHES, PT.FOUND, PT.SDONE, None, os.path.join(PT.DIR, "pt_overture_addr_ca_sites.csv"))}
     want, words_of = {}, {}
     if "f55" in a.lanes.split(","):
         # 2026-11-13: US employers of the Form 5500 lane (tools/f5500_benefits.py) without a site: the sponsor's own street address and ZIP code
@@ -396,7 +399,7 @@ def addr(a):
         d_, own, matches, found, sdone, ovt, _ = files[lane]
         skip = set()
         for p_ in (matches, found, ovt):
-            if os.path.exists(p_):
+            if p_ and os.path.exists(p_):
                 skip |= {r.get("owner_key") or "" for r in csv.DictReader(open(p_, encoding="utf-8", newline=""))}
         if os.path.exists(sdone):
             with gzip.open(sdone, "rt", encoding="utf-8") as f:
@@ -407,8 +410,18 @@ def addr(a):
                     if len(q) > 5 and "overture" in q[5].split(","):
                         skip.add(q[0])  # read before with an Overture candidate
         n_ = collections.Counter()
+        in_ca = lane in ("tmca", "ptca")
         with gzip.open(own, "rt", encoding="utf-8", newline="") as f:
             for r in csv.DictReader(f):
+                if in_ca:
+                    if r["owner_key"] in skip or not TM.is_org(r["owner_name"]):
+                        continue
+                    pc = TM.pc6(r.get("postal_code") or "")
+                    if pc:
+                        want[(lane, r["owner_key"])] = ("CA", pc, "", "")
+                        words_of[(lane, r["owner_key"])] = {t for t in TM.nkey(r["owner_name"]).split() if len(t) >= 4 and t not in TM.GENERIC}
+                        n_["CA"] += 1
+                    continue
                 cc = r.get("country")
                 if cc not in ("US", "GB") or r["owner_key"] in skip:
                     continue

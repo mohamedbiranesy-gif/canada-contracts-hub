@@ -89,6 +89,7 @@ def use_pt_files():
     T.DIR, T.OWN_CA, T.OWN_XX, T.MATCHES, T.FOUND, T.SDONE = DIR, OWN_CA, OWN_XX, MATCHES, FOUND, SDONE
     # 2026-11-13: the patent owners' own Overture candidates (under their name; at their address) — the trademark owners' file has other keys
     T.OVT_SITES, T.OVT_ADDR = os.path.join(DIR, "pt_overture_sites.csv"), os.path.join(DIR, "pt_overture_addr_sites.csv")
+    T.OVT_ADDR_CA = os.path.join(DIR, "pt_overture_addr_ca_sites.csv")
     os.makedirs(DIR, exist_ok=True)
 
 

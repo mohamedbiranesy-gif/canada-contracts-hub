@@ -567,6 +567,9 @@ def sites(a):
     # 2026-11-12: with --overture, the owners for whom an Overture Maps place lists a website under their name (tm_overture_sites.csv) — read
     # first, also when the owner was looked for before under domain names made of its name
     ovt = collections.defaultdict(list)
+    if not abroad and getattr(a, "overture", False) and os.path.exists(OVT_ADDR_CA):
+        for r in csv.DictReader(open(OVT_ADDR_CA, encoding="utf-8", newline="")):
+            ovt[r["owner_key"]].append(r)
     if abroad and getattr(a, "overture", False):
         for p_ in (OVT_SITES, OVT_ADDR):
             if os.path.exists(p_):
@@ -776,6 +779,15 @@ def sites(a):
                 # One owner of that name on the register.
                 how = "the same name (%s), on a domain name that is the owner's name written out; a site in Canada (%s); one owner of that name on the register" % (
                     "site name" if nkey(names.get("site name") or "") == ok_ else "its own statement", ("it prints the postal code %s, the register has %s" % (pc, o["postal_code"])) if pc else "a .ca name, no postal code on the pages read")
+            if not how and listed.get(h):
+                # 2026-11-13: a site an Overture Maps place at the owner's own postal code lists, whose own terms / privacy / legal page prints
+                # the owner's full legal name with its legal form
+                _lu, _lq, _ln = legal_name_page(raw, final, fdom, o["owner_name"], cache)
+                n_read += _ln
+                if _lu:
+                    how = "the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); an Overture Maps place at the owner's own postal code on the register lists this website (place %s)" % (
+                        _lu, _lq, listed[h]["place_id"])
+                    where = _lu
             if not how:
                 # what stood between this site and a tie (counted, for the rule's next look)
                 nm_ok = bool(same_name(ok_, names, "M5V2T6"))  # the name test alone (an urban code)
@@ -785,7 +797,9 @@ def sites(a):
                         notes.append((o["owner_name"], o["postal_code"], fdom, pc, "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:90]))
             if how:
                 hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["postal_code"], "tied_by": how,
-                       "site_facts_from": "its own pages (%s), found under a domain name made of the owner's name or mark" % where,
+                       "site_facts_from": ("its own pages (%s), found as the website an Overture Maps place lists at the owner's own address (“%s”, %s; release %s)" % (
+                           where, listed[h]["place_name"], listed[h]["place_postcode"], listed[h]["release"]) if listed.get(h) else
+                                           "its own pages (%s), found under a domain name made of the owner's name or mark" % where),
                        "site_states": "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:200], "read": TODAY}
                 break
         with lock:
@@ -1014,6 +1028,7 @@ OVT_SITES = os.path.join(DIR, "tm_overture_sites.csv")
 # 2026-11-13: the websites Overture places list AT the owner's own address (street number, street and ZIP code; a UK postcode), under any name
 # (tools/overture_names.py addr) — read like the name candidates; a site counts only when its own pages state the owner's name
 OVT_ADDR = os.path.join(DIR, "tm_overture_addr_sites.csv")
+OVT_ADDR_CA = os.path.join(DIR, "tm_overture_addr_ca_sites.csv")  # 2026-11-13: owners in Canada, places at the register's full postal code
 OVT_BUCKET = "https://overturemaps-us-west-2.s3.amazonaws.com"
 _SQL_FORMS = (r"\b(inc|incorporated|incorporee|ltd|ltee|limited|limitee|corp|corporation|co|company|compagnie|cie|llc|llp|lp|sencrl|senc|srl|enr|reg|regd|ulc|plc|"
               r"gmbh|sa|sas|ag|bv|nv|pty|the|la|le|les|l)\b")  # FORM, as RE2 reads it (DuckDB string literals keep the backslash)

@@ -67,6 +67,8 @@ jobs:
           D=data/incoming/claude/pt
           [ "$(made $D/pt_overture_sites.csv)" = "$newest" ] || python3 tools/pt_register.py overture-sites | tee -a /tmp/ovt.txt
           [ "$(made $D/pt_overture_addr_sites.csv)" = "$newest" ] || python3 tools/overture_names.py addr --lanes pt 2>&1 | tee -a /tmp/ovt.txt
+          # 2026-11-13: owners in Canada too (the full postal code), read by sites --overture without abroad
+          [ "$(made $D/pt_overture_addr_ca_sites.csv)" = "$newest" ] || python3 tools/overture_names.py addr --lanes ptca 2>&1 | tee -a /tmp/ovt.txt
           mkdir -p /tmp/ovt && cp $D/pt_overture_*.csv /tmp/ovt/ 2>/dev/null || true
           git config user.name "pt-sites"; git config user.email "pt-sites@users.noreply.github.com"
           for i in $(seq 1 12); do
