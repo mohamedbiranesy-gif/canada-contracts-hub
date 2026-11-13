@@ -131,7 +131,7 @@
    "deliverable": "Ontario public bodies' own electricity (tools/bps_energy.py; kind 'utility account by own report')",
    "method": "SUMMARY.md 'Ontario bodies that report their electricity'; the table's rows of the kind: count, amount marks; 5 rows read against the open data (facility count and kWh of the distributor, the bill's arithmetic)",
    "cmd": "grep 'Ontario bodies that report' coord/results/ranked/SUMMARY.md; python3 verify.py ranked_buyers.csv.gz",
-   "status": "pending (first build with the pass: rank 43486392654, code a8d92c1)"
+   "status": "partly passing — build 20:32Z (code a8d92c1, the pass's first version): 100 rows of reporting bodies, 43 gave way to their report, 27 location rows took it, 5 moved to the distributor of their largest bill; 65 rows of the kind, 64 ready, 59 marked $5,000+ (TDSB ~$3,419,000, Algonquin College ~$311,000, City of Windsor ~$647,000); 1 not ready (CAMH: high-sensitivity flag). The better matching (directory / mailbox) builds from code 6e4d0de on"
   },
   {
    "deliverable": "due terms in the billers' own words (DUE_TERMS_BY_DOMAIN, payee terms, vendor reader v7)",
@@ -143,7 +143,31 @@
    "deliverable": "framework / multiple-award ceilings are no bills; median estimate guard; Washington L&I prime amount",
    "method": "the 22 rows with a monthly bill of 3 million or more in build 18:26Z: none of Crowdmark / Compusult / Circle / Opsens / GD OTS / Forensic Technology / Pro-Bel / WSIB-Deloitte / Carling-KPMG / Waterloo CDSB keeps its figure",
    "cmd": "python3 big_bills.py ranked_buyers.csv.gz",
-   "status": "pending (fix pushed 2026-11-13 ~19:35Z)"
+   "status": "pending — build 20:32Z is code a8d92c1, before the fix (still 43 rows of $1M+ a month there); first build with it: rank 43495208967 (code 6e4d0de)"
+  },
+  {
+   "deliverable": "how the bill is paid, accuracy: LinkNow's monthly fees are card (its cheque sentence is for the one-time design fee at sign-up); a biller's own online bill-payment page for cards is not a bank's bill-payment service (Secure by Design); MNSi's business billing page",
+   "method": "pay_audit of the next table: LinkNow (linknowmedia.com, 9209-5256 QUÉBEC INC.) and Secure by Design rows not ready (payment: card); MNSi rows ready with its billing page quoted",
+   "cmd": "python3 pay_audit.py ranked_buyers.csv.gz",
+   "status": "pending (pushed 2026-11-13 ~21:00Z)"
+  },
+  {
+   "deliverable": "a clean record with a published $5,000+ comes before a surer tier with less among current records",
+   "method": "SUMMARY.md ready rows with mark 1, before (build 20:32Z: 2,182 ready with mark 1) and after; simulated on the dataset: ~60 buyers gain a $5,000+ record",
+   "cmd": "grep 'by amount' coord/results/ranked/SUMMARY.md",
+   "status": "pending (pushed 2026-11-13 ~21:05Z)"
+  },
+  {
+   "deliverable": "buyer names: image file names, the page-title word Home / Accueil, the word Logo, a town's bare name on a business's own site",
+   "method": "SUMMARY.md counters 'buyer named by an image's file name', 'Home / Accueil … removed', 'the word Logo … removed', 'a town's bare name …'; measured on 20:32Z: ~450 / 144 / 110 / 232 rows; 20 changed rows read",
+   "cmd": "grep -i 'buyer name' coord/results/ranked/SUMMARY.md",
+   "status": "pending (pushed 2026-11-13 ~21:20Z)"
+  },
+  {
+   "deliverable": "municipalities outside Ontario: electricity estimated from residents (tools/muni_energy.py)",
+   "method": "SUMMARY.md 'municipalities outside Ontario'; expected ~240 location rows estimated, ~60 rows $5,000+ (19 location + ~40 give-way); 5 rows' arithmetic checked (population × kWh a resident ÷ 12 × ¢)",
+   "cmd": "grep 'municipalities outside Ontario' coord/results/ranked/SUMMARY.md",
+   "status": "pending (pushed 2026-11-13 ~21:30Z)"
   }
  ]
 }

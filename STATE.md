@@ -12,6 +12,21 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
 
+**2026-11-13 21:31Z — measured on build 20:32Z (code a8d92c1, the energy-report pass's first version), then accuracy and $5,000+ work (all pushed; the
+next builds are 6e4d0de, running, and whatever main is when it ends):**
+- Build 20:32Z: 344,167 rows, **285,851 ready**; $5,000+ ready: 2,182 published + 708 estimated = **2,890**; every main invoice field on 188,168. Kinds ready:
+  location 191,606 · service 32,883 · membership 20,597 · licence 15,261 · agent 12,808 · sponsorship 5,205 · contract 3,109 · dealership 2,729 · own energy report 64.
+- Energy reports: 100 rows of reporting bodies; 43 gave way, 27 location rows took the report; 64 ready, 59 of them $5,000+ (better matching is in later code).
+- **Accuracy (owner: "no errors")**: LinkNow's monthly fees are charged to the card — its cheque sentence is for the one-time design fee at sign-up (~2,266 rows
+  out); Secure by Design's "online bill payment page … Visa or Master Card" is card only ("bill payment" now means a bank's service; 44 rows out); MNSi's business
+  billing page replaces its residential one (stays ready); buyer names: image file names ("Edmonton Global_web.jpg"), the page-title word Home / Accueil, the word
+  Logo, and a town's bare name taken from a business's site ("Toronto" on merlottoronto.com) — the domain instead (~800 rows).
+- **$5,000+**: among current records a clean $5,000+ one comes before a surer tier (~60 buyers); municipalities outside Ontario get their electricity estimated from
+  their residents (StatCan 2021 Census × Ontario municipalities' reported kWh a resident × Hydro-Québec's price for the province's city; tools/muni_energy.py):
+  ~240 location rows estimated specifically, ~60 of them $5,000+ with the give-way.
+- Looked at and left: Ontario's large-building energy data (no owner or occupant named — a tenant's bill cannot be told from the building's); law firms' and
+  BBBs' billing pages (most firms publish none; bbb.org refuses the reader); a sponsorship tier price (rosters do not say the tier).
+
 **2026-11-13 19:29Z — OWNER 13:20 / 13:23 EST: "plug is pulled on the 18th … go max … estimates as precise and specific to relationship as possible … add as much over
 5000 as possible … go through every row populate as much as can be max". What was done since 17:00Z (all pushed; measured in the next build):**
 - **Ontario public bodies' own electricity (tools/bps_energy.py, new kind "utility account by own report").** The Ministry of Energy and Mines' open data
