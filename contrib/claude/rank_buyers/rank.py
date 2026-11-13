@@ -1257,6 +1257,11 @@ def apply_details(x, k):
         _tv = tidy_vendor_address(d["vendor_address"])
         if _tv != d["vendor_address"]:
             d = dict(d, vendor_address=_tv); n_lf["vendor_address_cut_out_of_its_quote"] += 1
+    if str(d.get("value_field") or "").lower() == "amount" and re.search(r"data\.wa\.gov/resource/(?:9ncw-tqjn|t9je-9qwa)", json.dumps(d, ensure_ascii=False)[:3000] + " " + (x.get("contract_link") or "")):
+        # 2026-11-13: Washington L&I's "amount" is the PRIME contract's estimated amount ("Estimated Contract Amount" — Sound Transit's $228 million
+        # light-rail contract on the affidavit of Pro-Bel, whose own "contractamount" was $82,557.60); the filer's own amount is another field, which
+        # tools/lead_scanner.py now prefers. The prime's amount is never this vendor's value.
+        d = dict(d, value="", value_field=""); n_lf["Washington L&I: the prime contract's amount not taken for the filer's value"] += 1
     for col, key in (("contract_value", "value"), ("currency", "currency"), ("contract_reference", "reference"), ("start_date", "start"),
                      ("end_date", "end"), ("vendor_address", "vendor_address"), ("contract_title", "title")):
         if not x.get(col) and d.get(key):

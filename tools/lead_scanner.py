@@ -171,6 +171,14 @@ def record_details(row, platform=""):
     d = {}
     if not isinstance(row, dict):
         return d
+    # 2026-11-13: the filer's own contract amount first — Washington L&I's affidavits and intents carry "amount" (the PRIME contract's estimated
+    # amount) before "contractamount" / "cntrct_amt" (the filer's own); the first matching key used to win
+    for k in ("contractamount", "cntrct_amt", "contract_amount", "company_contract_amount"):
+        sv = re.sub(r"\s+", " ", str(row.get(k) or "")).strip()
+        m = re.search(r"-?\$?\s?\d[\d,]*(?:\.\d+)?", sv)
+        if m and re.sub(r"[^\d]", "", m.group(0)).strip("0"):
+            d["value"], d["value_field"] = m.group(0).replace("$", "").replace(" ", ""), k
+            break
     for k, v in row.items():
         if v in (None, "", [], {}):
             continue
