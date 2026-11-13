@@ -97,7 +97,25 @@ jobs:
             # only the verifier's own outputs come back from the snapshot: coord/results/ranked/* and coverage_history.csv belong to the ranker, which may
             # have published a newer build meanwhile (06:41Z: a verifier push reverted the 06:36Z build to the 05:32Z one)
             rsync -a --delete --exclude ranked --exclude coverage_history.csv /tmp/gen/results/ coord/results/ && cp /tmp/gen/INGEST_REPORT.md coord/ 2>/dev/null || true
-            [ -f /tmp/gen/source_registry.csv ] && cp /tmp/gen/source_registry.csv coord/ || true
+            # 2026-11-13: the ingest only APPENDS sources to the registry; copying its snapshot over main reverted every edit made meanwhile by the
+            # other lanes (rows added and statuses changed at 01:5xZ were undone by the 02:35Z verifier push). Main's file stays; the rows the
+            # ingest added (source keys main does not have) are appended to it.
+            if [ -f /tmp/gen/source_registry.csv ]; then
+              python3 - <<'PY'
+          import csv, io
+          main_p, snap_p = "coord/source_registry.csv", "/tmp/gen/source_registry.csv"
+          main = list(csv.reader(open(main_p, encoding="utf-8", newline=""))) if __import__("os").path.exists(main_p) else []
+          snap = list(csv.reader(open(snap_p, encoding="utf-8", newline="")))
+          have = {r[0] for r in main if r}
+          add = [r for r in snap[1:] if r and r[0] not in have]
+          if not main:
+              main = snap[:1]
+          if add:
+              out = io.StringIO(); csv.writer(out, lineterminator="\n").writerows(main + add)
+              open(main_p, "w", encoding="utf-8", newline="").write(out.getvalue())
+          print("source registry: %d rows on main, %d added by the ingest" % (len(main) - 1, len(add)))
+          PY
+            fi
             python3 tools/next_batch.py > /dev/null
             python3 tools/status_board.py > /dev/null
             python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
