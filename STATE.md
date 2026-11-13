@@ -11,6 +11,7 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox) as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~30k rows.
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 00:42Z progress:** f5500 first run green — 4,526 US sponsors (2024+2025 filings), 1,578 sites tied, 1,578 leads; exchange finder +164 sites (1,443); Health Canada +584 sites today (2,002); build 23:25Z: 217,388 ready. dian-imports first run still downloading. Next: CWB certified companies (authority register), then read the build that carries the new kinds.
 
 ## 2026-11-12 23:45Z — three new lanes abroad and the website bottleneck (owner 17:16 and 18:26 EST: "explore the international scene … big bucks",
 ## "look everywhere at once", "think like the ideas I gave you")

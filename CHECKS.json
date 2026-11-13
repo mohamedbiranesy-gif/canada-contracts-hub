@@ -1,11 +1,11 @@
 {
- "as_of": "2026-11-13 00:41Z",
+ "as_of": "2026-11-13 00:42Z",
  "checks": [
   {
    "deliverable": "ranked table (ready rows, $5k+ marks, kinds)",
    "method": "read coord/results/ranked/BUILD.json after each rank-buyers run",
    "cmd": "python3 -c \"import json;d=json.load(open('coord/results/ranked/BUILD.json'));print(d['ship_ready'])\"",
-   "status": "passing (22:02Z: 217,145 ready)"
+   "status": "passing (build 23:25Z 04206b8: 217,388 ready)"
   },
   {
    "deliverable": "dian-imports lane",
@@ -17,7 +17,7 @@
    "deliverable": "f5500 lane",
    "method": "first run green; leads_f55_* shards exist; 10 rows read",
    "cmd": "ls data/incoming/claude/lead_shards | grep -c f55; wc -l data/incoming/claude/f5500/f5500_sites.csv",
-   "status": "in progress (run started 23:59Z)"
+   "status": "passing (run 2026-11-12 23:59Z green: 4,526 sponsors, 1,578 sites tied \u2014 1,284 places dataset, 294 domains with ZIP printed \u2014 1,578 leads in leads_f55_20261113T003954.gz; rows after the mailbox reader and the next build)"
   },
   {
    "deliverable": "places-dataset finder (overture_names)",
@@ -36,6 +36,12 @@
    "method": "relationship_rows.owner_test on a synthetic row returns the kind and no missing field but the mailbox",
    "cmd": "see STATE.md 2026-11-12 23:45Z",
    "status": "passing (unit check run 2026-11-12)"
+  },
+  {
+   "deliverable": "exchange issuers finder (places + ticker-proven domains)",
+   "method": "issuer_sites.csv grows; new leads_xc shard",
+   "cmd": "wc -l data/incoming/claude/exchange/issuer_sites.csv",
+   "status": "passing (1,443 sites, +164 on 2026-11-13 00:07Z)"
   }
  ]
 }
