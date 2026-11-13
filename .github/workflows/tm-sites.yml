@@ -24,6 +24,9 @@ on:
       abroad:
         description: "true = the owners outside Canada (United States, United Kingdom, Australia, and since 2026-11-12 ten European countries): 109,538 owners abroad have a Canadian agent of record"
         default: "false"
+      force:
+        description: "true = make the Overture candidate lists again even when Overture has published no newer release (2026-11-13: the European legal forms written out are left out of the names now)"
+        default: "false"
       overture:
         description: "true (with abroad=true) = only the owners abroad for whom an Overture Maps place lists a website under their name (postal code / state) or at their own address (street number and ZIP code; UK postcode): that published site is read first (the candidate lists are made first, once per Overture release)"
         default: "false"
@@ -71,7 +74,7 @@ jobs:
           pip install -q duckdb
           # each list is made again only when Overture has published a newer release than the one it was made from (its last column)
           newest=$(curl -sS --retry 3 "https://overturemaps-us-west-2.s3.amazonaws.com/?list-type=2&prefix=release/&delimiter=/" | grep -o 'release/[0-9-]*\.[0-9]*/' | sort | tail -1 | cut -d/ -f2)
-          made() { tail -1 "$1" 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r'; }
+          made() { [ "${{ inputs.force }}" = "true" ] && { echo forced; return; }; tail -1 "$1" 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r'; }
           echo "newest Overture release: $newest" | tee /tmp/ovt.txt
           D=data/incoming/claude/tm
           [ "$(made $D/tm_overture_sites.csv)" = "$newest" ] || python3 tools/tm_register.py overture-sites | tee -a /tmp/ovt.txt

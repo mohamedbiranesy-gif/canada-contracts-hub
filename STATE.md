@@ -18,6 +18,18 @@ does not apply on main", a one-off; three builds green since). Growth file (meas
 1 or 2 retried sites yet queued the next: 8-shard runs every six minutes, each calling the referee. mailbox-crawl.yml now chains only after a run
 that finished 200 sites or more; the hourly timer and the keeper start the rest. Nothing else changed; no item of PLAN section 4e advanced.
 
+**2026-11-13 17:00Z — OWNER 11:44 EST: no to Canadian-owned companies abroad (other than rule 18's utilities) and no to utilities held by
+several Canadian pension funds (AGENTS.md rules 19, 20; coord/DECISIONS.md). Nothing had been built on either.**
+- Build 16:22Z (a1d369c): 283,713 ready of 341,713. First rule-18 rows: 185 by P13 (24 of them Liberty NH, wrong: county fill, fixed) and 98 by
+  "give way" with jurisdiction CA and the utility's US address as the Canada proof — fixed in the ranker (jurisdiction, where, ownership sentence;
+  an abroad row with no address takes the one beside its mailbox). The rebuild of 16:43Z has the ZIP / island fixes; the 18:17Z build has all.
+- Rule 18 widened: places at a territory's edge located by their own point (~200 m inside, clear of other utilities): ~41,000 on Overture alone;
+  places run with points dispatched 16:45Z (writes tools/data/abroad_place_points.csv.gz + leads).
+- IP owners abroad: European legal forms written out are now left out of the name keys (France 3 % tied vs Germany 33 %); tm-sites dispatched
+  with force=true (pt-sites and fsq owners next, when the crawl frees runners).
+- Pipeline: crawl 43454319294 (abroad leads) ends ~18:07Z -> merge -> referee -> dispatch_overdue starts the ranker; addr-reread abroad=true
+  to dispatch after the merge.
+
 **2026-11-13 16:25Z — rule 18 lane corrected before its first rows; the open questions measured:**
 - **Error found and fixed:** Liberty's Granite State (NH) polygon in HIFLD is a county fill, and the ZIP step set Eversource's PSNH aside as one —
   54 ZIP areas (Nashua, Manchester, Keene …) were given to Liberty. Fixed: a target not drawn from its own maps keeps every neighbour as an exclusion;
