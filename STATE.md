@@ -12,6 +12,16 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
 
+**2026-11-13 23:42Z — BLOCKER: GitHub Actions is disabled for the account (since 23:39:30Z).** Every running workflow was cancelled at that second
+(rank 43518016787, dns-services, …); a new dispatch answers HTTP 422 "Actions has been disabled for this user". The repo is public, so not a
+minutes limit — an account restriction (likely the bulk crawling: dns-services sweeps 63 M domains and re-dispatches itself every few minutes;
+ct-names, mailbox-crawl, credit-scan chain the same way). The owner was told at 23:42Z with what to check (GitHub e-mail, Billing and plans,
+Settings → Actions, a Support ticket). Until it is back nothing builds, crawls, verifies or publishes; pushing still works, and the release
+ranked-latest still holds the table of 22:10Z (301,184 ready). Tonight's commits (names, rule 19 by name, foundations, dealers, dues, province
+conflicts, municipal estimates, $5,000+ record order, the c5k mailboxes) wait for the next build. When Actions returns: first a rank build
+(dispatch rank-buyers), then verify-and-merge; and slow the self-dispatching sweeps (dns-services, ct-names, credit-scan cycle) before they
+restart — if GitHub names the cause, follow what it asks. Do NOT publish releases by any other route (this session may not create releases).
+
 **2026-11-13 22:43Z — NEXT (for whoever picks this up; the owner's deadline is the 18th, lock-in by the 17th):**
 1. Build of 22:29Z start (rank 43518016787, ends ~00:10Z) carries: buyer-name accuracy, rule 19 by name (LLC / USA Inc.), foundations out of sponsorships,
    dealers' shop terms off, members' benefit prices off the dues, province/postal-code conflicts, municipalities' electricity from residents (tools/muni_energy.py),
