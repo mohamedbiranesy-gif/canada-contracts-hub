@@ -32,7 +32,7 @@ import ap_crawler as C
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIR = os.path.join(ROOT, "data/incoming/claude/vendor_billing")
 TODAY = datetime.date.today().isoformat()
-V = 5  # 5 (2026-11-11 20Z): payment pages of regulators, cities, associations and firms ("pay your invoice using …", EFT, wire, online banking); renewal notices and notices of assessment as the bill. Earlier: 2 (2026-11-11): what happens when a bill is not paid, the currency of the prices, the ways of paying; amounts parsed. 3: the site's own title and description of what the vendor sells 4 (2026-11-11): the terms page is always among the pages read; how the invoice arrives, the tax rule and the vendor's own tax number are kept
+V = 6  # 6 (2026-11-13): a vendor's terms on its own terms. / legal. subdomain (terms.doteasy.com); "must pay the Charges by …", "pay with …", "methods of payment" (hosts' terms read by hand that day). Earlier: 5 (2026-11-11 20Z): payment pages of regulators, cities, associations and firms ("pay your invoice using …", EFT, wire, online banking); renewal notices and notices of assessment as the bill. Earlier: 2 (2026-11-11): what happens when a bill is not paid, the currency of the prices, the ways of paying; amounts parsed. 3: the site's own title and description of what the vendor sells 4 (2026-11-11): the terms page is always among the pages read; how the invoice arrives, the tax rule and the vendor's own tax number are kept
 
 # 2026-11-12: a number of four digits or more written without a thousands separator was cut to its first three ("$1195.00" matched as "$119",
 # "1500$" as "500$", "$12500/year" as "$125"): grouped thousands first, else the whole run of digits. Records read before keep the cut match;
@@ -89,7 +89,10 @@ EXTRA = [
     # "Payment Types We accept the following payment types: Cash, Personal and Company Cheques …" (a city), "Vous pouvez effectuer le paiement de
     # votre licence de deux façons … en envoyant un chèque" (a regulator) — and name bank payments the first pattern did not know (EFT, wire,
     # online banking, a financial institution, a money order).
+    # version 6 (2026-11-13): "The Customer must pay the Charges by debit card, credit card, direct debit, bank transfer or cheque", "requires Users to pay with a
+    # credit card, wire transfer, debit card or cheque", "The following methods of payments are non-refundable …: bank wire transfers, Interac Email Transfers, cheques"
     ("paymethod", re.compile(r"\b(?:we\s+accept|accepted\s+(?:payment\s+)?methods?|payment\s+(?:methods?|options?|types?)|modes?\s+de\s+paiement|payable\s+by|pay(?:ments?)?\s+(?:can\s+be\s+made\s+)?by|nous\s+acceptons|"
+                             r"methods?\s+of\s+payments?|pay\s+(?:the\s+)?(?:charges|fees|amounts?(?:\s+due)?|invoices?)\s+(?:by|with|using|via)|pay\s+(?:with|using|via)|pay\s+for\s+(?:your|the|an?)\s+\w+\s+(?:using|by|with)|"
                              r"pay\s+(?:your|an|the|my)\s+(?:invoices?|bills?|account|dues|membership|fees?|licen[cs]e)\b[^.!?|•]{0,50}?\b(?:using|by|with|via|through)|payments?\s+(?:can|may)\s+be\s+made|ways?\s+to\s+pay|"
                              r"effectuer\s+(?:le|un|votre)\s+paiement|payer\s+(?:par|votre\s+facture|votre\s+cotisation)|paiement\s+(?:par|peut\s+[êe]tre))\b[^.!?|•]{0,200}?"
                              r"\b(?:credit\s+cards?|visa|mastercard|interac|e-?transfers?|cheques?|checks?|pre-?authori[sz]ed|paypal|cartes?\s+de\s+cr[ée]dit|virements?|ch[èe]ques?|pr[ée]l[èe]vements?|"
@@ -124,7 +127,7 @@ PAGE_RX = [re.compile(p, re.I) for p in (
     r"\bterms|conditions|modalit|billing|facturation|\bfaq|\blegal|agreement|entente|contrat|payment[-_ ]options?|make[-_ ]a[-_ ]payment|how[-_ ]to[-_ ]pay|pay[-_ ](?:your|an|my)[-_ ]|paiement|payer|\brenew|renouvel")]
 NOT_PAGE = re.compile(r"login|log-in|signin|sign-in|connexion|cart|panier|checkout|blog|news|nouvelles|actualit|career|carri[èe]re|emploi|privacy|confidentialit|cookie|accessib|\.pdf(?:$|\?)|/tag/|/category/|/author/", re.I)
 _SIDE_PRODUCT = re.compile(r"privacy|protection|whois|ssl|certificat|backup|sauvegarde|marketing|auction|ench[èe]re|transfer|transfert|club|affiliat|resell|revend|partner|partenaire|green|vert", re.I)
-OWN_SUB = re.compile(r"^(?:www\d?|shop|store|boutique|billing|my|mon|portal|portail|clients?|secure|account|compte|hosting|support|help|aide|docs?|kb|info|site)$")
+OWN_SUB = re.compile(r"^(?:www\d?|shop|store|boutique|billing|my|mon|portal|portail|clients?|secure|account|compte|hosting|support|help|aide|docs?|kb|info|site|terms|legal|policies|policy|conditions|facturation)$")
 
 
 def page(url):

@@ -514,6 +514,15 @@ BILLING_BY_DOMAIN = {
                           payment=("“Payment Options Subject to some restrictions, payment options include: Automatic bank withdrawal Automatic credit card debit (Visa, Visa Debit, "
                                    "Mastercard, Mastercard Debit and American Express)” (https://www.vianet.ca/legal/billing-policy/, read 2026-11-13)"),
                           terms="“Statements are dated the 1st of the month. The due date for the balance owing is the 10th of the month.” (billing policy)")),
+    # PowerStores (webware.ai): its policy page, read with the project's reader on 2026-11-13
+    "webware.ai": dict(cls="monthly", read="2026-11-13", url="https://www.webware.ai/?fuseaction=store.privacy",
+                       quote="If you cancel the Services in the middle of the month, you will receive a closing invoice via email.",
+                       bill=dict(
+                           delivery=("“When you subscribe for the Services, Company shall send an invoice via email. An invoice will also appear on the account page of your "
+                                     "administration console (account page).” (https://www.webware.ai/?fuseaction=store.privacy, read 2026-11-13)"),
+                           payment="“Our Payment Service requires Users to pay with a credit card, wire transfer, debit card or cheque.” (https://www.webware.ai/?fuseaction=store.privacy, read 2026-11-13)",
+                           unpaid=("“In the event a payment is not received by the due date set forth on an invoice, a late fee of one and a half percent (1.5%) shall be assessed "
+                                   "against overdue amounts.” (same page)"))),
     # card only: the row says so instead of "not published"
     "hawkhost.com": dict(cls="monthly_or_yearly", read="2026-11-13", url="https://www.hawkhost.com/kb/billing/",
                          quote="How do I pay my invoice with a credit card?",

@@ -15,6 +15,9 @@ on:
       limit:
         description: "at most this many vendors (0 = every vendor that is due)"
         default: "0"
+      only_file:
+        description: "a file of vendor domains (one a line) to read now, whatever their date — e.g. data/incoming/claude/vendor_billing/held_vendors.txt (the vendors behind rows held as 'payment: not published')"
+        default: ""
 permissions:
   contents: write
 concurrency:
@@ -28,9 +31,10 @@ jobs:
       - uses: actions/checkout@v4
         with: { ref: main }
       - name: The vendors' own price and terms pages
-        env: { MINUTES: "${{ inputs.minutes || '100' }}", LIMIT: "${{ inputs.limit || '0' }}" }
+        env: { MINUTES: "${{ inputs.minutes || '100' }}", LIMIT: "${{ inputs.limit || '0' }}", ONLY_FILE: "${{ inputs.only_file || '' }}" }
         run: |
-          python3 tools/vendor_billing.py read --minutes "$MINUTES" --workers 40 --limit "$LIMIT" 2>&1 | tail -12 | cut -c1-600 | tee /tmp/r.txt
+          ONLY=""; [ -n "$ONLY_FILE" ] && [ -s "$ONLY_FILE" ] && ONLY=$(grep -v '^#' "$ONLY_FILE" | tr -d '\r' | paste -sd, -)
+          python3 tools/vendor_billing.py read --minutes "$MINUTES" --workers 40 --limit "$LIMIT" ${ONLY:+--only "$ONLY"} 2>&1 | tail -12 | cut -c1-600 | tee /tmp/r.txt
           ls -la out
       - name: Commit
         run: |
