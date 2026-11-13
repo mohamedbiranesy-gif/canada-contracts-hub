@@ -34,6 +34,7 @@ very name (kept when the site's own home page carries it); then the mailbox craw
   build-stumpage --work W    -> data/incoming/claude/bcgov/bc_stumpage_clients.csv.gz (+ bc_stumpage_invoices.csv.gz, the invoices of those clients)
   pull-aer --work W          the AER's ST37 Excel package, when newer than the last build's
   build-aer --work W         -> data/incoming/claude/bcgov/ab_aer_licensees.csv.gz (one line per licensee of a drilled well in force; Alberta)
+  pull-pmra / build-pmra     the PMRA's product extract -> data/incoming/claude/bcgov/hc_pmra_registrants.csv.gz (registrants of current products)
   sites --minutes M          each holder's own site -> bcgov/bc_sites.csv (+ bc_sites_done.tsv: names the autocomplete was asked)
   leads --stamp S            -> lead_shards/leads_bcgov_S.gz + details_bcgov_S.gz (new leads only)
 """
@@ -174,6 +175,28 @@ A_LIVE = {"Issued", "Amended", "Suspension", "Re-Entered", "Re-entered"}
 ACOLS = ["key", "name", "wells", "suspended", "licences", "licence_examples", "first_spud", "last_status_date", "fee_floor", "extract_date"]
 AER = os.path.join(DIR, "ab_aer_licensees.csv.gz")
 AER_INFO = os.path.join(DIR, "ab_aer_info.json")
+# ---- a federal body of the same kind (2026-11-13): Health Canada's Pest Management Regulatory Agency bills every registrant an annual charge for
+# each pest control product registered in its name on April 1, in four invoices a year. Its words (guidance on the Fees and Charges Regulations):
+# "four (4) invoices will be issued by the PMRA and sent in one mailing to each registrant for products registered in that registrant's name on
+# April 1 of each year." "Upon receipt of the invoices, annual charges can be paid in full or in four equal instalments due on May 30, August 28,
+# November 26, and February 24." The registrants: the Pesticide Product Information Database's own extract (products, their status, registrant).
+# Paid as any Health Canada invoice (its page on paying fees: bill payment through a Canadian financial institution, direct deposit, wire, cheque).
+PMRA_GUIDE = ("https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/pesticides-pest-management/policies-guidelines/"
+              "fees-charges-regulations.html")
+PMRA_API = "https://pest-control.canada.ca/pesticide-registry-api/api/extract/product/?lang=en"
+PMRA_DB = "https://pest-control.canada.ca/pesticide-registry/en/index.html"
+HC_PAY = "https://www.canada.ca/en/health-canada/services/funding/cost-recovery-service-fees/how-pay-fees.html"
+HC_ADDRESS = "Health Canada Accounts Receivable, Address Locator: 1918B 18th Floor, Room 1804B, Jeanne-Mance Building 161 Goldenrod Driveway, Tunney's Pasture Ottawa, Ontario K1A 0K9"
+P_INVOICES = ("Under paragraph 9(2)(b) of the Fees and Charges Regulations four (4) invoices will be issued by the PMRA and sent in one mailing to each registrant "
+              "for products registered in that registrant's name on April 1 of each year.")
+P_INSTAL = "Upon receipt of the invoices, annual charges can be paid in full or in four equal instalments due on May 30, August 28, November 26, and February 24."
+P_CHARGE = ("A registrant must pay each year, in respect of every pest control product that is registered in their name on April 1 of the year, an annual charge "
+            "that is the lesser of the Annual Charge amount for that year and 4% of the actual gross revenue during the registrant's preceding fiscal year, but not "
+            "less than the minimum charge.")
+P_BASE = "The base amount of the Annual Charge, as stated in the Pest Control Products Fees and Charges Regulations, is $3,600 and the minimum charge is $100."
+P_INTEREST = "interest calculated and compounded monthly at the average bank rate plus 3% is payable on that amount"
+PCOLS = ["key", "name", "products", "product_examples", "first_registered", "extract_date", "fee_floor"]
+PMRA = os.path.join(DIR, "hc_pmra_registrants.csv.gz")
 WATER = os.path.join(DIR, "bc_water_licensees.csv.gz")
 STUMP = os.path.join(DIR, "bc_stumpage_clients.csv.gz")
 STUMP_INV = os.path.join(DIR, "bc_stumpage_invoices.csv.gz")
@@ -459,7 +482,7 @@ def cmd_build_stumpage(a):
         if not nm:
             why["client number not named in the harvesting authorities layer"] += 1
             continue
-        if not RL.is_org(nm) or RL.FEDERAL.search(nm.replace("&", "and")) or PROVINCIAL.search(nm):
+        if not org_any(nm):
             why["a person, a ministry or a federal body"] += 1
             continue
         rs.sort(key=lambda r: (r["bill_date"], r["invoice"]))
@@ -548,7 +571,7 @@ def cmd_build_aer(a):
             o["sdate"].append("%s-%s-%s" % (m.group(3), m.group(1), m.group(2)))
     out, why = [], collections.Counter()
     for nm, o in by.items():
-        if not nm or not RL.is_org(nm) or RL.FEDERAL.search(nm.replace("&", "and")) or PROVINCIAL.search(nm) or re.search(r"orphan well association", nm, re.I):
+        if not nm or not org_any(nm) or re.search(r"orphan well association", nm, re.I):
             why["a person, a public body or the orphan well association"] += 1
             continue
         out.append({"key": "aer:" + hashlib.sha1(HR.norm(nm).encode()).hexdigest()[:12], "name": nm, "wells": o["wells"], "suspended": o["suspended"],
@@ -566,10 +589,73 @@ def cmd_build_aer(a):
     print("AER: %d licensees with a drilled well in force (%d wells read; a fee floor of $5,000 a year or more: %d); %s" % (len(out), n, big, dict(why)), flush=True)
 
 
+# ---------------------------------------------------------------------------------------------------- the PMRA's annual charges
+def cmd_pull_pmra(a):
+    os.makedirs(a.work, exist_ok=True)
+    b, _ = get(PMRA_API, os.path.join(a.work, "pmra_products.csv"), timeout=600)
+    print("PMRA product extract: %d bytes" % len(b), flush=True)
+
+
+INTL_FORM = re.compile(r"\b(?:llc|l\.l\.c\.?|gmbh|ag|kg|sas|sa|s\.a\.?|sau|spa|s\.p\.a\.?|srl|s\.r\.l\.?|bv|b\.v\.?|nv|n\.v\.?|ab|as|a/s|a s|oy|plc|ltda\.?|kft|"
+                       r"sp\.? ?z ?o\.? ?o\.?|pty|bhd|co|corp|llp|lp|i/s|kk|k\.k\.|sarl|s\.a\.r\.l\.?|eftf|d\.b\.a\.?|dba)\b", re.I)
+GOVT = re.compile(r"\b(?:environment and parks|government|department|ministry|minist[eè]re|city of|county of|province of|state of)\b", re.I)
+
+
+LEGAL_FORM = re.compile(r"\b(?:ltd|ltée|ltee|inc|incorporated|corp|corporation|limited|limitée|company|compagnie|cie|ulc|gp|lp|l\.p|s\.e\.n\.c)\b\.?", re.I)
+TRADE2 = re.compile(r"\b(?:products?|international|spas?|nurser(?:y|ies)|chemicals?|devices?|robotics|laborato\w*|pest|control|eco\w*|specialty|health|home|"
+                    r"quality|aero|fillers?|benelux|australia|canada|wizard)\b", re.I)
+
+
+def org_any(nm):
+    """a registrant that is an organisation: a legal form (of Canada or another country), a word of the trade, or a name not shaped like a
+    person's; a government body (a federal department, a provincial ministry) is not one, unless the name carries a company's legal form"""
+    form = bool(LEGAL_FORM.search(nm) or INTL_FORM.search(nm))
+    if not form and (RL.FEDERAL.search(nm.replace("&", "and")) or PROVINCIAL.search(nm) or GOVT.search(nm)):
+        return False
+    return form or bool(RL.is_org(nm) or TRADE2.search(nm)) or not RL.PERSON.match(nm.title())
+
+
+def cmd_build_pmra(a):
+    import io
+    os.makedirs(DIR, exist_ok=True)
+    raw = open(os.path.join(a.work, "pmra_products.csv"), "rb").read()
+    try:
+        txt = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        txt = raw.decode("cp1252", "replace")
+    by = collections.defaultdict(list)
+    n = 0
+    for r in csv.DictReader(io.StringIO(txt)):
+        n += 1
+        if (r.get("Current / Historical") or "") != "Current" or (r.get("Registration Status") or "") in ("", "Cancelled"):
+            continue
+        nm = clean_name(re.sub(r"\*+\s*$", "", r.get("Registrant name") or "")).strip()
+        if nm:
+            by[nm].append(r)
+    out, why = [], collections.Counter()
+    for nm, rs in by.items():
+        if not org_any(nm):
+            why["a person or a public body"] += 1
+            continue
+        rs.sort(key=lambda r: r.get("Registration number") or "")
+        first = min((r.get("Date first registered") or "9999") for r in rs)
+        out.append({"key": "pmra:" + hashlib.sha1(HR.norm(nm).encode()).hexdigest()[:12], "name": nm, "products": len(rs),
+                    "product_examples": " | ".join("%s %s" % (r.get("Registration number"), (r.get("Product name - English") or "").strip()) for r in rs[:5])[:400],
+                    "first_registered": "" if first == "9999" else first, "extract_date": TODAY, "fee_floor": "%.2f" % (len(rs) * 100.0)})
+        why["registrant kept"] += 1
+    out.sort(key=lambda o: o["key"])
+    with gzip.open(PMRA, "wt", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=PCOLS)
+        w.writeheader()
+        w.writerows(out)
+    print("PMRA: %d registrants with a current registered product (%d product lines read; 50 products or more: %d); %s"
+          % (len(out), n, sum(1 for o in out if int(o["products"]) >= 50), dict(why)), flush=True)
+
+
 # ---------------------------------------------------------------------------------------------------- sites and leads
 def holders():
     out = []
-    for p, lane in ((WATER, "water"), (STUMP, "stumpage"), (AER, "aer")):
+    for p, lane in ((WATER, "water"), (STUMP, "stumpage"), (AER, "aer"), (PMRA, "pmra")):
         if os.path.exists(p):
             with gzip.open(p, "rt", encoding="utf-8", newline="") as f:
                 for r in csv.DictReader(f):
@@ -758,6 +844,33 @@ def lead_aer(o, s):
     return row, det
 
 
+def lead_pmra(o, s):
+    key = "lead:" + hashlib.sha1(("pmra|%s" % o["key"]).encode()).hexdigest()[:16]
+    s = dict(s, tied_by=HR.no_mail(s.get("tied_by")), quote=HR.no_mail(s.get("quote")))
+    n = int(o["products"])
+    what = "%d registered pest control product%s" % (n, "" if n == 1 else "s")
+    row = {"buyer_key": key, "buyer_name": o["name"], "website": s["site"], "canadian_vendor_rows": 1, "example_vendor": "Health Canada",
+           "canada_field_value": "membership / statutory fee relationship: right-to-sell holder of the Canadian body (Health Canada — Pest Management Regulatory Agency)=%s (as printed on %s, read %s); the PMRA: “%s” (%s)"
+                                 % (HC_ADDRESS, HC_PAY, READ, P_INVOICES, PMRA_GUIDE),
+           "evidence_dataset": PMRA_DB, "latest_record_date": o["extract_date"]}
+    det = {"key": key, "platform": "hc_pmra", "record_url": PMRA_DB, "vendor": "Health Canada", "record_date": o["extract_date"],
+           "start": o.get("first_registered") or "", "end": "", "reference": "registration no. %s" % (o["product_examples"].split(" ")[0] if o["product_examples"] else "?"),
+           "title": "Registrant of %s — e.g. %s" % (what, o["product_examples"][:200]),
+           "vendor_address": "%s (as printed on %s, read %s)" % (HC_ADDRESS, HC_PAY, READ), "vendor_site": "https://www.canada.ca/en/health-canada.html", "member_address_quote": "",
+           "register_label": "the Pest Management Regulatory Agency's Pesticide Product Information Database (each product, its status, its registrant)",
+           "hc_what": what,
+           "buyer_register": {"legal_name": o["name"], "trade_names": [], "registry_id": "", "label": "the Pesticide Product Information Database's extract, read %s" % o["extract_date"]},
+           "fee_unit": "C$3,600 a year for each registered product at most (the base amount, adjusted every April by the consumer price index), C$100 at least",
+           "fee_unit_basis": "the PMRA's guidance on the Fees and Charges Regulations: “%s” “%s” (%s, read %s)" % (P_CHARGE, P_BASE, PMRA_GUIDE, READ),
+           "fee_calculated": ("calculated — at least C$%s a year: %s × the minimum charge of $100 (at most %s × the base amount of $3,600, both adjusted by the CPI every April); "
+                              "the charge of each product is the lesser of the year's Annual Charge and 4 %% of its gross revenue, which is not published" % (format(n * 100.0, ",.2f"), what, what)),
+           "bill_delivery": "four invoices a year, sent together: “%s” “%s” (%s, read %s)" % (P_INVOICES, P_INSTAL, PMRA_GUIDE, READ),
+           "bill_terms": "instalments due May 30, August 28, November 26 and February 24; on a late payment, “%s” (%s, read %s)" % (P_INTEREST, PMRA_GUIDE, READ),
+           "bill_items": "the annual charge for the right to sell its %s" % what,
+           "fee_basis": "%s (%s)" % (P_CHARGE, PMRA_GUIDE), "site_named_by": s["tied_by"], "site_tied_to_holder_by": s["tied_by"], "site_quote": s.get("quote") or ""}
+    return row, det
+
+
 def cmd_leads(a):
     os.makedirs(SHARDS, exist_ok=True)
     stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
@@ -778,7 +891,7 @@ def cmd_leads(a):
         if hosts[urllib.parse.urlparse(s["site"]).hostname] > 3:
             by["site shared by more than three holders (a group's or a host's site): left out"] += 1
             continue
-        row, det = {"water": lead_water, "stumpage": lead_stumpage, "aer": lead_aer}[o["lane"]](o, s)
+        row, det = {"water": lead_water, "stumpage": lead_stumpage, "aer": lead_aer, "pmra": lead_pmra}[o["lane"]](o, s)
         if row["buyer_key"] in have:
             continue
         have.add(row["buyer_key"]); rows.append(row); dets.append(det); by["new lead (%s)" % o["lane"]] += 1
@@ -795,13 +908,13 @@ def cmd_leads(a):
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for c in ("pull-water", "build-water", "pull-stumpage", "build-stumpage", "pull-aer", "build-aer"):
+    for c in ("pull-water", "build-water", "pull-stumpage", "build-stumpage", "pull-aer", "build-aer", "pull-pmra", "build-pmra"):
         p = sub.add_parser(c); p.add_argument("--work", required=True); p.add_argument("--force", action="store_true")
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=60); p.add_argument("--threads", type=int, default=12); p.add_argument("--addr-minutes", type=float, default=30)
     p = sub.add_parser("leads"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"pull-water": cmd_pull_water, "build-water": cmd_build_water, "pull-stumpage": cmd_pull_stumpage, "build-stumpage": cmd_build_stumpage,
-     "pull-aer": cmd_pull_aer, "build-aer": cmd_build_aer, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
+     "pull-aer": cmd_pull_aer, "build-aer": cmd_build_aer, "pull-pmra": cmd_pull_pmra, "build-pmra": cmd_build_pmra, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
 
 
 if __name__ == "__main__":

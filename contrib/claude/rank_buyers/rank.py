@@ -5611,7 +5611,7 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_indicative"] = "%s%s%s" % ({"CAD": "C$", "USD": "US$"}.get(c_, "$"), ("%.2f" % v).rstrip("0").rstrip("."),
                                                              " per vehicle" if re.search(r"per vehicle", m.group(1), re.I) else " a year" if re.search(r"annual|year|ann[ée]e", m.group(1), re.I) else "")
                 out["bill_amount_basis"] = "the body's own statement of its fee: “%s” (%s)" % (m.group(1)[:280], m.group(2))
-        if ld.get("platform") in ("hc_register", "radio_register", "exchange_register", "bc_water", "bc_stumpage", "ab_aer"):
+        if ld.get("platform") in ("hc_register", "radio_register", "exchange_register", "bc_water", "bc_stumpage", "ab_aer", "hc_pmra"):
             # tools/hc_registers.py / tools/radio_licences.py: the published fee of one product (a drug, a device licence, a radio station) and the year's bill
             # calculated from what the register lists for the organisation today (a radio licensee's: at least, from the lowest fee of each station)
             # lists for the company today; how the invoice comes and when it is due, in Health Canada's own guidance
@@ -5646,6 +5646,10 @@ def bill_profile(x, ld, cls):
         elif cs.startswith("listed issuer on a Canadian stock exchange"):
             out["relationship_fact_basis"] = ("fact, public record: the exchange's own list of listed companies names the organisation as a listed issuer, with its symbol (%s)"
                                               % (x.get("contract_link") or x.get("source") or "")[:160])
+        elif cs.startswith("holds the right to sell"):
+            # tools/hc_registers.py and the PMRA lane of tools/bc_crown.py: Health Canada's own public registers
+            out["relationship_fact_basis"] = ("fact, public record: Health Canada's own public register lists the organisation as holding the right to sell the products "
+                                              "it invoices yearly (%s)" % (x.get("contract_link") or x.get("source") or "")[:160])
         elif cs.startswith("billed stumpage by a Canadian public body"):
             out["relationship_fact_basis"] = ("fact, public record: the Province of British Columbia's Harvest Billing System lists the invoices it billed to this client, "
                                               "each with its number, timber mark and value (%s)" % (x.get("contract_link") or x.get("source") or "")[:160])
