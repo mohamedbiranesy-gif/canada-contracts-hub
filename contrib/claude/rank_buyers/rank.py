@@ -108,6 +108,7 @@ def _money(v):
 ROOT = __import__("os").path.abspath(__import__("os").path.join(__import__("os").path.dirname(__file__), "../../.."))
 sys.path.insert(0, ROOT + "/tools"); sys.argv = sys.argv[:1]
 import urllib.parse
+import relationship_rows as _RR  # (imported again below where the owner's test is used) — here for is_ceiling while a buyer's record is chosen
 from ap_crawler import same_org, registrable  # the buyer's own mailbox, not a contractor's or partner's named on its pages
 from ap_crawler import OTHER_ROLE as _CRAWL_ROLE, GENERAL as _CRAWL_GENERAL
 # 2026-11-10: the big files that engines rewrite whole are release assets, not git blobs (tools/state_io.py, coord/STATE_ASSETS.json):
@@ -722,7 +723,14 @@ for l in gzip.open(ROOT + "/data/release/canadian_vendor_contracts.jsonl.gz", "r
     _rs0 = [t_.strip() for t_ in str((r.get("vendor_enrichment") or {}).get("registry_status") or "").split(";") if t_.strip()]
     _dead0 = bool(_rs0) and bool((_DEAD_REG.search(_rs0[0]) and not _LIVE_REG.search(_rs0[0])) or (not any(_LIVE_REG.search(t_) for t_ in _rs0) and any(_DEAD_REG.search(t_) for t_ in _rs0)))
     _clean = 0 if (_dead0 or not ((r.get("vendor") or {}).get("address"))) else 1
-    _bk = (TS[tier_of(r)], _clean, 1 if _val >= 5000 else 0, sc, award_date(r) or "")
+    # 2026-11-13 (owner 13:20 EST: "add as much over 5000 as possible"): among the records that stand for a current relationship (tiers A, B, L — a
+    # published end date ahead, no end date and awarded within three years: rule 11), a clean record with a published $5,000 or more comes before
+    # a record of a surer tier with less; a record older than that (tier C) never comes before a current one. A ceiling (a framework, a roster) is
+    # not a bill (tools/relationship_rows.is_ceiling).
+    _tr = tier_of(r)
+    _big = 1 if (_val >= 5000 and not _RR.is_ceiling({"instrument_type": (r.get("contract") or {}).get("instrument_type") or "", "contract_title": (r.get("contract") or {}).get("title") or "",
+                                                       "procurement_method": (r.get("contract") or {}).get("procurement_method") or ""})) else 0
+    _bk = (1 if _tr in ("A", "B", "L") else 0, _clean, _big, TS[_tr], sc, award_date(r) or "")
     if o["best"] is None or _bk > o["bk"]:
         o["best"], o["bs"], o["fields"], o["bk"] = r, sc, fields, _bk
         if len(name) < len(o["name"]) or not o["name"]: o["name"] = name
