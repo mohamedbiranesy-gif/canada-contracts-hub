@@ -11,7 +11,7 @@ zip,biller,share,other_share,other,kept
 03044,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03045,us_granite_state,0.9993,0.0,,yes
 03047,us_granite_state,1.0,0.0,,yes
-03048,us_granite_state,0.9987,0.0013,"TOWN OF WAKEFIELD - (MA) (MUNICIPAL, MA)",yes
+03048,us_granite_state,0.9987,0.0013,"FITCHBURG GAS & ELEC LIGHT CO (INVESTOR OWNED, NH)",yes
 03049,us_granite_state,1.0,0.0,"NANTUCKET ELECTRIC CO (INVESTOR OWNED, MA)",yes
 03051,us_granite_state,1.0,0.0001,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",yes
 03052,us_granite_state,1.0,0.0,,yes
@@ -25,7 +25,7 @@ zip,biller,share,other_share,other,kept
 03064,us_granite_state,1.0,0.0,,yes
 03070,us_granite_state,1.0,0.0,,yes
 03071,us_granite_state,0.9996,0.0006,"NANTUCKET ELECTRIC CO (INVESTOR OWNED, MA)",yes
-03076,us_granite_state,0.9978,0.0022,"MASSACHUSETTS ELECTRIC CO (INVESTOR OWNED, NY)",yes
+03076,us_granite_state,0.9978,0.0022,"FITCHBURG GAS & ELEC LIGHT CO (INVESTOR OWNED, NH)",yes
 03077,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03079,us_granite_state,0.9991,0.9839,"UNITIL ENERGY SYSTEMS (INVESTOR OWNED, NH)",no
 03082,us_granite_state,1.0,0.0,,yes
@@ -38,29 +38,29 @@ zip,biller,share,other_share,other,kept
 03104,us_granite_state,0.9946,0.0003,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",yes
 03109,us_granite_state,1.0,0.0042,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",yes
 03110,us_granite_state,1.0,0.0,,yes
-03215,us_granite_state,0.9999,0.9999,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03215,us_granite_state,0.9999,0.9999,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03217,us_granite_state,0.9948,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03222,us_granite_state,0.9982,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03223,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03238,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03238,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03240,us_granite_state,0.9998,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03241,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03241,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03244,us_granite_state,0.9993,0.0065,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",yes
 03245,us_granite_state,0.9991,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03251,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03251,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03261,us_granite_state,0.9937,0.9939,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03262,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03262,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03264,us_granite_state,0.9998,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03266,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03279,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03266,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03279,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03280,us_granite_state,1.0,0.9992,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03281,us_granite_state,0.9991,0.0,,yes
-03282,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03282,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03284,us_granite_state,0.988,0.998,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03285,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03285,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03290,us_granite_state,0.9998,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03291,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03293,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03293,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03431,us_granite_state,1.0,0.0,,yes
 03440,us_granite_state,1.0,0.0,,yes
 03441,us_granite_state,1.0,0.0,,yes
@@ -69,60 +69,60 @@ zip,biller,share,other_share,other,kept
 03444,us_granite_state,1.0,0.0,,yes
 03445,us_granite_state,1.0,0.0,,yes
 03446,us_granite_state,1.0,0.0,,yes
-03447,us_granite_state,0.9996,0.0004,"MASSACHUSETTS ELECTRIC CO (INVESTOR OWNED, NY)",yes
+03447,us_granite_state,0.9996,0.0004,"FITCHBURG GAS & ELEC LIGHT CO (INVESTOR OWNED, NH)",yes
 03448,us_granite_state,1.0,0.0032,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",yes
 03449,us_granite_state,1.0,0.0,,yes
 03450,us_granite_state,1.0,0.0,,yes
-03451,us_granite_state,0.9964,0.0036,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
+03451,us_granite_state,0.9964,0.0047,us_green_mountain_power,yes
 03452,us_granite_state,1.0,0.0,,yes
 03455,us_granite_state,1.0,0.0,,yes
 03456,us_granite_state,1.0,0.9791,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03457,us_granite_state,1.0,0.0,,yes
 03458,us_granite_state,1.0,0.0,,yes
-03461,us_granite_state,0.9995,0.0005,"MASSACHUSETTS ELECTRIC CO (INVESTOR OWNED, NY)",yes
+03461,us_granite_state,0.9995,0.0005,"FITCHBURG GAS & ELEC LIGHT CO (INVESTOR OWNED, NH)",yes
 03462,us_granite_state,1.0,0.0,,yes
 03464,us_granite_state,1.0,0.0019,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",yes
 03465,us_granite_state,1.0,0.0,,yes
 03466,us_granite_state,0.9953,0.0047,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
 03467,us_granite_state,0.9982,0.0018,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
 03470,us_granite_state,0.9998,0.0002,"MASSACHUSETTS ELECTRIC CO (INVESTOR OWNED, NY)",yes
-03561,us_granite_state,0.9991,0.9991,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03574,us_granite_state,0.9942,0.9942,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03580,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03585,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03586,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03561,us_granite_state,0.9991,0.9991,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03574,us_granite_state,0.9942,0.9942,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03580,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03585,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03586,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03601,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03602,us_granite_state,1.0,0.4498,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03603,us_granite_state,0.9993,0.9992,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03604,us_granite_state,1.0,0.0378,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03605,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03607,us_granite_state,1.0,0.9977,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03608,us_granite_state,0.9989,0.0011,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
+03608,us_granite_state,0.9989,0.0019,us_green_mountain_power,yes
 03609,us_granite_state,0.9744,0.0256,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-03740,us_granite_state,0.9993,0.9993,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03741,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03740,us_granite_state,0.9993,0.9993,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03741,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03743,us_granite_state,0.999,0.999,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03745,us_granite_state,0.9996,0.9996,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03748,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03750,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03750,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03751,us_granite_state,0.9999,0.9998,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03752,us_granite_state,0.9996,0.9997,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03753,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03755,us_granite_state,0.9981,0.9981,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03765,us_granite_state,0.9984,0.9984,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03766,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03768,us_granite_state,0.9971,0.9971,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03755,us_granite_state,0.9981,0.9981,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03765,us_granite_state,0.9984,0.9984,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03766,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03768,us_granite_state,0.9971,0.9971,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03770,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03771,us_granite_state,0.998,0.998,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03771,us_granite_state,0.998,0.998,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03773,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03774,us_granite_state,0.9985,0.9985,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03777,us_granite_state,0.9993,0.9993,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03779,us_granite_state,0.9986,0.9986,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03780,us_granite_state,1.0,1.0,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03774,us_granite_state,0.9985,0.9985,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03777,us_granite_state,0.9993,0.9993,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03779,us_granite_state,0.9986,0.9986,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03780,us_granite_state,1.0,1.0,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03781,us_granite_state,0.9998,0.9997,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
 03782,us_granite_state,0.9997,0.9995,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
-03784,us_granite_state,0.9949,0.9949,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-03785,us_granite_state,0.9994,0.9994,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
+03784,us_granite_state,0.9949,0.9949,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
+03785,us_granite_state,0.9994,0.9994,"PRECINCT OF WOODSVILLE (MUNICIPAL, NH)",no
 03801,us_granite_state,0.9992,0.9512,"UNITIL ENERGY SYSTEMS (INVESTOR OWNED, NH)",no
 03811,us_granite_state,0.9974,0.9974,"UNITIL ENERGY SYSTEMS (INVESTOR OWNED, NH)",no
 03819,us_granite_state,1.0,1.0,"NEW HAMPSHIRE ELEC COOP INC (COOPERATIVE, NH)",no
@@ -328,154 +328,144 @@ zip,biller,share,other_share,other,kept
 04986,us_versant,1.0,1.0,"CENTRAL MAINE POWER CO (INVESTOR OWNED, ME)",no
 04987,us_versant,0.9998,1.0,"CENTRAL MAINE POWER CO (INVESTOR OWNED, ME)",no
 04988,us_versant,0.7985,1.0,"CENTRAL MAINE POWER CO (INVESTOR OWNED, ME)",no
-05001,us_green_mountain_power,0.9995,0.0005,"TOWN OF ASHLAND (MUNICIPAL, NH)",yes
+05001,us_green_mountain_power,0.9992,0.0005,us_granite_state,yes
 05009,us_green_mountain_power,1.0,0.0,,yes
-05030,us_green_mountain_power,0.9885,0.0115,"PUBLIC SERVICE CO OF NH (INVESTOR OWNED, NH)",yes
+05030,us_green_mountain_power,0.9895,0.0115,us_granite_state,yes
 05031,us_green_mountain_power,1.0,0.0,,yes
 05032,us_green_mountain_power,1.0,0.0,,yes
-05033,us_green_mountain_power,0.8784,0.1554,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
+05033,us_green_mountain_power,0.8352,0.163,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05034,us_green_mountain_power,1.0,0.0,,yes
 05035,us_green_mountain_power,1.0,0.0,,yes
-05036,us_green_mountain_power,0.6832,0.3904,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
+05036,us_green_mountain_power,0.5473,0.4527,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05037,us_green_mountain_power,1.0,0.0,,yes
-05040,us_green_mountain_power,0.5558,0.6237,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05041,us_green_mountain_power,0.9004,0.2575,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05042,us_green_mountain_power,0.7546,0.2872,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05043,us_green_mountain_power,0.9971,0.0029,"TOWN OF ASHLAND (MUNICIPAL, NH)",yes
-05045,us_green_mountain_power,0.9993,0.0005,"TOWN OF ASHLAND (MUNICIPAL, NH)",yes
-05048,us_green_mountain_power,0.9972,0.0028,"PUBLIC SERVICE CO OF NH (INVESTOR OWNED, NH)",yes
-05050,us_green_mountain_power,0.9209,0.0791,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-05051,us_green_mountain_power,0.9778,0.0552,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05052,us_green_mountain_power,0.9926,0.0074,"PUBLIC SERVICE CO OF NH (INVESTOR OWNED, NH)",yes
+05041,us_green_mountain_power,0.6188,0.3812,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05042,us_green_mountain_power,0.7362,0.2636,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05043,us_green_mountain_power,0.9931,0.0029,us_granite_state,yes
+05045,us_green_mountain_power,0.9989,0.0005,us_granite_state,yes
+05048,us_green_mountain_power,0.9956,0.0028,us_granite_state,yes
+05050,us_green_mountain_power,0.9709,0.0791,us_granite_state,no
+05051,us_green_mountain_power,0.9601,0.0384,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05052,us_green_mountain_power,0.9794,0.0074,us_granite_state,no
 05053,us_green_mountain_power,1.0,0.0,,yes
-05055,us_green_mountain_power,0.9988,0.0012,"TOWN OF ASHLAND (MUNICIPAL, NH)",yes
-05056,us_green_mountain_power,1.0,0.007,"VILLAGE OF LUDLOW - (VT) (MUNICIPAL, VT)",yes
+05055,us_green_mountain_power,0.9987,0.0012,us_granite_state,yes
+05056,us_green_mountain_power,0.9971,0.0029,"Village of Ludlow Electric Light Department (STATE FRANCHISE AREA, VT)",yes
 05058,us_green_mountain_power,1.0,0.0,,yes
 05059,us_green_mountain_power,1.0,0.0,,yes
-05060,us_green_mountain_power,0.9675,0.0459,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
+05060,us_green_mountain_power,0.9504,0.0496,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05061,us_green_mountain_power,1.0,0.0,,yes
 05062,us_green_mountain_power,1.0,0.0,,yes
-05065,us_green_mountain_power,0.9961,0.0212,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
+05065,us_green_mountain_power,0.9999,0.0001,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",yes
 05067,us_green_mountain_power,1.0,0.0,,yes
-05068,us_green_mountain_power,1.0,0.0,,yes
-05069,us_green_mountain_power,0.8401,0.1824,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
+05068,us_green_mountain_power,0.9999,0.0001,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",yes
+05069,us_green_mountain_power,0.8243,0.1757,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05070,us_green_mountain_power,1.0,0.0,,yes
 05071,us_green_mountain_power,1.0,0.0,,yes
-05072,us_green_mountain_power,0.9949,0.076,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
+05072,us_green_mountain_power,0.9618,0.0382,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05073,us_green_mountain_power,1.0,0.0,,yes
 05075,us_green_mountain_power,1.0,0.0,,yes
-05077,us_green_mountain_power,0.6111,0.4176,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05081,us_green_mountain_power,0.9982,0.0018,"TOWN OF ASHLAND (MUNICIPAL, NH)",yes
+05077,us_green_mountain_power,0.535,0.465,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05081,us_green_mountain_power,0.999,0.0018,us_granite_state,yes
 05083,us_green_mountain_power,1.0,0.0,,yes
 05084,us_green_mountain_power,1.0,0.0,,yes
-05088,us_green_mountain_power,0.9759,0.0241,"TOWN OF ASHLAND (MUNICIPAL, NH)",no
-05089,us_green_mountain_power,0.999,0.001,"PUBLIC SERVICE CO OF NH (INVESTOR OWNED, NH)",yes
+05088,us_green_mountain_power,1.0,0.0241,us_granite_state,no
+05089,us_green_mountain_power,0.9997,0.001,us_granite_state,yes
 05091,us_green_mountain_power,1.0,0.0,,yes
-05101,us_green_mountain_power,0.9958,0.9956,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05141,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05142,us_green_mountain_power,1.0,0.0661,"VILLAGE OF LUDLOW - (VT) (MUNICIPAL, VT)",no
-05143,us_green_mountain_power,1.0,0.2294,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05146,us_green_mountain_power,1.0,0.9993,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05148,us_green_mountain_power,1.0,0.6355,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05149,us_green_mountain_power,1.0,0.4079,"VILLAGE OF LUDLOW - (VT) (MUNICIPAL, VT)",no
+05101,us_green_mountain_power,0.9951,0.0042,us_granite_state,yes
+05141,us_green_mountain_power,1.0,0.0,,yes
+05142,us_green_mountain_power,0.9625,0.0375,"Village of Ludlow Electric Light Department (STATE FRANCHISE AREA, VT)",no
+05143,us_green_mountain_power,1.0,0.0,,yes
+05146,us_green_mountain_power,1.0,0.0,,yes
+05148,us_green_mountain_power,1.0,0.0,,yes
+05149,us_green_mountain_power,0.6476,0.3524,"Village of Ludlow Electric Light Department (STATE FRANCHISE AREA, VT)",no
 05150,us_green_mountain_power,1.0,0.0,,yes
 05151,us_green_mountain_power,1.0,0.0,,yes
-05152,us_green_mountain_power,1.0,0.0004,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
-05153,us_green_mountain_power,1.0,0.1183,"VILLAGE OF LUDLOW - (VT) (MUNICIPAL, VT)",no
-05154,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05155,us_green_mountain_power,1.0,0.9966,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05156,us_green_mountain_power,0.9976,0.0024,"PUBLIC SERVICE CO OF NH (INVESTOR OWNED, NH)",yes
-05158,us_green_mountain_power,0.9926,0.9926,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05161,us_green_mountain_power,1.0,0.0013,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
-05201,us_green_mountain_power,1.0,0.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
-05250,us_green_mountain_power,0.9993,0.0007,"NEW YORK STATE ELEC & GAS CORP (INVESTOR OWNED, NY)",yes
+05152,us_green_mountain_power,1.0,0.0,,yes
+05153,us_green_mountain_power,0.9029,0.0971,"Village of Ludlow Electric Light Department (STATE FRANCHISE AREA, VT)",no
+05154,us_green_mountain_power,1.0,0.0,,yes
+05155,us_green_mountain_power,1.0,0.0,,yes
+05156,us_green_mountain_power,0.9978,0.0024,us_granite_state,yes
+05158,us_green_mountain_power,0.9926,0.0074,us_granite_state,yes
+05161,us_green_mountain_power,1.0,0.0,,yes
+05201,us_green_mountain_power,0.9999,0.0,,yes
+05250,us_green_mountain_power,0.9993,0.0,,yes
 05251,us_green_mountain_power,1.0,0.0,,yes
-05252,us_green_mountain_power,1.0,0.007,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
+05252,us_green_mountain_power,1.0,0.0,,yes
 05253,us_green_mountain_power,1.0,0.0,,yes
 05254,us_green_mountain_power,1.0,0.0,,yes
 05255,us_green_mountain_power,1.0,0.0,,yes
-05257,us_green_mountain_power,0.9996,0.0004,"NIAGARA MOHAWK POWER CORP. (INVESTOR OWNED, NY)",yes
-05260,us_green_mountain_power,0.9994,0.0006,"NIAGARA MOHAWK POWER CORP. (INVESTOR OWNED, NY)",yes
-05261,us_green_mountain_power,0.9998,0.0002,"TOWN OF CHESTER (MUNICIPAL, MA)",yes
-05262,us_green_mountain_power,1.0,0.0012,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
-05301,us_green_mountain_power,0.9995,0.9996,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05340,us_green_mountain_power,1.0,0.0016,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
-05341,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05342,us_green_mountain_power,0.6632,0.9997,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05343,us_green_mountain_power,1.0,0.9993,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05344,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05345,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05346,us_green_mountain_power,0.9991,0.9991,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05350,us_green_mountain_power,0.9997,0.0009,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",yes
-05351,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05352,us_green_mountain_power,0.9993,0.0007,"MASSACHUSETTS ELECTRIC CO (INVESTOR OWNED, NY)",yes
-05353,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05354,us_green_mountain_power,0.9949,0.9949,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05355,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05356,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05358,us_green_mountain_power,0.9993,0.9993,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05359,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05360,us_green_mountain_power,1.0,0.9992,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05362,us_green_mountain_power,1.0,1.0,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05363,us_green_mountain_power,1.0,0.6676,"VILLAGE OF JACKSONVILLE - (VT) (MUNICIPAL, VT)",no
-05401,us_green_mountain_power,1.0,0.7087,"CITY OF BURLINGTON ELECTRIC - (VT) (MUNICIPAL, VT)",no
-05403,us_green_mountain_power,1.0,0.0624,"CITY OF BURLINGTON ELECTRIC - (VT) (MUNICIPAL, VT)",no
-05404,us_green_mountain_power,1.0,0.113,"CITY OF BURLINGTON ELECTRIC - (VT) (MUNICIPAL, VT)",no
-05405,us_green_mountain_power,1.0,1.0,"CITY OF BURLINGTON ELECTRIC - (VT) (MUNICIPAL, VT)",no
-05408,us_green_mountain_power,0.9978,0.2094,"CITY OF BURLINGTON ELECTRIC - (VT) (MUNICIPAL, VT)",no
+05257,us_green_mountain_power,0.9987,0.0,,yes
+05260,us_green_mountain_power,0.9988,0.0,,yes
+05261,us_green_mountain_power,0.9989,0.0,,yes
+05262,us_green_mountain_power,1.0,0.0,,yes
+05301,us_green_mountain_power,0.9993,0.0002,us_granite_state,yes
+05340,us_green_mountain_power,1.0,0.0,,yes
+05341,us_green_mountain_power,1.0,0.0,,yes
+05342,us_green_mountain_power,0.7104,0.2893,"Village of Jacksonville Electric Company, Inc. (STATE FRANCHISE AREA, VT)",no
+05343,us_green_mountain_power,1.0,0.0,,yes
+05344,us_green_mountain_power,1.0,0.0,,yes
+05345,us_green_mountain_power,1.0,0.0,,yes
+05346,us_green_mountain_power,0.9991,0.0009,us_granite_state,yes
+05350,us_green_mountain_power,0.9975,0.002,"Village of Jacksonville Electric Company, Inc. (STATE FRANCHISE AREA, VT)",yes
+05351,us_green_mountain_power,1.0,0.0,,yes
+05352,us_green_mountain_power,0.9994,0.0,,yes
+05353,us_green_mountain_power,1.0,0.0,,yes
+05354,us_green_mountain_power,0.9918,0.0038,us_granite_state,yes
+05355,us_green_mountain_power,1.0,0.0,,yes
+05356,us_green_mountain_power,1.0,0.0,,yes
+05358,us_green_mountain_power,0.9993,0.0,,yes
+05359,us_green_mountain_power,1.0,0.0,,yes
+05360,us_green_mountain_power,1.0,0.0,,yes
+05362,us_green_mountain_power,1.0,0.0,,yes
+05363,us_green_mountain_power,1.0,0.0,"Village of Jacksonville Electric Company, Inc. (STATE FRANCHISE AREA, VT)",yes
+05403,us_green_mountain_power,0.9985,0.0015,"Burlington Electric Department (STATE FRANCHISE AREA, VT)",yes
+05404,us_green_mountain_power,0.9744,0.0256,"Burlington Electric Department (STATE FRANCHISE AREA, VT)",no
+05408,us_green_mountain_power,0.7757,0.2187,"Burlington Electric Department (STATE FRANCHISE AREA, VT)",no
 05439,us_green_mountain_power,1.0,0.0,,yes
 05443,us_green_mountain_power,1.0,0.0,,yes
-05445,us_green_mountain_power,0.9991,0.0009,"NEW YORK STATE ELEC & GAS CORP (INVESTOR OWNED, NY)",yes
-05446,us_green_mountain_power,0.9985,0.0026,"CITY OF BURLINGTON ELECTRIC - (VT) (MUNICIPAL, VT)",yes
-05448,us_green_mountain_power,0.8739,0.0,,no
-05452,us_green_mountain_power,0.6987,0.0,,no
-05454,us_green_mountain_power,1.0,0.0,,yes
-05455,us_green_mountain_power,0.9667,0.0,,no
+05445,us_green_mountain_power,0.9993,0.0,,yes
+05446,us_green_mountain_power,0.9989,0.0004,"Burlington Electric Department (STATE FRANCHISE AREA, VT)",yes
+05448,us_green_mountain_power,0.5183,0.4817,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05452,us_green_mountain_power,0.707,0.293,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05454,us_green_mountain_power,0.5855,0.4145,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05456,us_green_mountain_power,1.0,0.0,,yes
-05461,us_green_mountain_power,0.5804,0.0,,no
-05465,us_green_mountain_power,0.5105,0.0004,"TOWN OF STOWE- (VT) (MUNICIPAL, VT)",no
-05468,us_green_mountain_power,0.9744,0.0,,no
+05461,us_green_mountain_power,0.5665,0.4335,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05465,us_green_mountain_power,0.518,0.482,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05468,us_green_mountain_power,0.9492,0.0508,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05472,us_green_mountain_power,1.0,0.0,,yes
 05473,us_green_mountain_power,1.0,0.0,,yes
-05477,us_green_mountain_power,0.7066,0.0,,no
-05478,us_green_mountain_power,0.9962,0.0037,"VILLAGE OF SWANTON - (VT) (MUNICIPAL, VT)",yes
+05477,us_green_mountain_power,0.57,0.43,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05478,us_green_mountain_power,0.7427,0.1648,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05481,us_green_mountain_power,1.0,0.0,,yes
-05482,us_green_mountain_power,0.9947,0.0005,"NEW YORK STATE ELEC & GAS CORP (INVESTOR OWNED, NY)",yes
-05483,us_green_mountain_power,0.8448,0.0081,"VILLAGE OF SWANTON - (VT) (MUNICIPAL, VT)",no
+05482,us_green_mountain_power,0.9538,0.046,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05483,us_green_mountain_power,0.514,0.4776,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05485,us_green_mountain_power,1.0,0.0,,yes
-05487,us_green_mountain_power,0.8003,0.0,,no
-05491,us_green_mountain_power,0.9997,0.0003,"NIAGARA MOHAWK POWER CORP. (INVESTOR OWNED, NY)",yes
-05495,us_green_mountain_power,0.6148,0.0,,no
-05602,us_green_mountain_power,0.882,0.2374,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05640,us_green_mountain_power,1.0,1.0,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05641,us_green_mountain_power,0.5982,0.4262,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05648,us_green_mountain_power,0.8588,1.0,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05651,us_green_mountain_power,0.9517,0.5542,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05654,us_green_mountain_power,0.9018,0.1221,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05658,us_green_mountain_power,0.6232,0.3292,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05666,us_green_mountain_power,0.7684,1.0,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05667,us_green_mountain_power,0.5697,0.6379,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05669,us_green_mountain_power,0.9554,0.0544,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
+05487,us_green_mountain_power,0.7826,0.2174,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05489,us_green_mountain_power,0.566,0.4339,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05491,us_green_mountain_power,0.9997,0.0,,yes
+05495,us_green_mountain_power,0.529,0.471,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05641,us_green_mountain_power,0.5241,0.4759,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05654,us_green_mountain_power,0.7662,0.2338,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05658,us_green_mountain_power,0.5534,0.3826,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05669,us_green_mountain_power,0.9419,0.0581,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05670,us_green_mountain_power,1.0,0.0,,yes
-05673,us_green_mountain_power,0.9078,0.119,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
+05673,us_green_mountain_power,0.8664,0.1336,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
 05674,us_green_mountain_power,1.0,0.0,,yes
-05676,us_green_mountain_power,0.7805,0.218,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05677,us_green_mountain_power,0.9985,0.0575,"TOWN OF STOWE- (VT) (MUNICIPAL, VT)",no
+05676,us_green_mountain_power,0.7515,0.2286,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05677,us_green_mountain_power,0.9528,0.0447,"Stowe Electric Department (STATE FRANCHISE AREA, VT)",no
 05678,us_green_mountain_power,1.0,0.0,,yes
-05682,us_green_mountain_power,0.9994,0.1286,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
 05701,us_green_mountain_power,1.0,0.0,,yes
 05730,us_green_mountain_power,1.0,0.0,,yes
 05731,us_green_mountain_power,1.0,0.0,,yes
 05732,us_green_mountain_power,1.0,0.0,,yes
 05733,us_green_mountain_power,1.0,0.0,,yes
-05734,us_green_mountain_power,1.0,0.0,,yes
+05734,us_green_mountain_power,0.9996,0.0,,yes
 05735,us_green_mountain_power,1.0,0.0,,yes
 05736,us_green_mountain_power,1.0,0.0,,yes
 05737,us_green_mountain_power,1.0,0.0,,yes
 05738,us_green_mountain_power,1.0,0.0,,yes
 05739,us_green_mountain_power,1.0,0.0,,yes
 05742,us_green_mountain_power,1.0,0.0,,yes
-05743,us_green_mountain_power,0.9971,0.0029,"NIAGARA MOHAWK POWER CORP. (INVESTOR OWNED, NY)",yes
+05743,us_green_mountain_power,0.9972,0.0,,yes
 05744,us_green_mountain_power,1.0,0.0,,yes
 05746,us_green_mountain_power,1.0,0.0,,yes
 05747,us_green_mountain_power,1.0,0.0,,yes
@@ -483,34 +473,34 @@ zip,biller,share,other_share,other,kept
 05751,us_green_mountain_power,1.0,0.0,,yes
 05753,us_green_mountain_power,1.0,0.0,,yes
 05757,us_green_mountain_power,1.0,0.0,,yes
-05758,us_green_mountain_power,1.0,0.1154,"VILLAGE OF LUDLOW - (VT) (MUNICIPAL, VT)",no
+05758,us_green_mountain_power,0.8844,0.1156,"Village of Ludlow Electric Light Department (STATE FRANCHISE AREA, VT)",no
 05759,us_green_mountain_power,1.0,0.0,,yes
-05760,us_green_mountain_power,0.9992,0.0008,"NIAGARA MOHAWK POWER CORP. (INVESTOR OWNED, NY)",yes
+05760,us_green_mountain_power,0.9997,0.0,,yes
 05761,us_green_mountain_power,1.0,0.0,,yes
 05762,us_green_mountain_power,1.0,0.0,,yes
 05763,us_green_mountain_power,1.0,0.0,,yes
-05764,us_green_mountain_power,0.9988,0.0008,"NEW YORK STATE ELEC & GAS CORP (INVESTOR OWNED, NY)",yes
+05764,us_green_mountain_power,0.9989,0.0,,yes
 05765,us_green_mountain_power,1.0,0.0,,yes
 05766,us_green_mountain_power,1.0,0.0,,yes
 05767,us_green_mountain_power,1.0,0.0,,yes
 05768,us_green_mountain_power,1.0,0.0,,yes
 05769,us_green_mountain_power,1.0,0.0,,yes
-05770,us_green_mountain_power,0.9996,0.0004,"NIAGARA MOHAWK POWER CORP. (INVESTOR OWNED, NY)",yes
+05770,us_green_mountain_power,0.9987,0.0,,yes
 05772,us_green_mountain_power,1.0,0.0,,yes
 05773,us_green_mountain_power,1.0,0.0,,yes
 05774,us_green_mountain_power,1.0,0.0,,yes
-05775,us_green_mountain_power,0.9979,0.0021,"NEW YORK STATE ELEC & GAS CORP (INVESTOR OWNED, NY)",yes
-05776,us_green_mountain_power,1.0,0.0,"NEW YORK STATE ELEC & GAS CORP (INVESTOR OWNED, NY)",yes
+05775,us_green_mountain_power,0.9986,0.0,,yes
+05776,us_green_mountain_power,0.9996,0.0,,yes
 05777,us_green_mountain_power,1.0,0.0,,yes
 05778,us_green_mountain_power,1.0,0.0,,yes
-05819,us_green_mountain_power,0.9472,0.0525,"VILLAGE OF LYNDONVILLE - (VT) (MUNICIPAL, VT)",no
-05821,us_green_mountain_power,0.9697,0.0287,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05824,us_green_mountain_power,0.9884,0.0332,"VILLAGE OF LYNDONVILLE - (VT) (MUNICIPAL, VT)",no
-05828,us_green_mountain_power,0.9375,0.0414,"WASHINGTON ELECTRIC COOP - (VT) (COOPERATIVE, VT)",no
-05840,us_green_mountain_power,1.0,0.0,,yes
-05858,us_green_mountain_power,0.9115,0.1186,"VILLAGE OF LYNDONVILLE - (VT) (MUNICIPAL, VT)",no
-05904,us_green_mountain_power,0.9895,0.0105,"PUBLIC SERVICE CO OF NH (INVESTOR OWNED, NH)",yes
-05906,us_green_mountain_power,0.9984,0.0016,"PUBLIC SERVICE CO OF NH (INVESTOR OWNED, NH)",yes
+05819,us_green_mountain_power,0.9393,0.0602,"Village of Lyndonville Electric Department (STATE FRANCHISE AREA, VT)",no
+05821,us_green_mountain_power,0.9712,0.0282,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05824,us_green_mountain_power,0.996,0.0034,"Village of Lyndonville Electric Department (STATE FRANCHISE AREA, VT)",yes
+05828,us_green_mountain_power,0.9729,0.0271,"Washington Electric Co-op (STATE FRANCHISE AREA, VT)",no
+05840,us_green_mountain_power,1.0,0.0,"Vermont Electric Co-op (STATE FRANCHISE AREA, VT)",yes
+05858,us_green_mountain_power,0.9219,0.0781,"Village of Lyndonville Electric Department (STATE FRANCHISE AREA, VT)",no
+05904,us_green_mountain_power,0.8792,0.0,,no
+05906,us_green_mountain_power,0.9954,0.0,,yes
 10516,us_central_hudson,0.7826,0.2174,"NEW YORK STATE ELEC & GAS CORP (INVESTOR OWNED, NY)",no
 10524,us_central_hudson,0.9924,0.0073,"NEW YORK STATE ELEC & GAS CORP (INVESTOR OWNED, NY)",yes
 10916,us_central_hudson,0.9498,0.0459,"ORANGE & ROCKLAND UTILS INC (INVESTOR OWNED, NY)",no

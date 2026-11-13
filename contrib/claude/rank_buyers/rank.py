@@ -1147,6 +1147,8 @@ for _d in _LCF.facts_records():
                 _mz = _BYLOC.US_ZIP_RX.search(_d["address_quote"])
                 if _mz:
                     _d["address"] = re.sub(r"\s+", " ", _d["address_quote"][max(0, _mz.end() - 120):_mz.end()]).strip()
+                elif (_d.get("address_country") or "") in ("KY", "BB", "BM"):  # an island a Caribbean utility serves whole (lead_crawl KY/BB/BM_ADDR)
+                    _d["address"] = re.sub(r"\s+", " ", _d["address_quote"][-160:]).strip()
         if "?" in (_d.get("address_url") or ""):
             # a visitor or campaign identifier a site adds to its own links (?shpxid=…, utm_…, fbclid) is not part of the page's address
             _d["address_url"] = re.sub(r"[?&]$", "", re.sub(r"(?<=[?&])(?:shpxid|utm_[a-z]+|fbclid|gclid|srsltid|_gl|mc_[a-z]+|ref)=[^&#]*&?", "", _d["address_url"]))
