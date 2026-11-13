@@ -1,226 +1,41 @@
 {
- "updated": "2026-11-09T13:00Z",
+ "as_of": "2026-11-13 00:41Z",
  "checks": [
   {
-   "deliverable": "coverage scoreboard in every build",
-   "method": "SUMMARY.md of the latest build prints 'benchmarks met N / 438'; COVERAGE_VS_TARGETS.md present",
-   "status": "passing, honest numbers (build 16:55Z, values only, labels excluded): 51 / 438 met (11.6%), 55 within 10 points. The 15:48Z 87 and 16:12Z 94 counted label-only cells. Invoice readiness: P01 Gold median 7 of 11 elements, 19.4% ≥ 9; AP grade P01 Gold A 38 / B 150 / C 395 (583 rows); P13 A 1 / B 14 / C 39,217 / D 11,557. Blocks A (Gold, 545 rows): payment terms 463, PO rule 384, penalties 260 (DMARC), legal name 91, own-domain 79 (second-domain rule added after this build), address 42",
-   "rerun": "gh api -X POST repos/mohamedbiranesy-gif/canada-contracts-hub/actions/workflows/rank-buyers.yml/dispatches -f ref=main; then: git show origin/main:coord/results/ranked/SUMMARY.md | grep benchmarks"
+   "deliverable": "ranked table (ready rows, $5k+ marks, kinds)",
+   "method": "read coord/results/ranked/BUILD.json after each rank-buyers run",
+   "cmd": "python3 -c \"import json;d=json.load(open('coord/results/ranked/BUILD.json'));print(d['ship_ready'])\"",
+   "status": "passing (22:02Z: 217,145 ready)"
   },
   {
-   "deliverable": "fetch follows 308 redirects",
-   "method": "re-read of previously http_308 domains returns status 200 in org_extras --refresh log",
-   "status": "passing: org_extras --refresh re-reads http_308 domains; refresh log shows 'ok' 5,779 of the first ~7,000 domains, http_308 no longer appears as a status",
-   "rerun": "grep -c 'http_308' ~/cch-crawler-state/org_extras_refresh.log"
+   "deliverable": "dian-imports lane",
+   "method": "first run green; leads_dian_* shards exist; 10 rows read",
+   "cmd": "ls data/incoming/claude/lead_shards | grep -c dian; wc -l data/incoming/claude/dian/dian_sites.csv",
+   "status": "in progress (run dispatched 23:15Z)"
   },
   {
-   "deliverable": "org_extras v2 extractors",
-   "method": "unit run on 5 known sites (calgary.ca, mcmaster.ca, ville.quebec.qc.ca, a .com vendor, a canada.ca department) prints legal_name / phone / address / logo; next build's buyer_legal_name_as_published P01 Gold > 41.2%",
-   "status": "passing: --test on calgary.ca ('City of Calgary' stated, LinkedIn), mcmaster.ca (JSON-LD 'McMaster University'), canada.ca ECCC ('Environment and Climate Change Canada', federal signature logo); refresh running",
-   "rerun": "python3 tools/org_extras.py --test calgary.ca mcmaster.ca"
+   "deliverable": "f5500 lane",
+   "method": "first run green; leads_f55_* shards exist; 10 rows read",
+   "cmd": "ls data/incoming/claude/lead_shards | grep -c f55; wc -l data/incoming/claude/f5500/f5500_sites.csv",
+   "status": "in progress (run started 23:59Z)"
   },
   {
-   "deliverable": "rank same-pair fill + currency default",
-   "method": "rank.log prints 'same-pair fill: {...}' counts; contract_value P01 Gold in COVERAGE_VS_TARGETS.md > 65.0%; VALIDATION 7/7; AUDIT PASS",
-   "status": "passing: rank.log 'same-pair fill' counts (contract_value 7, contract number 15, end_date_inferred 121, start_from_signed 500); VALIDATION 7/7; AUDIT PASS (build 15:31Z)",
-   "rerun": "python3 contrib/claude/rank_buyers/rank.py | grep same-pair"
+   "deliverable": "places-dataset finder (overture_names)",
+   "method": "candidates files written; ties per lane counted",
+   "cmd": "wc -l data/incoming/claude/overture/*.csv; grep -c 'an Overture' data/incoming/claude/hc/hc_sites.csv",
+   "status": "passing (419 hc ties)"
   },
   {
-   "deliverable": "integrity gates",
-   "method": "VALIDATION.md all gates pass, AUDIT.md PASS, Gold not lower than previous build without CHANGELOG reason",
-   "status": "passing (16:55Z build: 7/7 PASS, deep audit PASS, Gold 583 — the 2 losses are logged in CHANGELOG: Bruce Power L.P. folded into Bruce Power; Village of Cumberland ap@ replaced by finance.voc@ (B3); Allen ISD accounting@ regraded finance (B3))",
-   "rerun": "git show origin/main:coord/results/ranked/VALIDATION.md | head -20"
+   "deliverable": "guessed domains on a published identifier",
+   "method": "sample 50 ties, identifier quote present in tied_by",
+   "cmd": "grep -c \"very name as a domain\" data/incoming/claude/hc/hc_sites.csv",
+   "status": "passing (164 hc ties, quotes carry the postal code)"
   },
   {
-   "deliverable": "Mac engines alive",
-   "method": "ps shows push_loop, sync_loop, ap_crawler, site_finder, downloads_loop, dns_daily; push_loop.log 'pushed' within 30 min",
-   "status": "passing 15:3xZ: push_loop pushed 15:17Z and 15:32Z; org_extras/org_contacts refresh, registry_lookup, ap_walk, wikidata, cc_mine, ap_crawler, site_finder, dns_daily, downloads_loop alive",
-   "rerun": "ps -axo command | grep -E 'push_loop|dns_daily|ap_crawler' | grep -v grep; tail -2 ~/cch-crawler-state/push_loop.log"
-  },
-  {
-   "deliverable": "PO open data joined",
-   "method": "SUMMARY.md line \"buyers' PO / contract open data joined\" shows pairs > 0 after claude_po_records.csv.gz is on origin",
-   "status": "passing but small: SUMMARY 'buyers' PO / contract open data joined: pairs 8, po_filled 6' — ceiling documented in COVERAGE_VS_TARGETS.md",
-   "rerun": "git show origin/main:coord/results/ranked/SUMMARY.md | grep -i 'open data'"
-  },
-  {
-   "deliverable": "rebuild: values from raw bids&tenders submissions",
-   "method": "patch_report.json on the release shows value_from_raw_submission > 0 and number_of_bids_from_raw > 0; reference_date = today",
-   "status": "passing (release 15:22Z: 9,213 values, 58,304 bid counts, reference_date 2026-11-08; rebuild workflow now in its own concurrency group after two cancelled days)",
-   "rerun": "gh api -H 'Accept: application/octet-stream' repos/mohamedbiranesy-gif/canada-contracts-hub/releases/assets/<patch_report id> | python3 -c 'import json,sys; print(json.load(sys.stdin)[\"report\"])'"
-  },
-  {
-   "deliverable": "Canada's Business Registries lookups",
-   "method": "claude_registry_lookup.csv on origin; SUMMARY line \"Canada's Business Registries: N vendors, M buyers found\" > 0 in the next build; 20 known vendors spot-checked (CMF Construction Ltd → BC0741074 BN 817975345)",
-   "status": "passing in build 16:55Z: 823 vendors found → vendor_bn9 2,256 rows, legal name 1,533, registered address 1,512; buyers pass widened 17:05Z to every P13 organisation without a legal-form word (48,518 lookups queued, 1 req/s, Gold first) — 0 buyers in this build (the buyer rows had not landed on origin)",
-   "rerun": "tail -1 ~/cch-crawler-state/registry_lookup.log"
-  },
-  {
-   "deliverable": "grants & contributions recipient BNs",
-   "method": "claude_gc_recipients.csv rows (3,186 buyers, 465 vendors); SUMMARY line 'grants & contributions recipient BNs' > 0 in the next build; 10 BNs re-checked against the CRA charities file where both exist",
-   "status": "passing in build 15:48Z: buyer_bn filled 2,313 rows, vendor_bn9 1,072, buyer legal name 1,242; cross-check vs CRA charities: 827/873 agree, 46 conflicts carried in buyer_bn_note",
-   "rerun": "python3 tools/gc_recipients.py --ranked ~/cch-tasks/ranked_latest.csv.gz"
-  },
-  {
-   "deliverable": "vendor websites from search proposals",
-   "method": "vendor_sites_check.py confirms by reading the site: claude_vendor_sites.csv check_status counts; rank fills vendor_website only for 'confirmed'",
-   "status": "passing (16:55Z build: 156 confirmed sites applied to 546 rows); host-only re-check of a–e: 161 confirmed / 240; batch f: 67 / 127 (file 360 rows, pushed 17:04Z)",
-   "rerun": "python3 tools/vendor_sites_check.py --in ~/cch-tasks/vsp/*.tsv"
-  },
-  {
-   "deliverable": "fresh-eyes review (reviewer had not seen the conversation) — 2026-11-08 16:1xZ",
-   "method": "independent subagent reviewed today's code and 12 cells against PLAN/PROTOCOL/AGENTS §2; verdict FIX FIRST; every HIGH/MEDIUM finding has a code change (commit 'fixes from the fresh-eyes review') and a re-run",
-   "status": "fixed in code; re-runs on the Mac: registry lookups (found entries re-queued under the stricter rule), gc_recipients, vendor_sites_check (all batches, host-only); next build will show 'now (values)' vs 'any (incl. labels)'. Findings: (1) page-stated legal names without token overlap ('Internet Protocol', 'Ville de Granby') → overlap required, registry name wins; (2) registry BN of a different legal form (Smythe LLP→Smythe Inc.) → same-class rule, single letters kept, province checked; (3) G&C placeholder BNs 999999999 and individuals ('Le, Lawrence') → dropped; (4) 'Interac' matched 'interacting' → word boundaries + payables context; (5) scoreboard counted labels → values only, labels shown separately; (6) submitted price unlabelled → labelled, CAD default labelled; (7) vendor sites confirmed via other hosts → host-only, whole words; (8) same-pair facts in main columns → *_from_pair; (9) AP contact-person docs/code mismatch → resolved by the owner's 10:59 instruction (allowed), docs updated. LOW (robots re-check after redirect; audit check for provenance) → follow-ups in STATE.md",
-   "rerun": "python3 tools/coverage_targets.py …; spot-check: Smythe LLP / MNP LLP rows must carry no Smythe Inc. / MNP Ltd. BN; no buyer_bn_as_published = 999999999; no buyer_legal_name 'Internet Protocol'"
-  },
-  {
-   "deliverable": "downstream pack runs (AP grade, invoice card, gap-to-A, statutory default, derived tax status)",
-   "method": "SUMMARY.md prints 'downstream pack: {...}' and never 'downstream pack skipped'; COVERAGE_VS_TARGETS.md has the AP grade and 'What still blocks grade A' tables; a spot-check of 5 rows: ap_grade_basis criteria agree with the row's columns",
-   "status": "passing (16:55Z build prints the pack line and both tables). Found by the local run: the letter grade shadowed the mailbox grade (TypeError skipped the whole pack) — fixed before any CI build ran it. Added after the build, to verify next: ap_gap_to_A, second-domain rule, statutory default (construction), derived tax status / rate, multi-page ap_terms merge",
-   "rerun": "git show origin/main:coord/results/ranked/SUMMARY.md | grep -E 'downstream pack|benchmarks'; python3 tools/coverage_targets.py …"
-  },
-  {
-   "deliverable": "walker + terms extraction over the walker's pages",
-   "method": "ap_terms_pages.log shows a pass over ap_pages_seen.csv every 2 hours; claude_ap_terms.csv rows keyed by buyer_key grow; next build's 'ap_terms (evidence pages re-read)' line shows pages used > mailboxes and payment_terms / po_required counts rising",
-   "status": "running since 17:00Z (walk_terms_loop.sh; first pass 11,162 pages); the 2-hourly loop in ap_walk.sh had died with the reboot, so no walker page had been extracted before 17:00Z; walker ValueError root cause fixed (36 sites re-queued)",
-   "rerun": "tail -3 ~/cch-crawler-state/ap_terms_pages.log"
-  },
-  {
-   "deliverable": "award facts from the buyers' own award pages (API search → award_facts.py)",
-   "method": "claude_award_facts.csv: pages with the vendor named / values filled; SUMMARY line 'award facts … filled' in the next build; 5 values re-opened by hand",
-   "status": "first pass 19:1xZ: 2,146 pages, vendor named on 846, contract_value 123, end_date 34, term 24, start_date 14, PO 1 (spot-check pending); consumer in rank.py",
-   "rerun": "tail -2 ~/cch-crawler-state/api_readers.log"
-  },
-  {
-   "deliverable": "other lanes producing (Gemini app, Codex app, Claude lane driver)",
-   "method": "origin commits '[chatgpt] …' and 'gemini: merge agent branch …' within the last hour; data/incoming/<lane> result files growing; referee verification_log outcomes",
-   "status": "passing 19:20Z: Gemini batch45 (85 lines) via sync branches; Codex batch01 rows 1–80 pushed; lane driver passes 25 rows / lane / 3 h",
-   "rerun": "git log origin/main --format='%ci %s' -40 | grep -iE 'gemini|chatgpt'"
-  },
-  {
-   "deliverable": "build 20:24Z read against the previous (69 → 72 met; Gold A 67 → 117)",
-   "method": "COVERAGE_VS_TARGETS.md head + AP grade table; coverage_history.csv rows for 2026-11-08",
-   "status": "passing 20:30Z: 72/438, Gold A 117 B 237, payable today 746"
-  },
-  {
-   "deliverable": "normalisation levers in rank.py (SEAO tender reference, relationship record count, title/description fallbacks, PO-rule hint, published durations)",
-   "method": "local dry run of rank.py on data/release (Nov 3 copy): pack ran, counters contract_title_from_description 163, invoice_reference_hint_po_rule 536, records_with_this_vendor_lead 10,685; spot-check of SEAO, bids&tenders and relationship rows in out/ranked",
-   "status": "passing 20:36Z locally; next build on main confirms the benchmark deltas (expect solicitation_or_tender_number, records_with_this_vendor, contract_title/description up)"
-  },
-  {
-   "deliverable": "org_facts engine (site readers over the 10k domains never read) and terms_refresh engine",
-   "method": "run summary per shard (tasks → finished), merge commit 'claude-engines: org_facts merged', next build's n_ox / n_oc counters and buyer_address / buyer_phone / buyer_logo_url / buyer_legal_name deltas in P08 / P10 / P13",
-   "status": "org_facts dispatched 20:38Z (10 runners); terms_refresh not yet dispatched (after the deep walk, to stay under the concurrent-job limit)"
-  },
-  {
-   "deliverable": "build 21:39Z vs 20:24Z (first build with the normalisation rules)",
-   "method": "scoreboards diffed cell by cell (git show bd42b28 vs HEAD): newly met / lost / moved ≥3",
-   "status": "passing 21:45Z: 93/438 (+21), 0 lost, 67 cells up ≥3; Gold A 128 B 253; pack ran"
-  },
-  {
-   "deliverable": "Codex lane alive",
-   "method": "'[chatgpt]'/'[codex]' commits on origin; ~/cch-crawler-state/codex_exec.log; the app automation's rollout files",
-   "status": "blocked by the ChatGPT usage limit until 23:34Z (verified: codex exec returned 'usage limit … try again at 6:34 PM'); both the app automation and the headless loop resume then"
-  },
-  {
-   "deliverable": "deep A–F walk (policies / bylaws / PO terms) read and merged",
-   "method": "shard logs ('sites': 1286, 'pages': 27991, 'ap_pages': 2985 on shard 0; 'pages to read: 1232'), merge log 'ap_terms: 1035790 rows in, 114266 unique keys out', field counts in claude_ap_terms_pages.csv.gz",
-   "status": "passing 22:40Z: payment terms 1,277 → 2,752, PO rule 1,804 → 2,936 on walker pages; next build shows the row-level effect"
-  },
-  {
-   "deliverable": "no runaway engine runs",
-   "method": "gh run list claude-engines: at most one walk_terms and one terms_refresh active; no self-dispatch when redo_days=0",
-   "status": "fixed 22:48Z: self-dispatched deep walk 42530910632 cancelled; workflow guard pushed (55ccbe0)"
-  },
-  {
-   "deliverable": "build 22:49Z vs 22:23Z (deep walk + trading-name rule)",
-   "method": "scoreboards diffed cell by cell",
-   "status": "passing 22:55Z: 99/438 (+5), 0 lost, 27 cells up ≥3; Gold A 134 B 259; payable today 805"
-  },
-  {
-   "deliverable": "no engine output lost between the Mac and the runners",
-   "method": "row counts of claude_ap_terms_pages.csv.gz / claude_ap_terms.csv / claude_registry_lookup.csv on origin never fall between commits (git log -p counts); push_loop.log shows 'ap_terms: N rows in, M unique keys out' merges instead of copies",
-   "status": "fixed 23:40Z: pages 40,405 → 58,055 restored; registry 22,579 → 34,313; snapshot unions from the 23:53Z cycle on — verify next wake-up"
-  },
-  {
-   "deliverable": "Codex lanes producing after the usage-limit window",
-   "method": "'[chatgpt]' / '[codex]' commits on origin after 23:34Z; ~/cch-crawler-state/codex_exec.log activity",
-   "status": "passing 23:42Z: [chatgpt] batch50 rows 1–10 at 23:39Z; codex exec searching lane codex batch02"
-  },
-  {
-   "deliverable": "build 00:29Z vs 23:53Z",
-   "method": "scoreboards diffed cell by cell; AP grade table",
-   "status": "passing 00:50Z: 104/438 (+1), Gold A 134 → 198 (DMARC note), 0 lost"
-  },
-  {
-   "deliverable": "pb search pass yields invoice terms",
-   "method": "done.tsv pb ok share; api_readers.log 'filled' deltas per cycle; next build's payment_terms / po_required in P01–P05",
-   "status": "first cycle 00:45Z: 456/600 buyers with pages; +106 terms, +323 PO rules on the Mac file; row-level effect at the next merge + build"
-  },
-  {
-   "deliverable": "pay-on-sight layer on every row (verdict, missing list, channel tier, invoice_text) and its scoreboard table",
-   "method": "SUMMARY 'downstream pack' counters pay_on_sight_*; COVERAGE_VS_TARGETS.md 'Pay on sight' table present; 10 rows' invoice_text read by eye against their provenance columns",
-   "status": "pack passing 01:44Z (yes 1,116 / routed 1,642 / no 60,854); scoreboard table pending the 01:48Z build (first attempt crashed on a shadowed name — fixed 700edbf)"
-  },
-  {
-   "deliverable": "build 00:50Z vs 00:29Z (late site-reader pass)",
-   "method": "scoreboards diffed cell by cell",
-   "status": "passing 01:30Z: 105/438 (+1), 22 cells up ≥3 (vendor logo / phone, buyer logo), 0 lost; Gold A 211"
-  },
-  {
-   "deliverable": "Pay-on-sight table published",
-   "method": "COVERAGE_VS_TARGETS.md '### Pay on sight' table present with per-package rows; totals match SUMMARY pack counters",
-   "status": "passing 02:10Z: 977 / 826 / 21,088 of 63,609; Gold 340 (57 %)"
-  },
-  {
-   "deliverable": "build 02:26Z pay-on-sight delta",
-   "method": "Pay on sight table vs 02:05Z",
-   "status": "passing: 1,032 yes (+55), 855 (+29), 21,543 routed (+455); Gold 361; 105/438; integrity intact (pages 69,559)"
-  },
-  {
-   "deliverable": "referee results landing on main",
-   "method": "git log -- coord/results/verification_log.csv: a 'verifier:' commit within the last 90 min; the log holds rows for claude_buyer_ap_results_search01.csv dated today",
-   "status": "FAILED 22:16Z–03:20Z (every run lost the push race after a 40-min ingest); workflow fixed 48c70d7 — verify at the next wake-up"
-  },
-  {
-   "deliverable": "verifier fix in effect",
-   "method": "first verify-and-merge run on the fixed workflow (queued 03:48Z behind an old-logic run that started 03:26Z; cancelling it was denied by the session's policy) → a 'verifier:' commit on main",
-   "status": "pending: expected ≈04:30–04:50Z; no verifier commit yet (last 22:16Z)"
-  },
-  {
-   "deliverable": "verifier pushes accepted by GitHub",
-   "method": "verify-and-merge run log: no 'GH001: Large files detected'; a 'verifier:' commit lands; coord/results/team_buyers.jsonl.gz < 100 MB",
-   "status": "passing 05:01Z: verifier commits 04:49Z and 05:01Z; search01 6,168 verified"
-  },
-  {
-   "deliverable": "build 05:33Z vs 04:09Z (first with verified mailbox finds)",
-   "method": "Pay on sight table, grade table, 438 head diffed",
-   "status": "102/438 (−3 from Gold row growth 597→623), Gold A 225 (+11), pay on sight 1,032 (flat) / 862 / 21,868; organic strict rate ≈ 0 per hour → pull-the-plug recommendation written"
-  },
-  {
-   "deliverable": "ranker outputs survive verifier pushes",
-   "method": "after each verifier commit, coord/results/ranked/COVERAGE_VS_TARGETS.md's build time is not older than the latest 'ranker:' commit (git log -1 -- the file)",
-   "status": "passing 08:49Z: scoreboard last changed by ranker-bot 08:16Z with verifier commits at 08:24Z in between"
-  },
-  {
-   "deliverable": "build 09:00Z",
-   "method": "Pay on sight table / gaps on Gold",
-   "status": "1,112 / 887 / 22,023; Gold 395; 87 Gold rows blocked only by the vendor GST number (ceiling); inspection fix moved < 50 rows"
-  },
-  {
-   "deliverable": "build 11:17Z",
-   "method": "Pay on sight table",
-   "status": "1,114 / 887 / 22,025; Gold 395; 100/438 — organic ≈ 0, verdict stands"
-  },
-  {
-   "deliverable": "pack emits every computed pay-on-sight / payability column",
-   "method": "header of coord/results/ranked/ranked_buyers.csv.gz and a batch CSV contains pay_on_sight, pay_on_sight_missing, channel_tier, invoice_text, ap_payability, supplier_setup_url; scoreboard has the 'AP payability' table",
-   "status": "confirmed on build 13:09Z (3a4b3d5): both columns in the gz header and in P01 batch (col 94–95); AP payability table renders locally from that build (Gold 452/624) — published by the 13:17Z build after the shadowing fix"
-  },
-  {
-   "deliverable": "stop order executed",
-   "method": "no send_later scheduled after 13:00Z; Mac: codex_exec_loop / api_search_loop / lane_driver_loop absent from ps; hand-off files on main",
-   "status": "done: final build 89b4386 14:29Z (833 / 841 / 22,341 after the tender-portal correction; Gold 395/624; Gold A 225; 100/438); 13:33Z wake-up deleted 13:19Z; Mac quota loops absent (checked 13:20Z); hand-off on main"
+   "deliverable": "export sale / benefit plan contract kinds",
+   "method": "relationship_rows.owner_test on a synthetic row returns the kind and no missing field but the mailbox",
+   "cmd": "see STATE.md 2026-11-12 23:45Z",
+   "status": "passing (unit check run 2026-11-12)"
   }
  ]
 }

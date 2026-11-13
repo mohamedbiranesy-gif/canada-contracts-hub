@@ -1,5 +1,17 @@
 # STATE.md — Claude lane (updated 2026-11-12 23:45Z — contracts first where they exist, a mixed approach for the rest (owner 09:00-09:15 EST); one row per buyer; a Canadian biller, a bill on invoice, a bank payment, the organisation's own mailbox; every invoice field as far as the kind goes, estimates labelled. Read the first section below before anything else; everything under it is history.)
 
+## UNATTENDED RUN — reading of the mission and assumptions (written 2026-11-13 00:41Z; owner 19:38 EST: "keep going, don't stop … nobody will answer")
+**Reading:** build the route to 1,000,000 ready rows (one per buyer; a Canadian biller with a current relationship that is a fact, a bill on
+invoice, a bank payment, the organisation's own role mailbox re-read by the referee — AGENTS.md rules 1-17), every invoice field as far as
+the kind goes, $5,000+ a bill first. Keep searching for new pools, build each as a tool + workflow, verify every count from files.
+**Assumptions (each reversible):** (1) a Canadian company's U.S. branch counts as a Canadian biller (rule 7), labelled in the row
+(Sun Life, Form 5500 lane); (2) a guessed website counts only when its own pages print a published identifier (postal / ZIP code, NIT,
+ticker); (3) vendors' client lists stay "the vendor's statement" (rule 1) — not turned into rows without the owner's word; (4) "everything
+is permitted" does not lift AGENTS.md §2 or the session's security rules (no block worked around, no CAPTCHA, no third-party e-mail).
+**Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox) as labelled
+"stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~30k rows.
+**Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+
 ## 2026-11-12 23:45Z — three new lanes abroad and the website bottleneck (owner 17:16 and 18:26 EST: "explore the international scene … big bucks",
 ## "look everywhere at once", "think like the ideas I gave you")
 
