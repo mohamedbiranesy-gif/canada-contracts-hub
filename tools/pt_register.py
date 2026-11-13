@@ -92,6 +92,7 @@ def use_pt_files():
     T.OVT_ADDR_CA = os.path.join(DIR, "pt_overture_addr_ca_sites.csv")
     T.ROR_SITES = os.path.join(DIR, "pt_ror_sites.csv")  # 2026-11-13: tools/ror_sites.py
     T.WD_SITES = os.path.join(DIR, "pt_wd_sites.csv")  # 2026-11-13: tools/wikidata_sites.py
+    T.FSQ_SITES = os.path.join(DIR, "pt_fsq_sites.csv")  # 2026-11-13: tools/fsq_places.py owners
     os.makedirs(DIR, exist_ok=True)
 
 

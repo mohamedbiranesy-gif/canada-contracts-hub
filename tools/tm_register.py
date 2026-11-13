@@ -617,7 +617,7 @@ def sites(a):
                 for r in csv.DictReader(open(p_, encoding="utf-8", newline="")):
                     ovt[r["owner_key"]].append(r)
     if use_ror:  # the registries' listed websites: ROR, then Wikidata (each row says its source)
-        for p_, src_ in ((ROR_SITES, "ror"), (WD_SITES, "wikidata")):
+        for p_, src_ in ((ROR_SITES, "ror"), (WD_SITES, "wikidata"), (FSQ_SITES, "fsq")):
             if os.path.exists(p_):
                 for r in csv.DictReader(open(p_, encoding="utf-8", newline="")):
                     r["source"] = r.get("source") or src_
@@ -1116,8 +1116,11 @@ OVT_ADDR_CA = os.path.join(DIR, "tm_overture_addr_ca_sites.csv")  # 2026-11-13: 
 # owner's state or country, or a Canadian postal code for an owner in Canada), or print its full legal name on the site's own legal page
 ROR_SITES = os.path.join(DIR, "tm_ror_sites.csv")
 WD_SITES = os.path.join(DIR, "tm_wd_sites.csv")  # 2026-11-13: Wikidata's official website (P856) of an item of the owner's very name in its country (tools/wikidata_sites.py)
+FSQ_SITES = os.path.join(DIR, "tm_fsq_sites.csv")  # 2026-11-13: a Foursquare place of the owner's very name at its postal code / in its state (tools/fsq_places.py owners)
 REG_SRC = {"ror": ("the Research Organization Registry lists this website for", "ror2", "the Research Organization Registry"),
-           "wikidata": ("Wikidata gives this website as the official website of", "wd", "Wikidata")}
+           "wikidata": ("Wikidata gives this website as the official website of", "wd", "Wikidata"),
+           # 2026-11-13: tools/fsq_places.py owners (Foursquare Open Source Places, Apache License 2.0)
+           "fsq": ("a Foursquare place (Foursquare Open Source Places) lists this website for", "fsq", "Foursquare Open Source Places")}
 OVT_BUCKET = "https://overturemaps-us-west-2.s3.amazonaws.com"
 _SQL_FORMS = (r"\b(inc|incorporated|incorporee|ltd|ltee|limited|limitee|corp|corporation|co|company|compagnie|cie|llc|llp|lp|sencrl|senc|srl|enr|reg|regd|ulc|plc|"
               r"gmbh|sa|sas|ag|bv|nv|pty|the|la|le|les|l)\b")  # FORM, as RE2 reads it (DuckDB string literals keep the backslash)

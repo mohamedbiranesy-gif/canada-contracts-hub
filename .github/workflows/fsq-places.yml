@@ -10,20 +10,21 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: "ca | phones | both"
-        default: "both"
+        description: "ca | phones | owners | both (ca + phones) | all"
+        default: "all"
   schedule:
     - cron: "47 11 * * 0"   # weekly (the Foursquare release changes monthly; the phone targets change with every address pass)
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: fsq-places
   cancel-in-progress: false
 env:
-  STAGE: ${{ inputs.stage || 'both' }}
+  STAGE: ${{ inputs.stage || 'all' }}
 jobs:
   ca:
-    if: ${{ (inputs.stage || 'both') != 'phones' }}
+    if: ${{ contains(fromJson('["ca","both","all"]'), inputs.stage || 'all') }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -53,7 +54,7 @@ jobs:
           cat /tmp/f.txt >> "$GITHUB_STEP_SUMMARY"
 
   phones:
-    if: ${{ always() && (inputs.stage || 'both') != 'ca' }}
+    if: ${{ always() && contains(fromJson('["phones","both","all"]'), inputs.stage || 'all') }}
     needs: ca
     runs-on: ubuntu-latest
     timeout-minutes: 90
@@ -78,3 +79,38 @@ jobs:
           done
           git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed"; exit 1; }
           cat /tmp/p.txt >> "$GITHUB_STEP_SUMMARY"
+
+  # 2026-11-13: owners of Canadian trademarks and patents with no site (abroad and in Canada) x the Foursquare places of their country that list a
+  # website under their very name, at their postal code or in their state / postal area -> <lane>_fsq_sites.csv; then the registers' site runs read
+  # them (tm-sites / pt-sites with ror=true: a candidate counts only when the site's own pages state the owner)
+  owners:
+    if: ${{ always() && contains(fromJson('["owners","all"]'), inputs.stage || 'all') }}
+    needs: phones
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Owners without a site -> the Foursquare places of their very name (computed once; main merged in on a refused push)
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          pip install -q duckdb
+          python3 tools/fsq_places.py owners --lanes tm,pt | tee /tmp/o.txt
+          git config user.name "fsq-places"; git config user.email "fsq-places@users.noreply.github.com"
+          git add data/incoming/claude/tm/tm_fsq_sites.csv data/incoming/claude/pt/pt_fsq_sites.csv 2>/dev/null || true
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -q -m "fsq-places owners: $(grep -h 'owners with a website' /tmp/o.txt | cut -c1-150 | tr '\n' ' ') [skip ci]"
+          for i in $(seq 1 20); do
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 10 + 3))
+            git fetch -q origin main
+            git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; true; }
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed"; exit 1; }
+          cat /tmp/o.txt >> "$GITHUB_STEP_SUMMARY"
+          # the registers' site runs read the candidates now on main (abroad, then in Canada; each workflow runs one at a time)
+          for wf in tm-sites.yml pt-sites.yml; do
+            gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/$wf/dispatches" -f ref=main -f "inputs[abroad]=true" -f "inputs[ror]=true" >/dev/null 2>&1 || true
+            gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/$wf/dispatches" -f ref=main -f "inputs[abroad]=false" -f "inputs[ror]=true" >/dev/null 2>&1 || true
+          done
+

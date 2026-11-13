@@ -26,6 +26,7 @@ organisation's own pages.
   python3 tools/fsq_places.py ca [--release R]
   python3 tools/fsq_places.py phones [--release R]   (after: python3 tools/phone_places.py targets)
   python3 tools/fsq_places.py pick
+  python3 tools/fsq_places.py owners [--lanes tm,pt]   -> data/incoming/claude/<lane>/<lane>_fsq_sites.csv (owners' candidate sites; source "fsq")
 """
 import argparse, collections, csv, os, re, sys, time, urllib.request
 
@@ -166,14 +167,109 @@ def cmd_pick(a):
             shutil.move(keep, "out/phone_places_raw.csv")
 
 
+OWN_COLS = ["owner_key", "site", "how", "place_id", "place_name", "place_postcode", "release", "source"]
+
+
+def cmd_owners(a):
+    """owners of Canadian trademarks (tm) and patents (pt) with no site on file — abroad (the countries the site tests know) and in Canada — x the
+    Foursquare places of their country that list a website: the very same name (legal forms left out, tm_register.nkey_x) at the owner's own
+    postal code (rank 0) or, abroad, in its own state or region (rank 1), in Canada its own postal area (rank 1) -> <lane>_fsq_sites.csv, at most
+    three candidates an owner. A candidate ties nothing: tools/tm_register.py sites --ror reads it (source "fsq") and keeps a site only when the
+    site's own pages state the owner's name with an address of its country, its own postal code, or as the one owner of a distinctive name on the
+    register, or print its full legal name on the site's own legal page."""
+    import ap_crawler as C
+    import tm_register as TM
+    import pt_register as PT
+    rel, files = release_files(a.release)
+    con = _con()
+    norm_sql = ("trim(regexp_replace(regexp_replace(regexp_replace(regexp_replace(replace(lower(strip_accents(coalesce(p.name, ''))), '&', ' and '), '[^a-z0-9 ]+', ' ', 'g'), "
+                "'%s', ' ', 'g'), '%s', ' ', 'g'), '\\s+', ' ', 'g'))" % (TM._SQL_FORMS, TM.EU_FORMS))
+    lanes = {"tm": (TM.DIR, TM.OWN_CA, TM.OWN_XX, TM.MATCHES, TM.FOUND, "tm_fsq_sites.csv"),
+             "pt": (PT.DIR, PT.OWN_CA, PT.OWN_XX, PT.MATCHES, PT.FOUND, "pt_fsq_sites.csv")}
+    import gzip
+    for lane in a.lanes.split(","):
+        d_, own_ca, own_xx, matches, found, out_f = lanes[lane]
+        tied = set()
+        for p_ in (matches, found):
+            if os.path.exists(p_):
+                tied |= {r["owner_key"] for r in csv.DictReader(open(p_, encoding="utf-8", newline=""))}
+        owners = {}
+        for path, here in ((own_xx, False), (own_ca, True)):
+            if not os.path.exists(path):
+                continue
+            with gzip.open(path, "rt", encoding="utf-8", newline="") as f:
+                for r in csv.DictReader(f):
+                    if r["owner_key"] in tied:
+                        continue
+                    cc = "CA" if here else (r.get("country") or "").upper()
+                    if not here and cc not in TM.ABROAD and cc not in TM.EU_CODE:
+                        continue
+                    if not (TM.is_org(r["owner_name"]) if here else TM.is_org_abroad(r["owner_name"], cc)):
+                        continue
+                    if here:
+                        pc = re.sub(r"[^A-Z0-9]", "", (r.get("postal_code") or "").upper())
+                        code, st = (pc, pc[:3]) if len(pc) == 6 else ("", "")
+                    else:
+                        code, st = TM.place_abroad(r.get("address") or "", cc)
+                    nk = TM.nkey_x(r["owner_name"])
+                    if nk and len(nk) >= 4 and (code or st):
+                        owners[r["owner_key"]] = (cc, nk, code or "", st or "")
+        print("%s: %d owners without a site, with a name and a place to look at" % (lane, len(owners)), flush=True)
+        con.execute("DROP TABLE IF EXISTS own")
+        con.execute("CREATE TABLE own (k VARCHAR, cc VARCHAR, nk VARCHAR, code VARCHAR, st VARCHAR)")
+        con.executemany("INSERT INTO own VALUES (?, ?, ?, ?, ?)", [(k, *v) for k, v in owners.items()])
+        ccs = ", ".join("'%s'" % c_ for c_ in sorted({v[0] for v in owners.values()}))
+        t0 = time.time()
+        rows = con.execute("""WITH p AS (SELECT name, website, postcode, region, country, fsq_place_id FROM read_parquet([%s])
+                                         WHERE website IS NOT NULL AND website <> '' AND date_closed IS NULL AND country IN (%s))
+                              SELECT o.k, o.cc, o.code, o.st, p.name, p.website, p.postcode, p.region, p.fsq_place_id FROM p JOIN own o ON o.cc = p.country AND o.nk = %s"""
+                           % (", ".join("'%s'" % f for f in files), ccs, norm_sql)).fetchall()
+        print("%s: %d Foursquare places carry the name of an owner (%.0f s, release %s)" % (lane, len(rows), time.time() - t0, rel), flush=True)
+        best, n = {}, collections.Counter()
+        for k, cc, code, st, name, web, pcode, region, pid in rows:
+            h = re.sub(r"^https?://", "", (web or "").strip().lower()).split("/")[0].split(":")[0]
+            h = h[4:] if h.startswith("www.") else h
+            if not h or "." not in h or TM.nkey_x(name) != owners[k][1]:
+                continue
+            dm = C.registrable(h)
+            pc = re.sub(r"[^A-Z0-9]", "", (pcode or "").upper())
+            if cc == "US":
+                pc = pc[:5]
+            elif cc in TM.EU_CODE:
+                pc = re.sub(r"^(?:CH|DK|SE|D|F|I|E|A|B)(?=\d)", "", pc)
+            reg = (region or "").upper().split("-")[-1]
+            if cc == "CA":
+                rank = 0 if (code and pc == code) else 1 if (st and pc[:3] == st) else 9
+            else:
+                rank = 0 if (code and pc == code.replace("-", "")) else 1 if (st and reg == st) else 9
+            if rank == 9:
+                continue
+            cur = best.setdefault(k, {})
+            if dm not in cur or rank < cur[dm][0]:
+                cur[dm] = (rank, name, pcode or "", pid or "")
+        out = os.path.join(d_, out_f)
+        with open(out, "w", encoding="utf-8", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(OWN_COLS)
+            for k in sorted(best):
+                cc = owners[k][0]
+                for dm, (rank, name, pcode, pid) in sorted(best[k].items(), key=lambda kv: kv[1][0])[:3]:
+                    w.writerow([k, dm, "the same name at the owner's own %s in %s" % ("postal code" if rank == 0 else ("postal area" if cc == "CA" else "state or region"), cc),
+                                "https://foursquare.com/v/%s" % pid if pid else "", name, pcode, rel, "fsq"])
+                    n[rank] += 1
+        print("%s: %d owners with a website a Foursquare place lists under their very name (%d at their postal code, %d in their state / postal area) -> %s"
+              % (lane, len(best), n[0], n[1], os.path.relpath(out, ROOT)), flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["ca", "phones", "pick"])
+    ap.add_argument("cmd", choices=["ca", "phones", "pick", "owners"])
+    ap.add_argument("--lanes", default="tm,pt")
     ap.add_argument("--release", default="")
     ap.add_argument("--targets", default="out/phone_targets.csv")
     ap.add_argument("--raw", default="out/fsq_phone_raw.csv")
     a = ap.parse_args()
-    {"ca": cmd_ca, "phones": cmd_phones, "pick": cmd_pick}[a.cmd](a)
+    {"ca": cmd_ca, "phones": cmd_phones, "pick": cmd_pick, "owners": cmd_owners}[a.cmd](a)
 
 
 if __name__ == "__main__":
