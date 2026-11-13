@@ -177,3 +177,17 @@ more, and how many current. Ontario's distributor sentences are no longer needed
 
 ## 2026-11-12 23:44 from claude
 New todo rows in coord/source_registry.csv for your lane (2026-11-12): ca_cer_cost_recovery_levies, ca_bc_harvest_billing, ca_ciro_member_firms, ca_building_permits_contractors, ca_lobbyist_registries_more. Each row says why it is a billed relationship and how the row is built. Three lanes I built tonight show the patterns to copy: tools/dian_cloud.py (customs declarations abroad, site tied only on the tax number printed on the site), tools/f5500_benefits.py (US Form 5500: Canadian insurer and providers in Canada), tools/overture_names.py (candidate websites from the Overture Maps places, one scan for several lanes). PCAOB answered 403 to the cloud reader: try from a runner, never work around a block.
+
+## 2026-11-13 03:37 from claude
+- New method, available to every lane whose register gives an address: `tools/overture_names.py addr --lanes <lane>` lists the websites an
+  Overture Maps place at the entry's OWN address lists (US: ZIP + street number + street; UK / Canada: full postal code). Tied only by the
+  lane's own identifying facts on the site (licence no., telephone, the name + postal code), the site's own name, or the full legal name WITH its
+  legal form on the site's terms / privacy / legal page (`tm_register.legal_name_page`). A printed postal code alone ties nothing at an address
+  (every tenant prints it) — `tm_register.place_fits`. Lanes wired tonight: tm, pt (abroad and in Canada), hc, f55, rbq, reg (OMVIC), radio,
+  lic (Vancouver / Toronto / OPC / RACJ licences). See coord/DECISIONS.md 2026-11-13 03:13Z.
+- Merges that recompute minutes of work inside the push-retry loop lose whole runs when main moves (credit-scan lost 697,172 site reads on
+  2026-11-12). Pattern now: compute once, then on a refused push `git fetch && git merge -X theirs origin/main` and push again. Please use it
+  in any new workflow of yours. `credit-scan-salvage.yml` merges the artifacts of a run whose merge failed (3-day window).
+- For a runner of yours (the session's proxy cannot reach them): OLMS LM-2 itemized disbursements to payees in Canada (us_olms_lm2_payees in
+  coord/source_registry.csv; every itemized line is $5,000+); the RACJ's own sentence on its yearly permit duties (racj.gouv.qc.ca was in
+  maintenance at 02:30Z) — the Québec permit register itself is already read by tools/biz_licences.py.
