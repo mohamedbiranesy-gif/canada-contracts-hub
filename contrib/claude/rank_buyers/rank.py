@@ -862,6 +862,12 @@ if os.path.exists(ROOT + "/data/incoming/claude/cb_sites_wd.csv"):
     for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/cb_sites_wd.csv", encoding="utf-8", newline="")):
         if _r.get("site") and _r["key"] not in CB_SITES:
             CB_SITES[_r["key"]] = dict(_r, _src="wikidata")
+# 2026-11-13 (22Z): buyers under contract with a $5,000+ record, no mailbox and no website on file — the site the company-name autocomplete proposes
+# under their very name and whose own home page carries the name (contrib/claude/c5k_sites.py, the register lanes' rule)
+if os.path.exists(ROOT + "/data/incoming/claude/cb_sites_cb.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/cb_sites_cb.csv", encoding="utf-8", newline="")):
+        if _r.get("site") and _r["key"] not in CB_SITES:
+            CB_SITES[_r["key"]] = dict(_r, _src="autocomplete")
 n_cbsite = collections.Counter()
 _AP_LOCAL = re.compile(r"invoic|factur|payables?|acctpay|accountspayable|accounts[._-]?pay|comptes?[._-]?(?:payables?|a[._-]?payer|fournisseurs?)|comptesapayer|(?:^|[._-])a\.?p(?:$|[._-])|^ap[a-z]{0,3}invoice", re.I)
 _WEBMAIL = re.compile(r"^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|icloud|me|aol|protonmail|proton|gmx|videotron|sympatico|bell|rogers|shaw|telus|eastlink|cogeco)\.(?:com|ca|net|fr|co\.uk)$", re.I)
