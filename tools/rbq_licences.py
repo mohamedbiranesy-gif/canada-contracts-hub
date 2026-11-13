@@ -615,10 +615,16 @@ def merge(a):
                     pass
     SUBST = ("value", "value_basis", "start", "end", "title", "reference", "member_address_quote", "vendor", "vendor_address")
     rows, dets, by, n_fresh, fresh_done = [], [], collections.Counter(), 0, set()
+    # 2026-11-13: ties withdrawn after a stricter test (a postal code printed at a place that bears another name: data/incoming/claude/rbq/addr_withdrawn.tsv,
+    # licence <tab> domain) never come back as leads
+    _wd = set()
+    _wdp = os.path.join(DIR, "addr_withdrawn.tsv")
+    if os.path.exists(_wdp):
+        _wd = {tuple(l.rstrip("\n").split("\t")[:2]) for l in open(_wdp, encoding="utf-8") if l.strip()}
     for dom, o in sorted(allrec.items()):
         for hit in o.get("hits") or []:
             h = H.get(hit["licence"])
-            if not h:
+            if not h or (hit["licence"], dom) in _wd:
                 continue
             site = "https://%s/" % (urllib.parse.urlparse(o.get("final") or "").hostname or dom)
             row, det = lead_of(h, hit, site)

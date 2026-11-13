@@ -409,6 +409,9 @@ def cmd_leads(a):
     for p in glob.glob(os.path.join(SHARDS, "leads_radio_*.gz")):
         with gzip.open(p, "rt", encoding="utf-8", newline="") as fh:
             have |= {r["buyer_key"] for r in csv.DictReader(fh)}
+    for p in glob.glob(os.path.join(SHARDS, "gone_radio_*.gz")):  # 2026-11-13: withdrawn ties (tools/tm_register.py place_fits, third look)
+        with gzip.open(p, "rt", encoding="utf-8") as fh:
+            have -= {l.split("\t", 1)[1].strip() for l in fh if l.startswith("D\t")}
     hosts = collections.Counter(urllib.parse.urlparse(s["site"]).hostname for s in sites.values() if s.get("site"))
     rows, dets, by = [], [], collections.Counter()
     for o in cos:
