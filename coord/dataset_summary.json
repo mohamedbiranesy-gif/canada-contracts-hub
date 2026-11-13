@@ -1,10 +1,10 @@
 {
- "reference_date": "2026-11-12",
- "verified_ca_records": 817647,
+ "reference_date": "2026-11-13",
+ "verified_ca_records": 817598,
  "unverified_records": 51346,
  "status_verified_ca": {
-  "ongoing": 90776,
-  "end_date_unknown": 405306,
+  "ongoing": 90684,
+  "end_date_unknown": 405349,
   "ongoing_inferred": 321565
  },
  "confidence_verified_ca": {
@@ -149,7 +149,7 @@
   "AZ": 1,
   "CF": 1
  },
- "sources_with_records": 87,
+ "sources_with_records": 92,
  "sources_checked_without_records": 119,
  "enrichment": {
   "reference_date": "2026-10-25",
@@ -157,13 +157,13 @@
   "record_enrichment_coverage": {
    "ca_records": 513143,
    "ca_buyer_enriched": 511684,
-   "ca_buyer_website": 757343,
-   "ca_vendor_website": 268932,
-   "ca_vendor_contact_any": 276004,
-   "ca_vendor_registry_match": 416503,
-   "ca_vendor_bn9": 130616,
-   "ca_buyer_invoice_portal": 76101,
-   "ca_buyer_ap_email": 791977,
+   "ca_buyer_website": 757288,
+   "ca_vendor_website": 268909,
+   "ca_vendor_contact_any": 275980,
+   "ca_vendor_registry_match": 416424,
+   "ca_vendor_bn9": 130595,
+   "ca_buyer_invoice_portal": 76088,
+   "ca_buyer_ap_email": 792056,
    "unverified_records": 51346,
    "unverified_vendor_registry_match": 13573,
    "unverified_vendor_bn9": 7443,
@@ -191,24 +191,25 @@
    "not_enriched": 104
   }
  },
- "last_rebuild": "2026-11-12T15:36:58Z",
+ "last_rebuild": "2026-11-13T14:54:20Z",
  "last_rebuild_report": {
-  "team_buyers_verified": 522122,
+  "team_buyers_verified": 599666,
   "team_vendors": 15607,
   "seao_api_end_dates": 63,
-  "web_vendors_with_site": 18806,
+  "web_vendors_with_site": 18847,
   "orgbook_xp_matches": 2345,
   "raw_full_files_entries": 58311,
-  "records_ap_extended": 795702,
-  "records_vendor_patched": 182728,
+  "records_ap_extended": 796599,
+  "records_vendor_patched": 182729,
+  "records_ap_added": 87,
+  "moved_to_ended": 171,
+  "records_web_added": 44,
+  "new_records_vendor_matched": 85,
+  "new_records_buyer_matched": 120,
+  "new_records_added": 122,
   "new_records_duplicate": 275744,
-  "new_records_vendor_matched": 60,
-  "new_records_buyer_matched": 74,
-  "new_records_added": 74,
-  "moved_to_ended": 74,
   "records_orgbook_added": 4,
-  "records_web_added": 1,
-  "built_at": "2026-11-12T15:36:58Z",
-  "reference_date": "2026-11-12"
+  "built_at": "2026-11-13T14:54:20Z",
+  "reference_date": "2026-11-13"
  }
 }
