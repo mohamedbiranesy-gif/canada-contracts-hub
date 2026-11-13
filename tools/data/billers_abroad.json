@@ -23,7 +23,10 @@
   "read": "2026-11-13",
   "rule": "AGENTS.md rule 18 (owner 2026-11-13 09:46 EST): a utility abroad that a Canadian company owns is a Canadian vendor",
   "owner_address_url": "https://www.emera.com/companies/regulated-electric/tampa-electric",
-  "owner_address_quote": "Mailing Address 1223 Lower Water Street Halifax, Nova Scotia B3J 3S8 Civic Address 5151 Terminal Road Halifax, Nova Scotia B3J 1A1"
+  "owner_address_quote": "Mailing Address 1223 Lower Water Street Halifax, Nova Scotia B3J 3S8 Civic Address 5151 Terminal Road Halifax, Nova Scotia B3J 1A1",
+  "amount": "$156.43 per 1,000 kWh used (small business customers)",
+  "amount_basis": "“Currently, Tampa Electric residential and small business customers pay $156.43 per 1,000 kilowatt-hours (kWh) used (15.64 cents per kWh)” (https://www.tampaelectric.com/rates/, read 2026-11-13)",
+  "estimate": "estimated — about $391 a month before taxes for a small business using 2,500 kWh a month: 2.5 × the $156.43 per 1,000 kWh that Tampa Electric publishes for small business customers (its rates page, read 2026-11-13); the organisation's own use is not published"
  },
  {
   "key": "us_tep",
@@ -163,7 +166,9 @@
   "read": "2026-11-13",
   "rule": "AGENTS.md rule 18 (owner 2026-11-13 09:46 EST): a utility abroad that a Canadian company owns is a Canadian vendor",
   "owner_address_url": "https://algonquinpower.com/contact.html",
-  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1"
+  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1",
+  "payment": "“Checking Account There are multiple ways you can pay using your checking account.” … “Mail your payment to us Return the lower portion of your bill, along with a check or money order, in the envelope provided with your bill and mail it to: Liberty Utilities - New Hampshire 75 Remittance Dr Suite 1032 Chicago IL 60675-1032” (https://new-hampshire.libertyutilities.com/alstead/residential/my-account/make-a-payment.html)",
+  "remit_to": "Liberty Utilities - New Hampshire 75 Remittance Dr Suite 1032 Chicago IL 60675-1032 (its own payment page)"
  },
  {
   "key": "us_calpeco",
@@ -172,10 +177,10 @@
   "country": "US",
   "jur": "US-CA",
   "currency": "U.S. dollars",
-  "address": "",
-  "address_url": "",
-  "address_quote": "",
-  "address_source": "",
+  "address": "Liberty Utilities - CalPeco, PO Box 60144, City of Industry, CA 91716-0144",
+  "address_url": "https://california.libertyutilities.com/south-lake-tahoe/residential/contact/general-inquiries.html",
+  "address_quote": "Mailing Address for Payments: Liberty Utilities - CalPeco PO Box 60144 City of Industry, CA 91716-0144",
+  "address_source": "its own page (its mailing address for payments)",
   "owner": "Algonquin Power & Utilities Corp.",
   "owner_address": "354 Davis Road, Oakville, Ontario L6J 2X1",
   "owner_url": "https://libertyutilities.com/",
@@ -185,7 +190,8 @@
   "read": "2026-11-13",
   "rule": "AGENTS.md rule 18 (owner 2026-11-13 09:46 EST): a utility abroad that a Canadian company owns is a Canadian vendor",
   "owner_address_url": "https://algonquinpower.com/contact.html",
-  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1"
+  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1",
+  "payment": "“Checking Account There are multiple ways you can pay using your checking or savings account.” … “If you want to set up automatic payments using a checking account, please fill out the application found here . There is no fee for this service.” … “Return the lower portion of your bill, along with a check or money order, in the envelope provided with your bill” (https://california.libertyutilities.com/south-lake-tahoe/residential/my-account/make-a-payment.html)"
  },
  {
   "key": "ky_caribbean_utilities",
@@ -194,10 +200,10 @@
   "country": "KY",
   "jur": "KY",
   "currency": "Cayman Islands dollars",
-  "address": "",
-  "address_url": "",
-  "address_quote": "",
-  "address_source": "",
+  "address": "457 North Sound Road, George Town, Grand Cayman KY1-1101, Cayman Islands",
+  "address_url": "https://search.gleif.org/#/record/549300JWGMJO03H0G857",
+  "address_quote": "Caribbean Utilities Company, Ltd. — legal and headquarters address: 457 North Sound Road, George Town, KY1-1101, KY",
+  "address_source": "its record in the Legal Entity Identifier register (LEI 549300JWGMJO03H0G857; its own site refuses automated readers)",
   "owner": "Fortis Inc.",
   "owner_address": "Fortis Place, Suite 1100, 5 Springdale Street, PO Box 8837, St. John's, NL A1B 3T2",
   "owner_url": "https://www.fortisinc.com/company/our-companies",
