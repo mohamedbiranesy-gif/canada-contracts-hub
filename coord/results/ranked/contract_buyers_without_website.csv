@@ -1,0 +1,627 @@
+buyer_key,buyer_name,postal_code,region,country,address
+b:ecec0d9bbdb0ce79,Legal Aid Commission of WA,,,AU,"32 St Georges Terrace, Perth, 6000, AU"
+b:0a7515cc82378a8b,Justice,T5K 2G6,,CA,"Justice Procurement Services, Edmonton, T5K 2G6, CA"
+b:735d500cc1eccd5f,Greater North Central Francophone Education Region,T6C 3N1,,CA,"Unit 322, 8627 - 91 Street, Edmonton, T6C 3N1, CA"
+b:88abe2c7d899ed20,Municipal Affairs,T5J 4L4,,CA,"18th Floor, Commerce Place, Edmonton, T5J 4L4, CA"
+b:6903bcfedc6a3c13,Infrastructure,T6H 5V7,,CA,"Third Floor, 6950-113 Street, Edmonton, T6H 5V7, CA"
+b:d7241e636202007d,Auditor General,T5K 2J8,,CA,"8th Floor, 9925 - 109 St., Edmonton, T5K 2J8, CA"
+b:d0383ad27b788a09,Natural Resources Conservation Board,T5K 2N2,,CA,"9940 106 St NW, Edmonton, T5K 2N2, CA"
+b:d053ae3785148b0d,Alberta Social Housing Corporation,T5J 5E6,,CA,"3rd Floor, 44 Capital Boulevard, Edmonton, T5J 5E6, CA"
+b:1a033be81f86c4dd,Drumheller and District Solid Waste Management Association,T0J 0Y0,,CA,"Box 808, Drumheller, T0J 0Y0, CA"
+b:fbad4b4e559e8b5f,Living Waters Catholic Schools,T7S 1P6,,CA,"4204 Kepler Street, Whitecourt, T7S 1P6, CA"
+b:d278e6929a450027,North Peace Housing Foundation,T8S 0B6,,CA,"6780 103 Avenue, Peace River, T8S 0B6, CA"
+b:35657dc654f6b287,Alberta Municipalities,T6E 6E6,,CA,"8616 51 Ave NW, Edmonton, T6E 6E6, CA"
+b:c6a74952a6fb6736,Grande Prairie Airport Commission,T8V 7Z5,,CA,"Suite 220 10610 Airport Drive, Grande Prairie, T8V 7Z5, CA"
+b:14584b1f08a807c1,St Albert Public Library,T8N 3Z9,,CA,"5 St Anne St, St. Albert, T8N 3Z9, CA"
+b:191bced3eb5dc79e,Alberta Ukrainian Academy Board – Yuzyk Academy,T2R 0E7,,CA,"902 11 Ave SW, Calgary, T2R 0E7, CA"
+b:27ef441af0bf9032,Whitefish Lake First Nation #128,T0A 1R0,,CA,"PO Box 271, Goodfish Lake, T0A 1R0, CA"
+b:7c3156611ef6ba60,Education,T5J 5E6,Alberta,Canada,"10044 108 Street, Edmonton, Alberta, T5J 5E6, Canada"
+b:9db8af832660cd6f,Advanced Education,T5J 4G8,Alberta,Canada,"102 Street, Edmonton, Alberta, T5J 4G8, Canada"
+b:c403b59280d46142,South Coast Region,,,,
+b:c00e61a9de51eeb5,Coastal Engineering Group ; District Offices - West Coast Region,,,,
+b:5bd063ea89f8fcf6,Destination BC Corp.,,,,
+b:9083bd3f9fd6d3eb,BC Emergency Health Services,,,,
+b:cb6fd8936da38dcf,Legislative Assembly,,,,
+b:772883728db840f4,University Endowment Lands - Administration ; Ministry of Housing and Municipal Affairs,,,,
+b:13ffe7e4ba118237,Mohawk Medbuy,,,,
+b:c1920289e50de276,Upper Thames River Conservation Authority,,,,
+b:e92b19b0bdc927b0,Canadian Mental Health Association Peel Dufferin,,,,
+b:db55ea5cfad7194f,Plexxus,,,,
+b:44b66dcd935119ec,District of Thunder Bay Social Services Administration Board,,,,
+b:428665afca81ab15,Conservation Sudbury,,,,
+b:e17a98a0abbee478,Peterborough County,,,,
+b:f8ab804b6bb6148d,Hamilton-Oshawa Port Authority,,,,
+b:7982e4799570e19a,Wellington-Dufferin-Guelph Public Health,,,,
+b:5bd9511fbe6bce48,Credit Valley Conservation,,,,
+b:1eb9ba0c241bd61f,MPE a division of Englobe,,,,
+b:dd58efab5ca748fc,County of Lennox-Addington,,,,
+b:47280e94c7092f45,Thunder Bay Port Authority,,,,
+b:9dd64127935e2dba,Kenora District Services Board,,,,
+b:30bf2ab6221cb02d,Urban Systems,,,CA,CA
+b:6a14ac22ad348673,Township of Norwich,,,,
+b:b64a734f8be10926,Parsons Creek,,,,
+b:44a082002058145f,Grand Valley Construction Association,,,,
+b:f585b761cf260545,Life Time Fitness,,,,
+b:97ccd616749ff4f2,Township of Adjala Tosorontio,,,,
+b:e882d8d827353d65,Government of Prince Edward Island,,,,
+b:0686e2b5c52f50f8,SMS Engineering Ltd,,,CA,CA
+b:1e11c790d387e959,La Cité Collégiale,,,CA,CA
+b:5f5fc291ebb4ca83,Colliers Project Leaders,,,CA,CA
+b:99370fe243548a96,Conseil des Écoles Catholiques du Centre-Est,,,CA,CA
+b:6aa5fe7cf50c2e50,RCP Consulting Ltd.,,,CA,CA
+b:aed6d10f04ac1e9a,ISL Engineering and Land Services Ltd.,,,CA,CA
+b:43228de15a45b87a,Asset Management Division,,,CA,CA
+b:5611948550a5fcbd,Nasittuq Corporation,,,CA,CA
+b:30e43346ba2f5bcb,Avia NG Inc.,,,CA,CA
+b:7b9eca6ba5aec410,KCMS,,,CA,CA
+b:fe537193c70ba49d,"Council of Ministers of Education, Canada",,,CA,CA
+b:9c13b577238388c6,Department Led Capital Projects Office,,,CA,CA
+b:cf91d1a8a9b5c2a2,LM Architectural Group,,,CA,CA
+b:89331e9af4f00cb2,Kowalchuk Consulting Engineers Ltd.,,,CA,CA
+b:64f1ca118207b1a6,Rural Municipality of Montcalm,,,CA,CA
+b:783a9d6e09bcbbb3,Innovation and New Technology – Digital and Technology Solutions,,,CA,CA
+b:ab7cc88e28183d2d,Nunatsiavut Government,,,CA,CA
+b:c80a8e2dce8777cb,Belleville and Quinte West Community Health Centre,,,CA,CA
+b:a9fbd1d80d59d47e,Cornwall Community Hospital,,,CA,CA
+b:486ab7accc2883de,J.L. Richards & Associates Limited,,,CA,CA
+b:bf7fcb617918858a,Queensway Carleton Hospital,,,CA,CA
+b:0f14a20928048ff7,Parliamentary Protective Services,,,CA,CA
+b:8fe64e61a6709a13,Kensington Health,,,CA,CA
+b:8b4becc83d26b610,Thunder Bay International Airports Authority Inc.,,,CA,CA
+b:0b324cef9fe3594f,Ottawa Climate Action Fund,,,CA,CA
+b:b7c1436e0853114d,Metro Richelieu,,,CA,CA
+b:f89b71f7d2136fd5,AbleLiving Services Inc.,,,CA,CA
+b:f50db69b37afc6d1,Victoria University,,,,
+b:93537d9b0362fca7,Deer Lake Regional Airport Authority Inc.,,,,
+b:f12ad9233962468e,St. Joseph’s Continuing Care Centre,,,,
+b:e5aa0eeee9fe6a4a,Gander International Airport,,,,
+b:5022b59b92feb1f6,Township of Edwardsburgh Cardinal,,,,
+b:126b42cd53a21573,Scatliff+Miller+Murray,,,,
+b:3f22e34ed23d6952,Associated Engineering (Ont.) Ltd.,,,,
+b:0bbf00197fcdbc18,Atomic Energy of Canada Ltd.,,,,
+b:88cf645802fcd922,Windsor Essex Community Health Centre,,,,
+b:0953c675d4e87bb7,Rural Municipality of La Broquerie,,,,
+b:b0e97f395500bbe2,Parkin Architects Limited,,,,
+b:47089c59026a7c48,Pembroke Regional Hospital Inc.,,,,
+b:aedc02835a3f86ef,a+LiNK Architecture Inc,,,,
+b:25c3ab4628558c5f,Aptus Treatment Centre,,,,
+b:b316a05b8fef38ce,Sault Area Hospital,,,,
+b:c31e15a5ba56d0d0,Institute for Clinical Evaluative Sciences,,,,
+b:ca36d1f308b3a0f5,Clifton Engineering Group,,,,
+b:642fae63e047e30a,Infrastructure Ontario EDI,,,,
+b:c5763177742ddaca,Huron University College,,,,
+b:7afb0ffec975fab4,March of Dimes Canada,,,,
+b:c088e4423f80aeb4,George Brown College,,,,
+b:4e4b83877fe00fce,College Boréal,,,,
+b:9064f32a0473e29e,House of Assembly,,,,
+b:9d74b0f2f03186e8,Oil Co.,,,,
+b:4f43f0064c2cf557,Public Procurement Agency,,,,
+b:5af3910633487cf2,Muskrat Falls Generation,,,,
+b:170182c04ac3496a,Bull Arm Fabrication,,,,
+b:947b6fbef67c8c16,Town of Lark Harbour,,,,
+b:7c3156611ef6ba60,Education,T5J 5E6,Alberta,Canada,"10044 108 Street, Edmonton, Alberta, T5J 5E6, Canada"
+b:11304dee464cbb05,"Executive Council, Office of the Chief Information Officer",,,,
+b:b1f56dc1c4b46ff3,Finance,,NS,CA,"NS, CA"
+b:c6cd3e571d0df670,"OCIO, Executive Council",,,,
+b:5471632cc0f5df9b,NL Housing,,,,
+b:5961271d5cb87a91,Churchill Falls Corp. Ltd.,,,,
+b:df3c1f584d35e97c,Office of the Chief Electoral Officer,,,,
+b:50393a3ecfab7fcb,Labrador Island Link Ltd.,,,,
+b:b1f56dc1c4b46ff3,Finance,,NS,CA,"NS, CA"
+b:6903bcfedc6a3c13,Infrastructure,T6H 5V7,,CA,"Third Floor, 6950-113 Street, Edmonton, T6H 5V7, CA"
+b:0a7515cc82378a8b,Justice,T5K 2G6,,CA,"Justice Procurement Services, Edmonton, T5K 2G6, CA"
+b:cb6fd8936da38dcf,Legislative Assembly,,,,
+b:09f0602e8d0b472c,Saskatchewan Public Safety Agency,,,CA,CA
+b:5ac93aed4340ff13,Rural Municipality of Spy Hill No. 152,,,CA,CA
+b:7d1c482da7c24635,Rural Municipality of Sarnia No. 221,,,CA,CA
+b:0b9506b694da3908,Saskatchewan Research Council,,,CA,CA
+b:21095b0ee85ad8e4,South East Cornerstone School Division No. 209,,,CA,CA
+b:eef08f89f7a385b3,Saskatchewan Rivers School Division No. 119,,,CA,CA
+b:eb6bd04da28b6107,Rural Municipality of Enniskillen No. 3,,,CA,CA
+b:d71828b574e2d2f7,Saskatchewan Workers' Compensation Board,,,CA,CA
+b:8448d9ebc5bbcc7d,Northwest School Division No. 203,,,CA,CA
+b:3af4d5654bcbcfe4,Rural Municipality of Arlington No. 79,,,CA,CA
+b:7c3156611ef6ba60,Education,T5J 5E6,Alberta,Canada,"10044 108 Street, Edmonton, Alberta, T5J 5E6, Canada"
+b:b1f56dc1c4b46ff3,Finance,,NS,CA,"NS, CA"
+b:940fc1d5e92f7049,Rural Municipality of Baildon No. 131,,,CA,CA
+b:385fe3405bc21727,Saskatchewan Association of Rural Municipalities,,,CA,CA
+b:88a2e1eb3621666e,Rural Municipality of Wawken No. 93,,,CA,CA
+b:2714e7e36279461b,Rural Municipality of Walpole No. 92,,,CA,CA
+b:dd0f7a780a953e6f,Rural Municipality of Bengough No. 40,,,CA,CA
+b:420cb0d19bf64462,Saskatchewan Housing Corporation,,,CA,CA
+b:2839d6c2765841d5,Rural Municipality of Hoodoo No. 401,,,CA,CA
+b:009d27de43ecf6a8,Rural Municipality of Lomond No. 37,,,CA,CA
+b:6583fa2305330b29,Rural Municipality of Mayfield No. 406,,,CA,CA
+b:34e94eefe9576d28,Environment,K1A 0S5,Quebec,Canada,"11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada"
+b:0a7515cc82378a8b,Justice,T5K 2G6,,CA,"Justice Procurement Services, Edmonton, T5K 2G6, CA"
+b:95e6f3b792840f96,Sask Gaming,,,CA,CA
+b:5271d7b519c28444,Rural Municipality of Dufferin No. 190,,,CA,CA
+b:47d43f76023b3e97,Legislative Assembly Service of Saskatchewan,,,CA,CA
+b:94a26671b09efbdc,Prairie Spirit School Division No. 206,,,CA,CA
+b:82b1219788326892,Regina Public Library,,,CA,CA
+b:76407a45f6ea4788,Village of North Portal,,,CA,CA
+b:8b1287dd6624624e,Agriculture,,NS,CA,"NS, CA"
+b:e9c0f86a7ab54692,Prairie South School Division No. 210,,,CA,CA
+b:834b54b6b7533b89,Prairie Valley School Division No. 208,,,CA,CA
+b:df72dc55d62f00ad,Rural Municipality of Snipe Lake No. 259,,,CA,CA
+b:f9c90c5bcf72d91b,Provincial Capital Commission,,,CA,CA
+b:7737dc124da13300,Rural Municipality of Canwood No. 494,,,CA,CA
+b:d0af9b198b952d68,Holy Family Roman Catholic Separate School Division No. 140,,,CA,CA
+b:c01a757032e6b60d,Rural Municipality of Kelvington No. 366,,,CA,CA
+b:9a2b295ee7b18025,Rural Municipality of Morris No. 312,,,CA,CA
+b:589780b432017d8a,Saskatchewan Crop Insurance Corporation,,,CA,CA
+b:4403025fb301e408,Village of Pangman,,,CA,CA
+b:bab48b81609e6923,Rural Municipality of Connaught No. 457,,,CA,CA
+b:d61fa915b8ffb224,Village of Frobisher,,,CA,CA
+b:034cfafd07831543,Rural Municipality of Indian Head No. 156,,,CA,CA
+b:5a3c20c2743c8b66,Rural Municipality of Ituna Bon Accord No. 246,,,CA,CA
+b:cdfde5125d2c927f,Living Sky School Division No. 202,,,CA,CA
+b:2a89d03d91f43787,SaskBuilds,,,CA,CA
+b:6a157c96cdbabc53,Canadian Pari-Mutuel Agency (CPMA),K1A 0S5,Quebec,Canada,"11 Laurier St, Phase III, Place du Portage, Gatineau, Quebec, K1A 0S5, Canada"
+b:37ea3ce5f9bbd8bb,Parliamentary Protective Service,K1A 0B8,Ontario,Canada,"155 Queen Street, 4th Floor, OTTAWA, Ontario, K1A 0B8, Canada"
+b:b936ab1c3cae7ad1,Regional Headquarters,E1C 1H1,New Brunswick,Canada,"1045 Main Street, Moncton, New Brunswick, E1C 1H1, Canada"
+b:32fa540ef18572a8,Old Port of Montreal Corporation,H2Y 2E2,Quebec,Canada,"333 de la Commune Street, West, MONTREAL, Quebec, H2Y 2E2, Canada"
+b:97027ac66b2626ea,Soo Yeon Cho,K1A0G6,ON,Canada,"240 Sparks street, Ottawa, ON, K1A0G6, Canada"
+b:490da94f14867cc1,Government of Canada organization (contracting officer Teri Fraser),S7K 3X5,Saskatchewan,Canada,"3427 Faithfull Avenue, Saskatoon, Saskatchewan, S7K 3X5, Canada"
+b:b5108426640afe2b,"Government of Saint Kitts and Nevis – executing agency of CDB-financed project 'FORMULATION OF A MEDIUM-TERM DEVELOPMENT STRATEGY AND INVESTMENT PLAN (MTDSIP), 2027‑2031'",,,,
+b:a03eeeac3ec753b6,Government of The Bahamas – executing agency of CDB-financed project 'GA 18/BHA Disaster Resilience Improvement Project',,,,
+b:aed44fa50ba7bbad,Empa zentraler Einkauf,8600,,CHE,"Dübendorf, 8600, CHE"
+b:ccd64f7a66618d2d,DEFENSORIA PENAL PUBLICA | Defensoría Nacional,,Región Metropolitana de Santiago,Chile,"Alameda 1449 Piso 8, Región Metropolitana de Santiago, Chile"
+b:6c562bddc209236c,DIRECCION DE ABASTECIMIENTO DE LA ARMADA | SERVICIO HIDROGRAFICO Y OCEANOGRAFICO,,Región de Valparaíso ,Chile,"ERRAZURIZ 254 PLAYA ANCHA, Región de Valparaíso , Chile"
+b:d67ac2524d91c162,I MUNICIPALIDAD DE SANTO DOMINGO | Departamento de Educación,,Región de Valparaíso ,Chile,"PLAZA DEL CABILDO S/NUMERO, Región de Valparaíso , Chile"
+b:cc73b815c9681257,DIRECCION DE LOGISTICA DE CARABINEROS | Direccion de Compras Publicas de Carabineros,,Región Metropolitana de Santiago,Chile,"Avda. Manuel Montt 2632, Región Metropolitana de Santiago, Chile"
+b:4d9215396e5020c0,CORP NACIONAL FORESTAL | Conaf - Oficina Central - Abastecimiento,,Región Metropolitana de Santiago,Chile,"Av. Bulnes 285, Oficina 801., Región Metropolitana de Santiago, Chile"
+b:858e8aa8e3adb09a,DIRECCION GENERAL DE GENDARMERIA DE CHIL | Dirección Nacional,,Región Metropolitana de Santiago,Chile,"COMPAÑÍA Nº1048- piso 10 , Región Metropolitana de Santiago, Chile"
+b:a9edfcd54cfa35c7,Technische Universität München,85748,,DEU,"Garching bei München, 85748, DEU"
+b:d9332f97063775bc,Deutsche Zentrale für Tourismus e.V.,60325,,DEU,"Frankfurt am Main, 60325, DEU"
+b:c8bd41e942835ae2,Deutsche Forschungsgemeinschaft e.V.,53175,,DEU,"Bonn, 53175, DEU"
+b:d9da689e75c6ee1c,Berliner Institut für Gesundheitsforschung in der Charité,10178,,DEU,"Berlin, 10178, DEU"
+b:70a4158a69916b30,INSTITUTO OCEANOGRÁFICO Y ANTÁRTICO DE LA ARMADA,,GUAYAS,ECUADOR,"Av. 25 de Julio Vïa al Puerto Marírimo 2601 XIMENA, GUAYAQUIL, GUAYAS, ECUADOR"
+b:7f50d4e2c6d35120,Fundación del Sector Público Estatal Centro Nacional de Investigaciones Oncológicas Carlos III,28029,,ES,"Melchor Fernández Almagro, 3, Madrid, 28029, ES"
+b:2cc42798b6c16257,Dirección General del Servicio Exterior,28012,,ES,"Plaza de la Provincia, 1, Madrid, 28012, ES"
+b:48ee96b95a7768d5,Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS),08034,,ES,"Recepción de ofertas electrónica, Barcelona, 08034, ES"
+b:96dfbc3cbbca22ec,Aena. Dirección de Contratación,28042,,ES,"Peonías, 12, Madrid, 28042, ES"
+b:aec483af1e9584ca,Subsecretaría del Ministerio de Trabajo y Economía Social,28071,,ES,"Paseo de la Castellana, 63, Madrid, 28071, ES"
+b:643291992700084a,"Dirección General de Renfe Viajeros Sociedad Mercantil Estatal, S.A.",28007,,ES,"Avda Ciudad de Barcelona, 6 - 2ª pl., Madrid, 28007, ES"
+b:1d0f34322f734843,New Zealand Institute for Advanced Technology Limited,,,"15 Stout Street Wellington Central, Wellington, 6011, NEW ZEALAND","15 Stout Street Wellington Central, Wellington, 6011, NEW ZEALAND"
+b:c1842ef94376e057,Maori Television,,,,
+b:83f810b586307893,Ministry for Primary Industries,,,NEW ZEALAND,NEW ZEALAND
+b:05891cc6235afd09,"BELIZE / MINISTRY OF EDUCATION, CULTURE, SCIENCE AND TECHNOLOGY",,,BELIZE,BELIZE
+b:773ce00d13dfb729,BARBADOS / NATIONAL PETROLEUM CORPORATION,,,BARBADOS,BARBADOS
+b:0fd9b64b65e59dff,REPUBLIQUE D'HAITI / FOND D ASSISTANCE ECONOMIQUE ET SOCIAL,,,HAITI,HAITI
+b:838ad31750d5fdcd,THE COMMONWEALTH OF THE BAHAMAS / MINISTRY OF WORKS AND FAMILY ISLAND AFFAIRS,,,BAHAMAS,BAHAMAS
+b:04b6b4d8daa0a66d,AGENCIA DE PROMOCION DE LA INVERSION PRIVADA - PROINVERSION,,LIMA,PERU,"AV. PASEO DE LA REPUBLICA 3361 SAN ISIDRO, SAN ISIDRO, LIMA, PERU"
+b:7ec4b1918d8b5c62,AGENCIA DE COMPRAS DE LAS FUERZAS ARMADAS,,LIMA,PERU,"AV DE LA PERUANIDAD SN EDIFICIO QUIÑONES SN OFICINA P 8, JESUS MARIA, LIMA, PERU"
+b:0e6fd73aeedb7eff,"BRiC-TPS, LLC (prime contractor to Los Angeles County Metropolitan Transportation Authority)",,,,
+b:30da18f97aeda988,Kaia DLT Foundation,,,,
+b:107c326cbdbfc61f,VIA Rail Canada Inc.,,,,
+b:227328088d925163,State University of New York at Oneonta (RFP administered by New York Power Authority),,,,
+b:4a97d45c76e69ce5,Telesat LEO ULC (Telesat Corporation),,,,
+b:b56c26d7ffc7f74e,United States Air Force,,,,
+b:96d7912d7073ba6c,Mitsubishi Electric Corporation,,,,
+b:975c89f98cb7401e,First American Nuclear (FANCO),,,,
+b:66fa29f5fc3df8d7,Epique Realty (Epique Estates),,,,
+b:17478bc2d27fde94,ADM Aéroports de Montréal,,,,
+b:f31338702ce8fdbb,Milestone Systems A/S,,,,
+b:5b4704e38cd99e16,New Flyer Industries Canada ULC (NFI Group Inc.),,,,
+b:604925f41069862a,Government of Ontario (Ministry of Public and Business Service Delivery and Procurement),,,,
+b:fa3e0d6eada93b12,Novartis Pharmaceuticals Canada Inc.,,,,
+b:c1ed9323019fa665,U.S. Missile Defense Agency,,,,
+b:8b229803ea433522,Mac Foster & Company Ltd. (Foster & Co.),,,,
+b:ca82f53b75e152ca,Government of British Columbia (procurement administered by Infrastructure BC),,,,
+b:aeb18f87e8e199c8,Oklahoma Lottery Commission,,,,
+b:2c183fe38f205f85,Sellafield Ltd (Nuclear Decommissioning Authority),,,,
+b:7e56a161d8649b3a,Perpetua Resources Corp.,,,,
+b:3a06bc28963a47d5,Supply Ontario (Government of Ontario),,,,
+b:7f079be880e50cc5,Van Lang Investment and Education Management Group Corporation (Van Lang Education Group),,,,
+b:b877995851c39628,FAN EXPO HQ,,,,
+b:277d4aa8a88391a9,Federal Aviation Administration,,,,
+b:afeb312a458c32e8,National Bank of Canada,,,,
+b:4b5fcc0e425e9d6a,The Toronto-Dominion Bank (TD Auto Finance (Canada) Inc.),,,,
+b:0d10fe1957efbadd,Regina Public Schools,,,,
+b:21ae69a199d53cd9,Cenomi Centers (Arabian Centres Company),,,,
+b:cbf0e19df12e1a29,Curtiss-Wright Corporation (Sensors & Actuation),,,,
+b:9c12c44deb650a81,Federal Ministry of Defence of Germany (represented by University of the Federal Armed Forces Munich),,,,
+b:51454a1680852912,Greenlight Electricity Centre Limited Partnership (Pembina Pipeline / Morgan Stanley Infrastructure Partners / Kineticor),,,,
+b:88a23a87de08378a,Ontario Power Generation Inc.,,,,
+b:907f8d0e985b25d3,"U.S. Army Corps of Engineers, Charleston District",,,,
+b:61d8e29fdf739d2f,Saab AB,,,,
+b:49a5c81574a42d4f,Korean Air (for Republic of Korea Electronic Warfare / Stand-Off Jammer program),,,,
+b:4b474b4b9b454a0c,Australian Border Force (aircraft operated by Metrea),,,,
+b:74c783165bff33f5,ADN Telecom Limited,,,,
+b:1428369715160593,Northwestel Inc.,,,,
+b:a465c79bd81c3bc4,Orange (Orange Wholesale International),,,,
+b:0d22721f23ac4816,New York City Transit (MTA),,,,
+b:0d2303790c1510bc,Regional Transportation Commission of Southern Nevada (RTC),,,,
+b:2c94f0f9520450fc,"Spec's Wines, Spirits & Foods",,,,
+b:5eabf2519f73559d,49North (MDA Space Ltd. subsidiary),,,,
+b:5cb9101ab1296c9d,"France - Ministry of Agriculture, Agri-Food and Food Sovereignty",,,,
+b:8dabae8bd03d77e1,CHS Ltd. (Canadian Hospital Specialties),,,,
+b:5d1bf584ff35fb66,Pennsylvania Department of Transportation (PennDOT),,,,
+b:c64c2d9f4bb6d4a1,HaStock,,,,
+b:07b719cf8326863a,"U.S. Department of Defense / Department of the Army (U.S. Army Corps of Engineers) - Armed Forces Reserve Center Farmingdale, NY",,,,
+b:9bd1227d15c71627,Northfield Park Racino (MGM Northfield Park),,,,
+b:53319adcda426500,TD Bank Group,,,,
+b:66c930f3f48efbf2,Utah Department of Transportation (UDOT),,,,
+b:0f0690397338d281,Lufthansa Group,,,,
+b:376b4a391c43ec19,EDF power solutions North America (EDF solutions électriques),,,,
+b:078cbf1d26152bfb,CRS Inc. (U.S. systems integrator) for an unnamed defense customer,,,,
+b:e6d892e5a6daab87,New Jersey Department of Transportation (NJDOT),,,,
+b:f8cfd8fcd96d8955,Avison Young,,,,
+b:94d8a35ae9422414,PWL Capital (a OneDigital company),,,,
+b:e1520c64a6fb6d60,Viva Homes by ATCO (ATCO Ltd.),,,,
+b:a2c5aed076a76bc1,embecta Corp.,,,,
+b:6375352e4df244a8,"Coviello Electric, Inc. (prime) for Massachusetts Department of Transportation (MassDOT)",,,,
+b:571c328123804ac3,Illinois State Toll Highway Authority (Illinois Tollway),,,,
+b:ccc527c24bfa534b,St. Joseph's at Fleming,,,,
+b:7145b9858b550c66,His Majesty's Revenue and Customs (HMRC),,,,
+b:61a4248394a49f09,tesa SE,,,,
+b:17f4e6354ae0cb8f,Shimadzu Corporation,,,,
+b:e5b3b85a3cbc0385,SEKO Logistics,,,,
+b:7b095d96520a0695,Government of India - Department of Atomic Energy,,,,
+b:f9e6302b7cc87d99,"Polish Navy (via Thesta, Kraken's Polish reseller)",,,,
+b:80fbf2eb3f1adb18,"Suffolk County Transit (Suffolk County, New York)",,,,
+b:7037784497363af8,U.S. Department of War (Department of Defense),,,,
+b:579a45753e8aded6,Portuguese Air Force (Ministry of National Defence of Portugal),,,,
+b:6277a1c35ce71734,Bangladesh Agricultural Development Corporation (BADC),,,,
+b:07bcbd477eced1b5,"German Federal Office of Bundeswehr Equipment, Information Technology and In-Service Support (BAAINBw), for the German Navy",,,,
+b:862a2e6b8b66e2a7,Ministry of Defense of Montenegro,,,,
+b:9dcb7cc7650970b9,"U.S. Air Force Sustainment Center, Tinker AFB",,,,
+b:61608dacadb6f4cf,U.S. Navy - Naval Surface Warfare Center Philadelphia Division,,,,
+b:fa46a098275c4a1e,Prospect Prediction Markets Inc. (Prospect Markets),,,,
+b:c8221e297fa9ca89,BHP (Jansen potash project),,,,
+b:e9562de16f7ce363,"Dow (Path2Zero program, Fort Saskatchewan)",,,,
+b:f11bd3e203b1f748,Alberta Infrastructure (Government of Alberta),,,,
+b:32072c0387f006e7,New York State Energy Research and Development Authority (NYSERDA),,,,
+b:5ea2497867b85359,Sunnybrook Health Sciences Centre,,,,
+b:4f73c1686f479d23,Niagara Health,,,,
+b:936bdcaf849f0a74,South West Provider Collaborative (NHS; lead provider Devon Partnership NHS Trust),,,,
+b:171a2dc83394f748,"WEL Companies (De Pere, Wisconsin)",,,,
+b:16e7348aafcd509e,"Cerrejón (Glencore company, Colombia)",,,,
+b:fc8d9e1c2638c397,Michigan Lottery (Michigan Bureau of State Lottery),,,,
+b:d9ebc732e5b72e54,"Seven West Virginia county school districts (Cabell, Calhoun, Clay, Grant, Kanawha, Lewis, Monongalia) via GreenPower's WV dealer",,,,
+b:4ea065efd80ea2c0,"Los Banos Unified School District (CA), Casa Grande Elementary School District (AZ), Hood River County School District (OR) via dealers Model 1, RWC Group, Peterson Trucks",,,,
+b:ecbd81a27c37a071,Total Safety (US industrial safety services company),,,,
+b:05618c79d9a65e9d,Government of Nunavut,,,,
+b:f824deb3974317e5,Province of Manitoba,,,,
+b:64a1f5398bc1ab33,MediaMarktSaturn Retail Group,,,,
+b:6cc36494a86a7e7c,Virgin Voyages,,,,
+b:1864bb7015f7495b,Vivaticket S.p.A.,,,,
+b:9305dfc0d53e601d,Government of Canada (Munitions Supply Program),,,,
+b:fc6f7615f1fbfffc,Transamine SA,,,,
+b:2ca00e4182456996,SkyAlyne Canada LP (CAE / KF Aerospace joint venture; prime for DND Future Aircrew Training program),,,,
+b:4eb0e37e0f4cb1f8,Donlin Gold LLC (NOVAGOLD Resources Inc. and Donlin Gold Holdings / Paulson Advisers),,,,
+b:e53b8daf95bfd632,NATO Communications and Information Agency (NCIA),,,,
+b:b2120b5157e49de7,"U.S. Air Force Sustainment Center Enterprise Contracting Section, Oklahoma City",,,,
+b:4c5dbdcf88482c18,Banco Central del Paraguay (BCP),,,,
+b:a92f097ea50f0358,Énergie hydroélectrique Mistassini S.E.C.,G0W2H0,QC,CA,"1423 rue Ouiatchouan, Mashteuiatsh, QC, G0W2H0, CA"
+b:58416957e8921a49,Cégep de Trois-Rivières.,G8Z1T2,QC,CA,"3500 rue De Courval, Trois-Rivières, QC, G8Z1T2, CA"
+b:7be0c088e5334700,Valoris,J0B1J0,QC,CA,"107 ch. du Maine Central, Bury, QC, J0B1J0, CA"
+b:f9749eca30c36919,Conseil Cri de la santé et des services sociaux de la Baie James,J0M1E0,QC,CA,"C.P. 250, CHISASIBI BAIE-JAMES, QC, J0M1E0, CA"
+b:73969ad453380eca,Bureau du coroner,G1V4K9,QC,CA,"1200 rte de l'Église, Québec, QC, G1V4K9, CA"
+b:2a0718279451c8cb,Groupe d'approvisionnement en commun de l'Est du Québec,g5c1p5,QC,CAN,"835 boulevard Joliet, Baie-Comeau, QC, g5c1p5, CAN"
+b:4caaa4e9fd061ff9,Office de la protection du consommateur,,QC,CA,"450 -400,boulevard Jean-Lesage, Québec, QC, CA"
+b:f099c0ba619c7205,Régie intermunicipale de restauration et de préservation des Trois-Lacs (RIRPTL),J1T2B4,QC,CA,"309 rue Chassé, Val-des-Sources, QC, J1T2B4, CA"
+b:fa30dd2b3a4edb05,Société du Grand Théâtre de Québec.,G1R2B3,QC,CA,"269 boul. René-Lévesque E, Québec, QC, G1R2B3, CA"
+b:c126f0bbc205fe08,Régie de Police du Lac Des Deux-Montagnes,J7R6B2,QC,CA,"615 20e Avenue, Deux-Montagnes, QC, J7R6B2, CA"
+b:e14b72e702abb46d,CEGEP de Saint-Hyacinthe,J2S 1H9,QC,CAN,"3000 Avenue Boullé, Saint-Hyacinthe, QC, J2S 1H9, CAN"
+b:b673ba812a1daf4c,SigmaSanté,H3A3C2,QC,CA,"900-505 boul. De Maisonneuve O, Montréal, QC, H3A3C2, CA"
+b:2995aa7f611952b4,Cégep Marie-Victorin,H1G 2J6,QC,CAN,"7000 rue Marie-Victorin, Montréal, QC, H1G 2J6, CAN"
+b:c68fe0eeceb718a7,Cégep de Chicoutimi.,G7H 1Z6,QC,CAN,"534 rue Jacques-Cartier Est, Saguenay, QC, G7H 1Z6, CAN"
+b:e9b6e269ad9ff022,Office municipal d'habitation de Trois-Rivières,G9A1G8,QC,CA,"660 rue Hertel, Trois-Rivières, QC, G9A1G8, CA"
+b:454c42053e5984b6,Le Cégep Régional de Lanaudière,J5Y 1B4,QC,CAN,"781 rue Notre-Dame, Repentigny, QC, J5Y 1B4, CAN"
+b:1d8fd51cf53f961f,Ministère des Relations internationales et de la Francophonie,G1R5R9,QC,CA,"525 BOUL. René-Lévesque Est, Québec, QC, G1R5R9, CA"
+b:0aac369f83141419,Collège de Rosemont.,H1X2S9,QC,CA,"6400 16e Avenue, Montréal, QC, H1X2S9, CA"
+b:a4d596010727aaba,Gouvernement régional d'Eeyou Istchee Baie-James,J0Y2A0,QC,CA,"2 rue des Rapides, CP 819, Matagami, QC, J0Y2A0, CA"
+b:c98387ae68471eba,Musée de la civilisation,G1K8R2,QC,CA,"85 rue Dalhousie, Québec, QC, G1K8R2, CA"
+b:7f0d0fe8e2caf445,Soutien aux opérations de la DST,G1J 1Z4,QC,CAN,"Hôpital de l'Enfant-Jésus du CHU de Québec, Québec, QC, G1J 1Z4, CAN"
+b:a9ad9f7e4067af9c,Institut national d'excellence en santé et en services sociaux,G1V4M3,QC,CA,"2535 boul. Laurier, Québec, QC, G1V4M3, CA"
+b:43d2a17580b9b491,Régie d'assainissement des Eaux de la Vallée du Richelieu,J3H0M6,QC,CA,"300 rue Brunet, Mont-Saint-Hilaire, QC, J3H0M6, CA"
+b:139f192846a1875a,Société de transport de Lévis,G6V6N4,QC,CA,"1100 rue Saint-Omer, Lévis, QC, G6V6N4, CA"
+b:f943858a51dc5c40,Télé-université,G1K9H6,QC,CA,"455 rue du Parvis, Québec, QC, G1K9H6, CA"
+b:c7642d32c2defae5,Régie Intermunicipale de Police Roussillon,J5R6M6,QC,CA,"90 ch. Saint-François-Xavier, Candiac, QC, J5R6M6, CA"
+b:61901bbe24c8dcb0,Office municipal de l'habitation de Laval,H7R3X4,QC,CAN,"5551,5543  Boulevard Arthur Sauvé, Laval, QC, H7R3X4, CAN"
+b:54be13b845d14bf8,Corporation municipale de Saint-Bernard-de-Lacolle,J0J 1V0,QC,CAN,"116, rang Saint-Claude, Saint-Bernard-de-Lacolle, QC, J0J 1V0, CAN"
+b:43dc5d77be13672e,Société de développement économique de Saint-Eustache,J7R 1X9,QC,CAN,"145 St-Louis, Saint-Eustache, QC, J7R 1X9, CAN"
+b:f1ccf7b9481d7bc6,Régie des matières résiduelles du Lac-Saint-Jean,G8B1N4,QC,CA,"610 rue Collard, Alma, QC, G8B1N4, CA"
+b:0706b02324be811d,CENTRE INTÉGRÉ DE SERVICE SANTÉ ET SOCIAUX DU BAS-ST-LAURENT,G4W2W5,QC,CAN,"333, Matane, QC, G4W2W5, CAN"
+b:0c54b920ee8efb4d,Le Cégep Gérald-Godin,H9H 5K8,QC,CAN,"15615, boul. Gouin Ouest, Montréal, QC, H9H 5K8, CAN"
+b:a1b9c54083202e3f,Régie intermunicipale de police Richelieu-Saint-Laurent,J3E0A2,QC,CA,"1578 ch. du Fer-à-Cheval, Sainte-Julie, QC, J3E0A2, CA"
+b:6f1f3e10358dee2d,Municipalité Paroisse Notre-Dame-du-Bon-Conseil,J0C 1A0,QC,CAN,"1428 route 122, Notre-Dame-du-Bon-Conseil, QC, J0C 1A0, CAN"
+b:99973e27f4402539,Régie régionale de gestion des matières résiduelles de Portneuf,G0A2R0,QC,CA,"1300 CH. du Site, Neuville, QC, G0A2R0, CA"
+b:13e86b1f29059ca4,CEGEP Saint-Jean-Sur-Richelieu,J3B5J4,QC,CA,"30 boul. du Séminaire N, Saint-Jean-sur-Richelieu, QC, J3B5J4, CA"
+b:eeda4a981fe5b0ba,Cegep de Sept-Iles,G4R5B7,QC,CA,"175, RUE DE LA VÉRENDRYE, SEPT-ÎLES, QC, G4R5B7, CA"
+b:272e2a1c914368d0,Le Protecteur du citoyen,G1R3P4,QC,CAN,"800, Place D'Youville, 19e étage, Québec, QC, G1R3P4, CAN"
+b:43439de9c8938021,"Société du Musée d'archéologie et d'histoire de Montréal, Pointe-à-Callière",H2Y3Y5,QC,CA,"350 place Royale, Montréal, QC, H2Y3Y5, CA"
+b:52b6b185ff8a97ef,Secrétariat du Conseil du trésor-Service des contrats,G1R 5R8,QC,CAN,"875, Grande Allée, 2e étage, secteur 700, Québec, QC, G1R 5R8, CAN"
+b:4d9fcecb75220276,"Régie des alcools, des courses et des jeux",G1R1T3,QC,CA,"400-200 CH. Sainte-Foy, Québec, QC, G1R1T3, CA"
+b:1a43344a2fb7d285,Cégep Abitibi-Témiscamingue,J9X 5E5,QC,CAN,"425, boul. du Collège, Rouyn-Noranda, QC, J9X 5E5, CAN"
+b:cd41281103e3caf9,Énergie Hydroélectrique Ouiatchouan,G0W 2H0,QC,CAN,"1425 rue Ouiatchouan, Mashteuiatsh, QC, G0W 2H0, CAN"
+b:1b7d95958b56c77b,Centre de Services des Offices d'Habitation de Lanaudière,J6W 2G8,QC,CAN,"404, boul. Terrebonne, Terrebonne, QC, J6W 2G8, CAN"
+b:70076986607557d7,Régie intermunicipale de transport Gaspésie-Îles-de-la-Madeleine,G0C1J0,QC,CA,"A-550 BOUL. Perron, Carleton-sur-Mer, QC, G0C1J0, CA"
+b:d14fe828a6bd3d08,La Commission des droits de la personne et de la jeunesse du Québec,H2Y 1P5,QC,CAN,"360, rue St-Jacques, Montréal, QC, H2Y 1P5, CAN"
+b:7669b35e11a58456,Corporation Municipale de Elgin,J0S 2E0,QC,CAN,"933, 2e Concession, Elgin, QC, J0S 2E0, CAN"
+b:d7135b782a7164b8,CEGEP de Ste-Foy,G1V 1T3,QC,CAN,"2410 chemin Ste-Foy, Québec, QC, G1V 1T3, CAN"
+b:c539926f85b8a704,Municipalité de Saint-Augustin-de-Dalmas,G0W 1K0,QC,CAN,"686 rue Principal, Saint-Augustin, QC, G0W 1K0, CAN"
+b:bd07ef40cb035cbf,Régie Intermunicipale de l'eau de la Vallée du Richelieu.,J3H2B3,QC,CA,"1348 ch. des Patriotes, Otterburn Park, QC, J3H2B3, CA"
+b:842e9619ba315dd7,Municipalité de Saint-Onésime-d'Ixworth,G0R 3W0,QC,CAN,"12 Rue de l`église, Saint-Onésime-d'Ixworth, QC, G0R 3W0, CAN"
+b:4b2ba77b57d383d0,Régie d'aqueduc intermunicipale des Moulins,J6Y1E2,QC,CA,"4445 côte de Terrebonne, Terrebonne, QC, J6Y1E2, CA"
+b:d269fc289abaada3,Centre de services scolaire au Coeur-des-Vallées,J8L2W2,QC,CA,"582 rue Maclaren E, Gatineau, QC, J8L2W2, CA"
+b:0ae2b91ec10304b6,Comité de Négociations d'achats regroupés de Chaudière-Appalaches  (CNAR 03-12),G1K1M7,QC,CA,"125 rue des Commissaires O, Québec, QC, G1K1M7, CA"
+b:bd7e967f5cf4970b,Corporation des partenaires pour les communications santé des Laurentides et Lanaudière,J7C2N8,QC,CA,"1280 BOUL. Curé-Labelle, Blainville, QC, J7C2N8, CA"
+b:2d5e8f6dbe82a985,Musée d'art contemporain de Montréal .,H2X3X5,QC,CA,"185 rue Sainte-Catherine O, Montréal, QC, H2X3X5, CA"
+b:2a4719cc0cc10fd4,Office Municipal d'Habitation de Saguenay,G7H1R9,QC,CA,"206 RUE Racine E, Chicoutimi, QC, G7H1R9, CA"
+b:ab5ffc57b924ae9c,Régie Intermunicipale de Gestion des Déchets des Chutes-de-la-Chaudière,G0S2W0,QC,CA,"1114 rue du Pont, Saint-Lambert-de-Lauzon, QC, G0S2W0, CA"
+b:8a640eec8ae13ba4,Longue-Pointe-de-Mingan,G0G 1V0,QC,CAN,"878, Chemin du Roi, Longue-Pointe-de-Mingan, QC, G0G 1V0, CAN"
+b:be514e1c1b0e577e,Cégep de Matane.,G4W 1L1,QC,CAN,"616, St-Rédempteur, Matane, QC, G4W 1L1, CAN"
+b:4fb6cd4864bf2db9,MRC de Lac-St-Jean-Est,G8B 1V3,QC,CAN,"625, rue Bergeron Ouest, Alma, QC, G8B 1V3, CAN"
+b:952903f8a8b4fbab,Municipalité de Saint-Majorique,J2B8A8,QC,CAN,"1962, boulevard St-Joseph Ouest, Saint-Majorique-de-Grantham, QC, J2B8A8, CAN"
+b:9962599189bdabad,Municipalité Paroisse Saint-Jules,G0N 1R0,QC,CAN,"390, rue Principale, Saint-Jules, QC, G0N 1R0, CAN"
+b:0360f407abdc2bfd,Bureau d'audiences publiques sur l'environnement,G1R5N6,QC,CA,"650-140 Grand Allée Est, Québec, QC, G1R5N6, CA"
+b:91d6d43988e9f50e,Société du Centre des congrès de Québec,G1R2B5,QC,CA,"200-900 BOUL. René-Lévesque E, Québec, QC, G1R2B5, CA"
+b:fd62fb60a2b81a6a,Municipalité  de Saint-Elzéar,G0S 2J0,QC,CAN,"597, rue des Érables, Saint-Elzéar (Chaudière-Appalaches), QC, G0S 2J0, CAN"
+b:858be3d768e26c90,Fonds de recherche du Québec,G1R5M8,QC,CA,"450-140 Grande Allée E, Québec, QC, G1R5M8, CA"
+b:61901bbe24c8dcb0,Office municipal d'habitation de Laval,H7R3X4,QC,CAN,"5551,5543  Boulevard Arthur Sauvé, Laval, QC, H7R3X4, CAN"
+b:2c9e3bbe9ec6f6ce,Centre de services scolaire de la Moyenne-Côte-Nord,G0G1P0,QC,CA,"1235 rue de la Digue, Havre-Saint-Pierre, QC, G0G1P0, CA"
+b:84629f9e46bb9038,Centre de Villégiature Dam-en-Terre.,G8B3R1,QC,CA,"140 rue Saint-Joseph S., Alma, QC, G8B3R1, CA"
+b:aa9ea0bf2173bede,Corporation d'aménagement récréotouristique de la Haute-Yamaska (C.A.R.T.H.Y.) inc.,J2G 4X1,QC,CAN,"142, rue Dufferin, Granby, QC, J2G 4X1, CAN"
+b:6f55f090cad6ed56,Régie intermunicipale d'aqueduc et d'égout de Lotbinière-Centre.,G0S2M0,QC,CA,"1090 rang Saint-Joseph, Saint-Flavien, QC, G0S2M0, CA"
+b:c130b8b62225e24c,Développement économique de l'agglomération de Longueuil,J4B6S2,QC,CA,"120-204 boul. De Montarville, Boucherville, QC, J4B6S2, CA"
+b:104014f5c8d204e8,Office québécois de la langue française,G1K9K4,QC,CA,"100-750 BOUL. Charest Est, Québec, QC, G1K9K4, CA"
+b:54fc6a1eb880f427,Réseau d'informations scientifiques du Québec.,H3B1R2,QC,CAN,"625 Boul. René Levesque Ouest, Montréal, QC, H3B1R2, CAN"
+b:7724163fd7e15878,Institut de recherche du centre Universitaire de santé McGill.,H3H2R9,QC,CAN,"2155 guy, Montréal, QC, H3H2R9, CAN"
+b:1f9c94be0d62abfb,Cégep de Saint-Félicien.,G8K2R8,QC,CAN,"1105, boul. Hamel,, Saint-Félicien, QC, G8K2R8, CAN"
+b:d9513802a1bdc6ad,Régie Intermunicipal de gestion intégrée des déchets Bécancour Nicolet Yamaskas,G9H 3C1,QC,CAN,"3075, Nicolas Perrot, Bécancour, QC, G9H 3C1, CAN"
+b:4624cfe7e63a2407,Municipalité de Saint-Léon-Standon,G0R 4L0,QC,CAN,"100A, rue St-Pierre, Saint-Léon-de-Standon, QC, G0R 4L0, CAN"
+b:03150bd6c791b768,Service régional d'admission du Montréal Métropolitain (SRAM),H2S2E9,QC,CAN,"5701 Christophe-Colomb, Montréal, QC, H2S2E9, CAN"
+b:54339e13535bc80f,Société de gestion du réseau informatique des commissions scolaires,H1V3R9,QC,CA,"3E ÉTAGE, 5100, RUE SHERBROOKE EST, BUREAU 300, MONTRÉAL, QC, H1V3R9, CA"
+b:cac5c1594f91706c,Cégep Beauce-Appalaches.,G5Y3G1,QC,CA,"1055, 116 IÈME RUE EST, SAINT-GEORGES, QC, G5Y3G1, CA"
+b:786c9461cad20903,Kativik Municipal Housing Bureau (OMH Kativik),J0M1C0,QC,CA,"1600 rue Akianut, Kuujjuaq, QC, J0M1C0, CA"
+b:c937aac85d59190e,Collège De-Bois-De-Boulogne,H4N 1L4,QC,CAN,"10555 Ave. De Bois-De-Boulogne, Montréal, QC, H4N 1L4, CAN"
+b:dffce635ec301a11,Les Presses de l'Université de Montréal,H3T1Y6,QC,CA,"100-5450 ch. de la Côte-des-Neiges, Montréal, QC, H3T1Y6, CA"
+b:9758a310d06210d2,Société portuaire du Bas-St-Laurent et de la Gaspésie inc.,G4W3N1,QC,CAN,"603, avenue Saint-Jérôme,, Matane, QC, G4W3N1, CAN"
+b:5f0bf59d0dfdda84,Centre de services scolaire de Kamouraska - Rivière-du-Loup,G5R3Z5,QC,CAN,"464, rue Lafontaine, C.P. 910,, Rivière-du-Loup, QC, G5R3Z5, CAN"
+b:f2aec8c436a5c982,Corporation municipale Canton Launay,J0Y 1W0,QC,CAN,"843 rue des Pionniers, Launay, QC, J0Y 1W0, CAN"
+b:4eabbd1ec1f233c1,NASKAPI CLSC,G0G2Z0,QC,CAN,"1016 Mohanis  CP 5154, Kawawachikamach (Côte-Nord), QC, G0G2Z0, CAN"
+b:81037c2b410ac190,Centre de services scolaire du Lac-Saint-Jean,G8B3N8,QC,CA,"350 boul. Champlain Sud, Alma, QC, G8B3N8, CA"
+b:24a0e376090f8984,Buanderie centrale de Montréal,H1N 3N9,QC,CAN,"7250, rue Joseph-Daoust, Montréal, QC, H1N 3N9, CAN"
+b:2ef08b2b6f4881fb,Commissaire à la santé et au bien-être,G1V3V9,QC,CA,"1020, ROUTE DE L'ÉGLISE, BUREAU 700, QUÉBEC, QC, G1V3V9, CA"
+b:427e0455a30174e9,Institut de la statistique du Québec.,G1R5T4,QC,CA,"200 CH. Sainte-Foy, 3e étage, Québec, QC, G1R5T4, CA"
+b:8ff0e12723556eec,Tribunal administratif du logement,H1T3X1,QC,CA,"2360-5199 rue Sherbrooke E, Montréal, QC, H1T3X1, CA"
+b:405f4b09863fb299,Champlain Regional College,J1J1S2,QC,CA,"1301 boul. de Portland, Sherbrooke, QC, J1J1S2, CA"
+b:097e4f73c3edf433,Commissaire à la lutte contre la corruption,H3C3R5,QC,CA,"3010-2100, AV. Pierre-Dupuy, Aile 2, 3e étage, Montréal, QC, H3C3R5, CA"
+b:b7b7b83def6ec9a6,Cégep de Rivière-du-Loup.,G5R1R1,QC,CA,"80 rue Frontenac, Rivière-du-Loup, QC, G5R1R1, CA"
+b:5b12b5a69db6c8a8,Cégep de Baie-Comeau.,G5C2B2,QC,CA,"537 boul. Blanche, Baie-Comeau, QC, G5C2B2, CA"
+b:907e50d9870bdf48,Fédération des CÉGEPS.,H2L4L8,QC,CA,"800 BOUL. De Maisonneuve E, 15e étage, Montréal, QC, H2L4L8, CA"
+b:bbba0fad6d3e3fc0,Cégep de Valleyfield,J6T1X6,QC,CA,"169 rue Champlain, Salaberry-de-Valleyfield, QC, J6T1X6, CA"
+b:2bc3d90d2b2ae948,Casiloc inc,H3A0J2,QC,CA,"500 rue Sherbrooke O, Montréal, QC, H3A0J2, CA"
+b:e1b51049520b6071,Cégep de Drummondville.,J2C 6A2,QC,CAN,"960 rue St-Georges, Drummondville, QC, J2C 6A2, CAN"
+b:22cd769e359b352a,CEGEP de La Pocatière,G0R 1Z0,QC,CAN,"140 4e avenue, La Pocatière, QC, G0R 1Z0, CAN"
+b:2061a3f5217145ab,CEGEP de La Gaspésie et des Iles,G4X 2S8,QC,CAN,"96, Jacques-Cartier, Gaspé, QC, G4X 2S8, CAN"
+b:69d4f2923265df12,Direction du soutien aux activités en espaces,G1R 5S9,QC,CAN,"525, boul. René-Lévesque Est, 6e étage, Québec, QC, G1R 5S9, CAN"
+b:456d46af048aa2c6,Fonds de recherche Québec - Santé,G1R 5M8,QC,CAN,"140 Grande allée Est, 4ieme étage, Québec, QC, G1R 5M8, CAN"
+b:cfba41e8c8afc0c8,"Régie intermunicipale de l'eau Tracy, Saint-Joseph, Saint-Roch",J3R5G2,QC,CA,"1200 rue Antaya, Sorel-Tracy, QC, J3R5G2, CA"
+b:0c01a3db0cc82ca7,Ministère du Travail,G1R5S1,QC,CA,"200, CHEMIN SAINTE-FOY, 6 IÈME ÉTAGE, QUÉBEC, QC, G1R5S1, CA"
+b:18102d6d621e9ddd,Ministère de l'Enseignement supérieur,G1R6C8,QC,CA,"675 boulevard René-Lévesque E., 3e étage, Édifice Marie-Guyart Québec, QC, G1R6C8, CA"
+b:454c42053e5984b6,Cégep régional de Lanaudière,J5Y 1B4,QC,CAN,"781 rue Notre-Dame, Repentigny, QC, J5Y 1B4, CAN"
+b:27a4c775d3c83a68,Centre communautaire juridique de Montréal,H3A3K5,QC,CA,"600-425 boul. De Maisonneuve O, Montréal, QC, H3A3K5, CA"
+b:fc758f7cea53a879,Municipalité de Saint-Séverin.,G0N 1V0,QC,CAN,"900, rue des Lacs, Saint-Séverin (Chaudière-Appalaches), QC, G0N 1V0, CAN"
+b:cd9511de028b8de5,Service de l'urbanisme et de la mobilité,H3C0G4,QC,CAN,"801 Rue Brennan,, Montréal, QC, H3C0G4, CAN"
+b:e6484f7b47ba9ef7,Bureau du vérificateur général - Ville de Saint-Jean-sur-Richelieu,J3B7B2,QC,CAN,"188, rue Jacques-Cartier Nord, C. P. 1025,, Saint-Jean-sur-Richelieu, QC, J3B7B2, CAN"
+b:95371881ae750d8e,Régie d'exploitation du complexe sportif Sainte-Catherine et Delson,J5C1M1,QC,CA,"5465 boul. Marie-Victorin, Sainte-Catherine, QC, J5C1M1, CA"
+b:fb910b59f8bae648,Nunavik Housing Bureau | Office d'Habitation du Nunavik,J0M1C0,QC,CAN,"5061 Stewart lake Road,PO Box 1350, Kuujjuaq, QC, J0M1C0, CAN"
+b:2a228b61f742237f,Régie intermunicipale aéroport de Maniwaki Vallée de la Gatineau,j0x2j0,QC,CAN,"170 route 105, Messines, QC, j0x2j0, CAN"
+b:72d49b1deaba0e47,Tribunal administratif des marchés financiers,H2Z1W7,QC,CA,"16.40-500 BOUL. René-Lévesque O, Montréal, QC, H2Z1W7, CA"
+b:0ba66d064412cac8,Complexe Multidisciplinaire Les Estacades,G8T9T9,QC,CAN,"260, rue Dessureault, Trois-Rivières, QC, G8T9T9, CAN"
+b:ffa75e3ad581b18b,Commission des partenaires du marché du travail,H4Z1B7,QC,CA,"800 RUE du Square-Victoria, 28e étage, CP 100, Montréal, QC, H4Z1B7, CA"
+b:7a18c45cee058e9b,Centre de gestion de l'équipement roulant,G2K2E3,QC,CA,"110-1170 BOUL. Lebourgneuf, Lebourgneuf, QC, G2K2E3, CA"
+b:060e3765cc48193c,Cégep de Rosemont,H1X2S9,QC,CAN,"6400, 16e Avenue,, Montréal, QC, H1X2S9, CAN"
+b:bba12945cda85da8,Régie Intermunicipale d'Incendie des 3 Monts,,,,
+b:d749ba85fa1c6e19,W8banaki,G0X1B0,QC,CA,"10175 RUE Kolipaio, Wôlinak, QC, G0X1B0, CA"
+b:e084ffd420427f75,CERFO (Centre d'enseignement et de recherche en foresterie de Sainte-Foy inc.),G1V1T2,QC,CAN,"2440, chemin Sainte-Foy,, Québec, QC, G1V1T2, CAN"
+b:6955f526ea5654e0,Fondation pour la biodiversité et la faune du Québec ,G1V4P1,QC,CA,"420-1175 av. Lavigerie, Québec, QC, G1V4P1, CA"
+b:5810f0a07d757bb7,Commission d`accès à l`information du Quebec,G1R5S9,QC,CA,"2.36-525 BOUL. René-Lévesque Est, Québec, QC, G1R5S9, CA"
+b:4e48505bd398be16,Centre communautaire juridique de l'Abitibi-Témiscamingue,J9T1V3,QC,CA,"566, 1 ÈRE AVENUE OUEST, AMOS, QC, J9T1V3, CA"
+b:9ad0d5abe914756b,Centre de l'entrepreneurship technologique de l'ÉTS (CENTECH),H3C0B4,QC,CAN," 800 Rue du Square-Victoria, Suite 310, Montréal, QC, H3C0B4, CAN"
+b:74f28a9ef42e8980,Corporation des Évènements de Trois-Rivières,G9A5H3,QC,CAN,"100 Av. des Draveurs C.P. 368,, Trois-Rivières, QC, G9A5H3, CAN"
+b:22a5a46811f9b2b2,Office d’habitation des Laurentides,J7Z5L7,QC,CA,"100-484 rue Labelle, Saint-Jérôme, QC, J7Z5L7, CA"
+b:3eaa2fd39efda765,Régie d'assainissement des eaux Richelieu-Saint-Laurent,J3P5N6,QC,CA,"105 Boul. Poliquin, Sorel-Tracy, QC, J3P5N6, CA"
+b:76103e350f7970b8,Régie intermunicipale du parc industriel de la MRC de Maria-Chapdelaine,G8L4N9,QC,CA,"173 boul. Saint-Michel, Dolbeau-Mistassini, QC, G8L4N9, CA"
+b:4ac778ec3291fb81,Office Québec-Monde pour la jeunesse,H2L2P3,QC,CAN,"535 avenue Viger Est,, Montréal, QC, H2L2P3, CAN"
+b:838bfe6754d526b4,Société de transport collectif de Pierre-De-Saurel,J3P7R5,QC,CA,"650-450 BOUL. Poliquin, Sorel-Tracy, QC, J3P7R5, CA"
+b:f4dd86dbc196cf42,Commissaire au lobbyisme,G1R2B5,QC,CAN,"900, boul. René-Lévesque Est, bureau 640,, Québec, QC, G1R2B5, CAN"
+b:ba62d0d70161bc26,OH Rocher-Percé,G0C1K0,QC,CAN,"430, avenue du Domaine ,, Chandler, QC, G0C1K0, CAN"
+b:3587365ebab765a9,Centre collégial de transfert de technologie-Centre d'expertise en recherche appliquée en sciences pharmaceutiques,H4S1Z9,QC,CAN,"7171 Frederick-Banting,, Montréal, QC, H4S1Z9, CAN"
+b:239680469e239ed3,Le Réseau de Ressources pour l'Éducation Anglophone,H7L5Z6,QC,CAN,"4190 rue Garand,unit 201, Laval, QC, H7L5Z6, CAN"
+b:cef1b5ed8223675f,DISH Wireless L.L.C. (EchoStar Corporation),,,,
+b:73a680fe3b9a5f66,Peace Naturals Project Inc.,,,,
+b:52c8f98d8e69dc28,"Thales Canada Inc. (Defence and Security), prime contractor to Government of Canada LC4ISR Applications Sustainment Services",,,,
+b:cfe454eff2e4f446,Arriva Leisure Vehicles Corp,,,,
+b:b52b3915c52b80bf,KMT Pharmaceuticals Pty Ltd (guaranteed by Mind Medicine Australia Limited),,,,
+b:92705c8008597b7b,Kimia Solutions Ltda,,,,
+b:01cc764924226413,Keytrade Fertilizantes Brasil Ltda,,,,
+b:31720f8e7022b01c,Amaggi Exportação e Importação Ltda,,,,
+b:c097b33bf62b6d76,Al Faisaliah Medical Systems Co. (Al Faisaliah Group),,,,
+b:d7822f11d8a8b984,Université d'Aix-Marseille,13284,,FRA,"Marseille cedex 7, 13284, FRA"
+b:3b955b93bb442e92,"Ministry of Defence, Land Equipment, Training and Simulation Systems Programme (TSSP)",BS34 8JH,,UK,"MOD Abbey Wood, Bristol, BS34 8JH, UK"
+b:85f7ebe092d91dc8,Norsk Polarinstitutt,9296,,NO,"Framsentret, Postboks 6606 Langnes, TROMSØ, 9296, NO"
+b:9cf46e6f781bc74a,Université de Rouen-Normandie ,,,FRA,"Mont-Saint-Aignan, FRA"
+b:8d46d7d94fe25a38,OCAPIAT,,,FRA,"Paris, FRA"
+b:7e41ff86fc9ff2b0,Nantes Université,44035,,FRA,"Nantes, 44035, FRA"
+b:7a842f498479068a,INSERM Délégation Régionale PACA et Corse,13276,,FRA,"MARSEILLE CEDEX 09, 13276, FRA"
+b:e94ad4a0f3554021,"DIPARTIMENTO DEI VIGILI DEL FUOCO, DEL SOCCORSO PUBBLICO E DELLA DIFESA CIVILE",00184,,ITA,"Roma, 00184, ITA"
+b:29d78626345ea565,Aalborg Universitet,9220,,DNK,"Aalborg Øst, 9220, DNK"
+b:e1662f6e51e3ea34,LUXEMBOURG INSTITUTE OF SCIENCE AND TECHNOLOGY (LIST),4362,,LUX,"Esch Sur Alzette, 4362, LUX"
+b:129c5ea6a8823bb6,Furthr (Dublin Business Innovation Centre)_205010,"D08 A36K
+",,IRL,"Dublin, D08 A36K
+, IRL"
+b:e64f5ce3c3296ad9,Comite Interprofessionnel Vin d'Alsace,68000,,FRA,"COLMAR, 68000, FRA"
+b:677d23de6133324e,Norges geologiske undersøkelse,7491,,NOR,"Trondheim, 7491, NOR"
+b:12c7d438153ca1d5,Region Sjælland,4180,,DNK,"Sorø, 4180, DNK"
+b:93a29d6da13bbfbe,Fundació Institut d'Investigació en Ciències de la Salut Germans Trias i Pujol,08916,,ESP,"Badalona, 08916, ESP"
+b:7742dd8fb7f455cf,Försvarsmakten,107 85,,SWE,"Sockholm, 107 85, SWE"
+b:f633c47d98b3a09a,Folke Bernadotteakademin,SE-872 64,,SWE,"Sandöverken, SE-872 64, SWE"
+b:9696f980aa582ef1,Ministère des Armées - Direction de la Maintenance Aéronautique (MINARM/DMAé) ,75509,,FRA,"PARIS, 75509, FRA"
+b:b1a919a8ec9b11ec,Katholieke Universiteit te Leuven,3000,,BEL,"Leuven, 3000, BEL"
+b:39960028994f0c5b,ENEA,00196,,ITA,"ROMA (RM), 00196, ITA"
+b:780318f14983073c,Skellefteå kommun,931 85,,SWE,"Skellefteå, 931 85, SWE"
+b:b97d1aff5dcfe01e,Ecole Centrale de Nantes,44321,,FRA,"NANTES, 44321, FRA"
+b:b4ef11c837ca042e,Karlstads universitet,65188,,SWE,"Karlstad, 65188, SWE"
+b:e4d5f32b7d3e851b,Hadeland og Ringerike Avfallsselskap AS,3520,,NOR,"Jevnaker, 3520, NOR"
+b:21f9928167c6dd05,Direction de la Technique et de l'Innovation,31035,,FRA,"TOULOUSE, 31035, FRA"
+b:13f29a414394dd3a,"Instituto Nacional de Investigação Agrária e Veterinária, IP",2780-157,,PRT,"Av.ª da República, Quinta do Marquês, (Edifício Sede), 2780-157, PRT"
+b:aed44fa50ba7bbad,Empa zentraler Einkauf,8600,,CHE,"Dübendorf, 8600, CHE"
+b:72cbdea27f2d90b4,Supply Chain Coordination Limited,SE1 8UG,UK,United Kingdom,"Wellington House, 133-155 Waterloo Road, London, UK, SE1 8UG, United Kingdom"
+b:66112c8f33516fa6,British Transport Police,SW1W 9TJ,,England,"200 Buckingham Palace Road, London, SW1W 9TJ, England"
+b:431691231fd66abe,BRISTOL & WESTON NHS PURCHASING CONSORTIUM,BS10 5NB,,England,"Christopher Hancock Building, North Bristol NHS Trust, BRISTOL, BS10 5NB, England"
+b:145197f261583830,The Education Training Collective,TS17 6FB,,England,"Stockton Riverside College, Harvard Avenue, Thornaby, TS17 6FB, England"
+b:ae744dc59fed23e6,London Ambulance Service NHS Trust,SE1 8SD,,UK,"220 Waterloo Road, London, SE1 8SD, UK"
+b:80d9534cb5ce407c,"Royal Holloway and Bedford New College, known as Royal Holloway, University of London",TW20 0EX,UKJ25,United Kingdom,"www.rhul.ac.uk, Egham, UKJ25, TW20 0EX, United Kingdom"
+b:008d3e6011d3faf2,STUDENT LOANS COMPANY LIMITED,G5 8DF,,Scotland,"10 Clyde Place, GLASGOW, G5 8DF, Scotland"
+b:78ae4ad75676bf07,The ACC Liverpool Group Limited,L3 4FP,UKD72,United Kingdom,"Kings Dock, Liverpool Waterfront, UK-Liverpool: Industry specific software package., UKD72, L3 4FP, United Kingdom"
+b:11da308788a00407,OPEN UNIVERSITY(THE),MK76AA,,England,"THE OPEN UNIVERSITY, MILTON KEYNES, MK76AA, England"
+b:4c6301c842bbd648,CAMBRIDGESHIRE AND PETERBOROUGH BUSINESS GROWTH COMPANY LIMITED,PE293TN,,England,"2nd Floor, HUNTINGDON, PE293TN, England"
+b:735760cf9fecedee,ScotRail Trains Limited (Utilities),G2 6HQ,UKM,United Kingdom,"Atrium Court, 50 Waterloo Street, Glasgow, UKM, G2 6HQ, United Kingdom"
+b:4350f6dd90475ba4,Betsi Cadwaladr University Health Board,LL57 2PW,UK,United Kingdom,"Headquarters Ysbyty Gwynedd,  Penrhosgarnedd, Bangor, UK, LL57 2PW, United Kingdom"
+b:465c0b76666cf3bf,DESNZ & DSIT Group Commercial,,UK,United Kingdom,"London, UK, United Kingdom"
+b:24624f3b37f4f221,NHS Wales Shared Services Partnership (NWSSP) - Procurement Services,CF14 4HH,UK,United Kingdom,"Procurement Services, Cardiff and Vale University Local Health Board, Woodlands House, 2nd Floor, Maes-Y-Coed Road,, Cardiff, UK, CF14 4HH, United Kingdom"
+b:a7deb9fb94d9e2ee,Durham University,DH13LE,UKC14,United Kingdom,"Mountjoy Centre, Stockton Road, DURHAM, UKC14, DH13LE, United Kingdom"
+b:b04fd1462b39b016,Public Health Scotland,EH12 9EB,UKM75,United Kingdom,"Gyle Square, 1 South Gyle Crescent, Edinburgh, UKM75, EH12 9EB, United Kingdom"
+b:8042ea23205b317b,PORTSMOUTH WATER LIMITED,PO9 1LG,UKJ35,GB,"Brockhampton Springs, Havant, UKJ35, PO9 1LG, GB"
+b:36bbc9634b584157,SOMERSET NHS FOUNDATION TRUST,TA1 5DA,UKK23,GB,"Musgrove Park Hospital, Taunton, UKK23, TA1 5DA, GB"
+b:02eb00ed2314a7e8,Liverpool Women's NHS Foundation Trust,L8 7SS,UKD72,GB,"Crown Street, Liverpool, UKD72, L8 7SS, GB"
+b:0bd1d800d4ea1715,"Department for Science, Innovation & Technology",SW1A 2EG,UKI32,GB,"22 Whitehall, London, UKI32, SW1A 2EG, GB"
+b:d0523716e5e3ce22,CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST,CB2 0QQ,UKH12,GB,"Hills Rd, Cambridge, UKH12, CB2 0QQ, GB"
+b:4ba723344e714d3a,UK Fusion Energy Ltd,OX14 3DB,UKJ14,GB,"Culham Science Campus, Oxfordshire, Abingdon, UKJ14, OX14 3DB, GB"
+b:bbb35568c2531e3f,United Nations Office for Project Services,,,,
+b:a475d86ad4645e6f,World Meteorological Organization,,,,
+b:a2355867a75cff08,International Atomic Energy Agency,,,,
+b:5b78542b632561ee,United Nations Children's Fund,,,,
+b:31a2681b59f70d78,World Trade Organization,,,,
+b:d8af111417757757,International Labour Organization,,,,
+b:d268b08f817f3fbd,United Nations Secretariat,,,,
+b:356c005cf9a50d51,United Nations Population Fund,,,,
+b:ab34bdab84bdca9e,Providence Public School Department,,,,
+b:faecc344c40e85bf,Dormitory Authority of the State of New York,,,,
+b:bd7e7eed9b4faf09,Erie County Medical Center Corporation,,,,
+b:e8fd7d7b98968262,Chemung County Capital Resource Corporation,,,,
+b:e165a0030f8aa1f5,"STATE POLICE, DEPARTMENT OF",,,,
+b:9f9c474576a4bbe0,"PUBLIC SAFETY STANDARDS AND TRAINING, DEPARTMENT OF",,,,
+b:666047a1a30e8dc4,HOUSING AND COMMUNITY SERVICES DEPARTMENT,,,,
+b:c59a17b64a7b0cf5,"YOUTH AUTHORITY, OREGON",,,,
+b:fadd80082ecc1181,Texas A&M AgriLife Research,,,,
+b:ce172eba2dfed5bf,The University of Texas at San Antonio,,,,
+b:df74ab2a062c9e39,The University of Texas at Arlington,,,,
+b:3fc206c58a36afb4,Trusteed Programs Within the Office of the Governor,,,,
+b:6b81597dc777bf27,Department of General Services,23160,VA,US,"1954 State Farm Rd, State Farm, VA, 23160, US"
+b:0656891e1d789ed7,Western State Hospital,24401,VA,US,"103 Valley Center Drive, Staunton, VA, 24401, US"
+b:6cf726e6c651ef4b,Correctional Enterprises,23237,VA,US,"8030 White Bark Terrace, North Chesterfield, VA, 23237, US"
+b:13b056c721c76e88,Department of Conservation and Recreation,23832-6355,VA,US,"10300 Beach Road, Chesterfield, VA, 23832-6355, US"
+b:2f0ec7d3fc1c0aab,New River Community College,24084,VA,US,"5251 College Drive, Dublin, VA, 24084, US"
+b:7be5e456b5acd327,Virginia Western Community College,24015,VA,US,"3080 Colonial Ave SW, Roanoke, VA, 24015, US"
+b:d663cc56f2f951b0,Office of the Attorney General,23219,VA,US,"202 North Ninth Street, Richmond, VA, 23219, US"
+b:95e45f8b8ff8ecb3,Department of Motor Vehicles,23269,VA,US,"2300 W BROAD ST, RICHMOND, VA, 23269, US"
+b:390becc9a33586b7,Department of Housing and Community Development,23219,VA,US,"600 E. Main Street Suite 300, Richmond, VA, 23219, US"
+b:3ba7c20857e6129f,Department of Social Services,23060,VA,US,"VDSS 5600 Cox Road, 2nd Floor West, Room 224, Glen Allen, VA, 23060, US"
+b:3900407127c05002,Germanna Community College,22508-2102,VA,US,"PO Box 1430 2130 Germanna Highway, Locust Grove, VA, 22508-2102, US"
+b:142491f4f89f4e87,Virginia Department of Wildlife Resources,22401,VA,US,"1320 Belman Road, Fredericksburg, VA, 22401, US"
+b:b99114709e3f691c,Wytheville Community College,24382,VA,US,"1000 East Main Street, Wytheville, VA, 24382, US"
+b:483a5f5c83fd86a9,Department of Behavioral Health and Developmental Services,23219,VA,US,"1220 Bank Street, 8th Floor-Room 819 INSIDE DELIVERY, Richmond, VA, 23219, US"
+b:b95f0da506eb9acf,Department of Taxation,23219,VA,US,"600 East Main St 15th Floor, Richmond, VA, 23219, US"
+b:6433f127d0e88cb4,Piedmont Geriatric Hospital,23922,VA,US,"5001 E Patrick Henry Hwy, Burkeville, VA, 23922, US"
+b:a2a6bcb6711c3f65,Laurel Ridge Community College,22645,VA,US,"Attn. Purchasing 173 Skirmisher Lane, Middletown, VA, 22645, US"
+b:f8ebf6df19c54a90,DOC - Division of Institutions,23160,VA,US,"C/O Powhatan Correctional Center -  3600 Woods Way ATTN: Production Manager, State Farm, VA, 23160, US"
+b:5bb71f0a88959c94,Virginia School for the Deaf and the Blind,24401,VA,US,"113 New Hope Road, Staunton, VA, 24401, US"
+b:44cc31d067541922,Tidewater Community College,23435,VA,US,"7000 College Drive, Suffolk, VA, 23435, US"
+b:aecd0d2c5dfff5ea,Reynolds Community College,23228,VA,US,"1701 E. Parham Road, Richmond, VA, 23228, US"
+b:694de2cbe44ebd6b,Virginia Department of Agriculture and Consumer Services,20186,VA,US,"272 Academy Hill Road, Warrenton, VA, 20186, US"
+b:f25c6c56b34065aa,Southwestern VA Mental Health Institute,24354,VA,US,"340 Bagley Circle, Marion, VA, 24354, US"
+b:2d8a49420c545e5c,Piedmont VA Community College,22902,VA,US,"501 College Dr, Charlottesville, VA, 22902, US"
+b:58eb72db53a5952d,Eastern Shore Community College,23410,VA,US,"Business Office 29316 Lankford Highway, Melfa, VA, 23410, US"
+b:acef8470a2d8e85a,Fort Monroe Authority,23651,VA,US,"20 Ingalls Road, Fort Monroe, VA, 23651, US"
+b:4b577588e8e4da18,A.L. Philpott Manufacturing Extension Partnership,24112,VA,US,"191 Fayette Street, Martinsville, VA, 24112, US"
+b:a2bccb643ec8498a,Eastern State Hospital,23188-2652,VA,US,"ATTN: Storeroom Building 18 4601 Ironbound Road, Williamsburg, VA, 23188-2652, US"
+b:319bc5409216fbf9,Department of Health Professions,23233,VA,US,"Perimeter Center 9960 Mayland Dr. STE 300., Richmond, VA, 23233, US"
+b:e0fadc537a162bd4,Department of Forestry,22903,VA,US,"900 Natural Resources Drive Suite 800, Charlottesville, VA, 22903, US"
+b:a3590172bb117314,Department of Labor and Industry,23230,VA,US,"6606 West Broad Street Suite 500, Richmond, VA, 23230, US"
+b:bf667c29c292f601,KIEWIT INFRASTRUCTURE SOUTH CO,302691906,GA,USA,"450 DIVIDEND DR, PEACHTREE CITY, GA, 302691906, USA"
+b:19355e3e0e9cdaf3,"PAE GOVERNMENT SERVICES, INC.",222012572,VA,USA,"1320 N. COURTHOUSE RD, STE 800, ARLINGTON, VA, 222012572, USA"
+b:c676d3905f5cff67,"ICF MACRO, INC",201905231,VA,USA,"1902 RESTON METRO PLZ, RESTON, VA, 201905231, USA"
+b:443d3c41732d22ae,"B.L. HARBERT INTERNATIONAL, L.L.C.",352094564,AL,USA,"820 SHADES CREEK PKWY STE 3000, BIRMINGHAM, AL, 352094564, USA"
+b:5e018bab56259308,"CHUGACH INTELLIGENCE SOLUTIONS, LLC",995035825,AK,USA,"3800 CENTERPOINT DR STE 1200, ANCHORAGE, AK, 995035825, USA"
+b:4bcb3e1342cfe2ed,REVACOMM INC,968135416,HI,USA,"677 ALA MOANA BLVD, HONOLULU, HI, 968135416, USA"
+b:406d6a1f9adf6665,"GOVCIO, LLC",200012153,DC,USA,"101 CONSTITUTION AVE NW STE 100W, WASHINGTON, DC, 200012153, USA"
+b:e11cc53ea8c0509c,"CMI MANAGEMENT, LLC",223122334,VA,USA,"5285 SHAWNEE ROAD, SUITE 510, ALEXANDRIA, VA, 223122334, USA"
+b:7f61e59403bbbb0f,"MANTECH ADVANCED SYSTEMS INTERNATIONAL, INC.",201716005,VA,USA,"2251 CORPORATE PARK DR STE 600, HERNDON, VA, 201716005, USA"
+b:c332572de2242662,AMERICAN INSTITUTES FOR RESEARCH IN THE BEHAVIORAL SCIENCES,222023289,VA,USA,"1400 CRYSTAL DR 10TH FLR, ARLINGTON, VA, 222023289, USA"
+b:de4de77c52cdec2e,"JOHNS HOPKINS UNIVERSITY, THE",212182608,MD,USA,"3400 N CHARLES ST, BALTIMORE, MD, 212182608, USA"
+b:b930d9aa11ff7ceb,ASTROBOTIC TECHNOLOGY INC,152332132,PA,USA,"1016 N LINCOLN AVE, PITTSBURGH, PA, 152332132, USA"
+b:f6681126c611881d,"PANTEXAS DETERRENCE, LLC",245041566,VA,USA,"800 MAIN ST, LYNCHBURG, VA, 245041566, USA"
+b:3efbbe64235c1755,CYNTHIA B SIMONSON,208551655,MD,USA,"5 EQUESTRIAN CT, DERWOOD, MD, 208551655, USA"
+b:d9933a09f16f918e,CENTRAL PLATEAU CLEANUP COMPANY LLC,298013852,SC,USA,"106 NEWBERRY ST SW, AIKEN, SC, 298013852, USA"
+b:56d53024a55c9bb4,SAAB INC,130572953,NY,USA,"5717 ENTERPRISE PKWY, EAST SYRACUSE, NY, 130572953, USA"
+b:8cd08e376a8cf7ca,"SPARTON DELEON SPRINGS, LLC",321303657,FL,USA,"5612 JOHNSON LAKE RD, DE LEON SPRINGS, FL, 321303657, USA"
+b:5c2e40585ffb2283,"TELEDYNE BROWN ENGINEERING, INC.",358051994,AL,USA,"300 SPARKMAN DR NW, HUNTSVILLE, AL, 358051994, USA"
+b:47fe641b62ab113a,ELECTRIC BOAT CORPORATION,063404905,CT,USA,"75 EASTERN POINT RD, GROTON, CT, 063404905, USA"
+b:7b82c9519624ec4c,ULTRA ELECTRONICS OCEAN SYSTEMS INC.,021845203,MA,USA,"115 BAY STATE DR, BRAINTREE, MA, 021845203, USA"
+b:35c34b5fe1fb1a68,SCIENTIFIC RESEARCH CORPORATION,303395665,GA,USA,"2300 WINDY RIDGE PKWY, ATLANTA, GA, 303395665, USA"
+b:40ea0ac2a41cbcb5,ASRC FEDERAL SYSTEM SOLUTIONS LLC,207056351,MD,USA,"7000 MUIRKIRK MEADOWS DR STE 100, BELTSVILLE, MD, 207056351, USA"
+b:6eb9bd23c29340d1,OCEANETICS INC,214011118,MD,USA,"520 RIDGELY AVE, ANNAPOLIS, MD, 214011118, USA"
+b:a3a7913d8e996d60,381 CONSTRUCTORS,681313311,NE,USA,"3555 FARNAM ST, OMAHA, NE, 681313311, USA"
+b:667fb217a9924c4c,"CH2M HILL, INC.",801125946,CO,USA,"9191 S JAMAICA ST, ENGLEWOOD, CO, 801125946, USA"
+b:0ca9216b37d16c64,"RESOLUTION CONSULTANTS, AN AECOM- ENSAFE JOINT VENTURE",900713135,CA,USA,"300 S GRAND AVE SUITE 900, LOS ANGELES, CA, 900713135, USA"
+b:e5a11b3a683cbe4f,"HDR ENVIRONMENTAL, OPERATIONS AND CONSTRUCTION, INC.",801125936,CO,USA,"9781 S MERIDIAN BLVD STE 400, ENGLEWOOD, CO, 801125936, USA"
+b:e71524f880bf553b,ARETE ASSOCIATES,913242508,CA,USA,"9301 CORBIN AVE STE 2000, NORTHRIDGE, CA, 913242508, USA"
+b:4b82ccb87901c733,"ALUTIIQ INFORMATION MANAGEMENT, LLC.",995035793,AK,USA,"3909 ARCTIC BLVD STE 500, ANCHORAGE, AK, 995035793, USA"
+b:d04aff7446f7a917,RENK AMERICA LLC,494421242,MI,USA,"76 S GETTY ST, MUSKEGON, MI, 494421242, USA"
+b:12465c9079077954,FAIRWINDS TECHNOLOGIES LLC,210051331,MD,USA,"6165 GUARDIAN GTWY STE J, ABERDEEN PROVING GROUND, MD, 210051331, USA"
+b:160de8e5d5e49381,"SRC, INC.",132122558,NY,USA,"7502 ROUND POND RD, NORTH SYRACUSE, NY, 132122558, USA"
+b:ed08918d74b982cf,"KBR SERVICES, LLC",770027900,TX,USA,"601 JEFFERSON ST, HOUSTON, TX, 770027900, USA"
+b:0347f9dd856de917,"GENERAL DYNAMICS GLOBAL FORCE, LLC",220424504,VA,USA,"3150 FAIRVIEW PARK DR STE 100, FALLS CHURCH, VA, 220424504, USA"
+b:48c95a3d1c7634ac,DEFENSE SYSTEMS AND SOLUTIONS,358062801,AL,USA,"631 DISCOVERY DR, HUNTSVILLE, AL, 358062801, USA"
+b:f1052de8311d4d0e,"DRS TRAINING & CONTROL SYSTEMS, LLC",325483803,FL,USA,"645 ANCHORS STREET, FT. WALTON BEACH, FL, 325483803, USA"
+b:83cf76d9902d45fc,"ASRC BUILDERS-CADDELL, LLC",995035938,AK,USA,"3900 C ST STE 305, ANCHORAGE, AK, 995035938, USA"
+b:0ad9fd2d179e2201,"STANLEY CONSULTANTS, INC.",527613730,IA,USA,"225 IOWA AVE, MUSCATINE, IA, 527613730, USA"
+b:d08a025741b25c1b,VIGOR WORKS LLC,970157636,OR,USA,"9700 SE LAWNFIELD RD, CLACKAMAS, OR, 970157636, USA"
+b:6ad7ab896f0b25c6,"URS GROUP, INC.",681543539,NE,USA,"12120 SHAMROCK PLZ STE 300, OMAHA, NE, 681543539, USA"
+b:a50a62c4048d9d0d,UNIVERSITY OF NOTRE DAME DU LAC,465565708,IN,USA,"940 GRACE HALL, NOTRE DAME, IN, 465565708, USA"
+b:bcaff53ddfdbf0c9,"APTIM FEDERAL SERVICES, LLC",708028084,LA,USA,"1200 BRICKYARD LN STE 202, BATON ROUGE, LA, 708028084, USA"
+b:a8954325886e94b4,WSP USA ENVIRONMENT & INFRASTRUCTURE INC.,194221972,PA,USA,"751 ARBOR WAY, BLUE BELL, PA, 194221972, USA"
+b:42b81d44da7e2f72,"MILLENNIUM ENGINEERING AND INTEGRATION SERVICES, LLC",222024153,VA,USA,"1400 CRYSTAL DR, ARLINGTON, VA, 222024153, USA"
+b:27f665a257bdfd3f,"KBR WYLE SERVICES, LLC",206532013,MD,USA,"22309 EXPLORATION DR, LEXINGTON PARK, MD, 206532013, USA"
+b:279121163d5a6218,UNITED TECHNOLOGIES CORPORATION,061181873,CT,USA,"400 MAIN ST, EAST HARTFORD, CT, 061181873, USA"
+b:e1788583d692609c,SUPPLYCORE LLC,611011050,IL,USA,"303 N MAIN ST STE 800, ROCKFORD, IL, 611011050, USA"
+b:397f7d31f57a7c99,"VALKYRIE ENTERPRISES, LLC",234527330,VA,USA,"2877 GUARDIAN LN, VIRGINIA BEACH, VA, 234527330, USA"
+b:3462b490bedc7b6e,"Congo, Democratic Republic of (borrower; implementing agency not published)",,,"Congo, Democratic Republic of","Congo, Democratic Republic of"
+b:118651cf7c86d130,Kyrgyz Republic (borrower; implementing agency not published),,,Kyrgyz Republic,Kyrgyz Republic
+b:ca4943850b0c9537,"Congo, Republic of (borrower; implementing agency not published)",,,"Congo, Republic of","Congo, Republic of"
+b:3411a0b8fdb545f0,Burundi (borrower; implementing agency not published),,,Burundi,Burundi
+b:f53d2e0e93dd7692,Haiti (borrower; implementing agency not published),,,Haiti,Haiti
+b:87a6fca2e05be78a,Democratic Republic of Congo / Ministry of Finance,,,"Congo, Democratic Republic of","Congo, Democratic Republic of"
+b:324170cd02d91542,Ministry of Finance / Ministry of Energy and Water,,,Haiti,Haiti
+b:139331ba730f9132,"Republic of Cabo Verde / Unidade de Gest�o de Projectos Especiais, UGPE",,,Cabo Verde,Cabo Verde
+b:00ce6dc4ae3b44c9,"The Republic of Guinea-Bissau / Ministry of Economy, Planning and Regional Integration",,,Guinea-Bissau,Guinea-Bissau
+b:44ccd02fe75e1d43,The Federated States of Micronesia / Department of Finance and Administration,,,"Micronesia, Federated States of","Micronesia, Federated States of"
+b:0e2d1c383497c085,"Ministry of Economy and Finance / Ministry of Agriculture, Natural Resources and Rural Development",,,Haiti,Haiti
+b:8a393009b185ee90,Republic of Uganda / Uganda National Roads Authority,,,Uganda,Uganda
+b:899a865b08b8b6f7,"Saint Lucia, Saint Vincent and the Grenadines, Commonwealth of Dominica, Organisation of Eastern Caribbean States (OECS), Grenada / Ministry of Infrastructure Development, Public Utilities, Energy, Transport, and Implementation GRD, Ministry of Finance, Economic Planning, Sustainable Development and Information Technology of SVG, Department of Public Service, Ministry of Finance of Saint Lucia, Ministry of Public Works and Digital Economy of Commonwealth of Dominica, OECS Commission, Ministry of Economic Development, Planning, Tourism, ICT and Creative Economy",,,Caribbean,Caribbean
+b:cdbdfabf77753d22,United Republic of Tanzania / Tanzania National Roads Agency (TANROADS),,,Tanzania,Tanzania
+b:96342bb4fdf325ae,Republic of South Sudan / Ministry of Finance and Planning,,,South Sudan,South Sudan
+b:cfd8dacb0eb43768,"Republic of Sierra Leone / Ministry of Lands, Housing and Country Planning",,,Sierra Leone,Sierra Leone
+b:b58b885366b64dca,REPUBLIC OF MADAGASCAR / Road Agency,,,Madagascar,Madagascar
+b:33b5b04881cd6577,"Saint Lucia, Organization of Eastern Caribbean States (OECS) Commission, Grenada / Saint Lucia, Grenada, Organization of Eastern Caribbean States (OECS) Commission",,,Caribbean,Caribbean
+b:e44d835d8849c3a3,Republic of Haiti / Ministry of the Economy and Finance,,,Haiti,Haiti
+b:37fd70f9b921639e,"Central African Republic, Republic of Congo / Ministry of the River Economy and Waterways (ROC), Ministry of Digital Economy, Posts, and Telecommunications (CAR), Ministry of Planning, Statistics and Regional Integration (ROC), Ministry of Transport and Civil Aviation (CAR), Ministry of Equipment and Public Works (CAR)",,,Central Africa,Central Africa
+b:219f12d7066dcb48,"Republic of Mozambique, Republic of Malawi / Fundo de Estradas, Republic of Mozambique, Roads Authority, Republic of Malawi, Ministry of Transport and Public Works, Republic of Malawi, Ministry of Transport and Communication, Republic of Mozambique",,,Southern Africa,Southern Africa
+b:12767c237306951d,Co-operative Republic of Guyana / Ministry of Education,,,Guyana,Guyana
+b:3f56ea0e8534e55b,"Ministry of Finance and Planning / TANROADS, TARURA",,,Tanzania,Tanzania
+b:51a2d3da42171c32,the Republic of C�te d'Ivoire / CI-Energies,,,Cote d'Ivoire,Cote d'Ivoire
+b:82ca3c5dd700de61,"Micronesia, Federated States of (borrower; implementing agency not published)",,,"Micronesia, Federated States of","Micronesia, Federated States of"
+b:b2e5b06f2b0e99e5,Republic of Kiribati / Ministry of Health and Medical Services,,,Kiribati,Kiribati
+b:2870f21a5ff27b0c,Republic of Burundi / Ministry of National Education and Scientific Research,,,Burundi,Burundi
+b:b8596369bda93d4f,Saint Lucia / Saint Lucia Air and Sea Ports Authority,,,St. Lucia,St. Lucia
+b:fec2655c5743c638,"Republic of Liberia / Rural and Renewable Energy Agency, Liberia Electricity Corporation",,,Liberia,Liberia
+b:80e524942e1c8b52,"National Treasury / Water Resources Authority, Ministry of Water, Sanitation and Irrigation",,,Kenya,Kenya
+b:ccdb0daad118f350,Turkiye (borrower; implementing agency not published),,,Turkiye,Turkiye
+b:8d3cab9dd737ad75,Central African Republic (CAR) / Ministry of Agriculture and Rural Development,,,Central African Republic,Central African Republic
+b:25c6729a7f417d48,"Ministry of Public Works / Ministry of Economy, Planning, and Regional Development",,,Cameroon,Cameroon
