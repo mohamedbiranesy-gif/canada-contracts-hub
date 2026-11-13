@@ -357,6 +357,48 @@ FOUND, SDONE = os.path.join(DIR, "tm_sites_found.csv"), os.path.join(DIR, "tm_si
 FOUND_COLS = ["site", "owner_key", "owner_name", "postal_code", "tied_by", "site_facts_from", "site_states", "read"]
 _STOPW = {"and", "et", "of", "de", "du", "des", "the", "la", "le", "les", "for", "pour"}
 _CONTACT = re.compile(r"contact|nous-joindre|joindre|coordonn|about|a-propos|propos", re.I)
+# 2026-11-13: the pages where a site says which legal person runs it (terms, privacy, legal notice, imprint)
+_LEGAL = re.compile(r"privacy|terms|legal|imprint|impressum|conditions|disclaimer|mentions-legales|aviso-legal|datenschutz|cookie", re.I)
+
+
+def _legal_norm(s):
+    """a legal name or a page's text for a verbatim comparison: '(a Delaware corporation)' left out, 'L.L.C.' -> 'llc', '&' -> 'and'"""
+    s = re.sub(r"\([^)]{0,60}\)", " ", s or "")
+    s = re.sub(r"\b([A-Za-z])\.(?=[A-Za-z]\b\.?)", r"\1", s)
+    return " %s " % nkey_raw(s.replace(".", " "))
+
+
+def legal_name_page(raw, final, fdom, owner_name, cache):
+    """(url, the words around it, pages read) when one of the site's own terms / privacy / legal-notice pages linked from its home page prints
+    the owner's full legal name WITH its legal form (at least three words: 'Zoetis Services LLC', 'Merck Sharp & Dohme LLC'), else ("", "", n)"""
+    import credit_scan as CS_
+    import ap_crawler as C_
+    import tech_relationships as T_
+    own = _legal_norm(owner_name)
+    if len(own.split()) < 3 or not forms(owner_name):
+        return "", "", 0
+    links, n = [], 0
+    for u, lab, *_ in T_.anchors_of(raw, final):
+        if (_LEGAL.search(u.rsplit("/", 2)[-1] + " " + (lab or "")) and C_.registrable((CS_.host_of(u) or "").lower()) == fdom
+                and u.split("#")[0] not in links and not re.search(r"\.(?:pdf|jpe?g|png|gif|zip|docx?)(?:$|\?)", u, re.I)):
+            links.append(u.split("#")[0])
+    for u in links[:2]:
+        time.sleep(0.6)
+        try:
+            r2, f2, raw2 = CS_.get_page(u, True, cache)
+        except Exception:
+            continue
+        n += 1
+        if r2 != "ok":
+            continue
+        import cc_clients as CCL_
+        txt = CCL_.visible(raw2)
+        if own in _legal_norm(txt):
+            words = own.strip().split()
+            rx = r"(?i)" + r"[\W_]+".join("(?:and|&)" if w == "and" else r"\.?".join(re.escape(ch) for ch in w) if len(w) <= 4 else re.escape(w) for w in words)
+            m = re.search(rx, txt)
+            return f2 or u, (txt[max(0, m.start() - 60): m.end() + 60] if m else " ".join(words)).strip()[:200], n
+    return "", "", n
 
 
 # ---- owners abroad (2026-11-10): 134,458 owners outside Canada, 109,538 of them with a Canadian agent of record — a foreign company that
@@ -485,7 +527,10 @@ def sites(a):
     k, n = (int(x) for x in (a.shard.split("/") + ["1"])[:2])
     os.makedirs("out", exist_ok=True)
     tied = {r["owner_key"] for r in csv.DictReader(open(MATCHES, encoding="utf-8", newline=""))} if os.path.exists(MATCHES) else set()
-    done, done_ovt, done_cb, marks_of = set(), set(), set(), {}
+    done, done_ovt, done_cb, done_legal, marks_of = set(), set(), set(), set(), {}
+    # 2026-11-13: with --overture --legal, the owners whose listed sites were read before are read again — only the listed sites — with the
+    # legal-page test added (the site's own terms / privacy / legal notice printing the owner's full legal name with its legal form)
+    use_legal = bool(getattr(a, "legal", False)) and bool(getattr(a, "overture", False))
     if os.path.exists(SDONE):
         with gzip.open(SDONE, "rt", encoding="utf-8") as f:
             for l in f:
@@ -497,6 +542,8 @@ def sites(a):
                     done_ovt.add(q[0])
                 if "clearbit" in mk:
                     done_cb.add(q[0])
+                if "legal" in mk:
+                    done_legal.add(q[0])
     # 2026-11-12: with --clearbit (owners abroad), the domains the company-name autocomplete gives under the owner's very name are read too —
     # also for an owner looked for before under domain names made of its name. A domain is kept by the same tests as any other: the register's
     # postal code printed in an address on the site under the same name, or the legal person stated with its legal form on a site of the owner's
@@ -526,7 +573,7 @@ def sites(a):
                 by_name_x[nkey_x(r["owner_name"])] += 1
                 if r["owner_key"] in tied or int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n != k:
                     continue
-                if (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done_cb) if use_cb else (r["owner_key"] in done):
+                if (r["owner_key"] in done_legal) if use_legal else (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done_cb) if use_cb else (r["owner_key"] in done):
                     continue
                 if use_ovt and r["owner_key"] not in ovt:
                     continue
@@ -578,6 +625,8 @@ def sites(a):
             listed[r_["site"]] = r_
             kind_of.setdefault(r_["site"], "listed")
         cands = list(listed) + [h for h in cands if h not in listed]
+        if use_legal:
+            cands = list(listed)  # the legal-page pass reads only the sites a place lists
         cbs = []
         if use_cb:
             core_ = HR.core(o["owner_name"])
@@ -661,6 +710,19 @@ def sites(a):
                     elif state_ok and sn.startswith("the same name"):
                         how = "the same name (%s) and an address of the owner's state (%s) on the site; an Overture Maps place lists this website under the owner's name in that state (place %s)" % (
                             sn.split("(", 1)[1].split(")")[0], o["_state"] or ABROAD[cc][0], _l["place_id"])
+                if not how and _l:
+                    # 2026-11-13: a site that an Overture Maps place lists (under the owner's name, or at the owner's own street address) and whose own
+                    # terms / privacy / legal-notice page prints the owner's full legal name with its legal form: the site says which legal person
+                    # runs it, and the place's listing is the second fact (a subsidiary on its group's site: "Zoetis Services LLC" on zoetis.com)
+                    _lu, _lq, _ln = legal_name_page(raw, final, fdom, o["owner_name"], cache)
+                    n_read += _ln
+                    if _lu:
+                        how = "the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); an Overture Maps place %s lists this website (place %s)" % (
+                            _lu, _lq, "at the owner's own %s on the register" % _l["how"][len("the owner's own "):].partition(" (")[0]
+                            if _l["how"].startswith("the owner's own ") else "under the owner's name", _l["place_id"])
+                        where = _lu
+                        with lock:
+                            stats["tied by the legal name on the site's own legal page"] += 1
                 if not how:
                     with lock:
                         stats["read, not tied: " + ("name agrees, " + ("the owner's state, another postal code" if state_ok else "no address of the owner's state on its pages") if sn else "its name is another")] += 1
@@ -725,7 +787,7 @@ def sites(a):
             if hit:
                 w.writerow(hit)
                 stats[hit["tied_by"].split(" (")[0]] += 1
-            mk = set(marks_of.get(o["owner_key"], set())) | ({"overture"} if listed else set()) | ({"clearbit"} if use_cb else set())
+            mk = set(marks_of.get(o["owner_key"], set())) | ({"overture"} if listed else set()) | ({"clearbit"} if use_cb else set()) | ({"legal"} if use_legal and listed else set())
             fd.write("%s\t%s\t%d\t%d\t%s%s\n" % (o["owner_key"], TODAY, len(cands), len(live), hit["site"] if hit else "", ("\t" + ",".join(sorted(mk))) if mk else ""))
             stats["autocomplete domains read"] += len(cbs)
             stats["owners with a listed website"] += bool(listed)
@@ -1033,6 +1095,7 @@ def main():
     ap.add_argument("--abroad", action="store_true", help="sites: the owners outside Canada (the United States, the United Kingdom, Australia and ten European countries: ABROAD) instead of the owners in Canada")
     ap.add_argument("--release", default="", help="overture-sites with local parquet files: the Overture release they were taken from")
     ap.add_argument("--overture", action="store_true", help="sites --abroad: the owners for whom an Overture Maps place lists a website (tm_overture_sites.csv), that site read first")
+    ap.add_argument("--legal", action="store_true", help="sites --abroad --overture: read again the listed sites of owners read before, with the legal-page test (mark 'legal')")
     ap.add_argument("--clearbit", action="store_true", help="sites --abroad: also the domains the company-name autocomplete gives under the owner's very name (owners looked for before included)")
     a = ap.parse_args()
     {"build": build, "match": match, "leads": leads, "sites": sites, "merge-sites": merge_sites, "agent-sites": agent_sites, "overture-sites": overture_sites}[a.cmd](a)

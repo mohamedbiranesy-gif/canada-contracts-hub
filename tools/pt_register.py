@@ -291,6 +291,7 @@ def main():
     ap.add_argument("--overture", action="store_true")
     ap.add_argument("--clearbit", action="store_true")
     ap.add_argument("--release", default="")
+    ap.add_argument("--legal", action="store_true")
     a = ap.parse_args()
     use_pt_files()
     if a.cmd == "build":
