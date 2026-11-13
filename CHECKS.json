@@ -1,11 +1,11 @@
 {
- "as_of": "2026-11-13 09:32Z",
+ "as_of": "2026-11-13 15:28Z",
  "checks": [
   {
    "deliverable": "ranked table (ready rows, $5k+ marks, kinds)",
    "method": "read coord/results/ranked/BUILD.json after each rank-buyers run",
    "cmd": "python3 -c \"import json;d=json.load(open('coord/results/ranked/BUILD.json'));print(d['ship_ready'])\"",
-   "status": "passing (build 06:44Z 037022e: 255,159 ready, $5k+ 2,712, every main field 166,083; the full build of 06:49Z on 1f1a9be (address re-read, telephone numbers) is the next count)"
+   "status": "passing (build 14:21Z ffde0bb: 279,969 ready of 338,136 rows; by kind: location 188,109, service 32,336, membership 19,184, licence 15,251, agent of record 12,303)"
   },
   {
    "deliverable": "dian-imports lane",
@@ -102,6 +102,18 @@
    "method": "test 240 sites (7 own addresses, 0 wrong); full run; sample 18 of the 4,162 read",
    "cmd": "zcat data/incoming/claude/site_facts/facts_20261113T092700a.gz | wc -l",
    "status": "passing (165,740 sites read, 4,162 addresses beside the organisation's own name; 26 would now be refused by the returns / shipping rule added after)"
+  },
+  {
+   "deliverable": "utilities abroad (rule 18): rows by where the organisation is in a territory of a utility a Canadian company owns",
+   "method": "rank SUMMARY.md line 'rows by where the organisation is abroad — a utility a Canadian company owns (rule 18)'; BUILD.json by jurisdiction US-*/KY/BB/BM",
+   "cmd": "grep 'abroad' coord/results/ranked/SUMMARY.md",
+   "status": "pending (94,929 + 32,787 leads written 2026-11-13 15:28Z; first crawl of them queued; test row passes owner_test)"
+  },
+  {
+   "deliverable": "mailbox-crawl third class (place sites in Canada, other endings)",
+   "method": "crawl job logs: registry3_sites / registry3_with_mailbox",
+   "cmd": "gh api repos/$R/actions/jobs/<crawl job>/logs | grep registry3",
+   "status": "passing (run 43444678788: shards 0 and 4 read 5,320 and 5,286, 1,138 and 1,099 with a mailbox — 21 %%)"
   }
  ]
 }
