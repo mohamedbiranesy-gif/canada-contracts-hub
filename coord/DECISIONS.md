@@ -2059,3 +2059,24 @@ tenants (each still needs the body's sentence that the listed pay it).
   RBQ (9,821 holders with candidates, test 46 % tied), OMVIC (3,129, test 37 %) and Canadian-owner (25,371) passes are running.
 - **Left for the owner:** a subsidiary on its group's site that prints only the group's name (no legal page naming the subsidiary) is NOT
   tied; accepting "the group's site at the owner's own address" would add a few thousand trademark rows (recommendation: yes, labelled).
+
+## 2026-11-13 05:30Z — claude: where an organisation is, three more ways (all labelled), and a stricter tie at an address
+- **In its page's source** (tools/addr_reread.py): the schema.org PostalAddress of the organisation's own JSON-LD (never an event's venue, a
+  person, a job posting, a product), or the place of the Google map its own page embeds (the map's key is never kept). The organisation's own
+  statement of where it is; the address cell says which ("as its own page states it in its structured data" / "the place of the Google map its
+  own page embeds"). Sample of 60 unlocated .ca organisations: 8 located.
+- **By its telephone number** (tools/phone_places.py): the Overture Maps place in Canada that lists the organisation's own (geographic) number,
+  only when the place bears the organisation's name or lists its website and the places of that name print one postal code; a public places
+  dataset's statement, used last (after its own pages, a registry, the city it names and the address listed for its website) and said so in the
+  address cell and the row's source. 17,530 located on the first pass (2,955 not covered by the address listed for their website).
+- **One legal person, two registers; sites already read** (tools/cross_sites.py): a site one IP lane tied to an owner is the other lane's for the
+  same legal name, country and postal code; a site the mailbox reader read that prints an owner abroad's register ZIP / postcode under the owner's
+  own name ties that owner by the lane's own test (one owner a site, one site an owner).
+- **Ties by a postal code printed at an address — third look**: two shared words are not enough (a tenant or a business named after the place;
+  "X Auto Sales" and "Y Auto Sales"); the place's name must be the organisation's (biz_licences.agree_asym) or the very same name. 491 ties
+  withdrawn across five lanes, with gone shards.
+- **Payment, in the biller's own words**: a refused cheque is not a cheque taken; "automatic bank withdrawal" is a bank payment; a refund clause's
+  list of "methods of payments" names the methods; "mandat" alone is a mandate, a money order is a "mandat-poste".
+- **Prepared, not taken (owner):** water by location in Alberta (EPCOR Water, the City of Calgary's charges billed by ENMAX) — the biller of the
+  address is certain, but a tenant in a shared building rarely holds its own water account; ~18,000 Alberta mailbox owners. Recommendation: no,
+  unless the owner wants it, labelled like electricity.
