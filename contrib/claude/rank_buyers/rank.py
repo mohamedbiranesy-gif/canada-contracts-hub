@@ -2799,6 +2799,77 @@ if _BPS_IX:
         x.update(_new)
         n_bps["… given way to its own energy report (no published $5,000 or more on the row; the report's bill is $5,000 a month or more)"] += 1
     print("Ontario bodies that report their electricity (tools/bps_energy.py; %d bodies in the reports):" % len(BPS["orgs"]), dict(n_bps))
+# 2026-11-13 (owner 13:20 EST: "have your estimate as precise and specific to relationship as possible add as much over 5000 as possible"): a municipality
+# outside Ontario that stands on where it is (the distributor of its town hall's address) is billed by that distributor for each of its facilities; its bill
+# is estimated from its own residents (Statistics Canada, 2021 Census) and the kWh a resident of the Ontario municipalities of its size report under
+# O. Reg. 25/23 (tools/muni_energy.py) — not at a small office's 2,500 kWh. A municipality's record row that carries no published amount of $5,000 or more
+# gives way to it when the estimate at the lower quartile is $5,000 a month or more, as a body's row gives way to its own energy report above.
+import muni_energy as _MUNI
+n_muni = collections.Counter()
+if _MUNI.load():
+    _MUNI_MAIN = {p_: d_ for p_, (c_, d_) in _MUNI.CITY.items()}
+    def _muni_prov(x):
+        pc_ = _BYLOC.code_of(x.get("buyer_address") or "")
+        if pc_:
+            return _BYLOC._PROV_OF_FIRST.get(pc_[0], "")
+        j_ = (x.get("_jur") or x.get("jurisdiction") or "")[:2]
+        return j_ if j_ in _MUNI_MAIN else ""
+    _muni_of = {}
+    for _i, x in enumerate(rows):
+        if x.get("_bps"):
+            continue
+        _pv = _muni_prov(x)
+        if _pv not in _MUNI_MAIN:
+            continue
+        _mm = _MUNI.match(x.get("buyer") or "", _pv, x.get("buyer_website") or "")
+        if _mm:
+            _ee = _MUNI.estimate(_mm["pop"], _pv)
+            if _ee:
+                _muni_of[_i] = (_mm, _ee, _pv)
+    _muni_5k = {m_[0]["code"] for i_, m_ in _muni_of.items() if rows[i_].get("tier") != "I" and _bps_published_5k(rows[i_])}
+    for _i, (_mm, _ee, _pv) in _muni_of.items():
+        x = rows[_i]
+        n_muni["rows of a municipality matched to its census subdivision (outside Ontario)"] += 1
+        if x.get("tier") == "I":
+            if re.sub(r"^inferred:\s*", "", x.get("vendor") or "") != _MUNI_MAIN[_pv]:
+                n_muni["… standing on where it is, but not on the province's main distributor: left as it is"] += 1; continue
+            x["_muni"] = (_mm, _ee, _pv)
+            n_muni["… standing on where it is: the bill estimated from its residents" + (" ($5,000 a month or more at the lower quartile)" if _ee["p25"] >= 5000 else "")] += 1
+            continue
+        if _bps_published_5k(x):
+            n_muni["… kept on its record: it carries a published amount of $5,000 or more"] += 1; continue
+        if _mm["code"] in _muni_5k:
+            n_muni["… kept on its record: another row of the municipality carries a published amount of $5,000 or more"] += 1; continue
+        if _ee["p25"] < 5000:
+            n_muni["… kept on its record: the estimate at the lower quartile is under $5,000 a month"] += 1; continue
+        _loc = _BYLOC.biller_for(x.get("buyer_address") or "")
+        if not _loc or _loc.get("name") != _MUNI_MAIN[_pv]:
+            n_muni["… kept on its record: its printed address names no distributor, or another than the province's main one"] += 1; continue
+        _e = (x.get("email") or "").strip()
+        _lo, _, _md = _e.lower().partition("@")
+        if not x.get("acc") or int(x.get("grade") or 0) < 1 or not _md or BAD_LOCAL.search(_lo) or jur_of_mail(_e) == "FED":
+            n_muni["… kept on its record: no mailbox to write to on the row"] += 1; continue
+        _was = "%s — %s — is on file for this organisation and is not what the row stands on: it carries no published amount of $5,000 or more, and the municipality's electricity, estimated from its residents, comes to more" % (
+            (x.get("vendor") or "").strip(), re.sub(r"\s+", " ", x.get("contract_status") or x.get("contract_title") or "a record")[:260].rstrip(" .,;:"))
+        for _k in (x.get("keys") or "").split("|"):
+            if _k:
+                GAVE_WAY[_k] = _was
+        _g = int(x.get("grade") or 1)
+        _new = {"_jur": _pv, "rank_group": "I%d" % _g, "completeness_score": 3 * 10 + _g * 6 + 2,
+                "buyer": x.get("buyer") or "", "buyer_website": x.get("buyer_website") or "", "buyer_address": x.get("buyer_address") or "",
+                "email": _e, "email_type": x.get("email_type") or "", "email_check": x.get("email_check") or "confirmed",
+                "email_evidence_url": x.get("email_evidence_url") or "", "email_evidence_quote": x.get("email_evidence_quote") or "",
+                "contract_status": _BYLOC.status(_loc, _BYLOC.fsa_of(x.get("buyer_address") or "")),
+                "source": "the electricity distributor of the municipality's own address (tools/by_location.py), its bill estimated from its residents (tools/muni_energy.py)",
+                "contracts_with_canadian_suppliers": x.get("contracts_with_canadian_suppliers") or 0, "buyer_keys": x.get("buyer_keys") or 1, "keys": x.get("keys") or "",
+                "tier": "I", "grade": _g, "acc": True, "_muni": (_mm, _ee, _pv)}
+        _new.update(_bps_vendor(_loc))
+        for _c in list(x.keys()):
+            if not _c.startswith("_") and _c not in _new and _c != "jurisdiction":
+                x[_c] = ""
+        x.update(_new)
+        n_muni["… given way to its electricity (no published $5,000 or more on the row; the estimate at the lower quartile is $5,000 a month or more)"] += 1
+print("municipalities outside Ontario, their electricity from their residents (tools/muni_energy.py):", dict(n_muni))
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
 rows.sort(key=lambda x: (x["tier"] in ("F", "I") and not x.get("_bps"), x["tier"] == "I" and not x.get("_bps"), x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row; a body's own energy report (O. Reg. 25/23) is a record
@@ -6323,6 +6394,10 @@ for _ri, x in enumerate(rows):
             n_billcol["rows that stand on where the organisation is (its electricity distributor)"] += 1
             if x.get("_bps"):
                 x.update(_bps_cells(x)); n_billcol["… of which on the body's own energy report (O. Reg. 25/23; the bill calculated from its own use)"] += 1
+            elif x.get("_muni"):
+                x["bill_amount_calculated"] = _MUNI.sentence(*x["_muni"])
+                x["contract_title"] = "Electricity service to the municipality's facilities (its town hall's address: %s)" % ((x.get("buyer_address") or "").split(" (")[0][:120])
+                n_billcol["… of which a municipality's, the bill estimated from its residents (tools/muni_energy.py)"] += 1
     if not CARD_ROWS:
         # the last check of the owner's rule (2026-11-11: "Remove them"): a row whose bill, as published, goes to a card on file or through a
         # registrar is not written — whatever lane it came from, and before it is counted anywhere below
