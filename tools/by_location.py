@@ -372,6 +372,37 @@ def biller_for_city(text):
 # public places dataset, not the organisation's own pages (coord/DECISIONS.md 2026-11-12). Its own pages always come first.
 OVERTURE_ADDR = os.path.join(ROOT, "data/release/overture_addresses.csv.gz")
 DIRECTORY_MARK = "the address an Overture Maps place lists for its website"
+# 2026-11-13: a place named like a person ("David Florek": a given name and a surname, nothing of a trade) is a person's listing — a sole proprietor's,
+# often at a home: its address does not locate an organisation, and a person's name is never quoted on a row
+_TRADE = re.compile(r"\b(?:photo\w*|counsel\w*|landscap\w*|paint\w*|funeral|home|homes|thai|creative|jewel\w*|joaill\w*|decor|composites?|ost[ée]o\w*|boulang\w*|"
+                    r"sport\w*|collection|contract\w*|excavat\w*|optical|artiste?|studio|design\w*|consult\w*|law|legal|notaire|avocat\w*|cpa|accounting|"
+                    r"comptab\w*|realty|real|estate|immobili\w*|clinic\w*|clinique|dental|dentist\w*|denturist\w*|massage|massoth\w*|th[ée]rap\w*|"
+                    r"physio\w*|chiro\w*|optom\w*|pharma\w*|insurance|assurance\w*|financial|finance|wealth|mortgage\w*|hypoth\w*|plumbing|plomberie|"
+                    r"electric\w*|[ée]lectri\w*|roofing|toiture|construction|renovat\w*|r[ée]novat\w*|cleaning|nettoyage|auto|automobile|garage|motors?|"
+                    r"transport\w*|trucking|towing|catering|traiteur|bakery|cafe|caf[ée]|restaurant|bistro|pub|bar|salon|spa|barber|coiffure|esth[ée]ti\w*|"
+                    r"fitness|yoga|pilates|dance|danse|music|musique|school|[ée]cole|academy|acad[ée]mie|tutoring|daycare|garderie|kennel|grooming|vet\w*|"
+                    r"farm|farms|ferme|ranch|winery|vineyard|brewery|bakery|market|march[ée]|shop|boutique|store|magasin|services?|solutions?|group|groupe|"
+                    r"company|co|inc|ltd|ltée|limited|corp|enterprises?|entreprises?|industries|agency|agence|associates|partners|team|events?|media|marketing|"
+                    r"printing|imprimerie|signs?|enseignes?|tech\w*|software|web|digital|interiors?|flooring|kitchens?|cabinets?|windows?|doors?|fencing|"
+                    r"pools?|piscines?|hvac|heating|chauffage|mechanical|m[ée]canique|welding|soudure|machin\w*|smp|pei|mini|general)\b", re.I)
+_GIVEN_ = None
+
+
+def bare_person(name):
+    """a place's name that is a person's own name: two or three words, the first a given name, no word of a trade or of a firm"""
+    global _GIVEN_
+    w = re.findall(r"[A-Za-zÀ-ÿ'’.-]+", name or "")
+    if not (2 <= len(w) <= 3) or re.search(r"\d|&|\+|@", name or "") or _TRADE.search(name or ""):
+        return False
+    if _GIVEN_ is None:
+        try:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            from buyer_pages import FIRST_NAMES as _fn
+            import relationship_rows as _rr
+            _GIVEN_ = set(_fn) | set(getattr(_rr, "_MORE_GIVEN", set()))
+        except Exception:
+            _GIVEN_ = set()
+    return re.sub(r"[^a-z]", "", w[0].lower()) in _GIVEN_
 
 
 def directory_addresses(doms, path=None):
@@ -382,7 +413,7 @@ def directory_addresses(doms, path=None):
     try:
         with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
-                if r.get("dom") in doms and usable(r.get("postcode") or "", r.get("postcode") or "", " "):
+                if r.get("dom") in doms and usable(r.get("postcode") or "", r.get("postcode") or "", " ") and not bare_person((r.get("names") or "").split(" | ")[0]):
                     out[r["dom"]] = r
     except (OSError, EOFError, csv.Error) as e:
         print("directory addresses: %s not read (%s)" % (path, e), flush=True)
@@ -420,7 +451,7 @@ def phone_addresses(path=None):
     try:
         with open(path or PHONE_PLACES, encoding="utf-8", newline="") as f:
             for r in csv.DictReader(f):
-                if r.get("key") and r.get("postcode"):
+                if r.get("key") and r.get("postcode") and not bare_person(r.get("names") or ""):
                     out[r["key"]] = r
     except OSError:
         pass
@@ -435,10 +466,10 @@ def phone_cell(o):
         prov, said = _PROV_OF_FIRST[pc[:1]], "; the province is the postal code's (its first letter)"
     first = [x_ for x_ in ((o.get("street") or "").strip(), (o.get("city") or "").strip()) if x_]
     head = ", ".join(first + [("%s %s %s" % (prov, pc[:3], pc[3:])).strip()])
-    ph = o.get("phone") or ""
     why = "it lists the organisation's own website" if o.get("how") == "website" else "it bears the organisation's name"
-    return ("%s (%s, %s-%s-%s: “%s”, place %s; %s; Overture Maps Foundation open data, release %s — a public places dataset, not the organisation's own "
-            "pages%s)" % (head, PHONE_MARK, ph[:3], ph[3:6], ph[6:], (o.get("names") or "")[:80], o.get("place_id") or "", why, o.get("release") or "", said))
+    # (2026-11-13: the number itself is not printed — the one the organisation prints on its own site; a person's name never stands in the quote)
+    return ("%s (%s, the one printed on its own site: “%s”, place %s; %s; Overture Maps Foundation open data, release %s — a public places dataset, not the "
+            "organisation's own pages%s)" % (head, PHONE_MARK, (o.get("names") or "")[:80], o.get("place_id") or "", why, o.get("release") or "", said))
 
 
 _KP = None

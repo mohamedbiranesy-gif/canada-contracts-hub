@@ -167,7 +167,7 @@ def cmd_pick(a):
                 return "name"
             return ""
         good = [(p, agrees(p)) for p in pl]
-        good = [(p, h) for p, h in good if h]
+        good = [(p, h) for p, h in good if h and not BYL.bare_person(p.get("name") or "")]  # (a place named like a person: a person's listing, never kept)
         if not good:
             why["no place with that number bears the organisation's name or lists its website"] += 1
             continue
