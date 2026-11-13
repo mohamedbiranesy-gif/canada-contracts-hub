@@ -111,14 +111,14 @@ pools abroad, or the foreign-subsidiary decision (by location abroad: Canadian-o
 Every lane above is a tool plus a workflow on a schedule; the rank build (rank-buyers, every 6 hours) gathers them; the mailbox reader runs
 back to back. A session reads the counts (BUILD.json), reads rows, fixes rules and adds the next pool.
 
-## Update 2026-11-13 15:30Z — owner's rule 18 and what it opens
+## Update 2026-11-13 15:18Z — owner's rule 18 and what it opens
 **Owner 09:46 EST:** "The U.S. power company owned by Canadian company counts as Canadian vendor." Built the same day (tools/abroad_utilities.py,
 abroad-utilities.yml; by_location.abroad_where; rank P13): eleven utilities (Tampa Electric, TEP, UNS Electric, Central Hudson, Green Mountain
 Power, Versant, Liberty NH and Lake Tahoe, Caribbean Utilities, Barbados Light & Power, BELCO), 376 ZIP code areas wholly in their territories,
 the Caribbean islands they serve whole; 94,929 organisations with a website among the places there are being read for a mailbox (Foursquare's
 places added). Expected: ~20,000-30,000 rows (a fifth to a third of the sites give a mailbox and an address in the territory).
 
-**Asked (15:25Z):** may any foreign company a Canadian company owns be the vendor (Empower and John Hancock with tens of thousands of U.S. plans
+**Asked (about 15:16Z):** may any foreign company a Canadian company owns be the vendor (Empower and John Hancock with tens of thousands of U.S. plans
 named in Form 5500 filings; Stantec, WSP, CGI, New Flyer, GFL, Waste Connections in U.S. public contracts; FirstService's managed associations)?
 A yes is the next 100,000+.
 
