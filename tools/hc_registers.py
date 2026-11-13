@@ -695,6 +695,50 @@ def overture_pass(cos, have, w, f, minutes, threads):
     return cnt["found"]
 
 
+def wd_pass(cos, have, w, f, threads, only=None):
+    """2026-11-13: Wikidata's official website (P856) of an item of the company's very name in its own country (tools/wikidata_sites.py), kept when the
+    site's own home page carries the name — the same check as the autocomplete's. Returns the number of sites tied."""
+    import threading
+    import tm_register as TM
+    import wikidata_sites as WDS
+    from concurrent.futures import ThreadPoolExecutor
+    iso = lambda c: ("CA" if not (c or "").strip() else {"uk": "GB"}.get(CC.get(norm(c), norm(c) if len(norm(c)) == 2 else ""), CC.get(norm(c), norm(c) if len(norm(c)) == 2 else "")).upper())
+    todo = [o for o in cos if o["key"] not in have]
+    want = {iso(o.get("country")) for o in todo} & set(WDS.QC.values())
+    if only:
+        want &= set(only)
+    if not todo or not want:
+        return 0
+    idx = WDS.build_index(os.path.join(os.environ.get("RUNNER_TEMP") or "/tmp", "wikidata_parts"), only=want)
+    used = {urllib.parse.urlparse(s_.get("site") or "").hostname for s_ in have.values() if s_.get("site")}
+    cands = []
+    for o in todo:
+        cc = iso(o.get("country"))
+        hits = idx.get((cc, TM.nkey_x(o["name"]))) or {}
+        if len(hits) == 1:
+            h, (it, nm) = next(iter(hits.items()))
+            if h not in used and "www." + h not in used:
+                cands.append((o, h, it, nm, cc))
+    lock, n = threading.Lock(), [0]
+
+    def one(c):
+        o, h, it, nm, cc = c
+        try:
+            said = home_says(h, core(o["name"]))
+        except Exception:
+            said = ""
+        if said:
+            with lock:
+                w.writerow({"key": o["key"], "site": "https://%s/" % h, "read": TODAY, "quote": said,
+                            "tied_by": "Wikidata gives %s as the official website of the organisation of that very name (%s, https://www.wikidata.org/wiki/%s; %s), and the site's own home page carries it: “%s”"
+                                       % (h, nm, it, cc, said)})
+                f.flush(); have[o["key"]] = {"site": "https://%s/" % h}; n[0] += 1
+    with ThreadPoolExecutor(max(4, threads)) as ex:
+        list(ex.map(one, cands))
+    print("wikidata pass: %d companies with one candidate, %d sites tied" % (len(cands), n[0]), flush=True)
+    return n[0]
+
+
 def cmd_sites(a):
     import queue, threading
     os.makedirs(DIR, exist_ok=True)
@@ -709,6 +753,10 @@ def cmd_sites(a):
     for k, r in tie_on_file([o for o in cos if o["key"] not in have]).items():
         w.writerow(r); have[k] = r; n_file += 1
     f.flush()
+    try:
+        wd_pass(cos, have, w, f, a.threads)
+    except Exception as e:
+        print("wikidata pass: %s" % str(e)[:160], flush=True)
     if getattr(a, "overture", False):
         overture_pass(cos, have, w, f, a.overture_minutes, a.threads)
         addr_pass(cos, have, w, f, a.overture_minutes, a.threads)  # 2026-11-13: places at the company's own address
