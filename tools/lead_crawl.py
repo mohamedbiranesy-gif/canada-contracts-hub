@@ -146,6 +146,13 @@ def install_hooks():
                         st["shopify"] = re.sub(r"\s+", " ", raw[max(0, m.start() - 30):m.end() + 50])[:160]
                 # 2026-11-13: an address the organisation states in its page's source, not its text (tools/addr_reread.py): the schema.org PostalAddress
                 # of its own JSON-LD, or the place of the Google map the page embeds — kept for note2, which knows the page's address
+                if "phone" not in st and "tel:" in raw:  # 2026-11-13: the organisation's own telephone number (tools/phone_places.py)
+                    import addr_reread as _AR2
+                    for _m in re.finditer(r"""href\s*=\s*["']tel:([^"']{7,40})["']""", raw[:3_000_000], re.I):
+                        _d = re.sub(r"\D", "", _m.group(1))[-10:]
+                        if len(_d) == 10 and _d[:3] in _AR2._CA_AC:
+                            st["phone"] = _d
+                            break
                 if "addr" not in st and "addr_src" not in st and ("ld+json" in raw or "maps" in raw):
                     import addr_reread as _AR
                     got = None
@@ -275,6 +282,8 @@ def facts_line(key, site, st):
         o.update(city_quote=st["city"][0], city_url=st["city"][1])
     if st.get("rbq"):
         o["ids"] = {"rbq": {"v": st["rbq"][0], "url": st["rbq"][1], "q": st["rbq"][2]}}
+    if st.get("phone"):
+        o["phone"] = st["phone"]
     return json.dumps(o, ensure_ascii=False) + "\n"
 
 

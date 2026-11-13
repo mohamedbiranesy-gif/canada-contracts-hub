@@ -83,7 +83,9 @@ def cmd_targets(a):
                     d = json.loads(l)
                 except ValueError:
                     continue
-                if d.get("key") in ph and d.get("site_name"):
+                if d.get("key") in tg and d.get("phone") and d["key"] not in ph and len(d["phone"]) == 10:
+                    ph[d["key"]] = d["phone"]  # the tel: link the mailbox reader saw on the organisation's own page
+                if d.get("key") in tg and d.get("site_name"):
                     name[d["key"]] = d["site_name"]
     cnt = collections.Counter(ph.values())
     os.makedirs("out", exist_ok=True)
