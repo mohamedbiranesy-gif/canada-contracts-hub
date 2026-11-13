@@ -18,6 +18,16 @@ role mailbox re-read by the referee (AGENTS.md rules 1-17). Counts below are cou
 | | **Mapped total** | | **217,145** | **~690,000** | | |
 | 5 | Still to find: ~310,000 | certification bodies' directories (CSA Group, Canadian Welding Bureau ~7,000 companies, BNQ, QPS); customs declarations of more countries (Peru, Ecuador, Paraguay, Uruguay, Costa Rica, Ukraine — codex); US UCC filings naming a Canadian secured party; industrial-design owners abroad; CER levies, BC stumpage, CIRO, Accreditation Canada abroad | | 310,000 | to build (registry rows written 2026-11-12) | the search continues every session |
 
+## Update 2026-11-13 22:41Z — build 22:10Z (code at 20:55Z), measured
+- **301,184 ready** of 362,875 rows; every main invoice field on 223,207; amount and billing period on 267,672. Ready by kind: location 208,901 ·
+  service 30,765 · membership 20,630 · licence 15,267 · agent 12,891 · sponsorship 5,209 · contract 3,095 · dealership 2,730 · benefit plan 784 ·
+  exchange 348 · own energy report 109 · export 49.
+- **$5,000+ ready: 2,873** (published 2,149, estimated 724). Held back at $5,000+: 1,824 rows — 956 for no mailbox (568 Québec), 732 contracts not
+  shown to be current (rule 11). The 583 sites of the first are being read for a mailbox in the cloud (contrib/claude/c5k_mailboxes.py) and the 801 with
+  no website get one from the company-name autocomplete (contrib/claude/c5k_sites.py); the referee then re-reads them.
+- Pending in the next build: buyer-name accuracy (~1,500 rows), rule 19 by the vendor's own name (LLC, USA Inc.), foundations out of sponsorships,
+  municipalities' electricity from their residents (~60 at $5,000+), the $5,000+ record first among current records (~60).
+
 ## Decisions that would move the line (the owner's to make)
 - Client listings on a Canadian vendor's own site are "the vendor's statement" (rule 1): 155,752 such leads, 31,977 buyer rows with a
   mailbox. A dated page (12 months) and the client's live site could make them a labelled row ("stated by the vendor") — not done without
