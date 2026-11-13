@@ -257,6 +257,15 @@ def pick_phones(a):
                     continue
                 if d.get("key") and d.get("site") and d["key"] not in site:
                     site[d["key"]] = d["site"]
+    need = {k for k, st in last.items() if st == "nothing" and k not in have and not site.get(k)}
+    if need:  # no site facts: the mailbox's own domain (the organisation's site, as cmd_pick took it)
+        for p in sorted(glob.glob(os.path.join(INC, "claude_buyer_ap_results_cccrawl*.csv"))):
+            with open(p, encoding="utf-8", errors="replace", newline="") as f:
+                for r in csv.DictReader(f):
+                    k = r.get("buyer_key")
+                    if k in need and r.get("status") == "found" and "@" in (r.get("ap_email") or "") and k not in site:
+                        site[k] = "https://%s/" % r["ap_email"].strip().lower().partition("@")[2]
+    os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
     n = 0
     with open(a.out, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
