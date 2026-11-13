@@ -37,6 +37,10 @@ US_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(AL|AK|AZ|
                      r"\.?,?\s+(\d{5})(?:-\d{4})?(?![A-Za-z0-9])")
 GB_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})(?![A-Za-z0-9])")
 AU_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(NSW|VIC|QLD|TAS|ACT)\s+(\d{4})(?!\d)")
+# 2026-11-13 (rule 18, utilities abroad): the islands a Caribbean utility owned by a Canadian company serves whole — an address that names one
+KY_ADDR = re.compile(r"(?<![A-Za-z0-9])(?:KY1-\d{4}|Grand Cayman)(?![A-Za-z0-9])")
+BB_ADDR = re.compile(r"(?<![A-Za-z0-9])(?:BB\d{5}|(?:St\.?|Saint) (?:Michael|James|Peter|Andrew|Thomas|Joseph|John|Philip|George|Lucy),? Barbados|Bridgetown,? Barbados|Christ Church,? Barbados)(?![A-Za-z0-9])")
+BM_ADDR = re.compile(r"(?<![A-Za-z0-9])(?:HM|DV|FL|CR|GE|MA|SN|WK|SB|DD|BB|HS|PG) ?\d{2},? Bermuda(?![A-Za-z0-9])")
 SFDONE = os.path.join(INC, "claude_site_facts_done.tsv")
 _tl = threading.local()
 
@@ -170,7 +174,7 @@ def install_hooks():
         if st is not None and "addr" not in st and not is_pdf:
             try:
                 m, cc = None, ""
-                for cc_, rx in (("CA", CCL.ADDR), ("US", US_ADDR), ("GB", GB_ADDR), ("AU", AU_ADDR)):
+                for cc_, rx in (("CA", CCL.ADDR), ("US", US_ADDR), ("GB", GB_ADDR), ("AU", AU_ADDR), ("KY", KY_ADDR), ("BB", BB_ADDR), ("BM", BM_ADDR)):
                     m = rx.search(text)
                     if m:
                         cc = cc_
