@@ -17,3 +17,12 @@
 ## Established / likely / unknown (as of 2026-11-13 00:41Z)
 Established: 217,145 ready (build 22:02Z); 921,843 leads on file; pools counted above. Likely: +1-3k rows from the new lanes within a week.
 Unknown: conversion abroad at scale; whether CSA Group's directory can be read from a runner.
+
+## Mapping pass 2026-11-13 00:50Z (searches run; what each found)
+| Ontario cannabis stores must buy from OCS, invoiced, paid by PAD | OCS Wholesale handbook Feb 2026 | https://learn.ocswholesale.ca/wp-content/uploads/2026/02/OCS-Wholesale-Authorized-Cannabis-Retailers-Handbook-February2026.pdf | 2026-11-13 | "Authorized Retailers of cannabis in Ontario may only purchase legal cannabis products through OCS Wholesale." | primary |
+| 1,913 Ontario stores 'Authorized to Open' (2,679 records) | AGCO open data CSV | https://www.agco.ca/sites/default/files/opendata/AGCOWebSiteCRSANewProcessMapData.csv | 2026-11-13 | ApplicationStatusEn counts (counted) | primary |
+| Service Alberta licensees list (Excel after a search form) | open.alberta.ca | https://open.alberta.ca/opendata/1b6cb20b-5d1d-443d-8e04-28558e9277f3 | 2026-11-13 | "A listing of all businesses, charities and fundraisers that hold an active licence or registration issued by Service Alberta" | primary |
+| CWB directory is an antibot form | cwbgroup.org | https://www.cwbgroup.org/directory/certified-companies | 2026-11-13 | form action="/antibot" | blocked |
+| No open import microdata with importer names found for Peru, Ecuador, Paraguay (only resellers such as Datasur) | searches | — | 2026-11-13 | — | unknown |
+Hypothesis update: exclusive provincial wholesalers (cannabis: OCS, BC Cannabis Wholesale, AGLC, MBLL; liquor boards for licensees) give a
+by-law, invoiced, bank-paid relationship for every licensed retailer — a new family of pools (~4,000 stores in Canada for cannabis alone).
