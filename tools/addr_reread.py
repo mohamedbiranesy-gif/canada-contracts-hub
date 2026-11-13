@@ -310,7 +310,7 @@ def cmd_pick(a):
         w = csv.writer(f)
         w.writerow(["key", "site"])
         for k, (e, url, q) in sorted(found.items()):
-            if k in done:
+            if k in done and not getattr(a, "include_done", False):  # (tools/phone_places.py: every organisation still unlocated, read again or not)
                 n["done"] += 1; continue
             fa = facts.get(k, {})
             txt = " ".join([fa.get("address") or "", fa.get("address_quote") or "", q])

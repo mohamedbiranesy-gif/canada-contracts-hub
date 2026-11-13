@@ -11,6 +11,27 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 06:57Z — build 06:44Z: 255,159 ready (+34,423); a new lane of bills the Province of British Columbia sends itself**
+- Build 06:44Z (full, code 037022e of 05:32Z): 313,770 rows (308,011 with a mailbox); ready **255,159** — location 167,729 (+27,958: telephone places and
+  part of the address re-read), service 31,977 (+4,851: billers read today), licence 13,983 (+1,308), agent of record 9,552, membership 19,255, sponsorship
+  5,347, public contract 3,116, dealership 2,751; complete in the biller's own words 23,829, best effort 63,601; with an amount and a billing period
+  213,982; with every main invoice field 166,083; $5k+ a bill 2,712 (published 2,105, estimated 607). The release went out; the git copy of
+  coord/results/ranked did not (a merge conflict on contract_buyers_without_website.csv with the lists restored at 05:30Z) — the next build writes it.
+- The parts build of 05:41Z was cancelled by GitHub when the scheduled full build (06:49Z, code 1f1a9be: the address re-read, the telephone numbers,
+  the billers, the withdrawals) queued behind the same "ranker" group. That build is the next count (~08:25Z).
+- Telephone places: the targets had fallen from 77,187 to 131 once the address re-read marked its 207,671 sites done (phone_places read only the
+  sites not re-read) — fixed (every organisation still unlocated): 67,935 targets with a Canadian number; phone-places dispatched 06:56Z.
+- **New lane bc-crown** (tools/bc_crown.py, daily workflow): (1) **water rentals** — 5,486 organisations holding current B.C. water licences (the
+  Province's open layer: licence, purpose, quantity, the licensee's name, client number, address and postal code); the Province's words: "When a
+  water licence is issued, annual water rentals are assessed", a statement once a year (twice above $100,000) "sent to the client(s) … registered on
+  record as the water licence holder", paid by online banking or cheque; the yearly rental calculated from the published quantity and purpose with
+  the published rates (B.C. Reg. 37/2016, Schedule 2) — 64 holders at $5,000 a year or more; ministries, federal bodies and First Nations (exempt on
+  reserve land / under treaty) left out. (2) **stumpage** — every client the Harvest Billing System billed in the last 183 days, from its public
+  Billing Summary report (each invoice's number, timber mark, value, date) named through the harvesting authorities layer: 228 organisations from two
+  of the six reports in a local test (163 with a month of $5,000 or more); "due upon receipt of your invoice", "Statements of Account are issued on
+  the 23rd of each month", paid through a bank (EFT, wire) or cheque, "Credit card payments are not accepted". Payee entries verified on the pages.
+  Sites: same postal code on file, Overture places at the postal code (lane bcw), the company-name autocomplete; leads -> mailbox crawl -> rank.
+
 **2026-11-13 06:10Z — more reach from what is already read; two builds queued**
 - Builds: rank-buyers (full) started 05:34Z on main of 05:32Z (billers, withdrawals, telephone places, cross-register ties — not the address
   re-read); rank-buyers-parts (05:41Z, everything) waits behind it in the "ranker" group. Expected publish ~07:10Z and ~08:15Z.
