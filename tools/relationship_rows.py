@@ -126,7 +126,9 @@ _BANK = re.compile(r"bank transfer|wire transfer|\bwire\b|virement|e-?transfer|i
                    # 2026-11-11: the words of a bank's own bill-payment service, as utilities and public bodies print them ("Add NB Power as a payee",
                    # "through your bank", "automatic payments from your bank account") — NB Power's page read as card only without them
                    r"through (?:a|your|the|most) (?:banks?|financial institutions?|credit unions?)|from (?:a|your) bank account|online banking|telephone banking|as a payee|"
-                   r"automatic(?:ally)? (?:withdraw\w*|payments?) from|withdrawn from your bank", re.I)
+                   r"automatic(?:ally)? (?:withdraw\w*|payments?) from|withdrawn from your bank|"
+                   # 2026-11-13: "Automatic bank withdrawal" (Vianet's billing policy) is a pre-authorised debit of the customer's bank account
+                   r"bank withdrawals?|retraits? (?:bancaires?|automatiques?)", re.I)
 _DEAD = re.compile(r"dissol|inactive|radi[ée]|cancel|revoked|struck|annul|liquidat|discontinued|amalgamated|historical", re.I)
 _LIVE = re.compile(r"\bactive\b|immatricul|en vigueur|in good standing|registered\b|existing|current", re.I)
 
@@ -219,11 +221,17 @@ _NOT_HOW_PAID = re.compile(r"\brefunds?\b|\brefunded\b|rembours|reimburs|\bpayou
 _CARD_REFUSED = re.compile(r"refus[ée]s?\*?\s*:?[^.]{0,40}carte de cr[ée]dit|credit cards? (?:is|are) (?:not accepted|refused)|(?:don.t|do not|doesn.t|does not|n.accepte pas)\s+accept[^.]{0,60}credit card|"
                            r"(?:don.t|do not|doesn.t|does not) accept[^.]{0,60}credit card|no credit card|credit card is refused|n.accepte(?:nt)? pas[^.]{0,40}carte", re.I)
 _takes_card = lambda v: bool(_CARD.search(v)) and not _CARD_REFUSED.search(v)
+# 2026-11-13: a biller that says it does NOT take a bank payment does not "take a cheque" because the word is in its sentence (Jane: “No, we’re not
+# able to accept payment by cheque or EFT.”): the refusing clause is taken out before the bank words are looked for
+_BANK_REFUSED = re.compile(r"(?:not able to|unable to|cannot|can[’']t|do not|don[’']t|does not|doesn[’']t|will not|won[’']t|no longer)\s+(?:accept|take|process)\w*\s+[^.;]{0,40}?"
+                           r"(?:cheques?|checks?|\bEFT\b|bank|wire|e-?transfers?|interac|direct deposit|money orders?)[^.;]*|"
+                           r"n[’']accept\w*\s+pas\s+[^.;]{0,40}?(?:ch[èe]ques?|virements?|interac|d[ée]p[oô]t)[^.;]*", re.I)
+_bank_ok = lambda v: bool(_BANK.search(_BANK_REFUSED.sub(" ", v or "")))
 
 
 def payment_route(x, kind):
     v = (x.get("bill_payment_method_as_published") or "").strip()
-    if v and _NOT_HOW_PAID.search(v) and not re.search(r"we accept|nous acceptons|payment (?:methods|options) include|modes? de paiement accept|pay (?:your|the|an) invoice|payer (?:votre|la|une) facture", v, re.I):
+    if v and _NOT_HOW_PAID.search(v) and not re.search(r"we accept|nous acceptons|payment (?:methods|options) include|modes? de paiement accept|pay (?:your|the|an) invoice|payer (?:votre|la|une) facture|methods? of payments? (?:are|is) non-?refundable", v, re.I):
         v = ""  # the sentence read is a refund or a payout clause: how the bill is paid is not published
     b = " ".join((x.get(c) or "") for c in ("buyer_payment_method_preference", "payment_terms_as_published")).strip()
     d = (x.get("bill_delivery_as_published") or "").strip()
@@ -244,7 +252,7 @@ def payment_route(x, kind):
             return "bank", "invoice paid by the buyer's accounts payable; its government's payment policy: %s" % x["payment_terms_default_policy"].strip()[:220]
         return "bank", "invoice under a public contract award, paid by the buyer's accounts payable (by the kind of relationship: the buyer publishes no payment method)"
     by_kind = BY_KIND.get(kind) if not any(n in (x.get("vendor") or "").lower() for n in NOT_BY_KIND) else None
-    if kind in INVOICE_SAID and _BANK.search(v) and not _INVOICE.search(d + " " + v):
+    if kind in INVOICE_SAID and _bank_ok(v) and not _INVOICE.search(d + " " + v):
         # a licence, a membership, a dealership …: how it can be paid is published, that the body sends an invoice, a bill or a notice for it is not.
         # The bank payment is in the biller's words; that the bill comes on an invoice is by the kind — except where a body's page was read for
         # it and names none (the Canadian Intellectual Property Office: cheques and wire transfers, no word of a notice).
@@ -253,13 +261,13 @@ def payment_route(x, kind):
         if by_kind:
             return "kind", "bank payment or card in the biller's own words (%s); that the bill comes on an invoice or a notice is by the kind of relationship: %s" % (v[:160], by_kind)
         return "nobill", "bank payment is accepted (%s), but nothing read says the body sends an invoice, a bill or a notice" % v[:200]
-    if (x.get("vendor") or "").startswith("Shopify") or (_takes_card(v) and not _BANK.search(v)):
+    if (x.get("vendor") or "").startswith("Shopify") or (_takes_card(v) and not _bank_ok(v)):
         return "card", "card or other method on file, charged by the vendor: %s" % v[:220]
     if "registrar of record" in v:
         return "registrar", "paid to the registrar of record, by the registrar's own methods; the Canadian registry bills the registrar: %s" % v[:160]
-    if _BANK.search(v) and _takes_card(v):
+    if _bank_ok(v) and _takes_card(v):
         return "either", "the biller takes a bank payment or a card: %s" % v[:220]
-    if _BANK.search(v):
+    if _bank_ok(v):
         return "bank", "bank payment as the vendor publishes: %s" % v[:220]
     if by_kind:
         return "kind", "by the kind of relationship, not in this biller's own words: %s" % by_kind

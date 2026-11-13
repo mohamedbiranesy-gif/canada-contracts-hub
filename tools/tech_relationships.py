@@ -400,6 +400,8 @@ BILLING["shopify"].update(
                     "(https://www.shopify.com/charge)"),
         unpaid=("“If we are unable to successfully process payment of Fees using an Authorized Payment Method within 28 days of our initial attempt, we may suspend and revoke access to "
                 "your Account and the Services.” … “You may not be able to access your Account or your storefront during any period of suspension.” (terms, section 5)")))
+BILLING["jane"]["bill"] = dict(BILLING["jane"].get("bill") or {}, payment=("by card only: “You’ll want to make sure you have a valid credit card on file for your monthly subscription.” … "
+    "“No, we’re not able to accept payment by cheque or EFT.” (https://jane.app/guide/managing-your-jane-subscription, read 2026-11-13)"))
 BILLING["jane"].update(amount="from US$59 a month", amount_basis="Jane's price page, plan “Balance”: “USD $59 / month”; plan “Practice”: “USD $79 / month”; plan “Thrive”: “USD $99 / month” (https://jane.app/pricing, read 2026-11-11, prices as shown to the reader); the clinic's own plan is not published")
 BILLING["checkfront"].update(amount="$99 a month + 3 % of online bookings", amount_basis="“$99 monthly subscription fee to the operator, plus a 3% online booking fee” (https://www.checkfront.com/support/faq/, read 2026-11-11)")
 BILLING["touchbistro"].update(amount="from $69 a month", amount_basis="“TouchBistro’s POS software starts at $69 per month” (https://www.touchbistro.com/, read 2026-11-11)")
@@ -446,6 +448,83 @@ BILLING_BY_DOMAIN = {
                                   payment=("“We accept payment by credit card, PayPal, Interac e-Transfer, electronic funds transfer (EFT) and...” (https://my.varialhosting.com/knowledgebase/33/Billing) — "
                                            "“If you wish to send payment for an invoice by cheque or money order, please make the payment payable to Varial Technologies, Inc” "
                                            "(https://my.varialhosting.com/knowledgebase/41/How-do-I-mail-in-a-payment.html, read 2026-11-12)"))),
+    # 2026-11-13: the hosts behind the most rows held as "payment: not published" (build 04:08Z: 34,575 rows with a mailbox) — each host's own terms read with the
+    # project's reader; a sentence is kept only where the host itself names an invoice and a bank payment (bank transfer, cheque, direct debit, Interac, ACH).
+    # Card only (no row): Jane (“No, we’re not able to accept payment by cheque or EFT.”), Hawk Host (its billing articles name cards, PayPal, crypto and wallets only),
+    # Ex2 (automatic charge to the card or PayPal account on file), Internic.ca (“Billing for the Subscription Service will be by valid credit card”).
+    "doteasy.com": dict(cls="yearly", read="2026-11-13", url="https://doteasy.com/web-hosting",
+                        quote="Kickstart your online journey with a FREE domain name for the first year with all annual shared hosting plans.",
+                        more="its shared hosting is sold by the year (“any annual plan”); a longer term can be chosen (“depending on the term length you choose”): which term this organisation chose is not published",
+                        bill=dict(
+                            delivery=("“Invoices will be sent in advance of payment due. Invoices will be sent to the email address provided by you to us when registering your account.” "
+                                      "(https://terms.doteasy.com/, read 2026-11-13)"),
+                            payment="“We accept payment by most major credit and debit cards, direct debit, PayPal, bank transfer and cheque.” (https://terms.doteasy.com/, read 2026-11-13)",
+                            unpaid=("“If you do not pay us for the services when you are supposed to (see Clause 11.1), we may suspend the supply of the services until you have paid us the "
+                                    "outstanding amounts.” (https://terms.doteasy.com/, read 2026-11-13)"))),
+    "aplus.net": dict(cls="monthly_or_yearly", read="2026-11-13", url="https://www.aplus.net/",
+                      quote="Sign up for a monthly hosting plan, and the first month is on us!",
+                      more="it sells monthly plans and annual ones (“Save 10% on any annual hosting plan”, same page): which term this organisation chose is not published",
+                      bill=dict(
+                          delivery=("a charge each billing cycle, extra fees “to be invoiced to you in the following billing cycle” (terms and conditions, "
+                                    "https://www.aplus.net/sites/aplus/files/Terms_and_Conditions.pdf, read 2026-11-13)"),
+                          payment=("“Unless otherwise stated, you may pay for Products and Services by providing a valid credit card or ACH if available.” "
+                                   "(https://www.aplus.net/sites/aplus/files/Terms_and_Conditions.pdf, read 2026-11-13)"))),
+    "canadianwebhosting.com": dict(cls="monthly_or_yearly", read="2026-11-13", url="https://canadianwebhosting.com/hosting/shared-hosting",
+                                   quote="Canadian shared web hosting · From $5.95 CAD/mo",
+                                   more="its terms speak of monthly plans and annual ones (“the discounted price that the customer may have paid for an annual plan”): which term this organisation chose is not published",
+                                   bill=dict(
+                                       delivery=("“CLIENT shall pay CWH recurring fees (hereinafter \"Recurring Fees\"), plus bandwidth charges as outlined on invoice. Pre-payment of recurring fees is "
+                                                 "due by the time stated on CWH's invoice.” (https://canadianwebhosting.com/company/terms-of-service, read 2026-11-13)"),
+                                       payment=("the methods of payment its terms name where they say which are non-refundable: “The following methods of payments are non-refundable, and "
+                                                "refunds will be posted as credit to the hosting account: bank wire transfers, Interac Email Transfers, cheques, and money orders.” "
+                                                "(https://canadianwebhosting.com/company/terms-of-service, read 2026-11-13)"),
+                                       unpaid="“Amounts past due may result in the termination of CLIENT's account.” (terms of service)",
+                                       currency="“All prices are in Canadian dollars.” (https://canadianwebhosting.com/hosting/shared-hosting)")),
+    "hostedincanada.com": dict(cls="yearly", read="2026-11-13", url="https://hostedincanada.com/",
+                               quote="Free Domain transfer on one year 1-year packages",
+                               more="its hosting is sold in packages of a year or more: which term this organisation chose is not published",
+                               bill=dict(
+                                   delivery=("“8.1 The Host shall issue invoices for the Charges to the Customer from time to time during the Term OR on or after the invoicing dates set out "
+                                             "in Section 4 of the Services Order Form OR dates for invoicing .” (https://hostedincanada.com/terms/, read 2026-11-13)"),
+                                   terms=("“8.2 The Customer must pay the Charges to the Host within the period of 30 days following the issue of an invoice in accordance with this Clause 8 "
+                                          "OR the receipt of an invoice issued in accordance with this Clause 8.” (terms)"),
+                                   payment=("“8.3 The Customer must pay the Charges by debit card, credit card, direct debit, bank transfer or cheque (using such payment details as are "
+                                            "notified by the Host to the Customer from time to time).” (https://hostedincanada.com/terms/, read 2026-11-13)"))),
+    "websites.ca": dict(cls="monthly_or_yearly", read="2026-11-13", url="https://websites.ca/terms/",
+                        quote="All fees are billed in advance and are non-refundable. You can prepay for 12 months of service at a discount of 15%.",
+                        bill=dict(
+                            delivery="an invoice with a link to pay it: “or you can click the link in your invoice to pay online.” (https://customers.websites.ca/, read 2026-11-13)",
+                            payment=("by cheque, by card or online through the invoice: “Pay an invoice, update billing information, or send a cheque You can call us with a credit card "
+                                     "number or new expiry date 1-877-517-7867 (9am – 5pm central time Monday to Friday) or you can click the link in your invoice to pay online.” "
+                                     "(https://customers.websites.ca/, read 2026-11-13)"),
+                            remit_to="“Our mailing address is: Websites.ca Web Design 300-245 McDermot Ave Winnipeg, MB R3B 0S6” (https://customers.websites.ca/)")),
+    "coolcom.com": dict(cls="yearly", read="2026-11-13", url="https://coolcom.com/index.php/policies",
+                        quote="All domain renewal notices, hosting renewal notices, order confirmations, invoice copies and failed billing notices will go to your Client Centre contact email.",
+                        more="hosting and domains are renewed term by term (its renewal notices): the length of this organisation's term is not published",
+                        bill=dict(
+                            delivery="renewal notices and invoice copies by e-mail: “All domain renewal notices, hosting renewal notices, order confirmations, invoice copies and failed billing notices will go to your Client Centre contact email.” (policies)",
+                            payment=("by card, or by Interac, cheque or online banking: “If you order a Service and choose to pay for your order using a method other than credit card "
+                                     "(e.g. Interac, cheque or online banking) then you acknowledge and agree that: (a) we are not obligated to fully process your order or provide the "
+                                     "Service unless and until we have received full payment for the Service;” (https://coolcom.com/index.php/policies, read 2026-11-13)"))),
+    "vianet.ca": dict(cls="monthly", read="2026-11-13", url="https://www.vianet.ca/legal/billing-policy/",
+                      quote=("Statements are sent by mail or email within the 1st week of each month and cover: Service from the first to the last day of the current month and all "
+                             "related charges."),
+                      bill=dict(
+                          delivery="a monthly statement: “Statements are sent by mail or email within the 1st week of each month” … “Statements are dated the 1st of the month. The due date for the balance owing is the 10th of the month.” (billing policy)",
+                          payment=("“Payment Options Subject to some restrictions, payment options include: Automatic bank withdrawal Automatic credit card debit (Visa, Visa Debit, "
+                                   "Mastercard, Mastercard Debit and American Express)” (https://www.vianet.ca/legal/billing-policy/, read 2026-11-13)"),
+                          terms="“Statements are dated the 1st of the month. The due date for the balance owing is the 10th of the month.” (billing policy)")),
+    # card only: the row says so instead of "not published"
+    "hawkhost.com": dict(cls="monthly_or_yearly", read="2026-11-13", url="https://www.hawkhost.com/kb/billing/",
+                         quote="How do I pay my invoice with a credit card?",
+                         bill=dict(payment=("its billing articles name cards, PayPal, cryptocurrency and regional wallets only (“How do I pay my invoice with a credit card?”, “How do I pay my "
+                                            "invoice with PayPal”, “How do I pay my invoice with cryptocurrency?” — https://www.hawkhost.com/kb/billing/, read 2026-11-13): "
+                                            "a card or a wallet, no bank payment"))),
+    "ex2.com": dict(cls="monthly_or_yearly", read="2026-11-13", url="https://www.ex2.com/ca/terms-and-conditions",
+                    quote="10.4 - Les factures sont payables d’avance pour la période à venir.",
+                    bill=dict(payment=("“10.5 - Paiement automatique. Lorsque Ex2 est autorisée à procéder ainsi conformément au présent contrat, les frais et taxes applicables seront "
+                                       "automatiquement imputés à la carte de crédit ou au compte PayPal enregistré dans votre compte Ex2.” (https://www.ex2.com/ca/terms-and-conditions, "
+                                       "read 2026-11-13): charged to the card or PayPal account on file"))),
 }
 BILLING["lightspeed_golf"] = BILLING["lightspeed"]
 BILLING["wellnessliving_widget"] = BILLING.get("wellnessliving")

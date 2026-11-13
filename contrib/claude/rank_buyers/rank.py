@@ -1564,7 +1564,7 @@ def _lead_card_only(k, L):
     txt = str(((cur_ or {}).get("bill") or {}).get("payment") or "")
     if not txt and vd_ in VBILL:
         txt = str((_VB.extra_of(VBILL.get(vd_), "paymethod") or {}).get("q") or "")
-    return bool(txt) and bool(_RR._CARD.search(txt)) and not _RR._BANK.search(txt)
+    return bool(txt) and bool(_RR._CARD.search(txt)) and not _RR._bank_ok(txt)
 def lead_strength(kl):
     """dated records first, then services seen on the buyer's site, 12-36 month records, client listings, other links:
     the strongest relationship of an organisation claims its website domain (one row per organisation)"""

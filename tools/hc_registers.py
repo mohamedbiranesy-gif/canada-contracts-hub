@@ -608,8 +608,9 @@ def addr_pass(cos, have, w, f, minutes, threads, ovt_addr=None, adone=None):
                     how = (("home page carries the company's name: “%s”" % said) if said else ("pages print the register's postal code: “%s”" % no_mail(pcs)) if pcs else
                            ("legal page prints the company's full legal name (%s)" % lg))
                     w.writerow({"key": o["key"], "site": "https://%s/" % c["site"], "read": TODAY, "quote": (said or no_mail(pcs) or lg)[:300],
-                                "tied_by": "an Overture Maps place at the company's own %s (“%s”, place %s; Overture Maps Foundation open data, release %s) lists %s, "
-                                           "and the site's own %s" % (c["how"][len("the owner's own "):] if c["how"].startswith("the owner's own ") else c["how"],
+                                "tied_by": "an Overture Maps place %s (“%s”, place %s; Overture Maps Foundation open data, release %s) lists %s, "
+                                           "and the site's own %s" % (("at the company's own " + c["how"][len("the owner's own "):]) if c["how"].startswith("the owner's own ")
+                                                                      else "under the company's name (%s)" % c.get("how", "")[:80],
                                                                       c["place_name"], c["place_id"], c["release"], c["site"], how)})
                     f.flush(); have[o["key"]] = True; cnt["found"] += 1
 
