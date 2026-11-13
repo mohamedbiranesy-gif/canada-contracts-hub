@@ -169,7 +169,37 @@ def lane_f55():
     return out
 
 
-LANES = {"hc": lane_hc, "xc": lane_xc, "dian": lane_dian, "cb": lane_cb, "f55": lane_f55}
+def lane_bcg():
+    """the organisations the statutory billers of tools/bc_crown.py name without a site on file: B.C. water licence holders (their postal code
+    when the layer gives one, else the province), B.C. stumpage clients (no address: the province), Alberta well licensees (no address: the
+    province), CNSC licensees (the province of the places their licences name, when one)"""
+    d = os.path.join(INC, "bcgov")
+    have = set()
+    sp = os.path.join(d, "bc_sites.csv")
+    if os.path.exists(sp):
+        have = {r["key"] for r in csv.DictReader(open(sp, encoding="utf-8", newline=""))}
+    out = []
+    for fn, prov in (("bc_water_licensees.csv.gz", "BC"), ("bc_stumpage_clients.csv.gz", "BC"), ("ab_aer_licensees.csv.gz", "AB"), ("cnsc_licensees.csv.gz", "")):
+        p = os.path.join(d, fn)
+        if not os.path.exists(p):
+            continue
+        with gzip.open(p, "rt", encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                if r["key"] in have or not r.get("name"):
+                    continue
+                pc = norm_pc(r.get("postal_code"), "CA")
+                st = prov
+                if not st:
+                    m = re.findall(r"\b(AB|BC|MB|NB|NL|NS|NT|NU|ON|PE|QC|SK|YT)\b", r.get("places") or "")
+                    st = m[0] if m and len(set(m)) == 1 else ""
+                if pc and not st:
+                    st = CA_PROV.get(pc[0], "")
+                if pc or st:
+                    out.append((r["key"], r["name"], "CA", pc, st))
+    return out
+
+
+LANES = {"hc": lane_hc, "xc": lane_xc, "dian": lane_dian, "cb": lane_cb, "f55": lane_f55, "bcg": lane_bcg}
 
 
 def verify(a):

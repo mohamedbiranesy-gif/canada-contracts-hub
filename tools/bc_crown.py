@@ -224,6 +224,8 @@ SITES = os.path.join(DIR, "bc_sites.csv")
 SDONE = os.path.join(DIR, "bc_sites_done.tsv")
 OVT_ADDR = os.path.join(INC, "overture", "bcw_addr_candidates.csv")  # places at the licensee's own postal code (tools/overture_names.py addr --lanes bcw)
 ADONE = os.path.join(DIR, "bc_addr_done.tsv")
+OVT_NAMES = os.path.join(INC, "overture", "bcg_candidates.csv")  # 2026-11-13: places under the holder's very name (tools/overture_names.py --lanes bcg)
+ODONE_NAMES = os.path.join(DIR, "bc_overture_done.tsv")
 
 
 def get(url, path=None, data=None, timeout=300, jar=None):
@@ -788,6 +790,13 @@ def cmd_sites(a):
         w.writerow(r); have[k] = r; n_file += 1
     f.flush()
     HR.addr_pass([o for o in cos if o.get("postal_code")], have, w, f, a.addr_minutes, a.threads, ovt_addr=OVT_ADDR, adone=ADONE)
+    # 2026-11-13: an Overture Maps place of the holder's very name at its postal code, or — a register with no address (stumpage clients, well
+    # licensees) — in its own province, listing a website (tools/overture_names.py query --lanes bcg): kept when the site's own home page carries
+    # the name (or prints the postal code)
+    try:
+        HR.overture_pass([dict(o, country=o.get("country") or "Canada") for o in cos], have, w, f, 25, a.threads, ovt=OVT_NAMES, odone=ODONE_NAMES, loose_ca=True)
+    except Exception as e:
+        print("overture names pass: %s" % str(e)[:160], flush=True)
     # 2026-11-13: Wikidata's official website (P856) of an item of the holder's very name in Canada (or, for a pesticide registrant, in the country the
     # site tests know), kept when the site's own home page carries the name — before the autocomplete
     try:

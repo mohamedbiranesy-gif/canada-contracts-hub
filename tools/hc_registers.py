@@ -624,21 +624,25 @@ def addr_pass(cos, have, w, f, minutes, threads, ovt_addr=None, adone=None):
     return cnt["found"]
 
 
-def overture_pass(cos, have, w, f, minutes, threads):
+def overture_pass(cos, have, w, f, minutes, threads, ovt=None, odone=None, loose_ca=False):
     """the companies for which an Overture Maps place lists a website under their very name at their postal code
     (tools/overture_names.py): the site is kept when its own home page carries the company's name in its title / site name or prints the
     register's postal code. A company in Canada on a site that is not .ca, or one whose name a group's entities in other countries also bear,
     is kept only on its postal code printed on the site (the place may list the parent's worldwide site)."""
     import queue, threading
-    if not os.path.exists(OVT):
+    # (2026-11-13: another lane passes its own files; loose_ca — a Canadian company whose register gives no postal code (B.C. stumpage clients,
+    # Alberta well licensees): a place of its very name in its own province listing a site that is not .ca may be tied by the name on the home
+    # page — the HC rule (postal code only) would leave every such company out)
+    ovt, odone = ovt or OVT, odone or ODONE
+    if not os.path.exists(ovt):
         print("overture: no candidates file (tools/overture_names.py query)", flush=True)
         return 0
     by = collections.defaultdict(list)
-    for r in csv.DictReader(open(OVT, encoding="utf-8", newline="")):
+    for r in csv.DictReader(open(ovt, encoding="utf-8", newline="")):
         by[r["key"]].append(r)
-    done = {l.split("\t")[0] for l in open(ODONE, encoding="utf-8")} if os.path.exists(ODONE) else set()
+    done = {l.split("\t")[0] for l in open(odone, encoding="utf-8")} if os.path.exists(odone) else set()
     todo = [o for o in cos if o["key"] in by and o["key"] not in have and o["key"] not in done]
-    todo.sort(key=lambda o: -float(o["fee_total"] or 0))
+    todo.sort(key=lambda o: -float(o.get("fee_total") or o.get("fee_floor") or o.get("value_12m") or o.get("rental_calc") or 0))
     GROUPS.clear()
     for o in cos:
         c_ = core(o["name"])
@@ -648,7 +652,7 @@ def overture_pass(cos, have, w, f, minutes, threads):
     lock, q, cnt = threading.Lock(), queue.Queue(), collections.Counter()
     for o in todo:
         q.put(o)
-    dn = open(ODONE, "a", encoding="utf-8")
+    dn = open(odone, "a", encoding="utf-8")
 
     def worker():
         while time.time() < t_end:
@@ -664,7 +668,8 @@ def overture_pass(cos, have, w, f, minutes, threads):
                 d = c["site"]
                 if BAD.search(d):
                     continue
-                strict = (ca and not d.endswith(".ca")) or (multi and d.rsplit(".", 1)[-1] in GENERIC)
+                own_prov = loose_ca and ca and "province" in (c.get("how") or "") and not multi
+                strict = ((ca and not d.endswith(".ca")) and not own_prov) or (multi and d.rsplit(".", 1)[-1] in GENERIC)
                 try:
                     said = "" if strict else home_says(d, n)
                     pcs = "" if said else pc_on_home(d, o.get("postal_code") or "", o.get("country") or "")
@@ -679,10 +684,12 @@ def overture_pass(cos, have, w, f, minutes, threads):
                 if hit:
                     c, said, pcs = hit
                     how = ("carries the company's name: “%s”" % said) if said else ("prints the register's postal code: “%s”" % no_mail(pcs))
+                    where_ = ("at its postal code %s" % c["place_postcode"]) if "postal code" in (c.get("how") or "postal code") else (
+                        "in its own province (%s)" % (c.get("place_region") or "").split("-")[-1])
                     w.writerow({"key": o["key"], "site": "https://%s/" % c["site"], "read": TODAY, "quote": (said or no_mail(pcs))[:300],
-                                "tied_by": "an Overture Maps place lists %s under the company's name at its postal code %s (“%s”, place %s; Overture Maps "
+                                "tied_by": "an Overture Maps place lists %s under the company's name %s (“%s”, place %s; Overture Maps "
                                            "Foundation open data, release %s), and the site's own home page %s" % (
-                                               c["site"], c["place_postcode"], c["place_name"], c["place_id"], c["release"], how)})
+                                               c["site"], where_, c["place_name"], c["place_id"], c["release"], how)})
                     f.flush(); have[o["key"]] = True; cnt["found"] += 1
 
     ts = [threading.Thread(target=worker, daemon=True) for _ in range(threads)]

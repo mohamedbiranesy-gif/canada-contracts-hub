@@ -53,19 +53,22 @@ jobs:
           newest=$(curl -sS --retry 3 "https://overturemaps-us-west-2.s3.amazonaws.com/?list-type=2&prefix=release/&delimiter=/" | grep -o 'release/[0-9-]*\.[0-9]*/' | sort | tail -1 | cut -d/ -f2)
           made=$(tail -1 data/incoming/claude/overture/bcw_addr_candidates.csv 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r')
           if [ -n "$newest" ] && [ "$made" != "$newest" ]; then pip install -q duckdb && python3 tools/overture_names.py addr --lanes bcw 2>&1 | tail -3 | tee -a /tmp/l.txt || true; fi
+          # the places under each holder's very name, at its postal code or in its own province (made again when Overture publishes a newer release)
+          madeq=$(tail -1 data/incoming/claude/overture/bcg_candidates.csv 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r')
+          if [ -n "$newest" ] && [ "$madeq" != "$newest" ]; then pip install -q duckdb && python3 tools/overture_names.py query --lanes bcg 2>&1 | tail -3 | tee -a /tmp/l.txt || true; fi
           python3 tools/bc_crown.py sites --minutes "$MINUTES" --addr-minutes 40 --threads 12 2>&1 | tee -a /tmp/l.txt
           D=data/incoming/claude/bcgov
           mkdir -p keep keep/ovt
-          for f in bc_water_licensees.csv.gz bc_stumpage_clients.csv.gz bc_stumpage_invoices.csv.gz ab_aer_licensees.csv.gz ab_aer_info.json hc_pmra_registrants.csv.gz cnsc_licensees.csv.gz bc_sites.csv bc_sites_done.tsv bc_addr_done.tsv; do cp "$D/$f" keep/ 2>/dev/null || true; done
-          cp data/incoming/claude/overture/bcw_addr_candidates.csv keep/ovt/ 2>/dev/null || true
+          for f in bc_water_licensees.csv.gz bc_stumpage_clients.csv.gz bc_stumpage_invoices.csv.gz ab_aer_licensees.csv.gz ab_aer_info.json hc_pmra_registrants.csv.gz cnsc_licensees.csv.gz bc_sites.csv bc_sites_done.tsv bc_addr_done.tsv bc_overture_done.tsv; do cp "$D/$f" keep/ 2>/dev/null || true; done
+          cp data/incoming/claude/overture/bcw_addr_candidates.csv data/incoming/claude/overture/bcg_candidates.csv keep/ovt/ 2>/dev/null || true
           STAMP=$(date -u +%Y%m%dT%H%M%S)
           git config user.name "bc-crown"; git config user.email "bc-crown@users.noreply.github.com"
           for i in $(seq 1 10); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             mkdir -p $D data/incoming/claude/overture
-            cp keep/ovt/bcw_addr_candidates.csv data/incoming/claude/overture/ 2>/dev/null || true
+            cp keep/ovt/bcw_addr_candidates.csv keep/ovt/bcg_candidates.csv data/incoming/claude/overture/ 2>/dev/null || true
             # the site list and the done lists only grow: the lines of main and of this run, once each
-            for f in bc_sites.csv bc_sites_done.tsv bc_addr_done.tsv; do
+            for f in bc_sites.csv bc_sites_done.tsv bc_addr_done.tsv bc_overture_done.tsv; do
               [ -f "keep/$f" ] || continue
               if [ -f "$D/$f" ]; then
                 python3 - "$D/$f" "keep/$f" <<'PY'
@@ -86,7 +89,7 @@ jobs:
             for f in bc_water_licensees.csv.gz bc_stumpage_clients.csv.gz bc_stumpage_invoices.csv.gz ab_aer_licensees.csv.gz ab_aer_info.json hc_pmra_registrants.csv.gz cnsc_licensees.csv.gz; do cp "keep/$f" "$D/" 2>/dev/null || true; done
             python3 tools/bc_crown.py leads --stamp "$STAMP" | tee /tmp/m.txt
             python3 tools/secret_guard.py || true
-            git add $D data/incoming/claude/lead_shards data/incoming/claude/overture/bcw_addr_candidates.csv 2>/dev/null || true
+            git add $D data/incoming/claude/lead_shards data/incoming/claude/overture/bcw_addr_candidates.csv data/incoming/claude/overture/bcg_candidates.csv 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "bc-crown: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
             git push -q origin HEAD:main && break
