@@ -77,10 +77,22 @@
   "url": "https://greaterkwchamber.com/member-login/",
   "verified": "2026-11-13"
  },
+ "tools/data/payees/london_chamber.json": {
+  "quotes": 3,
+  "sig": "1ae41aa2811f95bf",
+  "url": "https://business.londonchamber.com/member/newmemberapp/",
+  "verified": "2026-11-13"
+ },
  "tools/data/payees/osler.json": {
   "quotes": 4,
   "sig": "be3b734fba504e63",
   "url": "https://www.osler.com/en/client-service-terms/",
+  "verified": "2026-11-13"
+ },
+ "tools/data/payees/ottawa_bot.json": {
+  "quotes": 6,
+  "sig": "98e8cb051def8861",
+  "url": "https://business.ottawabot.ca/member/newmemberapp",
   "verified": "2026-11-13"
  },
  "tools/data/payees/vernon_chamber.json": {

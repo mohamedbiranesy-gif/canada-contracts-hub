@@ -1,0 +1,15 @@
+{
+ "names": [
+  "Ottawa Board of Trade"
+ ],
+ "hosts": [
+  "ottawabot.ca"
+ ],
+ "url": "https://business.ottawabot.ca/member/newmemberapp",
+ "read": "2026-11-13",
+ "period": "“Memberships renew annually, and members will be notified of renewal by email with an invoice attached.”",
+ "delivery": "an invoice by e-mail at each renewal: “Memberships renew annually, and members will be notified of renewal by email with an invoice attached.”",
+ "terms": "on joining or renewing, overdue after 30 days: “Membership fees are due upon joining or renewing membership.” … “Invoices not paid within 30 days of the invoice date will be considered overdue.”",
+ "payment": "“Payment must be made using the accepted methods indicated on the invoice.”",
+ "unpaid": "“If payment remains outstanding beyond 9 0 days from the invoice date, OBOT may cancel the membership.”"
+}
