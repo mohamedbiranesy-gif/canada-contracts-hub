@@ -2311,9 +2311,26 @@ def ovt_place(name, md, site):
             continue
         return b, _BYLOC.directory_cell(o)
     return None, ""
+# 2026-11-13 (tools/phone_places.py): the address of the Overture Maps place that lists the organisation's own telephone number and bears its name or
+# lists its website — the last way to where an organisation is, after its own pages, a registry, the city it names and the address listed for its website
+PHP = _BYLOC.phone_addresses()
+PHN13 = {}
+print("organisations located by the place that lists their telephone number (tools/phone_places.py): %d on file" % len(PHP), flush=True)
+def phone_place(k):
+    o = PHP.get(k)
+    if not o:
+        return None, ""
+    b = _BYLOC.biller_for(o["postcode"])
+    if not b:
+        n_ovt["… a telephone-listed address with no distributor (Alberta, an edge between two, a territory): not used"] += 1
+        return None, ""
+    return b, _BYLOC.phone_cell(o)
 SRC_OWN = "the distributor's exclusive territory and the organisation's own printed address (no contract, payment or listing record)"
 SRC_DIR = ("the distributor's exclusive territory and the address a public places dataset (Overture Maps) lists for the organisation's website "
            "(no contract, payment or listing record)")
+SRC_PHONE = ("the distributor's exclusive territory and the address of the place a public places dataset (Overture Maps) lists for the organisation's own "
+             "telephone number (no contract, payment or listing record)")
+_src_loc = lambda b_addr: SRC_DIR if _BYLOC.DIRECTORY_MARK in b_addr else SRC_PHONE if _BYLOC.PHONE_MARK in b_addr else SRC_OWN
 GAVE_WAY = {}
 n_gw = collections.Counter()
 _ROSTER13 = ("member named in the member directory", "tenant / merchant named by", "dealer / retailer named by", "sponsor / exhibitor named by")
@@ -2364,6 +2381,10 @@ for x in rows:
         if loc:
             n_ovt["rows that give way, to the distributor of the address listed for their website"] += 1
     if not loc:
+        loc, _ovtaddr = phone_place(k)
+        if loc:
+            n_ovt["rows that give way, to the distributor of the place listing their telephone number"] += 1
+    if not loc:
         n_gw["… no distributor can be named for where it is (no postal code read, Alberta, or an area another utility serves)"] += 1; continue
     if registrable(host_of(loc["site"])) in (registrable(md), registrable(host_of(site))):
         continue
@@ -2379,7 +2400,7 @@ for x in rows:
            "buyer": x.get("buyer") or "", "buyer_website": site, "buyer_address": b_addr,
            "email": e, "email_type": x.get("email_type") or "", "email_check": "confirmed", "email_evidence_url": x.get("email_evidence_url") or "", "email_evidence_quote": x.get("email_evidence_quote") or "",
            "contract_status": _BYLOC.status(loc, _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(x.get("email_evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])),
-           "source": SRC_DIR if _BYLOC.DIRECTORY_MARK in b_addr else SRC_OWN,
+           "source": _src_loc(b_addr),
            "vendor": "inferred: " + loc["name"], "vendor_address": loc["address"], "vendor_website": loc["site"],
            "vendor_country_basis": "%s, %s: '%s'" % (loc.get("address_source") or "the vendor's own site", loc["address_url"], loc["address_quote"]),
            "contracts_with_canadian_suppliers": 0, "buyer_keys": 1, "keys": k, "tier": "I", "grade": g, "acc": True}
@@ -2423,6 +2444,10 @@ for k, ((acc, g), m) in mail.items():
         _loc13, _oa13 = ovt_place(_nm13, (m.get("mailbox") or "").strip().lower().partition("@")[2], _st13)
         if _loc13:
             OVT13[k] = _oa13
+    if not _loc13:
+        _loc13, _pa13 = phone_place(k)
+        if _loc13:
+            PHN13[k] = _pa13
     if k.startswith("lead:") and not REGISTRY_ROWS and not _loc13:
         # 2026-11-11: an organisation that came through a lane (its key was minted by a lead engine) and whose lead is withdrawn, or removed by
         # the owner's rule of that day (a .ca registration, a store, a card-billed service), gets no inferred row in its place. Without this
@@ -2510,6 +2535,8 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         b_addr = (b_addr + "; " if b_addr else "") + CITY13[k]; n_city["inferred rows by the city the organisation's page names"] += 1
     elif vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and OVT13.get(k):
         b_addr = (b_addr + "; " if b_addr else "") + OVT13[k]; n_ovt["inferred rows by the address listed for the organisation's website"] += 1
+    elif vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and PHN13.get(k):
+        b_addr = (b_addr + "; " if b_addr else "") + PHN13[k]; n_ovt["inferred rows by the place listing the organisation's telephone number"] += 1
     if b_addr.startswith("postal code "):
         b_addr = address_beside_mailbox(b_addr, m.get("evidence_quote") or "", m.get("evidence_url") or "") or b_addr
     if _lf.get("site_name") and re.fullmatch(r"(?:https?://)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/?", (name or "").strip().lower()):
@@ -2519,7 +2546,7 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
         "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",
         "contract_status": (_BYLOC.status(_BYLOC.BY_KEY[vid[4:]], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])) if vid.startswith("LOC:") else
                             "inferred relationship (no record): %s confidence; the buyer is %s%s; %s" % (conf, what, (" (province from %s)" % how) if how else "", why)),
-        "source": ((SRC_DIR if _BYLOC.DIRECTORY_MARK in b_addr else SRC_OWN) if vid.startswith("LOC:") else
+        "source": (_src_loc(b_addr) if vid.startswith("LOC:") else
                    "inference from the buyer's type and province (no contract, payment or listing record)"),
         "vendor": "inferred: " + vname, "vendor_address": vaddr, "vendor_website": vsite,
         "vendor_country_basis": "%s, %s: '%s'" % ((_BYLOC.BY_KEY[vid[4:]].get("address_source") if vid.startswith("LOC:") else "") or "the vendor's own site", vurl, vquote),
@@ -2531,7 +2558,7 @@ print("by the address an Overture Maps place lists for the organisation's websit
       dict(n_ovt))
 print("lead rows that took the organisation's own key (registry facts attach):", dict(n_keyjoin))
 _free(globals(), "VEN", "VEN_NAME", "VEN_DOM", "BUY", "TEAMV", "mail", "MAIL_ALL", "mail_dom", "cands", "orgs12", "up_t", "dom_rows", "lead_row_by_dom",
-      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13", "CITY13", "OVT13", "PLC13")  # last used by the row builders above (OVT: by the last address fill)
+      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13", "CITY13", "OVT13", "PLC13", "PHN13")  # last used by the row builders above (OVT: by the last address fill)
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
 rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
@@ -6083,6 +6110,11 @@ for _ri, x in enumerate(rows):
                 if _oa9 and _ovt_fits(x.get("buyer") or "", _oa9.get("names") or "", _d9):
                     x["buyer_address"] = _BYLOC.directory_cell(_oa9); npk["buyer_address_from_a_listed_place (Overture Maps)"] += 1
                     break
+        # 2026-11-13: then the place listing the organisation's own telephone number, under its name or with its website (tools/phone_places.py)
+        if PHP and not (x.get("buyer_address") or "").strip() and not (x.get("invoice_mailing_address") or "").strip():
+            _po9 = next((PHP[_k9] for _k9 in (x.get("keys") or "").split("|") if _k9 in PHP), None)
+            if _po9:
+                x["buyer_address"] = _BYLOC.phone_cell(_po9); npk["buyer_address_from_the_place_listing_its_telephone (Overture Maps)"] += 1
         t, g, ec = x.get("tier") or "", int(x.get("grade") or 0), x.get("email_check") or ""
         name_site = " ".join((x.get(c) or "") for c in ("buyer", "buyer_legal_name_as_published", "buyer_trade_name_as_published", "buyer_website"))
         # buyer_type fallback (C4.1) and sector (S4.1)

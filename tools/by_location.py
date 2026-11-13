@@ -409,6 +409,38 @@ def directory_cell(o):
             "own pages%s)" % (head, DIRECTORY_MARK, o["dom"], names[0][:80], o.get("place_id") or "", o.get("datasets") or "Overture", o.get("release") or "", said))
 
 
+# 2026-11-13: the address of the Overture Maps place that lists the organisation's own telephone number, when its name is the organisation's or it
+# lists the organisation's website (tools/phone_places.py) — a public places dataset's statement, used only when nothing else located it
+PHONE_MARK = "the address of the Overture Maps place that lists its telephone number"
+PHONE_PLACES = os.path.join(ROOT, "data/incoming/claude/overture/phone_places.csv")
+
+
+def phone_addresses(path=None):
+    out = {}
+    try:
+        with open(path or PHONE_PLACES, encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                if r.get("key") and r.get("postcode"):
+                    out[r["key"]] = r
+    except OSError:
+        pass
+    return out
+
+
+def phone_cell(o):
+    """the buyer-address cell of a row whose address is that of the place listing the organisation's telephone number"""
+    pc = re.sub(r"[^A-Z0-9]", "", (o.get("postcode") or "").upper())
+    prov, said = (o.get("province") or "").strip(), ""
+    if not prov and _PROV_OF_FIRST.get(pc[:1]):
+        prov, said = _PROV_OF_FIRST[pc[:1]], "; the province is the postal code's (its first letter)"
+    first = [x_ for x_ in ((o.get("street") or "").strip(), (o.get("city") or "").strip()) if x_]
+    head = ", ".join(first + [("%s %s %s" % (prov, pc[:3], pc[3:])).strip()])
+    ph = o.get("phone") or ""
+    why = "it lists the organisation's own website" if o.get("how") == "website" else "it bears the organisation's name"
+    return ("%s (%s, %s-%s-%s: “%s”, place %s; %s; Overture Maps Foundation open data, release %s — a public places dataset, not the organisation's own "
+            "pages%s)" % (head, PHONE_MARK, ph[:3], ph[3:6], ph[6:], (o.get("names") or "")[:80], o.get("place_id") or "", why, o.get("release") or "", said))
+
+
 _KP = None
 
 
@@ -464,7 +496,9 @@ def row_cells(b, x):
             fsa = "city %s, %s of whose postal codes lie in this distributor's territory (GeoNames postal codes by place)" % (_bc[1], ("all" if _bc[3] >= 0.9995 else "%.1f %%" % (100 * _bc[3])))
     src = lambda k: (" (read %s)" % b["read"]) if b.get(k) else ""
     own = ("the address a public places dataset lists for the organisation's website (Overture Maps; nothing on its own pages located it)"
-           if DIRECTORY_MARK in (x.get("buyer_address") or "") else "the organisation's own address")
+           if DIRECTORY_MARK in (x.get("buyer_address") or "") else
+           "the address of the place a public places dataset lists for the organisation's own telephone number (Overture Maps; nothing on its own pages located it)"
+           if PHONE_MARK in (x.get("buyer_address") or "") else "the organisation's own address")
     out = {"relationship_kind": "electricity account, by where the organisation is (the distributor is certain for the address; the account holder is not published)",
            "relationship_fact_basis": ("by where it is: %s (%s) lies in the exclusive territory of %s — %s. A fact about the address; whether the "
                                        "organisation or its landlord holds the account is not published%s" % (own, fsa, b["name"], b["territory"], shared_sentence(int(x.get("_pc_orgs") or 0)))),

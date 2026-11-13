@@ -1,0 +1,39 @@
+name: phone-places
+# Where an organisation is, by its telephone number (tools/phone_places.py): the unlocated organisations with a confirmed role mailbox that print a
+# Canadian telephone number, against the Overture Maps places in Canada that list that number. Kept only when the place bears the organisation's
+# name or lists its website, and the places of that name print one postal code. The rank build uses the address last, after the organisation's own
+# pages, a registry, the city it names and the address listed for its website, and says on the row where it comes from.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 10 * * 0"   # weekly, after the address re-read (addr-reread.yml, Sundays 09:41)
+permissions:
+  contents: write
+concurrency:
+  group: phone-places
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Targets, the Overture places that list their numbers, the ones kept (computed once; main merged in on a refused push)
+        run: |
+          pip install -q duckdb
+          python3 tools/phone_places.py targets | tee /tmp/p.txt
+          python3 tools/phone_places.py query | tee -a /tmp/p.txt
+          python3 tools/phone_places.py pick | tee -a /tmp/p.txt
+          git config user.name "phone-places"; git config user.email "phone-places@users.noreply.github.com"
+          git add data/incoming/claude/overture/phone_places.csv
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -q -m "phone-places: $(tail -1 /tmp/p.txt | cut -c1-150) [skip ci]"
+          for i in $(seq 1 20); do
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 10 + 3))
+            git fetch -q origin main
+            git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; true; }
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed"; exit 1; }
+          cat /tmp/p.txt >> "$GITHUB_STEP_SUMMARY"

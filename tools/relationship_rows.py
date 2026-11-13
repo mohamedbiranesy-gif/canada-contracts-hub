@@ -726,6 +726,8 @@ def owner_test(x):
         said.append("by where the organisation is: the biller is certain for the address, the account holder is not published")
         if "the address an Overture Maps place lists for its website" in (x.get("buyer_address") or ""):  # tools/by_location.py: DIRECTORY_MARK
             said.append("the organisation's address is the one a public places dataset (Overture Maps) lists for its website, not read on its own pages")
+        elif "the address of the Overture Maps place that lists its telephone number" in (x.get("buyer_address") or ""):  # tools/by_location.py: PHONE_MARK
+            said.append("the organisation's address is that of the place a public places dataset (Overture Maps) lists for its own telephone number, not read on its own pages")
         if n_shared:
             said.append("a shared address: %d organisations print this postal code" % n_shared)
     if route == "kind":
