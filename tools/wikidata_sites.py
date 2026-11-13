@@ -39,13 +39,17 @@ def host(u):
     return h[4:] if h.startswith("www.") else h
 
 
-def pull(d):
+def pull(d, only=None):
     os.makedirs(d, exist_ok=True)
     for q, cc in QC.items():
+        if only and cc not in only:
+            continue
         for part in PARTS:
             w = "?item wdt:P1448 ?name ." if part == "P1448" else "?item rdfs:label ?name . FILTER(LANG(?name) = \"%s\")" % part
             query = PREFIX + "SELECT ?item ?site ?name WHERE { ?item wdt:P856 ?site ; wdt:P17 wd:%s . %s }" % (q, w)
             out = os.path.join(d, "p_%s_%s.tsv" % (q, part))
+            if os.path.exists(out) and os.path.getsize(out) > 100 and time.time() - os.path.getmtime(out) < 7 * 86400:
+                continue  # pulled this week
             for attempt in range(4):
                 req = urllib.request.Request(ENDPOINT, data=urllib.parse.urlencode({"query": query}).encode(),
                                              headers={"User-Agent": UA, "Accept": "text/tab-separated-values"})
@@ -64,6 +68,31 @@ def pull(d):
                 print("%s %s: %d lines" % (cc, part, b.count(b"\n")), flush=True)
                 break
             time.sleep(12)
+
+
+def build_index(d, only=None):
+    """{(country, nkey_x(name)): {host: (item, name)}} from the parts in d (pulled first when missing), for the countries asked (ISO codes)"""
+    pull(d, only)
+    idx = collections.defaultdict(dict)
+    for p in glob.glob(os.path.join(d, "p_*.tsv")):
+        cc = QC.get(os.path.basename(p).split("_")[1])
+        if not cc or (only and cc not in only):
+            continue
+        with open(p, encoding="utf-8", errors="replace") as f:
+            next(f, None)
+            for l in f:
+                t = l.rstrip("\n").split("\t")
+                if len(t) < 3:
+                    continue
+                item = t[0].strip("<>").rsplit("/", 1)[-1]
+                h = host(t[1])
+                nm = re.sub(r'^"(.*)"(?:@[a-z-]+)?$', r"\1", t[2])
+                if not h or "." not in h or HR.BAD.search(h) or not item.startswith("Q"):
+                    continue
+                k = TM.nkey_x(nm)
+                if k and len(k.split()) + len(k) >= 7:
+                    idx[(cc, k)].setdefault(h, (item, nm))
+    return idx
 
 
 def main():

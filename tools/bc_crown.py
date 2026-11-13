@@ -673,6 +673,47 @@ def sites_on_file():
     return out
 
 
+def wd_pass(cos, have, w, f, threads):
+    import tm_register as TM
+    import wikidata_sites as WDS
+    from concurrent.futures import ThreadPoolExecutor
+    todo = [o for o in cos if o["key"] not in have]
+    if not todo:
+        return 0
+    idx = WDS.build_index(os.path.join(os.environ.get("RUNNER_TEMP") or "/tmp", "wikidata_parts"), only={"CA", "US"})  # 18 queries, 12 s apart
+    used = {urllib.parse.urlparse(s_["site"]).hostname for s_ in have.values() if s_.get("site")}
+    cands = []
+    for o in todo:
+        k = TM.nkey_x(o["name"])
+        ccs = ["CA"] if o["lane"] != "pmra" else ["CA", "US"]
+        hits = {}
+        for cc in ccs:
+            hits.update({h: (it, nm, cc) for h, (it, nm) in (idx.get((cc, k)) or {}).items()})
+        if len(hits) == 1:
+            h, (it, nm, cc) = next(iter(hits.items()))
+            if h not in used and "www." + h not in used:
+                cands.append((o, h, it, nm, cc))
+    lock, n = threading.Lock(), [0]
+
+    def one(c):
+        o, h, it, nm, cc = c
+        core_ = HR.core(o["name"])
+        try:
+            said = HR.home_says(h, core_)
+        except Exception:
+            said = ""
+        if said:
+            with lock:
+                w.writerow({"key": o["key"], "site": "https://%s/" % h, "read": TODAY, "quote": said,
+                            "tied_by": "Wikidata gives %s as the official website of the organisation of that very name (%s, https://www.wikidata.org/wiki/%s; %s), and the site's own home page carries it: “%s”"
+                                       % (h, nm, it, cc, said)})
+                f.flush(); have[o["key"]] = {"site": "https://%s/" % h}; n[0] += 1
+    with ThreadPoolExecutor(max(4, threads)) as ex:
+        list(ex.map(one, cands))
+    print("wikidata pass: %d holders with one candidate, %d sites tied" % (len(cands), n[0]), flush=True)
+    return n[0]
+
+
 def cmd_sites(a):
     import queue
     os.makedirs(DIR, exist_ok=True)
@@ -688,6 +729,13 @@ def cmd_sites(a):
         w.writerow(r); have[k] = r; n_file += 1
     f.flush()
     HR.addr_pass([o for o in cos if o.get("postal_code")], have, w, f, a.addr_minutes, a.threads, ovt_addr=OVT_ADDR, adone=ADONE)
+    # 2026-11-13: Wikidata's official website (P856) of an item of the holder's very name in Canada (or, for a pesticide registrant, in the country the
+    # site tests know), kept when the site's own home page carries the name — before the autocomplete
+    try:
+        n_wd = wd_pass(cos, have, w, f, a.threads)
+    except Exception as e:
+        n_wd = 0
+        print("wikidata pass: %s" % str(e)[:160], flush=True)
     done = set()
     if os.path.exists(SDONE):
         done = {l.split("\t")[0] for l in open(SDONE, encoding="utf-8")}
