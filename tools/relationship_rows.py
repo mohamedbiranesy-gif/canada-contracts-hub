@@ -240,12 +240,25 @@ _BANK_REFUSED = re.compile(r"(?:not able to|unable to|cannot|can[’']t|do not|d
 _bank_ok = lambda v: bool(_BANK.search(_BANK_REFUSED.sub(" ", v or "")))
 
 
+_SHOP_ORDER = re.compile(r"\b(?:your order|online (?:shop|store)|check-?out|shopping cart|\bcart\b|retail (?:customers?|purchases?)|gift cards?|boutique en ligne|votre commande|"
+                         r"paiement de la commande|panier|passerelle s[ée]curis[ée]e|apple pay|google pay|refund|rembourse)", re.I)
+
+
+_B2B = re.compile(r"\b(?:wholesale|dealers?|retailers?|resellers?|distributors?|onboarding|PAD\b|pre-?authori[sz]ed|net\s?\d{2}|credit application|trade account|"
+                  r"revendeurs?|d[ée]taillants?|grossistes?|concessionnaires?|marchands?)", re.I)
+
+
 def payment_route(x, kind):
     v = (x.get("bill_payment_method_as_published") or "").strip()
     if v and _NOT_HOW_PAID.search(v) and not re.search(r"we accept|nous acceptons|payment (?:methods|options) include|modes? de paiement accept|pay (?:your|the|an) invoice|payer (?:votre|la|une) facture|methods? of payments? (?:are|is) non-?refundable", v, re.I):
         v = ""  # the sentence read is a refund or a payout clause: how the bill is paid is not published
     b = " ".join((x.get(c) or "") for c in ("buyer_payment_method_preference", "payment_terms_as_published")).strip()
     d = (x.get("bill_delivery_as_published") or "").strip()
+    if kind == "dealership" and _SHOP_ORDER.search(v + " " + d) and not _B2B.search(v + " " + d):
+        # 2026-11-13 (21Z, the table of 20:32Z): a supplier's terms for orders in its online shop ("You may pay for your order using American Express, MasterCard,
+        # Visa or Paypal. No cash … checks …", "Une facture est envoyée par courriel dès que le paiement de la commande est effectué") are a retail customer's,
+        # not how the supplier bills its dealer: how the dealer is billed is not published, and the row says it by the kind
+        v, d = "", ""
     if d.startswith("no invoice is sent"):
         return "noinvoice", d[:300]
     if kind == "export sale":
@@ -711,6 +724,11 @@ def owner_test(x):
     est = estimate_missing_amount(x, kind)  # before the fields of the kind are counted: an estimate, labelled, fills "amount"
     if est:
         x["bill_amount_calculated"] = est
+    if kind == "dealership":
+        _sh = " ".join((x.get(c) or "") for c in ("bill_payment_method_as_published", "bill_delivery_as_published", "bill_due_terms_as_published"))
+        if _SHOP_ORDER.search(_sh) and not _B2B.search(_sh):
+            for c in ("bill_payment_method_as_published", "bill_delivery_as_published", "bill_due_terms_as_published"):
+                x[c] = ""  # a retail customer's terms of the supplier's online shop, not how it bills its dealer (see payment_route)
     route, basis = payment_route(x, kind)
     x["payment_route"], x["payment_route_basis"] = ROUTE_LABEL[route], basis
     x["vendor_tax_or_registration_number"] = tax_or_registration(x)
