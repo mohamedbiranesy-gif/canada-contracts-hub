@@ -33,7 +33,14 @@ LINK_KW = [(re.compile(r"(?<!manu)factur|invoice|payable|comptes?[-_ ]?(a|à)[-_
            (re.compile(r"financ|tr[ée]sor|treasur|comptab|accounting|paiement|payment", re.I), 5),
            (re.compile(r"terms[-_ ](?:and|&)[-_ ]conditions|conditions[-_ ]g[ée]n[ée]rales|modalit[ée]s|terms[-_ ]of|e-?procurement|ariba|coupa|portal|portail|"
                        r"bylaw|by-law|r[èe]glement|policy|policies|politique", re.I), 5),  # 2026-11-08: PO terms and conditions, purchasing bylaws and AP policies (PO rule, payment terms, cheque runs)
-           (re.compile(r"nous[-_ ]joindre|contact|coordonn|directory|bottin|annuaire|services", re.I), 2)]
+           (re.compile(r"nous[-_ ]joindre|contact|coordonn|directory|bottin|annuaire|services", re.I), 2),
+           # 2026-11-13: the legal notice a European site must publish (Impressum, mentions légales, aviso legal, note legali, colofon) prints the
+           # company's own mailbox; its contact page is "Kontakt", "contatti" (owners abroad of the IP and Health Canada lanes)
+           (re.compile(r"kontakt|impressum|imprint|mentions[-_ ]?l[ée]gales|aviso[-_ ]?legal|note[-_ ]?legali|contatti|colofon|legal[-_ ]?notice|yhteystiedot", re.I), 3)]
+EU_PATHS = {"de": ("impressum", "kontakt"), "at": ("impressum", "kontakt"), "ch": ("impressum", "kontakt"), "li": ("impressum", "kontakt"),
+            "fr": ("mentions-legales", "contact"), "be": ("contact", "mentions-legales"), "lu": ("contact", "mentions-legales"),
+            "it": ("contatti", "note-legali"), "es": ("contacto", "aviso-legal"), "nl": ("contact", "colofon"), "dk": ("kontakt",), "se": ("kontakt",),
+            "no": ("kontakt",), "fi": ("yhteystiedot", "contact"), "pl": ("kontakt",), "cz": ("kontakt",), "pt": ("contactos", "contacto")}
 SKIP_EXT = re.compile(r"\.(jpe?g|png|gif|svg|webp|ico|mp4|mov|mp3|zip|doc|xls|pptx?|ics|css|js|xml|rss)(\?|$)", re.I)
 OFFICE = re.compile(r"\.(docx|xlsx)(\?|$)", re.I)
 EMAIL_RX = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")
@@ -66,7 +73,10 @@ _PLACE = (r"canada|ca|qc|on|bc|ab|mb|sk|ns|nb|nl|pei|mtl|montreal|toronto|ottawa
           r"sherbrooke|kelowna|london|hamilton|kitchener|waterloo|mississauga|brampton|surrey|burnaby|moncton|fredericton|stjohns|charlottetown|sudbury|barrie|kingston|windsor|"
           r"oshawa|guelph|niagara|trois-?rivieres|saguenay|levis|longueuil|rimouski|drummondville|granby|whitehorse|yellowknife")
 GENERAL = re.compile(r"^(?:(?:info|contact|contactus|reception|admin|administration|general|greffe|mairie|municipalite|townhall|cityhall|clerk|office|bureau|secretariat|accueil|hello|inquiries|"
-                     r"enquiries|renseignements|information|informations|infos)(?:[._-]|$)|(?:info|contact|office|bureau)(?:%s)$)" % _PLACE, re.I)
+                     r"enquiries|renseignements|information|informations|infos|"
+                     # 2026-11-13: the general mailbox of a European company's legal notice (kontakt@, mail@, post@, verwaltung@, segreteria@ …)
+                     r"kontakt|kontor|sekretariat|verwaltung|buero|hallo|segreteria|amministrazione|secretaria|administracion|recepcion|mail|post|posta|correo)(?:[._-]|$)|"
+                     r"(?:info|contact|office|bureau)(?:%s)$)" % _PLACE, re.I)
 TODAY = datetime.date.today().isoformat()
 
 host_lock, host_next, robots = threading.Lock(), {}, {}
@@ -703,6 +713,9 @@ def crawl(task, max_pages, general=False):
     heap, seen, pages, found = [(-100, 0, start), (-90, 0, origin + "/")], set(), 0, {}
     for i, path in enumerate(("contact", "contact-us", "nous-joindre", "suppliers", "fournisseurs")):  # common pages, often unlinked from home
         heap.append((-60 + i, 1, "%s/%s" % (origin, path)))
+    _tld = base.rsplit(".", 1)[-1]
+    for i, path in enumerate(EU_PATHS.get(_tld, ())):  # 2026-11-13: the legal notice and contact page a European site has, under their usual names
+        heap.append((-58 + i, 1, "%s/%s" % (origin, path)))
     for i, path in enumerate(task.get("_extra_paths") or ()):  # pages a caller knows this kind of site has (a Shopify store's /policies/contact-information)
         heap.append((-95 + i, 1, "%s/%s" % (origin, path.lstrip("/"))))
     if task.get("_only_paths"):  # a second look at a site already read: these pages and nothing else (depth 9: their links are not followed)

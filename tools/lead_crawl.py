@@ -393,6 +393,9 @@ def leads_mode(a, k, n):
                 reread.add(q[0])
             elif q and q[0]:
                 done.add(q[0])
+        # 2026-11-13 (rule "r4"): the reader now reads a European site's legal notice and contact page (Impressum, Kontakt, mentions légales …) and
+        # knows their general mailboxes (kontakt@, mail@, post@ …): a site under a European country's name that gave "nothing_found" is read once more
+        noth_r4 = {q[0] for q in latest.values() if q and q[0] and len(q) > 2 and q[2] == "nothing_found" and "r3" in q[5:] and "r4" not in q[5:]}
     # 2026-11-10: the leads found from the owner's Mac (claude_buyer_leads.csv) can be read here too: 33,600 of them have a website and no
     # mailbox row yet, and the Mac's own crawler is off. A lead that already has a mailbox row in any lane's results file is not read again.
     # … and a lead whose website domain already carries a mailbox row under another key (the same organisation delivered through a contract, a
@@ -436,7 +439,8 @@ def leads_mode(a, k, n):
         fi = min(fi, 2)
         for r in (csv.DictReader(gzip.open(path, "rt", encoding="utf-8", newline="")) if path.endswith(".gz") else LS.reader(path)):
             h = host_of(r.get("website") or sites.get(r["buyer_key"]))
-            if not h or "." not in h or r["buyer_key"] in done or h in hosts or not shard_ok(h, k, n):
+            _r4 = r["buyer_key"] in noth_r4 and bool(h) and h.rsplit(".", 1)[-1] in C.EU_PATHS
+            if not h or "." not in h or (r["buyer_key"] in done and not _r4) or h in hosts or not shard_ok(h, k, n):
                 continue
             if (r["buyer_key"] in known or C.registrable(h) in known_dom) and not r["buyer_key"].startswith("b:"):
                 # (2026-11-12: a buyer under contract, "b:…", listed by the ranker because no mailbox of its OWN is on file — the lanes' mailbox
@@ -451,7 +455,7 @@ def leads_mode(a, k, n):
             hb = h[4:] if h.startswith("www.") else h
             tasks.append({"task_id": "CC-" + r["buyer_key"].split(":")[-1][:10], "buyer_key": r["buyer_key"], "buyer_name": r.get("buyer_name") or h,
                           "known_website": _CSV.site_url(hb, via) if (via.get(hb) and h == hb) else "https://%s/" % h,
-                          "_n": nv, "_f": fi, "_em": 0 if (hints.get(hb) or ("", ""))[0] else 1, "_rr": int(r["buyer_key"] in reread),
+                          "_n": nv, "_f": fi, "_em": 0 if (hints.get(hb) or ("", ""))[0] else 1, "_rr": int(r["buyer_key"] in reread or _r4),
                           "_ln": 1 if "(tech)" in (r.get("canada_field_value") or "") else 0})
     # registry candidates (2026-11-10, tier R of rank.py): a .ca site whose home page prints a role mailbox of its own and that no lead names yet.
     # Its relationship is the registration of its .ca domain name (agreement with the Canadian Internet Registration Authority, paid for through a
@@ -632,14 +636,14 @@ def leads_mode(a, k, n):
             if t.get("_rr"):
                 stats["read_once_more"] = stats.get("read_once_more", 0) + 1
                 stats["read_once_more_with_mailbox"] = stats.get("read_once_more_with_mailbox", 0) + bool(rows)
-            fd.write("%s\t%s\t%s\t%d\t%d\tr2\tr3%s\n" % (t["buyer_key"], TODAY, result, pages, len(rows), ("\tmoved=" + host_of(st["moved"])) if st.get("moved") else ""))
+            fd.write("%s\t%s\t%s\t%d\t%d\tr2\tr3\tr4%s\n" % (t["buyer_key"], TODAY, result, pages, len(rows), ("\tmoved=" + host_of(st["moved"])) if st.get("moved") else ""))
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), stats, flush=True)
 
     def on_timeout(t):
         with lock:
-            fd.write("%s\t%s\ttimeout\t0\t0\tr2\tr3\n" % (t["buyer_key"], TODAY))
+            fd.write("%s\t%s\ttimeout\t0\t0\tr2\tr3\tr4\n" % (t["buyer_key"], TODAY))
             stats["errors"] += 1
     left = run_pool(tasks, one, a, deadline, on_timeout)
     with lock:
