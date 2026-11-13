@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-13 17:26 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-13 17:43 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-13)
 | metric | value |
@@ -81,9 +81,9 @@
 | claude | claude_buyer_ap_results_xverify03.csv | 17 | 17 | 0 | 0 | 0 |
 | claude | claude_buyer_leads.csv | 70990 | 0 | 0 | 0 | 70990 |
 | claude | claude_buyer_leads_cc.csv | 274385 | 0 | 0 | 0 | 274385 |
-| claude | claude_charity_buyers.csv | 10023 | 0 | 0 | 0 | 10023 |
+| claude | claude_charity_buyers.csv | 10998 | 0 | 0 | 0 | 10998 |
 | claude | claude_crown_bn.csv | 4 | 0 | 0 | 0 | 4 |
-| claude | claude_gc_recipients.csv | 10923 | 0 | 0 | 0 | 10923 |
+| claude | claude_gc_recipients.csv | 13050 | 0 | 0 | 0 | 13050 |
 | claude | claude_inferred_vendor_facts.csv | 3 | 0 | 0 | 0 | 3 |
 | claude | claude_lead_websites.csv | 64 | 0 | 0 | 0 | 64 |
 | claude | claude_member_hosts.csv | 22 | 0 | 0 | 0 | 22 |
@@ -91,7 +91,7 @@
 | claude | claude_municipal_directory.csv | 1725 | 0 | 0 | 0 | 1725 |
 | claude | claude_org_directories.csv | 6277 | 0 | 0 | 0 | 6277 |
 | claude | claude_peppol_participants.csv | 77 | 0 | 0 | 0 | 77 |
-| claude | claude_registry_bulk.csv | 45308 | 38430 | 2605 | 0 | 4273 |
+| claude | claude_registry_bulk.csv | 56692 | 47630 | 3330 | 0 | 5732 |
 | claude | claude_registry_lookup.csv | 126636 | 46302 | 70029 | 0 | 10305 |
 | claude | claude_site_owner_wd.csv | 8326 | 0 | 0 | 0 | 8326 |
 | claude | claude_vendor_names_read.csv | 6 | 0 | 0 | 0 | 6 |
