@@ -90,6 +90,7 @@ def use_pt_files():
     # 2026-11-13: the patent owners' own Overture candidates (under their name; at their address) — the trademark owners' file has other keys
     T.OVT_SITES, T.OVT_ADDR = os.path.join(DIR, "pt_overture_sites.csv"), os.path.join(DIR, "pt_overture_addr_sites.csv")
     T.OVT_ADDR_CA = os.path.join(DIR, "pt_overture_addr_ca_sites.csv")
+    T.ROR_SITES = os.path.join(DIR, "pt_ror_sites.csv")  # 2026-11-13: tools/ror_sites.py
     os.makedirs(DIR, exist_ok=True)
 
 
@@ -293,6 +294,7 @@ def main():
     ap.add_argument("--clearbit", action="store_true")
     ap.add_argument("--release", default="")
     ap.add_argument("--legal", action="store_true")
+    ap.add_argument("--ror", action="store_true")
     a = ap.parse_args()
     use_pt_files()
     if a.cmd == "build":

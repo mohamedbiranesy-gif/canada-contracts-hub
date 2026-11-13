@@ -552,6 +552,8 @@ def sites(a):
     os.makedirs("out", exist_ok=True)
     tied = {r["owner_key"] for r in csv.DictReader(open(MATCHES, encoding="utf-8", newline=""))} if os.path.exists(MATCHES) else set()
     done, done_ovt, done_cb, done_legal, marks_of = set(), set(), set(), set(), {}
+    done_ror = set()
+    use_ror = bool(getattr(a, "ror", False))
     # 2026-11-13: with --overture --legal, the owners whose listed sites were read before are read again — only the listed sites — with the
     # legal-page test added (the site's own terms / privacy / legal notice printing the owner's full legal name with its legal form)
     use_legal = bool(getattr(a, "legal", False)) and bool(getattr(a, "overture", False))
@@ -568,6 +570,8 @@ def sites(a):
                     done_cb.add(q[0])
                 if "legal" in mk:
                     done_legal.add(q[0])
+                if "ror" in mk:
+                    done_ror.add(q[0])
     # 2026-11-12: with --clearbit (owners abroad), the domains the company-name autocomplete gives under the owner's very name are read too —
     # also for an owner looked for before under domain names made of its name. A domain is kept by the same tests as any other: the register's
     # postal code printed in an address on the site under the same name, or the legal person stated with its legal form on a site of the owner's
@@ -590,6 +594,10 @@ def sites(a):
             if os.path.exists(p_):
                 for r in csv.DictReader(open(p_, encoding="utf-8", newline="")):
                     ovt[r["owner_key"]].append(r)
+    if use_ror and os.path.exists(ROR_SITES):
+        for r in csv.DictReader(open(ROR_SITES, encoding="utf-8", newline="")):
+            r["source"] = "ror"
+            ovt[r["owner_key"]].append(r)
     use_ovt = bool(ovt)
     for path, here in ((OWN_CA, True), (OWN_XX, False)):  # "one owner of that name on the register" counts both files
         with gzip.open(path, "rt", encoding="utf-8", newline="") as f:
@@ -600,7 +608,7 @@ def sites(a):
                 by_name_x[nkey_x(r["owner_name"])] += 1
                 if r["owner_key"] in tied or int(hashlib.sha1(r["owner_key"].encode()).hexdigest(), 16) % n != k:
                     continue
-                if (r["owner_key"] in done_legal) if use_legal else (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done_cb) if use_cb else (r["owner_key"] in done):
+                if (r["owner_key"] in done_legal) if use_legal else (r["owner_key"] in done_ror) if use_ror else (r["owner_key"] in done_ovt) if use_ovt else (r["owner_key"] in done_cb) if use_cb else (r["owner_key"] in done):
                     continue
                 if use_ovt and r["owner_key"] not in ovt:
                     continue
@@ -719,7 +727,12 @@ def sites(a):
                     how = "the same name (%s), on a domain name that is the owner's name written out; a site in the owner's state (%s, %s); one owner of that name on the register" % (
                         "site name" if kf(names.get("site name") or "") == ok_ else "its own statement", o["_state"], ABROAD[cc][0])
                 _l = listed.get(h)
-                if not how and _l and sn and (sn.startswith("the same name") or _l["how"].startswith("the owner's own ")) and len(ok_.split()) + len(ok_) >= 7:
+                if not how and _l and _l.get("source") == "ror" and sn.startswith("the same name") and (state_ok or code_ok) and len(ok_.split()) + len(ok_) >= 7:
+                    # 2026-11-13: two sources agree — the Research Organization Registry lists THIS website for the organisation of the owner's very
+                    # name in its country, and the site's own pages state that name with an address of the owner's state (or country)
+                    how = "the same name (%s) and an address of the owner's %s (%s) on the site; the Research Organization Registry lists this website for the organisation of that name in %s (%s)" % (
+                        sn.split("(", 1)[1].split(")")[0], "state" if o["_state"] else "country", o["_state"] or ABROAD[cc][0], ABROAD[cc][0], _l["place_id"])
+                if not how and _l and _l.get("source") != "ror" and sn and (sn.startswith("the same name") or _l["how"].startswith("the owner's own ")) and len(ok_.split()) + len(ok_) >= 7:
                     # 2026-11-12: two sources agree — an Overture Maps place lists THIS website under the owner's name at the register's postal
                     # code (or in its state, and the site prints an address of that state), and the site's own pages state that name
                     if _l["how"].startswith("the same name at the same"):
@@ -743,7 +756,10 @@ def sites(a):
                     # runs it, and the place's listing is the second fact (a subsidiary on its group's site: "Zoetis Services LLC" on zoetis.com)
                     _lu, _lq, _ln = legal_name_page(raw, final, fdom, o["owner_name"], cache)
                     n_read += _ln
-                    if _lu:
+                    if _lu and _l.get("source") == "ror":
+                        how = "the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); the Research Organization Registry lists this website for the organisation of that name (%s)" % (
+                            _lu, _lq, _l["place_id"])
+                    elif _lu:
                         how = "the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); an Overture Maps place %s lists this website (place %s)" % (
                             _lu, _lq, "at the owner's own %s on the register" % _l["how"][len("the owner's own "):].partition(" (")[0]
                             if _l["how"].startswith("the owner's own ") else "under the owner's name", _l["place_id"])
@@ -756,7 +772,9 @@ def sites(a):
                 else:
                     _lst = listed.get(h)
                     hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["_code"], "tied_by": how,
-                           "site_facts_from": ("its own pages (%s), found as the website an Overture Maps place lists %s (“%s”, %s; %s, release %s)" % (
+                           "site_facts_from": ("its own pages (%s), found as the website the Research Organization Registry lists for the owner's name in its country (“%s”, %s; ROR data %s)" % (
+                               where, _lst["place_name"], _lst["place_id"], _lst["release"]) if _lst and _lst.get("source") == "ror" else
+                                               "its own pages (%s), found as the website an Overture Maps place lists %s (“%s”, %s; %s, release %s)" % (
                                where, "at the owner's own address" if _lst["how"].startswith("the owner's own ") else "for the owner's name",
                                _lst["place_name"], _lst["place_postcode"], _lst["how"], _lst["release"]) if _lst else
                                                "its own pages (%s), found as the domain the company-name autocomplete (Clearbit) gives under the owner's very name" % where
@@ -794,14 +812,21 @@ def sites(a):
                 # One owner of that name on the register.
                 how = "the same name (%s), on a domain name that is the owner's name written out; a site in Canada (%s); one owner of that name on the register" % (
                     "site name" if nkey(names.get("site name") or "") == ok_ else "its own statement", ("it prints the postal code %s, the register has %s" % (pc, o["postal_code"])) if pc else "a .ca name, no postal code on the pages read")
+            if (not how and listed.get(h) and listed[h].get("source") == "ror" and pc and len(ok_.split()) + len(ok_) >= 7
+                    and same_name(ok_, names, "M5V2T6").startswith("the same name")):
+                # 2026-11-13: two sources agree — the Research Organization Registry lists THIS website for the organisation of the owner's very
+                # name in Canada, and the site's own pages state that name with a Canadian postal code
+                how = "the same name (%s) and a Canadian postal code on the site (%s; the register has %s); the Research Organization Registry lists this website for the organisation of that name in Canada (%s)" % (
+                    same_name(ok_, names, "M5V2T6").split("(", 1)[1].split(")")[0], pc, o["postal_code"], listed[h]["place_id"])
             if not how and listed.get(h):
                 # 2026-11-13: a site an Overture Maps place at the owner's own postal code lists, whose own terms / privacy / legal page prints
                 # the owner's full legal name with its legal form
                 _lu, _lq, _ln = legal_name_page(raw, final, fdom, o["owner_name"], cache)
                 n_read += _ln
                 if _lu:
-                    how = "the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); an Overture Maps place at the owner's own postal code on the register lists this website (place %s)" % (
-                        _lu, _lq, listed[h]["place_id"])
+                    how = "the owner's full legal name with its legal form on the site's own legal page (%s: “%s”); %s (%s)" % (
+                        _lu, _lq, "the Research Organization Registry lists this website for the organisation of that name" if listed[h].get("source") == "ror"
+                        else "an Overture Maps place at the owner's own postal code on the register lists this website (place", listed[h]["place_id"]) + ("" if listed[h].get("source") == "ror" else ")")
                     where = _lu
             if not how:
                 # what stood between this site and a tie (counted, for the rule's next look)
@@ -812,7 +837,9 @@ def sites(a):
                         notes.append((o["owner_name"], o["postal_code"], fdom, pc, "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:90]))
             if how:
                 hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["postal_code"], "tied_by": how,
-                       "site_facts_from": ("its own pages (%s), found as the website an Overture Maps place lists at the owner's own address (“%s”, %s; release %s)" % (
+                       "site_facts_from": ("its own pages (%s), found as the website the Research Organization Registry lists for the owner's name in Canada (“%s”, %s; ROR data %s)" % (
+                           where, listed[h]["place_name"], listed[h]["place_id"], listed[h]["release"]) if listed.get(h) and listed[h].get("source") == "ror" else
+                                           "its own pages (%s), found as the website an Overture Maps place lists at the owner's own address (“%s”, %s; release %s)" % (
                            where, listed[h]["place_name"], listed[h]["place_postcode"], listed[h]["release"]) if listed.get(h) else
                                            "its own pages (%s), found under a domain name made of the owner's name or mark" % where),
                        "site_states": "; ".join("%s: %s" % kv for kv in names.items() if kv[1])[:200], "read": TODAY}
@@ -825,7 +852,8 @@ def sites(a):
             if hit:
                 w.writerow(hit)
                 stats[hit["tied_by"].split(" (")[0]] += 1
-            mk = set(marks_of.get(o["owner_key"], set())) | ({"overture"} if listed else set()) | ({"clearbit"} if use_cb else set()) | ({"legal"} if use_legal and listed else set())
+            mk = (set(marks_of.get(o["owner_key"], set())) | ({"overture"} if any(v.get("source") != "ror" for v in listed.values()) else set())
+                  | ({"ror"} if any(v.get("source") == "ror" for v in listed.values()) else set()) | ({"clearbit"} if use_cb else set()) | ({"legal"} if use_legal and listed else set()))
             fd.write("%s\t%s\t%d\t%d\t%s%s\n" % (o["owner_key"], TODAY, len(cands), len(live), hit["site"] if hit else "", ("\t" + ",".join(sorted(mk))) if mk else ""))
             stats["autocomplete domains read"] += len(cbs)
             stats["owners with a listed website"] += bool(listed)
@@ -1044,6 +1072,10 @@ OVT_SITES = os.path.join(DIR, "tm_overture_sites.csv")
 # (tools/overture_names.py addr) — read like the name candidates; a site counts only when its own pages state the owner's name
 OVT_ADDR = os.path.join(DIR, "tm_overture_addr_sites.csv")
 OVT_ADDR_CA = os.path.join(DIR, "tm_overture_addr_ca_sites.csv")  # 2026-11-13: owners in Canada, places at the register's full postal code
+# 2026-11-13: the website the Research Organization Registry (ROR, open data, CC0) lists for an organisation of the owner's very name in its country
+# (tools/ror_sites.py) — read like the Overture candidates; a site counts only when its own pages state the owner's name (with an address of the
+# owner's state or country, or a Canadian postal code for an owner in Canada), or print its full legal name on the site's own legal page
+ROR_SITES = os.path.join(DIR, "tm_ror_sites.csv")
 OVT_BUCKET = "https://overturemaps-us-west-2.s3.amazonaws.com"
 _SQL_FORMS = (r"\b(inc|incorporated|incorporee|ltd|ltee|limited|limitee|corp|corporation|co|company|compagnie|cie|llc|llp|lp|sencrl|senc|srl|enr|reg|regd|ulc|plc|"
               r"gmbh|sa|sas|ag|bv|nv|pty|the|la|le|les|l)\b")  # FORM, as RE2 reads it (DuckDB string literals keep the backslash)
@@ -1136,6 +1168,7 @@ def main():
     ap.add_argument("--overture", action="store_true", help="sites --abroad: the owners for whom an Overture Maps place lists a website (tm_overture_sites.csv), that site read first")
     ap.add_argument("--legal", action="store_true", help="sites --abroad --overture: read again the listed sites of owners read before, with the legal-page test (mark 'legal')")
     ap.add_argument("--clearbit", action="store_true", help="sites --abroad: also the domains the company-name autocomplete gives under the owner's very name (owners looked for before included)")
+    ap.add_argument("--ror", action="store_true", help="sites: only the owners for whom the Research Organization Registry lists a website under their name in their country (tm_ror_sites.csv), that site read first")
     a = ap.parse_args()
     {"build": build, "match": match, "leads": leads, "sites": sites, "merge-sites": merge_sites, "agent-sites": agent_sites, "overture-sites": overture_sites}[a.cmd](a)
 
