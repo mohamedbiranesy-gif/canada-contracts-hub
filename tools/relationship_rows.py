@@ -486,6 +486,16 @@ CIPO_TM_RENEWAL = ("estimated — at least $595.06 for each renewal of a registr
                    "$595.06, “For each additional class of goods or services to which the request for renewal relates” $185.49 — "
                    "https://ised-isde.canada.ca/site/canadian-intellectual-property-office/en/node/220, read 2026-11-12). The agent bills the office's fee "
                    "with its own fee for the work, which is not published; a registration is renewed every 10 years, other filings as the owner needs them")
+# 2026-11-13 (owner 13:23 EST: "go through every row populate as much as can be max"): a patent or an application is kept in effect by a fee paid
+# to the Office every year from its second anniversary; the agent of record who handles it pays the fee and bills the owner, with its own fee.
+# The Office's own 2026 list gives the fee for each band of anniversaries (small entity, standard). 3,962 patent rows had no amount.
+CIPO_PATENT_URL = "https://ised-isde.canada.ca/site/canadian-intellectual-property-office/en/node/39"
+CIPO_PATENT_MAINT = ("estimated — at least $60.26 for each yearly maintenance fee the agent pays to the Office and bills to the owner, for each of the %s "
+                     "(CIPO's 2026 fees, small entity / standard: “For the dates of each of the second, third and fourth anniversaries of the filing date of the "
+                     "application on the basis of which the patent was granted 60.26 134.02” … “For the dates of each of the 15th, 16th, 17th, 18th and 19th "
+                     "anniversaries of the filing date of the application on the basis of which the patent was granted 271.26 669.05” — " + CIPO_PATENT_URL +
+                     ", read 2026-11-13); each is billed on its own anniversary, and the agent's own fee for the work comes on top and is not published")
+_PAT_N = re.compile(r"(\d[\d,]*) with this agent of record")
 CHAMBER_DUES = None  # set by the ranker from the dues the chambers of commerce and boards of trade of this build publish: {"median", "n", "low", "high"}
 _CHAMBER = re.compile(r"chamber of commerce|board of trade|chambre de commerce|chambre de commerce et d.industrie|\bchamber\b|\bcc[a-z]?\b", re.I)
 
@@ -506,9 +516,16 @@ def estimate_missing_amount(x, kind):
                     "in the contract dataset%s; this contract's own value is not published" % (format(p50, ",.0f"), (n.group(0) + " ") if n else "", per))
     if kind == "agent of record" and re.search(r"trademark|marque", (x.get("contract_status") or "") + " " + (x.get("relationship_fact_basis") or ""), re.I):
         return CIPO_TM_RENEWAL
+    if kind == "agent of record" and re.search(r"patent agent|patent register", (x.get("contract_status") or "") + " " + (x.get("relationship_fact_basis") or ""), re.I):
+        m = _PAT_N.search(x.get("contract_title") or "")
+        n = int(m.group(1).replace(",", "")) if m else 0
+        return CIPO_PATENT_MAINT % (("%d patents and applications it handles for the owner" % n) if n > 1 else "patent or application it handles for the owner")
     if kind == "membership" and CHAMBER_DUES and CHAMBER_DUES.get("n", 0) >= 20:
         vn = re.sub(r"^[—–-]+\s*", "", (x.get("vendor_legal_name") or x.get("vendor") or ""))
-        if re.search(r"chamber of commerce|board of trade|chambre de commerce", vn, re.I):
+        # 2026-11-13: a chamber that calls itself so without "of commerce" ("North Vancouver Chamber", "Barrie Chamber", 1,500 rows) or that the
+        # lane names by its site ("business.gprchamber.ca"): the body's name or its own site's host says chamber
+        host = re.sub(r"^https?://", "", (x.get("vendor_website") or "").lower()).split("/")[0]
+        if re.search(r"chamber of commerce|board of trade|chambre de commerce|\bchamber\b", vn + " " + (x.get("vendor") or ""), re.I) or re.search(r"chamber|chambre|boardoftrade", host):
             return ("estimated — about $%s a year: the middle (median) of the lowest yearly dues that %d Canadian chambers of commerce and boards of trade "
                     "publish on their own pages (from $%s to $%s; this build's own readings of them); this body's own dues are not published, or not read yet"
                     % (format(CHAMBER_DUES["median"], ",.0f"), CHAMBER_DUES["n"], format(CHAMBER_DUES["low"], ",.0f"), format(CHAMBER_DUES["high"], ",.0f")))
