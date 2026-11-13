@@ -177,8 +177,18 @@ def main():
         print("uploaded %d assets to release %s" % (len(assets), a.tag), flush=True)
     # ---- what git keeps
     g = a.git_dir.rstrip("/")
+    # 2026-11-13: a build in parts writes no list of the buyers under contract without a mailbox / a site (a part would write a partial list):
+    # the lists of the last whole build are kept, else the mailbox reader loses its list until the next whole build
+    _keep_lists = {}
+    for _n in ("contract_buyers_without_mailbox.csv", "contract_buyers_without_website.csv"):
+        if not os.path.exists(os.path.join(src, _n)) and os.path.exists(os.path.join(g, _n)):
+            with open(os.path.join(g, _n), "rb") as _f:
+                _keep_lists[_n] = _f.read()
     shutil.rmtree(g, ignore_errors=True)
     os.makedirs(os.path.join(g, "batches_head"))
+    for _n, _b in _keep_lists.items():
+        with open(os.path.join(g, _n), "wb") as _f:
+            _f.write(_b)
     for p in sorted(glob.glob(os.path.join(src, "*.md")) + glob.glob(os.path.join(src, "*.json"))):
         shutil.copy(p, g)
     if os.path.exists(os.path.join(src, "contract_buyers_without_mailbox.csv")):  # the mailbox reader's list of buyers under contract to read (rank.py)
