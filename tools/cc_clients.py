@@ -327,8 +327,20 @@ def newest_crawl(want=""):
 
 
 def crawl_ids(spec):
-    """'auto' -> [newest]; 'last:N' -> the newest N crawls (older captures hold pages the newest crawl missed); otherwise the id given"""
+    """'auto' -> [newest]; 'last:N' -> the newest N crawls (older captures hold pages the newest crawl missed); 'older:K:N' -> the N crawls after
+    the newest K; 'id1,id2' -> those; otherwise the id given"""
     spec = (spec or "auto").strip()
+    if "," in spec:  # 2026-11-13: an explicit list of crawl ids
+        return [x.strip() for x in spec.split(",") if x.strip()]
+    if spec.startswith("older:"):  # 2026-11-13: older:K:N = N crawls after the newest K (the newest K read before)
+        try:
+            k_, n_ = (int(x) for x in spec.split(":")[1:3])
+            ids = [c["id"] for c in json.loads(http_get("https://index.commoncrawl.org/collinfo.json", tries=4))][k_:k_ + max(1, n_)]
+            if ids:
+                return ids
+        except Exception as e:
+            print("collinfo not reachable (%s): no older crawl read" % type(e).__name__, flush=True)
+        return []
     if spec.startswith("last:"):
         try:
             ids = [c["id"] for c in json.loads(http_get("https://index.commoncrawl.org/collinfo.json", tries=4))][:max(1, int(spec.split(":")[1]))]
