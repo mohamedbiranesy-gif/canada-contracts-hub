@@ -78,7 +78,19 @@ def nkey(s):
 
 # the legal forms of the European countries of ABROAD, for owners there ("SIEMENS AKTIENGESELLSCHAFT" is "Siemens AG" on its site and in a
 # places dataset): one more pass over a key nkey() made — the same pattern in Python and in DuckDB (RE2)
-EU_FORMS = (r"\b(aktiengesellschaft|gesellschaft mit beschrankter haftung|kommanditgesellschaft|kgaa|kg|se|spa|s p a|sarl|s a r l|sas|sasu|sl|s l|slu|"
+# 2026-11-13: and the legal forms written out, as the Office's register prints them for many owners in France, Italy, Spain, Portugal, Belgium,
+# the Netherlands, the Nordic countries and Poland ("01dB-Metravib, Société par actions simplifiée"): a key that kept them matched no place and no
+# site name — owners in France were tied to a site for 3 % of them, in Germany (short forms) for 33 %. Longer phrases first.
+EU_FORMS = (r"\b(societe par actions simplifiee unipersonnelle|societe par actions simplifiee|societe a responsabilite limitee unipersonnelle|"
+            r"societe a responsabilite limitee|entreprise unipersonnelle a responsabilite limitee|societe en commandite par actions|"
+            r"societe en commandite simple|societe en nom collectif|societe anonyme a directoire|societe anonyme|societe cooperative|"
+            r"societe d exercice liberal|societe civile|societa per azioni|societa a responsabilita limitata semplificata|"
+            r"societa a responsabilita limitata|societa in accomandita per azioni|societa cooperativa|sociedad anonima de capital variable|"
+            r"sociedad anonima|sociedad de responsabilidad limitada|sociedad limitada|sociedade anonima|sociedade limitada|"
+            r"besloten vennootschap met beperkte aansprakelijkheid|besloten vennootschap|naamloze vennootschap|"
+            r"aktiebolag|aktieselskab|anpartsselskab|allmennaksjeselskap|aksjeselskap|julkinen osakeyhtio|osakeyhtio|"
+            r"spolka z ograniczona odpowiedzialnoscia|spolka akcyjna|sp z o o|s a de c v|ltda|lda|s a s u|s a s|s c a|s n c|e u r l|"
+            r"aktiengesellschaft|gesellschaft mit beschrankter haftung|kommanditgesellschaft|kgaa|kg|se|spa|s p a|sarl|s a r l|sas|sasu|sl|s l|slu|"
             r"s r l|srls|scarl|sapa|snc|eurl|ab|publ|oy|oyj|as|a s|aps|bvba|sprl|nv|bv|b v|n v|gmbh|ag|sa|s a|cie|et cie|"
             r"kabushiki kaisha|k k|godo kaisha|yugen kaisha|asa|pvt|private limited|co ltd|company limited|corporation|limited|ltd|inc)\b")
 
