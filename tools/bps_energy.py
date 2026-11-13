@@ -204,7 +204,7 @@ def build(a):
             n["facilities left out: " + k] += v
         groups = {}
         for f, b in keep:
-            g = groups.setdefault(b["key"], {"distributor": b["name"], "n": 0, "kwh": 0.0, "month": 0.0, "n_small": 0, "n_large": 0, "small_rate": None, "city": "",
+            g = groups.setdefault(b["key"], {"distributor": b["name"], "n": 0, "kwh": 0.0, "month": 0.0, "n_small": 0, "n_small_hq": 0, "n_large": 0, "small_rate": None, "city": "",
                                              "pcs": [], "places": []})
             m = f["kwh"] / 12.0
             city = "Toronto" if b["key"] == "toronto_hydro" else "Ottawa" if b["key"] == "hydro_ottawa" else ""
@@ -216,7 +216,10 @@ def build(a):
             else:
                 p, _lv = price_large(m, cp)
                 bill = m * p / 100.0
-                g["n_large"] += 1
+                if m < SMALL:
+                    g["n_small_hq"] += 1  # a small facility of a distributor whose small-business rates are not in the Board's file as read: the small-power price
+                else:
+                    g["n_large"] += 1
             g["city"] = city or "Ottawa and Toronto"
             g["n"] += 1; g["kwh"] += f["kwh"]; g["month"] += bill
             if f["pc"] not in g["pcs"]:

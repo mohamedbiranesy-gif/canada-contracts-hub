@@ -2701,6 +2701,9 @@ def _bps_cells(x):
     if g_["n_small"] and g_.get("small_rate"):
         parts.append("the %d using under %s kWh a month at %s's own small-business rates in the Ontario Energy Board's file of current rates (fixed charges $%.2f + %.2f ¢ a kWh; %s)"
                      % (g_["n_small"], format(M["small_kwh"], ","), g_["distributor"], g_["small_rate"][0], g_["small_rate"][1], M["oeb_file"]))
+    if g_.get("n_small_hq"):
+        parts.append("the %d using under %s kWh a month at %s at its smallest business level (10,000 kWh a month; %s's own small-business rates are not in the "
+                     "Ontario Energy Board's file as read)" % (g_["n_small_hq"], format(M["small_kwh"], ","), cityw, g_["distributor"]))
     if g_["n_large"]:
         parts.append("the %d larger at %s at the consumption levels of its table on either side of each one's use "
                      "(%s; ¢ a kWh at 1,000 / 10,000 / 100,000 / 400,000 / 1,170,000 / 3,060,000 / 30,600,000 kWh a month, excluding taxes: %s; %s)" % (g_["n_large"], cityw, M["hq_title"], hq, M["hq_pdf"]))
