@@ -21,6 +21,9 @@ on:
       overture:
         description: "true (with abroad=true) = only the owners abroad for whom an Overture Maps place lists a website under their name (postal code / state) or at their own address (street number and ZIP code; UK postcode): that published site is read first (the candidate lists are made first, once per Overture release)"
         default: "false"
+      legal:
+        description: "true (with abroad=true and overture=true) = read again the listed sites of owners read before, with the legal-page test (the site's own terms / privacy / legal notice printing the owner's full legal name with its legal form)"
+        default: "false"
       clearbit:
         description: "true (with abroad=true) = also the domains the company-name autocomplete gives under the owner's very name, one request a second per runner (owners looked for before included); a domain is kept by the same tests (the register's postal code printed under the same name, or the legal person with its legal form in the owner's state)"
         default: "false"
@@ -93,7 +96,7 @@ jobs:
       - name: Look for each owner's own site under its own name
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))
-          python3 tools/pt_register.py sites --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --limit "$LIMIT" ${{ inputs.abroad == 'true' && '--abroad' || '' }} ${{ inputs.overture == 'true' && '--overture' || '' }} ${{ inputs.clearbit == 'true' && '--clearbit' || '' }}
+          python3 tools/pt_register.py sites --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers 40 --limit "$LIMIT" ${{ inputs.abroad == 'true' && '--abroad' || '' }} ${{ inputs.overture == 'true' && '--overture' || '' }} ${{ inputs.legal == 'true' && '--legal' || '' }} ${{ inputs.clearbit == 'true' && '--clearbit' || '' }}
       - uses: actions/upload-artifact@v4
         with: { name: "pts-${{ matrix.k }}", path: out/, retention-days: 3 }
 
