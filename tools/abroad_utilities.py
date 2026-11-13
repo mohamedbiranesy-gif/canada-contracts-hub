@@ -53,6 +53,13 @@ STATE_LAYERS = {"us_green_mountain_power": dict(state="VT", url="https://maps.vc
 # cooperative and municipal neighbour as an exclusion (the safe side); only federal marketers and investor-owned fills over half of it are set aside.
 # (Empire District's one feature in the layer is a county fill of Benton County, Arkansas — the City of Bentonville's municipal polygon is the very
 # same area — and its Missouri, Kansas and Oklahoma territory is not in the layer: treated as a fill, so its neighbours stay exclusions)
+# 2026-11-13 16:30Z: a utility's own list of the towns it serves replaces a coarse HIFLD polygon (tools/data/utility_town_lists.json: Versant's
+# "Towns in our Service Districts", Liberty's NHPUC No. 23 tariff "Service Area"). Only the towns the list gives as served whole are taken — a town
+# marked as served in part is left out — and their Census Bureau county subdivision polygons (cartographic boundaries 2020) make the target. A target
+# made so is drawn from the utility's own words: it is treated as PRECISE (a neighbour over a quarter of it is a county fill; every other neighbour
+# stays an exclusion — a municipal utility inside a listed town, Houlton Water Company in Houlton, still keeps its ZIP areas out).
+TOWN_LISTS_FILE = os.path.join(ROOT, "tools", "data", "utility_town_lists.json")
+COUSUB_URL = "https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_%s_cousub_500k.zip"
 PRECISE = {"us_tampa_electric", "us_tep", "us_central_hudson", "us_green_mountain_power", "us_calpeco"}  # (Green Mountain Power: from Vermont's own map)
 NOT_RETAIL = re.compile(r"WAPA|WESTERN AREA POWER|IRR(?:IGATION)? PROJ|USBIA|BUREAU OF INDIAN|POWER MARKETER|BONNEVILLE", re.I)
 
@@ -122,6 +129,34 @@ def cmd_territories(a):
         others += [x for x in sl if not x["properties"].get("_target")]
         tg += [x for x in sl if x["properties"].get("_target")]
         print("state layer %s: %d franchise areas (target %s from it)" % (L["state"], len(sl), key), flush=True)
+    try:
+        town_lists = json.load(open(TOWN_LISTS_FILE, encoding="utf-8"))
+    except (OSError, ValueError):
+        town_lists = {}
+    if town_lists:
+        import shapefile
+        from shapely.geometry import shape as _shape, mapping as _mapping
+        from shapely.ops import unary_union as _union
+        for key, T in town_lists.items():
+            want = {(n.lower(), c.lower()) for n, c in T["whole"]}
+            z = zipfile.ZipFile(io.BytesIO(get(COUSUB_URL % T["state_fips"], timeout=300)))
+            base = [n for n in z.namelist() if n.endswith(".shp")][0][:-4]
+            r = shapefile.Reader(shp=io.BytesIO(z.read(base + ".shp")), shx=io.BytesIO(z.read(base + ".shx")), dbf=io.BytesIO(z.read(base + ".dbf")))
+            fl = [f_[0] for f_ in r.fields[1:]]
+            ni, ci = fl.index("NAME"), fl.index("NAMELSADCO")
+            polys, got = [], set()
+            for sr in r.iterShapeRecords():
+                nm, co = sr.record[ni], re.sub(r"\s+County$", "", sr.record[ci])
+                if (nm.lower(), co.lower()) in want:
+                    polys.append(_shape(sr.shape.__geo_interface__).buffer(0)); got.add((nm.lower(), co.lower()))
+            if not polys:
+                print("town list %s: no town matched — the HIFLD polygon stays" % key, flush=True)
+                continue
+            tg = [f for f in tg if f["properties"].get("_target") != key]
+            tg.append({"type": "Feature", "geometry": _mapping(_union(polys)),
+                       "properties": {"name": key, "type": "UTILITY'S OWN TOWN LIST", "state": T["state"], "_target": key, "_town_list": True,
+                                      "source": "%s (%s, read %s); Census Bureau county subdivisions 2020" % (T["source"], T["url"], T["read"])}})
+            print("town list %s: %d of %d towns served whole matched (%s)" % (key, len(got), len(want), ", ".join(sorted(n for n, c in want - got))[:300] or "all"), flush=True)
     with gzip.open(TERR, "wt", encoding="utf-8") as fh:
         json.dump({"type": "FeatureCollection", "read": TODAY, "source": LAYER, "features": tg + others}, fh)
     print("territories: %d target features, %d other retail territories touching them -> %s" % (len(tg), len(others), TERR), flush=True)
@@ -137,10 +172,13 @@ def cmd_zips(a):
     tgt = collections.defaultdict(list)
     oth = []
     state_tg, state_oth = set(), collections.defaultdict(set)
+    town_tg = set()
     for f in fc["features"]:
         g = shape(f["geometry"]).buffer(0)
         if f["properties"].get("_target"):
             tgt[f["properties"]["_target"]].append(g)
+            if f["properties"].get("_town_list"):
+                town_tg.add(f["properties"]["_target"])
             if f["properties"].get("_state_layer"):
                 state_tg.add(f["properties"]["_target"])
         else:
@@ -161,7 +199,7 @@ def cmd_zips(a):
             ov = g.intersection(t).area / t.area
             if NOT_RETAIL.search(nm) or "FEDERAL" in nm:
                 fills[k].add(i)
-            elif k in PRECISE and ov >= 0.25:
+            elif (k in PRECISE or k in town_tg) and ov >= 0.25:
                 fills[k].add(i)
             # (2026-11-13 16:15Z: an investor-owned neighbour over half of a target NOT drawn from its own maps is no longer set aside. Liberty's
             # Granite State polygon is itself a county fill — it covers Nashua, Manchester and Keene, which Eversource's PSNH serves — and
