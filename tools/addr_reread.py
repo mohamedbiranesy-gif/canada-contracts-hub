@@ -245,7 +245,7 @@ LEGALP = re.compile(r"privacy|confidentialit|terms|conditions|legal|mentions|pol
 THIRD = re.compile(r"(?i)\b(?:host(?:ed|ing|s)?|h[ée]berg\w*|shopify|wix|squarespace|godaddy|ovh|weebly|registrar|commissioner|commissaire|commission|ombudsman|"
                    r"affiliate[sd]?|affili[ée]e?s?|parent|agent|agence du revenu|government|gouvernement|ministry|minist[èe]re|office of the|bureau du|"
                    # (a returns or shipping address is often a warehouse that someone else runs: 2026-11-13, first run's sample)
-                   r"returns?|retours?|ship(?:ped|ping)?|exp[ée]di\w*|warehouse|entrep[ôo]t|fulfil+ment)\b")
+                   r"returns?|retours?|ship(?:ped|ping)?|warehouse|entrep[ôo]t|fulfil+ment)\b")
 
 
 def _nm(s):
