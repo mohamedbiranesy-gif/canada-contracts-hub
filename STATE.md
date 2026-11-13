@@ -11,6 +11,15 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox) as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~30k rows.
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 05:45Z — two address passes landed; rank-buyers-parts dispatched 05:41Z with everything of today**
+- addr-reread (6 runners, 50 min): 207,671 unlocated mailbox owners read again -> **37,949 addresses** in their pages' source or text (JSON-LD
+  21,603, text 11,911, map 4,435); 27,110 of them name a distributor (by postal code or by a city one distributor serves whole); the rest are
+  Alberta, partial or shared. Commit 2c631f5 (site_facts/facts_20261113T054027a.gz).
+- phone-places (Overture places in Canada by telephone, 8 s with a bounding box): **17,530 located** (place bears the organisation's name or
+  lists its website; one postal code), 2,955 of them not covered by the address listed for their website. Rank uses it last, labelled.
+- Held service rows give way to the distributor's row once their organisation is located — both passes feed that too.
+- Expected in the next build: +15-30k ready (not counted until the build reads them).
+
 **2026-11-13 05:30Z — build 05:17Z (parts, code of 04:12Z): 220,736 ready (+2,249)** — agent of record 7,826 → 9,196, export sale 19 → 49,
 licence 12,675, location 139,771; $5k+ a bill 2,665 (published 2,062, estimated 603); every main invoice field 138,405. None of today's 04:40Z+
 changes are in it (billers read, address re-read, withdrawals, cross-register ties) — the next build carries them.
