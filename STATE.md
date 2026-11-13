@@ -11,6 +11,13 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 14:40Z — safety-net turn (scheduled; health only, the section above being under 2 hours old):** row-factory, claude-engines, rebuild
+green; verify-and-merge green (cancelled runs = superseded); rank-buyers: the build of 13:29Z running, one failure at 05:34Z ("the ranker's commit
+does not apply on main", a one-off; three builds green since). Growth file (measured 11-13): 330,668 rows; pay on sight yes 1,274 / reference-less
+1,495 / routed 108,169. **Fixed:** the mailbox crawl's queue is empty (2,670,566 lead sites read; 510,230 found) and since ~13:25Z each run finished
+1 or 2 retried sites yet queued the next: 8-shard runs every six minutes, each calling the referee. mailbox-crawl.yml now chains only after a run
+that finished 200 sites or more; the hourly timer and the keeper start the rest. Nothing else changed; no item of PLAN section 4e advanced.
+
 **2026-11-13 14:30Z — release build 13:06Z: 278,142 ready of 336,619 rows (+1,841 ready since 11:39Z). What the ranker's own log says is left:**
 - P13 (build 13:06Z, coord/results/ranked/SUMMARY.md): 168,002 rows by where the organisation is; skipped 186,395 lead organisations with a
   confirmed mailbox that nothing located, 16,689 located where no distributor can be named (Alberta, areas another utility serves), 100,256
