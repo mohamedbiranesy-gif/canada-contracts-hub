@@ -110,3 +110,27 @@ pools abroad, or the foreign-subsidiary decision (by location abroad: Canadian-o
 ## How it runs without a session
 Every lane above is a tool plus a workflow on a schedule; the rank build (rank-buyers, every 6 hours) gathers them; the mailbox reader runs
 back to back. A session reads the counts (BUILD.json), reads rows, fixes rules and adds the next pool.
+
+## Update 2026-11-13 15:18Z — owner's rule 18 and what it opens
+**Owner 09:46 EST:** "The U.S. power company owned by Canadian company counts as Canadian vendor." Built the same day (tools/abroad_utilities.py,
+abroad-utilities.yml; by_location.abroad_where; rank P13): eleven utilities (Tampa Electric, TEP, UNS Electric, Central Hudson, Green Mountain
+Power, Versant, Liberty NH and Lake Tahoe, Caribbean Utilities, Barbados Light & Power, BELCO), 376 ZIP code areas wholly in their territories,
+the Caribbean islands they serve whole; 94,929 organisations with a website among the places there are being read for a mailbox (Foursquare's
+places added). Expected: ~20,000-30,000 rows (a fifth to a third of the sites give a mailbox and an address in the territory).
+
+**Asked (about 15:16Z):** may any foreign company a Canadian company owns be the vendor (Empower and John Hancock with tens of thousands of U.S. plans
+named in Form 5500 filings; Stantec, WSP, CGI, New Flyer, GFL, Waste Connections in U.S. public contracts; FirstService's managed associations)?
+A yes is the next 100,000+.
+
+**Canada, the same day:** the mailbox reader was starved (2 sites a run since 08:19Z) — 509,075 place domains had never been read for a mailbox:
+third class (sites of places in Canada, other endings) 21 % with a mailbox on the first shard; Foursquare-only domains in a scan cycle (14:22Z);
+the CrUX list of Canada (404,256 domains) next; a fourth class re-reads short reads on 12 pages (4 %). Registry head offices: 3,480 located.
+
+| Pool | Status | Est. rows |
+|---|---|---|
+| Places in Canada never read (third class + Foursquare scan) | running | +15-25k |
+| CrUX Canada, other endings | queued in the scan | +3-5k |
+| Utilities abroad (rule 18) | leads written, crawl next | +20-30k |
+| Registry head offices (QC other names) | done | +3.5k |
+| Re-read on 12 pages | queued last | +4k |
+| Any Canadian-owned foreign company as vendor | owner asked | +100k |

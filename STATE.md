@@ -18,7 +18,23 @@ does not apply on main", a one-off; three builds green since). Growth file (meas
 1 or 2 retried sites yet queued the next: 8-shard runs every six minutes, each calling the referee. mailbox-crawl.yml now chains only after a run
 that finished 200 sites or more; the hourly timer and the keeper start the rest. Nothing else changed; no item of PLAN section 4e advanced.
 
-**2026-11-13 14:30Z — release build 13:06Z: 278,142 ready of 336,619 rows (+1,841 ready since 11:39Z). What the ranker's own log says is left:**
+**2026-11-13 15:15Z — OWNER 09:46 EST: utilities abroad owned by Canadian companies count (AGENTS.md rule 18) — lane built and running:**
+- tools/abroad_utilities.py + abroad-utilities.yml: HIFLD retail service territories (PNNL server) -> 376 ZIP code areas wholly in one target's
+  territory (98 % inside, no other retail territory over 2 %; neighbours that are county fills set aside for targets drawn from their own maps:
+  Duke Energy Florida's polygon covered 91 % of Tampa Electric's, Ajo Improvement Co's 97 % of TEP's); Caribbean islands served whole.
+- Billers (tools/data/billers_abroad.json, each parent's own sentence and printed address in Canada read today): Tampa Electric (Emera: "wholly
+  owned"), TEP and UNS Electric (Fortis), Central Hudson (Fortis), Green Mountain Power (Énergir), Versant (ENMAX), Liberty NH and Lake Tahoe
+  (Algonquin), Caribbean Utilities (Fortis, "sole electricity provider on Grand Cayman"), Barbados Light & Power (Emera), BELCO (Algonquin).
+  Not taken: Empire District (only a county fill of Benton County AR in the layer), FortisTCI and Grand Bahama Power (not on the parents' pages
+  read; sites unreachable), LUCELEC (Emera an investor only). Vendor address missing for CalPeco and Caribbean Utilities (robots) — their rows wait.
+- 94,929 organisations with a website among Overture's places there -> leads (engine usb, no vendor): Tampa 38,410, TEP 14,056, Central Hudson
+  12,943, Granite State 11,981, GMP 7,343, Versant 2,711, UNS 2,497, Barbados 1,838, Grand Cayman 1,572, Bermuda 998, Lake Tahoe 580. Foursquare's
+  places added (run dispatched 15:14Z). Ranker: by_location.abroad_where / biller_for_all / status / row_cells / of_row, rank P13 (jurisdiction,
+  ownership sentence as the Canada proof). A test row passes owner_test (bank, monthly, "not published: amount").
+- Mailbox crawl third class (places in Canada, other endings): shard 0 read 5,320, 1,138 with a mailbox (21 %). Fourth class (12-page re-read, 4 %)
+  queued last. CrUX list of Canada (404,256 domains) in the scan queue. Build 14:21Z: 279,969 ready of 338,136.
+
+**2026-11-13 14:29Z — release build 13:06Z: 278,142 ready of 336,619 rows (+1,841 ready since 11:39Z). What the ranker's own log says is left:**
 - P13 (build 13:06Z, coord/results/ranked/SUMMARY.md): 168,002 rows by where the organisation is; skipped 186,395 lead organisations with a
   confirmed mailbox that nothing located, 16,689 located where no distributor can be named (Alberta, areas another utility serves), 100,256
   already in a row under another key.
@@ -29,7 +45,7 @@ that finished 200 sites or more; the hourly timer and the keeper start the rest.
   The rest were unreachable (~172,000), blocked or barred by robots (~80,000).
 - registry-locate: run 1 located 2,818 of 36,313 (REQ 1,396, Corporations Canada 1,422); v2 (a Québec other name declared by one body only,
   distinctive name, Québec telephone number) +662. tm-sites +982 and pt-sites +497/+191 from the Foursquare candidates.
-- Prepared for the owner (coord/DECISIONS.md 14:30Z, corrected 14:45Z): electric utilities abroad owned by Canadian companies as billers by
+- Prepared for the owner (coord/DECISIONS.md 14:29Z, corrected before 14:48Z): electric utilities abroad owned by Canadian companies as billers by
   location (Tampa Electric 840,000 customers, the Tucson-area utilities ~566,000, Central Hudson, Green Mountain Power, Versant Power, Liberty's,
   the Caribbean ones); gas utilities do not qualify (not every premises has gas). Rough estimate 70,000-90,000 rows; not built until he answers.
 
