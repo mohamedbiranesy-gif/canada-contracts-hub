@@ -163,7 +163,9 @@
   "read": "2026-11-13",
   "rule": "AGENTS.md rule 18 (owner 2026-11-13 09:46 EST): a utility abroad that a Canadian company owns is a Canadian vendor",
   "owner_address_url": "https://algonquinpower.com/contact.html",
-  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1"
+  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1",
+  "payment": "“Checking Account There are multiple ways you can pay using your checking account.” … “Mail your payment to us Return the lower portion of your bill, along with a check or money order, in the envelope provided with your bill and mail it to: Liberty Utilities - New Hampshire 75 Remittance Dr Suite 1032 Chicago IL 60675-1032” (https://new-hampshire.libertyutilities.com/alstead/residential/my-account/make-a-payment.html)",
+  "remit_to": "Liberty Utilities - New Hampshire 75 Remittance Dr Suite 1032 Chicago IL 60675-1032 (its own payment page)"
  },
  {
   "key": "us_calpeco",
@@ -172,10 +174,10 @@
   "country": "US",
   "jur": "US-CA",
   "currency": "U.S. dollars",
-  "address": "",
-  "address_url": "",
-  "address_quote": "",
-  "address_source": "",
+  "address": "Liberty Utilities - CalPeco, PO Box 60144, City of Industry, CA 91716-0144",
+  "address_url": "https://california.libertyutilities.com/south-lake-tahoe/residential/contact/general-inquiries.html",
+  "address_quote": "Mailing Address for Payments: Liberty Utilities - CalPeco PO Box 60144 City of Industry, CA 91716-0144",
+  "address_source": "its own page (its mailing address for payments)",
   "owner": "Algonquin Power & Utilities Corp.",
   "owner_address": "354 Davis Road, Oakville, Ontario L6J 2X1",
   "owner_url": "https://libertyutilities.com/",
@@ -185,7 +187,8 @@
   "read": "2026-11-13",
   "rule": "AGENTS.md rule 18 (owner 2026-11-13 09:46 EST): a utility abroad that a Canadian company owns is a Canadian vendor",
   "owner_address_url": "https://algonquinpower.com/contact.html",
-  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1"
+  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1",
+  "payment": "“Checking Account There are multiple ways you can pay using your checking or savings account.” … “If you want to set up automatic payments using a checking account, please fill out the application found here . There is no fee for this service.” … “Return the lower portion of your bill, along with a check or money order, in the envelope provided with your bill” (https://california.libertyutilities.com/south-lake-tahoe/residential/my-account/make-a-payment.html)"
  },
  {
   "key": "ky_caribbean_utilities",
