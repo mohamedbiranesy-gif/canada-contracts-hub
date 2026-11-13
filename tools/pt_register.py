@@ -87,6 +87,8 @@ TODAY = time.strftime("%Y-%m-%d")
 def use_pt_files():
     """point the trademarks lane's functions at the patent owners' files (they read these module names at call time)"""
     T.DIR, T.OWN_CA, T.OWN_XX, T.MATCHES, T.FOUND, T.SDONE = DIR, OWN_CA, OWN_XX, MATCHES, FOUND, SDONE
+    # 2026-11-13: the patent owners' own Overture candidates (under their name; at their address) — the trademark owners' file has other keys
+    T.OVT_SITES, T.OVT_ADDR = os.path.join(DIR, "pt_overture_sites.csv"), os.path.join(DIR, "pt_overture_addr_sites.csv")
     os.makedirs(DIR, exist_ok=True)
 
 
@@ -277,7 +279,7 @@ def leads(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["build", "match", "sites", "merge-sites", "leads"])
+    ap.add_argument("cmd", choices=["build", "match", "sites", "merge-sites", "leads", "overture-sites"])
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--minutes", type=float, default=100)
@@ -288,6 +290,7 @@ def main():
     ap.add_argument("--abroad", action="store_true")
     ap.add_argument("--overture", action="store_true")
     ap.add_argument("--clearbit", action="store_true")
+    ap.add_argument("--release", default="")
     a = ap.parse_args()
     use_pt_files()
     if a.cmd == "build":
@@ -300,6 +303,8 @@ def main():
         T.merge_sites(a)
     elif a.cmd == "leads":
         leads(a)
+    elif a.cmd == "overture-sites":
+        T.overture_sites(a)  # -> pt_overture_sites.csv
 
 
 if __name__ == "__main__":

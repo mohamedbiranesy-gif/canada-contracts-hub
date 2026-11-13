@@ -511,9 +511,11 @@ def sites(a):
     # 2026-11-12: with --overture, the owners for whom an Overture Maps place lists a website under their name (tm_overture_sites.csv) — read
     # first, also when the owner was looked for before under domain names made of its name
     ovt = collections.defaultdict(list)
-    if abroad and getattr(a, "overture", False) and os.path.exists(OVT_SITES):
-        for r in csv.DictReader(open(OVT_SITES, encoding="utf-8", newline="")):
-            ovt[r["owner_key"]].append(r)
+    if abroad and getattr(a, "overture", False):
+        for p_ in (OVT_SITES, OVT_ADDR):
+            if os.path.exists(p_):
+                for r in csv.DictReader(open(p_, encoding="utf-8", newline="")):
+                    ovt[r["owner_key"]].append(r)
     use_ovt = bool(ovt)
     for path, here in ((OWN_CA, True), (OWN_XX, False)):  # "one owner of that name on the register" counts both files
         with gzip.open(path, "rt", encoding="utf-8", newline="") as f:
@@ -641,13 +643,22 @@ def sites(a):
                     how = "the same name (%s), on a domain name that is the owner's name written out; a site in the owner's state (%s, %s); one owner of that name on the register" % (
                         "site name" if kf(names.get("site name") or "") == ok_ else "its own statement", o["_state"], ABROAD[cc][0])
                 _l = listed.get(h)
-                if not how and _l and sn.startswith("the same name") and len(ok_.split()) + len(ok_) >= 7:
+                if not how and _l and sn and (sn.startswith("the same name") or _l["how"].startswith("the owner's own ")) and len(ok_.split()) + len(ok_) >= 7:
                     # 2026-11-12: two sources agree — an Overture Maps place lists THIS website under the owner's name at the register's postal
                     # code (or in its state, and the site prints an address of that state), and the site's own pages state that name
                     if _l["how"].startswith("the same name at the same"):
                         how = "the same name (%s); an Overture Maps place lists this website under the owner's name at the register's %s (%s, place %s)" % (
                             sn.split("(", 1)[1].split(")")[0], what, o["_code"], _l["place_id"])
-                    elif state_ok:
+                    elif _l["how"].startswith("the owner's own "):
+                        # 2026-11-13: an Overture Maps place AT the register's street address (street number, street and ZIP code) or UK postcode
+                        # lists this website, and the site's own pages state the owner's name
+                        # (the name test as for an owner in Canada: the same name, or every word of the shorter name in the longer one with only
+                        # everyday words added — the second fact being the place at the owner's own street address instead of a postal code)
+                        _kind, _, _at = _l["how"][len("the owner's own "):].partition(" (")
+                        how = "%s (%s); an Overture Maps place at the owner's own %s on the register (%s) lists this website (place %s)" % (
+                            "the same name" if sn.startswith("the same name") else "every word of the shorter name in the longer one",
+                            sn.split("(", 1)[1].split(")")[0], _kind, _at.rstrip(")"), _l["place_id"])
+                    elif state_ok and sn.startswith("the same name"):
                         how = "the same name (%s) and an address of the owner's state (%s) on the site; an Overture Maps place lists this website under the owner's name in that state (place %s)" % (
                             sn.split("(", 1)[1].split(")")[0], o["_state"] or ABROAD[cc][0], _l["place_id"])
                 if not how:
@@ -656,8 +667,9 @@ def sites(a):
                 else:
                     _lst = listed.get(h)
                     hit = {"site": fdom, "owner_key": o["owner_key"], "owner_name": o["owner_name"], "postal_code": o["_code"], "tied_by": how,
-                           "site_facts_from": ("its own pages (%s), found as the website an Overture Maps place lists for the owner's name (“%s”, %s; %s, release %s)" % (
-                               where, _lst["place_name"], _lst["place_postcode"], _lst["how"], _lst["release"]) if _lst else
+                           "site_facts_from": ("its own pages (%s), found as the website an Overture Maps place lists %s (“%s”, %s; %s, release %s)" % (
+                               where, "at the owner's own address" if _lst["how"].startswith("the owner's own ") else "for the owner's name",
+                               _lst["place_name"], _lst["place_postcode"], _lst["how"], _lst["release"]) if _lst else
                                                "its own pages (%s), found as the domain the company-name autocomplete (Clearbit) gives under the owner's very name" % where
                                                if kind_of.get(h) == "clearbit" else
                                                "its own pages (%s), found under a domain name made of the owner's name or mark" % where),
@@ -928,6 +940,9 @@ def leads(a):
 # whose name (legal forms left out) and postal code (US ZIP, GB postcode, AU postcode) are those of a place gets that place's website as the
 # FIRST site to read; the site counts only when its own pages tie it to the owner by the same tests as before (sites --abroad --overture).
 OVT_SITES = os.path.join(DIR, "tm_overture_sites.csv")
+# 2026-11-13: the websites Overture places list AT the owner's own address (street number, street and ZIP code; a UK postcode), under any name
+# (tools/overture_names.py addr) — read like the name candidates; a site counts only when its own pages state the owner's name
+OVT_ADDR = os.path.join(DIR, "tm_overture_addr_sites.csv")
 OVT_BUCKET = "https://overturemaps-us-west-2.s3.amazonaws.com"
 _SQL_FORMS = (r"\b(inc|incorporated|incorporee|ltd|ltee|limited|limitee|corp|corporation|co|company|compagnie|cie|llc|llp|lp|sencrl|senc|srl|enr|reg|regd|ulc|plc|"
               r"gmbh|sa|sas|ag|bv|nv|pty|the|la|le|les|l)\b")  # FORM, as RE2 reads it (DuckDB string literals keep the backslash)

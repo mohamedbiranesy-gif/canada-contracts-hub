@@ -25,7 +25,7 @@ on:
         description: "true = the owners outside Canada (United States, United Kingdom, Australia, and since 2026-11-12 ten European countries): 109,538 owners abroad have a Canadian agent of record"
         default: "false"
       overture:
-        description: "true (with abroad=true) = only the owners abroad for whom an Overture Maps place lists a website under their name at their postal code / in their state: that published site is read first (tools/tm_register.py overture-sites runs first)"
+        description: "true (with abroad=true) = only the owners abroad for whom an Overture Maps place lists a website under their name (postal code / state) or at their own address (street number and ZIP code; UK postcode): that published site is read first (the candidate lists are made first, once per Overture release)"
         default: "false"
       clearbit:
         description: "true (with abroad=true) = also the domains the company-name autocomplete gives under the owner's very name, one request a second per runner (owners looked for before included); a domain is kept by the same tests (the register's postal code printed under the same name, or the legal person with its legal form in the owner's state)"
@@ -50,31 +50,39 @@ jobs:
         run: python3 -c "import os; n=max(1,min(6,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
 
   # 2026-11-12: the websites an Overture Maps place lists under an owner's name (open data; published, not guessed): written once, committed,
-  # then every runner reads them first
+  # then every runner reads them first. 2026-11-13: also the websites listed by the places AT the owner's own address (street number, street and
+  # ZIP code; a UK postcode) under any name (tools/overture_names.py addr); a site still counts only when its own pages state the owner's name
   candidates:
     needs: plan
     if: ${{ inputs.overture == 'true' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 170
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
-      - name: Owners abroad x the Overture Maps places that list a website (the same name at the same postal code, or in the same state)
+      - name: Owners abroad x the Overture Maps places that list a website (under the owner's name; at the owner's own address)
         run: |
           pip install -q duckdb
-          python3 tools/tm_register.py overture-sites | tee /tmp/ovt.txt
-          cp data/incoming/claude/tm/tm_overture_sites.csv /tmp/tm_overture_sites.csv
+          # each list is made again only when Overture has published a newer release than the one it was made from (its last column)
+          newest=$(curl -sS --retry 3 "https://overturemaps-us-west-2.s3.amazonaws.com/?list-type=2&prefix=release/&delimiter=/" | grep -o 'release/[0-9-]*\.[0-9]*/' | sort | tail -1 | cut -d/ -f2)
+          made() { tail -1 "$1" 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r'; }
+          echo "newest Overture release: $newest" | tee /tmp/ovt.txt
+          D=data/incoming/claude/tm
+          [ "$(made $D/tm_overture_sites.csv)" = "$newest" ] || python3 tools/tm_register.py overture-sites | tee -a /tmp/ovt.txt
+          [ "$(made $D/tm_overture_addr_sites.csv)" = "$newest" ] || python3 tools/overture_names.py addr --lanes tm 2>&1 | tee -a /tmp/ovt.txt
+          mkdir -p /tmp/ovt && cp $D/tm_overture_*.csv /tmp/ovt/ 2>/dev/null || true
           git config user.name "tm-sites"; git config user.email "tm-sites@users.noreply.github.com"
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
-            cp /tmp/tm_overture_sites.csv data/incoming/claude/tm/tm_overture_sites.csv
-            git add data/incoming/claude/tm/tm_overture_sites.csv
+            cp /tmp/ovt/*.csv $D/ 2>/dev/null || true
+            git add $D/tm_overture_*.csv 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "tm-sites: $(tail -1 /tmp/ovt.txt | cut -c1-130) [skip ci]"
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 12 + 3))
           done
           git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the candidates could not be pushed to main"; exit 1; }
+          cat /tmp/ovt.txt >> "$GITHUB_STEP_SUMMARY"
 
   sites:
     needs: [plan, candidates]
