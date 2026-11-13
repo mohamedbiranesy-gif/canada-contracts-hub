@@ -739,7 +739,7 @@ def wd_pass(cos, have, w, f, threads):
     todo = [o for o in cos if o["key"] not in have]
     if not todo:
         return 0
-    idx = WDS.build_index(os.path.join(os.environ.get("RUNNER_TEMP") or "/tmp", "wikidata_parts"), only={"CA", "US"})  # 18 queries, 12 s apart
+    idx = WDS.build_index(os.path.join(os.environ.get("RUNNER_TEMP") or "/tmp", "wikidata_parts"), only={"CA", "US"}, parts=["en", "fr", "P1448"])  # 6 queries, 12 s apart
     used = {urllib.parse.urlparse(s_["site"]).hostname for s_ in have.values() if s_.get("site")}
     cands = []
     for o in todo:

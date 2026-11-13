@@ -43,12 +43,12 @@ def host(u):
     return h[4:] if h.startswith("www.") else h
 
 
-def pull(d, only=None):
+def pull(d, only=None, parts=None):
     os.makedirs(d, exist_ok=True)
     for q, cc in QC.items():
         if only and cc not in only:
             continue
-        for part in (["en", "P1448"] if cc in SHORT else PARTS):
+        for part in (parts or (["en", "P1448"] if cc in SHORT else PARTS)):
             w = "?item wdt:P1448 ?name ." if part == "P1448" else "?item rdfs:label ?name . FILTER(LANG(?name) = \"%s\")" % part
             query = PREFIX + "SELECT ?item ?site ?name WHERE { ?item wdt:P856 ?site ; wdt:P17 wd:%s . %s }" % (q, w)
             out = os.path.join(d, "p_%s_%s.tsv" % (q, part))
@@ -74,9 +74,10 @@ def pull(d, only=None):
             time.sleep(12)
 
 
-def build_index(d, only=None):
-    """{(country, nkey_x(name)): {host: (item, name)}} from the parts in d (pulled first when missing), for the countries asked (ISO codes)"""
-    pull(d, only)
+def build_index(d, only=None, parts=None):
+    """{(country, nkey_x(name)): {host: (item, name)}} from the parts in d (pulled first when missing), for the countries asked (ISO codes);
+    parts=["en", "P1448"] pulls only the English labels and the official names (two queries a country)"""
+    pull(d, only, parts)
     idx = collections.defaultdict(dict)
     for p in glob.glob(os.path.join(d, "p_*.tsv")):
         cc = QC.get(os.path.basename(p).split("_")[1])

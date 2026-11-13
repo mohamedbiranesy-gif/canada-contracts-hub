@@ -709,7 +709,7 @@ def wd_pass(cos, have, w, f, threads, only=None):
         want &= set(only)
     if not todo or not want:
         return 0
-    idx = WDS.build_index(os.path.join(os.environ.get("RUNNER_TEMP") or "/tmp", "wikidata_parts"), only=want)
+    idx = WDS.build_index(os.path.join(os.environ.get("RUNNER_TEMP") or "/tmp", "wikidata_parts"), only=want, parts=["en", "P1448"])
     used = {urllib.parse.urlparse(s_.get("site") or "").hostname for s_ in have.values() if s_.get("site")}
     cands = []
     for o in todo:
