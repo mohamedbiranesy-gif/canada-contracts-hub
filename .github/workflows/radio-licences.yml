@@ -31,15 +31,24 @@ jobs:
         run: |
           python3 tools/radio_licences.py pull --work /tmp/radio 2>&1 | tee /tmp/l.txt
           python3 tools/radio_licences.py build --work /tmp/radio 2>&1 | tee -a /tmp/l.txt
-          python3 tools/radio_licences.py sites --minutes "$MINUTES" --threads 12 2>&1 | tee -a /tmp/l.txt
+          # 2026-11-13: the places at each licensee's own postal code that list a website (made again when Overture publishes a newer release);
+          # sites runs them first (tools/hc_registers.py addr_pass), then the autocomplete
+          newest=$(curl -sS --retry 3 "https://overturemaps-us-west-2.s3.amazonaws.com/?list-type=2&prefix=release/&delimiter=/" | grep -o 'release/[0-9-]*\.[0-9]*/' | sort | tail -1 | cut -d/ -f2)
+          made=$(tail -1 data/incoming/claude/overture/radio_addr_candidates.csv 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r')
+          if [ -n "$newest" ] && [ "$made" != "$newest" ]; then pip install -q duckdb && python3 tools/overture_names.py addr --lanes radio 2>&1 | tail -3 | tee -a /tmp/l.txt || true; fi
+          python3 tools/radio_licences.py sites --minutes "$MINUTES" --addr-minutes 60 --threads 12 2>&1 | tee -a /tmp/l.txt
           mkdir -p keep && cp data/incoming/claude/radio/radio_licensees.csv.gz data/incoming/claude/radio/extract_info.json data/incoming/claude/radio/radio_sites.csv data/incoming/claude/radio/radio_sites_done.tsv keep/
+          cp data/incoming/claude/radio/radio_addr_done.tsv keep/ 2>/dev/null || true
+          mkdir -p keep/ovt && cp data/incoming/claude/overture/radio_addr_candidates.csv keep/ovt/ 2>/dev/null || true
           STAMP=$(date -u +%Y%m%dT%H%M%S)
           git config user.name "radio-licences"; git config user.email "radio-licences@users.noreply.github.com"
           for i in $(seq 1 10); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             mkdir -p data/incoming/claude/radio
             # the site list and the done list only grow: the lines of main and of this run, once each
-            for f in radio_sites.csv radio_sites_done.tsv; do
+            mkdir -p data/incoming/claude/overture && cp keep/ovt/radio_addr_candidates.csv data/incoming/claude/overture/ 2>/dev/null || true
+            for f in radio_sites.csv radio_sites_done.tsv radio_addr_done.tsv; do
+              [ -f "keep/$f" ] || continue
               if [ -f "data/incoming/claude/radio/$f" ]; then
                 python3 - "$f" <<'PY'
           import sys
@@ -60,7 +69,7 @@ jobs:
             cp keep/radio_licensees.csv.gz keep/extract_info.json data/incoming/claude/radio/
             python3 tools/radio_licences.py leads --stamp "$STAMP" | tee /tmp/m.txt
             python3 tools/secret_guard.py || true
-            git add data/incoming/claude/radio data/incoming/claude/lead_shards
+            git add data/incoming/claude/radio data/incoming/claude/lead_shards data/incoming/claude/overture/radio_addr_candidates.csv 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "radio-licences: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
             git push -q origin HEAD:main && break
