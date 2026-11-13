@@ -11,6 +11,19 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox) as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~30k rows.
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 05:30Z — build 05:17Z (parts, code of 04:12Z): 220,736 ready (+2,249)** — agent of record 7,826 → 9,196, export sale 19 → 49,
+licence 12,675, location 139,771; $5k+ a bill 2,665 (published 2,062, estimated 603); every main invoice field 138,405. None of today's 04:40Z+
+changes are in it (billers read, address re-read, withdrawals, cross-register ties) — the next build carries them.
+- Withdrawn after a third look at ties by a postal code printed at an address (the place's name must BE the organisation's: biz_licences.agree_asym,
+  or the very same name): radio 309 (1 restored), OMVIC/HCRA 79, RBQ 50 more, Form 5500 49, Health Canada 5 — gone shards written; RBQ's merge and
+  radio's lead writer honour withdrawals.
+- Sites already read -> owners abroad (cross_sites.py second pass): +149 trademark, +92 patent, +4 Health Canada, +16 Form 5500 owners whose
+  register ZIP / postcode is printed on a site the mailbox reader had read, under the owner's own name (one owner a site, one site an owner).
+- Checked and not usable: CSA Group product listings (403 even to robots.txt, from a runner too) — blocked; GrowthZone member directories (403);
+  NHP fees not in force (Health Canada: "Final fees will be published in the Canada Gazette, Part II before implementation"); D2L's public terms
+  name no invoice. Registered for later: CTA air licences + NAV CANADA's monthly bills (foreign airlines, $5k+; the CTA's certificate chain is
+  incomplete from a runner).
+
 **2026-11-13 05:00Z — where the ready rows are held, and three levers on it (counted on the published table of 04:08Z, streamed):**
 - Of 284,660 rows (278,945 with a mailbox), 218,487 ready. The largest hold among rows with a mailbox: **"payment: not published" 34,575** — services
   seen on the buyer's side whose vendor's own sentence on how it is paid was not found (rule 13 gives no "by the kind" fallback to hosting / software).
