@@ -1,10 +1,10 @@
 {
  "coord/results/team_buyers.jsonl.gz": {
   "tag": "harvest-state",
-  "asset": "team_buyers.df2e5d47038c.jsonl.gz",
-  "bytes": 123505541,
-  "sha256": "df2e5d47038cc080df7b560bcc071ea536161e8e2919e43bfc570f3cfa6b9d77",
-  "updated": "2026-11-13T09:45:55Z"
+  "asset": "team_buyers.8dc48f34fae5.jsonl.gz",
+  "bytes": 123506213,
+  "sha256": "8dc48f34fae585ac1efa7c02fc3e687c9ab54d4d56fd9a9a4a5b4d99a158f834",
+  "updated": "2026-11-13T09:58:54Z"
  },
  "data/incoming/claude/claude_ap_terms_pages.csv.gz": {
   "tag": "harvest-state",
