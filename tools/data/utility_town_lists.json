@@ -676,5 +676,30 @@
    "Surry",
    "Windham"
   ]
+ },
+ "us_uns_electric": {
+  "layer": "place",
+  "state_fips": "04",
+  "state": "AZ",
+  "source": "UniSource Energy Services' own page 'About'",
+  "url": "https://www.uesaz.com/about/",
+  "read": "2026-11-13",
+  "legend_quote": "Our service territory in Mohave County is located in the northwest corner of the state. It includes both Kingman, located in the high desert central portion of the county, and Lake Havasu City, situated in the low desert along the Colorado River.",
+  "note": "Only the cities the page names inside its territory, as the Census Bureau's incorporated places 2020 draw them: Kingman, Lake Havasu City and Nogales (\"We provide service to most of the county, including Nogales - its largest city.\"). The rest of the HIFLD polygon (a FERC-714 planning area) is not used.",
+  "whole": [
+   [
+    "Kingman",
+    "Mohave"
+   ],
+   [
+    "Lake Havasu City",
+    "Mohave"
+   ],
+   [
+    "Nogales",
+    "Santa Cruz"
+   ]
+  ],
+  "part_left_out": []
  }
 }

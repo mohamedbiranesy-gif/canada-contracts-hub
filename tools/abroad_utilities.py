@@ -60,6 +60,7 @@ STATE_LAYERS = {"us_green_mountain_power": dict(state="VT", url="https://maps.vc
 # stays an exclusion — a municipal utility inside a listed town, Houlton Water Company in Houlton, still keeps its ZIP areas out).
 TOWN_LISTS_FILE = os.path.join(ROOT, "tools", "data", "utility_town_lists.json")
 COUSUB_URL = "https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_%s_cousub_500k.zip"
+PLACE_URL = "https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_%s_place_500k.zip"  # a list that names cities ("layer": "place"): the incorporated places
 PRECISE = {"us_tampa_electric", "us_tep", "us_central_hudson", "us_green_mountain_power", "us_calpeco"}  # (Green Mountain Power: from Vermont's own map)
 NOT_RETAIL = re.compile(r"WAPA|WESTERN AREA POWER|IRR(?:IGATION)? PROJ|USBIA|BUREAU OF INDIAN|POWER MARKETER|BONNEVILLE", re.I)
 
@@ -138,15 +139,16 @@ def cmd_territories(a):
         from shapely.geometry import shape as _shape, mapping as _mapping
         from shapely.ops import unary_union as _union
         for key, T in town_lists.items():
-            want = {(n.lower(), c.lower()) for n, c in T["whole"]}
-            z = zipfile.ZipFile(io.BytesIO(get(COUSUB_URL % T["state_fips"], timeout=300)))
+            is_place = T.get("layer") == "place"
+            want = {(n.lower(), "" if is_place else c.lower()) for n, c in T["whole"]}
+            z = zipfile.ZipFile(io.BytesIO(get((PLACE_URL if is_place else COUSUB_URL) % T["state_fips"], timeout=300)))
             base = [n for n in z.namelist() if n.endswith(".shp")][0][:-4]
             r = shapefile.Reader(shp=io.BytesIO(z.read(base + ".shp")), shx=io.BytesIO(z.read(base + ".shx")), dbf=io.BytesIO(z.read(base + ".dbf")))
             fl = [f_[0] for f_ in r.fields[1:]]
-            ni, ci = fl.index("NAME"), fl.index("NAMELSADCO")
+            ni, ci = fl.index("NAME"), (None if is_place else fl.index("NAMELSADCO"))
             polys, got = [], set()
             for sr in r.iterShapeRecords():
-                nm, co = sr.record[ni], re.sub(r"\s+County$", "", sr.record[ci])
+                nm, co = sr.record[ni], ("" if is_place else re.sub(r"\s+County$", "", sr.record[ci]))
                 if (nm.lower(), co.lower()) in want:
                     polys.append(_shape(sr.shape.__geo_interface__).buffer(0)); got.add((nm.lower(), co.lower()))
             if not polys:
