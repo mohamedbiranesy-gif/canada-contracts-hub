@@ -2105,3 +2105,17 @@ tenants (each still needs the body's sentence that the listed pay it).
   you approach the international markets … it's not digitalized … think any project, anything at all that requires a Canadian vendor"; in Canada,
   "anything construction … a live thing happening, you know for a fact that that thing is being currently contracted".
 
+
+## 2026-11-13 14:30Z — lane claude: prepared, waiting for the owner — may a utility abroad that a Canadian company owns be the biller?
+Where the count stands: the Canadian pool is near its ceiling. The ranker's own log (build 13:06Z, P13) shows 186,395 organisations with a
+confirmed mailbox that nothing located, 16,689 located where no distributor can be named (most in Alberta) and 100,256 already in a row under
+another key; the places datasets bring the last large group of Canadian sites (509,075 place domains never read for a mailbox, of which about
+170,000 answer; being read since 14:22Z). Every estimate of what Canada can still give lands at 400,000-500,000 rows, not 1,000,000.
+The one pool of the same size: organisations served by utilities abroad that Canadian companies own. Published counts (customer accounts, mostly
+households; businesses are a minority of each): Enbridge's three U.S. gas utilities about 3 million (East Ohio Gas more than 1.2 million, Questar
+Gas about 1.2 million, PSNC more than 600,000 — Enbridge's own announcement); Emera's Tampa Electric 840,000, Peoples Gas 470,000, New Mexico Gas
+540,000 and 227,000 in the Caribbean; Fortis's Tucson-area utilities about 459,000 and 107,000, Caribbean Utilities about 35,000 (Fortis's
+company description); Algonquin's Liberty utilities and AltaGas's Washington Gas not counted here. The rule would be the same as in Canada (one
+body serves the address by its franchise, bills monthly on an invoice, paid through a bank), but the biller is a U.S. or Caribbean company — owned
+by a Canadian one, not a Canadian entity itself. Rule 7 says "any Canadian entity"; Sun Life's U.S. branch was accepted because the branch IS the
+Canadian company. Nothing is built on this until the owner answers; asked again in plain words in the status message of 14:30Z.

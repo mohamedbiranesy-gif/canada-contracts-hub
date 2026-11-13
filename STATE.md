@@ -11,6 +11,21 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 14:30Z — release build 13:06Z: 278,142 ready of 336,619 rows (+1,841 ready since 11:39Z). What the ranker's own log says is left:**
+- P13 (build 13:06Z, coord/results/ranked/SUMMARY.md): 168,002 rows by where the organisation is; skipped 186,395 lead organisations with a
+  confirmed mailbox that nothing located, 16,689 located where no distributor can be named (Alberta, areas another utility serves), 100,256
+  already in a row under another key.
+- **The mailbox reader was starved** (2 sites a run since 08:19Z): the scan had read everything queued. **509,075 place domains (Overture,
+  Foursquare, OpenStreetMap) had never been read for a mailbox**: 156,857 Foursquare-only ones the scan never read (scan cycle dispatched 14:22Z,
+  8 runners), and ~45,000 that answered the scan but no class queued (another ending than .ca, no Canadian postal code on the home page; 7,764 of
+  them print a mailbox on the home page) -> **third class of mailbox-crawl candidates** (tools/lead_crawl.py --registry3; shard 0/8 queued 5,368).
+  The rest were unreachable (~172,000), blocked or barred by robots (~80,000).
+- registry-locate: run 1 located 2,818 of 36,313 (REQ 1,396, Corporations Canada 1,422); v2 (a Québec other name declared by one body only,
+  distinctive name, Québec telephone number) +662. tm-sites +982 and pt-sites +497/+191 from the Foursquare candidates.
+- Prepared for the owner (coord/DECISIONS.md 14:30Z): utilities abroad owned by Canadian companies as billers by location — the only pool of
+  the size of the gap (published counts: Enbridge's three U.S. gas utilities ~3 million accounts, Emera's Florida/New Mexico/Caribbean ~2.1
+  million, Fortis's Arizona/Cayman ~0.6 million); not built.
+
 **2026-11-13 13:44Z — owner's word (07:47, 08:07 EST) and what started since:**
 - Decisions: Alberta water and workers' compensation — no; client lists — no rows (leads to investigate only); a subsidiary on its parent's site —
   yes when the tie is published; Sun Life's U.S. branch — yes; foreign subsidiaries as the vendor — unanswered (nothing built). His direction:
