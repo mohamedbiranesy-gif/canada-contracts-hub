@@ -164,6 +164,33 @@ def get(url):
         return None, url, "error:%s" % type(e).__name__
 
 
+# 2026-11-13: the organisation's own telephone number, printed on its pages (a tel: link first, else the number its pages print most often) —
+# tools/phone_places.py looks for the Overture Maps place that lists it when no address was found
+PHONE = os.path.join(FACTS_DIR, "phones.tsv")
+_PH = re.compile(r"(?<!\d)(?:\+?1[\s.\-]?)?\(?([2-9]\d{2})\)?[\s.\-]?([2-9]\d{2})[\s.\-]?(\d{4})(?!\d)")
+_CA_AC = set("204 226 236 249 250 257 263 289 306 343 354 365 367 368 382 403 416 418 428 431 437 438 450 468 474 506 514 519 548 579 581 584 587 604 613 "
+             "639 647 672 683 705 709 742 753 778 780 782 807 819 825 867 873 879 902 905".split())
+
+
+def own_phone(pages):
+    import collections as _c
+    for u, r in pages:
+        for m in re.finditer(r"""href\s*=\s*["']tel:([^"']{7,40})["']""", r[:3_000_000], re.I):
+            d = re.sub(r"\D", "", m.group(1))[-10:]
+            if len(d) == 10 and d[:3] in _CA_AC:
+                return d, u
+    cnt, where = _c.Counter(), {}
+    for u, r in pages:
+        for m in _PH.finditer(C.visible(r)):
+            if m.group(1) in _CA_AC:
+                d = m.group(1) + m.group(2) + m.group(3)
+                cnt[d] += 1; where.setdefault(d, u)
+    if cnt:
+        d, _ = cnt.most_common(1)[0]
+        return d, where[d]
+    return "", ""
+
+
 def read_one(t):
     key, site = t["key"], t["site"]
     raw, final, st = get(site)
@@ -186,6 +213,12 @@ def read_one(t):
         r2, f2, s2 = get(u)
         if r2 is not None:
             pages.append((f2 if str(f2).startswith("http") else u, r2))
+    try:
+        ph, phu = own_phone(pages)
+    except Exception:  # noqa: BLE001
+        ph, phu = "", ""
+    if ph:
+        out.update(phone=ph, phone_url=phu)
     for how, fn in (("text", text_address), ("jsonld", jsonld_address), ("map", map_address)):
         for u, r in pages:
             try:
@@ -201,7 +234,42 @@ def read_one(t):
     return out
 
 
+def pick_phones(a):
+    """the sites read before that gave no address, whose telephone number is not on file: read again for the number (and the address)"""
+    have = set()
+    if os.path.exists(PHONE):
+        with open(PHONE, encoding="utf-8") as f:
+            have = {l.split("\t", 1)[0] for l in f if l.strip()}
+    last = {}
+    if os.path.exists(DONE):
+        with open(DONE, encoding="utf-8") as f:
+            for l in f:
+                p_ = l.rstrip("\n").split("\t")
+                if len(p_) >= 2:
+                    last[p_[0]] = p_[1]
+    site = {}
+    for p in sorted(glob.glob(os.path.join(FACTS_DIR, "facts_*.gz"))):
+        with gzip.open(p, "rt", encoding="utf-8", errors="replace") as f:
+            for l in f:
+                try:
+                    d = json.loads(l)
+                except ValueError:
+                    continue
+                if d.get("key") and d.get("site") and d["key"] not in site:
+                    site[d["key"]] = d["site"]
+    n = 0
+    with open(a.out, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["key", "site"])
+        for k, st in sorted(last.items()):
+            if st == "nothing" and k not in have and site.get(k):
+                w.writerow([k, site[k]]); n += 1
+    print("addr-reread pick --phones: %d sites read before with no address and no telephone number on file -> %s" % (n, a.out))
+
+
 def cmd_pick(a):
+    if getattr(a, "phones", False):
+        return pick_phones(a)
     done = set()
     if os.path.exists(DONE):
         with open(DONE, encoding="utf-8") as f:
@@ -337,6 +405,16 @@ def cmd_merge(a):
     with open(DONE, "a", encoding="utf-8") as f:
         for k, o in sorted(recs.items()):
             f.write("%s\t%s\t%s\n" % (k, o.get("status") or "", o.get("date") or TODAY))
+    have_ph = set()
+    if os.path.exists(PHONE):
+        with open(PHONE, encoding="utf-8") as f:
+            have_ph = {l.split("\t", 1)[0] for l in f if l.strip()}
+    n_ph = 0
+    with open(PHONE, "a", encoding="utf-8") as f:
+        for k, o in sorted(recs.items()):
+            if o.get("phone") and k not in have_ph:
+                f.write("%s\t%s\t%s\t%s\n" % (k, o["phone"], o.get("phone_url") or "", o.get("date") or TODAY)); n_ph += 1
+    print("addr-reread: %d telephone numbers of the organisations' own pages -> %s" % (n_ph, os.path.relpath(PHONE, ROOT)))
     tot = sum(1 for _ in open(DONE, encoding="utf-8"))
     print("addr-reread: %d sites read this run, %d addresses found (%s) -> %s; sites done so far: %d" % (len(recs), n["found"], n, os.path.relpath(out, ROOT), tot))
 
@@ -352,6 +430,7 @@ def main():
     ap.add_argument("--workers", type=int, default=40)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--stamp", default=time.strftime("%Y%m%dT%H%M%S"))
+    ap.add_argument("--phones", action="store_true", help="pick: the sites read before with no address and no telephone number on file")
     a = ap.parse_args()
     {"pick": cmd_pick, "read": cmd_read, "merge": cmd_merge}[a.cmd](a)
 

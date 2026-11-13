@@ -64,6 +64,14 @@ def cmd_targets(a):
                 dg = re.sub(r"\D", "", d.get("phone") or "")[-10:]
                 if len(dg) == 10 and dg[:3] in CA_AC:
                     dom_ph.setdefault(host(d.get("website")), (dg, d.get("name") or ""))
+    # the numbers the address re-read kept from the organisations' own pages (tools/addr_reread.py: a tel: link first)
+    pp = os.path.join(INC, "site_facts", "phones.tsv")
+    if os.path.exists(pp):
+        with open(pp, encoding="utf-8") as f:
+            for l in f:
+                p_ = l.rstrip("\n").split("\t")
+                if len(p_) >= 2 and p_[0] in tg and p_[0] not in ph and len(p_[1]) == 10:
+                    ph[p_[0]] = p_[1]
     for k, s in tg.items():
         if k not in ph and host(s) in dom_ph:
             ph[k] = dom_ph[host(s)][0]

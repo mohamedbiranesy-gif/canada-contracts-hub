@@ -19,10 +19,14 @@ on:
       limit:
         description: "at most this many sites per runner (0 = no limit)"
         default: "0"
+      phones:
+        description: "true = read again the sites that gave no address and whose telephone number is not on file (for tools/phone_places.py)"
+        default: "false"
   schedule:
     - cron: "41 9 * * 0"   # weekly: the sites whose mailbox was confirmed since
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: addr-reread
   cancel-in-progress: false
@@ -42,7 +46,7 @@ jobs:
         with: { ref: main }
       - name: The organisations to read again
         run: |
-          python3 tools/addr_reread.py pick --out out/addr_targets.csv | tee /tmp/pick.txt
+          python3 tools/addr_reread.py pick --out out/addr_targets.csv ${{ inputs.phones == 'true' && '--phones' || '' }} | tee /tmp/pick.txt
           cat /tmp/pick.txt >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with: { name: addr-targets, path: out/addr_targets.csv, retention-days: 3 }
@@ -80,6 +84,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with: { pattern: "addr-read-*", path: shards, merge-multiple: true }
       - name: Addresses -> site facts (computed once; main merged in on a refused push)
+        env: { GH_TOKEN: "${{ github.token }}" }
         run: |
           ls -la shards | head -20 || true
           git config user.name "addr-reread"; git config user.email "addr-reread@users.noreply.github.com"
@@ -96,3 +101,5 @@ jobs:
           done
           git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed: its work was not saved"; exit 1; }
           cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
+          # the telephone numbers kept: the places that list them (tools/phone_places.py), now that the numbers are on main
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/phone-places.yml/dispatches" -f ref=main >/dev/null 2>&1 || true
