@@ -11,6 +11,25 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 07:49Z — statutory billers that publish whom they bill; two registries that name an organisation's website**
+- bc-crown now holds four lanes (tools/bc_crown.py, daily): B.C. water rentals (5,486 licensees), B.C. stumpage (the Harvest Billing System's
+  invoices), the **Alberta Energy Regulator's administration fee** (1,197 licensees of drilled wells in force; invoices e-mailed every April 1 to the
+  operator of record, "Cheques and Electronic Fund Transfer (EFT) are the only methods of payment accepted"; a fee floor from the published base fee
+  × adjustment factor — 260 at $5,000 a year or more) and **Health Canada's PMRA annual charges** (675 registrants of current pest control products;
+  "four (4) invoices … sent in one mailing", instalments May 30 / Aug 28 / Nov 26 / Feb 24). Alberta matters most: no electricity row exists there,
+  so a record is the only way an Alberta organisation becomes a row. Payee entries verified on the bodies' pages (water, stumpage, AER).
+- **Owners' sites from two open registries** for the trademark / patent owners with no site (the largest pool abroad): the Research Organization
+  Registry (ROR, 146,716 organisations; 3,223 candidates) and Wikidata's official website property (784,918 items in the 14 countries the site
+  tests know; 10,161 candidates). A candidate ties nothing alone: the site's own pages must state the owner's name with an address of its state /
+  country (or a Canadian postal code), or print its full legal name on its legal page, or — three sources agreeing — state the very name when one
+  owner bears it on the register. Runs so far: patents +83 then +44, trademarks +69 (ROR only); the Wikidata runs are going (pt-sites, tm-sites).
+  Tests: ROR 4 of 30, Wikidata 8 of 40 (IBM, Siemens, General Mills, Church & Dwight, Dentsply Sirona …).
+- Checked and not usable: CTA air carrier licences (its open-data portal's robots.txt bars ClaudeBot by name), APEGA's permit-holder directory
+  (Cloudflare 522 from the container and from a runner), EGBC's registrant directory (403), B.C. liquor licensees (they pay BC Liquor Stores at
+  pickup: no invoice), certificate subjects as a locator (1 site in 292 has an organisation in its certificate), OSM postcodes as a locator (834).
+- SEC EDGAR full-text search (Canadian auditors of SEC registrants, with published audit fees) needs a contact e-mail in the user agent; the project
+  has no organisational address to give and the owner's must not be sent — not used.
+
 **2026-11-13 06:57Z — build 06:44Z: 255,159 ready (+34,423); a new lane of bills the Province of British Columbia sends itself**
 - Build 06:44Z (full, code 037022e of 05:32Z): 313,770 rows (308,011 with a mailbox); ready **255,159** — location 167,729 (+27,958: telephone places and
   part of the address re-read), service 31,977 (+4,851: billers read today), licence 13,983 (+1,308), agent of record 9,552, membership 19,255, sponsorship
