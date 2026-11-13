@@ -2453,6 +2453,7 @@ for x in rows:
 print("rows that give way to the biller their address has by law:", dict(sorted(n_gw.items(), key=lambda kv: -kv[1])))
 SPC13 = {}
 CITY13 = {}  # 2026-11-12: the city an organisation's own page names, when no postal code was read (rank: P13 by where it is)
+PNT13 = {}  # 2026-11-13 (rule 18): a place at a territory's edge located by the point of its website's own listing (tools/by_location.py abroad_point)
 cands = []
 skipped13 = collections.Counter()
 for k, ((acc, g), m) in mail.items():
@@ -2475,6 +2476,11 @@ for k, ((acc, g), m) in mail.items():
         _loc13 = _BYLOC.biller_for_all(place_cell(k).split(" (its registered")[0])
         if _loc13:
             PLC13[k] = place_cell(k); n_ovt["inferred rows by the organisation's registered address in a public registry"] += 1
+    if not _loc13 and _BYLOC.POINTS:
+        _d13 = registrable(host_of(_lf13.get("site") or (leads[k].get("website") if k in leads else "") or ""))
+        _pb13, _pw13 = _BYLOC.abroad_point(_d13, " ".join([_lf13.get("address") or "", m.get("evidence_quote") or ""]))
+        if _pb13:
+            _loc13 = _pb13; PNT13[k] = _pw13
     if not _loc13:
         _loc13, _ca13 = city_place([_lf13.get("address_quote") or _lf13.get("address") or "", addr_text((BUY.get(k) or {}).get("address")), m.get("evidence_quote") or ""], m.get("evidence_url") or "")
         if not _loc13 and _lf13.get("city_quote"):
@@ -2590,7 +2596,7 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     rows.append({"jurisdiction": "", "_jur": (_abr["jur"] if _abr else None) or prov or (_PROV_OF_PC.get((_BYLOC.fsa_of(b_addr) or " ")[0]) if vid.startswith("LOC:") else "") or "CA", "rank_group": "I%d" % g, "completeness_score": sc * 10 + g * 6 + 3,
         "buyer": name, "buyer_website": site, "buyer_address": b_addr,
         "email": e, "email_type": LABEL[g], "email_check": "confirmed", "email_evidence_url": m.get("evidence_url") or "", "email_evidence_quote": m.get("evidence_quote") or "",
-        "contract_status": (_BYLOC.status(_abr, _BYLOC.abroad_where(b_addr)[1] or _BYLOC.abroad_where(m.get("evidence_quote") or "")[1]) if _abr else
+        "contract_status": (_BYLOC.status(_abr, _BYLOC.abroad_where(b_addr)[1] or _BYLOC.abroad_where(m.get("evidence_quote") or "")[1] or PNT13.get(k, "")) if _abr else
                             _BYLOC.status(_BYLOC.BY_KEY[vid[4:]], _BYLOC.fsa_of(b_addr) or _BYLOC.fsa_of(m.get("evidence_quote") or "") or ((_BYLOC.biller_for_city(b_addr) or ("", "the city it prints"))[1])) if vid.startswith("LOC:") else
                             "inferred relationship (no record): %s confidence; the buyer is %s%s; %s" % (conf, what, (" (province from %s)" % how) if how else "", why)),
         "source": (_src_loc(b_addr) if vid.startswith("LOC:") else
@@ -2601,13 +2607,15 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     n13 += 1
     if _abr:
         n_ovt["rows by where the organisation is abroad — a utility a Canadian company owns (rule 18): %s" % _abr["key"]] += 1
+        if PNT13.get(k):
+            n_ovt["… of which located by the point of its website's listing (a ZIP code area at the territory's edge)"] += 1
 print("P12 organisations:", len(orgs12), "added:", n12, dict(skipped12), "| P13 added:", n13, "| P13 skipped:", dict(skipped13))
 print("by the city the organisation's own page names (no postal code read; tools/by_location.py biller_for_city):", dict(n_city))
 print("by the address an Overture Maps place lists for the organisation's website (nothing on its own pages located it; tools/by_location.py directory_cell):",
       dict(n_ovt))
 print("lead rows that took the organisation's own key (registry facts attach):", dict(n_keyjoin))
 _free(globals(), "VEN", "VEN_NAME", "VEN_DOM", "BUY", "TEAMV", "mail", "MAIL_ALL", "mail_dom", "cands", "orgs12", "up_t", "dom_rows", "lead_row_by_dom",
-      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13", "CITY13", "OVT13", "PLC13", "PHN13")  # last used by the row builders above (OVT: by the last address fill)
+      "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13", "CITY13", "OVT13", "PLC13", "PHN13", "PNT13")  # last used by the row builders above (OVT: by the last address fill)
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
 rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
