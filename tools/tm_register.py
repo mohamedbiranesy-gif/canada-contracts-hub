@@ -501,7 +501,7 @@ def printed_abroad(text, country, code, state):
     same_code = same_state = False
     if country == "US":
         for m in LC.US_ADDR.finditer(text):
-            same_state = same_state or (bool(state) and m.group(2) == state)
+            same_state = same_state or (bool(state) and LC.us_state_code(m.group(2)) == state)
             same_code = same_code or (bool(code) and m.group(3) == code)
     elif country == "GB":
         for m in LC.GB_ADDR.finditer(text):

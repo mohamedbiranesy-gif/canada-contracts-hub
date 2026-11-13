@@ -40,6 +40,11 @@ LAYER = "https://eedgis.pnnl.gov/arcgis/rest/services/Hosted/Electric_Service_Te
 TARGETS = {"18454": "us_tampa_electric", "24211": "us_tep", "19728": "us_uns_electric", "3249": "us_central_hudson", "7601": "us_green_mountain_power",
            "1179": "us_versant", "5860": "us_empire_district", "26510": "us_granite_state", "57483": "us_calpeco"}
 SHARE, OTHER = 0.98, 0.02
+# A state's own map of franchise areas replaces the HIFLD polygons where one is published: then the target and every neighbour come from it alone
+# (Vermont's Public Service Department: "VT Data - Electric Utility Franchise Areas", the seventeen franchise holders of the state)
+STATE_LAYERS = {"us_green_mountain_power": dict(state="VT", url="https://maps.vcgi.vermont.gov/arcgis/rest/services/PSD_services/OPENDATA_PSD_LAYERS_SP_NOCACHE_v1/MapServer/40",
+                                                 target_field="COMPANY", target_value="GMP", name_field="COMPANYNAM",
+                                                 source="the Vermont Public Service Department's electric utility franchise areas")}
 # The layer's polygons are of two qualities. A target drawn from the utility's own service map (its source says so: TECO's outage map, TEP's
 # UniSource maps, Central Hudson's storm map, Green Mountain Power's service-area map, the California Energy Almanac) is precise; so is any address inside it. Several NEIGHBOURS are county fills (Duke Energy Florida's polygon covers 91 % of Tampa
 # Electric's territory, Ajo Improvement Co's 97 % of Tucson Electric Power's): a neighbour that covers a quarter or more of a precise target's
@@ -48,7 +53,7 @@ SHARE, OTHER = 0.98, 0.02
 # cooperative and municipal neighbour as an exclusion (the safe side); only federal marketers and investor-owned fills over half of it are set aside.
 # (Empire District's one feature in the layer is a county fill of Benton County, Arkansas — the City of Bentonville's municipal polygon is the very
 # same area — and its Missouri, Kansas and Oklahoma territory is not in the layer: treated as a fill, so its neighbours stay exclusions)
-PRECISE = {"us_tampa_electric", "us_tep", "us_central_hudson", "us_green_mountain_power", "us_calpeco"}
+PRECISE = {"us_tampa_electric", "us_tep", "us_central_hudson", "us_green_mountain_power", "us_calpeco"}  # (Green Mountain Power: from Vermont's own map)
 NOT_RETAIL = re.compile(r"WAPA|WESTERN AREA POWER|IRR(?:IGATION)? PROJ|USBIA|BUREAU OF INDIAN|POWER MARKETER|BONNEVILLE", re.I)
 
 
@@ -100,6 +105,23 @@ def cmd_territories(a):
             others.append(g)
     for f in tg:
         f["properties"]["_target"] = TARGETS[str(f["properties"]["id"])]
+    # a state's own franchise map: the target's polygon and its neighbours from it (the HIFLD target feature is replaced)
+    for key, L in STATE_LAYERS.items():
+        q = {"where": "1=1", "outFields": "*", "returnGeometry": "true", "outSR": "4326", "f": "geojson"}
+        sl = json.loads(get(L["url"] + "/query?" + urllib.parse.urlencode(q))).get("features") or []
+        if not any(str(x["properties"].get(L["target_field"])) == L["target_value"] for x in sl):
+            print("state layer %s: no feature of the target — the HIFLD polygon stays" % L["state"], flush=True)
+            continue
+        tg = [f for f in tg if f["properties"].get("_target") != key]
+        for x in sl:
+            p0 = x.get("properties") or {}
+            is_t = str(p0.get(L["target_field"])) == L["target_value"]
+            x["properties"] = {"name": p0.get(L["name_field"]) or "", "type": "STATE FRANCHISE AREA", "state": L["state"], "_state_layer": L["state"], "source": L["source"]}
+            if is_t:
+                x["properties"]["_target"] = key
+        others += [x for x in sl if not x["properties"].get("_target")]
+        tg += [x for x in sl if x["properties"].get("_target")]
+        print("state layer %s: %d franchise areas (target %s from it)" % (L["state"], len(sl), key), flush=True)
     with gzip.open(TERR, "wt", encoding="utf-8") as fh:
         json.dump({"type": "FeatureCollection", "read": TODAY, "source": LAYER, "features": tg + others}, fh)
     print("territories: %d target features, %d other retail territories touching them -> %s" % (len(tg), len(others), TERR), flush=True)
@@ -114,11 +136,16 @@ def cmd_zips(a):
         fc = json.load(fh)
     tgt = collections.defaultdict(list)
     oth = []
+    state_tg, state_oth = set(), collections.defaultdict(set)
     for f in fc["features"]:
         g = shape(f["geometry"]).buffer(0)
         if f["properties"].get("_target"):
             tgt[f["properties"]["_target"]].append(g)
+            if f["properties"].get("_state_layer"):
+                state_tg.add(f["properties"]["_target"])
         else:
+            if f["properties"].get("_state_layer"):
+                state_oth[f["properties"]["_state_layer"]].add(len(oth))
             oth.append((g, "%s (%s, %s)" % (f["properties"].get("name"), f["properties"].get("type"), f["properties"].get("state"))))
     tgt = {k: unary_union(v) for k, v in tgt.items()}
     # a neighbour that is a county fill for a target is no exclusion for that target (see PRECISE above); counted per target
@@ -126,6 +153,10 @@ def cmd_zips(a):
     for i, (g, nm) in enumerate(oth):
         for k, t in tgt.items():
             if not g.intersects(t):
+                continue
+            if k in STATE_LAYERS and k in state_tg:
+                if i not in state_oth.get(STATE_LAYERS[k]["state"], set()):
+                    fills[k].add(i)  # the state's own map decides: the HIFLD polygons around this target are not used
                 continue
             ov = g.intersection(t).area / t.area
             if NOT_RETAIL.search(nm) or "FEDERAL" in nm:

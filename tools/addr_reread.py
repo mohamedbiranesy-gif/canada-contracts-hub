@@ -65,8 +65,8 @@ def _types(o):
     return set()
 
 
-def jsonld_address(raw):
-    """(address text, quote) of the page's own organisation, or None"""
+def jsonld_address(raw, abroad=False):
+    """(address text, quote) of the page's own organisation, or None; abroad=True: (address, quote, country) in a territory of rule 18"""
     for m in LD.finditer(raw[:3_000_000]):
         body = m.group(1).strip()
         body = re.sub(r"^\s*<!--|-->\s*$", "", body)
@@ -101,6 +101,21 @@ def jsonld_address(raw):
             if isinstance(ctry, dict):
                 ctry = ctry.get("name") or ctry.get("@id") or ""
             ctry = _norm_space(ctry)
+            if abroad:
+                cc_ = _ABROAD_CTRY.get(ctry.lower(), "" if ctry else "US")
+                if not cc_:
+                    continue
+                txt = ", ".join(p for p in (parts[0], parts[1]) if p)
+                tail = " ".join(p for p in (parts[2], parts[3]) if p)
+                addr = (txt + (", " if txt and tail else "") + tail).strip(", ")
+                probe = addr + ((", " + ctry) if ctry and cc_ != "US" else "")
+                if not BL.abroad_where(probe)[0]:
+                    continue
+                quote = ", ".join("%s: %s" % (k_, v_) for k_, v_ in zip(("streetAddress", "addressLocality", "addressRegion", "postalCode"), parts) if v_)
+                if ctry:
+                    quote += ", addressCountry: %s" % ctry
+                name = _norm_space(o.get("name"))[:80]
+                return probe[:200], ("%s (schema.org PostalAddress%s in the page source)" % (quote, (" of “%s”" % name) if name else ""))[:300], cc_
             pcs = list(BL.codes(parts[3] or "")) if parts[3] else []
             in_ca = ctry.lower() in ("ca", "can", "canada") or bool(pcs) or (parts[2] or "").lower() in PROV
             if not in_ca or not (parts[3] or (parts[1] and parts[2])):
@@ -118,8 +133,9 @@ def jsonld_address(raw):
     return None
 
 
-def map_address(raw):
-    """(address text, quote) of the Google map the page embeds, or None — the address asked for, never the map's key"""
+def map_address(raw, abroad=False):
+    """(address text, quote) of the Google map the page embeds, or None — the address asked for, never the map's key; abroad=True:
+    (address, quote, country) in a territory of rule 18"""
     for m in IFRAME.finditer(raw[:3_000_000]):
         src = html.unescape(m.group(1).strip())
         if src.startswith("//"):
@@ -135,9 +151,44 @@ def map_address(raw):
             c_ = _norm_space(urllib.parse.unquote_plus(c_))
             if not c_ or len(c_) > 200 or re.fullmatch(r"[-\d.,\s]+", c_) or "0x" in c_[:4]:
                 continue
+            if abroad:
+                b_ = BL.abroad_where(c_)[0]
+                if b_:
+                    return c_[:200], ("the map its own page embeds is of “%s” (Google Maps embed in the page source)" % c_)[:300], b_.get("country") or "US"
+                continue
             if next(BL.codes(c_), None) or BL.CITY_RX.search(c_):
                 return c_[:200], ("the map its own page embeds is of “%s” (Google Maps embed in the page source)" % c_)[:300]
     return None
+
+
+# 2026-11-13 (AGENTS.md rule 18): an organisation abroad whose own address lies in the territory of a utility a Canadian company owns (Tampa Electric,
+# Tucson Electric Power, Green Mountain Power … : tools/abroad_utilities.py, tools/data/us_zip_billers.csv) or on an island a Caribbean one serves
+# whole. The same three statements of its own pages, read for a U.S. ZIP code after its state (or an island address), and kept only when
+# tools/by_location.abroad_where names one such utility for it.
+_ABROAD_CTRY = {"us": "US", "usa": "US", "u.s.": "US", "u.s.a.": "US", "united states": "US", "united states of america": "US",
+                "ky": "KY", "cayman islands": "KY", "bb": "BB", "barbados": "BB", "bm": "BM", "bermuda": "BM"}
+
+
+def abroad_text_address(raw):
+    """(address, quote, country) of an address in a territory of rule 18 printed in the visible text, or None"""
+    import lead_crawl as LC
+    t = C.visible(raw)
+    for cc, rx in (("US", LC.US_ADDR), ("KY", LC.KY_ADDR), ("BB", LC.BB_ADDR), ("BM", LC.BM_ADDR)):
+        for m in rx.finditer(t):
+            q = re.sub(r"^\S*\s", "", t[max(0, m.start() - 110):m.end()].strip())[-200:]
+            if BL.abroad_where(q)[0]:
+                return q, q[:300], cc
+    return None
+
+
+def abroad_jsonld_address(raw):
+    """(address, quote, country) of the page's own organisation's schema.org PostalAddress in a territory of rule 18, or None"""
+    return jsonld_address(raw, abroad=True)
+
+
+def abroad_map_address(raw):
+    """(address, quote, country) of the Google map the page embeds, in a territory of rule 18, or None"""
+    return map_address(raw, abroad=True)
 
 
 def text_address(raw):
@@ -229,6 +280,17 @@ def read_one(t):
                 addr, quote = got
                 out.update(status="found", address=addr, address_quote=quote, address_url=u, address_how=how, address_country="CA")
                 return out
+    if BL.ABROAD:
+        for how, fn in (("text", abroad_text_address), ("jsonld", abroad_jsonld_address), ("map", abroad_map_address)):
+            for u, r in pages:
+                try:
+                    got = fn(r)
+                except Exception:  # noqa: BLE001
+                    got = None
+                if got:
+                    addr, quote, cc = got
+                    out.update(status="found", address=addr, address_quote=quote, address_url=u, address_how=how, address_country=cc)
+                    return out
     out["status"] = "nothing"
     out["pages"] = len(pages)
     return out
@@ -607,11 +669,29 @@ def cmd_pick(a):
                     if d.get(c_) and not o.get(c_):
                         o[c_] = d[c_]
     n = {"found": len(found), "located": 0, "city": 0, "abroad": 0, "done": 0, "webmail": 0, "picked": 0}
+    # --abroad (2026-11-13, rule 18): only the organisations of the places abroad (tools/abroad_utilities.py leads, engine "usb") — read again even
+    # when an earlier pass read them, since the abroad passes are new; left out when what is on file already names a utility of rule 18
+    abroad_keys = None
+    if getattr(a, "abroad", False):
+        abroad_keys = set()
+        for p in glob.glob(os.path.join(INC, "lead_shards", "leads_usb_*.gz")):
+            with gzip.open(p, "rt", encoding="utf-8", errors="replace", newline="") as f:
+                abroad_keys |= {r.get("buyer_key") for r in csv.DictReader(f) if r.get("buyer_key")}
+        n["abroad_leads"] = len(abroad_keys)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with open(a.out, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["key", "site"])
         for k, (e, url, q) in sorted(found.items()):
+            if abroad_keys is not None:
+                if k not in abroad_keys:
+                    continue
+                fa = facts.get(k, {})
+                if BL.abroad_where(" ".join([fa.get("address") or "", fa.get("address_quote") or ""]))[0]:
+                    n["located"] += 1; continue
+                site = fa.get("site") or ("https://%s/" % e.partition("@")[2])
+                w.writerow([k, site]); n["picked"] += 1
+                continue
             if k in done and not getattr(a, "include_done", False):  # (tools/phone_places.py: every organisation still unlocated, read again or not)
                 n["done"] += 1; continue
             fa = facts.get(k, {})
@@ -709,7 +789,7 @@ def cmd_merge(a):
         for k in sorted(need):
             o = recs[k]
             line = {c_: v_ for c_, v_ in (prev.get(k) or {}).items() if c_ in ("key", "site", "site_name", "title", "asked", "moved", "ids")}
-            line.update(key=k, site=line.get("site") or o.get("site"), date=o.get("date") or TODAY, address_country="CA", address=o["address"],
+            line.update(key=k, site=line.get("site") or o.get("site"), date=o.get("date") or TODAY, address_country=o.get("address_country") or "CA", address=o["address"],
                         address_quote=o["address_quote"], address_url=o["address_url"], address_how=o["address_how"])
             f.write(json.dumps(line, ensure_ascii=False) + "\n")
             n["found"] += 1; n[o["address_how"]] = n.get(o["address_how"], 0) + 1
@@ -744,6 +824,7 @@ def main():
     ap.add_argument("--phones", action="store_true", help="pick: the sites read before with no address and no telephone number on file")
     ap.add_argument("--legal", action="store_true", help="pick / read: the sites read before with no address — their own privacy / terms / legal pages")
     ap.add_argument("--city", action="store_true", help="pick / read: the sites the legal pass left — a street address with its city and no postal code, or the city of the contact page")
+    ap.add_argument("--abroad", action="store_true", help="pick: only the organisations of the places abroad (rule 18), read again for an address in a utility's territory")
     a = ap.parse_args()
     {"pick": cmd_pick, "read": cmd_read, "merge": cmd_merge}[a.cmd](a)
 

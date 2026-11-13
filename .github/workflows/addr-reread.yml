@@ -28,6 +28,9 @@ on:
       city:
         description: "true = the sites the legal pass left: a street address printed with its city and no postal code, or the one city of its contact page, in a city one distributor serves whole"
         default: "false"
+      abroad:
+        description: "true = only the organisations of the places abroad (rule 18: a utility a Canadian company owns): their pages read again for an address in its territory"
+        default: "false"
   schedule:
     - cron: "41 9 * * 0"   # weekly: the sites whose mailbox was confirmed since
 permissions:
@@ -52,7 +55,7 @@ jobs:
         with: { ref: main }
       - name: The organisations to read again
         run: |
-          python3 tools/addr_reread.py pick --out out/addr_targets.csv ${{ inputs.phones == 'true' && '--phones' || '' }} ${{ inputs.legal == 'true' && '--legal' || '' }} ${{ inputs.city == 'true' && '--city' || '' }} | tee /tmp/pick.txt
+          python3 tools/addr_reread.py pick --out out/addr_targets.csv ${{ inputs.phones == 'true' && '--phones' || '' }} ${{ inputs.legal == 'true' && '--legal' || '' }} ${{ inputs.city == 'true' && '--city' || '' }} ${{ inputs.abroad == 'true' && '--abroad' || '' }} | tee /tmp/pick.txt
           cat /tmp/pick.txt >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with: { name: addr-targets, path: out/addr_targets.csv, retention-days: 3 }
