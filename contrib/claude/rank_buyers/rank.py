@@ -847,6 +847,13 @@ if os.path.exists(ROOT + "/data/incoming/claude/overture/cb_sites.csv"):
     for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/overture/cb_sites.csv", encoding="utf-8", newline="")):
         if _r.get("site"):
             CB_SITES[_r["key"]] = _r
+# 2026-11-13: a buyer under contract with no website on file whose very name is the label of one Wikidata item giving an official website (P856):
+# 72 Québec cégeps, agencies, museums and Ontario hospitals (data/incoming/claude/cb_sites_wd.csv); the mailbox reader then reads that site, and
+# the mailbox must still fit the buyer's name there (same_org)
+if os.path.exists(ROOT + "/data/incoming/claude/cb_sites_wd.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/cb_sites_wd.csv", encoding="utf-8", newline="")):
+        if _r.get("site") and _r["key"] not in CB_SITES:
+            CB_SITES[_r["key"]] = dict(_r, _src="wikidata")
 n_cbsite = collections.Counter()
 _AP_LOCAL = re.compile(r"invoic|factur|payables?|acctpay|accountspayable|accounts[._-]?pay|comptes?[._-]?(?:payables?|a[._-]?payer|fournisseurs?)|comptesapayer|(?:^|[._-])a\.?p(?:$|[._-])|^ap[a-z]{0,3}invoice", re.I)
 _WEBMAIL = re.compile(r"^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|icloud|me|aol|protonmail|proton|gmx|videotron|sympatico|bell|rogers|shaw|telus|eastlink|cogeco)\.(?:com|ca|net|fr|co\.uk)$", re.I)
@@ -966,7 +973,7 @@ for p, o in orgs.items():
         _cbs = next((CB_SITES[k_] for k_ in sorted(k for k in o["keys"] if k) if k_ in CB_SITES), None)
         if _cbs:
             be = dict(be, official_website=_cbs["site"], _site_basis=_cbs.get("tied_by") or "")
-            o["be"] = be; n_cbsite["buyer under contract: website from an Overture Maps place, tied on its own home page"] += 1
+            o["be"] = be; n_cbsite["buyer under contract: website from %s" % ("its Wikidata item (P856, the item's label is its name)" if _cbs.get("_src") == "wikidata" else "an Overture Maps place, tied on its own home page")] += 1
     em, et, es, eu, eq, g, acc = emailcols(o["keys"], be, gj, o["name"], be.get("official_website") or "")
     tier = tier_of(r)
     if not (em and acc) and tier in ("A", "B", "L") and not (be.get("official_website") or "").strip() and any(o["keys"]):
@@ -4373,6 +4380,15 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_registry_bulk.csv"):  # t
                 # 2026-11-09 made the REQ row primary for "Dassault Systèmes (Canada)" and 64 rows lost their BN9. Keep the BN with its own source.
                 CBR[_r["kind"]][_k]["_bn9_other"] = _r["bn9"].strip(); CBR[_r["kind"]][_k]["_bn9_other_src"] = "%s, %s, %s" % (_r.get("registry_source") or "registry open data", _r.get("juri_id") or "", _r.get("retrieved_date") or "")
 print("registry bulk rows added (no API row for the key):", n_bulk, "| registry rows left out, the registered name is only legal-form and place words:", n_reg_generic)
+# 2026-11-13 (billers first, tools/vendor_numbers.py): a vendor the lanes name by its brand or by a bilingual pair, looked up under the legal name its
+# own site prints or under each half of its name — the register entry of exactly that name, active; used where no other register record was found
+n_alias = 0
+if os.path.exists(ROOT + "/data/incoming/claude/claude_registry_alias.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_registry_alias.csv", encoding="utf-8", errors="replace")):
+        if _r.get("status") == "found" and _r.get("juri_id") and not reg_name_is_generic(_r.get("matched_name"), _r.get("name")) and norm(_r["key"]) not in CBR["vendor"]:
+            _r["_label"] = "Canada's Business Registries, %s %s" % (_r.get("registry_source") or "", _r.get("juri_id") or "")
+            CBR["vendor"][norm(_r["key"])] = _r; n_alias += 1
+print("registry rows of vendors found under the legal name their own site prints or a half of their name (tools/vendor_numbers.py):", n_alias)
 # 2026-11-10 (row audit, round 3): a buyer's registry record is kept under the row's key, and the row's name changes — a lead first named
 # "Ville de Québec" (a name read off a page of ymcaquebec.org) is "LES YMCA DU QUÉBEC" today, and still carried the City's registered name and
 # NEQ; "UNIVERSITÉ DU QUÉBEC" sat on calculquebec.ca the same way (14 rows with those two names alone). A record is left out when the name it
@@ -5766,8 +5782,11 @@ def bill_profile(x, ld, cls):
             out["bill_amount_indicative"], out["bill_amount_basis"] = cur.get("amount") or "", cur.get("amount_basis") or ""
             b = cur.get("bill") or {}
             for col, k in (("bill_items_as_published", "items"), ("bill_currency_as_published", "currency"), ("bill_delivery_as_published", "delivery"),
-                           ("bill_payment_method_as_published", "payment"), ("bill_tax_rule_as_published", "tax"), ("bill_identifier_format", "identifier"), ("service_stops_if_unpaid", "unpaid")):
+                           ("bill_payment_method_as_published", "payment"), ("bill_tax_rule_as_published", "tax"), ("bill_identifier_format", "identifier"), ("service_stops_if_unpaid", "unpaid"),
+                           ("bill_due_terms_as_published", "terms")):  # 2026-11-13: "terms" — the hand-read bills of Vianet and Hosted in Canada carried it, no row took it
                 out[col] = b.get(k) or ""
+        if not out.get("bill_due_terms_as_published") and vd in getattr(_TR, "DUE_TERMS_BY_DOMAIN", {}):
+            out["bill_due_terms_as_published"] = _TR.DUE_TERMS_BY_DOMAIN[vd]  # when the bill is due, in the host's own terms (tools/tech_relationships.py)
         if rec and not (credit and not hosted and not cur):
             _svc = ("mail" if re.search(r"\b(?:MX|SPF|spf1|DKIM|DMARC)\b|v=spf1|authorises|send its mail|mail is handled", (ld.get("dns_record") or "") + " " + cs, re.I) else "dns") if dns else ""
             low = _VB.lowest(rec, _svc)
