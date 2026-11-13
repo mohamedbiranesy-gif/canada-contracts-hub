@@ -6346,6 +6346,12 @@ for _ri, x in enumerate(rows):
                 x["buyer_trade_name_as_published"] = "%s (the name on the organisation's own home page, %s, read %s)" % (_lf["site_name"], _lf.get("site") or "", _lf.get("date") or ""); npk["buyer_trade_name_as_published"] += 1
         # 2026-11-12 (billers first): a vendor's number in its home register as the global LEI register records it (tools/data/vendor_registers.json,
         # exact legal names only: Smart & Biggar, KPMG, Gowling WLG), when nothing else gave the row a number
+        # 2026-11-13 (owner 13:23 EST, every field): the agent of record as the Office's register names it, with its legal form ("SMART & BIGGAR LP",
+        # "MOFFAT & CO.", "RIEL PROFESSIONAL CORPORATION"), is the firm's legal name: 5,139 agent rows had none
+        if not str(x.get("vendor_legal_name") or "").strip() and (x.get("contract_status") or "").startswith(("client of a Canadian trademark agent", "client of a Canadian patent agent")) \
+                and re.search(r"\b(?:LLP|L\.L\.P\.|LP|L\.P\.|S\.?E\.?N\.?C\.?R\.?L\.?|S\.E\.C\.|INC\.?|INCORPORATED|LTD\.?|LIMITED|LT[ÉE]E|CORP(?:ORATION)?\.?|PROFESSIONAL CORPORATION|& CO\.?|AND COMPANY)\b", x.get("vendor") or "", re.I):
+            x["vendor_legal_name"] = "%s (as the Canadian Intellectual Property Office's register names the agent of record, with its legal form)" % re.sub(r"\s+", " ", x["vendor"]).strip()
+            npk["vendor legal name: the agent of record as the Office's register names it"] += 1
         if VREG and not any(str(x.get(c_) or "").strip() for c_ in ("vendor_bn9", "vendor_neq", "vendor_registry_id")):
             _vr = VREG.get(_vreg_key(x.get("vendor") or ""))
             if _vr:
