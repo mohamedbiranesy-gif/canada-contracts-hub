@@ -241,6 +241,11 @@ _bank_ok = lambda v: bool(_BANK.search(_BANK_REFUSED.sub(" ", v or "")))
 
 
 _ABROAD_OWNED = re.compile(r"\bjohn\s+hancock\b|\bempower\s+(?:retirement|annuity|trust|financial)|\bgreat-?west\s+life\s+&\s+annuity|\bputnam\s+investments\b", re.I)
+# a U.S. legal entity by its own name — an LLC (no Canadian statute forms one), "… USA Inc.", "(U.S.)", "… of America, Inc." — is a company abroad (rule 19),
+# whatever address a filing prints for it (FieldTurf USA Inc at its parent's Montréal office; DACK TRADING LLC "REHOBOTCH BEACH, Canadá" in Colombia's
+# import declarations); "North America Inc." is not such a mark (IPL North America Inc. of Saint-Damien-de-Buckland)
+_US_ENTITY = re.compile(r"\bL\.?L\.?C\b\.?|\((?:USA|U\.S\.A?\.?|US)\)|\bUSA,?\s+(?:Inc|Corp|Ltd|Co)\b|\bU\.S\.A\.,?\s+(?:Inc|Corp)|\bof\s+America,?\s+(?:Inc|Corp|LLC)\b", re.I)
+_NO_ADDRESS = re.compile(r"^\s*(?:unknown|inconnue?|n/?a|none|not available|\?+)\b|\b0{5}\b", re.I)
 _SHOP_ORDER = re.compile(r"\b(?:your order|online (?:shop|store)|check-?out|shopping cart|\bcart\b|retail (?:customers?|purchases?)|gift cards?|boutique en ligne|votre commande|"
                          r"paiement de la commande|panier|passerelle s[ée]curis[ée]e|apple pay|google pay|refund|rembourse)", re.I)
 
@@ -793,6 +798,10 @@ def owner_test(x):
         out.append("relationship: %d organisations print this postal code — a tower, a campus, a business centre or a mail service, where an account of its own is unlikely" % n_shared)
     if (x.get("sensitivity_flag") or "") == "yes":
         out.append("flag: " + ((x.get("sensitivity_tag") or "sensitive buyer").split(":")[0][:70]))
+    if (_US_ENTITY.search(x.get("vendor") or "") or _US_ENTITY.search((x.get("vendor_legal_name") or "").split(" (")[0])) and not str(x.get("vendor") or "").startswith("inferred"):
+        out.append("relationship: the vendor's own name is a U.S. legal entity's (an LLC, “USA Inc.”, “(U.S.)”) — a company abroad, not a Canadian vendor (AGENTS.md rule 19)")
+    if _NO_ADDRESS.search((x.get("vendor_address") or "").split(" (")[0]) and not _has(x, "vendor_registered_address"):
+        out.append("field: vendor address (the source prints none: “%s”)" % (x.get("vendor_address") or "")[:60])
     if _ABROAD_OWNED.search(x.get("vendor") or "") or _ABROAD_OWNED.search(x.get("vendor_legal_name") or ""):
         # AGENTS.md rule 19 (owner 2026-11-13 11:44 EST): a company abroad that a Canadian company owns is not a Canadian vendor — "plans paying Empower or
         # John Hancock" named in so many words — even where a filing prints its Canadian parent's address (John Hancock at Manulife's 200 Bloor Street East)
