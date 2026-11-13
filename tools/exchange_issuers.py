@@ -353,6 +353,20 @@ def cmd_sites(a):
         overture_pass(have)
     if getattr(a, "guess", False):
         guess_pass(have, a.guess_minutes)
+    # 2026-11-13: Wikidata's official website of an item of the issuer's very name (its head office's country; Canada when the list names none),
+    # kept when the site's own home page carries the name
+    try:
+        _cc = lambda o: "United States" if re.search(r"\b(?:USA|United States|U\.S\.)\b", (o.get("hq_region") or "") + " " + (o.get("hq_location") or "")) else (
+            "United Kingdom" if re.search(r"\b(?:UK|United Kingdom|England)\b", (o.get("hq_region") or "") + " " + (o.get("hq_location") or "")) else
+            "Australia" if re.search(r"\bAustralia\b", (o.get("hq_region") or "") + " " + (o.get("hq_location") or "")) else "Canada")
+        new1 = not os.path.exists(SITES)
+        with open(SITES, "a", encoding="utf-8", newline="") as f1:
+            w1 = csv.DictWriter(f1, fieldnames=["key", "site", "tied_by", "quote", "read"])
+            if new1:
+                w1.writeheader()
+            HR.wd_pass([dict(o, country=_cc(o)) for o in issuers()], have, w1, f1, 8, only={"CA", "US", "GB", "AU"})
+    except Exception as e:
+        print("wikidata pass: %s" % str(e)[:160], flush=True)
     todo = [o for o in issuers() if o["key"] not in have and o["key"] not in done and o["exchange"] != "CSE"]
     todo.sort(key=lambda o: -float(o["fee"]))
     new = not os.path.exists(SITES)
