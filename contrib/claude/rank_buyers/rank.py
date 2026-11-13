@@ -969,7 +969,8 @@ for p, o in orgs.items():
             o["be"] = be; n_cbsite["buyer under contract: website from an Overture Maps place, tied on its own home page"] += 1
     em, et, es, eu, eq, g, acc = emailcols(o["keys"], be, gj, o["name"], be.get("official_website") or "")
     tier = tier_of(r)
-    if not (em and acc) and tier in ("A", "B", "L") and not (be.get("official_website") or "").strip():
+    if not (em and acc) and tier in ("A", "B", "L") and not (be.get("official_website") or "").strip() and any(o["keys"]):
+        # (a buyer with no key of its own — 2026-11-13 01:07Z build failed on one with IndexError — is not listed)
         CB_NOSITE.append((sorted(k for k in o["keys"] if k)[0], o["name"], be.get("address") or {}))
     if not (em and acc) and tier in ("A", "B", "L") and (be.get("official_website") or "").strip():
         # 2026-11-12: a buyer under a current contract with no mailbox of its own on file: its own site goes to the mailbox reader
