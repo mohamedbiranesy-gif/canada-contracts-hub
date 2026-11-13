@@ -673,10 +673,14 @@ def cmd_pick(a):
     # when an earlier pass read them, since the abroad passes are new; left out when what is on file already names a utility of rule 18
     abroad_keys = None
     if getattr(a, "abroad", False):
-        abroad_keys = set()
+        abroad_keys, gone = set(), set()
         for p in glob.glob(os.path.join(INC, "lead_shards", "leads_usb_*.gz")):
             with gzip.open(p, "rt", encoding="utf-8", errors="replace", newline="") as f:
                 abroad_keys |= {r.get("buyer_key") for r in csv.DictReader(f) if r.get("buyer_key")}
+        for p in glob.glob(os.path.join(INC, "lead_shards", "gone_usb_*.gz")):  # leads withdrawn since (a ZIP code area no longer its utility's)
+            with gzip.open(p, "rt", encoding="utf-8", errors="replace") as f:
+                gone |= {l.rstrip("\n").split("\t")[-1] for l in f if l.startswith("L\t")}
+        abroad_keys -= gone
         n["abroad_leads"] = len(abroad_keys)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with open(a.out, "w", newline="", encoding="utf-8") as f:
@@ -687,7 +691,8 @@ def cmd_pick(a):
                 if k not in abroad_keys:
                     continue
                 fa = facts.get(k, {})
-                if BL.abroad_where(" ".join([fa.get("address") or "", fa.get("address_quote") or ""]))[0]:
+                _t = " ".join([fa.get("address") or "", fa.get("address_quote") or ""])
+                if BL.abroad_where(_t)[0] or BL.abroad_point(C.registrable(urllib.parse.urlparse(fa.get("site") or "").hostname or ""), _t)[0]:
                     n["located"] += 1; continue
                 site = fa.get("site") or ("https://%s/" % e.partition("@")[2])
                 w.writerow([k, site]); n["picked"] += 1
