@@ -11,6 +11,13 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 08:02Z — build 07:49Z: 267,950 ready (+12,791)**: location 177,975 (+10,246: the address re-read and the telephone places), agent of
+record 11,564 (+2,012: owners' sites tied this morning), licence 14,314, benefit plan 786, membership 19,269, service 31,986; $5k+ a bill 2,814
+(published 2,178, estimated 636); with an amount and a billing period 225,909; with every main invoice field 176,263; 326,765 rows (320,934 with a
+mailbox). Not yet in it: bc-crown (water, stumpage, AER, PMRA, CNSC), the ROR / Wikidata sites, phone targets fix, the person-named places rule.
+Also since 07:49Z: **CNSC lane** (1,149 licensees that pay the yearly fee — invoice before each licence anniversary, s. 17 of the fee regulations;
+238 in Alberta) and a Wikidata pass in the crown lanes' site finder.
+
 **2026-11-13 07:49Z — statutory billers that publish whom they bill; two registries that name an organisation's website**
 - bc-crown now holds four lanes (tools/bc_crown.py, daily): B.C. water rentals (5,486 licensees), B.C. stumpage (the Harvest Billing System's
   invoices), the **Alberta Energy Regulator's administration fee** (1,197 licensees of drilled wells in force; invoices e-mailed every April 1 to the

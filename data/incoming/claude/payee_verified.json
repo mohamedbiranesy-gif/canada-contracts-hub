@@ -47,6 +47,12 @@
   "url": "https://www.kaccpei.com/kaccpayments",
   "verified": "2026-11-12"
  },
+ "contrib/claude/payees/cnsc_fees.json": {
+  "quotes": 6,
+  "sig": "03827ab20f56a250",
+  "url": "https://api.cnsc-ccsn.gc.ca/dms/digital-medias/Cost-Recovery-Program-Paying-your-Fees.pdf/object",
+  "verified": "2026-11-13"
+ },
  "contrib/claude/payees/hcra.json": {
   "quotes": 2,
   "sig": "60dd700736f76f47",

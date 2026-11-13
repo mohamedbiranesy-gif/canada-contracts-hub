@@ -197,6 +197,26 @@ P_BASE = "The base amount of the Annual Charge, as stated in the Pest Control Pr
 P_INTEREST = "interest calculated and compounded monthly at the average bank rate plus 3% is payable on that amount"
 PCOLS = ["key", "name", "products", "product_examples", "first_registered", "extract_date", "fee_floor"]
 PMRA = os.path.join(DIR, "hc_pmra_registrants.csv.gz")
+# ---- the Canadian Nuclear Safety Commission (2026-11-13): every holder of a nuclear substance / radiation device licence pays a yearly fee, invoiced
+# before each licence anniversary — "Every year before the licence anniversary date, the Commission shall issue to the licensee an invoice for the
+# annual fee payable." (Cost Recovery Fees Regulations, s. 17(1)); "Clients may remit their fee payment by cheque, credit card or electronically"
+# (its "Paying your fees": cheque to the Receiver General, direct deposit or wire to the Receiver General's account). Its licence database lists
+# every active licence: number, purpose, organisation, expiry date, city, province. The regulations do not apply to schools, universities and colleges,
+# research bodies they own, and publicly funded not-for-profit medical institutions (s. 2): those holders are left out.
+CNSC_DB = "https://www.cnsc-ccsn.gc.ca/eng/nuclear-substances/licensing-nuclear-substances-and-radiation-devices/licence-search/"
+CNSC_REG = "https://laws-lois.justice.gc.ca/eng/regulations/sor-2003-212/FullText.html"
+CNSC_PAY = "https://api.cnsc-ccsn.gc.ca/dms/digital-medias/Cost-Recovery-Program-Paying-your-Fees.pdf/object"
+CNSC_ADDRESS = "Canadian Nuclear Safety Commission 280 Slater Street P.O. Box 1046, STN B Ottawa ON K1P 5S9 Canada"
+C_INVOICE = "Every year before the licence anniversary date, the Commission shall issue to the licensee an invoice for the annual fee payable."
+C_TERMS = "The licensee shall pay the fee to the Commission by the later of 30 days after the date of the invoice and the licence anniversary date."
+C_PAY = "Clients may remit their fee payment by cheque, credit card or electronically"
+CNSC_EXEMPT = re.compile(r"universit|college|coll[èe]ge|c[ée]gep|school|[ée]cole|hospital|h[ôo]pital|sant[ée]|ciusss|cisss|\bchu\b|centre hospitalier|"
+                         r"health (?:authority|services|sciences|region|pei|nl)|health$|alberta health|horizon health|vitalit|nova scotia health|interior health|"
+                         r"fraser health|vancouver coastal|island health|northern health|provincial health|shared health|eastern health|central health|"
+                         r"western health|labrador-grenfell|regional health|research council|polytechnique|institut national|cancer (?:agency|care|centre)|"
+                         r"cancercare|bc cancer|health network|health centre|healthcare|soins de sant", re.I)
+NCOLS = ["key", "name", "licences", "licence_examples", "purposes", "places", "first_expiry", "last_expiry", "extract_date"]
+CNSC = os.path.join(DIR, "cnsc_licensees.csv.gz")
 WATER = os.path.join(DIR, "bc_water_licensees.csv.gz")
 STUMP = os.path.join(DIR, "bc_stumpage_clients.csv.gz")
 STUMP_INV = os.path.join(DIR, "bc_stumpage_invoices.csv.gz")
@@ -609,6 +629,8 @@ TRADE2 = re.compile(r"\b(?:products?|international|spas?|nurser(?:y|ies)|chemica
 def org_any(nm):
     """a registrant that is an organisation: a legal form (of Canada or another country), a word of the trade, or a name not shaped like a
     person's; a government body (a federal department, a provincial ministry) is not one, unless the name carries a company's legal form"""
+    if re.match(r"(?:dr|mr|mrs|ms|me|prof|docteur|dre)\.?\s", nm, re.I):
+        return False  # "Dr. David Lautner": a person
     form = bool(LEGAL_FORM.search(nm) or INTL_FORM.search(nm))
     if not form and (RL.FEDERAL.search(nm.replace("&", "and")) or PROVINCIAL.search(nm) or GOVT.search(nm)):
         return False
@@ -652,10 +674,47 @@ def cmd_build_pmra(a):
           % (len(out), n, sum(1 for o in out if int(o["products"]) >= 50), dict(why)), flush=True)
 
 
+# ---------------------------------------------------------------------------------------------------- the CNSC's yearly licence fees
+def cmd_pull_cnsc(a):
+    os.makedirs(a.work, exist_ok=True)
+    b, _ = get(CNSC_DB, os.path.join(a.work, "cnsc.html"), timeout=300)
+    print("CNSC licence database: %d bytes" % len(b), flush=True)
+
+
+def cmd_build_cnsc(a):
+    import html as H
+    os.makedirs(DIR, exist_ok=True)
+    s_ = open(os.path.join(a.work, "cnsc.html"), encoding="utf-8", errors="replace").read()
+    by, why, n = collections.defaultdict(list), collections.Counter(), 0
+    for r in re.findall(r"(?s)<tr[^>]*>(.*?)</tr>", s_):
+        c = [H.unescape(re.sub(r"<[^>]+>", "", x)).strip() for x in re.findall(r"(?s)<t[dh][^>]*>(.*?)</t[dh]>", r)]
+        if len(c) < 7 or c[0].lower().startswith("licence number"):
+            continue
+        n += 1
+        by[clean_name(c[2])].append(c)
+    out = []
+    for nm, cs in by.items():
+        if (not nm or not org_any(nm) or CNSC_EXEMPT.search(nm)
+                or (re.search(r"\bhealth\b|sant[ée]|m[ée]dical centre|medical center", nm, re.I) and not LEGAL_FORM.search(nm) and not INTL_FORM.search(nm))):
+            why["exempt (school, university, college, publicly funded medical institution), a person or a government body"] += 1
+            continue
+        cs.sort(key=lambda c: c[3])
+        out.append({"key": "cnsc:" + hashlib.sha1(HR.norm(nm).encode()).hexdigest()[:12], "name": nm, "licences": len(cs),
+                    "licence_examples": " ".join(c[0] for c in cs[:5]), "purposes": json.dumps(collections.Counter(c[1] for c in cs).most_common(5), ensure_ascii=False),
+                    "places": "; ".join(sorted({"%s, %s" % (c[4], c[5]) for c in cs})[:4]), "first_expiry": cs[0][3], "last_expiry": cs[-1][3], "extract_date": TODAY})
+        why["licensee kept"] += 1
+    out.sort(key=lambda o: o["key"])
+    with gzip.open(CNSC, "wt", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=NCOLS)
+        w.writeheader()
+        w.writerows(out)
+    print("CNSC: %d licensees that pay the yearly fee (%d active licences read); %s" % (len(out), n, dict(why)), flush=True)
+
+
 # ---------------------------------------------------------------------------------------------------- sites and leads
 def holders():
     out = []
-    for p, lane in ((WATER, "water"), (STUMP, "stumpage"), (AER, "aer"), (PMRA, "pmra")):
+    for p, lane in ((WATER, "water"), (STUMP, "stumpage"), (AER, "aer"), (PMRA, "pmra"), (CNSC, "cnsc")):
         if os.path.exists(p):
             with gzip.open(p, "rt", encoding="utf-8", newline="") as f:
                 for r in csv.DictReader(f):
@@ -919,6 +978,31 @@ def lead_pmra(o, s):
     return row, det
 
 
+def lead_cnsc(o, s):
+    key = "lead:" + hashlib.sha1(("cnsc|%s" % o["key"]).encode()).hexdigest()[:16]
+    s = dict(s, tied_by=HR.no_mail(s.get("tied_by")), quote=HR.no_mail(s.get("quote")))
+    n = int(o["licences"])
+    purposes = json.loads(o["purposes"] or "[]")
+    what = "%d licence%s (%s)" % (n, "" if n == 1 else "s", "; ".join(p_ for p_, _ in purposes[:3]))
+    row = {"buyer_key": key, "buyer_name": o["name"], "website": s["site"], "canadian_vendor_rows": 1, "example_vendor": "Canadian Nuclear Safety Commission",
+           "canada_field_value": "membership / statutory fee relationship: licence holder of the Canadian body (Canadian Nuclear Safety Commission)=%s (as printed on %s, read %s); the regulations: “%s” (%s)"
+                                 % (CNSC_ADDRESS, CNSC_PAY, READ, C_INVOICE, CNSC_REG),
+           "evidence_dataset": CNSC_DB, "latest_record_date": o["extract_date"]}
+    det = {"key": key, "platform": "cnsc_licence", "record_url": CNSC_DB, "vendor": "Canadian Nuclear Safety Commission", "record_date": o["extract_date"],
+           "start": "", "end": o.get("last_expiry") or "", "reference": o["licence_examples"].split(" ")[0] if o["licence_examples"] else "",
+           "title": "Nuclear substance / radiation device %s — %s" % (what, o.get("places") or ""),
+           "vendor_address": "%s (as printed on %s, read %s)" % (CNSC_ADDRESS, CNSC_PAY, READ), "vendor_site": "https://www.cnsc-ccsn.gc.ca/", "member_address_quote": o.get("places") or "",
+           "register_label": "the CNSC's licence database of nuclear substances, radiation devices and Class II facilities (all active licences: number, purpose, organisation, expiry, city, province)",
+           "buyer_register": {"legal_name": o["name"], "trade_names": [], "registry_id": "", "label": "the CNSC's licence database, read %s" % o["extract_date"]},
+           "fee_unit": "", "fee_unit_basis": "the fee of each licence is calculated by the CNSC's formulas (its 2026-27 Cost Recovery Fees Schedule) from the licensee's locations and devices: not published by licence",
+           "fee_calculated": "",
+           "bill_delivery": "an invoice every year before the licence anniversary: “%s” (%s, read %s)" % (C_INVOICE, CNSC_REG, READ),
+           "bill_terms": "“%s” (%s, read %s)" % (C_TERMS, CNSC_REG, READ),
+           "bill_items": "the yearly fee for its %s" % what,
+           "fee_basis": "%s (%s)" % (C_INVOICE, CNSC_REG), "site_named_by": s["tied_by"], "site_tied_to_holder_by": s["tied_by"], "site_quote": s.get("quote") or ""}
+    return row, det
+
+
 def cmd_leads(a):
     os.makedirs(SHARDS, exist_ok=True)
     stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
@@ -939,7 +1023,7 @@ def cmd_leads(a):
         if hosts[urllib.parse.urlparse(s["site"]).hostname] > 3:
             by["site shared by more than three holders (a group's or a host's site): left out"] += 1
             continue
-        row, det = {"water": lead_water, "stumpage": lead_stumpage, "aer": lead_aer, "pmra": lead_pmra}[o["lane"]](o, s)
+        row, det = {"water": lead_water, "stumpage": lead_stumpage, "aer": lead_aer, "pmra": lead_pmra, "cnsc": lead_cnsc}[o["lane"]](o, s)
         if row["buyer_key"] in have:
             continue
         have.add(row["buyer_key"]); rows.append(row); dets.append(det); by["new lead (%s)" % o["lane"]] += 1
@@ -956,13 +1040,14 @@ def cmd_leads(a):
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for c in ("pull-water", "build-water", "pull-stumpage", "build-stumpage", "pull-aer", "build-aer", "pull-pmra", "build-pmra"):
+    for c in ("pull-water", "build-water", "pull-stumpage", "build-stumpage", "pull-aer", "build-aer", "pull-pmra", "build-pmra", "pull-cnsc", "build-cnsc"):
         p = sub.add_parser(c); p.add_argument("--work", required=True); p.add_argument("--force", action="store_true")
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=60); p.add_argument("--threads", type=int, default=12); p.add_argument("--addr-minutes", type=float, default=30)
     p = sub.add_parser("leads"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"pull-water": cmd_pull_water, "build-water": cmd_build_water, "pull-stumpage": cmd_pull_stumpage, "build-stumpage": cmd_build_stumpage,
-     "pull-aer": cmd_pull_aer, "build-aer": cmd_build_aer, "pull-pmra": cmd_pull_pmra, "build-pmra": cmd_build_pmra, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
+     "pull-aer": cmd_pull_aer, "build-aer": cmd_build_aer, "pull-pmra": cmd_pull_pmra, "build-pmra": cmd_build_pmra,
+     "pull-cnsc": cmd_pull_cnsc, "build-cnsc": cmd_build_cnsc, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
 
 
 if __name__ == "__main__":
