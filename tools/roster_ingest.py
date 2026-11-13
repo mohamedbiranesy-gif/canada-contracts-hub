@@ -54,6 +54,16 @@ WHAT = {"member": "members pay it dues", "dealer": "the listed party buys from i
         "exhibitor": "the listed party pays it for its stand", "sponsor": "the listed party pays it a sponsorship"}
 
 
+
+def _estimate_ok(E):
+    """rule 16 (owner, 2026-11-11 20:04-20:36 EST): an estimate of a roster's bill is calculated from published figures, says so and says from
+    what — never in a published cell. amount_estimate = {text, basis_url, basis_quotes: [...], bill_items (optional)}"""
+    if not isinstance(E, dict):
+        return False
+    t, u, q = str(E.get("text") or ""), str(E.get("basis_url") or ""), E.get("basis_quotes") or []
+    return (t.startswith(("estimated — ", "calculated — ")) and len(t) <= 400 and u.startswith("http") and isinstance(q, list) and q
+            and all(isinstance(x, str) and 0 < len(x) <= 300 and not PERSON_Q.search(x) and "@" not in x for x in q))
+
 def host(u):
     h = re.sub(r"^https?://", "", (u or "").strip().lower()).split("/")[0].split(":")[0].split("?")[0]
     return h[4:] if h.startswith("www.") else h
@@ -128,6 +138,9 @@ def rosters():
             why = "the address must be quoted from the body's own site"
         elif D.get("list_hosts") and C.registrable(host(D.get("list_host_link_url") or "")) != C.registrable(host(D["biller_site"])):
             why = "list_hosts needs list_host_link_url: the body's own page that links its list on that platform"
+        elif D.get("amount_estimate") and not _estimate_ok(D["amount_estimate"]):
+            why = ("amount_estimate needs text (opening “estimated —” or “calculated —”, at most 400 characters, saying from what), basis_url and "
+                   "basis_quotes (a list of the published sentences it is calculated from, each at most 300 characters, no person)")
         rows = []
         if not why:
             files = sorted(glob.glob(os.path.join(ROOT, "data/incoming/*/roster_%s.csv" % D["key"])) + glob.glob(os.path.join(ROOT, "data/incoming/*/roster_%s.csv.gz" % D["key"])))
@@ -227,6 +240,17 @@ def merge(a):
                     "vendor_address_quote": D["biller_address_quote"], "vendor_address_url": D["biller_address_url"], "vendor_site": D["biller_site"], "member_address_quote": addr,
                     "pays_quote": D["pays_quote"], "pays_url": D["pays_url"], "pays_by_kind": not D.get("pays_quote"),
                     "member_quote": D.get("member_quote") or "", "member_quote_url": D.get("member_quote_url") or "", "list_name": D["list_name"], "harvested_by": D["_lane"], "roster_key": D["key"]}
+        _E = D.get("amount_estimate") or {}
+        if _E:  # the body's bill to a listed party, calculated from the body's own published figures (labelled; rank.py writes it to bill_amount_calculated)
+            _n = sum(1 for k_ in ks if k_[0]["key"] == D["key"])  # the entries of this roster under the organisation's own site (a chain's stores)
+            _t = _E["text"]
+            if _n > 1 and _E.get("per_listing_amount"):
+                _t = "estimated — about %s%s a month for its %d %s on the list (%s)" % (_E.get("currency_sign") or "$", format(round(float(_E["per_listing_amount"]) * _n, -2), ",.0f"),
+                                                                                    _n, _E.get("listing_noun") or "entries", _t[len("estimated — "):] if _t.startswith("estimated — ") else _t)
+            det[key]["listed_entries"] = _n
+            det[key]["fee_calculated"] = "%s (%s: %s)" % (_t, _E["basis_url"], " | ".join("“%s”" % x for x in _E["basis_quotes"]))
+            if _E.get("bill_items"):
+                det[key]["bill_items"] = _E["bill_items"]
         (refreshed if was else new)[D["key"]] += 1
     w = LS.save("roster", stamp, leads, det, snap)
     for key, n, st in report:

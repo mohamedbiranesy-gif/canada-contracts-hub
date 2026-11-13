@@ -5628,6 +5628,13 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_indicative"] = _money_words(v_, cur_, per)
                 out["bill_amount_basis"] = "the body's lowest published membership fee by the %s: “%s” (%s, read %s); the member's own dues are not published (they are that or more)" % (per, st_["q"][:260], st_["u"], rec.get("date"))
                 n_billcol["member rows that carry the body's lowest published dues"] += 1
+        if ld.get("platform") == "roster_file" and ld.get("fee_calculated") and not str(x.get("bill_amount_calculated") or "").strip():
+            # 2026-11-13: a roster whose body publishes what all its listed parties pay together and how many they are (OCS Wholesale: its wholesale
+            # revenue and its number of Authorized Cannabis Stores): the average bill, labelled as an estimate and saying from what (rule 16)
+            out["bill_amount_calculated"] = ld["fee_calculated"]
+            n_billcol["roster rows with an estimate calculated from the body's own published figures"] += 1
+        if ld.get("platform") == "roster_file" and ld.get("bill_items") and not out.get("bill_items_as_published"):
+            out["bill_items_as_published"] = ld["bill_items"]
     else:
         out["relationship_fact_basis"] = _RR.record_basis(x)  # a press release says it is the vendor's own announcement (tools/relationship_rows.py)
     if cls.startswith("5") and t in ("C", "D") and "vendor located in Canada" in cfv and "member named in the member directory" not in cs:

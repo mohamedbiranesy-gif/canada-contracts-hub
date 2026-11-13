@@ -13,5 +13,18 @@
  "list_hosts": [
   "agco.ca"
  ],
- "list_host_link_url": "https://learn.ocswholesale.ca/ontario-cannabis-retail-market-conditions-map/"
+ "list_host_link_url": "https://learn.ocswholesale.ca/ontario-cannabis-retail-market-conditions-map/",
+ "amount_estimate": {
+  "text": "estimated — about C$84,300 a month per store on average: OCS Wholesale's wholesale revenue of $1,733.8 million in 2024–25 over the 1,709 to 1,719 Authorized Cannabis Stores of that year (1,714 on average), spread over 12 months; what this store buys is not published",
+  "basis_url": "https://www.doingbusinesswithocs.ca/wp-content/uploads/2026/02/OCS-2024-2025-Annual-Report.pdf",
+  "basis_quotes": [
+   "Wholesale revenue, excluding Data Subscription Fees, was $1,733.8 million in 2024–25, compared to $1,605.1 million in 2023–24, an increase of 8.0%.",
+   "As of March 31, 2025, the total number of stores reached 1,719, an increase of 10 stores (0.6%) compared to 1,709 stores the previous year."
+  ],
+  "basis_read": "2026-11-13",
+  "bill_items": "legal cannabis products bought for resale, an order at a time (“Authorized Retailers of cannabis in Ontario may only purchase legal cannabis products through OCS Wholesale.”)",
+  "per_listing_amount": 84300,
+  "currency_sign": "C$",
+  "listing_noun": "stores"
+ }
 }
