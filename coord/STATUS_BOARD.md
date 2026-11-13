@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-13 06:50 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-13 07:15 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-12)
 | metric | value |
@@ -686,7 +686,7 @@
 | lane | todo | in_progress | done | blocked |
 |---|---|---|---|---|
 | chatgpt | 2 | 0 | 0 | 0 |
-| claude | 2 | 0 | 2 | 0 |
+| claude | 1 | 0 | 2 | 1 |
 | codex | 41 | 0 | 0 | 1 |
 | jules | 18 | 0 | 12 | 9 |
 
