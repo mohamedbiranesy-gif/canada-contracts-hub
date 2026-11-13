@@ -32,6 +32,8 @@ BUYERS = os.path.join(DIR, "f5500_buyers.csv.gz")
 SITES = os.path.join(DIR, "f5500_sites.csv")
 SDONE = os.path.join(DIR, "f5500_sites_done.tsv")
 OVT = os.path.join(INC, "overture", "f55_candidates.csv")
+OVT_ADDR = os.path.join(INC, "overture", "f55_addr_candidates.csv")  # 2026-11-13: places AT the sponsor's own street address (tools/overture_names.py addr)
+ADONE = os.path.join(DIR, "f5500_addr_done.tsv")
 UA = "canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)"
 BASE = "https://askebsa.dol.gov/FOIA%20Files/{y}/All/{f}_{y}_All.zip"
 LANDING = "https://www.dol.gov/agencies/ebsa/about-ebsa/our-activities/public-disclosure/foia/form-5500-datasets"
@@ -228,7 +230,13 @@ def cmd_sites(a):
     if os.path.exists(OVT):
         for r in csv.DictReader(open(OVT, encoding="utf-8", newline="")):
             ovt[r["key"]].append(r)
-    todo = [b for b in bs if b["key"] not in have and b["key"] not in done and re.fullmatch(r"\d{5}", b.get("zip") or "")]
+    addr = collections.defaultdict(list)
+    if os.path.exists(OVT_ADDR):
+        for r in csv.DictReader(open(OVT_ADDR, encoding="utf-8", newline="")):
+            addr[r["key"]].append(r)
+    adone = {l.split("\t")[0] for l in open(ADONE, encoding="utf-8")} if os.path.exists(ADONE) else set()
+    # a sponsor looked for before is looked for again when a place at its own street address lists a website not tried yet
+    todo = [b for b in bs if b["key"] not in have and (b["key"] not in done or (b["key"] in addr and b["key"] not in adone)) and re.fullmatch(r"\d{5}", b.get("zip") or "")]
     todo.sort(key=lambda b: -(num(b["commissions_usd"]) + num(b["premiums_usd"]) + num(b["provider_comp_usd"])))
     new = not os.path.exists(SITES)
     f = open(SITES, "a", encoding="utf-8", newline="")
@@ -236,6 +244,7 @@ def cmd_sites(a):
     if new:
         w.writeheader()
     dn = open(SDONE, "a", encoding="utf-8")
+    ad = open(ADONE, "a", encoding="utf-8")
     t_end, lock, q, cnt = time.time() + 60 * a.minutes, threading.Lock(), queue.Queue(), collections.Counter()
     for b in todo:
         q.put(b)
@@ -249,8 +258,37 @@ def cmd_sites(a):
                 out.append(st + ".com")
         return out[:3]
 
+    def legal_says(d, name):
+        """the site's own terms / privacy / legal page prints the sponsor's full legal name with its legal form (tools/tm_register.py)"""
+        import tm_register as TM
+        import credit_scan as CS
+        import ap_crawler as C
+        cache = {}
+        try:
+            res, final, raw = CS.get_page("https://%s/" % d, True, cache)
+        except Exception:
+            return ""
+        if res != "ok":
+            return ""
+        u, qt, _n = TM.legal_name_page(raw, final, C.registrable((CS.host_of(final) or d).lower()), name, cache)
+        return ("%s: “%s”" % (u, qt)) if u else ""
+
     def one(b):
         n = HR.core(b["name"])
+        for c in addr.get(b["key"], ()):
+            d = c["site"]
+            if HR.BAD.search(d):
+                continue
+            said = HR.home_says(d, n)
+            pcs = "" if said else HR.pc_on_home(d, b["zip"], "united states", contact=True)
+            lg = "" if (said or pcs) else legal_says(d, b["name"])
+            if said or pcs or lg:
+                how = (("carries the sponsor's name: “%s”" % said) if said else ("prints the sponsor's ZIP code: “%s”" % HR.no_mail(pcs)) if pcs else
+                       ("legal page prints the sponsor's full legal name (%s)" % lg))
+                return d, "an Overture Maps place at the sponsor's own street address (%s; “%s”, place %s; Overture Maps Foundation open data, release %s) lists %s, and the site's own %s" % (
+                    c["how"].partition("(")[2].rstrip(")"), c["place_name"], c["place_id"], c["release"], d, ("home page " + how) if (said or pcs) else how), (said or HR.no_mail(pcs) or lg)
+        if b["key"] in done:
+            return None  # looked for before under the other sources: only the places at its address are new
         for c in ovt.get(b["key"], ()):
             d = c["site"]
             if HR.BAD.search(d):
@@ -284,6 +322,8 @@ def cmd_sites(a):
                 hit = None
             with lock:
                 dn.write("%s\t%s\n" % (b["key"], hit[0] if hit else "")); dn.flush()
+                if b["key"] in addr:
+                    ad.write("%s\t%s\n" % (b["key"], hit[0] if hit else "")); ad.flush()
                 cnt["asked"] += 1
                 if hit:
                     w.writerow({"key": b["key"], "site": "https://%s/" % hit[0], "read": TODAY, "quote": hit[2][:300], "tied_by": hit[1]})
@@ -294,7 +334,7 @@ def cmd_sites(a):
         t.start()
     for t in ts:
         t.join()
-    dn.close(); f.close()
+    dn.close(); f.close(); ad.close()
     print("f5500 sites: %d on file before, %d sponsors without one; %s" % (len(have), len(todo), dict(cnt)), flush=True)
 
 

@@ -38,13 +38,15 @@ jobs:
           last=$(cut -d' ' -f1 data/incoming/claude/overture/last_query_hc_xc_cb.txt 2>/dev/null || echo 0)
           if [ "${OVERTURE}" = "true" ] || [ $(( $(date +%s) - ${last:-0} )) -gt 518400 ]; then
             pip install -q duckdb && python3 tools/overture_names.py query --lanes hc,xc,cb 2>&1 | tee -a /tmp/l.txt || true
+            # 2026-11-13: and the places AT each company's own address (Canada: full postal code; US: street number, street, ZIP)
+            python3 tools/overture_names.py addr --lanes hc 2>&1 | tee -a /tmp/l.txt || true
           fi
           # buyers under a current contract with no website on file (rank.py's list): the candidate is kept on its own home page
           python3 tools/overture_names.py verify --lane cb --minutes 15 2>&1 | tee -a /tmp/l.txt || true
           python3 tools/hc_registers.py sites --overture --overture-minutes 35 --guess --guess-minutes 30 --minutes "$MINUTES" --threads 12 2>&1 | tee -a /tmp/l.txt
           mkdir -p keep && cp data/incoming/claude/hc/hc_companies.csv.gz data/incoming/claude/hc/hc_sites.csv data/incoming/claude/hc/hc_sites_done.tsv keep/
-          for f in hc_overture_done.tsv hc_guess_done.tsv; do [ -f "data/incoming/claude/hc/$f" ] && cp "data/incoming/claude/hc/$f" keep/; done
-          mkdir -p keep/ovt && for f in hc_candidates.csv xc_candidates.csv cb_candidates.csv cb_sites.csv cb_done.tsv last_query_hc_xc_cb.txt; do
+          for f in hc_overture_done.tsv hc_guess_done.tsv hc_addr_done.tsv; do [ -f "data/incoming/claude/hc/$f" ] && cp "data/incoming/claude/hc/$f" keep/; done
+          mkdir -p keep/ovt && for f in hc_candidates.csv hc_addr_candidates.csv xc_candidates.csv cb_candidates.csv cb_sites.csv cb_done.tsv last_query_hc_xc_cb.txt; do
             [ -f "data/incoming/claude/overture/$f" ] && cp "data/incoming/claude/overture/$f" keep/ovt/; done
           STAMP=$(date -u +%Y%m%dT%H%M%S)
           git config user.name "hc-registers"; git config user.email "hc-registers@users.noreply.github.com"
@@ -52,7 +54,7 @@ jobs:
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/lead_shards
             mkdir -p data/incoming/claude/hc
             # the site list and the done list only grow: the lines of main and of this run, once each
-            for f in hc_sites.csv hc_sites_done.tsv hc_overture_done.tsv hc_guess_done.tsv; do
+            for f in hc_sites.csv hc_sites_done.tsv hc_overture_done.tsv hc_guess_done.tsv hc_addr_done.tsv; do
               [ -f "keep/$f" ] || continue
               if [ -f "data/incoming/claude/hc/$f" ]; then
                 python3 - "$f" <<'PY'

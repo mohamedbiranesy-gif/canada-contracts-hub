@@ -528,6 +528,97 @@ def guess_pass(cos, have, w, f, minutes, threads):
     print("name as a domain: %d companies in Canada / the United States without a site, %d asked this run, %d sites tied" % (len(todo), cnt["asked"], cnt["found"]), flush=True)
 
 
+OVT_ADDR = os.path.join(INC, "overture", "hc_addr_candidates.csv")  # 2026-11-13: places AT the company's own address (tools/overture_names.py addr)
+ADONE = os.path.join(DIR, "hc_addr_done.tsv")
+
+
+def addr_pass(cos, have, w, f, minutes, threads):
+    """the companies for which an Overture Maps place AT their own address (Canada: the full postal code; United States: the street number,
+    street and ZIP code) lists a website: kept when the site's own home page carries the company's name or prints the register's postal code,
+    or its own terms / privacy / legal page prints the company's full legal name with its legal form; the same strict rule as overture_pass
+    for a Canadian company on a site that is not .ca and for a name a group's entities abroad also bear (postal code or legal name only)"""
+    import queue, threading
+    import ap_crawler as C
+    import tm_register as TM
+    import credit_scan as CS
+    if not os.path.exists(OVT_ADDR):
+        print("addr: no candidates file (tools/overture_names.py addr --lanes hc)", flush=True)
+        return 0
+    by = collections.defaultdict(list)
+    for r in csv.DictReader(open(OVT_ADDR, encoding="utf-8", newline="")):
+        by[r["key"]].append(r)
+    done = {l.split("\t")[0] for l in open(ADONE, encoding="utf-8")} if os.path.exists(ADONE) else set()
+    todo = [o for o in cos if o["key"] in by and o["key"] not in have and o["key"] not in done]
+    todo.sort(key=lambda o: -float(o["fee_total"] or 0))
+    GROUPS.clear()
+    for o in cos:
+        c_ = core(o["name"])
+        if c_:
+            GROUPS.setdefault(group_key(c_), set()).add(norm(o.get("country") or ""))
+    t_end = time.time() + 60 * minutes
+    lock, q, cnt = threading.Lock(), queue.Queue(), collections.Counter()
+    for o in todo:
+        q.put(o)
+    dn = open(ADONE, "a", encoding="utf-8")
+
+    def legal(d, name):
+        cache = {}
+        try:
+            res, final, raw = CS.get_page("https://%s/" % d, True, cache)
+        except Exception:
+            return ""
+        if res != "ok":
+            return ""
+        u, qt, _n = TM.legal_name_page(raw, final, C.registrable((CS.host_of(final) or d).lower()), name, cache)
+        return ("%s: “%s”" % (u, qt)) if u else ""
+
+    def worker():
+        while time.time() < t_end:
+            try:
+                o = q.get_nowait()
+            except queue.Empty:
+                return
+            n = core(o["name"])
+            ca = norm(o.get("country") or "") in ("canada", "ca")
+            multi = len(GROUPS.get(group_key(n), set()) - {norm(o.get("country") or "")}) > 0
+            hit = None
+            for c in by[o["key"]]:
+                d = c["site"]
+                if BAD.search(d):
+                    continue
+                strict = (ca and not d.endswith(".ca")) or (multi and d.rsplit(".", 1)[-1] in GENERIC)
+                try:
+                    said = "" if strict else home_says(d, n)
+                    pcs = "" if said else pc_on_home(d, o.get("postal_code") or "", o.get("country") or "", contact=True)
+                    lg = "" if (said or pcs) else legal(d, o["name"])
+                except Exception:
+                    said, pcs, lg = "", "", ""
+                if said or pcs or lg:
+                    hit = (c, said, pcs, lg)
+                    break
+            with lock:
+                dn.write("%s\t%s\n" % (o["key"], hit[0]["site"] if hit else "")); dn.flush()
+                cnt["asked"] += 1
+                if hit:
+                    c, said, pcs, lg = hit
+                    how = (("home page carries the company's name: “%s”" % said) if said else ("pages print the register's postal code: “%s”" % no_mail(pcs)) if pcs else
+                           ("legal page prints the company's full legal name (%s)" % lg))
+                    w.writerow({"key": o["key"], "site": "https://%s/" % c["site"], "read": TODAY, "quote": (said or no_mail(pcs) or lg)[:300],
+                                "tied_by": "an Overture Maps place at the company's own %s (“%s”, place %s; Overture Maps Foundation open data, release %s) lists %s, "
+                                           "and the site's own %s" % (c["how"][len("the owner's own "):] if c["how"].startswith("the owner's own ") else c["how"],
+                                                                      c["place_name"], c["place_id"], c["release"], c["site"], how)})
+                    f.flush(); have[o["key"]] = True; cnt["found"] += 1
+
+    ts = [threading.Thread(target=worker, daemon=True) for _ in range(threads)]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    dn.close()
+    print("addr: %d companies with a place at their own address; %s" % (len(todo), dict(cnt)), flush=True)
+    return cnt["found"]
+
+
 def overture_pass(cos, have, w, f, minutes, threads):
     """the companies for which an Overture Maps place lists a website under their very name at their postal code
     (tools/overture_names.py): the site is kept when its own home page carries the company's name in its title / site name or prints the
@@ -615,6 +706,7 @@ def cmd_sites(a):
     f.flush()
     if getattr(a, "overture", False):
         overture_pass(cos, have, w, f, a.overture_minutes, a.threads)
+        addr_pass(cos, have, w, f, a.overture_minutes, a.threads)  # 2026-11-13: places at the company's own address
     if getattr(a, "guess", False):
         guess_pass(cos, have, w, f, a.guess_minutes, a.threads)
     done = set()

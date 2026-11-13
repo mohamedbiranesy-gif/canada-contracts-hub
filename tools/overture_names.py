@@ -345,9 +345,54 @@ def addr(a):
     import tm_register as TM
     import pt_register as PT
     files = {"tm": (TM.DIR, TM.OWN_XX, TM.MATCHES, TM.FOUND, TM.SDONE, TM.OVT_SITES, os.path.join(TM.DIR, "tm_overture_addr_sites.csv")),
-             "pt": (PT.DIR, PT.OWN_XX, PT.MATCHES, PT.FOUND, PT.SDONE, os.path.join(PT.DIR, "pt_overture_sites.csv"), os.path.join(PT.DIR, "pt_overture_addr_sites.csv"))}
+             "pt": (PT.DIR, PT.OWN_XX, PT.MATCHES, PT.FOUND, PT.SDONE, os.path.join(PT.DIR, "pt_overture_sites.csv"), os.path.join(PT.DIR, "pt_overture_addr_sites.csv")),
+             "f55": (None, None, None, None, None, None, os.path.join(OUT, "f55_addr_candidates.csv")),
+             "hc": (None, None, None, None, None, None, os.path.join(OUT, "hc_addr_candidates.csv"))}
     want, words_of = {}, {}
-    for lane in [x for x in a.lanes.split(",") if x in files]:
+    if "f55" in a.lanes.split(","):
+        # 2026-11-13: US employers of the Form 5500 lane (tools/f5500_benefits.py) without a site: the sponsor's own street address and ZIP code
+        import f5500_benefits as F5
+        have_ = set(F5.sites_on_file())
+        n_ = collections.Counter()
+        for b in F5.buyers():
+            if b["key"] in have_:
+                continue
+            sk = street_key(b.get("address") or "")
+            z = (b.get("zip") or "")[:5]
+            if not (sk and re.fullmatch(r"\d{5}", z)):
+                n_["no street number or ZIP code read"] += 1
+                continue
+            want[("f55", b["key"])] = ("US", z, sk[0], sk[1])
+            words_of[("f55", b["key"])] = {t for t in TM.nkey_x(b["name"]).split() if len(t) >= 4 and t not in TM.GENERIC}
+            n_["US"] += 1
+        print("f55: sponsors without a site, with an address to look at: %s" % dict(n_), flush=True)
+    if "hc" in a.lanes.split(","):
+        # 2026-11-13: Health Canada's companies (tools/hc_registers.py) without a site: in Canada the full postal code (a block face or one
+        # building), in the United States the ZIP code with the street number and street
+        hcf = os.path.join(INC, "hc", "hc_companies.csv.gz")
+        hcs = os.path.join(INC, "hc", "hc_sites.csv")
+        have_ = {r["key"] for r in csv.DictReader(open(hcs, encoding="utf-8", newline=""))} if os.path.exists(hcs) else set()
+        n_ = collections.Counter()
+        with gzip.open(hcf, "rt", encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                if r["key"] in have_:
+                    continue
+                cc = iso2(r.get("country") or "")
+                if cc == "CA":
+                    pc = norm_pc(r.get("postal_code") or "", "CA")
+                    if len(pc) == 6:
+                        want[("hc", r["key"])] = ("CA", pc, "", "")
+                        n_["CA"] += 1
+                        words_of[("hc", r["key"])] = {t for t in TM.nkey_x(r["name"]).split() if len(t) >= 4 and t not in TM.GENERIC}
+                elif cc == "US":
+                    m = re.search(r"\b(\d{5})(?:-\d{4})?\b", r.get("postal_code") or r.get("address") or "")
+                    sk = street_key(r.get("address") or "")
+                    if m and sk:
+                        want[("hc", r["key"])] = ("US", m.group(1), sk[0], sk[1])
+                        n_["US"] += 1
+                        words_of[("hc", r["key"])] = {t for t in TM.nkey_x(r["name"]).split() if len(t) >= 4 and t not in TM.GENERIC}
+        print("hc: companies without a site, with an address to look at: %s" % dict(n_), flush=True)
+    for lane in [x for x in a.lanes.split(",") if x in files and x not in ("f55", "hc")]:
         d_, own, matches, found, sdone, ovt, _ = files[lane]
         skip = set()
         for p_ in (matches, found, ovt):
@@ -394,7 +439,7 @@ def addr(a):
     if a.dir and glob.glob(a.dir):
         src, release = "read_parquet('%s')" % a.dir, (a.release or "a local copy")
         sel = "name, website, street, postcode, country, id"
-        where = "website IS NOT NULL AND country IN ('US', 'GB')"
+        where = "website IS NOT NULL AND country IN ('US', 'GB', 'CA')"
     else:
         import urllib.request
         ls = lambda prefix: urllib.request.urlopen(urllib.request.Request("%s/?list-type=2&prefix=%s&delimiter=/" % (TM.OVT_BUCKET, prefix), headers={"User-Agent": UA}), timeout=120).read().decode()
@@ -406,7 +451,7 @@ def addr(a):
         src = "read_parquet([%s])" % ", ".join("'%s/%s'" % (TM.OVT_BUCKET, k_) for k_ in keys)
         release = rel.rstrip("/").rsplit("/", 1)[-1]
         sel = 'names."primary" AS name, websites[1] AS website, addresses[1].freeform AS street, addresses[1].postcode AS postcode, addresses[1].country AS country, id'
-        where = "websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country IN ('US', 'GB')"
+        where = "websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country IN ('US', 'GB', 'CA')"
     t0 = time.time()
     rows = con.execute(r"""WITH p AS (SELECT %s FROM %s WHERE %s),
                               q AS (SELECT name, website, street, country, id,
@@ -450,13 +495,14 @@ def addr(a):
         n[(lk[0], "office buildings left out")] += (not keep)
     for lane in [x for x in a.lanes.split(",") if x in files]:
         path = files[lane][6]
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
+            w.writerow(["key" if lane in ("f55", "hc") else "owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
             for k, d, (name, z, pid, street) in sorted(out[lane]):
                 cc = want[(lane, k)][0]
                 w.writerow([k, d, "the owner's own street address (%s, %s %s)" % (street[:60], "ZIP code" if cc == "US" else "postcode", z) if cc == "US" else
-                            "the owner's own postcode (%s)" % z, name, z, pid, release])
+                            "the owner's own %s (%s)" % ("postal code" if cc == "CA" else "postcode", z), name, z, pid, release])
         print("%s: %d owners with a place at their own address that lists a website (%d candidate sites; %d addresses with more than three websites and none under a word of the owner's name left out) -> %s" % (
             lane, n[(lane, "owners")], n[(lane, "sites")], n[(lane, "office buildings left out")], os.path.relpath(path, ROOT)), flush=True)
 

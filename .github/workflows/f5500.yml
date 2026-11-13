@@ -35,9 +35,11 @@ jobs:
           last=$(cut -d' ' -f1 data/incoming/claude/overture/last_query_f55.txt 2>/dev/null || echo 0)
           if [ $(( $(date +%s) - ${last:-0} )) -gt 1200000 ]; then
             pip install -q duckdb && python3 tools/overture_names.py query --lanes f55 2>&1 | tee -a /tmp/l.txt || true
+            # 2026-11-13: and the places at each sponsor's own street address and ZIP code that list a website (a site counts by the same tests)
+            python3 tools/overture_names.py addr --lanes f55 2>&1 | tee -a /tmp/l.txt || true
           fi
           python3 tools/f5500_benefits.py sites --minutes "$MINUTES" --threads 12 2>&1 | tee -a /tmp/l.txt
-          mkdir -p keep && cp -r data/incoming/claude/f5500 keep/ && mkdir -p keep/ovt && for f in f55_candidates.csv last_query_f55.txt; do
+          mkdir -p keep && cp -r data/incoming/claude/f5500 keep/ && mkdir -p keep/ovt && for f in f55_candidates.csv f55_addr_candidates.csv last_query_f55.txt; do
             [ -f "data/incoming/claude/overture/$f" ] && cp "data/incoming/claude/overture/$f" keep/ovt/; done
           STAMP=$(date -u +%Y%m%dT%H%M%S)
           git config user.name "f5500"; git config user.email "f5500@users.noreply.github.com"
@@ -46,7 +48,7 @@ jobs:
             mkdir -p data/incoming/claude/f5500 data/incoming/claude/overture
             cp keep/f5500/*.csv.gz data/incoming/claude/f5500/ 2>/dev/null || true
             cp keep/ovt/* data/incoming/claude/overture/ 2>/dev/null || true
-            for f in f5500_sites.csv f5500_sites_done.tsv; do
+            for f in f5500_sites.csv f5500_sites_done.tsv f5500_addr_done.tsv; do
               [ -f "keep/f5500/$f" ] || continue
               if [ -f "data/incoming/claude/f5500/$f" ]; then
                 python3 - "$f" <<'PY'
