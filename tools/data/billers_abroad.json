@@ -23,7 +23,10 @@
   "read": "2026-11-13",
   "rule": "AGENTS.md rule 18 (owner 2026-11-13 09:46 EST): a utility abroad that a Canadian company owns is a Canadian vendor",
   "owner_address_url": "https://www.emera.com/companies/regulated-electric/tampa-electric",
-  "owner_address_quote": "Mailing Address 1223 Lower Water Street Halifax, Nova Scotia B3J 3S8 Civic Address 5151 Terminal Road Halifax, Nova Scotia B3J 1A1"
+  "owner_address_quote": "Mailing Address 1223 Lower Water Street Halifax, Nova Scotia B3J 3S8 Civic Address 5151 Terminal Road Halifax, Nova Scotia B3J 1A1",
+  "amount": "$156.43 per 1,000 kWh used (small business customers)",
+  "amount_basis": "“Currently, Tampa Electric residential and small business customers pay $156.43 per 1,000 kilowatt-hours (kWh) used (15.64 cents per kWh)” (https://www.tampaelectric.com/rates/, read 2026-11-13)",
+  "estimate": "estimated — about $391 a month before taxes for a small business using 2,500 kWh a month: 2.5 × the $156.43 per 1,000 kWh that Tampa Electric publishes for small business customers (its rates page, read 2026-11-13); the organisation's own use is not published"
  },
  {
   "key": "us_tep",
