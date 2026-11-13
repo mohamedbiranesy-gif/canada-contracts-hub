@@ -149,13 +149,15 @@ FIELDS = {
     "tenancy": ["buyer address", "vendor address", "vendor tax or registration number", "billing period"],
     "sponsorship": ["buyer address", "vendor address", "vendor tax or registration number"],
     "agent of record": ["buyer address", "vendor address", "vendor tax or registration number", "what is billed", "reference"],
+    # 2026-11-13 (tools/saq_agents.py): a producer represented in Québec by its promotional agent, as the SAQ's own product page names both
+    "promotional agency": ["buyer address", "vendor address", "vendor tax or registration number", "what is billed", "reference"],
     "service seen on the buyer's side": ["buyer address", "vendor legal name", "vendor address", "vendor tax or registration number", "what is billed", "amount", "billing period"],
     "utility account by location": ["buyer address", "vendor address", "what is billed", "amount", "billing period"],
     ".ca registration": ["buyer address", "vendor legal name", "vendor address", "vendor tax or registration number", "what is billed", "amount", "billing period"],
     "not established": ["buyer address", "vendor legal name", "vendor address", "vendor tax or registration number", "what is billed", "amount", "billing period"],
 }
 WHAT_IS_BILLED = {"membership": "membership dues", "dealership": "goods bought for resale, on the supplier's invoices", "tenancy": "rent and the charges of the lease",
-                  "sponsorship": "the sponsorship or exhibitor fee"}  # the kind itself says what the bill is for
+                  "sponsorship": "the sponsorship or exhibitor fee", "promotional agency": "the agent's commission and fees for representing the producer's products in Québec"}  # the kind itself says what the bill is for
 
 
 # test set of 2026-11-12: a contract a company announces in its own press release (a newswire, its newsroom) was labelled "fact, public
@@ -193,6 +195,8 @@ def kind_of(x):
         return "sponsorship"
     if cs.startswith(("client of a Canadian trademark agent", "client of a Canadian patent agent")):
         return "agent of record"
+    if cs.startswith("producer represented in Québec by its promotional agent"):
+        return "promotional agency"  # tools/saq_agents.py: the SAQ's own product page names the producer and its agent promotionnel
     if cs.startswith("listed issuer on a Canadian stock exchange"):
         return "exchange listing"  # tools/exchange_issuers.py: the exchange's own list of listed companies; the annual sustaining fee is invoiced
     return {"T": "service seen on the buyer's side", "R": ".ca registration", "M": "licence or registration"}.get(t, "public contract" if t == "C" and x.get("records_in_contract_dataset") else "not established")
@@ -287,6 +291,7 @@ BY_KIND = {
     "tenancy": "rent under a commercial lease: due each month, paid by cheque or pre-authorised debit",
     "sponsorship": "a sponsorship or an exhibitor's fee: an invoice from the organiser, paid by cheque or bank transfer",
     "agent of record": "an agent's professional fees and the official fees it advances: an invoice for each step, paid by cheque or wire transfer",
+    "promotional agency": "a promotional agent's commission on the producer's sales in Québec: an invoice to the producer it represents, paid by bank (wire) transfer",
     "exchange listing": "a stock exchange's listing fee: billed by the exchange for each year or each month of listing, paid by wire transfer, pre-authorised debit or cheque",
     "utility account by location": "an electricity bill: issued every month or every two months, paid through a financial institution, by pre-authorised debit or by cheque",
     "benefit plan contract": "an insurer's group premium or a plan provider's fee: a premium statement or an invoice, paid by ACH, wire transfer or cheque",
@@ -297,7 +302,7 @@ ROUTE_LABEL = {"kind": "on invoice, by bank transfer / cheque — by the kind of
                "either": "on invoice; bank payment or card (the biller takes both)", "unknown": "not published",
                "noinvoice": "no invoice is sent (the payer remits on its own, in the body's own words)",
                "nobill": "payable by bank, but no invoice or notice is published"}
-INVOICE_SAID = ("licence or registration", "membership", "dealership", "tenancy", "sponsorship", "agent of record")
+INVOICE_SAID = ("licence or registration", "membership", "dealership", "tenancy", "sponsorship", "agent of record", "promotional agency")
 _INVOICE = re.compile(r"invoices?|factur|\bbills?\b|\bbilled\b|notices?\b|avis de (?:cotisation|renouvellement|paiement)|statements?\b|relev[ée]s?\b", re.I)
 # a buyer's purchase-order rule is about what it orders from a supplier: a regulator's fee notice, a chamber's dues, a landlord's rent, an agent's
 # account and a sponsorship are not ordered with a purchase order (owner 13:00 EST: "Shopify … won't have a purchase order … maybe some other thing will")
@@ -550,6 +555,8 @@ def billing_cadence(x, kind):
         when.append("for each event or season")
     elif kind == "agent of record":
         when.append("for each filing, step and renewal (a trademark registration is renewed every 10 years)")
+    elif kind == "promotional agency":
+        when.append("on the producer's sales in Québec, as the agency's mandate sets it")
     elif kind == "dealership":
         when.append("for each order")
     elif kind == "export sale":
@@ -632,9 +639,10 @@ def po_or_reference(x, kind):
     acct = {"utility account by location": "the account number on the distributor's bill",
             "membership": "the member's number on the body's dues notice", "licence or registration": "the licence or registration number on the body's notice",
             "agent of record": "the agent's file number for the owner's matter", "dealership": "the dealer's account and order numbers",
+            "promotional agency": "the producer's products by their SAQ codes",
             "exchange listing": "the issuer's name and symbol on the exchange's invoice",
             "sponsorship": "the sponsorship agreement", "tenancy": "the lease and unit", "service seen on the buyer's side": "the customer's account number"}.get(kind, "the organisation's account with the biller")
-    lic = re.sub(r"\s+", " ", str(x.get("contract_reference") or "")).strip() if kind in ("licence or registration", "agent of record", "exchange listing") else ""
+    lic = re.sub(r"\s+", " ", str(x.get("contract_reference") or "")).strip() if kind in ("licence or registration", "agent of record", "exchange listing", "promotional agency") else ""
     if lic and not lic.startswith("{"):
         return "no PO: a bill of this kind quotes %s — the record's own number is %s (published)%s" % (acct, lic[:120], rule_s)
     return "no PO: a bill of this kind quotes %s, which is not published%s" % (acct, rule_s)
@@ -658,7 +666,7 @@ def owner_test(x):
             "vendor legal name": _has(x, "vendor_legal_name") and "on that line alone" not in (x.get("vendor_legal_name") or ""),
             "vendor address": _has(x, "vendor_address") or _has(x, "vendor_registered_address"),
             "vendor tax or registration number": bool(x["vendor_tax_or_registration_number"]),
-            "what is billed": _has(x, "contract_title") or _has(x, "bill_items_as_published") or (kind in ("public contract", "licence or registration", "agent of record", "exchange listing") and _has(x, "contract_description")),
+            "what is billed": _has(x, "contract_title") or _has(x, "bill_items_as_published") or (kind in ("public contract", "licence or registration", "agent of record", "exchange listing", "promotional agency") and _has(x, "contract_description")),
             "amount": _has(x, "contract_value") or _has(x, "bill_amount_indicative") or _has(x, "bill_amount_calculated"),
             "billing period": (x.get("recurring_billing") or "")[:1] in ("1", "2", "3", "4"),
             "reference": _has(x, "contract_reference") or _has(x, "invoice_reference_hint")}

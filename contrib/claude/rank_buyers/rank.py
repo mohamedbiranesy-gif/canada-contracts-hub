@@ -1815,6 +1815,12 @@ for k, L in sorted(leads.items(), key=lead_strength):
                             % ((LDET.get(k) or {}).get("reference") or "?", L["example_vendor"], (LDET.get(k) or {}).get("start") or "on an unstated date",
                                ("in force / fees paid up to %s" % (LDET.get(k) or {})["end"]) if (LDET.get(k) or {}).get("end") else "no end or cancellation date in the list",
                                (L.get("latest_record_date") or "")[:10])) if member and "licence holder of the Canadian body" in L.get("canada_field_value", "") else
+                           # 2026-11-13 (tools/saq_agents.py): the SAQ's own product pages name the producer and its agent promotionnel in Québec
+                           ("producer represented in Québec by its promotional agent: %s is the agent promotionnel of the producer at the Société des alcools du Québec for %s "
+                            "product(s) on its list (e.g. %s, code SAQ %s) — the SAQ's own product page%s, read %s; the agent represents the producer in Québec and is paid by it"
+                            % (L["example_vendor"], (LDET.get(k) or {}).get("saq_products") or "one or more", (LDET.get(k) or {}).get("title") or "?",
+                               (LDET.get(k) or {}).get("reference") or "?", "s" if str((LDET.get(k) or {}).get("saq_products") or "1") != "1" else "",
+                               (L.get("latest_record_date") or "")[:10])) if member and "promotional agent of record" in L.get("canada_field_value", "") else
                            ("client of a Canadian trademark agent of record: %s acts for the owner before the Canadian Intellectual Property Office on %s of its trademarks in force or pending "
                             "(e.g. %s; first registered %s, latest renewal due %s) — the Office's public register, extract of %s; an owner's agent fees are sometimes billed through its own counsel"
                             % (L["example_vendor"], (LDET.get(k) or {}).get("tm_marks_with_this_agent") or "one or more", (LDET.get(k) or {}).get("reference") or "see the register",
@@ -1905,6 +1911,7 @@ for k, L in sorted(leads.items(), key=lead_strength):
                    "the Canadian regulatory authority's own public register (the registrant's own entry)" if member and "registrant of the Canadian body" in cfv else
                    "the Canadian licensing body's own public list of active licences (open data, updated daily)" if member and "licence holder of the Canadian body" in cfv else
                    "the exchange's own list of listed companies (TMX Group's monthly workbook of TSX and TSXV issuers)" if member and "listed issuer of the Canadian body" in cfv else
+                   "the Société des alcools du Québec's own product pages (producer and agent promotionnel of each product)" if member and "promotional agent of record" in cfv else
                    "the Canadian trademarks register published by the Canadian Intellectual Property Office (open data; owner of record and agent of record)" if member and "trademark" in cfv and "Canadian Intellectual Property Office" in cfv else
                    "the Canadian body's own current member / participant list" if member else
                    "the buyer's own website (its credit line names the Canada-located vendor that made / hosts the site)" if tech and "credited on the buyer's own site" in cfv else
@@ -5651,6 +5658,9 @@ def bill_profile(x, ld, cls):
         elif cs.startswith("client of a Canadian patent agent of record"):
             out["relationship_fact_basis"] = ("fact, public record: the Canadian Intellectual Property Office's patent register (CSV extract of 2024-05-22) names this firm as the agent of record "
                                               "for the organisation's patents and applications (%s)" % (x.get("contract_link") or x.get("source") or "")[:160])
+        elif cs.startswith("producer represented in Québec by its promotional agent"):
+            out["relationship_fact_basis"] = ("fact, public record: the Société des alcools du Québec's own product page names the organisation as the producer and the firm as its "
+                                              "agent promotionnel in Québec (%s)" % (x.get("contract_link") or x.get("source") or "")[:160])
         elif cs.startswith("listed issuer on a Canadian stock exchange"):
             out["relationship_fact_basis"] = ("fact, public record: the exchange's own list of listed companies names the organisation as a listed issuer, with its symbol (%s)"
                                               % (x.get("contract_link") or x.get("source") or "")[:160])
