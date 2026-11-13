@@ -9,7 +9,7 @@ the kind goes, $5,000+ a bill first. Keep searching for new pools, build each as
 ticker); (3) vendors' client lists stay "the vendor's statement" (rule 1) — not turned into rows without the owner's word; (4) "everything
 is permitted" does not lift AGENTS.md §2 or the session's security rules (no block worked around, no CAPTCHA, no third-party e-mail).
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
-"stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~30k rows.
+"stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
 **2026-11-13 05:45Z — two address passes landed; rank-buyers-parts dispatched 05:41Z with everything of today**
 - addr-reread (6 runners, 50 min): 207,671 unlocated mailbox owners read again -> **37,949 addresses** in their pages' source or text (JSON-LD
