@@ -163,8 +163,9 @@ def cmd_zips(a):
                 fills[k].add(i)
             elif k in PRECISE and ov >= 0.25:
                 fills[k].add(i)
-            elif k not in PRECISE and ov >= 0.5 and "INVESTOR OWNED" in nm:
-                fills[k].add(i)
+            # (2026-11-13 16:15Z: an investor-owned neighbour over half of a target NOT drawn from its own maps is no longer set aside. Liberty's
+            # Granite State polygon is itself a county fill — it covers Nashua, Manchester and Keene, which Eversource's PSNH serves — and
+            # setting PSNH aside gave Liberty 54 ZIP areas it does not serve. A coarse target keeps every neighbour as an exclusion.)
     for k in sorted(tgt):
         print("%-26s neighbours set aside as county fills or non-retail: %s" % (k, sorted({oth[i][1] for i in fills[k]})[:8]), flush=True)
     tree = STRtree([g for g, _ in oth])
