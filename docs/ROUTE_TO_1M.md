@@ -120,7 +120,7 @@ places added). Expected: ~20,000-30,000 rows (a fifth to a third of the sites gi
 
 **Asked (about 15:16Z):** may any foreign company a Canadian company owns be the vendor (Empower and John Hancock with tens of thousands of U.S. plans
 named in Form 5500 filings; Stantec, WSP, CGI, New Flyer, GFL, Waste Connections in U.S. public contracts; FirstService's managed associations)?
-A yes is the next 100,000+.
+A yes is the next 100,000+ (estimate corrected below, 16:08Z: measured on the Form 5500 filings, the part billed on invoice is small).
 
 **Canada, the same day:** the mailbox reader was starved (2 sites a run since 08:19Z) — 509,075 place domains had never been read for a mailbox:
 third class (sites of places in Canada, other endings) 21 % with a mailbox on the first shard; Foursquare-only domains in a scan cycle (14:22Z);
@@ -133,4 +133,23 @@ the CrUX list of Canada (404,256 domains) next; a fourth class re-reads short re
 | Utilities abroad (rule 18) | leads written, crawl next | +20-30k |
 | Registry head offices (QC other names) | done | +3.5k |
 | Re-read on 12 pages | queued last | +4k |
-| Any Canadian-owned foreign company as vendor | owner asked | +100k |
+| Any Canadian-owned foreign company as vendor | owner asked | +40-60k (corrected 16:08Z) |
+
+## Update 2026-11-13 16:08Z — the two open questions, measured
+**Any company abroad a Canadian company owns (asked 15:16Z, unanswered).** Measured on the U.S. Department of Labor's Form 5500 filings of 2024
+(Schedule A, insurance contracts; Schedule C, providers paid $5,000 or more): plans that name Empower (Great-West Lifeco) 6,000+ sponsors, John Hancock
+(Manulife) ~2,700, Sun Life and Health Insurance Company (U.S.) ~300, Crum & Forster (Fairfax) ~80; Schedule C names Empower on ~10,000 plans, John
+Hancock ~3,000, RBC ~400, TELUS Health ~80. Most of that is a retirement plan's recordkeeping and annuity contracts, whose fees come out of the plan's
+assets — no invoice to the employer (rule 6) — so the part that is billed on invoice is the welfare insurance (a few hundred employers). The larger
+pools a yes would open are U.S. public bodies paying Canadian-owned firms (CGI, Stantec, WSP, AtkinsRéalis, Thomson Reuters' West, Constellation's
+municipal software) and tenants of Canadian-owned buildings abroad: estimated +40-60k, not 100k.
+**A utility abroad owned by several Canadian pension investors together (not asked yet).** Puget Sound Energy (Washington, 1,181,569 customers in
+HIFLD) is owned 23.9 % OMERS, 20.9 % BCI, 15.8 % Ontario Teachers', 13.6 % AIMCo, 15.8 % Macquarie, 10 % PGGM (BCI's own page, 2019: "PSE is now fully
+owned by public- and private-sector pension and retirement fund managers"; the stakes from IPE Real Assets) — 74 % Canadian. ALLETE (Minnesota Power,
+148,332 customers) was acquired on 2025-12-15 "by a partnership led by Canada Pension Plan Investment Board and Global Infrastructure Partners"
+(ALLETE's own release; shares not stated). SAESA (southern Chile) is held by Ontario Teachers' and AIMCo. Rule 18 says "a Canadian company owns"; a
+majority held by several Canadian pension investors is the owner's call. Size by Tampa Electric's ratio (850k customers -> ~50k place sites -> rows at
+a fifth to a quarter): Puget Sound Energy ~+12-15k rows, ALLETE ~+2k.
+**Not taken, checked today:** FortisTCI — not among the companies Fortis lists on its own "Our Companies" page (read 16:08Z); Empire District
+(Algonquin, confirmed by the LEI register) — no territory map of Missouri, Kansas or Oklahoma found (HIFLD has only a county fill of Benton County, AR);
+Maine's state map of service areas dates from 1998 and says its lines "do not represent legal boundaries" (Versant stays on HIFLD's polygons).
