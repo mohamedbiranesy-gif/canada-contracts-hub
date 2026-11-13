@@ -2106,7 +2106,7 @@ tenants (each still needs the body's sentence that the listed pay it).
   "anything construction … a live thing happening, you know for a fact that that thing is being currently contracted".
 
 
-## 2026-11-13 14:30Z — lane claude: prepared, waiting for the owner — may a utility abroad that a Canadian company owns be the biller?
+## 2026-11-13 14:29Z — lane claude: prepared, waiting for the owner — may a utility abroad that a Canadian company owns be the biller?
 Where the count stands: the Canadian pool is near its ceiling. The ranker's own log (build 13:06Z, P13) shows 186,395 organisations with a
 confirmed mailbox that nothing located, 16,689 located where no distributor can be named (most in Alberta) and 100,256 already in a row under
 another key; the places datasets bring the last large group of Canadian sites (509,075 place domains never read for a mailbox, of which about
@@ -2118,8 +2118,8 @@ Gas about 1.2 million, PSNC more than 600,000 — Enbridge's own announcement); 
 company description); Algonquin's Liberty utilities and AltaGas's Washington Gas not counted here. The rule would be the same as in Canada (one
 body serves the address by its franchise, bills monthly on an invoice, paid through a bank), but the biller is a U.S. or Caribbean company — owned
 by a Canadian one, not a Canadian entity itself. Rule 7 says "any Canadian entity"; Sun Life's U.S. branch was accepted because the branch IS the
-Canadian company. Nothing is built on this until the owner answers; asked again in plain words in the status message of 14:30Z.
-- **Correction, 14:45Z (sent to the owner):** by the same certainty as in Canada (every premises has an electricity account; not every one has
+Canadian company. Nothing is built on this until the owner answers; asked again in plain words in the status message sent right after.
+- **Correction (sent to the owner between 14:29Z and 14:48Z):** by the same certainty as in Canada (every premises has an electricity account; not every one has
   gas), only ELECTRIC utilities would qualify. Gas utilities (Enbridge's three U.S. companies, Peoples Gas, New Mexico Gas, Washington Gas,
   SEMCO) are out of the estimate. Electric ones owned by Canadian companies: Tampa Electric (Emera, 840,000 customers), the Tucson-area
   utilities (Fortis, about 459,000 + 107,000), Central Hudson (Fortis), Green Mountain Power (Énergir), Versant Power (ENMAX), Liberty's electric
@@ -2128,7 +2128,7 @@ Canadian company. Nothing is built on this until the owner answers; asked again 
   is yes: territories from the public electric retail service territory polygons (HIFLD), the organisations' places from Overture / Foursquare
   inside them, their sites read for a mailbox, the row saying the utility is the Canadian company's subsidiary.
 
-## 2026-11-13 14:55Z — OWNER (09:46 EST, binding): a U.S. power company owned by a Canadian company counts as a Canadian vendor
+## 2026-11-13 14:48Z — OWNER (09:46 EST, binding): a U.S. power company owned by a Canadian company counts as a Canadian vendor
 - His words: "And yes, we'll count it. The U.S. power company owned by Canadian company counts as Canadian vendor. We will count it. … We're still
   getting to 1 million." Recorded as AGENTS.md rule 18.
 - How lane claude builds it (the same rule as in Canada, rule 13): an organisation whose own printed address lies wholly inside the retail
