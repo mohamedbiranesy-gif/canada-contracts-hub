@@ -2041,3 +2041,21 @@ tenants (each still needs the body's sentence that the listed pay it).
   the last 12 months), Calgary's names the contractor without address (~750 commercial a year). The buyer is not named: it would stand on
   where the organisation is (the organisation whose own site prints the permit's address, single occupant), the row saying who hired the
   builder is not published. Expected yield after the address match: a few hundred rows; queued behind the website lanes, which unlock more.
+
+## 2026-11-13 03:13Z — claude: an organisation's site found AT its own address, and what may tie it
+- **Method.** For the register lanes whose entries carry an address (trademark and patent owners in Canada and abroad, Health Canada
+  companies, Form 5500 sponsors, Québec RBQ licence holders, OMVIC registrants), the Overture Maps places at the entry's own address that list
+  a website are candidates (`tools/overture_names.py addr`): US = ZIP + street number + first word of the street; UK / Canada = the full
+  postal code. An address with more than three listed websites (an office building) keeps only places sharing a word with the name;
+  shared-office, platform, directory and government domains are dropped.
+- **What ties a candidate (unchanged tests, one new, one restricted).** The lane's own identifying facts printed on the site (the owner's
+  name with the postal code, the RBQ licence number, the registrant's telephone, a NIT), the site's own name agreeing with the legal name,
+  or — new — the site's own terms / privacy / legal-notice page printing the owner's full legal name WITH its legal form ("This website is
+  maintained by Merck Sharp & Dohme LLC"). **Restricted:** a printed postal code / ZIP / street address ties nothing at an address (every
+  tenant of the building prints it) unless the place itself bears the organisation's name (every word of the shorter name in the longer one,
+  or two distinctive words shared — `tm_register.place_fits`). Learned by reading the first results: Novartis tied to a fitness club at the
+  same postal code; 227 such ties removed and their leads withdrawn.
+- **Why it matters.** Tonight's runs added ~4,800 owner sites on the two IP registers (abroad), ~470 Health Canada / Form 5500 sites, and the
+  RBQ (9,821 holders with candidates, test 46 % tied), OMVIC (3,129, test 37 %) and Canadian-owner (25,371) passes are running.
+- **Left for the owner:** a subsidiary on its group's site that prints only the group's name (no legal page naming the subsidiary) is NOT
+  tied; accepting "the group's site at the owner's own address" would add a few thousand trademark rows (recommendation: yes, labelled).
