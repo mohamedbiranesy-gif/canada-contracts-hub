@@ -18,7 +18,7 @@ does not apply on main", a one-off; three builds green since). Growth file (meas
 1 or 2 retried sites yet queued the next: 8-shard runs every six minutes, each calling the referee. mailbox-crawl.yml now chains only after a run
 that finished 200 sites or more; the hourly timer and the keeper start the rest. Nothing else changed; no item of PLAN section 4e advanced.
 
-**2026-11-13 15:25Z — OWNER 09:46 EST: utilities abroad owned by Canadian companies count (AGENTS.md rule 18) — lane built and running:**
+**2026-11-13 15:15Z — OWNER 09:46 EST: utilities abroad owned by Canadian companies count (AGENTS.md rule 18) — lane built and running:**
 - tools/abroad_utilities.py + abroad-utilities.yml: HIFLD retail service territories (PNNL server) -> 376 ZIP code areas wholly in one target's
   territory (98 % inside, no other retail territory over 2 %; neighbours that are county fills set aside for targets drawn from their own maps:
   Duke Energy Florida's polygon covered 91 % of Tampa Electric's, Ajo Improvement Co's 97 % of TEP's); Caribbean islands served whole.
@@ -29,7 +29,7 @@ that finished 200 sites or more; the hourly timer and the keeper start the rest.
   read; sites unreachable), LUCELEC (Emera an investor only). Vendor address missing for CalPeco and Caribbean Utilities (robots) — their rows wait.
 - 94,929 organisations with a website among Overture's places there -> leads (engine usb, no vendor): Tampa 38,410, TEP 14,056, Central Hudson
   12,943, Granite State 11,981, GMP 7,343, Versant 2,711, UNS 2,497, Barbados 1,838, Grand Cayman 1,572, Bermuda 998, Lake Tahoe 580. Foursquare's
-  places added (run dispatched 15:20Z). Ranker: by_location.abroad_where / biller_for_all / status / row_cells / of_row, rank P13 (jurisdiction,
+  places added (run dispatched 15:14Z). Ranker: by_location.abroad_where / biller_for_all / status / row_cells / of_row, rank P13 (jurisdiction,
   ownership sentence as the Canada proof). A test row passes owner_test (bank, monthly, "not published: amount").
 - Mailbox crawl third class (places in Canada, other endings): shard 0 read 5,320, 1,138 with a mailbox (21 %). Fourth class (12-page re-read, 4 %)
   queued last. CrUX list of Canada (404,256 domains) in the scan queue. Build 14:21Z: 279,969 ready of 338,136.
