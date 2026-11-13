@@ -1098,7 +1098,9 @@ _LF_HOW = {"jsonld": "as its own page states it in its structured data (schema.o
            "legal": "as its own privacy / terms / legal page prints it, beside its own name",
            # 2026-11-13 (tools/addr_reread.py --city): printed without a postal code; the city names the distributor (every postal code of it in one territory)
            "street_city": "as its own page prints it, street and city without a postal code",
-           "city_contact": "the city its own contact page names (no street address printed)"}
+           "city_contact": "the city its own contact page names (no street address printed)",
+           # 2026-11-13 (tools/registry_locate.py): the head office the organisation declares to its business register, matched on its very name and province
+           "registry": "as the organisation declares it to its business register (head office / registered office; the name and the province agree)"}
 def lf_cell(f, url=""):
     return "%s (%s on %s, read %s)" % (f["address"], _LF_HOW.get(f.get("address_how") or "", "as printed"), f.get("address_url") or url or "", f.get("date") or "")
 LFACTS_DOM = {}  # the same facts by website domain: a row made under another key of the same site (a registry lead, a credit lead) uses them too
@@ -1138,7 +1140,7 @@ for _d in _LCF.facts_records():
             # rule of the day they were read did not know initials: "Comox Valley Animal Hospital" on cvah.ca, "Ordre des Géologues du Québec" on ogq.qc.ca)
             _d["site_name"] = _LCF.site_name_for(host_of(_d.get("site") or ""), None, _d["title"], _TR)
             n_name_again += bool(_d["site_name"])
-        if _d.get("address_quote") and _d.get("address_how") not in ("jsonld", "map", "street_city", "city_contact"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
+        if _d.get("address_quote") and _d.get("address_how") not in ("jsonld", "map", "street_city", "city_contact", "registry"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
             _d["address"] = _addr_from(_d["address_quote"]) or _d.get("address") or ""
         if "?" in (_d.get("address_url") or ""):
             # a visitor or campaign identifier a site adds to its own links (?shpxid=…, utm_…, fbclid) is not part of the page's address

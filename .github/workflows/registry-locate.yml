@@ -1,0 +1,43 @@
+name: registry-locate
+# Where an organisation is, by the head office it declares to its business register (tools/registry_locate.py): the organisations with a confirmed
+# role mailbox that nothing else located, matched on their very name and province to the Registraire des entreprises du Québec's and Corporations
+# Canada's open data (the matcher of tools/bulk_registry_match.py). The address goes to the site facts (address_how "registry"); the rank build
+# names the distributor of that address and says where the address comes from.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "53 12 * * 0"   # weekly, after the address passes
+permissions:
+  contents: write
+concurrency:
+  group: registry-locate
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Registers' open data -> head offices of the unlocated organisations (computed once; main merged in on a refused push)
+        run: |
+          UA='canada-contracts-hub-crawler/1.0 (+https://github.com/mohamedbiranesy-gif/canada-contracts-hub)'
+          mkdir -p reg
+          curl -s -m 900 -A "$UA" -o reg/JeuDonnees.zip "https://www.registreentreprises.gouv.qc.ca/RQAnonymeGR/GR/GR03/GR03A2_22A_PIU_RecupDonnPub_PC/FichierDonneesOuvertes.aspx"
+          for f in corporations-active-cbca-en.csv corporations-active-non-cbca-en.csv; do curl -s -m 600 -A "$UA" -o reg/$f "https://d4bf66bykfyaf.cloudfront.net/$f"; done
+          ls -la reg
+          python3 tools/registry_locate.py targets | tee /tmp/r.txt
+          python3 tools/registry_locate.py match --req reg/JeuDonnees.zip --cc "reg/corporations-*.csv" | tee -a /tmp/r.txt
+          git config user.name "registry-locate"; git config user.email "registry-locate@users.noreply.github.com"
+          python3 tools/secret_guard.py || true
+          git add data/incoming/claude/site_facts 2>/dev/null || true
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -q -m "registry-locate: $(tail -1 /tmp/r.txt | cut -c1-150) [skip ci]"
+          for i in $(seq 1 20); do
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 10 + 3))
+            git fetch -q origin main
+            git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; true; }
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed"; exit 1; }
+          cat /tmp/r.txt >> "$GITHUB_STEP_SUMMARY"
