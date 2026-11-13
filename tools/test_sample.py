@@ -27,7 +27,9 @@ KINDS = [
     ("public contract — invoicing, AP or finance mailbox", 12, lambda x: _K(x) == "public contract" and _AP(x)),
     ("public contract — purchasing or general mailbox", 12, lambda x: _K(x) == "public contract"),
     ("licence or registration with a Canadian public body", 18, lambda x: _K(x) == "licence or registration"),
-    ("electricity account by where the organisation is", 26, lambda x: _K(x) == "utility account by location"),
+    ("electricity account by where the organisation is", 22, lambda x: _K(x) == "utility account by location"),
+    # 2026-11-13: an Ontario public body's own energy report under O. Reg. 25/23 (tools/bps_energy.py) — the bill calculated from its own use
+    ("electricity account on the body's own energy report (Ontario)", 4, lambda x: _K(x) == "utility account by own report"),
     ("service of a Canadian vendor that takes a bank payment", 8, lambda x: _K(x) == "service seen on the buyer's side"),
     ("membership of a Canadian body", 10, lambda x: _K(x) == "membership"),
     ("dealer, tenant, sponsor or exhibitor of a Canadian body", 8, lambda x: _K(x) in ("dealership", "tenancy", "sponsorship")),
