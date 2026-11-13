@@ -51,7 +51,8 @@
   "read": "2026-11-13",
   "rule": "AGENTS.md rule 18 (owner 2026-11-13 09:46 EST): a utility abroad that a Canadian company owns is a Canadian vendor",
   "owner_address_url": "https://www.fortisinc.com/contact-us",
-  "owner_address_quote": "Fortis Inc. Fortis Place, Suite 1100, 5 Springdale Street PO Box 8837 St. John's, NL A1B 3T2"
+  "owner_address_quote": "Fortis Inc. Fortis Place, Suite 1100, 5 Springdale Street PO Box 8837 St. John's, NL A1B 3T2",
+  "estimate": "calculated — about $360 a month at current rates for a typical Small General Service (small business) customer on TEP's Basic plan: TEP's own page says the proposed rates would raise that customer's average bill “by about 10 percent, or about $36 per month” (https://www.tep.com/2026-rates/, read 2026-11-13); the organisation's own use is not published"
  },
  {
   "key": "us_uns_electric",
