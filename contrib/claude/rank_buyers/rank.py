@@ -2367,22 +2367,36 @@ def _svc_pay_text(x, k):
     return txt
 for x in rows:
     t = x.get("tier")
-    if t not in ("T", "D", "E", "M") or not x.get("acc") or int(x.get("grade") or 0) < 1 or "|" in (x.get("keys") or "") or not (x.get("keys") or "").startswith("lead:"):
+    # 2026-11-13: also a contract on file that is not current (awarded more than three years ago, no end date published that is still to come):
+    # the owner's rule 11 — it stands no row, so the organisation stands on the distributor of its address (644 located rows were held so in the
+    # table of 11:39Z); its keys need not be a lead's
+    _old_c = (t == "C" and x.get("acc") and int(x.get("grade") or 0) >= 1 and "|" not in (x.get("keys") or "")
+              and (x.get("award_date") or "")[:10] and (x.get("award_date") or "")[:10] < CUTOFF3 and not ((x.get("end_date") or "")[:10] >= today))
+    if not _old_c and (t not in ("T", "D", "E", "M") or not x.get("acc") or int(x.get("grade") or 0) < 1 or "|" in (x.get("keys") or "") or not (x.get("keys") or "").startswith("lead:")):
         continue
     k, cs = x["keys"], x.get("contract_status") or ""
-    if t == "T":
+    if _old_c:
+        why = "the contract on file was awarded more than three years ago and no end date still to come is published (owner's rule 11)"
+    elif t == "T":
         if _RR.payment_route({"bill_payment_method_as_published": _svc_pay_text(x, k), "vendor": x.get("vendor") or ""}, "service seen on the buyer's side")[0] in _RR.ROUTE_OK:
             continue
         why = "how that vendor is paid is not published, and a service of this kind is commonly charged to a card"
     elif t == "M":
-        if "canadian intellectual property office" not in (x.get("vendor") or "").lower():
+        _pe = _PAYEE.payee_for(x.get("vendor") or "", (LDET.get(k) or {}).get("vendor_site") or "")
+        if "canadian intellectual property office" in (x.get("vendor") or "").lower():
+            why = "the Office's own page names the ways of paying and no notice or invoice"
+        elif _pe and _pe.get("no_invoice"):
+            # 2026-11-13: a body that says in its own words that it sends no invoice (OMVIC: dealers self-report and remit): no row on it — the distributor of the address instead
+            why = "the body says in its own words that it sends no invoice"
+        elif "agent of record" in cs and _RR.agent_is_a_person({"vendor": x.get("vendor") or ""}):
+            why = "the agent of record is a named person, not a firm"
+        else:
             continue
-        why = "the Office's own page names the ways of paying and no notice or invoice"
     elif t == "D" and any(p_ in cs for p_ in _ROSTER13):
         continue
     else:
         why = "a client listing is the vendor's own statement" if t == "D" else "a link on the vendor's site is not shown to be a client relationship"
-    n_gw["rows that cannot meet the rule (%s)" % {"T": "service, payment not published", "M": "trademark owner billed by the Office", "D": "client listing", "E": "link only"}[t]] += 1
+    n_gw["rows that cannot meet the rule (%s)" % ("contract not current" if _old_c else {"T": "service, payment not published", "M": "a register's body that bills no invoice, or an agent who is a person", "D": "client listing", "E": "link only"}[t])] += 1
     e = (x.get("email") or "").strip()
     local, _, md = e.lower().partition("@")
     if not md or BAD_LOCAL.search(local) or jur_of_mail(e) == "FED":
