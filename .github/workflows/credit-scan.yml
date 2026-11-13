@@ -237,17 +237,24 @@ jobs:
         run: |
           ls -la shards | head -40 || true
           git config user.name "credit-scan"; git config user.email "credit-scan@users.noreply.github.com"
-          for i in $(seq 1 12); do
-            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/credit_scan data/incoming/claude/lead_shards
-            python3 tools/credit_scan.py merge shards --stamp "${STAMP}s" --lead-shards | tee /tmp/m.txt   # --lead-shards: lead changes as shards (tools/lead_store.py), not a rewrite of the two big files
-            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
-            git add data/incoming/claude/credit_scan data/incoming/claude/lead_shards 2>/dev/null || true
-            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_candidates.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
-            git diff --cached --quiet && { echo "nothing new"; break; }
+          # 2026-11-13: the merge takes ~12 minutes, and recomputing it before each push meant that main had always moved on by then (the cycle of
+          # 2026-11-12 15:04Z read 697,172 sites and lost them all to twelve refused pushes). It runs once now; a refused push merges main into
+          # this commit (the state files and lead shards are new files of this run, they never collide) and pushes again. A file both sides
+          # changed (the tenant candidates) keeps main's version: this run's sightings stay in its state files for the next merge.
+          git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/credit_scan data/incoming/claude/lead_shards
+          python3 tools/credit_scan.py merge shards --stamp "${STAMP}s" --lead-shards | tee /tmp/m.txt   # --lead-shards: lead changes as shards (tools/lead_store.py), not a rewrite of the two big files
+          python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
+          git add data/incoming/claude/credit_scan data/incoming/claude/lead_shards 2>/dev/null || true
+          for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_candidates.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+          if git diff --cached --quiet; then echo "nothing new"; else
             git commit -q -m "credit-scan: home pages read ($(grep -m1 '^credit scan:' /tmp/m.txt | cut -c14-120)) [skip ci]"
-            git push -q origin HEAD:main && break
-            sleep $((RANDOM % 12 + 3))
-          done
+            for i in $(seq 1 20); do
+              git push -q origin HEAD:main && break
+              sleep $((RANDOM % 8 + 2))
+              git fetch -q origin main
+              git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; git fetch -q origin main; git merge -q --no-edit -X theirs origin/main || true; }
+            done
+          fi
           # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
           git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
@@ -282,17 +289,24 @@ jobs:
         run: |
           ls -la shards | head -40 || true
           git config user.name "credit-scan"; git config user.email "credit-scan@users.noreply.github.com"
-          for i in $(seq 1 12); do
-            git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/credit_scan data/incoming/claude/lead_shards
-            python3 tools/credit_scan.py merge shards --stamp "${STAMP}v" --lead-shards | tee /tmp/m.txt
-            python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
-            git add data/incoming/claude/credit_scan data/incoming/claude/lead_shards 2>/dev/null || true
-            for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_candidates.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
-            git diff --cached --quiet && { echo "nothing new"; break; }
+          # 2026-11-13: the merge takes ~12 minutes, and recomputing it before each push meant that main had always moved on by then (the cycle of
+          # 2026-11-12 15:04Z read 697,172 sites and lost them all to twelve refused pushes). It runs once now; a refused push merges main into
+          # this commit (the state files and lead shards are new files of this run, they never collide) and pushes again. A file both sides
+          # changed (the tenant candidates) keeps main's version: this run's sightings stay in its state files for the next merge.
+          git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/credit_scan data/incoming/claude/lead_shards
+          python3 tools/credit_scan.py merge shards --stamp "${STAMP}v" --lead-shards | tee /tmp/m.txt
+          python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
+          git add data/incoming/claude/credit_scan data/incoming/claude/lead_shards 2>/dev/null || true
+          for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_candidates.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
+          if git diff --cached --quiet; then echo "nothing new"; else
             git commit -q -m "credit-scan: leads from credit lines on the buyers' own sites ($(grep -m1 '^credit leads:' /tmp/m.txt | cut -c15-120)) [skip ci]"
-            git push -q origin HEAD:main && break
-            sleep $((RANDOM % 12 + 3))
-          done
+            for i in $(seq 1 20); do
+              git push -q origin HEAD:main && break
+              sleep $((RANDOM % 8 + 2))
+              git fetch -q origin main
+              git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; git fetch -q origin main; git merge -q --no-edit -X theirs origin/main || true; }
+            done
+          fi
           # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
           git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
