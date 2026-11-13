@@ -388,6 +388,8 @@ def place_fits(org_name, place_name):
     import biz_licences as BL_
     if other_body(org_name, place_name):
         return False
+    if nkey_x(org_name) and nkey_x(org_name) == nkey_x(place_name):
+        return True  # the very name, legal form aside ("Cb Medical Inc." / "CB Medical"): agree_asym asks a short or generic name to identify more
     return BL_.agree_asym(org_name or "", place_name or "")
 
 def legal_name_page(raw, final, fdom, owner_name, cache):
