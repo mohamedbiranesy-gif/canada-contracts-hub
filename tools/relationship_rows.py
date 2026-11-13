@@ -240,6 +240,7 @@ _BANK_REFUSED = re.compile(r"(?:not able to|unable to|cannot|can[’']t|do not|d
 _bank_ok = lambda v: bool(_BANK.search(_BANK_REFUSED.sub(" ", v or "")))
 
 
+_ABROAD_OWNED = re.compile(r"\bjohn\s+hancock\b|\bempower\s+(?:retirement|annuity|trust|financial)|\bgreat-?west\s+life\s+&\s+annuity|\bputnam\s+investments\b", re.I)
 _SHOP_ORDER = re.compile(r"\b(?:your order|online (?:shop|store)|check-?out|shopping cart|\bcart\b|retail (?:customers?|purchases?)|gift cards?|boutique en ligne|votre commande|"
                          r"paiement de la commande|panier|passerelle s[ée]curis[ée]e|apple pay|google pay|refund|rembourse)", re.I)
 
@@ -792,6 +793,10 @@ def owner_test(x):
         out.append("relationship: %d organisations print this postal code — a tower, a campus, a business centre or a mail service, where an account of its own is unlikely" % n_shared)
     if (x.get("sensitivity_flag") or "") == "yes":
         out.append("flag: " + ((x.get("sensitivity_tag") or "sensitive buyer").split(":")[0][:70]))
+    if _ABROAD_OWNED.search(x.get("vendor") or "") or _ABROAD_OWNED.search(x.get("vendor_legal_name") or ""):
+        # AGENTS.md rule 19 (owner 2026-11-13 11:44 EST): a company abroad that a Canadian company owns is not a Canadian vendor — "plans paying Empower or
+        # John Hancock" named in so many words — even where a filing prints its Canadian parent's address (John Hancock at Manulife's 200 Bloor Street East)
+        out.append("relationship: the vendor is a company abroad that a Canadian company owns, not a Canadian vendor (AGENTS.md rule 19)")
     if _has(x, "buyer_name_fault"):
         out.append("buyer not named: " + x["buyer_name_fault"][:120])  # AGENTS.md §2.2 (rank.py: an image's file name as the name, and no site of its own)
     if _has(x, "vendor_registry_warning"):
