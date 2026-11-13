@@ -162,3 +162,12 @@ Maine's state map of service areas dates from 1998 and says its lines "do not re
 - Places at a territory's edge are located by their own point (~200 m inside, clear of other utilities): ~41,000 places on Overture alone, plus
   Foursquare's — the places run with points follows the one running now. Leads: ~108,000 by ZIP code area + the points.
 - Expected from the lane: +20,000-30,000 rows as the mailbox reader, the referee and the builds catch up (first crawl of the leads running since 15:36Z).
+
+## Update 2026-11-13 16:48Z — owner 11:44 EST: no and no (AGENTS.md rules 19, 20)
+Any company abroad a Canadian company owns: **no** (only rule 18's electric utilities). Utilities held by several Canadian pension funds: **no**.
+So the pools beyond Canada are: rule 18's utilities (Tampa, TEP, Central Hudson, GMP, Versant, Liberty CalPeco / NH, Caribbean — ~150,000 place
+sites with the points), records abroad that name a Canadian biller (owners of Canadian trademarks and patents and their Canadian agents; Health
+Canada's foreign licensees; PMRA registrants; listed issuers; customs importers; public contracts abroad whose vendor is located in Canada), and a
+Canadian legal entity's own branch abroad (Sun Life Assurance Company of Canada's U.S. branch). The ceiling with these rules stays ~500,000.
+Also fixed today in the ranker: rows that give way to a utility abroad now carry its jurisdiction and the parent's ownership sentence (98 rows of
+build 16:22Z were labelled CA), and an abroad row with no address on file takes the one beside its mailbox.
