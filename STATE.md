@@ -11,6 +11,18 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox) as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~30k rows.
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 01:20Z — where things stand and the next task (read this first after a reset):**
+- New rosters today: dl_ocs_ontario (+348 leads; Ontario cannabis stores billed by OCS, PAD) and dl_bccw_bc (+72; B.C. LDB, PAD). Pools ruled
+  out (sources in NOTES.md): CWB (antibot form), SCC (robots names ClaudeBot), AGLC list (robots), Manitoba (private wholesale), LCBO
+  grocery/convenience (card default), customs microdata of Peru/Ecuador/Paraguay (none open).
+- rank-buyers 00:56Z FAILED (IndexError at CB_NOSITE: a buyer with no key) -> fixed in rank.py, re-dispatched ~01:15Z; check it passes and
+  read BUILD.json (kinds 'export sale', 'benefit plan contract'; coord/results/ranked/contract_buyers_without_website.csv written).
+- dian-imports first run still in its fetch step at 01:20Z (dispatched 23:15Z; 345-minute budget).
+- tm-sites / pt-sites are exhausted (+0: all 144,583 trademark owners and 38,630 patent owners looked for; 13,853 / 3,069 sites).
+  **NEXT TASK:** a second way to find an owner's site — the Overture place at the owner's own STREET ADDRESS and ZIP / postal code (not its
+  name), kept only on the TM lane's own tests (name or postal code printed on the site). Write candidates to a new file
+  (tm_overture_addr_sites.csv) and let `tm_register.py sites --abroad` read it for owners already looked for (bypass the done list only for
+  owners with a new candidate). Same for pt_register. This is the largest pool abroad (134,458 + 77,385 owners).
 **2026-11-13 00:42Z progress:** f5500 first run green — 4,526 US sponsors (2024+2025 filings), 1,578 sites tied, 1,578 leads; exchange finder +164 sites (1,443); Health Canada +584 sites today (2,002); build 23:25Z: 217,388 ready. dian-imports first run still downloading. Next: CWB certified companies (authority register), then read the build that carries the new kinds.
 
 ## 2026-11-12 23:45Z — three new lanes abroad and the website bottleneck (owner 17:16 and 18:26 EST: "explore the international scene … big bucks",
