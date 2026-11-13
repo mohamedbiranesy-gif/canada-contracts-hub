@@ -234,6 +234,176 @@ def read_one(t):
     return out
 
 
+# 2026-11-13: the organisation's own privacy / terms / legal page. A Canadian privacy policy names where to write to the organisation ("please
+# contact us at the mailing address listed below: ERTH360 125 Villarboit Crescent Vaughan, Ontario L4K 4K2"), a Québec site its "mentions légales".
+# Measured on 160 organisations that every earlier pass left unlocated: 7 such pages print a postal code — 4 of them the organisation's own address,
+# beside its own name; the others the host's (Shopify's Ottawa office), an affiliate's, or a clause. So the address is kept ONLY when the
+# organisation's own name (its domain's name, or the name its home page gives itself) stands in the 170 characters before the postal code, and
+# never when that stretch names a host, a registrar, an affiliate or parent, an agent, or a public body (the Privacy Commissioner's office, the
+# Commission d'accès à l'information …); a federal government postal code (K1A) is never taken.
+LEGALP = re.compile(r"privacy|confidentialit|terms|conditions|legal|mentions|politique|disclaimer|imprint|avis[-_ ]?juridique|\bcgu\b|\bcgv\b|termes", re.I)
+THIRD = re.compile(r"(?i)\b(?:host(?:ed|ing|s)?|h[ée]berg\w*|shopify|wix|squarespace|godaddy|ovh|weebly|registrar|commissioner|commissaire|commission|ombudsman|"
+                   r"affiliate[sd]?|affili[ée]e?s?|parent|agent|agence du revenu|government|gouvernement|ministry|minist[èe]re|office of the|bureau du)\b")
+
+
+def _nm(s):
+    import unicodedata
+    s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]", "", s)
+
+
+def names_of(site, raw):
+    """the organisation's names as they can stand beside its address: its domain's name (5 characters or more) and the name its home page gives itself"""
+    out = []
+    dom = C.registrable(urllib.parse.urlparse(site).hostname or "")
+    lab = _nm(dom.rsplit(".", 1)[0] if "." in dom else dom)
+    if len(lab) >= 5:
+        out.append(lab)
+    try:
+        import tech_relationships as T
+        import lead_crawl as LC
+        title, meta = T.page_meta(raw)
+        sn = LC.site_name_for((urllib.parse.urlparse(site).hostname or "").lower(), meta.get("og:site_name"), title, T) or ""
+    except Exception:  # noqa: BLE001
+        sn = ""
+    if len(_nm(sn)) >= 6 and _nm(sn) not in out:
+        out.append(_nm(sn))
+    return out
+
+
+_TITLED = re.compile(r"\b(?:Me|Mr|Mrs|Ms|Mme|Mlle|Dr|Pr)\.?\s+[A-Z][a-zà-ÿ'’\-]+|\b(?:Attn|Attention|c/o|a/s)\b|\b(?:LL\.?B|B\.?C\.?L|Esq)\b")
+_GIV = None
+
+
+def _given():
+    global _GIV
+    if _GIV is None:
+        try:
+            from buyer_pages import FIRST_NAMES as _fn
+            import relationship_rows as _rr
+            _GIV = set(_fn) | set(getattr(_rr, "_MORE_GIVEN", set()))
+        except Exception:  # noqa: BLE001
+            _GIV = set()
+    return _GIV
+
+
+def _fold_index(w):
+    """the letters and digits of w, folded to ASCII lower case, and the index in w of each"""
+    import unicodedata
+    out, idx = [], []
+    for i, ch in enumerate(w):
+        f = unicodedata.normalize("NFKD", ch).encode("ascii", "ignore").decode().lower()
+        for c in f:
+            if c.isalnum():
+                out.append(c); idx.append(i)
+    return "".join(out), idx
+
+
+def legal_address(raw, names):
+    """(address, quote) the page prints beside the organisation's own name, or None. The quote starts at that name (what stands before it —
+    a privacy officer's name, a heading — is not quoted) and is not kept when it names a person (a title, "Attn", a given name and surname)"""
+    import cc_clients as CCL
+    if not names:
+        return None
+    t = C.visible(raw)
+    for pc, m in BL.codes(t):
+        if pc.startswith("K1A"):
+            continue
+        w = t[max(0, m.start() - 170):m.end()]
+        if THIRD.search(w):
+            continue
+        fw, idx = _fold_index(w)
+        best = -1
+        for n in sorted(names, key=len, reverse=True):
+            j = fw.rfind(n, 0, max(0, len(fw) - 6))  # before the postal code itself
+            if j >= 0:
+                best = max(best, idx[j])
+        if best < 0:
+            continue
+        q = html.unescape(w[best:].strip())[-300:]
+        if _TITLED.search(q):
+            continue
+        toks = re.findall(r"[A-Za-zÀ-ÿ'’\-]+", q)
+        if any(toks[i].lower() in _given() and toks[i][:1].isupper() and toks[i + 1][:1].isupper() for i in range(1, len(toks) - 1)):
+            continue  # a given name and a surname after the organisation's name: a person's
+        return (CCL.address_from(q) or q[-200:])[:200], q
+
+
+def read_one_legal(t):
+    key, site = t["key"], t["site"]
+    raw, final, st = get(site)
+    out = {"key": key, "site": site, "date": TODAY, "status": st}
+    if raw is None:
+        return out
+    base = final if str(final).startswith("http") else site
+    home_dom = C.registrable(urllib.parse.urlparse(base).hostname or "")
+    names = names_of(base, raw)
+    seen, n_read = {base.rstrip("/")}, 0
+    for u, lab in C.links(raw, base):
+        if n_read >= 3:
+            break
+        p = urllib.parse.urlparse(u)
+        if p.scheme not in ("http", "https") or C.registrable(p.hostname or "") != home_dom or u.rstrip("/") in seen:
+            continue
+        if not (LEGALP.search(p.path or "") or LEGALP.search(lab or "")) or re.search(r"\.(?:pdf|jpe?g|png|gif|zip|docx?)$", p.path or "", re.I):
+            continue
+        seen.add(u.rstrip("/"))
+        r2, f2, s2 = get(u)
+        n_read += 1
+        if r2 is None:
+            continue
+        got = None
+        try:
+            got = legal_address(r2, names)
+        except Exception:  # noqa: BLE001
+            got = None
+        if got:
+            addr, quote = got
+            out.update(status="found", address=addr, address_quote=quote, address_url=f2 if str(f2).startswith("http") else u, address_how="legal",
+                       address_country="CA")
+            return out
+    out["status"] = "legal_nothing"
+    out["pages"] = n_read
+    return out
+
+
+def pick_legal(a):
+    """the sites every earlier pass read without finding an address: their own privacy / terms / legal pages (read_one_legal)"""
+    last = {}
+    if os.path.exists(DONE):
+        with open(DONE, encoding="utf-8") as f:
+            for l in f:
+                p_ = l.rstrip("\n").split("\t")
+                if len(p_) >= 2:
+                    last[p_[0]] = p_[1]
+    need = {k for k, st in last.items() if st == "nothing"}
+    site = {}
+    for p in sorted(glob.glob(os.path.join(FACTS_DIR, "facts_*.gz"))):
+        with gzip.open(p, "rt", encoding="utf-8", errors="replace") as f:
+            for l in f:
+                try:
+                    d = json.loads(l)
+                except ValueError:
+                    continue
+                if d.get("key") in need and d.get("site") and d["key"] not in site:
+                    site[d["key"]] = d["site"]
+    for p in sorted(glob.glob(os.path.join(INC, "claude_buyer_ap_results_cccrawl*.csv"))):
+        with open(p, encoding="utf-8", errors="replace", newline="") as f:
+            for r in csv.DictReader(f):
+                k = r.get("buyer_key")
+                if k in need and k not in site and r.get("status") == "found" and "@" in (r.get("ap_email") or ""):
+                    site[k] = "https://%s/" % r["ap_email"].strip().lower().partition("@")[2]
+    os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
+    n = 0
+    with open(a.out, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["key", "site"])
+        for k in sorted(need):
+            if site.get(k):
+                w.writerow([k, site[k]]); n += 1
+    print("addr-reread pick --legal: %d sites read before with no address (of %d) -> %s" % (n, len(need), a.out))
+
+
 def pick_phones(a):
     """the sites read before that gave no address, whose telephone number is not on file: read again for the number (and the address)"""
     have = set()
@@ -279,6 +449,8 @@ def pick_phones(a):
 def cmd_pick(a):
     if getattr(a, "phones", False):
         return pick_phones(a)
+    if getattr(a, "legal", False):
+        return pick_legal(a)
     done = set()
     if os.path.exists(DONE):
         with open(DONE, encoding="utf-8") as f:
@@ -347,7 +519,7 @@ def cmd_read(a):
         def feed():
             while len(futs) < a.workers * 2 and time.time() < deadline:
                 try:
-                    futs.add(ex.submit(read_one, next(it)))
+                    futs.add(ex.submit(read_one_legal if getattr(a, "legal", False) else read_one, next(it)))
                 except StopIteration:
                     return False
             return True
@@ -402,7 +574,7 @@ def cmd_merge(a):
                             o[c_] = v_
     os.makedirs(FACTS_DIR, exist_ok=True)
     out = os.path.join(FACTS_DIR, "facts_%sa.gz" % a.stamp)
-    n = {"found": 0, "text": 0, "jsonld": 0, "map": 0}
+    n = {"found": 0, "text": 0, "jsonld": 0, "map": 0, "legal": 0}
     with gzip.open(out, "wt", encoding="utf-8") as f:
         for k in sorted(need):
             o = recs[k]
@@ -440,6 +612,7 @@ def main():
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--stamp", default=time.strftime("%Y%m%dT%H%M%S"))
     ap.add_argument("--phones", action="store_true", help="pick: the sites read before with no address and no telephone number on file")
+    ap.add_argument("--legal", action="store_true", help="pick / read: the sites read before with no address — their own privacy / terms / legal pages")
     a = ap.parse_args()
     {"pick": cmd_pick, "read": cmd_read, "merge": cmd_merge}[a.cmd](a)
 

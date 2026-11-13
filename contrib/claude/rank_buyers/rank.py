@@ -1094,7 +1094,8 @@ for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.g
 LFACTS = {}  # 2026-11-10: what the cloud mailbox crawl read on the buyer's OWN pages (tools/lead_crawl.py): its name and its postal address, quoted
 # 2026-11-13: tools/addr_reread.py reads an address the organisation states in its page's source rather than its text — the schema.org PostalAddress
 # of its own JSON-LD, or the place of the Google map its own page embeds — and the cell says which (address_how)
-_LF_HOW = {"jsonld": "as its own page states it in its structured data (schema.org PostalAddress)", "map": "the place of the Google map its own page embeds"}
+_LF_HOW = {"jsonld": "as its own page states it in its structured data (schema.org PostalAddress)", "map": "the place of the Google map its own page embeds",
+           "legal": "as its own privacy / terms / legal page prints it, beside its own name"}
 def lf_cell(f, url=""):
     return "%s (%s on %s, read %s)" % (f["address"], _LF_HOW.get(f.get("address_how") or "", "as printed"), f.get("address_url") or url or "", f.get("date") or "")
 LFACTS_DOM = {}  # the same facts by website domain: a row made under another key of the same site (a registry lead, a credit lead) uses them too
