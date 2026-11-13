@@ -340,6 +340,10 @@ def sponsorship_faults(x, year=None):
         out.append("relationship not shown to be current (the sponsor or exhibitor list is of %s)" % (max(ys) if ys else "a past event"))
     if _IN_KIND.search(x.get("contract_link") or ""):
         out.append("relationship not established (a list of in-kind sponsors or donors: nobody on it is billed)")
+    if re.search(r"\b(?:foundation|fondation)\b", x.get("buyer") or "", re.I):
+        # 2026-11-13 (21Z, the table of 20:32Z): community and private foundations named among an organisation's "sponsors" fund it — a grant, not a fee it
+        # is invoiced for (Coquitlam Foundation for Coquitlam Search and Rescue, the Jewish Community Foundation of Montreal for KlezKanada)
+        out.append("relationship not established (a foundation named among the sponsors of the organisation it funds: a grant, not an invoiced fee)")
     if _VENUE.search((x.get("vendor_address") or "").split(" (as printed")[0]):
         out.append("field: vendor address (the address printed is the hall or hotel of the event, not the organiser's)")
     return out

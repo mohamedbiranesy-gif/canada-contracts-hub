@@ -5728,7 +5728,7 @@ _TITLE_PREFIX = re.compile(r"^(?:welcome to|bienvenue (?:chez|à|au|aux|sur le s
 # "Home / Constructions DV"), the word "Logo" ("MCAP Logo"), and a town's bare name taken from a business's own site ("Toronto" on merlottoronto.com,
 # "Kingston" on bridges-kingston.com): Statistics Canada's census subdivisions (2021 Census, table 98-10-0002-01) give the names of places
 _IMG_NAME = re.compile(r"\.(?:jpe?g|png|gif|svg|webp|bmp|tiff?|avif)$|_web\b|[-_]\d{2,4}x\d{2,4}\b|^(?:img|dsc|image|logo)[-_ ]?\d+", re.I)
-_HOME_WORD = re.compile(r"^(?:home|accueil)\s*[/|:–—-]+\s*(?=\S)|\s*(?:[/|:–—-]+\s*|\.)(?:home|accueil)$|\s(?:home|accueil)$", re.I)  # a leading "Home" only before a separator ("Home Office" is a name)
+_HOME_WORD = re.compile(r"^(?:home|accueil)\s*[/|:–—«»·•-]+\s*(?=\S)|\s*(?:[/|:–—«»·•-]+\s*|\.)(?:home|accueil)$|\s(?:home|accueil)$", re.I)  # a leading "Home" only before a separator ("Home Office" is a name)
 _HOME_NAME_WORD = set("""funeral nursing care retirement group mobile children childrens smart model show open foster rest senior seniors memorial sweet almost entire
 nickel locum your my our the at away dream custom new family forever happy healthy green modular tiny manufactured log timber luxury perfect ideal cozy safe first
 comfort mission youth boarding guest lodge heritage maison""".split())  # a trailing "Home" after one of these makes a name with it ("Funeral Home")
@@ -6247,6 +6247,9 @@ for _ri, x in enumerate(rows):
         else:
             x["buyer_name_fault"] = "the name is an image's file name (“%s”), not the organisation's name" % _b[:80]; n9["buyer named by an image's file name, no site of its own: not ready"] += 1
         _b = (x.get("buyer") or "").strip()
+    _vm = re.match(r"(?i)visit\s+(.{3,90}?)[’']s\s+(?:web\s?site|site|page)$", _b)
+    if _vm:
+        x["buyer"] = _b = _vm.group(1).strip(); n9["buyer name: a link's words (Visit …'s website) cut to the name"] += 1
     _hb = strip_home_word(_b)
     if _hb != _b and len(_hb) >= 3 and not re.search(r"home|accueil", re.sub(r"[^a-z]", "", (registrable(host_of(x.get("buyer_website") or "") or "") or "").lower())):
         x["buyer"] = _b = _hb; n9["buyer name: the page-title word Home / Accueil beside it removed"] += 1
