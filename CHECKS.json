@@ -126,6 +126,24 @@
    "method": "SUMMARY.md line '… of which located by the point of its website's listing'; sample 10 rows: the printed ZIP equals the place's, the point lies inside the territory map",
    "cmd": "grep 'point of its website' coord/results/ranked/SUMMARY.md",
    "status": "pending (points file and leads written 2026-11-13 17:24Z; first rows after the crawl of the new leads)"
+  },
+  {
+   "deliverable": "Ontario public bodies' own electricity (tools/bps_energy.py; kind 'utility account by own report')",
+   "method": "SUMMARY.md 'Ontario bodies that report their electricity'; the table's rows of the kind: count, amount marks; 5 rows read against the open data (facility count and kWh of the distributor, the bill's arithmetic)",
+   "cmd": "grep 'Ontario bodies that report' coord/results/ranked/SUMMARY.md; python3 verify.py ranked_buyers.csv.gz",
+   "status": "pending (first build with the pass: rank 43486392654, code a8d92c1)"
+  },
+  {
+   "deliverable": "due terms in the billers' own words (DUE_TERMS_BY_DOMAIN, payee terms, vendor reader v7)",
+   "method": "count of ready rows with bill_due_terms_as_published or payment_terms_as_published, before (build 18:26Z: 197,615 of 285,780) and after",
+   "cmd": "python3 verify.py",
+   "status": "pending"
+  },
+  {
+   "deliverable": "framework / multiple-award ceilings are no bills; median estimate guard; Washington L&I prime amount",
+   "method": "the 22 rows with a monthly bill of 3 million or more in build 18:26Z: none of Crowdmark / Compusult / Circle / Opsens / GD OTS / Forensic Technology / Pro-Bel / WSIB-Deloitte / Carling-KPMG / Waterloo CDSB keeps its figure",
+   "cmd": "python3 big_bills.py ranked_buyers.csv.gz",
+   "status": "pending (fix pushed 2026-11-13 ~19:35Z)"
   }
  ]
 }
