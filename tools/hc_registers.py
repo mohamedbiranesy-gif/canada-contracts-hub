@@ -532,7 +532,7 @@ OVT_ADDR = os.path.join(INC, "overture", "hc_addr_candidates.csv")  # 2026-11-13
 ADONE = os.path.join(DIR, "hc_addr_done.tsv")
 
 
-def addr_pass(cos, have, w, f, minutes, threads):
+def addr_pass(cos, have, w, f, minutes, threads, ovt_addr=None, adone=None):
     """the companies for which an Overture Maps place AT their own address (Canada: the full postal code; United States: the street number,
     street and ZIP code) lists a website: kept when the site's own home page carries the company's name or prints the register's postal code,
     or its own terms / privacy / legal page prints the company's full legal name with its legal form; the same strict rule as overture_pass
@@ -541,15 +541,16 @@ def addr_pass(cos, have, w, f, minutes, threads):
     import ap_crawler as C
     import tm_register as TM
     import credit_scan as CS
-    if not os.path.exists(OVT_ADDR):
-        print("addr: no candidates file (tools/overture_names.py addr --lanes hc)", flush=True)
+    ovt_addr, adone = ovt_addr or OVT_ADDR, adone or ADONE  # (the radio-licence lane passes its own files)
+    if not os.path.exists(ovt_addr):
+        print("addr: no candidates file (tools/overture_names.py addr)", flush=True)
         return 0
     by = collections.defaultdict(list)
-    for r in csv.DictReader(open(OVT_ADDR, encoding="utf-8", newline="")):
+    for r in csv.DictReader(open(ovt_addr, encoding="utf-8", newline="")):
         by[r["key"]].append(r)
-    done = {l.split("\t")[0] for l in open(ADONE, encoding="utf-8")} if os.path.exists(ADONE) else set()
+    done = {l.split("\t")[0] for l in open(adone, encoding="utf-8")} if os.path.exists(adone) else set()
     todo = [o for o in cos if o["key"] in by and o["key"] not in have and o["key"] not in done]
-    todo.sort(key=lambda o: -float(o["fee_total"] or 0))
+    todo.sort(key=lambda o: -float(o.get("fee_total") or o.get("fee_floor") or 0))
     GROUPS.clear()
     for o in cos:
         c_ = core(o["name"])
@@ -559,7 +560,7 @@ def addr_pass(cos, have, w, f, minutes, threads):
     lock, q, cnt = threading.Lock(), queue.Queue(), collections.Counter()
     for o in todo:
         q.put(o)
-    dn = open(ADONE, "a", encoding="utf-8")
+    dn = open(adone, "a", encoding="utf-8")
 
     def legal(d, name):
         cache = {}
@@ -579,8 +580,8 @@ def addr_pass(cos, have, w, f, minutes, threads):
             except queue.Empty:
                 return
             n = core(o["name"])
-            ca = norm(o.get("country") or "") in ("canada", "ca")
-            multi = len(GROUPS.get(group_key(n), set()) - {norm(o.get("country") or "")}) > 0
+            ca = norm(o.get("country") or "canada") in ("canada", "ca")
+            multi = len(GROUPS.get(group_key(n), set()) - {norm(o.get("country") or "canada")}) > 0
             hit = None
             for c in by[o["key"]]:
                 d = c["site"]
@@ -589,8 +590,10 @@ def addr_pass(cos, have, w, f, minutes, threads):
                 strict = (ca and not d.endswith(".ca")) or (multi and d.rsplit(".", 1)[-1] in GENERIC)
                 try:
                     said = "" if strict else home_says(d, n)
+                    if said and TM.other_body(o["name"], said):
+                        said = ""  # the site is a foundation's, an association's … built on the company's name
                     # the postal code printed counts only when the place at the address is under the company's own name (every tenant prints it)
-                    pcs = "" if (said or not TM.place_fits(o["name"], c.get("place_name") or "")) else pc_on_home(d, o.get("postal_code") or "", o.get("country") or "", contact=True)
+                    pcs = "" if (said or not TM.place_fits(o["name"], c.get("place_name") or "")) else pc_on_home(d, o.get("postal_code") or "", o.get("country") or "canada", contact=True)
                     lg = "" if (said or pcs) else legal(d, o["name"])
                 except Exception:
                     said, pcs, lg = "", "", ""

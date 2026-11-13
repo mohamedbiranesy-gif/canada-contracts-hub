@@ -108,6 +108,8 @@ PERSON = re.compile(r"^(?:(?:[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\-]+|[A-Z]\.?)\s+){1,3}[A
 COMPANIES = os.path.join(DIR, "radio_licensees.csv.gz")
 SITES = os.path.join(DIR, "radio_sites.csv")
 SDONE = os.path.join(DIR, "radio_sites_done.tsv")
+OVT_ADDR = os.path.join(INC, "overture", "radio_addr_candidates.csv")  # 2026-11-13: places at the licensee's own postal code (tools/overture_names.py addr)
+ADONE = os.path.join(DIR, "radio_addr_done.tsv")
 INFO = os.path.join(DIR, "extract_info.json")
 COLS = ["key", "account", "name", "address", "postal_code", "province", "authorizations", "auth_examples", "stations", "fee_floor", "fee_parts",
         "services", "first_in_service", "last_in_service", "examples", "extract_date", "fleet_not_counted"]
@@ -290,6 +292,9 @@ def cmd_sites(a):
     for k, r in HR.tie_on_file([o for o in cos if o["key"] not in have]).items():
         w.writerow(r); have[k] = r; n_file += 1
     f.flush()
+    # 2026-11-13: the websites an Overture place at the licensee's own postal code lists, kept on its name on the home page or its full legal
+    # name on the site's own legal page (the postal code only when the place bears the licensee's name) — tools/hc_registers.py addr_pass
+    HR.addr_pass(cos, have, w, f, getattr(a, "addr_minutes", 30), a.threads, ovt_addr=OVT_ADDR, adone=ADONE)
     done = set()
     if os.path.exists(SDONE):
         done = {l.split("\t")[0] for l in open(SDONE, encoding="utf-8")}
@@ -431,7 +436,7 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("pull"); p.add_argument("--work", required=True); p.add_argument("--force", action="store_true")
     p = sub.add_parser("build"); p.add_argument("--work", required=True)
-    p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=60); p.add_argument("--threads", type=int, default=12)
+    p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=60); p.add_argument("--threads", type=int, default=12); p.add_argument("--addr-minutes", type=float, default=30)
     p = sub.add_parser("leads"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"pull": cmd_pull, "build": cmd_build, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)

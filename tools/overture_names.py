@@ -352,7 +352,8 @@ def addr(a):
              "tmca": (TM.DIR, TM.OWN_CA, TM.MATCHES, TM.FOUND, TM.SDONE, None, os.path.join(TM.DIR, "tm_overture_addr_ca_sites.csv")),
              "ptca": (PT.DIR, PT.OWN_CA, PT.MATCHES, PT.FOUND, PT.SDONE, None, os.path.join(PT.DIR, "pt_overture_addr_ca_sites.csv")),
              "rbq": (None, None, None, None, None, None, os.path.join(OUT, "rbq_addr_candidates.csv")),
-             "reg": (None, None, None, None, None, None, os.path.join(OUT, "reg_addr_candidates.csv"))}
+             "reg": (None, None, None, None, None, None, os.path.join(OUT, "reg_addr_candidates.csv")),
+             "radio": (None, None, None, None, None, None, os.path.join(OUT, "radio_addr_candidates.csv"))}
     want, words_of = {}, {}
     if "f55" in a.lanes.split(","):
         # 2026-11-13: US employers of the Form 5500 lane (tools/f5500_benefits.py) without a site: the sponsor's own street address and ZIP code
@@ -429,7 +430,21 @@ def addr(a):
                     words_of[("reg", key)] = {t for t in TM.nkey((p_.get("business_name") or "") + " " + (p_.get("legal_name") or "")).split() if len(t) >= 4 and t not in TM.GENERIC}
                     n_[auth] += 1
         print("reg: registrants without a tied site, with a postal code: %s" % dict(n_), flush=True)
-    for lane in [x for x in a.lanes.split(",") if x in files and x not in ("f55", "hc", "rbq", "reg")]:
+    if "radio" in a.lanes.split(","):
+        # 2026-11-13: ISED's radio licensees (tools/radio_licences.py) without a site: the full postal code
+        import radio_licences as RL
+        have_ = set(RL.sites_on_file())
+        n_ = collections.Counter()
+        for o in RL.companies():
+            if o["key"] in have_:
+                continue
+            pc = TM.pc6(o.get("postal_code") or "")
+            if pc:
+                want[("radio", o["key"])] = ("CA", pc, "", "")
+                words_of[("radio", o["key"])] = {t for t in TM.nkey(o.get("name") or "").split() if len(t) >= 4 and t not in TM.GENERIC}
+                n_["CA"] += 1
+        print("radio: licensees without a site, with a postal code: %s" % dict(n_), flush=True)
+    for lane in [x for x in a.lanes.split(",") if x in files and x not in ("f55", "hc", "rbq", "reg", "radio")]:
         d_, own, matches, found, sdone, ovt, _ = files[lane]
         skip = set()
         for p_ in (matches, found, ovt):
@@ -545,7 +560,7 @@ def addr(a):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["key" if lane in ("f55", "hc", "rbq", "reg") else "owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
+            w.writerow(["key" if lane in ("f55", "hc", "rbq", "reg", "radio") else "owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
             for k, d, (name, z, pid, street) in sorted(out[lane]):
                 cc = want[(lane, k)][0]
                 w.writerow([k, d, "the owner's own street address (%s, %s %s)" % (street[:60], "ZIP code" if cc == "US" else "postcode", z) if cc == "US" else

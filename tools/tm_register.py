@@ -368,6 +368,14 @@ def _legal_norm(s):
     return " %s " % nkey_raw(s.replace(".", " "))
 
 
+def other_body(org_name, text):
+    """the text names another legal person built on the organisation's name: a foundation, an association, a union, friends or alumni of it
+    ('Royal University Hospital Foundation' for the hospital) — the words of OTHER_BODY the text has and the organisation's name has not"""
+    t_org = set(nkey_raw(org_name).split())
+    t_txt = set(nkey_raw(text).split())
+    return bool((t_txt & OTHER_BODY) - t_org)
+
+
 def place_fits(org_name, place_name):
     """a place's name that is the organisation's: a distinctive word (four letters or more, not an everyday one) both names share — the test a
     place at the organisation's own ADDRESS must pass before the postal code printed on its site can count (every tenant of a building prints
@@ -375,6 +383,8 @@ def place_fits(org_name, place_name):
     # (2026-11-13, second look: ONE shared word is not enough — "Business Haldimand", the county's site, against the dealer "Haldimand Motors";
     # "Angi's Wellness Centre" against "Angi's Auto Sales": every word of the shorter name in the longer one, or two distinctive words shared)
     import biz_licences as BL_
+    if other_body(org_name, place_name):
+        return False
     if BL_.names_agree(place_name or "", org_name or ""):
         return True
     a_ = {t for t in nkey_x(org_name).split() if len(t) >= 4 and t not in GENERIC}
