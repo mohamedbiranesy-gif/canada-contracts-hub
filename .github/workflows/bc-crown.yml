@@ -57,8 +57,8 @@ jobs:
           made=$(tail -1 data/incoming/claude/overture/bcw_addr_candidates.csv 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r')
           if [ -n "$newest" ] && [ "$made" != "$newest" ]; then pip install -q duckdb && python3 tools/overture_names.py addr --lanes bcw 2>&1 | tail -3 | tee -a /tmp/l.txt || true; fi
           # the places under each holder's very name, at its postal code or in its own province (made again when Overture publishes a newer release)
-          madeq=$(tail -1 data/incoming/claude/overture/bcg_candidates.csv 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r')
-          if [ -n "$newest" ] && [ "$madeq" != "$newest" ]; then pip install -q duckdb && python3 tools/overture_names.py query --lanes bcg 2>&1 | tail -3 | tee -a /tmp/l.txt || true; fi
+          # (every run: the lanes' holders change from run to run, and the query takes about a minute)
+          pip install -q duckdb && python3 tools/overture_names.py query --lanes bcg 2>&1 | tail -3 | tee -a /tmp/l.txt || true
           python3 tools/bc_crown.py sites --minutes "$MINUTES" --addr-minutes 40 --threads 12 2>&1 | tee -a /tmp/l.txt
           D=data/incoming/claude/bcgov
           mkdir -p keep keep/ovt
