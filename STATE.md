@@ -11,6 +11,26 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox) as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~30k rows.
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 05:00Z — where the ready rows are held, and three levers on it (counted on the published table of 04:08Z, streamed):**
+- Of 284,660 rows (278,945 with a mailbox), 218,487 ready. The largest hold among rows with a mailbox: **"payment: not published" 34,575** — services
+  seen on the buyer's side whose vendor's own sentence on how it is paid was not found (rule 13 gives no "by the kind" fallback to hosting / software).
+  3,407 vendors; the top ones read by hand today: doteasy (1,875 rows), Aplus (2,166), Canadian Web Hosting (728), HostedinCanada, Websites.ca, Coolcom,
+  Vianet, PowerStores name an invoice / statement and a bank payment (bank transfer, cheque, direct debit, Interac, ACH, automatic bank withdrawal) →
+  BILLING_BY_DOMAIN; Jane (2,150), Hawk Host (3,504), Ex2 (668) are card only in their own words → their rows go (rule 6). The payment test now reads a
+  refused cheque as refused ("not able to accept payment by cheque or EFT"). Reader v6 (terms on a terms./legal. subdomain; "must pay the Charges by",
+  "pay with", "methods of payment") dispatched on the 3,407 vendors (vendor-billing, only_file).
+- The rank left **185,837 organisations with a confirmed mailbox out because no distributor can be named for where they are** (+17,489 not from
+  leads). 136,177 of the mailbox owners under .ca print no postal code the reader saw. Sample of 60 read again: 8 state their address only in the
+  page's source — the schema.org PostalAddress of their own JSON-LD, or the place of the Google map their contact page embeds → `tools/addr_reread.py`
+  + addr-reread.yml (207,671 sites, 6 runners, dispatched 04:47Z); the mailbox crawler keeps the same two for new sites; the rank's address cell says
+  which. Expected +15-25k located (not counted yet).
+- Alberta: 27,946 mailbox owners print an Alberta postal code — no electricity row there (the retailer bills, not the distributor). Calgary 11,051,
+  Edmonton 7,231. **Decision prepared, not taken:** water by location (EPCOR Water in Edmonton, the City of Calgary's charges billed by ENMAX) — one
+  biller by law for the address, like electricity, but a tenant in a shared building rarely holds its own water account; recommendation: NO unless
+  the owner wants it, labelled.
+- One legal person, two registers (`tools/cross_sites.py`): +123 trademark / +202 patent owners take the site the other lane tied to the same legal
+  name, country and postal code. tm-sites EU run +584 (18,708 sites); pt 8,415; mailbox crawl 2,595,361 sites read (found 497,682).
+
 **2026-11-13 04:00Z — progress since 03:00Z:**
 - The address method now runs in eight lanes: trademark / patent owners abroad (US, UK, Australia, Netherlands and — 03:58Z — nine European
   countries by house number + street + postcode: +5,257 / +2,836 owners with candidates) and in Canada (trademark run: +1,153 sites, 18,039;
