@@ -295,6 +295,10 @@ def cmd_sites(a):
     # 2026-11-13: the websites an Overture place at the licensee's own postal code lists, kept on its name on the home page or its full legal
     # name on the site's own legal page (the postal code only when the place bears the licensee's name) — tools/hc_registers.py addr_pass
     HR.addr_pass(cos, have, w, f, getattr(a, "addr_minutes", 30), a.threads, ovt_addr=OVT_ADDR, adone=ADONE)
+    try:  # 2026-11-13: Wikidata's official website of an item of the licensee's very name in Canada, kept when the site's home page carries it
+        HR.wd_pass(cos, have, w, f, a.threads, only={"CA"})
+    except Exception as e:
+        print("wikidata pass: %s" % str(e)[:160], flush=True)
     done = set()
     if os.path.exists(SDONE):
         done = {l.split("\t")[0] for l in open(SDONE, encoding="utf-8")}
