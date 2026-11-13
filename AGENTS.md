@@ -118,6 +118,14 @@ what $5,000 a bill would leave (1,510 rows); for half an hour he chose a hard fl
     500,000 organisations in Canada with a site, a mailbox of their own and an address a distributor can be named for) and that the second
     half must come from organisations abroad tied to a Canadian biller by a record.
 
+**Owner rule (2026-11-13 09:46 EST, binding).** Asked whether a U.S. power company owned by a Canadian company may be the biller: "And yes, we'll
+count it. The U.S. power company owned by Canadian company counts as Canadian vendor. We will count it. … We're still getting to 1 million."
+18. **A utility abroad that a Canadian company owns is a Canadian vendor.** Tampa Electric (Emera), Tucson Electric Power (Fortis), Green Mountain Power
+    (Énergir), Versant Power (ENMAX), Liberty's utilities (Algonquin), the Caribbean utilities of Fortis, Emera and Algonquin: an organisation whose own
+    printed address lies wholly inside such a utility's retail territory stands on that relationship exactly as a Canadian organisation stands on its
+    distributor (rule 13): electricity only, the biller certain for the address, the account holder not published, the parent's own page quoted for the
+    ownership. Households are never rows.
+
 **Owner rule (2026-10-28): when a buyer publishes no invoicing/AP mailbox, save its purchasing/procurement role mailbox
   (`ap_email_type=procurement`) or, failing that, its general role mailbox such as info@ / reception@ / greffe@
   (`ap_email_type=general`), with status `found` and a note saying no invoicing mailbox is published.** Still never
