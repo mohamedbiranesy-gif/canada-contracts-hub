@@ -33,6 +33,9 @@ env:
   # minutes between runs (queue, start, merge) — 60 to 80 % of the day; the same pauses on 150 minutes leave 85 to 90 %.
   MINUTES: ${{ inputs.minutes || '150' }}
   REGISTRY: ${{ inputs.registry || '20000' }}
+  # 2026-11-13: --registry3 — the websites of places in Canada (Overture Maps, Foursquare, OpenStreetMap) that the scan read and no class above
+  # queued (another ending than .ca, no Canadian postal code on the home page): 171,289 before the done / lead filters, 36,767 of them with a role
+  # mailbox on the home page (tools/lead_crawl.py, third class)
 jobs:
   plan:
     runs-on: ubuntu-latest
@@ -83,7 +86,7 @@ jobs:
           while :; do
             LEFT=$(( (END - $(date +%s)) / 60 ))
             [ "$LEFT" -lt 8 ] && break
-            python3 tools/lead_crawl.py --leads coord/results/ranked/contract_buyers_without_mailbox.csv,data/incoming/claude/claude_buyer_leads_cc.csv,data/incoming/claude/claude_buyer_leads.csv --shard ${{ matrix.k }}/$SHARDS --minutes "$LEFT" --workers 200 --max-pages 25 --registry "$REGISTRY" --registry2 20000 && break
+            python3 tools/lead_crawl.py --leads coord/results/ranked/contract_buyers_without_mailbox.csv,data/incoming/claude/claude_buyer_leads_cc.csv,data/incoming/claude/claude_buyer_leads.csv --shard ${{ matrix.k }}/$SHARDS --minutes "$LEFT" --workers 200 --max-pages 25 --registry "$REGISTRY" --registry2 20000 --registry3 25000 && break
             echo "::warning::the site reader stopped before its time (the thread stacks are above): started again for the $LEFT minutes that were left"
           done
       - uses: actions/upload-artifact@v4

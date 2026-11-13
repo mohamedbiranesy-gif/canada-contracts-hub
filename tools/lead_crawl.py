@@ -579,6 +579,46 @@ def leads_mode(a, k, n):
             print("registry candidates, second class (.ca sites, no mailbox on the home page): %d queued of %d" % (min(len(cand2), a.registry2), len(cand2)), flush=True)
         except Exception as e:
             print("second-class registry candidates not queued: %s" % e, flush=True)
+    # third class (2026-11-13): the websites of the places in Canada of the open places datasets (Overture Maps, Foursquare Open Source Places,
+    # OpenStreetMap: tools/credit_scan.py osm / overture, tools/fsq_places.py ca) that the scan read and that no class above queued — a name of
+    # another ending than .ca whose home page prints no Canadian postal code and whose places print more than one (a chain, several branches) or
+    # none a distributor serves. Measured 2026-11-13: 45,343 such sites answered the scan (7,764 of them print a role mailbox on the home page)
+    # and none had ever been read for a mailbox. A place in Canada lists the site; the organisation's own pages, read here (contact page first),
+    # give its mailbox and, most often, its address — a row by where it is once both are read (rank.py P13). Same key as the class above.
+    if getattr(a, "registry3", 0):
+        try:
+            lead_doms = {C.registrable(h[4:] if h.startswith("www.") else h) for h in hosts}
+            taken = {host_of(t["known_website"])[4:] if host_of(t["known_website"]).startswith("www.") else host_of(t["known_website"]) for t in tasks}
+            places = set()
+            for _pp in (CS.OVERTURE_SITES, CS.FSQ_SITES, CS.OSM_SITES):
+                if os.path.exists(_pp):
+                    with gzip.open(_pp, "rt", encoding="utf-8", newline="") as _fh:
+                        for _r in csv.DictReader(_fh):
+                            if _r.get("dom") and not _r["dom"].endswith(".ca"):
+                                places.add(_r["dom"])
+            cand3, n3 = [], collections.Counter()
+            pool3 = {d: (em, cc) for d, (em, cc) in hints.items() if em and cc != "CA"}  # a mailbox on the home page, no Canadian address there
+            for d, cc in CS.sites_without_mailbox_any().items():
+                if cc != "CA":
+                    pool3.setdefault(d, ("", cc))
+            for dom, (em, cc) in pool3.items():
+                if dom.endswith(".ca") or dom not in places or not shard_ok(dom, k, n):
+                    continue
+                rd = C.registrable(dom)
+                key = "lead:" + hashlib.sha1(("%s|site:ca-address" % rd).encode()).hexdigest()[:16]
+                if rd != dom or rd in lead_doms or rd in known_dom or key in done or key in known or dom in taken:
+                    continue
+                cand3.append(((0 if em else 1) + (10 if key in reread else 0), dom, key, bool(em)))
+                n3["a mailbox on its home page" if em else "no mailbox on its home page"] += 1
+            cand3.sort()
+            _via3 = CS.site_via()
+            for _, dom, key, em in cand3[:a.registry3]:
+                tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via3), "_n": 0, "_f": 13,
+                              "_em": 0 if em else 2, "_max_pages": 8 if em else 6, "_rr": int(key in reread), "_ln": 0 if em else 2})
+            print("registry candidates, third class (websites of places in Canada, another ending than .ca, no Canadian postal code on the home page): %d queued of %d — %s"
+                  % (min(len(cand3), a.registry3), len(cand3), dict(n3)), flush=True)
+        except Exception as e:
+            print("third-class registry candidates not queued: %s" % e, flush=True)
     # 2026-11-11 (owner: "on invoice, by bank transfer"): first the leads of the lanes billed on invoice — a register, a roster, a dealer or member
     # list, a dated record (_ln 0) — then the services seen on a site or in its DNS, most of them charged to a card (_ln 1), then the .ca sites no
     # lead names (_ln 2: the pool the register lanes are matched against; their names and postal codes come from the scan, a mailbox is only
@@ -629,6 +669,9 @@ def leads_mode(a, k, n):
             if t.get("_f") == 12:
                 stats["registry2_sites"] = stats.get("registry2_sites", 0) + 1
                 stats["registry2_with_mailbox"] = stats.get("registry2_with_mailbox", 0) + bool(rows)
+            if t.get("_f") == 13:
+                stats["registry3_sites"] = stats.get("registry3_sites", 0) + 1
+                stats["registry3_with_mailbox"] = stats.get("registry3_with_mailbox", 0) + bool(rows)
             if not t.get("_em"):
                 stats["hinted_sites"] = stats.get("hinted_sites", 0) + 1
                 stats["hinted_with_mailbox"] = stats.get("hinted_with_mailbox", 0) + bool(rows)
@@ -1217,6 +1260,7 @@ def main():
     a.add_argument("--myshopify", type=int, default=0, help="candidates mode: also read up to this many stores per shard named only by their myshopify.com address (host names of the web graph)")
     a.add_argument("--dns-stores", type=int, default=0, help="candidates mode: also read up to this many stores per shard that the DNS lookups found on Shopify's storefront addresses")
     a.add_argument("--registry", type=int, default=0, help="leads mode: also read up to this many registry candidates per shard (.ca sites whose home page prints a role mailbox)")
+    a.add_argument("--registry3", type=int, default=0, help="leads mode: then up to this many third-class candidates per shard (websites of places in Canada, another ending than .ca, no Canadian postal code on the home page)")
     a.add_argument("--registry2", type=int, default=0, help="leads mode: then up to this many second-class registry candidates per shard (.ca sites whose home page prints no mailbox; 4 pages each)")
     a.add_argument("--straggler-seconds", type=float, default=240, help="when only slow sites are left and nothing finished for this long, stop")
     a.add_argument("--site-seconds", type=float, default=420, help="wall-clock budget for one site: no new page is opened after that (what was read so far counts)")
