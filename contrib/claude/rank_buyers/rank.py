@@ -5766,6 +5766,72 @@ def _strip_affixes(t):
     return t
 _fold_nos = lambda t: re.sub(r"\bsainte\b", "ste", re.sub(r"\bsaint\b", "st", re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", t or "").encode("ascii", "ignore").decode().lower()))).strip()
 _PLACE_CORES = {"".join(w for w in _fold_nos(n).split() if w not in _PLACE_TYPE) for n in _PLACES} if _PLACES else set()
+# 2026-11-13 (21Z, the table of 20:32Z, 6,077 ready rows with a name of seven words or more): a page's title or a line of its text taken for the name —
+# "Rabideau Law Professional Corporation Twitter Facebook Youtube Linkedin Instagram", "November 6, 2025. Beautique Brows & Beyond", "FROZU! is a trademark of
+# Grinners Food Systems Limited", "INFORMATION PROTECTION POLICY At Pan Canada College", "Dust N Shine Trusted Regina Residential maid service commercial
+# cleaning" (dustnshine.com), "SML Contracting ~ Custom Home & Cottage Builder in Muskoka" (smlcontracting.com), a replacement character from a bad encoding
+_SOCIAL_TAIL = re.compile(r"(?:\s+(?:twitter|facebook|youtube|linkedin|instagram|tiktok|pinterest|x)\b){2,}\s*$", re.I)
+_DATE_HEAD = re.compile(r"^(?:january|february|march|april|may|june|july|august|september|october|november|december|janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|"
+                        r"septembre|octobre|novembre|d[ée]cembre)\s+\d{1,2}(?:er)?,?\s+\d{4}\s*[.:–—-]?\s+", re.I)
+_TM_OF = re.compile(r"\bis\s+an?\s+(?:registered\s+)?trade-?mark\s+of\s+(.{4,90}?)\.?$", re.I)
+_POLICY_HEAD = re.compile(r"^.{0,60}?\b(?:policy|politique|terms(?:\s+of\s+(?:use|service))?|conditions(?:\s+d['’]utilisation)?|privacy)\s+(?:at|of|for|de|du|des)\s+(?=\S+\s+\S)", re.I)
+_BY_TAIL = re.compile(r"\s+(?:by|par)\s+([A-Z][A-Za-zà-ÿ]+(?:\s+[A-Z][A-Za-zà-ÿ'&.-]+){1,3})$")
+try:
+    from buyer_pages import FIRST_NAMES as _FIRST_NAMES
+    _FIRST_NAMES = set(_FIRST_NAMES)
+except Exception:
+    _FIRST_NAMES = set()
+_ORG_HEAD = re.compile(r"^(?:the\s+|l['’]|la\s+|le\s+|les\s+)?(?:association|soci[ée]t[ée]|society|f[ée]d[ée]ration|federation|conseil|council|centre|center|institut|institute|fondation|"
+                       r"foundation|union|chambre|chamber|ordre|order|regroupement|coalition|alliance|club|church|[ée]glise|paroisse|ville|city|town|municipalit[ée]|board|commission|"
+                       r"corporation|coop[ée]rative|coop|syndicat|league|ligue|universit[ée]|university|coll[eè]ge|[ée]cole|school)\b", re.I)
+_LEGAL_TAIL = re.compile(r"\b(?:inc|ltd|limited|lt[ée]e|corp|corporation|llp|lp|s\.?e\.?n\.?c\.?r?\.?l?|co|gmbh|kg|ag|sa|sarl|sas|bv|nv|ab|oy|plc|pty|llc|ulc)\.?,?$", re.I)
+_LEGAL_WORD = re.compile(r"^(?:inc|ltd|limited|lt[ée]e|corp|corporation|llp|lp|llc|ulc|co|gmbh|plc)\.?,?$", re.I)
+_PAGE_JUNK = re.compile(r"\s+(?:scroll\s+to\s+top|back\s+to\s+top|skip\s+to\s+(?:main\s+)?content)\s*$|\s+(?:developed|designed|powered|site)\s+by\s*:?.*$", re.I)
+_SEO_MARK = re.compile(r"^\s*[~|:–—,.\[/-]|\b(?:in|à|au|near|serving|trusted|best|top|professional|specialists?|sp[ée]cialiste|affordable|leading|quality|services?\s+in|"
+                       r"since|depuis|#1|n°\s?1|official|officiel)\b", re.I)
+def name_from_page_words(name, website):
+    """the organisation's name out of a page's title or text, or the name itself"""
+    n = (name or "").strip()
+    if not n:
+        return n
+    n2 = _SOCIAL_TAIL.sub("", _PAGE_JUNK.sub("", n)).strip()
+    n2 = _DATE_HEAD.sub("", n2).strip()
+    m = _TM_OF.search(n2)
+    if m:
+        n2 = m.group(1).strip()
+    n3 = _POLICY_HEAD.sub("", n2).strip()
+    if n3 != n2 and len(n3.split()) >= 2:
+        n2 = n3
+    mb = _BY_TAIL.search(n2)
+    if mb and len(n2[:mb.start()].split()) >= 2:
+        first = re.sub(r"[^a-z]", "", mb.group(1).split()[0].lower())
+        # "Trail Portraits by Jamie Dietrich": a person's name after "by" goes (natural persons are not named)
+        if first in _FIRST_NAMES:
+            n2 = n2[:mb.start()].strip()  # otherwise the name stays whole: what follows "by" may be a person's name the list does not know
+    toks = n2.split()
+    if len(toks) >= 5 and website and not _ORG_HEAD.search(n2):
+        host = (host_of(website) or "").lower()
+        lab = re.sub(r"[^a-z0-9]", "", ((registrable(host) or host).split(".")[0]))
+        lab = re.sub(r"(?:inc|ltd|ca|group|team|co)$", "", lab) or lab
+        acc = ""
+        for k_, t_ in enumerate(toks):
+            acc += re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKD", t_).encode("ascii", "ignore").decode().lower())
+            if acc and acc == lab and k_ + 1 < len(toks):
+                rest = " ".join(toks[k_ + 1:])
+                head = " ".join(toks[:k_ + 1])
+                if re.fullmatch(r"[A-Z0-9&]{2,6}", head.strip(" -:")) and len(rest.split()) >= 3:
+                    break  # an acronym before its words ("INL - International Iberian Nanotechnology Laboratory"): the name stays whole
+                if _SEO_MARK.search(rest) and not _LEGAL_TAIL.search(rest):
+                    if k_ + 1 < len(toks) and _LEGAL_WORD.match(toks[k_ + 1]):
+                        head += " " + toks[k_ + 1]  # "Miralda Ltd. Professional Accounting …": the legal form stays with the name
+                    n2 = head.strip(" ~|:–—,-_")
+                break
+            if len(acc) > len(lab):
+                break
+    n2 = n2.strip(" ~|:–—,-_") if n2 != n else n2
+    return n2 if len(n2) >= 2 else n
+
+
 def place_name_not_this_org(name, website):
     """a buyer named by a place's bare name (no word of a municipality in it), on a site whose own domain spells that place and something more than a
     municipality's, a province's or a web address's words: a business of the town (merlottoronto.com, bridges-kingston.com, madebykawarthalakes.ca),
@@ -6262,6 +6328,11 @@ for _ri, x in enumerate(rows):
     _lb = _lb.strip(" -–—|:/.") if _lb != _b else _b
     if _lb != _b and len(_lb) >= 3 and "logo" not in (registrable(host_of(x.get("buyer_website") or "") or "") or "").lower():
         x["buyer"] = _b = _lb; n9["buyer name: the word Logo beside it removed"] += 1
+    if "\ufffd" in _b and x.get("buyer_website"):
+        x["buyer"] = _b = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer name with a replacement character (a bad encoding): its domain name instead"] += 1
+    _pw = name_from_page_words(_b, x.get("buyer_website") or "")
+    if _pw != _b:
+        x["buyer"] = _b = _pw; n9["buyer name: cut out of a page's title or text (social links, a date, a trademark line, a policy's title, a slogan after the name)"] += 1
     if place_name_not_this_org(_b, x.get("buyer_website") or ""):
         x["buyer"] = _b = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by a town's bare name on a site that names more: its domain name instead"] += 1
     if _JUNK_NAME.match(_b) and x.get("buyer_website"):
