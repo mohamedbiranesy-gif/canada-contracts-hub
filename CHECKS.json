@@ -1,5 +1,5 @@
 {
- "as_of": "2026-11-13 16:27Z",
+ "as_of": "2026-11-13 17:24Z",
  "checks": [
   {
    "deliverable": "ranked table (ready rows, $5k+ marks, kinds)",
@@ -107,7 +107,7 @@
    "deliverable": "utilities abroad (rule 18): rows by where the organisation is in a territory of a utility a Canadian company owns",
    "method": "rank SUMMARY.md line 'rows by where the organisation is abroad — a utility a Canadian company owns (rule 18)'; BUILD.json by jurisdiction US-*/KY/BB/BM; territory of each target: precise maps (Tampa, TEP, Central Hudson, CalPeco), Vermont's franchise map (GMP), the utility's own town list (Versant, Liberty NH, UNS: tools/data/utility_town_lists.json); spot-check the kept ZIP areas against the utility's own list",
    "cmd": "grep 'abroad' coord/results/ranked/SUMMARY.md",
-   "status": "corrected 2026-11-13 16:27Z: Liberty NH's HIFLD county fill had given it 54 ZIP areas of Eversource (Nashua, Manchester, Keene) — withdrawn with their 17,212 leads; UNS (FERC-714 polygon) and the ZIP areas outside Versant's towns served whole / Vermont's map withdrawn (5,959 leads); 362 ZIP areas kept; ~108,000 leads being read; rows pending the crawl -> referee -> build"
+   "status": "corrected 2026-11-13 16:27Z: Liberty NH's HIFLD county fill had given it 54 ZIP areas of Eversource (Nashua, Manchester, Keene) — withdrawn with their 17,212 leads; UNS (FERC-714 polygon) and the ZIP areas outside Versant's towns served whole / Vermont's map withdrawn (5,959 leads); 362 ZIP areas kept; ~108,000 leads being read; rows pending the crawl -> referee -> build; 2026-11-13 17:24Z: places by their own point added (53,983 places, 34,670 domains in tools/data/abroad_place_points.csv.gz; 30,646 new leads: Tampa 8,196, GMP 6,014, TEP 4,485, Versant 4,306, Central Hudson 3,044, UNS 1,912, CalPeco 1,895, Liberty NH 795) — ~140,000 abroad leads in all"
   },
   {
    "deliverable": "mailbox-crawl third class (place sites in Canada, other endings)",
@@ -120,6 +120,12 @@
    "method": "registry-locate run log: 'located by the head office declared to a register'",
    "cmd": "gh api repos/$R/actions/runs/43453582578/jobs -> logs | grep 'registry-locate:'",
    "status": "passing, low yield (run 43453582578: 32,833 targets, 2,943 legal names read, 203 located — 69 REQ, 134 Corporations Canada; 584 ambiguous left out)"
+  },
+  {
+   "deliverable": "rule 18 rows located by the point of the website's own listing (rank P13 / give-way, by_location.abroad_point)",
+   "method": "SUMMARY.md line '… of which located by the point of its website's listing'; sample 10 rows: the printed ZIP equals the place's, the point lies inside the territory map",
+   "cmd": "grep 'point of its website' coord/results/ranked/SUMMARY.md",
+   "status": "pending (points file and leads written 2026-11-13 17:24Z; first rows after the crawl of the new leads)"
   }
  ]
 }
