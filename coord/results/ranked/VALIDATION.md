@@ -1,4 +1,4 @@
-# Integrity gates — 278594 delivered rows in 18 packages (132 files)
+# Integrity gates — 279934 delivered rows in 18 packages (132 files)
 
 - **1 mailbox present, valid, domain with a mail server**: PASS (0)
 - **2 role mailbox (no person-like local part, no freemail)**: PASS (0)
@@ -11,21 +11,21 @@
 Informational: 3 rows whose quote shows the label next to the address rather than the address itself (the address sits in a mailto link; the referee re-fetched the page and saw it).
 
 ## Rows per package
-- P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 268
-- P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 229
-- P01_GOLD_active_relationship_invoicing_AP_email: 649
+- P01M_member_or_regulated_payer_of_canadian_body_invoicing_AP_email: 313
+- P01T_active_service_seen_on_buyer_site_invoicing_AP_email: 228
+- P01_GOLD_active_relationship_invoicing_AP_email: 650
 - P02_active_relationship_finance_accounting_email: 475
 - P03_active_relationship_purchasing_email: 272
-- P04_active_relationship_general_email: 4163
+- P04_active_relationship_general_email: 4187
 - P05_likely_active_awarded_12_36_months_any_email: 423
-- P06M_member_or_regulated_payer_of_canadian_body_other_email: 23004
-- P06T_active_service_seen_on_buyer_site_other_email: 61957
-- P06_client_listing_invoicing_AP_email: 270
-- P07_client_listing_finance_or_purchasing_email: 823
-- P08_client_listing_general_email: 30550
+- P06M_member_or_regulated_payer_of_canadian_body_other_email: 24573
+- P06T_active_service_seen_on_buyer_site_other_email: 61958
+- P06_client_listing_invoicing_AP_email: 268
+- P07_client_listing_finance_or_purchasing_email: 814
+- P08_client_listing_general_email: 30392
 - P09_older_contract_or_payment_any_email: 279
 - P10R_ca_domain_registration_contract_own_email: 0
-- P10_linked_from_vendor_site_any_email: 2111
-- P11_any_relationship_email_not_yet_confirmed: 1835
+- P10_linked_from_vendor_site_any_email: 2094
+- P11_any_relationship_email_not_yet_confirmed: 1830
 - P12_weaker_relationship_within_5_years_own_email: 10
-- P13_inferred_relationship_no_record_own_email: 151276
+- P13_inferred_relationship_no_record_own_email: 151168

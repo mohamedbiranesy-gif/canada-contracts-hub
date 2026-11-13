@@ -1,4 +1,4 @@
-# Cloud lanes — status from the files on main (2026-11-13 04:09 UTC)
+# Cloud lanes — status from the files on main (2026-11-13 05:18 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
@@ -6,42 +6,42 @@
 - domains linking to a proven Canadian vendor / vetted portal: **772302**
 - OpenStreetMap Canada sites: **73684**
 - domains linking to Shopify (store candidates): **1323855**
-- home pages read by the scan: **5341577** (ok 2651442, unreachable 1561698, robots 649934, blocked 257278, http_error 219908, not_html 1317); by detector: {'t1': 19, 't4': 432273, 't5': 4909285}
-- detector 4 (readable pages: 2651431): **551546 print a role mailbox of the organisation (20.8 %)** — general 467343, role 81172, finance 1954, supplier_payment 382, accounts_payable 364, procurement 248, invoice_submission 83; printed address: none 2017811, CA 494693, US 122971, GB 12863, AU 3093
-- `.ca` sites whose home page prints a role mailbox (registry candidates, tier R): **300224**
+- home pages read by the scan: **5355886** (ok 2664336, unreachable 1560785, robots 651086, blocked 258287, http_error 220068, not_html 1324); by detector: {'t1': 19, 't4': 402035, 't5': 4953832}
+- detector 4 (readable pages: 2664325): **554967 print a role mailbox of the organisation (20.8 %)** — general 470109, role 81808, finance 1970, supplier_payment 382, accounts_payable 367, procurement 248, invoice_submission 83; printed address: none 2027077, CA 496392, US 124787, GB 12953, AU 3116
+- `.ca` sites whose home page prints a role mailbox (registry candidates, tier R): **300783**
 
 ## 2. Vendors and providers checked live (their own site's address)
 - 103850 domains: no_address 47605, unreachable 15656, CA 12600, US 7057, blocked 5643, robots 5037, CA-loc 4528, GB 2158
 
 ## 3. DNS lookups
-- domains looked up in the cloud: **10625574**; on Shopify's storefront addresses: **3676498**; with a www alias: 762479
+- domains looked up in the cloud: **10625700**; on Shopify's storefront addresses: **3676619**; with a www alias: 762479
 
 ## 4. Relationship leads on file
 - Mac era B/L dated record (payment, subaward, release): **10803**
 - Mac era D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **52386**
 - Mac era M member / regulated payer list: **2290**
 - Mac era T vetted software service (store / portal): **5511**
-- cloud B/L dated record (payment, subaward, release): **1792**
-- cloud D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **156172**
+- cloud B/L dated record (payment, subaward, release): **2041**
+- cloud D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **156092**
 - cloud M accredited business (BBB) [bbb]: **3106**
-- cloud M licence holder (the licensing body's own list of active licences): **4504**
+- cloud M licence holder (the licensing body's own list of active licences): **4725**
 - cloud M licence holder (the licensing body's own list of active licences) [lic]: **9953**
-- cloud M licence holder (the licensing body's own list of active licences) [rbq]: **13859**
-- cloud M member / regulated payer list: **32952**
-- cloud M membership stated by the member: **2613**
-- cloud T credit line on the buyer's site: **79061**
-- cloud T provider in the buyer's DNS: **668524**
+- cloud M licence holder (the licensing body's own list of active licences) [rbq]: **15492**
+- cloud M member / regulated payer list: **38391**
+- cloud M membership stated by the member: **2621**
+- cloud T credit line on the buyer's site: **79229**
+- cloud T provider in the buyer's DNS: **668544**
 - cloud T vetted software service (store / portal): **2900**
 - cloud T vetted software service (store / portal) [shards]: **38991**
 
 ## 5. Mailbox crawl
 - lead sites read: **2351364** (nothing_found 1605588, found 442809, unreachable 214079, blocked 75522, timeout 13150, error 216)
-  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 1477150 read, mailbox on 289369 (20 %), blocked 27195
+  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 1477320 read, mailbox on 289456 (20 %), blocked 27204
   - T provider in the buyer's DNS: 605385 read, mailbox on 74300 (12 %), blocked 28055
-  - D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): 157123 read, mailbox on 39435 (25 %), blocked 16261
+  - D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): 157050 read, mailbox on 39403 (25 %), blocked 16254
   - T credit line on the buyer's site: 65665 read, mailbox on 22100 (34 %), blocked 2313
-  - M member / regulated payer list: 25639 read, mailbox on 11478 (45 %), blocked 655
-  - M licence holder (the licensing body's own list of active licences) [rbq]: 7725 read, mailbox on 3081 (40 %), blocked 219
+  - M member / regulated payer list: 25552 read, mailbox on 11426 (45 %), blocked 653
+  - M licence holder (the licensing body's own list of active licences) [rbq]: 7715 read, mailbox on 3078 (40 %), blocked 219
   - M licence holder (the licensing body's own list of active licences) [lic]: 3457 read, mailbox on 771 (22 %), blocked 46
   - B/L dated record (payment, subaward, release): 3272 read, mailbox on 875 (27 %), blocked 239
   - M accredited business (BBB) [bbb]: 2205 read, mailbox on 543 (25 %), blocked 303
@@ -86,5 +86,5 @@
 - mailbox rows written by the cloud crawls (before the referee): **505951**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **276817** — by tier: A 1217, B 2143, C 290, D 31643, E 4140, F 10, I 151276, L 640, M 23272, T 62186
-- named-vendor relationships (A B T M C D L): **121391** · registry contract R: **0** · link only (E): **4140** · older / inferred (F I): **151286**
+- rows with a confirmed mailbox: **278162** — by tier: A 1217, B 2174, C 290, D 31474, E 4111, F 10, I 151168, L 646, M 24886, T 62186
+- named-vendor relationships (A B T M C D L): **122873** · registry contract R: **0** · link only (E): **4111** · older / inferred (F I): **151178**
