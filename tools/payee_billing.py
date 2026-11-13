@@ -121,6 +121,18 @@ PAYEES = [
          period_url=("https://ised-isde.canada.ca/site/spectrum-management-telecommunications/en/licences-and-certificates/radiocom-information-circulars-ric/"
                      "ric-42-guide-calculating-radio-licence-fees"),
          remit_to="“By courier to the following address: ISED – Spectrum Revenue Centre 235 Queen Street, Room 643A Ottawa ON K1A 0H5”"),
+    # TMX Group: the yearly sustaining fee of a company listed on the Toronto Stock Exchange or the TSX Venture Exchange is invoiced (tools/exchange_issuers.py);
+    # TMX's own payment page of each exchange, read 2026-11-13, names the ways an invoice can be paid (its bank account numbers are not copied here)
+    dict(names=["Toronto Stock Exchange (TSX Inc., TMX Group)"], hosts=[], read="2026-11-13",
+         url="https://payments.tmx.com/en/tsx/",
+         payment=("by wire transfer, direct deposit or online banking bill payment with the customer number printed on the invoice, or by credit card: “Credit Card Select "
+                  "Wire Transfer Select Direct Deposit Select Bank Bill Pay Select” … “Online banking bill payment is available at most Canadian financial institutions for "
+                  "payments in Canadian currency only.” … “Find and Set up \"TSX Inc\" as the payee For account number: Enter your Customer Number as on your invoice”")),
+    dict(names=["TSX Venture Exchange (TMX Group)"], hosts=[], read="2026-11-13",
+         url="https://payments.tmx.com/en/tsxv/",
+         payment=("by wire transfer, direct deposit or online banking bill payment with the customer number printed on the invoice, or by credit card: “Credit Card Select "
+                  "Wire Transfer Select Direct Deposit Select Bank Bill Pay Select” … “Online banking bill payment is available at most Canadian financial institutions for "
+                  "payments in Canadian currency only.” … “Find and Set up \"TSX Venture Exchange\" as the payee For account number: Enter your Customer Number as on your invoice”")),
 ]
 
 # ---- entries added by any lane (2026-11-11): contrib/<lane>/payees/<key>.json, one body a file, the same keys as an entry above ------------------
