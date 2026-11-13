@@ -125,6 +125,7 @@ jobs:
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 tools/tm_register.py merge-sites shards | tee /tmp/tms.txt
+            python3 tools/cross_sites.py | tee -a /tmp/cross.txt || true   # 2026-11-13: the other register's site for the same legal person (same name, country, postal code)
             python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
             git add data/incoming/claude/tm 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
