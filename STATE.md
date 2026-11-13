@@ -11,6 +11,23 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 13:44Z — owner's word (07:47, 08:07 EST) and what started since:**
+- Decisions: Alberta water and workers' compensation — no; client lists — no rows (leads to investigate only); a subsidiary on its parent's site —
+  yes when the tie is published; Sun Life's U.S. branch — yes; foreign subsidiaries as the vendor — unanswered (nothing built). His direction:
+  explore the international market differently ("not digitalized … any project, anything at all that requires a Canadian vendor"), and in Canada
+  "anything construction … currently contracted". Map: docs/ROUTE_TO_1M.md (13:15Z).
+- **Foursquare Open Source Places** (tools/fsq_places.py, fsq-places.yml; Apache 2.0): 1,010,914 open places in Canada with a website; 143,923
+  registrable domains the scan never had -> the scan's queue (credit_scan FSQ_SITES); one address per domain whose places print one postal code
+  (fsq_addresses.csv.gz in harvest-state; 2,079 of the 155,744 unlocated gain one); **5,177 unlocated organisations located by the Foursquare place
+  listing their own telephone number**; owners of Canadian IP with no site: **16,871 trademark and 7,066 patent owners** with a candidate site under
+  their very name (tm/pt_fsq_sites.csv) -> tm-sites / pt-sites ror runs reading them (13:35Z).
+- **SAQ producers and their Québec agents** (tools/saq_agents.py, saq-agents.yml): the SAQ's 27,043 product pages being read (two runners, one
+  request a second each); sample of 300: 254 producers, 219 abroad; new kind "promotional agency" (relationship_rows, priority_sort, rank).
+- Checked and not usable: ConstructConnect/DCN notices (robots: Google and Bing only), Calgary permits (owners not named), EDC disclosure (55 buyer
+  financings abroad in 2024), AGLC licensee report (robots), SAQ B2B policy PDF (robots; read once by mistake, not used).
+- addr-reread --city finished: 4,937 addresses (street + city 1,704; contact-page city the rest); unlocated now 155,744.
+- Mailbox-crawl merges pushing again since 13:00Z (the pk. token fix).
+
 **2026-11-13 12:44Z — build 11:39Z: 276,301 ready of 333,286 rows (+8,351 since 07:49Z; +58,913 since the 23:25Z build that opened this run):**
 location 185,298 (+7,323), licence 14,999 (+685), agent of record 11,694, membership 19,177, service 32,335, exchange listing 347; complete in the
 biller's own words 25,703; amount and period 233,127; every main field 182,001; $5k+ a bill 2,821 (2,177 published, 644 estimated). Owner asked
