@@ -40,6 +40,19 @@ role mailbox re-read by the referee (AGENTS.md rules 1-17). Counts below are cou
   the cross-register and read-site joins add hundreds, not thousands; certification bodies (CSA: blocked; CWB: blocked); NAV CANADA's airlines
   (registered; the CTA's certificate chain is incomplete); more customs microdata (none found open beyond Colombia).
 
+## Update 2026-11-13 08:13Z — 267,950 ready (build 07:49Z); what was added since, and where it leads
+- Build 07:49Z: 267,950 ready of 326,765 rows (+12,791 since 06:44Z; +47,214 since 05:17Z). $5k+ a bill 2,814.
+- **Bodies that bill by statute and publish whom they bill** (bc-crown, daily): B.C. water rentals 5,486 licensees · B.C. stumpage (invoice numbers and
+  values) · Alberta Energy Regulator administration fee 1,197 · Health Canada PMRA annual charges 675 (four invoices a year) · CNSC yearly licence fees
+  1,149. ~9,700 organisations, many in Alberta (where no electricity row exists); rows follow once each one's site and mailbox are found.
+- **Owners abroad**: the site tests now know 22 countries (nine added today: JP, KR, IL, NO, FI, NZ, TW, IN, CN — ~45,000 owners never looked for), and
+  two open registries give candidate sites (ROR 4,273; Wikidata 12,465). This morning's runs tied +640 trademark and +221 patent owners' sites with
+  Wikidata, +69 / +127 with ROR; plain runs on the nine new countries are queued.
+- Ceiling arithmetic, unchanged in shape: Canada by location ~300k with today's rules; records in Canada (registers, statutory billers, members) ~150k;
+  records abroad (IP owners in 22 countries ~200k; Health Canada, PMRA, DIAN, Form 5500, exchanges) — at today's site and mailbox rates ~40-60k rows.
+  1,000,000 needs either many more records abroad (customs microdata of more countries — none found open beyond Colombia) or a rule decision (client
+  listings; a group's site for a subsidiary at the group's address).
+
 ## How it runs without a session
 Every lane above is a tool plus a workflow on a schedule; the rank build (rank-buyers, every 6 hours) gathers them; the mailbox reader runs
 back to back. A session reads the counts (BUILD.json), reads rows, fixes rules and adds the next pool.
