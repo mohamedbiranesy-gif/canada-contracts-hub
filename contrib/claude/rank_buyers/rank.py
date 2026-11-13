@@ -5828,7 +5828,12 @@ _DUES_PATH = re.compile(r"member|membre|adh[ée]|join|dues|cotis|rates?-|tarif|l
 _NOT_DUES_PATH = re.compile(r"advertis|publicit|sponsor|commandit|banner|event|[ée]v[ée]nement|ticket|billet|news|nouvelles|blog|article|tariff-business|award|gala|golf", re.I)
 # what is not the dues of an organisation: a discount or a rebate, a fee of a person (individual, student, retired …), a fee by head
 _NOT_DUES = re.compile(r"non-?members?|non-?membres?|r[ée]duction|discount|rabais|remise|\d\s?%|\bsave\b|[ée]conomi|per\s+capita|par\s+(?:capita|habitant|personne)|individu|student|[ée]tudiant|personal\s+member|youth|jeunes|"
-                       r"junior|retir|retrait[ée]|famil|household|lifetime|[àa]\s+vie\b|per\s+(?:person|head)|par\s+t[êe]te", re.I)
+                       r"junior|retir|retrait[ée]|famil|household|lifetime|[àa]\s+vie\b|per\s+(?:person|head)|par\s+t[êe]te|"
+                       # 2026-11-13 (21Z, the table of 20:32Z): the price or the value of a member benefit is not the dues — "Members can post up to 5 free job postings
+                       # annually ($1050 value)" (Bio Alberta), "Minimum purchase of $1500.00 or 3000 litres per year" (a fuel program, South Shuswap), "Avantage membre :
+                       # 108 $/mois au lieu de 120 $/mois" (a partner's service, CCI de la MRC)
+                       r"\bvalue\b|valeur|au\s+lieu\s+de|instead\s+of|avantages?\s+membres?|member\s+(?:benefit|perk|price|rate|discount)|minimum\s+purchase|achat\s+minimum|litres?\b|"
+                       r"job\s+postings?|free\s+(?:job|listing|ad)|regular(?:ly)?\s+\$|prix\s+r[ée]gulier", re.I)
 _AMT_Q = re.compile(r"(?:C|CA|US)?\$\s?(\d+(?:[ ,\u00a0]\d{3})*(?:\.\d{1,2})?)(?!\d)|(?<![\d.,])(\d+(?:[ \u00a0]\d{3})*(?:,\d{1,2})?)\s?\$")
 def member_dues(rec, vd=""):
     """(value, currency, 'year' | 'month', statement) — the lowest dues a member body's own membership pages print, or None. The amount is read
