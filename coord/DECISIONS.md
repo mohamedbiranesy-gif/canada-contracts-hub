@@ -2167,3 +2167,25 @@ Canadian parents) stays on file as data only — it confirmed the parents of rul
   (rule 15's order); the relationship it stood on stays in other_relationship_sources.
 - Bodies not in the table: their website and address from Ontario's school board contact list and directory of institutions (FIPPA / MFIPPA);
   23 new leads, 142 addresses in org_places.csv.gz. Their e-mail column is never read.
+
+## 2026-11-13 21:49Z — lane claude: accuracy before count; a municipality's electricity from its residents (owner 13:20 / 13:23 EST: "no more weak stuff … everything accurate no errors … add as much over 5000 as possible")
+- **How the bill is paid, read whole.** A biller's sentence is taken for what it says, not for the words in it: LinkNow's cheque and money-order
+  sentence is for the one-time design fee at sign-up, its monthly fees are charged to the card (no row, ~2,266); a biller's own "online bill payment
+  page" for cards is not a bank's bill-payment service (Secure by Design: no row); MNSi's residential page ("We never invoice residential accounts")
+  is not about an organisation's account — its billing page is (invoices for approved companies, pre-authorised debit). On a dealer's row a
+  supplier's online-shop terms (cards, PayPal, checkout, refunds) are a retail customer's: taken off; the row says how a dealer is billed by the kind.
+- **A foundation listed among an organisation's sponsors funds it**: a grant, not an invoiced fee — no sponsorship row.
+- **Members' dues are dues**: the price or the value of a member benefit (free job postings, a fuel program's minimum, a partner's service) is not.
+- **Buyer names are names**: an image's file name, the page-title word Home / Accueil, the word Logo, a town's bare name taken from a business's own
+  site, social-link words, a date, "is a trademark of", a policy's title, a slogan after the name the site's own domain spells — each removed or the
+  domain put in its place; acronyms with their words, legal forms and organisational names stay whole.
+- **Among current records (tiers A, B, L) a clean one with a published $5,000+ comes before a surer tier with less** (rule 15); older records never do.
+- **A municipality outside Ontario** standing on the distributor of its address is billed for each of its facilities: its bill is estimated from its
+  residents (StatCan 2021 Census, table 98-10-0002-01) × the kWh a resident the Ontario municipalities of its size report under O. Reg. 25/23 (Table 1:
+  offices, libraries, recreation, fire / police / ambulance stations, garages, water and sewage — no street lighting, so a floor) × Hydro-Québec's
+  2025 price for the province's city (the lower of its 10,000 and 100,000 kWh levels), only where the row's distributor is the province's main one.
+  The mark rests on the lower quartile (the median is said beside it). A municipality's record row with no published $5,000+ gives way to it when
+  the lower quartile is $5,000 a month or more, as a body's row gives way to its own energy report. Ontario is left to the reports; Alberta has no
+  distributor's bill (retail choice).
+- Left: Ontario's large-building energy data (no owner or occupant named); bbb.org refuses the reader; most law firms publish no billing page
+  (Osler's client terms do: monthly accounts, due on receipt — a payee entry later).
