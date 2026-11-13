@@ -1,9 +1,9 @@
-# Cloud lanes — status from the files on main (2026-11-13 13:07 UTC)
+# Cloud lanes — status from the files on main (2026-11-13 14:22 UTC)
 
 ## 1. Sites
 - `.ca` domains of the archive index: **354248**
 - `.ca` domains of the web graph + public list: **2485064**
-- domains linking to a proven Canadian vendor / vetted portal: **772302**
+- domains linking to a proven Canadian vendor / vetted portal: **782396**
 - OpenStreetMap Canada sites: **73684**
 - domains linking to Shopify (store candidates): **1323855**
 - home pages read by the scan: **5453134** (ok 2729605, unreachable 1567779, robots 667078, blocked 261601, http_error 225730, not_html 1341); by detector: {'t1': 17, 't4': 315124, 't5': 5137993}
@@ -25,9 +25,9 @@
 - cloud D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): **156094**
 - cloud M accredited business (BBB) [bbb]: **3106**
 - cloud M licence holder (the licensing body's own list of active licences): **7417**
-- cloud M licence holder (the licensing body's own list of active licences) [lic]: **13145**
+- cloud M licence holder (the licensing body's own list of active licences) [lic]: **13172**
 - cloud M licence holder (the licensing body's own list of active licences) [rbq]: **15442**
-- cloud M member / regulated payer list: **43743**
+- cloud M member / regulated payer list: **43744**
 - cloud M membership stated by the member: **2664**
 - cloud T credit line on the buyer's site: **80182**
 - cloud T provider in the buyer's DNS: **682677**
@@ -35,16 +35,16 @@
 - cloud T vetted software service (store / portal) [shards]: **38991**
 
 ## 5. Mailbox crawl
-- lead sites read: **2662441** (nothing_found 1830755, found 508654, unreachable 223650, blocked 84624, timeout 14515, error 243)
-  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 1717153 read, mailbox on 343169 (20 %), blocked 33589
+- lead sites read: **2670557** (nothing_found 1837028, found 510230, unreachable 223704, blocked 84835, timeout 14515, error 245)
+  - leads no longer on file (withdrawn by a stricter rule) and registry candidates: 1725183 read, mailbox on 344733 (20 %), blocked 33785
   - T provider in the buyer's DNS: 658448 read, mailbox on 80786 (12 %), blocked 30136
-  - D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): 157151 read, mailbox on 39501 (25 %), blocked 16288
+  - D/E listed on a Canadian vendor's page (client, member, dealer, sponsor): 157181 read, mailbox on 39501 (25 %), blocked 16303
   - T credit line on the buyer's site: 70813 read, mailbox on 23484 (33 %), blocked 2562
-  - M member / regulated payer list: 33700 read, mailbox on 14918 (44 %), blocked 798
+  - M member / regulated payer list: 33746 read, mailbox on 14925 (44 %), blocked 798
   - M licence holder (the licensing body's own list of active licences) [rbq]: 8856 read, mailbox on 3192 (36 %), blocked 261
-  - M licence holder (the licensing body's own list of active licences) [lic]: 5021 read, mailbox on 922 (18 %), blocked 99
+  - M licence holder (the licensing body's own list of active licences) [lic]: 5024 read, mailbox on 924 (18 %), blocked 99
   - B/L dated record (payment, subaward, release): 3685 read, mailbox on 1022 (28 %), blocked 252
-  - M licence holder (the licensing body's own list of active licences): 2843 read, mailbox on 547 (19 %), blocked 167
+  - M licence holder (the licensing body's own list of active licences): 2850 read, mailbox on 550 (19 %), blocked 167
   - M accredited business (BBB) [bbb]: 2205 read, mailbox on 543 (25 %), blocked 303
   - M membership stated by the member: 1414 read, mailbox on 393 (28 %), blocked 22
   - T vetted software service (store / portal): 1152 read, mailbox on 177 (15 %), blocked 147
@@ -83,8 +83,8 @@
   - webrezpro: 277 read — portal_not_its_own 115, nothing_found 98, no_address 35, unreachable 15, accepted 7, no_name 6, blocked 1
   - wellnessliving: 886 read — nothing_found 380, accepted 290, no_address 96, unreachable 47, no_name 37, portal_not_its_own 29, blocked 7
   - wellnessliving_widget: 83 read — nothing_found 39, accepted 25, unreachable 10, no_address 7, no_name 1, blocked 1
-- mailbox rows written by the cloud crawls (before the referee): **574669**
+- mailbox rows written by the cloud crawls (before the referee): **576336**
 
 ## 6. Delivered (last rank build on main)
-- rows with a confirmed mailbox: **328419** — by tier: A 1218, B 2286, C 290, D 30907, E 3974, F 10, I 202744, L 706, M 30934, T 55350
-- named-vendor relationships (A B T M C D L): **121691** · registry contract R: **0** · link only (E): **3974** · older / inferred (F I): **202754**
+- rows with a confirmed mailbox: **329940** — by tier: A 1219, B 2285, C 288, D 30825, E 3914, F 11, I 204826, L 707, M 30906, T 54959
+- named-vendor relationships (A B T M C D L): **121189** · registry contract R: **0** · link only (E): **3914** · older / inferred (F I): **204837**
