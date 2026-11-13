@@ -1,11 +1,11 @@
 {
  "bloom": {
   "bits": 31,
-  "entries": 195298720,
+  "entries": 195301316,
   "k": 6
  },
- "ca_names": 1390904,
- "certificates_read": 5335662336,
+ "ca_names": 1390932,
+ "certificates_read": 5335856128,
  "lists": [
   {
    "group": "sw",
@@ -834,121 +834,133 @@
    "name": "ct_xlist_20261113T213259.txt.gz",
    "names": 886,
    "stamp": "20261113T213259"
+  },
+  {
+   "group": "sw",
+   "name": "ct_list_20261113T213805.txt.gz",
+   "names": 2401,
+   "stamp": "20261113T213805"
+  },
+  {
+   "group": "xt",
+   "name": "ct_xlist_20261113T213805.txt.gz",
+   "names": 195,
+   "stamp": "20261113T213805"
   }
  ],
  "logs": {
   "Geomys Trastevere2026h2": {
    "end": "2027-01-01",
    "floor": 75553,
-   "hi": 134772,
+   "hi": 134777,
    "lo": 75553,
    "operator": "Geomys",
-   "tiles_read": 63792,
-   "top": 134773,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 63798,
+   "top": 134778,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://trastevere2026h2.skylight.geomys.org/"
   },
   "Geomys Trastevere2027h1": {
    "end": "2027-07-01",
    "floor": 0,
-   "hi": 203752,
+   "hi": 203779,
    "lo": 0,
    "operator": "Geomys",
-   "tiles_read": 208502,
-   "top": 203753,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 208530,
+   "top": 203780,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://trastevere2027h1.skylight.geomys.org/"
   },
   "Geomys Tuscolo2026h2": {
    "end": "2027-01-01",
    "floor": 2465050,
-   "hi": 4127370,
+   "hi": 4127385,
    "lo": 2465050,
    "operator": "Geomys",
-   "tiles_read": 1666975,
-   "top": 4127371,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 1666991,
+   "top": 4127387,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://tuscolo2026h2.skylight.geomys.org/"
   },
   "Geomys Tuscolo2027h1": {
    "end": "2027-07-01",
    "floor": 0,
-   "hi": 2389654,
+   "hi": 2389813,
    "lo": 0,
    "operator": "Geomys",
-   "tiles_read": 2395921,
-   "top": 2389669,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 2396081,
+   "top": 2389814,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://tuscolo2027h1.skylight.geomys.org/"
   },
   "IPng Networks Gouda2026h2": {
    "end": "2027-01-01",
    "floor": 2933002,
-   "hi": 4903144,
+   "hi": 4903154,
    "lo": 2933002,
    "operator": "IPng Networks",
-   "tiles_read": 2066642,
-   "top": 4903146,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 2066653,
+   "top": 4903155,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://gouda2026h2.mon.ct.ipng.ch/"
   },
   "IPng Networks Gouda2027h1": {
    "end": "2027-07-01",
    "floor": 0,
-   "hi": 1601956,
+   "hi": 1602114,
    "lo": 100749,
    "operator": "IPng Networks",
-   "tiles_read": 1514493,
-   "top": 1601967,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 1514653,
+   "top": 1602115,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://gouda2027h1.mon.ct.ipng.ch/"
   },
   "Let's Encrypt Sycamore2026h2": {
    "end": "2026-12-17",
    "floor": 2581101,
-   "hi": 4318446,
+   "hi": 4318458,
    "lo": 2581101,
    "operator": "Let's Encrypt",
-   "tiles_read": 1881798,
-   "top": 4318447,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 1881811,
+   "top": 4318459,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://mon.sycamore.ct.letsencrypt.org/2026h2/"
   },
   "Let's Encrypt Sycamore2027h1": {
    "end": "2027-06-18",
    "floor": 0,
-   "hi": 4656996,
+   "hi": 4657169,
    "lo": 0,
    "operator": "Let's Encrypt",
-   "tiles_read": 4664591,
-   "top": 4657012,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 4664765,
+   "top": 4657170,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://mon.sycamore.ct.letsencrypt.org/2027h1/"
   },
   "Let's Encrypt Willow2026h2": {
    "end": "2026-12-16",
    "floor": 2456321,
-   "hi": 4110350,
+   "hi": 4110362,
    "lo": 2456321,
    "operator": "Let's Encrypt",
-   "tiles_read": 1759724,
-   "top": 4110352,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 1759737,
+   "top": 4110363,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://mon.willow.ct.letsencrypt.org/2026h2/"
   },
   "Let's Encrypt Willow2027h1": {
    "end": "2027-06-17",
    "floor": 0,
-   "hi": 4472810,
+   "hi": 4472985,
    "lo": 0,
    "operator": "Let's Encrypt",
-   "tiles_read": 4619993,
-   "top": 4472825,
-   "updated": "2026-11-13T21:37Z",
+   "tiles_read": 4620169,
+   "top": 4472986,
+   "updated": "2026-11-13T21:41Z",
    "url": "https://mon.willow.ct.letsencrypt.org/2027h1/"
   }
  },
- "ov_records": 41656,
- "tiles_left": 100814,
- "updated": "2026-11-13T21:37Z"
+ "ov_records": 41659,
+ "tiles_left": 100760,
+ "updated": "2026-11-13T21:41Z"
 }
