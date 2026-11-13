@@ -171,3 +171,16 @@ Canada's foreign licensees; PMRA registrants; listed issuers; customs importers;
 Canadian legal entity's own branch abroad (Sun Life Assurance Company of Canada's U.S. branch). The ceiling with these rules stays ~500,000.
 Also fixed today in the ranker: rows that give way to a utility abroad now carry its jurisdiction and the parent's ownership sentence (98 rows of
 build 16:22Z were labelled CA), and an abroad row with no address on file takes the one beside its mailbox.
+
+## Update 2026-11-13 19:39Z — owner 13:20 / 13:23 EST: the plug is pulled on the 18th; $5,000+ and every field, precisely
+- **$5,000+ rows.** The published $5,000+ bills come from public contracts (2,183 ready rows in build 18:26Z); 1,578 more buyers under such
+  contracts have no mailbox (QC 543, BC 175, US 148, EU 127): 72 of those without a website get their Wikidata site today, the rest wait on
+  the crawler's re-reads. The one source of *measured* consumption by organisation found in Canada is Ontario's broader public sector
+  reporting (O. Reg. 25/23): 573 bodies, 478 with a $5,000+ monthly bill from one distributor — now a record row each where the body
+  has a mailbox (tools/bps_energy.py). No other province publishes facility-level consumption (BC's reports give emissions and intensity only).
+- **Errors removed:** framework / multiple-award ceilings are no bills (Crowdmark had £292 million a month from G-Cloud's ceiling); a median
+  estimate needs 5 contracts and ≤ $2 million; Washington L&I's prime amount is never the filer's (Pro-Bel had Sound Transit's $228 million).
+- **Every main invoice field:** 188,120 of 285,780 ready rows had all eight (build 18:26Z). The largest gap was the due terms (88,165 rows):
+  now in the billers' own words for the hosts and licence bodies that carry the most rows (≈ 30,000 rows), and the vendor reader (v7)
+  reads every biller's terms for it from tomorrow. Then delivery (49,892) and payment method (46,036) — mostly memberships and agents,
+  whose own pages rarely say; vendor numbers (42,303) — 17 more vendors found under their legal names (3,000 rows).
