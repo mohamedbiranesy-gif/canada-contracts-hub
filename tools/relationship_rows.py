@@ -122,7 +122,9 @@ _CARD = re.compile(r"credit card|carte de cr[ée]dit|\bvisa\b|mastercard|\bamex\
 _BANK = re.compile(r"bank transfer|wire transfer|\bwire\b|virement|e-?transfer|interac|\beft\b|electronic funds|direct deposit|d[ée]p[oô]t direct|\bcheques?\b|\bchecks?\b|ch[èe]ques?|pre-?authori[sz]ed (?:debit|payment)|"
                    # 2026-11-12: a debit of the customer's bank account, as a biller's terms say it ("bill your credit card/bank account … or issue an invoice")
                    r"(?:bill|charge|debit)s?\s+(?:to\s+)?your\s+(?:credit card\s*/\s*)?bank account|"
-                   r"pr[ée]l[èe]vement|\bACH\b|bill payment|money order|mandats?[- ]postes?|at (?:a|your) (?:bank|financial institution)|institution financi|"
+                   # 2026-11-13: a bank's own bill-payment service ("online banking bill payment", "Bank Bill Pay", "Bill Payment Service"), not a biller's own
+                   # "online bill payment page" for cards (Secure by Design: “Our online bill payment page is available to pay your bill with your Visa or Master Card.”)
+                   r"pr[ée]l[èe]vement|\bACH\b|(?:online|telephone|internet)\s+banking\s+bill\s+pay(?:ments?)?\b|bank\s+bill\s+pay(?:ments?)?\b|bill\s+payments?\s+(?:services?|through|via|at|from)\b|money order|mandats?[- ]postes?|at (?:a|your) (?:bank|financial institution)|institution financi|"
                    # 2026-11-11: the words of a bank's own bill-payment service, as utilities and public bodies print them ("Add NB Power as a payee",
                    # "through your bank", "automatic payments from your bank account") — NB Power's page read as card only without them
                    r"through (?:a|your|the|most) (?:banks?|financial institutions?|credit unions?)|from (?:a|your) bank account|online banking|telephone banking|as a payee|"

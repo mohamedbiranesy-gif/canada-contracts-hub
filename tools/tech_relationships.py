@@ -425,10 +425,9 @@ DUE_TERMS_BY_DOMAIN = {
                   "payable in advance” … “If you fail to pay the fees within 30 days after due your services will be disabled.” (https://www.aplus.net/sites/aplus/files/Terms_and_Conditions.pdf, read 2026-11-13)"),
     "canadianwebhosting.com": ("in advance, by the time the invoice states: “Pre-payment of recurring fees is due by the time stated on CWH's invoice.” … “All CLIENT fees are due in advance of the "
                                "first day of the relevant term.” (https://canadianwebhosting.com/company/terms-of-service, read 2026-11-13)"),
-    "linknowmedia.com": ("on the billing date, or ten business days after billing where its terms allow: “All amounts billed on your account on a given date are due and payable on that date.” … "
-                         "“In such cases, payment shall be due ten (10) business days after billing.” (https://linknow.com/terms/, read 2026-11-13)"),
-    "linknow.com": ("on the billing date, or ten business days after billing where its terms allow: “All amounts billed on your account on a given date are due and payable on that date.” … "
-                    "“In such cases, payment shall be due ten (10) business days after billing.” (https://linknow.com/terms/, read 2026-11-13)"),
+    # 2026-11-13 21Z: the ten business days of its terms are for a cheque at sign-up only (the one-time design fee), not for the monthly fees
+    "linknowmedia.com": ("on the billing date: “All amounts billed on your account on a given date are due and payable on that date.” (https://linknow.com/terms/, read 2026-11-13)"),
+    "linknow.com": ("on the billing date: “All amounts billed on your account on a given date are due and payable on that date.” (https://linknow.com/terms/, read 2026-11-13)"),
     "astralinternet.com": ("by the service's due date, printed on the invoice, the renewal invoice issued 30 days before: “Cette date d’expiration est la « date d’échéance du Service » et constitue "
                            "la date limite de paiement de son renouvellement ; elle est indiquée sur la facture.” … “Astral Internet émet la facture de renouvellement trente (30) jours avant la "
                            "date d’échéance du Service” (https://www.astralinternet.com/conditions/, read 2026-11-13)"),
@@ -562,6 +561,43 @@ BILLING_BY_DOMAIN = {
                     bill=dict(payment=("“10.5 - Paiement automatique. Lorsque Ex2 est autorisée à procéder ainsi conformément au présent contrat, les frais et taxes applicables seront "
                                        "automatiquement imputés à la carte de crédit ou au compte PayPal enregistré dans votre compte Ex2.” (https://www.ex2.com/ca/terms-and-conditions, "
                                        "read 2026-11-13): charged to the card or PayPal account on file"))),
+    "linknow.com": dict(cls="monthly", read="2026-11-13", url="https://linknow.com/terms/",
+                    quote=("further monthly recurring fees will be billed on the calendar day of the initial purchase date each subsequent month until cancelled. All amounts "
+                           "billed on your account on a given date are due and payable on that date."),
+                    bill=dict(
+                        # its terms read whole on 2026-11-13 (21Z): the cheque and money-order sentence the reader had kept is for the one-time design fee at sign-up
+                        # (with a year of monthly fees prepaid); the monthly fees are charged to the card, which it retries when refused — no bank payment, no row
+                        payment=("by credit card: “Payment(s) for your Package or any Services can normally be made via credit card.” … “You irrevocably authorize us to "
+                                 "attempt to process your credit card payment again if initially rejected” (https://linknow.com/terms/, read 2026-11-13); its other forms "
+                                 "of payment are accepted only at sign-up, for the one-time design fee"),
+                        terms="on the billing date: “All amounts billed on your account on a given date are due and payable on that date.” (https://linknow.com/terms/, read 2026-11-13)",
+                        unpaid=("“If your account is suspended, you will need to contact Customer Support to reactivate it and pay any outstanding balance in full.” "
+                                "(https://linknow.com/terms/, read 2026-11-13)"))),
+    "linknowmedia.com": dict(cls="monthly", read="2026-11-13", url="https://linknow.com/terms/",
+                    quote=("further monthly recurring fees will be billed on the calendar day of the initial purchase date each subsequent month until cancelled. All amounts "
+                           "billed on your account on a given date are due and payable on that date."),
+                    bill=dict(
+                        # its terms read whole on 2026-11-13 (21Z): the cheque and money-order sentence the reader had kept is for the one-time design fee at sign-up
+                        # (with a year of monthly fees prepaid); the monthly fees are charged to the card, which it retries when refused — no bank payment, no row
+                        payment=("by credit card: “Payment(s) for your Package or any Services can normally be made via credit card.” … “You irrevocably authorize us to "
+                                 "attempt to process your credit card payment again if initially rejected” (https://linknow.com/terms/, read 2026-11-13); its other forms "
+                                 "of payment are accepted only at sign-up, for the one-time design fee"),
+                        terms="on the billing date: “All amounts billed on your account on a given date are due and payable on that date.” (https://linknow.com/terms/, read 2026-11-13)",
+                        unpaid=("“If your account is suspended, you will need to contact Customer Support to reactivate it and pay any outstanding balance in full.” "
+                                "(https://linknow.com/terms/, read 2026-11-13)"))),
+    "mnsi.net": dict(cls="monthly_or_yearly", read="2026-11-13", url="https://mnsi.net/support/billing",
+                 quote="Invoicing is available to approved companies for six-month and twelve-month term plans.",
+                 more=("a subscription paid by pre-authorised debit or by card is charged each month (“Pre-Authorized Payment plan (PAP) accounts are debited on your renewal "
+                       "date each month.”): which way this organisation pays is not published"),
+                 bill=dict(
+                     # 2026-11-13 (21Z): the reader had kept its residential page (“We never invoice residential accounts.”), which is not about an organisation's account
+                     delivery=("an invoice for an approved company on a term plan: “Invoicing is available to approved companies for six-month and twelve-month term plans.” … "
+                               "“Invoices, for approved accounts, are processed on the anniversary day of sign-up.” (https://mnsi.net/support/billing, read 2026-11-13)"),
+                     payment=("by pre-authorised debit of the organisation's bank account, by payment sent to its billing department, or by card: “Direct Payment from "
+                              "Account, or Pre-Authorized Payment plan (PAP), allows quick, easy payment of your subscription automatically from your checking account.” … "
+                              "“Where can I send my payments? MNSi Telecom Attention: Billing Department 3363 Tecumseh Rd E Windsor ON N8W 1H4 Canada” … “Credit Card "
+                              "subscriptions will be charged automatically monthly.” (https://mnsi.net/support/billing, read 2026-11-13)"),
+                     tax="“The amount including HST will appear on your account statement.” (https://mnsi.net/support/billing, read 2026-11-13)")),
 }
 BILLING["lightspeed_golf"] = BILLING["lightspeed"]
 BILLING["wellnessliving_widget"] = BILLING.get("wellnessliving")
