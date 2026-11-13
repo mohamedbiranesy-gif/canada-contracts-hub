@@ -1,5 +1,5 @@
 {
- "as_of": "2026-11-13 07:26Z",
+ "as_of": "2026-11-13 09:32Z",
  "checks": [
   {
    "deliverable": "ranked table (ready rows, $5k+ marks, kinds)",
@@ -71,7 +71,7 @@
    "deliverable": "bc-crown lane (B.C. water rentals, B.C. stumpage, AER administration fee)",
    "method": "first run green; bcgov files built; leads_bcgov_* shards exist; 10 rows read in the next table",
    "cmd": "zcat data/incoming/claude/bcgov/bc_water_licensees.csv.gz | wc -l; zcat data/incoming/claude/bcgov/bc_stumpage_clients.csv.gz | wc -l; zcat data/incoming/claude/bcgov/ab_aer_licensees.csv.gz | wc -l; ls data/incoming/claude/lead_shards | grep -c bcgov",
-   "status": "pending (runs 43382029443 and 43384452112; local builds: 5,486 water licensees, 228 stumpage clients from 2 of 6 reports, 1,016 AER licensees)"
+   "status": "passing (run 1 06:55-08:42Z: water 5,486, stumpage 505 clients from all six reports, 419 leads; run 2 -> 09:26Z: AER 1,197 licensees, +145 leads incl. 95 AER; Overture name pass 09:28Z +117 leads (Interfor, Coastland Wood …); 681 leads on file; run 3 with PMRA / CNSC dispatched 09:29Z)"
   },
   {
    "deliverable": "ROR site candidates (tm/pt owners)",
@@ -84,6 +84,24 @@
    "method": "targets include organisations the address re-read read without finding an address",
    "cmd": "tail -1 data/incoming/claude/overture/phone_places.csv; wc -l data/incoming/claude/overture/phone_places.csv",
    "status": "passing (67,935 targets; 12,573 located this run; 19,357 on file)"
+  },
+  {
+   "deliverable": "town electric utilities (Medicine Hat, Hydro Westmount, New Westminster, Penticton, Hydro-Coaticook) and Cornwall Electric",
+   "method": "every quoted sentence looked for on its page (by_location.verify logic); biller_for tested on a postal code of each",
+   "cmd": "python3 -c \"import sys;sys.path.insert(0,'tools');import by_location as B;print([B.biller_for(p)['key'] for p in ('T1A8E6','H3Z2L8','V3L1H9','V2A5A9','J1A2B3','K6H5V3')])\"",
+   "status": "passing (49 quotes found on their pages; six keys returned)"
+  },
+  {
+   "deliverable": "Ontario postal codes by every address point (tools/on_ldc_table.py addrcodes)",
+   "method": "5,433,687 Overture address points inside the Board's map; agreement with the dump's table measured; disagreeing codes given none",
+   "cmd": "zcat tools/data/on_postal_ldc_addr.tsv.gz | grep -c .",
+   "status": "passing (193,560 codes added; 78,271 agree with the dump's table, 1,394 disagree -> none; Ontario sites located 107,913 -> 111,206)"
+  },
+  {
+   "deliverable": "privacy / terms / legal pages (addr-reread legal=true)",
+   "method": "test 240 sites (7 own addresses, 0 wrong); full run; sample 18 of the 4,162 read",
+   "cmd": "zcat data/incoming/claude/site_facts/facts_20261113T092700a.gz | wc -l",
+   "status": "passing (165,740 sites read, 4,162 addresses beside the organisation's own name; 26 would now be refused by the returns / shipping rule added after)"
   }
  ]
 }

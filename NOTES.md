@@ -112,3 +112,8 @@ thousand organisations — they lift the quality and the $5k+ count more than th
   rule a third of hits were someone else's (the host's Ottawa office, an affiliate, a governing-law clause).
 - Unknown: how many of the ~9,000 have a confirmed mailbox (rows follow only for those); the Overture address match for organisations whose own
   code straddles two areas (street-level matching: not built).
+- 09:30Z additions: JavaScript rendering measured (400 sites with no mailbox: 66 script-only or parked, 4 script apps; 70 rendered with Chromium →
+  47 still empty, 3 own-domain mailboxes, 2 of them role mailboxes ≈ 0.5 % of no-mailbox sites; not built). US UCC liens with a Canadian secured
+  party: Colorado 2,325 active filings (RBC, CSI Leasing Canada, Northbase Finance, Daimler Truck Financial Canada …), Connecticut 74 (39 business
+  debtors); needs a new kind of row (lender / lessor) in the ranker — not built yet. Hydro-Québec's own list of the networks it does not serve
+  names them without territories.

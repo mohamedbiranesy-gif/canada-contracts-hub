@@ -53,6 +53,20 @@ role mailbox re-read by the referee (AGENTS.md rules 1-17). Counts below are cou
   1,000,000 needs either many more records abroad (customs microdata of more countries — none found open beyond Colombia) or a rule decision (client
   listings; a group's site for a subsidiary at the group's address).
 
+## Update 2026-11-13 09:35Z — the locations no distributor covered, measured and partly closed
+- Of 275,632 sites on file that print a postal code, 31,219 are in Alberta (no by-location row: the retailer bills) and ~9,000 elsewhere lay in
+  areas the table left out. Closed today, each sentence checked: Ontario by every address point (Overture Maps addresses inside the Energy Board's
+  map: +3,591 sites located, 298 withdrawn where two methods disagree), Cornwall Electric (mapped, never carried), Medicine Hat, Westmount, New
+  Westminster, Penticton, Coaticook. Still open: Kelowna, Saskatoon, Sherbrooke, Joliette, the interior of FortisBC, the territories, Saint John
+  (no open boundary, or a site the reader cannot open).
+- Organisations that print no address anywhere: their own privacy / terms / legal pages give 2.5 % of them (4,162 of 165,740) an address beside
+  their own name.
+- Statutory billers: +AER (1,197 licensees), and an Overture name pass for registers with no address (B.C. stumpage, Alberta wells): 681 leads.
+- Measured and not worth it: rendering JavaScript-only sites (17 % of the sites with no mailbox are script pages or parked; 2 role mailboxes in 70
+  rendered); AMVIC (card only, no invoice); dealer locators behind their own APIs (not probed).
+- Alberta stays the largest pool held by a rule: water by location (31,219 located organisations; ~20,000 rows if the owner says yes) and
+  workers' compensation by law (prepared in STATE.md, recommended no) are the two decisions that would open it.
+
 ## How it runs without a session
 Every lane above is a tool plus a workflow on a schedule; the rank build (rank-buyers, every 6 hours) gathers them; the mailbox reader runs
 back to back. A session reads the counts (BUILD.json), reads rows, fixes rules and adds the next pool.
