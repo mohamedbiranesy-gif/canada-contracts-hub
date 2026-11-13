@@ -5652,6 +5652,69 @@ def name_from_title(name, website):
     return ""
 _JUNK_NAME = re.compile(r"^(?:about(?: us)?|home|contact(?: us)?|welcome|accueil|services?|index|untitled|page d'accueil|homepage|menu|blog|shop|store|news|introduction|[àa] propos)$", re.I)
 _TITLE_PREFIX = re.compile(r"^(?:welcome to|bienvenue (?:chez|à|au|aux|sur le site d[eu])|introduction)\s+(?:the\s+)?", re.I)
+# 2026-11-13 (21Z, owner 13:23 EST "everything accurate no errors"): names that are not names, read on the table of 20:32Z — an image's file name as a
+# sponsor's name ("Edmonton Global_web.jpg", "nnsl.png"), the page-title word "Home" beside the name ("Pelagica Books Home", "Viking Self Storage: Home",
+# "Home / Constructions DV"), the word "Logo" ("MCAP Logo"), and a town's bare name taken from a business's own site ("Toronto" on merlottoronto.com,
+# "Kingston" on bridges-kingston.com): Statistics Canada's census subdivisions (2021 Census, table 98-10-0002-01) give the names of places
+_IMG_NAME = re.compile(r"\.(?:jpe?g|png|gif|svg|webp|bmp|tiff?|avif)$|_web\b|[-_]\d{2,4}x\d{2,4}\b|^(?:img|dsc|image|logo)[-_ ]?\d+", re.I)
+_HOME_WORD = re.compile(r"^(?:home|accueil)\s*[/|:–—-]+\s*(?=\S)|\s*(?:[/|:–—-]+\s*|\.)(?:home|accueil)$|\s(?:home|accueil)$", re.I)  # a leading "Home" only before a separator ("Home Office" is a name)
+_HOME_NAME_WORD = set("""funeral nursing care retirement group mobile children childrens smart model show open foster rest senior seniors memorial sweet almost entire
+nickel locum your my our the at away dream custom new family forever happy healthy green modular tiny manufactured log timber luxury perfect ideal cozy safe first
+comfort mission youth boarding guest lodge heritage maison""".split())  # a trailing "Home" after one of these makes a name with it ("Funeral Home")
+def strip_home_word(name):
+    m = re.search(r"(\S+)\s(?:home|accueil)$", name, re.I)
+    if m and not re.search(r"[/|:–—.-]$", m.group(1)) and re.sub(r"[^a-z]", "", m.group(1).lower()) in _HOME_NAME_WORD:
+        return name
+    t = _HOME_WORD.sub("", name)
+    return t.strip(" -–—|:/.") if t != name else name
+_LOGO_WORD = re.compile(r"^(?:le )?logo (?:of (?:our client )?(?:the )?|for (?:the )?|de la |du |des |de l['’]|d['’]|de )|\s*[-–|:]?\s*\blogos?$|^logos?\b\s*[-–|:]?\s*", re.I)
+_PLACES = set()
+try:
+    for _r in csv.DictReader(gzip.open(ROOT + "/tools/data/ca_csd_population.csv.gz", "rt", encoding="utf-8")):
+        _PLACES.add(re.sub(r"[^a-z0-9]+", "", unicodedata.normalize("NFKD", _r["name"]).encode("ascii", "ignore").decode().lower()))
+except OSError:
+    pass
+_PLACES.discard("")
+_PLACE_TYPE = {"county", "municipality", "municipalite", "municipal", "district", "township", "city", "town", "village", "ville", "canton", "cantons", "unis", "paroisse",
+               "rural", "rm", "regional", "region", "of", "de", "du", "des", "la", "le", "les", "the", "corporation", "summer", "resort", "united", "townships"}
+_PLACE_AFFIX = sorted("""cityof townof villageof townshipof municipalityof municipalitede municipalite villede ville rmof rm countyof county cantonde canton paroissede
+paroisse summervillageof sv districtof district regionof regionde region mrc mun city town township village municipality twp ca qc on ab bc mb sk ns nb nl pe nt nu yt
+online official info gov web site net area alberta quebec ontario manitoba saskatchewan britishcolumbia novascotia newbrunswick newfoundland labrador pei yukon nunavut
+canada usa us""".split(), key=len, reverse=True)
+def _strip_affixes(t):
+    changed = True
+    while t and changed:
+        changed = False
+        for a in _PLACE_AFFIX:
+            if t.startswith(a) and len(t) > len(a) - 1:
+                t, changed = t[len(a):], True
+                break
+            if t.endswith(a):
+                t, changed = t[:-len(a)], True
+                break
+    return t
+_fold_nos = lambda t: re.sub(r"\bsainte\b", "ste", re.sub(r"\bsaint\b", "st", re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", t or "").encode("ascii", "ignore").decode().lower()))).strip()
+_PLACE_CORES = {"".join(w for w in _fold_nos(n).split() if w not in _PLACE_TYPE) for n in _PLACES} if _PLACES else set()
+def place_name_not_this_org(name, website):
+    """a buyer named by a place's bare name (no word of a municipality in it), on a site whose own domain spells that place and something more than a
+    municipality's, a province's or a web address's words: a business of the town (merlottoronto.com, bridges-kingston.com, madebykawarthalakes.ca),
+    not the town (hiltontownship.ca, villageofempress.com, crossfieldalberta.com); a domain that does not spell the place whole (rdcounty.ca) is left"""
+    toks = _fold_nos(name).split()
+    if not toks or any(w in _PLACE_TYPE for w in toks):
+        return False  # "City of Austin", "Municipalité de Maria", "The Argyle": named with a word of its kind, not by the place alone
+    core = "".join(toks)
+    f = re.sub(r"[^a-z0-9]+", "", unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().lower())
+    if len(core) < 3 or not website or not (f in _PLACES or core in _PLACE_CORES):
+        return False
+    host = (host_of(website) or "").lower()
+    reg = registrable(host) or host
+    if SHARED_GOV.match(reg):
+        return False  # a government-wide site (gov.bc.ca): its domain says nothing of the body
+    lab = re.sub(r"[^a-z0-9]", "", _fold_nos(reg.split(".")[0]).replace(" ", ""))
+    if core not in lab:
+        return False
+    a, b = lab.split(core, 1)
+    return len(_strip_affixes(a)) + len(_strip_affixes(b)) >= 3
 def _premises(a):
     """(civic number, first word of the street) and postal code of a printed address"""
     m = re.search(r"(?<![\w#-])(\d{2,6})[ ,]+(?:(?:rue|boul\S*|av\S*|ch\S*|route|rang)\s+)?([A-Za-zÀ-ÿ'\-]{4,})", a or "", re.I)
@@ -6107,6 +6170,21 @@ for _ri, x in enumerate(rows):
     # seen in the owner's test rows of 2026-11-11: a menu word as the buyer's name (579 "About" from BBB profiles), "Welcome to …" page titles, dates
     # written day-month by a Canadian BBB, the registry's legal name under an odd note, Shopify's Montréal office instead of the office its terms give
     _b = (x.get("buyer") or "").strip()
+    if _IMG_NAME.search(_b):
+        if x.get("buyer_website"):
+            x["buyer"] = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by an image's file name (a logo on the biller's page): its domain name instead"] += 1
+        else:
+            x["buyer_name_fault"] = "the name is an image's file name (“%s”), not the organisation's name" % _b[:80]; n9["buyer named by an image's file name, no site of its own: not ready"] += 1
+        _b = (x.get("buyer") or "").strip()
+    _hb = strip_home_word(_b)
+    if _hb != _b and len(_hb) >= 3 and not re.search(r"home|accueil", re.sub(r"[^a-z]", "", (registrable(host_of(x.get("buyer_website") or "") or "") or "").lower())):
+        x["buyer"] = _b = _hb; n9["buyer name: the page-title word Home / Accueil beside it removed"] += 1
+    _lb = _LOGO_WORD.sub("", _b)
+    _lb = _lb.strip(" -–—|:/.") if _lb != _b else _b
+    if _lb != _b and len(_lb) >= 3 and "logo" not in (registrable(host_of(x.get("buyer_website") or "") or "") or "").lower():
+        x["buyer"] = _b = _lb; n9["buyer name: the word Logo beside it removed"] += 1
+    if place_name_not_this_org(_b, x.get("buyer_website") or ""):
+        x["buyer"] = _b = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by a town's bare name on a site that names more: its domain name instead"] += 1
     if _JUNK_NAME.match(_b) and x.get("buyer_website"):
         x["buyer"] = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by a menu word (About, Home …): its domain name instead"] += 1
     else:
