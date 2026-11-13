@@ -33,7 +33,13 @@ TDONE = os.path.join(INC, "claude_tenant_crawl_done.tsv")
 OUT = os.path.join(INC, "claude_buyer_ap_results_cccrawl01.csv")
 TODAY = time.strftime("%Y-%m-%d")
 MYSHOPIFY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data/incoming/claude/credit_scan/graph_myshopify_hosts.txt.gz")  # <store> of every <store>.myshopify.com host name in the web graph
-US_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)"
+# 2026-11-13: the state written in full or abbreviated the old way ("Tampa, Florida 33602", "Tucson, Ariz. 85701") is a US address too — the
+# utilities of rule 18 serve Florida, Arizona, New York, Vermont, Maine, New Hampshire, California and Nevada, and their organisations print it so
+_US_FULL = ("Alabama|Alaska|Arizona|Ariz\\.|Arkansas|California|Calif\\.|Colorado|Connecticut|Conn\\.|Delaware|Florida|Fla\\.|Georgia|Hawaii|Idaho|Illinois|"
+            "Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Mass\\.|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|"
+            "New Hampshire|N\\.H\\.|New Jersey|N\\.J\\.|New Mexico|New York|N\\.Y\\.|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|"
+            "Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Vt\\.|Virginia|Washington|West Virginia|Wisconsin|Wyoming")
+US_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC|" + _US_FULL + r")"
                      r"\.?,?\s+(\d{5})(?:-\d{4})?(?![A-Za-z0-9])")
 GB_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})(?![A-Za-z0-9])")
 AU_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(NSW|VIC|QLD|TAS|ACT)\s+(\d{4})(?!\d)")
