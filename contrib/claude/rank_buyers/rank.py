@@ -1098,7 +1098,9 @@ _LF_HOW = {"jsonld": "as its own page states it in its structured data (schema.o
            "legal": "as its own privacy / terms / legal page prints it, beside its own name",
            # 2026-11-13 (tools/addr_reread.py --city): printed without a postal code; the city names the distributor (every postal code of it in one territory)
            "street_city": "as its own page prints it, street and city without a postal code",
-           "city_contact": "the city its own contact page names (no street address printed)"}
+           "city_contact": "the city its own contact page names (no street address printed)",
+           # 2026-11-13 (tools/registry_locate.py): the head office the organisation declares to its business register, matched on its very name and province
+           "registry": "as the organisation declares it to its business register (head office / registered office; the name and the province agree)"}
 def lf_cell(f, url=""):
     return "%s (%s on %s, read %s)" % (f["address"], _LF_HOW.get(f.get("address_how") or "", "as printed"), f.get("address_url") or url or "", f.get("date") or "")
 LFACTS_DOM = {}  # the same facts by website domain: a row made under another key of the same site (a registry lead, a credit lead) uses them too
@@ -1138,7 +1140,7 @@ for _d in _LCF.facts_records():
             # rule of the day they were read did not know initials: "Comox Valley Animal Hospital" on cvah.ca, "Ordre des Géologues du Québec" on ogq.qc.ca)
             _d["site_name"] = _LCF.site_name_for(host_of(_d.get("site") or ""), None, _d["title"], _TR)
             n_name_again += bool(_d["site_name"])
-        if _d.get("address_quote") and _d.get("address_how") not in ("jsonld", "map", "street_city", "city_contact"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
+        if _d.get("address_quote") and _d.get("address_how") not in ("jsonld", "map", "street_city", "city_contact", "registry"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
             _d["address"] = _addr_from(_d["address_quote"]) or _d.get("address") or ""
         if "?" in (_d.get("address_url") or ""):
             # a visitor or campaign identifier a site adds to its own links (?shpxid=…, utm_…, fbclid) is not part of the page's address
@@ -2365,22 +2367,36 @@ def _svc_pay_text(x, k):
     return txt
 for x in rows:
     t = x.get("tier")
-    if t not in ("T", "D", "E", "M") or not x.get("acc") or int(x.get("grade") or 0) < 1 or "|" in (x.get("keys") or "") or not (x.get("keys") or "").startswith("lead:"):
+    # 2026-11-13: also a contract on file that is not current (awarded more than three years ago, no end date published that is still to come):
+    # the owner's rule 11 — it stands no row, so the organisation stands on the distributor of its address (644 located rows were held so in the
+    # table of 11:39Z); its keys need not be a lead's
+    _old_c = (t == "C" and x.get("acc") and int(x.get("grade") or 0) >= 1 and "|" not in (x.get("keys") or "")
+              and (x.get("award_date") or "")[:10] and (x.get("award_date") or "")[:10] < CUTOFF3 and not ((x.get("end_date") or "")[:10] >= today))
+    if not _old_c and (t not in ("T", "D", "E", "M") or not x.get("acc") or int(x.get("grade") or 0) < 1 or "|" in (x.get("keys") or "") or not (x.get("keys") or "").startswith("lead:")):
         continue
     k, cs = x["keys"], x.get("contract_status") or ""
-    if t == "T":
+    if _old_c:
+        why = "the contract on file was awarded more than three years ago and no end date still to come is published (owner's rule 11)"
+    elif t == "T":
         if _RR.payment_route({"bill_payment_method_as_published": _svc_pay_text(x, k), "vendor": x.get("vendor") or ""}, "service seen on the buyer's side")[0] in _RR.ROUTE_OK:
             continue
         why = "how that vendor is paid is not published, and a service of this kind is commonly charged to a card"
     elif t == "M":
-        if "canadian intellectual property office" not in (x.get("vendor") or "").lower():
+        _pe = _PAYEE.payee_for(x.get("vendor") or "", (LDET.get(k) or {}).get("vendor_site") or "")
+        if "canadian intellectual property office" in (x.get("vendor") or "").lower():
+            why = "the Office's own page names the ways of paying and no notice or invoice"
+        elif _pe and _pe.get("no_invoice"):
+            # 2026-11-13: a body that says in its own words that it sends no invoice (OMVIC: dealers self-report and remit): no row on it — the distributor of the address instead
+            why = "the body says in its own words that it sends no invoice"
+        elif "agent of record" in cs and _RR.agent_is_a_person({"vendor": x.get("vendor") or ""}):
+            why = "the agent of record is a named person, not a firm"
+        else:
             continue
-        why = "the Office's own page names the ways of paying and no notice or invoice"
     elif t == "D" and any(p_ in cs for p_ in _ROSTER13):
         continue
     else:
         why = "a client listing is the vendor's own statement" if t == "D" else "a link on the vendor's site is not shown to be a client relationship"
-    n_gw["rows that cannot meet the rule (%s)" % {"T": "service, payment not published", "M": "trademark owner billed by the Office", "D": "client listing", "E": "link only"}[t]] += 1
+    n_gw["rows that cannot meet the rule (%s)" % ("contract not current" if _old_c else {"T": "service, payment not published", "M": "a register's body that bills no invoice, or an agent who is a person", "D": "client listing", "E": "link only"}[t])] += 1
     e = (x.get("email") or "").strip()
     local, _, md = e.lower().partition("@")
     if not md or BAD_LOCAL.search(local) or jur_of_mail(e) == "FED":
