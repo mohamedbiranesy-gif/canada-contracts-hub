@@ -67,6 +67,46 @@ role mailbox re-read by the referee (AGENTS.md rules 1-17). Counts below are cou
 - Alberta stays the largest pool held by a rule: water by location (31,219 located organisations; ~20,000 rows if the owner says yes) and
   workers' compensation by law (prepared in STATE.md, recommended no) are the two decisions that would open it.
 
+## Update 2026-11-13 13:15Z — the map after the owner's direction (07:47 and 08:07 EST)
+**Where we stand (build 11:39Z):** 276,301 ready of 333,286 rows (+58,913 since the 23:25Z build of 2026-11-12). The mailbox reader has found a role
+mailbox for 550,516 organisations (2.66 million sites read, 19 %); most of the gap between them and the rows is location: 155,744 confirmed
+mailboxes still unlocated after every pass on their own pages (text, structured data, maps, legal pages, street + city: 4,937 located by the last),
+and ~31,000 in Alberta (no distributor row). Owner's word: Alberta water and workers' compensation — no; client lists — no rows (a lead to
+investigate only); a subsidiary on its parent's site — yes, when the tie is published; Sun Life's U.S. branch — yes.
+
+**Canada — levers being built (estimates in brackets):**
+| Lever | Measured | Est. rows |
+|---|---|---|
+| Foursquare Open Source Places (Apache 2.0): new Canadian sites into the scan | 1,010,914 open places with a website, 572,583 hosts, **143,923 registrable domains the scan never had** | +20-25k |
+| Foursquare: the one address a domain's places print, for the unlocated | 2,079 of the 155,744 have a Foursquare address and no Overture one | +2k |
+| Foursquare: the place listing the unlocated organisation's own telephone number | running (fsq-places.yml) | +? |
+| Head office declared to the Québec and federal business registers (exact legal name, province by telephone area code) | to build (tools/bulk_registry_match.py does it for rows) | +10-15k |
+| Held rows that give way to the distributor of a located address | 5,276 held non-location rows are located with a mailbox | +4-5k |
+| Billers first: the terms of the vendors behind 22,666 "payment: not published" | easyDNS 3,422, Rapidenet 1,154, Namespro 800, Exact Hosting 516 … | +3-5k |
+| A subsidiary on its parent's site (tie published) | prepared | +2-4k |
+
+**International — "any project, anything at all that requires a Canadian vendor" (owner 08:07 EST):**
+1. Multilateral development banks' contract awards to Canadian suppliers: the World Bank publishes them (Finances One DS01166, CC BY 4.0: 617
+   awards since FY2020 in 41 borrower countries; the buyer is the project's implementing agency, named by the Bank's projects API); then ADB,
+   IDB, AfDB, EBRD, AIIB, CDB — a buyer abroad under a public contract, the source's own supplier country.
+2. Ships that call at Canadian ports: pilotage is compulsory in Canadian waters and billed by the Crown pilotage authorities, harbour dues by
+   the port authorities, port services by Canadian ship agents — the ship's operator abroad is the buyer when a port's own schedule names it.
+3. Airlines at Canadian airports: the airport authorities bill landing and terminal fees, NAV CANADA air navigation — each airport lists the
+   airlines it serves ($5,000+ bills).
+4. Foreign owners of Canadian IP (agent of record): 134,458 trademark and 77,385 patent owners abroad; Foursquare names as a new site source.
+5. Foreign organisations accredited or certified by Canadian bodies (Accreditation Canada International, the provinces' offshore schools,
+   Royal College International); exhibitors and sponsors of Canadian trade shows (PDAC, Global Energy Show, SIAL Canada, CANSEC).
+6. Measured and thin: Export Development Canada's transaction disclosure (2,777 transactions signed in 2024, 55 of them buyer financing abroad,
+   most behind US Exim, which does not consent to name the buyer).
+
+**Construction, live contracts (owner 08:07 EST):** Calgary's building permits name the applicant and the contractor, but the applicant is a
+designer or the builder (48 organisation owners in 33,841 permits since May 2025) — not a lane; Ontario's Construction Act notices (certificates
+of substantial performance, ConstructConnect/DCN) — robots.txt bars every reader but Google and Bing: blocked. Next: open-contracting (OCDS)
+publishers abroad, provincial major-projects inventories that name proponents and contractors.
+
+**Arithmetic:** the Canadian levers above ~+45-60k (→ ~320-335k); each international lane adds hundreds to thousands; 1,000,000 needs many such
+pools abroad, or the foreign-subsidiary decision (by location abroad: Canadian-owned utilities bill every business of their areas — unanswered).
+
 ## How it runs without a session
 Every lane above is a tool plus a workflow on a schedule; the rank build (rank-buyers, every 6 hours) gathers them; the mailbox reader runs
 back to back. A session reads the counts (BUILD.json), reads rows, fixes rules and adds the next pool.

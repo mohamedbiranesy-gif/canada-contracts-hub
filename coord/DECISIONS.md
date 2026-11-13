@@ -2096,4 +2096,12 @@ tenants (each still needs the body's sentence that the listed pay it).
   address per domain whose places print one postal code (only when the organisation's own pages located nothing and the place's name fits the
   organisation's); the place listing the telephone number the organisation prints on its own site. A place marked closed is never used; the
   places' email column is never read.
+- **Owner, 08:07 EST (the three explained):** client lists — "an inference you build an inference from … use it to investigate, but don't add it as
+  a row": **NO rows**; a client list stays a lead to look for a fact (a contract, a register, a record of the buyer's own). Subsidiary on its
+  parent's site — "Yes, but you need to be able to find a subsidiary … as accurate as possible": **YES**, only when the tie between the two is
+  published (the parent's own site names the subsidiary, or a register links them), labelled as the parent's site and mailbox. Sun Life's U.S.
+  branch — "we'll count Sun Life": **YES** (it was kept and labelled; unchanged). The foreign-subsidiary question was not answered; nothing is built
+  on it. His direction: "you're really not exploring the international market … the way you're approaching Canada and US should not be the way
+  you approach the international markets … it's not digitalized … think any project, anything at all that requires a Canadian vendor"; in Canada,
+  "anything construction … a live thing happening, you know for a fact that that thing is being currently contracted".
 
