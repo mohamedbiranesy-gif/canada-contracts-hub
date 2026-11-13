@@ -240,6 +240,23 @@ _BANK_REFUSED = re.compile(r"(?:not able to|unable to|cannot|can[’']t|do not|d
 _bank_ok = lambda v: bool(_BANK.search(_BANK_REFUSED.sub(" ", v or "")))
 
 
+# 2026-11-13 (22Z, the table of 20:32Z): "524 SECOND ST, NANAIMO, BC C9R 1X6" put a Nanaimo plumber on Prince Edward Island's distributor, "Surrey, BC J4Y 0B5"
+# a Surrey firm on Hydro-Québec, "30 Victoria Street Gatineau, Quebec K1A 0M6" a Gatineau office on Hydro Ottawa: a province printed right before a postal
+# code of another province (Canada Post's first letter) leaves the distributor of the address uncertain
+_PROV_BEFORE_PC = re.compile(r"\b(QC|ON|BC|AB|MB|SK|NS|NB|NL|PE|Qu[ée]bec|Ontario|British\s+Columbia|Alberta|Manitoba|Saskatchewan|Nova\s+Scotia|New\s+Brunswick|"
+                             r"Newfoundland(?:\s+and\s+Labrador)?|Prince\s+Edward\s+Island)\b[\s,.]*(?:Canada[\s,.]*)?([ABCEGHJ-NPRSTVXY])\d[A-Z]\s?\d[A-Z]\d\b", re.I)
+_PROV_NAME = {"qc": "QC", "quebec": "QC", "québec": "QC", "on": "ON", "ontario": "ON", "bc": "BC", "british columbia": "BC", "ab": "AB", "alberta": "AB", "mb": "MB", "manitoba": "MB",
+              "sk": "SK", "saskatchewan": "SK", "ns": "NS", "nova scotia": "NS", "nb": "NB", "new brunswick": "NB", "nl": "NL", "newfoundland": "NL", "newfoundland and labrador": "NL",
+              "pe": "PE", "prince edward island": "PE"}
+_PC_FIRST = {"A": "NL", "B": "NS", "C": "PE", "E": "NB", "G": "QC", "H": "QC", "J": "QC", "K": "ON", "L": "ON", "M": "ON", "N": "ON", "P": "ON", "R": "MB", "S": "SK", "T": "AB", "V": "BC"}
+def province_conflict(address):
+    m = _PROV_BEFORE_PC.search((address or "").split(" (as ")[0])
+    if not m:
+        return False
+    pv = _PROV_NAME.get(re.sub(r"\s+", " ", m.group(1)).lower())
+    return bool(pv) and _PC_FIRST.get(m.group(2).upper(), pv) != pv
+
+
 _ABROAD_OWNED = re.compile(r"\bjohn\s+hancock\b|\bempower\s+(?:retirement|annuity|trust|financial)|\bgreat-?west\s+life\s+&\s+annuity|\bputnam\s+investments\b", re.I)
 # a U.S. legal entity by its own name — an LLC (no Canadian statute forms one), "… USA Inc.", "(U.S.)", "… of America, Inc." — is a company abroad (rule 19),
 # whatever address a filing prints for it (FieldTurf USA Inc at its parent's Montréal office; DACK TRADING LLC "REHOBOTCH BEACH, Canadá" in Colombia's
@@ -793,6 +810,8 @@ def owner_test(x):
     if _fd:
         out.append("relationship: the provider's DNS hosting is free with a domain's registration (“%s”, %s, read %s): nothing is billed for it; the domain's "
                    "registration is what a registrar bills (owner's rule of 2026-11-11: no row)" % (_fd["quote"][:160], _fd["url"], _fd["read"]))
+    if kind in ("utility account by location", "utility account by own report") and province_conflict(x.get("buyer_address") or ""):
+        out.append("field: buyer address (its postal code lies in another province than the one printed before it — the distributor of the address is not certain)")
     n_shared = shared_address(x) if kind == "utility account by location" else 0
     if n_shared >= 50:
         out.append("relationship: %d organisations print this postal code — a tower, a campus, a business centre or a mail service, where an account of its own is unlikely" % n_shared)
