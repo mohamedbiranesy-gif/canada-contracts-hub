@@ -546,5 +546,32 @@
   "remit_to": "“Send your cheque or money order to: 101 Sydney Street P.O. Box 1179 Cornwall, Ontario K6H 5V3” (https://www.cornwallelectric.com/commercial/payment-options)",
   "legal_name": "Cornwall Street Railway Light & Power Company Ltd.",
   "legal_name_basis": "as its own page names it: “Cornwall Street Railway Light & Power Company Ltd. (“Cornwall Electric” or “CE”) is a wholly-owned subsidiary of FortisOntario Inc. (\"FortisOntario\").” (https://www.cornwallelectric.com/about-us, read 2026-11-13)"
+ },
+ {
+  "key": "hydro_coaticook",
+  "name": "Hydro-Coaticook (Ville de Coaticook)",
+  "site": "https://www.coaticook.ca/",
+  "read": "2026-11-13",
+  "address": "150, rue Child, Coaticook (Québec) J1A 2B3",
+  "address_url": "https://www.coaticook.ca/fr/services/hydro-branchement-et-paiements.php",
+  "address_quote": "150, rue Child Coaticook (Québec) J1A 2B3 Votre chèque doit être libellé à l’ordre de la Ville de Coaticook.",
+  "address_read": "2026-11-13",
+  "prefixes": [],
+  "except_fsas": [],
+  "pocket_of": {
+   "J1A": [
+    "coaticook"
+   ]
+  },
+  "territory": "the City of Coaticook's own network distributes electricity over the municipal territory and a little beyond (Hydro-Québec's exclusive right stops at the municipal networks): “Hydro-Coaticook distribue ainsi l'électricité à environ 4 180 abonnés provenant des secteurs résidentiels, commerciaux, industriels et institutionnels, répartis sur le territoire municipal et un peu plus.” (https://www.coaticook.ca/fr/services/hydro-coaticook.php); a postal code of J1A is taken when its place is Coaticook (the GeoNames postal-code dump)",
+  "what": "electricity for the premises at the organisation's address",
+  "period": "1 monthly",
+  "period_basis": "the utility's own words: “La relève du compteur se fait approximativement tous les 60 jours pour la clientèle résidentielle et tous les 30 jours pour les clients généraux (commerciaux).” … “À partir de ces données recueillies, nous produisons une facture en tenant compte de votre tarif d’électricité.” (https://www.coaticook.ca/fr/services/hydro-branchement-et-paiements.php)",
+  "delivery": "a bill with a detachable remittance coupon: “Il est possible également de faire parvenir votre paiement par courrier en joignant le coupon de remise détachable de votre facture ainsi que votre paiement à l’adresse suivante :” (https://www.coaticook.ca/fr/services/hydro-branchement-et-paiements.php)",
+  "payment": "through a financial institution (Internet or telephone banking), by pre-authorized debit or by cheque: “Si vous êtes intéressé à acquitter votre facture d’électricité par Internet ou par téléphone, vous devez vous inscrire auprès de votre institution financière.” … “Votre chèque doit être libellé à l’ordre de la Ville de Coaticook.” (https://www.coaticook.ca/fr/services/hydro-branchement-et-paiements.php)",
+  "terms": "“Vous bénéficiez de 21 jours pour faire votre paiement.” (https://www.coaticook.ca/fr/services/hydro-branchement-et-paiements.php)",
+  "remit_to": "“150, rue Child Coaticook (Québec) J1A 2B3 Votre chèque doit être libellé à l’ordre de la Ville de Coaticook.” (https://www.coaticook.ca/fr/services/hydro-branchement-et-paiements.php)",
+  "legal_name": "Ville de Coaticook",
+  "legal_name_basis": "the payee its own payment page names: “Votre chèque doit être libellé à l’ordre de la Ville de Coaticook.” (https://www.coaticook.ca/fr/services/hydro-branchement-et-paiements.php, read 2026-11-13)"
  }
 ]
