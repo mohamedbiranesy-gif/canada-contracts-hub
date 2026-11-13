@@ -18,6 +18,21 @@ does not apply on main", a one-off; three builds green since). Growth file (meas
 1 or 2 retried sites yet queued the next: 8-shard runs every six minutes, each calling the referee. mailbox-crawl.yml now chains only after a run
 that finished 200 sites or more; the hourly timer and the keeper start the rest. Nothing else changed; no item of PLAN section 4e advanced.
 
+**2026-11-13 16:25Z — rule 18 lane corrected before its first rows; the open questions measured:**
+- **Error found and fixed:** Liberty's Granite State (NH) polygon in HIFLD is a county fill, and the ZIP step set Eversource's PSNH aside as one —
+  54 ZIP areas (Nashua, Manchester, Keene …) were given to Liberty. Fixed: a target not drawn from its own maps keeps every neighbour as an exclusion;
+  the 17,212 leads of those places withdrawn (gone_usb_20261113T161141w.gz). Rows: none built from those leads yet (the crawl was reading them);
+  any row the 15:31Z build made from organisations already on file disappears in the next build.
+- **Territories from the utilities' own words** (tools/data/utility_town_lists.json): Versant's "Towns in our Service Districts" (151 towns served
+  whole; the 16 marked * left out) and Liberty's tariff NHPUC No. 23 "Service Area" (Lebanon, Salem, Walpole) drawn with Census town boundaries ->
+  Versant 65 ZIP areas, Liberty NH 1 (Walpole); UNS Electric from the cities its own page names (Kingman, Lake Havasu City, Nogales) -> none for now.
+  374 -> 362 ZIP areas kept. Places stage dispatched for the new Versant / GMP areas.
+- **Crawler:** a US address with its state in full ("Tampa, Florida 33602") is now kept in the site facts; addr-reread reads an address in a
+  territory of rule 18 (text, schema.org, embedded map) — dispatch with abroad=true once the crawl has found their mailboxes.
+- **Open questions, measured (docs/ROUTE_TO_1M.md):** any Canadian-owned company abroad — the invoiced part of the Form 5500 plans (Empower, John
+  Hancock) is small (fees come out of plan assets): estimate +40-60k, not 100k; utilities held by several Canadian pension investors (Puget Sound
+  Energy 74 %, ALLETE) ~+15k — not asked yet. FortisTCI: not on Fortis's own "Our Companies" page (2026).
+
 **2026-11-13 15:15Z — OWNER 09:46 EST: utilities abroad owned by Canadian companies count (AGENTS.md rule 18) — lane built and running:**
 - tools/abroad_utilities.py + abroad-utilities.yml: HIFLD retail service territories (PNNL server) -> 376 ZIP code areas wholly in one target's
   territory (98 % inside, no other retail territory over 2 %; neighbours that are county fills set aside for targets drawn from their own maps:
