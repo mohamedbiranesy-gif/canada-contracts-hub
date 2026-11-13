@@ -49,6 +49,9 @@ jobs:
           # the Canadian Nuclear Safety Commission: a yearly invoice before each licence anniversary to every licensee that pays (its licence database)
           python3 tools/bc_crown.py pull-cnsc --work /tmp/cnsc 2>&1 | tee -a /tmp/l.txt || true
           python3 tools/bc_crown.py build-cnsc --work /tmp/cnsc 2>&1 | tee -a /tmp/l.txt || true
+          # the Canada Energy Regulator: every company it regulates pays its share of the CER's costs (quarterly invoices for a large company, a yearly levy for a small one)
+          python3 tools/bc_crown.py pull-cer --work /tmp/cer 2>&1 | tee -a /tmp/l.txt || true
+          python3 tools/bc_crown.py build-cer --work /tmp/cer 2>&1 | tee -a /tmp/l.txt || true
           # the places at each water licence holder's own postal code that list a website (made again when Overture publishes a newer release)
           newest=$(curl -sS --retry 3 "https://overturemaps-us-west-2.s3.amazonaws.com/?list-type=2&prefix=release/&delimiter=/" | grep -o 'release/[0-9-]*\.[0-9]*/' | sort | tail -1 | cut -d/ -f2)
           made=$(tail -1 data/incoming/claude/overture/bcw_addr_candidates.csv 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r')
@@ -59,7 +62,7 @@ jobs:
           python3 tools/bc_crown.py sites --minutes "$MINUTES" --addr-minutes 40 --threads 12 2>&1 | tee -a /tmp/l.txt
           D=data/incoming/claude/bcgov
           mkdir -p keep keep/ovt
-          for f in bc_water_licensees.csv.gz bc_stumpage_clients.csv.gz bc_stumpage_invoices.csv.gz ab_aer_licensees.csv.gz ab_aer_info.json hc_pmra_registrants.csv.gz cnsc_licensees.csv.gz bc_sites.csv bc_sites_done.tsv bc_addr_done.tsv bc_overture_done.tsv; do cp "$D/$f" keep/ 2>/dev/null || true; done
+          for f in bc_water_licensees.csv.gz bc_stumpage_clients.csv.gz bc_stumpage_invoices.csv.gz ab_aer_licensees.csv.gz ab_aer_info.json hc_pmra_registrants.csv.gz cnsc_licensees.csv.gz cer_companies.csv.gz bc_sites.csv bc_sites_done.tsv bc_addr_done.tsv bc_overture_done.tsv; do cp "$D/$f" keep/ 2>/dev/null || true; done
           cp data/incoming/claude/overture/bcw_addr_candidates.csv data/incoming/claude/overture/bcg_candidates.csv keep/ovt/ 2>/dev/null || true
           STAMP=$(date -u +%Y%m%dT%H%M%S)
           git config user.name "bc-crown"; git config user.email "bc-crown@users.noreply.github.com"
@@ -86,7 +89,7 @@ jobs:
                 cp "keep/$f" "$D/$f"
               fi
             done
-            for f in bc_water_licensees.csv.gz bc_stumpage_clients.csv.gz bc_stumpage_invoices.csv.gz ab_aer_licensees.csv.gz ab_aer_info.json hc_pmra_registrants.csv.gz cnsc_licensees.csv.gz; do cp "keep/$f" "$D/" 2>/dev/null || true; done
+            for f in bc_water_licensees.csv.gz bc_stumpage_clients.csv.gz bc_stumpage_invoices.csv.gz ab_aer_licensees.csv.gz ab_aer_info.json hc_pmra_registrants.csv.gz cnsc_licensees.csv.gz cer_companies.csv.gz; do cp "keep/$f" "$D/" 2>/dev/null || true; done
             python3 tools/bc_crown.py leads --stamp "$STAMP" | tee /tmp/m.txt
             python3 tools/secret_guard.py || true
             git add $D data/incoming/claude/lead_shards data/incoming/claude/overture/bcw_addr_candidates.csv data/incoming/claude/overture/bcg_candidates.csv 2>/dev/null || true

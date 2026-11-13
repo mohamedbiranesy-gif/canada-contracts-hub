@@ -38,7 +38,7 @@ very name (kept when the site's own home page carries it); then the mailbox craw
   sites --minutes M          each holder's own site -> bcgov/bc_sites.csv (+ bc_sites_done.tsv: names the autocomplete was asked)
   leads --stamp S            -> lead_shards/leads_bcgov_S.gz + details_bcgov_S.gz (new leads only)
 """
-import argparse, collections, csv, datetime, glob, gzip, hashlib, json, os, re, subprocess, sys, threading, time, urllib.parse, urllib.request
+import argparse, collections, csv, datetime, glob, gzip, hashlib, io, json, os, re, subprocess, sys, threading, time, urllib.parse, urllib.request
 
 csv.field_size_limit(1 << 30)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -217,6 +217,22 @@ CNSC_EXEMPT = re.compile(r"universit|college|coll[èe]ge|c[ée]gep|school|[ée]c
                          r"cancercare|bc cancer|health network|health centre|healthcare|soins de sant", re.I)
 NCOLS = ["key", "name", "licences", "licence_examples", "purposes", "places", "first_expiry", "last_expiry", "extract_date"]
 CNSC = os.path.join(DIR, "cnsc_licensees.csv.gz")
+# 2026-11-13: the Canada Energy Regulator's cost recovery — every company it regulates (pipelines, international power lines) pays its share of
+# the CER's costs: a large company a proportional charge, invoiced every quarter; a small one a fixed administration levy, invoiced every June 30.
+# The CER's own open data names the companies it regulates (Group 1, Group 2) and links each one's website.
+CER_LIST = "https://www.cer-rec.gc.ca/open/adjudication/regulated-company-list.csv"
+CER_FEES = "https://www.cer-rec.gc.ca/en/about/publications-reports/fees-reports/2024-2025/index.html"
+CER_CR = "https://www.cer-rec.gc.ca/en/about/who-we-are-what-we-do/cost-recovery/index.html"
+CER_CONTACT = "https://www.cer-rec.gc.ca/en/about/contact/index.html"
+CER_ADDRESS = "Canada Energy Regulator 210-517 10 Ave SW Calgary AB T2R 0A8"
+CER_BODY = "Canada Energy Regulator (cost recovery)"
+E_LARGE_OIL = "Issue quarterly invoices to large oil companies."
+E_LARGE_GAS = "Issue quarterly invoices to large gas companies."
+E_SMALL = "Each small oil pipeline company shall, every year, pay to the Board an administration levy of $500."
+E_JUNE = "Issued 9 invoices on June 30, 2024."
+E_DEPOSIT = "All collections from cost recovery invoices are deposited to the account of Receiver General for Canada and credited to the Consolidated Revenue Fund."
+ECOLS = ["key", "name", "website", "group", "extract_date"]
+CERF = os.path.join(DIR, "cer_companies.csv.gz")
 WATER = os.path.join(DIR, "bc_water_licensees.csv.gz")
 STUMP = os.path.join(DIR, "bc_stumpage_clients.csv.gz")
 STUMP_INV = os.path.join(DIR, "bc_stumpage_invoices.csv.gz")
@@ -714,9 +730,61 @@ def cmd_build_cnsc(a):
 
 
 # ---------------------------------------------------------------------------------------------------- sites and leads
+def cmd_pull_cer(a):
+    os.makedirs(a.work, exist_ok=True)
+    get(CER_LIST, os.path.join(a.work, "cer.csv"))
+    print("CER regulated companies: %d bytes" % os.path.getsize(os.path.join(a.work, "cer.csv")), flush=True)
+
+
+def cmd_build_cer(a):
+    p = os.path.join(a.work, "cer.csv")
+    if not os.path.exists(p):
+        print("CER: no list pulled"); return
+    t = open(p, "rb").read().decode("utf-8-sig", "replace")
+    grp, out, n = "", [], collections.Counter()
+    for r in csv.DictReader(io.StringIO(t)):
+        nm = clean_name((r.get("Company") or "").strip())
+        if re.fullmatch(r"Group \d", nm):
+            grp = nm; continue
+        if not nm:
+            continue
+        if not org_any(nm) or re.search(r"\b(?:agency|agence|county of|municipal|utility)\b", nm, re.I):
+            n["a public body or a municipal utility"] += 1; continue
+        web = (r.get("Company Website") or "").strip()
+        web = "" if not web.lower().startswith("http") else web
+        out.append({"key": "cer:" + hashlib.sha1(nm.lower().encode()).hexdigest()[:12], "name": nm, "website": web, "group": grp, "extract_date": TODAY})
+        n["company kept (%s)" % grp] += 1
+    with gzip.open(CERF, "wt", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=ECOLS); w.writeheader(); w.writerows(out)
+    print("CER: %d regulated companies (%s)" % (len(out), dict(n)), flush=True)
+
+
+def cer_site_pass(cos, have, w, f):
+    """the website the CER's own list links for a company, kept when the site's own home page carries the company's name (a group's site linked
+    for a subsidiary — Westcoast Energy at enbridge.com — is not the subsidiary's own and is left out)"""
+    n = 0
+    for o in cos:
+        if o.get("lane") != "cer" or o["key"] in have or not o.get("website"):
+            continue
+        d = (urllib.parse.urlparse(o["website"]).hostname or "").lower()
+        d = d[4:] if d.startswith("www.") else d
+        if not d:
+            continue
+        try:
+            said = HR.home_says(d, HR.core(o["name"]))
+        except Exception:
+            said = ""
+        if said:
+            r = {"key": o["key"], "site": "https://%s/" % d, "read": TODAY, "quote": said[:300],
+                 "tied_by": "the Canada Energy Regulator's own list of the companies it regulates links %s for the company (%s), and the site's own home page carries its name: “%s”" % (d, CER_LIST, said[:200])}
+            w.writerow(r); f.flush(); have[o["key"]] = r; n += 1
+    print("CER: %d sites the regulator links, tied by the name on their home page" % n, flush=True)
+    return n
+
+
 def holders():
     out = []
-    for p, lane in ((WATER, "water"), (STUMP, "stumpage"), (AER, "aer"), (PMRA, "pmra"), (CNSC, "cnsc")):
+    for p, lane in ((WATER, "water"), (STUMP, "stumpage"), (AER, "aer"), (PMRA, "pmra"), (CNSC, "cnsc"), (CERF, "cer")):
         if os.path.exists(p):
             with gzip.open(p, "rt", encoding="utf-8", newline="") as f:
                 for r in csv.DictReader(f):
@@ -789,6 +857,10 @@ def cmd_sites(a):
     for k, r in HR.tie_on_file([o for o in cos if o["key"] not in have and o.get("postal_code")]).items():
         w.writerow(r); have[k] = r; n_file += 1
     f.flush()
+    try:
+        cer_site_pass(cos, have, w, f)
+    except Exception as e:
+        print("CER sites: %s" % str(e)[:160], flush=True)
     HR.addr_pass([o for o in cos if o.get("postal_code")], have, w, f, a.addr_minutes, a.threads, ovt_addr=OVT_ADDR, adone=ADONE)
     # 2026-11-13: an Overture Maps place of the holder's very name at its postal code, or — a register with no address (stumpage clients, well
     # licensees) — in its own province, listing a website (tools/overture_names.py query --lanes bcg): kept when the site's own home page carries
@@ -1012,6 +1084,30 @@ def lead_cnsc(o, s):
     return row, det
 
 
+def lead_cer(o, s):
+    key = "lead:" + hashlib.sha1(("cer|%s" % o["key"]).encode()).hexdigest()[:16]
+    s = dict(s, tied_by=HR.no_mail(s.get("tied_by")), quote=HR.no_mail(s.get("quote")))
+    big = o.get("group") == "Group 1"
+    row = {"buyer_key": key, "buyer_name": o["name"], "website": s["site"], "canadian_vendor_rows": 1, "example_vendor": CER_BODY,
+           "canada_field_value": "membership / statutory fee relationship: licence holder of the Canadian body (%s)=%s (as printed on %s, read %s); the CER: “%s” “%s” (%s)"
+                                 % (CER_BODY, CER_ADDRESS, CER_CONTACT, READ, E_LARGE_OIL if big else E_SMALL, E_DEPOSIT if big else E_JUNE, CER_FEES),
+           "evidence_dataset": CER_LIST, "latest_record_date": o["extract_date"]}
+    det = {"key": key, "platform": "cer_levy", "record_url": CER_LIST, "vendor": CER_BODY, "record_date": o["extract_date"],
+           "start": "", "end": "", "reference": "%s of the CER's regulated companies" % (o.get("group") or "a group"),
+           "title": "Company regulated by the Canada Energy Regulator (%s) — billed its share of the CER's recoverable costs" % (o.get("group") or "listed"),
+           "vendor_address": "%s (as printed on %s, read %s)" % (CER_ADDRESS, CER_CONTACT, READ), "vendor_site": "https://www.cer-rec.gc.ca/", "member_address_quote": "",
+           "register_label": "the Canada Energy Regulator's open data list of the companies it regulates (Group 1, Group 2), with each one's website",
+           "buyer_register": {"legal_name": o["name"], "trade_names": [], "registry_id": "", "label": "the CER's Regulated Company List, read %s" % o["extract_date"]},
+           "fee_unit": "", "fee_unit_basis": "each company's levy is set by the CER's cost recovery allocation (proportional for a large company, fixed for a small or intermediate one): not published by company",
+           "fee_calculated": "",
+           "bill_delivery": ("an invoice every quarter (a large company): “%s” “%s” (%s, read %s)" % (E_LARGE_OIL, E_LARGE_GAS, CER_FEES, READ)) if big else
+                            ("a yearly invoice for a small company's administration levy: “%s” “%s” (%s, read %s)" % (E_SMALL, E_JUNE, CER_FEES, READ)),
+           "bill_terms": "",
+           "bill_items": "its share of the Canada Energy Regulator's recoverable costs (cost recovery levy)",
+           "fee_basis": "%s (%s)" % (E_DEPOSIT, CER_CR), "site_named_by": s["tied_by"], "site_tied_to_holder_by": s["tied_by"], "site_quote": s.get("quote") or ""}
+    return row, det
+
+
 def cmd_leads(a):
     os.makedirs(SHARDS, exist_ok=True)
     stamp = a.stamp or time.strftime("%Y%m%dT%H%M%S", time.gmtime())
@@ -1032,7 +1128,7 @@ def cmd_leads(a):
         if hosts[urllib.parse.urlparse(s["site"]).hostname] > 3:
             by["site shared by more than three holders (a group's or a host's site): left out"] += 1
             continue
-        row, det = {"water": lead_water, "stumpage": lead_stumpage, "aer": lead_aer, "pmra": lead_pmra, "cnsc": lead_cnsc}[o["lane"]](o, s)
+        row, det = {"water": lead_water, "stumpage": lead_stumpage, "aer": lead_aer, "pmra": lead_pmra, "cnsc": lead_cnsc, "cer": lead_cer}[o["lane"]](o, s)
         if row["buyer_key"] in have:
             continue
         have.add(row["buyer_key"]); rows.append(row); dets.append(det); by["new lead (%s)" % o["lane"]] += 1
@@ -1049,14 +1145,14 @@ def cmd_leads(a):
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for c in ("pull-water", "build-water", "pull-stumpage", "build-stumpage", "pull-aer", "build-aer", "pull-pmra", "build-pmra", "pull-cnsc", "build-cnsc"):
+    for c in ("pull-water", "build-water", "pull-stumpage", "build-stumpage", "pull-aer", "build-aer", "pull-pmra", "build-pmra", "pull-cnsc", "build-cnsc", "pull-cer", "build-cer"):
         p = sub.add_parser(c); p.add_argument("--work", required=True); p.add_argument("--force", action="store_true")
     p = sub.add_parser("sites"); p.add_argument("--minutes", type=float, default=60); p.add_argument("--threads", type=int, default=12); p.add_argument("--addr-minutes", type=float, default=30)
     p = sub.add_parser("leads"); p.add_argument("--stamp", default="")
     a = ap.parse_args()
     {"pull-water": cmd_pull_water, "build-water": cmd_build_water, "pull-stumpage": cmd_pull_stumpage, "build-stumpage": cmd_build_stumpage,
      "pull-aer": cmd_pull_aer, "build-aer": cmd_build_aer, "pull-pmra": cmd_pull_pmra, "build-pmra": cmd_build_pmra,
-     "pull-cnsc": cmd_pull_cnsc, "build-cnsc": cmd_build_cnsc, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
+     "pull-cnsc": cmd_pull_cnsc, "build-cnsc": cmd_build_cnsc, "pull-cer": cmd_pull_cer, "build-cer": cmd_build_cer, "sites": cmd_sites, "leads": cmd_leads}[a.cmd](a)
 
 
 if __name__ == "__main__":
