@@ -232,6 +232,23 @@ def cmd_places(a):
                             AND ((addresses[1].country = 'US' AND left(coalesce(addresses[1].postcode, ''), 5) IN (SELECT zip FROM z))
                                  OR addresses[1].country IN ('KY', 'TC', 'BB', 'BM', 'BS'))""" % (", ".join("'%s'" % f for f in files), box)).fetchall()
     best, n = {}, collections.Counter()
+    if not getattr(a, "no_fsq", False):
+        # 2026-11-13: and Foursquare Open Source Places (Apache 2.0; tools/fsq_places.py reads the same release) — its places of the same ZIP areas
+        # and islands, each with the closing date the dataset keeps (a place closed is left out); the e-mail column is never read
+        try:
+            import fsq_places as FSQ
+            frel, ffiles = FSQ.release_files("")
+            fcon = FSQ._con()
+            fcon.execute("CREATE TEMP TABLE z(zip VARCHAR)")
+            fcon.executemany("INSERT INTO z VALUES (?)", [(z_,) for z_ in zips])
+            frows = fcon.execute("""SELECT name, website, country, left(coalesce(postcode, ''), 5), coalesce(locality, ''), coalesce(address, '') || ' ' || coalesce(region, ''), ''
+                                    FROM read_parquet([%s]) WHERE website IS NOT NULL AND website <> '' AND date_closed IS NULL
+                                      AND ((country = 'US' AND left(coalesce(postcode, ''), 5) IN (SELECT zip FROM z)) OR country IN ('KY', 'TC', 'BB', 'BM', 'BS'))"""
+                                 % ", ".join("'%s'" % f for f in ffiles)).fetchall()
+            print("Foursquare %s: %d places with a website in the ZIP areas and islands" % (frel, len(frows)), flush=True)
+            rows = list(rows) + list(frows)
+        except Exception as e:
+            print("Foursquare places not read: %s" % e, flush=True)
     for name, site, cc, z_, loc, free, st in rows:
         if st and st != "open":
             n["closed"] += 1
@@ -314,6 +331,7 @@ def main():
     ap.add_argument("--stamp", default=time.strftime("%Y%m%dT%H%M%S", time.gmtime()))
     ap.add_argument("--zcta", default="")
     ap.add_argument("--release", default="")
+    ap.add_argument("--no-fsq", dest="no_fsq", action="store_true")
     a = ap.parse_args()
     {"territories": cmd_territories, "zips": cmd_zips, "places": cmd_places, "leads": cmd_leads}[a.cmd](a)
 
