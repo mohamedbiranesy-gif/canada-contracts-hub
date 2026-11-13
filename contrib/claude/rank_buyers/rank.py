@@ -6318,6 +6318,10 @@ for _ri, x in enumerate(rows):
     # seen in the owner's test rows of 2026-11-11: a menu word as the buyer's name (579 "About" from BBB profiles), "Welcome to …" page titles, dates
     # written day-month by a Canadian BBB, the registry's legal name under an odd note, Shopify's Montréal office instead of the office its terms give
     _b = (x.get("buyer") or "").strip()
+    if re.search(r"&(?:amp|#\d+|#x[0-9a-f]+|quot|apos|lt|gt|nbsp|rsquo|lsquo|eacute|egrave|agrave|ccedil);", _b, re.I):
+        x["buyer"] = _b = html.unescape(html.unescape(_b)).strip(); n9["buyer name: an HTML entity written out (&amp; …)"] += 1  # "11 Sports &amp; Social Club"
+    if re.search(r"\s[·•|–—:-]+$", _b):
+        x["buyer"] = _b = re.sub(r"\s[·•|–—:-]+$", "", _b).strip(); n9["buyer name: a page-title separator at its end removed"] += 1  # "Tulia Osteria ·"
     if _IMG_NAME.search(_b):
         if x.get("buyer_website"):
             x["buyer"] = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by an image's file name (a logo on the biller's page): its domain name instead"] += 1
