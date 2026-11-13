@@ -39,3 +39,6 @@ by-law, invoiced, bank-paid relationship for every licensed retailer — a new f
 Next family (to map): regulators' public registers of FIRMS that pay yearly fees (PEO certificates of authorization, OAA practices, CPA firms,
 OCP pharmacies, CVO accredited facilities, RECO brokerages, FSRA mortgage brokerages, RIBO firms, TICO, TSSA, RHRA, CMRAO) — each a
 "licence or registration" row and a source of verified Canadian organisation sites; check robots and bulk access register by register.
+| Standards Council of Canada accredited organisations: robots.txt names ClaudeBot (training crawlers) and the page answers 403 — not read | scc-ccn.ca | https://scc-ccn.ca/search/accredited-organizations | 2026-11-13 | HTTP 403 | blocked |
+| tm-sites / pt-sites: +0 sites this run — every owner already looked for (144,583 trademark owners, 13,853 sites; 38,630 patent owners, 3,069 sites): the finders are exhausted with their methods | tm-sites / pt-sites runs | commits 23acdb4, f96a2d4 | 2026-11-13 | counted | primary |
+| rank build 00:56Z failed (IndexError at the new contract-buyers-without-website list: a buyer with no key) — fixed and re-dispatched | rank-buyers run 43341013827 | — | 2026-11-13 | log | primary |
