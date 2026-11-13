@@ -847,6 +847,13 @@ if os.path.exists(ROOT + "/data/incoming/claude/overture/cb_sites.csv"):
     for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/overture/cb_sites.csv", encoding="utf-8", newline="")):
         if _r.get("site"):
             CB_SITES[_r["key"]] = _r
+# 2026-11-13: a buyer under contract with no website on file whose very name is the label of one Wikidata item giving an official website (P856):
+# 72 Québec cégeps, agencies, museums and Ontario hospitals (data/incoming/claude/cb_sites_wd.csv); the mailbox reader then reads that site, and
+# the mailbox must still fit the buyer's name there (same_org)
+if os.path.exists(ROOT + "/data/incoming/claude/cb_sites_wd.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/cb_sites_wd.csv", encoding="utf-8", newline="")):
+        if _r.get("site") and _r["key"] not in CB_SITES:
+            CB_SITES[_r["key"]] = dict(_r, _src="wikidata")
 n_cbsite = collections.Counter()
 _AP_LOCAL = re.compile(r"invoic|factur|payables?|acctpay|accountspayable|accounts[._-]?pay|comptes?[._-]?(?:payables?|a[._-]?payer|fournisseurs?)|comptesapayer|(?:^|[._-])a\.?p(?:$|[._-])|^ap[a-z]{0,3}invoice", re.I)
 _WEBMAIL = re.compile(r"^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|icloud|me|aol|protonmail|proton|gmx|videotron|sympatico|bell|rogers|shaw|telus|eastlink|cogeco)\.(?:com|ca|net|fr|co\.uk)$", re.I)
@@ -966,7 +973,7 @@ for p, o in orgs.items():
         _cbs = next((CB_SITES[k_] for k_ in sorted(k for k in o["keys"] if k) if k_ in CB_SITES), None)
         if _cbs:
             be = dict(be, official_website=_cbs["site"], _site_basis=_cbs.get("tied_by") or "")
-            o["be"] = be; n_cbsite["buyer under contract: website from an Overture Maps place, tied on its own home page"] += 1
+            o["be"] = be; n_cbsite["buyer under contract: website from %s" % ("its Wikidata item (P856, the item's label is its name)" if _cbs.get("_src") == "wikidata" else "an Overture Maps place, tied on its own home page")] += 1
     em, et, es, eu, eq, g, acc = emailcols(o["keys"], be, gj, o["name"], be.get("official_website") or "")
     tier = tier_of(r)
     if not (em and acc) and tier in ("A", "B", "L") and not (be.get("official_website") or "").strip() and any(o["keys"]):
