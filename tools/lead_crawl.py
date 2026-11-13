@@ -397,6 +397,7 @@ def leads_mode(a, k, n):
         # does not answer, starts where the home-page scan found the site, and knows more role words (gestion@, leasing@, membership@ …).
         # Sites that gave "nothing_found" before (no "r3" mark) are read once more — after every site that was never read.
         reread = set()
+        noth_r5 = set()
         for q in latest.values():
             if q and q[0] and len(q) > 2 and q[2] == "nothing_found" and "r3" not in q[5:]:
                 reread.add(q[0])
@@ -405,6 +406,9 @@ def leads_mode(a, k, n):
         # 2026-11-13 (rule "r4"): the reader now reads a European site's legal notice and contact page (Impressum, Kontakt, mentions légales …) and
         # knows their general mailboxes (kontakt@, mail@, post@ …): a site under a European country's name that gave "nothing_found" is read once more
         noth_r4 = {q[0] for q in latest.values() if q and q[0] and len(q) > 2 and q[2] == "nothing_found" and "r3" in q[5:] and "r4" not in q[5:]}
+        # 2026-11-13 (rule "r5"): a site of the registry classes read on a short budget (4 pages at most) that gave "nothing_found" is read once more
+        # on 12 pages, after everything else (measured on 200 such sites: 8 gave a role mailbox on the longer read, 4 %)
+        noth_r5 = {q[0] for q in latest.values() if q and q[0] and len(q) > 3 and q[2] == "nothing_found" and q[3].isdigit() and int(q[3]) <= 4 and "r5" not in q[5:]}
     # 2026-11-10: the leads found from the owner's Mac (claude_buyer_leads.csv) can be read here too: 33,600 of them have a website and no
     # mailbox row yet, and the Mac's own crawler is off. A lead that already has a mailbox row in any lane's results file is not read again.
     # … and a lead whose website domain already carries a mailbox row under another key (the same organisation delivered through a contract, a
@@ -619,6 +623,31 @@ def leads_mode(a, k, n):
                   % (min(len(cand3), a.registry3), len(cand3), dict(n3)), flush=True)
         except Exception as e:
             print("third-class registry candidates not queued: %s" % e, flush=True)
+    # fourth class (rule "r5", 2026-11-13): the registry-class sites that gave "nothing_found" on a short read, once more on 12 pages — last of all
+    if getattr(a, "reread5", 0) and noth_r5:
+        try:
+            taken = {host_of(t["known_website"])[4:] if host_of(t["known_website"]).startswith("www.") else host_of(t["known_website"]) for t in tasks}
+            doms5 = set(CS.ca_sites_without_mailbox()) | set(CS.sites_without_mailbox_any()) | set(hints)
+            cand5 = []
+            for dom in doms5:
+                if dom in taken or not shard_ok(dom, k, n):
+                    continue
+                rd = C.registrable(dom)
+                if rd != dom:
+                    continue
+                for tag in ("reg:ca", "site:ca-address"):
+                    key = "lead:" + hashlib.sha1(("%s|%s" % (rd, tag)).encode()).hexdigest()[:16]
+                    if key in noth_r5:
+                        cand5.append((0 if dom.endswith(".ca") else 1, dom, key))
+                        break
+            cand5.sort()
+            _via5 = CS.site_via()
+            for _, dom, key in cand5[:a.reread5]:
+                tasks.append({"task_id": "CC-" + key.split(":")[-1][:10], "buyer_key": key, "buyer_name": dom, "known_website": CS.site_url(dom, _via5), "_n": 0, "_f": 14,
+                              "_em": 2, "_max_pages": 12, "_rr": 1, "_ln": 3})
+            print("registry candidates, fourth class (a short read gave nothing; once more on 12 pages): %d queued of %d" % (min(len(cand5), a.reread5), len(cand5)), flush=True)
+        except Exception as e:
+            print("fourth-class candidates not queued: %s" % e, flush=True)
     # 2026-11-11 (owner: "on invoice, by bank transfer"): first the leads of the lanes billed on invoice — a register, a roster, a dealer or member
     # list, a dated record (_ln 0) — then the services seen on a site or in its DNS, most of them charged to a card (_ln 1), then the .ca sites no
     # lead names (_ln 2: the pool the register lanes are matched against; their names and postal codes come from the scan, a mailbox is only
@@ -672,6 +701,9 @@ def leads_mode(a, k, n):
             if t.get("_f") == 13:
                 stats["registry3_sites"] = stats.get("registry3_sites", 0) + 1
                 stats["registry3_with_mailbox"] = stats.get("registry3_with_mailbox", 0) + bool(rows)
+            if t.get("_f") == 14:
+                stats["reread5_sites"] = stats.get("reread5_sites", 0) + 1
+                stats["reread5_with_mailbox"] = stats.get("reread5_with_mailbox", 0) + bool(rows)
             if not t.get("_em"):
                 stats["hinted_sites"] = stats.get("hinted_sites", 0) + 1
                 stats["hinted_with_mailbox"] = stats.get("hinted_with_mailbox", 0) + bool(rows)
@@ -688,7 +720,8 @@ def leads_mode(a, k, n):
             if t.get("_rr"):
                 stats["read_once_more"] = stats.get("read_once_more", 0) + 1
                 stats["read_once_more_with_mailbox"] = stats.get("read_once_more_with_mailbox", 0) + bool(rows)
-            fd.write("%s\t%s\t%s\t%d\t%d\tr2\tr3\tr4%s\n" % (t["buyer_key"], TODAY, result, pages, len(rows), ("\tmoved=" + host_of(st["moved"])) if st.get("moved") else ""))
+            fd.write("%s\t%s\t%s\t%d\t%d\tr2\tr3\tr4%s%s\n" % (t["buyer_key"], TODAY, result, pages, len(rows), "\tr5" if (t.get("_max_pages") or a.max_pages) >= 12 else "",
+                                                             ("\tmoved=" + host_of(st["moved"])) if st.get("moved") else ""))
             if stats["sites"] % 200 == 0:
                 fr.flush(); fd.flush()
                 print(time.strftime("%H:%M:%S"), stats, flush=True)
@@ -1260,6 +1293,7 @@ def main():
     a.add_argument("--myshopify", type=int, default=0, help="candidates mode: also read up to this many stores per shard named only by their myshopify.com address (host names of the web graph)")
     a.add_argument("--dns-stores", type=int, default=0, help="candidates mode: also read up to this many stores per shard that the DNS lookups found on Shopify's storefront addresses")
     a.add_argument("--registry", type=int, default=0, help="leads mode: also read up to this many registry candidates per shard (.ca sites whose home page prints a role mailbox)")
+    a.add_argument("--reread5", type=int, default=0, help="leads mode: then up to this many registry-class sites per shard that a short read left at nothing_found, once more on 12 pages (rule r5)")
     a.add_argument("--registry3", type=int, default=0, help="leads mode: then up to this many third-class candidates per shard (websites of places in Canada, another ending than .ca, no Canadian postal code on the home page)")
     a.add_argument("--registry2", type=int, default=0, help="leads mode: then up to this many second-class registry candidates per shard (.ca sites whose home page prints no mailbox; 4 pages each)")
     a.add_argument("--straggler-seconds", type=float, default=240, help="when only slow sites are left and nothing finished for this long, stop")

@@ -2127,3 +2127,16 @@ Canadian company. Nothing is built on this until the owner answers; asked again 
   ones not counted here. Rough estimate 70,000-90,000 rows (businesses are a minority of the accounts; a site and a mailbox needed). If the answer
   is yes: territories from the public electric retail service territory polygons (HIFLD), the organisations' places from Overture / Foursquare
   inside them, their sites read for a mailbox, the row saying the utility is the Canadian company's subsidiary.
+
+## 2026-11-13 14:55Z — OWNER (09:46 EST, binding): a U.S. power company owned by a Canadian company counts as a Canadian vendor
+- His words: "And yes, we'll count it. The U.S. power company owned by Canadian company counts as Canadian vendor. We will count it. … We're still
+  getting to 1 million." Recorded as AGENTS.md rule 18.
+- How lane claude builds it (the same rule as in Canada, rule 13): an organisation whose own printed address lies wholly inside the retail
+  territory of an electric utility that a Canadian company owns is billed by that utility, monthly, on an invoice, paid through a bank — the
+  biller is certain for the address, whose name is on the account is not published; the row names the utility as the vendor and quotes the
+  Canadian parent's own page for the ownership. Electricity only (every premises has an account; gas and water are not universal or not the
+  tenant's). Households are never rows: only organisations with their own site and mailbox.
+- Utilities (ownership to be quoted from each parent's own page): Tampa Electric (Emera), Tucson Electric Power and UNS Electric (Fortis, through
+  UNS Energy), Central Hudson Gas & Electric (Fortis), Green Mountain Power (Énergir), Versant Power (ENMAX), The Empire District Electric Company,
+  Liberty Utilities (CalPeco Electric) and Granite State Electric (Algonquin, Liberty); Caribbean Utilities (Grand Cayman) and FortisTCI (Fortis),
+  The Barbados Light & Power Company and Grand Bahama Power (Emera), Bermuda Electric Light Company (Algonquin).
