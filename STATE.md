@@ -11,6 +11,18 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox) as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~30k rows.
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 04:00Z — progress since 03:00Z:**
+- The address method now runs in eight lanes: trademark / patent owners abroad (US, UK, Australia, Netherlands and — 03:58Z — nine European
+  countries by house number + street + postcode: +5,257 / +2,836 owners with candidates) and in Canada (trademark run: +1,153 sites, 18,039;
+  patent: +329, 8,065); RBQ (2,359 sites confirmed in one run; 194 postal-code ties withdrawn, see below); OMVIC (authority-registers running);
+  radio licensees (130 in a first local hour, +125 leads; workflow running); Vancouver / Toronto / OPC / RACJ business licences no organisation
+  matched (20,190 with candidates; biz-licences running); Health Canada and Form 5500 (rest in their next runs).
+- The postal code at an address: one shared word between the place's name and the organisation's is not enough (a dealer and the county's
+  site; a mason and a Toyota dealer) -> `place_fits` = every word of the shorter name in the longer, or two distinctive words, and never
+  "another body" (foundation, association, union, club …). Ties made before were re-tested and withdrawn: HC 38, F5500 57, RBQ 194 (172 leads).
+- Trademark leads 20,727 -> 23,755 sites (tm-register 03:2xZ).
+- rank-buyers 02:38Z still running at 04:00Z (78 min, not published); rank-buyers-parts (3 parts) queued behind it as the fallback.
+
 **2026-11-13 03:00Z — milestone (sites found tonight, all tied by the lanes' own tests; leads written by the workflows):**
 - Trademark owners abroad 13,853 -> 16,886 sites; patent owners abroad 3,069 -> 7,736 (by address 2,245; by legal page 3,863: the site's
   own terms / privacy / legal notice printing the owner's full legal name with its legal form — "This website is maintained by Merck Sharp &
