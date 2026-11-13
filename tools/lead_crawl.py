@@ -41,6 +41,20 @@ _US_FULL = ("Alabama|Alaska|Arizona|Ariz\\.|Arkansas|California|Calif\\.|Colorad
             "Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Vt\\.|Virginia|Washington|West Virginia|Wisconsin|Wyoming")
 US_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC|" + _US_FULL + r")"
                      r"\.?,?\s+(\d{5})(?:-\d{4})?(?![A-Za-z0-9])")
+_US_CODE = dict(zip("alabama alaska arizona ariz arkansas california calif colorado connecticut conn delaware florida fla georgia hawaii idaho illinois indiana iowa kansas "
+                    "kentucky louisiana maine maryland massachusetts mass michigan minnesota mississippi missouri montana nebraska nevada newhampshire nh newjersey nj "
+                    "newmexico newyork ny northcarolina northdakota ohio oklahoma oregon pennsylvania rhodeisland southcarolina southdakota tennessee texas utah vermont "
+                    "vt virginia washington westvirginia wisconsin wyoming".split(),
+                    "AL AK AZ AZ AR CA CA CO CT CT DE FL FL GA HI ID IL IN IA KS KY LA ME MD MA MA MI MN MS MO MT NE NV NH NH NJ NJ NM NY NY NC ND OH OK OR PA RI SC SD "
+                    "TN TX UT VT VT VA WA WV WI WY".split()))
+
+
+def us_state_code(s):
+    """the two-letter code of the state US_ADDR read (group 2): 'FL' -> 'FL', 'Florida' -> 'FL', 'N.H.' -> 'NH'"""
+    k = re.sub(r"[^a-z]", "", (s or "").lower())
+    return s.upper() if len(s or "") == 2 else _US_CODE.get(k, "")
+
+
 GB_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})(?![A-Za-z0-9])")
 AU_ADDR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z.'\- ]{2,30}),?\s+(NSW|VIC|QLD|TAS|ACT)\s+(\d{4})(?!\d)")
 # 2026-11-13 (rule 18, utilities abroad): the islands a Caribbean utility owned by a Canadian company serves whole — an address that names one
