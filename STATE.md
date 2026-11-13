@@ -11,6 +11,16 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 06:10Z — more reach from what is already read; two builds queued**
+- Builds: rank-buyers (full) started 05:34Z on main of 05:32Z (billers, withdrawals, telephone places, cross-register ties — not the address
+  re-read); rank-buyers-parts (05:41Z, everything) waits behind it in the "ranker" group. Expected publish ~07:10Z and ~08:15Z.
+- Telephone numbers: the address re-read and the mailbox crawler now keep each site's own number (a tel: link first); a re-read of the 166,628
+  sites that gave no address, for their number, is running (addr-reread phones=true); phone-places runs after it.
+- European sites (owners abroad): the mailbox reader follows the legal notice and contact pages a European site must publish (Impressum,
+  mentions légales, aviso legal, note legali, colofon, Kontakt …), asks them by the site's country, and counts kontakt@ / mail@ / post@ …; 1,260
+  European lead sites that gave nothing are read once more (rule r4).
+- Not used: BRP's dealer list (only through the locator's own back-end service — not probed further); APEGA's permit-holder service (522).
+
 **2026-11-13 05:45Z — two address passes landed; rank-buyers-parts dispatched 05:41Z with everything of today**
 - addr-reread (6 runners, 50 min): 207,671 unlocated mailbox owners read again -> **37,949 addresses** in their pages' source or text (JSON-LD
   21,603, text 11,911, map 4,435); 27,110 of them name a distributor (by postal code or by a city one distributor serves whole); the rest are
