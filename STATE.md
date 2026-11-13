@@ -11,6 +11,25 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 09:55Z — since 09:10Z (none of it counted yet: the full build of 09:09Z and the parts build queued behind it read most of it):**
+- Ontario by every address point: 193,560 postal codes added (Overture addresses inside the Board's map), 1,394 codes where the dump's one point
+  and the address points disagree now name no distributor; Ontario sites located 107,913 -> 111,206. Hydro-Coaticook added (49 + 10 quotes
+  checked in all for the six town utilities).
+- Privacy / terms / legal pages: 4,162 addresses (165,740 sites read). A returns / shipping address is refused from now on (26 of the 4,162).
+- bc-crown: AER 1,197 licensees (95 leads in run 2); an Overture name pass for registers with no address (+117 leads: Interfor, Coastland
+  Wood, A.J. Forest …); **Canada Energy Regulator** (95 regulated companies from the CER's own list with their websites; Group 1 invoiced
+  quarterly, Group 2 fixed levies; 23 sites tied by name: ARC, CNRL, Cenovus, Tourmaline, Whitecap, Vermilion …). 704 bc-crown leads on file.
+  Run 3 (PMRA, CNSC, name pass on AER / CNSC) dispatched 09:29Z.
+- **BBB lane had stalled** at 11,394 of 53,089 accredited profiles (all the archived copies of the 11 Common Crawl crawls it had indexed were
+  read; 3,106 leads, 2,483 of them in Alberta). cc-index over eight older crawls dispatched (cc_clients.crawl_ids takes a list now); the
+  scheduled cc-read runs read the new copies.
+- A mailbox-crawl merge was refused by GitHub's push protection (a Mapbox secret token printed in a crawled page): the secret guard now knows
+  Mapbox and a dozen other providers' token shapes; 4 Google keys removed from claude_ap_terms.csv.
+- Canada runs of the registries' candidates dispatched (tm-sites / pt-sites abroad=false ror=true: 2,326 trademark and 696 patent owners in
+  Canada with a ROR / Wikidata site).
+- Probed, not built: US UCC liens with a Canadian secured party (Colorado 2,325 active filings, Connecticut 74) — needs a new kind of row
+  (lender / lessor) in the ranker; Health Canada drug establishment licences (overlap with DPD).
+
 **2026-11-13 09:10Z — where organisations stood unlocated, and four ways round it (none counted yet; the next build reads them):**
 - Measured on the site facts on file (275,632 sites that print a postal code): 31,219 print an Alberta code (no row by location: the retailer bills
   there), and **about 9,000 more print a code of an area no distributor on file covered** — Ontario 6,475 (4,007 rural codes whose one point in the
