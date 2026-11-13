@@ -120,7 +120,10 @@
   "read": "2026-11-13",
   "rule": "AGENTS.md rule 18 (owner 2026-11-13 09:46 EST): a utility abroad that a Canadian company owns is a Canadian vendor",
   "owner_address_url": "https://energir.com/en/business/customer-centre/contact-us",
-  "owner_address_quote": "Mail Énergir 1717 rue du Havre Montréal, Québec H2K 2X3"
+  "owner_address_quote": "Mail Énergir 1717 rue du Havre Montréal, Québec H2K 2X3",
+  "amount": "$0.23017 per kWh used and a customer charge of $0.822 a day (Rate 6 General Service, small commercial accounts)",
+  "amount_basis": "“Rate 6 General Service Rate 6 is generally available to all customers. Most customers on this rate class are small commercial accounts. Customers are able to use electricity at any hour of the day at one uniform rate. Customer Charge $0.822/day Usage $0.23017/kWh” (https://greenmountainpower.com/rates/, read 2026-11-13)",
+  "estimate": "estimated — about $600 for a 30-day billing period before taxes for a small commercial account using 2,500 kWh: 2,500 × $0.23017 per kWh + 30 days × $0.822 customer charge (Green Mountain Power's Rate 6 General Service, its rates page, read 2026-11-13); the organisation's own use and rate class are not published"
  },
  {
   "key": "us_versant",
@@ -258,6 +261,9 @@
   "read": "2026-11-13",
   "rule": "AGENTS.md rule 18 (owner 2026-11-13 09:46 EST): a utility abroad that a Canadian company owns is a Canadian vendor",
   "owner_address_url": "https://algonquinpower.com/contact.html",
-  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1"
+  "owner_address_quote": "Head Office 354 Davis Road Oakville, Ontario Canada L6J 2X1",
+  "amount": "$0.28137 per kWh for the first 1,000 kWh and $0.31625 per kWh from 1,001 to 5,000 kWh, with a Small Commercial Facilities Charge of $72.67 (small commercial rates from August 1, 2026)",
+  "amount_basis": "“These small commercial rates are for all kWhs sold for all meter readings taken on or after August 1, 2026, until further notice. The bundled Small Commercial Energy Charges are: … FIRST BLOCK: 0-1,000 kWh $0.28137 … SECOND BLOCK: 1,001-5,000 kWh $0.31625” (https://belco.bm/know-your-rate-and-bill/, read 2026-11-13)",
+  "estimate": "estimated — about BMD 828 for a billing period in which a small commercial account uses 2,500 kWh, before the fuel adjustment and fees: 1,000 kWh × $0.28137 + 1,500 kWh × $0.31625 + the $72.67 Small Commercial Facilities Charge (BELCO's small commercial rates, read 2026-11-13); the organisation's own use is not published"
  }
 ]
