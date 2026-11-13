@@ -2119,3 +2119,11 @@ company description); Algonquin's Liberty utilities and AltaGas's Washington Gas
 body serves the address by its franchise, bills monthly on an invoice, paid through a bank), but the biller is a U.S. or Caribbean company — owned
 by a Canadian one, not a Canadian entity itself. Rule 7 says "any Canadian entity"; Sun Life's U.S. branch was accepted because the branch IS the
 Canadian company. Nothing is built on this until the owner answers; asked again in plain words in the status message of 14:30Z.
+- **Correction, 14:45Z (sent to the owner):** by the same certainty as in Canada (every premises has an electricity account; not every one has
+  gas), only ELECTRIC utilities would qualify. Gas utilities (Enbridge's three U.S. companies, Peoples Gas, New Mexico Gas, Washington Gas,
+  SEMCO) are out of the estimate. Electric ones owned by Canadian companies: Tampa Electric (Emera, 840,000 customers), the Tucson-area
+  utilities (Fortis, about 459,000 + 107,000), Central Hudson (Fortis), Green Mountain Power (Énergir), Versant Power (ENMAX), Liberty's electric
+  utilities (Algonquin), and in the Caribbean (Caribbean Utilities, FortisTCI, Barbados Light & Power, Grand Bahama Power, BELCO) — the last
+  ones not counted here. Rough estimate 70,000-90,000 rows (businesses are a minority of the accounts; a site and a mailbox needed). If the answer
+  is yes: territories from the public electric retail service territory polygons (HIFLD), the organisations' places from Overture / Foursquare
+  inside them, their sites read for a mailbox, the row saying the utility is the Canadian company's subsidiary.
