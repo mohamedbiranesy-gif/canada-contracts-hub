@@ -1,0 +1,81 @@
+name: saq-agents
+# Producers represented in Québec by a Canadian promotional agent (tools/saq_agents.py): the Société des alcools du Québec's own product pages
+# name each product's producer and its "agent promotionnel". Two runners, one request a second each at most (two a second on the host in all);
+# the pages read are kept (saq_done.tsv) and the next run reads the rest — the workflow starts itself again until the sitemap is read.
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel runners (1-2: two requests a second on the host at most)"
+        default: "2"
+      minutes:
+        description: "minutes per runner"
+        default: "330"
+  schedule:
+    - cron: "17 5 * * 1"   # weekly: products listed since
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: saq-agents
+  cancel-in-progress: false
+env:
+  SHARDS: ${{ inputs.shards || '2' }}
+  MINUTES: ${{ inputs.minutes || '330' }}
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        run: python3 -c "import os; n=max(1,min(2,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+  pull:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Read the product pages of this shard
+        run: |
+          M=$(( MINUTES > 335 ? 335 : MINUTES ))
+          python3 tools/saq_agents.py pull --shard ${{ matrix.k }}/$SHARDS --minutes $M --pause 0.1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "saq-${{ matrix.k }}", path: "out/saq_*.jsonl", retention-days: 3 }
+  merge:
+    needs: pull
+    if: ${{ always() && needs.pull.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "saq-*", path: shards, merge-multiple: true }
+      - name: Products -> data/incoming/claude/saq (computed once; main merged in on a refused push)
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          git config user.name "saq-agents"; git config user.email "saq-agents@users.noreply.github.com"
+          python3 tools/saq_agents.py merge shards | tee /tmp/m.txt
+          python3 tools/secret_guard.py || true
+          git add data/incoming/claude/saq 2>/dev/null || true
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -q -m "saq-agents: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
+          for i in $(seq 1 20); do
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 10 + 3))
+            git fetch -q origin main
+            git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; true; }
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed"; exit 1; }
+          cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
+          # pages left, and this run read some: the next run (one at a time: the concurrency group queues it)
+          left=$(python3 tools/saq_agents.py left 2>/dev/null | tail -1)
+          read=$(grep -o "[0-9]* product pages read this run" /tmp/m.txt | grep -o "^[0-9]*" || echo 0)
+          echo "pages left: $left; read this run: $read"
+          if [ "${left:-0}" -gt 0 ] && [ "${read:-0}" -gt 0 ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/saq-agents.yml/dispatches" -f ref=main >/dev/null 2>&1 || true; fi
