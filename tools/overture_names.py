@@ -303,7 +303,7 @@ STREET_SKIP = set("n s e w ne nw se sw north south east west st street ave avenu
                   "hwy highway cir circle ter terrace sq square plz plaza trl trail ste suite unit the of".split())
 ORDINAL = {"first": "1st", "second": "2nd", "third": "3rd", "fourth": "4th", "fifth": "5th", "sixth": "6th", "seventh": "7th", "eighth": "8th",
            "ninth": "9th", "tenth": "10th", "eleventh": "11th", "twelfth": "12th"}
-UNIT_SEG = re.compile(r"^(?:suite|ste|unit|floor|fl|apt|apartment|bldg|building|room|rm|dept|department|attn|c/o|p\.?\s*o\.?\s*box|box|#)\b")
+UNIT_SEG = re.compile(r"^(?:suite|ste|unit|floor|fl|level|lvl|shop|lot|apt|apartment|bldg|building|room|rm|dept|department|attn|c/o|p\.?\s*o\.?\s*box|box|#)\b")
 
 
 def street_key(addr):
@@ -311,7 +311,7 @@ def street_key(addr):
     word, a suite / floor / building part skipped. '767 Fifth Avenue, New York, NY 10153' -> ('767', '5th'); 'Suite 200, 100 Main St' ->
     ('100', 'main'); 'One Apple Park Way' -> None (a number written out is not read)"""
     for seg in (addr or "").lower().split(","):
-        seg = seg.strip()
+        seg = re.sub(r"^\d{1,5}[a-z]?\s*/\s*(?=\d)", "", seg.strip())  # Australia: "6/3 Central Avenue" = unit 6, number 3
         if not seg or UNIT_SEG.match(seg):
             continue
         m = re.match(r"(\d{1,6})[a-z]?(?:-\d{1,5})?\s+(.+)", seg)
@@ -495,7 +495,7 @@ def addr(a):
                         n_["CA"] += 1
                     continue
                 cc = r.get("country")
-                if cc not in ("US", "GB") or r["owner_key"] in skip:
+                if cc not in ("US", "GB", "AU", "NL") or r["owner_key"] in skip:
                     continue
                 if not TM.is_org_abroad(r["owner_name"], cc):
                     continue
@@ -504,14 +504,14 @@ def addr(a):
                 code, st = TM.place_abroad(r["address"], cc)
                 if not code:
                     continue
-                if cc == "US":
+                if cc in ("US", "AU"):
                     sk = street_key(r["address"])
                     if not sk:
-                        n_["US, no street number read"] += 1
+                        n_["%s, no street number read" % cc] += 1
                         continue
-                    want[(lane, r["owner_key"])] = ("US", code[:5], sk[0], sk[1])
+                    want[(lane, r["owner_key"])] = (cc, code[:5] if cc == "US" else code[:4], sk[0], sk[1])
                 else:
-                    want[(lane, r["owner_key"])] = ("GB", code, "", "")
+                    want[(lane, r["owner_key"])] = (cc, code, "", "")
                 words_of[(lane, r["owner_key"])] = {t for t in TM.nkey_x(r["owner_name"]).split() if len(t) >= 4 and t not in TM.GENERIC}
                 n_[cc] += 1
         print("%s: owners abroad without a site or a candidate under their name, with an address to look at: %s" % (lane, dict(n_)), flush=True)
@@ -524,7 +524,7 @@ def addr(a):
     if a.dir and glob.glob(a.dir):
         src, release = "read_parquet('%s')" % a.dir, (a.release or "a local copy")
         sel = "name, website, street, postcode, country, id"
-        where = "website IS NOT NULL AND country IN ('US', 'GB', 'CA')"
+        where = "website IS NOT NULL AND country IN ('US', 'GB', 'CA', 'AU', 'NL')"
     else:
         import urllib.request
         ls = lambda prefix: urllib.request.urlopen(urllib.request.Request("%s/?list-type=2&prefix=%s&delimiter=/" % (TM.OVT_BUCKET, prefix), headers={"User-Agent": UA}), timeout=120).read().decode()
@@ -536,20 +536,28 @@ def addr(a):
         src = "read_parquet([%s])" % ", ".join("'%s/%s'" % (TM.OVT_BUCKET, k_) for k_ in keys)
         release = rel.rstrip("/").rsplit("/", 1)[-1]
         sel = 'names."primary" AS name, websites[1] AS website, addresses[1].freeform AS street, addresses[1].postcode AS postcode, addresses[1].country AS country, id'
-        where = "websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country IN ('US', 'GB', 'CA')"
+        where = "websites IS NOT NULL AND len(websites) > 0 AND addresses[1].country IN ('US', 'GB', 'CA', 'AU', 'NL')"
     t0 = time.time()
-    rows = con.execute(r"""WITH p AS (SELECT %s FROM %s WHERE %s),
+    con.execute("SET memory_limit='2500MB'; SET threads=2;")
+    cur = con.execute(r"""WITH p AS (SELECT %s FROM %s WHERE %s),
                               q AS (SELECT name, website, street, country, id,
                                            CASE WHEN country = 'US' THEN left(postcode, 5) ELSE upper(regexp_replace(coalesce(postcode, ''), '[^A-Za-z0-9]', '', 'g')) END AS z,
                                            regexp_extract(lower(coalesce(street, '')), '(?:^|,)\s*(\d{1,6})[a-z]?(?:-\d{1,5})?\s+[a-z0-9]', 1) AS num FROM p)
                          SELECT o.lane, o.k, q.name, q.website, q.street, q.z, q.id FROM q JOIN own o
-                           ON o.cc = q.country AND o.z = q.z AND (o.cc <> 'US' OR q.num = o.num)""" % (sel, src, where)).fetchall()
-    print("places that list a website at an owner's address (ZIP code and street number, or full postcode): %d (%.0f s, release %s)" % (
-        len(rows), time.time() - t0, release), flush=True)
-    at = collections.defaultdict(dict)
-    for lane, k, name, web, street, z, pid in rows:
+                           ON o.cc = q.country AND o.z = q.z AND (o.cc NOT IN ('US', 'AU') OR q.num = o.num)""" % (sel, src, where))
+    at, n_rows = collections.defaultdict(dict), 0
+
+    def rows_of(c_):  # in batches: a million rows held at once do not fit a small machine
+        while True:
+            b_ = c_.fetchmany(100000)
+            if not b_:
+                return
+            for x_ in b_:
+                yield x_
+    for lane, k, name, web, street, z, pid in rows_of(cur):
+        n_rows += 1
         v = want[(lane, k)]
-        if v[0] == "US":
+        if v[0] in ("US", "AU"):
             sk = street_key(street)
             if not sk or sk[0] != v[2] or sk[1] != v[3]:
                 continue
@@ -557,6 +565,8 @@ def addr(a):
         if not host or "." not in host:
             continue
         at[(lane, k)].setdefault(C.registrable(host), (name or "", z, pid or "", street or ""))
+    print("places that list a website at an owner's address (ZIP code and street number, or full postcode): %d (%.0f s, release %s)" % (
+        n_rows, time.time() - t0, release), flush=True)
     # a website listed at the addresses of many owners is that of a shared office (a virtual office, a registered agent, a co-working floor); a
     # social network, a booking or site-builder platform, a directory or a government office is nobody's own site
     import credit_scan as CS
@@ -586,7 +596,7 @@ def addr(a):
             w.writerow(["key" if lane in ("f55", "hc", "rbq", "reg", "radio", "lic") else "owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
             for k, d, (name, z, pid, street) in sorted(out[lane]):
                 cc = want[(lane, k)][0]
-                w.writerow([k, d, "the owner's own street address (%s, %s %s)" % (street[:60], "ZIP code" if cc == "US" else "postcode", z) if cc == "US" else
+                w.writerow([k, d, "the owner's own street address (%s, %s %s)" % (street[:60], "ZIP code" if cc == "US" else "postcode", z) if cc in ("US", "AU") else
                             "the owner's own %s (%s)" % ("postal code" if cc == "CA" else "postcode", z), name, z, pid, release])
         print("%s: %d owners with a place at their own address that lists a website (%d candidate sites; %d addresses with more than three websites and none under a word of the owner's name left out) -> %s" % (
             lane, n[(lane, "owners")], n[(lane, "sites")], n[(lane, "office buildings left out")], os.path.relpath(path, ROOT)), flush=True)
