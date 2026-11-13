@@ -153,6 +153,7 @@ FIELDS = {
     "promotional agency": ["buyer address", "vendor address", "vendor tax or registration number", "what is billed", "reference"],
     "service seen on the buyer's side": ["buyer address", "vendor legal name", "vendor address", "vendor tax or registration number", "what is billed", "amount", "billing period"],
     "utility account by location": ["buyer address", "vendor address", "what is billed", "amount", "billing period"],
+    "utility account by own report": ["buyer address", "vendor address", "what is billed", "amount", "billing period"],
     ".ca registration": ["buyer address", "vendor legal name", "vendor address", "vendor tax or registration number", "what is billed", "amount", "billing period"],
     "not established": ["buyer address", "vendor legal name", "vendor address", "vendor tax or registration number", "what is billed", "amount", "billing period"],
 }
@@ -185,6 +186,10 @@ def kind_of(x):
         return "utility account by location"  # tools/by_location.py: the exclusive electricity distributor of the organisation's own address
     if not (fb.startswith("fact") or fb.startswith("stated by the buyer")):
         return "not established"
+    if cs.startswith("electricity account of its own facilities"):
+        # 2026-11-13 (tools/bps_energy.py): an Ontario public body's own energy report under O. Reg. 25/23 names its facilities, and the regulation
+        # asks for a facility's report only where the body is issued the invoices: the distributor of the facilities' addresses bills the body itself
+        return "utility account by own report"
     if "member named in the member directory" in cs or cs.startswith(("member of a Canadian body", "member / regulated payer", "accredited business")):
         return "membership"
     if "dealer / retailer named by" in cs:
@@ -294,6 +299,7 @@ BY_KIND = {
     "promotional agency": "a promotional agent's commission on the producer's sales in Québec: an invoice to the producer it represents, paid by bank (wire) transfer",
     "exchange listing": "a stock exchange's listing fee: billed by the exchange for each year or each month of listing, paid by wire transfer, pre-authorised debit or cheque",
     "utility account by location": "an electricity bill: issued every month or every two months, paid through a financial institution, by pre-authorised debit or by cheque",
+    "utility account by own report": "an electricity bill: issued every month or every two months, paid through a financial institution, by pre-authorised debit or by cheque",
     "benefit plan contract": "an insurer's group premium or a plan provider's fee: a premium statement or an invoice, paid by ACH, wire transfer or cheque",
 }
 NOT_BY_KIND = ("canadian intellectual property office",)  # its page names the ways of paying and no notice or invoice: nothing is said in its place
@@ -540,8 +546,8 @@ def billing_cadence(x, kind):
         return "not published" + ("; as the contract provides" if kind == "public contract" else "")
     when = []
     deliv = str(x.get("bill_delivery_as_published") or "")
-    if kind == "utility account by location" and code == "1":
-        when.append("a bill for each month of service")
+    if kind in ("utility account by location", "utility account by own report") and code == "1":
+        when.append("a bill for each month of service" + (" of each facility" if kind == "utility account by own report" else ""))
     elif kind == "licence or registration" and code == "3":
         m = re.search(r"(\d+)\s*jours avant|(\d+)\s*days? before", deliv, re.I)
         when.append("before each renewal of the licence" + ("; the notice comes %s days before" % (m.group(1) or m.group(2)) if m else ""))
@@ -637,6 +643,7 @@ def po_or_reference(x, kind):
             return "no PO or contract number published; the award / notice number %s (published) identifies the contract%s" % (aw[:120], rule_s)
         return "no PO or contract number published%s" % rule_s
     acct = {"utility account by location": "the account number on the distributor's bill",
+            "utility account by own report": "the account number of each facility on the distributor's bills",
             "membership": "the member's number on the body's dues notice", "licence or registration": "the licence or registration number on the body's notice",
             "agent of record": "the agent's file number for the owner's matter", "dealership": "the dealer's account and order numbers",
             "promotional agency": "the producer's products by their SAQ codes",
@@ -696,7 +703,7 @@ def owner_test(x):
     # its kind that nothing published fills does not take the row out any more: it is said on the row (invoice_fields_missing_for_kind, and in
     # ship_ready itself), and the row sorts below the complete ones. Two things still must be there: the biller's own printed address (it is
     # what puts the biller in Canada), and, for a row that stands on where the organisation is, the organisation's own address.
-    must = [f for f in miss if f == "vendor address" or (kind == "utility account by location" and f == "buyer address")]
+    must = [f for f in miss if f == "vendor address" or (kind in ("utility account by location", "utility account by own report") and f == "buyer address")]
     out += ["field: " + f for f in must]
     if mailbox_only_in_a_hidden_field(x):
         out.append("mailbox not printed on the page (it is the hidden recipient of a web form in the page's source)")
@@ -742,6 +749,8 @@ def owner_test(x):
             said.append("the organisation's address is that of the place a public places dataset (Foursquare Open Source Places) lists for its own telephone number, not read on its own pages")
         if n_shared:
             said.append("a shared address: %d organisations print this postal code" % n_shared)
+    if kind == "utility account by own report":
+        said.append("the organisation's own energy report under Ontario's O. Reg. 25/23 names the facilities, and the regulation reports only those it is issued the invoices for; the amount is calculated from its reported use")
     if route == "kind":
         said.append("how it is billed and paid is by the kind of relationship, not yet in the biller's own words")
     if kind == "public contract" and (x.get("recurring_billing_basis") or "").startswith("by the kind of relationship"):

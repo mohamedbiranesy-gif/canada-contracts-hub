@@ -2642,9 +2642,129 @@ print("by the address an Overture Maps place lists for the organisation's websit
 print("lead rows that took the organisation's own key (registry facts attach):", dict(n_keyjoin))
 _free(globals(), "VEN", "VEN_NAME", "VEN_DOM", "BUY", "TEAMV", "mail", "MAIL_ALL", "mail_dom", "cands", "orgs12", "up_t", "dom_rows", "lead_row_by_dom",
       "covered_keys", "covered_dom", "covered_name", "covered_mail", "seen_dom", "SCAN_PC", "SPC13", "CITY13", "OVT13", "PLC13", "PHN13", "PNT13")  # last used by the row builders above (OVT: by the last address fill)
+# ---- 2026-11-13: Ontario's broader public sector reports its own electricity (tools/bps_energy.py) ----------------------------------------------
+# Owner 13:20 EST: "have your estimate as precise and specific to relationship as possible add as much over 5000 as possible". A municipality,
+# school board, university, college or public hospital of Ontario reports under O. Reg. 25/23 the electricity each of its facilities bought
+# from the grid, and the regulation asks for a facility's report only where the body "is issued the invoices and is responsible for making the
+# payments" (s. 6 (1)). The bill of the distributor of those facilities is then a record, and its amount is calculated from the body's own use.
+# A row of such a body that stands on where it is takes that record (the distributor with the largest of its bills). A row that stands on
+# anything else gives way to it when it carries no published amount of $5,000 or more and the record's bill is $5,000 a month or more (rule
+# 15: published $5,000+, then estimated $5,000+); the relationship it stood on is kept in sight (other_relationship_sources).
+import bps_energy as _BPSE
+BPS = _BPSE.load()
+_BPS_IX = _BPSE.index(BPS["orgs"]) if BPS.get("orgs") else None
+n_bps = collections.Counter()
+_BPS_NUM = re.compile(r"\s*(?:C|CA|US|CAD|USD)?\$?\s?(\d[\d,]*(?:\.\d+)?)")
+def _bps_published_5k(x):
+    for c_ in ("contract_value", "bill_amount_indicative"):
+        m_ = _BPS_NUM.match(str(x.get(c_) or ""))
+        if m_:
+            try:
+                if float(m_.group(1).replace(",", "")) >= 5000:
+                    return True
+            except ValueError:
+                pass
+    return False
+def _bps_vendor(loc):
+    return {"vendor": "inferred: " + loc["name"], "vendor_address": loc["address"], "vendor_website": loc["site"],
+            "vendor_country_basis": "%s, %s: '%s'" % (loc.get("address_source") or "the vendor's own site", loc["address_url"], loc["address_quote"])}
+def _bps_status(org, gk):
+    d_, g_ = BPS["orgs"][org], BPS["orgs"][org]["groups"][gk]
+    return ("electricity account of its own facilities — %s reports, under Ontario's O. Reg. 25/23, the electricity bought from the grid by %d of its facilities in the "
+            "territory of %s (%s kWh in %s), and the regulation asks for a facility's report only where the body is issued the invoices for its energy"
+            % (org, g_["n"], g_["distributor"], format(g_["kwh"], ","), d_["year"]))
+def _bps_round(v):
+    return format(int(round(v, -3 if v >= 100000 else -2 if v >= 10000 else -1)), ",")
+def _bps_cells(x):
+    """the cells of a row that stands on a body's own energy report: the record, what is billed, and the bill calculated from the body's own use"""
+    org, gk = x["_bps"]
+    d_, M = BPS["orgs"][org], BPS["meta"]
+    g_ = d_["groups"][gk]
+    places = ", ".join(g_["places"][:6]) + (" …" if len(g_["places"]) > 6 else "")
+    cityw = {"Toronto": "the lower of the two average prices Hydro-Québec computed for Toronto (Toronto Hydro's city)",
+             "Ottawa": "the lower of the two average prices Hydro-Québec computed for Ottawa (Hydro Ottawa's city)"}.get(
+                 g_["city"], "the lowest of the four average prices Hydro-Québec computed for Ottawa and Toronto (the two Ontario cities of its comparison)")
+    hq = "; ".join("“%s”" % M["hq_lines"][c_] for c_ in (("Toronto",) if g_["city"] == "Toronto" else ("Ottawa",) if g_["city"] == "Ottawa" else ("Ottawa", "Toronto")))
+    parts = []
+    if g_["n_small"] and g_.get("small_rate"):
+        parts.append("the %d using under %s kWh a month at %s's own small-business rates in the Ontario Energy Board's file of current rates (fixed charges $%.2f + %.2f ¢ a kWh; %s)"
+                     % (g_["n_small"], format(M["small_kwh"], ","), g_["distributor"], g_["small_rate"][0], g_["small_rate"][1], M["oeb_file"]))
+    if g_["n_large"]:
+        parts.append("the %d larger at %s at the consumption levels of its table on either side of each one's use "
+                     "(%s; ¢ a kWh at 1,000 / 10,000 / 100,000 / 400,000 / 1,170,000 / 3,060,000 / 30,600,000 kWh a month, excluding taxes: %s; %s)" % (g_["n_large"], cityw, M["hq_title"], hq, M["hq_pdf"]))
+    lo = d_.get("left_out") or {}
+    left = ("; left out of the sum (the report's own figures): %s" % ", ".join("%d %s" % (v_, ("facility" if v_ == 1 else "facilities") + {"use implausible for the floor area": " whose reported use is implausible for its floor area",
+                                                                                   "same kilowatt-hours as another of its facilities": " reporting the very same kilowatt-hours as another",
+                                                                                   "postal code names no distributor": " whose postal code names no single distributor"}.get(k_, " (" + k_ + ")")) for k_, v_ in sorted(lo.items()))) if lo else ""
+    return {
+        "relationship_kind": "electricity account of the body's own facilities: the distributor of their addresses bills the body for each of them (its own energy report under Ontario's O. Reg. 25/23)",
+        "relationship_fact_basis": ("fact, public record: %s's own energy report for %s (Ontario Broader Public Sector energy reporting, open data of the Ministry of Energy and Mines: %s) lists "
+                                    "%d of its facilities in the territory of %s, each by its address, with %s kWh of electricity bought from the grid; a facility's report “%s” "
+                                    "(O. Reg. 25/23, s. 6 (1): %s) — the dataset's page: “%s”; it adds: “%s” (%s). The distributor of a facility is the one the Ontario Energy Board "
+                                    "licenses for the service area of its postal code" % (org, d_["year"], d_["url"], g_["n"], g_["distributor"], format(g_["kwh"], ","),
+                                                                                         M["regulation_quote"], M["regulation"], M["dataset_quote"],
+                                                                                         M.get("dataset_quote_voluntary") or "", M["dataset_page"])),
+        "contract_title": "Electricity service to %d facilities of %s in the territory of %s (%s)" % (g_["n"], org, g_["distributor"], places),
+        "bill_items_as_published": "electricity delivered to the body's %d reported facilities in this distributor's territory (%s)" % (g_["n"], places),
+        "bill_amount_calculated": ("estimated — about $%s a month before tax, from the body's own reported use: %s reported %s kWh of electricity bought from the grid in %s by these %d facilities "
+                                   "(about %s kWh a month; %s data set: %s); each facility's monthly use is priced — %s; the amount is the sum of what each facility's use comes to in a month%s"
+                                   % (_bps_round(g_["month"]), org, format(g_["kwh"], ","), d_["year"], g_["n"], format(int(round(g_["kwh"] / 12.0)), ","), d_["year"], d_["url"], "; ".join(parts), left)),
+        "invoice_reference_hint": "the account number of each facility, printed on the distributor's bills (not public)",
+        "source": "the body's own energy report, Ontario Broader Public Sector energy reporting under O. Reg. 25/23 (open data, Ministry of Energy and Mines, %s data set)" % d_["year"],
+        "how_relationship_was_found": ("tools/bps_energy.py read the Ontario Ministry of Energy and Mines' open data of the broader public sector's energy reports (the %s data set) and named "
+                                       "the distributor of each facility's postal code (tools/by_location.py: the Ontario Energy Board's map of service areas); the body's row was matched to "
+                                       "its report by name and address" % d_["year"]),
+        "contract_status": _bps_status(org, gk)}
+if _BPS_IX:
+    for x in rows:
+        _m = _BPSE.match(_BPS_IX, x.get("buyer") or "", x.get("buyer_address") or "", x.get("_jur") or x.get("jurisdiction") or "")
+        if not _m:
+            continue
+        _org = _m[0]
+        _gs = BPS["orgs"][_org]["groups"]
+        _gk = max(_gs, key=lambda k_: _gs[k_]["month"])
+        _loc = _BYLOC.BY_KEY.get(_gk)
+        if not _loc:
+            continue
+        n_bps["rows of a body that reports its electricity under O. Reg. 25/23"] += 1
+        if x.get("tier") == "I":
+            if re.sub(r"^inferred:\s*", "", x.get("vendor") or "") != _loc["name"]:
+                x.update(_bps_vendor(_loc)); n_bps["… standing on where it is, moved to the distributor of the largest of its reported bills"] += 1
+            x["contract_status"] = _bps_status(_org, _gk)
+            x["_bps"] = (_org, _gk)
+            n_bps["… standing on where it is: now on the record of its own report"] += 1
+            continue
+        if _bps_published_5k(x):
+            n_bps["… kept on its record: it carries a published amount of $5,000 or more"] += 1; continue
+        if _gs[_gk]["month"] < 5000:
+            n_bps["… kept on its record: the bill its report gives is under $5,000 a month"] += 1; continue
+        _e = (x.get("email") or "").strip()
+        _lo, _, _md = _e.lower().partition("@")
+        if not x.get("acc") or int(x.get("grade") or 0) < 1 or not _md or BAD_LOCAL.search(_lo) or jur_of_mail(_e) == "FED":
+            n_bps["… kept on its record: no mailbox to write to on the row"] += 1; continue
+        _was = "%s — %s — is on file for this organisation and is not what the row stands on: it carries no published amount of $5,000 or more, and the body's own energy report gives a larger bill" % (
+            (x.get("vendor") or "").strip(), re.sub(r"\s+", " ", x.get("contract_status") or x.get("contract_title") or "a record")[:260].rstrip(" .,;:"))
+        for _k in (x.get("keys") or "").split("|"):
+            if _k:
+                GAVE_WAY[_k] = _was
+        _g = int(x.get("grade") or 1)
+        _new = {"_jur": "ON", "rank_group": "I%d" % _g, "completeness_score": 3 * 10 + _g * 6 + 3,
+                "buyer": x.get("buyer") or "", "buyer_website": x.get("buyer_website") or "", "buyer_address": x.get("buyer_address") or "",
+                "email": _e, "email_type": x.get("email_type") or "", "email_check": x.get("email_check") or "confirmed",
+                "email_evidence_url": x.get("email_evidence_url") or "", "email_evidence_quote": x.get("email_evidence_quote") or "",
+                "contract_status": _bps_status(_org, _gk), "source": "the body's own energy report, Ontario Broader Public Sector energy reporting under O. Reg. 25/23 (open data, Ministry of Energy and Mines)",
+                "contracts_with_canadian_suppliers": x.get("contracts_with_canadian_suppliers") or 0, "buyer_keys": x.get("buyer_keys") or 1, "keys": x.get("keys") or "",
+                "tier": "I", "grade": _g, "acc": True, "_bps": (_org, _gk)}
+        _new.update(_bps_vendor(_loc))
+        for _c in list(x.keys()):
+            if not _c.startswith("_") and _c not in _new and _c != "jurisdiction":
+                x[_c] = ""  # every column stays (the first row names the columns), the record's own cells go
+        x.update(_new)
+        n_bps["… given way to its own energy report (no published $5,000 or more on the row; the report's bill is $5,000 a month or more)"] += 1
+    print("Ontario bodies that report their electricity (tools/bps_energy.py; %d bodies in the reports):" % len(BPS["orgs"]), dict(n_bps))
 os.makedirs(ROOT + "/out/ranked", exist_ok=True)
 cols = [c for c in rows[0].keys() if not c.startswith("_")]
-rows.sort(key=lambda x: (x["tier"] in ("F", "I"), x["tier"] == "I", x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row
+rows.sort(key=lambda x: (x["tier"] in ("F", "I") and not x.get("_bps"), x["tier"] == "I" and not x.get("_bps"), x["rank_group"] != "GOLD", -x["completeness_score"]))  # P12 / P13 never displace a stronger row; a body's own energy report (O. Reg. 25/23) is a record
 # one row per body: two spellings of one name ("MRC Charlevoix" / "MRC  de Charlevoix") that share a buyer key within the
 # same government are one buyer; the best-ranked row stands for it and carries all its keys
 seen, seen_any, merged = {}, {}, []  # seen_any: the first row registered under a key in ANY jurisdiction (2026-11-10: the scan of `seen` for every
@@ -6060,7 +6180,7 @@ for _ri, x in enumerate(rows):
             x[_c] = _v
     if x.get("tier") == "I":
         # a row that stands on where the organisation is: what its distributor bills, how often, the least amount, how the bill arrives and is paid
-        _bl = _BYLOC.of_row(x)
+        _bl = (_BYLOC.BY_KEY.get(x["_bps"][1]) if x.get("_bps") else None) or _BYLOC.of_row(x)  # a body's own energy report names its distributor (tools/bps_energy.py)
         if _bl:
             # 2026-11-12: a row that gave way to the distributor still went through the bill profile of the lead it came from — 2,600 rows of the
             # table of 00:14Z printed another vendor's tax sentence (a web host's "prix … avant taxes") on an electricity bill. Every bill cell
@@ -6073,6 +6193,8 @@ for _ri, x in enumerate(rows):
                 if _v:
                     x[_c] = _v
             n_billcol["rows that stand on where the organisation is (its electricity distributor)"] += 1
+            if x.get("_bps"):
+                x.update(_bps_cells(x)); n_billcol["… of which on the body's own energy report (O. Reg. 25/23; the bill calculated from its own use)"] += 1
     if not CARD_ROWS:
         # the last check of the owner's rule (2026-11-11: "Remove them"): a row whose bill, as published, goes to a card on file or through a
         # registrar is not written — whatever lane it came from, and before it is counted anywhere below
