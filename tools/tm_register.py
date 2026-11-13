@@ -570,8 +570,8 @@ def sites(a):
                     done_cb.add(q[0])
                 if "legal" in mk:
                     done_legal.add(q[0])
-                if "ror" in mk:
-                    done_ror.add(q[0])
+                if "ror2" in mk:
+                    done_ror.add(q[0])  # (2026-11-13 07:32Z: owners read under the first ROR rule, mark "ror", are read once more under the second)
     # 2026-11-12: with --clearbit (owners abroad), the domains the company-name autocomplete gives under the owner's very name are read too —
     # also for an owner looked for before under domain names made of its name. A domain is kept by the same tests as any other: the register's
     # postal code printed in an address on the site under the same name, or the legal person stated with its legal form on a site of the owner's
@@ -732,6 +732,13 @@ def sites(a):
                     # name in its country, and the site's own pages state that name with an address of the owner's state (or country)
                     how = "the same name (%s) and an address of the owner's %s (%s) on the site; the Research Organization Registry lists this website for the organisation of that name in %s (%s)" % (
                         sn.split("(", 1)[1].split(")")[0], "state" if o["_state"] else "country", o["_state"] or ABROAD[cc][0], ABROAD[cc][0], _l["place_id"])
+                if (not how and _l and _l.get("source") == "ror" and sn.startswith("the same name") and len(ok_.split()) >= 2 and len(ok_) >= 10
+                        and any(t not in GENERIC and len(t) >= 4 for t in ok_.split()) and bn[ok_] == 1):
+                    # 2026-11-13 07:32Z: three sources agree — the register's owner name, the Research Organization Registry's record of that very name
+                    # in the owner's country with THIS website, and the site's own statement of that name (no address of the owner's state read on
+                    # its pages: a university's or an institute's site often prints none on its home page); one owner of that name on the register
+                    how = "the same name (%s) on the site; the Research Organization Registry lists this website for the organisation of that very name in %s (%s); one owner of that name on the register" % (
+                        sn.split("(", 1)[1].split(")")[0], ABROAD[cc][0], _l["place_id"])
                 if not how and _l and _l.get("source") != "ror" and sn and (sn.startswith("the same name") or _l["how"].startswith("the owner's own ")) and len(ok_.split()) + len(ok_) >= 7:
                     # 2026-11-12: two sources agree — an Overture Maps place lists THIS website under the owner's name at the register's postal
                     # code (or in its state, and the site prints an address of that state), and the site's own pages state that name
@@ -818,6 +825,13 @@ def sites(a):
                 # name in Canada, and the site's own pages state that name with a Canadian postal code
                 how = "the same name (%s) and a Canadian postal code on the site (%s; the register has %s); the Research Organization Registry lists this website for the organisation of that name in Canada (%s)" % (
                     same_name(ok_, names, "M5V2T6").split("(", 1)[1].split(")")[0], pc, o["postal_code"], listed[h]["place_id"])
+            if (not how and listed.get(h) and listed[h].get("source") == "ror" and not pc and len(ok_.split()) >= 2 and len(ok_) >= 10
+                    and any(t not in GENERIC and len(t) >= 4 for t in ok_.split()) and by_name[ok_] == 1
+                    and same_name(ok_, names, "M5V2T6").startswith("the same name")):
+                # three sources agree (the register, ROR's record of that very name in Canada with THIS website, the site's own statement); no
+                # postal code on the pages read; one owner of that name on the register
+                how = "the same name (%s) on the site; the Research Organization Registry lists this website for the organisation of that very name in Canada (%s); one owner of that name on the register" % (
+                    same_name(ok_, names, "M5V2T6").split("(", 1)[1].split(")")[0], listed[h]["place_id"])
             if not how and listed.get(h):
                 # 2026-11-13: a site an Overture Maps place at the owner's own postal code lists, whose own terms / privacy / legal page prints
                 # the owner's full legal name with its legal form
@@ -853,7 +867,7 @@ def sites(a):
                 w.writerow(hit)
                 stats[hit["tied_by"].split(" (")[0]] += 1
             mk = (set(marks_of.get(o["owner_key"], set())) | ({"overture"} if any(v.get("source") != "ror" for v in listed.values()) else set())
-                  | ({"ror"} if any(v.get("source") == "ror" for v in listed.values()) else set()) | ({"clearbit"} if use_cb else set()) | ({"legal"} if use_legal and listed else set()))
+                  | ({"ror2"} if any(v.get("source") == "ror" for v in listed.values()) else set()) | ({"clearbit"} if use_cb else set()) | ({"legal"} if use_legal and listed else set()))
             fd.write("%s\t%s\t%d\t%d\t%s%s\n" % (o["owner_key"], TODAY, len(cands), len(live), hit["site"] if hit else "", ("\t" + ",".join(sorted(mk))) if mk else ""))
             stats["autocomplete domains read"] += len(cbs)
             stats["owners with a listed website"] += bool(listed)
