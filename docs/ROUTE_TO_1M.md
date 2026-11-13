@@ -153,3 +153,12 @@ a fifth to a quarter): Puget Sound Energy ~+12-15k rows, ALLETE ~+2k.
 **Not taken, checked today:** FortisTCI — not among the companies Fortis lists on its own "Our Companies" page (read 16:08Z); Empire District
 (Algonquin, confirmed by the LEI register) — no territory map of Missouri, Kansas or Oklahoma found (HIFLD has only a county fill of Benton County, AR);
 Maine's state map of service areas dates from 1998 and says its lines "do not represent legal boundaries" (Versant stays on HIFLD's polygons).
+
+## Update 2026-11-13 16:43Z — build 16:22Z: 283,713 ready of 341,713; rule 18 lane corrected and widened
+- First abroad rows (organisations already on file): 184 — Tampa 66, GMP 20, Central Hudson 24, TEP 22, Liberty NH 24 (wrong: the county-fill error,
+  removed by the rebuild dispatched 16:43Z), Barbados 11, Bermuda 6, Grand Cayman 5, Versant 5, UNS 1. The island names alone no longer locate
+  anyone (a postal code or a street address on the island is needed).
+- Territories now come from the utilities' own words where HIFLD's polygon is coarse (Versant's town list, Liberty's tariff, UNS's named cities).
+- Places at a territory's edge are located by their own point (~200 m inside, clear of other utilities): ~41,000 places on Overture alone, plus
+  Foursquare's — the places run with points follows the one running now. Leads: ~108,000 by ZIP code area + the points.
+- Expected from the lane: +20,000-30,000 rows as the mailbox reader, the referee and the builds catch up (first crawl of the leads running since 15:36Z).
