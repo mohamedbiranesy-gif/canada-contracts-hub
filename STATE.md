@@ -11,7 +11,7 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
-**2026-11-13 12:50Z — build 11:39Z: 276,301 ready of 333,286 rows (+8,351 since 07:49Z; +58,913 since the 23:25Z build that opened this run):**
+**2026-11-13 12:44Z — build 11:39Z: 276,301 ready of 333,286 rows (+8,351 since 07:49Z; +58,913 since the 23:25Z build that opened this run):**
 location 185,298 (+7,323), licence 14,999 (+685), agent of record 11,694, membership 19,177, service 32,335, exchange listing 347; complete in the
 biller's own words 25,703; amount and period 233,127; every main field 182,001; $5k+ a bill 2,821 (2,177 published, 644 estimated). Owner asked
 for a status report at 07:39 EST; sent (the 12-hour figures above).
