@@ -15,7 +15,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 170
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
@@ -27,6 +27,9 @@ jobs:
           for f in corporations-active-cbca-en.csv corporations-active-non-cbca-en.csv; do curl -s -m 600 -A "$UA" -o reg/$f "https://d4bf66bykfyaf.cloudfront.net/$f"; done
           ls -la reg
           python3 tools/registry_locate.py targets | tee /tmp/r.txt
+          # 2026-11-13: the legal person each target's own home page prints (copyright line, operator sentence, schema.org legalName), then matched too
+          python3 tools/registry_locate.py names --shard 0/1 --minutes 70 --workers 40 | tee -a /tmp/r.txt
+          python3 tools/registry_locate.py merge-names out | tee -a /tmp/r.txt
           python3 tools/registry_locate.py match --req reg/JeuDonnees.zip --cc "reg/corporations-*.csv" | tee -a /tmp/r.txt
           git config user.name "registry-locate"; git config user.email "registry-locate@users.noreply.github.com"
           python3 tools/secret_guard.py || true
