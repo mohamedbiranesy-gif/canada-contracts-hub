@@ -1,23 +1,23 @@
 {
- "as_of": "2026-11-13 00:42Z",
+ "as_of": "2026-11-13 05:54Z",
  "checks": [
   {
    "deliverable": "ranked table (ready rows, $5k+ marks, kinds)",
    "method": "read coord/results/ranked/BUILD.json after each rank-buyers run",
    "cmd": "python3 -c \"import json;d=json.load(open('coord/results/ranked/BUILD.json'));print(d['ship_ready'])\"",
-   "status": "passing (build 23:25Z 04206b8: 217,388 ready)"
+   "status": "passing (build 05:17Z 0b8c52a: 220,736 ready; builds of 05:34Z (full) and 05:41Z (parts) running with today's changes)"
   },
   {
    "deliverable": "dian-imports lane",
    "method": "first run green; leads_dian_* shards exist; 10 rows read",
    "cmd": "ls data/incoming/claude/lead_shards | grep -c dian; wc -l data/incoming/claude/dian/dian_sites.csv",
-   "status": "in progress (run dispatched 23:15Z)"
+   "status": "passing (12 months, 1,238 importers, 214 sites; 49 ready rows in build 05:17Z)"
   },
   {
    "deliverable": "f5500 lane",
    "method": "first run green; leads_f55_* shards exist; 10 rows read",
    "cmd": "ls data/incoming/claude/lead_shards | grep -c f55; wc -l data/incoming/claude/f5500/f5500_sites.csv",
-   "status": "passing (run 2026-11-12 23:59Z green: 4,526 sponsors, 1,578 sites tied \u2014 1,284 places dataset, 294 domains with ZIP printed \u2014 1,578 leads in leads_f55_20261113T003954.gz; rows after the mailbox reader and the next build)"
+   "status": "passing (run 2026-11-12 23:59Z green: 4,526 sponsors, 1,578 sites tied — 1,284 places dataset, 294 domains with ZIP printed — 1,578 leads in leads_f55_20261113T003954.gz; rows after the mailbox reader and the next build)"
   },
   {
    "deliverable": "places-dataset finder (overture_names)",
@@ -42,6 +42,30 @@
    "method": "issuer_sites.csv grows; new leads_xc shard",
    "cmd": "wc -l data/incoming/claude/exchange/issuer_sites.csv",
    "status": "passing (1,443 sites, +164 on 2026-11-13 00:07Z)"
+  },
+  {
+   "deliverable": "address re-read (tools/addr_reread.py, addr-reread.yml)",
+   "method": "merge commit counts; spot-check 22 JSON-LD / map addresses",
+   "cmd": "zcat data/incoming/claude/site_facts/facts_20261113T054027a.gz | wc -l",
+   "status": "passing (37,949 addresses; 27,110 name a distributor; city-only JSON-LD frequent, used through the city rule)"
+  },
+  {
+   "deliverable": "telephone places (tools/phone_places.py, phone-places.yml)",
+   "method": "pick counts; spot-check 30 name ties",
+   "cmd": "wc -l data/incoming/claude/overture/phone_places.csv",
+   "status": "passing (17,530 located; 30/30 name ties read correct)"
+  },
+  {
+   "deliverable": "billers' payment sentences (BILLING_BY_DOMAIN, vendor_billing v6)",
+   "method": "payment_route on each hand-read sentence; v6 run on 3,407 held vendors",
+   "cmd": "python3 -c \"import sys;sys.path.insert(0,'tools');import tech_relationships as T,relationship_rows as R;print({d:R.payment_route({'bill_payment_method_as_published':T.BILLING_BY_DOMAIN[d]['bill']['payment']},\\\"service seen on the buyer's side\\\")[0] for d in ['doteasy.com','aplus.net','canadianwebhosting.com','hawkhost.com']})\"",
+   "status": "passing (doteasy/aplus either, CWH bank, Hawk Host card; v6: 99 vendors name a bank payment)"
+  },
+  {
+   "deliverable": "third look at address ties (place_fits = agree_asym or the very same name)",
+   "method": "re-test every postal-code tie at an address on file; withdraw with gone shards",
+   "cmd": "ls data/incoming/claude/lead_shards | grep 'gone_.*w.gz'",
+   "status": "passing (withdrawn: radio 308, registers 79, RBQ 50, F5500 49, HC 5)"
   }
  ]
 }
