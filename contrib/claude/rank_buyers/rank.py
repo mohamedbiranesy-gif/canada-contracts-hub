@@ -1846,6 +1846,16 @@ for k, L in sorted(leads.items(), key=lead_strength):
     x.update(vend_fill("", "" if vdom == ev.lower() else ev, vdom))
     apply_details(x, k)
     _dd0 = LDET.get(k) or {}
+    if (_dd0.get("platform") == "roster_file" and _dd0.get("list_name") and _dd0.get("record_url")
+            and registrable(host_of(_dd0.get("record_url") or "")) != registrable(host_of(_dd0.get("vendor_site") or ""))):
+        # 2026-11-13: a roster kept by ANOTHER public body that the biller's own page links (Ontario's cannabis stores on the AGCO's open data, B.C.'s
+        # on the province's licence list): not "a client listing on the vendor's own site" — the list, who keeps it, and the biller's own words
+        # (the roster's marker words stay first: the give-way rule, the billing period and the fact basis read them)
+        _mk = {"dealer": "dealer / retailer named by", "member": "member named in the member directory of", "tenant": "tenant / merchant named by",
+               "sponsor": "sponsor / exhibitor named by", "exhibitor": "sponsor / exhibitor named by"}.get(_dd0.get("roster") or "")
+        if _mk:
+            x["contract_status"] = ("%s %s on %s (%s), a list kept by another public body that the biller's own page links; the biller's own words: “%s”" % (
+                _mk, _dd0.get("vendor") or "the Canada-located body", _dd0["list_name"][:200], _dd0["record_url"], (_dd0.get("pays_quote") or "")[:280]))
     if _dd0.get("platform") == "dian_import":
         # tools/dian_cloud.py: Colombia's customs (DIAN) publishes every import declaration line — the importer (with its NIT), the exporter with its
         # address, the exporter's invoice number and date, its FOB value and how the importer pays it (FORMA_PAGO): a public record of the bill

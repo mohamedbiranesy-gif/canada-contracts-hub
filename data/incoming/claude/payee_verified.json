@@ -1,4 +1,10 @@
 {
+ "contrib/claude/payees/bc_ldb_cannabis_wholesale.json": {
+  "quotes": 3,
+  "sig": "4e34ebc0e2299297",
+  "url": "https://cdn.shopify.com/s/files/1/0007/0267/8860/files/LDB_Cannabis_Wholesale_PAD_Agreement_Final_Nov-2022.pdf",
+  "verified": "2026-11-12"
+ },
  "contrib/claude/payees/cc_nb_saint_john.json": {
   "quotes": 3,
   "sig": "0e3757e4ce1d5c58",
@@ -21,6 +27,12 @@
   "quotes": 1,
   "sig": "94aed50ef217152b",
   "url": "https://www.kaccpei.com/kaccpayments",
+  "verified": "2026-11-12"
+ },
+ "contrib/claude/payees/ocs_wholesale.json": {
+  "quotes": 3,
+  "sig": "1aff54dec6af7ca4",
+  "url": "https://learn.ocswholesale.ca/wp-content/uploads/2026/02/OCS-Wholesale-Authorized-Cannabis-Retailers-Handbook-February2026.pdf",
   "verified": "2026-11-12"
  }
 }
